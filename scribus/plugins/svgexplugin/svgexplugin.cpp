@@ -253,9 +253,9 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 				int h2 = static_cast<int>(Item->BoundingH);
 				if (!QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
 					continue;
-				if ((Item->Pcolor != "None") || (Item->GrType != 0))
+				if ((Item->fillColor() != "None") || (Item->GrType != 0))
 				{
-					fill = "fill:"+SetFarbe(Item->Pcolor, Item->Shade, plug)+";";
+					fill = "fill:"+SetFarbe(Item->fillColor(), Item->fillShade(), plug)+";";
 					if (Item->GrType != 0)
 					{
 						defi = docu->createElement("defs");
@@ -322,16 +322,16 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						GradCount++;
 					}
 					fill += " fill-rule:evenodd;";
-					if (Item->Transparency != 0)
-						fill += " fill-opacity:"+FToStr(1.0 - Item->Transparency)+";"; 
+					if (Item->fillTransparency() != 0)
+						fill += " fill-opacity:"+FToStr(1.0 - Item->fillTransparency())+";"; 
 				}
 				else
 					fill = "fill:none;";
-				if (Item->Pcolor2 != "None")
+				if (Item->lineColor() != "None")
 				{
-					stroke = "stroke:"+SetFarbe(Item->Pcolor2, Item->Shade2, plug)+";";
-					if (Item->TranspStroke != 0)
-						stroke += " stroke-opacity:"+FToStr(1.0 - Item->TranspStroke)+";";
+					stroke = "stroke:"+SetFarbe(Item->lineColor(), Item->lineShade(), plug)+";";
+					if (Item->lineTransparency() != 0)
+						stroke += " stroke-opacity:"+FToStr(1.0 - Item->lineTransparency())+";";
 				} 
 				else
 					stroke = "stroke:none;";
@@ -446,7 +446,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						}
 					break;
 				case 2:
-						if ((Item->Pcolor != "None") || (Item->GrType != 0))
+						if ((Item->fillColor() != "None") || (Item->GrType != 0))
 						{
 							ob = docu->createElement("path");
 							ob.setAttribute("d", SetClipPath(Item)+"Z");
@@ -513,7 +513,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						}
 					break;
 				case 4:
-						if ((Item->Pcolor != "None") || (Item->GrType != 0))
+						if ((Item->fillColor() != "None") || (Item->GrType != 0))
 						{
 							ob = docu->createElement("path");
 							ob.setAttribute("d", SetClipPath(Item)+"Z");
@@ -767,8 +767,8 @@ QString SVGExPlug::GetMultiStroke(ScribusApp *plug, struct SingleLine *sl, PageI
 {
 	QString tmp = "fill:none; ";
 	tmp += "stroke:"+SetFarbe(sl->Color, sl->Shade, plug)+"; ";
-	if (Item->Transparency != 0)
-		tmp += " stroke-opacity:"+FToStr(1.0 - Item->Transparency)+"; ";
+	if (Item->fillTransparency() != 0)
+		tmp += " stroke-opacity:"+FToStr(1.0 - Item->fillTransparency())+"; ";
 	tmp += "stroke-width:"+FToStr(sl->Width)+"pt; ";
 	tmp += "stroke-linecap:";
 	switch (static_cast<PenCapStyle>(sl->LineEnd))

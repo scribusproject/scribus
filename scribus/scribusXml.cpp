@@ -195,8 +195,8 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("FRTYPE", item->FrameType);
 	ob->setAttribute("CLIPEDIT", item->ClipEdited ? 1 : 0);
 	ob->setAttribute("PWIDTH",item->Pwidth);
-	ob->setAttribute("PCOLOR",item->Pcolor);
-	ob->setAttribute("PCOLOR2",item->Pcolor2);
+	ob->setAttribute("PCOLOR",item->fillColor());
+	ob->setAttribute("PCOLOR2",item->lineColor());
 	ob->setAttribute("TXTFILL",item->TxtFill);
 	ob->setAttribute("TXTSTROKE",item->TxtStroke);
 	ob->setAttribute("TXTSTRSH",item->ShTxtStroke);
@@ -206,8 +206,8 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("COLUMNS", item->Cols);
 	ob->setAttribute("COLGAP", item->ColGap);
 	ob->setAttribute("NAMEDLST",item->NamedLStyle);
-	ob->setAttribute("SHADE",item->Shade);
-	ob->setAttribute("SHADE2",item->Shade2);
+	ob->setAttribute("SHADE",item->fillShade());
+	ob->setAttribute("SHADE2",item->lineShade());
 	ob->setAttribute("GRTYP",item->GrType);
 	ob->setAttribute("ROT",item->Rot);
 	ob->setAttribute("PLINEART",item->PLineArt);
@@ -302,8 +302,8 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("LOCKR", item->sizeLocked() ? 1 : 0);
 	ob->setAttribute("REVERS", item->Reverse ? 1 : 0);
 	ob->setAttribute("INVERS", item->InvPict ? 1 : 0);
-	ob->setAttribute("TransValue", item->Transparency);
-	ob->setAttribute("TransValueS", item->TranspStroke);
+	ob->setAttribute("TransValue", item->fillTransparency());
+	ob->setAttribute("TransValueS", item->lineTransparency());
 	ob->setAttribute("isTableItem", static_cast<int>(item->isTableItem));
 	ob->setAttribute("TopLine", static_cast<int>(item->TopLine));
 	ob->setAttribute("LeftLine", static_cast<int>(item->LeftLine));

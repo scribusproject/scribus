@@ -366,7 +366,7 @@ void Farbmanager::delUnused()
 				}
 			}
 			/* PFJ - 29.02.04 - merged if's to one line */
-			if ((it.key() == ite->Pcolor) || (it.key() == ite->Pcolor2))
+			if ((it.key() == ite->fillColor()) || (it.key() == ite->lineColor()))
 				found = true;
 			if (found)
 				break;
@@ -400,7 +400,7 @@ void Farbmanager::delUnused()
 				}
 			}
 			/* PFJ - 29.02.04 - Merged if's */
-			if ((it.key() == ite->Pcolor) || (it.key() == ite->Pcolor2))
+			if ((it.key() == ite->fillColor()) || (it.key() == ite->lineColor()))
 				found = true;
 			if (found)
 				break;

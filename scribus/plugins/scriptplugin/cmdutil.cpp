@@ -100,10 +100,10 @@ void ReplaceColor(QString col, QString rep)
 					ite->itemText.at(d)->cstroke = rep;
 			}
 		}
-		if (col == ite->Pcolor)
-			ite->Pcolor = rep;
-		if (col == ite->Pcolor2)
-			ite->Pcolor2 = rep;
+		if (col == ite->fillColor())
+			ite->setFillColor(rep);
+		if (col == ite->lineColor())
+			ite->setLineColor(rep);
 		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
@@ -128,10 +128,10 @@ void ReplaceColor(QString col, QString rep)
 					ite->itemText.at(d)->cstroke = rep;
 			}
 		}
-		if (col == ite->Pcolor)
-			ite->Pcolor = rep;
-		if (col == ite->Pcolor2)
-			ite->Pcolor2 = rep;
+		if (col == ite->fillColor())
+			ite->setFillColor(rep);
+		if (col == ite->lineColor())
+			ite->setLineColor(rep);
 		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{

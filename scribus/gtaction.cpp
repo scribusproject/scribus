@@ -198,8 +198,8 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 {
 	textFrame->Cols = fstyle->getColumns();
 	textFrame->ColGap = fstyle->getColumnsGap();
-	textFrame->Pcolor = parseColor(fstyle->getBgColor());
-	textFrame->Shade = fstyle->getBgShade();
+	textFrame->setFillColor(parseColor(fstyle->getBgColor()));
+	textFrame->setFillShade(fstyle->getBgShade());
 	textFrame->TabValues = QValueList<double>(*(fstyle->getTabValues()));
 	
 // 	gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
@@ -243,8 +243,8 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 {
 	fstyle->setColumns(textFrame->Cols);
 	fstyle->setColumnsGap(textFrame->ColGap);
-	fstyle->setBgColor(textFrame->Pcolor);
-	fstyle->setBgShade(textFrame->Shade);
+	fstyle->setBgColor(textFrame->fillColor());
+	fstyle->setBgShade(textFrame->fillShade());
 	
 	struct ParagraphStyle vg = textFrame->Doc->docParagraphStyles[textFrame->Doc->currentParaStyle];
 	fstyle->setName(vg.Vname);

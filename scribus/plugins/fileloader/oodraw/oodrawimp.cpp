@@ -620,8 +620,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				if (ite->PType != 7)
 					ite->PType = 4;
 			}
-			ite->Transparency = FillTrans;
-			ite->TranspStroke = StrokeTrans;
+			ite->setFillTransparency(FillTrans);
+			ite->setLineTransparency(StrokeTrans);
 			if (dashes.count() != 0)
 				ite->DashValues = dashes;
 			if (drawID != "")

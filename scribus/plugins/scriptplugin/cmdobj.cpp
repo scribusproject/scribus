@@ -560,11 +560,11 @@ PyObject *scribus_getstylenames(PyObject */*self*/)
 PyObject* scribus_getframetype(PyObject */*self*/, PyObject* args, PyObject* kw)
 {
 	char* frameName = const_cast<char*>("");
-	char* kwds[] = {const_cast<char*>("frame="), const_cast<char*>("")};
-    if (!PyArg_ParseTupleAndKeywords(args, kw, "|s", kwds, &frameName))
-        return NULL;
-    PageItem *it = GetUniqueItem(QString(frameName));
-    if (it == NULL)
-        return NULL;
-    return PyInt_FromLong( (long)(it->PType) );
+	char* kwds[] = {const_cast<char*>("name"), NULL};
+	if (!PyArg_ParseTupleAndKeywords(args, kw, "|es", kwds, "utf-8", &frameName))
+		return NULL;
+	PageItem *it = GetUniqueItem(QString(frameName));
+	if (it == NULL)
+		return NULL;
+	return PyInt_FromLong( (long)(it->PType) );
 }

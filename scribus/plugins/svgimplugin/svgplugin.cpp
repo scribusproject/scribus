@@ -588,8 +588,8 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			}
 			if( !b.attribute("id").isEmpty() )
 				ite->setItemName(" "+b.attribute("id"));
-			ite->Transparency = gc->Transparency;
-			ite->TranspStroke = gc->TranspStroke;
+			ite->setFillTransparency(gc->Transparency);
+			ite->setLineTransparency(gc->TranspStroke);
 			ite->PLineEnd = gc->PLineEnd;
 			ite->PLineJoin = gc->PLineJoin;
 			ite->Textflow = false;
@@ -1453,7 +1453,7 @@ QString SVGPlug::parseColor( const QString &s )
 void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &params )
 {
 	if( command == "stroke-opacity" )
-		obj->TranspStroke = 1.0 - fromPercentage(params);
+		obj->TranspStroke  = 1.0 - fromPercentage(params);
 	else if( command == "fill-opacity" )
 		obj->Transparency = 1.0 - fromPercentage(params);
 	else if( command == "opacity" )
@@ -1977,8 +1977,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			ite->Ypos -= asce * mm.m22();
 			if( !e.attribute("id").isEmpty() )
 				ite->setItemName(" "+e.attribute("id"));
-			ite->Transparency = gc->Transparency;
-			ite->TranspStroke = gc->TranspStroke;
+			ite->setFillTransparency(gc->Transparency);
+			ite->setLineTransparency(gc->TranspStroke);
 			ite->PLineEnd = gc->PLineEnd;
 			ite->PLineJoin = gc->PLineJoin;
 			ite->Textflow = false;
@@ -2045,8 +2045,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 		Prog->view->SetRectFrame(ite);
 		if( !e.attribute("id").isEmpty() )
 			ite->setItemName(" "+e.attribute("id"));
-		ite->Transparency = gc->Transparency;
-		ite->TranspStroke = gc->TranspStroke;
+		ite->setFillTransparency(gc->Transparency);
+		ite->setLineTransparency(gc->TranspStroke);
 		ite->PLineEnd = gc->PLineEnd;
 		ite->PLineJoin = gc->PLineJoin;
 		ite->Textflow = false;

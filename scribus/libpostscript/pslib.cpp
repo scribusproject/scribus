@@ -1152,9 +1152,9 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 								PS_translate(ite->Xpos - mPage->Xoffset, Doc->PageH -(ite->Ypos) - mPage->Yoffset);
 								if (ite->Rot != 0)
 									PS_rotate(-ite->Rot);
-								if (ite->Pcolor != "None")
+								if (ite->fillColor() != "None")
 								{
-									SetFarbe(Doc, ite->Pcolor, ite->Shade, &h, &s, &v, &k, gcr);
+									SetFarbe(Doc, ite->fillColor(), ite->fillShade(), &h, &s, &v, &k, gcr);
 									PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 									SetClipPath(&ite->PoLine);
 									PS_closepath();
@@ -1185,11 +1185,11 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 										PS_image(ite->InvPict, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic);
 								}
 								PS_restore();
-								if (((ite->Pcolor2 != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
+								if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 								{
 									if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 									{
-										SetFarbe(Doc, ite->Pcolor2, ite->Shade2, &h, &s, &v, &k, gcr);
+										SetFarbe(Doc, ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
 										PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										PS_setlinewidth(ite->Pwidth);
 										PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
@@ -1229,15 +1229,15 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 								view->Scale = savScale;
 								delete painter;
 								PS_save();
-								if (ite->Pcolor != "None")
+								if (ite->fillColor() != "None")
 								{
-									SetFarbe(Doc, ite->Pcolor, ite->Shade, &h, &s, &v, &k, gcr);
+									SetFarbe(Doc, ite->fillColor(), ite->fillShade(), &h, &s, &v, &k, gcr);
 									PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 								}
 								PS_translate(ite->Xpos - mPage->Xoffset, Doc->PageH - (ite->Ypos - mPage->Yoffset));
 								if (ite->Rot != 0)
 									PS_rotate(-ite->Rot);
-								if ((ite->Pcolor != "None") || (ite->GrType != 0))
+								if ((ite->fillColor() != "None") || (ite->GrType != 0))
 								{
 									SetClipPath(&ite->PoLine);
 									PS_closepath();
@@ -1489,11 +1489,11 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 										}
 									}
 								}
-								if (((ite->Pcolor2 != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
+								if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 								{
 									if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 									{
-										SetFarbe(Doc, ite->Pcolor2, ite->Shade2, &h, &s, &v, &k, gcr);
+										SetFarbe(Doc, ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
 										PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										PS_setlinewidth(ite->Pwidth);
 										PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
@@ -1530,9 +1530,9 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 						if (ite->isPrintable)
 						{
 							PS_save();
-							if (ite->Pcolor2 != "None")
+							if (ite->lineColor() != "None")
 							{
-								SetFarbe(Doc, ite->Pcolor2, ite->Shade2, &h, &s, &v, &k, gcr);
+								SetFarbe(Doc, ite->lineColor(), ite->lineShade(), &h, &s, &v, &k, gcr);
 								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 							}
 							PS_setlinewidth(ite->Pwidth);
@@ -1607,14 +1607,14 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 	if (c->isPrintable)
 	{
 		PS_save();
-		if (c->Pcolor != "None")
+		if (c->fillColor() != "None")
 		{
-			SetFarbe(Doc, c->Pcolor, c->Shade, &h, &s, &v, &k, gcr);
+			SetFarbe(Doc, c->fillColor(), c->fillShade(), &h, &s, &v, &k, gcr);
 			PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 		}
-		if (c->Pcolor2 != "None")
+		if (c->lineColor() != "None")
 		{
-			SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+			SetFarbe(Doc, c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 		}
 		PS_setlinewidth(c->Pwidth);
@@ -1628,7 +1628,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 		case 2:
 			if (master)
 				break;
-			if ((c->Pcolor != "None") || (c->GrType != 0))
+			if ((c->fillColor() != "None") || (c->GrType != 0))
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
@@ -1661,11 +1661,11 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					PS_image(c->InvPict, -c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic);
 			}
 			PS_restore();
-			if (((c->Pcolor2 != "None") || (c->NamedLStyle != "")) && (!c->isTableItem))
+			if (((c->lineColor() != "None") || (c->NamedLStyle != "")) && (!c->isTableItem))
 			{
 				if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
 				{
-					SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+					SetFarbe(Doc, c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 					PS_setlinewidth(c->Pwidth);
 					PS_setcapjoin(c->PLineEnd, c->PLineJoin);
@@ -1717,7 +1717,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				PDF_Annotation(bm, 0, 0, c->Width, -c->Height);
 				break;
 			}
-			if ((c->Pcolor != "None") || (c->GrType != 0))
+			if ((c->fillColor() != "None") || (c->GrType != 0))
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
@@ -1972,9 +1972,9 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					}
 				}
 			}
-			if (((c->Pcolor2 != "None") || (c->NamedLStyle != "")) && (!c->isTableItem))
+			if (((c->lineColor() != "None") || (c->NamedLStyle != "")) && (!c->isTableItem))
 			{
-				SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+				SetFarbe(Doc, c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				PS_setlinewidth(c->Pwidth);
 				PS_setcapjoin(c->PLineEnd, c->PLineJoin);
@@ -2032,7 +2032,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				arrowTrans.scale(c->Pwidth, c->Pwidth);
 				arrowTrans.scale(-1,1);
 				arrow.map(arrowTrans);
-				SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+				SetFarbe(Doc, c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 				PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				PS_newpath();
 				SetClipPath(&arrow);
@@ -2046,7 +2046,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				arrowTrans.translate(c->Width, 0);
 				arrowTrans.scale(c->Pwidth, c->Pwidth);
 				arrow.map(arrowTrans);
-				SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+				SetFarbe(Doc, c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 				PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				PS_newpath();
 				SetClipPath(&arrow);
@@ -2057,7 +2057,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 		case 1:
 		case 3:
 		case 6:
-			if ((c->Pcolor != "None") || (c->GrType != 0))
+			if ((c->fillColor() != "None") || (c->GrType != 0))
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
@@ -2066,7 +2066,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				else
 					PS_fill();
 			}
-			if ((c->Pcolor2 != "None") || (c->NamedLStyle != ""))
+			if ((c->lineColor() != "None") || (c->NamedLStyle != ""))
 			{
 				if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
 				{
@@ -2092,7 +2092,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			}
 			break;
 		case 7:
-			if ((c->Pcolor != "None") || (c->GrType != 0))
+			if ((c->fillColor() != "None") || (c->GrType != 0))
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
@@ -2136,7 +2136,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						arrowTrans.rotate(r);
 						arrowTrans.scale(c->Pwidth, c->Pwidth);
 						arrow.map(arrowTrans);
-						SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+						SetFarbe(Doc, c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 						PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 						PS_newpath();
 						SetClipPath(&arrow);
@@ -2161,7 +2161,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						arrowTrans.rotate(r);
 						arrowTrans.scale(c->Pwidth, c->Pwidth);
 						arrow.map(arrowTrans);
-						SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+						SetFarbe(Doc, c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 						PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 						PS_newpath();
 						SetClipPath(&arrow);
@@ -2362,9 +2362,9 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 			if (c->isPrintable)
 			{
 				PS_save();
-				if (c->Pcolor2 != "None")
+				if (c->lineColor() != "None")
 				{
-					SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+					SetFarbe(Doc, c->lineColor(), c->lineShade(), &h, &s, &v, &k, gcr);
 					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				}
 				PS_setlinewidth(c->Pwidth);

@@ -9,7 +9,7 @@ PyObject *scribus_getfillcolor(PyObject */*self*/, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	return i != NULL ? PyString_FromString(i->Pcolor.utf8()) : NULL;
+	return i != NULL ? PyString_FromString(i->fillColor().utf8()) : NULL;
 }
 
 PyObject *scribus_getlinecolor(PyObject */*self*/, PyObject* args)
@@ -32,7 +32,7 @@ PyObject *scribus_getlinecolor(PyObject */*self*/, PyObject* args)
 		}
 	}
 	else
-		return PyString_FromString(it->Pcolor2.utf8());
+		return PyString_FromString(it->lineColor().utf8());
 	PyErr_SetString(NotFoundError, QObject::tr("Color not found - python error", "python error"));
 	return NULL;
 }
@@ -68,7 +68,7 @@ PyObject *scribus_getlineshade(PyObject */*self*/, PyObject* args)
 		}
 	}
 	else
-		return PyInt_FromLong(static_cast<long>(it->Shade2));
+		return PyInt_FromLong(static_cast<long>(it->lineShade()));
 	return PyInt_FromLong(0L);
 }
 
@@ -113,7 +113,7 @@ PyObject *scribus_getfillshade(PyObject */*self*/, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	return i != NULL ? PyInt_FromLong(static_cast<long>(i->Shade)) : NULL;
+	return i != NULL ? PyInt_FromLong(static_cast<long>(i->fillShade())) : NULL;
 }
 
 PyObject *scribus_getcornerrad(PyObject */*self*/, PyObject* args)

@@ -38,19 +38,31 @@ class UndoState;
 class PageItem : public QObject, public UndoObject
 {
 	Q_OBJECT
+
 	// Properties - see http://doc.trolltech.com/3.3/properties.html
 	// See the getters and setters of these properties for details on their use.
 	Q_PROPERTY(QString itemName READ itemName WRITE setItemName DESIGNABLE false)
 	Q_PROPERTY(QString fillColor READ fillColor WRITE setFillColor DESIGNABLE false)
-	Q_PROPERTY(int fillShade READ fillShade WRITE setFillShade DESIGNABLE false)
-	Q_PROPERTY(double fillTransparency READ fillTransparency WRITE setFillTransparency DESIGNABLE false)
 	Q_PROPERTY(QString lineColor READ lineColor WRITE setLineColor DESIGNABLE false)
+	Q_PROPERTY(int fillShade READ fillShade WRITE setFillShade DESIGNABLE false)
 	Q_PROPERTY(int lineShade READ lineShade WRITE setLineShade DESIGNABLE false)
+	Q_PROPERTY(double fillTransparency READ fillTransparency WRITE setFillTransparency DESIGNABLE false)
 	Q_PROPERTY(double lineTransparency READ lineTransparency WRITE setLineTransparency DESIGNABLE false)
 	Q_PROPERTY(bool locked READ locked WRITE setLocked DESIGNABLE false)
 	Q_PROPERTY(bool sizeLocked READ sizeLocked WRITE setSizeLocked DESIGNABLE false)
 	Q_PROPERTY(bool imageFlippedV READ imageFlippedV WRITE setImageFlippedV DESIGNABLE false)
 	Q_PROPERTY(bool imageFlippedH READ imageFlippedH WRITE setImageFlippedH DESIGNABLE false)
+	Q_PROPERTY(double lineWidth READ lineWidth WRITE setLineWidth DESIGNABLE false)
+	Q_PROPERTY(QString customLineStyle READ customLineStyle WRITE setCustomLineStyle DESIGNABLE false)
+	Q_PROPERTY(int startArrowIndex READ getStartArrowIndex WRITE setStartArrowIndex DESIGNABLE false)
+	Q_PROPERTY(int endArrowIndex READ getEndArrowIndex WRITE setEndArrowIndex DESIGNABLE false)
+	Q_ENUMS(PenStyle)
+	Q_PROPERTY(PenStyle lineStyle READ lineStyle WRITE setLineStyle DESIGNABLE false)
+	Q_ENUMS(PenCapStyle)
+	Q_PROPERTY(PenCapStyle lineEnd READ lineEnd WRITE setLineEnd DESIGNABLE false)
+	Q_ENUMS(PenJoinStyle)
+	Q_PROPERTY(PenJoinStyle lineJoin READ lineJoin WRITE setLineJoin DESIGNABLE false)
+
 public: 
 	PageItem(ScribusDoc *pa, int art, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	~PageItem() {};
@@ -110,14 +122,6 @@ public:
 	double GrStartY;
 	double GrEndX;
 	double GrEndY;
-  /** Fuellfarbe */
-	QString Pcolor;
-  /** Abstufung fuer Fllfarbe */
-	int Shade;
-  /** Zeichenfarbe fuer Elemente */
-	QString Pcolor2;
-  /** Abstufung fuer Zeichenfarbe */
-	int Shade2;
 	QString TxtStroke;
 	QString TxtFill;
 	int ShTxtStroke;
@@ -275,8 +279,6 @@ public:
 	int LayerNr;
 	bool ScaleType;
 	bool AspectRatio;
-	double Transparency;
-	double TranspStroke;
 	QValueStack<int> Groups;
 	bool InvPict;
 	QValueList<double> DashValues;
@@ -374,23 +376,35 @@ public:
 	 * @param newTransparency transparency of the line color
 	 */
 	void setLineTransparency(double newTransparency);
+
+	/** @brief Get the style of line */
+	PenStyle lineStyle() const;
 	/**
 	 * @brief Set the style of line.
 	 * @param newStyle style of line
 	 * @sa Qt::PenStyle
 	 */
 	void setLineStyle(PenStyle newStyle);
+
+	/** @brief Get the width of the line */
+	double lineWidth() const;
 	/**
 	 * @brief Set the width of line
 	 * @param newWidth width of line
 	 */
 	void setLineWidth(double newWidth);
+
+	/** @brief Get the end cap style of the line */
+	PenCapStyle lineEnd() const;
 	/**
 	 * @brief Set the end style of line
 	 * @param newStyle end style of line
 	 * @sa Qt::PenCapStyle
 	 */
 	void setLineEnd(PenCapStyle newStyle);
+
+	/** @brief Get the join style of multi-segment lines */
+	PenJoinStyle lineJoin() const;
 	/**
 	 * @brief Set the join style of line
 	 * @param newStyle join style of line
@@ -398,28 +412,38 @@ public:
 	 */
 	void setLineJoin(PenJoinStyle newStyle);
 
-	/** @brief Is the image flipped horizontally? */
-	bool imageFlippedH() const;
-	/** @brief Horizontally flip / unflip the image */
-	void setImageFlippedH(bool flipped);
-
+	/** @brief Get name of active custom line style */
+	QString customLineStyle() const;
 	/** 
 	 * @brief Set custom line style
 	 * @param newStyle name of the custom style
 	 */
 	void setCustomLineStyle(const QString& newStyle);
 
+	/** @brief Get start arrow index
+	 * @sa PageItem::getEndArrowIndex(), PageItem::setStartArrowIndex()
+	 */
+	int getStartArrowIndex() const;
 	/**
 	 * @brief Set start arrow index
 	 * @param newIndex index for start arrow
 	 */
 	void setStartArrowIndex(int newIndex);
+
+	/** @brief Get end arrow index
+	 * @sa PageItem::getStartArrowIndex(), PageItem::setEndArrowIndex()
+	 */
+	int getEndArrowIndex() const;
 	/**
 	 * @brief Set end arrow index
 	 * @param newIndex index for end arrow
 	 */
 	void setEndArrowIndex(int newIndex);
 
+	/** @brief Is the image flipped horizontally? */
+	bool imageFlippedH() const;
+	/** @brief Horizontally flip / unflip the image */
+	void setImageFlippedH(bool flipped);
 	/** @brief Flip an image horizontally. */
 	void flipImageH();
 
@@ -509,6 +533,42 @@ protected:
 	 * @sa PageItem::itemName(), PageItem::setItemName()
 	 */
 	QString AnName;
+
+	/**
+	 * @brief Fill color name
+	 * @sa PageItem::fillColor(), PageItem::setFillColor()
+	 */
+	QString fillColorVal;
+
+	/**
+	 * @brief Line color name
+	 * @sa PageItem::lineColor(), PageItem::setLineColor()
+	 */
+	QString lineColorVal;
+
+	/**
+	 * @brief Line shade
+	 * @sa PageItem::lineShade, PageItem::setLineShade()
+	 */
+	int lineShadeVal;
+
+	/**
+	 * @brief Fill shade
+	 * @sa PageItem::fillShade, PageItem::setFillShade()
+	 */
+	int fillShadeVal;
+
+	/**
+	 * @brief Fill transparency
+	 * @sa PageItem::fillTransparency(), PageItem::setFillTransparency()
+	 */
+	double fillTransparencyVal;
+
+	/**
+	 * @brief Line stroke transparency.
+	 * @sa PageItem::lineTransparency(), PageItem::setLineTransparency()
+	 */
+	double lineTransparencyVal;
 
 	/**
 	 * @brief Is the image in this image item flipped horizontally?

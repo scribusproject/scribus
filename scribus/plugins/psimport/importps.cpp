@@ -412,8 +412,8 @@ void EPSPlug::parseOutput(QString fn)
 					if ((Elements.count() != 0) && (lastPath == currPath))
 					{
 						ite = Elements.at(Elements.count()-1);
-						ite->Pcolor = CurrColor;
-						ite->Transparency = 1.0 - Opacity;
+						ite->setFillColor(CurrColor);
+						ite->setFillTransparency(1.0 - Opacity);
 					}
 					else
 					{
@@ -430,7 +430,7 @@ void EPSPlug::parseOutput(QString fn)
 						ite->Width = wh.x();
 						ite->Height = wh.y();
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-						ite->Transparency = 1.0 - Opacity;
+						ite->setFillTransparency(1.0 - Opacity);
 						Prog->view->AdjustItemSize(ite);
 						Elements.append(ite);
 					}
@@ -446,11 +446,11 @@ void EPSPlug::parseOutput(QString fn)
 					if ((Elements.count() != 0) && (lastPath == currPath))
 					{
 						ite = Elements.at(Elements.count()-1);
-						ite->Pcolor2 = CurrColor;
+						ite->setLineColor(CurrColor);
 						ite->Pwidth = LineW;
 						ite->PLineEnd = CapStyle;
 						ite->PLineJoin = JoinStyle;
-						ite->TranspStroke = 1.0 - Opacity;
+						ite->setLineTransparency(1.0 - Opacity);
 						ite->DashOffset = DashOffset;
 						ite->DashValues = DashPattern;
 					}
@@ -473,7 +473,7 @@ void EPSPlug::parseOutput(QString fn)
 						ite->Width = wh.x();
 						ite->Height = wh.y();
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-						ite->TranspStroke = 1.0 - Opacity;
+						ite->setLineTransparency(1.0 - Opacity);
 						Prog->view->AdjustItemSize(ite);
 						Elements.append(ite);
 					}

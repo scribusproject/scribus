@@ -1786,10 +1786,10 @@ void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b)
 	Buffer->FrameType = b->FrameType;
 	Buffer->ClipEdited = b->ClipEdited;
 	Buffer->Pwidth = b->Pwidth;
-	Buffer->Pcolor = b->Pcolor;
-	Buffer->Pcolor2 = b->Pcolor2;
-	Buffer->Shade = b->Shade;
-	Buffer->Shade2 = b->Shade2;
+	Buffer->Pcolor = b->fillColor();
+	Buffer->Pcolor2 = b->lineColor();
+	Buffer->Shade = b->fillShade();
+	Buffer->Shade2 = b->lineShade();
 	Buffer->GrColor = "";
 	Buffer->GrColor2 = "";
 	Buffer->GrShade = 100;
@@ -1914,8 +1914,8 @@ void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b)
 	Buffer->AspectRatio = b->AspectRatio;
 	Buffer->Locked = b->locked();
 	Buffer->LockRes = b->sizeLocked();
-	Buffer->Transparency = b->Transparency;
-	Buffer->TranspStroke = b->TranspStroke;
+	Buffer->Transparency = b->fillTransparency();
+	Buffer->TranspStroke = b->lineTransparency();
 	Buffer->Reverse = b->Reverse;
 	Buffer->InvPict = b->InvPict;
 	Buffer->NamedLStyle = b->NamedLStyle;
@@ -2086,7 +2086,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->ClipEdited = QStoInt(obj->attribute("CLIPEDIT", "0"));
 	OB->FrameType = QStoInt(obj->attribute("FRTYPE", "0"));
 	OB->Pwidth=QStodouble(obj->attribute("PWIDTH"));
-	OB->Pcolor=obj->attribute("PCOLOR");
+	OB->Pcolor = obj->attribute("PCOLOR");
 	if ((!newVersion) && (OB->PType == 4))
 	{
 		OB->TxtFill = obj->attribute("PCOLOR2");
@@ -2097,8 +2097,8 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 		OB->Pcolor2 = obj->attribute("PCOLOR2");
 		OB->TxtFill = obj->attribute("TXTFILL", "Black");
 	}
-	OB->Shade=QStoInt(obj->attribute("SHADE"));
-	OB->Shade2=QStoInt(obj->attribute("SHADE2"));
+	OB->Shade = QStoInt(obj->attribute("SHADE"));
+	OB->Shade2 = QStoInt(obj->attribute("SHADE2"));
 	OB->TxtStroke=obj->attribute("TXTSTROKE", "None");
 	OB->ShTxtFill=QStoInt(obj->attribute("TXTFILLSH", "100"));
 	OB->ShTxtStroke=QStoInt(obj->attribute("TXTSTRSH", "100"));

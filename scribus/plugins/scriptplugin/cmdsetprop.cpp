@@ -40,7 +40,7 @@ PyObject *scribus_setfillcolor(PyObject */*self*/, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	i->Pcolor = QString::fromUtf8(Color);
+	i->setFillColor(QString::fromUtf8(Color));
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -56,7 +56,7 @@ PyObject *scribus_setlinecolor(PyObject */*self*/, PyObject* args)
 	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == NULL)
 		return NULL;
-	it->Pcolor2 = QString::fromUtf8(Color);
+	it->setLineColor(QString::fromUtf8(Color));
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -98,7 +98,7 @@ PyObject *scribus_setlineshade(PyObject */*self*/, PyObject* args)
 	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == NULL)
 		return NULL;
-	it->Shade2 = w;
+	it->setLineShade(w);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -119,7 +119,7 @@ PyObject *scribus_setfillshade(PyObject */*self*/, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	i->Shade = w;
+	i->setFillShade(w);
 	Py_INCREF(Py_None);
 	return Py_None;
 }

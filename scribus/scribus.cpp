@@ -641,120 +641,131 @@ void ScribusApp::initKeyboardShortcuts()
 {
 	//Set up key entries
 	//CB TODO Need to rewrite this key management stuff.. these would be much simpler done in the action themselves.
+
+	QDictIterator<ScrAction> it( scrActions );
+	for( ; it.current(); ++it )
+	{
+		SetKeyEntry(it.currentKey(), it.current()->cleanMenuText(), QString(it.current()->accel()));
+	}
 	
 	//FILE MENU
-	uint id=0;
-	SetKeyEntry("fileNew", scrActions["fileNew"]->cleanMenuText(), QString(scrActions["fileNew"]->accel()));
 	/*
-	SetKeyEntry(0, scrActions["fileOpen"]->cleanMenuText(), 0, 0, scrActions["fileOpen"]->accel(), "fileOpen");
-	SetKeyEntry(0, scrActions["fileClose"]->cleanMenuText(), 0, 0, scrActions["fileClose"]->accel(), "fileClose");
-	SetKeyEntry(0, scrActions["fileSave"]->cleanMenuText(), 0, 0, scrActions["fileSave"]->accel(), "fileSave");
-	SetKeyEntry(0, scrActions["fileSaveAs"]->cleanMenuText(), 0, 0, scrActions["fileSaveAs"]->accel(), "fileSaveAs");
-	//SetKeyEntry(, scrActions["fileRevert"]->cleanMenuText(), 0, 0, scrActions["fileRevert"]->accel(), "fileRevert");
-	//SetKeyEntry(, scrActions["fileCollect"]->cleanMenuText(), 0, 0, scrActions["fileCollect"]->accel(), "fileCollect");
-	SetKeyEntry(0, scrActions["fileDocSetup"]->cleanMenuText(), 0, 0, scrActions["fileDocSetup"]->accel(), "fileDocSetup");
-	SetKeyEntry(0, scrActions["fileQuit"]->cleanMenuText(), 0, 0, scrActions["fileQuit"]->accel(), "fileQuit");
+	SetKeyEntry("fileNew", scrActions["fileNew"]->cleanMenuText(), QString(scrActions["fileNew"]->accel()));
+	SetKeyEntry("fileOpen", scrActions["fileOpen"]->cleanMenuText(), QString(scrActions["fileOpen"]->accel()));
+	SetKeyEntry("fileClose", scrActions["fileClose"]->cleanMenuText(), QString(scrActions["fileClose"]->accel()));
+	SetKeyEntry("fileSave", scrActions["fileSave"]->cleanMenuText(), QString(scrActions["fileSave"]->accel()));
+	SetKeyEntry("fileSaveAs", scrActions["fileSaveAs"]->cleanMenuText(), QString(scrActions["fileSaveAs"]->accel()));
+	*/
+	/*
+	SetKeyEntry("fileOpen"]->cleanMenuText(), QString(scrActions["fileOpen"]->accel()));
+	SetKeyEntry("fileClose"]->cleanMenuText(), QString(scrActions["fileClose"]->accel()));
+	SetKeyEntry("fileSave"]->cleanMenuText(), QString(scrActions["fileSave"]->accel()));
+	SetKeyEntry("fileSaveAs"]->cleanMenuText(), QString(scrActions["fileSaveAs"]->accel()));
+	//SetKeyEntry(, scrActions["fileRevert"]->cleanMenuText(), QString(scrActions["fileRevert"]->accel()));
+	//SetKeyEntry(, scrActions["fileCollect"]->cleanMenuText(), QString(scrActions["fileCollect"]->accel()));
+	SetKeyEntry("fileDocSetup"]->cleanMenuText(), QString(scrActions["fileDocSetup"]->accel()));
+	SetKeyEntry("fileQuit"]->cleanMenuText(), QString(scrActions["fileQuit"]->accel()));
 	//Included import & export options
-	//SetKeyEntry(, scrActions["fileImportText"]->cleanMenuText(), 0, 0, scrActions["fileImportText"]->accel(), "fileImportText");
-	//SetKeyEntry(, scrActions["fileImportAppendText"]->cleanMenuText(), 0, 0, scrActions["fileImportAppendText"]->accel(), "fileImportAppendText");
-	//SetKeyEntry(, scrActions["fileImportImage"]->cleanMenuText(), 0, 0, scrActions["fileImportImage"]->accel(), "fileImportImage");	
-	//SetKeyEntry(, scrActions["fileImportPage"]->cleanMenuText(), 0, 0, scrActions["fileImportPage"]->accel(), "fileImportPage");
-	//SetKeyEntry(, scrActions["fileExportText"]->cleanMenuText(), 0, 0, scrActions["fileExportText"]->accel(), "fileExportText");
-	//SetKeyEntry(, scrActions["fileExportAsEPS"]->cleanMenuText(), 0, 0, scrActions["fileExportAsEPS"]->accel(), "fileExportAsEPS");
-	//SetKeyEntry(, scrActions["fileExportAsPDF"]->cleanMenuText(), 0, 0, scrActions["fileExportAsPDF"]->accel(), "fileExportAsPDF");
+	//SetKeyEntry(, scrActions["fileImportText"]->cleanMenuText(), QString(scrActions["fileImportText"]->accel()));
+	//SetKeyEntry(, scrActions["fileImportAppendText"]->cleanMenuText(), QString(scrActions["fileImportAppendText"]->accel()));
+	//SetKeyEntry(, scrActions["fileImportImage"]->cleanMenuText(), QString(scrActions["fileImportImage"]->accel()));
+	//SetKeyEntry(, scrActions["fileImportPage"]->cleanMenuText(), QString(scrActions["fileImportPage"]->accel()));
+	//SetKeyEntry(, scrActions["fileExportText"]->cleanMenuText(), QString(scrActions["fileExportText"]->accel()));
+	//SetKeyEntry(, scrActions["fileExportAsEPS"]->cleanMenuText(), QString(scrActions["fileExportAsEPS"]->accel()));
+	//SetKeyEntry(, scrActions["fileExportAsPDF"]->cleanMenuText(), QString(scrActions["fileExportAsPDF"]->accel()));
 	
 	//EDIT MENU
-	SetKeyEntry(0, scrActions["editCut"]->cleanMenuText(), 0, 0, scrActions["editCut"]->accel(), "editCut");
-	SetKeyEntry(0, scrActions["editCopy"]->cleanMenuText(), 0, 0, scrActions["editCopy"]->accel(), "editCopy");
-	SetKeyEntry(0, scrActions["editPaste"]->cleanMenuText(), 0, 0, scrActions["editPaste"]->accel(), "editPaste");
-	SetKeyEntry(0, scrActions["editClear"]->cleanMenuText(), 0, 0, scrActions["editClear"]->accel(), "editClear");
-	SetKeyEntry(0, scrActions["editSelectAll"]->cleanMenuText(), 0, 0, scrActions["editSelectAll"]->accel(), "editSelectAll");
-	SetKeyEntry(0, scrActions["editColors"]->cleanMenuText(), 0, 0, scrActions["editColors"]->accel(), "editColors");
-	SetKeyEntry(0, scrActions["editParaStyles"]->cleanMenuText(), 0, 0, scrActions["editParaStyles"]->accel(), "editParaStyles");
-	SetKeyEntry(0, scrActions["editTemplates"]->cleanMenuText(), 0, 0, scrActions["editTemplates"]->accel(), "editTemplates");
-	//SetKeyEntry(, scrActions["editSearchReplace"]->cleanMenuText(), 0, 0, scrActions["editSearchReplace"]->accel(), "editSearchReplace");
-	//SetKeyEntry(, scrActions["editLineStyles"]->cleanMenuText(), 0, 0, scrActions["editLineStyles"]->accel(), "editLineStyles");
+	SetKeyEntry("editCut"]->cleanMenuText(), QString(scrActions["editCut"]->accel()));
+	SetKeyEntry("editCopy"]->cleanMenuText(), QString(scrActions["editCopy"]->accel()));
+	SetKeyEntry("editPaste"]->cleanMenuText(), QString(scrActions["editPaste"]->accel()));
+	SetKeyEntry("editClear"]->cleanMenuText(), QString(scrActions["editClear"]->accel()));
+	SetKeyEntry("editSelectAll"]->cleanMenuText(), QString(scrActions["editSelectAll"]->accel()));
+	SetKeyEntry("editColors"]->cleanMenuText(), QString(scrActions["editColors"]->accel()));
+	SetKeyEntry("editParaStyles"]->cleanMenuText(), QString(scrActions["editParaStyles"]->accel()));
+	SetKeyEntry("editTemplates"]->cleanMenuText(), QString(scrActions["editTemplates"]->accel()));
+	//SetKeyEntry(, scrActions["editSearchReplace"]->cleanMenuText(), QString(scrActions["editSearchReplace"]->accel()));
+	//SetKeyEntry(, scrActions["editLineStyles"]->cleanMenuText(), QString(scrActions["editLineStyles"]->accel()));
 	
-	//SetKeyEntry(, scrActions["editFonts"]->cleanMenuText(), 0, 0, scrActions["editFonts"]->accel(), "editFonts");
+	//SetKeyEntry(, scrActions["editFonts"]->cleanMenuText(), QString(scrActions["editFonts"]->accel()));
 	//SetKeyEntry(19, tr("Select New Font"), 0, 0);
 	
 	//ITEM MENU
-	SetKeyEntry(0, scrActions["itemDuplicate"]->cleanMenuText(), 0, 0, scrActions["itemDuplicate"]->accel(), "itemDuplicate");
-	SetKeyEntry(0, scrActions["itemMulDuplicate"]->cleanMenuText(), 0, 0, scrActions["itemMulDuplicate"]->accel(), "itemMulDuplicate");
-	SetKeyEntry(0, scrActions["itemDelete"]->cleanMenuText(), 0, 0, scrActions["itemDelete"]->accel(), "itemDelete");
-	SetKeyEntry(0, scrActions["itemGroup"]->cleanMenuText(), 0, 0, scrActions["itemGroup"]->accel(), "itemGroup");
-	SetKeyEntry(0, scrActions["itemUngroup"]->cleanMenuText(), 0, 0, scrActions["itemUngroup"]->accel(), "itemUngroup");
-	SetKeyEntry(0, scrActions["itemSendToBack"]->cleanMenuText(), 0, 0, scrActions["itemSendToBack"]->accel(), "itemSendToBack");
-	SetKeyEntry(0, scrActions["itemBringToFront"]->cleanMenuText(), 0, 0, scrActions["itemBringToFront"]->accel(), "itemBringToFront");
-	SetKeyEntry(0, scrActions["itemLower"]->cleanMenuText(), 0, 0, scrActions["itemLower"]->accel(), "itemLower");
-	SetKeyEntry(0, scrActions["itemRaise"]->cleanMenuText(), 0, 0, scrActions["itemRaise"]->accel(), "itemRaise");
-	SetKeyEntry(0, scrActions["itemAlignDist"]->cleanMenuText(), 0, 0, scrActions["itemAlignDist"]->accel(), "itemAlignDist");
-	SetKeyEntry(0, scrActions["itemLock"]->cleanMenuText(), 0, 0, scrActions["itemLock"]->accel(), "itemLock");
+	SetKeyEntry("itemDuplicate"]->cleanMenuText(), QString(scrActions["itemDuplicate"]->accel()));
+	SetKeyEntry("itemMulDuplicate"]->cleanMenuText(), QString(scrActions["itemMulDuplicate"]->accel()));
+	SetKeyEntry("itemDelete"]->cleanMenuText(), QString(scrActions["itemDelete"]->accel()));
+	SetKeyEntry("itemGroup"]->cleanMenuText(), QString(scrActions["itemGroup"]->accel()));
+	SetKeyEntry("itemUngroup"]->cleanMenuText(), QString(scrActions["itemUngroup"]->accel()));
+	SetKeyEntry("itemSendToBack"]->cleanMenuText(), QString(scrActions["itemSendToBack"]->accel()));
+	SetKeyEntry("itemBringToFront"]->cleanMenuText(), QString(scrActions["itemBringToFront"]->accel()));
+	SetKeyEntry("itemLower"]->cleanMenuText(), QString(scrActions["itemLower"]->accel()));
+	SetKeyEntry("itemRaise"]->cleanMenuText(), QString(scrActions["itemRaise"]->accel()));
+	SetKeyEntry("itemAlignDist"]->cleanMenuText(), QString(scrActions["itemAlignDist"]->accel()));
+	SetKeyEntry("itemLock"]->cleanMenuText(), QString(scrActions["itemLock"]->accel()));
 
-	//SetKeyEntry(, scrActions["itemShapeEdit"]->cleanMenuText(), 0, 0, scrActions["itemShapeEdit"]->accel(), "itemShapeEdit");
+	//SetKeyEntry(, scrActions["itemShapeEdit"]->cleanMenuText(), QString(scrActions["itemShapeEdit"]->accel()));
 		//CBSetKeyEntry(61, tr("Attach Text to Path"), M_ItemAttachTextToPath, 0);
-	//SetKeyEntry(, scrActions["itemAttachTextToPath"]->cleanMenuText(), 0, 0, scrActions["itemAttachTextToPath"]->accel(), "itemAttachTextToPath");
-	//SetKeyEntry(, scrActions["itemDetachTextFromPath"]->cleanMenuText(), 0, 0, scrActions["itemDetachTextFromPath"]->accel(), "itemDetachTextFromPath");
-	//SetKeyEntry(, scrActions["itemCombinePolygons"]->cleanMenuText(), 0, 0, scrActions["itemCombinePolygons"]->accel(), "itemCombinePolygons");
-	//SetKeyEntry(, scrActions["itemSplitPolygons"]->cleanMenuText(), 0, 0, scrActions["itemSplitPolygons"]->accel(), "itemSplitPolygons");
-	//SetKeyEntry(, scrActions["itemConvertToOutlines"]->cleanMenuText(), 0, 0, scrActions["itemConvertToOutlines"]->accel(), "itemConvertToOutlines");
+	//SetKeyEntry(, scrActions["itemAttachTextToPath"]->cleanMenuText(), QString(scrActions["itemAttachTextToPath"]->accel()));
+	//SetKeyEntry(, scrActions["itemDetachTextFromPath"]->cleanMenuText(), QString(scrActions["itemDetachTextFromPath"]->accel()));
+	//SetKeyEntry(, scrActions["itemCombinePolygons"]->cleanMenuText(), QString(scrActions["itemCombinePolygons"]->accel()));
+	//SetKeyEntry(, scrActions["itemSplitPolygons"]->cleanMenuText(), QString(scrActions["itemSplitPolygons"]->accel()));
+	//SetKeyEntry(, scrActions["itemConvertToOutlines"]->cleanMenuText(), QString(scrActions["itemConvertToOutlines"]->accel()));
 	
 	//PAGE MENU
-	SetKeyEntry(0, scrActions["pageInsert"]->cleanMenuText(), 0, 0, scrActions["pageInsert"]->accel(), "pageInsert");
-	SetKeyEntry(0, scrActions["pageDelete"]->cleanMenuText(), 0, 0, scrActions["pageDelete"]->accel(), "pageDelete");
-	SetKeyEntry(0, scrActions["pageMove"]->cleanMenuText(), 0, 0, scrActions["pageMove"]->accel(), "pageMove");
-	SetKeyEntry(0, scrActions["pageApplyTemplate"]->cleanMenuText(), 0, 0, scrActions["pageApplyTemplate"]->accel(), "pageApplyTemplate");
-	SetKeyEntry(0, scrActions["pageManageGuides"]->cleanMenuText(), 0, 0, scrActions["pageManageGuides"]->accel(), "pageManageGuides");
-	SetKeyEntry(0, scrActions["pageCopy"]->cleanMenuText(), 0, 0, scrActions["pageCopy"]->accel(), "pageCopy");
+	SetKeyEntry("pageInsert"]->cleanMenuText(), QString(scrActions["pageInsert"]->accel()));
+	SetKeyEntry("pageDelete"]->cleanMenuText(), QString(scrActions["pageDelete"]->accel()));
+	SetKeyEntry("pageMove"]->cleanMenuText(), QString(scrActions["pageMove"]->accel()));
+	SetKeyEntry("pageApplyTemplate"]->cleanMenuText(), QString(scrActions["pageApplyTemplate"]->accel()));
+	SetKeyEntry("pageManageGuides"]->cleanMenuText(), QString(scrActions["pageManageGuides"]->accel()));
+	SetKeyEntry("pageCopy"]->cleanMenuText(), QString(scrActions["pageCopy"]->accel()));
 	
 	//VIEW MENU
-	SetKeyEntry(0, scrActions["viewFitInWindow"]->cleanMenuText(), 0, 0, scrActions["viewFitInWindow"]->accel(), "viewFitInWindow");
-	SetKeyEntry(0, scrActions["viewFit50"]->cleanMenuText(), 0, 0, scrActions["viewFit50"]->accel(), "viewFit50");
-	SetKeyEntry(0, scrActions["viewFit75"]->cleanMenuText(), 0, 0, scrActions["viewFit75"]->accel(), "viewFit75");
-	SetKeyEntry(0, scrActions["viewFit100"]->cleanMenuText(), 0, 0, scrActions["viewFit100"]->accel(), "viewFit100");
-	SetKeyEntry(0, scrActions["viewFit200"]->cleanMenuText(), 0, 0, scrActions["viewFit200"]->accel(), "viewFit200");
-	SetKeyEntry(0, scrActions["viewFit20"]->cleanMenuText(), 0, 0, scrActions["viewFit20"]->accel(), "viewFit20");
-	SetKeyEntry(0, scrActions["viewShowMargins"]->cleanMenuText(), 0, 0, scrActions["viewShowMargins"]->accel(), "viewShowMargins");
-	SetKeyEntry(0, scrActions["viewShowFrames"]->cleanMenuText(), 0, 0, scrActions["viewShowFrames"]->accel(), "viewShowFrames");
-	SetKeyEntry(0, scrActions["viewShowImages"]->cleanMenuText(), 0, 0, scrActions["viewShowImages"]->accel(), "viewShowImages");
-	SetKeyEntry(0, scrActions["viewShowGrid"]->cleanMenuText(), 0, 0, scrActions["viewShowGrid"]->accel(), "viewShowGrid");
-	SetKeyEntry(0, scrActions["viewSnapToGrid"]->cleanMenuText(), 0, 0, scrActions["viewSnapToGrid"]->accel(), "viewSnapToGrid");
+	SetKeyEntry("viewFitInWindow"]->cleanMenuText(), QString(scrActions["viewFitInWindow"]->accel()));
+	SetKeyEntry("viewFit50"]->cleanMenuText(), QString(scrActions["viewFit50"]->accel()));
+	SetKeyEntry("viewFit75"]->cleanMenuText(), QString(scrActions["viewFit75"]->accel()));
+	SetKeyEntry("viewFit100"]->cleanMenuText(), QString(scrActions["viewFit100"]->accel()));
+	SetKeyEntry("viewFit200"]->cleanMenuText(), QString(scrActions["viewFit200"]->accel()));
+	SetKeyEntry("viewFit20"]->cleanMenuText(), QString(scrActions["viewFit20"]->accel()));
+	SetKeyEntry("viewShowMargins"]->cleanMenuText(), QString(scrActions["viewShowMargins"]->accel()));
+	SetKeyEntry("viewShowFrames"]->cleanMenuText(), QString(scrActions["viewShowFrames"]->accel()));
+	SetKeyEntry("viewShowImages"]->cleanMenuText(), QString(scrActions["viewShowImages"]->accel()));
+	SetKeyEntry("viewShowGrid"]->cleanMenuText(), QString(scrActions["viewShowGrid"]->accel()));
+	SetKeyEntry("viewSnapToGrid"]->cleanMenuText(), QString(scrActions["viewSnapToGrid"]->accel()));
 	
 	//TOOLS MENU
-	SetKeyEntry(0, scrActions["toolsProperties"]->cleanMenuText(), 0, 0, scrActions["toolsProperties"]->accel(), "toolsProperties");
-	SetKeyEntry(0, scrActions["toolsOutline"]->cleanMenuText(), 0, 0, scrActions["toolsOutline"]->accel(), "toolsOutline");
-	SetKeyEntry(0, scrActions["toolsScrapbook"]->cleanMenuText(), 0, 0, scrActions["toolsScrapbook"]->accel(), "toolsScrapbook");
-	SetKeyEntry(0, scrActions["toolsToolbarTools"]->cleanMenuText(), 0, 0, scrActions["toolsToolbarTools"]->accel(), "toolsToolbarTools");
+	SetKeyEntry("toolsProperties"]->cleanMenuText(), QString(scrActions["toolsProperties"]->accel()));
+	SetKeyEntry("toolsOutline"]->cleanMenuText(), QString(scrActions["toolsOutline"]->accel()));
+	SetKeyEntry("toolsScrapbook"]->cleanMenuText(), QString(scrActions["toolsScrapbook"]->accel()));
+	SetKeyEntry("toolsToolbarTools"]->cleanMenuText(), QString(scrActions["toolsToolbarTools"]->accel()));
 
 	//SetKeyEntry(55, tr("Tooltips"), tip, 0);
 	
 	
 	//EXTRAS MENU
-	SetKeyEntry(0, scrActions["extrasManagePictures"]->cleanMenuText(), 0, 0, scrActions["extrasManagePictures"]->accel(), "extrasManagePictures");
-	SetKeyEntry(0, scrActions["extrasHyphenateText"]->cleanMenuText(), 0, 0, scrActions["extrasHyphenateText"]->accel(), "extrasHyphenateText");
+	SetKeyEntry("extrasManagePictures"]->cleanMenuText(), QString(scrActions["extrasManagePictures"]->accel()));
+	SetKeyEntry("extrasHyphenateText"]->cleanMenuText(), QString(scrActions["extrasHyphenateText"]->accel()));
 	
 	//HELP MENU
-	SetKeyEntry(0, scrActions["helpAboutScribus"]->cleanMenuText(), 0, 0, scrActions["helpAboutScribus"]->accel(), "helpAboutScribus");
-	SetKeyEntry(0, scrActions["helpAboutQt"]->cleanMenuText(), 0, 0, scrActions["helpAboutQt"]->accel(), "helpAboutQt");
-	SetKeyEntry(0, scrActions["helpManual"]->cleanMenuText(), 0, 0, scrActions["helpManual"]->accel(), "helpManual");
+	SetKeyEntry("helpAboutScribus"]->cleanMenuText(), QString(scrActions["helpAboutScribus"]->accel()));
+	SetKeyEntry("helpAboutQt"]->cleanMenuText(), QString(scrActions["helpAboutQt"]->accel()));
+	SetKeyEntry("helpManual"]->cleanMenuText(), QString(scrActions["helpManual"]->accel()));
 	
 	//EXTRAS
 	//SetKeyEntry(56, tr("Smart Hyphen"), 0, CTRL+Key_Minus);
 	
-	SetKeyEntry(0, scrActions["alignLeft"]->cleanMenuText(), 0, 0, scrActions["alignLeft"]->accel(), "alignLeft");
-	SetKeyEntry(0, scrActions["alignRight"]->cleanMenuText(), 0, 0, scrActions["alignRight"]->accel(), "alignRight");
-	SetKeyEntry(0, scrActions["alignCenter"]->cleanMenuText(), 0, 0, scrActions["alignCenter"]->accel(), "alignCenter");
+	SetKeyEntry("alignLeft"]->cleanMenuText(), QString(scrActions["alignLeft"]->accel()));
+	SetKeyEntry("alignRight"]->cleanMenuText(), QString(scrActions["alignRight"]->accel()));
+	SetKeyEntry("alignCenter"]->cleanMenuText(), QString(scrActions["alignCenter"]->accel()));
 	
 	//SetKeyEntry(60, tr("Insert Page Number"), 0, CTRL+Key_NumberSign);
 	
 
-	SetKeyEntry(0, scrActions["toolsLayers"]->cleanMenuText(), 0, 0, scrActions["toolsLayers"]->accel(), "toolsLayers");
+	SetKeyEntry("toolsLayers"]->cleanMenuText(), QString(scrActions["toolsLayers"]->accel()));
 	
-	SetKeyEntry(0, scrActions["editJavascripts"]->cleanMenuText(), 0, 0, scrActions["editJavascripts"]->accel(), "editJavascripts");
-	SetKeyEntry(0, scrActions["editUndoAction"]->cleanMenuText(), 0, 0, scrActions["editUndoAction"]->accel(), "editUndoAction");
-	SetKeyEntry(0, scrActions["editRedoAction"]->cleanMenuText(), 0, 0, scrActions["editRedoAction"]->accel(), "editRedoAction");
+	SetKeyEntry("editJavascripts"]->cleanMenuText(), QString(scrActions["editJavascripts"]->accel()));
+	SetKeyEntry("editUndoAction"]->cleanMenuText(), QString(scrActions["editUndoAction"]->accel()));
+	SetKeyEntry("editRedoAction"]->cleanMenuText(), QString(scrActions["editRedoAction"]->accel()));
 
-	SetKeyEntry(0, scrActions["toolsPages"]->cleanMenuText(), 0, 0, scrActions["toolsPages"]->accel(), "toolsPages");
+	SetKeyEntry("toolsPages"]->cleanMenuText(), QString(scrActions["toolsPages"]->accel()));
 
 	//SetKeyEntry(68, tr("Non Breaking Space"), 0, CTRL+Key_Space);
 	*/
@@ -3873,7 +3884,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["extrasInsertSpecial"]->setEnabled(true);
 			view->HR->ItemPos = b->Xpos;
 			view->HR->ItemEndPos = b->Xpos+b->Width;
-			if (b->Pcolor2 != "None")
+			if (b->lineColor() != "None")
 				view->HR->lineCorr = b->Pwidth / 2.0;
 			else
 				view->HR->lineCorr = 0;
@@ -7367,10 +7378,10 @@ void ScribusApp::slotEditColors()
 									ite->itemText.at(d)->cstroke = it.data();
 							}
 						}
-						if (it.key() == ite->Pcolor)
-							ite->Pcolor = it.data();
-						if (it.key() == ite->Pcolor2)
-							ite->Pcolor2 = it.data();
+						if (it.key() == ite->fillColor())
+							ite->setFillColor(it.data());
+						if (it.key() == ite->lineColor())
+							ite->setLineColor(it.data());
 						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 						{
@@ -7398,10 +7409,10 @@ void ScribusApp::slotEditColors()
 									ite->itemText.at(d)->cstroke = it.data();
 							}
 						}
-						if (it.key() == ite->Pcolor)
-							ite->Pcolor = it.data();
-						if (it.key() == ite->Pcolor2)
-							ite->Pcolor2 = it.data();
+						if (it.key() == ite->fillColor())
+							ite->setFillColor(it.data());
+						if (it.key() == ite->lineColor())
+							ite->setLineColor(it.data());
 						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 						{
@@ -10370,7 +10381,8 @@ void ScribusApp::scanDocument()
 		itemError.clear();
 		if (((it->isAnnotation) || (it->isBookmark)) && (checkerSettings.checkAnnotations))
 			itemError.insert(7, 0);
-		if (((it->TranspStroke != 0.0) || (it->TranspStroke != 0.0)) && (checkerSettings.checkTransparency))
+		// XXX PROBABLE BUG: The first in this clause should probably be Transparency not lineTransparency()
+		if (((it->lineTransparency() != 0.0) || (it->lineTransparency() != 0.0)) && (checkerSettings.checkTransparency))
 			itemError.insert(6, 0);
 		if ((it->OwnPage == -1) && (checkerSettings.checkOrphans))
 			itemError.insert(3, 0);
@@ -10425,7 +10437,7 @@ void ScribusApp::scanDocument()
 	{
 		it = doc->DocItems.at(d);
 		itemError.clear();
-		if (((it->Transparency != 0.0) || (it->TranspStroke != 0.0)) && (checkerSettings.checkTransparency))
+		if (((it->fillTransparency() != 0.0) || (it->lineTransparency() != 0.0)) && (checkerSettings.checkTransparency))
 			itemError.insert(6, 0);
 		if (((it->isAnnotation) || (it->isBookmark)) && (checkerSettings.checkAnnotations))
 			itemError.insert(7, 0);

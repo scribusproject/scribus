@@ -918,7 +918,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 				if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 					continue;
 				PutPage("q\n");
-				if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && (Options->Version == 14))
+				if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version == 14))
 					PDF_Transparenz(ite);
 				if ((ite->isBookmark) && (Options->Bookmarks))
 					PDF_Bookmark(ite->BMnr, doc->PageH - ite->Ypos);
@@ -929,10 +929,10 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 				}
 				if (Options->UseRGB)
 				{
-					if (ite->Pcolor != "None")
-						PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" rg\n");
-					if (ite->Pcolor2 != "None")
-						PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" RG\n");
+					if (ite->fillColor() != "None")
+						PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" rg\n");
+					if (ite->lineColor() != "None")
+						PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" RG\n");
 				}
 				else
 				{
@@ -944,18 +944,18 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						PutPage(" ri\n");
 						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
 						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" CS\n");
-						if (ite->Pcolor != "None")
-							PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" scn\n");
-						if (ite->Pcolor2 != "None")
-							PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" SCN\n");
+						if (ite->fillColor() != "None")
+							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" scn\n");
+						if (ite->lineColor() != "None")
+							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" SCN\n");
 					}
 					else
 					{
 #endif
-						if (ite->Pcolor != "None")
-							PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" k\n");
-						if (ite->Pcolor2 != "None")
-							PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" K\n");
+						if (ite->fillColor() != "None")
+							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" k\n");
+						if (ite->lineColor() != "None")
+							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" K\n");
 					}
 #ifdef HAVE_CMS
 				}
@@ -1043,7 +1043,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 				switch (ite->PType)
 				{
 					case 2:
-						if ((ite->Pcolor != "None") || (ite->GrType != 0))
+						if ((ite->fillColor() != "None") || (ite->GrType != 0))
 						{
 							if (ite->GrType != 0)
 								PDF_Gradient(ite);
@@ -1066,7 +1066,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 									 false, ite->IProfile, ite->UseEmbedded,
 									  ite->IRender);
 						PutPage("Q\n");
-						if (((ite->Pcolor2 != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
+						if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 						{
 							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 							{
@@ -1113,7 +1113,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 							arrowTrans.scale(-1,1);
 							arrow.map(arrowTrans);
-							if ((ite->TranspStroke != 0) && (Options->Version == 14))
+							if ((ite->lineTransparency() != 0) && (Options->Version == 14))
 							{
 								StartObj(ObjCounter);
 								QString ShName = ResNam+IToStr(ResCount);
@@ -1121,13 +1121,13 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								ResCount++;
 								ObjCounter++;
 								PutDoc("<< /Type /ExtGState\n");
-								PutDoc("/CA "+FToStr(1.0 - ite->TranspStroke)+"\n");
-								PutDoc("/ca "+FToStr(1.0 - ite->TranspStroke)+"\n");
+								PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
+								PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
 								PutDoc("/BM /Normal\n>>\nendobj\n");
 								PutPage("/"+ShName+" gs\n");
 							}
 							if (Options->UseRGB)
-								PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n");
+								PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" rg\n");
 							else
 							{
 #ifdef HAVE_CMS
@@ -1137,12 +1137,12 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 									PutPage(tmp[Options->Intent]);
 									PutPage(" ri\n");
 									PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-									PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" scn\n");
+									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" scn\n");
 								}
 								else
 								{
 #endif
-									PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" k\n");
+									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" k\n");
 								}
 #ifdef HAVE_CMS
 							}
@@ -1157,7 +1157,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 							arrowTrans.translate(ite->Width, 0);
 							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 							arrow.map(arrowTrans);
-							if ((ite->TranspStroke != 0) && (Options->Version == 14))
+							if ((ite->lineTransparency() != 0) && (Options->Version == 14))
 							{
 								StartObj(ObjCounter);
 								QString ShName = ResNam+IToStr(ResCount);
@@ -1165,13 +1165,13 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								ResCount++;
 								ObjCounter++;
 								PutDoc("<< /Type /ExtGState\n");
-								PutDoc("/CA "+FToStr(1.0 - ite->TranspStroke)+"\n");
-								PutDoc("/ca "+FToStr(1.0 - ite->TranspStroke)+"\n");
+								PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
+								PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
 								PutDoc("/BM /Normal\n>>\nendobj\n");
 								PutPage("/"+ShName+" gs\n");
 							}
 							if (Options->UseRGB)
-								PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n");
+								PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" rg\n");
 							else
 							{
 #ifdef HAVE_CMS
@@ -1181,12 +1181,12 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 									PutPage(tmp[Options->Intent]);
 									PutPage(" ri\n");
 									PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-									PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" scn\n");
+									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" scn\n");
 								}
 								else
 								{
 #endif
-									PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" k\n");
+									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" k\n");
 								}
 #ifdef HAVE_CMS
 							}
@@ -1202,13 +1202,13 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 							PDF_Gradient(ite);
 						else
 						{
-							if (ite->Pcolor != "None")
+							if (ite->fillColor() != "None")
 							{
 								PutPage(SetClipPath(ite));
 								PutPage("h\nf*\n");
 							}
 						}
-						if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
+						if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
 						{
 							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 							{
@@ -1234,14 +1234,14 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								PDF_Gradient(ite);
 							else
 							{
-								if (ite->Pcolor != "None")
+								if (ite->fillColor() != "None")
 								{
 									PutPage(SetClipPath(ite));
 									PutPage("h\nf*\n");
 								}
 							}
 						}
-						if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
+						if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
 						{
 							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 							{
@@ -1274,7 +1274,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 									arrowTrans.rotate(r);
 									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 									arrow.map(arrowTrans);
-									if ((ite->TranspStroke != 0) && (Options->Version == 14))
+									if ((ite->lineTransparency() != 0) && (Options->Version == 14))
 									{
 										StartObj(ObjCounter);
 										QString ShName = ResNam+IToStr(ResCount);
@@ -1282,13 +1282,13 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 										ResCount++;
 										ObjCounter++;
 										PutDoc("<< /Type /ExtGState\n");
-										PutDoc("/CA "+FToStr(1.0 - ite->TranspStroke)+"\n");
-										PutDoc("/ca "+FToStr(1.0 - ite->TranspStroke)+"\n");
+										PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
+										PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
 										PutDoc("/BM /Normal\n>>\nendobj\n");
 										PutPage("/"+ShName+" gs\n");
 									}
 									if (Options->UseRGB)
-										PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n");
+										PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" rg\n");
 									else
 									{
 #ifdef HAVE_CMS
@@ -1298,12 +1298,12 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 											PutPage(tmp[Options->Intent]);
 											PutPage(" ri\n");
 											PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-											PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" scn\n");
+											PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" scn\n");
 										}
 										else
 										{
 #endif
-											PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" k\n");
+											PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" k\n");
 										}
 #ifdef HAVE_CMS
 									}
@@ -1329,7 +1329,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 									arrowTrans.rotate(r);
 									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 									arrow.map(arrowTrans);
-									if ((ite->TranspStroke != 0) && (Options->Version == 14))
+									if ((ite->lineTransparency() != 0) && (Options->Version == 14))
 									{
 										StartObj(ObjCounter);
 										QString ShName = ResNam+IToStr(ResCount);
@@ -1337,13 +1337,13 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 										ResCount++;
 										ObjCounter++;
 										PutDoc("<< /Type /ExtGState\n");
-										PutDoc("/CA "+FToStr(1.0 - ite->TranspStroke)+"\n");
-										PutDoc("/ca "+FToStr(1.0 - ite->TranspStroke)+"\n");
+										PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
+										PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
 										PutDoc("/BM /Normal\n>>\nendobj\n");
 										PutPage("/"+ShName+" gs\n");
 									}
 									if (Options->UseRGB)
-										PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n");
+										PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" rg\n");
 									else
 									{
 #ifdef HAVE_CMS
@@ -1353,12 +1353,12 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 											PutPage(tmp[Options->Intent]);
 											PutPage(" ri\n");
 											PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-											PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" scn\n");
+											PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" scn\n");
 										}
 										else
 										{
 #endif
-											PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" k\n");
+											PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" k\n");
 										}
 #ifdef HAVE_CMS
 									}
@@ -1376,7 +1376,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 							if (ite->PoLine.size() > 3)
 							{
 								PutPage("q\n");
-								if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
+								if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
 								{
 									if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 									{
@@ -1668,14 +1668,14 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								ite->BoundingY = OldBY;
 							}
 							PutPage("q\n");
-							if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && (Options->Version == 14))
+							if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version == 14))
 								PDF_Transparenz(ite);
 							if (Options->UseRGB)
 							{
-								if (ite->Pcolor != "None")
-									PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" rg\n");
-								if (ite->Pcolor2 != "None")
-									PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" RG\n");
+								if (ite->fillColor() != "None")
+									PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" rg\n");
+								if (ite->lineColor() != "None")
+									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" RG\n");
 							}
 							else
 							{
@@ -1700,18 +1700,18 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 									PutPage(" ri\n");
 									PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
 									PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" CS\n");
-									if (ite->Pcolor != "None")
-										PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" scn\n");
-									if (ite->Pcolor2 != "None")
-										PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" SCN\n");
+									if (ite->fillColor() != "None")
+										PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" scn\n");
+									if (ite->lineColor() != "None")
+										PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" SCN\n");
 								}
 								else
 								{
 #endif
-									if (ite->Pcolor != "None")
-										PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" k\n");
-									if (ite->Pcolor2 != "None")
-										PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" K\n");
+									if (ite->fillColor() != "None")
+										PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" k\n");
+									if (ite->lineColor() != "None")
+										PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" K\n");
 								}
 #ifdef HAVE_CMS
 							}
@@ -1782,7 +1782,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 									sr = 0;
 								PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n");
 							}
-							if ((ite->Pcolor != "None") || (ite->GrType != 0))
+							if ((ite->fillColor() != "None") || (ite->GrType != 0))
 							{
 								if (ite->GrType != 0)
 									PDF_Gradient(ite);
@@ -1799,7 +1799,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 							PutPage(setTextSt(ite, PNr));
 							PutPage("Q\n");
-							if (((ite->Pcolor2 != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
+							if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 							{
 								if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 								{
@@ -1832,14 +1832,14 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						if (!ite->isTableItem)
 							continue;
 						PutPage("q\n");
-						if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && (Options->Version == 14))
+						if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version == 14))
 							PDF_Transparenz(ite);
 						if (Options->UseRGB)
 						{
-							if (ite->Pcolor != "None")
-								PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" rg\n");
-							if (ite->Pcolor2 != "None")
-								PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" RG\n");
+							if (ite->fillColor() != "None")
+								PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" rg\n");
+							if (ite->lineColor() != "None")
+								PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" RG\n");
 						}
 						else
 						{
@@ -1851,18 +1851,18 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						PutPage(" ri\n");
 						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
 						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" CS\n");
-						if (ite->Pcolor != "None")
-							PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" scn\n");
-						if (ite->Pcolor2 != "None")
-							PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" SCN\n");
+						if (ite->fillColor() != "None")
+							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" scn\n");
+						if (ite->lineColor() != "None")
+							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" SCN\n");
 					}
 					else
 					{
 #endif
-						if (ite->Pcolor != "None")
-							PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" k\n");
-						if (ite->Pcolor2 != "None")
-							PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" K\n");
+						if (ite->fillColor() != "None")
+							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" k\n");
+						if (ite->lineColor() != "None")
+							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" K\n");
 					}
 #ifdef HAVE_CMS
 				}
@@ -1995,7 +1995,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 				if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 					continue;
 				PutPage("q\n");
-				if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && (Options->Version == 14))
+				if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version == 14))
 					PDF_Transparenz(ite);
 				if ((ite->isBookmark) && (Options->Bookmarks))
 					PDF_Bookmark(ite->BMnr, doc->PageH - ite->Ypos);
@@ -2006,10 +2006,10 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 				}
 				if (Options->UseRGB)
 				{
-					if (ite->Pcolor != "None")
-						PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" rg\n");
-					if (ite->Pcolor2 != "None")
-						PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" RG\n");
+					if (ite->fillColor() != "None")
+						PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" rg\n");
+					if (ite->lineColor() != "None")
+						PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" RG\n");
 				}
 				else
 				{
@@ -2021,18 +2021,18 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						PutPage(" ri\n");
 						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
 						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" CS\n");
-						if (ite->Pcolor != "None")
-							PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" scn\n");
-						if (ite->Pcolor2 != "None")
-							PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" SCN\n");
+						if (ite->fillColor() != "None")
+							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" scn\n");
+						if (ite->lineColor() != "None")
+							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" SCN\n");
 					}
 					else
 					{
 #endif
-						if (ite->Pcolor != "None")
-							PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" k\n");
-						if (ite->Pcolor2 != "None")
-							PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" K\n");
+						if (ite->fillColor() != "None")
+							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" k\n");
+						if (ite->lineColor() != "None")
+							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" K\n");
 					}
 #ifdef HAVE_CMS
 				}
@@ -2120,7 +2120,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 				switch (ite->PType)
 				{
 					case 2:
-						if ((ite->Pcolor != "None") || (ite->GrType != 0))
+						if ((ite->fillColor() != "None") || (ite->GrType != 0))
 						{
 							if (ite->GrType != 0)
 								PDF_Gradient(ite);
@@ -2143,7 +2143,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 									 false, ite->IProfile, ite->UseEmbedded,
 									  ite->IRender);
 						PutPage("Q\n");
-						if (((ite->Pcolor2 != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
+						if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 						{
 							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 							{
@@ -2168,7 +2168,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							PDF_Annotation(ite, PNr);
 							break;
 							}
-						if ((ite->Pcolor != "None") || (ite->GrType != 0))
+						if ((ite->fillColor() != "None") || (ite->GrType != 0))
 						{
 							if (ite->GrType != 0)
 								PDF_Gradient(ite);
@@ -2185,7 +2185,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 						PutPage(setTextSt(ite, PNr));
 						PutPage("Q\n");
-						if (((ite->Pcolor2 != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
+						if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 						{
 							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 							{
@@ -2230,7 +2230,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 							arrowTrans.scale(-1,1);
 							arrow.map(arrowTrans);
-							if ((ite->TranspStroke != 0) && (Options->Version == 14))
+							if ((ite->lineTransparency() != 0) && (Options->Version == 14))
 							{
 								StartObj(ObjCounter);
 								QString ShName = ResNam+IToStr(ResCount);
@@ -2238,13 +2238,13 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								ResCount++;
 								ObjCounter++;
 								PutDoc("<< /Type /ExtGState\n");
-								PutDoc("/CA "+FToStr(1.0 - ite->TranspStroke)+"\n");
-								PutDoc("/ca "+FToStr(1.0 - ite->TranspStroke)+"\n");
+								PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
+								PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
 								PutDoc("/BM /Normal\n>>\nendobj\n");
 								PutPage("/"+ShName+" gs\n");
 							}
 							if (Options->UseRGB)
-								PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n");
+								PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" rg\n");
 							else
 							{
 #ifdef HAVE_CMS
@@ -2254,12 +2254,12 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 									PutPage(tmp[Options->Intent]);
 									PutPage(" ri\n");
 									PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-									PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" scn\n");
+									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" scn\n");
 								}
 								else
 								{
 #endif
-									PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" k\n");
+									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" k\n");
 								}
 #ifdef HAVE_CMS
 							}
@@ -2274,7 +2274,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							arrowTrans.translate(ite->Width, 0);
 							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 							arrow.map(arrowTrans);
-							if ((ite->TranspStroke != 0) && (Options->Version == 14))
+							if ((ite->lineTransparency() != 0) && (Options->Version == 14))
 							{
 								StartObj(ObjCounter);
 								QString ShName = ResNam+IToStr(ResCount);
@@ -2282,13 +2282,13 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								ResCount++;
 								ObjCounter++;
 								PutDoc("<< /Type /ExtGState\n");
-								PutDoc("/CA "+FToStr(1.0 - ite->TranspStroke)+"\n");
-								PutDoc("/ca "+FToStr(1.0 - ite->TranspStroke)+"\n");
+								PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
+								PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
 								PutDoc("/BM /Normal\n>>\nendobj\n");
 								PutPage("/"+ShName+" gs\n");
 							}
 							if (Options->UseRGB)
-								PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n");
+								PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" rg\n");
 							else
 							{
 #ifdef HAVE_CMS
@@ -2298,12 +2298,12 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 									PutPage(tmp[Options->Intent]);
 									PutPage(" ri\n");
 									PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-									PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" scn\n");
+									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" scn\n");
 								}
 								else
 								{
 #endif
-									PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" k\n");
+									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" k\n");
 								}
 #ifdef HAVE_CMS
 							}
@@ -2319,13 +2319,13 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							PDF_Gradient(ite);
 						else
 						{
-							if (ite->Pcolor != "None")
+							if (ite->fillColor() != "None")
 							{
 								PutPage(SetClipPath(ite));
 								PutPage("h\nf*\n");
 							}
 						}
-						if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
+						if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
 						{
 							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 							{
@@ -2351,14 +2351,14 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								PDF_Gradient(ite);
 							else
 							{
-								if (ite->Pcolor != "None")
+								if (ite->fillColor() != "None")
 								{
 									PutPage(SetClipPath(ite));
 									PutPage("h\nf*\n");
 								}
 							}
 						}
-						if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
+						if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
 						{
 							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 							{
@@ -2391,7 +2391,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 									arrowTrans.rotate(r);
 									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 									arrow.map(arrowTrans);
-									if ((ite->TranspStroke != 0) && (Options->Version == 14))
+									if ((ite->lineTransparency() != 0) && (Options->Version == 14))
 									{
 										StartObj(ObjCounter);
 										QString ShName = ResNam+IToStr(ResCount);
@@ -2399,13 +2399,13 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 										ResCount++;
 										ObjCounter++;
 										PutDoc("<< /Type /ExtGState\n");
-										PutDoc("/CA "+FToStr(1.0 - ite->TranspStroke)+"\n");
-										PutDoc("/ca "+FToStr(1.0 - ite->TranspStroke)+"\n");
+										PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
+										PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
 										PutDoc("/BM /Normal\n>>\nendobj\n");
 										PutPage("/"+ShName+" gs\n");
 									}
 									if (Options->UseRGB)
-										PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n");
+										PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" rg\n");
 									else
 									{
 #ifdef HAVE_CMS
@@ -2415,12 +2415,12 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 											PutPage(tmp[Options->Intent]);
 											PutPage(" ri\n");
 											PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-											PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" scn\n");
+											PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" scn\n");
 										}
 										else
 										{
 #endif
-											PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" k\n");
+											PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" k\n");
 										}
 #ifdef HAVE_CMS
 									}
@@ -2446,7 +2446,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 									arrowTrans.rotate(r);
 									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 									arrow.map(arrowTrans);
-									if ((ite->TranspStroke != 0) && (Options->Version == 14))
+									if ((ite->lineTransparency() != 0) && (Options->Version == 14))
 									{
 										StartObj(ObjCounter);
 										QString ShName = ResNam+IToStr(ResCount);
@@ -2454,13 +2454,13 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 										ResCount++;
 										ObjCounter++;
 										PutDoc("<< /Type /ExtGState\n");
-										PutDoc("/CA "+FToStr(1.0 - ite->TranspStroke)+"\n");
-										PutDoc("/ca "+FToStr(1.0 - ite->TranspStroke)+"\n");
+										PutDoc("/CA "+FToStr(1.0 - ite->lineTransparency())+"\n");
+										PutDoc("/ca "+FToStr(1.0 - ite->lineTransparency())+"\n");
 										PutDoc("/BM /Normal\n>>\nendobj\n");
 										PutPage("/"+ShName+" gs\n");
 									}
 									if (Options->UseRGB)
-										PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n");
+										PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" rg\n");
 									else
 									{
 #ifdef HAVE_CMS
@@ -2470,12 +2470,12 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 											PutPage(tmp[Options->Intent]);
 											PutPage(" ri\n");
 											PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-											PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" scn\n");
+											PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" scn\n");
 										}
 										else
 										{
 #endif
-											PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" k\n");
+											PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" k\n");
 										}
 #ifdef HAVE_CMS
 									}
@@ -2493,7 +2493,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							if (ite->PoLine.size() > 3)
 							{
 								PutPage("q\n");
-								if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
+								if ((ite->lineColor() != "None") || (ite->NamedLStyle != ""))
 								{
 									if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 									{
@@ -2542,7 +2542,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 						continue;
 					PutPage("q\n");
-					if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && 
+					if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && 
 						(Options->Version == 14))
 						PDF_Transparenz(ite);
 					if (!ite->isPrintable)
@@ -2552,10 +2552,10 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					}
 					if (Options->UseRGB)
 					{
-						if (ite->Pcolor != "None")
-							PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" rg\n");
-						if (ite->Pcolor2 != "None")
-							PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" RG\n");
+						if (ite->fillColor() != "None")
+							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" rg\n");
+						if (ite->lineColor() != "None")
+							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" RG\n");
 					}
 					else
 					{
@@ -2568,18 +2568,18 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						PutPage(" ri\n");
 						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
 						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" CS\n");
-						if (ite->Pcolor != "None")
-							PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" scn\n");
-						if (ite->Pcolor2 != "None")
-							PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" SCN\n");
+						if (ite->fillColor() != "None")
+							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" scn\n");
+						if (ite->lineColor() != "None")
+							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" SCN\n");
 					}
 					else
 					{
 #endif
-						if (ite->Pcolor != "None")
-							PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" k\n");
-						if (ite->Pcolor2 != "None")
-							PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" K\n");
+						if (ite->fillColor() != "None")
+							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" k\n");
+						if (ite->lineColor() != "None")
+							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" K\n");
 					}
 #ifdef HAVE_CMS
 				}
@@ -3279,8 +3279,8 @@ void PDFlib::PDF_Transparenz(PageItem *b)
 	ResCount++;
 	ObjCounter++;
 	PutDoc("<< /Type /ExtGState\n");
-	PutDoc("/CA "+FToStr(1.0 - b->TranspStroke)+"\n");
-	PutDoc("/ca "+FToStr(1.0 - b->Transparency)+"\n");
+	PutDoc("/CA "+FToStr(1.0 - b->lineTransparency())+"\n");
+	PutDoc("/ca "+FToStr(1.0 - b->fillTransparency())+"\n");
 	PutDoc("/BM /Normal\n>>\nendobj\n");
 	PutPage("/"+ShName+" gs\n");
 }
@@ -3623,8 +3623,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			{
 				if (ite->TxtFill != "None")
 					cnx += " "+SetFarbe(ite->TxtFill, ite->ShTxtFill)+" rg\n";
-				if (ite->Pcolor != "None")
-					cnx += " "+SetFarbe(ite->Pcolor, ite->Shade)+" RG\n";
+				if (ite->fillColor() != "None")
+					cnx += " "+SetFarbe(ite->fillColor(), ite->fillShade())+" RG\n";
 			}
 			else
 			{
@@ -3633,8 +3633,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 				{
 					cnx += " /"+ICCProfiles[Options->SolidProf].ResName+" cs\n";
 					cnx += " /"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
-					if (ite->Pcolor != "None")
-						cnx += SetFarbe(ite->Pcolor, ite->Shade)+" SCN\n";
+					if (ite->fillColor() != "None")
+						cnx += SetFarbe(ite->fillColor(), ite->fillShade())+" SCN\n";
 					if (ite->TxtFill != "None")
 						cnx += SetFarbe(ite->TxtFill, ite->ShTxtFill)+" scn\n";
 				}
@@ -3643,8 +3643,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 #endif
 				if (ite->TxtFill != "None")
 					cnx += " "+SetFarbe(ite->TxtFill, ite->ShTxtFill)+" k";
-				if (ite->Pcolor != "None")
-					cnx += " "+SetFarbe(ite->Pcolor, ite->Shade)+" K";
+				if (ite->fillColor() != "None")
+					cnx += " "+SetFarbe(ite->fillColor(), ite->fillShade())+" K";
 			}
 #ifdef HAVE_CMS
 			}
@@ -3707,8 +3707,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			}
       			else
 			{
-				if (ite->Pcolor != "None")
-					PutDoc("/BG [ "+SetFarbe(ite->Pcolor, ite->Shade)+" ] ");
+				if (ite->fillColor() != "None")
+					PutDoc("/BG [ "+SetFarbe(ite->fillColor(), ite->fillShade())+" ] ");
 				if (ite->AnBColor != "None")
 					PutDoc("/BC [ "+SetFarbe(ite->AnBColor, 100)+" ] ");
 			}
@@ -3911,26 +3911,26 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc = "";
 		if (Options->UseRGB)
 		{
-			if (ite->Pcolor != "None")
-				cc += SetFarbe(ite->Pcolor, ite->Shade)+" RG\n";
+			if (ite->fillColor() != "None")
+				cc += SetFarbe(ite->fillColor(), ite->fillShade())+" RG\n";
 		}
 		else
 		{
 #ifdef HAVE_CMS
 			if ((CMSuse) && (Options->UseProfiles))
 			{
-				if (ite->Pcolor != "None")
+				if (ite->fillColor() != "None")
 				{
 					cc += " /"+ICCProfiles[Options->SolidProf].ResName+" cs\n";
 					cc += " /"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
-					cc += SetFarbe(ite->Pcolor, ite->Shade)+" SCN\n";
+					cc += SetFarbe(ite->fillColor(), ite->fillShade())+" SCN\n";
 				}
 			}
 			else
 			{
 #endif
-			if (ite->Pcolor != "None")
-				cc += SetFarbe(ite->Pcolor, ite->Shade)+" K\n";
+			if (ite->fillColor() != "None")
+				cc += SetFarbe(ite->fillColor(), ite->fillShade())+" K\n";
 		}
 #ifdef HAVE_CMS
 		}

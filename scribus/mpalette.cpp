@@ -1084,7 +1084,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	else
 	{
 		double lineCorr;
-		if (i->Pcolor2 != "None")
+		if (i->lineColor() != "None")
 			lineCorr = i->Pwidth;
 		else
 			lineCorr = 0;
@@ -1677,7 +1677,7 @@ void Mpalette::setCols(int r, double g)
 		else
 		{
 			double lineCorr;
-			if (CurItem->Pcolor2 != "None")
+			if (CurItem->lineColor() != "None")
 				lineCorr = CurItem->Pwidth;
 			else
 				lineCorr = 0;
@@ -2295,7 +2295,7 @@ void Mpalette::NewGap()
 		else
 		{
 			double lineCorr;
-			if (CurItem->Pcolor2 != "None")
+			if (CurItem->lineColor() != "None")
 				lineCorr = CurItem->Pwidth;
 			else
 				lineCorr = 0;
@@ -3314,7 +3314,7 @@ void Mpalette::ManageTabs()
 	if ((HaveDoc) && (HaveItem))
 	{
 		double lineCorr;
-		if (CurItem->Pcolor2 != "None")
+		if (CurItem->lineColor() != "None")
 			lineCorr = CurItem->Pwidth;
 		else
 			lineCorr = 0;

@@ -539,10 +539,10 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							painter->save();
 							painter->translate(b->Xpos*Scale, b->Ypos*Scale);
 							painter->rotate(b->Rot);
-							if (b->Pcolor2 != "None")
+							if (b->lineColor() != "None")
 							{
 								QColor tmp;
-								b->SetFarbe(&tmp, b->Pcolor2, b->Shade2);
+								b->SetFarbe(&tmp, b->lineColor(), b->lineShade());
 								if ((b->TopLine) || (b->RightLine) || (b->BottomLine) || (b->LeftLine))
 								{
 									painter->setPen(tmp, b->Pwidth, b->PLineArt, Qt::SquareCap, b->PLineJoin);
@@ -623,7 +623,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						{
 							HR->ItemPos = b->Xpos - Doc->ScratchLeft;
 							HR->ItemEndPos = (b->Xpos+b->Width) - Doc->ScratchLeft;
-							if (b->Pcolor2 != "None")
+							if (b->lineColor() != "None")
 								HR->lineCorr = b->Pwidth / 2.0;
 							else
 								HR->lineCorr = 0;
@@ -662,10 +662,10 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						painter->save();
 						painter->translate(b->Xpos*Scale, b->Ypos*Scale);
 						painter->rotate(b->Rot);
-						if (b->Pcolor2 != "None")
+						if (b->lineColor() != "None")
 						{
 							QColor tmp;
-							b->SetFarbe(&tmp, b->Pcolor2, b->Shade2);
+							b->SetFarbe(&tmp, b->lineColor(), b->lineShade());
 							if ((b->TopLine) || (b->RightLine) || (b->BottomLine) || (b->LeftLine))
 							{
 								painter->setPen(tmp, b->Pwidth, b->PLineArt, Qt::SquareCap, b->PLineJoin);
@@ -1374,9 +1374,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			emit ItemPos(b->Xpos, b->Ypos);
 			emit SetSizeValue(b->Pwidth);
 			emit SetLineArt(b->PLineArt, b->PLineEnd, b->PLineJoin);
-			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
+			emit ItemFarben(b->lineColor(), b->fillColor(), b->lineShade(), b->fillShade());
 			emit ItemGradient(b->GrType);
-			emit ItemTrans(b->Transparency, b->TranspStroke);
+			emit ItemTrans(b->fillTransparency(), b->lineTransparency());
 			emit HaveSel(7);
 		}
 		updateContents();
@@ -3709,7 +3709,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 								else
 								{
 									cli.putPoints(0, EndInd-StartInd, Clip, StartInd);
-									z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->Pcolor, b->Pcolor2);
+									z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->fillColor(), b->lineColor());
 									bb = Doc->Items.at(z);
 									if (EditContour)
 										bb->ContourLine.resize(0);
@@ -3763,7 +3763,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							{
 								if ((ClRe > 1) && (ClRe < static_cast<int>(Clip.size()-2)))
 								{
-									z = PaintPolyLine(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->Pcolor, b->Pcolor2);
+									z = PaintPolyLine(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->fillColor(), b->lineColor());
 									bb = Doc->Items.at(z);
 									if (EditContour)
 										bb->ContourLine.putPoints(0, Clip.size()-(ClRe+2), Clip, ClRe+2);
@@ -4125,9 +4125,9 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			emit ItemPos(b->Xpos, b->Ypos);
 			emit SetSizeValue(b->Pwidth);
 			emit SetLineArt(b->PLineArt, b->PLineEnd, b->PLineJoin);
-			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
+			emit ItemFarben(b->lineColor(), b->fillColor(), b->lineShade(), b->fillShade());
 			emit ItemGradient(b->GrType);
-			emit ItemTrans(b->Transparency, b->TranspStroke);
+			emit ItemTrans(b->fillTransparency(), b->lineTransparency());
 			emit HaveSel(5);
 			break;
 		case Rotation:
@@ -4268,9 +4268,9 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				emit ItemPos(b->Xpos, b->Ypos);
 				emit SetSizeValue(b->Pwidth);
 				emit SetLineArt(b->PLineArt, b->PLineEnd, b->PLineJoin);
-				emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
+				emit ItemFarben(b->lineColor(), b->fillColor(), b->lineShade(), b->fillShade());
 				emit ItemGradient(b->GrType);
-				emit ItemTrans(b->Transparency, b->TranspStroke);
+				emit ItemTrans(b->fillTransparency(), b->lineTransparency());
 				emit HaveSel(6);
 				break;
 			}
@@ -4311,9 +4311,9 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			emit ItemPos(b->Xpos, b->Ypos);
 			emit SetSizeValue(b->Pwidth);
 			emit SetLineArt(b->PLineArt, b->PLineEnd, b->PLineJoin);
-			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
+			emit ItemFarben(b->lineColor(), b->fillColor(), b->lineShade(), b->fillShade());
 			emit ItemGradient(b->GrType);
-			emit ItemTrans(b->Transparency, b->TranspStroke);
+			emit ItemTrans(b->fillTransparency(), b->lineTransparency());
 			emit HaveSel(7);
 			break;
 		case InsertPDFButton:
@@ -6429,7 +6429,7 @@ void ScribusView::slotDoCurs(bool draw)
 			if (b->itemText.count() == 0)
 			{
 				double lineCorr;
-				if (b->Pcolor2 != "None")
+				if (b->lineColor() != "None")
 					lineCorr = b->Pwidth / 2.0;
 				else
 					lineCorr = 0;
@@ -6443,7 +6443,7 @@ void ScribusView::slotDoCurs(bool draw)
 				if (b->itemText.at(b->CPos)->ch == QChar(9))
 				{
 					double lineCorr;
-					if (b->Pcolor2 != "None")
+					if (b->lineColor() != "None")
 						lineCorr = b->Pwidth / 2.0;
 					else
 						lineCorr = 0;
@@ -7278,9 +7278,9 @@ void ScribusView::EmitValues(PageItem *b)
 	emit SetSizeValue(b->Pwidth);
 	emit SetLineArt(b->PLineArt, b->PLineEnd, b->PLineJoin);
 	emit SetLocalValues(b->LocalScX, b->LocalScY, b->LocalX, b->LocalY );
-	emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
+	emit ItemFarben(b->lineColor(), b->fillColor(), b->lineShade(), b->fillShade());
 	emit ItemGradient(b->GrType);
-	emit ItemTrans(b->Transparency, b->TranspStroke);
+	emit ItemTrans(b->fillTransparency(), b->lineTransparency());
 	emit ItemTextAttr(b->LineSp);
 	emit ItemTextUSval(b->ExtraV);
 	emit SetDistValues(b->Extra, b->TExtra, b->BExtra, b->RExtra);
@@ -7887,8 +7887,8 @@ void ScribusView::ClearItem()
 				b->EmProfile = "";
 				b->ScaleType = true;
 				b->AspectRatio = true;
-				b->Transparency = 0.0;
-				b->TranspStroke = 0.0;
+				b->setFillTransparency(0.0);
+				b->setLineTransparency(0.0);
 				b->InvPict = false;
 				emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr);
 			}
@@ -9051,8 +9051,8 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 	else
 		Doc->DocItems = Doc->Items;
 	ite->PLineArt = PenStyle(Doc->toolSettings.dLineArt);
-	ite->Shade = Doc->toolSettings.dShade;
-	ite->Shade2 = Doc->toolSettings.dShade2;
+	ite->setFillShade(Doc->toolSettings.dShade);
+	ite->setLineShade(Doc->toolSettings.dShade2);
 	ite->ItemNr = Doc->Items.count()-1;
 	SetOvalFrame(ite);
 	ite->ContourLine = ite->PoLine.copy();
@@ -9092,7 +9092,7 @@ int ScribusView::PaintPict(double x, double y, double b, double h)
 		Doc->MasterItems = Doc->Items;
 	else
 		Doc->DocItems = Doc->Items;
-	ite->Shade = Doc->toolSettings.shadePict;
+	ite->setFillShade(Doc->toolSettings.shadePict);
 	ite->LocalScX = Doc->toolSettings.scaleX;
 	ite->LocalScY = Doc->toolSettings.scaleY;
 	ite->ScaleType = Doc->toolSettings.scaleType;
@@ -9139,8 +9139,8 @@ int ScribusView::PaintRect(double x, double y, double b, double h, double w, QSt
 	else
 		Doc->DocItems = Doc->Items;
 	ite->PLineArt = PenStyle(Doc->toolSettings.dLineArt);
-	ite->Shade = Doc->toolSettings.dShade;
-	ite->Shade2 = Doc->toolSettings.dShade2;
+	ite->setFillShade(Doc->toolSettings.dShade);
+	ite->setLineShade(Doc->toolSettings.dShade2);
 	ite->ItemNr = Doc->Items.count()-1;
 	SetRectFrame(ite);
 	ite->ContourLine = ite->PoLine.copy();
@@ -9181,8 +9181,8 @@ int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QSt
 	else
 		Doc->DocItems = Doc->Items;
 	ite->PLineArt = PenStyle(Doc->toolSettings.dLineArt);
-	ite->Shade = Doc->toolSettings.dShade;
-	ite->Shade2 = Doc->toolSettings.dShade2;
+	ite->setFillShade(Doc->toolSettings.dShade);
+	ite->setLineShade(Doc->toolSettings.dShade2);
 	ite->ItemNr =Doc-> Items.count()-1;
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
@@ -9223,8 +9223,8 @@ int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w,
 	else
 		Doc->DocItems = Doc->Items;
 	ite->PLineArt = PenStyle(Doc->toolSettings.dLineArt);
-	ite->Shade = Doc->toolSettings.dShade;
-	ite->Shade2 = Doc->toolSettings.dShade2;
+	ite->setFillShade(Doc->toolSettings.dShade);
+	ite->setLineShade(Doc->toolSettings.dShade2);
 	ite->ItemNr = Doc->Items.count()-1;
 	ite->ClipEdited = true;
 	if (!Doc->loading)
@@ -9305,7 +9305,7 @@ int ScribusView::PaintLine(double x, double y, double b, double h, double w, QSt
 	else
 		Doc->DocItems = Doc->Items;
 	ite->PLineArt = PenStyle(Doc->toolSettings.dLstyleLine);
-	ite->Shade2 = Doc->toolSettings.dShadeLine;
+	ite->setLineShade(Doc->toolSettings.dShadeLine);
 	ite->ItemNr = Doc->Items.count()-1;
 	if (!Doc->loading)
 	{
@@ -9524,7 +9524,7 @@ void ScribusView::ItemPen(QString farbe)
 				continue;
 			i->setLineColor(farbe);
 			RefreshItem(i);
-			emit ItemFarben(i->Pcolor2, i->Pcolor, i->Shade2, i->Shade);
+			emit ItemFarben(i->lineColor(), i->fillColor(), i->lineShade(), i->fillShade());
 		}
 		if (SelItem.count() > 1)
 			undoManager->commit();
@@ -9557,7 +9557,7 @@ void ScribusView::ItemTextBrush(QString farbe)
 				}
 			}
 			RefreshItem(b);
-			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
+			emit ItemFarben(b->lineColor(), b->fillColor(), b->lineShade(), b->fillShade());
 		}
 	}
 }
@@ -9587,7 +9587,7 @@ void ScribusView::ItemTextBrushS(int sha)
 				}
 			}
 			RefreshItem(b);
-			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
+			emit ItemFarben(b->lineColor(), b->fillColor(), b->lineShade(), b->fillShade());
 		}
 	}
 }
@@ -9694,7 +9694,7 @@ void ScribusView::ItemBrush(QString farbe)
 			b = SelItem.at(a);
 			b->setFillColor(farbe);
 			RefreshItem(b);
-			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
+			emit ItemFarben(b->lineColor(), b->fillColor(), b->lineShade(), b->fillShade());
 		}
 		if (SelItem.count() > 1)
 			undoManager->commit();
@@ -9714,7 +9714,7 @@ void ScribusView::ItemBrushShade(int sha)
 		{
 			b = SelItem.at(a);
 			b->setFillShade(sha);
-			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
+			emit ItemFarben(b->lineColor(), b->fillColor(), b->lineShade(), b->fillShade());
 			RefreshItem(b);
 		}
 		if (SelItem.count() > 1)
@@ -10684,10 +10684,10 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	b->RadRect = Buffer->RadRect;
 	b->FrameType = Buffer->FrameType;
 	b->ClipEdited = Buffer->ClipEdited;
-	b->Pcolor = Buffer->Pcolor;
-	b->Pcolor2 = Buffer->Pcolor2;
-	b->Shade = Buffer->Shade;
-	b->Shade2 = Buffer->Shade2;
+	b->setFillColor(Buffer->Pcolor);
+	b->setLineColor(Buffer->Pcolor2);
+	b->setFillShade(Buffer->Shade);
+	b->setLineShade(Buffer->Shade2);
 	b->TxtStroke = Buffer->TxtStroke;
 	b->TxtFill = Buffer->TxtFill;
 	b->ShTxtStroke = Buffer->ShTxtStroke;
@@ -10795,8 +10795,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	b->DashOffset = Buffer->DashOffset;
 	b->setLocked(Buffer->Locked);
 	b->setSizeLocked(Buffer->LockRes);
-	b->Transparency = Buffer->Transparency;
-	b->TranspStroke = Buffer->TranspStroke;
+	b->setFillTransparency(Buffer->Transparency);
+	b->setLineTransparency(Buffer->TranspStroke);
 	b->Reverse = Buffer->Reverse;
 	b->InvPict = Buffer->InvPict;
 	b->NamedLStyle = Buffer->NamedLStyle;
@@ -11134,9 +11134,9 @@ void ScribusView::QueryFarben()
 	PageItem *b;
 	if (GetItem(&b))
 	{
-		emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
+		emit ItemFarben(b->lineColor(), b->fillColor(), b->lineShade(), b->fillShade());
 		emit ItemGradient(b->GrType);
-		emit ItemTrans(b->Transparency, b->TranspStroke);
+		emit ItemTrans(b->fillTransparency(), b->lineTransparency());
 	}
 }
 
@@ -11160,7 +11160,7 @@ void ScribusView::ToPathText()
 		b->PType = 8;
 		b->PoLine = bb->PoLine.copy();
 		b->Pwidth = bb->Pwidth;
-		b->Pcolor2 = bb->Pcolor2;
+		b->setLineColor(bb->lineColor());
 		b->PLineArt = bb->PLineArt;
 		b->PLineEnd = bb->PLineEnd;
 		b->PLineJoin = bb->PLineJoin;
@@ -11185,7 +11185,7 @@ void ScribusView::FromPathText()
 	PageItem *b;
 	if (GetItem(&b))
 	{
-		uint z = PaintPolyLine(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, "None", b->Pcolor2);
+		uint z = PaintPolyLine(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, "None", b->lineColor());
 		PageItem *bb = Doc->Items.at(z);
 		bb->PoLine = b->PoLine.copy();
 		bb->ClipEdited = true;
@@ -11194,7 +11194,7 @@ void ScribusView::FromPathText()
 		SetPolyClip(bb, qRound(QMAX(bb->Pwidth / 2, 1)));
 		AdjustItemSize(bb);
 		b->PType = 4;
-		b->Pcolor2 = "None";
+		b->setLineColor("None");
 		b->Frame = true;
 		SetRectFrame(b);
 		SelectItemNr(b->ItemNr);
@@ -11258,7 +11258,7 @@ void ScribusView::TextToPath()
 			if (b->imageFlippedV())
 				chma.scale(1, -1);
 			pts.map(chma);
-			uint z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->Pcolor2, b->Pcolor);
+			uint z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->lineColor(), b->fillColor());
 			bb = Doc->Items.at(z);
 			bb->Textflow = b->Textflow;
 			bb->Textflow2 = b->Textflow2;
@@ -11269,17 +11269,17 @@ void ScribusView::TextToPath()
 			bb->AutoName = false;
 			bb->PoLine = pts.copy();
 			bb->Rot = b->Rot;
-			bb->Pcolor = b->itemText.at(a)->ccolor;
-			bb->Shade = b->itemText.at(a)->cshade;
+			bb->setFillColor(b->itemText.at(a)->ccolor);
+			bb->setFillShade(b->itemText.at(a)->cshade);
 			if (b->itemText.at(a)->cstyle & 4)
 			{
-				bb->Pcolor2 = b->itemText.at(a)->cstroke;
-				bb->Shade2 = b->itemText.at(a)->cshade2;
+				bb->lineColor() = b->itemText.at(a)->cstroke;
+				bb->setLineShade(b->itemText.at(a)->cshade2);
 			}
 			else
 			{
-				bb->Pcolor2 = "None";
-				bb->Shade2 = 100;
+				bb->lineColor() = "None";
+				bb->setLineShade(100);
 			}
 			bb->Pwidth = QMAX((*Doc->AllFonts)[b->itemText.at(a)->cfont]->strokeWidth * chs / 2.0, 1);
 			FPoint tp2 = getMinClipF(&bb->PoLine);
@@ -11376,7 +11376,7 @@ void ScribusView::SplitObj()
 		if (b->PoLine.point(a).x() > 900000)
 		{
 			StartInd = a + 1;
-			z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->Pcolor, b->Pcolor2);
+			z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->fillColor(), b->lineColor());
 			bb = Doc->Items.at(z);
 			bb->PoLine.resize(0);
 			bb->PoLine.putPoints(0, EndInd - StartInd, b->PoLine, StartInd);
