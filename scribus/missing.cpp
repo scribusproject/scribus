@@ -8,6 +8,7 @@
 #include "missing.moc"
 
 #include "fontcombo.h"
+#include "scribusdoc.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -292,7 +293,7 @@ static const char* const image100_data[] =
     };
 
 
-MissingFont::MissingFont( QWidget* parent, QString fon, ApplicationPrefs *Prefs )
+MissingFont::MissingFont( QWidget* parent, QString fon, ApplicationPrefs *Prefs, ScribusDoc* doc )
 		: QDialog( parent, "mfont", true, 0 )
 {
 	QPixmap image0( ( const char** ) image100_data );
@@ -310,7 +311,16 @@ MissingFont::MissingFont( QWidget* parent, QString fon, ApplicationPrefs *Prefs 
 	useLabel = new QLabel( tr( "Use" ), this, "useLabel" );
 	missingFontGridLayout->addWidget( useLabel, 1, 1 );
 	replaceFontCombo = new FontCombo(this, Prefs);
-	replacementFont = replaceFontCombo->text(0);
+	if (doc != 0)
+	{
+		replaceFontCombo->setCurrentText(doc->Dfont);
+		replacementFont = doc->Dfont;
+	}
+	else
+	{
+		replaceFontCombo->setCurrentText(Prefs->DefFont);
+		replacementFont = Prefs->DefFont;
+	}
 	missingFontGridLayout->addWidget( replaceFontCombo, 1, 2 );
 	insteadLabel = new QLabel( tr( "instead" ), this, "insteadLabel" );
 	missingFontGridLayout->addWidget( insteadLabel, 1, 3 );

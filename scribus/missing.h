@@ -7,6 +7,7 @@ class QHBoxLayout;
 class QGridLayout;
 class QPushButton;
 class FontCombo;
+class ScribusDoc;
 #include "scribusstructs.h"
 
 class MissingFont : public QDialog
@@ -14,7 +15,7 @@ class MissingFont : public QDialog
     Q_OBJECT
 
 public:
-    MissingFont( QWidget* parent, QString fon, ApplicationPrefs *Prefs );
+    MissingFont( QWidget* parent, QString fon, ApplicationPrefs *Prefs, ScribusDoc* doc);
     ~MissingFont() {};
 	
 	const QString getReplacementFont();

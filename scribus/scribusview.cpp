@@ -1814,7 +1814,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					double sc = Scale;
 					scx = sc;
 					scy = sc;
-					QPoint np2 = QPoint(static_cast<int>(m->x()/sc), static_cast<int>(m->y()/sc));
+					QPoint np2;
+					if (m->state() & ControlButton)
+						np2 = QPoint(qRound(m->x()/sc), qRound(((gy+(gh * ((m->x()/sc-gx) / gw)))*sc)/sc));
+					else 
+						np2 = QPoint(qRound(m->x()/sc), qRound(m->y()/sc));
 					nx = np2.x();
 					ny = np2.y();
 					if (!ApplyGuides(&nx, &ny))
@@ -3080,8 +3084,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					case 1:
 						if (m->state() & ControlButton)
 						{
-							np2 = QPoint(m->x(), static_cast<int>((gy+(gh * ((newX-gx) / gw)))*sc));
-							QCursor::setPos(mapToGlobal(np2));
+							np2 = QPoint(m->x(), qRound((gy+(gh * ((newX-gx) / gw)))*sc));
 							np2 = QPoint(qRound(np2.x()/sc), qRound(np2.y()/sc));
 						}
 						else
@@ -3132,17 +3135,11 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								p.begin(viewport());
 								Transform(b, &p);
 								if ((m->state() & ShiftButton) && (!(m->state() & ControlButton)))
-								{
 									mop = QPoint(m->x(), static_cast<int>((b->Ypos + (newX - b->Xpos)) * sc));
-									QCursor::setPos(mapToGlobal(mop));
-								}
 								else
 								{
 									if ((m->state() & ControlButton) && (!(m->state() & ShiftButton)))
-									{
 										mop = QPoint(m->x(), static_cast<int>((b->Ypos + ((newX - b->Xpos) / b->OldB2 * b->OldH2)) * sc));
-										QCursor::setPos(mapToGlobal(mop));
-									}
 									else
 										mop = QPoint(m->x(), m->y());
 								}

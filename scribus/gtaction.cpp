@@ -418,7 +418,7 @@ QString gtAction::validateFont(gtFont* font)
 			{
 				if (!ScApp->Prefs.GFontSub.contains(font->getName()))
 				{
-					MissingFont *dia = new MissingFont(0, useFont, &ScApp->Prefs);
+					MissingFont *dia = new MissingFont(0, useFont, &ScApp->Prefs, ScApp->doc);
 					dia->exec();
 					useFont = dia->getReplacementFont();
 					ScApp->Prefs.GFontSub[font->getName()] = useFont;

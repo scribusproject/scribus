@@ -1864,7 +1864,7 @@ NoRoom: pf2.end();
 			}
 		}
 	}
-	if ((!Tinput) && (!Doc->RePos))
+	if (!Doc->RePos)
 	{
 		double scp = QMAX(ScApp->view->Scale, 1);
 		if ((Frame) && (Doc->guidesSettings.framesShown) && ((PType == 2) || (PType == 4)))

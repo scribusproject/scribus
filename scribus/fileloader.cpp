@@ -931,7 +931,7 @@ QString FileLoader::AskForFont(SCFonts &avail, QString fStr, ApplicationPrefs *P
 		if ((!Prefs->GFontSub.contains(tmpf)) || (!avail[Prefs->GFontSub[tmpf]]->UseFont))
 		{
 			qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
-			MissingFont *dia = new MissingFont(0, tmpf, Prefs);
+			MissingFont *dia = new MissingFont(0, tmpf, Prefs, doc);
 			dia->exec();
 			tmpf = dia->getReplacementFont();
 			delete dia;

@@ -152,7 +152,7 @@ QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, ApplicationPrefs *P
 		if ((!Prefs->GFontSub.contains(tmpf)) || (!avail[Prefs->GFontSub[tmpf]]->UseFont))
 		{
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
-			MissingFont *dia = new MissingFont(0, tmpf, Prefs);
+			MissingFont *dia = new MissingFont(0, tmpf, Prefs, doc);
 			dia->exec();
 			tmpf = dia->getReplacementFont();
 			delete dia;
@@ -1736,7 +1736,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			{
 				if (!FontSub.contains(tmpf) || (!avail[FontSub[tmpf]]->UseFont))
 				{
-					MissingFont *dia = new MissingFont(0, tmpf, Prefs);
+					MissingFont *dia = new MissingFont(0, tmpf, Prefs, doc);
 					dia->exec();
 					tmpf = dia->getReplacementFont();
 					FontSub[pg.attribute("NAME")] = tmpf;
@@ -3328,7 +3328,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			{
 				if (splash)
 					splash->hide();
-				MissingFont *dia = new MissingFont(0, tmpf, Vorein);
+				MissingFont *dia = new MissingFont(0, tmpf, Vorein, 0);
 				dia->exec();
 				newFont = dia->getReplacementFont();
 				delete dia;
