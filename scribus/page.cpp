@@ -131,6 +131,7 @@ Page::Page(QWidget *pa, int x, int y, int b, int h, ScribusDoc *doc, QScrollView
 	MoveGY = false;
 	GxM = 0;
 	MoveGX = false;
+	CursVis = false;
 }
 
 void Page::dragLeaveEvent(QDragLeaveEvent *e)
@@ -445,6 +446,8 @@ void Page::paintEvent(QPaintEvent *e)
 	QRect vr = ViewReg().boundingRect().intersect(e->rect());
 	if ((vr.width() < 1) || (vr.height() < 1))
 		return;
+	if (doku->AppMode == 7)
+		slotDoCurs(false);
 	QPixmap pgPix(vr.width(), vr.height());
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 	painter->clear(doku->papColor);
@@ -478,6 +481,8 @@ void Page::paintEvent(QPaintEvent *e)
 		}
 	}
 	delete painter;
+	if (doku->AppMode == 7)
+		slotDoCurs(true);
 }
 
 void Page::DrawPageMarks(ScPainter *p, QRect rd)
@@ -687,8 +692,8 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 						if (!((doku->EditClip) && (Mpressed)))
 							b->DrawObj(painter, rd);
 						b->Redrawn = true;
-						if ((doku->AppMode == 7) && (b->Select))
-							slotDoCurs(true);
+//						if ((doku->AppMode == 7) && (b->Select))
+//							slotDoCurs(true);
 					}
 				}
 				for (a = 0; a < Items.count(); ++a)
@@ -1003,7 +1008,13 @@ void Page::RefreshItem(PageItem *b, bool single)
 	if (single)
 		RepaintTextRegion(b, QRegion(p.xForm(rd)), true);
 	else
+	{
+		if (doku->AppMode == 7)
+			slotDoCurs(false);
 		update(QRegion(p.xForm(rd)).intersect(ViewReg()).boundingRect());
+		if (doku->AppMode == 7)
+			slotDoCurs(true);
+	}
 	p.end();
 	b->OldPwidth = b->Pwidth;
 }
@@ -1012,6 +1023,8 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt, bool single)
 {
 	if (!isUpdatesEnabled())
 		return;
+	if (doku->AppMode == 7)
+		slotDoCurs(false);
 	QPainter p;
 	QRegion neu;
 	p.begin(this);
@@ -1090,6 +1103,8 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt, bool single)
 		neu = QRegion(g);
 		update(neu.intersect(ViewReg()).boundingRect());
 	}
+	if (doku->AppMode == 7)
+		slotDoCurs(true);
 }
 
 void Page::AdjustPreview(PageItem *b, bool reload)
@@ -2639,7 +2654,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem( tr("Get Text..."), this, SIGNAL(LoadPic()));
 				pmen->insertItem( tr("Append Text..."), this, SIGNAL(AppendText()));
 				pmen->insertItem( tr("Edit Text..."), this, SIGNAL(EditText()));
-				pmen->insertItem( tr("Insert LoremIpsum"), this, SLOT(LoremIpsum()));
+				pmen->insertItem( tr("Insert Sample Text"), this, SLOT(LoremIpsum()));
 				if (PageNam == "")
 				{
 					int pxb = pmen->insertItem( tr("Is PDF-Bookmark"), this, SLOT(ToggleBookmark()));
@@ -4335,7 +4350,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 					ma.setTransformationMode ( QWMatrix::Areas );
 					p.setWorldMatrix(ma);
 					tx = p.xForm(QRect(0, 0, static_cast<int>(b->Width), static_cast<int>(b->Height)));
-					if (tx.contains(m->pos()))
+					if ((tx.contains(m->pos())) && (!b->Locked))
 					{
 						qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 						if (doku->AppMode == 9)
@@ -4348,7 +4363,8 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 								qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
 						}
 						QRect mpo = QRect(m->x()-doku->GrabRad, m->y()-doku->GrabRad, doku->GrabRad*2, doku->GrabRad*2);
-						HandleCurs(&p, b, mpo);
+						if (!b->LockRes)
+							HandleCurs(&p, b, mpo);
 					}
 					else
 						qApp->setOverrideCursor(QCursor(ArrowCursor), true);
@@ -5997,7 +6013,6 @@ bool Page::slotSetCurs(int x, int y)
 
 void Page::slotDoCurs(bool draw)
 {
-	QColor tmp;
 	int chs, offs;
 	PageItem *b;
 	if (GetItem(&b))
@@ -6070,30 +6085,33 @@ void Page::slotDoCurs(bool draw)
 		}
 		yp1 = yp - asce;
 		yp += desc;
+		p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
+		p.setRasterOp(XorROP);
 		if (draw)
 		{
-			p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
-			CursVis = false;
+			p.drawLine(xp, QMIN(QMAX(yp1,0),static_cast<int>(b->Height)), xp, QMIN(QMAX(yp,0),static_cast<int>(b->Height)));
+			CursVis = !CursVis;
+			if (doku->CurTimer != 0)
+			{
+				if (!doku->CurTimer->isActive())
+					doku->CurTimer->start(500);
+			}
 		}
 		else
 		{
-			if (b->Pcolor != "None")
-			{
-				b->SetFarbe(&tmp, b->Pcolor, b->Shade);
-				p.setPen(tmp);
-			}
-			else
-				p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
-			CursVis = true;
+			if (CursVis)
+				p.drawLine(xp, QMIN(QMAX(yp1,0),static_cast<int>(b->Height)), xp, QMIN(QMAX(yp,0),static_cast<int>(b->Height)));
+			CursVis = false;
+			if (doku->CurTimer != 0)
+				doku->CurTimer->stop();
 		}
-		p.drawLine(xp, QMIN(QMAX(yp1,0),static_cast<int>(b->Height)), xp, QMIN(QMAX(yp,0),static_cast<int>(b->Height)));
 		p.end();
 	}
 }
 
 void Page::BlinkCurs()
 {
-	slotDoCurs(CursVis);
+	slotDoCurs(true);
 }
 
 void Page::MarkClip(PageItem *b)

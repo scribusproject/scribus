@@ -1326,11 +1326,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
 								p->setBrush(tmp);
 								}
-							if (Zli2->Farb2 != "None")
-								{
-								SetFarbe(&tmp, Zli2->Farb2, Zli2->shade2);
-								p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
-								}
 							if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->AppMode == 7))
 								{
 								wide = Zli2->wide;
@@ -1338,9 +1333,15 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								asce = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0));
 								p->setFillMode(1);
 								p->setBrush(darkBlue);
+								p->setLineWidth(0);
 								if (!Doc->RePos)
 									p->drawRect(Zli2->xco, Zli2->yco-asce, wide+1, asce+desc);
 								p->setBrush(white);
+								}
+							if (Zli2->Farb2 != "None")
+								{
+								SetFarbe(&tmp, Zli2->Farb2, Zli2->shade2);
+								p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 								}
 							if (!Doc->RePos)
 								{
@@ -1411,11 +1412,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
 						p->setBrush(tmp);
 						}
-					if (Zli2->Farb2 != "None")
-						{
-						SetFarbe(&tmp, Zli2->Farb2, Zli2->shade2);
-						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
-						}
 					if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->AppMode == 7))
 						{
 						wide = Zli2->wide;
@@ -1423,9 +1419,15 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						asce = qRound((*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0));
 						p->setFillMode(1);
 						p->setBrush(darkBlue);
+						p->setLineWidth(0);
 						if (!Doc->RePos)
 							p->drawRect(Zli2->xco, Zli2->yco-asce, wide+1, asce+desc);
 						p->setBrush(white);
+						}
+					if (Zli2->Farb2 != "None")
+						{
+						SetFarbe(&tmp, Zli2->Farb2, Zli2->shade2);
+						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 						}
 					if (!Doc->RePos)
 						{
@@ -1768,40 +1770,35 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					pr.setBrush(NoBrush);
 					pr.drawRect(-1, -1, static_cast<int>(Width*Doc->Scale)+2,
 								 static_cast<int>(Height*Doc->Scale)+2);
-					if (Locked)
+					pr.setPen(QPen(red, 1, SolidLine, FlatCap, MiterJoin));
+					pr.setBrush(red);
+					if ((!Locked) && (!LockRes))
 					{
-						pr.setPen(QPen(darkRed, 1, SolidLine, FlatCap, MiterJoin));
-						pr.setBrush(darkRed);
-					}
-					else
-					{
-						pr.setPen(QPen(red, 1, SolidLine, FlatCap, MiterJoin));
-						pr.setBrush(red);
-					}
-					if (PType != 5)
-					{
-						pr.drawRect(-1, -1, 6, 6);
-						pr.drawRect(static_cast<int>(Width*Doc->Scale), static_cast<int>(Height*Doc->Scale), 
-									-6, -6);
-						pr.drawRect(static_cast<int>(Width*Doc->Scale), -1, -6, 6);
-						pr.drawRect(-1, static_cast<int>(Height*Doc->Scale), 6, -6);
-						if (Width > 6)
+						if (PType != 5)
 						{
-							pr.drawRect(static_cast<int>(Width/2*Doc->Scale - 3),
-										 static_cast<int>(Height*Doc->Scale), 6, -6);
-							pr.drawRect(static_cast<int>(Width/2*Doc->Scale - 3), -1, 6, 6);
+							pr.drawRect(-1, -1, 6, 6);
+							pr.drawRect(static_cast<int>(Width*Doc->Scale), static_cast<int>(Height*Doc->Scale), 
+										-6, -6);
+							pr.drawRect(static_cast<int>(Width*Doc->Scale), -1, -6, 6);
+							pr.drawRect(-1, static_cast<int>(Height*Doc->Scale), 6, -6);
+							if (Width > 6)
+							{
+								pr.drawRect(static_cast<int>(Width/2*Doc->Scale - 3),
+											static_cast<int>(Height*Doc->Scale), 6, -6);
+								pr.drawRect(static_cast<int>(Width/2*Doc->Scale - 3), -1, 6, 6);
+							}
+							if (Height > 6)
+							{
+								pr.drawRect(static_cast<int>(Width*Doc->Scale), 
+											static_cast<int>(Height/2*Doc->Scale - 3), -6, 6);
+								pr.drawRect(-1, static_cast<int>(Height/2*Doc->Scale - 3), 6, 6);
+							}
 						}
-						if (Height > 6)
+						else
 						{
-							pr.drawRect(static_cast<int>(Width*Doc->Scale), 
-										static_cast<int>(Height/2*Doc->Scale - 3), -6, 6);
-							pr.drawRect(-1, static_cast<int>(Height/2*Doc->Scale - 3), 6, 6);
+							pr.drawRect(-3, -3, 6, 6);
+							pr.drawRect(static_cast<int>(Width*Doc->Scale)+3, -3, -6, 6);
 						}
-					}
-					else
-					{
-						pr.drawRect(-3, -3, 6, 6);
-						pr.drawRect(static_cast<int>(Width*Doc->Scale)+3, -3, -6, 6);
 					}
 					pr.end();
 				}

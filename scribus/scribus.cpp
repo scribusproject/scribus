@@ -2423,6 +2423,7 @@ void ScribusApp::HaveNewDoc()
 	doc->PDF_Optionen.BleedTop = doc->PageM.Top;
 	doc->PDF_Optionen.BleedLeft = doc->PageM.Left;
 	doc->PDF_Optionen.BleedRight = doc->PageM.Right;
+	doc->CurTimer = 0;
 }
 
 void ScribusApp::HaveNewSel(int Nr)
@@ -4597,6 +4598,7 @@ void ScribusApp::setAppMode(int mode)
  			view->LE->setFocusPolicy(QWidget::ClickFocus);
 			view->PGS->PageCombo->setFocusPolicy(QWidget::ClickFocus);
 			delete doc->CurTimer;
+			doc->CurTimer = 0;
 			editMenu->setItemEnabled(edid4, 0);
 			editMenu->setItemEnabled(edid5, 0);
 			doc->ActPage->slotDoCurs(false);

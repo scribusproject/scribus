@@ -35,6 +35,24 @@ bool LabelButton::getState()
 	return state;
 }
 
+void LabelButton::enterEvent(QEvent*)
+{
+	setFrameStyle( QFrame::Panel | QFrame::Raised );
+	setLineWidth( 2 );
+}
+
+void LabelButton::leaveEvent(QEvent*)
+{
+	setFrameStyle( QFrame::Panel | QFrame::Plain );
+	setLineWidth( 0 );
+}
+
+void LabelButton::mousePressEvent(QMouseEvent*)
+{
+	setFrameStyle( QFrame::Panel | QFrame::Sunken );
+	setLineWidth( 2 );
+}
+
 void LabelButton::mouseReleaseEvent(QMouseEvent*)
 {
 	state = !state;
@@ -42,6 +60,8 @@ void LabelButton::mouseReleaseEvent(QMouseEvent*)
 		setText(TextA);
 	else
 		setText(TextB);
+	setFrameStyle( QFrame::Panel | QFrame::Raised );
+	setLineWidth( 2 );
 	emit clicked();
 }
 
@@ -3040,7 +3060,10 @@ void Mpalette::handleResize()
 	if ((HaveDoc) && (HaveItem))
 	{
 		for ( uint a = 0; a < doc->ActPage->SelItem.count(); ++a)
+		{
 			doc->ActPage->SelItem.at(a)->LockRes = NoResize->isOn();
+			doc->ActPage->RefreshItem(doc->ActPage->SelItem.at(a));
+		}
 		Width->setEnabled(!NoResize->isOn());
 		Height->setEnabled(!NoResize->isOn());
 		emit DocChanged();

@@ -55,6 +55,9 @@ signals:
 	void clicked();
 
 protected:
+	virtual void enterEvent(QEvent*);
+	virtual void leaveEvent(QEvent*);
+	virtual void mousePressEvent(QMouseEvent*);
 	virtual void mouseReleaseEvent(QMouseEvent *);
 };
 
@@ -156,7 +159,6 @@ public:
 	MSpinBox* LineW;
 	QLabel* Text14;
 	QLabel* Text14a;
-//	QLabel* Text14b;
 	LabelButton* Text14b;
 	QLabel* Text15;
 	QLabel* Text16;
