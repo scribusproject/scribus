@@ -41,6 +41,14 @@ struct ScText
 	QString ch;
 };
 
+struct ImageInfoRecord
+{
+	int xres;
+	int yres;
+	bool colorspace;
+	FPointArray clipPath;
+};
+
 struct CopyPasteBuffer
 {
 	PageItem::ItemType PType;

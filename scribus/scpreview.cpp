@@ -23,7 +23,7 @@ extern int QStoInt(QString in);
 extern QString GetAttr(QDomElement *el, QString at, QString def="0");
 extern double xy2Deg(double x, double y);
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
-extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
+extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0, ImageInfoRecord *info = 0);
 extern ScribusApp* ScApp;
 
 ScPreview::ScPreview(ApplicationPrefs *prefs)

@@ -89,7 +89,7 @@ QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr=0);
 QImage ProofPict(QImage *Im, QString Prof, int Rend);
 #endif
 extern int callGS(const QStringList & args);
-extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
+extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0, ImageInfoRecord *info = 0);
 extern double UmReFaktor;
 extern ProfilesL InputProfiles;
 

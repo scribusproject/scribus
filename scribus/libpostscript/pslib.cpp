@@ -45,7 +45,7 @@ extern QString CompressStr(QString *in);
 extern QString ImageToCMYK_PS(QImage *im, int pl, bool pre);
 extern char *toHex( uchar u );
 extern QString String2Hex(QString *in, bool lang = true);
-extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
+extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0, ImageInfoRecord *info = 0);
 extern QString getAlpha(QString fn, bool PDF, bool pdf14);
 
 extern "C" void* Run(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);

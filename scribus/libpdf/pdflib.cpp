@@ -53,7 +53,7 @@ extern QString Path2Relative(QString Path);
 extern bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat);
 extern QByteArray ComputeMD5Sum(QByteArray *in);
 extern bool loadText(QString nam, QString *Buffer);
-extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
+extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0, ImageInfoRecord *info = 0);
 extern QString getAlpha(QString fn, bool PDF, bool pdf14);
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern QString CompressStr(QString *in);

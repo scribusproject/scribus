@@ -45,7 +45,8 @@
  #include "config.h"
 #endif
 
-extern "C" {
+extern "C"
+{
 #define XMD_H           // shut JPEGlib up
 #if defined(Q_OS_UNIXWARE)
 #  define HAVE_BOOLEAN  // libjpeg under Unixware seems to need this
@@ -72,18 +73,18 @@ extern "C" {
 #endif
 #ifdef HAVE_CMS
 	#include CMS_INC
-	extern cmsHPROFILE CMSoutputProf;
-	extern cmsHPROFILE CMSprinterProf;
-	extern cmsHTRANSFORM stdTrans;
-	extern cmsHTRANSFORM stdProof;
-	extern cmsHTRANSFORM stdTransImg;
-	extern cmsHTRANSFORM stdProofImg;
-	extern bool BlackPoint;
-	extern bool SoftProofing;
-	extern bool Gamut;
-	extern bool CMSuse;
-	extern int IntentMonitor;
-	extern int IntentPrinter;
+extern cmsHPROFILE CMSoutputProf;
+extern cmsHPROFILE CMSprinterProf;
+extern cmsHTRANSFORM stdTrans;
+extern cmsHTRANSFORM stdProof;
+extern cmsHTRANSFORM stdTransImg;
+extern cmsHTRANSFORM stdProofImg;
+extern bool BlackPoint;
+extern bool SoftProofing;
+extern bool Gamut;
+extern bool CMSuse;
+extern int IntentMonitor;
+extern int IntentPrinter;
 #endif
 extern ProfilesL InputProfiles;
 extern ScribusApp* ScApp;
@@ -135,12 +136,12 @@ double QStodouble(QString in);
 int QStoInt(QString in);
 QString GetAttr(QDomElement *el, QString at, QString def="0");
 #ifdef HAVE_CMS
-	QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr=0);
+QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr=0);
 #else
-	QImage ProofPict(QImage *Im, QString Prof, int Rend);
+QImage ProofPict(QImage *Im, QString Prof, int Rend);
 #endif
 QImage ProofImage(QImage *Im);
-QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
+QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0, ImageInfoRecord *info = 0);
 QString getAlpha(QString fn, bool PDF, bool pdf14);
 int System(const QStringList & args);
 int callGS(const QStringList & args_in);
@@ -149,9 +150,10 @@ int moveFile(QString source, QString target);
 
 typedef struct my_error_mgr
 {
-  struct jpeg_error_mgr pub;            /* "public" fields */
-  jmp_buf setjmp_buffer;  /* for return to caller */
-} *my_error_ptr;
+	struct jpeg_error_mgr pub;            /* "public" fields */
+	jmp_buf setjmp_buffer;  /* for return to caller */
+}
+*my_error_ptr;
 
 /*
  * Here's the routine that will replace the standard error_exit method:
@@ -159,9 +161,9 @@ typedef struct my_error_mgr
 
 static void my_error_exit (j_common_ptr cinfo)
 {
-  my_error_ptr myerr = (my_error_ptr) cinfo->err;
-  (*cinfo->err->output_message) (cinfo);
-  longjmp (myerr->setjmp_buffer, 1);
+	my_error_ptr myerr = (my_error_ptr) cinfo->err;
+	(*cinfo->err->output_message) (cinfo);
+	longjmp (myerr->setjmp_buffer, 1);
 }
 
 void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK, bool isGray)
@@ -219,11 +221,11 @@ void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK, bool isGra
 			QRgb* rgba = (QRgb*)image->scanLine(cinfo.next_scanline);
 			for (int i=0; i<w; ++i)
 			{
-	 			*row++ = qAlpha(*rgba);
-	 			*row++ = qRed(*rgba);
-	 			*row++ = qGreen(*rgba);
-	 			*row++ = qBlue(*rgba);
-	 			++rgba;
+				*row++ = qAlpha(*rgba);
+				*row++ = qRed(*rgba);
+				*row++ = qGreen(*rgba);
+				*row++ = qBlue(*rgba);
+				++rgba;
 			}
 		}
 		else
@@ -259,17 +261,17 @@ void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK, bool isGra
 
 enum PSDColorMode
 {
-	CM_BITMAP = 0,
-	CM_GRAYSCALE = 1,
-	CM_INDEXED = 2,
-	CM_RGB = 3,
-	CM_CMYK = 4,
-	CM_MULTICHANNEL = 7,
-	CM_DUOTONE = 8,
-	CM_LABCOLOR = 9
+    CM_BITMAP = 0,
+    CM_GRAYSCALE = 1,
+    CM_INDEXED = 2,
+    CM_RGB = 3,
+    CM_CMYK = 4,
+    CM_MULTICHANNEL = 7,
+    CM_DUOTONE = 8,
+    CM_LABCOLOR = 9
 };
 
-struct PSDHeader 
+struct PSDHeader
 {
 	uint signature;
 	ushort version;
@@ -296,6 +298,8 @@ struct PSDLayer
 	QString layerName;
 	QString blend;
 };
+
+QMap<QString, FPointArray> PDSpathData;
 
 static QDataStream & operator>> ( QDataStream & s, PSDHeader & header )
 {
@@ -337,8 +341,231 @@ static bool IsSupported( const PSDHeader & header )
 
 static unsigned char INT_MULT ( unsigned char a, unsigned char b )
 {
-  int c = a * b + 0x80;
-  return (unsigned char)(( ( c >> 8 ) + c ) >> 8);
+	int c = a * b + 0x80;
+	return (unsigned char)(( ( c >> 8 ) + c ) >> 8);
+}
+
+/*!
+ * Convert a color in RGB space to HSV space (Hue, Saturation, Value).
+ * \param red the red component (modified in place).
+ * \param green the green component (modified in place).
+ * \param blue the blue component (modified in place).
+ */
+static void RGBTOHSV ( uchar& red, uchar& green, uchar& blue )
+{
+	int r, g, b;
+	double h, s, v;
+	int min, max;
+	h = 0.;
+	r = red;
+	g = green;
+	b = blue;
+	if ( r > g )
+	{
+		max = QMAX( r, b );
+		min = QMIN( g, b );
+	}
+	else
+	{
+		max = QMAX( g, b );
+		min = QMIN( r, b );
+	}
+	v = max;
+	if ( max != 0 )
+		s = ( ( max - min ) * 255 ) / (double)max;
+	else
+		s = 0;
+	if ( s == 0 )
+		h = 0;
+	else
+	{
+		int delta = max - min;
+		if ( r == max )
+			h = ( g - b ) / (double)delta;
+		else if ( g == max )
+			h = 2 + ( b - r ) / (double)delta;
+		else if ( b == max )
+			h = 4 + ( r - g ) / (double)delta;
+		h *= 42.5;
+		if ( h < 0 )
+			h += 255;
+		if ( h > 255 )
+			h -= 255;
+	}
+	red   = (uchar)h;
+	green = (uchar)s;
+	blue  = (uchar)v;
+}
+
+/*!
+ * Convert a color in HSV space to RGB space.
+ * \param hue the hue component (modified in place).
+ * \param saturation the saturation component (modified in place).
+ * \param value the value component (modified in place).
+ */
+static void HSVTORGB ( uchar& hue, uchar& saturation, uchar& value )
+{
+	if ( saturation == 0 )
+	{
+		hue        = value;
+		saturation = value;
+		value      = value;
+	}
+	else
+	{
+		double h = hue * 6. / 255.;
+		double s = saturation / 255.;
+		double v = value / 255.;
+
+		double f = h - (int)h;
+		double p = v * ( 1. - s );
+		double q = v * ( 1. - ( s * f ) );
+		double t = v * ( 1. - ( s * ( 1. - f ) ) );
+		// Worth a note here that gcc 2.96 will generate different results
+		// depending on optimization mode on i386.
+		switch ((int)h)
+		{
+		case 0:
+			hue        = (uchar)( v * 255 );
+			saturation = (uchar)( t * 255 );
+			value      = (uchar)( p * 255 );
+			break;
+		case 1:
+			hue        = (uchar)( q * 255 );
+			saturation = (uchar)( v * 255 );
+			value      = (uchar)( p * 255 );
+			break;
+		case 2:
+			hue        = (uchar)( p * 255 );
+			saturation = (uchar)( v * 255 );
+			value      = (uchar)( t * 255 );
+			break;
+		case 3:
+			hue        = (uchar)( p * 255 );
+			saturation = (uchar)( q * 255 );
+			value      = (uchar)( v * 255 );
+			break;
+		case 4:
+			hue        = (uchar)( t * 255 );
+			saturation = (uchar)( p * 255 );
+			value      = (uchar)( v * 255 );
+			break;
+		case 5:
+			hue        = (uchar)( v * 255 );
+			saturation = (uchar)( p * 255 );
+			value      = (uchar)( q * 255 );
+		}
+	}
+}
+
+/*!
+ * Convert a color in RGB space to HLS space (Hue, Lightness, Saturation).
+ * \param red the red component (modified in place).
+ * \param green the green component (modified in place).
+ * \param blue the blue component (modified in place).
+ */
+static void RGBTOHLS ( uchar& red, uchar& green, uchar& blue )
+{
+	int r = red;
+	int g = green;
+	int b = blue;
+	int min, max;
+	if ( r > g )
+	{
+		max = QMAX( r, b );
+		min = QMIN( g, b );
+	}
+	else
+	{
+		max = QMAX( g, b );
+		min = QMIN( r, b );
+	}
+	double h;
+	double l = ( max + min ) / 2.;
+	double s;
+	if ( max == min )
+	{
+		s = 0.;
+		h = 0.;
+	}
+	else
+	{
+		int delta = max - min;
+		if ( l < 128 )
+			s = 255 * (double)delta / (double)( max + min );
+		else
+			s = 255 * (double)delta / (double)( 511 - max - min );
+		if ( r == max )
+			h = ( g - b ) / (double)delta;
+		else if ( g == max )
+			h = 2 + ( b - r ) / (double)delta;
+		else
+			h = 4 + ( r - g ) / (double)delta;
+		h *= 42.5;
+		if ( h < 0 )
+			h += 255;
+		else if ( h > 255 )
+			h -= 255;
+	}
+	red   = (uchar)h;
+	green = (uchar)l;
+	blue  = (uchar)s;
+}
+
+/*!
+ * Implement the HLS "double hex-cone".
+ * \param n1 lightness fraction (?)
+ * \param n2 saturation fraction (?)
+ * \param hue hue "angle".
+ * \return HLS value.
+ */
+static int HLSVALUE ( double n1, double n2, double hue )
+{
+	double value;
+	if ( hue > 255 )
+		hue -= 255;
+	else if ( hue < 0 )
+		hue += 255;
+	if ( hue < 42.5 )
+		value = n1 + ( n2 - n1 ) * ( hue / 42.5 );
+	else if ( hue < 127.5 )
+		value = n2;
+	else if ( hue < 170 )
+		value = n1 + ( n2 - n1 ) * ( ( 170 - hue ) / 42.5 );
+	else
+		value = n1;
+	return (int)( value * 255 );
+}
+
+/*!
+ * Convert a color in HLS space to RGB space.
+ * \param hue the hue component (modified in place).
+ * \param lightness the lightness component (modified in place).
+ * \param saturation the saturation component (modified in place).
+ */
+static void HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation )
+{
+	double h = hue;
+	double l = lightness;
+	double s = saturation;
+	if ( s == 0 )
+	{
+		hue        = (uchar)l;
+		lightness  = (uchar)l;
+		saturation = (uchar)l;
+	}
+	else
+	{
+		double m1, m2;
+		if ( l < 128 )
+			m2 = ( l * ( 255 + s ) ) / 65025.;
+		else
+			m2 = ( l + s - ( l * s ) / 255. ) / 255.;
+		m1 = ( l / 127.5 ) - m2;
+		hue        = HLSVALUE( m1, m2, h + 85 );
+		lightness  = HLSVALUE( m1, m2, h );
+		saturation = HLSVALUE( m1, m2, h - 85 );
+	}
 }
 
 static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage & img, QValueList<PSDLayer> layerInfo, uint layer )
@@ -365,22 +592,22 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 	{
 		switch(layerInfo[layer].channelType[channel])
 		{
-			case 0:
-				components[channel] = 2;
-				break;
-			 case 1:
-				components[channel] = 1;
-				break;
-			 case 2:
-				components[channel] = 0;
-				break;
-			 case 3:
-				components[channel] = 3;
-				break;
-			case -1:
-			case -2:
-				components[channel] = 3;
-				break;
+		case 0:
+			components[channel] = 2;
+			break;
+		case 1:
+			components[channel] = 1;
+			break;
+		case 2:
+			components[channel] = 0;
+			break;
+		case 3:
+			components[channel] = 3;
+			break;
+		case -1:
+		case -2:
+			components[channel] = 3;
+			break;
 		}
 	}
 	if( compression )
@@ -434,7 +661,7 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 							ptr += 4;
 							len--;
 						}
-					} 
+					}
 					else if( len > 128 )
 					{
 						// Next -len+1 bytes in the dest are replicated from next source byte.
@@ -588,6 +815,75 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 						else
 							src_a = QMIN( src_a, d[3] );
 					}
+					else if (layerInfo[layer].blend == "hue ")
+					{
+						if (header.color_mode != CM_CMYK)
+						{
+							uchar new_r = d[0];
+							uchar new_g = d[1];
+							uchar new_b = d[2];
+							RGBTOHSV(src_r, src_g, src_b);
+							RGBTOHSV(new_r, new_g, new_b);
+							new_r = src_r;
+							HSVTORGB(new_r, new_g, new_b);
+							src_r = new_r;
+							src_g = new_g;
+							src_b = new_b;
+							src_a = QMIN( src_a, d[3] );
+						}
+					}
+					else if (layerInfo[layer].blend == "sat ")
+					{
+						if (header.color_mode != CM_CMYK)
+						{
+							uchar new_r = d[0];
+							uchar new_g = d[1];
+							uchar new_b = d[2];
+							RGBTOHSV(src_r, src_g, src_b);
+							RGBTOHSV(new_r, new_g, new_b);
+							new_g = src_g;
+							HSVTORGB(new_r, new_g, new_b);
+							src_r = new_r;
+							src_g = new_g;
+							src_b = new_b;
+							src_a = QMIN(src_a, d[3]);
+						}
+					}
+					else if (layerInfo[layer].blend == "lum ")
+					{
+						if (header.color_mode != CM_CMYK)
+						{
+							uchar new_r = d[0];
+							uchar new_g = d[1];
+							uchar new_b = d[2];
+							RGBTOHSV(src_r, src_g, src_b);
+							RGBTOHSV(new_r, new_g, new_b);
+							new_b = src_b;
+							HSVTORGB(new_r, new_g, new_b);
+							src_r = new_r;
+							src_g = new_g;
+							src_b = new_b;
+							src_a = QMIN(src_a, d[3]);
+						}
+					}
+					else if (layerInfo[layer].blend == "colr")
+					{
+						if (header.color_mode != CM_CMYK)
+						{
+							uchar new_r = d[0];
+							uchar new_g = d[1];
+							uchar new_b = d[2];
+							RGBTOHLS(src_r, src_g, src_b);
+							RGBTOHLS(new_r, new_g, new_b);
+							new_r = src_r;
+							new_b = src_b;
+							HLSTORGB(new_r, new_g, new_b);
+							src_r = new_r;
+							src_g = new_g;
+							src_b = new_b;
+							src_a = QMIN(src_a, d[3]);
+						}
+					}
 					r = (d[0] * (255 - layerInfo[layer].opacity) + src_r * layerInfo[layer].opacity) / 255;
 					g = (d[1] * (255 - layerInfo[layer].opacity) + src_g * layerInfo[layer].opacity) / 255;
 					b = (d[2] * (255 - layerInfo[layer].opacity) + src_b * layerInfo[layer].opacity) / 255;
@@ -633,19 +929,20 @@ static bool loadLayer( QDataStream & s, const PSDHeader & header, QImage & img )
 	}
 	uint channel_num = header.channel_count;
 	// Clear the image.
-/*	if( channel_num < 4 )
-	{
-		img.fill(qRgba(0, 0, 0, 0xFF));
-	}
-	else
-	{ */
-		// Enable alpha.		
-//		img.setAlphaBuffer( true );
-		// Ignore the other channels.
-		channel_num = 4;
-//	}
+	/*	if( channel_num < 4 )
+		{
+			img.fill(qRgba(0, 0, 0, 0xFF));
+		}
+		else
+		{ */
+	// Enable alpha.
+	//		img.setAlphaBuffer( true );
+	// Ignore the other channels.
+	channel_num = 4;
+	//	}
 	const uint pixel_count = header.height * header.width;
-	static const uint components[4] = {2, 1, 0, 3}; // @@ Is this endian dependant?
+	static const uint components[4] = {2, 1, 0, 3}
+	                                  ; // @@ Is this endian dependant?
 	if( compression )
 	{
 		// Skip row lengths.
@@ -653,8 +950,8 @@ static bool loadLayer( QDataStream & s, const PSDHeader & header, QImage & img )
 		for(uint i = 0; i < header.height * header.channel_count; i++)
 		{
 			s >> w;
-		}	
-		// Read RLE data.						
+		}
+		// Read RLE data.
 		for(uint channel = 0; channel < channel_num; channel++)
 		{
 			uchar * ptr = img.bits() + components[channel];
@@ -681,7 +978,7 @@ static bool loadLayer( QDataStream & s, const PSDHeader & header, QImage & img )
 						ptr += 4;
 						len--;
 					}
-				} 
+				}
 				else if( len > 128 )
 				{
 					// Next -len+1 bytes in the dest are replicated from next source byte.
@@ -780,7 +1077,7 @@ static QString getPascalString(QDataStream & s)
 	return ret;
 }
 
-static void parseRessourceData( QDataStream & s, uint size, float *xres, float *yres, bool* isPS4 )
+static void parseRessourceData( QDataStream & s, uint size, float *xres, float *yres, bool* isPS4, FPointArray *clip )
 {
 	uint signature, resSize, offset, resBase, vRes, hRes, adj;
 	ushort resID, hResUnit, vResUnit, dummyW;
@@ -800,22 +1097,22 @@ static void parseRessourceData( QDataStream & s, uint size, float *xres, float *
 		resBase = s.device()->at();
 		switch (resID)
 		{
-			case 0x03ed:
-				s >> hRes;
-				s >> hResUnit;
-				s >> dummyW;
-				s >> vRes;
-				s >> vResUnit;
-				s >> dummyW;
-				*xres = hRes / 65536.0;
-				*yres = vRes / 65536.0;
-				break;
-			case 0x0409:
-			case 0x0421:
-				*isPS4 = true;
-				break;
-			default:
-				break;
+		case 0x03ed:
+			s >> hRes;
+			s >> hResUnit;
+			s >> dummyW;
+			s >> vRes;
+			s >> vResUnit;
+			s >> dummyW;
+			*xres = hRes / 65536.0;
+			*yres = vRes / 65536.0;
+			break;
+		case 0x0409:
+		case 0x0421:
+			*isPS4 = true;
+			break;
+		default:
+			break;
 		}
 		s.device()->at( resBase + resSize );
 		offset += resSize;
@@ -938,7 +1235,7 @@ static bool parseLayer( QDataStream & s, const PSDHeader & header, QImage & img,
 }
 
 // Load the PSD image.
-static bool LoadPSD( QDataStream & s, const PSDHeader & header, QImage & img, float *xres, float *yres)
+static bool LoadPSD( QDataStream & s, const PSDHeader & header, QImage & img, float *xres, float *yres, FPointArray clip)
 {
 	// Create dst image.
 	if( !img.create( header.width, header.height, 32 ))
@@ -956,7 +1253,7 @@ static bool LoadPSD( QDataStream & s, const PSDHeader & header, QImage & img, fl
 	startRessource = s.device()->at();
 	bool isPS4 = false;
 	if (ressourceDataLen != 0)
-		parseRessourceData(s, ressourceDataLen, xres, yres, &isPS4);
+		parseRessourceData(s, ressourceDataLen, xres, yres, &isPS4, &clip);
 	s.device()->at( startRessource + ressourceDataLen );
 	// Skip the reserved data. FIX: Also incorrect, this is the actual Layer Data for Images with Layers
 	s >> layerDataLen;
@@ -965,7 +1262,7 @@ static bool LoadPSD( QDataStream & s, const PSDHeader & header, QImage & img, fl
 		return parseLayer( s, header, img, isPS4);
 	else
 	{
-	// Decoding simple psd file, no layers
+		// Decoding simple psd file, no layers
 		s.device()->at( s.device()->at() + layerDataLen );
 		loadLayer( s, header, img );
 	}
@@ -1007,10 +1304,10 @@ QString getAlpha(QString fn, bool PDF, bool pdf14)
 			TIFFGetField(tif, TIFFTAG_FILLORDER, &fillorder);
 			uint32 *bits = 0;
 			img.create(width,height,32);
-			img.setAlphaBuffer(true); 
- 			 if (TIFFIsTiled(tif))
-			 {
-			 	uint32 columns, rows;
+			img.setAlphaBuffer(true);
+			if (TIFFIsTiled(tif))
+			{
+				uint32 columns, rows;
 				uint32 *tile_buf;
 				uint32 xt, yt;
 				TIFFGetField(tif, TIFFTAG_TILEWIDTH,  &columns);
@@ -1027,30 +1324,30 @@ QString getAlpha(QString fn, bool PDF, bool pdf14)
 					if (yt > (uint)img.height())
 						break;
 					if (img.height()-yt < rows)
-						tileH = img.height()-yt; 
+						tileH = img.height()-yt;
 					tileW = columns;
 					register uint32 xi, yi;
 					for (xt = 0; xt < (uint)img.width(); xt += columns)
 					{
 						switch (photometric)
 						{
-							case PHOTOMETRIC_SEPARATED:
-								TIFFReadTile(tif, tile_buf, xt, yt, 0, 0);
-								for (yi = 0; yi < tileH; yi++) 
-									_TIFFmemcpy(img.scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*4);
-								break;
-							default:
-								TIFFReadRGBATile(tif, xt, yt, tile_buf);
-								for(yi = 0; yi < tileH; yi++) 
+						case PHOTOMETRIC_SEPARATED:
+							TIFFReadTile(tif, tile_buf, xt, yt, 0, 0);
+							for (yi = 0; yi < tileH; yi++)
+								_TIFFmemcpy(img.scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*4);
+							break;
+						default:
+							TIFFReadRGBATile(tif, xt, yt, tile_buf);
+							for(yi = 0; yi < tileH; yi++)
+							{
+								QRgb *row= (QRgb*) ( img.scanLine(yt+yi) );
+								for(xi = 0; xi < tileW; xi++)
 								{
-									QRgb *row= (QRgb*) ( img.scanLine(yt+yi) );
-									for(xi = 0; xi < tileW; xi++)  
-									{
-										const uint32 pix = *(tile_buf + ((tileH-1-yi)*tileW)+xi);
-										row[xi + xt] = qRgba(TIFFGetB(pix), TIFFGetG(pix), TIFFGetR(pix) , TIFFGetA(pix));
-									} // for xi
-								} // for yi
-								break;
+									const uint32 pix = *(tile_buf + ((tileH-1-yi)*tileW)+xi);
+									row[xi + xt] = qRgba(TIFFGetB(pix), TIFFGetG(pix), TIFFGetR(pix) , TIFFGetA(pix));
+								} // for xi
+							} // for yi
+							break;
 						} // else per pixel method
 					} // for x by tiles
 				} // for y by tiles
@@ -1061,74 +1358,75 @@ QString getAlpha(QString fn, bool PDF, bool pdf14)
 				tsize_t bytesperrow = TIFFScanlineSize(tif);
 				switch (photometric)
 				{
-					case PHOTOMETRIC_MINISWHITE:
-						miniswhite = true;
-					case PHOTOMETRIC_MINISBLACK:
-						if (bitspersample == 1)
-							bilevel = true;
-						if (samplesperpixel != 1)
-							break;
-						bits = (uint32 *) _TIFFmalloc(bytesperrow);
-						if (bits)
+				case PHOTOMETRIC_MINISWHITE:
+					miniswhite = true;
+				case PHOTOMETRIC_MINISBLACK:
+					if (bitspersample == 1)
+						bilevel = true;
+					if (samplesperpixel != 1)
+						break;
+					bits = (uint32 *) _TIFFmalloc(bytesperrow);
+					if (bits)
+					{
+						QImage img2;
+						QImage::Endian bitorder = QImage::IgnoreEndian;
+						if (bilevel)
 						{
-							QImage img2;
-							QImage::Endian bitorder = QImage::IgnoreEndian;
-							if (bilevel)
+							if (fillorder == FILLORDER_MSB2LSB)
+								bitorder = QImage::BigEndian;
+							else
+								bitorder = QImage::LittleEndian;
+						}
+						img2.create(width, height, bitspersample, 0, bitorder);
+						for (unsigned int y = 0; y < height; y++)
+						{
+							if (TIFFReadScanline(tif, bits, y, 0))
+								memcpy(img2.scanLine(y), bits, bytesperrow);
+						}
+						_TIFFfree(bits);
+						img2 = img2.convertDepth(8);
+						if (!miniswhite)
+							img2.invertPixels();
+						for (unsigned int y = 0; y < height; y++)
+						{
+							unsigned char *ptr = (unsigned char *) img.scanLine(y);
+							unsigned char *ptr2 = (unsigned char *) img2.scanLine(y);
+							for (unsigned int x = 0; x < width; x++)
 							{
-								if (fillorder == FILLORDER_MSB2LSB)
-									bitorder = QImage::BigEndian;
+								if (bilevel)
+									ptr[3] = (unsigned char) -img2.pixelIndex(x, y);
 								else
-									bitorder = QImage::LittleEndian;
-							}
-							img2.create(width, height, bitspersample, 0, bitorder);
-							for (unsigned int y = 0; y < height; y++)
-							{
-								if (TIFFReadScanline(tif, bits, y, 0))
-									memcpy(img2.scanLine(y), bits, bytesperrow);
-							}
-							_TIFFfree(bits);
-							img2 = img2.convertDepth(8);
-							if (!miniswhite)
-								img2.invertPixels();
-							for (unsigned int y = 0; y < height; y++)
-							{
-								unsigned char *ptr = (unsigned char *) img.scanLine(y);
-								unsigned char *ptr2 = (unsigned char *) img2.scanLine(y);
-								for (unsigned int x = 0; x < width; x++)
-								{
-									if (bilevel)
-										ptr[3] = (unsigned char) -img2.pixelIndex(x, y);
-									else
-										ptr[3] = ptr2[x];
-									ptr+=4;
-								}
+									ptr[3] = ptr2[x];
+								ptr+=4;
 							}
 						}
-						break;
-					case PHOTOMETRIC_SEPARATED:
-						bits = (uint32 *) _TIFFmalloc(bytesperrow);
-						if (bits)
+					}
+					break;
+				case PHOTOMETRIC_SEPARATED:
+					bits = (uint32 *) _TIFFmalloc(bytesperrow);
+					if (bits)
+					{
+						for (unsigned int y = 0; y < height; y++)
 						{
-							for (unsigned int y = 0; y < height; y++)
+							if (TIFFReadScanline(tif, bits, y, 0))
 							{
-								if (TIFFReadScanline(tif, bits, y, 0)) {
-									memcpy(img.scanLine(y), bits, width * 4);
-								}
+								memcpy(img.scanLine(y), bits, width * 4);
 							}
-							_TIFFfree(bits);
 						}
-						break;
-					default:
-						bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
-						if(bits)
+						_TIFFfree(bits);
+					}
+					break;
+				default:
+					bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
+					if(bits)
+					{
+						if (TIFFReadRGBAImage(tif, width, height, bits, 0))
 						{
-							if (TIFFReadRGBAImage(tif, width, height, bits, 0))
-							{
-								for(unsigned int y = 0; y < height; y++)
-									memcpy(img.scanLine(height - 1 - y), bits + y * width, width * 4);
-							}
-							_TIFFfree(bits);
+							for(unsigned int y = 0; y < height; y++)
+								memcpy(img.scanLine(height - 1 - y), bits + y * width, width * 4);
 						}
+						_TIFFfree(bits);
+					}
 				}
 				TIFFClose(tif);
 			}
@@ -1136,6 +1434,7 @@ QString getAlpha(QString fn, bool PDF, bool pdf14)
 #else
 		qDebug("TIFF Support not available");
 #endif // HAVE_TIFF
+
 	}
 	else if (ext == "psd")
 	{
@@ -1148,13 +1447,14 @@ QString getAlpha(QString fn, bool PDF, bool pdf14)
 			s.setByteOrder( QDataStream::BigEndian );
 			PSDHeader header;
 			s >> header;
-		// Check image file format.
-			if( s.atEnd() || !IsValid( header ) ) 
+			// Check image file format.
+			if( s.atEnd() || !IsValid( header ) )
 				return retS;
-		// Check if it's a supported format.
+			// Check if it's a supported format.
 			if( !IsSupported( header ) )
 				return retS;
-			if( !LoadPSD(s, header, img, &xres, &yres) )
+			FPointArray clip;
+			if( !LoadPSD(s, header, img, &xres, &yres, clip) )
 				return retS;
 			img = img.convertDepth(32);
 			img.setAlphaBuffer(true);
@@ -1212,7 +1512,7 @@ QString getAlpha(QString fn, bool PDF, bool pdf14)
 	return retS;
 }
 
-QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK)
+QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK, ImageInfoRecord *info)
 {
 	// requestType - 0: CMYK, 1: RGB, 2: RGB Proof
 	// gsRes - is the resolution that ghostscript will render at
@@ -1330,7 +1630,7 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 			{
 				QImage image;
 				image.load(tmpFile);
-			  	image = image.convertDepth(32);
+				image = image.convertDepth(32);
 				image.setAlphaBuffer(true);
 				if (ScApp->HavePngAlpha != 0)
 				{
@@ -1345,7 +1645,7 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 								(*s) &= 0x00ffffff;
 							s++;
 						}
-			    		}
+					}
 				}
 				img = image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
 				unlink(tmpFile);
@@ -1376,10 +1676,10 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 				TIFFClose(tif);
 				return img;
 			}
-			img.setAlphaBuffer(true); 
- 			 if (TIFFIsTiled(tif))
-			 {
-			 	uint32 columns, rows;
+			img.setAlphaBuffer(true);
+			if (TIFFIsTiled(tif))
+			{
+				uint32 columns, rows;
 				uint32 *tile_buf;
 				uint32 xt, yt;
 				TIFFGetField(tif, TIFFTAG_TILEWIDTH,  &columns);
@@ -1396,36 +1696,36 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 					if (yt > (uint)img.height())
 						break;
 					if (img.height()-yt < rows)
-						tileH = img.height()-yt; 
+						tileH = img.height()-yt;
 					tileW = columns;
 					register uint32 xi, yi;
 					for (xt = 0; xt < (uint)img.width(); xt += columns)
 					{
 						switch (photometric)
 						{
-							case PHOTOMETRIC_SEPARATED:
-								TIFFReadTile(tif, tile_buf, xt, yt, 0, 0);
-								for (yi = 0; yi < tileH; yi++) 
-									_TIFFmemcpy(img.scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*4);
-								isCMYK = true;
-								if (realCMYK != 0)
-									*realCMYK = true;
-								break;
-							default:
-								TIFFReadRGBATile(tif, xt, yt, tile_buf);
-								for(yi = 0; yi < tileH; yi++) 
+						case PHOTOMETRIC_SEPARATED:
+							TIFFReadTile(tif, tile_buf, xt, yt, 0, 0);
+							for (yi = 0; yi < tileH; yi++)
+								_TIFFmemcpy(img.scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*4);
+							isCMYK = true;
+							if (realCMYK != 0)
+								*realCMYK = true;
+							break;
+						default:
+							TIFFReadRGBATile(tif, xt, yt, tile_buf);
+							for(yi = 0; yi < tileH; yi++)
+							{
+								QRgb *row= (QRgb*) ( img.scanLine(yt+yi) );
+								for(xi = 0; xi < tileW; xi++)
 								{
-									QRgb *row= (QRgb*) ( img.scanLine(yt+yi) );
-									for(xi = 0; xi < tileW; xi++)  
-									{
-										const uint32 pix = *(tile_buf + ((tileH-1-yi)*tileW)+xi);
-										row[xi + xt] = qRgba(TIFFGetB(pix), TIFFGetG(pix), TIFFGetR(pix) , TIFFGetA(pix));
-									} // for xi
-								} // for yi
-								isCMYK = false;
-								if (realCMYK != 0)
-									*realCMYK = false;
-								break;
+									const uint32 pix = *(tile_buf + ((tileH-1-yi)*tileW)+xi);
+									row[xi + xt] = qRgba(TIFFGetB(pix), TIFFGetG(pix), TIFFGetR(pix) , TIFFGetA(pix));
+								} // for xi
+							} // for yi
+							isCMYK = false;
+							if (realCMYK != 0)
+								*realCMYK = false;
+							break;
 						} // else per pixel method
 					} // for x by tiles
 				} // for y by tiles
@@ -1437,84 +1737,85 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 				uint32 *bits = 0;
 				switch (photometric)
 				{
-					case PHOTOMETRIC_MINISWHITE:
-						miniswhite = true;
-					case PHOTOMETRIC_MINISBLACK:
-						if (bitspersample == 1)
-							bilevel = true;
-						if (samplesperpixel != 1)
-							break;
-						bits = (uint32 *) _TIFFmalloc(bytesperrow);
-						if (bits)
+				case PHOTOMETRIC_MINISWHITE:
+					miniswhite = true;
+				case PHOTOMETRIC_MINISBLACK:
+					if (bitspersample == 1)
+						bilevel = true;
+					if (samplesperpixel != 1)
+						break;
+					bits = (uint32 *) _TIFFmalloc(bytesperrow);
+					if (bits)
+					{
+						QImage::Endian bitorder = QImage::IgnoreEndian;
+						if (bilevel)
 						{
-							QImage::Endian bitorder = QImage::IgnoreEndian;
-							if (bilevel)
+							if (fillorder == FILLORDER_MSB2LSB)
+								bitorder = QImage::BigEndian;
+							else
+								bitorder = QImage::LittleEndian;
+						}
+						if (!img2.create(width, height, bitspersample, 0, bitorder))
+						{
+							_TIFFfree(bits);
+							TIFFClose(tif);
+							return img;
+						}
+						for (unsigned int y = 0; y < height; y++)
+						{
+							if (TIFFReadScanline(tif, bits, y, 0))
+								memcpy(img2.scanLine(y), bits, bytesperrow);
+						}
+						_TIFFfree(bits);
+						img2 = img2.convertDepth(8);
+						if (!miniswhite)
+							img2.invertPixels();
+						for (unsigned int y = 0; y < height; y++)
+						{
+							unsigned char *ptr = (unsigned char *) img.scanLine(y);
+							unsigned char *ptr2 = (unsigned char *) img2.scanLine(y);
+							for (unsigned int x = 0; x < width; x++)
 							{
-								if (fillorder == FILLORDER_MSB2LSB)
-									bitorder = QImage::BigEndian;
+								if (bilevel)
+									ptr[3] = (unsigned char) -img2.pixelIndex(x, y);
 								else
-									bitorder = QImage::LittleEndian;
-							}
-							if (!img2.create(width, height, bitspersample, 0, bitorder))
-							{
-								_TIFFfree(bits);
-								TIFFClose(tif);
-								return img;
-							}
-							for (unsigned int y = 0; y < height; y++)
-							{
-								if (TIFFReadScanline(tif, bits, y, 0))
-									memcpy(img2.scanLine(y), bits, bytesperrow);
-							}
-							_TIFFfree(bits);
-							img2 = img2.convertDepth(8);
-							if (!miniswhite)
-								img2.invertPixels();
-							for (unsigned int y = 0; y < height; y++)
-							{
-								unsigned char *ptr = (unsigned char *) img.scanLine(y);
-								unsigned char *ptr2 = (unsigned char *) img2.scanLine(y);
-								for (unsigned int x = 0; x < width; x++)
-								{
-									if (bilevel)
-										ptr[3] = (unsigned char) -img2.pixelIndex(x, y);
-									else
-										ptr[3] = ptr2[x];
-									ptr+=4;
-								}
+									ptr[3] = ptr2[x];
+								ptr+=4;
 							}
 						}
-						isCMYK = true;
-						if (realCMYK != 0)
-							*realCMYK = true;
-						break;
-					case PHOTOMETRIC_SEPARATED:
-						bits = (uint32 *) _TIFFmalloc(bytesperrow);
-						if (bits)
+					}
+					isCMYK = true;
+					if (realCMYK != 0)
+						*realCMYK = true;
+					break;
+				case PHOTOMETRIC_SEPARATED:
+					bits = (uint32 *) _TIFFmalloc(bytesperrow);
+					if (bits)
+					{
+						for (unsigned int y = 0; y < height; y++)
 						{
-							for (unsigned int y = 0; y < height; y++)
+							if (TIFFReadScanline(tif, bits, y, 0))
 							{
-								if (TIFFReadScanline(tif, bits, y, 0)) {
-									memcpy(img.scanLine(y), bits, width * 4);
-								}
+								memcpy(img.scanLine(y), bits, width * 4);
 							}
-							_TIFFfree(bits);
 						}
-						isCMYK = true;
-						if (realCMYK != 0)
-							*realCMYK = true;
-						break;
-					default:
-						bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
-						if(bits)
+						_TIFFfree(bits);
+					}
+					isCMYK = true;
+					if (realCMYK != 0)
+						*realCMYK = true;
+					break;
+				default:
+					bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
+					if(bits)
+					{
+						if (TIFFReadRGBAImage(tif, width, height, bits, 0))
 						{
-							if (TIFFReadRGBAImage(tif, width, height, bits, 0))
-							{
-								for(unsigned int y = 0; y < height; y++)
-									memcpy(img.scanLine(height - 1 - y), bits + y * width, width * 4);
-							}
-							_TIFFfree(bits);
+							for(unsigned int y = 0; y < height; y++)
+								memcpy(img.scanLine(height - 1 - y), bits + y * width, width * 4);
 						}
+						_TIFFfree(bits);
+					}
 				}
 			}
 #ifdef HAVE_CMS
@@ -1554,13 +1855,14 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 			s.setByteOrder( QDataStream::BigEndian );
 			PSDHeader header;
 			s >> header;
-		// Check image file format.
-			if( s.atEnd() || !IsValid( header ) ) 
+			// Check image file format.
+			if( s.atEnd() || !IsValid( header ) )
 				return img;
-		// Check if it's a supported format.
+			// Check if it's a supported format.
 			if( !IsSupported( header ) )
 				return img;
-			if( !LoadPSD(s, header, img, &xres, &yres) )
+			FPointArray clip;
+			if( !LoadPSD(s, header, img, &xres, &yres, clip) )
 				return img;
 			if (header.color_mode == CM_CMYK)
 				isCMYK = true;
@@ -1568,6 +1870,13 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 				isCMYK = false;
 			if (realCMYK != 0)
 				*realCMYK = isCMYK;
+			if (info != 0)
+			{
+				info->xres = qRound(xres);
+				info->yres = qRound(yres);
+				info->colorspace = isCMYK;
+				info->clipPath = clip.copy();
+			}
 			img.setDotsPerMeterX ((int) (xres / 0.0254));
 			img.setDotsPerMeterY ((int) (yres / 0.0254));
 			f.close();
@@ -1718,12 +2027,12 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 		DWORD inputProfFormat = TYPE_RGBA_8;
 		switch (static_cast<int>(cmsGetColorSpace(inputProf)))
 		{
-			case icSigRgbData:
-				inputProfFormat = TYPE_RGBA_8;
-				break;
-			case icSigCmykData:
-				inputProfFormat = TYPE_CMYK_8;
-				break;
+		case icSigRgbData:
+			inputProfFormat = TYPE_RGBA_8;
+			break;
+		case icSigCmykData:
+			inputProfFormat = TYPE_CMYK_8;
+			break;
 		}
 		if (SoftProofing)
 		{
@@ -1737,21 +2046,21 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 #endif
 		switch (requestType)
 		{
-			case 0: // CMYK
-				if (!isCMYK)
-					xform = cmsCreateTransform(inputProf, inputProfFormat,
-							CMSprinterProf, TYPE_CMYK_8, IntentPrinter, 0);
-				break;
-			case 1: // RGB
-				if (isCMYK)
-					xform = cmsCreateTransform(inputProf, inputProfFormat,
-							CMSoutputProf, TYPE_RGBA_8, rend, 0);
-				break;
-			case 2: // RGB Proof
-				xform = cmsCreateProofingTransform(inputProf, inputProfFormat,
-						CMSoutputProf, TYPE_RGBA_8, CMSprinterProf,
-						IntentPrinter, rend, cmsFlags);
-				break;
+		case 0: // CMYK
+			if (!isCMYK)
+				xform = cmsCreateTransform(inputProf, inputProfFormat,
+				                           CMSprinterProf, TYPE_CMYK_8, IntentPrinter, 0);
+			break;
+		case 1: // RGB
+			if (isCMYK)
+				xform = cmsCreateTransform(inputProf, inputProfFormat,
+				                           CMSoutputProf, TYPE_RGBA_8, rend, 0);
+			break;
+		case 2: // RGB Proof
+			xform = cmsCreateProofingTransform(inputProf, inputProfFormat,
+			                                   CMSoutputProf, TYPE_RGBA_8, CMSprinterProf,
+			                                   IntentPrinter, rend, cmsFlags);
+			break;
 		}
 		if (xform)
 		{
@@ -1767,7 +2076,7 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 					for (int j = 0; j < img.width(); j++, p++)
 						*p |= 0xff000000;
 				}
-					
+
 			}
 			cmsDeleteTransform (xform);
 		}
@@ -1776,55 +2085,56 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 	}
 	else
 #endif // HAVE_CMS
+
 	{
 		switch (requestType)
 		{
-			case 0:
-				if (!isCMYK)
+		case 0:
+			if (!isCMYK)
+			{
+				for (int i = 0; i < img.height(); i++)
 				{
-					for (int i = 0; i < img.height(); i++)
+					unsigned int *ptr = (unsigned int *) img.scanLine(i);
+					unsigned char c, m, y ,k;
+					for (int j = 0; j < img.width(); j++)
 					{
-						unsigned int *ptr = (unsigned int *) img.scanLine(i);
-						unsigned char c, m, y ,k;
-						for (int j = 0; j < img.width(); j++)
-						{
-							unsigned char *p = (unsigned char *) ptr;
-							c = 255 - p[0];
-							m = 255 - p[1];
-							y = 255 - p[2];
-							k = QMIN(QMIN(c, m), y);
-							p[0] = c - k;
-							p[1] = m - k;
-							p[2] = y - k;
-							p[3] = k;
-							ptr++;
-						}
+						unsigned char *p = (unsigned char *) ptr;
+						c = 255 - p[0];
+						m = 255 - p[1];
+						y = 255 - p[2];
+						k = QMIN(QMIN(c, m), y);
+						p[0] = c - k;
+						p[1] = m - k;
+						p[2] = y - k;
+						p[3] = k;
+						ptr++;
 					}
 				}
-				break;
-			case 1:
-			case 2:
-				if (isCMYK)
+			}
+			break;
+		case 1:
+		case 2:
+			if (isCMYK)
+			{
+				for (int i = 0; i < img.height(); i++)
 				{
-					for (int i = 0; i < img.height(); i++)
+					unsigned int *ptr = (unsigned int *) img.scanLine(i);
+					unsigned char r, g, b;
+					for (int j = 0; j < img.width(); j++)
 					{
-						unsigned int *ptr = (unsigned int *) img.scanLine(i);
-						unsigned char r, g, b;
-						for (int j = 0; j < img.width(); j++)
-						{
-							unsigned char *p = (unsigned char *) ptr;
-							r = 255 - QMIN(255, p[0] + p[3]);
-							g = 255 - QMIN(255, p[1] + p[3]);
-							b = 255 - QMIN(255, p[2] + p[3]);
-							p[0] = r;
-							p[1] = g;
-							p[2] = b;
-							p[3] = 255;
-							ptr++;
-						}
+						unsigned char *p = (unsigned char *) ptr;
+						r = 255 - QMIN(255, p[0] + p[3]);
+						g = 255 - QMIN(255, p[1] + p[3]);
+						b = 255 - QMIN(255, p[2] + p[3]);
+						p[0] = r;
+						p[1] = g;
+						p[2] = b;
+						p[3] = 255;
+						ptr++;
 					}
 				}
-				break;
+			}
+			break;
 		}
 	}
 	if ((requestType == 0 || isCMYK) && !bilevel)
@@ -1849,20 +2159,20 @@ QImage ProofPict(QImage *Im, QString Prof, int Rend)
 	{
 		cmsHTRANSFORM xform;
 		cmsHPROFILE inputProf;
-	  	if (emPr != 0)
-  			inputProf = emPr;
-  		else
+		if (emPr != 0)
+			inputProf = emPr;
+		else
 		{
-  			inputProf = cmsOpenProfileFromFile(InputProfiles[Prof], "r");
+			inputProf = cmsOpenProfileFromFile(InputProfiles[Prof], "r");
 			emp = true;
 		}
 		int dcmsFlags = 0;
 		dcmsFlags |= Gamut ? cmsFLAGS_GAMUTCHECK : cmsFLAGS_SOFTPROOFING;
 		xform = cmsCreateProofingTransform(inputProf, TYPE_RGBA_8,
-												 CMSoutputProf, TYPE_RGBA_8,
-												 CMSprinterProf,
-												 IntentPrinter,
-												 Rend, dcmsFlags);
+		                                   CMSoutputProf, TYPE_RGBA_8,
+		                                   CMSprinterProf,
+		                                   IntentPrinter,
+		                                   Rend, dcmsFlags);
 		for (int i=0; i < out.height(); ++i)
 		{
 			LPBYTE ptr = out.scanLine(i);
@@ -1878,17 +2188,17 @@ QImage ProofPict(QImage *Im, QString Prof, int Rend)
 		{
 			cmsHTRANSFORM xform;
 			cmsHPROFILE inputProf;
-  			if (emPr != 0)
-  				inputProf = emPr;
-  			else
+			if (emPr != 0)
+				inputProf = emPr;
+			else
 			{
-  				inputProf = cmsOpenProfileFromFile(InputProfiles[Prof], "r");
+				inputProf = cmsOpenProfileFromFile(InputProfiles[Prof], "r");
 				emp = true;
 			}
 			xform = cmsCreateTransform(inputProf, TYPE_RGBA_8,
-										 	 CMSoutputProf, TYPE_RGBA_8,
-										 	 Rend,
-										 	 0);
+			                           CMSoutputProf, TYPE_RGBA_8,
+			                           Rend,
+			                           0);
 			for (int i=0; i < out.height(); ++i)
 			{
 				LPBYTE ptr = out.scanLine(i);
@@ -1970,7 +2280,7 @@ int System(const QStringList & args)
  *   arguments, the variablke arguments and the end arguments which
  *   are also invariant.
  ******************************************************************/
- 
+
 int callGS(const QStringList & args_in)
 {
 	QString cmd1 = ScApp->Prefs.gs_exe;
@@ -2042,7 +2352,7 @@ QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h)
 		QImage image;
 		image.load(tmpFile);
 		unlink(tmpFile);
-  		QImage im2;
+		QImage im2;
 		*h = image.height();
 		*w = image.width();
 		double sx = image.width() / static_cast<double>(Size);
@@ -2356,7 +2666,7 @@ QString ImageToGray(QImage *im)
 	}
 	return ImgStr;
 }
- 
+
 QString ImageToCMYK_PDF(QImage *im, bool pre)
 {
 	int h = im->height();
@@ -2492,7 +2802,7 @@ QString MaskToTxt(QImage *im, bool PDF)
 	int w2;
 	w2 = w / 8;
 	if ((w % 8) != 0)
-  		w2++;
+		w2++;
 	QString ImgStr = "";
 	for( int yi=0; yi < h; ++yi )
 	{
@@ -2544,20 +2854,20 @@ QString CompressStr(QString *in)
 
 char *toHex( uchar u )
 {
-    static char hexVal[3];
-    int i = 1;
-    while ( i >= 0 )
+	static char hexVal[3];
+	int i = 1;
+	while ( i >= 0 )
 	{
 		ushort hex = (u & 0x000f);
 		if ( hex < 0x0a )
-	    	hexVal[i] = '0'+hex;
+			hexVal[i] = '0'+hex;
 		else
-	    	hexVal[i] = 'A'+(hex-0x0a);
+			hexVal[i] = 'A'+(hex-0x0a);
 		u = u >> 4;
-			i--;
-    }
-    hexVal[2] = '\0';
-    return hexVal;
+		i--;
+	}
+	hexVal[2] = '\0';
+	return hexVal;
 }
 
 QString String2Hex(QString *in, bool lang)
@@ -2682,7 +2992,7 @@ bool GlyNames(QMap<uint, QString> *GList, QString Dat)
 	{
 		FT_Get_Glyph_Name(face, gindex, buf, 50);
 		GList->insert(charcode, QString(reinterpret_cast<char*>(buf)));
-    	charcode = FT_Get_Next_Char(face, charcode, &gindex );
+		charcode = FT_Get_Next_Char(face, charcode, &gindex );
 	}
 	FT_Done_FreeType( library );
 	return true;
@@ -2710,9 +3020,9 @@ bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat)
 		gln.Code = counter1 + counter2;
 		gln.Name = "/"+QString(reinterpret_cast<char*>(buf));
 		GListInd->insert(charcode, gln);
-    	charcode = FT_Get_Next_Char(face, charcode, &gindex );
-    	counter1++;
-    	if (counter1 > 255)
+		charcode = FT_Get_Next_Char(face, charcode, &gindex );
+		counter1++;
+		if (counter1 > 255)
 		{
 			counter1 = 32;
 			counter2 += 0x100;
@@ -2823,14 +3133,14 @@ int traceCubicBezier( FT_Vector *p, FT_Vector *q, FT_Vector *to, FPointArray *co
 }
 
 FT_Outline_Funcs OutlineMethods =
-{
-	(FT_Outline_MoveTo_Func) traceMoveto,
-	(FT_Outline_LineTo_Func) traceLineto,
-	(FT_Outline_ConicTo_Func) traceQuadraticBezier,
-	(FT_Outline_CubicTo_Func) traceCubicBezier,
-	0,
-	0
-};
+    {
+        (FT_Outline_MoveTo_Func) traceMoveto,
+        (FT_Outline_LineTo_Func) traceLineto,
+        (FT_Outline_ConicTo_Func) traceQuadraticBezier,
+        (FT_Outline_CubicTo_Func) traceCubicBezier,
+        0,
+        0
+    };
 
 FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err)
 {
@@ -2993,7 +3303,7 @@ QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force)
 	FT_Done_FreeType( library );
 	return pm;
 }
- 
+
 /** Same as FontSample() with \n strings support added.
 09/26/2004 petr vanek
 */
@@ -3006,7 +3316,8 @@ QPixmap fontSamples(QString da, int s, QString ts, QColor back)
 	int y = 0;
 	int x = 0;
 	ret.fill(back);
-	for ( QStringList::Iterator it = lines.begin(); it != lines.end(); ++it ) {
+	for ( QStringList::Iterator it = lines.begin(); it != lines.end(); ++it )
+	{
 		sample = FontSample(da, s, *it, back);
 		if (!sample.isNull())
 			painter->drawPixmap(0, y, sample, 0, 0);
@@ -3038,14 +3349,14 @@ bool overwrite(QWidget *parent, QString filename)
 	bool retval = true;
 	QFileInfo fi(filename);
 	if (fi.exists())
-  	{
-    	int t = QMessageBox::warning(parent, QObject::tr("File exists"),
-					 QObject::tr("A file named '%1' already exists.\nDo you want to replace it with the file you are saving?").arg(filename),
-					QObject::tr("&Cancel"), QObject::tr("&Replace"), "", 1, 0);
-	    if (t == 0)
+	{
+		int t = QMessageBox::warning(parent, QObject::tr("File exists"),
+		                             QObject::tr("A file named '%1' already exists.\nDo you want to replace it with the file you are saving?").arg(filename),
+		                             QObject::tr("&Cancel"), QObject::tr("&Replace"), "", 1, 0);
+		if (t == 0)
 			retval = false;
-  	}
-  return retval;
+	}
+	return retval;
 }
 
 void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b)
@@ -3245,8 +3556,8 @@ void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN)
 	}
 	while (nb != 0)
 	{
-  		for (uint a = 0; a < nb->itemText.count(); ++a)
-  		{
+		for (uint a = 0; a < nb->itemText.count(); ++a)
+		{
 			QChar b = nb->itemText.at(a)->ch[0];
 			if (b == QChar(13))
 			{
@@ -3266,9 +3577,9 @@ void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN)
 				ccN++;
 			else
 				cc++;
-    		Dat = b;
+			Dat = b;
 			first = false;
-    	}
+		}
 		nbl = nb;
 		nb = nb->NextBox;
 	}

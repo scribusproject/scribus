@@ -2,7 +2,8 @@
 #include "picsearch.moc"
 #include <qimage.h>
 #include <qpixmap.h>
-extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
+#include "scribusstructs.h"
+extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0, ImageInfoRecord *info = 0);
 extern QPixmap loadIcon(QString nam);
 
 /*!
