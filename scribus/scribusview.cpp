@@ -2231,7 +2231,7 @@ void ScribusView::contentsWheelEvent(QWheelEvent *w)
 	}
 	else
 	{
-		if ((w->orientation() != QWheelEvent::Vertical) || ( w->state() & ShiftButton ))
+		if ((w->orientation() != Qt::Vertical) || ( w->state() & ShiftButton ))
 		{
 			if (w->delta() < 0)
 				scrollBy(Prefs->Wheelval, 0);

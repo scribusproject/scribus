@@ -1,5 +1,9 @@
 Changes since Version 1.1.6
 
+06.05.2004
+	* feature #578: one-click/keyboard for toggling off and on all dialogboxes+guides etc
+	* feature #594: French translation update
+
 05.05.2004
 	* bug     #590: Trying to copy frames from actual page to a just made page template crashes scribus with signal 11.
 	* feature #593: Added three new Hyphenation Dictionarys: Lithuanian, Swedish and Slovene

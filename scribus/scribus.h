@@ -116,6 +116,8 @@ public:
 	void AdjustBM();
 	void ReorgFonts();
 	void GetUsedFonts(QMap<QString,QFont> *Really);
+	void ToggleAllPalettes();
+	void ToggleAllGuides();
 	static void defaultCrashHandler (int sig);
 	void emergencySave();
 	struct CLBuf Buffer;
@@ -533,6 +535,8 @@ private:
 	int OFront;
 	int ODup;
 	int OMDup;
+	bool PalettesStat[7];
+	bool GuidesStat[6];
 	bool tipsOn;
 	bool keyrep;
 	QPopupMenu *helpMenu;

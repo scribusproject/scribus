@@ -501,6 +501,8 @@ void ScribusApp::initScribus()
 		splash->setStatus( tr("Initializing Plugins"));
 		InitPlugs(splash);
 		ClipB = QApplication::clipboard();
+		PalettesStat[0] = false;
+		GuidesStat[0] = false;
 		connect(WerkTools, SIGNAL(NewMode(int)), this, SLOT(ModeFromTB(int)));
 		connect(WerkTools, SIGNAL(Schliessen()), this, SLOT(ToggleTools()));
 		connect(WerkToolsP, SIGNAL(NewMode(int)), this, SLOT(ModeFromTB(int)));
@@ -1015,7 +1017,7 @@ void ScribusApp::wheelEvent(QWheelEvent *w)
 {
 	if (HaveDoc)
 	{
-		if ((w->orientation() != QWheelEvent::Vertical) || ( w->state() & ShiftButton ))
+		if ((w->orientation() != Qt::Vertical) || ( w->state() & ShiftButton ))
 		{
 			if (w->delta() < 0)
 				view->scrollBy(Prefs.Wheelval, 0);
@@ -1062,6 +1064,18 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 	default:
 		KeyMod = 0;
 		break;
+	}
+	if (kk == Key_F10)
+	{
+		keyrep = false;
+		ToggleAllPalettes();
+		return;
+	}
+	if ((kk == Key_F11) && (HaveDoc))
+	{
+		keyrep = false;
+		ToggleAllGuides();
+		return;
 	}
 	ButtonState buttonState = k->state();
 	if ((HaveDoc) && (!view->LE->hasFocus()) && (!view->PGS->PageCombo->hasFocus()))
@@ -4241,6 +4255,36 @@ void ScribusApp::slotZoom200()
 	slotZoomAbs(2.0*Prefs.DisScale);
 }
 
+void ScribusApp::ToggleAllPalettes()
+{
+	if (PalettesStat[0])
+	{
+		PalettesStat[0] = false;
+		setMpal(PalettesStat[1]);
+		setTpal(PalettesStat[2]);
+		setBpal(PalettesStat[3]);
+		setLpal(PalettesStat[4]);
+		setSepal(PalettesStat[5]);
+		setBookpal(PalettesStat[6]);
+	}
+	else
+	{
+		PalettesStat[1] = Mpal->isVisible();
+		PalettesStat[2] = Tpal->isVisible();
+		PalettesStat[3] = ScBook->isVisible();
+		PalettesStat[4] = Lpal->isVisible();
+		PalettesStat[5] = Sepal->isVisible();
+		PalettesStat[6] = BookPal->isVisible();
+		setMpal(false);
+		setTpal(false);
+		setBpal(false);
+		setLpal(false);
+		setSepal(false);
+		setBookpal(false);
+		PalettesStat[0] = true;
+	}
+}
+
 void ScribusApp::setMpal(bool visible)
 {
 	if (visible)
@@ -4260,6 +4304,7 @@ void ScribusApp::setMpal(bool visible)
 void ScribusApp::ToggleMpal()
 {
 	setMpal(!Mpal->isVisible());
+	PalettesStat[0] = false;
 }
 
 void ScribusApp::setTpal(bool visible)
@@ -4278,6 +4323,7 @@ void ScribusApp::setTpal(bool visible)
 void ScribusApp::ToggleTpal()
 {
 	setTpal(!Tpal->isVisible());
+	PalettesStat[0] = false;
 }
 
 void ScribusApp::setBpal(bool visible)
@@ -4298,6 +4344,7 @@ void ScribusApp::setBpal(bool visible)
 void ScribusApp::ToggleBpal()
 {
 	setBpal(!ScBook->isVisible());
+	PalettesStat[0] = false;
 }
 
 void ScribusApp::setLpal(bool visible)
@@ -4320,6 +4367,7 @@ void ScribusApp::setLpal(bool visible)
 void ScribusApp::ToggleLpal()
 {
 	setLpal(!Lpal->isVisible());
+	PalettesStat[0] = false;
 }
 
 void ScribusApp::setSepal(bool visible)
@@ -4340,6 +4388,7 @@ void ScribusApp::setSepal(bool visible)
 void ScribusApp::ToggleSepal()
 {
 	setSepal(!Sepal->isVisible());
+	PalettesStat[0] = false;
 }
 
 void ScribusApp::setBookpal(bool visible)
@@ -4358,6 +4407,7 @@ void ScribusApp::setBookpal(bool visible)
 void ScribusApp::ToggleBookpal()
 {
 	setBookpal(!BookPal->isVisible());
+	PalettesStat[0] = false;
 }
 
 void ScribusApp::setTools(bool visible)
@@ -4426,8 +4476,47 @@ void ScribusApp::TogglePics()
 	}
 }
 
+void ScribusApp::ToggleAllGuides()
+{
+	if (GuidesStat[0])
+	{
+		GuidesStat[0] = false;
+		Prefs.MarginsShown = GuidesStat[1];
+		Prefs.FramesShown = GuidesStat[2];
+		Prefs.GridShown = GuidesStat[3];
+		Prefs.GuidesShown = GuidesStat[4];
+		Prefs.BaseShown = GuidesStat[5];
+		ToggleMarks();
+		ToggleFrames();
+		ToggleRaster();
+		ToggleGuides();
+		ToggleBase();
+	}
+	else
+	{
+		GuidesStat[0] = true;
+		GuidesStat[1] = !Prefs.MarginsShown;
+		GuidesStat[2] = !Prefs.FramesShown;
+		GuidesStat[3] = !Prefs.GridShown;
+		GuidesStat[4] = !Prefs.GuidesShown;
+		GuidesStat[5] = !Prefs.BaseShown;
+		Prefs.MarginsShown = false;
+		Prefs.FramesShown = false;
+		Prefs.GridShown = false;
+		Prefs.GuidesShown = false;
+		Prefs.BaseShown = false;
+		viewMenu->changeItem(Markers, tr("Show Margins"));
+		viewMenu->changeItem(FrameDr, tr("Show Frames"));
+		viewMenu->changeItem(Ras, tr("Show Grid"));
+		viewMenu->changeItem(Guide, tr("Show Guides"));
+		viewMenu->changeItem(Base, tr("Show Baseline Grid"));
+	}
+	view->DrawNew();
+}
+
 void ScribusApp::ToggleMarks()
 {
+	GuidesStat[0] = false;
 	if (Prefs.MarginsShown)
 		viewMenu->changeItem(Markers, tr("Show Margins"));
 	else
@@ -4438,6 +4527,7 @@ void ScribusApp::ToggleMarks()
 
 void ScribusApp::ToggleFrames()
 {
+	GuidesStat[0] = false;
 	if (Prefs.FramesShown)
 		viewMenu->changeItem(FrameDr, tr("Show Frames"));
 	else
@@ -4448,6 +4538,7 @@ void ScribusApp::ToggleFrames()
 
 void ScribusApp::ToggleRaster()
 {
+	GuidesStat[0] = false;
 	if (Prefs.GridShown)
 		viewMenu->changeItem(Ras, tr("Show Grid"));
 	else
@@ -4458,6 +4549,7 @@ void ScribusApp::ToggleRaster()
 
 void ScribusApp::ToggleGuides()
 {
+	GuidesStat[0] = false;
 	if (Prefs.GuidesShown)
 		viewMenu->changeItem(Guide, tr("Show Guides"));
 	else
@@ -4468,6 +4560,7 @@ void ScribusApp::ToggleGuides()
 
 void ScribusApp::ToggleBase()
 {
+	GuidesStat[0] = false;
 	if (Prefs.BaseShown)
 		viewMenu->changeItem(Base, tr("Show Baseline Grid"));
 	else

@@ -46,6 +46,7 @@ public:
 	double ItemPos;
 	double ItemEndPos;
 	int Cols;
+	int ActCol;
 	double ColGap;
 	double RExtra;
 	double Extra;

@@ -53,6 +53,31 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 		Pos = (ItemEndPos-RExtra-lineCorr+Offset)*Scaling-offs;
 		if ((static_cast<int>(Pos) < (m->x()+doku->GrabRad)) && (static_cast<int>(Pos) > (m->x()-doku->GrabRad)))
 			RulerCode = 2;
+		if (doku->CurrentABStil > 4)
+		{
+			ActCol = 0;
+			QRect fpo;
+			double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
+			for (int CurrCol = 0; CurrCol < Cols; ++CurrCol)
+			{
+				Pos = (ItemPos+First+Indent+(ColWidth+ColGap)*CurrCol+Offset+Extra+lineCorr)*Scaling-offs;
+				fpo = QRect(static_cast<int>(Pos)-3, 11, 6, 6);
+				if (fpo.contains(m->pos()))
+				{
+					RulerCode = 3;
+					ActCol = CurrCol+1;
+					break;
+				}
+				Pos = (ItemPos+Indent+(ColWidth+ColGap)*CurrCol+Offset+Extra+lineCorr)*Scaling-offs;
+				fpo = QRect(static_cast<int>(Pos)-3, 17, 6, 6);
+				if (fpo.contains(m->pos()))
+				{
+					RulerCode = 4;
+					ActCol = CurrCol+1;
+					break;
+				}
+			}
+		}
 		MouseX = m->x();
 	}
 	else
@@ -71,6 +96,13 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 				break;
 			case 2:
 				doku->ActPage->SelItem.at(0)->RExtra = RExtra;
+				break;
+			case 3:
+				doku->Vorlagen[doku->CurrentABStil].First = First;
+				break;
+			case 4:
+				doku->Vorlagen[doku->CurrentABStil].Indent = Indent;
+				doku->Vorlagen[doku->CurrentABStil].First = First;
 				break;
 			default:
 				break;
@@ -94,10 +126,11 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		{
 			double toplimit = ItemEndPos-ItemPos-2*lineCorr-Extra - (ColGap * (Cols - 1))-1;
 			double toplimit2 = ItemEndPos-ItemPos-2*lineCorr-RExtra - (ColGap * (Cols - 1))-1;
+			double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
 			switch (RulerCode)
 			{
 				case 1:
-					Extra -= MouseX - m->x();
+					Extra -= (MouseX - m->x()) / Scaling;
 					if (Extra < 0)
 					{
 						Extra = 0;
@@ -111,7 +144,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 					repaint();
 					break;
 				case 2:
-					RExtra += MouseX - m->x();
+					RExtra += (MouseX - m->x()) / Scaling;
 					if (RExtra < 0)
 					{
 						RExtra = 0;
@@ -121,6 +154,38 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 					{
 						RExtra = toplimit;
 						QCursor::setPos(mapToGlobal(QPoint(static_cast<int>((ItemPos+Extra+lineCorr+(ColGap*(Cols-1))-1+Offset)*Scaling-offs), m->y())));
+					}
+					repaint();
+					break;
+				case 3:
+					First -= (MouseX - m->x()) / Scaling;
+					if ((ItemPos+(ColWidth+ColGap)*ActCol+First+Indent+Offset)*Scaling-offs < (ItemPos+(ColWidth+ColGap)*ActCol+Offset)*Scaling-offs)
+					{
+						First += (MouseX - m->x()) / Scaling;
+						QCursor::setPos(mapToGlobal(QPoint(static_cast<int>((ItemPos+First+Indent+(ColWidth+ColGap)*(ActCol-1)+Offset)*Scaling-offs), m->y())));
+					}
+					if (First+Indent > ColWidth)
+					{
+						First  = ColWidth-Indent;
+						QCursor::setPos(mapToGlobal(QPoint(static_cast<int>((ItemPos+(ColWidth+ColGap)*(ActCol-1)+ColWidth+Extra+lineCorr+Offset)*Scaling-offs), m->y())));
+					}
+					repaint();
+					break;
+				case 4:
+					Indent -= (MouseX - m->x()) / Scaling;
+					if (Indent < 0)
+					{
+						Indent = 0;
+						QCursor::setPos(mapToGlobal(QPoint(static_cast<int>((ItemPos+Indent+(ColWidth+ColGap)*(ActCol-1)+Extra+lineCorr+Offset)*Scaling-offs), m->y())));
+					}
+					if (Indent + First < 0)
+						First = 0 - Indent;
+					if (Indent + First > ColWidth)
+						First = ColWidth - Indent;
+					if (Indent > ColWidth-1)
+					{
+						Indent  = ColWidth-1;
+						QCursor::setPos(mapToGlobal(QPoint(static_cast<int>((ItemPos+(ColWidth+ColGap)*(ActCol-1)+ColWidth+Extra+lineCorr+Offset)*Scaling-offs), m->y())));
 					}
 					repaint();
 					break;
@@ -344,6 +409,7 @@ void Hruler::paintEvent(QPaintEvent *)
 					}
 					if (doku->CurrentABStil > 4)
 					{
+						p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
 						double fpos = Pos+First+Indent+of;
 						QPointArray cr;
 						cr.setPoints(3, qRound(fpos*sc), 17, qRound((fpos+3/sc)*sc), 11, qRound((fpos-3/sc)*sc), 11);
@@ -352,6 +418,7 @@ void Hruler::paintEvent(QPaintEvent *)
 						cr2.setPoints(3, qRound((Pos+Indent+of)*sc), 17, qRound((Pos+Indent+of+3/sc)*sc), 23, qRound((Pos+Indent+of-3/sc)*sc), 23);
 						p.drawPolygon(cr2);
 					}
+					p.setPen(QPen(blue, 2, SolidLine, FlatCap, MiterJoin));
 					if (TabValues.count() != 0)
 					{
 						p.setPen(QPen(black, 2, SolidLine, FlatCap, MiterJoin));
