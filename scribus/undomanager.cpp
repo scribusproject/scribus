@@ -29,8 +29,9 @@
 extern PrefsFile *prefsFile;
 extern QPixmap loadIcon(QString nam);
 
-UndoManager* UndoManager::_instance    = 0;
-bool         UndoManager::_undoEnabled = true;
+UndoManager* UndoManager::_instance          = 0;
+bool         UndoManager::_undoEnabled       = true;
+int          UndoManager::undoEnabledCounter = 0;
 
 UndoManager* UndoManager::instance()
 {
@@ -42,11 +43,19 @@ UndoManager* UndoManager::instance()
 
 void UndoManager::setUndoEnabled(bool isEnabled)
 {
-	_undoEnabled = isEnabled;
-	if (isEnabled)
+	if (isEnabled && undoEnabledCounter == 0)
+		return; // nothing to do undo is already enabled.
+	else if (isEnabled && undoEnabledCounter > 0)
+		--undoEnabledCounter;
+	else if (!isEnabled)
+		++undoEnabledCounter;
+
+	_undoEnabled = undoEnabledCounter == 0;
+	if (_undoEnabled)
 		connectGuis();
-	else
-		disconnectGuis();
+	else if (undoEnabledCounter == 1)
+		disconnectGuis(); // disconnect only once when setUndoEnabled(false) has been called
+		                  // no need to call again if next setUndoEnabled() call will also be false.
 }
 
 bool UndoManager::undoEnabled()

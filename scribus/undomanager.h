@@ -137,6 +137,17 @@ private:
 	/** @brief Should undo states be stored or ignored */
 	static bool _undoEnabled;
 
+	/** 
+	 * @brief Tracks the state of _undoEnabled.
+	 *
+	 * This value is increased whenever setUndoEnabled(true) is called and decreased
+	 * when setUndoEnabled(false) is called. This means _undoEnabled == true when this
+	 * value is 0 and when its above zero _undoEnabled == false. Counting setUndoEnabled()
+	 * calls this way guarantees that undo is not enabled accidentally calling 
+	 * setUndoEnabled(true) even it has been set false before this false-true pair touched it.
+	 */
+	static int undoEnabledCounter;
+
 	PrefsContext *prefs;
 
 	/** @brief Doc to which the currently active stack belongs */
