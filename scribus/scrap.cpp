@@ -32,36 +32,19 @@ BibView::BibView(QWidget* parent, ApplicationPrefs *prefs) : QIconView(parent)
 
 void BibView::keyPressEvent(QKeyEvent *k)
 {
-	/*
-	int KeyMod;
-	int kk = k->key();
-	switch (k->state())
+	//Why doesnt this widget send Escape to the QDialog? Lets make Escape work for now anyway.
+	if (k->key()==Key_Escape && k->state() == 0)
 	{
-	case ShiftButton:
-		KeyMod = 0x00200000;
-		break;
-	case AltButton:
-		KeyMod = 0x00800000;
-		break;
-	case ControlButton:
-		KeyMod = 0x00400000;
-		break;
-	default:
-		KeyMod = 0;
-		break;
+		QFrame *f=dynamic_cast<QFrame *>(parent());
+		if (f)
+		{
+			QDialog *d=dynamic_cast<QDialog *>(f->parent());
+			if (d)
+				d->close();
+		}
 	}
-	if (kk == Key_F10)
-		emit ToggleAllPalettes();
-	// CB TODO
-	//if ((kk + KeyMod) == Prefs->KeyActions[46].KeyID)
-	//	emit CloseMpal();
-	//if ((kk + KeyMod) == Prefs->KeyActions[47].KeyID)
-	//	emit CloseTpal();
-	//if ((kk + KeyMod) == Prefs->KeyActions[48].KeyID)
-	//	emit Schliessen();
-	
-	QIconView::keyPressEvent(k);
-	*/	
+	else
+		QIconView::keyPressEvent(k);
 }
 
 QDragObject *BibView::dragObject()

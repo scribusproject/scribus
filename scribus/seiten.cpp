@@ -556,10 +556,6 @@ SeitenPal::SeitenPal(QWidget* parent)
 
 void SeitenPal::keyPressEvent(QKeyEvent *k)
 {
-	/*
-	if (k->key() == Key_F10)
-		emit ToggleAllPalettes();
-	*/
 	QDialog::keyPressEvent(k);
 }
 

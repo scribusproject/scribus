@@ -55,7 +55,6 @@
 #include "scribusdoc.h"
 #include "scribuswin.h"
 #include "frameedit.h"
-#include "scrap.h"
 #include "layers.h"
 #include "seiten.h"
 #include "bookpalette.h"
@@ -82,6 +81,7 @@ class ScrAction;
 class MenuManager;
 class CheckDocument;
 class Tree;
+class Biblio;
 
 /**
   * This Class is the base class for your application. It sets up the main

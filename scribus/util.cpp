@@ -2388,10 +2388,10 @@ bool overwrite(QWidget *parent, QString filename)
 	QFileInfo fi(filename);
 	if (fi.exists())
   	{
-    	int t = QMessageBox::warning(parent, QObject::tr("Warning"),
-  						QObject::tr("Do you really want to overwrite the File:\n%1 ?").arg(filename),
-                        QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
-	    if (t == QMessageBox::No)
+    	int t = QMessageBox::warning(parent, QObject::tr("File exists"),
+					 QObject::tr("A file named '%1' already exists.\nDo you want to replace it with the file you are saving?").arg(filename),
+					QObject::tr("&Cancel"), QObject::tr("&Replace"), "", 1, 0);
+	    if (t == 0)
 			retval = false;
   	}
   return retval;

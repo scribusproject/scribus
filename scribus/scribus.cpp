@@ -118,6 +118,7 @@
 #include "menumanager.h"
 #include "undostate.h"
 #include "tree.h"
+#include "scrap.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);

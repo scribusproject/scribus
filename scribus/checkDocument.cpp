@@ -156,11 +156,6 @@ void CheckDocument::closeEvent(QCloseEvent *ce)
 
 void CheckDocument::keyPressEvent(QKeyEvent *ke)
 {
-	/*
-	if (ke->key() == Key_Escape)
-		close();
-	else
-		*/
 	QDialog::keyPressEvent(ke);
 }
 
