@@ -17,10 +17,12 @@
 #include "svgexplugin.h"
 #include "svgexplugin.moc"
 
-#if (_MSC_VER >= 1200)
-	#include "win-config.h"
+#ifdef _MSC_VER
+ #if (_MSC_VER >= 1200)
+  #include "win-config.h"
+ #endif
 #else
-	#include "config.h"
+ #include "config.h"
 #endif
 #include "customfdialog.h"
 #include <qfile.h>

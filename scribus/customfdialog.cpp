@@ -32,7 +32,7 @@ extern QString DocDir;
 ImIconProvider::ImIconProvider(QWidget *pa) : QFileIconProvider(pa)
 {
 	fmts.clear();
-	char *tmp[] = {"eps", "gif", "png", "jpg", "xpm", "tif", "bmp", "pbm", "pgm", "ppm", "xbm", "xpm"};
+	QString tmp[] = {"eps", "gif", "png", "jpg", "xpm", "tif", "bmp", "pbm", "pgm", "ppm", "xbm", "xpm"};
 	size_t array = sizeof(tmp) / sizeof(*tmp);
 	for (uint a = 0; a < array; ++a)
 		fmts += tmp[a];
@@ -230,7 +230,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString fil
 			TxCodeT->setText( tr("Encoding:"));
 			TxCodeM = new QComboBox(true, LayoutC, "Cod");
 			TxCodeM->setEditable(false);
-			char *tmp_txc[] = {"ISO 8859-1", "ISO 8859-2", "ISO 8859-3", "ISO 8859-4", "ISO 8859-5", "ISO 8859-6",
+			QString tmp_txc[] = {"ISO 8859-1", "ISO 8859-2", "ISO 8859-3", "ISO 8859-4", "ISO 8859-5", "ISO 8859-6",
 								"ISO 8859-7", "ISO 8859-8", "ISO 8859-9", "ISO 8859-10", "ISO 8859-13", "ISO 8859-14",
 								"ISO 8859-15", "utf8", "KOI8-R", "KOI8-U", "CP1250", "CP1251", "CP1252", "CP1253",
 								"CP1254", "CP1255", "CP1256", "CP1257"};

@@ -12,10 +12,12 @@
 #include "scribus.h"
 #include "scribusXml.h"
 #include "missing.h"
-#if (_MSC_VER >= 1200)
- 	#include "win-config.h"
+#ifdef _MSC_VER
+ #if (_MSC_VER >= 1200)
+  #include "win-config.h"
+ #endif
 #else
-	#include "config.h"
+ #include "config.h"
 #endif
 #ifdef HAVE_LIBZ
 	#include <zlib.h>

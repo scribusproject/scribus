@@ -71,18 +71,12 @@
 #include "gtgettext.h"
 #include "fileloader.h"
 
-#ifndef _MSC_VER   // jjsa 21-03-2004 (lint complains)
-#define _MSC_VER -1
-#endif
-
-#if (_MSC_VER >= 1200)
- #include "win-config.h"
+#ifdef _MSC_VER
+ #if (_MSC_VER >= 1200)
+  #include "win-config.h"
+ #endif
 #else
  #include "config.h"
-#endif
-
-#if (_MSC_VER == -1 )   // jjsa 21-03-2004 (lint complains)
-#undef _MSC_VER
 #endif
 
 #include "fpoint.h"
@@ -894,7 +888,7 @@ void ScribusApp::initMenuBar()
 	ColorMenu->insertItem(ColorMenC);
 	SizeTMenu = new QPopupMenu();
 	SizeTMenu->insertItem( tr("&Other..."));
-	char *ar_sizes[] = {" 7", " 9", "10", "11", "12", "14", "18", "24", "36", "48", "60", "72"};
+	QString ar_sizes[] = {" 7", " 9", "10", "11", "12", "14", "18", "24", "36", "48", "60", "72"};
 	size_t f_size = sizeof(ar_sizes) / sizeof(*ar_sizes);
 	for (uint s = 0; s < f_size; ++s)
 		SizeTMenu->insertItem(ar_sizes[s] + tr(" pt"));
