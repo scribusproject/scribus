@@ -1903,8 +1903,8 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 				tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
 #endif // HAVE_CMS
 			img = img.swapRGB();
-			DWORD ClipLen = 0;
-			LPBYTE ClipBuffer;
+			uint32 ClipLen = 0;
+			uint8 ClipBuffer;
 			QString db;
 			if (TIFFGetField(tif, TIFFTAG_CLIPPATH, &ClipLen, &ClipBuffer))
 				qDebug(db.setNum(ClipLen));
