@@ -16,6 +16,7 @@
    <comment xml:lang="nb">Scribus dokument</comment>
    <comment xml:lang="da">Scribus Dokument</comment>
    <comment xml:lang="ru">Документ Scribus</comment>
+   <comment xml:lang="ru">Документ Scribus</comment>
         <glob pattern="*.sla" />
         <glob pattern="*.sla.gz" />
         <glob pattern="*.scd" />
