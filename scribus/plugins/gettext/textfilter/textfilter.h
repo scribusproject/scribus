@@ -25,6 +25,7 @@ private:
 	void toUnicode();
 	void write();
 	void replace(QString* text);
+	void replaceHex(QString* text);
 public:
 	TextFilter(const QString& fname, const QString& enc, gtWriter* w);
 	~TextFilter();

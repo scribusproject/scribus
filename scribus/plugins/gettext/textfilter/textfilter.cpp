@@ -97,8 +97,6 @@ void TextFilter::write()
 			if (useRegexp)
 				replace(&replaceWith);
 			QString pstyle = (*filters)[i]->getPStyleName();
-//			int lessThan = (*filters)[i]->getLessThan();
-//			int moreThan = (*filters)[i]->getMoreThan();
 			QRegExp rx = QRegExp(regExp);
 			switch (action)
 			{
@@ -205,6 +203,10 @@ void TextFilter::write()
 
 void TextFilter::replace(QString* text)
 {
+	text->replace("\\\\", "__SLASH_HERE__");
+	text->replace("\\", "\\");
+	text->replace("__SLASH_HERE__", "\\\\");
+
 	text->replace("\\\\t", "__|TABCHAR|__");
 	text->replace("\\t", "\t");
 	text->replace("__|TABCHAR|__", "\\t");
@@ -224,6 +226,37 @@ void TextFilter::replace(QString* text)
 	text->replace("\\\\v", "__|V-CHAR|__");
 	text->replace("\\v", "\v");
 	text->replace("__|V-CHAR|__", "\\v");
+
+	replaceHex(text);
+}
+
+void TextFilter::replaceHex(QString* text)
+{
+	int index;
+	int pos = 0;
+	QString hexS;
+	int hex;
+	bool ok = false;
+	do
+	{
+		index = text->find("\\x", pos);
+		if (index != -1)
+		{
+			if ((text->length() - index + 1) > 6)
+			{
+				hexS = text->mid(index + 2, 4);
+				hex = hexS.toInt(&ok, 16);
+				if (ok)
+				{
+					text->replace("\\x" + hexS, QChar(hex));
+				}
+			}
+			else
+				index = -1;
+			pos += 2;
+		}
+	}
+	while (index != -1);
 }
 
 TextFilter::~TextFilter()
