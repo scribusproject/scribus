@@ -25,6 +25,7 @@
 #include <cmath>
 #include "rc4.h"
 
+extern QString Path2Relative(QString Path);
 extern bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat);
 extern QByteArray ComputeMD5Sum(QByteArray *in);
 extern QImage LoadPict(QString fn);
@@ -1916,12 +1917,20 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 		case 1:
 		case 11:
 			PutDoc("/Subtype /Link\n");
-			PutDoc("/Dest /"+NDnam+IToStr(NDnum)+"\n");
-			de.Name = NDnam+IToStr(NDnum);
-			de.Seite = ite->AnZiel;
-			de.Act = ite->AnAction;
-			NamedDest.append(de);
-			NDnum++;
+			if (ite->AnActType == 7)
+				{
+				PutDoc("/A << /Type /Action /S /GoToR\n/F "+EncString("("+Path2Relative(ite->An_Extern)+")",ObjCounter-1)+"\n");
+				PutDoc("/D ["+IToStr(ite->AnZiel)+" /XYZ "+ite->AnAction+"]\n>>\n");
+				}
+			else
+				{
+				PutDoc("/Dest /"+NDnam+IToStr(NDnum)+"\n");
+				de.Name = NDnam+IToStr(NDnum);
+				de.Seite = ite->AnZiel;
+				de.Act = ite->AnAction;
+				NamedDest.append(de);
+				NDnum++;
+				}
 			break;
 		case 2:
 		case 3:
@@ -1975,7 +1984,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 					break;
 				}
 			PutDoc(" >>\n");
-			cnx = "/DA ("+ind2PDFabr[ite->AnFont]+" "+IToStr(ite->ISize)+" Tf";
+			cnx = "("+ind2PDFabr[ite->AnFont]+" "+IToStr(ite->ISize)+" Tf";
 			if (Options->UseRGB)
 				{
 				if (ite->Pcolor2 != "None")
@@ -2007,7 +2016,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 				}
 #endif
 			cnx += ")";
-			PutDoc(EncString(cnx,ObjCounter-1)+"\n");
+			PutDoc("/DA "+EncString(cnx,ObjCounter-1)+"\n");
 			int flg = ite->AnFlag;
 			if (Options->Version == 13)
 				flg = flg & 522247;
@@ -2088,7 +2097,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 			switch (ite->AnType)
 				{
 				case 2:
-					PutDoc("/CA ("+bm+") ");
+					PutDoc("/CA "+EncString("("+bm+")",ObjCounter-1)+" ");
 					if (ite->AnRollOver != "")
 						PutDoc("/RC "+EncString("("+PDFEncode(ite->AnRollOver)+")",ObjCounter-1)+" ");
 					if (ite->AnDown != "")
@@ -2169,6 +2178,11 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 			PutDoc(">>\n");
 			if ((ite->AnActType != 0) || (ite->AnAAact))
 				{
+				if (ite->AnActType == 7)
+					{
+					PutDoc("/A << /Type /Action /S /GoToR\n/F "+EncString("("+Path2Relative(ite->An_Extern)+")",ObjCounter-1)+"\n");
+					PutDoc("/D ["+IToStr(ite->AnZiel)+" /XYZ "+ite->AnAction+"]\n>>\n");
+					}
 				if (ite->AnActType == 5)
 					PutDoc("/A << /Type /Action /S /ImportData\n/F "+EncString("("+ite->AnAction+")",ObjCounter-1)+" >>\n");
 				if (ite->AnActType == 4)

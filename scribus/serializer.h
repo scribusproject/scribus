@@ -35,7 +35,7 @@ public:
 	QString GetObjekt();
 	void PutText(PageItem *Item);
 	void GetText(PageItem *Item, int Absatz, bool Append = false);
-	bool Write();
+	bool Write(QString Cod = "");
 	bool Read(QString Cod = "");
 };
 

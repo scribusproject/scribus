@@ -26,37 +26,8 @@
 extern float QStoFloat(QString in);
 extern int QStoInt(QString in);
 extern bool loadText(QString nam, QString *Buffer);
+extern QString Path2Relative(QString Path);
 
-QString ScriXmlDoc::Path2Relative(QString Path)
-{
-	QString	Ndir = "";
-	QStringList Pdir = QStringList::split("/", QDir::currentDirPath());
-	QFileInfo Bfi = QFileInfo(Path);
-	QStringList Bdir = QStringList::split("/", Bfi.dirPath(true));
-	bool ende = true;
-	uint dcoun = 0;
-	uint dcoun2 = 0;
-	while (ende)
-		{
-		if (Pdir[dcoun] == Bdir[dcoun])
-			dcoun++;
-		else
-			break;
-		if (dcoun > Pdir.count())
-			break;
-		}
-	dcoun2 = dcoun;
-	for (uint ddx2 = dcoun; ddx2 < Pdir.count(); ddx2++)
-		{
-		Ndir += "../";
-		}
-	for (uint ddx = dcoun2; ddx < Bdir.count(); ddx++)
-		{
-		Ndir += Bdir[ddx]+"/";
-		}
-	Ndir += Bfi.fileName();
-	return Ndir;
-}
 QString ScriXmlDoc::ReadDatei(QString fileName)
 {
 /**
@@ -394,6 +365,12 @@ while(!DOC.isNull())
 				OB.An_F_act = obj.attribute("ANFACT","");
 				OB.An_V_act = obj.attribute("ANVACT","");
 				OB.An_C_act = obj.attribute("ANCACT","");
+				OB.An_Extern = obj.attribute("ANEXTERN","");
+				if (OB.An_Extern != "")
+					{
+					QFileInfo efp(OB.An_Extern);
+					OB.An_Extern = efp.absFilePath();
+					}
 				OB.AnZiel = QStoInt(obj.attribute("ANZIEL","0"));
 				OB.AnActType = QStoInt(obj.attribute("ANACTYP","0"));
 				OB.AnName = obj.attribute("ANNAME","");
@@ -889,6 +866,12 @@ while(!DOC.isNull())
 				OB.An_F_act = obj.attribute("ANFACT","");
 				OB.An_V_act = obj.attribute("ANVACT","");
 				OB.An_C_act = obj.attribute("ANCACT","");
+				OB.An_Extern = obj.attribute("ANEXTERN","");
+				if (OB.An_Extern != "")
+					{
+					QFileInfo efp(OB.An_Extern);
+					OB.An_Extern = efp.absFilePath();
+					}
 				OB.AnZiel = QStoInt(obj.attribute("ANZIEL","0"));
 				OB.AnActType = QStoInt(obj.attribute("ANACTYP","0"));
 				OB.AnName = obj.attribute("ANNAME","");
@@ -1319,6 +1302,12 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.An_F_act = pg.attribute("ANFACT","");
 			OB.An_V_act = pg.attribute("ANVACT","");
 			OB.An_C_act = pg.attribute("ANCACT","");
+			OB.An_Extern = pg.attribute("ANEXTERN","");
+			if (OB.An_Extern != "")
+				{
+				QFileInfo efp(OB.An_Extern);
+				OB.An_Extern = efp.absFilePath();
+				}
 			OB.AnZiel = QStoInt(pg.attribute("ANZIEL","0"));
 			OB.AnActType = QStoInt(pg.attribute("ANACTYP","0"));
 			OB.AnName = pg.attribute("ANNAME","");
@@ -1582,6 +1571,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			ob.setAttribute("ANFACT", item->An_F_act);
 			ob.setAttribute("ANVACT", item->An_V_act);
 			ob.setAttribute("ANCACT", item->An_C_act);
+			ob.setAttribute("ANEXTERN", Path2Relative(item->An_Extern));
 			ob.setAttribute("ANZIEL", item->AnZiel);
 			ob.setAttribute("ANACTYP", item->AnActType);
 			ob.setAttribute("ANTOOLTIP", item->AnToolTip);
@@ -1899,6 +1889,7 @@ for(uint i=0;i<view->Pages.count();++i)
 			ob.setAttribute("ANFACT", item->An_F_act);
 			ob.setAttribute("ANVACT", item->An_V_act);
 			ob.setAttribute("ANCACT", item->An_C_act);
+			ob.setAttribute("ANEXTERN", Path2Relative(item->An_Extern));
 			ob.setAttribute("ANZIEL", item->AnZiel);
 			ob.setAttribute("ANACTYP", item->AnActType);
 			ob.setAttribute("ANTOOLTIP", item->AnToolTip);

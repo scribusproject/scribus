@@ -1672,21 +1672,21 @@ void Page::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();
 	Mpressed = false;
-	if (GroupSel)
+	if ((GroupSel) || (doku->AppMode != 1) || (doku->EditClip))
+		{
+		mousePressEvent(m);
 		return;
-	if (doku->AppMode != 1)
-		return;
-	if (doku->EditClip)
-		return;
+		}
 	PageItem *b = 0;
 	if (GetItem(&b))
 		{
 		if ((b->PType == 6) || (b->PType == 7) || (b->PType == 2) || (b->PType == 8))
 			{
-			if (b->Locked)
+			if ((b->Locked) || (!b->ScaleType))
+				{
+				mousePressEvent(m);
 				return;
-			if (!b->ScaleType)
-				return;
+				}
 			emit Amode(7);
 			}
 		else
@@ -6044,6 +6044,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading)
 	b->An_F_act = Buffer->An_F_act;
 	b->An_V_act = Buffer->An_V_act;
 	b->An_C_act = Buffer->An_C_act;
+	b->An_Extern = Buffer->An_Extern;
 	b->AnZiel = Buffer->AnZiel;
 	b->AnActType = Buffer->AnActType;
 	if (Buffer->AnName != "")

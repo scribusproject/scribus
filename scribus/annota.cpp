@@ -8,6 +8,7 @@
 ****************************************************************************/
 #include "annota.h"
 #include "annota.moc"
+#include "customfdialog.h"
 #include <qstringlist.h>
 
 extern QPixmap loadIcon(QString nam);
@@ -21,8 +22,9 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
   	Breite = b;
   	Hoehe = h;
   	view = vie;
+		MaxSeite = Seite;
     QStringList tl;
-		if (item->AnActType == 2)
+		if ((item->AnActType == 2) || (item->AnActType == 7))
 			{
     	QString tm = item->AnAction;
     	tl = tl.split(" ", tm);
@@ -48,11 +50,13 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     ComboBox1 = new QComboBox( true, this, "ComboBox1" );
     ComboBox1->insertItem( tr( "Text" ) );
     ComboBox1->insertItem( tr( "Link" ) );
+    ComboBox1->insertItem( tr( "External Link" ) );
     ComboBox1->setEditable(false);
     Layout1->addWidget( ComboBox1 );
     AnnotLayout->addLayout( Layout1 );
 		item->AnType < 2 ? ComboBox1->setCurrentItem(item->AnType) : ComboBox1->setCurrentItem(item->AnType-10);
-
+    if (item->AnActType == 7)
+			ComboBox1->setCurrentItem(2);
     Fram = new QWidgetStack(this);
     AnnotLayout->addWidget( Fram );
 
@@ -65,35 +69,54 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     GroupBox1Layout->setAlignment( Qt::AlignTop );
     GroupBox1Layout->setSpacing( 6 );
     GroupBox1Layout->setMargin( 11 );
+
+    Destfile = new QLineEdit(GroupBox1, "File");
+		Destfile->setText(item->An_Extern);
+		Destfile->setReadOnly(true);
+    GroupBox1Layout->addMultiCellWidget( Destfile, 0, 0, 0, 1 );
+		ChFile = new QPushButton(GroupBox1, "Change");
+		ChFile->setText(tr("Change..."));
+    GroupBox1Layout->addWidget( ChFile, 0, 2 );
+		if (item->AnActType != 7)
+			{
+			Destfile->hide();
+			ChFile->hide();
+			}
+
     TextLabel3 = new QLabel( GroupBox1, "TextLabel3" );
     TextLabel3->setText( tr( "Page:" ) );
-    GroupBox1Layout->addWidget( TextLabel3, 0, 0 );
+    GroupBox1Layout->addWidget( TextLabel3, 1, 0 );
     SpinBox1 = new QSpinBox( GroupBox1, "SpinBox1" );
     SpinBox1->setMinValue(1);
-    SpinBox1->setMaxValue(Seite);
+		if (Destfile->text() != "")
+    	SpinBox1->setMaxValue(1000);
+		else
+    	SpinBox1->setMaxValue(Seite);
     SpinBox1->setValue(item->AnZiel+1);
-    GroupBox1Layout->addWidget( SpinBox1, 0, 1 );
-
-    Pg = new Navigator( GroupBox1, 100, item->AnZiel, view);
+    GroupBox1Layout->addWidget( SpinBox1, 1, 1 );
+		if (Destfile->text() != "")
+    	Pg = new Navigator( GroupBox1, 100, item->AnZiel+1, view, item->An_Extern);
+		else
+    	Pg = new Navigator( GroupBox1, 100, item->AnZiel, view);
     Pg->setMinimumSize(QSize(Pg->pmx.width(), Pg->pmx.height()));
-    GroupBox1Layout->addMultiCellWidget(Pg, 0, 2, 2, 2);
+    GroupBox1Layout->addMultiCellWidget(Pg, 1, 3, 2, 2);
 
     TextLabel4 = new QLabel( GroupBox1, "TextLabel4" );
     TextLabel4->setText( tr( "X-Pos:" ) );
-    GroupBox1Layout->addWidget( TextLabel4, 1, 0 );
+    GroupBox1Layout->addWidget( TextLabel4, 2, 0 );
     SpinBox2 = new QSpinBox( GroupBox1, "SpinBox2" );
     SpinBox2->setSuffix( tr( " pt" ) );
     SpinBox2->setMaxValue(Breite);
     SpinBox2->setValue(tl[0].toInt());
-    GroupBox1Layout->addWidget( SpinBox2, 1, 1 );
+    GroupBox1Layout->addWidget( SpinBox2, 2, 1 );
     TextLabel5 = new QLabel( GroupBox1, "TextLabel5" );
     TextLabel5->setText( tr( "Y-Pos:" ) );
-    GroupBox1Layout->addWidget( TextLabel5, 2, 0 );
+    GroupBox1Layout->addWidget( TextLabel5, 3, 0 );
     SpinBox3 = new QSpinBox( GroupBox1, "SpinBox3" );
     SpinBox3->setMaxValue(Hoehe);
     SpinBox3->setSuffix( tr( " pt" ) );
     SpinBox3->setValue(Hoehe-tl[1].toInt());
-    GroupBox1Layout->addWidget( SpinBox3, 2, 1 );
+    GroupBox1Layout->addWidget( SpinBox3, 3, 1 );
     Fram->addWidget(GroupBox1, 1);
 
     Frame9 = new QFrame( this, "Frame7" );
@@ -101,7 +124,6 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     Frame9->setFrameShadow( QFrame::Plain );
     Fram->addWidget(Frame9, 2);
 
-    SetZiel(item->AnType);
     Layout1_2 = new QHBoxLayout; 
     Layout1_2->setSpacing( 6 );
     Layout1_2->setMargin( 0 );
@@ -118,7 +140,6 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout1_2->addItem( spacer );
     AnnotLayout->addLayout( Layout1_2 );
-    SetCross();
     connect(PushButton1, SIGNAL(clicked()), this, SLOT(SetVals()));
     connect(PushButton2, SIGNAL(clicked()), this, SLOT(reject()));
     connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetZiel(int)));
@@ -126,6 +147,9 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     connect(Pg, SIGNAL(Coords(float, float)), this, SLOT(SetCo(float, float)));
     connect(SpinBox2, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
     connect(SpinBox3, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
+		connect(ChFile, SIGNAL(clicked()), this, SLOT(GetFile()));
+    SetZiel(item->AnType);
+    SetCross();
 }
 
 
@@ -137,7 +161,21 @@ void Annota::SetCo(float x, float y)
 
 void Annota::SetPg(int v)
 {
-	Pg->SetSeite(v-1, 100);
+	disconnect(SpinBox1, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
+	if (ComboBox1->currentItem() == 2)
+		{
+		if (!Pg->SetSeite(v, 100, Destfile->text()))
+			{
+			SpinBox1->setValue(1);
+			Pg->SetSeite(1, 100, Destfile->text());
+			}
+		}
+	else
+		{
+		Pg->SetSeite(v-1, 100);
+		SpinBox1->setValue(v);
+		}
+	connect(SpinBox1, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
 }
 
 void Annota::SetCross()
@@ -160,22 +198,83 @@ void Annota::SetVals()
 	if (item->AnType == 11)
 		{
 		item->AnAction = tmp.setNum(SpinBox2->value())+" "+tmp.setNum(Hoehe-SpinBox3->value())+" 0";
+		item->An_Extern = "";
 		item->AnActType = 2;
+		}
+	if (item->AnType == 12)
+		{
+		item->AnAction = tmp.setNum(SpinBox2->value())+" "+tmp.setNum(Hoehe-SpinBox3->value())+" 0";
+		if (Destfile->text() != "")
+			{
+			item->An_Extern = Destfile->text();
+			item->AnActType = 7;
+			}
+		item->AnType = 11;
 		}
 	accept();
 }
 
 void Annota::SetZiel(int it)
 {
+	disconnect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetZiel(int)));
 	switch (it)
 		{
 		case 1:
+    	Fram->raiseWidget(1);
+			Destfile->setText("");
+			Destfile->hide();
+			ChFile->hide();
+			item->AnActType = 2;
+			SetPg(QMIN(SpinBox1->value(), MaxSeite));
+			break;
+		case 2:
+    	Fram->raiseWidget(1);
+			Destfile->show();
+			ChFile->show();
+			if (Destfile->text() == "")
+				GetFile();
+			if (Destfile->text() == "")
+				{
+				item->AnActType = 2;
+				Destfile->setText("");
+				Destfile->hide();
+				ChFile->hide();
+				ComboBox1->setCurrentItem(1);
+				}
+			else
+				item->AnActType = 7;
+			SetPg(QMIN(SpinBox1->value(), MaxSeite));
+			break;
 		case 11:
     	Fram->raiseWidget(1);
+			if (item->AnActType == 7)
+				{
+				Destfile->show();
+				ChFile->show();
+				}
 			break;
 		default:
     	Fram->raiseWidget(2);
 			break;
 		}
+	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetZiel(int)));
 }
 
+void Annota::GetFile()
+{
+	QString fn;
+	CustomFDialog dia(this, tr("Open"),tr("PDF-Documents (*.pdf);;All Files (*)"));
+	if (Destfile->text() != "")
+		dia.setSelection(Destfile->text());
+	if (dia.exec() == QDialog::Accepted)
+		{
+		fn = dia.selectedFile();
+		if (!fn.isEmpty())
+			{
+			Destfile->setText(fn);
+			SpinBox1->setValue(1);
+    	SpinBox1->setMaxValue(1000);
+			SetPg(1);
+			}
+		}
+}

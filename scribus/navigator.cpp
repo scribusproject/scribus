@@ -17,12 +17,22 @@
 
 #include "navigator.h"
 #include "navigator.moc"
+extern QPixmap LoadPDF(QString fn, int Seite, int Size);
 
-Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie) : QLabel(parent)
+Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QString fn) : QLabel(parent)
 {
 	setScaledContents(false);
 	setAlignment(static_cast<int>( QLabel::AlignLeft | QLabel::AlignTop) );
-	pmx = vie->PageToPixmap(Seite, Size);
+	if (fn != "")
+		{
+		QPixmap img = LoadPDF(fn, Seite, Size);
+		if (!img.isNull())
+			pmx = img;
+		else
+			pmx = LoadPDF(fn, 1, Size);
+		}
+	else
+		pmx = vie->PageToPixmap(Seite, Size);
 	resize(pmx.width(), pmx.height());
 	Xp = 0;
 	Yp = 0;
@@ -72,10 +82,27 @@ void Navigator::drawMark(int x, int y)
 	p.end();
 }
 
-void Navigator::SetSeite(int Seite, int Size)
+bool Navigator::SetSeite(int Seite, int Size, QString fn)
 {
-	pmx = view->PageToPixmap(Seite, Size);
+	bool ret = false;
+	if (fn != "")
+		{
+		QPixmap img = LoadPDF(fn, Seite, Size);
+		if (!img.isNull())
+			{
+			pmx = img;
+			ret = true;
+			}
+		else
+			pmx = LoadPDF(fn, 1, Size);
+		}
+	else
+		{
+		pmx = view->PageToPixmap(Seite, Size);
+		ret = true;
+		}
 	resize(pmx.width(), pmx.height());
 	repaint();
+	return ret;
 }
 

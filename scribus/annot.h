@@ -65,6 +65,9 @@ public:
     QLabel* TextLabel31;
     QLabel* TextLabel41;
     QLabel* TextLabel51;
+		QCheckBox* LExtern;
+		QLineEdit* Destfile;
+		QPushButton* ChFile;
     Navigator* Pg1;
     QSpinBox* SpinBox11;
     QSpinBox* SpinBox21;
@@ -205,6 +208,7 @@ public:
 		int ScrEdited;
 		int FormNum;
 		QString JavaScr;
+		int MaxSeite;
 
 public slots:
 		void IPlace();
@@ -233,10 +237,12 @@ public slots:
 		void SetCross();
 		void SetVals();
 		void SetZiel(int i);
+		void GetFile();
 		void SetActTyp(int it);
 		void SetLimit();
 		void SetActScript(int it);
 		void setDateSample(const QString& ds);
+		void SetExternL();
 
 protected:
     QVBoxLayout* AnnotLayout;

@@ -34,7 +34,6 @@ QString Serializer::GetObjekt()
 void Serializer::PutText(PageItem *Item)
 {
   uint a;
-  bool Uni = false;
   QString Dat = "";
 	QPtrList<Pti> y = Item->Ptext;
   for (a=0; a<y.count(); ++a)
@@ -42,14 +41,9 @@ void Serializer::PutText(PageItem *Item)
 		QString b = y.at(a)->ch;
 		if (b == QChar(13))
 			b = "\n";
-		if (b[0].unicode() > 255)
-			Uni = true;
     Dat += b;
     }
-  if (Uni)
-		Objekt = Dat.utf8();
-	else
-		Objekt = Dat;
+	Objekt = Dat;
 }
 
 void Serializer::GetText(PageItem *Item, int Absatz, bool Append)
@@ -103,14 +97,19 @@ void Serializer::GetText(PageItem *Item, int Absatz, bool Append)
 		}
 }
 
-bool Serializer::Write()
+bool Serializer::Write(QString Cod)
 {
+	QTextCodec *codec;
+	if (Cod == "")
+		codec = QTextCodec::codecForLocale();
+	else
+		codec = QTextCodec::codecForName(Cod);
+  QCString dec = codec->fromUnicode( Objekt );
 	QFile f(Filename);
 	bool ret = false;
 	if (f.open(IO_WriteOnly))
 		{
-		QTextStream t(&f);
-		t.writeRawBytes(Objekt, Objekt.length());
+		f.writeBlock(dec, dec.length());
 		f.close();
 		ret = true;
 		}

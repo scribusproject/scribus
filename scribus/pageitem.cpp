@@ -151,6 +151,7 @@ PageItem::PageItem(Page *pa, int art, float x, float y, float w, float h, float 
 	An_F_act = "";
 	An_V_act = "";
 	An_C_act = "";
+	An_Extern = "";
 	AnName = "Item"+tmp.setNum(Doc->TotalItems);
 	Doc->TotalItems++;
 	AnToolTip = "";
@@ -1660,6 +1661,7 @@ void PageItem::CopyIt(struct CLBuf *Buffer)
 	Buffer->An_F_act = An_F_act;
 	Buffer->An_V_act = An_V_act;
 	Buffer->An_C_act = An_C_act;
+	Buffer->An_Extern = An_Extern;
 	Buffer->AnZiel = AnZiel;
 	Buffer->AnName = AnName;
 	Buffer->AnActType = AnActType;

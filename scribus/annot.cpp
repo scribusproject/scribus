@@ -29,8 +29,9 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
   	Breite = b;
   	Hoehe = h;
   	view = vie;
+		MaxSeite = Seite;
     QStringList tl;
-		if (item->AnActType == 2)
+		if ((item->AnActType == 2) || (item->AnActType == 7))
 			{
     	QString tm = item->AnAction;
     	tl = tl.split(" ", tm);
@@ -501,7 +502,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 		int tmpac = item->AnActType;
 		if (item->AnActType < 0)
 			tmpac = 1;
-		ActionCombo->setCurrentItem(tmpac);
+		if (tmpac == 7)
+			ActionCombo->setCurrentItem(2);
+		else
+			ActionCombo->setCurrentItem(tmpac);
     Layout20->addWidget( ActionCombo );
     tabLayout_2->addLayout( Layout20 );
 
@@ -595,35 +599,60 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     GroupBox11Layout->setAlignment( Qt::AlignTop );
     GroupBox11Layout->setSpacing( 6 );
     GroupBox11Layout->setMargin( 11 );
+		LExtern = new QCheckBox(GroupBox11, "Extern");
+		LExtern->setText(tr("To File:"));
+    GroupBox11Layout->addWidget( LExtern, 0, 0 );
+    Destfile = new QLineEdit(GroupBox11, "File");
+		Destfile->setText(item->An_Extern);
+		Destfile->setReadOnly(true);
+    GroupBox11Layout->addWidget( Destfile, 0, 1 );
+//    GroupBox11Layout->addMultiCellWidget( Destfile, 0, 0, 0, 1 );
+		ChFile = new QPushButton(GroupBox11, "Change");
+		ChFile->setText(tr("Change..."));
+    GroupBox11Layout->addWidget( ChFile, 0, 2 );
     TextLabel31 = new QLabel( GroupBox11, "TextLabel3" );
     TextLabel31->setText( tr( "Page:" ) );
-    GroupBox11Layout->addWidget( TextLabel31, 0, 0 );
+    GroupBox11Layout->addWidget( TextLabel31, 1, 0 );
     SpinBox11 = new QSpinBox( GroupBox11, "SpinBox1" );
     SpinBox11->setMinValue(1);
-    SpinBox11->setMaxValue(Seite);
+		if (Destfile->text() != "")
+    	SpinBox11->setMaxValue(1000);
+		else
+    	SpinBox11->setMaxValue(Seite);
     SpinBox11->setValue(item->AnZiel+1);
-    GroupBox11Layout->addWidget( SpinBox11, 0, 1 );
-    Pg1 = new Navigator( GroupBox11, 100, item->AnZiel, view);
+    GroupBox11Layout->addWidget( SpinBox11, 1, 1 );
+		if (Destfile->text() != "")
+    	Pg1 = new Navigator( GroupBox11, 100, item->AnZiel+1, view, item->An_Extern);
+		else
+    	Pg1 = new Navigator( GroupBox11, 100, item->AnZiel, view);
     Pg1->setMinimumSize(QSize(Pg1->pmx.width(), Pg1->pmx.height()));
-    GroupBox11Layout->addMultiCellWidget(Pg1, 0, 2, 2, 2);
+    GroupBox11Layout->addMultiCellWidget(Pg1, 1, 3, 2, 2);
     TextLabel41 = new QLabel( GroupBox11, "TextLabel4" );
     TextLabel41->setText( tr( "X-Pos:" ) );
-    GroupBox11Layout->addWidget( TextLabel41, 1, 0 );
+    GroupBox11Layout->addWidget( TextLabel41, 2, 0 );
     SpinBox21 = new QSpinBox( GroupBox11, "SpinBox2" );
     SpinBox21->setSuffix( tr( " pt" ) );
     SpinBox21->setMaxValue(Breite);
     SpinBox21->setValue(tl[0].toInt());
-    GroupBox11Layout->addWidget( SpinBox21, 1, 1 );
+    GroupBox11Layout->addWidget( SpinBox21, 2, 1 );
     TextLabel51 = new QLabel( GroupBox11, "TextLabel5" );
     TextLabel51->setText( tr( "Y-Pos:" ) );
-    GroupBox11Layout->addWidget( TextLabel51, 2, 0 );
+    GroupBox11Layout->addWidget( TextLabel51, 3, 0 );
     SpinBox31 = new QSpinBox( GroupBox11, "SpinBox3" );
     SpinBox31->setMaxValue(Hoehe);
     SpinBox31->setSuffix( tr( " pt" ) );
     SpinBox31->setValue(Hoehe-tl[1].toInt());
-    GroupBox11Layout->addWidget( SpinBox31, 2, 1 );
+    GroupBox11Layout->addWidget( SpinBox31, 3, 1 );
     Fram2->addWidget(GroupBox11, 3);
     TabWidget2->insertTab( tab_2, tr( "Action" ) );
+		if (item->AnActType != 7)
+			{
+			Destfile->setEnabled(false);
+			ChFile->setEnabled(false);
+			LExtern->setChecked(false);
+			}
+		else
+			LExtern->setChecked(true);
 
     tab4 = new QWidget( TabWidget2, "privateWidget" );
     Layout = new QVBoxLayout( tab4, 11, 6, "Layout");
@@ -1056,6 +1085,8 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     connect(IconRR, SIGNAL(clicked()), this, SLOT(RemoveRIcon()));
     connect(UseIcons, SIGNAL(clicked()), this, SLOT(IconsEin()));
     connect(PlaceIcon, SIGNAL(clicked()), this, SLOT(IPlace()));
+		connect(ChFile, SIGNAL(clicked()), this, SLOT(GetFile()));
+		connect(LExtern, SIGNAL(clicked()), this, SLOT(SetExternL()));
     QToolTip::add(NoSpell, tr( "Flag is ignored for PDF-1.3" ) );
     QToolTip::add(NoScroll, tr( "Flag is ignored for PDF-1.3" ) );
     QToolTip::add(CalcFields, tr( "Enter a comma separated list of Fields here" ) );
@@ -1637,7 +1668,21 @@ void Annot::SetCo(float x, float y)
 
 void Annot::SetPg(int v)
 {
-	Pg1->SetSeite(v-1, 100);
+	disconnect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
+	if (item->AnActType == 7)
+		{
+		if (!Pg1->SetSeite(v, 100, Destfile->text()))
+			{
+			SpinBox11->setValue(1);
+			Pg1->SetSeite(1, 100, Destfile->text());
+			}
+		}
+	else
+		{
+		Pg1->SetSeite(v-1, 100);
+		SpinBox11->setValue(v);
+		}
+	connect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
 }
 
 void Annot::SetCross()
@@ -1671,10 +1716,6 @@ void Annot::SetVals()
 	item->AnBColor = BorderC->currentText();
 	if (item->AnBColor == tr("None"))
 		item->AnBColor = "None";
-/*	if (Limit->isChecked())
-		item->AnMaxChar = MaxChars->value();
-	else
-		item->AnMaxChar = -1;   */
   Limit->isChecked() ? item->AnMaxChar = MaxChars->value() : item->AnMaxChar = -1;
 	if (item->AnType == 2)
 		{
@@ -1833,7 +1874,16 @@ void Annot::SetVals()
 				}
 			break;
 		case 2:
-			item->AnActType = 2;
+			if ((LExtern->isChecked()) && (Destfile->text() != ""))
+				{
+				item->An_Extern = Destfile->text();
+				item->AnActType = 7;
+				}
+			else
+				{
+				item->An_Extern = "";
+				item->AnActType = 2;
+				}
 			item->AnZiel = SpinBox11->value()-1;
 			item->AnAction = tmp.setNum(SpinBox21->value())+" "+tmp.setNum(Hoehe-SpinBox31->value())+" 0";
 			break;
@@ -1880,6 +1930,8 @@ void Annot::SetZiel(int it)
   disconnect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActTyp(int)));
   disconnect(TxFormat, SIGNAL(activated(int)), this, SLOT(SetFoScript(int)));
 	int tmpac = item->AnActType;
+	if (tmpac == 7)
+		tmpac = 2;
 	int sela = it + 2;
 	TabWidget2->setTabEnabled(tab4, false);
 	TabWidget2->setTabEnabled(tab_4, false);
@@ -1912,6 +1964,16 @@ void Annot::SetZiel(int it)
     	ActionCombo->insertItem( tr( "Reset Form" ) );
     	ActionCombo->insertItem( tr( "Import Data" ) );
 			ActionCombo->setCurrentItem(QMIN(tmpac,5));
+			if (item->AnActType != 7)
+				{
+				Destfile->setEnabled(false);
+				ChFile->setEnabled(false);
+				}
+			else
+				{
+				Destfile->setEnabled(true);
+				ChFile->setEnabled(true);
+				}
 			SetActTyp(tmpac);			
 			break;
 		case 3:
@@ -1936,10 +1998,6 @@ void Annot::SetZiel(int it)
 			Required->setChecked(item->AnFlag & 2);
 			NoExport->setChecked(item->AnFlag & 4);
     	Fram->raiseWidget(3);
-/*			if (sela > 5)
-				FramOp->raiseWidget(5);
-			else
-				FramOp->raiseWidget(sela);      */
 			sela > 5 ? FramOp->raiseWidget(5) : FramOp->raiseWidget(sela);
 			ActionCombo->clear();
     	ActionCombo->insertItem( tr( "None" ) );
@@ -1976,11 +2034,36 @@ void Annot::SetZiel(int it)
 
 void Annot::SetLimit()
 {
-/*	if (Limit->isChecked())
-		MaxChars->setEnabled(true);
-	else
-		MaxChars->setEnabled(false);   */
 	Limit->isChecked() ? MaxChars->setEnabled(true) :MaxChars->setEnabled(false);
+}
+
+void Annot::SetExternL()
+{
+	disconnect(LExtern, SIGNAL(clicked()), this, SLOT(SetExternL()));
+	if (!LExtern->isChecked())
+		{
+		item->AnActType = 2;
+		Destfile->setEnabled(false);
+		ChFile->setEnabled(false);
+		SetPg(QMIN(SpinBox11->value(), MaxSeite));
+		}
+	else
+		{
+		item->AnActType = 7;
+		Destfile->setEnabled(true);
+		ChFile->setEnabled(true);
+		if (Destfile->text() == "")
+			GetFile();
+		if (Destfile->text() == "")
+			{
+			item->AnActType = 2;
+			Destfile->setEnabled(false);
+			ChFile->setEnabled(false);
+			LExtern->setChecked(false);
+			}
+		SetPg(QMIN(SpinBox11->value(), MaxSeite));
+		}
+	connect(LExtern, SIGNAL(clicked()), this, SLOT(SetExternL()));
 }
 
 void Annot::SetActTyp(int it)
@@ -1998,6 +2081,16 @@ void Annot::SetActTyp(int it)
 			break;
 		case 2:
 			Fram2->raiseWidget(3);
+			if (item->AnActType != 7)
+				{
+				Destfile->setEnabled(false);
+				ChFile->setEnabled(false);
+				}
+			else
+				{
+				Destfile->setEnabled(true);
+				ChFile->setEnabled(true);
+				}
 			break;
 		case 1:
 			Fram2->raiseWidget(2);
@@ -2060,4 +2153,23 @@ void Annot::SetActScript(int it)
 			break;
 		}
 	ScrEdited = it;
+}
+
+void Annot::GetFile()
+{
+	QString fn;
+	CustomFDialog dia(this, tr("Open"),tr("PDF-Documents (*.pdf);;All Files (*)"));
+	if (Destfile->text() != "")
+		dia.setSelection(Destfile->text());
+	if (dia.exec() == QDialog::Accepted)
+		{
+		fn = dia.selectedFile();
+		if (!fn.isEmpty())
+			{
+			Destfile->setText(fn);
+			SpinBox11->setValue(1);
+    	SpinBox11->setMaxValue(1000);
+			SetPg(1);
+			}
+		}
 }

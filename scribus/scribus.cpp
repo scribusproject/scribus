@@ -3070,12 +3070,13 @@ void ScribusApp::ToggleTips()
 
 void ScribusApp::SaveText()
 {
-  QString fn = CFileDialog(tr("Save as"), tr("Textfiles (*.txt);;All Files (*)"), "", false, false);
+	LoadEnc = "";
+  QString fn = CFileDialog(tr("Save as"), tr("Textfiles (*.txt);;All Files (*)"), "", false, false, false, true);
   if (!fn.isEmpty())
   	{
     Serializer *se = new Serializer(fn);
     se->PutText(doc->ActPage->SelItem.at(0));
-    se->Write();
+    se->Write(LoadEnc);
     delete se;
   	}
 }

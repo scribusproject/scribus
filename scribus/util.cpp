@@ -26,6 +26,7 @@
 #include <qmap.h>
 #include <qdom.h>
 #include <qimage.h>
+#include <qdir.h>
 #include <qpointarray.h>
 #include <cstdlib>
 #include <cmath>
@@ -62,6 +63,8 @@ extern int IntentPrinter;
 #endif
 extern ProfilesL InputProfiles;
 
+QString Path2Relative(QString Path);
+QPixmap LoadPDF(QString fn, int Seite, int Size);
 bool GlyNames(QMap<uint, QString> *GList, QString Dat);
 bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat);
 QByteArray ComputeMD5Sum(QByteArray *in);
@@ -194,6 +197,39 @@ QImage ProofImage(QImage *Im)
 #else
 	return Im->copy();
 #endif
+}
+
+QPixmap LoadPDF(QString fn, int Seite, int Size)
+{
+	QString tmp, cmd1, cmd2;
+	QPixmap pm;
+	int ret = -1;
+	tmp.setNum(Seite);
+	cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -dFirstPage="+tmp+" -dLastPage="+tmp+" ";
+	cmd2 = " -c showpage -c quit";
+	ret = system(cmd1 + fn + cmd2);
+	if (ret == 0)
+		{
+		QImage image;
+		image.load("/tmp/sc.png");
+		system("rm -f /tmp/sc.png");
+  	QImage im2;
+		float sx = image.width() / static_cast<float>(Size);
+		float sy = image.height() / static_cast<float>(Size);
+		if (sy < sx)
+			im2 = image.smoothScale(static_cast<int>(image.width() / sx), static_cast<int>(image.height() / sx));
+		else
+			im2 = image.smoothScale(static_cast<int>(image.width() / sy), static_cast<int>(image.height() / sy));
+		pm.convertFromImage(im2);
+		QPainter p;
+		p.begin(&pm);
+		p.setBrush(Qt::NoBrush);
+		p.setPen(Qt::black);
+		p.drawRect(0, 0, pm.width(), pm.height());
+		p.end();
+		im2.detach();
+		}
+	return pm;
 }
 
 QImage LoadPict(QString fn)
@@ -1023,6 +1059,37 @@ QByteArray ComputeMD5Sum(QByteArray *in)
 	QByteArray MDsum(16);
 	md5_buffer (in->data(), in->size(), (void*)MDsum.data());
 	return MDsum;
+}
+
+QString Path2Relative(QString Path)
+{
+	QString	Ndir = "";
+	QStringList Pdir = QStringList::split("/", QDir::currentDirPath());
+	QFileInfo Bfi = QFileInfo(Path);
+	QStringList Bdir = QStringList::split("/", Bfi.dirPath(true));
+	bool ende = true;
+	uint dcoun = 0;
+	uint dcoun2 = 0;
+	while (ende)
+		{
+		if (Pdir[dcoun] == Bdir[dcoun])
+			dcoun++;
+		else
+			break;
+		if (dcoun > Pdir.count())
+			break;
+		}
+	dcoun2 = dcoun;
+	for (uint ddx2 = dcoun; ddx2 < Pdir.count(); ddx2++)
+		{
+		Ndir += "../";
+		}
+	for (uint ddx = dcoun2; ddx < Bdir.count(); ddx++)
+		{
+		Ndir += Bdir[ddx]+"/";
+		}
+	Ndir += Bfi.fileName();
+	return Ndir;
 }
 
 bool GlyNames(QMap<uint, QString> *GList, QString Dat)

@@ -186,6 +186,7 @@ public:
 	QString AnRollOver;
 	QString AnDown;
 	QString AnBColor;
+	QString An_Extern;
 	int AnBsty;
 	int AnBwid;
 	int AnFeed;

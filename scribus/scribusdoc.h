@@ -112,6 +112,7 @@ struct CLBuf { int PType;
 							 QString An_F_act;
 							 QString An_V_act;
 							 QString An_C_act;
+							 QString An_Extern;
 							 int AnZiel;
 							 int AnActType;
 							 QString AnName;

@@ -1,4 +1,9 @@
 Changes since Version 0.9.10
+29.05.2003	annot.cpp
+		annota.cpp
+		pdflib.cpp		Added Support for Links to external PDF-Documents.
+		serializer.cpp		Added Encoding Support for writing Textfiles.
+
 27.05.2003	layers.cpp
 		seiten.cpp		Fixed Segfault when clicked on without any Document loaded.
 		scribus.cpp		Bookmarks Palette wasn't restored properly.
