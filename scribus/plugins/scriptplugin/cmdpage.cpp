@@ -23,10 +23,7 @@ PyObject *scribus_savepageeps(PyObject *self, PyObject* args)
 {
 	char *Name;
 	if (!PyArg_ParseTuple(args, "s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("savePageAsEPS(filename)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	bool ret = Carrier->DoSaveAsEps(QString(Name));
@@ -38,10 +35,7 @@ PyObject *scribus_deletepage(PyObject *self, PyObject* args)
 {
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("deletePage(pagenumber)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	e--;
@@ -59,10 +53,7 @@ PyObject *scribus_gotopage(PyObject *self, PyObject* args)
 {
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("gotoPage(pagenumber)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	e--;
@@ -81,10 +72,7 @@ PyObject *scribus_newpage(PyObject *self, PyObject* args)
 	int e;
 	char *name = "Normal";
 	if (!PyArg_ParseTuple(args, "i|s", &e, &name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("newPage(pagenumber [, pagename])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (e < 0)
@@ -167,10 +155,7 @@ PyObject *scribus_setHguides(PyObject *self, PyObject* args)
 {
 	PyObject *l;
 	if (!PyArg_ParseTuple(args, "O", &l))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setHGuides(guides)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (!PyList_Check(l))
@@ -219,10 +204,7 @@ PyObject *scribus_setVguides(PyObject *self, PyObject* args)
 {
 	PyObject *l;
 	if (!PyArg_ParseTuple(args, "O", &l))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setVGuides(guides)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (!PyList_Check(l))

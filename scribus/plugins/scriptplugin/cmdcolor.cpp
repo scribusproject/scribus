@@ -12,10 +12,10 @@ PyObject *scribus_colornames(PyObject *self)
 	CListe::Iterator it;
 	l = PyList_New(edc.count());
 	for (it = edc.begin(); it != edc.end(); ++it)
-		{
+	{
 		PyList_SetItem(l, cc, PyString_FromString(it.key()));
 		cc++;
-		}
+	}
 	return l;
 }
 
@@ -25,10 +25,7 @@ PyObject *scribus_getcolor(PyObject *self, PyObject* args)
 	char *Name = "";
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getColor(name)"));
 		return NULL;
-	}
 	if (Name == "")
 		return Py_BuildValue("(iiii)", 0, 0, 0, 0);
 	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : Carrier->Prefs.DColors;
@@ -44,10 +41,7 @@ PyObject *scribus_setcolor(PyObject *self, PyObject* args)
 	char *Name = "";
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "siiii", &Name, &c, &m, &y, &k))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("changeColor(colorname, c, m, y, k)"));
 		return NULL;
-	}
 	if (Name == "")
 	{
 		PyErr_SetString(ScribusException, QString("Cannot change a colour with an empty name."));
@@ -81,10 +75,7 @@ PyObject *scribus_newcolor(PyObject *self, PyObject* args)
 	char *Name = "";
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "siiii", &Name, &c, &m, &y, &k))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("defineColor(colorname, c, m, y, k)"));
 		return NULL;
-	}
 	if (Name == "")
 	{
 		PyErr_SetString(ScribusException, QString("Cannot create a colour with an empty name."));
@@ -118,10 +109,7 @@ PyObject *scribus_delcolor(PyObject *self, PyObject* args)
 	char *Name = "";
 	char *Repl = "None";
 	if (!PyArg_ParseTuple(args, "s|s", &Name, &Repl))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("deleteColor(colorname [, replacewithname])"));
 		return NULL;
-	}
 	if (Name == "")
 	{
 		PyErr_SetString(ScribusException, QString("Cannot delete a colour with an empty name."));
@@ -156,10 +144,7 @@ PyObject *scribus_replcolor(PyObject *self, PyObject* args)
 	char *Repl = "None";
 	//FIXME: this should definitely use keyword arguments
 	if (!PyArg_ParseTuple(args, "s|s", &Name, &Repl))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("replaceColor(colorname [, replacewithname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (Name == "")

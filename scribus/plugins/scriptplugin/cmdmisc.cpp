@@ -9,10 +9,7 @@ PyObject *scribus_setredraw(PyObject *self, PyObject* args)
 {
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setRedraw(e)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	Carrier->doc->DoDrawing = static_cast<bool>(e);
@@ -73,10 +70,7 @@ PyObject *scribus_renderfont(PyObject *self, PyObject* args)
 	int Size;
 	bool ret = false;
 	if (!PyArg_ParseTuple(args, "sssi", &Name, &FileName, &Sample, &Size))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("renderFont(name, filename, sample, size)"));
 		return NULL;
-	}
 	if (!Carrier->Prefs.AvailFonts.find(QString(Name)))
 	{
 		PyErr_SetString(ScribusException, QString("Font not found"));
@@ -116,10 +110,7 @@ PyObject *scribus_setactlayer(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "s", &Name))
-	{
-		PyErr_SetString(PyExc_ValueError, ERRPARAM + QString("setActiveLayer(layername)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (Name == "")
@@ -161,10 +152,7 @@ PyObject *scribus_senttolayer(PyObject *self, PyObject* args)
 	char *Name = "";
 	char *Layer = "";
 	if (!PyArg_ParseTuple(args, "s|s", &Layer, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("sentToLayer(layername [,obejctname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (Layer == "")
@@ -200,10 +188,7 @@ PyObject *scribus_layervisible(PyObject *self, PyObject* args)
 	char *Name = "";
 	int vis = 1;
 	if (!PyArg_ParseTuple(args, "si", &Name, &vis))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLayerVisible(layername, visible)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (Name == "")
@@ -235,10 +220,7 @@ PyObject *scribus_layerprint(PyObject *self, PyObject* args)
 	char *Name = "";
 	int vis = 1;
 	if (!PyArg_ParseTuple(args, "si", &Name, &vis))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLayerPrintable(layername, Printable)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (Name == "")
@@ -269,10 +251,7 @@ PyObject *scribus_glayervisib(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("isLayerVisible(layername)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (Name == "")
@@ -303,10 +282,7 @@ PyObject *scribus_glayerprint(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("isLayerPrintable(layername)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (Name == "")
@@ -337,10 +313,7 @@ PyObject *scribus_removelayer(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("deleteLayer(layername)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (Name == "")
@@ -395,10 +368,7 @@ PyObject *scribus_createlayer(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createLayer(layername)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (Name == "")

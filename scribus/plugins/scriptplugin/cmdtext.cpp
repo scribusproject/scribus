@@ -7,10 +7,7 @@ PyObject *scribus_getfontsize(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "|s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getFontSize([objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *it = GetUniqueItem(QString(Name));
@@ -32,10 +29,7 @@ PyObject *scribus_getfont(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "|s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getFont([objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *it = GetUniqueItem(QString(Name));
@@ -57,10 +51,7 @@ PyObject *scribus_gettextsize(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "|s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getTextLength([objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
@@ -71,10 +62,7 @@ PyObject *scribus_getcolumns(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "|s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getColumns([objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
@@ -85,10 +73,7 @@ PyObject *scribus_getlinespace(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "|s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getLineSpacing([objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
@@ -99,10 +84,7 @@ PyObject *scribus_getcolumngap(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "|s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getColumnGap([objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
@@ -113,10 +95,7 @@ PyObject *scribus_getframetext(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "|s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getText([objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	QString text = "";
@@ -143,10 +122,7 @@ PyObject *scribus_gettext(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "|s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getAllText([objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	QString text = "";
@@ -214,10 +190,7 @@ PyObject *scribus_setboxtext(PyObject *self, PyObject* args)
 	char *Name = "";
 	char *Text;
 	if (!PyArg_ParseTuple(args, "es|s", "utf-8", &Text, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setText(unicodetext [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *it = GetUniqueItem(QString(Name));
@@ -271,10 +244,7 @@ PyObject *scribus_inserttext(PyObject *self, PyObject* args)
 	char *Text;
 	int pos;
 	if (!PyArg_ParseTuple(args, "esi|s", "utf-8", &Text, &pos, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("insertText(unicodetext, position [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *it = GetUniqueItem(QString(Name));
@@ -322,10 +292,7 @@ PyObject *scribus_setalign(PyObject *self, PyObject* args)
 	char *Name = "";
 	int alignment;
 	if (!PyArg_ParseTuple(args, "i|s", &alignment, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setTextAlignment(type [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if ((alignment > 3) || (alignment < 0))
@@ -358,10 +325,7 @@ PyObject *scribus_setfontsize(PyObject *self, PyObject* args)
 	char *Name = "";
 	double size;
 	if (!PyArg_ParseTuple(args, "d|s", &size, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setFontSize(size [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if ((size > 512) || (size < 1))
@@ -395,10 +359,7 @@ PyObject *scribus_setfont(PyObject *self, PyObject* args)
 	char *Name = "";
 	char *Font = "";
 	if (!PyArg_ParseTuple(args, "s|s", &Font, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setFont(font [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
@@ -434,10 +395,7 @@ PyObject *scribus_setlinespace(PyObject *self, PyObject* args)
 	char *Name = "";
 	double w;
 	if (!PyArg_ParseTuple(args, "d|s", &w, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLineSpacing(spacing [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (w < 0.1)
@@ -458,10 +416,7 @@ PyObject *scribus_setcolumngap(PyObject *self, PyObject* args)
 	char *Name = "";
 	double w;
 	if (!PyArg_ParseTuple(args, "d|s", &w, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setColumnGap(gap [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (w < 0.0)
@@ -482,10 +437,7 @@ PyObject *scribus_setcolumns(PyObject *self, PyObject* args)
 	char *Name = "";
 	int w;
 	if (!PyArg_ParseTuple(args, "i|s", &w, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setColumns(columns [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (w < 1)
@@ -506,10 +458,7 @@ PyObject *scribus_selecttext(PyObject *self, PyObject* args)
 	char *Name = "";
 	int start, ende;
 	if (!PyArg_ParseTuple(args, "ii|s", &start, &ende, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("selectText(start, end [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *it = GetUniqueItem(QString(Name));
@@ -546,10 +495,7 @@ PyObject *scribus_deletetext(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "|s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("deleteText([objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *it = GetUniqueItem(QString(Name));
@@ -571,10 +517,7 @@ PyObject *scribus_settextfill(PyObject *self, PyObject* args)
 	char *Name = "";
 	char *Color;
 	if (!PyArg_ParseTuple(args, "s|s", &Color, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setTextColor(color [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *it = GetUniqueItem(QString(Name));
@@ -608,10 +551,7 @@ PyObject *scribus_settextstroke(PyObject *self, PyObject* args)
 	char *Name = "";
 	char *Color;
 	if (!PyArg_ParseTuple(args, "s|s", &Color, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setTextStroke(color [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *it = GetUniqueItem(QString(Name));
@@ -645,10 +585,7 @@ PyObject *scribus_settextshade(PyObject *self, PyObject* args)
 	char *Name = "";
 	int w;
 	if (!PyArg_ParseTuple(args, "i|s", &w, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setTextShade(type [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if ((w < 0) || (w > 100))
@@ -688,10 +625,7 @@ PyObject *scribus_linktextframes(PyObject *self, PyObject* args)
 	char *name2;
 
 	if (!PyArg_ParseTuple(args, "ss", &name1, &name2))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("linkTextFrames(objectname, objectname)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *fromitem = GetUniqueItem(QString(name1));
@@ -735,10 +669,7 @@ PyObject *scribus_unlinktextframes(PyObject * self, PyObject* args)
 {
 	char *name;
 	if (!PyArg_ParseTuple(args, "s", &name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("unlinkTextFrames(objectname)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(name);
@@ -785,10 +716,7 @@ PyObject *scribus_tracetext(PyObject *self, PyObject* args)
 {
 	char *name = "";
 	if (!PyArg_ParseTuple(args, "|s", &name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("traceText([objectName])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(QString(name));

@@ -24,10 +24,7 @@ PyObject *scribus_filedia(PyObject *self, PyObject* args)
 	int pre = 0;
 	int mode = 0;
 	if (!PyArg_ParseTuple(args, "sss|ii", &caption, &filter, &defName, &pre, &mode))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("fileDialog(caption, filter, defaultname, pre, mode)"));
 		return NULL;
-	}
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 	fName = Carrier->CFileDialog(".", caption, filter, defName, static_cast<bool>(pre), static_cast<bool>(mode), 0, 0);
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -44,10 +41,7 @@ PyObject *scribus_messdia(PyObject *self, PyObject* args)
 	int butt2 = QMessageBox::NoButton;
 	int butt3 = QMessageBox::NoButton;
 	if (!PyArg_ParseTuple(args, "ssii|ii", &caption, &message, &ico, &butt1, &butt2, &butt3))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("messageBox(caption, message, ico, butt1, butt2, butt3)"));
 		return NULL;
-	}
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 	QMessageBox mb(caption, message, ico, butt1, butt2, butt3, Carrier);
 	result = mb.exec();
@@ -61,10 +55,7 @@ PyObject *scribus_valdialog(PyObject *self, PyObject* args)
 	char *message = "";
 	char *value = "";
 	if (!PyArg_ParseTuple(args, "ss|s", &caption, &message, &value))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("valueDialog(caption, message [,defaultvalue])"));
 		return NULL;
-	}
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 	ValueDialog *d = new ValueDialog(Carrier, "d", TRUE, 0);
 	d->dialogLabel->setText(message);

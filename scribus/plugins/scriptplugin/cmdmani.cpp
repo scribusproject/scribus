@@ -8,10 +8,7 @@ PyObject *scribus_loadimage(PyObject *self, PyObject* args)
 	char *Name = "";
 	char *Image;
 	if (!PyArg_ParseTuple(args, "s|s", &Image, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("loadImage(filename [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
@@ -27,10 +24,7 @@ PyObject *scribus_scaleimage(PyObject *self, PyObject* args)
 	char *Name = "";
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|s", &x, &y, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("scaleImage(x, y [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(Name);
@@ -55,10 +49,7 @@ PyObject *scribus_moveobjrel(PyObject *self, PyObject* args)
 	char *Name = "";
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|s", &x, &y, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("moveObject(x, y [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
@@ -77,10 +68,7 @@ PyObject *scribus_moveobjabs(PyObject *self, PyObject* args)
 	char *Name = "";
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|s", &x, &y, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("moveObjectAbs(x, y [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
@@ -104,10 +92,7 @@ PyObject *scribus_rotobjrel(PyObject *self, PyObject* args)
 	char *Name = "";
 	double x;
 	if (!PyArg_ParseTuple(args, "d|s", &x, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("rotateObject(angle [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
@@ -123,10 +108,7 @@ PyObject *scribus_rotobjabs(PyObject *self, PyObject* args)
 	char *Name = "";
 	double x;
 	if (!PyArg_ParseTuple(args, "d|s", &x, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("rotateObjectAbs(angle [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
@@ -142,10 +124,7 @@ PyObject *scribus_sizeobjabs(PyObject *self, PyObject* args)
 	char *Name = "";
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|s", &x, &y, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("sizeObject(x, y [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
@@ -161,10 +140,7 @@ PyObject *scribus_groupobj(PyObject *self, PyObject* args)
 	char *Name = "";
 	PyObject *il = 0;
 	if (!PyArg_ParseTuple(args, "|O", &il))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("groupObjects([list_of_objectnames])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	Page *p = Carrier->doc->ActPage;
@@ -202,10 +178,7 @@ PyObject *scribus_ungroupobj(PyObject *self, PyObject* args)
 {
 	char *Name = "";;
 	if (!PyArg_ParseTuple(args, "|s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("unGroupObject([objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
@@ -224,10 +197,7 @@ PyObject *scribus_scalegroup(PyObject *self, PyObject* args)
 	char *Name = "";
 	double sc;
 	if (!PyArg_ParseTuple(args, "d|s", &sc, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("scaleGroup(scale [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (sc == 0.0)
@@ -252,10 +222,7 @@ PyObject *scribus_getselobjnam(PyObject *self, PyObject* args)
 {
 	int i = 0;
 	if (!PyArg_ParseTuple(args, "|i", &i))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getSelectedObject([objectnumber])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if ((i < static_cast<int>(Carrier->doc->ActPage->SelItem.count())) && (i > -1))
@@ -275,10 +242,7 @@ PyObject *scribus_selectobj(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("selectObject(objectname)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
@@ -303,10 +267,7 @@ PyObject *scribus_lockobject(PyObject *self, PyObject* args)
 {
 	char *name = "";
 	if (!PyArg_ParseTuple(args, "|s", &name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("lockObject([objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(QString(name));
@@ -324,10 +285,7 @@ PyObject *scribus_islocked(PyObject *self, PyObject* args)
 {
 	char *name = "";
 	if (!PyArg_ParseTuple(args, "|s", &name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("isLocked([objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(name);
