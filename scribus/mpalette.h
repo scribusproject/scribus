@@ -166,8 +166,8 @@ public:
 	QGroupBox* GroupBox3;
 	QGroupBox* GroupBox3a;
 
-	QCheckBox* Textflow;
-	QCheckBox* Textflow2;
+	QCheckBox* textFlowsAroundFrame;
+	QCheckBox* textFlowUsesBoundingBox;
 	QCheckBox* Textflow3;
 	QCheckBox* Aspect;
 	QCheckBox* showcurveCheckBox;

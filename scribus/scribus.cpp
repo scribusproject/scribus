@@ -4037,7 +4037,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	}
 	if (view->SelItem.count() != 0)
 	{
-		propertiesPalette->Textflow->setChecked(b->Textflow);
+		propertiesPalette->textFlowsAroundFrame->setChecked(b->textFlowsAroundFrame());
 		scrActions["itemLock"]->setEnabled(true);
 		if (b->Groups.count() != 0)
 			scrActions["itemUngroup"]->setEnabled(true);

@@ -451,9 +451,9 @@ PyObject *scribus_textflow(PyObject */*self*/, PyObject* args)
 	if (i == NULL)
 		return NULL;
 	if (state == -1)
-		i->Textflow = !i->Textflow;
+		i->setTextFlowsAroundFrame(!i->textFlowsAroundFrame());
 	else
-		state ? i->Textflow = true : i->Textflow = false;
+		i->setTextFlowsAroundFrame( state ? true : false);
 	Carrier->view->DrawNew();
 	Carrier->slotDocCh(true);
 	Py_INCREF(Py_None);

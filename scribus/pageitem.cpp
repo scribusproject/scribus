@@ -236,8 +236,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	AnMaxChar = -1;
 	AnBColor = outline;
 	HasSel = false;
-	Textflow = false;
-	Textflow2 = false;
+	textFlowsAroundFrameVal = false;
+	textFlowUsesBoundingBoxVal = false;
 	Tinput = false;
 	isAutoText = false;
 	textAlignment = 0;
@@ -782,12 +782,12 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					if (((Doc->Items.at(a)->ItemNr > ItemNr) && (Doc->Items.at(a)->LayerNr == LayerNr))
    							|| (Doc->Layers[Doc->Items.at(a)->LayerNr].Level > Doc->Layers[LayerNr].Level))
 					{
-						if (Doc->Items.at(a)->Textflow)
+						if (Doc->Items.at(a)->textFlowsAroundFrame())
 						{
 							pp.begin(ScApp->view->viewport());
 							pp.translate(Doc->Items.at(a)->Xpos, Doc->Items.at(a)->Ypos);
 							pp.rotate(Doc->Items.at(a)->Rot);
-							if (Doc->Items.at(a)->Textflow2)
+							if (Doc->Items.at(a)->textFlowUsesBoundingBox())
 							{
 								QPointArray tcli;
 								tcli.resize(4);
@@ -2930,12 +2930,12 @@ void PageItem::setLanguage(const QString& newLanguage)
 
 bool PageItem::textFlowsAroundFrame() const
 {
-	return this->Textflow;
+	return this->textFlowsAroundFrameVal;
 }
 
 void PageItem::setTextFlowsAroundFrame(bool isFlowing)
 {
-	if (Textflow == isFlowing)
+	if (textFlowsAroundFrameVal == isFlowing)
 		return;
 	if (UndoManager::undoEnabled())
 	{
@@ -2943,23 +2943,28 @@ void PageItem::setTextFlowsAroundFrame(bool isFlowing)
 		ss->set("TEXT_FLOW", isFlowing);
 		undoManager->action(this, ss);
 	}
-	Textflow = isFlowing;
+	textFlowsAroundFrameVal = isFlowing;
 }
 
-void PageItem::useBoundingBox(bool useBounding)
+bool PageItem::textFlowUsesBoundingBox() const
 {
-	if (Textflow2 == useBounding)
+	return this->textFlowUsesBoundingBoxVal;
+}
+
+void PageItem::setTextFlowUsesBoundingBox(bool useBounding)
+{
+	if (textFlowUsesBoundingBoxVal == useBounding)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(useBounding ? Um::BoundingBox : Um::NoBoundingBox, "", Um::IFont);
-		ss->set("TEXT_FLOW", Textflow);
+		ss->set("TEXT_FLOW", textFlowsAroundFrame());
 		ss->set("BOUNDING_BOX", useBounding);
 		undoManager->action(this, ss);
 	}
 	if (useBounding && UseContour)
 		UseContour = false;
-	Textflow2 = useBounding;
+	textFlowUsesBoundingBoxVal = useBounding;
 }
 
 void PageItem::useContourLine(bool useContour)
@@ -2969,12 +2974,12 @@ void PageItem::useContourLine(bool useContour)
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(useContour ? Um::ContourLine : Um::NoContourLine, "", Um::IFont);
-		ss->set("TEXT_FLOW", Textflow);
+		ss->set("TEXT_FLOW", textFlowsAroundFrame());
 		ss->set("CONTOUR_LINE", useContour);
 		undoManager->action(this, ss);
 	}
-	if (useContour && Textflow2)
-		Textflow2 = false;
+	if (useContour && textFlowUsesBoundingBoxVal)
+		textFlowUsesBoundingBoxVal = false;
 	UseContour = useContour;
 }
 
@@ -3607,9 +3612,9 @@ void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
 	if (state->contains("BOUNDING_BOX"))
 	{
 		if (isUndo)
-			Textflow2 = !state->getBool("BOUNDING_BOX");
+			textFlowUsesBoundingBoxVal = !state->getBool("BOUNDING_BOX");
 		else
-			Textflow2 = state->getBool("BOUNDING_BOX");
+			textFlowUsesBoundingBoxVal = state->getBool("BOUNDING_BOX");
 	}
 	else if (state->contains("CONTOUR_LINE"))
 	{
@@ -3621,9 +3626,9 @@ void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
 	else
 	{
 		if (isUndo)
-			Textflow = !state->getBool("TEXT_FLOW");
+			textFlowsAroundFrameVal = !state->getBool("TEXT_FLOW");
 		else
-			Textflow = state->getBool("TEXT_FLOW");
+			textFlowsAroundFrameVal = state->getBool("TEXT_FLOW");
 	}
 }
 

@@ -3592,8 +3592,8 @@ void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b)
 	Buffer->DashOffset = b->DashOffset;
 	Buffer->PoShow = b->PoShow;
 	Buffer->BaseOffs = b->BaseOffs;
-	Buffer->Textflow = b->Textflow;
-	Buffer->Textflow2 = b->Textflow2;
+	Buffer->Textflow = b->textFlowsAroundFrame();
+	Buffer->Textflow2 = b->textFlowUsesBoundingBox();
 	Buffer->textAlignment = b->textAlignment;
 	Buffer->IFont = b->IFont;
 	Buffer->ISize = b->ISize;

@@ -465,12 +465,12 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 
 	pageLayout_2->addWidget( TabStack2 );
 
-	Textflow = new QCheckBox( page_2, "Textflow" );
-	Textflow->setText( tr( "Text &Flows Around Frame" ) );
-	pageLayout_2->addWidget( Textflow );
-	Textflow2 = new QCheckBox( page_2, "Textflow2" );
-	Textflow2->setText( tr( "Use &Bounding Box" ) );
-	pageLayout_2->addWidget( Textflow2 );
+	textFlowsAroundFrame = new QCheckBox( page_2, "textFlowsAroundFrame" );
+	textFlowsAroundFrame->setText( tr( "Text &Flows Around Frame" ) );
+	pageLayout_2->addWidget( textFlowsAroundFrame );
+	textFlowUsesBoundingBox = new QCheckBox( page_2, "textFlowUsesBoundingBox" );
+	textFlowUsesBoundingBox->setText( tr( "Use &Bounding Box" ) );
+	pageLayout_2->addWidget( textFlowUsesBoundingBox );
 	Textflow3 = new QCheckBox( page_2, "Textflow3" );
 	Textflow3->setText( tr( "&Use Contour Line" ) );
 	pageLayout_2->addWidget( Textflow3 );
@@ -798,8 +798,8 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	QToolTip::add( Locked, tr( "Lock or unlock the object" ) );
 	QToolTip::add( NoResize, tr( "Lock or unlock the size of the object" ) );
 	QToolTip::add( NoPrint, tr( "Enable or disable printing of the object" ) );
-	QToolTip::add( Textflow, tr( "Make text in lower frames flow around the object shape" ) );
-	QToolTip::add( Textflow2, tr( "Use a surrounding box instead of the frame's shape for text flow" ) );
+	QToolTip::add( textFlowsAroundFrame, tr( "Make text in lower frames flow around the object shape" ) );
+	QToolTip::add( textFlowUsesBoundingBox, tr( "Use a surrounding box instead of the frame's shape for text flow" ) );
 	QToolTip::add( Textflow3, tr( "Use a second line originally based on the frame's shape for text flow" ) );
 
 	QToolTip::add( Fonts, tr( "Font of selected text or object" ) );
@@ -878,8 +878,8 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( 
 	connect(ZTop, SIGNAL(clicked()), this, SLOT(DoFront()));
 	connect(ZBottom, SIGNAL(clicked()), this, SLOT(DoBack()));
 	connect(RotationGroup, SIGNAL(clicked(int)), this, SLOT(NewRotMode(int)));
-	connect(Textflow, SIGNAL(clicked()), this, SLOT(DoFlow()));
-	connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
+	connect(textFlowsAroundFrame, SIGNAL(clicked()), this, SLOT(DoFlow()));
+	connect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(DoFlow2()));
 	connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeIrre(int, int, double *)));
 	connect(EditShape, SIGNAL(clicked()), this, SLOT(EditSh()));
@@ -1082,12 +1082,12 @@ void Mpalette::SetCurItem(PageItem *i)
 	DBottom->setValue(i->BExtra*UmReFaktor);
 	DRight->setValue(i->RExtra*UmReFaktor);
 	Revert->setOn(i->Reverse);
-	disconnect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
+	disconnect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(DoFlow2()));
 	disconnect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
-	Textflow->setChecked(i->Textflow);
-	Textflow2->setChecked(i->Textflow2);
+	textFlowsAroundFrame->setChecked(i->textFlowsAroundFrame());
+	textFlowUsesBoundingBox->setChecked(i->textFlowUsesBoundingBox());
 	Textflow3->setChecked(i->UseContour);
-	connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
+	connect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(DoFlow2()));
 	connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
 	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
@@ -2688,7 +2688,7 @@ void Mpalette::DoFlow()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->setTextFlowsAroundFrame(Textflow->isChecked());
+		CurItem->setTextFlowsAroundFrame(textFlowsAroundFrame->isChecked());
 		ScApp->view->DrawNew();
 		emit DocChanged();
 		ToggleFlow();
@@ -2701,14 +2701,14 @@ void Mpalette::DoFlow2()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		disconnect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
+		disconnect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(DoFlow2()));
 		disconnect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
-		CurItem->useBoundingBox(Textflow2->isChecked());
-		if (CurItem->Textflow2)
+		CurItem->setTextFlowUsesBoundingBox(textFlowUsesBoundingBox->isChecked());
+		if (CurItem->textFlowUsesBoundingBox())
 			Textflow3->setChecked(false);
 		ScApp->view->DrawNew();
 		emit DocChanged();
-		connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
+		connect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(DoFlow2()));
 		connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 	}
 }
@@ -2719,14 +2719,14 @@ void Mpalette::DoFlow3()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		disconnect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
+		disconnect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(DoFlow2()));
 		disconnect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 		CurItem->useContourLine(Textflow3->isChecked());
 		if (CurItem->UseContour)
-			Textflow2->setChecked(false);
+			textFlowUsesBoundingBox->setChecked(false);
 		ScApp->view->DrawNew();
 		emit DocChanged();
-		connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
+		connect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(DoFlow2()));
 		connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 	}
 }
@@ -3181,8 +3181,8 @@ void Mpalette::handleResize()
 
 void Mpalette::ToggleFlow()
 {
-	Textflow2->setEnabled(Textflow->isChecked());
-	Textflow3->setEnabled(Textflow->isChecked());
+	textFlowUsesBoundingBox->setEnabled(textFlowsAroundFrame->isChecked());
+	Textflow3->setEnabled(textFlowsAroundFrame->isChecked());
 }
 
 void Mpalette::handlePathLine()

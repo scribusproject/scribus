@@ -106,6 +106,7 @@ class PageItem : public QObject, public UndoObject
 	Q_PROPERTY(double lineSpacing READ lineSpacing WRITE setLineSpacing DESIGNABLE false)
 	Q_PROPERTY(QString language READ language WRITE setLanguage DESIGNABLE false)
 	Q_PROPERTY(bool textFlowsAroundFrame READ textFlowsAroundFrame WRITE setTextFlowsAroundFrame DESIGNABLE false)
+	Q_PROPERTY(bool textFlowUsesBoundingBox READ textFlowUsesBoundingBox WRITE setTextFlowUsesBoundingBox DESIGNABLE false)
 
 	// FIXME: QMetaProperty can't translate these to/from enumerator names, probably because the
 	// properties aren't moc'd in the Qt sources. They work fine in their
@@ -343,8 +344,6 @@ public:
   /** Flag fuer Auswahl */
 	bool HasSel;
   /** Flag fuer Textfluss */
-	bool Textflow;
-	bool Textflow2;
 	bool FrameOnly;
 	PageItem *BackBox;
 	PageItem *NextBox;
@@ -664,6 +663,11 @@ public:
 	void setTextFlowsAroundFrame(bool isFlowing);
 
 	/**
+	 * @brief Should text flow around the object's bounding box if text flow is enabled?
+	 * @sa PageItem::setTextFlowUsesBoundingBox()
+	 */
+	bool textFlowUsesBoundingBox() const;
+	/**
 	 * @brief Tells if the text flow should follow the square frame border if <code>useBounding</code>
 	 * @brief is true, if it is set false text fill flow around the object border rather than frame.
 	 *
@@ -674,7 +678,7 @@ public:
 	 * @sa setTextFlow()
 	 * @sa useContourLine()
 	 */
-	void useBoundingBox(bool useBounding);
+	void setTextFlowUsesBoundingBox(bool useBounding);
 
 	/**
 	 * @brief Tells if the text flow should follow the contour line of the frame.
@@ -854,6 +858,19 @@ protected:
 	 * @sa PageItem::sizeLocked(), PageItem::setSizeLocked(), PageItem::toggleSizeLock()
 	 */
 	bool LockRes;
+
+	/**
+	 * @brief Should text flow around the item
+	 * @sa PageItem::textFlowsAroundFrame(), PateItem::setTextFlowsAroundFrame()
+	 */
+	bool textFlowsAroundFrameVal;
+
+	/**
+	 * @brief Should text flow around the item's bounding box?
+	 * @sa PageItem::
+	 */
+	bool textFlowUsesBoundingBoxVal;
+
 	/**
 	 * @brief Stores the attributes of the pageitem (NOT properties, the user defined ATTRIBUTES)
 	 * @sa 

@@ -4415,7 +4415,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				b->AnType = 11;
 				b->AnZiel = Doc->currentPage->PageNr;
 				b->AnAction = "0 0";
-				b->Textflow = false;
+				b->setTextFlowsAroundFrame(false);
 				break;
 			}
 			SetupDraw(z);
@@ -10726,8 +10726,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	b->Clip = Buffer->Clip.copy();
 	b->PoShow = Buffer->PoShow;
 	b->BaseOffs = Buffer->BaseOffs;
-	b->Textflow = Buffer->Textflow;
-	b->Textflow2 = Buffer->Textflow2;
+	b->setTextFlowsAroundFrame(Buffer->Textflow);
+	b->setTextFlowUsesBoundingBox(Buffer->Textflow2);
 	b->textAlignment = Buffer->textAlignment;
 	b->IFont = Buffer->IFont;
 	b->ISize = Buffer->ISize;
@@ -11203,8 +11203,8 @@ void ScribusView::TextToPath()
 			pts.map(chma);
 			uint z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->lineColor(), b->fillColor());
 			bb = Doc->Items.at(z);
-			bb->Textflow = b->Textflow;
-			bb->Textflow2 = b->Textflow2;
+			bb->setTextFlowsAroundFrame(b->textFlowsAroundFrame());
+			bb->setTextFlowUsesBoundingBox(b->textFlowUsesBoundingBox());
 			bb->setSizeLocked(b->sizeLocked());
 			bb->setLocked(b->locked());
 			bb->NamedLStyle = b->NamedLStyle;
