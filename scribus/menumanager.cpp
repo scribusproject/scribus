@@ -106,6 +106,27 @@ bool MenuManager::addMenuToMenuBar(const QString menuName)
 	return retVal;
 }
 
+bool MenuManager::addMenuToMenuBarAfter(const QString menuName, const QString afterMenuName)
+{
+	bool retVal;
+	if (menuList[menuName])
+	{
+		if (menuList[afterMenuName])
+		{
+			int afterID=menuList[afterMenuName]->getMenuBarID();
+			if (afterID!=-1)
+			{
+				int id=scribusMenuBar->insertItem( menuList[menuName]->getMenuText(), menuList[menuName]->getLocalPopupMenu(), scribusMenuBar->indexOf(afterID)+1, scribusMenuBar->indexOf(afterID)+1);
+				menuList[menuName]->setMenuBarID(id);
+				retVal=true;
+			}
+		}
+	}
+	else
+		retVal=false;
+	return retVal;
+}
+
 bool MenuManager::removeMenuFromMenuBar(const QString menuName)
 {
 	bool retVal;
@@ -185,7 +206,9 @@ bool MenuManager::addMenuItemAfter(ScrAction *menuAction, const QString parent, 
 		actionFromName=ScApp->scrActions["filePrint"];
 	if (parent=="File" && afterMenuName=="SaveAs")
 		actionFromName=ScApp->scrActions["fileSaveAs"];
-	
+	if (parent=="Help" && afterMenuName=="Manual")
+		actionFromName=ScApp->scrActions["helpManual"];
+		
 	if (menuList[parent])
 		retVal=menuList[parent]->insertMenuItemAfter(menuAction, actionFromName);
 	else

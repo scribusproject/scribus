@@ -37,6 +37,9 @@
 #include "customfdialog.h"
 #include "helpbrowser.h"
 #include "mpalette.h"
+#include "menumanager.h"
+#include "scraction.h"
+
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -77,6 +80,31 @@ int ID()
 	return 8;
 }
 
+QString actionName()
+{
+	return "Scripter";
+}
+
+QString actionKeySequence()
+{
+	return "";
+}
+
+QString actionMenu()
+{
+	return "Help";
+}
+
+QString actionMenuAfterName()
+{
+	return "Manual";
+}
+
+bool actionEnabledOnStartup()
+{
+	return true;
+}
+
 void InitPlug(QWidget *d, ScribusApp *plug)
 {
 	QString cm;
@@ -89,50 +117,41 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	Carrier = plug;
 	RetVal = 0;
 	initscribus(Carrier);
+
 	Tes = new MenuTest(d);
-	men = new QPopupMenu();
-	Tes->rmen = new QPopupMenu();
-	Tes->smen = new QPopupMenu();
+	Tes->menuMgr=Carrier->scrMenuMgr;
+	Tes->scrScripterActions.clear();
+	Tes->scrScripterActions.setAutoDelete(true);
+	Tes->scrRecentScriptActions.clear();
+	Tes->scrRecentScriptActions.setAutoDelete(true);
+
+	Tes->scrScripterActions.insert("scripterExecuteScript", new ScrAction(QObject::tr("&Execute Script..."), QKeySequence(), Tes, "scripterExecuteScript"));
+	Tes->scrScripterActions.insert("scripterShowConsole", new ScrAction(QObject::tr("Show &Console"), QKeySequence(), Tes, "scripterShowConsole"));
+	Tes->scrScripterActions.insert("scripterAboutScript", new ScrAction(QObject::tr("&About Script..."), QKeySequence(), Tes, "scripterAboutScript"));
+	
+	Tes->scrScripterActions["scripterShowConsole"]->setToggleAction(true);
+	
+	QObject::connect( Tes->scrScripterActions["scripterExecuteScript"], SIGNAL(activated()) , Tes, SLOT(slotTest()) );
+	QObject::connect( Tes->scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , Tes, SLOT(slotInteractiveScript(bool)) );
+	QObject::connect( Tes->scrScripterActions["scripterAboutScript"], SIGNAL(activated()) , Tes, SLOT(aboutScript()) );
+	
+	Tes->menuMgr->createMenu("Scripter", QObject::tr("&Script"));
+	Tes->menuMgr->addMenuToMenuBarAfter("Scripter","Windows");
+	Tes->menuMgr->createMenu("ScribusScripts", QObject::tr("&Scribus Scripts"), "Scripter");
+	Tes->menuMgr->addMenuItem(Tes->scrScripterActions["scripterExecuteScript"], "Scripter");
+	Tes->menuMgr->createMenu("RecentScripts", QObject::tr("&Recent Scripts"), "Scripter");
+	Tes->menuMgr->addMenuSeparator("Scripter");
+	Tes->menuMgr->addMenuItem(Tes->scrScripterActions["scripterShowConsole"], "Scripter");
+	Tes->menuMgr->addMenuItem(Tes->scrScripterActions["scripterAboutScript"], "Scripter");
+	
 	Tes->SavedRecentScripts.clear();
 	Tes->ReadPlugPrefs();
-	QString pfad = SCRIPTSDIR;
-	QString pfad2;
-	pfad2 = QDir::convertSeparators(pfad);
-	QDir ds(pfad2, "*.py", QDir::Name, QDir::Files | QDir::NoSymLinks);
-	if ((ds.exists()) && (ds.count() != 0))
-	{
-		for (uint dc = 0; dc < ds.count(); ++dc)
-		{
-			QFileInfo fs(ds[dc]);
-			Tes->smen->insertItem(fs.baseName(true));
-		}
-	}
-	Tes->RecentScripts.clear();
-	if (Tes->SavedRecentScripts.count() != 0)
-	{
-		uint max = QMIN(Carrier->Prefs.RecentDCount, Tes->SavedRecentScripts.count());
-		for (uint m = 0; m < max; ++m)
-		{
-			QFileInfo fd(Tes->SavedRecentScripts[m]);
-			if (fd.exists())
-			{
-				Tes->RecentScripts.append(Tes->SavedRecentScripts[m]);
-				Tes->rmen->insertItem(Tes->SavedRecentScripts[m]);
-			}
-		}
-	}
+	Tes->buildScribusScriptsMenu();
+	Tes->buildRecentScriptsMenu();
 	Tes->pcon = new PConsole(d);
-	Tes->smenid = men->insertItem(QObject::tr("&Scribus Scripts"), Tes->smen);
-	men->insertItem(QObject::tr("&Execute Script..."), Tes, SLOT(slotTest()));
-	Tes->rmenid = men->insertItem(QObject::tr("&Recent Scripts"), Tes->rmen);
-	men->insertSeparator();
-	Tes->cons = men->insertItem(QObject::tr("Show &Console"), Tes, SLOT(slotInteractiveScript()));
-	Tes->about = men->insertItem(QObject::tr("&About Script..."), Tes, SLOT(aboutScript()));
-	plug->menuBar()->insertItem(QObject::tr("S&cript"), men, -1, plug->menuBar()->count() - 2);
+	
 	QObject::connect(Tes->pcon->OutWin, SIGNAL(returnPressed()), Tes, SLOT(slotExecute()));
-	QObject::connect(Tes->pcon, SIGNAL(Schliessen()), Tes, SLOT(slotInteractiveScript()));
-	QObject::connect(Tes->rmen, SIGNAL(activated(int)), Tes, SLOT(RecentScript(int)));
-	QObject::connect(Tes->smen, SIGNAL(activated(int)), Tes, SLOT(StdScript(int)));
+	QObject::connect(Tes->pcon, SIGNAL(paletteShown(bool)), Tes, SLOT(slotInteractiveScript(bool)));
 }
 
 void CleanUpPlug()
@@ -150,6 +169,62 @@ void Run(QWidget */*d*/, ScribusApp */*plug*/)
 	dia->show();
 }
 
+void MenuTest::buildScribusScriptsMenu()
+{
+	QString pfad = SCRIPTSDIR;
+	QString pfad2;
+	pfad2 = QDir::convertSeparators(pfad);
+	QDir ds(pfad2, "*.py", QDir::Name, QDir::Files | QDir::NoSymLinks);
+	if ((ds.exists()) && (ds.count() != 0))
+	{
+		for (uint dc = 0; dc < ds.count(); ++dc)
+		{
+			QFileInfo fs(ds[dc]);
+			QString strippedName=fs.baseName(false);
+			scrScripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, strippedName, QKeySequence(), this, strippedName));
+			connect( scrScripterActions[strippedName], SIGNAL(activatedRecentScript(QString)), this, SLOT(StdScript(QString)) );
+			menuMgr->addMenuItem(scrScripterActions[strippedName], "ScribusScripts");
+		}
+	}
+
+
+}
+
+void MenuTest::rebuildRecentScriptsMenu()
+{
+	scrRecentScriptActions.clear();
+	uint max = QMIN(Carrier->Prefs.RecentDCount, RecentScripts.count());
+	for (uint m = 0; m < max; ++m)
+	{
+		QString strippedName=RecentScripts[m];
+		strippedName.remove(QDir::separator());
+		scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, RecentScripts[m], QKeySequence(), this, strippedName));
+		connect( scrRecentScriptActions[strippedName], SIGNAL(activatedRecentScript(QString)), this, SLOT(RecentScript(QString)) );
+		menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts");
+	}
+}
+
+void MenuTest::buildRecentScriptsMenu()
+{
+	RecentScripts.clear();
+	scrRecentScriptActions.clear();
+	if (SavedRecentScripts.count() != 0)
+	{
+		uint max = QMIN(Carrier->Prefs.RecentDCount, SavedRecentScripts.count());
+		for (uint m = 0; m < max; ++m)
+		{
+			QFileInfo fd(SavedRecentScripts[m]);
+			if (fd.exists())
+			{
+				QString strippedName=SavedRecentScripts[m];
+				strippedName.remove(QDir::separator());
+				scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, SavedRecentScripts[m], QKeySequence(), this, strippedName));
+				connect( scrRecentScriptActions[strippedName], SIGNAL(activatedRecentScript(QString)), this, SLOT(RecentScript(QString)) );
+				menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts");
+			}
+		}
+	}
+}
 
 void MenuTest::FinishScriptRun()
 {
@@ -184,7 +259,7 @@ void MenuTest::slotTest()
 	{
 		fileName = diaf.selectedFile();
 		slotRunScriptFile(fileName);
-		rmen->clear();
+
 		if (RecentScripts.findIndex(fileName) == -1)
 			RecentScripts.prepend(fileName);
 		else
@@ -192,22 +267,19 @@ void MenuTest::slotTest()
 			RecentScripts.remove(fileName);
 			RecentScripts.prepend(fileName);
 		}
-		uint max = QMIN(Carrier->Prefs.RecentDCount, RecentScripts.count());
-		for (uint m = 0; m < max; m++)
-		{
-			rmen->insertItem(RecentScripts[m]);
-		}
+		rebuildRecentScriptsMenu();
 	}
 	QDir::setCurrent(CurDirP);
 	FinishScriptRun();
 }
 
-void MenuTest::StdScript(int id)
+void MenuTest::StdScript(QString basefilename)
 {
 	QString pfad = SCRIPTSDIR;
 	QString pfad2;
 	pfad2 = QDir::convertSeparators(pfad);
-	QString fn = pfad2+smen->text(id)+".py";
+	QString fn = pfad2+basefilename+".py";
+	//QString fn = pfad2+smen->text(id)+".py";
 	QFileInfo fd(fn);
 	if (!fd.exists())
 		return;
@@ -215,19 +287,14 @@ void MenuTest::StdScript(int id)
 	FinishScriptRun();
 }
 
-void MenuTest::RecentScript(int id)
+void MenuTest::RecentScript(QString fn)
 {
-	QString fn = rmen->text(id);
+	//QString fn = rmen->text(id);
 	QFileInfo fd(fn);
 	if (!fd.exists())
 	{
 		RecentScripts.remove(fn);
-		rmen->clear();
-		uint max = QMIN(Carrier->Prefs.RecentDCount, RecentScripts.count());
-		for (uint m = 0; m < max; m++)
-		{
-			rmen->insertItem(RecentScripts[m]);
-		}
+		rebuildRecentScriptsMenu();
 		return;
 	}
 	slotRunScriptFile(fn);
@@ -359,18 +426,10 @@ QString MenuTest::slotRunScript(QString Script)
 	return RetString;
 }
 
-void MenuTest::slotInteractiveScript()
+void MenuTest::slotInteractiveScript(bool visible)
 {
-	if (pcon->isVisible())
-	{
-		men->changeItem(cons, tr("Show &Console"));
-		pcon->hide();
-	}
-	else
-	{
-		men->changeItem(cons, tr("Hide &Console"));
-		pcon->show();
-	}
+	scrScripterActions["scripterShowConsole"]->setOn(visible);
+	pcon->setShown(visible);
 }
 
 void MenuTest::slotExecute()
@@ -386,7 +445,7 @@ void MenuTest::ReadPlugPrefs()
 {
 	QDomDocument docu("scriptrc");
 	QString ho = QDir::homeDirPath();
-	QFile f(QDir::convertSeparators(ho+"/.scribus/scripter.rc"));
+	QFile f(QDir::convertSeparators(ho+"/.scribus/scripter13.rc"));
 	if(!f.open(IO_ReadOnly))
 		return;
 	if(!docu.setContent(&f))
@@ -414,14 +473,14 @@ void MenuTest::SavePlugPrefs()
 	QString st="<SCRIPTRC></SCRIPTRC>";
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
-	for (uint rd=0; rd < Tes->RecentScripts.count(); ++rd)
+	for (uint rd=0; rd < RecentScripts.count(); ++rd)
 	{
 		QDomElement rde=docu.createElement("RECENT");
-		rde.setAttribute("NAME",Tes->RecentScripts[rd]);
+		rde.setAttribute("NAME",RecentScripts[rd]);
 		elem.appendChild(rde);
 	}
 	QString ho = QDir::homeDirPath();
-	QFile f(QDir::convertSeparators(ho+"/.scribus/scripter.rc"));
+	QFile f(QDir::convertSeparators(ho+"/.scribus/scripter13.rc"));
 	if(!f.open(IO_WriteOnly))
 		return;
 	QTextStream s(&f);

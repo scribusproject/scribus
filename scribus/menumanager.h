@@ -39,6 +39,7 @@ public:
 	const QPopupMenu *getLocalPopupMenu(const QString menuName);
 	void setMenuEnabled(const QString menuName, const bool enabled);
 	bool addMenuToMenuBar(const QString menuName);
+	bool addMenuToMenuBarAfter(const QString, const QString);
 	bool removeMenuFromMenuBar(const QString menuName);
 	bool addMenuToWidgetOfAction(const QString menuName, ScrAction *action);
 	

@@ -19,7 +19,7 @@ public:
     ConsWin* OutWin;
 
 signals:
-		void Schliessen();
+		void paletteShown(bool);
 
 protected:
     QVBoxLayout* PConsoleLayout;

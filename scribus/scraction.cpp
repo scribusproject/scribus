@@ -28,7 +28,7 @@ ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * pa
 	menuType=ScrAction::Normal;
 }
 
-ScrAction::ScrAction( MenuType mType, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraParameter ) : QAction( menuText, accel, parent, name )
+ScrAction::ScrAction( MenuType mType, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraParameter, QString extraText ) : QAction( menuText, accel, parent, name )
 {
 	menuType=mType;
 	switch (mType)
@@ -43,6 +43,9 @@ ScrAction::ScrAction( MenuType mType, const QString & menuText, QKeySequence acc
 			windowID=extraParameter;
 			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedWindowID()));
 			break;
+		case RecentScript:
+			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedRecentScript()));
+			break;			
 		case Normal:
 		default:
 			break;
@@ -96,6 +99,12 @@ void ScrAction::activatedToActivatedRecentFile()
 {
 	if (menuType==ScrAction::RecentFile)
 		emit activatedRecentFile(menuText());
+}
+
+void ScrAction::activatedToActivatedRecentScript()
+{
+	if (menuType==ScrAction::RecentScript)
+		emit activatedRecentScript(menuText());
 }
 
 void ScrAction::activatedToActivatedWindowID()

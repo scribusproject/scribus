@@ -63,7 +63,7 @@ public:
 		\param name Name of the action
 		\retval None
 	 */
-	ScrAction( MenuType mType, const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0, int extraParameter = 0 );
+					ScrAction( MenuType mType, const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0, int extraParameter = 0, QString extraText = QString::null );
 			
 	/*!
 		\fn ScrAction::ScrAction( const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name )
@@ -180,6 +180,7 @@ public:
 signals:
 	void activatedDLL(int);
 	void activatedRecentFile(QString);
+	void activatedRecentScript(QString);
 	void activatedWindowID(int);
 protected:
 	int menuIndex;
@@ -249,6 +250,15 @@ private slots:
 		\retval None
 	 */
 	void activatedToActivatedWindowID();
+	/*!
+		\fn ScrAction::activatedToActivatedRecentScript()
+		\author Craig Bradney
+		\date Jan 2005
+		\brief This passed the activated() action signal back out but with the menutext which is the filename to load.
+		\param None
+		\retval None
+	 */
+	void activatedToActivatedRecentScript();
 };
 
 #endif

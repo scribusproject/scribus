@@ -4,6 +4,9 @@
 #include "scribus.h"
 #include "pconsole.h"
 
+class ScrAction;
+class MenuManager;
+
 
 /** Calls the Plugin with the main Application window as parent
   * and the main Application Class as parameter */
@@ -20,6 +23,11 @@ extern "C" QString Name();
   * 4 = the Plugin is a resident Plugin   */
 extern "C" int Type();
 extern "C" int ID();
+extern "C" QString actionName();
+extern "C" QString actionKeySequence();
+extern "C" QString actionMenu();
+extern "C" QString actionMenuAfterName();
+extern "C" bool actionEnabledOnStartup();
 
 /** Initializes the Plugin if it's a Plugin of Type 4 */
 extern "C" void InitPlug(QWidget *d, ScribusApp *plug);
@@ -36,8 +44,6 @@ QString RetString;
 QString InValue;
 int RetVal;
 
-static QPopupMenu* men;
-
 class MenuTest : public QObject
 {
     Q_OBJECT
@@ -49,22 +55,25 @@ public:
 		void SavePlugPrefs();
 		void FinishScriptRun();
 		PConsole *pcon;
-		QPopupMenu* rmen;
-		QPopupMenu* smen;
-		int rmenid;
-		int smenid;
 		int cons;
 		int about;
 		QStringList SavedRecentScripts;
 		QStringList RecentScripts;
+		MenuManager *menuMgr;
+		QDict<ScrAction> scrScripterActions;
+		QDict<ScrAction> scrRecentScriptActions;
+		void rebuildRecentScriptsMenu();
+		void buildScribusScriptsMenu();
+		void buildRecentScriptsMenu();
+		void rebuildScribusScriptsMenu();
 
 public slots:
 		void slotTest();
-		void StdScript(int id);
-		void RecentScript(int id);
+		void StdScript(QString filebasename);
+		void RecentScript(QString fn);
 		void slotRunScriptFile(QString fileName);
 		QString slotRunScript(QString Script);
-		void slotInteractiveScript();
+		void slotInteractiveScript(bool);
 		void slotExecute();
 		void aboutScript();
 };

@@ -18,7 +18,7 @@ PConsole::PConsole( QWidget* parent )
 
 void PConsole::closeEvent(QCloseEvent *ce)
 {
-	emit Schliessen();
+	emit paletteShown(false);
 	ce->accept();
 }
 

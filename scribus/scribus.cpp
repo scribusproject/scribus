@@ -167,8 +167,6 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	scrActions.setAutoDelete(true);
 	scrRecentFileActions.clear();
 	scrRecentFileActions.setAutoDelete(true);
-	scrRecentScriptActions.clear();
-	scrRecentScriptActions.setAutoDelete(true);
 	scrWindowsActions.clear();
 	scrWindowsActions.setAutoDelete(true);
 	scrMenuMgr = new MenuManager(this->menuBar());
@@ -679,6 +677,12 @@ void ScribusApp::initKeyboardShortcuts()
 	SetKeyEntry(51, scrActions["extrasManagePictures"]->cleanMenuText(), 0, scrActions["extrasManagePictures"]->accel(), "extrasManagePictures");
 	SetKeyEntry(50, scrActions["extrasHyphenateText"]->cleanMenuText(), 0, scrActions["extrasHyphenateText"]->accel(), "extrasHyphenateText");
 	
+	//HELP MENU
+	/*
+	SetKeyEntry(52, tr("About Scribus"), MenID, 0);
+	SetKeyEntry(53, tr("About Qt"), MenID, 0);
+	SetKeyEntry(54, tr("Online-Help..."), MenID, 0);
+	*/
 	//EXTRAS
 	SetKeyEntry(56, tr("Smart Hyphen"), 0, CTRL+Key_Minus);
 	SetKeyEntry(57, tr("Align Left"), 0, CTRL+Key_L);
@@ -1279,6 +1283,19 @@ void ScribusApp::initScriptMenuActions()
 
 void ScribusApp::initHelpMenuActions()
 {
+	scrActions.insert("helpAboutScribus", new ScrAction(tr("&About Scribus"), QKeySequence(), this, "helpAboutScribus"));
+	scrActions.insert("helpAboutQt", new ScrAction(tr("About &Qt"), QKeySequence(), this, "helpAboutQt"));
+	scrActions.insert("helpTooltips", new ScrAction(tr("Toolti&ps"), QKeySequence(), this, "helpTooltips"));
+	scrActions.insert("helpManual", new ScrAction(tr("Scribus &Manual..."), QKeySequence(), this, "helpManual"));
+	
+	scrActions["helpTooltips"]->setToggleAction(true);
+	scrActions["helpTooltips"]->setOn(true);
+	
+	connect( scrActions["helpAboutScribus"], SIGNAL(activated()) , this, SLOT(slotHelpAbout()) );
+	connect( scrActions["helpAboutQt"], SIGNAL(activated()) , this, SLOT(slotHelpAboutQt()) );
+	connect( scrActions["helpTooltips"], SIGNAL(activated()) , this, SLOT(ToggleTips()) );
+	connect( scrActions["helpManual"], SIGNAL(activated()) , this, SLOT(slotOnlineHelp()) );
+
 }
 
 void ScribusApp::initMenuBar()
@@ -1482,18 +1499,13 @@ void ScribusApp::initMenuBar()
 	connect(scrMenuMgr->getLocalPopupMenu("Windows"), SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
 	
 	//Help menu
-	helpMenu=new QPopupMenu();
-	MenID = helpMenu->insertItem( tr("&About Scribus"), this, SLOT(slotHelpAbout()));
-	SetKeyEntry(52, tr("About Scribus"), MenID, 0);
-	MenID = helpMenu->insertItem( tr("About &Qt"), this, SLOT(slotHelpAboutQt()));
-	SetKeyEntry(53, tr("About Qt"), MenID, 0);
-	helpMenu->insertSeparator();
-	tip = helpMenu->insertItem( tr("Toolti&ps"), this, SLOT(ToggleTips()));
-	tipsOn = true;
-	helpMenu->setItemChecked(tip, tipsOn);
-	MenID = helpMenu->insertItem( tr("Scribus &Manual..."), this, SLOT(slotOnlineHelp()));
-	SetKeyEntry(54, tr("Online-Help..."), MenID, 0);
-
+	scrMenuMgr->createMenu("Help", tr("&Help"));
+	scrMenuMgr->addMenuItem(scrActions["helpAboutScribus"], "Help");
+	scrMenuMgr->addMenuItem(scrActions["helpAboutQt"], "Help");
+	scrMenuMgr->addMenuSeparator("Help");
+	scrMenuMgr->addMenuItem(scrActions["helpTooltips"], "Help");
+	scrMenuMgr->addMenuItem(scrActions["helpManual"], "Help");
+	
 /*
 	editMenu->insertItem( tr("Test"), this, SLOT(slotTest()));
 	editMenu->insertItem( tr("Test2"), this, SLOT(slotTest2()));
@@ -1515,7 +1527,8 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuToMenuBar("Windows");
 	scrMenuMgr->setMenuEnabled("Windows", false);
 	menuBar()->insertSeparator();
-	menuBar()->insertItem( tr("&Help"), helpMenu);
+	scrMenuMgr->addMenuToMenuBar("Help");
+
 	
 	//Alignment menu
 	alignMenu = new QPopupMenu();
@@ -3524,19 +3537,14 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["fileImportAppendText"]->setEnabled(false);
 		scrActions["fileImportText"]->setEnabled(false);
 		scrActions["fileImportImage"]->setEnabled(true);
-		
 		scrActions["editCut"]->setEnabled(true);
 		scrActions["editCopy"]->setEnabled(true);
 		scrActions["editClear"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
-		
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		menuBar()->setItemEnabled(Stm, 1);
 		scrMenuMgr->setMenuEnabled("Item", true);
-		if ((b->isTableItem) && (b->isSingleSel))
-			scrMenuMgr->setMenuEnabled("ItemShapes", false);
-		else
-			scrMenuMgr->setMenuEnabled("ItemShapes", true);
+		scrMenuMgr->setMenuEnabled("ItemShapes", !((b->isTableItem) && (b->isSingleSel)));
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
 		StilMenu->clear();
 		StilMenu->insertItem( tr("&Color"), ColorMenu);
@@ -3553,19 +3561,14 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(true);
 		scrActions["fileExportText"]->setEnabled(true);
-		
 		scrActions["editCut"]->setEnabled(true);
 		scrActions["editCopy"]->setEnabled(true);
 		scrActions["editClear"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(b->itemText.count() != 0);
-
 		scrActions["extrasHyphenateText"]->setEnabled(true);
 		menuBar()->setItemEnabled(Stm, 1);
 		scrMenuMgr->setMenuEnabled("Item", true);
-		if ((b->isTableItem) && (b->isSingleSel))
-			scrMenuMgr->setMenuEnabled("ItemShapes", false);
-		else
-			scrMenuMgr->setMenuEnabled("ItemShapes", true);
+		scrMenuMgr->setMenuEnabled("ItemShapes", !((b->isTableItem) && (b->isSingleSel)));
 		scrActions["itemConvertToOutlines"]->setEnabled(true);
 		StilMenu->clear();
 		StilMenu->insertItem( tr("&Font"), FontMenu);
@@ -3643,12 +3646,10 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(true);
 		scrActions["fileExportText"]->setEnabled(true);
-		
 		scrActions["editCut"]->setEnabled(true);
 		scrActions["editCopy"]->setEnabled(true);
 		scrActions["editClear"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
-
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		menuBar()->setItemEnabled(Stm, 1);
 		scrMenuMgr->setMenuEnabled("Item", true);
@@ -3763,10 +3764,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		else
 		{
 			scrActions["itemUngroup"]->setEnabled(false);
-			if ((b->PType == 6) && (b->Segments.count() != 0))
-				scrActions["itemSplitPolygons"]->setEnabled(true);
-			else
-				scrActions["itemSplitPolygons"]->setEnabled(false);
+			scrActions["itemSplitPolygons"]->setEnabled( (b->PType == 6) && (b->Segments.count() != 0) );
 		}
 		if (b->Locked)
 		{
@@ -3791,28 +3789,15 @@ void ScribusApp::HaveNewSel(int Nr)
 		else
 		{
 			scrActions["itemLock"]->setOn(false);
-			if ((b->isTableItem) && (b->isSingleSel))
-			{
-				scrActions["itemConvertToOutlines"]->setEnabled(false);
-				scrActions["itemDuplicate"]->setEnabled(false);
-				scrActions["itemMulDuplicate"]->setEnabled(false);
-				scrActions["itemDelete"]->setEnabled(false);
-				scrActions["itemSendToBack"]->setEnabled(false);
-				scrActions["itemBringToFront"]->setEnabled(false);
-				scrActions["itemRaise"]->setEnabled(false);
-				scrActions["itemLower"]->setEnabled(false);
-			}
-			else
-			{
-				scrActions["itemConvertToOutlines"]->setEnabled(true);
-				scrActions["itemDuplicate"]->setEnabled(true);
-				scrActions["itemMulDuplicate"]->setEnabled(true);
-				scrActions["itemDelete"]->setEnabled(true);
-				scrActions["itemSendToBack"]->setEnabled(true);
-				scrActions["itemBringToFront"]->setEnabled(true);
-				scrActions["itemRaise"]->setEnabled(true);
-				scrActions["itemLower"]->setEnabled(true);
-			}
+			bool setter=(!(b->isTableItem) && (b->isSingleSel));
+			scrActions["itemConvertToOutlines"]->setEnabled(setter);
+			scrActions["itemDuplicate"]->setEnabled(setter);
+			scrActions["itemMulDuplicate"]->setEnabled(setter);
+			scrActions["itemDelete"]->setEnabled(setter);
+			scrActions["itemSendToBack"]->setEnabled(setter);
+			scrActions["itemBringToFront"]->setEnabled(setter);
+			scrActions["itemRaise"]->setEnabled(setter);
+			scrActions["itemLower"]->setEnabled(setter);
 		}
 	}
 	Mpal->NewSel(Nr);
@@ -5391,9 +5376,7 @@ void ScribusApp::slotOnlineHelp()
 
 void ScribusApp::ToggleTips()
 {
-	tipsOn = !tipsOn;
-	helpMenu->setItemChecked(tip, tipsOn);
-	QToolTip::setEnabled(tipsOn);
+	QToolTip::setGloballyEnabled(scrActions["helpTooltips"]->isOn());
 }
 
 void ScribusApp::SaveText()
@@ -7933,7 +7916,7 @@ void ScribusApp::ShowSubs()
 	QString mess;
 	if (HaveGS != 0)
 	{
-		mess = tr("The following Programs are missing:")+"\n\n";
+		mess = tr("The following programs are missing:")+"\n\n";
 		if (HaveGS != 0)
 			mess += tr("Ghostscript : You cannot use EPS Images")+"\n\n";
 		QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
@@ -8683,20 +8666,17 @@ void ScribusApp::RunExportPlug(int )
 {
 }
 
-void ScribusApp::RunHelpPlug(int id)
+void ScribusApp::RunHelpPlug(int)
 {
-	if (helpMenu->indexOf(id) > 3)
-		CallDLLbyMenu(id);
 }
 
 void ScribusApp::FinalizePlugs()
 {
 	const char *error;
-	QMap<int, PlugData>::Iterator it;
 	struct PlugData pda;
 	typedef void (*sdem2)();
 	sdem2 demo2;
-	for (it = PluginMap.begin(); it != PluginMap.end(); ++it)
+	for (QMap<int, PlugData>::Iterator it = PluginMap.begin(); it != PluginMap.end(); ++it)
 	{
 		if (it.data().Typ == 4 || it.data().Typ == 5)
 		{
@@ -8740,24 +8720,22 @@ void ScribusApp::initPlugs()
 			pda.MenuID = 0;
 			if (DLLName(d[dc], &nam, &ty, &pda.Zeiger, &id, &pda.actName, &pda.actKeySequence, &pda.actMenu, &pda.actMenuAfterName, &pda.actEnabledOnStartup))
 			{
-				if (ty == 1)//CB TODO || ty == 4)
+				if (ty == 1)
 				{
-					//menid = extraMenu->insertItem(nam);
 					qDebug(QString("Type %1 plugins not supported anymore").arg(ty));
 					break;
 				}
 					
-				if (ty == 4)
-					menid = helpMenu->insertItem(nam);
 				pda.Name = nam;
 				pda.Datei = d[dc];
 				pda.Typ = ty;
-				if (ty < 5)
+				if (ty < 5 && ty!=4)
 					pda.MenuID = menid;
-				if (ty==6 || ty==7)
+				if (ty==4 || ty==6 || ty==7)
 				{
 					//Add in ScrAction based plugin linkage
 					//Insert DLL Action into Dictionary with values from plugin interface
+					
 					scrActions.insert(pda.actName, new ScrAction(id, pda.Name, QKeySequence(pda.actKeySequence), this, pda.actName));
 					if (scrActions[pda.actName])
 					{
@@ -8780,7 +8758,7 @@ void ScribusApp::initPlugs()
 //		connect(extraMenu, SIGNAL(activated(int)), this, SLOT(RunPlug(int)));
 //CB TODO		connect(importMenu, SIGNAL(activated(int)), this, SLOT(RunImportPlug(int)));
 //CB TODO		connect(exportMenu, SIGNAL(activated(int)), this, SLOT(RunExportPlug(int)));
-		connect(helpMenu, SIGNAL(activated(int)), this, SLOT(RunHelpPlug(int)));
+		//connect(helpMenu, SIGNAL(activated(int)), this, SLOT(RunHelpPlug(int)));
 	}
 }
 
@@ -8907,7 +8885,7 @@ bool ScribusApp::DLLName(QString name, QString *PName, int *typ, void **Zeig, in
 	}
 	*idNr = (*demo1)();
 	//ScrAction based plugins
-	if (*typ==6 || *typ==7)
+	if (*typ==4 || *typ==6 || *typ==7)
 	{
 		demo = (sdem0)dlsym(mo, "actionName");
 		if ((error = dlerror()) != NULL)
@@ -9031,12 +9009,13 @@ void ScribusApp::initCMS()
 void ScribusApp::GetCMSProfilesDir(QString pfad)
 {
 #ifdef HAVE_CMS
-	QString nam = "";
-	const char *Descriptor;
-	cmsHPROFILE hIn;
 	QDir d(pfad, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
 	{
+		QString nam = "";
+		const char *Descriptor;
+		cmsHPROFILE hIn;
+		
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
 			QFileInfo fi(pfad + d[dc]);
@@ -9080,7 +9059,6 @@ void ScribusApp::GetCMSProfilesDir(QString pfad)
 
 void ScribusApp::RecalcColors(QProgressBar *dia)
 {
-	ColorList::Iterator it;
 	if (HaveDoc)
 	{
 		if (doc->TemplateMode)
@@ -9095,7 +9073,7 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 		tmp.fromQColor(doc->papColor);
 		tmp.RecalcRGB();
 		doc->papColor = tmp.getRGBColor();
-		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+		for (ColorList::Iterator it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		{
 			doc->PageColors[it.key()].RecalcRGB();
 			pm.fill(doc->PageColors[it.key()].getRGBColor());
@@ -9135,10 +9113,9 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 
 void ScribusApp::ModifyAnnot()
 {
-	PageItem *b;
 	if (view->SelItem.count() != 0)
 	{
-		b = view->SelItem.at(0);
+		PageItem *b = view->SelItem.at(0);
 		if ((b->AnType == 0) || (b->AnType == 1) || (b->AnType > 9))
 		{
 			int AnType = b->AnType;
@@ -9583,11 +9560,9 @@ void ScribusApp::initHyphenator()
 
 QString ScribusApp::GetLang(QString inLang)
 {
-	QMap<QString, QStringList>::Iterator itl;
-	for (itl = InstLang.begin(); itl != InstLang.end(); ++itl)
+ 	for (QMap<QString, QStringList>::Iterator itl = InstLang.begin(); itl != InstLang.end(); ++itl)
 	{
-		QStringList::Iterator itlr;
-		for (itlr = itl.data().begin(); itlr != itl.data().end(); ++itlr)
+		for (QStringList::Iterator itlr = itl.data().begin(); itlr != itl.data().end(); ++itlr)
 		{
 			if ((*itlr) == inLang)
 				return itl.key();
@@ -10303,3 +10278,4 @@ void ScribusApp::slotTest()
 void ScribusApp::slotTest2()
 {
 }
+

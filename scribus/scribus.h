@@ -210,9 +210,7 @@ public:
 	FileWatcher* fileWatcher;
 	QProcess *ExternalApp;
 	QDict<ScrAction> scrActions;
-	//QDict<ScrAction> scrDLLActions;
 	QDict<ScrAction> scrRecentFileActions;
-	QDict<ScrAction> scrRecentScriptActions;
 	QDict<ScrAction> scrWindowsActions;
 	MenuManager* scrMenuMgr;
 
@@ -621,18 +619,18 @@ private:
 	//int M_EditSearchReplace;
 	//int M_EditTemplates;
 	//int M_EditJavascripts;
-	int tip;
+	//int tip;
 	//int exmn;
 	//int hyph;
 	//int M_ExtraCharSelect;
-	int M_ToolsCheckDoc;
+	//int M_ToolsCheckDoc;
 	bool PalettesStat[10];
 	bool GuidesStat[7];
-	bool tipsOn;
+	//bool tipsOn;
 	bool keyrep;
 	/** @brief Tells if an arrow key is pressed down */
 	bool _arrowKeyDown;
-	QPopupMenu *helpMenu;
+	//QPopupMenu *helpMenu;
 	//QPopupMenu *toolMenu;
 	QPopupMenu *extraMenu;
 	//QPopupMenu *importMenu;
