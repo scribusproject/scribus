@@ -59,15 +59,7 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	Carrier = plug;
 	par = d;
 	Tes = new MenuPreview(d);
-	int ind = 0;
-	for (uint a = 0; a < plug->fileMenu->count(); ++a)
-	{
-		if ((plug->fileMenu->text(plug->fileMenu->idAt(a)) == QObject::tr("&Print...")) ||
-		        (plug->fileMenu->text(plug->fileMenu->idAt(a)) == "&Print..."))
-			break;
-		ind++;
-	}
-	int id = plug->fileMenu->insertItem(QObject::tr("Print Previe&w"), -1, ind+1);
+	int id = plug->fileMenu->insertItem(QObject::tr("Print Previe&w"), -1, plug->fileMenu->indexOf(plug->M_Print)+1);
 	plug->fileMenu->setAccel(Qt::CTRL+Qt::SHIFT+Qt::Key_P, id);
 	plug->fileMenu->connectItem(id, Tes, SLOT(RunPreview()));
 	plug->fileMenu->setItemEnabled(id, 0);

@@ -1,13 +1,10 @@
 #include "svgplugin.h"
 #include "svgplugin.moc"
-/*
 #if (_MSC_VER >= 1200)
- #include "win-config.h"
+	#include "win-config.h"
 #else
- #include "config.h"
+	#include "config.h"
 #endif
-*/
-#include "config.h"
 #include "customfdialog.h"
 #include "color.h"
 #include "scribusXml.h"
@@ -69,20 +66,25 @@ int Type()
 void Run(QWidget *d, ScribusApp *plug)
 {
 	QString fileName;
-	PrefsContext* prefs = prefsFile->getPluginContext("SVGPlugin");
-	QString wdir = prefs->get("wdir", ".");
-#ifdef HAVE_LIBZ
-	CustomFDialog diaf(d, wdir, QObject::tr("Open"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"));
-#else
-	CustomFDialog diaf(d, wdir, QObject::tr("Open"), QObject::tr("SVG-Images (*.svg);;All Files (*)"));
-#endif
-	if (diaf.exec())
-	{
-		fileName = diaf.selectedFile();
-		prefs->set("wdir", fileName.left(fileName.findRev("/")));
-	}
+	if (plug->DLLinput != "")
+		fileName = plug->DLLinput;
 	else
-		return;
+	{
+		PrefsContext* prefs = prefsFile->getPluginContext("SVGPlugin");
+		QString wdir = prefs->get("wdir", ".");
+#ifdef HAVE_LIBZ
+		CustomFDialog diaf(d, wdir, QObject::tr("Open"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"));
+#else
+		CustomFDialog diaf(d, wdir, QObject::tr("Open"), QObject::tr("SVG-Images (*.svg);;All Files (*)"));
+#endif
+		if (diaf.exec())
+		{
+			fileName = diaf.selectedFile();
+			prefs->set("wdir", fileName.left(fileName.findRev("/")));
+		}
+		else
+			return;
+	}
 	SVGPlug *dia = new SVGPlug(plug, fileName);
 	delete dia;
 }
@@ -147,10 +149,18 @@ void SVGPlug::convert()
 	QDomElement docElem = inpdoc.documentElement();
 	double width = !docElem.attribute("width").isEmpty() ? parseUnit(docElem.attribute( "width" )) : 550.0;
 	double height = !docElem.attribute("height").isEmpty() ? parseUnit(docElem.attribute( "height" )) : 841.0;
-	if (!Prog->HaveDoc)
+	if (Prog->DLLinput != "")
 	{
-		Prog->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1);
-		ret = true;
+		Prog->doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
+		Prog->view->addPage(0);
+	}
+	else
+	{
+		if (!Prog->HaveDoc)
+		{
+			Prog->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1);
+			ret = true;
+		}
 	}
 	Doku = Prog->doc;
 	Prog->view->Deselect();
@@ -179,9 +189,10 @@ void SVGPlug::convert()
 	Doku->DoDrawing = true;
 	Prog->view->setUpdatesEnabled(true);
 	Prog->ScriptRunning = false;
-	Doku->loading = false;
+	if (Prog->DLLinput == "")
+		Doku->loading = false;
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
-	if ((Elements.count() > 0) && (!ret))
+	if ((Elements.count() > 0) && (!ret) && (Prog->DLLinput == ""))
 	{
 		Doku->DragP = true;
 		Doku->DraggedElem = 0;

@@ -1,13 +1,10 @@
 #include "importps.h"
 #include "importps.moc"
-/*
 #if (_MSC_VER >= 1200)
- #include "win-config.h"
+	#include "win-config.h"
 #else
- #include "config.h"
+	#include "config.h"
 #endif
-*/
-#include "config.h"
 #include "customfdialog.h"
 #include "mpalette.h"
 #include "prefsfile.h"
@@ -61,18 +58,23 @@ int Type()
 void Run(QWidget *d, ScribusApp *plug)
 {
 	QString fileName;
-	PrefsContext* prefs = prefsFile->getPluginContext("importps");
-	QString wdir = prefs->get("wdir", ".");
-	QString formats = QObject::tr("All Supported Formats (*.eps *.EPS *.ps *.PS);;");
-	formats += "EPS (*.eps *.EPS);;PS (*.ps *.PS);;" + QObject::tr("All Files (*)");
-	CustomFDialog diaf(d, wdir, QObject::tr("Open"), formats);
-	if (diaf.exec())
-	{
-		fileName = diaf.selectedFile();
-		prefs->set("wdir", fileName.left(fileName.findRev("/")));
-	}
+	if (plug->DLLinput != "")
+		fileName = plug->DLLinput;
 	else
-		return;
+	{
+		PrefsContext* prefs = prefsFile->getPluginContext("importps");
+		QString wdir = prefs->get("wdir", ".");
+		QString formats = QObject::tr("All Supported Formats (*.eps *.EPS *.ps *.PS);;");
+		formats += "EPS (*.eps *.EPS);;PS (*.ps *.PS);;" + QObject::tr("All Files (*)");
+		CustomFDialog diaf(d, wdir, QObject::tr("Open"), formats);
+		if (diaf.exec())
+		{
+			fileName = diaf.selectedFile();
+			prefs->set("wdir", fileName.left(fileName.findRev("/")));
+		}
+		else
+			return;
+	}
 	EPSPlug *dia = new EPSPlug(plug, fileName);
 	delete dia;
 }
@@ -182,10 +184,18 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 		}
 	}
 	Prog = plug;
-	if (!Prog->HaveDoc)
+	if (plug->DLLinput != "")
 	{
-		Prog->doFileNew(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1);
-		ret = true;
+		Prog->doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
+		Prog->view->addPage(0);
+	}
+	else
+	{
+		if (!Prog->HaveDoc)
+		{
+			Prog->doFileNew(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1);
+			ret = true;
+		}
 	}
 	Doku = plug->doc;
 	CListe::Iterator it;
@@ -221,7 +231,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 		Prog->ScriptRunning = false;
 		Doku->loading = false;
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
-		if ((Elements.count() > 0) && (!ret))
+		if ((Elements.count() > 0) && (!ret) && (plug->DLLinput == ""))
 		{
 			Doku->DragP = true;
 			Doku->DraggedElem = 0;
@@ -256,7 +266,9 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 		Prog->ScriptRunning = false;
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
-	Doku->loading = false;
+	if (plug->DLLinput == "")
+		Doku->loading = false;
+	plug->DLLinput = "";
 }
 
 /*!
