@@ -1,5 +1,9 @@
 Changes since 1.2 
 
+24.10.2004
+	* bug     #1240: Scribus crashed while importing an Svg file from inkscape.
+	* feature #1242: British English Translation Update
+
 22.10.2004
 	* bug     #1238: acroread reports dash errors in pdf
 

@@ -1237,12 +1237,15 @@ void SVGPlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, d
  */
 void SVGPlug::svgClosePath(FPointArray *i)
 {
-	if ((PathLen == 4) || (i->point(i->size()-2).x() != StartX) || (i->point(i->size()-2).y() != StartY))
+	if (PathLen > 2)
 	{
-		i->addPoint(i->point(i->size()-2));
-		i->addPoint(i->point(i->size()-3));
-		i->addPoint(FPoint(StartX, StartY));
-		i->addPoint(FPoint(StartX, StartY));
+		if ((PathLen == 4) || (i->point(i->size()-2).x() != StartX) || (i->point(i->size()-2).y() != StartY))
+		{
+			i->addPoint(i->point(i->size()-2));
+			i->addPoint(i->point(i->size()-3));
+			i->addPoint(FPoint(StartX, StartY));
+			i->addPoint(FPoint(StartX, StartY));
+		}
 	}
 }
 

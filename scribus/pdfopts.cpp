@@ -223,6 +223,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	tabLayout_3->setMargin( 11 );
 	EmbedFonts = new QCheckBox( tr( "&Embed all Fonts" ), tabFonts, "EmbedFonts" );
 	tabLayout_3->addWidget( EmbedFonts );
+	SubsetFonts = new QCheckBox( tr( "&Subset all Fonts" ), tabFonts, "SubsetFonts" );
+	tabLayout_3->addWidget( SubsetFonts );
 	GroupFont = new QGroupBox( tr( "Embedding" ), tabFonts, "GroupFont" );
 	GroupFont->setColumnLayout(0, Qt::Vertical );
 	GroupFont->layout()->setSpacing( 0 );
@@ -878,8 +880,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
 	connect(EDirection_2_2, SIGNAL(activated(int)), this, SLOT(ValidDI(int)));
 	connect(CheckBox10, SIGNAL(clicked()), this, SLOT(DoEffects()));
-	connect(MirrorH, SIGNAL(activated()), this, SLOT(PDFMirror()));
-	connect(MirrorV, SIGNAL(activated()), this, SLOT(PDFMirror()));
+	connect(MirrorH, SIGNAL(clicked()), this, SLOT(PDFMirror()));
+	connect(MirrorV, SIGNAL(clicked()), this, SLOT(PDFMirror()));
 	connect(RotateDeg, SIGNAL(activated(int)), this, SLOT(Rotation(int)));
 	connect(EonAllPg, SIGNAL(clicked()), this, SLOT(EffectOnAll()));
 	connect(AllPages, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));

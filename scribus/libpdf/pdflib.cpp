@@ -65,18 +65,18 @@ bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<
 {
 	QPixmap pm;
 	bool ret = false;
-/*	int progresscount=0;
+	int progresscount=0;
 	PDFlib *dia = new PDFlib();
 	if (dia->PDF_Begin_Doc(fn, plug->doc, plug->view, &plug->doc->PDF_Optionen, plug->Prefs.AvailFonts,
 				 plug->doc->UsedFonts, plug->BookPal->BView))
 		{
 			dia2->reset();
-			dia2->setTotalSteps(plug->view->MasterPages.count()+pageNs.size());
+			dia2->setTotalSteps(plug->doc->MasterPages.count()+pageNs.size());
 			dia2->setProgress(0);
-			for (uint ap = 0; ap < plug->view->MasterPages.count(); ++ap)
+			for (uint ap = 0; ap < plug->doc->MasterPages.count(); ++ap)
 			{
-				if (plug->view->MasterPages.at(ap)->Items.count() != 0)
-					dia->PDF_TemplatePage(plug->view->MasterPages.at(ap));
+				if (plug->doc->MasterItems.count() != 0)
+					dia->PDF_TemplatePage(plug->doc->MasterPages.at(ap));
 				progresscount++;
 				dia2->setProgress(progresscount);
 			}
@@ -84,8 +84,8 @@ bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<
 		{
 			if (plug->doc->PDF_Optionen.Thumbnails)
 				pm = thumbs[pageNs[a]];
-			dia->PDF_Begin_Page(plug->view->Pages.at(pageNs[a]-1), pm);
-			dia->PDF_ProcessPage(plug->view->Pages.at(pageNs[a]-1), pageNs[a]-1);
+			dia->PDF_Begin_Page(plug->doc->Pages.at(pageNs[a]-1), pm);
+			dia->PDF_ProcessPage(plug->doc->Pages.at(pageNs[a]-1), pageNs[a]-1);
 			dia->PDF_End_Page();
 			progresscount++;
 			dia2->setProgress(progresscount);
@@ -97,7 +97,7 @@ bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<
 		ret = true;
 		dia2->reset();
 	}
-	delete dia; */
+	delete dia;
 	return ret;
 }
 
@@ -500,38 +500,29 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	RealFonts = DocFonts;
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
-/*	Page* pg;
 	PageItem* pgit;
-	for (uint c = 0; c < view->MasterPages.count(); ++c)
+	for (uint c = 0; c < doc->MasterItems.count(); ++c)
 	{
-		pg = view->MasterPages.at(c);
-		for (uint d = 0; d < pg->Items.count(); ++d)
+		pgit = doc->MasterItems.at(c);
+		if ((pgit->PType == 4) || (pgit->PType == 8))
 		{
-			pgit = pg->Items.at(d);
-			if ((pgit->PType == 4) || (pgit->PType == 8))
+			for (uint e = 0; e < pgit->Ptext.count(); ++e)
 			{
-				for (uint e = 0; e < pgit->Ptext.count(); ++e)
-				{
-					ReallyUsed.insert(pgit->Ptext.at(e)->cfont, DocFonts[pgit->Ptext.at(e)->cfont]);
-				}
+				ReallyUsed.insert(pgit->Ptext.at(e)->cfont, DocFonts[pgit->Ptext.at(e)->cfont]);
 			}
 		}
 	}
-	for (uint c=0; c<view->Pages.count(); ++c)
+	for (uint d = 0; d < doc->Items.count(); ++d)
 	{
-		pg = view->Pages.at(c);
-		for (uint d = 0; d < pg->Items.count(); ++d)
+		pgit = doc->Items.at(d);
+		if ((pgit->PType == 4) || (pgit->PType == 8))
 		{
-			pgit = pg->Items.at(d);
-			if ((pgit->PType == 4) || (pgit->PType == 8))
+			for (uint e = 0; e < pgit->Ptext.count(); ++e)
 			{
-				for (uint e = 0; e < pgit->Ptext.count(); ++e)
-				{
-					ReallyUsed.insert(pgit->Ptext.at(e)->cfont, DocFonts[pgit->Ptext.at(e)->cfont]);
-				}
+				ReallyUsed.insert(pgit->Ptext.at(e)->cfont, DocFonts[pgit->Ptext.at(e)->cfont]);
 			}
 		}
-	} */
+	}
 	QMap<QString,QFont>::Iterator it;
 	a = 0;
 	for (it = ReallyUsed.begin(); it != ReallyUsed.end(); ++it)
@@ -881,7 +872,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool clip)
 	ActPageP = pag;
 	Inhalt = "";
 	Seite.AObjects.clear();
-//	PDF_ProcessPage(pag, pag->PageNr, clip);
+	PDF_ProcessPage(pag, pag->PageNr, clip);
 	StartObj(ObjCounter);
 	ObjCounter++;
 	PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
@@ -934,8 +925,8 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool clip)
 	if ((Options->Compress) && (CompAvail))
 		PutDoc("\n/Filter /FlateDecode");
 	PutDoc(" >>\nstream\n"+EncStream(&Inhalt, ObjCounter-1)+"\nendstream\nendobj\n");
-//	QString name = pag->PageNam.simplifyWhiteSpace().replace( QRegExp("\\s"), "" );
-//	Seite.XObjects[name] = ObjCounter-1;
+	QString name = pag->PageNam.simplifyWhiteSpace().replace( QRegExp("\\s"), "" );
+	Seite.XObjects[name] = ObjCounter-1;
 }
 
 void PDFlib::PDF_Begin_Page(Page* pag, QPixmap pm)
@@ -965,7 +956,7 @@ void PDFlib::PDF_Begin_Page(Page* pag, QPixmap pm)
 
 void PDFlib::PDF_End_Page()
 {
-	uint PgNr = 0; // ActPageP->PageNr;
+	uint PgNr =  ActPageP->PageNr;
 	Seite.ObjNum = ObjCounter;
 	WritePDFStream(&Inhalt);
 	StartObj(ObjCounter);
@@ -1064,9 +1055,10 @@ void PDFlib::PDF_End_Page()
 
 void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 {
-/*	QString tmp;
+	QString tmp;
 	ActPageP = pag;
 	PageItem* ite;
+	QPtrList<PageItem> PItems;
 	int Lnr = 0;
 	struct Layer ll;
 	ll.Drucken = false;
@@ -1089,8 +1081,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 		PutPage("0 0 "+FToStr(doc->PageB)+" "+FToStr(doc->PageH)+" re W n\n");
 	if (pag->MPageNam != "")
 	{
-		Page* mPage = view->MasterPages.at(view->MasterNames[view->Pages.at(PNr)->MPageNam]);
-		if (mPage->Items.count() != 0)
+		Page* mPage = doc->MasterPages.at(doc->MasterNames[doc->Pages.at(PNr)->MPageNam]);
+		if (doc->MasterItems.count() != 0)
 		{
 			if (!Options->MirrorH)
 				PutPage("1 0 0 1 0 0 cm\n");
@@ -1101,32 +1093,59 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 				Lnr++;
 				if (ll.Drucken)
 				{
-					for (uint am = 0; am < mPage->Items.count(); ++am)
+					for (uint am = 0; am < doc->MasterItems.count(); ++am)
 					{
-						ite = mPage->Items.at(am);
+						ite = doc->MasterItems.at(am);
 						if ((ite->LayerNr != ll.LNr) || (!ite->isPrintable))
 							continue;
+						int x = static_cast<int>(pag->Xoffset);
+						int y = static_cast<int>(pag->Yoffset);
+						int w = static_cast<int>(pag->Width);
+						int h1 = static_cast<int>(pag->Height);
+						int x2 = static_cast<int>(ite->BoundingX);
+						int y2 = static_cast<int>(ite->BoundingY);
+						int w2 = static_cast<int>(ite->BoundingW);
+						int h2 = static_cast<int>(ite->BoundingH);
+						if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
+							continue;
+						if (ite->ChangedMasterItem)
+							continue;
+						if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
+							continue;
 						if (ite->PType == 4)
-						{ */
-//							QWidget* Opa;
-//							Page* Opa2;
-//							Opa = ite->Parent;
-//							Opa2 = ite->OwnPage;
-//							ite->Parent = pag;
-//							ite->OwnPage = pag;
-/*							double savScale = doc->Scale;
-							doc->Scale = 1.0;
+						{
+							uint OldOwn = ite->OwnPage;
+							double OldX = ite->Xpos;
+							double OldY = ite->Ypos;
+							double OldBX = ite->BoundingX;
+							double OldBY = ite->BoundingY;
+							ite->OwnPage = pag->PageNr;
+							if (!ite->ChangedMasterItem)
+							{
+								ite->Xpos = OldX - mPage->Xoffset + pag->Xoffset;
+								ite->Ypos = OldY - mPage->Yoffset + pag->Yoffset;
+								ite->BoundingX = OldBX - mPage->Xoffset + pag->Xoffset;
+								ite->BoundingY = OldBY - mPage->Yoffset + pag->Yoffset;
+							}
+							double savScale = view->Scale;
+							view->Scale = 1.0;
 							doc->RePos = true;
 							QPixmap pgPix(10, 10);
 							QRect rd = QRect(0,0,9,9);
 							ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 							ite->DrawObj(painter, rd);
 							doc->RePos = false;
-							doc->Scale = savScale;
-							delete painter; */
-//							ite->Parent = Opa;
-//							ite->OwnPage = Opa2;
-/*							PutPage("q\n");
+							view->Scale = savScale;
+							delete painter;
+							ite->OwnPage = OldOwn;
+							if (!ite->ChangedMasterItem)
+							{
+								ite->Xpos = OldX;
+								ite->Ypos = OldY;
+								ite->BoundingX = OldBX;
+								ite->BoundingY = OldBY;
+							}
+							PutPage("q\n");
 							if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && (Options->Version == 14))
 								PDF_Transparenz(ite);
 							if (Options->UseRGB)
@@ -1175,7 +1194,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 #ifdef HAVE_CMS
 							}
 #endif
-							PutPage("1 0 0 1 "+FToStr(ite->Xpos)+" "+FToStr(doc->PageH - ite->Ypos)+" cm\n");
+							PutPage("1 0 0 1 "+FToStr(ite->Xpos - mPage->Xoffset + pag->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - mPage->Yoffset + pag->Yoffset))+" cm\n");
 							if (ite->Rot != 0)
 							{
 								double sr = sin(-ite->Rot* 3.1415927 / 180.0);
@@ -1204,10 +1223,24 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							PutPage("Q\n");
 						}
 					}
-					for (uint am = 0; am < mPage->Items.count(); ++am)
+					for (uint am = 0; am < doc->MasterItems.count(); ++am)
 					{
-						ite = mPage->Items.at(am);
-						if ((ite->LayerNr != ll.LNr) || (!ite->isPrintable) || (ite->PType != 4))
+						ite = doc->MasterItems.at(am);
+						if ((ite->LayerNr != ll.LNr) || (!ite->isPrintable))
+							continue;
+						int x = static_cast<int>(pag->Xoffset);
+						int y = static_cast<int>(pag->Yoffset);
+						int w = static_cast<int>(pag->Width);
+						int h1 = static_cast<int>(pag->Height);
+						int x2 = static_cast<int>(ite->BoundingX);
+						int y2 = static_cast<int>(ite->BoundingY);
+						int w2 = static_cast<int>(ite->BoundingW);
+						int h2 = static_cast<int>(ite->BoundingH);
+						if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
+							continue;
+						if (ite->ChangedMasterItem)
+							continue;
+						if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 							continue;
 						PutPage("q\n");
 						if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && (Options->Version == 14))
@@ -1224,8 +1257,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 #ifdef HAVE_CMS
 					if ((CMSuse) && (Options->UseProfiles))
 					{
-						char *tmp[] = {"/Perceptual", "/RelativeColorimetric",
-								 "/Saturation", "/AbsoluteColorimetric"};
+						char *tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
 						PutPage(tmp[Options->Intent]);
 						PutPage(" ri\n");
 						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
@@ -1301,7 +1333,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								PutPage("0 j\n");
 								break;
 						}
-						PutPage("1 0 0 1 "+FToStr(ite->Xpos)+" "+FToStr(doc->PageH - ite->Ypos)+" cm\n");
+						PutPage("1 0 0 1 "+FToStr(ite->Xpos - mPage->Xoffset + pag->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - mPage->Yoffset + pag->Yoffset))+" cm\n");
 						if (ite->Rot != 0)
 						{
 							double sr = sin(-ite->Rot* 3.1415927 / 180.0);
@@ -1351,12 +1383,30 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 	for (uint la = 0; la < doc->Layers.count(); ++la)
 	{
 		Level2Layer(doc, &ll, Lnr);
+		if (pag->PageNam != "")
+			PItems = doc->MasterItems;
+		else
+			PItems = doc->Items;
 		if (ll.Drucken)
 		{
-			for (uint a = 0; a < ActPageP->Items.count(); ++a)
+			for (uint a = 0; a < PItems.count(); ++a)
 			{
-				ite = ActPageP->Items.at(a);
+				ite =PItems.at(a);
 				if (ite->LayerNr != ll.LNr)
+					continue;
+				int x = static_cast<int>(pag->Xoffset);
+				int y = static_cast<int>(pag->Yoffset);
+				int w = static_cast<int>(pag->Width);
+				int h1 = static_cast<int>(pag->Height);
+				int x2 = static_cast<int>(ite->BoundingX);
+				int y2 = static_cast<int>(ite->BoundingY);
+				int w2 = static_cast<int>(ite->BoundingW);
+				int h2 = static_cast<int>(ite->BoundingH);
+				if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
+					continue;
+				if (ite->ChangedMasterItem)
+					continue;
+				if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 					continue;
 				PutPage("q\n");
 				if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && 
@@ -1471,7 +1521,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						PutPage("0 j\n");
 						break;
 				}
-				PutPage("1 0 0 1 "+FToStr(ite->Xpos)+" "+FToStr(doc->PageH - ite->Ypos)+" cm\n");
+				PutPage("1 0 0 1 "+FToStr(ite->Xpos - pag->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - pag->Yoffset))+" cm\n");
 				if (ite->Rot != 0)
 				{
 					double sr = sin(-ite->Rot* 3.1415927 / 180.0);
@@ -1480,8 +1530,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						cr = 0;
 					if ((sr * sr) < 0.001)
 						sr = 0;
-					PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+
-								" 0 0 cm\n");
+					PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n");
 				}
 				switch (ite->PType)
 				{
@@ -1687,10 +1736,24 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					}
 				PutPage("Q\n");
 				}
-				for (uint a = 0; a < ActPageP->Items.count(); ++a)
+				for (uint a = 0; a < PItems.count(); ++a)
 				{
-					ite = ActPageP->Items.at(a);
+					ite = PItems.at(a);
 					if (ite->LayerNr != ll.LNr)
+						continue;
+					int x = static_cast<int>(pag->Xoffset);
+					int y = static_cast<int>(pag->Yoffset);
+					int w = static_cast<int>(pag->Width);
+					int h1 = static_cast<int>(pag->Height);
+					int x2 = static_cast<int>(ite->BoundingX);
+					int y2 = static_cast<int>(ite->BoundingY);
+					int w2 = static_cast<int>(ite->BoundingW);
+					int h2 = static_cast<int>(ite->BoundingH);
+					if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
+						continue;
+					if (ite->ChangedMasterItem)
+						continue;
+					if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 						continue;
 					PutPage("q\n");
 					if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && 
@@ -1832,7 +1895,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 				}
 			}
 		Lnr++;
-	} */
+	}
 }
 
 QString PDFlib::setStrokeMulti(struct singleLine *sl)
@@ -3717,7 +3780,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 
 void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 {
-/*	QString tmp;
+	QString tmp;
 	uint StX;
 	int Basis;
 	int ResO;
@@ -3848,8 +3911,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 		for (vt = NamedDest.begin(); vt != NamedDest.end(); ++vt)
 		{
 			if ((*vt).Seite < static_cast<int>(PageTree.Kids.count()))
-				PutDoc("/"+(*vt).Name+" ["+IToStr(PageTree.Kids[(*vt).Seite])+
-					" 0 R /XYZ "+(*vt).Act+"]\n");
+				PutDoc("/"+(*vt).Name+" ["+IToStr(PageTree.Kids[(*vt).Seite])+" 0 R /XYZ "+(*vt).Act+"]\n");
 		}
 	}
 	PutDoc(">>\nendobj\n");
@@ -3904,72 +3966,72 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	if (Options->Articles)
 	{
 		Threads.clear();
-		for (uint pgs = 0; pgs < view->Pages.count(); ++pgs)
+		for (uint ele = 0; ele < doc->Items.count(); ++ele)
 		{
-			for (uint ele = 0; ele < view->Pages.at(pgs)->Items.count(); ++ele)
+			PageItem* tel = doc->Items.at(ele);
+			if ((tel->PType == 4) && (tel->BackBox == 0) && (tel->NextBox != 0) &&
+					(!tel->Redrawn))
 			{
-				PageItem* tel = view->Pages.at(pgs)->Items.at(ele);
-				if ((tel->PType == 4) && (tel->BackBox == 0) && (tel->NextBox != 0) &&
-					 (!tel->Redrawn))
+				StartObj(ObjCounter);
+				Threads.append(ObjCounter);
+				ObjCounter++;
+				PutDoc("<< /Type /Thread\n");
+				PutDoc("   /F "+IToStr(ObjCounter)+" 0 R\n");
+				PutDoc(">>\nendobj\n");
+				Beads.clear();
+				struct Bead bd;
+				int fir = ObjCounter;
+				int ccb = ObjCounter;
+				bd.Parent = ObjCounter-1;
+				while (tel->NextBox != 0)
 				{
-					StartObj(ObjCounter);
-					Threads.append(ObjCounter);
-					ObjCounter++;
-					PutDoc("<< /Type /Thread\n");
-					PutDoc("   /F "+IToStr(ObjCounter)+" 0 R\n");
-					PutDoc(">>\nendobj\n");
-					Beads.clear();
-					struct Bead bd;
-					int fir = ObjCounter;
-					int ccb = ObjCounter;
-					bd.Parent = ObjCounter-1;
-					while (tel->NextBox != 0)
+					if (tel->OwnPage != -1)
 					{
 						bd.Next = ccb + 1;
 						bd.Prev = ccb - 1;
 						ccb++;
-						bd.Page = PageTree.Kids[pgs];
-						bd.Recht = QRect(static_cast<int>(tel->Xpos),
-								 static_cast<int>(doc->PageH - tel->Ypos),
-								 static_cast<int>(tel->Width),
-								 static_cast<int>(tel->Height));
-						tel->Redrawn = true;
-						tel = tel->NextBox;
+						bd.Page = PageTree.Kids[tel->OwnPage];
+						bd.Recht = QRect(static_cast<int>(tel->Xpos - doc->Pages.at(tel->OwnPage)->Xoffset),
+									static_cast<int>(doc->PageH - (tel->Ypos  - doc->Pages.at(tel->OwnPage)->Yoffset)),
+									static_cast<int>(tel->Width),
+									static_cast<int>(tel->Height));
 						Beads.append(bd);
 					}
-					bd.Next = ccb + 1;
-					bd.Prev = ccb - 1;
-					bd.Page = PageTree.Kids[pgs];
-					bd.Recht = QRect(static_cast<int>(tel->Xpos), 
-							 static_cast<int>(doc->PageH - tel->Ypos),
-							 static_cast<int>(tel->Width),
-							 static_cast<int>(tel->Height));
 					tel->Redrawn = true;
+					tel = tel->NextBox;
+				}
+				bd.Next = ccb + 1;
+				bd.Prev = ccb - 1;
+				if (tel->OwnPage != -1)
+				{
+					bd.Page = PageTree.Kids[tel->OwnPage];
+					bd.Recht = QRect(static_cast<int>(tel->Xpos - doc->Pages.at(tel->OwnPage)->Xoffset), 
+								static_cast<int>(doc->PageH - (tel->Ypos  - doc->Pages.at(tel->OwnPage)->Yoffset)),
+								static_cast<int>(tel->Width),
+								static_cast<int>(tel->Height));
 					Beads.append(bd);
-					Beads[0].Prev = fir + Beads.count()-1;
-					Beads[Beads.count()-1].Next = fir;
-					for (uint beac = 0; beac < Beads.count(); ++beac)
-					{
-						StartObj(ObjCounter);	
-						ObjCounter++;
-						PutDoc("<< /Type /Bead\n");
-						PutDoc("   /T "+IToStr(Beads[beac].Parent)+" 0 R\n");
-						PutDoc("   /N "+IToStr(Beads[beac].Next)+" 0 R\n");
-						PutDoc("   /V "+IToStr(Beads[beac].Prev)+" 0 R\n");
-						PutDoc("   /P "+IToStr(Beads[beac].Page)+" 0 R\n");
-						PutDoc("   /R [ "+IToStr(Beads[beac].Recht.x())+" "+
-								IToStr(Beads[beac].Recht.y())+" ");
-						PutDoc(IToStr(Beads[beac].Recht.bottomRight().x())+" "+IToStr(Beads[beac].Recht.y()-Beads[beac].Recht.height())+" ]\n");
-						PutDoc(">>\nendobj\n");
-					}
+				}
+				tel->Redrawn = true;
+				Beads[0].Prev = fir + Beads.count()-1;
+				Beads[Beads.count()-1].Next = fir;
+				for (uint beac = 0; beac < Beads.count(); ++beac)
+				{
+					StartObj(ObjCounter);	
+					ObjCounter++;
+					PutDoc("<< /Type /Bead\n");
+					PutDoc("   /T "+IToStr(Beads[beac].Parent)+" 0 R\n");
+					PutDoc("   /N "+IToStr(Beads[beac].Next)+" 0 R\n");
+					PutDoc("   /V "+IToStr(Beads[beac].Prev)+" 0 R\n");
+					PutDoc("   /P "+IToStr(Beads[beac].Page)+" 0 R\n");
+					PutDoc("   /R [ "+IToStr(Beads[beac].Recht.x())+" "+
+							IToStr(Beads[beac].Recht.y())+" ");
+					PutDoc(IToStr(Beads[beac].Recht.bottomRight().x())+" "+IToStr(Beads[beac].Recht.y()-Beads[beac].Recht.height())+" ]\n");
+					PutDoc(">>\nendobj\n");
 				}
 			}
 		}
-		for (uint pgs = 0; pgs < view->Pages.count(); ++pgs)
-		{
-			for (uint ele = 0; ele < view->Pages.at(pgs)->Items.count(); ++ele)
-				view->Pages.at(pgs)->Items.at(ele)->Redrawn = false;
-		}
+		for (uint ele = 0; ele < doc->Items.count(); ++ele)
+			doc->Items.at(ele)->Redrawn = false;
 		XRef[7] = Dokument;
 		PutDoc("8 0 obj\n[");
 		for (uint th = 0; th < Threads.count(); ++th)
@@ -4030,6 +4092,6 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	CalcFields.clear();
 	Shadings.clear();
 	Transpar.clear();
-	ICCProfiles.clear(); */
+	ICCProfiles.clear();
 }
 

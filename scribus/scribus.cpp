@@ -7163,8 +7163,8 @@ void ScribusApp::SaveAsPDF()
 	QString fn;
 	int Components = 3;
 	QString nam = "";
-	if (BookPal->BView->childCount() == 0)
-		doc->PDF_Optionen.Bookmarks = false;
+/*	if (BookPal->BView->childCount() == 0)
+		doc->PDF_Optionen.Bookmarks = false; */
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
 	GetUsedFonts(&ReallyUsed);

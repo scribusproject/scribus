@@ -1611,6 +1611,8 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 				int h2 = static_cast<int>(c->BoundingH);
 				if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
 					continue;
+				if (c->ChangedMasterItem)
+					continue;
 				if ((a->PageNam != "") && (c->OwnPage != static_cast<int>(a->PageNr)) && (c->OwnPage != -1))
 					continue;
 				if (c->isPrintable)
@@ -2219,6 +2221,8 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 			int w2 = static_cast<int>(c->BoundingW);
 			int h2 = static_cast<int>(c->BoundingH);
 			if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
+				continue;
+			if (c->ChangedMasterItem)
 				continue;
 			if ((a->PageNam != "") && (c->OwnPage != static_cast<int>(a->PageNr)) && (c->OwnPage != -1))
 				continue;
