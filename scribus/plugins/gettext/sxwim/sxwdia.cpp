@@ -17,10 +17,9 @@ SxwDialog::SxwDialog(bool update, bool prefix) : QDialog(0, "sxwdia", true, 0)
 	QBoxLayout* hlayout = new QHBoxLayout(0, 5, 5, "hlayout");
 	updateCheck = new QCheckBox(tr("Update paragraph styles"), this, "updateCheck");
 	updateCheck->setChecked(update);
-	QToolTip::add(updateCheck, tr("If there already exists a paragraph style with the same\n"
-	                              "name than current OO.o document's paragraph should the style\n"
-	                              "in Scribus be edited to match the one being imported\n"
-	                              "or left untouched"));
+	QToolTip::add(updateCheck, tr("If a paragraph style already exists with the same name as the current\n"
+	                              "OpenOffice.org document's paragraph, should the style in Scribus be\n"
+	                              "edited to match the one being imported, or left untouched"));
 	hlayout->addWidget(updateCheck);
 	layout->addLayout(hlayout);
 
