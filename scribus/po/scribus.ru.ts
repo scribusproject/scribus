@@ -188,67 +188,59 @@ C=CUPS C=littlecms T=TIFF
     </message>
     <message>
         <source>Development Team:</source>
-        <translation type="unfinished"></translation>
+        <translation>Команда разработчиков:</translation>
     </message>
     <message>
         <source>Official Documentation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Официальная документация:</translation>
     </message>
     <message>
         <source>Other Documentation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Остальная документация:</translation>
     </message>
     <message>
         <source>English (British):</source>
-        <translation type="unfinished"></translation>
+        <translation>На британский английский:</translation>
     </message>
     <message>
         <source>Swedish:</source>
-        <translation type="unfinished"></translation>
+        <translation>На шведский:</translation>
     </message>
     <message>
         <source>Homepage</source>
-        <translation type="unfinished"></translation>
+        <translation>Веб-сайт</translation>
     </message>
     <message>
         <source>Online Reference</source>
-        <translation type="unfinished">Электронный справочник</translation>
+        <translation>Электронный справочник</translation>
     </message>
     <message>
         <source>Bugs and Feature Requests</source>
-        <translation type="unfinished"></translation>
+        <translation>Система отслеживания ошибок</translation>
     </message>
     <message>
         <source>Mailing List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Official Translations and Translators:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Esperanto:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Korean:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Serbian:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Spanish:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Previous Translation Contributors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Список рассылки</translation>
     </message>
     <message>
         <source>Catalan:</source>
-        <translation type="unfinished"></translation>
+        <translation>На каталонский:</translation>
+    </message>
+    <message>
+        <source>Korean:</source>
+        <translation>На корейский:</translation>
+    </message>
+    <message>
+        <source>Spanish:</source>
+        <translation>На испанский:</translation>
+    </message>
+    <message>
+        <source>Esperanto:</source>
+        <translation>На эсперанто:</translation>
+    </message>
+    <message>
+        <source>Serbian:</source>
+        <translation>На сербский:</translation>
     </message>
 </context>
 <context>
@@ -1138,23 +1130,23 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>&amp;Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Тип:</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation type="unfinished"></translation>
+        <translation>Из&amp;менить...</translation>
     </message>
     <message>
         <source>&amp;Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>С&amp;траница:</translation>
     </message>
     <message>
         <source>&amp;X-Pos</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;X-Поз.</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation type="unfinished">&amp;Y-Поз:</translation>
+        <translation>&amp;Y-Поз:</translation>
     </message>
 </context>
 <context>
@@ -2677,7 +2669,7 @@ failed!</source>
     </message>
     <message>
         <source>&amp;Drop Caps</source>
-        <translation type="unfinished">&amp;Буквица</translation>
+        <translation>&amp;Буквица</translation>
     </message>
     <message>
         <source>&amp;Lines:</source>
@@ -3549,7 +3541,9 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
-        <translation type="unfinished"></translation>
+        <translation>Извините, но руководство недоступно! 
+Посетите сайт http://docs.scribus.net 
+для получения актуальной документации.</translation>
     </message>
 </context>
 <context>
@@ -3656,23 +3650,28 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation type="unfinished"></translation>
+        <translation>Предлагать &amp;варианты переноса</translation>
     </message>
     <message>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматически вставлять по мере &amp;набора текста</translation>
+    </message>
+    <message>
+        <source>Consecutive Hypenations &amp;Allowed:</source>
+        <translation type="obsolete">Макс. количество переносов &amp;подряд:</translation>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-        <translation type="unfinished"></translation>
+        <translation>Диалоговое окно с вариантами каждого переноса будет 
+появляться после вызова функции вставки переносов</translation>
     </message>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставлять переносы по мере набора текста</translation>
     </message>
     <message>
         <source>Consecutive Hyphenations &amp;Allowed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Переносов &amp;подряд не более:</translation>
     </message>
 </context>
 <context>
@@ -3849,7 +3848,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Do you really want to delete this Script?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы действительно хотите удалить этот сценарий?</translation>
     </message>
 </context>
 <context>
@@ -3975,7 +3974,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>New Layer</source>
-        <translation>Создать новый слой</translation>
+        <translation>Новый слой</translation>
     </message>
     <message>
         <source>Do you want to delete all Objects on this Layer too?</source>
@@ -4098,7 +4097,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Do you really want to delete this Style?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы действительно хотите удалить этот стиль?</translation>
     </message>
 </context>
 <context>
@@ -5220,7 +5219,7 @@ Corners:</source>
     </message>
     <message>
         <source>Right to Left Writing</source>
-        <translation type="unfinished"></translation>
+        <translation>Написание справа налево</translation>
     </message>
 </context>
 <context>
@@ -5412,7 +5411,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Do you really want to delete this Template?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы действительно хотите удалить этот шаблон?</translation>
     </message>
 </context>
 <context>
@@ -5459,7 +5458,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Column Guides</source>
-        <translation>Направляющие колонок</translation>
+        <translation>Направляющие столбцов</translation>
     </message>
     <message>
         <source>Millimetres (mm)</source>
@@ -6893,28 +6892,32 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
         <translation type="obsolete">Выберите страницы</translation>
     </message>
     <message>
+        <source>Mirror Page(s) &amp;Horizontal</source>
+        <translation type="obsolete">Зеркально отразить по &amp;горизонтали</translation>
+    </message>
+    <message>
         <source>Compress Text and &amp;Vector Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Сжать текст и ве&amp;кторную графику</translation>
     </message>
     <message>
         <source>En&amp;able Presentation Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить п&amp;резентационные эффекты</translation>
     </message>
     <message>
         <source>&amp;Presentation</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Презентация</translation>
     </message>
     <message>
         <source>Mirror Page(s) &amp;Horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Зеркально отразить по &amp;горизонтали</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Поворот:</translation>
+        <translation>&amp;Поворот:</translation>
     </message>
     <message>
         <source>&amp;Options</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Дополнительно</translation>
     </message>
 </context>
 <context>
@@ -7696,7 +7699,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>&amp;Factor:</source>
-        <translation>&amp;Фактор:</translation>
+        <translation>&amp;Коэфф.:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -7754,16 +7757,18 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Apply &amp;Factor</source>
-        <translation type="unfinished"></translation>
+        <translation>Использовать к&amp;эфф.</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Использовать коэффициент для создания многоугольника 
+с выпуклыми или вогнутыми сторонами</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation type="unfinished"></translation>
+        <translation>Отрицательное значение сделает многоугольник вогнутым 
+(в форме звезды), а положительное - выпуклым</translation>
     </message>
 </context>
 <context>
@@ -8376,7 +8381,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Scripts:</source>
-        <translation>&amp;Сценарии:</translation>
+        <translation>С&amp;ценарии:</translation>
     </message>
     <message>
         <source>Ch&amp;ange...</source>
@@ -8997,28 +9002,30 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>T&amp;emplates:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Шаблоны:</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation type="unfinished">&amp;Изменить...</translation>
-    </message>
-    <message>
-        <source>Apply &amp;Factor</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Изменить...</translation>
     </message>
     <message>
         <source>Additional Directory for Document Templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Дополнительный каталог для шаблонов макетов</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation>Использовать &amp;коэфф.</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Использовать коэффициент для создания многоугольника 
+с выпуклыми или вогнутыми сторонами</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation type="unfinished"></translation>
+        <translation>Отрицательное значение сделает многоугольник вогнутым 
+(в форме звезды), а положительное - выпуклым</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed
@@ -9027,14 +9034,14 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">Способ удаления некоторых серых (ахроматических) тонов, 
+        <translation>Способ удаления некоторых серых (ахроматических) тонов, 
 составленных из голубой, желтой и пурпурной красок, 
 и замены их на черный. UCR главным образом воздействует на 
 нейтральные по цвету части изображения. Использование этого 
 метода способно улучшить печать некоторых изображений, но 
 каждый отдельный случай требует особого рассмотрения. 
 При использовании этого способа также снижается 
-вероятность избыточной яркости изображения. </translation>
+вероятность избыточной насыщенности изображения. </translation>
     </message>
 </context>
 <context>
@@ -9156,7 +9163,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Look &amp;in:</source>
-        <translation>Посмотреть &amp;в^</translation>
+        <translation>Посмотреть &amp;в:</translation>
     </message>
     <message>
         <source>Back</source>
@@ -9456,7 +9463,7 @@ Check path and filename.</source>
     <name>QMessageBox</name>
     <message>
         <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h3&gt;О Qt&lt;/h3&gt;&lt;p&gt;Эта программа использует Qt версии %1.&lt;/p&gt;&lt;p&gt;Qt является инструментом разработки многоплатформенных приложений на C++ с графическим интерфейсом.&lt;/p&gt;&lt;p&gt;Qt обеспечивает собираемость приложений без несовместимого изменения исходного кода в MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux и основных вариантах коммерческих Unix-систем.&lt;br&gt;Также существует версия Qt лоя встраиваемых устройств.&lt;/p&gt;&lt;p&gt;Qt является продуктом компании Trolltech. Подробности вы можете узнать на сайте &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt;.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -9825,29 +9832,27 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Font %1 is broken, discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт %1 повреждён и не будет использован</translation>
     </message>
     <message>
         <source>Template: </source>
-        <translation type="unfinished"></translation>
+        <translation>Шаблон:</translation>
     </message>
     <message>
         <source>
 External Links
 </source>
-        <translation type="unfinished"></translation>
+        <translation>
+Внешние ссылки
+</translation>
     </message>
     <message>
         <source>OO.o Writer Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Документы OO.o Writer</translation>
     </message>
     <message>
         <source>Text Filters</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Media Cases</source>
-        <translation type="unfinished"></translation>
+        <translation>Текстовые фильтры</translation>
     </message>
 </context>
 <context>
@@ -11675,11 +11680,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>File %1 is not in Scribus format</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл %1 не имеет формат Scribus</translation>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation type="unfinished"></translation>
+        <translation>Африкаанс</translation>
     </message>
 </context>
 <context>
@@ -12140,7 +12145,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Do you really want to delete this Style?</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы действительно хотите удалить этот стиль?</translation>
     </message>
 </context>
 <context>
@@ -12453,41 +12458,48 @@ drag a Template to the Pageview below.</source>
     <name>SxwDialog</name>
     <message>
         <source>OO.o Writer Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Параметры импорта OO.o Writer</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Обновить абзацные стили</translation>
     </message>
     <message>
         <source>If there already exists a paragraph style with the same
 name than current OO.o document&apos;s paragraph should the style
 in Scribus be edited to match the one being imported
 or left untouched</source>
-        <translation type="unfinished"></translation>
+        <translation>Если в документе Scribus существует стиль, имя которого 
+сопадает со стилем импортируемого документа OO.o Writer, 
+то этот стиль может быть обновлён до совпадения с 
+одноимённым стилем из импортируемого документа</translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить название документа в начало абзацного стиля</translation>
     </message>
     <message>
         <source>Do not ask again</source>
-        <translation type="unfinished"></translation>
+        <translation>Больше не спрашивать</translation>
     </message>
     <message>
         <source>Should the importer always use currently
 set value when importing OO.o document and
 never ask your confirmation again</source>
-        <translation type="unfinished"></translation>
+        <translation>Использовать ли эти настройки в дальнейшем 
+и больше не запрашивать подтверждение при
+импорте документов OO.o Writer</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">ОК</translation>
+        <translation>ОК</translation>
     </message>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>При импорте документа можно добавлять название
+импортируемого документа в начало нового 
+абзацного стиля Scribus</translation>
     </message>
 </context>
 <context>
@@ -12673,27 +12685,27 @@ Please choose another.</source>
     <name>ValueDialog</name>
     <message>
         <source>Insert value</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставить значение</translation>
     </message>
     <message>
         <source>Enter a value then press OK.</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите значение и нажмите ОК</translation>
     </message>
     <message>
         <source>Enter a value then press OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Введите значение и нажмите ОК</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;ОК</translation>
+        <translation>&amp;ОК</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Send your value to the script</source>
-        <translation type="unfinished"></translation>
+        <translation>Передать ваше значение сценарию</translation>
     </message>
 </context>
 <context>
@@ -12900,25 +12912,22 @@ Please choose another.</source>
     <name>gtImporterDialog</name>
     <message>
         <source>Choose the importer to use</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source></source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите фильтр импорта</translation>
     </message>
     <message>
         <source>Remember association</source>
-        <translation type="unfinished"></translation>
+        <translation>Запомнить ассоциацию</translation>
     </message>
     <message>
         <source>Remember the file extension - importer association
 and do not ask again to select an importer for
 files of this type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Запомнить расширение файла для импорта и 
+больше не спрашивать о файлах этого типа</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">ОК</translation>
+        <translation>ОК</translation>
     </message>
 </context>
 <context>
@@ -13137,114 +13146,114 @@ files of this type.</source>
     <name>tfDia</name>
     <message>
         <source>Create filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Создать фильтр</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">О&amp;чистить</translation>
+        <translation>О&amp;чистить</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">У&amp;далить</translation>
+        <translation>У&amp;далить</translation>
     </message>
     <message>
         <source>Choose a previously saved filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать предыдущий сохранённый фильтр</translation>
     </message>
     <message>
         <source>Give a name to this filter for saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Дать имя этому фильтру для запоминания</translation>
     </message>
     <message>
         <source>Give a name for saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Дать имя для запоминания</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;ОК</translation>
+        <translation>&amp;ОК</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">О&amp;тменить</translation>
+        <translation>О&amp;тменить</translation>
     </message>
 </context>
 <context>
     <name>tfFilter</name>
     <message>
         <source>Disable or enable this filter row</source>
-        <translation type="unfinished"></translation>
+        <translation>Отключить или включить эту строку фильтра</translation>
     </message>
     <message>
         <source>Remove this filter row</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить эту строку фильтра</translation>
     </message>
     <message>
         <source>Add a new filter row</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить новую строку фильтра</translation>
     </message>
     <message>
         <source>to</source>
-        <translation type="unfinished"></translation>
+        <translation>до</translation>
     </message>
     <message>
         <source>and</source>
-        <translation type="unfinished"></translation>
+        <translation>и</translation>
     </message>
     <message>
         <source>remove match</source>
-        <translation type="unfinished"></translation>
+        <translation>удалить совпадение</translation>
     </message>
     <message>
         <source>do not remove match</source>
-        <translation type="unfinished"></translation>
+        <translation>не удалять совпадение</translation>
     </message>
     <message>
         <source>words</source>
-        <translation type="unfinished"></translation>
+        <translation>слов</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Удалить</translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <source>Replace</source>
-        <translation type="unfinished">Заменить</translation>
+        <translation>Заменить</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished">Применить</translation>
+        <translation>Применить</translation>
     </message>
     <message>
         <source>Value at the left is a regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Значение слева является регулярным выражением</translation>
     </message>
     <message>
         <source>with</source>
-        <translation type="unfinished"></translation>
+        <translation>на</translation>
     </message>
     <message>
         <source>paragraph style</source>
-        <translation type="unfinished"></translation>
+        <translation>абзацный стиль</translation>
     </message>
     <message>
         <source>all instances of</source>
-        <translation type="unfinished"></translation>
+        <translation>все вхождения</translation>
     </message>
     <message>
         <source>all paragraphs</source>
-        <translation type="unfinished"></translation>
+        <translation>все абзацы</translation>
     </message>
     <message>
         <source>paragraphs starting with</source>
-        <translation type="unfinished"></translation>
+        <translation>абзацы, начинающиеся с</translation>
     </message>
     <message>
         <source>paragraphs with less than</source>
-        <translation type="unfinished"></translation>
+        <translation>абзац меньше</translation>
     </message>
     <message>
         <source>paragraphs with more than</source>
-        <translation type="unfinished"></translation>
+        <translation>абзацы больше</translation>
     </message>
 </context>
 </TS>
