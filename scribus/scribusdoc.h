@@ -554,6 +554,11 @@ public: // Public attributes
 	bool useRaster;
   /** Flag fuer Bilder */
 	bool ShowPic;
+	bool FramesShown;
+	bool GuidesShown;
+	bool MarginsShown;
+	bool GridShown;
+	bool BaseShown;
   /** Im Dokument benutzte Farben */
 	CListe PageColors;
 	Page* ActPage;
@@ -693,6 +698,7 @@ public: // Public attributes
 	bool hasName;
 	int RotMode;
 	bool AutoSave;
+	int AutoSaveTime;
 	QTimer *ASaveTimer;
 	FT_Library   library;
 	QMap<QString,FT_Face> FFonts;

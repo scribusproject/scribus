@@ -33,27 +33,27 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 	dsLayout4->setSpacing( 6 );
 	dsLayout4->setMargin( 0 );
 
-    sizedataQLabel = new QLabel( dsGroupBox7, "sizedataQLabel" );
-    sizeQLabel = new QLabel( tr( "Size:" ), dsGroupBox7, "sizeQLabel" );
+	sizedataQLabel = new QLabel( dsGroupBox7, "sizedataQLabel" );
+	sizeQLabel = new QLabel( tr( "Size:" ), dsGroupBox7, "sizeQLabel" );
 	sizedataQLabel->setText((pageSize!="")?pageSize:tr("Custom"));
-    dsLayout4->addWidget( sizeQLabel, 0, 0 );
-    dsLayout4->addWidget( sizedataQLabel, 0, 1 );
-    orientationdataQLabel = new QLabel( dsGroupBox7, "orientationQComboBox" );
-    orientationQLabel = new QLabel( tr( "Orientation:" ), dsGroupBox7, "orientationQLabel" );
-    orientationdataQLabel->setText((ori==0)?tr("Portrait"):tr("Landscape"));
-    dsLayout4->addWidget( orientationQLabel, 0, 2 );
+	dsLayout4->addWidget( sizeQLabel, 0, 0 );
+	dsLayout4->addWidget( sizedataQLabel, 0, 1 );
+	orientationdataQLabel = new QLabel( dsGroupBox7, "orientationQComboBox" );
+	orientationQLabel = new QLabel( tr( "Orientation:" ), dsGroupBox7, "orientationQLabel" );
+	orientationdataQLabel->setText((ori==0)?tr("Portrait"):tr("Landscape"));
+	dsLayout4->addWidget( orientationQLabel, 0, 2 );
 	dsLayout4->addWidget( orientationdataQLabel, 0, 3 );
 
-	QString dimvalue="%1 %2";	
-    widthdataQLabel = new QLabel( dimvalue.arg(Breite).arg(ein), dsGroupBox7, "widthdataQLabel" );
-    widthQLabel = new QLabel( tr( "Width:" ), dsGroupBox7, "widthLabel" );
-    dsLayout4->addWidget( widthQLabel, 1, 0 );
-    dsLayout4->addWidget( widthdataQLabel, 1, 1 );
+	QString dimvalue="%1 %2";
+	widthdataQLabel = new QLabel( dimvalue.arg(Breite).arg(ein), dsGroupBox7, "widthdataQLabel" );
+	widthQLabel = new QLabel( tr( "Width:" ), dsGroupBox7, "widthLabel" );
+	dsLayout4->addWidget( widthQLabel, 1, 0 );
+	dsLayout4->addWidget( widthdataQLabel, 1, 1 );
 
-    heightdataQLabel = new QLabel( dimvalue.arg(Hoehe).arg(ein), dsGroupBox7, "heightdataQLabel" );
-    heightQLabel = new QLabel( tr( "Height:" ), dsGroupBox7, "heightLabel" );
-    dsLayout4->addWidget( heightQLabel, 1, 2 );
-    dsLayout4->addWidget( heightdataQLabel, 1, 3 );
+	heightdataQLabel = new QLabel( dimvalue.arg(Hoehe).arg(ein), dsGroupBox7, "heightdataQLabel" );
+	heightQLabel = new QLabel( tr( "Height:" ), dsGroupBox7, "heightLabel" );
+	dsLayout4->addWidget( heightQLabel, 1, 2 );
+	dsLayout4->addWidget( heightdataQLabel, 1, 3 );
 
 	dsGroupBox7Layout->addLayout( dsLayout4 );
 	ReformDocLayout->addWidget( dsGroupBox7 );
@@ -72,7 +72,7 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 	Layout4 = new QGridLayout;
 	Layout4->setSpacing( 6 );
 	Layout4->setMargin( 0 );
-	
+
 	TopR = new MSpinBox( GroupBox7, 4 );
 	TopR->setSuffix( ein );
 	TopR->setDecimals( decimals );
@@ -82,7 +82,7 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 	TextLabel5 = new QLabel( tr( "&Top:" ), GroupBox7, "TextLabel5" );
 	TextLabel5->setBuddy(TopR);
 	Layout4->addWidget( TextLabel5, 0, 0 );
-	
+
 	LeftR = new MSpinBox( GroupBox7, 4 );
 	LeftR->setSuffix( ein );
 	LeftR->setDecimals( decimals );
@@ -92,7 +92,7 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 	Links = new QLabel( tr( "&Left:" ), GroupBox7, "Links" );
 	Links->setBuddy(LeftR);
 	Layout4->addWidget( Links, 0, 2 );
-	
+
 	BottomR = new MSpinBox( GroupBox7, 4 );
 	BottomR->setSuffix( ein );
 	BottomR->setDecimals( decimals );
@@ -102,7 +102,7 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 	TextLabel7 = new QLabel( tr( "&Bottom:" ), GroupBox7, "TextLabel7" );
 	TextLabel7->setBuddy(BottomR);
 	Layout4->addWidget( TextLabel7, 1, 0 );
-	
+
 	RightR = new MSpinBox( GroupBox7, 4 );
 	RightR->setSuffix( ein );
 	RightR->setDecimals( decimals );
@@ -112,7 +112,7 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 	Rechts = new QLabel( tr( "&Right:" ), GroupBox7, "Rechts" );
 	Rechts->setBuddy(RightR);
 	Layout4->addWidget( Rechts, 1, 2 );
-	
+
 	Doppelseiten = new QCheckBox( tr( "&Facing Pages" ),GroupBox7, "Doppelseiten" );
 	Doppelseiten->setChecked( fp );
 	Layout4->addMultiCellWidget( Doppelseiten, 2, 2, 0, 1 );
@@ -126,7 +126,7 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 	TextLabel1_3 = new QLabel( tr( "F&irst Page Number:" ), GroupBox7, "TextLabel1_3" );
 	Layout4->addMultiCellWidget( TextLabel1_3, 3, 3, 0, 1 );
 	PgNr = new QSpinBox( GroupBox7, "PgNr" );
-	PgNr->setMaxValue( 1000 );
+	PgNr->setMaxValue( 100000 );
 	PgNr->setMinValue( 1 );
 	PgNr->setValue(PageNr);
 	Layout4->addWidget( PgNr, 3, 2, Qt::AlignRight );
@@ -169,22 +169,22 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 	connect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 }
 
-void ReformDoc::setTop(int v)
+void ReformDoc::setTop(int )
 {
 	BottomR->setMaxValue(Hoehe - TopR->value());
 }
 
-void ReformDoc::setBottom(int v)
+void ReformDoc::setBottom(int )
 {
 	TopR->setMaxValue(Hoehe - BottomR->value());
 }
 
-void ReformDoc::setLeft(int v)
+void ReformDoc::setLeft(int )
 {
 	RightR->setMaxValue(Breite - LeftR->value());
 }
 
-void ReformDoc::setRight(int v)
+void ReformDoc::setRight(int )
 {
 	LeftR->setMaxValue(Breite - RightR->value());
 }

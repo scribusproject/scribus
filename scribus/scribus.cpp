@@ -2172,6 +2172,11 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->PageColors = Prefs.DColors;
 	doc->BaseGrid = Prefs.BaseGrid;
 	doc->BaseOffs = Prefs.BaseOffs;
+	doc->MarginsShown = Prefs.MarginsShown;
+	doc->FramesShown = Prefs.FramesShown;
+	doc->GridShown = Prefs.GridShown;
+	doc->GuidesShown = Prefs.GuidesShown;
+	doc->BaseShown = Prefs.BaseShown;
 	doc->loading = true;
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	view = new ScribusView(w, doc, &Prefs);
@@ -2254,6 +2259,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	connect(doc->ASaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
 	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 	doc->AutoSave = Prefs.AutoSave;
+	doc->AutoSaveTime = Prefs.AutoSaveTime;
 	if (doc->AutoSave)
 		doc->ASaveTimer->start(Prefs.AutoSaveTime);
 	DatSav->setEnabled(false);

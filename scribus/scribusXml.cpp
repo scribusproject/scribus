@@ -1314,6 +1314,56 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->BaseOffs = QStodouble(dc.attribute("BASEO", "0"));
 		doc->minorGrid = QStodouble(dc.attribute("MINGRID", tmp.setNum(view->Prefs->DminGrid)));
 		doc->majorGrid = QStodouble(dc.attribute("MAJGRID", tmp.setNum(view->Prefs->DmajGrid)));
+		doc->GridShown = static_cast<bool>(QStoInt(dc.attribute("SHOWGRID", "0")));
+		doc->GuidesShown = static_cast<bool>(QStoInt(dc.attribute("SHOWGUIDES", "1")));
+		doc->FramesShown = static_cast<bool>(QStoInt(dc.attribute("SHOWFRAME", "1")));
+		doc->MarginsShown = static_cast<bool>(QStoInt(dc.attribute("SHOWMARGIN", "1")));
+		doc->BaseShown = static_cast<bool>(QStoInt(dc.attribute("SHOWBASE", "0")));
+		doc->ShowPic = static_cast<bool>(QStoInt(dc.attribute("SHOWPICT", "1")));
+		doc->AutoSave = static_cast<bool>(QStoInt(dc.attribute("AutoSave","0")));
+		doc->AutoSaveTime = QStoInt(dc.attribute("AutoSaveTime","600000"));
+		doc->ScaleX = QStodouble(dc.attribute("PICTSCX","1"));
+		doc->ScaleY = QStodouble(dc.attribute("PICTSCY","1"));
+		doc->ScaleType = static_cast<bool>(QStoInt(dc.attribute("PSCALE", "1")));
+		doc->AspectRatio = static_cast<bool>(QStoInt(dc.attribute("PASPECT", "0")));
+		if (dc.hasAttribute("PEN"))
+			doc->Dpen = dc.attribute("PEN");
+		if (dc.hasAttribute("BRUSH"))
+			doc->Dbrush = dc.attribute("BRUSH");
+		if (dc.hasAttribute("PENLINE"))
+			doc->DpenLine = dc.attribute("PENLINE");
+		if (dc.hasAttribute("PENTEXT"))
+			doc->DpenText = dc.attribute("PENTEXT");
+		doc->DLineArt = static_cast<Qt::PenStyle>(QStoInt(dc.attribute("STIL")));
+		doc->DLstyleLine = static_cast<Qt::PenStyle>(QStoInt(dc.attribute("STILLINE")));
+		doc->Dwidth = QStodouble(dc.attribute("WIDTH", "1"));
+		doc->DwidthLine = QStodouble(dc.attribute("WIDTHLINE", "1"));
+		doc->Dshade2 = QStoInt(dc.attribute("PENSHADE", "100"));
+		doc->DshadeLine = QStoInt(dc.attribute("LINESHADE", "100"));
+		doc->Dshade = QStoInt(dc.attribute("BRUSHSHADE", "100"));
+		doc->MagMin = QStoInt(dc.attribute("MAGMIN","10"));
+		doc->MagMax = QStoInt(dc.attribute("MAGMAX","800"));
+		doc->MagStep = QStoInt(dc.attribute("MAGSTEP","25"));
+		if (dc.hasAttribute("CPICT"))
+			doc->DbrushPict = dc.attribute("CPICT");
+		doc->ShadePict = QStoInt(dc.attribute("PICTSHADE","100"));
+		doc->AutoLine = QStoInt(dc.attribute("AUTOL","20"));
+		if (dc.hasAttribute("PAGEC"))
+			doc->papColor = QColor(dc.attribute("PAGEC"));
+		if (dc.hasAttribute("MARGC"))
+			doc->margColor = QColor(dc.attribute("MARGC"));
+		if (dc.hasAttribute("MINORC"))
+			doc->minorColor = QColor(dc.attribute("MINORC"));
+		if (dc.hasAttribute("MAJORC"))
+			doc->majorColor = QColor(dc.attribute("MAJORC"));
+		if (dc.hasAttribute("GuideC"))
+			doc->guideColor = QColor(dc.attribute("GuideC"));
+		if (dc.hasAttribute("BaseC"))
+			doc->baseColor = QColor(dc.attribute("BaseC"));
+		doc->RandFarbig = static_cast<bool>(QStoInt(dc.attribute("RANDF","0")));
+		doc->Before = static_cast<bool>(QStoInt(dc.attribute("BACKG","1")));
+		doc->GuideRad = QStoInt(dc.attribute("GuideRad","10"));
+		doc->GrabRad = QStoInt(dc.attribute("GRAB","4"));
 		QDomNode PAGE=DOC.firstChild();
 		while(!PAGE.isNull())
 		{
@@ -2586,6 +2636,46 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 	dc.setAttribute("BASEO", doc->BaseOffs);
 	dc.setAttribute("MINGRID", doc->minorGrid);
 	dc.setAttribute("MAJGRID", doc->majorGrid);
+	dc.setAttribute("SHOWGRID", static_cast<int>(doc->GridShown));
+	dc.setAttribute("SHOWGUIDES", static_cast<int>(doc->GuidesShown));
+	dc.setAttribute("SHOWFRAME", static_cast<int>(doc->FramesShown));
+	dc.setAttribute("SHOWMARGIN", static_cast<int>(doc->MarginsShown));
+	dc.setAttribute("SHOWBASE", static_cast<int>(doc->BaseShown));
+	dc.setAttribute("SHOWPICT", static_cast<int>(doc->ShowPic));
+	dc.setAttribute("GuideRad", doc->GuideRad);
+	dc.setAttribute("GRAB",doc->GrabRad);
+	dc.setAttribute("AutoSave", static_cast<int>(doc->AutoSave));
+	dc.setAttribute("AutoSaveTime", doc->AutoSaveTime);
+	dc.setAttribute("PEN",doc->Dpen);
+	dc.setAttribute("BRUSH",doc->Dbrush);
+	dc.setAttribute("PENLINE",doc->DpenLine);
+	dc.setAttribute("PENTEXT",doc->DpenText);
+	dc.setAttribute("STIL",doc->DLineArt);
+	dc.setAttribute("STILLINE",doc->DLstyleLine);
+	dc.setAttribute("WIDTH",doc->Dwidth);
+	dc.setAttribute("WIDTHLINE",doc->DwidthLine);
+	dc.setAttribute("PENSHADE",doc->Dshade2);
+	dc.setAttribute("LINESHADE",doc->DshadeLine);
+	dc.setAttribute("BRUSHSHADE",doc->Dshade);
+	dc.setAttribute("MAGMIN",doc->MagMin);
+	dc.setAttribute("MAGMAX",doc->MagMax);
+	dc.setAttribute("MAGSTEP",doc->MagStep);
+	dc.setAttribute("CPICT",doc->DbrushPict);
+	dc.setAttribute("PICTSHADE",doc->ShadePict);
+	dc.setAttribute("PICTSCX",doc->ScaleX);
+	dc.setAttribute("PICTSCY",doc->ScaleY);
+	dc.setAttribute("PSCALE", static_cast<int>(doc->ScaleType));
+	dc.setAttribute("PASPECT", static_cast<int>(doc->AspectRatio));
+	dc.setAttribute("AUTOL", doc->AutoLine);
+	dc.setAttribute("MINORC",doc->minorColor.name());
+	dc.setAttribute("MAJORC",doc->majorColor.name());
+	dc.setAttribute("GuideC", doc->guideColor.name());
+	dc.setAttribute("BaseC", doc->baseColor.name());
+	dc.setAttribute("GuideZ", doc->GuideRad);
+	dc.setAttribute("BACKG", static_cast<int>(doc->Before));
+	dc.setAttribute("PAGEC",doc->papColor.name());
+	dc.setAttribute("MARGC",doc->margColor.name());
+	dc.setAttribute("RANDF", static_cast<int>(doc->RandFarbig));
 	QMap<QString,multiLine>::Iterator itMU;
 	for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
 	{
