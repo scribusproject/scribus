@@ -63,7 +63,6 @@ public:
 	QPushButton* OK;
 	QPushButton* Cancel;
 	QLineEdit* Datei;
-	BookMView *BView;
 	QGroupBox* GroupBox1;
 	QLabel* TextLabel2;
 	QComboBox* ComboBox1;
@@ -100,11 +99,16 @@ public:
 	QPushButton* ToEmbed;
 	QPushButton* FromEmbed;
 	QLabel* TextFont1_2;
+	QLabel* TextFont1_2a;
 	QButtonGroup* RangeGroup;
 	QRadioButton* AllPages;
 	QRadioButton* OnlySome;
 	QLineEdit* PageNr;
 	QListBox* EmbedList;
+	QPushButton* ToSubset;
+	QPushButton* FromSubset;
+	QListBox* SubsetList;
+	QCheckBox* SubsetFonts;
 	QGroupBox* ColorGroup;
 	QGroupBox* GroupBox9;
 	QLabel* ColorText1;
@@ -154,6 +158,7 @@ public:
 	QComboBox* LPIcolor;
 	QComboBox* LPIfunc;
 	QValueList<QString> FontsToEmbed;
+	QValueList<QString> FontsToSubset;
 	ScribusView *view;
 	QValueList<PreSet> EffVal;
 	int PgSel;
@@ -169,9 +174,13 @@ public slots:
 	void DoDownsample();
 	void RemoveEmbed();
 	void PutToEmbed();
+	void RemoveSubset();
+	void PutToSubset();
 	void SelAFont(QListBoxItem*);
 	void SelEFont(QListBoxItem*);
+	void SelSFont(QListBoxItem*);
 	void EmbedAll();
+	void SubsetAll();
 	void ChangeFile();
 	void PagePr();
 	void SetPgEff(int nr);
@@ -201,6 +210,7 @@ protected:
 	QHBoxLayout* GroupFontLayout;
 	QVBoxLayout* Layout4_2;
 	QVBoxLayout* Layout5_2;
+	QHBoxLayout* Layout5_2a;
 	QVBoxLayout* Layout6;
 	QHBoxLayout* Layout7;
 	QGridLayout* GroupBox1Layout;

@@ -137,6 +137,7 @@ ScribusDoc::ScribusDoc()
 	PDF_Optionen.Resolution = 300;
 	PDF_Optionen.Binding = 0;
 	PDF_Optionen.EmbedList.clear();
+	PDF_Optionen.SubsetList.clear();
 	PDF_Optionen.MirrorH = false;
 	PDF_Optionen.MirrorV = false;
 	PDF_Optionen.RotateDeg = 0;

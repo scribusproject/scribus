@@ -1636,8 +1636,18 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				doc->PDF_Optionen.Quality = QStoInt(pg.attribute("Quality","0"));
 				doc->PDF_Optionen.RecalcPic = static_cast<bool>(QStoInt(pg.attribute("RecalcPic")));
 				doc->PDF_Optionen.Bookmarks = static_cast<bool>(QStoInt(pg.attribute("Bookmarks")));
-				doc->PDF_Optionen.MirrorH = static_cast<bool>(QStoInt(pg.attribute("MirrorH")));
-				doc->PDF_Optionen.RotateDeg = QStoInt(pg.attribute("RotateDeg","0"));
+				if (pg.hasAttribute("MirrorH"))
+					doc->PDF_Optionen.MirrorH = static_cast<bool>(QStoInt(pg.attribute("MirrorH")));
+				else
+					doc->PDF_Optionen.MirrorH = false;
+				if (pg.hasAttribute("MirrorV"))
+					doc->PDF_Optionen.MirrorV = static_cast<bool>(QStoInt(pg.attribute("MirrorV")));
+				else
+					doc->PDF_Optionen.MirrorV = false;
+				if (pg.hasAttribute("RotateDeg"))
+					doc->PDF_Optionen.RotateDeg = QStoInt(pg.attribute("RotateDeg","0"));
+				else
+					doc->PDF_Optionen.RotateDeg = 0;
 				doc->PDF_Optionen.PresentMode = static_cast<bool>(QStoInt(pg.attribute("PresentMode")));
 				doc->PDF_Optionen.PicRes = QStoInt(pg.attribute("PicRes"));
 				doc->PDF_Optionen.Version = QStoInt(pg.attribute("Version"));
@@ -1679,6 +1689,11 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					{
 						if (!doc->PDF_Optionen.EmbedList.contains(DoFonts[pdfF.attribute("Name")]))
 							doc->PDF_Optionen.EmbedList.append(DoFonts[pdfF.attribute("Name")]);
+					}
+					if(pdfF.tagName() == "Subset")
+					{
+						if (!doc->PDF_Optionen.SubsetList.contains(DoFonts[pdfF.attribute("Name")]))
+							doc->PDF_Optionen.SubsetList.append(DoFonts[pdfF.attribute("Name")]);
 					}
 					if(pdfF.tagName() == "Effekte")
 					{
@@ -2679,6 +2694,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 	pdf.setAttribute("CMethod", doc->PDF_Optionen.CompressMethod);
 	pdf.setAttribute("Quality", doc->PDF_Optionen.Quality);
 	pdf.setAttribute("MirrorH", static_cast<int>(doc->PDF_Optionen.MirrorH));
+	pdf.setAttribute("MirrorV", static_cast<int>(doc->PDF_Optionen.MirrorV));
 	pdf.setAttribute("RotateDeg", static_cast<int>(doc->PDF_Optionen.RotateDeg));
 	pdf.setAttribute("PresentMode", static_cast<int>(doc->PDF_Optionen.PresentMode));
 	pdf.setAttribute("RecalcPic", static_cast<int>(doc->PDF_Optionen.RecalcPic));
@@ -2710,6 +2726,12 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 		QDomElement pdf2 = docu.createElement("Fonts");
 		pdf2.setAttribute("Name", doc->PDF_Optionen.EmbedList[pdoF]);
 		pdf.appendChild(pdf2);
+	}
+	for (uint pdoS = 0; pdoS < doc->PDF_Optionen.SubsetList.count(); ++pdoS)
+	{
+		QDomElement pdf4 = docu.createElement("Subset");
+		pdf4.setAttribute("Name", doc->PDF_Optionen.SubsetList[pdoS]);
+		pdf.appendChild(pdf4);
 	}
 	for (uint pdoE = 0; pdoE < doc->PDF_Optionen.PresentVals.count(); ++pdoE)
 	{
