@@ -1384,7 +1384,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 #ifdef HAVE_CMS
 					if ((CMSuse) && (Options->UseProfiles))
 					{
-						QStringtmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
+						QString tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
 						PutPage(tmp[Options->Intent]);
 						PutPage(" ri\n");
 						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
