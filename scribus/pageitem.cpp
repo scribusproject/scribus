@@ -31,6 +31,7 @@
 #include "scribusdoc.h"
 #include "undomanager.h"
 #include "undostate.h"
+#include "mpalette.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -2273,7 +2274,7 @@ void PageItem::checkChanges(bool force)
 
 bool PageItem::shouldCheck()
 {
-	return (!ScApp->view->mousePressed()) && (!ScApp->arrowKeyDown());
+	return ((!ScApp->view->mousePressed()) && (!ScApp->arrowKeyDown()) && (!ScApp->Mpal->userActionOn()));
 }
 
 void PageItem::moveUndoAction()

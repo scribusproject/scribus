@@ -262,6 +262,7 @@ public:
 	void rememberPreviousSettings(int mx=0, int my=0);
 	bool mousePressed();
 	bool groupTransactionStarted();
+	void setGroupTransactionStarted(bool isOn);
 
 public slots: // Public slots
   /** Fhrt die Vergr�erung/Verkleinerung aus; */

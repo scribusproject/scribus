@@ -13,6 +13,7 @@
 #include "spalette.h"
 #include "arrowchooser.h"
 #include "units.h"
+#include "undomanager.h"
 
 using namespace std;
 
@@ -92,6 +93,9 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent,
 	Umrech = UmReFaktor;
 	QString ptSuffix = tr( " pt" );
 	setIcon( loadIcon("AppIcon.png") );
+	spinBoxWatch = new QTimer(this, "spinBoxWatch");
+	spinBoxOldValue = -1.0;
+	activeMSpinBox = NULL;
 	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
 
 	MpalLayout = new QVBoxLayout( this, 5, 1, "MpalLayout");
@@ -905,6 +909,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent,
 	connect( Cpal, SIGNAL(editGradient()), this, SLOT(toggleGradientEdit()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
+	connect(spinBoxWatch, SIGNAL(timeout()), this, SLOT(checkSBOldValue()));
 	HaveItem = false;
 	Xpos->setValue(0);
 	Ypos->setValue(0);
@@ -1917,6 +1922,12 @@ void Mpalette::NewX()
 	base = 0;
 	if ((HaveDoc) && (HaveItem))
 	{
+		if (!spinBoxWatch->isActive())
+		{
+			spinBoxOldValue = -1.0;
+			activeMSpinBox = Xpos;
+			spinBoxWatch->start(200);
+		}
 		x += doc->currentPage->Xoffset;
 		y += doc->currentPage->Yoffset;
 		if (ScApp->view->GroupSel)
@@ -1974,6 +1985,12 @@ void Mpalette::NewY()
 	base = 0;
 	if ((HaveDoc) && (HaveItem))
 	{
+		if (!spinBoxWatch->isActive())
+		{
+			spinBoxOldValue = -1.0;
+			activeMSpinBox = Ypos;
+			spinBoxWatch->start(200);
+		}
 		x += doc->currentPage->Xoffset;
 		y += doc->currentPage->Yoffset;
 		if (ScApp->view->GroupSel)
@@ -2029,6 +2046,12 @@ void Mpalette::NewW()
 	h = Height->value() / UmReFaktor;
 	if ((HaveDoc) && (HaveItem))
 	{
+		if (!spinBoxWatch->isActive())
+		{
+			spinBoxOldValue = -1.0;
+			activeMSpinBox = Width;
+			spinBoxWatch->start(200);
+		}
 		if (ScApp->view->GroupSel)
 		{
 			ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
@@ -2126,6 +2149,12 @@ void Mpalette::NewH()
 	h = Height->value() / UmReFaktor;
 	if ((HaveDoc) && (HaveItem))
 	{
+		if (!spinBoxWatch->isActive())
+		{
+			spinBoxOldValue = -1.0;
+			activeMSpinBox = Height;
+			spinBoxWatch->start(200);
+		}
 		if (ScApp->view->GroupSel)
 		{
 			ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
@@ -2219,6 +2248,12 @@ void Mpalette::NewR()
 	double gx, gy, gh, gw;
 	if ((HaveDoc) && (HaveItem))
 	{
+		if (!spinBoxWatch->isActive())
+		{
+			spinBoxOldValue = -1.0;
+			activeMSpinBox = Rot;
+			spinBoxWatch->start(200);
+		}
 		if (ScApp->view->GroupSel)
 		{
 			ScApp->view->RotateGroup((Rot->value() - RoVal)*(-1));
@@ -3320,4 +3355,32 @@ void Mpalette::HandleTLines()
 		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
+}
+
+void Mpalette::checkSBOldValue()
+{
+	if (spinBoxWatch->isActive() && activeMSpinBox && spinBoxOldValue == activeMSpinBox->value())
+	{
+		spinBoxWatch->stop();
+		for (uint i = 0; i < ScApp->view->SelItem.count(); ++i)
+			ScApp->view->SelItem.at(i)->checkChanges();
+		if (ScApp->view->groupTransactionStarted())
+		{
+			ScApp->view->setGroupTransactionStarted(false);
+			UndoManager::instance()->commit();
+		}
+		activeMSpinBox = NULL;
+	}
+	else if (spinBoxWatch->isActive() && activeMSpinBox)
+		spinBoxOldValue = activeMSpinBox->value();
+	else if (spinBoxWatch->isActive())
+	{
+		spinBoxWatch->stop();
+		activeMSpinBox = NULL;
+	}
+}
+
+bool Mpalette::userActionOn()
+{
+	return spinBoxWatch->isActive();
 }

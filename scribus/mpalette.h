@@ -20,6 +20,7 @@
 #include <qpixmap.h>
 #include <qlistbox.h>
 #include <qlineedit.h>
+#include <qtimer.h>
 #include "mspinbox.h"
 #include "pageitem.h"
 #include "page.h"
@@ -90,6 +91,8 @@ public:
 	void updateCmsList();
 	void ShowCMS();
 	void fillLangCombo(QMap<QString,QString> langMap);
+	/** @brief Returns true if a user is performing some action at the very moment of the call. */
+	bool userActionOn();
 
 	Autoforms* SCustom;
 	LabelButton* colgapLabel;
@@ -412,6 +415,21 @@ protected:
 	QHBoxLayout* layout22;
 	QHBoxLayout* layout23;
 	QHBoxLayout* layout24;
+
+private:
+	/**
+	 * @name Tracking the end of user action on MSpinBoxes
+	 * @brief Used to track when a user ends action on a MSpinBox. Only after this
+	 * @brief the whole action is sent to the UndoManager
+	 */
+	/*@{*/
+	QTimer *spinBoxWatch;
+	double spinBoxOldValue;
+	MSpinBox *activeMSpinBox;
+	/*@}*/
+
+private slots:
+	void checkSBOldValue();
 };
 
 #endif

@@ -8050,6 +8050,11 @@ bool ScribusView::groupTransactionStarted()
 	return _groupTransactionStarted;
 }
 
+void ScribusView::setGroupTransactionStarted(bool isOn)
+{
+	_groupTransactionStarted = isOn;
+}
+
 // jjsa 27-03-2004 add for better settinf while zooming
 void ScribusView::rememberPreviousSettings(int mx, int my)
 {
