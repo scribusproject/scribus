@@ -237,7 +237,9 @@ PyObject *scribus_getpagemargins(PyObject */*self*/)
 	PyObject *margins = NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	margins = Py_BuildValue("ffff", Carrier->doc->PageM.Top, Carrier->doc->PageM.Left,
-							 Carrier->doc->PageM.Right, Carrier->doc->PageM.Bottom);
+	margins = Py_BuildValue("ffff", PointToValue(Carrier->doc->PageM.Top),
+									PointToValue(Carrier->doc->PageM.Left),
+									PointToValue(Carrier->doc->PageM.Right),
+									PointToValue(Carrier->doc->PageM.Bottom));
 	return margins;
 }
