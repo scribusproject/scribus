@@ -36,6 +36,7 @@ class QListViewItem;
 class QTextBrowser;
 class QToolButton;
 class QPopupMenu;
+class QSplitter;
 
 class HelpBrowser : public QWidget
 {
@@ -45,6 +46,11 @@ public:
 	HelpBrowser( QWidget* parent, QString caption, QString guiLangage="en", QString jumpToSection="", QString jumpToFile="");
 	~HelpBrowser();
 
+protected:
+	QVBoxLayout* helpBrowsermainLayout;
+	QHBoxLayout* helpBrowserLayout;
+	QHBoxLayout* tabLayout;
+	QHBoxLayout* buttonLayout;
 	QToolButton* homeButton;
 	QToolButton* backButton;
 	QToolButton* forwButton;
@@ -53,12 +59,7 @@ public:
 	QWidget* tabContents;
 	QListView* listView;
 	QTextBrowser* textBrowser;
-
-protected:
-	QVBoxLayout* helpBrowsermainLayout;
-	QHBoxLayout* helpBrowserLayout;
-	QHBoxLayout* tabLayout;
-	QHBoxLayout* buttonLayout;
+	QSplitter* splitter;
 
 	QPopupMenu* histMenu;
 	struct histd {
@@ -72,9 +73,9 @@ protected slots:
 	void itemSelected( QListViewItem *);
 	void sourceChanged(const QString& url);
 	void histChosen(int i);
-	void jumpToHelpSection(QString guiLanguage, QString jumpToSection, QString jumpToFile="");
+	void jumpToHelpSection(const QString newGuiLanguage, QString jumpToSection, QString jumpToFile="");
 	void loadHelp(QString filename);
-	void loadMenu();
+	void loadMenu(const QString newGuiLanguage);
 };
 
 #endif // HELPBROWSER_H

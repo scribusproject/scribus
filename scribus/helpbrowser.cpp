@@ -38,6 +38,7 @@
 #include <qfileinfo.h>
 #include <qtextcodec.h>
 #include <qdom.h>
+#include <qsplitter.h>
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -58,49 +59,49 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString caption, QString guiLanguage,
 	struct histd his;
 
 	helpBrowsermainLayout = new QVBoxLayout( this); 
-
 	buttonLayout = new QHBoxLayout;
 	buttonLayout->setSpacing( 6 );
 	buttonLayout->setMargin( 2 );
 
 	homeButton = new QToolButton( this, "homeButton" );
-	homeButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, homeButton->sizePolicy().hasHeightForWidth() ) );
-	homeButton->setMinimumSize( QSize( 0, 0 ) );
-	homeButton->setMaximumSize( QSize( 32767, 32767 ) );
 	homeButton->setText( "" );
 	homeButton->setPixmap(loadIcon("gohome.png"));
+	homeButton->setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed, homeButton->sizePolicy().hasHeightForWidth() ) );
 	buttonLayout->addWidget( homeButton );
 
 	histMenu = new QPopupMenu( this );
 	backButton = new QToolButton( this, "backButton" );
-	backButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, backButton->sizePolicy().hasHeightForWidth() ) );
-	backButton->setMinimumSize( QSize( 0, 0 ) );
-	backButton->setMaximumSize( QSize( 32767, 32767 ) );
 	backButton->setPixmap(loadIcon("back.png"));
+	backButton->setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed, backButton->sizePolicy().hasHeightForWidth() ) );
 	backButton->setPopup(histMenu);
 	backButton->setPopupDelay(0);
 	buttonLayout->addWidget( backButton );
 
 	forwButton = new QToolButton( this, "forwButton" );
-	forwButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, forwButton->sizePolicy().hasHeightForWidth() ) );
-	forwButton->setMinimumSize( QSize( 0, 0 ) );
-	forwButton->setMaximumSize( QSize( 32767, 32767 ) );
 	forwButton->setPixmap(loadIcon("forward.png"));
+	forwButton->setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed, forwButton->sizePolicy().hasHeightForWidth() ) );
 	buttonLayout->addWidget( forwButton );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	buttonLayout->addItem( spacer );
 	helpBrowsermainLayout->addLayout( buttonLayout );
 
 	helpBrowserLayout = new QHBoxLayout; 
+	splitter = new QSplitter(this, "splitter");
+	splitter->setChildrenCollapsible( false );
+	helpBrowserLayout->addWidget( splitter );
 
-	tabWidget = new QTabWidget( this, "tabWidget" );
-	tabWidget->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)7, (QSizePolicy::SizeType)7, 1, 0, tabWidget->sizePolicy().hasHeightForWidth() ) );
+	tabWidget = new QTabWidget( splitter, "tabWidget" );
+	//tabWidget = new QTabWidget( this, "tabWidget" );
+	splitter->setResizeMode(tabWidget, QSplitter::Stretch );
+	tabWidget->setSizePolicy( QSizePolicy( QSizePolicy::Maximum, QSizePolicy::Expanding, false) );
 	tabContents = new QWidget( tabWidget, "tabContents" );
 	tabLayout = new QHBoxLayout( tabContents, 11, 6, "tabLayout"); 
 
 	listView = new QListView( tabContents, "listView" );
 	listView->addColumn( tr( "Contents" ) );
 	listView->addColumn( tr( "Link" ) , 0 );
+	listView->setColumnWidthMode( 0, QListView::Maximum );
+	listView->setColumnWidthMode( 1, QListView::Manual );
 	listView->setSorting(-1,-1);
 	listView->setRootIsDecorated( true );
 	listView->setSelectionMode(QListView::Single);
@@ -109,18 +110,20 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString caption, QString guiLanguage,
 	tabLayout->addWidget( listView );
 	
 	tabWidget->insertTab( tabContents, QString("Contents") );
-	helpBrowserLayout->addWidget( tabWidget );
+	//helpBrowserLayout->addWidget( tabWidget );
 
-	textBrowser = new QTextBrowser( this, "textBrowser" );
-	textBrowser->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)7, (QSizePolicy::SizeType)7, 3, 0, textBrowser->sizePolicy().hasHeightForWidth() ) );
+	textBrowser = new QTextBrowser( splitter, "textBrowser" );
+	splitter->setResizeMode(textBrowser, QSplitter::Stretch);
+	//textBrowser = new QTextBrowser( this, "textBrowser" );
+	textBrowser->setSizePolicy( QSizePolicy( QSizePolicy::Ignored, QSizePolicy::Expanding, false ) );
 	textBrowser->setFrameShape( QTextBrowser::StyledPanel );
-	helpBrowserLayout->addWidget( textBrowser );
+	//helpBrowserLayout->addWidget( textBrowser );
 	helpBrowsermainLayout->addLayout( helpBrowserLayout );
 
 	languageChange();
 	resize( QSize(602, 491).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
-	loadMenu();
+	loadMenu( guiLanguage );
 	listView->header()->hide();
 	jumpToHelpSection( guiLanguage, jumpToSection, jumpToFile );
 
@@ -143,7 +146,6 @@ void HelpBrowser::languageChange()
 	listView->clear();
 
 	tabWidget->changeTab( tabContents, tr( "Contents" ) );
-//    tabWidget->changeTab( tab_2, tr( "Tab 2" ) );
 }
 
 
@@ -155,8 +157,7 @@ void HelpBrowser::sourceChanged(const QString& url)
 	title = textBrowser->documentTitle();
 	if (title == "")
 		title = url;
-	QMap<int, histd>::Iterator it;
-	for (it = mHistory.begin(); it != mHistory.end(); ++it)
+	for (QMap<int, histd>::Iterator it = mHistory.begin(); it != mHistory.end(); ++it)
 	{
 		if (it.data().Title == title)
 			inList = true;
@@ -181,20 +182,15 @@ void HelpBrowser::histChosen(int i)
 		textBrowser->setSource(mHistory[i].Url);
 }
 
-void HelpBrowser::jumpToHelpSection(QString guiLanguage, QString jumpToSection, QString jumpToFile)
+void HelpBrowser::jumpToHelpSection(const QString newGuiLanguage, QString jumpToSection, QString jumpToFile)
 {
 	QString toLoad;
+    QString guiLanguage = newGuiLanguage=="" ? "en" : newGuiLanguage;
 
-	if (guiLanguage=="") 
-	{
-		qDebug("Error: No help language found.");
-		guiLanguage="en";
-	}
 	if (jumpToFile=="") 
 	{
 		QString pfad = PREL;
-		toLoad = pfad + "/share/scribus/doc/";
-		toLoad += guiLanguage.left(2) + "/"; //clean this later to handle 5 char locales
+		toLoad = pfad + "/share/scribus/doc/" + guiLanguage.left(2) + "/"; //clean this later to handle 5 char locales
 		if (jumpToSection=="") 
 		{
 			toLoad+="index.html";
@@ -251,20 +247,30 @@ void HelpBrowser::loadHelp(QString filename)
 	}
 }
 
-void HelpBrowser::loadMenu()
+void HelpBrowser::loadMenu(const QString newGuiLanguage)
 {
 	QString pfad = PREL;
-	QString pfad2;
-	bool Avail = true;
-	//add in gui language handling code here
-	//pfad2 = pfad + "/share/scribus/doc/"+QString(QTextCodec::locale()).left(2)+"/menu.xml";
-	pfad2 = pfad + "/share/scribus/doc/en/menu.xml";
+	QString toLoad;
+    QString guiLanguage = newGuiLanguage=="" ? "en" : newGuiLanguage;
+
+	QString baseDir = "/share/scribus/doc/";
+	QString pfad2 = pfad + baseDir + guiLanguage.left(2) + "/menu.xml";
 
 	QFileInfo fi = QFileInfo(pfad2);
+
+    if (fi.exists())
+        toLoad=pfad2;
+    else
+    {
+        toLoad = pfad + baseDir + "en/menu.xml";
+		fi = QFileInfo(toLoad);
+		qDebug("Scribus help in your selected language does not exist, trying English. Otherwise, please visit http://docs.scribus.net.");
+	}
+
 	if (fi.exists())
 	{
 		QDomDocument doc( "menuentries" );
-		QFile file( pfad2 );
+		QFile file( toLoad );
 		if ( !file.open( IO_ReadOnly ) )
 			return;
 		if ( !doc.setContent( &file ) ) 
