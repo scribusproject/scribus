@@ -3875,7 +3875,12 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 							if ((CMSuse) && (Options->UseProfiles2))
 								img = LoadPict(fn, Profil, Embedded, Intent, true, 1, afl);
 							else
-								img = LoadPict(fn, Profil, Embedded, Intent, true, 0, afl);
+							{
+								if (Options->isGrayscale)
+									img = LoadPict(fn, Profil, Embedded, Intent, true, 1, afl);
+								else
+									img = LoadPict(fn, Profil, Embedded, Intent, true, 0, afl);
+							}
 						}
 					}
 				}
@@ -3895,7 +3900,12 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 				if ((CMSuse) && (Options->UseProfiles2))
 					img = LoadPict(fn, Profil, Embedded, Intent, true, 1, 72);
 				else
-					img = LoadPict(fn, Profil, Embedded, Intent, true, 0, 72);
+				{
+					if (Options->isGrayscale)
+						img = LoadPict(fn, Profil, Embedded, Intent, true, 1, 72);
+					else
+						img = LoadPict(fn, Profil, Embedded, Intent, true, 0, 72);
+				}
 			}
 			if (Options->RecalcPic)
 			{

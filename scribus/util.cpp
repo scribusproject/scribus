@@ -147,6 +147,116 @@ int callGS(const QStringList & args_in);
 int copyFile(QString source, QString target);
 int moveFile(QString source, QString target);
 
+typedef struct my_error_mgr
+{
+  struct jpeg_error_mgr pub;            /* "public" fields */
+  jmp_buf setjmp_buffer;  /* for return to caller */
+} *my_error_ptr;
+
+/*
+ * Here's the routine that will replace the standard error_exit method:
+ */
+
+static void my_error_exit (j_common_ptr cinfo)
+{
+  my_error_ptr myerr = (my_error_ptr) cinfo->err;
+  (*cinfo->err->output_message) (cinfo);
+  longjmp (myerr->setjmp_buffer, 1);
+}
+
+void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK, bool isGray)
+{
+	struct jpeg_compress_struct cinfo;
+	struct my_error_mgr         jerr;
+	FILE     *outfile;
+	JSAMPROW row_pointer[1];
+	row_pointer[0] = 0;
+	cinfo.err = jpeg_std_error (&jerr.pub);
+	jerr.pub.error_exit = my_error_exit;
+	outfile = NULL;
+	if (setjmp (jerr.setjmp_buffer))
+	{
+		jpeg_destroy_compress (&cinfo);
+		if (outfile)
+			fclose (outfile);
+		return;
+	}
+	jpeg_create_compress (&cinfo);
+	if ((outfile = fopen (fn, "wb")) == NULL)
+		return;
+	jpeg_stdio_dest (&cinfo, outfile);
+	cinfo.image_width  = image->width();
+	cinfo.image_height = image->height();
+	if (isCMYK)
+	{
+		cinfo.in_color_space = JCS_CMYK;
+		cinfo.input_components = 4;
+	}
+	else
+	{
+		if (isGray)
+		{
+			cinfo.in_color_space = JCS_GRAYSCALE;
+			cinfo.input_components = 1;
+		}
+		else
+		{
+			cinfo.in_color_space = JCS_RGB;
+			cinfo.input_components = 3;
+		}
+	}
+	jpeg_set_defaults (&cinfo);
+	int qual[] = { 95, 85, 75, 50, 25 };  // These are the JPEG Quality settings 100 means best, 0 .. don't discuss
+	jpeg_set_quality (&cinfo, qual[Quality], true);
+	jpeg_start_compress (&cinfo, TRUE);
+	row_pointer[0] = new uchar[cinfo.image_width*cinfo.input_components];
+	int w = cinfo.image_width;
+	while (cinfo.next_scanline < cinfo.image_height)
+	{
+		uchar *row = row_pointer[0];
+		if (isCMYK)
+		{
+			QRgb* rgba = (QRgb*)image->scanLine(cinfo.next_scanline);
+			for (int i=0; i<w; ++i)
+			{
+	 			*row++ = qAlpha(*rgba);
+	 			*row++ = qRed(*rgba);
+	 			*row++ = qGreen(*rgba);
+	 			*row++ = qBlue(*rgba);
+	 			++rgba;
+			}
+		}
+		else
+		{
+			if (isGray)
+			{
+				QRgb* rgba = (QRgb*)image->scanLine(cinfo.next_scanline);
+				for (int i=0; i<w; ++i)
+				{
+					*row++ = qRed(*rgba);
+					++rgba;
+				}
+			}
+			else
+			{
+				QRgb* rgb = (QRgb*)image->scanLine(cinfo.next_scanline);
+				for (int i=0; i<w; i++)
+				{
+					*row++ = qRed(*rgb);
+					*row++ = qGreen(*rgb);
+					*row++ = qBlue(*rgb);
+					++rgb;
+				}
+			}
+		}
+		jpeg_write_scanlines (&cinfo, row_pointer, 1);
+	}
+	jpeg_finish_compress (&cinfo);
+	fclose (outfile);
+	jpeg_destroy_compress (&cinfo);
+	delete [] row_pointer[0];
+}
+
 QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes)
 {
 	// requestType - 0: CMYK, 1: RGB, 2: RGB Proof
@@ -156,6 +266,7 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 	bool miniswhite = false;
 	bool bilevel = false;
 	float xres, yres;
+	short resolutionunit = 0;
 #ifdef HAVE_CMS
 	cmsHTRANSFORM xform = 0;
 	cmsHPROFILE inputProf = 0;
@@ -303,6 +414,7 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 			TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &height);
 			TIFFGetField(tif, TIFFTAG_XRESOLUTION, &xres);
 			TIFFGetField(tif, TIFFTAG_YRESOLUTION, &yres);
+			TIFFGetField(tif, TIFFTAG_RESOLUTIONUNIT , &resolutionunit);
 			size = width * height;
 			uint16 photometric, bitspersample, samplesperpixel, fillorder;
 			TIFFGetField(tif, TIFFTAG_PHOTOMETRIC, &photometric);
@@ -397,11 +509,132 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 #endif // HAVE_CMS
 				img = img.swapRGB();
 			TIFFClose(tif);
-			img.setDotsPerMeterX ((int) (xres / 0.0254));
-			img.setDotsPerMeterY ((int) (yres / 0.0254));
+			if (resolutionunit == RESUNIT_INCH)
+			{
+				img.setDotsPerMeterX ((int) (xres / 0.0254));
+				img.setDotsPerMeterY ((int) (yres / 0.0254));
+			}
+			else if (resolutionunit == RESUNIT_CENTIMETER)
+			{
+				img.setDotsPerMeterX ((int) (xres / 100.0));
+				img.setDotsPerMeterY ((int) (yres / 100.0));
+			}
 		}
 	}
 #endif // HAVE_TIFF
+	else if ((ext == "jpg") || (ext == "jpeg"))
+	{
+		struct jpeg_decompress_struct cinfo;
+		struct my_error_mgr         jerr;
+		FILE     *infile;
+		cinfo.err = jpeg_std_error (&jerr.pub);
+		jerr.pub.error_exit = my_error_exit;
+		infile = NULL;
+		if (setjmp (jerr.setjmp_buffer))
+		{
+			jpeg_destroy_decompress (&cinfo);
+			if (infile)
+				fclose (infile);
+			return img;
+		}
+		jpeg_create_decompress (&cinfo);
+		if ((infile = fopen (fn, "rb")) == NULL)
+			return img;
+		jpeg_stdio_src(&cinfo, infile);
+		jpeg_read_header(&cinfo, TRUE);
+		jpeg_start_decompress(&cinfo);
+		if ( cinfo.output_components == 3 || cinfo.output_components == 4)
+			img.create( cinfo.output_width, cinfo.output_height, 32 );
+		else if ( cinfo.output_components == 1 )
+		{
+			img.create( cinfo.output_width, cinfo.output_height, 8, 256 );
+			for (int i=0; i<256; i++)
+				img.setColor(i, qRgb(i,i,i));
+		}
+		if (!img.isNull())
+		{
+			uchar** lines = img.jumpTable();
+			while (cinfo.output_scanline < cinfo.output_height)
+				(void) jpeg_read_scanlines(&cinfo, lines + cinfo.output_scanline, cinfo.output_height);
+			if ( cinfo.output_components == 3 )
+			{
+				for (uint j=0; j<cinfo.output_height; j++)
+				{
+					uchar *in = img.scanLine(j) + cinfo.output_width * 3;
+					QRgb *out = (QRgb*)img.scanLine(j);
+					for (uint i=cinfo.output_width; i--; )
+					{
+						in -= 3;
+						out[i] = qRgb(in[0], in[1], in[2]);
+					}
+				}
+			}
+			if ( cinfo.output_components == 4 )
+			{
+				for (int i = 0; i < img.height(); i++)
+				{
+					unsigned int *ptr = (unsigned int *) img.scanLine(i);
+					unsigned char c, m, y ,k;
+					if ((cinfo.saw_Adobe_marker) && (cinfo.Adobe_transform != 0))
+					{
+						for (int j = 0; j < img.width(); j++)
+						{
+							unsigned char *p = (unsigned char *) ptr;
+							c = p[0];
+							m = p[1];
+							y =  p[2];
+							k =  p[3];
+							p[0] = 255 - y;
+							p[1] = 255 - m;
+							p[2] = 255 - c;
+							p[3] = 255 - k;
+							ptr++;
+						}
+					}
+					else
+					{
+						for (int j = 0; j < img.width(); j++)
+						{
+							unsigned char *p = (unsigned char *) ptr;
+							c = p[0];
+							m = p[1];
+							y =  p[2];
+							k =  p[3];
+							p[0] = y;
+							p[1] = m;
+							p[2] = c;
+							p[3] = k;
+							ptr++;
+						}
+					}
+				}
+				isCMYK = true;
+			}
+			else
+				isCMYK = false;
+			img = img.convertDepth(32);
+			img.setAlphaBuffer(true);
+			if (CMSuse && useProf)
+				img = img.swapRGB();
+			if ( cinfo.density_unit == 1 )
+			{
+				xres = cinfo.X_density;
+				yres = cinfo.Y_density;
+				img.setDotsPerMeterX( int(100. * cinfo.X_density / 2.54) );
+				img.setDotsPerMeterY( int(100. * cinfo.Y_density / 2.54) );
+			}
+			else if ( cinfo.density_unit == 2 )
+			{
+				xres = cinfo.X_density * 2.54;
+				yres = cinfo.Y_density * 2.54;
+				img.setDotsPerMeterX( int(100. * cinfo.X_density) );
+				img.setDotsPerMeterY( int(100. * cinfo.Y_density) );
+			}
+		}
+		(void) jpeg_finish_decompress(&cinfo);
+		fclose (infile);
+		jpeg_destroy_decompress (&cinfo);
+	}
 	else
 	{
 		if (img.load(fn))
@@ -1638,116 +1871,6 @@ QString MaskToTxt14(QImage *im)
 		}
 	}
 	return ImgStr;
-}
-
-typedef struct my_error_mgr
-{
-  struct jpeg_error_mgr pub;            /* "public" fields */
-  jmp_buf setjmp_buffer;  /* for return to caller */
-} *my_error_ptr;
-
-/*
- * Here's the routine that will replace the standard error_exit method:
- */
-
-static void my_error_exit (j_common_ptr cinfo)
-{
-  my_error_ptr myerr = (my_error_ptr) cinfo->err;
-  (*cinfo->err->output_message) (cinfo);
-  longjmp (myerr->setjmp_buffer, 1);
-}
-
-void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK, bool isGray)
-{
-	struct jpeg_compress_struct cinfo;
-	struct my_error_mgr         jerr;
-	FILE     *outfile;
-	JSAMPROW row_pointer[1];
-	row_pointer[0] = 0;
-	cinfo.err = jpeg_std_error (&jerr.pub);
-	jerr.pub.error_exit = my_error_exit;
-	outfile = NULL;
-	if (setjmp (jerr.setjmp_buffer))
-	{
-		jpeg_destroy_compress (&cinfo);
-		if (outfile)
-			fclose (outfile);
-		return;
-	}
-	jpeg_create_compress (&cinfo);
-	if ((outfile = fopen (fn, "wb")) == NULL)
-		return;
-	jpeg_stdio_dest (&cinfo, outfile);
-	cinfo.image_width  = image->width();
-	cinfo.image_height = image->height();
-	if (isCMYK)
-	{
-		cinfo.in_color_space = JCS_CMYK;
-		cinfo.input_components = 4;
-	}
-	else
-	{
-		if (isGray)
-		{
-			cinfo.in_color_space = JCS_GRAYSCALE;
-			cinfo.input_components = 1;
-		}
-		else
-		{
-			cinfo.in_color_space = JCS_RGB;
-			cinfo.input_components = 3;
-		}
-	}
-	jpeg_set_defaults (&cinfo);
-	int qual[] = { 95, 85, 75, 50, 25 };  // These are the JPEG Quality settings 100 means best, 0 .. don't discuss
-	jpeg_set_quality (&cinfo, qual[Quality], true);
-	jpeg_start_compress (&cinfo, TRUE);
-	row_pointer[0] = new uchar[cinfo.image_width*cinfo.input_components];
-	int w = cinfo.image_width;
-	while (cinfo.next_scanline < cinfo.image_height)
-	{
-		uchar *row = row_pointer[0];
-		if (isCMYK)
-		{
-			QRgb* rgba = (QRgb*)image->scanLine(cinfo.next_scanline);
-			for (int i=0; i<w; ++i)
-			{
-	 			*row++ = qAlpha(*rgba);
-	 			*row++ = qRed(*rgba);
-	 			*row++ = qGreen(*rgba);
-	 			*row++ = qBlue(*rgba);
-	 			++rgba;
-			}
-		}
-		else
-		{
-			if (isGray)
-			{
-				QRgb* rgba = (QRgb*)image->scanLine(cinfo.next_scanline);
-				for (int i=0; i<w; ++i)
-				{
-					*row++ = qRed(*rgba);
-					++rgba;
-				}
-			}
-			else
-			{
-				QRgb* rgb = (QRgb*)image->scanLine(cinfo.next_scanline);
-				for (int i=0; i<w; i++)
-				{
-					*row++ = qRed(*rgb);
-					*row++ = qGreen(*rgb);
-					*row++ = qBlue(*rgb);
-					++rgb;
-				}
-			}
-		}
-		jpeg_write_scanlines (&cinfo, row_pointer, 1);
-	}
-	jpeg_finish_compress (&cinfo);
-	fclose (outfile);
-	jpeg_destroy_compress (&cinfo);
-	delete [] row_pointer[0];
 }
 
 QString CompressStr(QString *in)
