@@ -473,10 +473,14 @@ void ScribusView::setLayMenTxt(int l)
 			break;
 	}
 	lName=(*it).Name;
-	if (lName.length() > 20 )
+	int len = lName.length();
+	while (LY->fontMetrics().width(lName) > LY->width()-25)
 	{
-		lName.truncate(18);
-		lName=lName.leftJustify( 20, '.');
+		len--;
+		if (len == 0)
+			break;
+		lName.truncate(len);
+		lName += ".";
 	}
 	LY->setText(lName);
 }
