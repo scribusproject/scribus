@@ -216,12 +216,12 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	for (uint s = 0; s < ar_s; ++s)
 		GZComboF->insertItem(ar_size[s]);
 	*/
-	
+
 	PageSize *ps=new PageSize(prefsData->pageSize);
 	GZComboF->insertStringList(ps->getTrPageSizeList());
 	GZComboF->insertItem( tr( "Custom" ) );
 	GZComboF->setEditable(false);
-	
+
 	QStringList pageSizes=ps->getPageSizeList();
 	int sizeIndex=pageSizes.findIndex(ps->getPageText());
 	if (sizeIndex!=-1)
@@ -642,21 +642,31 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	groupPluginManagerLayout = new QGridLayout(groupPluginManager->layout());
 	groupPluginManagerLayout->setAlignment( Qt::AlignTop );
 	pluginsList = new QListView(groupPluginManager, "pluginsList");
-	pluginsList->addColumn("plugin");
+	pluginsList->addColumn(tr("Plugin"));
+	pluginsList->addColumn(tr("How to run"));
+	pluginsList->addColumn(tr("Type"));
+	pluginsList->addColumn(tr("Load it?"));
+	pluginsList->setAllColumnsShowFocus(true);
+	pluginsList->setShowSortIndicator(true);
+	pluginsList->setColumnAlignment(3, Qt::AlignCenter);
 	// TODO: plugin handling should be better done with some separate class... IN PROGRESS
-	for (QMap<int,PluginData>::Iterator it = ap->pluginManager->pluginMap.begin(); it != ap->pluginManager->pluginMap.end(); ++it)
+	for (QMap<int,PluginManager::PluginData>::Iterator it = ap->pluginManager->pluginMap.begin(); it != ap->pluginManager->pluginMap.end(); ++it)
 	{
-		QListViewItem *plugItem = new QListViewItem(pluginsList, (*it).Name);
+		QListViewItem *plugItem = new QListViewItem(pluginsList,
+				(*it).name.replace('&', "").replace("...", ""),
+				QString("%1 %2").arg((*it).actMenu).arg((*it).actMenuAfterName),
+				ap->pluginManager->getPluginType((*it).type));
+		plugItem->setPixmap(3, (*it).loadPlugin ? loadIcon("ok.png") : loadIcon("DateiClos16.png"));
 	}
 	groupPluginManagerLayout->addWidget(pluginsList, 0, 0);
-	groupPluginLayout2 = new QHBoxLayout(0, 0, 5, "groupPluginLayout2");
+	/*groupPluginLayout2 = new QHBoxLayout(0, 0, 5, "groupPluginLayout2");
 	pluginSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	groupPluginLayout2->addItem(pluginSpacer);
 	pluginRefreshButton = new QPushButton(tr("&Refresh"), groupPluginManager, "pluginRefreshButton");
 	groupPluginLayout2->addWidget(pluginRefreshButton);
 	pluginUpdateButton = new QPushButton(tr("&Update"), groupPluginManager, "pluginUpdateButton");
 	groupPluginLayout2->addWidget(pluginUpdateButton);
-	groupPluginManagerLayout->addLayout(groupPluginLayout2, 1, 0);
+	groupPluginManagerLayout->addLayout(groupPluginLayout2, 1, 0); */
 	pluginManagerLayout->addWidget(groupPluginManager);
 	addItem(tr("Plugins"), loadIcon("plugins.png"), pluginManagerWidget);
 
@@ -751,15 +761,15 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	connect(buttonOk, SIGNAL(clicked()), this, SLOT(setActionHistoryLength()));
 	if (CMSavail)
 		connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
-	
+
 	setSize(prefsData->pageSize);
 	setOrien(prefsData->pageOrientation);
-	
+
 	pageWidth->setValue(prefsData->PageWidth * Umrech);
 	pageHeight->setValue(prefsData->PageHeight * Umrech);
-	
+
 	unitChange();
-	
+
 	prefsWidgets->raiseWidget(0);
 	resize( minimumSizeHint() );
 	arrangeIcons();

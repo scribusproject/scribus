@@ -42,7 +42,7 @@ QWidget* par;
  \param None
  \retval QString containing name of plugin: Print Preview
  */
-QString Name()
+QString name()
 {
 	return QObject::tr("Print Preview");
 }
@@ -55,9 +55,9 @@ QString Name()
  \param None
  \retval int containing type of plugin (1: Extra, 2: Import, 3: Export, 4: )
  */
-int Type()
+PluginManager::PluginType type()
 {
-	return 6;
+	return PluginManager::Standard;
 }
 
 int ID()
@@ -103,7 +103,7 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	plug->SetKeyEntry(18, QObject::tr("Print Preview"), id, Qt::CTRL+Qt::SHIFT+Qt::Key_P);
 }
 */
-void CleanUpPlug()
+void cleanUpPlug()
 {}
 
 /*!
@@ -116,7 +116,7 @@ void CleanUpPlug()
  \retval None
  */
 
-void Run(QWidget *d, ScribusApp *plug)
+void run(QWidget *d, ScribusApp *plug)
 {
 	Carrier = plug;
 	par = d;

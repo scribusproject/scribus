@@ -6,6 +6,8 @@
 
 #include "scribus.h"
 #include "pconsole.h"
+#include "menumanager.h"
+#include "pluginmanager.h"
 
 class ScrAction;
 class MenuManager;
@@ -13,18 +15,18 @@ class MenuManager;
 
 /** Calls the Plugin with the main Application window as parent
   * and the main Application Class as parameter */
-extern "C" void Run(QWidget *d, ScribusApp *plug);
+extern "C" void run(QWidget *d, ScribusApp *plug);
 
 /** Returns the Name of the Plugin.
   * This name appears in the relevant Menue-Entrys */
-extern "C" QString Name();
+extern "C" QString name();
 
 /** Returns the Type of the Plugin.
   * 1 = the Plugin is a normal Plugin, which appears in the Extras Menue
   * 2 = the Plugin is a Import Plugin, which appears in the Import Menue
   * 3 = the Plugin is a Export Plugin, which appears in the Export Menue
   * 4 = the Plugin is a resident Plugin   */
-extern "C" int Type();
+extern "C" PluginManager::PluginType type();
 extern "C" int ID();
 extern "C" QString actionName();
 extern "C" QString actionKeySequence();
@@ -33,10 +35,10 @@ extern "C" QString actionMenuAfterName();
 extern "C" bool actionEnabledOnStartup();
 
 /** Initializes the Plugin if it's a Plugin of Type 4 */
-extern "C" void InitPlug(QWidget *d, ScribusApp *plug);
+extern "C" void initPlug(QWidget *d, ScribusApp *plug);
 
 /** Possible CleanUpOperations when closing the Plugin */
-extern "C" void CleanUpPlug();
+extern "C" void cleanUpPlug();
 
 extern "C" void initscribus(ScribusApp *pl);
 

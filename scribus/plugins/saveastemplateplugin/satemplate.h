@@ -5,11 +5,13 @@
 #include <qdatetime.h>
 #include <qdir.h>
 #include <scribus.h>
+#include <pluginmanager.h>
+
 #include "satdialog.h"
 
 /** Returns the Name of the Plugin.
   * This name appears in the relevant Menue-Entrys */
-extern "C" QString Name();
+extern "C" QString name();
 
 
 /** Returns the Type of the Plugin.
@@ -17,13 +19,13 @@ extern "C" QString Name();
   * 2 = the Plugin is a Import Plugin, which appears in the Import Menue
   * 3 = the Plugin is a Export Plugin, which appears in the Export Menue
   * 4 = the Plugin is a resident Plugin   */
-extern "C" int Type();
+extern "C" PluginManager::PluginType type();
 
 ///** Initializes the Plugin if it's a Plugin of Type 4 or 5 */
 //extern "C" void InitPlug(QWidget *d, ScribusApp *plug);
 
 /** Possible CleanUpOperations when closing the Plugin */
-extern "C" void CleanUpPlug();
+extern "C" void cleanUpPlug();
 extern "C" int ID();
 
 extern "C" QString actionName();
@@ -32,7 +34,7 @@ extern "C" QString actionMenu();
 extern "C" QString actionMenuAfterName();
 extern "C" bool actionEnabledOnStartup();
 
-extern "C" void Run(QWidget *d, ScribusApp *plug);
+extern "C" void run(QWidget *d, ScribusApp *plug);
 
 
 class MenuSAT : public QObject
@@ -40,7 +42,7 @@ class MenuSAT : public QObject
 	Q_OBJECT
 
 public:
-    MenuSAT(QWidget* parent) {};
+	MenuSAT(QWidget* /*parent*/) {};
     ~MenuSAT() {};
 
 public slots:
@@ -49,11 +51,11 @@ public slots:
 
 // static MenuSAT* satm;
 
-class sat 
+class sat
 {
 private:
 	ScribusApp* sapp;
-	satdialog* dia; 
+	satdialog* dia;
 	QString file;
 	QString dir;
 	QString tmplXmlFile;

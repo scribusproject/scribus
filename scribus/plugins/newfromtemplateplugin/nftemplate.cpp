@@ -11,18 +11,19 @@
 #include "nftdialog.h"
 #include "scraction.h"
 #include "menumanager.h"
+#include "pluginmanager.h"
 
 ScribusApp* Carrier;
 QWidget* par;
 
-QString Name()
+QString name()
 {
     return QObject::tr("New &from Template...");
 }
 
-int Type()
+PluginManager::PluginType type()
 {
-    return 6;
+	return PluginManager::Standard;
 }
 
 int ID()
@@ -65,11 +66,11 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	plug->fileMenu->setItemEnabled(id, 1);
 }
 */
-void CleanUpPlug()
+void cleanUpPlug()
 {
 }
 
-void Run(QWidget *d, ScribusApp *plug)
+void run(QWidget *d, ScribusApp *plug)
 {
 	Carrier = plug;
 	par = d;

@@ -13,7 +13,7 @@ or documentation
 #include "shortwords.moc"
 #include "version.h"
 #include "vlnadialog.h"
-
+#include "pluginmanager.h"
 #include "scribus.h"
 #include <qmessagebox.h>
 #include <qtextcodec.h>
@@ -26,15 +26,15 @@ or documentation
 ShortWords* shortWords;
 extern ScribusApp *ScApp;
 
-QString Name()
+QString name()
 {
 	return QObject::tr("Short &Words...", "short words plugin");
 }
 
 
-int Type()
+PluginManager::PluginType type()
 {
-	return 6;
+	return PluginManager::Standard;
 }
 
 int ID()
@@ -67,7 +67,7 @@ bool actionEnabledOnStartup()
 	return true;
 }
 
-void Run(QWidget */*d*/, ScribusApp */*plug*/)
+void run(QWidget */*d*/, ScribusApp */*plug*/)
 {
 	ShortWords *sw = new ShortWords();
 	/*delete sw;

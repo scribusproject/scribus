@@ -4,14 +4,14 @@
 #include <qcursor.h>
 #include <qlistview.h>
 
-QString Name()
+QString name()
 {
 	return QObject::tr("&Fonts Preview");
 }
 
-int Type()
+PluginManager::PluginType type()
 {
-	return 6;
+	return PluginManager::Standard;
 }
 
 int ID()
@@ -48,7 +48,7 @@ bool actionEnabledOnStartup()
 /**
 Create dialog and insert font into Style menu when user accepts.
 */
-void Run(QWidget *d, ScribusApp *plug)
+void run(QWidget *d, ScribusApp *plug)
 {
 	// I don't know how many fonts user has...
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));

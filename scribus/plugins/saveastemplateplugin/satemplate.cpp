@@ -4,19 +4,20 @@
 #include "satemplate.h"
 #include "satemplate.moc"
 #include <prefsfile.h>
+#include <pluginmanager.h>
 
 extern PrefsFile* prefsFile;
 ScribusApp* Carrier;
 QWidget* par;
 
-QString Name()
+QString name()
 {
     return QObject::tr("Save as &Template...");
 }
 
-int Type()
+PluginManager::PluginType type()
 {
-    return 6;
+	return PluginManager::Standard;
 }
 
 int ID()
@@ -60,10 +61,10 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	plug->MenuItemsFile.append(id);
 }
 */
-void CleanUpPlug()
+void cleanUpPlug()
 {}
 
-void Run(QWidget *d, ScribusApp *plug)
+void run(QWidget *d, ScribusApp *plug)
 {
 	Carrier = plug;
 	par = d;
@@ -106,8 +107,8 @@ void MenuSAT::RunSATPlug()
 
 	if (currentFile !=  Carrier->doc->DocName)
 	{
-		satdialog* satdia = new satdialog(par,docName, 
-                                          static_cast<int>(Carrier->doc->PageB + 0.5), 
+		satdialog* satdia = new satdialog(par,docName,
+                                          static_cast<int>(Carrier->doc->PageB + 0.5),
                                           static_cast<int>(Carrier->doc->PageH + 0.5));
 		if (satdia->exec())
 		{
@@ -272,7 +273,7 @@ QString sat::getTemplateTag()
 	replaceIllegalChars(email);
 	tag += "\t\t<email>"+email+"</email>\n";
 	tag += "\t</template>\n";
-	
+
 	return tag;
 }
 

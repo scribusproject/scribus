@@ -169,8 +169,8 @@ public:
 	QWidget* pluginManagerWidget;
 	QGroupBox* groupPluginManager;
 	QListView* pluginsList;
-	QPushButton* pluginRefreshButton;
-	QPushButton* pluginUpdateButton;
+	//QPushButton* pluginRefreshButton;
+	//QPushButton* pluginUpdateButton;
 
 	double Umrech;
 	double PFactor;
@@ -241,7 +241,7 @@ protected:
 	QSpacerItem* pluginSpacer;
 	QVBoxLayout* pluginManagerLayout;
 	QGridLayout* groupPluginManagerLayout;
-	QHBoxLayout* groupPluginLayout2;
+	//QHBoxLayout* groupPluginLayout2;
 
 private slots:
 	void setSelectedGUILang( const QString &newLang );

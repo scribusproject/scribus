@@ -8,17 +8,18 @@
 
 #include "scraction.h"
 #include "menumanager.h"
+#include "pluginmanager.h"
 
 
-QString Name()
+QString name()
 {
 	return QObject::tr("Save as &Image...");
 }
 
 
-int Type()
+PluginManager::PluginType type()
 {
-	return 6;
+	return PluginManager::Standard;
 }
 
 int ID()
@@ -51,7 +52,7 @@ bool actionEnabledOnStartup()
 	return true;
 }
 
-void Run(QWidget *d, ScribusApp *plug)
+void run(QWidget *d, ScribusApp *plug)
 {
 	bool res;
 	ExportBitmap *ex = new ExportBitmap(plug);
@@ -177,4 +178,3 @@ bool ExportBitmap::exportInterval(std::vector<int> &pageNs)
 	}
 	return TRUE;
 }
-

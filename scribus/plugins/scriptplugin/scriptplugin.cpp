@@ -75,14 +75,14 @@ PyObject* NameExistsError;
 PyObject* wrappedMainWindow;
 PyObject* wrappedQApp;
 
-QString Name()
+QString name()
 {
 	return QObject::tr("S&cripter Manual...");
 }
 
-int Type()
+PluginManager::PluginType type()
 {
-	return 4;
+	return PluginManager::Persistent;
 }
 
 int ID()
@@ -115,7 +115,7 @@ bool actionEnabledOnStartup()
 	return true;
 }
 
-void InitPlug(QWidget *d, ScribusApp *plug)
+void initPlug(QWidget *d, ScribusApp *plug)
 {
 	QString cm;
 	Py_Initialize();
@@ -162,13 +162,13 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	QObject::connect(Tes->pcon, SIGNAL(paletteShown(bool)), Tes, SLOT(slotInteractiveScript(bool)));
 }
 
-void CleanUpPlug()
+void cleanUpPlug()
 {
 	Py_Finalize();
 	Tes->SavePlugPrefs();
 }
 
-void Run(QWidget */*d*/, ScribusApp */*plug*/)
+void run(QWidget */*d*/, ScribusApp */*plug*/)
 {
 	QString pfad = DOCDIR;
 	QString pfad2;

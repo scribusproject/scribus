@@ -16,25 +16,25 @@ or documentation
 #include "configuration.h"
 #include "parse.h"
 #include "vlnadialog.h"
-
+#include "pluginmanager.h"
 #include "scribus.h"
 
 /** Calls the Plugin with the main Application window as parent
 and the main Application Class as parameter. Loads translator too.
 */
-extern "C" void Run(QWidget *d, ScribusApp *plug);
+extern "C" void run(QWidget *d, ScribusApp *plug);
 
 
 /** Returns the Name of the Plugin.
  This name appears in the relevant Menue-Entrys
  */
-extern "C" QString Name();
+extern "C" QString name();
 
 
 /** Returns the Type of the Plugin.
   \retval 1 = the Plugin is a normal Plugin, which appears in the Extras Menue
   */
-extern "C" int Type();
+extern "C" PluginManager::PluginType type();
 
 /** Returns the Id of the Plugin.
   \retval 11 = id from the plugin registry

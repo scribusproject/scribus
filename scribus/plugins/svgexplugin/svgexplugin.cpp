@@ -36,6 +36,8 @@
 #endif
 #include <prefsfile.h>
 #include <prefscontext.h>
+#include "pluginmanager.h"
+
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern QString Path2Relative(QString Path);
 extern QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes);
@@ -49,7 +51,7 @@ extern PrefsFile* prefsFile;
  \param None
  \retval QString containing name of plugin: Save Page as SVG...
  */
-QString Name()
+QString name()
 {
   return QObject::tr("Save Page as &SVG...");
 }
@@ -62,9 +64,9 @@ QString Name()
  \param None
  \retval int containing type of plugin (1: Extra, 2: Import, 3: Export, 4: )
  */
-int Type()
+PluginManager::PluginType type()
 {
-	return 6;
+	return PluginManager::Standard;
 }
 
 int ID()
@@ -106,7 +108,7 @@ bool actionEnabledOnStartup()
  \param plug ScribusApp *
  \retval None
  */
-void Run(QWidget *d, ScribusApp *plug)
+void run(QWidget *d, ScribusApp *plug)
 {
 	if (plug->HaveDoc)
 		{
@@ -159,7 +161,7 @@ SVGExPlug::SVGExPlug( ScribusApp *plug, QString fName )
 	elem.setAttribute("width", FToStr(plug->doc->PageB)+"pt");
 	elem.setAttribute("height", FToStr(plug->doc->PageH)+"pt");
 	elem.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-	elem.setAttribute("xmlns:xlink","http://www.w3.org/1999/xlink"); 
+	elem.setAttribute("xmlns:xlink","http://www.w3.org/1999/xlink");
 	Page *Seite;
 	GradCount = 0;
 	ClipCount = 0;
@@ -208,7 +210,7 @@ SVGExPlug::SVGExPlug( ScribusApp *plug, QString fName )
  \brief Process a page to export to SVG format
  \param plug ScribusApp
  \param Seite Page *
- \param docu QDomDocument * 
+ \param docu QDomDocument *
  \param elem QDomElement *
  \retval None
  */
@@ -323,7 +325,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 					}
 					fill += " fill-rule:evenodd;";
 					if (Item->fillTransparency() != 0)
-						fill += " fill-opacity:"+FToStr(1.0 - Item->fillTransparency())+";"; 
+						fill += " fill-opacity:"+FToStr(1.0 - Item->fillTransparency())+";";
 				}
 				else
 					fill = "fill:none;";
@@ -332,7 +334,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 					stroke = "stroke:"+SetFarbe(Item->lineColor(), Item->lineShade(), plug)+";";
 					if (Item->lineTransparency() != 0)
 						stroke += " stroke-opacity:"+FToStr(1.0 - Item->lineTransparency())+";";
-				} 
+				}
 				else
 					stroke = "stroke:none;";
 				trans = "translate("+FToStr(Item->Xpos-Seite->Xoffset)+", "+FToStr(Item->Ypos-Seite->Yoffset)+")";
@@ -656,7 +658,7 @@ QString SVGExPlug::SetClipPath(PageItem *ite)
 			}
 		}
 	return tmp;
-}       
+}
 
 /*!
  \fn QString SVGExPlug::FToStr(double c)
@@ -827,4 +829,3 @@ QString SVGExPlug::GetMultiStroke(ScribusApp *plug, struct SingleLine *sl, PageI
 SVGExPlug::~SVGExPlug()
 {
 }
-

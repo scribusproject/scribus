@@ -33,7 +33,7 @@ extern PrefsFile* prefsFile;
  \param None
  \retval QString containing name of plugin: Import EPS/PDF/PS...
  */
-QString Name()
+QString name()
 {
 	return QObject::tr("Import &EPS/PS...");
 }
@@ -46,9 +46,9 @@ QString Name()
  \param None
  \retval int containing type of plugin (1: Extra, 2: Import, 3: Export, 4: Resident Plugin)
  */
-int Type()
+PluginManager::PluginType type()
 {
-	return 7;
+	return PluginManager::Import;
 }
 
 int ID()
@@ -91,7 +91,7 @@ bool actionEnabledOnStartup()
  \param plug ScribusApp *
  \retval None
  */
-void Run(QWidget *d, ScribusApp *plug)
+void run(QWidget *d, ScribusApp *plug)
 {
 	QString fileName;
 	if (plug->pluginManager->dllInput != "")
@@ -718,4 +718,3 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 	}
 	return ret;
 }
-
