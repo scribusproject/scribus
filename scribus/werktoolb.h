@@ -49,12 +49,31 @@ public:
 	QPopupMenu* PolyM;
   QToolButton* KetteEin;
   QToolButton* KetteAus;
+	bool Sichtbar;
+
+public slots:
+	void Docken(QDockWindow::Place p);
+	void Verbergen(bool vis);
+	void GetPolyProps();
+	void ModeFromTB();
+		
+signals:
+	void Schliessen();
+	void NewMode(int);
+};
+
+class WerkToolBP : public QToolBar  {
+
+Q_OBJECT
+
+public:
+	WerkToolBP(QMainWindow* parent);
+	~WerkToolBP() {};
   QToolButton* PDFTool;
 	QPopupMenu* PDFM;
   QToolButton* PDFaTool;
 	QPopupMenu* PDFA;
 	bool Sichtbar;
-	int EdPo;
 	int PDFwerkz;
 	int PDFnotiz;
 
@@ -63,9 +82,8 @@ public slots:
 	void setPDFtool(int id);
 	void Docken(QDockWindow::Place p);
 	void Verbergen(bool vis);
-	void GetPolyProps();
 	void ModeFromTB();
-		
+
 signals:
 	void Schliessen();
 	void NewMode(int);

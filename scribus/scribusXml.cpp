@@ -2357,6 +2357,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	elem.appendChild(dc4);
 	QDomElement dc5=docu.createElement("TOOLPALETTE");
 	dc5.setAttribute("VISIBLE", static_cast<int>(Vor->Werkv));
+	dc5.setAttribute("PDFVISIBLE", static_cast<int>(Vor->WerkvP));
 	elem.appendChild(dc5);
 	QDomElement dc7=docu.createElement("TREEPALETTE");
 	dc7.setAttribute("VISIBLE", static_cast<int>(Vor->Tpalv));
@@ -2580,7 +2581,10 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->MainH = QStoInt(dc.attribute("HEIGHT"));
 			}
 		if (dc.tagName()=="TOOLPALETTE")
+			{
 			Vorein->Werkv = static_cast<bool>(QStoInt(dc.attribute("VISIBLE","1")));
+			Vorein->WerkvP = static_cast<bool>(QStoInt(dc.attribute("PDFVISIBLE","1")));
+			}
 		if (dc.tagName()=="TREEPALETTE")
 			{
 			Vorein->Tpalv = static_cast<bool>(QStoInt(dc.attribute("VISIBLE")));

@@ -1,4 +1,7 @@
 Changes since Version 0.9.10
+22.05.2003	scribus.cpp
+		werktoolb.cpp		Splitted off the PDF-Tools from the main Toolbar.
+
 20.05.2003	frameedit.cpp
 		page.cpp		Added shearing of Polygons.
 		scribus.cpp		Included Patches for HP-UX contributed by Martin Gansser.

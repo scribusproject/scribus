@@ -63,101 +63,9 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar(tr("Tools"), parent)
 	KetteAus = new QToolButton(loadIcon("Unlock.xpm"),tr("Break Textchains"), QString::null, this, SLOT(ModeFromTB()), this);
 	KetteAus->setToggleButton( true );
 	KetteAus->setEnabled(false);
-	PDFM = new QPopupMenu();
-	PDFM->insertItem(loadIcon("pushbutton.png"), tr("Button"));
-	PDFM->insertItem(loadIcon("textview.png"), tr("Text Field"));
-	PDFM->insertItem(loadIcon("checkbox.png"), tr("Check Box"));
-	PDFM->insertItem(loadIcon("combobox.png"), tr("Combo Box"));
-	PDFM->insertItem(loadIcon("listbox.png"), tr("List Box"));
-	PDFTool = new QToolButton(loadIcon("pushbutton.png"),tr("Insert PDF-Fields"), QString::null, this, SLOT(ModeFromTB()), this);
-	PDFTool->setToggleButton(true);
-	PDFTool->setPopup(PDFM);
-	PDFTool->setPopupDelay(0);
-	PDFwerkz = 0;
-	PDFA = new QPopupMenu();
-	PDFA->insertItem(loadIcon("charset.png"), tr("Text"));
-	PDFA->insertItem(loadIcon("goto.png"), tr("Link"));
-	PDFaTool = new QToolButton(loadIcon("charset.png"),tr("Insert PDF-Annotations"), QString::null, this, SLOT(ModeFromTB()), this);
-	PDFaTool->setToggleButton(true);
-	PDFaTool->setPopup(PDFA);
-	PDFaTool->setPopupDelay(0);
-	PDFnotiz = 0;
 	setCloseMode(QDockWindow::Undocked);
   connect(this, SIGNAL(placeChanged(QDockWindow::Place)), this, SLOT(Docken(QDockWindow::Place)));
   connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(Verbergen(bool)));
-	connect(PDFM, SIGNAL(activated(int)), this, SLOT(setPDFtool(int)));
-	connect(PDFA, SIGNAL(activated(int)), this, SLOT(setPDFnotiz(int)));
-}
-
-void WerkToolB::setPDFnotiz(int id)
-{	
-	int c = PDFA->indexOf(id);
-	PDFnotiz = c;
-	switch (c)
-		{
-		case 0:
-			PDFaTool->setPixmap(loadIcon("charset.png"));
-			break;
-		case 1:
-			PDFaTool->setPixmap(loadIcon("goto.png"));
-			break;
-		}
-	Select->setOn(false);
-	Rotiere->setOn(false);
-	Textedit->setOn(false);
-	Zoom->setOn(false);
-	Texte->setOn(false);
-	BildB->setOn(false);
-	Rechteck->setOn(false);
-	Kreis->setOn(false);
-	Linien->setOn(false);
-	KetteEin->setOn(false);
-	KetteAus->setOn(false);
-	Polygon->setOn(false);
-	PolyLin->setOn(false);
-	PDFTool->setOn(false);
-	PDFaTool->setOn(true);
-	emit NewMode(19+PDFnotiz);
-}
-
-void WerkToolB::setPDFtool(int id)
-{	
-	int c = PDFM->indexOf(id);
-	PDFwerkz = c;
-	switch (c)
-		{
-		case 0:
-			PDFTool->setPixmap(loadIcon("pushbutton.png"));
-			break;
-		case 1:
-			PDFTool->setPixmap(loadIcon("textview.png"));
-			break;
-		case 2:
-			PDFTool->setPixmap(loadIcon("checkbox.png"));
-			break;
-		case 3:
-			PDFTool->setPixmap(loadIcon("combobox.png"));
-			break;
-		case 4:
-			PDFTool->setPixmap(loadIcon("listbox.png"));
-			break;
-		}
-	Select->setOn(false);
-	Rotiere->setOn(false);
-	Textedit->setOn(false);
-	Zoom->setOn(false);
-	Texte->setOn(false);
-	BildB->setOn(false);
-	Rechteck->setOn(false);
-	Kreis->setOn(false);
-	Linien->setOn(false);
-	KetteEin->setOn(false);
-	KetteAus->setOn(false);
-	Polygon->setOn(false);
-	PolyLin->setOn(false);
-	PDFTool->setOn(true);
-	PDFaTool->setOn(false);
-	emit NewMode(14+PDFwerkz);
 }
 
 void WerkToolB::Docken(QDockWindow::Place p)
@@ -203,8 +111,6 @@ void WerkToolB::ModeFromTB()
 	KetteAus->setOn(false);
 	Polygon->setOn(false);
 	PolyLin->setOn(false);
-	PDFTool->setOn(false);
-	PDFaTool->setOn(false);
 	if (Select == sender())
 		{
 		Select->setOn(true);
@@ -270,6 +176,96 @@ void WerkToolB::ModeFromTB()
 		PolyLin->setOn(true);
 		emit NewMode(13);
 		}
+}
+
+WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar(tr("PDF-Tools"), parent)
+{
+	PDFM = new QPopupMenu();
+	PDFM->insertItem(loadIcon("pushbutton.png"), tr("Button"));
+	PDFM->insertItem(loadIcon("textview.png"), tr("Text Field"));
+	PDFM->insertItem(loadIcon("checkbox.png"), tr("Check Box"));
+	PDFM->insertItem(loadIcon("combobox.png"), tr("Combo Box"));
+	PDFM->insertItem(loadIcon("listbox.png"), tr("List Box"));
+	PDFTool = new QToolButton(loadIcon("pushbutton.png"),tr("Insert PDF-Fields"), QString::null, this, SLOT(ModeFromTB()), this);
+	PDFTool->setToggleButton(true);
+	PDFTool->setPopup(PDFM);
+	PDFTool->setPopupDelay(0);
+	PDFwerkz = 0;
+	PDFA = new QPopupMenu();
+	PDFA->insertItem(loadIcon("charset.png"), tr("Text"));
+	PDFA->insertItem(loadIcon("goto.png"), tr("Link"));
+	PDFaTool = new QToolButton(loadIcon("charset.png"),tr("Insert PDF-Annotations"), QString::null, this, SLOT(ModeFromTB()), this);
+	PDFaTool->setToggleButton(true);
+	PDFaTool->setPopup(PDFA);
+	PDFaTool->setPopupDelay(0);
+	PDFnotiz = 0;
+	setCloseMode(QDockWindow::Undocked);
+  connect(this, SIGNAL(placeChanged(QDockWindow::Place)), this, SLOT(Docken(QDockWindow::Place)));
+  connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(Verbergen(bool)));
+	connect(PDFM, SIGNAL(activated(int)), this, SLOT(setPDFtool(int)));
+	connect(PDFA, SIGNAL(activated(int)), this, SLOT(setPDFnotiz(int)));
+}
+
+void WerkToolBP::setPDFnotiz(int id)
+{
+	int c = PDFA->indexOf(id);
+	PDFnotiz = c;
+	switch (c)
+		{
+		case 0:
+			PDFaTool->setPixmap(loadIcon("charset.png"));
+			break;
+		case 1:
+			PDFaTool->setPixmap(loadIcon("goto.png"));
+			break;
+		}
+	PDFTool->setOn(false);
+	PDFaTool->setOn(true);
+	emit NewMode(19+PDFnotiz);
+}
+
+void WerkToolBP::setPDFtool(int id)
+{
+	int c = PDFM->indexOf(id);
+	PDFwerkz = c;
+	switch (c)
+		{
+		case 0:
+			PDFTool->setPixmap(loadIcon("pushbutton.png"));
+			break;
+		case 1:
+			PDFTool->setPixmap(loadIcon("textview.png"));
+			break;
+		case 2:
+			PDFTool->setPixmap(loadIcon("checkbox.png"));
+			break;
+		case 3:
+			PDFTool->setPixmap(loadIcon("combobox.png"));
+			break;
+		case 4:
+			PDFTool->setPixmap(loadIcon("listbox.png"));
+			break;
+		}
+	PDFTool->setOn(true);
+	PDFaTool->setOn(false);
+	emit NewMode(14+PDFwerkz);
+}
+
+void WerkToolBP::Docken(QDockWindow::Place p)
+{
+	setOrientation(Horizontal);
+}
+
+void WerkToolBP::Verbergen(bool vis)
+{
+	if (!vis)
+		emit Schliessen();
+}
+
+void WerkToolBP::ModeFromTB()
+{
+	PDFTool->setOn(false);
+	PDFaTool->setOn(false);
 	if (PDFTool == sender())
 		{
 		PDFTool->setOn(true);
@@ -281,4 +277,5 @@ void WerkToolB::ModeFromTB()
 		emit NewMode(19+PDFnotiz);
 		}
 }
+
 

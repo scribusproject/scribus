@@ -312,6 +312,7 @@ struct preV  { SCFonts AvailFonts;
 							 bool Before;
 							 int Einheit;
 							 bool Werkv;
+							 bool WerkvP;
 							 bool Mpalv;
 							 int Mpalx;
 							 int Mpaly;

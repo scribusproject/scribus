@@ -259,6 +259,7 @@ class ScribusApp : public QMainWindow
 	void ToggleFrames();
 	/** Schaltet Werkzeuge ein/aus */
 	void ToggleTools();
+	void TogglePDFTools();
 	/** Schaltet Masspalette ein/aus */
 	void ToggleMpal();
 	/** Schaltet Uebersichtspalette ein/aus*/
@@ -408,6 +409,7 @@ private:
     QPopupMenu *hymen;
     QToolBar *WerkTools2;
     WerkToolB* WerkTools;
+    WerkToolBP* WerkToolsP;
     QToolButton* DatOpe;
     QToolButton* DatSav;
     QToolButton* DatClo;
@@ -435,6 +437,7 @@ private:
 		int Guide;
 		int uGuide;
     int viewTools;
+    int viewToolsP;
     int viewMpal;
     int viewTpal;
     int viewNpal;

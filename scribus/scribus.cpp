@@ -114,7 +114,13 @@ ScribusApp::ScribusApp()
 	WerkTools = new WerkToolB(this);
 	setDockEnabled(WerkTools, DockLeft, false);
 	setDockEnabled(WerkTools, DockRight, false);
+	WerkTools->Sichtbar = true;
 	WerkTools->setEnabled(false);
+	WerkToolsP = new WerkToolBP(this);
+	setDockEnabled(WerkToolsP, DockLeft, false);
+	setDockEnabled(WerkToolsP, DockRight, false);
+	WerkToolsP->setEnabled(false);
+	WerkToolsP->Sichtbar = true;
 	QString Pff = QString(getenv("HOME"))+"/.scribus";
 	QFileInfo Pffi = QFileInfo(Pff);
 	if (Pffi.exists())
@@ -227,6 +233,7 @@ ScribusApp::ScribusApp()
 		Prefs.PolyS = PolyS;
 		Prefs.PolyR = PolyR;
 	  Prefs.Werkv = true;
+	  Prefs.WerkvP = true;
 	  Prefs.Mpalv = false;
 	  Prefs.Tpalv = false;
 	  Prefs.SCpalv = false;
@@ -353,6 +360,8 @@ ScribusApp::ScribusApp()
 		ClipB = QApplication::clipboard();
 		connect(WerkTools, SIGNAL(NewMode(int)), this, SLOT(ModeFromTB(int)));
 		connect(WerkTools, SIGNAL(Schliessen()), this, SLOT(ToggleTools()));
+		connect(WerkToolsP, SIGNAL(NewMode(int)), this, SLOT(ModeFromTB(int)));
+		connect(WerkToolsP, SIGNAL(Schliessen()), this, SLOT(TogglePDFTools()));
 		connect(Mpal, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 		connect(Mpal, SIGNAL(NewAbStyle(int)), this, SLOT(setNewAbStyle(int)));
 		connect(Mpal, SIGNAL(BackHome()), this, SLOT(Aktiv()));
@@ -600,6 +609,7 @@ void ScribusApp::initMenuBar()
 	toolMenu=new QPopupMenu();
 	viewTools = toolMenu->insertItem(tr("Hide Tools"), this, SLOT(ToggleTools()));
 	SetKeyEntry(45, tr("Hide Tools"), viewTools, 0);
+	viewToolsP = toolMenu->insertItem(tr("Hide PDF-Tools"), this, SLOT(TogglePDFTools()));
 	viewMpal = toolMenu->insertItem(tr("Show Measurements"), this, SLOT(ToggleMpal()));
 	SetKeyEntry(46, tr("Show Measurements"), viewMpal, 0);
 	viewTpal = toolMenu->insertItem(tr("Show Outline"), this, SLOT(ToggleTpal()));
@@ -1771,6 +1781,7 @@ void ScribusApp::HaveNewDoc()
 	menuBar()->setItemEnabled(pgmm, 1);
 	menuBar()->setItemEnabled(exmn, 1);
 	WerkTools->setEnabled(true);
+	WerkToolsP->setEnabled(true);
 	if (view->Pages.count() > 1)
 		{
 		pageMenu->setItemEnabled(pgmd, 1);
@@ -2624,6 +2635,7 @@ bool ScribusApp::DoFileClose()
 		menuBar()->setItemEnabled(exmn, 0);
 		menuBar()->setItemEnabled(Obm, 0);
 		WerkTools->setEnabled(false);
+		WerkToolsP->setEnabled(false);
 		ColorMenu->clear();
 		Mpal->Cpal->SetColors(Prefs.DColors);
 		Mpal->Cpal->ChooseGrad(0);
@@ -3413,6 +3425,22 @@ void ScribusApp::ToggleTools()
 	}
 }
 
+void ScribusApp::TogglePDFTools()
+{
+	if (WerkToolsP->Sichtbar)
+	{
+		WerkToolsP->hide();
+		WerkToolsP->Sichtbar = false;
+		toolMenu->changeItem(viewToolsP, tr("Show PDF-Tools"));
+	}
+	else
+	{
+		WerkToolsP->show();
+		WerkToolsP->Sichtbar = true;
+		toolMenu->changeItem(viewToolsP, tr("Hide PDF-Tools"));
+	}
+}
+
 void ScribusApp::TogglePics()
 {
 	uint a, b;
@@ -3517,8 +3545,8 @@ void ScribusApp::ToggleFrameEdit()
 		WerkTools->PolyLin->setEnabled(false);
 		WerkTools->KetteEin->setEnabled(false);
 		WerkTools->KetteAus->setEnabled(false);
-		WerkTools->PDFTool->setEnabled(false);
-		WerkTools->PDFaTool->setEnabled(false);
+		WerkToolsP->PDFTool->setEnabled(false);
+		WerkToolsP->PDFaTool->setEnabled(false);
 		ObjMenu->setItemEnabled(Loesch, false);
 		if (doc->ActPage->SelItem.count() != 0)
 			{
@@ -3544,8 +3572,8 @@ void ScribusApp::NoFrameEdit()
 	WerkTools->Linien->setEnabled(true);
 	WerkTools->Polygon->setEnabled(true);
 	WerkTools->PolyLin->setEnabled(true);
-	WerkTools->PDFTool->setEnabled(true);
-	WerkTools->PDFaTool->setEnabled(true);
+	WerkToolsP->PDFTool->setEnabled(true);
+	WerkToolsP->PDFaTool->setEnabled(true);
 	WerkTools->Textedit->setOn(false);
 	ObjMenu->setItemEnabled(Loesch, true);
 	ShapeMenu->setItemChecked(ShapeEdit, false);
@@ -3577,8 +3605,8 @@ void ScribusApp::slotSelect()
 	WerkTools->PolyLin->setOn(false);
 	WerkTools->KetteEin->setOn(false);
 	WerkTools->KetteAus->setOn(false);
-	WerkTools->PDFTool->setOn(false);
-	WerkTools->PDFaTool->setOn(false);
+	WerkToolsP->PDFTool->setOn(false);
+	WerkToolsP->PDFaTool->setOn(false);
   setAppMode(1);
 }
 
@@ -4874,6 +4902,7 @@ void ScribusApp::SavePrefs()
   Prefs.MainW = size().width();
   Prefs.MainH = size().height();
   Prefs.Werkv = WerkTools->isVisible();
+  Prefs.WerkvP = WerkToolsP->isVisible();
   Prefs.Mpalv = Mpal->isVisible();
   Prefs.Tpalv = Tpal->isVisible();
   Prefs.SCpalv = ScBook->isVisible();
@@ -4953,6 +4982,8 @@ void ScribusApp::ReadPrefs()
 		}
   if (!Prefs.Werkv)
 		toolMenu->changeItem(viewTools, tr("Show Tools"));
+  if (!Prefs.WerkvP)
+		toolMenu->changeItem(viewToolsP, tr("Show PDF-Tools"));
 	if (Prefs.Mpalv)
 		toolMenu->changeItem(viewMpal, tr("Hide Measurements"));
 	if (Prefs.Tpalv)
@@ -4992,6 +5023,8 @@ void ScribusApp::ShowSubs()
     }
 	if (!Prefs.Werkv)
 		WerkTools->hide();
+	if (!Prefs.WerkvP)
+		WerkToolsP->hide();
 	if (Prefs.Mpalv)
 		{
 		Mpal->show();
