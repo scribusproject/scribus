@@ -119,6 +119,7 @@ public:
 	void DeleteSel(PageItem *b);
 	void setTBvals(PageItem *b);
 	void SavePrefs();
+	void SavePrefsXML();
 	void ShowSubs();
 	void applyNewMaster(QString name);
 	void UpdateRecent(QString fn);
@@ -223,6 +224,7 @@ public slots:
 	void BookMarkTxT(PageItem *ite);
 	void StoreBookmarks();
 	void ReadPrefs();
+	void ReadPrefsXML();
 	void ManageGuides();
 	void SetTranspar(double t);
 	void SetTransparS(double t);

@@ -185,6 +185,7 @@ struct CLBuf {
 				bool InvPict;
 				QString NamedLStyle;
 				QString Language;
+				QString guiLanguage;
 				int Cols;
 				double ColGap;
 				QValueList<double> TabValues;

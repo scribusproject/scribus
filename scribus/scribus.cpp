@@ -6916,7 +6916,34 @@ void ScribusApp::SavePrefs()
 	ScriXmlDoc *ss = new ScriXmlDoc();
 	ss->WritePref(&Prefs, PrefsPfad+"/scribus.rc");
 	delete ss;
+
+    SavePrefsXML();
 }
+
+void ScribusApp::SavePrefsXML()
+{
+    QString Pff = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
+    QString PrefsPfad;
+    QFileInfo Pffi = QFileInfo(Pff);
+    if (Pffi.exists())
+    {
+        if (Pffi.isDir())
+            PrefsPfad = Pff;
+        else
+            PrefsPfad = QDir::homeDirPath();
+    }
+    PrefsFile* prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs.xml"));
+    if (prefsFile) {
+        PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
+        if (userprefsContext) {
+            userprefsContext->set("gui_language",Prefs.guiLanguage);
+            //continue here...
+            //Prefs."blah blah" =...
+        }
+        prefsFile->write();
+    }
+}
+
 
 void ScribusApp::ReadPrefs()
 {
@@ -6960,7 +6987,33 @@ void ScribusApp::ReadPrefs()
 	viewMenu->setItemChecked(Ras, Prefs.GridShown);
 	viewMenu->setItemChecked(Guide, Prefs.GuidesShown);
 	viewMenu->setItemChecked(Base, Prefs.BaseShown);
+
+    ReadPrefsXML();
 }
+
+void ScribusApp::ReadPrefsXML()
+{
+    QString Pff = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
+    QString PrefsPfad;
+    QFileInfo Pffi = QFileInfo(Pff);
+    if (Pffi.exists())
+    {
+        if (Pffi.isDir())
+            PrefsPfad = Pff;
+        else
+            PrefsPfad = QDir::homeDirPath();
+    }
+    PrefsFile* prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs.xml"));
+    if (prefsFile) {
+        PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
+        if (userprefsContext) {
+            Prefs.guiLanguage = userprefsContext->get("gui_language","");
+            //continue here...
+            //Prefs."blah blah" =...
+        }
+    }
+}
+
 
 void ScribusApp::ShowSubs()
 {
