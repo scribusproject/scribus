@@ -13,7 +13,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 Vráti velikost písma v bodech rámce &quot;name&quot;. Jestliže je
 vybrán nějaký text, vrátí velikost prvního znaku výběru.
-Jeztliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getColorNames() -&gt; list
@@ -48,7 +48,7 @@ If &quot;name&quot; is not given the currently selected item is used.
         <translation>getFillColor([&quot;name&quot;]) -&gt; string
 
 Vrátí jméno výplňové barvy objektu &quot;name&quot;.
-Jeztliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>moveObject(dx, dy [, &quot;name&quot;])
@@ -62,7 +62,7 @@ If the object &quot;name&quot; belongs to a group, the whole group is moved.
 
 Posune objekt &quot;name&quot; relativně o dx a dy vůči aktuální pozici. Vzdálenosti
 jsou vyjádřeny v délkových jednotkách dokumentu (viz. konstanty UNIT).
-Jeztliže není &quot;name&quot; uvedeno, použije vybraný objekt. Jestliže &quot;name&quot;
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt. Jestliže &quot;name&quot;
 patří do nějaké skupiny, je posunuta celá skupina.</translation>
     </message>
     <message>
@@ -205,7 +205,11 @@ has some text selected the value assigned to the first character
 of the selection is returned. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFont([&quot;name&quot;]) -&gt; string
+
+Vrátí jméno písma texttového rámce &quot;name&quot;. Jestliže je v rámu vybraný
+nějaký text, pak vrátí písmo prvního znaku výběru.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getTextLength([&quot;name&quot;]) -&gt; integer
@@ -213,7 +217,10 @@ selected item is used.
 Returns the length of the text in the text frame &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getTextLength([&quot;name&quot;]) -&gt; integer
+
+Vrátí délku textu textového rámce &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getText([&quot;name&quot;]) -&gt; string
@@ -223,7 +230,11 @@ selected, the selected text is returned. All text in the frame, not just
 currently visible text, is returned. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getText([&quot;name&quot;]) -&gt; string
+
+Vrátí onsah textového rámce &quot;name&quot;. Jestliže je vrámu nějaký výběr, pak
+je výsledkem obsah výběru. Vrátí celý text, ne jen viditelný.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getAllText([&quot;name&quot;]) -&gt; string
@@ -233,7 +244,11 @@ linked with this frame. If this textframe has some text selected, the selected
 text is returned. If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getAllText([&quot;name&quot;]) -&gt; string
+
+Vrátí obsah textového rámce včetně kompletního textu všech zřetězených
+rámů. Jestliže existuje nějaký výběr, pak je výsledkem obsah výběru.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getLineSpacing([&quot;name&quot;]) -&gt; float
@@ -241,7 +256,10 @@ used.
 Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
 points. If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineSpacing([&quot;name&quot;]) -&gt; float
+
+Vrátí velikost řádkování textového rámce &quot;name&quot; vyjádřené v bodech.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getColumnGap([&quot;name&quot;]) -&gt; float
@@ -249,7 +267,10 @@ points. If &quot;name&quot; is not given the currently selected item is used.
 Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
 &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColumnGap([&quot;name&quot;]) -&gt; float
+
+Vrátí velikost mezisloupcové mezery textového rámce &quot;name&quot; vyjádřenou v bodech.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getColumns([&quot;name&quot;]) -&gt; integer
@@ -257,7 +278,10 @@ Returns the column gap size of the text frame &quot;name&quot; expressed in poin
 Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColumns([&quot;name&quot;]) -&gt; integer
+
+Vrátí počet sloupců textového rámce &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>setText(&quot;text&quot;, [&quot;name&quot;])
@@ -267,7 +291,11 @@ Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See 
 for more details. If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setText(&quot;text&quot;, [&quot;name&quot;])
+
+Vyplní obsah textového rámce &quot;name&quot; textem &quot;text&quot;. Text musí být v UTF8
+kódování - použijte např. unicode(text, &apos;iso-8859-2&apos;). Viz. FAQ.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
@@ -279,7 +307,13 @@ used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Vloží text &quot;text&quot; na pozici &quot;pos&quot; v textovém rámce &quot;name&quot;. Text musí být
+v UTF8 kódování (viz. setText()). První znak rámce má pozici 0.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+
+Může vyvolat výjimku IndexError, jestliže je &quot;pos&quot; mimo obsah rámce.</translation>
     </message>
     <message>
         <source>setFont(&quot;font&quot;, [&quot;name&quot;])
@@ -290,7 +324,13 @@ currently selected item is used.
 
 May throw ValueError if the font cannot be found.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFont(&quot;font&quot;, [&quot;name&quot;])
+
+Nastaví písmo &quot;font&quot; textového rámce &quot;frame&quot;. Jestliže v rámci existuje
+výběr, je písmo aplikováno pouze na něj.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+
+Může vyvolat výjimku ValueError, jestliže písmo neexistuje.</translation>
     </message>
     <message>
         <source>setFontSize(size, [&quot;name&quot;])
@@ -302,7 +342,14 @@ currently selected item is used.
 
 May throw ValueError for a font size that&apos;s out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFontSize(size, [&quot;name&quot;])
+
+Nastaví velikost písma textového rámce &quot;name&quot; na velikost &quot;size&quot;. Velikost
+je vyjádřena v bodech. Jestliže je v rámu nějaký výběr, pak je změna
+aplikována pouze na něj. Velikost musí být v intervalu &lt;1; 512&gt;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+
+Může vyvolat výjimlu ValueError, jestliže je velikost mimo interval.</translation>
     </message>
     <message>
         <source>setLineSpacing(size, [&quot;name&quot;])
@@ -313,7 +360,13 @@ item is used.
 
 May throw ValueError if the line spacing is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineSpacing(size, [&quot;name&quot;])
+
+Nastaví řádkování textového rámu &quot;name&quot; na velikost &quot;size&quot;. Velikost
+je uváděna v bodech.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+
+Může vyvolat výjimku ValueError, jestliže je velikost mimo rozsah.</translation>
     </message>
     <message>
         <source>setColumnGap(size, [&quot;name&quot;])
@@ -323,7 +376,12 @@ Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&q
 
 May throw ValueError if the column gap is out of bounds (must be positive).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setColumnGap(size, [&quot;name&quot;])
+
+Nastaví mezisloupcovou mezeru textového rámce &quot;name&quot; na velikost &quot;size&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+
+Může vyvolat výjimku ValueError, jestliže není velikost kladná hodnota.</translation>
     </message>
     <message>
         <source>setColumns(nr, [&quot;name&quot;])
@@ -333,7 +391,12 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May throw ValueError if number of columns is not at least one.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setColumns(nr, [&quot;name&quot;])
+
+Nastaví počet sloupců textového rámce &quot;name&quot; na počet &quot;nr&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+
+Může vyvolat výjimku ValueError, jetsliže je &quot;nr&quot; menší něž 1.</translation>
     </message>
     <message>
         <source>setTextAlignment(align, [&quot;name&quot;])
@@ -344,7 +407,12 @@ be one of the ALIGN_ constants defined in this module - see dir(scribus).
 
 May throw ValueError for an invalid alignment constant.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setTextAlignment(align, [&quot;name&quot;])
+
+Nastaví zarovnání textu rámce &quot;name&quot;. Jestliže není &quot;name&quot; uvedeno, použije
+vybraný objekt. &quot;align&quot; by měla být jedna z předdefinovaných konstant ALIGN_*.
+
+Může vyvolat výjimku ValueError, jestliže je &quot;align&quot; nepodporované číslo.</translation>
     </message>
     <message>
         <source>selectText(start, count, [&quot;name&quot;])
@@ -356,7 +424,13 @@ selected item is used.
 
 May throw IndexError if the selection is outside the bounds of the text.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>selectText(start, count, [&quot;name&quot;])
+
+Označí jako vybraný počet &quot;count&quot; znaků v textovém rámci &quot;name&quot; od pozice
+&quot;start&quot;. První znak rámce má pozici 0. Jestliže je &quot;count&quot; nula, výběr je zrušen.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+
+Může vyvolat výjimku IndexError, jestliže je výběr mimo text rámce.</translation>
     </message>
     <message>
         <source>deleteText([&quot;name&quot;])
@@ -365,7 +439,10 @@ Deletes any text in the text frame &quot;name&quot;. If there is some text selec
 only the selected text will be deleted. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteText([&quot;name&quot;])
+
+Smaže text z textového rámce &quot;name&quot;. Jestliže je v rámu nějaký výběr,
+pak je smazán pouze on. Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>setTextColor(&quot;color&quot;, [&quot;name&quot;])
@@ -374,7 +451,11 @@ Sets the text color of the text frame &quot;name&quot; to the color &quot;color&
 is some text selected only the selected text is changed. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setTextColor(&quot;color&quot;, [&quot;name&quot;])
+
+Nastaví barvu textu rámce &quot;name&quot; na barvu &quot;color&quot;. Jestliže v rámci
+existuje výběr, pak je barva aplikována pouze na něj.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
@@ -382,7 +463,10 @@ given the currently selected item is used.
 Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
+
+Nastaví obrys textu na barvu &quot;color&quot; v textovém rámci &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>setTextShade(shade, [&quot;name&quot;])
@@ -393,7 +477,12 @@ be an integer value in the range from 0 (lightest) to 100 (full color
 intensity). If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setTextShade(shade, [&quot;name&quot;])
+
+Nastaví stín textu v textovém rámci &quot;name&quot; na hodnotu &quot;shade&quot;. Jetsliže
+v rámci existuje výběr, pak je aplikován pouze na něj. Stín musí být celé
+číslo z intervalu &lt;1; 100&gt;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
@@ -404,7 +493,12 @@ and must not link to or be linked from any other frames already.
 
 May throw ScribusException if linking rules are violated.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
+
+zřetězí dva textové rámce. Rámec &quot;fromname&quot; je před rámcem &quot;toname&quot;.
+&quot;toname&quot; musí být prázdný a ještě neslinkovaný textový rámec.
+
+Může vyvolat výjimku ScribusException, jestliže jsou porušena pravidla řetězení.</translation>
     </message>
     <message>
         <source>unlinkTextFrames(&quot;name&quot;)
@@ -415,14 +509,22 @@ connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unl
 
 May throw ScribusException if linking rules are violated.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>unlinkTextFrames(&quot;name&quot;)
+
+Odstraní objekt &quot;name&quot; ze zřetězených textových rámců. Např. sekvence
+a-&gt;b-&gt;c bude a-&gt;c po vykonání unlinkTextFrames(b)
+
+Může vyvolat výjimku ScribusException, jestliže jsou porušena pravidla zřetězení.</translation>
     </message>
     <message>
         <source>traceText([&quot;name&quot;])
 
 Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
 currently selected item is used.</source>
-        <translation type="unfinished"></translation>
+        <translation>traceText([&quot;name&quot;])
+
+Převede textový rámec &quot;name&quot; na křivky.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getColor(&quot;name&quot;) -&gt; tuple
@@ -434,7 +536,13 @@ the value of the named color from the default document colors.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColor(&quot;name&quot;) -&gt; tuple
+
+Vrátí CMYK složky barvy &quot;name&quot; daného dokumentu. Jestliže není otevřený
+žádný dokument, vrátí složky implicitní barvy &quot;name&quot;.
+
+Může vyvolat výjimky NotFoundError (jestliže barvu nenajde) a
+ValueError (chybné parametry).</translation>
     </message>
     <message>
         <source>changeColor(&quot;name&quot;, c, m, y, k)
@@ -446,7 +554,13 @@ Color components should be in the range from 0 to 255.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>changeColor(&quot;name&quot;, c, m, y, k)
+
+Změní barvu &quot;name&quot; na specifikované CMYK hodnoty &quot;c&quot;, &quot;m&quot;, &quot;y&quot;, &quot;k&quot;.
+Každá z barevných komponenty musí být z intervalu &lt;0; 255&gt;.
+
+Může vyvolat výjimky NotFoundError (barva neexistuje) a ValueError
+(chybné parametry).</translation>
     </message>
     <message>
         <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
@@ -461,7 +575,16 @@ In that case, &quot;replace&quot;, if specified, has no effect.
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteColor(&quot;name&quot;, &quot;replace&quot;)
+
+Smaže barvu &quot;name&quot;. každý výskyt této barvy je nahrazen  barvou &quot;replace&quot;.
+Jestliže není &quot;replace&quot; uvedena, zamění mazanou barvu transparentní 
+průhlednou &quot;None&quot;.
+Jestliže není otevřený žádný dokument pracuje deleteColor s imlicitní
+barevnou množinou. &quot;replace&quot; potom nemá žádnou funkčnost.
+
+Může vyvolat výjimky NotFoundError (barva neexistuje) a ValueError
+(chybné parametry).</translation>
     </message>
     <message>
         <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
@@ -471,7 +594,11 @@ Every occurence of the color &quot;name&quot; is replaced by the color &quot;rep
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>replaceColor(&quot;name&quot;, &quot;replace&quot;)
+
+Každý výskyt barvy &quot;name&quot; je nahrazen barvou &quot;replace&quot;.
+Může vyvolat výjimky NotFoundError (barva neexistuje) a ValueError
+(chybné parametry).</translation>
     </message>
     <message>
         <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; string with filename
@@ -492,7 +619,17 @@ Refer to the Qt-Documentation for QFileDialog for details on filters.
 Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
 Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; string with filename
+
+Zobrazí souborové okno/dialog s titulkem &quot;caption&quot;. Soubory mohou být vybrány
+podle masky &quot;filter&quot;. Parametr &quot;defaultname&quot; může být použit jako předem nastavená
+implicitní cesta. Jestliže je &quot;haspreview&quot; nastaveno na true, bude mít uřivatel
+k dispozici náhled vybraných souborů. Jestliže je parametr &quot;issave&quot; nastaven
+na true, bude se dialog chovat jako klasický &quot;Uložit jako&quot;.
+Maska filtrování souborů může vypadat např. takto: &apos;Obrázky (*.png *.jpg)&apos;.
+Více informací neleznete v dokumentaci Qt.
+Příklad: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
+Nebo: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)</translation>
     </message>
     <message>
         <source>messageBox(&quot;caption&quot;, &quot;message&quot;,
@@ -528,7 +665,31 @@ BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
 BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
 ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>messageBox(&quot;caption&quot;, &quot;message&quot;, icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
+                   button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer
+
+Zobrazí message box s titulkem &quot;caption&quot;, textem &quot;message&quot;, ikonou &quot;icon&quot;
+a několika tlačítky. Implicitně není nastavena žádná ikona a zobrazí se jediné
+tlačitko (OK). Povinné jsou tedy pouze parametry &quot;caption&quot; a &quot;message&quot;.
+&quot;message&quot; může obsahovat jednoduché HTML značky.
+Vrátí číslo tlačítka, které uživatel stisknul. Tlačítka jsou číslována od 1.
+Jednotlivé typy ikon a tlačitek mají své předdefinované konstanty. Jsou to
+BUTTON_* a ICON_*. Existují také dvě konstanty, které mohou být použity
+v binárním OR s BUTTON konstantami:
+    BUTTONOPT_DEFAULT nastaví příznak &quot;stisk enteru stiskne tlačítko&quot;
+    BUTTONOPT_ESCAPE nastaví příznak &quot;stisk escape stiskne tlačítko&quot;
+Příklady:
+    result = messageBox(&apos;Script failed&apos;,
+                                   &apos;This script only works when you have a text frame selected.&apos;,
+                                   ICON_ERROR)
+    result = messageBox(&apos;Monkeys!&apos;, 
+                                   &apos;Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;&apos;,
+                                   ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
+                                   BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
+Konstanty: BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, 
+    BUTTON_IGNORE, BUTTON_NO, BUTTON_NOALL, BUTTON_OK,
+    BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
+    ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.</translation>
     </message>
     <message>
         <source>valueDialog(caption, message [,defaultvalue]) -&gt; string
@@ -538,7 +699,12 @@ Parameters: window title, text in the window and optional &apos;default&apos; va
 
 Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>valueDialog(caption, message [,defaultvalue]) -&gt; string
+
+Zobrazí jednoduchý dialog, do kterého uživatel zadává hodnotu,
+kterou vráti skriptu jako string. Okno má titulek &quot;caption&quot;,
+text &quot;message&quot; a může zobrazit implicitní hodnotu &quot;defaultvalue&quot;.
+Např.: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)</translation>
     </message>
     <message>
         <source>closeDoc()
@@ -547,14 +713,20 @@ Closes the current document without prompting to save.
 
 May throw NoDocOpenError if there is no document to close
 </source>
-        <translation type="unfinished"></translation>
+        <translation>closeDoc()
+
+Zavře aktuální dokument bez výzvy k uložení.
+
+Může vyvolat výjimku NoDocOpenError, kdyý enní žádný dokument otevřen</translation>
     </message>
     <message>
         <source>haveDoc() -&gt; bool
 
 Returns true if there is a document open.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>haveDoc() -&gt; bool
+
+Vrátí true, když je otevřený jakýkoli dokument.</translation>
     </message>
     <message>
         <source>openDoc(&quot;name&quot;)
@@ -563,7 +735,11 @@ Opens the document &quot;name&quot;.
 
 May raise ScribusError if the document could not be opened.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>openDoc(&quot;name&quot;)
+
+Otevře dokument &quot;name&quot;.
+
+Může vyvolat výjimku ScribusError, když dokument nejde otevřít.</translation>
     </message>
     <message>
         <source>saveDoc()
@@ -574,7 +750,11 @@ save file dialog.
 
 If the save fails, there is currently no way to tell.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>saveDoc()
+
+Uloží aktuální dokument pod platným jménem. Vrátí true v případě úspěchu.
+Jestliže nebyl dokument ještě niky uložen, zobrazí se &quot;Uložit jako&quot; okno.
+Jestliže ukladání selže, neexituje žádný způsob, jak toto zjistit.</translation>
     </message>
     <message>
         <source>saveDocAs(&quot;name&quot;)
@@ -584,7 +764,12 @@ relative path).
 
 May raise ScribusError if the save fails.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>saveDocAs(&quot;name&quot;)
+
+Uloží aktuální dokument pod jménem &quot;name&quot;. &quot;name&quot; může být jak celá, tak
+relativní cesta souborového systému.
+
+Může vyvolat výjimku ScribusError, jestliže ukládání selže.</translation>
     </message>
     <message>
         <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
@@ -592,7 +777,9 @@ May raise ScribusError if the save fails.
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Nastaví informace o dokumentu. Parametry jsou textové řetězce.</translation>
     </message>
     <message>
         <source>setMargins(lr, rr, tr, br)
@@ -601,7 +788,10 @@ Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
 margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
 constants.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setMargins(lr, rr, tr, br)
+
+Nastaví okraje dokumentu - levý, pravý, horní a spodní okraj je zadáván
+v aktuálních měrných jednotkách dokumentu. Viz. konstanty UNIT_typ.</translation>
     </message>
     <message>
         <source>setUnit(type)
@@ -611,7 +801,12 @@ defined as constants UNIT_&lt;type&gt;.
 
 May raise ValueError if an invalid unit is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setUnit(type)
+
+Změní měrné jednotky dokumentu. Možná nastavení jsou definována jako
+konstanty UNIT_*.
+
+Může vyvolat výjimku ValueError při nepodporovaném typu jednotky.</translation>
     </message>
     <message>
         <source>getUnit() -&gt; integer (Scribus unit constant)
@@ -620,7 +815,10 @@ Returns the measurement units of the document. The returned value will be one
 of the UNIT_* constants:
 UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getUnit() -&gt; integer (Scribus unit constant)
+
+Vrátí typ měrné jednotky dokumentu. Návratová hodnota je jednou z UNIT_*
+konstant: UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</translation>
     </message>
     <message>
         <source>loadStylesFromFile(&quot;filename&quot;)
@@ -628,7 +826,9 @@ UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
 Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
 current document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>loadStylesFromFile(&quot;filename&quot;)
+
+Nahraje styly odstavce z dokumentu &quot;filename&quot; do dokumentu aktuálního.</translation>
     </message>
     <message>
         <source>setDocType(facingPages, firstPageLeft)
@@ -638,7 +838,11 @@ FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
 to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
 a right page use FIRSTPAGERIGHT.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setDocType(facingPages, firstPageLeft)
+
+Nastaví typ dokumentu. Parametr facingPages může být FACINGPAGES (dvoustrany)
+nebo NOFACINGPAGES (jedna strana). Jestliže chcete, aby dokument začínal
+levou stranou nastavte firstPageLeft na FIRSTPAGELEFT, jinak na FIRSTPAGERIGHT.</translation>
     </message>
     <message>
         <source>getLineColor([&quot;name&quot;]) -&gt; string
@@ -646,7 +850,10 @@ a right page use FIRSTPAGERIGHT.
 Returns the name of the line color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineColor([&quot;name&quot;]) -&gt; string
+
+Vrátí jméno barvy čar objektu &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getLineWidth([&quot;name&quot;]) -&gt; integer
@@ -654,7 +861,10 @@ If &quot;name&quot; is not given the currently selected item is used.
 Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineWidth([&quot;name&quot;]) -&gt; integer
+
+Vrátí tloušťku čáry objektu &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getLineShade([&quot;name&quot;]) -&gt; integer
@@ -662,7 +872,10 @@ is not given the currently selected Item is used.
 Returns the shading value of the line color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineShade([&quot;name&quot;]) -&gt; integer
+
+Vrátí stín barvy objektu &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see contants)
@@ -671,7 +884,11 @@ Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; 
 the currently selected item is used.  The join types are:
 JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineJoin([&quot;name&quot;]) -&gt; integer (see contants)
+
+Vrátí typ spojení čar objektu &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+Typy spojení: JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND</translation>
     </message>
     <message>
         <source>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
@@ -680,7 +897,11 @@ Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; i
 currently selected item is used. The cap types are:
 CAP_FLAT, CAP_ROUND, CAP_SQUARE
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
+
+Vrátí typ ukončení čáry objektu &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+Typy jsou: CAP_FLAT, CAP_ROUND, CAP_SQUARE</translation>
     </message>
     <message>
         <source>getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
@@ -689,7 +910,11 @@ Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is no
 currently selected item is used. Line style constants are:
 LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
+
+Vrátí styl čáry objektu &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+Styly jsou: LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
     </message>
     <message>
         <source>getFillShade([&quot;name&quot;]) -&gt; integer
@@ -697,7 +922,10 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 Returns the shading value of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFillShade([&quot;name&quot;]) -&gt; integer
+
+Vrátí stín výplně objektu &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getImageScale([&quot;name&quot;]) -&gt; (x,y)
@@ -705,7 +933,10 @@ If &quot;name&quot; is not given the currently selected item is used.
 Returns a (x, y) tuple containing the scaling values of the image frame
 &quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getImageScale([&quot;name&quot;]) -&gt; (x,y)
+
+Vrátí tuple s velikostmi obrázku rámce &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getImageName([&quot;name&quot;]) -&gt; string
@@ -713,7 +944,10 @@ Returns a (x, y) tuple containing the scaling values of the image frame
 Returns the filename for the image in the image frame. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getImageName([&quot;name&quot;]) -&gt; string
+
+Vrátí jméno souboru (obrázku) daného rámce &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getSize([&quot;name&quot;]) -&gt; (width,height)
@@ -723,7 +957,11 @@ If &quot;name&quot; is not given the currently selected item is used. The size i
 expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
 for reference.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getSize([&quot;name&quot;]) -&gt; (width,height)
+
+Vrátí velikost (tuple) s velikostí rámce &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+Velikost je vyjádřena v aktuálních měrných jednotkách (viz. UNIT_typ).</translation>
     </message>
     <message>
         <source>getRotation([&quot;name&quot;]) -&gt; integer
@@ -732,14 +970,20 @@ Returns the rotation of the object &quot;name&quot;. The value is expressed in d
 and clockwise is positive. If &quot;name&quot; is not given the currently selected item
 is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getRotation([&quot;name&quot;]) -&gt; integer
+
+Vrátí rotaci objektu &quot;name&quot;. Hodnota je vyjádřena ve stupních. Otočení ve směru
+hodinových ručiček je kladné.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getAllObjects() -&gt; list
 
 Returns a list containing the names of all objects on the current page.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getAllObjects() -&gt; list
+
+Vrátí seznam, který obsahuje jména všech objektů na aktuální stránce.</translation>
     </message>
     <message>
         <source>moveObjectAbs(x, y [, &quot;name&quot;])
@@ -749,7 +993,12 @@ the current measurement unit of the document (see UNIT constants).  If &quot;nam
 is not given the currently selected item is used.  If the object &quot;name&quot;
 belongs to a group, the whole group is moved.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>moveObjectAbs(x, y [, &quot;name&quot;])
+
+Přesune objekt &quot;name&quot; na nové místo. Paramety x a y jsou vyjádřeny v aktuálních
+měrných jednotkách dokumentu (viz. konstanty UNIT).
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+Jestliže onjekt &quot;name&quot; patří do skupiny onjektů, je posunuta celá skupina.</translation>
     </message>
     <message>
         <source>rotateObject(rot [, &quot;name&quot;])
@@ -760,7 +1009,11 @@ default, the top left vertext at zero rotation. Positive values mean counter
 clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>rotateObject(rot [, &quot;name&quot;])
+
+Otočí relativně objekt &quot;name&quot; o &quot;rot&quot; stupňů. Střed otáčení je aktuální bod otáčení,
+implicitně horní levý bod. Kladné hodnoty otáčí po směru hodinových ručiček.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>sizeObject(width, height [, &quot;name&quot;])
@@ -768,7 +1021,10 @@ given the currently selected item is used.
 Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>sizeObject(width, height [, &quot;name&quot;])
+
+Změní velikost objektu &quot;name&quot; na danou šířku &quot;width&quot; a výšku &quot;height&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getSelectedObject([nr]) -&gt; string
@@ -777,28 +1033,37 @@ Returns the name of the selected object. &quot;nr&quot; if given indicates the n
 of the selected object, e.g. 0 means the first selected object, 1 means the
 second selected Object and so on.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getSelectedObject([nr]) -&gt; string
+
+Vrátí jméno vybraného objektu. Jestliže je zadáno &quot;nr&quot;, pak indikuje,
+jaký objekt z výběru vrátí. 0 znamená první objekt atd.</translation>
     </message>
     <message>
         <source>selectionCount() -&gt; integer
 
 Returns the number of selected objects.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>selectionCount() -&gt; integer
+
+Vrátí počet objektů ve výběru.</translation>
     </message>
     <message>
         <source>selectObject(&quot;name&quot;)
 
 Selects the object with the given &quot;name&quot;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>selectObject(&quot;name&quot;)
+
+Zařadí objekt &quot;name&quot; do výběru.</translation>
     </message>
     <message>
         <source>deselectAll()
 
 Deselects all objects in the whole document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deselectAll()
+
+Zruší výběr všech objektů v celém dokumentu.</translation>
     </message>
     <message>
         <source>groupObjects(list)
@@ -807,13 +1072,19 @@ Groups the objects named in &quot;list&quot; together. &quot;list&quot; must con
 of the objects to be grouped. If &quot;list&quot; is not given the currently selected
 items are used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>groupObjects(list)
+
+Seskupí objekty vyjmenované v seznamu &quot;list&quot;. Jestliže není seznam zadán,
+použijí se vybrané objekty.</translation>
     </message>
     <message>
         <source>unGroupObjects(&quot;name&quot;)
 
 Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</source>
-        <translation type="unfinished"></translation>
+        <translation>unGroupObjects(&quot;name&quot;)
+
+Zruší seskupení objektů, do kterého patří objekt &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>scaleGroup(factor [,&quot;name&quot;])
@@ -826,7 +1097,14 @@ to 150 % of its original size.  The value for &quot;factor&quot; must be greater
 
 May raise ValueError if an invalid scale factor is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>scaleGroup(factor [,&quot;name&quot;])
+
+Změní velikost seskupených objektů, kam objekt &quot;name&quot; patří. Hodnoty &quot;factor&quot;
+větší než 1 zvětšují a naopak. Např. 0.5 znamená 50%, 1.5 150% atd. &quot;factor&quot;
+musí být větší než 0.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+
+Může vyvolat výjimku ValueError při chybném nastavení &quot;factor&quot;.</translation>
     </message>
     <message>
         <source>loadImage(&quot;filename&quot; [, &quot;name&quot;])
@@ -836,7 +1114,12 @@ not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>loadImage(&quot;filename&quot; [, &quot;name&quot;])
+
+Nahraje obrázek &quot;picture&quot; do obrázkového rámce &quot;name&quot;.
+Jestliže není &quot;name&quot; uvedeno, použije vybraný objekt.
+
+Může vyvolat výjimku WrongFrameTypeError, není-li objekt obrázkovým rámem</translation>
     </message>
     <message>
         <source>scaleImage(x, y [, &quot;name&quot;])
@@ -847,7 +1130,9 @@ means 100 %.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">scaleImage(x, y [, &quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>lockObject([&quot;name&quot;]) -&gt; bool
@@ -9673,7 +9958,7 @@ Odkazy ven
 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
 <byte value="x9"/><byte value="x9"/>function&apos;s documentation.
 <byte value="x9"/><byte value="x9"/></source>
-        <translation type="obsolete">Scripter - Python modul programu Scribus
+        <translation>Scripter - Python modul programu Scribus
 Scripter je rozhraní jazyka Python programu Scribus. Umožňuje ovládat Scribus a manipulovat
 s objekty v dokumentu. Všechny dostupné třídy, procedury, funkce a konstanty jsou popsány dále.
 Několik věci platí v celém Scripteru. Většina funkčnosti pracuje s rámy. Rámce jsou identifikovány
@@ -9689,43 +9974,6 @@ ale zatím nejsou dokumentovány v nápovědě jednotlivých funkcí.
     - Chyby a výjimky, které vzniknou v ostatních Python modulech, budou předány interpreteru
       beze změny, takže vyjmenované výjimky v dokumentaci Scripteru nejsou ani zdaleka kompletní.
 Detaily a výjimky Scripteru jsou popsány v dokumentaci jednotlivých funkcí.</translation>
-    </message>
-    <message>
-        <source>Scribus Python interface module
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
-<byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
-<byte value="x9"/><byte value="x9"/>function is documented individually below.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
-<byte value="x9"/><byte value="x9"/>a string - they are not real Python objects. Many functions take an
-<byte value="x9"/><byte value="x9"/>optional (non-keyword) parameter, a frame name.
-<byte value="x9"/><byte value="x9"/>Many exceptions are also common across most functions. These are
-<byte value="x9"/><byte value="x9"/>not currently documented in the docstring for each function.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
-<byte value="x9"/><byte value="x9"/>      without a document to operate on.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
-<byte value="x9"/><byte value="x9"/>      the function will use the currently selected frame, if any, or
-<byte value="x9"/><byte value="x9"/>      raise a NoValidObjectError if it can&apos;t find anything to operate
-<byte value="x9"/><byte value="x9"/>      on.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
-<byte value="x9"/><byte value="x9"/>      on a frame type that they do not make sense with. For example, setting
-<byte value="x9"/><byte value="x9"/>      the text colour on a graphics frame doesn&apos;t make sense, and will result
-<byte value="x9"/><byte value="x9"/>      in this exception being raised.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
-<byte value="x9"/><byte value="x9"/>      passed through unaltered. As such, the list of exceptions thrown by
-<byte value="x9"/><byte value="x9"/>      any function as provided here and in its docstring is incomplete.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
-<byte value="x9"/><byte value="x9"/>function&apos;s documentation.
-<byte value="x9"/><byte value="x9"/></source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
