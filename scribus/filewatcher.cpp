@@ -21,33 +21,58 @@ FileWatcher::~FileWatcher()
 
 void FileWatcher::addFile(QString fileName)
 {
-	while (blockAddRemove)
+	watchTimer->stop();
+	if (!watchedFiles.contains(fileName))
 	{
-		usleep(500);
+		struct fileMod fi;
+		fi.info = QFileInfo(fileName);
+		fi.timeInfo = fi.info.lastModified();
+		watchedFiles.insert(fileName, fi);
 	}
-	struct fileMod fi;
-	fi.info = QFileInfo(fileName);
-	fi.timeInfo = fi.info.lastModified();
-	watchedFiles.insert(fileName, fi);
+	watchTimer->start(10000, true);
 }
 
 void FileWatcher::removeFile(QString fileName)
 {
-	while (blockAddRemove)
-	{
-		usleep(500);
-	}
+	watchTimer->stop();
 	watchedFiles.remove(fileName);
+	watchTimer->start(10000, true);
 }
 
-QValueList<QString> FileWatcher::files()
+void FileWatcher::addDir(QString fileName)
 {
-	return watchedFiles.keys();
+	addFile(fileName);
+}
+
+void FileWatcher::removeDir(QString fileName)
+{
+	removeFile(fileName);
+}
+
+void FileWatcher::start()
+{
+	watchTimer->stop();
+	watchTimer->start(10000, true);
+}
+
+void FileWatcher::stop()
+{
+	watchTimer->stop();
+}
+
+void FileWatcher::forceScan()
+{
+	checkFiles();
 }
 
 bool FileWatcher::isActive()
 {
 	return blockAddRemove;
+}
+
+QValueList<QString> FileWatcher::files()
+{
+	return watchedFiles.keys();
 }
 
 void FileWatcher::checkFiles()
@@ -61,26 +86,34 @@ void FileWatcher::checkFiles()
 		it.data().info.refresh();
 		if (!it.data().info.exists())
 		{
-			emit fileDeleted(it.key());
+			if (it.data().info.isDir())
+				emit dirDeleted(it.key());
+			else
+				emit fileDeleted(it.key());
 			watchedFiles.remove(it);
 			continue;
 		}
 		time = it.data().info.lastModified();
 		if (time != it.data().timeInfo)
 		{
-			uint sizeo = it.data().info.size();
-			usleep(100);
-			it.data().info.refresh();
-			uint sizen = it.data().info.size();
-			while (sizen != sizeo)
+			if (it.data().info.isDir())
+				emit dirChanged(it.key());
+			else
 			{
-				sizeo = sizen;
+				uint sizeo = it.data().info.size();
 				usleep(100);
 				it.data().info.refresh();
-				sizen = it.data().info.size();
+				uint sizen = it.data().info.size();
+				while (sizen != sizeo)
+				{
+					sizeo = sizen;
+					usleep(100);
+					it.data().info.refresh();
+					sizen = it.data().info.size();
+				}
+				it.data().timeInfo = time;
+				emit fileChanged(it.key());
 			}
-			it.data().timeInfo = time;
-			emit fileChanged(it.key());
 		}
 	}
 	blockAddRemove = false;

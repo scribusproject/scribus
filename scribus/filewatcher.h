@@ -17,6 +17,11 @@ public:
 	~FileWatcher();
 	void addFile(QString fileName);
 	void removeFile(QString fileName);
+	void addDir(QString fileName);
+	void removeDir(QString fileName);
+	void start();
+	void stop();
+	void forceScan();
 	bool isActive();
 	QValueList<QString> files();
 
@@ -36,6 +41,8 @@ private slots:
 signals:
 	void fileChanged(QString);
 	void fileDeleted(QString);
+	void dirChanged(QString);
+	void dirDeleted(QString);
 
 };
 

@@ -4155,6 +4155,8 @@ bool ScribusApp::slotFileSaveAs()
 bool ScribusApp::DoFileSave(QString fn)
 {
 	bool ret = true;
+	fileWatcher->forceScan();
+	fileWatcher->stop();
 	ReorgFonts();
 	FMess->setText( tr("Saving..."));
 	FProg->reset();
@@ -4177,6 +4179,7 @@ bool ScribusApp::DoFileSave(QString fn)
 	}
 	FMess->setText("");
 	FProg->reset();
+	fileWatcher->start();
 	return ret;
 }
 
@@ -4392,6 +4395,8 @@ void ScribusApp::slotFilePrint()
 bool ScribusApp::doPrint(PrintOptions *options)
 {
 	bool retw = false;
+	fileWatcher->forceScan();
+	fileWatcher->stop();
 	QMap<QString,QFont> ReallyUsed;
 	QString filename = options->filename;
 	ReallyUsed.clear();
@@ -4454,6 +4459,7 @@ bool ScribusApp::doPrint(PrintOptions *options)
 		delete dd;
 		closePSDriver();
 	}
+	fileWatcher->start();
 	return retw;
 }
 
@@ -7434,6 +7440,8 @@ void ScribusApp::closePSDriver()
 
 bool ScribusApp::DoSaveAsEps(QString fn)
 {
+	fileWatcher->forceScan();
+	fileWatcher->stop();
 	bool return_value = true;
 	std::vector<int> pageNs;
 	pageNs.push_back(doc->currentPage->PageNr+1);
@@ -7453,6 +7461,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 		closePSDriver();
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
+	fileWatcher->start();
 	return return_value;
 }
 
@@ -7513,8 +7522,11 @@ bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, std::vect
 		dlclose(PDFDriver);
 		return false;
 	}
+	fileWatcher->forceScan();
+	fileWatcher->stop();
 	ret = (*demo)(this, fn, nam, Components, pageNs, thumbs, FProg);
 	dlclose(PDFDriver);
+	fileWatcher->start();
 	return ret;
 }
 
@@ -9019,6 +9031,8 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 	QString s = CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false, false, false, true, &compressR, &withFontsR);
 	if (s != "")
 	{
+		fileWatcher->forceScan();
+		fileWatcher->stop();
 		if(s.right(1) != "/")
 			s += "/";
 		dirs->set("collect", s.left(s.findRev("/",-2)));
@@ -9061,7 +9075,9 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 						if (itf.exists())
 						{
 							copyFile(ite->Pfile, s + itf.fileName());
+							fileWatcher->removeFile(ite->Pfile);
 							ite->Pfile = s + itf.fileName();
+							fileWatcher->addFile(s + itf.fileName());
 						}
 					}
 					if (ite->PType == 4)
@@ -9075,7 +9091,9 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 								if (itf.exists())
 								{
 									copyFile(ite->Pfile, s + itf.fileName());
+									fileWatcher->removeFile(ite->Pfile);
 									ite->Pfile = s + itf.fileName();
+									fileWatcher->addFile(s + itf.fileName());
 								}
 							}
 							if (ite->Pfile2 != "")
@@ -9108,7 +9126,9 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 						if (itf.exists())
 						{
 							copyFile(ite->Pfile, s + itf.fileName());
+							fileWatcher->removeFile(ite->Pfile);
 							ite->Pfile = s + itf.fileName();
+							fileWatcher->addFile(s + itf.fileName());
 						}
 					}
 					if (ite->PType == 4)
@@ -9122,7 +9142,9 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 								if (itf.exists())
 								{
 									copyFile(ite->Pfile, s + itf.fileName());
+									fileWatcher->removeFile(ite->Pfile);
 									ite->Pfile = s + itf.fileName();
+									fileWatcher->addFile(s + itf.fileName());
 								}
 							}
 							if (ite->Pfile2 != "")
@@ -9162,6 +9184,7 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 				}
 			}
 		}
+		fileWatcher->start();
 	}
 	QDir::setCurrent(CurDirP);
 	return retVal;
