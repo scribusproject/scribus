@@ -1429,7 +1429,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
-        <translation>Wiedergabemethoden</translation>
+        <translation>Render-Prioritäten</translation>
     </message>
     <message>
         <source>Simulate Printer on the Screen</source>
@@ -1494,13 +1494,13 @@ Diese Option sollte aktiviert sein, wenn Sie Fotos im Dokument haben.</translati
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Standard-Wiedergabemethode für Ihren Monitor. Ohne einen Grund zur Veränderung
+        <translation>Standard-Rendering Methode für Ihren Monitor. Ohne einen Grund zur Veränderung
 sollte entweder relativ farbmetrisch oder Wahrnehmung aktiviert sein.</translation>
     </message>
     <message>
         <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Standard-Wiedergabemethode für den Drucker. Ohne einen Grund zur Veränderung
+        <translation>Standard-Rendering Methode für den Drucker. Ohne einen Grund zur Veränderung
 sollte entweder relativ farbmetrisch oder Wahrnehmung aktiviert sein.</translation>
     </message>
     <message>
@@ -1518,7 +1518,7 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
     <message>
         <source>&amp;Activate Color Management</source>
-        <translation>Farb&amp;management aktivieren</translation>
+        <translation>Farb-Management &amp;aktivieren</translation>
     </message>
     <message>
         <source>&amp;Pictures:</source>
@@ -1538,11 +1538,11 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
     <message>
         <source>M&amp;onitor:</source>
-        <translation>Monito&amp;r:</translation>
+        <translation>Moni&amp;tor:</translation>
     </message>
     <message>
         <source>Pr&amp;inter:</source>
-        <translation>Dru&amp;cker:</translation>
+        <translation>&amp;Drucker:</translation>
     </message>
     <message>
         <source>Sim&amp;ulate Printer on the Screen</source>
@@ -1803,11 +1803,11 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     <name>CsvDialog</name>
     <message>
         <source>CSV Importer Options</source>
-        <translation>CSV Importer Optionen</translation>
+        <translation>Optionen für CSV-Importer</translation>
     </message>
     <message>
         <source>Field delimiter:</source>
-        <translation>Feldbegrenzer:</translation>
+        <translation>Feldtrenner:</translation>
     </message>
     <message>
         <source>(TAB)</source>
@@ -1815,11 +1815,15 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
     <message>
         <source>Value delimiter:</source>
-        <translation>Wertbegrenzer:</translation>
+        <translation>Werttrenner:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Keiner</translation>
     </message>
     <message>
         <source>First row is a header</source>
-        <translation>Erste Zeile ist Überschrift</translation>
+        <translation>Erste Zeile ist Kopfzeile</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1828,10 +1832,6 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     <message>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>Keiner</translation>
     </message>
 </context>
 <context>
@@ -3288,7 +3288,7 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>Font Substitutions</source>
-        <translation>Schriftarten-Ersetzungen</translation>
+        <translation>Schrift Ersetzungen</translation>
     </message>
     <message>
         <source>Additional Paths</source>
@@ -3304,7 +3304,7 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>Font Name</source>
-        <translation>Name der Schriftart</translation>
+        <translation>Schrift Name</translation>
     </message>
     <message>
         <source>Replacement</source>
@@ -3348,7 +3348,7 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation>Nur benutzte Zeichen einbetten</translation>
+        <translation>Unterteilen</translation>
     </message>
     <message>
         <source>Type</source>
@@ -3356,7 +3356,7 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>Path to Font File</source>
-        <translation>Pfad zur Schriftart</translation>
+        <translation>Pfad zur Schriftdatei</translation>
     </message>
     <message>
         <source>&amp;Available Fonts</source>
@@ -3384,7 +3384,7 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>Ent&amp;fernen</translation>
+        <translation>&amp;Entfernen</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3570,7 +3570,7 @@ Bildschirm betrachten wollen</translation>
     <name>HySettings</name>
     <message>
         <source>Hyphenator Settings</source>
-        <translation>Silbentrennungs-Einstellungen</translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <source>Fully Automatic</source>
@@ -4107,15 +4107,15 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation></translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation></translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -4614,7 +4614,7 @@ Corners:</source>
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation>Wiedergabemethode:</translation>
+        <translation>Render Priorität:</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -5052,11 +5052,11 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Rendering intent for the image</source>
-        <translation>Wiedergabemethode für das Bild</translation>
+        <translation>Render-Methode für das Bild</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
-        <translation>Schaltet zwischen Abstand und Spaltenbreite um</translation>
+        <translation></translation>
     </message>
     <message>
         <source>Column width</source>
@@ -5076,7 +5076,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
-        <translation>Zeit das Level an, auf dem sich das Objekt befindet. 0 bedeutet ganz unten</translation>
+        <translation></translation>
     </message>
     <message>
         <source>Font Size:</source>
@@ -6691,7 +6691,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben.</transl
     </message>
     <message>
         <source>Rendering intent for solid colors</source>
-        <translation>Wiedergabemethode für Farben festlegen</translation>
+        <translation>Render-Methode für Farben</translation>
     </message>
     <message>
         <source>Color profile for images</source>
@@ -6699,7 +6699,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben.</transl
     </message>
     <message>
         <source>Rendering intent for images</source>
-        <translation>Wiedergabemethode für Bilder festlegen</translation>
+        <translation>Render-Methode für Bilder</translation>
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
@@ -7855,7 +7855,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Units</source>
-        <translation>Vorgabe für Maßeinheit</translation>
+        <translation>Einheiten</translation>
     </message>
     <message>
         <source>Points (pt)</source>
@@ -7995,7 +7995,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Grid Layout</source>
-        <translation>Vorgaben für Hilfslinien</translation>
+        <translation>Hilfslinien Einrichtung</translation>
     </message>
     <message>
         <source>Minor Grid Spacing:</source>
@@ -8011,7 +8011,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Grid Colors</source>
-        <translation>Farbeinstellungen für Hilfslinien</translation>
+        <translation>Hilfslinienfarben</translation>
     </message>
     <message>
         <source>Minor Grid Color:</source>
@@ -8287,7 +8287,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Misc.</source>
-        <translation>Verschiedenes</translation>
+        <translation>Versch.</translation>
     </message>
     <message>
         <source>Displacement:</source>
@@ -8751,7 +8751,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Grab Radius:</source>
-        <translation>Fangradi&amp;us:</translation>
+        <translation>Fang&amp;radius:</translation>
     </message>
     <message>
         <source>&amp;Recent Documents:</source>
@@ -8763,7 +8763,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Change...</source>
-        <translation>&amp;Ändern...</translation>
+        <translation>&amp;Wechseln...</translation>
     </message>
     <message>
         <source>&amp;ICC Profiles:</source>
@@ -8779,7 +8779,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Ch&amp;ange...</source>
-        <translation>Änd&amp;ern...</translation>
+        <translation>Ä&amp;ndern...</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -8787,7 +8787,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation>Ausrich&amp;tung:</translation>
+        <translation>Aus&amp;richtung:</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
@@ -8843,7 +8843,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Min&amp;or Grid Color:</source>
-        <translation>Farbe der &amp;Teillinien:</translation>
+        <translation>&amp;Farbe der Teillinien:</translation>
     </message>
     <message>
         <source>Majo&amp;r Grid Color:</source>
@@ -8851,11 +8851,11 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;User Guides Color:</source>
-        <translation>Farbe der Hilfs&amp;linien:</translation>
+        <translation>Farbe der &amp;Hilfslinien:</translation>
     </message>
     <message>
         <source>Base&amp;line Grid Color:</source>
-        <translation>Farbe des &amp;Grundlinienrasters:</translation>
+        <translation>&amp;Farbe des Grundlinienrasters:</translation>
     </message>
     <message>
         <source>In the &amp;Background</source>
@@ -8879,11 +8879,11 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Scaling:</source>
-        <translation>&amp;Skalierung:</translation>
+        <translation>Ska&amp;lierung:</translation>
     </message>
     <message>
         <source>D&amp;isplacement:</source>
-        <translation>Versat&amp;z:</translation>
+        <translation>&amp;Versatz:</translation>
     </message>
     <message>
         <source>S&amp;caling:</source>
@@ -8891,7 +8891,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Sc&amp;aling:</source>
-        <translation>Skalieru&amp;ng:</translation>
+        <translation>Ska&amp;lierung:</translation>
     </message>
     <message>
         <source>Baseline &amp;Grid:</source>
@@ -8899,11 +8899,11 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Baseline &amp;Offset:</source>
-        <translation>&amp;Grundlinienversatz:</translation>
+        <translation>Grundlinien-&amp;Versatz:</translation>
     </message>
     <message>
         <source>Automatic &amp;Line Spacing:</source>
-        <translation>Au&amp;tomatischer Zeilenabstand:</translation>
+        <translation>Automatischer &amp;Zeilenabstand:</translation>
     </message>
     <message>
         <source>Default &amp;Font:</source>
@@ -8919,15 +8919,15 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation>S&amp;palten:</translation>
+        <translation>&amp;Spalten:</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation>Abs&amp;tand:</translation>
+        <translation>&amp;Abstand:</translation>
     </message>
     <message>
         <source>&amp;Line Color:</source>
-        <translation>Linienfar&amp;be:</translation>
+        <translation>Linien&amp;farbe:</translation>
     </message>
     <message>
         <source>&amp;Shading:</source>
@@ -8939,11 +8939,11 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>S&amp;hading:</source>
-        <translation>Ton&amp;wert:</translation>
+        <translation>&amp;Tonwert:</translation>
     </message>
     <message>
         <source>&amp;Type of Line:</source>
-        <translation>Liniena&amp;rt:</translation>
+        <translation>Linien&amp;art:</translation>
     </message>
     <message>
         <source>Line &amp;Width:</source>
@@ -8963,7 +8963,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
-        <translation>Freie &amp;Skalierung</translation>
+        <translation>&amp;Freie Skalierung</translation>
     </message>
     <message>
         <source>&amp;Horizontal Scaling:</source>
@@ -8979,7 +8979,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
-        <translation>Seitenverhältnisse &amp;beibehalten</translation>
+        <translation>Seitenverhältnisse beibe&amp;halten</translation>
     </message>
     <message>
         <source>F&amp;ill Color:</source>
@@ -8999,7 +8999,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
-        <translation>Fak&amp;tor:</translation>
+        <translation>Fa&amp;ktor:</translation>
     </message>
     <message>
         <source>Sa&amp;ve Contents on Changes</source>
@@ -9396,11 +9396,11 @@ Datei wurde nicht gefunden.
     <name>QFontDialog</name>
     <message>
         <source>&amp;Font</source>
-        <translation>&amp;Schriftart</translation>
+        <translation>Schrift&amp;art</translation>
     </message>
     <message>
         <source>Font st&amp;yle</source>
-        <translation>Schrifts&amp;til</translation>
+        <translation>&amp;Formatierung</translation>
     </message>
     <message>
         <source>&amp;Size</source>
@@ -9412,7 +9412,7 @@ Datei wurde nicht gefunden.
     </message>
     <message>
         <source>Stri&amp;keout</source>
-        <translation>Durch&amp;gestrichen</translation>
+        <translation>Du&amp;rchgestrichen</translation>
     </message>
     <message>
         <source>&amp;Underline</source>
@@ -9424,11 +9424,11 @@ Datei wurde nicht gefunden.
     </message>
     <message>
         <source>Sample</source>
-        <translation>Beispiel</translation>
+        <translation>Vorschau</translation>
     </message>
     <message>
         <source>Scr&amp;ipt</source>
-        <translation>Schr&amp;iftsystem</translation>
+        <translation>&amp;Zeichensatz</translation>
     </message>
     <message>
         <source>OK</source>
@@ -9943,15 +9943,15 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>Comma Separated Value Files</source>
-        <translation>Komma separierte Daten</translation>
+        <translation>Kommaseparierte Dateien</translation>
     </message>
     <message>
         <source>CSV_data</source>
-        <translation>CSV_data</translation>
+        <translation>CVS_data</translation>
     </message>
     <message>
         <source>CSV_header</source>
-        <translation>CSV_Vorspann</translation>
+        <translation>CSV_header</translation>
     </message>
 </context>
 <context>
@@ -11438,7 +11438,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
-        <translation>&amp;Linienstile...</translation>
+        <translation>&amp;Linien-Stile...</translation>
     </message>
     <message>
         <source>&amp;Templates...</source>
@@ -12584,7 +12584,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>&amp;Display Font...</source>
-        <translation>&amp;Schriftart des Textes...</translation>
+        <translation>&amp;Schriftart...</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
@@ -13176,28 +13176,28 @@ Bitte wählen Sie einen anderen.</translation>
         <translation type="obsolete">Kopieren Sie eine bestehende template.xml nach template.lang_COUNTRY.xml, wobei Sie denselben Ländercode benutzen sollten wie die qm-Datei für Ihre Sprache auch hat. Außerdem muss die Kopie im selben Verzeichnis wie das Original liegen.</translation>
     </message>
     <message>
+        <source>Date</source>
+        <translation>Datum</translation>
+    </message>
+    <message>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation>Dokumentvorlagen können unter http://www.scribus.net/ im Downloadbereich gefunden werden.</translation>
+        <translation>Weitere Dokumentvorlagen finden Sie unter http://www.scribus.net/ im Download-Bereich.</translation>
     </message>
     <message>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Stellen Sie sicher daß Bilder und Schriften frei verwendet werden können.</translation>
+        <translation>Sie müssen sicherstellen, dass die Bilder und Fonts frei benutzt werden können. Wenn Sie Fonts nicht verbreiten dürfen, dann binden Sie diese beim Export als Vorlage nicht ein.</translation>
     </message>
     <message>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation>Wenn Sie selber Vorlagen bereitstellen, sollten Sie vorher ausprobieren, ob sie auch korrekt funktionieren. Das heißt, wenn Sie die Vorlage ins angegebene Verzeichnis kopieren, sollte sie sofort einsatzbereit sein.</translation>
+        <translation>Wenn Sie Vorlagen erstellen, sollten Sie darauf achten, dass Sie die Informationen in dem Abschnitt &quot;Vorlagen installieren&quot; beachten. Das bedeutet, der Benutzer sollte in der Lage sein, die Vorlage einfach in das entsprechende Verzeichnis zu kopieren und zu benutzen.</translation>
     </message>
     <message>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Wenn Sie eine Vorlage hier entfernen, wird nur der Eintrag in template.xml gelöscht, die Vorlagendateien an sich bleiben erhalten. Außerdem erscheint das Popup-Menü mit Entfernen nur, wenn sie Schreibrechte auf template.xml besitzen.</translation>
+        <translation>Wenn Sie eine Vorlage von dieser Liste entfernen, wird nur der entsprechende Eintrag in der template.xml gelöscht, nicht die Vorlage selber. Sie können Vorlagen nur löschen, wenn Sie Schreibrechte auf template.xml besitzen.</translation>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
-        <translation>Kopieren Sie eine bestehende template.xml nach template.lang_COUNTRY.xml, wobei Sie denselben Ländercode benutzen sollten wie die qm-Datei für Ihre Sprache auch hat. Außerdem muss die Kopie im selben Verzeichnis wie das Original liegen.</translation>
-    </message>
-    <message>
-        <source>Date</source>
-        <translation>Datum</translation>
+        <translation>Kopieren Sie die existierende template.xml nach template.lang_COUNTRY.xml (selber Ländercode wie bei den qm-Dateien), zum Beispiel template.fi.xml für Finnisch. Diese Kopie muss sich im selben Verzeichnis wie template.xml befinden.</translation>
     </message>
 </context>
 <context>

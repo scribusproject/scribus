@@ -101,6 +101,7 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	ExtraV = 0;
 	Ptext.clear();
 	Ptext.setAutoDelete(true);
+	MaxChars = 0;
 	Pfile = "";
 	pixm = QImage();
 	pixmOrg = QImage();
@@ -564,8 +565,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					p->scale(1, -1);
 				}
 				struct ZZ Zli3;
-				for (a = 0; a < MaxChars; ++a)
+				for (a = 0; a < Ptext.count(); ++a)
 				{
+					if (a > MaxChars)
+						break;
 					hl = Ptext.at(a);
 					chx = hl->ch;
 					if (hl->ch == QChar(30))

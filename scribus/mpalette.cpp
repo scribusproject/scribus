@@ -427,7 +427,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	DistanceLayout2->addMultiCellWidget( showcurveCheckBox, 0, 0, 0, 1 );
 	startoffsetLabel = new QLabel( tr( "Start Offset:" ), Distance2, "startoffsetLabel" );
 	DistanceLayout2->addWidget( startoffsetLabel, 1, 0);
-	Dist = new MSpinBox( 0, 300, Distance2, 1 );
+	Dist = new MSpinBox( 0, 30000, Distance2, 1 );
 	Dist->setSuffix( tr( " pt" ) );
 	Dist->setLineStep(10);
 	DistanceLayout2->addWidget( Dist, 1, 1);

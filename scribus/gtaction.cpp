@@ -153,6 +153,7 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	textFrame->ColGap = fstyle->getColumnsGap();
 	textFrame->Pcolor = fstyle->getBgColor();
 	textFrame->Shade = fstyle->getBgShade();
+	textFrame->TabValues = QValueList<double>(*(fstyle->getTabValues()));
 	
 	gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
 	int pstyleIndex = findParagraphStyle(pstyle);
@@ -205,6 +206,7 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 	gtFont font;
 	getFrameFont(&font);
 	fstyle->setFont(font);
+	fstyle->setName("Default frame style");
 }
 
 void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
@@ -254,21 +256,72 @@ QString gtAction::validateFont(gtFont* font)
 		useFont = textFrame->IFont;
 	else if (ScApp->Prefs.AvailFonts[font->getName()] == 0)
 	{
-		if (!ScApp->Prefs.GFontSub.contains(font->getName()))
+		bool found = false;
+		QString tmpName = findFontName(font);
+		if (tmpName != NULL)
 		{
-			DmF *dia = new DmF(0, useFont, &ScApp->Prefs);
-			dia->exec();
-			useFont = dia->Ersatz;
-			delete dia;
-			ScApp->Prefs.GFontSub[font->getName()] = useFont;
+			useFont = tmpName;
+			found = true;
 		}
-		else
-			useFont = ScApp->Prefs.GFontSub[font->getName()];
+		if (!found)
+		{
+			if (font->getSlant() == gtFont::fontSlants[ITALIC])
+			{
+				gtFont* tmp = new gtFont(*font);
+				tmp->setSlant(OBLIQUE);
+				tmpName = findFontName(tmp);
+				if (tmpName != NULL)
+				{
+					useFont = tmpName;
+					found = true;
+				}
+				delete tmp;
+			}
+			else if (font->getSlant() == gtFont::fontSlants[OBLIQUE])
+			{
+				gtFont* tmp = new gtFont(*font);
+				tmp->setSlant(ITALIC);
+				tmpName = findFontName(tmp);
+				if (tmpName != NULL)
+				{
+					useFont = tmpName;
+					found = true;
+				}
+				delete tmp;
+			}
+			if (!found)
+			{
+				if (!ScApp->Prefs.GFontSub.contains(font->getName()))
+				{
+					DmF *dia = new DmF(0, useFont, &ScApp->Prefs);
+					dia->exec();
+					useFont = dia->Ersatz;
+					ScApp->Prefs.GFontSub[font->getName()] = useFont;
+					delete dia;
+				}
+				else
+					useFont = ScApp->Prefs.GFontSub[font->getName()];
+			}
+		}
 	}
 	if(!ScApp->doc->UsedFonts.contains(useFont))
 		ScApp->doc->AddFont(useFont, ScApp->Prefs.AvailFonts[useFont]->Font);
-
 	return useFont;
+}
+
+QString gtAction::findFontName(gtFont* font)
+{
+	QString ret = NULL;
+	for (uint i = 0; i < static_cast<uint>(gtFont::NAMECOUNT); ++i)
+	{
+		QString nname = font->getName(i);
+		if (ScApp->Prefs.AvailFonts[nname] != 0)
+		{
+			ret = nname;
+			break;
+		}
+	}
+	return ret;
 }
 
 double gtAction::getFrameWidth()

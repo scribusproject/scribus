@@ -1,5 +1,10 @@
 Changes since 1.2RC1 
 
+22.08.2004
+	* bug     #728: "Hanging Conjunctions"
+	* feature #953: small improvement to the layer selector at the bottom
+	* feature #983: German ts-file for 1.2
+
 21.08.2004
 	* feature #980: Finnish translation update
 	* feature #981: czech translation

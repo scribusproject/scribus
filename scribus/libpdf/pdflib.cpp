@@ -833,10 +833,6 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 			}
 			PutDoc(func+"\n>>\n");
 		}
-/*		PutDoc("/Cyan\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
-		PutDoc("/Magenta\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
-		PutDoc("/Yellow\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
-		PutDoc("/Black\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n"); */
 		PutDoc("/Default\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
 		PutDoc(">>\nendobj\n");
 		ObjCounter++;
@@ -2647,9 +2643,11 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 		cc = ite->Ptext.at(d)->ch;
 		if ((cc == "(") || (cc == ")") || (cc == "\\"))
 			bm += "\\";
+		if (cc == QChar(13))
+			cc = "\\r";
 		bm += cc;
 	}
-	QStringList bmst = QStringList::split("\r", bm);
+	QStringList bmst = QStringList::split("\\r", bm);
 	const char *m[] = {"4", "5", "F", "l", "H", "n"};
 	ct = m[ite->AnChkStil];
 	StartObj(ObjCounter);
@@ -3052,7 +3050,18 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 #endif
 		cc += ind2PDFabr[ite->AnFont];
 		cc += " "+FToStr(ite->ISize / 10.0)+" Tf\n";
-		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n"+EncString("("+bm+")",ObjCounter-1)+" Tj\nET\nEMC";
+		if (bmst.count() > 1)
+		{
+			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
+			for (uint mz = 0; mz < bmst.count(); ++mz)
+			{
+				cc += EncString("("+bmst[mz]+")",ObjCounter-1);
+				cc += " Tj\nT*\n";
+			}
+			cc += "ET\nEMC";
+		}
+		else
+			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n"+EncString("("+bm+")",ObjCounter-1)+" Tj\nET\nEMC";
 		PDF_Form(cc);
 	}
 	if (ite->AnType == 4)

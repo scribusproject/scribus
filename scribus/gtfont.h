@@ -68,7 +68,11 @@ enum FontWidth {
 	EXTRACONDENSED,
 	SEMICONDENSED,
 	ULTRACONDENSED,
+	EXTRACOMPRESSED,
+	SEMICOMPRESSED,
+	ULTRACOMPRESSED,
 	CONDENSED,
+	COMPRESSED,
 	FontWidthMAX
 };
 
@@ -78,15 +82,13 @@ enum FontWidth {
 */
 class gtFont
 {
-	static const QString fontWeights[];
-	static const QString fontSlants[];
-	static const QString fontWidths[];
 private:
 	QString name;
 	QString family;
 	QString weight;
 	QString slant;
 	QString width;
+	QString append;
 	int     size;
 	bool    fontEffects[FontEffectMAX];
 	QString color;
@@ -96,21 +98,32 @@ private:
 	/* Width of a character in percentages to it's "real width" */
 	int     hscale;
 	double  kerning;
+	bool useFullName;
+	int  weightIndex;
+	int  slantIndex;
+	int  widthIndex;
 	void initArrays();
 	void parseName();
 public:
+	static const QString fontWeights[];
+	static const QString fontSlants[];
+	static const QString fontWidths[];
 	void    noEffects();
 	bool    isToggled(FontEffect fe);
 	bool    toggleEffect(FontEffect fe);
 	int     getEffectsValue();
 	void	setName(QString newName);
 	void    setFamily(QString newFamily);
+	QString getFamily();
 	void    setWeight(FontWeight newWeight);
-	void    setSlant(FontSlant newSlant);
-	void    setWidth(FontWidth newWidth);
 	void    setWeight(QString newWeight);
+	QString getWeight();
+	void    setSlant(FontSlant newSlant);
 	void    setSlant(QString newSlant);
+	QString getSlant();
+	void    setWidth(FontWidth newWidth);
 	void    setWidth(QString newWidth);
+	QString getWidth();
 	void    setSize(int newSize);
 	void    setSize(double newSize);
 	void    setColor(QString newColor);
@@ -118,6 +131,8 @@ public:
 	void    setStrokeColor(QString newColor);
 	void    setStrokeShade(int newShade);
 	QString getName();
+	QString getName(uint i);
+	const static int NAMECOUNT = 14;
 	int     getSize();
 	QString getColor();
 	int     getShade();
@@ -132,4 +147,4 @@ public:
 	~gtFont();
 };
 
-#endif // FONT_H
+#endif // GTFONT_H

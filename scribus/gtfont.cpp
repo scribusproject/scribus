@@ -53,7 +53,11 @@ const QString gtFont::fontWidths[FontWidthMAX] =
 	"Extra Condensed",
 	"Semi Condensed",
 	"Ultra Condensed",
-	"Condensed"
+	"Extra Compressed",
+	"Semi Compressed",
+	"Ultra Compressed",
+	"Condensed",
+	"Compressed"
 };
 
 gtFont::gtFont()
@@ -64,6 +68,7 @@ gtFont::gtFont()
 	weight      = "";
 	slant       = "";
 	width       = "";
+	append      = "";
 	size        = 12;
 	color       = "Black";
 	shade       = 100;
@@ -71,6 +76,10 @@ gtFont::gtFont()
 	strokeShade = 100;
 	hscale      = 100;
 	kerning     = 0.0;
+	useFullName = true;
+	weightIndex = 0;
+	slantIndex  = 1;
+	widthIndex  = 2;
 }
 
 gtFont::gtFont(const gtFont& f)
@@ -80,6 +89,7 @@ gtFont::gtFont(const gtFont& f)
 	weight      = f.weight;
 	slant       = f.slant;
 	width       = f.width;
+	append      = f.append;
 	size        = f.size;
 	color       = f.color;
 	shade       = f.shade;
@@ -87,6 +97,10 @@ gtFont::gtFont(const gtFont& f)
 	strokeShade = f.strokeShade;
 	hscale      = f.hscale;
 	kerning     = f.kerning;
+	useFullName = f.useFullName;
+	weightIndex = f.weightIndex;
+	slantIndex  = f.slantIndex;
+	widthIndex  = f.widthIndex;
 	fontEffects[NORMAL]        = f.fontEffects[NORMAL];
 	fontEffects[UNDERLINE]     = f.fontEffects[UNDERLINE];
 	fontEffects[STRIKETHROUGH] = f.fontEffects[STRIKETHROUGH];
@@ -160,41 +174,108 @@ void gtFont::setName(QString newName)
 	setSlant(NO_SLANT);
 	setWidth(NO_WIDTH);
 	parseName();
+	useFullName = true;
 }
 
 void gtFont::setFamily(QString newFamily)
 {
 	family = newFamily;
+	useFullName = false;
+}
+
+QString gtFont::getFamily()
+{
+	return family;
 }
 
 void gtFont::setWeight(FontWeight newWeight)
 {
 	weight = fontWeights[newWeight];
-}
-
-void gtFont::setSlant(FontSlant newSlant)
-{
-	slant = fontSlants[newSlant];
-}
-
-void gtFont::setWidth(FontWidth newWidth)
-{
-	width = fontWidths[newWidth];
+	useFullName = false;
+	if ((newWeight == ROMAN) || (newWeight == REGULAR))
+	{
+		setSlant(NO_SLANT);
+		setWidth(NO_WIDTH);
+	}
 }
 
 void gtFont::setWeight(QString newWeight)
 {
 	weight = newWeight;
+	useFullName = false;
+		if ((newWeight == fontWeights[ROMAN]) || 
+		    (newWeight == fontWeights[REGULAR]))
+	{
+		setSlant(NO_SLANT);
+		setWidth(NO_WIDTH);
+	}
+}
+
+QString gtFont::getWeight()
+{
+	return weight;
+}
+
+void gtFont::setSlant(FontSlant newSlant)
+{
+	slant = fontSlants[newSlant];
+	useFullName = false;
+	if (newSlant != NO_SLANT)
+	{
+		if (weight == fontWeights[REGULAR])
+			setWeight(NO_WEIGHT);
+		else if (weight == fontWeights[ROMAN])
+			setWeight(NO_WEIGHT);
+	}
 }
 
 void gtFont::setSlant(QString newSlant)
 {
 	slant = newSlant;
+	useFullName = false;
+	if (newSlant != "")
+	{
+		if (weight == fontWeights[REGULAR])
+			setWeight(NO_WEIGHT);
+		else if (weight == fontWeights[ROMAN])
+			setWeight(NO_WEIGHT);
+	}
+}
+
+QString gtFont::getSlant()
+{
+	return slant;
+}
+
+void gtFont::setWidth(FontWidth newWidth)
+{
+	width = fontWidths[newWidth];
+	useFullName = false;
+	if (newWidth != NO_WIDTH)
+	{
+		if (weight == fontWeights[REGULAR])
+			setWeight(NO_WEIGHT);
+		else if (weight == fontWeights[ROMAN])
+			setWeight(NO_WEIGHT);
+	}
 }
 
 void gtFont::setWidth(QString newWidth)
 {
 	width = newWidth;
+	useFullName = false;
+	if (newWidth != "")
+	{
+		if (weight == fontWeights[REGULAR])
+			setWeight(NO_WEIGHT);
+		else if (weight == fontWeights[ROMAN])
+			setWeight(NO_WEIGHT);
+	}
+}
+
+QString gtFont::getWidth()
+{
+	return width;
 }
 
 void gtFont::setSize(int newSize)
@@ -204,8 +285,8 @@ void gtFont::setSize(int newSize)
 
 void gtFont::setSize(double newSize)
 {
-	newSize = newSize * 10;
-	size = static_cast<int>(newSize);
+	double tmp = newSize * 10;
+	size = static_cast<int>(tmp);
 }
 
 void gtFont::setColor(QString newColor)
@@ -230,10 +311,85 @@ void gtFont::setStrokeShade(int newShade)
 
 QString gtFont::getName()
 {
-	QString name2 = family + " " + weight + " " + slant + " " + width;
+	if (useFullName)
+		return name;
+
+	QString name2 = family + " ";
+	if (weightIndex == 0)
+		name2 += weight + " ";
+	else if (slantIndex == 0) 
+		name2 += slant + " ";
+	else if (widthIndex == 0)
+		name2 += width + " ";
+	if (weightIndex == 1)
+		name2 += weight + " ";
+	else if (slantIndex == 1) 
+		name2 += slant + " ";
+	else if (widthIndex == 1)
+		name2 += width + " ";
+	if (weightIndex == 2)
+		name2 += weight + " ";
+	else if (slantIndex == 2) 
+		name2 += slant + " ";
+	else if (widthIndex == 2)
+		name2 += width + " ";
+	name2 += append;
 	name2 = name2.simplifyWhiteSpace();
 	return name2;
+}
 
+QString gtFont::getName(uint i)
+{
+	QString fname = family + " ";
+	switch (i)
+	{
+		case 0:
+			fname = fname + weight + " " + slant + " " + width + " " + append;
+			break;
+		case 1:
+			fname = fname + weight + " " + width + " " + slant + " " + append;
+			break;
+		case 2:
+			fname = fname + slant + " " + weight + " " + width + " " + append;
+			break;
+		case 3:
+			fname = fname + slant + " " + width + " " + weight + " " + append;
+			break;
+		case 4:
+			fname = fname + width + " " + weight + " " + slant + " " + append;
+			break;
+		case 5:
+			fname = fname + width + " " + slant + " " + weight + " " + append;
+			break;
+		case 6:
+			fname = fname + " " + append + " " + weight + " " + slant + " " + width;
+			break;
+		case 7:
+			fname = fname + " " + append + " " + weight + " " + width + " " + slant;
+			break;
+		case 8:
+			fname = fname + " " + append + " " + slant + " " + weight + " " + width;
+			break;
+		case 9:
+			fname = fname + " " + append + " " + slant + " " + width + " " + weight;
+			break;
+		case 10:
+			fname = fname + " " + append + " " + width + " " + weight + " " + slant;
+			break;
+		case 11:
+			fname = fname + " " + append + " " + width + " " + slant + " " + weight;
+			break;
+		case 12:
+			if ((append == "") && (weight == "") && (slant == "") && (width == ""))
+				fname = fname + " " + fontWeights[REGULAR];
+			break;
+		case 13:
+			if ((append == "") && (weight == "") && (slant == "") && (width == ""))
+				fname = fname + " " + fontWeights[ROMAN];
+			break;
+	}
+	fname = fname.simplifyWhiteSpace();
+	return fname;
 }
 
 int gtFont::getSize()
@@ -295,8 +451,12 @@ void gtFont::setKerning(double newKerning)
 void gtFont::parseName()
 {
 	int smallestIndex = -1;
+	int biggestIndex = - 1;
 	int index = -1;
 	bool found = false;
+	int tmpWeightIndex = -1;
+	int tmpSlantIndex = -1;
+	int tmpWidthIndex = -1;
 	for (int i = 1; i < FontWeightMAX; ++i)
 	{
 		index = name.find(fontWeights[i]); // f.e. Demi Bold
@@ -338,7 +498,10 @@ void gtFont::parseName()
 			weight = tmpWeight;
 			if (smallestIndex == -1 || smallestIndex > index)
 				smallestIndex = index;
+			if ((biggestIndex == -1) || (biggestIndex < index + static_cast<int>(tmpWeight.length()) - 1))
+				biggestIndex = index + tmpWeight.length();
 			found = true;
+			tmpWeightIndex = index;
 			break;
 		}
 	}
@@ -354,7 +517,10 @@ void gtFont::parseName()
 			slant = fontSlants[i];
 			if (smallestIndex == -1 || smallestIndex > index)
 				smallestIndex = index;
+			if ((biggestIndex == -1) || (biggestIndex < index + static_cast<int>(slant.length()) - 1))
+				biggestIndex = index + slant.length();
 			found = true;
+			tmpSlantIndex = index;
 			break;
 		}
 	}
@@ -379,7 +545,7 @@ void gtFont::parseName()
 				if (index == -1)
 				{
 					fw2 = fontWidths[i];
-					fw2.replace(" B", " b"); // f.e. Demibold
+					fw2.replace(" B", " b");
 					fw2.replace(" C", " c");
 					fw2.replace(" H", " h");
 					fw2.replace(" L", " l");
@@ -403,19 +569,66 @@ void gtFont::parseName()
 			width = tmpWidth;
 			if (smallestIndex == -1 || smallestIndex > index)
 				smallestIndex = index;
+			if ((biggestIndex == -1) || (biggestIndex < index + static_cast<int>(tmpWidth.length()) - 1))
+				biggestIndex = index + tmpWidth.length();
 			found = true;
+			tmpWidthIndex = index;
 			break;
 		}
 	}
 	if (!found)
 		width = fontWidths[NO_WIDTH];
-
+	if (tmpWeightIndex < tmpSlantIndex)
+	{
+		weightIndex = 0;
+		slantIndex  = 1;
+		if (tmpWidthIndex < tmpWeightIndex)
+		{
+			widthIndex = 0;
+			weightIndex = 1;
+			slantIndex = 2;
+		}
+		else if (tmpWidthIndex < tmpSlantIndex)
+		{
+			widthIndex = 1;
+			slantIndex = 2;
+		}
+		else
+			widthIndex = 2;
+	}
+	else if (tmpWeightIndex > tmpSlantIndex)
+	{
+		slantIndex = 0;
+		weightIndex = 1;
+		if (tmpWidthIndex < tmpSlantIndex)
+		{
+			widthIndex = 0;
+			slantIndex = 1;
+			weightIndex = 2;
+		}
+		else if (tmpWidthIndex < tmpWeightIndex)
+		{
+			widthIndex = 1;
+			weightIndex = 2;
+		}
+		else
+			widthIndex = 2;
+	}
+	else
+	{
+		weightIndex = -2;
+		widthIndex = -1;
+		slantIndex = 0;
+	}
 	if (smallestIndex == -1)
 		family = name;
 	else
 		family = name.left(smallestIndex);
+	if (biggestIndex == -1)
+		append = "";
+	else
+		append = name.right(name.length() - biggestIndex);
 	family = family.stripWhiteSpace();
-	
 }
 
 gtFont::~gtFont()

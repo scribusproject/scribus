@@ -9010,6 +9010,8 @@ void ScribusApp::slotStoryEditor()
 			if (dia->TextChanged)
 				dia->updateTextFrame();
 		}
+		else
+			doc->ActPage->update();
 		BuildFontMenu();
 		CurrStED = NULL;
 		delete dia;

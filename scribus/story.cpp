@@ -2137,7 +2137,7 @@ void StoryEditor::updateTextFrame()
 			doc->Trenner->slotNewDict(nb->Language);
 		doc->Trenner->slotHyphenate(nb);
 	}
-	doc->ActPage->RefreshItem(nb);
+	doc->ActPage->update();
 	TextChanged = false;
 	emenu->setItemEnabled(Mupdt, 0);
 	fmenu->setItemEnabled(fid52, 0);

@@ -18,48 +18,35 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef GTACTION_H
-#define GTACTION_H
+#ifndef GTMEASURE_H
+#define GTMEASURE_H
 
-#include <qtextcodec.h>
-#include <qvaluelist.h>
-#include "scribus.h"
-#include "scribusdoc.h"
-#include "missing.h"
-#include "mpalette.h"
-#include "gtfont.h"
-#include "gtframestyle.h"
-#include "gtparagraphstyle.h"
-#include "gtstyle.h"
+#include <qstring.h>
 
-class gtAction
-{
-private:
-	PageItem *textFrame;
-	PageItem *it;
-	int lastParagraphStyle;
-	bool lastCharWasLineChange;
-	QString currentFrameStyle;
-	int findParagraphStyle(gtParagraphStyle* pstyle);
-	int applyParagraphStyle(gtParagraphStyle* pstyle);
-	void applyFrameStyle(gtFrameStyle* fstyle);
-	QString validateFont(gtFont* font);
-	QString findFontName(gtFont* font);
-	void finalize();
-public:
-	gtAction(bool append);
-	~gtAction();
-	void setTextFrame(PageItem* frame);
-	void setProgressInfo();
-	void setProgressInfoDone();
-	void setInfo(QString infoText);
-	void clearFrame();
-	void getFrameFont(gtFont *font);
-	void getFrameStyle(gtFrameStyle *fstyle);
-	void write(QString text, gtStyle *style);
-	void createParagraphStyle(gtParagraphStyle* pstyle);
-	double getFrameWidth();
-	QString getFrameName();
+enum Unit {
+	POINTS      = 0,
+	PT          = 0,
+	MILLIMETERS = 1,
+	MM          = 1,
+	INCHES      = 2,
+	IN          = 2,
+	PICAS       = 3,
+	P           = 3
 };
 
-#endif
+class gtMeasure
+{
+private:
+	gtMeasure();
+	static double ratio;
+	static void   init(Unit u);
+	static double convert(double value);
+	static double convert(int value);
+	static double parse(QString value);
+public:
+	static double d2d(double value, Unit from);
+	static double i2d(int value, Unit from);
+	static double qs2d(QString value);
+};
+
+#endif // GTMEASURE_H

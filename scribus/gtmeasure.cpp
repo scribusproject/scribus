@@ -18,48 +18,86 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef GTACTION_H
-#define GTACTION_H
+#include "gtmeasure.h"
 
-#include <qtextcodec.h>
-#include <qvaluelist.h>
-#include "scribus.h"
-#include "scribusdoc.h"
-#include "missing.h"
-#include "mpalette.h"
-#include "gtfont.h"
-#include "gtframestyle.h"
-#include "gtparagraphstyle.h"
-#include "gtstyle.h"
+double gtMeasure::ratio = 1.0;
 
-class gtAction
+void gtMeasure::init(Unit u)
 {
-private:
-	PageItem *textFrame;
-	PageItem *it;
-	int lastParagraphStyle;
-	bool lastCharWasLineChange;
-	QString currentFrameStyle;
-	int findParagraphStyle(gtParagraphStyle* pstyle);
-	int applyParagraphStyle(gtParagraphStyle* pstyle);
-	void applyFrameStyle(gtFrameStyle* fstyle);
-	QString validateFont(gtFont* font);
-	QString findFontName(gtFont* font);
-	void finalize();
-public:
-	gtAction(bool append);
-	~gtAction();
-	void setTextFrame(PageItem* frame);
-	void setProgressInfo();
-	void setProgressInfoDone();
-	void setInfo(QString infoText);
-	void clearFrame();
-	void getFrameFont(gtFont *font);
-	void getFrameStyle(gtFrameStyle *fstyle);
-	void write(QString text, gtStyle *style);
-	void createParagraphStyle(gtParagraphStyle* pstyle);
-	double getFrameWidth();
-	QString getFrameName();
-};
+	switch (u)
+	{
+	case PT:
+		ratio = 1.0;
+		break;
+	case MM:
+		ratio = 0.3527777;
+		break;
+	case IN:
+		ratio = 1.0 / 72.0;
+		break;
+	case P:
+		ratio = 1.0 / 12.0;
+		break;
+	}
+}
 
-#endif
+double gtMeasure::convert(double value)
+{
+	return value / ratio;
+}
+
+double gtMeasure::convert(int value)
+{
+	return value / ratio;
+}
+
+double gtMeasure::parse(QString value)
+{
+	QString lowerValue = value.lower();
+	QString dbl = "0.0";
+	if (lowerValue.find("pt") != -1)
+	{
+		init(PT);
+		dbl = lowerValue.remove("pt");
+	}
+	else if (lowerValue.find("mm") != -1)
+	{
+		init(MM);
+		dbl = lowerValue.remove("pt");
+	}
+	else if (lowerValue.find("in") != -1)
+	{
+		init(IN);
+		dbl = lowerValue.remove("pt");
+	}
+	else if (lowerValue.find("p") != -1)
+	{
+		init(P);
+		dbl = lowerValue.remove("pt");
+	}
+	else
+		init(PT);
+
+	dbl = dbl.stripWhiteSpace();
+	if (dbl.find(".") == -1)
+		dbl += ".0";
+	return dbl.toDouble();
+}
+
+double gtMeasure::d2d(double value, Unit from)
+{
+	init(from);
+	return convert(value);
+}
+
+
+double gtMeasure::i2d(int value, Unit from)
+{
+	init(from);
+	return convert(value);
+}
+
+double gtMeasure::qs2d(QString value)
+{
+	return convert(parse(value));
+}

@@ -708,8 +708,8 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd, bool sp)
 					p.end();
 					if ((rd.intersects(apr.boundingRect())) || (rd.intersects(apr2.boundingRect())))
 					{
-						if ((sp) && (b->Ptext.count() >= b->MaxChars))
-							b->Dirty = true;
+//						if ((sp) && (b->Ptext.count() >= b->MaxChars))
+//							b->Dirty = true;
 						if (!((doku->EditClip) && (Mpressed)))
 							b->DrawObj(painter, rd);
 						b->Redrawn = true;
