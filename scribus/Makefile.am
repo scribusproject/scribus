@@ -1,85 +1,12 @@
 bin_PROGRAMS = scribus
 
-## The gdk-pixbuf sources only need to be compiled if Scribus has been configured to use pixbuf.
-## They also will not build on non-X11 platforms. They're separated out for that reason.
-scribus_pixbuf_sources = gdk-pixbuf-xlib-drawable.c gdk-pixbuf-xlib-render.c gdk-pixbuf-xlib.c gdk-pixbuf-xlibrgb.c 
-## scribus_uic_uicfiles is unused in the build. Once an issue with conditional compiltion and
-## uic is resolved, they should be included as normal.
-scribus_uic_uicfiles = docitemattrprefs.ui pageitemattributes.ui
-## Every .ui file's generated .cpp must be listed here for now, until the build issues with
-## uic files are addressed. You must also add a make rule to generate the .cpp and .h from the
-## .ui - see below for examples. This is a temporary hack only.
-scribus_uic_cppfiles = docitemattrprefs.cpp pageitemattributes.cpp
-## The list of "main" scribus files that is always compiled.
-scribus_base_sources = about.cpp art_kmisc.c art_render_misc.c art_render_pattern.c art_rgb.c art_rgb_affine_private.c art_rgb_svp.c art_rgba_affine.c scrpalettebase.cpp pagesize.cpp pluginmanager.cpp prefs.cpp fontreplacedialog.cpp tabpdfoptions.cpp tabcheckdoc.cpp checkDocument.cpp units.cpp scraction.cpp menumanager.cpp scmenu.cpp charselect.cpp filewatcher.cpp tabtools.cpp tabguides.cpp tabtypography.cpp arrowchooser.cpp polygonwidget.cpp prefsdialogbase.cpp fileloader.cpp gradienteditor.cpp gtgettext.cpp gtdialogs.cpp gtstyle.cpp gtframestyle.cpp gtparagraphstyle.cpp gtfont.cpp gtwriter.cpp gtaction.cpp gtmeasure.cpp undomanager.cpp undostate.cpp undoobject.cpp undogui.cpp prefsfile.cpp prefscontext.cpp prefsreader.cpp prefstable.cpp  ioapi.c unzip.c fileunzip.cpp measurements.cpp langmgr.cpp tabruler.cpp insertTable.cpp pageselector.cpp shadebutton.cpp alignselect.cpp styleselect.cpp search.cpp tabmanager.cpp fparser.cpp autoform.cpp story.cpp vgradient.cpp scpainter.cpp fontcombo.cpp scpreview.cpp lineformats.cpp multiline.cpp splash.cpp mergedoc.cpp bookpalette.cpp rc4.c md5.c cupsoptions.cpp guidemanager.cpp scribuswin.cpp hyphenator.cpp hyphen.c hyask.cpp hnjalloc.c hysettings.cpp seiten.cpp fpointarray.cpp fpoint.cpp annota.cpp buttonicon.cpp javadocs.cpp selfield.cpp editor.cpp extimageprops.cpp page.cpp layers.cpp polyprops.cpp mpalette.cpp werktoolb.cpp keymanager.cpp navigator.cpp annot.cpp bookmwin.cpp cmsprefs.cpp customfdialog.cpp picsearch.cpp picstatus.cpp newtemp.cpp applytemplate.cpp muster.cpp scfonts_ttf.cpp scrap.cpp scfonts.cpp frameedit.cpp spalette.cpp edit1format.cpp editformats.cpp druck.cpp colorchart.cpp util.cpp cmykcolor.cpp cmykfw.cpp scribusXml.cpp linecombo.cpp linkbutton.cpp helpbrowser.cpp mspinbox.cpp movepage.cpp delpages.cpp inspage.cpp pdfopts.cpp tree.cpp missing.cpp fontprefs.cpp fmitem.cpp align.cpp serializer.cpp reformdoc.cpp docinfo.cpp mdup.cpp cpalette.cpp dcolor.cpp query.cpp colorm.cpp vruler.cpp hruler.cpp pageitem.cpp newfile.cpp scribusview.cpp scribusdoc.cpp scribus.cpp main.cpp
-
-# Pick what sources to compile based on an automake conditional set by configure, COMPILE_PIXBUF
-if COMPILE_PIXBUF
-scribus_SOURCES = $(scribus_pixbuf_sources) $(scribus_uic_cppfiles) $(scribus_base_sources)
-else
-scribus_SOURCES = $(scribus_base_sources) $(scribus_uic_cppfiles)
-endif
-
-## Hack to work around problems with automatic uic'ing of files with automake conditionals.
-pageitemattributes.cpp: $(srcdir)/pageitemattributes.ui pageitemattributes.h pageitemattributes.moc
-	rm -f pageitemattributes.cpp
-	$(UIC) -i pageitemattributes.h $(srcdir)/pageitemattributes.ui > pageitemattributes.cpp; ret=$$?; \
-	if test "$$ret" = 0; then echo '#include "pageitemattributes.moc"' >> pageitemattributes.cpp; else rm -f pageitemattributes.cpp ; exit $$ret ; fi
-
-pageitemattributes.h: $(srcdir)/pageitemattributes.ui
-	$(UIC) -o pageitemattributes.h $(srcdir)/pageitemattributes.ui
-
-pageitemattributes.moc: pageitemattributes.h
-	$(MOC) pageitemattributes.h -o pageitemattributes.moc
-
-docitemattrprefs.cpp: $(srcdir)/docitemattrprefs.ui docitemattrprefs.h docitemattrprefs.moc
-	rm -f docitemattrprefs.cpp
-	$(UIC) -i docitemattrprefs.h $(srcdir)/docitemattrprefs.ui > docitemattrprefs.cpp; ret=$$?; \
-	if test "$$ret" = 0; then echo '#include "docitemattrprefs.moc"' >> docitemattrprefs.cpp; else rm -f docitemattrprefs.cpp ; exit $$ret ; fi
-
-docitemattrprefs.h: $(srcdir)/docitemattrprefs.ui
-	$(UIC) -o docitemattrprefs.h $(srcdir)/docitemattrprefs.ui
-
-docitemattrprefs.moc: docitemattrprefs.h
-	$(MOC) docitemattrprefs.h -o docitemattrprefs.moc
-#end hack
-
-
-SOURCES = $(scribus_SOURCES)
+scribus_SOURCES = about.cpp art_kmisc.c art_render_misc.c art_render_pattern.c art_rgb.c art_rgb_affine_private.c art_rgb_svp.c art_rgba_affine.c gdk-pixbuf-xlib-drawable.c gdk-pixbuf-xlib-render.c gdk-pixbuf-xlib.c gdk-pixbuf-xlibrgb.c scrpalettebase.cpp docitemattrprefs.ui pageitemattributes.ui pagesize.cpp pluginmanager.cpp prefs.cpp fontreplacedialog.cpp tabpdfoptions.cpp tabcheckdoc.cpp checkDocument.cpp units.cpp scraction.cpp menumanager.cpp scmenu.cpp charselect.cpp filewatcher.cpp tabtools.cpp tabguides.cpp tabtypography.cpp arrowchooser.cpp polygonwidget.cpp prefsdialogbase.cpp fileloader.cpp gradienteditor.cpp gtgettext.cpp gtdialogs.cpp gtstyle.cpp gtframestyle.cpp gtparagraphstyle.cpp gtfont.cpp gtwriter.cpp gtaction.cpp gtmeasure.cpp undomanager.cpp undostate.cpp undoobject.cpp undogui.cpp prefsfile.cpp prefscontext.cpp prefsreader.cpp prefstable.cpp  ioapi.c unzip.c fileunzip.cpp measurements.cpp langmgr.cpp tabruler.cpp insertTable.cpp pageselector.cpp shadebutton.cpp alignselect.cpp styleselect.cpp search.cpp tabmanager.cpp fparser.cpp autoform.cpp story.cpp vgradient.cpp scpainter.cpp fontcombo.cpp scpreview.cpp lineformats.cpp multiline.cpp splash.cpp mergedoc.cpp bookpalette.cpp rc4.c md5.c cupsoptions.cpp guidemanager.cpp scribuswin.cpp hyphenator.cpp hyphen.c hyask.cpp hnjalloc.c hysettings.cpp seiten.cpp fpointarray.cpp fpoint.cpp annota.cpp buttonicon.cpp javadocs.cpp selfield.cpp editor.cpp extimageprops.cpp page.cpp layers.cpp polyprops.cpp mpalette.cpp werktoolb.cpp keymanager.cpp navigator.cpp annot.cpp bookmwin.cpp cmsprefs.cpp customfdialog.cpp picsearch.cpp picstatus.cpp newtemp.cpp applytemplate.cpp muster.cpp scfonts_ttf.cpp scrap.cpp scfonts.cpp frameedit.cpp spalette.cpp edit1format.cpp editformats.cpp druck.cpp colorchart.cpp util.cpp cmykcolor.cpp cmykfw.cpp scribusXml.cpp linecombo.cpp linkbutton.cpp helpbrowser.cpp mspinbox.cpp movepage.cpp delpages.cpp inspage.cpp pdfopts.cpp tree.cpp missing.cpp fontprefs.cpp fmitem.cpp align.cpp serializer.cpp reformdoc.cpp docinfo.cpp mdup.cpp cpalette.cpp dcolor.cpp query.cpp colorm.cpp vruler.cpp hruler.cpp pageitem.cpp newfile.cpp scribusview.cpp scribusdoc.cpp scribus.cpp main.cpp
+SOURCES = about.cpp art_kmisc.c art_render_misc.c art_render_pattern.c art_rgb.c art_rgb_affine_private.c art_rgb_svp.c art_rgba_affine.c gdk-pixbuf-xlib-drawable.c gdk-pixbuf-xlib-render.c gdk-pixbuf-xlib.c gdk-pixbuf-xlibrgb.c scrpalettebase.cpp docitemattrprefs.ui pageitemattributes.ui pagesize.cpp pluginmanager.cpp fontreplacedialog.cpp tabpdfoptions.cpp tabcheckdoc.cpp checkDocument.cpp units.cpp scraction.cpp menumanager.cpp scmenu.cpp charselect.cpp filewatcher.cpp tabtools.cpp tabguides.cpp tabtypography.cpp arrowchooser.cpp polygonwidget.cpp prefsdialogbase.cpp prefs.cpp fileloader.cpp gradienteditor.cpp gtgettext.cpp gtdialogs.cpp gtstyle.cpp gtframestyle.cpp gtparagraphstyle.cpp gtfont.cpp gtwriter.cpp gtaction.cpp gtmeasure.cpp undomanager.cpp undostate.cpp undoobject.cpp undogui.cpp ioapi.c unzip.c fileunzip.cpp measurements.cpp langmgr.cpp tabruler.cpp insertTable.cpp pageselector.cpp shadebutton.cpp alignselect.cpp styleselect.cpp search.cpp tabmanager.cpp fparser.cpp autoform.cpp story.cpp vgradient.cpp scpainter.cpp libpdf/pdflib.cpp libpostscript/pslib.cpp plugins/libchar/charselect.cpp prefs.cpp fontcombo.cpp scpreview.cpp lineformats.cpp multiline.cpp splash.cpp mergedoc.cpp bookpalette.cpp rc4.c md5.c cupsoptions.cpp guidemanager.cpp scribuswin.cpp hyphenator.cpp hyphen.c hyask.cpp hnjalloc.c hysettings.cpp seiten.cpp fpointarray.cpp fpoint.cpp annota.cpp buttonicon.cpp javadocs.cpp selfield.cpp editor.cpp extimageprops.cpp page.cpp layers.cpp polyprops.cpp mpalette.cpp werktoolb.cpp keymanager.cpp navigator.cpp annot.cpp bookmwin.cpp cmsprefs.cpp customfdialog.cpp picsearch.cpp picstatus.cpp newtemp.cpp applytemplate.cpp muster.cpp scfonts_ttf.cpp scrap.cpp scfonts.cpp frameedit.cpp spalette.cpp edit1format.cpp editformats.cpp druck.cpp colorchart.cpp util.cpp cmykcolor.cpp cmykfw.cpp scribusXml.cpp linecombo.cpp linkbutton.cpp helpbrowser.cpp mspinbox.cpp movepage.cpp delpages.cpp inspage.cpp pdfopts.cpp tree.cpp missing.cpp fontprefs.cpp fmitem.cpp align.cpp serializer.cpp reformdoc.cpp docinfo.cpp mdup.cpp cpalette.cpp dcolor.cpp query.cpp colorm.cpp vruler.cpp hruler.cpp pageback.cpp pageitem.cpp newfile.cpp scribusview.cpp scribusdoc.cpp scribus.cpp main.cpp
 
 INTERFACES =
 TRANSLATIONS =
 
 SUBDIRS = dicts doc icons keysets libpdf libpostscript manpages plugins po profiles qm templates
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 EXTRA_DIST = about.cpp about.h main.cpp scribus.cpp scribus.h scribusdoc.cpp scribusdoc.h scribusview.cpp scribusview.h newfile.h newfile.cpp pageitem.cpp pageitem.h hruler.cpp hruler.h vruler.cpp vruler.h colorm.cpp colorm.h query.cpp query.h dcolor.cpp dcolor.h cpalette.cpp cpalette.h mdup.cpp mdup.h docinfo.cpp docinfo.h reformdoc.cpp reformdoc.h serializer.cpp serializer.h align.cpp align.h fmitem.cpp fmitem.h fontprefs.cpp fontprefs.h missing.cpp missing.h tree.cpp tree.h pdfopts.cpp pdfopts.h inspage.cpp inspage.h delpages.cpp delpages.h movepage.cpp movepage.h mspinbox.cpp mspinbox.h helpbrowser.cpp helpbrowser.h icons5.h linkbutton.cpp linkbutton.h icons6.h linecombo.cpp linecombo.h scribusXml.cpp scribusXml.h cmykfw.cpp cmykfw.h cmykcolor.cpp cmykcolor.h util.cpp colorchart.cpp colorchart.h druck.cpp druck.h editformats.cpp editformats.h edit1format.cpp edit1format.h spalette.cpp spalette.h frameedit.cpp frameedit.h scfonts.cpp scfonts.h scrap.cpp scrap.h scfonts_ttf.cpp scfonts_ttf.h muster.cpp muster.h applytemplate.cpp applytemplate.h newtemp.cpp newtemp.h picstatus.cpp picstatus.h picsearch.cpp picsearch.h customfdialog.cpp customfdialog.h cmsprefs.cpp cmsprefs.h bookmwin.cpp bookmwin.h annot.cpp annot.h navigator.cpp navigator.h keymanager.cpp keymanager.h werktoolb.cpp werktoolb.h mpalette.h mpalette.cpp polyprops.cpp polyprops.h layers.cpp layers.h page.cpp page.h editor.cpp editor.h selfield.cpp selfield.h javadocs.cpp javadocs.h buttonicon.cpp buttonicon.h annota.cpp annota.h fpoint.cpp fpoint.h fpointarray.cpp fpointarray.h seiten.cpp seiten.h hysettings.cpp hysettings.h hnjalloc.c hnjalloc.h hyask.cpp hyask.h hyphen.c hyphen.h hyphenator.cpp hyphenator.h scribuswin.cpp scribuswin.h guidemanager.cpp guidemanager.h cupsoptions.cpp cupsoptions.h md5.c md5.h rc4.c rc4.h mergedoc.cpp mergedoc.h bookpalette.cpp bookpalette.h splash.h fontcombo.h scpainter.cpp scpainter.h vgradient.cpp vgradient.h story.cpp story.h autoform.cpp autoform.h fparser.cpp fparser.h tabmanager.cpp tabmanager.h search.cpp search.h styleselect.cpp styleselect.h alignselect.cpp alignselect.h shadebutton.cpp shadebutton.h pageselector.cpp color.h gtaction.cpp gtaction.h gtwriter.cpp gtwriter.h gtfont.cpp gtfont.h gtdialogs.cpp gtdialogs.h gtstyle.cpp gtstyle.h gtframestyle.cpp gtframestyle.h gtparagraphstyle.cpp gtparagraphstyle.h gtmeasure.cpp gtmeasure.h undomanager.cpp undomanager.h undostate.cpp undostate.h undoobject.cpp undoobject.h undogui.cpp undogui.h prefsfile.cpp prefsfile.h prefscontext.cpp prefscontext.h prefsreader.cpp prefsreader.h prefstable.cpp prefstable.h prefs.cpp prefs.h ioapi.c ioapi.h unzip.c unzip.h fileunzip.cpp fileunzip.h langmgr.h langmgr.cpp polygonwidget.cpp polygonwidget.h fileloader.cpp fileloader.h prefsdialogbase.cpp prefsdialogbase.h gradienteditor.cpp gradienteditor.h pageselector.h insertTable.cpp insertTable.h tabtools.cpp tabtools.h tabguides.cpp tabguides.h tabtypography.cpp tabtypography.h tabcheckdoc.cpp tabcheckdoc.h tabpdfoptions.cpp tabpdfoptions.h arrowchooser.cpp arrowchooser.h charselect.cpp charselect.h fontreplacedialog.cpp fontreplacedialog.h filewatcher.cpp filewatcher.h checkDocument.cpp checkDocument.h art_kmisc.c art_kmisc.h art_render_misc.c art_render_misc.h art_render_pattern.c art_render_pattern.h art_rgb.c art_rgb.h art_rgb_affine_private.c art_rgb_affine_private.h art_rgb_svp.c art_rgb_svp.h art_rgba_affine.c art_rgba_affine.h gdk-pixbuf-xlib-drawable.c gdk-pixbuf-xlib-private.h gdk-pixbuf-xlib-render.c gdk-pixbuf-xlib.c gdk-pixbuf-xlib.h gdk-pixbuf-xlibrgb.c gdk-pixbuf-xlibrgb.h LoremIpsum.txt rgbscribus.txt rgbscribusgreys.txt rgbscribusgnome.txt rgbsvg.txt units.h units.cpp scribusstructs.h scraction.cpp scraction.h menumanager.cpp menumanager.h scmenu.cpp scmenu.h scrpalettebase.cpp scrpalettebase.h docitemattrui.ui pageitemattributes.ui  pluginmanager.cpp pluginmanager.h extimageprops.cpp extimageprops.h pagesize.cpp pagesize.h
 
@@ -234,7 +161,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/pluginmanager.h
 	-rm -f $(prefix)/include/scribus/pagesize.h
 
-scribus_LDADD  = $(LIBJPEG) $(LIBART_LIBS) $(LIBFREETYPE_LIBS) $(LIBFONTCONFIG_LIBS) $(LIBCUPS) $(LIBLCMS) $(LIBDL) $(LIBDL2) $(LIBTIFF) -lm $(LIB_QT) $(LIB_X11) $(LIBSOCKET)
+scribus_LDADD  = $(LIBJPEG) $(LIBART_LIBS) $(LIBFREETYPE_LIBS) $(LIBFONTCONFIG_LIBS) $(LIBCUPS) $(LIBLCMS) $(LIBDL) $(LIBDL2) $(LIBTIFF) -lm $(LIB_QT) -lXext -lX11 $(LIBSOCKET)
 
 if COMPILE_DEBUG
  linkflag = -export-dynamic
