@@ -9,6 +9,7 @@ Install the below packages BEFORE running configure or compiling Scribus:
 Requirements:
 	Qt >= 3.3			(3.3.3 recommended)
 	Freetype >= 2.1.0
+	libart >= 2.0
 
 Recommended:
 	CUPS
@@ -124,6 +125,7 @@ front-ends.
 Recommended packages for compiling from source on Sarge (Debian 3.1):
 	libqt3-mt-dev (Required)
 	libfreetype6-dev (Required)
+	libart-2.0-dev (Required)
 	libcupsys2-dev
 	liblcms1-dev
 	libfontconfig1-dev
@@ -160,6 +162,7 @@ correct integration with the menuing system and mime types.
 Recommended packages for compiling from source on FC3:
 	qt-devel (Required)
 	freetype-devel (Required)
+	libart_lgpl-devel (Required)
 	fontconfig-devel
 	cups-devel
 	libtiff-devel
