@@ -7933,7 +7933,7 @@ void Page::chAbStyle(PageItem *b, int s)
 					nb->Ptext.at(a)->cstyle |= nb->TxTStyle;
 				}
 				nb->Ptext.at(a)->cab = s;
-				if (nb->Ptext.at(a)->ch == QChar(13))
+				if ((nb->Ptext.at(a)->ch == QChar(13)) && (!nb->Ptext.at(a)->cselect))
 				{
 					cr = false;
 					break;

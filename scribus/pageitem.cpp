@@ -239,11 +239,11 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	fill_gradient = VGradient(VGradient::linear);
 	fill_gradient.clearStops();
 	if (Pcolor == "None")
-		fill_gradient.addStop(Doc->PageColors[Doc->PageColors.begin().key()].getRGBColor(), 0.0, 0.5, 1.0, Doc->PageColors.begin().key(), 100);
+		fill_gradient.addStop(Doc->PageColors[Doc->Dbrush].getRGBColor(), 0.0, 0.5, 1.0, Doc->Dbrush, 100);
 	else
 		fill_gradient.addStop(Doc->PageColors[Pcolor].getRGBColor(), 0.0, 0.5, 1.0, Pcolor, 100);
 	if (Pcolor2 == "None")
-		fill_gradient.addStop(Doc->PageColors[Doc->PageColors.begin().key()].getRGBColor(), 1.0, 0.5, 1.0, Doc->PageColors.begin().key(), 100);
+		fill_gradient.addStop(Doc->PageColors[Doc->Dpen].getRGBColor(), 1.0, 0.5, 1.0, Doc->Dpen, 100);
 	else
 	fill_gradient.addStop(Doc->PageColors[Pcolor2].getRGBColor(), 1.0, 0.5, 1.0, Pcolor2, 100);
 	Language = doc->Language;
@@ -1004,7 +1004,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								double oCurX = CurX - ColBound.x();
 								for (int yg = static_cast<int>(tTabValues.count()-1); yg > 0; yg -= 2)
 									{
-									if (oCurX < tTabValues[yg])
+									if (oCurX <= tTabValues[yg])
 										{
 										tCurX = tTabValues[yg];
 										TabCode = static_cast<int>(tTabValues[yg-1]);
@@ -1019,6 +1019,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								else
 									CurX = ColBound.x() + tCurX;
 								}
+							CurX -= 1;
 							StartRT = LiList.count();
 							StartRT2 = a;
 							}
