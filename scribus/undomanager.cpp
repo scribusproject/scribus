@@ -190,32 +190,42 @@ void UndoManager::setState(UndoGui* gui, int uid)
 {
 	gui->clear();
 
-	ActionList::iterator it;
+	ActionList::iterator itstart = stacks[currentDoc].second.begin() - 1;;
+	ActionList::iterator itend   = stacks[currentDoc].second.end() - 1;;
 	if (uid > -1)
-	{
+	{ // find the range from where actions are added when in obj. spec. mode
 		ActionList::iterator it2;
-		for (it2 = stacks[currentDoc].second.begin(); it2 != stacks[currentDoc].second.end(); ++it2)
+		for (it2 = stacks[currentDoc].first - 1; it2 != stacks[currentDoc].second.begin() - 1; --it2)
 		{
 			UndoState*  tmp  = (*it2).second;
 			TransactionState *ts = dynamic_cast<TransactionState*>(tmp);
 			if (ts && ts->contains(uid))
 			{
-				it = it2 - 1;
+				itstart = it2 - 1;
+				break;
+			}
+		}
+		for (it2 = stacks[currentDoc].first; it2 != stacks[currentDoc].second.end(); ++it2)
+		{
+			UndoState*  tmp  = (*it2).second;
+			TransactionState *ts = dynamic_cast<TransactionState*>(tmp);
+			if (ts && ts->contains(uid))
+			{
+				itend = it2 - 1;
 				break;
 			}
 		}
 	}
-	else
-		it = stacks[currentDoc].second.end() - 1;
-	for (; it > stacks[currentDoc].second.begin() - 1; --it)
+
+	for (; itend > itstart; --itend)
 	{
-		ActionPair pair = *it;
+		ActionPair pair = *itend;
 		UndoObject* target = pair.first;
 		UndoState*  state  = pair.second;
 
 		if (uid == -1 || target->getUId() == static_cast<uint>(uid))
 		{
-			if (it > stacks[currentDoc].first - 1)
+			if (itend > stacks[currentDoc].first - 1)
 				gui->insertUndoItem(target, state);
 			else
 				gui->insertRedoItem(target, state);
@@ -360,6 +370,7 @@ void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPi
 	if (targetPixmap)
 		target->setUPixmap(oldIcon);
 }
+
 void UndoManager::action(UndoObject* target, UndoState* state,
                          const QString &targetName, QPixmap *targetPixmap)
 {
@@ -388,46 +399,69 @@ void UndoManager::doUndo(int steps)
 	{
 		setUndoEnabled(false);
 		UndoState* tmpUndoState = NULL;
-		ActionPair &tmp = *stacks[currentDoc].first;
+		currentAction = stacks[currentDoc].first;
 		for (int i = 0; i < steps; ++i)
 		{
-			ActionPair aPair = *stacks[currentDoc].first;
+			ActionPair &aPair = getNextUndoPair();
 			UndoObject* tmpUndoObject = aPair.first;
 			tmpUndoState = aPair.second;
 			TransactionState *ts = dynamic_cast<TransactionState*>(tmpUndoState);
-			if (currentUndoObjectId > -1) // we're in object specific undo
-			{
-				bool forwarded = false;
-				while(tmpUndoObject->getUId() != static_cast<uint>(currentUndoObjectId))
-				{   // search for the next action by selected object
-					++stacks[currentDoc].first;
-					aPair = *stacks[currentDoc].first;
-					tmpUndoObject = aPair.first;
-					tmpUndoState = aPair.second;
-					forwarded = true;
-				}
-				if (forwarded)
-				{   // undone action must be now first redoable
-					stacks[currentDoc].first = stacks[currentDoc].second.erase(stacks[currentDoc].first);
-					stacks[currentDoc].first = stacks[currentDoc].second.insert(
-							find(stacks[currentDoc].second.begin(),
-								 stacks[currentDoc].second.end(),tmp),
-								 ActionPair(tmpUndoObject, tmpUndoState));
-				}
-			}
+
 			if (tmpUndoObject && tmpUndoState && !ts)
 				tmpUndoObject->restore(tmpUndoState, true);
 			else if (tmpUndoState && ts)
 				doTransactionUndo(ts);
 			ts = NULL;
-			++stacks[currentDoc].first;
 		}
+		reorderUndoStack(steps);
 		setUndoEnabled(true);
 		if (tmpUndoState)
 		{
 			emit undoSignal(steps);
 			emit undoRedoDone();
 		}
+	}
+}
+
+ActionPair& UndoManager::getNextUndoPair()
+{
+	if (currentUndoObjectId == GLOBAL_UNDO_MODE)
+		++currentAction;
+	else
+		for (; currentAction != stacks[currentDoc].second.end(); ++currentAction)
+			if ((*currentAction).first->getUId() == currentUndoObjectId)
+			{
+				++currentAction;
+				break;
+			}
+	return *(currentAction - 1);
+}
+
+void UndoManager::reorderUndoStack(int steps)
+{
+	if (currentUndoObjectId == GLOBAL_UNDO_MODE)
+		stacks[currentDoc].first += steps;
+	else
+	{
+		int pos = -1;
+		ActionList::iterator it;
+		for (it = stacks[currentDoc].second.begin(); it != stacks[currentDoc].first + 1; ++it)
+		{
+			++pos;
+		}
+
+		// TODO Move the items around here
+		for (int i = 0; i < steps; ++i)
+		{
+			ActionList::iterator it = stacks[currentDoc].second.begin() + pos;
+			while ((*it).first->getUId() != currentUndoObjectId) ++it;
+			ActionPair pair = *it;
+			stacks[currentDoc].second.erase(it);
+			stacks[currentDoc].second.insert(stacks[currentDoc].second.begin() + pos, pair);
+			++pos;
+		}
+
+		stacks[currentDoc].first = stacks[currentDoc].second.begin() += pos;
 	}
 }
 
@@ -450,35 +484,14 @@ void UndoManager::doRedo(int steps)
 	{
 		setUndoEnabled(false);
 		UndoState* tmpUndoState = NULL;
-		ActionList::iterator currentPosition;
-		ActionPair &tmp = *stacks[currentDoc].first;
+		currentAction = stacks[currentDoc].first;
 		for (int i = 0; i < steps; ++i) // TODO compare to stack size too
 		{
-			--stacks[currentDoc].first;
-			ActionPair aPair = *stacks[currentDoc].first;
+			ActionPair &aPair = getNextRedoPair();
 			UndoObject* tmpUndoObject = aPair.first;
 			tmpUndoState = aPair.second;
 			TransactionState *ts = dynamic_cast<TransactionState*>(tmpUndoState);
-			if (currentUndoObjectId > -1) // we're in object specific undo
-			{
-				bool forwarded = false;
-				while(tmpUndoObject->getUId() != static_cast<uint>(currentUndoObjectId))
-				{
-					++stacks[currentDoc].first;
-					aPair = *stacks[currentDoc].first;
-					tmpUndoObject = aPair.first;
-					tmpUndoState = aPair.second;
-					forwarded = true;
-				}
-				if (forwarded)
-				{
-					stacks[currentDoc].first = stacks[currentDoc].second.erase(stacks[currentDoc].first);
-					stacks[currentDoc].first = stacks[currentDoc].second.insert(
-							find(stacks[currentDoc].second.begin(),
-								 stacks[currentDoc].second.end(),tmp) - 1,
-					ActionPair(tmpUndoObject, tmpUndoState));
-				}
-			}
+
 			if (tmpUndoObject && tmpUndoState && !ts)
 				tmpUndoObject->restore(tmpUndoState, false);
 			else if (tmpUndoState && ts)
@@ -486,6 +499,7 @@ void UndoManager::doRedo(int steps)
 			ts = NULL;
 		}
 
+		reorderRedoStack(steps);
 		setUndoEnabled(true);
 
 		if (tmpUndoState)
@@ -493,6 +507,41 @@ void UndoManager::doRedo(int steps)
 			emit redoSignal(steps);
 			emit undoRedoDone();
 		}
+	}
+}
+
+ActionPair& UndoManager::getNextRedoPair()
+{
+	if (currentUndoObjectId == GLOBAL_UNDO_MODE)
+		--currentAction;
+	else
+		for (--currentAction; currentAction != stacks[currentDoc].second.begin() - 1; --currentAction)
+			if ((*currentAction).first->getUId() == currentUndoObjectId)
+				break;
+
+	return *currentAction;
+}
+
+void UndoManager::reorderRedoStack(int steps)
+{
+	if (currentUndoObjectId == GLOBAL_UNDO_MODE)
+		stacks[currentDoc].first -= steps;
+	else
+	{
+		int pos = -1;
+		ActionList::iterator it;
+		for (it = stacks[currentDoc].second.begin(); it != stacks[currentDoc].first + 1; ++it)
+			++pos;
+		for (int i = 0; i < steps; ++i)
+		{
+			ActionList::iterator it = stacks[currentDoc].second.begin() + pos - 1;
+			while ((*it).first->getUId() != currentUndoObjectId) --it;
+			ActionPair pair = *it;
+			stacks[currentDoc].second.erase(it);
+			--pos;
+			stacks[currentDoc].second.insert(stacks[currentDoc].second.begin() + pos, pair);
+		}
+		stacks[currentDoc].first = stacks[currentDoc].second.begin() += pos;
 	}
 }
 

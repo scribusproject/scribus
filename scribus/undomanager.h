@@ -42,7 +42,7 @@ typedef QMap<QString, StackPair> StackMap;
  *
  * UndoManager is the engine of the undo/redo handling. When ever an undoable
  * action happens an UndoState object will be sent to the UndoManager which then
- * stores the state in the undo stack. When an undo is requested the state is 
+ * stores the state in the undo stack. When an undo is requested the state is
  * send back to it's creator which is then responsible for doing the actual undo or
  * redo.
  *
@@ -80,7 +80,7 @@ private:
 		TransactionState();
 		/** @brief Destroys the TransactionState instance */
 		~TransactionState();
-		/** 
+		/**
 		 * @brief Add a new <code>UndoState</code> object to the transaction.
 		 * @param state state to be added to the transaction
 		 */
@@ -96,7 +96,7 @@ private:
 		 * @brief Returns an <code>UndoState</code> object at <code>index</code>.
 		 * @param index index from where an <code>UndoState</code> object is returned.
 		 * If <code>index</code> is out of scope <code>NULL</code> will be rerturned.
-		 * @return <code>UndoState</code> object from <code>index</code> or <code>NULL</code> 
+		 * @return <code>UndoState</code> object from <code>index</code> or <code>NULL</code>
 		 * if <code>index</code> is out of scope.
 		 */
 		ActionPair* at(int index);
@@ -133,7 +133,7 @@ private:
 
 /**************************************************************************************/
 
-	/** 
+	/**
 	 * @brief The only instance of UndoManager available.
 	 *
 	 * UndoManager is singleton and the instance can be queried with the method
@@ -144,13 +144,13 @@ private:
 	/** @brief Should undo states be stored or ignored */
 	static bool _undoEnabled;
 
-	/** 
+	/**
 	 * @brief Tracks the state of _undoEnabled.
 	 *
 	 * This value is increased whenever setUndoEnabled(true) is called and decreased
 	 * when setUndoEnabled(false) is called. This means _undoEnabled == true when this
 	 * value is 0 and when its above zero _undoEnabled == false. Counting setUndoEnabled()
-	 * calls this way guarantees that undo is not enabled accidentally calling 
+	 * calls this way guarantees that undo is not enabled accidentally calling
 	 * setUndoEnabled(true) even it has been set false before this false-true pair touched it.
 	 */
 	static int undoEnabledCounter;
@@ -160,7 +160,7 @@ private:
 	/** @brief Doc to which the currently active stack belongs */
 	QString currentDoc;
 
-	/** 
+	/**
 	 * @brief Id number of the object for what the object specific undo is shown
 	 * @brief or -1 if global undo is used.
 	 */
@@ -184,7 +184,7 @@ private:
 	/** @brief Dummy object for storing transaction target's name */
 	TransactionObject *transactionTarget;
 
-	/** 
+	/**
 	 * @brief UndoGuis attached to this UndoManager
 	 * @sa UndoGui
 	 * @sa UndoWidget
@@ -201,7 +201,7 @@ private:
 	/**
 	 * @brief Initializes the UndoGui.
 	 * @param gui UndoGui to be initialized
-	 * @param uid UndoObject's id if in object specific mode or -1 to tell 
+	 * @param uid UndoObject's id if in object specific mode or -1 to tell
 	 * that global undo is used.
 	 */
 	void setState(UndoGui* gui, int uid = -1);
@@ -239,7 +239,17 @@ private:
 	 */
 	void doTransactionRedo(TransactionState *tstate);
 
+
+	ActionList::iterator currentAction;
+	ActionPair& getNextUndoPair();
+	ActionPair& getNextRedoPair();
+	void reorderUndoStack(int steps);
+	void reorderRedoStack(int steps);
+
 public:
+	/** @brief Marks for a global undo mode where ever UndoOjbect id is requested. */
+	static const int GLOBAL_UNDO_MODE = -1;
+
 	/**
 	 * @brief Returns a pointer to the UndoManager instance
 	 * @return A pointer to the UndoManager instance
@@ -268,10 +278,10 @@ public:
 	static bool undoEnabled();
 
 	/**
-	 * @brief Start a transaction. 
+	 * @brief Start a transaction.
 	 *
 	 * After this method has been invoked <code>UndoManager</code> will switch to the
-     * transaction (silent) mode where it does not report actions to the attached 
+     * transaction (silent) mode where it does not report actions to the attached
 	 * <code>UndoGui</code> widgets but stores all incoming <code>UndoState</code> objects into
 	 * the transaction container which after call to the method commit() will be sent
 	 * to the guis as a single undo action. Transaction can be named when starting it or
@@ -292,17 +302,17 @@ public:
                           const QString &description = "",
                           QPixmap *actionPixmap = 0);
 
-	/** 
+	/**
 	 * @brief Cancels the current transaction and deletes groupped <code>UndoState</code>s.
 	 * @brief Nothing from canceled transaction will be sent to the undo gui widgets.
 	 */
 	void cancelTransaction();
 
-	/** 
+	/**
 	 * @brief Commit the current transaction.
 	 *
 	 * Current transaction will be commited and <code>UndoManager</code> will be switched
-	 * to the normal mode. Commited transaction will be sent to the attached undo gui 
+	 * to the normal mode. Commited transaction will be sent to the attached undo gui
 	 * widgets and it will show up there as a single undo action. Details used as a parameter
 	 * will be details shown in the gui widgets.
 	 * @param targetName name for the target of this transaction (f.e. "Selection")
@@ -394,7 +404,7 @@ public:
 	 */
 	int getHistoryLength();
 
-	/** 
+	/**
 	 * @brief Returns true if in global mode and false if in object specific mode.
 	 * @return true if in global mode and false if in object specific mode
 	 */
@@ -533,8 +543,8 @@ private slots:
 	 * @brief Take undo steps the given amount
 	 *
 	 * When an UndoGui is registered to the UndoManager gui's undo() signal
-	 * is connected to this slot. Emitting an undo() signal will make the 
-	 * UndoManager perform undo actions the given number of steps. 
+	 * is connected to this slot. Emitting an undo() signal will make the
+	 * UndoManager perform undo actions the given number of steps.
 	 * @param steps Number of undo actions to make
 	 */
 	void doUndo(int steps);
@@ -614,7 +624,7 @@ signals:
 	/**
 	 * @brief Emitted when a new undo action is stored to the undo stack.
 	 *
-	 * This signal is connected to the registered UndoGuis for them to update the 
+	 * This signal is connected to the registered UndoGuis for them to update the
 	 * visual representation of the undo stack.
 	 * @param target Source of the action
 	 * @param state UndoState describing the action
@@ -638,7 +648,7 @@ signals:
 	 */
 	void redoSignal(int steps);
 
-	/** 
+	/**
 	 * @brief Emitted when a new actions comes in and UndoManager is in object
 	 * @brief specific mode and action does not belong to the currently selected
 	 * @brief object.
@@ -647,7 +657,7 @@ signals:
 
 	/**
 	 * @brief This signal is used to notify registered UndoGui instances that
-	 * @brief history limit is reached and the last item from the stack 
+	 * @brief history limit is reached and the last item from the stack
 	 * @brief representation should be removed.
 	 */
 	void popBack();
