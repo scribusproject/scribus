@@ -25,7 +25,8 @@ extern ScribusApp* ScApp;
 
 
 LayerTable::LayerTable(QWidget* parent) : QTable(parent)
-{}
+{
+}
 
 void LayerTable::keyPressEvent(QKeyEvent *k)
 {
@@ -54,16 +55,18 @@ LayerPalette::LayerPalette(QWidget* parent)
 	Table = new LayerTable( this );
 	Table->setNumRows( 0 );
 	Table->setNumCols( 3 );
-	Table->setTopMargin(0);
-	Table->horizontalHeader()->hide();
+	QHeader *header = Table->horizontalHeader();
+	header->setLabel(0, loadIcon("Layervisible.xpm"), "");
+	header->setLabel(1, loadIcon("DateiPrint16.png"), "");
+	header->setLabel(2, tr("Name"));
+	Table->setColumnReadOnly(0, true);
+	Table->setColumnReadOnly(1, true);
+	Table->setColumnWidth(0, 24);
+	Table->setColumnWidth(1, 24);
 	Table->setRowMovingEnabled(false);
 	Table->setSorting(false);
 	Table->setSelectionMode( QTable::SingleRow );
 	Table->setFocusStyle( QTable::FollowStyle );
-	Table->setColumnReadOnly(1, true);
-	Table->setColumnReadOnly(2, true);
-	Table->setColumnWidth(1, 55);
-	Table->setColumnWidth(2, 55);
 	Header = Table->verticalHeader();
 	Header->setMovingEnabled(false);
 	Header->setResizeEnabled(false);
@@ -171,23 +174,21 @@ void LayerPalette::rebuildList()
 	Table->setNumRows(layers->count());
 	for (it = layers->begin(); it != layers->end(); ++it)
 	{
-		Table->setText(layers->count()-(*it).Level-1, 0, (*it).Name);
+		Table->setText(layers->count()-(*it).Level-1, 2, (*it).Name);
 		QCheckBox *cp = new QCheckBox(this, tmp.setNum((*it).Level));
-		cp->setPixmap(loadIcon("DateiPrint16.png"));
 		cp->setChecked((*it).isPrintable);
 		Table->setCellWidget(layers->count()-(*it).Level-1, 1, cp);
 		FlagsPrint.append(cp);
 		connect(cp, SIGNAL(clicked()), this, SLOT(printLayer()));
 		QCheckBox *cp2 = new QCheckBox(this, tmp.setNum((*it).Level));
-		cp2->setPixmap(loadIcon("Layervisible.xpm"));
 		cp2->setChecked((*it).isViewable);
 		FlagsSicht.append(cp2);
 		connect(cp2, SIGNAL(clicked()), this, SLOT(visibleLayer()));
-		Table->setCellWidget(layers->count()-(*it).Level-1, 2, cp2);
+		Table->setCellWidget(layers->count()-(*it).Level-1, 0, cp2);
 		Header->setLabel(layers->count()-(*it).Level-1, tmp.setNum((*it).Level));
 	}
-	Table->setColumnStretchable(0, true);
-	Table->adjustColumn(0);
+	Table->setColumnStretchable(2, true);
+	Table->adjustColumn(2);
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 }
 
@@ -299,7 +300,7 @@ void LayerPalette::downLayer()
 
 void LayerPalette::changeName(int row, int col)
 {
-	if (col == 0)
+	if (col == 2)
 	{
 		int num = layers->count()-1-row;
 		QValueList<Layer>::iterator it;
@@ -353,7 +354,7 @@ void LayerPalette::MarkActiveLayer(int l)
 		if ((*it).LNr == l)
 			break;
 	}
-	Table->setCurrentCell(layers->count()-1-(*it).Level, 0);
+	Table->setCurrentCell(layers->count()-1-(*it).Level, 2);
 }
 
 void LayerPalette::setActiveLayer(int row)

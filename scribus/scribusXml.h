@@ -45,13 +45,15 @@ public:
 	bool ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScreen *splash);
 	ColorList Farben;
 	QValueList<ParagraphStyle> docParagraphStyles;
-	struct Linked { 
-					int Start;
-					int StPag;
-              	};
+	struct Linked 
+	{ 
+		int Start;
+		int StPag;
+	};
 	QValueList<Linked> LFrames;
 	QStringList MNames;
 	QMap<QString,QString> DoFonts;
+	QMap<QString,QString> ReplacedFonts;
 	QMap<uint,QString> DoVorl;
 	uint VorlC;
 	

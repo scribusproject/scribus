@@ -30,6 +30,7 @@ public:
 	bool haveSXD;
 	QValueList<int> LFrames;
 	QMap<QString,QString> DoFonts;
+	QMap<QString,QString> ReplacedFonts;
 	QMap<uint,QString> DoVorl;
 };
 

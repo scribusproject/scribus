@@ -171,12 +171,16 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			{
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				QObject::connect(ss, SIGNAL(NewPage(int)), app, SLOT(slotNewPage(int)));
+				ReplacedFonts.clear();
+				ss->ReplacedFonts.clear();
 				ret = ss->ReadDoc(FileName, app->Prefs.AvailFonts, app->doc, app->view, app->FProg);
 				QObject::disconnect(ss, SIGNAL(NewPage(int)), app, SLOT(slotNewPage(int)));
+				ReplacedFonts = ss->ReplacedFonts;
 				delete ss;
 			}
 			break;
 		case 1:
+			ReplacedFonts.clear();
 			ret = ReadDoc(app, FileName, app->Prefs.AvailFonts, app->doc, app->view, app->FProg);
 			break;
 		case 2:
@@ -940,6 +944,7 @@ QString FileLoader::AskForFont(SCFonts &avail, QString fStr, ApplicationPrefs *P
 		}
 		else
 			tmpf = Prefs->GFontSub[tmpf];
+		ReplacedFonts[fStr] = tmpf;
 	}
 	fo = avail[tmpf]->Font;
 	fo.setPointSize(qRound(doc->Dsize / 10.0));

@@ -3733,6 +3733,17 @@ bool ScribusApp::LadeDoc(QString fileName)
 			doc->PDF_Optionen.LPISettings.insert("Black", lpo);
 		}
 		connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
+		if (fl->ReplacedFonts.count() != 0)
+		{
+			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			QString mess = tr("Some Fonts used by this Document have been substituted:")+"\n\n";
+			QMap<QString,QString>::Iterator it;
+			for (it = fl->ReplacedFonts.begin(); it != fl->ReplacedFonts.end(); ++it)
+			{
+				mess += it.key() + tr(" was replaced by: ")+ it.data() +"\n";
+			}
+			QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
+		}
 		if (!doc->HasCMS)
 		{
 			doc->CMSSettings.DefaultInputProfile = Prefs.DCMSset.DefaultInputProfile;

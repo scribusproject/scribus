@@ -161,6 +161,7 @@ QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, ApplicationPrefs *P
 		}
 		else
 			tmpf = Prefs->GFontSub[tmpf];
+		ReplacedFonts[fStr] = tmpf;
 	}
 	fo = avail[tmpf]->Font;
 	fo.setPointSize(qRound(doc->Dsize / 10.0));
