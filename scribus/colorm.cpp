@@ -128,8 +128,19 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 		CSets->insertItem("SVG-Set");
 		if (Cust.count() != 0)
 		{
+			QStringList realEx;
+			realEx.clear();
 			for (uint m = 0; m < Cust.count(); ++m)
-				CSets->insertItem(Cust[m]);
+			{
+				QString Cpfad = QString(getenv("HOME"))+"/.scribus/"+Cust[m];
+				QFileInfo cfi(Cpfad);
+				if (cfi.exists())
+				{
+					CSets->insertItem(Cust[m]);
+					realEx.append(Cust[m]);
+				}
+			}
+			CColSet = realEx;
 		}
 		LoadColSet = new QToolButton( ColsSetGroup, "LoadColSet" );
 		LoadColSet->setPopup(CSets);
@@ -194,6 +205,7 @@ void Farbmanager::saveDefaults()
 			QTextStream tsx(&fx);
 			QString tmp;
 			CListe::Iterator itc;
+			tsx << "Color Set:"+dia->Answer->text()+"\n";
 			int cp, mp, yp, kp;
 			for (itc = EditColors.begin(); itc != EditColors.end(); ++itc)
 			{
@@ -218,6 +230,7 @@ void Farbmanager::saveDefaults()
 void Farbmanager::loadDefaults(int id)
 {
 	int c = CSets->indexOf(id);
+	bool cus = false;
 	LoadColSet->setText(CSets->text(id));
 	EditColors.clear();
 	QString Cpfad = QString(getenv("HOME"))+"/.scribus/"+CSets->text(id);
@@ -250,6 +263,7 @@ void Farbmanager::loadDefaults(int id)
 			break;
 		default:
 			pfadC2 = Cpfad;
+			cus = true;
 			break;
 		}
 	if (c != 0)
@@ -258,19 +272,28 @@ void Farbmanager::loadDefaults(int id)
 		if (fiC.open(IO_ReadOnly))
 		{
 			QString ColorEn, Cname;
-			int Rval, Gval, Bval;
+			int Rval, Gval, Bval, Kval;
 			QTextStream tsC(&fiC);
 			ColorEn = tsC.readLine();
 			while (!tsC.atEnd())
 			{
+				CMYKColor tmp;
 				ColorEn = tsC.readLine();
 				QTextStream CoE(&ColorEn, IO_ReadOnly);
 				CoE >> Rval;
 				CoE >> Gval;
 				CoE >> Bval;
-				CoE >> Cname;
-				CMYKColor tmp;
-				tmp.setColorRGB(Rval, Gval, Bval);
+				if (cus)
+				{
+					CoE >> Kval;
+					Cname = CoE.read().stripWhiteSpace();
+					tmp.setColor(Rval, Gval, Bval, Kval);
+				}
+				else
+				{
+					Cname = CoE.read().stripWhiteSpace();
+					tmp.setColorRGB(Rval, Gval, Bval);
+				}
 				EditColors.insert(Cname, tmp);
 			}
 			fiC.close();

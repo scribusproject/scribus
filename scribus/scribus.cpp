@@ -4989,13 +4989,9 @@ void ScribusApp::slotEditColors()
 	QMap<QString,QString> ers;
 	PageItem *ite;
 	if (HaveDoc)
-		{
 		edc = doc->PageColors;
-		}
 	else
-		{
 		edc = Prefs.DColors;
-		}
 	Farbmanager* dia = new Farbmanager(this, edc, HaveDoc, Prefs.DColorSet, Prefs.CustomColorSets);
 	if (dia->exec())
 		{
@@ -5094,10 +5090,11 @@ void ScribusApp::slotEditColors()
 			{
 			Prefs.DColors = dia->EditColors;
 			Prefs.DColorSet = dia->LoadColSet->text();
-			Prefs.CustomColorSets = dia->CColSet;
 			Mpal->Cpal->SetColors(Prefs.DColors);
 			}
 		}
+	if (!HaveDoc)
+		Prefs.CustomColorSets = dia->CColSet;
 	delete dia;
 }
 

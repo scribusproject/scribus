@@ -172,18 +172,18 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
 
 	CyanSL = new QSlider( Frame4, "CyanSL" );
 	CyanSL->setMinimumSize( QSize( 200, 16 ) );
-	CyanSL->setMaxValue( 1000 );
+	CyanSL->setMaxValue( 100 );
 	CyanSL->setOrientation( QSlider::Horizontal );
 	CyanSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2->addWidget( CyanSL );
 	Cyan->addLayout( Layout1_2 );
 
-	CyanSp = new MSpinBox( Frame4, 1 );
+	CyanSp = new MSpinBox( Frame4, 0 );
 	CyanSp->setMaxValue( 100 );
 	CyanSp->setSuffix( tr(" %"));
 	Cyan->addWidget( CyanSp );
 	CyanSp->setValue(ccd);
-	CyanSL->setValue(qRound(ccd *10));
+	CyanSL->setValue(qRound(ccd));
 	Frame4Layout->addLayout( Cyan );
 
 	Magenta = new QHBoxLayout;
@@ -208,18 +208,18 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
 
 	MagentaSL = new QSlider( Frame4, "MagentaSL" );
 	MagentaSL->setMinimumSize( QSize( 200, 16 ) );
-	MagentaSL->setMaxValue( 1000 );
+	MagentaSL->setMaxValue( 100 );
 	MagentaSL->setOrientation( QSlider::Horizontal );
 	MagentaSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2_2->addWidget( MagentaSL );
 	Magenta->addLayout( Layout1_2_2 );
 
-	MagentaSp = new MSpinBox( Frame4, 1 );
+	MagentaSp = new MSpinBox( Frame4, 0 );
 	MagentaSp->setMaxValue( 100 );
 	MagentaSp->setSuffix( tr(" %"));
 	Magenta->addWidget( MagentaSp );
 	MagentaSp->setValue(cmd);
-	MagentaSL->setValue(qRound(cmd *10));
+	MagentaSL->setValue(qRound(cmd));
 	Frame4Layout->addLayout( Magenta );
 
 	Yellow = new QHBoxLayout;
@@ -244,18 +244,18 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
 
 	YellowSL = new QSlider( Frame4, "YellowSL" );
 	YellowSL->setMinimumSize( QSize( 200, 16 ) );
-	YellowSL->setMaxValue( 1000 );
+	YellowSL->setMaxValue( 100 );
 	YellowSL->setOrientation( QSlider::Horizontal );
 	YellowSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2_3->addWidget( YellowSL );
 	Yellow->addLayout( Layout1_2_3 );
 
-	YellowSp = new MSpinBox( Frame4, 1 );
+	YellowSp = new MSpinBox( Frame4, 0 );
 	YellowSp->setMaxValue( 100 );
 	YellowSp->setSuffix( tr(" %"));
 	Yellow->addWidget( YellowSp );
 	YellowSp->setValue(cyd);
-	YellowSL->setValue(qRound(cyd * 10));
+	YellowSL->setValue(qRound(cyd));
 	Frame4Layout->addLayout( Yellow );
 
 	Black = new QHBoxLayout;
@@ -280,18 +280,18 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
 
 	BlackSL = new QSlider( Frame4, "BlackSL" );
 	BlackSL->setMinimumSize( QSize( 200, 16 ) );
-	BlackSL->setMaxValue( 1000 );
+	BlackSL->setMaxValue( 100 );
 	BlackSL->setOrientation( QSlider::Horizontal );
 	BlackSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2_4->addWidget( BlackSL );
 	Black->addLayout( Layout1_2_4 );
 
-	BlackSp = new MSpinBox( Frame4, 1 );
+	BlackSp = new MSpinBox( Frame4, 0 );
 	BlackSp->setMaxValue( 100 );
 	BlackSp->setSuffix( tr(" %"));
 	Black->addWidget( BlackSp );
 	BlackSp->setValue(ckd);
-	BlackSL->setValue(qRound(ckd * 10));
+	BlackSL->setValue(qRound(ckd));
 	BlackComp = ck;
 	Frame4Layout->addLayout( Black );
 	CMYKFarbenLayout->addWidget( Frame4 );
@@ -339,28 +339,14 @@ void CMYKChoose::SetValueS(int val)
 	disconnect( MagentaSp, SIGNAL( valueChanged(int) ), MagentaSL, SLOT( setValue(int) ) );
 	disconnect( YellowSp, SIGNAL( valueChanged(int) ), YellowSL, SLOT( setValue(int) ) );
 	disconnect( BlackSp, SIGNAL( valueChanged(int) ), BlackSL, SLOT( setValue(int) ) );
-	if (CMYKmode)
-	{
-		if (CyanSL == sender())
-			CyanSp->setValue(val / 10.0);
-		if (MagentaSL == sender())
-			MagentaSp->setValue(val / 10.0);
-		if (YellowSL == sender())
-			YellowSp->setValue(val / 10.0);
-		if (BlackSL == sender())
-			BlackSp->setValue(val / 10.0);
-	}
-	else
-	{
-		if (CyanSL == sender())
-			CyanSp->setValue(val);
-		if (MagentaSL == sender())
-			MagentaSp->setValue(val);
-		if (YellowSL == sender())
-			YellowSp->setValue(val);
-		if (BlackSL == sender())
-			BlackSp->setValue(val);
-	}
+	if (CyanSL == sender())
+		CyanSp->setValue(val);
+	if (MagentaSL == sender())
+		MagentaSp->setValue(val);
+	if (YellowSL == sender())
+		YellowSp->setValue(val);
+	if (BlackSL == sender())
+		BlackSp->setValue(val);
 	setColor();
 	connect( CyanSp, SIGNAL( valueChanged(int) ), CyanSL, SLOT( setValue(int) ) );
 	connect( MagentaSp, SIGNAL( valueChanged(int) ), MagentaSL, SLOT( setValue(int) ) );
@@ -485,24 +471,24 @@ void CMYKChoose::SelModel(const QString& mod)
 	{
 		CMYKmode = true;
 		Wsave = false;
-		CyanSL->setMaxValue( 1000 );
-		MagentaSL->setMaxValue( 1000 );
-		YellowSL->setMaxValue( 1000 );
+		CyanSL->setMaxValue( 100 );
+		MagentaSL->setMaxValue( 100 );
+		YellowSL->setMaxValue( 100 );
+		CyanSp->setMaxValue( 100 );
+		MagentaSp->setMaxValue( 100);
+		YellowSp->setMaxValue( 100 );
 		CyanSL->setLineStep(1);
 		MagentaSL->setLineStep(1);
 		YellowSL->setLineStep(1);
 		CyanSL->setPageStep(10);
 		MagentaSL->setPageStep(10);
 		YellowSL->setPageStep(10);
-		CyanSp->setDecimals(10);
-		MagentaSp->setDecimals(10);
-		YellowSp->setDecimals(10);
-		CyanSp->setLineStep(10);
-		MagentaSp->setLineStep(10);
-		YellowSp->setLineStep(10);
-		CyanSp->setMaxValue( 100 );
-		MagentaSp->setMaxValue( 100);
-		YellowSp->setMaxValue( 100 );
+		CyanSp->setDecimals(1);
+		MagentaSp->setDecimals(1);
+		YellowSp->setDecimals(1);
+		CyanSp->setLineStep(1);
+		MagentaSp->setLineStep(1);
+		YellowSp->setLineStep(1);
 		CyanSp->setSuffix( tr(" %"));
 		MagentaSp->setSuffix( tr(" %"));
 		YellowSp->setSuffix( tr(" %"));
@@ -708,13 +694,13 @@ void CMYKChoose::setValues()
 		int cc, cm, cy, ck;
 		Farbe.getCMYK(&cc, &cm, &cy, &ck);
 		CyanSp->setValue(cc / 2.55);
-		CyanSL->setValue(qRound(cc / 2.55 * 10.0 ));
+		CyanSL->setValue(qRound(cc / 2.55));
 		MagentaSp->setValue(cm / 2.55);
-		MagentaSL->setValue(qRound(cm / 2.55 * 10.0));
+		MagentaSL->setValue(qRound(cm / 2.55));
 		YellowSp->setValue(cy / 2.55);
-		YellowSL->setValue(qRound(cy / 2.55 * 10.0));
+		YellowSL->setValue(qRound(cy / 2.55));
 		BlackSp->setValue(ck / 2.55);
-		BlackSL->setValue(qRound(ck / 2.55 * 10.0));
+		BlackSL->setValue(qRound(ck / 2.55));
 		if (dynamic)
 		{
 			CyanP->setPixmap(SliderPix(180));

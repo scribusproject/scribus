@@ -2339,12 +2339,21 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 						PutDoc(ite->LocalScX != ite->LocalScY ? "A" : "P");
 						PutDoc(" /A [ ");
 						if ((ite->Width/ite->LocalScX - ite->pixm.width()) != 0)
-							PutDoc(FToStr(QMAX(ite->LocalX / (ite->Width/ite->LocalScX - ite->pixm.width()), 0.01)));
+						{
+							if (ite->AnScaleW == 3)
+								PutDoc(FToStr(QMAX(ite->LocalX / (ite->Width/ite->LocalScX - ite->pixm.width()), 0.01)));
+							else
+								PutDoc("0.5 ");
+						}
 						else
-							PutDoc("0");
-						PutDoc(" ");
+							PutDoc("0 ");
 						if ((ite->Height/ite->LocalScY - ite->pixm.height()) != 0)
-							PutDoc(FToStr(QMAX(ite->LocalY / (ite->Height/ite->LocalScY - ite->pixm.height()), 0.01)));
+						{
+							if (ite->AnScaleW == 3)
+								PutDoc(FToStr(QMAX(ite->LocalY / (ite->Height/ite->LocalScY - ite->pixm.height()), 0.01)));
+							else
+								PutDoc("0.5");
+						}
 						else
 							PutDoc("0");
 						PutDoc(" ] >> ");

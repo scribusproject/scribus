@@ -6910,13 +6910,39 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	b->An_Extern = Buffer->An_Extern;
 	b->AnZiel = Buffer->AnZiel;
 	b->AnActType = Buffer->AnActType;
-	if ((Buffer->AnName != "") && (!drag))
+	if (Buffer->AnName != "")
 	{
-		if (b->AnName == Buffer->AnName)
-			b->AutoName = true;
+		if (!drag)
+		{
+			if (b->AnName == Buffer->AnName)
+				b->AutoName = true;
+			else
+			{
+				b->AnName = Buffer->AnName;
+				b->AutoName = false;
+			}
+		}
 		else
 		{
-			b->AnName = Buffer->AnName;
+			ScribusView* view = (ScribusView*)Anz;
+			bool found = false;
+			for (uint a = 0; a < view->Pages.count(); ++a)
+			{
+				for (uint c = 0; c < view->Pages.at(a)->Items.count(); ++c)
+				{
+					if (Buffer->AnName == view->Pages.at(a)->Items.at(c)->AnName)
+					{
+						found = true;
+						break;
+					}
+				}
+				if (found)
+					break;
+			}
+			if (found)
+				b->AnName = tr("Copy of")+" "+Buffer->AnName;
+			else
+				b->AnName = Buffer->AnName;
 			b->AutoName = false;
 		}
 	}

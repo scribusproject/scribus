@@ -55,7 +55,7 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
 	Layout15->addWidget( SaveB );
 
 	ExitB = new QPushButton( this, "ExitB" );
-	ExitB->setText( tr( "Exit" ) );
+	ExitB->setText( tr( "Close" ) );
 	Layout15->addWidget( ExitB );
 
 	CancelB = new QPushButton( this, "CancelB" );

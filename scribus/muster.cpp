@@ -47,7 +47,7 @@ MusterSeiten::MusterSeiten( QWidget* parent, ScribusDoc *doc, ScribusView *view,
 	Layout2->addItem( spacer );
 
 	ExitB = new QPushButton( this, "ExitB" );
-	ExitB->setText( tr( "Exit" ) );
+	ExitB->setText( tr( "Close" ) );
 	Layout2->addWidget( ExitB );
 	MusterSeitenLayout->addLayout( Layout2 );
 	if (temp == "")

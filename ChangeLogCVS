@@ -1,4 +1,8 @@
 Changes since Version 1.1.5
+09.03.2004	Updated the Ukrainian Translation.
+		Finally fixed placement of the Icons for PDF-Buttons.
+		Objects keep their Name now when they are Cut and Pasted.
+
 08.03.2004	Fixed behaviour of the Icons of PDF-Buttons.
 		Fixed Bug #326.
 		Added more ToolTips.

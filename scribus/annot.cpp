@@ -1092,10 +1092,31 @@ void Annot::IPlace()
 		int h = item->pixm.height();
 		double sw = item->Width / w;
 		double sh = item->Height / h;
-		item->LocalScX = dia->IcScaleH == 3 ? 1 : sw;
-		item->LocalScY = dia->IcScaleH == 3 ? 1 : sh;
-		item->LocalX = dia->IcScaleH == 3 ? (item->Width - w) * dia->IcPlaceX : 0;
-		item->LocalY = dia->IcScaleH == 3 ? (item->Height - h) * dia->IcPlaceY : 0;
+		double sc = QMIN(sw, sh);
+		if (dia->IcScaleH == 3)
+		{
+			item->LocalScX = 1;
+			item->LocalScY = 1;
+			item->LocalX = (item->Width - w) * dia->IcPlaceX;
+			item->LocalY = (item->Height - h) * dia->IcPlaceY;
+		}
+		else
+		{
+			if (dia->ScaleH->currentItem() == 0)
+			{
+				item->LocalScX = sc;
+				item->LocalScY = sc;
+				item->LocalX = ((item->Width - w * sc) / sc) / 2.0 / sc;
+				item->LocalY = ((item->Height - h * sc) / sc) / 2.0 / sc;
+			}
+			else
+			{
+				item->LocalScX = sw;
+				item->LocalScY = sh;
+				item->LocalX = 0;
+				item->LocalY = 0;
+			}
+		}
 		item->AnIPlace = dia->Place->currentItem();
 		item->AnScaleW = dia->ScaleW->currentItem();
 	}
