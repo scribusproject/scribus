@@ -44,6 +44,8 @@ FontPreview::FontPreview( ScribusApp *carrier, QWidget* parent, const char* name
 	layout6->addLayout( layout5 );
 	fontPreview = new QLabel( this, "fontPreview" );
 	fontPreview->setMinimumSize(QSize(400,90));
+	fontPreview->setFrameShape(QFrame::Box);
+	fontPreview->setPaletteBackgroundColor(paletteBackgroundColor());
 	layout6->addWidget( fontPreview );
 
 	FontPreviewLayout->addLayout( layout6, 0, 0 );

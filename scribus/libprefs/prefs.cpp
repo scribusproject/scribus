@@ -35,7 +35,7 @@ extern "C" void* Run(QWidget *d, preV *prefsData);
 /*!
  \fn void* Run(QWidget *d, preV *prefsData)
  \author Franz Schmid
- \date  
+ \date
  \brief Creates Preferences dialog and returns pointer to it
  \param d QWidget * to Preferences dialog widget
  \param prefsData preV * struct
@@ -49,8 +49,8 @@ void* Run(QWidget *d, preV *prefsData)
 
 /*!
  \fn Preferences::Preferences( QWidget* parent, preV *prefsData)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Constructor for Preferences dialog box
  \param parent QWidget pointer to parent window
  \param prefsData preV * struct
@@ -462,6 +462,8 @@ Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( p
 	previewText = new QLabel( tr( "Woven silk pyjamas exchanged for blue quartz" ), subTabText, "previewText" );
 	previewText->setMinimumSize( QSize( 280, 70 ) );
 	previewText->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
+	previewText->setFrameShape(QFrame::Box);
+	previewText->setPaletteBackgroundColor(paletteBackgroundColor());
 	subTabTextLayout->addMultiCellWidget( previewText, 5, 5, 0, 3 );
 	subStackTools->addWidget( subTabText, 0 );
 
@@ -1115,8 +1117,8 @@ Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( p
 
 /*!
  \fn Preferences::~Preferences
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Destructor for Preferences dialog box
  \param None
  \retval None
@@ -1129,8 +1131,8 @@ Preferences::~Preferences()
 
 /*!
  \fn void Preferences::ChangeDocs()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Runs QFileDialog to get Preferences (General) Path to Documents directory
  \param None
  \retval None
@@ -1144,8 +1146,8 @@ void Preferences::changeDocs()
 
 /*!
  \fn void Preferences::ChangeProfs()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Runs QFileDialog to get Preferences (General) Path to Colour Profiles directory
  \param None
  \retval None
@@ -1159,11 +1161,11 @@ void Preferences::changeProfs()
 
 /*!
  \fn void Preferences::ChangeScripts()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Runs QFileDialog to get Preferences (General) Path to Scripts directory
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::changeScripts()
 {
@@ -1174,11 +1176,11 @@ void Preferences::changeScripts()
 
 /*!
  \fn void Preferences::ChangeTemplates()
- \author Riku Leino 
- \date  
+ \author Riku Leino
+ \date
  \brief Runs QFileDialog to get Preferences (General) Path to Templates directory
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::changeTemplates()
 {
@@ -1189,11 +1191,11 @@ void Preferences::changeTemplates()
 
 /*!
  \fn void Preferences::ToggleKette()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Tools, Image Frame), Sets Y Scale value from X Scale value when chain is toggled
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::toggleChain()
 {
@@ -1203,11 +1205,11 @@ void Preferences::toggleChain()
 
 /*!
  \fn void Preferences::HChange()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Tools, Image Frame), Sets Y Scale value from X Scale value when X Scale value is changed
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::hChange()
 {
@@ -1217,11 +1219,11 @@ void Preferences::hChange()
 
 /*!
  \fn void Preferences::vChange()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Tools, Image Frame). Sets X Scale value from Y Scale value when Y Scale value is changed
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::vChange()
 {
@@ -1247,11 +1249,11 @@ void Preferences::changeImageScalingRatio(int)
 
 /*!
  \fn void Preferences::SetSample()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Tools, Text frame), Sets the sample text in selected font in text frame preferences
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::setSample()
 {
@@ -1264,11 +1266,11 @@ void Preferences::setSample()
 
 /*!
  \fn void Preferences::SetTool()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Tools), Raises widget for selected Tool properties
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::setTool()
 {
@@ -1288,11 +1290,11 @@ void Preferences::setTool()
 
 /*!
  \fn void Preferences::setDS()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), switches default between Facing Pages and swaps text labels for margin guides
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::setDS()
 {
@@ -1306,11 +1308,11 @@ void Preferences::setDS()
 
 /*!
  \fn void Preferences::setPageWidth(int v)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), sets Page width values
  \param v Width value
- \retval None 
+ \retval None
  */
 void Preferences::setPageWidth(int)
 {
@@ -1323,11 +1325,11 @@ void Preferences::setPageWidth(int)
 
 /*!
  \fn void Preferences::setPageHeight(int v)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), sets Page height values
  \param v Height value
- \retval None 
+ \retval None
  */
 void Preferences::setPageHeight(int)
 {
@@ -1340,11 +1342,11 @@ void Preferences::setPageHeight(int)
 
 /*!
  \fn void Preferences::setTop(int v)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), sets Page top values
  \param v Top value
- \retval None 
+ \retval None
  */
 void Preferences::setTop(int)
 {
@@ -1354,11 +1356,11 @@ void Preferences::setTop(int)
 
 /*!
  \fn void Preferences::setBottom(int v)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), sets Page bottom values
  \param v Bottom value
- \retval None 
+ \retval None
  */
 void Preferences::setBottom(int)
 {
@@ -1368,11 +1370,11 @@ void Preferences::setBottom(int)
 
 /*!
  \fn void Preferences::setLeft(int v)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), sets Page left values
  \param v Top value
- \retval None 
+ \retval None
  */
 void Preferences::setLeft(int)
 {
@@ -1382,11 +1384,11 @@ void Preferences::setLeft(int)
 
 /*!
  \fn void Preferences::setRight(int v)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), sets Page right values
  \param v Right value
- \retval None 
+ \retval None
  */
 void Preferences::setRight(int)
 {
@@ -1396,11 +1398,11 @@ void Preferences::setRight(int)
 
 /*!
  \fn void Preferences::setSize(int gr)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), sets Page size values. Connects signals for setting page dimensions.
  \param gr Standard page size value (eg A4)
- \retval None 
+ \retval None
  */
 void Preferences::setSize(int gr)
 {
@@ -1436,11 +1438,11 @@ void Preferences::setSize(int gr)
 
 /*!
  \fn void Preferences::setOrien(int ori)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), sets Page orientation value and page dimensions
  \param ori Orientation value
- \retval None 
+ \retval None
  */
 void Preferences::setOrien(int ori)
 {
@@ -1469,11 +1471,11 @@ void Preferences::setOrien(int ori)
 
 /*!
  \fn void Preferences::changePapColor()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences ([dox?], [dox?]), Sets Paper colour [dox?]
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::changePaperColor()
 {
@@ -1490,11 +1492,11 @@ void Preferences::changePaperColor()
 
 /*!
  \fn void Preferences::UnitChange()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (General, Units). Sets scaling factors and units descriptions when default units are changed. Updates preference values
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::unitChange()
 {
@@ -1593,8 +1595,8 @@ void Preferences::unitChange()
 
 /*!
  \fn void Preferences::SetDisScale()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Display, Display Size). Sets Scale for ruler scale
  \param None
  \retval None
@@ -1608,8 +1610,8 @@ void Preferences::setDisScale()
 
 /*!
  \fn void Preferences::DrawRuler()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Display, Display Size). Draws ruler depending on scaling factor
  \param None
  \retval None

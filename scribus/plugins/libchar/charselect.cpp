@@ -229,6 +229,8 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDial
 	zTabelle->maxCount = maxCount;
 
 	sample = new QLabel( this, "Zeichen" );
+	sample->setFrameShape(QFrame::Box);
+	sample->setPaletteBackgroundColor(paletteBackgroundColor());
 	zAuswahlLayout->addWidget( sample );
 
 	layout1 = new QHBoxLayout;
@@ -244,7 +246,8 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDial
 	closeButton = new QPushButton(tr("&Close"), this, "closeButton" );
 	layout1->addWidget( closeButton );
 	zAuswahlLayout->addLayout( layout1 );
-	sample->setMaximumSize(width(), 50);
+	sample->setMaximumSize(width(), 52);
+	sample->setMinimumSize(width(), 52);
 	delEdit();
 
 //tooltips
