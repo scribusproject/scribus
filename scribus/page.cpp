@@ -251,60 +251,32 @@ void Page::restore(UndoState* state, bool isUndo)
 				addYGuide(to);
 			}
 		}
-		else if (ss->contains("CREATE_PAGEITEM"))
-			restorePageItemCreation(ss, isUndo);
+		else if (ss->contains("CREATE_ITEM"))
+			restorePageItemCreation(dynamic_cast<ItemState*>(ss), isUndo);
 		else if (ss->contains("DELETE_ITEM"))
 			restorePageItemDeletion(dynamic_cast<ItemState*>(ss), isUndo);
 	}
 }
 
-void Page::restorePageItemCreation(SimpleState *state, bool isUndo)
+void Page::restorePageItemCreation(ItemState *state, bool isUndo)
 {
-	uint itemNr = static_cast<uint>(state->getInt("ItemNr"));
+	if (!state)
+		return;
+	PageItem *ite = state->getPageItem();
 	if (isUndo)
 	{
-		// store item info for redo here too
-		ScApp->view->SelItem.clear();
-		ScApp->view->SelItem.append(ScApp->doc->Items.at(itemNr));
+		ScApp->view->Deselect();
+		ScApp->view->SelectItem(ite, false);
 		ScApp->view->DeleteItem();
 	}
 	else
 	{
-		int art = state->getInt("art");
-		double x = state->getDouble("x");
-		double y = state->getDouble("y");
-		double b = state->getDouble("w");
-		double h = state->getDouble("h");
-		double w = state->getDouble("w2");
-		QString fill = state->get("fill");
-		QString outline = state->get("outline");
-		bool cedited = state->getBool("ClipEdited");
-		int newItemNr = -1;
-		switch (art)
-		{
-			case 2: // image
-				newItemNr = ScApp->view->PaintPict(x, y, b, h);
-				break;
-			case 4: //text
-				newItemNr = ScApp->view->PaintText(x, y, b, h, w, outline);
-				break;
-			case 5: // line
-				newItemNr = ScApp->view->PaintLine(x, y, b, h, w, outline);
-				break;
-			case 6: // polygon
-				if (cedited)
-					newItemNr = ScApp->view->PaintPoly(x, y, b, h, w, fill, outline);
-				else
-					newItemNr = ScApp->view->PaintRect(x, y, b, h, w, fill, outline);
-				break;
-			case 7: // polyline
-				newItemNr = ScApp->view->PaintPolyLine(x, y, b, h, w, fill, outline);
-				break;
-		}
-		if (newItemNr != -1)
-		{
-			state->set("ItemNr", newItemNr);
-		}
+		ScApp->doc->Items.append(ite);
+		if (ScApp->doc->MasterP)
+			ScApp->doc->MasterItems = ScApp->doc->Items;
+		else
+			ScApp->doc->DocItems = ScApp->doc->Items;
+		ite->ItemNr = ScApp->doc->Items.count()-1;
 	}
 }
 

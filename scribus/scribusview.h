@@ -325,7 +325,7 @@ private: // Private attributes
 	int    oldX;
 	int    oldY;
 	bool _groupTransactionStarted;
-	void creationUndoAction(PageItem *pi);
+	bool _itemCreationTransactionStarted;
 
 private slots:
 	void Zval();

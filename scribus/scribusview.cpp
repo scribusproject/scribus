@@ -185,6 +185,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	ClRe = -1;
 	ClRe2 = -1;
 	_groupTransactionStarted = false;
+	_itemCreationTransactionStarted = false;
 	undoManager = UndoManager::instance();
 	connect(SB1, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
 	connect(SB2, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
@@ -2672,6 +2673,14 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 
 	for (uint i = 0; i < SelItem.count(); ++i)
 		SelItem.at(i)->checkChanges();
+	if (_itemCreationTransactionStarted)
+	{
+		PageItem *selectedItem = SelItem.at(0);
+		selectedItem->checkChanges(true);
+		undoManager->commit(selectedItem->getUName(), selectedItem->getUPixmap(),
+							Um::Create, "", Um::ICreate);
+		_itemCreationTransactionStarted = false;
+	}
 }
 
 void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
@@ -9027,6 +9036,11 @@ void ScribusView::SetFrameOval()
 /** Zeichnet eine Ellipse */
 int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, QString fill, QString outline)
 {
+	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
+	{
+		_itemCreationTransactionStarted = true;
+		undoManager->beginTransaction();
+	}
 	PageItem* ite = new PageItem(Doc, 6, x, y, b, h, w, fill, outline);
 	Doc->Items.append(ite);
 	if (Doc->MasterP)
@@ -9044,12 +9058,24 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 		ite->paintObj();
 //		emit AddObj(PageNr, ite->ItemNr);
 	}
+	if (UndoManager::undoEnabled())
+	{
+		ItemState *is = new ItemState("Create PageItem");
+		is->set("CREATE_ITEM", "create_item");
+		is->setPageItem(ite);
+		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+	}
 	return ite->ItemNr;
 }
 
 /** Zeichnet einen Bildrahmen */
 int ScribusView::PaintPict(double x, double y, double b, double h)
 {
+	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
+	{
+		_itemCreationTransactionStarted = true;
+		undoManager->beginTransaction();
+	}
 	PageItem* ite = new PageItem(Doc, 2, x, y, b, h, 1, Doc->toolSettings.dBrushPict, "None");
 	Doc->Items.append(ite);
 	if (Doc->MasterP)
@@ -9071,12 +9097,24 @@ int ScribusView::PaintPict(double x, double y, double b, double h)
 		ite->paintObj();
 //		emit AddObj(PageNr, ite->ItemNr);
 	}
+	if (UndoManager::undoEnabled())
+	{
+		ItemState *is = new ItemState("Create PageItem");
+		is->set("CREATE_ITEM", "create_item");
+		is->setPageItem(ite);
+		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+	}
 	return ite->ItemNr;
 }
 
 /** Zeichnet ein Rechteck */
 int ScribusView::PaintRect(double x, double y, double b, double h, double w, QString fill, QString outline)
 {
+	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
+	{
+		_itemCreationTransactionStarted = true;
+		undoManager->beginTransaction();
+	}
 	PageItem* ite = new PageItem(Doc, 6, x, y, b, h, w, fill, outline);
 	Doc->Items.append(ite);
 	if (Doc->MasterP)
@@ -9094,12 +9132,24 @@ int ScribusView::PaintRect(double x, double y, double b, double h, double w, QSt
 		ite->paintObj();
 //		emit AddObj(PageNr, ite->ItemNr);
 	}
+	if (UndoManager::undoEnabled())
+	{
+		ItemState *is = new ItemState("Create PageItem");
+		is->set("CREATE_ITEM", "create_item");
+		is->setPageItem(ite);
+		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+	}
 	return ite->ItemNr;
 }
 
 /** Zeichnet ein Polygon */
 int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QString fill, QString outline)
 {
+	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
+	{
+		_itemCreationTransactionStarted = true;
+		undoManager->beginTransaction();
+	}
 	PageItem* ite = new PageItem(Doc, 6, x, y, b, h, w, fill, outline);
 	Doc->Items.append(ite);
 	if (Doc->MasterP)
@@ -9117,12 +9167,24 @@ int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QSt
 		ite->paintObj();
 //		emit AddObj(PageNr, ite->ItemNr);
 	}
+	if (UndoManager::undoEnabled())
+	{
+		ItemState *is = new ItemState("Create PageItem");
+		is->set("CREATE_ITEM", "create_item");
+		is->setPageItem(ite);
+		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+	}
 	return ite->ItemNr;
 }
 
 /** Zeichnet eine Polyline */
 int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w, QString fill, QString outline)
 {
+	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
+	{
+		_itemCreationTransactionStarted = true;
+		undoManager->beginTransaction();
+	}
 	PageItem* ite = new PageItem(Doc, 7, x, y, b, h, w, fill, outline);
 	Doc->Items.append(ite);
 	if (Doc->MasterP)
@@ -9139,12 +9201,24 @@ int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w,
 		ite->paintObj();
 //		emit AddObj(PageNr, ite->ItemNr);
 	}
+	if (UndoManager::undoEnabled())
+	{
+		ItemState *is = new ItemState("Create PageItem");
+		is->set("CREATE_ITEM", "create_item");
+		is->setPageItem(ite);
+		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+	}
 	return ite->ItemNr;
 }
 
 /** Zeichnet einen Textrahmen */
 int ScribusView::PaintText(double x, double y, double b, double h, double w, QString outline)
 {
+	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
+	{
+		_itemCreationTransactionStarted = true;
+		undoManager->beginTransaction();
+	}
 	PageItem* ite = new PageItem(Doc, 4, x, y, b, h, w, "None", outline);
 	Doc->Items.append(ite);
 	if (Doc->MasterP)
@@ -9159,6 +9233,13 @@ int ScribusView::PaintText(double x, double y, double b, double h, double w, QSt
 		ite->paintObj();
 //		emit AddObj(PageNr, ite->ItemNr);
 	}
+	if (UndoManager::undoEnabled())
+	{
+		ItemState *is = new ItemState("Create PageItem");
+		is->set("CREATE_ITEM", "create_item");
+		is->setPageItem(ite);
+		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+	}
 	return ite->ItemNr;
 }
 
@@ -9167,6 +9248,11 @@ int ScribusView::PaintLine(double x, double y, double b, double h, double w, QSt
 {
 	if (w == 0)
 		w = 1;
+	if (UndoManager::undoEnabled() && !_itemCreationTransactionStarted)
+	{
+		_itemCreationTransactionStarted = true;
+		undoManager->beginTransaction();
+	}
 	PageItem* ite = new PageItem(Doc, 5, x, y, b, h, w, "None", outline);
 	Doc->Items.append(ite);
 	if (Doc->MasterP)
@@ -9181,31 +9267,14 @@ int ScribusView::PaintLine(double x, double y, double b, double h, double w, QSt
 		ite->paintObj();
 //		emit AddObj(PageNr, ite->ItemNr);
 	}
-	return ite->ItemNr;
-}
-
-void ScribusView::creationUndoAction(PageItem *pi)
-{
-	if (undoManager->undoEnabled() && !Doc->loading)
+	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::Create,
-			QString(Um::CreateTo).arg(pi->Xpos).arg(pi->Ypos).arg(pi->Width).arg(pi->Height),
-										  NULL);
-		ss->set("CREATE_PAGEITEM", "cpi");
-		ss->set("art", pi->PType);
-		ss->set("x", pi->Xpos);
-		ss->set("y", pi->Ypos);
-		ss->set("w", pi->Width);
-		ss->set("h", pi->Height);
-		ss->set("w2", pi->Pwidth);
-		ss->set("fill", pi->Pcolor);
-		ss->set("outline", pi->Pcolor2);
-		ss->set("ClipEdited", pi->ClipEdited);
-		ss->set("ItemNr", pi->ItemNr);
-
-		undoManager->action(Doc->currentPage, ss);
-		pi->checkChanges(true);
+		ItemState *is = new ItemState("Create PageItem");
+		is->set("CREATE_ITEM", "create_item");
+		is->setPageItem(ite);
+		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
 	}
+	return ite->ItemNr;
 }
 
 void ScribusView::insertColor(QString nam, double c, double m, double y, double k)
