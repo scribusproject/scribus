@@ -125,8 +125,10 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent,
 	}
 	else
 		ComboBox1->setCurrentItem(0);
-#endif
 	cms = CMSuse && CMSavail;
+#else
+	cms = false;
+#endif
 	if (Optionen->Version == 13)
 		ComboBox1->setCurrentItem(0);
 	if (Optionen->Version == 14)
