@@ -27,12 +27,15 @@
 #include <qvaluestack.h>
 #include <qvaluelist.h>
 #include "scpainter.h"
+#include "undoobject.h"
 class ScribusDoc;
+class UndoManager;
+class UndoState;
 /**
   *@author Franz Schmid
   */
 							
-class PageItem : public QObject
+class PageItem : public QObject, public UndoObject
 {
 	Q_OBJECT
 
@@ -68,8 +71,12 @@ public:
 	bool Reverse;
   /** X-Position auf der Seite */
 	double Xpos;
+	/** @brief Stores the old X-position for undo action. Is used to detect move actions.*/
+	double oldXpos;
   /** Y-Position auf der Seite */
 	double Ypos;
+	/** @brief Stores the old Y-position for undo action. Is used to detect move actions. */
+	double oldYpos;
   /** Breite des Elements */
 	double Width;
   /** Hoehe des Elements */
@@ -287,6 +294,21 @@ public:
 	QString OnMasterPage;
 	int startArrowIndex;
 	int endArrowIndex;
+	/** Icon for move action */
+	QPixmap *undoIconMove;
+	UndoManager *undoManager;
+	/** 
+	 * @brief Set name of the item
+	 * @param newName name for the item
+	 * @author Riku Leino
+	 */
+	void setName(const QString& newName);
+	/**
+	 * @brief Add an undo action to the undo guis
+	 * @author Riku Leino
+	 */
+	void moveUndoAction();
+	void restore(UndoState *state, bool isUndo);
 };
 
 #endif

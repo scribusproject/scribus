@@ -408,7 +408,14 @@ void UndoPalette::UndoItem::paint(QPainter *painter)
 int UndoPalette::UndoItem::height(const QListBox *lb) const
 {
 	if (lb)
-		return (2 * QFontMetrics(lb->font()).height());
+	{
+		int fontHeight = 2 * QFontMetrics(lb->font()).height();
+		if (pixmap)
+			return fontHeight > (10 + pixmap->height()) ?
+                   fontHeight : (10 + pixmap->height());
+		else
+			return fontHeight;
+	}
 	else
 		return 0;
 }

@@ -1694,7 +1694,7 @@ void Annot::SetVals()
 	item->AnType = ComboBox1->currentItem()+2;
 	if (Name->text() != OldName)
 	{
-		item->AnName = Name->text();
+		item->setName(Name->text());
 		item->AutoName = false;
 	}
 	item->AnToolTip = Tip->text();

@@ -539,6 +539,7 @@ void ScribusApp::initDefaultValues()
 	PDef.Dname = "";
 	PDef.Command = "";
 	keyrep = false;
+	_arrowKeyDown = false;
 	ClipB = QApplication::clipboard();
 	PalettesStat[0] = false;
 	GuidesStat[0] = false;
@@ -2149,7 +2150,31 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 			}
 		}
 	}
+	switch(kk)
+	{
+		case Key_Left:
+		case Key_Right:
+		case Key_Up:
+		case Key_Down:
+			_arrowKeyDown = true;
+	}
 	keyrep = false;
+}
+
+void ScribusApp::keyReleaseEvent(QKeyEvent *k)
+{
+	if (k->isAutoRepeat() || !_arrowKeyDown)
+		return;
+	switch(k->key())
+	{
+		case Key_Left:
+		case Key_Right:
+		case Key_Up:
+		case Key_Down:
+			_arrowKeyDown = false;
+			for (uint i = 0; i < view->SelItem.count(); ++i)
+				view->SelItem.at(0)->moveUndoAction();
+	}
 }
 
 void ScribusApp::closeEvent(QCloseEvent *ce)
@@ -2265,6 +2290,11 @@ void ScribusApp::parsePagesString(QString pages, std::vector<int>* pageNs, int s
 				pageNs->push_back(pageNr);
 		}
 	} while (tmp != "");
+}
+
+bool ScribusApp::arrowKeyDown()
+{
+	return _arrowKeyDown;
 }
 
 bool ScribusApp::slotFileNew()

@@ -220,8 +220,20 @@ public:
 	static const QString MoveHGuide;
 	static const QString LockGuides;
 	static const QString UnlockGuides;
+	static const QString Move;
+	static const QString FromXToY;
+	static const QString From;
+	static const QString To;
+	static const QString X;
+	static const QString Y;
+	static const QString Text;
+	static const QString Image;
+	static const QString Line;
+	static const QString Polygon;
+	static const QString Polyline;
+	static const QString PathText;
 	/*@}*/
-	
+
 	/**
 	 * @name Action icons
 	 * Icons for undo actions
@@ -229,6 +241,12 @@ public:
 	/*@{*/
 	static QPixmap *IGuides;
 	static QPixmap *ILockGuides;
+	static QPixmap *IMoveText;
+	static QPixmap *IMoveImage;
+	static QPixmap *IMoveLine;
+	static QPixmap *IMovePolygon;
+	static QPixmap *IMovePolyline;
+	static QPixmap *IMovePathText;
 	/*@}*/
 
 protected:

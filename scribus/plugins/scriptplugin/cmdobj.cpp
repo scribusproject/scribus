@@ -21,7 +21,7 @@ PyObject *scribus_newrect(PyObject */*self*/, PyObject* args)
 															Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush, Carrier->doc->toolSettings.dPen);
 	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
 	if (Name != "")
-		Carrier->doc->Items.at(i)->AnName = QString::fromUtf8(Name);
+		Carrier->doc->Items.at(i)->setName(QString::fromUtf8(Name));
 	return PyString_FromString(Carrier->doc->Items.at(i)->AnName.utf8());
 }
 
@@ -42,7 +42,7 @@ PyObject *scribus_newellipse(PyObject */*self*/, PyObject* args)
 	}
 	Carrier->view->SetOvalFrame(Carrier->doc->Items.at(i));
 	if (Name != "")
-		Carrier->doc->Items.at(i)->AnName = QString::fromUtf8(Name);
+		Carrier->doc->Items.at(i)->setName(QString::fromUtf8(Name));
 	return PyString_FromString(Carrier->doc->Items.at(i)->AnName.utf8());
 }
 
@@ -63,7 +63,7 @@ PyObject *scribus_newimage(PyObject */*self*/, PyObject* args)
 	}
 	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
 	if (Name != "")
-		Carrier->doc->Items.at(i)->AnName = QString::fromUtf8(Name);
+		Carrier->doc->Items.at(i)->setName(QString::fromUtf8(Name));
 	return PyString_FromString(Carrier->doc->Items.at(i)->AnName.utf8());
 }
 
@@ -84,7 +84,7 @@ PyObject *scribus_newtext(PyObject */*self*/, PyObject* args)
 	}
 	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
 	if (Name != "")
-		Carrier->doc->Items.at(i)->AnName = QString::fromUtf8(Name);
+		Carrier->doc->Items.at(i)->setName(QString::fromUtf8(Name));
 	return PyString_FromString(Carrier->doc->Items.at(i)->AnName.utf8());
 }
 
@@ -127,7 +127,7 @@ PyObject *scribus_newline(PyObject */*self*/, PyObject* args)
 	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), i, false, false);
 	Carrier->view->AdjustItemSize(it);
 	if (Name != "")
-		it->AnName = QString::fromUtf8(Name);
+		it->setName(QString::fromUtf8(Name));
 	return PyString_FromString(it->AnName.utf8());
 }
 
@@ -201,7 +201,7 @@ PyObject *scribus_polyline(PyObject */*self*/, PyObject* args)
 	Carrier->view->AdjustItemSize(it);
 	if (Name != "")
 	{
-		it->AnName = QString::fromUtf8(Name);
+		it->setName(QString::fromUtf8(Name));
 	}
 	return PyString_FromString(it->AnName.utf8());
 }
@@ -280,7 +280,7 @@ PyObject *scribus_polygon(PyObject */*self*/, PyObject* args)
 	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
 	Carrier->view->AdjustItemSize(it);
 	if (Name != "")
-		it->AnName = QString::fromUtf8(Name);
+		it->setName(QString::fromUtf8(Name));
 	return PyString_FromString(it->AnName.utf8());
 }
 
@@ -366,7 +366,7 @@ PyObject *scribus_bezierline(PyObject */*self*/, PyObject* args)
 	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
 	Carrier->view->AdjustItemSize(it);
 	if (Name != "")
-		it->AnName = QString::fromUtf8(Name);
+		it->setName(QString::fromUtf8(Name));
 	return PyString_FromString(it->AnName.utf8());
 }
 
@@ -404,7 +404,7 @@ PyObject *scribus_pathtext(PyObject */*self*/, PyObject* args)
 	Carrier->view->ToPathText();
 	Carrier->view->MoveItem(ValueToPoint(x) - it->Xpos, ValueToPoint(y) - it->Ypos, it);
 	if (Name != "")
-		it->AnName = QString::fromUtf8(Name);
+		it->setName(QString::fromUtf8(Name));
 	return PyString_FromString(it->AnName.utf8());
 }
 

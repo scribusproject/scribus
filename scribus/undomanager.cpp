@@ -328,8 +328,14 @@ UndoManager::~UndoManager()
 void UndoManager::initIcons()
 {
 	QString iconDir = ICONDIR;
-	UndoManager::IGuides     = new QPixmap(iconDir + "u_margins.png");
-	UndoManager::ILockGuides = new QPixmap(iconDir + "u_margins_locked.png");
+	UndoManager::IGuides       = new QPixmap(iconDir + "u_margins.png");
+	UndoManager::ILockGuides   = new QPixmap(iconDir + "u_margins_locked.png");
+	UndoManager::IMoveText     = new QPixmap(iconDir + "u_move_text.png");
+	UndoManager::IMoveImage    = new QPixmap(iconDir + "u_move_image.png");
+	UndoManager::IMoveLine     = new QPixmap(iconDir + "u_move_line.png");
+	UndoManager::IMovePolygon  = new QPixmap(iconDir + "u_move_polygon.png");
+	UndoManager::IMovePolyline = new QPixmap(iconDir + "u_move_polyline.png");
+// 	UndoManager::IMovePathText = new QPixmap(iconDir + "u_move_pathtext.png");
 }
 
 const QString UndoManager::AddVGuide    = tr("Add vertical guide");
@@ -340,6 +346,24 @@ const QString UndoManager::MoveVGuide   = tr("Move vertical guide");
 const QString UndoManager::MoveHGuide   = tr("Move horizontal guide");
 const QString UndoManager::LockGuides   = tr("Lock guides");
 const QString UndoManager::UnlockGuides = tr("Unlock guides");
+const QString UndoManager::Move         = tr("Move");
+const QString UndoManager::FromXToY     = tr("X: %1, Y: %2 (from)\nX: %3, Y: %4 (to)");
+const QString UndoManager::From         = tr("from");
+const QString UndoManager::To           = tr("to");
+const QString UndoManager::X            = tr("X");
+const QString UndoManager::Y            = tr("Y");
+const QString UndoManager::Text         = tr("Text");
+const QString UndoManager::Image        = tr("Image");
+const QString UndoManager::Line         = tr("Line");
+const QString UndoManager::Polygon      = tr("Polygon");
+const QString UndoManager::Polyline     = tr("Polyline");
+const QString UndoManager::PathText     = tr("PathText");
 
-QPixmap *UndoManager::IGuides     = NULL;
-QPixmap *UndoManager::ILockGuides = NULL;
+QPixmap *UndoManager::IGuides       = NULL;
+QPixmap *UndoManager::ILockGuides   = NULL;
+QPixmap *UndoManager::IMoveText     = NULL;
+QPixmap *UndoManager::IMoveImage    = NULL;
+QPixmap *UndoManager::IMoveLine     = NULL;
+QPixmap *UndoManager::IMovePolygon  = NULL;
+QPixmap *UndoManager::IMovePolyline = NULL;
+QPixmap *UndoManager::IMovePathText = NULL;

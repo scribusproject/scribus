@@ -10495,7 +10495,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 				b->AutoName = true;
 			else
 			{
-				b->AnName = Buffer->AnName;
+				b->setName(Buffer->AnName);
 				b->AutoName = false;
 			}
 		}
@@ -10511,9 +10511,9 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 				}
 			}
 			if (found)
-				b->AnName = tr("Copy of")+" "+Buffer->AnName;
+				b->setName(tr("Copy of")+" "+Buffer->AnName);
 			else
-				b->AnName = Buffer->AnName;
+				b->setName(Buffer->AnName);
 			b->AutoName = false;
 		}
 	}
@@ -11025,7 +11025,7 @@ void ScribusView::TextToPath()
 			bb->LockRes = b->LockRes;
 			bb->Locked = b->Locked;
 			bb->NamedLStyle = b->NamedLStyle;
-			bb->AnName = b->AnName+"+"+ccounter.setNum(a);
+			bb->setName(b->AnName+"+"+ccounter.setNum(a));
 			bb->AutoName = false;
 			bb->PoLine = pts.copy();
 			bb->Rot = b->Rot;

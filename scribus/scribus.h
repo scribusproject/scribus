@@ -98,6 +98,7 @@ public:
 	bool DoFileSave(QString fn);
 	void closeEvent(QCloseEvent *ce);
 	void keyPressEvent(QKeyEvent *k);
+	void keyReleaseEvent(QKeyEvent *k);
 	void wheelEvent(QWheelEvent *w);
 	void DeleteSel(PageItem *b);
 	void setTBvals(PageItem *b);
@@ -131,6 +132,11 @@ public:
 	static void defaultCrashHandler (int sig);
 	void emergencySave();
 	void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
+	/**
+	 * @brief Returns true if an arrow key is pressed down.
+	 * @return true if an arrow key is pressed down otherwise returns false
+	 */
+	bool arrowKeyDown();
 	struct CopyPasteBuffer Buffer;
 	QString Buffer2;
 	QString Buffer3;
@@ -592,6 +598,8 @@ private:
 	bool GuidesStat[7];
 	bool tipsOn;
 	bool keyrep;
+	/** @brief Tells if an arrow key is pressed down */
+	bool _arrowKeyDown;
 	QPopupMenu *helpMenu;
 	QPopupMenu *toolMenu;
 	QPopupMenu *extraMenu;

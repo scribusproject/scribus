@@ -29,6 +29,8 @@
 #include "page.h"
 #include "scribus.h"
 #include "scribusdoc.h"
+#include "undomanager.h"
+#include "undostate.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -58,7 +60,9 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	Locked = false;
 	LockRes = false;
 	Xpos = x;
+	oldXpos = x;
 	Ypos = y;
+	oldYpos = y;
 	Width = w;
 	Height = h;
 	BoundingX = x;
@@ -176,28 +180,36 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	{
 	case 2:
 		AnName = tr("Image");
+		undoIconMove = Um::IMoveImage;
 		break;
 	case 4:
 		AnName = tr("Text");
+		undoIconMove = Um::IMoveText;
 		break;
 	case 5:
 		AnName = tr("Line");
+		undoIconMove = Um::IMoveLine;
 		break;
 	case 6:
 		AnName = tr("Polygon");
+		undoIconMove = Um::IMovePolygon;
 		break;
 	case 7:
 		AnName = tr("Polyline");
+		undoIconMove = Um::IMovePolyline;
 		break;
 	case 8:
 		AnName = tr("PathText");
+		undoIconMove = NULL;
 		break;
 	default:
 		AnName = "Item";
+		undoIconMove = NULL;
 		break;
 	}
 	AnName += tmp.setNum(Doc->TotalItems); // +" "+QDateTime::currentDateTime().toString();
 	AutoName = true;
+	setUName(AnName);
 	Doc->TotalItems++;
 	AnToolTip = "";
 	AnRollOver = "";
@@ -274,6 +286,7 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	OnMasterPage = Doc->currentPage->PageNam;
 	startArrowIndex = Doc->toolSettings.dStartArrow;
 	endArrowIndex = Doc->toolSettings.dEndArrow;
+	undoManager = UndoManager::instance();
 }
 
 /** Zeichnet das Item */
@@ -1891,6 +1904,10 @@ NoRoom: pf2.end();
 	FrameOnly = false;
 	p->restore();
 	pf.end();
+	// store an undo action if object has moved and it's not been moved at the moment
+	if ((oldXpos != Xpos || oldYpos != Ypos) && 
+        (!ScApp->view->Mpressed) && (!ScApp->arrowKeyDown()))
+		moveUndoAction();
 }
 
 void PageItem::paintObj(QRect e, QPixmap *ppX)
@@ -2230,6 +2247,54 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 								 static_cast<PenJoinStyle>(ml[it].LineJoin)));
 				p->drawPolyline(pts);
 			}
+		}
+	}
+}
+
+void PageItem::setName(const QString& newName)
+{
+	AnName = newName;
+	setUName(newName);
+}
+
+void PageItem::moveUndoAction()
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::Move,
+			QString(Um::FromXToY).arg(oldXpos).arg(oldYpos).arg(Xpos).arg(Ypos),
+                                          undoIconMove);
+		ss->set("OLD_XPOS", oldXpos);
+		ss->set("OLD_YPOS", oldYpos);
+		ss->set("NEW_XPOS", Xpos);
+		ss->set("NEW_YPOS", Ypos);
+		undoManager->action(this, ss);
+	}
+	oldXpos = Xpos;
+	oldYpos = Ypos;
+}
+
+void PageItem::restore(UndoState *state, bool isUndo)
+{
+	SimpleState *ss = dynamic_cast<SimpleState*>(state);
+	if (ss)
+	{
+		if (ss->contains("OLD_XPOS"))
+		{
+			double ox = ss->getDouble("OLD_XPOS");
+			double oy = ss->getDouble("OLD_YPOS");
+			double  x = ss->getDouble("NEW_XPOS");
+			double  y = ss->getDouble("NEW_YPOS");
+			double mx = ox - x;
+			double my = oy - y;
+			if (!isUndo)
+			{
+				mx = x - ox;
+				my = y - oy;
+			}
+			ScApp->view->MoveItem(mx, my, this, false);
+			oldXpos = Xpos;
+			oldYpos = Ypos;
 		}
 	}
 }

@@ -3252,7 +3252,7 @@ void Mpalette::NewName()
 	{
 		if (CurItem->AnName != NameEdit->text())
 		{
-			CurItem->AnName = NameEdit->text();
+			CurItem->setName(NameEdit->text());
 			CurItem->AutoName = false;
 			emit DocChanged();
 		}
