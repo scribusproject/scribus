@@ -1076,6 +1076,13 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		ToggleAllGuides();
 		return;
 	}
+	if ((kk == Key_Escape) && (HaveDoc))
+	{
+		keyrep = false;
+		NoFrameEdit();
+		slotSelect();
+		return;
+	}
 	ButtonState buttonState = k->state();
 	if ((HaveDoc) && (!view->LE->hasFocus()) && (!view->PGS->PageCombo->hasFocus()))
 	{
@@ -3391,9 +3398,14 @@ bool ScribusApp::slotFileSaveAs()
 #endif
 	if (!fn.isEmpty())
 	{
-		if (overwrite(this, fn))
+		QFileInfo fi(fn);
+		if ((fi.extension(false).lower() != "sla") || (fi.extension(false).lower() != "gz"))
+			fna = fi.dirPath()+"/"+fi.baseName()+".sla";
+		else
+			fna = fn;
+		if (overwrite(this, fna))
 		{
-			ret = DoFileSave(fn);
+			ret = DoFileSave(fna);
 			if (!ret)
 				QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
 		}
@@ -5899,7 +5911,19 @@ void ScribusApp::SelectFromOutl(int Page, int Item)
 	if (doc->ActPage->SelItem.count() != 0)
 	{
 		PageItem *b = doc->ActPage->SelItem.at(0);
-		view->SetCCPo(static_cast<int>(b->Xpos + b->Width/2), static_cast<int>(b->Ypos + b->Height/2));
+	 // jjsa 23-05-2004 added for centering of rotated objects
+		if ( b->Rot != 0.0 )
+		{
+			double y1 = sin(b->Rot/180.*M_PI) * b->Width;
+			double x1 = cos(b->Rot/180.*M_PI) * b->Width;
+			double y2 = sin((b->Rot+90.)/180*M_PI) * b->Height;
+			double x2 = cos((b->Rot+90.)/180*M_PI) * b->Height;
+			double mx = b->Xpos + ((x1 + x2)/2.0);
+			double my = b->Ypos + ((y1 + y2)/2.0);
+			view->SetCCPo(static_cast<int>(mx), static_cast<int>(my));
+		}
+		else
+			view->SetCCPo(static_cast<int>(b->Xpos + b->Width/2), static_cast<int>(b->Ypos + b->Height/2));
 	}
 }
 

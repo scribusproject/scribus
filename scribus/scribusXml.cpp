@@ -709,6 +709,10 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					OB.GrColor2 = obj.attribute("GRCOLOR2","");
 					OB.GrShade = QStoInt(obj.attribute("GRSHADE","100"));
 					OB.GrShade2 = QStoInt(obj.attribute("GRSHADE2","100"));
+					OB.GrStartX = QStodouble(obj.attribute("GRSTARTX","0.0"));
+					OB.GrStartY = QStodouble(obj.attribute("GRSTARTY","0.0"));
+					OB.GrEndX = QStodouble(obj.attribute("GRENDX","0.0"));
+					OB.GrEndY = QStodouble(obj.attribute("GRENDY","0.0"));
 					OB.GrType = QStoInt(obj.attribute("GRTYP","0"));
 					OB.Rot=QStodouble(obj.attribute("ROT"));
 					OB.PLineArt=Qt::PenStyle(QStoInt(obj.attribute("PLINEART")));
@@ -1405,6 +1409,10 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					OB.GrColor2 = obj.attribute("GRCOLOR2","");
 					OB.GrShade = QStoInt(obj.attribute("GRSHADE","100"));
 					OB.GrShade2 = QStoInt(obj.attribute("GRSHADE2","100"));
+					OB.GrStartX = QStodouble(obj.attribute("GRSTARTX","0.0"));
+					OB.GrStartY = QStodouble(obj.attribute("GRSTARTY","0.0"));
+					OB.GrEndX = QStodouble(obj.attribute("GRENDX","0.0"));
+					OB.GrEndY = QStodouble(obj.attribute("GRENDY","0.0"));
 					OB.GrType = QStoInt(obj.attribute("GRTYP","0"));
 					OB.Rot=QStodouble(obj.attribute("ROT"));
 					OB.PLineArt=Qt::PenStyle(QStoInt(obj.attribute("PLINEART")));
@@ -2006,6 +2014,10 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.GrShade = QStoInt(pg.attribute("GRSHADE","100"));
 			OB.GrShade2 = QStoInt(pg.attribute("GRSHADE2","100"));
 			OB.GrType = QStoInt(pg.attribute("GRTYP","0"));
+			OB.GrStartX = QStodouble(pg.attribute("GRSTARTX","0.0"));
+			OB.GrStartY = QStodouble(pg.attribute("GRSTARTY","0.0"));
+			OB.GrEndX = QStodouble(pg.attribute("GRENDX","0.0"));
+			OB.GrEndY = QStodouble(pg.attribute("GRENDY","0.0"));
 			OB.Rot = QStodouble(pg.attribute("ROT"));
 			OB.PLineArt = Qt::PenStyle(QStoInt(pg.attribute("PLINEART")));
 			OB.PLineEnd = Qt::PenCapStyle(QStoInt(pg.attribute("PLINEEND","0")));
@@ -2346,6 +2358,10 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		ob.setAttribute("GRCOLOR2",item->GrColor2);
 		ob.setAttribute("GRSHADE",item->GrShade);
 		ob.setAttribute("GRSHADE2",item->GrShade2);
+		ob.setAttribute("GRSTARTX", item->GrStartX);
+		ob.setAttribute("GRSTARTY", item->GrStartY);
+		ob.setAttribute("GRENDX", item->GrEndX);
+		ob.setAttribute("GRENDY", item->GrEndY);
 		ob.setAttribute("GRTYP",item->GrType);
 		ob.setAttribute("ROT",item->Rot);
 		ob.setAttribute("PLINEART",item->PLineArt);
@@ -2727,6 +2743,10 @@ void ScriXmlDoc::WritePages(ScribusView *view, QDomDocument docu, QDomElement dc
 			ob.setAttribute("GRCOLOR2",item->GrColor2);
 			ob.setAttribute("GRSHADE",item->GrShade);
 			ob.setAttribute("GRSHADE2",item->GrShade2);
+			ob.setAttribute("GRSTARTX", item->GrStartX);
+			ob.setAttribute("GRSTARTY", item->GrStartY);
+			ob.setAttribute("GRENDX", item->GrEndX);
+			ob.setAttribute("GRENDY", item->GrEndY);
 			ob.setAttribute("GRTYP",item->GrType);
 			ob.setAttribute("ROT",item->Rot);
 			ob.setAttribute("PLINEART",item->PLineArt);

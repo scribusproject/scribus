@@ -32,10 +32,13 @@ public:
 	ScribusApp* Prog;
 	QPtrList<PageItem> Elements;
 	CListe CustColors;
-	double LineW, Opacity;
+	double LineW, Opacity, DashOffset;
+	QValueList<double> DashPattern;
 	QString CurrColor;
 	FPointArray Coords;
 	bool FirstM, WasM, ClosedPath;
+	PenCapStyle CapStyle;
+	PenJoinStyle JoinStyle;
 };
 
 #endif

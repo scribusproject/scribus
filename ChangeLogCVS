@@ -1,5 +1,12 @@
 Changes since Version 1.1.6
 
+23.05.2004
+	* bug     #394: SVG: vertical gradient imported as horizontal gradient
+	* feature #688: improve the zoom-icon function
+	* feature #700: German update
+	* feature #704: saving doesnt add the *.sla suffix
+	* feature #705: No new e-mail since May 17
+
 22.05.2004
 	* bug     #606: Pressing END causes wrong cursor jump
 	* feature #680: show grouped objects as grouped in the object manager

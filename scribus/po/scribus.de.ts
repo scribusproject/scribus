@@ -1010,6 +1010,24 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
         <source>New Entry</source>
         <translation>Neuer Eintrag</translation>
     </message>
+    <message>
+        <source>Rename</source>
+        <translation>Umbenennen</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Warnung</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation>Die Bezeichnung %1 ist nicht eindeutig.
+Bitte wählen Sie eine anderen.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
 </context>
 <context>
     <name>BookMView</name>
@@ -1160,7 +1178,7 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
-        <translation>Render-Prioritäten</translation>
+        <translation>Render-Methoden</translation>
     </message>
     <message>
         <source>Simulate Printer on the Screen</source>
@@ -1225,13 +1243,13 @@ Diese Option sollte aktiviert sein, wenn Sie Fotos im Dokument haben.</translati
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Standard-Rendering Methode für Ihren Monitor. Ohne einen Grund zur Veränderung
+        <translation>Standard Rendering-Methode für Ihren Monitor. Ohne einen Grund zur Veränderung
 sollte entweder relativ farbmetrisch oder Wahrnehmung aktiviert sein.</translation>
     </message>
     <message>
         <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Standard-Rendering Methode für den Drucker. Ohne einen Grund zur Veränderung
+        <translation>Standard Rendering-Methode für den Drucker. Ohne einen Grund zur Veränderung
 sollte entweder relativ farbmetrisch oder Wahrnehmung aktiviert sein.</translation>
     </message>
     <message>
@@ -3269,7 +3287,7 @@ Corners:</source>
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation>Render Priorität:</translation>
+        <translation>Render-Methode:</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -3414,8 +3432,8 @@ Corners:</source>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation>Der Name %1 ist nicht eindeutig.
-Bitte wählen Sie einen anderen.</translation>
+        <translation>Die Bezeichnung %1 ist nicht eindeutig.
+Bitte wählen Sie eine anderen.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -4500,7 +4518,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Rendering-Intent:</source>
-        <translation>Render Priorität:</translation>
+        <translation>Render-Methode:</translation>
     </message>
     <message>
         <source>Images:</source>
@@ -4516,7 +4534,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
-        <translation>PDF/X-3 Ausgabebedingung</translation>
+        <translation>PDF/X-3 Ausgabebe-Einstellungen</translation>
     </message>
     <message>
         <source>Info String:</source>
@@ -5356,6 +5374,10 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     <message>
         <source>Level</source>
         <translation>Anordnung</translation>
+    </message>
+    <message>
+        <source>PDF-Options</source>
+        <translation>PDF-Optionen</translation>
     </message>
 </context>
 <context>
@@ -7946,7 +7968,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Loading:</source>
-        <translation>Lade:</translation>
+        <translation>Plugins werden geladen:</translation>
     </message>
     <message>
         <source>Adjusting Colors</source>
@@ -8917,7 +8939,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Font:</source>
-        <translation>Schriftart:</translation>
+        <translation>Schrift:</translation>
     </message>
     <message>
         <source>Image</source>
@@ -8954,12 +8976,16 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation>Der Name %1 ist nicht eindeutig.
-Bitte wählen Sie einen anderen.</translation>
+        <translation>Die Bezeichnung %1 ist nicht eindeutig.
+Bitte wählen Sie eine anderen.</translation>
     </message>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>Group </source>
+        <translation>Gruppe</translation>
     </message>
 </context>
 <context>
@@ -8998,7 +9024,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Insert Freehand Line</source>
-        <translation>Freihandlinie einfügen</translation>
+        <translation>Freihand Linie einfügen</translation>
     </message>
     <message>
         <source>Rotate Item</source>
@@ -9034,7 +9060,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Edit the text with the Story Editor</source>
-        <translation>Text mit dem Story-Editor bearbeiten</translation>
+        <translation>Text mit dem Story Editor bearbeiten</translation>
     </message>
     <message>
         <source>Draw various Shapes</source>
@@ -9112,11 +9138,11 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Insert the characters at the cursor in the text</source>
-        <translation>Zeichen an Cursorposition einfügen</translation>
+        <translation>Zeichen an der Cursorposition einfügen</translation>
     </message>
     <message>
         <source>Delete the current selection(s).</source>
-        <translation>Markierung(en) löschen.</translation>
+        <translation>Gewählte Markierung(en) löschen.</translation>
     </message>
     <message>
         <source>Close this dialog and return to text editing.</source>

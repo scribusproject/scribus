@@ -35,7 +35,10 @@
 % s                 list is a stroke path
 % cp                close current subpath
 % ci                list is a clip list (clip with old clip list and use it)
-%
+% sp                end of page
+% lj #              linejoin
+% lc #              linecap
+% ld # # #n         linedash count offset d1, d2, dx
 % 15.05.2004 Added the Glyphshow Operator.
 % 17.05.2004 Made clipping working.
 % 20.05.2004 kshow is working now.
@@ -108,6 +111,32 @@
 	pop pop pop
 	.currentopacityalpha	% a
 	str cvs print
+	(\n) print
+} bind def
+
+/writecurrentlinecap
+{
+	(lc ) print
+	currentlinecap str cvs print
+	(\n) print
+} bind def
+
+/writecurrentlinejoin
+{
+	(lj ) print
+	currentlinejoin str cvs print
+	(\n) print
+} bind def
+
+/writecurrentdash
+{
+	(ld ) print
+	currentdash 1 index length str cvs print ( ) print str cvs print ( ) print
+	0 1 2 index length 1 sub
+	{
+		1 index exch get str cvs print ( ) print
+	} for
+	pop
 	(\n) print
 } bind def
 
@@ -221,6 +250,9 @@
 	(n\n)print			% start polygon
 	writecurrentcolor
 	writecurrentlinewidth
+	writecurrentlinecap
+	writecurrentlinejoin
+	writecurrentdash
 	storeMatrix
 
 	% x y width height
@@ -265,6 +297,9 @@
 	(n\n)print			% start rect
 	writecurrentcolor
 	writecurrentlinewidth
+	writecurrentlinecap
+	writecurrentlinejoin
+	writecurrentdash
 	storeMatrix
 
 	% x y width height
@@ -307,6 +342,9 @@
 	(n\n) print
 	writecurrentcolor
 	writecurrentlinewidth
+	writecurrentlinecap
+	writecurrentlinejoin
+	writecurrentdash
 	clipCnt 1 eq
 		{ clipsave clip newpath clippath cliprestore } if
 	storeMatrix
@@ -320,6 +358,9 @@
 	(n\n) print			% start polygon
 	writecurrentcolor	% write color
 	writecurrentlinewidth
+	writecurrentlinecap
+	writecurrentlinejoin
+	writecurrentdash
 	clipCnt 1 eq
 		{ clipsave clip newpath clippath cliprestore } if
 	storeMatrix			% take transformation, scaling, rotation from PostScript
@@ -520,5 +561,10 @@
     setfont
     (\000) show 
 	restore
+} bind def
+
+/showpage
+{
+	(sp\n) print
 } bind def
 

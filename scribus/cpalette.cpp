@@ -92,6 +92,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	GradCombo->insertItem( tr("Diagonal Gradient"));
 	GradCombo->insertItem( tr("Cross Diagonal Gradient"));
 	GradCombo->insertItem( tr("Radial Gradient"));
+	GradCombo->insertItem( tr("Special"));
 	GradCombo->setCurrentItem(0);
 	GradLayout->addWidget( GradCombo );
 	GradGroup = new QButtonGroup( this, "GradGroup" );
@@ -274,7 +275,8 @@ void Cpalette::slotColor()
 void Cpalette::slotGrad(int nr)
 {
 	ChooseGrad(nr);
-	emit NewGradient(nr, Color, Shade, Color2, Shade2);
+	if (nr < 6)
+		emit NewGradient(nr, Color, Shade, Color2, Shade2);
 }
 
 void Cpalette::ChooseGrad(int nr)
@@ -291,6 +293,8 @@ void Cpalette::ChooseGrad(int nr)
 		repaint();
 		PM1->setValue(Shade3);
 		updateBoxS(Color3);
+		break;
+	case 6:
 		break;
 	default:
 		updateCList();

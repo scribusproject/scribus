@@ -51,7 +51,8 @@ public:
 	virtual void PS_setcmykcolor_dummy();
 	virtual void PS_setcmykcolor_stroke(double c, double m, double y, double k);
 	virtual void PS_setlinewidth(double w);
-	virtual void PS_setdash(Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo);
+	virtual void PS_setcapjoin(Qt::PenCapStyle ca, Qt::PenJoinStyle jo);
+	virtual void PS_setdash(Qt::PenStyle st, double offset, QValueList<double> dash);
 	virtual void PS_selectfont(QString f, double s);
 	virtual void PS_fill();
 	virtual void PS_stroke();
@@ -59,7 +60,7 @@ public:
 	virtual void PS_newpath();
 	virtual void PS_GradientCol1(double c, double m, double y, double k);
 	virtual void PS_GradientCol2(double c, double m, double y, double k);
-	virtual void PS_LinGradient(double w, double h, int item, int grad);
+	virtual void PS_LinGradient(double w, double h, double x1, double y1, double x2, double y2, int item, int grad);
 	virtual void PS_RadGradient(double w, double h, int item);
 	virtual void PS_show(double x, double y);
 	virtual void PS_showSub(uint chr, QString font, double size, bool stroke);

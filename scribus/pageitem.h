@@ -90,6 +90,10 @@ public:
 	int GrShade;
 	int GrShade2;
 	int GrType;
+	double GrStartX;
+	double GrStartY;
+	double GrEndX;
+	double GrEndY;
   /** Fuellfarbe */
 	QString Pcolor;
   /** Abstufung fuer Fllfarbe */

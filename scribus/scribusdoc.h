@@ -86,6 +86,10 @@ struct CLBuf {
 				int GrShade;
 				int GrShade2;
 				int GrType;
+				double GrStartX;
+				double GrStartY;
+				double GrEndX;
+				double GrEndY;
 				QString TxtStroke;
 				QString TxtFill;
 				int ShTxtStroke;

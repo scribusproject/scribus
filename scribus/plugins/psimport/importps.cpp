@@ -291,7 +291,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 void EPSPlug::parseOutput(QString fn)
 {
 	QString tmp, token, params, lasttoken, lastPath, currPath;
-	int z;
+	int z, lcap, ljoin, dc,dcp;
 	PageItem* ite;
 	QFile f(fn);
 	lasttoken = "";
@@ -302,6 +302,9 @@ void EPSPlug::parseOutput(QString fn)
 		LineW = 0;
 		Opacity = 1;
 		CurrColor = "None";
+		JoinStyle = MiterJoin;
+		CapStyle = FlatCap;
+		DashPattern.clear();
 		QTextStream ts(&f);
 		while (!ts.atEnd())
 		{
@@ -371,7 +374,11 @@ void EPSPlug::parseOutput(QString fn)
 						ite = Elements.at(Elements.count()-1);
 						ite->Pcolor2 = CurrColor;
 						ite->Pwidth = LineW;
+						ite->PLineEnd = CapStyle;
+						ite->PLineJoin = JoinStyle;
 						ite->TranspStroke = 1.0 - Opacity;
+						ite->DashOffset = DashOffset;
+						ite->DashValues = DashPattern;
 					}
 					else
 					{
@@ -383,6 +390,10 @@ void EPSPlug::parseOutput(QString fn)
 						ite->PoLine = Coords.copy();
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
+						ite->PLineEnd = CapStyle;
+						ite->PLineJoin = JoinStyle;
+						ite->DashOffset = DashOffset;
+						ite->DashValues = DashPattern;
 						FPoint wh = GetMaxClipF(ite->PoLine);
 						ite->Width = wh.x();
 						ite->Height = wh.y();
@@ -409,8 +420,68 @@ void EPSPlug::parseOutput(QString fn)
 				Lw >> LineW;
 				currPath += params;
 			}
+			else if (token == "ld")
+			{
+				QTextStream Lw(&params, IO_ReadOnly);
+				Lw >> dc;
+				Lw >> DashOffset;
+				DashPattern.clear();
+				if (dc != 0)
+				{
+					for (int dcc = 0; dcc < dc; ++dcc)
+					{
+						Lw >> dcp;
+						DashPattern.append(dcp);
+					}
+				}
+				currPath += params;
+			}
+			else if (token == "lc")
+			{
+				QTextStream Lw(&params, IO_ReadOnly);
+				Lw >> lcap;
+				switch (lcap)
+				{
+					case 0:
+						CapStyle = Qt::FlatCap;
+						break;
+					case 1:
+						CapStyle = Qt::RoundCap;
+						break;
+					case 2:
+						CapStyle = Qt::SquareCap;
+						break;
+					default:
+						CapStyle = Qt::FlatCap;
+						break;
+				}
+				currPath += params;
+			}
+			else if (token == "lj")
+			{
+				QTextStream Lw(&params, IO_ReadOnly);
+				Lw >> ljoin;
+				switch (ljoin)
+				{
+					case 0:
+						JoinStyle = Qt::MiterJoin;
+						break;
+					case 1:
+						JoinStyle = Qt::RoundJoin;
+						break;
+					case 2:
+						JoinStyle = Qt::BevelJoin;
+						break;
+					default:
+						JoinStyle = Qt::MiterJoin;
+						break;
+				}
+				currPath += params;
+			}
 			else if (token == "cp")
 				ClosedPath = true;
+			else if (token == "sp")
+				break;
 			lasttoken = token;
 		}
 		f.close();

@@ -429,31 +429,47 @@ void PSLib::PS_setlinewidth(double w)
 	LineW = w;
 }
 
-void PSLib::PS_setdash(Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo)
+void PSLib::PS_setdash(Qt::PenStyle st, double offset, QValueList<double> dash)
 {
-	QString Dt = ToStr(QMAX(LineW, 1));
-	QString Da = ToStr(QMAX(3*LineW, 1));
-	switch (st)
+	QString Dt = ToStr(QMAX(2*LineW, 1));
+	QString Da = ToStr(QMAX(6*LineW, 1));
+	if (dash.count() != 0)
 	{
-		case Qt::SolidLine:
-			PutSeite("[] 0 setdash\n");
-			break;
-		case Qt::DashLine:
-			PutSeite("["+Da+" "+Dt+"] 0 setdash\n");
-			break;
-		case Qt::DotLine:
-			PutSeite("["+Dt+"] 0 setdash\n");
-			break;
-		case Qt::DashDotLine:
-			PutSeite("["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 setdash\n");
-			break;
-		case Qt::DashDotDotLine:
-			PutSeite("["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 setdash\n");
-			break;
-		default:
-			PutSeite("[] 0 setdash\n");
-			break;
+		PutSeite("[ ");
+		QValueList<double>::iterator it;
+		for ( it = dash.begin(); it != dash.end(); ++it )
+		{
+			PutSeite(IToStr(static_cast<int>(*it))+" ");
+		}
+		PutSeite("] "+IToStr(static_cast<int>(offset))+" setdash\n");
 	}
+	else
+	{
+		switch (st)
+		{
+			case Qt::SolidLine:
+				PutSeite("[] 0 setdash\n");
+				break;
+			case Qt::DashLine:
+				PutSeite("["+Da+" "+Dt+"] 0 setdash\n");
+				break;
+			case Qt::DotLine:
+				PutSeite("["+Dt+"] 0 setdash\n");
+				break;
+			case Qt::DashDotLine:
+				PutSeite("["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 setdash\n");
+				break;
+			case Qt::DashDotDotLine:
+				PutSeite("["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 setdash\n");
+				break;
+			default:
+				PutSeite("[] 0 setdash\n");
+				break;
+		}
+	}
+}
+void PSLib::PS_setcapjoin(Qt::PenCapStyle ca, Qt::PenJoinStyle jo)
+{
 	switch (ca)
 		{
 		case Qt::FlatCap:
@@ -524,7 +540,7 @@ void PSLib::PS_GradientCol2(double c, double m, double y, double k)
 	GrColor2 = ToStr(c) + " " + ToStr(m) + " " + ToStr(y) + " " + ToStr(k);
 }
 
-void PSLib::PS_LinGradient(double w, double h, int item, int grad)
+void PSLib::PS_LinGradient(double w, double h, double x1, double y1, double x2, double y2, int item, int grad)
 {
 	if (item == 1)
 		PutSeite("-"+ToStr(w / 2.0)+" "+ToStr(-h / 2.0)+" tr\n");
@@ -547,10 +563,16 @@ void PSLib::PS_LinGradient(double w, double h, int item, int grad)
 		case 4:
 			PutSeite("/Coords ["+ToStr(w)+" 0 0 "+ToStr(h)+"]\n");
 			break;
+		case 6:
+			PutSeite("/Coords ["+ToStr(x1)+"  "+ToStr(y1)+" "+ToStr(x2)+" "+ToStr(y2)+"]\n");
+			break;
 	}
 	PutSeite("/BBox [0 "+ToStr(h)+" "+ToStr(w)+" 0]\n");
 	PutSeite(DoSep ? QString("/Background [0]\n") : QString("/Background ["+FillColor+"]\n"));
-	PutSeite("/Extend [false false]\n");
+	if (grad == 6)
+		PutSeite("/Extend [true true]\n");
+	else
+		PutSeite("/Extend [false false]\n");
 	PutSeite("/Function\n");
 	PutSeite("<<\n");
 	PutSeite("/FunctionType 2\n");

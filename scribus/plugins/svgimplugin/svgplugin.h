@@ -31,6 +31,10 @@ public:
 	QString Color1;
 	QString Color2;
 	VGradient	gradient;
+	double X1;
+	double Y1;
+	double X2;
+	double Y2;
 	};
 
 class SvgStyle
@@ -47,6 +51,10 @@ public:
 		Gradient = 0;
 		GCol1 = "Black";
 		GCol2 = "Black";
+		GX1 = 0;
+		GY1 = 0;
+		GX2 = 0;
+		GY2 = 0;
 		GradCo = VGradient(VGradient::linear);
 		Family = "";
 		FontSize = 12;
@@ -68,6 +76,10 @@ public:
 	QString CurCol;
 	QString GCol1;
 	QString GCol2;
+	double GX1;
+	double GY1;
+	double GX2;
+	double GY2;
 	int Gradient;
 	VGradient	GradCo;
 	int FontSize;

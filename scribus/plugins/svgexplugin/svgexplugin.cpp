@@ -238,17 +238,23 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 								grad.setAttribute("cx", FToStr(Item->Width / 2));
 								grad.setAttribute("cy", FToStr(Item->Height / 2));
 								break;
+							case 6:
+								grad.setAttribute("x1", FToStr(Item->GrStartX));
+								grad.setAttribute("y1", FToStr(Item->GrStartY));
+								grad.setAttribute("x2", FToStr(Item->GrEndX));
+								grad.setAttribute("y2", FToStr(Item->GrEndY));
+								break;
 							}
 						QDomElement s1 = docu->createElement("stop");
 						s1.setAttribute("offset","0%");
-						if (Item->GrType == 5)
+						if ((Item->GrType == 5) || (Item->GrType == 4))
 							s1.setAttribute("stop-color",SetFarbe(Item->GrColor, Item->GrShade, plug));
 						else
 							s1.setAttribute("stop-color",SetFarbe(Item->GrColor2, Item->GrShade2, plug));
 						grad.appendChild(s1);
 						QDomElement s2 = docu->createElement("stop");
 						s2.setAttribute("offset","100%");
-						if (Item->GrType == 5)
+						if ((Item->GrType == 5) || (Item->GrType == 4))
 							s2.setAttribute("stop-color",SetFarbe(Item->GrColor2, Item->GrShade2, plug));
 						else
 							s2.setAttribute("stop-color",SetFarbe(Item->GrColor, Item->GrShade, plug));
@@ -308,29 +314,41 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						break;
 					}
 				strokeDA = "stroke-dasharray:";
-				QString Dt = FToStr(QMAX(Item->Pwidth, 1));
-				QString Da = FToStr(QMAX(3*Item->Pwidth, 1));
-				switch (Item->PLineArt)
+				if (Item->DashValues.count() != 0)
+				{
+					QValueList<double>::iterator it;
+					for ( it = Item->DashValues.begin(); it != Item->DashValues.end(); ++it )
 					{
-					case Qt::SolidLine:
-						strokeDA += "none;";
-						break;
-					case Qt::DashLine:
-						strokeDA += Da+","+Dt+";";
-						break;
-					case Qt::DotLine:
-						strokeDA += Dt+";";
-						break;
-					case Qt::DashDotLine:
-						strokeDA += Da+","+Dt+","+Dt+","+Dt+";";
-						break;
-					case Qt::DashDotDotLine:
-						strokeDA += Da+","+Dt+","+Dt+","+Dt+","+Dt+","+Dt+";";
-						break;
-					default:
-						strokeDA += "none;";
-						break;
+						strokeDA += IToStr(static_cast<int>(*it))+" ";
 					}
+					strokeDA += "; stroke-dashoffset:"+IToStr(static_cast<int>(Item->DashOffset))+";";
+				}
+				else
+				{
+					QString Dt = FToStr(QMAX(2*Item->Pwidth, 1));
+					QString Da = FToStr(QMAX(6*Item->Pwidth, 1));
+					switch (Item->PLineArt)
+						{
+						case Qt::SolidLine:
+							strokeDA += "none;";
+							break;
+						case Qt::DashLine:
+							strokeDA += Da+","+Dt+";";
+							break;
+						case Qt::DotLine:
+							strokeDA += Dt+";";
+							break;
+						case Qt::DashDotLine:
+							strokeDA += Da+","+Dt+","+Dt+","+Dt+";";
+							break;
+						case Qt::DashDotDotLine:
+							strokeDA += Da+","+Dt+","+Dt+","+Dt+","+Dt+","+Dt+";";
+							break;
+						default:
+							strokeDA += "none;";
+							break;
+						}
+				}
 				gr = docu->createElement("g");
 				gr.setAttribute("transform", trans);
 				if (Item->PType != 4)
@@ -726,8 +744,8 @@ QString SVGExPlug::GetMultiStroke(ScribusApp *plug, struct singleLine *sl, PageI
 			break;
 		}
 	tmp += " stroke-dasharray:";
-	QString Dt = FToStr(QMAX(sl->Width, 1));
-	QString Da = FToStr(QMAX(3*sl->Width, 1));
+	QString Dt = FToStr(QMAX(2*sl->Width, 1));
+	QString Da = FToStr(QMAX(6*sl->Width, 1));
 	switch (static_cast<PenStyle>(sl->Dash))
 		{
 		case Qt::SolidLine:

@@ -1401,6 +1401,14 @@ void Page::UpdateClip(PageItem* b)
 			double scy = b->Height / b->OldH2;
 			QWMatrix ma;
 			ma.scale(scx, scy);
+			FPointArray gr;
+			gr.addPoint(b->GrStartX, b->GrStartY);
+			gr.addPoint(b->GrEndX, b->GrEndY);
+			gr.map(ma);
+			b->GrStartX = gr.point(0).x();
+			b->GrStartY = gr.point(0).y();
+			b->GrEndX = gr.point(1).x();
+			b->GrEndY = gr.point(0).y();
 			b->PoLine.map(ma);
 			if (b->PType == 8)
 				UpdatePolyClip(b);
@@ -8478,6 +8486,10 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 		b->GrColor = Buffer->GrColor;
 		b->GrShade = Buffer->GrShade;
 		b->GrType = Buffer->GrType;
+		b->GrStartX = Buffer->GrStartX;
+		b->GrStartY = Buffer->GrStartY;
+		b->GrEndX = Buffer->GrEndX;
+		b->GrEndY = Buffer->GrEndY;
 	}
 	if (!loading)
 	{

@@ -78,6 +78,10 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	GrShade = 100;
 	GrShade2 = 100;
 	GrType = 0;
+	GrStartX = 0;
+	GrStartY = 0;
+	GrEndX = 0;
+	GrEndY = 0;
 	Pwidth = w2;
 	OldPwidth = w2;
 	PLineArt = Doc->DLineArt;
@@ -356,6 +360,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					gv = FPoint(Width / 2.0, Height);
 				p->setGradient(VGradient::radial, FPoint(Width / 2.0,Height / 2.0), gv, 
 								FPoint(Width / 2.0,Height / 2.0));
+				break;
+			case 6:
+				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+				gra.map(grm);
+				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
 				break;
 		}
 	}

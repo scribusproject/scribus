@@ -1143,28 +1143,41 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 				}
 #endif
 						Inhalt += FToStr(ite->Pwidth)+" w\n";
-						QString Dt = FToStr(QMAX(ite->Pwidth, 1));
-						QString Da = FToStr(QMAX(3*ite->Pwidth, 1));
-						switch (ite->PLineArt)
+						if (ite->DashValues.count() != 0)
 						{
-							case Qt::SolidLine:
-								PutPage("[] 0 d\n");
-								break;
-							case Qt::DashLine:
-								PutPage("["+Da+" "+Dt+"] 0 d\n");
-								break;
-							case Qt::DotLine:
-								PutPage("["+Dt+"] 0 d\n");
-								break;
-							case Qt::DashDotLine:
-								PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
-								break;
-							case Qt::DashDotDotLine:
-								PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
-								break;
-							default:
-								PutPage("[] 0 d\n");
-								break;
+							PutPage("[ ");
+							QValueList<double>::iterator it;
+							for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
+							{
+								PutPage(IToStr(static_cast<int>(*it))+" ");
+							}
+							PutPage("] "+IToStr(static_cast<int>(ite->DashOffset))+" d\n");
+						}
+						else
+						{
+							QString Dt = FToStr(QMAX(2*ite->Pwidth, 1));
+							QString Da = FToStr(QMAX(6*ite->Pwidth, 1));
+							switch (ite->PLineArt)
+							{
+								case Qt::SolidLine:
+									PutPage("[] 0 d\n");
+									break;
+								case Qt::DashLine:
+									PutPage("["+Da+" "+Dt+"] 0 d\n");
+									break;
+								case Qt::DotLine:
+									PutPage("["+Dt+"] 0 d\n");
+									break;
+								case Qt::DashDotLine:
+									PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
+									break;
+								case Qt::DashDotDotLine:
+									PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
+									break;
+								default:
+									PutPage("[] 0 d\n");
+									break;
+							}
 						}
 						PutPage("2 J\n");
 						switch (ite->PLineJoin)
@@ -1284,28 +1297,41 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 				}
 #endif
 				Inhalt += FToStr(ite->Pwidth)+" w\n";
-				QString Dt = FToStr(QMAX(ite->Pwidth, 1));
-				QString Da = FToStr(QMAX(3*ite->Pwidth, 1));
-				switch (ite->PLineArt)
+				if (ite->DashValues.count() != 0)
 				{
-					case Qt::SolidLine:
-						PutPage("[] 0 d\n");
-						break;
-					case Qt::DashLine:
-						PutPage("["+Da+" "+Dt+"] 0 d\n");
-						break;
-					case Qt::DotLine:
-						PutPage("["+Dt+"] 0 d\n");
-						break;
-					case Qt::DashDotLine:
-						PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
-						break;
-					case Qt::DashDotDotLine:
-						PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
-						break;
-					default:
-						PutPage("[] 0 d\n");
-						break;
+					PutPage("[ ");
+					QValueList<double>::iterator it;
+					for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
+					{
+						PutPage(IToStr(static_cast<int>(*it))+" ");
+					}
+					PutPage("] "+IToStr(static_cast<int>(ite->DashOffset))+" d\n");
+				}
+				else
+				{
+					QString Dt = FToStr(QMAX(2*ite->Pwidth, 1));
+					QString Da = FToStr(QMAX(6*ite->Pwidth, 1));
+					switch (ite->PLineArt)
+					{
+						case Qt::SolidLine:
+							PutPage("[] 0 d\n");
+							break;
+						case Qt::DashLine:
+							PutPage("["+Da+" "+Dt+"] 0 d\n");
+							break;
+						case Qt::DotLine:
+							PutPage("["+Dt+"] 0 d\n");
+							break;
+						case Qt::DashDotLine:
+							PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
+							break;
+						case Qt::DashDotDotLine:
+							PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
+							break;
+						default:
+							PutPage("[] 0 d\n");
+							break;
+					}
 				}
 				switch (ite->PLineEnd)
 				{
@@ -1599,28 +1625,41 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 				}
 #endif
 					Inhalt += FToStr(ite->Pwidth)+" w\n";
-					QString Dt = FToStr(QMAX(ite->Pwidth, 1));
-					QString Da = FToStr(QMAX(3*ite->Pwidth, 1));
-					switch (ite->PLineArt)
+					if (ite->DashValues.count() != 0)
 					{
-						case Qt::SolidLine:
-							PutPage("[] 0 d\n");
-							break;
-						case Qt::DashLine:
-							PutPage("["+Da+" "+Dt+"] 0 d\n");
-							break;
-						case Qt::DotLine:
-							PutPage("["+Dt+"] 0 d\n");
-							break;
-						case Qt::DashDotLine:
-							PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
-							break;
-						case Qt::DashDotDotLine:
-							PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
-							break;
-						default:
-							PutPage("[] 0 d\n");
-							break;
+						PutPage("[ ");
+						QValueList<double>::iterator it;
+						for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
+						{
+							PutPage(IToStr(static_cast<int>(*it))+" ");
+						}
+						PutPage("] "+IToStr(static_cast<int>(ite->DashOffset))+" d\n");
+					}
+					else
+					{
+						QString Dt = FToStr(QMAX(2*ite->Pwidth, 1));
+						QString Da = FToStr(QMAX(6*ite->Pwidth, 1));
+						switch (ite->PLineArt)
+						{
+							case Qt::SolidLine:
+								PutPage("[] 0 d\n");
+								break;
+							case Qt::DashLine:
+								PutPage("["+Da+" "+Dt+"] 0 d\n");
+								break;
+							case Qt::DotLine:
+								PutPage("["+Dt+"] 0 d\n");
+								break;
+							case Qt::DashDotLine:
+								PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
+								break;
+							case Qt::DashDotDotLine:
+								PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
+								break;
+							default:
+								PutPage("[] 0 d\n");
+								break;
+						}
 					}
 					PutPage("2 J\n");
 					switch (ite->PLineJoin)
@@ -1709,8 +1748,8 @@ QString PDFlib::setStrokeMulti(struct singleLine *sl)
 		}
 #endif
 	tmp += FToStr(sl->Width)+" w\n";
-	QString Dt = FToStr(QMAX(sl->Width, 1));
-	QString Da = FToStr(QMAX(3*sl->Width, 1));
+	QString Dt = FToStr(QMAX(2*sl->Width, 1));
+	QString Da = FToStr(QMAX(6*sl->Width, 1));
 	switch (static_cast<PenStyle>(sl->Dash))
 	{
 		case Qt::SolidLine:
@@ -2276,13 +2315,18 @@ void PDFlib::PDF_Gradient(PageItem *b)
 			PutDoc("/Coords ["+FToStr(w)+" 0 0 "+FToStr(h)+"]\n");
 			break;
 		case 5:
-			PutDoc("/Coords ["+FToStr(w2)+" "+FToStr(h2)+" 0 "+FToStr(w2)+" "+FToStr(h2)+
-					" "+FToStr(rad)+"]\n");
+			PutDoc("/Coords ["+FToStr(w2)+" "+FToStr(h2)+" 0 "+FToStr(w2)+" "+FToStr(h2)+" "+FToStr(rad)+"]\n");
+			break;
+		case 6:
+			PutDoc("/Coords ["+FToStr(b->GrEndX)+" "+FToStr(-b->GrEndY)+"  "+FToStr(b->GrStartX)+" "+FToStr(-b->GrStartY)+"]\n");
 			break;
 	}
 	PutDoc("/BBox [0 "+FToStr(h)+" "+FToStr(w)+" 0]\n");
 	PutDoc("/Background ["+SetFarbe(b->Pcolor, b->Shade)+"]\n");
-	PutDoc(b->GrType == 5 ? "/Extend [true true]\n" : "/Extend [false false]\n");
+	if ((b->GrType == 5) || (b->GrType == 6))
+		PutDoc("/Extend [true true]\n");
+	else
+		PutDoc( "/Extend [false false]\n");
 	PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
 	bool t = b->GrType > 3 ? true : false;
 	PutDoc("/C0 [" + 
