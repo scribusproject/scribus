@@ -137,6 +137,7 @@ ScribusDoc::ScribusDoc()
 	hasName = false;
 	DoDrawing = true;
 	RotMode = 0;
+	SubMode = -1;
 	ASaveTimer = new QTimer(this);
 	MLineStyles.clear();
 	FT_Init_FreeType( &library );

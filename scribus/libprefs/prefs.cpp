@@ -1504,7 +1504,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     QSpacerItem* spacer_3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout3->addItem( spacer_3 );
     PrefsLayout->addLayout( Layout3 );
-
+		setDS();
     // signals and slots connections
     connect( minColor, SIGNAL( clicked() ), this, SLOT( changeMicolor() ) );
     connect( MaxColor, SIGNAL( clicked() ), this, SLOT( changeMaColor() ) );
@@ -1647,13 +1647,13 @@ void Preferences::setBottom(int v)
 
 void Preferences::setLeft(int v)
 {
-	RandR = v / Umrech / 100.0;
+	RandL = v / Umrech / 100.0;
 	RightR->setMaxValue(Breite->value() - LeftR->value());
 }
 
 void Preferences::setRight(int v)
 {
-	RandL = v / Umrech / 100.0;
+	RandR = v / Umrech / 100.0;
 	LeftR->setMaxValue(Breite->value() - RightR->value());
 }
 

@@ -264,7 +264,7 @@ private slots:
 		void NewRotMode(int m);
 		void DoFlow();
 		void DoFlow2();
-		void MakeIrre(int f);
+		void MakeIrre(int f, int c, double *vals);
 		void EditSh();
 		void NewTDist();
 		void DoRevert();

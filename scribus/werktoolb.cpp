@@ -18,6 +18,7 @@
 #include "werktoolb.h"
 #include "werktoolb.moc"
 #include "polyprops.h"
+#include "autoform.h"
 
 extern int PolyC;
 extern int PolyFd;
@@ -28,25 +29,36 @@ extern QPixmap loadIcon(QString nam);
 
 WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 {
+	SubMode = 0;
+	ValCount = 32;
+	static double AutoShapes0[] = {0.0, 0.0, 0.0, 0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0,
+													100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 0.0, 100.0, 0.0, 100.0,
+										  		0.0, 100.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0};
+	ShapeVals = AutoShapes0;
 	Select = new QToolButton(loadIcon("Kreuz.xpm"), tr("Select Items"), QString::null, this, SLOT(ModeFromTB()), this);
 	Select->setToggleButton(true);
 	Select->setOn(true);
 	Rotiere = new QToolButton(loadIcon("Rotieren.xpm"), tr("Rotate Item"), QString::null, this, SLOT(ModeFromTB()), this);
 	Rotiere->setToggleButton( true );
 	Rotiere->setEnabled(false);
-	Textedit = new QToolButton(loadIcon("Editm.xpm"), tr("Edit Contents of Frame"), QString::null, this, SLOT(ModeFromTB()), this);
-	Textedit->setToggleButton( true );
-	Textedit->setEnabled( FALSE );
 	Zoom = new QToolButton(loadIcon("Lupe.xpm"), tr("Zooms in or out"), QString::null, this, SLOT(ModeFromTB()), this);
 	Zoom->setToggleButton( true );
 	Texte = new QToolButton(loadIcon("Text.xpm"), tr("Insert Text Frame"), QString::null, this, SLOT(ModeFromTB()), this);
 	Texte->setToggleButton( true );
+	Textedit = new QToolButton(loadIcon("Editm.xpm"), tr("Edit Contents of Frame"), QString::null, this, SLOT(ModeFromTB()), this);
+	Textedit->setToggleButton( true );
+	Textedit->setEnabled( FALSE );
+	KetteEin = new QToolButton(loadIcon("Lock.xpm"), tr("Create Text Chains"), QString::null, this, SLOT(ModeFromTB()), this);
+	KetteEin->setToggleButton( true );
+	KetteEin->setEnabled(false);
+	KetteAus = new QToolButton(loadIcon("Unlock.xpm"), tr("Break Text Chains"), QString::null, this, SLOT(ModeFromTB()), this);
+	KetteAus->setToggleButton( true );
+	KetteAus->setEnabled(false);
 	BildB = new QToolButton(loadIcon("Bild.xpm"), tr("Insert Picture"), QString::null, this, SLOT(ModeFromTB()), this);
 	BildB->setToggleButton( true );
-	Rechteck = new QToolButton(loadIcon("Rechtecke.xpm"), tr("Insert Rectangles"), QString::null, this, SLOT(ModeFromTB()), this);
+  Rechteck = new Autoforms( this );
+	Rechteck->setPopupDelay(0);
 	Rechteck->setToggleButton( true );
-	Kreis = new QToolButton(loadIcon("Kreise.xpm"), tr("Insert Ovals"), QString::null, this, SLOT(ModeFromTB()), this);
-	Kreis->setToggleButton( true );
 	PolyM = new QPopupMenu();
 	PolyM->insertItem( tr("Properties..."), this, SLOT(GetPolyProps()));
 	Polygon = new QToolButton(loadIcon("spline.png"), tr("Insert Polygons"), QString::null, this, SLOT(ModeFromTB()), this);
@@ -57,15 +69,12 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	Linien->setToggleButton( true );
 	PolyLin = new QToolButton(loadIcon("beziertool.png"), tr("Insert Bezier Curves"), QString::null, this, SLOT(ModeFromTB()), this);
 	PolyLin->setToggleButton( true );
-	KetteEin = new QToolButton(loadIcon("Lock.xpm"), tr("Create Text Chains"), QString::null, this, SLOT(ModeFromTB()), this);
-	KetteEin->setToggleButton( true );
-	KetteEin->setEnabled(false);
-	KetteAus = new QToolButton(loadIcon("Unlock.xpm"), tr("Break Text Chains"), QString::null, this, SLOT(ModeFromTB()), this);
-	KetteAus->setToggleButton( true );
-	KetteAus->setEnabled(false);
 	setCloseMode(QDockWindow::Undocked);
   connect(this, SIGNAL(placeChanged(QDockWindow::Place)), this, SLOT(Docken(QDockWindow::Place)));
   connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(Verbergen(bool)));
+  connect(Rechteck, SIGNAL(FormSel(int, int, double *)), this, SLOT(SelShape(int, int, double *)));
+	connect(Rechteck, SIGNAL(clicked()), this, SLOT(SelShape2()));
+	QToolTip::add( Rechteck, tr( "Draws various Shapes" ) );
 }
 
 void WerkToolB::Docken(QDockWindow::Place p)
@@ -96,6 +105,43 @@ void WerkToolB::GetPolyProps()
 	delete dia;
 }
 
+void WerkToolB::SelShape(int s, int c, double *vals)
+{
+	Select->setOn(false);
+	Rotiere->setOn(false);
+	Textedit->setOn(false);
+	Zoom->setOn(false);
+	Texte->setOn(false);
+	BildB->setOn(false);
+	Linien->setOn(false);
+	KetteEin->setOn(false);
+	KetteAus->setOn(false);
+	Polygon->setOn(false);
+	PolyLin->setOn(false);
+	Rechteck->setOn(true);
+	SubMode = s;
+	ValCount = c;
+	ShapeVals = vals;
+	emit NewMode(2);
+}
+
+void WerkToolB::SelShape2()
+{
+	Select->setOn(false);
+	Rotiere->setOn(false);
+	Textedit->setOn(false);
+	Zoom->setOn(false);
+	Texte->setOn(false);
+	BildB->setOn(false);
+	Linien->setOn(false);
+	KetteEin->setOn(false);
+	KetteAus->setOn(false);
+	Polygon->setOn(false);
+	PolyLin->setOn(false);
+	Rechteck->setOn(true);
+	emit NewMode(2);
+}
+
 void WerkToolB::ModeFromTB()
 {
 	Select->setOn(false);
@@ -105,7 +151,6 @@ void WerkToolB::ModeFromTB()
 	Texte->setOn(false);
 	BildB->setOn(false);
 	Rechteck->setOn(false);
-	Kreis->setOn(false);
 	Linien->setOn(false);
 	KetteEin->setOn(false);
 	KetteAus->setOn(false);
@@ -140,16 +185,6 @@ void WerkToolB::ModeFromTB()
 		{
 		BildB->setOn(true);
 		emit NewMode(4);
-		}
-	if (Rechteck == sender())
-		{
-		Rechteck->setOn(true);
-		emit NewMode(2);
-		}
-	if (Kreis == sender())
-		{
-		Kreis->setOn(true);
-		emit NewMode(3);
 		}
 	if (Linien == sender())
 		{

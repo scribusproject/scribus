@@ -471,6 +471,9 @@ public:
   QString DocComments;
 	QString DocKeyWords;
   int AppMode;
+	int SubMode;
+	double *ShapeValues;
+	int ValCount;
   QString Dpen;
   QString Dbrush;
   double Dwidth;

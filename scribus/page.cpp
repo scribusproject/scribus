@@ -977,6 +977,23 @@ void Page::UpdateClip(PageItem* b)
 				}
 			else
 				{
+				if (doku->SubMode != -1)
+					{
+					switch (doku->SubMode)
+						{
+						case 0:
+							SetRectFrame(b);
+							break;
+						case 1:
+							SetOvalFrame(b);
+							break;
+						default:
+							SetFrameShape(b, doku->ValCount, doku->ShapeValues);
+							break;
+						}
+					b->OldB2 = b->Width;
+					b->OldH2 = b->Height;
+					}
 				if ((b->OldB2 == 0) || (b->OldH2 == 0))
 					return;
 				double scx = b->Width / b->OldB2;
@@ -2434,6 +2451,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 	Imoved = false;
 	mCG = false;
 	MidButt = false;
+	doku->SubMode = -1;
 }
 
 void Page::SetYGuide(QMouseEvent *m)
@@ -3222,7 +3240,6 @@ void Page::mousePressEvent(QMouseEvent *m)
 	QRect tx, mpo;
 	sc = doku->Scale;
 	Mpressed = true;
-//	MidButt = false;
 	Imoved = false;
 	SeRx = m->x();
 	SeRy = m->y();
@@ -3259,8 +3276,6 @@ void Page::mousePressEvent(QMouseEvent *m)
 				Transform(b, &p);
 				npf2 = FPoint(p.xFormDev(m->pos()));
 				ClRe = -1;
-//				if (m->state() != ShiftButton)
-//					SelNode.clear();
 				for (a=0; a<Clip.size(); ++a)
 					{
 					if ((EdPoints) && (a % 2 != 0))
@@ -3547,16 +3562,24 @@ void Page::mousePressEvent(QMouseEvent *m)
 		case 2:
 			SeleItem(m);
 			Deselect(false);
-			z = PaintRect(Rxp, Ryp, 1+Rxpd, 1+Rypd, doku->Dwidth, doku->Dbrush, doku->Dpen);
-			SetupDraw(z);
-			emit HaveSel(3);
-			break;
-		case 3:
-			SeleItem(m);
-			Deselect(false);
-			z = PaintEllipse(Rxp, Ryp, 1+Rxpd, 1+Rypd, doku->Dwidth, doku->Dbrush, doku->Dpen);
-			SetupDraw(z);
-			emit HaveSel(1);
+			switch (doku->SubMode)
+				{
+				case 0:
+					z = PaintRect(Rxp, Ryp, 1+Rxpd, 1+Rypd, doku->Dwidth, doku->Dbrush, doku->Dpen);
+					SetupDraw(z);
+					emit HaveSel(3);
+					break;
+				case 1:
+					z = PaintEllipse(Rxp, Ryp, 1+Rxpd, 1+Rypd, doku->Dwidth, doku->Dbrush, doku->Dpen);
+					SetupDraw(z);
+					emit HaveSel(1);
+					break;
+				default:
+					z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, doku->Dwidth, doku->Dbrush, doku->Dpen);
+					SetupDraw(z);
+					emit HaveSel(6);
+					break;
+				}
 			break;
 		case 4:
 			SeleItem(m);
@@ -3599,7 +3622,6 @@ void Page::mousePressEvent(QMouseEvent *m)
 					}
 				}
 			inText = slotSetCurs(m->x(), m->y());
-//			if (SelItem.count() == 0)
 			if (!inText)
 				{
 				Deselect(true);
@@ -3775,7 +3797,6 @@ void Page::mousePressEvent(QMouseEvent *m)
 				{
 				SeleItem(m);
 				Deselect(false);
-//				z = PaintPolyLine(Rxp, Ryp, 1+Rxpd, 1+Rypd, doku->Dwidth, doku->Dbrush, doku->Dpen);
 				z = PaintPolyLine(Rxp, Ryp, 1+Rxpd, 1+Rypd, doku->Dwidth, "None", doku->Dpen);
 				b = Items.at(z);
 				SelItem.clear();
@@ -4055,8 +4076,6 @@ bool Page::SeleItem(QMouseEvent *m)
 		doku->ActPage = this;
 		emit PgCh(PageNr);
 		}
-//	if (Items.count() == 0)
-//		return false;
 	for (a = 0; a < Items.count(); ++a)
 		{
 		if (b->LayerNr == doku->ActiveLayer)
@@ -4194,7 +4213,6 @@ bool Page::SeleItem(QMouseEvent *m)
 			}
 		}
 	Deselect(true);
-//	emit HaveSel(-1);
 	SelItem.clear();
 	return false;
 }
@@ -4726,7 +4744,6 @@ void Page::TextToPath()
 		Deselect();
 		if (b->Ptext.count() == 0)
 			return;
-//		doku->loading = true;
 		for (uint a = 0; a < b->MaxChars; ++a)
 			{
 			pts.resize(0);
@@ -4818,7 +4835,6 @@ void Page::TextToPath()
 				}
 			}
 		doku->GroupCounter++;
-//		doku->loading = false;
 		SelItem.clear();
 		SelItem.append(b);
 		DeleteItem();

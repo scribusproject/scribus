@@ -1,4 +1,8 @@
 Changes since Version 1.1.3
+10.12.2003	Fixed Preferences Issues.
+		Combined the Toolbar Buttons for Rectangles and Circles into one Button
+		containing all Autoforms.
+
 09.12.2003	Added some new Shapes to the Autoforms Menue.
 		Fixed the disabled Keyboard Bug.
 

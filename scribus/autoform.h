@@ -52,7 +52,7 @@ public slots:
 	void selForm(int a);
 
 signals:
-	void FormSel(int);
+	void FormSel(int, int, double *);
 
 protected:
 	QGridLayout* buttonGroup1Layout;

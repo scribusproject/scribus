@@ -71,6 +71,7 @@
 #include "lineformats.h"
 #include "missing.h"
 #include "story.h"
+#include "autoform.h"
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
 
@@ -2394,7 +2395,6 @@ bool ScribusApp::LadeDoc(QString fileName)
 #endif
   	if(!ss->ReadDoc(fileName, Prefs.AvailFonts, doc, view, FProg))
   		{
-//			w->close();
   		view->close();
   		disconnect(ss, SIGNAL(NewPage(int)), this, SLOT(slotNewPage(int)));
   		delete ss;
@@ -3799,7 +3799,6 @@ void ScribusApp::ToggleFrameEdit()
 		WerkTools->Texte->setEnabled(false);
 		WerkTools->BildB->setEnabled(false);
 		WerkTools->Rechteck->setEnabled(false);
-		WerkTools->Kreis->setEnabled(false);
 		WerkTools->Linien->setEnabled(false);
 		WerkTools->Polygon->setEnabled(false);
 		WerkTools->PolyLin->setEnabled(false);
@@ -3828,7 +3827,6 @@ void ScribusApp::NoFrameEdit()
 	WerkTools->Texte->setEnabled(true);
 	WerkTools->BildB->setEnabled(true);
 	WerkTools->Rechteck->setEnabled(true);
-	WerkTools->Kreis->setEnabled(true);
 	WerkTools->Linien->setEnabled(true);
 	WerkTools->Polygon->setEnabled(true);
 	WerkTools->PolyLin->setEnabled(true);
@@ -3859,7 +3857,6 @@ void ScribusApp::slotSelect()
 	WerkTools->Texte->setOn(false);
 	WerkTools->BildB->setOn(false);
 	WerkTools->Rechteck->setOn(false);
-	WerkTools->Kreis->setOn(false);
 	WerkTools->Linien->setOn(false);
 	WerkTools->Polygon->setOn(false);
 	WerkTools->PolyLin->setOn(false);
@@ -3969,6 +3966,14 @@ void ScribusApp::setAppMode(int mode)
 			qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
 		else
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		if (mode == 2)
+			{
+			doc->SubMode = WerkTools->SubMode;
+			doc->ShapeValues = WerkTools->ShapeVals;
+			doc->ValCount = WerkTools->ValCount;
+			}
+		else
+			doc->SubMode = -1;
 		}
 }
 
@@ -5080,6 +5085,7 @@ void ScribusApp::slotPrefsOrg()
 		Mpal->Cpal->UseTrans(Prefs.PDFTransparency);
 		if (HaveDoc)
 			{
+			slotChangeUnit(dia->UnitCombo->currentItem(), false);
 			if (zChange)
 				slotZoomAbs(doc->Scale*Prefs.DisScale);
 			doc->GrabRad = dia->SpinBox3_2->value();
@@ -5163,7 +5169,6 @@ void ScribusApp::slotPrefsOrg()
 			doc->ScaleType = dia->FreeScale->isChecked();
 			doc->AspectRatio = dia->Aspect->isChecked();
 			doc->Before = dia->RadioButton6->isChecked();
-			slotChangeUnit(dia->UnitCombo->currentItem(), false);
 			doc->PagesSbS = dia->SidebySide->isChecked();
 			doc->ShFrames = dia->FramesVisible->isChecked();
 			doc->RandFarbig = dia->RandFarb->isChecked();
@@ -5179,6 +5184,22 @@ void ScribusApp::slotPrefsOrg()
 			}
 		else
 			{
+			Prefs.Einheit = dia->UnitCombo->currentItem();
+			switch (Prefs.Einheit)
+				{
+				case 0:
+					UmReFaktor = 1.0;
+					break;
+				case 1:
+					UmReFaktor = 1.0 / 72.0 * 25.4;
+					break;
+				case 2:
+					UmReFaktor = 1.0 / 72.0;
+					break;
+				case 3:
+					UmReFaktor = 1.0 / 12.0;
+					break;
+				}
 			Prefs.GrabRad = dia->SpinBox3_2->value();
 			Prefs.GuideRad = dia->SpinBox2g->value() / UmReFaktor / 100;
 			Prefs.DefFont = dia->FontComb->currentText();
@@ -5260,22 +5281,6 @@ void ScribusApp::slotPrefsOrg()
 			Prefs.ScaleType = dia->FreeScale->isChecked();
 			Prefs.AspectRatio = dia->Aspect->isChecked();
 			Prefs.Before = dia->RadioButton6->isChecked();
-			Prefs.Einheit = dia->UnitCombo->currentItem();
-			switch (Prefs.Einheit)
-				{
-				case 0:
-					UmReFaktor = 1.0;
-					break;
-				case 1:
-					UmReFaktor = 1.0 / 72.0 * 25.4;
-					break;
-				case 2:
-					UmReFaktor = 1.0 / 72.0;
-					break;
-				case 3:
-					UmReFaktor = 1.0 / 12.0;
-					break;
-				}
 			Prefs.PagesSbS = dia->SidebySide->isChecked();
 			Prefs.ShFrames = dia->FramesVisible->isChecked();
 			Prefs.RandFarbig = dia->RandFarb->isChecked();
@@ -5999,7 +6004,6 @@ void ScribusApp::RunHelpPlug(int id)
 {
 	int a = helpMenu->indexOf(id);
 	if (a > 4)
-//	if (a > 5)
 		CallDLL(helpMenu->text(id));
 }
 
@@ -6493,7 +6497,6 @@ void ScribusApp::UnDoAction()
 		doc->ActPage->Deselect(true);
 		b = doc->UnData.Item;
 		b->Select = false;
-//		view->Pages.at(doc->UnData.PageNr)->SelItem.clear();
 		view->Pages.at(doc->UnData.PageNr)->Deselect(true);
 		switch (doc->UnData.UnCode)
 			{

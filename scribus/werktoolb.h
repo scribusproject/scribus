@@ -24,6 +24,7 @@
 #include <qtooltip.h>
 #include <qpopupmenu.h>
 
+class Autoforms;
 /**
   *@author Franz Schmid
   */
@@ -42,19 +43,23 @@ public:
   QToolButton* Texte;
   QToolButton* BildB;
   QToolButton* Linien;
-  QToolButton* Kreis;
-  QToolButton* Rechteck;
+  Autoforms* Rechteck;
 	QToolButton* Polygon;
 	QToolButton* PolyLin;
 	QPopupMenu* PolyM;
   QToolButton* KetteEin;
   QToolButton* KetteAus;
 	bool Sichtbar;
+	int SubMode;
+	int ValCount;
+	double *ShapeVals;
 
 public slots:
 	void Docken(QDockWindow::Place p);
 	void Verbergen(bool vis);
 	void GetPolyProps();
+	void SelShape(int s, int c, double *vals);
+	void SelShape2();
 	void ModeFromTB();
 		
 signals:
