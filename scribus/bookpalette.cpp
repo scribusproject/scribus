@@ -52,3 +52,9 @@ void BookPalette::closeEvent(QCloseEvent *ce)
 	emit Schliessen();
 	ce->accept();
 }
+
+void BookPalette::reject()
+{
+	emit Schliessen();
+	QDialog::reject();
+}

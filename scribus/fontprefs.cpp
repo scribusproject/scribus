@@ -30,12 +30,10 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
 	TabWidget = new QTabWidget( this, "TabWidget" );
 	TabWidget->setMinimumSize(fontMetrics().width( tr( "Available Fonts" )+ tr( "Font Substitutions" )+
 	                          tr( "Additional Paths" ))+80, 200);
-
 	tab1 = new QWidget( TabWidget, "tab1" );
 	tab1Layout = new QVBoxLayout( tab1, 11, 6, "tab1Layout");
 	Table1 = new QTable( tab1, "Table1" );
 	Table1->setNumRows( flist.count() );
-	Table1->setMaximumSize(32000, 300);
 	Table1->setNumCols( 6 );
 	Table1->setSorting(true);
 	SCFontsIterator it(flist);
@@ -120,7 +118,6 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
 	Table3->setSelectionMode(QTable::SingleRow);
 	Table3->setLeftMargin(0);
 	Table3->verticalHeader()->hide();
-	Table3->setMaximumSize(32000, 300);
 	Table3->setNumCols( 2 );
 	Table3->setNumRows(Prefs->GFontSub.count());
 	Header2 = Table3->horizontalHeader();
@@ -141,6 +138,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
 	}
 	Table3->setColumnStretchable(0, true);
 	Table3->setColumnStretchable(1, true);
+	Table3->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	tabLayout->addWidget( Table3 );
 	Layout2a = new QHBoxLayout( 0, 0, 6, "Layout2");
 	QSpacerItem* spacer1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -158,6 +156,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
 	tab3Layout = new QHBoxLayout( tab3, 11, 6, "tab3Layout");
 	PathList = new QListBox( tab3, "PathList" );
 	ReadPath();
+	PathList->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	tab3Layout->addWidget( PathList );
 	LayoutR = new QVBoxLayout( 0, 0, 6, "LayoutR");
 	ChangeB = new QPushButton( tab3, "ChangeB" );

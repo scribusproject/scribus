@@ -55,7 +55,7 @@ LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
 	Layout15->addWidget( SaveB );
 
 	ExitB = new QPushButton( this, "ExitB" );
-	ExitB->setText( tr( "Close" ) );
+	ExitB->setText( tr( "OK" ) );
 	Layout15->addWidget( ExitB );
 
 	CancelB = new QPushButton( this, "CancelB" );

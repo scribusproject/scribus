@@ -22,70 +22,74 @@
 
 class BibView : public QIconView
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    BibView( QWidget* parent, preV *prefs);
-    ~BibView() {};
-    void AddObj(QString name, QString daten, QPixmap Bild);
-    void SaveContents(QString name);
-    void ReadContents(QString name);
-    void RebuildView();
-    struct Elem {
-					QString Data;
-    				QPixmap Preview;
-    			};
-    QMap<QString,Elem> Objekte;
-  	preV *Prefs;
+	BibView( QWidget* parent, preV *prefs);
+	~BibView() {};
+	void AddObj(QString name, QString daten, QPixmap Bild);
+	void SaveContents(QString name);
+	void ReadContents(QString name);
+	void RebuildView();
+	struct Elem
+	{
+		QString Data;
+		QPixmap Preview;
+	};
+	QMap<QString,Elem> Objekte;
+	preV *Prefs;
 
 protected:
-    virtual QDragObject *dragObject();
+	virtual QDragObject *dragObject();
 };
 
 class Biblio : public QDialog
-{ 
-    Q_OBJECT
+{
+	Q_OBJECT
 
 public:
-    Biblio( QWidget* parent, preV *prefs);
-    ~Biblio() {};
-    void closeEvent(QCloseEvent *ce);
-    void AdjustMenu();
+	Biblio( QWidget* parent, preV *prefs);
+	~Biblio() {};
+	void closeEvent(QCloseEvent *ce);
+	void AdjustMenu();
 	void ObjFromMenu(QString text);
 
-    QPopupMenu* pmenu;
-    QPopupMenu* fmenu;
-    QPopupMenu* vmenu;
-    QMenuBar* menuBar;
-    QFrame* Frame3;
-    BibView* BibWin;
-  	preV *Prefs;
-    QString ScFilename;
-    int fSave;
-    int vS;
-    int vM;
-    int vB;
+	QPopupMenu* pmenu;
+	QPopupMenu* fmenu;
+	QPopupMenu* vmenu;
+	QMenuBar* menuBar;
+	QFrame* Frame3;
+	BibView* BibWin;
+	preV *Prefs;
+	QString ScFilename;
+	int fSave;
+	int vS;
+	int vM;
+	int vB;
 	bool Changed;
 
 public slots:
-    void Save();
+	void Save();
 
 private slots:
 	void HandleMouse(QIconViewItem *ite);
 	void DeleteObj(QString name, QIconViewItem *ite);
-    void DropOn(QDropEvent *e);
-    void SaveAs();
-    void Load();
-    void CloseWin();
-    void NewLib();
-    void SetPreview(int id);
+	void DropOn(QDropEvent *e);
+	void SaveAs();
+	void Load();
+	void CloseWin();
+	void NewLib();
+	void SetPreview(int id);
 
 protected:
-    QVBoxLayout* BiblioLayout;
-    QVBoxLayout* Frame3Layout;
+	QVBoxLayout* BiblioLayout;
+	QVBoxLayout* Frame3Layout;
+
+protected slots:
+	virtual void reject();
 
 signals:
-		void Schliessen();
+	void Schliessen();
 };
 
 #endif // BIBLIO_H

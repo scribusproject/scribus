@@ -35,7 +35,7 @@ bool SeDrag::decode( QDropEvent* e, QString& str )
 
 /* IconItems Code */
 SeItem::SeItem(QTable* parent, QString text, QPixmap Pix, bool ss)
-				: QTableItem(parent, QTableItem::Never, text, Pix)
+		: QTableItem(parent, QTableItem::Never, text, Pix)
 {
 	Side = ss;
 	setWordWrap(true);
@@ -53,14 +53,14 @@ void SeItem::paint(QPainter *p, const QColorGroup &cg, const QRect &cr, bool sel
 		p->drawPixmap(0, (cr.height()-py)/2, pixmap());
 		if (sv->Namen)
 			p->drawText(px, 0, cr.width()-px, cr.height(), Qt::AlignLeft | Qt::AlignVCenter | Qt::WordBreak,
-						 text());
+			            text());
 	}
 	else
 	{
 		p->drawPixmap(cr.width()-px-2, (cr.height()-py)/2, pixmap());
 		if (sv->Namen)
 			p->drawText(0, 0, cr.width()-px-2, cr.height(), Qt::AlignLeft | Qt::AlignVCenter | Qt::WordBreak,
-						 text());
+			            text());
 	}
 }
 
@@ -101,7 +101,7 @@ void SeList::mousePressEvent(QMouseEvent* e)
 	{
 		CurItem = i;
 		Mpos = e->pos();
-		Mpressed = true;	
+		Mpressed = true;
 	}
 }
 
@@ -218,10 +218,10 @@ void SeView::contentsDropEvent(QDropEvent * e)
 					else
 					{
 						if (b == 0)
-							emit NewPage((a == 1 ? a - 1 : a - 2), tmp); 
+							emit NewPage((a == 1 ? a - 1 : a - 2), tmp);
 						if (b == 2)
-							emit NewPage(a-1, tmp); 
-					}  
+							emit NewPage(a-1, tmp);
+					}
 					ClearPix();
 				}
 				if (a == numRows()-1)
@@ -356,7 +356,7 @@ void SeView::contentsDragMoveEvent(QDragMoveEvent *e)
 			if ((((a % 2) == 1) && ((b == 0) || (b == 2))) || (a == numRows()-1))
 			{
 				QPixmap pm;
-   				pm = QPixmap(columnWidth(b), rowHeight(a));
+				pm = QPixmap(columnWidth(b), rowHeight(a));
 				pm.fill(darkBlue);
 				setPixmap(a, b, pm);
 			}
@@ -368,7 +368,7 @@ void SeView::contentsDragMoveEvent(QDragMoveEvent *e)
 			if ((a % 2) == 0)
 			{
 				QPixmap pm;
-   				pm = QPixmap(columnWidth(0), 9);
+				pm = QPixmap(columnWidth(0), 9);
 				pm.fill(darkBlue);
 				setPixmap(a, 0, pm);
 			}
@@ -477,67 +477,67 @@ void TrashBin::dropEvent(QDropEvent * e)
 
 
 SeitenPal::SeitenPal(QWidget* parent)
-    : QDialog( parent, "SP", false, 0)
-//    : QDialog( parent, "SP", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
-{ 
-    setCaption( tr( "Arrange Pages" ) );
-  	setIcon(loadIcon("AppIcon.png"));
-    SeitenPalLayout = new QVBoxLayout( this ); 
-    SeitenPalLayout->setSpacing( 5 );
-    SeitenPalLayout->setMargin( 5 );
-    Splitter1 = new QSplitter( this, "Splitter1" );
-    Splitter1->setOrientation( QSplitter::Vertical );
-    QWidget* privateLayoutWidget = new QWidget( Splitter1, "Layout2" );
-    Layout2 = new QVBoxLayout( privateLayoutWidget, 0, 5, "Layout2");
-    TextLabel1 = new QLabel( privateLayoutWidget, "TextLabel1" );
-    TextLabel1->setText( tr( "Available Templates:" ) );
-    Layout2->addWidget( TextLabel1 );
-    TemplList = new SeList(privateLayoutWidget);
+		: QDialog( parent, "SP", false, 0)
+		//    : QDialog( parent, "SP", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
+{
+	setCaption( tr( "Arrange Pages" ) );
+	setIcon(loadIcon("AppIcon.png"));
+	SeitenPalLayout = new QVBoxLayout( this );
+	SeitenPalLayout->setSpacing( 5 );
+	SeitenPalLayout->setMargin( 5 );
+	Splitter1 = new QSplitter( this, "Splitter1" );
+	Splitter1->setOrientation( QSplitter::Vertical );
+	QWidget* privateLayoutWidget = new QWidget( Splitter1, "Layout2" );
+	Layout2 = new QVBoxLayout( privateLayoutWidget, 0, 5, "Layout2");
+	TextLabel1 = new QLabel( privateLayoutWidget, "TextLabel1" );
+	TextLabel1->setText( tr( "Available Templates:" ) );
+	Layout2->addWidget( TextLabel1 );
+	TemplList = new SeList(privateLayoutWidget);
 	TemplList->setMinimumSize(QSize(130,70));
 	TemplList->Thumb = false;
-    Layout2->addWidget( TemplList );
-    QWidget* privateLayoutWidget_2 = new QWidget( Splitter1, "Layout3" );
-    Layout3 = new QVBoxLayout( privateLayoutWidget_2, 0, 5, "Layout3");
-    TextLabel2 = new QLabel( privateLayoutWidget_2, "TextLabel2" );
-    TextLabel2->setText( tr( "Document Pages:" ) );
-    Layout3->addWidget( TextLabel2 );
-    PageView = new SeView(privateLayoutWidget_2);
-    PageView->setLeftMargin(0);
-    PageView->verticalHeader()->hide();
-    PageView->setTopMargin(0);
-    PageView->horizontalHeader()->hide();
-    PageView->setSorting(false);
-    PageView->setSelectionMode(QTable::NoSelection);
-    PageView->setColumnMovingEnabled(false);
-    PageView->setRowMovingEnabled(false);
+	Layout2->addWidget( TemplList );
+	QWidget* privateLayoutWidget_2 = new QWidget( Splitter1, "Layout3" );
+	Layout3 = new QVBoxLayout( privateLayoutWidget_2, 0, 5, "Layout3");
+	TextLabel2 = new QLabel( privateLayoutWidget_2, "TextLabel2" );
+	TextLabel2->setText( tr( "Document Pages:" ) );
+	Layout3->addWidget( TextLabel2 );
+	PageView = new SeView(privateLayoutWidget_2);
+	PageView->setLeftMargin(0);
+	PageView->verticalHeader()->hide();
+	PageView->setTopMargin(0);
+	PageView->horizontalHeader()->hide();
+	PageView->setSorting(false);
+	PageView->setSelectionMode(QTable::NoSelection);
+	PageView->setColumnMovingEnabled(false);
+	PageView->setRowMovingEnabled(false);
 	PageView->setNumRows(1);
 	PageView->setNumCols(1);
 	PageView->setMinimumSize(QSize(130,120));
-    Layout3->addWidget( PageView );
-    SeitenPalLayout->addWidget( Splitter1 );
+	Layout3->addWidget( PageView );
+	SeitenPalLayout->addWidget( Splitter1 );
 
-    Layout1 = new QHBoxLayout; 
-    Layout1->setSpacing( 6 );
-    Layout1->setMargin( 0 );
+	Layout1 = new QHBoxLayout;
+	Layout1->setSpacing( 6 );
+	Layout1->setMargin( 0 );
 
-    Layout4 = new QVBoxLayout;
-    Layout4->setSpacing( 6 );
-    Layout4->setMargin( 0 );
+	Layout4 = new QVBoxLayout;
+	Layout4->setSpacing( 6 );
+	Layout4->setMargin( 0 );
 	DS = new QCheckBox(this, "DS");
-    DS->setText( tr( "Facing Pages" ) );
-    Layout4->addWidget( DS );
+	DS->setText( tr( "Facing Pages" ) );
+	Layout4->addWidget( DS );
 	LP = new QCheckBox(this, "LP");
-    LP->setText( tr( "Left Page first" ) );
-    Layout4->addWidget( LP );
-    Layout1->addLayout( Layout4 );
-		
-    QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    Layout1->addItem( spacer );
+	LP->setText( tr( "Left Page first" ) );
+	Layout4->addWidget( LP );
+	Layout1->addLayout( Layout4 );
 
-    Trash = new TrashBin( this );
+	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout1->addItem( spacer );
+
+	Trash = new TrashBin( this );
 	Trash->setMinimumSize(QSize(22,22));
-    Layout1->addWidget( Trash );
-    SeitenPalLayout->addLayout( Layout1 );
+	Layout1->addWidget( Trash );
+	SeitenPalLayout->addLayout( Layout1 );
 	pix = loadIcon("document2.png");
 	Vie = 0;
 	Rebuild();
@@ -550,8 +550,8 @@ SeitenPal::SeitenPal(QWidget* parent)
 	connect(Trash, SIGNAL(DelMaster(QString)), this, SLOT(DelMPage(QString)));
 	QToolTip::add( Trash, tr( "Drag Pages or Template Pages onto the Trashbin to delete them." ) );
 	QToolTip::add( PageView, tr( "Previews all the pages of your document." ));
-	QToolTip::add( TemplList, 
-		tr( "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below." ) );
+	QToolTip::add( TemplList,
+		               tr( "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below." ) );
 }
 
 
@@ -561,24 +561,30 @@ void SeitenPal::closeEvent(QCloseEvent *ce)
 	ce->accept();
 }
 
+void SeitenPal::reject()
+{
+	emit Schliessen();
+	QDialog::reject();
+}
+
 void SeitenPal::DelMPage(QString tmp)
 {
 	if (tmp == tr("Normal"))
-    	return;
+		return;
 	int Nr = Vie->MasterNames[tmp];
 	Page* Seite = Vie->MasterPages.at(Nr);
 	Vie->MasterPages.remove(Nr);
 	delete Seite->parentWidget();
 	Vie->MasterNames.clear();
- 	for (uint aa=0; aa < Vie->MasterPages.count(); ++aa)
- 	{
- 		Seite = Vie->MasterPages.at(aa);
+	for (uint aa=0; aa < Vie->MasterPages.count(); ++aa)
+	{
+		Seite = Vie->MasterPages.at(aa);
 		Seite->PageNr = aa;
 		if (Vie->Doc->PageFP)
 		{
 			Seite->Margins.Left = Seite->LeftPg ? Vie->Doc->PageM.Right : Vie->Doc->PageM.Left;
 			Seite->Margins.Right= Seite->LeftPg? Vie->Doc->PageM.Left : Vie->Doc->PageM.Right;
- 		}
+		}
 		else
 		{
 			Seite->Margins.Right = Vie->Doc->PageM.Right;
@@ -587,7 +593,7 @@ void SeitenPal::DelMPage(QString tmp)
 		Seite->Margins.Top = Vie->Doc->PageM.Top;
 		Seite->Margins.Bottom = Vie->Doc->PageM.Bottom;
 		Vie->MasterNames[Seite->PageNam] = aa;
-	}                              
+	}
 	for (uint b=0; b<Vie->DocPages.count(); ++b)
 	{
 		if (Vie->DocPages.at(b)->MPageNam == tmp)
@@ -732,7 +738,7 @@ void SeitenPal::RebuildPage()
 		{
 			str = Vie->Pages.at(a)->MPageNam;
 			Side = cb == 1 ? false : true;
-	   		QTableItem *it = new SeItem( PageView, str, CreateIcon(a, pix), Side);
+			QTableItem *it = new SeItem( PageView, str, CreateIcon(a, pix), Side);
 			PageView->setItem(cc, cb, it);
 			PageView->setRowHeight(cc, pix.height());
 			PageView->setPixmap(cc, 2, PageView->pix);
@@ -745,7 +751,7 @@ void SeitenPal::RebuildPage()
 			{
 				cb = 1;
 				cc += 2;
-			}				
+			}
 		}
 	}
 	else
@@ -757,7 +763,7 @@ void SeitenPal::RebuildPage()
 		for (uint a = 0; a < Vie->Pages.count(); ++a)
 		{
 			str = Vie->Pages.at(a)->MPageNam;
-    		QTableItem *it = new SeItem( PageView, str, CreateIcon(a, pix), true);
+			QTableItem *it = new SeItem( PageView, str, CreateIcon(a, pix), true);
 			PageView->setItem(cc, 0, it);
 			PageView->setRowHeight(cc, pix.height());
 			PageView->adjustRow(cc);

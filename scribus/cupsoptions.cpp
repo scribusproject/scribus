@@ -178,13 +178,14 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	Layout2->addItem( spacer );
 	PushButton1 = new QPushButton( this, "PushButton1" );
 	PushButton1->setText( tr( "OK" ) );
+	PushButton1->setDefault( true );
 	Layout2->addWidget( PushButton1 );
 	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer2 );
 	PushButton2 = new QPushButton( this, "PushButton1_2" );
 	PushButton2->setText( tr( "Cancel" ) );
-	PushButton2->setDefault( true );
-	PushButton2->setFocus();
+	PushButton2->setDefault( false );
+	PushButton1->setFocus();
 	Layout2->addWidget( PushButton2 );
 	QSpacerItem* spacer3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer3 );

@@ -3645,9 +3645,9 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 		qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
 		int scroX = m->x() - qRound((Mxp * sc));
 		int scroY = m->y() - qRound((Myp * sc));
-		Anz->scrollBy(scroX, scroY);
-		Mxp = static_cast<int>(m->x()/sc);
-		Myp = static_cast<int>(m->y()/sc);
+		Anz->scrollBy(-scroX, -scroY);
+		Mxp = static_cast<int>((m->x()-scroX)/sc);
+		Myp = static_cast<int>((m->y()-scroY)/sc);
 		return;
 	}
 	if (Mpressed && (doku->AppMode == 21))

@@ -2303,7 +2303,8 @@ void ScribusApp::HaveNewDoc()
 		}
 	Mpal->Cpal->SetColors(doc->PageColors);
 	Mpal->Cpal->ChooseGrad(0);
-	ActWin->setCaption( QString::fromLocal8Bit(doc->DocName) );
+//	ActWin->setCaption( QString::fromLocal8Bit(doc->DocName) );
+	ActWin->setCaption(doc->DocName);
 	ShadeMenu->setItemChecked(ShadeMenu->idAt(11), true);
 	Mpal->SetDoc(doc);
 	Mpal->updateCList();
@@ -2631,7 +2632,7 @@ void ScribusApp::slotDocCh(bool reb)
 		Tpal->slotUpdateElement(doc->ActPage->PageNr, doc->ActPage->SelItem.at(0)->ItemNr);
 	if (!doc->isModified())
 		doc->setModified();
-	ActWin->setCaption( tr(doc->DocName) + "*");
+	ActWin->setCaption( doc->DocName + "*");
 	if (!doc->TemplateMode)
 		{
 		fileMenu->setItemEnabled(fid4, 1);

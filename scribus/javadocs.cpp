@@ -2,6 +2,7 @@
 #include "javadocs.moc"
 #include "query.h"
 #include "editor.h"
+#include <qmessagebox.h>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -96,17 +97,26 @@ void JavaDocs::slotEdit()
 
 void JavaDocs::slotDelete()
 {
-	QString nam = Scripts->currentText();
-	Doc->JavaScripts.remove(nam);
-	Scripts->clear();
-	QMap<QString,QString>::Iterator it;
-	for (it = Doc->JavaScripts.begin(); it != Doc->JavaScripts.end(); ++it)
-		Scripts->insertItem(it.key());
-	if (Doc->JavaScripts.count() == 0)
+	int exit=QMessageBox::warning(this,
+	                              tr("Warning"),
+	                              tr("Do you really want do delete this Script?"),
+	                              tr("No"),
+	                              tr("Yes"),
+	                              0, 0, 0);
+	if (exit == 1)
 	{
-		EditScript->setEnabled(false);
-		DeleteScript->setEnabled(false);
+		QString nam = Scripts->currentText();
+		Doc->JavaScripts.remove(nam);
+		Scripts->clear();
+		QMap<QString,QString>::Iterator it;
+		for (it = Doc->JavaScripts.begin(); it != Doc->JavaScripts.end(); ++it)
+			Scripts->insertItem(it.key());
+		if (Doc->JavaScripts.count() == 0)
+		{
+			EditScript->setEnabled(false);
+			DeleteScript->setEnabled(false);
+		}
+		else
+			Scripts->setCurrentItem(0);
 	}
-	else
-		Scripts->setCurrentItem(0);
 }

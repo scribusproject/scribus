@@ -897,11 +897,16 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	PM1->setEnabled(false);
 }
 
-
 void Mpalette::closeEvent(QCloseEvent *ce)
 {
 	emit Schliessen();
 	ce->accept();
+}
+
+void Mpalette::reject()
+{
+	emit Schliessen();
+	QDialog::reject();
 }
 
 void Mpalette::SelTab(int t)
@@ -949,7 +954,7 @@ void Mpalette::SetDoc(ScribusDoc *d)
 	Width->setMinValue( 1  * UmReFaktor);
 	Height->setMaxValue( (QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor );
 	Height->setMinValue( 1  * UmReFaktor);
-	Rot->setMaxValue( 359 );
+	Rot->setMaxValue( 360 );
 	Rot->setMinValue( 0 );
 	RoundRect->setMaxValue( 300 );
 	RoundRect->setMinValue( -300);

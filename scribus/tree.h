@@ -13,27 +13,27 @@
 #include <qptrlist.h>
 #include <qvaluelist.h>
 #include "scribusview.h"
-class QVBoxLayout; 
-class QHBoxLayout; 
-class QGridLayout; 
+class QVBoxLayout;
+class QHBoxLayout;
+class QGridLayout;
 class QListView;
 class QListViewItem;
 
 class Tree : public QDialog
-{ 
-    Q_OBJECT
+{
+	Q_OBJECT
 
 public:
-    Tree( QWidget* parent, WFlags fl );
-    ~Tree() {};
+	Tree( QWidget* parent, WFlags fl );
+	~Tree() {};
 
-    QListView* ListView1;
-    QPtrList<QListViewItem> Seiten;
-    struct Elem { QPtrList<QListViewItem> Elemente; };
+	QListView* ListView1;
+	QPtrList<QListViewItem> Seiten;
+	struct Elem { QPtrList<QListViewItem> Elemente; };
 	QPtrList<Elem> PageObj;
 	ScribusView *vie;
-    void closeEvent(QCloseEvent *ce);
-    void resizeEvent(QResizeEvent *r);
+	void closeEvent(QCloseEvent *ce);
+	void resizeEvent(QResizeEvent *r);
 	void rebuildPageD();
 	void reopenTree(QValueList<int> op);
 	QValueList<int> buildReopenVals();
@@ -46,13 +46,16 @@ public slots:
 	void slotMoveElement(uint SNr, uint NrOld, uint NrNew);
 	void slotDelPage(uint Nr);
 	void slotAddPage(uint Nr);
-    void slotSelect(QListViewItem* ite);
-    void BuildTree(ScribusView *view);
-    	
+	void slotSelect(QListViewItem* ite);
+	void BuildTree(ScribusView *view);
+
 signals:
 	void Schliessen();
 	void SelectElement(int, int);
 	void SelectSeite(int);
+
+protected slots:
+	virtual void reject();
 };
 
 #endif // TREE_H

@@ -167,6 +167,9 @@ protected:
     QVBoxLayout* Layout2;
     QVBoxLayout* Layout3;
     QVBoxLayout* Layout4;
+
+protected slots:
+	virtual void reject();
 };
 
 #endif // SEITENPAL_H

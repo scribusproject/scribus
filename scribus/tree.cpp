@@ -250,6 +250,12 @@ void Tree::closeEvent(QCloseEvent *ce)
 	ce->accept();
 }
 
+void Tree::reject()
+{
+	emit Schliessen();
+	QDialog::reject();
+}
+
 void Tree::resizeEvent(QResizeEvent *r)
 {
 	ListView1->resize(r->size());
@@ -266,7 +272,7 @@ void Tree::BuildTree(ScribusView *view)
 	ListView1->clear();
 	vie = view;
 	QListViewItem * item = new QListViewItem( ListView1, 0 );
-	item->setText( 0, tr(view->Doc->DocName));
+	item->setText( 0, view->Doc->DocName);
 	tmpstr.setNum (view->Pages.count() );
 	pagenumwidth = tmpstr.length();
   for (a = 0; a < view->Pages.count(); ++a)

@@ -795,7 +795,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 
 	// signals and slots connections
 	connect( FileC, SIGNAL( clicked() ), this, SLOT( ChangeFile() ) );
-	connect( OK, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( OK, SIGNAL( clicked() ), this, SLOT( DoExport() ) );
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect(EmbedFonts, SIGNAL(clicked()), this, SLOT(EmbedAll()));
 	connect(AvailFlist, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SelAFont(QListBoxItem*)));
@@ -830,6 +830,15 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 PDF_Opts::~PDF_Opts()
 {
 	// no need to delete child widgets, Qt does it all for us
+}
+
+void PDF_Opts::DoExport()
+{
+	QString fn = Datei->text();
+	if (overwrite(this, fn))
+		accept();
+	else
+		return;
 }
 
 void PDF_Opts::ToggleEncr()
@@ -1173,9 +1182,5 @@ void PDF_Opts::ChangeFile()
 		fn = dia.selectedFile();
 	else
 		return;
-	if (!fn.isEmpty())
-	{
-		if (overwrite(this, fn))
-			Datei->setText(fn);
-	}
+	Datei->setText(fn);
 }

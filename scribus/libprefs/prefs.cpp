@@ -71,6 +71,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	size_t a_tab = sizeof(ar_tab) / sizeof(*ar_tab);
 	for (uint s = 0; s < a_tab; ++s)
 		TabListe->insertItem(ar_tab[s]);
+	TabListe->setFocusPolicy(QWidget::NoFocus);
 	PrefsLayout2->addWidget(TabListe);
 
 	TabWidget3 = new QWidgetStack( this, "TabWidget3" );
@@ -1526,6 +1527,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	buttonOK = new QPushButton( this, "buttonOK" );
 	buttonOK->setText( tr( "OK" ) );
 	buttonOK->setDefault( true );
+	buttonOK->setFocus();
 	Layout3->addWidget( buttonOK );
 	QSpacerItem* spacer_2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout3->addItem( spacer_2 );

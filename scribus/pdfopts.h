@@ -147,6 +147,7 @@ public:
 	int Einheit;
 
 public slots:
+	void DoExport();
 	void ToggleEncr();
 	void BleedChanged();
 	void EnablePDFX(int a);
