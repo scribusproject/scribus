@@ -651,8 +651,9 @@ void PSLib::PS_showSub(uint chr, QString font, double size, bool stroke)
 	PutSeite(stroke ? "shgs\n" : "shgf\n");
 }
 
-void PSLib::PS_ImageData(bool inver, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf)
+void PSLib::PS_ImageData(PageItem *c, bool inver, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf)
 {
+	bool dummy;
 	QString tmp;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
@@ -678,7 +679,11 @@ void PSLib::PS_ImageData(bool inver, QString fn, QString Name, QString Prof, boo
 	}
   	QString ImgStr = "";
 	QImage image;
-	image = LoadPicture(fn, Prof, 0, UseEmbedded, UseProf, 0, 300);
+	c->imgInfo.valid = false;
+	c->imgInfo.clipPath = "";
+	c->imgInfo.PDSpathData.clear();
+	c->imgInfo.layerInfo.clear();
+	image = LoadPicture(fn, Prof, 0, UseEmbedded, UseProf, 0, 300, &dummy, &c->imgInfo);
 	if (inver)
 		image.invertPixels();
 	ImgStr = ImageToCMYK_PS(&image, -1, true);
@@ -712,8 +717,9 @@ void PSLib::PS_ImageData(bool inver, QString fn, QString Name, QString Prof, boo
 	}
 }
 
-void PSLib::PS_image(bool inver, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name)
+void PSLib::PS_image(PageItem *c, bool inver, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name)
 {
+	bool dummy;
 	QString tmp;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
@@ -749,7 +755,11 @@ void PSLib::PS_image(bool inver, double x, double y, QString fn, double scalex, 
 	{
 		QString ImgStr = "";
 		QImage image;
-		image = LoadPicture(fn, Prof, 0, UseEmbedded, UseProf, 0, 300);
+		c->imgInfo.valid = false;
+		c->imgInfo.clipPath = "";
+		c->imgInfo.PDSpathData.clear();
+		c->imgInfo.layerInfo.clear();
+		image = LoadPicture(fn, Prof, 0, UseEmbedded, UseProf, 0, 300, &dummy, &c->imgInfo);
 		if (inver)
 			image.invertPixels();
 		int w = image.width();
@@ -995,7 +1005,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 						if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->PageNr)) && (it->OwnPage != -1))
 							continue;
 						if ((it->itemType() == PageItem::ImageFrame) && (it->PicAvail) && (it->Pfile != "") && (it->isPrintable) && (!sep) && (farb))
-							PS_ImageData(it->InvPict, it->Pfile, it->itemName(), it->IProfile, it->UseEmbedded, Ic);
+							PS_ImageData(it, it->InvPict, it->Pfile, it->itemName(), it->IProfile, it->UseEmbedded, Ic);
 						PS_TemplateStart(Doc->MasterPages.at(ap)->PageNam + tmps.setNum(it->ItemNr), Doc->PageB, Doc->PageH);
 						ProcessItem(Doc, Doc->MasterPages.at(ap), it, ap+1, sep, farb, Ic, gcr, true);
 						PS_TemplateEnd();
@@ -1104,9 +1114,9 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 								{
 									PS_translate(0, -ite->BBoxH*ite->LocalScY);
 									if ((!sep) && (farb))
-										PS_image(ite->InvPict, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic, ite->itemName());
+										PS_image(ite, ite->InvPict, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic, ite->itemName());
 									else
-										PS_image(ite->InvPict, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic);
+										PS_image(ite, ite->InvPict, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic);
 								}
 								PS_restore();
 								if (((ite->lineColor() != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
@@ -1580,9 +1590,9 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			{
 				PS_translate(0, -c->BBoxH*c->LocalScY);
 				if ((a->PageNam != "") && (!sep) && (farb))
-					PS_image(c->InvPict, -c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic, c->itemName());
+					PS_image(c, c->InvPict, -c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic, c->itemName());
 				else
-					PS_image(c->InvPict, -c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic);
+					PS_image(c, c->InvPict, -c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic);
 			}
 			PS_restore();
 			if (((c->lineColor() != "None") || (c->NamedLStyle != "")) && (!c->isTableItem))

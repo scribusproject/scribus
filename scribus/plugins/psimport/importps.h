@@ -31,7 +31,7 @@ public:
 	EPSPlug( ScribusApp *plug, QString fName );
 	~EPSPlug() {};
 	bool convert(QString fn, double x, double y, double b, double h);
-	void parseOutput(QString fn);
+	void parseOutput(QString fn, bool eps);
 	void LineTo(FPointArray *i, QString vals);
 	void Curve(FPointArray *i, QString vals);
 	QString parseColor(QString vals, colorModel model = colorModelCMYK);

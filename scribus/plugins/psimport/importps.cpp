@@ -345,6 +345,8 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QString tmpFile = Prog->PrefsPfad+"/ps.out";
 	QString pfad = ScPaths::instance().libDir();
 	QString pfad2;
+	QFileInfo fi = QFileInfo(fn);
+	QString ext = fi.extension(false).lower();
 	cmd1 = Prog->Prefs.gs_exe;
 	pfad2 = QDir::convertSeparators(pfad + "import.prolog");
 	cmd1 += " -q -dNOPAUSE -dNODISPLAY";
@@ -358,7 +360,10 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		QMessageBox::critical(0, tr("Fatal Error"), mess, 1, 0, 0);
 		return false;
 	}
-	parseOutput(tmpFile);
+	if (ext == "eps")
+		parseOutput(tmpFile, true);
+	else
+		parseOutput(tmpFile, false);
 	system("rm -f "+tmpFile);
 	return true;
 }
@@ -371,7 +376,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
  \param None
  \retval None
  */
-void EPSPlug::parseOutput(QString fn)
+void EPSPlug::parseOutput(QString fn, bool eps)
 {
 	QString tmp, token, params, lasttoken, lastPath, currPath;
 	int z, lcap, ljoin, dc, pagecount;
@@ -398,7 +403,7 @@ void EPSPlug::parseOutput(QString fn)
 			QTextStream Code(&tmp, IO_ReadOnly);
 			Code >> token;
 			params = Code.read();
-			if ((lasttoken == "sp") && (Prog->pluginManager->dllInput != ""))
+			if ((lasttoken == "sp") && (Prog->pluginManager->dllInput != "") && (!eps))
 			{
 				Prog->view->addPage(pagecount);
 				pagecount++;

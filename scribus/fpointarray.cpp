@@ -139,6 +139,11 @@ FPoint FPointArray::WidthHeight()
 	pd++;
 	for ( int i=1; i < static_cast<int>(size()); ++i )
 	{	// find min+max x and y
+		if (pd->x() > 900000)
+		{
+			pd++;
+			continue;
+		}
 		if ( pd->x() < minx )
 			minx = pd->x();
 		else
