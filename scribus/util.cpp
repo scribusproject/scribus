@@ -22,6 +22,7 @@
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qtextstream.h>
+#include <qdatastream.h>
 #include <qstringlist.h>
 #include <qmap.h>
 #include <qdom.h>
@@ -256,6 +257,480 @@ void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK, bool isGra
 	delete [] row_pointer[0];
 }
 
+enum PSDColorMode
+{
+	CM_BITMAP = 0,
+	CM_GRAYSCALE = 1,
+	CM_INDEXED = 2,
+	CM_RGB = 3,
+	CM_CMYK = 4,
+	CM_MULTICHANNEL = 7,
+	CM_DUOTONE = 8,
+	CM_LABCOLOR = 9
+};
+
+struct PSDHeader 
+{
+	uint signature;
+	ushort version;
+	uchar reserved[6];
+	ushort channel_count;
+	uint height;
+	uint width;
+	ushort depth;
+	ushort color_mode;
+};
+
+struct PSDLayer
+{
+	QValueList<uint> channelLen;
+	QValueList<int> channelType;
+	QString layerName;
+	QString blend;
+};
+
+static QDataStream & operator>> ( QDataStream & s, PSDHeader & header )
+{
+	s >> header.signature;
+	s >> header.version;
+	for( int i = 0; i < 6; i++ )
+	{
+		s >> header.reserved[i];
+	}
+	s >> header.channel_count;
+	s >> header.height;
+	s >> header.width;
+	s >> header.depth;
+	s >> header.color_mode;
+	return s;
+}
+
+// Check that the header is a valid PSD.
+static bool IsValid( const PSDHeader & header )
+{
+	if( header.signature != 0x38425053 )
+		return false;
+	return true;
+}
+
+// Check that the header is supported.
+static bool IsSupported( const PSDHeader & header )
+{
+	if( header.version != 1 )
+		return false;
+	if( header.channel_count > 16 )
+		return false;
+	if( header.depth != 8 )
+		return false;
+	if( header.color_mode != CM_RGB )
+		return false;
+	return true;
+}
+
+static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage & img, QValueList<PSDLayer> layerInfo, uint layer )
+{
+	// Find out if the data is compressed.
+	// Known values:
+	//   0: no compression
+	//   1: RLE compressed
+	uint base = s.device()->at();
+	ushort compression;
+	s >> compression;
+	if( compression > 1 )
+		return false;
+	uint channel_num = layerInfo[layer].channelLen.count();
+	// Clear the image.
+	if( channel_num < 4 )
+	{
+		img.fill(qRgba(0, 0, 0, 0xFF));
+	}
+	else
+	{
+		img.setAlphaBuffer( true );
+		// Ignore the other channels.
+		channel_num = 4;
+	}
+	const uint pixel_count = header.height * header.width;
+	uint components[4];
+	for(uint channel = 0; channel < channel_num; channel++)
+	{
+		switch(layerInfo[layer].channelType[channel])
+		{
+			case 0:
+				components[channel] = 2;
+				break;
+			 case 1:
+				components[channel] = 1;
+				break;
+			 case 2:
+				components[channel] = 0;
+				break;
+			case -1:
+				components[channel] = 3;
+				break;
+		}
+	}
+	if( compression )
+	{
+		// Skip row lengths.
+		ushort w;
+		for(uint i = 0; i < header.height; i++)
+		{
+			s >> w;
+		}
+		// Read RLE data.						
+		for(uint channel = 0; channel < channel_num; channel++)
+		{
+			if (channel != 0)
+			{
+				s.device()->at(layerInfo[layer].channelLen[channel-1]+base);
+				base += layerInfo[layer].channelLen[channel-1];
+				s >> compression;
+				for(uint i = 0; i < header.height; i++)
+				{
+					s >> w;
+				}
+			}
+			uchar * ptr = img.bits() + components[channel];
+			uint count = 0;
+			while( count < pixel_count )
+			{
+				uchar c;
+				s >> c;
+				uint len = c;
+				if( len < 128 )
+				{
+					// Copy next len+1 bytes literally.
+					len++;
+					count += len;
+					while( len != 0 )
+					{
+						s >> *ptr;
+						ptr += 4;
+						len--;
+					}
+				} 
+				else if( len > 128 )
+				{
+					// Next -len+1 bytes in the dest are replicated from next source byte.
+					// (Interpret len as a negative 8-bit int.)
+					len ^= 0xFF;
+					len += 2;
+					count += len;
+					uchar val;
+					s >> val;
+					while( len != 0 )
+					{
+						*ptr = val;
+						ptr += 4;
+						len--;
+					}
+				}
+				else if( len == 128 )
+				{
+					// No-op.
+				}
+			}
+		}
+	}
+	else
+	{
+		// We're at the raw image data.  It's each channel in order (Red, Green, Blue, Alpha, ...)
+		// where each channel consists of an 8-bit value for each pixel in the image.
+		// Read the data by channel.
+		ushort w;
+		for(uint channel = 0; channel < channel_num; channel++)
+		{
+			if (channel != 0)
+			{
+				s.device()->at(layerInfo[layer].channelLen[channel-1]+base);
+				base += layerInfo[layer].channelLen[channel-1];
+				s >> compression;
+				for(uint i = 0; i < header.height; i++)
+				{
+					s >> w;
+				}
+			}
+			uchar * ptr = img.bits() + components[channel];
+			// Read the data.
+			uint count = pixel_count;
+			while( count != 0 )
+			{
+				s >> *ptr;
+				ptr += 4;
+				count--;
+			}
+		}
+	}
+	return true;
+}
+
+static bool loadLayer( QDataStream & s, const PSDHeader & header, QImage & img )
+{
+	// Find out if the data is compressed.
+	// Known values:
+	//   0: no compression
+	//   1: RLE compressed
+	ushort compression;
+	s >> compression;
+	if( compression > 1 )
+	{
+		// Unknown compression type.
+		return false;
+	}
+	uint channel_num = header.channel_count;
+	// Clear the image.
+	if( channel_num < 4 )
+	{
+		img.fill(qRgba(0, 0, 0, 0xFF));
+	}
+	else
+	{
+		// Enable alpha.		
+		img.setAlphaBuffer( true );
+		// Ignore the other channels.
+		channel_num = 4;
+	}
+	const uint pixel_count = header.height * header.width;
+	static const uint components[4] = {2, 1, 0, 3}; // @@ Is this endian dependant?
+	if( compression )
+	{
+		// Skip row lengths.
+		ushort w;
+		for(uint i = 0; i < header.height * header.channel_count; i++)
+		{
+			s >> w;
+		}	
+		// Read RLE data.						
+		for(uint channel = 0; channel < channel_num; channel++)
+		{
+			uchar * ptr = img.bits() + components[channel];
+			uint count = 0;
+			while( count < pixel_count )
+			{
+				uchar c;
+				s >> c;
+				uint len = c;
+				if( len < 128 )
+				{
+					// Copy next len+1 bytes literally.
+					len++;
+					count += len;
+					while( len != 0 )
+					{
+						s >> *ptr;
+						ptr += 4;
+						len--;
+					}
+				} 
+				else if( len > 128 )
+				{
+					// Next -len+1 bytes in the dest are replicated from next source byte.
+					// (Interpret len as a negative 8-bit int.)
+					len ^= 0xFF;
+					len += 2;
+					count += len;
+					uchar val;
+					s >> val;
+					while( len != 0 )
+					{
+						*ptr = val;
+						ptr += 4;
+						len--;
+					}
+				}
+				else if( len == 128 )
+				{
+					// No-op.
+				}
+			}
+		}
+	}
+	else
+	{
+		// We're at the raw image data.  It's each channel in order (Red, Green, Blue, Alpha, ...)
+		// where each channel consists of an 8-bit value for each pixel in the image.
+		// Read the data by channel.
+		for(uint channel = 0; channel < channel_num; channel++)
+		{
+			uchar * ptr = img.bits() + components[channel];
+			// Read the data.
+			uint count = pixel_count;
+			while( count != 0 )
+			{
+				s >> *ptr;
+				ptr += 4;
+				count--;
+			}
+		}
+	}
+	return true;
+}
+
+static QString getPascalString(QDataStream & s)
+{
+	uchar len, tmp;
+	QString ret = "";
+	s >> len;
+	if (len == 0)
+		return ret;
+	for( int i = 0; i < len; i++ )
+	{
+		s >> tmp;
+		ret += QChar(tmp);
+	}
+	return ret;
+}
+
+static void parseRessourceData( QDataStream & s, uint size, float *xres, float *yres )
+{
+	uint signature, resSize, offset, resBase, vRes, hRes;;
+	ushort resID, hResUnit, vResUnit, dummyW;
+	QString resName;
+	uchar filler;
+	offset = 0;
+	while (offset < size)
+	{
+		s >> signature;
+		offset += 4;
+		s >> resID;
+		offset += 2;
+		resName = getPascalString(s);
+		offset += 1;
+		offset += resName.length();
+		if (!(resName.length() & 1))
+		{
+			s >> filler;
+			offset += 1;
+		}
+		s >> resSize;
+		resBase = s.device()->at();
+		switch (resID)
+		{
+			case 0x03ed:
+				s >> hRes;
+				s >> hResUnit;
+				s >> dummyW;
+				s >> vRes;
+				s >> vResUnit;
+				s >> dummyW;
+				*xres = hRes / 65536.0;
+				*yres = vRes / 65536.0;
+				if (hResUnit == 2)
+					*xres *= 2.54;
+				if (vResUnit == 2)
+					*yres *= 2.54;
+				break;
+			default:
+				break;
+		}
+		s.device()->at( resBase + resSize );
+		offset += resSize;
+		if (resSize & 1)
+		{
+			s >> filler;
+			offset += 1;
+		}
+	}
+}
+
+static bool parseLayer( QDataStream & s, const PSDHeader & header, QImage & img )
+{
+	uint layerinfo, top, left, bottom, right, channelLen, signature, extradata, layermasksize, layerRange, dummy;
+	ushort numLayers, numChannels;
+	short channelType;
+	uchar blendKey[4];
+	uchar opacity, clipping, flags, filler;
+	QString layerName, blend;
+	QValueList<PSDLayer> layerInfo;
+	struct PSDLayer lay;
+	QString db1, db2, db3, db4;
+	s >> layerinfo;
+	s >> numLayers;
+	for (uint layer = 0; layer < numLayers; layer++)
+	{
+		s >> top;
+		s >> left;
+		s >> bottom;
+		s >> right;
+		s >> numChannels;
+		lay.channelType.clear();
+		lay.channelLen.clear();
+		for (uint channels = 0; channels < numChannels; channels++)
+		{
+			s >> channelType;
+			s >> channelLen;
+			lay.channelType.append(channelType);
+			lay.channelLen.append(channelLen);
+		}
+		s >> signature;
+		blend = "";
+		for( int i = 0; i < 4; i++ )
+		{
+			s >> blendKey[i];
+			blend += QChar(blendKey[i]);
+		}
+		lay.blend = blend;
+		s >> opacity;
+		s >> clipping;
+		s >> flags;
+		s >> filler;
+		s >> extradata;
+		s >> layermasksize;
+		if (layermasksize != 0)
+		{
+			s >> dummy;
+			s >> dummy;
+			s >> dummy;
+			s >> dummy;
+			s >> dummy;
+		}
+		s >> layerRange;
+		s.device()->at( s.device()->at() + layerRange );
+		lay.layerName = getPascalString(s);
+		layerInfo.append(lay);
+	}
+	for (uint layer = 0; layer < numLayers; layer++)
+	{
+		loadLayerChannels( s, header, img, layerInfo, layer );
+	}
+	return true;
+}
+
+// Load the PSD image.
+static bool LoadPSD( QDataStream & s, const PSDHeader & header, QImage & img, float *xres, float *yres)
+{
+	// Create dst image.
+	if( !img.create( header.width, header.height, 32 ))
+		return false;
+	uint tmp;
+	uint ressourceDataLen;
+	uint startRessource;
+	uint layerDataLen;
+	uint startLayers;
+	// Skip mode data. FIX: this is incorrect, it's the Colormap Data for indexed Images
+	s >> tmp;
+	s.device()->at( s.device()->at() + tmp );
+	// Skip image resources.
+	s >> ressourceDataLen;
+	startRessource = s.device()->at();
+	if (ressourceDataLen != 0)
+		parseRessourceData(s, ressourceDataLen, xres, yres);
+	s.device()->at( startRessource + ressourceDataLen );
+	// Skip the reserved data. FIX: Also incorrect, this is the actual Layer Data for Images with Layers
+	s >> layerDataLen;
+	startLayers = s.device()->at();
+	if (layerDataLen != 0)
+		return parseLayer( s, header, img );
+	else
+	{
+	// Decoding simple psd file, no layers
+		s.device()->at( s.device()->at() + layerDataLen );
+		loadLayer( s, header, img );
+	}
+	return true;
+}
+
 QString getAlpha(QString fn, bool PDF, bool pdf14)
 {
 	QImage img;
@@ -289,86 +764,163 @@ QString getAlpha(QString fn, bool PDF, bool pdf14)
 			TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bitspersample);
 			TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &samplesperpixel);
 			TIFFGetField(tif, TIFFTAG_FILLORDER, &fillorder);
-			tsize_t bytesperrow = TIFFScanlineSize(tif);
 			uint32 *bits = 0;
 			img.create(width,height,32);
 			img.setAlphaBuffer(true); 
-			switch (photometric)
-			{
-				case PHOTOMETRIC_MINISWHITE:
-					miniswhite = true;
-				case PHOTOMETRIC_MINISBLACK:
-					if (bitspersample == 1)
-						bilevel = true;
-					if (samplesperpixel != 1)
+ 			 if (TIFFIsTiled(tif))
+			 {
+			 	uint32 columns, rows;
+				uint32 *tile_buf;
+				uint32 xt, yt;
+				TIFFGetField(tif, TIFFTAG_TILEWIDTH,  &columns);
+				TIFFGetField(tif, TIFFTAG_TILELENGTH, &rows);
+				tile_buf = (uint32*) _TIFFmalloc(columns*rows*sizeof(uint32));
+				if (tile_buf == NULL)
+				{
+					TIFFClose(tif);
+					return retS;
+				}
+				uint32 tileW = columns, tileH = rows;
+				for (yt = 0; yt < (uint32)img.height(); yt += rows)
+				{
+					if (yt > (uint)img.height())
 						break;
-					bits = (uint32 *) _TIFFmalloc(bytesperrow);
-					if (bits)
+					if (img.height()-yt < rows)
+						tileH = img.height()-yt; 
+					tileW = columns;
+					register uint32 xi, yi;
+					for (xt = 0; xt < (uint)img.width(); xt += columns)
 					{
-						QImage img2;
-						QImage::Endian bitorder = QImage::IgnoreEndian;
-						if (bilevel)
+						switch (photometric)
 						{
-							if (fillorder == FILLORDER_MSB2LSB)
-								bitorder = QImage::BigEndian;
-							else
-								bitorder = QImage::LittleEndian;
-						}
-						img2.create(width, height, bitspersample, 0, bitorder);
-						for (unsigned int y = 0; y < height; y++)
-						{
-							if (TIFFReadScanline(tif, bits, y, 0))
-								memcpy(img2.scanLine(y), bits, bytesperrow);
-						}
-						_TIFFfree(bits);
-						img2 = img2.convertDepth(8);
-						if (!miniswhite)
-							img2.invertPixels();
-						for (unsigned int y = 0; y < height; y++)
-						{
-							unsigned char *ptr = (unsigned char *) img.scanLine(y);
-							unsigned char *ptr2 = (unsigned char *) img2.scanLine(y);
-							for (unsigned int x = 0; x < width; x++)
-							{
-								if (bilevel)
-									ptr[3] = (unsigned char) -img2.pixelIndex(x, y);
-								else
-									ptr[3] = ptr2[x];
-								ptr+=4;
-							}
-						}
-					}
-					break;
-				case PHOTOMETRIC_SEPARATED:
-					bits = (uint32 *) _TIFFmalloc(bytesperrow);
-					if (bits)
-					{
-						for (unsigned int y = 0; y < height; y++)
-						{
-							if (TIFFReadScanline(tif, bits, y, 0)) {
-								memcpy(img.scanLine(y), bits, width * 4);
-							}
-						}
-						_TIFFfree(bits);
-					}
-					break;
-				default:
-					bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
-					if(bits)
-					{
-						if (TIFFReadRGBAImage(tif, width, height, bits, 0))
-						{
-							for(unsigned int y = 0; y < height; y++)
-								memcpy(img.scanLine(height - 1 - y), bits + y * width, width * 4);
-						}
-						_TIFFfree(bits);
-					}
+							case PHOTOMETRIC_SEPARATED:
+								TIFFReadTile(tif, tile_buf, xt, yt, 0, 0);
+								for (yi = 0; yi < tileH; yi++) 
+									_TIFFmemcpy(img.scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*4);
+								break;
+							default:
+								TIFFReadRGBATile(tif, xt, yt, tile_buf);
+								for(yi = 0; yi < tileH; yi++) 
+								{
+									QRgb *row= (QRgb*) ( img.scanLine(yt+yi) );
+									for(xi = 0; xi < tileW; xi++)  
+									{
+										const uint32 pix = *(tile_buf + ((tileH-1-yi)*tileW)+xi);
+										row[xi + xt] = qRgba(TIFFGetB(pix), TIFFGetG(pix), TIFFGetR(pix) , TIFFGetA(pix));
+									} // for xi
+								} // for yi
+								break;
+						} // else per pixel method
+					} // for x by tiles
+				} // for y by tiles
+				_TIFFfree(tile_buf);
 			}
-			TIFFClose(tif);
+			else
+			{
+				tsize_t bytesperrow = TIFFScanlineSize(tif);
+				switch (photometric)
+				{
+					case PHOTOMETRIC_MINISWHITE:
+						miniswhite = true;
+					case PHOTOMETRIC_MINISBLACK:
+						if (bitspersample == 1)
+							bilevel = true;
+						if (samplesperpixel != 1)
+							break;
+						bits = (uint32 *) _TIFFmalloc(bytesperrow);
+						if (bits)
+						{
+							QImage img2;
+							QImage::Endian bitorder = QImage::IgnoreEndian;
+							if (bilevel)
+							{
+								if (fillorder == FILLORDER_MSB2LSB)
+									bitorder = QImage::BigEndian;
+								else
+									bitorder = QImage::LittleEndian;
+							}
+							img2.create(width, height, bitspersample, 0, bitorder);
+							for (unsigned int y = 0; y < height; y++)
+							{
+								if (TIFFReadScanline(tif, bits, y, 0))
+									memcpy(img2.scanLine(y), bits, bytesperrow);
+							}
+							_TIFFfree(bits);
+							img2 = img2.convertDepth(8);
+							if (!miniswhite)
+								img2.invertPixels();
+							for (unsigned int y = 0; y < height; y++)
+							{
+								unsigned char *ptr = (unsigned char *) img.scanLine(y);
+								unsigned char *ptr2 = (unsigned char *) img2.scanLine(y);
+								for (unsigned int x = 0; x < width; x++)
+								{
+									if (bilevel)
+										ptr[3] = (unsigned char) -img2.pixelIndex(x, y);
+									else
+										ptr[3] = ptr2[x];
+									ptr+=4;
+								}
+							}
+						}
+						break;
+					case PHOTOMETRIC_SEPARATED:
+						bits = (uint32 *) _TIFFmalloc(bytesperrow);
+						if (bits)
+						{
+							for (unsigned int y = 0; y < height; y++)
+							{
+								if (TIFFReadScanline(tif, bits, y, 0)) {
+									memcpy(img.scanLine(y), bits, width * 4);
+								}
+							}
+							_TIFFfree(bits);
+						}
+						break;
+					default:
+						bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
+						if(bits)
+						{
+							if (TIFFReadRGBAImage(tif, width, height, bits, 0))
+							{
+								for(unsigned int y = 0; y < height; y++)
+									memcpy(img.scanLine(height - 1 - y), bits + y * width, width * 4);
+							}
+							_TIFFfree(bits);
+						}
+				}
+				TIFFClose(tif);
+			}
 		}
 #else
 		qDebug("TIFF Support not available");
 #endif // HAVE_TIFF
+	}
+	else if (ext == "psd")
+	{
+		QFile f(fn);
+		if (f.open(IO_ReadOnly))
+		{
+			xres = 72.0;
+			yres = 72.0;
+			QDataStream s( &f );
+			s.setByteOrder( QDataStream::BigEndian );
+			PSDHeader header;
+			s >> header;
+		// Check image file format.
+			if( s.atEnd() || !IsValid( header ) ) 
+				return retS;
+		// Check if it's a supported format.
+			if( !IsSupported( header ) )
+				return retS;
+			if( !LoadPSD(s, header, img, &xres, &yres) )
+				return retS;
+			img = img.convertDepth(32);
+			img.setAlphaBuffer(true);
+			f.close();
+		}
+		else
+			return retS;
 	}
 	else
 	{
@@ -606,7 +1158,6 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 						tileH = img.height()-yt; 
 					tileW = columns;
 					register uint32 xi, yi;
-					uint32 tW;
 					for (xt = 0; xt < (uint)img.width(); xt += columns)
 					{
 						switch (photometric)
@@ -751,6 +1302,34 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 		}
 	}
 #endif // HAVE_TIFF
+	else if (ext == "psd")
+	{
+		QFile f(fn);
+		if (f.open(IO_ReadOnly))
+		{
+			xres = 72.0;
+			yres = 72.0;
+			QDataStream s( &f );
+			s.setByteOrder( QDataStream::BigEndian );
+			PSDHeader header;
+			s >> header;
+		// Check image file format.
+			if( s.atEnd() || !IsValid( header ) ) 
+				return img;
+		// Check if it's a supported format.
+			if( !IsSupported( header ) )
+				return img;
+			if( !LoadPSD(s, header, img, &xres, &yres) )
+				return img;
+			isCMYK = false;
+			img = img.convertDepth(32);
+			img.setDotsPerMeterX ((int) (xres / 0.0254));
+			img.setDotsPerMeterY ((int) (yres / 0.0254));
+			f.close();
+		}
+		else
+			return img;
+	}
 	else if ((ext == "jpg") || (ext == "jpeg"))
 	{
 		struct jpeg_decompress_struct cinfo;

@@ -4688,7 +4688,14 @@ bool ScribusApp::LadeDoc(QString fileName)
 		{
 			PageItem *ite = doc->MasterItems.at(azz);
 			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+			{
+				if (ite->itemType() == PageItem::PathText)
+				{
+					ite->Frame = false;
+					view->UpdatePolyClip(ite);
+				}
 				ite->DrawObj(painter, rd);
+			}
 		}
 //		RestoreBookMarks();
 		for (uint azz=0; azz<doc->Items.count(); ++azz)
@@ -4793,6 +4800,8 @@ void ScribusApp::slotFileOpen()
 			formats += "TIFF (*.tif *.TIF);;";
 			formatD += "*.tif *.TIF";
 #endif
+			formats += "PSD (*.psd *.PSD);;";
+			formatD += " *.psd *.PSD";
 			formats += "EPS (*.eps *.EPS);;PDF (*.pdf *.PDF);;" + tr("All Files (*)");
 			formatD += " *.eps *.EPS *.pdf *.PDF";
 			formatD += ");;"+formats;
