@@ -1,5 +1,10 @@
 Changes since Version 1.1.7
 
+22.06.2004
+	* bug     #568: Copying items creates copies of paragraph styles
+	* bug     #821: Detaching a text from a path doesn't keep the rotation for the path.
+	* bug     #822: Gradients in PDF rendered in the wrong direction
+
 21.06.2004
 	* bug     #817: Ukrainian Translation Update
 	* bug     #818: Attaching text from a path resets the rotation (if any) of a rotated path

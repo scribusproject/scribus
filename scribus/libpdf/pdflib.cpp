@@ -2402,11 +2402,11 @@ void PDFlib::PDF_Gradient(PageItem *b)
 			ma.translate(StartX, StartY);
 			ma.rotate(atan2(EndY - StartY, EndX - StartX)*(180.0/3.1415927));
 			double w2 = sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint;
-			double x = ma.m11() * w2 + ma.dx();
-			double y = ma.m12() * w2 + ma.dy();
+			double x = fabs(ma.m11() * w2 + ma.dx());
+			double y = fabs(ma.m12() * w2 + ma.dy());
 			TransVec.append(cstops.at(cst)->opacity);
 			StopVec.append(x);
-			StopVec.append(y);
+			StopVec.append(-y);
 			Gcolors.append(SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade));
 		}
 	}
@@ -2517,14 +2517,19 @@ void PDFlib::PDF_DoLinGradient(PageItem *b, QValueList<double> Stops, QValueList
 		if ((b->GrType == 5) || (b->GrType == 7))
 		{
 			PutDoc("/Coords ["+FToStr(w2)+" "+FToStr(h2)+" "+FToStr((*Stops.at(c+1)))+" "+FToStr(w2)+" "+FToStr(h2)+" "+FToStr((*Stops.at(c)))+"]\n");
-			if (first)
-				PutDoc("/Extend [false true]\n");
+			if (Colors.count() == 2)
+				PutDoc("/Extend [true true]\n");
 			else
 			{
-				if (c == Colors.count()-2)
-					PutDoc("/Extend [true false]\n");
+				if (first)
+					PutDoc("/Extend [false true]\n");
 				else
-					PutDoc("/Extend [false false]\n");
+				{
+					if (c == Colors.count()-2)
+						PutDoc("/Extend [true false]\n");
+					else
+						PutDoc("/Extend [false false]\n");
+				}
 			}
 			first = false;
 			PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
@@ -2534,14 +2539,19 @@ void PDFlib::PDF_DoLinGradient(PageItem *b, QValueList<double> Stops, QValueList
 		else
 		{
 			PutDoc("/Coords ["+FToStr((*Stops.at(c*2)))+"  "+FToStr((*Stops.at(c*2+1)))+" "+FToStr((*Stops.at(c*2+2)))+" "+FToStr((*Stops.at(c*2+3)))+"]\n");
-			if (first)
-				PutDoc("/Extend [true false]\n");
+			if (Colors.count() == 2)
+				PutDoc("/Extend [true true]\n");
 			else
 			{
-				if (c == Colors.count()-2)
-					PutDoc("/Extend [false true]\n");
+				if (first)
+					PutDoc("/Extend [true false]\n");
 				else
-					PutDoc("/Extend [false false]\n");
+				{
+					if (c == Colors.count()-2)
+						PutDoc("/Extend [false true]\n");
+					else
+						PutDoc("/Extend [false false]\n");
+				}
 			}
 			first = false;
 			PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");

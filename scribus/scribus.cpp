@@ -5546,7 +5546,37 @@ void ScribusApp::saveStyles(StilFormate *dia)
 		if (ff)
 			ers.append(nr);
 		else
-			ers.append(0);
+		{
+			for (uint b=0; b<dia->TempVorl.count(); ++b)
+			{
+				if ((doc->Vorlagen[a].LineSpa == dia->TempVorl[b].LineSpa) &&
+					(doc->Vorlagen[a].Indent == dia->TempVorl[b].Indent) &&
+					(doc->Vorlagen[a].First == dia->TempVorl[b].First) &&
+					(doc->Vorlagen[a].Ausri == dia->TempVorl[b].Ausri) &&
+					(doc->Vorlagen[a].Avor == dia->TempVorl[b].Avor) &&
+					(doc->Vorlagen[a].Anach == dia->TempVorl[b].Anach) &&
+					(doc->Vorlagen[a].Font == dia->TempVorl[b].Font) &&
+					(doc->Vorlagen[a].TabValues == dia->TempVorl[b].TabValues) &&
+					(doc->Vorlagen[a].Drop == dia->TempVorl[b].Drop) &&
+					(doc->Vorlagen[a].DropLin == dia->TempVorl[b].DropLin) &&
+					(doc->Vorlagen[a].FontEffect == dia->TempVorl[b].FontEffect) &&
+					(doc->Vorlagen[a].FColor == dia->TempVorl[b].FColor) &&
+					(doc->Vorlagen[a].FShade == dia->TempVorl[b].FShade) &&
+					(doc->Vorlagen[a].SColor == dia->TempVorl[b].SColor) &&
+					(doc->Vorlagen[a].SShade == dia->TempVorl[b].SShade) &&
+					(doc->Vorlagen[a].BaseAdj == dia->TempVorl[b].BaseAdj) &&
+					(doc->Vorlagen[a].FontSize == dia->TempVorl[b].FontSize))
+				{
+				nr = b;
+				ff = true;
+				break;
+				}
+			}
+			if (ff)
+				ers.append(nr);
+			else
+				ers.append(0);
+		}
 	}
 	for (uint c=0; c<view->DocPages.count(); ++c)
 	{

@@ -239,32 +239,37 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs)
 							fou = true;
 						else
 						{
-							QString Nam = vg.Vname;
-							QString Nam2 = Nam;
-							bool fou2 = false;
-							int copyC = 1;
-							do
-							{
-								fou2 = false;
-								for (uint vv=0; vv<Vorlagen.count(); ++vv)
-								{
-									if (Nam2 == Vorlagen[vv].Vname)
-									{
-										fou2 = true;
-										break;
-									}
-								}
-								if (fou2)
-									Nam2 = tr("Copy #%1 of ").arg(copyC)+Nam;
-								else
-									break;
-								copyC++;
-							}
-							while (fou2);
-							vg.Vname = Nam2;
+							vg.Vname = "Copy of "+Vorlagen[xx].Vname;
 							fou = false;
 						}
 						break;
+					}
+				}
+				if (!fou)
+				{
+					for (uint xx=0; xx<Vorlagen.count(); ++xx)
+					{
+						if ((vg.LineSpa == Vorlagen[xx].LineSpa) &&
+							(vg.Indent == Vorlagen[xx].Indent) &&
+							(vg.First == Vorlagen[xx].First) &&
+							(vg.Ausri == Vorlagen[xx].Ausri) &&
+							(vg.Avor == Vorlagen[xx].Avor) &&
+							(vg.Anach == Vorlagen[xx].Anach) &&
+							(vg.Font == Vorlagen[xx].Font) &&
+							(vg.TabValues == Vorlagen[xx].TabValues) &&
+							(vg.Drop == Vorlagen[xx].Drop) &&
+							(vg.DropLin == Vorlagen[xx].DropLin) &&
+							(vg.FontEffect == Vorlagen[xx].FontEffect) &&
+							(vg.FColor == Vorlagen[xx].FColor) &&
+							(vg.FShade == Vorlagen[xx].FShade) &&
+							(vg.SColor == Vorlagen[xx].SColor) &&
+							(vg.SShade == Vorlagen[xx].SShade) &&
+							(vg.BaseAdj == Vorlagen[xx].BaseAdj) &&
+							(vg.FontSize == Vorlagen[xx].FontSize))
+						{
+							fou = true;
+							break;
+						}
 					}
 				}
 				if (!fou)
@@ -511,32 +516,40 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						}
 						else
 						{
-							QString Nam = vg.Vname;
-							QString Nam2 = Nam;
-							bool fou2 = false;
-							int copyC = 1;
-							do
-							{
-								fou2 = false;
-								for (uint vv=0; vv<doc->Vorlagen.count(); ++vv)
-								{
-									if (Nam2 == doc->Vorlagen[vv].Vname)
-									{
-										fou2 = true;
-										break;
-									}
-								}
-								if (fou2)
-									Nam2 = tr("Copy #%1 of ").arg(copyC)+Nam;
-								else
-									break;
-								copyC++;
-							}
-							while (fou2);
-							vg.Vname = Nam2;
+							vg.Vname = "Copy of "+doc->Vorlagen[xx].Vname;
 							fou = false;
 						}
-					break;
+						break;
+					}
+				}
+				if (!fou)
+				{
+					for (uint xx=0; xx<doc->Vorlagen.count(); ++xx)
+					{
+						if ((vg.LineSpa == doc->Vorlagen[xx].LineSpa) &&
+							(vg.Indent == doc->Vorlagen[xx].Indent) &&
+							(vg.First == doc->Vorlagen[xx].First) &&
+							(vg.Ausri == doc->Vorlagen[xx].Ausri) &&
+							(vg.Avor == doc->Vorlagen[xx].Avor) &&
+							(vg.Anach == doc->Vorlagen[xx].Anach) &&
+							(vg.Font == doc->Vorlagen[xx].Font) &&
+							(vg.TabValues == doc->Vorlagen[xx].TabValues) &&
+							(vg.Drop == doc->Vorlagen[xx].Drop) &&
+							(vg.DropLin == doc->Vorlagen[xx].DropLin) &&
+							(vg.FontEffect == doc->Vorlagen[xx].FontEffect) &&
+							(vg.FColor == doc->Vorlagen[xx].FColor) &&
+							(vg.FShade == doc->Vorlagen[xx].FShade) &&
+							(vg.SColor == doc->Vorlagen[xx].SColor) &&
+							(vg.SShade == doc->Vorlagen[xx].SShade) &&
+							(vg.BaseAdj == doc->Vorlagen[xx].BaseAdj) &&
+							(vg.FontSize == doc->Vorlagen[xx].FontSize))
+						{
+							vg.Vname = doc->Vorlagen[xx].Vname;
+							DoVorl[VorlC] = tmV.setNum(xx);
+							VorlC++;
+							fou = true;
+							break;
+						}
 					}
 				}
 				if (!fou)
@@ -793,7 +806,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					OB.RExtra=QStodouble(obj.attribute("REXTRA", "1"));
 					OB.PoShow = QStoInt(obj.attribute("PTLSHOW","0"));
 					OB.BaseOffs = QStodouble(obj.attribute("BASEOF","0"));
-					OB.Ausrich = QStoInt(obj.attribute("ALIGN","0"));
+					OB.Ausrich = DoVorl[QStoInt(obj.attribute("ALIGN","0"))].toUInt();
 					tmf = obj.attribute("IFONT", doc->Dfont);
 					if (tmf == "")
 						tmf = doc->Dfont;
@@ -1996,6 +2009,36 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			}
 			if (!fou)
 			{
+				for (uint xx=0; xx<doc->Vorlagen.count(); ++xx)
+				{
+					if ((vg.LineSpa == doc->Vorlagen[xx].LineSpa) &&
+						(vg.Indent == doc->Vorlagen[xx].Indent) &&
+						(vg.First == doc->Vorlagen[xx].First) &&
+						(vg.Ausri == doc->Vorlagen[xx].Ausri) &&
+						(vg.Avor == doc->Vorlagen[xx].Avor) &&
+						(vg.Anach == doc->Vorlagen[xx].Anach) &&
+						(vg.Font == doc->Vorlagen[xx].Font) &&
+						(vg.TabValues == doc->Vorlagen[xx].TabValues) &&
+						(vg.Drop == doc->Vorlagen[xx].Drop) &&
+						(vg.DropLin == doc->Vorlagen[xx].DropLin) &&
+						(vg.FontEffect == doc->Vorlagen[xx].FontEffect) &&
+						(vg.FColor == doc->Vorlagen[xx].FColor) &&
+						(vg.FShade == doc->Vorlagen[xx].FShade) &&
+						(vg.SColor == doc->Vorlagen[xx].SColor) &&
+						(vg.SShade == doc->Vorlagen[xx].SShade) &&
+						(vg.BaseAdj == doc->Vorlagen[xx].BaseAdj) &&
+						(vg.FontSize == doc->Vorlagen[xx].FontSize))
+					{
+						vg.Vname = doc->Vorlagen[xx].Vname;
+						DoVorl[VorlC] = tmV.setNum(xx);
+						VorlC++;
+						fou = true;
+						break;
+					}
+				}
+			}
+			if (!fou)
+			{
 				doc->Vorlagen.append(vg);
 				DoVorl[VorlC] = tmV.setNum(doc->Vorlagen.count()-1);
 				VorlC++;
@@ -2127,7 +2170,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.RExtra = QStodouble(pg.attribute("REXTRA", "1"));
 			OB.PoShow = QStoInt(pg.attribute("PTLSHOW","0"));
 			OB.BaseOffs = QStodouble(pg.attribute("BASEOF","0"));
-			OB.Ausrich = QStoInt(pg.attribute("ALIGN","0"));
+			OB.Ausrich = DoVorl[QStoInt(pg.attribute("ALIGN","0"))].toUInt();
 			tmf = pg.attribute("IFONT", doc->Dfont);
 			if (tmf == "")
 				tmf = doc->Dfont;
