@@ -1,4 +1,4 @@
-EXTRA_DIST = scribus.1 scribus.1.pl.gz
+EXTRA_DIST = scribus.1 scribus.1.pl
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/man
