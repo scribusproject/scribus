@@ -851,6 +851,12 @@ const QString UndoManager::ImportSVG          = tr("Import SVG image");
 const QString UndoManager::ImportEPS          = tr("Import EPS image");
 const QString UndoManager::ImportOOoDraw      = tr("Import OpenOffice draw image");
 const QString UndoManager::ScratchSpace       = tr("Scratch space");
+const QString UndoManager::TextFlow           = tr("Text flows around the frame");
+const QString UndoManager::BoundingBox        = tr("Text flows around bounding box");
+const QString UndoManager::ContourLine        = tr("Text flows around contour line");
+const QString UndoManager::NoTextFlow         = tr("No text flow");
+const QString UndoManager::NoBoundingBox      = tr("No bounding box");
+const QString UndoManager::NoContourLine      = tr("No contour line");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;

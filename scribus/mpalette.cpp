@@ -2708,7 +2708,7 @@ void Mpalette::DoFlow()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->Textflow = Textflow->isChecked();
+		CurItem->setTextFlow(Textflow->isChecked());
 		ScApp->view->DrawNew();
 		emit DocChanged();
 		ToggleFlow();
@@ -2723,12 +2723,9 @@ void Mpalette::DoFlow2()
 	{
 		disconnect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
 		disconnect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
-		CurItem->Textflow2 = Textflow2->isChecked();
+		CurItem->useBoundingBox(Textflow2->isChecked());
 		if (CurItem->Textflow2)
-		{
 			Textflow3->setChecked(false);
-			CurItem->UseContour = false;
-		}
 		ScApp->view->DrawNew();
 		emit DocChanged();
 		connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
@@ -2744,12 +2741,9 @@ void Mpalette::DoFlow3()
 	{
 		disconnect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
 		disconnect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
-		CurItem->UseContour = Textflow3->isChecked();
+		CurItem->useContourLine(Textflow3->isChecked());
 		if (CurItem->UseContour)
-		{
 			Textflow2->setChecked(false);
-			CurItem->Textflow2 = false;
-		}
 		ScApp->view->DrawNew();
 		emit DocChanged();
 		connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
@@ -3354,5 +3348,5 @@ void Mpalette::HandleTLines()
 bool Mpalette::userActionOn()
 {
 	// make this work!!! return true if a user is pressing a mouse button or an arrow on a mspinbox
-	return false; 
+	return false;
 }

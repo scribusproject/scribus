@@ -34,7 +34,7 @@ class UndoState;
 /**
   *@author Franz Schmid
   */
-							
+
 class PageItem : public QObject, public UndoObject
 {
 	Q_OBJECT
@@ -90,7 +90,7 @@ class PageItem : public QObject, public UndoObject
 
 public:
 	// Enumerator definitions
-	
+
 	/** @brief Frame Type
 	 *
 	 * Later, frame type will probably go away in favour of using
@@ -111,7 +111,7 @@ public:
 
 	PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	~PageItem() {};
-	struct ZZ { 
+	struct ZZ {
 				double xco;
 				double yco;
 				double wide;
@@ -459,7 +459,7 @@ public:
 
 	/** @brief Get name of active custom line style */
 	QString customLineStyle() const;
-	/** 
+	/**
 	 * @brief Set custom line style
 	 * @param newStyle name of the custom style
 	 */
@@ -539,7 +539,7 @@ public:
 
 	/** @brief Get the name of the PageItem-wide font fill color */
 	QString fontFillColor() const;
-	/** 
+	/**
 	 * @brief Set font fill color
 	 * @param newColor font fill color
 	 */
@@ -555,7 +555,7 @@ public:
 
 	/** @brief Get the PageItem-wide font stroke color */
 	QString fontStrokeColor() const;
-	/** 
+	/**
 	 * @brief Set the color of font stroke
 	 * @param newColor color of font stroke
 	 */
@@ -604,6 +604,37 @@ public:
 	 */
 	void setLanguage(const QString& newLanguage);
 
+	/**
+	 * @brief Does the text flow around this object.
+	 * @param isFlowing true if text is wanted to flow around this object or false if not
+	 */
+	void setTextFlow(bool isFlowing);
+
+	/**
+	 * @brief Tells if the text flow should follow the square frame border if <code>useBounding</code>
+	 * @brief is true, if it is set false text fill flow around the object border rather than frame.
+	 *
+	 * Setting this to true will unset contour line to false. Bounding box and contour line cannot
+	 * be used at the same time.
+	 * @param useBounding true if text should flow around the frame border false if it should follow
+	 * the actual shape of the object.
+	 * @sa setTextFlow()
+	 * @sa useContourLine()
+	 */
+	void useBoundingBox(bool useBounding);
+
+	/**
+	 * @brief Tells if the text flow should follow the contour line of the frame.
+	 *
+	 * Setting this to true will unset bounding box to false. Contour line and bounding box cannot
+	 * be used at the same time.
+	 * @param useContour true if text should flow around the contour line of the frame false if
+	 * it should flow around the actual shap of the object.
+	 * @sa setTextFlow()
+	 * @sa useBoundingBox()
+	 */
+	void useContourLine(bool useContour);
+
 	/** @brief Get the frame type
 	 *
 	 * @attention The whole concept of frame types is due for some radical
@@ -618,7 +649,7 @@ public:
 	 */
 	void convertTo(ItemType newType);
 
-	/** 
+	/**
 	 * @brief Check the changes to the item and add undo actions for them.
 	 * @param force Force the check. Do not care if mouse button or arrow key is down
 	 * check anyway.
@@ -674,6 +705,7 @@ protected:
 	void restorePStyle(SimpleState *state, bool isUndo);
 	void restoreFontEffect(SimpleState *state, bool isUndo);
 	void restoreType(SimpleState *state, bool isUndo);
+	void restoreTextFlowing(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**

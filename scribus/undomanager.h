@@ -517,6 +517,12 @@ public:
 	static const QString ImportEPS;
 	static const QString ImportOOoDraw;
 	static const QString ScratchSpace;
+	static const QString TextFlow;
+	static const QString BoundingBox;
+	static const QString ContourLine;
+	static const QString NoTextFlow;
+	static const QString NoBoundingBox;
+	static const QString NoContourLine;
 	/*@}*/
 
 	/**

@@ -2872,6 +2872,51 @@ void PageItem::setLanguage(const QString& newLanguage)
 	Language = newLanguage;
 }
 
+void PageItem::setTextFlow(bool isFlowing)
+{
+	if (Textflow == isFlowing)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(isFlowing ? Um::TextFlow : Um::NoTextFlow, "", Um::IFont);
+		ss->set("TEXT_FLOW", isFlowing);
+		undoManager->action(this, ss);
+	}
+	Textflow = isFlowing;
+}
+
+void PageItem::useBoundingBox(bool useBounding)
+{
+	if (Textflow2 == useBounding)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(useBounding ? Um::BoundingBox : Um::NoBoundingBox, "", Um::IFont);
+		ss->set("TEXT_FLOW", Textflow);
+		ss->set("BOUNDING_BOX", useBounding);
+		undoManager->action(this, ss);
+	}
+	if (useBounding && UseContour)
+		UseContour = false;
+	Textflow2 = useBounding;
+}
+
+void PageItem::useContourLine(bool useContour)
+{
+	if (UseContour == useContour)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(useContour ? Um::ContourLine : Um::NoContourLine, "", Um::IFont);
+		ss->set("TEXT_FLOW", Textflow);
+		ss->set("CONTOUR_LINE", useContour);
+		undoManager->action(this, ss);
+	}
+	if (useContour && Textflow2)
+		Textflow2 = false;
+	UseContour = useContour;
+}
+
 PageItem::ItemType PageItem::itemType() const
 {
 	return itemTypeVal;
@@ -3133,6 +3178,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreFontEffect(ss, isUndo);
 		else if (ss->contains("CONVERT"))
 			restoreType(ss, isUndo);
+		else if (ss->contains("TEXT_FLOW"))
+			restoreTextFlowing(ss, isUndo);
 	}
 }
 
@@ -3466,6 +3513,31 @@ void PageItem::restoreType(SimpleState *state, bool isUndo)
 		case 7: ScApp->view->ToBezierFrame(); break;
 	}
 	ScApp->setAppMode(NormalMode);
+}
+
+void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
+{
+	if (state->contains("BOUNDING_BOX"))
+	{
+		if (isUndo)
+			Textflow2 = !state->getBool("BOUNDING_BOX");
+		else
+			Textflow2 = state->getBool("BOUNDING_BOX");
+	}
+	else if (state->contains("CONTOUR_LINE"))
+	{
+		if (isUndo)
+			UseContour = !state->getBool("CONTOUR_LINE");
+		else
+			UseContour = state->getBool("CONTOUR_LINE");
+	}
+	else
+	{
+		if (isUndo)
+			Textflow = !state->getBool("TEXT_FLOW");
+		else
+			Textflow = state->getBool("TEXT_FLOW");
+	}
 }
 
 void PageItem::select()
