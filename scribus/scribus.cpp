@@ -632,10 +632,10 @@ void ScribusApp::initMenuBar()
 	recentMenu = new QPopupMenu();
 	RecentDocs.clear();
 	fileMenu=new QPopupMenu();
-	fid12 = fileMenu->insertItem(loadIcon("DateiNeu16.png"), tr("&New"), this, SLOT(slotFileNew()), CTRL+Key_N);
+	M_NewFile = fileMenu->insertItem(loadIcon("DateiNeu16.png"), tr("&New"), this, SLOT(slotFileNew()), CTRL+Key_N);
 	fid13 = fileMenu->insertItem(loadIcon("DateiOpen16.png"), tr("&Open..."), this, SLOT(slotDocOpen()), CTRL+Key_O);
 	fid14 = fileMenu->insertItem( tr("Open &Recent"), recentMenu);
-	SetKeyEntry(0, tr("New"), fid12, CTRL+Key_N);
+	SetKeyEntry(0, tr("New"), M_NewFile, CTRL+Key_N);
 	SetKeyEntry(1, tr("Open..."), fid13, CTRL+Key_O);
 	fileMenu->insertSeparator();
 	fid1 = fileMenu->insertItem(loadIcon("DateiClos16.png"), tr("&Close"), this, SLOT(slotFileClose()), CTRL+Key_W);
@@ -645,9 +645,9 @@ void ScribusApp::initMenuBar()
 	fid4 = fileMenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save"), this, SLOT(slotFileSave()), CTRL+Key_S);
 	SetKeyEntry(3, tr("Save"), fid4, CTRL+Key_S);
 	fileMenu->setItemEnabled(fid4, 0);
-	fid5 = fileMenu->insertItem( loadIcon("filesaveas.png"), tr("Save &As..."), this, SLOT(slotFileSaveAs()));
-	SetKeyEntry(4, tr("Save as..."), fid5, 0);
-	fileMenu->setItemEnabled(fid5, 0);
+	M_SaveAs = fileMenu->insertItem( loadIcon("filesaveas.png"), tr("Save &As..."), this, SLOT(slotFileSaveAs()));
+	SetKeyEntry(4, tr("Save as..."), M_SaveAs, 0);
+	fileMenu->setItemEnabled(M_SaveAs, 0);
 	fid52 = fileMenu->insertItem(loadIcon("revert.png"), tr("Re&vert to Saved"), this, SLOT(slotFileRevert()));
 	fileMenu->setItemEnabled(fid52, 0);
 	fid51 = fileMenu->insertItem( tr("Collect for O&utput..."), this, SLOT(Collect()));
@@ -680,10 +680,10 @@ void ScribusApp::initMenuBar()
 	fileMenu->setItemEnabled(fid7, 0);
 	MenuItemsFile.append(fid7);
 	SetKeyEntry(6, tr("Document Setup..."), fid7, 0);
-	fid9 = fileMenu->insertItem(loadIcon("DateiPrint16.png"), tr("&Print..."), this, SLOT(slotFilePrint()), CTRL+Key_P);
-	fileMenu->setItemEnabled(fid9, 0);
-	MenuItemsFile.append(fid9);
-	SetKeyEntry(7, tr("Print..."), fid9, CTRL+Key_P);
+	M_Print = fileMenu->insertItem(loadIcon("DateiPrint16.png"), tr("&Print..."), this, SLOT(slotFilePrint()), CTRL+Key_P);
+	fileMenu->setItemEnabled(M_Print, 0);
+	MenuItemsFile.append(M_Print);
+	SetKeyEntry(7, tr("Print..."), M_Print, CTRL+Key_P);
 	fileMenu->insertSeparator();
 	MenID = fileMenu->insertItem(loadIcon("exit.png"), tr("&Quit"), this, SLOT(slotFileQuit()), CTRL+Key_Q);
 	SetKeyEntry(8, tr("Quit"), MenID, CTRL+Key_Q);
@@ -2454,7 +2454,7 @@ void ScribusApp::SwitchWin()
 		fileMenu->setItemEnabled(fid1, 0);
 		fileMenu->setItemEnabled(fid4, doc->isModified());
 		fileMenu->setItemEnabled(fid52, 0);
-		fileMenu->setItemEnabled(fid12, 0);
+		fileMenu->setItemEnabled(M_NewFile, 0);
 		fileMenu->setItemEnabled(fid13, 0);
 		fileMenu->setItemEnabled(fid14, 0);
 		Sepal->DisablePal();
@@ -2469,10 +2469,10 @@ void ScribusApp::SwitchWin()
 		DatSav->setEnabled(doc->isModified());
 		fileMenu->setItemEnabled(fid1, 1);
 		fileMenu->setItemEnabled(fid4, ActWin->MenuStat[2]);
-		fileMenu->setItemEnabled(fid5, ActWin->MenuStat[3]);
+		fileMenu->setItemEnabled(M_SaveAs, ActWin->MenuStat[3]);
 		fileMenu->setItemEnabled(fid51, ActWin->MenuStat[3]);
 		fileMenu->setItemEnabled(fid52, 0);
-		fileMenu->setItemEnabled(fid12, 1);
+		fileMenu->setItemEnabled(M_NewFile, 1);
 		fileMenu->setItemEnabled(fid13, 1);
 		fileMenu->setItemEnabled(fid14, 1);
 		if (view->Pages.count() > 1)
@@ -2487,7 +2487,7 @@ void ScribusApp::SwitchWin()
 		}
 		if (doc->isModified())
 			slotDocCh(false);
-		fileMenu->setItemEnabled(fid5, 1);
+		fileMenu->setItemEnabled(M_SaveAs, 1);
 		fileMenu->setItemEnabled(fid51, 1);
 		Sepal->EnablePal();
 	}
@@ -2504,7 +2504,7 @@ void ScribusApp::HaveNewDoc()
 	{
 		fileMenu->setItemEnabled((*itm), 1);
 	}
-	fileMenu->setItemEnabled(fid5, 1);
+	fileMenu->setItemEnabled(M_SaveAs, 1);
 	fileMenu->setItemEnabled(fid11, 1);
 	fileMenu->setItemEnabled(fid4, 0);
 	fileMenu->setItemEnabled(fid52, 0);
@@ -2923,7 +2923,7 @@ void ScribusApp::slotDocCh(bool reb)
 	ActWin->setCaption( doc->DocName + "*");
 	fileMenu->setItemEnabled(fid4, 1);
 	DatSav->setEnabled(true);
-	fileMenu->setItemEnabled(fid5, 1);
+	fileMenu->setItemEnabled(M_SaveAs, 1);
 	fileMenu->setItemEnabled(fid51, 1);
 	if (!doc->TemplateMode)
 	{
@@ -2934,7 +2934,7 @@ void ScribusApp::slotDocCh(bool reb)
 	ActWin->MenuStat[0] = DatSav->isEnabled();
 	ActWin->MenuStat[1] = fileMenu->isItemEnabled(fid1);
 	ActWin->MenuStat[2] = fileMenu->isItemEnabled(fid4);
-	ActWin->MenuStat[3] = fileMenu->isItemEnabled(fid5);
+	ActWin->MenuStat[3] = fileMenu->isItemEnabled(M_SaveAs);
 	if (doc->ActPage->SelItem.count() != 0)
 	{
 		PageItem* b = doc->ActPage->SelItem.at(0);
@@ -3743,7 +3743,7 @@ bool ScribusApp::DoFileClose()
 		importMenu->setItemEnabled(fid2aa, 0);
 		exportMenu->setItemEnabled(fid3, 0);
 		fileMenu->setItemEnabled(fid4, 0);
-		fileMenu->setItemEnabled(fid5, 0);
+		fileMenu->setItemEnabled(M_SaveAs, 0);
 		fileMenu->setItemEnabled(fid52, 0);
 		fileMenu->setItemEnabled(fid11, 0);
 		exportMenu->setItemEnabled(fid8, 0);
@@ -7524,17 +7524,17 @@ void ScribusApp::ManageTemp(QString temp)
 	ActWin->MenuStat[0] = DatSav->isEnabled();
 	ActWin->MenuStat[1] = fileMenu->isItemEnabled(fid52);
 	ActWin->MenuStat[2] = fileMenu->isItemEnabled(fid4);
-	ActWin->MenuStat[3] = fileMenu->isItemEnabled(fid5);
+	ActWin->MenuStat[3] = fileMenu->isItemEnabled(M_SaveAs);
 	DatNeu->setEnabled(false);
 	DatOpe->setEnabled(false);
 	DatClo->setEnabled(false);
-	fileMenu->setItemEnabled(fid12, 0);
+	fileMenu->setItemEnabled(M_NewFile, 0);
 	fileMenu->setItemEnabled(fid13, 0);
 	fileMenu->setItemEnabled(fid14, 0);
 	fileMenu->setItemEnabled(fid1, 0);
 	fileMenu->setItemEnabled(fid52, 0);
 	fileMenu->setItemEnabled(fid7, 0);
-	fileMenu->setItemEnabled(fid9, 0);
+	fileMenu->setItemEnabled(M_Print, 0);
 	doc->TemplateMode = true;
 	Sepal->DisablePal();
 	doc->UnDoValid = false;
@@ -7555,14 +7555,14 @@ void ScribusApp::ManTempEnd()
 	DatSav->setEnabled(doc->isModified());
 	DatOpe->setEnabled(true);
 	DatClo->setEnabled(true);
-	fileMenu->setItemEnabled(fid12, 1);
+	fileMenu->setItemEnabled(M_NewFile, 1);
 	fileMenu->setItemEnabled(fid13, 1);
 	fileMenu->setItemEnabled(fid14, 1);
 	fileMenu->setItemEnabled(fid1, 1);
 	fileMenu->setItemEnabled(fid52, 1);
 	fileMenu->setItemEnabled(fid4, doc->isModified());
 	fileMenu->setItemEnabled(fid7, 1);
-	fileMenu->setItemEnabled(fid9, 1);
+	fileMenu->setItemEnabled(M_Print, 1);
 	int setter = view->Pages.count() > 1 ? 1 : 0;
 	pageMenu->setItemEnabled(pgmd, setter);
 	pageMenu->setItemEnabled(pgmv, setter);

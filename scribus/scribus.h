@@ -210,6 +210,9 @@ public:
 	QString UniCinS;
 	/** file_menu contains all items of the menubar entry "File" */
 	QPopupMenu *fileMenu;
+	int M_NewFile;
+	int M_Print;
+	int M_SaveAs;
 	QValueList<int> MenuItemsFile;
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
@@ -543,16 +546,13 @@ private:
 	int fid2aa;
 	int fid3;
 	int fid4;
-	int fid5;
 	int fid51;
 	int fid52;
 	int fid6;
 	int fid7;
 	int fid8;
-	int fid9;
 	int fid10;
 	int fid11;
-	int fid12;
 	int fid13;
 	int fid14;
 	int edUndo;

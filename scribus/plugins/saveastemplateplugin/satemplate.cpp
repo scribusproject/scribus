@@ -24,15 +24,7 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	Carrier = plug;
 	par = d;
 	satm = new MenuSAT(d);
-	int ind = 0;
-	for (uint a = 0; a < plug->fileMenu->count(); ++a)
-	{
-		if ((plug->fileMenu->text(plug->fileMenu->idAt(a)) == QObject::tr("Save &As...")) ||
-			(plug->fileMenu->text(plug->fileMenu->idAt(a)) == "Save &As..."))
-			break;
-		ind++;
-	}
-	int id = plug->fileMenu->insertItem(QObject::tr("Save as &Template..."), -1, ind+1);
+	int id = plug->fileMenu->insertItem(QObject::tr("Save as &Template..."), -1, plug->fileMenu->indexOf(plug->M_SaveAs)+1);
 	plug->fileMenu->connectItem(id, satm, SLOT(RunSATPlug()));
 	plug->fileMenu->setItemEnabled(id, 0);
 	plug->MenuItemsFile.append(id);
