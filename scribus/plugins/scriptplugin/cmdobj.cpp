@@ -543,3 +543,18 @@ PyObject *scribus_getstylenames(PyObject *self)
 	}
 	return styleList;
 }
+
+/*! 2004-12-08 CR
+ * Return the internal frame type number for a frame.
+ */
+PyObject* scribus_getframetype(PyObject* self, PyObject* args, PyObject* kw)
+{
+    char* frameName = "";
+    char* kwds[] = {"frame=", NULL};
+    if (!PyArg_ParseTupleAndKeywords(args, kw, "|s", kwds, &frameName))
+        return NULL;
+    PageItem *it = GetUniqueItem(QString(frameName));
+    if (it == NULL)
+        return NULL;
+    return PyInt_FromLong( (long)(it->PType) );
+}
