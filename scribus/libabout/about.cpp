@@ -95,6 +95,8 @@ About::About( QWidget* parent )
 	                                     "<tr><td>Niyam Bhushan</td><td></td></tr>" +
 	                                     "<tr><td>Martin Costabel</td><td></td></tr>" +
 	                                     "<tr><td>Steve Callcott</td><td>stotte@ntlworld.com</td></tr>" +
+										"<tr><td>Frank Everdij</td><td>f.everdij@citg.tudelft.nl</td></tr>" +
+										"<tr><td>S. Hakim Hamdani</td><td>hakimoto@eroteme.org</td></tr>" +
 	                                     "<tr><td>Maciej Hański</td><td>m.hanski@gmx.at</td></tr>" +
 	                                     "<tr><td>Oleksandr Moskalenko</td><td>malex@tagancha.org</td></tr>" +
 	                                     "<tr><td>Marti Maria</td><td></td></tr>" +
