@@ -23,11 +23,10 @@ void TOCIndexPrefs::destroy()
 
 }
 
-
-void TOCIndexPrefs::setup( ScribusDoc* doc )
+void TOCIndexPrefs::setup( ToCSetupVector* tocsetups, ScribusDoc *doc)
 {
+	localToCSetupVector=* tocsetups;
 	currDoc=doc;
-	localToCSetupVector=currDoc->docToCSetups;
 	generatePageItemList();
 	bool enabled=(localToCSetupVector.count()>0);
 	if (enabled)
@@ -45,11 +44,16 @@ void TOCIndexPrefs::generatePageItemList()
 {
 	itemDestFrameComboBox->clear();
 	itemDestFrameComboBox->insertItem(trNone);
-	for (uint d = 0; d < currDoc->DocItems.count(); ++d)
+	if (currDoc!=NULL)
 	{
-		if (currDoc->DocItems.at(d)->itemType()==PageItem::TextFrame)
-			itemDestFrameComboBox->insertItem(currDoc->DocItems.at(d)->itemName());
+		for (uint d = 0; d < currDoc->DocItems.count(); ++d)
+		{
+			if (currDoc->DocItems.at(d)->itemType()==PageItem::TextFrame)
+				itemDestFrameComboBox->insertItem(currDoc->DocItems.at(d)->itemName());
+		}
 	}
+	else
+		itemDestFrameComboBox->setEnabled(false);
 }
 
 
@@ -64,7 +68,7 @@ void TOCIndexPrefs::setupItemAttrs( QStringList newNames )
 
 void TOCIndexPrefs::selectToC( int numberSelected )
 {
-	int num=numberSelected;
+	uint num=numberSelected;
 	if (localToCSetupVector.isEmpty())
 		return;
 	if (localToCSetupVector.count()<num)

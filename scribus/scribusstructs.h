@@ -448,6 +448,7 @@ struct ApplicationPrefs
 	
 	PDFOptions PDF_Options;
 	ObjAttrVector defaultItemAttributes;
+	ToCSetupVector defaultToCSetups;
 	bool SepalT;
 	bool SepalN;
 	int PSize;

@@ -37,6 +37,7 @@ class TabCheckDoc;
 class TabPDFOptions;
 class FontPrefs;
 class DocumentItemAttributes;
+class TOCIndexPrefs;
 
 #include "langmgr.h"
 
@@ -112,6 +113,7 @@ public:
 	CMSPrefs* tabColorManagement;
 	TabPDFOptions* tabPDF;
 	DocumentItemAttributes* tabDefaultItemAttributes;
+	TOCIndexPrefs* tabDefaultTOCIndexPrefs;
 	KeyManager* tabKeys;
 
 	QLabel* textLabelP;
@@ -239,7 +241,12 @@ protected:
 	QVBoxLayout* plugLayout1;
 	QVBoxLayout* pluginMainLayout;
 	QGridLayout* plugGroupBoxLayout;
+	
+	QStringList defaultAttributesList;
 
+protected slots:
+	virtual void setTOCIndexData(QWidget *widgetToShow);
+		
 private slots:
 	void setSelectedGUILang( const QString &newLang );
 	void setActionHistoryLength();

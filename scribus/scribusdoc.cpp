@@ -241,14 +241,7 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	PDF_Options.LPISettings = prefsData->PDF_Options.LPISettings;
 	
 	docItemAttributes = prefsData->defaultItemAttributes;
-	
-	docToCSetups.clear();/*
-	ToCSetup newToC;
-	newToC.name="My ToC";
-	newToC.itemAttrName="None";
-	newToC.frameName="None";
-	newToC.style="None";
-	docToCSetups.append(newToC);*/
+	docToCSetups = prefsData->defaultToCSetups;
 	
 	RePos = false;
 	BookMarks.clear();

@@ -31,7 +31,7 @@
 #include "pluginmanager.h"
 #include "pagesize.h"
 #include "docitemattrprefs.h"
-
+#include "tocindexprefs.h"
 
 using namespace std;
 
@@ -393,8 +393,16 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 
 	tabDefaultItemAttributes = new DocumentItemAttributes( prefsWidgets);
+	defaultAttributesList=tabDefaultItemAttributes->getDocAttributesNames();
 	tabDefaultItemAttributes->setup(&prefsData->defaultItemAttributes);
 	addItem( tr("Document Item Attributes"), loadIcon("docattributes.png"), tabDefaultItemAttributes);
+
+	tabDefaultTOCIndexPrefs = new TOCIndexPrefs( prefsWidgets );
+	tabDefaultTOCIndexPrefs->setupItemAttrs( defaultAttributesList );
+	tabDefaultTOCIndexPrefs->setup(&prefsData->defaultToCSetups, NULL);
+	connect( prefsWidgets, SIGNAL(aboutToShow(QWidget *)), this, SLOT(setTOCIndexData(QWidget *)));
+	addItem( tr("Table of Contents and Indexes"), loadIcon("tabtocindex.png"), tabDefaultTOCIndexPrefs);
+	
 	
 	tabKeys = new KeyManager(prefsWidgets, prefsData->KeyActions);
 	addItem( tr("Keyboard Shortcuts"), loadIcon("key_bindings.png"), tabKeys);
@@ -1275,4 +1283,11 @@ void Preferences::changePluginLoad(QListViewItem *item, const QPoint &, int colu
 		item->setText(3, tr("Yes"));
 		ap->pluginManager->pluginMap[item->text(4).toInt()].loadPlugin = true;
 	}
+}
+
+void Preferences::setTOCIndexData(QWidget *widgetToShow)
+{
+	//Update the attributes list in TOC setup 
+	if (widgetToShow==tabDefaultTOCIndexPrefs)
+		tabDefaultTOCIndexPrefs->setupItemAttrs( tabDefaultItemAttributes->getDocAttributesNames() );
 }

@@ -330,8 +330,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	addItem( tr("Document Item Attributes"), loadIcon("docattributes.png"), tabDocItemAttributes);
 
 	tabTOCIndexPrefs = new TOCIndexPrefs( prefsWidgets );
-	tabTOCIndexPrefs->setupItemAttrs( tabDocItemAttributes->getDocAttributesNames());
-	tabTOCIndexPrefs->setup(currDoc);
+	tabTOCIndexPrefs->setupItemAttrs( docAttributesList );
+	tabTOCIndexPrefs->setup(&(currDoc->docToCSetups), currDoc);
 	connect( prefsWidgets, SIGNAL(aboutToShow(QWidget *)), this, SLOT(setTOCIndexData(QWidget *)));
 	addItem( tr("Table of Contents and Indexes"), loadIcon("tabtocindex.png"), tabTOCIndexPrefs);
 	

@@ -607,6 +607,7 @@ void ScribusApp::initDefaultPrefs()
 	
 	//Attribute setup
 	Prefs.defaultItemAttributes.clear();
+	Prefs.defaultToCSetups.clear();
 }
 
 
@@ -8008,6 +8009,7 @@ void ScribusApp::slotPrefsOrg()
 		}
 		
 		Prefs.defaultItemAttributes = *(dia->tabDefaultItemAttributes->getNewAttributes());
+		Prefs.defaultToCSetups = *(dia->tabDefaultTOCIndexPrefs->getNewToCs());
 		
 		GetCMSProfiles();
 		Prefs.KeyActions = dia->tabKeys->getNewKeyMap();

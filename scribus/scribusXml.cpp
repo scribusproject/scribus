@@ -3213,6 +3213,17 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 		docItemAttrs.appendChild(itemAttr);
 	}
 	elem.appendChild(docItemAttrs);
+	QDomElement tocElem = docu.createElement("TablesOfContents");
+	for(ToCSetupVector::Iterator tocSetupIt = Vor->defaultToCSetups.begin() ; tocSetupIt != Vor->defaultToCSetups.end(); ++tocSetupIt )
+	{
+		QDomElement tocsetup = docu.createElement("TableOfContents");
+		tocsetup.setAttribute("Name", (*tocSetupIt).name);
+		tocsetup.setAttribute("ItemAttributeName", (*tocSetupIt).itemAttrName);
+		tocsetup.setAttribute("FrameName", (*tocSetupIt).frameName);
+		tocsetup.setAttribute("Style", (*tocSetupIt).style);
+		tocElem.appendChild(tocsetup);
+	}
+	elem.appendChild(tocElem);
 	QFile f(ho);
 	if(!f.open(IO_WriteOnly))
 		return;
@@ -3562,6 +3573,25 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 					Vorein->defaultItemAttributes.append(objattr);
 				}
 				DIA = DIA.nextSibling();
+			}
+		}
+		if(dc.tagName()=="TablesOfContents")
+		{
+			QDomNode TOC = DOC.firstChild();
+			Vorein->defaultToCSetups.clear();
+			while(!TOC.isNull())
+			{
+				QDomElement tocElem = TOC.toElement();
+				if(tocElem.tagName() == "TableOfContents")
+				{
+					ToCSetup tocsetup;
+					tocsetup.name=tocElem.attribute("Name");
+					tocsetup.itemAttrName=tocElem.attribute("ItemAttributeName");
+					tocsetup.frameName=tocElem.attribute("FrameName");
+					tocsetup.style=tocElem.attribute("Style");
+					Vorein->defaultToCSetups.append(tocsetup);
+				}
+				TOC = TOC.nextSibling();
 			}
 		}
 		DOC=DOC.nextSibling();
