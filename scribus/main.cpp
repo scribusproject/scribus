@@ -280,14 +280,14 @@ QStringList getLang(QString lang)
 			}
 		}
 	}
-	#ifdef linux
+
 	if ((lang = ::getenv("LC_ALL")) != "")
 		langs.push_back(lang);
 	if ((lang = ::getenv("LC_MESSAGES")) != "")
 		langs.push_back(lang);
 	if ((lang = ::getenv("LANG")) != "")
 		langs.push_back(lang);
-	#endif
+
 	langs.push_back(QString(QTextCodec::locale()));
 
 	// remove duplicate entries...
