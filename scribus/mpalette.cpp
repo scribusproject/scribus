@@ -329,34 +329,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
 
     layout41 = new QGridLayout( 0, 1, 1, 0, 5, "layout41");
 
-/*    Fonts = new QToolButton( page_3, "Fonts" );
-    Fonts->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, 0, 0, Fonts->sizePolicy().hasHeightForWidth() ) );
-    Fonts->setMinimumSize( QSize( 150, 0 ) );
-    Fonts->setMaximumSize( QSize( 250, 32767 ) );
-    Fonts->setPopup(FontMenu);
-    Fonts->setPopupDelay(1);
-    Fonts->setText( tr( "Font" ) );   */
-
     Fonts = new FontCombo(page_3, Prefs);
-//    Fonts->setMinimumSize( QSize( 175, 24 ) );
-/*		Fonts->setEditable(false);
-		QStringList rlist;
-		rlist.clear();
-    SCFontsIterator it(Prefs->AvailFonts);
-    for ( ; it.current(); ++it)
-    	{
-			if (it.current()->UseFont)
-    		rlist.append(it.currentKey());
-    	}
-		rlist.sort();
-    Fonts->clear();
-    for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
-			{
-      new FontListItem(Fonts, *it2, Prefs->AvailFonts[*it2]->Font);
-			}   */
-//		Fonts->insertStringList(rlist);
-
-
     layout41->addMultiCellWidget( Fonts, 0, 0, 0, 1 );
 
     Text20 = new QLabel( page_3, "Text20" );
@@ -844,7 +817,12 @@ void Mpalette::SetCurItem(PageItem *i)
 	if (((i->PType == 4) || (i->PType == 2) || (i->PType == 3)) &&  (!i->ClipEdited))
 		RoundRect->setEnabled(true);
 	else
-		RoundRect->setEnabled(false);
+		{
+		if ((i->PType == 6) && (i->FrameType == 0))
+			RoundRect->setEnabled(true);
+		else
+			RoundRect->setEnabled(false);
+		}
 	if (i->PType == 5)
 		{
 		if (LMode)
@@ -989,7 +967,8 @@ void Mpalette::NewSel(int nr)
 				FlipH->setEnabled(true);
 				FlipV->setEnabled(true);
 				ShapeGroup->setEnabled(true);
-				RoundRect->setEnabled(true);
+ 				if ((doc->ActPage->SelItem.at(0)->FrameType == 0) || (doc->ActPage->SelItem.at(0)->FrameType == 2))
+					RoundRect->setEnabled(true);
 				EditShape->setEnabled(true);
 				HaveItem = true;
 				break;
@@ -1017,7 +996,8 @@ void Mpalette::NewSel(int nr)
 				FlipH->setEnabled(true);
 				FlipV->setEnabled(true);
 				ShapeGroup->setEnabled(true);
-				RoundRect->setEnabled(true);
+ 				if ((doc->ActPage->SelItem.at(0)->FrameType == 0) || (doc->ActPage->SelItem.at(0)->FrameType == 2))
+					RoundRect->setEnabled(true);
 				Distance->setEnabled(true);
 				EditShape->setEnabled(true);
 				HaveItem = true;
@@ -1047,6 +1027,8 @@ void Mpalette::NewSel(int nr)
 				TabStack->widget(4)->setEnabled(true);
 				ShapeGroup->setEnabled(true);
 				EditShape->setEnabled(true);
+ 				if ((doc->ActPage->SelItem.at(0)->FrameType == 0) || (doc->ActPage->SelItem.at(0)->FrameType == 2))
+					RoundRect->setEnabled(true);
 				HaveItem = true;
 				break;
 			case 7:
@@ -1841,7 +1823,7 @@ void Mpalette::MakeRect()
 		emit DocChanged();
 		if ((CurItem->PType == 2) || (CurItem->PType == 4))
 			return;
-		CurItem->PType = 3;
+		CurItem->PType = 6;
 		NewSel(3);
 		TabStack->raiseWidget(1);
 		}

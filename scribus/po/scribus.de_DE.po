@@ -950,6 +950,9 @@ msgstr "Textfarbe:"
 msgid "Units"
 msgstr "Maﬂeinheit"
 
+msgid "Points (pts)"
+msgstr "Punkte (pts)"
+
 msgid "Points (pt)"
 msgstr "Punkte (pt)"
 

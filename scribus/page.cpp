@@ -956,12 +956,7 @@ void Page::UpdateClip(PageItem* b)
 	int ph = static_cast<int>(QMAX(1.0, b->Pwidth / 2.0));
 	switch (b->PType)
 		{
-/*		case 1:
-			SetOvalFrame(b);
-			break;   */
 		case 5:
-//			b->Clip.resize(4);
-//			b->Clip.putPoints(0, 4, -1,-1, int(b->Width+1),-1, int(b->Width+1),int(b->Height+1), -1,int(b->Height+1));
 			b->Clip.setPoints(4, -ph,-ph, static_cast<int>(b->Width+ph),-ph, static_cast<int>(b->Width+ph),static_cast<int>(b->Height+ph), -ph,static_cast<int>(b->Height+ph));
 			break;
 		default:
@@ -1425,6 +1420,7 @@ void Page::ShearPolyHR()
 		UpdatePolyClip(b);
 	RefreshItem(b);
 	MarkClip(b);
+	b->FrameType = 3;
 }
 
 void Page::ShearPolyHL()
@@ -1438,6 +1434,7 @@ void Page::ShearPolyHL()
 		UpdatePolyClip(b);
 	RefreshItem(b);
 	MarkClip(b);
+	b->FrameType = 3;
 }
 
 void Page::ShearPolyVU()
@@ -1451,6 +1448,7 @@ void Page::ShearPolyVU()
 		UpdatePolyClip(b);
 	RefreshItem(b);
 	MarkClip(b);
+	b->FrameType = 3;
 }
 
 void Page::ShearPolyVD()
@@ -1464,6 +1462,7 @@ void Page::ShearPolyVD()
 		UpdatePolyClip(b);
 	RefreshItem(b);
 	MarkClip(b);
+	b->FrameType = 3;
 }
 
 void Page::Reset1Control()
@@ -1501,6 +1500,7 @@ void Page::MoveClipPoint(PageItem *b, FPoint ip)
 {
 	FPointArray Clip;
 	Clip = b->PoLine;
+	b->FrameType = 3;
 	if ((EdPoints) && (ClRe % 2 != 0))
 		return;
 	if ((!EdPoints) && (ClRe % 2 == 0))
@@ -1765,27 +1765,6 @@ void Page::scaleGroup(float scx, float scy)
 				SizeItem(sqrt(pow(t1.x()-b1.x(),2)+pow(t1.y()-b1.y(),2)), sqrt(pow(h1.x()-b1.x(),2)+pow(h1.y()-b1.y(),2)), bb->ItemNr, true);
 				if (bb->Rot != 0)
 					bb->Rot = atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI);
-/*				if ((bb->PType == 5) || (bb->Rot == 0))
-					{
-					MoveItem(b1.x()-b.x(), b1.y()-b.y(), bb);
-					SizeItem(sqrt(pow(t1.x()-b1.x(),2)+pow(t1.y()-b1.y(),2)), sqrt(pow(h1.x()-b1.x(),2)+pow(h1.y()-b1.y(),2)), bb->ItemNr, true);
-					}
-				if (bb->Rot != 0)
-					bb->Rot = atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI);
-				if ((bb->PType != 5) && (bb->Rot != 0))
-					{
-					for (uint po = 0; po < bb->PoLine.size(); po++)
-						{
-						tes = bb->PoLine.point(po);
-						tes = transformPoint(bb->PoLine.point(po), bb->Xpos, bb->Ypos, oldRot, 1, 1);
-						tes -= g;
-						tes = transformPoint(tes, 0, 0, 0, scx, scy);
-						tes += g;
-	      		tes = transformPointI(tes, bb->Xpos+(b1.x()-b.x()), bb->Ypos+(b1.y()-b.y()), bb->Rot, 1, 1);
-						bb->PoLine.setPoint(po, tes);
-						}
-					AdjustItemSize(bb);					 
-					}  */
 				bb->ISize = QMAX(qRound(bb->ISize*((scx+scy)/2)), 1);
 				if (bb->Ptext.count() != 0)
 					{
@@ -4541,6 +4520,7 @@ void Page::ToPolyFrame()
 	b->PType = 6;
 	b->Frame = false;
 	b->ClipEdited = true;
+	b->FrameType = 3;
 	b->Clip = FlattenPath(b->PoLine, b->Segments);
 	RefreshItem(b);
 	emit HaveSel(b->PType);
@@ -4566,6 +4546,7 @@ void Page::Bezier2Poly()
 	b->PType = 6;
 	b->Frame = false;
 	b->ClipEdited = true;
+	b->FrameType = 3;
 	b->PoLine.resize(b->PoLine.size()+1);
 	b->PoLine.setPoint(b->PoLine.size()-1, b->PoLine.point(b->PoLine.size()-3));
 	b->PoLine.resize(b->PoLine.size()+1);
@@ -6472,6 +6453,7 @@ int Page::PaintPoly(float x, float y, float b, float h, float w, QString fill, Q
 	ite->Shade2 = doku->Dshade2;
 	ite->ItemNr = Items.count()-1;
 	ite->ClipEdited = true;
+	ite->FrameType = 3;
 	if (!doku->loading)
 		ite->paintObj();
 	return ite->ItemNr;

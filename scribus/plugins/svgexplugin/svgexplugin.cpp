@@ -157,11 +157,17 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							}
 						QDomElement s1 = docu->createElement("stop");
 						s1.setAttribute("offset","0%");
-						s1.setAttribute("stop-color",SetFarbe(Item->GrColor2, Item->GrShade2, plug));
+						if (Item->GrType == 5)
+							s1.setAttribute("stop-color",SetFarbe(Item->GrColor, Item->GrShade, plug));
+						else
+							s1.setAttribute("stop-color",SetFarbe(Item->GrColor2, Item->GrShade2, plug));
 						grad.appendChild(s1);
 						QDomElement s2 = docu->createElement("stop");
 						s2.setAttribute("offset","100%");
-						s2.setAttribute("stop-color",SetFarbe(Item->GrColor, Item->GrShade, plug));
+						if (Item->GrType == 5)
+							s2.setAttribute("stop-color",SetFarbe(Item->GrColor2, Item->GrShade2, plug));
+						else
+							s2.setAttribute("stop-color",SetFarbe(Item->GrColor, Item->GrShade, plug));
 						grad.appendChild(s2);
 						defi.appendChild(grad);
 						fill = "fill:url(#"+gradi+IToStr(GradCount)+");";
@@ -489,7 +495,9 @@ void SVGExPlug::SetTextProps(QDomElement *tp, struct Pti *hl, ScribusApp *plug)
 	else
 		tp->setAttribute("fill", "none");
 	tp->setAttribute("font-size", hl->csize);
-	tp->setAttribute("font-family", plug->doc->UsedFonts[hl->cfont].family());
+	QStringList wt = QStringList::split(" ",hl->cfont);
+	tp->setAttribute("font-family", wt[0]);
+//	tp->setAttribute("font-family", plug->doc->UsedFonts[hl->cfont].family());
 	chst = hl->cstyle & 127;
 	if (chst != 0)
 		{

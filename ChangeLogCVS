@@ -1,4 +1,8 @@
 Changes since Version 0.9.11.1
+21.06.2003	svgplugin.cpp		Fixed the Radial Gradients.
+		mpalette.cpp
+		page.cpp		Fixed Bug with rounded Rectangles.
+
 20.06.2003	newfile.cpp		
 		preferences.cpp
 		reformdoc.cpp		Limited the Values for the Margins to fit the Page.
