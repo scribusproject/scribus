@@ -93,7 +93,6 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	ButtonGroup1Layout->setSpacing( 6 );
 	ButtonGroup1Layout->setMargin( 10 );
 
-
 	GUICombo = new QComboBox( true, ButtonGroup1, "GUICombo" );
 	QStringList STtest;
 	STtest = QStyleFactory::keys();
@@ -835,12 +834,13 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout15a->addWidget( TextGapVal, 4, 1 );
 
 	TextLabel1_4 = new QLabel( tr( "Woven silk pyjamas exchanged for blue quartz" ), ToolFrame, "TextLabel1_4" );
-	TextLabel1_4->setMinimumSize(QSize(260, 70));
-	TextLabel1_4->setMaximumSize(QSize(260, 70));
+	TextLabel1_4->setFixedHeight(80);
+	TextLabel1_4->setMaximumWidth(width());
 	TextLabel1_4->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
 	TextLabel1_4->setFrameShape(QFrame::Box);
 	TextLabel1_4->setPaletteBackgroundColor(paletteBackgroundColor());
 	SetSample();
+
 	Layout15a->addMultiCellWidget( TextLabel1_4, 5, 5, 0, 1 );
 	QSpacerItem* sp09 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	ToolFrameLayout->addItem( sp09 );
