@@ -41,7 +41,7 @@ void* Run(QWidget *d)
 About::About( QWidget* parent )
 		: QDialog( parent, "About", true, 0 )
 {
-	setCaption( tr("About Scribus%1%2").arg(" ").arg(VERSION) );
+	setCaption( tr("About Scribus %1").arg(VERSION) );
 	setIcon(loadIcon("AppIcon.png"));
 	AboutLayout = new QVBoxLayout( this );
 	AboutLayout->setSpacing( 6 );
