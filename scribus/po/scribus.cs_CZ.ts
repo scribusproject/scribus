@@ -5793,6 +5793,10 @@ Lze uvést v Nastavení.</translation>
         <source>New Color</source>
         <translation>Nová barva</translation>
     </message>
+    <message>
+        <source>Remove Unused</source>
+        <translation>Ostranit nepoužité</translation>
+    </message>
 </context>
 <context>
     <name>FontPrefs</name>
@@ -6567,7 +6571,7 @@ Rohy:</translation>
     </message>
     <message>
         <source>Start Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Počáteční posun:</translation>
     </message>
     <message>
         <source> pts</source>
@@ -7698,6 +7702,10 @@ ke straně, v opačném případě k objektu.</translation>
     <message>
         <source>All</source>
         <translation>Všechny</translation>
+    </message>
+    <message>
+        <source>Display Transparency</source>
+        <translation>Zobrazit průhlednost</translation>
     </message>
 </context>
 <context>
@@ -8879,7 +8887,7 @@ Zkontrolujte cestu a název souboru.</translation>
     <name>QMessageBox</name>
     <message>
         <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h3&gt;O Qt&lt;/h3&gt;&lt;p&gt;Tento program používá Qt verze %1.&lt;/p&gt;&lt;p&gt;Qt je C++ knihovna určená pro vývoj multiplatformních nejen GUI aplikací.&lt;/p&gt;&lt;p&gt;Qt zajišťuje přenositelnost jediného zdrojového kódu na MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, a všechny hlavní varianty komerčních Unixů.&lt;br&gt;Qt je také k dispozici pro jednoúčelová zařízení (embedded devices).&lt;/p&gt;&lt;p&gt;Qt je produkt firmy Trolltech. Více informací získáte na &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt;.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -9050,7 +9058,7 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>Stay on &amp;Top</source>
-        <translation>&amp;Zůstat navrchu</translation>
+        <translation>Zůs&amp;tat navrchu</translation>
     </message>
     <message>
         <source>Minimize</source>
@@ -9058,7 +9066,7 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>Restore Down</source>
-        <translation>Obnovit dolů</translation>
+        <translation>Obnovit původní</translation>
     </message>
     <message>
         <source>Close</source>
@@ -9066,7 +9074,7 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>Sh&amp;ade</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Schovat</translation>
     </message>
     <message>
         <source>%1 - [%2]</source>
@@ -9074,7 +9082,7 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>&amp;Unshade</source>
-        <translation type="unfinished"></translation>
+        <translation>Z&amp;obrazit</translation>
     </message>
 </context>
 <context>
@@ -9218,7 +9226,7 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>Attach Text to Path</source>
-        <translation>Připojit text k cestě</translation>
+        <translation>Připojit text ke křivce</translation>
     </message>
     <message>
         <source>Show Layers</source>
@@ -9976,7 +9984,7 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>Detach Text from Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Odpojit text od křivky</translation>
     </message>
     <message>
         <source>Effects</source>
@@ -10001,6 +10009,10 @@ Zkontrolujte cestu a název souboru.</translation>
     <message>
         <source>Irish</source>
         <translation>Irsky</translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation>Všechny podporované formáty</translation>
     </message>
 </context>
 <context>
@@ -10503,6 +10515,10 @@ přetáhněte šablonu do náhledu strany.</translation>
     <message>
         <source>Save as</source>
         <translation>Uložit jako</translation>
+    </message>
+    <message>
+        <source>Search/Replace...</source>
+        <translation>Hledat/Nahradit...</translation>
     </message>
 </context>
 <context>

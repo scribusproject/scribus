@@ -373,7 +373,7 @@
     </message>
     <message>
         <source>Times</source>
-        <translation>Times</translation>
+        <translation type="obsolete">Times</translation>
     </message>
     <message>
         <source>Type:</source>
@@ -389,7 +389,7 @@
     </message>
     <message>
         <source>Zapf Dingbats</source>
-        <translation>Zapf Dingbats</translation>
+        <translation type="obsolete">Zapf Dingbats</translation>
     </message>
     <message>
         <source>Number Format</source>
@@ -409,7 +409,7 @@
     </message>
     <message>
         <source>Times Bold Italic</source>
-        <translation>Times lihavoitu kursiivi</translation>
+        <translation type="obsolete">Times lihavoitu kursiivi</translation>
     </message>
     <message>
         <source>Submit to URL:</source>
@@ -421,7 +421,7 @@
     </message>
     <message>
         <source>Times Italic</source>
-        <translation>Times kursiivi</translation>
+        <translation type="obsolete">Times kursiivi</translation>
     </message>
     <message>
         <source>Roll Over</source>
@@ -449,11 +449,11 @@
     </message>
     <message>
         <source>Courier Italic</source>
-        <translation>Courier kursiivi</translation>
+        <translation type="obsolete">Courier kursiivi</translation>
     </message>
     <message>
         <source>Helvetica</source>
-        <translation>Helvetica</translation>
+        <translation type="obsolete">Helvetica</translation>
     </message>
     <message>
         <source>minimum</source>
@@ -537,7 +537,7 @@
     </message>
     <message>
         <source>Helvetica Bold</source>
-        <translation>Helvetica lihavoitu</translation>
+        <translation type="obsolete">Helvetica lihavoitu</translation>
     </message>
     <message>
         <source>No View</source>
@@ -557,7 +557,7 @@
     </message>
     <message>
         <source>Helvetica Bold Italic</source>
-        <translation>Helvetica lihavoitu kursiivi</translation>
+        <translation type="obsolete">Helvetica lihavoitu kursiivi</translation>
     </message>
     <message>
         <source>Square</source>
@@ -569,7 +569,7 @@
     </message>
     <message>
         <source>Symbol</source>
-        <translation>Symbol</translation>
+        <translation type="obsolete">Symbol</translation>
     </message>
     <message>
         <source>X-Pos:</source>
@@ -697,7 +697,7 @@
     </message>
     <message>
         <source>Courier Bold</source>
-        <translation>Courier lihavoitu</translation>
+        <translation type="obsolete">Courier lihavoitu</translation>
     </message>
     <message>
         <source>Import Data</source>
@@ -721,7 +721,7 @@
     </message>
     <message>
         <source>Helvetica Italic</source>
-        <translation>Helvetica kursiivi</translation>
+        <translation type="obsolete">Helvetica kursiivi</translation>
     </message>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
@@ -741,11 +741,11 @@
     </message>
     <message>
         <source>and less or equal to:</source>
-        <translation>ja vähemmän tai yhtäsuuri kuin:</translation>
+        <translation>ja pienempi tai yhtäsuuri kuin:</translation>
     </message>
     <message>
         <source>Courier</source>
-        <translation>Courier</translation>
+        <translation type="obsolete">Courier</translation>
     </message>
     <message>
         <source>Flag is ignored for PDF-1.3</source>
@@ -773,7 +773,7 @@
     </message>
     <message>
         <source>Courier Bold Italic</source>
-        <translation>Courier lihavoitu kursiivi</translation>
+        <translation type="obsolete">Courier lihavoitu kursiivi</translation>
     </message>
     <message>
         <source>Appearance</source>
@@ -793,7 +793,7 @@
     </message>
     <message>
         <source>Times Bold</source>
-        <translation>Times lihavoitu</translation>
+        <translation type="obsolete">Times lihavoitu</translation>
     </message>
     <message>
         <source>Reset Form</source>
@@ -935,7 +935,7 @@
     </message>
     <message>
         <source>Apply to Actual Page</source>
-        <translation>Käytä nykyiseen sivuun</translation>
+        <translation type="obsolete">Käytä nykyiseen sivuun</translation>
     </message>
     <message>
         <source>Template:</source>
@@ -1289,7 +1289,7 @@
     </message>
     <message>
         <source>Websave RGB</source>
-        <translation>Web-yhteensopiva RGB</translation>
+        <translation type="obsolete">Web-yhteensopiva RGB</translation>
     </message>
     <message>
         <source>Static Color Bars</source>
@@ -1305,7 +1305,7 @@
     </message>
     <message>
         <source>Websafe RGB</source>
-        <translation>Web-yhteensopiva RGB</translation>
+        <translation type="obsolete">Web-yhteensopiva RGB</translation>
     </message>
 </context>
 <context>
@@ -1344,7 +1344,7 @@
     </message>
     <message>
         <source>Other...</source>
-        <translation>Muu...</translation>
+        <translation type="obsolete">Muu...</translation>
     </message>
     <message>
         <source>Diagonal Gradient</source>
@@ -1517,15 +1517,15 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>Select New Font:</source>
-        <translation>Valitse uusi kirjasin:</translation>
+        <translation type="obsolete">Valitse uusi kirjasin:</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Select Font</source>
-        <translation>Valitse kirjasin</translation>
+        <translation type="obsolete">Valitse kirjasin</translation>
     </message>
 </context>
 <context>
@@ -1686,11 +1686,11 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation>Vasen</translation>
+        <translation type="obsolete">Vasen</translation>
     </message>
     <message>
         <source>Block</source>
-        <translation>Molemmat reunat</translation>
+        <translation type="obsolete">Molemmat reunat</translation>
     </message>
     <message>
         <source>Face:</source>
@@ -1702,7 +1702,7 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation>Oikea</translation>
+        <translation type="obsolete">Oikea</translation>
     </message>
     <message>
         <source>Size:</source>
@@ -1726,11 +1726,11 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation>Keskitetty</translation>
+        <translation type="obsolete">Keskitetty</translation>
     </message>
     <message>
         <source>Forced</source>
-        <translation>Pakotettu</translation>
+        <translation type="obsolete">Pakotettu</translation>
     </message>
     <message>
         <source>Indentation</source>
@@ -1766,7 +1766,7 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>Alignment</source>
-        <translation>Tasaus</translation>
+        <translation type="obsolete">Tasaus</translation>
     </message>
     <message>
         <source>Drop Caps</source>
@@ -1969,6 +1969,10 @@ Voit määrittää sen asetuksissa.</translation>
         <source>New Color</source>
         <translation>Uusi väri</translation>
     </message>
+    <message>
+        <source>Remove Unused</source>
+        <translation>Poista käyttämättömät</translation>
+    </message>
 </context>
 <context>
     <name>FontPrefs</name>
@@ -2057,7 +2061,7 @@ Voit määrittää sen asetuksissa.</translation>
     <name>GuideManager</name>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation type="obsolete"> p</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2065,15 +2069,15 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source> in</source>
-        <translation> in</translation>
+        <translation type="obsolete"> in</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation> mm</translation>
+        <translation type="obsolete"> mm</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source>Add</source>
@@ -2454,26 +2458,26 @@ tavutuksen kohdalla kysymysikkuna.</translation>
     <name>MSpinBox</name>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation> mm</translation>
+        <translation type="obsolete"> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation> in</translation>
+        <translation type="obsolete"> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation type="obsolete"> p</translation>
     </message>
 </context>
 <context>
     <name>Mdup</name>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation type="obsolete"> p</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2481,15 +2485,15 @@ tavutuksen kohdalla kysymysikkuna.</translation>
     </message>
     <message>
         <source> in</source>
-        <translation> in</translation>
+        <translation type="obsolete"> in</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation> mm</translation>
+        <translation type="obsolete"> mm</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source>Multiple Duplicate</source>
@@ -2641,11 +2645,11 @@ tavutuksen kohdalla kysymysikkuna.</translation>
     </message>
     <message>
         <source>by:</source>
-        <translation>tehnyt:</translation>
+        <translation type="obsolete">tehnyt:</translation>
     </message>
     <message>
         <source> pts</source>
-        <translation> pts</translation>
+        <translation type="obsolete"> pts</translation>
     </message>
     <message>
         <source>Line</source>
@@ -2690,7 +2694,7 @@ Corners:</source>
     </message>
     <message>
         <source>Vert. Scale:</source>
-        <translation>Pystysuora skaalaus:</translation>
+        <translation type="obsolete">Pystysuora skaalaus:</translation>
     </message>
     <message>
         <source>Shape</source>
@@ -2702,7 +2706,7 @@ Corners:</source>
     </message>
     <message>
         <source>Align Text Left</source>
-        <translation>Tasaa teksti vasemmalle</translation>
+        <translation type="obsolete">Tasaa teksti vasemmalle</translation>
     </message>
     <message>
         <source>Path Text Properites</source>
@@ -2710,7 +2714,7 @@ Corners:</source>
     </message>
     <message>
         <source>Outline Text</source>
-        <translation>Teksti ääriviivoilla</translation>
+        <translation type="obsolete">Teksti ääriviivoilla</translation>
     </message>
     <message>
         <source>Flip horizontal</source>
@@ -2742,7 +2746,7 @@ Corners:</source>
     </message>
     <message>
         <source>Small Caps</source>
-        <translation>Pienet isot kirjaimet</translation>
+        <translation type="obsolete">Pienet isot kirjaimet</translation>
     </message>
     <message>
         <source>Distance from Curve:</source>
@@ -2758,7 +2762,7 @@ Corners:</source>
     </message>
     <message>
         <source>Align Text Center</source>
-        <translation>Keskitä teksti</translation>
+        <translation type="obsolete">Keskitä teksti</translation>
     </message>
     <message>
         <source>Colors</source>
@@ -2840,7 +2844,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Rotation</source>
-        <translation>Kierto</translation>
+        <translation type="obsolete">Kierto</translation>
     </message>
     <message>
         <source>Custom Spacing</source>
@@ -2856,11 +2860,11 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Align Text Block</source>
-        <translation>Tasaa tekstin molemmat reunat</translation>
+        <translation type="obsolete">Tasaa tekstin molemmat reunat</translation>
     </message>
     <message>
         <source>Align Text Right</source>
-        <translation>Tasaa teksti oikealle</translation>
+        <translation type="obsolete">Tasaa teksti oikealle</translation>
     </message>
     <message>
         <source>Square Cap</source>
@@ -2868,7 +2872,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Strikeout</source>
-        <translation>Yliviivattu</translation>
+        <translation type="obsolete">Yliviivattu</translation>
     </message>
     <message>
         <source>Show Curve</source>
@@ -2884,11 +2888,11 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Subscript</source>
-        <translation>Alaindeksi</translation>
+        <translation type="obsolete">Alaindeksi</translation>
     </message>
     <message>
         <source>Superscript</source>
-        <translation>Yläindeksi</translation>
+        <translation type="obsolete">Yläindeksi</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -2896,7 +2900,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Position:</source>
-        <translation>Sijainti:</translation>
+        <translation type="obsolete">Sijainti:</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
@@ -2904,7 +2908,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Underline</source>
-        <translation>Alleviivattu</translation>
+        <translation type="obsolete">Alleviivattu</translation>
     </message>
     <message>
         <source>X, Y, Z</source>
@@ -2912,11 +2916,11 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Other...</source>
-        <translation>Muu...</translation>
+        <translation type="obsolete">Muu...</translation>
     </message>
     <message>
         <source>Horiz. Scale:</source>
-        <translation>Vaakasuora skaalaus:</translation>
+        <translation type="obsolete">Vaakasuora skaalaus:</translation>
     </message>
     <message>
         <source>Text flows around Box</source>
@@ -3275,7 +3279,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Millimeters (mm)</source>
-        <translation>Millimetrit (mm)</translation>
+        <translation type="obsolete">Millimetrit (mm)</translation>
     </message>
     <message>
         <source>Gutter Width:</source>
@@ -3341,19 +3345,19 @@ Valitse toinen nimi.</translation>
     <name>NodePalette</name>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation type="obsolete"> p</translation>
     </message>
     <message>
         <source> in</source>
-        <translation> in</translation>
+        <translation type="obsolete"> in</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation> mm</translation>
+        <translation type="obsolete"> mm</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source>Shears the Path horizontal to the left</source>
@@ -3373,11 +3377,11 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Closes this Bezier Curve</source>
-        <translation>Sulkee tämän bezier-viivan</translation>
+        <translation>Sulje tämä bezier-viiva</translation>
     </message>
     <message>
         <source>Mirrors the Path Horizontally</source>
-        <translation>Peilaa kohteen vaakatasossa</translation>
+        <translation>Peilaa kohde vaakatasossa</translation>
     </message>
     <message>
         <source>When checked use Coordinates relative to the Page,
@@ -3391,7 +3395,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Mirrors the Path Vertically</source>
-        <translation>Peilaa kohteen pystytasossa</translation>
+        <translation>Peilaa kohde pystytasossa</translation>
     </message>
     <message>
         <source>Delete Nodes</source>
@@ -3435,7 +3439,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Opens a Polygon or cuts a Bezier Curve</source>
-        <translation>Avaa monikulmion tai katkaisee bezier-viivan</translation>
+        <translation>Avaa monikulmio tai katkaise bezier-viiva</translation>
     </message>
     <message>
         <source>Move Control Points symmetrical</source>
@@ -3451,19 +3455,19 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Rotates the Path counter-clockwise</source>
-        <translation>Kiertää polkua vastapäivään</translation>
+        <translation>Kierrä polkua vastapäivään</translation>
     </message>
     <message>
         <source>Rotates the Path clockwise</source>
-        <translation>Kiertää polkua myötäpäivään</translation>
+        <translation>Kierrä polkua myötäpäivään</translation>
     </message>
     <message>
         <source>Reduce the Size of the Path by 10%</source>
-        <translation>Pienentää polkua 10 %</translation>
+        <translation>Pienennä polkua 10 %</translation>
     </message>
     <message>
         <source>Enlarges the Size of the Path by 10%</source>
-        <translation>Suurentaa polkua 10 %</translation>
+        <translation>Suurenna polkua 10 %</translation>
     </message>
 </context>
 <context>
@@ -3477,7 +3481,7 @@ muulloin suhteessa kohteeseen.</translation>
     <name>PDF_Opts</name>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation type="obsolete"> p</translation>
     </message>
     <message>
         <source>&lt;&lt;</source>
@@ -3493,15 +3497,15 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source> in</source>
-        <translation> in</translation>
+        <translation type="obsolete"> in</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation> mm</translation>
+        <translation type="obsolete"> mm</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source>Box</source>
@@ -3685,7 +3689,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Screen</source>
-        <translation>Näytölle</translation>
+        <translation type="obsolete">Näytölle</translation>
     </message>
     <message>
         <source>Compress Text and Vector Graphics</source>
@@ -3705,7 +3709,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Top-Left to Bottom-Right</source>
-        <translation>Ylävasemmalta oikealle alas</translation>
+        <translation type="obsolete">Ylävasemmalta oikealle alas</translation>
     </message>
     <message>
         <source>Embed all Fonts</source>
@@ -3882,6 +3886,10 @@ muulloin suhteessa kohteeseen.</translation>
         <source>Anti-alias Text</source>
         <translation>Antialisoi teksti</translation>
     </message>
+    <message>
+        <source>Display Transparency</source>
+        <translation>Näytä läpinäkyvyys</translation>
+    </message>
 </context>
 <context>
     <name>Page</name>
@@ -3967,7 +3975,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Text Chain</source>
-        <translation>Tekstiketju</translation>
+        <translation type="obsolete">Tekstiketju</translation>
     </message>
     <message>
         <source>Original ppi: </source>
@@ -4107,7 +4115,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Show Properties...</source>
-        <translation>Näytä ominaisuudet...</translation>
+        <translation>Ominaisuudet...</translation>
     </message>
     <message>
         <source>Hide Properties...</source>
@@ -4169,19 +4177,19 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Nimi</translation>
+        <translation type="obsolete">Nimi</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>Sivu</translation>
+        <translation type="obsolete">Sivu</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation>Polku</translation>
+        <translation type="obsolete">Polku</translation>
     </message>
     <message>
         <source>Print</source>
-        <translation>Tulosta</translation>
+        <translation type="obsolete">Tulosta</translation>
     </message>
     <message>
         <source>Missing</source>
@@ -4193,7 +4201,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Tila</translation>
+        <translation type="obsolete">Tila</translation>
     </message>
     <message>
         <source>Pictures</source>
@@ -4547,7 +4555,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Millimeters (mm)</source>
-        <translation>Millimetrit (mm)</translation>
+        <translation type="obsolete">Millimetrit (mm)</translation>
     </message>
     <message>
         <source>Mouse-Settings</source>
@@ -4781,11 +4789,11 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>File &amp;name:</source>
-        <translation>Tiedoston nimi:</translation>
+        <translation>Tiedoston &amp;nimi:</translation>
     </message>
     <message>
         <source>File &amp;type:</source>
-        <translation>Tiedoston tyyppi:</translation>
+        <translation>Tiedoston &amp;tyyppi:</translation>
     </message>
     <message>
         <source>One directory up</source>
@@ -5154,31 +5162,31 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Document Info</source>
-        <translation>Dokumentin tiedot</translation>
+        <translation type="obsolete">Dokumentin tiedot</translation>
     </message>
     <message>
         <source>Author:</source>
-        <translation>Tekijä:</translation>
+        <translation type="obsolete">Tekijä:</translation>
     </message>
     <message>
         <source>Title:</source>
-        <translation>Otsikko:</translation>
+        <translation type="obsolete">Otsikko:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation>Kuvaus:</translation>
+        <translation type="obsolete">Kuvaus:</translation>
     </message>
     <message>
         <source>Keywords:</source>
-        <translation>Avainsanat:</translation>
+        <translation type="obsolete">Avainsanat:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source> pt</source>
@@ -5198,11 +5206,11 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Left Page</source>
-        <translation>Vasen sivu</translation>
+        <translation type="obsolete">Vasen sivu</translation>
     </message>
     <message>
         <source>Right Page</source>
-        <translation>Oikea sivu</translation>
+        <translation type="obsolete">Oikea sivu</translation>
     </message>
     <message>
         <source>Document</source>
@@ -5268,7 +5276,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>Sulje</translation>
+        <translation>Su&amp;lje</translation>
     </message>
     <message>
         <source>Stay on &amp;Top</source>
@@ -5296,7 +5304,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>&amp;Unshade</source>
-        <translation>Paljasta</translation>
+        <translation>Paljas&amp;ta</translation>
     </message>
 </context>
 <context>
@@ -5448,7 +5456,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Oval</source>
-        <translation>Ovaali</translation>
+        <translation type="obsolete">Ovaali</translation>
     </message>
     <message>
         <source>Quit</source>
@@ -5504,7 +5512,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Rounded Rectangle</source>
-        <translation>Pyöristetty neliö</translation>
+        <translation type="obsolete">Pyöristetty neliö</translation>
     </message>
     <message>
         <source>Clear</source>
@@ -5748,7 +5756,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Images</source>
-        <translation>Kuvat</translation>
+        <translation type="obsolete">Kuvat</translation>
     </message>
     <message>
         <source>Invert</source>
@@ -6012,7 +6020,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Rectangle</source>
-        <translation>Neliö</translation>
+        <translation type="obsolete">Neliö</translation>
     </message>
     <message>
         <source>Printing...</source>
@@ -6040,7 +6048,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>);;Vector Files (*.eps *.pdf);;All Files (*)</source>
-        <translation>);;Vektoritiedostot (*.eps *.pdf);;Kaikki tiedostot (*)</translation>
+        <translation type="obsolete">);;Vektoritiedostot (*.eps *.pdf);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Collect for Output...</source>
@@ -6224,16 +6232,20 @@ Tarkasta polku ja tiedostonimi.</translation>
         <source>Irish</source>
         <translation>irlanti</translation>
     </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation>Kaikki tuetut tiedostotyypit</translation>
+    </message>
 </context>
 <context>
     <name>ScribusDoc</name>
     <message>
         <source>Background</source>
-        <translation>Tausta</translation>
+        <translation type="obsolete">Tausta</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation>Dokumentti</translation>
+        <translation type="obsolete">Dokumentti</translation>
     </message>
 </context>
 <context>
@@ -6252,7 +6264,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Page %1</source>
-        <translation>Sivu  %1</translation>
+        <translation type="obsolete">Sivu  %1</translation>
     </message>
     <message>
         <source>Page </source>
@@ -6672,7 +6684,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Update Textframe</source>
-        <translation>Päivitä tekstikehys</translation>
+        <translation type="obsolete">Päivitä tekstikehys</translation>
     </message>
     <message>
         <source>Exit without Saving</source>
@@ -6725,6 +6737,10 @@ raahaa malli sivualueelle.</translation>
     <message>
         <source>Update Text Frame</source>
         <translation>Päivitä tekstikehys</translation>
+    </message>
+    <message>
+        <source>Search/Replace...</source>
+        <translation>Etsi/Korvaa...</translation>
     </message>
 </context>
 <context>
@@ -6904,11 +6920,11 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Create Text Chains</source>
-        <translation>Luo tekstiketju</translation>
+        <translation type="obsolete">Luo tekstiketju</translation>
     </message>
     <message>
         <source>Break Text Chains</source>
-        <translation>Pura tekstiketju</translation>
+        <translation type="obsolete">Pura tekstiketju</translation>
     </message>
     <message>
         <source>Insert Bezier Curves</source>

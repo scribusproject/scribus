@@ -50,6 +50,12 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	MPage = app->doc->PageC;
 	setIcon(loadIcon("AppIcon.png"));
 	PLayout = new QVBoxLayout(this, 0, 0, "PLayout");
+	Layout5 = new QHBoxLayout;
+	Layout5->setSpacing(6);
+	Layout5->setMargin(2);
+	Layout4 = new QVBoxLayout;
+	Layout4->setSpacing(0);
+	Layout4->setMargin(0);
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing(6);
 	Layout1->setMargin(0);
@@ -83,8 +89,12 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	Last->setText("");
 	Last->setPixmap(loadIcon("finish.png"));
 	Layout1->addWidget(Last);
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem(spacer);
+	Layout4->addLayout(Layout1);
+	QSpacerItem* spacer2 = new QSpacerItem( 0, 20, QSizePolicy::Minimum, QSizePolicy::Minimum );
+	Layout4->addItem(spacer2);
+	Layout5->addLayout(Layout4);
 	Layout2 = new QVBoxLayout;
 	Layout2->setSpacing(1);
 	Layout2->setMargin(0);
@@ -103,8 +113,7 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	AliasTr->setText( tr("Display Transparency"));
 	AliasTr->setChecked(false);
 	Layout2->addWidget(AliasTr);
-// Disabled until release 1.1.5
-/*	EnableCMYK = new QCheckBox(this, "DisplayCMYK");
+	EnableCMYK = new QCheckBox(this, "DisplayCMYK");
 	EnableCMYK->setText( tr("Display CMYK"));
 	EnableCMYK->setChecked(false);
 	Layout2->addWidget(EnableCMYK);
@@ -127,10 +136,10 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	EnableCMYK_K->setText( tr("K"));
 	EnableCMYK_K->setChecked(true);
 	EnableCMYK_K->setEnabled(false);
-	Layout3->addWidget(EnableCMYK_K); */
-	Layout1->addLayout(Layout2);
-	Layout1->addLayout(Layout3);
-	PLayout->addLayout(Layout1);
+	Layout3->addWidget(EnableCMYK_K);
+	Layout5->addLayout(Layout2);
+	Layout5->addLayout(Layout3);
+	PLayout->addLayout(Layout5);
 	Anzeige = new QScrollView(this);
 	Anz = new QLabel(Anzeige->viewport());
 	Anz->setPixmap(CreatePreview(0, 72));
@@ -145,12 +154,11 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	connect(AliasText, SIGNAL(clicked()), this, SLOT(ToggleTextAA()));
 	connect(AliasGr, SIGNAL(clicked()), this, SLOT(ToggleGr()));
 	connect(AliasTr, SIGNAL(clicked()), this, SLOT(ToggleTr()));
-// Disabled until release 1.1.5
-/*	connect(EnableCMYK, SIGNAL(clicked()), this, SLOT(ToggleCMYK()));
+	connect(EnableCMYK, SIGNAL(clicked()), this, SLOT(ToggleCMYK()));
 	connect(EnableCMYK_C, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 	connect(EnableCMYK_M, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 	connect(EnableCMYK_Y, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
-	connect(EnableCMYK_K, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour())); */
+	connect(EnableCMYK_K, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 	connect(SeitenAusw, SIGNAL(activated(int)), this, SLOT(ToSeite(int)));
 	setPageCombo(0);
 }
@@ -225,6 +233,7 @@ void PPreview::ToggleCMYK()
 	EnableCMYK_M->setEnabled(c);
 	EnableCMYK_Y->setEnabled(c);
 	EnableCMYK_K->setEnabled(c);
+	AliasTr->setEnabled(!c);
 	Anz->setPixmap(CreatePreview(APage, 72));
 }
 
@@ -272,47 +281,66 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	double b = app->doc->PageB * Res / 72;
 	double h = app->doc->PageH * Res / 72;
 	cmd1 = "gs -q -dNOPAUSE -r"+tmp.setNum(Res)+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
-	cmd1 += AliasTr->isChecked() ? " -sDEVICE=pngalpha" : " -sDEVICE=png16m";
+	if (EnableCMYK->isChecked())
+		cmd1 += " -sDEVICE=bitcmyk -dGrayValues=256";
+	else
+		{
+		cmd1 += AliasTr->isChecked() ? " -sDEVICE=pngalpha" : " -sDEVICE=png16m";
+		}
 	if (AliasText->isChecked())
 		cmd1 += " -dTextAlphaBits=4";
 	if (AliasGr->isChecked())
 		cmd1 += " -dGraphicsAlphaBits=4";
 	cmd1 += " -sOutputFile="+app->PrefsPfad+"/sc.png ";
 	cmd2 = " -c showpage -c quit";
-	
 	ret = system(cmd1 + app->PrefsPfad+"/tmp.ps" + cmd2);
 	if (ret == 0)
 	{
 		QImage image;
-		image.load(app->PrefsPfad+"/sc.png");
- 		image = image.convertDepth(32);
-		
-// Disabled the following until we had released 1.1.5
-/*		if (EnableCMYK->isChecked())
+		if (EnableCMYK->isChecked())
 		{
-			QImage image2;
-			image2.create( image.width(), image.height(), image.depth(), image.numColors(), image.bitOrder() );
-			int w = image.width();
-			int h = image.height();
-			int x, y, cyan, magenta, yellow, black;
-			uint *p, *q;
-		    for ( y=0; y < h; ++y ) 
+			int w = qRound(b);
+			int w2 = 4*w;
+			int h2 = qRound(h);
+			int cyan, magenta, yellow, black;
+			uint *p;
+			QByteArray imgc(w2*h2);
+			image = QImage(w, h2, 32);
+			QFile f(app->PrefsPfad+"/sc.png");
+			if (f.open(IO_ReadOnly))
 			{
-				for ( x=0; x < w; ++x ) 
+				f.readBlock(imgc.data(), w2*h2);
+				f.close();
+			}
+		    for (int y=0; y < h2; ++y ) 
+			{
+				p = (uint *)image.scanLine( y );
+				for (int x=0; x < w2; x += 4 ) 
 				{
-				    	p = (uint *)image.scanLine( y ) + x;
-						q = (uint *)image2.scanLine( y ) + x;
-						cyan    = EnableCMYK_C->isChecked() ? 255 - qRed(  (QRgb)(*p) ) : 0;
-						magenta = EnableCMYK_M->isChecked() ? 255 - qGreen((QRgb)(*p) ) : 0;
-						yellow  = EnableCMYK_Y->isChecked() ? 255 - qBlue( (QRgb)(*p) ) : 0;
-						black   = EnableCMYK_K->isChecked() ? QMIN( QMIN( cyan, magenta ), yellow ) : 0;
-						*q = qRgb( (255 - cyan) * (255 - black) / 255, (255 - magenta) * (255 - black) / 255, (255 - yellow) * (255 - black) / 255 );
+					cyan = uchar(imgc[(y * w2) + x]);
+				magenta = uchar(imgc[(y * w2) + x + 1]);
+				yellow = uchar(imgc[(y * w2) + x + 2]);
+				black = uchar(imgc[(y * w2)+ x + 3]);
+				if (!EnableCMYK_C->isChecked())
+					cyan = 0;
+				if (!EnableCMYK_M->isChecked())
+					magenta = 0;
+				if (!EnableCMYK_Y->isChecked())
+					yellow = 0;
+				if (!EnableCMYK_K->isChecked())
+					black = 0;
+				CMYKColor color = CMYKColor(cyan, magenta, yellow, black);
+				*p = color.getRGBColor().rgb() | 0xff000000;
+				p++;
 				}
 			}
-			Bild.convertFromImage(image2);
 		}
-		else */
-			Bild.convertFromImage(image);
+		else
+		{
+			image.load(app->PrefsPfad+"/sc.png");
+ 			image = image.convertDepth(32);
+		}
+		Bild.convertFromImage(image);
 		system("rm -f "+app->PrefsPfad+"/sc.png");
 	}
 	system("rm -f "+app->PrefsPfad+"/tmp.ps");

@@ -70,5 +70,7 @@ protected:
 	QHBoxLayout* Layout1;
 	QVBoxLayout* Layout2;
 	QVBoxLayout* Layout3;
+	QVBoxLayout* Layout4;
+	QHBoxLayout* Layout5;
 };
 #endif // QUERY_H

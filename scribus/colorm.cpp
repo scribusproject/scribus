@@ -214,6 +214,7 @@ void Farbmanager::loadDefaults(int id)
 	switch (c)
 	{
 		case 0:
+			LoadColSet->setText("Scribus Small");
 	 		EditColors.insert("White", CMYKColor(0, 0, 0, 0));
   			EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
 			EditColors.insert("Blue", CMYKColor(255, 255, 0, 0));
@@ -236,39 +237,42 @@ void Farbmanager::loadDefaults(int id)
 			pfadC2 = Cpfad;
 			break;
 		}
-	QFile fiC(pfadC2);
-	if (fiC.open(IO_ReadOnly))
+	if (c != 0)
 	{
-		QString ColorEn, Cname;
-		int Rval, Gval, Bval;
-		QTextStream tsC(&fiC);
-		ColorEn = tsC.readLine();
-		while (!tsC.atEnd())
+		QFile fiC(pfadC2);
+		if (fiC.open(IO_ReadOnly))
 		{
+			QString ColorEn, Cname;
+			int Rval, Gval, Bval;
+			QTextStream tsC(&fiC);
 			ColorEn = tsC.readLine();
-			QTextStream CoE(&ColorEn, IO_ReadOnly);
-			CoE >> Rval;
-			CoE >> Gval;
-			CoE >> Bval;
-			CoE >> Cname;
-			CMYKColor tmp;
-			tmp.setColorRGB(Rval, Gval, Bval);
-			EditColors.insert(Cname, tmp);
+			while (!tsC.atEnd())
+			{
+				ColorEn = tsC.readLine();
+				QTextStream CoE(&ColorEn, IO_ReadOnly);
+				CoE >> Rval;
+				CoE >> Gval;
+				CoE >> Bval;
+				CoE >> Cname;
+				CMYKColor tmp;
+				tmp.setColorRGB(Rval, Gval, Bval);
+				EditColors.insert(Cname, tmp);
+			}
+			fiC.close();
+			DontChange.clear();
 		}
-		fiC.close();
-		DontChange.clear();
-	}
-	else
-	{
-		LoadColSet->setText("Scribus Small");
-		EditColors.insert("White", CMYKColor(0, 0, 0, 0));
-  		EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
-		EditColors.insert("Blue", CMYKColor(255, 255, 0, 0));
-		EditColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
-		EditColors.insert("Green", CMYKColor(255, 0, 255, 0));
-		EditColors.insert("Red", CMYKColor(0, 255, 255, 0));
-		EditColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
-		EditColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
+		else
+		{
+			LoadColSet->setText("Scribus Small");
+			EditColors.insert("White", CMYKColor(0, 0, 0, 0));
+  			EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
+			EditColors.insert("Blue", CMYKColor(255, 255, 0, 0));
+			EditColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
+			EditColors.insert("Green", CMYKColor(255, 0, 255, 0));
+			EditColors.insert("Red", CMYKColor(0, 255, 255, 0));
+			EditColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
+			EditColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
+		}
 	}
 	updateCList();
 }
@@ -327,6 +331,12 @@ void Farbmanager::delUnused()
 	{
 		found = false;
 		if (DontChange.contains(it.key()))
+		{
+			UsedC.insert(it.key(), it.data());
+			continue;
+		}
+		if ((it.key() == ScApp->doc->Dbrush) || (it.key() == ScApp->doc->Dpen) || (it.key() == ScApp->doc->DbrushPict)
+			 || (it.key() == ScApp->doc->DpenLine) || (it.key() == ScApp->doc->DpenText))
 		{
 			UsedC.insert(it.key(), it.data());
 			continue;
@@ -409,6 +419,11 @@ void Farbmanager::delUnused()
 		}
 	}
 	EditColors = UsedC;
+	if (EditColors.count() == 0)
+		{
+		EditColors.insert("White", CMYKColor(0, 0, 0, 0));
+  		EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
+		}
 	updateCList();
 }
 
