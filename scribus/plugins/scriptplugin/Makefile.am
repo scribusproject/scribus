@@ -1,4 +1,3 @@
-if COMPILE_PYTHON
 SUBDIRS = doc samples
 pluginsdir = $(prefix)/lib/scribus/plugins
 AM_CPPFLAGS = -I$(top_builddir)/scribus $(PYTHONINC)
@@ -10,4 +9,3 @@ libscriptplugin_la_SOURCES = cmdutil.cpp cmddialog.cpp cmddoc.cpp cmdpage.cpp cm
 EXTRA_DIST = cmdvar.h cmdutil.cpp cmdutil.h cmddialog.cpp cmddialog.h cmddoc.cpp cmddoc.h cmdpage.cpp cmdpage.h cmdobj.cpp cmdobj.h cmdgetprop.cpp cmdgetprop.h cmdsetprop.cpp cmdsetprop.h cmdtext.cpp cmdtext.h cmdmani.cpp cmdmani.h cmdcolor.cpp cmdcolor.h cmdmisc.cpp cmdmisc.h scriptplugin.cpp scriptplugin.h pconsole.cpp pconsole.h conswin.cpp conswin.h 
 KDE_OPTIONS = qtonly
 AM_LDFLAGS =	-Xlinker -s $(PYTHONLIB) $(LIBPYTHON)
-endif

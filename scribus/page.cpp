@@ -217,7 +217,7 @@ void Page::dropEvent(QDropEvent *e)
 		QStrList imfo = QImageIO::inputFormats();
 		if (ext == "JPG")
 			ext = "JPEG";
-		img = ((imfo.contains(ext))||(ext=="PS")||(ext=="EPS")||(ext=="TIF"));
+		img = ((imfo.contains(ext))||(ext=="PS")||(ext=="EPS")||(ext=="PDF")||(ext=="TIF"));
 		if ((fi.exists()) && (img) && (!SeleItemPos(e->pos())))
 			{
 			int z = PaintPict(qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), 1, 1);
@@ -5397,6 +5397,15 @@ void Page::ItemGradFill(int typ, QString col1, int sh1, QString col2, int sh2)
 	uint a;
 	PageItem *i;
 	QColor tmp;
+	QString col1c, col2c;
+	if ((col1 == "None") || (col1 == ""))
+		col1c = "Black";
+	else
+		col1c = col1;
+	if ((col2 == "None") || (col2 == ""))
+		col2c = "Black";
+	else
+		col2c = col2;
   if (SelItem.count() != 0)
   	{
   	for (a = 0; a < SelItem.count(); ++a)
@@ -5405,25 +5414,21 @@ void Page::ItemGradFill(int typ, QString col1, int sh1, QString col2, int sh2)
 			i->fill_gradient.clearStops();
 			if (typ == 5)
 				{
-				if ((col2 != "None") && (col2 != ""))
-					i->SetFarbe(&tmp, col2, sh2);
+				i->SetFarbe(&tmp, col2c, sh2);
 				i->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
-				if ((col1 != "None") && (col1 != ""))
-					i->SetFarbe(&tmp, col1, sh1);
+				i->SetFarbe(&tmp, col1c, sh1);
 				i->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
 				}
 			else
 				{
-				if ((col1 != "None") && (col1 != ""))
-					i->SetFarbe(&tmp, col1, sh1);
+				i->SetFarbe(&tmp, col1c, sh1);
 				i->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
-				if ((col2 != "None") && (col2 != ""))
-					i->SetFarbe(&tmp, col2, sh2);
+				i->SetFarbe(&tmp, col2c, sh2);
 				i->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
 				}
-			i->GrColor2 = col1;
+			i->GrColor2 = col1c;
 			i->GrShade2 = sh1;
-			i->GrColor = col2;
+			i->GrColor = col2c;
 			i->GrShade = sh2;
 			i->GrType = typ;
 			RefreshItem(i);

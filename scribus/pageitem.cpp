@@ -65,8 +65,8 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	TxTStyle = 0;
 	Shade = 100;
 	Shade2 = 100;
-	GrColor = "";
-	GrColor2 = "";
+	GrColor = Pcolor2;
+	GrColor2 = Pcolor2;
 	GrShade = 100;
 	GrShade2 = 100;
 	GrType = 0;

@@ -2043,7 +2043,7 @@ void PDFlib::PDF_Gradient(PageItem *b)
 	ResCount++;
 	ObjCounter++;
 	PutDoc("<<\n");
-	PutDoc(b->GrType == 5 ? "ShadingType 3\n" : "/ShadingType 2\n");
+	PutDoc(b->GrType == 5 ? "/ShadingType 3\n" : "/ShadingType 2\n");
 	if (Options->UseRGB)
 		PutDoc("/ColorSpace /DeviceRGB\n");
 	else
