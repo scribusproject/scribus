@@ -177,7 +177,6 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 {
 	int retVal=0;
 	ExternalApp = 0;
-	HaveDoc = false;
 	guiLanguage = newGuiLanguage;
 	initSplash(showSplash);
 	setUsesBigPixmaps(true);
@@ -197,11 +196,11 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	bool importingFrom12=convert12Preferences(PrefsPfad);
 	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs13.xml"));
 
-
 	undoManager = UndoManager::instance();
 	objectSpecificUndo = false;
 	pluginManager = new PluginManager();
 
+	initDefaultValues();
 	initFileMenuActions();
 	initEditMenuActions();
 	initStyleMenuActions();
@@ -228,7 +227,6 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		retVal=1;
 	else
 	{
-		initDefaultValues();
 		buildFontMenu();
 		initDefaultPrefs();
 		initArrowStyles();
@@ -617,7 +615,7 @@ void ScribusApp::initDefaultPrefs()
 void ScribusApp::initDefaultValues()
 {
 	dirs = prefsFile->getContext("dirs");
-	HaveDoc = 0;
+	HaveDoc = false;
 	singleClose = false;
 	ScriptRunning = false;
 	view = NULL;

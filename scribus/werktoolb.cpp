@@ -37,7 +37,6 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	ShapeVals = AutoShapes0;
 
 	ScApp->scrActions["toolsSelect"]->addTo(this);
-	ScApp->scrActions["toolsSelect"]->setOn(true);
 	ScApp->scrActions["toolsInsertTextFrame"]->addTo(this);
 	ScApp->scrActions["toolsInsertImageFrame"]->addTo(this);
 	ScApp->scrActions["toolsInsertTableFrame"]->addTo(this);
