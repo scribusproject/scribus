@@ -35,16 +35,24 @@ void Spalette::SetFormats(ScribusDoc *dd)
 	updateFList();
 }
 
+void Spalette::setFormat(int e)
+{
+	if (e < 5)
+		setCurrentItem(0);
+	else
+		setSelected(findItem(doc->Vorlagen[e].Vname), true);
+}
+
 void Spalette::updateFList()
 {
 	disconnect(this, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
 	clear();
 	if (doc != 0)
 	{
-		insertItem( tr("No Style"));
 		for (uint x = 5; x < doc->Vorlagen.count(); ++x)
 			insertItem(doc->Vorlagen[x].Vname);
 		sort( true );
+		insertItem( tr("No Style"), 0);
 		setSelected(currentItem(), false);
 	}
   connect(this, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));

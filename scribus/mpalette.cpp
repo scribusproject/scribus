@@ -709,7 +709,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     pageLayout_5->addLayout( Layout12_2 );
 
 		StyledLine = new QListBox(page_5, "StyledL");
-		StyledLine->insertItem( tr("No Style"));
+		StyledLine->insertItem( tr("No Style"), 0);
 		pageLayout_5->addWidget(StyledLine);
 
     QSpacerItem* spacer11 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -1671,6 +1671,7 @@ void Mpalette::setAli(int e)
 	bool tmp = HaveItem;
 	HaveItem = false;
 	GroupAlign->setStyle(e);
+	Spal->setFormat(e);
 	HaveItem = tmp;
 }
 
@@ -2433,13 +2434,13 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 	StyledLine->clear();
 	if (dd != 0)
 		{
-		StyledLine->insertItem( tr("No Style"));
 		QMap<QString,multiLine>::Iterator it;
 		for (it = doc->MLineStyles.begin(); it != doc->MLineStyles.end(); ++it)
 			{
 			StyledLine->insertItem(it.key());
 			}
 		StyledLine->sort( TRUE );
+		StyledLine->insertItem( tr("No Style"), 0);
 		StyledLine->setSelected(StyledLine->currentItem(), false);
 		}
   connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));

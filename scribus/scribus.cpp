@@ -1742,7 +1742,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 
 void ScribusApp::DoSaveClose()
 {
-	slotFileSaveAs();
+	slotFileSave();    // slotFileSaveAs() --> slotFileSave();
 	DoFileClose();
 }
 
@@ -5740,7 +5740,7 @@ bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, int frPa,
 	bool ret = false;
 	char *error;
 	void *PDFDriver;
-	typedef bool (*sdem)(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs);
+	typedef bool (*sdem)(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
 	sdem demo;
 	QString pfad = PREL;
 #if defined(__hpux)
@@ -5762,7 +5762,7 @@ bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, int frPa,
 		dlclose(PDFDriver);
 		return false;
 		}
-	ret = (*demo)(this, fn, nam, Components, frPa, toPa, thumbs);
+	ret = (*demo)(this, fn, nam, Components, frPa, toPa, thumbs, FProg);
 	dlclose(PDFDriver);
 	return ret;
 }

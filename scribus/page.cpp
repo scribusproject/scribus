@@ -1816,6 +1816,7 @@ void Page::scaleGroup(double scx, double scy)
 	PageItem *bb;
 	double gx, gy, gh, gw;
 	uint aa;
+	FPoint n;
 	getGroupRect(&gx, &gy, &gw, &gh);
 	for (uint a = 0; a < SelItem.count(); ++a)
 	{
@@ -3098,7 +3099,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 								QCursor::setPos(mapToGlobal(np2));
 								}
 							else
-								np2 = QPoint(m->x(), m->y());    */
+								np2 = QPoint(m->x(), m->y());   */
 							Mxp = static_cast<int>(np2.x()/sc);
 							Myp = static_cast<int>(np2.y()/sc);
 							PaintSizeRect(&p, QRect(QPoint(static_cast<int>(gx*sc), static_cast<int>(gy*sc)), np),

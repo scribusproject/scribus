@@ -38,6 +38,7 @@ public:
 	
 public slots:
 	void SetFormats(ScribusDoc *dd);
+	void setFormat(int e);
 	void updateFList();
 	void selFormat(QListBoxItem *c);
 	

@@ -1,4 +1,6 @@
 Changes since Version 1.1.4
+29.01.2004	Added a Progress Bar for the PDF-Export too.
+
 28.01.2004	Line Styles and Paragraph Styles are now listed in alphapetical Order.
 		The Style Menue is now disabled instead of being empty when no Object is selected.
 

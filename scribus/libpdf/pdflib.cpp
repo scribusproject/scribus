@@ -54,19 +54,25 @@ extern bool CMSuse;
 #endif
 extern ProfilesL InputProfiles;
 
-extern "C" bool Run(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs);
+extern "C" bool Run(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
 
-bool Run(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs)
+bool Run(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs, QProgressBar *dia2)
 {
 	QPixmap pm;
 	bool ret = false;
+	int progresscount=0;
 	PDFlib *dia = new PDFlib();
 	if (dia->PDF_Begin_Doc(fn, plug->doc, plug->view, &plug->doc->PDF_Optionen, plug->Prefs.AvailFonts, plug->doc->UsedFonts, plug->BookPal->BView))
 		{
+		dia2->reset();
+		dia2->setTotalSteps(plug->view->MasterPages.count()+(toPa-frPa+1));
+		dia2->setProgress(0);
 		for (uint ap = 0; ap < plug->view->MasterPages.count(); ++ap)
 			{
 			if (plug->view->MasterPages.at(ap)->Items.count() != 0)
 				dia->PDF_TemplatePage(plug->view->MasterPages.at(ap));
+			progresscount++;
+			dia2->setProgress(progresscount);
 			}
 		for (int a = frPa; a < toPa; ++a)
 			{
@@ -75,12 +81,15 @@ bool Run(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, in
 			dia->PDF_Begin_Page(plug->view->Pages.at(a), pm);
 			dia->PDF_ProcessPage(plug->view->Pages.at(a), a);
 			dia->PDF_End_Page();
+			progresscount++;
+			dia2->setProgress(progresscount);
 			}
 		if (plug->doc->PDF_Optionen.Version == 12)
 			dia->PDF_End_Doc(plug->PrinterProfiles[plug->doc->PDF_Optionen.PrintProf], nam, Components);
 		else
 			dia->PDF_End_Doc();
 		ret = true;
+		dia2->reset();
 		}
 	delete dia;
 	return ret;
