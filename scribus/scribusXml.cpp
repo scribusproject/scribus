@@ -1362,7 +1362,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				/*
 				* Attribute von OBJECT auslesen
 				*/
-					if (QStoInt(obj.attribute("NEXTITEM")) != -1)
+					if ((QStoInt(obj.attribute("NEXTITEM")) != -1) || (static_cast<bool>(QStoInt(obj.attribute("AUTOTEXT")))))
 					{
 						if (QStoInt(obj.attribute("BACKITEM")) == -1)
 						{
@@ -1626,7 +1626,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					view->Pages.at(a)->PasteItem(&OB, true);
 					doc->GroupCounter = docGc;
 					Neu = view->Pages.at(a)->Items.at(counter);
-					Neu->isAutoText=QStoInt(obj.attribute("AUTOTEXT"));
+					Neu->isAutoText=static_cast<bool>(QStoInt(obj.attribute("AUTOTEXT")));
 					if (Neu->isAutoText)
 						doc->LastAuto = Neu;
 					Neu->NextIt = QStoInt(obj.attribute("NEXTITEM"));
@@ -1714,7 +1714,6 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			}
 			Its->NextBox = 0;
 			Itr->Dirty = true;
-//			Itr->paintObj();
 		}
 	}
 	view->UN->setText(doc->Einheit == 0 ? "pt" : "mm");

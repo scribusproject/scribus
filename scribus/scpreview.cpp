@@ -463,63 +463,38 @@ QPixmap ScPreview::createPreview(QString data)
 			switch (OB.PType)
 				{
 				case 2:
-					bmd = QBitmap(static_cast<int>(OB.Width), static_cast<int>(OB.Height));
-					bmd.fill(Qt::color0);
-					pb.begin(&bmd);
-					pb.setBrush(Qt::color1);
-					pb.setPen(QPen(Qt::color1, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-					DrawPoly(&pb, OB.Clip, pb.brush().color(), &OB, true);
-					pb.end();
-					pmd = QPixmap(static_cast<int>(OB.Width), static_cast<int>(OB.Height));
-					pmd.fill();
-					pd.begin(&pmd);
-					if (OB.Pcolor != "None")
-						{
-						pd.setPen(Qt::NoPen);
-						DrawPoly(&pd, OB.Clip, pm.brush().color(), &OB);
-						}
+					if ((OB.Pcolor != "None") || (OB.GrType != 0))
+					{
+						pS->setupPolygon(&OB.PoLine);
+						pS->drawPolygon();
+					}
 					if (OB.Pfile != "")
-						{
+					{
 						QFileInfo fi = QFileInfo(OB.Pfile);
 						if (fi.exists())
-							{
-							pd.save();
-							if ((OB.Pcolor != "None") || (OB.GrType != 0))
-								{
-								pd.setPen(Qt::NoPen);
-								SetFarbe(&tmpfa, OB.Pcolor, OB.Shade);
-								pd.setBrush(tmpfa);
-								if (OB.GrType == 0)
-									DrawPoly(&pd, OB.Clip, pd.brush().color(), &OB);
-								}
+						{
+							pS->setupPolygon(&OB.PoLine);
+							pS->setClipPath();
+							pS->save();
 							if (OB.flippedH % 2 != 0)
 								{
-								pd.translate(static_cast<int>(OB.Width), 0);
-								pd.scale(-1, 1);
+								pS->translate(OB.Width, 0);
+								pS->scale(-1, 1);
 								}
 							if (OB.flippedV % 2 != 0)
 								{
-								pd.translate(0, static_cast<int>(OB.Height));
-								pd.scale(1, -1);
+								pS->translate(0, OB.Height);
+								pS->scale(1, -1);
 								}
-							pd.scale(OB.LocalScX, OB.LocalScY);
-							QString ext = fi.extension(false).lower();
 							QImage pixm = LoadPict(OB.Pfile);
 							if (OB.InvPict)
-								{
-								QImage ip = pixm.copy();
-								ip.invertPixels();
-								pd.drawImage(static_cast<int>(OB.LocalX), static_cast<int>(OB.LocalY), ip);
-								}
-							else
-								pd.drawImage(static_cast<int>(OB.LocalX), static_cast<int>(OB.LocalY), pixm);
-							pd.restore();
-							pd.end();
-							}
+								pixm.invertPixels();
+							pS->scale(OB.LocalScX, OB.LocalScY);
+							pS->translate(static_cast<int>(OB.LocalX), static_cast<int>(OB.LocalY));
+							pS->drawImage(pixm);
+							pS->restore();
 						}
-					pmd.setMask(bmd);
-					ip2 = pmd.convertToImage();
-					pS->drawImage(ip2);
+					}
 					break;
 				case 4:
 					if (Ptexti.count() != 0)

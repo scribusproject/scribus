@@ -380,112 +380,36 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 			}
 			else
 			{
-				QBitmap bmd = QBitmap(static_cast<int>(Width), static_cast<int>(Height));
-				bmd.fill(Qt::color0);
-				QPainter pb;
-				pb.begin(&bmd);
-				pb.setBrush(Qt::color1);
-				pb.setPen(QPen(Qt::color1, 1, DotLine, FlatCap, MiterJoin));
-				DrawPoly(&pb, Clip, pb.brush().color(), true);
-				QPixmap pmd = QPixmap(static_cast<int>(Width), static_cast<int>(Height));
-				QPixmap pmd2;
-				QPainter pd2;
-				QImage imd;
-				pmd.fill();
-				QPainter pd;
-				pd.begin(&pmd);
-				pmd2 = QPixmap(static_cast<int>(Width), static_cast<int>(Height));
-				pmd2.fill();
-				pd2.begin(&pmd2);
 				if ((!PicArt) || (!PicAvail))
 				{
-					pd.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
-					pd.drawLine(0, 0, static_cast<int>(Width), static_cast<int>(Height));
-					pd.drawLine(0, static_cast<int>(Height), static_cast<int>(Width), 0);
-					pd.setPen(PicAvail ? blue : red);
-					pd.setBackgroundMode(OpaqueMode);
-					pd.setFont(QFont("Helvetica", 18));
-					QFileInfo fi = QFileInfo(Pfile);
-					int leng = pd.fontMetrics().width(fi.fileName());
-					int xp = static_cast<int>(Width / 2 - leng / 2);
-					int yp = static_cast<int>(Height / 2 + pd.fontMetrics().height() / 2);
-					pd.drawText(xp, yp, fi.fileName());
+					p->setPen(red, 1, SolidLine, FlatCap, MiterJoin);
+					p->drawLine(FPoint(0, 0), FPoint(Width, Height));
+					p->drawLine(FPoint(0, Height), FPoint(Width, 0));
 				}
 				else
 				{
-					imd.setAlphaBuffer(true);
-					imd = pixm.copy();
-					int wi = imd.width();
-					int hi = imd.height();
-					for( int yi=0; yi < hi; ++yi )
-					{
-						QRgb *s = (QRgb*)(imd.scanLine( yi ));
-						for(int xi=0; xi < wi; ++xi )
-						{
-							int aa = 255 - qAlpha((*s));
-							(*s) = qRgba(aa,aa,aa,255);
-							s++;
-						}
-		  	  		}
+					p->setupPolygon(&PoLine);
+					p->setClipPath();
+					p->save();
 					if (flippedH % 2 != 0)
-					{
-						pd.translate(Width, 0);
-						pd.scale(-1, 1);
-						pd2.translate(Width, 0);
-						pd2.scale(-1, 1);
-					}
-					if (flippedV % 2 != 0)
-					{
-						pd.translate(0, static_cast<int>(Height));
-						pd.scale(1, -1);
-						pd2.translate(0, static_cast<int>(Height));
-						pd2.scale(1, -1);
-					}
-					if ((LocalViewX != 1) || (LocalViewY != 1))
-					{
-						pd.scale(LocalViewX, LocalViewY);
-						pd2.scale(LocalViewX, LocalViewY);
-					}
-					if (InvPict)
-					{
-						QImage ip = pixm.copy();
-						ip.invertPixels();
-						pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), ip);
-					}
-					else
-						pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), pixm);
-					pd2.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), imd);
-					pd2.end();
-				}
-				pmd.setMask(bmd);
-				QImage ip2 = pmd.convertToImage();
-				if (!imd.isNull())
-				{
-					imd = pmd2.convertToImage();
-					ip2 = ip2.convertDepth(32);
-					ip2.setAlphaBuffer(true);
-					int wi = ip2.width();
-					int hi = ip2.height();
-					for( int yi=0; yi < hi; ++yi )
-					{
-						QRgb *s = (QRgb*)(ip2.scanLine( yi ));
-						QRgb *s2 = (QRgb*)(imd.scanLine( yi ));
-						for(int xi=0; xi < wi; ++xi )
 						{
-							int aa2 = 255-qRed((*s2));
-							if (qAlpha((*s)) != 0)
-							{
-								(*s) &= 0x00ffffff;
-								(*s) |= (aa2 << 24) & 0xff000000;
-							}
-							s++;
-							s2++;
+						p->translate(Width * sc, 0);
+						p->scale(-1, 1);
 						}
-			    	}
+					if (flippedV % 2 != 0)
+						{
+						p->translate(0, Height * sc);
+						p->scale(1, -1);
+						}
+					if ((LocalViewX != 1) || (LocalViewY != 1))
+						p->scale(LocalViewX, LocalViewY);
+					QImage ip = pixm.copy();
+					if (InvPict)
+						ip.invertPixels();
+					p->translate(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY));
+					p->drawImage(ip);
+					p->restore();
 				}
-				p->drawImage(ip2);
-				pd.end();
-				pb.end();
 			}
 			break;
 		case 5:
@@ -585,43 +509,14 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				lineCorr = 0;
 			if ((isAnnotation) && (AnType == 2) && (Pfile != "") && (PicAvail) && (PicArt) && (AnUseIcons))
 				{
-				QBitmap bmd = QBitmap(static_cast<int>(Width), static_cast<int>(Height));
-				if (!bmd.isNull())
-					{
-					bmd.fill(Qt::color0);
-					QPainter pb;
-					pb.begin(&bmd);
-					pb.setBrush(Qt::color1);
-					pb.setPen(QPen(Qt::color1, 1, DotLine, FlatCap, MiterJoin));
-					DrawPoly(&pb, Clip, pb.brush().color(), true);
-					pb.end();
-					QPixmap pmd = QPixmap(static_cast<int>(Width), static_cast<int>(Height));
-					if (!pmd.isNull())
-						{
-						pmd.fill();
-						QPainter pd;
-						pd.begin(&pmd);
-						if ((Pcolor != "None") || (GrType != 0))
-							{
-							pd.setPen(NoPen);
-							SetFarbe(&tmp, Pcolor, Shade);
-							pd.setBrush(tmp);
-							if (!Doc->RePos)
-								{
-								if (GrType == 0)
-									DrawPoly(&pd, Clip, pd.brush().color());
-								}
-							}
-						pd.scale(LocalScX, LocalScY);
-						if (!pixm.isNull())
-							pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), pixm);
-						pd.end();
-						pmd.setMask(bmd);
-						QImage ip2 = pmd.convertToImage();
-						if (!ip2.isNull())
-							p->drawImage(ip2);
-						}
-					}
+					p->setupPolygon(&PoLine);
+					p->setClipPath();
+					p->save();
+					p->scale(LocalScX, LocalScY);
+					p->translate(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY));
+					if (!pixm.isNull())
+						p->drawImage(pixm);
+					p->restore();
 				}
 			if ((Ptext.count() != 0) || (Dirty) || (NextBox != 0))
 				{
@@ -1019,7 +914,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					{
 						if (a > 0)
 						{
-							if ((Ptext.at(a-1)->ch !=  " ") || ((Doc->AppMode == 7) && (Ptext.at(QMAX(CPos-1,0))->yp == hl->yp) && (Select)))
+							if (Ptext.at(a-1)->ch !=  " ")   // || ((Doc->AppMode == 7) && (Ptext.at(QMAX(CPos-1,0))->yp == hl->yp) && (Select)))
 							{
 							LastXp = hl->xp;
 							LastSP = BuPos;

@@ -69,6 +69,7 @@ public:
 	virtual void setFillMode( int fill );
 	virtual void setGradient( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0));
 	virtual void strokePath();
+	virtual void setClipPath();
 
 	virtual void drawImage( const QImage & );
 	virtual void setupPolygon(FPointArray *points, bool closed = true);
@@ -150,6 +151,7 @@ private:
 	QValueStack<QWMatrix> MStack;
 /* Zoom Factor of the Painter */
 	double m_zoomFactor;
+	struct _ArtSVP *m_clipPath;
 
 	GC gc;
 };

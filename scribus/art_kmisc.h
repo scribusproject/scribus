@@ -25,6 +25,7 @@
 #include <libart_lgpl/art_vpath.h>
 #include <libart_lgpl/art_alphagamma.h>
 #include <libart_lgpl/art_filterlevel.h>
+#include <libart_lgpl/art_svp.h>
 
 #define ART_END2 10
 
@@ -53,6 +54,11 @@ extern "C" {
 			ArtAlphaGamma *alphagamma,
 			int alpha);
 
+	void ksvg_art_rgb_affine_clip(const ArtSVP *svp, art_u8 *dst, int x0, int y0, int x1, int y1, int dst_rowstride, int dst_channels,
+			const art_u8 *src,
+			int src_width, int src_height, int src_rowstride,
+			const double affine[6],
+			int alpha, const art_u8 *mask);
 	
 #ifdef __cplusplus
 }

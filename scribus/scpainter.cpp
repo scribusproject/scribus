@@ -820,6 +820,32 @@ ArtGradientStop * ScPainter::buildStopArray( VGradient &gradient, int &offsets )
 	return stopArray;
 }
 
+void ScPainter::setClipPath()
+{
+	ArtVpath *vec = art_bez_path_to_vec( m_path , 0.25 );
+	double affine[6];
+	affine[0] = m_matrix.m11();
+	affine[1] = m_matrix.m12();   // was 0 in Karbon
+	affine[2] = m_matrix.m21();   // was 0 in Karbon, don't know why
+	affine[3] = m_matrix.m22();
+	affine[4] = m_matrix.dx();
+	affine[5] = m_matrix.dy();
+	ArtVpath *temp1 = art_vpath_affine_transform( vec, affine );
+	art_free( vec );
+	vec = temp1;
+	ArtSvpWriter *swr;
+	ArtSVP *temp;
+	temp = art_svp_from_vpath( vec );
+	if( m_fillRule )
+		swr = art_svp_writer_rewind_new( ART_WIND_RULE_ODDEVEN );
+	else
+		swr = art_svp_writer_rewind_new( ART_WIND_RULE_NONZERO );
+	art_svp_intersector( temp, swr );
+	m_clipPath = art_svp_writer_rewind_reap( swr );
+	art_svp_free( temp );
+	art_free( vec );
+}
+
 void ScPainter::drawImage( const QImage &image )
 {
 	double affineresult[6];
@@ -829,9 +855,10 @@ void ScPainter::drawImage( const QImage &image )
 	affineresult[3] = m_matrix.m22() * m_zoomFactor;
 	affineresult[4] = m_matrix.dx(); // * m_zoomFactor;
 	affineresult[5] = m_matrix.dy(); // * m_zoomFactor;
-	ksvg_art_rgb_affine( m_buffer, 0, 0, m_width, m_height, m_width * 4,
+	ksvg_art_rgb_affine_clip( m_clipPath, m_buffer, 0, 0, m_width, m_height, m_width * 4, 4,
 					 image.bits(), image.width(), image.height(), image.width() * 4,
-					 affineresult, ART_FILTER_NEAREST, 0L, qRound( 255 * fill_trans ) );
+					 affineresult, qRound( 255 * fill_trans ), 0L );
+	art_svp_free( m_clipPath );
 }
 
 void ScPainter::setupPolygon(FPointArray *points, bool closed)

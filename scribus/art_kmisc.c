@@ -2,6 +2,7 @@
 #include <libart_lgpl/art_bpath.h>
 #include <libart_lgpl/art_misc.h>
 #include <libart_lgpl/art_affine.h>
+#include <libart_lgpl/art_svp_render_aa.h>
 
 #include "config.h"
 #include "art_kmisc.h"
@@ -460,5 +461,632 @@ ksvg_art_bez_path_to_vec(const ArtBpath *bez, double flatness)
 			}
 			dst_linestart += dst_rowstride;
 		}
+}
+
+typedef struct _ksvgArtRgbAffineClipAlphaData ksvgArtRgbAffineClipAlphaData;
+
+struct _ksvgArtRgbAffineClipAlphaData
+{
+	int alphatab[256];
+	art_u8 alpha;
+	art_u8 *dst;
+	int dst_rowstride;
+	int x0, x1;
+	double inv[6];
+	const art_u8 *src;
+	int src_width;
+	int src_height;
+	int src_rowstride;
+	const art_u8 *mask;
+	int y0;
+};
+
+static
+void ksvg_art_rgb_affine_clip_run(art_u8 *dst_p, int x0, int x1, int y, const double inv[6],
+	int alpha, const art_u8 *src, int src_rowstride, int src_width, int src_height)
+{
+	const art_u8 *src_p;
+	ArtPoint pt, src_pt;
+	int src_x, src_y;
+	int x;
+
+	if(alpha > 255)
+		alpha = 255;
+
+	pt.y = y;
+
+	for(x = x0; x < x1; x++)
+	{
+		pt.x = x;
+
+		art_affine_point(&src_pt, &pt, inv);
+
+		src_x = (int)(src_pt.x);
+		src_y = (int)(src_pt.y);
+
+		if(src_x >= 0 && src_x < src_width && src_y >= 0 && src_y < src_height)
+		{
+			int s;
+			int d;
+			int tmp;
+			int srcAlpha;
+
+			src_p = src + (src_y * src_rowstride) + src_x * 4;
+
+			srcAlpha = alpha * src_p[3] + 0x80;
+			srcAlpha = (srcAlpha + (srcAlpha >> 8)) >> 8;
+
+			d = *dst_p;
+			s = src_p[2];
+
+			tmp = srcAlpha * (s - d) + 0x80;
+			tmp = (tmp + (tmp >> 8)) >> 8;
+
+			*dst_p++ = d + tmp;
+
+			d = *dst_p;
+			s = src_p[1];
+
+			tmp = srcAlpha * (s - d) + 0x80;
+			tmp = (tmp + (tmp >> 8)) >> 8;
+
+			*dst_p++ = d + tmp;
+
+			d = *dst_p;
+			s = src_p[0];
+
+			tmp = srcAlpha * (s - d) + 0x80;
+			tmp = (tmp + (tmp >> 8)) >> 8;
+
+			*dst_p++ = d + tmp;
+		}
+		else
+			dst_p += 3;
+	}
+}
+
+static void
+ksvg_art_rgb_affine_clip_callback (void *callback_data, int y,
+														int start, ArtSVPRenderAAStep *steps, int n_steps)
+{
+	ksvgArtRgbAffineClipAlphaData *data = (ksvgArtRgbAffineClipAlphaData *)callback_data;
+	art_u8 *linebuf;
+	int run_x0, run_x1;
+	art_u32 running_sum = start;
+	int x0, x1;
+	int k;
+	int *alphatab;
+	int alpha;
+
+	linebuf = data->dst;
+	x0 = data->x0;
+	x1 = data->x1;
+
+	alphatab = data->alphatab;
+
+	if(n_steps > 0)
+	{
+		run_x1 = steps[0].x;
+		if(run_x1 > x0)
+		{
+			alpha = (running_sum >> 16) & 0xff;
+			if(alpha)
+				ksvg_art_rgb_affine_clip_run(linebuf, x0, run_x1, y, data->inv, alphatab[alpha], data->src, data->src_rowstride, data->src_width, data->src_height);
+		}
+
+		for(k = 0; k < n_steps - 1; k++)
+		{
+			running_sum += steps[k].delta;
+			run_x0 = run_x1;
+			run_x1 = steps[k + 1].x;
+			if(run_x1 > run_x0)
+			{
+				alpha = (running_sum >> 16) & 0xff;
+				if(alpha)
+					ksvg_art_rgb_affine_clip_run(linebuf + (run_x0 - x0) * 3, run_x0, run_x1, y, data->inv, alphatab[alpha], data->src, data->src_rowstride, data->src_width, data->src_height);
+			}
+		}
+		running_sum += steps[k].delta;
+		if(x1 > run_x1)
+		{
+			alpha = (running_sum >> 16) & 0xff;
+			if(alpha)
+				ksvg_art_rgb_affine_clip_run(linebuf + (run_x1 - x0) * 3, run_x1, x1, y, data->inv, alphatab[alpha], data->src, data->src_rowstride, data->src_width, data->src_height);
+		}
+	}
+	else
+	{
+		alpha = (running_sum >> 16) & 0xff;
+		if(alpha)
+			ksvg_art_rgb_affine_clip_run(linebuf, x0, x1, y, data->inv, alphatab[alpha], data->src, data->src_rowstride, data->src_width, data->src_height);
+	}
+
+	data->dst += data->dst_rowstride;
+}
+
+static
+void ksvg_art_rgb_affine_clip_mask_run(art_u8 *dst_p, const art_u8 *mask, int x0, int x1, int y, const double inv[6],
+	int alpha, const art_u8 *src, int src_rowstride, int src_width, int src_height)
+{
+	const art_u8 *src_p;
+	ArtPoint pt, src_pt;
+	int src_x, src_y;
+	int x;
+
+	if(alpha > 255)
+		alpha = 255;
+
+	pt.y = y;
+
+	for(x = x0; x < x1; x++)
+	{
+		pt.x = x;
+
+		art_affine_point(&src_pt, &pt, inv);
+
+		src_x = (int)(src_pt.x);
+		src_y = (int)(src_pt.y);
+
+		if(src_x >= 0 && src_x < src_width && src_y >= 0 && src_y < src_height)
+		{
+			int s;
+			int d;
+			int tmp;
+			int srcAlpha;
+
+			src_p = src + (src_y * src_rowstride) + src_x * 4;
+
+			srcAlpha = alpha * src_p[3] + 0x80;
+			srcAlpha = (srcAlpha + (srcAlpha >> 8)) >> 8;
+
+			srcAlpha = (srcAlpha * *mask++) + 0x80;
+			srcAlpha = (srcAlpha + (srcAlpha >> 8)) >> 8;
+
+			d = *dst_p;
+			s = src_p[2];
+
+			tmp = srcAlpha * (s - d) + 0x80;
+			tmp = (tmp + (tmp >> 8)) >> 8;
+
+			*dst_p++ = d + tmp;
+
+			d = *dst_p;
+			s = src_p[1];
+
+			tmp = srcAlpha * (s - d) + 0x80;
+			tmp = (tmp + (tmp >> 8)) >> 8;
+
+			*dst_p++ = d + tmp;
+
+			d = *dst_p;
+			s = src_p[0];
+
+			tmp = srcAlpha * (s - d) + 0x80;
+			tmp = (tmp + (tmp >> 8)) >> 8;
+
+			*dst_p++ = d + tmp;
+		}
+		else
+		{
+			dst_p += 3;
+			mask++;
+		}
+	}
+}
+
+static void
+ksvg_art_rgb_affine_clip_mask_callback (void *callback_data, int y,
+														int start, ArtSVPRenderAAStep *steps, int n_steps)
+{
+	ksvgArtRgbAffineClipAlphaData *data = (ksvgArtRgbAffineClipAlphaData *)callback_data;
+	art_u8 *linebuf;
+	int run_x0, run_x1;
+	art_u32 running_sum = start;
+	int x0, x1;
+	int k;
+	int *alphatab;
+	int alpha;
+	const art_u8 *maskbuf;
+
+	linebuf = data->dst;
+	x0 = data->x0;
+	x1 = data->x1;
+
+	alphatab = data->alphatab;
+	maskbuf = data->mask + (y - data->y0) * (x1 - x0);
+
+	if(n_steps > 0)
+	{
+		run_x1 = steps[0].x;
+		if(run_x1 > x0)
+		{
+			alpha = (running_sum >> 16) & 0xff;
+			if(alpha)
+				ksvg_art_rgb_affine_clip_mask_run(linebuf, maskbuf, x0, run_x1, y, data->inv, alphatab[alpha], data->src, data->src_rowstride, data->src_width, data->src_height);
+		}
+
+		for(k = 0; k < n_steps - 1; k++)
+		{
+			running_sum += steps[k].delta;
+			run_x0 = run_x1;
+			run_x1 = steps[k + 1].x;
+			if(run_x1 > run_x0)
+			{
+				alpha = (running_sum >> 16) & 0xff;
+				if(alpha)
+					ksvg_art_rgb_affine_clip_mask_run(linebuf + (run_x0 - x0) * 3, maskbuf + (run_x0 - x0), run_x0, run_x1, y, data->inv, alphatab[alpha], data->src, data->src_rowstride, data->src_width, data->src_height);
+			}
+		}
+		running_sum += steps[k].delta;
+		if(x1 > run_x1)
+		{
+			alpha = (running_sum >> 16) & 0xff;
+			if(alpha)
+				ksvg_art_rgb_affine_clip_mask_run(linebuf + (run_x1 - x0) * 3, maskbuf + (run_x1 - x0), run_x1, x1, y, data->inv, alphatab[alpha], data->src, data->src_rowstride, data->src_width, data->src_height);
+		}
+	}
+	else
+	{
+		alpha = (running_sum >> 16) & 0xff;
+		if(alpha)
+			ksvg_art_rgb_affine_clip_mask_run(linebuf, maskbuf, x0, x1, y, data->inv, alphatab[alpha], data->src, data->src_rowstride, data->src_width, data->src_height);
+	}
+
+	data->dst += data->dst_rowstride;
+}
+
+static
+void ksvg_art_rgba_affine_clip_run(art_u8 *dst_p, int x0, int x1, int y, const double inv[6],
+	int alpha, const art_u8 *src, int src_rowstride, int src_width, int src_height)
+{
+	const art_u8 *src_p;
+	ArtPoint pt, src_pt;
+	int src_x, src_y;
+	int x;
+
+	if(alpha > 255)
+		alpha = 255;
+
+	pt.y = y;
+
+	for(x = x0; x < x1; x++)
+	{
+		pt.x = x;
+
+		art_affine_point(&src_pt, &pt, inv);
+
+		src_x = (int)(src_pt.x);
+		src_y = (int)(src_pt.y);
+
+		if(src_x >= 0 && src_x < src_width && src_y >= 0 && src_y < src_height)
+		{
+			int s;
+			int d;
+			int tmp;
+			int srcAlpha;
+
+			src_p = src + (src_y * src_rowstride) + src_x * 4;
+
+			srcAlpha = alpha * src_p[3] + 0x80;
+			srcAlpha = (srcAlpha + (srcAlpha >> 8)) >> 8;
+
+			d = *dst_p;
+			s = src_p[2];
+
+			tmp = srcAlpha * (s - d) + 0x80;
+			tmp = (tmp + (tmp >> 8)) >> 8;
+
+			*dst_p++ = d + tmp;
+
+			d = *dst_p;
+			s = src_p[1];
+
+			tmp = srcAlpha * (s - d) + 0x80;
+			tmp = (tmp + (tmp >> 8)) >> 8;
+
+			*dst_p++ = d + tmp;
+
+			d = *dst_p;
+			s = src_p[0];
+
+			tmp = srcAlpha * (s - d) + 0x80;
+			tmp = (tmp + (tmp >> 8)) >> 8;
+
+			*dst_p++ = d + tmp;
+
+			d = *dst_p;
+
+			tmp = srcAlpha * (255 - d) + 0x80;
+			tmp = (tmp + (tmp >> 8)) >> 8;
+
+			*dst_p++ = d + tmp;
+		}
+		else
+			dst_p += 4;
+	}
+}
+
+static void
+ksvg_art_rgba_affine_clip_callback (void *callback_data, int y,
+														int start, ArtSVPRenderAAStep *steps, int n_steps)
+{
+	ksvgArtRgbAffineClipAlphaData *data = (ksvgArtRgbAffineClipAlphaData *)callback_data;
+	art_u8 *linebuf;
+	int run_x0, run_x1;
+	art_u32 running_sum = start;
+	int x0, x1;
+	int k;
+	int *alphatab;
+	int alpha;
+
+	linebuf = data->dst;
+	x0 = data->x0;
+	x1 = data->x1;
+
+	alphatab = data->alphatab;
+
+	if(n_steps > 0)
+	{
+		run_x1 = steps[0].x;
+		if(run_x1 > x0)
+		{
+			alpha = (running_sum >> 16) & 0xff;
+			if(alpha)
+				ksvg_art_rgba_affine_clip_run(linebuf, x0, run_x1, y, data->inv, alphatab[alpha], data->src, data->src_rowstride, data->src_width, data->src_height);
+		}
+
+		for(k = 0; k < n_steps - 1; k++)
+		{
+			running_sum += steps[k].delta;
+			run_x0 = run_x1;
+			run_x1 = steps[k + 1].x;
+			if(run_x1 > run_x0)
+			{
+				alpha = (running_sum >> 16) & 0xff;
+				if(alpha)
+					ksvg_art_rgba_affine_clip_run(linebuf + (run_x0 - x0) * 4, run_x0, run_x1, y, data->inv, alphatab[alpha], data->src, data->src_rowstride, data->src_width, data->src_height);
+			}
+		}
+		running_sum += steps[k].delta;
+		if(x1 > run_x1)
+		{
+			alpha = (running_sum >> 16) & 0xff;
+			if(alpha)
+				ksvg_art_rgba_affine_clip_run(linebuf + (run_x1 - x0) * 4, run_x1, x1, y, data->inv, alphatab[alpha], data->src, data->src_rowstride, data->src_width, data->src_height);
+		}
+	}
+	else
+	{
+		alpha = (running_sum >> 16) & 0xff;
+		if(alpha)
+			ksvg_art_rgba_affine_clip_run(linebuf, x0, x1, y, data->inv, alphatab[alpha], data->src, data->src_rowstride, data->src_width, data->src_height);
+	}
+
+	data->dst += data->dst_rowstride;
+}
+
+static
+void ksvg_art_rgba_affine_clip_mask_run(art_u8 *dst_p, const art_u8 *mask, int x0, int x1, int y, const double inv[6],
+	int alpha, const art_u8 *src, int src_rowstride, int src_width, int src_height)
+{
+	const art_u8 *src_p;
+	ArtPoint pt, src_pt;
+	int src_x, src_y;
+	int x;
+
+	if(alpha > 255)
+		alpha = 255;
+
+	pt.y = y;
+
+	for(x = x0; x < x1; x++)
+	{
+		pt.x = x;
+
+		art_affine_point(&src_pt, &pt, inv);
+
+		src_x = (int)(src_pt.x);
+		src_y = (int)(src_pt.y);
+
+		if(src_x >= 0 && src_x < src_width && src_y >= 0 && src_y < src_height)
+		{
+			int s;
+			int d;
+			int tmp;
+			int srcAlpha;
+
+			src_p = src + (src_y * src_rowstride) + src_x * 4;
+
+			srcAlpha = alpha * src_p[3] + 0x80;
+			srcAlpha = (srcAlpha + (srcAlpha >> 8)) >> 8;
+
+			srcAlpha = (srcAlpha * *mask++) + 0x80;
+			srcAlpha = (srcAlpha + (srcAlpha >> 8)) >> 8;
+
+			d = *dst_p;
+			s = src_p[2];
+
+			tmp = srcAlpha * (s - d) + 0x80;
+			tmp = (tmp + (tmp >> 8)) >> 8;
+
+			*dst_p++ = d + tmp;
+
+			d = *dst_p;
+			s = src_p[1];
+
+			tmp = srcAlpha * (s - d) + 0x80;
+			tmp = (tmp + (tmp >> 8)) >> 8;
+
+			*dst_p++ = d + tmp;
+
+			d = *dst_p;
+			s = src_p[0];
+
+			tmp = srcAlpha * (s - d) + 0x80;
+			tmp = (tmp + (tmp >> 8)) >> 8;
+
+			*dst_p++ = d + tmp;
+
+			d = *dst_p;
+
+			tmp = srcAlpha * (255 - d) + 0x80;
+			tmp = (tmp + (tmp >> 8)) >> 8;
+
+			*dst_p++ = d + tmp;
+		}
+		else
+		{
+			dst_p += 4;
+			mask++;
+		}
+	}
+}
+
+static void
+ksvg_art_rgba_affine_clip_mask_callback (void *callback_data, int y,
+														int start, ArtSVPRenderAAStep *steps, int n_steps)
+{
+	ksvgArtRgbAffineClipAlphaData *data = (ksvgArtRgbAffineClipAlphaData *)callback_data;
+	art_u8 *linebuf;
+	int run_x0, run_x1;
+	art_u32 running_sum = start;
+	int x0, x1;
+	int k;
+	int *alphatab;
+	int alpha;
+	const art_u8 *maskbuf;
+
+	linebuf = data->dst;
+	x0 = data->x0;
+	x1 = data->x1;
+
+	alphatab = data->alphatab;
+	maskbuf = data->mask + (y - data->y0) * (x1 - x0);
+
+	if(n_steps > 0)
+	{
+		run_x1 = steps[0].x;
+		if(run_x1 > x0)
+		{
+			alpha = (running_sum >> 16) & 0xff;
+			if(alpha)
+				ksvg_art_rgba_affine_clip_mask_run(linebuf, maskbuf, x0, run_x1, y, data->inv, alphatab[alpha], data->src, data->src_rowstride, data->src_width, data->src_height);
+		}
+
+		for(k = 0; k < n_steps - 1; k++)
+		{
+			running_sum += steps[k].delta;
+			run_x0 = run_x1;
+			run_x1 = steps[k + 1].x;
+			if(run_x1 > run_x0)
+			{
+				alpha = (running_sum >> 16) & 0xff;
+				if(alpha)
+					ksvg_art_rgba_affine_clip_mask_run(linebuf + (run_x0 - x0) * 4, maskbuf + (run_x0 - x0), run_x0, run_x1, y, data->inv, alphatab[alpha], data->src, data->src_rowstride, data->src_width, data->src_height);
+			}
+		}
+		running_sum += steps[k].delta;
+		if(x1 > run_x1)
+		{
+			alpha = (running_sum >> 16) & 0xff;
+			if(alpha)
+				ksvg_art_rgba_affine_clip_mask_run(linebuf + (run_x1 - x0) * 4, maskbuf + (run_x1 - x0), run_x1, x1, y, data->inv, alphatab[alpha], data->src, data->src_rowstride, data->src_width, data->src_height);
+		}
+	}
+	else
+	{
+		alpha = (running_sum >> 16) & 0xff;
+		if(alpha)
+			ksvg_art_rgba_affine_clip_mask_run(linebuf, maskbuf, x0, x1, y, data->inv, alphatab[alpha], data->src, data->src_rowstride, data->src_width, data->src_height);
+	}
+
+	data->dst += data->dst_rowstride;
+}
+
+/**
+ * ksvg_art_rgb_affine_clip: Affine transform source RGB image and composite, with clipping path.
+ * @svp: Clipping path.
+ * @dst: Destination image RGB buffer.
+ * @x0: Left coordinate of destination rectangle.
+ * @y0: Top coordinate of destination rectangle.
+ * @x1: Right coordinate of destination rectangle.
+ * @y1: Bottom coordinate of destination rectangle.
+ * @dst_rowstride: Rowstride of @dst buffer.
+ * @src: Source image RGB buffer.
+ * @src_width: Width of source image.
+ * @src_height: Height of source image.
+ * @src_rowstride: Rowstride of @src buffer.
+ * @affine: Affine transform.
+ * @level: Filter level.
+ * @alphagamma: #ArtAlphaGamma for gamma-correcting the compositing.
+ * @alpha: Alpha, range 0..256.
+ *
+ * Affine transform the source image stored in @src, compositing over
+ * the area of destination image @dst specified by the rectangle
+ * (@x0, @y0) - (@x1, @y1). As usual in libart, the left and top edges
+ * of this rectangle are included, and the right and bottom edges are
+ * excluded.
+ *
+ * The @alphagamma parameter specifies that the alpha compositing be done
+ * in a gamma-corrected color space. Since the source image is opaque RGB,
+ * this argument only affects the edges. In the current implementation,
+ * it is ignored.
+ *
+ * The @level parameter specifies the speed/quality tradeoff of the
+ * image interpolation. Currently, only ART_FILTER_NEAREST is
+ * implemented.
+ *
+ * KSVG additions : we have changed this function to support an alpha level as well.
+*                  also we made sure compositing an rgba image over an rgb buffer works.
+**/
+void ksvg_art_rgb_affine_clip(const ArtSVP *svp, art_u8 *dst, int x0, int y0, int x1, int y1, int dst_rowstride, int dst_channels,
+		const art_u8 *src,
+		int src_width, int src_height, int src_rowstride,
+		const double affine[6],
+		int alpha, const art_u8 *mask)
+{
+	ksvgArtRgbAffineClipAlphaData data;
+	int i;
+	int a, da;
+
+	data.alpha = alpha;
+
+	a = 0x8000;
+	da = (alpha * 66051 + 0x80) >> 8;	/* 66051 equals 2 ^ 32 / (255 * 255) */
+
+	for(i = 0; i < 256; i++)
+	{
+		data.alphatab[i] = a >> 16;
+		a += da;
+	}
+
+	data.dst = dst;
+	data.dst_rowstride = dst_rowstride;
+	data.x0 = x0;
+	data.x1 = x1;
+	data.y0 = y0;
+	data.mask = mask;
+
+	art_affine_invert(data.inv, affine);
+
+	data.src = src;
+	data.src_width = src_width;
+	data.src_height = src_height;
+	data.src_rowstride = src_rowstride;
+
+	if(dst_channels == 3)
+	{
+		if(mask)
+			art_svp_render_aa(svp, x0, y0, x1, y1, ksvg_art_rgb_affine_clip_mask_callback, &data);
+		else
+			art_svp_render_aa(svp, x0, y0, x1, y1, ksvg_art_rgb_affine_clip_callback, &data);
+	}
+	else
+	{
+		if(mask)
+			art_svp_render_aa(svp, x0, y0, x1, y1, ksvg_art_rgba_affine_clip_mask_callback, &data);
+		else
+			art_svp_render_aa(svp, x0, y0, x1, y1, ksvg_art_rgba_affine_clip_callback, &data);
+	}
 }
 
