@@ -1,28 +1,6 @@
-Changes since Version 0.9.11.1
-21.06.2003	svgplugin.cpp		Fixed the Radial Gradients.
+Changes since Version 1.0RC1
+23.06.2003	bookpalette.cpp
 		mpalette.cpp
-		page.cpp		Fixed Bug with rounded Rectangles.
-
-20.06.2003	newfile.cpp		
-		preferences.cpp
-		reformdoc.cpp		Limited the Values for the Margins to fit the Page.
-
-
-19.06.2003	cpalette.cpp		Disabled Color "None" for Gradients.
-
-18.06.2003	scribus.cpp		Implemented a new Fontselection Dialog.
-					Fixed Compiling Bugs.
-
-17.06.2003	fontcombo.cpp		This is the Replacement for the former Font Menue
-					It's used in all place where you must select a Font
-					except for the Main Menue Bar.
-		scribus.cs_CZ.po	Added first Czech translation.
- 
-16.06.2003	mpalette.cpp		Replaced the Font Popup Menue with a ComboBox.
-
-15.06.2003	scpreview.cpp		Added a missing #include <cstdlib>
-		pdflib.cpp
-		pageitem.cpp
-		svgexplugin.cpp		Replaced a function call count() with size() to
-					ensure Qt-3.0.x compatibility.
+		seiten.cpp		Changed the Construktor to avoid a Bug in Gnome's 
+					Windowmanager metacity.
 

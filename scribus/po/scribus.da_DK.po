@@ -4,11 +4,2366 @@
 # not "Foo::Pub".
 msgid ""
 msgstr ""
-"Project-Id-Version: Scribus 0.9.10\n"
-"POT-Creation-Date: 1999-02-23 15:38+0200\n"
-"PO-Revision-Date: 2003-05-22 11:25:00 CET\n"
+"Project-Id-Version: Scribus 1.0\n"
+"POT-Creation-Date: 2003-06-19 10:00+0200\n"
+"PO-Revision-Date: 2003-06-23 11:05:00 CET\n"
 "Last-Translator: Morten Langlo <mlanglo@post6.tele.dk>\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
+
+msgid "File"
+msgstr "Filer"
+
+msgid "New"
+msgstr "Ny"
+
+msgid "Open..."
+msgstr "Åbn..."
+
+msgid "Open"
+msgstr "Åbn"
+
+msgid "Close"
+msgstr "Luk"
+
+msgid "Save"
+msgstr "Gem"
+
+msgid "Save as..."
+msgstr "Gem som..."
+
+msgid "Save as"
+msgstr "Gem som"
+
+msgid "Revert to Saved"
+msgstr "Gå tilbage til det gemte"
+
+msgid "Save Text..."
+msgstr "Gem tekst..."
+
+msgid "Save Page as EPS..."
+msgstr "Gem side som EPS..."
+
+msgid "EPS-Files (*.eps);; All Files (*)"
+msgstr "EPS-filer (*.eps);; Alle filer (*)"
+
+msgid "Save as PDF..."
+msgstr "Gem som PDF..."
+
+msgid "Document Setup..."
+msgstr "Dokument indstillinger..."
+
+msgid "Document Setup"
+msgstr "Dokument indstillinger"
+
+msgid "Document Info..."
+msgstr "Dokument Info..."
+
+msgid "Print..."
+msgstr "Udskriv..."
+
+msgid "Quit"
+msgstr "Afslut"
+
+msgid "View"
+msgstr "Vis"
+
+msgid "Fit in Window"
+msgstr "Tilpas til vindue"
+
+msgid "Actual Size"
+msgstr "Faktisk størrelse"
+
+msgid "Thumbnails"
+msgstr "Små sider"
+
+msgid "Show Tools"
+msgstr "Vis værktøjer"
+
+msgid "Hide Tools"
+msgstr "Skjul værktøjer"
+
+msgid "Hide Margins"
+msgstr "Skjul margin"
+
+msgid "Show Margins"
+msgstr "Vis margener"
+
+msgid "Hide Guides"
+msgstr "Skjul hjælpelinier"
+
+msgid "Hide Images"
+msgstr "Skjul billeder"
+
+msgid "Show Images"
+msgstr "Vis billeder"
+
+msgid "Show Guides"
+msgstr "Vis hjælpelinier"
+
+msgid "Show Measurements"
+msgstr "Vis mål og formatering"
+
+msgid "Hide Measurements"
+msgstr "Skjul mål og formatering"
+
+msgid "Help"
+msgstr "Hjælp"
+
+msgid "About Scribus"
+msgstr "Om Scribus"
+
+msgid "About Qt"
+msgstr "Om Qt"
+
+msgid "Ready"
+msgstr "Klar"
+
+msgid "Scaled to "
+msgstr "Skaleret til "
+
+msgid "Get Picture..."
+msgstr "Hent billede..."
+
+msgid "Get Text/Picture..."
+msgstr "Hent Tekst/billede..."
+
+msgid "Get Text..."
+msgstr "Hent tekst..."
+
+msgid "New Document"
+msgstr "Nyt dokument"
+
+msgid "Page Size"
+msgstr "Sidestørrelse"
+
+msgid "Margin Guides"
+msgstr "Margin hjælpelinier"
+
+msgid "Column Guides"
+msgstr "Kolonne hjælpelinier"
+
+msgid "Columns:"
+msgstr "Kolonner:"
+
+msgid "Gutter Width:"
+msgstr "Afstand:"
+
+msgid "Width:"
+msgstr "Bredde:"
+
+msgid "Height:"
+msgstr "Højde:"
+
+msgid "Top:"
+msgstr ""
+
+msgid "Left:"
+msgstr "Venstre:"
+
+msgid "Inside:"
+msgstr "Inderside:"
+
+msgid "Right:"
+msgstr "Højre:"
+
+msgid "Outside:"
+msgstr "Yderside:"
+
+msgid "Bottom:"
+msgstr "Bund:"
+
+msgid "Other"
+msgstr "Andet"
+
+msgid "Facing Pages"
+msgstr "Modstående sider"
+
+msgid "OK"
+msgstr ""
+
+msgid "Cancel"
+msgstr "Annullér"
+
+msgid "Autom. Textframes"
+msgstr "Autom. tekstrammer"
+
+msgid "W:"
+msgstr ""
+
+msgid "Tabloid"
+msgstr ""
+
+msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
+msgstr "Dokumenter (*.sla *.sla.gz *.scd *scd.gz);; Alle filer (*)"
+
+msgid "Documents (*.sla *.scd);; All Files (*)"
+msgstr "Dokumenter (*.sla *.scd);; Alle filer (*)"
+
+msgid "Document "
+msgstr "Dokument "
+
+msgid "No Document"
+msgstr "Intet dokument"
+
+msgid "Warning"
+msgstr "Advarsel"
+
+msgid "Save Now"
+msgstr "Gem nu"
+
+msgid "Leave Anyway"
+msgstr "Afslut alligevel"
+
+msgid "Textfiles (*.txt);;All Files (*)"
+msgstr "Tekstfiler (*.txt);;Alle filer (*)"
+
+msgid "Encoding:"
+msgstr "Tegnsæt:"
+
+msgid "Images"
+msgstr "Billeder"
+
+msgid ");;Vectorimages (*.eps *.pdf);;All Files (*)"
+msgstr ");;Vectorbilleder (*.eps *.pdf);;Alle Filer (*)"
+
+msgid "Look &in:"
+msgstr "Se &i:"
+
+msgid "File &type:"
+msgstr "Fil &type:"
+
+msgid "File &name:"
+msgstr "Fil &navn:"
+
+msgid "PDF-Options"
+msgstr "PDF-indstillinger"
+
+msgid "Compatibility:"
+msgstr "Filformat:"
+
+msgid "Images:"
+msgstr "Billeder:"
+
+msgid "Resolution for EPS-Images:"
+msgstr "Opløsning for EPS-billeder:"
+
+msgid "Document Info"
+msgstr "Dokument info"
+
+msgid "Description:"
+msgstr "Beskrivelse:"
+
+msgid "Author:"
+msgstr "Forfatter:"
+
+msgid "Edit"
+msgstr "Redigér"
+
+msgid "Cut"
+msgstr "Klip"
+
+msgid "Copy"
+msgstr "Kopiér"
+
+msgid "Paste"
+msgstr "Indsæt"
+
+msgid "Clear"
+msgstr "Slet"
+
+msgid "Select all"
+msgstr "Markér alt"
+
+msgid "Deselect all"
+msgstr "Markér intet"
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Other..."
+msgstr "anden..."
+
+msgid "Item"
+msgstr "Objekt"
+
+msgid "Page"
+msgstr "Side"
+
+msgid "Insert..."
+msgstr "Indsæt..."
+
+msgid "Delete..."
+msgstr "Slet..."
+
+msgid "Delete"
+msgstr "Slet"
+
+msgid "Font"
+msgstr ""
+
+msgid "Size"
+msgstr "Størrelse"
+
+msgid "Font Size"
+msgstr "font størrelse"
+
+msgid "Font Size:"
+msgstr "font størrelse:"
+
+msgid "Shade:"
+msgstr "Farvemætning:"
+
+msgid "Shade"
+msgstr "Farvemætning"
+
+msgid "Color"
+msgstr "Farve"
+
+msgid "Colors..."
+msgstr "Farver..."
+
+msgid "Duplicate"
+msgstr "Duplikér"
+
+msgid "New Color:"
+msgstr "Ny farve:"
+
+msgid "New Color"
+msgstr "Ny farve"
+
+msgid "OK to delete Color:"
+msgstr "OK at slette farve:"
+
+msgid "Replace it with:"
+msgstr "Erstat den med:"
+
+msgid "Delete Color"
+msgstr "Slet farve"
+
+msgid "Colors"
+msgstr "Farver"
+
+msgid "Edit Colors"
+msgstr "Redigér farver"
+
+msgid "Show Outline"
+msgstr "Vis oversigt"
+
+msgid "Hide Outline"
+msgstr "Skjul oversigt"
+
+msgid "Outline"
+msgstr "Oversigt"
+
+msgid "Rectangle"
+msgstr "Rektangel"
+
+msgid "Shape"
+msgstr "Form"
+
+msgid "Edit Frame"
+msgstr "Redigér ramme"
+
+msgid "Image"
+msgstr "Billede"
+
+msgid "Type"
+msgstr ""
+
+msgid "Send to Back"
+msgstr "Placér bagerst"
+
+msgid "Bring to Front"
+msgstr "Placér forrest"
+
+msgid "Lower"
+msgstr "Flyt bagud"
+
+msgid "Raise"
+msgstr "Flyt forud"
+
+msgid "Delete Page:"
+msgstr "Slet sider:"
+
+msgid "Delete Page"
+msgstr "Slet side"
+
+msgid "Line"
+msgstr "Linie"
+
+msgid "Line Width"
+msgstr "Liniebredde"
+
+msgid "Line Width:"
+msgstr "Liniebredde:"
+
+msgid "Print destination"
+msgstr "Udskrives til"
+
+msgid "Print to printer:"
+msgstr "Skriv til printer:"
+
+msgid "Printer"
+msgstr ""
+
+msgid "Comment"
+msgstr "Kommentar"
+
+msgid "Print to file:"
+msgstr "Skriv til fil:"
+
+msgid "Browse..."
+msgstr "Se efter..."
+
+msgid "Printer settings"
+msgstr "Printer instillinger"
+
+msgid "Print in color if available"
+msgstr "Udskriv i farve hvis det er muligt"
+
+msgid "Print in grayscale"
+msgstr "Udskriv i gråskala"
+
+msgid "Paper format"
+msgstr "Papirformat"
+
+msgid "Portrait"
+msgstr "Portræt"
+
+msgid "Landscape"
+msgstr "Landskab"
+
+msgid "Options"
+msgstr "Indstillinger"
+
+msgid "Print all"
+msgstr "Udskriv alle"
+
+msgid "Print range"
+msgstr "Udskrivnings område"
+
+msgid "From page:"
+msgstr "Fra side:"
+
+msgid "To page:"
+msgstr "Til side:"
+
+msgid "Print first page first"
+msgstr "Udskriv første side først"
+
+msgid "Print last page first"
+msgstr "Udskriv sidste side først"
+
+msgid "Number of copies:"
+msgstr "Antal kopier:"
+
+msgid "Select color"
+msgstr "Vælg farve"
+
+msgid "&Basic colors"
+msgstr "&Grundlæggende farver"
+
+msgid "&Custom colors"
+msgstr "Br&ugerfarver"
+
+msgid "&Add To Custom Colors"
+msgstr "&Tilføj til brugerfarver"
+
+msgid "&Define Custom Colors >>"
+msgstr "&Definér brugerfarver >>"
+
+msgid "&Red:"
+msgstr "&Rød:"
+
+msgid "&Green:"
+msgstr "&Grøn:"
+
+msgid "Bl&ue:"
+msgstr "B&lå:"
+
+msgid "Select Font"
+msgstr "Vælg font"
+
+msgid "&Font"
+msgstr "&Font"
+
+msgid "Font st&yle"
+msgstr "Fontst&il"
+
+msgid "&Size"
+msgstr "&Størrelse"
+
+msgid "Effects"
+msgstr "Effekter"
+
+msgid "Stri&keout"
+msgstr "Gennem&streget"
+
+msgid "&Underline"
+msgstr "&Understreg"
+
+msgid "Sample"
+msgstr "Prøve"
+
+msgid "Scr&ipt"
+msgstr ""
+
+msgid "Preferences..."
+msgstr "Præferencer..."
+
+msgid "Preferences"
+msgstr "Præferencer"
+
+msgid "General"
+msgstr "Generelt"
+
+msgid "Guides"
+msgstr "Hjælpelinier"
+
+msgid "Major Grid Spacing:"
+msgstr "Afstand mellem hovedlinier:"
+
+msgid "Minor Grid Spacing:"
+msgstr "Afstand mellem linier:"
+
+msgid "Major Grid Color:"
+msgstr "Hoved-gitterlinier:"
+
+msgid "Minor Grid Color:"
+msgstr "Gitterlinier:"
+
+msgid "Grid Colors"
+msgstr "Farve på Gitter og hjælpelinier"
+
+msgid "Grid Layout"
+msgstr "Gitter indstillinger"
+
+msgid "Image visible"
+msgstr "Billede er synlig"
+
+msgid "Is PDF-Bookmark"
+msgstr "Er PDF-Bogmærke"
+
+msgid "Snap to Guides"
+msgstr "Klæb til hjælpelinier"
+
+msgid "Apply"
+msgstr "Anvend"
+
+msgid "Snap to Grid"
+msgstr "Klæb til gitter"
+
+msgid "Mouse-Settings"
+msgstr "Mus-instillinger"
+
+msgid "Wheel-Jump"
+msgstr "Hjul-hop"
+
+msgid "Grab-Radius"
+msgstr "Gribe-radius"
+
+msgid "Printing-Error"
+msgstr "Udskrivnings-fejl"
+
+msgid "Printing completed"
+msgstr "Udskrivning er færdig"
+
+msgid "Printing aborted"
+msgstr "Udskrivning afbrudt"
+
+msgid "Printing..."
+msgstr "Udskrivning..."
+
+msgid "Saving aborted"
+msgstr "Gemning afbrudt"
+
+msgid "Loading aborted"
+msgstr "Indlæsning afbrudt"
+
+msgid "Global Fontsettings"
+msgstr "Globale fontindstillinger"
+
+msgid "Path to Fontfile"
+msgstr "Sti til fontfil"
+
+msgid "Embed in:"
+msgstr "Indlejr i:"
+
+msgid "Default Size:"
+msgstr "Standard størrelse:"
+
+msgid "Default Font:"
+msgstr "Standard font:"
+
+msgid "Woven silk pyjamas exchanged for blue quartz"
+msgstr "Vævet silke pyjamas byttet med blå kvarts"
+
+msgid "Fonts"
+msgstr "Fonte"
+
+msgid "Missing Font"
+msgstr "Manglende font"
+
+msgid "Missing"
+msgstr "Mangler"
+
+msgid "The Font %1 is not installed."
+msgstr "Fonten %1 er ikke installeret."
+
+msgid "Use"
+msgstr "Brug"
+
+msgid "instead"
+msgstr "i stedet"
+
+msgid "Fonts..."
+msgstr "Fonte..."
+
+msgid " loaded"
+msgstr "Indlæst"
+
+msgid "Picture "
+msgstr "Billede "
+
+msgid "File "
+msgstr "Fil "
+
+msgid " saved"
+msgstr "Gemt"
+
+msgid "Unable to create PDF-File."
+msgstr "Ikke i stand til at Lave PDF-fil."
+
+msgid "Error creating PDF-File.."
+msgstr "Fejl under fremstilling af PDF-fil.."
+
+msgid "Error during EPS-Export"
+msgstr "Fejl under EPS-eksport"
+
+msgid "The following Programs are missing:"
+msgstr "Følgende programmer mangler:"
+
+msgid "Ghostscript : You cannot use EPS-Images"
+msgstr "Ghostscript : Du kan ikke bruge EPS-Billeder"
+
+msgid "Multiple Duplicate"
+msgstr "Duplikér flere gange"
+
+msgid "Number of Copies:"
+msgstr "Antal kopier:"
+
+msgid "Horizontal Shift:"
+msgstr "Horisontal skift:"
+
+msgid "Vertical Shift:"
+msgstr "Vertikalt skift:"
+
+msgid "Distribute/Align"
+msgstr "Fordel/Opstil på linie"
+
+msgid "Distribute/Align..."
+msgstr "Fordel/Opstil på linie..."
+
+msgid "Don't change"
+msgstr "Ingen ændring"
+
+msgid "Align"
+msgstr "Opstil på linie"
+
+msgid "Displacement"
+msgstr "Forskydning"
+
+msgid "Distribute evenly"
+msgstr "Fordel jævnt"
+
+msgid "between:"
+msgstr "Ud fra:"
+
+msgid "Left Sides"
+msgstr "Venstre sider"
+
+msgid "Middles"
+msgstr "Midten"
+
+msgid "Right Sides"
+msgstr "Højre sider"
+
+msgid "Top Sides"
+msgstr "Øverste sider"
+
+msgid "Bottom Sides"
+msgstr "Nederste sider"
+
+msgid "Vertical"
+msgstr "Vertikalt"
+
+msgid "Horizontal"
+msgstr "Horisontalt"
+
+msgid "Fatal Error"
+msgstr "Fatal fejl"
+
+msgid "There are no Postscript-Fonts on your System"
+msgstr "Der er ingen Postscript-Fonte installeret"
+
+msgid "Exiting now"
+msgstr "Afslutter nu"
+
+msgid "Insert Page"
+msgstr "Indsæt side"
+
+msgid "Inserting"
+msgstr "Indsætter"
+
+msgid "before Page"
+msgstr "Før side"
+
+msgid "after Page"
+msgstr "Efter side"
+
+msgid "at End"
+msgstr "i slutningen"
+
+msgid "page(s)"
+msgstr "side(r)"
+
+msgid "To End"
+msgstr "Til slutningen"
+
+msgid "Delete Pages"
+msgstr "Slet sider"
+
+msgid "Delete from:"
+msgstr "Slet fra:"
+
+msgid "Move Page(s):"
+msgstr "Flyt side(r):"
+
+msgid "Move Pages"
+msgstr "Flyt sider"
+
+msgid "Move..."
+msgstr "Flyt..."
+
+msgid "to:"
+msgstr "Til:"
+
+msgid "Select Items"
+msgstr "Marker objekt"
+
+msgid "Edit Contents of Frame"
+msgstr "Rediger indhold af ramme"
+
+msgid "Zooms in or out"
+msgstr "Zoom ind eller ud"
+
+msgid "Insert Textbox"
+msgstr "Indsæt tekstramme"
+
+msgid "Insert Picture"
+msgstr "Indsæt billede"
+
+msgid "Insert Lines"
+msgstr "Indsæt linier"
+
+msgid "Insert Ovals"
+msgstr "Indsæt ovaler"
+
+msgid "Insert Rectangles"
+msgstr "Indsæt rektangler"
+
+msgid "Rotate Item"
+msgstr "Rotér emne"
+
+msgid "Modify..."
+msgstr "Indstillinger..."
+
+msgid "Modify Textframe"
+msgstr "Ændring af tekstramme"
+
+msgid "Modify Frame"
+msgstr "Ændring af ramme"
+
+msgid "Other:"
+msgstr "Anden:"
+
+msgid "Don't print"
+msgstr "Udskriv ikke"
+
+msgid "Properties:"
+msgstr "Egenskaber:"
+
+msgid "Ordinary Text"
+msgstr "Almindelig tekst"
+
+msgid "Is PDF-Annotation"
+msgstr "Er PDF-Kommentar"
+
+msgid "Angle:"
+msgstr "Vinkel:"
+
+msgid "Textdistance"
+msgstr "Tekstafstand"
+
+msgid "Face"
+msgstr "Vælg font"
+
+msgid "Superscript"
+msgstr "Hævet skrift"
+
+msgid "Subscript"
+msgstr "Sænket skrift"
+
+msgid "Flip horizontal"
+msgstr "Flip horisontalt"
+
+msgid "Flip vertical"
+msgstr "Flip vertikalt"
+
+msgid "Scaling:"
+msgstr "Skalering:"
+
+msgid "Disp.:"
+msgstr "Forskydning:"
+
+msgid "Small Caps"
+msgstr "Små kapitaler"
+
+msgid "Typographics"
+msgstr "Typografier"
+
+msgid "Italic"
+msgstr ""
+
+msgid "No Fill"
+msgstr "Ingen fyldning"
+
+msgid "Underline"
+msgstr "Understreg"
+
+msgid "Strikethru"
+msgstr "Gennemstreg"
+
+msgid "Strikeout"
+msgstr "Gennemstreget"
+
+msgid "Append"
+msgstr "Tilføj"
+
+msgid "Bold"
+msgstr "Fed"
+
+msgid "Shading:"
+msgstr "Farvemætning:"
+
+msgid "Background Color:"
+msgstr "Baggrundsfarve:"
+
+msgid "Vertical flipped"
+msgstr "Vertikal flip"
+
+msgid "Horizontal flipped"
+msgstr "Horisontal flip"
+
+msgid "Text flows around Box"
+msgstr "Tekst flyder rundt om boks"
+
+msgid "Online-Help..."
+msgstr "Hjælp..."
+
+msgid "Scribus Manual"
+msgstr ""
+
+msgid "Local X-Pos:"
+msgstr "Lokal X-Pos:"
+
+msgid "Local Y-Pos:"
+msgstr "Lokal Y-Pos:"
+
+msgid "Horizontal Scaling"
+msgstr "Horisontal skalering"
+
+msgid "Vertical Scaling"
+msgstr "Vertikal skalering"
+
+msgid "Modify Pictureframe"
+msgstr "Ændring af billedramme"
+
+msgid "Line Color:"
+msgstr "Liniefarve:"
+
+msgid "Fill Color:"
+msgstr "Fyldfarve:"
+
+msgid "Linestyle:"
+msgstr "Liniestil:"
+
+msgid "Linewidth:"
+msgstr "Liniebredde:"
+
+msgid "Scaling X:"
+msgstr "Skalering X:"
+
+msgid "Scaling Y:"
+msgstr "Skalering Y:"
+
+msgid "Manual Kerning"
+msgstr "Manuel Kerning"
+
+msgid "Linespacing"
+msgstr "Linieafstand"
+
+msgid "Frame"
+msgstr "Ramme"
+
+msgid "Contents"
+msgstr "Indhold"
+
+msgid "Tools"
+msgstr "Værktøjer"
+
+msgid "Create Textchains"
+msgstr "Lav tekstkæde"
+
+msgid "Break Textchains"
+msgstr "Bryd tekstkæde"
+
+msgid "Stepping:"
+msgstr "Trin:"
+
+msgid "Placing"
+msgstr "Placering"
+
+msgid "In the Background"
+msgstr "I baggrunden"
+
+msgid "In the Foreground"
+msgstr "I forgrunden"
+
+msgid "Text Color:"
+msgstr "Tekst farve:"
+
+msgid "Units"
+msgstr "Måle-enhed"
+
+msgid "Points (pts)"
+msgstr "Punkter (pts)"
+
+msgid "Points (pt)"
+msgstr "Punkter (pt)"
+
+msgid "Millimeters (mm)"
+msgstr "Millimeter (mm)"
+
+msgid "Creates a new Document"
+msgstr "Nyt dokument"
+
+msgid "Opens a Document"
+msgstr "Åbn dokument"
+
+msgid "Saves the current Document"
+msgstr "Gem det aktive dokument"
+
+msgid "Prints the current Document"
+msgstr "Udskriv det aktive dokument"
+
+msgid "Copy Here"
+msgstr "Kopi her"
+
+msgid "Move Here"
+msgstr "Flyt her"
+
+msgid "About"
+msgstr "Om"
+
+msgid "Authors"
+msgstr "Forfattere"
+
+msgid "Translations"
+msgstr "Oversættelser"
+
+msgid "Programming:"
+msgstr "Programmering:"
+
+msgid "Contributions from:"
+msgstr "Bidrag fra:"
+
+msgid "Documentation:"
+msgstr "Dokumentation:"
+
+msgid "German:"
+msgstr ""
+
+msgid "French:"
+msgstr ""
+
+msgid "Spanish and Catalan:"
+msgstr ""
+
+msgid "Hungarian and Italian:"
+msgstr ""
+
+msgid "Slovak:"
+msgstr ""
+
+msgid "Slovak"
+msgstr ""
+
+msgid "Ukrainian:"
+msgstr ""
+
+msgid "None"
+msgstr "Ingen"
+
+msgid "Closes the current Document"
+msgstr "Luk det aktive dokument"
+
+msgid "Range:"
+msgstr "Område:"
+
+msgid "File:"
+msgstr "Fil:"
+
+msgid "Print Normal"
+msgstr "Udskriv normalt"
+
+msgid "Print Separations"
+msgstr "Udskriv separationer"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "Setup Printer"
+msgstr "Printerindstilling"
+
+msgid "Old"
+msgstr "Gammel"
+
+msgid "Color Model"
+msgstr "Farve model"
+
+msgid "Is Spot-Color"
+msgstr ""
+
+msgid "Edit Color"
+msgstr "Redigér farve"
+
+msgid "Alignment"
+msgstr "Justér"
+
+msgid "Left"
+msgstr "Mod venstre"
+
+msgid "Center"
+msgstr "Mod center"
+
+msgid "Right"
+msgstr "Mod højre"
+
+msgid "Edit Styles"
+msgstr "Redigér typografier"
+
+msgid "Show Styles"
+msgstr "Vis typografier"
+
+msgid "Hide Styles"
+msgstr "Skjul typografier"
+
+msgid "Styles..."
+msgstr "Typografier..."
+
+msgid "Styles"
+msgstr "Typografi"
+
+msgid "Block"
+msgstr "Lige margener"
+
+msgid "Forced"
+msgstr "Tvunget"
+
+msgid "Indentation"
+msgstr "Indrykning"
+
+msgid "Page-Colors"
+msgstr "Side farver"
+
+msgid "Background:"
+msgstr "Baggrund:"
+
+msgid "Left Indent:"
+msgstr "Venstre indrykning:"
+
+msgid "First Line:"
+msgstr "Første linie:"
+
+msgid "Character"
+msgstr "Skrifttegn"
+
+msgid "Face:"
+msgstr "Vælg font:"
+
+msgid "Size:"
+msgstr "Størrelse:"
+
+msgid "Color:"
+msgstr "Farve:"
+
+msgid "Name of the Style is not unique"
+msgstr "Navnet på denne typografi er ikke entydig"
+
+msgid "Do you really want do delete this Style?"
+msgstr "Ønsker du virkelig at slette denne stil?"
+
+msgid "No"
+msgstr "Nej"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "Vertical Spaces"
+msgstr "Vertikal afstand"
+
+msgid "Above:"
+msgstr "Over:"
+
+msgid "Below:"
+msgstr "Under:"
+
+msgid "AFM-File available"
+msgstr "AFM-fil tilgængelig"
+
+msgid "Nodes"
+msgstr "Noder"
+
+msgid "End Editing"
+msgstr "Afslut redigering"
+
+msgid "Add Nodes"
+msgstr "Tilføj noder"
+
+msgid "Delete Nodes"
+msgstr "Slet noder"
+
+msgid "Move Nodes"
+msgstr "Flyt noder"
+
+msgid "Move Control Points"
+msgstr "Flyt kontrolpunkter"
+
+msgid "Move Control Points independently"
+msgstr "Flyt kontrolpunkter en af gangen"
+
+msgid "Move Control Points symmetrical"
+msgstr "Flyt kontrolpunkter symmetrisk"
+
+msgid "Insert Bezier Curves"
+msgstr "Indsæt bezier kurve"
+
+msgid "New Entry"
+msgstr "Ny indgang"
+
+msgid "Scrapbooks (*.scs);; All Files (*)"
+msgstr "Scrapbøger (*.scs);; Alle filer (*)"
+
+msgid "Scrapbook"
+msgstr "Scrapbog"
+
+msgid "Load..."
+msgstr "Indlæs..."
+
+msgid "Object"
+msgstr "Objekt"
+
+msgid "Show Scrapbook"
+msgstr "Vis scrapbog"
+
+msgid "Hide Scrapbook"
+msgstr "Skjul scrapbog"
+
+msgid "Other Options"
+msgstr "Andre instillinger"
+
+msgid "Save Contents on Exit"
+msgstr "Gem indhold ved afslutning"
+
+msgid "Preview"
+msgstr "Vis"
+
+msgid "Small"
+msgstr "Lille"
+
+msgid "Medium"
+msgstr ""
+
+msgid "Big"
+msgstr "Stor"
+
+msgid "Edit Templates"
+msgstr "Rediger skabeloner"
+
+msgid "Apply Template..."
+msgstr "Anvend skabelon..."
+
+msgid "Exit"
+msgstr "Afslut"
+
+msgid "Copy of "
+msgstr "Kopi af "
+
+msgid "Name:"
+msgstr "Navn:"
+
+msgid "New Template"
+msgstr "Ny skabelon"
+
+msgid "Normal"
+msgstr ""
+
+msgid "Templates..."
+msgstr "Skabeloner..."
+
+msgid "Template:"
+msgstr "Skabelon:"
+
+msgid "Apply Template"
+msgstr "Anvend skabelon"
+
+msgid "Template for this Page:"
+msgstr "Skabelon for denne side:"
+
+msgid "Do you really want do delete this Template?"
+msgstr "Ønsker du virkelig at slette denne skabelon?"
+
+msgid "Left Page"
+msgstr "Venstre side"
+
+msgid "Right Page"
+msgstr "Højre side"
+
+msgid "Display Frames"
+msgstr "Vis rammer"
+
+msgid "Display Pages Side by Side"
+msgstr "Vis sider ved siden af hinanden"
+
+msgid "Display"
+msgstr "Vis"
+
+msgid "Left Page first"
+msgstr "Venstre side først"
+
+msgid "Group"
+msgstr "Lav til gruppe"
+
+msgid "Ungroup"
+msgstr "Bryd gruppe"
+
+msgid ""
+"Do you really want to overwrite the File:\n"
+"%1 ?"
+msgstr ""
+"Ønsker du virkelig at overskrive filen:\n"
+"%1 ?"
+
+msgid "Show Frames"
+msgstr "Vis rammer"
+
+msgid "Hide Frames"
+msgstr "Skjul rammer"
+
+msgid "Template (Left Page):"
+msgstr "Skabelon (venstre side):"
+
+msgid "Template (Right Page):"
+msgstr "Skabelon (højre side):"
+
+msgid "Manage Pictures"
+msgstr "Håndter billeder"
+
+msgid "Pictures"
+msgstr "Billeder"
+
+msgid "Goto"
+msgstr "Gå til"
+
+msgid "Search"
+msgstr "Søg"
+
+msgid "Path"
+msgstr "Sti"
+
+msgid "Print"
+msgstr "Udskriv"
+
+msgid "Status"
+msgstr ""
+
+msgid "Margins:"
+msgstr "Margener:"
+
+msgid "Recent Documents:"
+msgstr "Nyeste dokumenter:"
+
+msgid "Recent Documents"
+msgstr "Nyeste dokumenter"
+
+msgid "Display unprintable Area in Margin Color"
+msgstr "Vis område der ikke kan udskrives i margin farve"
+
+msgid "Automatic Linespaceing:"
+msgstr "Automatisk linieafstand:"
+
+msgid "Distances"
+msgstr "Afstande"
+
+msgid "Menues"
+msgstr "Menuer"
+
+msgid "Result"
+msgstr "Resultat"
+
+msgid "Search Results for: "
+msgstr "Søg resultater for: "
+
+msgid "Select"
+msgstr "Marker"
+
+msgid "Import..."
+msgstr "Importér..."
+
+msgid "Export..."
+msgstr "Eksportér..."
+
+msgid "Dynamic Color Bars"
+msgstr "Dynamiske farvesøjler"
+
+msgid "Static Color Bars"
+msgstr "Statiske farvesøjler"
+
+msgid "Color Management Settings"
+msgstr "Farvestyring indstillinger"
+
+msgid "Activate Color Management"
+msgstr "Aktiver farvestyring"
+
+msgid "System Profiles"
+msgstr "System profiler"
+
+msgid "Pictures:"
+msgstr "Billeder:"
+
+msgid "Solid Colors:"
+msgstr "Massive farver:"
+
+msgid "Monitor:"
+msgstr ""
+
+msgid "Printer:"
+msgstr ""
+
+msgid "Rendering Intents"
+msgstr "Hensigt med gengivelse"
+
+msgid "Rendering Intent:"
+msgstr "Hensigt med gengivelse:"
+
+msgid "Perceptual"
+msgstr "Opfattelsesmæssigt"
+
+msgid "Relative Colorimetric"
+msgstr ""
+
+msgid "Saturation"
+msgstr "Mætning"
+
+msgid "Absolute Colorimetric"
+msgstr ""
+
+msgid "Simulate Printer on the Screen"
+msgstr "Simulér printer på skærm"
+
+msgid "Color Management..."
+msgstr "Farve håndtering..."
+
+msgid "Input Profile:"
+msgstr "Indlæs profil:"
+
+msgid "No Title"
+msgstr "Ingen titel"
+
+msgid "Unknown"
+msgstr "Ukendt"
+
+msgid "Adjusting Colors"
+msgstr "Tilpasser farver"
+
+msgid "Scribus-Document"
+msgstr "Scribus-Dokument"
+
+msgid "Title:"
+msgstr "Titel:"
+
+msgid "Sorry, no Manual available!"
+msgstr "Desværre, der er ingen manual tilgængelig!"
+
+msgid "Embed all Fonts"
+msgstr "Indlejr alle fonte"
+
+msgid "Embedding"
+msgstr "Indlejrer"
+
+msgid "Available Fonts:"
+msgstr "Tilgængelige fonte:"
+
+msgid "Fonts to embed:"
+msgstr "Fonte til indlejring:"
+
+msgid "Output to File:"
+msgstr "Udskriv til fil:"
+
+msgid "Change..."
+msgstr "Vælg..."
+
+msgid "Compression"
+msgstr "Komprimering"
+
+msgid "Downsample Images to:"
+msgstr "Billed-opløsning ændres til:"
+
+msgid "Compress Text and Vector Graphics"
+msgstr "Komprimér tekst og vektorgrafik"
+
+msgid "File Options"
+msgstr "fil indstillinger"
+
+msgid "Generate Thumbnails"
+msgstr "Lav små sider"
+
+msgid "Resolution:"
+msgstr "Opløsning:"
+
+msgid "Create PDF-File"
+msgstr "Lav PDF-fil"
+
+msgid "X-Pos:"
+msgstr ""
+
+msgid "Y-Pos:"
+msgstr ""
+
+msgid "Page:"
+msgstr "Side:"
+
+msgid "Destination"
+msgstr "Bestemmelsessted"
+
+msgid "Type:"
+msgstr ""
+
+msgid "Annotation Properties"
+msgstr "Kommentar egenskaber"
+
+msgid "Bookmarks"
+msgstr "Bogmærker"
+
+msgid "Include Bookmarks"
+msgstr "Medtag bogmærker"
+
+msgid "Manage Keyboard Shortcuts"
+msgstr "Håndtering af tastatur genveje"
+
+msgid "Action"
+msgstr "Handling"
+
+msgid "Current Key"
+msgstr "Nuværende taste"
+
+msgid "Select a Key for this Action"
+msgstr "Vælg en taste for denne handling"
+
+msgid "No Key"
+msgstr "Ingen taste"
+
+msgid "User Defined Key"
+msgstr "Brugerdefineret taste"
+
+msgid "Set Key"
+msgstr "Sæt taste"
+
+msgid "This Key-Sequence is already in use"
+msgstr "Denne tastesekvens er allerede i brug"
+
+msgid "Keyboard Shortcuts..."
+msgstr "Tastatur genveje..."
+
+msgid "Smart Hyphen"
+msgstr "Smart orddeling"
+
+msgid "Align Left"
+msgstr "Justér mod venstre"
+
+msgid "Align Right"
+msgstr "Justér mod højre"
+
+msgid "Align Center"
+msgstr "Centrer"
+
+msgid "Insert Pagenumber"
+msgstr "Indsæt sidenummer"
+
+msgid "Binding:"
+msgstr "Indbinding:"
+
+msgid "Left Margin"
+msgstr "Venstre margin"
+
+msgid "Right Margin"
+msgstr "Højre margin"
+
+msgid "Corner Radius:"
+msgstr "Hjørne radius:"
+
+msgid "Save linked Text Frames as PDF-Articles"
+msgstr "Gem kædede tekstrammer som PDF-Artikler"
+
+msgid "Enable Presentation Effects"
+msgstr "anvend præsentationseffekter"
+
+msgid "Show Page Previews"
+msgstr "Vis Sidevisninger"
+
+msgid "Display Duration:"
+msgstr "Varighed af visning:"
+
+msgid "Effect Duration:"
+msgstr "Varighed af effekt:"
+
+msgid "Effect Type:"
+msgstr "Effekttype:"
+
+msgid "Moving Lines:"
+msgstr "Bevægelige linier:"
+
+msgid "from the:"
+msgstr "Fra:"
+
+msgid "Direction:"
+msgstr "Retning:"
+
+msgid "No Effect"
+msgstr "Ingen effekt"
+
+msgid "Blinds"
+msgstr ""
+
+msgid "Box"
+msgstr "Boks"
+
+msgid "Dissolve"
+msgstr "Opløs"
+
+msgid "Glitter"
+msgstr ""
+
+msgid "Split"
+msgstr "Adskil"
+
+msgid "Wipe"
+msgstr "Udviske"
+
+msgid "Inside"
+msgstr "Inderside"
+
+msgid "Outside"
+msgstr "Yderside"
+
+msgid "Left to Right"
+msgstr "Venstre til højre"
+
+msgid "Top to Bottom"
+msgstr "top til bund"
+
+msgid "Bottom to Top"
+msgstr "Bund til top"
+
+msgid "Right to Left"
+msgstr "Højre til venstre"
+
+msgid "Top-Left to Bottom-Right"
+msgstr "top-venstre til bund-højre"
+
+msgid "Extras"
+msgstr "Ekstra"
+
+msgid "Saves the current Document as PDF"
+msgstr "Gem det aktive dokument som PDF"
+
+msgid "Rounded Rectangle"
+msgstr "Afrundet rektangel"
+
+msgid "Align Text Left"
+msgstr "Justér mod venstre"
+
+msgid "Align Text Right"
+msgstr "Justér mod højre"
+
+msgid "Align Text Center"
+msgstr "Centrer"
+
+msgid "Align Text Block"
+msgstr "Lige margener"
+
+msgid "Endings:"
+msgstr "Ender:"
+
+msgid "Edges:"
+msgstr "Hjørner:"
+
+msgid "MiterJoin"
+msgstr "Spidse"
+
+msgid "BevelJoin"
+msgstr "Afskårne"
+
+msgid "RoundJoin"
+msgstr "Runde"
+
+msgid "FlatCap"
+msgstr "Flade"
+
+msgid "SquareCap"
+msgstr "Firkantede"
+
+msgid "RoundCap"
+msgstr "Runde"
+
+msgid "Move Bookmark"
+msgstr "Flyt bogmærke"
+
+msgid "Insert Bookmark"
+msgstr "Indsæt bogmærke"
+
+msgid "Copy Page"
+msgstr "Kopiér side"
+
+msgid "To the End"
+msgstr "Til slutningen"
+
+msgid "GUI"
+msgstr ""
+
+msgid "Fontsize"
+msgstr "Fontstørrelse"
+
+msgid "Apply Effect on all Pages"
+msgstr "Anvend effekt på alle sider"
+
+msgid "Print via other Command"
+msgstr "Udskriv via egen kommando"
+
+msgid "Command:"
+msgstr "Kommando:"
+
+msgid "Orientation:"
+msgstr "Retning:"
+
+msgid "First Pagenumber:"
+msgstr "Første sidenummer:"
+
+msgid "Default Unit:"
+msgstr "Standard enhed:"
+
+msgid "Send to Scrapbook"
+msgstr "Placér i scrapbog"
+
+msgid "Left Point"
+msgstr "Venstre punkt"
+
+msgid "Endpoints"
+msgstr "Endepunkter"
+
+msgid "Scaling"
+msgstr "Skalering"
+
+msgid "Linespacing:"
+msgstr "Linieafstand:"
+
+msgid "Character Settings"
+msgstr "Skrifttegns indstillinger"
+
+msgid "Length:"
+msgstr "Længde:"
+
+msgid "Polygon Properties"
+msgstr "Polygon egenskaber"
+
+msgid "Corners:"
+msgstr "Hjørner:"
+
+msgid "Convex Polygon"
+msgstr ""
+
+msgid "Factor:"
+msgstr "Faktor:"
+
+msgid "Edit Polygon"
+msgstr "Redigér polygon"
+
+msgid "Properties..."
+msgstr "Egenskaber..."
+
+msgid "Lithuanian:"
+msgstr ""
+
+msgid "Measurements"
+msgstr "Mål og formatering"
+
+msgid "Insert Polygons"
+msgstr "Indsæt polygoner"
+
+msgid "Rotation:"
+msgstr ""
+
+msgid "Loading..."
+msgstr "Indlæser..."
+
+msgid "Convert to"
+msgstr "Konvertér til"
+
+msgid "Text Frame"
+msgstr "Tekstramme"
+
+msgid "Picture Frame"
+msgstr "Billedramme"
+
+msgid "Polygon"
+msgstr ""
+
+msgid "Bezier Curve"
+msgstr "Bezier kurve"
+
+msgid "Style"
+msgstr "Stil"
+
+msgid "Modify Pathtext"
+msgstr "Ændring af stitekst"
+
+msgid "Show Curve"
+msgstr "Vis kurve"
+
+msgid "Startoffset:"
+msgstr "Startforskydning:"
+
+msgid "Distance from Curve:"
+msgstr "Afstand fra kurve:"
+
+msgid "Attach Text to Path"
+msgstr "Forbind tekst til sti"
+
+msgid "Layers"
+msgstr "Lag"
+
+msgid "Add a new Layer"
+msgstr "Tilføj et ny lag"
+
+msgid "Delete Layer"
+msgstr "Slet lag"
+
+msgid "Raise Layer"
+msgstr "Hæv dette lag"
+
+msgid "Lower Layer"
+msgstr "Sænk dette lag"
+
+msgid "Closes this Dialog"
+msgstr "Lukker dette vindue"
+
+msgid "New Layer"
+msgstr "Nyt lag"
+
+msgid "Background"
+msgstr "Baggrund"
+
+msgid "Reset Control Points"
+msgstr "Nulstil kontrolpunkter"
+
+msgid "Reset this Control Points"
+msgstr "Nulstil dette kontrolpunkt"
+
+msgid "Opens a Polygon or cuts a Bezier Curve"
+msgstr "Åbn en polygon eller overskær en bezierkurve"
+
+msgid "Closes this Bezier Curve"
+msgstr "Luk denne bezier kurve"
+
+msgid "Show Layers"
+msgstr "Vis lag"
+
+msgid "Hide Layers"
+msgstr "Skjul lag"
+
+msgid "Sent to Layer"
+msgstr "Placér i lag"
+
+msgid "Link"
+msgstr "Lænke"
+
+msgid "Text Field"
+msgstr "Tekstfelt"
+
+msgid "Button"
+msgstr "Knap"
+
+msgid "Check Box"
+msgstr "Afkrydsnings boks"
+
+msgid "Properties"
+msgstr "Egenskaber"
+
+msgid "Tool-Tip:"
+msgstr "Hjælpe-tekst:"
+
+msgid "Read Only"
+msgstr "Skrivebeskyttet"
+
+msgid "Visibility:"
+msgstr "Synlighed:"
+
+msgid "Border"
+msgstr "Grænse"
+
+msgid "Thin"
+msgstr "Tynd"
+
+msgid "Wide"
+msgstr "Bred"
+
+msgid "Solid"
+msgstr "Massiv"
+
+msgid "Dashed"
+msgstr "Punkteret"
+
+msgid "Beveled"
+msgstr "Med skrå kanter"
+
+msgid "Inset"
+msgstr "Indsæt"
+
+msgid "Visible"
+msgstr "Synlig"
+
+msgid "Hidden"
+msgstr "Skjult"
+
+msgid "No Print"
+msgstr "Ingen udskrift"
+
+msgid "No View"
+msgstr "Ingen visning"
+
+msgid "Appearance"
+msgstr "Udseende"
+
+msgid "Text"
+msgstr "Tekst"
+
+msgid "Text for Button Down"
+msgstr "Tekst for knap ned"
+
+msgid "Text for Roll Over"
+msgstr "Tekst for Roll Over"
+
+msgid "Highlight"
+msgstr "Højlys"
+
+msgid "Invert"
+msgstr "Invertér"
+
+msgid "Outlined"
+msgstr "Indrammet"
+
+msgid "Push"
+msgstr "Skub"
+
+msgid "Multi-Line"
+msgstr "Multi-linie"
+
+msgid "Password"
+msgstr "Adgangskode"
+
+msgid "Limit of"
+msgstr "Maksimalt"
+
+msgid "Characters"
+msgstr "Skrifttegn"
+
+msgid "Do Not Scroll"
+msgstr "Ingen rulning"
+
+msgid "Do Not Spell Check"
+msgstr "Ingen stavekontrol"
+
+msgid "Check Style:"
+msgstr "afkrydsningsstil:"
+
+msgid "Check"
+msgstr "afkrydsning"
+
+msgid "Cross"
+msgstr "Kryds"
+
+msgid "Diamond"
+msgstr "Diamand"
+
+msgid "Circle"
+msgstr "Cirkel"
+
+msgid "Star"
+msgstr "Stjerne"
+
+msgid "Square"
+msgstr "Firkant"
+
+msgid "Default is Checked"
+msgstr "Standard er afkrydset"
+
+msgid "Java Script"
+msgstr ""
+
+msgid "Go To"
+msgstr "Gå til"
+
+msgid "Submit Form"
+msgstr "Send form"
+
+msgid "Reset Form"
+msgstr "Nulstil form"
+
+msgid "Flag is ignored for PDF-1.3"
+msgstr "Kan ikke benyttes i  PDF-1.3"
+
+msgid "Font for use with PDF-1.3:"
+msgstr "Font for brug i PDF-1.3:"
+
+msgid "Required"
+msgstr "Behøves"
+
+msgid "Don't Export Value"
+msgstr "Eksporter ikke værdi"
+
+msgid "Event:"
+msgstr "Begivenhed:"
+
+msgid "Mouse Up"
+msgstr "Mus-taste slippes"
+
+msgid "Mouse Down"
+msgstr "Mus-taste trykkes ned"
+
+msgid "Mouse Enter"
+msgstr "Markøren går ind i felt"
+
+msgid "Mouse Exit"
+msgstr "Markøren forlader felt"
+
+msgid "On Focus"
+msgstr "Felt har fokus"
+
+msgid "On Blur"
+msgstr "Felt mister fokus"
+
+msgid "Script:"
+msgstr ""
+
+msgid "Field is formatted as:"
+msgstr "Felt er formateret som:"
+
+msgid "Plain"
+msgstr "Almindelig"
+
+msgid "Number"
+msgstr "Nummer"
+
+msgid "Percentage"
+msgstr "Procentdel"
+
+msgid "Date"
+msgstr "Dato"
+
+msgid "Time"
+msgstr "Tid"
+
+msgid "Custom"
+msgstr "Bruger"
+
+msgid "Number Format"
+msgstr "Nummerformat"
+
+msgid "Decimals:"
+msgstr "Decimaler:"
+
+msgid "Use Currency Symbol"
+msgstr "Brug valutasymbol"
+
+msgid "Prepend Currency Symbol"
+msgstr "Sæt valutasymbol foran"
+
+msgid "Formatting"
+msgstr "Formatering"
+
+msgid "Percent Format"
+msgstr "Procent format"
+
+msgid "Date Format"
+msgstr "Datoformat"
+
+msgid "Time Format"
+msgstr "Tidsformat"
+
+msgid "Custom Scripts"
+msgstr "Bruger scripts"
+
+msgid "Format:"
+msgstr ""
+
+msgid "Edit..."
+msgstr "Redigér..."
+
+msgid "Combo Box"
+msgstr "Kombo boks"
+
+msgid "List Box"
+msgstr "Liste boks"
+
+msgid "Keystroke:"
+msgstr "Tasteanslag:"
+
+msgid "Format"
+msgstr ""
+
+msgid "Value is not validated"
+msgstr "Værdi er ikke valideret"
+
+msgid "Value must be greater than or equal to:"
+msgstr "Værdi skal være lig med eller større end:"
+
+msgid "and less or equal to:"
+msgstr "og mindre eller lig med:"
+
+msgid "Custom validate script:"
+msgstr "Bruger validerings script:"
+
+msgid "Value is not calculated"
+msgstr "Værdi er ikke udregnet"
+
+msgid "Value is the"
+msgstr "Værdien er"
+
+msgid "sum"
+msgstr ""
+
+msgid "product"
+msgstr "Produkt"
+
+msgid "average"
+msgstr "Gennemsnit"
+
+msgid "minimum"
+msgstr ""
+
+msgid "maximum"
+msgstr "Maksimum"
+
+msgid "of the following fields:"
+msgstr "af de følgende felter:"
+
+msgid "Custom calculation script:"
+msgstr "Bruger udregnings script:"
+
+msgid "Calculate"
+msgstr "Udregn"
+
+msgid "Validate"
+msgstr "Validér"
+
+msgid "Enter a comma separated list of Fields here"
+msgstr "Indtast en komma-adskilt liste af felter her"
+
+msgid "Example:"
+msgstr "Eksempel:"
+
+msgid "Selection Change"
+msgstr "Ændring af valg"
+
+msgid "Use Icons"
+msgstr "Brug ikoner"
+
+msgid "Remove"
+msgstr "Fjern"
+
+msgid "Pressed"
+msgstr "Trykket ned"
+
+msgid "Roll Over"
+msgstr "Roll Over"
+
+msgid "Icon Placement..."
+msgstr "Ikon placering..."
+
+msgid "Editable"
+msgstr "Redigérbar"
+
+msgid "Submit to URL:"
+msgstr "Send til URL:"
+
+msgid "Submit Data as HTML"
+msgstr "Send Data som HTML"
+
+msgid "Layout:"
+msgstr "Layout:"
+
+msgid "Caption only"
+msgstr "Kun tekst"
+
+msgid "Icon only"
+msgstr "Kun ikon"
+
+msgid "Caption below Icon"
+msgstr "Tekst under ikon"
+
+msgid "Caption above Icon"
+msgstr "Tekst over ikon"
+
+msgid "Caption right to Icon"
+msgstr "Tekst til højre for ikon"
+
+msgid "Caption left to Icon"
+msgstr "Tekst til venstre for ikon"
+
+msgid "Caption overlays Icon"
+msgstr "Tekst oven på ikon"
+
+msgid "Scale:"
+msgstr "Skalér:"
+
+msgid "Always"
+msgstr "Altid"
+
+msgid "When Icon is too small"
+msgstr "Når ikon er for lille"
+
+msgid "When Icon is too big"
+msgstr "Når ikon er for stor"
+
+msgid "Never"
+msgstr "Aldrig"
+
+msgid "Scale How:"
+msgstr "Skalér hvordan:"
+
+msgid "Proportional"
+msgstr "Proportionelt"
+
+msgid "Non Proportional"
+msgstr "Ikke Proportionel"
+
+msgid "Reset"
+msgstr "Nulstil"
+
+msgid "You need at least the Icon for Normal to use Icons for Buttons"
+msgstr "Du behøver i det mindst normal-ikonet for at bruge ikoner på knapper"
+
+msgid "Save and Exit"
+msgstr "Gem og afslut"
+
+msgid "Exit without Saving"
+msgstr "Afslut uden at gemme"
+
+msgid "Get Field Names"
+msgstr "Hent feltnavne"
+
+msgid "JavaScripts (*.js);; All Files (*)"
+msgstr "JavaScripts (*.js);; Alle filer (*)"
+
+msgid "Pick..."
+msgstr "Vælg..."
+
+msgid "Export Range"
+msgstr "Eksport område"
+
+msgid "All Pages"
+msgstr "Alle sider"
+
+msgid "From:"
+msgstr "Fra:"
+
+msgid "Insert PDF-Fields"
+msgstr "Indsæt PDF-Felter"
+
+msgid "Undo"
+msgstr "Fortryd"
+
+msgid "Redo"
+msgstr "Lav igen"
+
+msgid "Select Fields"
+msgstr "Markér felter"
+
+msgid "Available Fields"
+msgstr "Tilgængelige felter"
+
+msgid "Selected Fields"
+msgstr "Markerede felter"
+
+msgid "Field Properties"
+msgstr "Felt egenskaber"
+
+msgid "Global JavaScripts"
+msgstr "Globale javascripts"
+
+msgid "Add..."
+msgstr "Tilføj..."
+
+msgid "New Script:"
+msgstr "Ny script:"
+
+msgid "New Script"
+msgstr "Ny script"
+
+msgid "Insert PDF-Annotations"
+msgstr "Indsæt PDF-Kommentar"
+
+msgid "Import Data"
+msgstr "Import data"
+
+msgid "Import Data from:"
+msgstr "Importer data fra:"
+
+msgid "Undo Object Change"
+msgstr "Fortryd ændring af objekt"
+
+msgid "Undo Object Move"
+msgstr "Fortryd flytning af objekt"
+
+msgid "Undo Delete Object"
+msgstr "Fortryd sletning af objekt"
+
+msgid "Compress File"
+msgstr "Komprimer fil"
+
+msgid "Inches (in)"
+msgstr "Tommer (in)"
+
+msgid "Picas (p)"
+msgstr ""
+
+msgid "Show Template Names"
+msgstr "Skabelon navn"
+
+msgid "Arrange Pages"
+msgstr "Arrangér sider"
+
+msgid "Available Templates:"
+msgstr "Tilgængelige skabeloner:"
+
+msgid "Document Pages:"
+msgstr "Dokument sider:"
+
+msgid "Hide Page Palette"
+msgstr "Skjul arrangér sider"
+
+msgid "Show Page Palette"
+msgstr "Vis arrangér sider"
+
+msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
+msgstr "Træk sider eller skabeloner til skraldespanden for at slette dem."
+
+msgid ""
+"Here are all your Templates, to create a new Page\n"
+"drag a Template to the Pageview below."
+msgstr ""
+"Her er alle dine skabeloner. Træk en skabelon\n"
+"til vinduet nedenunder, for at lave en ny side."
+
+msgid "Here you can see all Pages of your Document."
+msgstr "Her kan du se alle siderne i dit dokument."
+
+msgid "Free Scaling"
+msgstr "Fri skalering"
+
+msgid "Scale to Frame Size"
+msgstr "Skalér til rammestørrelse"
+
+msgid "Hyphenate Text"
+msgstr "Orddel tekst"
+
+msgid "Hyphenator..."
+msgstr "Orddeling..."
+
+msgid "General..."
+msgstr "Generelt..."
+
+msgid "English"
+msgstr ""
+
+msgid "German"
+msgstr ""
+
+msgid "French"
+msgstr ""
+
+msgid "Italian"
+msgstr ""
+
+msgid "Spanish"
+msgstr ""
+
+msgid "Possible Hyphenation"
+msgstr "Mulig orddeling"
+
+msgid "Accept"
+msgstr "Acceptér"
+
+msgid "Skip"
+msgstr "Spring over"
+
+msgid "Hyphenator Settings"
+msgstr "Orddelings instillinger"
+
+msgid "Check during Typing"
+msgstr "Kontrollér under indtastning"
+
+msgid "Enables automatic checking of your Text during Typing."
+msgstr "Automatisk kontrol af din tekst under indtastning"
+
+msgid "Fully Automatic"
+msgstr "Helt automatisk"
+
+msgid "Language:"
+msgstr "Sprog:"
+
+msgid "Smallest Word:"
+msgstr "Mindste ord:"
+
+msgid "This is the length of the smallest word to be hyphenated."
+msgstr "Dette er længden af det mindste ord der deles."
+
+msgid ""
+"If you uncheck this you will get an Dialog\n"
+"everytime a possible Hyphenation is found."
+msgstr ""
+"Hvis du fjerner krydset her, så vil der komme en\n"
+"dialogboks frem, hver gang en mulig orddeling er fundet."
+
+msgid "Windows"
+msgstr "Vinduer"
+
+msgid "Cascade"
+msgstr "Bagved hinanden"
+
+msgid "Tile"
+msgstr "Side om side"
 
 msgid "&Restore"
 msgstr "&Gendan"
@@ -16,14 +2371,20 @@ msgstr "&Gendan"
 msgid "&Move"
 msgstr "&Flyt"
 
-msgid "&Size"
-msgstr "&Størrelse"
-
 msgid "Mi&nimize"
 msgstr "Mi&nimér"
 
+msgid "Minimize"
+msgstr "Minimér"
+
 msgid "Ma&ximize"
 msgstr "Ma&ksimér"
+
+msgid "Maximize"
+msgstr "Maksimér"
+
+msgid "System Menu"
+msgstr "System Menu"
 
 msgid "&Close"
 msgstr "&Luk"
@@ -31,14 +2392,53 @@ msgstr "&Luk"
 msgid "Line up"
 msgstr "Placér på række"
 
-msgid "Author:"
-msgstr "Forfatter:"
+msgid "Restore Down"
+msgstr "Gendan nedefter"
 
-msgid "Title:"
-msgstr "Titel:"
+msgid "Document"
+msgstr "Dokument"
 
-msgid "Description:"
-msgstr "Beskrivelse:"
+msgid ""
+"Name \"%1\" isn't unique.\n"
+"Please choose another."
+msgstr ""
+"Navnet \"%1\" er ikke entydigt.\n"
+"Vælg venligst et andet."
+
+msgid ""
+"Can't write the File: \n"
+"%1"
+msgstr ""
+"Kan ikke gemme filen: \n"
+"%1"
+
+msgid "Russian"
+msgstr "Russisk"
+
+msgid "Printing failed!"
+msgstr "Udskrivning fejlede!"
+
+msgid "Lock"
+msgstr "Lås"
+
+msgid "Unlock"
+msgstr "Lås op"
+
+msgid ""
+"Moves to your Document Directory.\n"
+"This can be set in the Preferences."
+msgstr ""
+"Flytter til din dokument mappe.\n"
+"Dette kan indtastes i Præferencer."
+
+msgid "Choose a Directory"
+msgstr "Vælg en mappe"
+
+msgid "Paths"
+msgstr "Stier"
+
+msgid "Documents:"
+msgstr "Dokumenter:"
 
 msgid "One directory up"
 msgstr "En mappe tilbage"
@@ -55,626 +2455,107 @@ msgstr "Vis detaljer"
 msgid "Preview File Contents"
 msgstr "Vis indhold af fil"
 
-msgid "New Folder 1"
-msgstr "Ny mappe"
+msgid "Hide Grid"
+msgstr "Skjul gitter"
 
-msgid " in"
-msgstr ""
+msgid "Show Grid"
+msgstr "Vis gitter"
 
-msgid " mm"
-msgstr ""
+msgid "Manage Guides..."
+msgstr "Håndtér hjælpelinier"
 
-msgid " p"
-msgstr ""
+msgid "Manage Guides"
+msgstr "Håndtering af hjælpelinier"
 
-msgid " pts"
-msgstr ""
+msgid "Vertical Guides"
+msgstr "Vertikale hjælpelinier"
 
-msgid "Align"
-msgstr "Opstil på linie"
+msgid "Horizontal Guides"
+msgstr "Horisontale hjælpelinier"
 
-msgid "Bottom Sides"
-msgstr "Nederste sider"
+msgid "Add"
+msgstr "Tilføj"
 
-msgid "Displacement"
-msgstr "Forskydning"
+msgid "Horizontal Gradient"
+msgstr "Horisontal Gradient"
 
-msgid "Distribute evenly"
-msgstr "Fordel jævnt"
-
-msgid "Distribute/Align"
-msgstr "Fordel/Opstil på linie"
-
-msgid "Don't change"
-msgstr "Ingen ændring"
-
-msgid "Left Sides"
-msgstr "Venstre sider"
-
-msgid "Middles"
-msgstr "Midten"
-
-msgid "OK"
-msgstr ""
-
-msgid "Right Sides"
-msgstr "Højre sider"
-
-msgid "Top Sides"
-msgstr "Øverste sider"
-
-msgid "between:"
-msgstr "Ud fra:"
-
-msgid " pt"
-msgstr ""
-
-msgid "Appearance"
-msgstr "Udseende"
-
-msgid "Beveled"
-msgstr "Med skrå kanter"
-
-msgid "Border"
-msgstr "Grænse"
-
-msgid "Calculate"
-msgstr "Udregn"
-
-msgid "Characters"
-msgstr "Skrifttegn"
-
-msgid "Check Style:"
-msgstr "afkrydsningsstil:"
-
-msgid "Check"
-msgstr "afkrydsning"
-
-msgid "Circle"
-msgstr "Cirkel"
-
-msgid "Color:"
-msgstr "Farve:"
-
-msgid "Courier Bold Italic"
-msgstr ""
-
-msgid "Courier Bold"
-msgstr ""
-
-msgid "Courier Italic"
-msgstr ""
-
-msgid "Courier"
-msgstr ""
-
-msgid "Cross"
-msgstr "Kryds"
-
-msgid "Custom Scripts"
-msgstr "Bruger scripts"
-
-msgid "Custom calculation script:"
-msgstr "Bruger udregnings script:"
-
-msgid "Custom validate script:"
-msgstr "Bruger validerings script:"
-
-msgid "Dashed"
-msgstr "Punkteret"
-
-msgid "Date Format"
-msgstr "Datoformat"
-
-msgid "Date"
-msgstr "Dato"
-
-msgid "Decimals:"
-msgstr "Decimaler:"
-
-msgid "Default is Checked"
-msgstr "Standard er afkrydset"
-
-msgid "Diamond"
-msgstr "Diamand"
-
-msgid "Do Not Scroll"
-msgstr "Ingen rulning"
-
-msgid "Do Not Spell Check"
-msgstr "Ingen stavekontrol"
-
-msgid "Don't Export Value"
-msgstr "Eksporter ikke værdi"
-
-msgid "Editable"
-msgstr "Redigérbar"
-
-msgid "Enter a comma separated list of Fields here"
-msgstr "Indtast en komma-adskilt liste af felter her"
-
-msgid "Event:"
-msgstr "Begivenhed:"
-
-msgid "Example:"
-msgstr "Eksempel:"
-
-msgid "Field is formatted as:"
-msgstr "Felt er formateret som:"
-
-msgid "Flag is ignored for PDF-1.3"
-msgstr "Kan ikke benyttes i  PDF-1.3"
-
-msgid "Font for use with PDF-1.3:"
-msgstr "Font for brug i PDF-1.3:"
-
-msgid "Format"
-msgstr ""
-
-msgid "Format:"
-msgstr ""
-
-msgid "Formatting"
-msgstr "Formatering"
-
-msgid "Go To"
-msgstr "Gå til"
-
-msgid "Helvetica Bold Italic"
-msgstr ""
-
-msgid "Helvetica Bold"
-msgstr ""
-
-msgid "Helvetica Italic"
-msgstr ""
-
-msgid "Helvetica"
-msgstr ""
-
-msgid "Hidden"
-msgstr "Skjult"
-
-msgid "Highlight"
-msgstr "Højlys"
-
-msgid "Icon Placement..."
-msgstr "Ikon placering..."
-
-msgid "Icons"
-msgstr "Ikoner"
-
-msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
-msgstr "Billeder (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Alle filer (*)"
-
-msgid "Import Data from:"
-msgstr "Importer data fra:"
-
-msgid "Import Data"
-msgstr "Import data"
-
-msgid "Inset"
-msgstr "Indsæt"
-
-msgid "Java Script"
-msgstr ""
-
-msgid "Keystroke:"
-msgstr "Tasteanslag:"
-
-msgid "Limit of"
-msgstr "Maksimalt"
-
-msgid "Mouse Down"
-msgstr "Mus-taste trykkes ned"
-
-msgid "Mouse Enter"
-msgstr "Markøren går ind i felt"
-
-msgid "Mouse Exit"
-msgstr "Markøren forlader felt"
-
-msgid "Mouse Up"
-msgstr "Mus-taste slippes"
-
-msgid "Multi-Line"
-msgstr "Multi-linie"
-
-msgid "No Print"
-msgstr "Ingen udskrift"
-
-msgid "No View"
-msgstr "Ingen visning"
-
-msgid "Normal"
-msgstr ""
-
-msgid "Number Format"
-msgstr "Nummerformat"
-
-msgid "Number"
-msgstr "Nummer"
-
-msgid "On Blur"
-msgstr "Felt mister fokus"
-
-msgid "On Focus"
-msgstr "Felt har fokus"
-
-msgid "Outlined"
-msgstr "Indrammet"
-
-msgid "Page:"
-msgstr "Side:"
-
-msgid "Password"
-msgstr "Adgangskode"
-
-msgid "Percent Format"
-msgstr "Procent format"
-
-msgid "Percentage"
-msgstr "Procentdel"
-
-msgid "Pick..."
-msgstr "Vælg..."
-
-msgid "Plain"
-msgstr "Almindelig"
-
-msgid "Prepend Currency Symbol"
-msgstr "Sæt valutasymbol foran"
-
-msgid "Pressed"
-msgstr "Trykket ned"
-
-msgid "Properties"
-msgstr "Egenskaber"
-
-msgid "Push"
-msgstr "Skub"
-
-msgid "Read Only"
-msgstr "Skrivebeskyttet"
-
-msgid "Required"
-msgstr "Behøves"
-
-msgid "Reset Form"
-msgstr "Nulstil form"
-
-msgid "Roll Over"
-msgstr "Roll Over"
-
-msgid "Script:"
-msgstr ""
-
-msgid "Selection Change"
-msgstr "Ændring af valg"
-
-msgid "Solid"
-msgstr "Massiv"
-
-msgid "Square"
-msgstr "Firkant"
-
-msgid "Star"
-msgstr "Stjerne"
-
-msgid "Style:"
-msgstr "Stil:"
-
-msgid "Submit Data as HTML"
-msgstr "Send Data som HTML"
-
-msgid "Submit Form"
-msgstr "Send form"
-
-msgid "Submit to URL:"
-msgstr "Send til URL:"
-
-msgid "Symbol"
-msgstr ""
-
-msgid "Text for Button Down"
-msgstr "Tekst for knap ned"
-
-msgid "Text for Roll Over"
-msgstr "Tekst for Roll Over"
-
-msgid "Thin"
-msgstr "Tynd"
-
-msgid "Time Format"
-msgstr "Tidsformat"
-
-msgid "Time"
-msgstr "Tid"
-
-msgid "Times Bold Italic"
-msgstr ""
-
-msgid "Times Bold"
-msgstr ""
-
-msgid "Times Italic"
-msgstr ""
-
-msgid "Times"
-msgstr ""
-
-msgid "Tool-Tip:"
-msgstr "Hjælpe-tekst:"
-
-msgid "Type:"
-msgstr ""
-
-msgid "Use Currency Symbol"
-msgstr "Brug valutasymbol"
-
-msgid "Use Icons"
-msgstr "Brug ikoner"
-
-msgid "Validate"
-msgstr "Validér"
-
-msgid "Value is not calculated"
-msgstr "Værdi er ikke udregnet"
-
-msgid "Value is not validated"
-msgstr "Værdi er ikke valideret"
-
-msgid "Value is the"
-msgstr "Værdien er"
-
-msgid "Value must be greater than or equal to:"
-msgstr "Værdi skal være lig med eller større end:"
-
-msgid "Visibility:"
-msgstr "Synlighed:"
-
-msgid "Visible"
-msgstr "Synlig"
-
-msgid "Wide"
-msgstr "Bred"
-
-msgid "X-Coor.:"
-msgstr ""
-
-msgid "Y-Coor.:"
-msgstr ""
-
-msgid "You need at least the Icon for Normal to use Icons for Buttons"
-msgstr "Du behøver i det mindst normal-ikonet for at bruge ikoner på knapper"
-
-msgid "Zapf Dingbats"
-msgstr ""
-
-msgid "and less or equal to:"
-msgstr "og mindre eller lig med:"
-
-msgid "average"
-msgstr "Gennemsnit"
-
-msgid "maximum"
-msgstr "Maksimum"
-
-msgid "minimum"
-msgstr ""
-
-msgid "of the following fields:"
-msgstr "af de følgende felter:"
-
-msgid "product"
-msgstr "Produkt"
-
-msgid "sum"
-msgstr ""
-
-msgid " pt"
-msgstr ""
-
-msgid "Destination"
-msgstr "Bestemmelsessted"
-
-msgid "Type:"
-msgstr ""
-
-msgid "X-Coor.:"
-msgstr ""
-
-msgid "Y-Coor.:"
-msgstr ""
-
-msgid "Apply Template"
-msgstr "Anvend skabelon"
-
-msgid "Normal"
-msgstr ""
-
-msgid "Template for this Page:"
-msgstr "Skabelon for denne side:"
-
-msgid "Medium"
-msgstr ""
-
-msgid "Object"
-msgstr "Objekt"
-
-msgid "Scrapbooks (*.scs);; All Files (*)"
-msgstr "Scrapbøger (*.scs);; Alle filer (*)"
-
-msgid "Insert Bookmark"
-msgstr "Indsæt bogmærke"
-
-msgid "Move Bookmark"
-msgstr "Flyt bogmærke"
-
-msgid "Always"
-msgstr "Altid"
-
-msgid "Caption above Icon"
-msgstr "Tekst over ikon"
-
-msgid "Caption below Icon"
-msgstr "Tekst under ikon"
-
-msgid "Caption left to Icon"
-msgstr "Tekst til venstre for ikon"
-
-msgid "Caption only"
-msgstr "Kun tekst"
-
-msgid "Caption overlays Icon"
-msgstr "Tekst oven på ikon"
-
-msgid "Caption right to Icon"
-msgstr "Tekst til højre for ikon"
-
-msgid "Icon Placement"
-msgstr "Ikon placering"
-
-msgid "Icon only"
-msgstr "Kun ikon"
-
-msgid "Icon"
-msgstr "Ikon"
-
-msgid "Layout:"
-msgstr "Layout:"
-
-msgid "Never"
-msgstr "Aldrig"
-
-msgid "Non Proportional"
-msgstr "Ikke Proportionel"
-
-msgid "Proportional"
-msgstr "Proportionelt"
-
-msgid "Reset"
-msgstr "Nulstil"
-
-msgid "Scale How:"
-msgstr "Skalér hvordan:"
-
-msgid "Scale When:"
-msgstr "Skalér når:"
-
-msgid "When Icon is too big"
-msgstr "Når ikon er for stor"
-
-msgid "When Icon is too small"
-msgstr "Når ikon er for lille"
-
-msgid "Absolute Colorimetric"
-msgstr ""
-
-msgid "Activate Color Management"
-msgstr "Aktiver farvestyring"
-
-msgid "Color Management Settings"
-msgstr "Farvestyring indstillinger"
-
-msgid "Mark Colors out of Gamut"
-msgstr "Marker farver uden for skalaen"
-
-msgid "Monitor:"
-msgstr ""
-
-msgid "Pictures:"
-msgstr "Billeder:"
-
-msgid "Printer:"
-msgstr ""
-
-msgid "Relative Colorimetric"
-msgstr ""
-
-msgid "Rendering Intents"
-msgstr "Hensigt med gengivelse"
-
-msgid "Simulate Printer on the Screen"
-msgstr "Simulér printer på skærm"
-
-msgid "System Profiles"
-msgstr "System profiler"
-
-msgid "B:"
-msgstr ""
-
-msgid "C:"
-msgstr ""
-
-msgid "CMYK"
-msgstr ""
-
-msgid "Color Model"
-msgstr "Farve model"
-
-msgid "Dynamic Color Bars"
-msgstr "Dynamiske farvesøjler"
-
-msgid "Edit Color"
-msgstr "Redigér farve"
-
-msgid "G:"
-msgstr ""
-
-msgid "K:"
-msgstr ""
-
-msgid "M:"
-msgstr ""
-
-msgid "Old"
-msgstr "Gammel"
-
-msgid "R:"
-msgstr ""
-
-msgid "RGB"
-msgstr ""
-
-msgid "Static Color Bars"
-msgstr "Statiske farvesøjler"
-
-msgid "Y:"
-msgstr ""
-
-msgid "Cpalette:: %"
-msgstr ""
-
-msgid "#1"
-msgstr ""
-
-msgid "#2"
-msgstr ""
-
-msgid "CrossDiagonal Gradient"
+msgid "Vertical Gradient"
 msgstr ""
 
 msgid "Diagonal Gradient"
 msgstr ""
 
-msgid "Horizontal Gradient"
-msgstr "Horisontal Gradient"
-
-msgid "Normal"
+msgid "CrossDiagonal Gradient"
 msgstr ""
-
-msgid "Opacity:"
-msgstr "Ugennemsigtighed:"
 
 msgid "Radial Gradient"
 msgstr ""
 
-msgid "Vertical Gradient"
+msgid "Polish:"
 msgstr ""
 
-msgid "Even Pages only"
-msgstr "Kun lige sider"
+msgid "User Guides Color:"
+msgstr "Hjælpelinier:"
+
+msgid "Guide Snap Distance:"
+msgstr "'Klæb til' afstand:"
+
+msgid "Use PDF-1.4 Transparency Features"
+msgstr "Brug PDF-1.4 Transparent egenskaber"
+
+msgid "Opacity:"
+msgstr "Ugennemsigtighed:"
+
+msgid "Font Name"
+msgstr "Font navn"
+
+msgid "Use Font"
+msgstr "Brug font"
+
+msgid "Available Fonts"
+msgstr "Tilgængelige Fonte"
+
+msgid "Replacement"
+msgstr "Erstatning"
+
+msgid "Font Substitutions"
+msgstr "Erstatnings fonte"
+
+msgid "Additional Paths"
+msgstr "Andre Stier"
+
+msgid "Screen"
+msgstr "Skærm"
+
+msgid "Output intended for:"
+msgstr "Udskrift beregnet for:"
+
+msgid "Use ICC-Profile"
+msgstr "Brug ICC-Profil"
+
+msgid "Profiles"
+msgstr "Profiler"
+
+msgid "Rendering-Intent:"
+msgstr "Hensigt med gengivelse:"
+
+msgid "Don't use embedded Profiles"
+msgstr "Brug ikke indlejrede profiler"
+
+msgid "Options..."
+msgstr "Indstillinger..."
+
+msgid "Option"
+msgstr "Indstilling"
+
+msgid "Value"
+msgstr "Værdi"
+
+msgid "Printing Mode"
+msgstr "Udskrivningsmåde"
+
+msgid "Page Set"
+msgstr "Side opsætning"
 
 msgid "Mirror"
 msgstr "Spejl"
@@ -682,113 +2563,92 @@ msgstr "Spejl"
 msgid "N-Up Printing"
 msgstr "N-UP udskrivning"
 
-msgid "Odd Pages only"
-msgstr "Kun ulige sider"
-
-msgid "Option"
-msgstr "Indstilling"
-
-msgid "Page Set"
-msgstr "Side opsætning"
-
 msgid "Page per Sheet"
 msgstr "Sider pr ark"
 
 msgid "Pages per Sheet"
 msgstr "Sider pr ark"
 
+msgid "Even Pages only"
+msgstr "Kun lige sider"
+
+msgid "Odd Pages only"
+msgstr "Kun ulige sider"
+
+msgid "PDF/X-3 Output Intent"
+msgstr "PDF/X-3 udskrift hensigt"
+
+msgid "Info String:"
+msgstr "Info streng:"
+
+msgid "Output Profile:"
+msgstr "Udskriv profil:"
+
+msgid "Use Encryption"
+msgstr "Brug cryptering"
+
+msgid "Passwords"
+msgstr "Adgangskode"
+
+msgid "User:"
+msgstr "Bruger:"
+
+msgid "Owner:"
+msgstr "Ejer:"
+
+msgid "Settings"
+msgstr "Indstillinger"
+
+msgid "Allow Printing the Document"
+msgstr "Tillad udskrivning af dokument"
+
+msgid "Allow Changing the Document"
+msgstr "Tillad ændring af dokument"
+
+msgid "Copying Text and Graphics is allowed"
+msgstr "Kopiering af tekst og grafik er tilladt"
+
+msgid "Adding Annotations and Fields is allowed"
+msgstr "Tilføjelse af kommentarer og felter er tilladt"
+
+msgid "Security"
+msgstr "Sikkerhed"
+
 msgid "Printer Options"
 msgstr "Printer instillinger"
 
-msgid "Value"
-msgstr "Værdi"
+msgid "Element"
+msgstr "Objekt"
 
-msgid "Compress File"
-msgstr "Komprimer fil"
-
-msgid "Moves to your Document Directory.\nThis can be set in the Preferences."
-msgstr "Flytter til din dokument mappe.\nDette kan indtastes i Præferencer."
-
-msgid "?"
+msgid "X-Pos+:"
 msgstr ""
 
-msgid "Delete Color"
-msgstr "Slet farve"
+msgid "Y-Pos+:"
+msgstr ""
 
-msgid "OK to delete Color:"
-msgstr "OK at slette farve:"
+msgid "Horiz. Scale:"
+msgstr "Horisontalt:"
 
-msgid "Replace it with:"
-msgstr "Erstat den med:"
+msgid "Vert. Scale:"
+msgstr "vertikalt:"
 
-msgid "Delete Pages"
-msgstr "Slet sider"
+msgid "Show Bookmarks"
+msgstr "Vis bogmærker"
 
-msgid "Delete from:"
-msgstr "Slet fra:"
+msgid "Hide Bookmarks"
+msgstr "Skjul bogmærker"
 
-msgid "Missing Font"
-msgstr "Manglende font"
+msgid "Collect for Output..."
+msgstr "Saml projekt i mappe..."
 
-msgid "Woven silk pyjamas exchanged for blue quartz"
-msgstr "Vævet silke pyjamas byttet med blå kvarts"
+msgid "Danish"
+msgstr ""
 
-msgid "The Font %1 is not installed."
-msgstr "Fonten %1 er ikke installeret."
+msgid "Danish:"
+msgstr ""
 
-msgid "Use"
-msgstr "Brug"
-
-msgid "instead"
-msgstr "i stedet"
-
-msgid "Document Info"
-msgstr "Dokument info"
-
-msgid "Command:"
-msgstr "Kommando:"
-
-msgid "File:"
-msgstr "Fil:"
-
-msgid "From page:"
-msgstr "Fra side:"
-
-msgid "Number of copies:"
-msgstr "Antal kopier:"
-
-msgid "Options..."
-msgstr "Indstillinger..."
-
-msgid "Postscript-Files (*.ps);; All Files (*)"
-msgstr "Postscript-filer (*.ps);; Alle filer (*)"
-
-msgid "Print Normal"
-msgstr "Udskriv normalt"
-
-msgid "Print Separations"
-msgstr "Udskriv separationer"
-
-msgid "Print all"
-msgstr "Udskriv alle"
-
-msgid "Print destination"
-msgstr "Udskrives til"
-
-msgid "Print first page first"
-msgstr "Udskriv første side først"
-
-msgid "Print in color if available"
-msgstr "Udskriv i farve hvis det er muligt"
-
-msgid "Print in grayscale"
-msgstr "Udskriv i gråskala"
-
-msgid "Advanced Options..."
-msgstr "Avancerede indstillinger..."
-
-msgid "Advanced Options"
-msgstr "Avancerede indstillinger"
+msgid "Lock Guides"
+msgstr "Lås hjælpelinier"
 
 msgid "Mirror Page(s) horizontal"
 msgstr "Spejl side(r) horisontalt"
@@ -796,539 +2656,21 @@ msgstr "Spejl side(r) horisontalt"
 msgid "Mirror Page(s) vertical"
 msgstr "Spejl side(r) vertikalt"
 
-msgid "Print last page first"
-msgstr "Udskriv sidste side først"
-
-msgid "Print range"
-msgstr "Udskrivnings område"
-
-msgid "Print via other Command"
-msgstr "Udskriv via egen kommando"
-
-msgid "Range:"
-msgstr "Område:"
-
-msgid "Setup Printer"
-msgstr "Printerindstilling"
-
-msgid "To page:"
-msgstr "Til side:"
-
-msgid " pt"
+msgid "Rotation"
 msgstr ""
 
-msgid "Above:"
-msgstr "Over:"
-
-msgid "Below:"
-msgstr "Under:"
-
-msgid "Character"
-msgstr "Skrifttegn"
-
-msgid "Edit Style"
-msgstr "Redigér typografi"
-
-msgid "Face:"
-msgstr "Vælg font:"
-
-msgid "First Line:"
-msgstr "Første linie:"
-
-msgid "Indentation"
-msgstr "Indrykning"
-
-msgid "Left Indent:"
-msgstr "Venstre indrykning:"
-
-msgid "Name of the Style is not unique"
-msgstr "Navnet på denne typografi er ikke entydig"
-
-msgid "Vertical Spaces"
-msgstr "Vertikal afstand"
-
-msgid "Editor"
-msgstr ""
-
-msgid "Exit without Saving"
-msgstr "Afslut uden at gemme"
-
-msgid "Get Field Names"
-msgstr "Hent feltnavne"
-
-msgid "JavaScripts (*.js);; All Files (*)"
-msgstr "JavaScripts (*.js);; Alle filer (*)"
-
-msgid "Load..."
-msgstr "Indlæs..."
-
-msgid "Redo"
-msgstr "Lav igen"
-
-msgid "Save and Exit"
-msgstr "Gem og afslut"
-
-msgid "No Title"
-msgstr "Ingen titel"
-
-msgid "Scribus-Document"
-msgstr "Scribus-Dokument"
-
-msgid "Unknown"
-msgstr "Ukendt"
-
-msgid "Append"
-msgstr "Tilføj"
-
-msgid "Colors"
-msgstr "Farver"
-
-msgid " "
-msgstr " "
-
-msgid "AFM-File available"
-msgstr "AFM-fil tilgængelig"
-
-msgid "Additional Paths"
-msgstr "Andre Stier"
-
-msgid "Available Fonts"
-msgstr "Tilgængelige Fonte"
-
-msgid "Embed in:"
-msgstr "Indlejr i:"
-
-msgid "Font Name"
-msgstr "Font navn"
-
-msgid "Font Substitutions"
-msgstr "Erstatnings fonte"
-
-msgid "Global Fontsettings"
-msgstr "Globale fontindstillinger"
-
-msgid "Postscript"
-msgstr ""
-
-msgid "Remove"
-msgstr "Fjern"
-
-msgid "Replacement"
-msgstr "Erstatning"
-
-msgid "Type"
-msgstr ""
-
-msgid "Use Font"
-msgstr "Brug font"
-
-msgid " in"
-msgstr " i"
-
-msgid " mm"
-msgstr ""
-
-msgid " p"
-msgstr ""
-
-msgid " pt"
-msgstr ""
-
-msgid "Current Value:"
-msgstr "Nuværende værdi:"
-
-msgid "Horizontal Guides"
-msgstr "Horisontale hjælpelinier"
-
-msgid "Manage Guides"
-msgstr "Håndtering af hjælpelinier"
-
-msgid "Set"
-msgstr "Indstil"
-
-msgid "Vertical Guides"
-msgstr "Vertikale hjælpelinier"
-
-msgid "HelpBrowser::"
-msgstr "Hjælpebrowser:"
-
-msgid "Sorry, no Manual available!"
-msgstr "Desværre, der er ingen manual tilgængelig!"
-
-msgid "Accept"
-msgstr "Acceptér"
-
-msgid "Possible Hyphenation"
-msgstr "Mulig orddeling"
-
-msgid "Skip"
-msgstr "Spring over"
-
-msgid "Check during Typing"
-msgstr "Kontrollér under indtastning"
-
-msgid "Enables automatic checking of your Text during Typing."
-msgstr "Automatisk kontrol af din tekst under indtastning"
-
-msgid "Fully Automatic"
-msgstr "Helt automatisk"
-
-msgid "Hyphenator Settings"
-msgstr "Orddelings instillinger"
-
-msgid "If you uncheck this you will get an Dialog\neverytime a possible Hyphenation is found."
-msgstr "Hvis du fjerner krydset her, så vil der komme en\ndialogboks frem, hver gang en mulig orddeling er fundet."
-
-msgid "Language:"
-msgstr "Sprog:"
-
-msgid "Smallest Word:"
-msgstr "Mindste ord:"
-
-msgid "This is the length of the smallest word to be hyphenated."
-msgstr "Dette er længden af det mindste ord der deles."
-
-msgid "at End"
-msgstr "i slutningen"
-
-msgid "Based on:"
-msgstr "Baseret på:"
-
-msgid "Insert Page"
-msgstr "Indsæt side"
-
-msgid "Inserting"
-msgstr "Indsætter"
-
-msgid "Left Page based on:"
-msgstr "Venstre side er baseret på:"
-
-msgid "Normal"
-msgstr ""
-
-msgid "Page(s)"
-msgstr "Side(r)"
-
-msgid "page(s)"
-msgstr "side(r)"
-
-msgid "Template:"
-msgstr "Skabelon:"
-
-msgid "Right Page based on:"
-msgstr "Højre side er baseret på:"
-
-msgid "Add..."
-msgstr "Tilføj..."
-
-msgid "Add"
-msgstr "Tilføj"
-
-msgid "Edit..."
-msgstr "Redigér..."
-
-msgid "Global JavaScripts"
-msgstr "Globale javascripts"
-
-msgid "New Script"
-msgstr "Ny script"
-
-msgid "ALT+SHIFT+T"
-msgstr ""
-
-msgid "Action"
-msgstr "Handling"
-
-msgid "Alt"
-msgstr ""
-
-msgid "Alt+"
-msgstr ""
-
-msgid "Ctrl"
-msgstr ""
-
-msgid "Ctrl+"
-msgstr ""
-
-msgid "Current Key"
-msgstr "Nuværende taste"
-
-msgid "Manage Keyboard Shortcuts"
-msgstr "Håndtering af tastatur genveje"
-
-msgid "No Key"
-msgstr "Ingen taste"
-
-msgid "Select a Key for this Action"
-msgstr "Vælg en taste for denne handling"
-
-msgid "Set Key"
-msgstr "Sæt taste"
-
-msgid "Shift"
-msgstr ""
-
-msgid "Shift+"
-msgstr ""
-
-msgid "This Key-Sequence is already in use"
-msgstr "Denne tastesekvens er allerede i brug"
-
-msgid "User Defined Key"
-msgstr "Brugerdefineret taste"
-
-msgid "Add a new Layer"
-msgstr "Tilføj et ny lag"
-
-msgid "Closes this Dialog"
-msgstr "Lukker dette vindue"
-
-msgid "Delete Layer"
-msgstr "Slet lag"
-
-msgid "Layers"
-msgstr "Lag"
-
-msgid "Lower Layer"
-msgstr "Sænk dette lag"
-
-msgid "New Layer"
-msgstr "Nyt lag"
-
-msgid "Raise Layer"
-msgstr "Hæv dette lag"
-
-msgid "Horizontal Shift:"
-msgstr "Horisontal skift:"
-
-msgid "Number of Copies:"
-msgstr "Antal kopier:"
-
-msgid "Vertical Shift:"
-msgstr "Vertikalt skift:"
-
-msgid "ModObj:: %"
-msgstr ""
-
-msgid " in"
-msgstr ""
-
-msgid " °"
-msgstr ""
-
-msgid "Absolute Colorimetric"
-msgstr ""
-
-msgid "Apply"
-msgstr "Anvend"
-
-msgid "Background Color:"
-msgstr "Baggrundsfarve:"
-
-msgid "Distance from Curve:"
-msgstr "Afstand fra kurve:"
-
-msgid "Don't print"
-msgstr "Udskriv ikke"
-
-msgid "Horizontal flipped"
-msgstr "Horisontal flip"
-
-msgid "Image visible"
-msgstr "Billede er synlig"
-
-msgid "Input Profile:"
-msgstr "Indlæs profil:"
-
-msgid "Local X-Pos:"
-msgstr "Lokal X-Pos:"
-
-msgid "Local Y-Pos:"
-msgstr "Lokal Y-Pos:"
-
-msgid "Modify Frame"
-msgstr "Ændring af ramme"
-
-msgid "Modify Pathtext"
-msgstr "Ændring af stitekst"
-
-msgid "Modify Pictureframe"
-msgstr "Ændring af billedramme"
-
-msgid "Modify Textframe"
-msgstr "Ændring af tekstramme"
-
-msgid "Name \"%1\" isn't unique.\nPlease choose another."
-msgstr "Navnet \"%1\" er ikke entydigt.\nVælg venligst et andet."
-
-msgid "Name:"
-msgstr "Navn:"
-
-msgid "Ordinary Text"
-msgstr "Almindelig tekst"
-
-msgid "Other:"
-msgstr "Anden:"
-
-msgid "Position:"
-msgstr ""
-
-msgid "Properties:"
-msgstr "Egenskaber:"
-
-msgid "Relative Colorimetric"
-msgstr ""
-
-msgid "Show Curve"
-msgstr "Vis kurve"
-
-msgid "Startoffset:"
-msgstr "Startforskydning:"
-
-msgid "Text flows around Box"
-msgstr "Tekst flyder rundt om boks"
-
-msgid "Textdistance"
-msgstr "Tekstafstand"
-
-msgid "Textdistance:"
-msgstr "Tekstafstand:"
-
-msgid "Vertical Scaling"
-msgstr "Vertikal skalering"
-
-msgid "Vertical flipped"
-msgstr "Vertikal flip"
-
-msgid "X-Pos:"
-msgstr ""
-
-msgid "Y-Pos:"
-msgstr ""
-
-msgid "Copy Page"
-msgstr "Kopiér side"
-
-msgid "Move Page(s):"
-msgstr "Flyt side(r):"
-
-msgid "Move Pages"
-msgstr "Flyt sider"
-
-msgid "To End"
-msgstr "Til slutningen"
-
-msgid "after Page"
-msgstr "Efter side"
-
-msgid "before Page"
-msgstr "Før side"
-
-msgid "Mpalette:: %"
-msgstr ""
-
-msgid "Mpalette:: °"
-msgstr ""
-
-msgid "Align Text Block"
-msgstr "Lige margener"
-
-msgid "Align Text Center"
-msgstr "Centrer"
-
-msgid "Align Text Left"
-msgstr "Justér mod venstre"
-
-msgid "Align Text Right"
-msgstr "Justér mod højre"
-
-msgid "Angle:"
-msgstr "Vinkel:"
-
-msgid "BevelJoin"
-msgstr "Afskårne"
-
-msgid "Character Settings"
-msgstr "Skrifttegns indstillinger"
-
-msgid "Contents"
-msgstr "Indhold"
-
-msgid "Corner Radius:"
-msgstr "Hjørne radius:"
-
-msgid "Distances"
-msgstr "Afstande"
-
-msgid "Edges:"
-msgstr "Hjørner:"
-
-msgid "Endings:"
-msgstr "Ender:"
-
-msgid "Endpoints"
-msgstr "Endepunkter"
-
-msgid "FlatCap"
-msgstr "Flade"
-
-msgid "Flip horizontal"
-msgstr "Flip horisontal"
-
-msgid "Flip vertical"
-msgstr ""
-
-msgid "Font Size"
-msgstr "font størrelse"
-
-msgid "Italic"
-msgstr ""
-
-msgid "Kerning:"
-msgstr ""
-
-msgid "Left Point"
-msgstr "Venstre punkt"
-
-msgid "Length:"
-msgstr "Længde:"
-
-msgid "Linespacing"
-msgstr "Linieafstand"
-
-msgid "Linespacing:"
-msgstr "Linieafstand:"
-
-msgid "Manual Kerning"
-msgstr "Manuel Kerning"
-
-msgid "Measurements"
-msgstr "Mål og formatering"
-
-msgid "MiterJoin"
-msgstr "Spidse"
-
-msgid "Position"
-msgstr ""
-
-msgid "RoundCap"
-msgstr "Runde"
-
-msgid "RoundJoin"
-msgstr "Runde"
-
-msgid "Scaling"
-msgstr "Skalering"
-
-msgid "SquareCap"
-msgstr "Firkantede"
+msgid "by:"
+msgstr "med:"
 
 msgid "Edit Shape..."
 msgstr "Redigér form..."
 
-msgid "Round\nCorners:"
-msgstr "Runde\nhjørner:"
+msgid ""
+"Round\n"
+"Corners:"
+msgstr ""
+"Runde\n"
+"hjørner:"
 
 msgid "Distance of Text"
 msgstr "Tekstafstand"
@@ -1348,1706 +2690,11 @@ msgstr "Niveau"
 msgid "Geometry"
 msgstr "Geometri"
 
-msgid "Strikeout"
-msgstr "Gennemstreget"
-
-msgid "Width:"
-msgstr "Bredde:"
-
-msgid "X-Dir:"
-msgstr ""
-
-msgid "X-Pos:"
-msgstr ""
-
-msgid "X2-Pos:"
-msgstr ""
-
-msgid "Y-Dir:"
-msgstr ""
-
-msgid "Y-Pos:"
-msgstr ""
-
-msgid "Y2-Pos:"
-msgstr ""
-
-msgid "Do you really want do delete this Template?"
-msgstr "Ønsker du virkelig at slette denne skabelon?"
-
-msgid "Edit Templates"
-msgstr "Rediger skabeloner"
-
-msgid "Exit"
-msgstr "Afslut"
-
-msgid "New Template"
-msgstr "Ny skabelon"
-
-msgid "Normal"
-msgstr ""
-
-msgid "A0"
-msgstr ""
-
-msgid "A1"
-msgstr ""
-
-msgid "A2"
-msgstr ""
-
-msgid "A3"
-msgstr ""
-
-msgid "A4"
-msgstr ""
-
-msgid "A5"
-msgstr ""
-
-msgid "A6"
-msgstr ""
-
-msgid "A7"
-msgstr ""
-
-msgid "A8"
-msgstr ""
-
-msgid "A9"
-msgstr ""
-
-msgid "Autom. Textframes"
-msgstr "Autom. Tekstrammer"
-
-msgid "B0"
-msgstr ""
-
-msgid "B1"
-msgstr ""
-
-msgid "B10"
-msgstr ""
-
-msgid "B2"
-msgstr ""
-
-msgid "B3"
-msgstr ""
-
-msgid "B4"
-msgstr ""
-
-msgid "B5"
-msgstr ""
-
-msgid "B6"
-msgstr ""
-
-msgid "B7"
-msgstr ""
-
-msgid "B8"
-msgstr ""
-
-msgid "B9"
-msgstr ""
-
-msgid "C5E"
-msgstr ""
-
-msgid "Column Guides"
-msgstr "Kolonne hjælpelinier"
-
-msgid "Columns:"
-msgstr "Kolonner:"
-
-msgid "Comm10E"
-msgstr ""
-
-msgid "DLE"
-msgstr ""
-
-msgid "Default Unit:"
-msgstr "Standard enhed:"
-
-msgid "Executive"
-msgstr ""
-
-msgid "First Pagenumber:"
-msgstr "Første sidenummer:"
-
-msgid "Folio"
-msgstr ""
-
-msgid "Gutter Width:"
-msgstr "Gutter bredde:"
-
-msgid "Ledger"
-msgstr ""
-
-msgid "Legal"
-msgstr ""
-
-msgid "Letter"
-msgstr ""
-
-msgid "New Document"
-msgstr "Nyt dokument"
-
-msgid "Options"
-msgstr "Indstillinger"
-
-msgid "Picas (p)"
-msgstr ""
-
-msgid "Points (pts)"
-msgstr "Punkter (pts)"
-
-msgid "Tabloid"
-msgstr ""
-
-msgid "Top:"
-msgstr ""
-
-msgid "Left Page"
-msgstr "Venstre side"
-
-msgid "Right Page"
-msgstr "Højre side"
-
-msgid "Add Nodes"
-msgstr "Tilføj noder"
-
-msgid "Closes this Bezier Curve"
-msgstr "Lukker denne bezier kurve"
-
-msgid "Delete Nodes"
-msgstr "Slet noder"
-
-msgid "End Editing"
-msgstr "Afslut redigering"
-
-msgid "Move Control Points independently"
-msgstr "Flyt kontrolpunkter en af gangen"
-
-msgid "Move Control Points symmetrical"
-msgstr "Flyt kontrolpunkter symmetrisk"
-
-msgid "Move Control Points"
-msgstr "Flyt kontrolpunkter"
-
-msgid "Move Nodes"
-msgstr "Flyt noder"
-
-msgid "Nodes"
-msgstr "Noder"
-
-msgid "Opens a Polygon or cuts a Bezier Curve"
-msgstr "Åbner en polygon eller fjerner en bezierkurve"
-
-msgid "Reset Control Points"
-msgstr "Nulstil kontrolpunkter"
-
-msgid "Reset this Control Points"
-msgstr "Nulstil dette kontrolpunkt"
-
-msgid "X-Pos:"
-msgstr ""
-
-msgid "Y-Pos:"
-msgstr ""
-
-msgid " dpi"
-msgstr ""
-
-msgid " sec"
-msgstr ""
-
-msgid "<<"
-msgstr ""
-
-msgid ">>"
-msgstr ""
-
-msgid "Absolute Colorimetric"
-msgstr ""
-
-msgid "Adding Annotations and Fields is allowed"
-msgstr "Tilføjelse af kommentarer og felter er tilladt"
-
-msgid "All Pages"
-msgstr "Alle sider"
-
-msgid "Allow Changing the Document"
-msgstr "Tillad ændring af dokument"
-
-msgid "Allow Printing the Document"
-msgstr "Tillad udskrivning af dokument"
-
-msgid "Apply Effect on all Pages"
-msgstr "Anvend effekt på alle sider"
-
-msgid "Available Fonts:"
-msgstr "Tilgængelige fonte:"
-
-msgid "Binding:"
-msgstr "Indbinding:"
-
-msgid "Blinds"
-msgstr ""
-
-msgid "Bookmarks"
-msgstr "Bogmærker"
-
-msgid "Bottom to Top"
-msgstr "Bund til top"
-
-msgid "Box"
-msgstr "Boks"
-
-msgid "Compatibility:"
-msgstr "Filformat:"
-
-msgid "Compress Text and Vector Graphics"
-msgstr "Komprimér tekst og vektorgrafik"
-
-msgid "Compression"
-msgstr "Komprimering"
-
-msgid "Copying Text and Graphics is allowed"
-msgstr "Kopiering af tekst og grafik er tilladt"
-
-msgid "Create PDF-File"
-msgstr "Lav PDF-fil"
-
-msgid "Direction:"
-msgstr "Retning:"
-
-msgid "Display Duration:"
-msgstr "Varighed af visning:"
-
-msgid "Dissolve"
-msgstr "Opløs"
-
-msgid "Don't use embedded Profiles"
-msgstr "Brug ikke indlejrede profiler"
-
-msgid "Downsample Images to:"
-msgstr "Billed-opløsning ændres til:"
-
-msgid "Effect Duration:"
-msgstr "Varighed af effekt:"
-
-msgid "Effect Type:"
-msgstr "Effekttype:"
-
-msgid "Effects"
-msgstr "Effekter"
-
-msgid "Embed all Fonts"
-msgstr "Indlejr alle fonte"
-
-msgid "Embedding"
-msgstr "Indlejrer"
-
-msgid "Enable Presentation Effects"
-msgstr "anvend præsentationseffekter"
-
-msgid "Export Range"
-msgstr "Eksport område"
-
-msgid "File Options"
-msgstr "fil indstillinger"
-
-msgid "Fonts to embed:"
-msgstr "Fonte til indlejring:"
-
-msgid "Fonts"
-msgstr "Fonte"
-
-msgid "From:"
-msgstr "Fra:"
-
-msgid "Generate Thumbnails"
-msgstr "Lav små sider"
-
-msgid "Glitter"
-msgstr ""
-
-msgid "Horizontal"
-msgstr "Horisontalt"
-
-msgid "Images:"
-msgstr "Billeder:"
-
-msgid "Include Bookmarks"
-msgstr "Medtag bogmærker"
-
-msgid "Info String:"
-msgstr "Info streng:"
-
-msgid "Inside"
-msgstr "Inderside"
-
-msgid "Left Margin"
-msgstr "Venstre margin"
-
-msgid "Left to Right"
-msgstr "Venstre til højre"
-
-msgid "Moving Lines:"
-msgstr "Bevægelige linier:"
-
-msgid "No Effect"
-msgstr "Ingen effekt"
-
-msgid "Output Profile:"
-msgstr "Udskriv profil:"
-
-msgid "Output intended for:"
-msgstr "Udskrift beregnet for:"
-
-msgid "Output to File:"
-msgstr "Udskriv til fil:"
-
-msgid "Outside"
-msgstr "Yderside"
-
-msgid "Owner:"
-msgstr "Ejer:"
-
-msgid "PDF-Files (*.pdf);; All Files (*)"
-msgstr "PDF-Filer (*.pdf);; Alle filer (*)"
-
-msgid "PDF/X-3 Output Intent"
-msgstr ""
-
-msgid "PDF/X-3"
-msgstr ""
-
-msgid "Passwords"
-msgstr "Adgangskode"
-
-msgid "Perceptual"
-msgstr "Opfattelsesmæssigt"
-
-msgid "Printer"
-msgstr ""
-
-msgid "Profile:"
-msgstr "Profil:"
-
-msgid "Relative Colorimetric"
-msgstr ""
-
-msgid "Rendering-Intent:"
-msgstr "Hensigt med gengivelse:"
-
-msgid "Resolution:"
-msgstr "Opløsning:"
-
-msgid "Right Margin"
-msgstr "Højre margin"
-
-msgid "Right to Left"
-msgstr "Højre til venstre"
-
-msgid "Saturation"
-msgstr "Mætning"
-
-msgid "Save linked Text Frames as PDF-Articles"
-msgstr "Gem kædede tekstrammer som PDF-Artikler"
-
-msgid "Screen"
-msgstr "Skærm"
-
-msgid "Security"
-msgstr "Sikkerhed"
-
-msgid "Settings"
-msgstr "Indstillinger"
-
-msgid "Solid Colors:"
-msgstr "Massive farver:"
-
-msgid "Split"
-msgstr "Adskil"
-
-msgid "Top to Bottom"
-msgstr "top til bund"
-
-msgid "Top-Left to Bottom-Right"
-msgstr "top-venstre til bund-højre"
-
-msgid "Trim Box"
-msgstr "Beskære boks"
-
-msgid "Use Encryption"
-msgstr "Brug cryptering"
-
-msgid "Use ICC-Profile"
-msgstr "Brug ICC-Profil"
-
-msgid "User:"
-msgstr "Bruger:"
-
-msgid "Vertical"
-msgstr "Vertikalt"
-
-msgid "Wipe"
-msgstr "Udviske"
-
-msgid "from the:"
-msgstr "Fra:"
-
-msgid "to:"
-msgstr "Til:"
-
-msgid "Annotation Properties"
-msgstr "Kommentar egenskaber"
-
-msgid "Bezier Curve"
-msgstr "Bezier kurve"
-
-msgid "Convert to"
-msgstr "Konvertér til"
-
-msgid "Copy Here"
-msgstr "Kopi her"
-
-msgid "Field Properties"
-msgstr "Felt egenskaber"
-
-msgid "Is PDF-Annotation"
-msgstr "Er PDF-Kommentar"
-
-msgid "Is PDF-Bookmark"
-msgstr "Er PDF-Bogmærke"
-
-msgid "Modify..."
-msgstr "Indstillinger..."
-
-msgid "Move Here"
-msgstr "Flyt her"
-
-msgid "Picture Frame"
-msgstr "Billedramme"
-
-msgid "Polygon"
-msgstr ""
-
-msgid "Send to Scrapbook"
-msgstr "Placér i scrapbog"
-
-msgid "Sent to Layer"
-msgstr "Placér i lag"
-
-msgid "Text Frame"
-msgstr "Tekstramme"
-
-msgid "Preview"
-msgstr "Vis"
-
-msgid "Result"
-msgstr "Resultat"
-
-msgid "Search Results for: "
-msgstr "Søg resultater for: "
-
-msgid "Select"
-msgstr "Marker"
-
-msgid "Goto"
-msgstr "Gå til"
-
-msgid "Missing"
-msgstr "Mangler"
-
-msgid "Name"
-msgstr "Navn"
-
-msgid "Path"
-msgstr "Sti"
-
-msgid "Pictures"
-msgstr "Billeder"
-
-msgid "Print"
-msgstr "Udskriv"
-
-msgid "Search"
-msgstr "Søg"
-
-msgid "Status"
-msgstr ""
-
-msgid " %"
-msgstr " %"
-
-msgid "Convex Polygon"
-msgstr ""
-
-msgid "Factor:"
-msgstr "Faktor:"
-
-msgid "Polygon Properties"
-msgstr "Polygon egenskaber"
-
-msgid "Rotation:"
-msgstr ""
-
-msgid "Document Setup"
-msgstr "Dokument indstillinger"
-
-msgid "Top:"
-msgstr ""
-
-msgid ");;Postscript (*.eps);;All Files (*)"
-msgstr ");;Postscript (*.eps);;Alle Filer (*)"
-
-msgid "200%"
-msgstr ""
-
-msgid "50%"
-msgstr ""
-
-msgid "75%"
-msgstr ""
-
-msgid "About Qt"
-msgstr "Om Qt"
-
-msgid "About Scribus"
-msgstr "Om Scribus"
-
-msgid "Actual Size"
-msgstr "Faktisk størrelse"
-
-msgid "Adjusting Colors"
-msgstr "Tilpasser farver"
-
-msgid "Align Center"
-msgstr "Centrer"
-
-msgid "Align Left"
-msgstr "Justér mod venstre"
-
-msgid "Align Right"
-msgstr "Justér mod højre"
-
-msgid "Alignment"
-msgstr "Justér"
-
-msgid "Apply Template..."
-msgstr "Anvend skabelon..."
-
-msgid "Attach Text to Path"
-msgstr "Forbind tekst til sti"
-
-msgid "Block"
-msgstr "Lige margener"
-
-msgid "Bold"
-msgstr "Fed"
-
-msgid "Bring to Front"
-msgstr "Placér forrest"
-
-msgid "Can't write the File: \n%1"
-msgstr "Kan ikke gemme filen: \n%1"
-
-msgid "Cascade"
-msgstr "Bagved hinanden"
-
-msgid "Center"
-msgstr "Mod center"
-
-msgid "Clear"
-msgstr "Slet"
-
-msgid "Closes the current Document"
-msgstr "Luk det aktive dokument"
-
-msgid "Color Management..."
-msgstr "Farve håndtering..."
-
-msgid "Color"
-msgstr "Farve"
-
-msgid "Colors..."
-msgstr "Farver..."
-
-msgid "Copy"
-msgstr "Kopiér"
-
-msgid "Creates a new Document"
-msgstr "Laver et nyt dokument"
-
-msgid "Cut"
-msgstr "Klip"
-
-msgid "Delete"
-msgstr "Slet"
-
-msgid "Delete..."
-msgstr "Slet..."
-
-msgid "Distribute/Align..."
-msgstr "Fordel/Opstil på linie..."
-
-msgid "Do you really want to overwrite the File:\n%1 ?"
-msgstr "Ønsker du virkelig at overskrive filen:\n%1 ?"
-
-msgid "Document Info..."
-msgstr "Dokument Info..."
-
-msgid "Document Setup..."
-msgstr "Dokument indstillinger..."
-
-msgid "Documents (*.scd *scd.gz);; All Files (*)"
-msgstr "Dokumenter (*.scd *scd.gz);; Alle filer (*)"
-
-msgid "Documents (*.scd);; All Files (*)"
-msgstr "Dokumenter (*.scd);; Alle filer (*)"
-
-msgid "Duplicate"
-msgstr "Duplikér"
-
-msgid "EPS-Files (*.eps);; All Files (*)"
-msgstr "EPS-Filer (*.eps);; Alle filer (*)"
-
-msgid "Edit Frame"
-msgstr "Redigér ramme"
-
-msgid "English"
-msgstr "Engelsk"
-
-msgid "Exiting now"
-msgstr "Afslutter nu"
-
-msgid "Export..."
-msgstr "Eksportér..."
-
-msgid "Extras"
-msgstr "Ekstra"
-
-msgid "Face"
-msgstr "Vælg font"
-
-msgid "Fatal Error"
-msgstr "Fatal fejl"
-
-msgid "File"
-msgstr "Filer"
-
-msgid "Fit in Window"
-msgstr "Tilpas til vindue"
-
-msgid "Font"
-msgstr ""
-
-msgid "Fonts..."
-msgstr "Fonte..."
-
-msgid "Forced"
-msgstr "Tvunget"
-
-msgid "French"
-msgstr "Fransk"
-
-msgid "General..."
-msgstr "Generelt..."
-
-msgid "German"
-msgstr "Tysk"
-
-msgid "Get Picture..."
-msgstr "Hent billede..."
-
-msgid "Get Text..."
-msgstr "Hent tekst..."
-
-msgid "Get Text/Picture..."
-msgstr "Hent Tekst/billede..."
-
-msgid "Ghostscript : You cannot use EPS-Images"
-msgstr "Ghostscript : Du kan ikke bruge EPS-Billeder"
-
-msgid "Group"
-msgstr "Lav til gruppe"
-
-msgid "Help"
-msgstr "Hjælp"
-
-msgid "Hide Colors"
-msgstr "Skjul farver"
-
-msgid "Hide Frames"
-msgstr "Skjul rammer"
-
-msgid "Hide Grid"
-msgstr "Skjul gitter"
-
-msgid "Hide Guides"
-msgstr "Skjul hjælpelinier"
-
-msgid "Hide Images"
-msgstr "Skjul billeder"
-
-msgid "Hide Layers"
-msgstr "Skjul lag"
-
-msgid "Hide Margins"
-msgstr "Skjul margin"
-
-msgid "Hide Measurements"
-msgstr "Skjul Mål og formatering"
-
-msgid "Hide Outline"
-msgstr "Skjul oversigt"
-
-msgid "Hide Page Palette"
-msgstr "Skjul arrangér sider"
-
-msgid "Hide Bookmarks"
-msgstr "Skjul bogmærker"
-
-msgid "Hide Scrapbook"
-msgstr "Skjul scrapbog"
-
-msgid "Hide Styles"
-msgstr "Skjul typografier"
-
-msgid "Hide Tools"
-msgstr "Skjul værktøjer"
-
-msgid "Hyphenate Text"
-msgstr "Orddel tekst"
-
-msgid "Hyphenator..."
-msgstr "Orddeling..."
-
-msgid "Images"
-msgstr "Billeder"
-
-msgid "Import..."
-msgstr "Importér..."
-
-msgid "Insert Pagenumber"
-msgstr "Indsæt sidenummer"
-
-msgid "Insert..."
-msgstr "Indsæt..."
-
-msgid "Invert"
-msgstr "Invertér"
-
-msgid "Italian"
-msgstr "Italiensk"
-
-msgid "Italic"
-msgstr ""
-
-msgid "Item"
-msgstr "Objekt"
-
-msgid "JavaScripts..."
-msgstr ""
-
-msgid "Left"
-msgstr "Mod venstre"
-
-msgid "Loading..."
-msgstr "Indlæser..."
-
-msgid "Lock"
-msgstr "Lås"
-
-msgid "Lock/Unlock"
-msgstr "Lås op"
-
-msgid "Lower"
-msgstr "Flyt bagud"
-
-msgid "Manage Guides..."
-msgstr "Håndtér hjælpelinier"
-
-msgid "Manage Pictures"
-msgstr "Håndter billeder"
-
-msgid "Move..."
-msgstr "Flyt..."
-
-msgid "Multiple Duplicate"
-msgstr "Duplikér flere gange"
-
-msgid "New"
-msgstr "Ny"
-
-msgid "No"
-msgstr "Nej"
-
-msgid "Normal"
-msgstr ""
-
-msgid "Online-Help..."
-msgstr "Hjælp..."
-
-msgid "Open"
-msgstr "Åbn"
-
-msgid "Open..."
-msgstr "Åbn..."
-
-msgid "Opens a Document"
-msgstr "Åbn dokument"
-
-msgid "Other..."
-msgstr "anden..."
-
-msgid "Oval"
-msgstr "Oval"
-
-msgid "Paste"
-msgstr "Indsæt"
-
-msgid "Preferences..."
-msgstr "Præferencer..."
-
-msgid "Print..."
-msgstr "Udskriv..."
-
-msgid "Printing failed!"
-msgstr "Udskrivning fejlede!"
-
-msgid "Printing..."
-msgstr "Udskrivning..."
-
-msgid "Prints the current Document"
-msgstr "Udskriv det aktive dokument"
-
-msgid "Quit"
-msgstr "Afslut"
-
-msgid "Raise"
-msgstr "Flyt forud"
-
-msgid "Ready"
-msgstr "Klar"
-
-msgid "Recent Documents"
-msgstr "Nyeste dokumenter"
-
-msgid "Right"
-msgstr "Mod højre"
-
-msgid "Rounded Rectangle"
-msgstr "Afrundet rektangel"
-
-msgid "Russian"
-msgstr "Russisk"
-
-msgid "Save Page as EPS..."
-msgstr "Gem side som EPS..."
-
-msgid "Save Text..."
-msgstr "Gem tekst..."
-
-msgid "Save as PDF..."
-msgstr "Gem som PDF..."
-
-msgid "Save as"
-msgstr "Gem som"
-
-msgid "Save as..."
-msgstr "Gem som..."
-
-msgid "Save"
-msgstr "Gem"
-
-msgid "Collect for Output..."
-msgstr "Saml projekt i mappe..."
-
-msgid "Directory:"
-msgstr "Mappe:"
-
-msgid "Saves the current Document as PDF"
-msgstr "Gem det aktive dokument som PDF"
-
-msgid "Saves the current Document"
-msgstr "Gem det aktive dokument"
-
-msgid "Saving..."
-msgstr "Gemmer..."
-
-msgid "Scribus Manual"
-msgstr ""
-
-msgid "Select all"
-msgstr "Markér alt"
-
-msgid "Send to Back"
-msgstr "Placér bagerst"
-
-msgid "Shade"
-msgstr "Farvemætning"
-
-msgid "Shape"
-msgstr "Form"
-
-msgid "Show Colors"
-msgstr "Vis farver"
-
-msgid "Show Frames"
-msgstr "Vis rammer"
-
-msgid "Show Grid"
-msgstr "Vis gitter"
-
-msgid "Show Guides"
-msgstr "Vis hjælpelinier"
-
-msgid "Show Images"
-msgstr "Vis billeder"
-
-msgid "Show Layers"
-msgstr "Vis lag"
-
-msgid "Show Margins"
-msgstr "Vis margener"
-
-msgid "Show Measurements"
-msgstr "Vis Mål og formatering"
-
-msgid "Show Outline"
-msgstr "Vis oversigt"
-
-msgid "Show Page Palette"
-msgstr "Vis arrangér sider"
-
-msgid "Show Bookmarks"
-msgstr "Vis bogmærker"
-
-msgid "Show Scrapbook"
-msgstr "Vis scrapbog"
-
-msgid "Show Styles"
-msgstr "Vis typografier"
-
-msgid "Show Tools"
-msgstr "Vis værktøjer"
-
-msgid "Size"
-msgstr "Størrelse"
-
-msgid "Smart Hyphen"
-msgstr "Smart orddeling"
-
-msgid "Snap to Grid"
-msgstr "Klæb til gitter"
-
-msgid "Snap to Guides"
-msgstr "Klæb til hjælpelinier"
-
-msgid "Spanish"
-msgstr "Spansk"
-
-msgid "Strikethru"
-msgstr "Gennemstreg"
-
-msgid "Style"
-msgstr "Stil"
-
-msgid "Styles..."
-msgstr "Typografier..."
-
-msgid "Templates..."
-msgstr "Skabeloner..."
-
-msgid "Textfiles (*.txt);;All Files (*)"
-msgstr "Tekstfiler (*.txt);;Alle filer (*)"
-
-msgid "The following Programs are missing:"
-msgstr "Følgende programmer mangler:"
-
-msgid "There are no Postscript-Fonts on your System"
-msgstr "Der er ingen Postscript-Fonte installeret"
-
-msgid "Thumbnails"
-msgstr "Små sider"
-
-msgid "Tile"
-msgstr "Side om side"
-
-msgid "Tool-Tips"
-msgstr Hjælpe-tekst"
-
-msgid "Underline"
-msgstr "Understreg"
-
-msgid "Undo Delete Object"
-msgstr "Fortryd sletning af objekt"
-
-msgid "Undo Object Change"
-msgstr "Fortryd ændring af objekt"
-
-msgid "Undo Object Move"
-msgstr "Fortryd flytning af objekt"
-
-msgid "Undo"
-msgstr "Fortryd"
-
-msgid "Ungroup"
-msgstr "Bryd gruppe"
-
-msgid "Unlock"
-msgstr "Lås op"
-
-msgid "View"
-msgstr "Vis"
-
-msgid "Warning"
-msgstr "Advarsel"
-
-msgid "Windows"
-msgstr "Vinduer"
-
-msgid "X-Pos:"
-msgstr ""
-
-msgid "Y-Pos:"
-msgstr ""
-
-msgid "Yes"
-msgstr "Ja"
-
-msgid "Background"
-msgstr "Baggrund"
-
-msgid "All"
-msgstr "Alle"
-
-msgid "Layer"
-msgstr "Lag"
-
-msgid "Leave Anyway"
-msgstr "Afslut alligevel"
-
-msgid "Save Now"
-msgstr "Gem nu"
+msgid "Document:"
+msgstr "Dokument:"
 
 msgid "has been changed since the last save."
 msgstr "er ændret siden sidste gang det blev gemt."
-
-msgid "Show Page Previews"
-msgstr "Vis Sidevisninger"
-
-msgid "Show Template Names"
-msgstr "Skabelon navn"
-
-msgid "Arrange Pages"
-msgstr "Arrangér sider"
-
-msgid "Available Templates:"
-msgstr "Tilgængelige skabeloner:"
-
-msgid "Document Pages:"
-msgstr "Dokument sider:"
-
-msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
-msgstr "Træk sider eller skabeloner til skraldespanden for at slette dem."
-
-msgid "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below."
-msgstr "Her er alle dine skabeloner. Træk en skabelon\ntil vinduet nedenunder, for at lave en ny side."
-
-msgid "Here you can see all Pages of your Document."
-msgstr "Her kan du se alle siderne i dit dokument."
-
-msgid "Normal"
-msgstr ""
-
-msgid "Available Fields"
-msgstr "Tilgængelige felter"
-
-msgid "Select Fields"
-msgstr "Markér felter"
-
-msgid "SelectFields::Selected Fields"
-msgstr "Markerede felter"
-
-msgid "Spalette::No Style"
-msgstr "Ingen typografier"
-
-msgid "Spalette::Styles"
-msgstr "Typografier"
-
-msgid "Copy of "
-msgstr "Kopi af "
-
-msgid "Do you really want do delete this Style?"
-msgstr "Ønsker du virkelig at slette denne stil?"
-
-msgid "StilFormate::Edit Styles"
-msgstr "Rediger typografier"
-
-msgid "Edit"
-msgstr "Redigér"
-
-msgid "StilFormate::New Style"
-msgstr "Ny typografi"
-
-msgid "Tree::Element"
-msgstr "Objekt"
-
-msgid "Ellipse"
-msgstr ""
-
-msgid "Image"
-msgstr "Billede"
-
-msgid "Information"
-msgstr ""
-
-msgid "Tree::Item"
-msgstr "Emne"
-
-msgid "Line"
-msgstr "Linie"
-
-msgid "Outline"
-msgstr "Oversigt"
-
-msgid "Page"
-msgstr "Side"
-
-msgid "Rectangle"
-msgstr "Rektangel"
-
-msgid "Type"
-msgstr ""
-
-msgid "Break Textchains"
-msgstr "Bryd tekstkæde"
-
-msgid "Button"
-msgstr "Knap"
-
-msgid "Check Box"
-msgstr "Afkrydsnings boks"
-
-msgid "Combo Box"
-msgstr "Kombo boks"
-
-msgid "Create Textchains"
-msgstr "Lav tekstkæde"
-
-msgid "Edit Contents of Frame"
-msgstr "Rediger indhold af ramme"
-
-msgid "Insert Bezier Curves"
-msgstr "Indsæt bezier kurve"
-
-msgid "Insert Lines"
-msgstr "Indsæt linier"
-
-msgid "Insert Ovals"
-msgstr "Indsæt ovaler"
-
-msgid "Insert PDF-Annotations"
-msgstr "Indsæt PDF-Kommentar"
-
-msgid "Insert PDF-Fields"
-msgstr "Indsæt PDF-Felter"
-
-msgid "Insert Picture"
-msgstr "Indsæt billede"
-
-msgid "Insert Polygons"
-msgstr "Indsæt polygoner"
-
-msgid "Insert Rectangles"
-msgstr "Indsæt rektangler"
-
-msgid "Insert Textbox"
-msgstr "Indsæt tekstramme"
-
-msgid "Link"
-msgstr "Lænke"
-
-msgid "List Box"
-msgstr "Liste boks"
-
-msgid "Properties..."
-msgstr "Egenskaber..."
-
-msgid "Rotate Item"
-msgstr "Rotér emne"
-
-msgid "Select Items"
-msgstr "Marker objekt"
-
-msgid "Text Field"
-msgstr "Tekstfelt"
-
-msgid "Text"
-msgstr "Tekst"
-
-msgid "Zooms in or out"
-msgstr "Zoom ind eller ud"
-
-msgid "About Scribus "
-msgstr "Om Scribus"
-
-msgid "About"
-msgstr "Om"
-
-msgid "Authors"
-msgstr "Forfattere"
-
-msgid "Bulgarian:"
-msgstr ""
-
-msgid "Close"
-msgstr "Luk"
-
-msgid "Contributions from:"
-msgstr ""
-
-msgid "Documentation:"
-msgstr ""
-
-msgid "French:"
-msgstr ""
-
-msgid "Galician:"
-msgstr ""
-
-msgid "German:"
-msgstr ""
-
-msgid "Hungarian and Italian:"
-msgstr ""
-
-msgid "Lithuanian:"
-msgstr ""
-
-msgid "Polish:"
-msgstr ""
-
-msgid "Programming:"
-msgstr ""
-
-msgid "Slovak:"
-msgstr ""
-
-msgid "Spanish and Catalan:"
-msgstr ""
-
-msgid "Translations"
-msgstr "Oversættelser"
-
-msgid "Turkish:"
-msgstr ""
-
-msgid "Ukrainian:"
-msgstr ""
-
-msgid "Preferences:: %"
-msgstr ""
-
-msgid "A0"
-msgstr ""
-
-msgid "A1"
-msgstr ""
-
-msgid "A2"
-msgstr ""
-
-msgid "A3"
-msgstr ""
-
-msgid "A4"
-msgstr ""
-
-msgid "A5"
-msgstr ""
-
-msgid "A6"
-msgstr ""
-
-msgid "A7"
-msgstr ""
-
-msgid "A8"
-msgstr ""
-
-msgid "A9"
-msgstr ""
-
-msgid "Automatic Linespaceing:"
-msgstr "Automatisk linieafstand:"
-
-msgid "B0"
-msgstr ""
-
-msgid "B1"
-msgstr ""
-
-msgid "B10"
-msgstr ""
-
-msgid "B2"
-msgstr ""
-
-msgid "B3"
-msgstr ""
-
-msgid "B4"
-msgstr ""
-
-msgid "B5"
-msgstr ""
-
-msgid "B6"
-msgstr ""
-
-msgid "B7"
-msgstr ""
-
-msgid "B8"
-msgstr ""
-
-msgid "B9"
-msgstr ""
-
-msgid "Background:"
-msgstr "Baggrund:"
-
-msgid "Big"
-msgstr "Stor"
-
-msgid "Bottom:"
-msgstr "Bund:"
-
-msgid "C5E"
-msgstr ""
-
-msgid "Cancel"
-msgstr "Annullér"
-
-msgid "Change..."
-msgstr "Vælg..."
-
-msgid "Choose a Directory"
-msgstr "Vælg en mappe"
-
-msgid "Comm10E"
-msgstr ""
-
-msgid "Convex Polygon"
-msgstr ""
-
-msgid "Corners:"
-msgstr "Hjørner:"
-
-msgid "Custom"
-msgstr "Bruger"
-
-msgid "DLE"
-msgstr ""
-
-msgid "Default Font:"
-msgstr "Standard font"
-
-msgid "Default Size:"
-msgstr "Standard størrelse:"
-
-msgid "Disp.:"
-msgstr "Forskydning"
-
-msgid "Display Frames"
-msgstr "Vis rammer"
-
-msgid "Display Pages Side by Side"
-msgstr "Vis sider ved siden af hinanden"
-
-msgid "Display unprintable Area in Margin Color"
-msgstr "Vis område der ikke kan udskrives i margin farve"
-
-msgid "Adjust Display Size"
-msgstr "Indstil vis side"
-
-msgid "To adjust the Display drag the Ruler below with the Slider."
-msgstr "Indstil hvor meget 100% visning fylder på skærmen"
-
-msgid "Display"
-msgstr "Vis"
-
-msgid "Document"
-msgstr "Dokument"
-
-msgid "Documents:"
-msgstr "Dokumenter:"
-
-msgid "Executive"
-msgstr "Udøvende"
-
-msgid "Facing Pages"
-msgstr "Modstående sider"
-
-msgid "Fill Color:"
-msgstr "Fyldfarve:"
-
-msgid "Folio"
-msgstr ""
-
-msgid "Fontsize"
-msgstr "Fontstørrelse"
-
-msgid "Free Scaling"
-msgstr "Fri skalering"
-
-msgid "GUI"
-msgstr ""
-
-msgid "General"
-msgstr "Generelt"
-
-msgid "Grab-Radius"
-msgstr "Gribe-radius"
-
-msgid "Grid Colors"
-msgstr "Farve på Gitter og hjælpelinier"
-
-msgid "Grid Layout"
-msgstr "Gitter indstillinger"
-
-msgid "Guide Snap Distance:"
-msgstr "'Klæb til' afstand:"
-
-msgid "Guides"
-msgstr "Hjælpelinier"
-
-msgid "Height:"
-msgstr "Højde:"
-
-msgid "Horizontal Scaling"
-msgstr "Horisontal skalering"
-
-msgid "In the Background"
-msgstr "I baggrunden"
-
-msgid "In the Foreground"
-msgstr "I forgrunden"
-
-msgid "Inches (in)"
-msgstr "Tommer (in)"
-
-msgid "Inside:"
-msgstr "Inderside:"
-
-msgid "Keep Aspect Ratio"
-msgstr "Behold bredde/højde forhold"
-
-msgid "Keyboard Shortcuts..."
-msgstr "Tastatur genveje..."
-
-msgid "Landscape"
-msgstr "Landskab"
-
-msgid "Ledger"
-msgstr ""
-
-msgid "Left Page first"
-msgstr "Venstre side først"
-
-msgid "Autosave"
-msgstr "Gem automatisk"
-
-msgid "Enabled"
-msgstr "Aktiv"
-
-msgid "Intervall:"
-msgstr "Interval:"
-
-msgid "Left:"
-msgstr "Venstre:"
-
-msgid "Legal"
-msgstr ""
-
-msgid "Letter"
-msgstr ""
-
-msgid "Line Color:"
-msgstr "Liniefarve:"
-
-msgid "Linestyle:"
-msgstr "Liniestil:"
-
-msgid "Linewidth:"
-msgstr "Liniebredde:"
-
-msgid "Major Grid Color:"
-msgstr "Hoved-gitterlinier:"
-
-msgid "Major Grid Spacing:"
-msgstr "Afstand mellem hovedlinier:"
-
-msgid "Margin Guides"
-msgstr "Margin hjælpelinier"
-
-msgid "Margins:"
-msgstr "Margener:"
-
-msgid "Maximum:"
-msgstr "Maksimum:"
-
-msgid "Medium"
-msgstr ""
-
-msgid "Menues"
-msgstr "Menuer"
-
-msgid "Millimeters (mm)"
-msgstr "Millimeter (mm)"
-
-msgid "Minimum:"
-msgstr ""
-
-msgid "Minor Grid Color:"
-msgstr "Gitterlinier:"
-
-msgid "Minor Grid Spacing:"
-msgstr "Afstand mellem linier:"
-
-msgid "Mouse-Settings"
-msgstr "Mus-instillinger"
-
-msgid "None"
-msgstr "Ingen"
-
-msgid "Orientation:"
-msgstr "Retning:"
-
-msgid "Other Options"
-msgstr "Andre instillinger"
-
-msgid "Other"
-msgstr "Andet"
-
-msgid "Outside:"
-msgstr "Yderside:"
-
-msgid "Page Size"
-msgstr "Sidestørrelse"
-
-msgid "Page-Colors"
-msgstr "Side farver"
-
-msgid "Paths"
-msgstr "Stier"
-
-msgid "Picas (p)"
-msgstr ""
-
-msgid "Placing"
-msgstr "Placering"
-
-msgid "Points (pt)"
-msgstr ""
-
-msgid "Portrait"
-msgstr "Portræt"
-
-msgid "Preferences"
-msgstr "Præferencer"
-
-msgid "Recent Documents:"
-msgstr "Nyeste dokumenter:"
-
-msgid "Right:"
-msgstr "Højre:"
-
-msgid "Rotation:"
-msgstr ""
-
-msgid "Sample Text"
-msgstr "Prøve tekst"
-
-msgid "Save Contents on Exit"
-msgstr "Gem indhold ved afslutning"
-
-msgid "Scale Picture to Frame Size"
-msgstr "Skalér billede til rammestørrelse"
-
-msgid "Scale to Frame Size"
-msgstr "Skalér til rammestørrelse"
-
-msgid "Horiz. Scale:"
-msgstr "Horisontalt:"
-
-msgid "Vert. Scale:"
-msgstr "vertikalt:"
-
-msgid "Scaling:"
-msgstr "Skalering:"
-
-msgid "Scrapbook"
-msgstr "Scrapbog"
-
-msgid "Shading:"
-msgstr "Farvemætning:"
-
-msgid "Size:"
-msgstr "Størrelse:"
-
-msgid "Small Caps"
-msgstr "Små kapitaler"
-
-msgid "Small"
-msgstr "Lille"
-
-msgid "Stepping:"
-msgstr "Trin:"
-
-msgid "Subscript"
-msgstr "Sænket skrift"
-
-msgid "Superscript"
-msgstr "Hævet skrift"
-
-msgid "Tabloid"
-msgstr ""
-
-msgid "Text Color:"
-msgstr "Tekst farve:"
-
-msgid "Theme"
-msgstr "Tema"
-
-msgid "Tools"
-msgstr "Værktøjer"
-
-msgid "Top:"
-msgstr ""
-
-msgid "Typographics"
-msgstr "Typografier"
-
-msgid "Units"
-msgstr "Måle-enhed"
-
-msgid "Use PDF-1.4 Transparency Features"
-msgstr "Brug PDF-1.4 Transparent egenskaber"
-
-msgid "User Guides Color:"
-msgstr "Hjælpelinier:"
-
-msgid "Wheel-Jump"
-msgstr "Hjul-hop"
 
 msgid "Insert Page..."
 msgstr "Indsæt side..."
@@ -3070,6 +2717,21 @@ msgstr "Importér"
 msgid "Document contains: %1 Page(s)"
 msgstr "Dokument indeholder %1 side(r)"
 
+msgid "Advanced Options..."
+msgstr "Avancerede indstillinger..."
+
+msgid "Advanced Options"
+msgstr "Avancerede indstillinger"
+
+msgid "Apply ICC-Profiles"
+msgstr "Anvend ICC-Profiler"
+
+msgid "Mark Colors out of Gamut"
+msgstr "Marker farver uden for skalaen"
+
+msgid "Scale Picture to Frame Size"
+msgstr "Skalér billede til rammestørrelse"
+
 msgid "Combine Polygons"
 msgstr "Forbinde polygoner"
 
@@ -3081,3 +2743,249 @@ msgstr "Konvertér til polygoner"
 
 msgid "Websave RGB"
 msgstr "Web-sikker RGB"
+
+msgid "Adjust Display Size"
+msgstr "Indstil vis side"
+
+msgid "To adjust the Display drag the Ruler below with the Slider."
+msgstr "Indstil hvor meget 100% visning fylder på skærmen"
+
+msgid "Show PDF-Tools"
+msgstr "Vis PDF-værktøjer"
+
+msgid "Hide PDF-Tools"
+msgstr "Skjul PDF-værktøjer"
+
+msgid "Shears the Path horizotal to the right"
+msgstr "Forskyd mod højre"
+
+msgid "Shears the Path horizotal to the left"
+msgstr "Forskyd mod venstre"
+
+msgid "Shears the Path vertical up"
+msgstr "Forskyd mod top"
+
+msgid "Shears the Path vertical down"
+msgstr "Forskyd mod bund"
+
+msgid "Line Styles..."
+msgstr "Liniestile..."
+
+msgid "Initializing Plugins"
+msgstr "Initialiserer Plugins"
+
+msgid "Reading Scrapbook"
+msgstr "Læser scrapbog"
+
+msgid "Setting up Shortcuts"
+msgstr "Laver genveje"
+
+msgid "Reading Preferences"
+msgstr "Læser præferencer"
+
+msgid "Init Hyphenator"
+msgstr "Init Orddeler"
+
+msgid "Getting ICC-Profiles"
+msgstr "Henter ICC-Profiler"
+
+msgid "Searching for Fonts"
+msgstr "Leder efter fonte"
+
+msgid "Print Preview"
+msgstr "Vis udskrift"
+
+msgid "Antialias Text"
+msgstr "Antialias tekst"
+
+msgid "Antialias Graphics"
+msgstr "Antialias grafik"
+
+msgid "Russian:"
+msgstr "Russisk:"
+
+msgid "Loading:"
+msgstr "Indlæser:"
+
+msgid "Autosave"
+msgstr "Gem automatisk"
+
+msgid "Enabled"
+msgstr "Aktiv"
+
+msgid "use Bounding Box"
+msgstr "Brug indbindingsboks"
+
+msgid "Czech:"
+msgstr ""
+
+msgid "Norwegian:"
+msgstr ""
+
+msgid "Select new Font:"
+msgstr "Vælg ny font:"
+
+msgid "Insert Special"
+msgstr "Indsæt specialtegn"
+
+msgid "Select Character"
+msgstr "Vælg tegn"
+
+msgid "Insert"
+msgstr "Indsæt"
+
+msgid "Save Page as SVG..."
+msgstr "Gem side som SVG..."
+
+msgid "SVG-Images (*.svg);; All Files (*)"
+msgstr "SVG-billeder (*.svg);; Alle filer (*)"
+
+msgid "Solid Line"
+msgstr "Massiv linie"
+
+msgid "Dashed Line"
+msgstr "Streg linie"
+
+msgid "Dotted Line"
+msgstr "Prik linie"
+
+msgid "Dash Dot Line"
+msgstr "Streg prik linie"
+
+msgid "Dash Dot Dot Line"
+msgstr "Streg prik prik linie"
+
+msgid "Reverse Writing"
+msgstr "Baglæns skrivning"
+
+msgid "Move one Level up"
+msgstr "Flyt forud"
+
+msgid "Move one Level down"
+msgstr "Flyt bagud"
+
+msgid "Move to Back"
+msgstr "Placér bagerst"
+
+msgid "Move to Front"
+msgstr "Placér forrest"
+
+msgid "PDF-Tools"
+msgstr "PDF-Værktøjer"
+
+msgid "StilFormate::New Style"
+msgstr "Ny typografi"
+
+msgid "EditStyle::Edit Style"
+msgstr "Redigér typografi"
+
+msgid "Edit Line Styles"
+msgstr "Redigér liniestile"
+
+msgid "MultiLine::Edit Style"
+msgstr "Redigér Stil"
+
+msgid "LineFormate::New Style"
+msgstr "Ny stil"
+
+msgid "Spalette::No Style"
+msgstr "Ingen typografier"
+
+msgid "Intervall:"
+msgstr "Interval:"
+
+msgid " in"
+msgstr " i"
+
+msgid "Icons"
+msgstr "Ikoner"
+
+msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
+msgstr "Billeder (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Alle filer (*)"
+
+msgid "Icon Placement"
+msgstr "Ikon placering"
+
+msgid "Icon"
+msgstr "Ikon"
+
+msgid "Scale When:"
+msgstr "Skalér når:"
+
+msgid "Postscript-Files (*.ps);; All Files (*)"
+msgstr "Postscript-filer (*.ps);; Alle filer (*)"
+
+msgid " "
+msgstr " "
+
+msgid "Current Value:"
+msgstr "Nuværende værdi:"
+
+msgid "Set"
+msgstr "Indstil"
+
+msgid "Based on:"
+msgstr "Baseret på:"
+
+msgid "Left Page based on:"
+msgstr "Venstre side er baseret på:"
+
+msgid "Page(s)"
+msgstr "Side(r)"
+
+msgid "Right Page based on:"
+msgstr "Højre side er baseret på:"
+
+msgid "Textdistance:"
+msgstr "Tekstafstand:"
+
+msgid "Mirrors the Path horizontal"
+msgstr "Spejl horisontalt"
+
+msgid "Mirrors the Path vertical"
+msgstr "Spejl vertikalt"
+
+msgid "PDF-Files (*.pdf);; All Files (*)"
+msgstr "PDF-Filer (*.pdf);; Alle filer (*)"
+
+msgid "Trim Box"
+msgstr "Beskær boks"
+
+msgid "Name"
+msgstr "Navn"
+
+msgid " %"
+msgstr " %"
+
+msgid "Lock/Unlock"
+msgstr "Lås/Lås op"
+
+msgid "Oval"
+msgstr "Oval"
+
+msgid "Directory:"
+msgstr "Mappe:"
+
+msgid "Saving..."
+msgstr "Gemmer..."
+
+msgid "SelectFields::Selected Fields"
+msgstr "Markerede felter"
+
+msgid "Spalette::Styles"
+msgstr "Typografier"
+
+msgid "Tree::Item"
+msgstr "Emne"
+
+msgid "Executive"
+msgstr "Udøvende"
+
+msgid "Keep Aspect Ratio"
+msgstr "Behold bredde/højde forhold"
+
+msgid "Maximum:"
+msgstr "Maksimum:"
+
+msgid "Sample Text"
+msgstr "Prøve tekst"

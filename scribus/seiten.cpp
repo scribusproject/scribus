@@ -503,7 +503,8 @@ void TrashBin::dropEvent(QDropEvent * e)
 
 
 SeitenPal::SeitenPal(QWidget* parent)
-    : QDialog( parent, "SP", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
+    : QDialog( parent, "SP", false, 0)
+//    : QDialog( parent, "SP", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
 { 
     setCaption( tr( "Arrange Pages" ) );
   	setIcon(loadIcon("AppIcon.xpm"));

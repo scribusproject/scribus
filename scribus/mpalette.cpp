@@ -7,7 +7,8 @@ extern QPixmap loadIcon(QString nam);
 extern float UmReFaktor;
 
 Mpalette::Mpalette( QWidget* parent, preV *Prefs)
-    : QDialog( parent, "Mfloat", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
+    : QDialog( parent, "Mfloat", false, 0)
+//    : QDialog( parent, "Mfloat", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
 {
     setCaption( tr( "Measurements" ) );
     HaveDoc = false;
