@@ -1,12 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'auto.ui'
-**
-** Created: Son Dez 7 12:53:17 2003
-**      by: The User Interface Compiler ($Id$)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
-
 #ifndef AUTOFORM_H
 #define AUTOFORM_H
 

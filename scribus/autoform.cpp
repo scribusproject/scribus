@@ -1,12 +1,3 @@
-/****************************************************************************
-** Form implementation generated from reading ui file 'auto.ui'
-**
-** Created: Son Dez 7 12:53:32 2003
-**      by: The User Interface Compiler ($Id$)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
-
 #include "autoform.h"
 #include "autoform.moc"
 #include "fpointarray.h"
