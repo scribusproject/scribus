@@ -1,4 +1,6 @@
 Changes since Version 1.0RC1
+25.06.2003	pdflib.cpp		Fixed Bug when recalculating Picture Resolutions.
+
 23.06.2003	bookpalette.cpp
 		mpalette.cpp
 		seiten.cpp		Changed the Construktor to avoid a Bug in Gnome's 

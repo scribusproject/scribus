@@ -2813,6 +2813,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, float sx, float sy, float x, floa
 	QChar tc;
 	bool found = false;
 	int ret = -1;
+	int afl;
 	float x2, y2, b, h, ax, ay, a2, a1, sxn, syn;
 	x2 = 0;
 	float aufl = Options->Resolution / 72.0;
@@ -2885,9 +2886,16 @@ void PDFlib::PDF_Image(bool inver, QString fn, float sx, float sy, float x, floa
 #endif
 	if ((ext == "eps") || (ext == "pdf"))
 		{
+		if (Options->RecalcPic)
+			{
+			afl = QMIN(Options->PicRes, Options->Resolution);
+			aufl = afl / 72.0;
+			}
+		else
+			afl = Options->Resolution;
 		if (ext == "pdf")
 			{
-			cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r"+IToStr(Options->Resolution)+" -sOutputFile=/tmp/sc.png -dFirstPage=1 -dLastPage=1 ";
+			cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r"+IToStr(afl)+" -sOutputFile=/tmp/sc.png -dFirstPage=1 -dLastPage=1 ";
 			cmd2 = " -c showpage -c quit";
 			ret = system(cmd1 + fn + cmd2);
 			if (ret == 0)
@@ -2931,7 +2939,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, float sx, float sy, float x, floa
 					y2 = y2 * aufl;
 					b = b * aufl;
 					h = h * aufl;
-					cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r"+IToStr(Options->Resolution)+" -sOutputFile=/tmp/sc.png -g";
+					cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r"+IToStr(afl)+" -sOutputFile=/tmp/sc.png -g";
 					cmd2 = " -c showpage -c quit";
 					ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp.setNum(qRound(h)) + " " + fn + cmd2);
 					if (ret == 0)
@@ -2947,15 +2955,8 @@ void PDFlib::PDF_Image(bool inver, QString fn, float sx, float sy, float x, floa
 			}
 		if (Options->RecalcPic)
 			{
-			float afl = QMIN(Options->PicRes, Options->Resolution);
-			a2 = Options->Resolution / afl / sx;
-			a1 = Options->Resolution / afl / sy;
-			ax = img.width() / a2;
-			ay = img.height() / a1;
-			img = img.smoothScale(static_cast<int>(ax), static_cast<int>(ay));
-  		img = img.convertDepth(32);
-			sxn = sx * a2;
-			syn = sy * a1;
+			sxn = sx * (1.0 / aufl);
+			syn = sy * (1.0 / aufl);
 			}
 		}
 	else
@@ -2988,8 +2989,11 @@ void PDFlib::PDF_Image(bool inver, QString fn, float sx, float sy, float x, floa
 #endif
 			im = ImageToCMYK(&img);
 		}
-	sxn = sx * (1.0 / aufl);
-	syn = sy * (1.0 / aufl);
+	if (!Options->RecalcPic)
+		{
+		sxn = sx * (1.0 / aufl);
+		syn = sy * (1.0 / aufl);
+		}
   if (img.hasAlphaBuffer())
  		{
 		QImage iMask = img.createAlphaMask();
