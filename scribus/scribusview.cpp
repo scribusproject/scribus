@@ -2693,15 +2693,18 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	if (_itemCreationTransactionStarted && Doc->appMode !=  DrawBezierLine)
 	{
 		PageItem *ite = SelItem.at(0);
-		ite->checkChanges(true);
-		QString targetName = Um::ScratchSpace;
-		if (ite->OwnPage > -1)
-			targetName = Doc->Pages.at(ite->OwnPage)->getUName();
-		undoManager->commit(targetName, ite->getUPixmap(),
-							Um::Create + " " + ite->getUName(),  "", Um::ICreate);
-		_itemCreationTransactionStarted = false;
-		if (!Doc->loading)
-			emit AddObj(ite);
+		if (ite!=NULL)
+		{
+			ite->checkChanges(true);
+			QString targetName = Um::ScratchSpace;
+			if (ite->OwnPage > -1)
+				targetName = Doc->Pages.at(ite->OwnPage)->getUName();
+			undoManager->commit(targetName, ite->getUPixmap(),
+								Um::Create + " " + ite->getUName(),  "", Um::ICreate);
+			_itemCreationTransactionStarted = false;
+			if (!Doc->loading)
+				emit AddObj(ite);
+		}
 	}
 }
 
