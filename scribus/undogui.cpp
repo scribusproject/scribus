@@ -214,7 +214,7 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	connect(redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
 	connect(undoList, SIGNAL(highlighted(int)), this, SLOT(undoListClicked(int)));
 	connect(undoList, SIGNAL(onItem(QListBoxItem*)), this, SLOT(showToolTip(QListBoxItem*)));
-	connect(undoList, SIGNAL(onViewPort()), this, SLOT(removeToolTip()));
+	connect(undoList, SIGNAL(onViewport()), this, SLOT(removeToolTip()));
 }
 
 void UndoPalette::clear()
