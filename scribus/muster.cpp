@@ -2,84 +2,86 @@
 #include "muster.moc"
 #include "newtemp.h"
 #include "mergedoc.h"
+#include <qlayout.h>
+#include <qlistbox.h>
+#include <qpushbutton.h>
 #include <qmessagebox.h>
 #include <qcursor.h>
+#include <qstring.h>
+#include "scribusdoc.h"
+#include "scribusview.h"
 
 extern QPixmap loadIcon(QString nam);
 extern void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
 
-MusterSeiten::MusterSeiten( QWidget* parent, ScribusDoc *doc, ScribusView *view, QString temp)
+MusterPages::MusterPages( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString temp)
 		: QDialog( parent, "Muster", false, WDestructiveClose)
 {
 	setCaption( tr( "Edit Templates" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	Doc = doc;
-	View = view;
-	MusterSeitenLayout = new QHBoxLayout( this );
-	MusterSeitenLayout->setSpacing( 6 );
-	MusterSeitenLayout->setMargin( 10 );
+	currentDoc = pCurrentDoc;
+	currentView = pCurrentView;
+	musterPagesLayout = new QHBoxLayout( this, 10, 6 );
 
-	ListBox1 = new QListBox( this, "ListBox1" );
-	ListBox1->setMinimumSize( QSize( 150, 240 ) );
-	MusterSeitenLayout->addWidget( ListBox1 );
+	templateData = new QListBox( this, "templateData" );
+	templateData->setMinimumSize( QSize( 150, 240 ) );
+	musterPagesLayout->addWidget( templateData );
 
-	Layout2 = new QVBoxLayout;
-	Layout2->setSpacing( 6 );
-	Layout2->setMargin( 0 );
+	buttonLayout = new QVBoxLayout;
+	buttonLayout->setSpacing( 6 );
+	buttonLayout->setMargin( 0 );
 
-	LoadM = new QPushButton( tr( "&Append" ), this, "LoadF" );
-	Layout2->addWidget( LoadM );
-
-	NewB = new QPushButton( tr( "&New" ), this, "NewB" );
-	Layout2->addWidget( NewB );
-
-	DuplicateB = new QPushButton( tr( "D&uplicate" ), this, "DublicateB" );
-	Layout2->addWidget( DuplicateB );
-
-	DeleteB = new QPushButton( tr( "&Delete" ), this, "DeleteB" );
-	Layout2->addWidget( DeleteB );
-
+	appendButton = new QPushButton( tr( "&Append" ), this, "appendButton" );
+	newButton = new QPushButton( tr( "&New" ), this, "newButton" );
+	duplicateButton = new QPushButton( tr( "D&uplicate" ), this, "DublicateB" );
+	deleteButton = new QPushButton( tr( "&Delete" ), this, "deleteButton" );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	Layout2->addItem( spacer );
+	closeButton = new QPushButton( tr( "&Close" ), this, "closeButton" );
 
-	ExitB = new QPushButton( tr( "&Close" ), this, "ExitB" );
-	Layout2->addWidget( ExitB );
-	MusterSeitenLayout->addLayout( Layout2 );
+	buttonLayout->addWidget( appendButton );
+	buttonLayout->addWidget( newButton );
+	buttonLayout->addWidget( duplicateButton );
+	buttonLayout->addWidget( deleteButton );
+	buttonLayout->addItem( spacer );
+	buttonLayout->addWidget( closeButton );
+	musterPagesLayout->addLayout( buttonLayout );
+
 	if (temp == "")
 	{
 		sMuster = "Normal";
-		updateMList(sMuster);
-		View->ShowTemplate(0);
+		updateTemplateList(sMuster);
+		currentView->ShowTemplate(0);
 	}
 	else
 	{
 		sMuster = temp;
-		updateMList(sMuster);
-		View->ShowTemplate(Doc->MasterNames[sMuster]);
+		updateTemplateList(sMuster);
+		currentView->ShowTemplate(currentDoc->MasterNames[sMuster]);
 	}
+
 	setMaximumSize(sizeHint());
 
 	// signals and slots connections
-	connect(ExitB, SIGNAL(clicked()), this, SLOT(ExitEditor()));
-	connect(DuplicateB, SIGNAL(clicked()), this, SLOT(DuplTemp()));
-	connect(DeleteB, SIGNAL(clicked()), this, SLOT(DelTemp()));
-	connect(NewB, SIGNAL(clicked()), this, SLOT(NewTemp()));
-	connect(LoadM, SIGNAL(clicked()), this, SLOT(loadMpage()));
-	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selTemplate(QListBoxItem*)));
+	connect(closeButton, SIGNAL(clicked()), this, SLOT(exitEditor()));
+	connect(duplicateButton, SIGNAL(clicked()), this, SLOT(duplicateTemplate()));
+	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteTemplate()));
+	connect(newButton, SIGNAL(clicked()), this, SLOT(newTemplate()));
+	connect(appendButton, SIGNAL(clicked()), this, SLOT(appendPage()));
+	connect(templateData, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selectTemplate(QListBoxItem*)));
 }
 
-void MusterSeiten::closeEvent(QCloseEvent *ce)
+void MusterPages::closeEvent(QCloseEvent *closeEvent)
 {
-	emit Fertig();
-	ce->accept();
+	emit finished();
+	closeEvent->accept();
 }
 
-void MusterSeiten::ExitEditor()
+void MusterPages::exitEditor()
 {
 	close();
 }
 
-void MusterSeiten::DelTemp()
+void MusterPages::deleteTemplate()
 {
 	if (sMuster == "Normal")
 		return;
@@ -91,82 +93,82 @@ void MusterSeiten::DelTemp()
 	                              0, QMessageBox::No, QMessageBox::Yes);
 	if (exit == 1)
 	{
-		Doc->PageC = Doc->Pages.count();
-		View->delPage(Doc->MasterNames[sMuster]);
-		View->reformPages();
-		Doc->MasterNames.clear();
-		for (uint a = 0; a < Doc->Pages.count(); ++a)
-			Doc->MasterNames[Doc->Pages.at(a)->PageNam] = Doc->Pages.at(a)->PageNr;
-		for (uint b = 0; b < Doc->DocPages.count(); ++b)
+		currentDoc->PageC = currentDoc->Pages.count();
+		currentView->delPage(currentDoc->MasterNames[sMuster]);
+		currentView->reformPages();
+		currentDoc->MasterNames.clear();
+		for (uint a = 0; a < currentDoc->Pages.count(); ++a)
+			currentDoc->MasterNames[currentDoc->Pages.at(a)->PageNam] = currentDoc->Pages.at(a)->PageNr;
+		for (uint b = 0; b < currentDoc->DocPages.count(); ++b)
 		{
-			if (Doc->DocPages.at(b)->MPageNam == sMuster)
-				Doc->DocPages.at(b)->MPageNam = "Normal";
+			if (currentDoc->DocPages.at(b)->MPageNam == sMuster)
+				currentDoc->DocPages.at(b)->MPageNam = "Normal";
 		}
-		Doc->PageC = 1;
+		currentDoc->PageC = 1;
 		sMuster = "Normal";
-		updateMList(sMuster);
+		updateTemplateList(sMuster);
 	}
 }
 
-void MusterSeiten::DuplTemp()
+void MusterPages::duplicateTemplate()
 {
-	QString nam;
+	QString templateName;
 	int nr;
 	bool atf;
 	struct CLBuf Buffer;
-	NewTm *dia = new NewTm(this, tr("&Name:"), tr("New Template"), Doc);
+	NewTm *dia = new NewTm(this, tr("&Name:"), tr("New Template"), currentDoc);
 	dia->Answer->setText( tr("Copy of %1").arg(sMuster));
 	dia->Answer->selectAll();
 	if (dia->exec())
 	{
-		nam = dia->Answer->text();
-		while (Doc->MasterNames.contains(nam) || (nam == "Normal"))
+		templateName = dia->Answer->text();
+		while (currentDoc->MasterNames.contains(templateName) || (templateName == "Normal"))
 		{
 			if (!dia->exec())
 			{
 				delete dia;
 				return;
 			}
-			nam = dia->Answer->text();
+			templateName = dia->Answer->text();
 		}
-		nr = Doc->Pages.count();
-		Doc->MasterNames.insert(nam, nr);
-		Doc->PageC = 0;
-		atf = Doc->PageAT;
-		Doc->PageAT = false;
-		emit CreateNew(nr);
-		if (Doc->PageFP)
-			Doc->Pages.at(nr)->LeftPg = dia->Links->currentItem() == 0 ? true : false;
-		int inde = Doc->MasterNames[sMuster];
+		nr = currentDoc->Pages.count();
+		currentDoc->MasterNames.insert(templateName, nr);
+		currentDoc->PageC = 0;
+		atf = currentDoc->PageAT;
+		currentDoc->PageAT = false;
+		emit createNew(nr);
+		if (currentDoc->PageFP)
+			currentDoc->Pages.at(nr)->LeftPg = dia->Links->currentItem() == 0 ? true : false;
+		int inde = currentDoc->MasterNames[sMuster];
 		QMap<int,int> TableID;
 		QPtrList<PageItem> TableItems;
 		TableID.clear();
 		TableItems.clear();
-		if (Doc->Pages.at(inde)->YGuides.count() != 0)
+		if (currentDoc->Pages.at(inde)->YGuides.count() != 0)
 		{
-			Doc->ActPage->YGuides.clear();
-			for (uint y = 0; y < Doc->Pages.at(inde)->YGuides.count(); ++y)
+			currentDoc->ActPage->YGuides.clear();
+			for (uint y = 0; y < currentDoc->Pages.at(inde)->YGuides.count(); ++y)
 			{
-				Doc->ActPage->YGuides.append(Doc->Pages.at(inde)->YGuides[y]);
+				currentDoc->ActPage->YGuides.append(currentDoc->Pages.at(inde)->YGuides[y]);
 			}
-			qHeapSort(Doc->ActPage->YGuides);
+			qHeapSort(currentDoc->ActPage->YGuides);
 		}
-		if (Doc->Pages.at(inde)->XGuides.count() != 0)
+		if (currentDoc->Pages.at(inde)->XGuides.count() != 0)
 		{
-			for (uint x = 0; x < Doc->Pages.at(inde)->XGuides.count(); ++x)
+			for (uint x = 0; x < currentDoc->Pages.at(inde)->XGuides.count(); ++x)
 			{
-				Doc->ActPage->XGuides.append(Doc->Pages.at(inde)->XGuides[x]);
+				currentDoc->ActPage->XGuides.append(currentDoc->Pages.at(inde)->XGuides[x]);
 			}
-			qHeapSort(Doc->ActPage->XGuides);
+			qHeapSort(currentDoc->ActPage->XGuides);
 		}
-		uint end = Doc->Items.count();
+		uint end = currentDoc->Items.count();
 		for (uint a = 0; a < end; ++a)
 		{
-			if (Doc->Items.at(a)->OwnPage == inde)
+			if (currentDoc->Items.at(a)->OwnPage == inde)
 			{
-				CopyPageItem(&Buffer, Doc->Items.at(a));
-				View->PasteItem(&Buffer, true, true);
-				PageItem* Neu = Doc->Items.at(Doc->Items.count()-1);
+				CopyPageItem(&Buffer, currentDoc->Items.at(a));
+				currentView->PasteItem(&Buffer, true, true);
+				PageItem* Neu = currentDoc->Items.at(currentDoc->Items.count()-1);
 				if (Neu->isTableItem)
 				{
 					TableItems.append(Neu);
@@ -180,132 +182,131 @@ void MusterSeiten::DuplTemp()
 			{
 				PageItem* ta = TableItems.at(ttc);
 				if (ta->TopLinkID != -1)
-					ta->TopLink = Doc->Items.at(TableID[ta->TopLinkID]);
+					ta->TopLink = currentDoc->Items.at(TableID[ta->TopLinkID]);
 				else
 					ta->TopLink = 0;
 				if (ta->LeftLinkID != -1)
-					ta->LeftLink = Doc->Items.at(TableID[ta->LeftLinkID]);
+					ta->LeftLink = currentDoc->Items.at(TableID[ta->LeftLinkID]);
 				else
 					ta->LeftLink = 0;
 				if (ta->RightLinkID != -1)
-					ta->RightLink = Doc->Items.at(TableID[ta->RightLinkID]);
+					ta->RightLink = currentDoc->Items.at(TableID[ta->RightLinkID]);
 				else
 					ta->RightLink = 0;
 				if (ta->BottomLinkID != -1)
-					ta->BottomLink = Doc->Items.at(TableID[ta->BottomLinkID]);
+					ta->BottomLink = currentDoc->Items.at(TableID[ta->BottomLinkID]);
 				else
 					ta->BottomLink = 0;
 			}
 		}
-		View->Deselect(true);
-		View->DrawNew();
-		Doc->Pages.at(nr)->PageNam = nam;
-		Doc->Pages.at(nr)->MPageNam = "";
-		updateMList(nam);
-		Doc->PageAT = atf;
+		currentView->Deselect(true);
+		currentView->DrawNew();
+		currentDoc->Pages.at(nr)->PageNam = templateName;
+		currentDoc->Pages.at(nr)->MPageNam = "";
+		updateTemplateList(templateName);
+		currentDoc->PageAT = atf;
 	}
 	delete dia;
 }
 
-void MusterSeiten::NewTemp()
+void MusterPages::newTemplate()
 {
-	QString nam;
+	QString templateName;
 	int nr;
 	bool atf;
-	NewTm *dia = new NewTm(this, tr("Name:"), tr("New Template"), Doc);
+	NewTm *dia = new NewTm(this, tr("Name:"), tr("New Template"), currentDoc);
 	dia->Answer->setText( tr("New Template"));
 	dia->Answer->selectAll();
 	if (dia->exec())
 	{
-		nam = dia->Answer->text();
-		while (Doc->MasterNames.contains(nam) || (nam == "Normal"))
+		templateName = dia->Answer->text();
+		while (currentDoc->MasterNames.contains(templateName) || (templateName == "Normal"))
 		{
 			if (!dia->exec())
 			{
 				delete dia;
 				return;
 			}
-			nam = dia->Answer->text();
+			templateName = dia->Answer->text();
 		}
-		nr = Doc->Pages.count();
-		Doc->MasterNames.insert(nam, nr);
-		Doc->PageC = 0;
-		atf = Doc->PageAT;
-		Doc->PageAT = false;
-		emit CreateNew(nr);
-		if (Doc->PageFP)
-			Doc->Pages.at(nr)->LeftPg = dia->Links->currentItem() == 0 ? true : false;
-		Doc->Pages.at(nr)->PageNam = nam;
-		Doc->Pages.at(nr)->MPageNam = "";
-		updateMList(nam);
-		Doc->PageAT = atf;
-		View->ShowTemplate(Doc->MasterNames[nam]);
+		nr = currentDoc->Pages.count();
+		currentDoc->MasterNames.insert(templateName, nr);
+		currentDoc->PageC = 0;
+		atf = currentDoc->PageAT;
+		currentDoc->PageAT = false;
+		emit createNew(nr);
+		if (currentDoc->PageFP)
+			currentDoc->Pages.at(nr)->LeftPg = dia->Links->currentItem() == 0 ? true : false;
+		currentDoc->Pages.at(nr)->PageNam = templateName;
+		currentDoc->Pages.at(nr)->MPageNam = "";
+		updateTemplateList(templateName);
+		currentDoc->PageAT = atf;
+		currentView->ShowTemplate(currentDoc->MasterNames[templateName]);
 	}
 	delete dia;
 }
 
-void MusterSeiten::loadMpage()
+void MusterPages::appendPage()
 {
-	QString nam, nam2;
+	QString templateName, templateName2;
 	int nr;
 	bool atf;
 	MergeDoc *dia = new MergeDoc(this, true);
 	if (dia->exec())
 	{
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
-		nr = Doc->Pages.count();
-		Doc->PageC = 0;
-		atf = Doc->PageAT;
-		Doc->PageAT = false;
-		emit CreateNew(nr);
+		nr = currentDoc->Pages.count();
+		currentDoc->PageC = 0;
+		atf = currentDoc->PageAT;
+		currentDoc->PageAT = false;
+		emit createNew(nr);
 		qApp->processEvents();
-		emit LoadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true);
+		emit loadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true);
 		qApp->processEvents();
-		nam = Doc->Pages.at(nr)->PageNam;
-		nam2 = nam;
+		templateName = currentDoc->Pages.at(nr)->PageNam;
+		templateName2 = templateName;
 		int copyC = 1;
-		while (Doc->MasterNames.contains(nam2))
+		while (currentDoc->MasterNames.contains(templateName2))
 		{
-			nam2 = tr("Copy #%1 of ").arg(copyC)+nam;
+			templateName2 = tr("Copy #%1 of ").arg(copyC)+templateName;
 			copyC++;
 		}
-		Doc->MasterNames.insert(nam2, nr);
-		Doc->Pages.at(nr)->PageNam = nam2;
-		Doc->Pages.at(nr)->MPageNam = "";
-		updateMList(nam2);
-		Doc->PageAT = atf;
-		View->ShowTemplate(Doc->MasterNames[nam2]);
+		currentDoc->MasterNames.insert(templateName2, nr);
+		currentDoc->Pages.at(nr)->PageNam = templateName2;
+		currentDoc->Pages.at(nr)->MPageNam = "";
+		updateTemplateList(templateName2);
+		currentDoc->PageAT = atf;
+		currentView->ShowTemplate(currentDoc->MasterNames[templateName2]);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 	delete dia;
 }
 
-void MusterSeiten::selTemplate(QListBoxItem *c)
+void MusterPages::selectTemplate(QListBoxItem *item)
 {
-	sMuster = c->text();
-	DeleteB->setEnabled(Doc->MasterNames.count() == 1 ? false : true);
+	sMuster = item->text();
+	deleteButton->setEnabled(currentDoc->MasterNames.count() == 1 ? false : true);
 	if (sMuster == tr("Normal"))
 	{
 		sMuster = "Normal";
-		DeleteB->setEnabled(false);
+		deleteButton->setEnabled(false);
 	}
 	else
-		DeleteB->setEnabled(true);
-	View->ShowTemplate(Doc->MasterNames[sMuster]);
+		deleteButton->setEnabled(true);
+	currentView->ShowTemplate(currentDoc->MasterNames[sMuster]);
 }
 
-void MusterSeiten::updateMList(QString nam)
+void MusterPages::updateTemplateList(QString templateName)
 {
-	ListBox1->clear();
-	QMap<QString,int>::Iterator it;
-	for (it = Doc->MasterNames.begin(); it != Doc->MasterNames.end(); ++it)
-		ListBox1->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
-	DeleteB->setEnabled(Doc->MasterNames.count() == 1 ? false : true);
-	if (nam == "Normal")
+	templateData->clear();
+	for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+		templateData->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
+	deleteButton->setEnabled(currentDoc->MasterNames.count() == 1 ? false : true);
+	if (templateName == "Normal")
 	{
-		nam = tr("Normal");
-		DeleteB->setEnabled(false);
+		templateName = tr("Normal");
+		deleteButton->setEnabled(false);
 	}
-	ListBox1->setSelected(ListBox1->index(ListBox1->findItem(nam)), true);
+	templateData->setSelected(templateData->index(templateData->findItem(templateName)), true);
 }
 

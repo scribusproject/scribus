@@ -6,54 +6,55 @@
 **
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
-#ifndef MUSTERSEITEN_H
-#define MUSTERSEITEN_H
+#ifndef MUSTERPages_H
+#define MUSTERPages_H
 
 #include <qdialog.h>
-#include <qlistbox.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-class ScribusDoc;
-#include "scribusview.h"
+class QListBox;
+class QListBoxItem;
+class QPushButton;
+class QHBoxLayout;
+class QVBoxLayout;
 
-class MusterSeiten : public QDialog
+class ScribusDoc;
+class ScribusView;
+
+class MusterPages : public QDialog
 { 
     Q_OBJECT
 
 public:
-    MusterSeiten( QWidget* parent, ScribusDoc *doc, ScribusView *view, QString temp);
-    ~MusterSeiten() {};
-    void closeEvent(QCloseEvent *ce);
+    MusterPages( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString temp);
+    ~MusterPages() {};
+    void closeEvent(QCloseEvent *closeEvent);
 
 private:
-    void updateMList(QString nam);
-    QListBox* ListBox1;
-	QPushButton* LoadM;
-    QPushButton* NewB;
-    QPushButton* DuplicateB;
-    QPushButton* DeleteB;
-    QPushButton* ExitB;
-    ScribusDoc *Doc;
-    ScribusView *View;
+    void updateTemplateList(QString templateName);
+    QListBox* templateData;
+	QPushButton* appendButton;
+    QPushButton* newButton;
+    QPushButton* duplicateButton;
+    QPushButton* deleteButton;
+    QPushButton* closeButton;
+    ScribusDoc *currentDoc;
+    ScribusView *currentView;
     QString sMuster;
+    QHBoxLayout* musterPagesLayout;
+    QVBoxLayout* buttonLayout;
 
 private slots:
-	void ExitEditor();
-	void DuplTemp();
-	void DelTemp();
-	void NewTemp();
-	void loadMpage();
-	void selTemplate(QListBoxItem *c);
+	void exitEditor();
+	void duplicateTemplate();
+	void deleteTemplate();
+	void newTemplate();
+	void appendPage();
+	void selectTemplate(QListBoxItem *item);
 	
 signals:
-	void CreateNew(int);
-	void LoadPage(QString, int, bool);
-	void Fertig();
+	void createNew(int);
+	void loadPage(QString, int, bool);
+	void finished();
 		
-protected:
-    QHBoxLayout* MusterSeitenLayout;
-    QVBoxLayout* Layout2;
 };
 
-#endif // MUSTERSEITEN_H
+#endif // MUSTERPages_H

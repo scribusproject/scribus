@@ -7701,10 +7701,10 @@ void ScribusApp::ManageJava()
 
 void ScribusApp::ManageTemp(QString temp)
 {
-	MusterSeiten *dia = new MusterSeiten(this, doc, view, temp);
-	connect(dia, SIGNAL(CreateNew(int)), this, SLOT(slotNewPageT(int)));
-	connect(dia, SIGNAL(LoadPage(QString, int, bool)), this, SLOT(LadeSeite(QString, int, bool)));
-	connect(dia, SIGNAL(Fertig()), this, SLOT(ManTempEnd()));
+	MusterPages *dia = new MusterPages(this, doc, view, temp);
+	connect(dia, SIGNAL(createNew(int)), this, SLOT(slotNewPageT(int)));
+	connect(dia, SIGNAL(loadPage(QString, int, bool)), this, SLOT(LadeSeite(QString, int, bool)));
+	connect(dia, SIGNAL(finished()), this, SLOT(ManTempEnd()));
 	for (uint a=0; a<5; ++a)
 	{
 		pageMenu->setItemEnabled(pageMenu->idAt(a), 0);

@@ -40,7 +40,7 @@ public:
 	void CloseCMSProfiles();
 	ScribusView* view;
 	ScribusDoc* doc;
-	MusterSeiten* muster;
+	MusterPages* muster;
 	bool MenuStat[7];
 #ifdef HAVE_CMS
 	cmsHTRANSFORM stdTrans;
