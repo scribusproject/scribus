@@ -4228,6 +4228,9 @@ bool ScribusApp::slotDocOpen()
 		formats += tr("OpenOffice.org Draw (*.sxd);;All Files (*)");
 	formats + tr("All Files (*)");
 	QString fileName = CFileDialog( docDir, tr("Open"), formats);
+	if (fileName == "")
+		// User cancelled
+		return false;
 	docContext->set("docsopen", fileName.left(fileName.findRev("/")));
 	bool ret = LadeDoc(fileName);
 	return ret;
