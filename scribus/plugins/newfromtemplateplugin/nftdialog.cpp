@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Riku Leino, tsoots@welho.com                                          *
+ *   Riku Leino, riku.leino@gmail.com                                          *
  ***************************************************************************/
 #include "nftdialog.h"
 #include "nftdialog.moc"

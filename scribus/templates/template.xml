@@ -12,7 +12,7 @@
     	<scribus_version>1.2RC1cvs</scribus_version>
 		<date>2004-07-11</date>
 		<author>RL</author>
-    	<email>tsoots@welho.com</email>
+    	<email>riku.leino@gmail.com</email>
 	</template>
 	<template category="Newsletters">
   		<name>Newsletter_2</name>
@@ -26,7 +26,7 @@
 		<scribus_version>1.2RC1cvs</scribus_version>
 		<date>2004-07-11</date>
     	<author>RL</author>
-    	<email>tsoots@welho.com</email>
+    	<email>riku.leino@gmail.com</email>
   	</template>
 	<template category="Brochures">
   		<name>Brochure_1</name>
@@ -40,7 +40,7 @@
     	<scribus_version>1.2RC1cvs</scribus_version>
 		<date>2004-07-11</date>
 		<author>RL</author>
-    	<email>tsoots@welho.com</email>
+    	<email>riku.leino@gmail.com</email>
 	</template>
 	<template category="Newsletters">
 		<name>TextBased</name>
