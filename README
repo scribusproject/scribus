@@ -37,7 +37,9 @@ switches aside from those used by distro packages can make trouble shooting
 issues very difficult at times.
 See: http://developer.kde.org/build/compile_kde3_3.html
 
-Scribus requires Freetype. If you are compiling from source, you will need to have the freetype headers installed - these can usually be found in a -devel package for your distro.
+Scribus requires Freetype. If you are compiling from source, you will need to
+have the freetype headers installed - these can usually be found in a -devel
+package for your distro.
 
 It is strongly recommended that you install the CUPS development packages if
 you are compiling Scribus. Without CUPS, Scribus will have significantly
@@ -50,7 +52,10 @@ server configuration, or X font server configuration for fonts - it will only
 use conts found using fontconfig and any custom font locations configured in
 the preferences.
 
-Python will be used to add scripting support to Scribus. If Python is not found, or there are no header files for Python installed (usually because you haven't installed the development package), the scripting support will not be enabled.
+Python will be used to add scripting support to Scribus. If Python is not
+found, or there are no header files for Python installed (usually because you
+haven't installed the development package), the scripting support will not be
+enabled.
 
 See the distro-specific notes below for more information on installing and
 using Scribus with your distro.
@@ -136,7 +141,8 @@ Recommended packages for compiling from source on Sarge (Debian 3.1):
 	python2.3-dev  or  python2.4-dev
 	gs-afpl
 
-You are unlikely to be able to compile Scribus 1.3.x on Debian 3.0 (Woody) without significant upgrades.
+You are unlikely to be able to compile Scribus 1.3.x on Debian 3.0 (Woody)
+without significant upgrades.
 
 SuSE 9.x
 ========
@@ -150,7 +156,8 @@ SuSE 9.x
   rpms. The -2+ versions have an important fix for drag and drop in Scribus. 
 
 3)To enable direct CUPS support which recommended, make sure both cups-devel
-  and openssl-devel are installed. Suse enables ssl support in CUPS. The current Scribus config checks do not test for this.
+  and openssl-devel are installed. Suse enables ssl support in CUPS. The
+  current Scribus config checks do not test for this.
 
 Red Hat / Fedora
 ================
@@ -172,9 +179,13 @@ Recommended packages for compiling from source on FC3:
 	python-devel
 	lcms-devel
 
-You can install these packages with 'yum install packagename' as root. You may need to run up2date first to set up your yum configuration. Be patient - the first time you run yum it will take a long time to download the headers for all the security updates that have been released.
+You can install these packages with 'yum install packagename' as root. You may
+need to run up2date first to set up your yum configuration. Be patient - the
+first time you run yum it will take a long time to download the headers for all
+the security updates that have been released.
 
-There are no packages for LittleCMS or a recent GhostScript in Fedora Core 3, though LittleCMS (lcms) is in Fedora Extras.
+There are no packages for LittleCMS or a recent GhostScript in Fedora Core 3,
+though LittleCMS (lcms) is in Fedora Extras.
 
 Additional information
 ======================
@@ -186,8 +197,8 @@ There is a lively on-line community, both on IRC @ #scribus on irc.freenode.net
 and the mailing list. Mailing list info can be found at:
  http://nashi.altmuehlnet.de/mailman/listinfo/scribus
 
-Thanks to the many translators, testers, packagers and contributors who make the Scribus
-community so special.
+Thanks to the many translators, testers, packagers and contributors who make
+the Scribus community so special.
 
 For the Scribus Team,
 
