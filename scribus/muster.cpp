@@ -137,37 +137,41 @@ void MusterSeiten::DuplTemp()
 		emit CreateNew(nr);
 		if (Doc->PageFP)
 			Doc->Pages.at(nr)->LeftPg = dia->Links->currentItem() == 0 ? true : false;
-//		int inde = Doc->MasterNames[sMuster];
-/*		QMap<int,int> TableID;
+		int inde = Doc->MasterNames[sMuster];
+		QMap<int,int> TableID;
 		QPtrList<PageItem> TableItems;
 		TableID.clear();
 		TableItems.clear();
-		if (View->Pages.at(inde)->->YGuides.count() != 0)
+		if (Doc->Pages.at(inde)->YGuides.count() != 0)
 		{
 			Doc->ActPage->YGuides.clear();
-			for (uint y = 0; y < View->Pages.at(inde)->YGuides.count(); ++y)
+			for (uint y = 0; y < Doc->Pages.at(inde)->YGuides.count(); ++y)
 			{
-				Doc->ActPage->YGuides.append(View->Pages.at(inde)->YGuides[y]);
+				Doc->ActPage->YGuides.append(Doc->Pages.at(inde)->YGuides[y]);
 			}
 			qHeapSort(Doc->ActPage->YGuides);
 		}
-		if (View->Pages.at(inde)->XGuides.count() != 0)
+		if (Doc->Pages.at(inde)->XGuides.count() != 0)
 		{
-			for (uint x = 0; x < View->Pages.at(inde)->XGuides.count(); ++x)
+			for (uint x = 0; x < Doc->Pages.at(inde)->XGuides.count(); ++x)
 			{
-				Doc->ActPage->XGuides.append(View->Pages.at(inde)->XGuides[x]);
+				Doc->ActPage->XGuides.append(Doc->Pages.at(inde)->XGuides[x]);
 			}
 			qHeapSort(Doc->ActPage->XGuides);
 		}
-		for (uint a = 0; a < View->Pages.at(inde)->Items.count(); ++a)
+		uint end = Doc->Items.count();
+		for (uint a = 0; a < end; ++a)
 		{
-			CopyPageItem(&Buffer, View->Pages.at(inde)->Items.at(a));
-			Doc->ActPage->PasteItem(&Buffer, true, true);
-			PageItem* Neu = Doc->ActPage->Items.at(Doc->ActPage->Items.count()-1);
-			if (Neu->isTableItem)
+			if (Doc->Items.at(a)->OwnPage == inde)
 			{
-				TableItems.append(Neu);
-				TableID.insert(a, Neu->ItemNr);
+				CopyPageItem(&Buffer, Doc->Items.at(a));
+				View->PasteItem(&Buffer, true, true);
+				PageItem* Neu = Doc->Items.at(Doc->Items.count()-1);
+				if (Neu->isTableItem)
+				{
+					TableItems.append(Neu);
+					TableID.insert(a, Neu->ItemNr);
+				}
 			}
 		}
 		if (TableItems.count() != 0)
@@ -176,24 +180,24 @@ void MusterSeiten::DuplTemp()
 			{
 				PageItem* ta = TableItems.at(ttc);
 				if (ta->TopLinkID != -1)
-					ta->TopLink = Doc->ActPage->Items.at(TableID[ta->TopLinkID]);
+					ta->TopLink = Doc->Items.at(TableID[ta->TopLinkID]);
 				else
 					ta->TopLink = 0;
 				if (ta->LeftLinkID != -1)
-					ta->LeftLink = Doc->ActPage->Items.at(TableID[ta->LeftLinkID]);
+					ta->LeftLink = Doc->Items.at(TableID[ta->LeftLinkID]);
 				else
 					ta->LeftLink = 0;
 				if (ta->RightLinkID != -1)
-					ta->RightLink = Doc->ActPage->Items.at(TableID[ta->RightLinkID]);
+					ta->RightLink = Doc->Items.at(TableID[ta->RightLinkID]);
 				else
 					ta->RightLink = 0;
 				if (ta->BottomLinkID != -1)
-					ta->BottomLink = Doc->ActPage->Items.at(TableID[ta->BottomLinkID]);
+					ta->BottomLink = Doc->Items.at(TableID[ta->BottomLinkID]);
 				else
 					ta->BottomLink = 0;
 			}
 		}
-		Doc->ActPage->Deselect(true); */
+		View->Deselect(true);
 		View->DrawNew();
 		Doc->Pages.at(nr)->PageNam = nam;
 		Doc->Pages.at(nr)->MPageNam = "";

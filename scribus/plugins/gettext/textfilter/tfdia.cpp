@@ -115,7 +115,7 @@ void tfDia::createFilterRow(tfFilter* after)
 	{
 		std::vector<tfFilter*>::iterator it = filters.begin();
 		uint i = 0;
-		for (i; i < filters.size(); ++i, ++it)
+		for (i = 0; i < filters.size(); ++i, ++it)
 		{
 			if (filters[i] == after)
 			{
