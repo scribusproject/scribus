@@ -2074,20 +2074,7 @@ QString PageItem::ExpandToken(uint base)
 
 void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 {
-	int h, s, v, sneu;
-	Doc->PageColors[farbe].getRGBColor().rgb(&h, &s, &v);
-	if ((h == s) && (s == v))
-	{
-		Doc->PageColors[farbe].getRGBColor().hsv(&h, &s, &v);
-		sneu = 255 - ((255 - v) * shad / 100);
-		tmp->setHsv(h, s, sneu);
-	}
-	else
-	{
-		Doc->PageColors[farbe].getRGBColor().hsv(&h, &s, &v);
-		sneu = s * shad / 100;
-		tmp->setHsv(h, sneu, v);
-	}
+	*tmp = Doc->PageColors[farbe].getShadeColorProof(shad);
 }
 
 double PageItem::SetZeichAttr(struct ScText *hl, int *chs, QString *chx)

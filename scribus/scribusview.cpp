@@ -87,6 +87,7 @@ QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr=0);
 QImage ProofPict(QImage *Im, QString Prof, int Rend);
 #endif
 extern int callGS(const QStringList & args);
+extern QImage LoadPict(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes);
 extern double UmReFaktor;
 extern ProfilesL InputProfiles;
 
@@ -10249,12 +10250,6 @@ void ScribusView::FlipImageV()
 
 void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
 {
-	QString tmp, tmp2, dummy, cmd1, cmd2, BBox, FarNam;
-	QChar tc;
-	QString oldPr = Doc->CMSSettings.DefaultInputProfile;
-	double x, y, b, h, c, m, k;
-	bool found = false;
-	int ret = -1;
 	QFileInfo fi = QFileInfo(fn);
 	PageItem *Item = Doc->Items.at(ItNr);
 	if (!reload)
@@ -10262,364 +10257,48 @@ void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
 		if ((ScApp->fileWatcher->files().contains(Item->Pfile) != 0) && (Item->PicAvail))
 			ScApp->fileWatcher->removeFile(Item->Pfile);
 	}
-	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
-	if (!fi.exists())
+	QImage img = ::LoadPict(fn, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, 72);
+	if (img.isNull())
 	{
 		Item->Pfile = fi.absFilePath();
 		Item->PicAvail = false;
 		Item->PicArt = false;
-		return;
 	}
-	QString ext = fi.extension(false).lower();
-	if (ext == "pdf")
-	{
-		QStringList args;
-		args.append("-r72");
-		args.append("-sOutputFile="+tmpFile);
-		args.append("-dFirstPage=1");
-		args.append("-dLastPage=1");
-		args.append(fn);
-		ret = callGS(args);
-		if (ret == 0)
-		{
-			QImage im4;
-			QImage image;
-			image.load(tmpFile);
-			image = image.convertDepth(32);
-			im4 = ProofPict(&image, Item->IProfile, Item->IRender);
-			Item->pixm = im4;
-			Item->pixmOrg = im4.copy();
-			Item->Pfile = fi.absFilePath();
-			if (!reload)
-				ScApp->fileWatcher->addFile(Item->Pfile);
-			Item->PicAvail = true;
-			Item->PicArt = true;
-			Item->isRaster = false;
-			Item->BBoxX = 0;
-			Item->BBoxH = Item->pixm.height();
-			Item->OrigW = Item->pixm.width();
-			Item->OrigH = Item->pixm.height();
-			Item->LocalViewX = Item->LocalScX;
-			Item->LocalViewY = Item->LocalScY;
-			Item->dpiX = 72.0;
-			Item->dpiY = 72.0;
-			unlink(tmpFile);
-		}
-		else
-		{
-			Item->Pfile = fi.absFilePath();
-			Item->PicAvail = false;
-			Item->PicArt = false;
-		}
-		if (!Doc->loading)
-			emit RasterPic(Item->isRaster);
-		return;
-	}
-	if ((ext == "eps") || (ext == "ps"))
-	{
-		QFile f(fn);
-		if (f.open(IO_ReadOnly))
-		{
-			QTextStream ts(&f);
-			while (!ts.atEnd())
-			{
-				tc = ' ';
-				tmp = "";
-				while ((tc != '\n') && (tc != '\r'))
-				{
-					ts >> tc;
-					if ((tc != '\n') && (tc != '\r'))
-						tmp += tc;
-				}
-				if (tmp.startsWith("%%BoundingBox:"))
-				{
-					found = true;
-					BBox = tmp.remove("%%BoundingBox:");
-				}
-				if (!found)
-				{
-					if (tmp.startsWith("%%BoundingBox"))
-					{
-						found = true;
-						BBox = tmp.remove("%%BoundingBox");
-					}
-				}
-				if (tmp.startsWith("%%CMYKCustomColor"))
-				{
-					QTextStream ts2(&tmp, IO_ReadOnly);
-					ts2 >> dummy >> c >> m >> y >> k;
-					FarNam = ts2.read();
-					FarNam = FarNam.stripWhiteSpace();
-					FarNam = FarNam.remove(0,1);
-					FarNam = FarNam.remove(FarNam.length()-1,1);
-					insertColor(FarNam, c, m, y, k);
-					while (!ts.atEnd())
-					{
-						tc = ' ';
-						tmp = "";
-						while ((tc != '\n') && (tc != '\r'))
-						{
-							ts >> tc;
-							if ((tc != '\n') && (tc != '\r'))
-								tmp += tc;
-						}
-						if (!tmp.startsWith("%%+"))
-							break;
-						QTextStream ts2(&tmp, IO_ReadOnly);
-						ts2 >> dummy >> c >> m >> y >> k;
-						FarNam = ts2.read();
-						FarNam = FarNam.stripWhiteSpace();
-						FarNam = FarNam.remove(0,1);
-						FarNam = FarNam.remove(FarNam.length()-1,1);
-						insertColor(FarNam, c, m, y, k);
-					}
-				}
-				if (tmp.startsWith("%%EndComments"))
-					break;
-			}
-			f.close();
-			if (found)
-			{
-				QTextStream ts2(&BBox, IO_ReadOnly);
-				ts2 >> x >> y >> b >> h;
-				QStringList args;
-				args.append("-r72");
-				args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
-				args.append("-sOutputFile="+tmpFile);
-				args.append(fn);
-				ret = callGS(args);
-				if (ret == 0)
-				{
-					QImage im4;
-					QImage image;
-					image.load(tmpFile);
-					image = image.convertDepth(32);
-					image.setAlphaBuffer(true);
-					if (ScApp->HavePngAlpha != 0)
-					{
-						int wi = image.width();
-						int hi = image.height();
-						for( int yi=0; yi < hi; ++yi )
-						{
-							QRgb *s = (QRgb*)(image.scanLine( yi ));
-							for(int xi=0; xi < wi; ++xi )
-							{
-								if((*s) == 0xffffffff)
-									(*s) &= 0x00ffffff;
-								s++;
-							}
-						}
-					}
-					im4.setAlphaBuffer(true);
-					im4 = image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
-					image = ProofPict(&im4, Item->IProfile, Item->IRender);
-					Item->pixm = image;
-					Item->pixmOrg = image.copy();
-					Item->PicAvail = true;
-					Item->PicArt = true;
-					Item->isRaster = false;
-					Item->BBoxX = x;
-					Item->BBoxH = h;
-					Item->OrigW = Item->pixm.width();
-					Item->OrigH = Item->pixm.height();
-					Item->LocalViewX = Item->LocalScX;
-					Item->LocalViewY = Item->LocalScY;
-					Item->dpiX = 72.0;
-					Item->dpiY = 72.0;
-					Item->Pfile = fi.absFilePath();
-					if (!reload)
-						ScApp->fileWatcher->addFile(Item->Pfile);
-					unlink(tmpFile);
-				}
-				else
-				{
-					Item->Pfile = fi.absFilePath();
-					Item->PicAvail = false;
-					Item->PicArt = false;
-				}
-			}
-		}
-		else
-		{
-			Item->Pfile = fi.absFilePath();
-			Item->PicAvail = false;
-			Item->PicArt = false;
-		}
-		if (!Doc->loading)
-			emit RasterPic(Item->isRaster);
-		return;
-	}
-#ifdef HAVE_TIFF
-	if (ext == "tif")
-	{
-		QImage img;
-		QImage inI2;
-#ifdef HAVE_CMS
-		DWORD EmbedLen = 0;
-		LPBYTE EmbedBuffer;
-		const char *Descriptor;
-		cmsHPROFILE hIn;
-#endif
-		TIFF* tif = TIFFOpen(fn, "r");
-		if(tif)
-		{
-			unsigned width, height,size;
-			float xresIn, yresIn;
-			double xres, yres;
-			TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &width);
-			TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &height);
-			TIFFGetField(tif, TIFFTAG_XRESOLUTION, &xresIn);
-			TIFFGetField(tif, TIFFTAG_YRESOLUTION, &yresIn);
-			xres = static_cast<double>(xresIn);
-			yres = static_cast<double>(yresIn);
-			size=width*height;
-			uint32 *bits=(uint32*) _TIFFmalloc(size * sizeof (uint32));
-			if(bits)
-			{
-				if (TIFFReadRGBAImage(tif, width, height, bits, 0))
-				{
-					img.create(width,height,32);
-					img.setAlphaBuffer(true);
-					if(TIFFGetR(0x1234567)==qRed  (0x1234567) &&
-					        TIFFGetG(0x1234567)==qGreen(0x1234567) &&
-					        TIFFGetB(0x1234567)==qBlue (0x1234567))
-					{
-						for (unsigned y=0; y<height; ++y)
-							memcpy(img.scanLine(height-1-y),bits+y*width,width*4);
-					}
-					else
-					{
-						uint32 *inp=bits;
-						for (unsigned y=0; y<height; ++y)
-						{
-							QRgb *row=(QRgb*) (img.scanLine(height-1-y));
-							for(unsigned x=0; x<width; ++x)
-							{
-								const uint32 col=*(inp++);
-								row[x]=qRgba(TIFFGetR(col), TIFFGetG(col), TIFFGetB(col), TIFFGetA(col));
-							}
-						}
-					}
-#ifdef HAVE_CMS
-					if((TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer)) &&
-					        (Item->UseEmbedded))
-					{
-						hIn = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
-						Descriptor = cmsTakeProductDesc(hIn);
-						if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
-						{
-							Item->IProfile = "Embedded " + QString(Descriptor);
-							Item->EmProfile = "Embedded " + QString(Descriptor);
-							inI2 = ProofPict(&img, Item->IProfile, Item->IRender, hIn);
-						}
-						else
-						{
-							if (!InputProfiles.contains(Item->IProfile))
-								Item->IProfile = oldPr;
-							Item->EmProfile = "";
-							Item->UseEmbedded = false;
-							inI2 = ProofPict(&img, Item->IProfile, Item->IRender);
-						}
-						cmsCloseProfile(hIn);
-					}
-					else
-					{
-						if (!InputProfiles.contains(Item->IProfile))
-							Item->IProfile = oldPr;
-						inI2 = ProofPict(&img, Item->IProfile, Item->IRender);
-					}
-#else
-					inI2 = ProofPict(&img, Item->IProfile, Item->IRender);
-#endif
-					Item->pixm = inI2;
-					Item->pixmOrg = QImage();
-					Item->PicAvail = true;
-					Item->PicArt = true;
-					Item->BBoxX = 0;
-					if (Item->Pfile != fn)
-					{
-						Item->LocalScX = 72.0 / xres;
-						Item->LocalScY = 72.0 / yres;
-						Item->LocalViewX = 72.0 / xres;
-						Item->LocalViewY = 72.0 / yres;
-					}
-					else
-					{
-						Item->LocalViewX = Item->LocalScX;
-						Item->LocalViewY = Item->LocalScY;
-					}
-					Item->Pfile = fi.absFilePath();
-					if (!reload)
-						ScApp->fileWatcher->addFile(Item->Pfile);
-					Item->BBoxH = Item->pixm.height();
-					Item->OrigW = Item->pixm.width();
-					Item->OrigH = Item->pixm.height();
-					Item->isRaster = true;
-					Item->dpiX = xres;
-					Item->dpiY = yres;
-				}
-				_TIFFfree(bits);
-			}
-			TIFFClose(tif);
-		}
-		else
-		{
-			Item->Pfile = fi.absFilePath();
-			Item->PicAvail = false;
-			Item->PicArt = false;
-		}
-	}
-#endif
 	else
 	{
-		QImage inI;
-		QImage inI2;
-		if (inI.load(fn))
+		double xres = img.dotsPerMeterX() * 0.0254;
+		double yres = img.dotsPerMeterY() * 0.0254;
+		Item->pixm = img.copy();
+		Item->pixmOrg = img.copy();
+		Item->PicAvail = true;
+		Item->PicArt = true;
+		Item->BBoxX = 0;
+		if (Item->Pfile != fn)
 		{
-			double dpiX = QMAX(72.0, qRound(inI.dotsPerMeterX() / 100.0 * 2.54));
-			double dpiY = QMAX(72.0, qRound(inI.dotsPerMeterY() / 100.0 * 2.54));
-			inI = inI.convertDepth(32);
-			inI2 = ProofPict(&inI, Item->IProfile, Item->IRender);
-			Item->pixm = inI2.copy();
-			Item->pixmOrg = QImage();
-			if ((Item->Pfile != fn) || (Item->dpiX != dpiX))
-			{
-				Item->LocalScX = 72.0 / dpiX;
-				Item->LocalScY = 72.0 / dpiY;
-				Item->LocalViewX = 72.0 / dpiX;
-				Item->LocalViewY = 72.0 / dpiY;
-			}
-			else
-			{
-				Item->LocalViewX = Item->LocalScX;
-				Item->LocalViewY = Item->LocalScY;
-			}
-			Item->Pfile = fi.absFilePath();
-			if (!reload)
-				ScApp->fileWatcher->addFile(Item->Pfile);
-			Item->PicAvail = true;
-			Item->PicArt = true;
-			Item->BBoxX = 0;
-			Item->BBoxH = Item->pixm.height();
-			Item->isRaster = true;
-			Item->OrigW = Item->pixm.width();
-			Item->OrigH = Item->pixm.height();
-			Item->dpiX = dpiX;
-			Item->dpiY = dpiY;
+			Item->LocalScX = 72.0 / xres;
+			Item->LocalScY = 72.0 / yres;
+			Item->LocalViewX = 72.0 / xres;
+			Item->LocalViewY = 72.0 / yres;
 		}
 		else
 		{
-			Item->Pfile = fi.absFilePath();
-			Item->PicAvail = false;
-			Item->PicArt = false;
+			Item->LocalViewX = Item->LocalScX;
+			Item->LocalViewY = Item->LocalScY;
 		}
+		Item->Pfile = fi.absFilePath();
+		if (!reload)
+			ScApp->fileWatcher->addFile(Item->Pfile);
+		Item->BBoxH = Item->pixm.height();
+		Item->OrigW = Item->pixm.width();
+		Item->OrigH = Item->pixm.height();
+		Item->isRaster = true;
+		Item->dpiX = xres;
+		Item->dpiY = yres;
 	}
-	Item->setImageFlippedH(false);
-	Item->setImageFlippedV(false);
 	if (!Doc->loading)
 	{
 		emit RasterPic(Item->isRaster);
-/*		emit UpdtObj(Doc->currentPage->PageNr, ItNr); */
+//		emit UpdtObj(PageNr, ItNr);
 	}
 	emit DocChanged();
 }

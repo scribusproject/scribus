@@ -135,6 +135,10 @@ cmsHTRANSFORM stdTrans;
 cmsHTRANSFORM stdProof;
 cmsHTRANSFORM stdTransImg;
 cmsHTRANSFORM stdProofImg;
+cmsHTRANSFORM stdTransCMYK;
+cmsHTRANSFORM stdProofCMYK;
+cmsHTRANSFORM stdTransRGB;
+bool BlackPoint;
 bool SoftProofing;
 bool Gamut;
 bool CMSuse;
@@ -2883,6 +2887,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 		doc->IntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
 		SoftProofing = Prefs.DCMSset.SoftProofOn;
 		Gamut = Prefs.DCMSset.GamutCheck;
+		BlackPoint = Prefs.DCMSset.BlackPoint;
 		IntentPrinter = Prefs.DCMSset.DefaultIntentPrinter;
 		IntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
 		doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
@@ -2890,6 +2895,9 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 		stdTrans = doc->stdTrans;
 		stdProofImg = doc->stdProofImg;
 		stdTransImg = doc->stdTransImg;
+		stdProofCMYK = doc->stdProofCMYK;
+		stdTransCMYK = doc->stdTransCMYK;
+		stdTransRGB = doc->stdTransRGB;
 		CMSoutputProf = doc->DocOutputProf;
 		CMSprinterProf = doc->DocPrinterProf;
 		if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
@@ -3250,6 +3258,7 @@ bool ScribusApp::SetupDoc()
 				doc->IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
 				SoftProofing = doc->CMSSettings.SoftProofOn;
 				Gamut = doc->CMSSettings.GamutCheck;
+				BlackPoint = doc->CMSSettings.BlackPoint;
 				IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
 				IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
 				qApp->setOverrideCursor(QCursor(waitCursor), true);
@@ -3259,6 +3268,9 @@ bool ScribusApp::SetupDoc()
 				stdTrans = doc->stdTrans;
 				stdProofImg = doc->stdProofImg;
 				stdTransImg = doc->stdTransImg;
+				stdProofCMYK = doc->stdProofCMYK;
+				stdTransCMYK = doc->stdTransCMYK;
+				stdTransRGB = doc->stdTransRGB;
 				CMSoutputProf = doc->DocOutputProf;
 				CMSprinterProf = doc->DocPrinterProf;
 				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
@@ -3443,6 +3455,9 @@ void ScribusApp::SwitchWin()
 	stdTrans = doc->stdTrans;
 	stdProofImg = doc->stdProofImg;
 	stdTransImg = doc->stdTransImg;
+	stdProofCMYK = doc->stdProofCMYK;
+	stdTransCMYK = doc->stdTransCMYK;
+	stdTransRGB = doc->stdTransRGB;
 	CMSoutputProf = doc->DocOutputProf;
 	CMSprinterProf = doc->DocPrinterProf;
 #endif
@@ -4507,6 +4522,9 @@ bool ScribusApp::LadeDoc(QString fileName)
 			stdTrans = doc->stdTrans;
 			stdProofImg = doc->stdProofImg;
 			stdTransImg = doc->stdTransImg;
+			stdProofCMYK = doc->stdProofCMYK;
+			stdTransCMYK = doc->stdTransCMYK;
+			stdTransRGB = doc->stdTransRGB;
 			CMSoutputProf = doc->DocOutputProf;
 			CMSprinterProf = doc->DocPrinterProf;
 			if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
@@ -4919,6 +4937,12 @@ bool ScribusApp::DoFileClose()
 	BookPal->BView->Last = 0;
 	if ((wsp->windowList().isEmpty()) || (wsp->windowList().count() == 1))
 	{
+#ifdef HAVE_CMS
+		CMSuse = false;
+		SoftProofing = Prefs.DCMSset.SoftProofOn;
+		IntentPrinter = Prefs.DCMSset.DefaultIntentPrinter;
+		IntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
+#endif
 		scrActions["fileDocSetup"]->setEnabled(false);
 		scrActions["fileDocInfo"]->setEnabled(false);
 		scrActions["filePrint"]->setEnabled(false);
@@ -4973,12 +4997,6 @@ bool ScribusApp::DoFileClose()
 		FMess->setText( tr("Ready"));
 
 		PrinterUsed = false;
-#ifdef HAVE_CMS
-		CMSuse = false;
-		SoftProofing = Prefs.DCMSset.SoftProofOn;
-		IntentPrinter = Prefs.DCMSset.DefaultIntentPrinter;
-		IntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
-#endif
 	}
 	view->close();
 	delete view;
@@ -5134,8 +5152,10 @@ bool ScribusApp::doPrint(PrintOptions *options)
 		if (PSfile)
 		{
 			// Write the PS to a file
+			CMYKColor::UseProf = options->useICC;
 			dd->CreatePS(doc, view, options->pageNumbers, options->outputSeparations, options->separationName,
 			               options->useColor, options->mirrorH, options->mirrorV, options->useICC, options->doGCR);
+			CMYKColor::UseProf = true;
 			if (options->PSLevel != 3)
 			{
 				// use gs to convert our PS to a lower version
@@ -8267,7 +8287,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 	if (dd != NULL)
 	{
 		if (dd->PS_set_file(fn))
-			dd->CreatePS(doc, view, pageNs, false, tr("All"), true, false, false, false, Prefs.GCRMode);
+			dd->CreatePS(doc, view, pageNs, false, tr("All"), true, false, false, true, Prefs.GCRMode);
 		else
 			return_value = false;
 		delete dd;
@@ -9448,9 +9468,9 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 		int a = 0;
 		ColorMenC->insertItem( tr("None"));
 		CMYKColor tmp;
-		tmp.fromQColor(doc->papColor);
-		tmp.RecalcRGB();
-		doc->papColor = tmp.getRGBColor();
+//		tmp.fromQColor(doc->papColor);
+//		tmp.RecalcRGB();
+//		doc->papColor = tmp.getRGBColor();
 		for (ColorList::Iterator it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		{
 			doc->PageColors[it.key()].RecalcRGB();

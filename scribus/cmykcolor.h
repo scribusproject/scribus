@@ -27,59 +27,105 @@ class QString;
   * its API is based on the API of QColor
   */
 
+/** Scribus colour models */
+enum colorModel
+{
+	colorModelRGB,
+	colorModelCMYK
+};
+
 class CMYKColor 
 {
 public:
+	CMYKColor();
 /** Constructs a CMYKColor with 4 Components
  * in the range from 0 - 255 */
-	CMYKColor(int c=0, int m=0, int y=0, int k=0);
+	CMYKColor(int c, int m, int y, int k);
+/** Constructs a RGBColor with 3 Components
+ * in the range from 0 - 255 */
+	CMYKColor(int r, int g, int b);
 	~CMYKColor() {};
-	
+/** flag to enable and disable use of color management (default: true) */
+	static bool UseProf;
+
 /** Same as the Constructor but for an existing Color */
 	void setColor(int c, int m, int y, int k);
-	
+
 /** Computes a CMYKColor from an RGB-Color
- * Applies Gray-Component-Removal to the resulting CMYKColor */
+ * Applies Gray-Component-Removal to the resulting CMYKColor
+ * or if color management is enabled, an approriate transform */
 	void setColorRGB(int r, int g, int b);
-	
+
+/** set the color model */
+	void setColorModel (colorModel cm);
+
+/** get the color model */
+	colorModel getColorModel ();
+
 /** Computes a CMYKColor for a QColor */
 	void fromQColor(QColor color);
-	
-/** Returns the RGB Part of an CMYKColor */
+
+/** Returns the transformed/proofed RGB color  */
 	QColor getRGBColor();
 	void getRawRGBColor(int *r, int *g, int *b);
-	
+
 /** Returns the 4 Values that form an CMYKColor */
 	void getCMYK(int *c, int *m, int *y, int *k);
-	
+
+/** Returns the 3 Values that form an RGBColor */
+	void getRGB(int *r, int *g, int *b);
+
+/** get CMYK values of a specified shade */
+	void getShadeColorCMYK(int *c, int *m, int *y, int *k, int level);
+
+/** get RGB values of a specified shade */
+	void getShadeColorRGB(int *r, int *g, int *b, int level);
+
+/** Return a proofed QColor with the specified shade */
+	QColor getShadeColorProof(int level);
+
 /** Applys Gray-Component-Removal to an CMYKColor */
 	void applyGCR();
-	
-/** Returns the CMYKColor as an Hex-String in the Form #CCYYMMKK */
+
+/** Returns the CMYKColor as an Hex-String in the Form #CCYYMMKK for
+ * a CMYK color or ##RRGGBB for a RGB color*/
 	QString name();
-	
-/** Sets the Values of an CMYKColor from an Hex-String in the Form #CCMMYYKK */
+
+/** Sets the Values of a color from an Hex-String in the Form #CCMMYYKK
+ * or #RRGGBB */
 	void setNamedColor(QString nam);
 	void RecalcRGB();
-	
+
 private:
 /** Cyan-Component of Color */
 	int C;
 	
 /** Magenta-Component of Color */
 	int M;
-	
+
 /** Yellow-Component of Color */
 	int Y;
-	
+
 /** Black-Component of Color */
 	int K;
-	
-/** RGB-Equivalent of the CMYK-Values */
+
+/** Red-Component of Color */
+	int R;
+
+/** Green-Component of Color */
+	int G;
+
+/** Blue-Component of Color */
+	int B;
+
+/** RGB-Equivalent including color transforms */
 	QColor RGB;
-	
+
 /** Flag, true if the Color is a Spotcolor */
 	bool Spot;
+
+/** Color model of the current color */
+	colorModel Model;
 };
 
 #endif

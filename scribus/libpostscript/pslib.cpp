@@ -51,6 +51,7 @@ extern QString String2Hex(QString *in, bool lang = true);
 extern bool CMSuse;
 extern QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK);
 #endif
+extern QImage LoadPict(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes);
 
 extern "C" void* Run(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);
 
@@ -682,35 +683,10 @@ void PSLib::PS_ImageData(bool inver, QString fn, QString Name, QString Prof, boo
 	}
   	QString ImgStr = "";
 	QImage image;
-#ifdef HAVE_CMS
-	QImage image2;
-	bool cmy = false;
-	if ((CMSuse) && (UseProf))
-	{
-		image = LoadPict(fn);
-		image = image.convertDepth(32);
-		image2 = LoadPictCol(fn, Prof, UseEmbedded, &cmy);
-		if (inver)
-		{
-			image.invertPixels();
-			image2.invertPixels();
-		}
-		ImgStr = ImageToCMYK_PS(&image2, -1, cmy);
-	}
-	else
-	{
-		image = LoadPict(fn);
-		if (inver)
-			image.invertPixels();
-		ImgStr = ImageToCMYK_PS(&image, -1, false);
-	}
-#else
-	image = LoadPict(fn);
-  image = image.convertDepth(32);
+	image = LoadPict (fn, Prof, 0, UseEmbedded, UseProf, 0, 300);
 	if (inver)
 		image.invertPixels();
-	ImgStr = ImageToCMYK_PS(&image, -1, false);
-#endif
+	ImgStr = ImageToCMYK_PS(&image, -1, true);
 	if (CompAvail)
 	{
 		PutSeite("currentfile /ASCIIHexDecode filter /FlateDecode filter /ReusableStreamDecode filter\n");
@@ -723,8 +699,8 @@ void PSLib::PS_ImageData(bool inver, QString fn, QString Name, QString Prof, boo
 	PutSeite("\n>\n");
 	PutSeite("/"+PSEncode(Name)+"Bild exch def\n");
 	ImgStr = "";
-  if (image.hasAlphaBuffer())
-   	{
+	if (image.hasAlphaBuffer())
+	{
 		QImage iMask = image.createAlphaMask();
 		ImgStr = MaskToTxt(&iMask, false);
 		if (CompAvail)
@@ -776,58 +752,28 @@ void PSLib::PS_image(bool inver, double x, double y, QString fn, double scalex, 
 	}
 	else
 	{
-    		QString ImgStr = "";
+		QString ImgStr = "";
 		QImage image;
-#ifdef HAVE_CMS
-		QImage image2;
-		bool cmy = false;
-    		image = LoadPict(fn);
-		image = image.convertDepth(32);
-    		if ((CMSuse) && (UseProf))
-			image2 = LoadPictCol(fn, Prof, UseEmbedded, &cmy);
-		if (inver)
-		{
-			image.invertPixels();
-			image2.invertPixels();
-		}
-#else
-		image = LoadPict(fn);
-  		image = image.convertDepth(32);
+		image = LoadPict (fn, Prof, 0, UseEmbedded, UseProf, 0, 300);
 		if (inver)
 			image.invertPixels();
-#endif
 		int w = image.width();
 		int h = image.height();
-    		PutSeite(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
-    		PutSeite(ToStr(scalex*w) + " " + ToStr(scaley*h) + " sc\n");
-    		PutSeite(((!DoSep) && (!GraySc)) ? "/DeviceCMYK setcolorspace\n" : "/DeviceGray setcolorspace\n");
-    		if (image.hasAlphaBuffer())
-    		{
+		if (ext == "pdf")
+		{
+			scalex *= 72.0 / 300.0;
+			scaley *= 72.0 / 300.0;
+		}
+ 		PutSeite(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
+ 		PutSeite(ToStr(scalex*w) + " " + ToStr(scaley*h) + " sc\n");
+ 		PutSeite(((!DoSep) && (!GraySc)) ? "/DeviceCMYK setcolorspace\n" : "/DeviceGray setcolorspace\n");
+ 		if (image.hasAlphaBuffer())
+ 		{
 			QImage iMask = image.createAlphaMask();
-#ifdef HAVE_CMS
-			if ((CMSuse) && (UseProf))
-			{
-				if (DoSep)
-					ImgStr = ImageToCMYK_PS(&image2, Plate, cmy);
-				else
-					ImgStr = GraySc ? ImageToCMYK_PS(&image2, -2, cmy) : 
-								ImageToCMYK_PS(&image2, -1, cmy);
-			}
-			else
-			{
-				if (DoSep)
-					ImgStr = ImageToCMYK_PS(&image, Plate, false);
-				else
-					ImgStr = GraySc ? ImageToCMYK_PS(&image, -2, false) : 
-								ImageToCMYK_PS(&image, -1, false);
-			}
-#else
 			if (DoSep)
-				ImgStr = ImageToCMYK_PS(&image, Plate, false);
+				ImgStr = ImageToCMYK_PS(&image, Plate, true);
 			else
-				ImgStr = GraySc ? ImageToCMYK_PS(&image, -2, false) : ImageToCMYK_PS(&image, -1, 
-													false);
-#endif
+				ImgStr = GraySc ? ImageToCMYK_PS(&image, -2, true) : 	ImageToCMYK_PS(&image, -1, true);
 			if (Name == "")
 			{
 				if (CompAvail)
@@ -919,30 +865,10 @@ void PSLib::PS_image(bool inver, double x, double y, QString fn, double scalex, 
 				PutSeite ( CompAvail ? "   /DataSource currentfile /ASCIIHexDecode filter /FlateDecode filter >>\n" :
 							"   /DataSource currentfile /ASCIIHexDecode filter >>\n");
 				PutSeite("image\n");
-#ifdef HAVE_CMS
-				if ((CMSuse) && (UseProf))
-				{
-					if (DoSep)
-						ImgStr = ImageToCMYK_PS(&image2, Plate, cmy);
-					else
-						ImgStr = GraySc ? ImageToCMYK_PS(&image2, -2, cmy) : 
-									ImageToCMYK_PS(&image2, -1, cmy);
-				}
-				else
-				{
-					if (DoSep)
-						ImgStr = ImageToCMYK_PS(&image, Plate, false);
-					else
-						ImgStr = GraySc ? ImageToCMYK_PS(&image, -2, false) : 
-									ImageToCMYK_PS(&image, -1, false);
-				}
-#else
 				if (DoSep)
-					ImgStr = ImageToCMYK_PS(&image, Plate, false);
+					ImgStr = ImageToCMYK_PS(&image, Plate, true);
 				else
-					ImgStr = GraySc ? ImageToCMYK_PS(&image, -2, false) : 		
-								ImageToCMYK_PS(&image, -1, false);
-#endif
+					ImgStr = GraySc ? ImageToCMYK_PS(&image, -2, true) : ImageToCMYK_PS(&image, -1, true);
 				if (CompAvail)
 					ImgStr = CompressStr(&ImgStr);
 				ImgStr = String2Hex(&ImgStr);

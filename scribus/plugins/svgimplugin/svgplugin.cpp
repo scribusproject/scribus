@@ -1433,9 +1433,13 @@ QString SVGPlug::parseColor( const QString &s )
 	}
 	ColorList::Iterator it;
 	bool found = false;
+	int r, g, b;
+	QColor tmpR;
 	for (it = Doku->PageColors.begin(); it != Doku->PageColors.end(); ++it)
 	{
-		if (c == Doku->PageColors[it.key()].getRGBColor())
+		Doku->PageColors[it.key()].getRGB(&r, &g, &b);
+		tmpR.setRgb(r, g, b);
+		if (c == tmpR && Doku->PageColors[it.key()].getColorModel() == colorModelRGB)
 		{
 			ret = it.key();
 			found = true;

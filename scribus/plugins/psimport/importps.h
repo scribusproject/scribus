@@ -33,7 +33,7 @@ public:
 	void parseOutput(QString fn);
 	void LineTo(FPointArray *i, QString vals);
 	void Curve(FPointArray *i, QString vals);
-	QString parseColor(QString vals);
+	QString parseColor(QString vals, colorModel model = colorModelCMYK);
 
 	ScribusDoc* Doku;
 	ScribusApp* Prog;

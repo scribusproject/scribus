@@ -97,21 +97,38 @@
 	currentcolorspace 0 get /CIEBasedABC eq
 	{	currentcolor setrgbcolor
 	} if
+	currentcolorspace 0 get /DeviceRGB eq
+	{
+		currentrgbcolor	% -> r g b
+		(corgb )print
+		2 index str cvs print
+		( ) print
+		1 index str cvs print
+		( ) print
+		str cvs print
+		( ) print
+		pop pop
+		.currentopacityalpha	% a
+		str cvs print
+		(\n) print
+	} 
+	{
+		currentcmykcolor	% -> c m y k
+		(co )print
+		3 index str cvs print
+		( ) print
+		2 index str cvs print
+		( ) print
+		1 index str cvs print
+		( ) print
+		str cvs print
+		( ) print
+		pop pop pop
+		.currentopacityalpha	% a
+		str cvs print
+		(\n) print
+	} ifelse
 
-	currentcmykcolor	% -> c m y k
-	(co )print
-	3 index str cvs print
-	( ) print
-	2 index str cvs print
-	( ) print
-	1 index str cvs print
-	( ) print
-	str cvs print
-	( ) print
-	pop pop pop
-	.currentopacityalpha	% a
-	str cvs print
-	(\n) print
 } bind def
 
 /writecurrentlinecap

@@ -283,22 +283,7 @@ void Cpalette::selectColor(QListBoxItem *c)
 
 QColor Cpalette::setColor(QString colorName, int shad)
 {
-	int h, s, v, sneu;
-	QColor tmp;
-	colorList[colorName].getRGBColor().rgb(&h, &s, &v);
-	if ((h == s) && (s == v))
-	{
-		colorList[colorName].getRGBColor().hsv(&h, &s, &v);
-		sneu = 255 - ((255 - v) * shad / 100);
-		tmp.setHsv(h, s, sneu);
-	}
-	else
-	{
-		colorList[colorName].getRGBColor().hsv(&h, &s, &v);
-		sneu = s * shad / 100;
-		tmp.setHsv(h, sneu, v);
-	}
-	return tmp;
+	return colorList[colorName].getShadeColorProof(shad);
 }
 
 void Cpalette::updateBoxS(QString colorName)

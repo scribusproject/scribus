@@ -38,7 +38,7 @@
 #include <prefscontext.h>
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern QString Path2Relative(QString Path);
-extern QImage LoadPict(QString fn, bool *gray = 0);
+extern QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes);
 extern PrefsFile* prefsFile;
 
 /*!
@@ -465,7 +465,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							cl.setAttribute("d", SetClipPath(Item)+"Z");
 							ob.appendChild(cl);
 							gr.appendChild(ob);
-							QImage img = LoadPict(Item->Pfile);
+							QImage img = LoadPict(Item->Pfile, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, 72);
 							QFileInfo fi = QFileInfo(Item->Pfile);
 							img.save(fi.baseName()+".png", "PNG");
 							ob = docu->createElement("image");
@@ -737,22 +737,7 @@ void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl, ScribusApp *plu
  */
 QString SVGExPlug::SetFarbe(QString farbe, int shad, ScribusApp *plug)
 {
-	int h, s, v, sneu;
-	QColor tmp;
-	plug->doc->PageColors[farbe].getRGBColor().rgb(&h, &s, &v);
-	if ((h == s) && (s == v))
-		{
-		plug->doc->PageColors[farbe].getRGBColor().hsv(&h, &s, &v);
-		sneu = 255 - ((255 - v) * shad / 100);
-		tmp.setHsv(h, s, sneu);
-		}
-	else
-		{
-		plug->doc->PageColors[farbe].getRGBColor().hsv(&h, &s, &v);
-		sneu = s * shad / 100;
-		tmp.setHsv(h, sneu, v);
-		}
-	return tmp.name();
+	return plug->doc->PageColors[farbe].getShadeColorProof(shad).name();
 }
 
 /*!

@@ -858,20 +858,7 @@ QPixmap ScPreview::createPreview(QString data)
 
 void ScPreview::SetFarbe(QColor *tmp, QString farbe, int shad)
 {
-	int h, s, v, sneu;
-	Farben[farbe].getRGBColor().rgb(&h, &s, &v);
-	if ((h == s) && (s == v))
-	{
-		Farben[farbe].getRGBColor().hsv(&h, &s, &v);
-		sneu = 255 - ((255 - v) * shad / 100);
-		tmp->setHsv(h, s, sneu);
-	}
-	else
-	{
-		Farben[farbe].getRGBColor().hsv(&h, &s, &v);
-		sneu = s * shad / 100;
-		tmp->setHsv(h, sneu, v);
-	}
+	*tmp = Farben[farbe].getShadeColorProof(shad);
 }
 
 void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, QString ZFo, bool Reverse, int Style, int mod, int Siz)

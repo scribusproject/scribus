@@ -497,6 +497,8 @@ void EPSPlug::parseOutput(QString fn)
 			}
 			else if (token == "co")
 				CurrColor = parseColor(params);
+			else if (token == "corgb")
+				CurrColor = parseColor(params, colorModelRGB);
 			else if (token == "ci")
 			{
 				Coords.resize(0);
@@ -646,33 +648,64 @@ void EPSPlug::Curve(FPointArray *i, QString vals)
  \param vals QString
  \retval QString Color Name
  */
-QString EPSPlug::parseColor(QString vals)
+QString EPSPlug::parseColor(QString vals, colorModel model)
 {
 	QString ret = "None";
 	if (vals == "")
 		return ret;
-	double c, m, y, k;
-	QTextStream Code(&vals, IO_ReadOnly);
-	Code >> c;
-	Code >> m;
-	Code >> y;
-	Code >> k;
-	Code >> Opacity;
-	int Cc = static_cast<int>(c*255);
-	int Mc = static_cast<int>(m*255);
-	int Yc = static_cast<int>(y*255);
-	int Kc = static_cast<int>(k*255);
-	int hC, hM, hY, hK;
-	CMYKColor tmp = CMYKColor(Cc, Mc, Yc, Kc);
+	double c, m, y, k, r, g, b;
+	CMYKColor tmp;
 	ColorList::Iterator it;
+	QTextStream Code(&vals, IO_ReadOnly);
 	bool found = false;
-	for (it = Doku->PageColors.begin(); it != Doku->PageColors.end(); ++it)
+	if (model == colorModelRGB)
 	{
-		Doku->PageColors[it.key()].getCMYK(&hC, &hM, &hY, &hK);
-		if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
+		Code >> r;
+		Code >> g;
+		Code >> b;
+		Code >> Opacity;
+		int Rc = static_cast<int>(r * 255 + 0.5);
+		int Gc = static_cast<int>(g * 255 + 0.5);
+		int Bc = static_cast<int>(b * 255 + 0.5);
+		int hR, hG, hB;
+		tmp.setColorRGB(Rc, Gc, Bc);
+		for (it = Doku->PageColors.begin(); it != Doku->PageColors.end(); ++it)
 		{
-			ret = it.key();
-			found = true;
+			Doku->PageColors[it.key()].getRGB(&hR, &hG, &hB);
+			if ((Rc == hR) && (Gc == hG) && (Bc == hB))
+			{
+				if (Doku->PageColors[it.key()].getColorModel() == colorModelRGB)
+				{
+					ret = it.key();
+					found = true;
+				}
+			}
+		}
+	}
+	else
+	{
+		Code >> c;
+		Code >> m;
+		Code >> y;
+		Code >> k;
+		Code >> Opacity;
+		int Cc = static_cast<int>(c * 255 + 0.5);
+		int Mc = static_cast<int>(m * 255 + 0.5);
+		int Yc = static_cast<int>(y * 255 + 0.5);
+		int Kc = static_cast<int>(k * 255 + 0.5);
+		int hC, hM, hY, hK;
+		tmp.setColor(Cc, Mc, Yc, Kc);
+		for (it = Doku->PageColors.begin(); it != Doku->PageColors.end(); ++it)
+		{
+			Doku->PageColors[it.key()].getCMYK(&hC, &hM, &hY, &hK);
+			if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
+			{
+				if (Doku->PageColors[it.key()].getColorModel() == colorModelCMYK)
+				{
+					ret = it.key();
+					found = true;
+				}
+			}
 		}
 	}
 	if (!found)

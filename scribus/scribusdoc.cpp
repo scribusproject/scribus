@@ -293,6 +293,9 @@ void ScribusDoc::CloseCMSProfiles()
 	cmsDeleteTransform(stdProof);
 	cmsDeleteTransform(stdTransImg);
 	cmsDeleteTransform(stdProofImg);
+	cmsDeleteTransform(stdTransCMYK);
+	cmsDeleteTransform(stdProofCMYK);
+	cmsDeleteTransform(stdTransRGB);
 #endif
 }
 
@@ -309,9 +312,9 @@ void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 	}
 	int dcmsFlags = 0;
 	int dcmsFlags2 = cmsFLAGS_NOTPRECALC;
-	if (Gamut)
+	if (CMSSettings.GamutCheck)
 		dcmsFlags |= cmsFLAGS_GAMUTCHECK;
-	else
+	if (CMSSettings.SoftProofOn)
 		dcmsFlags |= cmsFLAGS_SOFTPROOFING;
 #ifdef cmsFLAGS_BLACKPOINTCOMPENSATION
 	if (CMSSettings.BlackPoint)
@@ -320,6 +323,8 @@ void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 		dcmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
 	}
 #endif
+	// set Gamut alarm colour to #00ff00
+	cmsSetAlarmCodes(0, 255, 0);
 	stdProof = cmsCreateProofingTransform(DocInputProf, TYPE_RGB_16,
 	                                      DocOutputProf, TYPE_RGB_16,
 	                                      DocPrinterProf,
@@ -338,6 +343,19 @@ void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 	                                DocOutputProf, TYPE_RGBA_8,
 	                                 IntentMonitor,
 	                                 dcmsFlags2);
+	stdProofCMYK = cmsCreateProofingTransform(DocPrinterProf, TYPE_CMYK_16,
+						  DocOutputProf, TYPE_RGB_16,
+						  DocPrinterProf,
+						  IntentPrinter,
+						  IntentMonitor, dcmsFlags);
+	stdTransCMYK = cmsCreateTransform(DocInputProf, TYPE_RGB_16,
+					  DocPrinterProf, TYPE_CMYK_16,
+					  IntentPrinter,
+					  dcmsFlags2);
+	stdTransRGB = cmsCreateTransform(DocPrinterProf, TYPE_CMYK_16,
+					 DocInputProf, TYPE_RGB_16,
+					 IntentMonitor,
+					 dcmsFlags2);
 #endif
 }
 
