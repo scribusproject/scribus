@@ -95,7 +95,7 @@ public:
 	QMap<int, PluginData> pluginMap;
 
 	/*! \brief Return file extension used for shared libs on this platform */
-	static QCString PluginManager::platformDllExtension();
+	static QCString platformDllExtension();
 
 public slots:
 	/*! obsolete */
