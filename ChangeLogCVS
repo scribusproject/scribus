@@ -1,4 +1,7 @@
 Changes since Version 1.1.0
+02.10.2003	Removed some small Bugs reported after reopening the CVS 
+		to the public.
+
 30.09.2003	Every Textbox can have now it's own Language for
 		Hyphenation.
 

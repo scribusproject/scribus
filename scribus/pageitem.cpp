@@ -878,7 +878,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								}
 							if (!Doc->RePos)
 								{
-								if (e.intersects(pf.xForm(QRect(Zli2->xco,Zli2->yco-LineSp, Zli2->wide, LineSp))))
+								if (e.intersects(pf.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide), qRound(LineSp)))))
 									DrawZeichenS(p, Zli2);
 								}
 							}
@@ -965,7 +965,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					if (!Doc->RePos)
 						{
-						if (e.intersects(pf.xForm(QRect(Zli2->xco,Zli2->yco-LineSp, Zli2->wide, LineSp))))
+						if (e.intersects(pf.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide), qRound(LineSp)))))
 							DrawZeichenS(p, Zli2);
 						}
 					}

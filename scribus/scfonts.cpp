@@ -362,7 +362,11 @@ void SCFonts::AddScalableFonts(const QString &path)
 			QFileInfo fi(path + d[dc]);
 			QString ext = fi.extension(false).lower();
 			if ((ext == "pfa") || (ext == "pfb") || (ext == "ttf") || (ext == "otf"))
-				FT_New_Face( library, path + d[dc], 0, &face );
+				{
+				error = FT_New_Face( library, path + d[dc], 0, &face );
+				if (error)
+					continue;
+				}
 			else
 				continue;
 			ts = QString(face->family_name) + " " + QString(face->style_name);
@@ -380,6 +384,7 @@ void SCFonts::AddScalableFonts(const QString &path)
 				if(t)
 					{
 					t->cached_RealName = QString(FT_Get_Postscript_Name(face));
+					t->Font = qApp->font();
 					t->Font.setPointSize(12);
 					if (ext == "otf")
 						{
