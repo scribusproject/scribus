@@ -120,38 +120,5 @@ void StyleSelect::setTypeStyle()
 	if (Subs == sender())
 		Supers->setOn(false);
 	emit State(getStyle());
-/*	if (Supers == sender())
-		{
-		emit State(1);
-		Subs->setOn(false);
-		return;
-		}
-	if (Subs == sender())
-		{
-		emit State(2);
-		Supers->setOn(false);
-		return;
-		}
-	if (Outlined == sender())
-		{
-		emit State(4);
-		return;
-		}
-	if (Underline == sender())
-		{
-		emit State(8);
-		return;
-		}
-	if (Strike == sender())
-		{
-		emit State(16);
-		return;
-		}
-	if (Kapital == sender())
-		{
-		emit State(64);
-		return;
-		}
-	emit State(0);  */
 }
 

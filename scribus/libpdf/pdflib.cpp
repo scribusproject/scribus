@@ -968,7 +968,23 @@ void PDFlib::PDF_End_Page()
 					break;
 				case 4:
 					PutDoc("/S /Glitter\n");
-					PutDoc("/Di "+IToStr(Options->PresentVals[PgNr].Di)+"\n");
+					PutDoc("/Di ");
+					switch (Options->PresentVals[PgNr].Di)
+					{
+						case 0:
+							PutDoc("0");
+							break;
+						case 1:
+							PutDoc("270");
+							break;
+						case 4:
+							PutDoc("315");
+							break;
+						default:
+							PutDoc("0");
+							break;
+					}
+					PutDoc("\n");
 					break;
 				case 5:
 					PutDoc("/S /Split\n");
@@ -977,7 +993,26 @@ void PDFlib::PDF_End_Page()
 					break;
 				case 6:
 					PutDoc("/S /Wipe\n");
-					PutDoc("/Di "+IToStr(Options->PresentVals[PgNr].Di)+"\n");
+					PutDoc("/Di ");
+					switch (Options->PresentVals[PgNr].Di)
+					{
+						case 0:
+							PutDoc("0");
+							break;
+						case 1:
+							PutDoc("270");
+							break;
+						case 2:
+							PutDoc("90");
+							break;
+						case 3:
+							PutDoc("180");
+							break;
+						default:
+							PutDoc("0");
+							break;
+					}
+					PutDoc("\n");
 					break;
 			}
 			PutDoc(">>\n");

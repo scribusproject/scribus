@@ -16,10 +16,6 @@ AlignSelect::AlignSelect(QWidget* parent) : QButtonGroup(parent, "AlignSelect")
 
 	TextL = new QToolButton( this, "TextL" );
 	TextL->setMaximumSize( QSize( 22, 22 ) );
-	/*	QIconSet a = QIconSet();
-		a.setPixmap(loadIcon("text_left2.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
-		a.setPixmap(loadIcon("text_left.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
-		TextL->setIconSet(a); */
 	TextL->setPixmap(loadIcon("text_left.png"));
 	TextL->setToggleButton( true );
 	TextL->setOn( true );
