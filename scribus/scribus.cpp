@@ -67,6 +67,7 @@
 #include "colorm.h"
 #include "mpalette.h"
 #include "measurements.h"
+#include "gtgettext.h"
 
 #ifndef _MSC_VER   // jjsa 21-03-2004 (lint complains)
 #define _MSC_VER -1
@@ -3503,22 +3504,25 @@ void ScribusApp::slotFileOpen()
 		}
 		if (b->PType == 4)
 		{
-			LoadEnc = "";
-			QString fileName = CFileDialog( tr("Open"), tr("Text Files (*.txt);;All Files(*)"), "", false, true, false, true);
-			if (!fileName.isEmpty())
-			{
-				Serializer *ss = new Serializer(fileName);
-				if (ss->Read(LoadEnc))
-				{
-					int st = doc->CurrentABStil;
-					ss->GetText(b, st, doc->Vorlagen[st].Font, doc->Vorlagen[st].FontSize);
-				}
-				delete ss;
-				if (doc->Trenner->AutoCheck)
-					doc->Trenner->slotHyphenate(b);
-				doc->ActPage->update();
-				slotDocCh();
-			}
+//			gtGetText* gt = new gtGetText();
+//			gt->run();
+//			delete gt;
+ 			LoadEnc = "";
+ 			QString fileName = CFileDialog( tr("Open"), tr("Text Files (*.txt);;All Files(*)"), "", false, true, false, true);
+ 			if (!fileName.isEmpty())
+ 			{
+ 				Serializer *ss = new Serializer(fileName);
+ 				if (ss->Read(LoadEnc))
+ 				{
+ 					int st = doc->CurrentABStil;
+ 					ss->GetText(b, st, doc->Vorlagen[st].Font, doc->Vorlagen[st].FontSize);
+ 				}
+ 				delete ss;
+ 				if (doc->Trenner->AutoCheck)
+ 					doc->Trenner->slotHyphenate(b);
+ 				doc->ActPage->update();
+ 				slotDocCh();
+ 			}
 		}
 	}
 }
@@ -7439,6 +7443,20 @@ void ScribusApp::ApplyTemp()
 		mna = dia->Templ->currentText();
 		if (dia->SinglePage->isChecked())
 			Apply_Temp(mna, doc->ActPage->PageNr, false);
+		else if (dia->OddRange->isChecked())
+		{
+			for (int a = 0; a < doc->PageC; a +=2)
+			{
+				Apply_Temp(mna, a, false);
+			}
+		}
+		else if (dia->EvenRange->isChecked())
+		{
+			for (int a = 1; a < doc->PageC; a +=2)
+			{
+				Apply_Temp(mna, a, false);
+			}
+		}
 		else
 		{
 			int from = dia->FromPage->value()-1;

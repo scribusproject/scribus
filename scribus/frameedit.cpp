@@ -193,7 +193,7 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
 	QToolTip::add(  BezierClose, tr( "Close this Bezier Curve" ) );
 	QToolTip::add(  PolyMirrorH, tr( "Mirror the Path Horizontally" ) );
 	QToolTip::add(  PolyMirrorV, tr( "Mirror the Path Vertically" ) );
-	QToolTip::add(  PolyShearR, tr( "Shear the Path Horizontally to the Rright" ) );
+	QToolTip::add(  PolyShearR, tr( "Shear the Path Horizontally to the Right" ) );
 	QToolTip::add(  PolyShearL, tr( "Shear the Path Horizontally to the Left" ) );
 	QToolTip::add(  PolyShearU, tr( "Shear the Path Vertically Up" ) );
 	QToolTip::add(  PolyShearD, tr( "Shear the Path Vertically Down" ) );

@@ -1123,7 +1123,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	emenu->insertItem( tr("&Insert Special..."), this , SLOT(Do_insSp()));
 	emenu->insertSeparator();
 	emenu->insertItem( tr("&Edit Styles..."), this , SLOT(slotEditStyles()));
-	emenu->insertItem( tr("Font &Preview..."), this , SLOT(Do_fontPrev()));
+	emenu->insertItem( tr("&Fonts Preview..."), this , SLOT(Do_fontPrev()));
 	Mupdt = emenu->insertItem(loadIcon("compfile16.png"),  tr("&Update Text Frame"), this, SLOT(updateTextFrame()), CTRL+Key_U);
 	settingsMenu = new QPopupMenu();
 	settingsMenu->insertItem( tr("&Background..."), this , SLOT(setBackPref()));
@@ -1134,7 +1134,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 
 /* Setting up Toolbars */
 	FileTools = new QToolBar( tr("File"), this);
-	DatNeu = new QToolButton(loadIcon("DateiNeu.xpm"), tr("Clears all Text"), QString::null, this, SLOT(Do_new()), FileTools);
+	DatNeu = new QToolButton(loadIcon("DateiNeu.xpm"), tr("Clear all Text"), QString::null, this, SLOT(Do_new()), FileTools);
 	DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), tr("Load Text from File"), QString::null, this, SLOT(LoadTextFile()), FileTools);
 	DatSav = new QToolButton(loadIcon("DateiSave2.png"), tr("Save Text to File"), QString::null, this, SLOT(SaveTextFile()), FileTools);
 	DatClo = new QToolButton(loadIcon("DateiClose.png"), tr("Update Text Frame and Exit"), QString::null, this, SLOT(Do_leave2()), FileTools);
@@ -1254,7 +1254,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	Editor->setFocus();
 	TextChanged = false;
 	connect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
-	connect(Editor, SIGNAL(clicked(int, int)), this, SLOT(updateStatus()));
+	connect(Editor, SIGNAL(clicked(int, int)), this, SLOT(updateProps(int, int)));
 	connect(Editor, SIGNAL(setProps(int, int)), this, SLOT(updateProps(int, int)));
 	connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
 	connect(Editor, SIGNAL(copyAvailable(bool)), this, SLOT(CopyAvail(bool )));

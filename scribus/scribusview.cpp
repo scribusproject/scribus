@@ -1193,14 +1193,26 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 										else
 										{
 											uint zae = 0;
-											while (ite->Ptext.at(d+zae)->ch == QChar(30))
+											uint za2 = d;
+											do
+											{
+												if (za2 == 0)
+													break;
+												za2--;
+											}
+											while (ite->Ptext.at(za2)->ch == QChar(30));
+											if (ite->Ptext.at(za2)->ch != QChar(30))
+												za2++;
+											while (ite->Ptext.at(za2+zae)->ch == QChar(30))
 											{
 												zae++;
-												if (d+zae == ite->MaxChars)
+												if (za2+zae == ite->MaxChars)
 													break;
 											}
 											QString out="%1";
-											chx = out.arg(a+Doc->FirstPnum, zae).right(zae).left(1);
+											QString out2;
+											out2 = out.arg(a+Doc->FirstPnum, -zae);
+											chx = out2.mid(d-za2, 1);
 										}
 									}
 									if (hl->cstyle & 64)
@@ -1679,14 +1691,26 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								else
 								{
 									uint zae = 0;
-									while (c->Ptext.at(d+zae)->ch == QChar(30))
+									uint za2 = d;
+									do
+									{
+										if (za2 == 0)
+											break;
+										za2--;
+									}
+									while (c->Ptext.at(za2)->ch == QChar(30));
+									if (c->Ptext.at(za2)->ch != QChar(30))
+										za2++;
+									while (c->Ptext.at(za2+zae)->ch == QChar(30))
 									{
 										zae++;
-										if (d+zae == c->MaxChars)
+										if (za2+zae == c->MaxChars)
 											break;
 									}
 									QString out="%1";
-									chx = out.arg(PNr-1+Doc->FirstPnum, zae).right(zae).left(1);
+									QString out2;
+									out2 = out.arg(PNr-1+Doc->FirstPnum, -zae);
+									chx = out2.mid(d-za2, 1);
 								}
 							}
 							if (hl->cstyle & 64)

@@ -14,23 +14,25 @@
 #include "scribusview.h"
 
 class ApplyT : public QDialog
-{ 
-    Q_OBJECT
+{
+	Q_OBJECT
 
 public:
-    ApplyT( QWidget* parent, ScribusView *view, QString Nam);
-    ~ApplyT() {};
+	ApplyT( QWidget* parent, ScribusView *view, QString Nam);
+	~ApplyT() {};
 
-    QLabel* TextLabel1;
-    QLabel* TextLabel2;
-    QComboBox* Templ;
-    QButtonGroup* buttonGroup1;
-    QRadioButton* SinglePage;
-    QRadioButton* PageRange;
-    QSpinBox* FromPage;
-    QSpinBox* ToPage;
-    QPushButton* CancelB;
-    QPushButton* OKButton;
+	QLabel* TextLabel1;
+	QLabel* TextLabel2;
+	QComboBox* Templ;
+	QButtonGroup* buttonGroup1;
+	QRadioButton* SinglePage;
+	QRadioButton* PageRange;
+	QRadioButton* OddRange;
+	QRadioButton* EvenRange;
+	QSpinBox* FromPage;
+	QSpinBox* ToPage;
+	QPushButton* CancelB;
+	QPushButton* OKButton;
 
 public slots:
 	void RangeSel();
@@ -39,11 +41,11 @@ public slots:
 	void CheckRangeT();
 
 protected:
-    QVBoxLayout* ApplyTLayout;
-    QHBoxLayout* Layout4;
-    QHBoxLayout* layout3;
-    QVBoxLayout* buttonGroup1Layout;
-    QHBoxLayout* layout2;
+	QVBoxLayout* ApplyTLayout;
+	QHBoxLayout* Layout4;
+	QHBoxLayout* layout3;
+	QVBoxLayout* buttonGroup1Layout;
+	QHBoxLayout* layout2;
 };
 
 #endif // APPLYT_H

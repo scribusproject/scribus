@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.8\n"
-"POT-Creation-Date: 2004-07-28 23:12+0200\n"
+"POT-Creation-Date: 2004-08-06 23:39+0200\n"
 "PO-Revision-Date: 2002-09-18 09:47+0300\n"
 "Last-Translator: erkan <Selamsana@uni.de>\n"
 "Language-Team: Türkçe <tr@li.org>\n"
@@ -36,6 +36,10 @@ msgstr "Sağ kenarda"
 #, fuzzy
 msgid "&Between:"
 msgstr "arasında:"
+
+#, fuzzy
+msgid "&Do Not Change"
+msgstr "Değiştirme"
 
 #, fuzzy
 msgid "A&lign"
@@ -509,8 +513,8 @@ msgid "Selection Change"
 msgstr "Seçimi değiştir"
 
 #, fuzzy
-msgid "PDF Documents (*.pdf);;All Files (*)"
-msgstr "Belgeler (*.sdc);; Bütün dosyalar (*)"
+msgid "PDF Files (*.pdf);;All Files (*)"
+msgstr "Metin dosyaları (*.txt);;Bütün dosyalar (*)"
 
 msgid "Annotation Properties"
 msgstr "Dipnot özellikleri"
@@ -537,6 +541,14 @@ msgstr "Yeni geçici sayfa"
 
 #, fuzzy
 msgid "Apply to &Current Page"
+msgstr "Efekti bütün sayfalarda uygula"
+
+#, fuzzy
+msgid "Apply to all &even Pages"
+msgstr "Efekti bütün sayfalarda uygula"
+
+#, fuzzy
+msgid "Apply to all &odd Pages"
 msgstr "Efekti bütün sayfalarda uygula"
 
 #, fuzzy
@@ -1220,7 +1232,7 @@ msgstr ""
 msgid "Mirror Page(s) &Vertical"
 msgstr ""
 
-msgid "Appy Under Color &Removal"
+msgid "Apply Under Color &Removal"
 msgstr ""
 
 #, fuzzy
@@ -1250,6 +1262,15 @@ msgstr ""
 msgid ""
 "Creates PostScript Level 1 only, beware,\n"
 "this can create huge files"
+msgstr ""
+
+msgid ""
+"A way of switching off some of the gray shades which are composed\n"
+"of cyan, yellow and magenta and using black instead.\n"
+"UCR most affects parts of images which are neutral and/or dark tones\n"
+"which are close to the gray. Use of this may improve printing some images\n"
+"and some experimentation and testing is need on a case by case basis.\n"
+"UCR reduces the possibility of over saturation with CMY inks."
 msgstr ""
 
 msgid "Setup Printer"
@@ -1373,6 +1394,11 @@ msgstr "Değiştir..."
 #, fuzzy
 msgid "A&lternative Printer Command"
 msgstr "Başka bir komut ile yazdır"
+
+msgid ""
+"Use an alternative print manager, such as kprinter or gtklp,\n"
+"to utilize additional printing options"
+msgstr ""
 
 #, fuzzy
 msgid "Co&mmand:"
@@ -1850,7 +1876,7 @@ msgstr ""
 msgid "Mirror the Path Vertically"
 msgstr ""
 
-msgid "Shear the Path Horizontally to the Rright"
+msgid "Shear the Path Horizontally to the Right"
 msgstr ""
 
 msgid "Shear the Path Horizontally to the Left"
@@ -2498,7 +2524,10 @@ msgstr ""
 msgid "Make text in lower frames flow around the object shape"
 msgstr ""
 
-msgid "Use the frame shape instead of the object one"
+msgid "Use a surrounding box instead of the frame's shape for text flow"
+msgstr ""
+
+msgid "Use a second line originally based on the frame's shape for text flow"
 msgstr ""
 
 msgid "Scaling width of characters"
@@ -2519,7 +2548,7 @@ msgstr "Manual Kerning"
 msgid "Style of current paragraph"
 msgstr ""
 
-msgid "Language of object"
+msgid "Hyphenation language of frame"
 msgstr ""
 
 msgid "Change settings for left or end points"
@@ -2935,10 +2964,6 @@ msgid "&Edit Text..."
 msgstr "Metin yükle..."
 
 #, fuzzy
-msgid "&Insert Sample Text"
-msgstr "Örnek Metin"
-
-#, fuzzy
 msgid "Is PDF &Bookmark"
 msgstr "PDF-yer imi"
 
@@ -2984,6 +3009,10 @@ msgstr "Kütüphaneye kopyala"
 #, fuzzy
 msgid "Send to La&yer"
 msgstr "Katmana gönder"
+
+#, fuzzy
+msgid "&Insert Sample Text"
+msgstr "Örnek Metin"
 
 #, fuzzy
 msgid "&Group"
@@ -3048,6 +3077,10 @@ msgstr "Özellikler..."
 #, fuzzy
 msgid "Hide P&roperties..."
 msgstr "Özellikler..."
+
+#, fuzzy
+msgid "Do you really want to clear all your Text?"
+msgstr "Bu biçemi silmek istediğinizden eminmisiniz?"
 
 #, fuzzy
 msgid "The Program"
@@ -3631,10 +3664,6 @@ msgstr ""
 msgid "Distance for bleed from the right of the physical page"
 msgstr ""
 
-#, fuzzy
-msgid "PDF Files (*.pdf);;All Files (*)"
-msgstr "Metin dosyaları (*.txt);;Bütün dosyalar (*)"
-
 msgid "Result"
 msgstr "Sonuç"
 
@@ -3671,17 +3700,33 @@ msgstr "Ara"
 msgid "Polygon Properties"
 msgstr "Çokgen özellikleri"
 
-msgid "Corners:"
+#, fuzzy
+msgid "Corn&ers:"
 msgstr "Köşe:"
 
-msgid "Rotation:"
-msgstr "Eğim:"
-
-msgid "Convex Polygon"
+#, fuzzy
+msgid "Conve&x Polygon"
 msgstr "Dış bükey çokgen"
 
-msgid "Factor:"
+#, fuzzy
+msgid "&Factor:"
 msgstr "Çarpan:"
+
+msgid "Number of corners for polygons"
+msgstr ""
+
+msgid "Degrees of rotation for polygons"
+msgstr ""
+
+msgid "Polygons will be convex rather than concave"
+msgstr ""
+
+#, fuzzy
+msgid "Sample Polygon"
+msgstr "Çokgen"
+
+msgid "Change the angles at which lines of the polygon join"
+msgstr ""
 
 msgid "Document Setup"
 msgstr "Belge ayarları"
@@ -3894,8 +3939,8 @@ msgid "&Export"
 msgstr "Dışa aktar..."
 
 #, fuzzy
-msgid "Document &Info..."
-msgstr "Belge bilgileri..."
+msgid "Document &Information..."
+msgstr "Belge bilgileri"
 
 msgid "Document Info..."
 msgstr "Belge bilgileri..."
@@ -4454,13 +4499,16 @@ msgstr "Yükle..."
 msgid "Adjusting Colors"
 msgstr "Renkleri ayarla"
 
-msgid "Undo Delete Object"
+#, fuzzy
+msgid "&Undo Delete Object"
 msgstr "Silinen nesneyi geri al"
 
-msgid "Undo Object Move"
+#, fuzzy
+msgid "&Undo Object Move"
 msgstr "Nesne taşımasını geri al"
 
-msgid "Undo Object Change"
+#, fuzzy
+msgid "&Undo Object Change"
 msgstr "Nesne değişikliğini geri al"
 
 msgid "English"
@@ -4715,15 +4763,15 @@ msgid "Manage Tabulators"
 msgstr "Resimleri düzenle"
 
 #, fuzzy
-msgid "F&ill Color Settings"
+msgid "Fill Color Settings"
 msgstr "Doldurma rengi:"
 
 #, fuzzy
-msgid "&Stroke Color Settings"
+msgid "Stroke Color Settings"
 msgstr "Renkleri göster"
 
 #, fuzzy
-msgid "&Character Settings"
+msgid "Character Settings"
 msgstr "Karakterler"
 
 #, fuzzy
@@ -4731,11 +4779,11 @@ msgid "Kerning:"
 msgstr "Uyarı"
 
 #, fuzzy
-msgid "St&yle Settings"
+msgid "Style Settings"
 msgstr "Fare ayarları"
 
 #, fuzzy
-msgid "&Font Settings"
+msgid "Font Settings"
 msgstr "Fare ayarları"
 
 #, fuzzy
@@ -4774,8 +4822,55 @@ msgid "&Insert Special..."
 msgstr "Arasına ekle..."
 
 #, fuzzy
+msgid "&Edit Styles..."
+msgstr "Biçemleri düzenle"
+
+#, fuzzy
+msgid "&Fonts Preview..."
+msgstr "Önizleme"
+
+#, fuzzy
 msgid "&Update Text Frame"
 msgstr "Metin çerçevesi"
+
+#, fuzzy
+msgid "&Background..."
+msgstr "Arka plan:"
+
+#, fuzzy
+msgid "&Display Font..."
+msgstr "Gösterme süresi:"
+
+#, fuzzy
+msgid "Clear all Text"
+msgstr "Örnek Metin"
+
+#, fuzzy
+msgid "Load Text from File"
+msgstr "Yola metin ekle"
+
+#, fuzzy
+msgid "Save Text to File"
+msgstr "PDF olarak kaydet..."
+
+#, fuzzy
+msgid "Update Text Frame and Exit"
+msgstr "Metin çerçevesi"
+
+#, fuzzy
+msgid "Exit Without Updating Text Frame"
+msgstr "Kaydetmeden çık"
+
+#, fuzzy
+msgid "Reload Text from Frame"
+msgstr "Yola metin ekle"
+
+#, fuzzy
+msgid "Update Text Frame"
+msgstr "Metin çerçevesi"
+
+msgid "Search/Replace"
+msgstr ""
 
 msgid "Current Paragraph:"
 msgstr ""
@@ -4792,15 +4887,12 @@ msgid "&Insert Special"
 msgstr "Dikdörtgen ekle"
 
 #, fuzzy
-msgid "Do you really want to lose all your Changes?"
-msgstr "Bu biçemi silmek istediğinizden eminmisiniz?"
+msgid "&Fonts Preview"
+msgstr "Önizleme"
 
 #, fuzzy
-msgid "Do you really want to clear all your Text?"
+msgid "Do you really want to lose all your Changes?"
 msgstr "Bu biçemi silmek istediğinizden eminmisiniz?"
-
-msgid "Search/Replace"
-msgstr ""
 
 #, fuzzy
 msgid "Search for:"
@@ -5226,6 +5318,10 @@ msgstr "Kopya sayısı:"
 msgid "Number of Columns:"
 msgstr "Kopya sayısı:"
 
+#, fuzzy
+msgid "Importing text"
+msgstr "Verileri içe aktar"
+
 msgid "Distances"
 msgstr "Mesafe"
 
@@ -5247,6 +5343,23 @@ msgstr "Açıklama:"
 
 msgid "Here you can add, change or remove Color-Stops."
 msgstr ""
+
+msgid "Choose the importer to use"
+msgstr ""
+
+msgid "Get text only"
+msgstr ""
+
+msgid "Import text without any formatting"
+msgstr ""
+
+#, fuzzy
+msgid "Importer:"
+msgstr "İçe aktar..."
+
+#, fuzzy
+msgid "Importer"
+msgstr "İçe aktar..."
 
 #, fuzzy, c-format
 msgid "About Scribus%1%2"
@@ -5627,18 +5740,6 @@ msgstr "Resimleri çerçeve boyutuna ölçekle"
 msgid "Keep Aspect &Ratio"
 msgstr "Uzun bağlantıları bırak"
 
-#, fuzzy
-msgid "Corn&ers:"
-msgstr "Köşe:"
-
-#, fuzzy
-msgid "Conve&x Polygon"
-msgstr "Dış bükey çokgen"
-
-#, fuzzy
-msgid "&Factor:"
-msgstr "Çarpan:"
-
 msgid "Other Options"
 msgstr "Diğer seçenekler"
 
@@ -5915,22 +6016,6 @@ msgstr "Sistem profili"
 msgid "Width of lines"
 msgstr ""
 
-msgid "Number of corners for polygons"
-msgstr ""
-
-msgid "Degrees of rotation for polygons"
-msgstr ""
-
-msgid "Polygons will be convex rather than concave"
-msgstr ""
-
-#, fuzzy
-msgid "Sample Polygon"
-msgstr "Çokgen"
-
-msgid "Change the angles at which lines of the polygon join"
-msgstr ""
-
 msgid "Choose the size of the preview in the scrapbook palette"
 msgstr ""
 
@@ -5990,11 +6075,11 @@ msgid "Close this dialog and return to text editing."
 msgstr ""
 
 #, fuzzy
-msgid "Print Previe&w"
+msgid "Print Preview"
 msgstr "Önizleme"
 
 #, fuzzy
-msgid "Print Preview"
+msgid "Print Previe&w"
 msgstr "Önizleme"
 
 msgid "Anti-alias &Text"
@@ -6007,12 +6092,12 @@ msgstr ""
 msgid "Display Trans&parency"
 msgstr "Çerçeveyi göster"
 
+msgid "&Under Color Removal"
+msgstr ""
+
 #, fuzzy
 msgid "&Display CMYK"
 msgstr "Göster"
-
-msgid "&Under Color Removal"
-msgstr ""
 
 msgid "&C"
 msgstr ""
@@ -6060,6 +6145,15 @@ msgid "Enable/disable the Y (Yellow) ink plate"
 msgstr ""
 
 msgid "Enable/disable the K (Black) ink plate"
+msgstr ""
+
+msgid ""
+"A way of switching some of the gray shades which are composed\n"
+"of cyan, yellow and magenta and using black instead.\n"
+"UCR most affects parts of images which are neutral and/or dark tones\n"
+"which are close to the gray. Use of this may improve printing some images\n"
+"and some experimentation and testing is need on a case by case basis.\n"
+"UCR reduces the possibility of over saturation with CMY inks."
 msgstr ""
 
 #, fuzzy
@@ -6154,12 +6248,12 @@ msgid ""
 "Oook! You're trying to query an object doesn't exist! None selected too."
 msgstr ""
 
-#, fuzzy
-msgid "Export as Image"
-msgstr "Kenarlar"
-
-msgid "Alt+C"
+msgid "Choose a Export Directory"
 msgstr ""
+
+#, fuzzy
+msgid "Export as Image(s)"
+msgstr "Kenarlar"
 
 #, fuzzy
 msgid "&Export to Directory:"
@@ -6169,68 +6263,51 @@ msgstr "Yön:"
 msgid "Image &Type:"
 msgstr "Resim:"
 
-msgid "%"
-msgstr ""
-
 #, fuzzy
-msgid "Export "
-msgstr "Dışa aktar..."
-
-msgid "&One page"
-msgstr ""
-
-msgid "Alt+O"
-msgstr ""
+msgid "&Current page"
+msgstr "Güncel tuş"
 
 #, fuzzy
 msgid "&All pages"
 msgstr "Bütün sayfalar"
 
-msgid "Alt+A"
+#, fuzzy
+msgid "&Range"
+msgstr "Yazdırma alanı:"
+
+msgid "C"
 msgstr ""
 
-msgid "&Interval from:"
-msgstr ""
+#, fuzzy
+msgid "Export a range of pages"
+msgstr "Kenarlar"
 
-msgid "Alt+I"
-msgstr ""
-
-msgid "Change the output directory"
-msgstr ""
-
-msgid ""
-"The output directory - the place to store your images.\n"
-"Name of the export file will be 'documentname-pagenumber.filetype'"
-msgstr ""
+#, fuzzy
+msgid "Export all pages"
+msgstr "Kenarlar"
 
 msgid "Export only the current page"
 msgstr ""
 
-msgid "Export all pages to images"
-msgstr ""
-
-msgid "Export a range of pages to images"
-msgstr ""
-
-msgid "First page to export when exporting a range"
-msgstr ""
-
-msgid "Last page to export when exporting a range"
-msgstr ""
-
-msgid "The height of the output images in pixels"
+msgid ""
+"Resolution of the Images\n"
+"Use 72 dpi for Images intended for the Screen"
 msgstr ""
 
 #, c-format
-msgid ""
-"The quality of your images - 100% is the best, 1% the highest compression"
+msgid "The quality of your images - 100% is the best, 1% the lowest quality"
 msgstr ""
 
 #, fuzzy
 msgid "Available export formats"
 msgstr "Mevcut geçici dosyalar:"
 
-msgid "Choose a Export Directory"
+msgid ""
+"The output directory - the place to store your images.\n"
+"Name of the export file will be 'documentname-pagenumber.filetype'"
+msgstr ""
+
+msgid "Change the output directory"
 msgstr ""
 
 #, fuzzy
@@ -6261,12 +6338,25 @@ msgid "Yes all"
 msgstr "Hiçbirşey seçme"
 
 #, fuzzy
-msgid "&Fonts Preview"
-msgstr "Önizleme"
+msgid "HTML Files"
+msgstr "Dosya:"
+
+msgid "html"
+msgstr ""
 
 #, fuzzy
-msgid "Font Preview"
+msgid "Text Files"
+msgstr "Metin alanı"
+
+#, fuzzy
+msgid "Fonts Preview"
 msgstr "Önizleme"
+
+msgid "Alt+O"
+msgstr ""
+
+msgid "Alt+C"
+msgstr ""
 
 #, fuzzy
 msgid "Import &EPS/PS..."
@@ -6304,6 +6394,62 @@ msgstr "Metin bağlantısı oluştur"
 #, fuzzy
 msgid "Author"
 msgstr "Yazar:"
+
+#, fuzzy
+msgid "Downloading Templates"
+msgstr "Yeni geçici sayfa"
+
+msgid ""
+"Document templates can be found at http://www.scribus.net/ in the Downloads "
+"section."
+msgstr ""
+
+#, fuzzy
+msgid "Installing Templates"
+msgstr "Yeni geçici sayfa"
+
+msgid ""
+"Extract the package to the template directory ~/.scribus/templates for the "
+"current user or PREFIX/share/scribus/templates for all users in the system."
+msgstr ""
+
+#, fuzzy
+msgid "Preparing a template"
+msgstr "Yeni geçici sayfa"
+
+msgid ""
+"Make sure images and fonts you use can be used freely. If fonts cannot be "
+"shared do not collect them when saving as a template."
+msgstr ""
+
+msgid ""
+"The template creator should also make sure that the Installing Templates "
+"section above applies to their templates as well. This means a user should "
+"be able to download a template package and be able to extract them to the "
+"template directory and start using them."
+msgstr ""
+
+#, fuzzy
+msgid "Removing a template"
+msgstr "Yeni geçici sayfa"
+
+msgid ""
+"Removing a template from the New From Template dialog will only remove the "
+"entry from the template.xml, it will not delete the document files. A popup "
+"menu with remove is only shown if you have write access to the template.xml "
+"file."
+msgstr ""
+
+msgid "Translating template.xml"
+msgstr ""
+
+msgid ""
+"Copy an existing template.xml to a file called template.lang_COUNTRY.xml "
+"(use the same lang code that is present in the qm file for your language), "
+"for example template.fi.xml for Finnish language template.xml. The copy must "
+"be located in the same directory as the original template.xml so Scribus can "
+"load it."
+msgstr ""
 
 #, fuzzy
 msgid "Newsletters"
@@ -6413,6 +6559,34 @@ msgstr "Kullanıcı tanımlı"
 msgid "Save as &Template..."
 msgstr "Metni kaydet..."
 
+#, fuzzy
+#~ msgid "PDF Documents (*.pdf);;All Files (*)"
+#~ msgstr "Belgeler (*.sdc);; Bütün dosyalar (*)"
+
+#~ msgid "Corners:"
+#~ msgstr "Köşe:"
+
+#~ msgid "Rotation:"
+#~ msgstr "Eğim:"
+
+#~ msgid "Convex Polygon"
+#~ msgstr "Dış bükey çokgen"
+
+#~ msgid "Factor:"
+#~ msgstr "Çarpan:"
+
+#, fuzzy
+#~ msgid "Document &Info..."
+#~ msgstr "Belge bilgileri..."
+
+#, fuzzy
+#~ msgid "Export "
+#~ msgstr "Dışa aktar..."
+
+#, fuzzy
+#~ msgid "Font Preview"
+#~ msgstr "Önizleme"
+
 #~ msgid "Number of copies:"
 #~ msgstr "Kopya sayısı:"
 
@@ -6478,10 +6652,6 @@ msgstr "Metni kaydet..."
 #, fuzzy
 #~ msgid "PDF-Tools"
 #~ msgstr "Araçlar"
-
-#, fuzzy
-#~ msgid "Edit Styles..."
-#~ msgstr "Biçemleri düzenle"
 
 #, fuzzy
 #~ msgid "Leave"

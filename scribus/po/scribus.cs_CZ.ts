@@ -4077,10 +4077,6 @@ Mohou vzniknout velké soubory</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Appy Under Color &amp;Removal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Apply &amp;ICC Profiles</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4102,6 +4098,19 @@ Mohou vzniknout velké soubory</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Under Color &amp;Removal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4870,7 +4879,7 @@ Mohou vzniknout velké soubory</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PDF Documents (*.pdf);;All Files (*)</source>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5001,6 +5010,14 @@ Mohou vzniknout velké soubory</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply to all &amp;even Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply to all &amp;odd Pages</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6278,6 +6295,11 @@ a range of pages or a single page number.</source>
         <source>&amp;Cancel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Use an alternative print manager, such as kprinter or gtklp,
+to utilize additional printing options</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EPSPlug</name>
@@ -6680,7 +6702,7 @@ se nepodařil!</translation>
     <name>ExportForm</name>
     <message>
         <source>Export as Image</source>
-        <translation>Uložit jako obrázek</translation>
+        <translation type="obsolete">Uložit jako obrázek</translation>
     </message>
     <message>
         <source>Export to directory:</source>
@@ -6692,7 +6714,7 @@ se nepodařil!</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation>Alt+Z</translation>
+        <translation type="obsolete">Alt+Z</translation>
     </message>
     <message>
         <source>Image type:</source>
@@ -6704,7 +6726,7 @@ se nepodařil!</translation>
     </message>
     <message>
         <source>%</source>
-        <translation>%</translation>
+        <translation type="obsolete">%</translation>
     </message>
     <message>
         <source>Size:</source>
@@ -6712,15 +6734,15 @@ se nepodařil!</translation>
     </message>
     <message>
         <source>Export </source>
-        <translation>Exportovat</translation>
+        <translation type="obsolete">Exportovat</translation>
     </message>
     <message>
         <source>&amp;One page</source>
-        <translation>&amp;Jednu stranu</translation>
+        <translation type="obsolete">&amp;Jednu stranu</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation>Alt+J</translation>
+        <translation type="obsolete">Alt+J</translation>
     </message>
     <message>
         <source>&amp;All pages</source>
@@ -6728,19 +6750,19 @@ se nepodařil!</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
         <source>&amp;Interval from:</source>
-        <translation>&amp;Interval od:</translation>
+        <translation type="obsolete">&amp;Interval od:</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation>Alt+I</translation>
+        <translation type="obsolete">Alt+I</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>po:</translation>
+        <translation type="obsolete">po:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -6766,27 +6788,27 @@ Jména exportovaných souborů budou ve tvaru &apos;jmenodokumentu-cislostrany.t
     </message>
     <message>
         <source>Export all pages to images</source>
-        <translation>Export všech stran</translation>
+        <translation type="obsolete">Export všech stran</translation>
     </message>
     <message>
         <source>Export a range of pages to images</source>
-        <translation>Export zvoleného rozsahu stran</translation>
+        <translation type="obsolete">Export zvoleného rozsahu stran</translation>
     </message>
     <message>
         <source>First page to export when exporting a range</source>
-        <translation>První strana rozsahu exportu</translation>
+        <translation type="obsolete">První strana rozsahu exportu</translation>
     </message>
     <message>
         <source>Last page to export when exporting a range</source>
-        <translation>Poslední strana rozsahu exportu</translation>
+        <translation type="obsolete">Poslední strana rozsahu exportu</translation>
     </message>
     <message>
         <source>The height of the output images in pixels</source>
-        <translation>Výška výsledného obrázku v pixelech</translation>
+        <translation type="obsolete">Výška výsledného obrázku v pixelech</translation>
     </message>
     <message>
         <source>The quality of your images - 100% is the best, 1% the highest compression</source>
-        <translation>Kvalita výstupu - 100% je nejvyšší kvalita, 1% nejvyšší komprese</translation>
+        <translation type="obsolete">Kvalita výstupu - 100% je nejvyšší kvalita, 1% nejvyšší komprese</translation>
     </message>
     <message>
         <source>Available export formats</source>
@@ -6813,7 +6835,62 @@ Jména exportovaných souborů budou ve tvaru &apos;jmenodokumentu-cislostrany.t
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Size:</source>
+        <source>Export as Image(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation type="unfinished">Možnosti</translation>
+    </message>
+    <message>
+        <source>&amp;Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> dpi</source>
+        <translation type="unfinished">dpi</translation>
+    </message>
+    <message>
+        <source>Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Current page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C</source>
+        <translation type="unfinished">C</translation>
+    </message>
+    <message>
+        <source>Export a range of pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resolution of the Images
+Use 72 dpi for Images intended for the Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7134,7 +7211,7 @@ Jména exportovaných souborů budou ve tvaru &apos;jmenodokumentu-cislostrany.t
     <name>FontPreview</name>
     <message>
         <source>Font Preview</source>
-        <translation>Náhled písem</translation>
+        <translation type="obsolete">Náhled písem</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -7155,6 +7232,10 @@ Jména exportovaných souborů budou ve tvaru &apos;jmenodokumentu-cislostrany.t
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Příliš žluťoučký kůň úpěl ďábelské Ódy</translation>
+    </message>
+    <message>
+        <source>Fonts Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8687,7 +8768,7 @@ odvozeny vzdálenosti nebo úhly rotace</translation>
     </message>
     <message>
         <source>Language of object</source>
-        <translation>Jazyk použitý v objektu</translation>
+        <translation type="obsolete">Jazyk použitý v objektu</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
@@ -8863,7 +8944,7 @@ odvozeny vzdálenosti nebo úhly rotace</translation>
     </message>
     <message>
         <source>Use the frame shape instead of the object one</source>
-        <translation>Použít obrys rámu místo obysu objektu</translation>
+        <translation type="obsolete">Použít obrys rámu místo obysu objektu</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
@@ -9048,6 +9129,18 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;Y2:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hyphenation language of frame</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9750,10 +9843,6 @@ ke straně, v opačném případě k objektu.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Shear the Path Horizontally to the Rright</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Shear the Path Horizontally to the Left</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9795,6 +9884,10 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shear the Path Horizontally to the Right</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10877,6 +10970,15 @@ a vektorové grafiky náhledu, ale zpomalí jeho vytváření</translation>
         <source>&amp;Under Color Removal</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>A way of switching some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Page</name>
@@ -11392,6 +11494,10 @@ a vektorové grafiky náhledu, ale zpomalí jeho vytváření</translation>
         <source>Hide P&amp;roperties...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Do you really want to clear all your Text?</source>
+        <translation type="unfinished">Opravdu chcete smazat veškerý text?</translation>
+    </message>
 </context>
 <context>
     <name>PageItem</name>
@@ -11513,19 +11619,19 @@ a vektorové grafiky náhledu, ale zpomalí jeho vytváření</translation>
     </message>
     <message>
         <source>Corners:</source>
-        <translation>Rohy:</translation>
+        <translation type="obsolete">Rohy:</translation>
     </message>
     <message>
         <source>Rotation:</source>
-        <translation>Otočení: </translation>
+        <translation type="obsolete">Otočení: </translation>
     </message>
     <message>
         <source>Convex Polygon</source>
-        <translation>Konvexní mnohoúhelník</translation>
+        <translation type="obsolete">Konvexní mnohoúhelník</translation>
     </message>
     <message>
         <source>Factor:</source>
-        <translation>Faktor:</translation>
+        <translation type="obsolete">Faktor:</translation>
     </message>
     <message>
         <source> %</source>
@@ -11533,11 +11639,55 @@ a vektorové grafiky náhledu, ale zpomalí jeho vytváření</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Zrušit</translation>
+        <translation type="obsolete">Zrušit</translation>
+    </message>
+    <message>
+        <source>Corn&amp;ers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Conve&amp;x Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Factor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of corners for polygons</source>
+        <translation type="unfinished">Počet rohů mnohoúhelníků</translation>
+    </message>
+    <message>
+        <source>Degrees of rotation for polygons</source>
+        <translation type="unfinished">Stupně rotace mnohoúhelníků</translation>
+    </message>
+    <message>
+        <source>Polygons will be convex rather than concave</source>
+        <translation type="unfinished">Mnohoúhelníky budou konvexní místo konkávních</translation>
+    </message>
+    <message>
+        <source>Sample Polygon</source>
+        <translation type="unfinished">Ukázkový mnohoúhelník</translation>
+    </message>
+    <message>
+        <source>Change the angles at which lines of the polygon join</source>
+        <translation type="unfinished">Změnit úhly, podle kterých jsou spojeny čáry polygonu</translation>
     </message>
 </context>
 <context>
@@ -13208,7 +13358,7 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>Print Preview</source>
-        <translation type="obsolete">Ukázka před tiskem</translation>
+        <translation type="unfinished">Ukázka před tiskem</translation>
     </message>
     <message>
         <source>Scripter Manual...</source>
@@ -13520,6 +13670,34 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the importer to use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Všechny podporované formáty</translation>
+    </message>
+    <message>
+        <source>HTML Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>html</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Files</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14622,15 +14800,15 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>Undo Delete Object</source>
-        <translation>Zpět smazání objektu</translation>
+        <translation type="obsolete">Zpět smazání objektu</translation>
     </message>
     <message>
         <source>Undo Object Move</source>
-        <translation>Vrátit zpět přesun objektu</translation>
+        <translation type="obsolete">Vrátit zpět přesun objektu</translation>
     </message>
     <message>
         <source>Undo Object Change</source>
-        <translation>Vrátit zpět změnu objektu</translation>
+        <translation type="obsolete">Vrátit zpět změnu objektu</translation>
     </message>
     <message>
         <source>English</source>
@@ -14974,7 +15152,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>Document &amp;Info...</source>
-        <translation>&amp;Informace o dokumentu...</translation>
+        <translation type="obsolete">&amp;Informace o dokumentu...</translation>
     </message>
     <message>
         <source>Document &amp;Setup...</source>
@@ -15406,6 +15584,22 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>&amp;Shade:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document &amp;Information...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo Delete Object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo Object Move</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo Object Change</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16123,10 +16317,6 @@ přetáhněte šablonu do náhledu strany.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Clears all Text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Load Text from File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16136,6 +16326,38 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Reload Text from Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search/Replace...</source>
+        <translation type="unfinished">&amp;Hledat/Nahradit...</translation>
+    </message>
+    <message>
+        <source>&amp;Fonts Preview...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Background...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Display Font...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Settings</source>
+        <translation type="unfinished">&amp;Nastavení</translation>
+    </message>
+    <message>
+        <source>Search/Replace</source>
+        <translation type="unfinished">Hledat/Nahradit</translation>
+    </message>
+    <message>
+        <source>&amp;Fonts Preview</source>
+        <translation type="unfinished">&amp;Náhled písem</translation>
+    </message>
+    <message>
+        <source>Clear all Text</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16595,6 +16817,33 @@ Vyberte, prosím, jiný.</translation>
     </message>
 </context>
 <context>
+    <name>gtFileDialog</name>
+    <message>
+        <source>Choose the importer to use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation type="unfinished">Automaticky</translation>
+    </message>
+    <message>
+        <source>Get text only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import text without any formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importer:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Encoding:</source>
+        <translation type="unfinished">Kódování:</translation>
+    </message>
+</context>
+<context>
     <name>nftdialog</name>
     <message>
         <source>New From Template</source>
@@ -16665,10 +16914,6 @@ Vyberte, prosím, jiný.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Installing Templates</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16681,19 +16926,7 @@ Vyberte, prosím, jiný.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Removing a template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16701,7 +16934,23 @@ Vyberte, prosím, jiný.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
+        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
-"POT-Creation-Date: 2004-07-28 23:12+0200\n"
+"POT-Creation-Date: 2004-08-06 23:39+0200\n"
 "PO-Revision-Date: 2003-12-15 23:36+0100\n"
 "Last-Translator: Hizkuntza Politikarako Sailburuordetza <hizpol@ej-gv.es>\n"
 "Language-Team: basque <itzulpena@euskalgnu.org>\n"
@@ -37,6 +37,10 @@ msgstr "Eskuineko aldeak"
 #, fuzzy
 msgid "&Between:"
 msgstr "hauen artean:"
+
+#, fuzzy
+msgid "&Do Not Change"
+msgstr "Ez aldatu"
 
 #, fuzzy
 msgid "A&lign"
@@ -501,8 +505,8 @@ msgid "Selection Change"
 msgstr "Hautapen-aldaketa"
 
 #, fuzzy
-msgid "PDF Documents (*.pdf);;All Files (*)"
-msgstr "Dokumentuak (*.pdf);; Fitxategi guztiak (*)"
+msgid "PDF Files (*.pdf);;All Files (*)"
+msgstr "PDF fitxategiak (*.pdf);;Fitxategi guztiak (*)"
 
 msgid "Annotation Properties"
 msgstr "Oharpen-propietateak"
@@ -530,6 +534,16 @@ msgstr "Txantiloiak:"
 # New in Version 0.8
 #, fuzzy
 msgid "Apply to &Current Page"
+msgstr "Aplikatu efektua orri guztietan"
+
+# New in Version 0.8
+#, fuzzy
+msgid "Apply to all &even Pages"
+msgstr "Aplikatu efektua orri guztietan"
+
+# New in Version 0.8
+#, fuzzy
+msgid "Apply to all &odd Pages"
 msgstr "Aplikatu efektua orri guztietan"
 
 # New in Version 0.8
@@ -1208,7 +1222,7 @@ msgstr "Ispilatu orrialdea(k) horizontalki"
 msgid "Mirror Page(s) &Vertical"
 msgstr "Ispilatu orrialdea(k) bertikalki"
 
-msgid "Appy Under Color &Removal"
+msgid "Apply Under Color &Removal"
 msgstr ""
 
 #, fuzzy
@@ -1240,6 +1254,15 @@ msgid ""
 "this can create huge files"
 msgstr ""
 
+msgid ""
+"A way of switching off some of the gray shades which are composed\n"
+"of cyan, yellow and magenta and using black instead.\n"
+"UCR most affects parts of images which are neutral and/or dark tones\n"
+"which are close to the gray. Use of this may improve printing some images\n"
+"and some experimentation and testing is need on a case by case basis.\n"
+"UCR reduces the possibility of over saturation with CMY inks."
+msgstr ""
+
 msgid "Setup Printer"
 msgstr "Konfiguratu inprimagailua"
 
@@ -1265,6 +1288,11 @@ msgstr "Aldatu..."
 #, fuzzy
 msgid "A&lternative Printer Command"
 msgstr "Inprimatu beste komando baten bidez"
+
+msgid ""
+"Use an alternative print manager, such as kprinter or gtklp,\n"
+"to utilize additional printing options"
+msgstr ""
 
 #, fuzzy
 msgid "Co&mmand:"
@@ -1644,7 +1672,7 @@ msgid "Mirror the Path Vertically"
 msgstr "Bide-izena bertikalki ispilatzen du"
 
 #, fuzzy
-msgid "Shear the Path Horizontally to the Rright"
+msgid "Shear the Path Horizontally to the Right"
 msgstr "Bide-izena horizontalki eskuinerantz zizailatzen du"
 
 #, fuzzy
@@ -2297,7 +2325,10 @@ msgstr ""
 msgid "Make text in lower frames flow around the object shape"
 msgstr ""
 
-msgid "Use the frame shape instead of the object one"
+msgid "Use a surrounding box instead of the frame's shape for text flow"
+msgstr ""
+
+msgid "Use a second line originally based on the frame's shape for text flow"
 msgstr ""
 
 msgid "Scaling width of characters"
@@ -2318,7 +2349,7 @@ msgstr "Doitu karaktere arteko tartea eskuz"
 msgid "Style of current paragraph"
 msgstr ""
 
-msgid "Language of object"
+msgid "Hyphenation language of frame"
 msgstr ""
 
 msgid "Change settings for left or end points"
@@ -2742,10 +2773,6 @@ msgid "&Edit Text..."
 msgstr "Eskuratu testua..."
 
 #, fuzzy
-msgid "&Insert Sample Text"
-msgstr "Testuaren adibidea"
-
-#, fuzzy
 msgid "Is PDF &Bookmark"
 msgstr "PDF laster-marka da"
 
@@ -2792,6 +2819,10 @@ msgstr "Bidali berri laburren albumera"
 #, fuzzy
 msgid "Send to La&yer"
 msgstr "Geruzara bidali da"
+
+#, fuzzy
+msgid "&Insert Sample Text"
+msgstr "Testuaren adibidea"
 
 #, fuzzy
 msgid "&Group"
@@ -2856,6 +2887,10 @@ msgstr "Propietateak..."
 #, fuzzy
 msgid "Hide P&roperties..."
 msgstr "Propietateak..."
+
+#, fuzzy
+msgid "Do you really want to clear all your Text?"
+msgstr "Benetan ezabatu nahi duzu estilo hau?"
 
 #, fuzzy
 msgid "The Program"
@@ -3442,10 +3477,6 @@ msgstr ""
 msgid "Distance for bleed from the right of the physical page"
 msgstr ""
 
-#, fuzzy
-msgid "PDF Files (*.pdf);;All Files (*)"
-msgstr "PDF fitxategiak (*.pdf);;Fitxategi guztiak (*)"
-
 msgid "Result"
 msgstr "Emaitza"
 
@@ -3482,17 +3513,33 @@ msgstr "Bilatu"
 msgid "Polygon Properties"
 msgstr "Poligonoaren propietateak"
 
-msgid "Corners:"
+#, fuzzy
+msgid "Corn&ers:"
 msgstr "Izkinak:"
 
-msgid "Rotation:"
-msgstr "Biraketa:"
-
-msgid "Convex Polygon"
+#, fuzzy
+msgid "Conve&x Polygon"
 msgstr "Poligono ganbila"
 
-msgid "Factor:"
+#, fuzzy
+msgid "&Factor:"
 msgstr "Faktorea:"
+
+msgid "Number of corners for polygons"
+msgstr ""
+
+msgid "Degrees of rotation for polygons"
+msgstr ""
+
+msgid "Polygons will be convex rather than concave"
+msgstr ""
+
+#, fuzzy
+msgid "Sample Polygon"
+msgstr "Zatitu poligonoak"
+
+msgid "Change the angles at which lines of the polygon join"
+msgstr ""
 
 msgid "Document Setup"
 msgstr "Dokumentuaren konfigurazioa"
@@ -3703,8 +3750,8 @@ msgid "&Export"
 msgstr "Esportatu..."
 
 #, fuzzy
-msgid "Document &Info..."
-msgstr "Dokumentuaren informazioa..."
+msgid "Document &Information..."
+msgstr "Dokumentuaren informazioa"
 
 msgid "Document Info..."
 msgstr "Dokumentuaren informazioa..."
@@ -4263,13 +4310,16 @@ msgstr "Kargatzen:"
 msgid "Adjusting Colors"
 msgstr "Koloreak doitzen"
 
-msgid "Undo Delete Object"
+#, fuzzy
+msgid "&Undo Delete Object"
 msgstr "Desegin objektu-ezabatzea"
 
-msgid "Undo Object Move"
+#, fuzzy
+msgid "&Undo Object Move"
 msgstr "Desegin objektu-mugimendua"
 
-msgid "Undo Object Change"
+#, fuzzy
+msgid "&Undo Object Change"
 msgstr "Desegin objektu-aldaketa"
 
 msgid "English"
@@ -4518,26 +4568,26 @@ msgid "Manage Tabulators"
 msgstr "Kudeatu irudiak"
 
 #, fuzzy
-msgid "F&ill Color Settings"
+msgid "Fill Color Settings"
 msgstr "Kolore betegarria:"
 
 #, fuzzy
-msgid "&Stroke Color Settings"
+msgid "Stroke Color Settings"
 msgstr "Erakutsi koloreak"
 
 #, fuzzy
-msgid "&Character Settings"
+msgid "Character Settings"
 msgstr "Karaktere"
 
 msgid "Kerning:"
 msgstr "Karaktere arteko tartea:"
 
 #, fuzzy
-msgid "St&yle Settings"
+msgid "Style Settings"
 msgstr "Ezarpenak"
 
 #, fuzzy
-msgid "&Font Settings"
+msgid "Font Settings"
 msgstr "Ezarpenak"
 
 #, fuzzy
@@ -4577,8 +4627,55 @@ msgid "&Insert Special..."
 msgstr "Txertatu orrialdea..."
 
 #, fuzzy
+msgid "&Edit Styles..."
+msgstr "Editatu estiloak"
+
+#, fuzzy
+msgid "&Fonts Preview..."
+msgstr "Inprimatzeko aurrebista"
+
+#, fuzzy
 msgid "&Update Text Frame"
 msgstr "Testuaren markoa"
+
+#, fuzzy
+msgid "&Background..."
+msgstr "Atzeko planoa:"
+
+#, fuzzy
+msgid "&Display Font..."
+msgstr "Bistaratu iraupena:"
+
+#, fuzzy
+msgid "Clear all Text"
+msgstr "Testuaren adibidea"
+
+#, fuzzy
+msgid "Load Text from File"
+msgstr "Lotu testua bide-izenari"
+
+#, fuzzy
+msgid "Save Text to File"
+msgstr "Gorde PDF gisa..."
+
+#, fuzzy
+msgid "Update Text Frame and Exit"
+msgstr "Testuaren markoa"
+
+#, fuzzy
+msgid "Exit Without Updating Text Frame"
+msgstr "Irten gorde gabe"
+
+#, fuzzy
+msgid "Reload Text from Frame"
+msgstr "Lotu testua bide-izenari"
+
+#, fuzzy
+msgid "Update Text Frame"
+msgstr "Testuaren markoa"
+
+msgid "Search/Replace"
+msgstr ""
 
 msgid "Current Paragraph:"
 msgstr ""
@@ -4595,15 +4692,12 @@ msgid "&Insert Special"
 msgstr "Txertatu laukizuzenak"
 
 #, fuzzy
-msgid "Do you really want to lose all your Changes?"
-msgstr "Benetan ezabatu nahi duzu estilo hau?"
+msgid "&Fonts Preview"
+msgstr "Inprimatzeko aurrebista"
 
 #, fuzzy
-msgid "Do you really want to clear all your Text?"
+msgid "Do you really want to lose all your Changes?"
 msgstr "Benetan ezabatu nahi duzu estilo hau?"
-
-msgid "Search/Replace"
-msgstr ""
 
 #, fuzzy
 msgid "Search for:"
@@ -5035,6 +5129,10 @@ msgstr "Kopia-kopurua:"
 msgid "Number of Columns:"
 msgstr "Kopia-kopurua:"
 
+#, fuzzy
+msgid "Importing text"
+msgstr "Inportatu orrialde bat"
+
 msgid "Distances"
 msgstr "Distantziak"
 
@@ -5057,6 +5155,23 @@ msgstr "Kokalekua:"
 
 msgid "Here you can add, change or remove Color-Stops."
 msgstr ""
+
+msgid "Choose the importer to use"
+msgstr ""
+
+msgid "Get text only"
+msgstr ""
+
+msgid "Import text without any formatting"
+msgstr ""
+
+#, fuzzy
+msgid "Importer:"
+msgstr "Inportatu"
+
+#, fuzzy
+msgid "Importer"
+msgstr "Inportatu"
 
 #, fuzzy, c-format
 msgid "About Scribus%1%2"
@@ -5439,18 +5554,6 @@ msgstr "Eskalatu irudia markoaren tamainara"
 msgid "Keep Aspect &Ratio"
 msgstr "Mantendu aspektu-erlazioa"
 
-#, fuzzy
-msgid "Corn&ers:"
-msgstr "Izkinak:"
-
-#, fuzzy
-msgid "Conve&x Polygon"
-msgstr "Poligono ganbila"
-
-#, fuzzy
-msgid "&Factor:"
-msgstr "Faktorea:"
-
 msgid "Other Options"
 msgstr "Bestelako aukerak"
 
@@ -5733,22 +5836,6 @@ msgstr "Sistemaren profilak"
 msgid "Width of lines"
 msgstr ""
 
-msgid "Number of corners for polygons"
-msgstr ""
-
-msgid "Degrees of rotation for polygons"
-msgstr ""
-
-msgid "Polygons will be convex rather than concave"
-msgstr ""
-
-#, fuzzy
-msgid "Sample Polygon"
-msgstr "Zatitu poligonoak"
-
-msgid "Change the angles at which lines of the polygon join"
-msgstr ""
-
 msgid "Choose the size of the preview in the scrapbook palette"
 msgstr ""
 
@@ -5807,11 +5894,11 @@ msgstr ""
 msgid "Close this dialog and return to text editing."
 msgstr ""
 
-#, fuzzy
-msgid "Print Previe&w"
+msgid "Print Preview"
 msgstr "Inprimatzeko aurrebista"
 
-msgid "Print Preview"
+#, fuzzy
+msgid "Print Previe&w"
 msgstr "Inprimatzeko aurrebista"
 
 #, fuzzy
@@ -5826,12 +5913,12 @@ msgstr "Aplikatu antialiasing-a irudietan"
 msgid "Display Trans&parency"
 msgstr "Bistaratu markoak"
 
+msgid "&Under Color Removal"
+msgstr ""
+
 #, fuzzy
 msgid "&Display CMYK"
 msgstr "Bistaratu"
-
-msgid "&Under Color Removal"
-msgstr ""
 
 #, fuzzy
 msgid "&C"
@@ -5881,6 +5968,15 @@ msgid "Enable/disable the Y (Yellow) ink plate"
 msgstr ""
 
 msgid "Enable/disable the K (Black) ink plate"
+msgstr ""
+
+msgid ""
+"A way of switching some of the gray shades which are composed\n"
+"of cyan, yellow and magenta and using black instead.\n"
+"UCR most affects parts of images which are neutral and/or dark tones\n"
+"which are close to the gray. Use of this may improve printing some images\n"
+"and some experimentation and testing is need on a case by case basis.\n"
+"UCR reduces the possibility of over saturation with CMY inks."
 msgstr ""
 
 #, fuzzy
@@ -5977,12 +6073,12 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-msgid "Export as Image"
-msgstr "Esportatu barrutia"
+msgid "Choose a Export Directory"
+msgstr "Aukeratu direktorioa"
 
 #, fuzzy
-msgid "Alt+C"
-msgstr "Alt+"
+msgid "Export as Image(s)"
+msgstr "Esportatu barrutia"
 
 #, fuzzy
 msgid "&Export to Directory:"
@@ -5993,74 +6089,52 @@ msgid "Image &Type:"
 msgstr "Irudiak:"
 
 #, fuzzy
-msgid "%"
-msgstr " %"
-
-#, fuzzy
-msgid "Export "
-msgstr "Esportatu..."
-
-msgid "&One page"
-msgstr ""
-
-#, fuzzy
-msgid "Alt+O"
-msgstr "Alt+"
+msgid "&Current page"
+msgstr "Uneko tekla"
 
 #, fuzzy
 msgid "&All pages"
 msgstr "Orrialde guztiak"
 
 #, fuzzy
-msgid "Alt+A"
-msgstr "Alt+"
+msgid "&Range"
+msgstr "Barrutia:"
 
 #, fuzzy
-msgid "&Interval from:"
-msgstr "Tartea"
+msgid "C"
+msgstr "C:"
 
 #, fuzzy
-msgid "Alt+I"
-msgstr "Alt+"
+msgid "Export a range of pages"
+msgstr "Esportatu barrutia"
 
-msgid "Change the output directory"
-msgstr ""
-
-msgid ""
-"The output directory - the place to store your images.\n"
-"Name of the export file will be 'documentname-pagenumber.filetype'"
-msgstr ""
+#, fuzzy
+msgid "Export all pages"
+msgstr "Esportatu barrutia"
 
 msgid "Export only the current page"
 msgstr ""
 
-msgid "Export all pages to images"
-msgstr ""
-
-msgid "Export a range of pages to images"
-msgstr ""
-
-msgid "First page to export when exporting a range"
-msgstr ""
-
-msgid "Last page to export when exporting a range"
-msgstr ""
-
-msgid "The height of the output images in pixels"
+msgid ""
+"Resolution of the Images\n"
+"Use 72 dpi for Images intended for the Screen"
 msgstr ""
 
 #, c-format
-msgid ""
-"The quality of your images - 100% is the best, 1% the highest compression"
+msgid "The quality of your images - 100% is the best, 1% the lowest quality"
 msgstr ""
 
 #, fuzzy
 msgid "Available export formats"
 msgstr "Erabilgarri dauden txantiloiak:"
 
-#, fuzzy
-msgid "Choose a Export Directory"
-msgstr "Aukeratu direktorioa"
+msgid ""
+"The output directory - the place to store your images.\n"
+"Name of the export file will be 'documentname-pagenumber.filetype'"
+msgstr ""
+
+msgid "Change the output directory"
+msgstr ""
 
 #, fuzzy
 msgid "Save as &Image..."
@@ -6090,12 +6164,27 @@ msgid "Yes all"
 msgstr "Desautatu dena"
 
 #, fuzzy
-msgid "&Fonts Preview"
+msgid "HTML Files"
+msgstr "Fitxategira:"
+
+msgid "html"
+msgstr ""
+
+#, fuzzy
+msgid "Text Files"
+msgstr "Testu-eremua"
+
+#, fuzzy
+msgid "Fonts Preview"
 msgstr "Inprimatzeko aurrebista"
 
 #, fuzzy
-msgid "Font Preview"
-msgstr "Inprimatzeko aurrebista"
+msgid "Alt+O"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "Alt+C"
+msgstr "Alt+"
 
 #, fuzzy
 msgid "Import &EPS/PS..."
@@ -6134,6 +6223,62 @@ msgstr "Sortu testu-kateak"
 #, fuzzy
 msgid "Author"
 msgstr "Egilea:"
+
+#, fuzzy
+msgid "Downloading Templates"
+msgstr "Txantiloi berria"
+
+msgid ""
+"Document templates can be found at http://www.scribus.net/ in the Downloads "
+"section."
+msgstr ""
+
+#, fuzzy
+msgid "Installing Templates"
+msgstr "Txantiloi berria"
+
+msgid ""
+"Extract the package to the template directory ~/.scribus/templates for the "
+"current user or PREFIX/share/scribus/templates for all users in the system."
+msgstr ""
+
+#, fuzzy
+msgid "Preparing a template"
+msgstr "Txantiloi berria"
+
+msgid ""
+"Make sure images and fonts you use can be used freely. If fonts cannot be "
+"shared do not collect them when saving as a template."
+msgstr ""
+
+msgid ""
+"The template creator should also make sure that the Installing Templates "
+"section above applies to their templates as well. This means a user should "
+"be able to download a template package and be able to extract them to the "
+"template directory and start using them."
+msgstr ""
+
+#, fuzzy
+msgid "Removing a template"
+msgstr "Txantiloi berria"
+
+msgid ""
+"Removing a template from the New From Template dialog will only remove the "
+"entry from the template.xml, it will not delete the document files. A popup "
+"menu with remove is only shown if you have write access to the template.xml "
+"file."
+msgstr ""
+
+msgid "Translating template.xml"
+msgstr ""
+
+msgid ""
+"Copy an existing template.xml to a file called template.lang_COUNTRY.xml "
+"(use the same lang code that is present in the qm file for your language), "
+"for example template.fi.xml for Finnish language template.xml. The copy must "
+"be located in the same directory as the original template.xml so Scribus can "
+"load it."
+msgstr ""
 
 #, fuzzy
 msgid "Newsletters"
@@ -6245,6 +6390,50 @@ msgstr "Pertsonalizatua"
 msgid "Save as &Template..."
 msgstr "Gorde testua..."
 
+#, fuzzy
+#~ msgid "PDF Documents (*.pdf);;All Files (*)"
+#~ msgstr "Dokumentuak (*.pdf);; Fitxategi guztiak (*)"
+
+#~ msgid "Corners:"
+#~ msgstr "Izkinak:"
+
+#~ msgid "Rotation:"
+#~ msgstr "Biraketa:"
+
+#~ msgid "Convex Polygon"
+#~ msgstr "Poligono ganbila"
+
+#~ msgid "Factor:"
+#~ msgstr "Faktorea:"
+
+#, fuzzy
+#~ msgid "Document &Info..."
+#~ msgstr "Dokumentuaren informazioa..."
+
+#, fuzzy
+#~ msgid "%"
+#~ msgstr " %"
+
+#, fuzzy
+#~ msgid "Export "
+#~ msgstr "Esportatu..."
+
+#, fuzzy
+#~ msgid "Alt+A"
+#~ msgstr "Alt+"
+
+#, fuzzy
+#~ msgid "&Interval from:"
+#~ msgstr "Tartea"
+
+#, fuzzy
+#~ msgid "Alt+I"
+#~ msgstr "Alt+"
+
+#, fuzzy
+#~ msgid "Font Preview"
+#~ msgstr "Inprimatzeko aurrebista"
+
 #~ msgid " pts"
 #~ msgstr " pts"
 
@@ -6314,10 +6503,6 @@ msgstr "Gorde testua..."
 
 #~ msgid "PDF-Tools"
 #~ msgstr "PDF tresnak"
-
-#, fuzzy
-#~ msgid "Edit Styles..."
-#~ msgstr "Editatu estiloak"
 
 #, fuzzy
 #~ msgid "Leave"

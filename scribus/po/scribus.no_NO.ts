@@ -4546,10 +4546,6 @@ OBS! Dette kan føre til store filer</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Appy Under Color &amp;Removal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Apply &amp;ICC Profiles</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4572,6 +4568,19 @@ OBS! Dette kan føre til store filer</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation type="unfinished">&amp;Fortryd</translation>
+    </message>
+    <message>
+        <source>Apply Under Color &amp;Removal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5279,7 +5288,7 @@ OBS! Dette kan føre til store filer</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PDF Documents (*.pdf);;All Files (*)</source>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5407,6 +5416,14 @@ OBS! Dette kan føre til store filer</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation type="unfinished">&amp;Fortryd</translation>
+    </message>
+    <message>
+        <source>Apply to all &amp;even Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply to all &amp;odd Pages</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6652,6 +6669,11 @@ a range of pages or a single page number.</source>
         <source>&amp;Cancel</source>
         <translation type="unfinished">&amp;Fortryd</translation>
     </message>
+    <message>
+        <source>Use an alternative print manager, such as kprinter or gtklp,
+to utilize additional printing options</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EPSPlug</name>
@@ -7006,7 +7028,7 @@ funket ikke!</translation>
     </message>
     <message>
         <source>Export as Image</source>
-        <translation>Eksporter som Bilde</translation>
+        <translation type="obsolete">Eksporter som Bilde</translation>
     </message>
     <message>
         <source>Export to directory:</source>
@@ -7018,7 +7040,7 @@ funket ikke!</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
         <source>Image type:</source>
@@ -7030,7 +7052,7 @@ funket ikke!</translation>
     </message>
     <message>
         <source>%</source>
-        <translation>%</translation>
+        <translation type="obsolete">%</translation>
     </message>
     <message>
         <source>Size:</source>
@@ -7038,15 +7060,15 @@ funket ikke!</translation>
     </message>
     <message>
         <source>Export </source>
-        <translation>Eksporter</translation>
+        <translation type="obsolete">Eksporter</translation>
     </message>
     <message>
         <source>&amp;One page</source>
-        <translation>&amp;En side</translation>
+        <translation type="obsolete">&amp;En side</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <source>&amp;All pages</source>
@@ -7054,19 +7076,19 @@ funket ikke!</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
         <source>&amp;Interval from:</source>
-        <translation>&amp;Interval fra:</translation>
+        <translation type="obsolete">&amp;Interval fra:</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation>alt+I</translation>
+        <translation type="obsolete">alt+I</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>til:</translation>
+        <translation type="obsolete">til:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -7092,27 +7114,27 @@ Navnetfor den eksporte fil vil være &apos;dokumentnavm-sidenummer.filtype&apos;
     </message>
     <message>
         <source>Export all pages to images</source>
-        <translation>Eksporter alle sider til bilder</translation>
+        <translation type="obsolete">Eksporter alle sider til bilder</translation>
     </message>
     <message>
         <source>Export a range of pages to images</source>
-        <translation>Ekporter et område av sider til bilder</translation>
+        <translation type="obsolete">Ekporter et område av sider til bilder</translation>
     </message>
     <message>
         <source>First page to export when exporting a range</source>
-        <translation>Først side å eksportere ved eksportering av et område</translation>
+        <translation type="obsolete">Først side å eksportere ved eksportering av et område</translation>
     </message>
     <message>
         <source>Last page to export when exporting a range</source>
-        <translation>Siste side å eksportere ved eksportering av et område</translation>
+        <translation type="obsolete">Siste side å eksportere ved eksportering av et område</translation>
     </message>
     <message>
         <source>The height of the output images in pixels</source>
-        <translation>Høyden for output bildene i piksler</translation>
+        <translation type="obsolete">Høyden for output bildene i piksler</translation>
     </message>
     <message>
         <source>The quality of your images - 100% is the best, 1% the highest compression</source>
-        <translation>Bildenes kvalitet - 100% er best, 1% er høeste kompression</translation>
+        <translation type="obsolete">Bildenes kvalitet - 100% er best, 1% er høeste kompression</translation>
     </message>
     <message>
         <source>Available export formats</source>
@@ -7135,7 +7157,62 @@ Navnetfor den eksporte fil vil være &apos;dokumentnavm-sidenummer.filtype&apos;
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Size:</source>
+        <source>Export as Image(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation type="unfinished">Innstillinger</translation>
+    </message>
+    <message>
+        <source>&amp;Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished">%</translation>
+    </message>
+    <message>
+        <source> dpi</source>
+        <translation type="unfinished">dpi</translation>
+    </message>
+    <message>
+        <source>Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Current page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C</source>
+        <translation type="unfinished">C</translation>
+    </message>
+    <message>
+        <source>Export a range of pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resolution of the Images
+Use 72 dpi for Images intended for the Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7448,7 +7525,7 @@ Navnetfor den eksporte fil vil være &apos;dokumentnavm-sidenummer.filtype&apos;
     <name>FontPreview</name>
     <message>
         <source>Font Preview</source>
-        <translation>Fonter Preview</translation>
+        <translation type="obsolete">Fonter Preview</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -7469,6 +7546,10 @@ Navnetfor den eksporte fil vil være &apos;dokumentnavm-sidenummer.filtype&apos;
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Vevet silke pyjamas byttet for blå quartz</translation>
+    </message>
+    <message>
+        <source>Fonts Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8814,7 +8895,7 @@ Hjørner:</translation>
     </message>
     <message>
         <source>Use the frame shape instead of the object one</source>
-        <translation>Bruk ramme form fremfor objektets form</translation>
+        <translation type="obsolete">Bruk ramme form fremfor objektets form</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -8862,7 +8943,7 @@ Hjørner:</translation>
     </message>
     <message>
         <source>Language of object</source>
-        <translation>Objektets språk</translation>
+        <translation type="obsolete">Objektets språk</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
@@ -9201,6 +9282,18 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;Y2:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hyphenation language of frame</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9871,10 +9964,6 @@ ellers er Koordinater relative til Objektet.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Shear the Path Horizontally to the Rright</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Shear the Path Horizontally to the Left</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9916,6 +10005,10 @@ ellers er Koordinater relative til Objektet.</translation>
     </message>
     <message>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shear the Path Horizontally to the Right</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10927,6 +11020,15 @@ vektor grafikk i forhåndsvisningen, men det går litt langsommere å forhåndsv
         <source>&amp;Under Color Removal</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>A way of switching some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Page</name>
@@ -11434,6 +11536,10 @@ vektor grafikk i forhåndsvisningen, men det går litt langsommere å forhåndsv
         <source>Hide P&amp;roperties...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Do you really want to clear all your Text?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PageItem</name>
@@ -11555,19 +11661,19 @@ vektor grafikk i forhåndsvisningen, men det går litt langsommere å forhåndsv
     </message>
     <message>
         <source>Corners:</source>
-        <translation>Hjørner:</translation>
+        <translation type="obsolete">Hjørner:</translation>
     </message>
     <message>
         <source>Rotation:</source>
-        <translation>Rotasjon:</translation>
+        <translation type="obsolete">Rotasjon:</translation>
     </message>
     <message>
         <source>Convex Polygon</source>
-        <translation>Konveks Polygon</translation>
+        <translation type="obsolete">Konveks Polygon</translation>
     </message>
     <message>
         <source>Factor:</source>
-        <translation>Faktor:</translation>
+        <translation type="obsolete">Faktor:</translation>
     </message>
     <message>
         <source> %</source>
@@ -11575,11 +11681,55 @@ vektor grafikk i forhåndsvisningen, men det går litt langsommere å forhåndsv
     </message>
     <message>
         <source>OK</source>
-        <translation>Greit</translation>
+        <translation type="obsolete">Greit</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Avbryt</translation>
+        <translation type="obsolete">Avbryt</translation>
+    </message>
+    <message>
+        <source>Corn&amp;ers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Conve&amp;x Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Factor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Fortryd</translation>
+    </message>
+    <message>
+        <source>Number of corners for polygons</source>
+        <translation type="unfinished">Antall hjørner for polygoner </translation>
+    </message>
+    <message>
+        <source>Degrees of rotation for polygons</source>
+        <translation type="unfinished">Mengde dreining for polygoner</translation>
+    </message>
+    <message>
+        <source>Polygons will be convex rather than concave</source>
+        <translation type="unfinished">Polygoner vil være konveks fremfor konkave</translation>
+    </message>
+    <message>
+        <source>Sample Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change the angles at which lines of the polygon join</source>
+        <translation type="unfinished">Forandre på hvilken vinkel polygonerne går sammen</translation>
     </message>
 </context>
 <context>
@@ -13468,6 +13618,38 @@ Sjekk sti og filnavn.</translation>
         <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Print Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the importer to use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Alle Støttede Formater</translation>
+    </message>
+    <message>
+        <source>HTML Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>html</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Files</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -14660,15 +14842,15 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
         <source>Undo Delete Object</source>
-        <translation>Angre Sletting av Objekt</translation>
+        <translation type="obsolete">Angre Sletting av Objekt</translation>
     </message>
     <message>
         <source>Undo Object Move</source>
-        <translation>Angre Flytting av Objekt</translation>
+        <translation type="obsolete">Angre Flytting av Objekt</translation>
     </message>
     <message>
         <source>Undo Object Change</source>
-        <translation>Angre Endring av Objekt</translation>
+        <translation type="obsolete">Angre Endring av Objekt</translation>
     </message>
     <message>
         <source>English</source>
@@ -14836,7 +15018,7 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
         <source>Document &amp;Info...</source>
-        <translation>Dokument &amp;Info...</translation>
+        <translation type="obsolete">Dokument &amp;Info...</translation>
     </message>
     <message>
         <source>Document &amp;Setup...</source>
@@ -15272,6 +15454,22 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
         <source>&amp;Shade:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document &amp;Information...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo Delete Object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo Object Move</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo Object Change</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15958,10 +16156,6 @@ til vinduet nedenunder, for at lage en ny side.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Clears all Text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Load Text from File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15971,6 +16165,38 @@ til vinduet nedenunder, for at lage en ny side.</translation>
     </message>
     <message>
         <source>Reload Text from Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search/Replace...</source>
+        <translation type="unfinished">&amp;Søk/Erstatt...</translation>
+    </message>
+    <message>
+        <source>&amp;Fonts Preview...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Background...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Display Font...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Settings</source>
+        <translation type="unfinished">Inn&amp;stillinger</translation>
+    </message>
+    <message>
+        <source>Search/Replace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Fonts Preview</source>
+        <translation type="unfinished">&amp;Fonter Forhåndsvisning</translation>
+    </message>
+    <message>
+        <source>Clear all Text</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16354,6 +16580,33 @@ Velg vennligst et annet.</translation>
     </message>
 </context>
 <context>
+    <name>gtFileDialog</name>
+    <message>
+        <source>Choose the importer to use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Get text only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import text without any formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importer:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Encoding:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>nftdialog</name>
     <message>
         <source>New From Template</source>
@@ -16420,10 +16673,6 @@ Velg vennligst et annet.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Installing Templates</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16436,19 +16685,7 @@ Velg vennligst et annet.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Removing a template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -16456,7 +16693,23 @@ Velg vennligst et annet.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
+        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
-"POT-Creation-Date: 2004-07-28 23:12+0200\n"
+"POT-Creation-Date: 2004-08-06 23:39+0200\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -33,6 +33,10 @@ msgstr "pagal deðiná kraðtà"
 #, fuzzy
 msgid "&Between:"
 msgstr "tarp:"
+
+#, fuzzy
+msgid "&Do Not Change"
+msgstr "Nekeisk!"
 
 #, fuzzy
 msgid "A&lign"
@@ -503,8 +507,8 @@ msgid "Selection Change"
 msgstr "Parinkties keitimas"
 
 #, fuzzy
-msgid "PDF Documents (*.pdf);;All Files (*)"
-msgstr "Dokumentai (*.sdc);; Visi failai (*)"
+msgid "PDF Files (*.pdf);;All Files (*)"
+msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
 
 msgid "Annotation Properties"
 msgstr "Apraðymo parinktys"
@@ -532,6 +536,16 @@ msgstr "Naujas ðablonas"
 # New in Version 0.8
 #, fuzzy
 msgid "Apply to &Current Page"
+msgstr "Pritaikyti efektus visuose puslapiuose"
+
+# New in Version 0.8
+#, fuzzy
+msgid "Apply to all &even Pages"
+msgstr "Pritaikyti efektus visuose puslapiuose"
+
+# New in Version 0.8
+#, fuzzy
+msgid "Apply to all &odd Pages"
 msgstr "Pritaikyti efektus visuose puslapiuose"
 
 # New in Version 0.8
@@ -1216,7 +1230,7 @@ msgstr ""
 msgid "Mirror Page(s) &Vertical"
 msgstr ""
 
-msgid "Appy Under Color &Removal"
+msgid "Apply Under Color &Removal"
 msgstr ""
 
 #, fuzzy
@@ -1248,6 +1262,15 @@ msgid ""
 "this can create huge files"
 msgstr ""
 
+msgid ""
+"A way of switching off some of the gray shades which are composed\n"
+"of cyan, yellow and magenta and using black instead.\n"
+"UCR most affects parts of images which are neutral and/or dark tones\n"
+"which are close to the gray. Use of this may improve printing some images\n"
+"and some experimentation and testing is need on a case by case basis.\n"
+"UCR reduces the possibility of over saturation with CMY inks."
+msgstr ""
+
 msgid "Setup Printer"
 msgstr "Spausdintuvo nuostatos"
 
@@ -1273,6 +1296,11 @@ msgstr "Pakeisti..."
 #, fuzzy
 msgid "A&lternative Printer Command"
 msgstr "Spausdinti naudojant kità komandà"
+
+msgid ""
+"Use an alternative print manager, such as kprinter or gtklp,\n"
+"to utilize additional printing options"
+msgstr ""
 
 #, fuzzy
 msgid "Co&mmand:"
@@ -1656,7 +1684,7 @@ msgstr ""
 msgid "Mirror the Path Vertically"
 msgstr ""
 
-msgid "Shear the Path Horizontally to the Rright"
+msgid "Shear the Path Horizontally to the Right"
 msgstr ""
 
 msgid "Shear the Path Horizontally to the Left"
@@ -2304,7 +2332,10 @@ msgstr ""
 msgid "Make text in lower frames flow around the object shape"
 msgstr ""
 
-msgid "Use the frame shape instead of the object one"
+msgid "Use a surrounding box instead of the frame's shape for text flow"
+msgstr ""
+
+msgid "Use a second line originally based on the frame's shape for text flow"
 msgstr ""
 
 msgid "Scaling width of characters"
@@ -2325,7 +2356,7 @@ msgstr "Pasirinktinis kerningas"
 msgid "Style of current paragraph"
 msgstr ""
 
-msgid "Language of object"
+msgid "Hyphenation language of frame"
 msgstr ""
 
 msgid "Change settings for left or end points"
@@ -2741,10 +2772,6 @@ msgid "&Edit Text..."
 msgstr "Naudoti tekstà..."
 
 #, fuzzy
-msgid "&Insert Sample Text"
-msgstr "Pavyzdinis tekstas"
-
-#, fuzzy
 msgid "Is PDF &Bookmark"
 msgstr "Tai PDF-þymos"
 
@@ -2790,6 +2817,10 @@ msgstr "Á iðkarpø krepðá"
 #, fuzzy
 msgid "Send to La&yer"
 msgstr "Pereiti prie slouksnio"
+
+#, fuzzy
+msgid "&Insert Sample Text"
+msgstr "Pavyzdinis tekstas"
 
 #, fuzzy
 msgid "&Group"
@@ -2854,6 +2885,10 @@ msgstr "Parinktys..."
 #, fuzzy
 msgid "Hide P&roperties..."
 msgstr "Parinktys..."
+
+#, fuzzy
+msgid "Do you really want to clear all your Text?"
+msgstr "Ar tu tikrai labai nori paðalinti stiliø?"
 
 #, fuzzy
 msgid "The Program"
@@ -3439,10 +3474,6 @@ msgstr ""
 msgid "Distance for bleed from the right of the physical page"
 msgstr ""
 
-#, fuzzy
-msgid "PDF Files (*.pdf);;All Files (*)"
-msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
-
 msgid "Result"
 msgstr "Rezultatas"
 
@@ -3479,17 +3510,33 @@ msgstr "Ieðkoti"
 msgid "Polygon Properties"
 msgstr "Daugiakampio parinktys"
 
-msgid "Corners:"
+#, fuzzy
+msgid "Corn&ers:"
 msgstr "Kampai:"
 
-msgid "Rotation:"
-msgstr "Pasukti:"
-
-msgid "Convex Polygon"
+#, fuzzy
+msgid "Conve&x Polygon"
 msgstr "Iðgaubtas daugiakampis"
 
-msgid "Factor:"
+#, fuzzy
+msgid "&Factor:"
 msgstr "Daugiklis:"
+
+msgid "Number of corners for polygons"
+msgstr ""
+
+msgid "Degrees of rotation for polygons"
+msgstr ""
+
+msgid "Polygons will be convex rather than concave"
+msgstr ""
+
+#, fuzzy
+msgid "Sample Polygon"
+msgstr "Daugiakampis"
+
+msgid "Change the angles at which lines of the polygon join"
+msgstr ""
 
 msgid "Document Setup"
 msgstr "Dokumento nuostatos"
@@ -3702,8 +3749,8 @@ msgid "&Export"
 msgstr "Eksportuoti..."
 
 #, fuzzy
-msgid "Document &Info..."
-msgstr "Dokumento info..."
+msgid "Document &Information..."
+msgstr "Informacija"
 
 msgid "Document Info..."
 msgstr "Dokumento info..."
@@ -4263,13 +4310,16 @@ msgstr "Ruoðiama..."
 msgid "Adjusting Colors"
 msgstr "Parinkti spalvas"
 
-msgid "Undo Delete Object"
+#, fuzzy
+msgid "&Undo Delete Object"
 msgstr "Atðaukti objekto paðalinimà"
 
-msgid "Undo Object Move"
+#, fuzzy
+msgid "&Undo Object Move"
 msgstr "Atðaukti objekto postûmá"
 
-msgid "Undo Object Change"
+#, fuzzy
+msgid "&Undo Object Change"
 msgstr "Atðaukti objekto pakeitimus"
 
 msgid "English"
@@ -4525,15 +4575,15 @@ msgid "Manage Tabulators"
 msgstr "Priþiûrëti paveiksliukus"
 
 #, fuzzy
-msgid "F&ill Color Settings"
+msgid "Fill Color Settings"
 msgstr "Uþpildo spalva:"
 
 #, fuzzy
-msgid "&Stroke Color Settings"
+msgid "Stroke Color Settings"
 msgstr "Rodyti spalvø áranká"
 
 #, fuzzy
-msgid "&Character Settings"
+msgid "Character Settings"
 msgstr "Simboliai"
 
 #, fuzzy
@@ -4541,11 +4591,11 @@ msgid "Kerning:"
 msgstr "Dëmesio!"
 
 #, fuzzy
-msgid "St&yle Settings"
+msgid "Style Settings"
 msgstr "Pelës nuostatos"
 
 #, fuzzy
-msgid "&Font Settings"
+msgid "Font Settings"
 msgstr "Pelës nuostatos"
 
 #, fuzzy
@@ -4584,8 +4634,55 @@ msgid "&Insert Special..."
 msgstr "Áterpti..."
 
 #, fuzzy
+msgid "&Edit Styles..."
+msgstr "Keisti stilius"
+
+#, fuzzy
+msgid "&Fonts Preview..."
+msgstr "Pasiþiûrëti kaip atrodys"
+
+#, fuzzy
 msgid "&Update Text Frame"
 msgstr "Teksto rëmelis"
+
+#, fuzzy
+msgid "&Background..."
+msgstr "Pagrindas"
+
+#, fuzzy
+msgid "&Display Font..."
+msgstr "Rodymo trukmë:"
+
+#, fuzzy
+msgid "Clear all Text"
+msgstr "Pavyzdinis tekstas"
+
+#, fuzzy
+msgid "Load Text from File"
+msgstr "Priskirti tekstui marðtutà"
+
+#, fuzzy
+msgid "Save Text to File"
+msgstr "Iðsaugoti kaip PDF..."
+
+#, fuzzy
+msgid "Update Text Frame and Exit"
+msgstr "Teksto rëmelis"
+
+#, fuzzy
+msgid "Exit Without Updating Text Frame"
+msgstr "Uþdaryti neiðsaugant"
+
+#, fuzzy
+msgid "Reload Text from Frame"
+msgstr "Priskirti tekstui marðtutà"
+
+#, fuzzy
+msgid "Update Text Frame"
+msgstr "Teksto rëmelis"
+
+msgid "Search/Replace"
+msgstr ""
 
 msgid "Current Paragraph:"
 msgstr ""
@@ -4602,15 +4699,12 @@ msgid "&Insert Special"
 msgstr "Áterpti apskritimà"
 
 #, fuzzy
-msgid "Do you really want to lose all your Changes?"
-msgstr "Ar tu tikrai labai nori paðalinti stiliø?"
+msgid "&Fonts Preview"
+msgstr "Pasiþiûrëti kaip atrodys"
 
 #, fuzzy
-msgid "Do you really want to clear all your Text?"
+msgid "Do you really want to lose all your Changes?"
 msgstr "Ar tu tikrai labai nori paðalinti stiliø?"
-
-msgid "Search/Replace"
-msgstr ""
 
 #, fuzzy
 msgid "Search for:"
@@ -5036,6 +5130,10 @@ msgstr "Kopijø skaièius"
 msgid "Number of Columns:"
 msgstr "Kopijø skaièius:"
 
+#, fuzzy
+msgid "Importing text"
+msgstr "Ákelti duomenis"
+
 msgid "Distances"
 msgstr "Atstumas"
 
@@ -5057,6 +5155,23 @@ msgstr "Komentarai:"
 
 msgid "Here you can add, change or remove Color-Stops."
 msgstr ""
+
+msgid "Choose the importer to use"
+msgstr ""
+
+msgid "Get text only"
+msgstr ""
+
+msgid "Import text without any formatting"
+msgstr ""
+
+#, fuzzy
+msgid "Importer:"
+msgstr "Importuoti..."
+
+#, fuzzy
+msgid "Importer"
+msgstr "Importuoti..."
 
 #, fuzzy, c-format
 msgid "About Scribus%1%2"
@@ -5438,18 +5553,6 @@ msgstr "Paveiksliuko mastelis pagal rëmelio dydá"
 msgid "Keep Aspect &Ratio"
 msgstr "Iðlaikyti proporcijas"
 
-#, fuzzy
-msgid "Corn&ers:"
-msgstr "Kampai:"
-
-#, fuzzy
-msgid "Conve&x Polygon"
-msgstr "Iðgaubtas daugiakampis"
-
-#, fuzzy
-msgid "&Factor:"
-msgstr "Daugiklis:"
-
 msgid "Other Options"
 msgstr "Kitos parinktys"
 
@@ -5725,22 +5828,6 @@ msgstr "Sistemos ðablonai"
 msgid "Width of lines"
 msgstr ""
 
-msgid "Number of corners for polygons"
-msgstr ""
-
-msgid "Degrees of rotation for polygons"
-msgstr ""
-
-msgid "Polygons will be convex rather than concave"
-msgstr ""
-
-#, fuzzy
-msgid "Sample Polygon"
-msgstr "Daugiakampis"
-
-msgid "Change the angles at which lines of the polygon join"
-msgstr ""
-
 msgid "Choose the size of the preview in the scrapbook palette"
 msgstr ""
 
@@ -5799,11 +5886,11 @@ msgid "Close this dialog and return to text editing."
 msgstr ""
 
 #, fuzzy
-msgid "Print Previe&w"
+msgid "Print Preview"
 msgstr "Pasiþiûrëti kaip atrodys"
 
 #, fuzzy
-msgid "Print Preview"
+msgid "Print Previe&w"
 msgstr "Pasiþiûrëti kaip atrodys"
 
 msgid "Anti-alias &Text"
@@ -5816,12 +5903,12 @@ msgstr ""
 msgid "Display Trans&parency"
 msgstr "Rodyti rëmelius"
 
+msgid "&Under Color Removal"
+msgstr ""
+
 #, fuzzy
 msgid "&Display CMYK"
 msgstr "Rodyti"
-
-msgid "&Under Color Removal"
-msgstr ""
 
 msgid "&C"
 msgstr ""
@@ -5869,6 +5956,15 @@ msgid "Enable/disable the Y (Yellow) ink plate"
 msgstr ""
 
 msgid "Enable/disable the K (Black) ink plate"
+msgstr ""
+
+msgid ""
+"A way of switching some of the gray shades which are composed\n"
+"of cyan, yellow and magenta and using black instead.\n"
+"UCR most affects parts of images which are neutral and/or dark tones\n"
+"which are close to the gray. Use of this may improve printing some images\n"
+"and some experimentation and testing is need on a case by case basis.\n"
+"UCR reduces the possibility of over saturation with CMY inks."
 msgstr ""
 
 #, fuzzy
@@ -5963,12 +6059,12 @@ msgid ""
 "Oook! You're trying to query an object doesn't exist! None selected too."
 msgstr ""
 
-#, fuzzy
-msgid "Export as Image"
-msgstr "Eksporto grupë"
-
-msgid "Alt+C"
+msgid "Choose a Export Directory"
 msgstr ""
+
+#, fuzzy
+msgid "Export as Image(s)"
+msgstr "Eksporto grupë"
 
 #, fuzzy
 msgid "&Export to Directory:"
@@ -5978,68 +6074,51 @@ msgstr "Kryptis:"
 msgid "Image &Type:"
 msgstr "Paveiksliukai:"
 
-msgid "%"
-msgstr ""
-
 #, fuzzy
-msgid "Export "
-msgstr "Eksportuoti..."
-
-msgid "&One page"
-msgstr ""
-
-msgid "Alt+O"
-msgstr ""
+msgid "&Current page"
+msgstr "Esamas derinys"
 
 #, fuzzy
 msgid "&All pages"
 msgstr "Visi puslapiai"
 
-msgid "Alt+A"
+#, fuzzy
+msgid "&Range"
+msgstr "Eilë:"
+
+msgid "C"
 msgstr ""
 
-msgid "&Interval from:"
-msgstr ""
+#, fuzzy
+msgid "Export a range of pages"
+msgstr "Eksporto grupë"
 
-msgid "Alt+I"
-msgstr ""
-
-msgid "Change the output directory"
-msgstr ""
-
-msgid ""
-"The output directory - the place to store your images.\n"
-"Name of the export file will be 'documentname-pagenumber.filetype'"
-msgstr ""
+#, fuzzy
+msgid "Export all pages"
+msgstr "Eksporto grupë"
 
 msgid "Export only the current page"
 msgstr ""
 
-msgid "Export all pages to images"
-msgstr ""
-
-msgid "Export a range of pages to images"
-msgstr ""
-
-msgid "First page to export when exporting a range"
-msgstr ""
-
-msgid "Last page to export when exporting a range"
-msgstr ""
-
-msgid "The height of the output images in pixels"
+msgid ""
+"Resolution of the Images\n"
+"Use 72 dpi for Images intended for the Screen"
 msgstr ""
 
 #, c-format
-msgid ""
-"The quality of your images - 100% is the best, 1% the highest compression"
+msgid "The quality of your images - 100% is the best, 1% the lowest quality"
 msgstr ""
 
 #, fuzzy
 msgid "Available export formats"
 msgstr "Esami ðablonai:"
 
-msgid "Choose a Export Directory"
+msgid ""
+"The output directory - the place to store your images.\n"
+"Name of the export file will be 'documentname-pagenumber.filetype'"
+msgstr ""
+
+msgid "Change the output directory"
 msgstr ""
 
 #, fuzzy
@@ -6070,12 +6149,25 @@ msgid "Yes all"
 msgstr "Nuimti þymëjimà"
 
 #, fuzzy
-msgid "&Fonts Preview"
-msgstr "Pasiþiûrëti kaip atrodys"
+msgid "HTML Files"
+msgstr "Failas:"
+
+msgid "html"
+msgstr ""
 
 #, fuzzy
-msgid "Font Preview"
+msgid "Text Files"
+msgstr "Teksto laukelis"
+
+#, fuzzy
+msgid "Fonts Preview"
 msgstr "Pasiþiûrëti kaip atrodys"
+
+msgid "Alt+O"
+msgstr ""
+
+msgid "Alt+C"
+msgstr ""
 
 #, fuzzy
 msgid "Import &EPS/PS..."
@@ -6113,6 +6205,62 @@ msgstr "Prijungti teksto grandá"
 #, fuzzy
 msgid "Author"
 msgstr "Autorius:"
+
+#, fuzzy
+msgid "Downloading Templates"
+msgstr "Naujas ðablonas"
+
+msgid ""
+"Document templates can be found at http://www.scribus.net/ in the Downloads "
+"section."
+msgstr ""
+
+#, fuzzy
+msgid "Installing Templates"
+msgstr "Naujas ðablonas"
+
+msgid ""
+"Extract the package to the template directory ~/.scribus/templates for the "
+"current user or PREFIX/share/scribus/templates for all users in the system."
+msgstr ""
+
+#, fuzzy
+msgid "Preparing a template"
+msgstr "Naujas ðablonas"
+
+msgid ""
+"Make sure images and fonts you use can be used freely. If fonts cannot be "
+"shared do not collect them when saving as a template."
+msgstr ""
+
+msgid ""
+"The template creator should also make sure that the Installing Templates "
+"section above applies to their templates as well. This means a user should "
+"be able to download a template package and be able to extract them to the "
+"template directory and start using them."
+msgstr ""
+
+#, fuzzy
+msgid "Removing a template"
+msgstr "Naujas ðablonas"
+
+msgid ""
+"Removing a template from the New From Template dialog will only remove the "
+"entry from the template.xml, it will not delete the document files. A popup "
+"menu with remove is only shown if you have write access to the template.xml "
+"file."
+msgstr ""
+
+msgid "Translating template.xml"
+msgstr ""
+
+msgid ""
+"Copy an existing template.xml to a file called template.lang_COUNTRY.xml "
+"(use the same lang code that is present in the qm file for your language), "
+"for example template.fi.xml for Finnish language template.xml. The copy must "
+"be located in the same directory as the original template.xml so Scribus can "
+"load it."
+msgstr ""
 
 #, fuzzy
 msgid "Newsletters"
@@ -6222,6 +6370,34 @@ msgstr "Nuosavas"
 msgid "Save as &Template..."
 msgstr "Iðsaugoti kaip tekstà..."
 
+#, fuzzy
+#~ msgid "PDF Documents (*.pdf);;All Files (*)"
+#~ msgstr "Dokumentai (*.sdc);; Visi failai (*)"
+
+#~ msgid "Corners:"
+#~ msgstr "Kampai:"
+
+#~ msgid "Rotation:"
+#~ msgstr "Pasukti:"
+
+#~ msgid "Convex Polygon"
+#~ msgstr "Iðgaubtas daugiakampis"
+
+#~ msgid "Factor:"
+#~ msgstr "Daugiklis:"
+
+#, fuzzy
+#~ msgid "Document &Info..."
+#~ msgstr "Dokumento info..."
+
+#, fuzzy
+#~ msgid "Export "
+#~ msgstr "Eksportuoti..."
+
+#, fuzzy
+#~ msgid "Font Preview"
+#~ msgstr "Pasiþiûrëti kaip atrodys"
+
 #~ msgid "Number of copies:"
 #~ msgstr "Kopijø skaièius"
 
@@ -6287,10 +6463,6 @@ msgstr "Iðsaugoti kaip tekstà..."
 #, fuzzy
 #~ msgid "PDF-Tools"
 #~ msgstr "Árankiai"
-
-#, fuzzy
-#~ msgid "Edit Styles..."
-#~ msgstr "Keisti stilius"
 
 #, fuzzy
 #~ msgid "Leave"

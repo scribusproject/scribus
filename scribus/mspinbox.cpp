@@ -116,6 +116,24 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 			retval = true;
 		    qApp->sendEvent( this, ev );
 			return retval;
+		}
+	}
+	if ( ev->type() == QEvent::Wheel )
+	{
+		QWheelEvent* k = (QWheelEvent*)ev;
+		if (k->state() & ShiftButton)
+		{
+			setLineStep(QMAX(Decimals / 10, 1));
+			retval = true;
+			qApp->sendEvent( this, ev );
+			return retval;
+		}	
+		if (!(k->state() & ShiftButton))
+		{
+			setLineStep(Decimals);
+			retval = true;
+			qApp->sendEvent( this, ev );
+			return retval;
 		}	
 	}
 	return QSpinBox::eventFilter(ob, ev);

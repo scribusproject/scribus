@@ -198,7 +198,7 @@ this can create huge files</translation>
     </message>
     <message>
         <source>Appy Under Color &amp;Removal</source>
-        <translation>Appy Under Colour &amp;Removal</translation>
+        <translation type="obsolete">Appy Under Colour &amp;Removal</translation>
     </message>
     <message>
         <source>Apply &amp;ICC Profiles</source>
@@ -223,6 +223,19 @@ this can create huge files</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+        <source>Apply Under Color &amp;Removal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -887,7 +900,11 @@ this can create huge files</translation>
     </message>
     <message>
         <source>PDF Documents (*.pdf);;All Files (*)</source>
-        <translation>PDF Documents (*.pdf);;All Files (*)</translation>
+        <translation type="obsolete">PDF Documents (*.pdf);;All Files (*)</translation>
+    </message>
+    <message>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
+        <translation type="unfinished">PDF Files (*.pdf);;All Files (*)</translation>
     </message>
 </context>
 <context>
@@ -990,6 +1007,14 @@ this can create huge files</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+        <source>Apply to all &amp;even Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply to all &amp;odd Pages</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1983,6 +2008,11 @@ a range of pages or a single page number.</translation>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancel</translation>
     </message>
+    <message>
+        <source>Use an alternative print manager, such as kprinter or gtklp,
+to utilize additional printing options</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EPSPlug</name>
@@ -2225,27 +2255,27 @@ failed!</translation>
     <name>ExportForm</name>
     <message>
         <source>Export as Image</source>
-        <translation>Export as Image</translation>
+        <translation type="obsolete">Export as Image</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
         <source>%</source>
-        <translation>%</translation>
+        <translation type="obsolete">%</translation>
     </message>
     <message>
         <source>Export </source>
-        <translation>Export </translation>
+        <translation type="obsolete">Export </translation>
     </message>
     <message>
         <source>&amp;One page</source>
-        <translation>&amp;One page</translation>
+        <translation type="obsolete">&amp;One page</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <source>&amp;All pages</source>
@@ -2253,19 +2283,19 @@ failed!</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
         <source>&amp;Interval from:</source>
-        <translation>&amp;Interval from:</translation>
+        <translation type="obsolete">&amp;Interval from:</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation>Alt+I</translation>
+        <translation type="obsolete">Alt+I</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>to:</translation>
+        <translation type="obsolete">to:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2291,27 +2321,27 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</tr
     </message>
     <message>
         <source>Export all pages to images</source>
-        <translation>Export all pages to images</translation>
+        <translation type="obsolete">Export all pages to images</translation>
     </message>
     <message>
         <source>Export a range of pages to images</source>
-        <translation>Export a range of pages to images</translation>
+        <translation type="obsolete">Export a range of pages to images</translation>
     </message>
     <message>
         <source>First page to export when exporting a range</source>
-        <translation>First page to export when exporting a range</translation>
+        <translation type="obsolete">First page to export when exporting a range</translation>
     </message>
     <message>
         <source>Last page to export when exporting a range</source>
-        <translation>Last page to export when exporting a range</translation>
+        <translation type="obsolete">Last page to export when exporting a range</translation>
     </message>
     <message>
         <source>The height of the output images in pixels</source>
-        <translation>The height of the output images in pixels</translation>
+        <translation type="obsolete">The height of the output images in pixels</translation>
     </message>
     <message>
         <source>The quality of your images - 100% is the best, 1% the highest compression</source>
-        <translation>The quality of your images - 100% is the best, 1% the highest compression</translation>
+        <translation type="obsolete">The quality of your images - 100% is the best, 1% the highest compression</translation>
     </message>
     <message>
         <source>Available export formats</source>
@@ -2339,7 +2369,68 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</tr
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation>&amp;Size:</translation>
+        <translation type="obsolete">&amp;Size:</translation>
+    </message>
+    <message>
+        <source>Export as Image(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation type="unfinished">Options</translation>
+    </message>
+    <message>
+        <source>&amp;Resolution:</source>
+        <translation type="unfinished">&amp;Resolution:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source> dpi</source>
+        <translation type="unfinished"> dpi</translation>
+    </message>
+    <message>
+        <source>Range</source>
+        <translation type="unfinished">Range</translation>
+    </message>
+    <message>
+        <source>&amp;Current page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export a range of pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation type="unfinished">Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</translation>
+    </message>
+    <message>
+        <source>Export all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resolution of the Images
+Use 72 dpi for Images intended for the Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2583,7 +2674,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</tr
     <name>FontPreview</name>
     <message>
         <source>Font Preview</source>
-        <translation>Font Preview</translation>
+        <translation type="obsolete">Font Preview</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2604,6 +2695,10 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</tr
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Woven silk pyjamas exchanged for blue quartz</translation>
+    </message>
+    <message>
+        <source>Fonts Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3611,7 +3706,7 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Language of object</source>
-        <translation>Language of object</translation>
+        <translation type="obsolete">Language of object</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
@@ -3767,7 +3862,7 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Use the frame shape instead of the object one</source>
-        <translation>Use the frame shape instead of the object one</translation>
+        <translation type="obsolete">Use the frame shape instead of the object one</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
@@ -3946,6 +4041,18 @@ Corners:</translation>
     <message>
         <source>&amp;Y2:</source>
         <translation>&amp;Y2:</translation>
+    </message>
+    <message>
+        <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hyphenation language of frame</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4428,7 +4535,7 @@ otherwise Coordinates are relative to the Object.</translation>
     </message>
     <message>
         <source>Shear the Path Horizontally to the Rright</source>
-        <translation>Shear the Path Horizontally to the Rright</translation>
+        <translation type="obsolete">Shear the Path Horizontally to the Rright</translation>
     </message>
     <message>
         <source>Shear the Path Horizontally to the Left</source>
@@ -4473,6 +4580,10 @@ otherwise Coordinates are relative to the Object.</translation>
     <message>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Reset the Contour Line to the Original Shape of the Frame</translation>
+    </message>
+    <message>
+        <source>Shear the Path Horizontally to the Right</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5261,6 +5372,15 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <source>&amp;Under Color Removal</source>
         <translation>&amp;Under Colour Removal</translation>
     </message>
+    <message>
+        <source>A way of switching some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Page</name>
@@ -5548,6 +5668,10 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <source>Hide P&amp;roperties...</source>
         <translation>Hide P&amp;roperties...</translation>
     </message>
+    <message>
+        <source>Do you really want to clear all your Text?</source>
+        <translation type="unfinished">Do you really want to clear all your Text?</translation>
+    </message>
 </context>
 <context>
     <name>PageItem</name>
@@ -5669,19 +5793,19 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Corners:</source>
-        <translation>Corners:</translation>
+        <translation type="obsolete">Corners:</translation>
     </message>
     <message>
         <source>Rotation:</source>
-        <translation>Rotation:</translation>
+        <translation type="obsolete">Rotation:</translation>
     </message>
     <message>
         <source>Convex Polygon</source>
-        <translation>Convex Polygon</translation>
+        <translation type="obsolete">Convex Polygon</translation>
     </message>
     <message>
         <source>Factor:</source>
-        <translation>Factor:</translation>
+        <translation type="obsolete">Factor:</translation>
     </message>
     <message>
         <source> %</source>
@@ -5689,11 +5813,55 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancel</translation>
+        <translation type="obsolete">Cancel</translation>
+    </message>
+    <message>
+        <source>Corn&amp;ers:</source>
+        <translation type="unfinished">Corn&amp;ers:</translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">&amp;Rotation:</translation>
+    </message>
+    <message>
+        <source>Conve&amp;x Polygon</source>
+        <translation type="unfinished">Conve&amp;x Polygon</translation>
+    </message>
+    <message>
+        <source>&amp;Factor:</source>
+        <translation type="unfinished">&amp;Factor:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Cancel</translation>
+    </message>
+    <message>
+        <source>Number of corners for polygons</source>
+        <translation type="unfinished">Number of corners for polygons</translation>
+    </message>
+    <message>
+        <source>Degrees of rotation for polygons</source>
+        <translation type="unfinished">Degrees of rotation for polygons</translation>
+    </message>
+    <message>
+        <source>Polygons will be convex rather than concave</source>
+        <translation type="unfinished">Polygons will be convex rather than concave</translation>
+    </message>
+    <message>
+        <source>Sample Polygon</source>
+        <translation type="unfinished">Sample Polygon</translation>
+    </message>
+    <message>
+        <source>Change the angles at which lines of the polygon join</source>
+        <translation type="unfinished">Change the angles at which lines of the polygon join</translation>
     </message>
 </context>
 <context>
@@ -7242,6 +7410,38 @@ Check path and filename.</translation>
         <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
         <translation>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</translation>
     </message>
+    <message>
+        <source>Print Preview</source>
+        <translation type="unfinished">Print Preview</translation>
+    </message>
+    <message>
+        <source>Importing text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the importer to use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">All Supported Formats</translation>
+    </message>
+    <message>
+        <source>HTML Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>html</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Files</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -8074,15 +8274,15 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Undo Delete Object</source>
-        <translation>Undo Delete Object</translation>
+        <translation type="obsolete">Undo Delete Object</translation>
     </message>
     <message>
         <source>Undo Object Move</source>
-        <translation>Undo Object Move</translation>
+        <translation type="obsolete">Undo Object Move</translation>
     </message>
     <message>
         <source>Undo Object Change</source>
-        <translation>Undo Object Change</translation>
+        <translation type="obsolete">Undo Object Change</translation>
     </message>
     <message>
         <source>English</source>
@@ -8366,7 +8566,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Document &amp;Info...</source>
-        <translation>Document &amp;Info...</translation>
+        <translation type="obsolete">Document &amp;Info...</translation>
     </message>
     <message>
         <source>Document &amp;Setup...</source>
@@ -8763,6 +8963,22 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>&amp;Shade:</source>
         <translation>&amp;Shade:</translation>
+    </message>
+    <message>
+        <source>Document &amp;Information...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo Delete Object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo Object Move</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo Object Change</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9252,10 +9468,6 @@ drag a Template to the Pageview below.</translation>
         <translation type="unfinished">File</translation>
     </message>
     <message>
-        <source>Clears all Text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Load Text from File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9277,6 +9489,38 @@ drag a Template to the Pageview below.</translation>
     </message>
     <message>
         <source>Update Text Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search/Replace...</source>
+        <translation type="unfinished">&amp;Search/Replace...</translation>
+    </message>
+    <message>
+        <source>&amp;Fonts Preview...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Background...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Display Font...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Settings</source>
+        <translation type="unfinished">&amp;Settings</translation>
+    </message>
+    <message>
+        <source>Search/Replace</source>
+        <translation type="unfinished">Search/Replace</translation>
+    </message>
+    <message>
+        <source>&amp;Fonts Preview</source>
+        <translation type="unfinished">&amp;Fonts Preview</translation>
+    </message>
+    <message>
+        <source>Clear all Text</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9616,6 +9860,33 @@ Please choose another.</translation>
     </message>
 </context>
 <context>
+    <name>gtFileDialog</name>
+    <message>
+        <source>Choose the importer to use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation type="unfinished">Automatic</translation>
+    </message>
+    <message>
+        <source>Get text only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import text without any formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importer:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Encoding:</source>
+        <translation type="unfinished">Encoding:</translation>
+    </message>
+</context>
+<context>
     <name>nftdialog</name>
     <message>
         <source>New From Template</source>
@@ -9682,10 +9953,6 @@ Please choose another.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Installing Templates</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9698,19 +9965,7 @@ Please choose another.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Removing a template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9718,7 +9973,23 @@ Please choose another.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
+        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -249,10 +249,6 @@ to so lahko ogromne datoteke</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Appy Under Color &amp;Removal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Apply &amp;ICC Profiles</source>
         <translation type="unfinished"></translation>
     </message>
@@ -275,6 +271,19 @@ to so lahko ogromne datoteke</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation type="unfinished">Prekli&amp;či</translation>
+    </message>
+    <message>
+        <source>Apply Under Color &amp;Removal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -986,7 +995,7 @@ to so lahko ogromne datoteke</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PDF Documents (*.pdf);;All Files (*)</source>
+        <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1114,6 +1123,14 @@ to so lahko ogromne datoteke</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation type="unfinished">Prekli&amp;či</translation>
+    </message>
+    <message>
+        <source>Apply to all &amp;even Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply to all &amp;odd Pages</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2395,6 +2412,11 @@ a range of pages or a single page number.</source>
         <source>&amp;Cancel</source>
         <translation type="unfinished">Prekli&amp;či</translation>
     </message>
+    <message>
+        <source>Use an alternative print manager, such as kprinter or gtklp,
+to utilize additional printing options</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EPSPlug</name>
@@ -2749,7 +2771,7 @@ ni uspel!</translation>
     <name>ExportForm</name>
     <message>
         <source>Export as Image</source>
-        <translation>Izvozi kot sliko</translation>
+        <translation type="obsolete">Izvozi kot sliko</translation>
     </message>
     <message>
         <source>Export to directory:</source>
@@ -2761,7 +2783,7 @@ ni uspel!</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
         <source>Image type:</source>
@@ -2773,7 +2795,7 @@ ni uspel!</translation>
     </message>
     <message>
         <source>%</source>
-        <translation>%</translation>
+        <translation type="obsolete">%</translation>
     </message>
     <message>
         <source>Size:</source>
@@ -2781,15 +2803,15 @@ ni uspel!</translation>
     </message>
     <message>
         <source>Export </source>
-        <translation>Izvoz</translation>
+        <translation type="obsolete">Izvoz</translation>
     </message>
     <message>
         <source>&amp;One page</source>
-        <translation>En&amp;o stran</translation>
+        <translation type="obsolete">En&amp;o stran</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <source>&amp;All pages</source>
@@ -2797,19 +2819,19 @@ ni uspel!</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
         <source>&amp;Interval from:</source>
-        <translation>Območ&amp;je od:</translation>
+        <translation type="obsolete">Območ&amp;je od:</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation>Alt+I</translation>
+        <translation type="obsolete">Alt+I</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>do:</translation>
+        <translation type="obsolete">do:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2835,27 +2857,27 @@ Ime izvozne datoteke bo &apos;imedokumenta-številkastrani.vrstadatoteke&apos;</
     </message>
     <message>
         <source>Export all pages to images</source>
-        <translation>Izvozi vse strani kot slike</translation>
+        <translation type="obsolete">Izvozi vse strani kot slike</translation>
     </message>
     <message>
         <source>Export a range of pages to images</source>
-        <translation>Izvozi razpon strani kot slike</translation>
+        <translation type="obsolete">Izvozi razpon strani kot slike</translation>
     </message>
     <message>
         <source>First page to export when exporting a range</source>
-        <translation>Prva stran v obsegu za izvažanje</translation>
+        <translation type="obsolete">Prva stran v obsegu za izvažanje</translation>
     </message>
     <message>
         <source>Last page to export when exporting a range</source>
-        <translation>Zadnja stran v obsegu za izvažanje</translation>
+        <translation type="obsolete">Zadnja stran v obsegu za izvažanje</translation>
     </message>
     <message>
         <source>The height of the output images in pixels</source>
-        <translation>Višina izvoznih slik v točkah</translation>
+        <translation type="obsolete">Višina izvoznih slik v točkah</translation>
     </message>
     <message>
         <source>The quality of your images - 100% is the best, 1% the highest compression</source>
-        <translation>Kakovost slik - 100% je najboljša kakovost, 1% največje stiskanje</translation>
+        <translation type="obsolete">Kakovost slik - 100% je najboljša kakovost, 1% največje stiskanje</translation>
     </message>
     <message>
         <source>Available export formats</source>
@@ -2882,7 +2904,62 @@ Ime izvozne datoteke bo &apos;imedokumenta-številkastrani.vrstadatoteke&apos;</
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Size:</source>
+        <source>Export as Image(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation type="unfinished">Možnosti</translation>
+    </message>
+    <message>
+        <source>&amp;Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> dpi</source>
+        <translation type="unfinished"> dpi</translation>
+    </message>
+    <message>
+        <source>Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Current page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C</source>
+        <translation type="unfinished">C</translation>
+    </message>
+    <message>
+        <source>Export a range of pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resolution of the Images
+Use 72 dpi for Images intended for the Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3195,7 +3272,7 @@ Ime izvozne datoteke bo &apos;imedokumenta-številkastrani.vrstadatoteke&apos;</
     <name>FontPreview</name>
     <message>
         <source>Font Preview</source>
-        <translation>Predogled pisav</translation>
+        <translation type="obsolete">Predogled pisav</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3216,6 +3293,10 @@ Ime izvozne datoteke bo &apos;imedokumenta-številkastrani.vrstadatoteke&apos;</
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Piškur molče grabi fižol iz dna cezijeve hoste</translation>
+    </message>
+    <message>
+        <source>Fonts Preview</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4465,7 +4546,7 @@ koti:</translation>
     </message>
     <message>
         <source>Language of object</source>
-        <translation>Jezik predmeta</translation>
+        <translation type="obsolete">Jezik predmeta</translation>
     </message>
     <message>
         <source>Style:</source>
@@ -4771,7 +4852,7 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source>Use the frame shape instead of the object one</source>
-        <translation>Upoštevaj obliko okvirja namesto oblike predmeta</translation>
+        <translation type="obsolete">Upoštevaj obliko okvirja namesto oblike predmeta</translation>
     </message>
     <message>
         <source>Choose the shape of frame...</source>
@@ -4968,6 +5049,18 @@ Corners:</source>
     </message>
     <message>
         <source>&amp;Y2:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hyphenation language of frame</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5642,10 +5735,6 @@ sicer glede na predmet.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Shear the Path Horizontally to the Rright</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Shear the Path Horizontally to the Left</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5687,6 +5776,10 @@ sicer glede na predmet.</translation>
     </message>
     <message>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shear the Path Horizontally to the Right</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6762,6 +6855,15 @@ izrisovanja. Vpliva samo na pisave vrste Type 1</translation>
         <source>&amp;Under Color Removal</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>A way of switching some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Page</name>
@@ -7269,6 +7371,10 @@ izrisovanja. Vpliva samo na pisave vrste Type 1</translation>
         <source>Hide P&amp;roperties...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Do you really want to clear all your Text?</source>
+        <translation type="unfinished">Ali zares želite počistiti vso besedilo?</translation>
+    </message>
 </context>
 <context>
     <name>PageItem</name>
@@ -7390,19 +7496,19 @@ izrisovanja. Vpliva samo na pisave vrste Type 1</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>V redu</translation>
+        <translation type="obsolete">V redu</translation>
     </message>
     <message>
         <source>Convex Polygon</source>
-        <translation>Konveksen poligon</translation>
+        <translation type="obsolete">Konveksen poligon</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Prekliči</translation>
+        <translation type="obsolete">Prekliči</translation>
     </message>
     <message>
         <source>Corners:</source>
-        <translation>Koti:</translation>
+        <translation type="obsolete">Koti:</translation>
     </message>
     <message>
         <source>Polygon Properties</source>
@@ -7410,11 +7516,55 @@ izrisovanja. Vpliva samo na pisave vrste Type 1</translation>
     </message>
     <message>
         <source>Rotation:</source>
-        <translation>Zasuk:</translation>
+        <translation type="obsolete">Zasuk:</translation>
     </message>
     <message>
         <source>Factor:</source>
-        <translation>Faktor:</translation>
+        <translation type="obsolete">Faktor:</translation>
+    </message>
+    <message>
+        <source>Corn&amp;ers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Conve&amp;x Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Factor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">Prekli&amp;či</translation>
+    </message>
+    <message>
+        <source>Number of corners for polygons</source>
+        <translation type="unfinished">Število kotov poligona</translation>
+    </message>
+    <message>
+        <source>Degrees of rotation for polygons</source>
+        <translation type="unfinished">Stopinje zasuka poligona</translation>
+    </message>
+    <message>
+        <source>Polygons will be convex rather than concave</source>
+        <translation type="unfinished">Poligoni naj bodo konveksni raje kot konkavni</translation>
+    </message>
+    <message>
+        <source>Sample Polygon</source>
+        <translation type="unfinished">Primer poligona</translation>
+    </message>
+    <message>
+        <source>Change the angles at which lines of the polygon join</source>
+        <translation type="unfinished">Spremeni kot, pri katerem se črte poligona združijo</translation>
     </message>
 </context>
 <context>
@@ -9071,7 +9221,7 @@ Preverite ime in pot do nje.</translation>
     </message>
     <message>
         <source>Print Preview</source>
-        <translation type="obsolete">Predogled tiskanja</translation>
+        <translation type="unfinished">Predogled tiskanja</translation>
     </message>
     <message>
         <source>Scribus Scripts</source>
@@ -9373,6 +9523,34 @@ Preverite ime in pot do nje.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the importer to use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Vse podprte oblike</translation>
+    </message>
+    <message>
+        <source>HTML Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>html</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Files</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10153,7 +10331,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Undo Object Change</source>
-        <translation>Razveljavi spremembo predmeta</translation>
+        <translation type="obsolete">Razveljavi spremembo predmeta</translation>
     </message>
     <message>
         <source>Hide Images</source>
@@ -10523,7 +10701,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Undo Object Move</source>
-        <translation>Razveljavi premik predmeta</translation>
+        <translation type="obsolete">Razveljavi premik predmeta</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -10575,7 +10753,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Undo Delete Object</source>
-        <translation>Razveljavi brisanje predmeta</translation>
+        <translation type="obsolete">Razveljavi brisanje predmeta</translation>
     </message>
     <message>
         <source>Scribus Crash</source>
@@ -10765,7 +10943,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Document &amp;Info...</source>
-        <translation>&amp;Podatki o dokumentu...</translation>
+        <translation type="obsolete">&amp;Podatki o dokumentu...</translation>
     </message>
     <message>
         <source>Document &amp;Setup...</source>
@@ -11197,6 +11375,22 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Shade:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document &amp;Information...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo Delete Object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo Object Move</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo Object Change</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11895,10 +12089,6 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Clears all Text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Load Text from File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11908,6 +12098,38 @@ povlecite predlogo na delovno področje spodaj.</translation>
     </message>
     <message>
         <source>Reload Text from Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search/Replace...</source>
+        <translation type="unfinished">Po&amp;išči in zamenjaj...</translation>
+    </message>
+    <message>
+        <source>&amp;Fonts Preview...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Background...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Display Font...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Settings</source>
+        <translation type="unfinished">Na&amp;stavitve</translation>
+    </message>
+    <message>
+        <source>Search/Replace</source>
+        <translation type="unfinished">Poišči in zamenjaj</translation>
+    </message>
+    <message>
+        <source>&amp;Fonts Preview</source>
+        <translation type="unfinished">Predogled &amp;pisav</translation>
+    </message>
+    <message>
+        <source>Clear all Text</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12303,6 +12525,33 @@ Prosim, izberite drugo.</translation>
     </message>
 </context>
 <context>
+    <name>gtFileDialog</name>
+    <message>
+        <source>Choose the importer to use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation type="unfinished">Samodejno:</translation>
+    </message>
+    <message>
+        <source>Get text only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import text without any formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importer:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Encoding:</source>
+        <translation type="unfinished">Razpored znakov:</translation>
+    </message>
+</context>
+<context>
     <name>nftdialog</name>
     <message>
         <source>New From Template</source>
@@ -12369,10 +12618,6 @@ Prosim, izberite drugo.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Installing Templates</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12385,19 +12630,7 @@ Prosim, izberite drugo.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Removing a template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -12405,7 +12638,23 @@ Prosim, izberite drugo.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
+        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
