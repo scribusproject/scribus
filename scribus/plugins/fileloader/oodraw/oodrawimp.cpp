@@ -276,7 +276,7 @@ void OODPlug::parseGroup(const QDomElement &e)
 	FPointArray ImgClip;
 	ImgClip.resize(0);
 	VGradient gradient;
-	double GradientAngle;
+	double GradientAngle, xGoff, yGoff;
 	bool HaveGradient = false;
 	int GradientType = 0;
 	double BaseX = Doku->ActPage->Xoffset;
@@ -353,6 +353,7 @@ void OODPlug::parseGroup(const QDomElement &e)
 			else if( fill == "gradient" )
 			{
 				HaveGradient = true;
+				GradientAngle = 0;
 				gradient.clearStops();
 				gradient.setRepeatMethod( VGradient::none );
 				QString style = m_styleStack.attribute( "draw:fill-gradient-name" );
@@ -375,10 +376,22 @@ void OODPlug::parseGroup(const QDomElement &e)
 						GradientAngle = draw->attribute( "draw:angle" ).toDouble() / 10;
 						GradientType = 1;
 					}
+					else if( type == "radial" || type == "ellipsoid" )
+					{
+						if( draw->hasAttribute( "draw:cx" ) )
+							xGoff = draw->attribute( "draw:cx" ).remove( '%' ).toDouble() / 100.0;
+						else
+							xGoff = 0.5;
+						if( draw->hasAttribute( "draw:cy" ) )
+							yGoff = draw->attribute( "draw:cy" ).remove( '%' ).toDouble() / 100.0;
+						else
+							yGoff = 0.5;
+						GradientType = 2;
+					}
 					QString c, c2;
 					c = parseColor( draw->attribute( "draw:start-color" ) );
 					c2 = parseColor( draw->attribute( "draw:end-color" ) );
-					if ((GradientAngle > 90) && (GradientAngle < 271))
+					if (((GradientAngle > 90) && (GradientAngle < 271)) || (GradientType == 2))
 					{
 						gradient.addStop( Doku->PageColors[c2].getRGBColor(), 0.0, 0.5, 1, c2, shadeE );
 						gradient.addStop( Doku->PageColors[c].getRGBColor(), 1.0 - border, 0.5, 1, c, shadeS );
@@ -529,27 +542,6 @@ void OODPlug::parseGroup(const QDomElement &e)
 			w = parseUnit(b.attribute("svg:width"));
 			h = parseUnit(b.attribute("svg:height"));
 			z = Prog->view->PaintText(BaseX+x, BaseY+y, w, h+(h*0.1), lwidth, StrokeColor);
-			PageItem* ite = Doku->Items.at(z);
-			ite->Extra = 0;
-			ite->TExtra = 0;
-			ite->BExtra = 0;
-			ite->RExtra = 0;
-			bool firstPa = false;
-			for ( QDomNode n = b.firstChild(); !n.isNull(); n = n.nextSibling() )
-			{
-				int FontSize = Doku->Dsize;
-				QDomElement e = n.toElement();
-				if( m_styleStack.hasAttribute("fo:font-family"))
-				{
-					FontSize = m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt();
-				}
-/* ToDo: Add reading of Textstyles here */
-				Serializer *ss = new Serializer("");
-				ss->Objekt = QString::fromUtf8(e.text());
-				ss->GetText(ite, 0, Doku->Dfont, FontSize, firstPa);
-				delete ss;
-				firstPa = true;
-			}
 		}
 		else
 		{
@@ -559,6 +551,39 @@ void OODPlug::parseGroup(const QDomElement &e)
 		if (z != -1)
 		{
 			PageItem* ite = Doku->Items.at(z);
+			ite->Extra = 0;
+			ite->TExtra = 0;
+			ite->BExtra = 0;
+			ite->RExtra = 0;
+			bool firstPa = false;
+			for ( QDomNode n = b.firstChild(); !n.isNull(); n = n.nextSibling() )
+			{
+				int FontSize = Doku->Dsize;
+				int AbsStyle = 0;
+				QDomElement e = n.toElement();
+				if( m_styleStack.hasAttribute("fo:text-align"))
+				{
+					if (m_styleStack.attribute("fo:text-align") == "left")
+						AbsStyle = 0;
+					if (m_styleStack.attribute("fo:text-align") == "center")
+						AbsStyle = 1;
+					if (m_styleStack.attribute("fo:text-align") == "right")
+						AbsStyle = 2;
+				}
+				if( m_styleStack.hasAttribute("fo:font-family"))
+				{
+					FontSize = m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt();
+				}
+/* ToDo: Add reading of Textstyles here */
+				ite->LineSp = FontSize + FontSize * 0.2;
+				Serializer *ss = new Serializer("");
+				ss->Objekt = QString::fromUtf8(e.text())+QChar(10);
+				ss->GetText(ite, AbsStyle, Doku->Dfont, FontSize, firstPa);
+				delete ss;
+				firstPa = true;
+				if (ite->PType != 7)
+					ite->PType = 4;
+			}
 			ite->Transparency = FillTrans;
 			ite->TranspStroke = StrokeTrans;
 			if (dashes.count() != 0)
@@ -641,6 +666,23 @@ void OODPlug::parseGroup(const QDomElement &e)
 						}
 						ite->GrType = 6;
 					}
+				}
+				if (GradientType == 2)
+				{
+					ite->GrType = 7;
+					ite->GrStartX = ite->Width * xGoff;
+					ite->GrStartY = ite->Height* yGoff;
+					if (ite->Width >= ite->Height)
+					{
+						ite->GrEndX = ite->Width;
+						ite->GrEndY = ite->Height / 2.0;
+					}
+					else
+					{
+						ite->GrEndX = ite->Width / 2.0;
+						ite->GrEndY = ite->Height;
+					}
+					Prog->view->updateGradientVectors(ite);
 				}
 				HaveGradient = false;
 			}
