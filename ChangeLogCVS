@@ -1,4 +1,7 @@
 Changes since Version 0.9.10
+01.06.2003	svgexplugin.cpp		Added Support for Images.
+		page.cpp		Fixed Crash when loading Documents with Images.
+
 31.05.2003	svgexplugin.cpp		Moved the SVG-Export Plugin to the Main Package
 					and added Support for Gradients and combined Polygons.
 

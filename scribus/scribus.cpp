@@ -5151,6 +5151,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			return false;
 			}
+		delete dd;
 		closePSDriver();
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 		return true;

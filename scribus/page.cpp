@@ -6567,7 +6567,8 @@ void Page::LoadPict(QString fn, int ItNr)
 			Items.at(ItNr)->PicAvail = false;
 			Items.at(ItNr)->PicArt = false;
 			}
-		emit HaveSel(2);
+		if (!doku->loading)
+			emit HaveSel(2);
 		return;
 		}
 	if ((ext == "eps") || (ext == "ps"))
@@ -6705,7 +6706,8 @@ void Page::LoadPict(QString fn, int ItNr)
 			Items.at(ItNr)->PicAvail = false;
 			Items.at(ItNr)->PicArt = false;
 			}
-		emit HaveSel(2);
+		if (!doku->loading)
+			emit HaveSel(2);
 		return;
 		}
 #ifdef HAVE_TIFF
@@ -6848,7 +6850,8 @@ void Page::LoadPict(QString fn, int ItNr)
 		}
 	Items.at(ItNr)->flippedH = 0;
 	Items.at(ItNr)->flippedV = 0;
-	emit HaveSel(2);
+	if (!doku->loading)
+		emit HaveSel(2);
 	emit DocChanged();
 }
 

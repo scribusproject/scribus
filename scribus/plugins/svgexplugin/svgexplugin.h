@@ -32,6 +32,7 @@ private:
 		void SetTextProps(QDomElement *tp, struct Pti *hl, ScribusApp *plug);
 		QString SetFarbe(QString farbe, int shad, ScribusApp *plug);
 		int GradCount;
+		int ClipCount;
 };
 
 #endif // CMSPLUG_H

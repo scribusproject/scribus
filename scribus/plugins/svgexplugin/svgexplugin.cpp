@@ -21,6 +21,7 @@
 #include <qfile.h>
 #include <qtextstream.h>
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
+extern QString Path2Relative(QString Path);
 
 QString Name()
 {
@@ -68,8 +69,11 @@ SVGExPlug::SVGExPlug( QWidget* parent, ScribusApp *plug, QString fName )
 	elem.setAttribute("width", plug->doc->PageB);
 	elem.setAttribute("height", plug->doc->PageH);
 	Page *Seite;
-	Seite = plug->doc->ActPage;
 	GradCount = 0;
+	ClipCount = 0;
+	Seite = plug->view->MasterPages.at(plug->view->MasterNames[plug->doc->ActPage->MPageNam]);
+	ProcessPage(plug, Seite, &docu, &elem);
+	Seite = plug->doc->ActPage;
 	ProcessPage(plug, Seite, &docu, &elem);
 	QFile f(fName);
 	if(!f.open(IO_WriteOnly))
@@ -84,7 +88,7 @@ SVGExPlug::SVGExPlug( QWidget* parent, ScribusApp *plug, QString fName )
 
 void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, QDomElement *elem)
 {
-	QString tmp, trans, fill, stroke, strokeW, strokeLC, strokeLJ, strokeDA, gradi;
+	QString tmp, trans, fill, stroke, strokeW, strokeLC, strokeLJ, strokeDA, gradi, Clipi;
 	uint d;
 	struct Pti *hl;
 	int Lnr = 0;
@@ -95,6 +99,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 	QDomText tp1;
 	PageItem *Item;
 	gradi = "Grad";
+	Clipi = "Clip";
 	for (uint la = 0; la < plug->doc->Layers.count(); la++)
 		{
 		Level2Layer(plug->doc, &ll, Lnr);
@@ -116,6 +121,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						else
 							grad = docu->createElement("linearGradient");
 						grad.setAttribute("id", gradi+IToStr(GradCount));
+						grad.setAttribute("gradientUnits", "userSpaceOnUse");
 						switch (Item->GrType)
 							{
 							case 1:
@@ -160,7 +166,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						fill = "fill:url(#"+gradi+IToStr(GradCount)+");";
 						GradCount++;
 						}
-					fill += " fill-rule:even-odd;";
+					fill += " fill-rule:evenodd;";
 					if (Item->Transparency != 0)
 						fill += " fill-opacity:"+FToStr(1.0 - Item->Transparency)+";"; 
 					}
@@ -174,7 +180,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 					} 
 				else
 					stroke = "stroke:none;";
-				trans = "translate("+FToStr(Item->Xpos)+" "+FToStr(Item->Ypos)+")";
+				trans = "translate("+FToStr(Item->Xpos)+", "+FToStr(Item->Ypos)+")";
 				if (Item->Rot != 0)
 					trans += " rotate("+FToStr(Item->Rot)+")";
 				strokeW = "stroke-width:"+FToStr(Item->Pwidth)+";";
@@ -252,6 +258,30 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						ob.setAttribute("d", SetClipPath(Item)+"Z");
 						break;
 					case 2:
+						if (Item->Pcolor != "None")
+							{
+							ob = docu->createElement("path");
+							ob.setAttribute("d", SetClipPath(Item)+"Z");
+							ob.setAttribute("style", fill);
+							gr.appendChild(ob);
+							}
+						if ((Item->PicAvail) && (Item->Pfile != ""))
+							{
+/*							ob = docu->createElement("clipPath");
+							ob.setAttribute("id", Clipi+IToStr(ClipCount));
+							ob.setAttribute("clipPathUnits", "userSpaceOnUse");
+							QDomElement cl = docu->createElement("path");
+							cl.setAttribute("d", SetClipPath(Item)+"Z");
+							ob.appendChild(cl);
+							gr.appendChild(ob);
+							ob = docu->createElement("image");
+							ob.setAttribute("clip-path", "url(#"+Clipi+IToStr(ClipCount)+")");
+							ob.setAttribute("clip-rule", "evenodd");   */
+							ob = docu->createElement("image");
+							ob.setAttribute("transform", "translate("+FToStr(Item->LocalX)+", "+FToStr(Item->LocalY)+") scale("+FToStr(Item->LocalScX)+", "+FToStr(Item->LocalScY)+")");
+							ob.setAttribute("xlink:href", Path2Relative(Item->Pfile));
+							ClipCount++;
+							}
 						break;
 					case 7:
 						ob = docu->createElement("path");
