@@ -4233,9 +4233,9 @@ void ScribusApp::ClipChange()
 {
 	QString cc;
 #if QT_VERSION  >= 0x030100
-	cc = ClipB->text(QClipboard::Clipboard);
+	cc = ClipB->text(QClipboard::Selection);
 	if (cc.isNull())
-		cc = ClipB->text(QClipboard::Selection);
+		cc = ClipB->text(QClipboard::Clipboard);
 #else
 	cc = ClipB->text();
 #endif

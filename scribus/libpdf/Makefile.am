@@ -1,5 +1,5 @@
 AM_CPPFLAGS = -I$(top_builddir)/scribus
-pluginsdir = $(prefix)/lib/scribus/libs
+pluginsdir = $(libdir)/scribus/libs
 plugins_LTLIBRARIES = libpdf.la
 
 INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
@@ -15,10 +15,10 @@ KDE_OPTIONS = qtonly
 EXTRA_DIST = pdflib.cpp pdflib.h 
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/include/scribus/libpdf/
-	$(INSTALL_DATA) $(srcdir)/pdflib.h $(DESTDIR)$(prefix)/include/scribus/libpdf/pdflib.h
+	$(mkinstalldirs) $(prefix)/include/scribus/libpdf/
+	$(INSTALL_DATA) $(srcdir)/pdflib.h $(prefix)/include/scribus/libpdf/pdflib.h
 
 uninstall-local:
-	-rm -f $(DESTDIR)$(prefix)/include/scribus/libpdf/pdflib.h
+	-rm -f $(prefix)/include/scribus/libpdf/pdflib.h
 
 AM_LDFLAGS =  -s $(LIBFREETYPE_LIBS) 

@@ -114,6 +114,7 @@ public slots:
 	void copy();
 	void paste();
 	void ClipChange();
+	void SelClipChange();
 
 signals:
 	void setProps(int, int);

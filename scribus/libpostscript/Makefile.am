@@ -1,4 +1,4 @@
-pluginsdir = $(prefix)/lib/scribus/libs
+pluginsdir = $(libdir)/scribus/libs
 AM_CPPFLAGS = -I$(top_builddir)/scribus
 plugins_LTLIBRARIES = libpostscript.la
 
@@ -14,10 +14,10 @@ KDE_OPTIONS = qtonly
 EXTRA_DIST = pslib.cpp pslib.h 
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(prefix)/include/scribus/libpostscript/
-	$(INSTALL_DATA) $(srcdir)/pslib.h $(DESTDIR)$(prefix)/include/scribus/libpostscript/pslib.h
+	$(mkinstalldirs) $(prefix)/include/scribus/libpostscript/
+	$(INSTALL_DATA) $(srcdir)/pslib.h $(prefix)/include/scribus/libpostscript/pslib.h
 
 uninstall-local:
-	-rm -f $(DESTDIR)$(prefix)/include/scribus/libpostscript/pslib.h
+	-rm -f $(prefix)/include/scribus/libpostscript/pslib.h
 
 AM_LDFLAGS =  -s $(LIBFREETYPE_LIBS) 

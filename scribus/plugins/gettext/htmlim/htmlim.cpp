@@ -2,6 +2,8 @@
 #include <qstring.h>
 #include <qstringlist.h>
 
+#ifdef HAVE_XML
+
 #include <gtparagraphstyle.h> // Style for paragraph based formatting.
 #include <gtframestyle.h>
 
@@ -40,13 +42,7 @@ HTMLIm::HTMLIm(QString fname, gtWriter *w)
 void HTMLIm::importText()
 {
 	HTMLReader* handler = new HTMLReader(pstyle, writer);
-	QFile* rc = new QFile(filename);
-	QXmlInputSource* source = new QXmlInputSource(rc);
-	QXmlSimpleReader* reader = new QXmlSimpleReader();
-	reader->setContentHandler(handler);
-	reader->parse(source);
-	delete source;
-	delete rc;
+	handler->parse(filename);
 	delete handler;
 }
 
@@ -54,3 +50,5 @@ HTMLIm::~HTMLIm()
 {
 
 }
+
+#endif // HAVE_XML

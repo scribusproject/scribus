@@ -1,4 +1,4 @@
-pluginsdir = $(prefix)/lib/scribus/plugins/gettext
+pluginsdir = $(libdir)/scribus/plugins/gettext
 AM_CPPFLAGS = -I$(top_builddir)/scribus
 
 SUBDIRS =  

@@ -1,4 +1,4 @@
-pluginsdir = $(prefix)/lib/scribus/plugins
+pluginsdir = $(libdir)/scribus/plugins
 AM_CPPFLAGS = -I$(top_builddir)/scribus
 
 SUBDIRS =
@@ -14,11 +14,11 @@ libimportps_la_SOURCES = importps.cpp
 EXTRA_DIST = import.prolog importps.cpp importps.h
 
 install-data-local:
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/import.prolog $(prefix)/lib/scribus/import.prolog
+	$(mkinstalldirs) $(libdir)/scribus/
+	$(INSTALL_DATA) $(srcdir)/import.prolog $(libdir)/scribus/import.prolog
 
 uninstall-local:
-	-rm -f $(prefix)/lib/scribus/import.prolog
+	-rm -f $(libdir)/scribus/import.prolog
 
 KDE_OPTIONS = qtonly
 AM_LDFLAGS =	-s $(LIBFREETYPE_LIBS)

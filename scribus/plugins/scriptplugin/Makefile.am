@@ -1,5 +1,5 @@
 SUBDIRS = doc samples scripts
-pluginsdir = $(prefix)/lib/scribus/plugins
+pluginsdir = $(libdir)/scribus/plugins
 AM_CPPFLAGS = -I$(top_builddir)/scribus $(PYTHONINC)
 plugins_LTLIBRARIES = libscriptplugin.la
 INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)

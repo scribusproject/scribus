@@ -4,88 +4,62 @@
 EXTRA_DIST = scribus.eu.qm scribus.sl.qm scribus.se.qm scribus.fi.qm scribus.cy.qm scribus.id.qm scribus.nl.qm scribus.ru.qm scribus.cs.qm scribus.bg.qm scribus.ca.qm scribus.da.qm scribus.de.qm scribus.en_GB.qm scribus.es.qm scribus.fr.qm scribus.gl.qm scribus.hu.qm scribus.it.qm scribus.lt_LT.qm scribus.pl.qm scribus.sk.qm scribus.tr.qm scribus.uk.qm scribus.no.qm scribus.nb.qm scribus.br.qm 
 
 install-data-local:
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.bg.qm $(prefix)/lib/scribus/scribus.bg.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.br.qm $(prefix)/lib/scribus/scribus.br.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.cs.qm $(prefix)/lib/scribus/scribus.cs.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.ca.qm $(prefix)/lib/scribus/scribus.ca.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.da.qm $(prefix)/lib/scribus/scribus.da.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.de.qm $(prefix)/lib/scribus/scribus.de.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.en_GB.qm $(prefix)/lib/scribus/scribus.en_GB.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.es.qm $(prefix)/lib/scribus/scribus.es.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.eu.qm $(prefix)/lib/scribus/scribus.eu.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.fi.qm $(prefix)/lib/scribus/scribus.fi.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.fr.qm $(prefix)/lib/scribus/scribus.fr.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.gl.qm $(prefix)/lib/scribus/scribus.gl.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.id.qm $(prefix)/lib/scribus/scribus.id.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.it.qm $(prefix)/lib/scribus/scribus.it.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.pl.qm $(prefix)/lib/scribus/scribus.pl.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.sk.qm $(prefix)/lib/scribus/scribus.sk.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.tr.qm $(prefix)/lib/scribus/scribus.tr.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.hu.qm $(prefix)/lib/scribus/scribus.hu.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.uk.qm $(prefix)/lib/scribus/scribus.uk.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.nb.qm $(prefix)/lib/scribus/scribus.nb.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.no.qm $(prefix)/lib/scribus/scribus.no.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.ru.qm $(prefix)/lib/scribus/scribus.ru.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.nl.qm $(prefix)/lib/scribus/scribus.nl.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.cy.qm $(prefix)/lib/scribus/scribus.cy.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.sl.qm $(prefix)/lib/scribus/scribus.sl.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.se.qm $(prefix)/lib/scribus/scribus.se.qm
-	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.lt_LT.qm $(prefix)/lib/scribus/scribus.lt.qm
+	$(mkinstalldirs) $(libdir)/scribus/
+	$(INSTALL_DATA) $(srcdir)/scribus.bg.qm $(libdir)/scribus/scribus.bg.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.br.qm $(libdir)/scribus/scribus.br.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.cs.qm $(libdir)/scribus/scribus.cs.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.ca.qm $(libdir)/scribus/scribus.ca.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.da.qm $(libdir)/scribus/scribus.da.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.de.qm $(libdir)/scribus/scribus.de.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.en_GB.qm $(libdir)/scribus/scribus.en_GB.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.es.qm $(libdir)/scribus/scribus.es.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.eu.qm $(libdir)/scribus/scribus.eu.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.fi.qm $(libdir)/scribus/scribus.fi.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.fr.qm $(libdir)/scribus/scribus.fr.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.gl.qm $(libdir)/scribus/scribus.gl.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.id.qm $(libdir)/scribus/scribus.id.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.it.qm $(libdir)/scribus/scribus.it.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.pl.qm $(libdir)/scribus/scribus.pl.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.sk.qm $(libdir)/scribus/scribus.sk.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.tr.qm $(libdir)/scribus/scribus.tr.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.hu.qm $(libdir)/scribus/scribus.hu.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.uk.qm $(libdir)/scribus/scribus.uk.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.nb.qm $(libdir)/scribus/scribus.nb.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.no.qm $(libdir)/scribus/scribus.no.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.ru.qm $(libdir)/scribus/scribus.ru.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.nl.qm $(libdir)/scribus/scribus.nl.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.cy.qm $(libdir)/scribus/scribus.cy.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.sl.qm $(libdir)/scribus/scribus.sl.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.se.qm $(libdir)/scribus/scribus.se.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.lt_LT.qm $(libdir)/scribus/scribus.lt.qm
 
 uninstall-local:
-	-rm -f $(prefix)/lib/scribus/scribus.bg.qm
-	-rm -f $(prefix)/lib/scribus/scribus.br.qm
-	-rm -f $(prefix)/lib/scribus/scribus.cs.qm
-	-rm -f $(prefix)/lib/scribus/scribus.ca.qm
-	-rm -f $(prefix)/lib/scribus/scribus.da.qm
-	-rm -f $(prefix)/lib/scribus/scribus.de.qm
-	-rm -f $(prefix)/lib/scribus/scribus.en_GB.qm
-	-rm -f $(prefix)/lib/scribus/scribus.es.qm
-	-rm -f $(prefix)/lib/scribus/scribus.eu.qm
-	-rm -f $(prefix)/lib/scribus/scribus.fi.qm
-	-rm -f $(prefix)/lib/scribus/scribus.fr.qm
-	-rm -f $(prefix)/lib/scribus/scribus.gl.qm
-	-rm -f $(prefix)/lib/scribus/scribus.id.qm
-	-rm -f $(prefix)/lib/scribus/scribus.it.qm
-	-rm -f $(prefix)/lib/scribus/scribus.pl.qm
-	-rm -f $(prefix)/lib/scribus/scribus.sk.qm
-	-rm -f $(prefix)/lib/scribus/scribus.tr.qm
-	-rm -f $(prefix)/lib/scribus/scribus.uk.qm
-	-rm -f $(prefix)/lib/scribus/scribus.hu.qm
-	-rm -f $(prefix)/lib/scribus/scribus.nb.qm
-	-rm -f $(prefix)/lib/scribus/scribus.no.qm
-	-rm -f $(prefix)/lib/scribus/scribus.ru.qm
-	-rm -f $(prefix)/lib/scribus/scribus.nl.qm
-	-rm -f $(prefix)/lib/scribus/scribus.cy.qm
-	-rm -f $(prefix)/lib/scribus/scribus.sl.qm
-	-rm -f $(prefix)/lib/scribus/scribus.lt.qm
-	-rm -f $(prefix)/lib/scribus/scribus.se.qm
+	-rm -f $(libdir)/scribus/scribus.bg.qm
+	-rm -f $(libdir)/scribus/scribus.br.qm
+	-rm -f $(libdir)/scribus/scribus.cs.qm
+	-rm -f $(libdir)/scribus/scribus.ca.qm
+	-rm -f $(libdir)/scribus/scribus.da.qm
+	-rm -f $(libdir)/scribus/scribus.de.qm
+	-rm -f $(libdir)/scribus/scribus.en_GB.qm
+	-rm -f $(libdir)/scribus/scribus.es.qm
+	-rm -f $(libdir)/scribus/scribus.eu.qm
+	-rm -f $(libdir)/scribus/scribus.fi.qm
+	-rm -f $(libdir)/scribus/scribus.fr.qm
+	-rm -f $(libdir)/scribus/scribus.gl.qm
+	-rm -f $(libdir)/scribus/scribus.id.qm
+	-rm -f $(libdir)/scribus/scribus.it.qm
+	-rm -f $(libdir)/scribus/scribus.pl.qm
+	-rm -f $(libdir)/scribus/scribus.sk.qm
+	-rm -f $(libdir)/scribus/scribus.tr.qm
+	-rm -f $(libdir)/scribus/scribus.uk.qm
+	-rm -f $(libdir)/scribus/scribus.hu.qm
+	-rm -f $(libdir)/scribus/scribus.nb.qm
+	-rm -f $(libdir)/scribus/scribus.no.qm
+	-rm -f $(libdir)/scribus/scribus.ru.qm
+	-rm -f $(libdir)/scribus/scribus.nl.qm
+	-rm -f $(libdir)/scribus/scribus.cy.qm
+	-rm -f $(libdir)/scribus/scribus.sl.qm
+	-rm -f $(libdir)/scribus/scribus.lt.qm
+	-rm -f $(libdir)/scribus/scribus.se.qm
 
 ####### kdevelop will overwrite this part!!! (end)############

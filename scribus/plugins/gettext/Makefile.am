@@ -1,5 +1,5 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
-SUBDIRS = txtim csvim 
+SUBDIRS = htmlim txtim csvim 
 
 ####### kdevelop will overwrite this part!!! (end)############

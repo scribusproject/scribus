@@ -327,14 +327,14 @@ hnj_hyphen_load (const char *fn)
   for (i = 0; i < HASH_SIZE; i++)
     for (e = hashtab->entries[i]; e; e = e->next)
       {
-//	for (j = 1; 1; j++)
+/*	for (j = 1; 1; j++) */
 	for (j = 1; *(e->key); j++)
 	  {
 	    state_num = hnj_hash_lookup (hashtab, e->key + j);
 	    if (state_num >= 0)
 	      break;
 	  }
-        // KBH: FIXME state 0 fallback_state should always be -1?
+        /* KBH: FIXME state 0 fallback_state should always be -1? */
 	if (e->val) 
 	  dict->states[e->val].fallback_state = state_num;
       }
@@ -421,8 +421,8 @@ int hnj_hyphen_hyphenate (HyphenDict *dict,
 	{
 
 	  if (state == -1) {
-            // return 1;
-	    // KBH: FIXME shouldn't this be as follows?
+            /* return 1;
+	     KBH: FIXME shouldn't this be as follows? */
             state = 0;
             goto try_next_letter;
           }          

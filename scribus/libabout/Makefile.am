@@ -1,4 +1,4 @@
-pluginsdir = $(prefix)/lib/scribus/libs
+pluginsdir = $(libdir)/scribus/libs
 plugins_LTLIBRARIES = libabout.la
 
 INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)

@@ -3,13 +3,18 @@
 
 #include <scribus.h>
 #include <gtwriter.h>
-#include "htmlreader.h"
+
+#include "config.h"
 
 extern "C" void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 
 extern "C" QString FileFormatName();
 
 extern "C" QStringList FileExtensions();
+
+#ifdef HAVE_XML
+
+#include "htmlreader.h"
 
 class HTMLIm 
 {
@@ -23,5 +28,7 @@ private:
 	int defaultFontSize;
 	void importText();
 };
+
+#endif // HAVE_XML
 
 #endif // HTMLIM_H

@@ -1,4 +1,4 @@
-pluginsdir = $(prefix)/lib/scribus/libs
+pluginsdir = $(libdir)/scribus/libs
 AM_CPPFLAGS = -I$(top_builddir)/scribus
 plugins_LTLIBRARIES = libpreferences.la
 

@@ -141,7 +141,7 @@
 The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</source>
         <translation>Здесь отображается версия, дата сборки и 
-статус различных библиотек вместо со Scribus.
+статус поддержки различных библиотек в Scribus.
 &quot;C-C-T&quot; расшифровывается так: 
 C=CUPS C=littlecms T=TIFF
 Отсутствующая библиотека помечается символом *</translation>
@@ -211,15 +211,15 @@ this can create huge files</source>
     </message>
     <message>
         <source>Mirror Page(s) &amp;Horizontal</source>
-        <translation>Зеркалировать по &amp;горизонтали</translation>
+        <translation>Зеркально отразить по &amp;горизонтали</translation>
     </message>
     <message>
         <source>Mirror Page(s) &amp;Vertical</source>
-        <translation>Зеркалировать по &amp;вертикали</translation>
+        <translation>Зеркально отразить по &amp;вертикали</translation>
     </message>
     <message>
         <source>Apply Under Color &amp;Removal</source>
-        <translation>Применить вычитание цветных &amp;красок из-под черной краски</translation>
+        <translation>Применить вычитание из-под &amp;чёрного</translation>
     </message>
     <message>
         <source>Apply &amp;ICC Profiles</source>
@@ -259,7 +259,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
 метода способно улучшить печать некоторых изображений, но 
 каждый отдельный случай требует особого рассмотрения. 
 При использовании этого способа также снижается 
-вероятность избыточной яркости. изображения. </translation>
+вероятность избыточной яркости изображения. </translation>
     </message>
     <message>
         <source>Mirror Page(s) horizontal</source>
@@ -442,7 +442,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Align Text Right</source>
-        <translation>Выровнять по левой стороне</translation>
+        <translation>Выровнять по правой стороне</translation>
     </message>
     <message>
         <source>Align Text Center</source>
@@ -481,7 +481,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Combo Box</source>
-        <translation>Выпадающий список</translation>
+        <translation>Раскрывающийся список</translation>
     </message>
     <message>
         <source>List Box</source>
@@ -697,7 +697,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Default is Checked</source>
-        <translation>По умолчанию выставлен</translation>
+        <translation>По умолчанию включён</translation>
     </message>
     <message>
         <source>Editable</source>
@@ -717,11 +717,11 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Submit Form</source>
-        <translation>Переслать форму</translation>
+        <translation>Отправить форму</translation>
     </message>
     <message>
         <source>Reset Form</source>
-        <translation>Обнулить форму</translation>
+        <translation>Сбросить введённые данные</translation>
     </message>
     <message>
         <source>Import Data</source>
@@ -877,7 +877,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Keystroke:</source>
-        <translation>Нажатие клавиши:</translation>
+        <translation>Комбинация клавиш:</translation>
     </message>
     <message>
         <source>Format</source>
@@ -961,8 +961,8 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>You need at least the Icon for Normal to use Icons for Buttons</source>
-        <translation>Необходима хотя бы пиктограмма для Normal, 
-чтобы вообще использовать пиктограммы.</translation>
+        <translation>Для использования пиктограмм в кнопках необходима, 
+как минимум, пиктограмма для Normal</translation>
     </message>
     <message>
         <source>Open</source>
@@ -1030,7 +1030,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>External Web-Link</source>
-        <translation>Внешняя web-ссылка</translation>
+        <translation>Внешняя веб-ссылка</translation>
     </message>
     <message>
         <source>Destination</source>
@@ -1427,9 +1427,9 @@ Please choose another.</source>
         <source>Color profile that you have generated or received from the manufacturer.
 This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
         <translation>Цветовой профиль, созданный вами или полученный 
-от производителя устройства. Этот профиль дожен 
-быть уникальным для вашего монитора, а не общим 
-профилем  (например, sRGB).</translation>
+от производителя устройства. Этот должен быть 
+профиль для конкретного монитора, а не общий 
+профиль  (например, sRGB).</translation>
     </message>
     <message>
         <source>Color profile for your printer model from the manufacturer.
@@ -1463,7 +1463,7 @@ Relative Colorimetric or Perceptual should be chosen.</source>
     <message>
         <source>Enable &apos;soft proofing&apos; of how your document colors will print,
 based on the chosen printer profile.</source>
-        <translation>Включить &quot;мягую проверку&quot; печати цветов вашего 
+        <translation>Включить мягкий режим цветопробы вашего 
 документа на основе выбранного профиля для принтера.</translation>
     </message>
     <message>
@@ -1471,7 +1471,7 @@ based on the chosen printer profile.</source>
 This requires very accurate profiles and serves only as a warning.</source>
         <translation>Способ отображения на экране тех цветов, которые 
 могут быть некорректно напечатаны. Он требует очень 
-точных профилей и имеет лишь функцию предупреждения.</translation>
+точных профилей и предназначен лишь для предупреждения.</translation>
     </message>
     <message>
         <source>&amp;Activate Color Management</source>
@@ -2111,28 +2111,30 @@ This field can be embedded in the Scribus document for reference, as well as in 
 ответственные за создание содержимого 
 этого документа. Это поле может быть встроено 
 в документ Scribus для справки, равно как и 
-в виде метаданных для PDF</translation>
+в метаданные для PDF</translation>
     </message>
     <message>
         <source>A name given to the document.
 This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
         <translation>Имя, данное этому документу.
-Это поле может быть встроено в документ Scribus для справки, равно как и в виде метаданных для PDF</translation>
+Это поле может быть встроено в 
+документ Scribus для справки, 
+равно как и в метаданные для PDF</translation>
     </message>
     <message>
         <source>An account of the content of the document.
 This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>Оценка содержимого этого документа.
+        <translation>Характеристика этого документа.
 Это поле предназначено для краткого описания документа.
 Оно встраивается в PDF при экспорте</translation>
     </message>
     <message>
         <source>The topic of the content of the document.
 This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>Тема содержимого этого документа. Это поле 
-для ключевых слов, которые будут встроены в PDF 
-для упрощения последующего поиска и 
-индексирования PDF-файлов</translation>
+        <translation>Тема этого документа. Это поле для 
+ключевых слов, которые будут встроены 
+в PDF для упрощения последующего 
+поиска и индексирования PDF-файлов</translation>
     </message>
     <message>
         <source>A person or organisation responsible for making the document available</source>
@@ -2140,12 +2142,13 @@ This field is for document keywords you wish to embed in a PDF, to assist search
     </message>
     <message>
         <source>A person or organisation responsible for making contributions to the content of the document</source>
-        <translation>Человек или организация, ответственный 
-за вклад в содержимое этого документа</translation>
+        <translation>Человек или организация, внесшие вклад 
+в содержимое этого документа</translation>
     </message>
     <message>
         <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
-        <translation>Дата, связанная с событием в цикле жизни этого документа, в формате ГГГГ-ММ-ДД согласно ISO 8601</translation>
+        <translation>Дата, связанная с событием в жизненном цикле этого 
+документа, в формате ГГГГ-ММ-ДД согласно ISO 8601</translation>
     </message>
     <message>
         <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
@@ -2154,18 +2157,18 @@ This field is for document keywords you wish to embed in a PDF, to assist search
     <message>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
 RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation>Физическое или цифровое обнародование этого документа. 
-Рекомендуется  указать тип носителя и измерения.
-Указание RFC2045, RFC2046 для MIME-типов также не помешают.</translation>
+        <translation>Физическая или цифровая форма этого документа. 
+Рекомендуется  указать тип носителя и количество.
+Указание RFC2045, RFC2046 для MIME-типов также не помешает.</translation>
     </message>
     <message>
         <source>An unambiguous reference to the document within a given context such as ISBN or URI</source>
-        <translation>Однозначная ссылка на этот документ посредством ISBN или URI.</translation>
+        <translation>Уникальная ссылка на этот документ посредством ISBN или URI</translation>
     </message>
     <message>
         <source>The language in which the content of the document is written, usually a ISO-639 language code
 optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-        <translation>Язык, на котором написано содержимое этого 
+        <translation>Код языка, на котором написано содержимое этого 
 документа -- обычно, в коде ISO-639, обычно 
 имеющее суффикс с дефисом и кодом страны 
 по ISO-3166, например, en-GB, fr-CH.</translation>
@@ -2178,7 +2181,7 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     </message>
     <message>
         <source>The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges</source>
-        <translation>Пределы содержания данного документа, возможно, 
+        <translation>Область охвата данного документа, возможно, 
 включая место, время и область юрисдикции.</translation>
     </message>
     <message>
@@ -2286,9 +2289,10 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Информация в документе о нём, 
-такая как авторские и смежные 
-права, патент или торговая марка</translation>
+        <translation>Вставить сюда разделённый запятыми список 
+маркёров, где каждый маркёр может быть * для 
+всех страниц, 1-5 для диапазона страниц или 
+номером одиночной страницы.</translation>
     </message>
     <message>
         <source>Print Destination</source>
@@ -2347,7 +2351,7 @@ to utilize additional printing options</source>
     </message>
     <message>
         <source>Print &amp;Separations</source>
-        <translation>Напечатать ц&amp;ветоделения</translation>
+        <translation>Напечатать с ц&amp;ветоделением</translation>
     </message>
     <message>
         <source>Pr&amp;int In Color If Available</source>
@@ -2545,12 +2549,11 @@ failed!</source>
     </message>
     <message>
         <source>Color of text stroke</source>
-        <translation>Цвет текстового штриха</translation>
+        <translation>Цвет контура текста</translation>
     </message>
     <message>
         <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
-        <translation>Создать увеличенную первую букву абзаца.
-Этот приём используется для стилизации.</translation>
+        <translation>Создать (буквицу) увеличенную первую букву абзаца.</translation>
     </message>
     <message>
         <source>Determines the overall height, in line numbers, of the Drop Caps</source>
@@ -2562,11 +2565,11 @@ failed!</source>
     </message>
     <message>
         <source>Spacing above the paragraph</source>
-        <translation>Интервал над абзацем</translation>
+        <translation>Отбивка перед абзацем</translation>
     </message>
     <message>
         <source>Spacing below the paragraph</source>
-        <translation>Интервал под абзацем</translation>
+        <translation>Отбивка под абзацем</translation>
     </message>
     <message>
         <source>Tabulators and Indentation</source>
@@ -2590,7 +2593,7 @@ failed!</source>
     </message>
     <message>
         <source>&amp;Drop Caps</source>
-        <translation>&amp;Капитель</translation>
+        <translation type="unfinished">&amp;Буквица</translation>
     </message>
     <message>
         <source>&amp;Lines:</source>
@@ -2602,7 +2605,7 @@ failed!</source>
     </message>
     <message>
         <source>St&amp;roke Color:</source>
-        <translation>Цвет &amp;штриха:</translation>
+        <translation>Цвет &amp;контура:</translation>
     </message>
     <message>
         <source>Adjust to Baseline &amp;Grid</source>
@@ -2900,9 +2903,10 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Информация в документе о нём, 
-такая как авторские и смежные 
-права, патент или торговая марка</translation>
+        <translation>Вставить сюда разделённый запятыми список 
+маркёров, где каждый маркёр может быть * для 
+всех страниц, 1-5 для диапазона страниц или 
+номером одиночной страницы.</translation>
     </message>
     <message>
         <source>Export all pages</source>
@@ -3017,7 +3021,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>No Title</source>
-        <translation>No Title</translation>
+        <translation>Без заголовка</translation>
     </message>
     <message>
         <source>Author:</source>
@@ -3456,7 +3460,7 @@ Use 72 dpi for Images intended for the Screen</source>
     <name>HelpBrowser</name>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation>Извините, но руководство недоступно! Зайдите на www.scribus.net для получения документации.</translation>
+        <translation>Извините, но руководство недоступно! Посетите сайт www.scribus.net для получения актуальной документации.</translation>
     </message>
 </context>
 <context>
@@ -3487,17 +3491,17 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>If you uncheck this you will get a dialog
 everytime a possible Hyphenation is found.</source>
-        <translation>Если не включить этот параметр, то при каждой 
-возможности перенести слово будет появляться диалог.</translation>
+        <translation>Если этот флажок сброшен, диалоговое окно 
+открывается для каждого переноса.</translation>
     </message>
     <message>
         <source>Enables automatic checking of your text while typing.</source>
-        <translation>Проверять набираемый текст на предмет 
-возможности вставки переносов.</translation>
+        <translation>Проверять возможности вставки 
+переносов при вводе текста.</translation>
     </message>
     <message>
         <source>Length of the smallest word to be hyphenated.</source>
-        <translation>Размер самого маленького переносимого слова.</translation>
+        <translation>Размер наименьшего переносимого слова.</translation>
     </message>
     <message>
         <source>Maximum number of Hyphenations following each other.
@@ -3507,7 +3511,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>&amp;Fully Automatic</source>
-        <translation>&amp;Автоматическая вставлять переносы</translation>
+        <translation>&amp;Автоматически вставлять переносы</translation>
     </message>
     <message>
         <source>Check &amp;During Typing</source>
@@ -4212,9 +4216,10 @@ A value of 0 means unlimited hyphenations.</source>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Информация в документе о нём, 
-такая как авторские и смежные 
-права, патент или торговая марка</translation>
+        <translation>Вставить сюда разделённый запятыми список 
+маркёров, где каждый маркёр может быть * для 
+всех страниц, 1-5 для диапазона страниц или 
+номером одиночной страницы.</translation>
     </message>
     <message>
         <source> from 0</source>
@@ -4265,7 +4270,7 @@ a range of pages or a single page number.</source>
     <name>MovePages</name>
     <message>
         <source>Move Pages</source>
-        <translation>Перемещение  страницы</translation>
+        <translation>Перемещение страниц</translation>
     </message>
     <message>
         <source>Copy Page</source>
@@ -4450,7 +4455,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Basepoint:</source>
-        <translation>Точка основы:</translation>
+        <translation>Опорная точка:</translation>
     </message>
     <message>
         <source>Shade:</source>
@@ -4482,11 +4487,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>Horizontal position of current basepoint</source>
-        <translation>Горизонтальное положение точки основы</translation>
+        <translation>Горизонтальное положение опорной точки</translation>
     </message>
     <message>
         <source>Vertical position of current basepoint</source>
-        <translation>Вертикальное положение точки основы</translation>
+        <translation>Вертикальное положение опорной точки</translation>
     </message>
     <message>
         <source>Width</source>
@@ -4498,7 +4503,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Rotation of object at current basepoint</source>
-        <translation>Вращение объекта относительно точки основы</translation>
+        <translation>Вращение объекта относительно опорной точки</translation>
     </message>
     <message>
         <source>Point from which measurements or rotation angles are referenced</source>
@@ -4506,23 +4511,23 @@ Please choose another.</source>
     </message>
     <message>
         <source>Select top left for basepoint</source>
-        <translation>Выберите верхний левый угол в качестве точки основы</translation>
+        <translation>Выберите верхний левый угол в качестве опорной точки</translation>
     </message>
     <message>
         <source>Select top right for basepoint</source>
-        <translation>Выберите верхний правый угол в качестве точки основы</translation>
+        <translation>Выберите верхний правый угол в качестве опорной точки</translation>
     </message>
     <message>
         <source>Select bottom left for basepoint</source>
-        <translation>Выберите нижний левый угол в качестве точки основы</translation>
+        <translation>Выберите нижний левый угол в качестве опорной точки</translation>
     </message>
     <message>
         <source>Select bottom right for basepoint</source>
-        <translation>Выберите нижний правый угол в качестве точки основы</translation>
+        <translation>Выберите нижний правый угол в качестве опорной точки</translation>
     </message>
     <message>
         <source>Select center for basepoint</source>
-        <translation>Выберите центр в качестве точки основы</translation>
+        <translation>Выберите центр в качестве опорной точки</translation>
     </message>
     <message>
         <source>Flip Horizontal</source>
@@ -4570,7 +4575,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Color of text stroke</source>
-        <translation>Цвет текстового штриха</translation>
+        <translation>Цвет контура текста</translation>
     </message>
     <message>
         <source>Color of text fill</source>
@@ -4578,7 +4583,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
-        <translation>Насыщенность цвета текстового штриха</translation>
+        <translation>Насыщенность цвета контура текста</translation>
     </message>
     <message>
         <source>Saturation of color of text fill</source>
@@ -4674,7 +4679,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Keep the X and Y scaling the same</source>
-        <translation>Сохранить пропорции сторон при масштабировании</translation>
+        <translation>Сохранить пропорции при масштабировании</translation>
     </message>
     <message>
         <source>Make the image fit within the size of the frame</source>
@@ -4719,7 +4724,8 @@ Please choose another.</source>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
-        <translation>Включить обтекание текста вокруг объекта уровнем выше</translation>
+        <translation>Включить обтекание текста вокруг 
+объектов более высоких уровней</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
@@ -5361,7 +5367,8 @@ Please choose another.</source>
     </message>
     <message>
         <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
-        <translation>Настраиваемая ширина страниц документа</translation>
+        <translation>Ширина страниц документа, настраиваемая в том случае, если 
+выбраны пользовательские настройки размера страницы</translation>
     </message>
     <message>
         <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
@@ -5403,7 +5410,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
-        <translation>Стандартная единица измерения в работе</translation>
+        <translation>Единица измерения по умолчанию</translation>
     </message>
     <message>
         <source>Create text frames automatically when new pages are added</source>
@@ -5636,17 +5643,18 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Reset Control Points</source>
-        <translation>Перечитать контрольные точки</translation>
+        <translation>Восстановить контрольные точки</translation>
     </message>
     <message>
         <source>Reset this Control Point</source>
-        <translation>Перечитать эту контрольную точку</translation>
+        <translation>Восстановить эту контрольную точку</translation>
     </message>
     <message>
         <source>When checked use Coordinates relative to the Page,
 otherwise Coordinates are relative to the Object.</source>
-        <translation>Если флажок выставлен, то координаты соотносятся 
-со страницей, а если не выставлен -- с объектом.</translation>
+        <translation>Если флажок выставлен, используются 
+координаты относительно страницы, в 
+противном случае -- относительно объекта.</translation>
     </message>
     <message>
         <source>&amp;Absolute Coordinates</source>
@@ -5666,7 +5674,8 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>&amp;Reset Contour Line</source>
-        <translation>&amp;Обнулить контурную линию</translation>
+        <translation>&amp;Восстановить 
+контурную линию</translation>
     </message>
     <message>
         <source>&amp;End Editing</source>
@@ -5750,8 +5759,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
-        <translation>Обнулить контурную линию 
-до исходного состояния</translation>
+        <translation>Восстановить исходную контурную линию</translation>
     </message>
     <message>
         <source>Absolute Coordinates</source>
@@ -5953,7 +5961,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Printer</source>
-        <translation>Вывода на печать</translation>
+        <translation>Вывод на печать</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
@@ -6092,7 +6100,7 @@ A shorter time will speed up the effect, a longer one will slow it down.</source
     <message>
         <source>Choose a master password which enables or disables all the
 security features in your exported PDF</source>
-        <translation>Основной пароль, на который запираются все параметры 
+        <translation>Основной пароль, которым защищены все параметры 
 безопасности экспортируемого PDF-файла</translation>
     </message>
     <message>
@@ -6158,8 +6166,8 @@ you need to change it leave the default choice - Left.</source>
         <source>Generates thumbnails of each page in the PDF.
 Some viewers can use the thumbnails for navigation.</source>
         <translation>Если параметр включён, Scribus создаст миниатюры для 
-каждой страницы в PDF, которые в некоторых программах 
-затем можно использовать для навигации по документу.</translation>
+каждой страницы в PDF, которые могут использоваться 
+для навигации по документу в некоторых программах.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
@@ -6169,16 +6177,15 @@ Some viewers can use the thumbnails for navigation.</source>
     <message>
         <source>Embed the bookmarks you created in your document.
 These are useful for navigating long PDF documents.</source>
-        <translation>Встроить закладки, созданные в документе.
-Это позволит с кофмфортом перемещаться 
-по PDF-документу.</translation>
+        <translation>Встроить закладки, созданные в документе. 
+Это позволит удобно перемещаться по PDF-документу.</translation>
     </message>
     <message>
         <source>Export resolution of text and vector graphics.
 This does not affect the resolution of bitmap images like photos.</source>
         <translation>Экспортировать разрешение текста и векторной 
-графики. На растровые изображения вроде 
-фотографий это не распространяется.</translation>
+графики. На растровые изображения, подобные 
+фотографиям, это не распространяется.</translation>
     </message>
     <message>
         <source>Compression of text and graphics.
@@ -6195,9 +6202,12 @@ JPEG is better at creating smaller PDF files which have many photos (with slight
 Leave it set to automatic, unless you have a need for special compression options.</source>
         <translation>Способ сжатия изображения
 Автоматический - Scribus сам выбирает подходящий способ.
-ZIP - подходит для изображений с полными тонами.
-JPEG - больше подходит для создания PDF файлов меньшего размера с большим количеством фотографий (и по возможности небольшой потерей в качестве).
-Для типичных задач рекомендуется оставить автоматический выбор типа сжатия.</translation>
+ZIP - подходит для изображений со сплошными тонами.
+JPEG - больше подходит для создания PDF файлов меньшего 
+размера с большим количеством фотографий (и по 
+возможности небольшой потерей в качестве).
+Для типичных задач рекомендуется оставить 
+автоматический выбор типа сжатия.</translation>
     </message>
     <message>
         <source>Downsample your bitmap images to the selected DPI.
@@ -6252,8 +6262,8 @@ Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does 
         <translation>Здесь определяются настройки безопасности в экспортируемом PDF.
 Выберите Acrobat 4.0, если вам нужно 40-битное шифрование.
 Выберите Acrobat 5.0, если вам нужно 128-битное шифрование.
-Помните, что шифрование в PDF не использует алгоритимы GPG или PGP 
-и имеет некоторые ограничения..</translation>
+Помните, что шифрование в PDF не настолько надёжно, как системы 
+шифрования GPG или PGP.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF.
@@ -6283,17 +6293,16 @@ Choose Printer when printing to a true 4 color CMYK printer.</source>
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation>Профиль вывода на принтер. При возможности 
-сверьтесь с разделом о профилях руководства 
-к используемому принтеру.</translation>
+        <translation>Профиль вывода на печать. При возможности 
+получите информацию в вашей типографии 
+о необходимом профиле.</translation>
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail
 PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Обязательная строка для PDF/X-3 или PDF 
-не пройдёт тест на соответствие требованиям 
-PDF/X-3. Рекомендуется использовать 
-вместо текущей название документа.</translation>
+        <translation>Обязательная строка для PDF/X-3 или PDF не пройдёт 
+тест на соответствие требованиям PDF/X-3. 
+Рекомендуется использовать название документа.</translation>
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
@@ -6334,9 +6343,10 @@ If un-checked, editing annotations and fileds is prevented.</source>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Информация в документе о нём, 
-такая как авторские и смежные 
-права, патент или торговая марка</translation>
+        <translation>Вставить сюда разделённый запятыми список 
+маркёров, где каждый маркёр может быть * для 
+всех страниц, 1-5 для диапазона страниц или 
+номером одиночной страницы.</translation>
     </message>
     <message>
         <source>Create PDF File</source>
@@ -6554,11 +6564,12 @@ a range of pages or a single page number.</source>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled
 when specifically requested by your printer and they have given you the exact details needed.
 Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation>Это расширенная настройка, отключенная по умолчанию. Включается 
-она в особых случаях, когда этого требует принтер, причём вам 
-сообщаются все детали. В противном случае экспортированный вами 
-PDF-файл может не распечататься корректно и не отображаться 
-одинаково во всех операционных системах.</translation>
+        <translation>Это дополнительный параметр, отключенный по умолчанию. 
+Он включается в особых случаях, когда этого требует принтер, 
+причём вам сообщаются все детали. В противном случае 
+экспортированный вами PDF-файл может не распечататься 
+корректно и не отображаться одинаково во всех 
+операционных системах.</translation>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
@@ -6770,13 +6781,13 @@ PDF-файл может не распечататься корректно и н
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense
 of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Включить более приятное отображение текста при просмотре 
+        <translation>Включить более качественное отображение текста при просмотре 
 ценой замедления прорисовки. Работает только со шрифтами Type1.</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Включить более приятное отображение шрифтов TrueType, Open Type Fonts, 
+        <translation>Включить более качественное отображение шрифтов TrueType, Open Type Fonts, 
 EPS, PDF и векторной графики при просмотре ценой замедления прорисовки.</translation>
     </message>
     <message>
@@ -6786,7 +6797,7 @@ EPS, PDF и векторной графики при просмотре цено
     </message>
     <message>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-        <translation>Включить режим эмуляции CMYK чернил вместо палитры RGB.</translation>
+        <translation>Включить режим эмуляции красок CMYK вместо палитры RGB</translation>
     </message>
     <message>
         <source>Enable/disable the C (Cyan) ink plate</source>
@@ -6818,8 +6829,7 @@ EPS, PDF и векторной графики при просмотре цено
     </message>
     <message>
         <source>&amp;Under Color Removal</source>
-        <translation>Вычитание цветных &amp;красок 
-из-под черной краски</translation>
+        <translation>Вычитание из-под &amp;чёрного</translation>
     </message>
     <message>
         <source>&amp;Display CMYK</source>
@@ -6855,7 +6865,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
 метода способно улучшить печать некоторых изображений, но 
 каждый отдельный случай требует особого рассмотрения. 
 При использовании этого способа также снижается 
-вероятность избыточной яркости. изображения. </translation>
+вероятность избыточной яркости изображения. </translation>
     </message>
     <message>
         <source>Anti-alias Text</source>
@@ -7114,11 +7124,11 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Send to &amp;Back</source>
-        <translation>Послать на самый &amp;низкий уровень</translation>
+        <translation>Отправить на самый &amp;низкий уровень</translation>
     </message>
     <message>
         <source>Bring to &amp;Front</source>
-        <translation>Послать на самый &amp;высокий уровень</translation>
+        <translation>Отправить на самый &amp;высокий уровень</translation>
     </message>
     <message>
         <source>&amp;Lower</source>
@@ -7174,7 +7184,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Hide P&amp;roperties...</source>
-        <translation>Спрятать &amp;свойства...</translation>
+        <translation>Скрыть &amp;свойства...</translation>
     </message>
     <message>
         <source>Do you really want to clear all your Text?</source>
@@ -7791,7 +7801,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     <message>
         <source>Choose the default window decoration and looks.
 Scribus inherits any available KDE or Qt themes</source>
-        <translation>Выберите стандартную тему внешеного вида интерфейса, 
+        <translation>Выберите одну из доступных тем интерфейса, 
 наследуемую Scribus у KDE и Qt</translation>
     </message>
     <message>
@@ -7804,7 +7814,7 @@ Scribus inherits any available KDE or Qt themes</source>
     </message>
     <message>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-        <translation>Количество прокручиваемых при помощи колеса мыши строк за один раз</translation>
+        <translation>Количество строк, прокручиваемых за один раз при помощи колеса мыши</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
@@ -7836,11 +7846,13 @@ Scribus inherits any available KDE or Qt themes</source>
     </message>
     <message>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation>Настраиваемая ширина страниц документа</translation>
+        <translation>Ширина страниц документа, настраиваемая в том случае, если 
+выбраны пользовательские настройки размера страницы</translation>
     </message>
     <message>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation>Настраиваемая высота страниц документа</translation>
+        <translation>Высота страниц документа, настраиваемая в том случае, если 
+выбраны пользовательские настройки размера страницы</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
@@ -7945,11 +7957,11 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Magnification Level Defaults</source>
-        <translation>Стандартные установки &quot;прилипания&quot;</translation>
+        <translation>Степень увеличения по умолчанию</translation>
     </message>
     <message>
         <source>Line Drawing Properties</source>
-        <translation>Свойства нарисованной линии</translation>
+        <translation>Свойства линии</translation>
     </message>
     <message>
         <source>Polygon Drawing Properties</source>
@@ -7981,7 +7993,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Рамки позволяют масштабировать изображения как угодно</translation>
+        <translation>Рамки позволяют произвольно масштабировать изображения</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -8087,7 +8099,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>When using facing pages, show the two pages side by side</source>
-        <translation>Если страницы укзаны как парные, разбрасывать 
+        <translation>Если страницы указаны как парные, разбрасывать 
 их отображение по соответствующим сторонам</translation>
     </message>
     <message>
@@ -8112,7 +8124,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Местоположение интерпретатора Ghostscript в системе</translation>
+        <translation>Путь к интерпретатору Ghostscript в системе</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
@@ -8140,7 +8152,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Filesystem location for graphics editor</source>
-        <translation>Местоположение графического редактора</translation>
+        <translation>Путь к графическому редактору</translation>
     </message>
     <message>
         <source>Baseline Grid</source>
@@ -8491,8 +8503,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Apply &amp;Under Color Removal</source>
-        <translation>Применить вычитание цветных 
-&amp;красок из-под черной краски</translation>
+        <translation>Применить вычитание из-под &amp;чёрного</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -8890,11 +8901,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Read: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Прочитать: %1</translation>
     </message>
     <message>
         <source>Write: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Прочитать: %1</translation>
     </message>
     <message>
         <source>File &amp;name:</source>
@@ -8942,7 +8953,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Look &amp;in:</source>
-        <translation type="unfinished"></translation>
+        <translation>Посмотреть &amp;в^</translation>
     </message>
     <message>
         <source>Back</source>
@@ -8962,11 +8973,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Preview File Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Информация о просматриваемом файле</translation>
     </message>
     <message>
         <source>Preview File Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Содержимое просматриваемого файла</translation>
     </message>
     <message>
         <source>Read-write</source>
@@ -9026,7 +9037,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Переименовать</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -9034,7 +9045,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>R&amp;eload</source>
-        <translation type="unfinished"></translation>
+        <translation>Пере&amp;загрузить</translation>
     </message>
     <message>
         <source>Sort by &amp;Name</source>
@@ -9368,7 +9379,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Brochures</source>
-        <translation>Брошюры</translation>
+        <translation>Буклеты</translation>
     </message>
     <message>
         <source>Catalogs</source>
@@ -9388,7 +9399,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Letterheads</source>
-        <translation>Фирменные штампы</translation>
+        <translation>Фирменные бланки</translation>
     </message>
     <message>
         <source>Envelopes</source>
@@ -9396,7 +9407,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Business Cards</source>
-        <translation>Визитки</translation>
+        <translation>Визитные карточки</translation>
     </message>
     <message>
         <source>Calendars</source>
@@ -9432,7 +9443,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Posters</source>
-        <translation>Постеры</translation>
+        <translation>Плакаты</translation>
     </message>
     <message>
         <source>Announcements</source>
@@ -9444,7 +9455,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Folds</source>
-        <translation>Гармошки</translation>
+        <translation>Буклеты-гармошки</translation>
     </message>
     <message>
         <source>Own Templates</source>
@@ -9516,7 +9527,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Oook! Wrong arguments! Call: </source>
-        <translation>Неправильные аргументы! Call:</translation>
+        <translation>Неправильные аргументы! Вызов:</translation>
     </message>
     <message>
         <source>Importing text</source>
@@ -9551,7 +9562,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>HTML Files</source>
-        <translation>Гипертекстовые документы</translation>
+        <translation>Документы HTML</translation>
     </message>
     <message>
         <source>html</source>
@@ -9653,7 +9664,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Unshade</source>
-        <translation>Растенить</translation>
+        <translation>Убрать тень</translation>
     </message>
     <message>
         <source>Normalize</source>
@@ -9724,7 +9735,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>&amp;Unshade</source>
-        <translation>Р&amp;астенить</translation>
+        <translation>Убр&amp;ать тень</translation>
     </message>
 </context>
 <context>
@@ -9777,14 +9788,14 @@ Check path and filename.</source>
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation>Расстояние между направляющей нижнего поля и краем страницы.
 Если включён режим парных страниц, пространство полей может 
-быть использовано для просчёта правильных полей для переплёта.</translation>
+быть использовано для расчёта правильных полей для переплёта.</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation>Расстояние между направляющей правого поля и краем страницы.
 Если включён режим парных страниц, пространство полей может 
-быть использовано для просчёта правильных полей для переплёта.</translation>
+быть использовано для расчёта правильных полей для переплёта.</translation>
     </message>
     <message>
         <source> pt</source>
@@ -9917,7 +9928,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <name>SToolBColorS</name>
     <message>
         <source>Stroke Color Settings</source>
-        <translation>Настройки цвета штриха</translation>
+        <translation>Настройки цвета контура</translation>
     </message>
     <message>
         <source>None</source>
@@ -9925,11 +9936,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Color of text stroke</source>
-        <translation>Цвет штриха текста</translation>
+        <translation>Цвет контура текста</translation>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
-        <translation>Цветонасыщенность текстового штриха</translation>
+        <translation>Цветонасыщенность контура текста</translation>
     </message>
 </context>
 <context>
@@ -10161,11 +10172,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Дублировать</translation>
+        <translation>Продублировать</translation>
     </message>
     <message>
         <source>Multiple Duplicate</source>
-        <translation>Многократно дублировать</translation>
+        <translation>Продублировать многократно</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -10245,15 +10256,15 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Hide Margins</source>
-        <translation>Спрятать поля</translation>
+        <translation>Скрыть поля</translation>
     </message>
     <message>
         <source>Hide Frames</source>
-        <translation>Спрятать обрамление</translation>
+        <translation>Скрыть обрамление</translation>
     </message>
     <message>
         <source>Hide Images</source>
-        <translation>Спрятать изображения</translation>
+        <translation>Скрыть изображения</translation>
     </message>
     <message>
         <source>Show Grid</source>
@@ -10619,7 +10630,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Hide Baseline Grid</source>
-        <translation>Спрятать опорную сетку</translation>
+        <translation>Скрыть опорную сетку</translation>
     </message>
     <message>
         <source>Some Objects are locked.</source>
@@ -10815,7 +10826,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Multiple Duplicate</source>
-        <translation>Мно&amp;гократно продублировать</translation>
+        <translation>Продублировать мно&amp;гократно</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -10971,7 +10982,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Keyboard Shortcuts...</source>
-        <translation>&amp;Горячие клавишы...</translation>
+        <translation>&amp;Горячие клавиши...</translation>
     </message>
     <message>
         <source>&amp;About Scribus</source>
@@ -11566,11 +11577,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Stroke Color</source>
-        <translation>Цвет штриха</translation>
+        <translation>Цвет контура</translation>
     </message>
     <message>
         <source>Stroke Shade</source>
-        <translation>Тень штриха</translation>
+        <translation>Тень контура</translation>
     </message>
     <message>
         <source>Left</source>
@@ -11686,7 +11697,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Drag Pages or Template Pages onto the Trashbin to delete them.</source>
         <translation>Перетащите страницы или шаблоны 
-на значок корзины для их удаления.</translation>
+на пиктограмму корзины для их удаления.</translation>
     </message>
     <message>
         <source>Here are all your Templates, to create a new Page
@@ -11971,7 +11982,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;Reload Text from Frame</source>
-        <translation>&amp;Перечитать текст из рамки</translation>
+        <translation>&amp;Восстановить текст из рамки</translation>
     </message>
     <message>
         <source>&amp;Save to File...</source>
@@ -12067,7 +12078,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Reload Text from Frame</source>
-        <translation>Перечитать текст из рамки</translation>
+        <translation>Восстановить текст из рамки</translation>
     </message>
     <message>
         <source>Search/Replace</source>
@@ -12303,7 +12314,7 @@ drag a Template to the Pageview below.</source>
     <name>Tree</name>
     <message>
         <source>Outline</source>
-        <translation>Схема</translation>
+        <translation>Структура</translation>
     </message>
     <message>
         <source>Element</source>
@@ -12436,7 +12447,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Zoom in or out</source>
-        <translation>Приблизить или отдалить вид страницы</translation>
+        <translation>Изменить масштаб</translation>
     </message>
     <message>
         <source>Edit the text with the Story Editor</source>
@@ -12467,7 +12478,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Combo Box</source>
-        <translation>Выпадающий список</translation>
+        <translation>Раскрывающийся список</translation>
     </message>
     <message>
         <source>List Box</source>
@@ -12640,7 +12651,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
-        <translation>Распакуйте архив во каталог шаблонов ~/.scribus/templates 
+        <translation>Распакуйте архив в каталог шаблонов ~/.scribus/templates 
 для текущего пользователя или в PREFIX/share/scribus/templates 
 для всех пользователей системы.</translation>
     </message>
@@ -12670,7 +12681,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation>Создатель шаблога должен убедиться в том, что раздел &quot;Установка шаблонов&quot; действителен и для его шаблонов. Это означает, что у пользователя не должно возникнуть проблем при скачивании пакета, извлечении файлов шаблонов из него и использовании этих шаблонов.</translation>
+        <translation>Создатель шаблона должен убедиться в том, что раздел &quot;Установка шаблонов&quot; действителен и для его шаблонов. Это означает, что у пользователя не должно возникнуть проблем при скачивании пакета, извлечении файлов шаблонов из него и использовании этих шаблонов.</translation>
     </message>
     <message>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>

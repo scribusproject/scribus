@@ -5494,6 +5494,34 @@ void Page::mousePressEvent(QMouseEvent *m)
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			}
 		}
+		else
+		{
+			if ((m->button() == MidButton) && (b->PType == 4))
+			{
+				Mpressed = false;
+				MidButt = false;
+				QString cc;
+				cc = QApplication::clipboard()->text(QClipboard::Selection);
+				if (cc.isNull())
+					cc = QApplication::clipboard()->text(QClipboard::Clipboard);
+				if (!cc.isNull())
+				{
+					Serializer *ss = new Serializer("");
+					ss->Objekt = cc;
+					int st = doku->CurrentABStil;
+					ss->GetText(b, st, doku->Vorlagen[st].Font, doku->Vorlagen[st].FontSize, true);
+					delete ss;
+					if (doku->Trenner->AutoCheck)
+						doku->Trenner->slotHyphenate(b);
+				}
+				else
+				{
+					if (ScApp->Buffer2.startsWith("<SCRIBUSTEXT"))
+						ScApp->slotEditPaste();
+				}
+				RefreshItem(b);
+			}
+		}
 		break;
 	case 8:
 		SeleItem(m);

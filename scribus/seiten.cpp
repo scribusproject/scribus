@@ -813,16 +813,18 @@ QPixmap SeitenPal::CreateIcon(int nr, QPixmap ret)
 {
 	QString tmp;
 	QPainter p;
-	p.begin(&ret);
-	p.setBrush(white);
-	p.setBackgroundColor(white);
-	p.setBackgroundMode(QPainter::OpaqueMode);
-	p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
-	p.setFont(QFont("Helvetica", 12, QFont::Bold));
-	tmp = tmp.setNum(nr+1);
-	QRect b = p.boundingRect(3,0, ret.width(), ret.height(), Qt::AlignCenter, tmp);
-	p.drawRect(QRect(b.x()-2, b.y()-2, b.width()+4, b.height()+4));
-	p.drawText(b, Qt::AlignCenter, tmp);
-	p.end();
+	if (p.begin(&ret))
+	{
+		p.setBrush(white);
+		p.setBackgroundColor(white);
+		p.setBackgroundMode(QPainter::OpaqueMode);
+		p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
+		p.setFont(QFont("Helvetica", 12, QFont::Bold));
+		tmp = tmp.setNum(nr+1);
+		QRect b = p.boundingRect(3,0, ret.width(), ret.height(), Qt::AlignCenter, tmp);
+		p.drawRect(QRect(b.x()-2, b.y()-2, b.width()+4, b.height()+4));
+		p.drawText(b, Qt::AlignCenter, tmp);
+		p.end();
+	}
 	return ret;
 }

@@ -159,6 +159,7 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc) : QTextEdit(parent)
 	viewport()->setAcceptDrops(false);
 	ClipData = 0;
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
+	connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
 }
 
 void SEditor::keyPressEvent(QKeyEvent *k)
@@ -1171,11 +1172,13 @@ void SEditor::copy()
 	if ((hasSelectedText()) && (selectedText() != ""))
 	{
 		disconnect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
+		disconnect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
 		tBuffer = selectedText();
 		copyStyledText();
 		QApplication::clipboard()->setText(tBuffer, QClipboard::Clipboard);
 		ClipData = 1;
 		connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
+		connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
 		emit PasteAvail();
 	}
 	emit SideBarUp(true);
@@ -1198,19 +1201,29 @@ void SEditor::paste()
 {
 	emit SideBarUp(false);
 	int p, i;
+	QString data = "";
 	getCursorPosition(&p, &i);
-	if (ClipData == 2)
+	if (ClipData == 1)
+		insStyledText();
+	else
 	{
-		QString data = QApplication::clipboard()->text(QClipboard::Clipboard);
+		QString data = QApplication::clipboard()->text(QClipboard::Selection);
+		if (data.isNull())
+			data = QApplication::clipboard()->text(QClipboard::Clipboard);
 		if (!data.isNull())
 		{
 			data.replace(QRegExp("\r"), "");
 			data.replace(QRegExp("\n"), QChar(13));
 			insChars(data);
+			ClipData = 2;
+			emit PasteAvail();
+		}
+		else
+		{
+			emit SideBarUp(true);
+			return;
 		}
 	}
-	else
-		insStyledText();
 	updateAll();
 	emit SideBarUp(true);
 	emit SideBarUpdate();
@@ -1224,6 +1237,12 @@ QPopupMenu* SEditor::createPopupMenu(const QPoint & pos)
 	p->removeItemAt(0);
 	p->removeItemAt(3);
 	return p;
+}
+
+void SEditor::SelClipChange()
+{
+	ClipData = 3;
+	emit PasteAvail();
 }
 
 void SEditor::ClipChange()
