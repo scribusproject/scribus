@@ -6928,11 +6928,14 @@ void Page::LoadPict(QString fn, int ItNr)
 		if(tif)
 			{
 			unsigned width, height,size;
+			float xresIn, yresIn;
 			double xres, yres;
 			TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &width);
 			TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &height);
-			TIFFGetField(tif, TIFFTAG_XRESOLUTION, &xres);
-			TIFFGetField(tif, TIFFTAG_YRESOLUTION, &yres);
+			TIFFGetField(tif, TIFFTAG_XRESOLUTION, &xresIn);
+			TIFFGetField(tif, TIFFTAG_YRESOLUTION, &yresIn);
+			xres = static_cast<double>(xresIn);
+			yres = static_cast<double>(yresIn);
 			size=width*height;
 			uint32 *bits=(uint32*) _TIFFmalloc(size * sizeof (uint32));
 			if(bits)
