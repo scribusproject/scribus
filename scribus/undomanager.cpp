@@ -601,6 +601,8 @@ UndoObject* UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
 			apair.first = newUndoObject;
 		}
 	}
+	if (transaction) // replace also in the currently open transaction
+		transaction->replace(uid, newUndoObject);
 	return tmp;
 }
 
@@ -721,7 +723,10 @@ UndoObject* UndoManager::TransactionState::replace(ulong uid, UndoObject *newUnd
 	UndoObject *tmp = NULL;
 	for (uint i = 0; i < states.size(); ++i)
 	{
-		if (states[i]->first->getUId() == uid)
+		TransactionState *ts = dynamic_cast<TransactionState*>(states[i]->second);
+		if (ts) // are we having a transaction inside a transaction
+			ts->replace(uid, newUndoObject);
+		else if (states[i]->first && states[i]->first->getUId() == uid)
 		{
 			tmp = states[i]->first;
 			states[i]->first = newUndoObject;
@@ -881,8 +886,10 @@ const QString UndoManager::BreakRatio         = tr("Break aspect ratio");
 const QString UndoManager::EditContourLine    = tr("Edit contour line");
 const QString UndoManager::EditShape          = tr("Edit shape");
 const QString UndoManager::ResetContourLine   = tr("Reset contour line");
-const QString UndoManager::AddPage            = tr("Add Page");
-const QString UndoManager::AddPages           = tr("Add Pages");
+const QString UndoManager::AddPage            = tr("Add page");
+const QString UndoManager::AddPages           = tr("Add pages");
+const QString UndoManager::DeletePage         = tr("Delete page");
+const QString UndoManager::DeletePages        = tr("Delete pages");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;

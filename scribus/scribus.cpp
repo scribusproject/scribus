@@ -6592,6 +6592,10 @@ void ScribusApp::DeletePage()
 
 void ScribusApp::DeletePage(int from, int to)
 {
+	if (UndoManager::undoEnabled())
+		undoManager->beginTransaction(doc->DocName, Um::IDocument,
+									  (from - to == 0) ? Um::DeletePage : Um::DeletePages, "",
+									  Um::IDelete);
 	PageItem* ite;
 	view->SelItem.clear();
 //	if (!doc->TemplateMode)
@@ -6616,7 +6620,23 @@ void ScribusApp::DeletePage(int from, int to)
 	if (view->SelItem.count() != 0)
 		view->DeleteItem();
 	for (int a = to - 1; a >= from - 1; a--)
+	{
+		if (UndoManager::undoEnabled())
+		{
+			SimpleState *ss = new SimpleState(Um::DeletePage, "", Um::ICreate);
+			ss->set("DELETE_PAGE", "delete_page");
+			ss->set("PAGENR", a + 1);
+			ss->set("TEMPLATE", doc->Pages.at(a)->MPageNam);
+			// replace the deleted page in the undostack by a dummy object that will
+			// replaced with the "undone" page if user choose to undo the action
+			DummyUndoObject *duo = new DummyUndoObject();
+			uint id = static_cast<uint>(duo->getUId());
+			undoManager->replaceObject(doc->Pages.at(a)->getUId(), duo);
+			ss->set("DUMMY_ID", id);
+			undoManager->action(this, ss);
+		}
 		view->delPage(a);
+	}
 	view->reformPages();
 	view->DrawNew();
 //	doc->OpenNodes.clear();
@@ -6626,6 +6646,8 @@ void ScribusApp::DeletePage(int from, int to)
 	scrActions["pageMove"]->setEnabled(setter);
 	slotDocCh();
 //	pagePalette->RebuildPage();
+	if (UndoManager::undoEnabled())
+		undoManager->commit();
 }
 
 void ScribusApp::MovePage()
@@ -8890,6 +8912,45 @@ void ScribusApp::restore(UndoState* state, bool isUndo)
 			restoreUngroupping(ss, isUndo);
 		else if (ss->contains("ADD_PAGE"))
 			restoreAddPage(ss, isUndo);
+		else if (ss->contains("DELETE_PAGE"))
+			restoreDeletePage(ss, isUndo);
+	}
+}
+
+void ScribusApp::restoreDeletePage(SimpleState *state, bool isUndo)
+{
+	uint pagenr   = state->getUInt("PAGENR");
+	QString tmpl = state->get("TEMPLATE");
+	int where, wo;
+	if (pagenr == 1)
+	{
+		where = 0;
+		wo = 1;
+	}
+	else if (pagenr > doc->Pages.count())
+	{
+		where = 2;
+		wo = doc->Pages.count();
+	}
+	else
+	{
+		where = 1;
+		wo = pagenr - 1;
+	}
+	if (isUndo)
+	{
+		addNewPages(wo, where, 1, tmpl, tmpl);
+		UndoObject *tmp = 
+			undoManager->replaceObject(state->getUInt("DUMMY_ID"), doc->Pages.at(pagenr - 1));
+		delete tmp;
+	}
+	else
+	{
+		DummyUndoObject *duo = new DummyUndoObject();
+		uint id = static_cast<uint>(duo->getUId());
+		undoManager->replaceObject(doc->Pages.at(pagenr - 1)->getUId(), duo);
+		state->set("DUMMY_ID", id);
+		DeletePage(pagenr, pagenr);
 	}
 }
 
@@ -8900,11 +8961,12 @@ void ScribusApp::restoreAddPage(SimpleState *state, bool isUndo)
 	int count      = state->getInt("COUNT");
 	QString based1 = state->get("BASED1");
 	QString based2 = state->get("BASED2");
+
 	int delFrom, delTo;
 	switch (where)
 	{
 		case 0:
-			delTo = wo;
+			delTo = wo + count - 1;
 			delFrom = delTo - count + 1;
 			break;
 		case 1:
@@ -8914,19 +8976,21 @@ void ScribusApp::restoreAddPage(SimpleState *state, bool isUndo)
 		case 2:
 			delTo = doc->Pages.count();
 			delFrom = doc->Pages.count() - count + 1;
+			if (!isUndo)
+			{
+				delFrom += count;
+				delTo   += count;
+			}
 			break;
 	}
 	if (isUndo)
 	{
 		for (int i = delFrom - 1; i < delTo; ++i)
 		{
-			// cause undo is only deleting added pages those pages must be
-			// replaced by a dummyobjects so that they can be replaced with 
-			// new valid page objects if the undo is redone
 			DummyUndoObject *duo = new DummyUndoObject();
-			ulong id = duo->getUId();
+			ulong did = duo->getUId();
 			undoManager->replaceObject(doc->Pages.at(i)->getUId(), duo);
-			state->set(QString("Page%1").arg(i), static_cast<uint>(id));
+			state->set(QString("Page%1").arg(i), static_cast<uint>(did));
 		}
 		NoFrameEdit();
 		view->Deselect(true);
@@ -8937,9 +9001,9 @@ void ScribusApp::restoreAddPage(SimpleState *state, bool isUndo)
 		addNewPages(wo, where, count, based1, based2);
 		for (int i = delFrom - 1; i < delTo; ++i)
 		{
-			UndoObject *tmp = undoManager->replaceObject( // returns the object that was replaced
-				state->getUInt(QString("Page%1").arg(i)), doc->Pages.at(i));
-			delete tmp; // delete dummyobject that was used to hold the place for the redone page
+			UndoObject *tmp = undoManager->replaceObject(
+					state->getUInt(QString("Page%1").arg(i)), doc->Pages.at(i));
+			delete tmp;
 		}
 	}
 }

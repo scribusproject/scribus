@@ -536,6 +536,8 @@ public:
 	static const QString ResetContourLine;
 	static const QString AddPage;
 	static const QString AddPages;
+	static const QString DeletePage;
+	static const QString DeletePages;
 	/*@}*/
 
 	/**

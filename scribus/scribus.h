@@ -154,6 +154,7 @@ public:
 	void restoreGroupping(SimpleState *state, bool isUndo);
 	void restoreUngroupping(SimpleState *state, bool isUndo);
 	void restoreAddPage(SimpleState *state, bool isUndo);
+	void restoreDeletePage(SimpleState *state, bool isUndo);
 	struct CopyPasteBuffer Buffer;
 	QString Buffer2;
 	QString Buffer3;
