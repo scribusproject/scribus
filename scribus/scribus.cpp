@@ -177,6 +177,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 {
 	int retVal=0;
 	ExternalApp = 0;
+	HaveDoc = false;
 	guiLanguage = newGuiLanguage;
 	initSplash(showSplash);
 	setUsesBigPixmaps(true);
@@ -2825,7 +2826,6 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		measurementPalette->hide();
 		docCheckerPalette->hide();
 		SavePrefs();
-		delete prefsFile;
 		UndoManager::deleteInstance();
 		if ((Prefs.SaveAtQ) && (scrapbookPalette->Changed == true))
 		{
@@ -2838,6 +2838,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		Prefs.AvailFonts.~SCFonts();
 		pluginManager->finalizePlugs();
+		delete prefsFile;
 		exit(0);
 	}
 }

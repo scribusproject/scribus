@@ -22,7 +22,8 @@ public:
 	QString ReadDatei(QString fileName);
 	bool LoadFile(ScribusApp* app);
 	bool ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, QProgressBar *dia2);
-	QString GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs);
+	void GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs *Prefs, PageItem* obj);
+	PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *view);
 	QString FileName;
 	int FileType;
 	bool havePS;
