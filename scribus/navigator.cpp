@@ -77,6 +77,7 @@ void Navigator::drawMark(int x, int y)
 {
 	QPainter p;
 	p.begin(this);
+	p.eraseRect(pmx.rect());
 	p.setClipRect(pmx.rect());
 	p.drawPixmap(0, 0, pmx);
 	p.setPen(QPen(QColor(black), 1, SolidLine, FlatCap, MiterJoin));
