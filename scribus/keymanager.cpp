@@ -23,7 +23,7 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	keyManagerLayout->setAlignment( Qt::AlignTop );
 	//CB TODO Remove third column when all done
 	keyTable = new QTable( oldKeyMap.count(), 2, this, "keyTable" );
-	keyTable->setMaximumSize(QSize(500,200));
+	//keyTable->setMaximumSize(QSize(500,200));
 
 	
 	//Generate our list of entries in the key manager from the menu system

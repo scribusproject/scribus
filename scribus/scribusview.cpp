@@ -1725,13 +1725,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						pmen2->insertItem( tr("&Outlines"), this, SLOT(TextToPath()));
 					}
 				}
-				if (b->PType == PageItem::ImageFrame)
+				if (b->itemType() == PageItem::ImageFrame)
 				{
 					pmen2->insertItem( tr("&Text Frame"), this, SLOT(ToTextFrame()));
 					if (!b->isTableItem)
 						pmen2->insertItem( tr("Pol&ygon"), this, SLOT(ToPolyFrame()));
 				}
-				if (b->PType == PageItem::Polygon)
+				if (b->itemType() == PageItem::Polygon)
 				{
 					pmen2->insertItem( tr("&Text Frame"), this, SLOT(ToTextFrame()));
 					pmen2->insertItem( tr("&Picture Frame"), this, SLOT(ToPicFrame()));
@@ -10941,7 +10941,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		UpdatePolyClip(b);
 	}
 	// OBSOLETE CR 2005-02-06
-	if (b->PType == PageItem::FrameType3)
+	if (b->itemType() == PageItem::FrameType3)
 	{
 		if (b->RadRect != 0)
 			SetFrameRound(b);

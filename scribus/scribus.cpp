@@ -3932,7 +3932,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		else
 		{
 			scrActions["itemUngroup"]->setEnabled(false);
-			scrActions["itemSplitPolygons"]->setEnabled( (b->PType == PageItem::Polygon) && (b->Segments.count() != 0) );
+			scrActions["itemSplitPolygons"]->setEnabled( (b->itemType() == PageItem::Polygon) && (b->Segments.count() != 0) );
 		}
 		if (b->locked())
 		{
