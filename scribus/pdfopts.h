@@ -39,10 +39,17 @@ public:
 	          QValueList<PreSet> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts );
 	~PDF_Opts();
 
+	QWidget* tabGeneral;
+	QWidget* tabFonts;
+	QWidget* tabPresentation;
+	QWidget* tabSecurity;
+	QWidget* tabColor;
+	QWidget* tabPDFX;
+	QWidget* tabOptions;
+
 	QLabel* Name;
 	QLabel* TextLabel1;
 	QTabWidget* Options;
-	QWidget* tab;
 	QSpinBox* Resolution;
 	QCheckBox* Article;
 	QCheckBox* Compression;
@@ -65,10 +72,11 @@ public:
 	QComboBox* ComboBind;
 	QCheckBox* CheckBox1;
 	QCheckBox* MirrorH;
+	QSpinBox* RotateDeg;
+	QLabel* TextLabel3;
 	QCheckBox* CheckBox10;
 	QPushButton* EonAllPg;
-	QWidget* tab_3;
-	QWidget* tab_5;
+
 	QLabel* TextLabel1e;
 	QLabel* TextLabel2e;
 	QLabel* TextLabel3e;
@@ -97,7 +105,6 @@ public:
 	QRadioButton* OnlySome;
 	QLineEdit* PageNr;
 	QListBox* EmbedList;
-	QWidget* tabcolor;
 	QGroupBox* ColorGroup;
 	QGroupBox* GroupBox9;
 	QLabel* ColorText1;
@@ -114,7 +121,6 @@ public:
 	QLabel* ProfsTxt2;
 	QComboBox* IntendS;
 	QComboBox* IntendI;
-	QWidget* tabpdfx;
 	QGroupBox* X3Group;
 	QComboBox* PrintProfC;
 	QLineEdit* InfoString;
@@ -126,7 +132,6 @@ public:
 	MSpinBox* BleedBottom;
 	MSpinBox* BleedRight;
 	MSpinBox* BleedLeft;
-	QWidget* tabsec;
 	QGroupBox* GroupPass;
 	QLabel* TextSec2;
 	QLabel* TextSec1;
@@ -173,6 +178,7 @@ public slots:
 	void SetEffOpts(int nr);
 	void ValidDI(int nr);
 	void PDFMirrorH();
+	void Rotation(int value);
 	void DoEffects();
 	void EffectOnAll();
 	void SelRange(bool e);
@@ -187,6 +193,8 @@ public slots:
 protected:
 	QGridLayout* CBoxLayout;
 	QVBoxLayout* PDFOptsLayout;
+	QVBoxLayout* tabOptionsLayout;
+	QHBoxLayout* tabOptionsRotateHBox;
 	QHBoxLayout* Layout5;
 	QVBoxLayout* tabLayout;
 	QVBoxLayout* Layout3;
@@ -201,17 +209,18 @@ protected:
 	QGridLayout* GroupBox9Layout;
 	QGridLayout* GroupBox2Layout;
 	QGridLayout* tabLayout_5;
+	QGridLayout* tabOptionsGridLayout;
 	QGridLayout* EffectsLayout;
 	QHBoxLayout* Layout13;
 	QVBoxLayout* RangeGroupLayout;
 	QGridLayout* Layout11;
-	QVBoxLayout* tabcolorLayout;
+	QVBoxLayout* tabColorLayout;
 	QHBoxLayout* ColorGroupLayout;
 	QGridLayout* ProfsGroupLayout;
-	QVBoxLayout* tabpdfxLayout;
+	QVBoxLayout* tabPDFXLayout;
 	QGridLayout* X3GroupLayout;
 	QGridLayout* BleedGroupLayout;
-	QVBoxLayout* tabsecLayout;
+	QVBoxLayout* tabSecurityLayout;
 	QGridLayout* GroupPassLayout;
 	QVBoxLayout* GroupSecSetLayout;
 	QGridLayout* LPIgroupLayout;

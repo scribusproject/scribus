@@ -59,14 +59,14 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	Layout5->addWidget( FileC );
 	PDFOptsLayout->addLayout( Layout5 );
 	Options = new QTabWidget( this, "TabWidget2" );
-	tab = new QWidget( Options, "tab" );
-	tabLayout = new QVBoxLayout( tab );
+	tabGeneral = new QWidget( Options, "tabGeneral" );
+	tabLayout = new QVBoxLayout( tabGeneral );
 	tabLayout->setSpacing( 5 );
 	tabLayout->setMargin( 11 );
 
 	Layout13 = new QHBoxLayout( 0, 0, 5, "Layout13");
 
-	RangeGroup = new QButtonGroup( tab, "RangeGroup" );
+	RangeGroup = new QButtonGroup( tabGeneral, "RangeGroup" );
 	RangeGroup->setTitle( tr( "Export Range" ) );
 	RangeGroup->setColumnLayout(0, Qt::Vertical );
 	RangeGroup->layout()->setSpacing( 5 );
@@ -85,7 +85,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	RangeGroupLayout->addLayout( Layout11 );
 	Layout13->addWidget( RangeGroup );
 
-	GroupBox1 = new QGroupBox( tr( "File Options" ), tab, "GroupBox1" );
+	GroupBox1 = new QGroupBox( tr( "File Options" ), tabGeneral, "GroupBox1" );
 	GroupBox1->setColumnLayout(0, Qt::Vertical );
 	GroupBox1->layout()->setSpacing( 0 );
 	GroupBox1->layout()->setMargin( 0 );
@@ -153,10 +153,10 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	GroupBox1Layout->addWidget( Resolution, 5, 1, AlignLeft );
 	Layout13->addWidget( GroupBox1 );
 	tabLayout->addLayout( Layout13 );
-	Compression = new QCheckBox( tr( "Com&press Text and Vector Graphics" ), tab, "Compression" );
+	Compression = new QCheckBox( tr( "Compress Text and &Vector Graphics" ), tabGeneral, "Compression" );
 	Compression->setChecked( Optionen->Compress );
 	tabLayout->addWidget( Compression );
-	CBox = new QGroupBox( tr( "Image Settings" ), tab, "CBox" );
+	CBox = new QGroupBox( tr( "Image Settings" ), tabGeneral, "CBox" );
 	CBox->setColumnLayout(0, Qt::Vertical );
 	CBox->layout()->setSpacing( 5 );
 	CBox->layout()->setMargin( 11 );
@@ -196,15 +196,15 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	ValC->setEnabled(DSColor->isChecked() ? true : false);
 	CBoxLayout->addWidget( ValC, 2, 1, AlignLeft );
 	tabLayout->addWidget( CBox );
-	Options->insertTab( tab, tr( "&General" ) );
+	Options->insertTab( tabGeneral, tr( "&General" ) );
 
-	tab_3 = new QWidget( Options, "tab_3" );
-	tabLayout_3 = new QVBoxLayout( tab_3 );
+	tabFonts = new QWidget( Options, "tabFonts" );
+	tabLayout_3 = new QVBoxLayout( tabFonts );
 	tabLayout_3->setSpacing( 5 );
 	tabLayout_3->setMargin( 11 );
-	EmbedFonts = new QCheckBox( tr( "&Embed all Fonts" ), tab_3, "EmbedFonts" );
+	EmbedFonts = new QCheckBox( tr( "&Embed all Fonts" ), tabFonts, "EmbedFonts" );
 	tabLayout_3->addWidget( EmbedFonts );
-	GroupFont = new QGroupBox( tr( "Embedding" ), tab_3, "GroupFont" );
+	GroupFont = new QGroupBox( tr( "Embedding" ), tabFonts, "GroupFont" );
 	GroupFont->setColumnLayout(0, Qt::Vertical );
 	GroupFont->layout()->setSpacing( 0 );
 	GroupFont->layout()->setMargin( 0 );
@@ -254,18 +254,16 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	Layout6->addWidget( EmbedList );
 	GroupFontLayout->addLayout( Layout6 );
 	tabLayout_3->addWidget( GroupFont );
-	Options->insertTab( tab_3, tr( "&Fonts" ) );
-	tab_5 = new QWidget( Options, "tab_5" );
-	tabLayout_5 = new QGridLayout( tab_5 );
+	Options->insertTab( tabFonts, tr( "&Fonts" ) );
+	tabPresentation = new QWidget( Options, "tabPresentation" );
+	tabLayout_5 = new QGridLayout( tabPresentation );
 	tabLayout_5->setSpacing( 5 );
 	tabLayout_5->setMargin( 11 );
-	MirrorH = new QCheckBox( tr( "Mirror Page(s) &Horizontal" ), tab_5, "MirrorH" );
-	MirrorH->setChecked(Optionen->MirrorH);
-	tabLayout_5->addMultiCellWidget( MirrorH, 0, 0, 0, 1 );
-	CheckBox10 = new QCheckBox( tr( "Enable &Presentation Effects" ), tab_5, "CheckBox10" );
+	
+	CheckBox10 = new QCheckBox( tr( "En&able Presentation Effects" ), tabPresentation, "CheckBox10" );
 	CheckBox10->setChecked(Optionen->PresentMode);
-	tabLayout_5->addMultiCellWidget( CheckBox10, 1, 1, 0, 1 );
-	Pages = new QListBox( tab_5, "Pages" );
+	tabLayout_5->addMultiCellWidget( CheckBox10, 0, 0, 0, 1 );
+	Pages = new QListBox( tabPresentation, "Pages" );
 	Pages->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1,
 	                                   Pages->sizePolicy().hasHeightForWidth() ) );
 	QString tmp;
@@ -301,11 +299,11 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 			EffVal.append(ef);
 		}
 	}
-	tabLayout_5->addWidget( Pages, 2, 0 );
-	PagePrev = new QCheckBox( tr( "Show Page Pre&views" ), tab_5, "CheckBox10" );
+	tabLayout_5->addWidget( Pages, 1, 0 );
+	PagePrev = new QCheckBox( tr( "Show Page Pre&views" ), tabPresentation, "CheckBox10" );
 	PagePrev->setChecked(false);
-	tabLayout_5->addWidget( PagePrev, 3, 0 );
-	Effects = new QGroupBox( tr( "Effects" ), tab_5, "Effects" );
+	tabLayout_5->addWidget( PagePrev, 2, 0 );
+	Effects = new QGroupBox( tr( "Effects" ), tabPresentation, "Effects" );
 	Effects->setColumnLayout(0, Qt::Vertical );
 	Effects->layout()->setSpacing( 0 );
 	Effects->layout()->setMargin( 0 );
@@ -370,15 +368,15 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	EffectsLayout->addWidget( EDirection_2_2, 5, 1 );
 	EonAllPg = new QPushButton( tr( "&Apply Effect on all Pages" ), Effects, "Eon" );
 	EffectsLayout->addMultiCellWidget( EonAllPg, 6, 6, 0, 1 );
-	tabLayout_5->addMultiCellWidget( Effects, 2, 3, 1, 1 );
-	Options->insertTab( tab_5, tr( "E&xtras" ) );
+	tabLayout_5->addMultiCellWidget( Effects, 1, 2, 1, 1 );
+	Options->insertTab( tabPresentation, tr( "&Presentation" ) );
 
-	tabsec = new QWidget( Options, "tabsec" );
-	tabsecLayout = new QVBoxLayout( tabsec, 11, 5, "tabsecLayout");
-	Encry = new QCheckBox( tr( "&Use Encryption" ), tabsec, "Enc" );
+	tabSecurity = new QWidget( Options, "tabSecurity" );
+	tabSecurityLayout = new QVBoxLayout( tabSecurity, 11, 5, "tabSecurityLayout");
+	Encry = new QCheckBox( tr( "&Use Encryption" ), tabSecurity, "Enc" );
 	Encry->setChecked( Optionen->Encrypt );
-	tabsecLayout->addWidget( Encry );
-	GroupPass = new QGroupBox( tr( "Passwords" ), tabsec, "GroupPass" );
+	tabSecurityLayout->addWidget( Encry );
+	GroupPass = new QGroupBox( tr( "Passwords" ), tabSecurity, "GroupPass" );
 	GroupPass->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)1, 0, 0,
 	                                       GroupPass->sizePolicy().hasHeightForWidth() ) );
 	GroupPass->setColumnLayout(0, Qt::Vertical );
@@ -400,9 +398,9 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	PassUser->setText(Optionen->PassUser);
 	TextSec2->setBuddy(PassUser);
 	GroupPassLayout->addWidget( PassUser, 1, 1 );
-	tabsecLayout->addWidget( GroupPass );
+	tabSecurityLayout->addWidget( GroupPass );
 
-	GroupSecSet = new QGroupBox( tr( "Settings" ), tabsec, "GroupSecSet" );
+	GroupSecSet = new QGroupBox( tr( "Settings" ), tabSecurity, "GroupSecSet" );
 	GroupSecSet->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)7, 0, 0,
 	                            GroupSecSet->sizePolicy().hasHeightForWidth() ) );
 	GroupSecSet->setColumnLayout(0, Qt::Vertical );
@@ -422,17 +420,17 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	AddSec = new QCheckBox( tr( "Allow Adding &Annotations and Fields" ), GroupSecSet, "AddSec" );
 	AddSec->setChecked( Optionen->Permissions & 32 );
 	GroupSecSetLayout->addWidget( AddSec );
-	tabsecLayout->addWidget( GroupSecSet );
+	tabSecurityLayout->addWidget( GroupSecSet );
 	if (!Encry->isChecked())
 	{
 		GroupSecSet->setEnabled(false);
 		GroupPass->setEnabled(false);
 	}
-	Options->insertTab( tabsec, tr( "S&ecurity" ) );
+	Options->insertTab( tabSecurity, tr( "S&ecurity" ) );
 
-	tabcolor = new QWidget( Options, "tabcolor" );
-	tabcolorLayout = new QVBoxLayout( tabcolor, 11, 5, "tabcolorLayout");
-	ColorGroup = new QGroupBox( tr( "General" ), tabcolor, "ColorGroup" );
+	tabColor = new QWidget( Options, "tabColor" );
+	tabColorLayout = new QVBoxLayout( tabColor, 11, 5, "tabColorLayout");
+	ColorGroup = new QGroupBox( tr( "General" ), tabColor, "ColorGroup" );
 	ColorGroup->setColumnLayout(0, Qt::Vertical );
 	ColorGroup->layout()->setSpacing( 5 );
 	ColorGroup->layout()->setMargin( 11 );
@@ -447,12 +445,12 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	OutCombo->setCurrentItem(Optionen->UseRGB ? 0 : 1);
 	ColorText1->setBuddy(OutCombo);
 	ColorGroupLayout->addWidget( OutCombo );
-	tabcolorLayout->addWidget( ColorGroup );
+	tabColorLayout->addWidget( ColorGroup );
 
-	UseLPI = new QCheckBox( tr( "&Use Custom Rendering Settings" ), tabcolor, "UseLPI" );
+	UseLPI = new QCheckBox( tr( "&Use Custom Rendering Settings" ), tabColor, "UseLPI" );
 	UseLPI->setChecked(Optionen->UseLPI);
-	tabcolorLayout->addWidget( UseLPI );
-	LPIgroup = new QGroupBox( tr( "Rendering Settings" ), tabcolor, "LPIgroup" );
+	tabColorLayout->addWidget( UseLPI );
+	LPIgroup = new QGroupBox( tr( "Rendering Settings" ), tabColor, "LPIgroup" );
 	LPIgroup->setColumnLayout(0, Qt::Vertical );
 	LPIgroup->layout()->setSpacing( 5 );
 	LPIgroup->layout()->setMargin( 11 );
@@ -495,10 +493,10 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	LPIfunc->setCurrentItem(Optionen->LPISettings[LPIcolor->currentText()].SpotFunc);
 	textLPI3->setBuddy(LPIfunc);
 	LPIgroupLayout->addWidget( LPIfunc, 2, 2 );
-	tabcolorLayout->addWidget( LPIgroup );
+	tabColorLayout->addWidget( LPIgroup );
 	SelLPIcolor = LPIcolor->currentText();
 
-	GroupBox9 = new QGroupBox( tr( "Solid Colors:" ), tabcolor, "GroupBox9" );
+	GroupBox9 = new QGroupBox( tr( "Solid Colors:" ), tabColor, "GroupBox9" );
 	GroupBox9->setColumnLayout(0, Qt::Vertical );
 	GroupBox9->layout()->setSpacing( 5 );
 	GroupBox9->layout()->setMargin( 11 );
@@ -524,8 +522,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 		IntendS->insertItem(tmp_ip[a]);
 	IntendS->setEditable(false);
 	GroupBox9Layout->addWidget( IntendS, 2, 1 );
-	tabcolorLayout->addWidget( GroupBox9 );
-	ProfsGroup = new QGroupBox( tr( "Images:" ), tabcolor, "ProfsGroup" );
+	tabColorLayout->addWidget( GroupBox9 );
+	ProfsGroup = new QGroupBox( tr( "Images:" ), tabColor, "ProfsGroup" );
 	ProfsGroup->setColumnLayout(0, Qt::Vertical );
 	ProfsGroup->layout()->setSpacing( 5 );
 	ProfsGroup->layout()->setMargin( 11 );
@@ -552,7 +550,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 		IntendI->insertItem(tmp_ip[a]);
 	IntendI->setEditable(false);
 	ProfsGroupLayout->addWidget( IntendI, 3, 1 );
-	tabcolorLayout->addWidget( ProfsGroup );
+	tabColorLayout->addWidget( ProfsGroup );
 	if (Optionen->UseRGB)
 	{
 		ProfsGroup->setEnabled(false);
@@ -604,12 +602,12 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 #endif
 
 	QSpacerItem* spacerCG = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	tabcolorLayout->addItem( spacerCG );
-	Options->insertTab( tabcolor, tr( "C&olor" ) );
+	tabColorLayout->addItem( spacerCG );
+	Options->insertTab( tabColor, tr( "C&olor" ) );
 
-	tabpdfx = new QWidget( Options, "tabpdfx" );
-	tabpdfxLayout = new QVBoxLayout( tabpdfx, 11, 5, "tabpdfxLayout");
-	X3Group = new QGroupBox( tabpdfx, "X3Group" );
+	tabPDFX = new QWidget( Options, "tabPDFX" );
+	tabPDFXLayout = new QVBoxLayout( tabPDFX, 11, 5, "tabPDFXLayout");
+	X3Group = new QGroupBox( tabPDFX, "X3Group" );
 	X3Group->setTitle( tr( "PDF/X-3 Output Intent" ) );
 	X3Group->setColumnLayout(0, Qt::Vertical );
 	X3Group->layout()->setSpacing( 6 );
@@ -639,8 +637,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	X3GroupLayout->addWidget( PDFX2, 1, 0 );
 	PDFX1 = new QLabel( PrintProfC, tr( "Output &Profile:" ), X3Group, "PDFX1" );
 	X3GroupLayout->addWidget( PDFX1, 0, 0 );
-	tabpdfxLayout->addWidget( X3Group );
-	BleedGroup = new QGroupBox( tabpdfx, "BleedGroup" );
+	tabPDFXLayout->addWidget( X3Group );
+	BleedGroup = new QGroupBox( tabPDFX, "BleedGroup" );
 	BleedGroup->setTitle( tr( "Trim Box" ) );
 	BleedGroup->setColumnLayout(0, Qt::Vertical );
 	BleedGroup->layout()->setSpacing( 5 );
@@ -667,8 +665,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	BleedGroupLayout->addItem( spacerPX, 1, 0 );
 	QSpacerItem* spacerPX2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	BleedGroupLayout->addItem( spacerPX2, 1, 4 );
-	tabpdfxLayout->addWidget( BleedGroup );
-	Options->insertTab( tabpdfx, tr( "PDF/X-&3" ) );
+	tabPDFXLayout->addWidget( BleedGroup );
+	Options->insertTab( tabPDFX, tr( "PDF/X-&3" ) );
 	QString size[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
 	QString EinTxt = size[Einheit];
 
@@ -691,15 +689,36 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 #ifdef HAVE_CMS
 
 	if ((!CMSuse) || (!CMSavail))
-		Options->setTabEnabled(tabpdfx, false);
+		Options->setTabEnabled(tabPDFX, false);
 	if ((CMSuse) && (CMSavail) && (Optionen->Version == 12) && (!PDFXProfiles->isEmpty()))
 		EnablePDFX(2);
 	else
-		Options->setTabEnabled(tabpdfx, false);
+		Options->setTabEnabled(tabPDFX, false);
 #else
 
-	Options->setTabEnabled(tabpdfx, false);
+	Options->setTabEnabled(tabPDFX, false);
 #endif
+
+	tabOptions = new QWidget( Options, "taboptions" );
+	tabOptionsLayout = new QVBoxLayout( tabOptions, 11, 5, "tabOptionsLayout");
+	MirrorH = new QCheckBox( tr( "Mirror Page(s) &Horizontally" ), tabOptions, "MirrorH" );
+	MirrorH->setChecked(Optionen->MirrorH);
+	tabOptionsLayout->addWidget( MirrorH );
+	
+	RotateDeg = new QSpinBox(0, 270, 90, tabOptions, "RotateDeg");
+	RotateDeg->setValue(Optionen->RotateDeg);
+
+	TextLabel3 = new QLabel( RotateDeg, tr( "&Rotation:" ), tabOptions, "TextLabel3" );
+	TextLabel3->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
+	tabOptionsRotateHBox = new QHBoxLayout( tabOptionsLayout, -1, "tabOptionsRotateHBox" );
+	tabOptionsRotateHBox->addWidget( TextLabel3 );
+	tabOptionsRotateHBox->addWidget( RotateDeg );
+	tabOptionsRotateHBox->addStretch();
+	tabOptionsLayout->addStretch();
+	Options->insertTab( tabOptions, tr( "&Options" ) );
+	
+
+
 
 	BleedChanged();
 	PgSel = 0;
@@ -822,6 +841,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	connect(EDirection_2_2, SIGNAL(activated(int)), this, SLOT(ValidDI(int)));
 	connect(CheckBox10, SIGNAL(clicked()), this, SLOT(DoEffects()));
 	connect(MirrorH, SIGNAL(clicked()), this, SLOT(PDFMirrorH()));
+	connect(RotateDeg, SIGNAL(valueChanged(int)), this, SLOT(Rotation(int)));
 	connect(EonAllPg, SIGNAL(clicked()), this, SLOT(EffectOnAll()));
 	connect(AllPages, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
 	connect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
@@ -902,8 +922,8 @@ void PDF_Opts::EnablePDFX(int a)
 {
 	if (a != 2)
 	{
-		Options->setTabEnabled(tabpdfx, false);
-		Options->setTabEnabled(tabsec, true);
+		Options->setTabEnabled(tabPDFX, false);
+		Options->setTabEnabled(tabSecurity, true);
 		EmbedProfs2->setEnabled(true);
 		CheckBox10->setEnabled(true);
 		EmbedFonts->setEnabled(true);
@@ -922,8 +942,8 @@ void PDF_Opts::EnablePDFX(int a)
 	CheckBox10->setEnabled(false);
 	EmbedFonts->setEnabled(false);
 	EnablePGI();
-	Options->setTabEnabled(tabpdfx, true);
-	Options->setTabEnabled(tabsec, false);
+	Options->setTabEnabled(tabPDFX, true);
+	Options->setTabEnabled(tabSecurity, false);
 	connect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
 }
 
@@ -989,8 +1009,8 @@ void PDF_Opts::EnableLPI(int a)
 		UseLPI->hide();
 		LPIgroup->hide();
 	}
-	tabcolor->layout()->activate();
-	tabcolor->updateGeometry();
+	tabColor->layout()->activate();
+	tabColor->updateGeometry();
 	adjustSize();
 }
 
@@ -1000,8 +1020,8 @@ void PDF_Opts::EnableLPI2()
 		LPIgroup->show();
 	else
 		LPIgroup->hide();
-	tabcolor->layout()->activate();
-	tabcolor->updateGeometry();
+	tabColor->layout()->activate();
+	tabColor->updateGeometry();
 	adjustSize();
 }
 
@@ -1040,6 +1060,11 @@ void PDF_Opts::EffectOnAll()
 void PDF_Opts::PDFMirrorH()
 {
 	Opts->MirrorH = MirrorH->isChecked() ? true : false;
+}
+
+void PDF_Opts::Rotation( int value )
+{
+	Opts->RotateDeg = value / 90 * 90; RotateDeg->setValue(value / 90 * 90);
 }
 
 void PDF_Opts::DoEffects()
