@@ -37,6 +37,7 @@
 #include <qfileinfo.h>
 #include <qfile.h>
 #include <cmath>
+#include <iostream>
 #include <cstdio>
 #include <cstdlib>
 #include <unistd.h>
@@ -292,11 +293,74 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 						nb = linkedFramesToShow.at(lks);
 						while (nb != 0)
 						{
-							FPoint Start = transformPoint(FPoint(nb->Width/2, nb->Height), nb->Xpos, nb->Ypos, nb->Rot, 1, 1);
-							nb = nb->NextBox;
-							if (nb != 0)
+							double x11, y11, x12, y12, x1mid, y1mid;
+							double x21, y21, x22, y22, x2mid, y2mid;
+							x11 = nb->Xpos;
+							y11 = nb->Ypos;
+							x12 = nb->Xpos+nb->Width;
+							y12 = nb->Ypos+nb->Height;
+							x1mid = x11+(x12-x11)/2;
+							y1mid = y11+(y12-y11)/2;
+
+							if (nb->Rot!=0.000) 
 							{
-								FPoint End = transformPoint(FPoint(nb->Width/2, 0), nb->Xpos, nb->Ypos, nb->Rot, 1, 1);
+								FPoint tempPoint = transformPoint(FPoint(0,0), x11, y11, nb->Rot, 1, 1);
+								x11=tempPoint.x();
+								y11=tempPoint.y();
+								tempPoint = transformPoint(FPoint(0,0), x12, y12, nb->Rot, 1, 1);
+								x12=tempPoint.x();
+								y12=tempPoint.y();
+								tempPoint = transformPoint(FPoint(0,0), x1mid, y1mid, nb->Rot, 1, 1);
+								x1mid=tempPoint.x();
+								y1mid=tempPoint.y();
+							}
+							
+
+							double a1, b1, a2, b2;
+							if (nb->NextBox!=NULL)
+							{
+								x21 = nb->NextBox->Xpos;
+								y21 = nb->NextBox->Ypos;
+								x22 = nb->NextBox->Xpos+nb->NextBox->Width;
+								y22 = nb->NextBox->Ypos+nb->NextBox->Height;
+								x2mid = nb->NextBox->Xpos + nb->NextBox->Width/2;
+								y2mid = nb->NextBox->Ypos + nb->NextBox->Height/2;
+								x2mid = x21+(x22-x21)/2;
+								y2mid = y21+(y22-y21)/2;
+
+								if (nb->NextBox->Rot!=0.000) 
+								{
+									FPoint tempPoint = transformPoint(FPoint(0,0), x21, y21, nb->NextBox->Rot, 1, 1);
+									x21=tempPoint.x();
+									y21=tempPoint.y();
+									tempPoint = transformPoint(FPoint(0,0), x22, y22, nb->NextBox->Rot, 1, 1);
+									x22=tempPoint.x();
+									y22=tempPoint.y();
+									tempPoint = transformPoint(FPoint(0,0), x2mid, y2mid, nb->NextBox->Rot, 1, 1);
+									x2mid=tempPoint.x();
+									y2mid=tempPoint.y();
+								}
+							
+								if (x22<x11) { a1 = x11; a2 = x22; }
+								if (x21>x12) { a1 = x12; a2 = x21; }
+								if (y22<y11) { b1 = y11; b2 = y22; }
+								if (y21>y12) { b1 = y12; b2 = y21; }
+
+								if (x21<x12 && x21>x11) { a1 = x1mid; a2 = x2mid; }
+								if (x21<x11 && x22>x11) { a1 = x1mid; a2 = x2mid; }
+
+								if (y21<y12 && y21>y11) { b1 = y1mid; b2 = y2mid; }
+								if (y21<y11 && y22>y11) { b1 = y1mid; b2 = y2mid; }
+
+							}
+
+							FPoint Start = transformPoint(FPoint(a1-nb->Xpos, b1-nb->Ypos), nb->Xpos, nb->Ypos, nb->Rot, 1, 1);
+							//FPoint Start = transformPoint(FPoint(nb->Width/2, nb->Height), nb->Xpos, nb->Ypos, nb->Rot, 1, 1);
+							nb = nb->NextBox;
+							if (nb != NULL)
+							{
+								FPoint End = transformPoint(FPoint(a2-nb->Xpos, b2-nb->Ypos), nb->Xpos, nb->Ypos, nb->Rot, 1, 1);
+								//FPoint End = transformPoint(FPoint(nb->Width/2, 0), nb->Xpos, nb->Ypos, nb->Rot, 1, 1);
 								painter->setPen(black, 5.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 								painter->setPenOpacity(0.3);
 								painter->drawLine(Start, End);
