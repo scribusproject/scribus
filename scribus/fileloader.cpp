@@ -368,7 +368,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->DshadeLine = QStoInt(dc.attribute("LINESHADE", "100"));
 		doc->Dshade = QStoInt(dc.attribute("BRUSHSHADE", "100"));
 		doc->MagMin = QStoInt(dc.attribute("MAGMIN","10"));
-		doc->MagMax = QStoInt(dc.attribute("MAGMAX","800"));
+		doc->MagMax = QStoInt(dc.attribute("MAGMAX","3200"));
 		doc->MagStep = QStoInt(dc.attribute("MAGSTEP","25"));
 		if (dc.hasAttribute("CPICT"))
 			doc->DbrushPict = dc.attribute("CPICT");
