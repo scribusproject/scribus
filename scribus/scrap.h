@@ -9,7 +9,7 @@
 #ifndef BIBLIO_H
 #define BIBLIO_H
 
-#include <qdialog.h>
+#include <qwidget.h>
 #include <qiconview.h>
 #include <qframe.h>
 #include <qpopupmenu.h>
@@ -42,7 +42,6 @@ public:
 
 signals:
 	void ToggleAllPalettes();
-	void Schliessen();
 	void CloseMpal();
 	void CloseTpal();
 
@@ -50,14 +49,13 @@ protected:
 	virtual QDragObject *dragObject();
 };
 
-class Biblio : public QDialog
+class Biblio : public QWidget
 {
 	Q_OBJECT
 
 public:
 	Biblio( QWidget* parent, ApplicationPrefs *prefs);
 	~Biblio() {};
-	void closeEvent(QCloseEvent *ce);
 	void AdjustMenu();
 	void ObjFromMenu(QString text);
 
@@ -86,19 +84,12 @@ private slots:
 	void DropOn(QDropEvent *e);
 	void SaveAs();
 	void Load();
-	void CloseWin();
 	void NewLib();
 	void SetPreview(int id);
 
 protected:
 	QVBoxLayout* BiblioLayout;
 	QVBoxLayout* Frame3Layout;
-
-protected slots:
-	virtual void reject();
-
-signals:
-	void Schliessen();
 };
 
 #endif // BIBLIO_H

@@ -9,7 +9,7 @@
 #ifndef SEITENPAL_H
 #define SEITENPAL_H
 
-#include <qdialog.h>
+#include <qwidget.h>
 #include <qtable.h>
 #include <qlabel.h>
 #include <qlistbox.h>
@@ -121,7 +121,7 @@ signals:
 	void DelMaster(QString);
 };
 
-class SeitenPal : public QDialog
+class SeitenPal : public QWidget
 { 
     Q_OBJECT
 
@@ -129,7 +129,6 @@ public:
     SeitenPal(QWidget* parent);
     ~SeitenPal() {};
 	void keyPressEvent(QKeyEvent *k);
-    void closeEvent(QCloseEvent *ce);
 
     QSplitter* Splitter1;
     TrashBin* Trash;
@@ -161,7 +160,6 @@ signals:
 	void ToggleAllPalettes();
 	void EditTemp(QString);
 	void GotoSeite(int);
-	void Schliessen();
 
 protected:
     QVBoxLayout* SeitenPalLayout;
@@ -169,9 +167,6 @@ protected:
     QVBoxLayout* Layout2;
     QVBoxLayout* Layout3;
     QVBoxLayout* Layout4;
-
-protected slots:
-	virtual void reject();
 };
 
 #endif // SEITENPAL_H

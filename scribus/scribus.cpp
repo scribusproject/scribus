@@ -118,6 +118,8 @@
 #include "menumanager.h"
 #include "undostate.h"
 #include "tree.h"
+#include "kotooldockbase.h"
+#include "kotooldockmanager.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
@@ -734,32 +736,40 @@ void ScribusApp::initArrowStyles()
 
 void ScribusApp::initPalettes()
 {
+	m_pToolDockManager = new KoToolDockManager((QWidget*)qApp->desktop());
+	Lpal = new LayerPalette( this);
+	layersBase = m_pToolDockManager->createSimpleToolDock(Lpal, "layers");
+	layersBase->setCaption( tr("Layers"));
+	connect(Lpal, SIGNAL(LayerActivated(int)), this, SLOT(changeLayer(int)));
+	connect(Lpal, SIGNAL(LayerRemoved(int, bool)), this, SLOT(LayerRemove(int, bool)));
+	connect(Lpal, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
+  	connect(layersBase, SIGNAL(visibleChange(bool)), this, SLOT(setLpal(bool )));
+	connect(Lpal->Table, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 	Tpal = new Tree(this, this);
+	treeBase = m_pToolDockManager->createSimpleToolDock(Tpal, "Outline");
+	treeBase->setCaption( tr("Outline"));
+	connect(Tpal, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
+	connect(Tpal, SIGNAL(CloseSpal()), this, SLOT(ToggleBpal()));
+	connect(Tpal, SIGNAL(selectElement(int, int, bool)), this, SLOT(SelectFromOutl(int, int, bool)));
+	connect(Tpal, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
+	connect(Tpal, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
+	connect(Tpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+  	connect(treeBase, SIGNAL(visibleChange(bool)), this, SLOT(setTpal(bool )));
+	docChecker = new CheckDocument(this, false);
+	docChecker->hide();
+	MaPal = new Measurements(this);
+	MaPal->hide();
+	connect(MaPal, SIGNAL(Schliessen(bool)), this, SLOT(setMapal(bool)));
 	Mpal = new Mpalette(this, &Prefs);
 	Mpal->Cpal->SetColors(Prefs.DColors);
 	Mpal->Cpal->UseTrans(true);
 	Mpal->Fonts->RebuildList(&Prefs, 0);
-	Npal = new NodePalette(this);
-	Lpal = new LayerPalette(this);
-	ScBook = new Biblio(this, &Prefs);
-	Sepal = new SeitenPal(this);
-	BookPal = new BookPalette(this);
-	MaPal = new Measurements(this);
-	MaPal->hide();
-	docChecker = new CheckDocument(this, false);
-	docChecker->hide();
-
-	undoPalette = new UndoPalette(this, "undoPalette");
-	undoManager->registerGui(undoPalette);
-	connect(undoPalette, SIGNAL(closePalette(bool)), this, SLOT(setUndoPalette(bool)));
-	connect(undoPalette, SIGNAL(objectMode(bool)), this, SLOT(setUndoMode(bool)));
-	
-	connect(MaPal, SIGNAL(Schliessen(bool)), this, SLOT(setMapal(bool)));
+	mpalBase = m_pToolDockManager->createSimpleToolDock(Mpal, "Properties");
+	mpalBase->setCaption( tr("Properties"));
 	connect(Mpal, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 	connect(Mpal, SIGNAL(NewAbStyle(int)), this, SLOT(setNewAbStyle(int)));
 	connect(Mpal, SIGNAL(BackHome()), this, SLOT(Aktiv()));
 	connect(Mpal, SIGNAL(Stellung(int)), this, SLOT(setItemHoch(int)));
-	connect(Mpal, SIGNAL(Schliessen()), this, SLOT(ToggleMpal()));
 	connect(Mpal, SIGNAL(EditCL()), this, SLOT(ToggleFrameEdit()));
 	connect(Mpal, SIGNAL(NewTF(QString)), this, SLOT(SetNewFont(QString)));
 	connect(Mpal, SIGNAL(UpdtGui(int)), this, SLOT(HaveNewSel(int)));
@@ -773,42 +783,54 @@ void ScribusApp::initPalettes()
 	connect(Mpal->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 	connect(Mpal->Cpal, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 	connect(Mpal->Cpal, SIGNAL(QueryItem()), this, SLOT(GetBrushPen()));
-	connect(docChecker, SIGNAL(closePal(bool)), this, SLOT(setCheckPal(bool)));
-	connect(docChecker, SIGNAL(rescan()), this, SLOT(slotCheckDoc()));
-	connect(docChecker, SIGNAL(selectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
-	connect(docChecker, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
-	connect(docChecker, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
-	connect(Tpal, SIGNAL(Schliessen()), this, SLOT(ToggleTpal()));
-	connect(Tpal, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
-	connect(Tpal, SIGNAL(CloseSpal()), this, SLOT(ToggleBpal()));
-	connect(Tpal, SIGNAL(selectElement(int, int, bool)), this, SLOT(SelectFromOutl(int, int, bool)));
-	connect(Tpal, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
-	connect(Tpal, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
-	connect(Tpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 	connect(Mpal->Spal, SIGNAL(newStyle(int)), this, SLOT(setNewAbStyle(int)));
 	connect(Mpal, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
 	connect(Mpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 	connect(Mpal, SIGNAL(CloseTpal()), this, SLOT(ToggleTpal()));
 	connect(Mpal, SIGNAL(CloseBpal()), this, SLOT(ToggleBpal()));
+  	connect(mpalBase, SIGNAL(visibleChange(bool)), this, SLOT(setMpal(bool )));
+	Npal = new NodePalette(this);
 	connect(Npal, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
-	connect(Lpal, SIGNAL(LayerActivated(int)), this, SLOT(changeLayer(int)));
-	connect(Lpal, SIGNAL(LayerRemoved(int, bool)), this, SLOT(LayerRemove(int, bool)));
-	connect(Lpal, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
-	connect(Lpal, SIGNAL(Schliessen()), this, SLOT(ToggleLpal()));
-	connect(Lpal->Table, SIGNAL(Schliessen()), this, SLOT(ToggleLpal()));
-	connect(Lpal->Table, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
-	connect(Sepal, SIGNAL(Schliessen()), this, SLOT(ToggleSepal()));
+	ScBook = new Biblio(this, &Prefs);
+	biblioBase = m_pToolDockManager->createSimpleToolDock(ScBook, "Scrapbook");
+	biblioBase->setCaption( tr("Scrapbook"));
+  	connect(biblioBase, SIGNAL(visibleChange(bool)), this, SLOT(setBpal(bool )));
+	connect(ScBook->BibWin, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+	connect(ScBook->BibWin, SIGNAL(CloseTpal()), this, SLOT(ToggleTpal()));
+	connect(ScBook->BibWin, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
+	Sepal = new SeitenPal(this);
+	pageBase = m_pToolDockManager->createSimpleToolDock(Sepal, "ArrangePages");
+	pageBase->setCaption( tr("Arrange Pages"));
+  	connect(pageBase, SIGNAL(visibleChange(bool)), this, SLOT(setSepal(bool )));
 	connect(Sepal, SIGNAL(EditTemp(QString)), this, SLOT(ManageTemp(QString)));
 	connect(Sepal->PageView, SIGNAL(UseTemp(QString, int)), this, SLOT(Apply_Temp(QString, int)));
 	connect(Sepal->PageView, SIGNAL(NewPage(int, QString)), this, SLOT(slotNewPageP(int, QString)));
 	connect(Sepal->Trash, SIGNAL(DelPage(int)), this, SLOT(DeletePage2(int)));
 	connect(Sepal, SIGNAL(GotoSeite(int)), this, SLOT(SelectFromOutlS(int)));
 	connect(Sepal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+	BookPal = new BookPalette(this);
+	bookBase = m_pToolDockManager->createSimpleToolDock(BookPal, "Bookmarks");
+	bookBase->setCaption( tr("Bookmarks"));
+  	connect(bookBase, SIGNAL(visibleChange(bool)), this, SLOT(setBookpal(bool )));
 	connect(BookPal->BView, SIGNAL(MarkMoved()), this, SLOT(StoreBookmarks()));
 	connect(BookPal->BView, SIGNAL(ChangeBMNr(int, int, int)), this, SLOT(ChBookmarks(int, int, int)));
 	connect(BookPal->BView, SIGNAL(SelectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
-	connect(BookPal, SIGNAL(Schliessen()), this, SLOT(ToggleBookpal()));
 	connect(BookPal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+	MaPal = new Measurements(this);
+	MaPal->hide();
+	connect(MaPal, SIGNAL(Schliessen(bool)), this, SLOT(setMapal(bool)));
+	docChecker = new CheckDocument(this, false);
+	docChecker->hide();
+	connect(docChecker, SIGNAL(closePal(bool)), this, SLOT(setCheckPal(bool)));
+	connect(docChecker, SIGNAL(rescan()), this, SLOT(slotCheckDoc()));
+	connect(docChecker, SIGNAL(selectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
+	connect(docChecker, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
+	connect(docChecker, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
+
+	undoPalette = new UndoPalette(this, "undoPalette");
+	undoManager->registerGui(undoPalette);
+	connect(undoPalette, SIGNAL(closePalette(bool)), this, SLOT(setUndoPalette(bool)));
+	connect(undoPalette, SIGNAL(objectMode(bool)), this, SLOT(setUndoMode(bool)));
 }
 
 void ScribusApp::initScrapbook()
@@ -819,11 +841,6 @@ void ScribusApp::initScrapbook()
 		ScBook->BibWin->ReadContents(scrapbookFile);
 	ScBook->ScFilename = scrapbookFile;
 	ScBook->AdjustMenu();
-	connect(ScBook, SIGNAL(Schliessen()), this, SLOT(ToggleBpal()));
-	connect(ScBook->BibWin, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
-	connect(ScBook->BibWin, SIGNAL(Schliessen()), this, SLOT(ToggleBpal()));
-	connect(ScBook->BibWin, SIGNAL(CloseTpal()), this, SLOT(ToggleTpal()));
-	connect(ScBook->BibWin, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
 }
 
 void ScribusApp::initCrashHandler()
@@ -5795,34 +5812,34 @@ void ScribusApp::ToggleAllPalettes()
 	if (PalettesStat[0])
 	{
 		PalettesStat[0] = false;
-		setMpal(PalettesStat[1]);
-		setTpal(PalettesStat[2]);
-		setBpal(PalettesStat[3]);
-		setLpal(PalettesStat[4]);
-		setSepal(PalettesStat[5]);
-		setBookpal(PalettesStat[6]);
+		mpalBase->makeVisible(PalettesStat[1]);
+		treeBase->makeVisible(PalettesStat[2]);
+		biblioBase->makeVisible(PalettesStat[3]);
+		layersBase->makeVisible(PalettesStat[4]);
+		pageBase->makeVisible(PalettesStat[5]);
+		bookBase->makeVisible(PalettesStat[6]);
 		setMapal(PalettesStat[7]);
 		setUndoPalette(PalettesStat[8]);
 		setCheckPal(PalettesStat[9]);
 	}
 	else
 	{
-		PalettesStat[1] = Mpal->isVisible();
-		PalettesStat[2] = Tpal->isVisible();
-		PalettesStat[3] = ScBook->isVisible();
-		PalettesStat[4] = Lpal->isVisible();
-		PalettesStat[5] = Sepal->isVisible();
-		PalettesStat[6] = BookPal->isVisible();
+		PalettesStat[1] = mpalBase->isVisible();
+		PalettesStat[2] = treeBase->isVisible();
+		PalettesStat[3] = biblioBase->isVisible();
+		PalettesStat[4] = layersBase->isVisible();
+		PalettesStat[5] = pageBase->isVisible();
+		PalettesStat[6] = bookBase->isVisible();
 		PalettesStat[7] = MaPal->isVisible();
 		PalettesStat[8] = undoPalette->isVisible();
 		PalettesStat[9] = docChecker->isVisible();
+		mpalBase->makeVisible(false);
+		treeBase->makeVisible(false);
+		biblioBase->makeVisible(false);
+		layersBase->makeVisible(false);
+		pageBase->makeVisible(false);
+		bookBase->makeVisible(false);
 		setMapal(false);
-		setMpal(false);
-		setTpal(false);
-		setBpal(false);
-		setLpal(false);
-		setSepal(false);
-		setBookpal(false);
 		setUndoPalette(false);
 		setCheckPal(false);
 		PalettesStat[0] = true;
@@ -5882,70 +5899,54 @@ void ScribusApp::setUndoPalette(bool visible)
 
 void ScribusApp::setMpal(bool visible)
 {
-	if (visible)
+	if (!visible)
 	{
-		Mpal->show();
-		Mpal->move(Prefs.mPaletteSettings.xPosition, Prefs.mPaletteSettings.yPosition);
-	}
-	else
-	{
-		Prefs.mPaletteSettings.xPosition = Mpal->pos().x();
-		Prefs.mPaletteSettings.yPosition = Mpal->pos().y();
-		Mpal->hide();
+		Prefs.mPaletteSettings.xPosition = mpalBase->pos().x();
+		Prefs.mPaletteSettings.yPosition = mpalBase->pos().y();
 	}
 	scrActions["toolsProperties"]->setOn(visible);
+	Prefs.mPaletteSettings.visible = visible;
 }
 
 void ScribusApp::ToggleMpal()
 {
-	setMpal(!Mpal->isVisible());
+	mpalBase->makeVisible(Prefs.mPaletteSettings.visible);
 	PalettesStat[0] = false;
 }
 
 void ScribusApp::setTpal(bool visible)
 {
-	if (visible)
+	if (!visible)
 	{
-		Tpal->show();
-		Tpal->move(Prefs.treePalSettings.xPosition, Prefs.treePalSettings.yPosition);
-	}
-	else
-	{
-		Prefs.treePalSettings.xPosition = Tpal->pos().x();
-		Prefs.treePalSettings.yPosition = Tpal->pos().y();
-		Tpal->hide();
+		Prefs.treePalSettings.xPosition = treeBase->pos().x();
+		Prefs.treePalSettings.yPosition = treeBase->pos().y();
 	}
 	scrActions["toolsOutline"]->setOn(visible);
+	Prefs.treePalSettings.visible = visible;
 }
 
 void ScribusApp::ToggleTpal()
 {
-	setTpal(!Tpal->isVisible());
+	treeBase->makeVisible(!Prefs.treePalSettings.visible);
 	PalettesStat[0] = false;
 }
 
 void ScribusApp::setBpal(bool visible)
 {
-	if (visible)
+	if (!visible)
 	{
-		ScBook->show();
-		ScBook->move(Prefs.scrapPalSettings.xPosition, Prefs.scrapPalSettings.yPosition);
-		ScBook->resize(Prefs.scrapPalSettings.width, Prefs.scrapPalSettings.height);
-	}
-	else
-	{
-		Prefs.scrapPalSettings.xPosition = ScBook->pos().x();
-		Prefs.scrapPalSettings.yPosition = ScBook->pos().y();
-		Prefs.scrapPalSettings.width = ScBook->size().width();
-		Prefs.scrapPalSettings.height = ScBook->size().height();
-		ScBook->hide();
+		Prefs.scrapPalSettings.xPosition = biblioBase->pos().x();
+		Prefs.scrapPalSettings.yPosition = biblioBase->pos().y();
+		Prefs.scrapPalSettings.width = biblioBase->size().width();
+		Prefs.scrapPalSettings.height = biblioBase->size().height();
 	}
 	scrActions["toolsScrapbook"]->setOn(visible);
+	Prefs.scrapPalSettings.visible = visible;
 }
 
 void ScribusApp::ToggleBpal()
 {
-	setBpal(!ScBook->isVisible());
+	biblioBase->makeVisible(!Prefs.scrapPalSettings.visible);
 	PalettesStat[0] = false;
 }
 
@@ -5955,67 +5956,55 @@ void ScribusApp::setLpal(bool visible)
 	{
 		if (HaveDoc)
 			Lpal->setLayers(&doc->Layers, &doc->ActiveLayer);
-		Lpal->show();
-		Lpal->move(Prefs.layerPalSettings.xPosition, Prefs.layerPalSettings.yPosition);
 	}
 	else
 	{
-		Prefs.layerPalSettings.xPosition = Lpal->pos().x();
-		Prefs.layerPalSettings.yPosition = Lpal->pos().y();
-		Lpal->hide();
+		Prefs.layerPalSettings.xPosition = layersBase->pos().x();
+		Prefs.layerPalSettings.yPosition = layersBase->pos().y();
 	}
 	scrActions["toolsLayers"]->setOn(visible);
+	Prefs.layerPalSettings.visible = visible;
 }
 
 void ScribusApp::ToggleLpal()
 {
-	setLpal(!Lpal->isVisible());
+	layersBase->makeVisible(!Prefs.layerPalSettings.visible);
 	PalettesStat[0] = false;
 }
 
 void ScribusApp::setSepal(bool visible)
 {
-	if (visible)
+	if (!visible)
 	{
-		Sepal->show();
-		Sepal->move(Prefs.pagePalSettings.xPosition, Prefs.pagePalSettings.yPosition);
-	}
-	else
-	{
-		Prefs.pagePalSettings.xPosition = Sepal->pos().x();
-		Prefs.pagePalSettings.yPosition = Sepal->pos().y();
+		Prefs.pagePalSettings.xPosition = pageBase->pos().x();
+		Prefs.pagePalSettings.yPosition = pageBase->pos().y();
 		Prefs.SepalT = Sepal->TemplList->Thumb;
 		Prefs.SepalN = Sepal->PageView->Namen;
-		Sepal->hide();
 	}
 	scrActions["toolsPages"]->setOn(visible);
+	Prefs.pagePalSettings.visible = visible;
 }
 
 void ScribusApp::ToggleSepal()
 {
-	setSepal(!Sepal->isVisible());
+	pageBase->makeVisible(!Prefs.pagePalSettings.visible);
 	PalettesStat[0] = false;
 }
 
 void ScribusApp::setBookpal(bool visible)
 {
-	if (visible)
+	if (!visible)
 	{
-		BookPal->show();
-		BookPal->move(Prefs.bookmPalSettings.xPosition, Prefs.bookmPalSettings.yPosition);
-	}
-	else
-	{
-		Prefs.bookmPalSettings.xPosition = BookPal->pos().x();
-		Prefs.bookmPalSettings.yPosition = BookPal->pos().y();
-		BookPal->hide();
+		Prefs.bookmPalSettings.xPosition = bookBase->pos().x();
+		Prefs.bookmPalSettings.yPosition = bookBase->pos().y();
 	}
 	scrActions["toolsBookmarks"]->setOn(visible);
+	Prefs.bookmPalSettings.visible = visible;
 }
 
 void ScribusApp::ToggleBookpal()
 {
-	setBookpal(!BookPal->isVisible());
+	bookBase->makeVisible(!Prefs.bookmPalSettings.visible);
 	PalettesStat[0] = false;
 }
 
@@ -7983,12 +7972,12 @@ void ScribusApp::SavePrefs()
 	Prefs.mainWinSettings.height = size().height();
 	Prefs.mainToolBarSettings.visible = WerkTools->isVisible();
 	Prefs.pdfToolBarSettings.visible = WerkToolsP->isVisible();
-	Prefs.mPaletteSettings.visible = Mpal->isVisible();
-	Prefs.treePalSettings.visible = Tpal->isVisible();
-	Prefs.scrapPalSettings.visible = ScBook->isVisible();
-	Prefs.layerPalSettings.visible = Lpal->isVisible();
-	Prefs.pagePalSettings.visible = Sepal->isVisible();
-	Prefs.bookmPalSettings.visible = BookPal->isVisible();
+	Prefs.mPaletteSettings.visible = mpalBase->isVisible();
+	Prefs.treePalSettings.visible = treeBase->isVisible();
+	Prefs.scrapPalSettings.visible = biblioBase->isVisible();
+	Prefs.layerPalSettings.visible = layersBase->isVisible();
+	Prefs.pagePalSettings.visible = pageBase->isVisible();
+	Prefs.bookmPalSettings.visible = bookBase->isVisible();
 	Prefs.checkPalSettings.visible = docChecker->isVisible();
 	if (docChecker->isVisible())
 	{
@@ -8004,37 +7993,37 @@ void ScribusApp::SavePrefs()
 		Prefs.measurePalSettings.xPosition = abs(MaPal->pos().x());
 		Prefs.measurePalSettings.yPosition = abs(MaPal->pos().y());
 	}
-	if (Mpal->isVisible())
+	if (mpalBase->isVisible())
 	{
-		Prefs.mPaletteSettings.xPosition = abs(Mpal->pos().x());
-		Prefs.mPaletteSettings.yPosition = abs(Mpal->pos().y());
+		Prefs.mPaletteSettings.xPosition = abs(mpalBase->pos().x());
+		Prefs.mPaletteSettings.yPosition = abs(mpalBase->pos().y());
 	}
-	if (Tpal->isVisible())
+	if (treeBase->isVisible())
 	{
-		Prefs.treePalSettings.xPosition = abs(Tpal->pos().x());
-		Prefs.treePalSettings.yPosition = abs(Tpal->pos().y());
+		Prefs.treePalSettings.xPosition = abs(treeBase->pos().x());
+		Prefs.treePalSettings.yPosition = abs(treeBase->pos().y());
 	}
-	if (ScBook->isVisible())
+	if (biblioBase->isVisible())
 	{
-		Prefs.scrapPalSettings.xPosition = abs(ScBook->pos().x());
-		Prefs.scrapPalSettings.yPosition = abs(ScBook->pos().y());
-		Prefs.scrapPalSettings.width = abs(ScBook->size().width());
-		Prefs.scrapPalSettings.height = abs(ScBook->size().height());
+		Prefs.scrapPalSettings.xPosition = abs(biblioBase->pos().x());
+		Prefs.scrapPalSettings.yPosition = abs(biblioBase->pos().y());
+		Prefs.scrapPalSettings.width = abs(biblioBase->size().width());
+		Prefs.scrapPalSettings.height = abs(biblioBase->size().height());
 	}
-	if (Sepal->isVisible())
+	if (pageBase->isVisible())
 	{
-		Prefs.pagePalSettings.xPosition = abs(Sepal->pos().x());
-		Prefs.pagePalSettings.yPosition = abs(Sepal->pos().y());
+		Prefs.pagePalSettings.xPosition = abs(pageBase->pos().x());
+		Prefs.pagePalSettings.yPosition = abs(pageBase->pos().y());
 	}
-	if (BookPal->isVisible())
+	if (bookBase->isVisible())
 	{
-		Prefs.bookmPalSettings.xPosition = abs(BookPal->pos().x());
-		Prefs.bookmPalSettings.yPosition = abs(BookPal->pos().y());
+		Prefs.bookmPalSettings.xPosition = abs(bookBase->pos().x());
+		Prefs.bookmPalSettings.yPosition = abs(bookBase->pos().y());
 	}
-	if (Lpal->isVisible())
+	if (layersBase->isVisible())
 	{
-		Prefs.layerPalSettings.xPosition = abs(Lpal->pos().x());
-		Prefs.layerPalSettings.yPosition = abs(Lpal->pos().y());
+		Prefs.layerPalSettings.xPosition = abs(layersBase->pos().x());
+		Prefs.layerPalSettings.yPosition = abs(layersBase->pos().y());
 	}
 	Prefs.RecentDocs.clear();
 	uint max = QMIN(Prefs.RecentDCount, RecentDocs.count());
@@ -8088,13 +8077,13 @@ void ScribusApp::ReadPrefs(bool import12)
 	}
 	rebuildRecentFileMenu();
 	MaPal->move(Prefs.measurePalSettings.xPosition, Prefs.measurePalSettings.yPosition);
-	Mpal->move(Prefs.mPaletteSettings.xPosition, Prefs.mPaletteSettings.yPosition);
-	Tpal->move(Prefs.treePalSettings.xPosition, Prefs.treePalSettings.yPosition);
-	Lpal->move(Prefs.layerPalSettings.xPosition, Prefs.layerPalSettings.yPosition);
-	Sepal->move(Prefs.pagePalSettings.xPosition, Prefs.pagePalSettings.yPosition);
-	BookPal->move(Prefs.bookmPalSettings.xPosition, Prefs.bookmPalSettings.yPosition);
-	ScBook->move(Prefs.scrapPalSettings.xPosition, Prefs.scrapPalSettings.yPosition);
-	ScBook->resize(Prefs.scrapPalSettings.width, Prefs.scrapPalSettings.height);
+	mpalBase->move(Prefs.mPaletteSettings.xPosition, Prefs.mPaletteSettings.yPosition);
+	treeBase->move(Prefs.treePalSettings.xPosition, Prefs.treePalSettings.yPosition);
+	layersBase->move(Prefs.layerPalSettings.xPosition, Prefs.layerPalSettings.yPosition);
+	pageBase->move(Prefs.pagePalSettings.xPosition, Prefs.pagePalSettings.yPosition);
+	bookBase->move(Prefs.bookmPalSettings.xPosition, Prefs.bookmPalSettings.yPosition);
+	biblioBase->move(Prefs.scrapPalSettings.xPosition, Prefs.scrapPalSettings.yPosition);
+	biblioBase->resize(Prefs.scrapPalSettings.width, Prefs.scrapPalSettings.height);
 	Npal->move(Prefs.nodePalSettings.xPosition, Prefs.nodePalSettings.yPosition);
 	docChecker->move(Prefs.checkPalSettings.xPosition, Prefs.checkPalSettings.yPosition);
 	move(Prefs.mainWinSettings.xPosition, Prefs.mainWinSettings.yPosition);
@@ -8151,12 +8140,12 @@ void ScribusApp::ShowSubs()
 	setTools(Prefs.mainToolBarSettings.visible);
 	setPDFTools(Prefs.pdfToolBarSettings.visible);
 	setMapal(Prefs.measurePalSettings.visible);
-	setMpal(Prefs.mPaletteSettings.visible);
-	setTpal(Prefs.treePalSettings.visible);
-	setBpal(Prefs.scrapPalSettings.visible);
-	setLpal(Prefs.layerPalSettings.visible);
-	setSepal(Prefs.pagePalSettings.visible);
-	setBookpal(Prefs.bookmPalSettings.visible);
+	mpalBase->makeVisible(Prefs.mPaletteSettings.visible);
+	treeBase->makeVisible(Prefs.treePalSettings.visible);
+	biblioBase->makeVisible(Prefs.scrapPalSettings.visible);
+	layersBase->makeVisible(Prefs.layerPalSettings.visible);
+	pageBase->makeVisible(Prefs.pagePalSettings.visible);
+	bookBase->makeVisible(Prefs.bookmPalSettings.visible);
 	setCheckPal(Prefs.checkPalSettings.visible);
 	setActiveWindow();
 	raise();

@@ -32,8 +32,6 @@ void LayerTable::keyPressEvent(QKeyEvent *k)
 {
 	if (k->key() == Key_F10)
 		emit ToggleAllPalettes();
-	if (k->key() == Key_Escape)
-		emit Schliessen();
 	QTable::keyPressEvent(k);
 }
 
@@ -45,13 +43,11 @@ void LayerTable::endEdit ( int row, int col, bool accept, bool replace )
 		emit updtName(row);
 }
 
-LayerPalette::LayerPalette(QWidget* parent)
-		: QDialog( parent, "Layers", false, 0 )
+LayerPalette::LayerPalette(QWidget* parent) : QWidget( parent, "Layers" )
 {
-	setIcon(loadIcon("AppIcon.png"));
-	setCaption( tr( "Layers" ) );
 	LayerPaletteLayout = new QVBoxLayout( this, 10, 5, "LayerPaletteLayout");
 
+	setFont(qApp->font());
 	Table = new LayerTable( this );
 	Table->setNumRows( 0 );
 	Table->setNumCols( 3 );
@@ -116,18 +112,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 	connect(LowerLayer, SIGNAL(clicked()), this, SLOT(downLayer()));
 	connect(Table, SIGNAL(valueChanged(int, int)), this, SLOT(changeName(int, int)));
 	connect(Table, SIGNAL(updtName(int)), this, SLOT(updateName(int)));
-}
-
-void LayerPalette::closeEvent(QCloseEvent *ce)
-{
-	emit Schliessen();
-	ce->accept();
-}
-
-void LayerPalette::reject()
-{
-	emit Schliessen();
-	QDialog::reject();
+	clearWState( WState_Polished );
 }
 
 void LayerPalette::updateName(int r)
@@ -167,6 +152,7 @@ void LayerPalette::setLayers(QValueList<Layer> *layin, int *act)
 void LayerPalette::rebuildList()
 {
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
+	setFont(qApp->font());
 	FlagsPrint.clear();
 	FlagsSicht.clear();
 	QString tmp;

@@ -81,6 +81,8 @@ class ScrAction;
 class MenuManager;
 class CheckDocument;
 class Tree;
+class KoToolDockBase;
+class KoToolDockManager;
 
 /**
   * This Class is the base class for your application. It sets up the main
@@ -180,6 +182,7 @@ public:
 	ScribusDoc *doc;
     /** the splash screen */
 	SplashScreen *splashScreen;
+	KoToolDockManager* m_pToolDockManager;
 	QLabel* FMess;
 	QProgressBar* FProg;
 	QLabel* XMess;
@@ -187,12 +190,19 @@ public:
 	QLabel* YMess;
 	QLabel* YDat;
 	Mpalette *Mpal;
+	KoToolDockBase* mpalBase;
 	NodePalette *Npal;
+	KoToolDockBase* npalBase;
 	Tree *Tpal;
+	KoToolDockBase* treeBase;
 	Biblio *ScBook;
+	KoToolDockBase* biblioBase;
 	LayerPalette* Lpal;
+	KoToolDockBase* layersBase;
 	SeitenPal *Sepal;
+	KoToolDockBase* pageBase;
 	BookPalette *BookPal;
+	KoToolDockBase* bookBase;
 	Measurements* MaPal;
 	CheckDocument * docChecker;
 	UndoPalette* undoPalette;

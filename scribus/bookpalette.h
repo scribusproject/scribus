@@ -18,14 +18,14 @@
 #ifndef BOOKPALETTE_H
 #define BOOKPALETTE_H
 
-#include <qdialog.h>
+#include <qwidget.h>
 #include <qlayout.h>
 #include <bookmwin.h>
 /**
   *@author Franz Schmid
   */
 
-class BookPalette : public QDialog
+class BookPalette : public QWidget
 {
 	Q_OBJECT
 
@@ -33,18 +33,14 @@ public:
 	BookPalette(QWidget* parent);
 	~BookPalette() {};
 	void keyPressEvent(QKeyEvent *k);
-	void closeEvent(QCloseEvent *ce);
 	BookMView	*BView;
 
 signals:
 	void ToggleAllPalettes();
-	void Schliessen();
 
 protected:
 	QVBoxLayout* PaletteLayout;
 
-protected slots:
-	virtual void reject();
 };
 
 #endif

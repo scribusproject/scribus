@@ -84,20 +84,18 @@ void NameWidget::focusOutEvent(QFocusEvent *e)
 	QLineEdit::focusOutEvent(e);
 }
 
-Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent, "Mdouble", false, 0)
+Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QWidget( parent, "Mdouble")
 {
-	setCaption( tr( "Properties" ) );
 	HaveDoc = false;
 	HaveItem = false;
 	RoVal = 0;
 	Umrech = UmReFaktor;
 	QString ptSuffix = tr( " pt" );
-	setIcon( loadIcon("AppIcon.png") );
 	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
 
 	MpalLayout = new QVBoxLayout( this, 5, 1, "MpalLayout");
-	setOrientation(Qt::Vertical);
-	QFont f(font());
+//	setOrientation(Qt::Vertical);
+	QFont f(qApp->font());
 	f.setPointSize(f.pointSize()-1);
 	setFont(f);
 
@@ -926,6 +924,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent,
 	StrokeIcon->setEnabled(false);
 	TxStroke->setEnabled(false);
 	PM1->setEnabled(false);
+	clearWState( WState_Polished );
 }
 
 void Mpalette::keyPressEvent(QKeyEvent *k)
@@ -957,19 +956,7 @@ void Mpalette::keyPressEvent(QKeyEvent *k)
 	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[48].KeyID)
 		emit CloseBpal();
 	*/
-	QDialog::keyPressEvent(k);
-}
-
-void Mpalette::closeEvent(QCloseEvent *ce)
-{
-	emit Schliessen();
-	ce->accept();
-}
-
-void Mpalette::reject()
-{
-	emit Schliessen();
-	QDialog::reject();
+	QWidget::keyPressEvent(k);
 }
 
 void Mpalette::SelTab(int t)

@@ -476,12 +476,9 @@ void TrashBin::dropEvent(QDropEvent * e)
 }
 
 
-SeitenPal::SeitenPal(QWidget* parent)
-		: QDialog( parent, "SP", false, 0)
-		//    : QDialog( parent, "SP", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
+SeitenPal::SeitenPal(QWidget* parent) : QWidget( parent, "SP")
 {
-	setCaption( tr( "Arrange Pages" ) );
-	setIcon(loadIcon("AppIcon.png"));
+	setFont(qApp->font());
 	SeitenPalLayout = new QVBoxLayout( this );
 	SeitenPalLayout->setSpacing( 5 );
 	SeitenPalLayout->setMargin( 5 );
@@ -552,25 +549,14 @@ SeitenPal::SeitenPal(QWidget* parent)
 	QToolTip::add( PageView, tr( "Previews all the pages of your document." ));
 	QToolTip::add( TemplList,
 		               tr( "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below." ) );
+	clearWState( WState_Polished );
 }
 
 void SeitenPal::keyPressEvent(QKeyEvent *k)
 {
 	if (k->key() == Key_F10)
 		emit ToggleAllPalettes();
-	QDialog::keyPressEvent(k);
-}
-
-void SeitenPal::closeEvent(QCloseEvent *ce)
-{
-	emit Schliessen();
-	ce->accept();
-}
-
-void SeitenPal::reject()
-{
-	emit Schliessen();
-	QDialog::reject();
+	QWidget::keyPressEvent(k);
 }
 
 void SeitenPal::DelMPage(QString tmp)
@@ -679,6 +665,7 @@ void SeitenPal::HandleLP()
 
 void SeitenPal::RebuildTemp()
 {
+	setFont(qApp->font());
 	if (ScApp->ScriptRunning)
 		return;
 	TemplList->clear();
@@ -696,6 +683,7 @@ void SeitenPal::RebuildTemp()
 
 void SeitenPal::RebuildPage()
 {
+	setFont(qApp->font());
 	if (ScApp->ScriptRunning)
 		return;
 	QString str;

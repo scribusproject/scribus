@@ -17,7 +17,6 @@
 
 #include "bookpalette.h"
 #include "bookpalette.moc"
-extern QPixmap loadIcon(QString nam);
 
 /*!
  \fn BookPalette::BookPalette(QWidget* parent)
@@ -28,40 +27,19 @@ extern QPixmap loadIcon(QString nam);
  \retval None
  */
 
-BookPalette::BookPalette(QWidget* parent) : QDialog( parent, "Books", false, 0 )
+BookPalette::BookPalette(QWidget* parent) : QWidget( parent, "Books")
 {
-	setIcon(loadIcon("AppIcon.png"));
-	setCaption( tr( "Bookmarks" ) );
 	PaletteLayout = new QVBoxLayout( this, 0, 0, "PaletteLayout");
+	setFont(qApp->font());
 	BView = new BookMView(this);
 	BView->setMinimumSize(QSize(100,150));
 	PaletteLayout->addWidget( BView );
+	clearWState( WState_Polished );
 }
-
-/*!
- \fn void BookPalette::closeEvent(QCloseEvent *ce)
- \author Franz Schmid
- \date
- \brief Emits the Signal Schliessen and accepts close event. The Signal is used in ScribusApp to adjust the Menues.
- \param ce Close Event
- \retval None
- */
 
 void BookPalette::keyPressEvent(QKeyEvent *k)
 {
 	if (k->key() == Key_F10)
 		emit ToggleAllPalettes();
-	QDialog::keyPressEvent(k);
-}
-
-void BookPalette::closeEvent(QCloseEvent *ce)
-{
-	emit Schliessen();
-	ce->accept();
-}
-
-void BookPalette::reject()
-{
-	emit Schliessen();
-	QDialog::reject();
+	QWidget::keyPressEvent(k);
 }

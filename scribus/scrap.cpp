@@ -117,6 +117,7 @@ void BibView::ReadContents(QString name)
 	if ((elem.tagName() != "SCRIBUSSCRAP") && (elem.tagName() != "SCRIBUSSCRAPUTF8"))
 		return;
 	clear();
+	setFont(qApp->font());
 	Objekte.clear();
 	QDomNode DOC=elem.firstChild();
 	while(!DOC.isNull())
@@ -140,6 +141,7 @@ void BibView::ReadContents(QString name)
 void BibView::RebuildView()
 {
 	clear();
+	setFont(qApp->font());
 	QMap<QString,Elem>::Iterator itf;
 	for (itf = Objekte.begin(); itf != Objekte.end(); ++itf)
 	{
@@ -151,12 +153,10 @@ void BibView::RebuildView()
 }
 
 /* This is the main Dialog-Class for the Scrapbook */
-Biblio::Biblio( QWidget* parent, ApplicationPrefs *prefs)
-		: QDialog( parent, "Sclib", false, 0 )
+Biblio::Biblio( QWidget* parent, ApplicationPrefs *prefs) : QWidget( parent, "Sclib" )
 {
-	resize( 230, 190 );
-	setCaption( tr( "Scrapbook" ) );
-	setIcon(loadIcon("AppIcon.png"));
+	setFont(qApp->font());
+//	resize( 230, 190 );
 	ScFilename = "";
 	Prefs = prefs;
 	Changed = false;
@@ -168,7 +168,6 @@ Biblio::Biblio( QWidget* parent, ApplicationPrefs *prefs)
 	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("&Load..."), this, SLOT(Load()), CTRL+Key_O);
 	fSave = fmenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save"), this, SLOT(Save()), CTRL+Key_S);
 	fmenu->insertItem( tr("Save &As..."), this, SLOT(SaveAs()));
-	fmenu->insertItem(loadIcon("DateiClos16.png"), tr("&Close"), this, SLOT(CloseWin()));
 	vmenu = new QPopupMenu();
 	vS = vmenu->insertItem( tr( "&Small" ) );
 	vM = vmenu->insertItem( tr( "&Medium" ) );
@@ -207,23 +206,7 @@ Biblio::Biblio( QWidget* parent, ApplicationPrefs *prefs)
 	connect(BibWin, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
 	connect(BibWin, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
 	connect(vmenu, SIGNAL(activated(int)), this, SLOT(SetPreview(int)));
-}
-
-void Biblio::closeEvent(QCloseEvent *ce)
-{
-	emit Schliessen();
-	ce->accept();
-}
-
-void Biblio::CloseWin()
-{
-	emit Schliessen();
-}
-
-void Biblio::reject()
-{
-	emit Schliessen();
-	QDialog::reject();
+	clearWState( WState_Polished );
 }
 
 void Biblio::Save()

@@ -1,7 +1,7 @@
 #ifndef MPALETTE_H
 #define MPALETTE_H
 
-#include <qdialog.h>
+#include <qwidget.h>
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
@@ -77,7 +77,7 @@ protected:
 	virtual void focusOutEvent(QFocusEvent *);
 };
 
-class Mpalette : public QDialog
+class Mpalette : public QWidget
 {
 	Q_OBJECT
 
@@ -85,7 +85,6 @@ public:
 	Mpalette(QWidget* parent, ApplicationPrefs *Prefs);
 	~Mpalette() {};
 	void keyPressEvent(QKeyEvent *k);
-	void closeEvent(QCloseEvent *ce);
 	void ToggleFlow();
 	void updateCList();
 	void updateCmsList();
@@ -362,12 +361,8 @@ private slots:
 	void setStartArrow(int id);
 	void setEndArrow(int id);
 
-protected slots:
-	virtual void reject();
-
 signals:
 	void ToggleAllPalettes();
-	void Schliessen();
 	void CloseBpal();
 	void CloseTpal();
 	void DocChanged();
