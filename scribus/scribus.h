@@ -112,6 +112,7 @@ public:
 	void closeEvent(QCloseEvent *ce);
 	void keyPressEvent(QKeyEvent *k);
 	void keyReleaseEvent(QKeyEvent *k);
+	void mouseReleaseEvent(QMouseEvent *m);
 	void wheelEvent(QWheelEvent *w);
 	void disconnectToolsActions();
 	void connectToolsActions();

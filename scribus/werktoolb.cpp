@@ -76,6 +76,7 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	ScApp->scrActions["toolsLinkTextFrame"]->addTo(this);
 	ScApp->scrActions["toolsUnlinkTextFrame"]->addTo(this);
 	ScApp->scrActions["toolsMeasurements"]->addTo(this);
+	ScApp->scrActions["toolsEyeDropper"]->addTo(this);
 
 	setCloseMode(QDockWindow::Undocked);
 	connect(this, SIGNAL(placeChanged(QDockWindow::Place)), this, SLOT(Docken(QDockWindow::Place)));

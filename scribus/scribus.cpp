@@ -1299,7 +1299,7 @@ void ScribusApp::initToolsMenuActions()
 	scrActions.insert("toolsInsertLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stift16.xpm"), loadIcon("Stift.xpm")), tr("&Line"), QKeySequence(Key_L), this, "toolsInsertLine", DrawLine));
 	scrActions.insert("toolsInsertBezier", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("beziertool16.png"), loadIcon("beziertool.png")), tr("&Bezier Curve"), QKeySequence(Key_B), this, "toolsInsertBezier", DrawBezierLine));
 	scrActions.insert("toolsInsertFreehandLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stiftalt16.xpm"), loadIcon("Stiftalt.xpm")), tr("&Freehand Line"), QKeySequence(Key_F), this, "toolsInsertFreehandLine", DrawFreehandLine));
-	
+		
 	scrActions["toolsInsertTextFrame"]->setText(tr("Insert Text Frame"));
 	scrActions["toolsInsertImageFrame"]->setText(tr("Insert Image Frame"));
 	scrActions["toolsInsertTableFrame"]->setText(tr("Insert Table"));
@@ -1308,13 +1308,14 @@ void ScribusApp::initToolsMenuActions()
 	scrActions["toolsInsertLine"]->setText(tr("Insert Line"));
 	scrActions["toolsInsertBezier"]->setText(tr("Insert Bezier Curve"));
 	scrActions["toolsInsertFreehandLine"]->setText(tr("Insert Freehand Line"));
-	
+		
 	scrActions.insert("toolsRotate", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Rotieren.xpm"), loadIcon("Rotieren.xpm")), tr("Rotate Item"), QKeySequence(Key_R), this, "toolsRotate", Rotation));
 	scrActions.insert("toolsZoom", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lupe.xpm"), loadIcon("Lupe.xpm")), tr("Zoom in or out"), QKeySequence(Key_Z), this, "toolsZoom", Magnifier));
 	scrActions.insert("toolsEditContents", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Editm.xpm"), loadIcon("Editm.xpm")), tr("Edit Contents of Frame"), QKeySequence(Key_E), this, "toolsEditContents", EditMode));
 	scrActions.insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("signature.png"), loadIcon("signature.png")), tr("Edit the text with the Story Editor"), QKeySequence(CTRL+Key_Y), this, "toolsEditWithStoryEditor", StartStoryEditor));
 	scrActions.insert("toolsLinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lock.xpm"), loadIcon("Lock.xpm")), tr("Link Text Frames"), QKeySequence(Key_N), this, "toolsLinkTextFrame", LinkFrames));
 	scrActions.insert("toolsUnlinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Unlock.xpm"), loadIcon("Unlock.xpm")), tr("Unlink Text Frames"), QKeySequence(Key_U), this, "toolsUnlinkTextFrame", UnlinkFrames));
+	scrActions.insert("toolsEyeDropper", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("colorpicker.png"), loadIcon("colorpicker.png")), tr("&Eye Dropper"), QKeySequence(Key_Y), this, "toolsEyeDropper", EyeDropper));
 
 	scrActions["toolsProperties"]->setToggleAction(true);
 	scrActions["toolsOutline"]->setToggleAction(true);
@@ -1343,12 +1344,14 @@ void ScribusApp::initToolsMenuActions()
 	scrActions["toolsEditWithStoryEditor"]->setToggleAction(true);
 	scrActions["toolsLinkTextFrame"]->setToggleAction(true);
 	scrActions["toolsUnlinkTextFrame"]->setToggleAction(true);
+	scrActions["toolsEyeDropper"]->setToggleAction(true);
 	
 	toolbarActionNames=new QStringList();
 	*toolbarActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame";
 	*toolbarActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertLine" << "toolsInsertBezier";
 	*toolbarActionNames << "toolsInsertFreehandLine" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
 	*toolbarActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame";
+	*toolbarActionNames << "toolsEyeDropper";
 
 	connect( scrActions["toolsActionHistory"], SIGNAL(toggled(bool)) , this, SLOT(setUndoPalette(bool)) );
 	connect( scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)) , this, SLOT(setTools(bool)) );
@@ -6420,6 +6423,7 @@ void ScribusApp::setAppMode(int mode)
 	scrActions["toolsEditWithStoryEditor"]->setOn(mode==StartStoryEditor);
 	scrActions["toolsLinkTextFrame"]->setOn(mode==LinkFrames);
 	scrActions["toolsUnlinkTextFrame"]->setOn(mode==UnlinkFrames);
+	scrActions["toolsEyeDropper"]->setOn(mode==EyeDropper);
 		
 	PageItem *b;
 	setActiveWindow();
@@ -6570,6 +6574,11 @@ void ScribusApp::setAppMode(int mode)
 		{
 			slotStoryEditor();
 			slotSelect();
+		}
+		if (mode == EyeDropper)
+		{
+			grabMouse();
+			//grabKeyboard();	
 		}
 	}
 
@@ -10672,4 +10681,42 @@ void ScribusApp::restoreToolsShortcuts()
 {
 	for ( QStringList::Iterator it = toolbarActionNames->begin(); it != toolbarActionNames->end(); ++it )
 		scrActions[*it]->restoreShortcut();
+}
+
+void ScribusApp::mouseReleaseEvent(QMouseEvent *m)
+{
+	bool sendToSuper=true;
+	if (HaveDoc)
+	{
+		if (doc->appMode == EyeDropper)
+		{
+			releaseMouse();
+			//releaseKeyboard();
+			sendToSuper=false;
+			QPixmap pm = QPixmap::grabWindow( QApplication::desktop()->winId(), m->globalPos().x(), m->globalPos().y(), 1, 1);
+			QImage i = pm.convertToImage();
+			QColor selectedColor=i.pixel(0, 0);
+			//qDebug(QString("red: %1 green: %2 blue: %3").arg(selectedColor.red()).arg(selectedColor.green()).arg(selectedColor.blue()));
+			bool found=false;
+			ColorList::Iterator it;
+			for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+			{
+				if (selectedColor==doc->PageColors[it.key()].getRGBColor())
+				{
+					found=true;
+					break;
+				}
+			}
+			/*
+			if (found)
+				qDebug("color found");
+			else
+				qDebug("color not found");
+			*/
+			setAppMode(NormalMode);
+		}
+	}
+	if (sendToSuper)
+		QMainWindow::mouseReleaseEvent(m);
+
 }

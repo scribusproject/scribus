@@ -562,7 +562,8 @@ enum AppMode
 	DrawTable,
 	PanningMode,
 	MeasurementTool,
-	EditGradientVectors
+	EditGradientVectors,
+	EyeDropper
 };
 
 
