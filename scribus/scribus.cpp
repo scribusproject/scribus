@@ -6523,7 +6523,6 @@ void ScribusApp::setItemTypeStyle(int id)
 
 void ScribusApp::setStilvalue(int s)
 {
-	uint a;
 	int c = s & 127;
 	doc->CurrentStyle = c;
 	scrActions["typeEffectNormal"]->setOn(c==0);
@@ -6533,7 +6532,6 @@ void ScribusApp::setStilvalue(int s)
 	scrActions["typeEffectSuperscript"]->setOn(c & 1);
 	scrActions["typeEffectSubscript"]->setOn(c & 2);
 	scrActions["typeEffectOutline"]->setOn(c & 4);
-	
 	emit TextStil(s);
 }
 
@@ -6874,10 +6872,7 @@ void ScribusApp::setItemFarbe(int id)
 void ScribusApp::setItemShade(int id)
 {
 	int c = id;
-	
-	uint a;
 	bool ok = false;
-
 	if (view->SelItem.count() != 0)
 	{
 		PageItem *b = view->SelItem.at(0);
