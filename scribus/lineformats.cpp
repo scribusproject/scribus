@@ -75,6 +75,7 @@ LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
 	connect(DublicateB, SIGNAL(clicked()), this, SLOT(dupFormat()));
 	connect(DeleteB, SIGNAL(clicked()), this, SLOT(deleteFormat()));
 	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
+	connect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFormat(QListBoxItem*) ) );
 	if (ListBox1->count() > 0)
     	sFnumber = TempStyles.begin().key();
 	else
@@ -93,6 +94,15 @@ void LineFormate::selFormat(QListBoxItem *c)
 	EditB->setEnabled(true);
 	DublicateB->setEnabled(true);
 	DeleteB->setEnabled(true);
+}
+
+void LineFormate::selEditFormat(QListBoxItem *c)
+{
+	sFnumber = c->text();
+	EditB->setEnabled(true);
+	DublicateB->setEnabled(true);
+	DeleteB->setEnabled(true);
+	editFormat();
 }
 
 void LineFormate::dupFormat()
@@ -177,6 +187,7 @@ void LineFormate::loadLStyles()
 void LineFormate::UpdateFList()
 {
 	disconnect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
+	disconnect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFormat(QListBoxItem*) ) );
 	ListBox1->clear();
 	QMap<QString,multiLine>::Iterator it;
 	for (it = TempStyles.begin(); it != TempStyles.end(); ++it)
@@ -191,4 +202,5 @@ void LineFormate::UpdateFList()
 	DeleteB->setEnabled(!setter);
 	ListBox1->sort( TRUE );
 	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
+	connect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFormat(QListBoxItem*) ) );
 }

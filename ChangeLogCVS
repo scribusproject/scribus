@@ -1,5 +1,10 @@
 Changes since Version 1.1.6
 
+01.05.2004
+	* bug     #396: PDF Export: text field at wrong position
+	* bug     #554: table context menu - layer is missing
+	* feature #570: Added Translation for the Basque language
+
 30.04.2004
 	* bug     #499: svg text and box import don't work correctly
 	* bug     #535: Story editor: can't delete selected text with Backspace

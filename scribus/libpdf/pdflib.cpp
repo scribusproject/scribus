@@ -1079,9 +1079,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 									cr = 0;
 								if ((sr * sr) < 0.001)
 									sr = 0;
-								PutPage(FToStr(cr)+" "+FToStr(sr)+
-									" "+FToStr(-sr)+" "+FToStr(cr)+
-									" 0 0 cm\n");
+								PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n");
 							}
 							if ((ite->Pcolor != "None") || (ite->GrType != 0))
 							{
@@ -1090,7 +1088,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 								else
 								{
 									PutPage(SetClipPath(ite));
-									PutPage(ite->Segments.count() != 0 ? "h\nf*\n" : "h\nf\n");
+									PutPage("h\nf*\n");
 								}
 							}
 							if ((ite->flippedH % 2) != 0)
@@ -1360,12 +1358,12 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							else
 							{
 								PutPage(SetClipPath(ite));
-								PutPage(ite->Segments.count() != 0 ? "h\nf*\n" : "h\nf\n");
+								PutPage("h\nf*\n");
 							}
 						}
 						PutPage("q\n");
 						PutPage(SetClipPath(ite));
-						PutPage(ite->Segments.count() != 0 ? "h\nW*\nn\n" : "h\nW\nn\n");
+						PutPage("h\nW*\nn\n");
 						if ((ite->flippedH % 2) != 0)
 							PutPage("-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n");
 						if ((ite->flippedV % 2) != 0)
@@ -1408,7 +1406,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							else
 							{
 								PutPage(SetClipPath(ite));
-								PutPage(ite->Segments.count() != 0 ? "h\nf*\n" : "h\nf\n");
+								PutPage("h\nf*\n");
 							}
 						}
 						PutPage("q\n");
@@ -1466,7 +1464,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							if (ite->Pcolor != "None")
 							{
 								PutPage(SetClipPath(ite));
-								PutPage(ite->Segments.count() != 0 ? "h\nf*\n" : "h\nf\n");
+								PutPage("h\nf*\n");
 							}
 						}
 						if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
@@ -1496,7 +1494,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							if (ite->Pcolor != "None")
 							{
 								PutPage(SetClipPath(ite));
-								PutPage(ite->Segments.count() != 0 ? "h\nf*\n" : "h\nf\n");
+								PutPage("h\nf*\n");
 							}
 						}
 						if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
@@ -2295,7 +2293,7 @@ void PDFlib::PDF_Gradient(PageItem *b)
 	PutDoc("/N 1\n>>\n>>\nendobj\n");
 	PutPage("q\n");
 	PutPage(SetClipPath(b));
-	PutPage(b->Segments.count() != 0 ? "h\nW* n\n" : "h\nW n\n");
+	PutPage("h\nW* n\n");
 	if (b->GrType == 5)
 	{
 		QString sca = FToStr(w2 / rad)+" 0 0 "+FToStr(fabs(h2) / rad)+" ";

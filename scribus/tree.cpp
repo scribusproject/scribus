@@ -39,7 +39,7 @@ Tree::Tree( QWidget* parent, WFlags fl )
 	ListView1->addColumn( tr("Information"));
 	ListView1->setSelectionMode(QListView::Single);
 	ListView1->setDefaultRenameAction(QListView::Accept);
-	ListView1->setSorting(0,1);
+	ListView1->setSorting(-1,1);
 
 	// signals and slots connections
 	connect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));

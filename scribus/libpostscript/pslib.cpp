@@ -60,7 +60,7 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe
   	QString Epfad = PREL;
 	Seiten = 0;
 	User = "";
-	Creator = "Scribus 1.0";
+	Creator = "Scribus 1.2cvs";
 	Titel = "";
 	FillColor = "0.0 0.0 0.0 0.0";
 	StrokeColor = "0.0 0.0 0.0 0.0";
@@ -491,9 +491,9 @@ void PSLib::PS_selectfont(QString f, double s)
 	PutSeite(UsedFonts[f] + " " + ToStr(s) + " se\n");
 }
 
-void PSLib::PS_fill(bool mu)
+void PSLib::PS_fill()
 {
-	PutSeite( mu ? FillColor + " cmyk eofill\n" : FillColor + " cmyk fi\n" );
+	PutSeite(FillColor + " cmyk eofill\n");
 }
 
 void PSLib::PS_stroke()
@@ -501,10 +501,10 @@ void PSLib::PS_stroke()
 	PutSeite(StrokeColor + " cmyk st\n");
 }
 
-void PSLib::PS_fill_stroke(bool mu)
+void PSLib::PS_fill_stroke()
 {
 	PS_save();
-	PS_fill(mu);
+	PS_fill();
 	PS_restore();
 	PS_stroke();
 }
@@ -524,12 +524,12 @@ void PSLib::PS_GradientCol2(double c, double m, double y, double k)
 	GrColor2 = ToStr(c) + " " + ToStr(m) + " " + ToStr(y) + " " + ToStr(k);
 }
 
-void PSLib::PS_LinGradient(double w, double h, int item, int grad, bool mu)
+void PSLib::PS_LinGradient(double w, double h, int item, int grad)
 {
 	if (item == 1)
 		PutSeite("-"+ToStr(w / 2.0)+" "+ToStr(-h / 2.0)+" tr\n");
 	PutSeite( "gs\n" );
-	PutSeite( mu ? "eoclip\n" : "clip\n" );
+	PutSeite("eoclip\n");
 	PutSeite("<<\n");
 	PutSeite("/ShadingType 2\n");
 	PutSeite( DoSep ? "/ColorSpace /DeviceGray\n" : "/ColorSpace /DeviceCMYK\n" );
@@ -590,7 +590,7 @@ void PSLib::PS_LinGradient(double w, double h, int item, int grad, bool mu)
 	PutSeite("shfill\ngr\n");
 }
 
-void PSLib::PS_RadGradient(double w, double h, int item, bool mu)
+void PSLib::PS_RadGradient(double w, double h, int item)
 {
 	double w2, h2, rad;
 	w2 = w / 2.0;
@@ -598,7 +598,7 @@ void PSLib::PS_RadGradient(double w, double h, int item, bool mu)
 	rad = QMIN(w, fabs(h)) / 2.0;
 	PutSeite("/cmtx matrix currentmatrix def\n");
 	PutSeite( "gs\n" );
-	PutSeite( mu ? "eoclip\n" : "clip\n" );
+	PutSeite("eoclip\n");
 	PutSeite("<<\n");
 	PutSeite("/ShadingType 3\n");
 	PutSeite( DoSep ? "/ColorSpace /DeviceGray\n" : "/ColorSpace /DeviceCMYK\n" );

@@ -54,6 +54,7 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
 	connect(EditScript, SIGNAL(clicked()), this, SLOT(slotEdit()));
 	connect(DeleteScript, SIGNAL(clicked()), this, SLOT(slotDelete()));
 	connect(ExitDia, SIGNAL(clicked()), this, SLOT(accept()));
+	connect( Scripts, SIGNAL( selected(QListBoxItem*) ), this, SLOT( slotEdit() ) );
 }
 
 void JavaDocs::slotAdd()

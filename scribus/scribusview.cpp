@@ -979,7 +979,6 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 	uint a;
 	int sepac;
 	double wideR;
-	bool multiPath = false;
 	ReOrderText(Doc, this);
 	p->PS_set_Info("Author", Doc->DocAutor);
 	p->PS_set_Info("Title", Doc->DocTitel);
@@ -1054,10 +1053,6 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 						for (uint am = 0; am < mPage->Items.count(); ++am)
 							{
 							PageItem *ite = mPage->Items.at(am);
-							if (ite->Segments.count() != 0)
-								multiPath = true;
-							else
-								multiPath = false;
 							if ((ite->LayerNr != ll.LNr) || (!ite->isPrintable))
 								continue;
 							if ((ite->PType == 2) && ((sep) || (!farb)))
@@ -1072,13 +1067,13 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 									p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 									SetClipPath(p, &ite->PoLine);
 									p->PS_closepath();
-									p->PS_fill(multiPath);
+									p->PS_fill();
 									}
 								else
 									p->PS_setcmykcolor_dummy();
 								SetClipPath(p, &ite->PoLine);
 								p->PS_closepath();
-								p->PS_clip(multiPath);
+								p->PS_clip(false);
 								p->PS_save();
 								if ((ite->flippedH % 2) != 0)
 									{
@@ -1136,7 +1131,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 									{
 									SetClipPath(p, &ite->PoLine);
 									p->PS_closepath();
-									p->PS_fill(multiPath);
+									p->PS_fill();
 									}
 								if ((ite->flippedH % 2) != 0)
 									{
@@ -1355,7 +1350,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 												p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 												SetClipPath(p, &gly);
 												p->PS_closepath();
-												p->PS_fill(true);
+												p->PS_fill();
 												p->PS_restore();
 												}
 											}
@@ -1476,7 +1471,6 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 	QString chx, chglyph, tmp;
 	PageItem *c;
 	struct Pti *hl;
-	bool multiPath = false;
 	int Lnr = 0;
 	struct Layer ll;
 	ll.Drucken = false;
@@ -1489,10 +1483,6 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 			for (b = 0; b < a->Items.count(); ++b)
 				{
 				c = a->Items.at(b);
-				if (c->Segments.count() != 0)
-					multiPath = true;
-				else
-					multiPath = false;
 				if (c->LayerNr != ll.LNr)
 					continue;
 				if ((a->PageNam != "") && (c->PType == 4))
@@ -1536,22 +1526,22 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 										case 2:
 										case 3:
 										case 4:
-											p->PS_LinGradient(c->Width, -c->Height, c->PType, c->GrType, multiPath);
+											p->PS_LinGradient(c->Width, -c->Height, c->PType, c->GrType);
 											break;
 										case 5:
-											p->PS_RadGradient(c->Width, -c->Height, c->PType, multiPath);
+											p->PS_RadGradient(c->Width, -c->Height, c->PType);
 											break;
 										default:
 											break;
 										}
 									}
 								else
-									p->PS_fill(multiPath);
+									p->PS_fill();
 								}
 							p->PS_save();
 							SetClipPath(p, &c->PoLine);
 							p->PS_closepath();
-							p->PS_clip(multiPath);
+							p->PS_clip(true);
 							if ((c->flippedH % 2) != 0)
 								{
 								p->PS_translate(c->Width, 0);
@@ -1635,17 +1625,17 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 										case 2:
 										case 3:
 										case 4:
-											p->PS_LinGradient(c->Width, -c->Height, c->PType, c->GrType, multiPath);
+											p->PS_LinGradient(c->Width, -c->Height, c->PType, c->GrType);
 											break;
 										case 5:
-											p->PS_RadGradient(c->Width, -c->Height, c->PType, multiPath);
+											p->PS_RadGradient(c->Width, -c->Height, c->PType);
 											break;
 										default:
 											break;
 										}
 									}
 								else
-									p->PS_fill(multiPath);
+									p->PS_fill();
 								}
 							if ((c->flippedH % 2) != 0)
 								{
@@ -1864,7 +1854,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 											p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 											SetClipPath(p, &gly);
 											p->PS_closepath();
-											p->PS_fill(true);
+											p->PS_fill();
 											p->PS_restore();
 											}
 										}
@@ -1939,17 +1929,17 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 										case 2:
 										case 3:
 										case 4:
-											p->PS_LinGradient(c->Width, -c->Height, c->PType, c->GrType, multiPath);
+											p->PS_LinGradient(c->Width, -c->Height, c->PType, c->GrType);
 											break;
 										case 5:
-											p->PS_RadGradient(c->Width, -c->Height, c->PType, multiPath);
+											p->PS_RadGradient(c->Width, -c->Height, c->PType);
 											break;
 										default:
 											break;
 										}
 									}
 								else
-									p->PS_fill(multiPath);
+									p->PS_fill();
 								}
 							if ((c->Pcolor2 != "None") || (c->NamedLStyle != ""))
 								{
@@ -1992,17 +1982,17 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 											case 2:
 											case 3:
 											case 4:
-												p->PS_LinGradient(c->Width, -c->Height, c->PType, c->GrType, multiPath);
+												p->PS_LinGradient(c->Width, -c->Height, c->PType, c->GrType);
 												break;
 											case 5:
-												p->PS_RadGradient(c->Width, -c->Height, c->PType, multiPath);
+												p->PS_RadGradient(c->Width, -c->Height, c->PType);
 												break;
 											default:
 												break;
 											}
 										}
 									else
-										p->PS_fill(multiPath);
+										p->PS_fill();
 									p->PS_newpath();
 								}
 							if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))

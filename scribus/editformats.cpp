@@ -75,6 +75,7 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
 	connect(DublicateB, SIGNAL(clicked()), this, SLOT(dupFormat()));
 	connect(DeleteB, SIGNAL(clicked()), this, SLOT(deleteFormat()));
 	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
+	connect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFormat(QListBoxItem*) ) );
 	TempVorl = doc->Vorlagen;
 	UpdateFList();
 }
@@ -97,6 +98,22 @@ void StilFormate::selFormat(QListBoxItem *c)
 	EditB->setEnabled(true);
 	DublicateB->setEnabled(true);
 	DeleteB->setEnabled(true);
+}
+
+void StilFormate::selEditFormat(QListBoxItem *c)
+{
+	for (uint x = 5; x < TempVorl.count(); ++x)
+	{
+		if (TempVorl[x].Vname == c->text())
+		{
+			sFnumber = x;
+			break;
+		}
+	}
+	EditB->setEnabled(true);
+	DublicateB->setEnabled(true);
+	DeleteB->setEnabled(true);
+	editFormat();
 }
 
 void StilFormate::dupFormat()

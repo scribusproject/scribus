@@ -2694,7 +2694,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					pmenLevel->insertItem( tr("Raise"), this, SLOT(RaiseItem()));
 				}
 			}
-			if ((!b->isTableItem) && (!b->isSingleSel))
+			if (!b->isSingleSel)
 			{
 				pmen->insertItem( tr("Send to Scrapbook"), this, SLOT(sentToScrap()));
 				if (doku->Layers.count() > 1)

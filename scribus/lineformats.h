@@ -33,6 +33,7 @@ public:
 public slots:
 	void saveIt();
 	void selFormat(QListBoxItem *c);
+	void selEditFormat(QListBoxItem *c);
 	void editFormat();
 	void neuesFormat();
 	void dupFormat();
