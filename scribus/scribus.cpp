@@ -1326,8 +1326,10 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  									hg->cstyle = doc->CurrentStyle;
  									hg->cab = doc->CurrentABStil;
 									if (doc->Vorlagen[doc->CurrentABStil].Font != "")
+										{
 										hg->cfont = doc->Vorlagen[doc->CurrentABStil].Font;
-									hg->csize = doc->Vorlagen[doc->CurrentABStil].FontSize;
+										hg->csize = doc->Vorlagen[doc->CurrentABStil].FontSize;
+										}
  									hg->cextra = 0;
  									hg->xp = 0;
  									hg->yp = 0;
@@ -1389,8 +1391,10 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  									hg->cstyle = doc->CurrentStyle;
  									hg->cab = doc->CurrentABStil;
 									if (doc->Vorlagen[doc->CurrentABStil].Font != "")
+										{
 										hg->cfont = doc->Vorlagen[doc->CurrentABStil].Font;
-									hg->csize = doc->Vorlagen[doc->CurrentABStil].FontSize;
+										hg->csize = doc->Vorlagen[doc->CurrentABStil].FontSize;
+										}
  									hg->xp = 0;
  									hg->yp = 0;
 									hg->PRot = 0;
@@ -4671,10 +4675,10 @@ void ScribusApp::slotEditStyles()
 							if (doc->Vorlagen[ite->Ptext.at(e)->cab].Font != "")
 								{
 								ite->Ptext.at(e)->cfont = doc->Vorlagen[ite->Ptext.at(e)->cab].Font;
-								ite->Ptext.at(e)->csize = ite->ISize;
+								ite->Ptext.at(e)->csize = doc->Vorlagen[ite->Ptext.at(e)->cab].FontSize;
 								}
 							else
-								ite->Ptext.at(e)->csize = doc->Vorlagen[ite->Ptext.at(e)->cab].FontSize;
+								ite->Ptext.at(e)->csize = ite->ISize;
 							}
 						}
 					}
@@ -4693,10 +4697,10 @@ void ScribusApp::slotEditStyles()
 							if (doc->Vorlagen[ite->Ptext.at(e)->cab].Font != "")
 								{
 								ite->Ptext.at(e)->cfont = doc->Vorlagen[ite->Ptext.at(e)->cab].Font;
-								ite->Ptext.at(e)->csize = ite->ISize;
+								ite->Ptext.at(e)->csize = doc->Vorlagen[ite->Ptext.at(e)->cab].FontSize;
 								}
 							else
-								ite->Ptext.at(e)->csize = doc->Vorlagen[ite->Ptext.at(e)->cab].FontSize;
+								ite->Ptext.at(e)->csize = ite->ISize;
 							}
 						}
 					}

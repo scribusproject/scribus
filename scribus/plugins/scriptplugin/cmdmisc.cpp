@@ -197,6 +197,8 @@ PyObject *scribus_removelayer(PyObject *self, PyObject* args)
 			{
 			QValueList<Layer>::iterator it2 = doc->Layers.at(lam);
 			int num2 = (*it2).LNr;
+			if (!num2)
+				return Py_None;
 			int num = (*it2).Level;
 			doc->Layers.remove(it2);
 			QValueList<Layer>::iterator it;
@@ -205,10 +207,8 @@ PyObject *scribus_removelayer(PyObject *self, PyObject* args)
 				it = doc->Layers.at(l);
 				if ((*it).Level > num)
 					(*it).Level -= 1;
-				if ((*it).LNr > num2)
-					(*it).LNr -= 1;
 				}
-			Carrier->LayerRemove(lam);
+			Carrier->LayerRemove(num2);
 			doc->ActiveLayer = 0;
 			Carrier->changeLayer(0);
 			break;
@@ -227,7 +227,7 @@ PyObject *scribus_createlayer(PyObject *self, PyObject* args)
 		return Py_None;
 	QString tmp;
 	struct Layer ll;
-	ll.LNr = doc->Layers.count();
+	ll.LNr = doc->Layers.last().LNr + 1;
 	ll.Level = doc->Layers.count();
 	ll.Name = QString(Name);
 	ll.Sichtbar = true;

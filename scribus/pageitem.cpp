@@ -714,6 +714,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							CurX++;
 							if (CurX+RExtra+lineCorr > ColBound.y())
 								{
+								fBorder = false;
 								if (a == 0)
 									CurY++;
 								else
@@ -763,17 +764,17 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							CurX += Extra+lineCorr;
 						fBorder = false;
 						}
-					if ((hl->ch == ".") && (TabCode == 2))
+					if ((hl->ch == ".") && (TabCode == 2) && (RTab))
 						{
 						RTab = false;
 						TabCode = 0;
 						}
-					if ((hl->ch == ",") && (TabCode == 3))
+					if ((hl->ch == ",") && (TabCode == 3) && (RTab))
 						{
 						RTab = false;
 						TabCode = 0;
 						}
-					if ((hl->ch == QChar(9)) && (TabCode == 4))
+					if ((hl->ch == QChar(9)) && (TabCode == 4) && (RTab))
 						{
 						RTab = false;
 						TabCode = 0;
@@ -828,7 +829,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					else
 						hl->xp = CurX;
-					if (TabCode == 4)
+					if ((TabCode == 4) && (RTab))
 						CurX += (wide+hl->cextra) / 2;
 					pt1 = QPoint(static_cast<int>(CurX+RExtra+lineCorr), static_cast<int>(CurY+desc+BExtra+lineCorr));
 					pt2 = QPoint(static_cast<int>(CurX+RExtra+lineCorr), static_cast<int>(CurY-asce));

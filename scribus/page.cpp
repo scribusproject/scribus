@@ -4812,7 +4812,7 @@ bool Page::slotSetCurs(int x, int y)
 void Page::slotDoCurs(bool draw)
 {
 	QColor tmp;
-	int chs;
+	int chs, offs;
   PageItem *b;
   if (GetItem(&b))
   	{
@@ -4828,21 +4828,30 @@ void Page::slotDoCurs(bool draw)
 			{
 			if (b->Ptext.at(b->CPos-1)->yp == 0)
 				return;
-			chx = b->Ptext.at(b->CPos-1)->ch;
+			offs = b->CPos-1;
+			chx = b->Ptext.at(offs)->ch;
 			if (chx == QChar(30))
-				chx = b->ExpandToken(b->CPos-1);
+				chx = b->ExpandToken(offs);
 			if (chx == QChar(29))
 				chx = " ";
-			chs = b->Ptext.at(b->CPos-1)->csize;
-			b->SetZeichAttr(b->Ptext.at(b->CPos-1), &chs, &chx);
-  		xp = static_cast<int>(b->Ptext.at(b->CPos-1)->xp);
-  		if ((b->Ptext.at(b->CPos-1)->ch == QChar(13)) && (b->CPos != static_cast<int>(b->Ptext.count())))
-  			xp = static_cast<int>(b->Ptext.at(b->CPos)->xp);
-  		if ((b->Ptext.at(b->CPos-1)->ch != QChar(13)) && (b->Ptext.at(b->CPos-1)->ch != QChar(9)))
-  			xp += qRound(Cwidth(doku, b->Ptext.at(b->CPos-1)->cfont, chx, chs)*(b->Ptext.at(b->CPos-1)->cscale / 100.0));
-  		yp = static_cast<int>(b->Ptext.at(b->CPos-1)->yp);
-			desc = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos-1)->cfont]->numDescender * (-b->Ptext.at(b->CPos-1)->csize / 10.0));
-			asce = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos-1)->cfont]->numAscent * (b->Ptext.at(b->CPos-1)->csize / 10.0));
+			chs = b->Ptext.at(offs)->csize;
+			b->SetZeichAttr(b->Ptext.at(offs), &chs, &chx);
+  		xp = static_cast<int>(b->Ptext.at(offs)->xp);
+  		if ((b->Ptext.at(offs)->ch == QChar(13)) && (b->CPos != static_cast<int>(b->Ptext.count())))
+  			xp = static_cast<int>(b->Ptext.at(offs+1)->xp);
+  		if ((b->Ptext.at(offs)->ch != QChar(13)) && (b->Ptext.at(offs)->ch != QChar(9)))
+  			xp += qRound(Cwidth(doku, b->Ptext.at(offs)->cfont, chx, chs)*(b->Ptext.at(offs)->cscale / 100.0));
+			if (b->CPos != static_cast<int>(b->Ptext.count()))
+				{
+				if (b->Ptext.at(offs)->yp != b->Ptext.at(offs+1)->yp)
+					{
+					offs++;
+  				xp = static_cast<int>(b->Ptext.at(offs)->xp);
+					}
+				}
+  		yp = static_cast<int>(b->Ptext.at(offs)->yp);
+			desc = static_cast<int>((*doku->AllFonts)[b->Ptext.at(offs)->cfont]->numDescender * (-b->Ptext.at(offs)->csize / 10.0));
+			asce = static_cast<int>((*doku->AllFonts)[b->Ptext.at(offs)->cfont]->numAscent * (b->Ptext.at(offs)->csize / 10.0));
   		}
   	else
 			{
@@ -6000,10 +6009,10 @@ void Page::chAbStyle(PageItem *b, int s)
 				if (doku->Vorlagen[s].Font != "")
 					{
 					nb->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
-					nb->Ptext.at(a)->csize = nb->ISize;
+					nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
 					}
 				else
-					nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
+					nb->Ptext.at(a)->csize = nb->ISize;
 				a--;
 				}
 			if (cr)
@@ -6026,10 +6035,10 @@ void Page::chAbStyle(PageItem *b, int s)
 				if (doku->Vorlagen[s].Font != "")
 					{
 					nb->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
-					nb->Ptext.at(a)->csize = nb->ISize;
+					nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
 					}
 				else
-					nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
+					nb->Ptext.at(a)->csize = nb->ISize;
 				if (nb->Ptext.at(a)->ch == QChar(13))
 					{
 					cr = false;
@@ -6055,10 +6064,10 @@ void Page::chAbStyle(PageItem *b, int s)
 				if (doku->Vorlagen[s].Font != "")
 					{
 					b->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
-					b->Ptext.at(a)->csize = b->ISize;
+					b->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
 					}
 				else
-					b->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
+					b->Ptext.at(a)->csize = b->ISize;
 				}
 			}
 		}

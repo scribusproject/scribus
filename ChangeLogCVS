@@ -1,4 +1,6 @@
 Changes since Version 1.1.4
+13.01.2004	Fixed Cursor Placement Issues.
+
 12.01.2004	Fixed Bug with Sub/Superscript.
 		Fixed Crash when copying Pages.
 
