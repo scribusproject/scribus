@@ -31,6 +31,8 @@
 #include <zlib.h>
 #endif
 
+using namespace std;
+
 extern double QStodouble(QString in);
 extern int QStoInt(QString in);
 extern bool loadText(QString nam, QString *Buffer);
