@@ -821,15 +821,16 @@ double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2)
 
 double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz)
 {
-	double w;
+	double w, ww;
 	uint c1 = ch.at(0).unicode();
 	Foi* fo = (*doc->AllFonts)[name];
 	if (fo->CharWidth.contains(c1))
 	{
 		uint cl = FT_Get_Char_Index(doc->FFonts[name], c1);
 		FT_Load_Glyph( doc->FFonts[name], cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-		w = (doc->FFonts[name]->glyph->metrics.width + doc->FFonts[name]->glyph->metrics.horiBearingX) / fo->uniEM * (Siz / 10.0);
-		return w;
+		w = (doc->FFonts[name]->glyph->metrics.width + fabs(doc->FFonts[name]->glyph->metrics.horiBearingX)) / fo->uniEM * (Siz / 10.0);
+		ww = doc->FFonts[name]->glyph->metrics.horiAdvance / fo->uniEM * (Siz / 10.0);
+		return QMAX(ww, w);
 	}
 	else
 		return static_cast<double>(Siz / 10.0);
@@ -1545,7 +1546,10 @@ QPixmap FontSample(QString da, int s, QString ts, QColor back)
 	for (uint n = 0; n < ts.length(); ++n)
 	{
 		uint dv = ts[n].unicode();
+		error = false;
 		FPointArray gly = traceChar(face, dv, s, &x, &y, &error);
+		if (error)
+			break;
 		if (gly.size() > 3)
 		{
 			gly.translate(static_cast<double>(pen_x) / 64.0, a);

@@ -201,8 +201,23 @@ void MenuTest::slotRunScriptFile(QString fileName)
 	cm += "try:\n\texecfile(\""+fileName+"\")\nexcept SystemExit:\n\tpass\n";
 	QCString cmd = cm.latin1();
 	comm[0] = na.data();
+	// this code run the script and handles stderr redirection
+	PyRun_SimpleString( "import sys, StringIO\nsys.stderr=sys._capture=StringIO.StringIO()\n");
+	// call python script
 	PySys_SetArgv(1, comm);
 	PyRun_SimpleString(cmd.data());
+	// and restore stderr
+	PyObject* sysmod = PyImport_ImportModule("sys");
+	PyObject* capobj = PyObject_GetAttrString(sysmod, "_capture");
+	PyObject* strres = PyObject_CallMethod(capobj, "getvalue", 0);
+	QString cres = QString(PyString_AsString(strres));
+	// just tell the truth :)
+	if (cres.length() > 0)
+		QMessageBox::warning(Carrier,
+				tr("Script error"),
+				tr("If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please.")
+				+ "<br><br>"
+				+ cres);
 	Py_EndInterpreter(state);
 	PyEval_RestoreThread(stateo);
 	Carrier->ScriptRunning = false;
