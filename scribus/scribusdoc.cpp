@@ -29,6 +29,7 @@ extern ScribusApp *ScApp;
 
 ScribusDoc::ScribusDoc()
 {
+	setName("doc");
 	modified = false;
 	MasterP = false;
 	GuideLock = false;

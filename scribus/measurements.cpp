@@ -16,6 +16,7 @@ extern double UmReFaktor;
 
 Measurements::Measurements( QWidget* parent ) : QDialog( parent, "M", false, 0 )
 {
+	setName("distancesPalette");
 	setCaption( tr( "Distances" ) );
 	setIcon( loadIcon("AppIcon.png") );
 	MeasurementsLayout = new QGridLayout( this, 1, 1, 10, 6, "MeasurementsLayout");

@@ -193,6 +193,7 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 		break;
 	}
 	AnName += tmp.setNum(Doc->TotalItems); // +" "+QDateTime::currentDateTime().toString();
+	setName(QString("pageItem%1").arg(Doc->TotalItems).ascii());
 	AutoName = true;
 	Doc->TotalItems++;
 	AnToolTip = "";

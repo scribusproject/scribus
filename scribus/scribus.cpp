@@ -127,7 +127,9 @@ ScribusApp* ScApp;
 PrefsFile* prefsFile;
 
 ScribusApp::ScribusApp()
-{} // ScribusApp::ScribusApp()
+{
+	setName("mainWindow");
+} // ScribusApp::ScribusApp()
 
 void ScribusApp::initGui()
 {
@@ -417,7 +419,9 @@ void ScribusApp::initScribus()
 		resize(610, 600);
 		QVBox* vb = new QVBox( this );
 		vb->setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
+		vb->setName("vb");
 		wsp = new QWorkspace( vb );
+		wsp->setName("documentWorkspace");
 		setCentralWidget( vb );
 		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 		Tpal = new Tree(this, 0);

@@ -49,6 +49,7 @@ extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
 ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, preV *prefs)
 		: QScrollView(parent, "s", WRepaintNoErase | WNorthWestGravity)
 {
+	setName("mainView");
 	Ready = false;
 	doZooming = false;
 	Doc = doc;

@@ -81,6 +81,7 @@ void NameWidget::focusOutEvent(QFocusEvent *e)
 
 Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", false, 0)
 {
+	setName("propertiesPalette");
 	setCaption( tr( "Properties" ) );
 	HaveDoc = false;
 	HaveItem = false;

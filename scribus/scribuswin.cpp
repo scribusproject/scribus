@@ -28,6 +28,7 @@ extern int moveFile(QString source, QString target);
 ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* ddoc)
 		: QMainWindow(parent, "", WDestructiveClose)
 {
+	setName("documentWindow");
 	setIcon(loadIcon("AppIcon2.png"));
 	doc = ddoc;
 	muster = NULL;

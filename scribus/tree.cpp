@@ -23,6 +23,7 @@ extern ScribusApp* ScApp;
 Tree::Tree( QWidget* parent, WFlags fl )
 		: QDialog( parent, "Tree", false, fl )
 {
+	setName("outlinePalette");
 	resize( 220, 240 );
 	setMinimumSize( QSize( 220, 240 ) );
 	setMaximumSize( QSize( 800, 600 ) );
