@@ -19,6 +19,7 @@
 #define SPALETTE_H
 
 #include <qlistbox.h>
+#include <qcombobox.h>
 #include <qlayout.h>
 #include "scribusdoc.h"
 
@@ -26,7 +27,7 @@
   *@author Franz Schmid
   */
 
-class Spalette : public QListBox  
+class Spalette : public QComboBox  
 {
 	Q_OBJECT
 
@@ -40,7 +41,7 @@ public slots:
 	void SetFormats(ScribusDoc *dd);
 	void setFormat(int e);
 	void updateFList();
-	void selFormat(QListBoxItem *c);
+	void selFormat(int e);
 	
 signals:
 	void NewStyle(int);

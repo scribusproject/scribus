@@ -542,25 +542,19 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	GroupBox3Layout->addWidget( Text6, 1, 0 );
 	pageLayout_3->addWidget( GroupBox3 );
 
-	GroupBox3a = new QGroupBox( page_3, "GroupBox3" );
-	GroupBox3a->setTitle( tr( "Styles" ) );
-	GroupBox3a->setColumnLayout(0, Qt::Vertical );
-	GroupBox3a->layout()->setSpacing( 2 );
-	GroupBox3a->layout()->setMargin( 5 );
-	GroupBox3aLayout = new QVBoxLayout( GroupBox3a->layout() );
-	GroupBox3aLayout->setAlignment( Qt::AlignTop );
-	Spal = new Spalette(GroupBox3a);
-	GroupBox3aLayout->addWidget( Spal );
-	pageLayout_3->addWidget( GroupBox3a );
-
-	layoutLang = new QHBoxLayout( 0, 0, 5, "layout24");
+	GroupBox3aLayout = new QGridLayout( 0, 1, 1, 0, 5, "Layout25");
+	StilT = new QLabel( page_3, "Stil" );
+	StilT->setText( tr("Style:"));
+	GroupBox3aLayout->addWidget( StilT, 0, 0 );
+	Spal = new Spalette(page_3);
+	GroupBox3aLayout->addWidget( Spal, 0, 1 );
 	SprachT = new QLabel( page_3, "Sprache" );
 	SprachT->setText( tr("Language:"));
-	layoutLang->addWidget( SprachT );
+	GroupBox3aLayout->addWidget( SprachT, 1, 0 );
 	LangCombo = new QComboBox( true, page_3, "Lang" );
 	LangCombo->setEditable(false);
-	layoutLang->addWidget( LangCombo );
-	pageLayout_3->addLayout(layoutLang);
+	GroupBox3aLayout->addWidget( LangCombo, 1, 1 );
+	pageLayout_3->addLayout(GroupBox3aLayout);
 
 	QSpacerItem* spacer8 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	pageLayout_3->addItem( spacer8 );

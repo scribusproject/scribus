@@ -1,4 +1,7 @@
 Changes since Version 1.1.6
+06.04.2004	Improved the forced aligning of Text.
+		Changed the Styles Listbox to a Combobox in the Properties Palette.
+
 05.04.2004	Updated the Ukraininan Translation.
 		Fixed Issues with Polylines on Export to PDF and Postscript.
 		Moved the Icons to $prefix/share/scribus/icons to be FHS compliant.

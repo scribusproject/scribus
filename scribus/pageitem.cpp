@@ -800,6 +800,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						{
 							TopOffset = asce+TExtra+lineCorr;
 							CurY = asce+TExtra+lineCorr+1;
+							if (((a > 0) && (Ptext.at(a-1)->ch == QChar(13))) || (a == 0))
+								CurY += Doc->Vorlagen[hl->cab].Avor;
 						}
 						else
 							TopOffset = asce;
@@ -971,10 +973,21 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					Zli->kern = kernVal;
 					Zli->scale = hl->cscale;
 					if (((hl->ch == " ") || (hl->ch == QChar(9))) && (!outs))
+					{
+						if (a > 0)
 						{
-						LastXp = hl->xp;
-						LastSP = BuPos;
+							if (Ptext.at(a-1)->ch !=  " ")
+							{
+							LastXp = hl->xp;
+							LastSP = BuPos;
+							}
 						}
+						else
+						{
+							LastXp = hl->xp;
+							LastSP = BuPos;
+						}
+					}
 					if ((hl->ch == "-") && (!outs))
 						{
 						LastXp = CurX;
@@ -1011,7 +1024,9 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						if (Doc->Vorlagen[hl->cab].BaseAdj)
 						{
 							CurY -= Doc->BaseGrid * (DropLines-1);
-							CurY = ceil((Ypos + CurY - Doc->BaseOffs) / Doc->BaseGrid) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
+							int ol1 = qRound((Ypos + CurY - Doc->BaseOffs) * 10000.0);
+							int ol2 = static_cast<int>(ol1 / Doc->BaseGrid);
+							CurY = ceil(  ol2 / 10000.0 ) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
 							tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*Doc->BaseGrid)));
 							tcli.setPoint(1, QPoint(qRound(hl->xp+wide), qRound(maxDY-DropLines*Doc->BaseGrid)));
 						}

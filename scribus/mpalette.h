@@ -199,6 +199,7 @@ public:
     QLabel* FillIcon;
     QComboBox* TxFill;
 	ShadeButton *PM2;
+    QLabel* StilT;
     QLabel* SprachT;
     QComboBox* LangCombo;
     QGroupBox* GroupBoxCM;
@@ -342,12 +343,11 @@ protected:
     QGridLayout* DistanceLayout;
     QGridLayout* DistanceLayout2;
     QGridLayout* GroupBox3Layout;
-    QVBoxLayout* GroupBox3aLayout;
+    QGridLayout* GroupBox3aLayout;
     QVBoxLayout* GroupBoxCMLayout;
     QHBoxLayout* layout22;
     QHBoxLayout* layout23;
     QHBoxLayout* layout24;
-    QHBoxLayout* layoutLang;
 };
 
 #endif
