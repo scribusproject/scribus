@@ -1093,6 +1093,7 @@ bool GlyNames(QMap<uint, QString> *GList, QString Dat)
   FT_UInt   gindex;
 	error = FT_Init_FreeType(&library);
 	error = FT_New_Face(library, Dat, 0, &face);
+	gindex = 0;
   charcode = FT_Get_First_Char(face, &gindex );
   while (gindex != 0)
 		{
@@ -1117,6 +1118,7 @@ bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat)
   uint counter2 = 0;
 	error = FT_Init_FreeType(&library);
 	error = FT_New_Face(library, Dat, 0, &face);
+	gindex = 0;
   charcode = FT_Get_First_Char(face, &gindex );
   while (gindex != 0)
 		{

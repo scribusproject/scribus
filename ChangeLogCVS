@@ -1,4 +1,8 @@
 Changes since Version 1.1.1
+12.10.2003	Made the Color Menue in the Menuebar working with Text.
+		Fixed the Zoom Spinbox so the value isn't clipped anymore.
+		Fixed the Scrapbook and Outline Windows.
+
 11.10.2003	Fixed Bug when converting Text to Outlines.
 
 05.10.2003	Improved History in the Helpbrowser.

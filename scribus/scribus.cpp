@@ -103,27 +103,22 @@ ScribusApp::ScribusApp(SplashScreen *splash)
   initStatusBar();
   WerkTools2 = new QToolBar(tr("File"), this);
   DatNeu = new QToolButton(loadIcon("DateiNeu.xpm"), tr("Creates a new Document"), QString::null, this, SLOT(slotFileNew()), WerkTools2);
-  DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), tr("Opens a Document"), QString::null, 
-this, SLOT(slotDocOpen()), WerkTools2);
-  DatSav = new QToolButton(loadIcon("DateiSave.xpm"), tr("Saves the Current Document"),
-QString::null, this, SLOT(slotFileSave()), WerkTools2);
-  DatClo = new QToolButton(loadIcon("DateiClos.xpm"), tr("Closes the Current Document"),
-QString::null, this, SLOT(slotFileClose()), WerkTools2);
-  DatPri = new QToolButton(loadIcon("DateiPrint.xpm"), tr("Prints the Current Document"),
-QString::null, this, SLOT(slotFilePrint()), WerkTools2);
-  DatPDF = new QToolButton(loadIcon("acrobat.png"), tr("Saves the Current Document as PDF"),
-QString::null, this, SLOT(SaveAsPDF()), WerkTools2);
+  DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), tr("Opens a Document"), QString::null, this, SLOT(slotDocOpen()), WerkTools2);
+  DatSav = new QToolButton(loadIcon("DateiSave.xpm"), tr("Saves the Current Document"), QString::null, this, SLOT(slotFileSave()), WerkTools2);
+  DatClo = new QToolButton(loadIcon("DateiClos.xpm"), tr("Closes the Current Document"), QString::null, this, SLOT(slotFileClose()), WerkTools2);
+  DatPri = new QToolButton(loadIcon("DateiPrint.xpm"), tr("Prints the Current Document"), QString::null, this, SLOT(slotFilePrint()), WerkTools2);
+  DatPDF = new QToolButton(loadIcon("acrobat.png"), tr("Saves the Current Document as PDF"), QString::null, this, SLOT(SaveAsPDF()), WerkTools2);
   DatSav->setEnabled(false);	
   DatClo->setEnabled(false);
-  	DatPri->setEnabled(false);
-   	DatPDF->setEnabled(false);	
+  DatPri->setEnabled(false);
+  DatPDF->setEnabled(false);	
   DatOpe->setPopup(recentMenu);
-  	WerkTools = new WerkToolB(this);	
+  WerkTools = new WerkToolB(this);	
   setDockEnabled(WerkTools, DockLeft, false);
-  	setDockEnabled(WerkTools, DockRight, false);
-   	WerkTools->Sichtbar = true;
-    	WerkTools->setEnabled(false);
-     	WerkToolsP = new WerkToolBP(this);
+  setDockEnabled(WerkTools, DockRight, false);
+  WerkTools->Sichtbar = true;
+  WerkTools->setEnabled(false);
+  WerkToolsP = new WerkToolBP(this);
   setDockEnabled(WerkToolsP, DockLeft, false);	
   setDockEnabled(WerkToolsP, DockRight, false);
   WerkToolsP->setEnabled(false);	
@@ -131,23 +126,23 @@ QString::null, this, SLOT(SaveAsPDF()), WerkTools2);
   QString Pff = QString(getenv("HOME"))+"/.scribus";	
   QFileInfo Pffi = QFileInfo(Pff);
   if (Pffi.exists())
-  {
+  	{
     if (Pffi.isDir())			
       PrefsPfad = Pff;
         else
       PrefsPfad = QString(getenv("HOME"));
-  }
+  	}
   else
-  {
+  	{
   	QDir di = QDir();
     di.mkdir(Pff);
     PrefsPfad = Pff;
     QString OldPR = QString(getenv("HOME"))+"/.scribus.rc";
     QFileInfo OldPi = QFileInfo(OldPR);
     if (OldPi.exists())
-    {
+    	{
 			system("mv " + OldPR + " " + Pff+"/scribus.rc");
-		}
+			}
 		QString OldPR2 = QString(getenv("HOME"))+"/.scribusfont.rc";
 		QFileInfo OldPi2 = QFileInfo(OldPR2);
 		if (OldPi2.exists())
@@ -287,7 +282,7 @@ QString::null, this, SLOT(SaveAsPDF()), WerkTools2);
     wsp = new QWorkspace( vb );
     setCentralWidget( vb );
 		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
-		Tpal = new Tree(this, WStyle_Customize | WStyle_DialogBorder);
+		Tpal = new Tree(this, 0);
 		Mpal = new Mpalette(this, &Prefs);
 		Mpal->Cpal->SetColors(Prefs.DColors);
 		Npal = new NodePalette(this);
@@ -1934,8 +1929,8 @@ void ScribusApp::HaveNewSel(int Nr)
 				WerkTools->KetteEin->setEnabled(true);
 			if (doc->MasterP)
 				WerkTools->KetteEin->setEnabled(false);
-//			if (doc->AppMode == 7)
-//				setTBvals(b);
+			if (doc->AppMode == 7)
+				setTBvals(b);
 			else
 				{
 				doc->CurrFont = b->IFont;
@@ -4141,7 +4136,14 @@ void ScribusApp::setItemFarbe(int id)
 		ColorMenu->setItemChecked(ColorMenu->idAt(a), false);
 		}
 	ColorMenu->setItemChecked(id, true);
-	doc->ActPage->ItemBrush(ColorMenu->text(id));
+ 	if (doc->ActPage->SelItem.count() != 0)
+		{
+ 		PageItem *b = doc->ActPage->SelItem.at(0);
+		if ((b->PType == 4) || (b->PType == 8))
+			doc->ActPage->ItemTextBrush(ColorMenu->text(id));
+		else
+			doc->ActPage->ItemBrush(ColorMenu->text(id));
+		}
 	slotDocCh();
 }
 
@@ -4155,22 +4157,32 @@ void ScribusApp::setItemShade(int id)
 		ShadeMenu->setItemChecked(ShadeMenu->idAt(a), false);
 		}
 	ShadeMenu->setItemChecked(id, true);
-	if (c > 0)
-		{		
-		doc->ActPage->ItemBrushShade((c-1) * 10);
-		}
-	else
+ 	if (doc->ActPage->SelItem.count() != 0)
 		{
-    Query* dia = new Query(this, "New", 1, 0, "Shade:", "Shade");
-    if (dia->exec())
-    	{
-			c = dia->Answer->text().toInt(&ok);
-			if (ok)
-				{		
-				doc->ActPage->ItemBrushShade(c);
-				}
-			delete dia;
-     	}
+ 		PageItem *b = doc->ActPage->SelItem.at(0);
+		if (c > 0)
+			{
+			if ((b->PType == 4) || (b->PType == 8))
+				doc->ActPage->ItemTextBrushS((c-1) * 10);
+			else
+				doc->ActPage->ItemBrushShade((c-1) * 10);
+			}
+		else
+			{
+    	Query* dia = new Query(this, "New", 1, 0, "Shade:", "Shade");
+    	if (dia->exec())
+    		{
+				c = dia->Answer->text().toInt(&ok);
+				if (ok)
+					{
+					if ((b->PType == 4) || (b->PType == 8))
+						doc->ActPage->ItemTextBrushS(c);
+					else
+						doc->ActPage->ItemBrushShade(c);
+					}
+				delete dia;
+     		}
+			}
 		}
 	slotDocCh();
 }
@@ -4180,12 +4192,22 @@ void ScribusApp::setCSMenu(QString k, QString l, int lk , int ls)
 	uint a;
 	QString la;
 	int lb;
+	PageItem *b;
 	if (doc->ActPage->SelItem.count() != 0)
 		{
-		if (doc->ActPage->SelItem.at(0)->PType == 4)
+		b = doc->ActPage->SelItem.at(0);
+		if ((b->PType == 4) || (b->PType == 8))
 			{
-			la = k;
-			lb = lk;
+			if (doc->AppMode == 7)
+				{
+				la = b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->ccolor;
+				lb = b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->cshade;
+				}
+			else
+				{
+				la = b->TxtFill;
+				lb = b->ShTxtFill;
+				}
 			}
 		else
 			{

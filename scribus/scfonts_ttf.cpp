@@ -140,11 +140,12 @@ bool Foi_ttf::EmbedFont(QString &str)
 	while (length==65534);
 	str += "\n] def\n";
 	delete tmp;
+	gindex = 0;
   charcode = FT_Get_First_Char(face, &gindex );
   while (gindex != 0)
 		{
 		FT_Get_Glyph_Name(face, gindex, buf, 50);
-		tmp2 += "/"+QString((char*)buf)+" "+tmp3.setNum(gindex)+" def\n";
+		tmp2 += "/"+QString(reinterpret_cast<char*>(buf))+" "+tmp3.setNum(gindex)+" def\n";
     charcode = FT_Get_Next_Char(face, charcode, &gindex );
 		counter++;
 		}

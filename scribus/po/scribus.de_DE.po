@@ -2906,3 +2906,18 @@ msgstr "Verzeichnis:"
 msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
 msgstr "SVG Grafiken (*.svg *.svgz);;Alle Dateien (*)"
 
+msgid "ICC-Profiles:"
+msgstr "ICC-Profile:"
+
+msgid "Automatic Line Spacing:"
+msgstr "Auto Zeilenabstand:"
+
+msgid "Keep Aspect Ratio"
+msgstr "Seitenverh. beibehalten"
+
+msgid "Line Style:"
+msgstr "Linienstil:"
+
+msgid "Display Unprintable Area in Margin Color"
+msgstr "Nichtdruckbaren Bereich mit Randfarbe einfärben"
+

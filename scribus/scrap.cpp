@@ -117,7 +117,7 @@ void BibView::RebuildView()
 
 /* This is the main Dialog-Class for the Scrapbook */
 Biblio::Biblio( QWidget* parent, preV *prefs)
-    : QDialog( parent, "Sclib", false, WStyle_Customize | WStyle_DialogBorder )
+    : QDialog( parent, "Sclib", false, 0 )
 {
     resize( 230, 190 );
     setCaption( tr( "Scrapbook" ) );

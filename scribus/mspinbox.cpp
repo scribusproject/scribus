@@ -35,6 +35,7 @@ MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 			break;
 		}
 	setValidator(0);
+	ed = editor();
 }
 
 bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )

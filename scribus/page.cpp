@@ -5148,6 +5148,7 @@ void Page::ItemTextBrush(QString farbe)
 					}
 				}
 			RefreshItem(b);
+			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
 			}
 		}
 }
@@ -5178,6 +5179,7 @@ void Page::ItemTextBrushS(int sha)
 					}
 				}
 			RefreshItem(b);
+			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
 			}
 		}
 }

@@ -32,6 +32,7 @@ public:
 	int mapTextToValue(bool *ok);
 	int Decimals;
 	int Width;
+	QLineEdit *ed;
 	void setDecimals( int deci );
 protected:
 	bool eventFilter( QObject* ob, QEvent* ev );
