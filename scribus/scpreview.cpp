@@ -823,12 +823,8 @@ void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, Q
 		if (Style & 8)
 			{
 			double st = Prefs->AvailFonts[ZFo]->underline_pos * (Siz / 10.0);
-			QString dummy;
 			p->setLineWidth(QMAX(Prefs->AvailFonts[ZFo]->strokeWidth * (Siz / 10.0), 1));
-			if (gly.size() > 4)
-				p->drawUnderline(FPoint(xco, yco-st), FPoint(xco+wide, yco-st), false, &dummy);
-			else
-				p->drawLine(FPoint(xco, yco-st), FPoint(xco+wide, yco-st));
+			p->drawLine(FPoint(xco, yco-st), FPoint(xco+wide, yco-st));
 			}
 		}
 	else

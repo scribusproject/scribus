@@ -1300,10 +1300,25 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 												}
 											}
 										}
-									if (hl->cstyle & 16)
+									if ((hl->cstyle & 16) && (chx != QChar(13)))
 										{
 										double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 										double Upos = (*Doc->AllFonts)[hl->cfont]->strikeout_pos * (tsz / 10.0);
+										if (hl->ccolor != "None")
+											{
+											p->PS_setdash(SolidLine, FlatCap, MiterJoin);
+											SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
+											p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+											}
+										p->PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
+										p->PS_moveto(hl->xp, -hl->yp+Upos);
+										p->PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
+										p->PS_stroke();
+										}
+									if ((hl->cstyle & 8) && (chx != QChar(13)))
+										{
+										double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
+										double Upos = (*Doc->AllFonts)[hl->cfont]->underline_pos * (tsz / 10.0);
 										if (hl->ccolor != "None")
 											{
 											p->PS_setdash(SolidLine, FlatCap, MiterJoin);
@@ -1334,6 +1349,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 											if (hl->ccolor != "None")
 												{
 												p->PS_save();
+												p->PS_newpath();
 												p->PS_translate(hl->xp+wide, (hl->yp - (tsz / 10.0)) * -1);
 												SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
 												p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -1342,58 +1358,6 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 												p->PS_fill(true);
 												p->PS_restore();
 												}
-											}
-										}
-									if ((hl->cstyle & 8) && (chx != QChar(13)))
-										{
-										int chs = hl->csize;
-										ite->SetZeichAttr(hl, &chs, &chx);
-										double csi = chs / 10.0;
-										double wid = Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
-										QPixmap pgPix(static_cast<int>(wid), static_cast<int>(hl->csize / 10.0));
-										ScPainter *painter = new ScPainter(&pgPix, static_cast<int>(wid), static_cast<int>(hl->csize / 10.0));
-										QString psSt = "1 -1 scale\n";
-										uint chr = chx[0].unicode();
-										if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))
-											{
-											FPointArray gly = (*Doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
-											double st = (*Doc->AllFonts)[hl->cfont]->underline_pos * csi;
-											painter->setLineWidth(QMAX((*Doc->AllFonts)[hl->cfont]->strokeWidth * csi, 1));
-											if (gly.size() < 4)
-												{
-												gly.resize(0);
-												gly.addPoint(FPoint(0,0));
-												gly.addPoint(FPoint(0,0));
-												gly.addPoint(FPoint(1,0));
-												gly.addPoint(FPoint(1,0));
-												}
-											QWMatrix chma;
-											chma.scale(csi / 10.0, csi / 10.0);
-											gly.map(chma);
-											chma = QWMatrix();
-											chma.scale(hl->cscale / 100.0, 1);
-											gly.map(chma);
-											painter->setupPolygon(&gly);
-											painter->drawUnderline(FPoint(0-hl->cextra, csi-st), FPoint(wid, csi-st), true, &psSt);
-											p->PS_save();
-											if (ite->Reverse)
-												{
-												p->PS_translate(hl->xp, (hl->yp - st) * -1);
-												p->PS_scale(-1, 1);
-												p->PS_translate(-wid, 0);
-												}
-											else
-												p->PS_translate(hl->xp, (hl->yp - st) * -1);
-											if (hl->ccolor != "None")
-												{
-												SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
-												p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-												}
-											p->PS_insert(psSt+"closepath\n");
-											p->PS_fill(true);
-											p->PS_restore();
-											painter->end();
-											delete painter;
 											}
 										}
 									}
@@ -1845,62 +1809,25 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 											}
 										}
 									}
-								if ((hl->cstyle & 8) && (chx != QChar(13)))
-									{
-									int chs = hl->csize;
-									c->SetZeichAttr(hl, &chs, &chx);
-									double csi = chs / 10.0;
-									double wid = Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
-									QPixmap pgPix(static_cast<int>(wid), static_cast<int>(hl->csize / 10.0));
-									ScPainter *painter = new ScPainter(&pgPix, static_cast<int>(wid), static_cast<int>(hl->csize / 10.0));
-									QString psSt = "1 -1 scale\n";
-									uint chr = chx[0].unicode();
-									if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))
-										{
-										FPointArray gly = (*Doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
-										double st = (*Doc->AllFonts)[hl->cfont]->underline_pos * csi;
-										painter->setLineWidth(QMAX((*Doc->AllFonts)[hl->cfont]->strokeWidth * csi, 1));
-										if (gly.size() < 4)
-											{
-											gly.resize(0);
-											gly.addPoint(FPoint(0,0));
-											gly.addPoint(FPoint(0,0));
-											gly.addPoint(FPoint(1,0));
-											gly.addPoint(FPoint(1,0));
-											}
-										QWMatrix chma;
-										chma.scale(csi / 10.0, csi / 10.0);
-										gly.map(chma);
-										chma = QWMatrix();
-										chma.scale(hl->cscale / 100.0, 1);
-										gly.map(chma);
-										painter->setupPolygon(&gly);
-										painter->drawUnderline(FPoint(0-hl->cextra, csi-st), FPoint(wid, csi-st), true, &psSt);
-										p->PS_save();
-										if (c->Reverse)
-											{
-											p->PS_translate(hl->xp, (hl->yp - st) * -1);
-											p->PS_scale(-1, 1);
-											p->PS_translate(-wid, 0);
-											}
-										else
-											p->PS_translate(hl->xp, (hl->yp - st) * -1);
-										if (hl->ccolor != "None")
-											{
-											SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
-											p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-											}
-										p->PS_insert(psSt+"closepath\n");
-										p->PS_fill(true);
-										p->PS_restore();
-										painter->end();
-										delete painter;
-										}
-									}
-								if (hl->cstyle & 16)
+								if ((hl->cstyle & 16) && (chx != QChar(13)))
 									{
 									double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 									double Upos = (*Doc->AllFonts)[hl->cfont]->strikeout_pos * (tsz / 10.0);
+									if (hl->ccolor != "None")
+										{
+										p->PS_setdash(SolidLine, FlatCap, MiterJoin);
+										SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
+										p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+										}
+									p->PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
+									p->PS_moveto(hl->xp, -hl->yp+Upos);
+									p->PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
+									p->PS_stroke();
+									}
+								if ((hl->cstyle & 8) && (chx != QChar(13)))
+									{
+									double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
+									double Upos = (*Doc->AllFonts)[hl->cfont]->underline_pos * (tsz / 10.0);
 									if (hl->ccolor != "None")
 										{
 										p->PS_setdash(SolidLine, FlatCap, MiterJoin);
@@ -1931,6 +1858,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 										if (hl->ccolor != "None")
 											{
 											p->PS_save();
+											p->PS_newpath();
 											p->PS_translate(hl->xp+wide, (hl->yp - (tsz / 10.0)) * -1);
 											SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
 											p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);

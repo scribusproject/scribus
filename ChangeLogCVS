@@ -1,89 +1,102 @@
 Changes since Version 1.1.6
-24.04.2004	Opening the same Document twice is now no longer possible.
-		Fixed Bug #514, Spinbox values are reset to 0.0 in Polish Language.
-		Fixed Bug #513, Not able to delete highlighted Guide in the Guidemanager.
-		Fixed Bug #508, Short font and color list in object properties.
-		Fixed Bug #495, unclosed SVG paths not importing properly
 
-23.04.2004	Fixed wrong clipping in the Postscript Output with styled Lines.
-		Fixed vanishing text in flipped Textframes when zooming in.
-		Updated the Czech and Danish Translations.
-		Fixed Bug #511 "Lock object size" is now in context menu
-		Fixed Bug #510 Translated units are shown as question marks in the Page>Manage guides dialog.
-		Fixed Bug #501 screen refresh when editing tables not nice.
-		Fixed Bug #493 Additional Patch to configure for Debian Systems.
-		Fixed Bug #462 PDF export resets color tints to solids.
+25.04.2004
+	* bug     #517: Move Level RMB menu items to a submenu
+	* bug     #518: Please replace sample PDF form and PHP script in the docs
+	* bug     #519: Deleting multiple characters or spaces causes Sig 11
+	* bug     #524: Textframes with Gradients as Background are not exported correctly
+	* feature #497: Beeing able to determine the column width instead of the gutter width (at will)
+	* feature #503: Item renaming in overview
+	* feature #521: TS-Update German
 
-18.04.2004	Fixed wrong Display with flipped Textframes.
-		Added "Insert LoremIpsum" Command for Textframes to the Context Menue.
-		Fixed display issues with Tables.
-		Updated the Czech and Russian Translation.
+24.04.2004
+	* bug     #495: unclosed SVG paths not importing properly
+	* bug     #508: Short font and color list in object properties, bad dialog
+	* bug     #513: Not able delete highlighted guide
+	* bug     #514: Guide manager -> Guide coordinate will be resetted to 0.00
+	* feature #462: PDF export resets color tints to solids
+	* feature #511: "Lock object size" in context menu
+	* Fixed Bug #514, Spinbox values are reset to 0.0 in Polish Language. 
+	* Fixed Bug #513, Not able to delete highlighted Guide in the Guidemanager. 
+	* Fixed Bug #508, Short font and color list in object properties. 
+	* Fixed Bug #495, unclosed SVG paths not importing properly 
 
-17.04.2004	Fixed minor error in PDF-Export with Tables.
-		Transparent areas in EPS-Images are handled now correct in PDF-Export.
+23.04.2004
+	* Fixed vanishing text in flipped Textframes when zooming in. 
+	* Updated the Czech and Danish Translations. 
+	* Fixed Bug #511 "Lock object size" is now in context menu 
+	* Fixed Bug #510 Translated units are shown as question marks in the Page>Manage guides dialog. 
+	* Fixed Bug #501 screen refresh when editing tables not nice. 
+	* Fixed Bug #493 Additional Patch to configure for Debian Systems. 
+	* Fixed Bug #462 PDF export resets color tints to solids. 
 
-16.04.2004	Updated the German and Finnish Translation.
-		Fixed recognition of en_GB locale.
+18.04.2004
+	* Added "Insert LoremIpsum" Command for Textframes to the Context Menue. 
+	* Fixed display issues with Tables. 
+	* Updated the Czech and Russian Translation. 
 
-14.04.2004	Updated the Polish Translation.
-		The Color Names are now editable in the Color Chooser.
-		The Cups Options panel is now resizeable.
-		The ESC-Key closes now the Scripting Console.
+17.04.2004
+	* Transparent areas in EPS-Images are handled now correct in PDF-Export. 
 
-13.04.2004	Updated the British Translation.
+16.04.2004
+	* Fixed recognition of en_GB locale. 
 
-12.04.2004	Added new Command "Adjust Frame to Picture" to the Context Menue.
-		Added "Insert Special" Command to the Story Editor.
-		You can now insert any Unicode character by entering the 4-digit Hex code after 
-		pressing F12.
+14.04.2004
+	* The Color Names are now editable in the Color Chooser. 
+	* The Cups Options panel is now resizeable. 
+	* The ESC-Key closes now the Scripting Console. 
 
-11.04.2004	Fixed wrong placement of characters in the PDF-Export.
-		Updated the Brazilian translation.
+12.04.2004
+	* Added "Insert Special" Command to the Story Editor. 
+	* You can now insert any Unicode character by entering the 4-digit Hex code after 
+	* pressing F12. 
 
-10.04.2004	Panning Mode is now toggled by pressing Space. Works only when not editing a Textframe.
-		Pressing Shift+Return inserts now a new line into a paragraph, does not count as a paragraph seperator.
-		Improved behaviour of the hyphenation, you can set now the number of hyphenations allowed to follow each other.
-		Added more Tooltips.
+11.04.2004
+	* Updated the Brazilian translation. 
 
-09.04.2004	Made various adjustments to Dialog Buttons.
-		Improved Panning.
+10.04.2004
+	* Pressing Shift+Return inserts now a new line into a paragraph, does not count as a paragraph seperator. 
+	* Improved behaviour of the hyphenation, you can set now the number of hyphenations allowed to follow each other. 
+	* Added more Tooltips. 
 
-08.04.2004	Fixed Crash when exporting Texts on a Path to PDF.
-		You can scroll now with the Mouse when no Object is selected and you press CTRL and move the Mouse.
+09.04.2004
+	* Improved Panning. 
 
-07.04.2004	Applied Patch for better detecting CUPS.
-		Improved the forced aligning of Text again.
+08.04.2004
+	* You can scroll now with the Mouse when no Object is selected and you press CTRL and move the Mouse. 
 
-06.04.2004	Improved the forced aligning of Text.
-		Changed the Styles Listbox to a Combobox in the Properties Palette.
+07.04.2004
+	* Improved the forced aligning of Text again. 
 
-05.04.2004	Updated the Ukraininan Translation.
-		Fixed Issues with Polylines on Export to PDF and Postscript.
-		Moved the Icons to $prefix/share/scribus/icons to be FHS compliant.
+06.04.2004
+	* Changed the Styles Listbox to a Combobox in the Properties Palette. 
 
-04.04.2004	Fixed rounding problems with the Baseline Grid.
+05.04.2004
+	* Fixed Issues with Polylines on Export to PDF and Postscript. 
+	* Moved the Icons to $prefix/share/scribus/icons to be FHS compliant. 
 
-03.04.2004	Added a frame independent baseline setting for Textframes.
-		Updated the Finnish Translation.
+03.04.2004
+	* Updated the Finnish Translation. 
 
-02.04.2004	Flipping state of images is now preserved when updating or editing Images, Bug #408
-		Properties Palette is now updated immediately after text style change, Bug #404
-		Textcolor is now imported too when appending Styles, Bug #402
-		Applying "No Style" resets now all Textproperties to the default style, Bug #400
-		You can now move Objects in 0.1 Point units when pressing CTRL and the Cursor Keys, Bug #397
-		Colors in PDF-Textfields are now exported correctly, Bug #396
-		Pressing Tab while editing a Text doesn't jump to the Pageselector anymore, Bug #395
-		Pressing Shift while rotating the Mouse Whell scrolls now horizontal, Bug #388
-		Updated several Tooltips.
+02.04.2004
+	* Properties Palette is now updated immediately after text style change, Bug #404 
+	* Textcolor is now imported too when appending Styles, Bug #402 
+	* Applying "No Style" resets now all Textproperties to the default style, Bug #400 
+	* You can now move Objects in 0.1 Point units when pressing CTRL and the Cursor Keys, Bug #397 
+	* Colors in PDF-Textfields are now exported correctly, Bug #396 
+	* Pressing Tab while editing a Text doesn't jump to the Pageselector anymore, Bug #395 
+	* Pressing Shift while rotating the Mouse Whell scrolls now horizontal, Bug #388 
+	* Updated several Tooltips. 
 
-30.03.2004	Fixed Issue on export to PDF and Postscript with Objects with zero Linewidth.
-		Fixed Issues with locked Objects and Groups.
-		Double clicking on a Table Cell selects this Cell now.
-		Resizing Tableitems with the Properties Palette should work now.
-		Updated Polish Translation.
-		Added horizontal Scrolling with the horizontal MouseWheel if available.
-		Fixed compilation issues.
+30.03.2004
+	* Fixed Issues with locked Objects and Groups. 
+	* Double clicking on a Table Cell selects this Cell now. 
+	* Resizing Tableitems with the Properties Palette should work now. 
+	* Updated Polish Translation. 
+	* Added horizontal Scrolling with the horizontal MouseWheel if available. 
+	* Fixed compilation issues. 
 
-29.03.2004	Removed implicit closing of Polylines in the SVG importer.
-		Added a "Keep aspect ratio" Button to the X-Y-Z Tab of the Properties Palette.
-		Added the missing pageselector.h file to the install function.
+29.03.2004
+	* Added a "Keep aspect ratio" Button to the X-Y-Z Tab of the Properties Palette. 
+	* Added the missing pageselector.h file to the install function. 
+

@@ -656,7 +656,6 @@ public: // Public attributes
 	bool DoDrawing;
 	QValueList<int> OpenNodes;
 	QTimer *CurTimer;
-	bool BaseShown;
 	double BaseGrid;
 	double BaseOffs;
 };

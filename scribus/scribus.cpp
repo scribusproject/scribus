@@ -65,6 +65,7 @@
 #include "annota.h"
 #include "javadocs.h"
 #include "colorm.h"
+#include "mpalette.h"
 
 #ifndef _MSC_VER   // jjsa 21-03-2004 (lint complains)
 #define _MSC_VER -1

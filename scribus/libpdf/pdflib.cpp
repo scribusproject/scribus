@@ -1107,8 +1107,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 						if ((ite->LayerNr != ll.LNr) || (!ite->isPrintable) || (ite->PType != 4))
 							continue;
 						PutPage("q\n");
-						if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && 
-							(Options->Version == 14))
+						if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && (Options->Version == 14))
 							PDF_Transparenz(ite);
 						if (Options->UseRGB)
 						{
@@ -1356,11 +1355,13 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 					case 2:
 						if ((ite->Pcolor != "None") || (ite->GrType != 0))
 						{
-							PutPage(SetClipPath(ite));
 							if (ite->GrType != 0)
 								PDF_Gradient(ite);
 							else
+							{
+								PutPage(SetClipPath(ite));
 								PutPage(ite->Segments.count() != 0 ? "h\nf*\n" : "h\nf\n");
+							}
 						}
 						PutPage("q\n");
 						PutPage(SetClipPath(ite));
@@ -1402,11 +1403,13 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							}
 						if ((ite->Pcolor != "None") || (ite->GrType != 0))
 						{
-							PutPage(SetClipPath(ite));
 							if (ite->GrType != 0)
 								PDF_Gradient(ite);
 							else
+							{
+								PutPage(SetClipPath(ite));
 								PutPage(ite->Segments.count() != 0 ? "h\nf*\n" : "h\nf\n");
+							}
 						}
 						PutPage("q\n");
 						if ((ite->flippedH % 2) != 0)
@@ -2044,53 +2047,32 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 		}
 		if ((hl->cstyle & 8) && (chx != QChar(13)))
 		{
-			uint chr = chx[0].unicode();
-			if ((*doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))
+			double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
+			double Upos = (*doc->AllFonts)[hl->cfont]->underline_pos * (tsz / 10.0);
+			double Uwid = QMAX((*doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0), 1);
+			if (hl->ccolor != "None")
 			{
-				double csi = tsz / 10.0;
-				double wid = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-				QPixmap pgPix(static_cast<int>(wid), static_cast<int>(csi));
-				ScPainter *painter = new ScPainter(&pgPix, static_cast<int>(wid),
-									 static_cast<int>(csi));
-				FPointArray gly = (*doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
-				double st = (*doc->AllFonts)[hl->cfont]->underline_pos * csi;
-				double Uwid = QMAX((*doc->AllFonts)[hl->cfont]->strokeWidth * csi, 1);
-				painter->setLineWidth(Uwid);
-				if (gly.size() < 4)
-				{
-					gly.resize(0);
-					gly.addPoint(FPoint(0,0));
-					gly.addPoint(FPoint(0,0));
-					gly.addPoint(FPoint(1,0));
-					gly.addPoint(FPoint(1,0));
-				}
-				QWMatrix chma;
-				chma.scale(csi / 10.0, csi / 10.0);
-				gly.map(chma);
-				chma = QWMatrix();
-				chma.scale(hl->cscale / 100.0, 1);
-				gly.map(chma);
-				tmp2 += "q\n";
-				if (ite->Reverse)
-				{
-					chma = QWMatrix();
-					chma.scale(-1, 1);
-					chma.translate(-wid, 0);
-					gly.map(chma);
-					tmp2 += "1 0 0 1 "+FToStr(hl->xp)+" "+FToStr((hl->yp - st) * -1)+" cm\n";
-					tmp2 += "-1 0 0 1 0 0 cm\n";
-					tmp2 += "1 0 0 -1 "+FToStr(-wid)+" 0 cm\n";
-				}
+				if (Options->UseRGB)
+					tmp2 += SetFarbe(hl->ccolor, hl->cshade)+" RG\n";
 				else
-					tmp2 += "1 0 0 -1 "+FToStr(hl->xp)+" "+FToStr((hl->yp - st) * -1)+" cm\n";
-				painter->setupPolygon(&gly);
-				painter->drawUnderline(FPoint(0, tsz-st), FPoint(wid, tsz-st), true, &tmp2);
-				tmp2 += "h f Q\n";
-				painter->end();
-				delete painter;
+				{
+#ifdef HAVE_CMS
+					if ((CMSuse) && (Options->UseProfiles))
+					{
+						tmp2 += "/"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
+						tmp2 += SetFarbe(hl->ccolor, hl->cshade)+" SCN\n";
+					}
+					else
+#endif
+					tmp2 += SetFarbe(hl->ccolor, hl->cshade)+" K\n";
+				}
 			}
+			tmp2 += FToStr(Uwid)+" w\n";
+			tmp2 += FToStr(hl->xp)+" "+FToStr(-hl->yp+Upos)+" m\n";
+			tmp2 += FToStr(hl->xp+Ulen)+" "+FToStr(-hl->yp+Upos)+" l\n";
+			tmp2 += "S\n";
 		}
-		if (hl->cstyle & 16)
+		if ((hl->cstyle & 16) && (chx != QChar(13)))
 		{
 			double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
 			double Upos = (*doc->AllFonts)[hl->cfont]->strikeout_pos * (tsz / 10.0);

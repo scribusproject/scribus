@@ -76,7 +76,6 @@ public:
 	virtual void drawPolyLine();
 	virtual void drawLine(FPoint start, FPoint end);
 	virtual void drawRect(double, double, double, double);
-	virtual void drawUnderline(FPoint x1, FPoint x2, bool ps, QString *psst);
 
 	// pen + brush
 	virtual QColor pen();

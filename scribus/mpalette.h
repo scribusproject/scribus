@@ -36,6 +36,28 @@
 class Autoforms;
 extern bool CMSavail;
 
+class LabelButton : public QLabel
+{
+	Q_OBJECT
+
+public:
+	LabelButton(QWidget* parent, QString text1, QString text2);
+	~LabelButton() {};
+	void setTexts(QString text1, QString text2);
+	bool getState();
+
+private:
+	bool state;
+	QString TextA;
+	QString TextB;
+
+signals:
+	void clicked();
+
+protected:
+	virtual void mouseReleaseEvent(QMouseEvent *);
+};
+
 class NameWidget : public QLineEdit
 {
 	Q_OBJECT
@@ -134,7 +156,8 @@ public:
 	MSpinBox* LineW;
 	QLabel* Text14;
 	QLabel* Text14a;
-	QLabel* Text14b;
+//	QLabel* Text14b;
+	LabelButton* Text14b;
 	QLabel* Text15;
 	QLabel* Text16;
 	QSpinBox* DCol;
@@ -257,6 +280,7 @@ private slots:
 	void NewR();
 	void NewRR();
 	void NewLsp();
+	void HandleGapSwitch();
 	void NewCols();
 	void NewGap();
 	void NewSize();

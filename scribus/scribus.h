@@ -49,7 +49,6 @@
 #include "scribusdoc.h"
 #include "scribuswin.h"
 #include "tree.h"
-#include "mpalette.h"
 #include "frameedit.h"
 #include "scrap.h"
 #include "layers.h"
@@ -62,7 +61,7 @@ class Autoforms;
 class FontCombo;
 class StilFormate;
 class LineFormate;
-
+class Mpalette;
 /**
   * This Class is the base class for your application. It sets up the main
   * window and providing a menubar, toolbar

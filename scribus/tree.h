@@ -39,6 +39,8 @@ public:
 	QValueList<int> buildReopenVals();
 
 public slots:
+	void slotRightClick(QListViewItem* ite, const QPoint &, int);
+	void slotDoRename(QListViewItem* ite, int col);
 	void slotShowSelect(uint SNr, int Nr);
 	void slotRemoveElement(uint SNr, uint Nr);
 	void slotUpdateElement(uint SNr, uint Nr);

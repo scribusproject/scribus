@@ -1971,14 +1971,9 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		if (hl->Style & 8)
 		{
 			double st = (*Doc->AllFonts)[hl->ZFo]->underline_pos * (hl->Siz / 10.0);
-			QString dummy;
 			p->setPen(p->brush());
 			p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * (hl->Siz / 10.0), 1));
-			if ((gly.size() > 4) && (ccx != QChar(32)))
-				p->drawUnderline(FPoint(hl->xco-hl->kern, hl->yco-st), 
-								 FPoint(hl->xco+hl->wide, hl->yco-st), false, &dummy);
-			else
-				p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
+			p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
 		}
 	}
 	else

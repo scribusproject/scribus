@@ -22,6 +22,7 @@
 #include "scribusXml.h"
 #include "scribus.h"
 #include "insertTable.h"
+#include "mpalette.h"
 
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
@@ -2520,6 +2521,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			pmen3 = new QPopupMenu();
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			QPopupMenu *pmen4 = new QPopupMenu();
+			QPopupMenu *pmenLevel = new QPopupMenu();
 
 			if ((b->PType == 4) || (b->PType == 2) || (b->PType == 8))
 			{
@@ -2671,10 +2673,11 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					pmen->insertItem( tr("Un-group"), this, SIGNAL(DoUnGroup()));
 				if ((!b->isTableItem) && (!b->isSingleSel))
 				{
-					pmen->insertItem( tr("Send to Back"), this, SLOT(ToBack()));
-					pmen->insertItem( tr("Bring to Front"), this, SLOT(ToFront()));
-					pmen->insertItem( tr("Lower"), this, SLOT(LowerItem()));
-					pmen->insertItem( tr("Raise"), this, SLOT(RaiseItem()));
+					pmen->insertItem( tr("Level"), pmenLevel);
+					pmenLevel->insertItem( tr("Send to Back"), this, SLOT(ToBack()));
+					pmenLevel->insertItem( tr("Bring to Front"), this, SLOT(ToFront()));
+					pmenLevel->insertItem( tr("Lower"), this, SLOT(LowerItem()));
+					pmenLevel->insertItem( tr("Raise"), this, SLOT(RaiseItem()));
 				}
 			}
 			if ((!b->isTableItem) && (!b->isSingleSel))
@@ -2717,10 +2720,6 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				}
 				pmen->insertItem( tr("Convert to"), pmen2);
 			}
-			if (!ScApp->Mpal->isVisible())
-				pmen->insertItem( tr("Show Properties..."), ScApp, SLOT(ToggleMpal()));
-			else
-				pmen->insertItem( tr("Hide Properties..."), ScApp, SLOT(ToggleMpal()));
 			pmen->insertSeparator();
 			if ((!b->Locked) && (!((b->isTableItem) && (b->isSingleSel))))
 				pmen->insertItem( tr("Cut"), this, SIGNAL(CutItem()));
@@ -2732,12 +2731,18 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem( tr("Clear Contents"), this, SLOT(ClearItem()));
 			if ((!b->Locked) && (doku->AppMode != 7) && (!((b->isTableItem) && (b->isSingleSel))))
 				pmen->insertItem( tr("Delete"), this, SLOT(DeleteItem()));
+			pmen->insertSeparator();
+			if (!ScApp->Mpal->isVisible())
+				pmen->insertItem( tr("Show Properties..."), ScApp, SLOT(ToggleMpal()));
+			else
+				pmen->insertItem( tr("Hide Properties..."), ScApp, SLOT(ToggleMpal()));
 			pmen->exec(QCursor::pos());
 			delete pmen;
 			delete pmen2;
 			disconnect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
 			delete pmen3;
 			delete pmen4;
+			delete pmenLevel;
 		}
 		if (doku->AppMode == 10)
 			update();

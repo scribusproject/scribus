@@ -14,6 +14,37 @@ extern double UmReFaktor;
 extern ProfilesL InputProfiles;
 extern ScribusApp* ScApp;
 
+LabelButton::LabelButton(QWidget* parent, QString text1, QString text2) : QLabel(parent)
+{
+	state = true;
+	setTexts(text1, text2);
+}
+
+void LabelButton::setTexts(QString text1, QString text2)
+{
+	TextA = text1;
+	TextB = text2;
+	if (state)
+		setText(TextA);
+	else
+		setText(TextB);
+}
+
+bool LabelButton::getState()
+{
+	return state;
+}
+
+void LabelButton::mouseReleaseEvent(QMouseEvent*)
+{
+	state = !state;
+	if (state)
+		setText(TextA);
+	else
+		setText(TextB);
+	emit clicked();
+}
+
 NameWidget::NameWidget(QWidget* parent) : QLineEdit(parent)
 {}
 
@@ -337,8 +368,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Text14a = new QLabel( Distance, "Text14a" );
 	Text14a->setText( tr( "Columns:" ) );
 	DistanceLayout->addWidget( Text14a, 0, 0 );
-	Text14b = new QLabel( Distance, "Text14b" );
-	Text14b->setText( tr( "Gap:" ) );
+	Text14b = new LabelButton( Distance, tr("Gap:"), tr("Width:"));
 	DistanceLayout->addWidget( Text14b, 1, 0 );
 	Text14 = new QLabel( Distance, "Text14" );
 	Text14->setText( tr( "Top:" ) );
@@ -790,6 +820,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	QToolTip::add( EditShape, tr( "Edit shape of the frame..." ) );
 	QToolTip::add( RoundRect, tr( "Set radius of corner rounding" ) );
 	QToolTip::add( DCol, tr( "Number of columns in text frame" ) );
+	QToolTip::add( Text14b, tr("Switches between Gap or Column width"));
 	QToolTip::add( DGap, tr( "Distance between columns" ) );
 	QToolTip::add( DTop, tr( "Distance of text from top of frame" ) );
 	QToolTip::add( DBottom, tr( "Distance of text from bottom of frame" ) );
@@ -853,7 +884,6 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	connect(DBottom, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
 	connect(buttonGroup5, SIGNAL(clicked(int)), this, SLOT(SelTab(int)));
 	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
-	//  	connect(StyledLine, SIGNAL(selected(int)), this, SIGNAL(EditLSt()));
 	connect(Fonts, SIGNAL(activated(int)), this, SLOT(NewTFont(int)));
 	connect(TxFill, SIGNAL(activated(int)), this, SLOT(newTxtFill()));
 	connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newTxtStroke()));
@@ -875,6 +905,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	connect( LeftLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
 	connect( RightLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
 	connect( BottomLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
+	connect( Text14b, SIGNAL( clicked() ), this, SLOT( HandleGapSwitch() ) );
 	HaveItem = false;
 	Xpos->setValue(0);
 	Ypos->setValue(0);
@@ -1005,11 +1036,25 @@ void Mpalette::SetCurItem(PageItem *i)
 	NameEdit->setText(i->AnName);
 	RoundRect->setValue(i->RadRect*UmReFaktor);
 	DCol->setMaxValue(QMAX(qRound(i->Width / QMAX(i->ColGap, 10.0)), 1));
-	DGap->setMaxValue(QMAX((i->Width / i->Cols - i->Extra - i->RExtra)*UmReFaktor, 0));
 	DCol->setMinValue(1);
 	DGap->setMinValue(0);
 	DCol->setValue(i->Cols);
-	DGap->setValue(i->ColGap*UmReFaktor);
+	if (Text14b->getState())
+	{
+		DGap->setMaxValue(QMAX((i->Width / i->Cols - i->Extra - i->RExtra)*UmReFaktor, 0));
+		DGap->setValue(i->ColGap*UmReFaktor);
+	}
+	else
+	{
+		double lineCorr;
+		if (i->Pcolor2 != "None")
+			lineCorr = i->Pwidth;
+		else
+			lineCorr = 0;
+		double ColWidth = (i->Width - (i->ColGap * (i->Cols - 1)) - i->Extra - i->RExtra - lineCorr) / i->Cols;
+		DGap->setMaxValue(QMAX((i->Width / i->Cols)*UmReFaktor, 0));
+		DGap->setValue(ColWidth*UmReFaktor);
+	}
 	DLeft->setValue(i->Extra*UmReFaktor);
 	DTop->setValue(i->TExtra*UmReFaktor);
 	DBottom->setValue(i->BExtra*UmReFaktor);
@@ -1606,7 +1651,22 @@ void Mpalette::setCols(int r, double g)
 	if (tmp)
 	{
 		DCol->setMaxValue(QMAX(qRound(CurItem->Width / QMAX(CurItem->ColGap, 10.0)), 1));
-		DGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols - CurItem->Extra - CurItem->RExtra), 0));
+		if (Text14b->getState())
+		{
+			DGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols - CurItem->Extra - CurItem->RExtra)*UmReFaktor, 0));
+			DGap->setValue(CurItem->ColGap*UmReFaktor);
+		}
+		else
+		{
+			double lineCorr;
+			if (CurItem->Pcolor2 != "None")
+				lineCorr = CurItem->Pwidth;
+			else
+				lineCorr = 0;
+			double ColWidth = (CurItem->Width - (CurItem->ColGap * (CurItem->Cols - 1)) - CurItem->Extra - CurItem->RExtra - lineCorr) / CurItem->Cols;
+			DGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols)*UmReFaktor, 0));
+			DGap->setValue(ColWidth*UmReFaktor);
+		}
 	}
 	DCol->setMinValue(1);
 	DGap->setMinValue(0);
@@ -2155,6 +2215,19 @@ void Mpalette::NewLsp()
 	}
 }
 
+void Mpalette::HandleGapSwitch()
+{
+	if ((HaveDoc) && (HaveItem))
+	{
+		setCols(CurItem->Cols, CurItem->ColGap);
+		QToolTip::remove(DGap);
+		if (Text14b->getState())
+			QToolTip::add( DGap, tr( "Distance between columns" ) );
+		else
+			QToolTip::add( DGap, tr( "Column width" ) );
+	}
+}
+
 void Mpalette::NewCols()
 {
 	if (ScApp->ScriptRunning)
@@ -2162,6 +2235,7 @@ void Mpalette::NewCols()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->Cols = DCol->value();
+		setCols(CurItem->Cols, CurItem->ColGap);
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
 	}
@@ -2173,7 +2247,19 @@ void Mpalette::NewGap()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->ColGap = DGap->value() / UmReFaktor;
+		if (Text14b->getState())
+			CurItem->ColGap = DGap->value() / UmReFaktor;
+		else
+		{
+			double lineCorr;
+			if (CurItem->Pcolor2 != "None")
+				lineCorr = CurItem->Pwidth;
+			else
+				lineCorr = 0;
+			double newWidth = DGap->value() / UmReFaktor;
+			double newGap = QMAX(((CurItem->Width - CurItem->Extra - CurItem->RExtra - lineCorr) - (newWidth * CurItem->Cols)) / (CurItem->Cols - 1), 0);
+			CurItem->ColGap = newGap;
+		}
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
 	}
@@ -2627,6 +2713,7 @@ void Mpalette::NewTDist()
 		CurItem->TExtra = DTop->value() / UmReFaktor;
 		CurItem->BExtra = DBottom->value() / UmReFaktor;
 		CurItem->RExtra = DRight->value() / UmReFaktor;
+		setCols(CurItem->Cols, CurItem->ColGap);
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
 	}

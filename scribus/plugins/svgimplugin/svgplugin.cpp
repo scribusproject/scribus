@@ -10,6 +10,7 @@
 #include "customfdialog.h"
 #include "color.h"
 #include "scribusXml.h"
+#include "mpalette.h"
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qregexp.h>
@@ -21,7 +22,7 @@
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);
-extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
+extern double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
 extern FPoint GetMaxClipF(FPointArray Clip);
 
 /*!
@@ -1661,7 +1662,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 				hg->PtransX = 0;
 				hg->PtransY = 0;
 				ite->Ptext.append(hg);
-				tempW += Cwidth(Doku, hg->cfont, hg->ch, hg->csize);
+				tempW += RealCWidth(Doku, hg->cfont, hg->ch, hg->csize)+1;
 				if (hg->ch == QChar(13))
 				{
 					ite->Height += ite->LineSp+desc;
@@ -1742,7 +1743,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			hg->PtransX = 0;
 			hg->PtransY = 0;
 			ite->Ptext.append(hg);
-			ite->Width += Cwidth(Doku, hg->cfont, hg->ch, hg->csize);
+			ite->Width += RealCWidth(Doku, hg->cfont, hg->ch, hg->csize)+1;
 			ite->Height = ite->LineSp+desc+2;
 		}
 		Doku->ActPage->SetRectFrame(ite);

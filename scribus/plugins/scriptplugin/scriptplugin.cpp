@@ -32,6 +32,7 @@
 #include "guiapp.h"
 #include "customfdialog.h"
 #include "helpbrowser.h"
+#include "mpalette.h"
 
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
