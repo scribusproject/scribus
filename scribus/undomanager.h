@@ -424,6 +424,7 @@ public:
 	static const QString UnLock;
 	static const QString SizeLock;
 	static const QString SizeUnLock;
+	static const QString Ungroup;
 	/*@}*/
 
 	/**

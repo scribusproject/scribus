@@ -2356,6 +2356,14 @@ void PageItem::toggleLock()
 	Locked = !Locked;
 }
 
+void PageItem::setLocked(bool isLocked)
+{
+	if (isLocked == Locked)
+		return; // nothing to do return
+	else
+		toggleLock();
+}
+
 void PageItem::toggleSizeLock()
 {
 	if (UndoManager::undoEnabled())

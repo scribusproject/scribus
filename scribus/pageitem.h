@@ -337,6 +337,8 @@ public:
 	void flipImageV();
 	/** @brief Lock or unlock this pageitem. */
 	void toggleLock();
+	/** @brief Lock or unlock this pageitem */
+	void setLocked(bool isLocked);
 	/** @brief Toggle lock for resizing */
 	void toggleSizeLock();
 	/** 

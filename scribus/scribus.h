@@ -75,6 +75,8 @@ class WerkToolBP;
 class UndoPalette;
 class FileWatcher;
 class UndoManager;
+class UndoState;
+class SimpleState;
 class ScrAction;
 class MenuManager;
 class CheckDocument;
@@ -85,7 +87,7 @@ class CheckDocument;
   * and statusbar. For the main view, an instance of class ScribusView is
   * created which creates your view.
   */
-class ScribusApp : public QMainWindow
+class ScribusApp : public QMainWindow, public UndoObject
 {
 	Q_OBJECT
   
@@ -143,6 +145,9 @@ public:
 	 * @return true if an arrow key is pressed down otherwise returns false
 	 */
 	bool arrowKeyDown();
+	void restore(UndoState* state, bool isUndo);
+	void restoreGroupping(SimpleState *state, bool isUndo);
+	void restoreUngroupping(SimpleState *state, bool isUndo);
 	struct CopyPasteBuffer Buffer;
 	QString Buffer2;
 	QString Buffer3;
@@ -447,7 +452,7 @@ public slots:
 	void setItemTextAli(int id);
 	void ApplyTemp();
 	void Apply_Temp(QString in, int Snr, bool reb = true);
-	void GroupObj();
+	void GroupObj(bool showLockDia = true);
 	void UnGroupObj();
 	void StatusPic();
 	void RunPlug(int id);

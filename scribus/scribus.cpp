@@ -115,6 +115,7 @@
 #include "vruler.h"
 #include "scraction.h"
 #include "menumanager.h"
+#include "undostate.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
@@ -8635,39 +8636,58 @@ void ScribusApp::Apply_Temp(QString in, int Snr, bool reb)
 	}
 }
 
-void ScribusApp::GroupObj()
+void ScribusApp::GroupObj(bool showLockDia)
 {
 	if (HaveDoc)
 	{
 		PageItem* b;
 		PageItem* bb;
 		double x, y, w, h;
-		for (uint a=0; a<view->SelItem.count(); ++a)
+		int t = -1; // show locked dialog only once
+		undoManager->beginTransaction(Um::Selection, Um::IGroup);
+		if (showLockDia)
 		{
-			b = view->SelItem.at(a);
-			if (b->Locked)
+			for (uint a=0; a<view->SelItem.count(); ++a)
 			{
-				int t = QMessageBox::warning(this, tr("Warning"),
-											tr("Some Objects are locked."),
-											tr("&Cancel"),
-											tr("&Lock All"),
-											tr("&Unlock All"), 0, 0);
-				if (t != 0)
+				if (t == -1 && view->SelItem.at(a)->Locked)
+					t = QMessageBox::warning(this, tr("Warning"),
+											 tr("Some Objects are locked."),
+											 tr("&Cancel"),
+											 tr("&Lock All"),
+											 tr("&Unlock All"), 0, 0);
+				if (t != -1)
+					break; // already have an answer free to leave the loop
+			}
+			if (t == 0)
+				return; // user chose cancel -> do not group but return
+
+			for (uint a=0; a<view->SelItem.count(); ++a)
+			{
+				b = view->SelItem.at(a);
+				if (b->Locked)
 				{
 					for (uint c=0; c<view->SelItem.count(); ++c)
 					{
 						bb = view->SelItem.at(c);
 						bool t1=(t==1);
-						bb->Locked = t1;
+						bb->setLocked(t1);
 						scrActions["itemLock"]->setOn(t1);
 					}
 				}
 			}
 		}
+
+		SimpleState *ss = new SimpleState("Group");
+		ss->set("GROUP", "group");
+		ss->set("itemcount", view->SelItem.count());
+
+		QString tooltip = Um::ItemsInvolved + "\n";
 		for (uint a=0; a<view->SelItem.count(); ++a)
 		{
 			b = view->SelItem.at(a);
 			b->Groups.push(doc->GroupCounter);
+			ss->set(QString("item%1").arg(a), b->ItemNr);
+			tooltip += "\t" + b->getUName() + "\n";
 		}
 		doc->GroupCounter++;
 		view->getGroupRect(&x, &y, &w, &h);
@@ -8676,6 +8696,8 @@ void ScribusApp::GroupObj()
 		scrActions["itemAttachTextToPath"]->setEnabled(false);
 		scrActions["itemGroup"]->setEnabled(false);
 		scrActions["itemUngroup"]->setEnabled(true);
+		undoManager->action(this, ss);
+		undoManager->commit("", 0, Um::Group, tooltip, 0);
 	}
 }
 
@@ -8683,6 +8705,12 @@ void ScribusApp::UnGroupObj()
 {
 	if (HaveDoc)
 	{
+		undoManager->beginTransaction(Um::Group, Um::IGroup);
+		SimpleState *ss = new SimpleState("Ungroup");
+		ss->set("UNGROUP", "ungroup");
+		ss->set("itemcount", view->SelItem.count());
+		QString tooltip = Um::ItemsInvolved + "\n";
+
 		PageItem* b;
 		for (uint a=0; a<view->SelItem.count(); ++a)
 		{
@@ -8693,10 +8721,57 @@ void ScribusApp::UnGroupObj()
 			b->RightLink = 0;
 			b->TopLink = 0;
 			b->BottomLink = 0;
+			ss->set(QString("item%1").arg(a), b->ItemNr);
+			tooltip += "\t" + b->getUName() + "\n";
 		}
 		slotDocCh();
 		view->Deselect(true);
+
+		undoManager->action(this, ss);
+		undoManager->commit("", 0, Um::Ungroup, tooltip, 0);
 	}
+}
+
+void ScribusApp::restore(UndoState* state, bool isUndo)
+{
+	SimpleState *ss = dynamic_cast<SimpleState*>(state);
+	if (ss)
+	{
+		if (ss->contains("GROUP"))
+			restoreGroupping(ss, isUndo);
+		else if (ss->contains("UNGROUP"))
+			restoreUngroupping(ss, isUndo);
+	}
+}
+
+void ScribusApp::restoreGroupping(SimpleState *state, bool isUndo)
+{
+	uint itemCount = state->getUInt("itemcount");
+	view->Deselect();
+	for (uint i = 0; i < itemCount; ++i)
+	{
+		int itemNr = state->getInt(QString("item%1").arg(i));
+		view->SelectItemNr(itemNr);
+	}
+	if (isUndo)
+		UnGroupObj();
+	else
+		GroupObj(false);
+}
+
+void ScribusApp::restoreUngroupping(SimpleState *state, bool isUndo)
+{
+	uint itemCount = state->getUInt("itemcount");
+	view->Deselect();
+	for (uint i = 0; i < itemCount; ++i)
+	{
+		int itemNr = state->getInt(QString("item%1").arg(i));
+		view->SelectItemNr(itemNr);
+	}
+	if (isUndo)
+		GroupObj(false);
+	else
+		UnGroupObj();
 }
 
 void ScribusApp::StatusPic()

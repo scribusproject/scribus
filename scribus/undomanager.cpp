@@ -624,6 +624,7 @@ const QString UndoManager::Lock              = tr("Lock");
 const QString UndoManager::UnLock            = tr("Unlock");
 const QString UndoManager::SizeLock          = tr("Lock size");
 const QString UndoManager::SizeUnLock        = tr("Unlock size");
+const QString UndoManager::Ungroup           = tr("Ungroup");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;
