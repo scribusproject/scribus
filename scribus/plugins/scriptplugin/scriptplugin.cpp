@@ -44,7 +44,6 @@
 #include "layers.h"
 #include "tree.h"
 #include "menumanager.h"
-#include "scraction.h"
 #include "scpaths.h"
 
 
