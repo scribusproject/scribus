@@ -50,6 +50,7 @@ int PrefsDialogBase::addItem(QString name, QPixmap icon, QWidget *tab)
 {
 	QIconViewItem* icx = new QIconViewItem(prefsSelection, name, icon);
 	prefsWidgets->addWidget(tab, counter);
+	icx->setDragEnabled(false);
 	itemMap.insert(icx, counter);
 	counter++;
 	return counter-1;
