@@ -1,19 +1,19 @@
 /***************************************************************************
-                          scribus.h  -  description
-                             -------------------
-    begin                : Fre Apr  6 21:09:31 CEST 2001
-    copyright            : (C) 2001 by Franz Schmid
-    email                : Franz.Schmid@altmuehlnet.de
- ***************************************************************************/
+						scribus.h  -  description
+							-------------------
+	begin                : Fre Apr  6 21:09:31 CEST 2001
+	copyright            : (C) 2001 by Franz Schmid
+	email                : Franz.Schmid@altmuehlnet.de
+***************************************************************************/
 
 /***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+***************************************************************************/
 
 #ifndef SCRIBUS_H
 #define SCRIBUS_H
@@ -89,21 +89,21 @@ struct PrintOptions {
 };
 
 /**
-  * This Class is the base class for your application. It sets up the main
-  * window and providing a menubar, toolbar
-  * and statusbar. For the main view, an instance of class ScribusView is
-  * created which creates your view.
-  */
+* This Class is the base class for your application. It sets up the main
+* window and providing a menubar, toolbar
+* and statusbar. For the main view, an instance of class ScribusView is
+* created which creates your view.
+*/
 class ScribusApp : public QMainWindow
 {
 	Q_OBJECT
-  
+
 public:
 	/** constructor */
 	ScribusApp();
 	/** destructor */
 	~ScribusApp() {};
-    /** init methods */
+	/** init methods */
 	void initGui();
 	/** initMenuBar creates the menu_bar and inserts the menuitems */
 	void initMenuBar();
@@ -112,7 +112,7 @@ public:
 	void SetShortCut();
 	void SetKeyEntry(int Nr, QString text, int Men, int KeyC);
 	bool doFileNew(double b, double h, double tpr, double lr, double rr, double br, double ab, double sp,
-									 bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr);
+									bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr);
 	bool DoFileSave(QString fn);
 	void closeEvent(QCloseEvent *ce);
 	void keyPressEvent(QKeyEvent *k);
@@ -120,6 +120,7 @@ public:
 	void DeleteSel(PageItem *b);
 	void setTBvals(PageItem *b);
 	void SavePrefs();
+	void SavePrefsXML();
 	void ShowSubs();
 	void applyNewMaster(QString name);
 	void UpdateRecent(QString fn);
@@ -134,8 +135,8 @@ public:
 	bool getPDFDriver(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs);
 	bool DoSaveAsEps(QString fn);
 	QString CFileDialog(QString wDir = ".", QString caption = "", QString filter = "", QString defNa = "",
-	                    bool Pre = false, bool mod = true, bool comp = false, bool cod = false,
-	                    bool onlyDirs = false, bool *docom = 0, bool *doFont = 0);
+						bool Pre = false, bool mod = true, bool comp = false, bool cod = false,
+						bool onlyDirs = false, bool *docom = 0, bool *doFont = 0);
 	void GetCMSProfiles();
 	void GetCMSProfilesDir(QString pfad);
 	void RecalcColors(QProgressBar *dia = 0);
@@ -163,16 +164,16 @@ public:
 	PrefsContext* dirs;
 	struct preV Prefs;
 	/** view is the main widget which represents your working area. The View
-	 * class should handle all events of the view widget.  It is kept empty so
-	 * you can create your view according to your application's needs by
-	 * changing the view class.
-	 */
+	* class should handle all events of the view widget.  It is kept empty so
+	* you can create your view according to your application's needs by
+	* changing the view class.
+	*/
 	ScribusView *view;
 	/** doc represents your actual document and is created only once. It keeps
-	 * information such as filename and does the serialization of your files.
-	 */
+	* information such as filename and does the serialization of your files.
+	*/
 	ScribusDoc *doc;
-    /** the splash screen */
+	/** the splash screen */
 	SplashScreen * splash;
 	QLabel* FMess;
 	QProgressBar* FProg;
@@ -224,6 +225,7 @@ public slots:
 	void BookMarkTxT(PageItem *ite);
 	void StoreBookmarks();
 	void ReadPrefs();
+	void ReadPrefsXML();
 	void ManageGuides();
 	void SetTranspar(double t);
 	void SetTransparS(double t);
@@ -281,7 +283,7 @@ public slots:
 	/** exits the application */
 	void slotFileQuit();
 	/** put the marked text/object into the clipboard and remove
-	 * it from the document */
+	* it from the document */
 	void slotEditCut();
 	/** put the marked text/object into the clipboard*/
 	void slotEditCopy();
@@ -294,7 +296,7 @@ public slots:
 	void DeleteText();
 	/** shows an about dlg*/
 	void slotHelpAbout();
-    void slotHelpAboutQt();
+	void slotHelpAboutQt();
 	void slotOnlineHelp();
 	void ToggleTips();
 	/** Erzeugt eine neue Seite */
@@ -326,17 +328,17 @@ public slots:
 	void ToggleMarks();
 	void ToggleFrames();
 	/** Schaltet Werkzeuge ein/aus */
- 	void setTools(bool visible);
+	void setTools(bool visible);
 	void ToggleTools();
- 	void setPDFTools(bool visible);
+	void setPDFTools(bool visible);
 	void TogglePDFTools();
 	/** Schaltet Masspalette ein/aus */
- 	void setMpal(bool visible);
+	void setMpal(bool visible);
 	void setMapal(bool visible);
 	void ToggleMpal();
 	/** Schaltet Uebersichtspalette ein/aus*/
 	void ToggleTpal();
- 	void setTpal(bool visible);
+	void setTpal(bool visible);
 	void ToggleBpal();
 	void setBpal(bool visible);
 	void ToggleLpal();
@@ -463,7 +465,7 @@ signals:
 	void TextScale(int);
 
 private:
-    /** init methods */
+	/** init methods */
 	void initScribus();
 
 	/** edit_menu contains all items of the menubar entry "Edit" */
@@ -597,16 +599,16 @@ private:
 	QStringList RecentDocs;
 	struct PlugData { 
 						QString Datei;
-					  	void *Zeiger;
-					  	int Typ;
+						void *Zeiger;
+						int Typ;
 					} ;
 	QMap<QString, PlugData> PluginMap;
 	bool PrinterUsed;
 	struct PDe { 
 					QString Pname;
-    			 	QString Dname;
-				 	QString Command;
-    			} PDef ;
+					QString Dname;
+					QString Command;
+				} PDef ;
 };
 
 #endif 

@@ -458,6 +458,7 @@ struct preV  {
 				int MinWordLen;
 				int HyCount;
 				QString Language;
+				QString guiLanguage;
 				bool Automatic;
 				bool AutoCheck;
 				QString DocDir;
