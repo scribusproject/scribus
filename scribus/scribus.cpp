@@ -4795,10 +4795,17 @@ void ScribusApp::slotFileOpen()
 					form1 = "jpg";
 					form2 = "JPG";
 				}
-				if ((form1 == "jpg") || (form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
+				if ((form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
 				{
 					formats += form2 + " (*."+form1+" *."+form2+");;";
 					formatD += "*."+form1+" *."+form2+" ";
+				}
+				else if (form1 == "jpg")
+				{
+					// JPEG is a special case because both .jpg and .jpeg
+					// are acceptable extensions.
+					formats += "JPEG (*.jpg *.jpeg *.JPG *.JPEG);;";
+					formatD += "*.jpg *.jpeg *.JPG *.JPEG ";
 				}
 			}
 #ifdef HAVE_TIFF
