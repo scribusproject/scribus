@@ -259,6 +259,8 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		qApp->processEvents();
 		SetShortCut();
 		
+		emit prefsChanged();
+		
 		connect(fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
 		connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
 		connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
@@ -7960,7 +7962,7 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.KeyActions = dia->tabKeys->getNewKeyMap();
 		SetShortCut();
 		SavePrefs();
-
+		emit prefsChanged();
 		QWidgetList windows = wsp->windowList();
 		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
 		{

@@ -242,6 +242,8 @@ private:
 	QListBox* undoList;
 	QPushButton* undoButton;
 	QPushButton* redoButton;
+	QKeySequence initialUndoKS;
+	QKeySequence initialRedoKS;
 	PrefsContext* undoPrefs;
 	void updateList();
 	void removeRedoItems();
@@ -316,6 +318,7 @@ protected:
 
 	/** @brief Hide the window when ESC is pressed */
 	void keyPressEvent(QKeyEvent* e);
+	void keyReleaseEvent(QKeyEvent* e);
 
 public:
 	/** 
@@ -376,6 +379,9 @@ public slots:
 
 	/** @brief Restore the size and position of the window when shown. */
 	void show();
+			   
+	/** @brief Recieve prefsChanged() signal to update shortcuts. */
+	void updateFromPrefs();
 
 signals:
 	/** 

@@ -26,7 +26,7 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	int p=0;
 	for ( QMap<QString,Keys>::Iterator it = oldKeyMap.begin(); it != oldKeyMap.end(); ++it )
 	{
-		qDebug(QString("%1 %2 %2").arg(p++).arg(oldKeyMap.count()).arg(it.key()));
+		//qDebug(QString("%1 %2 %2").arg(p++).arg(oldKeyMap.count()).arg(it.key()));
 		/*
 			QString cleanMenuText;
 			QString keySequence;
@@ -64,7 +64,7 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	{
 		if (!menuKeys.contains(QString(it.currentKey())))
 		{
-			qDebug(it.current()->name());
+			//qDebug(it.current()->name());
 			QTableItem *item = new QTableItem(keyTable, QTableItem::Never, QString(it.current()->cleanMenuText()));
 			keyTable->setItem(a, 0, item);
 			QTableItem *item2 = new QTableItem(keyTable, QTableItem::Never, QString(it.current()->accel()));

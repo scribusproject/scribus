@@ -220,10 +220,7 @@ bool ScrPopupMenu::generateEntryList(QStringList *actNames)
 			{
 				ScrAction *sca=dynamic_cast<ScrAction *>(object);
 				if (sca)
-				{
 					actNames->append(sca->name());
-					qDebug(sca->name());
-				}
 			}
 		}
 		else if (menuItemListClassName=="ScrPopupMenu")

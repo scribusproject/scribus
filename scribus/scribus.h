@@ -462,6 +462,8 @@ signals:
 	void TextStil(int);
 	void TextFarben(QString, QString, int, int);
 	void TextScale(int);
+	
+	void prefsChanged();
 
 private:
     /** init methods */

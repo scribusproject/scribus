@@ -248,11 +248,16 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	redoButton = new QPushButton(loadIcon("u_redo.png"),
                                          tr("&Redo"), this,
                                          "redoButton");
+	//Save the translated key sequence - hopefully we get the translated one here!
+	initialUndoKS = undoButton->accel();
+	initialRedoKS = redoButton->accel();
+	
 	buttonLayout->addWidget(redoButton);
 	layout->addLayout(buttonLayout);
 
 	undoPrefs = prefsFile->getContext("undo");
-
+	updateFromPrefs();
+	connect(ScApp, SIGNAL(prefsChanged()), this, SLOT(updateFromPrefs()));
 	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
 	connect(redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
 	connect(undoList, SIGNAL(highlighted(int)), this, SLOT(undoListClicked(int)));
@@ -289,6 +294,12 @@ void UndoPalette::show()
 	}
 }
 
+void UndoPalette::updateFromPrefs()
+{
+	undoButton->setAccel(ScApp->scrActions["editUndoAction"]->accel());
+	redoButton->setAccel(ScApp->scrActions["editRedoAction"]->accel());
+}
+
 void UndoPalette::hideEvent(QHideEvent*)
 {
 	QRect r    = frameGeometry();
@@ -307,6 +318,17 @@ void UndoPalette::keyPressEvent(QKeyEvent* e)
 	if (e->key() == Key_Escape)
 		hide();
 	QWidget::keyPressEvent(e);
+}
+
+void UndoPalette::keyReleaseEvent(QKeyEvent* e)
+{
+	//TODO Do we need to check more meta keys, CTRL, SHIFT, META, UNICODE_ACCEL ? Could just grab the meta keys used
+	QKeySequence ks(ALT + e->key());
+	if (ks==initialUndoKS)
+		undoClicked();
+	if (ks==initialRedoKS)
+		redoClicked();
+	QWidget::keyReleaseEvent(e);
 }
 
 void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
