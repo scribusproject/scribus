@@ -17,6 +17,7 @@ class MSpinBox;
 class FontCombo;
 class StyleSelect;
 class ShadeButton;
+class PrefsContext;
 class QLabel;
 
 class ScribusDoc;
@@ -77,10 +78,12 @@ public:
 	QPushButton* DoSearch;
 	QPushButton* DoReplace;
 	QPushButton* AllReplace;
+	QPushButton* clearButton;
 	QPushButton* Leave;
 	PageItem* Item;
 	ScribusDoc* Doc;
 	uint ReplStart;
+	PrefsContext* prefs;
 	bool NotFound;
 	bool SMode;
 
@@ -106,6 +109,8 @@ public slots:
 	virtual void enableFillSReplace();
 	virtual void enableStrokeReplace();
 	virtual void enableStrokeSReplace();
+	virtual void writePrefs();
+	virtual void clear();
 
 signals:
 	void NewFont(QString);
@@ -118,6 +123,7 @@ protected:
 	QGridLayout* ReplaceLayout;
 	QHBoxLayout* OptsLayout;
 	QHBoxLayout* ButtonsLayout;
+	virtual void readPrefs();
 
 };
 
