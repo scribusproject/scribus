@@ -841,10 +841,6 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
         <source>Custom</source>
         <translation>Benutzerdefiniert</translation>
     </message>
-    <message>
-        <source></source>
-        <translation></translation>
-    </message>
 </context>
 <context>
     <name>Annota</name>
@@ -1131,10 +1127,6 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
         <source>When Icon it too small</source>
         <translation type="obsolete">bei zu kleinem Icon</translation>
     </message>
-    <message>
-        <source></source>
-        <translation></translation>
-    </message>
 </context>
 <context>
     <name>CMSPrefs</name>
@@ -1347,12 +1339,12 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
         <translation>Der Name der Farbe ist nicht eindeutig</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
+        <source>HSB-Colormap</source>
+        <translation type="obsolete">HSB-Farbwähler</translation>
     </message>
     <message>
-        <source>HSB-Colormap</source>
-        <translation>HSB-Farbwähler</translation>
+        <source>HSV-Colormap</source>
+        <translation>HSV-Farbwähler</translation>
     </message>
 </context>
 <context>
@@ -1784,10 +1776,6 @@ Wird in den Voreinstellungen eingestellt.</translation>
         <source>Print</source>
         <translation>Drucken</translation>
     </message>
-    <message>
-        <source></source>
-        <translation></translation>
-    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -1963,6 +1951,10 @@ Wird in den Voreinstellungen eingestellt.</translation>
         <source>Tabulators and Indentation</source>
         <translation>Tabulatoren und Einzüge</translation>
     </message>
+    <message>
+        <source>Line Spacing:</source>
+        <translation>Zeilenabstand:</translation>
+    </message>
 </context>
 <context>
     <name>Editor</name>
@@ -2035,7 +2027,7 @@ Wird in den Voreinstellungen eingestellt.</translation>
     <name>ExportForm</name>
     <message>
         <source>Export Bitmap - Save As Image</source>
-        <translation>Bitmap exportieren - Als Bild speichern</translation>
+        <translation type="obsolete">Bitmap exportieren - Als Bild speichern</translation>
     </message>
     <message>
         <source>Export to directory:</source>
@@ -2051,7 +2043,7 @@ Wird in den Voreinstellungen eingestellt.</translation>
     </message>
     <message>
         <source>Bitmap type:</source>
-        <translation>Dateiformat:</translation>
+        <translation type="obsolete">Dateiformat:</translation>
     </message>
     <message>
         <source>Quality :</source>
@@ -2112,36 +2104,36 @@ Wird in den Voreinstellungen eingestellt.</translation>
     <message>
         <source>The output directory - the place to store your bitmaps.
 Name of the eport file will be &apos;documentname-pagenumber.filetype&apos;</source>
-        <translation>Das Ausgabeverzeichnis - der Ort, an dem die Bilder gespeichert werden.
+        <translation type="obsolete">Das Ausgabeverzeichnis - der Ort, an dem die Bilder gespeichert werden.
 Name der Datei: &apos;NamedesDokuments-Seitenzahl.Dateiformat&apos;</translation>
     </message>
     <message>
         <source>Export only the actual page</source>
-        <translation>Nur die aktuelle Seite exportieren</translation>
+        <translation type="obsolete">Nur die aktuelle Seite exportieren</translation>
     </message>
     <message>
         <source>Export all pages of your document</source>
-        <translation>Alles Seiten des Dokuments exportieren</translation>
+        <translation type="obsolete">Alles Seiten des Dokuments exportieren</translation>
     </message>
     <message>
         <source>Export only specified pages</source>
-        <translation>Nur bestimmte Seiten exportieren</translation>
+        <translation type="obsolete">Nur bestimmte Seiten exportieren</translation>
     </message>
     <message>
         <source>The beginning of the export</source>
-        <translation>Bereich exportieren: erste Seite</translation>
+        <translation type="obsolete">Bereich exportieren: erste Seite</translation>
     </message>
     <message>
         <source>The end of the export</source>
-        <translation>Bereich exportieren: letzte Seite</translation>
+        <translation type="obsolete">Bereich exportieren: letzte Seite</translation>
     </message>
     <message>
         <source>The height of the output bitmap in pixels</source>
-        <translation>Die Höhe des Bildes in Pixeln</translation>
+        <translation type="obsolete">Die Höhe des Bildes in Pixeln</translation>
     </message>
     <message>
         <source>The quality of your bitmaps - 100% is the best, 1% the biggest compression</source>
-        <translation>DIe Qualität des Bildes - 100% ist die schwächste, 1% die stärkste Komprimierung</translation>
+        <translation type="obsolete">DIe Qualität des Bildes - 100% ist die schwächste, 1% die stärkste Komprimierung</translation>
     </message>
     <message>
         <source>Available export formats</source>
@@ -2150,6 +2142,48 @@ Name der Datei: &apos;NamedesDokuments-Seitenzahl.Dateiformat&apos;</translation
     <message>
         <source>Choose a Export Directory</source>
         <translation>Wählen Sie ein Ausgabe-Verzeichnis</translation>
+    </message>
+    <message>
+        <source>Export as Image</source>
+        <translation>Als Bild speichern</translation>
+    </message>
+    <message>
+        <source>Image type:</source>
+        <translation>Exportformat:</translation>
+    </message>
+    <message>
+        <source>The output directory - the place to store your images.
+Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
+        <translation>Das Ausgabeverzeichnis - dort werden Ihre Bilder gespeichert.
+Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat</translation>
+    </message>
+    <message>
+        <source>Export only the current page</source>
+        <translation>Nur die aktuelle Seite exportieren</translation>
+    </message>
+    <message>
+        <source>Export all pages to images</source>
+        <translation>Alle Seiten exportieren</translation>
+    </message>
+    <message>
+        <source>Export a range of pages to images</source>
+        <translation>Einen Bereich des Dokumentes exportieren</translation>
+    </message>
+    <message>
+        <source>First page to export when exporting a range</source>
+        <translation>Erste Seite</translation>
+    </message>
+    <message>
+        <source>Last page to export when exporting a range</source>
+        <translation>Letzte Seite</translation>
+    </message>
+    <message>
+        <source>The height of the output images in pixels</source>
+        <translation>Höhe der Bilder in Pixeln</translation>
+    </message>
+    <message>
+        <source>The quality of your images - 100% is the best, 1% the highest compression</source>
+        <translation>Bildqualität: 100% bedeutet keine, 1% höchste Komprimierung</translation>
     </message>
 </context>
 <context>
@@ -2466,10 +2500,6 @@ Name der Datei: &apos;NamedesDokuments-Seitenzahl.Dateiformat&apos;</translation
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
         <translation>Leider kein Handbuch verfügbar! Bitte besuchen Sie: http://scribus.net für Updates.</translation>
     </message>
-    <message>
-        <source></source>
-        <translation></translation>
-    </message>
 </context>
 <context>
     <name>HyAsk</name>
@@ -2760,10 +2790,6 @@ Null bedeutet unbegrenzt.</translation>
         <source>Do you want to delete all Objects on this Layer too?</source>
         <translation>Wollen Sie auch alle Objekte dieser Ebene löschen?</translation>
     </message>
-    <message>
-        <source></source>
-        <translation></translation>
-    </message>
 </context>
 <context>
     <name>LineFormate</name>
@@ -2842,6 +2868,41 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>MSpinBox</name>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -3117,7 +3178,7 @@ Corners:</source>
     </message>
     <message>
         <source>Size:</source>
-        <translation>Größe:</translation>
+        <translation type="obsolete">Größe:</translation>
     </message>
     <message>
         <source> %</source>
@@ -3646,8 +3707,8 @@ Bitte wählen Sie einen anderen.</translation>
         <translation></translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
+        <source>Font Size:</source>
+        <translation>Schriftgröße:</translation>
     </message>
 </context>
 <context>
@@ -4016,6 +4077,18 @@ Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine
         <source>Distance between automatically created columns</source>
         <translation>Abstand zwischen den Spalten</translation>
     </message>
+    <message>
+        <source>Legal</source>
+        <translation>Legal</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation>US-Letter</translation>
+    </message>
+    <message>
+        <source>Tabloid</source>
+        <translation>Tabloid</translation>
+    </message>
 </context>
 <context>
     <name>NewTm</name>
@@ -4144,10 +4217,6 @@ otherwise Coordinates are relative to the Object.</source>
         <translation>Aktiviert bedeutet Koordinaten relativ zur Seite,
 andernfalls relativ zum Objekt.</translation>
     </message>
-    <message>
-        <source></source>
-        <translation></translation>
-    </message>
 </context>
 <context>
     <name>PConsole</name>
@@ -4164,7 +4233,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Output to File:</source>
-        <translation>Ausgabe in Datei:</translation>
+        <translation>In Datei ausgeben:</translation>
     </message>
     <message>
         <source>Change...</source>
@@ -4368,11 +4437,11 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Copying Text and Graphics is allowed</source>
-        <translation>Texte und Bilder kopieren erlaubt</translation>
+        <translation type="obsolete">Texte und Bilder kopieren erlaubt</translation>
     </message>
     <message>
         <source>Adding Annotations and Fields is allowed</source>
-        <translation>Notizen und Formularfelder hinzufügen erlaubt</translation>
+        <translation type="obsolete">Notizen und Formularfelder hinzufügen erlaubt</translation>
     </message>
     <message>
         <source>Security</source>
@@ -4619,23 +4688,23 @@ in der exportierten Datei aktiviert</translation>
     </message>
     <message>
         <source>Do not use color profiles that are embedded in source images</source>
-        <translation>Nicht die Farbprofile der Quell-Bilder benutzen</translation>
+        <translation>Farbprofile der Quell-Bilder nicht benutzen</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation></translation>
+        <translation>Abzug für Beschnitt oben</translation>
     </message>
     <message>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Abzug für Beschnitt unten</translation>
     </message>
     <message>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Abzug für Beschnitt links</translation>
     </message>
     <message>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Abzug für Beschnitt rechts</translation>
     </message>
     <message>
         <source>&amp;General</source>
@@ -4866,6 +4935,14 @@ Wenn nicht ausgewählt, können weder Text von Bilder kopiert werden.</translati
 If un-checked, editing annotations and fileds is prevented.</source>
         <translation>Hinzufügen von Anmerkungen gestatten.
 Wenn nicht ausgewählt, wird das Hinzufügen von Anmerkungen verhindert.</translation>
+    </message>
+    <message>
+        <source>Allow Copying Text and Graphics</source>
+        <translation>Kopieren von Text und Bildern gestatten</translation>
+    </message>
+    <message>
+        <source>Allow Adding Annotations and Fields</source>
+        <translation>Hinzufügen von Anmerkungen gestatten</translation>
     </message>
 </context>
 <context>
@@ -5473,7 +5550,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Keyboard Shortcuts...</source>
-        <translation>Tastaturkürzel...</translation>
+        <translation type="obsolete">Tastaturkürzel...</translation>
     </message>
     <message>
         <source>Paths</source>
@@ -5927,7 +6004,7 @@ Scribus stellt alle verfügbaren KDE und QT-Themen zur Verfügung</translation>
     </message>
     <message>
         <source>Change the keyboard shortcuts to your preference</source>
-        <translation>Tastaturkürzel einstellen</translation>
+        <translation type="obsolete">Tastaturkürzel einstellen</translation>
     </message>
     <message>
         <source>Default documents directory</source>
@@ -6306,10 +6383,6 @@ des Dokuments mit der Erweiterung .bak</translation>
     <message>
         <source> px</source>
         <translation>px</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
 </context>
 <context>
@@ -6770,35 +6843,35 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation> mm</translation>
+        <translation type="obsolete"> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation> in</translation>
+        <translation type="obsolete"> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation type="obsolete"> p</translation>
     </message>
     <message>
         <source>pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source>mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source>in</source>
-        <translation>in</translation>
+        <translation type="obsolete">in</translation>
     </message>
     <message>
         <source>p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>Scribus Scripts</source>
@@ -6826,23 +6899,23 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>Save As Image...</source>
-        <translation>Als Bild speichern...</translation>
+        <translation type="obsolete">Als Bild speichern...</translation>
     </message>
     <message>
         <source>Export to bitmap</source>
-        <translation>Als Bitmap exportieren</translation>
+        <translation type="obsolete">Als Bitmap exportieren</translation>
     </message>
     <message>
         <source>Error writting the ouptut file(s).</source>
-        <translation>Fehler beim Exportieren.</translation>
+        <translation type="obsolete">Fehler beim Exportieren.</translation>
     </message>
     <message>
         <source>Error writing the ouptut file(s).</source>
-        <translation>Fehler beim Exportieren.</translation>
+        <translation type="obsolete">Fehler beim Exportieren.</translation>
     </message>
     <message>
         <source>Hooray! Export successfull.</source>
-        <translation>Export erfolgreich abgeschlossen.</translation>
+        <translation type="obsolete">Export erfolgreich abgeschlossen.</translation>
     </message>
     <message>
         <source>File exists. Overwrite?</source>
@@ -6855,6 +6928,34 @@ wirklich überschreiben?</translation>
     <message>
         <source>Yes all</source>
         <translation>Alle</translation>
+    </message>
+    <message>
+        <source>Save as Image...</source>
+        <translation>Als Bild speichern...</translation>
+    </message>
+    <message>
+        <source>Export to image</source>
+        <translation type="obsolete">Als Bild exportieren</translation>
+    </message>
+    <message>
+        <source>Error writing the output file(s).</source>
+        <translation>Fehler beim Schreiben der Datei(en).</translation>
+    </message>
+    <message>
+        <source>Export to Image successful</source>
+        <translation type="obsolete">Export erfolgreich durchgeführt</translation>
+    </message>
+    <message>
+        <source>Save as Image</source>
+        <translation>Als Bild speichern</translation>
+    </message>
+    <message>
+        <source>Export successful.</source>
+        <translation>Export erfolgreich.</translation>
+    </message>
+    <message>
+        <source>Error writting the output file(s).</source>
+        <translation>Fehler beim Schreiben der Datei(en).</translation>
     </message>
 </context>
 <context>
@@ -7335,7 +7436,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>General...</source>
-        <translation>Allgemein...</translation>
+        <translation type="obsolete">Allgemein...</translation>
     </message>
     <message>
         <source>Preferences...</source>
@@ -7351,7 +7452,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Preferences</source>
-        <translation>Voreinstellungen</translation>
+        <translation type="obsolete">Voreinstellungen</translation>
     </message>
     <message>
         <source>Select New Font</source>
@@ -7998,7 +8099,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Tool&amp;bars</source>
-        <translation>Tool&amp;bars</translation>
+        <translation type="obsolete">Tool&amp;bars</translation>
     </message>
     <message>
         <source>Hide Baseline Grid</source>
@@ -8065,8 +8166,16 @@ nicht speichern</translation>
         <translation>Slovenisch</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
+        <source>Keyboard Shortcuts...</source>
+        <translation>Tastaturkürzel...</translation>
+    </message>
+    <message>
+        <source>Scribus Manual...</source>
+        <translation>Handbuch für Scribus...</translation>
+    </message>
+    <message>
+        <source>&amp;Settings</source>
+        <translation>&amp;Einstellungen</translation>
     </message>
 </context>
 <context>
@@ -8907,6 +9016,10 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>Insert Table</source>
         <translation>Tabelle einfügen</translation>
+    </message>
+    <message>
+        <source>Do measurements</source>
+        <translation>Entfernungen abmessen</translation>
     </message>
 </context>
 <context>

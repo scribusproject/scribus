@@ -99,17 +99,14 @@ protected:
 	QHBoxLayout* CMYKFarbenLayout;
 	QVBoxLayout* Layout23;
 	QGridLayout* Layout2;
+	QGridLayout* Layout2x;
 	QHBoxLayout* Layout21;
 	QVBoxLayout* Frame4Layout;
 	QHBoxLayout* Frame5Layout;
 	QHBoxLayout* Frame5aLayout;
-	QHBoxLayout* Cyan;
 	QVBoxLayout* Layout1_2;
-	QHBoxLayout* Magenta;
 	QVBoxLayout* Layout1_2_2;
-	QHBoxLayout* Yellow;
 	QVBoxLayout* Layout1_2_3;
-	QHBoxLayout* Black;
 	QVBoxLayout* Layout1_2_4;
 };
 

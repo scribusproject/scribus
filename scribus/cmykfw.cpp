@@ -148,7 +148,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	
 	Swatches = new QComboBox( true, Frame4, "ComboBox1" );
 	Swatches->setEditable(false);
-	Swatches->insertItem( tr( "HSB-Colormap" ) );
+	Swatches->insertItem( tr( "HSV-Colormap" ) );
 	Swatches->insertItem("X11 RGB-Set");
 	Swatches->insertItem("X11 Grey-Set");
 	Swatches->insertItem("Gnome-Set");
@@ -199,14 +199,14 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	TabStack->addWidget( ColorSwatch, 1 );
 
 	Frame4Layout->addWidget( TabStack );
-
-	Cyan = new QHBoxLayout;
-	Cyan->setSpacing( 6 );
-	Cyan->setMargin( 0 );
+	
+	Layout2x = new QGridLayout;
+	Layout2x->setSpacing( 6 );
+	Layout2x->setMargin( 0 );
 
 	CyanT = new QLabel( Frame4, "Cyant" );
 	CyanT->setText( tr("C:"));
-	Cyan->addWidget(CyanT);
+	Layout2x->addWidget(CyanT, 0, 0);
 
 	Layout1_2 = new QVBoxLayout;
 	Layout1_2->setSpacing( 0 );
@@ -226,23 +226,18 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	CyanSL->setOrientation( QSlider::Horizontal );
 	CyanSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2->addWidget( CyanSL );
-	Cyan->addLayout( Layout1_2 );
+	Layout2x->addLayout(Layout1_2, 0, 1);
 
 	CyanSp = new MSpinBox( Frame4, 0 );
 	CyanSp->setMaxValue( 100 );
 	CyanSp->setSuffix( tr(" %"));
-	Cyan->addWidget( CyanSp );
+	Layout2x->addWidget(CyanSp, 0, 2);
 	CyanSp->setValue(ccd);
 	CyanSL->setValue(qRound(ccd));
-	Frame4Layout->addLayout( Cyan );
-
-	Magenta = new QHBoxLayout;
-	Magenta->setSpacing( 6 );
-	Magenta->setMargin( 0 );
 
 	MagentaT = new QLabel( Frame4, "Cyant" );
 	MagentaT->setText( tr("M:"));
-	Magenta->addWidget(MagentaT);
+	Layout2x->addWidget(MagentaT, 1, 0);
 
 	Layout1_2_2 = new QVBoxLayout;
 	Layout1_2_2->setSpacing( 0 );
@@ -262,23 +257,18 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	MagentaSL->setOrientation( QSlider::Horizontal );
 	MagentaSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2_2->addWidget( MagentaSL );
-	Magenta->addLayout( Layout1_2_2 );
+	Layout2x->addLayout(Layout1_2_2, 1, 1);
 
 	MagentaSp = new MSpinBox( Frame4, 0 );
 	MagentaSp->setMaxValue( 100 );
 	MagentaSp->setSuffix( tr(" %"));
-	Magenta->addWidget( MagentaSp );
+	Layout2x->addWidget(MagentaSp, 1, 2);
 	MagentaSp->setValue(cmd);
 	MagentaSL->setValue(qRound(cmd));
-	Frame4Layout->addLayout( Magenta );
-
-	Yellow = new QHBoxLayout;
-	Yellow->setSpacing( 6 );
-	Yellow->setMargin( 0 );
 
 	YellowT = new QLabel( Frame4, "Cyant" );
 	YellowT->setText( tr("Y:"));
-	Yellow->addWidget(YellowT);
+	Layout2x->addWidget(YellowT, 2, 0);
 
 	Layout1_2_3 = new QVBoxLayout;
 	Layout1_2_3->setSpacing( 0 );
@@ -298,23 +288,18 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	YellowSL->setOrientation( QSlider::Horizontal );
 	YellowSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2_3->addWidget( YellowSL );
-	Yellow->addLayout( Layout1_2_3 );
+	Layout2x->addLayout(Layout1_2_3, 2, 1);
 
 	YellowSp = new MSpinBox( Frame4, 0 );
 	YellowSp->setMaxValue( 100 );
 	YellowSp->setSuffix( tr(" %"));
-	Yellow->addWidget( YellowSp );
+	Layout2x->addWidget(YellowSp, 2, 2);
 	YellowSp->setValue(cyd);
 	YellowSL->setValue(qRound(cyd));
-	Frame4Layout->addLayout( Yellow );
-
-	Black = new QHBoxLayout;
-	Black->setSpacing( 6 );
-	Black->setMargin( 0 );
 
 	BlackT = new QLabel( Frame4, "Cyant" );
 	BlackT->setText( tr("K:"));
-	Black->addWidget(BlackT);
+	Layout2x->addWidget(BlackT, 3, 0);
 
 	Layout1_2_4 = new QVBoxLayout;
 	Layout1_2_4->setSpacing( 0 );
@@ -334,16 +319,16 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	BlackSL->setOrientation( QSlider::Horizontal );
 	BlackSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2_4->addWidget( BlackSL );
-	Black->addLayout( Layout1_2_4 );
+	Layout2x->addLayout(Layout1_2_4, 3, 1);
 
 	BlackSp = new MSpinBox( Frame4, 0 );
 	BlackSp->setMaxValue( 100 );
 	BlackSp->setSuffix( tr(" %"));
-	Black->addWidget( BlackSp );
+	Layout2x->addWidget(BlackSp, 3, 2);
 	BlackSp->setValue(ckd);
 	BlackSL->setValue(qRound(ckd));
 	BlackComp = ck;
-	Frame4Layout->addLayout( Black );
+	Frame4Layout->addLayout( Layout2x );
 	CMYKFarbenLayout->addWidget( Frame4 );
 	int h, s, v;
 	orig.getRGBColor().hsv(&h, &s, &v);

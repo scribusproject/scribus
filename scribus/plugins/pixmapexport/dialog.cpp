@@ -149,9 +149,9 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	clearWState(WState_Polished);
 
 	// signals and slots connections
-	connect(OutputDirectoryButton, SIGNAL(pressed()), this, SLOT(OutputDirectoryButton_pressed()));
-	connect(OkButton, SIGNAL(pressed()), this, SLOT(OkButton_pressed()));
-	connect(CancelButton, SIGNAL(pressed()), this, SLOT(CancelButton_pressed()));
+	connect(OutputDirectoryButton, SIGNAL(clicked()), this, SLOT(OutputDirectoryButton_pressed()));
+	connect(OkButton, SIGNAL(clicked()), this, SLOT(OkButton_pressed()));
+	connect(CancelButton, SIGNAL(clicked()), this, SLOT(CancelButton_pressed()));
 	connect(IntervalPagesRadio, SIGNAL(stateChanged(int)), this, SLOT(IntervalPagesRadio_stateChanged(int)));
 	connect(AllPagesRadio, SIGNAL(stateChanged(int)), this, SLOT(AllPagesRadio_stateChanged(int)));
 	connect(OnePageRadio, SIGNAL(stateChanged(int)), this, SLOT(OnePageRadio_stateChanged(int)));
@@ -210,7 +210,8 @@ void ExportForm::languageChange()
 
 void ExportForm::readConfig()
 {
-	QString fname = QString(QDir::homeDirPath()+"/.scribus/scribus-pixmap-export.rc");
+	QString fname = QDir::convertSeparators(
+		QDir::homeDirPath()+"/.scribus/scribus-pixmap-export.rc");
 	QString value;
 	QFile f(fname);
 
@@ -250,7 +251,8 @@ void ExportForm::readConfig()
 
 void ExportForm::writeConfig()
 {
-	QString fname = QString(QDir::homeDirPath()+"/.scribus/scribus-pixmap-export.rc");
+	QString fname = QDir::convertSeparators(
+		QDir::homeDirPath()+"/.scribus/scribus-pixmap-export.rc");
 	QString value;
 	QFile f(fname);
 

@@ -1,5 +1,13 @@
 Changes since Version 1.1.6
 
+17.05.2004
+	* bug     #656: wrong button behaviour in new xport as bitmap dialog
+	* bug     #665: Line handles do not update after moving the line
+	* bug     #667: Sliders misaligned and not the same length in Edit>Color>New dialog
+	* bug     #669: cannot insert a tab into text frame using scripter
+	* feature #670: Update for the German language
+	* feature #674: French translation update
+
 16.05.2004
 	* bug     #282: Update language detection to use LC_* variables
 	* bug     #623: Selecting Compress file deletes existing file name in dialog

@@ -140,6 +140,6 @@ void Measurements::setValues(double x1, double y1, double x2, double y2, double 
 	Y2->setText(tmp.setNum(qRound(y2*UmReFaktor * multiplier) / divisor, 'f', precision)+tmp2);
 	DX->setText(tmp.setNum(qRound((x2-x1)*UmReFaktor * multiplier) / divisor, 'f', precision)+tmp2);
 	DY->setText(tmp.setNum(qRound((y2-y1)*UmReFaktor * multiplier) / divisor, 'f', precision)+tmp2);
-	Angle->setText(tmp.setNum(qRound(fabs(rr)*UmReFaktor * multiplier) / divisor, 'f', precision)+tr(QString::fromUtf8(" °")));
+	Angle->setText(tmp.setNum(fabs(rr), 'f', precision)+tr(QString::fromUtf8(" °")));
 	Length->setText(tmp.setNum(qRound(len*UmReFaktor * multiplier) / divisor, 'f', precision)+tmp2);
 }

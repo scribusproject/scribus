@@ -24,6 +24,7 @@ void Run(QWidget *d, ScribusApp *plug)
 	bool res;
 	ExportBitmap *ex = new ExportBitmap(plug);
 	ExportForm *dia = new ExportForm(d, ex->pageSize, ex->quality, ex->bitmapType);
+
 	// interval widgets handling
 	dia->ToBox->setMaxValue(plug->doc->PageC);
 	dia->FromBox->setMaxValue(plug->doc->PageC - 1);
@@ -36,6 +37,7 @@ void Run(QWidget *d, ScribusApp *plug)
 		ex->quality = dia->QualityBox->value();
 		ex->exportDir = dia->OutputDirectory->text();
 		ex->bitmapType = dia->bitmapType;
+		plug->FProg->reset();
 		switch (dia->ButtonGroup1->id(dia->ButtonGroup1->selected()))
 		{
 			case 0: res = ex->exportActual();
@@ -48,16 +50,17 @@ void Run(QWidget *d, ScribusApp *plug)
 					);
 					break;
 		} // switch
+		plug->FProg->reset();
 		QApplication::restoreOverrideCursor();
 		if (!res)
 		{
-			QMessageBox::warning(plug, QObject::tr("Export to image"),
-				QObject::tr("Error writing the output file(s)."));
+			QMessageBox::warning(plug, QObject::tr("Save as Image"),
+				QObject::tr("Error writting the output file(s)."));
 			plug->FMess->setText(QObject::tr("Error writing the output file(s)."));
 		}
 		else
 		{
-			plug->FMess->setText(QObject::tr("Export to Image successful"));
+			plug->FMess->setText(QObject::tr("Export successful."));
 		}
 	} // if accepted
 	// clean the trash
@@ -80,7 +83,7 @@ ExportBitmap::ExportBitmap(ScribusApp *plug)
 QString ExportBitmap::getFileName(uint pageNr)
 {
 	QFileInfo path(carrier->doc->DocName);
-	QString name = path.baseName();
+	QString name = path.baseName(); // needed tp fix the "/home/user/blah.sla"
 	QString number;
 	uint turn;
 	// create the 00x counter
@@ -99,39 +102,44 @@ ExportBitmap::~ExportBitmap()
 {
 }
 
-bool ExportBitmap::exportPage(uint pageNr, QString fileName)
+
+bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 {
 	uint over = 0;
+	QString fileName = getFileName(pageNr);
+
 	if (!carrier->view->Pages.at(pageNr))
 		return FALSE;
+
 	QPixmap pixmap = carrier->view->PageToPixmap(pageNr, pageSize);
 	if (QFile::exists(fileName) && !overwrite)
 	{
 		QApplication::restoreOverrideCursor();
 /* Changed the following Code from the original QMessageBox::question to QMessageBox::warning
-   to keep the Code compatible to Qt-3.1.x 
-   f.s 12.05.2004 */
+	 to keep the Code compatible to Qt-3.1.x
+	 f.s 12.05.2004 */
 		over = QMessageBox::warning(carrier,
-													 QObject::tr("File exists. Overwrite?"),
-													 fileName +"\n"+ QObject::tr("exists already. Overwrite?"),
-													 QObject::tr("No"),
-													 QObject::tr("Yes"),
-													 QObject::tr("Yes all"), 
-													 0, 0);
+				QObject::tr("File exists. Overwrite?"),
+				fileName +"\n"+ QObject::tr("exists already. Overwrite?"),
+				QObject::tr("No"),
+				QObject::tr("Yes"),
+				// hack for multiple overwritting (petr)
+				(single==TRUE) ? 0 : QObject::tr("Yes all"),
+				0, 0);
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 		if (over == 1)
 			return pixmap.save(fileName, bitmapType);
 		if (over == 2)
 			overwrite = TRUE;
 	}
+
 	return pixmap.save(fileName, bitmapType);
 }
 
 
 bool ExportBitmap::exportActual()
 {
-	uint pageNo = carrier->doc->ActPage->PageNr;
-	return exportPage(pageNo, getFileName(pageNo));
+	return exportPage(carrier->doc->ActPage->PageNr, TRUE);
 }
 
 
@@ -144,9 +152,12 @@ bool ExportBitmap::exportAll()
 bool ExportBitmap::exportInterval(uint from, uint to)
 {
 	bool res;
-	for (uint pageNo = from; pageNo<to; pageNo++)
+
+	carrier->FProg->setTotalSteps(to - from);
+	for (uint pageNo = from; pageNo < to; pageNo++)
 	{
-		res = exportPage(pageNo, getFileName(pageNo));
+		carrier->FProg->setProgress(pageNo - from);
+		res = exportPage(pageNo, FALSE);
 		if (!res)
 			return FALSE;
 	}

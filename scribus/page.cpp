@@ -1018,10 +1018,11 @@ void Page::RefreshItem(PageItem *b, bool single)
 	QPainter p;
 	p.begin(this);
 	Transform(b, &p);
-	QRect rd = QRect(qRound(ceil(-b->OldPwidth / 2.0))-1, 
-							   qRound(ceil(-b->OldPwidth / 2.0))-1,
-							   qRound(ceil(b->Width+b->OldPwidth*2))+2,
-							   qRound(ceil(b->Height+b->OldPwidth*2))+2);
+	QRect rd;
+	rd = QRect(qRound(ceil(-b->OldPwidth / 2.0))-2, 
+					qRound(ceil(-b->OldPwidth / 2.0))-2,
+					qRound(ceil(b->Width+b->OldPwidth*2))+4,
+					qRound(ceil(b->Height+b->OldPwidth*2))+4);
 	if ((b->isTableItem) && (b->Pcolor2 != "None"))
 	{
 		if (!b->TopLine)
@@ -1099,10 +1100,10 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt, bool single)
 	QRect g = neu.boundingRect();
 	if (!single)
 	{
-		g.setX(g.x()-static_cast<int>(QMAX(0.0, b->OldPwidth * 1.4)));
-		g.setY(g.y()-static_cast<int>(QMAX(0.0, b->OldPwidth * 1.4)));
-		g.setWidth(g.width()+static_cast<int>(QMAX(0.0, b->OldPwidth * 1.4)));
-		g.setHeight(g.height()+static_cast<int>(QMAX(0.0, b->OldPwidth * 1.4)));
+		g.setX(g.x()-static_cast<int>(QMAX(0.0, b->OldPwidth * 1.4))-4);
+		g.setY(g.y()-static_cast<int>(QMAX(0.0, b->OldPwidth * 1.4))-4);
+		g.setWidth(g.width()+static_cast<int>(QMAX(0.0, b->OldPwidth * 1.4))+8);
+		g.setHeight(g.height()+static_cast<int>(QMAX(0.0, b->OldPwidth * 1.4))+8);
 	}
 	if (single)
 	{

@@ -221,8 +221,6 @@ PyObject *scribus_setboxtext(PyObject *self, PyObject* args)
 			hg->ch = Daten.at(a);
 			if (hg->ch == QChar(10))
 				hg->ch = QChar(13);
-			if (hg->ch == QChar(9))
-				hg->ch = " ";
 			hg->cfont = it->IFont;
 			hg->csize = it->ISize;
 			hg->ccolor = it->TxtFill;
@@ -269,8 +267,6 @@ PyObject *scribus_inserttext(PyObject *self, PyObject* args)
 			hg->ch = Daten.at(Daten.length()-1-a);
 			if (hg->ch == QChar(10))
 				hg->ch = QChar(13);
-			if (hg->ch == QChar(9))
-				hg->ch = " ";
 			hg->cfont = it->IFont;
 			hg->csize = it->ISize;
 			hg->ccolor = it->TxtFill;
