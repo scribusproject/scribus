@@ -7823,7 +7823,28 @@ void ScribusView::ClearItem()
 			b->pixm = QImage();
 			b->pixmOrg = QImage();
 			if (b->PType == 2)
+			{
+				b->LocalScX = 1;
+				b->LocalScY = 1;
+				b->LocalViewX = 1;
+				b->LocalViewY = 1;
+				b->OrigW = 0;
+				b->OrigH = 0;
+				b->dpiX = 72.0;
+				b->dpiY = 72.0;
+				b->LocalX = 0;
+				b->LocalY = 0;
+				b->flippedH = 0;
+				b->flippedV = 0;
+				b->textAlignment = 0;
+				b->EmProfile = "";
+				b->ScaleType = true;
+				b->AspectRatio = true;
+				b->Transparency = 0.0;
+				b->TranspStroke = 0.0;
+				b->InvPict = false;
 				emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr);
+			}
 			updateContents();
 			emit DocChanged();
 		}
