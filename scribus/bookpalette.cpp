@@ -64,3 +64,4 @@ void BookPalette::reject()
 	QDialog::reject();
 }
 */
+

@@ -301,7 +301,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("ANNAME", !item->AutoName ? item->itemName() : QString(""));
 	ob->setAttribute("TEXTFLOW", item->textFlowsAroundFrame() ? 1 : 0);
 	ob->setAttribute("TEXTFLOW2", item->textFlowUsesBoundingBox() ? 1 : 0);
-	ob->setAttribute("TEXTFLOW3", item->UseContour ? 1 : 0);
+	ob->setAttribute("TEXTFLOW3", item->textFlowUsesContourLine() ? 1 : 0);
 	ob->setAttribute("AUTOTEXT", item->isAutoText ? 1 : 0);
 	ob->setAttribute("EXTRA",item->Extra);
 	ob->setAttribute("TEXTRA",item->TExtra);

@@ -229,7 +229,6 @@ public:
   /** Definiert die Clipping-Region des Elements; */
 	QPointArray Clip;
 	FPointArray PoLine;
-	bool UseContour;
 	FPointArray ContourLine;
 	QValueList<uint> Segments;
 	bool PoShow;
@@ -654,11 +653,13 @@ public:
 
 	/**
 	 * @brief Does text flow around this object
+	 * @sa setTextFlowsAroundFrame()
 	 */
 	bool textFlowsAroundFrame() const;
 	/**
 	 * @brief Enable/disable text flowing around this item
 	 * @param isFlowing true if text is wanted to flow around this object or false if not
+	 * @sa textFlowsAroundFrame()
 	 */
 	void setTextFlowsAroundFrame(bool isFlowing);
 
@@ -675,11 +676,17 @@ public:
 	 * be used at the same time.
 	 * @param useBounding true if text should flow around the frame border false if it should follow
 	 * the actual shape of the object.
-	 * @sa setTextFlow()
-	 * @sa useContourLine()
+	 * @sa setTextFlowsAroundFrame()
+	 * @sa setTextFlowUsesContourLine()
+	 * @sa textFlowUsesBoundingBox()
 	 */
 	void setTextFlowUsesBoundingBox(bool useBounding);
 
+	/**
+	 * @brief Should text flow around the contour line of the frame?
+	 * @sa setTextFlowUsesContourLine()
+	 */
+	bool textFlowUsesContourLine() const;
 	/**
 	 * @brief Tells if the text flow should follow the contour line of the frame.
 	 *
@@ -687,10 +694,11 @@ public:
 	 * be used at the same time.
 	 * @param useContour true if text should flow around the contour line of the frame false if
 	 * it should flow around the actual shap of the object.
-	 * @sa setTextFlow()
-	 * @sa useBoundingBox()
+	 * @sa setTextFlowsAroundFrame()
+	 * @sa setTextFlowUsesBoundingBox()
+	 * @sa textFlowUsesContourLine()
 	 */
-	void useContourLine(bool useContour);
+	void setTextFlowUsesContourLine(bool useContour);
 
 	/** @brief Get the frame type
 	 *
@@ -867,9 +875,15 @@ protected:
 
 	/**
 	 * @brief Should text flow around the item's bounding box?
-	 * @sa PageItem::
+	 * @sa PageItem::textFlowUsesBoundingBox(), PageItem::setTextFlowUsesBoundingBox()
 	 */
 	bool textFlowUsesBoundingBoxVal;
+
+	/**
+	 * @brief Should text flow around the item's contour line?
+	 * @sa PageItem::textFlowUsesContourLine(), PageItem::setTextFlowUsesContourLine
+	 */
+	bool textFlowUsesContourLineVal;
 
 	/**
 	 * @brief Stores the attributes of the pageitem (NOT properties, the user defined ATTRIBUTES)

@@ -53,7 +53,13 @@ extern double xy2Deg(double x, double y);
 extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 extern ScribusApp* ScApp;
 
-PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline) : QObject(pa)
+PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline) 
+	// Initialize superclasses
+	: QObject(pa),
+	// Initialize member variables - 2005-03-10 CR. Initializer lists are faster and safer.
+	textFlowsAroundFrameVal(false),
+	textFlowUsesBoundingBoxVal(false),
+	textFlowUsesContourLineVal(false)
 {
 	QString tmp;
 	BackBox = 0;
@@ -156,7 +162,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	}
 	PoLine.resize(0);
 	ContourLine.resize(0);
-	UseContour = false;
 	Segments.clear();
 	PoShow = false;
 	BaseOffs = 0;
@@ -236,8 +241,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	AnMaxChar = -1;
 	AnBColor = outline;
 	HasSel = false;
-	textFlowsAroundFrameVal = false;
-	textFlowUsesBoundingBoxVal = false;
 	Tinput = false;
 	isAutoText = false;
 	textAlignment = 0;
@@ -799,7 +802,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							}
 							else
 							{
-								if ((Doc->Items.at(a)->UseContour) && (Doc->Items.at(a)->ContourLine.size() != 0))
+								if ((Doc->Items.at(a)->textFlowUsesContourLine()) && (Doc->Items.at(a)->ContourLine.size() != 0))
 								{
 									QValueList<uint> Segs;
 									QPointArray Clip2 = FlattenPath(Doc->Items.at(a)->ContourLine, Segs);
@@ -1929,7 +1932,7 @@ NoRoom: pf2.end();
 			p->setupPolygon(&PoLine);
 			p->strokePath();
 		}
-		if ((Doc->guidesSettings.framesShown) && (UseContour) && (ContourLine.size() != 0))
+		if ((Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
 		{
 			p->setPen(lightGray, 1 / scp, DotLine, FlatCap, MiterJoin);
 			p->setupPolygon(&ContourLine);
@@ -2962,14 +2965,19 @@ void PageItem::setTextFlowUsesBoundingBox(bool useBounding)
 		ss->set("BOUNDING_BOX", useBounding);
 		undoManager->action(this, ss);
 	}
-	if (useBounding && UseContour)
-		UseContour = false;
+	if (useBounding && textFlowUsesContourLineVal)
+		textFlowUsesContourLineVal = false;
 	textFlowUsesBoundingBoxVal = useBounding;
 }
 
-void PageItem::useContourLine(bool useContour)
+bool PageItem::textFlowUsesContourLine() const
 {
-	if (UseContour == useContour)
+	return this->textFlowUsesContourLineVal;
+}
+
+void PageItem::setTextFlowUsesContourLine(bool useContour)
+{
+	if (textFlowUsesContourLineVal == useContour)
 		return;
 	if (UndoManager::undoEnabled())
 	{
@@ -2980,7 +2988,7 @@ void PageItem::useContourLine(bool useContour)
 	}
 	if (useContour && textFlowUsesBoundingBoxVal)
 		textFlowUsesBoundingBoxVal = false;
-	UseContour = useContour;
+	textFlowUsesContourLineVal = useContour;
 }
 
 PageItem::ItemType PageItem::itemType() const
@@ -3619,9 +3627,9 @@ void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
 	else if (state->contains("CONTOUR_LINE"))
 	{
 		if (isUndo)
-			UseContour = !state->getBool("CONTOUR_LINE");
+			textFlowUsesContourLineVal = !state->getBool("CONTOUR_LINE");
 		else
-			UseContour = state->getBool("CONTOUR_LINE");
+			textFlowUsesContourLineVal = state->getBool("CONTOUR_LINE");
 	}
 	else
 	{

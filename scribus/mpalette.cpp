@@ -1086,7 +1086,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	disconnect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 	textFlowsAroundFrame->setChecked(i->textFlowsAroundFrame());
 	textFlowUsesBoundingBox->setChecked(i->textFlowUsesBoundingBox());
-	Textflow3->setChecked(i->UseContour);
+	Textflow3->setChecked(i->textFlowUsesContourLine());
 	connect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(DoFlow2()));
 	connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
@@ -2721,8 +2721,8 @@ void Mpalette::DoFlow3()
 	{
 		disconnect(textFlowUsesBoundingBox, SIGNAL(clicked()), this, SLOT(DoFlow2()));
 		disconnect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
-		CurItem->useContourLine(Textflow3->isChecked());
-		if (CurItem->UseContour)
+		CurItem->setTextFlowUsesContourLine(Textflow3->isChecked());
+		if (CurItem->textFlowUsesContourLine())
 			textFlowUsesBoundingBox->setChecked(false);
 		ScApp->view->DrawNew();
 		emit DocChanged();

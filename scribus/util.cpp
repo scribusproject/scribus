@@ -3586,7 +3586,7 @@ void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b)
 	Buffer->Clip = b->Clip.copy();
 	Buffer->PoLine = b->PoLine.copy();
 	Buffer->ContourLine = b->ContourLine.copy();
-	Buffer->UseContour = b->UseContour;
+	Buffer->UseContour = b->textFlowUsesContourLine();
 	Buffer->TabValues = b->TabValues;
 	Buffer->DashValues = b->DashValues;
 	Buffer->DashOffset = b->DashOffset;

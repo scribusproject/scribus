@@ -10750,7 +10750,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	if (Buffer->LayerNr != -1)
 		b->LayerNr = Buffer->LayerNr;
 	b->PoLine = Buffer->PoLine.copy();
-	b->UseContour = Buffer->UseContour;
+	b->setTextFlowUsesContourLine(Buffer->UseContour);
 	if (Buffer->ContourLine.size() == 0)
 		b->ContourLine = b->PoLine.copy();
 	else
