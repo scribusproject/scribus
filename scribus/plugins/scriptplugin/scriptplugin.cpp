@@ -719,7 +719,8 @@ void initscribus(ScribusApp *pl)
 	PyDict_SetItemString(d, "ALIGN_LEFT", Py_BuildValue("i", 0));
 	PyDict_SetItemString(d, "ALIGN_RIGHT", Py_BuildValue("i", 2));
 	PyDict_SetItemString(d, "ALIGN_CENTERED", Py_BuildValue("i", 1));
-	PyDict_SetItemString(d, "ALIGN_FORCED", Py_BuildValue("i", 3));
+	PyDict_SetItemString(d, "ALIGN_BLOCK", Py_BuildValue("i", 4));
+	PyDict_SetItemString(d, "ALIGN_FORCED", Py_BuildValue("i", 4));
 	PyDict_SetItemString(d, "FILL_NOG", Py_BuildValue("i", 0));
 	PyDict_SetItemString(d, "FILL_HORIZONTALG", Py_BuildValue("i", 1));
 	PyDict_SetItemString(d, "FILL_VERTICALG", Py_BuildValue("i", 2));
