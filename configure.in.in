@@ -284,19 +284,6 @@ AC_ARG_ENABLE(debug, [  --enable-debug     Enables Debug-Code],
 fi])
 AM_CONDITIONAL(COMPILE_DEBUG, test x$COMPILE_DEBUG = xyes)
 
-dnl Compile gdk-pixbuf-* unless configured for Qt/Mac
-dnl $kde_use_qt_mac is not set until after this code gets run
-dnl so we have to look at --enable-mac ourselves.
-AC_MSG_CHECKING([if gdk-pixbuf should be compiled])
-compile_pixbuf=
-if test "$enable_mac" = "yes"; then
-	compile_pixbuf="no"
-else
-	compile_pixbuf="yes"
-fi
-AC_MSG_RESULT($compile_pixbuf)
-AM_CONDITIONAL(COMPILE_PIXBUF, test "$compile_pixbuf" = "yes" )
-
 all_libraries="$all_libraries $USER_LDFLAGS"
 all_includes="$all_includes $USER_INCLUDES"
 AC_SUBST(all_includes)
