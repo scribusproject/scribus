@@ -53,48 +53,56 @@
 #include <qcolor.h>
 #include <qvaluelist.h>
 #include <qvaluestack.h>
+#include <qvaluevector.h>
 #include <qptrlist.h>
 #include <qfont.h>
 #include <qmap.h>
 #include <qpointarray.h>
 #include <qstringlist.h>
+#include <qtimer.h>
 #include "cmykcolor.h"
 #include "scfonts.h"
 #include "fpointarray.h"
 #include "hyphenator.h"
 #ifdef HAVE_CMS
-	#include <lcms.h>
+	#include CMS_INC
 #endif
+
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 class PageItem;
 class Page;
 
 /* Struktur fuer Pageitem Text */
 struct Pti { QString ch;
-				     float xp;
-				     float yp;
+				     double xp;
+				     double yp;
 				     int csize;
 				     QString cfont;
 				     QString ccolor;
+						 QString cstroke;
 				     bool cselect;
-				     float cextra;
+				     double cextra;
 				     int cshade;
+				     int cshade2;
 				     int cstyle;
 				     int cab;
 						 int PtransX;
 						 int PtransY;
-						 float PRot;
+						 int cscale;
+						 double PRot;
 				    };
 
 struct CLBuf { int PType;
-							 float Xpos;
-							 float Ypos;
-							 float Width;
-							 float Height;
-							 float RadRect;
+							 double Xpos;
+							 double Ypos;
+							 double Width;
+							 double Height;
+							 double RadRect;
 							 int FrameType;
 							 bool ClipEdited;
-							 float Pwidth;
+							 double Pwidth;
 							 QString Pcolor;
 							 QString Pcolor2;
 							 int Shade;
@@ -104,21 +112,27 @@ struct CLBuf { int PType;
 							 int GrShade;
 							 int GrShade2;
 							 int GrType;
-							 float Rot;
+							 QString TxtStroke;
+							 QString TxtFill;
+							 int ShTxtStroke;
+							 int ShTxtFill;
+							 int TxtScale;
+							 int TxTStyle;
+							 double Rot;
 							 int PLineArt;
 							 int PLineJoin;
 							 int PLineEnd;
-							 float LineSp;
-							 float ExtraV;
-							 float LocalScX;
-							 float LocalScY;
-							 float LocalX;
-							 float LocalY;
+							 double LineSp;
+							 double ExtraV;
+							 double LocalScX;
+							 double LocalScY;
+							 double LocalX;
+							 double LocalY;
 							 bool PicArt;
 							 int flippedH;
 							 int flippedV;
-							 float BBoxX;
-							 float BBoxH;
+							 double BBoxX;
+							 double BBoxH;
 							 bool isPrintable;
 							 bool isBookmark;
 							 int BMnr;
@@ -134,6 +148,7 @@ struct CLBuf { int PType;
 							 QString An_F_act;
 							 QString An_V_act;
 							 QString An_C_act;
+							 QString An_Extern;
 							 int AnZiel;
 							 int AnActType;
 							 QString AnName;
@@ -156,10 +171,10 @@ struct CLBuf { int PType;
 							 bool AnUseIcons;
 							 int AnIPlace;
 							 int AnScaleW;
-							 float Extra;
-							 float TExtra;
-							 float BExtra;
-							 float RExtra;
+							 double Extra;
+							 double TExtra;
+							 double BExtra;
+							 double RExtra;
 							 QString Pfile;
 							 QString Pfile2;
 							 QString Pfile3;
@@ -171,8 +186,9 @@ struct CLBuf { int PType;
 							 QPointArray Clip;
 							 FPointArray PoLine;
 							 bool PoShow;
-							 float BaseOffs;
+							 double BaseOffs;
 							 bool Textflow;
+							 bool Textflow2;
 							 int Ausrich;
 							 QString IFont;
 							 int ISize;
@@ -181,23 +197,28 @@ struct CLBuf { int PType;
 							 bool ScaleType;
 							 bool AspectRatio;
 							 bool Locked;
-							 float Transparency;
+							 double Transparency;
+							 double TranspStroke;
+							 bool Reverse;
+							 bool InvPict;
+							 QString NamedLStyle;
+							 QString Language;
 							};
 
   /** Seitenraender */
-struct Margs { float Top;
-           		 float Left;
-           		 float Right;
-           		 float Bottom;
+struct Margs { double Top;
+           		 double Left;
+           		 double Right;
+           		 double Bottom;
           		};
 
 struct StVorL { QString Vname;
-								float LineSpa;
+								double LineSpa;
 								int Ausri;
-								float Indent;
-								float First;
-								float Avor;
-								float Anach;
+								double Indent;
+								double First;
+								double Avor;
+								double Anach;
 								QString Font;
 								int FontSize;
 							};
@@ -221,21 +242,30 @@ struct UndoData {
 								 PageItem* Item;
   							 uint PageNr;
 								 uint ItemNr;
-								 float Xpos;
-								 float Ypos;
-								 float Width;
-								 float Height;
-								 float Rot;
-								 float Gx;
-								 float Gy;
-								 float Gw;
-								 float Gh;
+								 double Xpos;
+								 double Ypos;
+								 double Width;
+								 double Height;
+								 double Rot;
+								 double Gx;
+								 double Gy;
+								 double Gw;
+								 double Gh;
 								 int UnCode;
 								};
 
 /** Definition der Farbenlisten */
 typedef QMap<QString,CMYKColor> CListe;
 typedef QMap<QString,QString> ProfilesL;
+
+struct singleLine { double Width;
+										int Dash;
+ 										int LineEnd;
+ 										int LineJoin;
+										QString Color;
+										int Shade;
+									};
+typedef QValueVector<singleLine> multiLine;
 
 struct Layer { int LNr;
 							 int Level;
@@ -251,7 +281,7 @@ struct PreSet { int EffektLen;
 								int M;
 								int Di;
 							};
-							
+
 struct PDFOpt { bool Thumbnails;
 								bool Articles;
 								bool Compress;
@@ -276,21 +306,21 @@ struct PDFOpt { bool Thumbnails;
 								QString PrintProf;
 								QString Info;
 								int Intent;
-								float BleedTop;
-								float BleedLeft;
-								float BleedRight;
-								float BleedBottom;
+								double BleedTop;
+								double BleedLeft;
+								double BleedRight;
+								double BleedBottom;
 								bool Encrypt;
 								QString PassOwner;
 								QString PassUser;
 								int Permissions;
 							};
-							
+
 struct Keys { QString Name;
  							int MenuID;
  							int KeyID;
  						};
-							
+
 struct preV  { SCFonts AvailFonts;
 							 QString DefFont;
 							 int DefSize;
@@ -298,9 +328,9 @@ struct preV  { SCFonts AvailFonts;
 							 int Wheelval;
 							 int AppFontSize;
 							 int GrabRad;
-							 float GuideRad;
-							 float DminGrid;
-							 float DmajGrid;
+							 double GuideRad;
+							 double DminGrid;
+							 double DmajGrid;
 							 QColor DminColor;
 							 QColor DmajColor;
 							 QColor DpapColor;
@@ -317,22 +347,23 @@ struct preV  { SCFonts AvailFonts;
 							 int Dshade;
 							 int Dshade2;
 							 int DLineArt;
-							 float Dwidth;
+							 double Dwidth;
 							 QString DpenLine;
 							 QString DpenText;
 							 int DshadeLine;
-							 float DwidthLine;
+							 double DwidthLine;
 							 int DLstyleLine;
 							 int MagMin;
 							 int MagMax;
 							 int MagStep;
 							 QString DbrushPict;
 							 int ShadePict;
-							 float ScaleX;
-							 float ScaleY;
+							 double ScaleX;
+							 double ScaleY;
 							 bool Before;
 							 int Einheit;
 							 bool Werkv;
+							 bool WerkvP;
 							 bool Mpalv;
 							 int Mpalx;
 							 int Mpaly;
@@ -373,20 +404,20 @@ struct preV  { SCFonts AvailFonts;
     					 QMap<int,Keys> KeyActions;
 							 int PolyC;
 							 int PolyFd;
-							 float PolyF;
+							 double PolyF;
 							 bool PolyS;
-							 float PolyR;
+							 double PolyR;
 							 QString PrinterName;
 							 QString PrinterFile;
 							 QString PrinterCommand;
 							 int PageFormat;
 							 int Ausrichtung;
-							 float PageBreite;
-							 float PageHoehe;
-							 float RandOben;
-							 float RandUnten;
-							 float RandLinks;
-							 float RandRechts;
+							 double PageBreite;
+							 double PageHoehe;
+							 double RandOben;
+							 double RandUnten;
+							 double RandLinks;
+							 double RandRechts;
 							 bool DoppelSeiten;
 							 bool ErsteLinks;
 							 bool ScaleType;
@@ -396,8 +427,12 @@ struct preV  { SCFonts AvailFonts;
 							 bool Automatic;
 							 bool AutoCheck;
 							 QString DocDir;
+							 QString ProfileDir;
 							 QMap<QString,QString> GFontSub;
 							 bool PDFTransparency;
+							 bool AutoSave;
+							 int AutoSaveTime;
+							 double DisScale;
 						 };
 /**
   * the Document Class
@@ -408,37 +443,37 @@ class ScribusDoc : public QObject
 
 public:
     ScribusDoc();
-    ~ScribusDoc() {};
+    ~ScribusDoc();
     void setModified();
     void setUnModified();
     bool isModified() const;
   /** Setzt die Seitenattribute */
-  void setPage(float b, float h, float t, float l, float r, float bo, float sp, float ab, bool atf, bool fp);
-  void resetPage(float t, float l, float r, float bo, bool fp);
+  void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, bool fp);
+  void resetPage(double t, double l, double r, double bo, bool fp);
   void AddFont(QString name, QFont fo);
   protected:
     bool modified;
 	public: // Public attributes
   /** Vergroesserungsfaktor fuer das Dokument */
-  float Scale;
+  double Scale;
   bool Marks;
 	bool Guides;
 	bool SnapGuides;
-	float GuideRad;
+	double GuideRad;
 	bool GuideLock;
   bool loading;
   /** Breite der Seite  */
-  float PageB;
+  double PageB;
   /** Hoehe der Seite */
-  float PageH;
+  double PageH;
   /** Anzahl der Seiten */
   int PageC;
   /** Seitenraender */
   Margs PageM;
   /** Anzahl der Spalten */
-  float PageSp;
+  double PageSp;
   /** Abstand der Spalten */
-  float PageSpa;
+  double PageSpa;
   /** Flag fuer AutoTextrahmen */
   bool PageAT;
   /** Flag fuer Doppelseiten */
@@ -460,10 +495,11 @@ public:
   QString DocAutor;
   QString DocTitel;
   QString DocComments;
+	QString DocKeyWords;
   int AppMode;
   QString Dpen;
   QString Dbrush;
-  float Dwidth;
+  double Dwidth;
   int Dshade;
   int Dshade2;
   PenStyle DLineArt;
@@ -471,7 +507,7 @@ public:
   QString DpenText;
   int DshadeLine;
   PenStyle DLstyleLine;
-  float DwidthLine;
+  double DwidthLine;
   QString Dfont;
   QString DocName;
   QMap<QString,QFont> UsedFonts;
@@ -482,11 +518,18 @@ public:
   QColor papColor;
   QColor margColor;
 	QColor guideColor;
-  float minorGrid;
-  float majorGrid;
+  double minorGrid;
+  double majorGrid;
   int CurrentSel;
   int CurrentStyle;
   int CurrentABStil;
+	QString CurrFont;
+	int CurrFontSize;
+	QString CurrTextFill;
+	int CurrTextFillSh;
+	QString CurrTextStroke;
+	int CurrTextStrokeSh;
+	int CurrTextScale;
   bool EditClip;
   int EditClipMode;
   /** um wieviel Prozent wird hochgestellt */
@@ -509,8 +552,8 @@ public:
   int GrabRad;
 	QString DbrushPict;
 	int ShadePict;
-	float ScaleX;
-	float ScaleY;
+	double ScaleX;
+	double ScaleY;
 	bool ScaleType;
 	bool AspectRatio;
 	bool Before;
@@ -564,13 +607,20 @@ public:
 	bool OldBM;
 	bool hasName;
 	int RotMode;
+	bool AutoSave;
+	QTimer *ASaveTimer;
+	FT_Library   library;
+  QMap<QString,FT_Face> FFonts;
+	QMap<QString,multiLine> MLineStyles;
+	QWidget* WinHan;
+	bool DoDrawing;
 };
 
 #endif
 </pre>
 <HR>
 	<table>
-	<tr><td><small>Generated by: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</small></td></tr>
+	<tr><td><small>Generated by: paul on ahnews.music.salford.ac.uk on Tue Oct 21 16:33:32 2003, using kdoc 2.0a54.</small></td></tr>
 	</table>
 </BODY>
 </HTML>

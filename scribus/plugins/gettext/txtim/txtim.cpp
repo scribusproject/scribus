@@ -45,7 +45,6 @@ void TxtIm::loadText()
 	if (!fi.exists())
 		return;
 	uint posi;
-	bool ret;
 	QByteArray bb(f.size());
 	if (f.open(IO_ReadOnly))
 	{

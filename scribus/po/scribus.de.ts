@@ -241,6 +241,18 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
         <source>Spanish:</source>
         <translation>Spanisch:</translation>
     </message>
+    <message>
+        <source>Official Translations and Translators:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serbian:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous Translation Contributors:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -1077,7 +1089,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Type:</source>
-        <translation>Typ:</translation>
+        <translation type="obsolete">Typ:</translation>
     </message>
     <message>
         <source>Text</source>
@@ -1101,15 +1113,15 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Change...</source>
-        <translation>Ändern...</translation>
+        <translation type="obsolete">Ändern...</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Seite:</translation>
+        <translation type="obsolete">Seite:</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>X-Pos:</translation>
+        <translation type="obsolete">X-Pos:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -1117,15 +1129,15 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Y-Pos:</translation>
+        <translation type="obsolete">Y-Pos:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
     <message>
         <source>Open</source>
@@ -1134,6 +1146,26 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
         <translation>PDF-Dateien (*.pdf);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>&amp;Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished">Ä&amp;ndern...</translation>
+    </message>
+    <message>
+        <source>&amp;Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished">&amp;Y-Position:</translation>
     </message>
 </context>
 <context>
@@ -3719,7 +3751,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>Consecutive Hypenations &amp;Allowed:</source>
-        <translation>Maximal aufeinander &amp;folgende Trennungen:</translation>
+        <translation type="obsolete">Maximal aufeinander &amp;folgende Trennungen:</translation>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
@@ -3728,6 +3760,10 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
         <translation>Aktiviert automatische Trennung während Ihrer Eingabe.</translation>
+    </message>
+    <message>
+        <source>Consecutive Hyphenations &amp;Allowed:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4783,7 +4819,7 @@ Corners:</source>
     </message>
     <message>
         <source>Reverse Writing</source>
-        <translation>Gespiegelt</translation>
+        <translation type="obsolete">Gespiegelt</translation>
     </message>
     <message>
         <source>Flip horizontal</source>
@@ -5356,6 +5392,10 @@ ab&amp;runden:</translation>
     <message>
         <source>Hyphenation language of frame</source>
         <translation>Spracheinstellung für die Silbentrennung</translation>
+    </message>
+    <message>
+        <source>Right to Left Writing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6607,7 +6647,7 @@ in der exportierten Datei aktiviert</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>E&amp;xtras</translation>
+        <translation type="obsolete">E&amp;xtras</translation>
     </message>
     <message>
         <source>&amp;Security</source>
@@ -6893,7 +6933,7 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation>&amp;Text und Vektorbilder komprimieren</translation>
+        <translation type="obsolete">&amp;Text und Vektorbilder komprimieren</translation>
     </message>
     <message>
         <source>&amp;Method:</source>
@@ -6921,7 +6961,7 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation>&amp;Präsentationseffekte aktivieren</translation>
+        <translation type="obsolete">&amp;Präsentationseffekte aktivieren</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
@@ -7069,7 +7109,31 @@ Andernfalls könnte ihre PDF-Datei fehlerhaft gedruckt werden und sie kann nicht
     </message>
     <message>
         <source>Mirror Page(s) &amp;Horizontal</source>
-        <translation>Seiten &amp;horizontal spiegeln</translation>
+        <translation type="obsolete">Seiten &amp;horizontal spiegeln</translation>
+    </message>
+    <message>
+        <source>Compress Text and &amp;Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En&amp;able Presentation Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Presentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) &amp;Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">&amp;Drehung:</translation>
+    </message>
+    <message>
+        <source>&amp;Options</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10123,6 +10187,10 @@ externe Links</translation>
         <source>Text Filters</source>
         <translation>Textfilter</translation>
     </message>
+    <message>
+        <source>Media Cases</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -12842,7 +12910,7 @@ aktualisiert wird oder unverändert bleibt</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scirubs</source>
-        <translation>Aktivieren Sie diese Option, wenn jeder Absatzstil auch den
+        <translation type="obsolete">Aktivieren Sie diese Option, wenn jeder Absatzstil auch den
 Namen der Ursprungsdatei tragen soll</translation>
     </message>
     <message>
@@ -12858,6 +12926,11 @@ never ask your confirmation again</source>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

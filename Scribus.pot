@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-28 23:53+0200\n"
+"POT-Creation-Date: 2004-10-17 08:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -536,6 +536,21 @@ msgid "External Link"
 msgstr ""
 
 msgid "External Web-Link"
+msgstr ""
+
+msgid "&Type:"
+msgstr ""
+
+msgid "C&hange..."
+msgstr ""
+
+msgid "&Page:"
+msgstr ""
+
+msgid "&X-Pos"
+msgstr ""
+
+msgid "&Y-Pos:"
 msgstr ""
 
 msgid "PDF-Documents (*.pdf);;All Files (*)"
@@ -1201,9 +1216,6 @@ msgstr ""
 msgid "&File:"
 msgstr ""
 
-msgid "C&hange..."
-msgstr ""
-
 msgid "A&lternative Printer Command"
 msgstr ""
 
@@ -1475,9 +1487,6 @@ msgid "&Absolute Coordinates"
 msgstr ""
 
 msgid "&X-Pos:"
-msgstr ""
-
-msgid "&Y-Pos:"
 msgstr ""
 
 msgid "Edit &Contour Line"
@@ -1960,7 +1969,7 @@ msgstr ""
 msgid "&Smallest Word:"
 msgstr ""
 
-msgid "Consecutive Hypenations &Allowed:"
+msgid "Consecutive Hyphenations &Allowed:"
 msgstr ""
 
 msgid ""
@@ -2444,7 +2453,7 @@ msgstr ""
 msgid "Saturation of color of text fill"
 msgstr ""
 
-msgid "Reverse Writing"
+msgid "Right to Left Writing"
 msgstr ""
 
 msgid "Manual Kerning"
@@ -2992,7 +3001,7 @@ msgstr ""
 msgid "&Resolution:"
 msgstr ""
 
-msgid "Com&press Text and Vector Graphics"
+msgid "Compress Text and &Vector Graphics"
 msgstr ""
 
 msgid "Image Settings"
@@ -3052,7 +3061,7 @@ msgstr ""
 msgid "&Fonts"
 msgstr ""
 
-msgid "Enable &Presentation Effects"
+msgid "En&able Presentation Effects"
 msgstr ""
 
 msgid "Page"
@@ -3127,7 +3136,7 @@ msgstr ""
 msgid "&Apply Effect on all Pages"
 msgstr ""
 
-msgid "E&xtras"
+msgid "&Presentation"
 msgstr ""
 
 msgid "&Use Encryption"
@@ -3230,6 +3239,12 @@ msgid "Trim Box"
 msgstr ""
 
 msgid "PDF/X-&3"
+msgstr ""
+
+msgid "Mirror Page(s) &Horizontally"
+msgstr ""
+
+msgid "&Options"
 msgstr ""
 
 msgid "Export all pages to PDF"
@@ -3953,6 +3968,9 @@ msgstr ""
 msgid "&View"
 msgstr ""
 
+msgid "E&xtras"
+msgstr ""
+
 msgid "&Settings"
 msgstr ""
 
@@ -4578,13 +4596,7 @@ msgstr ""
 msgid "A&uthors"
 msgstr ""
 
-msgid "Basque:"
-msgstr ""
-
-msgid "Brazilian:"
-msgstr ""
-
-msgid "Bulgarian:"
+msgid "Official Translations and Translators:"
 msgstr ""
 
 msgid "Czech:"
@@ -4596,25 +4608,22 @@ msgstr ""
 msgid "English (British):"
 msgstr ""
 
+msgid "Esperanto:"
+msgstr ""
+
 msgid "Finnish:"
 msgstr ""
 
 msgid "French:"
 msgstr ""
 
-msgid "Galician:"
-msgstr ""
-
 msgid "German:"
-msgstr ""
-
-msgid "Hungarian:"
 msgstr ""
 
 msgid "Italian:"
 msgstr ""
 
-msgid "Lithuanian:"
+msgid "Korean:"
 msgstr ""
 
 msgid "Norwegian:"
@@ -4626,25 +4635,52 @@ msgstr ""
 msgid "Russian:"
 msgstr ""
 
+msgid "Serbian:"
+msgstr ""
+
 msgid "Slovak:"
 msgstr ""
 
-msgid "Slovenian:"
-msgstr ""
-
-msgid "Spanish and Catalan:"
+msgid "Spanish:"
 msgstr ""
 
 msgid "Swedish:"
-msgstr ""
-
-msgid "Turkish:"
 msgstr ""
 
 msgid "Ukrainian:"
 msgstr ""
 
 msgid "Welsh:"
+msgstr ""
+
+msgid "Previous Translation Contributors:"
+msgstr ""
+
+msgid "Basque:"
+msgstr ""
+
+msgid "Brazilian:"
+msgstr ""
+
+msgid "Bulgarian:"
+msgstr ""
+
+msgid "Catalan:"
+msgstr ""
+
+msgid "Galician:"
+msgstr ""
+
+msgid "Hungarian:"
+msgstr ""
+
+msgid "Lithuanian:"
+msgstr ""
+
+msgid "Slovenian:"
+msgstr ""
+
+msgid "Turkish:"
 msgstr ""
 
 msgid "&Translations"
@@ -5234,7 +5270,7 @@ msgstr ""
 
 msgid ""
 "Should importer add the name of the document\n"
-"on front of the paragraph style name in Scirubs"
+"on front of the paragraph style name in Scribus"
 msgstr ""
 
 msgid "Do not ask again"
@@ -5461,6 +5497,9 @@ msgid "Text Documents"
 msgstr ""
 
 msgid "Folds"
+msgstr ""
+
+msgid "Media Cases"
 msgstr ""
 
 msgid "Own Templates"

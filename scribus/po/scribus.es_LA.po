@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.es_LA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-28 23:53+0200\n"
+"POT-Creation-Date: 2004-10-17 08:57+0200\n"
 "Last-Translator: Gonzalo Huerta C.\n"
 "Language-Team:  <gonzalo@huerta.cl>\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -570,6 +570,26 @@ msgstr ""
 
 msgid "External Web-Link"
 msgstr ""
+
+#, fuzzy
+msgid "&Type:"
+msgstr "Tipo:"
+
+#, fuzzy
+msgid "C&hange..."
+msgstr "Cambiar..."
+
+#, fuzzy
+msgid "&Page:"
+msgstr "Página"
+
+#, fuzzy
+msgid "&X-Pos"
+msgstr "Posic. X Local:"
+
+#, fuzzy
+msgid "&Y-Pos:"
+msgstr "Posis. Y Local:"
 
 #, fuzzy
 msgid "PDF-Documents (*.pdf);;All Files (*)"
@@ -1308,10 +1328,6 @@ msgid "&File:"
 msgstr "Archivo:"
 
 #, fuzzy
-msgid "C&hange..."
-msgstr "Cambiar..."
-
-#, fuzzy
 msgid "A&lternative Printer Command"
 msgstr "Imprimir a través de otro Comando"
 
@@ -1641,10 +1657,6 @@ msgstr "Medición de Color Absoluta"
 #, fuzzy
 msgid "&X-Pos:"
 msgstr "Posic. X Local:"
-
-#, fuzzy
-msgid "&Y-Pos:"
-msgstr "Posis. Y Local:"
 
 #, fuzzy
 msgid "Edit &Contour Line"
@@ -2201,7 +2213,7 @@ msgstr ""
 msgid "&Smallest Word:"
 msgstr ""
 
-msgid "Consecutive Hypenations &Allowed:"
+msgid "Consecutive Hyphenations &Allowed:"
 msgstr ""
 
 msgid ""
@@ -2771,8 +2783,9 @@ msgstr ""
 msgid "Saturation of color of text fill"
 msgstr ""
 
-msgid "Reverse Writing"
-msgstr ""
+#, fuzzy
+msgid "Right to Left Writing"
+msgstr "Derecha a Izquierda"
 
 msgid "Manual Kerning"
 msgstr "Interletrado Manual"
@@ -3411,7 +3424,7 @@ msgid "&Resolution:"
 msgstr "Resolución"
 
 #, fuzzy
-msgid "Com&press Text and Vector Graphics"
+msgid "Compress Text and &Vector Graphics"
 msgstr "Comprimir Texto y Gráficos Vectoriales"
 
 #, fuzzy
@@ -3483,7 +3496,7 @@ msgid "&Fonts"
 msgstr "&Fuente"
 
 #, fuzzy
-msgid "Enable &Presentation Effects"
+msgid "En&able Presentation Effects"
 msgstr "Habilitar Efectos de Presentación"
 
 msgid "Page"
@@ -3569,8 +3582,8 @@ msgid "&Apply Effect on all Pages"
 msgstr "Aplicar Efectos en todas Páginas"
 
 #, fuzzy
-msgid "E&xtras"
-msgstr "Extras"
+msgid "&Presentation"
+msgstr "Destino"
 
 #, fuzzy
 msgid "&Use Encryption"
@@ -3694,6 +3707,13 @@ msgstr "Caja Lista"
 
 msgid "PDF/X-&3"
 msgstr ""
+
+msgid "Mirror Page(s) &Horizontally"
+msgstr ""
+
+#, fuzzy
+msgid "&Options"
+msgstr "Opciones"
 
 msgid "Export all pages to PDF"
 msgstr ""
@@ -4509,6 +4529,10 @@ msgid "&View"
 msgstr "Visualizar"
 
 #, fuzzy
+msgid "E&xtras"
+msgstr "Extras"
+
+#, fuzzy
 msgid "&Settings"
 msgstr "Configuración del Ratón"
 
@@ -5256,15 +5280,7 @@ msgstr "Documentación:"
 msgid "A&uthors"
 msgstr "Autores"
 
-#, fuzzy
-msgid "Basque:"
-msgstr "Basada en:"
-
-#, fuzzy
-msgid "Brazilian:"
-msgstr "Ucraniano:"
-
-msgid "Bulgarian:"
+msgid "Official Translations and Translators:"
 msgstr ""
 
 #, fuzzy
@@ -5279,29 +5295,25 @@ msgstr "Punteado"
 msgid "English (British):"
 msgstr "Conclusiones:"
 
+#, fuzzy
+msgid "Esperanto:"
+msgstr "Evento:"
+
 msgid "Finnish:"
 msgstr ""
 
 msgid "French:"
 msgstr "Francés:"
 
-#, fuzzy
-msgid "Galician:"
-msgstr "Ucraniano:"
-
 msgid "German:"
 msgstr "Alemán:"
-
-#, fuzzy
-msgid "Hungarian:"
-msgstr "Hungarés e Italiano:"
 
 #, fuzzy
 msgid "Italian:"
 msgstr "Cursiva"
 
-msgid "Lithuanian:"
-msgstr "Lituano:"
+msgid "Korean:"
+msgstr ""
 
 msgid "Norwegian:"
 msgstr ""
@@ -5312,26 +5324,60 @@ msgstr ""
 msgid "Russian:"
 msgstr ""
 
+#, fuzzy
+msgid "Serbian:"
+msgstr "Eslovaco:"
+
 msgid "Slovak:"
 msgstr "Eslovaco:"
 
 #, fuzzy
-msgid "Slovenian:"
-msgstr "Eslovaco:"
-
-msgid "Spanish and Catalan:"
-msgstr "Castellano y Catalán:"
+msgid "Spanish:"
+msgstr "Punteado"
 
 msgid "Swedish:"
-msgstr ""
-
-msgid "Turkish:"
 msgstr ""
 
 msgid "Ukrainian:"
 msgstr "Ucraniano:"
 
 msgid "Welsh:"
+msgstr ""
+
+msgid "Previous Translation Contributors:"
+msgstr ""
+
+#, fuzzy
+msgid "Basque:"
+msgstr "Basada en:"
+
+#, fuzzy
+msgid "Brazilian:"
+msgstr "Ucraniano:"
+
+msgid "Bulgarian:"
+msgstr ""
+
+#, fuzzy
+msgid "Catalan:"
+msgstr "Cursiva"
+
+#, fuzzy
+msgid "Galician:"
+msgstr "Ucraniano:"
+
+#, fuzzy
+msgid "Hungarian:"
+msgstr "Hungarés e Italiano:"
+
+msgid "Lithuanian:"
+msgstr "Lituano:"
+
+#, fuzzy
+msgid "Slovenian:"
+msgstr "Eslovaco:"
+
+msgid "Turkish:"
 msgstr ""
 
 #, fuzzy
@@ -6003,7 +6049,7 @@ msgstr ""
 
 msgid ""
 "Should importer add the name of the document\n"
-"on front of the paragraph style name in Scirubs"
+"on front of the paragraph style name in Scribus"
 msgstr ""
 
 msgid "Do not ask again"
@@ -6267,6 +6313,9 @@ msgstr "Documentos Recientes"
 #, fuzzy
 msgid "Folds"
 msgstr "Negrita"
+
+msgid "Media Cases"
+msgstr ""
 
 #, fuzzy
 msgid "Own Templates"
@@ -6589,6 +6638,9 @@ msgstr "Documentos (*.scd);; Todos los archivos (*)"
 #, fuzzy
 msgid "Import &SVG..."
 msgstr "Importar..."
+
+#~ msgid "Spanish and Catalan:"
+#~ msgstr "Castellano y Catalán:"
 
 #, fuzzy
 #~ msgid "&Fully Automatic"

@@ -3874,7 +3874,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Spanish and Catalan:</source>
-        <translation>Sbaeneg a Catalaneg:</translation>
+        <translation type="obsolete">Sbaeneg a Catalaneg:</translation>
     </message>
     <message>
         <source>Italian:</source>
@@ -4040,6 +4040,34 @@ Dynodir cynhaliaeth raglengelloedd sydd ar goll gan *</translation>
     </message>
     <message>
         <source>Mailing List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Official Translations and Translators:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Korean:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serbian:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous Translation Contributors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalan:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4857,7 +4885,7 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation>Math:</translation>
+        <translation type="obsolete">Math:</translation>
     </message>
     <message>
         <source>Text</source>
@@ -4881,15 +4909,15 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Newid...</translation>
+        <translation type="obsolete">Newid...</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Tudalen:</translation>
+        <translation type="obsolete">Tudalen:</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>Lleoliad X:</translation>
+        <translation type="obsolete">Lleoliad X:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -4897,15 +4925,15 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Lleoliad Y:</translation>
+        <translation type="obsolete">Lleoliad Y:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Diddymu</translation>
+        <translation type="obsolete">Diddymu</translation>
     </message>
     <message>
         <source>Open</source>
@@ -4914,6 +4942,26 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
         <translation>Dogfennau-PDF (*.pdf);;Pob Ffeil (*)</translation>
+    </message>
+    <message>
+        <source>&amp;Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished">Lleoliad &amp;Y:</translation>
     </message>
 </context>
 <context>
@@ -7358,15 +7406,15 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Consecutive Hypenations &amp;Allowed:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consecutive Hyphenations &amp;Allowed:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8420,7 +8468,7 @@ Corneli:</translation>
     </message>
     <message>
         <source>Reverse Writing</source>
-        <translation>Gwrthdroi Ysgrifennu</translation>
+        <translation type="obsolete">Gwrthdroi Ysgrifennu</translation>
     </message>
     <message>
         <source>Flip horizontal</source>
@@ -8969,6 +9017,10 @@ Co&amp;rneli:</translation>
     <message>
         <source>Hyphenation language of frame</source>
         <translation>Iaith cyplysnodi y ffrâm</translation>
+    </message>
+    <message>
+        <source>Right to Left Writing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10133,7 +10185,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>&amp;Ychwanegol</translation>
+        <translation type="obsolete">&amp;Ychwanegol</translation>
     </message>
     <message>
         <source>&amp;Security</source>
@@ -10464,7 +10516,7 @@ Os na frithir, atelir golygu anodiadau a ffeiliau.</translation>
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation>Cy&amp;wasgu Testun a Graffeg Fector</translation>
+        <translation type="obsolete">Cy&amp;wasgu Testun a Graffeg Fector</translation>
     </message>
     <message>
         <source>&amp;Method:</source>
@@ -10492,7 +10544,7 @@ Os na frithir, atelir golygu anodiadau a ffeiliau.</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation>Galluogi Effeithiau Cyf&amp;lwyniad</translation>
+        <translation type="obsolete">Galluogi Effeithiau Cyf&amp;lwyniad</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
@@ -10646,6 +10698,30 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
 cwmni argraffu yn unig, ac nid ydynt wedi rhoi i chi y manylion llawn sy&apos;n hanfodol.  Os arall,
 gall ddigwydd bod eich PDF allforiedig yn peidio ag argraffu yn iawn, neu beidio â bod yn wir
 gludadwy dros gysodau.</translation>
+    </message>
+    <message>
+        <source>Compress Text and &amp;Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En&amp;able Presentation Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Presentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) &amp;Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">C&amp;ylchdro:</translation>
+    </message>
+    <message>
+        <source>&amp;Options</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13630,6 +13706,10 @@ External Links
         <source>Text Filters</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Media Cases</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -16276,11 +16356,6 @@ or left untouched</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scirubs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Do not ask again</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16293,6 +16368,11 @@ never ask your confirmation again</source>
     <message>
         <source>OK</source>
         <translation type="unfinished">Iawn</translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

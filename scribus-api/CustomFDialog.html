@@ -27,7 +27,7 @@
 <TR><TD><small><A HREF="hier.html">Hierarchy</A></small></TD></TR>
 <TR><TD><small><A HREF="index.html">Index</A></small></TD></TR>
 </TABLE></TD></TR></TABLE>
-<h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">CustomFDialog</A></b> (QWidget *pa, QString cap = "", QString filter = "", bool Pre = false, bool mod = true, bool comp = false) 
+<h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">CustomFDialog</A></b> (QWidget *pa, QString cap = "", QString filter = "", bool Pre = false, bool mod = true, bool comp = false, bool cod = false) 
 </LI>
 <LI>&nbsp;<b><A HREF="#ref2">~CustomFDialog</A></b> () 
 </LI>
@@ -35,23 +35,31 @@
 <LI>QCheckBox* <b><A HREF="#ref4">SaveZip</A></b></LI>
 <LI>QFrame* <b><A HREF="#ref5">Layout</A></b></LI>
 <LI>QToolButton* <b><A HREF="#ref6">HomeB</A></b></LI>
-</ul><h4>Protected Members</h4><ul><LI>QHBoxLayout* <b><A HREF="#ref9">Layout1</A></b></LI>
-</ul><h4>Private Slots</h4><ul><LI>void &nbsp;<b><A HREF="#ref7">slotHome</A></b> () 
+<LI>QFrame* <b><A HREF="#ref7">LayoutC</A></b></LI>
+<LI>QComboBox *<b><A HREF="#ref8">TxCodeM</A></b></LI>
+<LI>QLabel *<b><A HREF="#ref9">TxCodeT</A></b></LI>
+</ul><h4>Protected Members</h4><ul><LI>QHBoxLayout* <b><A HREF="#ref12">Layout1</A></b></LI>
+<LI>QHBoxLayout* <b><A HREF="#ref13">Layout1C</A></b></LI>
+</ul><h4>Private Slots</h4><ul><LI>void &nbsp;<b><A HREF="#ref10">slotHome</A></b> () 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref8">HandleComp</A></b> () 
+<LI>void &nbsp;<b><A HREF="#ref11">HandleComp</A></b> () 
 </LI>
-</ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><A NAME="CustomFDialog"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>CustomFDialog</strong> (QWidget *pa, QString cap = "", QString filter = "", bool Pre = false, bool mod = true, bool comp = false)
+</ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><A NAME="CustomFDialog"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>CustomFDialog</strong> (QWidget *pa, QString cap = "", QString filter = "", bool Pre = false, bool mod = true, bool comp = false, bool cod = false)
 <br></td><td align="right"><h3><strong>CustomFDialog</strong></h3></td></tr></table><p></p><A NAME="~CustomFDialog"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>~CustomFDialog</strong> ()
 <br></td><td align="right"><h3><strong>~CustomFDialog</strong></h3></td></tr></table><p></p><A NAME="cDir"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QDir  <strong>cDir</strong>
 </td><td align="right"><h3><strong>cDir</strong></h3></td></tr></table><p></p><A NAME="SaveZip"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QCheckBox*  <strong>SaveZip</strong>
 </td><td align="right"><h3><strong>SaveZip</strong></h3></td></tr></table><p></p><A NAME="Layout"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QFrame*  <strong>Layout</strong>
-</td><td align="right"><h3><strong>Layout</strong></h3></td></tr></table><p></p><A NAME="HomeB"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>HomeB</strong>
-</td><td align="right"><h3><strong>HomeB</strong></h3></td></tr></table><p></p><A NAME="slotHome"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotHome</strong> ()
-<br></td><td align="right"><h3><strong>slotHome</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="HandleComp"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>HandleComp</strong> ()
-<br></td><td align="right"><h3><strong>HandleComp</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="Layout1"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>Layout1</strong>
-</td><td align="right"><h3><strong>Layout1</strong></h3></td></tr></table><p> <small>[protected]</small></p><HR>
+</td><td align="right"><h3><strong>Layout</strong></h3></td></tr></table><p></p><A NAME="HomeB"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QToolButton*  <strong>HomeB</strong>
+</td><td align="right"><h3><strong>HomeB</strong></h3></td></tr></table><p></p><A NAME="LayoutC"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QFrame*  <strong>LayoutC</strong>
+</td><td align="right"><h3><strong>LayoutC</strong></h3></td></tr></table><p></p><A NAME="TxCodeM"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QComboBox * <strong>TxCodeM</strong>
+</td><td align="right"><h3><strong>TxCodeM</strong></h3></td></tr></table><p></p><A NAME="TxCodeT"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel * <strong>TxCodeT</strong>
+</td><td align="right"><h3><strong>TxCodeT</strong></h3></td></tr></table><p></p><A NAME="slotHome"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotHome</strong> ()
+<br></td><td align="right"><h3><strong>slotHome</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="HandleComp"></A><A NAME="ref11"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>HandleComp</strong> ()
+<br></td><td align="right"><h3><strong>HandleComp</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="Layout1"></A><A NAME="ref12"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>Layout1</strong>
+</td><td align="right"><h3><strong>Layout1</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Layout1C"></A><A NAME="ref13"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>Layout1C</strong>
+</td><td align="right"><h3><strong>Layout1C</strong></h3></td></tr></table><p> <small>[protected]</small></p><HR>
 	<table>
-	<tr><td><small>Generated by: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</small></td></tr>
+	<tr><td><small>Generated by: paul on ahnews.music.salford.ac.uk on Tue Oct 21 16:33:32 2003, using kdoc 2.0a54.</small></td></tr>
 	</table>
 </BODY>
 </HTML>

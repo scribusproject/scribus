@@ -52,9 +52,10 @@
 #include <qptrlist.h>
 #include <qimage.h>
 #include <qpixmap.h>
-#include <qfont.h>
 #include <qvaluestack.h>
+#include <qvaluelist.h>
 #include "scribusdoc.h"
+#include "scpainter.h"
 /**
   *@author Franz Schmid
   */
@@ -62,29 +63,49 @@
 class PageItem : public QObject  {
 
 public: 
-	PageItem(Page* pa, int art, float x, float y, float w, float h, float w2, QString fill, QString outline, ScribusDoc *doc);
+	PageItem(Page* pa, int art, double x, double y, double w, double h, double w2, QString fill, QString outline, ScribusDoc *doc);
 	~PageItem() {};
+	struct ZZ { QString Zeich;
+					 QString Farb;
+					 QString Farb2;
+					 int shade;
+					 int shade2;
+					 QString ZFo;
+					 double xco;
+					 double yco;
+					 bool Sele;
+					 int Siz;
+				   int Style;
+					 double wide;
+					 double kern;
+					 int scale;
+				  };
   /** Zeichnet das Item */
   void paintObj(QRect e=QRect(), QPixmap *ppX = 0);
+  void DrawObj(ScPainter *p, QRect e);
   void CopyIt(struct CLBuf *Buffer);
-	void SetZeichAttr(QPainter *p, QFont *ffo, struct Pti *hl, int *chs, QString *chx);
+	void SetZeichAttr(struct Pti *hl, int *chs, QString *chx);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
+	void DrawZeichenS(ScPainter *p, struct ZZ *hl);
+	void DrawPoly(QPainter *p, QPointArray pts, QColor BackF, bool bitm = false);
+	void DrawPolyL(QPainter *p, QPointArray pts);
 	QString ExpandToken(uint base);
 	bool Locked;
+	bool Reverse;
   /** X-Position auf der Seite */
-  float Xpos;
+  double Xpos;
   /** Y-Position auf der Seite */
-  float Ypos;
+  double Ypos;
   /** Breite des Elements */
-  float Width;
+  double Width;
   /** Hoehe des Elements */
-  float Height;
+  double Height;
   /** Eckrundung von Rechtecken */
-  float RadRect;
+  double RadRect;
   /** Art des Items */
   int PType;
   /** Winkel um den das Item gedreht wird */
-  float Rot;
+  double Rot;
   /** Enthaelt das uebergeordnete Objekt */
   QWidget *Parent;
   /** Enthaelt das Dokument */
@@ -102,19 +123,27 @@ public:
   QString Pcolor2;
   /** Abstufung fuer Zeichenfarbe */
   int Shade2;
+	QString TxtStroke;
+	QString TxtFill;
+	int ShTxtStroke;
+	int ShTxtFill;
+	int TxtScale;
+	int TxTStyle;
   /** Strichstaerke */
-  float Pwidth;
+  double Pwidth;
   /** Linienart */
   PenStyle PLineArt;
   PenCapStyle PLineEnd;
   PenJoinStyle PLineJoin;
+	QString NamedLStyle;
   /** Element selektiert Ja/Nein */
   bool Select;
   /** Definiert die Clipping-Region des Elements; */
   QPointArray Clip;
 	FPointArray PoLine;
+	QValueList<uint> Segments;
 	bool PoShow;
-	float BaseOffs;
+	double BaseOffs;
   bool ClipEdited;
   int FrameType;
   /** Interne Item-Nummer */
@@ -125,7 +154,6 @@ public:
   Page *OwnPage;
   /** Darzustellendes Bild */
   QImage pixm;
-//  QPixmap pixm;
   /** Dateiname des Bildes */
   QString Pfile;
   QString Pfile2;
@@ -139,15 +167,15 @@ public:
   /** Bild verfuegbar */
   bool PicAvail;
   /** Lokales Scaling x*/
-  float LocalScX;
-	float LocalViewX;
+  double LocalScX;
+	double LocalViewX;
   /** Lokales Scaling y*/
-  float LocalScY;
-	float LocalViewY;
+  double LocalScY;
+	double LocalViewY;
   /** Lokales X */
-  float LocalX;
+  double LocalX;
   /** Lokales Y */
-  float LocalY;
+  double LocalY;
 	int OrigW;
 	int OrigH;
   /** Anzahl horizontaler Spiegelungen */
@@ -155,20 +183,20 @@ public:
   /** Anzahl vertikaler Spiegelungen */
   int flippedV;
   /** BoundigBox-X */
-  float BBoxX;
+  double BBoxX;
   /** BoundingBox-H */
-  float BBoxH;
+  double BBoxH;
   /** Extra Abstand vom Rand */
-  float Extra;
-  float TExtra;
-  float BExtra;
-  float RExtra;
+  double Extra;
+  double TExtra;
+  double BExtra;
+  double RExtra;
   /** Linespacing */
-  float LineSp;
+  double LineSp;
   /** Zeichen X-Position */
-  float CurX;
+  double CurX;
   /** Zeichen Y-Position */
-  float CurY;
+  double CurY;
   /** Cursorposition */
   int CPos;
   /** Text des Elements */
@@ -197,6 +225,7 @@ public:
 	QString AnRollOver;
 	QString AnDown;
 	QString AnBColor;
+	QString An_Extern;
 	int AnBsty;
 	int AnBwid;
 	int AnFeed;
@@ -223,6 +252,7 @@ public:
   bool HasSel;
   /** Flag fuer Textfluss */
   bool Textflow;
+  bool Textflow2;
   bool FrameOnly;
   PageItem *BackBox;
   PageItem *NextBox;
@@ -233,36 +263,32 @@ public:
   int Ausrich;
   uint MaxChars;
   bool Redrawn;
-  float ExtraV;
+  double ExtraV;
   bool isRaster;
-  float OldB;
-  float OldH;
-  float OldB2;
-  float OldH2;
+  double OldB;
+  double OldH;
+  double OldB2;
+  double OldH2;
   bool Sizing;
   bool toPixmap;
-  float DevRes;
 	int LayerNr;
 	bool ScaleType;
 	bool AspectRatio;
-	float Transparency;
+	double Transparency;
+	double TranspStroke;
   QValueStack<int> Groups;
-	struct ZZ { QString Zeich;
-					 QColor Farb;
-					 QFont Zsatz;
-					 QString ZFo;
-					 float xco;
-					 float yco;
-					 bool Sele;
-					 int Siz;
-				  };
+	bool InvPict;
+	QValueList<double> DashValues;
+	double DashOffset;
+	VGradient fill_gradient;
+	QString Language;
 };
 
 #endif
 </pre>
 <HR>
 	<table>
-	<tr><td><small>Generated by: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</small></td></tr>
+	<tr><td><small>Generated by: paul on ahnews.music.salford.ac.uk on Tue Oct 21 16:33:32 2003, using kdoc 2.0a54.</small></td></tr>
 	</table>
 </BODY>
 </HTML>

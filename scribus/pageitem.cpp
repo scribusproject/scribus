@@ -601,12 +601,14 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					Zli3.scale = hl->cscale;
 					if (!Doc->RePos)
 					{
-						DrawZeichenS(p, &Zli3);
+						if (e.intersects(pf.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-LineSp), qRound(Zli3.wide+1), qRound(LineSp*1.5)))))
+							DrawZeichenS(p, &Zli3);
 						if (hl->cstyle & 512)
 						{
 							Zli3.Zeich = "-";
 							Zli3.xco = Zli3.xco + Cwidth(Doc, hl->cfont, chx, hl->csize);
-							DrawZeichenS(p, &Zli3);
+							if (e.intersects(pf.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-LineSp), qRound(Zli3.wide+1), qRound(LineSp*1.5)))))
+								DrawZeichenS(p, &Zli3);
 						}
 					}
 				}
@@ -1391,7 +1393,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								}
 							if (!Doc->RePos)
 								{
-								if (e.intersects(pf.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide+1), qRound(LineSp)))))
+								if (e.intersects(pf.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide+1), qRound(LineSp*1.5)))))
 									DrawZeichenS(p, Zli2);
 								}
 							}
@@ -1477,7 +1479,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					if (!Doc->RePos)
 						{
-						if (e.intersects(pf.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide+1), qRound(LineSp)))))
+						if (e.intersects(pf.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide+1), qRound(LineSp*1.5)))))
 							DrawZeichenS(p, Zli2);
 						}
 					}

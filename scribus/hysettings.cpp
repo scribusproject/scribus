@@ -38,7 +38,7 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs )
 	
 	MaxCount = new QSpinBox( this, "MaxCount" );
 	MaxCount->setMinValue( 0 );
-	Text3 = new QLabel(MaxCount, tr("Consecutive Hypenations &Allowed:"), this, "Text3");
+	Text3 = new QLabel(MaxCount, tr("Consecutive Hyphenations &Allowed:"), this, "Text3");
 	Layout3->addWidget( Text3, 4, 0 );
 	Layout3->addWidget( MaxCount, 4, 1);
 	

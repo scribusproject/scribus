@@ -18,6 +18,7 @@
 	<HR>
 	<TABLE BORDER="0">
 		<TR><TH>Definition</TH><TD><code>#include &lt;<A HREF="scribus___libpdf___pdflib_h.html">scribus/libpdf/pdflib.h</A>&gt;</code></TD></TR>
+<TR><TH>Inherits</TH><TD>QObject <small>(unknown)</small> <small>[public ]</small></TD></TR>
 <TR><TH><A HREF="full-list-PDFlib.html">List of all Methods</A></TH></TR>
 	</TABLE>
 	</TD>
@@ -27,30 +28,27 @@
 <TR><TD><small><A HREF="hier.html">Hierarchy</A></small></TD></TR>
 <TR><TD><small><A HREF="index.html">Index</A></small></TD></TR>
 </TABLE></TD></TR></TABLE>
-<h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">PDFlib</A></b> () 
+<h4>Public Types</h4><ul><LI>struct <A HREF="PDFlib__GlNamInd.html">GlNamInd</A>
 </LI>
-<LI>virtual  &nbsp;<b><A HREF="#ref2">~PDFlib</A></b> () 
+<LI>typedef QMap<uint, GlNamInd>  <A HREF="#ref10">GListeInd</A>
 </LI>
-<LI>virtual  bool &nbsp;<b><A HREF="#ref3">PDF_Begin_Doc</A></b> (QString fn, <A HREF="ScribusDoc.html">ScribusDoc</A> *docu, <A HREF="ScribusView.html">ScribusView</A> *vie, <A HREF="PDFOpt.html">PDFOpt</A> *opts, <A HREF="SCFonts.html">SCFonts</A> &AllFonts, QMap<QString,QFont> DocFonts, <A HREF="BookMView.html">BookMView</A>* vi) 
+</ul><h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">PDFlib</A></b> () 
 </LI>
-<LI>virtual  void &nbsp;<b><A HREF="#ref4">PDF_Begin_Page</A></b> (<A HREF="Page.html">Page</A>* pag) 
+<LI>&nbsp;<b><A HREF="#ref2">~PDFlib</A></b> () 
 </LI>
-<LI>virtual  void &nbsp;<b><A HREF="#ref5">PDF_End_Page</A></b> () 
+<LI>bool &nbsp;<b><A HREF="#ref3">PDF_Begin_Doc</A></b> (QString fn, <A HREF="ScribusDoc.html">ScribusDoc</A> *docu, <A HREF="ScribusView.html">ScribusView</A> *vie, <A HREF="PDFOpt.html">PDFOpt</A> *opts, <A HREF="SCFonts.html">SCFonts</A> &AllFonts, QMap<QString,QFont> DocFonts, <A HREF="BookMView.html">BookMView</A>* vi) 
 </LI>
-<LI>virtual  void &nbsp;<b><A HREF="#ref6">PDF_TemplatePage</A></b> (<A HREF="Page.html">Page</A>* pag) 
+<LI>void &nbsp;<b><A HREF="#ref4">PDF_Begin_Page</A></b> (<A HREF="Page.html">Page</A>* pag, QPixmap pm = 0) 
 </LI>
-<LI>virtual  void &nbsp;<b><A HREF="#ref7">PDF_ProcessPage</A></b> (<A HREF="Page.html">Page</A>* pag, uint PNr) 
+<LI>void &nbsp;<b><A HREF="#ref5">PDF_End_Page</A></b> () 
 </LI>
-<LI>virtual  void &nbsp;<b><A HREF="#ref8">PDF_End_Doc</A></b> (QString PrintPr = "", QString Name = "", int Components = 0) 
+<LI>void &nbsp;<b><A HREF="#ref6">PDF_TemplatePage</A></b> (<A HREF="Page.html">Page</A>* pag) 
 </LI>
-</ul><h4>Public Members</h4><ul><LI>QString <b><A HREF="#ref9">Inhalt</A></b></LI>
-<LI>ScribusDoc* <b><A HREF="#ref10">doc</A></b></LI>
-<LI>ScribusView* <b><A HREF="#ref11">view</A></b></LI>
-<LI>Page* <b><A HREF="#ref12">ActPage</A></b></LI>
-<LI>PDFOpt* <b><A HREF="#ref13">Options</A></b></LI>
-<LI>BookMView* <b><A HREF="#ref14">Bvie</A></b></LI>
-<LI>QFile <b><A HREF="#ref15">Spool</A></b></LI>
-<LI>int <b><A HREF="#ref16">Dokument</A></b></LI>
+<LI>void &nbsp;<b><A HREF="#ref7">PDF_ProcessPage</A></b> (<A HREF="Page.html">Page</A>* pag, uint PNr) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref8">PDF_End_Doc</A></b> (QString PrintPr = "", QString Name = "", int Components = 0) 
+</LI>
+</ul><h4>Public Members</h4><ul><LI>QMap<QString, GListeInd> <b><A HREF="#ref11">GlyphsIdxOfFont</A></b></LI>
 </ul><h4>Private Types</h4><ul><LI>struct <A HREF="PDFlib__Dest.html">Dest</A>
 </LI>
 <LI>struct <A HREF="PDFlib__Cata.html">Cata</A>
@@ -65,148 +63,152 @@
 </LI>
 <LI>struct <A HREF="PDFlib__ICCD.html">ICCD</A>
 </LI>
-</ul><h4>Private Methods</h4><ul><LI>QString &nbsp;<b><A HREF="#ref17">EncStream</A></b> (QString *in, int ObjNum) 
+</ul><h4>Private Methods</h4><ul><LI>QString &nbsp;<b><A HREF="#ref12">EncStream</A></b> (QString *in, int ObjNum) 
 </LI>
-<LI>QString &nbsp;<b><A HREF="#ref18">EncString</A></b> (QString in, int ObjNum) 
+<LI>QString &nbsp;<b><A HREF="#ref13">EncString</A></b> (QString in, int ObjNum) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref19">CalcOwnerKey</A></b> (QString Owner, QString User) 
+<LI>void &nbsp;<b><A HREF="#ref14">CalcOwnerKey</A></b> (QString Owner, QString User) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref20">CalcUserKey</A></b> (QString User, int Permission) 
+<LI>void &nbsp;<b><A HREF="#ref15">CalcUserKey</A></b> (QString User, int Permission) 
 </LI>
-<LI>QString &nbsp;<b><A HREF="#ref21">FitKey</A></b> (QString pass) 
+<LI>QString &nbsp;<b><A HREF="#ref16">FitKey</A></b> (QString pass) 
 </LI>
-<LI>QString &nbsp;<b><A HREF="#ref22">FToStr</A></b> (float c) 
+<LI>QString &nbsp;<b><A HREF="#ref17">FToStr</A></b> (double c) 
 </LI>
-<LI>QString &nbsp;<b><A HREF="#ref23">IToStr</A></b> (int c) 
+<LI>QString &nbsp;<b><A HREF="#ref18">IToStr</A></b> (int c) 
 </LI>
-<LI>QString &nbsp;<b><A HREF="#ref24">SetClipPath</A></b> (<A HREF="PageItem.html">PageItem</A> *ite) 
+<LI>QString &nbsp;<b><A HREF="#ref19">setStrokeMulti</A></b> (struct <A HREF="singleLine.html">singleLine</A> *sl) 
 </LI>
-<LI>QString &nbsp;<b><A HREF="#ref25">SetFarbe</A></b> (QString farbe, int Shade) 
+<LI>QString &nbsp;<b><A HREF="#ref20">SetClipPath</A></b> (<A HREF="PageItem.html">PageItem</A> *ite) 
 </LI>
-<LI>QString &nbsp;<b><A HREF="#ref26">setTextSt</A></b> (<A HREF="PageItem.html">PageItem</A> *ite, uint PNr) 
+<LI>QString &nbsp;<b><A HREF="#ref21">SetFarbe</A></b> (QString farbe, int Shade) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref27">PutDoc</A></b> (QString in) 
+<LI>QString &nbsp;<b><A HREF="#ref22">setTextSt</A></b> (<A HREF="PageItem.html">PageItem</A> *ite, uint PNr) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref28">PutPage</A></b> (QString in) 
+<LI>void &nbsp;<b><A HREF="#ref23">PutDoc</A></b> (QString in) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref29">StartObj</A></b> (int nr) 
+<LI>void &nbsp;<b><A HREF="#ref24">PutPage</A></b> (QString in) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref30">WritePDFStream</A></b> (QString *cc) 
+<LI>void &nbsp;<b><A HREF="#ref25">StartObj</A></b> (int nr) 
 </LI>
-<LI>QString &nbsp;<b><A HREF="#ref31">PDFEncode</A></b> (QString in) 
+<LI>void &nbsp;<b><A HREF="#ref26">WritePDFStream</A></b> (QString *cc) 
 </LI>
-<LI>QByteArray &nbsp;<b><A HREF="#ref32">ComputeMD5</A></b> (QString in) 
+<LI>QString &nbsp;<b><A HREF="#ref27">PDFEncode</A></b> (QString in) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref33">PDF_Bookmark</A></b> (int nr, float ypos) 
+<LI>QByteArray &nbsp;<b><A HREF="#ref28">ComputeMD5</A></b> (QString in) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref34">PDF_Gradient</A></b> (<A HREF="PageItem.html">PageItem</A> *b) 
+<LI>void &nbsp;<b><A HREF="#ref29">PDF_Bookmark</A></b> (int nr, double ypos) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref35">PDF_Transparenz</A></b> (<A HREF="PageItem.html">PageItem</A> *b) 
+<LI>void &nbsp;<b><A HREF="#ref30">PDF_Gradient</A></b> (<A HREF="PageItem.html">PageItem</A> *b) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref36">PDF_Annotation</A></b> (<A HREF="PageItem.html">PageItem</A> *ite, uint PNr) 
+<LI>void &nbsp;<b><A HREF="#ref31">PDF_Transparenz</A></b> (<A HREF="PageItem.html">PageItem</A> *b) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref37">PDF_circle</A></b> (float x, float y) 
+<LI>void &nbsp;<b><A HREF="#ref32">PDF_Annotation</A></b> (<A HREF="PageItem.html">PageItem</A> *ite, uint PNr) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref38">PDF_roundRect</A></b> (float b, float h, float r) 
+<LI>void &nbsp;<b><A HREF="#ref33">PDF_Form</A></b> (QString im) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref39">PDF_Form</A></b> (QString im) 
+<LI>void &nbsp;<b><A HREF="#ref34">PDF_xForm</A></b> (double w, double h, QString im) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref40">PDF_xForm</A></b> (float w, float h, QString im) 
+<LI>void &nbsp;<b><A HREF="#ref35">PDF_Image</A></b> (bool inver, QString fn, double sx, double sy, double x, double y, bool fromAN = false, QString Profil = "", bool Embedded = false, int Intent = 1) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref41">PDF_Image</A></b> (QString fn, float sx, float sy, float x, float y, bool fromAN = false, QString Profil = "", bool Embedded = false, int Intent = 1) 
-</LI>
-</ul><h4>Private Members</h4><ul><LI>QValueList<uint> <b><A HREF="#ref49">XRef</A></b></LI>
-<LI>QValueList<Dest> <b><A HREF="#ref50">NamedDest</A></b></LI>
-<LI>QValueList<int> <b><A HREF="#ref51">Threads</A></b></LI>
-<LI>QValueList<Bead> <b><A HREF="#ref52">Beads</A></b></LI>
-<LI>QValueList<int> <b><A HREF="#ref53">CalcFields</A></b></LI>
-<LI>QMap<QString,int> <b><A HREF="#ref54">Shadings</A></b></LI>
-<LI>QMap<QString,int> <b><A HREF="#ref55">Transpar</A></b></LI>
-<LI>QMap<QString,ICCD> <b><A HREF="#ref56">ICCProfiles</A></b></LI>
-<LI>int <b><A HREF="#ref57">ObjCounter</A></b></LI>
-<LI>bool <b><A HREF="#ref58">NeedsStroke</A></b></LI>
-<LI>QString <b><A HREF="#ref59">ResNam</A></b></LI>
-<LI>int <b><A HREF="#ref60">ResCount</A></b></LI>
-<LI>QString <b><A HREF="#ref61">NDnam</A></b></LI>
-<LI>QString <b><A HREF="#ref62">Datum</A></b></LI>
-<LI>int <b><A HREF="#ref63">NDnum</A></b></LI>
-<LI>QMap<QString, QString> <b><A HREF="#ref64">UsedFonts</A></b></LI>
-<LI>QMap<QString, QFont> <b><A HREF="#ref65">RealFonts</A></b></LI>
-<LI>bool <b><A HREF="#ref66">CompAvail</A></b></LI>
-<LI>QByteArray <b><A HREF="#ref67">KeyGen</A></b></LI>
-<LI>QByteArray <b><A HREF="#ref68">OwnerKey</A></b></LI>
-<LI>QByteArray <b><A HREF="#ref69">UserKey</A></b></LI>
-<LI>QByteArray <b><A HREF="#ref70">FileID</A></b></LI>
-<LI>QByteArray <b><A HREF="#ref71">EncryKey</A></b></LI>
-<LI>int <b><A HREF="#ref72">Encrypt</A></b></LI>
-<LI>int <b><A HREF="#ref73">KeyLen</A></b></LI>
+</ul><h4>Private Members</h4><ul><LI>QString <b><A HREF="#ref36">Inhalt</A></b></LI>
+<LI>ScribusDoc* <b><A HREF="#ref37">doc</A></b></LI>
+<LI>ScribusView* <b><A HREF="#ref38">view</A></b></LI>
+<LI>Page* <b><A HREF="#ref39">ActPageP</A></b></LI>
+<LI>PDFOpt* <b><A HREF="#ref40">Options</A></b></LI>
+<LI>BookMView* <b><A HREF="#ref41">Bvie</A></b></LI>
+<LI>QFile <b><A HREF="#ref42">Spool</A></b></LI>
+<LI>int <b><A HREF="#ref43">Dokument</A></b></LI>
+<LI>QValueList<uint> <b><A HREF="#ref51">XRef</A></b></LI>
+<LI>QValueList<Dest> <b><A HREF="#ref52">NamedDest</A></b></LI>
+<LI>QValueList<int> <b><A HREF="#ref53">Threads</A></b></LI>
+<LI>QValueList<Bead> <b><A HREF="#ref54">Beads</A></b></LI>
+<LI>QValueList<int> <b><A HREF="#ref55">CalcFields</A></b></LI>
+<LI>QMap<QString,int> <b><A HREF="#ref56">Shadings</A></b></LI>
+<LI>QMap<QString,int> <b><A HREF="#ref57">Transpar</A></b></LI>
+<LI>QMap<QString,ICCD> <b><A HREF="#ref58">ICCProfiles</A></b></LI>
+<LI>int <b><A HREF="#ref59">ObjCounter</A></b></LI>
+<LI>QString <b><A HREF="#ref60">ResNam</A></b></LI>
+<LI>int <b><A HREF="#ref61">ResCount</A></b></LI>
+<LI>QString <b><A HREF="#ref62">NDnam</A></b></LI>
+<LI>QString <b><A HREF="#ref63">Datum</A></b></LI>
+<LI>int <b><A HREF="#ref64">NDnum</A></b></LI>
+<LI>QMap<QString, QString> <b><A HREF="#ref65">UsedFontsP</A></b></LI>
+<LI>QMap<QString, QFont> <b><A HREF="#ref66">RealFonts</A></b></LI>
+<LI>bool <b><A HREF="#ref67">CompAvail</A></b></LI>
+<LI>QByteArray <b><A HREF="#ref68">KeyGen</A></b></LI>
+<LI>QByteArray <b><A HREF="#ref69">OwnerKey</A></b></LI>
+<LI>QByteArray <b><A HREF="#ref70">UserKey</A></b></LI>
+<LI>QByteArray <b><A HREF="#ref71">FileID</A></b></LI>
+<LI>QByteArray <b><A HREF="#ref72">EncryKey</A></b></LI>
+<LI>int <b><A HREF="#ref73">Encrypt</A></b></LI>
+<LI>int <b><A HREF="#ref74">KeyLen</A></b></LI>
 </ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><p>
 </p>
 <A NAME="PDFlib"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>PDFlib</strong> ()
-<br></td><td align="right"><h3><strong>PDFlib</strong></h3></td></tr></table><p></p><A NAME="~PDFlib"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td> &nbsp;<strong>~PDFlib</strong> ()
-<br></td><td align="right"><h3><strong>~PDFlib</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PDF_Begin_Doc"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td> bool &nbsp;<strong>PDF_Begin_Doc</strong> (QString fn, <A HREF="ScribusDoc.html">ScribusDoc</A> *docu, <A HREF="ScribusView.html">ScribusView</A> *vie, <A HREF="PDFOpt.html">PDFOpt</A> *opts, <A HREF="SCFonts.html">SCFonts</A> &AllFonts, QMap<QString,QFont> DocFonts, <A HREF="BookMView.html">BookMView</A>* vi)
-<br></td><td align="right"><h3><strong>PDF_Begin_Doc</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PDF_Begin_Page"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PDF_Begin_Page</strong> (<A HREF="Page.html">Page</A>* pag)
-<br></td><td align="right"><h3><strong>PDF_Begin_Page</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PDF_End_Page"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PDF_End_Page</strong> ()
-<br></td><td align="right"><h3><strong>PDF_End_Page</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PDF_TemplatePage"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PDF_TemplatePage</strong> (<A HREF="Page.html">Page</A>* pag)
-<br></td><td align="right"><h3><strong>PDF_TemplatePage</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PDF_ProcessPage"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PDF_ProcessPage</strong> (<A HREF="Page.html">Page</A>* pag, uint PNr)
-<br></td><td align="right"><h3><strong>PDF_ProcessPage</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PDF_End_Doc"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PDF_End_Doc</strong> (QString PrintPr = "", QString Name = "", int Components = 0)
-<br></td><td align="right"><h3><strong>PDF_End_Doc</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="Inhalt"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Inhalt</strong>
-</td><td align="right"><h3><strong>Inhalt</strong></h3></td></tr></table><p></p><A NAME="doc"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="ScribusDoc.html">ScribusDoc</A>*  <strong>doc</strong>
-</td><td align="right"><h3><strong>doc</strong></h3></td></tr></table><p></p><A NAME="view"></A><A NAME="ref11"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="ScribusView.html">ScribusView</A>*  <strong>view</strong>
-</td><td align="right"><h3><strong>view</strong></h3></td></tr></table><p></p><A NAME="ActPage"></A><A NAME="ref12"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="Page.html">Page</A>*  <strong>ActPage</strong>
-</td><td align="right"><h3><strong>ActPage</strong></h3></td></tr></table><p></p><A NAME="Options"></A><A NAME="ref13"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="PDFOpt.html">PDFOpt</A>*  <strong>Options</strong>
-</td><td align="right"><h3><strong>Options</strong></h3></td></tr></table><p></p><A NAME="Bvie"></A><A NAME="ref14"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="BookMView.html">BookMView</A>*  <strong>Bvie</strong>
-</td><td align="right"><h3><strong>Bvie</strong></h3></td></tr></table><p></p><A NAME="Spool"></A><A NAME="ref15"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QFile  <strong>Spool</strong>
-</td><td align="right"><h3><strong>Spool</strong></h3></td></tr></table><p></p><A NAME="Dokument"></A><A NAME="ref16"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Dokument</strong>
-</td><td align="right"><h3><strong>Dokument</strong></h3></td></tr></table><p></p><A NAME="EncStream"></A><A NAME="ref17"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>EncStream</strong> (QString *in, int ObjNum)
-<br></td><td align="right"><h3><strong>EncStream</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="EncString"></A><A NAME="ref18"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>EncString</strong> (QString in, int ObjNum)
-<br></td><td align="right"><h3><strong>EncString</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="CalcOwnerKey"></A><A NAME="ref19"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>CalcOwnerKey</strong> (QString Owner, QString User)
-<br></td><td align="right"><h3><strong>CalcOwnerKey</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="CalcUserKey"></A><A NAME="ref20"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>CalcUserKey</strong> (QString User, int Permission)
-<br></td><td align="right"><h3><strong>CalcUserKey</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="FitKey"></A><A NAME="ref21"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>FitKey</strong> (QString pass)
-<br></td><td align="right"><h3><strong>FitKey</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="FToStr"></A><A NAME="ref22"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>FToStr</strong> (float c)
-<br></td><td align="right"><h3><strong>FToStr</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="IToStr"></A><A NAME="ref23"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>IToStr</strong> (int c)
-<br></td><td align="right"><h3><strong>IToStr</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="SetClipPath"></A><A NAME="ref24"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>SetClipPath</strong> (<A HREF="PageItem.html">PageItem</A> *ite)
-<br></td><td align="right"><h3><strong>SetClipPath</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="SetFarbe"></A><A NAME="ref25"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>SetFarbe</strong> (QString farbe, int Shade)
-<br></td><td align="right"><h3><strong>SetFarbe</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="setTextSt"></A><A NAME="ref26"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>setTextSt</strong> (<A HREF="PageItem.html">PageItem</A> *ite, uint PNr)
-<br></td><td align="right"><h3><strong>setTextSt</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PutDoc"></A><A NAME="ref27"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PutDoc</strong> (QString in)
-<br></td><td align="right"><h3><strong>PutDoc</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PutPage"></A><A NAME="ref28"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PutPage</strong> (QString in)
-<br></td><td align="right"><h3><strong>PutPage</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="StartObj"></A><A NAME="ref29"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>StartObj</strong> (int nr)
-<br></td><td align="right"><h3><strong>StartObj</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="WritePDFStream"></A><A NAME="ref30"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>WritePDFStream</strong> (QString *cc)
-<br></td><td align="right"><h3><strong>WritePDFStream</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFEncode"></A><A NAME="ref31"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>PDFEncode</strong> (QString in)
-<br></td><td align="right"><h3><strong>PDFEncode</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ComputeMD5"></A><A NAME="ref32"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QByteArray &nbsp;<strong>ComputeMD5</strong> (QString in)
-<br></td><td align="right"><h3><strong>ComputeMD5</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDF_Bookmark"></A><A NAME="ref33"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_Bookmark</strong> (int nr, float ypos)
-<br></td><td align="right"><h3><strong>PDF_Bookmark</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDF_Gradient"></A><A NAME="ref34"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_Gradient</strong> (<A HREF="PageItem.html">PageItem</A> *b)
-<br></td><td align="right"><h3><strong>PDF_Gradient</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDF_Transparenz"></A><A NAME="ref35"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_Transparenz</strong> (<A HREF="PageItem.html">PageItem</A> *b)
-<br></td><td align="right"><h3><strong>PDF_Transparenz</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDF_Annotation"></A><A NAME="ref36"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_Annotation</strong> (<A HREF="PageItem.html">PageItem</A> *ite, uint PNr)
-<br></td><td align="right"><h3><strong>PDF_Annotation</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDF_circle"></A><A NAME="ref37"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_circle</strong> (float x, float y)
-<br></td><td align="right"><h3><strong>PDF_circle</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDF_roundRect"></A><A NAME="ref38"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_roundRect</strong> (float b, float h, float r)
-<br></td><td align="right"><h3><strong>PDF_roundRect</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDF_Form"></A><A NAME="ref39"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_Form</strong> (QString im)
-<br></td><td align="right"><h3><strong>PDF_Form</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDF_xForm"></A><A NAME="ref40"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_xForm</strong> (float w, float h, QString im)
-<br></td><td align="right"><h3><strong>PDF_xForm</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDF_Image"></A><A NAME="ref41"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_Image</strong> (QString fn, float sx, float sy, float x, float y, bool fromAN = false, QString Profil = "", bool Embedded = false, int Intent = 1)
-<br></td><td align="right"><h3><strong>PDF_Image</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFlib__Dest.html"></A><A NAME="ref42"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>Dest</strong> <small>(struct)</small></td><td align="right"><h3><strong>Dest</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFlib__Cata.html"></A><A NAME="ref43"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>Cata</strong> <small>(struct)</small></td><td align="right"><h3><strong>Cata</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFlib__PagT.html"></A><A NAME="ref44"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>PagT</strong> <small>(struct)</small></td><td align="right"><h3><strong>PagT</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFlib__PagL.html"></A><A NAME="ref45"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>PagL</strong> <small>(struct)</small></td><td align="right"><h3><strong>PagL</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFlib__OutL.html"></A><A NAME="ref46"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>OutL</strong> <small>(struct)</small></td><td align="right"><h3><strong>OutL</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFlib__Bead.html"></A><A NAME="ref47"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>Bead</strong> <small>(struct)</small></td><td align="right"><h3><strong>Bead</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFlib__ICCD.html"></A><A NAME="ref48"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>ICCD</strong> <small>(struct)</small></td><td align="right"><h3><strong>ICCD</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="XRef"></A><A NAME="ref49"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QValueList<uint>  <strong>XRef</strong>
-</td><td align="right"><h3><strong>XRef</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="NamedDest"></A><A NAME="ref50"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QValueList<Dest>  <strong>NamedDest</strong>
-</td><td align="right"><h3><strong>NamedDest</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Threads"></A><A NAME="ref51"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QValueList<int>  <strong>Threads</strong>
-</td><td align="right"><h3><strong>Threads</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Beads"></A><A NAME="ref52"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QValueList<Bead>  <strong>Beads</strong>
-</td><td align="right"><h3><strong>Beads</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="CalcFields"></A><A NAME="ref53"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QValueList<int>  <strong>CalcFields</strong>
-</td><td align="right"><h3><strong>CalcFields</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Shadings"></A><A NAME="ref54"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString,int>  <strong>Shadings</strong>
-</td><td align="right"><h3><strong>Shadings</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Transpar"></A><A NAME="ref55"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString,int>  <strong>Transpar</strong>
-</td><td align="right"><h3><strong>Transpar</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ICCProfiles"></A><A NAME="ref56"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString,ICCD>  <strong>ICCProfiles</strong>
-</td><td align="right"><h3><strong>ICCProfiles</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ObjCounter"></A><A NAME="ref57"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>ObjCounter</strong>
-</td><td align="right"><h3><strong>ObjCounter</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="NeedsStroke"></A><A NAME="ref58"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>NeedsStroke</strong>
-</td><td align="right"><h3><strong>NeedsStroke</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ResNam"></A><A NAME="ref59"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>ResNam</strong>
-</td><td align="right"><h3><strong>ResNam</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ResCount"></A><A NAME="ref60"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>ResCount</strong>
-</td><td align="right"><h3><strong>ResCount</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="NDnam"></A><A NAME="ref61"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>NDnam</strong>
-</td><td align="right"><h3><strong>NDnam</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Datum"></A><A NAME="ref62"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Datum</strong>
-</td><td align="right"><h3><strong>Datum</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="NDnum"></A><A NAME="ref63"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>NDnum</strong>
-</td><td align="right"><h3><strong>NDnum</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="UsedFonts"></A><A NAME="ref64"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString, QString>  <strong>UsedFonts</strong>
-</td><td align="right"><h3><strong>UsedFonts</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="RealFonts"></A><A NAME="ref65"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString, QFont>  <strong>RealFonts</strong>
-</td><td align="right"><h3><strong>RealFonts</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="CompAvail"></A><A NAME="ref66"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>CompAvail</strong>
-</td><td align="right"><h3><strong>CompAvail</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="KeyGen"></A><A NAME="ref67"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QByteArray  <strong>KeyGen</strong>
-</td><td align="right"><h3><strong>KeyGen</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="OwnerKey"></A><A NAME="ref68"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QByteArray  <strong>OwnerKey</strong>
-</td><td align="right"><h3><strong>OwnerKey</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="UserKey"></A><A NAME="ref69"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QByteArray  <strong>UserKey</strong>
-</td><td align="right"><h3><strong>UserKey</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="FileID"></A><A NAME="ref70"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QByteArray  <strong>FileID</strong>
-</td><td align="right"><h3><strong>FileID</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="EncryKey"></A><A NAME="ref71"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QByteArray  <strong>EncryKey</strong>
-</td><td align="right"><h3><strong>EncryKey</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Encrypt"></A><A NAME="ref72"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Encrypt</strong>
-</td><td align="right"><h3><strong>Encrypt</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="KeyLen"></A><A NAME="ref73"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>KeyLen</strong>
+<br></td><td align="right"><h3><strong>PDFlib</strong></h3></td></tr></table><p></p><A NAME="~PDFlib"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>~PDFlib</strong> ()
+<br></td><td align="right"><h3><strong>~PDFlib</strong></h3></td></tr></table><p></p><A NAME="PDF_Begin_Doc"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>PDF_Begin_Doc</strong> (QString fn, <A HREF="ScribusDoc.html">ScribusDoc</A> *docu, <A HREF="ScribusView.html">ScribusView</A> *vie, <A HREF="PDFOpt.html">PDFOpt</A> *opts, <A HREF="SCFonts.html">SCFonts</A> &AllFonts, QMap<QString,QFont> DocFonts, <A HREF="BookMView.html">BookMView</A>* vi)
+<br></td><td align="right"><h3><strong>PDF_Begin_Doc</strong></h3></td></tr></table><p></p><A NAME="PDF_Begin_Page"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_Begin_Page</strong> (<A HREF="Page.html">Page</A>* pag, QPixmap pm = 0)
+<br></td><td align="right"><h3><strong>PDF_Begin_Page</strong></h3></td></tr></table><p></p><A NAME="PDF_End_Page"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_End_Page</strong> ()
+<br></td><td align="right"><h3><strong>PDF_End_Page</strong></h3></td></tr></table><p></p><A NAME="PDF_TemplatePage"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_TemplatePage</strong> (<A HREF="Page.html">Page</A>* pag)
+<br></td><td align="right"><h3><strong>PDF_TemplatePage</strong></h3></td></tr></table><p></p><A NAME="PDF_ProcessPage"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_ProcessPage</strong> (<A HREF="Page.html">Page</A>* pag, uint PNr)
+<br></td><td align="right"><h3><strong>PDF_ProcessPage</strong></h3></td></tr></table><p></p><A NAME="PDF_End_Doc"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_End_Doc</strong> (QString PrintPr = "", QString Name = "", int Components = 0)
+<br></td><td align="right"><h3><strong>PDF_End_Doc</strong></h3></td></tr></table><p></p><A NAME="PDFlib__GlNamInd.html"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>GlNamInd</strong> <small>(struct)</small></td><td align="right"><h3><strong>GlNamInd</strong></h3></td></tr></table><p></p><A NAME="GListeInd"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef QMap<uint, GlNamInd>  <strong>GListeInd</strong></td><td align="right"><h3><strong>GListeInd</strong></h3></td></tr></table><p></p><A NAME="GlyphsIdxOfFont"></A><A NAME="ref11"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString, GListeInd>  <strong>GlyphsIdxOfFont</strong>
+</td><td align="right"><h3><strong>GlyphsIdxOfFont</strong></h3></td></tr></table><p></p><A NAME="EncStream"></A><A NAME="ref12"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>EncStream</strong> (QString *in, int ObjNum)
+<br></td><td align="right"><h3><strong>EncStream</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="EncString"></A><A NAME="ref13"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>EncString</strong> (QString in, int ObjNum)
+<br></td><td align="right"><h3><strong>EncString</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="CalcOwnerKey"></A><A NAME="ref14"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>CalcOwnerKey</strong> (QString Owner, QString User)
+<br></td><td align="right"><h3><strong>CalcOwnerKey</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="CalcUserKey"></A><A NAME="ref15"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>CalcUserKey</strong> (QString User, int Permission)
+<br></td><td align="right"><h3><strong>CalcUserKey</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="FitKey"></A><A NAME="ref16"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>FitKey</strong> (QString pass)
+<br></td><td align="right"><h3><strong>FitKey</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="FToStr"></A><A NAME="ref17"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>FToStr</strong> (double c)
+<br></td><td align="right"><h3><strong>FToStr</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="IToStr"></A><A NAME="ref18"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>IToStr</strong> (int c)
+<br></td><td align="right"><h3><strong>IToStr</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="setStrokeMulti"></A><A NAME="ref19"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>setStrokeMulti</strong> (struct <A HREF="singleLine.html">singleLine</A> *sl)
+<br></td><td align="right"><h3><strong>setStrokeMulti</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="SetClipPath"></A><A NAME="ref20"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>SetClipPath</strong> (<A HREF="PageItem.html">PageItem</A> *ite)
+<br></td><td align="right"><h3><strong>SetClipPath</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="SetFarbe"></A><A NAME="ref21"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>SetFarbe</strong> (QString farbe, int Shade)
+<br></td><td align="right"><h3><strong>SetFarbe</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="setTextSt"></A><A NAME="ref22"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>setTextSt</strong> (<A HREF="PageItem.html">PageItem</A> *ite, uint PNr)
+<br></td><td align="right"><h3><strong>setTextSt</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PutDoc"></A><A NAME="ref23"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PutDoc</strong> (QString in)
+<br></td><td align="right"><h3><strong>PutDoc</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PutPage"></A><A NAME="ref24"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PutPage</strong> (QString in)
+<br></td><td align="right"><h3><strong>PutPage</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="StartObj"></A><A NAME="ref25"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>StartObj</strong> (int nr)
+<br></td><td align="right"><h3><strong>StartObj</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="WritePDFStream"></A><A NAME="ref26"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>WritePDFStream</strong> (QString *cc)
+<br></td><td align="right"><h3><strong>WritePDFStream</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFEncode"></A><A NAME="ref27"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>PDFEncode</strong> (QString in)
+<br></td><td align="right"><h3><strong>PDFEncode</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ComputeMD5"></A><A NAME="ref28"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QByteArray &nbsp;<strong>ComputeMD5</strong> (QString in)
+<br></td><td align="right"><h3><strong>ComputeMD5</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDF_Bookmark"></A><A NAME="ref29"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_Bookmark</strong> (int nr, double ypos)
+<br></td><td align="right"><h3><strong>PDF_Bookmark</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDF_Gradient"></A><A NAME="ref30"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_Gradient</strong> (<A HREF="PageItem.html">PageItem</A> *b)
+<br></td><td align="right"><h3><strong>PDF_Gradient</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDF_Transparenz"></A><A NAME="ref31"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_Transparenz</strong> (<A HREF="PageItem.html">PageItem</A> *b)
+<br></td><td align="right"><h3><strong>PDF_Transparenz</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDF_Annotation"></A><A NAME="ref32"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_Annotation</strong> (<A HREF="PageItem.html">PageItem</A> *ite, uint PNr)
+<br></td><td align="right"><h3><strong>PDF_Annotation</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDF_Form"></A><A NAME="ref33"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_Form</strong> (QString im)
+<br></td><td align="right"><h3><strong>PDF_Form</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDF_xForm"></A><A NAME="ref34"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_xForm</strong> (double w, double h, QString im)
+<br></td><td align="right"><h3><strong>PDF_xForm</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDF_Image"></A><A NAME="ref35"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PDF_Image</strong> (bool inver, QString fn, double sx, double sy, double x, double y, bool fromAN = false, QString Profil = "", bool Embedded = false, int Intent = 1)
+<br></td><td align="right"><h3><strong>PDF_Image</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Inhalt"></A><A NAME="ref36"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Inhalt</strong>
+</td><td align="right"><h3><strong>Inhalt</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="doc"></A><A NAME="ref37"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="ScribusDoc.html">ScribusDoc</A>*  <strong>doc</strong>
+</td><td align="right"><h3><strong>doc</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="view"></A><A NAME="ref38"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="ScribusView.html">ScribusView</A>*  <strong>view</strong>
+</td><td align="right"><h3><strong>view</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ActPageP"></A><A NAME="ref39"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="Page.html">Page</A>*  <strong>ActPageP</strong>
+</td><td align="right"><h3><strong>ActPageP</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Options"></A><A NAME="ref40"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="PDFOpt.html">PDFOpt</A>*  <strong>Options</strong>
+</td><td align="right"><h3><strong>Options</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Bvie"></A><A NAME="ref41"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="BookMView.html">BookMView</A>*  <strong>Bvie</strong>
+</td><td align="right"><h3><strong>Bvie</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Spool"></A><A NAME="ref42"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QFile  <strong>Spool</strong>
+</td><td align="right"><h3><strong>Spool</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Dokument"></A><A NAME="ref43"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Dokument</strong>
+</td><td align="right"><h3><strong>Dokument</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFlib__Dest.html"></A><A NAME="ref44"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>Dest</strong> <small>(struct)</small></td><td align="right"><h3><strong>Dest</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFlib__Cata.html"></A><A NAME="ref45"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>Cata</strong> <small>(struct)</small></td><td align="right"><h3><strong>Cata</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFlib__PagT.html"></A><A NAME="ref46"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>PagT</strong> <small>(struct)</small></td><td align="right"><h3><strong>PagT</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFlib__PagL.html"></A><A NAME="ref47"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>PagL</strong> <small>(struct)</small></td><td align="right"><h3><strong>PagL</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFlib__OutL.html"></A><A NAME="ref48"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>OutL</strong> <small>(struct)</small></td><td align="right"><h3><strong>OutL</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFlib__Bead.html"></A><A NAME="ref49"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>Bead</strong> <small>(struct)</small></td><td align="right"><h3><strong>Bead</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFlib__ICCD.html"></A><A NAME="ref50"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>ICCD</strong> <small>(struct)</small></td><td align="right"><h3><strong>ICCD</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="XRef"></A><A NAME="ref51"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QValueList<uint>  <strong>XRef</strong>
+</td><td align="right"><h3><strong>XRef</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="NamedDest"></A><A NAME="ref52"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QValueList<Dest>  <strong>NamedDest</strong>
+</td><td align="right"><h3><strong>NamedDest</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Threads"></A><A NAME="ref53"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QValueList<int>  <strong>Threads</strong>
+</td><td align="right"><h3><strong>Threads</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Beads"></A><A NAME="ref54"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QValueList<Bead>  <strong>Beads</strong>
+</td><td align="right"><h3><strong>Beads</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="CalcFields"></A><A NAME="ref55"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QValueList<int>  <strong>CalcFields</strong>
+</td><td align="right"><h3><strong>CalcFields</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Shadings"></A><A NAME="ref56"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString,int>  <strong>Shadings</strong>
+</td><td align="right"><h3><strong>Shadings</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Transpar"></A><A NAME="ref57"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString,int>  <strong>Transpar</strong>
+</td><td align="right"><h3><strong>Transpar</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ICCProfiles"></A><A NAME="ref58"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString,ICCD>  <strong>ICCProfiles</strong>
+</td><td align="right"><h3><strong>ICCProfiles</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ObjCounter"></A><A NAME="ref59"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>ObjCounter</strong>
+</td><td align="right"><h3><strong>ObjCounter</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ResNam"></A><A NAME="ref60"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>ResNam</strong>
+</td><td align="right"><h3><strong>ResNam</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ResCount"></A><A NAME="ref61"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>ResCount</strong>
+</td><td align="right"><h3><strong>ResCount</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="NDnam"></A><A NAME="ref62"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>NDnam</strong>
+</td><td align="right"><h3><strong>NDnam</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Datum"></A><A NAME="ref63"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Datum</strong>
+</td><td align="right"><h3><strong>Datum</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="NDnum"></A><A NAME="ref64"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>NDnum</strong>
+</td><td align="right"><h3><strong>NDnum</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="UsedFontsP"></A><A NAME="ref65"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString, QString>  <strong>UsedFontsP</strong>
+</td><td align="right"><h3><strong>UsedFontsP</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="RealFonts"></A><A NAME="ref66"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString, QFont>  <strong>RealFonts</strong>
+</td><td align="right"><h3><strong>RealFonts</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="CompAvail"></A><A NAME="ref67"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>CompAvail</strong>
+</td><td align="right"><h3><strong>CompAvail</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="KeyGen"></A><A NAME="ref68"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QByteArray  <strong>KeyGen</strong>
+</td><td align="right"><h3><strong>KeyGen</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="OwnerKey"></A><A NAME="ref69"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QByteArray  <strong>OwnerKey</strong>
+</td><td align="right"><h3><strong>OwnerKey</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="UserKey"></A><A NAME="ref70"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QByteArray  <strong>UserKey</strong>
+</td><td align="right"><h3><strong>UserKey</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="FileID"></A><A NAME="ref71"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QByteArray  <strong>FileID</strong>
+</td><td align="right"><h3><strong>FileID</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="EncryKey"></A><A NAME="ref72"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QByteArray  <strong>EncryKey</strong>
+</td><td align="right"><h3><strong>EncryKey</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Encrypt"></A><A NAME="ref73"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Encrypt</strong>
+</td><td align="right"><h3><strong>Encrypt</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="KeyLen"></A><A NAME="ref74"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>KeyLen</strong>
 </td><td align="right"><h3><strong>KeyLen</strong></h3></td></tr></table><p> <small>[private]</small></p><HR><UL><LI><i>Author</i>: Franz Schmid
-  </LI><LI><i>Generated</i>: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</LI></UL></BODY></HTML>
+  </LI><LI><i>Generated</i>: paul on ahnews.music.salford.ac.uk on Tue Oct 21 16:33:32 2003, using kdoc 2.0a54.</LI></UL></BODY></HTML>

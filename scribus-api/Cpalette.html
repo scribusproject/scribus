@@ -32,53 +32,55 @@
 </LI>
 <LI>&nbsp;<b><A HREF="#ref2">~Cpalette</A></b> () 
 </LI>
-</ul><h4>Public Slots</h4><ul><LI>void &nbsp;<b><A HREF="#ref26">InhaltButton</A></b> () 
+</ul><h4>Public Slots</h4><ul><LI>void &nbsp;<b><A HREF="#ref27">InhaltButton</A></b> () 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref27">InnenButton</A></b> () 
+<LI>void &nbsp;<b><A HREF="#ref28">InnenButton</A></b> () 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref28">SetColors</A></b> (<A HREF="#CListe">CListe</A> farben) 
+<LI>void &nbsp;<b><A HREF="#ref29">SetColors</A></b> (<A HREF="#CListe">CListe</A> farben) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref29">updateCList</A></b> () 
+<LI>void &nbsp;<b><A HREF="#ref30">updateCList</A></b> () 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref30">updateShade</A></b> (int sh) 
+<LI>void &nbsp;<b><A HREF="#ref31">updateShade</A></b> (int sh) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref31">updateBoxS</A></b> (QString Farbe) 
+<LI>void &nbsp;<b><A HREF="#ref32">updateBoxS</A></b> (QString Farbe) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref32">selFarbe</A></b> (QListBoxItem *c) 
+<LI>void &nbsp;<b><A HREF="#ref33">selFarbe</A></b> (QListBoxItem *c) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref33">slotGrad</A></b> (int nr) 
+<LI>void &nbsp;<b><A HREF="#ref34">slotGrad</A></b> (int nr) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref34">slotColor</A></b> () 
+<LI>void &nbsp;<b><A HREF="#ref35">slotColor</A></b> () 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref35">ChooseGrad</A></b> (int nr) 
+<LI>void &nbsp;<b><A HREF="#ref36">ChooseGrad</A></b> (int nr) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref36">setActFarben</A></b> (QString p, QString b, int shp, int shb) 
+<LI>void &nbsp;<b><A HREF="#ref37">setActFarben</A></b> (QString p, QString b, int shp, int shb) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref37">setActGradient</A></b> (QString p, QString b, int shp, int shb, int typ) 
+<LI>void &nbsp;<b><A HREF="#ref38">setActGradient</A></b> (QString p, QString b, int shp, int shb, int typ) 
 </LI>
-<LI>int &nbsp;<b><A HREF="#ref38">SetMen</A></b> (int c) 
+<LI>int &nbsp;<b><A HREF="#ref39">SetMen</A></b> (int c) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref39">setActShade</A></b> (int) 
+<LI>void &nbsp;<b><A HREF="#ref40">setActShade</A></b> (int) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref40">setActTrans</A></b> (float) 
+<LI>void &nbsp;<b><A HREF="#ref41">setActTrans</A></b> (double, double) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref41">slotTrans</A></b> (int val) 
+<LI>void &nbsp;<b><A HREF="#ref42">slotTrans</A></b> (int val) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref42">UseTrans</A></b> (bool b) 
+<LI>void &nbsp;<b><A HREF="#ref43">UseTrans</A></b> (bool b) 
 </LI>
-</ul><h4>Signals</h4><ul><LI>void &nbsp;<b><A HREF="#ref43">NewPen</A></b> (QString) 
+</ul><h4>Signals</h4><ul><LI>void &nbsp;<b><A HREF="#ref44">NewPen</A></b> (QString) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref44">NewBrush</A></b> (QString) 
+<LI>void &nbsp;<b><A HREF="#ref45">NewBrush</A></b> (QString) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref45">NewPenShade</A></b> (int) 
+<LI>void &nbsp;<b><A HREF="#ref46">NewPenShade</A></b> (int) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref46">NewBrushShade</A></b> (int) 
+<LI>void &nbsp;<b><A HREF="#ref47">NewBrushShade</A></b> (int) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref47">NewGradient</A></b> (int, QString, int, QString, int) 
+<LI>void &nbsp;<b><A HREF="#ref48">NewGradient</A></b> (int, QString, int, QString, int) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref48">NewTrans</A></b> (float) 
+<LI>void &nbsp;<b><A HREF="#ref49">NewTrans</A></b> (double) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref49">QueryItem</A></b> () 
+<LI>void &nbsp;<b><A HREF="#ref50">NewTransS</A></b> (double) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref51">QueryItem</A></b> () 
 </LI>
 </ul><h4>Public Members</h4><ul><LI>QListBox *<b><A HREF="#ref3">ListBox1</A></b></LI>
 <LI>QToolButton *<b><A HREF="#ref4">Inhalt</A></b></LI>
@@ -103,19 +105,20 @@
 <LI>QString <b><A HREF="#ref23">Color3</A></b></LI>
 <LI>int <b><A HREF="#ref24">Shade3</A></b></LI>
 <LI>bool <b><A HREF="#ref25">UseTransFeature</A></b></LI>
-</ul><h4>Protected Members</h4><ul><LI>QVBoxLayout* <b><A HREF="#ref50">Form1Layout</A></b></LI>
-<LI>QHBoxLayout* <b><A HREF="#ref51">Layout1</A></b></LI>
-<LI>QVBoxLayout* <b><A HREF="#ref52">GradLayout</A></b></LI>
-<LI>QHBoxLayout* <b><A HREF="#ref53">GradGroupLayout</A></b></LI>
-<LI>QHBoxLayout* <b><A HREF="#ref54">TransGroupLayout</A></b></LI>
+<LI>bool <b><A HREF="#ref26">GradientMode</A></b></LI>
+</ul><h4>Protected Members</h4><ul><LI>QVBoxLayout* <b><A HREF="#ref52">Form1Layout</A></b></LI>
+<LI>QHBoxLayout* <b><A HREF="#ref53">Layout1</A></b></LI>
+<LI>QVBoxLayout* <b><A HREF="#ref54">GradLayout</A></b></LI>
+<LI>QHBoxLayout* <b><A HREF="#ref55">GradGroupLayout</A></b></LI>
+<LI>QHBoxLayout* <b><A HREF="#ref56">TransGroupLayout</A></b></LI>
 </ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><p>
 </p>
 <A NAME="Cpalette"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>Cpalette</strong> (QWidget* parent)
 <br></td><td align="right"><h3><strong>Cpalette</strong></h3></td></tr></table><p></p><A NAME="~Cpalette"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>~Cpalette</strong> ()
 <br></td><td align="right"><h3><strong>~Cpalette</strong></h3></td></tr></table><p></p><A NAME="ListBox1"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QListBox * <strong>ListBox1</strong>
-</td><td align="right"><h3><strong>ListBox1</strong></h3></td></tr></table><p></p><A NAME="Inhalt"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A> * <strong>Inhalt</strong>
-</td><td align="right"><h3><strong>Inhalt</strong></h3></td></tr></table><p></p><A NAME="Innen"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A> * <strong>Innen</strong>
-</td><td align="right"><h3><strong>Innen</strong></h3></td></tr></table><p></p><A NAME="PM1"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A> * <strong>PM1</strong>
+</td><td align="right"><h3><strong>ListBox1</strong></h3></td></tr></table><p></p><A NAME="Inhalt"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QToolButton * <strong>Inhalt</strong>
+</td><td align="right"><h3><strong>Inhalt</strong></h3></td></tr></table><p></p><A NAME="Innen"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QToolButton * <strong>Innen</strong>
+</td><td align="right"><h3><strong>Innen</strong></h3></td></tr></table><p></p><A NAME="PM1"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QToolButton * <strong>PM1</strong>
 </td><td align="right"><h3><strong>PM1</strong></h3></td></tr></table><p></p><A NAME="ShaMenu"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>ShaMenu</strong>
 </td><td align="right"><h3><strong>ShaMenu</strong></h3></td></tr></table><p></p><A NAME="GradCombo"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QComboBox*  <strong>GradCombo</strong>
 </td><td align="right"><h3><strong>GradCombo</strong></h3></td></tr></table><p></p><A NAME="GradGroup"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QButtonGroup*  <strong>GradGroup</strong>
@@ -135,34 +138,36 @@
 </td><td align="right"><h3><strong>Shade2</strong></h3></td></tr></table><p></p><A NAME="Color3"></A><A NAME="ref23"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Color3</strong>
 </td><td align="right"><h3><strong>Color3</strong></h3></td></tr></table><p></p><A NAME="Shade3"></A><A NAME="ref24"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Shade3</strong>
 </td><td align="right"><h3><strong>Shade3</strong></h3></td></tr></table><p></p><A NAME="UseTransFeature"></A><A NAME="ref25"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>UseTransFeature</strong>
-</td><td align="right"><h3><strong>UseTransFeature</strong></h3></td></tr></table><p></p><A NAME="InhaltButton"></A><A NAME="ref26"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>InhaltButton</strong> ()
-<br></td><td align="right"><h3><strong>InhaltButton</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="InnenButton"></A><A NAME="ref27"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>InnenButton</strong> ()
-<br></td><td align="right"><h3><strong>InnenButton</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="SetColors"></A><A NAME="ref28"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetColors</strong> (<A HREF="#CListe">CListe</A> farben)
-<br></td><td align="right"><h3><strong>SetColors</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="updateCList"></A><A NAME="ref29"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>updateCList</strong> ()
-<br></td><td align="right"><h3><strong>updateCList</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="updateShade"></A><A NAME="ref30"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>updateShade</strong> (int sh)
-<br></td><td align="right"><h3><strong>updateShade</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="updateBoxS"></A><A NAME="ref31"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>updateBoxS</strong> (QString Farbe)
-<br></td><td align="right"><h3><strong>updateBoxS</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="selFarbe"></A><A NAME="ref32"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>selFarbe</strong> (QListBoxItem *c)
-<br></td><td align="right"><h3><strong>selFarbe</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotGrad"></A><A NAME="ref33"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotGrad</strong> (int nr)
-<br></td><td align="right"><h3><strong>slotGrad</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotColor"></A><A NAME="ref34"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotColor</strong> ()
-<br></td><td align="right"><h3><strong>slotColor</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ChooseGrad"></A><A NAME="ref35"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ChooseGrad</strong> (int nr)
-<br></td><td align="right"><h3><strong>ChooseGrad</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setActFarben"></A><A NAME="ref36"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setActFarben</strong> (QString p, QString b, int shp, int shb)
-<br></td><td align="right"><h3><strong>setActFarben</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setActGradient"></A><A NAME="ref37"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setActGradient</strong> (QString p, QString b, int shp, int shb, int typ)
-<br></td><td align="right"><h3><strong>setActGradient</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="SetMen"></A><A NAME="ref38"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int &nbsp;<strong>SetMen</strong> (int c)
-<br></td><td align="right"><h3><strong>SetMen</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setActShade"></A><A NAME="ref39"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setActShade</strong> (int)
-<br></td><td align="right"><h3><strong>setActShade</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setActTrans"></A><A NAME="ref40"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setActTrans</strong> (float)
-<br></td><td align="right"><h3><strong>setActTrans</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotTrans"></A><A NAME="ref41"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotTrans</strong> (int val)
-<br></td><td align="right"><h3><strong>slotTrans</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="UseTrans"></A><A NAME="ref42"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>UseTrans</strong> (bool b)
-<br></td><td align="right"><h3><strong>UseTrans</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="NewPen"></A><A NAME="ref43"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewPen</strong> (QString)
-<br></td><td align="right"><h3><strong>NewPen</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="NewBrush"></A><A NAME="ref44"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewBrush</strong> (QString)
-<br></td><td align="right"><h3><strong>NewBrush</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="NewPenShade"></A><A NAME="ref45"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewPenShade</strong> (int)
-<br></td><td align="right"><h3><strong>NewPenShade</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="NewBrushShade"></A><A NAME="ref46"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewBrushShade</strong> (int)
-<br></td><td align="right"><h3><strong>NewBrushShade</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="NewGradient"></A><A NAME="ref47"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewGradient</strong> (int, QString, int, QString, int)
-<br></td><td align="right"><h3><strong>NewGradient</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="NewTrans"></A><A NAME="ref48"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewTrans</strong> (float)
-<br></td><td align="right"><h3><strong>NewTrans</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="QueryItem"></A><A NAME="ref49"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>QueryItem</strong> ()
-<br></td><td align="right"><h3><strong>QueryItem</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="Form1Layout"></A><A NAME="ref50"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>Form1Layout</strong>
-</td><td align="right"><h3><strong>Form1Layout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Layout1"></A><A NAME="ref51"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>Layout1</strong>
-</td><td align="right"><h3><strong>Layout1</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="GradLayout"></A><A NAME="ref52"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>GradLayout</strong>
-</td><td align="right"><h3><strong>GradLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="GradGroupLayout"></A><A NAME="ref53"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>GradGroupLayout</strong>
-</td><td align="right"><h3><strong>GradGroupLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="TransGroupLayout"></A><A NAME="ref54"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>TransGroupLayout</strong>
+</td><td align="right"><h3><strong>UseTransFeature</strong></h3></td></tr></table><p></p><A NAME="GradientMode"></A><A NAME="ref26"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>GradientMode</strong>
+</td><td align="right"><h3><strong>GradientMode</strong></h3></td></tr></table><p></p><A NAME="InhaltButton"></A><A NAME="ref27"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>InhaltButton</strong> ()
+<br></td><td align="right"><h3><strong>InhaltButton</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="InnenButton"></A><A NAME="ref28"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>InnenButton</strong> ()
+<br></td><td align="right"><h3><strong>InnenButton</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="SetColors"></A><A NAME="ref29"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetColors</strong> (<A HREF="#CListe">CListe</A> farben)
+<br></td><td align="right"><h3><strong>SetColors</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="updateCList"></A><A NAME="ref30"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>updateCList</strong> ()
+<br></td><td align="right"><h3><strong>updateCList</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="updateShade"></A><A NAME="ref31"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>updateShade</strong> (int sh)
+<br></td><td align="right"><h3><strong>updateShade</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="updateBoxS"></A><A NAME="ref32"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>updateBoxS</strong> (QString Farbe)
+<br></td><td align="right"><h3><strong>updateBoxS</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="selFarbe"></A><A NAME="ref33"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>selFarbe</strong> (QListBoxItem *c)
+<br></td><td align="right"><h3><strong>selFarbe</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotGrad"></A><A NAME="ref34"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotGrad</strong> (int nr)
+<br></td><td align="right"><h3><strong>slotGrad</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotColor"></A><A NAME="ref35"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotColor</strong> ()
+<br></td><td align="right"><h3><strong>slotColor</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ChooseGrad"></A><A NAME="ref36"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ChooseGrad</strong> (int nr)
+<br></td><td align="right"><h3><strong>ChooseGrad</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setActFarben"></A><A NAME="ref37"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setActFarben</strong> (QString p, QString b, int shp, int shb)
+<br></td><td align="right"><h3><strong>setActFarben</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setActGradient"></A><A NAME="ref38"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setActGradient</strong> (QString p, QString b, int shp, int shb, int typ)
+<br></td><td align="right"><h3><strong>setActGradient</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="SetMen"></A><A NAME="ref39"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int &nbsp;<strong>SetMen</strong> (int c)
+<br></td><td align="right"><h3><strong>SetMen</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setActShade"></A><A NAME="ref40"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setActShade</strong> (int)
+<br></td><td align="right"><h3><strong>setActShade</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setActTrans"></A><A NAME="ref41"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setActTrans</strong> (double, double)
+<br></td><td align="right"><h3><strong>setActTrans</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotTrans"></A><A NAME="ref42"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotTrans</strong> (int val)
+<br></td><td align="right"><h3><strong>slotTrans</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="UseTrans"></A><A NAME="ref43"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>UseTrans</strong> (bool b)
+<br></td><td align="right"><h3><strong>UseTrans</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="NewPen"></A><A NAME="ref44"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewPen</strong> (QString)
+<br></td><td align="right"><h3><strong>NewPen</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="NewBrush"></A><A NAME="ref45"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewBrush</strong> (QString)
+<br></td><td align="right"><h3><strong>NewBrush</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="NewPenShade"></A><A NAME="ref46"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewPenShade</strong> (int)
+<br></td><td align="right"><h3><strong>NewPenShade</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="NewBrushShade"></A><A NAME="ref47"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewBrushShade</strong> (int)
+<br></td><td align="right"><h3><strong>NewBrushShade</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="NewGradient"></A><A NAME="ref48"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewGradient</strong> (int, QString, int, QString, int)
+<br></td><td align="right"><h3><strong>NewGradient</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="NewTrans"></A><A NAME="ref49"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewTrans</strong> (double)
+<br></td><td align="right"><h3><strong>NewTrans</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="NewTransS"></A><A NAME="ref50"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewTransS</strong> (double)
+<br></td><td align="right"><h3><strong>NewTransS</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="QueryItem"></A><A NAME="ref51"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>QueryItem</strong> ()
+<br></td><td align="right"><h3><strong>QueryItem</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="Form1Layout"></A><A NAME="ref52"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>Form1Layout</strong>
+</td><td align="right"><h3><strong>Form1Layout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Layout1"></A><A NAME="ref53"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>Layout1</strong>
+</td><td align="right"><h3><strong>Layout1</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="GradLayout"></A><A NAME="ref54"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>GradLayout</strong>
+</td><td align="right"><h3><strong>GradLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="GradGroupLayout"></A><A NAME="ref55"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>GradGroupLayout</strong>
+</td><td align="right"><h3><strong>GradGroupLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="TransGroupLayout"></A><A NAME="ref56"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>TransGroupLayout</strong>
 </td><td align="right"><h3><strong>TransGroupLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><HR><UL><LI><i>Author</i>: Franz Schmid
-  </LI><LI><i>Generated</i>: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</LI></UL></BODY></HTML>
+  </LI><LI><i>Generated</i>: paul on ahnews.music.salford.ac.uk on Tue Oct 21 16:33:32 2003, using kdoc 2.0a54.</LI></UL></BODY></HTML>

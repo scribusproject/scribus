@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-28 23:53+0200\n"
+"POT-Creation-Date: 2004-10-17 08:57+0200\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -570,6 +570,26 @@ msgstr ""
 
 msgid "External Web-Link"
 msgstr ""
+
+#, fuzzy
+msgid "&Type:"
+msgstr "Tipas:"
+
+#, fuzzy
+msgid "C&hange..."
+msgstr "Pakeisti..."
+
+#, fuzzy
+msgid "&Page:"
+msgstr "Puslapis"
+
+#, fuzzy
+msgid "&X-Pos"
+msgstr "X vieta èia pat:"
+
+#, fuzzy
+msgid "&Y-Pos:"
+msgstr "Y vieta èia pat:"
 
 #, fuzzy
 msgid "PDF-Documents (*.pdf);;All Files (*)"
@@ -1308,10 +1328,6 @@ msgid "&File:"
 msgstr "Failas:"
 
 #, fuzzy
-msgid "C&hange..."
-msgstr "Pakeisti..."
-
-#, fuzzy
 msgid "A&lternative Printer Command"
 msgstr "Spausdinti naudojant kità komandà"
 
@@ -1641,10 +1657,6 @@ msgstr "Absoliutinis spalvos matavimas"
 #, fuzzy
 msgid "&X-Pos:"
 msgstr "X vieta èia pat:"
-
-#, fuzzy
-msgid "&Y-Pos:"
-msgstr "Y vieta èia pat:"
 
 #, fuzzy
 msgid "Edit &Contour Line"
@@ -2201,7 +2213,7 @@ msgstr ""
 msgid "&Smallest Word:"
 msgstr ""
 
-msgid "Consecutive Hypenations &Allowed:"
+msgid "Consecutive Hyphenations &Allowed:"
 msgstr ""
 
 msgid ""
@@ -2772,8 +2784,9 @@ msgstr ""
 msgid "Saturation of color of text fill"
 msgstr ""
 
-msgid "Reverse Writing"
-msgstr ""
+#, fuzzy
+msgid "Right to Left Writing"
+msgstr "Ið deðinës kairën"
 
 msgid "Manual Kerning"
 msgstr "Pasirinktinis kerningas"
@@ -3412,7 +3425,7 @@ msgid "&Resolution:"
 msgstr "Skiriamoji geba:"
 
 #, fuzzy
-msgid "Com&press Text and Vector Graphics"
+msgid "Compress Text and &Vector Graphics"
 msgstr "Suspausti tekstinius ir vektorinës grafikos failus"
 
 #, fuzzy
@@ -3484,7 +3497,7 @@ msgid "&Fonts"
 msgstr "&Ðriftas"
 
 #, fuzzy
-msgid "Enable &Presentation Effects"
+msgid "En&able Presentation Effects"
 msgstr "Galimi pristatymø efektai"
 
 msgid "Page"
@@ -3570,8 +3583,8 @@ msgid "&Apply Effect on all Pages"
 msgstr "Pritaikyti efektus visuose puslapiuose"
 
 #, fuzzy
-msgid "E&xtras"
-msgstr "Priedai"
+msgid "&Presentation"
+msgstr "Vieta"
 
 #, fuzzy
 msgid "&Use Encryption"
@@ -3695,6 +3708,13 @@ msgstr "Sàraðo laukelis"
 
 msgid "PDF/X-&3"
 msgstr ""
+
+msgid "Mirror Page(s) &Horizontally"
+msgstr ""
+
+#, fuzzy
+msgid "&Options"
+msgstr "Nuostatos"
 
 msgid "Export all pages to PDF"
 msgstr ""
@@ -4510,6 +4530,10 @@ msgid "&View"
 msgstr "Vaizdas"
 
 #, fuzzy
+msgid "E&xtras"
+msgstr "Priedai"
+
+#, fuzzy
 msgid "&Settings"
 msgstr "Pelës nuostatos"
 
@@ -5259,15 +5283,7 @@ msgstr "Viskà apraðë:"
 msgid "A&uthors"
 msgstr "Autoriai"
 
-#, fuzzy
-msgid "Basque:"
-msgstr "Ðiuo pagrindu:"
-
-#, fuzzy
-msgid "Brazilian:"
-msgstr "Ukrainos:"
-
-msgid "Bulgarian:"
+msgid "Official Translations and Translators:"
 msgstr ""
 
 #, fuzzy
@@ -5282,29 +5298,25 @@ msgstr "Rodom:"
 msgid "English (British):"
 msgstr "Pabaigos:"
 
+#, fuzzy
+msgid "Esperanto:"
+msgstr "Ávykis:"
+
 msgid "Finnish:"
 msgstr ""
 
 msgid "French:"
 msgstr "Prancûziðkai:"
 
-#, fuzzy
-msgid "Galician:"
-msgstr "Ukrainos:"
-
 msgid "German:"
 msgstr "Vokiðkai:"
-
-#, fuzzy
-msgid "Hungarian:"
-msgstr "Vengrø ir italø:"
 
 #, fuzzy
 msgid "Italian:"
 msgstr "Pasviras"
 
-msgid "Lithuanian:"
-msgstr "Lietuviø:"
+msgid "Korean:"
+msgstr ""
 
 msgid "Norwegian:"
 msgstr ""
@@ -5315,26 +5327,60 @@ msgstr ""
 msgid "Russian:"
 msgstr ""
 
+#, fuzzy
+msgid "Serbian:"
+msgstr "Slovakø:"
+
 msgid "Slovak:"
 msgstr "Slovakø:"
 
 #, fuzzy
-msgid "Slovenian:"
-msgstr "Slovakø:"
-
-msgid "Spanish and Catalan:"
-msgstr "Ispanø ir katalonës:"
+msgid "Spanish:"
+msgstr "Rodom:"
 
 msgid "Swedish:"
-msgstr ""
-
-msgid "Turkish:"
 msgstr ""
 
 msgid "Ukrainian:"
 msgstr "Ukrainos:"
 
 msgid "Welsh:"
+msgstr ""
+
+msgid "Previous Translation Contributors:"
+msgstr ""
+
+#, fuzzy
+msgid "Basque:"
+msgstr "Ðiuo pagrindu:"
+
+#, fuzzy
+msgid "Brazilian:"
+msgstr "Ukrainos:"
+
+msgid "Bulgarian:"
+msgstr ""
+
+#, fuzzy
+msgid "Catalan:"
+msgstr "Pasviras"
+
+#, fuzzy
+msgid "Galician:"
+msgstr "Ukrainos:"
+
+#, fuzzy
+msgid "Hungarian:"
+msgstr "Vengrø ir italø:"
+
+msgid "Lithuanian:"
+msgstr "Lietuviø:"
+
+#, fuzzy
+msgid "Slovenian:"
+msgstr "Slovakø:"
+
+msgid "Turkish:"
 msgstr ""
 
 #, fuzzy
@@ -6006,7 +6052,7 @@ msgstr ""
 
 msgid ""
 "Should importer add the name of the document\n"
-"on front of the paragraph style name in Scirubs"
+"on front of the paragraph style name in Scribus"
 msgstr ""
 
 msgid "Do not ask again"
@@ -6270,6 +6316,9 @@ msgstr "Paskutiniai dokumentai"
 #, fuzzy
 msgid "Folds"
 msgstr "Pusjuodis"
+
+msgid "Media Cases"
+msgstr ""
 
 #, fuzzy
 msgid "Own Templates"
@@ -6592,6 +6641,9 @@ msgstr "Dokumentai (*.sdc);; Visi failai (*)"
 #, fuzzy
 msgid "Import &SVG..."
 msgstr "Importuoti..."
+
+#~ msgid "Spanish and Catalan:"
+#~ msgstr "Ispanø ir katalonës:"
 
 #, fuzzy
 #~ msgid "&Fully Automatic"

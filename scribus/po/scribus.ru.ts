@@ -41,7 +41,7 @@
     </message>
     <message>
         <source>Spanish and Catalan:</source>
-        <translation>На испанский и каталонский:</translation>
+        <translation type="obsolete">На испанский и каталонский:</translation>
     </message>
     <message>
         <source>Italian:</source>
@@ -220,6 +220,34 @@ C=CUPS C=littlecms T=TIFF
     </message>
     <message>
         <source>Mailing List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Official Translations and Translators:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Korean:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serbian:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous Translation Contributors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalan:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1050,7 +1078,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Type:</source>
-        <translation>Тип:</translation>
+        <translation type="obsolete">Тип:</translation>
     </message>
     <message>
         <source>Text</source>
@@ -1074,15 +1102,15 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Изменить...</translation>
+        <translation type="obsolete">Изменить...</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Стр.:</translation>
+        <translation type="obsolete">Стр.:</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>X-Поз:</translation>
+        <translation type="obsolete">X-Поз:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -1090,15 +1118,15 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Y-Поз:</translation>
+        <translation type="obsolete">Y-Поз:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>ОК</translation>
+        <translation type="obsolete">ОК</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Отменить</translation>
+        <translation type="obsolete">Отменить</translation>
     </message>
     <message>
         <source>Open</source>
@@ -1107,6 +1135,26 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
         <translation>PDF-документы (*.pdf);;Все файлы (*)</translation>
+    </message>
+    <message>
+        <source>&amp;Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished">&amp;Y-Поз:</translation>
     </message>
 </context>
 <context>
@@ -3615,15 +3663,15 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Consecutive Hypenations &amp;Allowed:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consecutive Hyphenations &amp;Allowed:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4498,7 +4546,7 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Reverse Writing</source>
-        <translation>Зеркальное написание</translation>
+        <translation type="obsolete">Зеркальное написание</translation>
     </message>
     <message>
         <source>None</source>
@@ -5169,6 +5217,10 @@ Corners:</source>
     <message>
         <source>Type of Line:</source>
         <translation type="obsolete">Тип линии:</translation>
+    </message>
+    <message>
+        <source>Right to Left Writing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6215,7 +6267,7 @@ security features in your exported PDF</source>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>&amp;Дополнительно</translation>
+        <translation type="obsolete">&amp;Дополнительно</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
@@ -6467,7 +6519,7 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation>С&amp;жать текст и векторную графику</translation>
+        <translation type="obsolete">С&amp;жать текст и векторную графику</translation>
     </message>
     <message>
         <source>&amp;Method:</source>
@@ -6496,7 +6548,7 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation>Включить &amp;презентационные эффекты</translation>
+        <translation type="obsolete">Включить &amp;презентационные эффекты</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
@@ -6839,6 +6891,30 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
     <message>
         <source>Choose Pages</source>
         <translation type="obsolete">Выберите страницы</translation>
+    </message>
+    <message>
+        <source>Compress Text and &amp;Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En&amp;able Presentation Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Presentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) &amp;Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">&amp;Поворот:</translation>
+    </message>
+    <message>
+        <source>&amp;Options</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9769,6 +9845,10 @@ External Links
         <source>Text Filters</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Media Cases</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -12391,11 +12471,6 @@ or left untouched</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scirubs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Do not ask again</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12408,6 +12483,11 @@ never ask your confirmation again</source>
     <message>
         <source>OK</source>
         <translation type="unfinished">ОК</translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

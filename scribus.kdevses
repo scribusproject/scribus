@@ -1,263 +1,38 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <LastCompileConfig>(Default)</LastCompileConfig>
- <Mainframe MaximizeMode="0" />
- <DocsAndViews NumberOfDocuments="85" >
-  <Doc0 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/align.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc0>
-  <Doc1 CursorPosLine="1328" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="18" FileName="/home/paul/Scribus/scribus/annot.cpp" >
-   <View0 Top="0" Width="98" Attach="1" Height="28" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc1>
-  <Doc2 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/annota.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc2>
-  <Doc3 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/applytemplate.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc3>
-  <Doc4 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/bookmwin.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc4>
-  <Doc5 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/bookpalette.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc5>
-  <Doc6 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/buttonicon.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc6>
-  <Doc7 CursorPosLine="209" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="45" FileName="/home/paul/Scribus/scribus/cmsprefs.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc7>
-  <Doc8 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/cmykcolor.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc8>
-  <Doc9 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/cmykfw.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc9>
-  <Doc10 CursorPosLine="99" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="53" FileName="/home/paul/Scribus/scribus/colorchart.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc10>
-  <Doc11 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/colorm.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc11>
-  <Doc12 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/cpalette.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc12>
-  <Doc13 CursorPosLine="91" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="33" FileName="/home/paul/Scribus/scribus/cupsoptions.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc13>
-  <Doc14 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/customfdialog.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc14>
-  <Doc15 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/dcolor.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc15>
-  <Doc16 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/delpages.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc16>
-  <Doc17 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/docinfo.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc17>
-  <Doc18 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/druck.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc18>
-  <Doc19 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/edit1format.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc19>
-  <Doc20 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/editformats.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc20>
-  <Doc21 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/editor.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc21>
-  <Doc22 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/fmitem.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc22>
-  <Doc23 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/fontcombo.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc23>
-  <Doc24 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/fontprefs.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc24>
-  <Doc25 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/fpoint.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc25>
-  <Doc26 CursorPosLine="77" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="48" FileName="/home/paul/Scribus/scribus/fpointarray.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc26>
-  <Doc27 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/frameedit.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc27>
-  <Doc28 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/guidemanager.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc28>
-  <Doc29 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/helpbrowser.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc29>
-  <Doc30 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/hnjalloc.c" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc30>
-  <Doc31 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/hruler.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc31>
-  <Doc32 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/hyask.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc32>
-  <Doc33 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/hyphen.c" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc33>
-  <Doc34 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/hyphenator.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc34>
-  <Doc35 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/hysettings.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc35>
-  <Doc36 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/inspage.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc36>
-  <Doc37 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/javadocs.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc37>
-  <Doc38 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/keymanager.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc38>
-  <Doc39 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/kimageeffect.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc39>
-  <Doc40 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/layers.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc40>
-  <Doc41 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/linecombo.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc41>
-  <Doc42 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/lineformats.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc42>
-  <Doc43 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/linkbutton.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc43>
-  <Doc44 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/main.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc44>
-  <Doc45 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/mdup.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc45>
-  <Doc46 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/mergedoc.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc46>
-  <Doc47 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/missing.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc47>
-  <Doc48 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/modify.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc48>
-  <Doc49 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/movepage.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc49>
-  <Doc50 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/mpalette.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc50>
-  <Doc51 CursorPosLine="75" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="8" FileName="/home/paul/Scribus/scribus/mspinbox.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc51>
-  <Doc52 CursorPosLine="460" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="30" FileName="/home/paul/Scribus/scribus/multiline.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc52>
-  <Doc53 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/muster.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc53>
-  <Doc54 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/navigator.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc54>
-  <Doc55 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/newfile.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc55>
-  <Doc56 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/newtemp.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc56>
-  <Doc57 CursorPosLine="880" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="42" FileName="/home/paul/Scribus/scribus/page.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc57>
-  <Doc58 CursorPosLine="17" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="31" FileName="/home/paul/Scribus/scribus/pageback.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc58>
-  <Doc59 CursorPosLine="239" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="35" FileName="/home/paul/Scribus/scribus/pageitem.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc59>
-  <Doc60 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/pdfopts.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc60>
-  <Doc61 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/picsearch.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc61>
-  <Doc62 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/picstatus.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc62>
-  <Doc63 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/polyprops.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc63>
-  <Doc64 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/query.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc64>
-  <Doc65 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/reformdoc.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc65>
-  <Doc66 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/scfonts.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc66>
-  <Doc67 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/scfonts_encoding.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc67>
-  <Doc68 CursorPosLine="225" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="42" FileName="/home/paul/Scribus/scribus/scfonts_ttf.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc68>
-  <Doc69 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/scpreview.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc69>
-  <Doc70 CursorPosLine="51" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="35" FileName="/home/paul/Scribus/scribus/scrap.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc70>
-  <Doc71 CursorPosLine="5913" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="49" FileName="/home/paul/Scribus/scribus/scribus.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc71>
-  <Doc72 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/scribusdoc.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc72>
-  <Doc73 CursorPosLine="1796" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="84" FileName="/home/paul/Scribus/scribus/scribusview.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc73>
-  <Doc74 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/scribuswin.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc74>
-  <Doc75 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/scribusXml.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc75>
-  <Doc76 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/seiten.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc76>
-  <Doc77 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/selfield.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc77>
-  <Doc78 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/serializer.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc78>
-  <Doc79 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/spalette.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc79>
-  <Doc80 CursorPosLine="12" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="87" FileName="/home/paul/Scribus/scribus/splash.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc80>
-  <Doc81 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/tree.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc81>
-  <Doc82 CursorPosLine="1061" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="41" FileName="/home/paul/Scribus/scribus/util.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc82>
-  <Doc83 CursorPosLine="0" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="0" FileName="/home/paul/Scribus/scribus/vruler.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="0" Type="KWriteView" MinMaxMode="0" />
-  </Doc83>
-  <Doc84 CursorPosLine="30" Type="KWriteDoc" NumberOfViews="1" CursorPosCol="117" FileName="/home/paul/Scribus/scribus/werktoolb.cpp" >
-   <View0 Top="0" Width="755" Attach="1" Height="369" Left="0" Focus="1" Type="KWriteView" MinMaxMode="0" />
-  </Doc84>
- </DocsAndViews>
+ <DocsAndViews NumberOfDocuments="0" />
+ <pluginList>
+  <kdevvalgrind>
+   <executable path="" params="" />
+   <valgrind path="" params="" />
+  </kdevvalgrind>
+  <kdevdebugger>
+   <breakpointList/>
+  </kdevdebugger>
+  <kdevbookmarks>
+   <bookmarks>
+    <bookmark url="/home/franz/Entwicklung/CVS_Based/Scribus1-1/Scribus/scribus/page.cpp" >
+     <mark line="799" />
+    </bookmark>
+    <bookmark url="/home/franz/Entwicklung/CVS_Based/Scribus1-1/Scribus/scribus/mpalette.cpp" >
+     <mark line="0" />
+    </bookmark>
+    <bookmark url="/home/franz/Entwicklung/CVS_Based/Scribus1-1/Scribus/scribus/story.cpp" >
+     <mark line="1384" />
+    </bookmark>
+    <bookmark url="/home/franz/Entwicklung/CVS_Based/Scribus1-1/Scribus/scribus/scribusXml.cpp" >
+     <mark line="1042" />
+    </bookmark>
+    <bookmark url="/home/franz/Entwicklung/CVS_Based/Scribus1-1/Scribus/scribus/plugins/svgimplugin/svgplugin.h" >
+     <mark line="62" />
+    </bookmark>
+    <bookmark url="/home/franz/Entwicklung/CVS_Based/Scribus1-1/Scribus/scribus/story.h" >
+     <mark line="256" />
+     <mark line="296" />
+     <mark line="352" />
+    </bookmark>
+   </bookmarks>
+  </kdevbookmarks>
+ </pluginList>
 </KDevPrjSession>

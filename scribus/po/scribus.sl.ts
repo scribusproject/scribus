@@ -89,7 +89,7 @@
     </message>
     <message>
         <source>Spanish and Catalan:</source>
-        <translation>Španščina in Katalonščina</translation>
+        <translation type="obsolete">Španščina in Katalonščina</translation>
     </message>
     <message>
         <source>Slovak:</source>
@@ -219,6 +219,34 @@ Manjkajoča knjižnica je označena z zvezdico ( * )</translation>
     </message>
     <message>
         <source>Mailing List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Official Translations and Translators:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Korean:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serbian:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous Translation Contributors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalan:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1044,7 +1072,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <name>Annota</name>
     <message>
         <source>OK</source>
-        <translation>V redu</translation>
+        <translation type="obsolete">V redu</translation>
     </message>
     <message>
         <source> pt</source>
@@ -1068,11 +1096,11 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Stran:</translation>
+        <translation type="obsolete">Stran:</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation>Vrsta:</translation>
+        <translation type="obsolete">Vrsta:</translation>
     </message>
     <message>
         <source>External Web-Link</source>
@@ -1080,15 +1108,15 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Prekliči</translation>
+        <translation type="obsolete">Prekliči</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>X:</translation>
+        <translation type="obsolete">X:</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Y:</translation>
+        <translation type="obsolete">Y:</translation>
     </message>
     <message>
         <source>Annotation Properties</source>
@@ -1096,7 +1124,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Spremeni...</translation>
+        <translation type="obsolete">Spremeni...</translation>
     </message>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
@@ -1105,6 +1133,26 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <message>
         <source>External Link</source>
         <translation>Povezava navzven</translation>
+    </message>
+    <message>
+        <source>&amp;Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished">&amp;Spremeni...</translation>
+    </message>
+    <message>
+        <source>&amp;Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished">&amp;Y:</translation>
     </message>
 </context>
 <context>
@@ -3628,15 +3676,15 @@ vsakič, ko bom našel možnost za deljenje besede.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Consecutive Hypenations &amp;Allowed:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consecutive Hyphenations &amp;Allowed:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4546,7 +4594,7 @@ koti:</translation>
     </message>
     <message>
         <source>Reverse Writing</source>
-        <translation>Obratno pisanje</translation>
+        <translation type="obsolete">Obratno pisanje</translation>
     </message>
     <message>
         <source>Flat Cap</source>
@@ -5187,6 +5235,10 @@ robovi:</translation>
     <message>
         <source>Hyphenation language of frame</source>
         <translation>Jezik za deljenje besed v tem okvirju</translation>
+    </message>
+    <message>
+        <source>Right to Left Writing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6342,7 +6394,7 @@ Izberite Tiskalnik, za tiskanje s CMYK tiskalniki.</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>Dodatki</translation>
+        <translation type="obsolete">Dodatki</translation>
     </message>
     <message>
         <source>Change...</source>
@@ -6681,7 +6733,7 @@ If un-checked, editing annotations and fileds is prevented.</source>
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation>&amp;Stiskaj besedila in vektorske risbe</translation>
+        <translation type="obsolete">&amp;Stiskaj besedila in vektorske risbe</translation>
     </message>
     <message>
         <source>&amp;Method:</source>
@@ -6709,7 +6761,7 @@ If un-checked, editing annotations and fileds is prevented.</source>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation>Vključi &amp;prezentacijske učinke </translation>
+        <translation type="obsolete">Vključi &amp;prezentacijske učinke </translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
@@ -6862,6 +6914,30 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
         <translation>To je napredna nastavitev, ki ni privzeta. Vključite jo le, če jo potrebujete zaradi tiskalnika ali
 navodil iz tiskarne. Sicer se vaš PDF morda ne bo pravilno natisnil in ne prav prikazal na drugih
 sistemih.</translation>
+    </message>
+    <message>
+        <source>Compress Text and &amp;Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En&amp;able Presentation Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Presentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) &amp;Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">&amp;Vrtenje:</translation>
+    </message>
+    <message>
+        <source>&amp;Options</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9836,6 +9912,10 @@ External Links
         <source>Text Filters</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Media Cases</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -12493,11 +12573,6 @@ or left untouched</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scirubs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Do not ask again</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12510,6 +12585,11 @@ never ask your confirmation again</source>
     <message>
         <source>OK</source>
         <translation type="unfinished">V redu</translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

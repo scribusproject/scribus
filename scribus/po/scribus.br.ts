@@ -72,7 +72,7 @@
     </message>
     <message>
         <source>Spanish and Catalan:</source>
-        <translation>Espanhol e Catalão:</translation>
+        <translation type="obsolete">Espanhol e Catalão:</translation>
     </message>
     <message>
         <source>Slovak:</source>
@@ -224,6 +224,34 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Mailing List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Official Translations and Translators:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Korean:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serbian:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous Translation Contributors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalan:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1086,7 +1114,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     <name>Annota</name>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source> pt</source>
@@ -1110,23 +1138,23 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Página:</translation>
+        <translation type="obsolete">Página:</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation>Fonte</translation>
+        <translation type="obsolete">Fonte</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancelar</translation>
+        <translation type="obsolete">Cancelar</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>X-Pos:</translation>
+        <translation type="obsolete">X-Pos:</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Y-Pos:</translation>
+        <translation type="obsolete">Y-Pos:</translation>
     </message>
     <message>
         <source>Annotation Properties</source>
@@ -1134,7 +1162,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Mudar...</translation>
+        <translation type="obsolete">Mudar...</translation>
     </message>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
@@ -1147,6 +1175,26 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     <message>
         <source>External Web-Link</source>
         <translation>Web-Link Externo</translation>
+    </message>
+    <message>
+        <source>&amp;Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3607,15 +3655,15 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Consecutive Hypenations &amp;Allowed:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consecutive Hyphenations &amp;Allowed:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4486,7 +4534,7 @@ Corners:</source>
     </message>
     <message>
         <source>Reverse Writing</source>
-        <translation>Reverter Escrita</translation>
+        <translation type="obsolete">Reverter Escrita</translation>
     </message>
     <message>
         <source>Keep Aspect Ratio</source>
@@ -5313,6 +5361,10 @@ Corners:</source>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right to Left Writing</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6790,10 +6842,6 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Com&amp;press Text and Vector Graphics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Method:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6823,10 +6871,6 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>&amp;Fonts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable &amp;Presentation Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6863,7 +6907,7 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation type="unfinished">E&amp;xtras</translation>
+        <translation type="obsolete">E&amp;xtras</translation>
     </message>
     <message>
         <source>&amp;Use Encryption</source>
@@ -7124,6 +7168,30 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled
 when specifically requested by your printer and they have given you the exact details needed.
 Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compress Text and &amp;Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En&amp;able Presentation Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Presentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) &amp;Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Options</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10016,6 +10084,10 @@ External Links
         <source>Text Filters</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Media Cases</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -12769,11 +12841,6 @@ or left untouched</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scirubs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Do not ask again</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12786,6 +12853,11 @@ never ask your confirmation again</source>
     <message>
         <source>OK</source>
         <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -123,6 +123,12 @@ install=false
 install_location=
 type=HEADER
 
+[scribus/alignselect.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
 [scribus/annot.cpp]
 dist=true
 install=false

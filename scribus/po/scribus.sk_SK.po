@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-28 23:53+0200\n"
+"POT-Creation-Date: 2004-10-17 08:57+0200\n"
 "PO-Revision-Date: 23.08.2004 19:41\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -547,6 +547,24 @@ msgstr "Externý odkaz"
 
 msgid "External Web-Link"
 msgstr "Externý odkaz na web"
+
+#, fuzzy
+msgid "&Type:"
+msgstr "Typ:"
+
+msgid "C&hange..."
+msgstr "&Zmeniť..."
+
+#, fuzzy
+msgid "&Page:"
+msgstr "&Strana"
+
+#, fuzzy
+msgid "&X-Pos"
+msgstr "&X-Poz:"
+
+msgid "&Y-Pos:"
+msgstr "&Y-Poz:"
 
 msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr "PDF-Dokumenty (*.pdf);; Všetky súbory (*)"
@@ -1276,9 +1294,6 @@ msgstr "M&ožnosti..."
 msgid "&File:"
 msgstr "&Súbor:"
 
-msgid "C&hange..."
-msgstr "&Zmeniť..."
-
 msgid "A&lternative Printer Command"
 msgstr "A&lternatívny príkaz tlače"
 
@@ -1557,9 +1572,6 @@ msgstr "&Absolútne súradnice"
 
 msgid "&X-Pos:"
 msgstr "&X-Poz:"
-
-msgid "&Y-Pos:"
-msgstr "&Y-Poz:"
 
 msgid "Edit &Contour Line"
 msgstr "Upraviť vrstevni&cu"
@@ -2065,7 +2077,7 @@ msgid "&Smallest Word:"
 msgstr "&Najmenšie slovo:"
 
 #, fuzzy
-msgid "Consecutive Hypenations &Allowed:"
+msgid "Consecutive Hyphenations &Allowed:"
 msgstr "&Počet povolených delení slov:"
 
 msgid ""
@@ -2557,8 +2569,9 @@ msgstr "Sýtosť farby obrysu písma"
 msgid "Saturation of color of text fill"
 msgstr "Sýtosť farby výplne textu"
 
-msgid "Reverse Writing"
-msgstr "Písať sprava doľava"
+#, fuzzy
+msgid "Right to Left Writing"
+msgstr "Sprava doľava"
 
 msgid "Manual Kerning"
 msgstr "Ručné párovanie znakov (Kerning)"
@@ -3116,7 +3129,8 @@ msgstr " dpi"
 msgid "&Resolution:"
 msgstr "&Rozlíšenie:"
 
-msgid "Com&press Text and Vector Graphics"
+#, fuzzy
+msgid "Compress Text and &Vector Graphics"
 msgstr "Kom&primovať text a vektorovú grafiku"
 
 msgid "Image Settings"
@@ -3176,7 +3190,8 @@ msgstr "Písma na vloženie:"
 msgid "&Fonts"
 msgstr "&Písma"
 
-msgid "Enable &Presentation Effects"
+#, fuzzy
+msgid "En&able Presentation Effects"
 msgstr "&Povoliť prezentačné efekty"
 
 msgid "Page"
@@ -3251,8 +3266,9 @@ msgstr "Zľava hore doprava dole"
 msgid "&Apply Effect on all Pages"
 msgstr "Použiť efekt n&a všetky strany"
 
-msgid "E&xtras"
-msgstr "E&xtra"
+#, fuzzy
+msgid "&Presentation"
+msgstr "PDF prezentácie"
 
 msgid "&Use Encryption"
 msgstr "Po&užiť šifrovanie"
@@ -3355,6 +3371,14 @@ msgstr "Orezanie"
 
 msgid "PDF/X-&3"
 msgstr "PDF/X-&3"
+
+#, fuzzy
+msgid "Mirror Page(s) &Horizontally"
+msgstr "&Horizontálne zrkadlenie strán"
+
+#, fuzzy
+msgid "&Options"
+msgstr "Možnosti"
 
 msgid "Export all pages to PDF"
 msgstr "Exportovať všetky strany do PDF"
@@ -4138,6 +4162,9 @@ msgstr "&Strana"
 msgid "&View"
 msgstr "&Zobraziť"
 
+msgid "E&xtras"
+msgstr "E&xtra"
+
 msgid "&Settings"
 msgstr "Nas&tavenia"
 
@@ -4777,14 +4804,8 @@ msgstr "Dokumentácia:"
 msgid "A&uthors"
 msgstr "A&utori"
 
-msgid "Basque:"
-msgstr "Baskitský:"
-
-msgid "Brazilian:"
-msgstr "Brazílsky:"
-
-msgid "Bulgarian:"
-msgstr "Bulharský:"
+msgid "Official Translations and Translators:"
+msgstr ""
 
 msgid "Czech:"
 msgstr "Český:"
@@ -4796,26 +4817,25 @@ msgstr "Dánsky:"
 msgid "English (British):"
 msgstr "Anglický"
 
+#, fuzzy
+msgid "Esperanto:"
+msgstr "Udalosť:"
+
 msgid "Finnish:"
 msgstr "Fínsky:"
 
 msgid "French:"
 msgstr "Francúzsky:"
 
-msgid "Galician:"
-msgstr "Galícky:"
-
 msgid "German:"
 msgstr "Nemecký:"
-
-msgid "Hungarian:"
-msgstr "Maďarský:"
 
 msgid "Italian:"
 msgstr "Taliansky:"
 
-msgid "Lithuanian:"
-msgstr "Litovský:"
+#, fuzzy
+msgid "Korean:"
+msgstr "Nórsky:"
 
 msgid "Norwegian:"
 msgstr "Nórsky:"
@@ -4826,27 +4846,57 @@ msgstr "Poľský:"
 msgid "Russian:"
 msgstr "Ruský:"
 
+#, fuzzy
+msgid "Serbian:"
+msgstr "Slovinský:"
+
 msgid "Slovak:"
 msgstr "Slovenský"
 
-msgid "Slovenian:"
-msgstr "Slovinský:"
-
-msgid "Spanish and Catalan:"
-msgstr "Španielsky a Katalánsky:"
+#, fuzzy
+msgid "Spanish:"
+msgstr "Španielsky"
 
 #, fuzzy
 msgid "Swedish:"
 msgstr "Švédsky"
-
-msgid "Turkish:"
-msgstr "Turecký:"
 
 msgid "Ukrainian:"
 msgstr "Ukrajinský:"
 
 msgid "Welsh:"
 msgstr "Welský:"
+
+msgid "Previous Translation Contributors:"
+msgstr ""
+
+msgid "Basque:"
+msgstr "Baskitský:"
+
+msgid "Brazilian:"
+msgstr "Brazílsky:"
+
+msgid "Bulgarian:"
+msgstr "Bulharský:"
+
+#, fuzzy
+msgid "Catalan:"
+msgstr "Katalánsky"
+
+msgid "Galician:"
+msgstr "Galícky:"
+
+msgid "Hungarian:"
+msgstr "Maďarský:"
+
+msgid "Lithuanian:"
+msgstr "Litovský:"
+
+msgid "Slovenian:"
+msgstr "Slovinský:"
+
+msgid "Turkish:"
+msgstr "Turecký:"
 
 msgid "&Translations"
 msgstr "Pre&klady"
@@ -5459,7 +5509,7 @@ msgstr "Názov štýlu odstavca"
 
 msgid ""
 "Should importer add the name of the document\n"
-"on front of the paragraph style name in Scirubs"
+"on front of the paragraph style name in Scribus"
 msgstr ""
 
 msgid "Do not ask again"
@@ -5721,6 +5771,9 @@ msgid "Text Documents"
 msgstr "Textové dokumenty"
 
 msgid "Folds"
+msgstr ""
+
+msgid "Media Cases"
 msgstr ""
 
 msgid "Own Templates"
@@ -6037,6 +6090,12 @@ msgstr "SVG obrázky (*.svg);; Všetky súbory (*)"
 
 msgid "Import &SVG..."
 msgstr "Import &SVG..."
+
+#~ msgid "Reverse Writing"
+#~ msgstr "Písať sprava doľava"
+
+#~ msgid "Spanish and Catalan:"
+#~ msgstr "Španielsky a Katalánsky:"
 
 #~ msgid "&Fully Automatic"
 #~ msgstr "&Plnoautomaticky"

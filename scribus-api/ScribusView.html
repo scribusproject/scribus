@@ -28,7 +28,7 @@
 <TR><TD><small><A HREF="hier.html">Hierarchy</A></small></TD></TR>
 <TR><TD><small><A HREF="index.html">Index</A></small></TD></TR>
 </TABLE></TD></TR></TABLE>
-<h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">ScribusView</A></b> (QWidget *parent=0, <A HREF="ScribusDoc.html">ScribusDoc</A> *doc=0, <A HREF="preV.html">preV</A> *prefs=0) 
+<h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">ScribusView</A></b> (QWidget *parent=0, <A HREF="ScribusDoc.html">ScribusDoc</A> *<A HREF="#doc">doc</A>=0, <A HREF="preV.html">preV</A> *prefs=0) 
 </LI>
 <LI>&nbsp;<b><A HREF="#ref2">~ScribusView</A></b> () 
 </LI>
@@ -56,11 +56,11 @@
 </LI>
 <LI>void &nbsp;<b><A HREF="#ref22">RecalcPictures</A></b> (<A HREF="#ProfilesL">ProfilesL</A> *Pr, QProgressBar *dia = 0) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref23">CreatePS</A></b> (<A HREF="PSLib.html">PSLib</A> *p, uint von, uint bis, int step, bool sep, QString SepNam, bool farb, bool Hm, bool Vm) 
+<LI>void &nbsp;<b><A HREF="#ref23">CreatePS</A></b> (<A HREF="PSLib.html">PSLib</A> *p, uint von, uint bis, int step, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref24">ProcessPage</A></b> (<A HREF="PSLib.html">PSLib</A> *p, <A HREF="Page.html">Page</A>* a, uint PNr) 
+<LI>void &nbsp;<b><A HREF="#ref24">ProcessPage</A></b> (<A HREF="PSLib.html">PSLib</A> *p, <A HREF="Page.html">Page</A>* a, uint PNr, bool sep = false, bool farb = true, bool ic = false) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref25">SetClipPath</A></b> (<A HREF="PSLib.html">PSLib</A> *p, <A HREF="PageItem.html">PageItem</A> *c) 
+<LI>void &nbsp;<b><A HREF="#ref25">SetClipPath</A></b> (<A HREF="PSLib.html">PSLib</A> *p, <A HREF="FPointArray.html">FPointArray</A> *c) 
 </LI>
 <LI>void &nbsp;<b><A HREF="#ref26">SetFarbe</A></b> (QString farb, int shade, int *h, int *s, int *v, int *k) 
 </LI>
@@ -96,7 +96,7 @@
 </LI>
 <LI>void &nbsp;<b><A HREF="#ref57">changeLA</A></b> (int) 
 </LI>
-</ul><h4>Public Members</h4><ul><LI>QLineEdit *<b><A HREF="#ref3">LE</A></b></LI>
+</ul><h4>Public Members</h4><ul><LI>MSpinBox* <b><A HREF="#ref3">LE</A></b></LI>
 <LI>QToolButton *<b><A HREF="#ref4">UN</A></b></LI>
 <LI>Hruler *<b><A HREF="#ref5">HR</A></b></LI>
 <LI>Vruler *<b><A HREF="#ref6">VR</A></b></LI>
@@ -127,10 +127,10 @@
 </ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><p>
  This class provides an incomplete base for your application view. 
  </p>
-<A NAME="ScribusView"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>ScribusView</strong> (QWidget *parent=0, <A HREF="ScribusDoc.html">ScribusDoc</A> *doc=0, <A HREF="preV.html">preV</A> *prefs=0)
+<A NAME="ScribusView"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>ScribusView</strong> (QWidget *parent=0, <A HREF="ScribusDoc.html">ScribusDoc</A> *<A HREF="#doc">doc</A>=0, <A HREF="preV.html">preV</A> *prefs=0)
 <br></td><td align="right"><h3><strong>ScribusView</strong></h3></td></tr></table><p></p><A NAME="~ScribusView"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>~ScribusView</strong> ()
-<br></td><td align="right"><h3><strong>~ScribusView</strong></h3></td></tr></table><p></p><A NAME="LE"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLineEdit * <strong>LE</strong>
-</td><td align="right"><h3><strong>LE</strong></h3></td></tr></table><p></p><A NAME="UN"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A> * <strong>UN</strong>
+<br></td><td align="right"><h3><strong>~ScribusView</strong></h3></td></tr></table><p></p><A NAME="LE"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="MSpinBox.html">MSpinBox</A>*  <strong>LE</strong>
+</td><td align="right"><h3><strong>LE</strong></h3></td></tr></table><p></p><A NAME="UN"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QToolButton * <strong>UN</strong>
 </td><td align="right"><h3><strong>UN</strong></h3></td></tr></table><p></p><A NAME="HR"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="Hruler.html">Hruler</A> * <strong>HR</strong>
 </td><td align="right"><h3><strong>HR</strong></h3></td></tr></table><p></p><A NAME="VR"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="Vruler.html">Vruler</A> * <strong>VR</strong>
 </td><td align="right"><h3><strong>VR</strong></h3></td></tr></table><p></p><A NAME="Pages"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPtrList<<A HREF="Page.html">Page</A>>  <strong>Pages</strong>
@@ -149,9 +149,9 @@
 <br></td><td align="right"><h3><strong>CountElements</strong></h3></td></tr></table><p></p><A NAME="PageToPixmap"></A><A NAME="ref20"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPixmap &nbsp;<strong>PageToPixmap</strong> (int Nr, int maxGr)
 <br></td><td align="right"><h3><strong>PageToPixmap</strong></h3></td></tr></table><p></p><A NAME="MPageToPixmap"></A><A NAME="ref21"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPixmap &nbsp;<strong>MPageToPixmap</strong> (QString name, int maxGr)
 <br></td><td align="right"><h3><strong>MPageToPixmap</strong></h3></td></tr></table><p></p><A NAME="RecalcPictures"></A><A NAME="ref22"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>RecalcPictures</strong> (<A HREF="#ProfilesL">ProfilesL</A> *Pr, QProgressBar *dia = 0)
-<br></td><td align="right"><h3><strong>RecalcPictures</strong></h3></td></tr></table><p></p><A NAME="CreatePS"></A><A NAME="ref23"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>CreatePS</strong> (<A HREF="PSLib.html">PSLib</A> *p, uint von, uint bis, int step, bool sep, QString SepNam, bool farb, bool Hm, bool Vm)
-<br></td><td align="right"><h3><strong>CreatePS</strong></h3></td></tr></table><p></p><A NAME="ProcessPage"></A><A NAME="ref24"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ProcessPage</strong> (<A HREF="PSLib.html">PSLib</A> *p, <A HREF="Page.html">Page</A>* a, uint PNr)
-<br></td><td align="right"><h3><strong>ProcessPage</strong></h3></td></tr></table><p></p><A NAME="SetClipPath"></A><A NAME="ref25"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetClipPath</strong> (<A HREF="PSLib.html">PSLib</A> *p, <A HREF="PageItem.html">PageItem</A> *c)
+<br></td><td align="right"><h3><strong>RecalcPictures</strong></h3></td></tr></table><p></p><A NAME="CreatePS"></A><A NAME="ref23"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>CreatePS</strong> (<A HREF="PSLib.html">PSLib</A> *p, uint von, uint bis, int step, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic)
+<br></td><td align="right"><h3><strong>CreatePS</strong></h3></td></tr></table><p></p><A NAME="ProcessPage"></A><A NAME="ref24"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ProcessPage</strong> (<A HREF="PSLib.html">PSLib</A> *p, <A HREF="Page.html">Page</A>* a, uint PNr, bool sep = false, bool farb = true, bool ic = false)
+<br></td><td align="right"><h3><strong>ProcessPage</strong></h3></td></tr></table><p></p><A NAME="SetClipPath"></A><A NAME="ref25"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetClipPath</strong> (<A HREF="PSLib.html">PSLib</A> *p, <A HREF="FPointArray.html">FPointArray</A> *c)
 <br></td><td align="right"><h3><strong>SetClipPath</strong></h3></td></tr></table><p></p><A NAME="SetFarbe"></A><A NAME="ref26"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetFarbe</strong> (QString farb, int shade, int *h, int *s, int *v, int *k)
 <br></td><td align="right"><h3><strong>SetFarbe</strong></h3></td></tr></table><p></p><A NAME="Doc"></A><A NAME="ref27"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="ScribusDoc.html">ScribusDoc</A> * <strong>Doc</strong>
 </td><td align="right"><h3><strong>Doc</strong></h3></td></tr></table><p></p><A NAME="Prefs"></A><A NAME="ref28"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="preV.html">preV</A> * <strong>Prefs</strong>
@@ -186,7 +186,7 @@
 <br></td><td align="right"><h3><strong>changeUN</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="changeLA"></A><A NAME="ref57"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>changeLA</strong> (int)
 <br></td><td align="right"><h3><strong>changeLA</strong></h3></td></tr></table><p> <small>[signal]</small></p><HR>
 	<table>
-	<tr><td><small>Generated by: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</small></td></tr>
+	<tr><td><small>Generated by: paul on ahnews.music.salford.ac.uk on Tue Oct 21 16:33:32 2003, using kdoc 2.0a54.</small></td></tr>
 	</table>
 </BODY>
 </HTML>

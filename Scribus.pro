@@ -386,7 +386,6 @@ SOURCES += scribus/align.cpp \
            scribus/plugins/scriptplugin/pconsole.cpp \
            scribus/plugins/scriptplugin/scriptplugin.cpp \
            scribus/plugins/scriptplugin/valuedialog.cpp \
-           scribus/plugins/scriptplugin/valuedialog.moc.cpp \
            scribus/plugins/svgexplugin/svgexplugin.cpp \
            scribus/plugins/svgimplugin/svgplugin.cpp \
            scribus/plugins/gettext/csvim/csvdia.cpp \
@@ -402,7 +401,6 @@ SOURCES += scribus/align.cpp \
            scribus/plugins/gettext/sxwim/unzip.c \
            scribus/plugins/gettext/textfilter/textfilter.cpp \
            scribus/plugins/gettext/textfilter/tfdia.cpp \
-           scribus/plugins/gettext/textfilter/tfdia.moc.cpp \
            scribus/plugins/gettext/textfilter/tffilter.cpp \
            scribus/plugins/gettext/txtim/txtim.cpp
 TRANSLATIONS += scribus/po/scribus.bg.ts \
@@ -428,5 +426,6 @@ TRANSLATIONS += scribus/po/scribus.bg.ts \
                 scribus/po/scribus.ru.ts \
                 scribus/po/scribus.se.ts \
                 scribus/po/scribus.sl.ts \
+                scribus/po/scribus.sr.ts \
                 scribus/po/scribus.tr.ts \
                 scribus/po/scribus.uk.ts

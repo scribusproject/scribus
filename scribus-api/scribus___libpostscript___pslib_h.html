@@ -59,61 +59,55 @@
 class PSLib {
 public:
 	PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe DocColors, bool pdf = false);
-	virtual ~PSLib();
+	virtual ~PSLib() {};
 	virtual bool PS_set_file(QString fn);
 	virtual void PS_set_Info(QString art, QString was);
-	virtual void PS_begin_doc(int Ori, float breite, float hoehe, int numpage);
-	virtual void PS_begin_page(float breite, float hoehe, struct Margs* Ma);
+	virtual void PS_begin_doc(int Ori, double breite, double hoehe, int numpage);
+	virtual void PS_begin_page(double breite, double hoehe, struct Margs* Ma);
 	virtual void PS_end_page();
-	virtual void PS_rect(float x, float y, float b, float h);
-	virtual void PS_RoundRect(float x, float y, float b, float h, float r);
-	virtual void PS_circle(float r, float r2);
-	virtual void PS_curve(float x1, float y1, float x2, float y2, float x3, float y3);
-	virtual void PS_moveto(float x, float y);
-	virtual void PS_lineto(float x, float y);
+	virtual void PS_curve(double x1, double y1, double x2, double y2, double x3, double y3);
+	virtual void PS_moveto(double x, double y);
+	virtual void PS_lineto(double x, double y);
 	virtual void PS_closepath();
-	virtual void PS_translate(float x, float y);
-	virtual void PS_scale(float x, float y);
-	virtual void PS_rotate(float x);
-	virtual void PS_clip();
+	virtual void PS_translate(double x, double y);
+	virtual void PS_scale(double x, double y);
+	virtual void PS_rotate(double x);
+	virtual void PS_clip(bool mu);
 	virtual void PS_save();
 	virtual void PS_restore();
-	virtual void PS_setcmykcolor_fill(float c, float m, float y, float k);
-	virtual void PS_setcmykcolor_stroke(float c, float m, float y, float k);
-	virtual void PS_setlinewidth(float w);
+	virtual void PS_setcmykcolor_fill(double c, double m, double y, double k);
+	virtual void PS_setcmykcolor_dummy();
+	virtual void PS_setcmykcolor_stroke(double c, double m, double y, double k);
+	virtual void PS_setlinewidth(double w);
 	virtual void PS_setdash(Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo);
 	virtual void PS_selectfont(QString f, int s);
-	virtual void PS_selectfontItalic(QString f, int s);
-	virtual void PS_fill();
+	virtual void PS_fill(bool mu);
 	virtual void PS_stroke();
-	virtual void PS_fill_stroke();
+	virtual void PS_fill_stroke(bool mu);
 	virtual void PS_newpath();
-	virtual void PS_GradientCol1(float c, float m, float y, float k);
-	virtual void PS_GradientCol2(float c, float m, float y, float k);
-	virtual void PS_LinGradient(float w, float h, int item, int grad);
-	virtual void PS_RadGradient(float w, float h, int item);
-	virtual void PS_underline(QCString ch, float x, float y);
-	virtual void PS_strikeout(QCString ch, float x, float y);
-	virtual void PS_show_xy(QCString ch, float x, float y);
-	virtual void PS_show(float x, float y);
-	virtual void PS_show_xyBold(QCString ch, float x, float y);
-	virtual void PS_image(float x, float y, QString fn, float scalex, float scaley, QString Name = "");
+	virtual void PS_GradientCol1(double c, double m, double y, double k);
+	virtual void PS_GradientCol2(double c, double m, double y, double k);
+	virtual void PS_LinGradient(double w, double h, int item, int grad, bool mu);
+	virtual void PS_RadGradient(double w, double h, int item, bool mu);
+	virtual void PS_show(double x, double y);
+	virtual void PS_showSub(uint chr, QString font, int size, bool stroke);
+	virtual void PS_show_xyG(QString font, QString ch, double x, double y);
+	virtual void PS_image(bool inver, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name = "");
 	virtual void PS_plate(int nr);
 	virtual void PS_setGray();
 	virtual void PDF_Bookmark(QString text, uint Seite);
-	virtual void PDF_Annotation(QString text, float x, float y, float b, float h);
+	virtual void PDF_Annotation(QString text, double x, double y, double b, double h);
 	virtual void PS_close();
-	virtual void PS_TemplateStart(QString Name, float breite, float hoehe);
+	virtual void PS_insert(QString i);
+	virtual void PS_TemplateStart(QString Name, double breite, double hoehe);
 	virtual void PS_TemplateEnd();
 	virtual void PS_UseTemplate(QString Name);
-	virtual void PS_ImageData(QString fn, QString Name);
+	virtual void PS_ImageData(bool inver, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
 private:
 	void PutSeite(QString c);
 	void PutDoc(QString c);
-	QString ToStr(float c);
+	QString ToStr(double c);
 	QString IToStr(int c);
-//	char *toHex( uchar u );
-//	QString String2Hex(QString *in);
 	QString PSEncode(QString in);
 	bool Art;
 	QString Prolog;
@@ -133,20 +127,24 @@ private:
 	QString StrokeColor;
 	QString GrColor1;
 	QString GrColor2;
-	float LineW;
+	double LineW;
 	QString Fonts;
 	QString FontDesc;
 	QMap<QString, QString> UsedFonts;
+	typedef QMap<uint, QString> GListe;
+	QMap<QString, GListe> GlyphsOfFont;
 	bool isPDF;
 	QFile Spool;
 	bool CompAvail;
+	int Plate;
+	bool DoSep;
 };
 
 #endif
 </pre>
 <HR>
 	<table>
-	<tr><td><small>Generated by: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</small></td></tr>
+	<tr><td><small>Generated by: paul on ahnews.music.salford.ac.uk on Tue Oct 21 16:33:32 2003, using kdoc 2.0a54.</small></td></tr>
 	</table>
 </BODY>
 </HTML>

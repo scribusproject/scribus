@@ -43,7 +43,7 @@ Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     </message>
     <message>
         <source>Spanish and Catalan:</source>
-        <translation>Spansk og Catalansk:</translation>
+        <translation type="obsolete">Spansk og Catalansk:</translation>
     </message>
     <message>
         <source>Slovak:</source>
@@ -184,6 +184,34 @@ Manglende biblioteksunderstøttelse er vist ved en *</translation>
     <message>
         <source>Mailing List</source>
         <translation>Postliste</translation>
+    </message>
+    <message>
+        <source>Official Translations and Translators:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Korean:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serbian:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous Translation Contributors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalan:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -948,7 +976,7 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Side:</translation>
+        <translation type="obsolete">Side:</translation>
     </message>
     <message>
         <source>External Web-Link</source>
@@ -956,7 +984,7 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annullér</translation>
+        <translation type="obsolete">Annullér</translation>
     </message>
     <message>
         <source>Annotation Properties</source>
@@ -964,7 +992,7 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Vælg...</translation>
+        <translation type="obsolete">Vælg...</translation>
     </message>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
@@ -976,11 +1004,11 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation>Type:</translation>
+        <translation type="obsolete">Type:</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>X-Pos:</translation>
+        <translation type="obsolete">X-Pos:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -988,11 +1016,31 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Y-Pos:</translation>
+        <translation type="obsolete">Y-Pos:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
+    </message>
+    <message>
+        <source>&amp;Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished">&amp;Y-Pos:</translation>
     </message>
 </context>
 <context>
@@ -2851,7 +2899,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     </message>
     <message>
         <source>Consecutive Hypenations &amp;Allowed:</source>
-        <translation>Antal &amp;tilladte orddelinger i træk:</translation>
+        <translation type="obsolete">Antal &amp;tilladte orddelinger i træk:</translation>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
@@ -2864,6 +2912,10 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <source>&amp;Hyphenation Suggestions</source>
         <translation>Orddelings &amp;forslag</translation>
+    </message>
+    <message>
+        <source>Consecutive Hyphenations &amp;Allowed:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3466,7 +3518,7 @@ en række sider eller et enkelt sidenummer.</translation>
     </message>
     <message>
         <source>Reverse Writing</source>
-        <translation>Baglæns skrivning</translation>
+        <translation type="obsolete">Baglæns skrivning</translation>
     </message>
     <message>
         <source>Flat Cap</source>
@@ -4055,6 +4107,10 @@ hjørner:</translation>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
         <translation>Brug en anden linie, der baseret på rammens form, til at holde tekst fri af rammen</translation>
+    </message>
+    <message>
+        <source>Right to Left Writing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5018,7 +5074,7 @@ reglerne for PDF/X-3. Vi anbefaler at bruge titlen på dokumentet. </translation
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>E&amp;kstra</translation>
+        <translation type="obsolete">E&amp;kstra</translation>
     </message>
     <message>
         <source> pt</source>
@@ -5138,7 +5194,7 @@ en række sider eller et enkelt sidenummer.</translation>
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation>Kom&amp;primér tekst og vektorgrafik</translation>
+        <translation type="obsolete">Kom&amp;primér tekst og vektorgrafik</translation>
     </message>
     <message>
         <source>&amp;Method:</source>
@@ -5166,7 +5222,7 @@ en række sider eller et enkelt sidenummer.</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation>anvend &amp;præsentationseffekter</translation>
+        <translation type="obsolete">anvend &amp;præsentationseffekter</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
@@ -5295,6 +5351,30 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
         <translation>Dette er en anvanceret indstilling, som ikke er aktiv som standard. Denne bør kun aktiveres, når 
 trykkeriet specifikt har anmodet om det og opgivet de nøjagtige detaljer om indstillingerne. Ellers vil 
 den eksporterede PDF fil ikke kunne udskrives ordentligt og den er ikke portabel på tværs af systemer.</translation>
+    </message>
+    <message>
+        <source>Compress Text and &amp;Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En&amp;able Presentation Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Presentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) &amp;Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">&amp;Rotation:</translation>
+    </message>
+    <message>
+        <source>&amp;Options</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7550,6 +7630,10 @@ Ekstern Lænker</translation>
         <source>Text Filters</source>
         <translation>Tekst filtre</translation>
     </message>
+    <message>
+        <source>Media Cases</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -9669,7 +9753,7 @@ importeres eller skal det forblive som det er</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scirubs</source>
-        <translation>Skal importfiltret bruge dokumentets navn 
+        <translation type="obsolete">Skal importfiltret bruge dokumentets navn 
 som forstavelse til afsnits typografiens navn i Scribus</translation>
     </message>
     <message>
@@ -9687,6 +9771,11 @@ og aldrig spørge dig om, at bekræfte det igen</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

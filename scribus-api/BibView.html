@@ -30,7 +30,7 @@
 </TABLE></TD></TR></TABLE>
 <h4>Public Types</h4><ul><LI>struct <A HREF="BibView__Elem.html">Elem</A>
 </LI>
-</ul><h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">BibView</A></b> ( QWidget* parent, <A HREF="SCFonts.html">SCFonts</A> &avail, <A HREF="preV.html">preV</A> *prefs) 
+</ul><h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">BibView</A></b> ( QWidget* parent, <A HREF="preV.html">preV</A> *prefs) 
 </LI>
 <LI>&nbsp;<b><A HREF="#ref2">~BibView</A></b> () 
 </LI>
@@ -42,12 +42,9 @@
 </LI>
 <LI>void &nbsp;<b><A HREF="#ref6">RebuildView</A></b> () 
 </LI>
-<LI>QPixmap &nbsp;<b><A HREF="#ref7">createPreview</A></b> (QString data) 
-</LI>
-</ul><h4>Public Members</h4><ul><LI>QMap<QString,Elem> <b><A HREF="#ref9">Objekte</A></b></LI>
-<LI>SCFonts <b><A HREF="#ref10">EFonts</A></b></LI>
-<LI>preV *<b><A HREF="#ref11">Prefs</A></b></LI>
-</ul><h4>Protected Methods</h4><ul><LI>virtual  QDragObject *&nbsp;<b><A HREF="#ref12">dragObject</A></b> () 
+</ul><h4>Public Members</h4><ul><LI>QMap<QString,Elem> <b><A HREF="#ref8">Objekte</A></b></LI>
+<LI>preV *<b><A HREF="#ref9">Prefs</A></b></LI>
+</ul><h4>Protected Methods</h4><ul><LI>virtual  QDragObject *&nbsp;<b><A HREF="#ref10">dragObject</A></b> () 
 </LI>
 </ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><p>
 * Form interface generated from reading ui file 'Bib.ui'
@@ -57,20 +54,18 @@
 *
 * WARNING! All changes made in this file will be lost!
 **************************************************************************</p>
-<A NAME="BibView"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>BibView</strong> ( QWidget* parent, <A HREF="SCFonts.html">SCFonts</A> &avail, <A HREF="preV.html">preV</A> *prefs)
+<A NAME="BibView"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>BibView</strong> ( QWidget* parent, <A HREF="preV.html">preV</A> *prefs)
 <br></td><td align="right"><h3><strong>BibView</strong></h3></td></tr></table><p></p><A NAME="~BibView"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>~BibView</strong> ()
 <br></td><td align="right"><h3><strong>~BibView</strong></h3></td></tr></table><p></p><A NAME="AddObj"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>AddObj</strong> (QString name, QString daten, QPixmap Bild)
 <br></td><td align="right"><h3><strong>AddObj</strong></h3></td></tr></table><p></p><A NAME="SaveContents"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SaveContents</strong> (QString name)
 <br></td><td align="right"><h3><strong>SaveContents</strong></h3></td></tr></table><p></p><A NAME="ReadContents"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ReadContents</strong> (QString name)
 <br></td><td align="right"><h3><strong>ReadContents</strong></h3></td></tr></table><p></p><A NAME="RebuildView"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>RebuildView</strong> ()
-<br></td><td align="right"><h3><strong>RebuildView</strong></h3></td></tr></table><p></p><A NAME="createPreview"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPixmap &nbsp;<strong>createPreview</strong> (QString data)
-<br></td><td align="right"><h3><strong>createPreview</strong></h3></td></tr></table><p></p><A NAME="BibView__Elem.html"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>Elem</strong> <small>(struct)</small></td><td align="right"><h3><strong>Elem</strong></h3></td></tr></table><p></p><A NAME="Objekte"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString,Elem>  <strong>Objekte</strong>
-</td><td align="right"><h3><strong>Objekte</strong></h3></td></tr></table><p></p><A NAME="EFonts"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="SCFonts.html">SCFonts</A>  <strong>EFonts</strong>
-</td><td align="right"><h3><strong>EFonts</strong></h3></td></tr></table><p></p><A NAME="Prefs"></A><A NAME="ref11"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="preV.html">preV</A> * <strong>Prefs</strong>
-</td><td align="right"><h3><strong>Prefs</strong></h3></td></tr></table><p></p><A NAME="dragObject"></A><A NAME="ref12"></A><table width="100%"><tr bgcolor="#eeeeee"><td> QDragObject *&nbsp;<strong>dragObject</strong> ()
+<br></td><td align="right"><h3><strong>RebuildView</strong></h3></td></tr></table><p></p><A NAME="BibView__Elem.html"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>Elem</strong> <small>(struct)</small></td><td align="right"><h3><strong>Elem</strong></h3></td></tr></table><p></p><A NAME="Objekte"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString,Elem>  <strong>Objekte</strong>
+</td><td align="right"><h3><strong>Objekte</strong></h3></td></tr></table><p></p><A NAME="Prefs"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="preV.html">preV</A> * <strong>Prefs</strong>
+</td><td align="right"><h3><strong>Prefs</strong></h3></td></tr></table><p></p><A NAME="dragObject"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td> QDragObject *&nbsp;<strong>dragObject</strong> ()
 <br></td><td align="right"><h3><strong>dragObject</strong></h3></td></tr></table><p> <small>[protected virtual]</small></p><HR>
 	<table>
-	<tr><td><small>Generated by: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</small></td></tr>
+	<tr><td><small>Generated by: paul on ahnews.music.salford.ac.uk on Tue Oct 21 16:33:32 2003, using kdoc 2.0a54.</small></td></tr>
 	</table>
 </BODY>
 </HTML>

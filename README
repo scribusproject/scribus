@@ -1,10 +1,4 @@
-This is Scribus Version 1.2.1cvs
-
-An important addition is the new Open Office text importer. To compile Scribus
-1.2.1 now requires libxml2-devel. If a OO doc has fonts which are not installed
-on your system, you will be promted by a font susbtitution dialog.
-
-
+This is Scribus Version 1.2
 The Scribus 1.2 version features a complete rewrite of the rendering Engine.
 All rendering is now done via libart and freetype2. 
 This requires that libart_lgpl and freetype2 are installed.

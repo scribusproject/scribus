@@ -189,6 +189,18 @@ Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
         <source>Spanish:</source>
         <translation>Espanja:</translation>
     </message>
+    <message>
+        <source>Official Translations and Translators:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serbian:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous Translation Contributors:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -931,7 +943,7 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     <name>Annota</name>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source> pt</source>
@@ -955,11 +967,11 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>Page:</source>
-        <translation>Sivu:</translation>
+        <translation type="obsolete">Sivu:</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation>Tyyppi:</translation>
+        <translation type="obsolete">Tyyppi:</translation>
     </message>
     <message>
         <source>External Web-Link</source>
@@ -967,15 +979,15 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>X:</translation>
+        <translation type="obsolete">X:</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Y:</translation>
+        <translation type="obsolete">Y:</translation>
     </message>
     <message>
         <source>Annotation Properties</source>
@@ -983,7 +995,7 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>Change...</source>
-        <translation>Muuta...</translation>
+        <translation type="obsolete">Muuta...</translation>
     </message>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
@@ -992,6 +1004,26 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     <message>
         <source>External Link</source>
         <translation>Ulkoinen linkki</translation>
+    </message>
+    <message>
+        <source>&amp;Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished">&amp;Muuta...</translation>
+    </message>
+    <message>
+        <source>&amp;Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished">&amp;Y:</translation>
     </message>
 </context>
 <context>
@@ -2832,7 +2864,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Consecutive Hypenations &amp;Allowed:</source>
-        <translation>Sallitut perättäiset &amp;tavutukset:</translation>
+        <translation type="obsolete">Sallitut perättäiset &amp;tavutukset:</translation>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
@@ -2846,6 +2878,10 @@ ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
     <message>
         <source>&amp;Hyphenation Suggestions</source>
         <translation>&amp;Tavutusehdotukset</translation>
+    </message>
+    <message>
+        <source>Consecutive Hyphenations &amp;Allowed:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3460,7 +3496,7 @@ Pelkän sivunumeron lisäksi voit käyttää
     </message>
     <message>
         <source>Reverse Writing</source>
-        <translation>Käänteinen kirjoitus</translation>
+        <translation type="obsolete">Käänteinen kirjoitus</translation>
     </message>
     <message>
         <source>Flat Cap</source>
@@ -4028,6 +4064,10 @@ Corners:</source>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
         <translation>Käytä vapaasti muokattavaa reunusta tekstin kierron rajana</translation>
+    </message>
+    <message>
+        <source>Right to Left Writing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5001,7 +5041,7 @@ Suosittelemme käyttämään asiakirjan otsikkoa/nimeä.</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>Apu&amp;välineet</translation>
+        <translation type="obsolete">Apu&amp;välineet</translation>
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
@@ -5105,7 +5145,7 @@ Pelkän sivunumeron lisäksi voit käyttää
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation>&amp;Pakkaa teksti ja vektorigrafiikka</translation>
+        <translation type="obsolete">&amp;Pakkaa teksti ja vektorigrafiikka</translation>
     </message>
     <message>
         <source>&amp;Method:</source>
@@ -5133,7 +5173,7 @@ Pelkän sivunumeron lisäksi voit käyttää
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation>Käytä &amp;esitysefektejä</translation>
+        <translation type="obsolete">Käytä &amp;esitysefektejä</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
@@ -5261,7 +5301,31 @@ PDF-tiedosto ei välttämättä tulostu oikein eikä ole siirrettävissä muille
     </message>
     <message>
         <source>Mirror Page(s) &amp;Horizontal</source>
-        <translation>Peilaa sivu(t) &amp;vaakatasossa</translation>
+        <translation type="obsolete">Peilaa sivu(t) &amp;vaakatasossa</translation>
+    </message>
+    <message>
+        <source>Compress Text and &amp;Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En&amp;able Presentation Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Presentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) &amp;Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">Ki&amp;erto:</translation>
+    </message>
+    <message>
+        <source>&amp;Options</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7509,6 +7573,10 @@ External Links
         <source>Text Filters</source>
         <translation>Tekstisuotimet</translation>
     </message>
+    <message>
+        <source>Media Cases</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -9626,7 +9694,7 @@ kuin tuotavassa tekstissä, päivitetäänkö tyyli</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scirubs</source>
-        <translation>Tuleeko tuonnin yhteydessä luotavat kappaletyylit
+        <translation type="obsolete">Tuleeko tuonnin yhteydessä luotavat kappaletyylit
 nimetä käyttäen kappaletyylin edessä tuotavan asikirjan nimeä</translation>
     </message>
     <message>
@@ -9640,6 +9708,11 @@ never ask your confirmation again</source>
         <translation>Tuleeko tuojan aina käyttää nyt valittuja
 arvoja tuodessaan OO.o asiakirjaa eikä kysyä
 varmistusta</translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -10,14 +10,30 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
-"POT-Creation-Date: 2004-08-16 00:03+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-10-17 08:57+0200\n"
 "PO-Revision-Date: 2004-10-04 19:57+0200\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.3\n"
-"MIME-Version: 1.0\n"
+
+msgid "Align Text Left"
+msgstr "Maldekstremigu tekston"
+
+msgid "Align Text Right"
+msgstr "Dekstremigu tekston"
+
+msgid "Align Text Center"
+msgstr "Centrigu tekston"
+
+msgid "Align Text Justified"
+msgstr "Alkadrigita teksto"
+
+msgid "Align Text Forced Justified"
+msgstr "Komplete alkadrigita teksto"
 
 msgid "Distribute/Align"
 msgstr "Dismetu/Alĝustigu"
@@ -97,6 +113,30 @@ msgstr "&Apliku"
 msgid "&Cancel"
 msgstr "&Rezignu"
 
+msgid "Apply Template"
+msgstr "Apliku ŝablonon"
+
+msgid "&Template:"
+msgstr "Ŝa&blono:"
+
+msgid "Normal"
+msgstr "Normala"
+
+msgid "Apply to &Current Page"
+msgstr "Apli&ku al ĉi tiu paĝo"
+
+msgid "Apply to all &even Pages"
+msgstr "Apliku al ĉiuj &paraj paĝoj"
+
+msgid "Apply to all &odd Pages"
+msgstr "Apliku al ĉiuj &malparaj paĝoj"
+
+msgid "Apply from &Page:"
+msgstr "Apli&ku de paĝo:"
+
+msgid "To:"
+msgstr "Al:"
+
 msgid "Field Properties"
 msgstr "Kampo-ecoj"
 
@@ -147,9 +187,6 @@ msgstr "Larĝo:"
 
 msgid "Thin"
 msgstr "Mallarĝa"
-
-msgid "Normal"
-msgstr "Normala"
 
 msgid "Wide"
 msgstr "Larĝa"
@@ -482,7 +519,8 @@ msgid "Open"
 msgstr "Malfermu"
 
 msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
-msgstr "Bildoj (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Ĉiaj dosieroj (*)"
+msgstr ""
+"Bildoj (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Ĉiaj dosieroj (*)"
 
 msgid "Example:"
 msgstr "Ekzemplo:"
@@ -506,29 +544,26 @@ msgstr "Ekstera ligilo"
 msgid "External Web-Link"
 msgstr "Ekstera TTT-ligilo"
 
+#, fuzzy
+msgid "&Type:"
+msgstr "Tipo:"
+
+msgid "C&hange..."
+msgstr "Ŝ&anĝu..."
+
+#, fuzzy
+msgid "&Page:"
+msgstr "&Paĝo"
+
+#, fuzzy
+msgid "&X-Pos"
+msgstr "&X-Poz:"
+
+msgid "&Y-Pos:"
+msgstr "&Y-Poz:"
+
 msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr "PDF-Dokumentoj (*.pdf);; Ĉiaj dosieroj (*)"
-
-msgid "Apply Template"
-msgstr "Apliku ŝablonon"
-
-msgid "&Template:"
-msgstr "Ŝa&blono:"
-
-msgid "Apply to &Current Page"
-msgstr "Apli&ku al ĉi tiu paĝo"
-
-msgid "Apply to all &even Pages"
-msgstr "Apliku al ĉiuj &paraj paĝoj"
-
-msgid "Apply to all &odd Pages"
-msgstr "Apliku al ĉiuj &malparaj paĝoj"
-
-msgid "Apply from &Page:"
-msgstr "Apli&ku de paĝo:"
-
-msgid "To:"
-msgstr "Al:"
 
 msgid "Bookmarks"
 msgstr "Legosignoj"
@@ -664,7 +699,8 @@ msgid ""
 "e. sRGB)."
 msgstr ""
 "Kolorprofilo kiun vi kreis aŭ ricevis de la fabrikinto.\n"
-"Ĉi tiu profilo devus esti specifa por via ekrano kaj ne komuna profilo (Ekz. sRGB)."
+"Ĉi tiu profilo devus esti specifa por via ekrano kaj ne komuna profilo (Ekz. "
+"sRGB)."
 
 #, fuzzy
 msgid ""
@@ -673,7 +709,8 @@ msgid ""
 "e. sRGB)."
 msgstr ""
 "Kolorprofilo por via printilmodelo donita de la fabrikinto.\n"
-"Ĉi tiu profilo devus esti specifa por via ekrano kaj ne komuna profilo (Ekz. sRGB)."
+"Ĉi tiu profilo devus esti specifa por via ekrano kaj ne komuna profilo (Ekz. "
+"sRGB)."
 
 msgid ""
 "Default rendering intent for your monitor. Unless you know why to change "
@@ -709,7 +746,8 @@ msgid ""
 "Black Point Compensation is a method of improving contrast in photos.\n"
 "It is recommended that you enable this if you have photos in your document."
 msgstr ""
-"La Kompensado de Nigra Punkto estas metodo por plibonigi la kontraston en la fotoj.\n"
+"La Kompensado de Nigra Punkto estas metodo por plibonigi la kontraston en la "
+"fotoj.\n"
 "Estas rekomendinde ke vi ebligu ĝin se vi havas fotojn en via dokumento."
 
 msgid "Edit Color"
@@ -774,6 +812,41 @@ msgstr "Averto"
 
 msgid "Name of the Color is not unique"
 msgstr "La nomo de la koloro ne estas unika"
+
+msgid "Size:"
+msgstr "Grando:"
+
+msgid "Title:"
+msgstr "Titolo:"
+
+msgid "No Title"
+msgstr "Sen titolo"
+
+msgid "Author:"
+msgstr "Aŭtoro:"
+
+msgid "Unknown"
+msgstr "Nekonata"
+
+msgid "Scribus Document"
+msgstr "Scribus-Dokumento"
+
+msgid "&Compress File"
+msgstr "&Densigu dosieron"
+
+msgid "&Include Fonts"
+msgstr "&Inkludu tiparojn"
+
+#, fuzzy
+msgid "Encoding:"
+msgstr "Kodoprezento:"
+
+msgid ""
+"Moves to your Document Directory.\n"
+"This can be set in the Preferences."
+msgstr ""
+"Al via hejmdosierujo. Vi povas ŝanĝi\n"
+"la vojprefikson per la Prefer-menuero."
 
 msgid "Colors"
 msgstr "Koloroj"
@@ -966,41 +1039,6 @@ msgstr ""
 "Legu la literliston: C-C-T egalas al subteno de C=CUPS C=littlecms T=TIFF.\n"
 "Subteno por mankantaj bibliotekoj estas montrita per *"
 
-msgid "Size:"
-msgstr "Grando:"
-
-msgid "Title:"
-msgstr "Titolo:"
-
-msgid "No Title"
-msgstr "Sen titolo"
-
-msgid "Author:"
-msgstr "Aŭtoro:"
-
-msgid "Unknown"
-msgstr "Nekonata"
-
-msgid "Scribus Document"
-msgstr "Scribus-Dokumento"
-
-msgid "&Compress File"
-msgstr "&Densigu dosieron"
-
-msgid "&Include Fonts"
-msgstr "&Inkludu tiparojn"
-
-#, fuzzy
-msgid "Encoding:"
-msgstr "Kodoprezento:"
-
-msgid ""
-"Moves to your Document Directory.\n"
-"This can be set in the Preferences."
-msgstr ""
-"Al via hejmdosierujo. Vi povas ŝanĝi\n"
-"la vojprefikson per la Prefer-menuero."
-
 msgid "Delete Color"
 msgstr "Forigu koloron"
 
@@ -1082,8 +1120,10 @@ msgid ""
 "This field can be embedded in the Scribus document for reference, as well as "
 "in the metadata of a PDF"
 msgstr ""
-"La persono aŭ la organizo ĉefe respondecaj pri la kreado de la dokument-enteno.\n"
-"Ĉi tiu kampo povas esti inkludita en la Scribus-dokumenton kiel referencon aŭ en la metadatumojn de PDF-dosiero"
+"La persono aŭ la organizo ĉefe respondecaj pri la kreado de la dokument-"
+"enteno.\n"
+"Ĉi tiu kampo povas esti inkludita en la Scribus-dokumenton kiel referencon "
+"aŭ en la metadatumojn de PDF-dosiero"
 
 msgid ""
 "A name given to the document.\n"
@@ -1091,7 +1131,8 @@ msgid ""
 "in the metadata of a PDF"
 msgstr ""
 "Nomo donita al la dokumento.\n"
-"Ĉi tiu kampo povas esti inkludita en la Scribus-dokumenton kiel referencon aŭ en la metadatumojn de PDF-dosiero"
+"Ĉi tiu kampo povas esti inkludita en la Scribus-dokumenton kiel referencon "
+"aŭ en la metadatumojn de PDF-dosiero"
 
 msgid ""
 "An account of the content of the document.\n"
@@ -1099,7 +1140,8 @@ msgid ""
 "embedded in the PDF on export"
 msgstr ""
 "Resumo de la dokument-enteno.\n"
-"Ĉi tiu kampo estas eta priskribo aŭ resumo de la dokumento. Ĝi estas inkludita en la PDF-dosieron dum la eksporto"
+"Ĉi tiu kampo estas eta priskribo aŭ resumo de la dokumento. Ĝi estas "
+"inkludita en la PDF-dosieron dum la eksporto"
 
 msgid ""
 "The topic of the content of the document.\n"
@@ -1107,7 +1149,8 @@ msgid ""
 "searches and indexing of PDF files"
 msgstr ""
 "La temobjekto de la dokument-enteno.\n"
-"Ĉi tiu kampo estas por dokumentaj ŝlosilvortoj kiujn vi celas inkludi en PDF-dosieron, por helpi traserĉadon kaj indeksadon de PDF-dosieroj"
+"Ĉi tiu kampo estas por dokumentaj ŝlosilvortoj kiujn vi celas inkludi en PDF-"
+"dosieron, por helpi traserĉadon kaj indeksadon de PDF-dosieroj"
 
 msgid "A person or organisation responsible for making the document available"
 msgstr "Persono aŭ organizo respondeca pri la disvastigo de la dokumento"
@@ -1120,25 +1163,31 @@ msgstr "Persono aŭ organizo kontribuintaj al la dokument-enteno"
 msgid ""
 "A date associated with an event in the life cycle of the document, in YYYY-"
 "MM-DD format, as per ISO 8601"
-msgstr "Dato rilata al evento en la vivociklo de la dokumento, en formato JJJJ-MM-TT, kiel en la kodo ISO 8601"
+msgstr ""
+"Dato rilata al evento en la vivociklo de la dokumento, en formato JJJJ-MM-"
+"TT, kiel en la kodo ISO 8601"
 
 msgid ""
 "The nature or genre of the content of the document, eg. categories, "
 "functions, genres, etc"
-msgstr "La naturo aŭ la ĝenro de la dokument-enteno, ekz. kategorioj, celoj, ĝenroj, ktp"
+msgstr ""
+"La naturo aŭ la ĝenro de la dokument-enteno, ekz. kategorioj, celoj, ĝenroj, "
+"ktp"
 
 msgid ""
 "The physical or digital manifestation of the document. Media type and "
 "dimensions would be worth noting.\n"
 "RFC2045,RFC2046 for MIME types are also useful here"
 msgstr ""
-"La fizika aŭ cifereca manifestiĝo de la dokumento. Indus noti la mediajn tipon kaj grandojn.\n"
+"La fizika aŭ cifereca manifestiĝo de la dokumento. Indus noti la mediajn "
+"tipon kaj grandojn.\n"
 "RFC2045, RFC2046 por MIME-tipoj povus utili ĉi tie"
 
 msgid ""
 "An unambiguous reference to the document within a given context such as ISBN "
 "or URI"
-msgstr "Neambigua referenco al la dokumento ene de donita kunteksto kiel ISBN aŭ URI"
+msgstr ""
+"Neambigua referenco al la dokumento ene de donita kunteksto kiel ISBN aŭ URI"
 
 msgid ""
 "A reference to a document from which the present document is derived, eg. "
@@ -1157,12 +1206,16 @@ msgstr ""
 msgid ""
 "A reference to a related document, possibly using a formal identifier such "
 "as a ISBN or URI"
-msgstr "Referenco al rilata dokumento, laŭeble uzanta formalan identigilon kiel ISBN aŭ URI"
+msgstr ""
+"Referenco al rilata dokumento, laŭeble uzanta formalan identigilon kiel ISBN "
+"aŭ URI"
 
 msgid ""
 "The extent or scope of the content of the document, possibly including "
 "location, time and jurisdiction ranges"
-msgstr "La amplekso aŭ la celo de la dokument-enteno, laŭeble enmetante la situon, la horon kaj la jurisdiciaj kampoj"
+msgstr ""
+"La amplekso aŭ la celo de la dokument-enteno, laŭeble enmetante la situon, "
+"la horon kaj la jurisdiciaj kampoj"
 
 msgid ""
 "Information about rights held in and over the document, eg. copyright, "
@@ -1221,7 +1274,8 @@ msgstr ""
 "Maniero estingi iom da griztonoj kiuj konsistas el cejanblua, flava kaj\n"
 "karmezina koloroj anstataŭante ilin per la nigra.\n"
 "UCR plejparte koncernas la partojn de la bildoj kiuj estas neŭtraj kaj/aŭ\n"
-"la malhelajn tonojn kiuj proksimas al la griza. La uzo de tio povas pliboniĝi\n"
+"la malhelajn tonojn kiuj proksimas al la griza. La uzo de tio povas "
+"pliboniĝi\n"
 "printante kelkajn bildojn kaj provante laŭ la diversaj kazoj.\n"
 "UCR malpliigas la eblon de trosaturiĝo kun CMY-inkoj."
 
@@ -1239,9 +1293,6 @@ msgstr "Op&cioj..."
 
 msgid "&File:"
 msgstr "&Dosiero:"
-
-msgid "C&hange..."
-msgstr "Ŝ&anĝu..."
 
 msgid "A&lternative Printer Command"
 msgstr "A&lia printkomando"
@@ -1383,7 +1434,8 @@ msgstr "Koloro de la tekstoplenigo"
 msgid "Color of text stroke"
 msgstr "Koloro de la tekstokonturo"
 
-msgid "Provides an oversized first letter for a paragraph. Used for stylistic effect"
+msgid ""
+"Provides an oversized first letter for a paragraph. Used for stylistic effect"
 msgstr "Provizas alineon per pli granda inicialo. Uzata por stilaj efektoj"
 
 msgid "Determines the overall height, in line numbers, of the Drop Caps"
@@ -1413,7 +1465,8 @@ msgstr "&Konservu"
 msgid "New Style"
 msgstr "Nova stilo"
 
-msgid "Do you really want do delete this Style?"
+#, fuzzy
+msgid "Do you really want to delete this Style?"
 msgstr "Ĉu vi vere intencas forigi ĉi tiun stilon?"
 
 msgid "Editor"
@@ -1521,9 +1574,6 @@ msgstr "&Absolutaj koordinatoj"
 msgid "&X-Pos:"
 msgstr "&X-Poz:"
 
-msgid "&Y-Pos:"
-msgstr "&Y-Poz:"
-
 msgid "Edit &Contour Line"
 msgstr "Reda&ktu konturon"
 
@@ -1596,8 +1646,7 @@ msgstr "Pligrandigu la desegnon laŭ la montrata procento"
 msgid "Angle of Rotation"
 msgstr "Rotaci-angulo"
 
-#, c-format
-#, fuzzy
+#, fuzzy, c-format
 msgid "% to Enlarge or Reduce By"
 msgstr "% da pligrandigo aŭ malgrandigo"
 
@@ -1614,6 +1663,357 @@ msgid ""
 msgstr ""
 "Kiam markita ĝi uzas koordinatojn relativajn al la paĝo,\n"
 "alie koordinatojn relativajn al la objekto."
+
+msgid "Position:"
+msgstr "Situo:"
+
+msgid "Here you can add, change or remove Color-Stops."
+msgstr "Ĉi tie vi povas aldoni, ŝanĝi aŭ forigi kolorlimojn."
+
+msgid "Importing text"
+msgstr "Tekstoimportado"
+
+msgid "Choose the importer to use"
+msgstr "Elektu la uzotan importilon"
+
+msgid "Automatic"
+msgstr "Aŭtomata"
+
+msgid "Get text only"
+msgstr "Enmetu nur tekston"
+
+msgid "Import text without any formatting"
+msgstr "Importu neformatitan tekston"
+
+msgid "Importer:"
+msgstr "Importilo:"
+
+msgid "Remember association"
+msgstr ""
+
+msgid ""
+"Remember the file extension - importer association\n"
+"and do not ask again to select an importer for\n"
+"files of this type."
+msgstr ""
+
+msgid "All Supported Formats"
+msgstr "Ĉiuj subtenataj formatoj"
+
+msgid "All Files (*)"
+msgstr "Ĉiaj dosieroj (*)"
+
+msgid ""
+"<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
+"toolkit for multiplatform GUI &amp; application development.</p><p>Qt "
+"provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;"
+"X, Linux, and all major commercial Unix variants.<br>Qt is also available "
+"for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www."
+"trolltech.com/qt/</tt> for more information.</p>"
+msgstr ""
+"<h3>Pri Qt</h3><p>Ĉi tiu programo utiligas Qt-version %1.</p><p>Qt estas C+"
+"+bibliotekopor plurplatforma programado de GUI &amp; kaj aplikaĵoj.</p><p>Qt "
+"provizas unuoporiginan porteblon tra MS&nbsp;Windows, Mac&nbsp;OS&nbsp;X, "
+"Linux, kaj ĉiuj plej grandaj komercaj Unikso-variaĵoj.<br>Qt estas ankaŭ "
+"disponebla por inkluditaj ekipaĵoj.</p><p>Qt estas Trolltech-produkto. Legu "
+"<tt>http://www.trolltech.com/qt/</tt> por kromaj informoj.</p>"
+
+msgid "Copy or Move a File"
+msgstr "Kopiu aŭ movu dosieron"
+
+msgid "Read: %1"
+msgstr "Preta: %1"
+
+msgid "Write: %1"
+msgstr "Skribu: %1"
+
+msgid "File &name:"
+msgstr "Dosier&nomo:"
+
+msgid "File &type:"
+msgstr "Dosier&tipo:"
+
+msgid "One directory up"
+msgstr "Supra dosierujo"
+
+msgid "Name"
+msgstr "Nomo"
+
+msgid "Size"
+msgstr "Grando"
+
+msgid "Attributes"
+msgstr "Atributoj"
+
+msgid "Look &in:"
+msgstr "Serĉu &en:"
+
+msgid "Back"
+msgstr "Reen"
+
+msgid "Create New Folder"
+msgstr "Kreu novan dosierujon"
+
+msgid "List View"
+msgstr "Listorigardo"
+
+msgid "Detail View"
+msgstr "Detala rigardo"
+
+msgid "Preview File Info"
+msgstr "Antaŭrigardu dosier-informojn"
+
+msgid "Preview File Contents"
+msgstr "Antaŭrigardu dosier-entenon"
+
+msgid "Read-write"
+msgstr "Lege-skribe"
+
+msgid "Read-only"
+msgstr "Nurlege"
+
+msgid "Write-only"
+msgstr "Nurskribe"
+
+msgid "Inaccessible"
+msgstr "Nealireble"
+
+msgid "Symlink to File"
+msgstr "Simbola ligilo al la dosiero"
+
+msgid "Symlink to Directory"
+msgstr "Simbola ligilo al la dosierujo"
+
+msgid "Symlink to Special"
+msgstr "Simbola ligilo al la speciala"
+
+msgid "Dir"
+msgstr "Dosierujo"
+
+msgid "Special"
+msgstr "Speciala"
+
+msgid "Save As"
+msgstr "Konservu kiel"
+
+msgid "&Open"
+msgstr "M&alfermu"
+
+msgid "&Rename"
+msgstr "A&linomu"
+
+msgid "R&eload"
+msgstr "R&eŝargu"
+
+msgid "Sort by &Name"
+msgstr "Ordigu laŭ &nomo"
+
+msgid "Sort by &Size"
+msgstr "Ordigu laŭ &grando"
+
+msgid "Sort by &Date"
+msgstr "Ordigu laŭ &dato"
+
+msgid "&Unsorted"
+msgstr "&Sen ordo"
+
+msgid "Sort"
+msgstr "Ordigu"
+
+msgid "Show &hidden files"
+msgstr "Montru &kaŝitajn dosierojn"
+
+msgid "the file"
+msgstr "la dosieron"
+
+msgid "the directory"
+msgstr "la dosierujon"
+
+msgid "the symlink"
+msgstr "la simbolan ligilon"
+
+msgid "Delete %1"
+msgstr "Forigu %1"
+
+msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
+msgstr "<qt>Ĉu vi certas ke vi volas forigi %1 \"%2\"?</qt>"
+
+msgid "&Yes"
+msgstr "&Jes"
+
+msgid "&No"
+msgstr "&Ne"
+
+msgid "New Folder 1"
+msgstr "Nova dosierujo 1"
+
+msgid "New Folder"
+msgstr "Nova dosierujo"
+
+msgid "New Folder %1"
+msgstr "Nova dosierujo %1"
+
+msgid "Find Directory"
+msgstr "Trovu dosierujon"
+
+msgid "Directories"
+msgstr "Dosierujoj"
+
+msgid "Save"
+msgstr "Konservu"
+
+msgid "Error"
+msgstr "Eraro"
+
+msgid ""
+"%1\n"
+"File not found.\n"
+"Check path and filename."
+msgstr ""
+"%1\n"
+"Dosiero ne trovita.\n"
+"Kontrolu la vojprefikson kaj la dosiernomon."
+
+msgid "All Files (*.*)"
+msgstr "Ĉiaj dosieroj (*.*)"
+
+msgid "Select a Directory"
+msgstr "Elektu dosierujon"
+
+msgid "Directory:"
+msgstr "Dosierujo:"
+
+msgid "Clear"
+msgstr "Forviŝu"
+
+msgid "Select All"
+msgstr "Elektu ĉion"
+
+msgid "Line up"
+msgstr "Ordigu"
+
+msgid "Customize..."
+msgstr "Agordu..."
+
+msgid "System Menu"
+msgstr "Sistem-menuo"
+
+msgid "Shade"
+msgstr "Intenso"
+
+msgid "Unshade"
+msgstr "Malvolvu"
+
+msgid "Normalize"
+msgstr "Normaligu"
+
+msgid "Minimize"
+msgstr "Minimumigu"
+
+msgid "Maximize"
+msgstr "Maksimumigu"
+
+msgid "Close"
+msgstr "Fermu"
+
+msgid "&Restore"
+msgstr "&Restarigu"
+
+msgid "&Move"
+msgstr "&Movu"
+
+msgid "&Size"
+msgstr "&Grando"
+
+msgid "Mi&nimize"
+msgstr "Mi&nimumigu"
+
+msgid "Ma&ximize"
+msgstr "Ma&ksimumigu"
+
+msgid "&Close"
+msgstr "Fe&rmu"
+
+msgid "Stay on &Top"
+msgstr "Ĉia&m malfone"
+
+msgid "Restore Down"
+msgstr "Restarigu"
+
+msgid "Sh&ade"
+msgstr "Int&enso"
+
+msgid "%1 - [%2]"
+msgstr "%1 - [%2]"
+
+msgid "&Unshade"
+msgstr "Mal&volvu"
+
+msgid "Hu&e:"
+msgstr "Ko&l:"
+
+msgid "&Sat:"
+msgstr "&Sat:"
+
+msgid "&Val:"
+msgstr "Lu&m:"
+
+msgid "&Red:"
+msgstr "&Ruĝa:"
+
+msgid "&Green:"
+msgstr "&Verda:"
+
+msgid "Bl&ue:"
+msgstr "Bl&ua:"
+
+msgid "A&lpha channel:"
+msgstr "Al&fo-kanalo:"
+
+msgid "&Basic colors"
+msgstr "&Bazaj koloroj"
+
+msgid "&Custom colors"
+msgstr "&Propraj koloroj"
+
+msgid "&Define Custom Colors >>"
+msgstr "&Difinu proprajn kolorojn >>"
+
+msgid "&Add to Custom Colors"
+msgstr "&Aldonu al propraj koloroj"
+
+msgid "Select color"
+msgstr "Elektu koloron"
+
+msgid "&Font"
+msgstr "&Tiparo"
+
+msgid "Font st&yle"
+msgstr "Tipar&stilo"
+
+msgid "Effects"
+msgstr "Efektoj"
+
+msgid "Stri&keout"
+msgstr "Trastre&kita"
+
+msgid "&Underline"
+msgstr "S&ubstrekita"
+
+msgid "&Color"
+msgstr "&Koloro"
+
+msgid "Sample"
+msgstr "Ekzemplo"
+
+msgid "Scr&ipt"
+msgstr "Skr&ipto"
+
+msgid "Apply"
+msgstr "Apliku"
+
+msgid "Select Font"
+msgstr "Elektu tiparon"
 
 msgid "Manage Guides"
 msgstr "Administru gvidilojn"
@@ -1639,10 +2039,14 @@ msgstr "&Forigu"
 msgid "&Lock Guides"
 msgstr "Ŝ&losu gvidilojn"
 
+#, fuzzy
 msgid ""
-"Sorry, no manual available! Please see: http://scribus.net for updated docs "
-"and downloads."
-msgstr "Bedaŭrinde ne disponeblas manlibro! Bonvolu kontroli: http://scribus.net por ĝisdatigitaj dokumentoj kaj deŝutoj."
+"Sorry, no manual available! Please see: http://docs.scribus.net for updated "
+"docs\n"
+"and www.scribus.net for downloads."
+msgstr ""
+"Bedaŭrinde ne disponeblas manlibro! Bonvolu kontroli: http://scribus.net por "
+"ĝisdatigitaj dokumentoj kaj deŝutoj."
 
 msgid "Possible Hyphenation"
 msgstr "Ebla vortdivido"
@@ -1656,26 +2060,27 @@ msgstr "Saltu"
 msgid "Hyphenator Settings"
 msgstr "Vortdividaj agordoj"
 
-msgid "&Fully Automatic"
-msgstr "&Aŭtomata"
+#, fuzzy
+msgid "&Hyphenation Suggestions"
+msgstr "Vortdividaj agordoj"
 
-msgid "Check &During Typing"
-msgstr "Kontrolu &dum tajpado"
+msgid "Hyphenate Text Automatically &During Typing"
+msgstr ""
 
 msgid "&Smallest Word:"
 msgstr "&Plej mallonga vorto:"
 
-msgid "&Number of Hypenations allowed:"
+#, fuzzy
+msgid "Consecutive Hyphenations &Allowed:"
 msgstr "&Nombro de vortdividoj permesataj:"
 
 msgid ""
-"If you uncheck this you will get a dialog\n"
-"everytime a possible Hyphenation is found."
+"A dialog box showing all possible hyphens for each word will show up when "
+"you use the Extras, Hyphenate Text option."
 msgstr ""
-"Se vi malmarkas ĉi tion vi havos dialogon\n"
-"ĉiam, kiam troviĝos ebla divido."
 
-msgid "Enables automatic checking of your text while typing."
+#, fuzzy
+msgid "Enables automatic hyphenation of your text while typing."
 msgstr "Ebligas aŭtomatan kontrolon de via teksto dum tajpado."
 
 msgid "Length of the smallest word to be hyphenated."
@@ -1687,6 +2092,15 @@ msgid ""
 msgstr ""
 "Maksimuma nombro de dividoj sinsekvaj.\n"
 "Valoro egala al 0 signifas senlimajn dividojn."
+
+msgid "Insert Table"
+msgstr "Enmetu tabelon"
+
+msgid "Number of Rows:"
+msgstr "Lininombro:"
+
+msgid "Number of Columns:"
+msgstr "Kolumnonombro:"
 
 msgid "Insert Page"
 msgstr "Enmetu paĝon"
@@ -1724,23 +2138,15 @@ msgstr "R&edaktu..."
 msgid "&Add..."
 msgstr "&Aldonu..."
 
-msgid "&Close"
-msgstr "Fe&rmu"
-
 msgid "&New Script:"
 msgstr "&Nova skripto:"
 
 msgid "New Script"
 msgstr "Nova skripto"
 
-msgid "Do you really want do delete this Script?"
+#, fuzzy
+msgid "Do you really want to delete this Script?"
 msgstr "Ĉu vi vere intencas forigi ĉi tiun skripton?"
-
-msgid "&No"
-msgstr "&Ne"
-
-msgid "&Yes"
-msgstr "&Jes"
 
 msgid "Manage Keyboard Shortcuts"
 msgstr "Agordu klavokombinojn"
@@ -1820,6 +2226,21 @@ msgstr "&Horizontala ŝovo:"
 msgid "&Vertical Shift:"
 msgstr "&Vertikala ŝovo:"
 
+msgid "Distances"
+msgstr "Distancoj"
+
+msgid "DX:"
+msgstr "DX:"
+
+msgid "DY:"
+msgstr "DY:"
+
+msgid "Angle:"
+msgstr "Angulo:"
+
+msgid "Length:"
+msgstr "Longo:"
+
 msgid "Import Template"
 msgstr "Importu ŝablonon"
 
@@ -1882,9 +2303,6 @@ msgstr "&Linio"
 
 msgid "&Colors"
 msgstr "&Koloroj"
-
-msgid "Name"
-msgstr "Nomo"
 
 msgid "Geometry"
 msgstr "Geometrio"
@@ -2112,7 +2530,8 @@ msgstr "Movu malfonen"
 msgid "Move to back"
 msgstr "Movu fonen"
 
-msgid "Indicates the level the object is on, 0 means the object is at the bottom"
+msgid ""
+"Indicates the level the object is on, 0 means the object is at the bottom"
 msgstr "Montras la nivelon de la objektoj, 0 signifas ke ĝi estas fone"
 
 msgid "Lock or unlock the object"
@@ -2142,8 +2561,9 @@ msgstr "Saturiteco de la koloro de la tekstokonturo"
 msgid "Saturation of color of text fill"
 msgstr "Saturiteco de la koloro de la tekstoplenigo"
 
-msgid "Reverse Writing"
-msgstr "Maldekstruma skribado"
+#, fuzzy
+msgid "Right to Left Writing"
+msgstr "De dekstre maldekstren"
 
 msgid "Manual Kerning"
 msgstr "Neaŭtomata literdistanco"
@@ -2296,7 +2716,8 @@ msgstr "Streko-punkto-punkto"
 msgid "Edit Templates"
 msgstr "Redaktu ŝablonojn"
 
-msgid "Do you really want do delete this Template?"
+#, fuzzy
+msgid "Do you really want to delete this Template?"
 msgstr "Ĉu vi vere intencas forigi ĉi tiun ŝablonon?"
 
 msgid "New Template"
@@ -2370,8 +2791,10 @@ msgstr "Dokumenta paĝgrando, apriora aŭ propra"
 msgid "Orientation of the document's pages"
 msgstr "Orientiĝo de la dokumentaj paĝoj"
 
-msgid "Width of the document's pages, editable if you have chosen a custom page size"
-msgstr "Larĝo de la dokumentpaĝoj, redaktebla se vi elektis propran paĝograndon"
+msgid ""
+"Width of the document's pages, editable if you have chosen a custom page size"
+msgstr ""
+"Larĝo de la dokumentpaĝoj, redaktebla se vi elektis propran paĝograndon"
 
 msgid ""
 "Height of the document's pages, editable if you have chosen a custom page "
@@ -2396,7 +2819,8 @@ msgid ""
 "correct margins for binding"
 msgstr ""
 "Distanco inter la maldekstra marĝeno kaj la rando de la paĝo.\n"
-"Se oni markis la opcion Vidalvidaj Paĝoj, vi povas utiligi ĉi tiun marĝenon por kalkuli la ĝustajn marĝenojn por bindado"
+"Se oni markis la opcion Vidalvidaj Paĝoj, vi povas utiligi ĉi tiun marĝenon "
+"por kalkuli la ĝustajn marĝenojn por bindado"
 
 msgid ""
 "Distance between the right margin guide and the edge of the page.\n"
@@ -2404,7 +2828,8 @@ msgid ""
 "correct margins for binding"
 msgstr ""
 "Distanco inter la dekstra marĝeno kaj la rando de la paĝo.\n"
-"Se oni markis la opcion Vidalvidaj Paĝoj, vi povas utiligi ĉi tiun marĝenon por kalkuli la ĝustajn marĝenojn por bindado"
+"Se oni markis la opcion Vidalvidaj Paĝoj, vi povas utiligi ĉi tiun marĝenon "
+"por kalkuli la ĝustajn marĝenojn por bindado"
 
 msgid "First page number of the document"
 msgstr "Unua paĝnumero de la dokumento"
@@ -2644,6 +3069,12 @@ msgstr "Multliniaĵo"
 msgid "PathText"
 msgstr "Teksto sur la desegno"
 
+msgid "Page "
+msgstr "Paĝo"
+
+msgid " of %1"
+msgstr "el %1"
+
 msgid "Create PDF File"
 msgstr "Kreu PDF-dosieron"
 
@@ -2692,14 +3123,12 @@ msgstr " dpi"
 msgid "&Resolution:"
 msgstr "Distingi&vo:"
 
-msgid "Com&press Text and Vector Graphics"
+#, fuzzy
+msgid "Compress Text and &Vector Graphics"
 msgstr "&Densigu tekston kaj vektorajn grafikaĵojn"
 
 msgid "Image Settings"
 msgstr "Bildagordaro"
-
-msgid "Automatic"
-msgstr "Aŭtomata"
 
 msgid "JPEG"
 msgstr "JPEG"
@@ -2755,7 +3184,8 @@ msgstr "Inkludotaj tiparoj:"
 msgid "&Fonts"
 msgstr "&Tiparoj"
 
-msgid "Enable &Presentation Effects"
+#, fuzzy
+msgid "En&able Presentation Effects"
 msgstr "E&bligu prezentefektojn"
 
 msgid "Page"
@@ -2763,9 +3193,6 @@ msgstr "Paĝo"
 
 msgid "Show Page Pre&views"
 msgstr "Montru paĝ-antaŭri&gardojn"
-
-msgid "Effects"
-msgstr "Efektoj"
 
 msgid "&Display Duration:"
 msgstr "Pro&jekci-daŭro:"
@@ -2833,8 +3260,9 @@ msgstr "De supre maldekstre ĝis malsupre dekstre"
 msgid "&Apply Effect on all Pages"
 msgstr "&Apliku efekton al ĉiuj paĝoj"
 
-msgid "E&xtras"
-msgstr "Ek&straĵoj"
+#, fuzzy
+msgid "&Presentation"
+msgstr "PDF-prezentaĵoj"
 
 msgid "&Use Encryption"
 msgstr "Uzu ĉi&fradon"
@@ -2938,6 +3366,14 @@ msgstr "Tranĉformato"
 msgid "PDF/X-&3"
 msgstr "PDF/X-&3"
 
+#, fuzzy
+msgid "Mirror Page(s) &Horizontally"
+msgstr "R&eflektu paĝo(j)n"
+
+#, fuzzy
+msgid "&Options"
+msgstr "Opcioj"
+
 msgid "Export all pages to PDF"
 msgstr "Eksportu ĉiujn paĝojn al PDF"
 
@@ -2952,9 +3388,12 @@ msgid ""
 "PDF/X-3 is for exporting the PDF for commercial printing and is selectable "
 "when you have activated color management."
 msgstr ""
-"Difinas la PDF-kongruecon. La apriora estas Acrobat 4.0, kiu donas la plej grandan kongruon.\n"
-"Elektu Acrobat 5.0 se via dosiero havas PDF-1.4-eblojn kiel travideblecon aŭ vi bezonas 128bitan ĉifradon.\n"
-"PDF/X-3 estas por eksporto de PDF-dosiero por komerca printado kaj ĝi estas elektebla se vi aktivigis la koloradministradon."
+"Difinas la PDF-kongruecon. La apriora estas Acrobat 4.0, kiu donas la plej "
+"grandan kongruon.\n"
+"Elektu Acrobat 5.0 se via dosiero havas PDF-1.4-eblojn kiel travideblecon aŭ "
+"vi bezonas 128bitan ĉifradon.\n"
+"PDF/X-3 estas por eksporto de PDF-dosiero por komerca printado kaj ĝi estas "
+"elektebla se vi aktivigis la koloradministradon."
 
 msgid ""
 "Determines the binding of pages in the PDF. Unless you know\n"
@@ -2973,7 +3412,9 @@ msgstr ""
 msgid ""
 "Generate PDF Articles, which is useful for navigating linked articles in a "
 "PDF."
-msgstr "Generas PDF-erojn, utilajn por la navigado tra la ligitaj artikoloj en PDF-dosiero."
+msgstr ""
+"Generas PDF-erojn, utilajn por la navigado tra la ligitaj artikoloj en PDF-"
+"dosiero."
 
 msgid ""
 "Embed the bookmarks you created in your document.\n"
@@ -2994,7 +3435,8 @@ msgid ""
 "Unless you have a reason, leave this checked. This reduces PDF size."
 msgstr ""
 "Densigo de teksto kaj grafikaĵoj.\n"
-"Se vi ne havas aliajn kialojn, lasu ĝin markita. Ĝi malpligrandigas la PDF-grandon."
+"Se vi ne havas aliajn kialojn, lasu ĝin markita. Ĝi malpligrandigas la PDF-"
+"grandon."
 
 msgid ""
 "Version of compression for images.\n"
@@ -3008,13 +3450,16 @@ msgstr ""
 "Tipo de densigo por la bildoj.\n"
 "Aŭtomata permesas al Scribus elekti la plej bonan metodon.\n"
 "ZIP estas bona por bildoj kun homogenaj koloroj.\n"
-"JPEG estas pli taŭga por la kreo de pli malgrandaj PDF-dosieroj kun multaj fotoj (kun eblo perdi nur iom da kvalito).\n"
+"JPEG estas pli taŭga por la kreo de pli malgrandaj PDF-dosieroj kun multaj "
+"fotoj (kun eblo perdi nur iom da kvalito).\n"
 "Lasu ĝin ĉe aŭtomata se vi ne bezonas specialajn densigopciojn."
 
 msgid ""
 "Compression levels: Minimum (25\\%), Low (50\\%), Medium (75\\%), High (85\\"
 "%), Maximum (95\\%)"
-msgstr "Densigoniveloj: Minimuma (25\\%), Malalta (50\\%), Meza (75\\%), Alta (85\\%), Maksimuma (95\\%)"
+msgstr ""
+"Densigoniveloj: Minimuma (25\\%), Malalta (50\\%), Meza (75\\%), Alta (85\\"
+"%), Maksimuma (95\\%)"
 
 msgid ""
 "Downsample your bitmap images to the selected DPI.\n"
@@ -3033,8 +3478,11 @@ msgstr ""
 "Inkludas la tiparojn en la PDF-dosieron. Ilia inkludo\n"
 "konservos la aspekton kaj la formaton de la dokumento."
 
-msgid "Enables presentation effects when using Acrobat Reader in full screen mode."
-msgstr "Ebligas prezentoefektojn kiam oni utiligas Acrobat Reader en tutekrana reĝimo."
+msgid ""
+"Enables presentation effects when using Acrobat Reader in full screen mode."
+msgstr ""
+"Ebligas prezentoefektojn kiam oni utiligas Acrobat Reader en tutekrana "
+"reĝimo."
 
 msgid "Show page previews of each page listed above."
 msgstr "Montras paĝantaŭrigardon de ĉiu paĝo ĉi-supre listigita."
@@ -3042,7 +3490,9 @@ msgstr "Montras paĝantaŭrigardon de ĉiu paĝo ĉi-supre listigita."
 msgid ""
 "Length of time the page is shown before the presentation starts on the "
 "selected page."
-msgstr "Tempodaŭro dum kiu la paĝo estos montrata antaŭ ol komenciĝu la prezento kun la elektita paĝo."
+msgstr ""
+"Tempodaŭro dum kiu la paĝo estos montrata antaŭ ol komenciĝu la prezento kun "
+"la elektita paĝo."
 
 msgid ""
 "Length of time the effect runs.\n"
@@ -3054,7 +3504,8 @@ msgstr ""
 msgid "Type of the display effect."
 msgstr "Tipo de montr-efekto."
 
-msgid "Direction of the effect of moving lines for the split and blind effects."
+msgid ""
+"Direction of the effect of moving lines for the split and blind effects."
 msgstr "Direkto de la moveblaj linioj por la opak- kaj disig-efektoj."
 
 msgid "Starting position for the box and split effects."
@@ -3076,9 +3527,12 @@ msgid ""
 "does have some limitations."
 msgstr ""
 "Ebligu la sekurecon en la eksportita PDF-dosiero.\n"
-"Se vi elektis Acrobat 4.0, la PDF-dosiero estos protektita de 40bita ĉifrado.\n"
-"Se vi elektis Acrobat 5.0, la PDF-dosiero estos protektita de 128bita ĉifrado.\n"
-"Atenton: PDF-ĉifrado ne estas sekura kiel GPG- aŭ PGP-ĉifrado kaj havas kelkajn limojn."
+"Se vi elektis Acrobat 4.0, la PDF-dosiero estos protektita de 40bita "
+"ĉifrado.\n"
+"Se vi elektis Acrobat 5.0, la PDF-dosiero estos protektita de 128bita "
+"ĉifrado.\n"
+"Atenton: PDF-ĉifrado ne estas sekura kiel GPG- aŭ PGP-ĉifrado kaj havas "
+"kelkajn limojn."
 
 msgid ""
 "Choose a master password which enables or disables all the\n"
@@ -3091,10 +3545,14 @@ msgid "Choose a password for users to be able to read your PDF."
 msgstr "Elektu pasvorton por uzuloj kiu ebligas al ili legi vian PDF-dosieron."
 
 msgid "Allow printing of the PDF. If un-checked, printing is prevented. "
-msgstr "Permesas printadon de la PDF-dosieron. Se ne markita, ne eblas printi. "
+msgstr ""
+"Permesas printadon de la PDF-dosieron. Se ne markita, ne eblas printi. "
 
-msgid "Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
-msgstr "Permesas redakton de la PDF-dosiero. Se ne markita ne eblas modifi la PDF-dosieron."
+msgid ""
+"Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
+msgstr ""
+"Permesas redakton de la PDF-dosiero. Se ne markita ne eblas modifi la PDF-"
+"dosieron."
 
 msgid ""
 "Allow copying of text or graphics from the PDF. \n"
@@ -3117,7 +3575,8 @@ msgid ""
 "Choose Printer when printing to a true 4 color CMYK printer."
 msgstr ""
 "Kolormodelo por la eligo de la PDF-dosiero.\n"
-"Elektu Ekrano/Teksaĵo por PDF-dosieroj uzotaj por montro en la ekrano kaj por printado per apartaj inkprintiloj.\n"
+"Elektu Ekrano/Teksaĵo por PDF-dosieroj uzotaj por montro en la ekrano kaj "
+"por printado per apartaj inkprintiloj.\n"
 "Elektu Printilo'n por printado per 4kolora (CMYK) printilo."
 
 msgid ""
@@ -3128,9 +3587,11 @@ msgid ""
 "Otherwise, your exported PDF may not print properly and is truly not "
 "portable across systems."
 msgstr ""
-"Ĉi tio estas kroma agordaĵo kiu ne estas apriore ebligita. Ĝi devus estis ebligita nur\n"
+"Ĉi tio estas kroma agordaĵo kiu ne estas apriore ebligita. Ĝi devus estis "
+"ebligita nur\n"
 "kiam ĝin postulas via printilo kaj oni konas la necesajn detalojn.\n"
-"Alie la eksportita PDF-dosiero povus ne bone funkcii kaj ne esti portebla al aliaj sistemoj."
+"Alie la eksportita PDF-dosiero povus ne bone funkcii kaj ne esti portebla al "
+"aliaj sistemoj."
 
 msgid "Embed a color profile for solid colors"
 msgstr "Inkludu kolorprofilon por homogenaj koloroj"
@@ -3156,7 +3617,9 @@ msgstr "Bildigocelo por bildoj"
 msgid ""
 "Output profile for printing. If possible, get some guidance from your "
 "printer on profile selection."
-msgstr "Eligoprofilo por printado. Se eblas, akiru kromajn gvidinformojn pri via printilo en la profilelekto."
+msgstr ""
+"Eligoprofilo por printado. Se eblas, akiru kromajn gvidinformojn pri via "
+"printilo en la profilelekto."
 
 msgid ""
 "Mandatory string for PDF/X-3 or the PDF will fail\n"
@@ -3216,8 +3679,9 @@ msgstr "Poligonaj ecoj"
 msgid "Corn&ers:"
 msgstr "Ang&uloj:"
 
-msgid "Conve&x Polygon"
-msgstr "Konvek&sa poligono"
+#, fuzzy
+msgid "Apply &Factor"
+msgstr "&Faktoro:"
 
 msgid "&Factor:"
 msgstr "&Faktoro:"
@@ -3228,20 +3692,25 @@ msgstr "Angulnombro por la poligonoj"
 msgid "Degrees of rotation for polygons"
 msgstr "Rotacigradoj por la poligonoj"
 
-msgid "Polygons will be convex rather than concave"
-msgstr "La poligonoj estos konveksaj anstataŭ konkavaj"
+msgid "Apply Convex/Concave Factor to change shape of Polygons"
+msgstr ""
 
 msgid "Sample Polygon"
 msgstr "Ekzempla poligono"
 
-msgid "Change the angles at which lines of the polygon join"
-msgstr "Ŝanĝu la angulojn ĉe kiuj la poligonlinioj kuniĝas"
+msgid ""
+"A negative value will make the polygon concave (or star shaped),\n"
+" a positive value will make it convex"
+msgstr ""
 
 msgid "Document Setup"
 msgstr "Dokument-agordoj"
 
 msgid "&Outside:"
 msgstr "&Ekstere:"
+
+msgid "Font %1 is broken, discarding it"
+msgstr ""
 
 msgid "Scrapbook"
 msgstr "Albumo"
@@ -3375,12 +3844,6 @@ msgstr "Malfermu &lastajn"
 msgid "Open..."
 msgstr "Malfermu..."
 
-msgid "Close"
-msgstr "Fermu"
-
-msgid "Save"
-msgstr "Konservu"
-
 msgid "Save as..."
 msgstr "Konservu kiel..."
 
@@ -3449,9 +3912,6 @@ msgstr "Kopiu"
 
 msgid "Paste"
 msgstr "Elpoŝigu"
-
-msgid "Clear"
-msgstr "Forviŝu"
 
 msgid "Select all"
 msgstr "Elektu ĉion"
@@ -3702,6 +4162,9 @@ msgstr "&Paĝo"
 msgid "&View"
 msgstr "Ri&gardo"
 
+msgid "E&xtras"
+msgstr "Ek&straĵoj"
+
 msgid "&Settings"
 msgstr "&Agordaro"
 
@@ -3756,17 +4219,8 @@ msgstr "Enmetu tekston/bildon..."
 msgid "Get Picture..."
 msgstr "Enmetu bildon..."
 
-msgid "&Color"
-msgstr "&Koloro"
-
 msgid "&Invert"
 msgstr "&Negativa"
-
-msgid "&Font"
-msgstr "&Tiparo"
-
-msgid "&Size"
-msgstr "&Grando"
 
 msgid "&Effects"
 msgstr "&Efektoj"
@@ -3786,17 +4240,11 @@ msgstr "Enmetu tekston..."
 msgid "Font"
 msgstr "Tiparo"
 
-msgid "Size"
-msgstr "Grando"
-
 msgid "Style"
 msgstr "Stilo"
 
 msgid "Color"
 msgstr "Koloro"
-
-msgid "Shade"
-msgstr "Intenso"
 
 msgid "Importing Pages..."
 msgstr "Importas paĝojn..."
@@ -3806,7 +4254,11 @@ msgid ""
 "current document counting from the active page.</p>Choose one of the "
 "following:<br><ul><li><b>Create</b> missing pages</li><li><b>Import</b> "
 "pages until the last page</li><li><b>Cancel</b></li></ul><br>"
-msgstr "<p>Vi provas importi pli da paĝoj ol kiom disponeblas en la aktuala dokumento, enkalkulite la aktiva paĝo.</p>Elektu unu el la sekvaj opcioj:<br><ul><li><b>Kreu</b> la mankantajn pagojn</li><li><b>Importu</b> la paĝojn ĝis la lasta</li><li><b>Rezignu</b></li></ul><br>"
+msgstr ""
+"<p>Vi provas importi pli da paĝoj ol kiom disponeblas en la aktuala "
+"dokumento, enkalkulite la aktiva paĝo.</p>Elektu unu el la sekvaj opcioj:"
+"<br><ul><li><b>Kreu</b> la mankantajn pagojn</li><li><b>Importu</b> la "
+"paĝojn ĝis la lasta</li><li><b>Rezignu</b></li></ul><br>"
 
 msgid "Create"
 msgstr "Kreu"
@@ -3817,14 +4269,11 @@ msgstr "Importo finita"
 msgid "Found nothing to import"
 msgstr "Trovita nenio por importi"
 
+msgid "File %1 is not in Scribus format"
+msgstr ""
+
 msgid "Loading..."
 msgstr "Ŝargas..."
-
-msgid "All Supported Formats"
-msgstr "Ĉiuj subtenataj formatoj"
-
-msgid "All Files (*)"
-msgstr "Ĉiaj dosieroj (*)"
 
 msgid ""
 "Can't write the File: \n"
@@ -3966,6 +4415,9 @@ msgstr "Sveda"
 msgid "Slovenian"
 msgstr "Slovena"
 
+msgid "Afrikaans"
+msgstr ""
+
 msgid "Scribus Crash"
 msgstr "Skribus-akcidento"
 
@@ -3992,6 +4444,66 @@ msgstr "estis ŝanĝita depost lasta konservo."
 
 msgid "&Save Now"
 msgstr "Kon&servu"
+
+msgid "Search/Replace"
+msgstr "Serĉu/Anstataŭu"
+
+msgid "Search for:"
+msgstr "Serĉu:"
+
+msgid "Paragraph Style"
+msgstr "Aline-stilo"
+
+msgid "Font Effects"
+msgstr "Tipar-efektoj"
+
+msgid "Fill Color"
+msgstr "Plenigokoloro"
+
+msgid "Fill Shade"
+msgstr "Plenigo-intenso"
+
+msgid "Stroke Color"
+msgstr "Konturkoloron"
+
+msgid "Stroke Shade"
+msgstr "Konturointenso"
+
+msgid "Left"
+msgstr "Maldekstra"
+
+msgid "Center"
+msgstr "Centra"
+
+msgid "Right"
+msgstr "Dekstra"
+
+msgid "Block"
+msgstr "Alkadrigita"
+
+msgid "Forced"
+msgstr "Komplete alkadrigita"
+
+msgid "Replace with:"
+msgstr "Anstataŭu per:"
+
+msgid "&Whole Word"
+msgstr "&Tuta vorto"
+
+msgid "&Ignore Case"
+msgstr "&Ignoru usklecon"
+
+msgid "&Search"
+msgstr "&Serĉu"
+
+msgid "&Replace"
+msgstr "&Anstataŭu"
+
+msgid "Replace &All"
+msgstr "Anstataŭ&u ĉiujn"
+
+msgid "Search finished"
+msgstr "Serĉado finita"
 
 msgid "Show Page Previews"
 msgstr "Montru paĝ-antaŭrigardojn"
@@ -4036,90 +4548,8 @@ msgstr "Disponeblaj kampoj"
 msgid "Selected Fields"
 msgstr "Elektitaj kampoj"
 
-msgid "Element"
-msgstr "Elemento"
-
-msgid "Information"
-msgstr "Informoj"
-
-msgid "X:"
-msgstr "X:"
-
-msgid "Font:"
-msgstr "Tiparo:"
-
-msgid "Group "
-msgstr "Grupigu"
-
-msgid ""
-"Do you really want to overwrite the File:\n"
-"%1 ?"
-msgstr ""
-"Ĉu vi vere intencas superskribi la dosieron:\n"
-"%1 ?"
-
-msgid "Select Items"
-msgstr "Elektu objektojn"
-
-msgid "Insert Text Frame"
-msgstr "Enmetu tekstokadron"
-
-msgid "Insert Picture"
-msgstr "Enmetu bildon"
-
-msgid "Insert Table"
-msgstr "Enmetu tabelon"
-
-msgid "Properties..."
-msgstr "Ecoj..."
-
-msgid "Insert Polygons"
-msgstr "Enmetu poligonojn"
-
-msgid "Insert Lines"
-msgstr "Enmetu liniojn"
-
-msgid "Insert Bezier Curves"
-msgstr "Enmetu Bezier-kurbojn"
-
-msgid "Insert Freehand Line"
-msgstr "Enmetu mandesegnitan linion"
-
-msgid "Rotate Item"
-msgstr "Rotaciu objekton"
-
-msgid "Zoom in or out"
-msgstr "Grandigas/malgrandigas"
-
-msgid "Edit Contents of Frame"
-msgstr "Redaktu la kadroentenon"
-
-msgid "Edit the text with the Story Editor"
-msgstr "Redaktu la tekston per la Tekstoredaktilo"
-
-msgid "Link Text Frames"
-msgstr "Ligu tekstokadrojn"
-
-msgid "Unlink Text Frames"
-msgstr "Malligu tekstokadrojn"
-
-msgid "Do measurements"
-msgstr "Mezuru"
-
-msgid "Draw various Shapes"
-msgstr "Desegnu diversajn formojn"
-
-msgid "PDF Tools"
-msgstr "PDF-iloj"
-
-msgid "Insert PDF Fields"
-msgstr "Enmetu PDF-kampojn"
-
-msgid "Insert PDF Annotations"
-msgstr "Enmetu PDF-notojn"
-
-msgid "Manage Tabulators"
-msgstr "Administru tabojn"
+msgid "Other..."
+msgstr "Aliaj..."
 
 msgid "Fill Color Settings"
 msgstr "Plenigkolora agordaro"
@@ -4202,9 +4632,6 @@ msgstr "Reŝargu tekston el kadro"
 msgid "Update Text Frame"
 msgstr "Aktualigu tekstokadron"
 
-msgid "Search/Replace"
-msgstr "Serĉu/Anstataŭu"
-
 #, fuzzy
 msgid "Current Paragraph:"
 msgstr "Aktuala alineo:"
@@ -4224,63 +4651,6 @@ msgstr "&Tipar-antaŭrigardo"
 msgid "Do you really want to lose all your Changes?"
 msgstr "Ĉu vi vere intencas perdi ĉiujn viajn ŝanĝojn?"
 
-msgid "Search for:"
-msgstr "Serĉu:"
-
-msgid "Paragraph Style"
-msgstr "Aline-stilo"
-
-msgid "Font Effects"
-msgstr "Tipar-efektoj"
-
-msgid "Fill Color"
-msgstr "Plenigokoloro"
-
-msgid "Fill Shade"
-msgstr "Plenigo-intenso"
-
-msgid "Stroke Color"
-msgstr "Konturkoloron"
-
-msgid "Stroke Shade"
-msgstr "Konturointenso"
-
-msgid "Left"
-msgstr "Maldekstra"
-
-msgid "Center"
-msgstr "Centra"
-
-msgid "Right"
-msgstr "Dekstra"
-
-msgid "Block"
-msgstr "Alkadrigita"
-
-msgid "Forced"
-msgstr "Komplete alkadrigita"
-
-msgid "Replace with:"
-msgstr "Anstataŭu per:"
-
-msgid "&Whole Word"
-msgstr "&Tuta vorto"
-
-msgid "&Ignore Case"
-msgstr "&Ignoru usklecon"
-
-msgid "&Search"
-msgstr "&Serĉu"
-
-msgid "&Replace"
-msgstr "&Anstataŭu"
-
-msgid "Replace &All"
-msgstr "Anstataŭ&u ĉiujn"
-
-msgid "Search finished"
-msgstr "Serĉado finita"
-
 #, fuzzy
 msgid "Strike Out"
 msgstr "Trastrekita"
@@ -4288,23 +4658,8 @@ msgstr "Trastrekita"
 msgid "Outline Text"
 msgstr "Konturita teksto"
 
-msgid "Align Text Left"
-msgstr "Maldekstremigu tekston"
-
-msgid "Align Text Right"
-msgstr "Dekstremigu tekston"
-
-msgid "Align Text Center"
-msgstr "Centrigu tekston"
-
-msgid "Align Text Justified"
-msgstr "Alkadrigita teksto"
-
-msgid "Align Text Forced Justified"
-msgstr "Komplete alkadrigita teksto"
-
-msgid "Other..."
-msgstr "Aliaj..."
+msgid "Manage Tabulators"
+msgstr "Administru tabojn"
 
 msgid "Full Stop"
 msgstr "Punkto"
@@ -4333,331 +4688,86 @@ msgstr "Maldekstra deŝovo por la tuta alineo"
 msgid "Delete all Tabulators"
 msgstr "Forigu ĉiujn tabojn"
 
-msgid ""
-"<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
-"toolkit for multiplatform GUI &amp; application development.</p><p>Qt "
-"provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;"
-"X, Linux, and all major commercial Unix variants.<br>Qt is also available "
-"for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www."
-"trolltech.com/qt/</tt> for more information.</p>"
-msgstr ""
-"<h3>Pri Qt</h3><p>Ĉi tiu programo utiligas Qt-version %1.</p><p>Qt estas C++biblioteko"
-"por plurplatforma programado de GUI &amp; kaj aplikaĵoj.</p><p>Qt "
-"provizas unuoporiginan porteblon tra MS&nbsp;Windows, Mac&nbsp;OS&nbsp;"
-"X, Linux, kaj ĉiuj plej grandaj komercaj Unikso-variaĵoj.<br>Qt estas ankaŭ disponebla por inkluditaj ekipaĵoj.</p><p>Qt estas Trolltech-produkto. Legu <tt>http://www."
-"trolltech.com/qt/</tt> por kromaj informoj.</p>"
+msgid "Element"
+msgstr "Elemento"
 
-msgid "Copy or Move a File"
-msgstr "Kopiu aŭ movu dosieron"
+msgid "Information"
+msgstr "Informoj"
 
-msgid "Read: %1"
-msgstr "Preta: %1"
+msgid "X:"
+msgstr "X:"
 
-msgid "Write: %1"
-msgstr "Skribu: %1"
+msgid "Font:"
+msgstr "Tiparo:"
 
-msgid "File &name:"
-msgstr "Dosier&nomo:"
-
-msgid "File &type:"
-msgstr "Dosier&tipo:"
-
-msgid "One directory up"
-msgstr "Supra dosierujo"
-
-msgid "Attributes"
-msgstr "Atributoj"
-
-msgid "Look &in:"
-msgstr "Serĉu &en:"
-
-msgid "Back"
-msgstr "Reen"
-
-msgid "Create New Folder"
-msgstr "Kreu novan dosierujon"
-
-msgid "List View"
-msgstr "Listorigardo"
-
-msgid "Detail View"
-msgstr "Detala rigardo"
-
-msgid "Preview File Info"
-msgstr "Antaŭrigardu dosier-informojn"
-
-msgid "Preview File Contents"
-msgstr "Antaŭrigardu dosier-entenon"
-
-msgid "Read-write"
-msgstr "Lege-skribe"
-
-msgid "Read-only"
-msgstr "Nurlege"
-
-msgid "Write-only"
-msgstr "Nurskribe"
-
-msgid "Inaccessible"
-msgstr "Nealireble"
-
-msgid "Symlink to File"
-msgstr "Simbola ligilo al la dosiero"
-
-msgid "Symlink to Directory"
-msgstr "Simbola ligilo al la dosierujo"
-
-msgid "Symlink to Special"
-msgstr "Simbola ligilo al la speciala"
-
-msgid "Dir"
-msgstr "Dosierujo"
-
-msgid "Special"
-msgstr "Speciala"
-
-msgid "Save As"
-msgstr "Konservu kiel"
-
-msgid "&Open"
-msgstr "M&alfermu"
-
-msgid "&Rename"
-msgstr "A&linomu"
-
-msgid "R&eload"
-msgstr "R&eŝargu"
-
-msgid "Sort by &Name"
-msgstr "Ordigu laŭ &nomo"
-
-msgid "Sort by &Size"
-msgstr "Ordigu laŭ &grando"
-
-msgid "Sort by &Date"
-msgstr "Ordigu laŭ &dato"
-
-msgid "&Unsorted"
-msgstr "&Sen ordo"
-
-msgid "Sort"
-msgstr "Ordigu"
-
-msgid "Show &hidden files"
-msgstr "Montru &kaŝitajn dosierojn"
-
-msgid "the file"
-msgstr "la dosieron"
-
-msgid "the directory"
-msgstr "la dosierujon"
-
-msgid "the symlink"
-msgstr "la simbolan ligilon"
-
-msgid "Delete %1"
-msgstr "Forigu %1"
-
-msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
-msgstr "<qt>Ĉu vi certas ke vi volas forigi %1 \"%2\"?</qt>"
-
-msgid "New Folder 1"
-msgstr "Nova dosierujo 1"
-
-msgid "New Folder"
-msgstr "Nova dosierujo"
-
-msgid "New Folder %1"
-msgstr "Nova dosierujo %1"
-
-msgid "Find Directory"
-msgstr "Trovu dosierujon"
-
-msgid "Directories"
-msgstr "Dosierujoj"
-
-msgid "Error"
-msgstr "Eraro"
+msgid "Group "
+msgstr "Grupigu"
 
 msgid ""
-"%1\n"
-"File not found.\n"
-"Check path and filename."
+"Do you really want to overwrite the File:\n"
+"%1 ?"
 msgstr ""
-"%1\n"
-"Dosiero ne trovita.\n"
-"Kontrolu la vojprefikson kaj la dosiernomon."
+"Ĉu vi vere intencas superskribi la dosieron:\n"
+"%1 ?"
 
-msgid "All Files (*.*)"
-msgstr "Ĉiaj dosieroj (*.*)"
+msgid "Select Items"
+msgstr "Elektu objektojn"
 
-msgid "Select a Directory"
-msgstr "Elektu dosierujon"
+msgid "Insert Text Frame"
+msgstr "Enmetu tekstokadron"
 
-msgid "Directory:"
-msgstr "Dosierujo:"
+msgid "Insert Picture"
+msgstr "Enmetu bildon"
 
-msgid "Select All"
-msgstr "Elektu ĉion"
+msgid "Properties..."
+msgstr "Ecoj..."
 
-msgid "Line up"
-msgstr "Ordigu"
+msgid "Insert Polygons"
+msgstr "Enmetu poligonojn"
 
-msgid "Customize..."
-msgstr "Agordu..."
+msgid "Insert Lines"
+msgstr "Enmetu liniojn"
 
-msgid "System Menu"
-msgstr "Sistem-menuo"
+msgid "Insert Bezier Curves"
+msgstr "Enmetu Bezier-kurbojn"
 
-msgid "Unshade"
-msgstr "Malvolvu"
+msgid "Insert Freehand Line"
+msgstr "Enmetu mandesegnitan linion"
 
-msgid "Normalize"
-msgstr "Normaligu"
+msgid "Rotate Item"
+msgstr "Rotaciu objekton"
 
-msgid "Minimize"
-msgstr "Minimumigu"
+msgid "Zoom in or out"
+msgstr "Grandigas/malgrandigas"
 
-msgid "Maximize"
-msgstr "Maksimumigu"
+msgid "Edit Contents of Frame"
+msgstr "Redaktu la kadroentenon"
 
-msgid "&Restore"
-msgstr "&Restarigu"
+msgid "Edit the text with the Story Editor"
+msgstr "Redaktu la tekston per la Tekstoredaktilo"
 
-msgid "&Move"
-msgstr "&Movu"
+msgid "Link Text Frames"
+msgstr "Ligu tekstokadrojn"
 
-msgid "Mi&nimize"
-msgstr "Mi&nimumigu"
+msgid "Unlink Text Frames"
+msgstr "Malligu tekstokadrojn"
 
-msgid "Ma&ximize"
-msgstr "Ma&ksimumigu"
+msgid "Do measurements"
+msgstr "Mezuru"
 
-msgid "Stay on &Top"
-msgstr "Ĉia&m malfone"
+msgid "Draw various Shapes"
+msgstr "Desegnu diversajn formojn"
 
-msgid "Restore Down"
-msgstr "Restarigu"
+msgid "PDF Tools"
+msgstr "PDF-iloj"
 
-msgid "Sh&ade"
-msgstr "Int&enso"
+msgid "Insert PDF Fields"
+msgstr "Enmetu PDF-kampojn"
 
-msgid "%1 - [%2]"
-msgstr "%1 - [%2]"
+msgid "Insert PDF Annotations"
+msgstr "Enmetu PDF-notojn"
 
-msgid "&Unshade"
-msgstr "Mal&volvu"
-
-msgid "Hu&e:"
-msgstr "Ko&l:"
-
-msgid "&Sat:"
-msgstr "&Sat:"
-
-msgid "&Val:"
-msgstr "Lu&m:"
-
-msgid "&Red:"
-msgstr "&Ruĝa:"
-
-msgid "&Green:"
-msgstr "&Verda:"
-
-msgid "Bl&ue:"
-msgstr "Bl&ua:"
-
-msgid "A&lpha channel:"
-msgstr "Al&fo-kanalo:"
-
-msgid "&Basic colors"
-msgstr "&Bazaj koloroj"
-
-msgid "&Custom colors"
-msgstr "&Propraj koloroj"
-
-msgid "&Define Custom Colors >>"
-msgstr "&Difinu proprajn kolorojn >>"
-
-msgid "&Add to Custom Colors"
-msgstr "&Aldonu al propraj koloroj"
-
-msgid "Select color"
-msgstr "Elektu koloron"
-
-msgid "Font st&yle"
-msgstr "Tipar&stilo"
-
-msgid "Stri&keout"
-msgstr "Trastre&kita"
-
-msgid "&Underline"
-msgstr "S&ubstrekita"
-
-msgid "Sample"
-msgstr "Ekzemplo"
-
-msgid "Scr&ipt"
-msgstr "Skr&ipto"
-
-msgid "Apply"
-msgstr "Apliku"
-
-msgid "Select Font"
-msgstr "Elektu tiparon"
-
-msgid "Page "
-msgstr "Paĝo"
-
-msgid " of %1"
-msgstr "el %1"
-
-msgid "Number of Rows:"
-msgstr "Lininombro:"
-
-msgid "Number of Columns:"
-msgstr "Kolumnonombro:"
-
-msgid "Importing text"
-msgstr "Tekstoimportado"
-
-msgid "Distances"
-msgstr "Distancoj"
-
-msgid "DX:"
-msgstr "DX:"
-
-msgid "DY:"
-msgstr "DY:"
-
-msgid "Angle:"
-msgstr "Angulo:"
-
-msgid "Length:"
-msgstr "Longo:"
-
-msgid "Position:"
-msgstr "Situo:"
-
-msgid "Here you can add, change or remove Color-Stops."
-msgstr "Ĉi tie vi povas aldoni, ŝanĝi aŭ forigi kolorlimojn."
-
-msgid "Choose the importer to use"
-msgstr "Elektu la uzotan importilon"
-
-msgid "Get text only"
-msgstr "Enmetu nur tekston"
-
-msgid "Import text without any formatting"
-msgstr "Importu neformatitan tekston"
-
-msgid "Importer:"
-msgstr "Importilo:"
-
-msgid "Importer"
-msgstr "Importilo"
-
-#, c-format
-#, fuzzy
+#, fuzzy, c-format
 msgid "About Scribus%1%2"
 msgstr "Pri Scribus%1%2"
 
@@ -4678,8 +4788,8 @@ msgstr "Build-ID:"
 msgid "&About"
 msgstr "&Pri"
 
-msgid "Programming:"
-msgstr "Programado:"
+msgid "Development Team:"
+msgstr ""
 
 msgid "Contributions from:"
 msgstr "Kontribuoj de:"
@@ -4687,89 +4797,128 @@ msgstr "Kontribuoj de:"
 msgid "Windows port:"
 msgstr "Vindozporto:"
 
-msgid "Documentation:"
+#, fuzzy
+msgid "Official Documentation:"
+msgstr "Dokumentaro:"
+
+#, fuzzy
+msgid "Other Documentation:"
 msgstr "Dokumentaro:"
 
 msgid "A&uthors"
 msgstr "Aŭ&toroj"
 
-msgid "German:"
-msgstr "Germana:"
-
-msgid "French:"
-msgstr "Franca:"
-
-msgid "Spanish and Catalan:"
-msgstr "Hispana kaj Kataluna:"
-
-msgid "Italian:"
-msgstr "Itala:"
-
-msgid "Hungarian:"
-msgstr "Hungara:"
-
-msgid "Ukrainian:"
-msgstr "Ukraina:"
-
-msgid "Bulgarian:"
-msgstr "Bulgara:"
-
-msgid "Galician:"
-msgstr "Galega:"
-
-msgid "Turkish:"
-msgstr "Turka:"
-
-msgid "Lithuanian:"
-msgstr "Litva:"
-
-msgid "Polish:"
-msgstr "Pola:"
+msgid "Official Translations and Translators:"
+msgstr ""
 
 msgid "Czech:"
 msgstr "Ĉeĥa:"
 
-msgid "Slovak:"
-msgstr "Slovaka:"
-
 msgid "Danish:"
 msgstr "Dana:"
 
-msgid "Norwegian:"
-msgstr "Norvega:"
-
-msgid "English:"
+#, fuzzy
+msgid "English (British):"
 msgstr "Angla:"
 
-msgid "Welsh:"
-msgstr "Kimra:"
-
-msgid "Russian:"
-msgstr "Rusa:"
-
-msgid "Brazilian:"
-msgstr "Brazila:"
+#, fuzzy
+msgid "Esperanto:"
+msgstr "Evento:"
 
 msgid "Finnish:"
 msgstr "Finna:"
 
-msgid "Slovenian:"
+msgid "French:"
+msgstr "Franca:"
+
+msgid "German:"
+msgstr "Germana:"
+
+msgid "Italian:"
+msgstr "Itala:"
+
+#, fuzzy
+msgid "Korean:"
+msgstr "Norvega:"
+
+msgid "Norwegian:"
+msgstr "Norvega:"
+
+msgid "Polish:"
+msgstr "Pola:"
+
+msgid "Russian:"
+msgstr "Rusa:"
+
+#, fuzzy
+msgid "Serbian:"
 msgstr "Slovena:"
+
+msgid "Slovak:"
+msgstr "Slovaka:"
+
+#, fuzzy
+msgid "Spanish:"
+msgstr "Hispana"
+
+#, fuzzy
+msgid "Swedish:"
+msgstr "Sveda"
+
+msgid "Ukrainian:"
+msgstr "Ukraina:"
+
+msgid "Welsh:"
+msgstr "Kimra:"
+
+msgid "Previous Translation Contributors:"
+msgstr ""
 
 msgid "Basque:"
 msgstr "Eŭska:"
 
+msgid "Brazilian:"
+msgstr "Brazila:"
+
+msgid "Bulgarian:"
+msgstr "Bulgara:"
+
+#, fuzzy
+msgid "Catalan:"
+msgstr "Kataluna"
+
+msgid "Galician:"
+msgstr "Galega:"
+
+msgid "Hungarian:"
+msgstr "Hungara:"
+
+msgid "Lithuanian:"
+msgstr "Litva:"
+
+msgid "Slovenian:"
+msgstr "Slovena:"
+
+msgid "Turkish:"
+msgstr "Turka:"
+
 msgid "&Translations"
 msgstr "&Tradukoj"
 
-msgid "Homepage and online reference"
-msgstr "Hejmpaĝo kaj retaj referencoj"
+#, fuzzy
+msgid "Homepage"
+msgstr "Bildo"
 
-msgid "Mailing list"
-msgstr "Dissendolisto"
+msgid "Online Reference"
+msgstr "Interreta referenco"
 
-msgid "Bugs and feature requests"
+#, fuzzy
+msgid "Bugs and Feature Requests"
 msgstr "Cimoj kaj petoj pri program-ebloj"
+
+#, fuzzy
+msgid "Mailing List"
+msgstr "Dissendolisto"
 
 #, fuzzy
 msgid "&Online"
@@ -4851,6 +5000,10 @@ msgstr "&Skriptoj:"
 
 msgid "Ch&ange..."
 msgstr "Ŝ&anĝu..."
+
+#, fuzzy
+msgid "T&emplates:"
+msgstr "Ŝa&blono:"
 
 msgid "Autosave"
 msgstr "Aŭtokonservado"
@@ -5057,8 +5210,10 @@ msgstr "Apriora tipargrando por menuoj kaj fenestroj"
 msgid "Number of lines Scribus will scroll for each move of the mouse wheel"
 msgstr "Lini-nombro kiun Scribus rulos por ĉiu movo de la musrado"
 
-msgid "Radius of the area where Scribus will allow you to grab an objects handles"
-msgstr "Radiuso de la areo ene de kiu Scribus ebligos la kapton de la objektoteniloj"
+msgid ""
+"Radius of the area where Scribus will allow you to grab an objects handles"
+msgstr ""
+"Radiuso de la areo ene de kiu Scribus ebligos la kapton de la objektoteniloj"
 
 msgid "Number of recently edited documents to show in the File menu"
 msgstr "Nombro de la lastaj redaktitaj dokumentoj montrotaj en la dosiermenuo"
@@ -5072,6 +5227,9 @@ msgstr "Apriora ICC-profila dosierujo"
 msgid "Default Scripter scripts directory"
 msgstr "Apriora dosierujo por la skriptoj de la Skriptilo"
 
+msgid "Additional Directory for Document Templates"
+msgstr ""
+
 msgid "Default page size, either a standard size or a custom size"
 msgstr "Apriora paĝogrando, normala aŭ propra"
 
@@ -5081,7 +5239,8 @@ msgstr "Apriora orientiĝo de la dokumentpaĝoj"
 msgid "Width of document pages, editable if you have chosen a custom page size"
 msgstr "Larĝo de la dokumentpaĝoj, modifebla se vi elektis propran paĝograndon"
 
-msgid "Height of document pages, editable if you have chosen a custom page size"
+msgid ""
+"Height of document pages, editable if you have chosen a custom page size"
 msgstr "Alto de la dokumentpaĝoj, modifebla se vi elektis propran paĝograndon"
 
 msgid "Make the first page the left page of a document"
@@ -5092,7 +5251,8 @@ msgid ""
 "extension\n"
 "each time the time period elapses"
 msgstr ""
-"Se ebligita, Scribus konservas restaŭrkopion de via dosiero kun la finaĵo .bak\n"
+"Se ebligita, Scribus konservas restaŭrkopion de via dosiero kun la finaĵo ."
+"bak\n"
 "ĉiam kiam pasas la tempoperiodo"
 
 msgid "Time period between saving automatically"
@@ -5275,280 +5435,20 @@ msgstr "Glatigitaj grafikaĵoj por ekranomontro de EPS kaj PDF "
 msgid "Filesystem location for graphics editor"
 msgstr "Dosierindiko de grafik-redaktilo"
 
-msgid "Do not show objects outside the margins on the printed page or exported file"
-msgstr "Ne montru objektojn ekster la marĝenojn de la printita paĝo aŭ eksportita dosiero"
-
-msgid "Select Character:"
-msgstr "Elektu signon:"
-
-msgid "&Insert"
-msgstr "&Enmetu"
-
-msgid "Insert the characters at the cursor in the text"
-msgstr "Enmetu la signojn ĉe la kursoro en la teksto"
-
-msgid "Delete the current selection(s)."
-msgstr "Forigu la elektita(j)n areo(j)n."
-
-msgid "Close this dialog and return to text editing."
-msgstr "Fermu la dialogujon kaj reiru al la redaktata teksto."
-
-msgid "Print Preview"
-msgstr "Print-antaŭrigardo"
-
-msgid "Print Previe&w"
-msgstr "Print-antaŭri&gardo"
-
-msgid "Anti-alias &Text"
-msgstr "Glatigita &teksto"
-
-msgid "Anti-alias &Graphics"
-msgstr "&Glatigitaj grafikaĵoj"
-
-msgid "Display Trans&parency"
-msgstr "Montru travide&blecon"
-
-msgid "&Under Color Removal"
-msgstr "&Forigo de la subaj koloroj (UCR)"
-
-msgid "&Display CMYK"
-msgstr "&Montru CMYK"
-
-msgid "&C"
-msgstr "&C"
-
-msgid "&M"
-msgstr "&M"
-
-msgid "&Y"
-msgstr "&Y"
-
-msgid "&K"
-msgstr "&K"
-
 msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense\n"
-"of a slight slowdown in previewing. This only affects Type 1 fonts"
+"Do not show objects outside the margins on the printed page or exported file"
 msgstr ""
-"Donas pli plaĉan vidon, en la ekrano, de tekstaj elementoj, je la kosto\n"
-"de pli malrapida montro. Tio interesas nur Type1-tiparojn"
+"Ne montru objektojn ekster la marĝenojn de la printita paĝo aŭ eksportita "
+"dosiero"
 
-msgid ""
-"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
-"and\n"
-"vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
-msgstr ""
-"Donas pli plaĉan vidon, en la ekrano, de TTF-tiparoj, EPS-aj kaj PDF-aj dosieroj kaj vektoraj grafikoj,\n"
-" je la kosto de pli malrapida montro"
+msgid "Fonts Preview"
+msgstr "Tipar-antaŭrigardo"
 
-msgid ""
-"Shows transparency and transparent items in your document. Requires "
-"Ghostscript 7.07 or later"
-msgstr "Montras travideblecon kaj travideblajn objektojn en via dokumento. Necesas Ghostscript 7.07 aŭ pli nova"
+msgid "Alt+O"
+msgstr "Alt+O"
 
-msgid ""
-"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
-"colors"
-msgstr "Donas printantaŭrigardon utiligante simuladojn de komunaj CMYK-inkoj, anstataŭ RGB-koloroj"
-
-msgid "Enable/disable the C (Cyan) ink plate"
-msgstr "Ebligas/malebligas la C (Cejana) inkotavolon"
-
-msgid "Enable/disable the M (Magenta) ink plate"
-msgstr "Ebligas/malebligas la M (Fuksina) inkotavolon"
-
-msgid "Enable/disable the Y (Yellow) ink plate"
-msgstr "Ebligas/malebligas la Y (Flava) inkotavolon"
-
-msgid "Enable/disable the K (Black) ink plate"
-msgstr "Ebligas/malebligas la K (Nigra) inkotavolon"
-
-msgid ""
-"A way of switching some of the gray shades which are composed\n"
-"of cyan, yellow and magenta and using black instead.\n"
-"UCR most affects parts of images which are neutral and/or dark tones\n"
-"which are close to the gray. Use of this may improve printing some images\n"
-"and some experimentation and testing is need on a case by case basis.\n"
-"UCR reduces the possibility of over saturation with CMY inks."
-msgstr ""
-"Maniero estingi iom da griztonoj kiuj konsistas el cejanblua, flava kaj\n"
-"karmezina koloroj anstataŭante ilin per la nigra.\n"
-"UCR plejparte koncernas la partojn de la bildoj kiuj estas neŭtraj kaj/aŭ\n"
-"la malhelajn tonojn kiuj proksimas al la griza. La uzo de tio povas pliboniĝi\n"
-"printante kelkajn bildojn kaj provante laŭ la diversaj kazoj.\n"
-"UCR malpliigas la eblon de trosaturiĝo kun CMY-inkoj."
-
-msgid "Save Page as &SVG..."
-msgstr "Konservu paĝon kiel &SVG..."
-
-msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
-msgstr "SVG-bildoj (*svg *.svgz);; Ĉiaj dosieroj (*)"
-
-msgid "SVG-Images (*.svg);;All Files (*)"
-msgstr "SVG-bildoj (*svg);; Ĉiaj dosieroj (*)"
-
-msgid "Import &SVG..."
-msgstr "Importu &SVG..."
-
-msgid "S&cripter Manual..."
-msgstr "S&kriptilo-manlibro..."
-
-msgid "&Scribus Scripts"
-msgstr "&Scribus-skriptoj"
-
-msgid "&Execute Script..."
-msgstr "&Plenumu skripton..."
-
-msgid "&Recent Scripts"
-msgstr "&Lastaj skriptoj"
-
-msgid "Show &Console"
-msgstr "Montru &konzolon"
-
-msgid "S&cript"
-msgstr "S&kriptoj"
-
-msgid "Online Reference"
-msgstr "Interreta referenco"
-
-msgid "Python Scripts (*.py);; All Files (*)"
-msgstr "Pitonskriptoj (*.py);; Ĉiaj dosieroj (*)"
-
-msgid "Script error"
-msgstr "Skriptoeraro"
-
-msgid ""
-"If you are running an official script report it at <a href=\"http://bugs."
-"scribus.net\">bugs.scribus.net</a> please."
-msgstr ""
-"Se nun temas pri oficiala skripto bonvolu raporti ĝin al <a href=\"http://bugs."
-"scribus.net\">bugs.scribus.net</a>."
-
-msgid ""
-"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
-"tracker."
-msgstr "Ĉi tiu mesaĝo estas ankaŭ en via poŝo. Uzu Stir+V por elpoŝigi ĝin en la erarospurilon."
-
-msgid "Hide &Console"
-msgstr "Kaŝu &konzolon"
-
-msgid "Script Console"
-msgstr "Skriptokonzolo"
-
-msgid "Oook! Wrong arguments! Call: "
-msgstr "Ups! Erara argumento! Voku: "
-
-msgid "Oook! You're calling an object doesn't exist!"
-msgstr "Ups! Vi vokas neekzistantan objekton!"
-
-msgid "Oook! You're trying to erase an object doesn't exist!"
-msgstr "Ups! Vi provas forigi neekzistantan objekton!"
-
-msgid "Oook! An object you're trying to textflow doesn't exist!"
-msgstr "Ups! Objekto, sur kiu vi provas ligi tekston, ne ekzistas!"
-
-msgid ""
-"Oook! You're trying to load image into an object doesn't exist or isn't "
-"selected!"
-msgstr "Ups! Vi provas enmeti bildon en objekton kiu ne ekzistas aŭ ne estas elektita!"
-
-msgid "Oook! You're trying to (un)lock an object doesn't exist! None selected too."
-msgstr "Ups! Vi provas (mal)bloki objekton neekzistantan aŭ neelektitan."
-
-msgid "Oook! You're trying to query an object doesn't exist! None selected too."
-msgstr "Ups! Vi provas serĉi objekton neekzistantan aŭ neelektitan."
-
-msgid "Choose a Export Directory"
-msgstr "Elektu eksportdosierujon"
-
-msgid "Export as Image(s)"
-msgstr "Eksportu kiel bildo(j)n"
-
-msgid "&Export to Directory:"
-msgstr "&Eksportu al dosierujo:"
-
-msgid "Image &Type:"
-msgstr "Bildo&tipo:"
-
-msgid "&Current page"
-msgstr "A&ktuala paĝo"
-
-msgid "&All pages"
-msgstr "Ĉ&iuj paĝoj"
-
-msgid "&Range"
-msgstr "I&ntervalo"
-
-msgid "C"
-msgstr "C"
-
-msgid "Export a range of pages"
-msgstr "Eksportu paĝintervalon"
-
-msgid "Export all pages"
-msgstr "Eksportu ĉiujn paĝojn"
-
-msgid "Export only the current page"
-msgstr "Eksportu nur ĉi tiun paĝon"
-
-msgid ""
-"Resolution of the Images\n"
-"Use 72 dpi for Images intended for the Screen"
-msgstr ""
-"Distingivo de la bildoj\n"
-"Uzu 72 dpi por bildoj celitaj por la ekrano"
-
-#, c-format
-#, fuzzy
-msgid "The quality of your images - 100% is the best, 1% the lowest quality"
-msgstr "La kvalito de viaj bildoj - 100% estas la plej bona, 1% la malplej bona kvalito"
-
-msgid "Available export formats"
-msgstr "Disponeblaj eksportoformatoj"
-
-msgid ""
-"The output directory - the place to store your images.\n"
-"Name of the export file will be 'documentname-pagenumber.filetype'"
-msgstr ""
-"La eligodosierujo - la loko kie deponi viajn bildojn.\n"
-"La nomo de la eksportdosiero estos 'dokumentnomo-paĝnumero.dosierotipo'"
-
-msgid "Change the output directory"
-msgstr "Ŝanĝu la eligodosierujon"
-
-msgid "Save as &Image..."
-msgstr "Konservu kiel &bildon..."
-
-msgid "Save as Image"
-msgstr "Konservu kiel bildon"
-
-msgid "Error writting the output file(s)."
-msgstr "Eraro dum skribado de la eligodosiero(j)."
-
-msgid "Error writing the output file(s)."
-msgstr "Eraro dum skribado de la eligodosiero(j)."
-
-msgid "Export successful."
-msgstr "Eksporto sukcesinta."
-
-msgid "File exists. Overwrite?"
-msgstr "La dosiero ekzistas. Ĉu superskribi ĝin?"
-
-msgid "exists already. Overwrite?"
-msgstr "jam ekzistas. Ĉu superskribi ĝin?"
-
-msgid "Yes all"
-msgstr "Jes ĉiujn"
-
-msgid "HTML Files"
-msgstr "HTML-dosieroj"
-
-msgid "html"
-msgstr "html"
-
-msgid "Text Files"
-msgstr "Tekstodosieroj"
+msgid "Alt+C"
+msgstr "Alt+C"
 
 msgid "CSV Importer Options"
 msgstr "CSV-importil-opcioj"
@@ -5574,32 +5474,150 @@ msgstr "CSV-datumoj"
 msgid "CSV_header"
 msgstr "CSV-titoloj"
 
-msgid "Fonts Preview"
-msgstr "Tipar-antaŭrigardo"
+#, fuzzy
+msgid ""
+"\n"
+"External Links\n"
+msgstr "Ekstera ligilo"
 
-msgid "Alt+O"
-msgstr "Alt+O"
+msgid "HTML Files"
+msgstr "HTML-dosieroj"
 
-msgid "Alt+C"
-msgstr "Alt+C"
+msgid "html"
+msgstr "html"
 
-msgid "Import &EPS/PS..."
-msgstr "Importu &EPS/PS..."
+msgid "Text Files"
+msgstr "Tekstodosieroj"
 
-msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
-msgstr "Ĉiuj subtenataj formatoj (*.eps *.EPS *.ps *.PS);;"
+#, fuzzy
+msgid "OO.o Writer Importer Options"
+msgstr "CSV-importil-opcioj"
+
+#, fuzzy
+msgid "Update paragraph styles"
+msgstr "Nomo de la aline-stilo"
 
 msgid ""
-"Importing File:\n"
-"%1\n"
-"failed!"
+"If there already exists a paragraph style with the same\n"
+"name than current OO.o document's paragraph should the style\n"
+"in Scribus be edited to match the one being imported\n"
+"or left untouched"
 msgstr ""
-"La importo de la dosiero:\n"
-"%1\n"
-"malsukcesis!"
 
-msgid "New &from Template..."
-msgstr "Nova &el ŝablono..."
+#, fuzzy
+msgid "Use document name as a prefix for paragraph styles"
+msgstr "Nomo de la aline-stilo"
+
+msgid ""
+"Should importer add the name of the document\n"
+"on front of the paragraph style name in Scribus"
+msgstr ""
+
+msgid "Do not ask again"
+msgstr ""
+
+msgid ""
+"Should the importer always use currently\n"
+"set value when importing OO.o document and\n"
+"never ask your confirmation again"
+msgstr ""
+
+#, fuzzy
+msgid "OO.o Writer Documents"
+msgstr "Tekstodokumentoj"
+
+#, fuzzy
+msgid "Create filter"
+msgstr "Kreita per"
+
+msgid "Choose a previously saved filter"
+msgstr ""
+
+msgid "Give a name to this filter for saving"
+msgstr ""
+
+msgid "Give a name for saving"
+msgstr ""
+
+msgid "Disable or enable this filter row"
+msgstr ""
+
+msgid "Remove this filter row"
+msgstr ""
+
+#, fuzzy
+msgid "Add a new filter row"
+msgstr "Aldonu novan nivelon"
+
+#, fuzzy
+msgid "to"
+msgstr "ĝis:"
+
+#, fuzzy
+msgid "and"
+msgstr "ĉefine"
+
+msgid "remove match"
+msgstr ""
+
+msgid "do not remove match"
+msgstr ""
+
+#, fuzzy
+msgid "words"
+msgstr "Pasvortoj"
+
+#, fuzzy
+msgid "Replace"
+msgstr "&Anstataŭu"
+
+msgid "Value at the left is a regular expression"
+msgstr ""
+
+#, fuzzy
+msgid "with"
+msgstr "Larĝo"
+
+#, fuzzy
+msgid "paragraph style"
+msgstr "Aline-stilo"
+
+#, fuzzy
+msgid "all instances of"
+msgstr "Distancoj"
+
+#, fuzzy
+msgid "all paragraphs"
+msgstr "Alineoj: "
+
+msgid "paragraphs starting with"
+msgstr ""
+
+#, fuzzy
+msgid "paragraphs with less than"
+msgstr "Aline-stilo"
+
+msgid "paragraphs with more than"
+msgstr ""
+
+#, fuzzy
+msgid "Text Filters"
+msgstr "Tekstodosieroj"
+
+msgid "Select Character:"
+msgstr "Elektu signon:"
+
+msgid "&Insert"
+msgstr "&Enmetu"
+
+msgid "Insert the characters at the cursor in the text"
+msgstr "Enmetu la signojn ĉe la kursoro en la teksto"
+
+msgid "Delete the current selection(s)."
+msgstr "Forigu la elektita(j)n areo(j)n."
+
+msgid "Close this dialog and return to text editing."
+msgstr "Fermu la dialogujon kaj reiru al la redaktata teksto."
 
 msgid "New From Template"
 msgstr "Nova el ŝablono"
@@ -5622,7 +5640,9 @@ msgstr "Ŝargado de ŝablonoj"
 msgid ""
 "Document templates can be found at http://www.scribus.net/ in the Downloads "
 "section."
-msgstr "Oni povas trovi dokumentoŝablonojn ĉe http://www.scribus.net/ en la sekcio Downloads."
+msgstr ""
+"Oni povas trovi dokumentoŝablonojn ĉe http://www.scribus.net/ en la sekcio "
+"Downloads."
 
 msgid "Installing Templates"
 msgstr "Instalado de ŝablonoj"
@@ -5631,8 +5651,9 @@ msgid ""
 "Extract the package to the template directory ~/.scribus/templates for the "
 "current user or PREFIX/share/scribus/templates for all users in the system."
 msgstr ""
-"Elpaku la pakaĵon en la ŝablonan dosierujon ~/.scribus/templates por la aktuala uzulo "
-"aŭ PREFIX/share/scribus/templates por ĉiuj uzuloj en la sistemo."
+"Elpaku la pakaĵon en la ŝablonan dosierujon ~/.scribus/templates por la "
+"aktuala uzulo aŭ PREFIX/share/scribus/templates por ĉiuj uzuloj en la "
+"sistemo."
 
 msgid "Preparing a template"
 msgstr "Preparado de ŝablono"
@@ -5640,14 +5661,20 @@ msgstr "Preparado de ŝablono"
 msgid ""
 "Make sure images and fonts you use can be used freely. If fonts cannot be "
 "shared do not collect them when saving as a template."
-msgstr "Certiĝu ke la bildoj kaj la tiparoj di vi utiligitaj estas libere uzeblaj. Se oni ne rajtas kundividi la tiparojn ne inkludu ilin dum la konservado kiel ŝablono."
+msgstr ""
+"Certiĝu ke la bildoj kaj la tiparoj di vi utiligitaj estas libere uzeblaj. "
+"Se oni ne rajtas kundividi la tiparojn ne inkludu ilin dum la konservado "
+"kiel ŝablono."
 
 msgid ""
 "The template creator should also make sure that the Installing Templates "
 "section above applies to their templates as well. This means a user should "
 "be able to download a template package and be able to extract them to the "
 "template directory and start using them."
-msgstr "La ŝablonokreanto devus certiĝi ankaŭ ke la sekcion Sabloninstaladon oni aplikas ankaŭ al propraj ŝablonoj. Tio signifas che uzanto devus povi elŝuti ŝablonpakaĵon kaj povi elpaki ilin en la ŝablondosierujon kaj ekuzi ilin."
+msgstr ""
+"La ŝablonokreanto devus certiĝi ankaŭ ke la sekcion Sabloninstaladon oni "
+"aplikas ankaŭ al propraj ŝablonoj. Tio signifas che uzanto devus povi elŝuti "
+"ŝablonpakaĵon kaj povi elpaki ilin en la ŝablondosierujon kaj ekuzi ilin."
 
 msgid "Removing a template"
 msgstr "Forigo de ŝablono"
@@ -5657,7 +5684,10 @@ msgid ""
 "entry from the template.xml, it will not delete the document files. A popup "
 "menu with remove is only shown if you have write access to the template.xml "
 "file."
-msgstr "La forigo de ŝablono el la dialogo Nova el ŝablono, forigos nur la nomon el la template.xml, kaj ne forigos la dokumentdosieron. Dum forigo ŝprucmenuo aperos nur se vi havas skribpermeson al dosiero template.xml."
+msgstr ""
+"La forigo de ŝablono el la dialogo Nova el ŝablono, forigos nur la nomon el "
+"la template.xml, kaj ne forigos la dokumentdosieron. Dum forigo ŝprucmenuo "
+"aperos nur se vi havas skribpermeson al dosiero template.xml."
 
 msgid "Translating template.xml"
 msgstr "Tradukado de template.xml"
@@ -5669,8 +5699,18 @@ msgid ""
 "be located in the same directory as the original template.xml so Scribus can "
 "load it."
 msgstr ""
-"Kopiu ekzistantan template.xml en dosieron nomatan template.lang_COUNTRY.xml (uzu la saman lingvan kodon kiu estas en la qm-dosiero de via lingvo), ekzemple template.fi.xml por la template.xml de finna lingvo. La kopio devus esti lokita en la sama dosierujo kiel la originala template.xml tiel ke Scribus povu"
-"ŝargi ĝin."
+"Kopiu ekzistantan template.xml en dosieron nomatan template.lang_COUNTRY.xml "
+"(uzu la saman lingvan kodon kiu estas en la qm-dosiero de via lingvo), "
+"ekzemple template.fi.xml por la template.xml de finna lingvo. La kopio devus "
+"esti lokita en la sama dosierujo kiel la originala template.xml tiel ke "
+"Scribus povuŝargi ĝin."
+
+msgid "New &from Template..."
+msgstr "Nova &el ŝablono..."
+
+#, fuzzy
+msgid "Template: "
+msgstr "Ŝa&blono:"
 
 #, fuzzy
 msgid "Newsletters"
@@ -5736,8 +5776,201 @@ msgstr "Tekstodokumentoj"
 msgid "Folds"
 msgstr "Faldfolioj"
 
+msgid "Media Cases"
+msgstr ""
+
 msgid "Own Templates"
 msgstr "Propraj ŝablonoj"
+
+msgid "Choose a Export Directory"
+msgstr "Elektu eksportdosierujon"
+
+msgid "Export as Image(s)"
+msgstr "Eksportu kiel bildo(j)n"
+
+msgid "&Export to Directory:"
+msgstr "&Eksportu al dosierujo:"
+
+msgid "Image &Type:"
+msgstr "Bildo&tipo:"
+
+msgid "&Current page"
+msgstr "A&ktuala paĝo"
+
+msgid "&All pages"
+msgstr "Ĉ&iuj paĝoj"
+
+msgid "&Range"
+msgstr "I&ntervalo"
+
+msgid "C"
+msgstr "C"
+
+msgid "Export a range of pages"
+msgstr "Eksportu paĝintervalon"
+
+msgid "Export all pages"
+msgstr "Eksportu ĉiujn paĝojn"
+
+msgid "Export only the current page"
+msgstr "Eksportu nur ĉi tiun paĝon"
+
+msgid ""
+"Resolution of the Images\n"
+"Use 72 dpi for Images intended for the Screen"
+msgstr ""
+"Distingivo de la bildoj\n"
+"Uzu 72 dpi por bildoj celitaj por la ekrano"
+
+#, fuzzy, c-format
+msgid "The quality of your images - 100% is the best, 1% the lowest quality"
+msgstr ""
+"La kvalito de viaj bildoj - 100% estas la plej bona, 1% la malplej bona "
+"kvalito"
+
+msgid "Available export formats"
+msgstr "Disponeblaj eksportoformatoj"
+
+msgid ""
+"The output directory - the place to store your images.\n"
+"Name of the export file will be 'documentname-pagenumber.filetype'"
+msgstr ""
+"La eligodosierujo - la loko kie deponi viajn bildojn.\n"
+"La nomo de la eksportdosiero estos 'dokumentnomo-paĝnumero.dosierotipo'"
+
+msgid "Change the output directory"
+msgstr "Ŝanĝu la eligodosierujon"
+
+msgid "Save as &Image..."
+msgstr "Konservu kiel &bildon..."
+
+msgid "Save as Image"
+msgstr "Konservu kiel bildon"
+
+msgid "Error writting the output file(s)."
+msgstr "Eraro dum skribado de la eligodosiero(j)."
+
+msgid "Error writing the output file(s)."
+msgstr "Eraro dum skribado de la eligodosiero(j)."
+
+msgid "Export successful."
+msgstr "Eksporto sukcesinta."
+
+msgid "File exists. Overwrite?"
+msgstr "La dosiero ekzistas. Ĉu superskribi ĝin?"
+
+msgid "exists already. Overwrite?"
+msgstr "jam ekzistas. Ĉu superskribi ĝin?"
+
+msgid "Yes all"
+msgstr "Jes ĉiujn"
+
+msgid "Print Preview"
+msgstr "Print-antaŭrigardo"
+
+msgid "Print Previe&w"
+msgstr "Print-antaŭri&gardo"
+
+msgid "Anti-alias &Text"
+msgstr "Glatigita &teksto"
+
+msgid "Anti-alias &Graphics"
+msgstr "&Glatigitaj grafikaĵoj"
+
+msgid "Display Trans&parency"
+msgstr "Montru travide&blecon"
+
+msgid "&Under Color Removal"
+msgstr "&Forigo de la subaj koloroj (UCR)"
+
+msgid "&Display CMYK"
+msgstr "&Montru CMYK"
+
+msgid "&C"
+msgstr "&C"
+
+msgid "&M"
+msgstr "&M"
+
+msgid "&Y"
+msgstr "&Y"
+
+msgid "&K"
+msgstr "&K"
+
+msgid ""
+"Provides a more pleasant view of text items in the viewer, at the expense\n"
+"of a slight slowdown in previewing. This only affects Type 1 fonts"
+msgstr ""
+"Donas pli plaĉan vidon, en la ekrano, de tekstaj elementoj, je la kosto\n"
+"de pli malrapida montro. Tio interesas nur Type1-tiparojn"
+
+msgid ""
+"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
+"and\n"
+"vector graphics in the preview, at the expense of a slight slowdown in "
+"previewing"
+msgstr ""
+"Donas pli plaĉan vidon, en la ekrano, de TTF-tiparoj, EPS-aj kaj PDF-aj "
+"dosieroj kaj vektoraj grafikoj,\n"
+" je la kosto de pli malrapida montro"
+
+msgid ""
+"Shows transparency and transparent items in your document. Requires "
+"Ghostscript 7.07 or later"
+msgstr ""
+"Montras travideblecon kaj travideblajn objektojn en via dokumento. Necesas "
+"Ghostscript 7.07 aŭ pli nova"
+
+msgid ""
+"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
+"colors"
+msgstr ""
+"Donas printantaŭrigardon utiligante simuladojn de komunaj CMYK-inkoj, "
+"anstataŭ RGB-koloroj"
+
+msgid "Enable/disable the C (Cyan) ink plate"
+msgstr "Ebligas/malebligas la C (Cejana) inkotavolon"
+
+msgid "Enable/disable the M (Magenta) ink plate"
+msgstr "Ebligas/malebligas la M (Fuksina) inkotavolon"
+
+msgid "Enable/disable the Y (Yellow) ink plate"
+msgstr "Ebligas/malebligas la Y (Flava) inkotavolon"
+
+msgid "Enable/disable the K (Black) ink plate"
+msgstr "Ebligas/malebligas la K (Nigra) inkotavolon"
+
+msgid ""
+"A way of switching some of the gray shades which are composed\n"
+"of cyan, yellow and magenta and using black instead.\n"
+"UCR most affects parts of images which are neutral and/or dark tones\n"
+"which are close to the gray. Use of this may improve printing some images\n"
+"and some experimentation and testing is need on a case by case basis.\n"
+"UCR reduces the possibility of over saturation with CMY inks."
+msgstr ""
+"Maniero estingi iom da griztonoj kiuj konsistas el cejanblua, flava kaj\n"
+"karmezina koloroj anstataŭante ilin per la nigra.\n"
+"UCR plejparte koncernas la partojn de la bildoj kiuj estas neŭtraj kaj/aŭ\n"
+"la malhelajn tonojn kiuj proksimas al la griza. La uzo de tio povas "
+"pliboniĝi\n"
+"printante kelkajn bildojn kaj provante laŭ la diversaj kazoj.\n"
+"UCR malpliigas la eblon de trosaturiĝo kun CMY-inkoj."
+
+msgid "Import &EPS/PS..."
+msgstr "Importu &EPS/PS..."
+
+msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
+msgstr "Ĉiuj subtenataj formatoj (*.eps *.EPS *.ps *.PS);;"
+
+msgid ""
+"Importing File:\n"
+"%1\n"
+"failed!"
+msgstr ""
+"La importo de la dosiero:\n"
+"%1\n"
+"malsukcesis!"
 
 msgid "Save as Template"
 msgstr "Savu kiel ŝablonon"
@@ -5766,3 +5999,135 @@ msgstr "propra"
 msgid "Save as &Template..."
 msgstr "Konservu kiel ŝa&blonon..."
 
+msgid "S&cripter Manual..."
+msgstr "S&kriptilo-manlibro..."
+
+msgid "&Scribus Scripts"
+msgstr "&Scribus-skriptoj"
+
+msgid "&Execute Script..."
+msgstr "&Plenumu skripton..."
+
+msgid "&Recent Scripts"
+msgstr "&Lastaj skriptoj"
+
+msgid "Show &Console"
+msgstr "Montru &konzolon"
+
+msgid "S&cript"
+msgstr "S&kriptoj"
+
+msgid "Python Scripts (*.py);; All Files (*)"
+msgstr "Pitonskriptoj (*.py);; Ĉiaj dosieroj (*)"
+
+msgid "Script error"
+msgstr "Skriptoeraro"
+
+msgid ""
+"If you are running an official script report it at <a href=\"http://bugs."
+"scribus.net\">bugs.scribus.net</a> please."
+msgstr ""
+"Se nun temas pri oficiala skripto bonvolu raporti ĝin al <a href=\"http://"
+"bugs.scribus.net\">bugs.scribus.net</a>."
+
+msgid ""
+"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
+"tracker."
+msgstr ""
+"Ĉi tiu mesaĝo estas ankaŭ en via poŝo. Uzu Stir+V por elpoŝigi ĝin en la "
+"erarospurilon."
+
+msgid "Hide &Console"
+msgstr "Kaŝu &konzolon"
+
+msgid ""
+"Oook! You're trying to load image into an object doesn't exist or isn't "
+"selected!"
+msgstr ""
+"Ups! Vi provas enmeti bildon en objekton kiu ne ekzistas aŭ ne estas "
+"elektita!"
+
+msgid ""
+"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
+msgstr "Ups! Vi provas (mal)bloki objekton neekzistantan aŭ neelektitan."
+
+msgid ""
+"Oook! You're trying to query an object doesn't exist! None selected too."
+msgstr "Ups! Vi provas serĉi objekton neekzistantan aŭ neelektitan."
+
+msgid "Oook! You're calling an object doesn't exist!"
+msgstr "Ups! Vi vokas neekzistantan objekton!"
+
+msgid "Oook! You're trying to erase an object doesn't exist!"
+msgstr "Ups! Vi provas forigi neekzistantan objekton!"
+
+msgid "Oook! An object you're trying to textflow doesn't exist!"
+msgstr "Ups! Objekto, sur kiu vi provas ligi tekston, ne ekzistas!"
+
+msgid "Oook! Wrong arguments! Call: "
+msgstr "Ups! Erara argumento! Voku: "
+
+msgid "Script Console"
+msgstr "Skriptokonzolo"
+
+#, fuzzy
+msgid "Insert value"
+msgstr "Enmetu tabelon"
+
+msgid "Enter a value then press OK."
+msgstr ""
+
+msgid "Enter a value then press OK"
+msgstr ""
+
+msgid "Send your value to the script"
+msgstr ""
+
+msgid "Save Page as &SVG..."
+msgstr "Konservu paĝon kiel &SVG..."
+
+msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
+msgstr "SVG-bildoj (*svg *.svgz);; Ĉiaj dosieroj (*)"
+
+msgid "SVG-Images (*.svg);;All Files (*)"
+msgstr "SVG-bildoj (*svg);; Ĉiaj dosieroj (*)"
+
+msgid "Import &SVG..."
+msgstr "Importu &SVG..."
+
+#~ msgid "&Fully Automatic"
+#~ msgstr "&Aŭtomata"
+
+#~ msgid "Check &During Typing"
+#~ msgstr "Kontrolu &dum tajpado"
+
+#~ msgid ""
+#~ "If you uncheck this you will get a dialog\n"
+#~ "everytime a possible Hyphenation is found."
+#~ msgstr ""
+#~ "Se vi malmarkas ĉi tion vi havos dialogon\n"
+#~ "ĉiam, kiam troviĝos ebla divido."
+
+#~ msgid "Reverse Writing"
+#~ msgstr "Maldekstruma skribado"
+
+#~ msgid "Conve&x Polygon"
+#~ msgstr "Konvek&sa poligono"
+
+#~ msgid "Polygons will be convex rather than concave"
+#~ msgstr "La poligonoj estos konveksaj anstataŭ konkavaj"
+
+#~ msgid "Change the angles at which lines of the polygon join"
+#~ msgstr "Ŝanĝu la angulojn ĉe kiuj la poligonlinioj kuniĝas"
+
+#~ msgid "Importer"
+#~ msgstr "Importilo"
+
+#~ msgid "Programming:"
+#~ msgstr "Programado:"
+
+#~ msgid "Spanish and Catalan:"
+#~ msgstr "Hispana kaj Kataluna:"
+
+#~ msgid "Homepage and online reference"
+#~ msgstr "Hejmpaĝo kaj retaj referencoj"

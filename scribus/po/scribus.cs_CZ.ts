@@ -3881,7 +3881,7 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Spanish and Catalan:</source>
-        <translation>Španělsky a Katalánsky:</translation>
+        <translation type="obsolete">Španělsky a Katalánsky:</translation>
     </message>
     <message>
         <source>Italian:</source>
@@ -4048,6 +4048,34 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     <message>
         <source>Mailing List</source>
         <translation>Mailová skupina</translation>
+    </message>
+    <message>
+        <source>Official Translations and Translators:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Korean:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serbian:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous Translation Contributors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalan:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4931,7 +4959,7 @@ a jiné.</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation>Typ:</translation>
+        <translation type="obsolete">Typ:</translation>
     </message>
     <message>
         <source>Text</source>
@@ -4955,15 +4983,15 @@ a jiné.</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Změnit...</translation>
+        <translation type="obsolete">Změnit...</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Strana:</translation>
+        <translation type="obsolete">Strana:</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>X-Poz:</translation>
+        <translation type="obsolete">X-Poz:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -4971,15 +4999,15 @@ a jiné.</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Y-Poz:</translation>
+        <translation type="obsolete">Y-Poz:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Zrušit</translation>
+        <translation type="obsolete">Zrušit</translation>
     </message>
     <message>
         <source>Open</source>
@@ -4988,6 +5016,26 @@ a jiné.</translation>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
         <translation>PDF dokumenty (*.pdf);;Všechny soubory (*)</translation>
+    </message>
+    <message>
+        <source>&amp;Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished">&amp;Y-Poz:</translation>
     </message>
 </context>
 <context>
@@ -7565,15 +7613,15 @@ Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translati
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Consecutive Hypenations &amp;Allowed:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consecutive Hyphenations &amp;Allowed:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8628,7 +8676,7 @@ Rohy:</translation>
     </message>
     <message>
         <source>Reverse Writing</source>
-        <translation>Psát zprava doleva</translation>
+        <translation type="obsolete">Psát zprava doleva</translation>
     </message>
     <message>
         <source>Underline</source>
@@ -9266,6 +9314,10 @@ Corners:</source>
     <message>
         <source>Hyphenation language of frame</source>
         <translation>Jazyk dělení slov</translation>
+    </message>
+    <message>
+        <source>Right to Left Writing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10474,7 +10526,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>E&amp;xtra</translation>
+        <translation type="obsolete">E&amp;xtra</translation>
     </message>
     <message>
         <source>&amp;Security</source>
@@ -10801,7 +10853,7 @@ Jestliže není zatrženo, přidávání je zakázáno.</translation>
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation>Komp&amp;rimovat text a vektorovou grafiku</translation>
+        <translation type="obsolete">Komp&amp;rimovat text a vektorovou grafiku</translation>
     </message>
     <message>
         <source>&amp;Method:</source>
@@ -10829,7 +10881,7 @@ Jestliže není zatrženo, přidávání je zakázáno.</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation>&amp;Povolit prezentační efekty</translation>
+        <translation type="obsolete">&amp;Povolit prezentační efekty</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
@@ -10982,6 +11034,30 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
         <translation>Pokročilá volba, která není implicitně povolena. Může být použita, jestliže to vyžaduje vaše tiskárna.
 Pozor. vámi exportované PDF soubory se nemusí korektně tisknout na jiné tiskárně
 a nebudou plně přenositelné mezi systémy.</translation>
+    </message>
+    <message>
+        <source>Compress Text and &amp;Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En&amp;able Presentation Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Presentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) &amp;Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">&amp;Rotace:</translation>
+    </message>
+    <message>
+        <source>&amp;Options</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13982,6 +14058,10 @@ Odkazy ven
         <source>Text Filters</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Media Cases</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -16719,11 +16799,6 @@ or left untouched</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scirubs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Do not ask again</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16736,6 +16811,11 @@ never ask your confirmation again</source>
     <message>
         <source>OK</source>
         <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -237,6 +237,22 @@ O braku obsługi dla danej biblioteki informuje symbol *</translation>
         <source>Spanish:</source>
         <translation>Hiszpański:</translation>
     </message>
+    <message>
+        <source>Official Translations and Translators:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serbian:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous Translation Contributors:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -1092,7 +1108,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation>Typ:</translation>
+        <translation type="obsolete">Typ:</translation>
     </message>
     <message>
         <source>Text</source>
@@ -1116,15 +1132,15 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Zmień...</translation>
+        <translation type="obsolete">Zmień...</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Strona:</translation>
+        <translation type="obsolete">Strona:</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>Wsp. X:</translation>
+        <translation type="obsolete">Wsp. X:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -1132,15 +1148,15 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Wsp. Y:</translation>
+        <translation type="obsolete">Wsp. Y:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation type="obsolete">Anuluj</translation>
     </message>
     <message>
         <source>Open</source>
@@ -1149,6 +1165,26 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
         <translation>Dokumenty PDF (*.pdf);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>&amp;Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished">Wsp. &amp;Y:</translation>
     </message>
 </context>
 <context>
@@ -3757,7 +3793,7 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
     <message>
         <source>Consecutive Hypenations &amp;Allowed:</source>
-        <translation>Dozwolona &amp;ilość kolejnych podziałów:</translation>
+        <translation type="obsolete">Dozwolona &amp;ilość kolejnych podziałów:</translation>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
@@ -3766,6 +3802,10 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
         <translation>Włącza automatyczne dzielenie wyrazów w trakcie pisania tekstu.</translation>
+    </message>
+    <message>
+        <source>Consecutive Hyphenations &amp;Allowed:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4822,7 +4862,7 @@ rogi:</translation>
     </message>
     <message>
         <source>Reverse Writing</source>
-        <translation>Pisanie wstecz</translation>
+        <translation type="obsolete">Pisanie wstecz</translation>
     </message>
     <message>
         <source>Underline</source>
@@ -5459,6 +5499,10 @@ Corners:</source>
     <message>
         <source>Hyphenation language of frame</source>
         <translation>Język ramki dla dzielenia wyrazów</translation>
+    </message>
+    <message>
+        <source>Right to Left Writing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7055,7 +7099,7 @@ Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>&amp;Dodatki</translation>
+        <translation type="obsolete">&amp;Dodatki</translation>
     </message>
     <message>
         <source>&amp;Security</source>
@@ -7214,7 +7258,7 @@ a pojedynczy numer oznacza numer strony.</translation>
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation>Kompre&amp;sja tekstu i grafiki wektorowej</translation>
+        <translation type="obsolete">Kompre&amp;sja tekstu i grafiki wektorowej</translation>
     </message>
     <message>
         <source>&amp;Method:</source>
@@ -7242,7 +7286,7 @@ a pojedynczy numer oznacza numer strony.</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation>Włącz e&amp;fekty prezentacyjne</translation>
+        <translation type="obsolete">Włącz e&amp;fekty prezentacyjne</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
@@ -7370,7 +7414,31 @@ W innym przypadku twój wyeksportowany plik PDF może sprawiać problemy przy dr
     </message>
     <message>
         <source>Mirror Page(s) &amp;Horizontal</source>
-        <translation>O&amp;dwróć strony w poziomie</translation>
+        <translation type="obsolete">O&amp;dwróć strony w poziomie</translation>
+    </message>
+    <message>
+        <source>Compress Text and &amp;Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En&amp;able Presentation Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Presentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) &amp;Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Options</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10397,6 +10465,10 @@ Zewnętrzne dowiązania
         <source>Text Filters</source>
         <translation>Importery tekstu</translation>
     </message>
+    <message>
+        <source>Media Cases</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13177,7 +13249,7 @@ jeśli w dokumencie OO.o Writera pojawi się styl o tej samej nazwie</translatio
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scirubs</source>
-        <translation>Włącza dodawanie przez importer nazwy dokumentu
+        <translation type="obsolete">Włącza dodawanie przez importer nazwy dokumentu
 przed nazwą stylu akapitu w Scribusie</translation>
     </message>
     <message>
@@ -13191,6 +13263,11 @@ never ask your confirmation again</source>
         <translation>Włącza domyślne używanie aktualnych ustawień
 w trakcie importu dokumentów OO.o i wyłącza 
 pytanie o potwierdzenie przez użytkownika</translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13977,7 +14054,7 @@ Menu podręczne z opcją usunięcia jest dostępne jedynie, gdy posiadasz prawa 
     </message>
     <message>
         <source>with</source>
-        <translation>    </translation>
+        <translation></translation>
     </message>
     <message>
         <source>paragraph style</source>

@@ -34,28 +34,34 @@
 </LI>
 <LI>&nbsp;<b><A HREF="#ref2">~ScriXmlDoc</A></b> () 
 </LI>
-<LI>bool &nbsp;<b><A HREF="#ref3">ReadColors</A></b> (QString fileName) 
+<LI>QString &nbsp;<b><A HREF="#ref3">ReadDatei</A></b> (QString fileName) 
 </LI>
-<LI>QString &nbsp;<b><A HREF="#ref4">WriteElem</A></b> (QPtrList<<A HREF="PageItem.html">PageItem</A>> *Selitems, <A HREF="ScribusDoc.html">ScribusDoc</A> *doc) 
+<LI>bool &nbsp;<b><A HREF="#ref4">ReadColors</A></b> (QString fileName) 
 </LI>
-<LI>bool &nbsp;<b><A HREF="#ref5">ReadElemHeader</A></b> (QString file, bool isFile, float *x, float *y, float *w, float *h) 
+<LI>int &nbsp;<b><A HREF="#ref5">ReadPageCount</A></b> (QString fileName) 
 </LI>
-<LI>bool &nbsp;<b><A HREF="#ref6">ReadElem</A></b> (QString fileName, <A HREF="SCFonts.html">SCFonts</A> &avail, <A HREF="ScribusDoc.html">ScribusDoc</A> *doc, int Xp, int Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub) 
+<LI>bool &nbsp;<b><A HREF="#ref6">ReadPage</A></b> (QString fileName, <A HREF="SCFonts.html">SCFonts</A> &avail, <A HREF="ScribusDoc.html">ScribusDoc</A> *<A HREF="#doc">doc</A>, <A HREF="ScribusView.html">ScribusView</A> *view, int PageToLoad) 
 </LI>
-<LI>bool &nbsp;<b><A HREF="#ref7">ReadDoc</A></b> (QString fileName, <A HREF="SCFonts.html">SCFonts</A> &avail, <A HREF="ScribusDoc.html">ScribusDoc</A> *docu, <A HREF="ScribusView.html">ScribusView</A> *viewx, QProgressBar *dia2) 
+<LI>QString &nbsp;<b><A HREF="#ref7">WriteElem</A></b> (QPtrList<<A HREF="PageItem.html">PageItem</A>> *Selitems, <A HREF="ScribusDoc.html">ScribusDoc</A> *<A HREF="#doc">doc</A>) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref8">WritePages</A></b> (<A HREF="ScribusView.html">ScribusView</A> *view, QDomDocument docu, QDomElement dc, QProgressBar *dia2, uint maxC) 
+<LI>bool &nbsp;<b><A HREF="#ref8">ReadElemHeader</A></b> (QString file, bool isFile, double *x, double *y, double *w, double *h) 
 </LI>
-<LI>bool &nbsp;<b><A HREF="#ref9">WriteDoc</A></b> (QString fileName, <A HREF="ScribusDoc.html">ScribusDoc</A> *docu, <A HREF="ScribusView.html">ScribusView</A> *viewx, QProgressBar *dia2) 
+<LI>bool &nbsp;<b><A HREF="#ref9">ReadElem</A></b> (QString fileName, <A HREF="SCFonts.html">SCFonts</A> &avail, <A HREF="ScribusDoc.html">ScribusDoc</A> *<A HREF="#doc">doc</A>, int Xp, int Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, <A HREF="preV.html">preV</A> *Prefs) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref10">WritePref</A></b> (<A HREF="preV.html">preV</A> *Vor, QString ho) 
+<LI>bool &nbsp;<b><A HREF="#ref10">ReadDoc</A></b> (QString fileName, <A HREF="SCFonts.html">SCFonts</A> &avail, <A HREF="ScribusDoc.html">ScribusDoc</A> *docu, <A HREF="ScribusView.html">ScribusView</A> *viewx, QProgressBar *dia2) 
 </LI>
-<LI>bool &nbsp;<b><A HREF="#ref11">ReadPref</A></b> (struct <A HREF="preV.html">preV</A> *Vorein, QString ho) 
+<LI>void &nbsp;<b><A HREF="#ref11">WritePages</A></b> (<A HREF="ScribusView.html">ScribusView</A> *view, QDomDocument docu, QDomElement dc, QProgressBar *dia2, uint maxC) 
 </LI>
-</ul><h4>Signals</h4><ul><LI>void &nbsp;<b><A HREF="#ref15">NewPage</A></b> (int) 
+<LI>bool &nbsp;<b><A HREF="#ref12">WriteDoc</A></b> (QString fileName, <A HREF="ScribusDoc.html">ScribusDoc</A> *docu, <A HREF="ScribusView.html">ScribusView</A> *viewx, QProgressBar *dia2) 
 </LI>
-</ul><h4>Public Members</h4><ul><LI>CListe <b><A HREF="#ref12">Farben</A></b></LI>
-<LI>QValueList<Linked> <b><A HREF="#ref14">LFrames</A></b></LI>
+<LI>void &nbsp;<b><A HREF="#ref13">WritePref</A></b> (<A HREF="preV.html">preV</A> *Vor, QString ho) 
+</LI>
+<LI>bool &nbsp;<b><A HREF="#ref14">ReadPref</A></b> (struct <A HREF="preV.html">preV</A> *Vorein, QString ho) 
+</LI>
+</ul><h4>Signals</h4><ul><LI>void &nbsp;<b><A HREF="#ref18">NewPage</A></b> (int) 
+</LI>
+</ul><h4>Public Members</h4><ul><LI>CListe <b><A HREF="#ref15">Farben</A></b></LI>
+<LI>QValueList<Linked> <b><A HREF="#ref17">LFrames</A></b></LI>
 </ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><p>
                  	scribusXml.h the document xml library for scribus
                              -------------------
@@ -65,21 +71,24 @@
 *************************************************************************</p>
 <A NAME="ScriXmlDoc"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>ScriXmlDoc</strong> ()
 <br></td><td align="right"><h3><strong>ScriXmlDoc</strong></h3></td></tr></table><p></p><A NAME="~ScriXmlDoc"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>~ScriXmlDoc</strong> ()
-<br></td><td align="right"><h3><strong>~ScriXmlDoc</strong></h3></td></tr></table><p></p><A NAME="ReadColors"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>ReadColors</strong> (QString fileName)
-<br></td><td align="right"><h3><strong>ReadColors</strong></h3></td></tr></table><p></p><A NAME="WriteElem"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>WriteElem</strong> (QPtrList<<A HREF="PageItem.html">PageItem</A>> *Selitems, <A HREF="ScribusDoc.html">ScribusDoc</A> *doc)
-<br></td><td align="right"><h3><strong>WriteElem</strong></h3></td></tr></table><p></p><A NAME="ReadElemHeader"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>ReadElemHeader</strong> (QString file, bool isFile, float *x, float *y, float *w, float *h)
-<br></td><td align="right"><h3><strong>ReadElemHeader</strong></h3></td></tr></table><p></p><A NAME="ReadElem"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>ReadElem</strong> (QString fileName, <A HREF="SCFonts.html">SCFonts</A> &avail, <A HREF="ScribusDoc.html">ScribusDoc</A> *doc, int Xp, int Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub)
-<br></td><td align="right"><h3><strong>ReadElem</strong></h3></td></tr></table><p></p><A NAME="ReadDoc"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>ReadDoc</strong> (QString fileName, <A HREF="SCFonts.html">SCFonts</A> &avail, <A HREF="ScribusDoc.html">ScribusDoc</A> *docu, <A HREF="ScribusView.html">ScribusView</A> *viewx, QProgressBar *dia2)
-<br></td><td align="right"><h3><strong>ReadDoc</strong></h3></td></tr></table><p></p><A NAME="WritePages"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>WritePages</strong> (<A HREF="ScribusView.html">ScribusView</A> *view, QDomDocument docu, QDomElement dc, QProgressBar *dia2, uint maxC)
-<br></td><td align="right"><h3><strong>WritePages</strong></h3></td></tr></table><p></p><A NAME="WriteDoc"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>WriteDoc</strong> (QString fileName, <A HREF="ScribusDoc.html">ScribusDoc</A> *docu, <A HREF="ScribusView.html">ScribusView</A> *viewx, QProgressBar *dia2)
-<br></td><td align="right"><h3><strong>WriteDoc</strong></h3></td></tr></table><p></p><A NAME="WritePref"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>WritePref</strong> (<A HREF="preV.html">preV</A> *Vor, QString ho)
-<br></td><td align="right"><h3><strong>WritePref</strong></h3></td></tr></table><p></p><A NAME="ReadPref"></A><A NAME="ref11"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>ReadPref</strong> (struct <A HREF="preV.html">preV</A> *Vorein, QString ho)
-<br></td><td align="right"><h3><strong>ReadPref</strong></h3></td></tr></table><p></p><A NAME="Farben"></A><A NAME="ref12"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#CListe">CListe</A>  <strong>Farben</strong>
-</td><td align="right"><h3><strong>Farben</strong></h3></td></tr></table><p></p><A NAME="ScriXmlDoc__Linked.html"></A><A NAME="ref13"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>Linked</strong> <small>(struct)</small></td><td align="right"><h3><strong>Linked</strong></h3></td></tr></table><p></p><A NAME="LFrames"></A><A NAME="ref14"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QValueList<Linked>  <strong>LFrames</strong>
-</td><td align="right"><h3><strong>LFrames</strong></h3></td></tr></table><p></p><A NAME="NewPage"></A><A NAME="ref15"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewPage</strong> (int)
+<br></td><td align="right"><h3><strong>~ScriXmlDoc</strong></h3></td></tr></table><p></p><A NAME="ReadDatei"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>ReadDatei</strong> (QString fileName)
+<br></td><td align="right"><h3><strong>ReadDatei</strong></h3></td></tr></table><p></p><A NAME="ReadColors"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>ReadColors</strong> (QString fileName)
+<br></td><td align="right"><h3><strong>ReadColors</strong></h3></td></tr></table><p></p><A NAME="ReadPageCount"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int &nbsp;<strong>ReadPageCount</strong> (QString fileName)
+<br></td><td align="right"><h3><strong>ReadPageCount</strong></h3></td></tr></table><p></p><A NAME="ReadPage"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>ReadPage</strong> (QString fileName, <A HREF="SCFonts.html">SCFonts</A> &avail, <A HREF="ScribusDoc.html">ScribusDoc</A> *<A HREF="#doc">doc</A>, <A HREF="ScribusView.html">ScribusView</A> *view, int PageToLoad)
+<br></td><td align="right"><h3><strong>ReadPage</strong></h3></td></tr></table><p></p><A NAME="WriteElem"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>WriteElem</strong> (QPtrList<<A HREF="PageItem.html">PageItem</A>> *Selitems, <A HREF="ScribusDoc.html">ScribusDoc</A> *<A HREF="#doc">doc</A>)
+<br></td><td align="right"><h3><strong>WriteElem</strong></h3></td></tr></table><p></p><A NAME="ReadElemHeader"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>ReadElemHeader</strong> (QString file, bool isFile, double *x, double *y, double *w, double *h)
+<br></td><td align="right"><h3><strong>ReadElemHeader</strong></h3></td></tr></table><p></p><A NAME="ReadElem"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>ReadElem</strong> (QString fileName, <A HREF="SCFonts.html">SCFonts</A> &avail, <A HREF="ScribusDoc.html">ScribusDoc</A> *<A HREF="#doc">doc</A>, int Xp, int Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, <A HREF="preV.html">preV</A> *Prefs)
+<br></td><td align="right"><h3><strong>ReadElem</strong></h3></td></tr></table><p></p><A NAME="ReadDoc"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>ReadDoc</strong> (QString fileName, <A HREF="SCFonts.html">SCFonts</A> &avail, <A HREF="ScribusDoc.html">ScribusDoc</A> *docu, <A HREF="ScribusView.html">ScribusView</A> *viewx, QProgressBar *dia2)
+<br></td><td align="right"><h3><strong>ReadDoc</strong></h3></td></tr></table><p></p><A NAME="WritePages"></A><A NAME="ref11"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>WritePages</strong> (<A HREF="ScribusView.html">ScribusView</A> *view, QDomDocument docu, QDomElement dc, QProgressBar *dia2, uint maxC)
+<br></td><td align="right"><h3><strong>WritePages</strong></h3></td></tr></table><p></p><A NAME="WriteDoc"></A><A NAME="ref12"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>WriteDoc</strong> (QString fileName, <A HREF="ScribusDoc.html">ScribusDoc</A> *docu, <A HREF="ScribusView.html">ScribusView</A> *viewx, QProgressBar *dia2)
+<br></td><td align="right"><h3><strong>WriteDoc</strong></h3></td></tr></table><p></p><A NAME="WritePref"></A><A NAME="ref13"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>WritePref</strong> (<A HREF="preV.html">preV</A> *Vor, QString ho)
+<br></td><td align="right"><h3><strong>WritePref</strong></h3></td></tr></table><p></p><A NAME="ReadPref"></A><A NAME="ref14"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>ReadPref</strong> (struct <A HREF="preV.html">preV</A> *Vorein, QString ho)
+<br></td><td align="right"><h3><strong>ReadPref</strong></h3></td></tr></table><p></p><A NAME="Farben"></A><A NAME="ref15"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#CListe">CListe</A>  <strong>Farben</strong>
+</td><td align="right"><h3><strong>Farben</strong></h3></td></tr></table><p></p><A NAME="ScriXmlDoc__Linked.html"></A><A NAME="ref16"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>Linked</strong> <small>(struct)</small></td><td align="right"><h3><strong>Linked</strong></h3></td></tr></table><p></p><A NAME="LFrames"></A><A NAME="ref17"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QValueList<Linked>  <strong>LFrames</strong>
+</td><td align="right"><h3><strong>LFrames</strong></h3></td></tr></table><p></p><A NAME="NewPage"></A><A NAME="ref18"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewPage</strong> (int)
 <br></td><td align="right"><h3><strong>NewPage</strong></h3></td></tr></table><p> <small>[signal]</small></p><HR>
 	<table>
-	<tr><td><small>Generated by: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</small></td></tr>
+	<tr><td><small>Generated by: paul on ahnews.music.salford.ac.uk on Tue Oct 21 16:33:32 2003, using kdoc 2.0a54.</small></td></tr>
 	</table>
 </BODY>
 </HTML>

@@ -3544,22 +3544,6 @@ void ScribusApp::slotFileOpen()
 				doc->Trenner->slotHyphenate(b);
 			doc->ActPage->update();
 			slotDocCh();
-/* 			LoadEnc = "";
- 			QString fileName = CFileDialog( tr("Open"), tr("Text Files (*.txt);;All Files(*)"), "", false, true, false, true);
- 			if (!fileName.isEmpty())
- 			{
- 				Serializer *ss = new Serializer(fileName);
- 				if (ss->Read(LoadEnc))
- 				{
- 					int st = doc->CurrentABStil;
- 					ss->GetText(b, st, doc->Vorlagen[st].Font, doc->Vorlagen[st].FontSize);
- 				}
- 				delete ss;
- 				if (doc->Trenner->AutoCheck)
- 					doc->Trenner->slotHyphenate(b);
- 				doc->ActPage->update();
- 				slotDocCh();
- 			} */
 		}
 	}
 }
@@ -3583,24 +3567,6 @@ void ScribusApp::slotFileAppend()
 			doc->Trenner->slotHyphenate(doc->ActPage->SelItem.at(0));
 		doc->ActPage->update();
 		slotDocCh();
-		/*
-		PageItem *b = doc->ActPage->SelItem.at(0);
-		LoadEnc = "";
-		QString fileName = CFileDialog( tr("Open"), tr("Text Files (*.txt);;All Files(*)"), "", false, true, false, true);
-		if (!fileName.isEmpty())
-		{
-			Serializer *ss = new Serializer(fileName);
-			if (ss->Read(LoadEnc))
-			{
-				int st = doc->CurrentABStil;
-				ss->GetText(b, st, doc->Vorlagen[st].Font, doc->Vorlagen[st].FontSize, true);
-			}
-			delete ss;
-			if (doc->Trenner->AutoCheck)
-				doc->Trenner->slotHyphenate(b);
-			doc->ActPage->update();
-			slotDocCh();
-		} */
 	}
 }
 
@@ -8687,6 +8653,7 @@ void ScribusApp::doHyphenate()
 			if (doc->Trenner->Language != b->Language)
 				doc->Trenner->slotNewDict(b->Language);
 			doc->Trenner->slotHyphenate(b);
+			slotDocCh();
 		}
 	}
 }

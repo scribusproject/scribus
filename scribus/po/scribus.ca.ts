@@ -121,7 +121,7 @@
     </message>
     <message>
         <source>Spanish and Catalan:</source>
-        <translation>Espanyol i Català:</translation>
+        <translation type="obsolete">Espanyol i Català:</translation>
     </message>
     <message>
         <source>Swedish:</source>
@@ -177,6 +177,34 @@ el suport de llibreries de Scribus
 C-C-T equival a suport per C=CUPS C=littlecms T=TIFF
 La falta de llibreries està indicat per un *
 </translation>
+    </message>
+    <message>
+        <source>Official Translations and Translators:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Korean:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serbian:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous Translation Contributors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalan:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -925,7 +953,7 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation>Tipus:</translation>
+        <translation type="obsolete">Tipus:</translation>
     </message>
     <message>
         <source>Text</source>
@@ -949,15 +977,15 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Canvi...</translation>
+        <translation type="obsolete">Canvi...</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Pàgina:</translation>
+        <translation type="obsolete">Pàgina:</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>Posició X:</translation>
+        <translation type="obsolete">Posició X:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -965,15 +993,15 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Posició Y:</translation>
+        <translation type="obsolete">Posició Y:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>D&apos;acord</translation>
+        <translation type="obsolete">D&apos;acord</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancel.la</translation>
+        <translation type="obsolete">Cancel.la</translation>
     </message>
     <message>
         <source>Open</source>
@@ -982,6 +1010,26 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
         <translation>Documents PDF (*.pdf);;Tots els fitxers (*)</translation>
+    </message>
+    <message>
+        <source>&amp;Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished">Posició &amp;Y:</translation>
     </message>
 </context>
 <context>
@@ -2764,7 +2812,12 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     <name>HelpBrowser</name>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation>Ho sento, no hi ha manual disponible! Mira: http://scribus.net per actualitzacions i descàrregues.</translation>
+        <translation type="obsolete">Ho sento, no hi ha manual disponible! Mira: http://scribus.net per actualitzacions i descàrregues.</translation>
+    </message>
+    <message>
+        <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
+and www.scribus.net for downloads.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2794,7 +2847,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     </message>
     <message>
         <source>&amp;Hyphenation Suggestion</source>
-        <translation>&amp;Consell de Separacions</translation>
+        <translation type="obsolete">&amp;Consell de Separacions</translation>
     </message>
     <message>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
@@ -2810,7 +2863,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     </message>
     <message>
         <source>Consecutive Hypenations &amp;Allowed:</source>
-        <translation>Separacions Consecutives &amp;Permeses:</translation>
+        <translation type="obsolete">Separacions Consecutives &amp;Permeses:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2837,6 +2890,14 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
 A value of 0 means unlimited hyphenations.</source>
         <translation>Número màxim de separacions amb guions seguides.
 Un valor de 0 significa infinites separacions.</translation>
+    </message>
+    <message>
+        <source>&amp;Hyphenation Suggestions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consecutive Hyphenations &amp;Allowed:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3842,7 +3903,7 @@ A&amp;rrodonits:</translation>
     </message>
     <message>
         <source>Reverse Writing</source>
-        <translation>Escriptura inversa</translation>
+        <translation type="obsolete">Escriptura inversa</translation>
     </message>
     <message>
         <source>Manual Kerning</source>
@@ -4021,6 +4082,10 @@ Si us plau tria&apos;n un altre.</translation>
     <message>
         <source>OK</source>
         <translation>D&apos;acord</translation>
+    </message>
+    <message>
+        <source>Right to Left Writing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4625,7 +4690,7 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation>Com&amp;primir Text i Gràfics Vectorials</translation>
+        <translation type="obsolete">Com&amp;primir Text i Gràfics Vectorials</translation>
     </message>
     <message>
         <source>Image Settings</source>
@@ -4713,7 +4778,7 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation>Activa Efectes de &amp;Presentació</translation>
+        <translation type="obsolete">Activa Efectes de &amp;Presentació</translation>
     </message>
     <message>
         <source>Page</source>
@@ -4825,7 +4890,7 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>E&amp;xtres</translation>
+        <translation type="obsolete">E&amp;xtres</translation>
     </message>
     <message>
         <source>&amp;Use Encryption</source>
@@ -5253,6 +5318,30 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>Fitxers PDF (*.pdf);;Tots els fitxers (*)</translation>
+    </message>
+    <message>
+        <source>Compress Text and &amp;Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En&amp;able Presentation Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Presentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) &amp;Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">&amp;Rotació:</translation>
+    </message>
+    <message>
+        <source>&amp;Options</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7502,6 +7591,14 @@ Enllaços Externs
         <source>Text Files</source>
         <translation>Fitxers de Text</translation>
     </message>
+    <message>
+        <source>Media Cases</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Filters</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -9617,7 +9714,7 @@ o deixar-ho com està</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scirubs</source>
-        <translation>L&apos;importador hauría d&apos;afegir el nom del document
+        <translation type="obsolete">L&apos;importador hauría d&apos;afegir el nom del document
 en comptes dels noms de paràgraf d&apos;Scribus</translation>
     </message>
     <message>
@@ -9635,6 +9732,11 @@ mai tornarà a demanar confirmació</translation>
     <message>
         <source>OK</source>
         <translation>D&apos;acord</translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9794,6 +9896,33 @@ Si us plau tria&apos;n un altre.</translation>
     <message>
         <source>Page</source>
         <translation>Pàgina</translation>
+    </message>
+</context>
+<context>
+    <name>ValueDialog</name>
+    <message>
+        <source>Insert value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">D&apos;ac&amp;ord</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished">Alt+O</translation>
+    </message>
+    <message>
+        <source>Send your value to the script</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10176,6 +10305,120 @@ descarregar un paquet, extreu-re&apos;l i començar a fer-lo servir.</translatio
     <message>
         <source>custom</source>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>tfDia</name>
+    <message>
+        <source>Create filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">B&amp;uida</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a previously saved filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name to this filter for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">D&apos;ac&amp;ord</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Cancel.la</translation>
+    </message>
+</context>
+<context>
+    <name>tfFilter</name>
+    <message>
+        <source>Disable or enable this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a new filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>and</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>do not remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Eliminar</translation>
+    </message>
+    <message>
+        <source>Replace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished">Aplicar</translation>
+    </message>
+    <message>
+        <source>Value at the left is a regular expression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all instances of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all paragraphs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs starting with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with less than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with more than</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
