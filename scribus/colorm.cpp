@@ -449,12 +449,12 @@ void Farbmanager::neueFarbe()
 void Farbmanager::editFarbe()
 {
 	CMYKColor tmpFarbe = EditColors[sFarbe];
-	EditColors.remove(sFarbe);
 	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, sFarbe, &EditColors, CColSet);
 	if (dia->exec())
 	{
-		EditColors.insert(dia->Farbname->text(), dia->Farbe);
-		Ersatzliste.insert(sFarbe, dia->Farbname->text());
+		EditColors[dia->Farbname->text()] = dia->Farbe;
+		if (sFarbe != dia->Farbname->text())
+			Ersatzliste.insert(sFarbe, dia->Farbname->text());
 		updateCList();
 	}
 	delete dia;

@@ -32,7 +32,7 @@ extern bool CMSuse;
 extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);
 
-AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps) : QDialog( parent, "prin", true, 0 )
+AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool DoGcr) : QDialog( parent, "prin", true, 0 )
 {
 	setCaption( tr( "Advanced Options" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -47,6 +47,10 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps) : QDi
 	MirrorV->setText( tr("Mirror Page(s) vertical"));
 	MirrorV->setChecked(Vm);
 	AdvOptionsLayout->addWidget( MirrorV );
+	GcR = new QCheckBox(this, "GCR");
+	GcR->setText( tr("Appy Under Color Removal"));
+	GcR->setChecked(DoGcr);
+	AdvOptionsLayout->addWidget( GcR );
 #ifdef HAVE_CMS
 	if (CMSuse)
 	{
@@ -81,7 +85,6 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps) : QDi
 	if (ps == 1)
 		PS1->setChecked( true );
 	ButtonGroupPLayout->addWidget( PS1 );
-	
 	AdvOptionsLayout->addWidget( ButtonGroupP );
 
 	Layout2 = new QHBoxLayout;
@@ -110,7 +113,7 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps) : QDi
 	connect( PushButton1, SIGNAL( clicked() ), this, SLOT( accept() ) );
 }
 
-Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
+Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool gcr)
 		: QDialog( parent, "Dr", true, 0)
 {
 	PrinterOpts = "";
@@ -372,6 +375,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	MirrorH = false;
 	MirrorV = false,
 	ICCinUse = false;
+	DoGCR = gcr;
 	PSLevel = 3;
 	AdvOptButton = new QPushButton(ButtonGroup3_2, "Adv");
 	AdvOptButton->setText( tr("Advanced Options..."));
@@ -446,11 +450,12 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 
 void Druck::SetAdvOptions()
 {
-	AdvOptions* dia = new AdvOptions(this, MirrorH, MirrorV, ICCinUse, PSLevel);
+	AdvOptions* dia = new AdvOptions(this, MirrorH, MirrorV, ICCinUse, PSLevel, DoGCR);
 	if (dia->exec())
 	{
 		MirrorH = dia->MirrorH->isChecked();
 		MirrorV = dia->MirrorV->isChecked();
+		DoGCR = dia->GcR->isChecked();
 #ifdef HAVE_CMS
 		if (CMSuse)
 			ICCinUse = dia->UseICC->isChecked();

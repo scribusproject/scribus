@@ -1447,6 +1447,9 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	ClipMarg = new QCheckBox( tr( "Clip to Page &Margins" ), groupPrint, "ClipMarg" );
 	ClipMarg->setChecked(Vor->ClipMargin);
 	groupPrintLayout->addWidget( ClipMarg );
+	DoGCR = new QCheckBox( tr( "Apply &Under Color Removal" ), groupPrint, "ClipMarg" );
+	DoGCR->setChecked(Vor->GCRMode);
+	groupPrintLayout->addWidget( DoGCR );
 	MiscLayout->addWidget( groupPrint );
 	QSpacerItem* spacer_3m = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	MiscLayout->addItem( spacer_3m );

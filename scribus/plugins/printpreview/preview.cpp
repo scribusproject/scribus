@@ -104,6 +104,7 @@ void MenuPreview::RunPreview()
 		Carrier->Prefs.PrPr_M = dia->EnableCMYK_M->isChecked();
 		Carrier->Prefs.PrPr_Y = dia->EnableCMYK_Y->isChecked();
 		Carrier->Prefs.PrPr_K = dia->EnableCMYK_K->isChecked();
+		Carrier->Prefs.Gcr_Mode = dia->EnableGCR->isChecked();
   		delete dia;
 		system("rm -f "+Carrier->PrefsPfad+"/tmp.ps");
 		system("rm -f "+Carrier->PrefsPfad+"/sc.png");
@@ -130,6 +131,7 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	TxtAl = false;
 	GrAl = false;
 	Trans = false;
+	GMode = true;
 	setIcon(loadIcon("AppIcon.png"));
 	PLayout = new QVBoxLayout(this, 0, 0, "PLayout");
 	Layout5 = new QHBoxLayout;
@@ -171,6 +173,10 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	EnableCMYK->setText( tr("&Display CMYK"));
 	EnableCMYK->setChecked(app->Prefs.PrPr_Mode);
 	Layout2->addWidget(EnableCMYK);
+	EnableGCR = new QCheckBox(this, "DisplayGCR");
+	EnableGCR->setText( tr("&Under Color Removal"));
+	EnableGCR->setChecked(app->Prefs.Gcr_Mode);
+	Layout2->addWidget(EnableGCR);
 	EnableCMYK_C = new QCheckBox(this, "DisplayCMYK_C");
 	EnableCMYK_C->setText( tr("&C"));
 	EnableCMYK_C->setChecked(app->Prefs.PrPr_C);
@@ -219,6 +225,7 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	connect(AliasGr, SIGNAL(clicked()), this, SLOT(ToggleGr()));
 	connect(AliasTr, SIGNAL(clicked()), this, SLOT(ToggleTr()));
 	connect(EnableCMYK, SIGNAL(clicked()), this, SLOT(ToggleCMYK()));
+	connect(EnableGCR, SIGNAL(clicked()), this, SLOT(ToggleGCR()));
 	connect(EnableCMYK_C, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 	connect(EnableCMYK_M, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 	connect(EnableCMYK_Y, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
@@ -299,6 +306,10 @@ void PPreview::ToggleCMYK()
 	Anz->setPixmap(CreatePreview(APage, 72));
 }
 
+void PPreview::ToggleGCR()
+{
+	Anz->setPixmap(CreatePreview(APage, 72));
+}
 /*!
  \fn void PPreview::ToggleCMYK_Colour()
  \author Craig Bradney
@@ -328,7 +339,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	QString cmd1, cmd2, tmp, tmp2, tmp3;
 	QMap<QString,QFont> ReallyUsed;
 // Recreate Postscript-File only when the actual Page has changed
-	if (Seite != APage) 
+	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode))
 	{
 		ReallyUsed.clear();
 		app->GetUsedFonts(&ReallyUsed);
@@ -338,7 +349,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 			dd->PS_set_file(app->PrefsPfad+"/tmp.ps");
 			std::vector<int> pageNs;
 			pageNs.push_back(Seite+1);
-			app->view->CreatePS(dd, pageNs, false, tr("All"), true, false, false, false);
+			app->view->CreatePS(dd, pageNs, false, tr("All"), true, false, false, false, EnableGCR->isChecked());
 			delete dd;
 			app->closePSDriver();
 		}
@@ -385,7 +396,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
  	double h = app->doc->PageH * Res / 72;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) 
-		|| (AliasText->isChecked() != TxtAl) || (AliasGr->isChecked() != GrAl)
+		|| (AliasText->isChecked() != TxtAl) || (AliasGr->isChecked() != GrAl) || (EnableGCR->isChecked() != GMode)
 		|| ((AliasTr->isChecked() != Trans) && (!EnableCMYK->isChecked())))
 	{
 		ret = RenderPreview(Seite, Res);
@@ -401,6 +412,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	TxtAl = AliasText->isChecked();
 	GrAl = AliasGr->isChecked();
 	Trans = AliasTr->isChecked();
+	GMode = EnableGCR->isChecked();
 	QImage image;
 	if (EnableCMYK->isChecked())
 	{

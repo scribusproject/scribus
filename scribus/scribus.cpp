@@ -354,6 +354,7 @@ void ScribusApp::initScribus()
 		Prefs.GuidesShown = true;
 		Prefs.BaseShown = false;
 		Prefs.ClipMargin = true;
+		Prefs.GCRMode = true;
 		Prefs.PagesSbS = true;
 		Prefs.RecentDocs.clear();
 		Prefs.RecentDCount = 5;
@@ -385,6 +386,7 @@ void ScribusApp::initScribus()
 		Prefs.ScriptDir = "";
 		Prefs.CustomColorSets.clear();
 		Prefs.PrPr_Mode = false;
+		Prefs.Gcr_Mode = true;
 		Prefs.PrPr_AlphaText = false;
 		Prefs.PrPr_AlphaGraphics = false;
 		Prefs.PrPr_Transparency = false;
@@ -3739,7 +3741,7 @@ void ScribusApp::slotFilePrint()
 {
 	QString fna, prn, cmd, scmd, cc, data, SepNam;
 	int Nr;
-	bool fil, sep, farbe, PSfile, mirrorH, mirrorV, useICC;
+	bool fil, sep, farbe, PSfile, mirrorH, mirrorV, useICC, DoGCR;
 	PSfile = false;
 	FMess->setText( tr("Printing..."));
 	if (PrinterUsed)
@@ -3762,7 +3764,7 @@ void ScribusApp::slotFilePrint()
 		}
 	}
 	scmd = PDef.Command;
-	Druck *printer = new Druck(this, fna, prn, scmd);
+	Druck *printer = new Druck(this, fna, prn, scmd, Prefs.GCRMode);
 	printer->setMinMax(1, view->Pages.count(), doc->ActPage->PageNr+1);
 	if (printer->exec())
 	{
@@ -3788,6 +3790,7 @@ void ScribusApp::slotFilePrint()
 		mirrorH = printer->MirrorH;
 		mirrorV = printer->MirrorV;
 		useICC = printer->ICCinUse;
+		DoGCR = printer->DoGCR;
 		PDef.Pname = prn;
 		PDef.Dname = fna;
 		if (printer->OtherCom->isChecked())
@@ -3808,7 +3811,7 @@ void ScribusApp::slotFilePrint()
 			}
 			if (PSfile)
 			{
-				view->CreatePS(dd, pageNs, sep, SepNam, farbe, mirrorH, mirrorV, useICC);
+				view->CreatePS(dd, pageNs, sep, SepNam, farbe, mirrorH, mirrorV, useICC, DoGCR);
 				if (printer->PSLevel != 3)
 				{
 					QString tmp;
@@ -6476,6 +6479,7 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.gs_antiText = dia->GSantiText->isChecked();
 		Prefs.gs_exe = dia->GSName->text();
 		Prefs.ClipMargin = dia->ClipMarg->isChecked();
+		Prefs.GCRMode = dia->DoGCR->isChecked();
 		Prefs.Before = dia->RadioButton6->isChecked();
 		Prefs.PagesSbS = dia->SidebySide->isChecked();
 		Prefs.RandFarbig = dia->RandFarb->isChecked();
@@ -6896,7 +6900,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 	if (dd != NULL)
 	{
 		if (dd->PS_set_file(fn))
-			view->CreatePS(dd, pageNs, false, tr("All"), true, false, false, false);
+			view->CreatePS(dd, pageNs, false, tr("All"), true, false, false, false, Prefs.GCRMode);
 		else
 			return_value = false;
 		delete dd;

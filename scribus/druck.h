@@ -28,11 +28,12 @@ class AdvOptions : public QDialog
 	Q_OBJECT
 
 public:
-	AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps);
+	AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool DoGcr);
 	~AdvOptions() {};
 	QCheckBox* MirrorH;
 	QCheckBox* MirrorV;
 	QCheckBox* UseICC;
+	QCheckBox* GcR;
 	QButtonGroup* ButtonGroupP;
 	QRadioButton* PS3;
 	QRadioButton* PS2;
@@ -51,7 +52,7 @@ class Druck : public QDialog
 	Q_OBJECT
 
 public:
-	Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom );
+	Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool gcr );
 	~Druck() {};
 	QString printerName();
 	QString outputFileName();
@@ -70,6 +71,7 @@ public:
 	bool MirrorH;
 	bool MirrorV;
 	bool ICCinUse;
+	bool DoGCR;
 	int PSLevel;
 
 public slots:

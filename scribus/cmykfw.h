@@ -81,6 +81,7 @@ public:
 	CListe *EColors;
 	CListe CurrSwatch;
 	QStringList CColSet;
+	QString Fnam;
 
 public slots:
 	void SetValueS(int val);

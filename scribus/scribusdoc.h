@@ -469,6 +469,7 @@ struct preV  {
 				QString DColorSet;
 				QStringList CustomColorSets;
 				bool PrPr_Mode;
+				bool Gcr_Mode;
 				bool PrPr_AlphaText;
 				bool PrPr_AlphaGraphics;
 				bool PrPr_Transparency;
@@ -486,6 +487,7 @@ struct preV  {
 				bool GridShown;
 				bool BaseShown;
 				bool ClipMargin;
+				bool GCRMode;
 				double BaseGrid;
 				double BaseOffs;
 			};

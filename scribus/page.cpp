@@ -356,7 +356,7 @@ void Page::dropEvent(QDropEvent *e)
 					}
 					else
 						re = 1;
-					if (re == 2)
+					if ((re == 2) || (re == -1))
 					{
 						update();
 						return;
@@ -2069,16 +2069,16 @@ void Page::TransformPoly(int mode, int rot, int scaling)
 	switch (mode)
 	{
 	case 0:
-		ma.rotate(-1.0);
+		ma.rotate(-rot);
 		break;
 	case 1:
-		ma.rotate(1.0);
+		ma.rotate(rot);
 		break;
 	case 2:
-		ma.scale(0.9, 0.9);
+		ma.scale(1.0 - (scaling / 100.0), 1.0 - (scaling / 100.0));
 		break;
 	case 3:
-		ma.scale(1.1, 1.1);
+		ma.scale(1.0 + (scaling / 100.0), 1.0 + (scaling / 100.0));
 		break;
 	case 4:
 		ma.shear(0.017455, 0);
@@ -2104,16 +2104,16 @@ void Page::TransformPoly(int mode, int rot, int scaling)
 	switch (mode)
 	{
 	case 0:
-		ma2.rotate(-1.0);
+		ma2.rotate(-rot);
 		break;
 	case 1:
-		ma2.rotate(1.0);
+		ma2.rotate(rot);
 		break;
 	case 2:
-		ma2.scale(0.9, 0.9);
+		ma2.scale(1.0 - (scaling / 100.0), 1.0 - (scaling / 100.0));
 		break;
 	case 3:
-		ma2.scale(1.1, 1.1);
+		ma2.scale(1.0 + (scaling / 100.0), 1.0 + (scaling / 100.0));
 		break;
 	case 4:
 		ma2.shear(0.017455, 0);

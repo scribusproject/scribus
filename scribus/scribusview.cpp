@@ -959,7 +959,7 @@ QPixmap ScribusView::PageToPixmap(int Nr, int maxGr)
 	return pm;
 }
 
-void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic)
+void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic, bool gcr)
 {
 	uint a;
 	int sepac;
@@ -994,7 +994,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 				}
 			}
 			p->PS_TemplateStart(MasterPages.at(ap)->PageNam, Doc->PageB, Doc->PageH);
-			ProcessPage(p, MasterPages.at(ap), ap+1, sep, farb, Ic);
+			ProcessPage(p, MasterPages.at(ap), ap+1, sep, farb, Ic, gcr);
 			p->PS_TemplateEnd();
 		}
 	}
@@ -1069,7 +1069,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 									p->PS_rotate(-ite->Rot);
 								if (ite->Pcolor != "None")
 								{
-									SetFarbe(ite->Pcolor, ite->Shade, &h, &s, &v, &k);
+									SetFarbe(ite->Pcolor, ite->Shade, &h, &s, &v, &k, gcr);
 									p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 									SetClipPath(p, &ite->PoLine);
 									p->PS_closepath();
@@ -1101,7 +1101,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 								{
 									if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 									{
-										SetFarbe(ite->Pcolor2, ite->Shade2, &h, &s, &v, &k);
+										SetFarbe(ite->Pcolor2, ite->Shade2, &h, &s, &v, &k, gcr);
 										p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										p->PS_setlinewidth(ite->Pwidth);
 										p->PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
@@ -1115,7 +1115,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 										multiLine ml = Doc->MLineStyles[ite->NamedLStyle];
 										for (int it = ml.size()-1; it > -1; it--)
 										{
-											SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
+											SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
 											p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 											p->PS_setlinewidth(ml[it].Width);
 											p->PS_setcapjoin(static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
@@ -1151,7 +1151,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 								p->PS_save();
 								if (ite->Pcolor != "None")
 								{
-									SetFarbe(ite->Pcolor, ite->Shade, &h, &s, &v, &k);
+									SetFarbe(ite->Pcolor, ite->Shade, &h, &s, &v, &k, gcr);
 									p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 								}
 								p->PS_translate(ite->Xpos, Doc->PageH - ite->Ypos);
@@ -1245,7 +1245,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 												p->PS_scale(hl->cscale / 100.0, 1);
 											if (hl->ccolor != "None")
 											{
-												SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
+												SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 												p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 												p->PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName(), tsz / 10.0, false);
 											}
@@ -1257,7 +1257,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 										p->PS_selectfont(hl->cfont, tsz / 10.0);
 										if (hl->ccolor != "None")
 										{
-											SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
+											SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 											p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										}
 										p->PS_save();
@@ -1319,7 +1319,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 												p->PS_setcapjoin(FlatCap, MiterJoin);
 												p->PS_setdash(SolidLine, 0, dum);
 												p->PS_translate(hl->xp, (hl->yp - tsz) * -1);
-												SetFarbe(hl->cstroke, hl->cshade2, &h, &s, &v, &k);
+												SetFarbe(hl->cstroke, hl->cshade2, &h, &s, &v, &k, gcr);
 												p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 												SetClipPath(p, &gly);
 												p->PS_closepath();
@@ -1336,7 +1336,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 										{
 											p->PS_setcapjoin(FlatCap, MiterJoin);
 											p->PS_setdash(SolidLine, 0, dum);
-											SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
+											SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 											p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										}
 										p->PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
@@ -1352,7 +1352,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 										{
 											p->PS_setcapjoin(FlatCap, MiterJoin);
 											p->PS_setdash(SolidLine, 0, dum);
-											SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
+											SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 											p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										}
 										p->PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
@@ -1381,7 +1381,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 												p->PS_save();
 												p->PS_newpath();
 												p->PS_translate(hl->xp+wide, (hl->yp - (tsz / 10.0)) * -1);
-												SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
+												SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 												p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 												SetClipPath(p, &gly);
 												p->PS_closepath();
@@ -1395,7 +1395,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 								{
 									if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 									{
-										SetFarbe(ite->Pcolor2, ite->Shade2, &h, &s, &v, &k);
+										SetFarbe(ite->Pcolor2, ite->Shade2, &h, &s, &v, &k, gcr);
 										p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										p->PS_setlinewidth(ite->Pwidth);
 										p->PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
@@ -1409,7 +1409,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 										multiLine ml = Doc->MLineStyles[ite->NamedLStyle];
 										for (int it = ml.size()-1; it > -1; it--)
 										{
-											SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
+											SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
 											p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 											p->PS_setlinewidth(ml[it].Width);
 											p->PS_setcapjoin(static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
@@ -1434,7 +1434,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 							p->PS_save();
 							if (ite->Pcolor2 != "None")
 							{
-								SetFarbe(ite->Pcolor2, ite->Shade2, &h, &s, &v, &k);
+								SetFarbe(ite->Pcolor2, ite->Shade2, &h, &s, &v, &k, gcr);
 								p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 							}
 							p->PS_setlinewidth(ite->Pwidth);
@@ -1477,7 +1477,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 				}
 			}
 		}
-		ProcessPage(p, Pages.at(a), a+1, sep, farb, Ic);
+		ProcessPage(p, Pages.at(a), a+1, sep, farb, Ic, gcr);
 		p->PS_end_page();
 		if (sep)
 		{
@@ -1500,7 +1500,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 	p->PS_close();
 }
 
-void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, bool ic)
+void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, bool ic, bool gcr)
 {
 	uint b, d;
 	int h, s, v, k, tsz;
@@ -1536,12 +1536,12 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 					p->PS_save();
 					if (c->Pcolor != "None")
 					{
-						SetFarbe(c->Pcolor, c->Shade, &h, &s, &v, &k);
+						SetFarbe(c->Pcolor, c->Shade, &h, &s, &v, &k, gcr);
 						p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 					}
 					if (c->Pcolor2 != "None")
 					{
-						SetFarbe(c->Pcolor2, c->Shade2, &h, &s, &v, &k);
+						SetFarbe(c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
 						p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 					}
 					p->PS_setlinewidth(c->Pwidth);
@@ -1558,7 +1558,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							SetClipPath(p, &c->PoLine);
 							p->PS_closepath();
 							if ((c->GrType != 0) && (a->PageNam == ""))
-								HandleGradient(p, c, c->Width, c->Height);
+								HandleGradient(p, c, c->Width, c->Height, gcr);
 							else
 								p->PS_fill();
 							p->PS_newpath();
@@ -1590,7 +1590,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 						{
 							if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
 							{
-								SetFarbe(c->Pcolor2, c->Shade2, &h, &s, &v, &k);
+								SetFarbe(c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
 								p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 								p->PS_setlinewidth(c->Pwidth);
 								p->PS_setcapjoin(c->PLineEnd, c->PLineJoin);
@@ -1604,7 +1604,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 								for (int it = ml.size()-1; it > -1; it--)
 								{
-									SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
+									SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
 									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 									p->PS_setlinewidth(ml[it].Width);
 									p->PS_setcapjoin(static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
@@ -1645,7 +1645,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							SetClipPath(p, &c->PoLine);
 							p->PS_closepath();
 							if ((c->GrType != 0) && (a->PageNam == ""))
-								HandleGradient(p, c, c->Width, c->Height);
+								HandleGradient(p, c, c->Width, c->Height, gcr);
 							else
 								p->PS_fill();
 						}
@@ -1731,7 +1731,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 										p->PS_scale(hl->cscale / 100.0, 1);
 									if (hl->ccolor != "None")
 									{
-										SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
+										SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 										p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										p->PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName(), tsz / 10.0, false);
 									}
@@ -1743,7 +1743,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								p->PS_selectfont(hl->cfont, tsz / 10.0);
 								if (hl->ccolor != "None")
 								{
-									SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
+									SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 								}
 								p->PS_save();
@@ -1805,7 +1805,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 										p->PS_setcapjoin(FlatCap, MiterJoin);
 										p->PS_setdash(SolidLine, 0, dum);
 										p->PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
-										SetFarbe(hl->cstroke, hl->cshade2, &h, &s, &v, &k);
+										SetFarbe(hl->cstroke, hl->cshade2, &h, &s, &v, &k, gcr);
 										p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										SetClipPath(p, &gly);
 										p->PS_closepath();
@@ -1822,7 +1822,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								{
 									p->PS_setcapjoin(FlatCap, MiterJoin);
 									p->PS_setdash(SolidLine, 0, dum);
-									SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
+									SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 								}
 								p->PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
@@ -1838,7 +1838,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								{
 									p->PS_setcapjoin(FlatCap, MiterJoin);
 									p->PS_setdash(SolidLine, 0, dum);
-									SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
+									SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 								}
 								p->PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
@@ -1867,7 +1867,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 										p->PS_save();
 										p->PS_newpath();
 										p->PS_translate(hl->xp+wide, (hl->yp - (tsz / 10.0)) * -1);
-										SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
+										SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 										p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										SetClipPath(p, &gly);
 										p->PS_closepath();
@@ -1879,7 +1879,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 						}
 						if (((c->Pcolor2 != "None") || (c->NamedLStyle != "")) && (!c->isTableItem))
 						{
-							SetFarbe(c->Pcolor2, c->Shade2, &h, &s, &v, &k);
+							SetFarbe(c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
 							p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 							p->PS_setlinewidth(c->Pwidth);
 							p->PS_setcapjoin(c->PLineEnd, c->PLineJoin);
@@ -1895,7 +1895,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 								for (int it = ml.size()-1; it > -1; it--)
 								{
-									SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
+									SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
 									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 									p->PS_setlinewidth(ml[it].Width);
 									p->PS_setcapjoin(static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
@@ -1919,7 +1919,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
-								SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
+								SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
 								p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 								p->PS_setlinewidth(ml[it].Width);
 								p->PS_setcapjoin(static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
@@ -1938,7 +1938,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							SetClipPath(p, &c->PoLine);
 							p->PS_closepath();
 							if (c->GrType != 0)
-								HandleGradient(p, c, c->Width, c->Height);
+								HandleGradient(p, c, c->Width, c->Height, gcr);
 							else
 								p->PS_fill();
 						}
@@ -1955,7 +1955,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 								for (int it = ml.size()-1; it > -1; it--)
 								{
-									SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
+									SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
 									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 									p->PS_setlinewidth(ml[it].Width);
 									p->PS_setcapjoin(static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
@@ -1973,7 +1973,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							SetClipPath(p, &c->PoLine);
 							p->PS_closepath();
 							if (c->GrType != 0)
-								HandleGradient(p, c, c->Width, c->Height);
+								HandleGradient(p, c, c->Width, c->Height, gcr);
 							else
 								p->PS_fill();
 							p->PS_newpath();
@@ -1988,7 +1988,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
-								SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
+								SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
 								p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 								p->PS_setlinewidth(ml[it].Width);
 								p->PS_setcapjoin(static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
@@ -2014,7 +2014,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 									for (int it = ml.size()-1; it > -1; it--)
 									{
-										SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
+										SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
 										p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										p->PS_setlinewidth(ml[it].Width);
 										p->PS_setcapjoin(static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
@@ -2049,7 +2049,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								tsz = hl->csize * Doc->VHochSc / 100;
 							if (hl->ccolor != "None")
 							{
-								SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
+								SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 								p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 							}
 							/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
@@ -2084,7 +2084,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 										p->PS_scale(hl->cscale / 100.0, 1);
 									if (hl->ccolor != "None")
 									{
-										SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k);
+										SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 										p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										p->PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName(), tsz / 10.0, false);
 									}
@@ -2121,7 +2121,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 				p->PS_save();
 				if (c->Pcolor2 != "None")
 				{
-					SetFarbe(c->Pcolor2, c->Shade2, &h, &s, &v, &k);
+					SetFarbe(c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
 					p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				}
 				p->PS_setlinewidth(c->Pwidth);
@@ -2164,7 +2164,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 	}
 }
 
-void ScribusView::HandleGradient(PSLib *p, PageItem *c, double w, double h)
+void ScribusView::HandleGradient(PSLib *p, PageItem *c, double w, double h, bool gcr)
 {
 	int ch,cs,cv,ck;
 	double StartX, StartY, EndX, EndY;
@@ -2226,7 +2226,7 @@ void ScribusView::HandleGradient(PSLib *p, PageItem *c, double w, double h)
 		for (uint cst = 0; cst < c->fill_gradient.Stops(); ++cst)
 		{
 			StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
-			SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck);
+			SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck, gcr);
 			QString GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
 			Gcolors.prepend(GCol);
 		}
@@ -2245,7 +2245,7 @@ void ScribusView::HandleGradient(PSLib *p, PageItem *c, double w, double h)
 			double y = fabs(ma.m12() * w2 + ma.dy());
 			StopVec.append(x);
 			StopVec.append(-y);
-			SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck);
+			SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck, gcr);
 			QString GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
 			Gcolors.append(GCol);
 		}
@@ -2253,15 +2253,16 @@ void ScribusView::HandleGradient(PSLib *p, PageItem *c, double w, double h)
 	}
 }
 
-void ScribusView::SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k)
+void ScribusView::SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k, bool gcr)
 {
 	int h1, s1, v1, k1;
 	h1 = *h;
 	s1 = *s;
 	v1 = *v;
 	k1 = *k;
-	CMYKColor	tmp = Doc->PageColors[farb];
-	tmp.applyGCR();
+	CMYKColor tmp = Doc->PageColors[farb];
+	if (gcr)
+		tmp.applyGCR();
 	tmp.getCMYK(&h1, &s1, &v1, &k1);
 	*h = h1 * shade / 100;
 	*s = s1 * shade / 100;

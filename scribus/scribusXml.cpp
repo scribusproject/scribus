@@ -2929,9 +2929,11 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc82.setAttribute("FILE",Vor->PrinterFile);
 	dc82.setAttribute("COMMAND",Vor->PrinterCommand);
 	dc82.setAttribute("CLIPMARGIN", static_cast<int>(Vor->ClipMargin));
+	dc82.setAttribute("GMODE", static_cast<int>(Vor->GCRMode));
 	elem.appendChild(dc82);
 	QDomElement dc8Pr=docu.createElement("PRINTPREVIEW");
 	dc8Pr.setAttribute("Mode", static_cast<int>(Vor->PrPr_Mode));
+	dc8Pr.setAttribute("GcrMode", static_cast<int>(Vor->Gcr_Mode));
 	dc8Pr.setAttribute("AlphaText", static_cast<int>(Vor->PrPr_AlphaText));
 	dc8Pr.setAttribute("AlphaGraphics", static_cast<int>(Vor->PrPr_AlphaGraphics));
 	dc8Pr.setAttribute("Transparency", static_cast<int>(Vor->PrPr_Transparency));
@@ -3215,10 +3217,12 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->PrinterFile = dc.attribute("FILE");
 			Vorein->PrinterCommand = dc.attribute("COMMAND");
 			Vorein->ClipMargin = static_cast<bool>(QStoInt(dc.attribute("CLIPMARGIN", "1")));
+			Vorein->GCRMode = static_cast<bool>(QStoInt(dc.attribute("GMODE", "1")));
 		}
 		if (dc.tagName()=="PRINTPREVIEW")
 		{
 			Vorein->PrPr_Mode = static_cast<bool>(QStoInt(dc.attribute("Mode", "0")));
+			Vorein->Gcr_Mode = static_cast<bool>(QStoInt(dc.attribute("GcrMode", "1")));
 			Vorein->PrPr_AlphaText = static_cast<bool>(QStoInt(dc.attribute("AlphaText", "0")));
 			Vorein->PrPr_AlphaGraphics = static_cast<bool>(QStoInt(dc.attribute("AlphaGraphics", "0")));
 			Vorein->PrPr_Transparency = static_cast<bool>(QStoInt(dc.attribute("Transparency", "0")));

@@ -62,6 +62,7 @@ public:
 	QCheckBox* EnableCMYK_M;
 	QCheckBox* EnableCMYK_Y;
 	QCheckBox* EnableCMYK_K;
+	QCheckBox* EnableGCR;
 	QScrollView* Anzeige;
 	QLabel* Anz;
 	ScribusApp *app;
@@ -71,6 +72,7 @@ public:
 	bool TxtAl;
 	bool GrAl;
 	bool Trans;
+	bool GMode;
 
 public slots:
 	void ToSeite(int num);
@@ -78,6 +80,7 @@ public slots:
 	void ToggleGr();
 	void ToggleTr();
 	void ToggleCMYK();
+	void ToggleGCR();
 	void ToggleCMYK_Colour();
 
 protected:

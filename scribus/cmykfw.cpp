@@ -334,6 +334,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	orig.getRGBColor().hsv(&h, &s, &v);
 	ColorMap->drawPalette(v);
 	ColorMap->setMark(h, s);
+	Fnam = name;
 	Farbname->selectAll();
 	Farbname->setFocus();
 	TabStack->raiseWidget(0);
@@ -890,12 +891,17 @@ QColor CMYKChoose::CMYK2RGB(int c, int m, int y, int k)
 
 void CMYKChoose::Verlassen()
 {
-	if (EColors->contains(Farbname->text()))
+	if (Fnam != Farbname->text())
 	{
-		QMessageBox::information(this, tr("Warning"), tr("Name of the Color is not unique"), tr("OK"), 0, 0, 0, QMessageBox::Ok);
-		Farbname->selectAll();
-		Farbname->setFocus();
-		return;
+		if (EColors->contains(Farbname->text()))
+		{
+			QMessageBox::information(this, tr("Warning"), tr("Name of the Color is not unique"), tr("OK"), 0, 0, 0, QMessageBox::Ok);
+			Farbname->selectAll();
+			Farbname->setFocus();
+			return;
+		}
+		else
+			accept();
 	}
 	else
 		accept();

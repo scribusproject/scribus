@@ -242,6 +242,7 @@ public:
 	QWidget* Misc;
 	QGroupBox* groupPrint;
 	QCheckBox* ClipMarg;
+	QCheckBox* DoGCR;
 	MSpinBox* BaseGrid;
 	QLabel* TextLabel2_3_3b;
 	MSpinBox* BaseOffs;

@@ -80,13 +80,13 @@ public:
 	QPixmap PageToPixmap(int Nr, int maxGr);
 	QPixmap MPageToPixmap(QString name, int maxGr);
 	void RecalcPictures(ProfilesL *Pr, QProgressBar *dia = 0);
-	void CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic);
-	void ProcessPage(PSLib *p, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false);
+	void CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic, bool gcr);
+	void ProcessPage(PSLib *p, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
 	void SetClipPath(PSLib *p, FPointArray *c, bool poly = true);
-	void HandleGradient(PSLib *p, PageItem *c, double w, double h);
-	void SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k);
+	void HandleGradient(PSLib *p, PageItem *c, double w, double h, bool gcr);
+	void SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k, bool gcr);
 	void rememberPreviousSettings(int mx=0, int my=0);
-  /** Dokument zu dem die Seite geh�t */
+  /** Dokument zu dem die Seite gehoert */
 	ScribusDoc *Doc;
 	preV *Prefs;
 
