@@ -1,5 +1,12 @@
 Changes since Version 1.1.7
 
+02.08.2004
+	* bug     #658: Templates: issues with text editing in story editor
+	* bug     #659: Templates > Story Editor & Properties: Confusion about styles
+	* bug     #921: importing SVG does not set save flag
+	* feature # 25: Add Find & Replace option to Story Editor / Text Frames
+	* feature #904: integrate font preview plugin to the story editor
+
 01.08.2004
 	* bug     #450: Dialog Tools>Layers needs <ESC> binding and loose the "X" button
 	* bug     #768: insert sample text

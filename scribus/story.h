@@ -216,10 +216,12 @@ public:
 
 	QPopupMenu* fmenu;
 	QPopupMenu* emenu;
+	QPopupMenu* settingsMenu;
 	QToolBar* FileTools;
 	QToolButton* DatNeu;
 	QToolButton* DatOpe;
 	QToolButton* DatSav;
+	QToolButton* DatFin;
 	QToolButton* DatClo;
 	QToolButton* DatCan;
 	QToolButton* DatRel;
@@ -257,6 +259,8 @@ public:
 	bool firstSet;
 
 public slots:
+	void setBackPref();
+	void setFontPref();
 	void newTxFill(int c, int s);
 	void newTxStroke(int c, int s);
 	void newTxFont(const QString &f);
@@ -279,6 +283,7 @@ public slots:
 	void Do_cut();
 	void Do_del();
 	void Do_insSp();
+	void Do_fontPrev();
 	void CopyAvail(bool u);
 	void updateTextFrame();
 	void SearchText();

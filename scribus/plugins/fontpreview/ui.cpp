@@ -70,10 +70,15 @@ FontPreview::FontPreview( ScribusApp *carrier, QWidget* parent, const char* name
 	fontList->sort();
 
 	QListBoxItem *item;
-	if (carrier->doc->ActPage->SelItem.count() != 0)
-		item = fontList->findItem(carrier->doc->CurrFont);
+	if (carrier->DLLinput != "")
+		item = fontList->findItem(carrier->DLLinput);
 	else
-		item = fontList->findItem(carrier->Prefs.DefFont);
+	{
+		if (carrier->doc->ActPage->SelItem.count() != 0)
+			item = fontList->findItem(carrier->doc->CurrFont);
+		else
+			item = fontList->findItem(carrier->Prefs.DefFont);
+	}
 	if (item != 0)
 	{
 		fontList_changed(item);

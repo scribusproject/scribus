@@ -230,6 +230,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	}
 	if ((!useAble) || (nb1->PType != 4) || (nb1 ->Ptext.count() == 0))
 		return;
+	doc->DoDrawing = false;
 	const char *word;
 	char *buffer;
 	const int BORDER = 2;
@@ -354,5 +355,6 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	}
 	nb1->Dirty = true;
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	doc->DoDrawing = true;
 	nb1->OwnPage->RefreshItem(nb1);
 }

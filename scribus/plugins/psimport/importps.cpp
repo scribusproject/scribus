@@ -233,7 +233,10 @@ EPSPlug::EPSPlug( QWidget* parent, ScribusApp *plug, QString fName )
 			Doku->DragElements.clear();
 		}
 		else
+		{
 			Doku->setUnModified();
+			Prog->slotDocCh();
+		}
 	}
 	else
 	{

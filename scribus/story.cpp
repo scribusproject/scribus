@@ -22,6 +22,8 @@
 #include <qmessagebox.h>
 #include <qregexp.h>
 #include <qhbox.h>
+#include <qcolordialog.h>
+#include <qfontdialog.h>
 #include "serializer.h"
 #include "customfdialog.h"
 #include "search.h"
@@ -246,9 +248,9 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 void SEditor::insChars(QString t)
 {
 	int p, i;
-	getCursorPosition(&p, &i);
 	if (hasSelectedText())
 		deleteSel();
+	getCursorPosition(&p, &i);
 	ChList *chars;
 	if ((p >= static_cast<int>(StyledText.count())) || (StyledText.count() == 0))
 	{
@@ -980,14 +982,18 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	Mpaste = emenu->insertItem(loadIcon("editpaste.png"), tr("&Paste"), this, SLOT(Do_paste()), CTRL+Key_V);
 	Mdel = emenu->insertItem(loadIcon("editdelete.png"), tr("C&lear"), this, SLOT(Do_del()), CTRL+Key_V);
 	emenu->insertSeparator();
-	int sr = emenu->insertItem( tr("&Search/Replace..."), this, SLOT(SearchText()));
+	emenu->insertItem(loadIcon("find16.png"),  tr("&Search/Replace..."), this, SLOT(SearchText()));
 	emenu->insertItem( tr("&Insert Special..."), this , SLOT(Do_insSp()));
-//	emenu->setItemEnabled(sr, 0);
 	emenu->insertSeparator();
 	emenu->insertItem( tr("&Edit Styles..."), this , SLOT(slotEditStyles()));
+	emenu->insertItem( tr("Font &Preview..."), this , SLOT(Do_fontPrev()));
 	Mupdt = emenu->insertItem(loadIcon("compfile16.png"),  tr("&Update Text Frame"), this, SLOT(updateTextFrame()), CTRL+Key_U);
+	settingsMenu = new QPopupMenu();
+	settingsMenu->insertItem( tr("&Background..."), this , SLOT(setBackPref()));
+	settingsMenu->insertItem( tr("&Display Font..."), this , SLOT(setFontPref()));
 	menuBar()->insertItem( tr("&File"), fmenu);
 	menuBar()->insertItem( tr("&Edit"), emenu);
+	menuBar()->insertItem( tr("&Settings"), settingsMenu );
 
 /* Setting up Toolbars */
 	FileTools = new QToolBar( tr("File"), this);
@@ -998,6 +1004,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	DatCan = new QToolButton(loadIcon("exit22.png"), tr("Exit Without Updating Text Frame"), QString::null, this, SLOT(Do_leave()), FileTools);
 	DatRel = new QToolButton(loadIcon("reload.png"), tr("Reload Text from Frame"), QString::null, this, SLOT(slotFileRevert()), FileTools);
 	DatUpdt = new QToolButton(loadIcon("compfile.png"), tr("Update Text Frame"), QString::null, this, SLOT(updateTextFrame()), FileTools);
+	DatFin = new QToolButton(loadIcon("find.png"), tr("Search/Replace"), QString::null, this, SLOT(SearchText()), FileTools);
 	DatUpdt->setEnabled(false);
 	DatRel->setEnabled(false);
 	setDockEnabled(FileTools, DockLeft, false);
@@ -1098,6 +1105,10 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	emenu->setItemEnabled(Mdel, 0);
 	emenu->setItemEnabled(Mupdt, 0);
 	resize( QSize(660, 500).expandedTo(minimumSizeHint()) );
+	Editor->setPaper(ScApp->Prefs.STEcolor);
+	QFont fo;
+	fo.fromString(ScApp->Prefs.STEfont);
+	Editor->setFont(fo);
 	CurrItem = ite;
 	firstSet = false;
 	Editor->loadItemText(ite);
@@ -1151,10 +1162,29 @@ void StoryEditor::closeEvent(QCloseEvent *event)
 	qApp->exit_loop();
 }
 
+void StoryEditor::setBackPref()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(Editor->paper().color(), this);
+	if (neu.isValid())
+	{
+		Editor->setPaper(neu);
+		ScApp->Prefs.STEcolor = neu;
+	}
+}
+
+void StoryEditor::setFontPref()
+{
+	Editor->setFont( QFontDialog::getFont( 0, Editor->font() ) );
+	ScApp->Prefs.STEfont = Editor->font().toString();
+}
+
 void StoryEditor::newTxFill(int c, int s)
 {
-	Editor->CurrTextFill = FillTools->TxFill->text(c);
-	Editor->CurrTextFillSh = s;
+	if (c != -1)
+		Editor->CurrTextFill = FillTools->TxFill->text(c);
+	if (s != -1)
+		Editor->CurrTextFillSh = s;
 	Editor->setFarbe(Editor->CurrTextFill, Editor->CurrTextFillSh);
 	struct PtiSmall hg;
 	hg.ccolor = Editor->CurrTextFill;
@@ -1166,8 +1196,10 @@ void StoryEditor::newTxFill(int c, int s)
 
 void StoryEditor::newTxStroke(int c, int s)
 {
-	Editor->CurrTextStroke = StrokeTools->TxStroke->text(c);
-	Editor->CurrTextStrokeSh = s;
+	if (c != -1)
+		Editor->CurrTextStroke = StrokeTools->TxStroke->text(c);
+	if (s != -1)
+		Editor->CurrTextStrokeSh = s;
 	struct PtiSmall hg;
 	hg.cstroke = Editor->CurrTextStroke;
 	hg.cshade2 = Editor->CurrTextStrokeSh;
@@ -1438,6 +1470,20 @@ void StoryEditor::Do_insSp()
 	ScApp->DLLReturn = "";
 }
 
+void StoryEditor::Do_fontPrev()
+{
+	ScApp->DLLinput = Editor->CurrFont;
+	ScApp->DLLReturn = "";
+	ScApp->CallDLL( tr("&Fonts Preview") );
+	if (ScApp->DLLReturn != "")
+	{
+		newTxFont(ScApp->DLLReturn);
+		FontTools->SetFont(ScApp->DLLReturn);
+	}
+	ScApp->DLLinput = "";
+	ScApp->DLLReturn = "";
+}
+
 void StoryEditor::Do_leave2()
 {
 	result = QDialog::Accepted;
@@ -1569,20 +1615,6 @@ void StoryEditor::updateTextFrame()
 		if (doc->Trenner->Language != nb->Language)
 			doc->Trenner->slotNewDict(nb->Language);
 		doc->Trenner->slotHyphenate(nb);
-	}
-	while (nb != 0)
-	{
-		bool savre = doc->RePos;
-		doc->RePos = true;
-		QPixmap pgPix(1, 1);
-		ScPainter *painter = new ScPainter(&pgPix, 1, 1);
-		painter->translate(0.5, 0.5);
-		nb->DrawObj(painter, QRect(0, 0, 1, 1));
-		painter->end();
-		delete painter;
-		doc->RePos = savre;
-		nb->OwnPage->RefreshItem(nb);
-		nb = nb->NextBox;
 	}
 	TextChanged = false;
 	emenu->setItemEnabled(Mupdt, 0);

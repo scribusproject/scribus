@@ -2780,6 +2780,8 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc.setAttribute("FRV", static_cast<int>(Vor->FramesShown));
 	dc.setAttribute("SHOWMARGIN", static_cast<int>(Vor->MarginsShown));
 	dc.setAttribute("SHOWBASE", static_cast<int>(Vor->BaseShown));
+	dc.setAttribute("STECOLOR", Vor->STEcolor.name());
+	dc.setAttribute("STEFONT", Vor->STEfont);
 	elem.appendChild(dc);
 	QDomElement dc1=docu.createElement("GRID");
 	dc1.setAttribute("MINOR",Vor->DminGrid);
@@ -3048,6 +3050,10 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->FramesShown = static_cast<bool>(QStoInt(dc.attribute("FRV","1")));
 			Vorein->MarginsShown = static_cast<bool>(QStoInt(dc.attribute("SHOWMARGIN","1")));
 			Vorein->BaseShown = static_cast<bool>(QStoInt(dc.attribute("SHOWBASE","1")));
+			if (dc.hasAttribute("STECOLOR"))
+				Vorein->STEcolor = QColor(dc.attribute("STECOLOR"));
+			if (dc.hasAttribute("STEFONT"))
+				Vorein->STEfont = dc.attribute("STEFONT");
 		}
 		if (dc.tagName()=="GRID")
 		{

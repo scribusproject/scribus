@@ -192,7 +192,10 @@ void SVGPlug::convert()
 		Doku->DragElements.clear();
 	}
 	else
+	{
 		Doku->setUnModified();
+		Prog->slotDocCh();
+	}
 	Doku->loading = false;
 }
 

@@ -326,14 +326,13 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 void SearchReplace::slotSearch()
 {
 	if (SMode)
-	{
 		Doc->ActPage->slotDoCurs(false);
-		slotDoSearch();
+	slotDoSearch();
+	if (SMode)
+	{
 		Doc->ActPage->slotDoCurs(true);
 		Doc->ActPage->RefreshItem(Item, true);
 	}
-	else
-		slotDoSearch();
 }
 
 void SearchReplace::slotDoSearch()
@@ -507,56 +506,128 @@ void SearchReplace::slotDoSearch()
 	{
 		if (ScApp->CurrStED != NULL)
 		{
+			int p, i;
+			ScApp->CurrStED->Editor->getCursorPosition(&p, &i);
+			uint inde = 0;
+			int as = i;
+			uint fpa = p;
+			int fch = i;
+			found = false;
 			if (ScApp->CurrStED->Editor->StyledText.count() != 0)
 			{
-				for (uint pa = 0; pa < ScApp->CurrStED->Editor->StyledText.count(); ++pa)
+				for (uint pa = p; pa < ScApp->CurrStED->Editor->StyledText.count(); ++pa)
 				{
 					SEditor::ChList *chars;
 					chars = ScApp->CurrStED->Editor->StyledText.at(pa);
-					for (uint e = 0; e < chars->count(); ++e)
+					if (SText->isChecked())
 					{
-						if (SText->isChecked())
+						if (Word->isChecked())
 						{
-							QString chx = chars->at(e)->ch;
+							QRegExp rx( "(\\b"+sText+"\\b)" );
 							if (CaseIgnore->isChecked())
-								chx = chx.lower();
-							found = chx == sText.mid(inde, 1) ? true : false;
-							if ((Word->isChecked()) && (inde == 0) && (chx[0].isSpace()))
-								found = true;
+								as = rx.search( ScApp->CurrStED->Editor->text(pa).lower(), i );
+							else
+								as = rx.search( ScApp->CurrStED->Editor->text(pa), i );
 						}
 						else
-							found = true;
-						if (found)
 						{
-							if (rep)
-							{
-								DoReplace->setEnabled(true);
-								AllReplace->setEnabled(true);
-							}
-							if (SText->isChecked())
-							{
-								if (inde == 0)
-									ReplStart = e;
-								inde++;
-								if ((Word->isChecked()) && (inde == 1) && (chars->at(e)->ch[0].isSpace()))
-								{
-									inde--;
-								}
-								if ((Word->isChecked()) && (inde == sText.length()) && (!chars->at(QMIN(chars->count()-1,e+1))->ch[0].isSpace()))
-								{
-									inde = 0;
-									found = false;
-								}
-								else
-								{
-									if (inde == sText.length())
-										break;
-								}
-							}
+							if (CaseIgnore->isChecked())
+								as = ScApp->CurrStED->Editor->text(pa).lower().find(sText, i);
 							else
+								as = ScApp->CurrStED->Editor->text(pa).find(sText, i);
+						}
+						if (as != -1)
+						{
+							fch = as;
+							fpa = pa;
+							found = true;
+							inde = 0;
+							for (uint ap = 0; ap < sText.length(); ++ap)
+							{
+								struct PtiSmall *hg;
+								hg = chars->at(as+ap);
+								if ((SSize->isChecked()) && (hg->csize != sSize))
+									found = false;
+								if ((SFont->isChecked()) && (hg->cfont != sFont))
+									found = false;
+								if ((SStyle->isChecked()) && (hg->cab != sStyle))
+									found = false;
+								if ((SStroke->isChecked()) && (hg->cstroke != sCol))
+									found = false;
+								if ((SStrokeS->isChecked()) && (hg->cshade2 != sStrokeSh))
+									found = false;
+								if ((SFillS->isChecked()) && (hg->cshade != sFillSh))
+									found = false;
+								if ((SEffect->isChecked()) && ((hg->cstyle & 127) != sEff))
+									found = false;
+								if ((SFill->isChecked()) && (hg->ccolor != fCol))
+									found = false;
+								inde++;
+							}
+							i = as + inde;
+							if (found)
 								break;
 						}
+						else
+						{
+							i = 0;
+							inde = 0;
+						}
 					}
+					else
+					{
+						for (uint e = i; e < chars->count(); ++e)
+						{
+							found = true;
+							inde = 1;
+							struct PtiSmall *hg;
+							hg = chars->at(e);
+							if ((SSize->isChecked()) && (hg->csize != sSize))
+								found = false;
+							if ((SFont->isChecked()) && (hg->cfont != sFont))
+								found = false;
+							if ((SStyle->isChecked()) && (hg->cab != sStyle))
+								found = false;
+							if ((SStroke->isChecked()) && (hg->cstroke != sCol))
+								found = false;
+							if ((SStrokeS->isChecked()) && (hg->cshade2 != sStrokeSh))
+								found = false;
+							if ((SFillS->isChecked()) && (hg->cshade != sFillSh))
+								found = false;
+							if ((SEffect->isChecked()) && ((hg->cstyle & 127) != sEff))
+								found = false;
+							if ((SFill->isChecked()) && (hg->ccolor != fCol))
+								found = false;
+							if (found)
+							{
+								fch = e;
+								fpa = pa;
+								break;
+							}
+						}
+						if (found)
+							break;
+						else
+							i = 0;
+					}
+				}
+				if (found)
+				{
+					ScApp->CurrStED->Editor->setSelection(fpa, fch, fpa, fch+inde);
+					ScApp->CurrStED->updateProps(fpa, fch);
+					ScApp->CurrStED->Editor->setCursorPosition(fpa, fch+inde);
+					if (rep)
+					{
+						DoReplace->setEnabled(true);
+						AllReplace->setEnabled(true);
+					}
+				}
+				else
+				{
+					QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), tr("OK"));
+					NotFound = false;
+					ScApp->CurrStED->Editor->removeSelection();
+					ScApp->CurrStED->Editor->setCursorPosition(0, 0);
 				}
 			}
 		}
@@ -566,9 +637,10 @@ void SearchReplace::slotDoSearch()
 void SearchReplace::slotReplace()
 {
 	if (SMode)
-	{
 		Doc->ActPage->slotDoCurs(false);
-		slotDoReplace();
+	slotDoReplace();
+	if (SMode)
+	{
 		Doc->ActPage->slotDoCurs(true);
 		Doc->ActPage->RefreshItem(Item, true);
 	}
@@ -576,113 +648,153 @@ void SearchReplace::slotReplace()
 
 void SearchReplace::slotDoReplace()
 {
-	QString repl, sear;
-	uint cs, cx;
-	struct Pti *hg;
-	if (RText->isChecked())
+	if (SMode)
 	{
-		repl = RTextVal->text();
-		sear = STextVal->text();
-		if (sear.length() == repl.length())
+		QString repl, sear;
+		uint cs, cx;
+		struct Pti *hg;
+		if (RText->isChecked())
 		{
-			for (cs = 0; cs < sear.length(); ++cs)
-				Item->Ptext.at(ReplStart+cs)->ch = repl[cs];
-		}
-		else
-		{
-			if (sear.length() < repl.length())
+			repl = RTextVal->text();
+			sear = STextVal->text();
+			if (sear.length() == repl.length())
 			{
 				for (cs = 0; cs < sear.length(); ++cs)
 					Item->Ptext.at(ReplStart+cs)->ch = repl[cs];
-				for (cx = cs; cx < repl.length(); ++cx)
-				{
-					hg = new Pti;
-					hg->ch = repl[cx];
-					if (RSize->isChecked())
-						hg->csize = qRound(RSizeVal->value() * 10.0);
-					else
- 						hg->csize = Doc->CurrFontSize;
-					if (RFill->isChecked())
-						hg->ccolor = RFillVal->currentText();
-					else
-						hg->ccolor = Doc->CurrTextFill;
-					hg->cshade = Doc->CurrTextFillSh;
-					if (RStroke->isChecked())
-						hg->cstroke = RStrokeVal->currentText();
-					else
-						hg->cstroke = Doc->CurrTextStroke;
-					hg->cshade2 = Doc->CurrTextStrokeSh;
-					hg->cscale = Doc->CurrTextScale;
- 					hg->cselect = true;
- 					hg->cstyle = Doc->CurrentStyle;
-					if (RStyle->isChecked())
-						hg->cab = RStyleVal->currentItem();
-					else
- 						hg->cab = Doc->CurrentABStil;
-					if (Doc->Vorlagen[hg->cab].Font != "")
-					{
-						hg->cfont = Doc->Vorlagen[hg->cab].Font;
-						hg->csize = Doc->Vorlagen[hg->cab].FontSize;
-						hg->cstyle = Doc->Vorlagen[hg->cab].FontEffect;
-					}
-					if (RFont->isChecked())
-						hg->cfont = RFontVal->currentText();
-					else
- 						hg->cfont = Doc->CurrFont;
- 					hg->cextra = 0;
- 					hg->xp = 0;
- 					hg->yp = 0;
-					hg->PRot = 0;
-					hg->PtransX = 0;
-					hg->PtransY = 0;
- 					Item->Ptext.insert(ReplStart+cx, hg);     
-				}
-				Item->CPos = ReplStart+cx;
 			}
 			else
 			{
-				for (cs = 0; cs < repl.length(); ++cs)
-					Item->Ptext.at(ReplStart+cs)->ch = repl[cs];
-				for (uint cxx = cs; cxx < sear.length(); ++cxx)
- 					Item->Ptext.remove(ReplStart+cs);
-				Item->CPos = ReplStart+cs;
-			}
-		}
-	}
-	if (RStyle->isChecked())
-		emit NewAbs(RStyleVal->currentItem());
-	if (RFill->isChecked())
-		Doc->ActPage->ItemTextBrush(RFillVal->currentText());
-	if (RFillS->isChecked())
-		Doc->ActPage->ItemTextBrushS(RFillSVal->getValue());
-	if (RStroke->isChecked())
-		Doc->ActPage->ItemTextPen(RStrokeVal->currentText());
-	if (RStrokeS->isChecked())
-		Doc->ActPage->ItemTextPenS(RStrokeSVal->getValue());
-	if (RFont->isChecked())
-		emit NewFont(RFontVal->currentText());
-	if (RSize->isChecked())
-		Doc->ActPage->chFSize(qRound(RSizeVal->value() * 10.0));
-	if (REffect->isChecked())
-		{
-		int s = REffVal->getStyle();
-		Doc->CurrentStyle = s;
-		if (Item->Ptext.count() != 0)
-			{
-			for (uint a = 0; a < Item->Ptext.count(); ++a)
+				if (sear.length() < repl.length())
 				{
-				if (Item->Ptext.at(a)->cselect)
+					for (cs = 0; cs < sear.length(); ++cs)
+						Item->Ptext.at(ReplStart+cs)->ch = repl[cs];
+					for (cx = cs; cx < repl.length(); ++cx)
 					{
-					Item->Ptext.at(a)->cstyle &= ~127;
-					Item->Ptext.at(a)->cstyle |= s;
+						hg = new Pti;
+						hg->ch = repl[cx];
+						if (RSize->isChecked())
+							hg->csize = qRound(RSizeVal->value() * 10.0);
+						else
+							hg->csize = Doc->CurrFontSize;
+						if (RFill->isChecked())
+							hg->ccolor = RFillVal->currentText();
+						else
+							hg->ccolor = Doc->CurrTextFill;
+						hg->cshade = Doc->CurrTextFillSh;
+						if (RStroke->isChecked())
+							hg->cstroke = RStrokeVal->currentText();
+						else
+							hg->cstroke = Doc->CurrTextStroke;
+						hg->cshade2 = Doc->CurrTextStrokeSh;
+						hg->cscale = Doc->CurrTextScale;
+						hg->cselect = true;
+						hg->cstyle = Doc->CurrentStyle;
+						if (RStyle->isChecked())
+							hg->cab = RStyleVal->currentItem();
+						else
+							hg->cab = Doc->CurrentABStil;
+						if (Doc->Vorlagen[hg->cab].Font != "")
+						{
+							hg->cfont = Doc->Vorlagen[hg->cab].Font;
+							hg->csize = Doc->Vorlagen[hg->cab].FontSize;
+							hg->cstyle = Doc->Vorlagen[hg->cab].FontEffect;
+						}
+						if (RFont->isChecked())
+							hg->cfont = RFontVal->currentText();
+						else
+							hg->cfont = Doc->CurrFont;
+						hg->cextra = 0;
+						hg->xp = 0;
+						hg->yp = 0;
+						hg->PRot = 0;
+						hg->PtransX = 0;
+						hg->PtransY = 0;
+						Item->Ptext.insert(ReplStart+cx, hg);     
 					}
+					Item->CPos = ReplStart+cx;
+				}
+				else
+				{
+					for (cs = 0; cs < repl.length(); ++cs)
+						Item->Ptext.at(ReplStart+cs)->ch = repl[cs];
+					for (uint cxx = cs; cxx < sear.length(); ++cxx)
+						Item->Ptext.remove(ReplStart+cs);
+					Item->CPos = ReplStart+cs;
 				}
 			}
 		}
+		if (RStyle->isChecked())
+			emit NewAbs(RStyleVal->currentItem());
+		if (RFill->isChecked())
+			Doc->ActPage->ItemTextBrush(RFillVal->currentText());
+		if (RFillS->isChecked())
+			Doc->ActPage->ItemTextBrushS(RFillSVal->getValue());
+		if (RStroke->isChecked())
+			Doc->ActPage->ItemTextPen(RStrokeVal->currentText());
+		if (RStrokeS->isChecked())
+			Doc->ActPage->ItemTextPenS(RStrokeSVal->getValue());
+		if (RFont->isChecked())
+			emit NewFont(RFontVal->currentText());
+		if (RSize->isChecked())
+			Doc->ActPage->chFSize(qRound(RSizeVal->value() * 10.0));
+		if (REffect->isChecked())
+			{
+			int s = REffVal->getStyle();
+			Doc->CurrentStyle = s;
+			if (Item->Ptext.count() != 0)
+				{
+				for (uint a = 0; a < Item->Ptext.count(); ++a)
+					{
+					if (Item->Ptext.at(a)->cselect)
+						{
+						Item->Ptext.at(a)->cstyle &= ~127;
+						Item->Ptext.at(a)->cstyle |= s;
+						}
+					}
+				}
+			}
+		for (uint a = 0; a < Item->Ptext.count(); ++a)
+			Item->Ptext.at(a)->cselect = false;
+	}
+	else
+	{
+		if (ScApp->CurrStED != NULL)
+		{
+			if (RStyle->isChecked())
+				ScApp->CurrStED->newAlign(RStyleVal->currentItem());
+			if (RFill->isChecked())
+				ScApp->CurrStED->newTxFill(RFillVal->currentItem(), -1);
+			if (RFillS->isChecked())
+				ScApp->CurrStED->newTxFill(-1, RFillSVal->getValue());
+			if (RStroke->isChecked())
+				ScApp->CurrStED->newTxStroke(RStrokeVal->currentItem(), -1);
+			if (RStrokeS->isChecked())
+				ScApp->CurrStED->newTxStroke(-1, RStrokeSVal->getValue());
+			if (RFont->isChecked())
+				ScApp->CurrStED->newTxFont(RFontVal->currentText());
+			if (RSize->isChecked())
+				ScApp->CurrStED->newTxSize(RSizeVal->value());
+			if (REffect->isChecked())
+				ScApp->CurrStED->newTxStyle(REffVal->getStyle());
+			if (RText->isChecked())
+			{
+				disconnect(ScApp->CurrStED->Editor, SIGNAL(cursorPositionChanged(int, int)), ScApp->CurrStED, SLOT(updateProps(int, int)));
+				int PStart, PEnd, SelStart, SelEnd;
+				ScApp->CurrStED->Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
+				ScApp->CurrStED->Editor->insChars(RTextVal->text());
+				ScApp->CurrStED->Editor->setSelection(PStart, SelStart, PEnd, SelEnd);
+				ScApp->CurrStED->Editor->removeSelectedText();
+				ScApp->CurrStED->Editor->setStyle(ScApp->CurrStED->Editor->CurrentStyle);
+				ScApp->CurrStED->Editor->setFarbe(ScApp->CurrStED->Editor->CurrTextFill, ScApp->CurrStED->Editor->CurrTextFillSh);
+				ScApp->CurrStED->Editor->insert(RTextVal->text());
+				connect(ScApp->CurrStED->Editor, SIGNAL(cursorPositionChanged(int, int)), ScApp->CurrStED, SLOT(updateProps(int, int)));
+				ScApp->CurrStED->newAlign(ScApp->CurrStED->Editor->CurrentABStil);
+			}
+		}
+	}
 	DoReplace->setEnabled(false);
 	AllReplace->setEnabled(false);
-	for (uint a = 0; a < Item->Ptext.count(); ++a)
-		Item->Ptext.at(a)->cselect = false;
+		slotDoSearch();
 }
 
 void SearchReplace::slotReplaceAll()
@@ -691,12 +803,15 @@ void SearchReplace::slotReplaceAll()
 	{
 		Doc->ActPage->slotDoCurs(false);
 		Doc->DoDrawing = false;
-		do
-		{
-			slotDoReplace();
-			slotDoSearch();
-		}
-		while (NotFound);
+	}
+	do
+	{
+		slotDoReplace();
+//		slotDoSearch();
+	}
+	while (NotFound);
+	if (SMode)
+	{
 		Doc->DoDrawing = true;
 		Doc->ActPage->slotDoCurs(true);
 		Doc->ActPage->RefreshItem(Item, true);
@@ -709,6 +824,8 @@ void SearchReplace::enableTxSearch()
 	STextVal->setEnabled(setter);
 	Word->setEnabled(setter);
 	CaseIgnore->setEnabled(setter);
+	if (setter)
+		STextVal->setFocus();
 }
 
 void SearchReplace::enableStyleSearch()
@@ -754,6 +871,8 @@ void SearchReplace::enableStrokeSSearch()
 void SearchReplace::enableTxReplace()
 {
 	RTextVal->setEnabled(RText->isChecked());
+	if (RText->isChecked())
+		RTextVal->setFocus();
 }
 
 void SearchReplace::enableStyleReplace()

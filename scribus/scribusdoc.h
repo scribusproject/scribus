@@ -490,6 +490,8 @@ struct preV  {
 				bool GCRMode;
 				double BaseGrid;
 				double BaseOffs;
+				QColor STEcolor;
+				QString STEfont;
 			};
 /**
   * the Document Class

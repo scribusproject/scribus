@@ -401,6 +401,8 @@ void ScribusApp::initScribus()
 		Prefs.gs_exe = "gs";
 		Prefs.BaseGrid = 14.4;
 		Prefs.BaseOffs = 0.0;
+		Prefs.STEcolor = QColor(white);
+		Prefs.STEfont = font().toString();
 		PDef.Pname = "";
 		PDef.Dname = "";
 		PDef.Command = "";
@@ -676,7 +678,7 @@ void ScribusApp::initMenuBar()
 	SetKeyEntry(12, tr("Clear"), edid4, 0);
 	SetKeyEntry(13, tr("Select all"), edid5, CTRL+Key_A);
 	editMenu->insertSeparator();
-	Sear = editMenu->insertItem( tr("&Search/Replace..."), this, SLOT(SearchText()));
+	Sear = editMenu->insertItem(loadIcon("find16.png"),  tr("&Search/Replace..."), this, SLOT(SearchText()));
 	editMenu->insertSeparator();
 	MenID = editMenu->insertItem( tr("C&olors..."), this , SLOT(slotEditColors()));
 	SetKeyEntry(14, tr("Colors..."), MenID, 0);
@@ -8339,12 +8341,10 @@ void ScribusApp::doHyphenate()
 	{
 		if (doc->ActPage->SelItem.count() != 0)
 		{
-			doc->DoDrawing = false;
 			b = doc->ActPage->SelItem.at(0);
 			if (doc->Trenner->Language != b->Language)
 				doc->Trenner->slotNewDict(b->Language);
 			doc->Trenner->slotHyphenate(b);
-			doc->DoDrawing = true;
 		}
 	}
 }
