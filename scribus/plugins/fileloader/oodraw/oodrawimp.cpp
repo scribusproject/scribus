@@ -232,17 +232,19 @@ void OODPlug::parseGroup(const QDomElement &e)
 	double lwidth = 0;
 	double x, y, w, h;
 	double FillTrans = 0;
+	double StrokeTrans = 0;
 	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QString StrokeColor = "None";
 		QString FillColor = "None";
 		FillTrans = 0;
+		StrokeTrans = 0;
 		int z = -1;
 		QDomElement b = n.toElement();
 		if( b.isNull() )
 			continue;
 		QString STag = b.tagName();
-		QString drawID = b.attribute("draw:id");
+		QString drawID = b.attribute("draw:name");
 		storeObjectStyles(b);
 		if( m_styleStack.hasAttribute("draw:stroke"))
 		{
@@ -258,6 +260,8 @@ void OODPlug::parseGroup(const QDomElement &e)
 				}
 				if( m_styleStack.hasAttribute("svg:stroke-color"))
 					StrokeColor = parseColor(m_styleStack.attribute("svg:stroke-color"));
+				if( m_styleStack.hasAttribute( "svg:stroke-opacity" ) )
+					StrokeTrans = m_styleStack.attribute( "svg:stroke-opacity" ).remove( '%' ).toDouble() / 100.0;
 			}
 		}
 		if( m_styleStack.hasAttribute( "draw:fill" ) )
@@ -431,11 +435,16 @@ void OODPlug::parseGroup(const QDomElement &e)
 			bool firstPa = false;
 			for ( QDomNode n = b.firstChild(); !n.isNull(); n = n.nextSibling() )
 			{
+				int FontSize = Doku->Dsize;
 				QDomElement e = n.toElement();
+				if( m_styleStack.hasAttribute("fo:font-family"))
+				{
+					FontSize = m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt();
+				}
 /* ToDo: Add reading of Textstyles here */
 				Serializer *ss = new Serializer("");
-				ss->Objekt = e.text();
-				ss->GetText(ite, 0, Doku->Dfont, Doku->Dsize, firstPa);
+				ss->Objekt = QString::fromUtf8(e.text());
+				ss->GetText(ite, 0, Doku->Dfont, FontSize, firstPa);
 				delete ss;
 				firstPa = true;
 			}
@@ -449,6 +458,9 @@ void OODPlug::parseGroup(const QDomElement &e)
 		{
 			PageItem* ite = Doku->Items.at(z);
 			ite->Transparency = FillTrans;
+			ite->TranspStroke = StrokeTrans;
+			if (drawID != "")
+				ite->AnName = drawID;
 			if (b.hasAttribute("draw:transform"))
 			{
 				parseTransform(&ite->PoLine, b.attribute("draw:transform"));
