@@ -3740,7 +3740,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	PageItem *b = NULL;
 	if (Nr != -1)
 	{
-		if (doc->ActPage->SelItem.count() == 0)
+		if (doc->ActPage->SelItem.count() != 0)
 		{
 			b = doc->ActPage->SelItem.at(0);
 			if (!b)
