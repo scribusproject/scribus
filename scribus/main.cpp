@@ -22,6 +22,7 @@
 #include <qfileinfo.h>
 #include <qdir.h>
 #include <qtextcodec.h>
+#include "splash.h"
 #include "scribus.h"
 #include "config.h"
 #include <iostream>
@@ -130,12 +131,17 @@ int main(int argc, char *argv[])
   			return 0;
 				}
   		}
-  	}  
-  ScribusApp *scribus=new ScribusApp();
+  	}
+ 	SplashScreen *splash = new SplashScreen();
+ 	splash->setStatus( "Initializing..." );
+ 	a.processEvents();      
+  ScribusApp *scribus=new ScribusApp(splash);
   if (scribus->NoFonts)
   	return 0;
   a.setMainWidget(scribus);
   a.connect(&a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()));
+ 	splash->close();
+ 	delete splash;
   scribus->show();
   scribus->ShowSubs();
   if (argc > 1)

@@ -1,4 +1,11 @@
 Changes since Version 0.9.10
+26.05.2003	pageitem.cpp		Fixed a Bug with Styles and Linespacing
+					Textflow around Objects can now set to the BoundingBox of the Object.
+		page.cpp		Fixed a Bug when Doubleclicking during Object Creation.
+		scribus.cpp
+		main.cpp		Added a Splash Screen.
+					Updated Danish Translation.
+
 25.05.2003	util.cpp
 		page.cpp		Improved Rotation of Objects with the Mouse.
 		scribuxXml.cpp		Icons of PDF-Buttons are now saved properly.

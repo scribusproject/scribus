@@ -62,6 +62,12 @@ ModObj::ModObj( QWidget* parent, PageItem *b, CListe Farben, ScribusDoc *docu, S
     Textflow->setText( tr( "Text flows around Box" ) );
     Textflow->setChecked(b->Textflow);
     Layout2->addWidget( Textflow );
+    Textflow2 = new QCheckBox( GroupSpecial, "Textflow2" );
+    Textflow2->setMinimumSize( QSize( 150, 22 ) );
+    Textflow2->setText( tr( "use Bounding Box" ) );
+    Textflow2->setChecked(b->Textflow2);
+    Layout2->addWidget( Textflow2 );
+		ToggleFlow();
     Printable = new QCheckBox( GroupSpecial, "Printable" );
     Printable->setMinimumSize( QSize( 150, 22 ) );
     Printable->setText( tr( "Don't print" ) );
@@ -647,6 +653,7 @@ ModObj::ModObj( QWidget* parent, PageItem *b, CListe Farben, ScribusDoc *docu, S
     connect(Cancel, SIGNAL(clicked()), this, SLOT(NoModifyExit()));
     connect(OK, SIGNAL(clicked()), this, SLOT(DoModifyExit()));
     connect(Apply, SIGNAL(clicked()), this, SLOT(DoModify()));
+		connect(Textflow, SIGNAL(clicked()), this, SLOT(ToggleFlow()));
 		connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 		if (CurMod->PType == 2)
 			{
@@ -692,6 +699,7 @@ bool ModObj::DoModify()
 	doc->ActPage->RotateItem(static_cast<float>(Angle->value())/-100, itNr);
 	CurMod->isPrintable = !Printable->isChecked();
 	CurMod->Textflow = Textflow->isChecked();
+	CurMod->Textflow2 = Textflow2->isChecked();
 	CurMod->flippedH = static_cast<int>(FlippedH->isChecked());
 	CurMod->flippedV = static_cast<int>(FlippedV->isChecked());
 	switch (CurMod->PType)
@@ -869,12 +877,18 @@ void ModObj::ChangeScaling()
 		}	
 }
 
+void ModObj::ToggleFlow()
+{
+	if (Textflow->isChecked())
+		Textflow2->setEnabled(true);
+	else
+		Textflow2->setEnabled(false);
+}
+
 void ModObj::ToggleKette()
 {
 	if (Kette->isOn())
-		{
 		VScale->setValue(HScale->value());
-		}		
 }
 
 void ModObj::HChange()

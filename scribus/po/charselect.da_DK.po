@@ -5,13 +5,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.9.6\n"
-"POT-Creation-Date: 2003-01-16 10:24:15 CET\n"
-"PO-Revision-Date: 2003-01-19 19:02:00 CET\n"
+"POT-Creation-Date: 1999-02-23 15:38+0200\n"
+"PO-Revision-Date: 2003-05-20 14:40:00 CET\n"
 "Last-Translator: Morten Langlo <mlanglo@post6.tele.dk>\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 
 msgid "Insert Special"
-msgstr "Indsæt Specielt"
+msgstr "Indsæt Specialtegn"
 
 #: charselect.cpp:93
 msgid "ZAuswahl::Clear"
@@ -27,5 +27,4 @@ msgstr "Indsæt"
 
 #: charselect.cpp:33
 msgid "ZAuswahl::Select Character"
-msgstr "Marker Skrifttegn"
-
+msgstr "Vælg Skrifttegn"

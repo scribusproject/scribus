@@ -60,6 +60,7 @@ public:
     QCheckBox* FlippedV;
     QCheckBox* FlippedH;
     QCheckBox* Textflow;
+    QCheckBox* Textflow2;
     QCheckBox* Visible;
     QPushButton* OK;
     QPushButton* Cancel;
@@ -126,6 +127,7 @@ public slots:
 		void DoModifyExit();
 		void NoModifyExit();
 		void ChangeScaling();
+		void ToggleFlow();
 		void ToggleKette();
 		void HChange();
 		void VChange();

@@ -174,6 +174,7 @@ PageItem::PageItem(Page *pa, int art, float x, float y, float w, float h, float 
 	AnBColor = outline;
 	HasSel = false;
 	Textflow = true;
+	Textflow2 = false;
 	Tinput = false;
 	isAutoText = false;
 	Ausrich = 0;
@@ -576,7 +577,18 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 									pp.translate(OwnPage->Items.at(a)->Xpos*Doc->Scale, OwnPage->Items.at(a)->Ypos*Doc->Scale);
 									pp.scale(Doc->Scale, Doc->Scale);
 									pp.rotate(OwnPage->Items.at(a)->Rot);
-									cm = QRegion(pp.xForm(OwnPage->Items.at(a)->Clip));
+									if (OwnPage->Items.at(a)->Textflow2)
+										{
+										QPointArray tcli;
+										tcli.resize(4);
+										tcli.setPoint(0, QPoint(0,0));
+										tcli.setPoint(1, QPoint(qRound(OwnPage->Items.at(a)->Width), 0));
+										tcli.setPoint(2, QPoint(qRound(OwnPage->Items.at(a)->Width), qRound(OwnPage->Items.at(a)->Height)));
+										tcli.setPoint(3, QPoint(0, qRound(OwnPage->Items.at(a)->Height)));
+										cm = QRegion(pp.xForm(tcli));
+										}
+									else
+										cm = QRegion(pp.xForm(OwnPage->Items.at(a)->Clip));
 									pp.end();
 									cl = cl.subtract(cm);
 									}
@@ -660,7 +672,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 							}
 						if ((Doc->Vorlagen[0].LineSpa != Doc->Vorlagen[absa].LineSpa) && (a == 0))
 							{
-							CurY += Doc->Vorlagen[absa].LineSpa - Doc->Vorlagen[0].LineSpa;
+//							CurY += Doc->Vorlagen[absa].LineSpa - Doc->Vorlagen[0].LineSpa;
 							CurY += Doc->Vorlagen[absa].Avor;
 							}
 						if (hl->ccolor != "None")
@@ -1701,6 +1713,7 @@ void PageItem::CopyIt(struct CLBuf *Buffer)
 	Buffer->PoShow = PoShow;
 	Buffer->BaseOffs = BaseOffs;
 	Buffer->Textflow = Textflow;
+	Buffer->Textflow2 = Textflow2;
 	Buffer->Ausrich = Ausrich;
 	Buffer->IFont = IFont;
 	Buffer->ISize = ISize;

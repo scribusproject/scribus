@@ -212,6 +212,7 @@ public:
   bool HasSel;
   /** Flag fuer Textfluss */
   bool Textflow;
+  bool Textflow2;
   bool FrameOnly;
   PageItem *BackBox;
   PageItem *NextBox;

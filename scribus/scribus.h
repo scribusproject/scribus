@@ -60,6 +60,7 @@
 #include "werktoolb.h"
 #include "seiten.h"
 #include "bookpalette.h"
+#include "splash.h"
 
 /**
   * This Class is the base class for your application. It sets up the main
@@ -73,7 +74,7 @@ class ScribusApp : public QMainWindow
   
   public:
     /** construtor */
-    ScribusApp();
+    ScribusApp(SplashScreen *splash);
     /** destructor */
     ~ScribusApp() {};
     /** initMenuBar creates the menu_bar and inserts the menuitems */
@@ -94,7 +95,7 @@ class ScribusApp : public QMainWindow
     void ShowSubs();
     void applyNewMaster(QString name);
     void UpdateRecent(QString fn);
-    void InitPlugs();
+    void InitPlugs(SplashScreen *spl);
 		void InitHyphenator();
 		void FinalizePlugs();
     bool DLLName(QString name, QString *PName, int *typ, void **Zeig);

@@ -151,6 +151,7 @@ struct CLBuf { int PType;
 							 bool PoShow;
 							 float BaseOffs;
 							 bool Textflow;
+							 bool Textflow2;
 							 int Ausrich;
 							 QString IFont;
 							 int ISize;

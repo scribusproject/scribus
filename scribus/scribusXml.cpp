@@ -419,6 +419,7 @@ while(!DOC.isNull())
 				if (QStoInt(obj.attribute("TRANSPARENT","0")) == 1)
 					OB.Pcolor = "None";
 				OB.Textflow=QStoInt(obj.attribute("TEXTFLOW"));
+				OB.Textflow2=QStoInt(obj.attribute("TEXTFLOW2","0"));
 				OB.Extra=QStoFloat(obj.attribute("EXTRA"));
 				OB.TExtra=QStoFloat(obj.attribute("TEXTRA", "1"));
 				OB.BExtra=QStoFloat(obj.attribute("BEXTRA", "1"));
@@ -913,6 +914,7 @@ while(!DOC.isNull())
 				if (QStoInt(obj.attribute("TRANSPARENT","0")) == 1)
 					OB.Pcolor = "None";
 				OB.Textflow=QStoInt(obj.attribute("TEXTFLOW"));
+				OB.Textflow2=QStoInt(obj.attribute("TEXTFLOW2","0"));
 				OB.Extra=QStoFloat(obj.attribute("EXTRA"));
 				OB.TExtra=QStoFloat(obj.attribute("TEXTRA", "1"));
 				OB.BExtra=QStoFloat(obj.attribute("BEXTRA", "1"));
@@ -1342,6 +1344,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			if (QStoInt(pg.attribute("TRANSPARENT","0")) == 1)
 				OB.Pcolor = "None";
 			OB.Textflow = QStoInt(pg.attribute("TEXTFLOW"));
+			OB.Textflow2 = QStoInt(pg.attribute("TEXTFLOW2","0"));
 			OB.Extra = QStoFloat(pg.attribute("EXTRA"));
 			OB.TExtra = QStoFloat(pg.attribute("TEXTRA", "1"));
 			OB.BExtra = QStoFloat(pg.attribute("BEXTRA", "1"));
@@ -1608,6 +1611,10 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			ob.setAttribute("TEXTFLOW",1);
 		else
 			ob.setAttribute("TEXTFLOW",0);
+		if(item->Textflow2)
+			ob.setAttribute("TEXTFLOW2",1);
+		else
+			ob.setAttribute("TEXTFLOW2",0);
 		if(item->isAutoText)
 			ob.setAttribute("AUTOTEXT",1);
 		else
@@ -1921,6 +1928,10 @@ for(uint i=0;i<view->Pages.count();++i)
 			ob.setAttribute("TEXTFLOW",1);
 		else
 			ob.setAttribute("TEXTFLOW",0);
+		if(item->Textflow2)
+			ob.setAttribute("TEXTFLOW2",1);
+		else
+			ob.setAttribute("TEXTFLOW2",0);
 		if(item->isAutoText)
 			ob.setAttribute("AUTOTEXT",1);
 		else

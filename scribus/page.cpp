@@ -1668,9 +1668,15 @@ void Page::ConvertClip(PageItem *b)
 		SetRectFrame(b);
 }
 
-void Page::mouseDoubleClickEvent(QMouseEvent *)
+void Page::mouseDoubleClickEvent(QMouseEvent *m)
 {
+	m->accept();
+	Mpressed = false;
 	if (GroupSel)
+		return;
+	if (doku->AppMode != 1)
+		return;
+	if (doku->EditClip)
 		return;
 	PageItem *b = 0;
 	if (GetItem(&b))
@@ -1678,8 +1684,6 @@ void Page::mouseDoubleClickEvent(QMouseEvent *)
 		if ((b->PType == 6) || (b->PType == 7) || (b->PType == 2) || (b->PType == 8))
 			{
 			if (b->Locked)
-				return;
-			if (doku->EditClip)
 				return;
 			if (!b->ScaleType)
 				return;
@@ -5397,6 +5401,11 @@ void Page::chAbStyle(PageItem *b, int s)
 					nb->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
 					nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
 					}
+				else
+					{
+					nb->Ptext.at(a)->cfont = nb->IFont;
+					nb->Ptext.at(a)->csize = nb->ISize;
+					}
 				a--;
 				}
 			if (cr)
@@ -5420,6 +5429,11 @@ void Page::chAbStyle(PageItem *b, int s)
 					{
 					nb->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
 					nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
+					}
+				else
+					{
+					nb->Ptext.at(a)->cfont = nb->IFont;
+					nb->Ptext.at(a)->csize = nb->ISize;
 					}
 				if (nb->Ptext.at(a)->ch == QChar(13))
 					{
@@ -5447,6 +5461,11 @@ void Page::chAbStyle(PageItem *b, int s)
 					{
 					b->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
 					b->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
+					}
+				else
+					{
+					b->Ptext.at(a)->cfont = b->IFont;
+					b->Ptext.at(a)->csize = b->ISize;
 					}
 				}
 			}
@@ -6055,6 +6074,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading)
 	b->PoShow = Buffer->PoShow;
 	b->BaseOffs = Buffer->BaseOffs;
 	b->Textflow = Buffer->Textflow;
+	b->Textflow2 = Buffer->Textflow2;
 	b->Ausrich = Buffer->Ausrich;
 	b->IFont = Buffer->IFont;
 	b->ISize = Buffer->ISize;

@@ -93,7 +93,7 @@ float PolyR;
 float UmReFaktor;
 QString DocDir;
 
-ScribusApp::ScribusApp()
+ScribusApp::ScribusApp(SplashScreen *splash)
 {
   setCaption(tr("Scribus " VERSION));
   setIcon(loadIcon("AppIcon.xpm"));
@@ -157,6 +157,7 @@ ScribusApp::ScribusApp()
 	/** Erstelle Fontliste */
   NoFonts = false;
 	BuFromApp = false;
+	splash->setStatus(tr("Searching for Fonts"));
   GetAllFonts();
   if (NoFonts)
   	{
@@ -310,11 +311,16 @@ ScribusApp::ScribusApp()
 		SetKeyEntry(64, tr("Undo"), edUndo, CTRL+Key_Z);
 		SetKeyEntry(65, tr("Show Page Palette"), viewSepal, 0);
 		SetKeyEntry(66, tr("Lock/Unlock"), LockOb, CTRL+Key_H);
+		splash->setStatus(tr("Getting ICC-Profiles"));
 		GetCMSProfiles();
+		splash->setStatus(tr("Init Hyphenator"));
 		InitHyphenator();
+		splash->setStatus(tr("Reading Preferences"));
 		ReadPrefs();
 		Mpal->Cpal->UseTrans(Prefs.PDFTransparency);
 		DocDir = Prefs.DocDir;
+		splash->setStatus(tr(""));
+		splash->setStatus(tr("Setting up Shortcuts"));
 		SetShortCut();
 		if (CMSavail)
 			{
@@ -347,6 +353,7 @@ ScribusApp::ScribusApp()
 			IntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
 #endif
 			}
+		splash->setStatus(tr("Reading Scrapbook"));
 		QString SCf = PrefsPfad+"/scrap.scs";
 		QFileInfo SCfi = QFileInfo(SCf);
 		if (SCfi.exists())
@@ -356,7 +363,8 @@ ScribusApp::ScribusApp()
 			}
 		ScBook->AdjustMenu();
 		HaveGS = system("gs -h > /dev/null 2>&1");
-		InitPlugs();
+		splash->setStatus(tr("Initializing Plugins"));
+		InitPlugs(splash);
 		ClipB = QApplication::clipboard();
 		connect(WerkTools, SIGNAL(NewMode(int)), this, SLOT(ModeFromTB(int)));
 		connect(WerkTools, SIGNAL(Schliessen()), this, SLOT(ToggleTools()));
@@ -5696,7 +5704,7 @@ void ScribusApp::FinalizePlugs()
 		}
 }
 
-void ScribusApp::InitPlugs()
+void ScribusApp::InitPlugs(SplashScreen *spl)
 {
 	QString pfad = PREL;
 	QString nam = "";
@@ -5729,6 +5737,7 @@ void ScribusApp::InitPlugs()
 				pda.Datei = d[dc];
 				pda.Typ = ty;
 				PluginMap.insert(tr(nam), pda);
+				spl->setStatus(tr("Loading:")+" "+tr(nam));
 				}
 			}
 	 	connect(extraMenu, SIGNAL(activated(int)), this, SLOT(RunPlug(int)));
