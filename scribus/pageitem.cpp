@@ -2720,6 +2720,21 @@ void PageItem::setFontStrokeShade(int newShade)
 	ShTxtStroke = newShade;
 }
 
+
+void PageItem::setFontEffects(int newEffects)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SetFontEffect, "", Um::IFont);
+		ss->set("FONT_EFFECTS", "fonteffects");
+		ss->set("OLD_EFFECT", TxTStyle);
+		ss->set("NEW_EFFECT", newEffects);
+		undoManager->action(this, ss);
+	}
+	TxTStyle &= ~127;
+	TxTStyle |= newEffects;
+}
+
 void PageItem::setKerning(double newKerning)
 {
 	if (UndoManager::undoEnabled())
@@ -2953,6 +2968,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreLineSpacing(ss, isUndo);
 		else if (ss->contains("PSTYLE"))
 			restorePStyle(ss, isUndo);
+		else if (ss->contains("FONT_EFFECTS"))
+			restoreFontEffect(ss, isUndo);
 	}
 }
 
@@ -3262,6 +3279,15 @@ void PageItem::restorePStyle(SimpleState *state, bool isUndo)
 	if (!isUndo)
 		styleid = state->getInt("NEW_STYLE");
 	ScApp->view->chAbStyle(this, styleid);
+}
+
+void PageItem::restoreFontEffect(SimpleState *state, bool isUndo)
+{
+	int effect = state->getInt("OLD_EFFECT");
+	if (!isUndo)
+		effect = state->getInt("NEW_EFFECT");
+	select();
+	ScApp->view->chTyStyle(effect);
 }
 
 void PageItem::select()

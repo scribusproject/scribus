@@ -9799,14 +9799,13 @@ void ScribusView::chTyStyle(int s)
 {
 	if (SelItem.count() != 0)
 	{
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontEffect, "", Um::IFont);
 		for (uint aa = 0; aa < SelItem.count(); ++aa)
 		{
 			PageItem *b = SelItem.at(aa);
 			if (Doc->appMode != EditMode)
-			{
-				b->TxTStyle &= ~127;
-				b->TxTStyle |= s;
-			}
+				b->setFontEffects(s);
 			if (b->itemText.count() != 0)
 			{
 				if (Doc->appMode == EditMode)
@@ -9831,6 +9830,8 @@ void ScribusView::chTyStyle(int s)
 				RefreshItem(b);
 			}
 		}
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 

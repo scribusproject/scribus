@@ -504,6 +504,11 @@ public:
 	 */
 	void setFontStrokeShade(int newShade);
 	/**
+	 * @brief Set font effects
+	 * @param newEffects font effects
+	 */
+	void setFontEffects(int newEffects);
+	/**
 	 * @brief Set kerning for the text
 	 * @param newKerning kerning for the text
 	 */
@@ -573,6 +578,7 @@ protected:
 	void restoreLineSpacing(SimpleState *state, bool isUndo);
 	void restoreLanguage(SimpleState *state, bool isUndo);
 	void restorePStyle(SimpleState *state, bool isUndo);
+	void restoreFontEffect(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**

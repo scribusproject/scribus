@@ -684,6 +684,7 @@ const QString UndoManager::SetLineSpacing     = tr("Set line spacing");
 const QString UndoManager::SetStyle           = tr("Set paragraph style");
 const QString UndoManager::SetLanguage        = tr("Set language");
 const QString UndoManager::AlignText          = tr("Align text");
+const QString UndoManager::SetFontEffect      = tr("Set font effect");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;

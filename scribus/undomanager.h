@@ -455,6 +455,7 @@ public:
 	static const QString SetStyle;
 	static const QString SetLanguage;
 	static const QString AlignText;
+	static const QString SetFontEffect;
 	/*@}*/
 
 	/**
