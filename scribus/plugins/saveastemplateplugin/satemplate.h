@@ -44,7 +44,7 @@ public slots:
 	void RunSATPlug();
 };
 
-static MenuSAT* satm;
+// static MenuSAT* satm;
 
 class sat 
 {
