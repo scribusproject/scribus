@@ -355,7 +355,37 @@ void LayerPalette::changeName(int row, int col)
 		{
 			if ((*it).Level == num)
 			{
+				if (UndoManager::undoEnabled())
+				{
+					SimpleState *ss = new SimpleState(Um::SetLayerName,
+													  QString(Um::FromTo).arg((*it).Name).arg(Table->text(row,col)),
+													  Um::IDown);
+					ss->set("CHANGE_NAME", "change_name");
+					ss->set("ROW", row);
+					ss->set("COL", col);
+					ss->set("NEW_NAME", Table->text(row, col));
+					ss->set("OLD_NAME", (*it).Name);
+					undoManager->action(this, ss, ScApp->doc->DocName, Um::ILayer);
+				}
 				(*it).Name = Table->text(row, col);
+				ScApp->slotDocCh();
+			}
+		}
+	}
+}
+
+void LayerPalette::changeName(int row, int col, const QString &name)
+{
+	if (col == 2)
+	{
+		int num = layers->count()-1-row;
+		QValueList<Layer>::iterator it;
+		for (it = layers->begin(); it != layers->end(); ++it)
+		{
+			if ((*it).Level == num)
+			{
+				(*it).Name = name;
+				Table->setText(row, col, name);
 				ScApp->slotDocCh();
 			}
 		}
@@ -511,12 +541,22 @@ void LayerPalette::restore(UndoState *state, bool isUndo)
 					downLayer();
 					++level;
 				}
+				changeName(ss->getInt("LEVEL"), 2, ss->get("NAME"));
 			}
 			else
 			{
 				MarkActiveLayer(ss->getInt("LAYER_NR"));
 				removeLayer(ss->getBool("DELETE"));
 			}
+		}
+		else if (ss->contains("CHANGE_NAME"))
+		{
+			int col = ss->getInt("COL");
+			int row = ss->getInt("ROW");
+			QString name = ss->get("OLD_NAME");
+			if (!isUndo)
+				name = ss->get("NEW_NAME");
+			changeName(row, col, name);
 		}
 	}
 }

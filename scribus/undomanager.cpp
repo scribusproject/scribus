@@ -904,6 +904,7 @@ const QString UndoManager::LowerLayer         = tr("Lower layer");
 const QString UndoManager::SendToLayer        = tr("Send to layer");
 const QString UndoManager::PrintLayer         = tr("Enable printing of layer");
 const QString UndoManager::DoNotPrintLayer    = tr("Disable printing of layer");
+const QString UndoManager::SetLayerName       = tr("Change name of the layer");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;

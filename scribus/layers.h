@@ -65,6 +65,7 @@ public slots:
 	void upLayer();
 	void downLayer();
 	void changeName(int row, int col);
+	void changeName(int row, int col, const QString &name);
 	void visibleLayer();
 	void printLayer();
 	void printLayer(int layerNr, bool isPrintable);

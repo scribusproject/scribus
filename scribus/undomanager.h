@@ -546,6 +546,7 @@ public:
 	static const QString SendToLayer;
 	static const QString PrintLayer;
 	static const QString DoNotPrintLayer;
+	static const QString SetLayerName;
 	/*@}*/
 
 	/**
