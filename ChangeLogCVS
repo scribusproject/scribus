@@ -1,5 +1,12 @@
 Changes since 1.2 
 
+28.10.2004
+	* feature #1253: Show page dimension and orientation information in Document Setup
+	* feature #1256: Danish Translation Update
+
+27.10.2004
+	* bug     #1195: reordering menu items
+
 26.10.2004
 	* bug     #1191: "None" Colour ends up in colour list
 	* bug     #1237: minor build fix: search for xml2-config on PATH
