@@ -35,6 +35,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scribus.eo.qm $(libdir)/scribus/scribus.eo.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.sr.qm $(libdir)/scribus/scribus.sr.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.sr.qm $(libdir)/scribus/scribus.sq.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.zh.qm $(libdir)/scribus/scribus.zh.qm
 
 uninstall-local:
 	-rm -f $(libdir)/scribus/scribus.bg.qm
@@ -67,5 +68,6 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/scribus.eo.qm
 	-rm -f $(libdir)/scribus/scribus.sr.qm
 	-rm -f $(libdir)/scribus/scribus.sq.qm
+	-rm -f $(libdir)/scribus/scribus.zh.qm
 
 ####### kdevelop will overwrite this part!!! (end)############
