@@ -708,12 +708,40 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Layout12_2->addWidget( LEndStyle, 7, 0 );
 	pageLayout_5->addLayout( Layout12_2 );
 
-	StyledLine = new QListBox(page_5, "StyledL");
-	StyledLine->insertItem( tr("No Style"), 0);
-	pageLayout_5->addWidget(StyledLine);
+	TabStack3 = new QWidgetStack( page_5, "TabStack3" );
+	TabStack3->setFrameShape( QWidgetStack::NoFrame );
 
-	QSpacerItem* spacer11 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	pageLayout_5->addItem( spacer11 );
+	page_5a = new QWidget( TabStack3, "page" );
+	pageLayout_5a = new QVBoxLayout( page_5a, 0, 5, "pageLayout_5a");
+	StyledLine = new QListBox(page_5a, "StyledL");
+	StyledLine->insertItem( tr("No Style"), 0);
+	pageLayout_5a->addWidget(StyledLine);
+	TabStack3->addWidget( page_5a, 0 );
+
+	page_5b = new QWidget( TabStack3, "page" );
+	pageLayout_5b = new QVBoxLayout( page_5b, 0, 5, "pageLayout_5a");
+	TLines = new QGroupBox( page_5b, "Distance" );
+	TLines->setTitle( tr( "Cell Lines" ) );
+	TLines->setColumnLayout(0, Qt::Vertical );
+	TLines->layout()->setSpacing( 2 );
+	TLines->layout()->setMargin( 5 );
+	TLineLayout = new QVBoxLayout( TLines->layout() );
+	TLineLayout->setAlignment( Qt::AlignTop );
+	TopLine = new QCheckBox( TLines, "TopLine" );
+	TopLine->setText( tr( "Line at Top" ) );
+	TLineLayout->addWidget(TopLine);
+	LeftLine = new QCheckBox( TLines, "TopLine" );
+	LeftLine->setText( tr( "Line at the Left" ) );
+	TLineLayout->addWidget(LeftLine);
+	RightLine = new QCheckBox( TLines, "TopLine" );
+	RightLine->setText( tr( "Line at the Right " ) );
+	TLineLayout->addWidget(RightLine);
+	BottomLine = new QCheckBox( TLines, "TopLine" );
+	BottomLine->setText( tr( "Line at Bottom" ) );
+	TLineLayout->addWidget(BottomLine);
+	pageLayout_5b->addWidget(TLines);
+	TabStack3->addWidget( page_5b, 1 );
+	pageLayout_5->addWidget( TabStack3 );
 	TabStack->addWidget( page_5, 4 );
 	Cpal = new Cpalette(this);
 	TabStack->addWidget(Cpal, 5);
@@ -846,6 +874,10 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	connect(LangCombo, SIGNAL(activated(int)), this, SLOT(NewLanguage()));
 	connect( TabsButton, SIGNAL( clicked() ), this, SLOT( ManageTabs() ) );
+	connect( TopLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
+	connect( LeftLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
+	connect( RightLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
+	connect( BottomLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
 	HaveItem = false;
 	Xpos->setValue(0);
 	Ypos->setValue(0);
@@ -853,6 +885,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Height->setValue(0);
 	Rot->setValue(0);
 	RoundRect->setValue(0);
+	TabStack3->raiseWidget(0);
 	TabStack2->raiseWidget(0);
 	TabStack->raiseWidget(0);
 	TabStack->widget(0)->setEnabled(false);
@@ -1005,16 +1038,28 @@ void Mpalette::SetCurItem(PageItem *i)
 	/* PFJ - 29.02.04 - Used ternary */
 	setter = i->Locked ? false : true;
 
-	Xpos->setEnabled(setter);
-	Ypos->setEnabled(setter);
 	Width->setEnabled(setter);
 	Height->setEnabled(setter);
-	Rot->setEnabled(setter);
 	RoundRect->setEnabled(setter);
 	EditShape->setEnabled(setter);
 	ShapeGroup->setEnabled(setter);
 	LayerGroup->setEnabled(setter);
 	Locked->setOn(!setter);
+	if ((i->isTableItem) && (i->isSingleSel))
+	{
+		setter = false;
+		TabStack3->raiseWidget(1);
+		TopLine->setChecked(i->TopLine);
+		LeftLine->setChecked(i->LeftLine);
+		RightLine->setChecked(i->RightLine);
+		BottomLine->setChecked(i->BottomLine);
+	}
+	else
+		TabStack3->raiseWidget(0);
+	LayerGroup->setEnabled(setter);
+	Xpos->setEnabled(setter);
+	Ypos->setEnabled(setter);
+	Rot->setEnabled(setter);
 	setter = i->LockRes;
 	NoResize->setOn(setter);
 	if (!i->Locked)
@@ -2875,5 +2920,18 @@ void Mpalette::ManageTabs()
 			emit DocChanged();
 		}
 		delete dia;
+	}
+}
+
+void Mpalette::HandleTLines()
+{
+	if ((HaveDoc) && (HaveItem))
+	{
+		CurItem->TopLine = TopLine->isChecked();
+		CurItem->LeftLine = LeftLine->isChecked();
+		CurItem->RightLine = RightLine->isChecked();
+		CurItem->BottomLine = BottomLine->isChecked();
+		doc->ActPage->RefreshItem(CurItem);
+		emit DocChanged();
 	}
 }

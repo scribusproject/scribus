@@ -43,6 +43,7 @@ public:
 	QToolButton* Zoom;
 	QToolButton* Texte;
 	QToolButton* BildB;
+	QToolButton* TableB;
 	QToolButton* Linien;
 	Autoforms* Rechteck;
 	QToolButton* Polygon;

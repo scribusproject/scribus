@@ -209,6 +209,16 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	Language = doc->Language;
 	Cols = Doc->DCols;
 	ColGap = Doc->DGap;
+	LeftLink = 0;
+	RightLink = 0;
+	TopLink = 0;
+	BottomLink = 0;
+	LeftLine = 0;
+	RightLine = false;
+	TopLine = false;
+	BottomLine = false;
+	isTableItem = false;
+	isSingleSel = false;
 }
 
 /** Zeichnet das Item */
@@ -1528,26 +1538,60 @@ NoRoom: pf2.end();
 		if (Pcolor2 != "None")
 		{
 			SetFarbe(&tmp, Pcolor2, Shade2);
-			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			if ((isTableItem) && ((TopLine) || (RightLine) || (BottomLine) || (LeftLine)))
+				p->setPen(tmp, Pwidth, PLineArt, Qt::SquareCap, PLineJoin);
+			else
+				p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
 			if (DashValues.count() != 0)
 				p->setDash(DashValues, DashOffset);
 		}
 		else
 			p->setLineWidth(0);
-		p->setupPolygon(&PoLine);
-		if (NamedLStyle == "")
-			p->drawPolyLine();
+		if (isTableItem)
+		{
+			if ((TopLine) || (RightLine) || (BottomLine) || (LeftLine))
+			{
+				p->newPath();
+				if (TopLine)
+				{
+					p->moveTo(0.0, 0.0);
+					p->lineTo(Width, 0.0);
+				}
+				if (RightLine)
+				{
+					p->moveTo(Width, 0.0);
+					p->lineTo(Width, Height);
+				}
+				if (BottomLine)
+				{
+					p->moveTo(0.0, Height);
+					p->lineTo(Width, Height);
+				}
+				if (LeftLine)
+				{
+					p->moveTo(0.0, 0.0);
+					p->lineTo(0.0, Height);
+				}
+				p->drawPolyLine();
+			}
+		}
 		else
 		{
-			multiLine ml = Doc->MLineStyles[NamedLStyle];
-			for (int it = ml.size()-1; it > -1; it--)
-			{
-				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-				p->setPen(tmp, ml[it].Width,
-								 static_cast<PenStyle>(ml[it].Dash),
-								 static_cast<PenCapStyle>(ml[it].LineEnd),
-								 static_cast<PenJoinStyle>(ml[it].LineJoin));
+			p->setupPolygon(&PoLine);
+			if (NamedLStyle == "")
 				p->drawPolyLine();
+			else
+			{
+				multiLine ml = Doc->MLineStyles[NamedLStyle];
+				for (int it = ml.size()-1; it > -1; it--)
+				{
+					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(tmp, ml[it].Width,
+									 static_cast<PenStyle>(ml[it].Dash),
+									 static_cast<PenCapStyle>(ml[it].LineEnd),
+									 static_cast<PenJoinStyle>(ml[it].LineJoin));
+					p->drawPolyLine();
+				}
 			}
 		}
 	}

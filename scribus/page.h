@@ -134,6 +134,9 @@ public:
 	void ItemTextPenS(int sha);
 	void ItemTextScale(int sha);
 	void AdjItemGradient(PageItem *b, int typ, QString col1, int sh1, QString col2, int sh2);
+	void AdvanceSel(PageItem *b, int oldPos, int len, int dir, int expandSel, int state);
+	void setNewPos(PageItem *b, int oldPos, int len, int dir);
+	void ExpandSel(PageItem *b, int dir, int oldPos);
 	QRegion ViewReg();
   /** Liste der Elemente */
 	QPtrList<PageItem> Items;
@@ -228,7 +231,6 @@ public slots:
 	void RaiseItem();
 	void ClearItem();
 	void DeleteItem();
-	void ExpandSel(PageItem *b, int inc);
 	bool slotSetCurs(int x, int y);
 	void slotDoCurs(bool draw);
 	void BlinkCurs();

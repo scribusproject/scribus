@@ -183,6 +183,11 @@ struct CLBuf {
 				QValueList<double> TabValues;
 				QValueList<double> DashValues;
 				double DashOffset;
+				bool isTableItem;
+				bool TopLine;
+				bool LeftLine;
+				bool RightLine;
+				bool BottomLine;
 			};
 
   /** Seitenraender */

@@ -791,6 +791,11 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					OB.LockRes = static_cast<bool>(QStoInt(obj.attribute("LOCKR","0")));
 					OB.Reverse = static_cast<bool>(QStoInt(obj.attribute("REVERS","0")));
 					OB.InvPict = static_cast<bool>(QStoInt(obj.attribute("INVERS","0")));
+					OB.isTableItem = static_cast<bool>(QStoInt(obj.attribute("isTableItem","0")));
+					OB.TopLine = static_cast<bool>(QStoInt(obj.attribute("TopLine","0")));
+					OB.LeftLine = static_cast<bool>(QStoInt(obj.attribute("LeftLine","0")));
+					OB.RightLine = static_cast<bool>(QStoInt(obj.attribute("RightLine","0")));
+					OB.BottomLine = static_cast<bool>(QStoInt(obj.attribute("BottomLine","0")));
 					OB.LayerNr = QStoInt(obj.attribute("LAYER","0"));
 					OB.Language = obj.attribute("LANGUAGE", doc->Language);
 					OB.Transparency = QStodouble(obj.attribute("TransValue","0.0"));
@@ -1443,6 +1448,11 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					OB.LockRes = static_cast<bool>(QStoInt(obj.attribute("LOCKR","0")));
 					OB.Reverse = static_cast<bool>(QStoInt(obj.attribute("REVERS","0")));
 					OB.InvPict = static_cast<bool>(QStoInt(obj.attribute("INVERS","0")));
+					OB.isTableItem = static_cast<bool>(QStoInt(obj.attribute("isTableItem","0")));
+					OB.TopLine = static_cast<bool>(QStoInt(obj.attribute("TopLine","0")));
+					OB.LeftLine = static_cast<bool>(QStoInt(obj.attribute("LeftLine","0")));
+					OB.RightLine = static_cast<bool>(QStoInt(obj.attribute("RightLine","0")));
+					OB.BottomLine = static_cast<bool>(QStoInt(obj.attribute("BottomLine","0")));
 					OB.LayerNr = QStoInt(obj.attribute("LAYER","0"));
 					OB.Language = obj.attribute("LANGUAGE", doc->Language);
 					OB.Transparency = QStodouble(obj.attribute("TransValue","0.0"));
@@ -1998,6 +2008,11 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.LockRes = static_cast<bool>(QStoInt(pg.attribute("LOCKR","0")));
 			OB.Reverse = static_cast<bool>(QStoInt(pg.attribute("REVERS","0")));
 			OB.InvPict = static_cast<bool>(QStoInt(pg.attribute("INVERS","0")));
+			OB.isTableItem = static_cast<bool>(QStoInt(pg.attribute("isTableItem","0")));
+			OB.TopLine = static_cast<bool>(QStoInt(pg.attribute("TopLine","0")));
+			OB.LeftLine = static_cast<bool>(QStoInt(pg.attribute("LeftLine","0")));
+			OB.RightLine = static_cast<bool>(QStoInt(pg.attribute("RightLine","0")));
+			OB.BottomLine = static_cast<bool>(QStoInt(pg.attribute("BottomLine","0")));
 			OB.Language = pg.attribute("LANGUAGE", doc->Language);
 			OB.Transparency = QStodouble(pg.attribute("TransValue","0.0"));
 			if (pg.hasAttribute("TransValueS"))
@@ -2310,6 +2325,11 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		ob.setAttribute("INVERS", item->InvPict ? 1 : 0);
 		ob.setAttribute("TransValue", item->Transparency);
 		ob.setAttribute("TransValueS", item->TranspStroke);
+		ob.setAttribute("isTableItem", static_cast<int>(item->isTableItem));
+		ob.setAttribute("TopLine", static_cast<int>(item->TopLine));
+		ob.setAttribute("LeftLine", static_cast<int>(item->LeftLine));
+		ob.setAttribute("RightLine", static_cast<int>(item->RightLine));
+		ob.setAttribute("BottomLine", static_cast<int>(item->BottomLine));
 		for(uint k=0;k<item->Ptext.count();++k)
 		{
 			QDomElement it=docu.createElement("ITEXT");
@@ -2666,6 +2686,11 @@ void ScriXmlDoc::WritePages(ScribusView *view, QDomDocument docu, QDomElement dc
 			ob.setAttribute("INVERS", item->InvPict ? 1 : 0);
 			ob.setAttribute("TransValue", item->Transparency);
 			ob.setAttribute("TransValueS", item->TranspStroke);
+			ob.setAttribute("isTableItem", static_cast<int>(item->isTableItem));
+			ob.setAttribute("TopLine", static_cast<int>(item->TopLine));
+			ob.setAttribute("LeftLine", static_cast<int>(item->LeftLine));
+			ob.setAttribute("RightLine", static_cast<int>(item->RightLine));
+			ob.setAttribute("BottomLine", static_cast<int>(item->BottomLine));
 			for(uint k=0;k<item->Ptext.count();++k)
 			{
 				QDomElement it=docu.createElement("ITEXT");

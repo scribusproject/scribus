@@ -175,9 +175,10 @@ void StilFormate::deleteFormat()
 	                              tr("Do you really want do delete this Style?"),
 	                              tr("No"),
 	                              tr("Yes"),
-	                              0, QMessageBox::No, QMessageBox::Yes);
+	                              0, 0, 0);
 	/* PFJ - 29.02.04 - Altered to use the correct QMessageBox value. It was 1 */
-	if (exit == QMessageBox::Yes)
+	/* FS - 13.03.04 the 1 is correct in this version of QMessageBox, it returns the Nr of the clicked Button either 0 or 1 or 2 */
+	if (exit == 1)
 	{
 		ListBox1->removeItem(sFnumber);
 		TempVorl.remove(TempVorl.at(sFnumber));
@@ -239,10 +240,9 @@ void StilFormate::loadStyles()
 
 void StilFormate::UpdateFList()
 {
-
+	ListBox1->clear();
 	if (TempVorl.count() < 6)
 		return;
-	ListBox1->clear();
 	for (uint x = 5; x < TempVorl.count(); ++x)
 		ListBox1->insertItem(TempVorl[x].Vname);
 	if (ListBox1->currentItem() == -1)

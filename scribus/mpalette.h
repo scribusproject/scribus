@@ -73,6 +73,7 @@ public:
     QToolButton* SColor;
     QWidgetStack* TabStack;
     QWidgetStack* TabStack2;
+    QWidgetStack* TabStack3;
     QWidget* page;
     QWidget* page_2;
     QWidget* page_2a;
@@ -80,6 +81,8 @@ public:
     QWidget* page_3;
     QWidget* page_4;
     QWidget* page_5;
+    QWidget* page_5a;
+    QWidget* page_5b;
     Cpalette *Cpal;
     QGroupBox* NameGroup;
 	NameWidget* NameEdit;
@@ -198,6 +201,11 @@ public:
     QLabel* SprachT;
     QComboBox* LangCombo;
     QGroupBox* GroupBoxCM;
+    QGroupBox* TLines;
+    QCheckBox* TopLine;
+    QCheckBox* LeftLine;
+    QCheckBox* RightLine;
+    QCheckBox* BottomLine;
     PageItem *CurItem;
     bool HaveDoc;
     bool HaveItem;
@@ -286,6 +294,7 @@ private slots:
 	void ChIntent();
 	void NewName();
 	void NewLanguage();
+	void HandleTLines();
 	
 signals:
 	void Schliessen();
@@ -308,6 +317,9 @@ protected:
     QVBoxLayout* pageLayout_3;
     QVBoxLayout* pageLayout_4;
     QVBoxLayout* pageLayout_5;
+    QVBoxLayout* pageLayout_5a;
+    QVBoxLayout* pageLayout_5b;
+    QVBoxLayout* TLineLayout;
     QHBoxLayout* layout60;
     QGridLayout* Layout44;
     QHBoxLayout* Layout13;

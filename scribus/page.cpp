@@ -21,6 +21,7 @@
 #include "serializer.h"
 #include "scribusXml.h"
 #include "scribus.h"
+#include "insertTable.h"
 
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
@@ -1084,6 +1085,8 @@ bool Page::MoveSizeItem(FPoint newX, FPoint newY, int ite)
 
 void Page::UpdateClip(PageItem* b)
 {
+	if (doku->AppMode == 13)
+		return;
 	int ph = static_cast<int>(QMAX(1.0, b->Pwidth / 2.0));
 	switch (b->PType)
 	{
@@ -2094,6 +2097,87 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			return;
 		}
 	}
+	if (doku->AppMode == 22)
+	{
+		if ((SelItem.count() == 0) && (HaveSelRect) && (!MidButt))
+		{
+			double sc = doku->Scale;
+			QRect AreaR = QRect(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc), static_cast<int>(SeRx-(Mxp*sc)), static_cast<int>(SeRy-(Myp*sc)));
+			QPainter p;
+			p.begin(this);
+			p.setRasterOp(XorROP);
+			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+			if((Mxp*sc) > SeRx)
+			{
+				double tmp=SeRx;
+				SeRx=static_cast<int>(Mxp*sc);
+				Mxp=static_cast<int>(tmp/sc);
+			}
+			if((Myp*sc) > SeRy)
+			{
+				double tmp=SeRy;
+				SeRy=static_cast<int>(Myp*sc);
+				Myp=static_cast<int>(tmp/sc);
+			}
+			HaveSelRect = false;
+			double Tx, Ty, Tw, Th;
+			Tx = Mxp * sc;
+			Ty = Myp * sc;
+			Tw = SeRx-(Mxp*sc);
+			Th = SeRy-(Myp*sc);
+			int z;
+			int Cols, Rows;
+			double deltaX, deltaY, offX, offY;
+			if ((Th < 6) || (Tw < 6))
+			{
+				p.drawRect(AreaR);
+				p.end();
+				doku->AppMode = 1;
+				emit PaintingDone();
+				return;
+			}
+			InsertTable *dia = new InsertTable(this, static_cast<int>(Th / 6), static_cast<int>(Tw / 6));
+			if (!dia->exec())
+			{
+				p.drawRect(AreaR);
+				p.end();
+				doku->AppMode = 1;
+				emit PaintingDone();
+				delete dia;
+				return;
+			}
+			p.end();
+			Cols = dia->Cols->value();
+			Rows = dia->Rows->value();
+			delete dia;
+			deltaX = Tw / Cols;
+			deltaY = Th / Rows;
+			offX = 0.0;
+			offY = 0.0;
+			SelItem.clear();
+			for (int rc = 0; rc < Rows; ++rc)
+			{
+				for (int cc = 0; cc < Cols; ++cc)
+				{
+					z = PaintText(Tx + offX, Ty + offY, deltaX, deltaY, doku->Dwidth, doku->DpenText);
+					b = Items.at(z);
+					b->isTableItem = true;
+					b->LineSp = static_cast<int>(deltaY - 3);
+					b->ISize = static_cast<int>((b->LineSp - (b->LineSp  * static_cast<double>(doku->AutoLine) / 100.0))) * 10;
+					SelItem.append(b);
+					offX += deltaX;
+				}
+				offY += deltaY;
+				offX = 0.0;
+			}
+		}
+		emit DoGroup();
+		doku->AppMode = 1;
+		emit PaintingDone();
+		emit DocChanged();
+		update();
+		return;
+	}
 	if (doku->AppMode == 21)
 	{
 		doku->AppMode = 1;
@@ -2375,37 +2459,47 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				if (b->Groups.count() != 0)
 					pmen->insertItem( tr("Un-group"), this, SIGNAL(DoUnGroup()));
 				pmen->insertItem( tr("Lock"), this, SLOT(ToggleLock()));
-				pmen->insertItem( tr("Send to Back"), this, SLOT(ToBack()));
-				pmen->insertItem( tr("Bring to Front"), this, SLOT(ToFront()));
-				pmen->insertItem( tr("Lower"), this, SLOT(LowerItem()));
-				pmen->insertItem( tr("Raise"), this, SLOT(RaiseItem()));
+				if ((!b->isTableItem) && (!b->isSingleSel))
+				{
+					pmen->insertItem( tr("Send to Back"), this, SLOT(ToBack()));
+					pmen->insertItem( tr("Bring to Front"), this, SLOT(ToFront()));
+					pmen->insertItem( tr("Lower"), this, SLOT(LowerItem()));
+					pmen->insertItem( tr("Raise"), this, SLOT(RaiseItem()));
+				}
 			}
 			else
 				pmen->insertItem( tr("Unlock"), this, SLOT(ToggleLock()));
-			pmen->insertItem( tr("Send to Scrapbook"), this, SLOT(sentToScrap()));
-			if (doku->Layers.count() > 1)
+			if ((!b->isTableItem) && (!b->isSingleSel))
 			{
-				for (uint lam=0; lam < doku->Layers.count(); ++lam)
+				pmen->insertItem( tr("Send to Scrapbook"), this, SLOT(sentToScrap()));
+				if (doku->Layers.count() > 1)
 				{
-					int lai = pmen3->insertItem(doku->Layers[lam].Name);
-					if (static_cast<int>(lam) == doku->ActiveLayer)
-						pmen3->setItemEnabled(lai, 0);
+					for (uint lam=0; lam < doku->Layers.count(); ++lam)
+					{
+						int lai = pmen3->insertItem(doku->Layers[lam].Name);
+						if (static_cast<int>(lam) == doku->ActiveLayer)
+							pmen3->setItemEnabled(lai, 0);
+					}
+					pmen->insertItem( tr("Send to Layer"), pmen3);
 				}
-				pmen->insertItem( tr("Send to Layer"), pmen3);
+				connect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
 			}
-			connect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
 			if (((b->PType == 4) || (b->PType == 2) || (b->PType == 6)) && (doku->AppMode != 7))
 			{
 				if (b->PType == 4)
 				{
 					pmen2->insertItem( tr("Picture Frame"), this, SLOT(ToPicFrame()));
-					pmen2->insertItem( tr("Polygon"), this, SLOT(ToPolyFrame()));
-					pmen2->insertItem( tr("Outlines"), this, SLOT(TextToPath()));
+					if (!b->isTableItem)
+					{
+						pmen2->insertItem( tr("Polygon"), this, SLOT(ToPolyFrame()));
+						pmen2->insertItem( tr("Outlines"), this, SLOT(TextToPath()));
+					}
 				}
 				if (b->PType == 2)
 				{
 					pmen2->insertItem( tr("Text Frame"), this, SLOT(ToTextFrame()));
-					pmen2->insertItem( tr("Polygon"), this, SLOT(ToPolyFrame()));
+					if (!b->isTableItem)
+						pmen2->insertItem( tr("Polygon"), this, SLOT(ToPolyFrame()));
 				}
 				if (b->PType == 6)
 				{
@@ -2420,14 +2514,15 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			else
 				pmen->insertItem( tr("Hide Properties..."), ScApp, SLOT(ToggleMpal()));
 			pmen->insertSeparator();
-			if (!b->Locked)
+			if ((!b->Locked) && (!((b->isTableItem) && (b->isSingleSel))))
 				pmen->insertItem( tr("Cut"), this, SIGNAL(CutItem()));
-			pmen->insertItem( tr("Copy"), this, SIGNAL(CopyItem()));
+			if (!((b->isTableItem) && (b->isSingleSel)))
+				pmen->insertItem( tr("Copy"), this, SIGNAL(CopyItem()));
 			if ((doku->AppMode == 7) && (ScApp->Buffer2.startsWith("<SCRIBUSTEXT")) && (b->PType == 4))
 				pmen->insertItem( tr("Paste"), ScApp, SLOT(slotEditPaste()));
 			if ((b->PType == 2) || ((b->PType == 4) && (b->NextBox == 0) && (b->BackBox == 0)))
 				pmen->insertItem( tr("Clear Contents"), this, SLOT(ClearItem()));
-			if ((!b->Locked) && (doku->AppMode != 7))
+			if ((!b->Locked) && (doku->AppMode != 7) && (!((b->isTableItem) && (b->isSingleSel))))
 				pmen->insertItem( tr("Delete"), this, SLOT(DeleteItem()));
 			pmen->exec(QCursor::pos());
 			delete pmen;
@@ -3024,7 +3119,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 	{
 		newX = static_cast<int>(m->x()/sc);
 		newY = static_cast<int>(m->y()/sc);
-		if ((Mpressed) && (m->state() == RightButton) && (!doku->DragP) && (doku->AppMode == 1) && (!b->Locked))
+		if ((Mpressed) && (m->state() == RightButton) && (!doku->DragP) && (doku->AppMode == 1) && (!b->Locked) && (!((b->isTableItem) && (b->isSingleSel))))
 		{
 			if ((abs(Dxp - newX) > 5) || (abs(Dyp - newY) > 5))
 			{
@@ -3501,6 +3596,8 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 				for (a = 0; a < SelItem.count(); ++a)
 				{
 					b = SelItem.at(a);
+					if ((b->isTableItem) && (b->isSingleSel))
+						continue;
 					p.begin(this);
 					Transform(b, &p);
 					p.setRasterOp(XorROP);
@@ -4430,6 +4527,9 @@ void Page::mousePressEvent(QMouseEvent *m)
 		RecordP.resize(0);
 		Deselect(false);
 		break;
+	case 22:
+		Deselect(false);
+		break;
 	}
 }
 
@@ -4737,6 +4837,7 @@ bool Page::SeleItem(QMouseEvent *m)
 											if (SelItem.find(Items.at(ga)) == -1)
 												SelItem.append(Items.at(ga));
 										}
+										Items.at(ga)->isSingleSel = false;
 										Items.at(ga)->Select = true;
 										Items.at(ga)->FrameOnly = true;
 									}
@@ -4745,6 +4846,7 @@ bool Page::SeleItem(QMouseEvent *m)
 						}
 						else
 						{
+							b->isSingleSel = true;
 							b->Select = true;
 							b->FrameOnly = true;
 							b->paintObj();
@@ -4923,6 +5025,76 @@ void Page::SelectItemNr(int nr)
 	emit HaveSel(b->PType);
 }
 
+void Page::AdvanceSel(PageItem *b, int oldPos, int len, int dir, int expandSel, int state)
+{
+	int i;
+	int isSpace;
+	if ( dir > 0 )
+	{
+		isSpace = b->Ptext.at(oldPos)->ch.at(0).isSpace();
+		b->CPos = oldPos +1;
+		for (i=oldPos+1; i < len; i++)
+		{
+			if ( b->Ptext.at(i)->ch.at(0).isSpace() == isSpace )
+			{
+				if ( expandSel )
+				b->Ptext.at(i)->cselect = state;
+			}
+			else
+				break;
+			b->CPos++;
+		}
+	}
+	else if ( oldPos > 0 )
+	{
+		isSpace = b->Ptext.at(oldPos-1)->ch.at(0).isSpace();
+		for (i=oldPos-2; i > 0; i--)
+		{
+			if (  b->Ptext.at(i)->ch.at(0).isSpace() == isSpace )
+			{
+				if ( expandSel )
+				b->Ptext.at(i)->cselect = state;
+			}
+			else
+				break;
+			b->CPos--;
+		}
+	}
+}
+
+// jjsa added on 15-mar-2004 
+// calculate the end position while ctrl + arrow pressed
+
+void Page::setNewPos(PageItem *b, int oldPos, int len, int dir)
+{
+	int i;
+	int isSpace;
+	if ( dir > 0 && oldPos < len )
+	{
+		isSpace = b->Ptext.at(oldPos)->ch.at(0).isSpace();
+		b->CPos = oldPos +1;
+		for (i=oldPos+1; i < len; i++)
+		{
+			if ( b->Ptext.at(i)->ch.at(0).isSpace() != isSpace )
+				break;
+			b->CPos++;
+		}
+	}
+	else if ( dir < 0 && oldPos > 0 )
+	{
+		oldPos--;
+		isSpace = b->Ptext.at(oldPos)->ch.at(0).isSpace();
+		for (i=oldPos; i >= 0; i--)
+		{
+			if (  b->Ptext.at(i)->ch.at(0).isSpace() != isSpace )
+				break;
+			b->CPos--;
+		}
+	}
+}
+
+// jjsa added on 15-mar-2004 expand / decrease selection
+
 // jjsa added on 14-mar-2004 text selection with pressed
 // shift button and <-, -> cursor keys
 // Parameters
@@ -4931,99 +5103,101 @@ void Page::SelectItemNr(int nr)
 //  if value is +/-1 work on slection
 //  if value is +/-2 refresh if text under cursor is selected
 
-void Page::ExpandSel(PageItem *b, int inc)
+void Page::ExpandSel(PageItem *b, int dir, int oldPos)
 {
-	int pos = b->CPos;
 	int len = b->Ptext.count();
 	int rightSel = false; // assume left right and actual char not selected
 	int leftSel  = false;
 	int actSel   = false;
 	int selMode  = false;
-	if ( inc == -1 || inc == 1 )
-	selMode = true;
+
+	if ( dir == -1 || dir == 1 )
+		selMode = true;
+	else
+	{
+		if ( dir > 0 )
+			dir = 1;
+		else
+			dir = -1;
+	}
    // show for selection of previous, actual and next character
 	if ( b->HasSel ) /* selection allready present */
 	{
-		if (inc > 0 ) // -> key
+		if (dir > 0 && oldPos < len) // -> key
 		{
-			actSel = b->Ptext.at(pos-1)->cselect;
-			if ( pos < len )
-				rightSel =  b->Ptext.at(pos)->cselect;
-			if ( pos > 1 )
-				leftSel = b->Ptext.at(pos-2)->cselect;
+			if ( oldPos == 0 )
+				leftSel = false;
+			else
+				leftSel = b->Ptext.at(oldPos-1)->cselect;
+			actSel =   b->Ptext.at(oldPos)->cselect;
+			rightSel = false; // not relevant
 		}
-		else // <- key
+		else if ( dir > 0 && oldPos == len) // -> key
 		{
-			actSel = b->Ptext.at(pos)->cselect;
-			if ( pos > 0 )
-				leftSel =  b->Ptext.at(pos-1)->cselect;
-			if ( pos+1 < len )
-				rightSel = b->Ptext.at(pos+1)->cselect;
+			return;
+		}
+		else if ( dir < 0 && oldPos > 0 ) // <- key
+		{
+			actSel  =   b->Ptext.at(oldPos-1)->cselect;
+			leftSel = false; // not relevant
+			if ( oldPos < len  )
+				rightSel = b->Ptext.at(oldPos)->cselect;
+			else
+				rightSel = false;
+		}
+		else if ( dir < 0 && oldPos == 0 ) // <- key
+		{
+         return;
 		}
 		if ( selMode && ! (leftSel||actSel||rightSel) )
 		{
          // selected outside from concerned range
          // deselect all
 			int i;
-			for (i=0; i < len; ++i )
- 			{
+			for (i=0; i < len; i++ )
+			{
 				b->Ptext.at(i)->cselect = false;
 			}
 			b->HasSel = false;
-			emit  HasNoTextSel();
+			emit HasNoTextSel();
 		}
 		else if ( !selMode )
 		{
 			if (leftSel||actSel||rightSel) 
-				Page::RefreshItem(b);
+				RefreshItem(b);
 		}
 	}
 	if ( !selMode )
 		return;
-    // no selection
+   // no selection
 	if ( !b->HasSel )
 	{
-		if ( inc == -1 ) // <- key
-			b->Ptext.at(pos)->cselect = true;
-		else  // -> key
-			b->Ptext.at(pos-1)->cselect = true;
 		b->HasSel = true;
 		emit HasTextSel();
+		leftSel = true;
+		rightSel = true;
 	}
-	else  // Selection present
-	{  
-		if (inc == 1) // ->  key
-		{
-			if ( leftSel == true )
-				b->Ptext.at(pos-1)->cselect = true;
-			else
-			{
-				b->Ptext.at(pos-1)->cselect = false;
-				if ( rightSel == false )
-				{
-					b->HasSel = false;
-					emit  HasNoTextSel();
-				}
-			}
-		}
-		else // <-  key
-		{
-			if ( rightSel == true )
-			{
-				b->Ptext.at(pos)->cselect = true;
-			}
-			else
-			{
-				b->Ptext.at(pos)->cselect = false;
-				if ( leftSel == false )
-				{
-					b->HasSel = false;
-					emit  HasNoTextSel();
-				}
-			}
-		}
+	int i;
+	int start;
+	int end;
+	int sel;
+	if (dir == 1) // ->  key
+	{
+		start = oldPos;
+		end   = b->CPos;
+		sel = leftSel == true;
 	}
-	Page::RefreshItem(b);
+	else
+	{
+		start = b->CPos;
+		end   = oldPos;
+		sel = rightSel == true;
+	}
+	for ( i = start; i < end; i++)
+		b->Ptext.at(i)->cselect = sel;
+	if ( ! sel )
+		emit  HasNoTextSel();
+	RefreshItem(b);
 }
 
 bool Page::slotSetCurs(int x, int y)
@@ -6775,7 +6949,10 @@ void Page::ToBack()
 	uint a, old;
 	if ((Items.count() > 1) && (SelItem.count() != 0))
 	{
-		PageItem *b = Items.take(SelItem.at(0)->ItemNr);
+		PageItem *b = SelItem.at(0);
+		if ((b->isTableItem) && (b->isSingleSel))
+			return;
+		b = Items.take(SelItem.at(0)->ItemNr);
 		old = SelItem.at(0)->ItemNr;
 		storeUndoInf(b);
 		doku->UnData.UnCode = 4;
@@ -6802,7 +6979,10 @@ void Page::ToFront()
 	uint a, old;
 	if ((Items.count() > 1) && (SelItem.count() != 0))
 	{
-		PageItem *b = Items.take(SelItem.at(0)->ItemNr);
+		PageItem *b = SelItem.at(0);
+		if ((b->isTableItem) && (b->isSingleSel))
+			return;
+		b = Items.take(SelItem.at(0)->ItemNr);
 		old = SelItem.at(0)->ItemNr;
 		storeUndoInf(b);
 		doku->UnData.UnCode = 4;
@@ -6829,7 +7009,10 @@ void Page::LowerItem()
 	uint a, old;
 	if ((Items.count() > 1) && (SelItem.count() != 0) && (SelItem.at(0)->ItemNr>0))
 	{
-		PageItem *b = Items.take(SelItem.at(0)->ItemNr);
+		PageItem *b = SelItem.at(0);
+		if ((b->isTableItem) && (b->isSingleSel))
+			return;
+		b = Items.take(SelItem.at(0)->ItemNr);
 		old = SelItem.at(0)->ItemNr;
 		storeUndoInf(b);
 		doku->UnData.UnCode = 4;
@@ -6856,7 +7039,10 @@ void Page::RaiseItem()
 	uint a, old;
 	if ((Items.count() > 1) && (SelItem.count() != 0) && (SelItem.at(0)->ItemNr<Items.count()-2))
 	{
-		PageItem *b = Items.take(SelItem.at(0)->ItemNr);
+		PageItem *b = SelItem.at(0);
+		if ((b->isTableItem) && (b->isSingleSel))
+			return;
+		b = Items.take(SelItem.at(0)->ItemNr);
 		old = SelItem.at(0)->ItemNr;
 		storeUndoInf(b);
 		doku->UnData.UnCode = 4;
@@ -6922,6 +7108,8 @@ void Page::DeleteItem()
 		for (uint de=0; de<anz; ++de)
 		{
 			b = SelItem.at(0);
+			if ((b->isTableItem) && (b->isSingleSel))
+				continue;
 			if (b->PType == 4)
 			{
 				if ((b->NextBox != 0) || (b->BackBox != 0))
@@ -7188,6 +7376,11 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	b->An_Extern = Buffer->An_Extern;
 	b->AnZiel = Buffer->AnZiel;
 	b->AnActType = Buffer->AnActType;
+	b->TopLine = Buffer->TopLine;
+	b->RightLine = Buffer->RightLine;
+	b->LeftLine = Buffer->LeftLine;
+	b->BottomLine = Buffer->BottomLine;
+	b->isTableItem = Buffer->isTableItem;
 	if (Buffer->AnName != "")
 	{
 		if (!drag)

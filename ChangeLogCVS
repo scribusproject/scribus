@@ -1,4 +1,14 @@
 Changes since Version 1.1.5
+14.03.2004	Added first basic Support for Tables.
+		Jean-Jacques Sarton completed the Textselection with the Cursor Keys:
+			Shift+Cursor Key selects Chararcters.
+			Ctrl+Shift+Cursor Key selects Words.
+			Ctrl+Cursor Up/Down selects Lines.
+			Ctrl+Home selects Text from the Start to the Cursor Position.
+			Ctrl+End selects Text from the Cursor Position to the End.
+			Ctrl+Cursor Key moves to the next Word.
+		Updated the Danish Translation.
+
 13.03.2004	Added Patch from Jean-Jacques Sarton to enable Textselection with the Cursor Keys and Shift pressed.
 		Fixed Crash when cutting Text (also by Jean-Jacques Sarton).
 		Improved Object resizing and selecting.

@@ -139,7 +139,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSset *Vor,
 
     PrinterI = new QComboBox( true, Render, "PrinterI" );
 	/* PFJ - 29.02.04 - Changed from uint to int and varname */
-	for (int prop = 0; prop < array; ++prop)
+	for (uint prop = 0; prop < array; ++prop)
 		PrinterI->insertItem(tmp_mp[prop]);
     PrinterI->setMinimumSize( QSize( 190, 22 ) );
     PrinterI->setEditable(false);

@@ -521,6 +521,8 @@ private:
 	int OLower;
 	int OBack;
 	int OFront;
+	int ODup;
+	int OMDup;
 	bool tipsOn;
 	bool keyrep;
 	QPopupMenu *helpMenu;

@@ -1731,6 +1731,11 @@ void CopyPageItem(struct CLBuf *Buffer, PageItem *b)
 	Buffer->Language = b->Language;
 	Buffer->Cols = b->Cols;
 	Buffer->ColGap = b->ColGap;
+	Buffer->isTableItem = b->isTableItem;
+	Buffer->TopLine = b->TopLine;
+	Buffer->LeftLine = b->LeftLine;
+	Buffer->RightLine = b->RightLine;
+	Buffer->BottomLine = b->BottomLine;
 }
 
 void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN)

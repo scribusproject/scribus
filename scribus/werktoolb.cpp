@@ -42,9 +42,10 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	Texte = new QToolButton(loadIcon("Text.xpm"), tr("Insert Text Frame"), QString::null, this,
 						 SLOT(ModeFromTB()), this);
 	Texte->setToggleButton( true );
-	BildB = new QToolButton(loadIcon("Bild.xpm"), tr("Insert Picture"), QString::null, this, SLOT(ModeFromTB()),
-								 this);
+	BildB = new QToolButton(loadIcon("Bild.xpm"), tr("Insert Picture"), QString::null, this, SLOT(ModeFromTB()), this);
 	BildB->setToggleButton( true );
+	TableB = new QToolButton(loadIcon("frame_table.png"), tr("Insert Table"), QString::null, this, SLOT(ModeFromTB()), this);
+	TableB->setToggleButton( true );
 	Rechteck = new Autoforms( this );
 	Rechteck->setPopupDelay(0);
 	Rechteck->setToggleButton( true );
@@ -63,20 +64,17 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	LinM->setWhatsThis(id, tr("Insert Bezier Curves"));
 	id = LinM->insertItem(loadIcon("Stiftalt.xpm"));
 	LinM->setWhatsThis(id, tr("Insert Freehand Line"));
-	Linien = new QToolButton(loadIcon("Stift.xpm"), tr("Insert Lines"), QString::null, this, SLOT(ModeFromTB()),
-								 this);
+	Linien = new QToolButton(loadIcon("Stift.xpm"), tr("Insert Lines"), QString::null, this, SLOT(ModeFromTB()), this);
 	Linien->setToggleButton( true );
 	Linien->setPopup(LinM);
 	Linien->setPopupDelay(0);
 	LMode = 8;
-	Rotiere = new QToolButton(loadIcon("Rotieren.xpm"), tr("Rotate Item"), QString::null, this,
-								 SLOT(ModeFromTB()), this);
+	Rotiere = new QToolButton(loadIcon("Rotieren.xpm"), tr("Rotate Item"), QString::null, this, SLOT(ModeFromTB()), this);
 	Rotiere->setToggleButton( true );
 	Rotiere->setEnabled(false);
 	Zoom = new QToolButton(loadIcon("Lupe.xpm"), tr("Zoom in or out"), QString::null, this, SLOT(ModeFromTB()), this);
 	Zoom->setToggleButton( true );
-	Textedit = new QToolButton(loadIcon("Editm.xpm"), tr("Edit Contents of Frame"), QString::null, this,
-								 SLOT(ModeFromTB()), this);
+	Textedit = new QToolButton(loadIcon("Editm.xpm"), tr("Edit Contents of Frame"), QString::null, this, SLOT(ModeFromTB()), this);
 	Textedit->setToggleButton( true );
 	Textedit->setEnabled( false );
 	Textedit2 = new QToolButton(loadIcon("signature.png"), tr("Edit the text with the Story Editor"),
@@ -134,6 +132,7 @@ void WerkToolB::SelShape(int s, int c, double *vals)
 	Zoom->setOn(false);
 	Texte->setOn(false);
 	BildB->setOn(false);
+	TableB->setOn(false);
 	Linien->setOn(false);
 	KetteEin->setOn(false);
 	KetteAus->setOn(false);
@@ -154,6 +153,7 @@ void WerkToolB::SelShape2()
 	Zoom->setOn(false);
 	Texte->setOn(false);
 	BildB->setOn(false);
+	TableB->setOn(false);
 	Linien->setOn(false);
 	KetteEin->setOn(false);
 	KetteAus->setOn(false);
@@ -171,6 +171,7 @@ void WerkToolB::ModeFromTB()
 	Zoom->setOn(false);
 	Texte->setOn(false);
 	BildB->setOn(false);
+	TableB->setOn(false);
 	Rechteck->setOn(false);
 	Linien->setOn(false);
 	KetteEin->setOn(false);
@@ -211,6 +212,11 @@ void WerkToolB::ModeFromTB()
 		BildB->setOn(true);
 		emit NewMode(4);
 	}
+	if (TableB == sender())
+	{
+		TableB->setOn(true);
+		emit NewMode(22);
+	}
 	if (Linien == sender())
 	{
 		Linien->setOn(true);
@@ -242,6 +248,7 @@ void WerkToolB::setLinMode(int id)
 	Zoom->setOn(false);
 	Texte->setOn(false);
 	BildB->setOn(false);
+	TableB->setOn(false);
 	Rechteck->setOn(false);
 	Linien->setOn(false);
 	KetteEin->setOn(false);

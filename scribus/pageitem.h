@@ -263,6 +263,17 @@ public:
 	double DashOffset;
 	VGradient fill_gradient;
 	QString Language;
+/* Additions for Table Support */
+	PageItem* LeftLink;
+	PageItem* RightLink;
+	PageItem* TopLink;
+	PageItem* BottomLink;
+	bool LeftLine;
+	bool RightLine;
+	bool TopLine;
+	bool BottomLine;
+	bool isTableItem;
+	bool isSingleSel;
 };
 
 #endif

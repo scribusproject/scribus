@@ -668,10 +668,10 @@ void ScribusApp::initMenuBar()
 	StilMenu = new QPopupMenu();
 	ObjMenu = new QPopupMenu();
 	SetKeyEntry(19, tr("Select New Font"), 0, 0);
-	MenID = ObjMenu->insertItem( tr("Duplicate"), this, SLOT(ObjektDup()), CTRL+Key_D);
-	SetKeyEntry(20, tr("Duplicate"), MenID, CTRL+Key_D);
-	MenID = ObjMenu->insertItem( tr("Multiple Duplicate"), this, SLOT(ObjektDupM()));
-	SetKeyEntry(21, tr("Multiple Duplicate"), MenID, 0);
+	ODup = ObjMenu->insertItem( tr("Duplicate"), this, SLOT(ObjektDup()), CTRL+Key_D);
+	SetKeyEntry(20, tr("Duplicate"), ODup, CTRL+Key_D);
+	OMDup = ObjMenu->insertItem( tr("Multiple Duplicate"), this, SLOT(ObjektDupM()));
+	SetKeyEntry(21, tr("Multiple Duplicate"), OMDup, 0);
 	Loesch = ObjMenu->insertItem( tr("Delete"), this, SLOT(DeleteObjekt()), CTRL+Key_K);
 	SetKeyEntry(22, tr("Delete"), Loesch, CTRL+Key_K);
 	ObjMenu->insertSeparator();
@@ -1036,6 +1036,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 			KeyMod = 0;
 			break;
 		}
+	ButtonState buttonState = k->state();
  	if ((HaveDoc) && (!view->LE->hasFocus()))
  		{
 		if (doc->AppMode != 7)
@@ -1088,7 +1089,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  						case Key_Delete:
  							if (!doc->EditClip)
 								{
-								if (!b->Locked)
+								if ((!b->Locked) && (!((b->isTableItem) && (b->isSingleSel))))
  									doc->ActPage->DeleteItem();
 								}
  							break;
@@ -1165,6 +1166,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  					slotDocCh();
  					break;
  				case 7:
+					int oldPos = b->CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
  					if (b->PType == 4)
  						{
  						doc->ActPage->slotDoCurs(false);
@@ -1187,6 +1189,13 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  											}
  										}
  									while (b->CPos < static_cast<int>(b->Ptext.count()));
+									if ( buttonState & ShiftButton )
+										{
+											if ( buttonState & AltButton )
+											   b->CPos = b->Ptext.count();
+											doc->ActPage->ExpandSel(b, 1, oldPos);
+										}
+									else
  									if (b->CPos == static_cast<int>(b->Ptext.count()))
  										if (b->NextBox != 0)
  											{
@@ -1214,6 +1223,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 											}
  										}
  									}
+									if ( b->HasSel )
+										doc->ActPage->RefreshItem(b);
  								setTBvals(b);
  								break;
  							case Key_Up:
@@ -1238,6 +1249,13 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  											}
  										while (b->CPos > 0);
 										}
+									if ( buttonState & ShiftButton )
+										{
+											if ( buttonState & AltButton )
+											   b->CPos = 0;
+											doc->ActPage->ExpandSel(b, -1, oldPos);
+										}
+									else
  									if (b->CPos == 0)
  										{
  										if (b->BackBox != 0)
@@ -1262,71 +1280,95 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 										b = b->BackBox;
  										}
  									}
+									if ( b->HasSel )
+										doc->ActPage->RefreshItem(b);
  								setTBvals(b);
  								break;
 							case Key_Home:
  								b->CPos = 0;
+								if ( buttonState & ShiftButton )
+										doc->ActPage->ExpandSel(b, -1, oldPos);
  								setTBvals(b);
  								break;
 							case Key_End:
  								b->CPos = static_cast<int>(b->Ptext.count());
+								if ( buttonState & ShiftButton )
+										doc->ActPage->ExpandSel(b, 1, oldPos);
  								setTBvals(b);
  								break;
  							case Key_Left:
- 								b->CPos -= 1;
- 								if (b->CPos < 0)
- 									{
- 									b->CPos = 0;
- 									if (b->BackBox != 0)
- 										{
-										b->OwnPage->Deselect(true);
-										b->BackBox->CPos = b->BackBox->Ptext.count();
-										doc->ActPage = b->BackBox->OwnPage;
-										b->BackBox->OwnPage->SelectItemNr(b->BackBox->ItemNr);
-										b = b->BackBox;
- 										}
- 									}
-									// jjsa add (de)selection if keyMode == 0x00200000
-									// shift pressed ?
-									else if ( KeyMod & 0x00200000 && b->CPos >= 0 )
-										{
-										doc->ActPage->ExpandSel(b, -1 );
-										}
-									else // refresh if selected text under our cursor
-										{
-										doc->ActPage->ExpandSel(b,-2);
-										}
- 								setTBvals(b);
- 								break;
- 							case Key_Right:
- 								b->CPos += 1;
- 								if (b->CPos > static_cast<int>(b->Ptext.count()))
- 									{
+								if ( buttonState & ControlButton )
+									{
+										doc->ActPage->setNewPos(b, oldPos, b->Ptext.count(),-1);
+										if ( buttonState & ShiftButton )
+											doc->ActPage->ExpandSel(b, -1, oldPos);
+									}
+								else if ( buttonState & ShiftButton )
+									{
+										b->CPos--;
+										if ( b->CPos < 0 )
+											b->CPos = 0;
+										else
+											doc->ActPage->ExpandSel(b, -1, oldPos);
+									}
+								else
+									{
  									b->CPos -= 1;
- 									if (b->NextBox != 0)
+ 									if (b->CPos < 0)
  										{
- 										if (b->NextBox->Ptext.count() != 0)
+ 										b->CPos = 0;
+ 										if (b->BackBox != 0)
  											{
 											b->OwnPage->Deselect(true);
-											b->NextBox->CPos = 0;
-											doc->ActPage = b->NextBox->OwnPage;
-											b->NextBox->OwnPage->SelectItemNr(b->NextBox->ItemNr);
-											b = b->NextBox;
-											}
+											b->BackBox->CPos = b->BackBox->Ptext.count();
+											doc->ActPage = b->BackBox->OwnPage;
+											b->BackBox->OwnPage->SelectItemNr(b->BackBox->ItemNr);
+											b = b->BackBox;
+ 											}
  										}
- 									}
-									// jjsa add (de)selection if keyMode == 0x00200000
-									// shift pressed ?
-									else if ( KeyMod & 0x00200000 && b->CPos <= b->Ptext.count())
+									}
+									if ( b->HasSel )
+										doc->ActPage->RefreshItem(b);
+								setTBvals(b);
+								break;
+ 							case Key_Right:
+								if ( buttonState & ControlButton )
+									{
+										doc->ActPage->setNewPos(b, oldPos, b->Ptext.count(),1);
+										if ( buttonState & ShiftButton )
+											doc->ActPage->ExpandSel(b, 1, oldPos);
+									}
+								else if ( buttonState & ShiftButton )
+									{
+										b->CPos++;
+										if ( b->CPos > static_cast<int>(b->Ptext.count()) )
+										   b->CPos--;
+										else
+											doc->ActPage->ExpandSel(b, 1, oldPos);
+									}
+								else
+									{
+									b->CPos += 1; // new position within text ?
+									if (b->CPos > static_cast<int>(b->Ptext.count()))
 										{
-										doc->ActPage->ExpandSel(b,1);
+										b->CPos -= 1;
+										if (b->NextBox != 0)
+											{
+											if (b->NextBox->Ptext.count() != 0)
+												{
+												b->OwnPage->Deselect(true);
+												b->NextBox->CPos = 0;
+												doc->ActPage = b->NextBox->OwnPage;
+												b->NextBox->OwnPage->SelectItemNr(b->NextBox->ItemNr);
+												b = b->NextBox;
+												}
+											}
 										}
-									else // refresh if selected text under our cursor
-										{
-										doc->ActPage->ExpandSel(b,2);
-										}
- 								setTBvals(b);
- 								break;
+									}
+										if ( b->HasSel )
+											doc->ActPage->RefreshItem(b);
+								setTBvals(b);
+								break;
  							case Key_Delete:
  								if (b->CPos == static_cast<int>(b->Ptext.count()))
 									{
@@ -2157,7 +2199,10 @@ void ScribusApp::HaveNewSel(int Nr)
 			extraMenu->setItemEnabled(hyph, 0);
 			menuBar()->setItemEnabled(Stm, 1);
 			menuBar()->setItemEnabled(Obm, 1);
-			ObjMenu->setItemEnabled(ShapeM, 1);
+			if ((b->isTableItem) && (b->isSingleSel))
+				ObjMenu->setItemEnabled(ShapeM, 0);
+			else
+				ObjMenu->setItemEnabled(ShapeM, 1);
 			ObjMenu->setItemEnabled(PfadTP, 0);
 			StilMenu->clear();
 			StilMenu->insertItem( tr("Color"), ColorMenu);
@@ -2182,7 +2227,10 @@ void ScribusApp::HaveNewSel(int Nr)
 			extraMenu->setItemEnabled(hyph, 1);
 			menuBar()->setItemEnabled(Stm, 1);
 			menuBar()->setItemEnabled(Obm, 1);
-			ObjMenu->setItemEnabled(ShapeM, 1);
+			if ((b->isTableItem) && (b->isSingleSel))
+				ObjMenu->setItemEnabled(ShapeM, 0);
+			else
+				ObjMenu->setItemEnabled(ShapeM, 1);
 			ObjMenu->setItemEnabled(PfadTP, 1);
 			StilMenu->clear();
 			StilMenu->insertItem( tr("Font"), FontMenu);
@@ -2367,14 +2415,31 @@ void ScribusApp::HaveNewSel(int Nr)
 			ObjMenu->changeItem(LockOb, tr("Unlock"));
 			}
 		else
-			{
+		{
 			ObjMenu->changeItem(LockOb, tr("Lock"));
-			ObjMenu->setItemEnabled(OBack, 1);
-			ObjMenu->setItemEnabled(OFront, 1);
-			ObjMenu->setItemEnabled(ORaise, 1);
-			ObjMenu->setItemEnabled(OLower, 1);
+			if ((b->isTableItem) && (b->isSingleSel))
+			{
+				ObjMenu->setItemEnabled(PfadTP, 0);
+				ObjMenu->setItemEnabled(ODup, 0);
+				ObjMenu->setItemEnabled(OMDup, 0);
+				ObjMenu->setItemEnabled(Loesch, 0);
+				ObjMenu->setItemEnabled(OBack, 0);
+				ObjMenu->setItemEnabled(OFront, 0);
+				ObjMenu->setItemEnabled(ORaise, 0);
+				ObjMenu->setItemEnabled(OLower, 0);
+			}
+			else
+			{
+				ObjMenu->setItemEnabled(ODup, 1);
+				ObjMenu->setItemEnabled(OMDup, 1);
+				ObjMenu->setItemEnabled(Loesch, 1);
+				ObjMenu->setItemEnabled(OBack, 1);
+				ObjMenu->setItemEnabled(OFront, 1);
+				ObjMenu->setItemEnabled(ORaise, 1);
+				ObjMenu->setItemEnabled(OLower, 1);
 			}
 		}
+	}
 	Mpal->NewSel(Nr);
 	if (Nr != -1)
 	{
@@ -3073,11 +3138,6 @@ bool ScribusApp::DoFileClose()
 		viewMenu->setItemEnabled(Guide, 0);
 		viewMenu->setItemEnabled(uGuide, 0);
 		viewMenu->setItemChecked(uGuide, false);
-/*		viewMenu->changeItem(Markers, tr("Hide Margins"));
-		viewMenu->changeItem(FrameDr, tr("Hide Frames"));
-		viewMenu->changeItem(Bilder, tr("Hide Images"));
-		viewMenu->changeItem(Ras, tr("Show Grid"));
-		viewMenu->changeItem(Guide, tr("Hide Guides")); */
 		editMenu->setItemEnabled(tman, 0);
 		editMenu->setItemEnabled(jman, 0);
 		menuBar()->setItemEnabled(pgmm, 0);
@@ -3285,7 +3345,9 @@ void ScribusApp::slotEditCut()
 			}
 		else
 			{
-  		ScriXmlDoc *ss = new ScriXmlDoc();
+			if ((b->isTableItem) && (b->isSingleSel))
+				return;
+			ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(&doc->ActPage->SelItem, doc);
 			Buffer2 = BufferI;
 			doc->ActPage->DeleteItem();
@@ -3356,7 +3418,9 @@ void ScribusApp::slotEditCopy()
 			}
 		else
 			{
-  		ScriXmlDoc *ss = new ScriXmlDoc();
+			if ((b->isTableItem) && (b->isSingleSel))
+				return;
+			ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(&doc->ActPage->SelItem, doc);
 			Buffer2 = BufferI;
 			delete ss;
@@ -4122,6 +4186,7 @@ void ScribusApp::ToggleFrameEdit()
 		WerkTools->Zoom->setEnabled(false);
 		WerkTools->Texte->setEnabled(false);
 		WerkTools->BildB->setEnabled(false);
+		WerkTools->TableB->setEnabled(false);
 		WerkTools->Rechteck->setEnabled(false);
 		WerkTools->Linien->setEnabled(false);
 		WerkTools->Polygon->setEnabled(false);
@@ -4149,6 +4214,7 @@ void ScribusApp::NoFrameEdit()
 	WerkTools->Zoom->setEnabled(true);
 	WerkTools->Texte->setEnabled(true);
 	WerkTools->BildB->setEnabled(true);
+	WerkTools->TableB->setEnabled(true);
 	WerkTools->Rechteck->setEnabled(true);
 	WerkTools->Linien->setEnabled(true);
 	WerkTools->Polygon->setEnabled(true);
@@ -4180,6 +4246,7 @@ void ScribusApp::slotSelect()
 	WerkTools->Zoom->setOn(false);
 	WerkTools->Texte->setOn(false);
 	WerkTools->BildB->setOn(false);
+	WerkTools->TableB->setOn(false);
 	WerkTools->Rechteck->setOn(false);
 	WerkTools->Linien->setOn(false);
 	WerkTools->Polygon->setOn(false);
@@ -4308,6 +4375,7 @@ void ScribusApp::setAppMode(int mode)
 			WerkTools->Zoom->setOn(false);
 			WerkTools->Texte->setOn(false);
 			WerkTools->BildB->setOn(false);
+			WerkTools->TableB->setOn(false);
 			WerkTools->Rechteck->setOn(false);
 			WerkTools->Linien->setOn(false);
 			WerkTools->Polygon->setOn(false);
@@ -6429,6 +6497,11 @@ void ScribusApp::UnGroupObj()
 		{
 		b = doc->ActPage->SelItem.at(a);
 		b->Groups.pop();
+		b->isTableItem = false;
+		b->LeftLink = 0;
+		b->RightLink = 0;
+		b->TopLink = 0;
+		b->BottomLink = 0;
 		}
 	doc->ActPage->Deselect(true);
 	slotDocCh();
