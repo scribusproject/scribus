@@ -6,8 +6,8 @@
 **
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
-#ifndef MUSTERPages_H
-#define MUSTERPages_H
+#ifndef MUSTERPAGES_H
+#define MUSTERPAGES_H
 
 #include <qdialog.h>
 class QListBox;
@@ -57,4 +57,4 @@ signals:
 		
 };
 
-#endif // MUSTERPages_H
+#endif // MUSTERPAGES_H
