@@ -551,6 +551,58 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						p->drawImage(&pixm);
 					p->restore();
 				}
+			if ((Ptext.count() != 0) && (Dirty))
+			{
+				if (flippedH % 2 != 0)
+				{
+					p->translate(Width * sc, 0);
+					p->scale(-1, 1);
+				}
+				if (flippedV % 2 != 0)
+				{
+					p->translate(0, Height * sc);
+					p->scale(1, -1);
+				}
+				struct ZZ Zli3;
+				for (a = 0; a < MaxChars; ++a)
+				{
+					hl = Ptext.at(a);
+					chx = hl->ch;
+					if (hl->ch == QChar(30))
+						chx = ExpandToken(a);
+					Zli3.Zeich = chx;
+					if (hl->ccolor != "None")
+					{
+						SetFarbe(&tmp, hl->ccolor, hl->cshade);
+						p->setBrush(tmp);
+					}
+					if (hl->cstroke != "None")
+					{
+						SetFarbe(&tmp, hl->cstroke, hl->cshade2);
+						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+					}
+					Zli3.Farb = hl->ccolor;
+					Zli3.Farb2 = hl->cstroke;
+					Zli3.shade = hl->cshade;
+					Zli3.shade2 = hl->cshade2;
+					Zli3.xco = hl->xp;
+					Zli3.yco = hl->yp;
+					Zli3.Sele = hl->cselect;
+					Zli3.Siz = hl->csize;
+					Zli3.Style = hl->cstyle;
+					Zli3.ZFo = hl->cfont;
+					Zli3.wide = Cwidth(Doc, hl->cfont, chx, hl->csize);
+					Zli3.kern = hl->cextra;
+					Zli3.scale = hl->cscale;
+					if (!Doc->RePos)
+						DrawZeichenS(p, &Zli3);
+				}
+				Dirty = false;
+				Redrawn = true;
+				pf2.end();
+				p->restore();
+				break;
+			}
 			if ((Ptext.count() != 0) || (NextBox != 0))
 				{
 				if (NextBox != 0)
@@ -1427,41 +1479,18 @@ NoRoom: pf2.end();
 							break;
 						}
 					}
+					p->save();
+					NextBox->Dirty = false;
+					QPixmap pgPix(1, 1);
+					ScPainter *painter = new ScPainter(&pgPix, 1, 1);
+					painter->translate(0.5, 0.5);
+					NextBox->DrawObj(painter, QRect(0, 0, 1, 1));
+					NextBox->Dirty = true;
+					painter->end();
+					delete painter;
+					p->restore();
 					if (NextBox->OwnPage != OwnPage)
-					{
-						if (Doc->RePos)
-						{
-							p->save();
-							QPixmap pgPix(1, 1);
-							ScPainter *painter = new ScPainter(&pgPix, 1, 1);
-							painter->translate(0.5, 0.5);
-							NextBox->DrawObj(painter, QRect(0, 0, 1, 1));
-							painter->end();
-							delete painter;
-							p->restore();
-						}
-						else
-							NextBox->OwnPage->update();
-					}
-					else
-					{
-						if ((Doc->AppMode == 7) && (Tinput))
-							NextBox->OwnPage->RefreshItem(NextBox, true);
-						else
-						{
-							bool savre = Doc->RePos;
-							Doc->RePos = true;
-							p->save();
-							QPixmap pgPix(1, 1);
-							ScPainter *painter = new ScPainter(&pgPix, 1, 1);
-							painter->translate(0.5, 0.5);
-							NextBox->DrawObj(painter, QRect(0, 0, 1, 1));
-							painter->end();
-							delete painter;
-							p->restore();
-							Doc->RePos = savre;
-						}
-					}
+						NextBox->OwnPage->update();
 				}
 				else
 				{

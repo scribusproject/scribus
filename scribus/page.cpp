@@ -9117,7 +9117,20 @@ void Page::BuildAObj()
 void Page::doAlign(QValueList<uint> &Object, int moveCode, double xp, double xdisp, double ydisp, double minx)
 {
 	double xd;
-	for (uint a2 = 0; a2 < Object.count(); ++a2)
+	uint start, end;
+	if ((moveCode == 3) || (moveCode == 13))
+	{
+		start = 1;
+		end = Object.count()-1;
+		if (Object.count() < 3)
+			return;
+	}
+	else
+	{
+		start = 0;
+		end = Object.count();
+	}
+	for (uint a2 = start; a2 < end; ++a2)
 	{
 		switch (moveCode)
 		{

@@ -1,5 +1,8 @@
 Changes since 1.2RC1 
 
+19.08.2004
+	* bug     #547: multi-frame text disappears from later frames
+
 18.08.2004
 	* bug     #962: Scribus crashes when opening a document not in .sla format
 	* bug     #976: settings-->hyphenator: wrong window title in German

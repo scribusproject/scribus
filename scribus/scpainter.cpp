@@ -245,39 +245,16 @@ void ScPainter::setGradient(VGradient::VGradientType mode, FPoint orig, FPoint v
 	fill_gradient.setOrigin(orig);
 	fill_gradient.setVector(vec);
 	fill_gradient.setFocalPoint(foc);
-//	fill_gradient.setRepeatMethod( VGradient::reflect );
 }
 
 void ScPainter::fillPath()
 {
 	if( m_index == 0 ) return;
-/*	int find = -1;
-	for( int i = m_index - 1; i >= 0; i-- )
-		{
-		if( m_path[i].code == ART_MOVETO_OPEN || m_path[i].code == ART_MOVETO )
-			{
-			find = i;
-			break;
-			}
-		}
-	if( find != -1 && ( m_path[ find ].x3 != m_path[ m_index - 1 ].x3 ||
-						m_path[ find ].y3 != m_path[ m_index - 1 ].y3 ) )
-		{
-		ensureSpace( m_index + 1 );
-		m_path[ m_index ].code = ART_LINETO;
-		m_path[ m_index ].x3	= m_path[ find ].x3;
-		m_path[ m_index ].y3	= m_path[ find ].y3;
-		m_index++;
-		m_path[ m_index ].code = ART_END;
-		}
-	else
-		m_path[ m_index++ ].code = ART_END;    */
 	if( fillMode != 0)
-		{
+	{
 		ArtVpath *path = art_bez_path_to_vec( m_path , 0.25 );
 		drawVPath( path, 0 );
-		}
-//	m_index--;
+	}
 }
 
 void ScPainter::strokePath()
