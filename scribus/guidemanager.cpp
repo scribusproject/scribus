@@ -58,10 +58,10 @@ GuideManager::GuideManager(
 	setIcon(loadIcon("AppIcon.png"));
 	
 	/* Initialise the global variables */
-	tp[0] = " pt"; 
-	tp[1] = " mm"; 
-	tp[2] = " in"; 
-	tp[3] = " p";
+	tp[0] = tr(" pt"); 
+	tp[1] = tr(" mm"); 
+	tp[2] = tr(" in"); 
+	tp[3] = tr(" p");
 	int   dp[] = {100, 1000, 10000, 100};
 	
 	Einheit = Einh;
@@ -94,7 +94,7 @@ GuideManager::GuideManager(
 	Layout4 = new QHBoxLayout(0, 0, 6, "Layout4"); 
 	
 	TextLabel2 = new QLabel(HorGroup, "TextLabel2");
-	TextLabel2->setText( tr("X-Pos:"));
+	TextLabel2->setText( tr("Y-Pos:"));
 	Layout4->addWidget(TextLabel2);
 	
 	HorSpin = new MSpinBox(HorGroup, 4);
@@ -136,7 +136,7 @@ GuideManager::GuideManager(
 	Layout2 = new QHBoxLayout(0, 0, 6, "Layout2"); 
 	
 	TextLabel1 = new QLabel(VerGroup, "TextLabel1");
-	TextLabel1->setText( tr("Y-Pos:"));
+	TextLabel1->setText( tr("X-Pos:"));
 	Layout2->addWidget(TextLabel1);
 	
 	VerSpin = new MSpinBox(VerGroup, 4);

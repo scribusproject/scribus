@@ -3278,6 +3278,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc.setAttribute("SHOWGUIDES", static_cast<int>(Vor->GuidesShown));
 	dc.setAttribute("FRV", static_cast<int>(Vor->FramesShown));
 	dc.setAttribute("SHOWMARGIN", static_cast<int>(Vor->MarginsShown));
+	dc.setAttribute("SHOWBASE", static_cast<int>(Vor->BaseShown));
 	elem.appendChild(dc);
 	QDomElement dc1=docu.createElement("GRID");
 	dc1.setAttribute("MINOR",Vor->DminGrid);
@@ -3536,6 +3537,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->GuidesShown = static_cast<bool>(QStoInt(dc.attribute("SHOWGUIDES","1")));
 			Vorein->FramesShown = static_cast<bool>(QStoInt(dc.attribute("FRV","1")));
 			Vorein->MarginsShown = static_cast<bool>(QStoInt(dc.attribute("SHOWMARGIN","1")));
+			Vorein->BaseShown = static_cast<bool>(QStoInt(dc.attribute("SHOWBASE","1")));
 		}
 		if (dc.tagName()=="GRID")
 		{

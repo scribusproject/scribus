@@ -7546,7 +7546,7 @@ void Page::CallGimp()
 		{
 			b->pixmOrg = QImage();
 			proc = new QProcess(NULL);
-			cmd.append(ScApp->Prefs.gimp_exe);
+            cmd = QStringList::split(" ", ScApp->Prefs.gimp_exe);
 			cmd.append(b->Pfile);
 			proc->setArguments(cmd);
 			if ( !proc->start() )

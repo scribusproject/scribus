@@ -32,35 +32,35 @@ public:
 
 	QValueList<double> LocHor;
 	QValueList<double> LocVer;
-    bool LocLocked;
+	bool LocLocked;
 
 private:
-    double LocPageWidth;
-    double LocPageHeight;
+	double LocPageWidth;
+	double LocPageHeight;
 	int Einheit;
-    char *tp[4];
+    QString tp[4];
 
 	int selHor;
 	int selVer;
 
-    QGroupBox* VerGroup;
-    QListBox* VerList;
-    QLabel* TextLabel1;
-    MSpinBox* VerSpin;
-    QPushButton* VerSet;
-    QPushButton* VerDel;
-
-    QGroupBox* HorGroup;
-    QListBox* HorList;
-    QLabel* TextLabel2;
-    MSpinBox* HorSpin;
-    QPushButton* HorSet;
-    QPushButton* HorDel;
-
-    QCheckBox* Lock;
-
-    QPushButton* OK;
-    QPushButton* Cancel;
+	QGroupBox* VerGroup;
+	QListBox* VerList;
+	QLabel* TextLabel1;
+	MSpinBox* VerSpin;
+	QPushButton* VerSet;
+	QPushButton* VerDel;
+	
+	QGroupBox* HorGroup;
+	QListBox* HorList;
+	QLabel* TextLabel2;
+	MSpinBox* HorSpin;
+	QPushButton* HorSet;
+	QPushButton* HorDel;
+	
+	QCheckBox* Lock;
+	
+	QPushButton* OK;
+	QPushButton* Cancel;
 
 	QString GetUnit();
 	void UnitChange();
@@ -68,17 +68,17 @@ private:
 	void UpdateHorList();
 	void UpdateVerList();
 
-    QVBoxLayout* GuideManagerLayout;
-    QHBoxLayout* Layout6;
-    QVBoxLayout* VerGroupLayout;
-    QHBoxLayout* Layout2;
-    QHBoxLayout* Layout1;
-
-    QVBoxLayout* HorGroupLayout;
-    QHBoxLayout* Layout4;
-    QHBoxLayout* Layout3;
-
-    QHBoxLayout* Layout5;
+	QVBoxLayout* GuideManagerLayout;
+	QHBoxLayout* Layout6;
+	QVBoxLayout* VerGroupLayout;
+	QHBoxLayout* Layout2;
+	QHBoxLayout* Layout1;
+	
+	QVBoxLayout* HorGroupLayout;
+	QHBoxLayout* Layout4;
+	QHBoxLayout* Layout3;
+	
+	QHBoxLayout* Layout5;
 
 private slots:
 

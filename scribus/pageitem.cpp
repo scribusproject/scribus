@@ -802,7 +802,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						else
 							TopOffset = asce;
 						if (Doc->Vorlagen[hl->cab].BaseAdj)
-							CurY = ceil((Ypos + CurY - Doc->BaseOffs) / Doc->BaseGrid) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
+						{
+							int ol1 = qRound((Ypos + CurY - Doc->BaseOffs) * 10000.0);
+							int ol2 = static_cast<int>(ol1 / Doc->BaseGrid);
+							CurY = ceil(  ol2 / 10000.0 ) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
+						}
 						pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(CurY+BotOffset));
 						pt2 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY-TopOffset)));
 						while ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))))
@@ -817,7 +821,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								else
 									CurY += Doc->Vorlagen[hl->cab].LineSpa;
 								if (Doc->Vorlagen[hl->cab].BaseAdj)
-									CurY = ceil((Ypos + CurY - Doc->BaseOffs) / Doc->BaseGrid) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
+								{
+									int ol1 = qRound((Ypos + CurY - Doc->BaseOffs) * 10000.0);
+									int ol2 = static_cast<int>(ol1 / Doc->BaseGrid);
+									CurY = ceil(  ol2 / 10000.0 ) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
+								}
 								CurX = ColBound.x();
 								if (CurY+BExtra+lineCorr > Height)
 									{
@@ -854,7 +862,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										else
 											CurX += Doc->Vorlagen[hl->cab].Indent;
 										if (Doc->Vorlagen[hl->cab].BaseAdj)
-											CurY = ceil((Ypos + CurY - Doc->BaseOffs) / Doc->BaseGrid) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
+										{
+											int ol1 = qRound((Ypos + CurY - Doc->BaseOffs) * 10000.0);
+											int ol2 = static_cast<int>(ol1 / Doc->BaseGrid);
+											CurY = ceil(  ol2 / 10000.0 ) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
+										}
 										}
 									else
 										{
@@ -1178,8 +1190,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										{
 										fromOut = false;
 										CurY += Doc->Vorlagen[hl->cab].LineSpa;
-										if (Doc->Vorlagen[hl->cab].BaseAdj)
-											CurY = ceil((Ypos + CurY - Doc->BaseOffs) / Doc->BaseGrid) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
 										if ((CurY+BExtra+lineCorr > Height) && (CurrCol+1 == Cols))
 										{
 											nrc = BuPos2;
@@ -1222,8 +1232,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										CurY = maxDY;
 									}
 								CurY += Doc->Vorlagen[hl->cab].LineSpa;
-								if (Doc->Vorlagen[hl->cab].BaseAdj)
-									CurY = ceil((Ypos + CurY - Doc->BaseOffs) / Doc->BaseGrid) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
 								if (AbsHasDrop)
 									{
 									if (CurY > maxDY)
@@ -1241,8 +1249,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								else
 									{
 									CurY += Doc->Vorlagen[hl->cab].Anach;
-									if (Doc->Vorlagen[hl->cab].BaseAdj)
-										CurY = ceil((Ypos + CurY - Doc->BaseOffs) / Doc->BaseGrid) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
 									if (BuPos3 > 0)
 										BuPos3 -= 1;
 									}

@@ -4062,6 +4062,7 @@ void ScribusApp::slotNewPage(int w)
 /** Ansicht absolut zoomen */
 void ScribusApp::slotZoomAbs(double z)
 {
+	view->rememberPreviousSettings();
 	doc->Scale = z;
 	view->slotDoZoom();
 }
@@ -4070,6 +4071,7 @@ void ScribusApp::slotZoomFit()
 {
 	double dx = (view->width()-50) / (doc->PageB+30);
 	double dy = (view->height()-70) / (doc->PageH+30);
+	view->rememberPreviousSettings();
 	if (dx > dy)
 		slotZoomAbs(dy);
 	else
