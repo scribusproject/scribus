@@ -302,7 +302,7 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.SShade = font->getStrokeShade();
 	vg.BaseAdj = pstyle->isAdjToBaseline();
 	textFrame->Doc->Vorlagen.append(vg);
-	ScApp->Mpal->Spal->updateFList();
+	ScApp->Mpal->Spal->updateFormatList();
 }
 
 void gtAction::removeParagraphStyle(const QString& name)

@@ -51,7 +51,7 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	CurrentPar = editor->paragraphAt(QPoint(2, m->y()+offs));
 	pmen = new QPopupMenu();
 	Spalette* Spal = new Spalette(this);
-	Spal->SetFormats(editor->doc);
+	Spal->setFormats(editor->doc);
 	if ((CurrentPar < static_cast<int>(editor->StyledText.count())) && (editor->StyledText.count() != 0))
 	{
 		if (editor->StyledText.at(CurrentPar)->count() > 0)
@@ -61,7 +61,7 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	}
 	else
 		Spal->setFormat(0);
-	connect(Spal, SIGNAL(NewStyle(int)), this, SLOT(setPStyle(int)));
+	connect(Spal, SIGNAL(newStyle(int)), this, SLOT(setPStyle(int)));
 	pmen->insertItem(Spal);
 	pmen->exec(QCursor::pos());
 	delete pmen;
@@ -1351,7 +1351,7 @@ SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings
 	Extra->setValues( -300, 300, 10, 0);
 	Extra->setSuffix( tr( " pt" ) );
 	QToolTip::add( Extra, tr( "Manual Kerning" ) );
-	connect(SeStyle, SIGNAL(State(int)), this, SIGNAL(NewStyle(int)));
+	connect(SeStyle, SIGNAL(State(int)), this, SIGNAL(newStyle(int)));
 	connect(Extra, SIGNAL(valueChanged(int)), this, SLOT(newKernHandler()));
 }
 
@@ -1362,9 +1362,9 @@ void SToolBStyle::newKernHandler()
 
 void SToolBStyle::SetStyle(int s)
 {
-	disconnect(SeStyle, SIGNAL(State(int)), this, SIGNAL(NewStyle(int)));
+	disconnect(SeStyle, SIGNAL(State(int)), this, SIGNAL(newStyle(int)));
 	SeStyle->setStyle(s);
-	connect(SeStyle, SIGNAL(State(int)), this, SIGNAL(NewStyle(int)));
+	connect(SeStyle, SIGNAL(State(int)), this, SIGNAL(newStyle(int)));
 }
 
 void SToolBStyle::SetKern(double k)
@@ -1380,7 +1380,7 @@ SToolBAlign::SToolBAlign(QMainWindow* parent) : QToolBar( tr("Style Settings"), 
 	GroupAlign = new AlignSelect(this);
 	Spal = new Spalette(this);
 	QToolTip::add( Spal, tr( "Style of current paragraph" ) );
-	connect(Spal, SIGNAL(NewStyle(int)), this, SLOT(newStyleHandler(int )));
+	connect(Spal, SIGNAL(newStyle(int)), this, SLOT(newStyleHandler(int )));
 	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(NewAlign(int )));
 }
 
@@ -1390,12 +1390,12 @@ void SToolBAlign::newStyleHandler(int s)
 		GroupAlign->setEnabled(false);
 	else
 		GroupAlign->setEnabled(true);
-	emit NewStyle(s);
+	emit newStyle(s);
 }
 
 void SToolBAlign::SetAlign(int s)
 {
-	disconnect(Spal, SIGNAL(NewStyle(int)), this, SLOT(newStyleHandler(int )));
+	disconnect(Spal, SIGNAL(newStyle(int)), this, SLOT(newStyleHandler(int )));
 	disconnect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(NewAlign(int )));
 	if (s < 5)
 	{
@@ -1406,7 +1406,7 @@ void SToolBAlign::SetAlign(int s)
 		GroupAlign->setEnabled(false);
 	Spal->setFormat(s);
 	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(NewAlign(int )));
-	connect(Spal, SIGNAL(NewStyle(int)), this, SLOT(newStyleHandler(int )));
+	connect(Spal, SIGNAL(newStyle(int)), this, SLOT(newStyleHandler(int )));
 }
 
 /* Toolbar for Font related Settings */
@@ -1524,7 +1524,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	setDockEnabled(AlignTools, DockLeft, false);
 	setDockEnabled(AlignTools, DockRight, false);
 	setDockEnabled(AlignTools, DockBottom, false);
-	AlignTools->Spal->SetFormats(doc);
+	AlignTools->Spal->setFormats(doc);
 	StyleTools = new SToolBStyle(this);
 	setDockEnabled(StyleTools, DockLeft, false);
 	setDockEnabled(StyleTools, DockRight, false);
@@ -1640,7 +1640,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	// 10/12/2004 - pv - #1203: wrong selection on double click
 	connect(Editor, SIGNAL(doubleClicked(int, int)), this, SLOT(doubleClick(int, int)));
 	connect(EditorBar, SIGNAL(ChangeStyle(int, int )), this, SLOT(changeAlignSB(int, int )));
-	connect(AlignTools, SIGNAL(NewStyle(int)), this, SLOT(newAlign(int)));
+	connect(AlignTools, SIGNAL(newStyle(int)), this, SLOT(newAlign(int)));
 	connect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
 	connect(FillTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxFill(int, int)));
 	connect(StrokeTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxStroke(int, int)));
@@ -1648,7 +1648,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(FontTools, SIGNAL(NewFont(const QString& )), this, SLOT(newTxFont(const QString& )));
 	connect(FontTools, SIGNAL(NewScale(int )), this, SLOT(newTxScale(int )));
 	connect(StyleTools, SIGNAL(NewKern(double )), this, SLOT(newTxKern(double )));
-	connect(StyleTools, SIGNAL(NewStyle(int )), this, SLOT(newTxStyle(int )));
+	connect(StyleTools, SIGNAL(newStyle(int )), this, SLOT(newTxStyle(int )));
 	Editor->setFocus();
 }
  
@@ -2236,12 +2236,12 @@ void StoryEditor::slotEditStyles()
 	int p, i;
 	Editor->getCursorPosition(&p, &i);
 	disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
-	disconnect(AlignTools, SIGNAL(NewStyle(int)), this, SLOT(newAlign(int)));
+	disconnect(AlignTools, SIGNAL(newStyle(int)), this, SLOT(newAlign(int)));
 	disconnect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
 	emit EditSt();
-	AlignTools->Spal->SetFormats(doc);
+	AlignTools->Spal->setFormats(doc);
 	AlignTools->SetAlign(Editor->CurrentABStil);
-	connect(AlignTools, SIGNAL(NewStyle(int)), this, SLOT(newAlign(int)));
+	connect(AlignTools, SIGNAL(newStyle(int)), this, SLOT(newAlign(int)));
 	connect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
 	Editor->setCursorPosition(p, i);
 	updateProps(p, i);

@@ -18,10 +18,9 @@
 #ifndef SPALETTE_H
 #define SPALETTE_H
 
-#include <qlistbox.h>
 #include <qcombobox.h>
 #include <qlayout.h>
-#include "scribusdoc.h"
+class ScribusDoc;
 
 /**
   *@author Franz Schmid
@@ -35,17 +34,17 @@ public:
 	Spalette(QWidget* parent);
 	~Spalette() {};
 	
-	ScribusDoc *doc;
+	ScribusDoc *currentDoc;
 	
 public slots:
-	void SetFormats(ScribusDoc *dd);
+	void setFormats(ScribusDoc *newCurrentDoc);
 	void setFormat(int e);
-	void updateFList();
+	void updateFormatList();
 	void selFormat(int e);
 	
 signals:
-	void NewStyle(int);
-	void EditSt();
+	void newStyle(int);
+	void editStyle();
 };
 
 #endif

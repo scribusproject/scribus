@@ -10,6 +10,7 @@
 #include "tabmanager.h"
 #include "scribus.h"
 #include "styleselect.h"
+#include "spalette.h"
 
 using namespace std;
 

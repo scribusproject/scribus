@@ -210,7 +210,7 @@ public slots:
 
 signals:
 	void NewKern(double);
-	void NewStyle(int);
+	void newStyle(int);
 };
 
 class SToolBAlign : public QToolBar  
@@ -229,7 +229,7 @@ public slots:
 
 signals:
 	void NewAlign(int);
-	void NewStyle(int);
+	void newStyle(int);
 };
 
 class SToolBFont : public QToolBar  

@@ -144,7 +144,7 @@ void MenuTest::FinishScriptRun()
 	{
 		Carrier->Mpal->SetDoc(Carrier->doc);
 		Carrier->Mpal->updateCList();
-		Carrier->Mpal->Spal->SetFormats(Carrier->doc);
+		Carrier->Mpal->Spal->setFormats(Carrier->doc);
 		Carrier->Mpal->SetLineFormats(Carrier->doc);
 		Carrier->Mpal->Cpal->SetColors(Carrier->doc->PageColors);
 		Carrier->Lpal->setLayers(&Carrier->doc->Layers, &Carrier->doc->ActiveLayer);

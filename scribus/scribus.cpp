@@ -540,7 +540,7 @@ void ScribusApp::initScribus()
 		connect(Tpal, SIGNAL(SelectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
 		connect(Tpal, SIGNAL(SelectSeite(int)), this, SLOT(SelectFromOutlS(int)));
 		connect(Tpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
-		connect(Mpal->Spal, SIGNAL(NewStyle(int)), this, SLOT(setNewAbStyle(int)));
+		connect(Mpal->Spal, SIGNAL(newStyle(int)), this, SLOT(setNewAbStyle(int)));
 		connect(Mpal, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
 		connect(Mpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 		connect(Mpal, SIGNAL(CloseTpal()), this, SLOT(ToggleTpal()));
@@ -2503,7 +2503,7 @@ void ScribusApp::SwitchWin()
 	Mpal->SetDoc(doc);
 	Mpal->updateCList();
 	Sepal->SetView(view);
-	Mpal->Spal->SetFormats(doc);
+	Mpal->Spal->setFormats(doc);
 	Mpal->SetLineFormats(doc);
 	Lpal->setLayers(&doc->Layers, &doc->ActiveLayer);
 	view->LaMenu();
@@ -2631,7 +2631,7 @@ void ScribusApp::HaveNewDoc()
 	Mpal->SetDoc(doc);
 	Mpal->updateCList();
 	Sepal->SetView(view);
-	Mpal->Spal->SetFormats(doc);
+	Mpal->Spal->setFormats(doc);
 	Mpal->SetLineFormats(doc);
 	Lpal->setLayers(&doc->Layers, &doc->ActiveLayer);
 	view->LaMenu();
@@ -3303,7 +3303,7 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 		}
 		Mpal->Cpal->SetColors(doc->PageColors);
 		Mpal->updateCList();
-		Mpal->Spal->SetFormats(doc);
+		Mpal->Spal->setFormats(doc);
 		Mpal->SetLineFormats(doc);
 		if (!Mpa)
 		{
@@ -3882,7 +3882,7 @@ bool ScribusApp::DoFileClose()
 	Mpal->UnsetDoc();
 	Sepal->Vie = 0;
 	Sepal->Rebuild();
-	Mpal->Spal->SetFormats(0);
+	Mpal->Spal->setFormats(0);
 	Mpal->SetLineFormats(0);
 	if (doc->EditClip)
 		Npal->doc = 0;
@@ -6143,7 +6143,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 			}
 		}
 	}
-	Mpal->Spal->updateFList();
+	Mpal->Spal->updateFormatList();
 	view->DrawNew();
 	slotDocCh();
 }
@@ -7529,7 +7529,7 @@ void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, S
 			BuildFontMenu();
 			Mpal->Cpal->SetColors(docc->PageColors);
 			Mpal->updateCList();
-			Mpal->Spal->updateFList();
+			Mpal->Spal->updateFormatList();
 			Mpal->SetLineFormats(docc);
 			Tpal->BuildTree(view);
 			Tpal->reopenTree(doc->OpenNodes);

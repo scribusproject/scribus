@@ -15,6 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <qlistbox.h>
+#include "scribusdoc.h"
 #include "spalette.h"
 #include "spalette.moc"
 
@@ -25,14 +27,14 @@ Spalette::Spalette(QWidget* parent) : QComboBox(true, parent, "Sfloat")
 //  										 sizePolicy().hasHeightForWidth() ) );
 	setEditable(false);
 	insertItem( tr("No Style"));
-	doc = 0;
+	currentDoc = NULL;
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
 
-void Spalette::SetFormats(ScribusDoc *dd)
+void Spalette::setFormats(ScribusDoc *newCurrentDoc)
 {
-	doc = dd;
-	updateFList();
+	currentDoc = newCurrentDoc;
+	updateFormatList();
 }
 
 void Spalette::setFormat(int e)
@@ -40,20 +42,20 @@ void Spalette::setFormat(int e)
 	if (e < 5)
 		setCurrentItem(0);
 	else
-		setCurrentText(doc->Vorlagen[e].Vname);
+		setCurrentText(currentDoc->Vorlagen[e].Vname);
 }
 
-void Spalette::updateFList()
+void Spalette::updateFormatList()
 {
 	disconnect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 	clear();
-	if (doc != 0)
+	if (currentDoc != NULL)
 	{
 		QStringList st;
 		st.clear();
 		insertItem( tr("No Style"));
-		for (uint x = 5; x < doc->Vorlagen.count(); ++x)
-			st.append(doc->Vorlagen[x].Vname);
+		for (uint x = 5; x < currentDoc->Vorlagen.count(); ++x)
+			st.append(currentDoc->Vorlagen[x].Vname);
 		st.sort();
 		insertStringList(st);
 	}
@@ -64,16 +66,16 @@ void Spalette::updateFList()
 void Spalette::selFormat(int e)
 {
 	if (e == 0)
-		{
-		emit NewStyle(0);
+	{
+		emit newStyle(0);
 		return;
-		}
-	for (uint x = 5; x < doc->Vorlagen.count(); ++x)
+	}
+	for (uint x = 5; x < currentDoc->Vorlagen.count(); ++x)
+	{
+		if (currentDoc->Vorlagen[x].Vname == currentText())
 		{
-		if (doc->Vorlagen[x].Vname == currentText())
-			{
-			emit NewStyle(x);
+			emit newStyle(x);
 			break;
-			}
 		}
+	}
 }
