@@ -4221,6 +4221,7 @@ void ScribusApp::slotFilePrint()
 			options.filename = di.currentDirPath()+"/"+doc->DocName+".ps";
 		}
 	}
+	options.copies = 1;
 	Druck *printer = new Druck(this, options.filename, options.printer, PDef.Command, Prefs.GCRMode);
 	printer->setMinMax(1, doc->Pages.count(), doc->ActPage->PageNr+1);
 	if (printer->exec())
@@ -4239,7 +4240,7 @@ void ScribusApp::slotFilePrint()
 			else
 				parsePagesString(printer->PageNr->text(), &options.pageNumbers, doc->PageC);
 		}
-		options.copies = 1;
+		options.copies = printer->numCopies();
 		options.outputSeparations = printer->outputSeparations();
 		options.separationName = printer->separationName();
 		options.useColor = printer->color();
