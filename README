@@ -18,8 +18,6 @@ Version 1.2.1 supported Open Office 1.1.x and Star Office 6/7 file formats.
 Version 1.2.2 supports Open Office 2.x/Star Office 8.x (OASIS) as well.
 
 
-
-
 Additionally Scribus uses now a different way to find fonts, sadly this gives
 some changes in the font names Scribus uses. To convert old documents follow
 the procedure below:
@@ -75,8 +73,8 @@ For SuSE 9.x Users:
 - If you are using Qt 3.3.x, please ensure you are using the latest Qt 3.3.2-2+
   rpms. The -2+ versions have an important fix for drag and drop in Scribus. 
 
-- To enable direct CUPS support which recommend, make sure both cups-devel and 
-  openssl-devel are installed. Suse enables ssl support in CUPS.
+- To enable direct CUPS support which we recommend, make sure both cups-devel and 
+  openssl-devel are installed. Suse enables ssl support in CUPS. 
 
 For Fedora/RH using Qt 3.3.2-6+ has the same fixes.
 
@@ -91,4 +89,4 @@ For the Scribus Team,
 
 Franz Schmid
 Peter Linnell
-in February 2005
+in March 2005
