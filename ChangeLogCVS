@@ -1,4 +1,7 @@
 Changes since Version 1.1.2
+21.11.2003	The Linewith of a Textframe is now honoured in the Distances of the
+		Text to the Frameborders when the Borderline is visible.
+
 20.11.2003	Fixed Bug in the PDF and Postscript Export with linked Frames.
 		Increased the maximum Linewidth to 36 pts.
 		Fixed Segfault when deleting more than one Page at once.

@@ -210,7 +210,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	uint a, nrc, nrc2, zae;
 	int desc, asce, absa, aSpa, chs;
 	uint BuPos, LastSP, BuPos2;
-	double oldCurY, LastXp, EndX, OFs, OFs2, wide, rota, wid;
+	double oldCurY, LastXp, EndX, OFs, OFs2, wide, rota, wid, lineCorr;
 	double sc = Doc->Scale;
 	QString chx, chx2, chx3;
 	struct Pti *hl;
@@ -460,6 +460,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				p->setupPolygon(&PoLine);
 				p->drawPolygon();
 				}
+			if (Pcolor2 != "None")
+				lineCorr = Pwidth / 2.0;
+			else
+				lineCorr = 0;
 			if ((isAnnotation) && (AnType == 2) && (Pfile != "") && (PicAvail) && (PicArt) && (AnUseIcons))
 				{
 				QBitmap bmd = QBitmap(static_cast<int>(Width), static_cast<int>(Height));
@@ -551,8 +555,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					}
 				if ((Doc->AppMode == 7) && (Dirty))
 					Dirty = false;
-				CurX = Extra;
-				CurY = Doc->Vorlagen[0].LineSpa+TExtra;
+				CurX = Extra + lineCorr;
+				CurY = Doc->Vorlagen[0].LineSpa+TExtra+lineCorr;
 				LiList.clear();
 				BuPos = 0;
 				BuPos2 = 0;
@@ -636,33 +640,33 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					asce = static_cast<int>((*Doc->AllFonts)[hl->cfont]->numAscent * chs);
 					if (LiList.isEmpty())
 						{
-						pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+desc+BExtra));
+						pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+desc+BExtra+lineCorr));
 						pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-asce));
 						while ((!cl.contains(pf.xForm(pt1))) || (!cl.contains(pf.xForm(pt2))))
 							{
 							CurX++;
 							pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+desc));
 							pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-asce));
-							if (CurX+RExtra > Width)
+							if (CurX+RExtra+lineCorr > Width)
 								{
 								CurY += Doc->Vorlagen[hl->cab].LineSpa;
 								CurY += Doc->Vorlagen[hl->cab].Anach;
-								CurX = Extra;
-								if (CurY+BExtra > Height)
+								CurX = Extra+lineCorr;
+								if (CurY+BExtra+lineCorr > Height)
 									{
 									nrc = a;
 									goto NoRoom;
 									}
 								}
 							}
-							CurX += Extra;
+//							CurX += Extra;
 						}
 					hl->xp = CurX+hl->cextra;
 					hl->yp = CurY;
 					CurY = oldCurY;
 					CurX += wide+hl->cextra;
-					pt1 = QPoint(static_cast<int>(CurX+RExtra), static_cast<int>(CurY+desc+BExtra));
-					pt2 = QPoint(static_cast<int>(CurX+RExtra), static_cast<int>(CurY-asce));
+					pt1 = QPoint(static_cast<int>(CurX+RExtra+lineCorr), static_cast<int>(CurY+desc+BExtra+lineCorr));
+					pt2 = QPoint(static_cast<int>(CurX+RExtra+lineCorr), static_cast<int>(CurY-asce));
 					if ((!cl.contains(pf.xForm(pt1))) || (!cl.contains(pf.xForm(pt2))))
 						outs = true;
 					Zli = new ZZ;
@@ -731,8 +735,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									EndX = LastXp;
 									do
 										{
-										pt1 = QPoint(static_cast<int>(EndX+RExtra), static_cast<int>(CurY+desc));
-										pt2 = QPoint(static_cast<int>(EndX+RExtra), static_cast<int>(CurY-asce));
+										pt1 = QPoint(static_cast<int>(EndX+RExtra+lineCorr), static_cast<int>(CurY+desc));
+										pt2 = QPoint(static_cast<int>(EndX+RExtra+lineCorr), static_cast<int>(CurY-asce));
 										EndX++;
 										}
 									while ((cl.contains(pf.xForm(pt1))) && (cl.contains(pf.xForm(pt2))));
@@ -791,15 +795,15 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								EndX = CurX;
 								do
 									{
-									pt1 = QPoint(static_cast<int>(EndX+RExtra), static_cast<int>(CurY+desc));
-									pt2 = QPoint(static_cast<int>(EndX+RExtra), static_cast<int>(CurY-asce));
+									pt1 = QPoint(static_cast<int>(EndX+RExtra+lineCorr), static_cast<int>(CurY+desc));
+									pt2 = QPoint(static_cast<int>(EndX+RExtra+lineCorr), static_cast<int>(CurY-asce));
 									EndX++;
 									}
 								while ((cl.contains(pf.xForm(pt1))) && (cl.contains(pf.xForm(pt2))));
 								if (Doc->Vorlagen[absa].Ausri == 2)
-									OFs = EndX - CurX - Extra;
+									OFs = EndX - CurX - Extra - lineCorr;
 								if (Doc->Vorlagen[absa].Ausri == 1)
-									OFs = (EndX - CurX - Extra) / 2;
+									OFs = (EndX - CurX - Extra - lineCorr) / 2;
 								if (Doc->Vorlagen[absa].Ausri == 3)
 									OFs = 0;
 								if (Doc->Vorlagen[absa].Ausri == 4)
@@ -812,7 +816,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										}
 									if (aSpa != 0)
 										{
-										OFs2 = (EndX - CurX - Extra) / aSpa;
+										OFs2 = (EndX - CurX - Extra - lineCorr) / aSpa;
 										}
 									else
 										OFs2 = 0;
@@ -841,7 +845,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						BuPos2++;
 						uint BuPos3 = BuPos;
 						CurY += Doc->Vorlagen[0].LineSpa;
-						CurX = Extra;
+						CurX = Extra+lineCorr;
 						if (hl->ch != QChar(13))
 							CurX += Doc->Vorlagen[hl->cab].Indent;
 						else
@@ -902,9 +906,9 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					while ((cl.contains(pf.xForm(pt1))) && (cl.contains(pf.xForm(pt2))));
 					if (Doc->Vorlagen[absa].Ausri == 2)
-						OFs = EndX - CurX - Extra;
+						OFs = EndX - CurX - Extra - lineCorr;
 					if (Doc->Vorlagen[absa].Ausri == 1)
-						OFs = (EndX - CurX - Extra) / 2;
+						OFs = (EndX - CurX - Extra - lineCorr) / 2;
 					if (Doc->Vorlagen[absa].Ausri == 3)
 						OFs = 0;
 					if (Doc->Vorlagen[absa].Ausri == 4)
@@ -917,7 +921,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							}
 						if (aSpa != 0)
 							{
-							OFs2 = (EndX - CurX - Extra) / aSpa;
+							OFs2 = (EndX - CurX - Extra - lineCorr) / aSpa;
 							}
 						else
 							OFs2 = 0;
