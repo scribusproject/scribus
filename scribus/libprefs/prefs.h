@@ -29,6 +29,7 @@
 class FontCombo;
 class PolygonWidget;
 class ArrowChooser;
+class TabTypograpy;
 
 #include "langmgr.h"
 
@@ -42,7 +43,7 @@ public:
 
 	//const QString getSelectedGUILang( void );
 	QString selectedGUILang;
-	void DrawRuler();
+	void drawRuler();
 
 	QWidget* tab;
 	QLabel* TextLabel1_2;
@@ -102,27 +103,7 @@ public:
 	
 	QLabel* TextLabel4c;
 
-	QWidget* tabTypo;
-	QGroupBox* groupBox1a;
-	QLabel* textLabel1a;
-	QLabel* textLabel2a;
-	QSpinBox* subDisplacement;
-	QSpinBox* subScaling;
-	QGroupBox* groupBox2a;
-	QLabel* textLabel3a;
-	QLabel* textLabel4a;
-	QSpinBox* superDisplacement;
-	QSpinBox* superScaling;
-	QGroupBox* groupBox3a;
-	QLabel* textLabel5a;
-	QSpinBox* capsScaling;
-	QGroupBox* groupBox4a;
-	QLabel* textLabel6a;
-	QSpinBox* autoLine;
-	QLabel* textLabel7a;
-	MSpinBox* baseGrid;
-	MSpinBox* baseOffset;
-	QLabel* textLabel8a;
+	TabTypograpy* tabTypo;
 
 	QWidget* tabView;
 	QButtonGroup* pageBackground;
@@ -215,13 +196,12 @@ public:
 	QLabel* endArrowText;
 	QLabel* arrowText;
 
-	QLabel* TextLabelP;
+	QLabel* textLabelP;
 	QWidget* tab_5;
-	QGroupBox* Saving;
+	QGroupBox* saving;
 	QCheckBox* SaveAtQuit;
-	QGroupBox* Preview;
+	QGroupBox* preview;
 	QComboBox* PreviewSize;
-	QFrame* Frame6;
 	QWidget* tab_7;
 	QButtonGroup* GroupSize;
 	QLabel* GZText2;
@@ -300,12 +280,12 @@ public slots:
 	virtual void changeImageScalingRatio(int);
 	virtual void setSample();
 	virtual void setTool();
-	void ChangeDocs();
-	void ChangeProfs();
-	void ChangeScripts();
-	void ChangeTemplates();
-	void ChangeScaling();
-	void ChangeGrid();
+	void changeDocs();
+	void changeProfs();
+	void changeScripts();
+	void changeTemplates();
+	void changeScaling();
+	void changeGrid();
 	void setDS();
 	void setPageWidth(int v);
 	void setPageHeight(int v);
@@ -316,16 +296,16 @@ public slots:
 	void setSize(int gr);
 	void setOrien(int ori);
 	void changePapColor();
-	void UnitChange();
-	void SetDisScale();
+	void unitChange();
+	void setDisScale();
 
 protected:
 	QGridLayout* tabLayout;
 	QGridLayout* ButtonGroup1Layout;
 	QGridLayout* GroupBox200Layout;
 	QGridLayout* tabLayout_5;
-	QHBoxLayout* SavingLayout;
-	QHBoxLayout* PreviewLayout;
+	QHBoxLayout* savingLayout;
+	QHBoxLayout* previewLayout;
 	QHBoxLayout* Layout3;
 	QHBoxLayout* tabLayout_7;
 	QVBoxLayout* Layout21;
@@ -343,11 +323,6 @@ protected:
 	QHBoxLayout* groupGimpLayout;
 	QVBoxLayout* MiscLayout;
 	QVBoxLayout* groupPrintLayout;
-	QGridLayout* tabTypoLayout;
-	QGridLayout* groupBox1aLayout;
-	QGridLayout* groupBox2aLayout;
-	QGridLayout* groupBox3aLayout;
-	QGridLayout* groupBox4aLayout;
 	QVBoxLayout* tabGuidesLayout;
 	QGridLayout* checkGridLayout;
 	QGridLayout* groupBox1Layout;

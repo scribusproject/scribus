@@ -71,6 +71,7 @@
 #include "gtgettext.h"
 #include "fileloader.h"
 #include "arrowchooser.h"
+#include "tabtypography.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -2547,14 +2548,14 @@ bool ScribusApp::SetupDoc()
 		doc->margColor = dia->colorMargin;
 		doc->guideColor = dia->colorGuides;
 		doc->baseColor = dia->colorBaselineGrid;
-		doc->VHoch = dia->superDisplacement->value();
-		doc->VHochSc = dia->superScaling->value();
-		doc->VTief = dia->subDisplacement->value();
-		doc->VTiefSc = dia->subScaling->value();
-		doc->VKapit = dia->capsScaling->value();
-		doc->AutoLine = dia->autoLine->value();
-		doc->BaseGrid = dia->baseGrid->value() / UmReFaktor;
-		doc->BaseOffs = dia->baseOffset->value() / UmReFaktor;
+		doc->VHoch = dia->tabTypo->superDisplacement->value();
+		doc->VHochSc = dia->tabTypo->superScaling->value();
+		doc->VTief = dia->tabTypo->subDisplacement->value();
+		doc->VTiefSc = dia->tabTypo->subScaling->value();
+		doc->VKapit = dia->tabTypo->capsScaling->value();
+		doc->AutoLine = dia->tabTypo->autoLine->value();
+		doc->BaseGrid = dia->tabTypo->baseGrid->value() / UmReFaktor;
+		doc->BaseOffs = dia->tabTypo->baseOffset->value() / UmReFaktor;
 		doc->Dfont = dia->fontComboText->currentText();
 		doc->Dsize = dia->sizeComboText->currentText().left(2).toInt() * 10;
 		doc->DstrokeText = dia->colorComboStrokeText->currentText();
@@ -6991,11 +6992,11 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.GridShown = dia->checkGrid->isChecked();
 		Prefs.FramesShown = dia->checkFrame->isChecked();
 		Prefs.ShowPic = dia->checkPictures->isChecked();
-		Prefs.DVHoch = dia->superDisplacement->value();
-		Prefs.DVHochSc = dia->superScaling->value();
-		Prefs.DVTief = dia->subDisplacement->value();
-		Prefs.DVTiefSc = dia->subScaling->value();
-		Prefs.DVKapit = dia->capsScaling->value();
+		Prefs.DVHoch = dia->tabTypo->superDisplacement->value();
+		Prefs.DVHochSc = dia->tabTypo->superScaling->value();
+		Prefs.DVTief = dia->tabTypo->subDisplacement->value();
+		Prefs.DVTiefSc = dia->tabTypo->subScaling->value();
+		Prefs.DVKapit = dia->tabTypo->capsScaling->value();
 		Prefs.Dpen = dia->colorComboLineShape->currentText();
 		if (Prefs.Dpen == tr("None"))
 			Prefs.Dpen = "None";
@@ -7067,11 +7068,11 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.ScaleY = static_cast<double>(dia->scalingVertical->value()) / 100.0;
 		Prefs.ScaleType = dia->buttonGroup3->isChecked();
 		Prefs.AspectRatio = dia->checkRatioImage->isChecked();
-		Prefs.AutoLine = dia->autoLine->value();
+		Prefs.AutoLine = dia->tabTypo->autoLine->value();
 		Prefs.AutoSave = dia->ASon->isChecked();
 		Prefs.AutoSaveTime = dia->ASTime->value() * 60 * 1000;
-		Prefs.BaseGrid = dia->baseGrid->value() / UmReFaktor;
-		Prefs.BaseOffs = dia->baseOffset->value() / UmReFaktor;
+		Prefs.BaseGrid = dia->tabTypo->baseGrid->value() / UmReFaktor;
+		Prefs.BaseOffs = dia->tabTypo->baseOffset->value() / UmReFaktor;
 		SavePrefs();
 		QWidgetList windows = wsp->windowList();
 		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )

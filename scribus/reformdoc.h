@@ -21,6 +21,7 @@
 class FontCombo;
 class PolygonWidget;
 class ArrowChooser;
+class TabTypograpy;
 
 class ReformDoc : public PrefsDialogBase
 {
@@ -30,8 +31,8 @@ public:
 	ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData );
 	~ReformDoc() {};
 	QWidget* tabPage;
-	QGroupBox* GroupBox7;
-	QGroupBox* GroupBox7a;
+	QGroupBox* groupBox7;
+	QGroupBox* groupBox7a;
 	QGroupBox* dsGroupBox7;
 	QGroupBox* groupScratch;
 	QLabel* TextLabel5;
@@ -65,7 +66,7 @@ public:
 
 	QWidget* tabGuides;
 	QWidget* tabView;
-	QWidget* tabTypo;
+	TabTypograpy* tabTypo;
 	QWidget* tabTools;
 	QWidget* tabMisc;
 	QLabel* textLabel1;
@@ -102,27 +103,6 @@ public:
 	QCheckBox* checkGuides;
 	QCheckBox* checkBaseline;
 	QCheckBox* checkLink;
-	QGroupBox* groupBox1a;
-	QLabel* textLabel1a;
-	QLabel* textLabel2a;
-	QSpinBox* subDisplacement;
-	QSpinBox* subScaling;
-	QGroupBox* groupBox2a;
-	QLabel* textLabel3a;
-	QLabel* textLabel4a;
-	QSpinBox* superDisplacement;
-	QSpinBox* superScaling;
-	QGroupBox* groupBox3a;
-	QLabel* textLabel5a;
-	QSpinBox* capsScaling;
-	QGroupBox* groupBox4a;
-	QLabel* textLabel6a;
-	QSpinBox* autoLine;
-	QLabel* textLabel7a;
-	MSpinBox* baseGrid;
-	MSpinBox* baseOffset;
-	QLabel* textLabel8a;
-
 
 	QButtonGroup* buttonGroupTools;
 	QToolButton* toolShape;
@@ -216,15 +196,15 @@ public:
 	QColor colorMargin;
 
 protected:
-	QVBoxLayout* ReformDocLayout;
+	QVBoxLayout* reformDocLayout;
 	QHBoxLayout* dsGroupBox7Layout;
-	QHBoxLayout* GroupBox7Layout;
-	QHBoxLayout* GroupBox7aLayout;
+	QHBoxLayout* groupBox7Layout;
+	QHBoxLayout* groupBox7aLayout;
 	QHBoxLayout* groupScratchLayout;
 	QGridLayout* dsLayout4;
-	QGridLayout* Layout4;
-	QGridLayout* Layout4a;
-	QGridLayout* Layout4s;
+	QGridLayout* layout4;
+	QGridLayout* layout4a;
+	QGridLayout* layout4s;
 	QHBoxLayout* Layout3;
 	QVBoxLayout* tabGuidesLayout;
 	QVBoxLayout* tabViewLayout;
@@ -241,11 +221,6 @@ protected:
 	QHBoxLayout* layout10;
 	QSpacerItem* spacer3;
 	QGridLayout* layout12;
-	QGridLayout* tabTypoLayout;
-	QGridLayout* groupBox1aLayout;
-	QGridLayout* groupBox2aLayout;
-	QGridLayout* groupBox3aLayout;
-	QGridLayout* groupBox4aLayout;
 	QHBoxLayout* tabToolsLayout;
 	QVBoxLayout* buttonGroupToolsLayout;
 	QGridLayout* subTabTextLayout;

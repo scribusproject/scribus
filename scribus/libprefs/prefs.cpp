@@ -17,6 +17,7 @@
 #include "fontcombo.h"
 #include "polygonwidget.h"
 #include "arrowchooser.h"
+#include "tabtypography.h"
 
 using namespace std;
 
@@ -488,97 +489,16 @@ Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( p
 	tabGuidesLayout->addLayout( layout12 );
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
 
-	tabTypo = new QWidget( prefsWidgets, "tabTypo" );
-	tabTypoLayout = new QGridLayout( tabTypo, 1, 1, 11, 6, "tabTypoLayout");
-	tabTypoLayout->setAlignment( Qt::AlignTop );
-	groupBox1a = new QGroupBox( tabTypo, "groupBox1a" );
-	groupBox1a->setColumnLayout(0, Qt::Vertical );
-	groupBox1a->layout()->setSpacing( 6 );
-	groupBox1a->layout()->setMargin( 11 );
-	groupBox1a->setTitle( tr( "Subscript" ) );
-	groupBox1aLayout = new QGridLayout( groupBox1a->layout() );
-	groupBox1aLayout->setAlignment( Qt::AlignTop );
-	subDisplacement = new QSpinBox( groupBox1a, "subDisplacement" );
-	subDisplacement->setMaxValue( 100 );
-	subDisplacement->setValue( prefsData->DVTief );
-	subDisplacement->setSuffix( tr( " %" ) );
-	groupBox1aLayout->addWidget( subDisplacement, 0, 1, Qt::AlignLeft );
-	textLabel1a = new QLabel(subDisplacement, tr( "&Displacement:" ), groupBox1a, "textLabel1a" );
-	groupBox1aLayout->addWidget( textLabel1a, 0, 0 );
-	subScaling = new QSpinBox( groupBox1a, "subScaling" );
-	subScaling->setMaxValue( 100 );
-	subScaling->setMinValue( 1 );
-	subScaling->setValue( prefsData->DVTiefSc );
-	subScaling->setSuffix( tr( " %" ) );
-	groupBox1aLayout->addWidget( subScaling, 0, 3, Qt::AlignLeft );
-	textLabel2a = new QLabel(subScaling, tr( "&Scaling:" ), groupBox1a, "textLabel2a" );
-	groupBox1aLayout->addWidget( textLabel2a, 0, 2 );
-	tabTypoLayout->addWidget( groupBox1a, 0, 0 );
-	groupBox2a = new QGroupBox( tabTypo, "groupBox2a" );
-	groupBox2a->setColumnLayout(0, Qt::Vertical );
-	groupBox2a->layout()->setSpacing( 6 );
-	groupBox2a->layout()->setMargin( 11 );
-	groupBox2a->setTitle( tr( "Superscript" ) );
-	groupBox2aLayout = new QGridLayout( groupBox2a->layout() );
-	groupBox2aLayout->setAlignment( Qt::AlignTop );
-	superDisplacement = new QSpinBox( groupBox2a, "superDisplacement" );
-	superDisplacement->setMaxValue( 100 );
-	superDisplacement->setValue( prefsData->DVHoch );
-	superDisplacement->setSuffix( tr( " %" ) );
-	groupBox2aLayout->addWidget( superDisplacement, 0, 1, Qt::AlignLeft );
-	textLabel3a = new QLabel(superDisplacement, tr( "D&isplacement:" ), groupBox2a, "textLabel3a" );
-	groupBox2aLayout->addWidget( textLabel3a, 0, 0 );
-	superScaling = new QSpinBox( groupBox2a, "superScaling" );
-	superScaling->setMaxValue( 100 );
-	superScaling->setMinValue( 1 );
-	superScaling->setValue( prefsData->DVHochSc );
-	superScaling->setSuffix( tr( " %" ) );
-	groupBox2aLayout->addWidget( superScaling, 0, 3, Qt::AlignLeft );
-	textLabel4a = new QLabel(superScaling, tr( "S&caling:" ), groupBox2a, "textLabel4a" );
-	groupBox2aLayout->addWidget( textLabel4a, 0, 2 );
-	tabTypoLayout->addWidget( groupBox2a, 1, 0 );
-	groupBox3a = new QGroupBox( tabTypo, "groupBox3a" );
-	groupBox3a->setColumnLayout(0, Qt::Vertical );
-	groupBox3a->layout()->setSpacing( 6 );
-	groupBox3a->layout()->setMargin( 11 );
-	groupBox3a->setTitle( tr( "Small Caps" ) );
-	groupBox3aLayout = new QGridLayout( groupBox3a->layout() );
-	groupBox3aLayout->setAlignment( Qt::AlignTop );
-	capsScaling = new QSpinBox( groupBox3a, "capsScaling" );
-	capsScaling->setMaxValue( 100 );
-	capsScaling->setMinValue( 1 );
-	capsScaling->setValue( prefsData->DVKapit );
-	capsScaling->setSuffix( tr( " %" ) );
-	groupBox3aLayout->addWidget( capsScaling, 0, 1, Qt::AlignLeft );
-	textLabel5a = new QLabel(capsScaling, tr( "Sc&aling:" ), groupBox3a, "textLabel5a" );
-	groupBox3aLayout->addWidget( textLabel5a, 0, 0 );
-	tabTypoLayout->addWidget( groupBox3a, 2, 0 );
-	groupBox4a = new QGroupBox( tabTypo, "groupBox4a" );
-	groupBox4a->setColumnLayout(0, Qt::Vertical );
-	groupBox4a->layout()->setSpacing( 6 );
-	groupBox4a->layout()->setMargin( 11 );
-	groupBox4a->setTitle( tr( "Other" ) );
-	groupBox4aLayout = new QGridLayout( groupBox4a->layout() );
-	groupBox4aLayout->setAlignment( Qt::AlignTop );
-	baseGrid = new MSpinBox( 1, prefsData->PageHoehe * Umrech, groupBox4a, 1 );
-	baseGrid->setValue(prefsData->BaseGrid * Umrech);
-	groupBox4aLayout->addWidget( baseGrid, 0, 1, Qt::AlignLeft );
-	textLabel6a = new QLabel(baseGrid, tr( "Baseline &Grid:" ),groupBox4a, "textLabel6a" );
-	groupBox4aLayout->addWidget( textLabel6a, 0, 0 );
-	baseOffset = new MSpinBox( 0, prefsData->PageHoehe * Umrech, groupBox4a, 1 );
-	baseOffset->setValue(prefsData->BaseOffs * Umrech);
-	groupBox4aLayout->addWidget( baseOffset, 1, 1, Qt::AlignLeft );
-	textLabel7a = new QLabel(baseOffset, tr( "Baseline &Offset:" ),groupBox4a, "textLabel7a" );
-	groupBox4aLayout->addWidget( textLabel7a, 1, 0 );
-	autoLine = new QSpinBox( groupBox4a, "autoLine" );
-	autoLine->setMaxValue( 100 );
-	autoLine->setMinValue( 1 );
-	autoLine->setValue( prefsData->AutoLine );
-	autoLine->setSuffix( tr( " %" ) );
-	groupBox4aLayout->addWidget( autoLine, 2, 1, Qt::AlignLeft );
-	textLabel8a = new QLabel( autoLine, tr( "Automatic &Line Spacing:" ), groupBox4a, "textLabel8a" );
-	groupBox4aLayout->addWidget( textLabel8a, 2, 0 );
-	tabTypoLayout->addWidget( groupBox4a, 3, 0 );
+	tabTypo = new TabTypograpy(  prefsWidgets, 
+																prefsData->DVTief, 
+																prefsData->DVTiefSc, 
+																prefsData->DVHoch, 
+																prefsData->DVHochSc, 
+																prefsData->DVKapit, 
+																prefsData->BaseGrid * Umrech, 
+																prefsData->BaseOffs * Umrech, 
+																prefsData->AutoLine, 
+																"");
 	addItem( tr("Typography"), loadIcon("font.png"), tabTypo);
 
 	tabTools = new QWidget( prefsWidgets, "tabTools" );
@@ -982,50 +902,37 @@ Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( p
 	tabLayout_5 = new QGridLayout( tab_5 );
 	tabLayout_5->setSpacing( 6 );
 	tabLayout_5->setMargin( 11 );
-
-	Saving = new QGroupBox( tr( "Other Options" ), tab_5, "Saving" );
-	Saving->setColumnLayout(0, Qt::Vertical );
-	Saving->layout()->setSpacing( 0 );
-	Saving->layout()->setMargin( 0 );
-	SavingLayout = new QHBoxLayout( Saving->layout() );
-	SavingLayout->setAlignment( Qt::AlignTop );
-	SavingLayout->setSpacing( 6 );
-	SavingLayout->setMargin( 25 );
-
-	SaveAtQuit = new QCheckBox( tr( "Sa&ve Contents on Changes" ), Saving, "SaveAtQuit" );
+	saving = new QGroupBox( tr( "Other Options" ), tab_5, "Saving" );
+	saving->setColumnLayout(0, Qt::Vertical );
+	saving->layout()->setSpacing( 0 );
+	saving->layout()->setMargin( 0 );
+	savingLayout = new QHBoxLayout( saving->layout() );
+	savingLayout->setAlignment( Qt::AlignTop );
+	savingLayout->setSpacing( 6 );
+	savingLayout->setMargin( 25 );
+	SaveAtQuit = new QCheckBox( tr( "Sa&ve Contents on Changes" ), saving, "SaveAtQuit" );
 	SaveAtQuit->setChecked(prefsData->SaveAtQ);
-	SavingLayout->addWidget( SaveAtQuit );
-
-	tabLayout_5->addWidget( Saving, 1, 0 );
-
-	Preview = new QGroupBox( tr( "Preview" ), tab_5, "Preview" );
-	Preview->setColumnLayout(0, Qt::Vertical );
-	Preview->layout()->setSpacing( 0 );
-	Preview->layout()->setMargin( 0 );
-	PreviewLayout = new QHBoxLayout( Preview->layout() );
-	PreviewLayout->setAlignment( Qt::AlignTop );
-	PreviewLayout->setSpacing( 10 );
-	PreviewLayout->setMargin( 24 );
-
-	PreviewSize = new QComboBox( true, Preview, "PreviewSize" );
+	savingLayout->addWidget( SaveAtQuit );
+	tabLayout_5->addWidget( saving, 1, 0 );
+	preview = new QGroupBox( tr( "Preview" ), tab_5, "Preview" );
+	preview->setColumnLayout(0, Qt::Vertical );
+	preview->layout()->setSpacing( 0 );
+	preview->layout()->setMargin( 0 );
+	previewLayout = new QHBoxLayout( preview->layout() );
+	previewLayout->setAlignment( Qt::AlignTop );
+	previewLayout->setSpacing( 10 );
+	previewLayout->setMargin( 24 );
+	PreviewSize = new QComboBox( true, preview, "PreviewSize" );
 	PreviewSize->insertItem( tr( "Small" ) );
 	PreviewSize->insertItem( tr( "Medium" ) );
 	PreviewSize->insertItem( tr( "Large" ) );
 	PreviewSize->setEditable(false);
 	int sci = prefsData->PSize == 40 ? 0 : prefsData->PSize == 60 ? 1 : 2;
 	PreviewSize->setCurrentItem(sci);
-	TextLabelP = new QLabel( PreviewSize, tr( "&Size:" ), Preview, "TextLabel1_3" );
-	PreviewLayout->addWidget( TextLabelP );
-	PreviewLayout->addWidget( PreviewSize );
-
-	tabLayout_5->addWidget( Preview, 0, 0 );
-
-	Frame6 = new QFrame( tab_5, "Frame6" );
-	Frame6->setFrameShape( QFrame::NoFrame );
-	Frame6->setFrameShadow( QFrame::Plain );
-	Frame6->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
-
-	tabLayout_5->addMultiCellWidget( Frame6, 0, 1, 1, 1 );
+	textLabelP = new QLabel( PreviewSize, tr( "&Size:" ), preview, "TextLabel1_3" );
+	previewLayout->addWidget( textLabelP );
+	previewLayout->addWidget( PreviewSize );
+	tabLayout_5->addWidget( preview, 0, 0 );
 	addItem(  tr("Scrapbook"), loadIcon("scrap.png"), tab_5);
 
 	tabView = new QWidget( prefsWidgets, "tabView" );
@@ -1129,7 +1036,7 @@ Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( p
 	CaliGroupLayout->addWidget( CaliText );
 	CaliRuler = new QLabel( CaliGroup, "CaliRuler" );
 	CaliRuler->setMinimumSize( QSize( 20, 20 ) );
-	DrawRuler();
+	drawRuler();
 	CaliRuler->setFrameShape( QLabel::Box );
 	CaliRuler->setFrameShadow( QLabel::Sunken );
 	CaliRuler->setScaledContents( false );
@@ -1274,13 +1181,6 @@ Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( p
 	QToolTip::add( inBackground, tr( "Place the grid behind your page objects" ) );
 	QToolTip::add( inForeground, tr( "Place the grid in front of your page objects" ) );
 
-	QToolTip::add( superDisplacement, tr( "Displacement above the baseline of the font on a line" ) );
-	QToolTip::add( superScaling, tr( "Relative size of the superscript compared to the normal font" ) );
-	QToolTip::add( subDisplacement, tr( "Displacement below the baseline of the normal font on a line" ) );
-	QToolTip::add( subScaling, tr( "Relative size of the subscript compared to the normal font" ) );
-	QToolTip::add( capsScaling, tr( "Relative size of the small caps font compared to the normal font" ) );
-	QToolTip::add( autoLine, tr( "Percentage increase over the font size for the line spacing" ) );
-
 	QToolTip::add( toolText, tr( "Text Frame Properties" ) );
 	QToolTip::add( toolImage, tr( "Picture Frame Properties" ) );
 	QToolTip::add( toolShape, tr( "Shape Drawing Properties" ) );
@@ -1343,7 +1243,7 @@ Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( p
 	connect(guideColor, SIGNAL(clicked()), this, SLOT(changeGuideColor()));
 	connect(marginColor, SIGNAL(clicked()), this, SLOT(changeMarginColor()));
 	connect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
-	connect(UnitCombo, SIGNAL(activated(int)), this, SLOT(UnitChange()));
+	connect(UnitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
 	connect(toolShape, SIGNAL(clicked()), this, SLOT(setTool()));
 	connect(toolPoly, SIGNAL(clicked()), this, SLOT(setTool()));
 	connect(toolImage, SIGNAL(clicked()), this, SLOT(setTool()));
@@ -1366,16 +1266,16 @@ Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( p
 	connect(GZComboO, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(GZComboF, SIGNAL(activated(int)), this, SLOT(setSize(int)));
 	connect(facingPages, SIGNAL(clicked()), this, SLOT(setDS()));
-	connect(FileC, SIGNAL(clicked()), this, SLOT(ChangeDocs()));
-	connect(FileC2, SIGNAL(clicked()), this, SLOT(ChangeProfs()));
-	connect(FileC3, SIGNAL(clicked()), this, SLOT(ChangeScripts()));
-	connect(FileC4, SIGNAL(clicked()), this, SLOT(ChangeTemplates()));
-	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(SetDisScale()));
+	connect(FileC, SIGNAL(clicked()), this, SLOT(changeDocs()));
+	connect(FileC2, SIGNAL(clicked()), this, SLOT(changeProfs()));
+	connect(FileC3, SIGNAL(clicked()), this, SLOT(changeScripts()));
+	connect(FileC4, SIGNAL(clicked()), this, SLOT(changeTemplates()));
+	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 	setSize(prefsData->PageFormat);
 	setOrien(prefsData->Ausrichtung);
 	pageWidth->setValue(prefsData->PageBreite * Umrech);
 	pageHeight->setValue(prefsData->PageHoehe * Umrech);
-	UnitChange();
+	unitChange();
 	prefsWidgets->raiseWidget(0);
 	toolText->setOn(true);
 	setSample();
@@ -1406,7 +1306,7 @@ Preferences::~Preferences()
  \param None
  \retval None
  */
-void Preferences::ChangeDocs()
+void Preferences::changeDocs()
 {
 	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
 	if (s != "")
@@ -1421,9 +1321,9 @@ void Preferences::ChangeDocs()
  \param None
  \retval None
  */
-void Preferences::ChangeProfs()
+void Preferences::changeProfs()
 {
-	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
+	QString s = QFileDialog::getExistingDirectory(ProPfad->text(), this, "d", tr("Choose a Directory"), true);
 	if (s != "")
 		ProPfad->setText(s);
 }
@@ -1436,9 +1336,9 @@ void Preferences::ChangeProfs()
  \param None
  \retval None 
  */
-void Preferences::ChangeScripts()
+void Preferences::changeScripts()
 {
-	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
+	QString s = QFileDialog::getExistingDirectory(ScriptPfad->text(), this, "d", tr("Choose a Directory"), true);
 	if (s != "")
 		ScriptPfad->setText(s);
 }
@@ -1451,9 +1351,9 @@ void Preferences::ChangeScripts()
  \param None
  \retval None 
  */
-void Preferences::ChangeTemplates()
+void Preferences::changeTemplates()
 {
-	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
+	QString s = QFileDialog::getExistingDirectory(TemplateDir->text(), this, "d", tr("Choose a Directory"), true);
 	if (s != "")
 		TemplateDir->setText(s);
 }
@@ -1866,7 +1766,7 @@ void Preferences::changeBaselineColor()
  \param None
  \retval None 
  */
-void Preferences::UnitChange()
+void Preferences::unitChange()
 {
 	disconnect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
@@ -1917,8 +1817,8 @@ void Preferences::UnitChange()
 	minorSpace->setSuffix(einh);
 	majorSpace->setSuffix(einh);
 	snapDistance->setSuffix(einh);
-	baseGrid->setSuffix(einh);
-	baseOffset->setSuffix(einh);
+	tabTypo->baseGrid->setSuffix(einh);
+	tabTypo->baseOffset->setSuffix(einh);
 	gapText->setSuffix(einh);
 	topScratch->setSuffix(einh);
 	bottomScratch->setSuffix(einh);
@@ -1938,10 +1838,10 @@ void Preferences::UnitChange()
 	majorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	snapDistance->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	snapDistance->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	baseGrid->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	baseGrid->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	baseOffset->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	baseOffset->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabTypo->baseGrid->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabTypo->baseGrid->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabTypo->baseOffset->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabTypo->baseOffset->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	gapText->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	gapText->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	topScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
@@ -1952,7 +1852,7 @@ void Preferences::UnitChange()
 	leftScratch->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	rightScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	rightScratch->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	DrawRuler();
+	drawRuler();
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	connect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
@@ -1969,10 +1869,10 @@ void Preferences::UnitChange()
  \param None
  \retval None
  */
-void Preferences::SetDisScale()
+void Preferences::setDisScale()
 {
 	DisScale = QMAX((100.0 + CaliSlider->value()) / 100.0, 0.01);
-	DrawRuler();
+	drawRuler();
 	CaliAnz->setText(QString::number(DisScale*100, 'f', 2)+" %");
 }
 
@@ -1984,7 +1884,7 @@ void Preferences::SetDisScale()
  \param None
  \retval None
  */
-void Preferences::DrawRuler()
+void Preferences::drawRuler()
 {
 	double xl, iter, iter2, maxi;
 	switch (Einheit)
