@@ -146,7 +146,7 @@ public:
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
 	void MoveItemI(double newX, double newY, int ite);
 	void UpdateClip(PageItem* b);
-	void SetPolyClip(PageItem *b, int up, int down);
+	void SetPolyClip(PageItem *b, int up);
 	void ConvertClip(PageItem *b);
 	void UpdatePolyClip(PageItem *b);
 	void MarkClip(PageItem *b);
