@@ -6312,7 +6312,8 @@ void ScribusView::slotDoCurs(bool draw)
 	PageItem *b;
 	if (GetItem(&b))
 	{
-		if ((b->PType != 4) || (b->Ptext.count() == 0)) { return; }
+		if (b->PType != 4) //  || (b->Ptext.count() == 0)) { return; }
+			return;
 		QPainter p;
 		QString chx;
 		int xp, yp, yp1, desc, asce;
@@ -6386,10 +6387,35 @@ void ScribusView::slotDoCurs(bool draw)
 		}
 		else
 		{
-			xp = static_cast<int>(b->Ptext.at(b->CPos)->xp);
-			yp = static_cast<int>(b->Ptext.at(b->CPos)->yp);
-			desc = static_cast<int>((*Doc->AllFonts)[b->Ptext.at(b->CPos)->cfont]->numDescender * (-b->Ptext.at(b->CPos)->csize / 10.0));
-			asce = static_cast<int>((*Doc->AllFonts)[b->Ptext.at(b->CPos)->cfont]->numAscent * (b->Ptext.at(b->CPos)->csize / 10.0));
+			if (b->Ptext.count() == 0)
+			{
+				double lineCorr;
+				if (b->Pcolor2 != "None")
+					lineCorr = b->Pwidth / 2.0;
+				else
+					lineCorr = 0;
+				xp = static_cast<int>(b->Extra + lineCorr);
+				yp = static_cast<int>(b->TExtra + lineCorr + b->LineSp);
+				desc = static_cast<int>((*Doc->AllFonts)[b->IFont]->numDescender * (-b->ISize / 10.0));
+				asce = static_cast<int>((*Doc->AllFonts)[b->IFont]->numAscent * (b->ISize / 10.0));
+			}
+			else
+			{
+				if (b->Ptext.at(b->CPos)->ch == QChar(9))
+				{
+					double lineCorr;
+					if (b->Pcolor2 != "None")
+						lineCorr = b->Pwidth / 2.0;
+					else
+						lineCorr = 0;
+					xp = static_cast<int>(b->Extra + lineCorr);
+				}
+				else
+					xp = static_cast<int>(b->Ptext.at(b->CPos)->xp);
+				yp = static_cast<int>(b->Ptext.at(b->CPos)->yp);
+				desc = static_cast<int>((*Doc->AllFonts)[b->Ptext.at(b->CPos)->cfont]->numDescender * (-b->Ptext.at(b->CPos)->csize / 10.0));
+				asce = static_cast<int>((*Doc->AllFonts)[b->Ptext.at(b->CPos)->cfont]->numAscent * (b->Ptext.at(b->CPos)->csize / 10.0));
+			}
 		}
 		yp1 = yp - asce;
 		yp += desc;
@@ -6957,6 +6983,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 				else
 				{
 					EmitValues(b);
+					b->paintObj();
 					if (b->PType == 5)
 						emit ItemGeom(b->Width, b->Height);
 					emit HaveSel(b->PType);
