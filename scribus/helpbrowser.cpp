@@ -194,7 +194,6 @@ void HelpBrowser::jumpToHelpSection(QString jumpToSection, QString jumpToFile)
 		toLoad = pfad + language + "/"; //clean this later to handle 5 char locales
 		if (jumpToSection=="") 
 		{
-			//toLoad+="index.html";
 			toLoad+=listView->firstChild()->text(1);
 			listView->setSelected( listView->firstChild(), true );
 		}
@@ -304,10 +303,14 @@ void HelpBrowser::loadMenu()
 						qlvi=new QListViewItem(listView, textAttr.value(), fileAttr.value());
 					else 
 						qlvi=new QListViewItem(listView, qlvi2, textAttr.value(), fileAttr.value());
-					if (qlvi!=NULL && textAttr.value()=="Tutorials")
+					if (qlvi!=NULL && e.hasAttribute( "section" ))
 					{
-						haveTutorials=true;
-						tutorialsMenuItem=qlvi;
+						QDomAttr sectionAttr = e.attributeNode( "section" );
+						if (sectionAttr.value()=="tutorials" && !haveTutorials) 
+						{
+							haveTutorials=true;
+							tutorialsMenuItem=qlvi;
+						}
 					}
 
 					if (qlvi!=NULL)
@@ -331,10 +334,14 @@ void HelpBrowser::loadMenu()
 									qlvi3=new QListViewItem(qlvi, textAttr.value(), fileAttr.value());
 								else 
 									qlvi3=new QListViewItem(qlvi, qlvi4, textAttr.value(), fileAttr.value());
-								if (qlvi3!=NULL && textAttr.value()=="Tutorials")
+								if (qlvi3!=NULL && ec.hasAttribute( "section" ))
 								{
-									haveTutorials=true;
-									tutorialsMenuItem=qlvi3;
+									QDomAttr sectionAttr = e.attributeNode( "section" );
+									if (sectionAttr.value()=="tutorials" && !haveTutorials)
+									{
+										haveTutorials=true;
+										tutorialsMenuItem=qlvi3;
+									}
 								}
 								if (qlvi3!=NULL)
 									qlvi4=qlvi3;
@@ -357,10 +364,14 @@ void HelpBrowser::loadMenu()
 												qlvi5=new QListViewItem(qlvi3, textAttr.value(), fileAttr.value());
 											else 
 												qlvi5=new QListViewItem(qlvi3, qlvi6, textAttr.value(), fileAttr.value());
-											if (qlvi5!=NULL && textAttr.value()=="Tutorials")
+											if (qlvi5!=NULL && ecc.hasAttribute( "section" ))
 											{
-												haveTutorials=true;
-												tutorialsMenuItem=qlvi5;
+												QDomAttr sectionAttr = e.attributeNode( "section" );
+												if (sectionAttr.value()=="tutorials" && !haveTutorials)
+												{
+													haveTutorials=true;
+													tutorialsMenuItem=qlvi5;
+												}
 											}
 										}
 										if (qlvi5!=NULL)
