@@ -1531,7 +1531,7 @@ void PageItem::DrawZeichen(QPainter *p, struct ZZ *hl)
 #ifdef HAVE_FREETYPE
 	FT_Face face;
 	uint chr = hl->Zeich[0].unicode();
-	if ((chr > 255) || (Doc->Scale > 1))
+	if ((chr > 128) || (Doc->Scale > 1))
 		{
 		if ((*Doc->AllFonts)[hl->ZFo]->CharWidth.contains(chr))
 			{

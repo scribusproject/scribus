@@ -1,4 +1,9 @@
 Changes since Version 1.0RC1
+30.06.2003	page.cpp		Pressing the Ctlr-Key when resizing Objects with the Mouse
+					keeps now the aspect ratio of the Object.
+		pageitem.cpp		All Characters with code above 128 are now handled by FreeType.
+		scribus.no_NO.po	Updated.
+
 29.06.2003	fontprefs.cpp		Fixed Bug when deleting the last Extra Font Path.
 		prefs.cpp		Changed from the tabbed Layout to a more modern one.
 		pslib.cpp		Don't rotate Pages anymore when Landscape is selected.
@@ -18,4 +23,3 @@ Changes since Version 1.0RC1
 		mpalette.cpp
 		seiten.cpp		Changed the Construktor to avoid a Bug in Gnome's 
 					Windowmanager metacity.
-

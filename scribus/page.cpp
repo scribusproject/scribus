@@ -2796,7 +2796,15 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 									QCursor::setPos(mapToGlobal(mop));
 									}
 								else
-									mop = QPoint(m->x(), m->y());
+									{
+									if (m->state() & ControlButton)
+										{
+										mop = QPoint(m->x(), static_cast<int>((b->Ypos + ((newX - b->Xpos) / b->OldB2 * b->OldH2)) * sc));
+										QCursor::setPos(mapToGlobal(mop));
+										}
+									else
+										mop = QPoint(m->x(), m->y());
+									}
 								np = p.xFormDev(mop);
 								nx = np.x();
 								ny = np.y();

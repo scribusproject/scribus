@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.no_NO\n"
 "POT-Creation-Date: 2003-06-19 10:00+0200\n"
-"PO-Revision-Date: 2003-06-22 23:30+0200\n"
+"PO-Revision-Date: 2003-06-27 17:08+0200\n"
 "Last-Translator: Klaus Ade Johnstad <klaus.johnstad@holmlia.gs.oslo.no>\n"
 "Language-Team: Norwegian <i18n-nb>\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -29,7 +29,7 @@ msgid "Open"
 msgstr "Åpne"
 
 msgid "Close"
-msgstr "Lukk dokument"
+msgstr "Lukk"
 
 msgid "Save"
 msgstr "Lagre"
@@ -66,7 +66,7 @@ msgid "Print..."
 msgstr "Skriv ut"
 
 msgid "Quit"
-msgstr "Avslutt Scribus"
+msgstr "Avslutt"
 
 msgid "View"
 msgstr "Vis"
@@ -190,9 +190,8 @@ msgstr "Greit"
 msgid "Cancel"
 msgstr "Avbryt"
 
-#, fuzzy
 msgid "Autom. Textframes"
-msgstr "Autom. Tekstrammer"
+msgstr "Automatisk Tekstrammer"
 
 msgid "W:"
 msgstr "W:"
@@ -231,7 +230,7 @@ msgid ");;Vectorimages (*.eps *.pdf);;All Files (*)"
 msgstr ");;Vektorbilder (*.eps *.pdf);;Alle Filer (*)"
 
 msgid "Look &in:"
-msgstr "Se &i:"
+msgstr "Søk &i:"
 
 msgid "File &type:"
 msgstr "Fil&type:"
@@ -327,9 +326,8 @@ msgstr "Farge"
 msgid "Colors..."
 msgstr "Farger"
 
-#, fuzzy
 msgid "Duplicate"
-msgstr "Duplikér"
+msgstr "Dupliker"
 
 msgid "New Color:"
 msgstr "Ny farge:"
@@ -556,7 +554,7 @@ msgid "Image visible"
 msgstr "Vis frem bilde"
 
 msgid "Is PDF-Bookmark"
-msgstr "Et PDF-Bokmerke"
+msgstr "PDF-Bokmerke"
 
 #, fuzzy
 msgid "Snap to Guides"
@@ -664,9 +662,8 @@ msgstr "Følgende programmer mangler:"
 msgid "Ghostscript : You cannot use EPS-Images"
 msgstr "Ghostscript : Du kan ikke bruke EPS-Bilder"
 
-#, fuzzy
 msgid "Multiple Duplicate"
-msgstr "Duplikér flere ganger"
+msgstr "Dupliker flere ganger"
 
 msgid "Number of Copies:"
 msgstr "Antall kopier:"
@@ -821,9 +818,8 @@ msgstr "Sett inn ellipse"
 msgid "Insert Rectangles"
 msgstr "Sett inn rektangel"
 
-#, fuzzy
 msgid "Rotate Item"
-msgstr "Rotér objekt"
+msgstr "Roter objekt"
 
 msgid "Modify..."
 msgstr "Endre"
@@ -847,13 +843,11 @@ msgstr "Skriv ikke ut"
 msgid "Properties:"
 msgstr "Egenskaper:"
 
-#, fuzzy
 msgid "Ordinary Text"
-msgstr "Alminnelig tekst"
+msgstr "Vanlig tekst"
 
-#, fuzzy
 msgid "Is PDF-Annotation"
-msgstr "Er PDF-Kommentar"
+msgstr "PDF-Kommentar"
 
 #, fuzzy
 msgid "Angle:"
@@ -1093,12 +1087,14 @@ msgstr "Spansk og katalansk:"
 msgid "Hungarian and Italian:"
 msgstr "Ungarsk og italiensk:"
 
+#, fuzzy
 msgid "Slovak:"
 msgstr "Slovakisk:"
 
 msgid "Slovak"
 msgstr "Slovakia"
 
+#, fuzzy
 msgid "Ukrainian:"
 msgstr "Ukrainsk:"
 
@@ -1547,9 +1543,8 @@ msgstr "Metning"
 msgid "Absolute Colorimetric"
 msgstr "Absolutt Colorimetric"
 
-#, fuzzy
 msgid "Simulate Printer on the Screen"
-msgstr "Simulér utskrift på skjerm"
+msgstr "Simuler utskrift på skjerm"
 
 #, fuzzy
 msgid "Color Management..."
@@ -1576,7 +1571,7 @@ msgid "Title:"
 msgstr "Tittel:"
 
 msgid "Sorry, no Manual available!"
-msgstr "Beklager, det er ingen håndbok tilgjengelig. \nKanskje har du glemt å installere den?"
+msgstr "Beklager, det er ingen håndbok tilgjengelig. \nKanskje den ikke er installert?"
 
 #, fuzzy
 msgid "Embed all Fonts"
@@ -1938,6 +1933,7 @@ msgstr "Endre Polygon"
 msgid "Properties..."
 msgstr "Egenskaper"
 
+#, fuzzy
 msgid "Lithuanian:"
 msgstr "Litauisk:"
 
@@ -2137,9 +2133,8 @@ msgstr "Tekst for Rull Rundt"
 msgid "Highlight"
 msgstr "Høylys"
 
-#, fuzzy
 msgid "Invert"
-msgstr "Invertér"
+msgstr "Inverter"
 
 #, fuzzy
 msgid "Outlined"
@@ -2392,9 +2387,8 @@ msgstr "Brukerdefinert utregningsskript:"
 msgid "Calculate"
 msgstr "Regn ut"
 
-#, fuzzy
 msgid "Validate"
-msgstr "Validér"
+msgstr "Valider"
 
 msgid "Enter a comma separated list of Fields here"
 msgstr "Tast inn en kommaseparert liste av felter her"
@@ -2484,9 +2478,8 @@ msgstr "Når ikonet er for stort"
 msgid "Never"
 msgstr "Aldri"
 
-#, fuzzy
 msgid "Scale How:"
-msgstr "Skalér hvordan:"
+msgstr "Skaler hvordan:"
 
 #, fuzzy
 msgid "Proportional"
@@ -2631,9 +2624,8 @@ msgstr "Her kan du se alle sidene i ditt dokument."
 msgid "Free Scaling"
 msgstr "Fri skalering"
 
-#, fuzzy
 msgid "Scale to Frame Size"
-msgstr "Skalér bilde til rammestørrelse"
+msgstr "Skaler bilde til rammestørrelse"
 
 #, fuzzy
 msgid "Hyphenate Text"
@@ -2765,6 +2757,7 @@ msgstr ""
 "Kan ikke skrive filen: \n"
 "%1"
 
+#, fuzzy
 msgid "Russian"
 msgstr "Russisk"
 
@@ -3054,11 +3047,11 @@ msgid ""
 "Round\n"
 "Corners:"
 msgstr ""
-"Avrundede\n"
-"hjørnet:"
+"Avrundet\n"
+"hjørne:"
 
 msgid "Distance of Text"
-msgstr ""
+msgstr "Avstand til tekst"
 
 msgid "Custom Spacing"
 msgstr ""
@@ -3078,9 +3071,8 @@ msgstr "Geometri"
 msgid "Document:"
 msgstr "Dokument:"
 
-#, fuzzy
 msgid "has been changed since the last save."
-msgstr "Dokumentet er endret siden sist gang det ble lagret"
+msgstr "Dokumentet er endret siden sist gang det ble lagret."
 
 msgid "Insert Page..."
 msgstr "Sett inn side"
@@ -3117,9 +3109,8 @@ msgstr "Bruk ICC-Profil"
 msgid "Mark Colors out of Gamut"
 msgstr "Mark Colors out of Gamut"
 
-#, fuzzy
 msgid "Scale Picture to Frame Size"
-msgstr "Skalér bilde til rammestørrelse"
+msgstr "Skaler bilde til rammestørrelse"
 
 msgid "Combine Polygons"
 msgstr "Kombiner polygoner"
@@ -3190,6 +3181,7 @@ msgstr "Antialias tekst"
 msgid "Antialias Graphics"
 msgstr "Antialias Grafikk"
 
+#, fuzzy
 msgid "Russian:"
 msgstr "Russisk:"
 
@@ -3202,10 +3194,10 @@ msgstr "Autolagre"
 msgid "Enabled"
 msgstr "I bruk"
 
-#, fuzzy
 msgid "use Bounding Box"
-msgstr "bruk Bounding Box"
+msgstr "Bruk Bounding Box"
 
+#, fuzzy
 msgid "Czech:"
 msgstr "Tsjekkisk:"
 
