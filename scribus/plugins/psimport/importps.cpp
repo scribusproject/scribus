@@ -16,6 +16,7 @@
 #include <qcursor.h>
 #include <cmath>
 #include <cstdlib>
+#include "undomanager.h"
 
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern QPixmap loadIcon(QString nam);
@@ -108,7 +109,12 @@ void Run(QWidget *d, ScribusApp *plug)
 		else
 			return;
 	}
+	if (UndoManager::undoEnabled())
+		UndoManager::instance()->beginTransaction(plug->doc->currentPage->getUName(),0,Um::ImportEPS,
+		                                          fileName, Um::IImportEPS);
 	EPSPlug *dia = new EPSPlug(plug, fileName);
+	if (UndoManager::undoEnabled())
+		UndoManager::instance()->commit();
 	delete dia;
 }
 

@@ -473,6 +473,9 @@ public:
 	static const QString BezierCurve;
 	static const QString Polyline;
 	static const QString ConvertTo;
+	static const QString ImportSVG;
+	static const QString ImportEPS;
+	static const QString ImportOOoDraw;
 	/*@}*/
 
 	/**
@@ -510,6 +513,9 @@ public:
 	static QPixmap *IArrow;
 	static QPixmap *ITable;
 	static QPixmap *IFont;
+	static QPixmap *IImportSVG;
+	static QPixmap *IImportEPS;
+	static QPixmap *IImportOOoDraw;
 	/*@}*/
 
 protected:

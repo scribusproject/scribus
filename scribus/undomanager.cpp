@@ -697,6 +697,9 @@ const QString UndoManager::Polygon            = tr("Polygon");
 const QString UndoManager::BezierCurve        = tr("Bezier curve");
 const QString UndoManager::Polyline           = tr("Polyline");
 const QString UndoManager::ConvertTo          = tr("Convert to");
+const QString UndoManager::ImportSVG          = tr("Import SVG image");
+const QString UndoManager::ImportEPS          = tr("Import EPS image");
+const QString UndoManager::ImportOOoDraw      = tr("Import OpenOffice draw image");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;
@@ -728,3 +731,6 @@ QPixmap *UndoManager::ITransparency    = NULL;
 QPixmap *UndoManager::ILineStyle       = NULL;
 QPixmap *UndoManager::IArrow           = NULL;
 QPixmap *UndoManager::IFont            = NULL;
+QPixmap *UndoManager::IImportSVG       = NULL;
+QPixmap *UndoManager::IImportEPS       = NULL;
+QPixmap *UndoManager::IImportOOoDraw   = NULL;
