@@ -441,7 +441,7 @@ void ScribusApp::initScribus()
 		SetKeyEntry(63, tr("Javascripts..."), jman, 0);
 		SetKeyEntry(64, tr("Undo"), edUndo, CTRL+Key_Z);
 		SetKeyEntry(65, tr("Show Page Palette"), viewSepal, 0);
-		SetKeyEntry(66, tr("Lock/Unlock"), LockOb, CTRL+Key_H);
+		SetKeyEntry(66, tr("Lock/Unlock"), LockOb, CTRL+Key_F);
 		SetKeyEntry(67, tr("Non Breaking Space"), 0, CTRL+Key_Space);
 		splash->setStatus( tr("Reading Preferences"));
 		ReadPrefs();
@@ -700,7 +700,7 @@ void ScribusApp::initMenuBar()
 	SetKeyEntry(23, tr("Group"), Gr, CTRL+Key_G);
 	UnGr = ObjMenu->insertItem( tr("&Ungroup"), this, SLOT(UnGroupObj()),CTRL+Key_U);
 	SetKeyEntry(24, tr("Un-group"), UnGr, CTRL+Key_U);
-	LockOb = ObjMenu->insertItem( tr("&Lock"), this, SLOT(ToggleObjLock()), CTRL+Key_H);
+	LockOb = ObjMenu->insertItem( tr("&Lock"), this, SLOT(ToggleObjLock()), CTRL+Key_F);
 	ObjMenu->insertSeparator();
 	OBack = ObjMenu->insertItem( tr("Send to &Back"), this, SLOT(Objekt2Back()));
 	SetKeyEntry(25, tr("Send to Back"), OBack, 0);

@@ -10387,27 +10387,27 @@ gang tidsperioden render ut</translation>
     </message>
     <message>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Relativ størrelse i prosent av linjeavstand i forhold til normal font</translation>
     </message>
     <message>
         <source>Text Frame Properties</source>
-        <translation type="unfinished">Felt egenskaper</translation>
+        <translation>Tekst Felt egenskaper</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation type="unfinished">Billedramme</translation>
+        <translation>Billedramme Egenskaper</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
-        <translation type="unfinished">Kommentar egenskaper</translation>
+        <translation>Form Tegning Egenskaper</translation>
     </message>
     <message>
         <source>Magnification Level Defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Forstørrelseslevel Standarder</translation>
     </message>
     <message>
         <source>Line Drawing Properties</source>
-        <translation type="unfinished">Kommentar egenskaper</translation>
+        <translation>Line TegningEgenskaper</translation>
     </message>
     <message>
         <source>Polygon Drawing Properties</source>
@@ -10451,147 +10451,147 @@ gang tidsperioden render ut</translation>
     </message>
     <message>
         <source>Keep horizontal and vertical scaling the same</source>
-        <translation type="unfinished"></translation>
+        <translation>Samme horisontal og vertikal skalering </translation>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder i Bilderammer er skaleret op til rammens størrelse</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisk skalerte bilder beholder deres originale proporsjoner</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Fyll farge av bilderammer</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
-        <translation type="unfinished"></translation>
+        <translation>Fyllfargens styrke </translation>
     </message>
     <message>
         <source>Line color of shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Formers linjefarge </translation>
     </message>
     <message>
         <source>Saturation of color of lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Linjefarges styrke</translation>
     </message>
     <message>
         <source>Fill color of shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Formers fyllfarge</translation>
     </message>
     <message>
         <source>Line style of shapes</source>
-        <translation type="unfinished">Linjestil:</translation>
+        <translation>Formernes linjestil</translation>
     </message>
     <message>
         <source>Line width of shapes</source>
-        <translation type="unfinished">Linjebredde:</translation>
+        <translation>Formernes linjebredde</translation>
     </message>
     <message>
         <source>Minimum magnification allowed</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimum tillat forstørrelse</translation>
     </message>
     <message>
         <source>Maximum magnification allowed</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksimum tillat forstørrelse</translation>
     </message>
     <message>
         <source>Change in magnification for each zoom operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Forandring i forstørrelse for hvert enkelt zoom</translation>
     </message>
     <message>
         <source>Color of lines</source>
-        <translation type="unfinished">Fargemodell</translation>
+        <translation>Linjefarge</translation>
     </message>
     <message>
         <source>Saturation of color</source>
-        <translation type="unfinished"></translation>
+        <translation>Fargestyrke</translation>
     </message>
     <message>
         <source>Style of lines</source>
-        <translation type="unfinished">System profiler</translation>
+        <translation>linjestil</translation>
     </message>
     <message>
         <source>Width of lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Linjetykkelse</translation>
     </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Antall hjørner for polygoner </translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Mengde dreining for polygoner</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation type="unfinished"></translation>
+        <translation>Polygoner vil være konveks fremfor konkave</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
-        <translation type="unfinished">Del opp polygoner</translation>
+        <translation>Exempel Polygon</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation type="unfinished"></translation>
+        <translation>Forandre på hvilken vinkel polygonerne går sammen</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Velg størrelse på forhåndsvising i kladdebok paletten</translation>
     </message>
     <message>
         <source>Save the scrapbook contents everytime after a change</source>
-        <translation type="unfinished"></translation>
+        <translation>Gjem kladdebokinnhold etter hver forandring</translation>
     </message>
     <message>
         <source>When using facing pages, show the two pages side by side</source>
-        <translation type="unfinished"></translation>
+        <translation>Ved bruk av motstående sider, vis sidene ved siden av hverandre</translation>
     </message>
     <message>
         <source>Color for paper</source>
-        <translation type="unfinished">Fargemodell</translation>
+        <translation>Papirfarge</translation>
     </message>
     <message>
         <source>Color for the margin lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Marginlinjefarge</translation>
     </message>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation type="unfinished"></translation>
+        <translation>Legg området utenfor margerne i margenfargen</translation>
     </message>
     <message>
         <source>Enable transparency features within PDF 1.4 export</source>
-        <translation type="unfinished"></translation>
+        <translation>Slå på gjennomsiktighetsfunksjoner innenfor PDF 1.4 eksportering</translation>
     </message>
     <message>
         <source>Set the default zoom level</source>
-        <translation type="unfinished"></translation>
+        <translation>sett standard zoom nivå</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript behandlerens posisjon i filsystemet</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation type="unfinished"></translation>
+        <translation>Antialias tekst for EPS og PDF skjermrendering</translation>
     </message>
     <message>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation type="unfinished"></translation>
+        <translation>Antialias bilder for EPS og PDF skjermrendering</translation>
     </message>
     <message>
         <source>Filesystem location for graphics editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildebehandlerens posisjon i filsystemet</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation type="unfinished"></translation>
+        <translation>Ikke vis objekter utenfor margerne på skrevt ut side eller eksporteret fil</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Velg en Folder</translation>
     </message>
     <message>
         <source>Inside:</source>
@@ -12594,287 +12594,287 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
         <source>&amp;Lower</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Lavere</translation>
     </message>
     <message>
         <source>&amp;Raise</source>
-        <translation type="unfinished"></translation>
+        <translation>Høye&amp;re</translation>
     </message>
     <message>
         <source>Distribute/&amp;Align...</source>
-        <translation type="unfinished"></translation>
+        <translation>Distribuer/&amp;Align...</translation>
     </message>
     <message>
         <source>&amp;Edit Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Editer Felt</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Form</translation>
     </message>
     <message>
         <source>&amp;Attach Text to Path</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Legg Tekst til Sti</translation>
     </message>
     <message>
         <source>&amp;Detach Text from Path</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ta Tekst fra Sti</translation>
     </message>
     <message>
         <source>&amp;Combine Polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kombiner Polygoner</translation>
     </message>
     <message>
         <source>Split &amp;Polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>PSlitt &amp;Polygoner</translation>
     </message>
     <message>
         <source>C&amp;onvert to Outlines</source>
-        <translation type="unfinished"></translation>
+        <translation>K&amp;onverter til Outlines</translation>
     </message>
     <message>
         <source>&amp;Insert...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sett &amp;Inn...</translation>
     </message>
     <message>
         <source>&amp;Delete...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Slett...</translation>
     </message>
     <message>
         <source>&amp;Move...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Flytt...</translation>
     </message>
     <message>
         <source>&amp;Apply Template...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bruk Template...</translation>
     </message>
     <message>
         <source>&amp;Manage Guides...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Manage Guider....</translation>
     </message>
     <message>
         <source>&amp;Fit in Window</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;pss inn i Vinduet</translation>
     </message>
     <message>
         <source>&amp;100%</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;100%</translation>
     </message>
     <message>
         <source>&amp;Thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Thumbnailer</translation>
     </message>
     <message>
         <source>Hide &amp;Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Gjem &amp;Marger</translation>
     </message>
     <message>
         <source>Hide &amp;Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Gjem &amp;Frames</translation>
     </message>
     <message>
         <source>Hide &amp;Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Gjem B&amp;ilder</translation>
     </message>
     <message>
         <source>Show &amp;Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis &amp;Gitter</translation>
     </message>
     <message>
         <source>Snap to &amp;Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Fest til &amp;Gitter</translation>
     </message>
     <message>
         <source>Hide G&amp;uides</source>
-        <translation type="unfinished"></translation>
+        <translation>Skj&amp;ul Hjelpelinjer</translation>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Fest til Hjel&amp;pelinjer</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis &amp;Baseline Gitter</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Egenskaper</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Oversikt</translation>
     </message>
     <message>
         <source>&amp;Scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kladdebok</translation>
     </message>
     <message>
         <source>&amp;Layers</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nivåer</translation>
     </message>
     <message>
         <source>P&amp;age Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Side P&amp;alet</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bokmerker</translation>
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation type="unfinished"></translation>
+        <translation>Hå&amp;ndter Bilder</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Orddel tekst</translation>
     </message>
     <message>
         <source>Toolti&amp;ps</source>
-        <translation type="unfinished"></translation>
+        <translation>Hjel&amp;petekster</translation>
     </message>
     <message>
         <source>P&amp;DF Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>P&amp;DF-Verktøy</translation>
     </message>
     <message>
         <source>Tooltips</source>
-        <translation type="unfinished"></translation>
+        <translation>Hjelpetekster</translation>
     </message>
     <message>
         <source>&amp;Preferences...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Innstillinger...</translation>
     </message>
     <message>
         <source>&amp;Fonts...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fonter...</translation>
     </message>
     <message>
         <source>&amp;Hyphenator...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Init Orddeler...</translation>
     </message>
     <message>
         <source>&amp;Keyboard Shortcuts...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Håndtering av hurtigtaster...</translation>
     </message>
     <message>
         <source>&amp;About Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Om Scribus</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Om &amp;Qt</translation>
     </message>
     <message>
         <source>Scribus &amp;Manual...</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus H&amp;åndbok...</translation>
     </message>
     <message>
         <source>St&amp;yle</source>
-        <translation type="unfinished"></translation>
+        <translation>St&amp;il</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Inn&amp;stillinger</translation>
     </message>
     <message>
         <source>&amp;Left</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Venstre</translation>
     </message>
     <message>
         <source>&amp;Center</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Midten</translation>
     </message>
     <message>
         <source>&amp;Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Høy&amp;re</translation>
     </message>
     <message>
         <source>&amp;Block</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Blokk</translation>
     </message>
     <message>
         <source>&amp;Forced</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tvunget</translation>
     </message>
     <message>
         <source>&amp;Other...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Andre...</translation>
     </message>
     <message>
         <source>&amp;Cascade</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kaskade</translation>
     </message>
     <message>
         <source>&amp;Tile</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tile</translation>
     </message>
     <message>
         <source>&amp;Color</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Farge</translation>
     </message>
     <message>
         <source>&amp;Invert</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Inverter</translation>
     </message>
     <message>
         <source>&amp;Get Text...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hent Tekst...</translation>
     </message>
     <message>
         <source>&amp;Font</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Font</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation type="unfinished">&amp;Størrelse</translation>
+        <translation>&amp;Størrelse</translation>
     </message>
     <message>
         <source>&amp;Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Effekter</translation>
     </message>
     <message>
         <source>&amp;Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Justering</translation>
     </message>
     <message>
         <source>&amp;Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Skygge</translation>
     </message>
     <message>
         <source>&amp;Tabulators...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tabulatorer...</translation>
     </message>
     <message>
         <source>Un&amp;lock</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Lås/Lås opp</translation>
     </message>
     <message>
         <source>Show &amp;Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis B&amp;ilder</translation>
     </message>
     <message>
         <source>Show &amp;Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis &amp;marger</translation>
     </message>
     <message>
         <source>Show &amp;Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis &amp;Rammer</translation>
     </message>
     <message>
         <source>Show G&amp;uides</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis H&amp;jelpelinjer</translation>
     </message>
     <message>
         <source>Hide &amp;Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Skjul &amp;Gitter</translation>
     </message>
     <message>
         <source>Hide &amp;Baseline Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis &amp;Baseline Gitter</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript: Du kan ikke bruke EPS Bilder</translation>
     </message>
 </context>
 <context>

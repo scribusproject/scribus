@@ -1,5 +1,13 @@
 Changes since Version 1.1.7
 
+20.06.2004
+	* bug     #343: Ctrl+H shouldn't delete characters
+	* bug     #812: drop caps error with linked text frames on pdf export
+	* feature #355: Allow of automatic page margin creation / snappy page margins.
+	* feature #787: Complete the ps-importer for reading OpenOffice generated files
+	* feature #814: Updated Danish Translation
+	* feature #815: Updated Norwegian Translation
+
 19.06.2004
 	* bug     #813: Snap to Guides for moving and resizing of Groups
 	* feature #799: Feature Request: Select All

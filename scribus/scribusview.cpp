@@ -818,8 +818,6 @@ QPixmap ScribusView::MPageToPixmap(QString name, int maxGr)
 	Prefs->FramesShown = false;
 	Doc->Scale = 1;
 	PageItem *b;
-	PageItem *bb;
-	PageItem *nb;
 	Lnr = 0;
 	Page* Mp = MasterPages.at(MasterNames[name]);
 	QWidget* Opa;
@@ -841,13 +839,7 @@ QPixmap ScribusView::MPageToPixmap(QString name, int maxGr)
 					Opa2 = b->OwnPage;
 					b->Parent = Mp;
 					b->OwnPage = Mp;
-					nb = b->NextBox;
-					bb = b->BackBox;
-					b->NextBox = 0;
-					b->BackBox = 0;
 					b->DrawObj(painter, QRect(0, 0, static_cast<int>(Doc->PageB), static_cast<int>(Doc->PageH)));
-					b->NextBox = nb;
-					b->BackBox = bb;
 					b->Parent = Opa;
 					b->OwnPage = Opa2;
 				}
@@ -891,8 +883,6 @@ QPixmap ScribusView::PageToPixmap(int Nr, int maxGr)
 	Prefs->FramesShown = false;
 	Doc->Scale = 1;
 	PageItem *b;
-	PageItem *bb;
-	PageItem *nb;
 	Lnr = 0;
 	if (Pages.at(Nr)->MPageNam != "")
 	{
@@ -916,13 +906,7 @@ QPixmap ScribusView::PageToPixmap(int Nr, int maxGr)
 						Opa2 = b->OwnPage;
 						b->Parent = Pages.at(Nr);
 						b->OwnPage = Pages.at(Nr);
-						nb = b->NextBox;
-						bb = b->BackBox;
-						b->NextBox = 0;
-						b->BackBox = 0;
 						b->DrawObj(painter, QRect(0, 0, static_cast<int>(Doc->PageB), static_cast<int>(Doc->PageH)));
-						b->NextBox = nb;
-						b->BackBox = bb;
 						b->Parent = Opa;
 						b->OwnPage = Opa2;
 					}
@@ -948,13 +932,7 @@ QPixmap ScribusView::PageToPixmap(int Nr, int maxGr)
 				{
 					if ((b->isAnnotation) && (b->AnType != 11))
 						continue;
-					nb = b->NextBox;
-					bb = b->BackBox;
-					b->NextBox = 0;
-					b->BackBox = 0;
 					b->DrawObj(painter, QRect(0, 0, static_cast<int>(Doc->PageB), static_cast<int>(Doc->PageH)));
-					b->NextBox = nb;
-					b->BackBox = bb;
 				}
 			}
 		}

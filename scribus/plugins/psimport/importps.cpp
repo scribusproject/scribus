@@ -87,20 +87,16 @@ EPSPlug::EPSPlug( QWidget* parent, ScribusApp *plug, QString fName )
 	CustColors.clear();
 	QFileInfo fi = QFileInfo(fName);
 	QString ext = fi.extension(false).lower();
-/* Set default Page to A4 Size */
+/* Set default Page to size defined in Preferences */
 	x = 0.0;
 	y = 0.0;
-	b = 595.0;
-	h = 842.0;
+	b = plug->Prefs.PageBreite;
+	h = plug->Prefs.PageHoehe;
 	if ((ext == "eps") || (ext == "ps"))
 	{
 		QString tmp, BBox, tmp2, dummy, FarNam;
 		QChar tc;
 		CMYKColor cc;
-		x = 0.0;
-		y = 0.0;
-		b = 595.0;
-		h = 842.0;
 		QFile f(fName);
 		if (f.open(IO_ReadOnly))
 		{
@@ -168,8 +164,12 @@ EPSPlug::EPSPlug( QWidget* parent, ScribusApp *plug, QString fName )
 			f.close();
 			if (found)
 			{
-				QTextStream ts2(&BBox, IO_ReadOnly);
-				ts2 >> x >> y >> b >> h;
+				QStringList bb = QStringList::split(" ", BBox);
+				if (bb.count() == 4)
+				{
+					QTextStream ts2(&BBox, IO_ReadOnly);
+					ts2 >> x >> y >> b >> h;
+				}
 			}
 		}
 	}
@@ -291,7 +291,8 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 void EPSPlug::parseOutput(QString fn)
 {
 	QString tmp, token, params, lasttoken, lastPath, currPath;
-	int z, lcap, ljoin, dc,dcp;
+	int z, lcap, ljoin, dc;
+	double dcp;
 	PageItem* ite;
 	QFile f(fn);
 	lasttoken = "";

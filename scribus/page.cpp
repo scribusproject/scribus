@@ -1032,6 +1032,26 @@ bool Page::ApplyGuides(double *x, double *y)
 				}
 			}
 		}
+		if ((doku->PageM.Left < (*x+doku->GuideRad)) && (doku->PageM.Left > (*x-doku->GuideRad)))
+		{
+			*x = doku->PageM.Left;
+			ret = true;
+		}
+		if (((doku->PageB - doku->PageM.Right) < (*x+doku->GuideRad)) && ((doku->PageB - doku->PageM.Right) > (*x-doku->GuideRad)))
+		{
+			*x = doku->PageB - doku->PageM.Right;
+			ret = true;
+		}
+		if ((doku->PageM.Top < (*y+doku->GuideRad)) && (doku->PageM.Top > (*y-doku->GuideRad)))
+		{
+			*y = doku->PageM.Top;
+			ret = true;
+		}
+		if (((doku->PageH - doku->PageM.Bottom) < (*y+doku->GuideRad)) && ((doku->PageH - doku->PageM.Bottom) > (*y-doku->GuideRad)))
+		{
+			*y = doku->PageH - doku->PageM.Bottom;
+			ret = true;
+		}
 	}
 	return ret;
 }

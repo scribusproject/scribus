@@ -1130,6 +1130,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->GuideLock = static_cast<bool>(QStoInt(dc.attribute("GUIDELOCK", "0")));
 		doc->BaseGrid = QStodouble(dc.attribute("BASEGRID", "12"));
 		doc->BaseOffs = QStodouble(dc.attribute("BASEO", "0"));
+		doc->minorGrid = QStodouble(dc.attribute("MINGRID", tmp.setNum(view->Prefs->DminGrid)));
+		doc->majorGrid = QStodouble(dc.attribute("MAJGRID", tmp.setNum(view->Prefs->DmajGrid)));
 		QDomNode PAGE=DOC.firstChild();
 		while(!PAGE.isNull())
 		{
@@ -3141,6 +3143,8 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 	dc.setAttribute("GUIDELOCK", static_cast<int>(doc->GuideLock));
 	dc.setAttribute("BASEGRID",doc->BaseGrid);
 	dc.setAttribute("BASEO", doc->BaseOffs);
+	dc.setAttribute("MINGRID", doc->minorGrid);
+	dc.setAttribute("MAJGRID", doc->majorGrid);
 	QMap<QString,multiLine>::Iterator itMU;
 	for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
 	{
