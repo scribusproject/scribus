@@ -1711,8 +1711,8 @@ void Mpalette::ChangeScaling()
 	{
 		CurItem->ScaleType = FreeScale->isChecked();
 		CurItem->AspectRatio = Aspect->isChecked();
-		if (!CurItem->ScaleType)
-			doc->ActPage->AdjustPictScale(CurItem);
+		doc->ActPage->AdjustPictScale(CurItem);
+		doc->ActPage->AdjustPreview(CurItem, false);
 		doc->ActPage->RefreshItem(CurItem);
 		emit UpdtGui(2);
 		emit DocChanged();

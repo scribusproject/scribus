@@ -1325,12 +1325,38 @@ bool GlyNames(QMap<uint, QString> *GList, QString Dat)
 	FT_UInt gindex;
 	error = FT_Init_FreeType(&library);
 	error = FT_New_Face(library, Dat, 0, &face);
+	bool foundEncoding = false;
 	for(int u = 0; u < face->num_charmaps; u++)
 	{
 		if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
 		{
-		 	 FT_Set_Charmap(face,face->charmaps[u]);
-	 		break;
+			FT_Set_Charmap(face,face->charmaps[u]);
+			foundEncoding = true;
+			break;
+		}
+	}
+	if (!foundEncoding)
+	{
+		for(int u = 0; u < face->num_charmaps; u++)
+		{
+			if (face->charmaps[u]->encoding == FT_ENCODING_UNICODE)
+			{
+				FT_Set_Charmap(face,face->charmaps[u]);
+				foundEncoding = true;
+				break;
+			}
+		}
+		if (!foundEncoding)
+		{
+			for(int u = 0; u < face->num_charmaps; u++)
+			{
+				if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_EXPERT)
+				{
+					FT_Set_Charmap(face,face->charmaps[u]);
+					foundEncoding = true;
+					break;
+				}
+			}
 		}
 	}
 	gindex = 0;
@@ -1358,12 +1384,38 @@ bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat)
 	uint counter2 = 0;
 	error = FT_Init_FreeType(&library);
 	error = FT_New_Face(library, Dat, 0, &face);
+	bool foundEncoding = false;
 	for(int u = 0; u < face->num_charmaps; u++)
 	{
 		if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
 		{
-		 	 FT_Set_Charmap(face,face->charmaps[u]);
-	 		break;
+			FT_Set_Charmap(face,face->charmaps[u]);
+			foundEncoding = true;
+			break;
+		}
+	}
+	if (!foundEncoding)
+	{
+		for(int u = 0; u < face->num_charmaps; u++)
+		{
+			if (face->charmaps[u]->encoding == FT_ENCODING_UNICODE)
+			{
+				FT_Set_Charmap(face,face->charmaps[u]);
+				foundEncoding = true;
+				break;
+			}
+		}
+		if (!foundEncoding)
+		{
+			for(int u = 0; u < face->num_charmaps; u++)
+			{
+				if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_EXPERT)
+				{
+					FT_Set_Charmap(face,face->charmaps[u]);
+					foundEncoding = true;
+					break;
+				}
+			}
 		}
 	}
 	gindex = 0;
@@ -1568,12 +1620,38 @@ QPixmap FontSample(QString da, int s, QString ts, QColor back)
 	FPoint gp;
 	error = FT_Init_FreeType( &library );
 	error = FT_New_Face( library, da, 0, &face );
+	bool foundEncoding = false;
 	for(int u = 0; u < face->num_charmaps; u++)
 	{
 		if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
 		{
 			FT_Set_Charmap(face,face->charmaps[u]);
+			foundEncoding = true;
 			break;
+		}
+	}
+	if (!foundEncoding)
+	{
+		for(int u = 0; u < face->num_charmaps; u++)
+		{
+			if (face->charmaps[u]->encoding == FT_ENCODING_UNICODE)
+			{
+				FT_Set_Charmap(face,face->charmaps[u]);
+				foundEncoding = true;
+				break;
+			}
+		}
+		if (!foundEncoding)
+		{
+			for(int u = 0; u < face->num_charmaps; u++)
+			{
+				if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_EXPERT)
+				{
+					FT_Set_Charmap(face,face->charmaps[u]);
+					foundEncoding = true;
+					break;
+				}
+			}
 		}
 	}
 	double uniEM = static_cast<double>(face->units_per_EM);

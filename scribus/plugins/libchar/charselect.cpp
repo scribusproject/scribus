@@ -164,17 +164,41 @@ ZAuswahl::ZAuswahl( QWidget* parent, PageItem *item, ScribusApp *pl)
 	FT_ULong  charcode;
 	FT_UInt   gindex;
 	face = pl->doc->FFonts[font];
-	if (face->num_glyphs < 257)
+	bool foundEncoding = false;
+	for(int u = 0; u < face->num_charmaps; u++)
+	{
+		if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
+		{
+			FT_Set_Charmap(face,face->charmaps[u]);
+			foundEncoding = true;
+			break;
+		}
+	}
+	if (!foundEncoding)
 	{
 		for(int u = 0; u < face->num_charmaps; u++)
 		{
-			if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
+			if (face->charmaps[u]->encoding == FT_ENCODING_UNICODE)
 			{
 				FT_Set_Charmap(face,face->charmaps[u]);
+				foundEncoding = true;
 				break;
 			}
 		}
+		if (!foundEncoding)
+		{
+			for(int u = 0; u < face->num_charmaps; u++)
+			{
+				if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_EXPERT)
+				{
+					FT_Set_Charmap(face,face->charmaps[u]);
+					foundEncoding = true;
+					break;
+				}
+			}
+		}
 	}
+	gindex = 0;
 	charcode = FT_Get_First_Char(face, &gindex );
 	while (gindex != 0)
 	{
