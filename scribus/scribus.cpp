@@ -5805,6 +5805,7 @@ void ScribusApp::slotNewPageP(int wo, QString templ)
 		doc->MasterPages = doc->Pages;
 	else
 		doc->DocPages = doc->Pages;
+	Tpal->BuildTree(doc);
 //	Sepal->RebuildPage();
 }
 
@@ -5900,6 +5901,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QS
 			doc->MasterPages = doc->Pages;
 		else
 			doc->DocPages = doc->Pages;
+		Tpal->BuildTree(doc);
 }
 
 void ScribusApp::slotNewPageT(int w)
@@ -5911,8 +5913,8 @@ void ScribusApp::slotNewPageT(int w)
 void ScribusApp::slotNewPage(int w)
 {
 	view->addPage(w);
-	if ((!doc->loading) && (!doc->TemplateMode))
-		Tpal->BuildTree(doc);
+/*	if ((!doc->loading) && (!doc->TemplateMode))
+		Tpal->BuildTree(doc); */
 	bool setter = doc->Pages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
