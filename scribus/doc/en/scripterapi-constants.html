@@ -10,11 +10,11 @@
 	<p><code>scribus_version_info</code> is a tuple similar to the <code>sys.version_info</code> tuple provided by Python. It is a tuple of the form (majorversion, minorversion, patchlevel, extraversion, build) for example, 1.2.1cvs will have <code>(1,2,1,'cvs',0)</code> and 1.3.2 will have <code>(1,3,2,'',0)<code> . These tuples are ideal for checking for minimum versions, etc, because Python compares tuples element-by-element, left-to-right. For example:</p>
 <pre>
 if scribus.scribus_version_info[:3] &lt; (1,2,2):
-        messageBox("Scribus - Python script",
-              "This script requires Scribus 1.2.2 or newer. "+\
-              "You're running %s." % scribus.scribus_version,
-              ICON_CRITICAL)
-        sys.exit()
+    messageBox("Scribus - Python script",
+        "This script requires Scribus 1.2.2 or newer. "+\
+        "You're running %s." % scribus.scribus_version,
+        ICON_CRITICAL)
+    sys.exit()
 </pre>
 
 <h4>Unit Definitions: </h4>

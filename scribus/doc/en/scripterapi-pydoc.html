@@ -627,6 +627,11 @@ Displays the "New Document" dialog box. Creates a new document if the user accep
 	<dt><a name="-setRedraw"><strong>setRedraw</strong></a>(...)</dt>
 	<dd><code><a href="#-setRedraw">setRedraw</a>(bool)<br><br>Disables page redraw when bool = False, otherwise redrawing is enabled. This change will persist even after the script exits, so make sure to call <a href="#-setRedraw">setRedraw</a>(True) in a finally: clause at the top level of your script.</code></dd>
 
+	<dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
+	<dd><code><a href="#-setScaleImageToFrame">setScaleImageToFrame</a>(scaletoframe, proportional=None, name=<selection>)</code>
+	<p>Sets the scale to frame on the selected or specified image frame to `scaletoframe'. If `proportional' is specified, set fixed aspect ratio scaling to `proportional'. Both `scaletoframe' and `proportional' are boolean.</p>
+	<p>May raise WrongFrameTypeError.</p></dd>
+
 	<dt><a name="-setStyle"><strong>setStyle</strong></a>(...)</dt>
 	<dd><code><a href="#-setStyle">setStyle</a>("style" [, "name"])<br><br>Apply the named "style" to the object named "name". If is no object name given, it's applied on the selected object.</code></dd>
 
