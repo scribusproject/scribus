@@ -7037,7 +7037,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
       <source>Un&amp;lock</source>
-      <translation>&amp;Lås/Lås opp</translation>
+      <translation>&amp;Lås opp</translation>
     </message>
     <message>
       <source>Lock Object &amp;Size</source>
