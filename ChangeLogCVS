@@ -1,9 +1,13 @@
 Changes since Version 1.1.6
 
 08.05.2004
+	* bug     #608: Change buttons for "center" and "right" alignment...
+	* bug     #618: Minor rearranging of right click menu items
+	* feature #231: Add in ability to import Colour Sets into current document
 	* feature #614: Polish translation update
 	* feature #615: Icon Set Number Two
 	* feature #617: Ability to set, move and delete Tabs in the Ruler
+	* feature #619: Fixes for broken POs
 
 07.05.2004
 	* bug     #596: strange behaviour of tab indicator in textfields

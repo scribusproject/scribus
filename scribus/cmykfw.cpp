@@ -4,6 +4,13 @@
 #include <qpopupmenu.h>
 #include <qcursor.h>
 #include <qmessagebox.h>
+#include <qfileinfo.h>
+#include <cstdlib>
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
 #ifdef HAVE_CMS
 extern bool SoftProofing;
 extern bool Gamut;
@@ -11,13 +18,14 @@ extern bool CMSuse;
 #endif
 extern QPixmap loadIcon(QString nam);
 
-CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *Colors )
+CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *Colors, QStringList Cust  )
 		: QDialog( parent, "fw", true, 0 )
 {
 	CMYKmode = true;
 	dynamic = true;
 	Wsave = false;
 	EColors = Colors;
+	CurrSwatch.clear();
 	imageA = QPixmap(50,50);
 	imageA.fill(orig.getRGBColor());
 	imageN = QPixmap(50,50);
@@ -136,7 +144,42 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	Frame4Layout = new QVBoxLayout( Frame4 );
 	Frame4Layout->setSpacing( 6 );
 	Frame4Layout->setMargin( 0 );
-	Frame5 = new QFrame(Frame4);
+	
+	Swatches = new QComboBox( true, Frame4, "ComboBox1" );
+	Swatches->setEditable(false);
+	Swatches->insertItem( tr( "HSB-Colormap" ) );
+	Swatches->insertItem("X11 RGB-Set");
+	Swatches->insertItem("X11 Grey-Set");
+	Swatches->insertItem("Gnome-Set");
+	Swatches->insertItem("SVG-Set");
+	if (Cust.count() != 0)
+	{
+		QStringList realEx;
+		realEx.clear();
+		for (uint m = 0; m < Cust.count(); ++m)
+		{
+			QString Cpfad = QString(getenv("HOME"))+"/.scribus/"+Cust[m];
+			QFileInfo cfi(Cpfad);
+			if (cfi.exists())
+			{
+				Swatches->insertItem(Cust[m]);
+				realEx.append(Cust[m]);
+			}
+		}
+		CColSet = realEx;
+	}
+	Frame4Layout->addWidget( Swatches );
+	
+	TabStack = new QWidgetStack( Frame4, "TabStack" );
+	TabStack->setFrameShape( QWidgetStack::NoFrame );
+
+	Frame5a = new QFrame( TabStack, "Frame4" );
+	Frame5a->setFrameShape( QFrame::NoFrame );
+	Frame5a->setFrameShadow( QFrame::Raised );
+	Frame5aLayout = new QHBoxLayout( Frame5a );
+	Frame5aLayout->setSpacing( 0 );
+	Frame5aLayout->setMargin( 0 );
+	Frame5 = new QFrame(Frame5a);
 	Frame5->setFrameShape( QLabel::WinPanel );
 	Frame5->setFrameShadow( QLabel::Sunken );
 	Frame5->setMinimumSize( QSize( 182, 130 ) );
@@ -148,7 +191,13 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	ColorMap->setMinimumSize( QSize( 180, 128 ) );
 	ColorMap->setMaximumSize( QSize( 180, 128 ) );
 	Frame5Layout->addWidget( ColorMap );
-	Frame4Layout->addWidget( Frame5, 0, AlignCenter);
+	Frame5aLayout->addWidget( Frame5, 0, AlignCenter);
+	TabStack->addWidget( Frame5a, 0 );
+	
+	ColorSwatch = new QListBox(TabStack, "StyledL");
+	TabStack->addWidget( ColorSwatch, 1 );
+
+	Frame4Layout->addWidget( TabStack );
 
 	Cyan = new QHBoxLayout;
 	Cyan->setSpacing( 6 );
@@ -301,6 +350,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	ColorMap->setMark(h, s);
 	Farbname->selectAll();
 	Farbname->setFocus();
+	TabStack->raiseWidget(0);
 	// signals and slots connections
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( Cancel_2, SIGNAL( clicked() ), this, SLOT( Verlassen() ) );
@@ -318,6 +368,8 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	connect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	connect( ColorMap, SIGNAL( ColorVal(int, int, bool)), this, SLOT( setColor2(int, int, bool)));
 	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
+	connect( Swatches, SIGNAL(activated(int)), this, SLOT(SelSwatch(int)));
+	connect(ColorSwatch, SIGNAL(highlighted(int)), this, SLOT(SelFromSwatch(int)));
 }
 
 void CMYKChoose::mouseReleaseEvent(QMouseEvent *m)
@@ -454,6 +506,93 @@ QPixmap CMYKChoose::SliderBlack()
 	}
 	p.end();
 	return image0;
+}
+
+void CMYKChoose::SelSwatch(int n)
+{
+	if (n == 0)
+		TabStack->raiseWidget(0);
+	else
+	{
+		bool cus = false;
+		CurrSwatch.clear();
+		QString Cpfad = QString(getenv("HOME"))+"/.scribus/"+Swatches->currentText();
+		QString pfadC = PREL;
+		QString pfadC2 = pfadC + "/lib/scribus/rgbscribus.txt";
+		switch (n)
+		{
+		case 1:
+			pfadC2 = pfadC + "/lib/scribus/rgbscribus.txt";
+			break;
+		case 2:
+			pfadC2 = pfadC + "/lib/scribus/rgbscribusgreys.txt";
+			break;
+		case 3:
+			pfadC2 = pfadC + "/lib/scribus/rgbscribusgnome.txt";
+			break;
+		case 4:
+			pfadC2 = pfadC + "/lib/scribus/rgbsvg.txt";
+			break;
+		default:
+			pfadC2 = Cpfad;
+			cus = true;
+			break;
+		}
+		if (n != 0)
+		{
+			QFile fiC(pfadC2);
+			if (fiC.open(IO_ReadOnly))
+			{
+				QString ColorEn, Cname;
+				int Rval, Gval, Bval, Kval;
+				QTextStream tsC(&fiC);
+				ColorEn = tsC.readLine();
+				while (!tsC.atEnd())
+				{
+					CMYKColor tmp;
+					ColorEn = tsC.readLine();
+					QTextStream CoE(&ColorEn, IO_ReadOnly);
+					CoE >> Rval;
+					CoE >> Gval;
+					CoE >> Bval;
+					if (cus)
+					{
+						CoE >> Kval;
+						Cname = CoE.read().stripWhiteSpace();
+						tmp.setColor(Rval, Gval, Bval, Kval);
+					}
+					else
+					{
+						Cname = CoE.read().stripWhiteSpace();
+						tmp.setColorRGB(Rval, Gval, Bval);
+					}
+					CurrSwatch.insert(Cname, tmp);
+				}
+				fiC.close();
+			}
+			else
+			{
+				CurrSwatch.insert("White", CMYKColor(0, 0, 0, 0));
+				CurrSwatch.insert("Black", CMYKColor(0, 0, 0, 255));
+				CurrSwatch.insert("Blue", CMYKColor(255, 255, 0, 0));
+				CurrSwatch.insert("Cyan", CMYKColor(255, 0, 0, 0));
+				CurrSwatch.insert("Green", CMYKColor(255, 0, 255, 0));
+				CurrSwatch.insert("Red", CMYKColor(0, 255, 255, 0));
+				CurrSwatch.insert("Yellow", CMYKColor(0, 0, 255, 0));
+				CurrSwatch.insert("Magenta", CMYKColor(0, 255, 0, 0));
+			}
+		}
+		ColorSwatch->clear();
+		CListe::Iterator it;
+		QPixmap pm = QPixmap(30, 15);
+		for (it = CurrSwatch.begin(); it != CurrSwatch.end(); ++it)
+		{
+			pm.fill(CurrSwatch[it.key()].getRGBColor());
+			ColorSwatch->insertItem(pm, it.key());
+		}
+		ColorSwatch->setSelected(ColorSwatch->currentItem(), false);
+		TabStack->raiseWidget(1);
+	}
 }
 
 void CMYKChoose::SelModel(const QString& mod)
@@ -688,6 +827,27 @@ void CMYKChoose::setColor2(int h, int s, bool ende)
 	Farbe = tmp;
 	if (ende)
 		setValues();
+}
+
+void CMYKChoose::SelFromSwatch(int c)
+{
+	CMYKColor tmp = CurrSwatch[ColorSwatch->text(c)];
+#ifdef HAVE_CMS
+	if ((Gamut) && (CMSuse))
+	{
+		int cc, cm, cy, ck;
+		tmp.getCMYK(&cc, &cm, &cy, &ck);
+		QColor tmp3 = CMYK2RGB(cc, cm, cy, ck);
+		imageN.fill(tmp3);
+	}
+	else
+		imageN.fill(tmp.getRGBColor());
+#else
+	imageN.fill(tmp.getRGBColor());
+#endif
+	NewC->setPixmap( imageN );
+	Farbe = tmp;
+	setValues();
 }
 
 void CMYKChoose::setValues()

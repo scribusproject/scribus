@@ -1891,7 +1891,13 @@ void Mpalette::setAli(int e)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	GroupAlign->setStyle(e);
+	if (e < 5)
+	{
+		GroupAlign->setEnabled(true);
+		GroupAlign->setStyle(e);
+	}
+	else
+		GroupAlign->setEnabled(false);
 	Spal->setFormat(e);
 	HaveItem = tmp;
 }
@@ -2545,7 +2551,10 @@ void Mpalette::NewAli(int a)
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		emit NewAbStyle(a);
+	{
+		if (doc->CurrentABStil < 5)
+			emit NewAbStyle(a);
+	}
 }
 
 void Mpalette::setTypeStyle(int s)

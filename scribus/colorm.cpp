@@ -443,7 +443,7 @@ void Farbmanager::duplFarbe()
 void Farbmanager::neueFarbe()
 {
 	CMYKColor tmpFarbe = CMYKColor(0, 0, 0, 0);
-	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, tr("New Color"), &EditColors);
+	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, tr("New Color"), &EditColors, CColSet);
 	if (dia->exec())
 	{
 		EditColors.insert(dia->Farbname->text(), dia->Farbe);
@@ -456,7 +456,7 @@ void Farbmanager::editFarbe()
 {
 	CMYKColor tmpFarbe = EditColors[sFarbe];
 	EditColors.remove(sFarbe);
-	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, sFarbe, &EditColors);
+	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, sFarbe, &EditColors, CColSet);
 	if (dia->exec())
 	{
 		EditColors.insert(dia->Farbname->text(), dia->Farbe);

@@ -2394,7 +2394,7 @@ msgid "Document"
 msgstr "Document"
 
 msgid "Name \"%1\" isn't unique.\nPlease choose another."
-msgstr "Naam \"%1" is niet uniek.\nKies aub. een andere."
+msgstr "Naam \"%1\" is niet uniek.\nKies aub. een andere."
 
 msgid "Can't write the File: \n%1"
 msgstr "Kan niet naar bestand schrijven: \n%1'"

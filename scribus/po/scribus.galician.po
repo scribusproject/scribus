@@ -1288,7 +1288,7 @@ msgid "Ungroup"
 msgstr "Desagrupar"
 
 msgid "Do you really want to overwrite the File:\n%1 ?"
-msgstr "¿Queres sobreescribir o ficheiro:\n%1\?"
+msgstr "¿Queres sobreescribir o ficheiro:\n%1 ?"
 
 msgid "Show Frames"
 msgstr "Amosar Marcos"
@@ -1772,9 +1772,6 @@ msgid "Polygon"
 msgstr ""
 
 msgid "Bezier Curve"
-msgstr ""
-
-msgid "Style"
 msgstr ""
 
 msgid "Modify Pathtext"

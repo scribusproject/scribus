@@ -7,7 +7,7 @@ msgstr ""
 "POT-Creation-Date: 2001-12-14 01:18+0200\n"
 "PO-Revision-Date: 2001-12-14 01:18+0200\n"
 "Last-Translator: Vasko Tomanov <vasko@web.bg>\n"
-"Content-Type: text/plain; charset=Windows-1251\n"
+"Content-Type: text/plain; charset=cp1251\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: mywidget.cpp:30
@@ -216,7 +216,9 @@ msgid "Textfiles (*.txt);;All Files (*)"
 msgstr "Текстов файл (*.txt);;Всички файлове (*)"
 
 msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
-msgstr "Илюстрации (*.tif *.png *.jpg *.xpm);;Векторна графика (*.eps);;Всички файлове (*)"
+msgstr ""
+"Илюстрации (*.tif *.png *.jpg *.xpm);;Векторна графика (*.eps);;Всички "
+"файлове (*)"
 
 msgid "Look &in:"
 msgstr "Виж и &вмъкни:"
@@ -1307,8 +1309,12 @@ msgstr "Групиране"
 msgid "Ungroup"
 msgstr "Разгрупиране"
 
-msgid "Do you really want to overwrite the File:\n%1 ?"
-msgstr "Настинали искате да запишете въху:\n%1 ?"
+msgid ""
+"Do you really want to overwrite the File:\n"
+"%1 ?"
+msgstr ""
+"Настинали искате да запишете въху:\n"
+"%1 ?"
 
 msgid "Show Frames"
 msgstr "Покажи рамките"
@@ -1463,31 +1469,13 @@ msgstr ""
 msgid "Fonts to embed:"
 msgstr ""
 
-msgid "Output to File:"
-msgstr ""
-
-msgid "Change..."
-msgstr ""
-
-msgid "Compression"
-msgstr ""
-
 msgid "Downsample Images to:"
-msgstr ""
-
-msgid "Compress Text and Vectorgraphics"
 msgstr ""
 
 msgid "File Options"
 msgstr ""
 
 msgid "Generate Thumbnails"
-msgstr ""
-
-msgid "Resolution:"
-msgstr ""
-
-msgid "Create PDF-File"
 msgstr ""
 
 msgid "X-Coor.:"
@@ -1792,9 +1780,6 @@ msgid "Polygon"
 msgstr ""
 
 msgid "Bezier Curve"
-msgstr ""
-
-msgid "Style"
 msgstr ""
 
 msgid "Modify Pathtext"
@@ -2331,7 +2316,9 @@ msgstr ""
 msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
 msgstr ""
 
-msgid "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below."
+msgid ""
+"Here are all your Templates, to create a new Page\n"
+"drag a Template to the Pageview below."
 msgstr ""
 
 msgid "Here you can see all Pages of your Document."

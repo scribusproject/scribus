@@ -243,10 +243,10 @@ void Page::dropEvent(QDropEvent *e)
 	e->accept(QTextDrag::canDecode(e));
 	if (QTextDrag::decode(e, text))
 	{
-		setActiveWindow();
+/*		setActiveWindow();
 		raise();
 		ScApp->newActWin(doku->WinHan);
-		qApp->processEvents();
+		qApp->processEvents(); */
 		QUrl ur(text);
 		QFileInfo fi = QFileInfo(ur.path());
 		QString ext = fi.extension(false).upper();
@@ -341,8 +341,8 @@ void Page::dropEvent(QDropEvent *e)
 			if ((!img) && (doku->DraggedElem == 0))
 				emit LoadElem(QString(text), qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), false, false, doku);
 			update();
-/* The following code is disabled due to a bug in Qt-3.3.x which crashes here. In Qt-3.1.x it works fine */
-/*			else
+/* The following code is disabled due to a bug in Qt-3.3.x which crashes here. In Qt-3.1.x it works fine 
+			else
 			{
 				if (doku->DraggedElem != 0)
 				{
@@ -2779,21 +2779,6 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem( tr("Lock object size"), this, SLOT(ToggleResize()));
 			else
 				pmen->insertItem( tr("Unlock object size"), this, SLOT(ToggleResize()));
-			if (!b->Locked)
-			{
-				if (SelItem.count() > 1)
-					pmen->insertItem( tr("Group"), this, SIGNAL(DoGroup()));
-				if (b->Groups.count() != 0)
-					pmen->insertItem( tr("Un-group"), this, SIGNAL(DoUnGroup()));
-				if ((!b->isTableItem) && (!b->isSingleSel))
-				{
-					pmen->insertItem( tr("Level"), pmenLevel);
-					pmenLevel->insertItem( tr("Send to Back"), this, SLOT(ToBack()));
-					pmenLevel->insertItem( tr("Bring to Front"), this, SLOT(ToFront()));
-					pmenLevel->insertItem( tr("Lower"), this, SLOT(LowerItem()));
-					pmenLevel->insertItem( tr("Raise"), this, SLOT(RaiseItem()));
-				}
-			}
 			if (!b->isSingleSel)
 			{
 				pmen->insertItem( tr("Send to Scrapbook"), this, SLOT(sentToScrap()));
@@ -2808,6 +2793,21 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					pmen->insertItem( tr("Send to Layer"), pmen3);
 				}
 				connect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
+			}
+			if (!b->Locked)
+			{
+				if (SelItem.count() > 1)
+					pmen->insertItem( tr("Group"), this, SIGNAL(DoGroup()));
+				if (b->Groups.count() != 0)
+					pmen->insertItem( tr("Un-group"), this, SIGNAL(DoUnGroup()));
+				if ((!b->isTableItem) && (!b->isSingleSel))
+				{
+					pmen->insertItem( tr("Level"), pmenLevel);
+					pmenLevel->insertItem( tr("Send to Back"), this, SLOT(ToBack()));
+					pmenLevel->insertItem( tr("Bring to Front"), this, SLOT(ToFront()));
+					pmenLevel->insertItem( tr("Lower"), this, SLOT(LowerItem()));
+					pmenLevel->insertItem( tr("Raise"), this, SLOT(RaiseItem()));
+				}
 			}
 			if (((b->PType == 4) || (b->PType == 2) || (b->PType == 6)) && (doku->AppMode != 7))
 			{
@@ -2841,10 +2841,10 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem( tr("Copy"), this, SIGNAL(CopyItem()));
 			if ((doku->AppMode == 7) && (ScApp->Buffer2.startsWith("<SCRIBUSTEXT")) && (b->PType == 4))
 				pmen->insertItem( tr("Paste"), ScApp, SLOT(slotEditPaste()));
-			if ((b->PType == 2) || ((b->PType == 4) && (b->NextBox == 0) && (b->BackBox == 0)))
-				pmen->insertItem( tr("Clear Contents"), this, SLOT(ClearItem()));
 			if ((!b->Locked) && (doku->AppMode != 7) && (!((b->isTableItem) && (b->isSingleSel))))
 				pmen->insertItem( tr("Delete"), this, SLOT(DeleteItem()));
+			if ((b->PType == 2) || ((b->PType == 4) && (b->NextBox == 0) && (b->BackBox == 0)))
+				pmen->insertItem( tr("Clear Contents"), this, SLOT(ClearItem()));
 			pmen->insertSeparator();
 			if (!ScApp->Mpal->isVisible())
 				pmen->insertItem( tr("Show Properties..."), ScApp, SLOT(ToggleMpal()));
@@ -3831,7 +3831,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 	{
 		newX = static_cast<int>(m->x()/sc);
 		newY = static_cast<int>(m->y()/sc);
-		if ((Mpressed) && (m->state() == RightButton) && (!doku->DragP) && (doku->AppMode == 1) && (!b->Locked) && (!((b->isTableItem) && (b->isSingleSel))))
+/*		if ((Mpressed) && (m->state() == RightButton) && (!doku->DragP) && (doku->AppMode == 1) && (!b->Locked) && (!((b->isTableItem) && (b->isSingleSel))))
 		{
 			if ((abs(Dxp - newX) > 5) || (abs(Dyp - newY) > 5))
 			{
@@ -3853,7 +3853,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 				doku->DragElements.clear();
 			}
 			return;
-		}
+		} */
 		if (doku->DragP)
 			return;
 		if (Mpressed && (doku->AppMode == 9))
@@ -3990,7 +3990,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 				emit b->HasSel ? HasTextSel() : HasNoTextSel();
 			}
 		}
-		if (Mpressed && ((doku->AppMode == 1) || ((doku->AppMode == 7) && HanMove)) && (!b->Locked))
+		if (Mpressed && (m->state() & LeftButton) && ((doku->AppMode == 1) || ((doku->AppMode == 7) && HanMove)) && (!b->Locked))
 		{
 			if (doku->EditClip)
 			{
@@ -4476,7 +4476,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 	}
 	else
 	{
-		if (Mpressed)
+		if ((Mpressed) && (m->state() == LeftButton))
 		{
 			newX = m->x();
 			newY = m->y();
@@ -7928,7 +7928,7 @@ void Page::LowerItem()
 
 void Page::RaiseItem()
 {
-	uint a, old;
+	uint old;
 	if ((Items.count() > 1) && (SelItem.count() != 0) && (SelItem.at(0)->ItemNr<Items.count()-1))
 	{
 		PageItem *b = SelItem.at(0);
@@ -7942,7 +7942,7 @@ void Page::RaiseItem()
 		emit UndoAvail();
 		b->Dirty = true;
 		Items.insert(SelItem.at(0)->ItemNr+1, b);
-		for (a = 0; a < Items.count(); ++a)
+		for (uint a = 0; a < Items.count(); ++a)
 		{
 			Items.at(a)->ItemNr = a;
 			if (Items.at(a)->isBookmark)

@@ -21,6 +21,8 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qlineedit.h>
+#include <qwidgetstack.h>
+#include <qlistbox.h>
 #include "cmykcolor.h"
 #include "colorchart.h"
 #include "mspinbox.h"
@@ -31,7 +33,7 @@ class CMYKChoose : public QDialog
 	Q_OBJECT
 
 public:
-	CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *Colors );
+	CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *Colors, QStringList Cust );
 	~CMYKChoose() {};
 	virtual void mouseReleaseEvent(QMouseEvent *m);
 	QColor CMYK2RGB(int c, int m, int y, int k);
@@ -40,6 +42,7 @@ public:
 	QLabel* TextLabel3;
 	QComboBox* ComboBox1;
 	QCheckBox* Separations;
+	QComboBox* Swatches;
 	QLabel* TextLabel5_2;
 	QLabel* OldC;
 	QLabel* TextLabel5;
@@ -47,7 +50,10 @@ public:
 	QPushButton* Cancel;
 	QPushButton* Cancel_2;
 	QFrame* Frame4;
+	QWidgetStack* TabStack;
 	QFrame* Frame5;
+	QFrame* Frame5a;
+	QListBox* ColorSwatch;
 	ColorChart* ColorMap;
 	QLabel* CyanP;
 	QLabel* CyanT;
@@ -73,15 +79,19 @@ public:
 	bool dynamic;
 	int BlackComp;
 	CListe *EColors;
+	CListe CurrSwatch;
+	QStringList CColSet;
 
 public slots:
 	void SetValueS(int val);
 	void ToggleSL();
 	QPixmap SliderPix(int farbe);
 	QPixmap SliderBlack();
+	void SelSwatch(int n);
 	void SelModel(const QString& mod);
 	void setColor();
 	void setColor2(int h, int s, bool ende);
+	void SelFromSwatch( int c);
 	void setValues();
 	void Verlassen();
 
@@ -92,6 +102,7 @@ protected:
 	QHBoxLayout* Layout21;
 	QVBoxLayout* Frame4Layout;
 	QHBoxLayout* Frame5Layout;
+	QHBoxLayout* Frame5aLayout;
 	QHBoxLayout* Cyan;
 	QVBoxLayout* Layout1_2;
 	QHBoxLayout* Magenta;

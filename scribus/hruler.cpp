@@ -105,7 +105,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 				}
 			}
 		}
-		if ((RulerCode == 0) && (ActCol != 0))
+		if ((RulerCode == 0) && (ActCol != 0) && (m->button() == LeftButton))
 		{
 			double Pos = (ItemPos+Extra+lineCorr+Offset)*Scaling-offs;
 			int newY = m->x() - static_cast<int>(Pos);
@@ -145,7 +145,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 					doku->Vorlagen[doku->CurrentABStil].First = First;
 					break;
 				case 5:
-					if (m->state() == RightButton)
+					if (m->button() == RightButton)
 					{
 						TabValues[ActTab] += 1.0;
 						if (TabValues[ActTab] > 4.0)
@@ -176,7 +176,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			}
 		}
-		if ((RulerCode != 0) || (m->state() != RightButton))
+		if ((RulerCode != 0) || (m->button() != RightButton))
 		{
 			QPainter p;
 			p.begin(doku->ActPage);
@@ -216,6 +216,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		}
 		if ((Mpressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart) && (m->x() < ColEnd))
 		{
+			qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
 			double toplimit = ItemEndPos-ItemPos-2*lineCorr-Extra - (ColGap * (Cols - 1))-1;
 			double toplimit2 = ItemEndPos-ItemPos-2*lineCorr-RExtra - (ColGap * (Cols - 1))-1;
 			switch (RulerCode)
@@ -330,7 +331,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			}
 			return;
 		}
-		if ((Mpressed) && (RulerCode == 5) && (m->y() > height()))
+		if ((Mpressed) && (RulerCode == 5) && ((m->y() > height()) || (m->y() < 0)))
 		{
 			qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png"), 4, 3), true);
 			return;
