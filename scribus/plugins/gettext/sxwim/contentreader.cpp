@@ -183,6 +183,7 @@ bool ContentReader::characters(const QString &ch)
 	QString tmp = ch;
 	tmp = tmp.remove("\n");
 	tmp = tmp.remove(""); // Remove all OO.o hyphenation chars
+	tmp = tmp.replace(QChar(160), QChar(29)); // replace OO.o nbsp with Scribus nbsp
 	if (append)
 		write(tmp);
 	return true;
