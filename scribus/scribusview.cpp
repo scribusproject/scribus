@@ -58,6 +58,8 @@
 #include "scribusXml.h"
 #include "serializer.h"
 #include "insertTable.h"
+#include "hruler.h"
+#include "vruler.h"
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
 #endif

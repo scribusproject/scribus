@@ -19,6 +19,7 @@
 #include "shadebutton.h"
 #include "story.h"
 #include "scribus.h"
+
 extern ScribusApp* ScApp;
 extern QPixmap loadIcon(QString nam);
 

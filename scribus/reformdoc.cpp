@@ -1,6 +1,7 @@
 #include "reformdoc.h"
 #include "reformdoc.moc"
 #include <qtooltip.h>
+#include <qspinbox.h>
 #include <qcolordialog.h>
 #include "fontcombo.h"
 #include "polygonwidget.h"
@@ -9,6 +10,9 @@
 #include "hysettings.h"
 #include "cmsprefs.h"
 #include "units.h"
+#include "mspinbox.h"
+#include "linecombo.h"
+#include "scribus.h"
 
 extern QPixmap loadIcon(QString nam);
 extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);

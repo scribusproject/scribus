@@ -22,8 +22,8 @@
 #include <qpen.h>
 #include <qfile.h>
 #include <vector>
-#include "scribusdoc.h"
-#include "scribusview.h"
+class ScribusDoc;
+class ScribusView;
 #include "page.h"
 #include "pageitem.h"
 

@@ -11,7 +11,7 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qevent.h>
-#include "scribusdoc.h"
+#include "scribusstructs.h"
 
 class KeyManager : public QWidget
 {

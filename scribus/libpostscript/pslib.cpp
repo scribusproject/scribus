@@ -32,6 +32,8 @@
 #endif
 
 #include "pslib.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
 #include "scfonts.h"
 #include <cmath>
 

@@ -6,7 +6,9 @@
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include "scribusdoc.h"
+
+#include "scribusstructs.h"
+class ScribusDoc;
 
 class StilFormate : public QDialog
 {

@@ -17,7 +17,13 @@
 
 #ifndef PAGE_H
 #define PAGE_H
-#include "scribusdoc.h"
+
+class QString;
+#include "qvaluelist.h"
+#include "qptrlist.h"
+
+#include "scribusstructs.h"
+#include "pageitem.h"
 /**
   *@author Franz Schmid
   */

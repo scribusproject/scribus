@@ -22,6 +22,8 @@
 #include <qcolor.h>
 #include <qrect.h>
 #include <qpointarray.h>
+#include "scribusview.h"
+#include "scribusdoc.h"
 #include "scribus.h"
 
 #if QT_VERSION  > 0x030102

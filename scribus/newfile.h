@@ -13,7 +13,8 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include "mspinbox.h"
-#include "scribusdoc.h"
+
+#include "scribusstructs.h"
 
 class NewDoc : public QDialog
 { 

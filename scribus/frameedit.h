@@ -11,8 +11,8 @@
 #include <qcheckbox.h>
 #include <qspinbox.h>
 #include "mspinbox.h"
-#include "scribusdoc.h"
-#include "scribusview.h"
+class ScribusDoc;
+class ScribusView;
 
 class NodePalette : public QDialog
 {

@@ -3,7 +3,6 @@
 
 #include <qvariant.h>
 #include <qwidget.h>
-#include "scribusdoc.h"
 class QGridLayout;
 class QGroupBox;
 class QLabel;

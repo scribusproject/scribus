@@ -23,7 +23,7 @@
 #include "mspinbox.h"
 #include "pageitem.h"
 #include "page.h"
-#include "scribusdoc.h"
+class ScribusDoc;
 #include "linkbutton.h"
 #include "linecombo.h"
 #include "spalette.h"

@@ -11,7 +11,7 @@
 extern QPixmap loadIcon(QString nam);
 
 #include <qtooltip.h>
-
+#include "scribusdoc.h"
 /*
  *  Constructs a DocInfos which is a child of 'parent', with the 
  *  name 'name' and widget flags set to 'f' 

@@ -2,11 +2,15 @@
 #define LINEFORMATE_H
 
 #include <qdialog.h>
-#include <qlistbox.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include "scribusdoc.h"
+
+#include "multiline.h"
+#include "scribusstructs.h"
+
+class QListBox;
+class QPushButton;
+class QVBoxLayout;
+class QHBoxLayout;
+class ScribusDoc;
 
 class LineFormate : public QDialog
 {

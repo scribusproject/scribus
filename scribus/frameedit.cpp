@@ -2,6 +2,7 @@
 #include "frameedit.moc"
 #include "page.h"
 #include "pageitem.h"
+#include "scribusview.h"
 
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;

@@ -20,7 +20,7 @@
 
 #include <qlabel.h>
 #include <qpixmap.h>
-#include "scribusview.h"
+class ScribusView;
 
 /**
   *@author Franz Schmid

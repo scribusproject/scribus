@@ -14,9 +14,13 @@
 #include <qwhatsthis.h>
 #include <qpixmap.h>
 #include <qlineedit.h>
+
+#include "scribusstructs.h"
+
 #include "linecombo.h"
 #include "mspinbox.h"
-#include "scribusdoc.h"
+
+class ScribusDoc;
 
 class MultiLine : public QDialog
 {

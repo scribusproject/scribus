@@ -3,6 +3,7 @@
 extern QPixmap loadIcon(QString nam);
 
 #include <qtooltip.h>
+#include "scribusdoc.h"
 
 NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc)
 		: QDialog( parent, "newt", true, 0 )

@@ -14,7 +14,7 @@
 #include <qlayout.h>
 #include <qlineedit.h>
 #include <qmultilineedit.h>
-#include "scribusdoc.h"
+class ScribusDoc;
 
 class DocInfos : public QTabDialog
 {

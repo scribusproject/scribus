@@ -19,9 +19,11 @@
 #include <qslider.h>
 #include <qlineedit.h>
 #include <qfiledialog.h>
+
+#include "scribusstructs.h"
+
 #include "linecombo.h"
 #include "linkbutton.h"
-#include "scribusdoc.h"
 #include "scfonts.h"
 #include "mspinbox.h"
 #include "scribus.h"

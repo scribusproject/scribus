@@ -21,10 +21,11 @@
 #include <qcombobox.h>
 #include <qlistbox.h>
 
+#include "scribusstructs.h"
 class QListBoxItem;
 class QFont;
 
-#include "scribusdoc.h"
+class ScribusDoc;
 
 /**
   *@author Franz Schmid

@@ -14,7 +14,7 @@
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include "scribusdoc.h"
+class ScribusDoc;
 #include "scribusview.h"
 
 class MusterSeiten : public QDialog

@@ -7,7 +7,7 @@
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qcombobox.h>
-#include "scribusdoc.h"
+class ScribusDoc;
 
 class NewTm : public QDialog
 {

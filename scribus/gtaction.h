@@ -26,7 +26,7 @@
 #include <qvaluelist.h>
 #include <qmap.h>
 #include <qstring.h>
-#include "pageitem.h"
+class PageItem;
 #include "gtfont.h"
 #include "gtframestyle.h"
 #include "gtparagraphstyle.h"

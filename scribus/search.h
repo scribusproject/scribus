@@ -3,9 +3,8 @@
 
 #include <qvariant.h>
 #include <qdialog.h>
-#include "scribusdoc.h"
-#include "pageitem.h"
 
+#include "scribusstructs.h"
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
@@ -19,6 +18,9 @@ class FontCombo;
 class StyleSelect;
 class ShadeButton;
 class QLabel;
+
+class ScribusDoc;
+class PageItem;
 
 class SearchReplace : public QDialog
 {

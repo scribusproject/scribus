@@ -12,7 +12,7 @@
 #include <qwidget.h>
 #include <qcombobox.h>
 #include <qlistbox.h>
-#include "scribusdoc.h"
+#include "scribusstructs.h"
 
 class FontPrefs : public QDialog
 {

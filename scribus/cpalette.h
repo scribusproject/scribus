@@ -18,6 +18,7 @@
 #ifndef CPALETTE_H
 #define CPALETTE_H
 
+#include "scribusstructs.h"
 #include "gradienteditor.h"
 
 class QListBox;
@@ -32,7 +33,6 @@ class QButtonGroup;
 class QComboBox;
 class QLabel;
 class QSpinBox;
-#include "scribusdoc.h"
 #include "shadebutton.h"
 #include "mspinbox.h"
 

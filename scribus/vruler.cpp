@@ -23,6 +23,7 @@
 #include <qrect.h>
 #include <qpointarray.h>
 #include "scribus.h"
+#include "scribusdoc.h"
 
 #if QT_VERSION  > 0x030102
 	#define SPLITVC SplitHCursor

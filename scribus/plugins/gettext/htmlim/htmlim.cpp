@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "htmlim.h"
+#include <qobject.h>
 #include <qstring.h>
 #include <qstringlist.h>
 

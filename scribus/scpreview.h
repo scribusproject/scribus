@@ -1,8 +1,11 @@
 #ifndef SCPREVIEW_H
 #define SCPREVIEW_H
 
-#include "scribusdoc.h"
+#include "scribusstructs.h"
 #include "scpainter.h"
+
+class QString;
+class CMYKColor;
 
 class ScPreview
 {

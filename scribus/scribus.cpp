@@ -97,6 +97,8 @@
 #include "polygonwidget.h"
 #include "werktoolb.h"
 #include "units.h"
+#include "hruler.h"
+#include "vruler.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);

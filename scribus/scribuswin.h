@@ -21,7 +21,7 @@
 #include <qmainwindow.h>
 #include <qmessagebox.h>
 #include "scribusview.h"
-#include "scribusdoc.h"
+class ScribusDoc;
 #include "muster.h"
 /**
   *@author Franz Schmid

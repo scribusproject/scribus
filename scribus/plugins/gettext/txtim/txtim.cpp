@@ -1,10 +1,12 @@
-#include "txtim.h"
+#include <qobject.h>
 #include <qcstring.h>
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qtextcodec.h> 
+
+#include "txtim.h"
 
 QString FileFormatName()
 {

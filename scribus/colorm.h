@@ -18,7 +18,7 @@
 #include <qlabel.h>
 #include <qpopupmenu.h>
 #include <qcolor.h>
-#include "scribusdoc.h"
+#include "scribusstructs.h"
 #include "query.h"
 
 class Farbmanager : public QDialog

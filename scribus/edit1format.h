@@ -12,12 +12,12 @@
 #include <qtooltip.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
+#include "scribusstructs.h"
 #include "mspinbox.h"
 #include "fontcombo.h"
-#include "scribusdoc.h"
+class ScribusDoc;
 #include "alignselect.h"
 class StyleSelect;
-#include "scribusdoc.h"
 #include "shadebutton.h"
 class Tabruler;
 

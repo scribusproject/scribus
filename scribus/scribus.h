@@ -70,24 +70,7 @@ class Mpalette;
 class Measurements;
 class StoryEditor;
 
-struct PrintOptions {
-	QString printer;
-	QString filename;
-	bool toFile;
-	bool useAltPrintCommand;
-	QString printerCommand;
-	int PSLevel;
-	bool outputSeparations;
-	QString separationName;
-	bool useColor;
-	bool mirrorH;
-	bool mirrorV;
-	bool useICC;
-	bool doGCR;
-	int copies;
-	std::vector<int> pageNumbers;
-	QString printerOptions;
-};
+
 /**
   * This Class is the base class for your application. It sets up the main
   * window and providing a menubar, toolbar

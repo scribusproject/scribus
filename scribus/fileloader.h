@@ -5,7 +5,11 @@
 #include <qmap.h>
 #include <qdom.h>
 #include <qprogressbar.h>
-#include <scribus.h>
+#include "scribusstructs.h"
+class ScribusDoc;
+class ScribusView;
+class ScribusApp;
+class SCFonts;
 
 class FileLoader
 {

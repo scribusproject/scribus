@@ -20,9 +20,10 @@
 
 #include <qwidget.h>
 #include <qpainter.h>
-#include "scribusdoc.h"
 
 class ScribusView;
+class ScribusDoc;
+class ScribusApp;
 /**Waagrechtes Lineal
   *@author Franz Schmid
   */

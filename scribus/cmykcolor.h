@@ -18,7 +18,7 @@
 #ifndef CMYKCOLOR_H
 #define CMYKCOLOR_H
 
-class QColor;
+#include <qcolor.h>
 class QString;
 
 /**

@@ -6,8 +6,9 @@
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include "scribusdoc.h"
-#include "scribusview.h"
+
+class ScribusDoc;
+class ScribusView;
 
 class JavaDocs : public QDialog
 { 

@@ -1,4 +1,3 @@
-#include "fileloader.h"
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qtl.h>
@@ -9,6 +8,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <qtextstream.h>
+#include "fileloader.h"
 #include "scribus.h"
 #include "scribusXml.h"
 #include "missing.h"

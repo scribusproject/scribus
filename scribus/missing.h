@@ -6,8 +6,8 @@ class QLabel;
 class QHBoxLayout;
 class QGridLayout;
 class QPushButton;
-#include "scribusdoc.h"
-#include "fontcombo.h"
+class FontCombo;
+#include "scribusstructs.h"
 
 class MissingFont : public QDialog
 {

@@ -20,7 +20,8 @@
 
 #include <qwidget.h>
 #include <qpainter.h>
-#include "scribusdoc.h"
+class ScribusDoc;
+class ScribusView;
 /**Vertikales Lineal
   *@author Franz Schmid
   */

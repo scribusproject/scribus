@@ -7,6 +7,8 @@
 #include "missing.h"
 #include "missing.moc"
 
+#include "fontcombo.h"
+
 extern QPixmap loadIcon(QString nam);
 
 static const char* const image100_data[] =

@@ -6,6 +6,7 @@
 #include <qtooltip.h>
 #include <qspinbox.h>
 #include "mspinbox.h"
+#include "scribusstructs.h"
 
 TabTypograpy::TabTypograpy( QWidget* parent, struct typoStruct *prefsData, double unitBase, QString unit) : QWidget( parent, "tabtypo", 0 )
 {

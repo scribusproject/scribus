@@ -2,7 +2,7 @@
 #define ARROWCHOOSER_H
 
 #include <qcombobox.h>
-#include "scribusdoc.h"
+#include "scribusstructs.h"
 
 class ArrowChooser : public QComboBox
 {

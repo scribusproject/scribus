@@ -28,6 +28,7 @@
 #include <cmath>
 #include "page.h"
 #include "scribus.h"
+#include "scribusdoc.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)

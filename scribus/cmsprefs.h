@@ -8,7 +8,7 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include "scribusdoc.h"
+#include "scribusstructs.h"
 
 class CMSPrefs : public QWidget
 { 

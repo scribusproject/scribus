@@ -25,6 +25,8 @@
 #include <qcursor.h>
 #include <cstdio>
 #include "picsearch.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
 #include "pageitem.h"
 extern QPixmap loadIcon(QString nam);
 

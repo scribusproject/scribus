@@ -18,7 +18,7 @@
 #include <qtooltip.h>
 #include <qpixmap.h>
 #include <qdragobject.h>
-#include "scribusdoc.h"
+#include "scribusstructs.h"
 
 class BibView : public QIconView
 {

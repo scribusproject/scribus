@@ -1,6 +1,7 @@
 #include "scpreview.h"
 #include <qtextstream.h>
 #include <qdom.h>
+#include <qmap.h>
 #include <qpainter.h>
 #include <qrect.h>
 #include <qimage.h>

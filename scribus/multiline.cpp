@@ -1,7 +1,11 @@
 #include "multiline.h"
 #include "multiline.moc"
+
 #include <qpainter.h>
 #include <qmessagebox.h>
+
+#include "scribusdoc.h"
+
 extern QPixmap loadIcon(QString nam);
 
 MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString nam, QMap<QString,multiLine> *Sty)

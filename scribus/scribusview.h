@@ -34,8 +34,8 @@
 #include "scribusdoc.h"
 #include "scpainter.h"
 #include "page.h"
-#include "hruler.h"
-#include "vruler.h"
+class Hruler;
+class Vruler;
 #include "mspinbox.h"
 #include "pageselector.h"
 

@@ -26,8 +26,8 @@
 #include <qpixmap.h>
 #include <qvaluestack.h>
 #include <qvaluelist.h>
-#include "scribusdoc.h"
 #include "scpainter.h"
+class ScribusDoc;
 /**
   *@author Franz Schmid
   */

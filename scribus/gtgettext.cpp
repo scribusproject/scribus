@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "gtgettext.h"
+#include "scribus.h"
 
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;

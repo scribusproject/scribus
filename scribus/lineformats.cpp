@@ -1,10 +1,14 @@
 #include "lineformats.h"
 #include "lineformats.moc"
-#include "multiline.h"
+
 #include <qmessagebox.h>
+#include <qpainter.h>
+
 #include "customfdialog.h"
 #include "scribusXml.h"
 #include "prefsfile.h"
+#include "multiline.h"
+
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
 

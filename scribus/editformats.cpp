@@ -2,6 +2,8 @@
 #include "editformats.moc"
 #include "edit1format.h"
 #include <qmessagebox.h>
+
+#include "scribusdoc.h"
 #include "customfdialog.h"
 #include "prefsfile.h"
 

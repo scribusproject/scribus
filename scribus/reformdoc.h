@@ -12,19 +12,24 @@
 #include <qpushbutton.h>
 #include <qtoolbutton.h>
 #include <qcolor.h>
+
+#include "scribusstructs.h"
 #include "linkbutton.h"
-#include "linecombo.h"
-#include "mspinbox.h"
 #include "prefsdialogbase.h"
 #include "scfonts.h"
-#include "scribusdoc.h"
-#include "scribus.h"
+
+class QSpinBox;
+class ScribusDoc;
+class ScribusApp;
 class FontCombo;
 class PolygonWidget;
 class ArrowChooser;
 class TabTypograpy;
 class HySettings;
 class CMSPrefs;
+class MSpinBox;
+class LineCombo;
+
 
 class ReformDoc : public PrefsDialogBase
 {

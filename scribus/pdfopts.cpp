@@ -8,6 +8,9 @@
  ***************************************************************************/
 #include "pdfopts.h"
 #include "pdfopts.moc"
+
+#include <qpainter.h>
+
 #include "customfdialog.h"
 #include "prefsfile.h"
 #include "units.h"

@@ -10,8 +10,8 @@
 #include <qheader.h>
 #include <qptrlist.h>
 #include <qvaluelist.h>
-#include "scribusdoc.h"
-#include "scribusview.h"
+class ScribusDoc;
+class ScribusView;
 
 class PicStatus : public QDialog
 { 
