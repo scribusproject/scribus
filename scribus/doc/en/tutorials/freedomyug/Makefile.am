@@ -1,4 +1,4 @@
-EXTRA_DIST = scribustutorial1.html scribustutorial2.html scribustutorial3.html scribustutorial4.html scribustutorial5.html scribustutorial6.html scribustutorial7.html scribustutorial8.html scribustutorial9.html scribustutorial10.html scribstutorial11.html scribustutorial12.html fdl.txt
+EXTRA_DIST = scribustutorial1.html scribustutorial2.html scribustutorial3.html scribustutorial4.html scribustutorial5.html scribustutorial6.html scribustutorial7.html scribustutorial8.html scribustutorial9.html scribustutorial10.html scribustutorial11.html scribustutorial12.html fdl.txt
 
 
 install-data-local:
