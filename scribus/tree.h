@@ -12,35 +12,39 @@
 #include <qdialog.h>
 #include <qptrlist.h>
 #include <qvaluelist.h>
-#include "scribusview.h"
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
 class QListView;
 class QListViewItem;
+class ScribusApp;
 class ScribusDoc;
+class PageItem;
 
 class Tree : public QDialog
 {
 	Q_OBJECT
 
 public:
-	Tree( QWidget* parent, WFlags fl );
+	Tree( QWidget* parent, ScribusApp* scApp );
 	~Tree() {};
 	void keyPressEvent(QKeyEvent *k);
 	void closeEvent(QCloseEvent *ce);
 	void resizeEvent(QResizeEvent *r);
 	void rebuildPageD();
 	void reopenTree(QValueList<int> op);
+	void parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *subGroupList, bool onTemplate);
 	QValueList<int> buildReopenVals();
 
 	QListView* reportDisplay;
 	QMap<QListViewItem*, int> itemMap;
+	QMap<QListViewItem*, int> groupMap;
 	QMap<QListViewItem*, int> pageMap;
-	QMap<QListViewItem*, QString> templatePageMap;
 	QMap<QListViewItem*, int> templateItemMap;
+	QMap<QListViewItem*, int> templateGroupMap;
+	QMap<QListViewItem*, QString> templatePageMap;
 	ScribusDoc* document;
-	ScribusView *vie;
+	ScribusApp* ScApp;
 
 public slots:
 	void slotRightClick(QListViewItem* ite, const QPoint &, int);

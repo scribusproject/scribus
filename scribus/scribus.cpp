@@ -117,6 +117,7 @@
 #include "scraction.h"
 #include "menumanager.h"
 #include "undostate.h"
+#include "tree.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
@@ -847,7 +848,7 @@ void ScribusApp::initArrowStyles()
 
 void ScribusApp::initPalettes()
 {
-	Tpal = new Tree(this, 0);
+	Tpal = new Tree(this, this);
 	Mpal = new Mpalette(this, &Prefs);
 	Mpal->Cpal->SetColors(Prefs.DColors);
 	Mpal->Cpal->UseTrans(true);

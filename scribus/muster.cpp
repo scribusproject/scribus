@@ -8,6 +8,7 @@
 #include <qmessagebox.h>
 #include <qcursor.h>
 #include <qstring.h>
+#include <qtooltip.h>
 #include "scribusdoc.h"
 #include "scribusview.h"
 
@@ -21,30 +22,27 @@ MusterPages::MusterPages( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView 
 	setIcon(loadIcon("AppIcon.png"));
 	currentDoc = pCurrentDoc;
 	currentView = pCurrentView;
-	musterPagesLayout = new QHBoxLayout( this, 10, 6 );
-
-	templateData = new QListBox( this, "templateData" );
-	templateData->setMinimumSize( QSize( 150, 240 ) );
-	musterPagesLayout->addWidget( templateData );
-
-	buttonLayout = new QVBoxLayout;
-	buttonLayout->setSpacing( 6 );
+	musterPagesLayout = new QVBoxLayout( this, 5, 5 );
+	buttonLayout = new QHBoxLayout;
+	buttonLayout->setSpacing( 5 );
 	buttonLayout->setMargin( 0 );
-
-	appendButton = new QPushButton( tr( "&Append" ), this, "appendButton" );
-	newButton = new QPushButton( tr( "&New" ), this, "newButton" );
-	duplicateButton = new QPushButton( tr( "D&uplicate" ), this, "DublicateB" );
-	deleteButton = new QPushButton( tr( "&Delete" ), this, "deleteButton" );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	closeButton = new QPushButton( tr( "&Close" ), this, "closeButton" );
-
-	buttonLayout->addWidget( appendButton );
+	appendButton = new QPushButton(this, "appendButton" );
+	appendButton->setPixmap(loadIcon("fileopen.png"));
+	newButton = new QPushButton(this, "newButton" );
+	newButton->setPixmap(loadIcon("filenew.png"));
+	duplicateButton = new QPushButton(this, "DublicateB" );
+	duplicateButton->setPixmap(loadIcon("editcopy22.png"));
+	deleteButton = new QPushButton(this, "deleteButton" );
+	deleteButton->setPixmap(loadIcon("edittrash.png"));
 	buttonLayout->addWidget( newButton );
 	buttonLayout->addWidget( duplicateButton );
+	buttonLayout->addWidget( appendButton );
 	buttonLayout->addWidget( deleteButton );
-	buttonLayout->addItem( spacer );
-	buttonLayout->addWidget( closeButton );
 	musterPagesLayout->addLayout( buttonLayout );
+	templateData = new QListBox( this, "templateData" );
+	templateData->setMinimumSize( QSize( 100, 240 ) );
+	musterPagesLayout->addWidget( templateData );
+
 
 	if (temp == "")
 	{
@@ -61,8 +59,11 @@ MusterPages::MusterPages( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView 
 
 	setMaximumSize(sizeHint());
 
+	QToolTip::add( duplicateButton, tr( "Duplicates the selected master page" ) );
+	QToolTip::add( deleteButton, tr( "Deletes the selected master page" ) );
+	QToolTip::add( newButton, tr( "Adds a new master page" ) );
+	QToolTip::add( appendButton, tr( "Loads master page(s) from another document" ) );
 	// signals and slots connections
-	connect(closeButton, SIGNAL(clicked()), this, SLOT(exitEditor()));
 	connect(duplicateButton, SIGNAL(clicked()), this, SLOT(duplicateTemplate()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteTemplate()));
 	connect(newButton, SIGNAL(clicked()), this, SLOT(newTemplate()));
@@ -74,11 +75,6 @@ void MusterPages::closeEvent(QCloseEvent *closeEvent)
 {
 	emit finished();
 	closeEvent->accept();
-}
-
-void MusterPages::exitEditor()
-{
-	close();
 }
 
 void MusterPages::deleteTemplate()

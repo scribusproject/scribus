@@ -9,14 +9,11 @@
 #include <qpixmap.h>
 #include <qmessagebox.h>
 #include "scribus.h"
-#include "scribusdoc.h"
-#include "page.h"
 extern QPixmap loadIcon(QString nam);
-extern ScribusApp* ScApp;
 
-Tree::Tree( QWidget* parent, WFlags fl )
-		: QDialog( parent, "Tree", false, fl )
+Tree::Tree( QWidget* parent, ScribusApp* scApp ) : QDialog( parent, "Tree", false, 0 )
 {
+	ScApp = scApp;
 	resize( 220, 240 );
 	setMinimumSize( QSize( 220, 240 ) );
 	setMaximumSize( QSize( 800, 600 ) );
@@ -357,6 +354,13 @@ void Tree::slotSelect(QListViewItem* ite)
 		emit selectElement(document->DocItems.at(itemMap[ite])->OwnPage, itemMap[ite]);
 		return;
 	}
+	if (groupMap.contains(ite))
+	{
+		if (document->TemplateMode)
+			ScApp->ActWin->muster->close();
+		emit selectElement(document->DocItems.at(groupMap[ite])->OwnPage, groupMap[ite]);
+		return;
+	}
 	if (pageMap.contains(ite))
 	{
 		if (document->TemplateMode)
@@ -374,6 +378,13 @@ void Tree::slotSelect(QListViewItem* ite)
 		if (!document->TemplateMode)
 			emit selectTemplatePage(document->MasterItems.at(templateItemMap[ite])->OnMasterPage);
 		emit selectElement(-1, templateItemMap[ite]);
+		return;
+	}
+	if (templateGroupMap.contains(ite))
+	{
+		if (!document->TemplateMode)
+			emit selectTemplatePage(document->MasterItems.at(templateGroupMap[ite])->OnMasterPage);
+		emit selectElement(-1, templateGroupMap[ite]);
 		return;
 	}
 }
@@ -404,42 +415,90 @@ void Tree::BuildTree(ScribusDoc *doc)
 	reportDisplay->clear();
 	itemMap.clear();
 	pageMap.clear();
+	groupMap.clear();
+	templateGroupMap.clear();
 	templatePageMap.clear();
 	templateItemMap.clear();
+	QPtrList<PageItem> subGroupList;
 	QListViewItem * item = new QListViewItem( reportDisplay, 0 );
 	item->setText( 0, doc->DocName );
 	QListViewItem * pagep = 0;
+	PageItem* pgItem;
+	QString tmp;
+	for (uint b = 0; b < doc->MasterItems.count(); ++b)
+	{
+		doc->MasterItems.at(b)->Dirty = false;
+	}
 	for (int a = 0; a < static_cast<int>(doc->MasterPages.count()); ++a)
 	{
-		QString tmp;
 		QListViewItem * page = new QListViewItem( item, pagep );
 		QString pageNam = doc->MasterPages.at(a)->PageNam;
 		templatePageMap.insert(page, pageNam);
 		pagep = page;
 		for (uint b = 0; b < doc->MasterItems.count(); ++b)
 		{
-			if ((doc->MasterItems.at(b)->OwnPage == a) || (doc->MasterItems.at(b)->OnMasterPage == pageNam))
+			pgItem = doc->MasterItems.at(b);
+			if ((pgItem->OwnPage == a) || (pgItem->OnMasterPage == pageNam))
 			{
-				QListViewItem * object = new QListViewItem( page, 0 );
-				templateItemMap.insert(object, doc->MasterItems.at(b)->ItemNr);
-				object->setText(0, doc->MasterItems.at(b)->itemName());
+				if (pgItem->Groups.count() == 0)
+				{
+					QListViewItem * object = new QListViewItem( page, 0 );
+					templateItemMap.insert(object, pgItem->ItemNr);
+					object->setText(0, pgItem->itemName());
+				}
+				else
+				{
+						QListViewItem * object = new QListViewItem( page, 0 );
+						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
+						subGroupList.clear();
+						for (uint ga = 0; ga < doc->MasterItems.count(); ++ga)
+						{
+							PageItem* pgItem2 = doc->MasterItems.at(ga);
+							if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()))
+								subGroupList.append(pgItem2);
+						}
+						parseSubGroup(1, object, &subGroupList, true);
+						templateGroupMap.insert(object, pgItem->ItemNr);
+				}
 			}
 		}
 		page->setText(0, doc->MasterPages.at(a)->PageNam);
 	}
+	for (uint b = 0; b < doc->DocItems.count(); ++b)
+	{
+		doc->DocItems.at(b)->Dirty = false;
+	}
 	for (int a = 0; a < static_cast<int>(doc->DocPages.count()); ++a)
 	{
-		QString tmp;
 		QListViewItem * page = new QListViewItem( item, pagep );
 		pageMap.insert(page, a);
 		pagep = page;
 		for (uint b = 0; b < doc->DocItems.count(); ++b)
 		{
-			if (doc->DocItems.at(b)->OwnPage == a)
+			pgItem = doc->DocItems.at(b);
+			if ((pgItem->OwnPage == a) && (!pgItem->Dirty))
 			{
-				QListViewItem * object = new QListViewItem( page, 0 );
-				object->setText(0, doc->DocItems.at(b)->itemName());
-				itemMap.insert(object, doc->DocItems.at(b)->ItemNr);
+				if (pgItem->Groups.count() == 0)
+				{
+						QListViewItem * object = new QListViewItem( page, 0 );
+						object->setText(0, pgItem->itemName());
+						itemMap.insert(object, pgItem->ItemNr);
+						pgItem->Dirty = true;
+				}
+				else
+				{
+						QListViewItem * object = new QListViewItem( page, 0 );
+						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
+						subGroupList.clear();
+						for (uint ga = 0; ga < doc->DocItems.count(); ++ga)
+						{
+							PageItem* pgItem2 = doc->DocItems.at(ga);
+							if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()))
+								subGroupList.append(pgItem2);
+						}
+						parseSubGroup(1, object, &subGroupList, false);
+						groupMap.insert(object, pgItem->ItemNr);
+				}
 			}
 		}
 		page->setText(0, tr("Page ")+tmp.setNum(a+1));
@@ -459,18 +518,108 @@ void Tree::BuildTree(ScribusDoc *doc)
 		pagep = page;
 		for (uint b = 0; b < doc->DocItems.count(); ++b)
 		{
-			if (doc->DocItems.at(b)->OwnPage == -1)
+			pgItem = doc->DocItems.at(b);
+			if ((pgItem->OwnPage == -1) && (!pgItem->Dirty))
 			{
-				QListViewItem * object = new QListViewItem( page, 0 );
-				object->setText(0, doc->DocItems.at(b)->itemName());
-				itemMap.insert(object, doc->DocItems.at(b)->ItemNr);
+				if (pgItem->Groups.count() == 0)
+				{
+					QListViewItem * object = new QListViewItem( page, 0 );
+					object->setText(0, pgItem->itemName());
+					itemMap.insert(object, pgItem->ItemNr);
+				}
+				else
+				{
+						QListViewItem * object = new QListViewItem( page, 0 );
+						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
+						subGroupList.clear();
+						for (uint ga = 0; ga < doc->DocItems.count(); ++ga)
+						{
+							PageItem* pgItem2 = doc->DocItems.at(ga);
+							if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()))
+								subGroupList.append(pgItem2);
+						}
+						parseSubGroup(1, object, &subGroupList, false);
+						groupMap.insert(object, pgItem->ItemNr);
+				}
 			}
 		}
 		page->setText(0, tr("Free Objects"));
 	}
+	for (uint b = 0; b < doc->DocItems.count(); ++b)
+	{
+		doc->DocItems.at(b)->Dirty = false;
+	}
+	for (uint b = 0; b < doc->MasterItems.count(); ++b)
+	{
+		doc->MasterItems.at(b)->Dirty = false;
+	}
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
+}
+
+void Tree::parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *subGroupList, bool onTemplate)
+{
+	QPtrList<PageItem> *subGroup;
+	PageItem *pgItem;
+	QString tmp;
+	for (uint b = 0; b < subGroupList->count(); ++b)
+	{
+		pgItem = subGroupList->at(b);
+		if (!pgItem->Dirty)
+		{
+			if (static_cast<int>(pgItem->Groups.count()) <= level)
+			{
+					QListViewItem *grp = new QListViewItem( object, 0 );
+					grp->setText(0, pgItem->itemName());
+					if (onTemplate)
+						templateItemMap.insert(grp, pgItem->ItemNr);
+					else
+						itemMap.insert(grp, pgItem->ItemNr);
+					pgItem->Dirty = true;
+			}
+			else
+			{
+					QListViewItem *grp = new QListViewItem( object, 0 );
+					grp->setText(0, tr("Group ")+tmp.setNum(*pgItem->Groups.at(pgItem->Groups.count()-level-1)));
+					subGroup = new QPtrList<PageItem>;
+					subGroup->clear();
+					for (uint ga = 0; ga < subGroupList->count(); ++ga)
+					{
+						PageItem* pgItem2 = subGroupList->at(ga);
+						if ((static_cast<int>(pgItem2->Groups.count()) > level) && 
+							(*(pgItem2->Groups.at(pgItem2->Groups.count()-level-1)) == (*pgItem->Groups.at(pgItem->Groups.count()-level-1))))
+							subGroup->append(pgItem2);
+					}
+					parseSubGroup(level+1, grp, subGroup, onTemplate);
+					delete subGroup;
+					if (onTemplate)
+						templateGroupMap.insert(grp, pgItem->ItemNr);
+					else
+						groupMap.insert(grp, pgItem->ItemNr);
+			}
+		}
+	}
+}
+
+
 /*
 
+			for (uint ga=0; ga<Doc->Items.count(); ++ga)
+			{
+				if (Doc->Items.at(ga)->Groups.count() != 0)
+				{
+					if (Doc->Items.at(ga)->Groups.top() == b->Groups.top())
+					{
+						if (Doc->Items.at(ga)->ItemNr != b->ItemNr)
+						{
+							if (SelItem.find(Doc->Items.at(ga)) == -1)
+								SelItem.append(Doc->Items.at(ga));
+						}
+						Doc->Items.at(ga)->Select = true;
+						Doc->Items.at(ga)->FrameOnly = true;
+						Doc->Items.at(ga)->paintObj();
+					}
+				}
+			}
 	disconnect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
 	uint a, b, pagenumwidth;
 	QString cc, tmpstr;
@@ -497,4 +646,4 @@ void Tree::BuildTree(ScribusDoc *doc)
 		}
 	}
 	connect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int))); */
-}
+

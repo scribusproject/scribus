@@ -38,6 +38,7 @@
 #include "customfdialog.h"
 #include "helpbrowser.h"
 #include "mpalette.h"
+#include "tree.h"
 #include "menumanager.h"
 #include "scraction.h"
 

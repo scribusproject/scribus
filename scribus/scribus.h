@@ -53,7 +53,6 @@
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include "scribuswin.h"
-#include "tree.h"
 #include "frameedit.h"
 #include "scrap.h"
 #include "layers.h"
@@ -80,6 +79,7 @@ class SimpleState;
 class ScrAction;
 class MenuManager;
 class CheckDocument;
+class Tree;
 
 /**
   * This Class is the base class for your application. It sets up the main
