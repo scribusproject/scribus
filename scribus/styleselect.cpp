@@ -46,21 +46,21 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
     smallcapsButton = new QToolButton( this, "smallcapsButton" );
     smallcapsButton->setMaximumSize( QSize( 22, 22 ) );
     smallcapsButton->setText("");
-    smallcapsButton->setPixmap(loadIcon("smallcapsButton.xpm"));
+    smallcapsButton->setPixmap(loadIcon("Kapital.xpm"));
     smallcapsButton->setToggleButton( true );
     ssLayout->addWidget( smallcapsButton );
 
     strikeoutButton = new QToolButton( this, "strikeoutButton" );
 	strikeoutButton->setText( "" );
     strikeoutButton->setMaximumSize( QSize( 22, 22 ) );
-    strikeoutButton->setPixmap(loadIcon("strikeoutButton.xpm"));
+    strikeoutButton->setPixmap(loadIcon("Strike.xpm"));
     strikeoutButton->setToggleButton( true );
     ssLayout->addWidget( strikeoutButton );
 
     outlineButton = new QToolButton( this, "outlineButton" );
 	outlineButton->setText( "" );
     outlineButton->setMaximumSize( QSize( 22, 22 ) );
-    outlineButton->setPixmap(loadIcon("outlineButton.png"));
+    outlineButton->setPixmap(loadIcon("outlined.png"));
     outlineButton->setToggleButton( true );
     ssLayout->addWidget( outlineButton );
 
