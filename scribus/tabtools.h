@@ -25,7 +25,7 @@ class TabTools : public QWidget
 	Q_OBJECT
 
 public:
-	TabTools( QWidget* parent, struct toolPrefs *prefsData, double unitBase, QString unit, ScribusDoc* doc);
+	TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex, ScribusDoc* doc);
 	~TabTools() {};
 
 	QButtonGroup* buttonGroupTools;
@@ -121,5 +121,9 @@ protected:
 	QHBoxLayout* buttonGroup5Layout;
 	QHBoxLayout* subTabPolygonLayout;
 	QGridLayout* subTabZoomLayout;
+	
+	double unitRatio;
+	QString unit;
+	int precision;
 };
 #endif

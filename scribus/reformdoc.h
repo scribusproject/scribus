@@ -100,7 +100,7 @@ public:
 	ScribusDoc* currDoc;
 	int einheit;
 	int decimals;
-	double Umrech;
+	double unitRatio;
 	double pageWidth;
 	double pageHeight;
 	QColor colorPaper;

@@ -29,7 +29,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	einheit = doc->docUnitIndex;
 	currDoc = doc;
 	ap = (ScribusApp*)parent;
-	Umrech = UmReFaktor;
+	unitRatio = UmReFaktor;
 	QString ein = unitGetSuffixFromIndex(doc->docUnitIndex);
 	decimals = unitGetDecimalsFromIndex(doc->docUnitIndex);
 	pageWidth = doc->PageB * UmReFaktor;
@@ -202,7 +202,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	reformDocLayout->addWidget( groupAutoSave );
 	addItem( tr("Document"), loadIcon("page.png"), tabPage);
 
-	tabGuides = new TabGuides(prefsWidgets, &doc->guidesSettings, &doc->typographicSetttings, UmReFaktor, ein);
+	tabGuides = new TabGuides(prefsWidgets, &doc->guidesSettings, &doc->typographicSetttings, einheit);
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
 
 	tabView = new QWidget( prefsWidgets, "tabView" );
@@ -302,7 +302,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabTypo = new TabTypograpy(  prefsWidgets, &doc->typographicSetttings);
 	addItem( tr("Typography"), loadIcon("font.png"), tabTypo);
 
-	tabTools = new TabTools(  prefsWidgets, &doc->toolSettings, UmReFaktor, ein, doc);
+	tabTools = new TabTools(  prefsWidgets, &doc->toolSettings, einheit, doc);
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
 	tabHyphenator = new HySettings(prefsWidgets, &ap->LangTransl);
@@ -321,7 +321,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	
 	tabPDF = new TabPDFOptions( prefsWidgets, &doc->PDF_Options, ap->Prefs.AvailFonts,
 								&ap->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
-								UmReFaktor, ein, doc->PageH, doc->PageB, 0 );
+								einheit, doc->PageH, doc->PageB, 0 );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 	
 	tabDocItemAttributes = new DocumentItemAttributes( prefsWidgets);
@@ -386,11 +386,11 @@ void ReformDoc::unitChange()
 	disconnect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
 	disconnect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 	int decimalsOld;
-	double AltUmrech = Umrech;
+	double oldUnitRatio = unitRatio;
 	double oldMin, oldMax, val;
 	QString einh;
 	einheit = unitCombo->currentItem();
-	Umrech=unitGetRatioFromIndex(einheit);
+	unitRatio=unitGetRatioFromIndex(einheit);
 	decimals=unitGetDecimalsFromIndex(einheit);
 	einh=unitGetSuffixFromIndex(einheit);
 
@@ -415,12 +415,12 @@ void ReformDoc::unitChange()
 	tabPDF->BleedRight->setSuffix(einh);
 	tabPDF->BleedLeft->setSuffix(einh);
 
-	double invUnitConversion = 1.0 / AltUmrech * Umrech;
+	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
 
 	widthMSpinBox->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	widthMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, currDoc->PageB * Umrech);
+	widthMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, currDoc->PageB * unitRatio);
 	heightMSpinBox->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	heightMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, currDoc->PageH * Umrech);
+	heightMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, currDoc->PageH * unitRatio);
 	topR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	topR->setValues(0, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	bottomR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
@@ -457,9 +457,9 @@ void ReformDoc::unitChange()
 	tabPDF->BleedRight->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabPDF->BleedLeft->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	tabPDF->BleedLeft->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabPDF->unitConv = Umrech;
-	pageWidth = currDoc->PageB * Umrech;
-	pageHeight = currDoc->PageH * Umrech;
+	tabPDF->unitRatio = unitRatio;
+	pageWidth = currDoc->PageB * unitRatio;
+	pageHeight = currDoc->PageH * unitRatio;
 	rightR->setMaxValue(pageWidth - leftR->value());
 	leftR->setMaxValue(pageWidth - rightR->value());
 	topR->setMaxValue(pageHeight - bottomR->value());

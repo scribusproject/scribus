@@ -21,7 +21,7 @@ class TabGuides : public QWidget
 	Q_OBJECT
 
 public:
-	TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, double unitBase, QString unit);
+	TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex);
 	~TabGuides() {};
 
 	MSpinBox* majorSpace;
@@ -84,5 +84,9 @@ protected:
 	QGridLayout* baselineBoxLayout;
 	QVBoxLayout* buttonGroup1Layout;
 	QHBoxLayout* layout9;
+	
+	double unitRatio;
+	QString unit;
+	int precision;
 };
 #endif

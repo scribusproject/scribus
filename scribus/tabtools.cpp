@@ -16,8 +16,12 @@ extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
 extern double UmReFaktor;
 extern ScribusApp* ScApp;
 
-TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, double unitBase, QString unit, ScribusDoc* doc) : QWidget( parent, "tabtools", 0 )
+TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex, ScribusDoc* doc) : QWidget( parent, "tabtools", 0 )
 {
+	unit = unitGetSuffixFromIndex(unitIndex);
+	precision = unitGetPrecisionFromIndex(unitIndex);
+	unitRatio = unitGetRatioFromIndex(unitIndex);
+	
 	fon = &ScApp->Prefs.AvailFonts;
 	tabToolsLayout = new QHBoxLayout( this, 11, 6, "tabToolsLayout");
 	buttonGroupTools = new QButtonGroup( this, "buttonGroupTools" );
@@ -160,9 +164,9 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, double unitBas
 	subTabTextLayout->addWidget( columnsText, 4, 1, Qt::AlignLeft );
 	textLabel4b = new QLabel(columnsText, tr("Colu&mns:"), subTabText, "TextCol");
 	subTabTextLayout->addWidget( textLabel4b, 4, 0 );
-	gapText = new MSpinBox( 0, 200, subTabText, 2 );
+	gapText = new MSpinBox( 0, 200, subTabText, precision );
 	gapText->setSuffix( unit );
-	gapText->setValue(prefsData->dGap * unitBase);
+	gapText->setValue(prefsData->dGap * unitRatio);
 	subTabTextLayout->addWidget( gapText, 4, 3, Qt::AlignLeft );
 	textLabel5b = new QLabel(gapText, tr("&Gap:"), subTabText, "TextCol");
 	subTabTextLayout->addWidget( textLabel5b, 4, 2 );

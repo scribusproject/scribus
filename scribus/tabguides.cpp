@@ -14,9 +14,14 @@
 #include <qpixmap.h>
 #include "mspinbox.h"
 #include "scribusstructs.h"
+#include "units.h"
 
-TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, double unitBase, QString unit) : QWidget( parent, "tabguide", 0 )
+TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex) : QWidget( parent, "tabguide", 0 )
 {
+	unit = unitGetSuffixFromIndex(unitIndex);
+	precision = unitGetPrecisionFromIndex(unitIndex);
+	unitRatio = unitGetRatioFromIndex(unitIndex);
+	
 	tabGuidesLayout = new QVBoxLayout( this, 10, 5, "tabViewLayout");
 
 	commonBox = new QGroupBox( this, "commonBox" );
@@ -53,8 +58,8 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	textLabel8 = new QLabel( snapBox, "textLabel8" );
 	textLabel8->setText( tr( "Snap Distance:" ) );
 	snapBoxLayout->addWidget( textLabel8, 0, 0 );
-	snapDistance = new MSpinBox( unitBase, 1000 * unitBase, snapBox, 2 );
-	snapDistance->setValue( prefsData->guideRad * unitBase );
+	snapDistance = new MSpinBox( unitRatio, 1000 * unitRatio, snapBox, precision );
+	snapDistance->setValue( prefsData->guideRad * unitRatio );
 	snapDistance->setSuffix( unit );
 	snapBoxLayout->addWidget( snapDistance, 0, 1 );
 	textLabel82 = new QLabel( snapBox, "textLabel8" );
@@ -149,8 +154,8 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	textLabel6 = new QLabel( groupBox1, "textLabel6" );
 	textLabel6->setText( tr( "Spacing:" ) );
 	groupBox1Layout->addWidget( textLabel6, 0, 0 );
-	majorSpace = new MSpinBox( 10 * unitBase, 1000 * unitBase, groupBox1, 2 );
-	majorSpace->setValue( prefsData->majorGrid * unitBase );
+	majorSpace = new MSpinBox( 10 * unitRatio, 1000 * unitRatio, groupBox1, precision );
+	majorSpace->setValue( prefsData->majorGrid * unitRatio );
 	majorSpace->setSuffix( unit );
 	groupBox1Layout->addWidget( majorSpace, 0, 1 );
 	checkGridLayout->addWidget( groupBox1, 0, 0 );
@@ -178,8 +183,8 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	textLabel7 = new QLabel( groupBox2, "textLabel7" );
 	textLabel7->setText( tr( "Spacing:" ) );
 	groupBox2Layout->addWidget( textLabel7, 0, 0 );
-	minorSpace = new MSpinBox( unitBase, 1000 * unitBase, groupBox2, 2 );
-	minorSpace->setValue( prefsData->minorGrid  * unitBase);
+	minorSpace = new MSpinBox( unitRatio, 1000 * unitRatio, groupBox2, precision );
+	minorSpace->setValue( prefsData->minorGrid  * unitRatio);
 	minorSpace->setSuffix( unit );
 	groupBox2Layout->addWidget( minorSpace, 0, 1 );
 	checkGridLayout->addWidget( groupBox2, 0, 1 );
@@ -215,15 +220,15 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	baselineBoxLayout->addWidget( autoLine, 1, 1 );
 	textLabel8a = new QLabel( autoLine, tr( "Automatic &Line Spacing:" ), baselineBox, "textLabel8a" );
 	baselineBoxLayout->addWidget( textLabel8a, 1, 0 );
-	baseGrid = new MSpinBox( 1, 1000, baselineBox, 1 );
+	baseGrid = new MSpinBox( 1, 1000, baselineBox, precision );
 	baseGrid->setSuffix( unit );
-	baseGrid->setValue(prefsData2->valueBaseGrid * unitBase);
+	baseGrid->setValue(prefsData2->valueBaseGrid * unitRatio);
 	baselineBoxLayout->addWidget( baseGrid, 0, 3 );
 	textLabel6a = new QLabel(baseGrid, tr( "Baseline &Grid:" ), baselineBox, "textLabel6a" );
 	baselineBoxLayout->addWidget( textLabel6a, 0, 2 );
-	baseOffset = new MSpinBox( 0, 1000, baselineBox, 1 );
+	baseOffset = new MSpinBox( 0, 1000, baselineBox, precision );
 	baseOffset->setSuffix( unit );
-	baseOffset->setValue(prefsData2->offsetBaseGrid * unitBase);
+	baseOffset->setValue(prefsData2->offsetBaseGrid * unitRatio);
 	baselineBoxLayout->addWidget( baseOffset, 1, 3 );
 	textLabel7a = new QLabel(baseOffset, tr( "Baseline &Offset:" ), baselineBox, "textLabel7a" );
 	baselineBoxLayout->addWidget( textLabel7a, 1, 2 );

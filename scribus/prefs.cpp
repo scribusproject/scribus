@@ -53,8 +53,8 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 {
 	int decimals;
 	ap = (ScribusApp*)parent;
-	Umrech = 1.0;
 	docUnitIndex = prefsData->docUnitIndex;
+	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 	decimals = unitGetPrecisionFromIndex(docUnitIndex);
 
 	DisScale = prefsData->DisScale;
@@ -99,25 +99,18 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	ButtonGroup1Layout->addWidget( TextGstil, 1, 0 );
 	ButtonGroup1Layout->addWidget( GUICombo, 1, 1, Qt::AlignLeft );
 
-	GFsize = new QSpinBox(ButtonGroup1, "gfs" );
+	GFsize = new QSpinBox(8, 22, 1, ButtonGroup1, "gfs" );
 	GFsize->setSuffix( tr( " pt" ) );
-	GFsize->setMaxValue( 22 );
-	GFsize->setMinValue( 8 );
 	GFsize->setValue( prefsData->AppFontSize );
 	TextGstil2 = new QLabel(GFsize, tr("&Font Size:"), ButtonGroup1, "dd");
 	ButtonGroup1Layout->addWidget( TextGstil2, 2, 0 );
 	ButtonGroup1Layout->addWidget( GFsize, 2, 1, Qt::AlignLeft );
-	SpinBox3 = new QSpinBox( ButtonGroup1, "SpinBox3" );
-	SpinBox3->setMaxValue( 1000 );
-	SpinBox3->setMinValue( 0 );
-	SpinBox3->setLineStep( 10 );
+	SpinBox3 = new QSpinBox( 0, 1000, 10, ButtonGroup1, "SpinBox3" );
 	SpinBox3->setValue( prefsData->Wheelval );
 	TextLabel1_2 = new QLabel( SpinBox3, tr( "&Wheel Jump:" ), ButtonGroup1, "TextLabel1_2" );
 	ButtonGroup1Layout->addWidget( TextLabel1_2, 3, 0 );
 	ButtonGroup1Layout->addWidget( SpinBox3, 3, 1, Qt::AlignLeft );
-	Recen = new QSpinBox( ButtonGroup1, "Recen" );
-	Recen->setMaxValue( 30 );
-	Recen->setMinValue( 1 );
+	Recen = new QSpinBox( 1, 30, 1, ButtonGroup1, "Recen" );
 	Recen->setValue( prefsData->RecentDCount );
 	TextLabel4c = new QLabel( Recen, tr( "&Recent Documents:" ), ButtonGroup1, "TextLabel4c" );
 	ButtonGroup1Layout->addWidget( TextLabel4c, 4, 0);
@@ -240,7 +233,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	pageWidth = new MSpinBox( 1, 10000, GroupSize, decimals );
 	pageWidth->setEnabled( false );
 	pageWidth->setMinimumSize( QSize( 70, 20 ) );
-	pageWidth->setValue(prefsData->PageWidth * Umrech);
+	pageWidth->setValue(prefsData->PageWidth * unitRatio);
 	GZText3 = new QLabel( pageWidth, tr( "&Width:" ), GroupSize, "GZText3" );
 	Layout5_2->addWidget( GZText3 );
 	Layout5_2->addWidget( pageWidth );
@@ -248,7 +241,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	pageHeight = new MSpinBox( 1, 10000, GroupSize, decimals );
 	pageHeight->setEnabled( false );
 	pageHeight->setMinimumSize( QSize( 70, 20 ) );
-	pageHeight->setValue(prefsData->PageHeight * Umrech);
+	pageHeight->setValue(prefsData->PageHeight * unitRatio);
 	GZText4 = new QLabel( pageHeight, tr( "&Height:" ), GroupSize, "GZText4" );
 	Layout5_2->addWidget( GZText4 );
 	Layout5_2->addWidget( pageHeight );
@@ -278,22 +271,22 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 
 	TopR = new MSpinBox( 0, 1000, GroupRand, decimals );
 	TopR->setMinimumSize( QSize( 70, 20 ) );
-	TopR->setValue(prefsData->RandOben * Umrech);
+	TopR->setValue(prefsData->RandOben * unitRatio);
 	RandT = prefsData->RandOben;
 	GroupRandLayout->addWidget( TopR, 0, 1 );
 	BottomR = new MSpinBox( 0, 1000, GroupRand, decimals );
 	BottomR->setMinimumSize( QSize( 70, 20 ) );
-	BottomR->setValue(prefsData->RandUnten * Umrech);
+	BottomR->setValue(prefsData->RandUnten * unitRatio);
 	RandB = prefsData->RandUnten;
 	GroupRandLayout->addWidget( BottomR, 1, 1 );
 	RightR = new MSpinBox( 0, 1000, GroupRand, decimals );
 	RightR->setMinimumSize( QSize( 70, 20 ) );
-	RightR->setValue(prefsData->RandRechts * Umrech);
+	RightR->setValue(prefsData->RandRechts * unitRatio);
 	RandR = prefsData->RandRechts;
 	GroupRandLayout->addWidget( RightR, 1, 3 );
 	LeftR = new MSpinBox( 0, 1000, GroupRand, decimals );
 	LeftR->setMinimumSize( QSize( 70, 20 ) );
-	LeftR->setValue(prefsData->RandLinks * Umrech);
+	LeftR->setValue(prefsData->RandLinks * unitRatio);
 	RandL = prefsData->RandLinks;
 	GroupRandLayout->addWidget( LeftR, 0, 3 );
 
@@ -351,11 +344,11 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	tabLayout_7->addLayout( Layout21 );
 	addItem( tr("Document"), loadIcon("page.png"), tab_7);
 
-	tabGuides = new TabGuides(prefsWidgets, &prefsData->guidesSettings, &prefsData->typographicSetttings, Umrech, "");
+	tabGuides = new TabGuides(prefsWidgets, &prefsData->guidesSettings, &prefsData->typographicSetttings, docUnitIndex);
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
 	tabTypo = new TabTypograpy(  prefsWidgets, &prefsData->typographicSetttings);
 	addItem( tr("Typography"), loadIcon("font.png"), tabTypo);
-	tabTools = new TabTools(  prefsWidgets, &prefsData->toolSettings, Umrech, "", 0);
+	tabTools = new TabTools(  prefsWidgets, &prefsData->toolSettings, docUnitIndex, 0);
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
 	tabHyphenator = new HySettings(prefsWidgets, &ap->LangTransl);
@@ -385,8 +378,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 								&ap->PDFXProfiles,
 								DocFonts,
 								prefsData->PDF_Options.PresentVals,
-								Umrech,
-								unitGetSuffixFromIndex(prefsData->docUnitIndex),
+								docUnitIndex,
 								prefsData->PageHeight,
 								prefsData->PageWidth,
 								0 );
@@ -506,28 +498,28 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	topScratch = new MSpinBox( groupScratch, 4 );
 	topScratch->setDecimals( decimals );
 	topScratch->setMaxValue(1000);
-	topScratch->setValue(prefsData->ScratchTop * Umrech);
+	topScratch->setValue(prefsData->ScratchTop * unitRatio);
 	Layout4s->addWidget( topScratch, 0, 1 );
 	TextLabel5s = new QLabel(topScratch, tr( "&Top:" ), groupScratch, "TextLabel5" );
 	Layout4s->addWidget( TextLabel5s, 0, 0 );
 	leftScratch = new MSpinBox( groupScratch, 4 );
 	leftScratch->setDecimals( decimals );
 	leftScratch->setMaxValue(1000);
-	leftScratch->setValue(prefsData->ScratchLeft * Umrech);
+	leftScratch->setValue(prefsData->ScratchLeft * unitRatio);
 	Layout4s->addWidget( leftScratch, 0, 3 );
 	Linkss = new QLabel(leftScratch, tr( "&Left:" ), groupScratch, "Links" );
 	Layout4s->addWidget( Linkss, 0, 2 );
 	bottomScratch = new MSpinBox( groupScratch, 4 );
 	bottomScratch->setDecimals( decimals );
 	bottomScratch->setMaxValue(1000);
-	bottomScratch->setValue(prefsData->ScratchBottom * Umrech);
+	bottomScratch->setValue(prefsData->ScratchBottom * unitRatio);
 	Layout4s->addWidget( bottomScratch, 1, 1 );
 	TextLabel7s = new QLabel(bottomScratch, tr( "&Bottom:" ), groupScratch, "TextLabel7" );
 	Layout4s->addWidget( TextLabel7s, 1, 0 );
 	rightScratch = new MSpinBox( groupScratch, 4 );
 	rightScratch->setDecimals( decimals );
 	rightScratch->setMaxValue(1000);
-	rightScratch->setValue(prefsData->ScratchRight * Umrech);
+	rightScratch->setValue(prefsData->ScratchRight * unitRatio);
 	Layout4s->addWidget( rightScratch, 1, 3 );
 	Rechtss = new QLabel(rightScratch, tr( "&Right:" ), groupScratch, "Rechts" );
 	Layout4s->addWidget( Rechtss, 1, 2 );
@@ -771,10 +763,10 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	setSize(prefsData->pageSize);
 	setOrien(prefsData->pageOrientation);
 
-	pageWidth->setValue(prefsData->PageWidth * Umrech);
-	pageHeight->setValue(prefsData->PageHeight * Umrech);
+	pageWidth->setValue(prefsData->PageWidth * unitRatio);
+	pageHeight->setValue(prefsData->PageHeight * unitRatio);
 
-	unitChange();
+	//unitChange();
 
 	prefsWidgets->raiseWidget(0);
 	resize( minimumSizeHint() );
@@ -884,7 +876,7 @@ void Preferences::setDS()
  */
 void Preferences::setPageWidth(int)
 {
-	Pagebr = pageWidth->value() / Umrech;
+	Pagebr = pageWidth->value() / unitRatio;
 	RightR->setMaxValue(pageWidth->value() - LeftR->value());
 	LeftR->setMaxValue(pageWidth->value() - RightR->value());
 	TopR->setMaxValue(pageHeight->value() - BottomR->value());
@@ -901,7 +893,7 @@ void Preferences::setPageWidth(int)
  */
 void Preferences::setPageHeight(int)
 {
-	Pageho = pageHeight->value() / Umrech;
+	Pageho = pageHeight->value() / unitRatio;
 	RightR->setMaxValue(pageWidth->value() - LeftR->value());
 	LeftR->setMaxValue(pageWidth->value() - RightR->value());
 	TopR->setMaxValue(pageHeight->value() - BottomR->value());
@@ -918,7 +910,7 @@ void Preferences::setPageHeight(int)
  */
 void Preferences::setTop(int)
 {
-	RandT = TopR->value() / Umrech;
+	RandT = TopR->value() / unitRatio;
 	BottomR->setMaxValue(pageHeight->value() - TopR->value());
 }
 
@@ -932,7 +924,7 @@ void Preferences::setTop(int)
  */
 void Preferences::setBottom(int)
 {
-	RandB = BottomR->value() / Umrech;
+	RandB = BottomR->value() / unitRatio;
 	TopR->setMaxValue(pageHeight->value() - BottomR->value());
 }
 
@@ -946,7 +938,7 @@ void Preferences::setBottom(int)
  */
 void Preferences::setLeft(int)
 {
-	RandL = LeftR->value() / Umrech;
+	RandL = LeftR->value() / unitRatio;
 	RightR->setMaxValue(pageWidth->value() - LeftR->value());
 }
 
@@ -960,7 +952,7 @@ void Preferences::setLeft(int)
  */
 void Preferences::setRight(int)
 {
-	RandR = RightR->value() / Umrech;
+	RandR = RightR->value() / unitRatio;
 	LeftR->setMaxValue(pageWidth->value() - RightR->value());
 }
 
@@ -974,8 +966,8 @@ void Preferences::setRight(int)
  */
 void Preferences::setSize(const QString & gr)
 {
-	Pagebr = pageWidth->value() / Umrech;
-	Pageho = pageHeight->value() / Umrech;
+	Pagebr = pageWidth->value() / unitRatio;
+	Pageho = pageHeight->value() / unitRatio;
 	pageWidth->setEnabled(false);
 	pageHeight->setEnabled(false);
 	PageSize *ps2=new PageSize(gr);
@@ -993,8 +985,8 @@ void Preferences::setSize(const QString & gr)
 	}
 	disconnect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
-	pageWidth->setValue(Pagebr * Umrech);
-	pageHeight->setValue(Pageho * Umrech);
+	pageWidth->setValue(Pagebr * unitRatio);
+	pageHeight->setValue(Pageho * unitRatio);
 	RightR->setMaxValue(pageWidth->value() - LeftR->value());
 	LeftR->setMaxValue(pageWidth->value() - RightR->value());
 	TopR->setMaxValue(pageHeight->value() - BottomR->value());
@@ -1075,17 +1067,17 @@ void Preferences::unitChange()
 	disconnect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
 	disconnect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 	int decimals;
-	double AltUmrech = Umrech;
+	double oldUnitRatio = unitRatio;
 	double oldMin, oldMax, oldB, oldBM, oldH, oldHM, val;
 	pageWidth->getValues(&oldB, &oldBM, &decimals, &val);
-	oldB /= AltUmrech;
-	oldBM /= AltUmrech;
+	oldB /= oldUnitRatio;
+	oldBM /= oldUnitRatio;
 	pageHeight->getValues(&oldH, &oldHM, &decimals, &val);
-	oldH /= AltUmrech;
-	oldHM /= AltUmrech;
+	oldH /= oldUnitRatio;
+	oldHM /= oldUnitRatio;
 	QString einh;
 	docUnitIndex = UnitCombo->currentItem();
-	Umrech = unitGetRatioFromIndex(docUnitIndex);
+	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 	decimals = unitGetDecimalsFromIndex(docUnitIndex);
 	einh = unitGetSuffixFromIndex(docUnitIndex);
 
@@ -1109,14 +1101,15 @@ void Preferences::unitChange()
 	tabPDF->BleedTop->setSuffix(einh);
 	tabPDF->BleedRight->setSuffix(einh);
 	tabPDF->BleedLeft->setSuffix(einh);
-	pageWidth->setValues(oldB * Umrech, oldBM * Umrech, decimals, Pagebr * Umrech);
-	pageHeight->setValues(oldH * Umrech, oldHM * Umrech, decimals, Pageho * Umrech);
-	TopR->setValues(0, pageHeight->value() - RandB * Umrech, decimals, RandT * Umrech);
-	BottomR->setValues(0, pageHeight->value() - RandT * Umrech, decimals, RandB * Umrech);
-	LeftR->setValues(0, pageWidth->value() - RandR * Umrech, decimals, RandL * Umrech);
-	RightR->setValues(0, pageWidth->value() - RandL * Umrech, decimals, RandR * Umrech);
+	pageWidth->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, Pagebr * unitRatio);
+	pageHeight->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, Pageho * unitRatio);
+	TopR->setValues(0, pageHeight->value() - RandB * unitRatio, decimals, RandT * unitRatio);
+	BottomR->setValues(0, pageHeight->value() - RandT * unitRatio, decimals, RandB * unitRatio);
+	LeftR->setValues(0, pageWidth->value() - RandR * unitRatio, decimals, RandL * unitRatio);
+	RightR->setValues(0, pageWidth->value() - RandL * unitRatio, decimals, RandR * unitRatio);
 	int decimalsOld;
-	double invUnitConversion = 1.0 / AltUmrech * Umrech;
+	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
+	
 	tabGuides->minorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	tabGuides->minorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabGuides->majorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
@@ -1145,7 +1138,7 @@ void Preferences::unitChange()
 	tabPDF->BleedRight->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabPDF->BleedLeft->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	tabPDF->BleedLeft->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabPDF->unitConv = Umrech;
+	tabPDF->unitRatio = unitRatio;
 	drawRuler();
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));

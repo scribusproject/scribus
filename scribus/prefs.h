@@ -175,7 +175,7 @@ public:
 	QListView* pluginsList;
 	QLabel* pluginWarning;
 
-	double Umrech;
+	double unitRatio;
 	double PFactor;
 	double Pagebr;
 	double Pageho;
