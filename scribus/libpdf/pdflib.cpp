@@ -4128,13 +4128,16 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 		}
 #endif
 		int cm = Options->CompressMethod;
-		if ((ext == "jpg") && (((Options->UseRGB || Options->UseProfiles2)) && (c->imgInfo.colorspace == 0)) && (!c->imgInfo.progressive) && (!Options->RecalcPic))
+		if (((ext == "jpg") || (ext == "jpeg")) && (cm != 3))
 		{
-			im = "";
-			loadText(fn, &im);
-			PutDoc("/BitsPerComponent 8\n");
-			PutDoc("/Length "+IToStr(im.length())+"\n");
-			PutDoc("/Filter /DCTDecode\n");
+			if (((Options->UseRGB || Options->UseProfiles2) && (c->imgInfo.colorspace == 0)) && (!c->imgInfo.progressive) && (!Options->RecalcPic))
+			{
+				im = "";
+				loadText(fn, &im);
+				cm = 1;
+			}
+			else
+				cm = 2;
 		}
 		else
 		{
@@ -4170,15 +4173,15 @@ void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy
 				}
 				system("rm -f "+tmpFile);
 			}
-			PutDoc("/BitsPerComponent 8\n");
-			PutDoc("/Length "+IToStr(im.length())+"\n");
-			if (CompAvail)
-			{
-				if (cm == 1)
-					PutDoc("/Filter /DCTDecode\n");
-				else if (cm != 3)
-					PutDoc("/Filter /FlateDecode\n");
-			}
+		}
+		PutDoc("/BitsPerComponent 8\n");
+		PutDoc("/Length "+IToStr(im.length())+"\n");
+		if (CompAvail)
+		{
+			if (cm == 1)
+				PutDoc("/Filter /DCTDecode\n");
+			else if (cm != 3)
+				PutDoc("/Filter /FlateDecode\n");
 		}
 		if (alphaM)
 		{

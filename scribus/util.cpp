@@ -1371,6 +1371,10 @@ QString getAlpha(QString fn, bool PDF, bool pdf14)
 	float xres, yres;
 	short resolutionunit = 0;
 	ImageInfoRecord imgInfo;
+	imgInfo.valid = false;
+	imgInfo.clipPath = "";
+	imgInfo.PDSpathData.clear();
+	imgInfo.layerInfo.clear();
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return retS;
@@ -1547,11 +1551,10 @@ QString getAlpha(QString fn, bool PDF, bool pdf14)
 			// Check if it's a supported format.
 			if( !IsSupported( header ) )
 				return retS;
-			FPointArray clip;
+			if (header.color_mode == CM_CMYK)
+				return retS;
 			if( !LoadPSD(s, header, img, &imgInfo) )
 				return retS;
-			img = img.convertDepth(32);
-			img.setAlphaBuffer(true);
 			f.close();
 		}
 		else
@@ -1965,7 +1968,6 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 			// Check if it's a supported format.
 			if( !IsSupported( header ) )
 				return img;
-			FPointArray clip;
 			if (info != 0)
 			{
 				if( !LoadPSD(s, header, img, info) )
