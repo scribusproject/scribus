@@ -34,9 +34,11 @@ public:
     QLabel* TextLabel2;
     QLabel* textLabel1;
     QLabel* textLabel3;
+	QLabel* textLabel4;
     QComboBox* BitmapType;
     QSpinBox* QualityBox;
-    QSpinBox* SizeBox;
+    QSpinBox* DPIBox;
+	QSpinBox* EnlargementBox;
     QButtonGroup* ButtonGroup1;
     QRadioButton* OnePageRadio;
     QRadioButton* AllPagesRadio;

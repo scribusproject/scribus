@@ -37,6 +37,8 @@ public:
 	QString bitmapType;
   /*! Height of the page - exported image */
 	int pageSize;
+	/*! Enlargement of the exported image... 2x 3x etc. */
+	int enlargement;
   /*! Quality of the image <0; 100> */
 	int quality;
   /*! A place for stored images */
