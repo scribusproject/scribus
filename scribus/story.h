@@ -77,6 +77,7 @@ public:
 	QPtrList<ChList> StyledText;
 	ScribusDoc* doc;
 	bool UniCinp;
+	bool wasMod;
 	int UniCinC;
 	int CurrentStyle;
 	int CurrentABStil;
@@ -215,6 +216,14 @@ public:
 
 	QPopupMenu* fmenu;
 	QPopupMenu* emenu;
+	QToolBar* FileTools;
+	QToolButton* DatNeu;
+	QToolButton* DatOpe;
+	QToolButton* DatSav;
+	QToolButton* DatClo;
+	QToolButton* DatCan;
+	QToolButton* DatRel;
+	QToolButton* DatUpdt;
 	SToolBFont* FontTools;
 	SToolBAlign* AlignTools;
 	SToolBColorF* FillTools;
@@ -245,6 +254,7 @@ public:
 	int Mpaste;
 	int Mupdt;
 	int fid52;
+	bool firstSet;
 
 public slots:
 	void newTxFill(int c, int s);

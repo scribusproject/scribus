@@ -1,5 +1,13 @@
 Changes since Version 1.1.7
 
+30.07.2004
+	* bug     #905: first line typed in the story editor is invisible
+	* bug     #910: text alignment does not work after the first line
+	* bug     #911: selected text gets unselected after changing the alignment setting of the selected text
+	* bug     #913: pressing shift after changing values for kerning, size & widht reset that values
+	* feature #906: french translation updated
+	* feature #907: improve "update textframe"
+
 29.07.2004
 	* bug     #135: Text properties disappears when using story editor and not set by styles
 	* bug     #899: ctrl+a doesnt select the whole text

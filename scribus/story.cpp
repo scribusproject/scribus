@@ -33,6 +33,7 @@ extern QPixmap loadIcon(QString nam);
 SEditor::SEditor(QWidget* parent, ScribusDoc *docc) : QTextEdit(parent)
 {
 	doc = docc;
+	wasMod = false;
 	StyledText.clear();
 	StyledText.setAutoDelete(true);
 	setUndoRedoEnabled(true);
@@ -107,8 +108,14 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				else
 					return;
 			}
+			wasMod = false;
 			switch (k->key())
 			{
+				case Key_Shift:
+				case Key_Control:
+				case Key_Alt:
+					wasMod = true;
+					break;
 				case Key_F12:
 					UniCinp = true;
 					UniCinC = 0;
@@ -152,6 +159,8 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				case Key_Backspace:
 					if (!hasSelectedText())
 					{
+						if (p >= static_cast<int>(StyledText.count()))
+							break;
 						ChList *chars = StyledText.at(p);
 						if (i > 0)
 							chars->remove(i-1);
@@ -192,8 +201,13 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 						chars = new ChList;
 						chars->setAutoDelete(true);
 						chars->clear();
+						QString db;
 						if (StyledText.count() != 0)
 						{
+							if (p >= static_cast<int>(StyledText.count()))
+								StyledText.append(chars);
+							else
+							{
 							ChList *chars2 = StyledText.at(p);
 							int a = static_cast<int>(chars2->count());
 							for (int s = i; s < a; ++s)
@@ -201,6 +215,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 								chars->append(chars2->take(i));
 							}
 							StyledText.insert(p+1, chars);
+							}
 						}
 						else
 							StyledText.append(chars);
@@ -944,15 +959,15 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 /* Setting up Menu Bar */
 	fmenu = new QPopupMenu();
 	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("&New"), this, SLOT(Do_new()), CTRL+Key_N);
-	fid52 = fmenu->insertItem( tr("&Reload Text from Frame"), this, SLOT(slotFileRevert()));
+	fid52 = fmenu->insertItem(loadIcon("reload16.png"),  tr("&Reload Text from Frame"), this, SLOT(slotFileRevert()));
 	fmenu->insertSeparator();
 	fmenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save to File..."), this, SLOT(SaveTextFile()));
 	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("&Load from File..."), this, SLOT(LoadTextFile()));
 	fmenu->insertItem(tr("Save &Document"), this, SLOT(Do_saveDocument()), CTRL+Key_S);
 	fmenu->insertSeparator();
 	/* changes to fit the #662 bug 05/28/04 petr vanek */
-	fmenu->insertItem( tr("&Update Text Frame and Exit"), this, SLOT(Do_leave2()));
-	fmenu->insertItem( tr("&Exit Without Updating Text Frame"), this, SLOT(Do_leave()));
+	fmenu->insertItem(loadIcon("DateiClos16.png"),  tr("&Update Text Frame and Exit"), this, SLOT(Do_leave2()));
+	fmenu->insertItem(loadIcon("exit.png"),  tr("&Exit Without Updating Text Frame"), this, SLOT(Do_leave()));
 	/* end of changes */
 	emenu = new QPopupMenu();
 	emenu->insertItem( tr("Select &All"), this, SLOT(Do_selectAll()), CTRL+Key_A);
@@ -966,12 +981,25 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 //	emenu->setItemEnabled(sr, 0);
 	emenu->insertSeparator();
 //	emenu->insertItem( tr("&Edit Styles..."), this , SLOT(slotEditStyles()));
-	Mupdt = emenu->insertItem( tr("&Update Text Frame"), this, SLOT(updateTextFrame()));
+	Mupdt = emenu->insertItem(loadIcon("compfile16.png"),  tr("&Update Text Frame"), this, SLOT(updateTextFrame()), CTRL+Key_U);
 //	menuBar = new QMenuBar(this);
 	menuBar()->insertItem( tr("&File"), fmenu);
 	menuBar()->insertItem( tr("&Edit"), emenu);
 
 /* Setting up Toolbars */
+	FileTools = new QToolBar( tr("File"), this);
+	DatNeu = new QToolButton(loadIcon("DateiNeu.xpm"), tr("Clears all Text"), QString::null, this, SLOT(Do_new()), FileTools);
+	DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), tr("Load Text from File"), QString::null, this, SLOT(LoadTextFile()), FileTools);
+	DatSav = new QToolButton(loadIcon("DateiSave2.png"), tr("Save Text to File"), QString::null, this, SLOT(SaveTextFile()), FileTools);
+	DatClo = new QToolButton(loadIcon("DateiClose.png"), tr("Update Text Frame and Exit"), QString::null, this, SLOT(Do_leave2()), FileTools);
+	DatCan = new QToolButton(loadIcon("exit22.png"), tr("Exit Without Updating Text Frame"), QString::null, this, SLOT(Do_leave()), FileTools);
+	DatRel = new QToolButton(loadIcon("reload.png"), tr("Reload Text from Frame"), QString::null, this, SLOT(slotFileRevert()), FileTools);
+	DatUpdt = new QToolButton(loadIcon("compfile.png"), tr("Update Text Frame"), QString::null, this, SLOT(updateTextFrame()), FileTools);
+	DatUpdt->setEnabled(false);
+	DatRel->setEnabled(false);
+	setDockEnabled(FileTools, DockLeft, false);
+	setDockEnabled(FileTools, DockRight, false);
+	setDockEnabled(FileTools, DockBottom, false);
 	FontTools = new SToolBFont(this);
 	setDockEnabled(FontTools, DockLeft, false);
 	setDockEnabled(FontTools, DockRight, false);
@@ -1068,6 +1096,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	emenu->setItemEnabled(Mupdt, 0);
 	resize( QSize(660, 500).expandedTo(minimumSizeHint()) );
 	CurrItem = ite;
+	firstSet = false;
 	Editor->loadItemText(ite);
 	updateProps(0,0);
 	updateStatus();
@@ -1212,63 +1241,57 @@ void StoryEditor::updateProps(int p, int ch)
 	CListe::Iterator it;
 	int c = 0;
 	SEditor::ChList *chars;
+	if (Editor->wasMod)
+		return;
 	if ((p >= static_cast<int>(Editor->StyledText.count())) || (Editor->StyledText.count() == 0))
 	{
-		Editor->CurrTextFill = CurrItem->TxtFill;
-		Editor->CurrTextFillSh = CurrItem->ShTxtFill;
-		Editor->CurrTextStroke = CurrItem->TxtStroke;
-		Editor->CurrTextStrokeSh = CurrItem->ShTxtStroke;
-		Editor->CurrFont = CurrItem->IFont;
-		Editor->CurrFontSize = CurrItem->ISize;
-		Editor->CurrentStyle = CurrItem->TxTStyle;
-		Editor->CurrentABStil = CurrItem->Ausrich;
-		Editor->CurrTextKern = CurrItem->ExtraV;
-		Editor->CurrTextScale = CurrItem->TxtScale;
-		c = 0;
-		StrokeTools->SetShade(CurrItem->ShTxtStroke);
-		FillTools->SetShade(CurrItem->ShTxtFill);
-		QString b = CurrItem->TxtFill;
-		if ((b != "None") && (b != ""))
+		if (!firstSet)
 		{
-			c++;
-			for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+			Editor->CurrTextFill = CurrItem->TxtFill;
+			Editor->CurrTextFillSh = CurrItem->ShTxtFill;
+			Editor->CurrTextStroke = CurrItem->TxtStroke;
+			Editor->CurrTextStrokeSh = CurrItem->ShTxtStroke;
+			Editor->CurrFont = CurrItem->IFont;
+			Editor->CurrFontSize = CurrItem->ISize;
+			Editor->CurrentStyle = CurrItem->TxTStyle;
+			Editor->CurrentABStil = CurrItem->Ausrich;
+			Editor->CurrTextKern = CurrItem->ExtraV;
+			Editor->CurrTextScale = CurrItem->TxtScale;
+			c = 0;
+			StrokeTools->SetShade(CurrItem->ShTxtStroke);
+			FillTools->SetShade(CurrItem->ShTxtFill);
+			QString b = CurrItem->TxtFill;
+			if ((b != "None") && (b != ""))
 			{
-				if (it.key() == b)
-					break;
 				c++;
+				for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+				{
+					if (it.key() == b)
+						break;
+					c++;
+				}
 			}
-		}
-		FillTools->SetColor(c);
-		c = 0;
-		b = CurrItem->TxtStroke;
-		if ((b != "None") && (b != ""))
-		{
-			c++;
-			for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+			FillTools->SetColor(c);
+			c = 0;
+			b = CurrItem->TxtStroke;
+			if ((b != "None") && (b != ""))
 			{
-				if (it.key() == b)
-					break;
 				c++;
+				for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+				{
+					if (it.key() == b)
+						break;
+					c++;
+				}
 			}
+			StrokeTools->SetColor(c);
+			AlignTools->SetAlign(CurrItem->Ausrich);
+			StyleTools->SetKern(CurrItem->ExtraV);
+			StyleTools->SetStyle(CurrItem->TxTStyle);
+			FontTools->SetSize(CurrItem->ISize / 10.0);
+			FontTools->SetFont(CurrItem->IFont);
+			FontTools->SetScale(CurrItem->TxtScale);
 		}
-		StrokeTools->SetColor(c);
-		if (CurrItem->TxTStyle & 4)
-		{
-			StrokeTools->TxStroke->setEnabled(true);
-			StrokeTools->PM1->setEnabled(true);
-		}
-		else
-		{
-			StrokeTools->TxStroke->setEnabled(false);
-			StrokeTools->PM1->setEnabled(false);
-		}
-		AlignTools->SetAlign(CurrItem->Ausrich);
-		StyleTools->SetKern(CurrItem->ExtraV);
-		StyleTools->SetStyle(CurrItem->TxTStyle);
-		FontTools->SetSize(CurrItem->ISize / 10.0);
-		FontTools->SetFont(CurrItem->IFont);
-		FontTools->SetScale(CurrItem->TxtScale);
-		Editor->setStyle(Editor->CurrentStyle);
 		if (Editor->CurrentStyle & 4)
 		{
 			StrokeTools->TxStroke->setEnabled(true);
@@ -1279,17 +1302,17 @@ void StoryEditor::updateProps(int p, int ch)
 			StrokeTools->TxStroke->setEnabled(false);
 			StrokeTools->PM1->setEnabled(false);
 		}
+		Editor->setAlign(Editor->CurrentABStil);
+		Editor->setStyle(Editor->CurrentStyle);
 		Editor->setFarbe(Editor->CurrTextFill, Editor->CurrTextFillSh);
 		return;
 	}
 	chars = Editor->StyledText.at(p);
 	if (chars->count() == 0)
 	{
-		Editor->setColor(doc->PageColors[CurrItem->TxtFill].getRGBColor());
-		Editor->CurrTextFill = CurrItem->TxtFill;
-		Editor->setAlignment(Qt::AlignLeft);
-		AlignTools->SetAlign(0);
-		Editor->CurrentABStil = 0;
+		Editor->setAlign(Editor->CurrentABStil);
+		Editor->setStyle(Editor->CurrentStyle);
+		Editor->setFarbe(Editor->CurrTextFill, Editor->CurrTextFillSh);
 		return;
 	}
 	struct PtiSmall *hg;
@@ -1552,6 +1575,8 @@ void StoryEditor::updateTextFrame()
 	TextChanged = false;
 	emenu->setItemEnabled(Mupdt, 0);
 	fmenu->setItemEnabled(fid52, 0);
+	DatUpdt->setEnabled(false);
+	DatRel->setEnabled(false);
 	emit DocChanged();
 }
 
@@ -1640,14 +1665,22 @@ void StoryEditor::changeAlign(int align)
 {
 	Editor->setAlign(align);
 	int p, i;
+	bool sel = false;
 	Editor->getCursorPosition(&p, &i);
 	if (Editor->StyledText.count() != 0)
 	{
 		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
-		int PStart, PEnd, SelStart, SelEnd;
+		int PStart, PEnd, SelStart, SelEnd, PStart2, PEnd2, SelStart2, SelEnd2;
 		SEditor::ChList *chars;
 		if (Editor->hasSelectedText())
+		{
 			Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
+			PStart2 = PStart;
+			PEnd2 = PEnd;
+			SelStart2 = SelStart;
+			SelEnd2 = SelEnd;
+			sel = true;
+		}
 		else
 		{
 			PStart = p;
@@ -1690,6 +1723,8 @@ void StoryEditor::changeAlign(int align)
 			Editor->updateFromChars(pa);
 			}
 		}
+		if (sel)
+			Editor->setSelection(PStart2, SelStart2, PEnd2, SelEnd2);
 		Editor->setCursorPosition(p, i);
 		updateProps(p, i);
 		connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
@@ -1741,8 +1776,11 @@ void StoryEditor::changeAlign(int align)
 void StoryEditor::modifiedText()
 {
 	TextChanged = true;
+	firstSet = true;
 	emenu->setItemEnabled(Mupdt, 1);
 	fmenu->setItemEnabled(fid52, 1);
+	DatUpdt->setEnabled(true);
+	DatRel->setEnabled(true);
 	updateStatus();
 }
 
