@@ -41,6 +41,94 @@ Tree::Tree( QWidget* parent, WFlags fl )
     connect( ListView1, SIGNAL( selectionChanged(QListViewItem*) ), this, SLOT( slotSelect(QListViewItem*) ) );
 }
 
+void Tree::slotRemoveElement(uint SNr, uint Nr)
+{
+	if (PageObj.count() != 0)
+		{
+		if (PageObj.at(SNr)->Elemente.count() != 0)
+			{
+			delete PageObj.at(SNr)->Elemente.at(Nr);
+			PageObj.at(SNr)->Elemente.take(Nr);
+			}
+		}
+}
+
+void Tree::slotUpdateElement(uint SNr, uint Nr)
+{
+	QString cc, xp, yp, fon;
+  PageObj.at(SNr)->Elemente.at(Nr)->setText(0, vie->Pages.at(SNr)->Items.at(Nr)->AnName);
+	xp = tr("X:")+" "+cc.setNum(vie->Pages.at(SNr)->Items.at(Nr)->Xpos);
+	yp = tr("Y:")+" "+cc.setNum(vie->Pages.at(SNr)->Items.at(Nr)->Ypos);
+  fon = tr("Font:")+" "+vie->Pages.at(SNr)->Items.at(Nr)->IFont;
+  switch (vie->Pages.at(SNr)->Items.at(Nr)->PType)
+  	{
+  	case 2:
+  		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("Image"));
+  		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp+" "+vie->Pages.at(SNr)->Items.at(Nr)->Pfile);
+  		break;
+  	case 4:
+  		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("Text"));
+  		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp+" "+fon);
+  		break;
+  	case 5:
+  		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("Line"));
+  		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp);
+  		break;
+  	case 6:
+  		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("Polygon"));
+  		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp);
+  		break;
+  	case 7:
+  		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("Polyline"));
+  		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp);
+  		break;
+  	case 8:
+  		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("PathText"));
+  		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp+" "+fon);
+  		break;
+  	}
+}
+
+void Tree::slotAddElement(uint SNr, uint Nr)
+{
+	PageObj.at(SNr)->Elemente.insert(Nr, new QListViewItem(Seiten.at(SNr), "Items"));
+	slotUpdateElement(SNr, Nr);
+}
+
+void Tree::slotMoveElement(uint SNr, uint NrOld, uint NrNew)
+{
+	QListViewItem* tmp = PageObj.at(SNr)->Elemente.take(NrOld);
+	PageObj.at(SNr)->Elemente.insert(NrNew, tmp);
+}
+
+void Tree::slotAddPage(uint Nr)
+{
+	QString cc;
+	Seiten.insert(Nr, new QListViewItem(ListView1->firstChild(), "Seiten"));
+	Seiten.current()->setText(0, tr("Page")+" "+cc.setNum(Nr+1));
+	PageObj.insert(Nr, new Elem);
+	rebuildPageD();
+}
+
+void Tree::slotDelPage(uint Nr)
+{
+	if (Seiten.count() != 0)
+		{
+		delete Seiten.at(Nr);
+		Seiten.take(Nr);
+		PageObj.take(Nr);
+		rebuildPageD();
+		}
+}
+
+void Tree::rebuildPageD()
+{
+	QString cc;
+	for (uint e = 0; e < Seiten.count(); ++e)
+		{
+  	Seiten.at(e)->setText(0, tr("Page")+" "+cc.setNum(e+1));
+		}
+}
 
 void Tree::slotSelect(QListViewItem* ite)
 {
@@ -50,15 +138,19 @@ void Tree::slotSelect(QListViewItem* ite)
 		sref = Seiten.findRef(ite);
 		if (sref != -1)
 			emit SelectSeite(sref);
+		return;
 		}
-	if (Elemente.containsRef(ite))
+	for (uint e = 0; e < PageObj.count(); ++e)
 		{
-		oref = Elemente.findRef(ite);
-		if (oref != -1)
+		if (PageObj.at(e)->Elemente.containsRef(ite))
 			{
-			sref = Seiten.findRef(ite->parent());
-			if (sref != -1)
-    		emit SelectElement(sref, oref);
+			oref = PageObj.at(e)->Elemente.findRef(ite);
+			if (oref != -1)
+				{
+				sref = Seiten.findRef(ite->parent());
+				if (sref != -1)
+    			emit SelectElement(sref, oref);
+				}
 			}
 		}
 }
@@ -78,53 +170,23 @@ void Tree::BuildTree(ScribusView *view)
 {
 	uint a, b;
 	QString cc;
-	QString xp, yp, fon;
-	Elemente.clear();
+	PageObj.clear();
 	Seiten.clear();
 	ListView1->clear();
+	vie = view;
 	QListViewItem * item = new QListViewItem( ListView1, 0 );
   item->setText( 0, tr(view->Doc->DocName));
   for (a = 0; a < view->Pages.count(); ++a)
   	{
   	Seiten.append(new QListViewItem(item, "Seiten"));
   	Seiten.current()->setText(0, tr("Page")+" "+cc.setNum(a+1));
-//  	Seiten.current()->setPixmap(0, view->PageToPixmap(a, 60));
+		PageObj.append(new Elem);
   	if (view->Pages.at(a)->Items.count() != 0)
   		{
   		for (b = 0; b < view->Pages.at(a)->Items.count(); b++)
   			{
-  			Elemente.append(new QListViewItem(Seiten.current(), "Items"));
-  			Elemente.current()->setText(0, view->Pages.at(a)->Items.at(b)->AnName);
-  			xp = tr("X:")+" "+cc.setNum(view->Pages.at(a)->Items.at(b)->Xpos);
-  			yp = tr("Y:")+" "+cc.setNum(view->Pages.at(a)->Items.at(b)->Ypos);
-  			fon = tr("Font:")+" "+view->Pages.at(a)->Items.at(b)->IFont;
-  			switch (view->Pages.at(a)->Items.at(b)->PType)
-  				{
-  				case 2:
-  					Elemente.current()->setText(1, tr("Image"));
-  					Elemente.current()->setText(2, xp+" "+yp+" "+view->Pages.at(a)->Items.at(b)->Pfile);
-  					break;
-  				case 4:
-  					Elemente.current()->setText(1, tr("Text"));
-  					Elemente.current()->setText(2, xp+" "+yp+" "+fon);
-  					break;
-  				case 5:
-  					Elemente.current()->setText(1, tr("Line"));
-  					Elemente.current()->setText(2, xp+" "+yp);
-  					break;
-  				case 6:
-  					Elemente.current()->setText(1, tr("Polygon"));
-  					Elemente.current()->setText(2, xp+" "+yp);
-  					break;
-  				case 7:
-  					Elemente.current()->setText(1, tr("Polyline"));
-  					Elemente.current()->setText(2, xp+" "+yp);
-  					break;
-  				case 8:
-  					Elemente.current()->setText(1, tr("PathText"));
-  					Elemente.current()->setText(2, xp+" "+yp);
-  					break;
-  				}
+  			PageObj.current()->Elemente.append(new QListViewItem(Seiten.current(), "Items"));
+				slotUpdateElement(a, b);
   			}
   		}
   	}

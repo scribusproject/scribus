@@ -1122,6 +1122,7 @@ bool Page::MoveItem(double newX, double newY, PageItem* b, bool fromMP)
 		else
 			emit ItemPos(b->Xpos, b->Ypos);
 		}
+	emit UpdtObj(PageNr, b->ItemNr);
 	return retw;
 }
 
@@ -4492,6 +4493,7 @@ void Page::ToTextFrame()
 	b->Frame = true;
 	RefreshItem(b);
 	emit HaveSel(b->PType);
+	emit UpdtObj(PageNr, b->ItemNr);
 	EmitValues(b);
 }
 
@@ -4503,6 +4505,7 @@ void Page::ToPicFrame()
 	b->Frame = true;
 	RefreshItem(b);
 	emit HaveSel(b->PType);
+	emit UpdtObj(PageNr, b->ItemNr);
 	EmitValues(b);
 }
 
@@ -4517,6 +4520,7 @@ void Page::ToPolyFrame()
 	b->Clip = FlattenPath(b->PoLine, b->Segments);
 	RefreshItem(b);
 	emit HaveSel(b->PType);
+	emit UpdtObj(PageNr, b->ItemNr);
 	EmitValues(b);
 }
 
@@ -4530,6 +4534,7 @@ void Page::ToBezierFrame()
 	AdjustItemSize(b);
 	RefreshItem(b);
 	emit HaveSel(b->PType);
+	emit UpdtObj(PageNr, b->ItemNr);
 	EmitValues(b);
 }
 
@@ -4547,6 +4552,7 @@ void Page::Bezier2Poly()
 	b->Clip = FlattenPath(b->PoLine, b->Segments);
 	RefreshItem(b);
 	emit HaveSel(b->PType);
+	emit UpdtObj(PageNr, b->ItemNr);
 	EmitValues(b);
 }
 
@@ -4713,17 +4719,17 @@ void Page::TextToPath()
 			QWMatrix chma;
 			chma.scale(csi, csi);
 			pts = (*doku->AllFonts)[b->Ptext.at(a)->cfont]->GlyphArray[chr].Outlines.copy();
+			if (pts.size() == 0)
+				continue;
 			x = (*doku->AllFonts)[b->Ptext.at(a)->cfont]->GlyphArray[chr].x * csi;
 			y = (*doku->AllFonts)[b->Ptext.at(a)->cfont]->GlyphArray[chr].y * csi;
 			pts.map(chma);
 			chma = QWMatrix();
 			chma.scale(b->Ptext.at(a)->cscale / 100.0, 1);
 			pts.map(chma);
-			if (pts.size() == 0)
-				continue;
 			uint z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->Pcolor2, b->Pcolor);
 			bb = Items.at(z);
-			bb->PoLine = pts;
+			bb->PoLine = pts.copy();
 			bb->Rot = b->Rot;
 			bb->Pcolor = b->Ptext.at(a)->ccolor;
 			bb->Shade = b->Ptext.at(a)->cshade;
@@ -4802,6 +4808,7 @@ void Page::ToPathText()
 		b->PLineArt = bb->PLineArt;
 		b->PLineEnd = bb->PLineEnd;
 		b->PLineJoin = bb->PLineJoin;
+		emit UpdtObj(PageNr, b->ItemNr);
 		UpdatePolyClip(b);
 		AdjustItemSize(b);
 		double dx = bb->Xpos - b->Xpos;
@@ -5109,6 +5116,7 @@ void Page::ItemFont(QString fon)
 						AdjustItemSize(b);
 						}
 					b->Dirty = true;
+					emit UpdtObj(PageNr, b->ItemNr);
 					RefreshItem(b);
 					}
 				}
@@ -5756,10 +5764,11 @@ void Page::FlipImageV()
 
 void Page::ToBack()
 {
-	uint a;
+	uint a, old;
   if ((Items.count() > 1) && (SelItem.count() != 0))
   	{
 		PageItem *b = Items.take(SelItem.at(0)->ItemNr);
+		old = SelItem.at(0)->ItemNr;
 		storeUndoInf(b);
 		doku->UnData.UnCode = 4;
 		doku->UnDoValid = true;
@@ -5774,6 +5783,7 @@ void Page::ToBack()
 			}
 		SelItem.clear();
 		SelItem.append(b);
+		emit MoveObj(PageNr, old, 0);
 		emit DocChanged();
 		update();
 		}
@@ -5781,10 +5791,11 @@ void Page::ToBack()
 
 void Page::ToFront()
 {
-	uint a;
+	uint a, old;
   if ((Items.count() > 1) && (SelItem.count() != 0))
   	{
 		PageItem *b = Items.take(SelItem.at(0)->ItemNr);
+		old = SelItem.at(0)->ItemNr;
 		storeUndoInf(b);
 		doku->UnData.UnCode = 4;
 		doku->UnDoValid = true;
@@ -5799,6 +5810,7 @@ void Page::ToFront()
 			}
 		SelItem.clear();
 		SelItem.append(b);
+		emit MoveObj(PageNr, old, b->ItemNr);
 		emit DocChanged();
 		update();
 		}
@@ -5806,10 +5818,11 @@ void Page::ToFront()
 
 void Page::LowerItem()
 {
-	uint a;
+	uint a, old;
   if ((Items.count() > 1) && (SelItem.count() != 0) && (SelItem.at(0)->ItemNr>0))
   	{
 		PageItem *b = Items.take(SelItem.at(0)->ItemNr);
+		old = SelItem.at(0)->ItemNr;
 		storeUndoInf(b);
 		doku->UnData.UnCode = 4;
 		doku->UnDoValid = true;
@@ -5824,6 +5837,7 @@ void Page::LowerItem()
 			}
 		SelItem.clear();
 		SelItem.append(b);
+		emit MoveObj(PageNr, old, old-1);
 		emit DocChanged();
 		update();
 		}
@@ -5831,10 +5845,11 @@ void Page::LowerItem()
 
 void Page::RaiseItem()
 {
-	uint a;
+	uint a, old;
   if ((Items.count() > 1) && (SelItem.count() != 0) && (SelItem.at(0)->ItemNr<Items.count()-2))
   	{
 		PageItem *b = Items.take(SelItem.at(0)->ItemNr);
+		old = SelItem.at(0)->ItemNr;
 		storeUndoInf(b);
 		doku->UnData.UnCode = 4;
 		doku->UnDoValid = true;
@@ -5850,6 +5865,7 @@ void Page::RaiseItem()
 		SelItem.clear();
 		SelItem.append(b);
 		emit DocChanged();
+		emit MoveObj(PageNr, old, old+1);
 		update();
 		}
 }
@@ -5906,6 +5922,7 @@ void Page::DeleteItem()
 			if (SelItem.at(0)->isBookmark)
 				emit DelBM(SelItem.at(0));
 			doku->UnData.Item = Items.take(SelItem.at(0)->ItemNr);
+			emit DelObj(PageNr, SelItem.at(0)->ItemNr);
 			SelItem.removeFirst();
 			for (a = 0; a < Items.count(); ++a)
 				{
@@ -6543,7 +6560,10 @@ int Page::PaintEllipse(double x, double y, double b, double h, double w, QString
 	ite->ItemNr = Items.count()-1;
 	SetOvalFrame(ite);
 	if (!doku->loading)
+		{
 		ite->paintObj();
+		emit AddObj(PageNr, ite->ItemNr);
+		}
 	return ite->ItemNr;
 }
 
@@ -6562,7 +6582,10 @@ int Page::PaintPict(double x, double y, double b, double h)
 	ite->ItemNr = Items.count()-1;
 	SetRectFrame(ite);
 	if (!doku->loading)
+		{
 		ite->paintObj();
+		emit AddObj(PageNr, ite->ItemNr);
+		}
 	return ite->ItemNr;
 }
 
@@ -6577,7 +6600,10 @@ int Page::PaintRect(double x, double y, double b, double h, double w, QString fi
 	ite->ItemNr = Items.count()-1;
 	SetRectFrame(ite);
 	if (!doku->loading)
+		{
 		ite->paintObj();
+		emit AddObj(PageNr, ite->ItemNr);
+		}
 	return ite->ItemNr;
 }
 
@@ -6593,7 +6619,10 @@ int Page::PaintPoly(double x, double y, double b, double h, double w, QString fi
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	if (!doku->loading)
+		{
 		ite->paintObj();
+		emit AddObj(PageNr, ite->ItemNr);
+		}
 	return ite->ItemNr;
 }
 
@@ -6608,7 +6637,10 @@ int Page::PaintPolyLine(double x, double y, double b, double h, double w, QStrin
 	ite->ItemNr = Items.count()-1;
 	ite->ClipEdited = true;
 	if (!doku->loading)
+		{
 		ite->paintObj();
+		emit AddObj(PageNr, ite->ItemNr);
+		}
 	return ite->ItemNr;
 }
 
@@ -6621,7 +6653,10 @@ int Page::PaintText(double x, double y, double b, double h, double w, QString ou
 	ite->ItemNr = Items.count()-1;
 	SetRectFrame(ite);
 	if (!doku->loading)
+		{
 		ite->paintObj();
+		emit AddObj(PageNr, ite->ItemNr);
+		}
 	return ite->ItemNr;
 }
 
@@ -6635,7 +6670,10 @@ int Page::PaintLine(double x, double y, double b, double h, double w, QString ou
 	ite->Shade2 = doku->DshadeLine;
 	ite->ItemNr = Items.count()-1;
 	if (!doku->loading)
+		{
 		ite->paintObj();
+		emit AddObj(PageNr, ite->ItemNr);
+		}
 	return ite->ItemNr;
 }
 
@@ -6980,7 +7018,10 @@ void Page::LoadPict(QString fn, int ItNr)
 	Items.at(ItNr)->flippedH = 0;
 	Items.at(ItNr)->flippedV = 0;
 	if (!doku->loading)
+		{
 		emit RasterPic(Items.at(ItNr)->isRaster);
+		emit UpdtObj(PageNr, ItNr);
+		}
 	emit DocChanged();
 }
 

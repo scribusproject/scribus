@@ -2618,6 +2618,7 @@ void Mpalette::NewName()
 		{
 		CurItem->AnName = NameEdit->text();
 		CurItem->AutoName = false;
+		emit DocChanged();
 		}
 }
 

@@ -71,7 +71,7 @@ void ChTable::contentsMousePressEvent(QMouseEvent* e)
 	e->accept();
 	int r = rowAt(e->pos().y());
 	int c = columnAt(e->pos().x());
-	if (e->button() == RightButton)
+	if ((e->button() == RightButton) && ((r*32+c) < MaxCount))
 		{
 		Mpressed = true;
 		int bh = 48 + qRound(-(*ap->doc->AllFonts)[ap->doc->CurrFont]->numDescender * 48) + 3;
@@ -203,8 +203,9 @@ ZAuswahl::ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *pl)
       {
 			ZTabelle->setColumnWidth(d, ZTabelle->rowHeight(0));
       }
-    ZTabelle->setMinimumSize(QSize(ZTabelle->rowHeight(0)*32, ZTabelle->rowHeight(0)*7));
+    ZTabelle->setMinimumSize(QSize(ZTabelle->rowHeight(0)*33, ZTabelle->rowHeight(0)*7));
     ZAuswahlLayout->addWidget( ZTabelle );
+		ZTabelle->MaxCount = MaxCount;
 
     Zeichen = new QLineEdit( this, "Zeichen" );
     Zeichen->setFont(pl->doc->UsedFonts[pl->doc->CurrFont]);

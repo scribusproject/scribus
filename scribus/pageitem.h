@@ -193,6 +193,7 @@ public:
 	QString An_V_act;
 	QString An_C_act;
 	QString AnName;
+	bool AutoName;
 	QString AnToolTip;
 	QString AnRollOver;
 	QString AnDown;

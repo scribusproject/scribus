@@ -19,9 +19,7 @@
 #include "bookpalette.moc"
 extern QPixmap loadIcon(QString nam);
 
-BookPalette::BookPalette(QWidget* parent)
-					 : QDialog( parent, "Books", false, 0 )
-//					 : QDialog( parent, "Books", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool )
+BookPalette::BookPalette(QWidget* parent) : QDialog( parent, "Books", false, 0 )
 {
 	setIcon(loadIcon("AppIcon.png"));
 	setCaption( tr( "Bookmarks" ) );

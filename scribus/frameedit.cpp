@@ -5,8 +5,7 @@
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 
-NodePalette::NodePalette( QWidget* parent)
-    : QDialog( parent, "Npal", false, WStyle_Customize | WStyle_DialogBorder)
+NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
 {
 //    resize( 155, 165 );
     setCaption( tr( "Nodes" ) );

@@ -2097,8 +2097,8 @@ void ScribusApp::HaveNewSel(int Nr)
 
 void ScribusApp::slotDocCh(bool reb)
 {
-	if (reb)
-		Tpal->BuildTree(view);
+	if ((reb) && (!doc->TemplateMode) && (doc->ActPage->SelItem.count() != 0))
+		Tpal->slotUpdateElement(doc->ActPage->PageNr, doc->ActPage->SelItem.at(0)->ItemNr);
 	if (!doc->isModified())
 		doc->setModified();
 	ActWin->setCaption(tr(doc->DocName) + "*");
@@ -2212,6 +2212,7 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr)
 			}
 		Mpal->Cpal->SetColors(doc->PageColors);
 		Mpal->updateCList();
+		Tpal->BuildTree(view);
 		slotDocCh();
 		doc->loading = false;
 		ret = true;
@@ -2705,6 +2706,8 @@ bool ScribusApp::DoFileClose()
 		Mpal->Cpal->SetColors(Prefs.DColors);
 		Mpal->Cpal->ChooseGrad(0);
 	  FMess->setText(tr("Ready"));
+		Tpal->PageObj.clear();
+		Tpal->Seiten.clear();
 	  Tpal->ListView1->clear();
 		Lpal->ClearInhalt();
 		DatPri->setEnabled(false);
@@ -2870,7 +2873,10 @@ void ScribusApp::slotEditCut()
 					Buffer2 += QString::number(b->Ptext.at(a)->cextra)+"\t";
 					Buffer2 += QString::number(b->Ptext.at(a)->cshade)+'\t';
 					Buffer2 += QString::number(b->Ptext.at(a)->cstyle)+'\t';
-					Buffer2 += QString::number(b->Ptext.at(a)->cab)+'\n';
+					Buffer2 += QString::number(b->Ptext.at(a)->cab)+'\t';
+					Buffer2 += b->Ptext.at(a)->cstroke+"\t";
+					Buffer2 += QString::number(b->Ptext.at(a)->cshade2)+'\t';
+					Buffer2 += QString::number(b->Ptext.at(a)->cscale)+'\n';
 					}
 				}
 			DeleteSel(b);
@@ -2923,7 +2929,10 @@ void ScribusApp::slotEditCopy()
 					Buffer2 += QString::number(b->Ptext.at(a)->cextra)+"\t";
 					Buffer2 += QString::number(b->Ptext.at(a)->cshade)+'\t';
 					Buffer2 += QString::number(b->Ptext.at(a)->cstyle)+'\t';
-					Buffer2 += QString::number(b->Ptext.at(a)->cab)+'\n';
+					Buffer2 += QString::number(b->Ptext.at(a)->cab)+'\t';
+					Buffer2 += b->Ptext.at(a)->cstroke+"\t";
+					Buffer2 += QString::number(b->Ptext.at(a)->cshade2)+'\t';
+					Buffer2 += QString::number(b->Ptext.at(a)->cscale)+'\n';
 					}
 				}
 			}
@@ -3279,8 +3288,11 @@ void ScribusApp::slotNewPage(int w)
 		pageMenu->setItemEnabled(pgmd, 1);
 		pageMenu->setItemEnabled(pgmv, 1);
 		}
-	if (!doc->loading)
+	if ((!doc->loading) && (!doc->TemplateMode))
+		{
 		AdjustBM();
+		Tpal->slotAddPage(w);
+		}
 	connect(doc->ActPage, SIGNAL(Amode(int)), this, SLOT(setAppMode(int)));
 	connect(doc->ActPage, SIGNAL(PaintingDone()), this, SLOT(slotSelect()));
 	connect(doc->ActPage, SIGNAL(HaveSel(int)), this, SLOT(HaveNewSel(int)));
@@ -3328,6 +3340,10 @@ void ScribusApp::slotNewPage(int w)
 	connect(doc->ActPage, SIGNAL(ChBMText(PageItem *)), this, SLOT(BookMarkTxT(PageItem *)));
 	connect(doc->ActPage, SIGNAL(NewBMNr(int, int)), BookPal->BView, SLOT(ChangeItem(int, int)));
 	connect(doc->ActPage, SIGNAL(RasterPic(bool)), this, SLOT(HaveRaster(bool)));
+	connect(doc->ActPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
+	connect(doc->ActPage, SIGNAL(AddObj(uint, uint)), Tpal, SLOT(slotAddElement(uint, uint)));
+	connect(doc->ActPage, SIGNAL(UpdtObj(uint, uint)), Tpal, SLOT(slotUpdateElement(uint, uint)));
+	connect(doc->ActPage, SIGNAL(MoveObj(uint, uint, uint)), Tpal, SLOT(slotMoveElement(uint, uint, uint)));
 	slotDocCh(!doc->loading);
 }
 
@@ -3436,8 +3452,8 @@ void ScribusApp::ToggleTpal()
 		}
 	else
 		{
-		if (HaveDoc)
-			Tpal->BuildTree(view);
+//		if (HaveDoc)
+//			Tpal->BuildTree(view);
 		Tpal->show();
 		toolMenu->changeItem(viewTpal, tr("Hide Outline"));
 		}
@@ -3938,6 +3954,7 @@ void ScribusApp::DeletePage2(int pg)
 		}
 	view->delPage(pg);
 	AdjustBM();
+	Tpal->slotDelPage(pg);
 	view->reformPages();
 	if (view->Pages.count() == 1)
 		{
@@ -3971,6 +3988,7 @@ void ScribusApp::DeletePage()
 			if (view->Pages.at(pg)->SelItem.count() != 0)
 				view->Pages.at(pg)->DeleteItem();
 			view->delPage(pg);
+			Tpal->slotDelPage(pg);
 			AdjustBM();
 			}
 		view->reformPages();
@@ -4004,6 +4022,7 @@ void ScribusApp::MovePage()
 		CanUndo();
 		AdjustBM();
 		Sepal->RebuildPage();
+		Tpal->BuildTree(view);
 		}
 	delete dia;
 }
@@ -6304,14 +6323,17 @@ void ScribusApp::UnDoAction()
 				b->BackBox = 0;
 				b->isAutoText = false;
 				view->Pages.at(doc->UnData.PageNr)->Items.insert(b->ItemNr, b);
+				Tpal->slotAddElement(doc->UnData.PageNr, b->ItemNr);
 				for (a = 0; a < view->Pages.at(doc->UnData.PageNr)->Items.count(); ++a)
 					{
 					view->Pages.at(doc->UnData.PageNr)->Items.at(a)->ItemNr = a;
 					}
+				Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
 				break;
 			case 1:
 				b->Xpos = doc->UnData.Xpos;
 				b->Ypos = doc->UnData.Ypos;
+				Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
 				break;
 			case 2:
 				b->Xpos = doc->UnData.Xpos;
@@ -6320,6 +6342,7 @@ void ScribusApp::UnDoAction()
 				if (b->PType == 5)
 					mp = true;
 				view->Pages.at(doc->UnData.PageNr)->SizeItem(doc->UnData.Width, doc->UnData.Height, b->ItemNr, mp);
+				Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
 				break;
 			case 3:
 				b->Rot = doc->UnData.Rot;
@@ -6327,11 +6350,13 @@ void ScribusApp::UnDoAction()
 			case 4:
 				view->Pages.at(doc->UnData.PageNr)->Items.take(b->ItemNr);
 				view->Pages.at(doc->UnData.PageNr)->Items.insert(doc->UnData.ItemNr, b);
+				Tpal->slotMoveElement(doc->UnData.PageNr, b->ItemNr, doc->UnData.ItemNr);
 				for (a = 0; a < view->Pages.at(doc->UnData.PageNr)->Items.count(); ++a)
 					{
 					view->Pages.at(doc->UnData.PageNr)->Items.at(a)->ItemNr = a;
 					}
 				break;
+				Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
 			}
 		view->DrawNew();
 		doc->UnDoValid = false;

@@ -308,6 +308,10 @@ signals: // Signals
 	void ChBMText(PageItem *);
 	void RotMode(int);
 	void RasterPic(bool);
+	void DelObj(uint, uint);
+	void MoveObj(uint, uint, uint);
+	void UpdtObj(uint, uint);
+	void AddObj(uint, uint);
 };
 
 #endif
