@@ -42,7 +42,7 @@
 #include "alignselect.h"
 #include "shadebutton.h"
 
-struct PtiSmall {
+struct PtiSmall { 
 		    int csize;
 		    int cshade;
 		    int cshade2;
@@ -124,11 +124,11 @@ signals:
 	void PasteAvail();
 };
 
-class SideBar : public QLabel
+class SideBar : public QLabel  
 {
 	Q_OBJECT
 
-public:
+public: 
 	SideBar(QWidget *pa);
 	~SideBar() {};
 	int offs;
@@ -152,11 +152,11 @@ public slots:
 	void setRepaint(bool r);
 };
 
-class SToolBColorF : public QToolBar
+class SToolBColorF : public QToolBar  
 {
 	Q_OBJECT
 
-public:
+public: 
 	SToolBColorF(QMainWindow* parent, ScribusDoc *doc);
 	~SToolBColorF() {};
 	QLabel* FillIcon;
@@ -172,11 +172,11 @@ signals:
 	void NewColor(int, int);
 };
 
-class SToolBColorS : public QToolBar
+class SToolBColorS : public QToolBar  
 {
 	Q_OBJECT
 
-public:
+public: 
 	SToolBColorS(QMainWindow* parent, ScribusDoc *doc);
 	~SToolBColorS() {};
 	QLabel* StrokeIcon;
@@ -192,11 +192,11 @@ signals:
 	void NewColor(int, int);
 };
 
-class SToolBStyle : public QToolBar
+class SToolBStyle : public QToolBar  
 {
 	Q_OBJECT
 
-public:
+public: 
 	SToolBStyle(QMainWindow* parent);
 	~SToolBStyle() {};
 	StyleSelect* SeStyle;
@@ -213,11 +213,11 @@ signals:
 	void NewStyle(int);
 };
 
-class SToolBAlign : public QToolBar
+class SToolBAlign : public QToolBar  
 {
 	Q_OBJECT
 
-public:
+public: 
 	SToolBAlign(QMainWindow* parent);
 	~SToolBAlign() {};
 	AlignSelect* GroupAlign;
@@ -232,11 +232,11 @@ signals:
 	void NewStyle(int);
 };
 
-class SToolBFont : public QToolBar
+class SToolBFont : public QToolBar  
 {
 	Q_OBJECT
 
-public:
+public: 
 	SToolBFont(QMainWindow* parent);
 	~SToolBFont() {};
 	FontCombo* Fonts;
@@ -302,7 +302,8 @@ public:
 	QLabel* CharCT2;
 	QLabel* CharC2;
 	/*! Enables/disables the "smart" selection (#1203) - 10/16/2004 pv */
-	QCheckBox* smartSelection;
+	bool smartSelection;
+	int smartSel;
 
 	ScribusDoc* doc;
 	PageItem* CurrItem;
@@ -352,6 +353,7 @@ public slots:
 	void SaveTextFile();
 	// 10/12/2004 - pv - #1203: wrong selection on double click
 	void doubleClick(int para, int pos);
+	void ToggleSmart();
 
 signals:
 	void DocChanged();

@@ -1457,7 +1457,7 @@ void SToolBFont::newSizeHandler()
 }
 
 /* Main Story Editor Class */
-StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
+StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) 
 									: QMainWindow(parent, "StoryEditor", WShowModal | WType_Dialog)
 {
 	setCaption( tr( "Story Editor" ) );
@@ -1494,8 +1494,9 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	settingsMenu = new QPopupMenu();
 	settingsMenu->insertItem( tr("&Background..."), this , SLOT(setBackPref()));
 	settingsMenu->insertItem( tr("&Display Font..."), this , SLOT(setFontPref()));
-	smartSelection = new QCheckBox(tr("&Smart text selection"), this);
-	settingsMenu->insertItem(smartSelection);
+	smartSel = settingsMenu->insertItem( tr("&Smart text selection"), this, SLOT(ToggleSmart()));
+	smartSelection = false;
+	settingsMenu->setItemChecked(smartSel, smartSelection);
 	menuBar()->insertItem( tr("&File"), fmenu);
 	menuBar()->insertItem( tr("&Edit"), emenu);
 	menuBar()->insertItem( tr("&Settings"), settingsMenu );
@@ -1545,7 +1546,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 /* Editor Widget, subclass of QTextEdit */
 	Editor = new SEditor(EdSplit, docc);
 	StoryEd2Layout->addWidget( EdSplit );
-
+	
 /* Setting up Status Bar */
 	ButtonGroup1 = new QButtonGroup( statusBar(), "ButtonGroup1" );
 	ButtonGroup1->setFrameShape( QButtonGroup::NoFrame );
@@ -1650,7 +1651,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(StyleTools, SIGNAL(NewStyle(int )), this, SLOT(newTxStyle(int )));
 	Editor->setFocus();
 }
-
+ 
 /** 10/12/2004 - pv - #1203: wrong selection on double click
 Catch the double click signal - cut the wrong selection (with
 whitespaces on the tail) - select only one word - return
@@ -1659,8 +1660,7 @@ void StoryEditor::doubleClick(int para, int position)
 {
 	int paraFrom, indexFrom, paraTo, indexTo;
 	QString selText = Editor->selectedText();
-
-	if (selText.length() == 0 || !smartSelection->isChecked())
+	if (selText.length() == 0 || !smartSelection)
 	{
 		updateProps(para, position);
 		return;
@@ -1669,6 +1669,12 @@ void StoryEditor::doubleClick(int para, int position)
 	selText =  selText.stripWhiteSpace();
 	Editor->setSelection(paraFrom, indexFrom, paraFrom, indexFrom + selText.length());
 	updateProps(para, position);
+}
+
+void StoryEditor::ToggleSmart()
+{
+	smartSelection = !smartSelection;
+	settingsMenu->setItemChecked(smartSel, smartSelection);
 }
 
 int StoryEditor::exec()
@@ -2059,7 +2065,7 @@ void StoryEditor::Do_leave()
 	hide();
 	qApp->exit_loop();
 }
-
+ 
 /*! Saves the document with editation continued. Signal called from menu.
   05/28/04 petr vanek
   */
@@ -2199,7 +2205,7 @@ void StoryEditor::updateTextFrame()
 		nb2->Dirty = false;
 		nb2 = nb2->NextBox;
 	}
-	doc->ActPage->update();
+	ScApp->view->DrawNew();
 	TextChanged = false;
 	emenu->setItemEnabled(Mupdt, 0);
 	fmenu->setItemEnabled(fid52, 0);
