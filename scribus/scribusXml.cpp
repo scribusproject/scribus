@@ -180,6 +180,8 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 		xo = item->Doc->Pages.at(item->OwnPage)->Xoffset;
 		yo = item->Doc->Pages.at(item->OwnPage)->Yoffset;
 	}
+	if (newFormat)
+		ob->setAttribute("OwnPage", item->OwnPage);
 	ob->setAttribute("PTYPE",item->PType);
 	ob->setAttribute("XPOS",item->Xpos - xo);
 	ob->setAttribute("YPOS",item->Ypos - yo);

@@ -3521,6 +3521,10 @@ bool ScribusApp::LadeDoc(QString fileName)
 		UpdateRecent(FName);
 		FMess->setText( tr("Ready"));
 		ret = true;
+		for (uint p = 0; p < doc->Pages.count(); ++p)
+		{
+			Apply_Temp(doc->Pages.at(p)->MPageNam, p, false);
+		}
 		if ((wsp->windowList().isEmpty()) || (wsp->windowList().count() == 1))
 			w->showMaximized();
 		else

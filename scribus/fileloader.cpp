@@ -413,7 +413,6 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					doc->Pages = doc->DocPages;
 					doc->PageAT = AtFl;
 					doc->MasterP = false;
-					doc->Items = doc->DocItems;
 				}
 				else
 				{
@@ -421,21 +420,16 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					doc->PageAT = false;
 					doc->Pages = doc->MasterPages;
 					doc->MasterP = true;
-					doc->Items = doc->MasterItems;
 				}
 				app->slotNewPage(a);
 				Apage = doc->Pages.at(a);
 				if (PgNam == "")
-				{
 					doc->DocPages = doc->Pages;
-					doc->DocItems = doc->Items;
-				}
 				else
 				{
 					Apage->PageNam = PgNam;
 					doc->MasterNames[PgNam] = a;
 					doc->MasterPages = doc->Pages;
-					doc->MasterItems = doc->Items;
 				}
 				doc->MasterP = false;
 				doc->PageC = Pgc+1;
@@ -493,14 +487,25 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT"))
 			{
 					if (pg.tagName()=="PAGEOBJECT")
+					{
 						doc->Items = doc->DocItems;
+						doc->Pages = doc->DocPages;
+						doc->MasterP = false;
+					}
 					else
+					{
 						doc->Items = doc->MasterItems;
+						doc->Pages = doc->MasterPages;
+						doc->MasterP = true;
+					}
+					int atcp = QStoInt(pg.attribute("OwnPage"));
+					if (atcp != -1)
+						doc->ActPage = doc->Pages.at(atcp);
 					if ((QStoInt(pg.attribute("NEXTITEM")) != -1) || (static_cast<bool>(QStoInt(pg.attribute("AUTOTEXT")))))
 					{
 						if (QStoInt(pg.attribute("BACKITEM")) == -1)
 						{
-							Link.Start = counter;
+							Link.Start = doc->Items.count();
 							LFrames.append(Link);
 						}
 					}
@@ -581,9 +586,16 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						TableID.insert(QStoInt(pg.attribute("OwnLINK","0")), Neu->ItemNr);
 					}
 					if (pg.tagName()=="PAGEOBJECT")
+					{
 						doc->DocItems = doc->Items;
+						doc->DocPages = doc->Pages;
+					}
 					else
+					{
 						doc->MasterItems = doc->Items;
+						doc->MasterPages = doc->Pages;
+					}
+					doc->MasterP = false;
 					counter++;
 				}
 			PAGE=PAGE.nextSibling();

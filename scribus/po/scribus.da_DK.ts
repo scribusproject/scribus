@@ -3,7 +3,7 @@
     <name>@@translation</name>
     <message>
         <source>Project-Id-Version: Scribus 1.2.1</source>
-        <translation type="obsolete">Revision-Date: 2004-10-01 16:30:00 CET
+        <translation type="obsolete">Revision-Date: 2004-10-28 20:10:00 CET
 Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     </message>
 </context>
@@ -40,10 +40,6 @@ Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     <message>
         <source>Ukrainian:</source>
         <translation>Ukrainsk:</translation>
-    </message>
-    <message>
-        <source>Spanish and Catalan:</source>
-        <translation type="obsolete">Spansk og Catalansk:</translation>
     </message>
     <message>
         <source>Slovak:</source>
@@ -186,32 +182,32 @@ Manglende biblioteksunderstøttelse er vist ved en *</translation>
         <translation>Postliste</translation>
     </message>
     <message>
-        <source>Official Translations and Translators:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Esperanto:</source>
-        <translation type="unfinished"></translation>
+        <source>Catalan:</source>
+        <translation>Catalansk:</translation>
     </message>
     <message>
         <source>Korean:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Serbian:</source>
-        <translation type="unfinished"></translation>
+        <translation>Koreansk:</translation>
     </message>
     <message>
         <source>Spanish:</source>
-        <translation type="unfinished"></translation>
+        <translation>Spansk:</translation>
+    </message>
+    <message>
+        <source>Esperanto:</source>
+        <translation>Esperanto:</translation>
+    </message>
+    <message>
+        <source>Serbian:</source>
+        <translation>Serbisk:</translation>
+    </message>
+    <message>
+        <source>Official Translations and Translators:</source>
+        <translation>Officielle oversættelser og oversættere:</translation>
     </message>
     <message>
         <source>Previous Translation Contributors:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Catalan:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tidligere oversættelse fra:</translation>
     </message>
 </context>
 <context>
@@ -327,15 +323,15 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation> p</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -387,7 +383,7 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>&amp;Do Not Change</source>
@@ -917,7 +913,7 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
@@ -975,24 +971,12 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
         <translation>Tekst</translation>
     </message>
     <message>
-        <source>Page:</source>
-        <translation type="obsolete">Side:</translation>
-    </message>
-    <message>
         <source>External Web-Link</source>
         <translation>Ekstern web-Lænke</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Annullér</translation>
-    </message>
-    <message>
         <source>Annotation Properties</source>
         <translation>Kommentar egenskaber</translation>
-    </message>
-    <message>
-        <source>Change...</source>
-        <translation type="obsolete">Vælg...</translation>
     </message>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
@@ -1003,44 +987,28 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
         <translation>Ekstern Lænke</translation>
     </message>
     <message>
-        <source>Type:</source>
-        <translation type="obsolete">Type:</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">X-Pos:</translation>
-    </message>
-    <message>
         <source> pt</source>
-        <translation>pt</translation>
-    </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Y-Pos:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>&amp;Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Type:</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation type="unfinished"></translation>
+        <translation>V&amp;ælg...</translation>
     </message>
     <message>
         <source>&amp;Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Side:</translation>
     </message>
     <message>
         <source>&amp;X-Pos</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;X-Pos</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation type="unfinished">&amp;Y-Pos:</translation>
+        <translation>&amp;Y-Pos:</translation>
     </message>
 </context>
 <context>
@@ -1489,7 +1457,7 @@ Dette kræver meget nøjagtige profiler og er kun ment som en advarsel.</transla
     </message>
     <message>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -1518,6 +1486,16 @@ Dette kræver meget nøjagtige profiler og er kun ment som en advarsel.</transla
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Annullér</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Ingen</translation>
+    </message>
+    <message>
+        <source>You cannot create a color named &quot;%1&quot;.
+It&apos;s a reserved name for transparent color</source>
+        <translation>Du kan ikke lave en farve, der hedder &quot;%1&quot;.
+Navnet er reserveret for gennemsigtig farve</translation>
     </message>
 </context>
 <context>
@@ -1556,7 +1534,7 @@ Dette kræver meget nøjagtige profiler og er kun ment som en advarsel.</transla
     </message>
     <message>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Shade:</source>
@@ -1600,7 +1578,7 @@ Dette kræver meget nøjagtige profiler og er kun ment som en advarsel.</transla
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>X2:</source>
@@ -1612,15 +1590,15 @@ Dette kræver meget nøjagtige profiler og er kun ment som en advarsel.</transla
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation> p</translation>
     </message>
     <message>
         <source>Free radial Gradient</source>
@@ -1795,6 +1773,10 @@ Dette kan indstilles i Præferencer.</translation>
     <message>
         <source>Delete color:</source>
         <translation>Slet farve:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Ingen</translation>
     </message>
 </context>
 <context>
@@ -2182,7 +2164,7 @@ fejlede!</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2190,15 +2172,15 @@ fejlede!</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation> p</translation>
     </message>
     <message>
         <source>Name of your paragraph style</source>
@@ -2434,11 +2416,11 @@ Navnet på den eksporterede fil vil være &apos;dokumentnavn-sidenummer.filtype&
     </message>
     <message>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation>dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <source>Range</source>
@@ -2624,6 +2606,10 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
         <source>&amp;Name:</source>
         <translation>&amp;Navn:</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation>Ingen</translation>
+    </message>
 </context>
 <context>
     <name>FontPrefs</name>
@@ -2641,7 +2627,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation>Delmængde</translation>
+        <translation>Substituere</translation>
     </message>
     <message>
         <source>Replacement</source>
@@ -2755,7 +2741,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
@@ -2778,19 +2764,19 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation> p</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
@@ -2898,10 +2884,6 @@ Værdien 0 betyder ubegrænset antal.</translation>
         <translation>Orddel tekst &amp;automatisk under indtastning</translation>
     </message>
     <message>
-        <source>Consecutive Hypenations &amp;Allowed:</source>
-        <translation type="obsolete">Antal &amp;tilladte orddelinger i træk:</translation>
-    </message>
-    <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
         <translation>Et dialogvindue, der viser de mulige orddelinger for hvert ord, kommer frem når du bruger de ekstra orddelings tekst tilvalg.</translation>
     </message>
@@ -2915,7 +2897,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     </message>
     <message>
         <source>Consecutive Hyphenations &amp;Allowed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Antal &amp;tilladte orddelinger i træk:</translation>
     </message>
 </context>
 <context>
@@ -3232,7 +3214,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <name>MSpinBox</name>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>pt</source>
@@ -3252,15 +3234,15 @@ Værdien 0 betyder ubegrænset antal.</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation> p</translation>
     </message>
 </context>
 <context>
@@ -3271,19 +3253,19 @@ Værdien 0 betyder ubegrænset antal.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation> p</translation>
     </message>
     <message>
         <source>&amp;Number of Copies:</source>
@@ -3346,19 +3328,19 @@ Værdien 0 betyder ubegrænset antal.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation> p</translation>
     </message>
 </context>
 <context>
@@ -3436,7 +3418,7 @@ en række sider eller et enkelt sidenummer.</translation>
     </message>
     <message>
         <source> from 0</source>
-        <translation>fra 0</translation>
+        <translation> fra 0</translation>
     </message>
     <message>
         <source>Create Page(s)</source>
@@ -3456,7 +3438,7 @@ en række sider eller et enkelt sidenummer.</translation>
     </message>
     <message>
         <source> from %1</source>
-        <translation>fra %1</translation>
+        <translation> fra %1</translation>
     </message>
 </context>
 <context>
@@ -3515,10 +3497,6 @@ en række sider eller et enkelt sidenummer.</translation>
     <message>
         <source>No Style</source>
         <translation>Ingen typografi</translation>
-    </message>
-    <message>
-        <source>Reverse Writing</source>
-        <translation type="obsolete">Baglæns skrivning</translation>
     </message>
     <message>
         <source>Flat Cap</source>
@@ -3628,7 +3606,7 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source></source>
@@ -3636,7 +3614,7 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
@@ -3884,15 +3862,15 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation> p</translation>
     </message>
     <message>
         <source>Keep the aspect ratio</source>
@@ -4110,7 +4088,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrivning fra højre til venstre</translation>
     </message>
 </context>
 <context>
@@ -4179,11 +4157,11 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>OK</source>
@@ -4191,7 +4169,7 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source> pt </source>
-        <translation>pt </translation>
+        <translation> pt </translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -4321,19 +4299,19 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation> p</translation>
     </message>
     <message>
         <source>Document page size, either a standard size or a custom size</source>
@@ -4815,11 +4793,11 @@ ellers er coordinaterne vist i forhold til objektet</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation>dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <source> sec</source>
-        <translation>sec</translation>
+        <translation> sec</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
@@ -5073,24 +5051,20 @@ reglerne for PDF/X-3. Vi anbefaler at bruge titlen på dokumentet. </translation
         <translation>&amp;Fonte</translation>
     </message>
     <message>
-        <source>E&amp;xtras</source>
-        <translation type="obsolete">E&amp;kstra</translation>
-    </message>
-    <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation> p</translation>
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
@@ -5193,10 +5167,6 @@ en række sider eller et enkelt sidenummer.</translation>
         <translation>Opløs&amp;ning:</translation>
     </message>
     <message>
-        <source>Com&amp;press Text and Vector Graphics</source>
-        <translation type="obsolete">Kom&amp;primér tekst og vektorgrafik</translation>
-    </message>
-    <message>
         <source>&amp;Method:</source>
         <translation>&amp;Metode:</translation>
     </message>
@@ -5210,7 +5180,7 @@ en række sider eller et enkelt sidenummer.</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>&amp;Indlejr alle fonte</translation>
+        <translation>&amp;Indlejre alle fonte</translation>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
@@ -5219,10 +5189,6 @@ en række sider eller et enkelt sidenummer.</translation>
     <message>
         <source>&amp;&lt;&lt;</source>
         <translation>&amp;&lt;&lt;</translation>
-    </message>
-    <message>
-        <source>Enable &amp;Presentation Effects</source>
-        <translation type="obsolete">anvend &amp;præsentationseffekter</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
@@ -5282,7 +5248,7 @@ en række sider eller et enkelt sidenummer.</translation>
     </message>
     <message>
         <source>Allow Adding &amp;Annotations and Fields</source>
-        <translation> Tillad at der tilf&amp;øjes kommentarer og felter</translation>
+        <translation>Tillad at der tilf&amp;øjes kommentarer og felter</translation>
     </message>
     <message>
         <source>S&amp;ecurity</source>
@@ -5353,28 +5319,36 @@ trykkeriet specifikt har anmodet om det og opgivet de nøjagtige detaljer om ind
 den eksporterede PDF fil ikke kunne udskrives ordentligt og den er ikke portabel på tværs af systemer.</translation>
     </message>
     <message>
+        <source>&amp;Rotation:</source>
+        <translation>&amp;Rotation:</translation>
+    </message>
+    <message>
         <source>Compress Text and &amp;Vector Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Komprimer tekst &amp; vektorgrafik</translation>
     </message>
     <message>
         <source>En&amp;able Presentation Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Anvend pr&amp;æsentationseffekter</translation>
     </message>
     <message>
         <source>&amp;Presentation</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Præsentation</translation>
     </message>
     <message>
-        <source>Mirror Page(s) &amp;Horizontally</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;Subset all Fonts</source>
+        <translation>S&amp;ubstituere alle fonte</translation>
     </message>
     <message>
-        <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Rotation:</translation>
+        <source>Fonts to subset:</source>
+        <translation>Fonte til substituering:</translation>
     </message>
     <message>
-        <source>&amp;Options</source>
-        <translation type="unfinished"></translation>
+        <source>Mirror Page(s) horizontally</source>
+        <translation>Spejl side(r) horisontalt</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) vertically</source>
+        <translation>Spejl side(r) vertikalt</translation>
     </message>
 </context>
 <context>
@@ -5800,7 +5774,7 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
     <message>
         <source> of %1</source>
-        <translation>af %1</translation>
+        <translation> af %1</translation>
     </message>
 </context>
 <context>
@@ -5885,7 +5859,7 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
     <message>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Corn&amp;ers:</source>
@@ -6090,11 +6064,11 @@ en positiv værdi vil lave den convex</translation>
     </message>
     <message>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Medium</source>
@@ -6102,15 +6076,15 @@ en positiv værdi vil lave den convex</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation> p</translation>
     </message>
     <message>
         <source>External Tools</source>
@@ -6474,7 +6448,7 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source> px</source>
-        <translation>px</translation>
+        <translation> px</translation>
     </message>
     <message>
         <source>Baseline Grid</source>
@@ -7404,10 +7378,6 @@ Kontrollér sti og filnavn.</translation>
         <translation>Ny &amp;fra skabelon...</translation>
     </message>
     <message>
-        <source>&amp;New</source>
-        <translation>&amp;Ny</translation>
-    </message>
-    <message>
         <source>Newsletters</source>
         <translation>Nyhedsbreve</translation>
     </message>
@@ -7469,7 +7439,7 @@ Kontrollér sti og filnavn.</translation>
     </message>
     <message>
         <source>PDF Presentations</source>
-        <translation>PDF-presentationer</translation>
+        <translation>PDF-præsentationer</translation>
     </message>
     <message>
         <source>Magazines</source>
@@ -7504,10 +7474,6 @@ Kontrollér sti og filnavn.</translation>
         <translation>&amp;Vis udskrift</translation>
     </message>
     <message>
-        <source>&amp;Print...</source>
-        <translation>&amp;Udskriv...</translation>
-    </message>
-    <message>
         <source>Import &amp;EPS/PS...</source>
         <translation>Importér &amp;EPS/PS...</translation>
     </message>
@@ -7522,10 +7488,6 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <source>Save as &amp;Template...</source>
         <translation>Gem som skabel&amp;on...</translation>
-    </message>
-    <message>
-        <source>Save &amp;As...</source>
-        <translation>Gem so&amp;m...</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
@@ -7632,7 +7594,7 @@ Ekstern Lænker</translation>
     </message>
     <message>
         <source>Media Cases</source>
-        <translation type="unfinished"></translation>
+        <translation>Medie bokse</translation>
     </message>
 </context>
 <context>
@@ -7803,19 +7765,19 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation> p</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
@@ -7915,11 +7877,11 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Font of selected text</source>
@@ -7946,7 +7908,7 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Manual Kerning</source>
@@ -8132,7 +8094,7 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source>Smart Hyphen</source>
-        <translation>Smart orddeling</translation>
+        <translation>Smart bindestreg</translation>
     </message>
     <message>
         <source>EPS-Files (*.eps);;All Files (*)</source>
@@ -8618,19 +8580,19 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation> p</translation>
     </message>
     <message>
         <source>pt</source>
@@ -9161,7 +9123,7 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>pt</source>
@@ -9305,7 +9267,7 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>OK</source>
@@ -9698,6 +9660,10 @@ til vinduet nedenunder, for at lave en ny side.</translation>
         <source>Clear all Text</source>
         <translation>Slet al tekst</translation>
     </message>
+    <message>
+        <source>&amp;Smart text selection</source>
+        <translation>&amp;Smart tekst markering</translation>
+    </message>
 </context>
 <context>
     <name>StyleSelect</name>
@@ -9737,24 +9703,8 @@ til vinduet nedenunder, for at lave en ny side.</translation>
         <translation>Opdatër afsnits typografier</translation>
     </message>
     <message>
-        <source>If there already exists a paragraph style with the same
-name than current OO.o document&apos;s paragraph should the style
-in Scribus be edited to match the one being imported
-or left untouched</source>
-        <translation>Hvis der allerede findes et afsnits typografi med det samme
-navn som i det aktive OO.o dokuments afsnit, skal typografien
-i Scribus da ændres, så det er i overensstemmelse med det, der 
-importeres eller skal det forblive som det er</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Brug dokumentnavn som en forstavelse til afsnits typografier</translation>
-    </message>
-    <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scirubs</source>
-        <translation type="obsolete">Skal importfiltret bruge dokumentets navn 
-som forstavelse til afsnits typografiens navn i Scribus</translation>
     </message>
     <message>
         <source>Do not ask again</source>
@@ -9775,7 +9725,16 @@ og aldrig spørge dig om, at bekræfte det igen</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Skal importfiltret bruge dokumentets navn 
+som forstavelse til afsnits typografiens navn i Scribus</translation>
+    </message>
+    <message>
+        <source>If a paragraph style already exists with the same name as the current
+OpenOffice.org document&apos;s paragraph, should the style in Scribus be
+edited to match the one being imported, or left untouched</source>
+        <translation>Hvis der allerede findes en afsnits typografi med det samme navn som 
+det aktive OO.o dokuments afsnit, skal typografien i Scribus da ændres, så det 
+er i overensstemmelse med det importerede eller skal det forblive urørt</translation>
     </message>
 </context>
 <context>
@@ -9833,19 +9792,19 @@ on front of the paragraph style name in Scribus</source>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation> p</translation>
     </message>
     <message>
         <source>&amp;Position:</source>
