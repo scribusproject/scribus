@@ -1071,7 +1071,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	}
 	else
 		TabStack3->raiseWidget(0);
-	LayerGroup->setEnabled(setter);
+	LayerGroup->setEnabled(!setter);
 	Xpos->setReadOnly(setter);
 	Ypos->setReadOnly(setter);
 	Rot->setReadOnly(setter);
