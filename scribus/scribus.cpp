@@ -3397,6 +3397,17 @@ bool ScribusApp::SetupDoc()
 			Prefs.GFontSub[itfsu.key()] = dia->tabFonts->FlagsRepl.at(a)->currentText();
 			a++;
 		}
+		QStringList uf = doc->UsedFonts.keys();
+		QMap<QString,QFont>::Iterator it3;
+		for (it3 = doc->UsedFonts.begin(); it3 != doc->UsedFonts.end(); ++it3)
+		{
+			FT_Done_Face(doc->FFonts[it3.key()]);
+		}
+		QStringList::Iterator it3a;
+		for (it3a = uf.begin(); it3a != uf.end(); ++it3a)
+		{
+			doc->AddFont((*it3a), Prefs.AvailFonts[(*it3a)]->Font);
+		}
 		FontSub->RebuildList(&Prefs, doc);
 		Mpal->Fonts->RebuildList(&Prefs, doc);
 		doc->PDF_Optionen.Thumbnails = dia->tabPDF->CheckBox1->isChecked();

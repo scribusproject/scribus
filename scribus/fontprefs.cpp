@@ -371,6 +371,7 @@ void FontPrefs::RebuildDialog()
 	}
 	UsedFonts.clear();
 	fontFlags.clear();
+	fontList->clear();
 	SCFontsIterator it(Prefs->AvailFonts);
 	for ( ; it.current(); ++it)
 	{
@@ -401,7 +402,6 @@ void FontPrefs::RebuildDialog()
 		}
 		QFileInfo fi = QFileInfo(it.current()->Datei);
 		QString ext = fi.extension(false).lower();
-		row->setText(3, tr("Yes"));
 		if (ext == "otf")
 			foS.FlagOTF = true;
 		else
