@@ -1657,7 +1657,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-							while (b->Ptext.at(b->CPos)->cstyle & 256)
+							while ((b->Ptext.at(b->CPos)->cstyle & 256) && (b->CPos > 0))
 							{
 								b->CPos--;
 								if (b->CPos == 0)

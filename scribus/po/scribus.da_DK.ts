@@ -3,7 +3,7 @@
     <name>@@translation</name>
     <message>
         <source>Project-Id-Version: Scribus 1.2</source>
-        <translation type="obsolete">Revision-Date: 2004-08-17 19:50:00 CET
+        <translation type="obsolete">Revision-Date: 2004-09-03 09:35:00 CET
 Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     </message>
 </context>
@@ -9278,14 +9278,14 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     <name>SideBar</name>
     <message>
         <source>No Style</source>
-        <translation>Ingen typografier</translation>
+        <translation>Ingen typografi</translation>
     </message>
 </context>
 <context>
     <name>Spalette</name>
     <message>
         <source>No Style</source>
-        <translation>Ingen typografier</translation>
+        <translation>Ingen typografi</translation>
     </message>
 </context>
 <context>

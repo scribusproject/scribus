@@ -228,7 +228,7 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.First = pstyle->getFirstLineIndent();
 	vg.Avor = pstyle->getSpaceAbove();
 	vg.Anach = pstyle->getSpaceBelow();
-	vg.Font = font->getName();
+	vg.Font = validateFont(font);
 	vg.FontSize = font->getSize();
 	vg.TabValues.clear();
 	QValueList<double> *tabs = pstyle->getTabValues();

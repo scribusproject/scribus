@@ -1,5 +1,21 @@
 /***************************************************************************
- *   Riku Leino, tsoots@welho.com                                          *
+ *   Copyright (C) 2004 by Riku Leino                                      *
+ *   tsoots@welho.com                                                      *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
 #include "htmlreader.h"
@@ -12,7 +28,7 @@ HTMLReader* HTMLReader::hreader = NULL;
 
 extern htmlSAXHandlerPtr mySAXHandler;
 
-HTMLReader::HTMLReader(gtParagraphStyle *ps, gtWriter *w)
+HTMLReader::HTMLReader(gtParagraphStyle *ps, gtWriter *w, bool textOnly)
 {
 	pstyle = ps;
 	defaultColor = ps->getFont()->getColor();
@@ -30,12 +46,17 @@ HTMLReader::HTMLReader(gtParagraphStyle *ps, gtWriter *w)
 	inCenter = false;
 	writer = w;
 	href = "";
+	extLinks = "";
+	extIndex = 1;
+	listLevel = -1;
 	inOL = false;
-	nextItemNumber = 1;
+	wasInOL = false;
 	inUL = false;
+	wasInUL = false;
 	inLI = false;
 	addedLI = false;
 	lastCharWasSpace = false;
+	noFormatting = textOnly;
 	hreader = this;
 }
 
@@ -44,9 +65,11 @@ void HTMLReader::initPStyles()
 	pstylec = new gtParagraphStyle(*pstyle);
 	pstylec->setAlignment(CENTER);
 	pstylec->setName("HTML_center");
-	pstyleli = new gtParagraphStyle(*pstyle);
+	gtParagraphStyle* pstyleli = new gtParagraphStyle(*pstyle);
 	pstyleli->setIndent(pstyleli->getIndent()+50.0);
-	pstyleli->setName("HTML_li");
+	pstyleli->setName("HTML_li_level-0");
+	listStyles.push_back(pstyleli);
+	nextItemNumbers.push_back(1);
 	pstyleh4 = new gtParagraphStyle(*pstyle);
 	pstyleh4->getFont()->setSize(pstyle->getFont()->getSize() + 10);
 	pstyleh4->getFont()->setWeight(BOLD);
@@ -92,7 +115,6 @@ void HTMLReader::startElement(void *user_data, const xmlChar * fullname, const x
 			attrs->append(QString((char*)*cur), NULL, QString((char*)*cur), QString((char*)*(cur + 1)));
 	}
 	hreader->startElement(NULL, NULL, *name, *attrs);
-	
 }
 
 bool HTMLReader::startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs) 
@@ -117,9 +139,29 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 		}
 	} 
 	else if (name == "ul")
+	{
+		++listLevel;
+		if (static_cast<int>(listStyles.size()) < (listLevel + 1))
+			createListStyle();
 		inUL = true;
+		if (inOL)
+		{
+			inOL = false;
+			wasInOL = true;
+		}
+	}
 	else if (name == "ol")
+	{
+		++listLevel;
+		if (static_cast<int>(listStyles.size()) < (listLevel + 1))
+			createListStyle();
 		inOL = true;
+		if (inUL)
+		{
+			inUL = false;
+			wasInUL = true;
+		}
+	}
 	else if (name == "li")
 		inLI = true;
 	else if (name == "h1")
@@ -179,43 +221,45 @@ bool HTMLReader::characters(const QString &ch)
 	if (inBody)
 	{
 		QString tmp = "";
-		bool add = true;
+/*		bool add = true; */
 		bool fcis = ch.left(1) == " ";
 		bool lcis = ch.right(1) == " ";
 		if (inPre)
-			tmp = ch;
-		else
 		{
-			for (uint i = 0; i < ch.length(); ++i)
-			{
-				if (ch.at(i) != "\n")
-					tmp += ch.at(i);
-			}
-			tmp = tmp.simplifyWhiteSpace();
+			tmp = ch;
+			if (tmp.left(1) == "\n")
+				tmp = tmp.right(tmp.length() - 2);
 		}
+		else
+			tmp = ch.simplifyWhiteSpace();
+
 		if (!lastCharWasSpace)
 			if (fcis)
 				tmp = " " + tmp;
-		
+
 		if (lcis)
 			tmp = tmp + " ";
-		bool lastCharWasSpace = lcis;
+		lastCharWasSpace = lcis;
 		if ((inLI) && (!addedLI))
 		{
 			if (inUL)
 				tmp = "- " + tmp;
 			else if (inOL)
 			{
-				tmp = QString("%1. ").arg(nextItemNumber) + tmp;
-				++nextItemNumber;
+				tmp = QString("%1. ").arg(nextItemNumbers[listLevel]) + tmp;
+				++nextItemNumbers[listLevel];
 			}
 			addedLI = true;
 		}
 
-		if (inP)
+		if (noFormatting)
+			writer->append(tmp);
+		else if (inP)
 			writer->append(tmp, pstylep);
 		else if (inLI)
-			writer->append(tmp, pstyleli);
+		{
+			writer->append(tmp, listStyles[listLevel]);
+		}
 		else if (inH1)
 			writer->append(tmp, pstyleh1);
 		else if (inH2)
@@ -258,10 +302,13 @@ bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 	else if (name == "a")
 	{
 		toggleEffect(UNDERLINE);
-		if ((href != "") || (href.find("//") != -1) || (href.find("mailto:") != -1))
+		if ((href != "") && ((href.find("//") != -1) ||
+		    (href.find("mailto:") != -1) || (href.find("www") != -1)))
 		{
 			href = href.remove("mailto:");
-			writer->append(" ("+href+")", pstyle);
+			writer->append(QString(" [%1]").arg(extIndex), pstyle);
+			extLinks += QString("[%1] ").arg(extIndex) + href + "\n";
+			++extIndex;
 		}
 		href = "";
 		setDefaultColor();
@@ -269,14 +316,66 @@ bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 	}
 	else if (name == "ul")
 	{
-		inUL = false;
-		writer->append("\n");
+		if (listLevel == 0)
+		{
+			inUL = false;
+			inOL = false;
+			wasInUL = false;
+			wasInOL = false;
+			listLevel = -1;
+		}
+		else if (wasInOL)
+		{
+			inUL = false;
+			inOL = true;
+			wasInOL = false;
+			--listLevel;
+		}
+		else if (wasInUL)
+		{
+			inUL = true;
+			inOL = false;
+			wasInUL = false;
+			--listLevel;
+		}
+		else
+			--listLevel;
+		if (listLevel == -1)
+			writer->append("\n");
 	}
 	else if (name == "ol")
 	{
-		inOL = false;
-		nextItemNumber = 1;
-		writer->append("\n");
+		if (listLevel == 0)
+		{
+			inUL = false;
+			inOL = false;
+			wasInUL = false;
+			wasInOL = false;
+			listLevel = -1;
+		}
+		else if (wasInUL)
+		{
+			inOL = false;
+			inUL = true;
+			wasInUL = false;
+			nextItemNumbers[listLevel] = 1;
+			--listLevel;
+		}
+		else if (wasInOL)
+		{
+			inOL = true;
+			inUL = false;
+			wasInOL = false;
+			nextItemNumbers[listLevel] = 1;
+			--listLevel;
+		}
+		else
+		{
+			nextItemNumbers[listLevel] = 1;
+			--listLevel;
+		}
+		if (listLevel == -1)
+			writer->append("\n");
 	}
 	else if (name == "li")
 	{
@@ -334,7 +433,8 @@ void HTMLReader::toggleEffect(FontEffect e)
 {
 	pstyle->getFont()->toggleEffect(e);
 	pstylec->getFont()->toggleEffect(e);
-	pstyleli->getFont()->toggleEffect(e);
+	for (uint i = 0; i < listStyles.size(); ++i)
+		listStyles[i]->getFont()->toggleEffect(e);
 	pstyleh1->getFont()->toggleEffect(e);
 	pstyleh2->getFont()->toggleEffect(e);
 	pstyleh3->getFont()->toggleEffect(e);
@@ -348,7 +448,8 @@ void HTMLReader::setItalicFont()
 {
 	pstyle->getFont()->setSlant(ITALIC);
 	pstylec->getFont()->setSlant(ITALIC);
-	pstyleli->getFont()->setSlant(ITALIC);
+	for (uint i = 0; i < listStyles.size(); ++i)
+		listStyles[i]->getFont()->setSlant(ITALIC);
 	pstyleh1->getFont()->setSlant(ITALIC);
 	pstyleh2->getFont()->setSlant(ITALIC);
 	pstyleh3->getFont()->setSlant(ITALIC);
@@ -362,7 +463,8 @@ void HTMLReader::unsetItalicFont()
 {
 	pstyle->getFont()->setSlant(defaultSlant);
 	pstylec->getFont()->setSlant(defaultSlant);
-	pstyleli->getFont()->setSlant(defaultSlant);
+	for (uint i = 0; i < listStyles.size(); ++i)
+		listStyles[i]->getFont()->setSlant(defaultSlant);
 	pstyleh1->getFont()->setSlant(defaultSlant);
 	pstyleh2->getFont()->setSlant(defaultSlant);
 	pstyleh3->getFont()->setSlant(defaultSlant);
@@ -376,7 +478,8 @@ void HTMLReader::setBlueFont()
 {
 	pstyle->getFont()->setColor("Blue");
 	pstylec->getFont()->setColor("Blue");
-	pstyleli->getFont()->setColor("Blue");
+	for (uint i = 0; i < listStyles.size(); ++i)
+		listStyles[i]->getFont()->setColor("Blue");
 	pstyleh1->getFont()->setColor("Blue");
 	pstyleh2->getFont()->setColor("Blue");
 	pstyleh3->getFont()->setColor("Blue");
@@ -390,7 +493,8 @@ void HTMLReader::setDefaultColor()
 {
 	pstyle->getFont()->setColor(defaultColor);
 	pstylec->getFont()->setColor(defaultColor);
-	pstyleli->getFont()->setColor(defaultColor);
+	for (uint i = 0; i < listStyles.size(); ++i)
+		listStyles[i]->getFont()->setColor(defaultColor);
 	pstyleh1->getFont()->setColor(defaultColor);
 	pstyleh2->getFont()->setColor(defaultColor);
 	pstyleh3->getFont()->setColor(defaultColor);
@@ -404,7 +508,8 @@ void HTMLReader::setBoldFont()
 {
 	pstyle->getFont()->setWeight(BOLD);
 	pstylec->getFont()->setWeight(BOLD);
-	pstyleli->getFont()->setWeight(BOLD);
+	for (uint i = 0; i < listStyles.size(); ++i)
+		listStyles[i]->getFont()->setWeight(BOLD);
 	pstylecode->getFont()->setWeight(BOLD);
 	pstylep->getFont()->setWeight(BOLD);
 	pstylepre->getFont()->setWeight(BOLD);
@@ -414,7 +519,8 @@ void HTMLReader::unSetBoldFont()
 {
 	pstyle->getFont()->setWeight(defaultWeight);
 	pstylec->getFont()->setWeight(defaultWeight);
-	pstyleli->getFont()->setWeight(defaultWeight);
+	for (uint i = 0; i < listStyles.size(); ++i)
+		listStyles[i]->getFont()->setWeight(defaultWeight);
 	pstylecode->getFont()->setWeight(REGULAR);
 	pstylep->getFont()->setWeight(defaultWeight);
 	pstylepre->getFont()->setWeight(defaultWeight);
@@ -422,37 +528,47 @@ void HTMLReader::unSetBoldFont()
 
 void HTMLReader::parse(QString filename)
 {
-// 	xmlSAXUserParseFile(debugSAXHandler, NULL, filename.latin1());
-	htmlSAXParseFile(filename.latin1(), NULL, mySAXHandler, NULL); 
+	htmlSAXParseFile(filename.latin1(), NULL, mySAXHandler, NULL);
+}
+
+void HTMLReader::createListStyle()
+{
+	gtParagraphStyle* tmpStyle = new gtParagraphStyle(*listStyles[0]);
+	tmpStyle->setName(QString("HTML_li_level-%1").arg(listLevel + 1));
+	double indent = listStyles[0]->getIndent();
+	indent += 25 * (listLevel + 1);
+	tmpStyle->setIndent(indent);
+	listStyles.push_back(tmpStyle);
+	nextItemNumbers.push_back(1);
 }
 
 htmlSAXHandler mySAXHandlerStruct = {
-	NULL, // internalSubsetDebug,
-	NULL, // isStandaloneDebug,
-	NULL, // hasInternalSubsetDebug,
-	NULL, // hasExternalSubsetDebug,
-	NULL, // resolveEntityDebug,
-	NULL, // getEntityDebug,
-	NULL, // entityDeclDebug,
-	NULL, // notationDeclDebug,
-	NULL, // attributeDeclDebug,
-	NULL, // elementDeclDebug,
-	NULL, // unparsedEntityDeclDebug,
-	NULL, // setDocumentLocatorDebug,
+	NULL, // internalSubset,
+	NULL, // isStandalone,
+	NULL, // hasInternalSubset,
+	NULL, // hasExternalSubset,
+	NULL, // resolveEntity,
+	NULL, // getEntity,
+	NULL, // entityDecl,
+	NULL, // notationDecl,
+	NULL, // attributeDecl,
+	NULL, // elementDecl,
+	NULL, // unparsedEntityDecl,
+	NULL, // setDocumentLocator,
 	NULL, // startDocument,
 	NULL, // endDocument,
 	HTMLReader::startElement,
 	HTMLReader::endElement,
-	NULL, // referenceDebug,
+	NULL, // reference,
 	HTMLReader::characters,
-	NULL, // ignorableWhitespaceDebug,
-	NULL, // processingInstructionDebug,
-	NULL, // commentDebug,
-	NULL, // warningDebug,
-	NULL, // errorDebug,
-	NULL, // fatalErrorDebug,
-	NULL, // getParameterEntityDebug,
-	NULL, // cdataDebug,
+	NULL, // ignorableWhitespace,
+	NULL, // processingInstruction,
+	NULL, // comment,
+	NULL, // warning,
+	NULL, // error,
+	NULL, // fatalError,
+	NULL, // getParameterEntity,
+	NULL, // cdata,
 	NULL,
 	1
 #ifdef HAVE_XML26
@@ -468,11 +584,18 @@ htmlSAXHandlerPtr mySAXHandler = &mySAXHandlerStruct;
 
 HTMLReader::~HTMLReader()
 {
+	if (extLinks != "")
+	{
+		writer->append(QObject::tr("\nExternal Links\n"), pstyleh4);
+		writer->append(extLinks, pstyle);
+	}
+	for (uint i = 0; i < listStyles.size(); ++i)
+		delete listStyles[i];
 	delete pstylec;
-	delete pstyleli;
 	delete pstyleh1;
 	delete pstyleh2;
 	delete pstyleh3;
+	delete pstyleh4;
 	delete pstylecode;
 	delete pstylep;
 	delete pstylepre;

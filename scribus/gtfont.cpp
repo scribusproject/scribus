@@ -80,6 +80,12 @@ gtFont::gtFont()
 	weightIndex = 0;
 	slantIndex  = 1;
 	widthIndex  = 2;
+	smallestIndex = -1;
+	biggestIndex = - 1;
+	index = -1;
+	tmpWeightIndex = -1;
+	tmpSlantIndex = -1;
+	tmpWidthIndex = -1;
 }
 
 gtFont::gtFont(const gtFont& f)
@@ -450,27 +456,37 @@ void gtFont::setKerning(double newKerning)
 
 void gtFont::parseName()
 {
-	int smallestIndex = -1;
-	int biggestIndex = - 1;
-	int index = -1;
+	smallestIndex = -1;
+	biggestIndex = - 1;
+	index = -1;
+	tmpWeightIndex = -1;
+	tmpSlantIndex = -1;
+	tmpWidthIndex = -1;
+	parseWeight();
+	parseSlant();
+	parseWidth();
+	parseFamily();
+
+
+}
+
+void gtFont::parseWeight()
+{
 	bool found = false;
-	int tmpWeightIndex = -1;
-	int tmpSlantIndex = -1;
-	int tmpWidthIndex = -1;
 	for (int i = 1; i < FontWeightMAX; ++i)
 	{
-		index = name.find(fontWeights[i]); // f.e. Demi Bold
+		index = find(name, fontWeights[i]); // f.e. Demi Bold
 		QString tmpWeight = "";
-		if ((index == -1) && (fontWeights[i].find(" ") != -1))
+		if ((index == -1) && (fontWeights[i].find(" ") != -1) && (fontWeights[i].find(" ") != 1))
 		{
 			QString fw2 = fontWeights[i];
 			fw2.replace(" ", "-"); // f.e. Demi-Bold
-			index = name.find(fw2);
+			index = find(name, fw2);
 			if (index == -1)
 			{
 				fw2 = fontWeights[i];
 				fw2.replace(" ", ""); // f.e. DemiBold
-				index = name.find(fw2);
+				index = find(name, fw2);
 				if (index == -1)
 				{
 					fw2 = fontWeights[i];
@@ -479,7 +495,7 @@ void gtFont::parseName()
 					fw2.replace(" H", " h");
 					fw2.replace(" L", " l");
 					fw2.replace(" ", "");
-					index = name.find(fw2);
+					index = find(name, fw2);
 					if (index != -1)
 						tmpWeight = fw2;
 				}
@@ -507,11 +523,14 @@ void gtFont::parseName()
 	}
 	if (!found)
 		weight = fontWeights[NO_WEIGHT];
+}
 
-	found = false;
+void gtFont::parseSlant()
+{
+	bool found = false;
 	for (int i = 1; i < FontSlantMAX; ++i)
 	{
-		index = name.find(fontSlants[i]);
+		index = find(name, fontSlants[i]);
 		if (index != -1)
 		{
 			slant = fontSlants[i];
@@ -526,22 +545,25 @@ void gtFont::parseName()
 	}
 	if (!found)
 		slant = fontSlants[NO_SLANT];
+}
 
-	found = false;
+void gtFont::parseWidth()
+{
+	bool found = false;
 	for (int i = 1; i < FontWidthMAX; ++i)
 	{
-		index = name.find(fontWidths[i]);
+		index = find(name, fontWidths[i]);
 		QString tmpWidth = "";
-		if ((index == -1) && (fontWidths[i].find(" ") != -1))
+		if ((index == -1) && (fontWidths[i].find(" ") != -1) && (fontWidths[i].find(" ") != 1))
 		{
 			QString fw2 = fontWidths[i];
 			fw2.replace(" ", "-");
-			index = name.find(fw2);
+			index = find(name, fw2);
 			if (index == -1)
 			{
 				fw2 = fontWidths[i];
 				fw2.replace(" ", "");
-				index = name.find(fw2);
+				index = find(name, fw2);
 				if (index == -1)
 				{
 					fw2 = fontWidths[i];
@@ -550,7 +572,7 @@ void gtFont::parseName()
 					fw2.replace(" H", " h");
 					fw2.replace(" L", " l");
 					fw2.replace(" ", "");
-					index = name.find(fw2);
+					index = find(name, fw2);
 					if (index != -1)
 						tmpWidth = fw2;
 				}
@@ -578,6 +600,10 @@ void gtFont::parseName()
 	}
 	if (!found)
 		width = fontWidths[NO_WIDTH];
+}
+	
+void gtFont::parseFamily()
+{
 	if (tmpWeightIndex < tmpSlantIndex)
 	{
 		weightIndex = 0;
@@ -620,6 +646,7 @@ void gtFont::parseName()
 		widthIndex = -1;
 		slantIndex = 0;
 	}
+
 	if (smallestIndex == -1)
 		family = name;
 	else
@@ -627,8 +654,27 @@ void gtFont::parseName()
 	if (biggestIndex == -1)
 		append = "";
 	else
-		append = name.right(name.length() - biggestIndex);
+		append = name.right(name.length() - biggestIndex - 1);
 	family = family.stripWhiteSpace();
+}
+
+int gtFont::find(const QString& where, const QString& what)
+{
+	QString realWhat = " " + what;
+	int index = where.find(realWhat); // f.e. Demi Bold
+	if (index != -1)
+	{
+		if (index + realWhat.length() != where.length())
+			if (where[index + realWhat.length() + 1] != " ")
+			{
+				int secIndex = where.find(" ", index + 1);
+				if (secIndex == -1)
+					index = -1;
+				else
+					index = find(where.right(where.length() - secIndex), what);
+			}
+	}
+	return index;
 }
 
 gtFont::~gtFont()

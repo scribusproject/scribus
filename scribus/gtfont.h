@@ -102,8 +102,19 @@ private:
 	int  weightIndex;
 	int  slantIndex;
 	int  widthIndex;
+	int smallestIndex;
+	int biggestIndex;
+	int index;
+	int tmpWeightIndex;
+	int tmpSlantIndex;
+	int tmpWidthIndex;
 	void initArrays();
 	void parseName();
+	void parseWeight();
+	void parseSlant();
+	void parseWidth();
+	void parseFamily();
+	int  find(const QString& where, const QString& what);
 public:
 	static const QString fontWeights[];
 	static const QString fontSlants[];

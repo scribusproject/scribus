@@ -56,7 +56,7 @@ About::About( QWidget* parent )
 	tabLayout1->addWidget( PixmapLabel1 );
 	BuildID = new QLabel( tab, "BB" );
 	BuildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1. %2 %3 ").arg("02").arg("September").arg("2004");
+	QString bu = tr("%1. %2 %3 ").arg("03").arg("September").arg("2004");
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -166,6 +166,7 @@ About::About( QWidget* parent )
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Norwegian:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Klaus Ade Johnstad</td><td>klaus@astro.uio.no</td></tr>" +
+	                                      "<tr><td>Axel Bojer</td><td>axelb@skolelinux.no</td></tr>" +
 	                                      "<tr><td>Johannes Wilm</td><td>j@indymedia.no</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("English:").utf8()  + "</b></td><td></td></tr>" +
@@ -191,8 +192,7 @@ About::About( QWidget* parent )
 	                                      "<tr><td><b>" + tr("Basque:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Pablo Saratxaga</td><td>pablo@mandrakesoft.com</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
-	                                      "<tr><td> </td><td> </td></tr>" +
-	                                      "<tr><td><b>Swedish</b></td><td></td></tr>" +
+	                                      "<tr><td><b>" + tr("Swedish:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Göran Bondeson</td><td>goran@bondeson.net</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "</table>"));

@@ -1,5 +1,21 @@
 /***************************************************************************
- *   Riku Leino, tsoots@welho.com                                          *
+ *   Copyright (C) 2004 by Riku Leino                                      *
+ *   tsoots@welho.com                                                      *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 #ifndef HTMLREADER_H
 #define HTMLREADER_H
@@ -8,22 +24,17 @@
 
 #ifdef HAVE_XML
 
-#include <libxml/xmlmemory.h>
-#include <libxml/HTMLparser.h>
-#include <libxml/HTMLtree.h>
-#include <libxml/debugXML.h>
-#include <libxml/xmlerror.h>
-#include <libxml/globals.h>
+#include <vector>
 
-#include <qobject.h>
-#include <qdir.h>
-#include <qxml.h>
+#include <libxml/HTMLparser.h>
+
 #include <qstring.h>
+#include <qxml.h>
 
 #include <gtparagraphstyle.h>
 #include <gtwriter.h>
 
-class HTMLReader : public QXmlDefaultHandler
+class HTMLReader
 {
 private:
 	QString currentDir;
@@ -33,10 +44,14 @@ private:
 	QString defaultSlant;
 	QString templateCategory;
 	QString href;
+	QString extLinks;
+	int extIndex;
+	int listLevel;
+	std::vector<gtParagraphStyle*> listStyles;
+	std::vector<int> nextItemNumbers;
 	gtWriter *writer;
 	gtParagraphStyle *pstyle;
 	gtParagraphStyle *pstylec;
-	gtParagraphStyle *pstyleli;
 	gtParagraphStyle *pstyleh1;
 	gtParagraphStyle *pstyleh2;
 	gtParagraphStyle *pstyleh3;
@@ -45,8 +60,9 @@ private:
 	gtParagraphStyle *pstylep;
 	gtParagraphStyle *pstylepre;
 	bool inOL;
-	int  nextItemNumber;
+	bool wasInOL;
 	bool inUL;
+	bool wasInUL;
 	bool inLI;
 	bool addedLI;
 	bool inH1;
@@ -60,6 +76,7 @@ private:
 	bool inPre;
 	bool inP;
 	bool lastCharWasSpace;
+	bool noFormatting;
 	void initPStyles();
 	void toggleEffect(FontEffect e);
 	void setItalicFont();
@@ -68,9 +85,10 @@ private:
 	void setDefaultColor();
 	void setBoldFont();
 	void unSetBoldFont();
+	void createListStyle();
 	static HTMLReader* hreader;
 public:
-	HTMLReader(gtParagraphStyle *ps, gtWriter *w);
+	HTMLReader(gtParagraphStyle *ps, gtWriter *w, bool textOnly);
 	~HTMLReader();
 	void parse(QString filename);
 	static void startElement(void *user_data, const xmlChar * fullname, const xmlChar ** atts);
