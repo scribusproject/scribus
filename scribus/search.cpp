@@ -15,12 +15,15 @@
 #include "mspinbox.h"
 #include "fontcombo.h"
 #include "page.h"
+#include "prefsfile.h"
+#include "prefscontext.h"
 #include "styleselect.h"
 #include "shadebutton.h"
 #include "story.h"
 #include "scribus.h"
 extern ScribusApp* ScApp;
 extern QPixmap loadIcon(QString nam);
+extern PrefsFile* prefsFile;
 
 
 SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, PageItem* ite, bool mode )
@@ -257,6 +260,8 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	AllReplace = new QPushButton( tr( "Replace &All" ), this, "DoReplace" );
 	AllReplace->setEnabled(false);
 	ButtonsLayout->addWidget( AllReplace );
+	clearButton = new QPushButton(tr("C&lear"), this, "clearButton");
+	ButtonsLayout->addWidget(clearButton);
 	Leave = new QPushButton( tr( "&Close" ), this, "Leave" );
 	ButtonsLayout->addWidget( Leave );
 	SearchReplaceLayout->addLayout( ButtonsLayout );
@@ -264,7 +269,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	resize(minimumSizeHint());
 
  // signals and slots connections
-	connect( Leave, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( Leave, SIGNAL( clicked() ), this, SLOT( writePrefs() ) );
 	connect( DoSearch, SIGNAL( clicked() ), this, SLOT( slotSearch() ) );
 	connect( DoReplace, SIGNAL( clicked() ), this, SLOT( slotReplace() ) );
 	connect( AllReplace, SIGNAL( clicked() ), this, SLOT( slotReplaceAll() ) );
@@ -286,6 +291,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	connect( RStroke, SIGNAL( clicked() ), this, SLOT( enableStrokeReplace() ) );
 	connect( RFillS, SIGNAL( clicked() ), this, SLOT( enableFillSReplace() ) );
 	connect( RStrokeS, SIGNAL( clicked() ), this, SLOT( enableStrokeSReplace() ) );
+	connect(clearButton, SIGNAL(clicked()), this, SLOT(clear()));
 
  // tab order
 	setTabOrder( SText, SStyle );
@@ -321,6 +327,9 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	setTabOrder( DoSearch, DoReplace );
 	setTabOrder( DoReplace, AllReplace );
 	setTabOrder( AllReplace, Leave );
+	
+	prefs = prefsFile->getContext("SearchReplace");
+	readPrefs();
 }
 
 void SearchReplace::slotSearch()
@@ -915,3 +924,157 @@ void SearchReplace::enableStrokeSReplace()
 	RStrokeSVal->setEnabled(RStrokeS->isChecked());
 }
 
+void SearchReplace::clear()
+{
+
+	SStroke->setChecked(false);
+	SFill->setChecked(false);
+	SStrokeS->setChecked(false);
+	SFillS->setChecked(false);
+	SSize->setChecked(false);
+	SFont->setChecked(false);
+	SStyle->setChecked(false);
+	SText->setChecked(false);
+	SEffect->setChecked(false);
+	REffect->setChecked(false);
+	STextVal->setText("");
+	SStyleVal->setCurrentItem(Doc->CurrentABStil);
+	SFontVal->setCurrentText(Doc->CurrFont);
+	SSizeVal->setValue(Doc->CurrFontSize / 10.0);
+	SFillVal->setCurrentText(Doc->CurrTextFill);
+	SStrokeVal->setCurrentText(Doc->CurrTextStroke);
+	RStroke->setChecked(false);
+	RStrokeS->setChecked(false);
+	RFill->setChecked(false);
+	RFillS->setChecked(false);
+	RSize->setChecked(false);
+	RFont->setChecked(false);
+	RStyle->setChecked(false);
+	RText->setChecked(false);
+	RTextVal->setText("");
+	RStyleVal->setCurrentItem(Doc->CurrentABStil);
+	RFontVal->setCurrentText(Doc->CurrFont);
+	RSizeVal->setValue(Doc->CurrFontSize / 10.0);
+	RFillVal->setCurrentText(Doc->CurrTextFill);
+	RStrokeVal->setCurrentText(Doc->CurrTextStroke);
+	Word->setChecked(false);
+	CaseIgnore->setChecked(false);
+	enableTxSearch();
+	enableStyleSearch();
+	enableFontSearch();
+	enableSizeSearch();
+	enableEffSearch();
+	enableFillSearch();
+	enableFillSSearch();
+	enableStrokeSearch();
+	enableStrokeSSearch();
+	enableTxReplace();
+	enableStyleReplace();
+	enableFontReplace();
+	enableSizeReplace();
+	enableEffReplace();
+	enableFillReplace();
+	enableFillSReplace();
+	enableStrokeReplace();
+	enableStrokeSReplace();
+}
+
+void SearchReplace::readPrefs()
+{
+	SStroke->setChecked(prefs->getBool("SStroke", false));
+	SFill->setChecked(prefs->getBool("SFill", false));
+	SStrokeS->setChecked(prefs->getBool("SStrokeS", false));
+	SFillS->setChecked(prefs->getBool("SFillS", false));
+	SSize->setChecked(prefs->getBool("SSize", false));
+	SFont->setChecked(prefs->getBool("SFont", false));
+	SStyle->setChecked(prefs->getBool("SStyle", false));
+	SText->setChecked(prefs->getBool("SText", false));
+	SEffect->setChecked(prefs->getBool("SEffect", false));
+	REffect->setChecked(prefs->getBool("REffect", false));
+	STextVal->setText(prefs->get("STextVal", ""));
+	int tmp = prefs->getInt("SStyleVal", Doc->CurrentABStil);
+	if (tmp < 0 || tmp >= SStyleVal->count())
+		SStyleVal->setCurrentItem(0);
+	else
+		SStyleVal->setCurrentItem(tmp);
+
+	SFontVal->setCurrentText(prefs->get("SFontVal", Doc->CurrFont));
+	SSizeVal->setValue(prefs->getDouble("SSizeVal", Doc->CurrFontSize / 10.0));
+	SFillVal->setCurrentText(prefs->get("SFillVal", Doc->CurrTextFill));
+	SStrokeVal->setCurrentText(prefs->get("SStrokeVal", Doc->CurrTextStroke));
+	RStroke->setChecked(prefs->getBool("RStroke", false));
+	RStrokeS->setChecked(prefs->getBool("RStrokeS", false));
+	RFill->setChecked(prefs->getBool("RFill", false));
+	RFillS->setChecked(prefs->getBool("RFillS", false));
+	RSize->setChecked(prefs->getBool("RSize", false));
+	RFont->setChecked(prefs->getBool("RFont", false));
+	RStyle->setChecked(prefs->getBool("RStyle", false));
+	RText->setChecked(prefs->getBool("RText", false));
+	RTextVal->setText(prefs->get("RTextVal", ""));
+	tmp = prefs->getInt("RStyleVal", Doc->CurrentABStil);
+	if (tmp < 0 || tmp >= RStyleVal->count())
+		RStyleVal->setCurrentItem(0);
+	else
+		RStyleVal->setCurrentItem(tmp);
+	RFontVal->setCurrentText(prefs->get("RFontVal", Doc->CurrFont));
+	RSizeVal->setValue(prefs->getDouble("RSizeVal", Doc->CurrFontSize / 10.0));
+	RFillVal->setCurrentText(prefs->get("RFillVal", Doc->CurrTextFill));
+	RStrokeVal->setCurrentText(prefs->get("RStrokeVal", Doc->CurrTextFill));
+	Word->setChecked(prefs->getBool("Word", false));
+	CaseIgnore->setChecked(prefs->getBool("CaseIgnore", false));
+	enableTxSearch();
+	enableStyleSearch();
+	enableFontSearch();
+	enableSizeSearch();
+	enableEffSearch();
+	enableFillSearch();
+	enableFillSSearch();
+	enableStrokeSearch();
+	enableStrokeSSearch();
+	enableTxReplace();
+	enableStyleReplace();
+	enableFontReplace();
+	enableSizeReplace();
+	enableEffReplace();
+	enableFillReplace();
+	enableFillSReplace();
+	enableStrokeReplace();
+	enableStrokeSReplace();
+}
+
+void SearchReplace::writePrefs()
+{
+	prefs->set("SStroke", SStroke->isChecked());
+	prefs->set("SFill", SFill->isChecked());
+	prefs->set("SStrokeS", SStrokeS->isChecked());
+	prefs->set("SFillS", SFillS->isChecked());
+	prefs->set("SSize", SSize->isChecked());
+	prefs->set("SFont", SFont->isChecked());
+	prefs->set("SStyle", SStyle->isChecked());
+	prefs->set("SText", SText->isChecked());
+	prefs->set("SEffect", SEffect->isChecked());
+	prefs->set("REffect", REffect->isChecked());
+	prefs->set("STextVal", STextVal->text());
+	prefs->set("SStyleVal", SStyleVal->currentItem());
+	prefs->set("SFontVal", SFontVal->currentText());
+	prefs->set("SSizeVal", SSizeVal->value());
+	prefs->set("SFillVal", SFillVal->currentText());
+	prefs->set("SStrokeVal", SStrokeVal->currentText());
+	prefs->set("RStroke", RStroke->isChecked());
+	prefs->set("RStrokeS", RStrokeS->isChecked());
+	prefs->set("RFill", RFill->isChecked());
+	prefs->set("RFillS", RFillS->isChecked());
+	prefs->set("RSize", RSize->isChecked());
+	prefs->set("RFont", RFont->isChecked());
+	prefs->set("RStyle", RStyle->isChecked());
+	prefs->set("RText", RText->isChecked());
+	prefs->set("RTextVal", RTextVal->text());
+	prefs->set("RStyleVal", RStyleVal->currentText());
+	prefs->set("RFontVal", RFontVal->currentText());
+	prefs->set("RSizeVal", RSizeVal->value());
+	prefs->set("RFillVal", RFillVal->currentText());
+	prefs->set("RStrokeVal", RStrokeVal->currentText());
+	prefs->set("Word", Word->isChecked());
+	prefs->set("CaseIgnore", CaseIgnore->isChecked());
+	accept();
+}
