@@ -180,11 +180,10 @@ void UndoManager::registerGui(UndoGui* gui)
 	if (gui == NULL)
 		return;
 
-	bool tmpUndoEnabled = _undoEnabled;
 	setUndoEnabled(false);
 	setState(gui);
 	undoGuis.push_back(gui);
-	setUndoEnabled(tmpUndoEnabled);
+	setUndoEnabled(true);
 }
 
 void UndoManager::setState(UndoGui* gui, int uid)
@@ -362,7 +361,6 @@ void UndoManager::doUndo(int steps)
 {
 	if (steps > 0 && _undoEnabled && stacks.size() > 0)
 	{
-		bool tmpUndoEnabled = _undoEnabled;
 		setUndoEnabled(false);
 		UndoState* tmpUndoState = NULL;
 		for (int i = 0; i < steps; ++i)
@@ -379,7 +377,7 @@ void UndoManager::doUndo(int steps)
 			++stacks[currentDoc].first;
 		}
 
-		setUndoEnabled(tmpUndoEnabled);
+		setUndoEnabled(true);
 
 		if (tmpUndoState)
 		{
@@ -406,7 +404,6 @@ void UndoManager::doRedo(int steps)
 {
 	if (steps > 0 && _undoEnabled && stacks.size() > 0)
 	{
-		bool tmpUndoEnabled = _undoEnabled;
 		setUndoEnabled(false);
 		UndoState* tmpUndoState = NULL;
 		for (int i = 0; i < steps; ++i) // TODO compare to stack size too
@@ -423,7 +420,7 @@ void UndoManager::doRedo(int steps)
 			ts = NULL;
 		}
 
-		setUndoEnabled(tmpUndoEnabled);
+		setUndoEnabled(true);
 
 		if (tmpUndoState)
 		{

@@ -146,11 +146,10 @@ void Page::removeYGuide(int index)
 void Page::moveXGuide(int fromIndex, double to)
 {
 	double from = XGuides[fromIndex];
-	bool tmpUndoEnabled = UndoManager::undoEnabled();
 	undoManager->setUndoEnabled(false);
 	removeXGuide(from);
 	addXGuide(to);
-	undoManager->setUndoEnabled(tmpUndoEnabled);
+	undoManager->setUndoEnabled(true);
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState* ss = new SimpleState(Um::MoveVGuide, 0, Um::IGuides);
@@ -163,11 +162,10 @@ void Page::moveXGuide(int fromIndex, double to)
 void Page::moveYGuide(int fromIndex, double to)
 {
 	double from = YGuides[fromIndex];
-	bool tmpUndoEnabled = UndoManager::undoEnabled();
 	undoManager->setUndoEnabled(false); // only want to store move action not remove/add actions related to it
 	removeYGuide(from);
 	addYGuide(to);
-	undoManager->setUndoEnabled(tmpUndoEnabled);
+	undoManager->setUndoEnabled(true);
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState* ss = new SimpleState(Um::MoveHGuide, 0, Um::IGuides);

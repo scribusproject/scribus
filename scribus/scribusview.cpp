@@ -8453,7 +8453,6 @@ void ScribusView::setLayMenTxt(int l)
 /** Fuehrt die Vergroesserung/Verkleinerung aus */
 void ScribusView::slotDoZoom()
 {
-	bool tmpUndoEnabled = undoManager->undoEnabled();
 	undoManager->setUndoEnabled(false);
 	if (Scale > 32*Prefs->DisScale)
 	{
@@ -8480,7 +8479,7 @@ void ScribusView::slotDoZoom()
 		SetCCPo(oldX, oldY);
 	updateOn = true;
 	DrawNew();
-	undoManager->setUndoEnabled(tmpUndoEnabled);
+	undoManager->setUndoEnabled(true);
 }
 
 void ScribusView::slotZoomIn(int mx,int my)
