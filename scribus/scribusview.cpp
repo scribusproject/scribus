@@ -63,6 +63,7 @@
 #include "filewatcher.h"
 #include "undomanager.h"
 #include "units.h"
+#include "extimageprops.h"
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
 #endif
@@ -1613,7 +1614,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				int px = pmen->insertItem( tr("I&mage Visible"), this, SLOT(TogglePic()));
 				pmen->setItemChecked(px, b->PicArt);
 				if ((b->PicAvail) && (b->imgInfo.valid))
-					pmen->insertItem( tr("Use embedded Clipping Path"), this, SLOT(useEmbeddedPath()));
+					pmen->insertItem( tr("Extended Image Properties"), this, SLOT(useEmbeddedPath()));
 				if (b->PicAvail)
 					pmen->insertItem( tr("&Update Picture"), this, SLOT(UpdatePic()));
 				if (b->PicAvail && b->isRaster)
@@ -10322,18 +10323,9 @@ void ScribusView::useEmbeddedPath()
 		PageItem *Item = SelItem.at(0);
 		if (Item->imgInfo.valid)
 		{
-			if ((Item->imgInfo.clipPath != "") && (Item->imgInfo.PDSpathData.count() != 0))
-			{
-				Item->PoLine = Item->imgInfo.PDSpathData[Item->imgInfo.clipPath].copy();
-				QWMatrix cl;
-				cl.scale(72.0 / Item->dpiX, 72.0 / Item->dpiY);
-				Item->PoLine.map(cl);
-				Item->FrameType = 3;
-				Item->Clip = FlattenPath(Item->PoLine, Item->Segments);
-				Item->ClipEdited = true;
-				AdjustItemSize(Item);
-				setRedrawBounding(Item);
-			}
+			ExtImageProps* dia = new ExtImageProps(this, &Item->imgInfo, Item, this);
+			dia->exec();
+			delete dia;
 		}
 	}
 }
@@ -10346,6 +10338,7 @@ void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
 	Item->imgInfo.valid = false;
 	Item->imgInfo.clipPath = "";
 	Item->imgInfo.PDSpathData.clear();
+	Item->imgInfo.layerInfo.clear();
 	if (!reload)
 	{
 		if ((ScApp->fileWatcher->files().contains(Item->Pfile) != 0) && (Item->PicAvail))

@@ -48,6 +48,7 @@ struct PSDLayer
 	uchar flags;
 	QString layerName;
 	QString blend;
+	QImage thumb;
 };
 
 struct ImageInfoRecord
@@ -59,6 +60,7 @@ struct ImageInfoRecord
 	bool isRequest;
 	QMap<QString, FPointArray> PDSpathData;
 	QString clipPath;
+	QString usedPath;
 	QValueList<PSDLayer> layerInfo;
 };
 

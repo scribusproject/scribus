@@ -550,7 +550,7 @@ static void HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation )
 	}
 }
 
-static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage & img, QValueList<PSDLayer> layerInfo, uint layer )
+static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage & img, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer )
 {
 	// Find out if the data is compressed.
 	// Known values:
@@ -614,7 +614,6 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 			}
 			first = false;
 			uint pixel_count = layerInfo[layer].width;
-//			uchar *ptr2 = tmpImg.scanLine(tmpImg.height()-1)+tmpImg.width() * 4;
 			for (int hh = 0; hh < layerInfo[layer].height; hh++)
 			{
 				uint count = 0;
@@ -677,57 +676,71 @@ static bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QImage
 		// We're at the raw image data.  It's each channel in order (Red, Green, Blue, Alpha, ...)
 		// where each channel consists of an 8-bit value for each pixel in the image.
 		// Read the data by channel.
-		bool first = true;
+		int count = 0;
 		for(uint channel = 0; channel < channel_num; channel++)
 		{
-			if ((layerInfo[layer].channelType[channel] < 0) && (header.color_mode == CM_CMYK))
+			count += layerInfo[layer].channelLen[channel];
+		}
+		uchar * ptr = tmpImg.bits();
+		if (channel_num < 4)
+			tmpImg.fill(qRgba(0, 0, 0, 255));
+		while( count >= 0 )
+		{
+			for(uint channel = 0; channel < channel_num; channel++)
 			{
-				first = false;
-				continue;
+				s >> cbyte;
+				count--;
+				if (header.color_mode == CM_CMYK)
+					cbyte = 255 - cbyte;
+				if (channel < 4)
+					ptr[components[channel]] = cbyte;
 			}
-			if (!first)
+			ptr += 4;
+		}
+	}
+	QImage tmpImg2 = tmpImg.copy();
+	if (header.color_mode == CM_CMYK)
+	{
+		for (int i = 0; i < tmpImg.height(); i++)
+		{
+			unsigned int *ptr = (unsigned int *) tmpImg.scanLine(i);
+			unsigned int *ptr2 = (unsigned int *) tmpImg2.scanLine(i);
+			unsigned char r, g, b;
+			for (int j = 0; j < tmpImg.width(); j++)
 			{
-				s.device()->at(layerInfo[layer].channelLen[channel-1]+base);
-				base += layerInfo[layer].channelLen[channel-1];
-				s >> compression;
-				s.device()->at( s.device()->at() + layerInfo[layer].height * 2 );
-			}
-			// Read the data.
-			uint pixel_count = layerInfo[layer].width;
-			uchar * ptr;
-//			uchar *ptr2 = tmpImg.scanLine(tmpImg.height()-1)+tmpImg.width() * 4;
-			for (int hh = 0; hh < layerInfo[layer].height; hh++)
-			{
-				uint count = pixel_count;
-				ptr = tmpImg.scanLine(QMIN(QMAX(layerInfo[layer].ypos, 0)+hh, static_cast<int>(tmpImg.height()-1)));
-				uchar *ptr2 = ptr+tmpImg.width() * 4;
-				ptr += QMAX(layerInfo[layer].xpos, 0) * 4;
-				ptr += components[channel];
-				while( count != 0 )
-				{
-					s >> cbyte;
-					if (ptr < ptr2)
-					{
-						if (header.color_mode == CM_CMYK)
-							cbyte = 255 - cbyte;
-						*ptr = cbyte;
-					}
-					ptr += 4;
-					count--;
-				}
+				unsigned char *p = (unsigned char *) ptr;
+				unsigned char *p2 = (unsigned char *) ptr2;
+				r = 255 - QMIN(255, p[0] + p[3]);
+				g = 255 - QMIN(255, p[1] + p[3]);
+				b = 255 - QMIN(255, p[2] + p[3]);
+				p2[0] = r;
+				p2[1] = g;
+				p2[2] = b;
+				p2[3] = 255;
+				ptr++;
+				ptr2++;
 			}
 		}
 	}
+	QImage imt;
+	double sx = tmpImg.width() / 40.0;
+	double sy = tmpImg.height() / 40.0;
+	imt = sy < sx ?  tmpImg2.smoothScale(qRound(tmpImg.width() / sx), qRound(tmpImg.height() / sx)) :
+							tmpImg2.smoothScale(qRound(tmpImg.width() / sy), qRound(tmpImg.height() / sy));
+	layerInfo[layer].thumb = imt.copy();
 	if (!(layerInfo[layer].flags & 2))
 	{
-		if (layer == 0)
+		if (*firstLayer)
+		{
 			img = tmpImg.copy();
+			*firstLayer = false;
+		}
 		else
 		{
 			for (int i = 0; i < layerInfo[layer].height; i++)
 			{
-				unsigned int *dst = (unsigned int *)img.scanLine(QMAX(layerInfo[layer].ypos, 0)+i);
-				unsigned int *src = (unsigned int *)tmpImg.scanLine(QMAX(layerInfo[layer].ypos, 0)+i);
+				unsigned int *dst = (unsigned int *)img.scanLine(QMIN(QMAX(layerInfo[layer].ypos, 0)+i, img.height()-1));
+				unsigned int *src = (unsigned int *)tmpImg.scanLine(QMIN(QMAX(layerInfo[layer].ypos, 0)+i, tmpImg.height()-1));
 				dst += QMAX(layerInfo[layer].xpos, 0);
 				src += QMAX(layerInfo[layer].xpos, 0);
 				unsigned int adj = 0;
@@ -1064,7 +1077,7 @@ static QString getPascalString(QDataStream & s)
 	return ret;
 }
 
-static void parseRessourceData( QDataStream & s, const PSDHeader & header, uint size, bool* isPS4, ImageInfoRecord *info )
+static void parseRessourceData( QDataStream & s, const PSDHeader & header, uint size, ImageInfoRecord *info )
 {
 	uint signature, resSize, offset, resBase, vRes, hRes, adj;
 	ushort resID, hResUnit, vResUnit, dummyW;
@@ -1160,7 +1173,7 @@ static void parseRessourceData( QDataStream & s, const PSDHeader & header, uint 
 			}
 			clip2.addPoint(firstPoint);
 			clip2.addPoint(firstControl);
-			info->PDSpathData.insert(resName, clip2);
+			info->PDSpathData.insert(resName, clip2.copy());
 		}
 		 else
 		 {
@@ -1181,10 +1194,6 @@ static void parseRessourceData( QDataStream & s, const PSDHeader & header, uint 
 					info->xres = qRound(hRes / 65536.0);
 					info->yres = qRound(vRes / 65536.0);
 					break;
-				case 0x0409:
-				case 0x0421:
-					*isPS4 = true;
-					break;
 				default:
 					break;
 			}
@@ -1199,7 +1208,7 @@ static void parseRessourceData( QDataStream & s, const PSDHeader & header, uint 
 	}
 }
 
-static bool parseLayer( QDataStream & s, const PSDHeader & header, QImage & img, ImageInfoRecord *info, bool isPS4 )
+static bool parseLayer( QDataStream & s, const PSDHeader & header, QImage & img, ImageInfoRecord *info )
 {
 	uint addRes, layerinfo, channelLen, signature, extradata, layermasksize, layerRange, dummy;
 	int top, left, bottom, right;
@@ -1262,10 +1271,7 @@ static bool parseLayer( QDataStream & s, const PSDHeader & header, QImage & img,
 			}
 			s >> layerRange;
 			s.device()->at( s.device()->at() + layerRange );
-			if (isPS4)
-				lay.layerName = getLayerString(s);
-			else
-				lay.layerName = getPascalString(s);
+			lay.layerName = getLayerString(s);
 			info->layerInfo.append(lay);
 			s >> signature;
 			if( signature == 0x3842494D )
@@ -1298,9 +1304,10 @@ static bool parseLayer( QDataStream & s, const PSDHeader & header, QImage & img,
 					s.device()->at( s.device()->at() - 6 );
 			}
 		}
+		bool firstLayer = true;
 		for (int layer = 0; layer < numLayers; layer++)
 		{
-			loadLayerChannels( s, header, img, info->layerInfo, layer );
+			loadLayerChannels( s, header, img, info->layerInfo, layer, &firstLayer );
 		}
 	}
 	else
@@ -1328,15 +1335,14 @@ static bool LoadPSD( QDataStream & s, const PSDHeader & header, QImage & img, Im
 	s.device()->at( s.device()->at() + tmp );
 	s >> ressourceDataLen;
 	startRessource = s.device()->at();
-	bool isPS4 = false;
 	if (ressourceDataLen != 0)
-		parseRessourceData(s, header, ressourceDataLen, &isPS4, info);
+		parseRessourceData(s, header, ressourceDataLen, info);
 	s.device()->at( startRessource + ressourceDataLen );
 	// Skip the reserved data. FIX: Also incorrect, this is the actual Layer Data for Images with Layers
 	s >> layerDataLen;
 	startLayers = s.device()->at();
 	if (layerDataLen != 0)
-		return parseLayer( s, header, img, info, isPS4);
+		return parseLayer( s, header, img, info);
 	else
 	{
 		// Decoding simple psd file, no layers
