@@ -259,8 +259,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	
 	GZComboF = new QComboBox( true, GroupSize, "GZComboF" );
 	const QString ar_size[] = {"A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "B0", "B1", "B2", "B3",
-	                   "B4", "B5", "B6", "B7", "B8", "B9", "B10", "C5E", "Comm10E", "DLE", "Executive",
-	                   "Folio", "Ledger", "Legal", "Letter", "Tabloid"};
+	                   "B4", "B5", "B6", "B7", "B8", "B9", "B10", "C5E", "Comm10E", "DLE", tr("Executive"),
+	                   tr("Folio"), tr("Ledger"), tr("Legal"), tr("Letter"), tr("Tabloid")};
 	size_t ar_s = sizeof(ar_size) / sizeof(*ar_size);
 	for (uint s = 0; s < ar_s; ++s)
 		GZComboF->insertItem(ar_size[s]);
