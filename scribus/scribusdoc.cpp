@@ -337,6 +337,8 @@ void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<ParagraphStyle>
 
 void ScribusDoc::lockGuides(bool isLocked)
 {
+	if (GuideLock == isLocked)
+		return;
 	GuideLock = isLocked;
 	if (UndoManager::undoEnabled())
 	{
