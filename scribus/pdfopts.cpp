@@ -868,8 +868,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	QToolTip::add( BleedBottom, tr( "Distance for bleed from the bottom of the physical page" ) );
 	QToolTip::add( BleedLeft, tr( "Distance for bleed from the left of the physical page" ) );
 	QToolTip::add( BleedRight, tr( "Distance for bleed from the right of the physical page" ) );
-	QToolTip::add( MirrorH, tr( "Mirror Page(s) horizontal" ) );
-	QToolTip::add( MirrorV, tr( "Mirror Page(s) vertical" ) );
+	QToolTip::add( MirrorH, tr( "Mirror Page(s) horizontally" ) );
+	QToolTip::add( MirrorV, tr( "Mirror Page(s) vertically" ) );
 
 	// signals and slots connections
 	connect( FileC, SIGNAL( clicked() ), this, SLOT( ChangeFile() ) );
