@@ -24,8 +24,8 @@
 
 #ifdef HAVE_XML
 
-#include <gtparagraphstyle.h> // Style for paragraph based formatting.
-#include <gtframestyle.h>
+#include "gtparagraphstyle.h" // Style for paragraph based formatting.
+#include "gtframestyle.h"
 
 QString FileFormatName()
 {

@@ -2,35 +2,36 @@
 #define MISSINGFONT_H
 
 #include <qdialog.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
+class QLabel;
+class QHBoxLayout;
+class QGridLayout;
+class QPushButton;
 #include "scribusdoc.h"
 #include "fontcombo.h"
 
-class DmF : public QDialog
+class MissingFont : public QDialog
 {
     Q_OBJECT
 
 public:
-    DmF( QWidget* parent, QString fon, preV *Prefs );
-    ~DmF() {};
-
-    QPushButton* PushButton1;
-    QLabel* TextLabel6;
-    QLabel* PixmapLabel1;
-    FontCombo* Replace;
-    QLabel* TextLabel1;
-    QLabel* TextLabel4;
-    QString Ersatz;
+    MissingFont( QWidget* parent, QString fon, preV *Prefs );
+    ~MissingFont() {};
+	
+	const QString getReplacementFont();
 
 public slots:
-    virtual void NeuerFont(const QString& e);
+    virtual void newFont(const QString& replacement);
 
 protected:
-    QHBoxLayout* MissingFontLayout;
-    QGridLayout* Layout1;
-
+    QHBoxLayout* missingFontLayout;
+    QGridLayout* missingFontGridLayout;
+    QPushButton* okButton;
+    QLabel* insteadLabel;
+    QLabel* pixmapLabel;
+    FontCombo* replaceFontCombo;
+    QLabel* notInstalledLabel;
+    QLabel* useLabel;
+    QString replacementFont;
 };
 
 #endif // MISSINGFONT_H

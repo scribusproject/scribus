@@ -151,9 +151,9 @@ QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, preV *Prefs, Scribu
 		if ((!Prefs->GFontSub.contains(tmpf)) || (!avail[Prefs->GFontSub[tmpf]]->UseFont))
 		{
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
-			DmF *dia = new DmF(0, tmpf, Prefs);
+			MissingFont *dia = new MissingFont(0, tmpf, Prefs);
 			dia->exec();
-			tmpf = dia->Ersatz;
+			tmpf = dia->getReplacementFont();
 			delete dia;
 			qApp->setOverrideCursor(QCursor(waitCursor), true);
 			Prefs->GFontSub[fStr] = tmpf;
@@ -1683,9 +1683,9 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			{
 				if (!FontSub.contains(tmpf) || (!avail[FontSub[tmpf]]->UseFont))
 				{
-					DmF *dia = new DmF(0, tmpf, Prefs);
+					MissingFont *dia = new MissingFont(0, tmpf, Prefs);
 					dia->exec();
-					tmpf = dia->Ersatz;
+					tmpf = dia->getReplacementFont();
 					FontSub[pg.attribute("NAME")] = tmpf;
 					delete dia;
 				}
@@ -3151,9 +3151,9 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			QString tmpf = dc.attribute("FACE");
 			if (!Vorein->AvailFonts.find(tmpf))
 			{
-				DmF *dia = new DmF(0, tmpf, Vorein);
+				MissingFont *dia = new MissingFont(0, tmpf, Vorein);
 				dia->exec();
-				Vorein->DefFont = dia->Ersatz;
+				Vorein->DefFont = dia->getReplacementFont();
 				delete dia;
 			}
 			else

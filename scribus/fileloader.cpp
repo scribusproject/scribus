@@ -848,9 +848,9 @@ QString FileLoader::AskForFont(SCFonts &avail, QString fStr, preV *Prefs, Scribu
 		if ((!Prefs->GFontSub.contains(tmpf)) || (!avail[Prefs->GFontSub[tmpf]]->UseFont))
 		{
 			qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
-			DmF *dia = new DmF(0, tmpf, Prefs);
+			MissingFont *dia = new MissingFont(0, tmpf, Prefs);
 			dia->exec();
-			tmpf = dia->Ersatz;
+			tmpf = dia->getReplacementFont();
 			delete dia;
 			qApp->setOverrideCursor(QCursor(Qt::waitCursor), true);
 			Prefs->GFontSub[fStr] = tmpf;

@@ -21,8 +21,8 @@
 #ifndef HTMLIM_H
 #define HTMLIM_H
 
-#include <scribus.h>
-#include <gtwriter.h>
+#include "scribus.h"
+#include "gtwriter.h"
 
 #include "config.h"
 

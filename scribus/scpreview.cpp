@@ -90,9 +90,9 @@ QPixmap ScPreview::createPreview(QString data)
 				{
 					if (ScApp->splashScreen != NULL)
 						ScApp->splashScreen->hide();
-					DmF *dia = new DmF(0, tmpf, Prefs);
+					MissingFont *dia = new MissingFont(0, tmpf, Prefs);
 					dia->exec();
-					tmpf = dia->Ersatz;
+					tmpf = dia->getReplacementFont();
 					delete dia;
 					if (ScApp->splashScreen != NULL)
 						ScApp->splashScreen->show();

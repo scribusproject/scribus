@@ -18,6 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "missing.h"
 #include "gtaction.h"
 #include <qcursor.h>
 
@@ -413,9 +414,9 @@ QString gtAction::validateFont(gtFont* font)
 			{
 				if (!ScApp->Prefs.GFontSub.contains(font->getName()))
 				{
-					DmF *dia = new DmF(0, useFont, &ScApp->Prefs);
+					MissingFont *dia = new MissingFont(0, useFont, &ScApp->Prefs);
 					dia->exec();
-					useFont = dia->Ersatz;
+					useFont = dia->getReplacementFont();
 					ScApp->Prefs.GFontSub[font->getName()] = useFont;
 					delete dia;
 				}
