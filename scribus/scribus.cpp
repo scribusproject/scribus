@@ -185,7 +185,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 			splashScreen->setStatus( tr("Getting ICC Profiles"));
 		CMSavail = false;
 		GetCMSProfiles();
-
+		initCMS();
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Init Hyphenator"));
 		qApp->processEvents();
@@ -8322,7 +8322,10 @@ void ScribusApp::GetCMSProfiles()
 		CMSavail = true;
 	else
 		CMSavail = false;
+}
 
+void ScribusApp::initCMS()
+{
 	if (CMSavail)
 	{
 		ProfilesL::Iterator ip;

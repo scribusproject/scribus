@@ -478,6 +478,7 @@ private:
 	void initArrowStyles();
 	void initScrapbook();
 	void initCrashHandler();
+	void initCMS();
 
 	QString guiLanguage;
 
