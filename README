@@ -1,9 +1,5 @@
-This is Scribus Version 1.3.0, the first release of the 1.3.x development series. 
+This is Scribus Version 1.3.0cvs, the first release of the 1.3.x development series. 
 
-Scribus 1.3.x also has a new OpenOffice.org Writer and Draw importer. This 
-requires libxml2, preferably version 2.6.x+. The OpenOffice.org Writer importer
-will import styles from the OpenOffice.org doc and will create similar styles
-within your Scribus document.
 
 We strongly recommend having Qt 3.3.3+. Qt 3.3 is now the *minimum*. Older
 versions of Qt are *not* supported. 
@@ -104,4 +100,4 @@ For the Scribus Team,
 
 Franz Schmid
 Peter Linnell
-in January 2005
+in February 2005
