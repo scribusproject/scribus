@@ -221,11 +221,13 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
     	}
 		nb = nb->NextBox;
 		}
-		if (Dat != "")
-			addPar(para, Dat, pstyle);
+	if (Dat != "")
+		addPar(para, Dat, pstyle);
 	if (table1->numRows() == 0)
 		addPar(0, "", doc->CurrentABStil);
 	TextChanged = false;
+	table1->setCurrentCell(0, 1);
+	table1->ensureVisible(0, 1);
 	SEditor *cp = (SEditor*)table1->cellWidget(0, 1);
 	cp->setFocus();
 	cp->setCursorPosition(0, 0);

@@ -42,6 +42,21 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app) : QObj
 		doc->Language = Language;
 		}
 	pfad += "/lib/scribus/dicts/" + Sap->Sprachen[Language];
+	QFile f(pfad);
+	if (f.open(IO_ReadOnly))
+		{
+		QTextStream st(&f);
+    QString line;
+    line = st.readLine();
+		codec = QTextCodec::codecForName(line);
+		f.close();
+		}
+	else
+		{
+		useAble = false;
+		hdict = NULL;
+		return;
+		}
 	QCString fn = pfad.latin1();
 	filename = fn.data();
 	hdict = hnj_hyphen_load(filename);
@@ -67,6 +82,21 @@ void Hyphenator::slotNewDict(QString name)
 	Language = name;
 	doc->Language = name;
 	pfad += "/lib/scribus/dicts/" + Sap->Sprachen[Language];
+	QFile f(pfad);
+	if (f.open(IO_ReadOnly))
+		{
+		QTextStream st(&f);
+    QString line;
+    line = st.readLine();
+		codec = QTextCodec::codecForName(line);
+		f.close();
+		}
+	else
+		{
+		useAble = false;
+		hdict = NULL;
+		return;
+		}
 	QCString fn = pfad.latin1();
 	filename = fn.data();
 	hdict = hnj_hyphen_load(filename);
@@ -99,7 +129,7 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 	QString found = text;
 	if (static_cast<int>(found.length()) > MinWordLen)
 		{
-		te = found.local8Bit();
+  	te = codec->fromUnicode( found );
 		word = te.data();
 		buffer = static_cast<char*>(malloc(strlen(word)+BORDER+3));
 		if (buffer == NULL)
@@ -176,7 +206,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 			{
 			found = text.mid(firstC, Ccount).lower();
 			found2 = text.mid(firstC, Ccount);
-			te = found.local8Bit();
+  		te = codec->fromUnicode( found );
 			word = te.data();
 			buffer = static_cast<char*>(malloc(strlen(word)+BORDER+3));
 			if (buffer == NULL)

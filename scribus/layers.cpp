@@ -127,6 +127,7 @@ void LayerPalette::setLayers(QValueList<Layer> *layin, int *act)
 	layers = layin;
 	Activ = act;
 	rebuildList();
+	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	MarkActiveLayer(*Activ);
 	NewLayer->setEnabled(true);
 	DeleteLayer->setEnabled(true);

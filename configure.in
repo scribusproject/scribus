@@ -89,7 +89,7 @@ AC_CHECK_LIB(cups, httpConnect, [LIBCUPS="-lcups";hacups=yes],[LIBCUPS="";hacups
 AC_SUBST(LIBCUPS)
 LIBLCMS=""
 hacms=
-AC_CHECK_LIB(lcms, _cmsChannelsOf, [LIBLCMS="-llcms";hacms=yes],[LIBLCMS="";hacms=no])
+AC_CHECK_LIB(lcms, _cmsChannelsOf, [LIBLCMS="-llcms";hacms=yes],[LIBLCMS="";hacms=no],[-lm])
 hacmsh=
 AC_CHECK_HEADER(lcms.h, [hacmsh=yes],[hacmsh=no])
 if test $hacmsh = no; then

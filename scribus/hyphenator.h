@@ -2,6 +2,7 @@
 #define HYPLUG_H
 
 #include <qobject.h>
+#include <qtextcodec.h>
 #include "hyphen.h"
 class ScribusDoc;
 class ScribusApp;
@@ -22,6 +23,7 @@ public:
 		ScribusDoc *doc;
 		ScribusApp *Sap;
 		bool useAble;
+		QTextCodec *codec;
 
 public slots:
 		void slotNewDict(QString name);

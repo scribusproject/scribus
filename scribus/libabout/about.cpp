@@ -32,7 +32,7 @@ About::About( QWidget* parent )
     tabLayout1->addWidget( PixmapLabel1 );
     BuildID = new QLabel( tab, "BB" );
     BuildID->setAlignment(Qt::AlignCenter);
-    QString bu = "17. November 2003 ";
+    QString bu = "18. November 2003 ";
 #ifdef HAVE_CMS
 		bu += "C";
 #else

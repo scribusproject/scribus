@@ -44,7 +44,7 @@ Tree::Tree( QWidget* parent, WFlags fl )
 
 void Tree::slotShowSelect(uint SNr, int Nr)
 {
-	if (vie->Doc->TemplateMode)
+	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
 		return;
 	disconnect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 	ListView1->clearSelection();
@@ -70,7 +70,7 @@ void Tree::slotRemoveElement(uint SNr, uint Nr)
 void Tree::slotUpdateElement(uint SNr, uint Nr)
 {
 	QString cc, xp, yp, fon;
-	if (vie->Doc->TemplateMode)
+	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
 		return;
 	if (SNr > Seiten.count()-1)
 		return;
@@ -111,7 +111,7 @@ void Tree::slotUpdateElement(uint SNr, uint Nr)
 
 void Tree::slotAddElement(uint SNr, uint Nr)
 {
-	if (vie->Doc->TemplateMode)
+	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
 		return;
 	PageObj.at(SNr)->Elemente.insert(Nr, new QListViewItem(Seiten.at(SNr), "Items"));
 	slotUpdateElement(SNr, Nr);
@@ -119,7 +119,7 @@ void Tree::slotAddElement(uint SNr, uint Nr)
 
 void Tree::slotMoveElement(uint SNr, uint NrOld, uint NrNew)
 {
-	if (vie->Doc->TemplateMode)
+	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
 		return;
 	QListViewItem* tmp = PageObj.at(SNr)->Elemente.take(NrOld);
 	PageObj.at(SNr)->Elemente.insert(NrNew, tmp);

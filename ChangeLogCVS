@@ -1,4 +1,7 @@
 Changes since Version 1.1.2
+18.11.2003	Fixed Segfault when opening certain Documents.
+		Improved the Hyphenator.
+
 17.11.2003	Fixed Segfault when creating Template Pages.
 		The Story Editor can handle now linked Textframes correctly.
 
