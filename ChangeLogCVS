@@ -1,9 +1,37 @@
 Changes since 1.2 
 
+26.12.2004
+	* bug     #1446: SVG doesnt import / render large files
+	* bug     #1449: Grouping text/bezier curve and then attach to path makes items disappear
+	* bug     #1455: updated translation into Russian
+	* feature #1451: Polish translation update
+
+25.12.2004
+	* feature #1448: Updated nb_NO translation.
+
+24.12.2004
+	* bug     #1444: attempting to zoom beyond 3200% shifts focus
+
+23.12.2004
+	* bug     # 793: Cursor placed at wrong location when using tabs
+	* bug     #1236: Paragraph style of blank paragraph lost in Story Editor
+	* bug     #1439: updated slovenian translation
+
+21.12.2004
+	* bug     #1414: Last line of text does not display when flowing around a picture
+	* bug     #1427: Finnish translation update
+	* feature #1429: German Translation für 1.2.1
+	* feature #1431: Spanish translation update
+	* feature #1432: Updated Danish Translation
+	* feature #1433: Updated nb_NO translation.
+
 20.12.2004
 	* bug     #1283: Scripter code cleanup
+	* bug     #1363: configure does not require libxml2>=2.6 but scribus does
 	* bug     #1415: Update of russian translation
 	* bug     #1416: Slovakian translation update
+	* feature #1419: Clear a selection by clicking outside the page boundary...
+	* feature #1426: Updated nb_NO translation.
 
 19.12.2004
 	* bug     #1383: Export to PDF and PS is not readable by acrobat or gnome ghostview
