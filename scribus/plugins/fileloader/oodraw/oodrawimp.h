@@ -37,6 +37,15 @@ public:
 	QColor parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );
 	void parseTransform( const QString &transfor, double *rot, double *dx, double *dy );
+	void parseViewBox( const QDomElement& object, double *x, double *y, double *w, double *h );
+	void appendPoints(FPointArray *composite, const QDomElement& object);
+	const char * getCoord( const char *ptr, double &number );
+	bool parseSVG( const QString &s, FPointArray *ite );
+	void calculateArc(FPointArray *ite, bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag);
+	void svgClosePath(FPointArray *i);
+	void svgMoveTo(double x1, double y1);
+	void svgLineTo(FPointArray *i, double x1, double y1);
+	void svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3);
 /*	void addGraphicContext();
 	void setupTransform( const QDomElement &e );
 	double fromPercentage( const QString &s );	
