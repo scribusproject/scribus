@@ -1,0 +1,26 @@
+TODO:
+
+A proper ascii chart for each font would be nice as well. May need 
+a full page per font for this. Fonts with more than 255 values could present
+a formatting problem.
+
+Create optional sample paragraphs block.
+
+Make a PDF sample page for the web site using three example fonts such as...
+Utopia, Bitstream Charter  Luxi, Helvetica or any of the Web fonts 
+ - Trebuchet, Times *New * Roman, Georgia
+
+You can manually hack the code to produce less sample lines per font, 
+then more fonts may fit on the page. The status bar currently does not
+reflect this. It will assume three fonts per sheet. Later we may add a
+user dialog to select the sample lines to be printed.
+
+Need improvments to the clean up code to insure that temp images are removed 
+from .scribus folder.
+
+Improve the Listbox events coding.
+
+Continual holding of Up or Down keys causes preview to be redrawn rapidly. This causes
+a number of problems.  Needs a timer to delay redraws when scrolling.
+
+Improve on the documentation of the functions.

@@ -1,0 +1,20 @@
+New since v0.6.1   
+    Added a font sample preview panel. This will only be displayed if certain system
+    requirements are met. Otherwise the panel will be hidden.    
+    Changed version numbers to accomodate parallel releases using other widget sets.
+    Tkinter versions will now have the letters "tk" appended after the version number, a
+    qt version would be "qt". Note that a qt version will not be appearing until issues will PyQt
+    can be resolved.
+
+New since V0.5a
+    Optional Page Numbers.
+    Optional Table of Contents creation.
+    Added an optional binding offset. Leaves extra space for the binding edge.
+    Added Double sided paper facility. Inserts a blank page after table of contents
+    if required, to force the main sample pages to always start on an odd page
+    number. This also flips the binding offset to the other side when printing the
+    even numbered side.
+    Better layouts.
+    Has more built in default font options for headers, table of contents and
+    sample labels.
+    Users can now select more than one font at a time in the list boxes.
