@@ -1,4 +1,6 @@
 Changes since Version 1.1.1
+15.10.2003	Made some improvements to linked Textframes.
+
 13.10.2003	Fixed crash when doubleclicking an empty Textframe.
 
 12.10.2003	Made the Color Menue in the Menuebar working with Text.

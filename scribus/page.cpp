@@ -3646,7 +3646,17 @@ void Page::mousePressEvent(QMouseEvent *m)
 					{
 					b->NextBox = bb;
 					bb->BackBox = b;
-//					b->paintObj(QRect(0, 0, b->OwnPage->width(), b->OwnPage->height()));
+					if ((bb->ItemNr < b->ItemNr) && (bb->OwnPage == b->OwnPage))
+						{
+						Items.insert(b->ItemNr+1, bb);
+						bb = Items.take(bb->ItemNr);
+						for (uint a = 0; a < Items.count(); ++a)
+							{
+							Items.at(a)->ItemNr = a;
+							if (Items.at(a)->isBookmark)
+								emit NewBMNr(Items.at(a)->BMnr, a);
+							}
+						}
 					b->OwnPage->repaint();
 					}
 				emit DocChanged();
@@ -3659,10 +3669,29 @@ void Page::mousePressEvent(QMouseEvent *m)
 				{
 				if (b->BackBox != 0)
 					{
+					if (b->NextBox != 0)
+						{
+						PageItem* nb = b->NextBox;
+						while (nb != 0)
+							{
+							uint a = nb->Ptext.count();
+							for (uint s=0; s<a; ++s)
+								{
+								b->Ptext.append(nb->Ptext.take(0));
+								}
+							nb = nb->NextBox;
+							}
+						}
+					uint a2 = b->Ptext.count();
+					for (uint s = 0; s < a2; ++s)
+						{
+						b->BackBox->Ptext.append(b->Ptext.take(0));
+						}
 					b->BackBox->NextBox = 0;
 					b->BackBox = 0;
 					}
 				emit DocChanged();
+				b->OwnPage->repaint();
 				}
 			break;
 		case 12:

@@ -998,8 +998,17 @@ NoRoom: if (NextBox != 0)
 							break;
 							}
 						}
-					if ((NextBox->OwnPage != OwnPage) || (NextBox->ItemNr < ItemNr))
+					if (NextBox->OwnPage != OwnPage)
 						NextBox->OwnPage->RefreshItem(NextBox, true);
+					else
+						{
+						bool savre = Doc->RePos;
+						Doc->RePos = true;
+						p->save();
+						NextBox->DrawObj(p, QRect(0, 0, 1, 1));
+						p->restore();
+						Doc->RePos = savre;
+						}
 					}
 				else
 					{
