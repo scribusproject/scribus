@@ -72,7 +72,7 @@ def setFixedFont():
 	"Larabiefont Regular"
 	)
 
-	fontlist = GetFontNames()
+	fontlist = getFontNames()
 	found = 0
 	for f in fixed:
 		if found == 1:
@@ -97,7 +97,7 @@ def setPropFont():
 	"Arial Regular"
 	)
 
-	fontlist = GetFontNames()
+	fontlist = getFontNames()
 	found = 0
 	for p in proportional:
 		if found == 1:
@@ -115,7 +115,7 @@ def setPropFont():
 
 def setPaperSize(paperSize):
 	if paperSize == 1:				# A4 - 595 x 842 Points
-		paper.size = Paper_A4
+		paper.size = PAPER_A4
 		paper.width = 595
 		paper.height = 842
 		paper.tmargin = 60
@@ -131,7 +131,7 @@ def setPaperSize(paperSize):
 		paper.textheight = paper.height - paper.tmargin - paper.bmargin
 		paper.margins = paper.lmargin, paper.rmargin, paper.tmargin, paper.bmargin
 	if paperSize == 2:				# US Letter - 612 x 792 Points
-		paper.size = Paper_Letter
+		paper.size = PAPER_LETTER
 		paper.width = 612
 		paper.height = 792
 		paper.tmargin = 27
@@ -186,15 +186,15 @@ def setOddEven(pageNum):
 
 def addSampleRow(font, fontsize, linespace, textstring, x, y, w, h, style, getSizeOnly):
 	if getSizeOnly == 0:
-		f = CreateText(x, y, w, h)
-		InsertText(textstring, 0, f)
+		f = createText(x, y, w, h)
+		insertText(textstring, 0, f)
 		if style == "l":
-			SetFont(bookstyle.propfont, f)
+			setFont(bookstyle.propfont, f)
 		else:
-			SetFont(font, f)
-		SetFontSize(fontsize, f)
-		SetLineSpacing(linespace, f)
-		SetTextAlignment(0, f)
+			setFont(font, f)
+		setFontSize(fontsize, f)
+		setLineSpacing(linespace, f)
+		setTextAlignment(ALIGN_LEFT, f)
 	return y + h + 1
 
 
@@ -224,7 +224,7 @@ def drawSampleBlock(fontname, x, y, w, getSizeOnly):
 	y = y + 1
 
 	if getSizeOnly == 0:
-		CreateLine(x, y, (w + x), y)
+		createLine(x, y, (w + x), y)
 	else:
 		y = y + 1	# if changing line above then check this, it should be exactly  the same as the line height
 	y = y + 5
@@ -237,7 +237,7 @@ def addTocRow(fontname, pageNum, ypos, frame):
 	for i in range(dotquant):
 		dotline = dotline + '.'
 	oneline = fontname + dotline + str(pageNum) + "\n"
-	InsertText(oneline, ypos, frame)
+	insertText(oneline, ypos, frame)
 	ypos = ypos + len(oneline) + 0
 	return ypos
 
@@ -246,18 +246,18 @@ def buildTocPageFrames():
 	# first put a header on the empty page...
 	textstring = "Table of Contents"
 	ypos = paper.tmargin + 1
-	header = CreateText(paper.leftSide, ypos, paper.textwidth, 35)
-	InsertText(textstring, 0, header)
-	SetFont(bookstyle.propfont, header)
-	SetFontSize(24, header)
-	SetTextAlignment(1, header)
+	header = createText(paper.leftSide, ypos, paper.textwidth, 35)
+	insertText(textstring, 0, header)
+	setFont(bookstyle.propfont, header)
+	setFontSize(24, header)
+	setTextAlignment(ALIGN_CENTERED, header)
 
 	# now create a text frame for the table of contents...
 	ypos = ypos + 36
-	body = CreateText(paper.leftSide, ypos, paper.textwidth, paper.height - ypos - paper.bmargin - 1)
-	SetFont(bookstyle.fixedfont, body)
-	SetFontSize(10, body)
-	SetLineSpacing(12, body)
+	body = createText(paper.leftSide, ypos, paper.textwidth, paper.height - ypos - paper.bmargin - 1)
+	setFont(bookstyle.fixedfont, body)
+	setFontSize(10, body)
+	setLineSpacing(12, body)
 	return body
 
 
@@ -267,68 +267,68 @@ def addToc(tocList):
 	tocPageNum = 1
 	tocPageCount = 1
 
-	NewPage(tocPageNum)
+	newPage(tocPageNum)
 	isEvenPage = setOddEven(tocPageNum)
 	body = buildTocPageFrames()				# create frames for new empty page
 	if isEvenPage == 0:
-		SetTextAlignment(2, body)
+		setTextAlignment(ALIGN_RIGHT, body)
 	else:
-		SetTextAlignment(0, body)
+		setTextAlignment(ALIGN_LEFT, body)
 	for i in tocList:
 		ypos = addTocRow(i[0], i[1], ypos, body)
 		rowCount = rowCount + 1
 		if rowCount > tocstyle.tocRows:		# Need to build a new TOC page (started from zero, not one)
 			tocPageNum = tocPageNum + 1
-			NewPage(tocPageNum)
+			newPage(tocPageNum)
 			isEvenPage = setOddEven(tocPageNum)
 			body = buildTocPageFrames()
 			if isEvenPage == 0:
-				SetTextAlignment(2, body)
+				setTextAlignment(ALIGN_RIGHT, body)
 			else:
-				SetTextAlignment(0, body)
+				setTextAlignment(ALIGN_LEFT, body)
 			rowCount = 0
 			ypos = 0
 			tocPageCount = tocPageCount + 1
 	if app.wantDoubleSided.get() == 1:
 		if tocPageCount % 2 != 0:			# Odd page
 			tocPageNum = tocPageNum + 1
-			NewPage(tocPageNum)				# Add an extra page if odd number
+			newPage(tocPageNum)				# Add an extra page if odd number
 
 
 def addPageNum(pagenum):
 	ypos = paper.height - paper.bmargin - paper.pagenumvoffset
-	footer = CreateText(paper.leftSide, ypos, paper.textwidth, 15)
-	InsertText("%s" % pagenum, 0, footer)
-	SetFont(bookstyle.propfont, footer)
-	SetFontSize(9, footer)
-	SetTextAlignment(1, footer)
-	SetLineSpacing(10, footer)
+	footer = createText(paper.leftSide, ypos, paper.textwidth, 15)
+	insertText("%s" % pagenum, 0, footer)
+	setFont(bookstyle.propfont, footer)
+	setFontSize(9, footer)
+	setTextAlignment(ALIGN_CENTERED, footer)
+	setLineSpacing(10, footer)
 
 
 def useSelection(fontlist):
 	tocList = []
 	ypos = paper.tmargin + 1
 	pageNum = 1
-	if NewDoc(paper.size, paper.margins, Portrait, 1, Points, NoFacingPages, FirstPageRight):
-		SetRedraw(0)						# Disable redrawing
+	if newDoc(paper.size, paper.margins, PORTRAIT, 1, UNIT_POINTS, NOFACINGPAGES, FIRSTPAGERIGHT):
+		setRedraw(0)						# Disable redrawing
 		# We have a new page by default so set it up first...
 		setOddEven(pageNum)
 		if app.wantPageNum.get() == 1:
 			addPageNum(pageNum)
-		CreateLine(paper.leftSide, ypos, paper.leftSide + paper.textwidth, ypos)
+		createLine(paper.leftSide, ypos, paper.leftSide + paper.textwidth, ypos)
 		ypos = ypos + 5
 		for i in fontlist:
 			# Test if fits...
 			blockHeight = drawSampleBlock(i, paper.leftSide, ypos, paper.textwidth, 1)
 			if ypos + blockHeight > paper.height - paper.bmargin - paper.pagenumvoffset:
 				# Not enough room so create a new page first...
-				NewPage(-1)
+				newPage(-1)
 				pageNum = pageNum + 1
 				setOddEven(pageNum)
 				ypos = paper.tmargin +1		# Reset y position back to top of page
 				if app.wantPageNum.get() == 1:
 					addPageNum(pageNum)
-				CreateLine(paper.leftSide, ypos, paper.leftSide + paper.textwidth, ypos)
+				createLine(paper.leftSide, ypos, paper.leftSide + paper.textwidth, ypos)
 				ypos = ypos + 5
 			# Now place the actual sample block...
 			blockHeight = drawSampleBlock(i, paper.leftSide, ypos, paper.textwidth, 0)
@@ -336,8 +336,8 @@ def useSelection(fontlist):
 			tocList.append([i, pageNum])	# Add to TOC
 		if app.wantToc.get() == 1:
 			addToc(tocList)					# Insert table of contents - (before page numbering)
-		GotoPage(1)
-		SetRedraw(1)						# Enable redraws again
+		gotoPage(1)
+		setRedraw(1)						# Enable redraws again
 	app.quit()
 
 
@@ -544,7 +544,7 @@ class Application(Frame):
 	def __listAllToLeft(self):
 		# This quick way just clears both sides and reloads left listbox in correct order from scratch
 		self.listbox1.delete(0, END)
-		fontlist = GetFontNames()
+		fontlist = getFontNames()
 		fontlist.sort()
 		for i in fontlist:
 			self.listbox1.insert(END, i)
@@ -703,7 +703,7 @@ app.master.title("(v0.6.1) Select fonts to use")
 # get and set the initial paper size to match default radiobutton selection
 setPageGeometries()
 # now get a list of all the fonts...
-fontlist = GetFontNames()
+fontlist = getFontNames()
 fontlist.sort()
 # and put the list in the GUI listbox...
 for i in fontlist:
@@ -713,3 +713,4 @@ setPropFont()
 app.statusbarUpdate()
 # now show the fonts list and wait for user to make a choice...
 app.mainloop()
+
