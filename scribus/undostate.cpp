@@ -89,6 +89,16 @@ double SimpleState::getDouble(const QString& key, double def)
 	return ret;
 }
 
+bool SimpleState::getBool(const QString& key, bool def)
+{
+	bool ok = false;
+	QString retString = get(key, QString("%1").arg(def));
+	int ret = retString.toInt(&ok);
+	if (!ok)
+		ret = def;
+	return ret;
+}
+
 void SimpleState::set(const QString& key, const QString& value)
 {
 	values[key] = value;
@@ -102,6 +112,11 @@ void SimpleState::set(const QString& key, int value)
 void SimpleState::set(const QString& key, double value)
 {
 	values[key] = QString("%1").arg(value, 0, 'f', 20);
+}
+
+void SimpleState::set(const QString& key, bool value)
+{
+	values[key] = QString("%1").arg(value);
 }
 
 

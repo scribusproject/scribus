@@ -25,6 +25,7 @@
 #include <qcolor.h>
 #include <qvaluelist.h>
 #include <qvaluevector.h>
+#include <qpixmap.h>
 #include <qptrlist.h>
 #include <qfont.h>
 #include <qmap.h>
@@ -33,6 +34,8 @@
 #include <qtimer.h>
 
 #include "scribusstructs.h"
+#include "undomanager.h"
+#include "undoobject.h"
 #include "hyphenator.h"
 #ifdef HAVE_CMS
 	#include CMS_INC
@@ -47,7 +50,7 @@ class Page;
   * the Document Class
   */
 
-class ScribusDoc : public QObject
+class ScribusDoc : public QObject, public UndoObject
 {
 
 public:
@@ -61,10 +64,31 @@ public:
 	void resetPage(double t, double l, double r, double bo, bool fp);
 	bool AddFont(QString name, QFont fo);
 	void loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles = NULL);
-
+	/** 
+	 * @brief Should guides be locked or not
+	 * @param isLocked If true guides on pages cannot be moved if false they
+	 * can be dragged to new positions.
+	 * @author Riku Leino
+	 */
+	void lockGuides(bool isLocked);
+	/* 
+	 * @brief Method used when an undo/redo is requested.
+	 * @param state State describing the action that is wanted to be undone/redone
+	 * @param isUndo If true undo is wanted else if false redo.
+	 * @author Riku Leino
+	 */
+	void restore(UndoState* state, bool isUndo);
+	/**
+	 * @brief Sets the name of the document
+	 * @param name Name for the document
+	 * @author Riku Leino
+	 */
+	void setName(const QString& name);
 
 protected:
     bool modified;
+    UndoManager *undoManager;
+    QPixmap uGuideLockPixmap;
 
 public: // Public attributes
 	bool SnapGuides;

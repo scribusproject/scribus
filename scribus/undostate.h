@@ -163,6 +163,22 @@ public:
 	double getDouble(const QString& key, double def = 0.0);
 
 	/**
+	 * @brief Returns the boolean value attached to the key.
+	 *
+	 * Values are stored as <code>QString</code>s in the map and when queried
+	 * with this method value attached to the key is converted to a bool. If
+	 * the conversion fails value of the parameter <code>def</code> will be returned.
+	 * If key is not found from the map it will be added there with the
+	 * value given as a parameter def. In such case <code>def</code> will also be returned.
+	 * @param key Key that is searched from the map
+	 * @param def Default value to be used if key is not found from the map
+	 * @return <code>Bool</code> value attached to the key in the map. If the key is not found
+	 * from the map it will be added with the value described in the parameter
+	 * <code>def</code> which is then returned.
+	 */
+	bool getBool(const QString& key, bool def = false);
+
+	/**
 	 * @brief Set a value for the key.
 	 * @param key Key that can be later used to query the value.
 	 * @param value Value attached to the key.
@@ -182,6 +198,13 @@ public:
 	 * @param value Value attached to the key.
 	 */
 	void set(const QString& key, double value);
+
+	/**
+	 * @brief Set a value for the key.
+	 * @param key Key that can be later used to query the value.
+	 * @param value Value attached to the key.
+	 */
+	void set(const QString& key, bool value);
 };
 
 #endif

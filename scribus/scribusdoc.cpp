@@ -20,9 +20,14 @@
 #include "scribus.h"
 #include "page.h"
 #include "pageitem.h"
-#include <qfile.h> 
+#include "undomanager.h"
+#include "undostate.h"
+#include <qfile.h>
+
+extern QPixmap loadIcon(QString nam);
 
 ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
+: UndoObject(QObject::tr("Document"))
 {
 	prefsValues = prefsData;
 	modified = false;
@@ -248,6 +253,8 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	ScratchTop = prefsData->ScratchTop;
 	ScratchBottom = prefsData->ScratchBottom;
 	arrowStyles = prefsData->arrowStyles;
+	undoManager = UndoManager::instance();
+	uGuideLockPixmap = loadIcon("u_margins_locked.png");
 }
 
 ScribusDoc::~ScribusDoc()
@@ -326,6 +333,46 @@ void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<ParagraphStyle>
 		}
 		delete ss;
 	}
+}
+
+void ScribusDoc::lockGuides(bool isLocked)
+{
+	GuideLock = isLocked;
+	if (UndoManager::undoEnabled())
+	{
+		QString name;
+		if (isLocked)
+			name = QObject::tr("Lock guides");
+		else
+			name = QObject::tr("Unlock guides");
+		SimpleState *ss = new SimpleState(name, "", &uGuideLockPixmap);
+		ss->set("GUIDE_LOCK", isLocked);
+		undoManager->action(this, ss);
+	}
+}
+
+void ScribusDoc::restore(UndoState* state, bool isUndo)
+{
+	SimpleState *ss = dynamic_cast<SimpleState*>(state);
+	if (ss)
+	{
+		if (ss->contains("GUIDE_LOCK"))
+		{
+			if (isUndo)
+				GuideLock = !ss->getBool("GUIDE_LOCK");
+			else
+				GuideLock = ss->getBool("GUIDE_LOCK");	
+		}
+	}
+}
+
+void ScribusDoc::setName(const QString& name)
+{
+	DocName = name;
+	QString uname = name;
+	if (name.find("/") > -1)
+		uname = name.right(name.length() - name.findRev("/") - 1);
+	setUName(uname); // set the name for the undo object
 }
 
 void ScribusDoc::setModified()

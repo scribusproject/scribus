@@ -2306,7 +2306,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->PageOri = Ori;
 	doc->PageSize = PageSize;
 	doc->FirstPnum = SNr;
-	doc->DocName = doc->DocName+cc.setNum(DocNr);
+	doc->setName(doc->DocName+cc.setNum(DocNr));
 	doc->HasCMS = true;
 	doc->CMSSettings.DefaultInputProfile = Prefs.DCMSset.DefaultInputProfile;
 	doc->CMSSettings.DefaultInputProfile2 = Prefs.DCMSset.DefaultInputProfile2;
@@ -3864,12 +3864,12 @@ bool ScribusApp::LadeDoc(QString fileName)
 		Mpal->Cpal->ChooseGrad(0);
 		if (fl->FileType > 1)
 		{
-			doc->DocName = FName+tr("(converted)");
+			doc->setName(FName+tr("(converted)"));
 			QFileInfo fi(doc->DocName);
-			doc->DocName = fi.fileName();
+			doc->setName(fi.fileName());
 		}
 		else
-			doc->DocName = FName;
+			doc->setName(FName);
 		doc->MasterP = false;
 		doc->Language = GetLang(doc->Language);
 		HaveNewDoc();
@@ -3963,6 +3963,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 	{
 		Sepal->Vie = 0;
 	}
+	UndoManager::instance()->switchStack(doc->DocName);
 //	Sepal->Rebuild();
 	return ret;
 }
@@ -4170,7 +4171,7 @@ bool ScribusApp::DoFileSave(QString fn)
 	{
 		doc->setUnModified();
 		ActWin->setCaption(fn);
-		doc->DocName = fn;
+		doc->setName(fn);
 		fileMenu->setItemEnabled(fid4, 0);
 		fileMenu->setItemEnabled(fid52, 0);
 		DatSav->setEnabled(false);
@@ -8960,7 +8961,7 @@ void ScribusApp::ManageGuides()
 		{
 			doc->currentPage->addXGuides(dia->LocVer);
 			doc->currentPage->addYGuides(dia->LocHor);
-			doc->GuideLock = dia->LocLocked;
+			doc->lockGuides(dia->LocLocked);
 			view->DrawNew();
 //			slotDocCh();
 		}
