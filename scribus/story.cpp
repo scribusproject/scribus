@@ -592,8 +592,16 @@ void StoryEditor::updateTextFrame()
 				doc->Trenner->slotNewDict(nb->Language);
 			doc->Trenner->slotHyphenate(nb);
 		}
-		else
-			nb->OwnPage->RefreshItem(nb);
+		bool savre = doc->RePos;
+		doc->RePos = true;
+		QPixmap pgPix(1, 1);
+		ScPainter *painter = new ScPainter(&pgPix, 1, 1);
+		painter->translate(0.5, 0.5);
+		nb->DrawObj(painter, QRect(0, 0, 1, 1));
+		painter->end();
+		delete painter;
+		doc->RePos = savre;
+		nb->OwnPage->RefreshItem(nb);
 		nb = nb->NextBox;
 	}
 	TextChanged = false;

@@ -200,7 +200,7 @@ Page* ScribusView::addPage(int nr)
 	Pages.insert(nr, fe);
 	reformPages();
 	if ((Doc->PageAT) && (!Doc->loading))
-		{
+	{
 		z = fe->PaintText(fe->Margins.Left,
 										fe->Margins.Top,
 										Doc->PageB-fe->Margins.Right-fe->Margins.Left,
@@ -217,7 +217,19 @@ Page* ScribusView::addPage(int nr)
 		Doc->LastAuto = fe->Items.at(z);
 		fe->SetRectFrame(fe->Items.at(z));
 		Doc->FirstAuto->Dirty = true;
+		if (nr > 0)
+		{
+			bool savre = Doc->RePos;
+			Doc->RePos = true;
+			QPixmap pgPix(1, 1);
+			ScPainter *painter = new ScPainter(&pgPix, 1, 1);
+			painter->translate(0.5, 0.5);
+			fe->Items.at(z)->BackBox->DrawObj(painter, QRect(0, 0, 1, 1));
+			painter->end();
+			delete painter;
+			Doc->RePos = savre;
 		}
+	}
 	PGS->setMaxValue(Doc->PageC);
 	if ((!ScApp->ScriptRunning) && (!Doc->loading) && (!Doc->MasterP))
 		PGS->GotoPg(nr);

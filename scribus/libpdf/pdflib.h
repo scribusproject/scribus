@@ -123,6 +123,13 @@ private:
 			QString ResName;
 			QString ICCArray;
 			};
+	struct ShIm {
+			int ResNum;
+			int Width;
+			int Height;
+			double aufl;
+			};
+	QMap<QString,ShIm> SharedImages;
 	QValueList<uint> XRef;
 	QValueList<Dest> NamedDest;
 	QValueList<int> Threads;

@@ -144,22 +144,25 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	EnableCMYK_C = new QCheckBox(this, "DisplayCMYK_C");
 	EnableCMYK_C->setText( tr("C"));
 	EnableCMYK_C->setChecked(app->Prefs.PrPr_C);
-	EnableCMYK_C->setEnabled(false);
 	Layout3->addWidget(EnableCMYK_C);
 	EnableCMYK_M = new QCheckBox(this, "DisplayCMYK_M");
 	EnableCMYK_M->setText( tr("M"));
 	EnableCMYK_M->setChecked(app->Prefs.PrPr_M);
-	EnableCMYK_M->setEnabled(false);
 	Layout3->addWidget(EnableCMYK_M);
 	EnableCMYK_Y = new QCheckBox(this, "DisplayCMYK_Y");
 	EnableCMYK_Y->setText( tr("Y"));
 	EnableCMYK_Y->setChecked(app->Prefs.PrPr_Y);
-	EnableCMYK_Y->setEnabled(false);
 	Layout3->addWidget(EnableCMYK_Y);
 	EnableCMYK_K = new QCheckBox(this, "DisplayCMYK_K");
 	EnableCMYK_K->setText( tr("K"));
 	EnableCMYK_K->setChecked(app->Prefs.PrPr_K);
-	EnableCMYK_K->setEnabled(false);
+	if (!app->Prefs.PrPr_Mode)
+	{
+		EnableCMYK_C->setEnabled(false);
+		EnableCMYK_M->setEnabled(false);
+		EnableCMYK_Y->setEnabled(false);
+		EnableCMYK_K->setEnabled(false);
+	}
 	Layout3->addWidget(EnableCMYK_K);
 	Layout5->addLayout(Layout2);
 	Layout5->addLayout(Layout3);

@@ -133,6 +133,7 @@ PDFlib::PDFlib()
 	Shadings.clear();
 	Transpar.clear();
 	ICCProfiles.clear();
+	SharedImages.clear();
 	ResNam = "RE";
 	ResCount = 0;
 #ifdef HAVE_LIBZ
@@ -2786,315 +2787,337 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 	double x2, y2, b, h, ax, ay, a2, a1, sxn, syn;
 	x2 = 0;
 	double aufl = Options->Resolution / 72.0;
-#ifdef HAVE_CMS
-	if ((CMSuse) && (Options->UseProfiles2))
+	int ImRes, ImWid, ImHei;
+	struct ShIm ImInfo;
+	if (!SharedImages.contains(fn))
 	{
-		if (!ICCProfiles.contains(Profil))
+#ifdef HAVE_CMS
+		if ((CMSuse) && (Options->UseProfiles2))
 		{
-			StartObj(ObjCounter);
-			ObjCounter++;
-			QString dataP = "";
-			struct ICCD dataD;
-			if ((Embedded) && (!Options->EmbeddedI))
-#ifdef HAVE_TIFF
+			if (!ICCProfiles.contains(Profil))
 			{
-				if (ext == "tif")
+				StartObj(ObjCounter);
+				ObjCounter++;
+				QString dataP = "";
+				struct ICCD dataD;
+				if ((Embedded) && (!Options->EmbeddedI))
+#ifdef HAVE_TIFF
 				{
-    					DWORD EmbedLen = 0;
-    					LPBYTE EmbedBuffer;
-					TIFF* tif = TIFFOpen(fn, "r");
-					if(tif)
+					if (ext == "tif")
 					{
-						if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
+							DWORD EmbedLen = 0;
+							LPBYTE EmbedBuffer;
+						TIFF* tif = TIFFOpen(fn, "r");
+						if(tif)
 						{
-							for (uint el = 0; el < EmbedLen; ++el)
-								dataP += EmbedBuffer[el];
+							if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
+							{
+								for (uint el = 0; el < EmbedLen; ++el)
+									dataP += EmbedBuffer[el];
+							}
+							else
+								loadText(InputProfiles[Options->ImageProf], &dataP);
 						}
 						else
 							loadText(InputProfiles[Options->ImageProf], &dataP);
+						TIFFClose(tif);
 					}
 					else
 						loadText(InputProfiles[Options->ImageProf], &dataP);
-					TIFFClose(tif);
 				}
-				else
-					loadText(InputProfiles[Options->ImageProf], &dataP);
-			}
 #else
-			loadText(InputProfiles[Options->ImageProf], &dataP);
+				loadText(InputProfiles[Options->ImageProf], &dataP);
 #endif
+				else
+						loadText((Embedded ? InputProfiles[Options->ImageProf] : InputProfiles[Profil]),
+							&dataP);
+				PutDoc("<<\n");
+				if ((Options->CompressMethod != 3) && (CompAvail))
+				{
+					PutDoc("/Filter /FlateDecode\n");
+					dataP = CompressStr(&dataP);
+				}
+				PutDoc("/Length "+IToStr(dataP.length()+1)+"\n");
+				PutDoc("/N 3\n");
+				PutDoc(">>\nstream\n"+EncStream(&dataP, ObjCounter-1)+"\nendstream\nendobj\n");
+				StartObj(ObjCounter);
+				dataD.ResName = ResNam+IToStr(ResCount);
+				dataD.ICCArray = "[ /ICCBased "+IToStr(ObjCounter-1)+" 0 R ]";
+				dataD.ResNum = ObjCounter;
+				ICCProfiles[Profil] = dataD;
+				PutDoc("[ /ICCBased "+IToStr(ObjCounter-1)+" 0 R ]\n");
+				PutDoc("endobj\n");
+				ResCount++;
+				ObjCounter++;
+			}
+		}
+#endif
+		if ((ext == "eps") || (ext == "pdf"))
+		{
+			QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.png";
+			if (Options->RecalcPic)
+			{
+				afl = QMIN(Options->PicRes, Options->Resolution);
+				aufl = afl / 72.0;
+			}
 			else
-        			loadText((Embedded ? InputProfiles[Options->ImageProf] : InputProfiles[Profil]),
-						 &dataP);
-			PutDoc("<<\n");
-			if ((Options->CompressMethod != 3) && (CompAvail))
+				afl = Options->Resolution;
+			if (ext == "pdf")
 			{
-				PutDoc("/Filter /FlateDecode\n");
-				dataP = CompressStr(&dataP);
-			}
-			PutDoc("/Length "+IToStr(dataP.length()+1)+"\n");
-			PutDoc("/N 3\n");
-			PutDoc(">>\nstream\n"+EncStream(&dataP, ObjCounter-1)+"\nendstream\nendobj\n");
-			StartObj(ObjCounter);
-			dataD.ResName = ResNam+IToStr(ResCount);
-			dataD.ICCArray = "[ /ICCBased "+IToStr(ObjCounter-1)+" 0 R ]";
-			dataD.ResNum = ObjCounter;
-			ICCProfiles[Profil] = dataD;
-			PutDoc("[ /ICCBased "+IToStr(ObjCounter-1)+" 0 R ]\n");
-			PutDoc("endobj\n");
-			ResCount++;
-			ObjCounter++;
-		}
-	}
-#endif
-	if ((ext == "eps") || (ext == "pdf"))
-	{
-  		QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.png";
-		if (Options->RecalcPic)
-		{
-			afl = QMIN(Options->PicRes, Options->Resolution);
-			aufl = afl / 72.0;
-		}
-		else
-			afl = Options->Resolution;
-		if (ext == "pdf")
-		{
-			QStringList args;
-			args.append("-r"+IToStr(afl));
-			args.append("-sOutputFile="+tmpFile);
-			args.append("-dFirstPage=1");
-			args.append("-dLastPage=1");
-			args.append(fn);
-        	ret = callGS(args);
-			if (ret == 0)
-			{
-				QImage image;
-				image.load(tmpFile);
-  				img = image.convertDepth(32);
-				unlink(tmpFile);
-			}
-		}
-		else
-		{
-			QFile f(fn);
-			if (f.open(IO_ReadOnly))
-			{
-				QTextStream ts(&f);
-				while (!ts.atEnd())
+				QStringList args;
+				args.append("-r"+IToStr(afl));
+				args.append("-sOutputFile="+tmpFile);
+				args.append("-dFirstPage=1");
+				args.append("-dLastPage=1");
+				args.append(fn);
+				ret = callGS(args);
+				if (ret == 0)
 				{
-					tc = ' ';
-					tmp = "";
-					while ((tc != '\n') && (tc != '\r'))
-					{
-						ts >> tc;
-						if ((tc != '\n') && (tc != '\r'))
-							tmp += tc;
-					}
-					if (tmp.startsWith("%%BoundingBox"))
-					{
-						found = true;
-						BBox = tmp;
-					}
-					if (tmp.startsWith("%%EndComments"))
-						break;
+					QImage image;
+					image.load(tmpFile);
+					img = image.convertDepth(32);
+					unlink(tmpFile);
 				}
-				f.close();
-				if (found)
+			}
+			else
+			{
+				QFile f(fn);
+				if (f.open(IO_ReadOnly))
 				{
-					QTextStream ts2(&BBox, IO_ReadOnly);
-					ts2 >> dummy >> x2 >> y2 >> b >> h;
-					x2 = x2 * aufl;
-					y2 = y2 * aufl;
-					b = b * aufl;
-					h = h * aufl;
-					QStringList args;
-					args.append("-r"+IToStr(afl));
-					args.append("-sOutputFile="+tmpFile);
-					args.append("-g"+ tmp.setNum(qRound(b))+"x"+tmpy.setNum(qRound(h)));
-					args.append(fn);
-        				ret = callGS(args);
-					if (ret == 0)
+					QTextStream ts(&f);
+					while (!ts.atEnd())
 					{
-						QImage image;
-						image.load(tmpFile);
-  						image = image.convertDepth(32);
-						img = image.copy(static_cast<int>(x2), 0, static_cast<int>(b-x2),
-								 static_cast<int>(h-y2));
-						unlink(tmpFile);
+						tc = ' ';
+						tmp = "";
+						while ((tc != '\n') && (tc != '\r'))
+						{
+							ts >> tc;
+							if ((tc != '\n') && (tc != '\r'))
+								tmp += tc;
+						}
+						if (tmp.startsWith("%%BoundingBox"))
+						{
+							found = true;
+							BBox = tmp;
+						}
+						if (tmp.startsWith("%%EndComments"))
+							break;
+					}
+					f.close();
+					if (found)
+					{
+						QTextStream ts2(&BBox, IO_ReadOnly);
+						ts2 >> dummy >> x2 >> y2 >> b >> h;
+						x2 = x2 * aufl;
+						y2 = y2 * aufl;
+						b = b * aufl;
+						h = h * aufl;
+						QStringList args;
+						args.append("-r"+IToStr(afl));
+						args.append("-sOutputFile="+tmpFile);
+						args.append("-g"+ tmp.setNum(qRound(b))+"x"+tmpy.setNum(qRound(h)));
+						args.append(fn);
+							ret = callGS(args);
+						if (ret == 0)
+						{
+							QImage image;
+							image.load(tmpFile);
+							image = image.convertDepth(32);
+							img = image.copy(static_cast<int>(x2), 0, static_cast<int>(b-x2),
+									static_cast<int>(h-y2));
+							unlink(tmpFile);
+						}
 					}
 				}
 			}
+			if (Options->RecalcPic)
+			{
+				sxn = sx * (1.0 / aufl);
+				syn = sy * (1.0 / aufl);
+			}
 		}
-		if (Options->RecalcPic)
+		else
+		{
+			img = LoadPict(fn, &gray);
+			if (Options->RecalcPic)
+			{
+				double afl = QMIN(Options->PicRes, Options->Resolution);
+				a2 = (72.0 / sx) / afl;
+				a1 = (72.0 / sy) / afl;
+				ax = img.width() / a2;
+				ay = img.height() / a1;
+				img = img.smoothScale(qRound(ax), qRound(ay));
+				img = img.convertDepth(32);
+				sxn = sx * a2;
+				syn = sy * a1;
+			}
+			aufl = 1;
+		}
+		if (img.hasAlphaBuffer())
+			alphaM = true;
+		if (inver)
+			img.invertPixels();
+		if (!Options->RecalcPic)
 		{
 			sxn = sx * (1.0 / aufl);
 			syn = sy * (1.0 / aufl);
 		}
-	}
-	else
-	{
-		img = LoadPict(fn, &gray);
-		if (Options->RecalcPic)
+		if (alphaM)
 		{
-			double afl = QMIN(Options->PicRes, Options->Resolution);
-			a2 = (72.0 / sx) / afl;
-			a1 = (72.0 / sy) / afl;
-			ax = img.width() / a2;
-			ay = img.height() / a1;
-			img = img.smoothScale(qRound(ax), qRound(ay));
- 			img = img.convertDepth(32);
-			sxn = sx * a2;
-			syn = sy * a1;
-		}
-		aufl = 1;
-	}
-  	if (img.hasAlphaBuffer())
-		alphaM = true;
-	if (inver)
-		img.invertPixels();
-	if (!Options->RecalcPic)
-	{
-		sxn = sx * (1.0 / aufl);
-		syn = sy * (1.0 / aufl);
-	}
-  	if (alphaM)
- 	{
-		QString im2;
-		StartObj(ObjCounter);
-		ObjCounter++;
-		PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
-		if (Options->Version == 14)
-		{
-			im2 = MaskToTxt14(&img);
+			QString im2;
+			StartObj(ObjCounter);
+			ObjCounter++;
+			PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
+			if (Options->Version == 14)
+			{
+				im2 = MaskToTxt14(&img);
+				if ((Options->CompressMethod != 3) && (CompAvail))
+					im2 = CompressStr(&im2);
+				PutDoc("/Width "+IToStr(img.width())+"\n");
+				PutDoc("/Height "+IToStr(img.height())+"\n");
+				PutDoc("/ColorSpace /DeviceGray\n");
+				PutDoc("/BitsPerComponent 8\n");
+				PutDoc("/Length "+IToStr(im2.length())+"\n");
+			}
+			else
+			{
+				QImage iMask = img.createAlphaMask();
+				im2 = MaskToTxt(&iMask);
+				if ((Options->CompressMethod != 3) && (CompAvail))
+					im2 = CompressStr(&im2);
+				PutDoc("/Width "+IToStr(iMask.width())+"\n");
+				PutDoc("/Height "+IToStr(iMask.height())+"\n");
+				PutDoc("/ImageMask true\n/BitsPerComponent 1\n");
+				PutDoc("/Length "+IToStr(im2.length())+"\n");
+			}
 			if ((Options->CompressMethod != 3) && (CompAvail))
-				im2 = CompressStr(&im2);
-			PutDoc("/Width "+IToStr(img.width())+"\n");
-			PutDoc("/Height "+IToStr(img.height())+"\n");
-			PutDoc("/ColorSpace /DeviceGray\n");
-			PutDoc("/BitsPerComponent 8\n");
-			PutDoc("/Length "+IToStr(im2.length())+"\n");
+				PutDoc("/Filter /FlateDecode\n");
+			PutDoc(">>\nstream\n"+EncStream(&im2, ObjCounter-1)+"\nendstream\nendobj\n");
+			Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
+			ResCount++;
 		}
-		else
-		{
-			QImage iMask = img.createAlphaMask();
-			im2 = MaskToTxt(&iMask);
-			if ((Options->CompressMethod != 3) && (CompAvail))
-				im2 = CompressStr(&im2);
-			PutDoc("/Width "+IToStr(iMask.width())+"\n");
-			PutDoc("/Height "+IToStr(iMask.height())+"\n");
-			PutDoc("/ImageMask true\n/BitsPerComponent 1\n");
-			PutDoc("/Length "+IToStr(im2.length())+"\n");
-		}
-		if ((Options->CompressMethod != 3) && (CompAvail))
-			PutDoc("/Filter /FlateDecode\n");
-		PutDoc(">>\nstream\n"+EncStream(&im2, ObjCounter-1)+"\nendstream\nendobj\n");
-		Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
-		ResCount++;
-	}
-	if (Options->UseRGB)
-		im = ImageToTxt(&img);
-	else
-	{
-#ifdef HAVE_CMS
-		if ((CMSuse) && (Options->UseProfiles2))
+		if (Options->UseRGB)
 			im = ImageToTxt(&img);
 		else
-#endif
-			im = ImageToCMYK(&img);
-	}
-	StartObj(ObjCounter);
-	ObjCounter++;
-	if (((Options->CompressMethod == 2) || (Options->CompressMethod == 0)) && (CompAvail))
-		im = CompressStr(&im);
-	PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
-	PutDoc("/Width "+IToStr(img.width())+"\n");
-	PutDoc("/Height "+IToStr(img.height())+"\n");
-#ifdef HAVE_CMS
-	if ((CMSuse) && (Options->UseProfiles2))
-	{
-		PutDoc("/ColorSpace "+ICCProfiles[Profil].ICCArray+"\n");
-		PutDoc("/Intent /");
-		int inte2 = Intent;
-		if (Options->EmbeddedI)
-			inte2 = Options->Intent2;
-		char *t[] = {"Perceptual", "RelativeColorimetric", "Saturation", "AbsoluteColorimetric"};
-		PutDoc(t[inte2]);
-		PutDoc("\n");
-	}
-	else
-	{
-#endif
-		if ((gray) && (Options->UseRGB) && (ext == "jpg") && (!Options->RecalcPic))
-			PutDoc("/ColorSpace /DeviceGray\n");
-		else
-			PutDoc(Options->UseRGB ? "/ColorSpace /DeviceRGB\n" : "/ColorSpace /DeviceCMYK\n");
-#ifdef HAVE_CMS
-	}
-#endif
-	if ((ext == "jpg") && (Options->UseRGB) && (!Options->RecalcPic))
-	{
-		im = "";
-		loadText(fn, &im);
-		PutDoc("/BitsPerComponent 8\n");
-		PutDoc("/Length "+IToStr(im.length())+"\n");
-		PutDoc("/Filter /DCTDecode\n");
-	}
-	else
-	{
-		int cm = Options->CompressMethod;
-		if ((Options->CompressMethod == 1) || (Options->CompressMethod == 0))
 		{
-  			QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.jpg";
-			if ((Options->UseRGB) || (Options->UseProfiles2)) 
-				Convert2JPG(tmpFile, &img, Options->Quality, false);
+#ifdef HAVE_CMS
+			if ((CMSuse) && (Options->UseProfiles2))
+				im = ImageToTxt(&img);
 			else
-				Convert2JPG(tmpFile, &img, Options->Quality, true);
-			if (Options->CompressMethod == 0)
+#endif
+				im = ImageToCMYK(&img);
+		}
+		StartObj(ObjCounter);
+		ObjCounter++;
+		if (((Options->CompressMethod == 2) || (Options->CompressMethod == 0)) && (CompAvail))
+			im = CompressStr(&im);
+		PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
+		PutDoc("/Width "+IToStr(img.width())+"\n");
+		PutDoc("/Height "+IToStr(img.height())+"\n");
+#ifdef HAVE_CMS
+		if ((CMSuse) && (Options->UseProfiles2))
+		{
+			PutDoc("/ColorSpace "+ICCProfiles[Profil].ICCArray+"\n");
+			PutDoc("/Intent /");
+			int inte2 = Intent;
+			if (Options->EmbeddedI)
+				inte2 = Options->Intent2;
+			char *t[] = {"Perceptual", "RelativeColorimetric", "Saturation", "AbsoluteColorimetric"};
+			PutDoc(t[inte2]);
+			PutDoc("\n");
+		}
+		else
+		{
+#endif
+			if ((gray) && (Options->UseRGB) && (ext == "jpg") && (!Options->RecalcPic))
+				PutDoc("/ColorSpace /DeviceGray\n");
+			else
+				PutDoc(Options->UseRGB ? "/ColorSpace /DeviceRGB\n" : "/ColorSpace /DeviceCMYK\n");
+#ifdef HAVE_CMS
+	}
+#endif
+		if ((ext == "jpg") && (Options->UseRGB) && (!Options->RecalcPic))
+		{
+			im = "";
+			loadText(fn, &im);
+			PutDoc("/BitsPerComponent 8\n");
+			PutDoc("/Length "+IToStr(im.length())+"\n");
+			PutDoc("/Filter /DCTDecode\n");
+		}
+		else
+		{
+			int cm = Options->CompressMethod;
+			if ((Options->CompressMethod == 1) || (Options->CompressMethod == 0))
 			{
-				QFileInfo fi(tmpFile);
-				if (fi.size() < im.length())
+				QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.jpg";
+				if ((Options->UseRGB) || (Options->UseProfiles2)) 
+					Convert2JPG(tmpFile, &img, Options->Quality, false);
+				else
+					Convert2JPG(tmpFile, &img, Options->Quality, true);
+				if (Options->CompressMethod == 0)
+				{
+					QFileInfo fi(tmpFile);
+					if (fi.size() < im.length())
+					{
+						im = "";
+						loadText(tmpFile, &im);
+						cm = 1;
+					}
+					else
+						cm = 2;
+				}
+				else
 				{
 					im = "";
 					loadText(tmpFile, &im);
 					cm = 1;
 				}
-				else
-					cm = 2;
+				system("rm -f "+tmpFile);
 			}
-			else
+			PutDoc("/BitsPerComponent 8\n");
+			PutDoc("/Length "+IToStr(im.length())+"\n");
+			if (alphaM)
 			{
-				im = "";
-				loadText(tmpFile, &im);
-				cm = 1;
+				if (Options->Version == 14)
+					PutDoc("/SMask "+IToStr(ObjCounter-2)+" 0 R\n");
+				else
+					PutDoc("/Mask "+IToStr(ObjCounter-2)+" 0 R\n");
 			}
-			system("rm -f "+tmpFile);
+			if (CompAvail)
+			{
+				if (cm == 1)
+					PutDoc("/Filter /DCTDecode\n");
+				else
+					PutDoc("/Filter /FlateDecode\n");
+			}
 		}
-		PutDoc("/BitsPerComponent 8\n");
-		PutDoc("/Length "+IToStr(im.length())+"\n");
-	  	if (alphaM)
-		{
-			if (Options->Version == 14)
-				PutDoc("/SMask "+IToStr(ObjCounter-2)+" 0 R\n");
-			else
-				PutDoc("/Mask "+IToStr(ObjCounter-2)+" 0 R\n");
-		}
-		if (CompAvail)
-		{
-			if (cm == 1)
-				PutDoc("/Filter /DCTDecode\n");
-			else
-				PutDoc("/Filter /FlateDecode\n");
-		}
+		PutDoc(">>\nstream\n"+EncStream(&im, ObjCounter-1)+"\nendstream\nendobj\n");
+		Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
+		ImRes = ResCount;
+		ImWid = img.width();
+		ImHei = img.height();
+		ImInfo.ResNum = ImRes;
+		ImInfo.Width = ImWid;
+		ImInfo.Height = ImHei;
+		ImInfo.aufl = aufl;
+		SharedImages.insert(fn, ImInfo);
+		ResCount++;
 	}
-	PutDoc(">>\nstream\n"+EncStream(&im, ObjCounter-1)+"\nendstream\nendobj\n");
-	Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
+	else
+	{
+		ImRes = SharedImages[fn].ResNum;
+		ImWid = SharedImages[fn].Width;
+		ImHei = SharedImages[fn].Height;
+		aufl = SharedImages[fn].aufl;
+		sxn = sx * (1.0 / aufl);
+		syn = sy * (1.0 / aufl);
+	}
 	if (!fromAN)
 	{
-		Inhalt += FToStr(img.width()*sxn)+" 0 0 "+FToStr(img.height()*syn)+" "+FToStr(x*sx)+
-				" "+FToStr((-img.height()*syn+y*sy))+" cm\n";
-		Inhalt += "/"+ResNam+IToStr(ResCount)+" Do\n";
+		Inhalt += FToStr(ImWid*sxn)+" 0 0 "+FToStr(ImHei*syn)+" "+FToStr(x*sx)+
+				" "+FToStr((-ImHei*syn+y*sy))+" cm\n";
+		Inhalt += "/"+ResNam+IToStr(ImRes)+" Do\n";
 	}
-	ResCount++;
 }
 
 void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)

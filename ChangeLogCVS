@@ -1,4 +1,7 @@
 Changes since Version 1.1.5
+05.03.2004	Improved the PDF-Exporter, Images are now written only once into the PDF.
+		Fixed Bug #314.
+
 04.03.2004	Fixed Bugs #319, #310, #289 and #82
 		Updated the Ukrainian and Czech translation.
 

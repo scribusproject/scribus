@@ -3692,6 +3692,7 @@ void ScribusApp::slotNewPageM()
 				break;
 			}
 		Sepal->RebuildPage();
+		view->DrawNew();
 		}
 	delete dia;
 }
