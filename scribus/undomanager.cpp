@@ -620,6 +620,7 @@ const QString UndoManager::ResizeFromTo      = tr("W1: %1, H1: %2\nW2: %3, H2: %
 const QString UndoManager::RotateFromTo      = tr("From %1 to %2");
 const QString UndoManager::Selection         = tr("Selection");
 const QString UndoManager::Group             = tr("Group");
+const QString UndoManager::SelectionGroup    = tr("Selection/Group");
 const QString UndoManager::Create            = tr("Create");
 const QString UndoManager::CreateTo          = tr("X: %1, Y: %2\nW: %3, H: %4");
 const QString UndoManager::AlignDistribute   = tr("Align/Distribute");

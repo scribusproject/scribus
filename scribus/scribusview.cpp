@@ -5703,7 +5703,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 		QString tooltip = Um::ItemsInvolved + "\n";
 		for (uint i = 0; i < SelItem.count(); ++i)
 			tooltip += "\t" + SelItem.at(i)->getUName() + "\n";
-		undoManager->beginTransaction(Um::Selection + "/" + Um::Group, Um::IGroup,
+		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
 									  Um::Move, tooltip, Um::IMove);
 		_groupTransactionStarted = true;
 	}
@@ -5771,7 +5771,7 @@ void ScribusView::RotateGroup(double win)
 		QString tooltip = Um::ItemsInvolved + "\n";
 		for (uint i = 0; i < SelItem.count(); ++i)
 			tooltip += "\t" + SelItem.at(i)->getUName() + "\n";
-		undoManager->beginTransaction(Um::Selection + "/" + Um::Group, Um::IGroup,
+		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
 									  Um::Rotate, tooltip, Um::IRotate);
 		_groupTransactionStarted = true;
 	}
@@ -5808,7 +5808,7 @@ void ScribusView::scaleGroup(double scx, double scy)
 		QString tooltip = Um::ItemsInvolved + "\n";
 		for (uint i = 0; i < SelItem.count(); ++i)
 			tooltip += "\t" + SelItem.at(i)->getUName() + "\n";
-		undoManager->beginTransaction(Um::Selection + "/" + Um::Group, Um::IGroup,
+		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
 									  Um::Resize, tooltip, Um::IResize);
 		_groupTransactionStarted = true;
 	}
@@ -7474,10 +7474,10 @@ void ScribusView::ToggleLock()
 		if (SelItem.count() > 1)
 		{
 			if (SelItem.at(0)->Locked)
-				undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+				undoManager->beginTransaction(Um::SelectionGroup,
 											  Um::IGroup, Um::UnLock, 0, Um::IUnLock);
 			else
-				undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+				undoManager->beginTransaction(Um::SelectionGroup,
 											  Um::IGroup, Um::Lock, 0, Um::ILock);
 		}
 		for ( uint a = 0; a < SelItem.count(); ++a)
@@ -7499,10 +7499,10 @@ void ScribusView::ToggleResize()
 		if (SelItem.count() > 1)
 		{
 			if (SelItem.at(0)->LockRes)
-				undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+				undoManager->beginTransaction(Um::SelectionGroup,
 											  Um::IGroup, Um::SizeUnLock, 0, Um::IUnLock);
 			else
-				undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+				undoManager->beginTransaction(Um::SelectionGroup,
 											  Um::IGroup, Um::SizeLock, 0, Um::ILock);
 		}
 		for ( uint a = 0; a < SelItem.count(); ++a)
@@ -9492,7 +9492,7 @@ void ScribusView::ItemPen(QString farbe)
 	{
 		PageItem *i;
 		if (SelItem.count() > 1)
-			undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+			undoManager->beginTransaction(Um::SelectionGroup,
 										  Um::IGroup, Um::SetLineColor, farbe, Um::IFill);
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
@@ -9663,7 +9663,7 @@ void ScribusView::ItemBrush(QString farbe)
 	if (SelItem.count() != 0)
 	{
 		if (SelItem.count() > 1)
-			undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+			undoManager->beginTransaction(Um::SelectionGroup,
 										  Um::IGroup, Um::SetFill, farbe, Um::IFill);
 		PageItem *b;
 		for (uint a = 0; a < SelItem.count(); ++a)
@@ -9683,7 +9683,7 @@ void ScribusView::ItemBrushShade(int sha)
 	if (SelItem.count() != 0)
 	{
 		if (SelItem.count() > 1)
-			undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+			undoManager->beginTransaction(Um::SelectionGroup,
 										  Um::IGroup, Um::SetShade, QString("%1").arg(sha),
 										  Um::IShade);
 		PageItem *b;
@@ -9705,7 +9705,7 @@ void ScribusView::ItemPenShade(int sha)
 	{
 		PageItem *i;
 		if (SelItem.count() > 1)
-			undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+			undoManager->beginTransaction(Um::SelectionGroup,
 							Um::IGroup, Um::SetLineShade, QString("%1").arg(sha), Um::IShade);
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
@@ -10021,7 +10021,7 @@ void ScribusView::FlipImageH()
 	if (SelItem.count() != 0)
 	{
 		if (SelItem.count() > 1)
-			undoManager->beginTransaction(Um::Selection + "/" + Um::Group, Um::IGroup,
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
 										  Um::FlipH, 0, Um::IFlipH);
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
@@ -10039,7 +10039,7 @@ void ScribusView::FlipImageV()
 	if (SelItem.count() != 0)
 	{
 		if (SelItem.count() > 1)
-			undoManager->beginTransaction(Um::Selection + "/" + Um::Group, Um::IGroup,
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
 										  Um::FlipV, 0, Um::IFlipV);
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{

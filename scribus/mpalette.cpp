@@ -3134,10 +3134,10 @@ void Mpalette::handleLock()
 		if (ScApp->view->SelItem.count() > 1)
 		{
 			if (ScApp->view->SelItem.at(0)->Locked)
-				ScApp->view->undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+				ScApp->view->undoManager->beginTransaction(Um::SelectionGroup,
 											  Um::IGroup, Um::UnLock, 0, Um::IUnLock);
 			else
-				ScApp->view->undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+				ScApp->view->undoManager->beginTransaction(Um::SelectionGroup,
 											  Um::IGroup, Um::Lock, 0, Um::ILock);
 		}
 		for ( uint a = 0; a < ScApp->view->SelItem.count(); ++a)
@@ -3180,10 +3180,10 @@ void Mpalette::handleResize()
 		if (ScApp->view->SelItem.count() > 1)
 		{
 			if (ScApp->view->SelItem.at(0)->LockRes)
-				ScApp->view->undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+				ScApp->view->undoManager->beginTransaction(Um::SelectionGroup,
 											  Um::IGroup, Um::SizeUnLock, 0, Um::IUnLock);
 			else
-				ScApp->view->undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+				ScApp->view->undoManager->beginTransaction(Um::SelectionGroup,
 											  Um::IGroup, Um::SizeLock, 0, Um::ILock);
 		}
 		for ( uint a = 0; a < ScApp->view->SelItem.count(); ++a)

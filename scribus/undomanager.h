@@ -407,6 +407,7 @@ public:
 	static const QString RotateFromTo;
 	static const QString Selection;
 	static const QString Group;
+	static const QString SelectionGroup;
 	static const QString Create;
 	static const QString CreateTo;
 	static const QString AlignDistribute;
