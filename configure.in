@@ -85,7 +85,7 @@ else
 fi)
 LIBCUPS=""
 hacups=
-AC_CHECK_LIB(cups, httpConnect, [LIBCUPS="-lcups";hacups=yes],[LIBCUPS="";hacups=no])
+AC_CHECK_LIB(cups, httpConnect, [LIBCUPS="-lcups -lssl";hacups=yes],[LIBCUPS="";hacups=no],[-lssl])
 AC_SUBST(LIBCUPS)
 LIBLCMS=""
 hacms=

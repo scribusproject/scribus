@@ -695,6 +695,13 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					if (hl->ch == QChar(30))
 						chx = ExpandToken(a);
 					absa = hl->cab;
+					if (((Doc->Vorlagen[absa].Ausri == 3) || (Doc->Vorlagen[absa].Ausri == 4)) && (LiList.count() == 0) && (hl->ch == " "))
+					{
+						hl->cstyle ^= 256;
+						continue;
+					}
+					else
+						hl->cstyle &= 255;
 					if (a == 0)
 						{
 						if (BackBox != 0)

@@ -1,4 +1,7 @@
 Changes since Version 1.1.6
+07.04.2004	Applied Patch for better detecting CUPS.
+		Improved the forced aligning of Text again.
+
 06.04.2004	Improved the forced aligning of Text.
 		Changed the Styles Listbox to a Combobox in the Properties Palette.
 

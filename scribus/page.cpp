@@ -5964,6 +5964,11 @@ void Page::slotDoCurs(bool draw)
 		if (b->CPos > 0)
 		{
 			offs = QMIN(b->CPos-1, static_cast<int>(b->Ptext.count()-1));
+			if (b->Ptext.at(offs)->cstyle & 256)
+			{
+				b->CPos++;
+				return;
+			}
 			if (b->Ptext.at(offs)->yp == 0)
 				return;
 			chx = b->Ptext.at(offs)->ch;

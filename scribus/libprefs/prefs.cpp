@@ -576,7 +576,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	VTiefWSc->setValue(ap->HaveDoc ? ap->doc->VTiefSc : Vor->DVTiefSc );
 	Layout12->addWidget( VTiefWSc, 1, 1 );
 	GroupBox4_2Layout->addLayout( Layout12 );
-	tabLayout_3->addWidget( GroupBox4_2, 1, 0 );
+	tabLayout_3->addWidget( GroupBox4_2, 0, 0 );
 	GroupBox4 = new QGroupBox( tab_4, "GroupBox4" );
 	GroupBox4->setTitle( tr( "Superscript" ) );
 	GroupBox4->setColumnLayout(0, Qt::Vertical );
@@ -612,7 +612,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	VHochWSc->setValue(ap->HaveDoc ? ap->doc->VHochSc : Vor->DVHochSc );
 	Layout13->addWidget( VHochWSc, 1, 1 );
 	GroupBox4Layout->addLayout( Layout13 );
-	tabLayout_3->addWidget( GroupBox4, 0, 0 );
+	tabLayout_3->addWidget( GroupBox4, 1, 0 );
 	GroupBox4_3 = new QGroupBox( tab_4, "GroupBox4_3" );
 	GroupBox4_3->setTitle( tr( "Small Caps" ) );
 	GroupBox4_3->setColumnLayout(0, Qt::Vertical );
@@ -1537,9 +1537,26 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout3->addItem( spacer_3 );
 	PrefsLayout->addLayout( Layout3 );
 	setDS();
-	
+	//tab order
+	QWidget::setTabOrder( GFsize, SpinBox3 );
+	QWidget::setTabOrder( SpinBox3, SpinBox3_2 );
+	QWidget::setTabOrder( SpinBox3_2, UnitCombo );
+	QWidget::setTabOrder( UnitCombo, Recen );
+	QWidget::setTabOrder( Recen, Shorty );
+	QWidget::setTabOrder( Shorty, Docs );
+	QWidget::setTabOrder( Docs, FileC );
+	QWidget::setTabOrder( FileC, ProPfad );
+	QWidget::setTabOrder( ProPfad, FileC2  );
+	QWidget::setTabOrder( FileC2, ScriptPfad );
+	QWidget::setTabOrder( ScriptPfad, FileC3 );
 
-	//cab
+
+	QWidget::setTabOrder( TopR, BottomR );
+	QWidget::setTabOrder( BottomR, LeftR );
+	QWidget::setTabOrder( LeftR, RightR );
+
+	QWidget::setTabOrder( PreviewSize, SaveAtQuit );
+
 	QToolTip::add( GUICombo, tr( "Choose the default window decoration and looks.\nScribus inherits any available KDE or Qt themes" ) );
 	QToolTip::add( GFsize, tr( "Default font size for the menus and windows" ) );
 	QToolTip::add( UnitCombo, tr( "Default unit of measurement for document editing" ) );

@@ -54,7 +54,7 @@ About::About( QWidget* parent )
 	tabLayout1->addWidget( PixmapLabel1 );
 	BuildID = new QLabel( tab, "BB" );
 	BuildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1. %2 %3 ").arg("06").arg("April").arg("2004");
+	QString bu = tr("%1. %2 %3 ").arg("07").arg("April").arg("2004");
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -199,7 +199,7 @@ About::About( QWidget* parent )
 	tabLayout_4->setSpacing( 6 );
 	tabLayout_4->setMargin( 10 );
 	tabLayout_4->addWidget( TextView4 );
-	TabWidget2->insertTab( tab_4, tr( "Online" ).utf8() );
+	TabWidget2->insertTab( tab_4, tr( "Online" ) );
 	AboutLayout->addWidget( TabWidget2 );
 	Layout2 = new QHBoxLayout;
 	Layout2->setSpacing( 6 );
