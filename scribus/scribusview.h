@@ -200,6 +200,7 @@ public:
 	int OnPage(PageItem *b);
 	void GroupOnPage(PageItem* b);
 	void SelectItemNr(int nr, bool draw = true);
+	void SelectItem(PageItem *pi, bool draw = true);
 	void selectPage(QMouseEvent *m);
 	bool SeleItem(QMouseEvent *m);
 	void SetupDraw(int Nr);

@@ -6644,7 +6644,12 @@ void ScribusView::GroupOnPage(PageItem* b)
 
 void ScribusView::SelectItemNr(int nr, bool draw)
 {
-	PageItem *b = Doc->Items.at(nr);
+	SelectItem(Doc->Items.at(nr), draw);
+}
+
+void ScribusView::SelectItem(PageItem *pi, bool draw)
+{
+	PageItem *b = pi;
 	if (!b->Select)
 	{
 		if (b->Groups.count() != 0)

@@ -2616,8 +2616,7 @@ void PageItem::restoreFill(SimpleState *state, bool isUndo)
 	QString fill = state->get("OLD_FILL");
 	if (!isUndo)
 		fill = state->get("NEW_FILL");
-	ScApp->view->SelItem.clear();
-	ScApp->view->SelItem.append(this);
+	select();
 	ScApp->view->ItemBrush(fill);
 }
 
@@ -2626,8 +2625,7 @@ void PageItem::restoreShade(SimpleState *state, bool isUndo)
 	int shade = state->getInt("OLD_SHADE");
 	if (!isUndo)
 		shade = state->getInt("NEW_SHADE");
-	ScApp->view->SelItem.clear();
-	ScApp->view->SelItem.append(this);
+	select();
 	ScApp->view->ItemBrushShade(shade);
 }
 
@@ -2651,6 +2649,6 @@ void PageItem::restoreLineShade(SimpleState *state, bool isUndo)
 
 void PageItem::select()
 {
-	ScApp->view->SelItem.clear();
-	ScApp->view->SelItem.append(this);
+	ScApp->view->Deselect();
+	ScApp->view->SelectItem(this);
 }
