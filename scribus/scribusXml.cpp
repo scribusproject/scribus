@@ -2487,6 +2487,24 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 		else
 			ob.setAttribute("NEXTITEM", -1);
 		ob.setAttribute("LAYER", item->LayerNr);
+		
+		//CB PageItemAttributes
+		QDomElement docItemAttrs = docu->createElement("PageItemAttributes");
+		ObjAttrVector *attributes=item->getObjectAttributes();
+		for(ObjAttrVector::Iterator objAttrIt = attributes->begin() ; objAttrIt != attributes->end(); ++objAttrIt )
+		{
+			QDomElement itemAttr = docu->createElement("ItemAttribute");
+			itemAttr.setAttribute("Name", (*objAttrIt).name);
+			itemAttr.setAttribute("Type", (*objAttrIt).type);
+			itemAttr.setAttribute("Value", (*objAttrIt).value);
+			itemAttr.setAttribute("Parameter", (*objAttrIt).parameter);
+			itemAttr.setAttribute("Relationship", (*objAttrIt).relationship);
+			itemAttr.setAttribute("RelationshipTo", (*objAttrIt).relationshipto);
+			itemAttr.setAttribute("AutoAddTo", (*objAttrIt).autoaddto);
+			docItemAttrs.appendChild(itemAttr);
+		}
+		ob.appendChild(docItemAttrs);
+	
 		dc->appendChild(ob);
 	}
 }

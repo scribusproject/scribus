@@ -892,8 +892,34 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						}
 						if (it.tagName()=="ITEXT")
 							tmp += GetItemText(&it, doc, view->Prefs);
+						
+						//CB PageItemAttributes
+						if(it.tagName()=="PageItemAttributes")
+						{
+							QDomNode PIA = it.firstChild();
+							ObjAttrVector pageItemAttributes;
+							while(!PIA.isNull())
+							{
+								QDomElement itemAttr = PIA.toElement();
+								if(itemAttr.tagName() == "ItemAttribute")
+								{
+									ObjectAttribute objattr;
+									objattr.name=itemAttr.attribute("Name");
+									objattr.type=itemAttr.attribute("Type");
+									objattr.value=itemAttr.attribute("Value");
+									objattr.parameter=itemAttr.attribute("Parameter");
+									objattr.relationship=itemAttr.attribute("Relationship");
+									objattr.relationshipto=itemAttr.attribute("RelationshipTo");
+									objattr.autoaddto=itemAttr.attribute("AutoAddTo");
+									pageItemAttributes.append(objattr);
+								}
+								PIA = PIA.nextSibling();
+							}
+							OB.pageItemAttributes = pageItemAttributes;
+						}
 						IT=IT.nextSibling();
 					}
+					
 					OB.itemText = tmp;
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;

@@ -64,6 +64,7 @@
 #include "undomanager.h"
 #include "units.h"
 #include "extimageprops.h"
+#include "pageitemattributes.h"
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
 #endif
@@ -134,7 +135,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	UN = new QToolButton(this);
 	Unitmen = new QPopupMenu(this);
 	//CB TODO Convert to actions later
-	for (uint i=0;i<=unitGetMaxIndex();++i)
+	for (int i=0;i<=unitGetMaxIndex();++i)
 		Unitmen->insertItem(unitGetStrFromIndex(i));
 	UN->setPopup(Unitmen);
 	UN->setFocusPolicy(QWidget::NoFocus);
@@ -10826,6 +10827,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		b->GrEndY = Buffer->GrEndY;
 		updateGradientVectors(b);
 	}
+	b->setObjectAttributes(&(Buffer->pageItemAttributes));
 	setRedrawBounding(b);
 	b->OwnPage = OnPage(b);
 	if (!loading)

@@ -177,6 +177,7 @@ struct CopyPasteBuffer
 	int BottomLinkID;
 	int startArrowIndex;
 	int endArrowIndex;
+	ObjAttrVector pageItemAttributes;
 };
 
   /** Pagemargins */
