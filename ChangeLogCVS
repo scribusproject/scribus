@@ -1,7 +1,16 @@
 Changes since Version 1.1.6
 
+09.05.2004
+	* bug     #604: Grouped items can be grouped again
+	* bug     #620: Differing tab settings can cause wrapping text on top of other text
+	* bug     #622: Merge of charselect* and svgexport* POs
+	* bug     #624: Scribus is inserting incorrect paths into file names when saving
+	* feature #609: same style for saturation and intensity of a color
+	* feature #629: Improve the Tabmanager and the EditStyle Dialogs with a Ruler for setting Tabs and Indents.
+
 08.05.2004
 	* bug     #608: Change buttons for "center" and "right" alignment...
+	* bug     #613: Autotools fix for Debian
 	* bug     #618: Minor rearranging of right click menu items
 	* feature #231: Add in ability to import Colour Sets into current document
 	* feature #614: Polish translation update

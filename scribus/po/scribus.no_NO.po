@@ -3115,7 +3115,7 @@ msgstr "Skaler bilde til rammestørrelse"
 msgid "Combine Polygons"
 msgstr "Kombiner polygoner"
 
-msgid "Split Polygon"
+msgid "Split Polygons"
 msgstr "Del opp polygoner"
 
 msgid "Convert to Polygons"
@@ -5119,4 +5119,19 @@ msgstr "Bindestrek punktum punktum linje"
 
 #~ msgid "Preferences::Width:"
 #~ msgstr "Bredde:"
+#: charselect.cpp:93
+msgid "ZAuswahl::Clear"
+msgstr "Slett"
+
+#: charselect.cpp:99
+msgid "ZAuswahl::Close"
+msgstr "Lukk"
+
+#: charselect.cpp:87
+msgid "ZAuswahl::Insert"
+msgstr "Innsett"
+
+#: charselect.cpp:33
+msgid "ZAuswahl::Select Character"
+msgstr "Marker Skrifttegn"
 

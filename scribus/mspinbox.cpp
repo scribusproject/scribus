@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "mspinbox.h"
+#include "mspinbox.moc"
 #include <qapplication.h>
 #include "fparser.h"
 

@@ -267,7 +267,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	uint a, nrc, nrc2, zae, startLin;
 	int desc, asce, absa, aSpa, chs, CurrCol;
 	uint BuPos, LastSP, MaxText;
-	double oldCurY, LastXp, EndX, OFs, OFs2, wide, rota, wid, lineCorr, ColWidth, kernVal;
+	double oldCurY, LastXp, EndX, OFs, OFs2, wide, rota, wid, lineCorr, ColWidth, kernVal, RTabX;
 	double sc = Doc->Scale;
 	QString chx, chx2, chx3;
 	struct Pti *hl;
@@ -868,6 +868,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							RTab = false;
 						else
 							{
+							RTabX = CurX+wide;
 							if (hl->cab < 5)
 								tTabValues = TabValues;
 							else
@@ -974,9 +975,14 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							cen = 2;
 						for (uint rtx = StartRT; rtx < LiList.count(); ++rtx)
 							{
-							LiList.at(rtx)->xco = QMAX(LiList.at(rtx)->xco-(wide+kernVal) / cen, 0.0);
-							Ptext.at(StartRT2+rtx2)->xp = QMAX(Ptext.at(StartRT2+rtx2)->xp-(wide+kernVal) / cen, 0.0);
-							rtx2++;
+								LiList.at(rtx)->xco = QMAX(LiList.at(rtx)->xco-(wide+kernVal) / cen, 0.0);
+								Ptext.at(StartRT2+rtx2)->xp = QMAX(Ptext.at(StartRT2+rtx2)->xp-(wide+kernVal) / cen, 0.0);
+								if (Ptext.at(StartRT2+rtx2)->xp < RTabX)
+								{
+									RTab = false;
+									TabCode = 0;
+								}
+								rtx2++;
 							}
 						}
 					BuPos++;

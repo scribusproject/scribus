@@ -16,50 +16,27 @@
 
 class QVBoxLayout;
 class QHBoxLayout;
-class QGridLayout;
-class QComboBox;
-class QLabel;
-class QListBox;
-class QListBoxItem;
 class QPushButton;
-class MSpinBox;
+class Tabruler;
 
 class TabManager : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    TabManager( QWidget* parent, int dEin, QValueList<double> inTab);
-    ~TabManager() {};
-    void UnitChange(int dEin);
-	void UpdateTabL();
-
-    QListBox* TabList;
-    QLabel* Text1;
-    QLabel* Text2;
-    QComboBox* Align;
-    MSpinBox* Position;
-    QPushButton* OKButton;
-    QPushButton* CancelButton;
-    QPushButton* DelButton;
-    QPushButton* AddButton;
-    QValueList<double> tmpTab;
-	int selTab;
-	int Einheit;
+	TabManager( QWidget* parent, int dEin, QValueList<double> inTab, double wid);
+	~TabManager() {};
+	Tabruler* TabList;
+	QPushButton* OKButton;
+	QPushButton* CancelButton;
+	QValueList<double> tmpTab;
 
 public slots:
-	void DelTab();
-	void AddTab();
-	void ChangeType();
-	void selIte(QListBoxItem *c);
-	void PValChange();
+	void exitOK();
 
 protected:
-    QVBoxLayout* TabManagerLayout;
-    QHBoxLayout* layout9;
-    QVBoxLayout* layout8;
-    QGridLayout* layout7;
-    QGridLayout* layout10;
+	QVBoxLayout* TabManagerLayout;
+	QHBoxLayout* layout10;
 };
 
 #endif // TABMANAGER_H

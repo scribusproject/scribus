@@ -1,6 +1,6 @@
 #include "edit1format.h"
 #include "edit1format.moc"
-#include "tabmanager.h"
+#include "tabruler.h"
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 #include <qmessagebox.h>
@@ -48,7 +48,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 			break;
 		}
 	}
-	GroupFontLayout->addMultiCellWidget( FontC, 0, 0, 1, 2 );
+	GroupFontLayout->addMultiCellWidget( FontC, 0, 0, 1, 4 );
 	TextF2 = new QLabel( GroupFont, "TextF2" );
 	TextF2->setMinimumSize( QSize( 50, 22 ) );
 	TextF2->setText( tr( "Size:" ) );
@@ -62,34 +62,50 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	GroupFontLayout->addWidget( SizeC, 1, 1 );
 	EffeLabel = new QLabel( GroupFont, "EffeLabel" );
 	EffeLabel->setText( tr("Effect:"));
-	GroupFontLayout->addWidget( EffeLabel, 2, 0 );
+	GroupFontLayout->addWidget( EffeLabel, 1, 2 );
 	EffeS = new StyleSelect(GroupFont);
 	EffeS->setStyle(vor->FontEffect);
-	GroupFontLayout->addWidget( EffeS, 2, 1, Qt::AlignLeft );
+	GroupFontLayout->addMultiCellWidget( EffeS, 1, 1, 3, 4, Qt::AlignLeft );
 	AligLabel = new QLabel( GroupFont, "AligLabel" );
 	AligLabel->setText( tr("Alignment:"));
-	GroupFontLayout->addWidget( AligLabel, 3, 0 );
+	GroupFontLayout->addWidget( AligLabel, 2, 0 );
 	AligS = new AlignSelect(GroupFont);
 	AligS->setStyle(vor->Ausri);
-	GroupFontLayout->addWidget( AligS, 3, 1, Qt::AlignLeft );
+	GroupFontLayout->addWidget( AligS, 2, 1, Qt::AlignLeft );
+
+	DropCaps = new QCheckBox( GroupFont, "DropCaps" );
+	DropCaps->setText( tr( "Drop Caps" ) );
+	DropCaps->setChecked(vor->Drop);
+	GroupFontLayout->addWidget( DropCaps, 2, 2 );
+	CapLabel = new QLabel( GroupFont, "CapLabel" );
+	CapLabel->setText( tr("Lines:"));
+	GroupFontLayout->addWidget( CapLabel, 2, 3, Qt::AlignRight );
+	DropLines = new QSpinBox( GroupFont, "DropLines" );
+	DropLines->setMinValue( 2 );
+	DropLines->setMaxValue( 20 );
+	DropLines->setValue(vor->DropLin);
+	GroupFontLayout->addWidget( DropLines, 2, 4 );
+	bool enable = vor->Drop ? true : false;
+	DropLines->setEnabled(enable);
+	CapLabel->setEnabled(enable);
 
 	FillIcon = new QLabel( GroupFont, "FillIcon" );
 	FillIcon->setText( tr("Fill Color:"));
-	GroupFontLayout->addWidget( FillIcon, 4, 0 );
+	GroupFontLayout->addWidget( FillIcon, 3, 0 );
 	TxFill = new QComboBox( true, GroupFont, "TxFill" );
 	TxFill->setEditable(false);
-	GroupFontLayout->addWidget( TxFill, 4, 1 );
+	GroupFontLayout->addWidget( TxFill, 3, 1 );
 	PM2 = new ShadeButton(GroupFont);
-	GroupFontLayout->addWidget( PM2, 4, 2, Qt::AlignLeft );
+	GroupFontLayout->addWidget( PM2, 3, 2, Qt::AlignLeft );
 
 	StrokeIcon = new QLabel( GroupFont, "StrokeIcon" );
 	StrokeIcon->setText( tr("Stroke Color:"));
-	GroupFontLayout->addWidget( StrokeIcon, 5, 0 );
+	GroupFontLayout->addWidget( StrokeIcon, 4, 0 );
 	TxStroke = new QComboBox( true, GroupFont, "TxStroke" );
 	TxStroke->setEditable(false);
-	GroupFontLayout->addWidget( TxStroke, 5, 1 );
+	GroupFontLayout->addWidget( TxStroke, 4, 1 );
 	PM1 = new ShadeButton(GroupFont);
-	GroupFontLayout->addWidget( PM1, 5, 2, Qt::AlignLeft );
+	GroupFontLayout->addWidget( PM1, 4, 2, Qt::AlignLeft );
 
 	TxFill->clear();
 	TxStroke->clear();
@@ -110,60 +126,8 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	PM2->setValue(vor->FShade);
 	PM1->setValue(vor->SShade);
 
-	DropCaps = new QCheckBox( GroupFont, "DropCaps" );
-	DropCaps->setText( tr( "Drop Caps" ) );
-	DropCaps->setChecked(vor->Drop);
-	GroupFontLayout->addMultiCellWidget( DropCaps, 6, 6, 0, 2 );
-	CapLabel = new QLabel( GroupFont, "CapLabel" );
-	CapLabel->setText( tr("Lines:"));
-	GroupFontLayout->addWidget( CapLabel, 7, 0 );
-	DropLines = new QSpinBox( GroupFont, "DropLines" );
-	DropLines->setMinValue( 2 );
-	DropLines->setMaxValue( 20 );
-	DropLines->setValue(vor->DropLin);
-	GroupFontLayout->addWidget( DropLines, 7, 1 );
-	bool enable = vor->Drop ? true : false;
-	DropLines->setEnabled(enable);
-	CapLabel->setEnabled(enable);
-
-	EditStyleLayout->addMultiCellWidget( GroupFont, 2, 3, 0, 0 );
-
-	GroupBox10 = new QGroupBox( this, "GroupBox10" );
-	GroupBox10->setTitle( tr( "Indentation" ) );
-	GroupBox10->setColumnLayout(0, Qt::Vertical );
-	GroupBox10->layout()->setSpacing( 0 );
-	GroupBox10->layout()->setMargin( 0 );
-	GroupBox10Layout = new QGridLayout( GroupBox10->layout() );
-	GroupBox10Layout->setAlignment( Qt::AlignTop );
-	GroupBox10Layout->setSpacing( 5 );
-	GroupBox10Layout->setMargin( 10 );
-	TextLabel1_2 = new QLabel( GroupBox10, "TextLabel1_2" );
-	TextLabel1_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                             TextLabel1_2->sizePolicy().hasHeightForWidth() ) );
-	TextLabel1_2->setMinimumSize( QSize( 90, 22 ) );
-	TextLabel1_2->setText( tr( "Left Indent:" ) );
-	GroupBox10Layout->addWidget( TextLabel1_2, 1, 0 );
-	TextLabel2 = new QLabel( GroupBox10, "TextLabel2" );
-	TextLabel2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                                        TextLabel2->sizePolicy().hasHeightForWidth() ) );
-	TextLabel2->setMinimumSize( QSize( 90, 22 ) );
-	TextLabel2->setText( tr( "First Line:" ) );
-	GroupBox10Layout->addWidget( TextLabel2, 0, 0 );
-
-	LeftInd = new MSpinBox( GroupBox10, 1 );
-	LeftInd->setMaxValue( 300 );
-	LeftInd->setMinValue( -300 );
-	GroupBox10Layout->addWidget( LeftInd, 1, 1 );
-
-	FirstLin = new MSpinBox( GroupBox10, 1);
-	FirstLin->setMaxValue( 300 );
-	FirstLin->setMinValue( -300 );
-	GroupBox10Layout->addWidget( FirstLin, 0, 1 );
-	TabsButton = new QPushButton( GroupBox10, "Tabul" );
-	TabsButton->setText( tr( "Tabulators..." ) );
-	GroupBox10Layout->addMultiCellWidget( TabsButton, 2, 2, 0, 1 );
-	EditStyleLayout->addWidget( GroupBox10, 3, 1 );
-
+	EditStyleLayout->addWidget( GroupFont, 2, 0 );
+	
 	AbstandV = new QGroupBox( this, "AbstandV" );
 	AbstandV->setTitle( tr( "Vertical Spaces" ) );
 	AbstandV->setColumnLayout(0, Qt::Vertical );
@@ -218,6 +182,24 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	AbstandVLayout->addWidget( TextLabel1_2_3, 2, 0 );
 	EditStyleLayout->addWidget( AbstandV, 2, 1 );
 
+	GroupBox10 = new QGroupBox( this, "GroupBox10" );
+	GroupBox10->setTitle( tr( "Tabulators and Indentation" ) );
+	GroupBox10->setColumnLayout(0, Qt::Vertical );
+	GroupBox10->layout()->setSpacing( 0 );
+	GroupBox10->layout()->setMargin( 0 );
+	GroupBox10Layout = new QVBoxLayout(GroupBox10->layout());
+	GroupBox10Layout->setAlignment( Qt::AlignTop );
+	GroupBox10Layout->setSpacing( 5 );
+	GroupBox10Layout->setMargin( 10 );
+	TabList = new Tabruler(GroupBox10, true, DocsEin, vor->TabValues, -1);
+	TabList->setIndentSpin(vor->Indent);
+	TabList->setFirstSpin(vor->First);
+	TabList->setIndent();
+	TabList->setFirst();
+	GroupBox10Layout->addWidget( TabList );
+
+	EditStyleLayout->addMultiCellWidget( GroupBox10, 3, 3, 0, 1 );
+
 	Layout17 = new QHBoxLayout;
 	Layout17->setSpacing( 6 );
 	Layout17->setMargin( 0 );
@@ -249,19 +231,13 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	QToolTip::add( AboveV, tr( "Spacing above the paragraph" ) );
 	QToolTip::add( BelowV, tr( "Spacing below the paragraph" ) );
 	QToolTip::add( LineSpVal, tr( "Line Spacing" ) );
-	QToolTip::add( FirstLin, tr( "Indentation for first line of the paragraph" ) );
-	QToolTip::add( LeftInd, tr( "Indentation from the left for the whole paragraph" ) );
-	QToolTip::add( TabsButton, tr( "Edit tab settings of text frame..." ) );
 
 	// signals and slots connections
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( OkButton, SIGNAL( clicked() ), this, SLOT( Verlassen() ) );
-	connect( TabsButton, SIGNAL( clicked() ), this, SLOT( ManageTabs() ) );
 	connect( DropCaps, SIGNAL( clicked() ), this, SLOT( ManageDrops() ) );
 	connect(SizeC, SIGNAL(valueChanged(int)), this, SLOT(FontChange()));
 	connect(EffeS, SIGNAL(State(int)), this, SLOT(ColorChange()));
-	LeftInd->setDecimals(10);
-	FirstLin->setDecimals(10);
 	AboveV->setDecimals(10);
 	BelowV->setDecimals(10);
 	/* PFJ - 29.02.04 - Altered switch so only case 2 is tested */
@@ -269,19 +245,13 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	ein = measure[dEin];
 	if (dEin == 2)
 	{
-		LeftInd->setDecimals(10000);
-		FirstLin->setDecimals(10000);
 		AboveV->setDecimals(10000);
 		BelowV->setDecimals(10000);
 	}
-	LeftInd->setSuffix(ein);
-	FirstLin->setSuffix(ein);
 	AboveV->setSuffix(ein);
 	BelowV->setSuffix(ein);
 	BelowV->setValue(vor->Anach * UmReFaktor);
 	AboveV->setValue(vor->Avor * UmReFaktor);
-	FirstLin->setValue(vor->First * UmReFaktor);
-	LeftInd->setValue(vor->Indent * UmReFaktor);
 	ColorChange();
 }
 
@@ -298,14 +268,6 @@ void EditStyle::ManageDrops()
 	bool enabled = DropCaps->isChecked() ? true : false;
 	DropLines->setEnabled(enabled);
 	CapLabel->setEnabled(enabled);
-}
-
-void EditStyle::ManageTabs()
-{
-	TabManager *dia = new TabManager(this, DocsEin, werte->TabValues);
-	if (dia->exec())
-		werte->TabValues = dia->tmpTab;
-	delete dia;
 }
 
 void EditStyle::FontChange()
@@ -350,8 +312,8 @@ void EditStyle::Verlassen()
 	werte->FontEffect = EffeS->getStyle();
 	werte->Ausri = AligS->getStyle();
 	werte->LineSpa = LineSpVal->value();
-	werte->Indent = LeftInd->value() / UmReFaktor;
-	werte->First = FirstLin->value() / UmReFaktor;
+	werte->Indent = TabList->getIndent();
+	werte->First = TabList->getFirst();
 	werte->Avor = AboveV->value() / UmReFaktor;
 	werte->Anach = BelowV->value() / UmReFaktor;
 	werte->Vname = Name->text();
@@ -364,5 +326,6 @@ void EditStyle::Verlassen()
 	werte->SColor = TxStroke->currentText();
 	werte->SShade = PM1->getValue();
 	werte->BaseAdj = BaseGrid->isChecked();
+	werte->TabValues = TabList->getTabVals();
 	accept();
 }

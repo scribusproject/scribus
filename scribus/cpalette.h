@@ -37,16 +37,17 @@
   *@author Franz Schmid
   */
 
-class Cpalette : public QWidget  {
-Q_OBJECT
+class Cpalette : public QWidget
+{
+	Q_OBJECT
 public:
 	Cpalette(QWidget* parent);
 	~Cpalette() {};
-	
+
 	QListBox *ListBox1;
 	QToolButton *Inhalt;
 	QToolButton *Innen;
-	ShadeButton *PM1;
+	QSpinBox *PM1;
 	QComboBox* GradCombo;
 	QButtonGroup* GradGroup;
 	QRadioButton* GrColor1;
@@ -67,7 +68,7 @@ public:
 	int Shade3;
 	bool UseTransFeature;
 	bool GradientMode;
-	
+
 public slots:
 	void InhaltButton();
 	void InnenButton();
@@ -94,13 +95,13 @@ signals:
 	void NewTrans(double);
 	void NewTransS(double);
 	void QueryItem();
-	
+
 protected:
-    QVBoxLayout* Form1Layout;
-    QHBoxLayout* Layout1;
-    QVBoxLayout* GradLayout;
-    QHBoxLayout* GradGroupLayout;
-    QHBoxLayout* TransGroupLayout;
+	QVBoxLayout* Form1Layout;
+	QGridLayout* Layout1;
+	QVBoxLayout* GradLayout;
+	QHBoxLayout* GradGroupLayout;
+	QHBoxLayout* TransGroupLayout;
 };
 
 #endif

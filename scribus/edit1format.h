@@ -19,6 +19,7 @@
 #include "styleselect.h"
 #include "scribusdoc.h"
 #include "shadebutton.h"
+class Tabruler;
 
 class EditStyle : public QDialog
 {
@@ -30,15 +31,12 @@ public:
 	~EditStyle() {};
 
 	QLabel* TextLabel1;
-	QLabel* TextLabel1_2;
-	QLabel* TextLabel2;
 	QLabel* TextLabel3;
 	QLabel* TextLabel1_2_2;
 	QLabel* TextLabel1_2_3;
 	QLineEdit* Name;
 	MSpinBox* LineSpVal;
-	MSpinBox* LeftInd;
-	MSpinBox* FirstLin;
+	Tabruler* TabList;
 	MSpinBox* AboveV;
 	MSpinBox* BelowV;
 	QLabel* EffeLabel;
@@ -52,7 +50,6 @@ public:
 	FontCombo* FontC;
 	MSpinBox* SizeC;
 	QLabel* TextF2;
-	QPushButton* TabsButton;
 	QLabel* StrokeIcon;
 	QComboBox* TxStroke;
 	ShadeButton *PM1;
@@ -75,14 +72,13 @@ public:
 private slots:
 	void Verlassen();
 	void FontChange();
-	void ManageTabs();
 	void ManageDrops();
 	void ColorChange();
 
 protected:
 	QHBoxLayout* Layout17;
 	QGridLayout* EditStyleLayout;
-	QGridLayout* GroupBox10Layout;
+	QVBoxLayout* GroupBox10Layout;
 	QGridLayout* AbstandVLayout;
 	QGridLayout* GroupFontLayout;
 };

@@ -3217,7 +3217,17 @@ void Mpalette::ManageTabs()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		TabManager *dia = new TabManager(this, doc->Einheit, CurItem->TabValues);
+		double lineCorr;
+		if (CurItem->Pcolor2 != "None")
+			lineCorr = CurItem->Pwidth;
+		else
+			lineCorr = 0;
+		double ColWidth;
+		if (CurItem->Cols > 1)
+			ColWidth = (CurItem->Width - (CurItem->ColGap * (CurItem->Cols - 1)) - CurItem->Extra - CurItem->RExtra - lineCorr) / CurItem->Cols;
+		else
+			ColWidth = CurItem->Width;
+		TabManager *dia = new TabManager(this, doc->Einheit, CurItem->TabValues, ColWidth);
 		if (dia->exec())
 		{
 			CurItem->TabValues = dia->tmpTab;

@@ -2659,14 +2659,25 @@ void ScribusApp::HaveNewSel(int Nr)
 	if (doc->ActPage->SelItem.count() > 1)
 	{
 		ObjMenu->setItemEnabled(DistM, 1);
-		ObjMenu->setItemEnabled(Gr, 1);
 		ObjMenu->setItemEnabled(PfadTP, 0);
 		bool hPoly = true;
+		bool isGroup = true;
+		int firstElem = -1;
+		if (b->Groups.count() != 0)
+			firstElem = b->Groups.top();
 		for (uint bx=0; bx<doc->ActPage->SelItem.count(); ++bx)
 		{
 			if (doc->ActPage->SelItem.at(bx)->PType != 6)
 				hPoly = false;
+			if (doc->ActPage->SelItem.at(bx)->Groups.count() != 0)
+			{
+				if (doc->ActPage->SelItem.at(bx)->Groups.top() != firstElem)
+					isGroup = false;
+			}
+			else
+				isGroup = false;
 		}
+		ObjMenu->setItemEnabled(Gr, !isGroup);
 		ObjMenu->setItemEnabled(PfadV, hPoly);
 		if (doc->ActPage->SelItem.count() == 2)
 		{
@@ -2928,6 +2939,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 	if (!fileName.isEmpty())
 	{
 		QFileInfo fi(fileName);
+		QString FName = fi.absFilePath();
 		QDir::setCurrent(fi.dirPath(true));
 		doc=new ScribusDoc();
 		doc->AllFonts = &Prefs.AvailFonts;
@@ -3020,7 +3032,6 @@ bool ScribusApp::LadeDoc(QString fileName)
 #endif
 		HaveDoc++;
 		connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
-		//		connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
 		if (!doc->HasCMS)
 		{
 			doc->CMSSettings.DefaultInputProfile = Prefs.DCMSset.DefaultInputProfile;
@@ -3091,7 +3102,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		}
 		Mpal->Cpal->SetColors(doc->PageColors);
 		Mpal->Cpal->ChooseGrad(0);
-		doc->DocName = fileName;
+		doc->DocName = FName;
 		doc->MasterP = false;
 		HaveNewDoc();
 		Mpal->updateCList();
@@ -3164,7 +3175,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		ActWin->First = BookPal->BView->First;
 		ActWin->Last = BookPal->BView->Last;
 		doc->RePos = false;
-		UpdateRecent(fileName);
+		UpdateRecent(FName);
 		FMess->setText( tr("Ready"));
 		ret = true;
 		if ((wsp->windowList().isEmpty()) || (wsp->windowList().count() == 1))
@@ -7006,6 +7017,7 @@ void ScribusApp::GroupObj()
 	slotDocCh();
 	doc->UnDoValid = false;
 	CanUndo();
+	ObjMenu->setItemEnabled(Gr, false);
 	ObjMenu->setItemEnabled(UnGr, true);
 }
 
@@ -8226,7 +8238,7 @@ void ScribusApp::EditTabs()
 		if (doc->ActPage->SelItem.count() != 0)
 		{
 			PageItem *b = doc->ActPage->SelItem.at(0);
-			TabManager *dia = new TabManager(this, doc->Einheit, b->TabValues);
+			TabManager *dia = new TabManager(this, doc->Einheit, b->TabValues, b->Width);
 			if (dia->exec())
 			{
 				b->TabValues = dia->tmpTab;

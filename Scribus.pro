@@ -103,6 +103,7 @@ SOURCES += scribus/align.cpp \
            scribus/story.cpp \
            scribus/styleselect.cpp \
            scribus/tabmanager.cpp \
+           scribus/tabruler.cpp \
            scribus/translationdummy.cpp \
            scribus/tree.cpp \
            scribus/util.cpp \

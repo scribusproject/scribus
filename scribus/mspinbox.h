@@ -26,12 +26,11 @@
 
 class MSpinBox : public QSpinBox  
 {
+	Q_OBJECT
+	
 public: 
 	MSpinBox(QWidget *pa, int s);
 	~MSpinBox() {};
-	void setMaxValue(double val);
-	void setMinValue(double val);
-	void setValue(double val);
 	double value();
 	double minValue();
 	double maxValue();
@@ -41,6 +40,11 @@ public:
 	int Width;
 	QLineEdit *ed;
 	void setDecimals( int deci );
+
+public slots:
+	void setMaxValue(double val);
+	void setMinValue(double val);
+	void setValue(double val);
 
 protected:
 	bool eventFilter( QObject* ob, QEvent* ev );
