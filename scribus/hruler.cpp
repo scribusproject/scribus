@@ -52,6 +52,8 @@ Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 void Hruler::mousePressEvent(QMouseEvent *m)
 {
 	Mpressed = true;
+	if (doku->loading)
+		return;
 	if (ItemPosValid)
 	{
 		RulerCode = 0;
@@ -137,6 +139,11 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 
 void Hruler::mouseReleaseEvent(QMouseEvent *m)
 {
+	if (doku->loading)
+	{
+		Mpressed = false;
+		return;
+	}
 	if (ItemPosValid)
 	{
 		if ((m->y() < height()) && (m->y() > 0))
@@ -213,6 +220,8 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 
 void Hruler::mouseMoveEvent(QMouseEvent *m)
 {
+	if (doku->loading)
+		return;
 	if (ItemPosValid)
 	{
 		double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
@@ -368,6 +377,8 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 
 void Hruler::paintEvent(QPaintEvent *)
 {
+	if (doku->loading)
+		return;
 	int pc, xx;
 	double of, xl, iter, iter2;
 	double sc = view->Scale;
