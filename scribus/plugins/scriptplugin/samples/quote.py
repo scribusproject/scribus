@@ -53,4 +53,4 @@ if haveDoc():
 			   ICON_INFORMATION, BUTTON_OK)
 
 else:
-	msgBox(TITLE, "No document open", ICON_WARNING, BUTTON_OK)
+	messageBox(TITLE, "No document open", ICON_WARNING, BUTTON_OK)
