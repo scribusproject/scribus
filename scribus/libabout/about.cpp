@@ -54,7 +54,7 @@ About::About( QWidget* parent )
     tabLayout1->addWidget( PixmapLabel1 );
     BuildID = new QLabel( tab, "BB" );
     BuildID->setAlignment(Qt::AlignCenter);
-    QString bu = tr("%1. %2 %3 ").arg(10).arg("February").arg(2004);
+    QString bu = tr("%1. %2 %3 ").arg(11).arg("February").arg(2004);
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -81,25 +81,25 @@ About::About( QWidget* parent )
 	tabLayout->setSpacing( 6 );
 	tabLayout->setMargin( 10 );
 	TextView1 = new QTextView( tab_2, "TextView1" );
-	TextView1->setText( "<table><tr><td><b>" + tr("Programming:") + "</b></td><td> </td></tr>" +
+	TextView1->setText(QString::fromUtf8("<table><tr><td><b>" + tr("Programming:").utf8() + "</b></td><td> </td></tr>" +
                         "<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("Contributions from:") + "</b></td><td></td></tr>" +
+                        "<tr><td><b>" + tr("Contributions from:").utf8()  + "</b></td><td></td></tr>" +
                         "<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
                         "<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
                         "<tr><td>Alessandro Rimoldi</td><td>http://ideale.ch/contact</td></tr>" +
-                        "<tr><td>Christian Tpp</td><td>mr-ct@gmx.de</td></tr>" +
+                        "<tr><td>Christian Töpp</td><td>mr-ct@gmx.de</td></tr>" +
                         "<tr><td>Alastair Robinson</td><td>blackfive@fakenhamweb.co.uk</td></tr>" +
                         "<tr><td></td><td> </td></tr>" +
                         #if (_MSC_VER >= 1200)
-                        "<tr><td><b>" + tr("Windows port:") + "</b></td><td> </td></tr>" +
+                        "<tr><td><b>" + tr("Windows port:").utf8()  + "</b></td><td> </td></tr>" +
                         "<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
                         #endif
-                        "<tr><td><b>" + tr("Documentation:") + "</b></td><td></td></tr>" +
+                        "<tr><td><b>" + tr("Documentation:").utf8()  + "</b></td><td></td></tr>" +
                         "<tr><td>Peter Linnell</td><td>scribusdocs@atlantictechsolutions.com</td></tr>" +
                         "<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" +
-                        "<tr><td>Thomas Zastrow</td><td>webmaster@thomas-zastrow.de</td></tr></table>");
+                        "<tr><td>Thomas Zastrow</td><td>webmaster@thomas-zastrow.de</td></tr></table>"));
 	TextView1->setTextFormat( QTextView::RichText );
 	tabLayout->addWidget( TextView1 );
 	TabWidget2->insertTab( tab_2, tr( "Authors" ) );
@@ -108,72 +108,72 @@ About::About( QWidget* parent )
 	tabLayout_2->setSpacing( 6 );
 	tabLayout_2->setMargin( 10 );
 	TextView2 = new QTextView( tab_3, "TextView1_2" );
-	TextView2->setText( "<table><tr><td><b>" + tr("German:") + "</b></td><td> </td></tr>" +
+	TextView2->setText(QString::fromUtf8( "<table><tr><td><b>" + tr("German:").utf8()  + "</b></td><td> </td></tr>" +
                         "<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("French:") + "</b></td><td> </td>" +
+                        "<tr><td><b>" + tr("French:").utf8()  + "</b></td><td> </td>" +
                         "<tr><td>Michel Briand</td><td>michelbriand@free.fr</td></tr>" +
                         "<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" +
                         "<tr><td>Nicolas Boos</td><td>nicolas.boos@wanadoo.fr</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("Spanish and Catalan:") + "</b></td><td> </td></tr>" +
+                        "<tr><td><b>" + tr("Spanish and Catalan:").utf8()  + "</b></td><td> </td></tr>" +
                         "<tr><td>Josep Febrer</td><td>josep@linuxmail.org</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("Italian:") + "</b></td><td> </td></tr>" +
-                        "<tr><td>Giovanni Biczs</td><td>gbiczo@freestart.hu</td></tr>" +
+                        "<tr><td><b>" + tr("Italian:").utf8()  + "</b></td><td> </td></tr>" +
+                        "<tr><td>Giovanni Biczó</td><td>gbiczo@freestart.hu</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("Hungarian:") + "</b></td><td> </td></tr>" +
-                        "<tr><td>Giovanni Bicz</td><td>gbiczo@freestart.hu</td></tr>" +
+                        "<tr><td><b>" + tr("Hungarian:").utf8()  + "</b></td><td> </td></tr>" +
+                        "<tr><td>Giovanni Biczó</td><td>gbiczo@freestart.hu</td></tr>" +
                         "<tr><td>Bence Nagy</td><td>scribus@tipogral.hu</td></tr>" +
-                        "<tr><td>Zolt? Bszrm?yi</td><td>zboszor@freemail.hu</td></tr>" +
+                        "<tr><td>Zoltán Böszörményi</td><td>zboszor@freemail.hu</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("Ukrainian:") + "</b></td><td> </td></tr>" +
+                        "<tr><td><b>" + tr("Ukrainian:").utf8()  + "</b></td><td> </td></tr>" +
                         "<tr><td>Sergiy Kudryk</td><td>kudryk@yahoo.com</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("Bulgarian:") + "</b></td><td> </td></tr>" +
+                        "<tr><td><b>" + tr("Bulgarian:").utf8()  + "</b></td><td> </td></tr>" +
                         "<tr><td>Vasko Tomanov</td><td>vasko@web.bg</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("Galician:") + "</b></td><td> </td></tr>" +
+                        "<tr><td><b>" + tr("Galician:").utf8()  + "</b></td><td> </td></tr>" +
                         "<tr><td>Manuel Anxo Rei</td><td>manxopar@avogaciagalega.org</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("Turkish:") + "</b></td><td> </td></tr>" +
+                        "<tr><td><b>" + tr("Turkish:").utf8()  + "</b></td><td> </td></tr>" +
                         "<tr><td>Erkan Kaplan</td><td>Selamsana@uni.de</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("Lithuanian:") + "</b></td><td> </td></tr>" +
+                        "<tr><td><b>" + tr("Lithuanian:").utf8()  + "</b></td><td> </td></tr>" +
                         "<tr><td>Aivaras Kirejevas</td><td>kiras@mail.lt</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("Polish:") + "</b></td><td> </td></tr>" +
-                        "<tr><td>Maciej Haski</td><td>m.hanski@gmx.at</td></tr>" +
+                        "<tr><td><b>" + tr("Polish:").utf8()  + "</b></td><td> </td></tr>" +
+                        "<tr><td>Maciej Hański</td><td>m.hanski@gmx.at</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("Czech:") + "</b></td><td></td></tr>" +
-                        "<tr><td>Petr Van�</td><td>subzero@py.cz</td></tr>" +
+                        "<tr><td><b>" + tr("Czech:").utf8()  + "</b></td><td></td></tr>" +
+                        "<tr><td>Petr Vaněk</td><td>subzero@py.cz</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("Slovak:") + "</b></td><td></td></tr>" +
-                        "<tr><td>Zdenko Podobn</td><td>zdpo@mailbox.sk</td></tr>" +
+                        "<tr><td><b>" + tr("Slovak:").utf8()  + "</b></td><td></td></tr>" +
+                        "<tr><td>Zdenko Podobn&yacute;ý</td><td>zdpo@mailbox.sk</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("Danish:") + "</b></td><td></td></tr>" +
+                        "<tr><td><b>" + tr("Danish:").utf8()  + "</b></td><td></td></tr>" +
                         "<tr><td>Morten Langlo</td><td>mlanglo@post6.tele.dk</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("Norwegian:") + "</b></td><td></td></tr>" +
+                        "<tr><td><b>" + tr("Norwegian:").utf8()  + "</b></td><td></td></tr>" +
                         "<tr><td>Klaus Ade Johnstad</td><td>klaus@astro.uio.no</td></tr>" +
                         "<tr><td>Johannes Wilm</td><td>j@indymedia.no</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("English:") + "</b></td><td></td></tr>" +
+                        "<tr><td><b>" + tr("English:").utf8()  + "</b></td><td></td></tr>" +
                         "<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("Welsh:") + "</b></td><td></td></tr>" +
+                        "<tr><td><b>" + tr("Welsh:").utf8()  + "</b></td><td></td></tr>" +
                         "<tr><td>Kevin Donnelly</td><td>kevin@dotmon.com</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-						"<tr><td><b>" + tr("Russian:") + "</b></td><td></td></tr>" +
+						"<tr><td><b>" + tr("Russian:").utf8()  + "</b></td><td></td></tr>" +
                         "<tr><td>Alexandre Prokoudine</td><td>techwriter@land.ru</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-						"<tr><td><b>" + tr("Brazilian:") + "</b></td><td></td></tr>" +
+						"<tr><td><b>" + tr("Brazilian:").utf8()  + "</b></td><td></td></tr>" +
                         "<tr><td>Celio Santos</td><td>celio@electronic.srv.br</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-						"<tr><td><b>" + tr("Finnish:") + "</b></td><td></td></tr>" +
+						"<tr><td><b>" + tr("Finnish:").utf8()  + "</b></td><td></td></tr>" +
                         "<tr><td>Riku Leino</td><td>tsoots@welho.com</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "</table>");
+                        "</table>"));
 	TextView2->setTextFormat( QTextView::RichText );
 	tabLayout_2->addWidget( TextView2 );
 	TabWidget2->insertTab( tab_3, tr( "Translations" ) );

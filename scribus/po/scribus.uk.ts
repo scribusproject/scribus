@@ -327,7 +327,7 @@
     </message>
     <message>
         <source>Error during EPS-Export</source>
-        <translation type="unfinished">Помилка під час експорту EPS файлу</translation>
+        <translation>Помилка під час експорту EPS файлу</translation>
     </message>
     <message>
         <source>Flip vertical</source>
@@ -419,7 +419,7 @@
     </message>
     <message>
         <source>Error creating PDF-File..</source>
-        <translation type="unfinished">Помилка створення файла PDF</translation>
+        <translation>Помилка створення файла PDF</translation>
     </message>
     <message>
         <source>Insert Rectangles</source>
@@ -1003,7 +1003,7 @@
     </message>
     <message>
         <source>Output to File:</source>
-        <translation type="unfinished">Результат записати до файлу</translation>
+        <translation>Результат записати до файлу</translation>
     </message>
     <message>
         <source>Linespacing</source>
@@ -3264,6 +3264,10 @@ This can be set in the Preferences.</source>
         <source>Copy of %1</source>
         <translation>Копія %1</translation>
     </message>
+    <message>
+        <source>Remove Unused</source>
+        <translation>Видалити невикористані</translation>
+    </message>
 </context>
 <context>
     <name>FontPrefs</name>
@@ -5054,6 +5058,31 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <source>All</source>
         <translation>Все</translation>
+    </message>
+    <message>
+        <source>Display Transparency</source>
+        <translation>Показувати прозорість</translation>
+    </message>
+    <message>
+        <source>Display CMYK</source>
+        <translation>Показувати CMYK</translation>
+    </message>
+    <message>
+        <source>C</source>
+        <translation>
+C</translation>
+    </message>
+    <message>
+        <source>M</source>
+        <translation>M</translation>
+    </message>
+    <message>
+        <source>Y</source>
+        <translation>Y</translation>
+    </message>
+    <message>
+        <source>K</source>
+        <translation>K</translation>
     </message>
 </context>
 <context>
@@ -7703,7 +7732,7 @@ drag a Template to the Pageview below.</source>
     <name>StoryEditor</name>
     <message>
         <source>Story Editor</source>
-        <translation>Внутрішній редактор</translation>
+        <translation>Редактор тексту</translation>
     </message>
     <message>
         <source>New</source>
@@ -7755,7 +7784,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Update Textframe</source>
-        <translation>Обновити вміст текстової рамки</translation>
+        <translation>Поновити вміст текстової рамки</translation>
     </message>
     <message>
         <source>File</source>
@@ -7840,6 +7869,10 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Update Text Frame</source>
         <translation>Обновити вміст текстової рамки</translation>
+    </message>
+    <message>
+        <source>Search/Replace...</source>
+        <translation>Пошук/Заміна...</translation>
     </message>
 </context>
 <context>

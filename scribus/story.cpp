@@ -227,15 +227,17 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	Form1Layout = new QVBoxLayout( this, 5, 5, "Form1Layout"); 
 	edList.clear();
 	stList.clear();
-	QString tmp[] = { tr("Left"), tr("Center"), tr("Right"), tr("Block"), tr("Forced")};
-	size_t ar = sizeof(tmp) / sizeof(*tmp);
-	for (uint a = 0; a < ar; ++a)
-		style.append(tmp[a]);
+	style.clear();
 	if (doc->Vorlagen.count() > 5)
-		{
+	{
 		for (uint a = 5; a < doc->Vorlagen.count(); ++a)
 			style.append(doc->Vorlagen[a].Vname);
-		}
+	}
+	style.sort();
+	QString tmp[] = { tr("Forced"), tr("Block"), tr("Right"), tr("Center"), tr("Left") };
+	size_t ar = sizeof(tmp) / sizeof(*tmp);
+	for (uint a = 0; a < ar; ++a)
+		style.prepend(tmp[a]);
 	CurrItem = ite;
 
  	fmenu = new QPopupMenu();
@@ -433,9 +435,10 @@ void StoryEditor::updateStatus()
 	CharC2->setText(tmp.setNum(counter1-1));
 }
 
-void StoryEditor::closeEvent(QCloseEvent *)
+void StoryEditor::closeEvent(QCloseEvent *event)
 {
-	Do_leave();
+	if (!event->isAccepted())
+		Do_leave();
 }
 
 void StoryEditor::Do_leave()
@@ -551,6 +554,17 @@ void StoryEditor::updateTextFrame()
 		if (a < edList.count()-1)
 			ss->Objekt += QChar(10);
 		int st = cp->currentItem();
+		if (st > 4)
+		{
+			for (uint x = 5; x < doc->Vorlagen.count(); ++x)
+			{
+				if (doc->Vorlagen[x].Vname == cp->text(st))
+				{
+					st = x;
+					break;
+				}
+			}
+		}
 		ss->GetText(nb, st, doc->Vorlagen[st].Font, doc->Vorlagen[st].FontSize, first);
 		delete ss;
 		first = true;
@@ -585,15 +599,16 @@ void StoryEditor::slotEditStyles()
 	QComboBox *ct;
 	emit EditSt();
 	style.clear();
-	QString tmp[] = { tr("Left"), tr("Center"), tr("Right"), tr("Block"), tr("Forced")};
-	size_t ar = sizeof(tmp) / sizeof(*tmp);
-	for (uint a = 0; a < ar; ++a)
-		style.append(tmp[a]);
 	if (doc->Vorlagen.count() > 5)
 	{
 		for (uint a = 5; a < doc->Vorlagen.count(); ++a)
 			style.append(doc->Vorlagen[a].Vname);
 	}
+	style.sort();
+	QString tmp[] = { tr("Forced"), tr("Block"), tr("Right"), tr("Center"), tr("Left") };
+	size_t ar = sizeof(tmp) / sizeof(*tmp);
+	for (uint a = 0; a < ar; ++a)
+		style.prepend(tmp[a]);
 	for (uint b = 0; b < stList.count(); ++b)
 	{
 		ct = stList.at(b);
@@ -613,9 +628,23 @@ void StoryEditor::slotEditStyles()
 void StoryEditor::styleChange(int st)
 {
 	int r = stList.findRef((QComboBox*)sender());
-	int align = st > 4 ? doc->Vorlagen[st].Ausri : st;
 	if (r != -1)
 	{
+		QComboBox *c = stList.at(r);
+		int align;
+		if (st > 4)
+		{
+			for (uint x = 5; x < doc->Vorlagen.count(); ++x)
+			{
+				if (doc->Vorlagen[x].Vname == c->text(st))
+				{
+					align = x;
+					break;
+				}
+			}
+		}
+		else
+			align = st;
 		SEditor *tt = dynamic_cast<SEditor*>(table1->cellWidget(r, 1));
 		switch (align)
 		{
@@ -661,6 +690,17 @@ void StoryEditor::addPar(int where, QString text, int sty)
 	cp->setText(text);
 	table1->adjHeight(where);
 	connect(ct, SIGNAL(highlighted(int)), this, SLOT(styleChange(int)));
+	if (sty > 4)
+	{
+		for (uint x = 5; x < doc->Vorlagen.count(); ++x)
+		{
+			if (doc->Vorlagen[x].Vname == ct->text(sty))
+			{
+				sty = x;
+				break;
+			}
+		}
+	}
 	ct->setCurrentItem(sty);
 	disconnect(ct, SIGNAL(highlighted(int)), this, SLOT(styleChange(int)));
 	cp->setFocus();

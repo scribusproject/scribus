@@ -103,11 +103,11 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	Layout3->setMargin(0);
 	AliasText = new QCheckBox(this, "TextAntiAlias");
 	AliasText->setText( tr("Anti-alias Text"));
-	AliasText->setChecked(true);
+	AliasText->setChecked(false);
 	Layout2->addWidget(AliasText);
 	AliasGr = new QCheckBox(this, "GraphicsAntiAlias");
 	AliasGr->setText( tr("Anti-alias Graphics"));
-	AliasGr->setChecked(true);
+	AliasGr->setChecked(false);
 	Layout2->addWidget(AliasGr);
 	AliasTr = new QCheckBox(this, "DisplayTransparency");
 	AliasTr->setText( tr("Display Transparency"));
@@ -318,31 +318,30 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				for (int x=0; x < w2; x += 4 ) 
 				{
 					cyan = uchar(imgc[(y * w2) + x]);
-				magenta = uchar(imgc[(y * w2) + x + 1]);
-				yellow = uchar(imgc[(y * w2) + x + 2]);
-				black = uchar(imgc[(y * w2)+ x + 3]);
-				if (!EnableCMYK_C->isChecked())
-					cyan = 0;
-				if (!EnableCMYK_M->isChecked())
-					magenta = 0;
-				if (!EnableCMYK_Y->isChecked())
-					yellow = 0;
-				if (!EnableCMYK_K->isChecked())
-					black = 0;
-				CMYKColor color = CMYKColor(cyan, magenta, yellow, black);
-				*p = color.getRGBColor().rgb() | 0xff000000;
-				p++;
+					magenta = uchar(imgc[(y * w2) + x + 1]);
+					yellow = uchar(imgc[(y * w2) + x + 2]);
+					black = uchar(imgc[(y * w2)+ x + 3]);
+					if (!EnableCMYK_C->isChecked())
+						cyan = 0;
+					if (!EnableCMYK_M->isChecked())
+						magenta = 0;
+					if (!EnableCMYK_Y->isChecked())
+						yellow = 0;
+					if (!EnableCMYK_K->isChecked())
+						black = 0;
+					*p = qRgba(255-QMIN(255, cyan+black), 255-QMIN(255,magenta+black), 255-QMIN(255,yellow+black), 255);
+					p++;
 				}
 			}
 		}
 		else
 		{
 			image.load(app->PrefsPfad+"/sc.png");
- 			image = image.convertDepth(32);
+			image = image.convertDepth(32);
 		}
 		Bild.convertFromImage(image);
 		system("rm -f "+app->PrefsPfad+"/sc.png");
-	}
+		}
 	system("rm -f "+app->PrefsPfad+"/tmp.ps");
 	return Bild;
 }
