@@ -834,10 +834,12 @@ PyObject *scribus_tracetext(PyObject */*self*/, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args)
+PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args, PyObject* kw)
 {
 	char *name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
+	bool nolinks = false;
+	char *kwargs[] = {const_cast<char*>("name"), const_cast<char*>("nolinks"), NULL};
+	if (!PyArg_ParseTupleAndKeywords(args, kw, "|esi", kwargs, "utf-8", &name, &nolinks))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
@@ -849,16 +851,28 @@ PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Only text frames can be checked for overflowing", "python error"));
 		return NULL;
 	}
-	/* walk through the items for overflow checking */
-	for (QMap<int, errorCodes>::Iterator errIter = Carrier->doc->docItemErrors.begin();
-			errIter != Carrier->doc->docItemErrors.end();
-			++errIter)
-	{
-		if (Carrier->doc->DocItems.at(errIter.key())->itemName() == item->itemName())
-			if (errIter.data().find(2) != errIter.data().end())
-				return PyBool_FromLong(static_cast<long>(true));
-	} // for error iterator
-	return PyBool_FromLong(static_cast<long>(false));
+	/* original solution
+	if (item->itemText.count() > item->MaxChars)
+	return PyBool_FromLong(static_cast<long>(true));
+	return PyBool_FromLong(static_cast<long>(false)); */
+	uint firstFrame = 0;
+	if (nolinks)
+		firstFrame = item->itemText.count();
+	uint chars = item->itemText.count();
+	uint maxchars = item->MaxChars;
+	while (item->NextBox != 0) {
+		item = item->NextBox;
+		chars += item->itemText.count();
+		maxchars += item->MaxChars;
+	}
+	// no overrun
+	if (nolinks)
+		return PyInt_FromLong(maxchars - firstFrame);
+
+	if (maxchars > chars)
+		return PyInt_FromLong(0);
+	// number of overrunning letters
+	return PyInt_FromLong(static_cast<long>(chars - maxchars));
 }
 
 PyObject *scribus_setpdfbookmark(PyObject */*self*/, PyObject* args)

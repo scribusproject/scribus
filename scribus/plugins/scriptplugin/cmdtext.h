@@ -303,15 +303,17 @@ currently selected item is used."));
 PyObject *scribus_tracetext(PyObject * self, PyObject* args);
 
 PyDoc_STRVAR(scribus_istextoverflowing__doc__,
-QT_TR_NOOP("textOverflows([\"name\"]) -> bool\n\
+QT_TR_NOOP("textOverflows([\"name\", nolinks]) -> integer\n\
 \n\
-Returns true if the text in frame \"name\" overflows.\n\
+Returns the actual number of overflowing characters in text frame \"name\".\n\
+If is nolinks set to non zero value it takes only one frame - it doesn't\n\
+use text frame linking. Without this parameter it search all linking chain.\n\
 \n\
 May raise WrongFrameTypeError if the target frame is not an text frame\n"));
 /** Check if is the text frame overflowind or not
  2005-02-04 petr vanek
  */
-PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args);
+PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args, PyObject* kw);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setpdfbookmark__doc__,

@@ -664,10 +664,10 @@ Displays the "New Document" dialog box. Creates a new document if the user accep
 
 	<dt><a name="-textFlowsAroundFrame"><strong>textFlowsAroundFrame</strong></a>(...)</dt>
 	<dd><code><a href="#-textFlowsAroundFrame">textFlowsAroundFrame</a>("name" [, state])<br> <br>Enables/disables "Text Flows Around Frame" feature for object "name". Called with parameters string name and optional boolean "state". If "state" is not passed, text flow is toggled.</code></dd>
-	
+
 	<dt><a name="-textOverflows"><strong>textOverflows</strong></a>(...)</dt>
-	<dd><code><a href="#-textOverflows">textOverflows</a>(["name"]) -&gt; bool</code>
-	<p>Returns true if the text in frame "name" overflows.</p>
+	<dd><code><a href="#-textOverflows">textOverflows</a>(["name", nolinks]) -&gt; integer</code>
+	<p>Returns the actual number of overflowing characters in text frame "name". If is nolinks set to non zero value it takes only one frame - it doesn't use text frame linking. Without this parameter it search all linking chain.</p>
 	<p>May raise WrongFrameTypeError if the target frame is not an text frame</p></dd>
 
 	<dt><a name="-traceText"><strong>traceText</strong></a>(...)</dt>
