@@ -571,6 +571,8 @@ void ScribusView::slotDoZoom()
 			PageItem *b = Doc->ActPage->SelItem.at(0);
 			SetCCPo(static_cast<int>(b->Xpos + b->Width/2), static_cast<int>(b->Ypos + b->Height/2));
 			}
+		else
+			SetCPo(0, 0);
 
 		}
 }

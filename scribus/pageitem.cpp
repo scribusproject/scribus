@@ -801,17 +801,14 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					fBorder = false;
 					if (LiList.isEmpty())
 						{
-						double TopOffset;
-						double BotOffset = desc2+BExtra+lineCorr;
+						double TopOffset = asce;
+						double BotOffset = desc2;
 						if (StartOfCol)
 						{
-							TopOffset = asce+TExtra+lineCorr;
 							CurY = asce+TExtra+lineCorr+1;
 							if (((a > 0) && (Ptext.at(a-1)->ch == QChar(13))) || (a == 0))
 								CurY += Doc->Vorlagen[hl->cab].Avor;
 						}
-						else
-							TopOffset = asce;
 						if (Doc->Vorlagen[hl->cab].BaseAdj)
 						{
 							int ol1 = qRound((Ypos + CurY - Doc->BaseOffs) * 10000.0);
@@ -840,7 +837,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								CurX = ColBound.x();
 								if (CurY+BExtra+lineCorr > Height)
 									{
-									TopOffset = asce+TExtra+lineCorr;
 									StartOfCol = true;
 									fBorder = false;
 									CurrCol++;
@@ -960,9 +956,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						hl->xp = CurX;
 					if ((TabCode == 4) && (RTab))
 						CurX += (wide+kernVal) / 2;
-					pt1 = QPoint(static_cast<int>(ceil(CurX+RExtra)), static_cast<int>(CurY+desc+BExtra+lineCorr));
+					pt1 = QPoint(static_cast<int>(ceil(CurX+RExtra)), static_cast<int>(CurY+desc));
 					pt2 = QPoint(static_cast<int>(ceil(CurX+RExtra)), static_cast<int>(ceil(CurY-asce)));
 					if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))) || (CurX+RExtra+lineCorr > ColBound.y()))
+						outs = true;
+					if (CurY > (Height - BExtra - lineCorr))
 						outs = true;
 					Zli = new ZZ;
 					Zli->Zeich = chx;
