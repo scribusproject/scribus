@@ -1256,10 +1256,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				case Key_Backspace:
 				case Key_Delete:
 					if (!doc->EditClip)
-					{
-						if ((!b->Locked) && (!((b->isTableItem) && (b->isSingleSel))))
-							doc->ActPage->DeleteItem();
-					}
+						doc->ActPage->DeleteItem();
 					break;
 				case Key_Prior:
 					if (!b->Locked)
