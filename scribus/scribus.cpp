@@ -7574,6 +7574,8 @@ void ScribusApp::SelectFromOutlS(int Page)
 	NoFrameEdit();
 	setActiveWindow();
 	view->Deselect(true);
+	if (Page < 0)
+		return;
 	view->GotoPage(Page);
 }
 
@@ -8944,7 +8946,8 @@ void ScribusApp::StatusPic()
 	if (HaveDoc)
 	{
 		PicStatus *dia = new PicStatus(this, doc, view);
-		connect(dia, SIGNAL(GotoSeite(int)), this, SLOT(SelectFromOutlS(int)));
+		connect(dia, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
+		connect(dia, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
 		dia->exec();
 		delete dia;
 	}

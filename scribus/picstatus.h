@@ -41,7 +41,8 @@ protected:
     QHBoxLayout* Layout2;
 
 signals:
-	void GotoSeite(int);
+	void selectPage(int);
+	void selectTemplatePage(QString);
 };
 
 #endif // PICSTATUS_H

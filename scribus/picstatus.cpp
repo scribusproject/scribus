@@ -28,7 +28,9 @@
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "pageitem.h"
+#include "scribus.h"
 extern QPixmap loadIcon(QString nam);
+extern ScribusApp* ScApp;
 
 /*!
  \fn void PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
@@ -92,11 +94,10 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 			QFileInfo fi = QFileInfo(doc->MasterItems.at(i)->Pfile);
 			PicTable->setText(Zeilen2, 0, fi.fileName());
 			PicTable->setText(Zeilen2, 1, fi.dirPath());
-			PicTable->setText(Zeilen2, 2, tmp.setNum(p+1));
+			PicTable->setText(Zeilen2, 2, doc->MasterItems.at(i)->OnMasterPage);
 			QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
 			tb2->setText( tr("Goto"));
 			tb2->setEraseColor(white);
-			tb2->setEnabled(false);
 			PicTable->setColumnWidth(3, tb2->fontMetrics().width( tr("Goto"))+10);
 			PicTable->setCellWidget(Zeilen2, 3, tb2);
 			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
@@ -127,6 +128,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 			QFileInfo fi = QFileInfo(doc->Items.at(i)->Pfile);
 			PicTable->setText(Zeilen2, 0, fi.fileName());
 			PicTable->setText(Zeilen2, 1, fi.dirPath());
+			p = doc->Items.at(i)->OwnPage;
 			PicTable->setText(Zeilen2, 2, tmp.setNum(p+1));
 			QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
 			tb2->setText( tr("Goto"));
@@ -191,7 +193,15 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
  */
 void PicStatus::GotoPic()
 {
-	emit GotoSeite(PicTable->text(QString(sender()->name()).toInt(), 2).toInt()-1);
+	QString pageText = PicTable->text(QString(sender()->name()).toInt(), 2);
+	bool ok = false;
+	int pageNum = pageText.toInt(&ok);
+	if (doc->TemplateMode)
+		ScApp->ActWin->muster->close();
+	if (!ok)
+		emit selectTemplatePage(pageText);
+	else
+		emit selectPage(pageNum-1);
 }
 
 /*!

@@ -2,6 +2,9 @@
 
 Scribus - 1.3.0cvs
 ==================
+- 0001766: [General] Display of right hand margin too long (fschmid)
+- 0001765: [Picture Frames] selectin "goto" in the picture manager crashes scribus (fschmid)
+- 0001741: [Scripter] textoverflows() not working (subik)
 - 0001762: [Default] Implement a configure check for libtiff 3.6+ (ringerc)
 - 0001761: [Default] Implement an OASIS document format importer (Tsoots)
 - 0001744: [Default] Add in centimeters as a unit of measurment (cbradney)
