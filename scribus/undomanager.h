@@ -233,16 +233,18 @@ public:
 	 * to the guis as a single undo action. Transaction can be named when starting it or
 	 * naming can be done when commiting it.
 	 * @param targetName name for the target of this transaction (f.e. "Selection")
+	 * @param targetPixmap pixmap for the target on which this transaction works
 	 * @param name name for the transaction (f.e. "Move" would make with the above
 	 * "Move Selection")
 	 * @param description description for the transaction
-	 * @param pixmap icon for the transaction
+	 * @param actionPixmap icon for the action performed by the transaction
 	 * @sa commit()
 	 */
 	void beginTransaction(const QString &targetName = "",
-                          const QString &name = "",
+                          QPixmap *targetPixmap = 0,
+                          const QString &actionName = "",
                           const QString &description = "",
-                          QPixmap *pixmap = 0);
+                          QPixmap *actionPixmap = 0);
 
 	/** 
 	 * @brief Cancels the current transaction and deletes groupped <code>UndoState</code>s.
@@ -258,15 +260,17 @@ public:
 	 * widgets and it will show up there as a single undo action. Details used as a parameter
 	 * will be details shown in the gui widgets.
 	 * @param targetName name for the target of this transaction (f.e. "Selection")
+	 * @param targetPixmap pixmap for the target on which this transaction works
 	 * @param name name for the action
 	 * @param description description for the action
-	 * @param pixmap icon for the action
+	 * @param actionPixmap icon for the action performed by the transaction
 	 * @sa beginTransaction()
 	 */
 	void commit(const QString &targetName = "",
+                QPixmap *targetPixmap = 0,
                 const QString &name = "",
                 const QString &description = "",
-                QPixmap *pixmap = 0);
+                QPixmap *actionPixmap = 0);
 
 	/**
 	 * @brief Returns true if in transaction mode if not will return false.
@@ -385,26 +389,19 @@ public:
 	 * Icons for undo actions
 	 */
 	/*@{*/
+/*** Icons for UndoObjects *******************************************/
+	static QPixmap *IImageFrame;
+	static QPixmap *ITextFrame;
+	static QPixmap *ILine;
+	static QPixmap *IPolygon;
+	static QPixmap *IPolyline;
+	static QPixmap *IPathText;
+/*** Icons for actions ***********************************************/
+	static QPixmap *IMove;
+	static QPixmap *IResize;
+	static QPixmap *IRotate;
 	static QPixmap *IGuides;
 	static QPixmap *ILockGuides;
-	static QPixmap *IMoveText;
-	static QPixmap *IMoveImage;
-	static QPixmap *IMoveLine;
-	static QPixmap *IMovePolygon;
-	static QPixmap *IMovePolyline;
-	static QPixmap *IMovePathText;
-	static QPixmap *IResizeText;
-	static QPixmap *IResizeImage;
-	static QPixmap *IResizeLine;
-	static QPixmap *IResizePolygon;
-	static QPixmap *IResizePolyline;
-	static QPixmap *IResizePathText;
-	static QPixmap *IRotateText;
-	static QPixmap *IRotateImage;
-	static QPixmap *IRotateLine;
-	static QPixmap *IRotatePolygon;
-	static QPixmap *IRotatePolyline;
-	static QPixmap *IRotatePathText;
 	static QPixmap *IAlignDistribute;
 	/*@}*/
 

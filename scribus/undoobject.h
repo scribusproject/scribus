@@ -22,6 +22,7 @@
 #define UNDOOBJECT_H
 
 #include <qstring.h>
+#include <qpixmap.h>
 #include "undostate.h"
 
 /**
@@ -60,6 +61,14 @@ private:
 	 * This name will be used in UndoGui implementations
 	 */
 	QString uname;
+
+	/**
+	 * @brief Icon presenting the object.
+	 *
+	 * When used together with an UndoAction that has an image is this image
+	 * drawn first then the action image is drawn on top of this.
+	 */
+	QPixmap *upixmap;
 public:
 	/** @brief Creates a new anonymous UndoObject instance  */
 	UndoObject();
@@ -68,7 +77,7 @@ public:
 	 * @brief Creates a new UndoObject instance with the name <code>objectName</code>
 	 * @param objectName Name of the UndoObject
 	 */
-	UndoObject(QString objectName);
+	UndoObject(const QString &objectName, QPixmap *objectIcon = 0);
 
 	/** @brief Destroys the object. */
 	virtual ~UndoObject() {};
@@ -84,6 +93,18 @@ public:
 	 * @param newUName New name for the UndoObject
 	 */
 	virtual void setUName(QString newUName);
+
+	/**
+	 * @brief Returns the pixmap connected to this object.
+	 * @return pixmap connected to this object
+	 */
+	virtual QPixmap* getUPixmap();
+
+	/**
+	 * @brief Set the pixmap for this object.
+	 * @param newUPixmap pixmap for this object
+	 */
+	virtual void setUPixmap(QPixmap *newUPixmap);
 
 	/**
 	 * @brief Returns an unique identifier number for the UndoObject

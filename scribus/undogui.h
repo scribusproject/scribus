@@ -250,8 +250,10 @@ private:
 	class UndoItem : public QListBoxItem
 	{
 	private:
+		/** @brief An icon for the undo target */
+						   QPixmap *targetpixmap;
 		/** @brief An icon for the undo state (action) */
-		QPixmap *pixmap;
+		QPixmap *actionpixmap;
 		/** @brief Name of the target of the state (action) */
 		QString target;
 		/** @brief Undo action's name */
@@ -280,6 +282,7 @@ private:
 		UndoItem(const QString &targetName,
                  const QString &actionName,
                  const QString &actionDescription,
+                 QPixmap *targetPixmap,
                  QPixmap *actionPixmap);
 		~UndoItem();
 		void paint(QPainter *painter);

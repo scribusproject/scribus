@@ -68,9 +68,10 @@ UndoManager::UndoManager()
 }
 
 void UndoManager::beginTransaction(const QString &targetName,
+                                   QPixmap *targetPixmap,
                                    const QString &name,
                                    const QString &description,
-                                   QPixmap *pixmap)
+                                   QPixmap *actionPixmap)
 {
 	if (transaction) // begin a transaction inside transaction
 		transactions.push_back(
@@ -78,12 +79,14 @@ void UndoManager::beginTransaction(const QString &targetName,
 	transaction = new TransactionState();
 	transactionTarget = new TransactionObject();
 	transactionTarget->setUName(targetName); // Name which will be in action history
+	if (targetPixmap)
+		transactionTarget->setUPixmap(targetPixmap);
 	if (name.length() > 0)          // if left to 0 length action will be fetched from the
 		transaction->setName(name); // last added UndoState in this transaction
 	if (description.length() > 0)
 		transaction->setDescription(description); // tool tip for action history
-	if (pixmap)
-		transaction->setPixmap(pixmap); // for action history
+	if (actionPixmap)
+		transaction->setPixmap(actionPixmap); // for action history
 }
 
 void UndoManager::cancelTransaction()
@@ -103,9 +106,10 @@ void UndoManager::cancelTransaction()
 }
 
 void UndoManager::commit(const QString &targetName,
+                         QPixmap *targetPixmap,
                          const QString &name,
                          const QString &description,
-                         QPixmap *pixmap)
+                         QPixmap *actionPixmap)
 {
 	if (!transaction || !transactionTarget)
 	{
@@ -114,12 +118,14 @@ void UndoManager::commit(const QString &targetName,
 	}
 	if (targetName.length() > 0)
 		transactionTarget->setUName(targetName);
+	if (targetPixmap)
+		transactionTarget->setUPixmap(targetPixmap);
 	if (name.length() > 0)
 		transaction->setName(name);
 	if (description.length() > 0)
 		transaction->setDescription(description);
-	if (pixmap)
-		transaction->setPixmap(pixmap);
+	if (actionPixmap)
+		transaction->setPixmap(actionPixmap);
 
 	UndoObject *tmpu = transactionTarget;
 	TransactionState *tmps = transaction;
@@ -557,28 +563,21 @@ UndoManager::TransactionState::~TransactionState()
 void UndoManager::initIcons()
 {
 	QString iconDir = ICONDIR;
-	UndoManager::IGuides         = new QPixmap(iconDir + "u_margins.png");
-	UndoManager::ILockGuides     = new QPixmap(iconDir + "u_margins_locked.png");
-	UndoManager::IMoveText       = new QPixmap(iconDir + "u_move_text.png");
-	UndoManager::IMoveImage      = new QPixmap(iconDir + "u_move_image.png");
-	UndoManager::IMoveLine       = new QPixmap(iconDir + "u_move_line.png");
-	UndoManager::IMovePolygon    = new QPixmap(iconDir + "u_move_polygon.png");
-	UndoManager::IMovePolyline   = new QPixmap(iconDir + "u_move_polyline.png");
-// 	UndoManager::IMovePathText   = new QPixmap(iconDir + "u_move_pathtext.png");
-	UndoManager::IResizeText     = new QPixmap(iconDir + "u_resize_text.png");
-	UndoManager::IResizeImage    = new QPixmap(iconDir + "u_resize_image.png");
-	UndoManager::IResizeLine     = new QPixmap(iconDir + "u_resize_line.png");
-	UndoManager::IResizePolygon  = new QPixmap(iconDir + "u_resize_polygon.png");
-	UndoManager::IResizePolyline = new QPixmap(iconDir + "u_resize_polyline.png");
-// 	UndoManager::IResizePathText = new QPixmap(iconDir + "u_resize_pathtext.png");
-	UndoManager::IRotateText     = new QPixmap(iconDir + "u_rotate_text.png");
-	UndoManager::IRotateImage    = new QPixmap(iconDir + "u_rotate_image.png");
-	UndoManager::IRotateLine     = new QPixmap(iconDir + "u_rotate_line.png");
-	UndoManager::IRotatePolygon  = new QPixmap(iconDir + "u_rotate_polygon.png");
-	UndoManager::IRotatePolyline = new QPixmap(iconDir + "u_rotate_polyline.png");
-// 	UndoManager::IRotatePathText = new QPixmap(iconDir + "u_rotate_pathtext.png");
 
+/*** Icons for UndoObjects *******************************************/
+	UndoManager::IImageFrame      = new QPixmap(iconDir + "Bild.xpm");
+	UndoManager::ITextFrame       = new QPixmap(iconDir + "Text.xpm");
+	UndoManager::ILine            = new QPixmap(iconDir + "Stift.xpm");
+	UndoManager::IPolygon         = new QPixmap(iconDir + "spline.png");
+	UndoManager::IPolyline        = new QPixmap(iconDir + "beziertool.png");
+// 	UndoManager::IPathText        = new QPixmap(iconDir + "?";
+/*** Icons for actions ***********************************************/
+	UndoManager::IMove            = new QPixmap(iconDir + "u_move.png");
+	UndoManager::IResize          = new QPixmap(iconDir + "u_resize.png");
+	UndoManager::IRotate          = new QPixmap(iconDir + "u_rotate.png");
 	UndoManager::IAlignDistribute = new QPixmap(iconDir + "u_align.png");
+	UndoManager::IGuides          = new QPixmap(iconDir + "u_margins.png");
+	UndoManager::ILockGuides      = new QPixmap(iconDir + "u_margins_locked.png");
 }
 
 const QString UndoManager::AddVGuide         = tr("Add vertical guide");
@@ -603,24 +602,17 @@ const QString UndoManager::AlignDistribute   = tr("Align/Distribute");
 const QString UndoManager::ItemsInvolved     = tr("Items involved");
 const QString UndoManager::Cancel            = tr("Cancel");
 
+/*** Icons for UndoObjects *******************************************/
+QPixmap *UndoManager::IImageFrame      = NULL;
+QPixmap *UndoManager::ITextFrame       = NULL;
+QPixmap *UndoManager::ILine            = NULL;
+QPixmap *UndoManager::IPolygon         = NULL;
+QPixmap *UndoManager::IPolyline        = NULL;
+QPixmap *UndoManager::IPathText        = NULL;
+/*** Icons for actions ***********************************************/
+QPixmap *UndoManager::IMove            = NULL;
+QPixmap *UndoManager::IResize          = NULL;
+QPixmap *UndoManager::IRotate          = NULL;
 QPixmap *UndoManager::IGuides          = NULL;
 QPixmap *UndoManager::ILockGuides      = NULL;
-QPixmap *UndoManager::IMoveText        = NULL;
-QPixmap *UndoManager::IMoveImage       = NULL;
-QPixmap *UndoManager::IMoveLine        = NULL;
-QPixmap *UndoManager::IMovePolygon     = NULL;
-QPixmap *UndoManager::IMovePolyline    = NULL;
-QPixmap *UndoManager::IMovePathText    = NULL;
-QPixmap *UndoManager::IResizeText      = NULL;
-QPixmap *UndoManager::IResizeImage     = NULL;
-QPixmap *UndoManager::IResizeLine      = NULL;
-QPixmap *UndoManager::IResizePolygon   = NULL;
-QPixmap *UndoManager::IResizePolyline  = NULL;
-QPixmap *UndoManager::IResizePathText  = NULL;
-QPixmap *UndoManager::IRotateText      = NULL;
-QPixmap *UndoManager::IRotateImage     = NULL;
-QPixmap *UndoManager::IRotateLine      = NULL;
-QPixmap *UndoManager::IRotatePolygon   = NULL;
-QPixmap *UndoManager::IRotatePolyline  = NULL;
-QPixmap *UndoManager::IRotatePathText  = NULL;
 QPixmap *UndoManager::IAlignDistribute = NULL;

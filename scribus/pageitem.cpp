@@ -184,45 +184,30 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	{
 	case 2:
 		AnName = tr("Image");
-		undoIconMove = Um::IMoveImage;
-		undoIconResize = Um::IResizeImage;
-		undoIconRotate = Um::IRotateImage;
+		setUPixmap(Um::IImageFrame);
 		break;
 	case 4:
 		AnName = tr("Text");
-		undoIconMove = Um::IMoveText;
-		undoIconResize = Um::IResizeText;
-		undoIconRotate = Um::IRotateText;
+		setUPixmap(Um::ITextFrame);
 		break;
 	case 5:
 		AnName = tr("Line");
-		undoIconMove = Um::IMoveLine;
-		undoIconResize = Um::IResizeLine;
-		undoIconRotate = Um::IRotateLine;
+		setUPixmap(Um::ILine);
 		break;
 	case 6:
 		AnName = tr("Polygon");
-		undoIconMove = Um::IMovePolygon;
-		undoIconResize = Um::IResizePolygon;
-		undoIconRotate = Um::IRotatePolygon;
+		setUPixmap(Um::IPolygon);
 		break;
 	case 7:
 		AnName = tr("Polyline");
-		undoIconMove = Um::IMovePolyline;
-		undoIconResize = Um::IResizePolyline;
-		undoIconRotate = Um::IRotatePolyline;
+		setUPixmap(Um::IPolyline);
 		break;
 	case 8:
 		AnName = tr("PathText");
-		undoIconMove = Um::IMovePathText;
-		undoIconResize = Um::IResizePathText;
-		undoIconRotate = Um::IRotatePathText;
+		setUPixmap(Um::IPathText);
 		break;
 	default:
 		AnName = "Item";
-		undoIconMove = NULL;
-		undoIconResize = NULL;
-		undoIconRotate = NULL;
 		break;
 	}
 	AnName += tmp.setNum(Doc->TotalItems); // +" "+QDateTime::currentDateTime().toString();
@@ -2302,7 +2287,7 @@ void PageItem::moveUndoAction()
                                                                   arg(ScApp->doc->FirstPnum + oldOwnPage).
                                                                   arg(Xpos).arg(Ypos).
                                                                   arg(ScApp->doc->FirstPnum + OwnPage),
-                                          undoIconMove);
+                                          Um::IMove);
 		ss->set("OLD_XPOS", oldXpos);
 		ss->set("OLD_YPOS", oldYpos);
 		ss->set("NEW_XPOS", Xpos);
@@ -2322,7 +2307,7 @@ void PageItem::resizeUndoAction()
 	{
 		SimpleState *ss = new SimpleState(Um::Resize, 
                            QString(Um::ResizeFromTo).arg(oldWidth).arg(oldHeight).arg(Width).arg(Height),
-										  undoIconResize);
+                                          Um::IResize);
 		ss->set("OLD_WIDTH", oldWidth);
 		ss->set("OLD_HEIGHT", oldHeight);
 		ss->set("NEW_WIDTH", Width);
@@ -2348,7 +2333,7 @@ void PageItem::rotateUndoAction()
 	{
 		SimpleState *ss = new SimpleState(Um::Rotate,
                                           QString(Um::RotateFromTo).arg(oldRot).arg(Rot),
-                                          undoIconRotate);
+                                          Um::IRotate);
 		ss->set("OLD_ROT", oldRot);
 		ss->set("NEW_ROT", Rot);
 		ss->set("OLD_RXPOS", oldXpos);

@@ -7349,7 +7349,7 @@ void ScribusApp::ObjektAlign()
 		targetTooltip += "\t" + view->SelItem.at(i)->getUName() + "\n";
 
 	// Make the align action a single action in Action History
-	undoManager->beginTransaction(Um::Selection, Um::AlignDistribute,
+	undoManager->beginTransaction(Um::Selection, 0, Um::AlignDistribute,
 								  targetTooltip, Um::IAlignDistribute);
 
 	if (dia->exec())
@@ -7385,7 +7385,6 @@ void ScribusApp::DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, doubl
 {
 	view->AlignObj(xa, ya, Vth, Vtv, xdp, ydp, xart, yart);
 	slotDocCh();
-
 }
 
 void ScribusApp::buildFontMenu()
@@ -10206,4 +10205,3 @@ void ScribusApp::slotTest()
 void ScribusApp::slotTest2()
 {
 }
-

@@ -302,12 +302,7 @@ public:
 	QString OnMasterPage;
 	int startArrowIndex;
 	int endArrowIndex;
-	/** @brief Icon for move action */
-	QPixmap *undoIconMove;
-	/** @brief Icon for resize action */
-	QPixmap *undoIconResize;
-	/** @brief Icon for rotate action */
-	QPixmap *undoIconRotate;
+
 	/** @brief Manages undostack and is where all undo actions/states are sent. */
 	UndoManager *undoManager;
 	/** 

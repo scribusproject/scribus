@@ -28,13 +28,15 @@ UndoObject::UndoObject()
 	_id = nextId;
 	++nextId;
 	uname = "";
+	upixmap = NULL;
 }
 
-UndoObject::UndoObject(QString objectName)
+UndoObject::UndoObject(const QString &objectName, QPixmap *objectIcon)
 {
 	_id = nextId;
 	++nextId;
 	uname = objectName;
+	upixmap = objectIcon;
 }
 
 ulong UndoObject::getUId()
@@ -50,4 +52,14 @@ QString UndoObject::getUName()
 void UndoObject::setUName(QString newUName)
 {
 	uname = newUName;
+}
+
+QPixmap* UndoObject::getUPixmap()
+{
+	return upixmap;
+}
+
+void UndoObject::setUPixmap(QPixmap *newUPixmap)
+{
+	upixmap = newUPixmap;
 }
