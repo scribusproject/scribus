@@ -53,6 +53,7 @@ public:
 	void    set(const QString& key, const QString& value);
 	int     getInt(const QString& key, int defValue = -1);
 	void    set(const QString& key, int value);
+	void    set(const QString& key, uint value);
 	uint    getUInt(const QString& key, uint defValue = 0);
 	double  getDouble(const QString& key, double defValue = -1.0);
 	void    set(const QString& key, double value);
