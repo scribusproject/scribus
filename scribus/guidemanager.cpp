@@ -245,7 +245,6 @@ void GuideManager::DelHorVal()
 	QValueList<double>::Iterator it;
 	it = LocHor.at(selHor);
 	it = LocHor.remove(it);
-	selHor = LocHor.isEmpty() ? -1 : static_cast<int>(LocHor.count() - 1);
 	if (LocHor.isEmpty())
 		selHor = -1;
 	else if (selHor > static_cast<int>(LocHor.count()-1))
@@ -260,7 +259,6 @@ void GuideManager::DelVerVal()
 	QValueList<double>::Iterator it;
 	it = LocVer.at(selVer);
 	it = LocVer.remove(it);
-	selVer = LocVer.isEmpty() ? -1 : static_cast<int>(LocVer.count() - 1);
 	if (LocVer.isEmpty())
 		selVer = -1;
 	else if (selVer > static_cast<int>(LocVer.count()-1))

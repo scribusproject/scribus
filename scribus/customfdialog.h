@@ -54,6 +54,7 @@ class FDialogPreview : public QLabel, public QFilePreview
 public:
 	FDialogPreview(QWidget *pa);
 	~FDialogPreview() {};
+	void updtPix();
 	void GenPreview(QString name);
 	virtual void previewUrl(const QUrl &url);
 };

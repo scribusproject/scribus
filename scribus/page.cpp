@@ -4569,7 +4569,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 			SeRy = newY;
 			HaveSelRect = true;
 		}
-		if ((ScApp->Prefs.GuidesShown) && (doku->AppMode == 1) && (!doku->GuideLock) && (!HaveSelRect))
+		if ((ScApp->Prefs.GuidesShown) && (doku->AppMode == 1) && (!doku->GuideLock))
 		{
 			if (YGuides.count() != 0)
 			{
@@ -4578,7 +4578,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 					if ((YGuides[yg] < (static_cast<int>(m->y()/sc)+doku->GuideRad)) &&
 							(YGuides[yg] > (static_cast<int>(m->y()/sc)-doku->GuideRad)))
 					{
-						if (Mpressed)
+						if ((Mpressed) && (GyM != -1))
 							MoveGY = true;
 						if (((m->x()/sc) < 0) || ((m->x()/sc) >= doku->PageB-1))
 							qApp->setOverrideCursor(QCursor(ArrowCursor), true);
@@ -4596,7 +4596,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 					if ((XGuides[xg] < (static_cast<int>(m->x()/sc)+doku->GuideRad)) &&
 							(XGuides[xg] > (static_cast<int>(m->x()/sc)-doku->GuideRad)))
 					{
-						if (Mpressed)
+						if ((Mpressed) && (GxM != -1))
 							MoveGX = true;
 						if (((m->y()/sc) < 0) || ((m->y()/sc) >= doku->PageH-1))
 							qApp->setOverrideCursor(QCursor(ArrowCursor), true);
@@ -5785,6 +5785,8 @@ bool Page::SeleItem(QMouseEvent *m)
 	}
 	if ((ScApp->Prefs.GuidesShown) && (doku->AppMode == 1) && (!doku->GuideLock))
 	{
+		GxM = -1;
+		GyM = -1;
 		if (YGuides.count() != 0)
 		{
 			for (uint yg = 0; yg < YGuides.count(); ++yg)

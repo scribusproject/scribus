@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <templates>
-	<template category="Newsletter">
+	<template category="Newsletters">
 		<name>Newsletter_1</name>
     	<file>nl1/nl1.sla</file>
     	<tnail>nl1/nl1tn.png</tnail>
@@ -9,10 +9,12 @@
     	<color>2 colors, green and orange</color>
     	<descr>Simple newsletter template</descr>
     	<usage>Right click on text and image frames and replace what's inside with your own. Images are free to be used in your documents as well.</usage>
-    	<author>RL</author>
+    	<scribus_version>1.1.7</scribus_version>
+		<date>2004-06-11</date>
+		<author>RL</author>
     	<email>tsoots@welho.com</email>
 	</template>
-	<template category="Newsletter">
+	<template category="Newsletters">
   		<name>Newsletter_2</name>
     	<file>nl2/nl2.sla</file>
     	<tnail>nl2/nl2tn.png</tnail>
@@ -21,10 +23,12 @@
     	<color>b/w</color>
     	<descr>Simple newsletter template</descr>
     	<usage>Right click on text and image frames and replace what's inside with your own. Images are free to be used in your documents as well.</usage>
+		<scribus_version>1.1.7</scribus_version>
+		<date>2004-06-11</date>
     	<author>RL</author>
     	<email>tsoots@welho.com</email>
   	</template>
-	<template category="Brochure">
+	<template category="Brochures">
   		<name>Brochure_1</name>
     	<file>br1/br1.sla</file>
     	<tnail>br1/br1tn.png</tnail>
@@ -33,7 +37,9 @@
     	<color>color</color>
     	<descr>Simple brochure with colorful fruity theme.</descr>
     	<usage>Right click on text replace what's inside with your own.</usage>
-    	<author>RL</author>
+    	<scribus_version>1.1.7</scribus_version>
+		<date>2004-06-11</date>
+		<author>RL</author>
     	<email>tsoots@welho.com</email>
 	</template>
 </templates>

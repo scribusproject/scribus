@@ -72,16 +72,28 @@ FDialogPreview::FDialogPreview(QWidget *pa) : QLabel(pa)
 	setEraseColor( white );
 	setFrameShape( QLabel::WinPanel );
 	setFrameShadow( QLabel::Sunken );
+	updtPix();
+}
+
+void FDialogPreview::updtPix()
+{
+	QPixmap pm;
+	QRect inside = contentsRect();
+	pm = QPixmap(inside.width(), inside.height());
+	pm.fill(white);
+	setPixmap(pm);
 }
 
 void FDialogPreview::GenPreview(QString name)
 {
 	QPixmap pm;
 	QString Buffer = "";
-	setText("");
 	QFileInfo fi = QFileInfo(name);
 	if (fi.isDir())
 		return;
+	updtPix();
+	int w = pixmap()->width();
+	int h = pixmap()->height();
 	QString ex = fi.extension(false).upper();
 	QStrList imfo = QImageIO::inputFormats();
 	if (ex == "JPG")
@@ -95,24 +107,23 @@ void FDialogPreview::GenPreview(QString name)
 			int iy = im.height();
 			QString tmp = "";
 			QString tmp2 = "";
-			if ((im.width() > width()-5) || (im.height() > height()-20))
+			if ((im.width() > w-5) || (im.height() > h-20))
 			{
 				QImage im2;
-				double sx = im.width() / static_cast<double>(width()-5);
-				double sy = im.height() / static_cast<double>(height()-20);
+				double sx = im.width() / static_cast<double>(w-5);
+				double sy = im.height() / static_cast<double>(h-20);
 				im2 = sy < sx ?  im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) :
 								 im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
 				im = im2;
 				im2.detach();
 			}
 			QPainter p;
-			pm = QPixmap(width(), height());
-			pm.fill(white);
-			p.begin(&pm);
+			pixmap()->fill(white);
+			p.begin(pixmap());
 			p.drawImage(0, 0, im);
-			p.drawText(2, height()-5, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
+			p.drawText(2, h-5, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
 			p.end();
-			setPixmap(pm);
+			repaint();
 		}
 	}
 	else
@@ -161,6 +172,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre,
 	cDir = QDir();
 	setDir(cDir);
 	setIconProvider(new ImIconProvider(this));
+	FDialogPreview *pw;
 	if (dirOnly)
 	{
 		Layout = new QFrame(this);
@@ -188,7 +200,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre,
 	else
 	{
 		setContentsPreviewEnabled( true );
-		FDialogPreview *pw = new FDialogPreview( this );
+		pw = new FDialogPreview( this );
 		setContentsPreview( pw, pw );
 		if (comp)
 		{
