@@ -2214,7 +2214,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem( tr("Send to Layer"), pmen3);
 			}
 			connect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
-			if ((b->PType == 4) || (b->PType == 2) || (b->PType == 6))
+			if (((b->PType == 4) || (b->PType == 2) || (b->PType == 6)) && (doku->AppMode != 7))
 			{
 				if (b->PType == 4)
 				{
@@ -2243,6 +2243,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			if (!b->Locked)
 				pmen->insertItem( tr("Cut"), this, SIGNAL(CutItem()));
 			pmen->insertItem( tr("Copy"), this, SIGNAL(CopyItem()));
+			if ((doku->AppMode == 7) && (ScApp->Buffer2.startsWith("<SCRIBUSTEXT")) && (b->PType == 4))
+				pmen->insertItem( tr("Paste"), ScApp, SLOT(slotEditPaste()));
 			if ((b->PType == 2) || ((b->PType == 4) && (b->NextBox == 0) && (b->BackBox == 0)))
 				pmen->insertItem( tr("Clear Contents"), this, SLOT(ClearItem()));
 			if ((!b->Locked) && (doku->AppMode != 7))

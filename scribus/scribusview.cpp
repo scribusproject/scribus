@@ -68,9 +68,10 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, preV *prefs)
 	PGS = new QSpinBox(this);
 	PGS->setMinValue(1);
 	PGS->setMaxValue(1);
-	PGS->setPrefix( tr("Page ") );
+	PGS->setPrefix( tr("Page "));
+	PGS->setSuffix( tr( " of %1").arg(1) );
 	PGS->setFont(fo);
-	PGS->setFocusPolicy(QWidget::NoFocus);
+	PGS->setFocusPolicy(QWidget::ClickFocus);
 	LY = new QPushButton(this);
 	LY->setFont(fo);
 	Laymen = new QPopupMenu(this);
@@ -146,8 +147,8 @@ void ScribusView::setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 		LE->setGeometry(x, y, 60+sadj, h);
 		SB1->setGeometry(x+60+sadj, y, 15, h);
 		SB2->setGeometry(x+75+sadj, y, 15, h);
-		PGS->setGeometry(x+90+sadj, y, 70, h);
-		LY->setGeometry(x+160+sadj, y, 110, h);
+		PGS->setGeometry(x+90+sadj, y, 80, h);
+		LY->setGeometry(x+170+sadj, y, 110, h);
 		HR->setGeometry(25, 1, w-24, 25);
 		}
 }
@@ -214,10 +215,10 @@ Page* ScribusView::addPage(int nr)
 		fe->SetRectFrame(fe->Items.at(z));
 		Doc->FirstAuto->Dirty = true;
 		}
-//	disconnect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 	PGS->setMaxValue(Doc->PageC);
+	PGS->setPrefix( tr("Page "));
+	PGS->setSuffix( tr( " of %1").arg(Doc->PageC) );
 	PGS->setValue(nr+1);
-//	connect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 	fe->setMouseTracking(true);
 	connect(fe, SIGNAL(Hrule(int)), HR, SLOT(Draw(int)));
 	connect(fe, SIGNAL(Vrule(int)), VR, SLOT(Draw(int)));
@@ -243,10 +244,10 @@ void ScribusView::delPage(int Nr)
 	Doc->UnDoValid = false;
 	Doc->PageC -= 1;
 	Doc->ActPage = Pages.at(0);
-//	disconnect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 	PGS->setMaxValue(Doc->PageC);
+	PGS->setPrefix( tr("Page "));
+	PGS->setSuffix( tr( " of %1").arg(Doc->PageC) );
 	PGS->setValue(1);
-//	connect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 }
 
 void ScribusView::movePage(int from, int to, int ziel, int art)
@@ -403,10 +404,10 @@ void ScribusView::reformPages()
 
 void ScribusView::setMenTxt(int Seite)
 {
-//	disconnect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
+	PGS->setPrefix( tr("Page "));
+	PGS->setSuffix( tr( " of %1").arg(Doc->PageC) );
 	PGS->setMaxValue(Doc->PageC);
 	PGS->setValue(Seite+1);
-//	connect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 }
 
 void ScribusView::setLayMenTxt(int l)
@@ -528,6 +529,7 @@ void ScribusView::GotoLa(int l)
 
 void ScribusView::GotoPa(int Seite)
 {
+	setFocus();
 	GotoPage(Seite-1);
 }
 
@@ -541,10 +543,8 @@ void ScribusView::GotoPage(int Seite)
 {
 	Doc->ActPage = Pages.at(Seite);
 	setContentsPos(static_cast<int>(childX(Doc->ActPage->parentWidget())-10*Doc->Scale), static_cast<int>(childY(Doc->ActPage->parentWidget())-10*Doc->Scale));
-//	disconnect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 	PGS->setMaxValue(Doc->PageC);
 	PGS->setValue(Seite+1);
-//	connect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 }
 
 /** Vergrößert die Ansicht */
@@ -694,7 +694,6 @@ void ScribusView::ShowTemplate(int nr)
 	Doc->MasterP = true;
 	Doc->ActPage = Pages.at(nr);
 	Pages.at(nr)->parentWidget()->show();
-//	LA->setEnabled(false);
 	PGS->setEnabled(false);
 	reformPages();
 	slotDoZoom();
@@ -716,7 +715,6 @@ void ScribusView::HideTemplate()
 		{
 		Pages.at(a)->parentWidget()->show();
 		}
-//	LA->setEnabled(true);
 	PGS->setEnabled(true);
 	reformPages();
 	GotoPage(0);
