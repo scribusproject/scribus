@@ -8,7 +8,7 @@ class SplashScreen : public QWidget
 {
 public:
 	SplashScreen();
-  ~SplashScreen() {};
+	~SplashScreen() {};
 	void setStatus( const QString &message );
 	void repaint();
 

@@ -24,7 +24,8 @@
   *@author Franz Schmid
   */
 
-class MSpinBox : public QSpinBox  {
+class MSpinBox : public QSpinBox  
+{
 public: 
 	MSpinBox(QWidget *pa, int s);
 	~MSpinBox() {};
@@ -38,6 +39,7 @@ public:
 	int Width;
 	QLineEdit *ed;
 	void setDecimals( int deci );
+
 protected:
 	bool eventFilter( QObject* ob, QEvent* ev );
 };

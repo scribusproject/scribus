@@ -25,7 +25,7 @@ class CMSPrefs : public QDialog
 
 public:
     CMSPrefs( QWidget* parent, CMSset *Vor,
-							ProfilesL *InputProfiles, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles);
+				ProfilesL *InputProfiles, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles);
     ~CMSPrefs() {};
 
     QCheckBox* CheckBox1;
@@ -44,8 +44,8 @@ public:
     QComboBox* PrinterI;
     QLabel* Text21;
     QCheckBox* Simulate;
-		QCheckBox* GamutC;
-		QCheckBox* BlackP;
+	QCheckBox* GamutC;
+	QCheckBox* BlackP;
     QPushButton* Cancel;
     QPushButton* OK;
   	CMSset *Prefs;
@@ -54,7 +54,7 @@ public:
 public slots:
     virtual void slotCMSon();
     virtual void SetValues();
-		virtual void slotSimula();
+	virtual void slotSimula();
 
 protected:
     QVBoxLayout* CMSPrefsLayout;

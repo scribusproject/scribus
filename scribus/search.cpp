@@ -77,18 +77,15 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 
     SStyleVal = new QComboBox( true, Search, "SStyleVal" );
 	SStyleVal->setEditable(false);
-	SStyleVal->insertItem( tr("Left"));
-	SStyleVal->insertItem( tr("Center"));
-	SStyleVal->insertItem( tr("Right"));
-	SStyleVal->insertItem( tr("Block"));
-	SStyleVal->insertItem( tr("Forced"));
+	char *tmp_sty[] = {"Left", "Center", "Right", "Block", "Forced"};
+	size_t ar_sty = sizeof(tmp_sty) / sizeof(*tmp_sty);
+	for (uint a = 0; a < ar_sty; ++a)
+		SStyleVal->insertItem(tr(tmp_sty[a]));
 	if (doc->Vorlagen.count() > 5)
-		{
+	{
 		for (uint x = 5; x < doc->Vorlagen.count(); ++x)
-			{
 			SStyleVal->insertItem(doc->Vorlagen[x].Vname);
-			}
-		}
+	}
 	SStyleVal->setCurrentItem(doc->CurrentABStil);
 	SStyleVal->setEnabled(false);
     SearchLayout->addWidget( SStyleVal, 1, 1 );
@@ -116,10 +113,10 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	SFillVal->setEditable(false);
 	SFillVal->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		{
+	{
 		pm.fill(doc->PageColors[it.key()].getRGBColor());
 		SFillVal->insertItem(pm, it.key());
-		}
+	}
 	SFillVal->setCurrentText(doc->CurrTextFill);
 	SFillVal->setEnabled(false);
     SearchLayout->addWidget( SFillVal, 5, 1 );
@@ -128,10 +125,10 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	SStrokeVal->setEditable(false);
 	SStrokeVal->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		{
+	{
 		pm.fill(doc->PageColors[it.key()].getRGBColor());
 		SStrokeVal->insertItem(pm, it.key());
-		}
+	}
 	SStrokeVal->setCurrentText(doc->CurrTextStroke);
 	SStrokeVal->setEnabled(false);
     SearchLayout->addWidget( SStrokeVal, 6, 1 );
@@ -180,18 +177,13 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 
     RStyleVal = new QComboBox( true, Replace, "RStyleVal" );
 	RStyleVal->setEditable(false);
-	RStyleVal->insertItem( tr("Left"));
-	RStyleVal->insertItem( tr("Center"));
-	RStyleVal->insertItem( tr("Right"));
-	RStyleVal->insertItem( tr("Block"));
-	RStyleVal->insertItem( tr("Forced"));
+	for (uint a = 0; a < ar_sty; ++a)
+		RStyleVal->insertItem(tr(tmp_sty[a]));
 	if (doc->Vorlagen.count() > 5)
-		{
+	{
 		for (uint x = 5; x < doc->Vorlagen.count(); ++x)
-			{
 			RStyleVal->insertItem(doc->Vorlagen[x].Vname);
-			}
-		}
+	}
 	RStyleVal->setCurrentItem(doc->CurrentABStil);
 	RStyleVal->setEnabled(false);
     ReplaceLayout->addWidget( RStyleVal, 1, 1 );
@@ -219,10 +211,10 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	RFillVal->setEditable(false);
 	RFillVal->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		{
+	{
 		pm.fill(doc->PageColors[it.key()].getRGBColor());
 		RFillVal->insertItem(pm, it.key());
-		}
+	}
 	RFillVal->setCurrentText(doc->CurrTextFill);
 	RFillVal->setEnabled(false);
     ReplaceLayout->addWidget( RFillVal, 5, 1 );
@@ -231,10 +223,10 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	RStrokeVal->setEditable(false);
 	RStrokeVal->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		{
+	{
 		pm.fill(doc->PageColors[it.key()].getRGBColor());
 		RStrokeVal->insertItem(pm, it.key());
-		}
+	}
 	RStrokeVal->setCurrentText(doc->CurrTextStroke);
 	RStrokeVal->setEnabled(false);
     ReplaceLayout->addWidget( RStrokeVal, 6, 1 );
@@ -260,7 +252,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 
     DoSearch = new QPushButton( this, "DoSearch" );
     DoSearch->setText( tr( "Search" ) );
-    DoSearch->setDefault( TRUE );
+    DoSearch->setDefault( true );
     ButtonsLayout->addWidget( DoSearch );
 
     DoReplace = new QPushButton( this, "DoReplace" );
@@ -341,9 +333,7 @@ void SearchReplace::slotSearch()
 	DoReplace->setEnabled(false);
 	AllReplace->setEnabled(false);
 	for (uint a = 0; a < Item->MaxChars; ++a)
-		{
 		Item->Ptext.at(a)->cselect = false;
-		}
 	Item->HasSel = false;
 	QString fCol = "";
 	QString sCol = "";
@@ -380,38 +370,35 @@ void SearchReplace::slotSearch()
 	uint as = Item->CPos;
 	ReplStart = as;
 	for (uint a = as; a < Item->MaxChars; ++a)
-		{
+	{
 		if (SText->isChecked())
-			{
+		{
 			QString chx = Item->Ptext.at(a)->ch;
 			if (CaseIgnore->isChecked())
 				chx = chx.lower();
-			if (chx == sText.mid(inde,1))
-				found = true;
-			else
-				found = false;
+			found = chx == sText.mid(inde, 1) ? true : false;
 			if ((Word->isChecked()) && (inde == 0) && (chx[0].isSpace()))
 				found = true;
-			}
+		}
 		else
 			found = true;
 		if (SSize->isChecked())
-			{
+		{
 			if (Item->Ptext.at(a)->csize != sSize)
 				found = false;
-			}
+		}
 		if (SFont->isChecked())
-			{
+		{
 			if (Item->Ptext.at(a)->cfont != sFont)
 				found = false;
-			}
+		}
 		if (SStyle->isChecked())
-			{
+		{
 			if (Item->Ptext.at(a)->cab != sStyle)
 				found = false;
-			}
+		}
 		if (SStroke->isChecked())
-			{
+		{
 			if (Item->Ptext.at(a)->cstroke != sCol)
 				found = false;
 			}
@@ -421,64 +408,61 @@ void SearchReplace::slotSearch()
 				found = false;
 			}
 		if (SFill->isChecked())
-			{			
+		{			
 			if (Item->Ptext.at(a)->ccolor != fCol)
 				found = false;
-			}
+		}
 		if (found)
-			{
+		{
 			Item->Ptext.at(a)->cselect = true;
 			Item->HasSel = true;
 			if (rep)
-				{
+			{
 				DoReplace->setEnabled(true);
 				AllReplace->setEnabled(true);
-				}
+			}
 			Item->CPos = a+1;
 			if (SText->isChecked())
-				{
+			{
 				if (inde == 0)
 					ReplStart = a;
 				inde++;
 				if ((Word->isChecked()) && (inde == 1) && (Item->Ptext.at(a)->ch[0].isSpace()))
-					{
+				{
 					inde--;
 					Item->Ptext.at(a)->cselect = false;
-					}
-				if ((Word->isChecked()) && (inde == sText.length()) && (!Item->Ptext.at(QMIN(Item->MaxChars-1,a+1))->ch[0].isSpace()))
-					{
+				}
+				if ((Word->isChecked()) && (inde == sText.length()) &&
+					 (!Item->Ptext.at(QMIN(Item->MaxChars-1,a+1))->ch[0].isSpace()))
+				{
 					for (uint xx = ReplStart; xx < a+1; ++xx)
-						{
 						Item->Ptext.at(QMIN(xx,Item->MaxChars-1))->cselect = false;
-						}
 					Item->HasSel = false;
 					inde = 0;
 					found = false;
-					}
+				}
 				else
-					{
+				{
 					if (inde == sText.length())
 						break;
-					}
 				}
+			}
 			else
 				break;
-			}
-		else
-			{
-			if (SText->isChecked())
-				{
-				for (uint xx = ReplStart; xx < a+1; ++xx)
-					{
-					Item->Ptext.at(QMIN(xx,Item->MaxChars-1))->cselect = false;
-					}
-				Item->HasSel = false;
-				}
-			inde = 0;
-			}
 		}
-	if (!found)
+		else
 		{
+			if (SText->isChecked())
+			{
+				for (uint xx = ReplStart; xx < a+1; ++xx)
+					Item->Ptext.at(QMIN(xx,Item->MaxChars-1))->cselect = false;
+				Item->HasSel = false;
+			}
+			inde = 0;
+		}
+	}
+	if (!found)
+	{
 		Doc->DoDrawing = true;
 		Doc->ActPage->RefreshItem(Item, true);
 		DoReplace->setEnabled(false);
@@ -486,7 +470,7 @@ void SearchReplace::slotSearch()
 		QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), tr("OK"));
 		Item->CPos = 0;
 		NotFound = false;
-		}
+	}
 	Doc->ActPage->slotDoCurs(true);
 	Doc->ActPage->RefreshItem(Item, true);
 }
@@ -497,26 +481,22 @@ void SearchReplace::slotReplace()
 	uint cs, cx;
 	struct Pti *hg;
 	if (RText->isChecked())
-		{
+	{
 		repl = RTextVal->text();
 		sear = STextVal->text();
 		if (sear.length() == repl.length())
-			{
+		{
 			for (cs = 0; cs < sear.length(); ++cs)
-				{
 				Item->Ptext.at(ReplStart+cs)->ch = repl[cs];
-				}
-			}
+		}
 		else
-			{
+		{
 			if (sear.length() < repl.length())
-				{
+			{
 				for (cs = 0; cs < sear.length(); ++cs)
-					{
 					Item->Ptext.at(ReplStart+cs)->ch = repl[cs];
-					}
 				for (cx = cs; cx < repl.length(); ++cx)
-					{
+				{
 					hg = new Pti;
 					hg->ch = repl[cx];
 					if (RSize->isChecked())
@@ -541,10 +521,10 @@ void SearchReplace::slotReplace()
 					else
  						hg->cab = Doc->CurrentABStil;
 					if (Doc->Vorlagen[hg->cab].Font != "")
-						{
+					{
 						hg->cfont = Doc->Vorlagen[hg->cab].Font;
 						hg->csize = Doc->Vorlagen[hg->cab].FontSize;
-						}
+					}
 					if (RFont->isChecked())
 						hg->cfont = RFontVal->currentText();
 					else
@@ -556,23 +536,19 @@ void SearchReplace::slotReplace()
 					hg->PtransX = 0;
 					hg->PtransY = 0;
  					Item->Ptext.insert(ReplStart+cx, hg);     
-					}
+				}
 				Item->CPos = ReplStart+cx;
-				}
+			}
 			else
-				{
+			{
 				for (cs = 0; cs < repl.length(); ++cs)
-					{
 					Item->Ptext.at(ReplStart+cs)->ch = repl[cs];
-					}
 				for (uint cxx = cs; cxx < sear.length(); ++cxx)
-					{
  					Item->Ptext.remove(ReplStart+cs);
-					}
 				Item->CPos = ReplStart+cs;
-				}
 			}
 		}
+	}
 	if (RStyle->isChecked())
 		emit NewAbs(RStyleVal->currentItem());
 	if (RFill->isChecked())
@@ -602,9 +578,7 @@ void SearchReplace::slotReplace()
 	DoReplace->setEnabled(false);
 	AllReplace->setEnabled(false);
 	for (uint a = 0; a < Item->Ptext.count(); ++a)
-		{
 		Item->Ptext.at(a)->cselect = false;
-		}
 	Doc->ActPage->slotDoCurs(true);
 	Doc->ActPage->RefreshItem(Item, true);
 }
@@ -613,10 +587,10 @@ void SearchReplace::slotReplaceAll()
 {
 	Doc->DoDrawing = false;
 	do
-		{
+	{
 		slotReplace();
 		slotSearch();
-		}
+	}
 	while (NotFound);
 	Doc->DoDrawing = true;
 }

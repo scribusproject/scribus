@@ -325,6 +325,7 @@ void NewDoc::setDist(int v)
 
 void NewDoc::setUnit(int u)
 {
+	char *units[] = {" pt", " mm", " in", " p"};
 	ein = units[u];
 	switch (u)
 	{

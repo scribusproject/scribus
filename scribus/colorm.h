@@ -31,7 +31,8 @@ public:
   	CListe EditColors;
   	QMap<QString,QString> Ersatzliste;
     QToolButton* LoadColSet;
-		QStringList CColSet;
+	QStringList CColSet;
+
 private:
     QListBox* ListBox1;
     QGroupBox* ColorsGroup;
@@ -45,16 +46,16 @@ private:
     QPushButton* CancF;
     QLabel* textLabel1;
     QPushButton* SaveColSet;
-		QPopupMenu* CSets;
+	QPopupMenu* CSets;
     QString sFarbe;
     QColor tmpFarbe;
-		QStringList DontChange;
-		bool HaveDoc;
+	QStringList DontChange;
+	bool HaveDoc;
 
 private slots:
-		void saveDefaults();
-		void loadDefaults(int id);
-		void loadFarben();
+	void saveDefaults();
+	void loadDefaults(int id);
+	void loadFarben();
     void delFarbe();
     void duplFarbe();
     void neueFarbe();

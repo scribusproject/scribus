@@ -19,11 +19,10 @@ class GuideManager : public QDialog
 public:
     GuideManager( QWidget* parent, Page* page, int Einh);
     ~GuideManager() {};
-		void UnitChange();
-		QString GetUnit();
-		void UpdateHList();
-		void UpdateVList();
-
+	void UnitChange();
+	QString GetUnit();
+	void UpdateHList();
+	void UpdateVList();
     QGroupBox* VerGroup;
     QListBox* VerticalList;
     QLabel* TextLabel1;
@@ -39,23 +38,23 @@ public:
     QCheckBox* Lock;
     QPushButton* OK;
     QPushButton* Cancel;
-		int Einheit;
-		Page* pag;
-		int curX;
-		int curY;
-		QValueList<double> XLocal;
-		QValueList<double> YLocal;
+	int Einheit;
+	Page* pag;
+	int curX;
+	int curY;
+	QValueList<double> XLocal;
+	QValueList<double> YLocal;
 
 private slots:
-		void HandleLock();
-		void GetHVal(int n);
-		void GetVVal(int n);
-		void SetHVal();
-		void SetVVal();
-		void DelHVal();
-		void DelVVal();
-		void valChange();
-		void ExitOK();
+	void HandleLock();
+	void GetHVal(int n);
+	void GetVVal(int n);
+	void SetHVal();
+	void SetVVal();
+	void DelHVal();
+	void DelVVal();
+	void valChange();
+	void ExitOK();
 
 protected:
     QVBoxLayout* GuideManagerLayout;

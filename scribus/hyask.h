@@ -30,8 +30,8 @@ public:
     QPushButton* Cancel;
 
 public slots:
-		void Check();
-		void DoSkip();
+	void Check();
+	void DoSkip();
 
 protected:
     QVBoxLayout* HyAskLayout;

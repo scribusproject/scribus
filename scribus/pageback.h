@@ -26,7 +26,8 @@
  * \author Franz Schmid
  */
 
-class PageBack : public QWidget  {
+class PageBack : public QWidget  
+{
 public: 
 	PageBack(QWidget *pa);
 	~PageBack() {};

@@ -38,7 +38,7 @@ public:
     QPushButton* Import;
     QPushButton* Cancel;
     int Count;
-		bool Mpa;
+	bool Mpa;
 
 public slots:
 		void ChangeFile();
@@ -48,8 +48,6 @@ protected:
     QHBoxLayout* layout1;
     QHBoxLayout* layout2;
     QHBoxLayout* layout3;
-
-
 };
 
 #endif // MERGEDOC_H

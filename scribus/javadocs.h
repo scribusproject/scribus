@@ -23,12 +23,12 @@ public:
     QPushButton* DeleteScript;
     QPushButton* ExitDia;
     ScribusDoc *Doc;
-		ScribusView *View;
+	ScribusView *View;
 
 private slots:
-		void slotAdd();
-		void slotEdit();
-		void slotDelete();
+	void slotAdd();
+	void slotEdit();
+	void slotDelete();
 
 protected:
     QHBoxLayout* JavaDocsLayout;

@@ -31,8 +31,8 @@ class CMYKChoose : public QDialog
 public:
     CMYKChoose( QWidget* parent, CMYKColor orig, QString name );
     ~CMYKChoose() {};
-		virtual void mouseReleaseEvent(QMouseEvent *m);
-		QColor CMYK2RGB(int c, int m, int y, int k);
+	virtual void mouseReleaseEvent(QMouseEvent *m);
+	QColor CMYK2RGB(int c, int m, int y, int k);
     QLabel* TextLabel1;
     QLabel* Farbname;
     QLabel* TextLabel3;
@@ -67,14 +67,15 @@ public:
     QPixmap imageN;
     CMYKColor Farbe;
     bool CMYKmode;
-		bool Wsave;
+	bool Wsave;
     bool dynamic;
     int BlackComp;
+
 public slots:
-		void ToggleSL();
-		QPixmap SliderPix(int farbe);
-		QPixmap SliderBlack();
-		void SelModel(const QString& mod);
+	void ToggleSL();
+	QPixmap SliderPix(int farbe);
+	QPixmap SliderBlack();
+	void SelModel(const QString& mod);
     void setColor();
     void setColor2(int h, int s, bool ende);
     void setValues();

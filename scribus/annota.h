@@ -31,15 +31,15 @@ class Annota : public QDialog
 public:
     Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farben, ScribusView* vie);
     ~Annota() {};
-		QWidgetStack* Fram;
+	QWidgetStack* Fram;
     QLabel* TextLabel1;
     QComboBox* ComboBox1;
     QGroupBox* GroupBox1;
     QLabel* TextLabel3;
     QLabel* TextLabel4;
     QLabel* TextLabel5;
-		QLineEdit* Destfile;
-		QPushButton* ChFile;
+	QLineEdit* Destfile;
+	QPushButton* ChFile;
     Navigator* Pg;
     QSpinBox* SpinBox1;
     QSpinBox* SpinBox2;
@@ -53,15 +53,15 @@ public:
     int Hoehe;
     int OriBreite;
     int OriHoehe;
-		int MaxSeite;
+	int MaxSeite;
 
 public slots:
-		void SetCo(double x, double y);
-		void SetPg(int v);
-		void SetCross();
-		void SetVals();
-		void SetZiel(int i);
-		void GetFile();
+	void SetCo(double x, double y);
+	void SetPg(int v);
+	void SetCross();
+	void SetVals();
+	void SetZiel(int i);
+	void GetFile();
 
 protected:
     QVBoxLayout* AnnotLayout;

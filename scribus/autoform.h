@@ -56,7 +56,6 @@ signals:
 
 protected:
 	QGridLayout* buttonGroup1Layout;
-
 };
 
 #endif

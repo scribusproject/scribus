@@ -26,8 +26,10 @@
   *@author Franz Schmid
   */
 
-class Spalette : public QListBox  {
-Q_OBJECT
+class Spalette : public QListBox  
+{
+	Q_OBJECT
+
 public: 
 	Spalette(QWidget* parent);
 	~Spalette() {};

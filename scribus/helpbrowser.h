@@ -29,10 +29,11 @@ public:
     QToolButton* BackB;
     QToolButton* ForwB;
     QTextBrowser* Anzeige;
-		QPopupMenu* hist;
-		struct histd { QString Url;
-									 QString Title;
-								 };
+	QPopupMenu* hist;
+	struct histd { 
+					QString Url;
+					QString Title;
+				 };
     QMap<int, histd> mHistory;
 
 public slots:

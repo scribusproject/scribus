@@ -44,83 +44,89 @@ extern QPixmap loadIcon(QString nam);
 
 class ScribusView : public QScrollView
 {
-  Q_OBJECT
-  public:
+	Q_OBJECT
+
+public:
     ScribusView(QWidget *parent=0, ScribusDoc *doc=0, preV *prefs=0);
     ~ScribusView() {};
   /** Vergroesserungseingabefeld */
 	MSpinBox* LE;
 	QSpinBox* PGS;
-  QToolButton *UN;
-  Hruler *HR;
-  Vruler *VR;
+	QToolButton *UN;
+	Hruler *HR;
+	Vruler *VR;
   /** Liste der Seiten */
-  QPtrList<Page> Pages;
+	QPtrList<Page> Pages;
   /** Liste der Musterseiten */
-  QPtrList<Page> MasterPages;
+	QPtrList<Page> MasterPages;
   /** Liste der Dokumentseiten */
-  QPtrList<Page> DocPages;
+	QPtrList<Page> DocPages;
   /** Mapping Namen zu Musterseiten */
-  QMap<QString,int> MasterNames;
-  /** Fügt eine Seite hinzu */
-  Page* addPage(int nr);
-  /** Löscht eine Seite */
-  void delPage(int Nr);
+	QMap<QString,int> MasterNames;
+  /** Fgt eine Seite hinzu */
+	Page* addPage(int nr);
+  /** Lï¿½cht eine Seite */
+	void delPage(int Nr);
   /** verschiebt Seiten */
-  void movePage(int from, int to, int ziel, int art);
-  void reformPages();
+	void movePage(int from, int to, int ziel, int art);
+	void reformPages();
 	void LaMenu();
-  void ShowTemplate(int nr);
-  void HideTemplate();
-  int CountElements();
-  QPixmap PageToPixmap(int Nr, int maxGr);
+	void ShowTemplate(int nr);
+	void HideTemplate();
+	int CountElements();
+	QPixmap PageToPixmap(int Nr, int maxGr);
 	QPixmap MPageToPixmap(QString name, int maxGr);
 	void RecalcTextPos();
-  void RecalcPictures(ProfilesL *Pr, QProgressBar *dia = 0);
-  void CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic);
-  void ProcessPage(PSLib *p, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false);
+	void RecalcPictures(ProfilesL *Pr, QProgressBar *dia = 0);
+	void CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QString SepNam, bool farb, 
+					bool Hm, bool Vm, bool Ic);
+	void ProcessPage(PSLib *p, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false);
 	void SetClipPath(PSLib *p, FPointArray *c);
 	void SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k);
-  /** Dokument zu dem die Seite gehört */
-  ScribusDoc *Doc;
-  preV *Prefs;
+  /** Dokument zu dem die Seite gehï¿½t */
+	ScribusDoc *Doc;
+	preV *Prefs;
 
 public slots: // Public slots
-  /** Führt die Vergrößerung/Verkleinerung aus; */
-  void slotDoZoom();
-  /** Vergrößert die Ansicht */
-  void slotZoomIn();
+  /** Fhrt die Vergrï¿½erung/Verkleinerung aus; */
+	void slotDoZoom();
+  /** Vergrï¿½ert die Ansicht */
+	void slotZoomIn();
   /** Verkleinert die Ansicht */
-  void slotZoomOut();
-  /** Vergrößert die Ansicht */
-  void slotZoomIn2();
+	void slotZoomOut();
+  /** Vergrï¿½ert die Ansicht */
+	void slotZoomIn2();
   /** Verkleinert die Ansicht */
-  void slotZoomOut2();
+	void slotZoomOut2();
   /** Zeichnet alle Seiten neu */
-  void DrawNew();
-  void setMenTxt(int Seite);
+	void DrawNew();
+	void setMenTxt(int Seite);
 	void setLayMenTxt(int l);
-  void GotoPa(int Seite);
+	void GotoPa(int Seite);
 	void GotoLa(int l);
-  void GotoPage(int Seite);
-  void ChgUnit(int art);
-  void SetCPo(int x, int y);
+	void GotoPage(int Seite);
+	void ChgUnit(int art);
+	void SetCPo(int x, int y);
 	void SetCCPo(int x, int y);
+
 private: // Private attributes
-  QPushButton *SB1;
-  QPushButton *SB2;
-  QPushButton *LY;
-  QPopupMenu *Unitmen;
+	QPushButton *SB1;
+	QPushButton *SB2;
+	QPushButton *LY;
+	QPopupMenu *Unitmen;
 	QPopupMenu *Laymen;
-  bool Ready;
+	bool Ready;
+	
 private slots:
-  void Zval();
-  void setRulerPos(int x, int y);
+	void Zval();
+	void setRulerPos(int x, int y);
+
 protected: // Protected methods
   /** Waagrechter Scrollbalken */
 	virtual void contentsWheelEvent ( QWheelEvent *ev );
 	virtual void setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
 	virtual void setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
+
 signals:
 	void changeUN(int);
 	void changeLA(int);

@@ -30,30 +30,29 @@ public:
     QListView* ListView1;
     QPtrList<QListViewItem> Seiten;
     struct Elem { QPtrList<QListViewItem> Elemente; };
-		QPtrList<Elem> PageObj;
-		ScribusView *vie;
+	QPtrList<Elem> PageObj;
+	ScribusView *vie;
     void closeEvent(QCloseEvent *ce);
     void resizeEvent(QResizeEvent *r);
-		void rebuildPageD();
-		void reopenTree(QValueList<int> op);
-		QValueList<int> buildReopenVals();
+	void rebuildPageD();
+	void reopenTree(QValueList<int> op);
+	QValueList<int> buildReopenVals();
 
 public slots:
-		void slotShowSelect(uint SNr, int Nr);
-		void slotRemoveElement(uint SNr, uint Nr);
-		void slotUpdateElement(uint SNr, uint Nr);
-		void slotAddElement(uint SNr, uint Nr);
-		void slotMoveElement(uint SNr, uint NrOld, uint NrNew);
-		void slotDelPage(uint Nr);
-		void slotAddPage(uint Nr);
+	void slotShowSelect(uint SNr, int Nr);
+	void slotRemoveElement(uint SNr, uint Nr);
+	void slotUpdateElement(uint SNr, uint Nr);
+	void slotAddElement(uint SNr, uint Nr);
+	void slotMoveElement(uint SNr, uint NrOld, uint NrNew);
+	void slotDelPage(uint Nr);
+	void slotAddPage(uint Nr);
     void slotSelect(QListViewItem* ite);
     void BuildTree(ScribusView *view);
     	
 signals:
-		void Schliessen();
-		void SelectElement(int, int);
-		void SelectSeite(int);
-
+	void Schliessen();
+	void SelectElement(int, int);
+	void SelectSeite(int);
 };
 
 #endif // TREE_H

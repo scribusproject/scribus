@@ -30,9 +30,9 @@ class AdvOptions : public QDialog
 public:
 	AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic);
 	~AdvOptions() {};
-  QCheckBox* MirrorH;
-  QCheckBox* MirrorV;
-  QCheckBox* UseICC;
+	QCheckBox* MirrorH;
+	QCheckBox* MirrorV;
+	QCheckBox* UseICC;
 	QPushButton* PushButton1;
 	QPushButton* PushButton2;
 
@@ -48,28 +48,28 @@ class Druck : public QDialog
 public:
     Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom );
     ~Druck() {};
-		QString printerName();
-		QString outputFileName();
+	QString printerName();
+	QString outputFileName();
     QCheckBox* OtherCom;
     QLabel* OthText;
     QLineEdit* Command;
-		bool outputToFile();
-		int fromPage();
-		int toPage();
-		int numCopies();
-		int pageOrder();
-		bool outputSeparations();
-		QString separationName();
-		QString PrinterOpts;
-		bool color();
+	bool outputToFile();
+	int fromPage();
+	int toPage();
+	int numCopies();
+	int pageOrder();
+	bool outputSeparations();
+	QString separationName();
+	QString PrinterOpts;
+	bool color();
     bool MirrorH;
     bool MirrorV;
     bool ICCinUse;
 
 public slots:
-		void setMinMax(int min, int max);
-		void setFromTo(int min, int max);
-		
+	void setMinMax(int min, int max);
+	void setFromTo(int min, int max);
+	
 protected:
     QVBoxLayout* DruckLayout;
     QGridLayout* DruckerLayout;
@@ -85,14 +85,14 @@ protected:
     QHBoxLayout* LayoutCC;
 
 private slots:
-		void SetAdvOptions();
-		void SetOptions();
-		void SelPrinter(const QString& prn);
-		void SelRange(bool e);
-		void SelMode(bool e);
-		void SelFile();
-		void SelComm();
-		
+	void SetAdvOptions();
+	void SetOptions();
+	void SelPrinter(const QString& prn);
+	void SelRange(bool e);
+	void SelMode(bool e);
+	void SelFile();
+	void SelComm();
+	
 private:
     QGroupBox* Drucker;
     QComboBox* PrintDest;
@@ -122,8 +122,8 @@ private:
     QComboBox* SepArt;
     QPushButton* OKButton_2;
     QPushButton* OKButton;
-		QPushButton* OptButton;
-		QPushButton* AdvOptButton;
+	QPushButton* OptButton;
+	QPushButton* AdvOptButton;
     QString Geraet;
     bool ToFile;
     bool ToSeparation;

@@ -26,9 +26,9 @@
   *@author Franz Schmid
   */
 
-class Navigator : public QLabel  {
-
-Q_OBJECT
+class Navigator : public QLabel  
+{
+	Q_OBJECT
 
 public: 
 	Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QString fn = "");

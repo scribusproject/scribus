@@ -62,7 +62,8 @@ class CustomFDialog : public QFileDialog
 {
     Q_OBJECT
 public: 
-	CustomFDialog(QWidget *pa, QString cap = "", QString filter = "", bool Pre = false, bool mod = true, bool comp = false, bool cod = false);
+	CustomFDialog(QWidget *pa, QString cap = "", QString filter = "", bool Pre = false, bool mod = true, 
+					bool comp = false, bool cod = false);
 	~CustomFDialog();
 	QDir cDir;
 	QCheckBox* SaveZip;

@@ -38,6 +38,7 @@ public:
 	bool operator!=(const FPoint &rhs);
 	FPoint &operator+=( const FPoint &p );
 	FPoint &operator-=( const FPoint &p );
+
 private:
 	double xp;
 	double yp;

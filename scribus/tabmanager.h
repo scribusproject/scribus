@@ -32,7 +32,7 @@ public:
     TabManager( QWidget* parent, int dEin, QValueList<double> inTab);
     ~TabManager() {};
     void UnitChange(int dEin);
-		void UpdateTabL();
+	void UpdateTabL();
 
     QListBox* TabList;
     QLabel* Text1;
@@ -44,8 +44,8 @@ public:
     QPushButton* DelButton;
     QPushButton* AddButton;
     QValueList<double> tmpTab;
-		int selTab;
-		int Einheit;
+	int selTab;
+	int Einheit;
 
 public slots:
 	void DelTab();
@@ -60,7 +60,6 @@ protected:
     QVBoxLayout* layout8;
     QGridLayout* layout7;
     QGridLayout* layout10;
-
 };
 
 #endif // TABMANAGER_H

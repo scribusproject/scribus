@@ -29,6 +29,7 @@
 #include "cpalette.h"
 #include "spalette.h"
 #include "fontcombo.h"
+#include "styleselect.h"
 
 class Autoforms;
 extern bool CMSavail;
@@ -38,28 +39,29 @@ class NameWidget : public QLineEdit
     Q_OBJECT
 
 public:
-		NameWidget(QWidget* parent);
-		~NameWidget() {};
+	NameWidget(QWidget* parent);
+	~NameWidget() {};
 
 signals:
-		void Leaved();
+	void Leaved();
 
 protected:
     virtual void focusOutEvent(QFocusEvent *);
 };
 
-class Mpalette : public QDialog  {
-Q_OBJECT
+class Mpalette : public QDialog  
+{
+	Q_OBJECT
+
 public:
     Mpalette(QWidget* parent, preV *Prefs);
     ~Mpalette() {};
     void closeEvent(QCloseEvent *ce);
-		void ToggleFlow();
-		void updateCList();
-		void updateCmsList();
-		void ShowCMS();
-		void fillLangCombo(QMap<QString,QString> Sprachen);
-
+	void ToggleFlow();
+	void updateCList();
+	void updateCmsList();
+	void ShowCMS();
+	void fillLangCombo(QMap<QString,QString> Sprachen);
     QButtonGroup* buttonGroup5;
     QToolButton* SShape;
     QToolButton* SText;
@@ -78,7 +80,7 @@ public:
     QWidget* page_5;
     Cpalette *Cpal;
     QGroupBox* NameGroup;
-		NameWidget* NameEdit;
+	NameWidget* NameEdit;
     QGroupBox* GeoGroup;
     QLabel* Text1;
     QLabel* Text2;
@@ -129,7 +131,7 @@ public:
     QLabel* Text14b;
     QLabel* Text15;
     QLabel* Text16;
-		QSpinBox* DCol;
+	QSpinBox* DCol;
     MSpinBox* DGap;
     MSpinBox* DTop;
     MSpinBox* DBottom;
@@ -138,16 +140,10 @@ public:
     QLabel* Text17;
     MSpinBox* DRight;
     QCheckBox* NormText2;
-		FontCombo* Fonts;
+	FontCombo* Fonts;
     MSpinBox* Size;
     QToolButton* Revert;
-    QToolButton* Underline;
-    QButtonGroup* ButtonGroup1;
-    QToolButton* Subs;
-    QToolButton* Supers;
-    QToolButton* Kapital;
-    QToolButton* Strike;
-    QToolButton* Outlined;
+    StyleSelect* SeStyle;
     QButtonGroup* GroupAlign;
     QToolButton* TextL;
     QToolButton* TextR;
@@ -189,17 +185,17 @@ public:
     QComboBox* LEndStyle;
     QLabel* Text8;
     LineCombo* LStyle;
-		QListBox* StyledLine;
+	QListBox* StyledLine;
     QLabel* ScaleTxt;
     QSpinBox* ChScale;
     QLabel* StrokeIcon;
     QComboBox* TxStroke;
-		QToolButton *PM1;
-		QPopupMenu *TxStrokeSh;
+	QToolButton *PM1;
+	QPopupMenu *TxStrokeSh;
     QLabel* FillIcon;
     QComboBox* TxFill;
-		QToolButton *PM2;
-		QPopupMenu *TxFillSh;
+	QToolButton *PM2;
+	QPopupMenu *TxFillSh;
     QLabel* SprachT;
     QComboBox* LangCombo;
     QGroupBox* GroupBoxCM;
@@ -209,86 +205,87 @@ public:
     ScribusDoc *doc;
     double Umrech;
     bool LMode;
-		double RoVal;
+	double RoVal;
 
 public slots:
-		void SetDoc(ScribusDoc *d);
-		void UnsetDoc();
-		void NewSel(int nr);
-		void SetCurItem(PageItem *i);
-		void UnitChange();
+	void SetDoc(ScribusDoc *d);
+	void UnsetDoc();
+	void NewSel(int nr);
+	void SetCurItem(PageItem *i);
+	void UnitChange();
     void setXY(double x, double y);
     void setBH(double x, double y);
-		void setR(double r);
-		void setRR(double r);
-		void setCols(int r, double g);
-		void setLsp(double r);
-		void setSize(int s);
-		void setExtra(double e);
-		void ChangeScaling();
-		void setLvalue(double scx, double scy, double x, double y);
-		void setSvalue(double s);
-		void setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj);
-		void setStil(int s);
-		void setAli(int e);
-		void setTScale(int e);
-		void NewTScale();
-		void SetLineFormats(ScribusDoc *dd);
-		void SetSTline(QListBoxItem *c);
-		void NewTFont(int);
-		void newTxtFill();
-		void newTxtStroke();
-		void setActShade(int id);
-		void setActFarben(QString p, QString b, int shp, int shb);
-		void ManageTabs();
+	void setR(double r);
+	void setRR(double r);
+	void setCols(int r, double g);
+	void setLsp(double r);
+	void setSize(int s);
+	void setExtra(double e);
+	void ChangeScaling();
+	void setLvalue(double scx, double scy, double x, double y);
+	void setSvalue(double s);
+	void setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj);
+	void setStil(int s);
+	void setAli(int e);
+	void setTScale(int e);
+	void NewTScale();
+	void SetLineFormats(ScribusDoc *dd);
+	void SetSTline(QListBoxItem *c);
+	void NewTFont(int);
+	void newTxtFill();
+	void newTxtStroke();
+	void setActShade(int id);
+	void setActFarben(QString p, QString b, int shp, int shb);
+	void ManageTabs();
 		
 private slots:
-		void SelTab(int t);
-		void NewX();
-		void NewY();
-		void NewW();
-		void NewH();
-		void NewR();
-		void NewRR();
-		void NewLsp();
-		void NewCols();
-		void NewGap();
-		void NewSize();
-		void NewExtra();
-		void DoFlipH();
-		void DoFlipV();
-		void ToggleKette();
-		void HChange();
-		void VChange();
-		void NewLocalXY();
-		void NewLocalSC();
-		void NewLS();
-		void NewLSty();
-		void NewLJoin();
-		void NewLEnd();
-		void NewAli();
-		void setTypeStyle();
-		void NewLMode();
-		void DoLower();
-		void DoRaise();
-		void DoFront();
-		void DoBack();
-		void NewRotMode(int m);
-		void DoFlow();
-		void DoFlow2();
-		void MakeIrre(int f, int c, double *vals);
-		void EditSh();
-		void NewTDist();
-		void DoRevert();
-		void handleLock();
-		void handlePrint();
-		void handlePathLine();
-		void handlePathDist();
-		void handlePathOffs();
-		void ChProf(const QString& prn);
-		void ChIntent();
-		void NewName();
-		void NewLanguage();
+
+	void SelTab(int t);
+	void NewX();
+	void NewY();
+	void NewW();
+	void NewH();
+	void NewR();
+	void NewRR();
+	void NewLsp();
+	void NewCols();
+	void NewGap();
+	void NewSize();
+	void NewExtra();
+	void DoFlipH();
+	void DoFlipV();
+	void ToggleKette();
+	void HChange();
+	void VChange();
+	void NewLocalXY();
+	void NewLocalSC();
+	void NewLS();
+	void NewLSty();
+	void NewLJoin();
+	void NewLEnd();
+	void NewAli();
+	void setTypeStyle(int s);
+	void NewLMode();
+	void DoLower();
+	void DoRaise();
+	void DoFront();
+	void DoBack();
+	void NewRotMode(int m);
+	void DoFlow();
+	void DoFlow2();
+	void MakeIrre(int f, int c, double *vals);
+	void EditSh();
+	void NewTDist();
+	void DoRevert();
+	void handleLock();
+	void handlePrint();
+	void handlePathLine();
+	void handlePathDist();
+	void handlePathOffs();
+	void ChProf(const QString& prn);
+	void ChIntent();
+	void NewName();
+	void NewLanguage();
 	
 signals:
 	void Schliessen();
@@ -332,7 +329,6 @@ protected:
     QHBoxLayout* ShapeGroupLayout;
     QGridLayout* DistanceLayout;
     QGridLayout* DistanceLayout2;
-    QHBoxLayout* ButtonGroup1Layout;
     QGridLayout* GroupAlignLayout;
     QGridLayout* GroupBox3Layout;
     QVBoxLayout* GroupBox3aLayout;

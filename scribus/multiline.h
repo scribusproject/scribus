@@ -2,7 +2,11 @@
 ** Form interface generated from reading ui file 'Mline.ui'
 **
 ** Created: Mit Jun 4 23:28:08 2003
+<<<<<<< multiline.h
 **      by: The User Interface Compiler ($Id$)
+=======
+**      by: The User Interface Compiler ($Id$)
+>>>>>>> 1.2
 **
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
@@ -33,14 +37,14 @@ class MultiLine : public QDialog
 
 public:
     MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString nam, bool ed, QMap<QString,multiLine> *Sty);
-		void updatePreview();
-		QColor calcFarbe(QString name, int shade);
-		void updateSList();
-		void reSort();
-		void RebuildList();
+	void updatePreview();
+	QColor calcFarbe(QString name, int shade);
+	void updateSList();
+	void reSort();
+	void RebuildList();
     ~MultiLine();
 
-		QLineEdit* SName;
+	QLineEdit* SName;
     QLabel* Preview;
     QPushButton* AddStyle;
     QPushButton* RemoveStyle;
@@ -52,25 +56,25 @@ public:
     QLabel* WidthText;
     MSpinBox* LWidth;
     QComboBox* Color;
-		QSpinBox* Shade;
+	QSpinBox* Shade;
     QPushButton* OK;
     QPushButton* Cancel;
   	multiLine TempVorl;
-		int CurLin;
-		ScribusDoc* Docu;
-		QMap<QString,multiLine> *TempStyles;
-		QString GivenName;
+	int CurLin;
+	ScribusDoc* Docu;
+	QMap<QString,multiLine> *TempStyles;
+	QString GivenName;
 
 public slots:
-		void NewName();
-		void DelSubLine();
-		void NewSubLine();
-		void NewLJoin();
-		void NewLEnd();
-		void NewLSty();
-		void NewLColor();
-		void NewLWidth();
-		void NewLShade();
+	void NewName();
+	void DelSubLine();
+	void NewSubLine();
+	void NewLJoin();
+	void NewLEnd();
+	void NewLSty();
+	void NewLColor();
+	void NewLWidth();
+	void NewLShade();
     void slotEditStyle( int i);
 
 protected:

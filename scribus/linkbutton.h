@@ -24,7 +24,8 @@
   *@author Franz Schmid
   */
 
-class LinkButton : public QToolButton  {
+class LinkButton : public QToolButton  
+{
 public: 
 	LinkButton(QWidget *pa);
 	~LinkButton() {};

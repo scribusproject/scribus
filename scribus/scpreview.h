@@ -6,19 +6,19 @@
 
 class ScPreview
 {
-
 public:
     ScPreview(preV *prefs);
     ~ScPreview() {};
     QPixmap createPreview(QString data);
-		void SetFarbe(QColor *tmp, QString farbe, int shad);
-		void DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, QString ZFo, bool Reverse, int Style, int mode, int Siz);
-		void DrawPoly(QPainter *p, QPointArray pts, QColor BackF, struct CLBuf *OB, bool bitm = false);
-		QMap<QString,CMYKColor> Farben;
-		QMap<QString,multiLine> MLineStyles;
-		QValueList<uint> Segments;
+	void SetFarbe(QColor *tmp, QString farbe, int shad);
+	void DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, QString ZFo, bool Reverse, int Style, 
+						int mode, int Siz);
+	void DrawPoly(QPainter *p, QPointArray pts, QColor BackF, struct CLBuf *OB, bool bitm = false);
+	QMap<QString,CMYKColor> Farben;
+	QMap<QString,multiLine> MLineStyles;
+	QValueList<uint> Segments;
   	preV *Prefs;
-		FT_Library   library;
+	FT_Library   library;
 };
 #endif
 

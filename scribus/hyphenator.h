@@ -21,29 +21,29 @@ public:
     ~Hyphenator();
     /*! There are languages having rule not to hyphen word shorter than
     MinWordLen */
-		int MinWordLen;
+	int MinWordLen;
     /*! Language in use */
-		QString Language;
+	QString Language;
     /*! Flag - if user set auto hyphen processing.*/
-		bool Automatic;
+	bool Automatic;
     /*! Flag - obsolete? */
-		bool AutoCheck;
+	bool AutoCheck;
     /*! Reference to the hyphen dictionary structure. */
-		HyphenDict *hdict;
+	HyphenDict *hdict;
     /*! Embeded reference to the \see ScribusDoc filled by \a dok */
-		ScribusDoc *doc;
+	ScribusDoc *doc;
     /*! Embeded reference to the \see ScribusApp filled by \a app */
-		ScribusApp *Sap;
+	ScribusApp *Sap;
     /*! Flag - if is the dictionary without errors etc. If is it 'false'
         hyphen aborted. */
-		bool useAble;
+	bool useAble;
     /*! Qt text codec which handles local characters. */
-		QTextCodec *codec;
+	QTextCodec *codec;
 
 public slots:
-		void slotNewDict(QString name);
-		void slotNewSettings(int Wordlen, bool Autom, bool ACheck);
-		void slotHyphenateWord(PageItem* it, QString text, int firstC);
-		void slotHyphenate(PageItem *it);
+	void slotNewDict(QString name);
+	void slotNewSettings(int Wordlen, bool Autom, bool ACheck);
+	void slotHyphenateWord(PageItem* it, QString text, int firstC);
+	void slotHyphenate(PageItem *it);
 };
 #endif

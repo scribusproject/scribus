@@ -69,7 +69,7 @@ class ScribusApp : public QMainWindow
 {
 	Q_OBJECT
   
-	public:
+public:
 	/** construtor */
 	ScribusApp(SplashScreen *splash);
 	ScribusApp();
@@ -102,7 +102,8 @@ class ScribusApp : public QMainWindow
 	void closePSDriver();
 	bool getPDFDriver(QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs);
 	bool DoSaveAsEps(QString fn);
-	QString CFileDialog(QString caption = "", QString filter = "", QString defNa = "", bool Pre = false, bool mod = true, bool comp = false, bool cod = false);
+	QString CFileDialog(QString caption = "", QString filter = "", QString defNa = "", bool Pre = false, 
+						bool mod = true, bool comp = false, bool cod = false);
 	void GetCMSProfiles();
 	void GetCMSProfilesDir(QString pfad);
 	void RecalcColors(QProgressBar *dia = 0);
@@ -519,16 +520,17 @@ private:
 	void *PSDriver;
 	int DocNr;
 	QStringList RecentDocs;
-	struct PlugData { QString Datei;
-					  void *Zeiger;
-					  int Typ;
+	struct PlugData { 
+						QString Datei;
+					  	void *Zeiger;
+					  	int Typ;
 					} ;
 	QMap<QString, PlugData> PluginMap;
 	bool PrinterUsed;
-	struct PDe { QString Pname;
-    			 QString Dname;
-				 QString Command;
+	struct PDe { 
+					QString Pname;
+    			 	QString Dname;
+				 	QString Command;
     			} PDef ;
 };
 #endif 
-

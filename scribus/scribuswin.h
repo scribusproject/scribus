@@ -29,7 +29,7 @@
 
 class ScribusWin : public QMainWindow
 {
-  Q_OBJECT
+	Q_OBJECT
 
 public: 
 	ScribusWin(QWidget* parent, ScribusDoc* ddoc);
@@ -41,7 +41,7 @@ public:
 	ScribusView* view;
 	ScribusDoc* doc;
 	MusterSeiten* muster;
-  bool MenuStat[7];
+	bool MenuStat[7];
 #ifdef HAVE_CMS
 	cmsHTRANSFORM stdTrans;
 	cmsHTRANSFORM stdProof;
@@ -55,8 +55,10 @@ public:
 	int	NrItems;
 	int First;
 	int Last;
+	
 public slots:
 	void slotAutoSave();
+	
 signals:
 	void Schliessen();
 	void SaveAndClose();

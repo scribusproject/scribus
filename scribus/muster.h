@@ -29,7 +29,7 @@ public:
 private:
     void updateMList(QString nam);
     QListBox* ListBox1;
-		QPushButton* LoadM;
+	QPushButton* LoadM;
     QPushButton* NewB;
     QPushButton* DuplicateB;
     QPushButton* DeleteB;
@@ -39,17 +39,17 @@ private:
     QString sMuster;
 
 private slots:
-		void ExitEditor();
-		void DuplTemp();
-		void DelTemp();
-		void NewTemp();
-		void loadMpage();
-		void selTemplate(QListBoxItem *c);
-		
+	void ExitEditor();
+	void DuplTemp();
+	void DelTemp();
+	void NewTemp();
+	void loadMpage();
+	void selTemplate(QListBoxItem *c);
+	
 signals:
-		void CreateNew(int);
-		void LoadPage(QString, int, bool);
-		void Fertig();
+	void CreateNew(int);
+	void LoadPage(QString, int, bool);
+	void Fertig();
 		
 protected:
     QHBoxLayout* MusterSeitenLayout;

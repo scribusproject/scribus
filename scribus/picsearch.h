@@ -29,9 +29,9 @@ public:
     QString Bild;
 
 private slots:
-		void ShowPrev();
-		void selBild(QListBoxItem *c);
-		void GenPreview();
+	void ShowPrev();
+	void selBild(QListBoxItem *c);
+	void GenPreview();
 		
 protected:
     QVBoxLayout* PicSearchLayout;

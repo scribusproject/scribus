@@ -41,7 +41,7 @@ protected:
     QHBoxLayout* Layout2;
 
 signals:
-		void GotoSeite(int);
+	void GotoSeite(int);
 };
 
 #endif // PICSTATUS_H

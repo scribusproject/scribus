@@ -39,23 +39,23 @@ public:
 	Page(QWidget *pa, int x, int y, int b, int h, ScribusDoc *doc, QScrollView *view);
 	~Page() {};
   /** Zeichnet eine Ellipse */
-  int PaintEllipse(double x, double y, double b, double h, double w, QString fill, QString outline);
+	int PaintEllipse(double x, double y, double b, double h, double w, QString fill, QString outline);
   /** Zeichnet eine Bildbox */
-  int PaintPict(double x, double y, double b, double h);
+	int PaintPict(double x, double y, double b, double h);
   /** Zeichnet ein Rechteck */
-  int PaintRect(double x, double y, double b, double h, double w, QString fill, QString outline);
+	int PaintRect(double x, double y, double b, double h, double w, QString fill, QString outline);
   /** Zeichnet eine Linie */
-  int PaintLine(double x, double y, double b, double h, double w, QString outline);
+	int PaintLine(double x, double y, double b, double h, double w, QString outline);
   /** Zeichnet eine Textbox */
-  int PaintText(double x, double y, double b, double h, double w, QString outline);
+	int PaintText(double x, double y, double b, double h, double w, QString outline);
 	/** Zeichnet ein Polygon */
 	int PaintPoly(double x, double y, double b, double h, double w, QString fill, QString outline);
 	int PaintPolyLine(double x, double y, double b, double h, double w, QString fill, QString outline);
   /** Laedt ein Bild */
-  void LoadPict(QString fn, int ItNr);
-  void insertColor(QString nam, double c, double m, double y, double k);
-  void DrawPageMarks(ScPainter *p, QRect rd);
-  void DrawPageItems(ScPainter *painter, QRect rd);
+	void LoadPict(QString fn, int ItNr);
+	void insertColor(QString nam, double c, double m, double y, double k);
+	void DrawPageMarks(ScPainter *p, QRect rd);
+	void DrawPageItems(ScPainter *painter, QRect rd);
 	void paintEvent(QPaintEvent *e);
 	void setGroupRect();
 	void getGroupRect(double *x, double *y, double *w, double *h);
@@ -135,39 +135,39 @@ public:
 	void AdjItemGradient(PageItem *b, int typ, QString col1, int sh1, QString col2, int sh2);
 	QRegion ViewReg();
   /** Liste der Elemente */
-  QPtrList<PageItem> Items;
+	QPtrList<PageItem> Items;
   /** Dokument zu dem die Seite gehoert */
-  ScribusDoc *doku;
+	ScribusDoc *doku;
   /** Nummer der Seite */
-  uint PageNr;
+	uint PageNr;
   /** Name der Seite, wenn Musterseite */
-  QString PageNam;
-  QString MPageNam;
-  QScrollView *Anz;
+	QString PageNam;
+	QString MPageNam;
+	QScrollView *Anz;
 	QPopupMenu *pmen3;
-  Margs Margins;
-  int Mxp;
-  int Myp;
-  bool Mpressed;
-  bool mCG;
-  double oldW;
-  QPtrList<PageItem> SelItem;
+	Margs Margins;
+	int Mxp;
+	int Myp;
+	bool Mpressed;
+	bool mCG;
+	double oldW;
+	QPtrList<PageItem> SelItem;
 	QValueList<int> SelNode;
-  int HowTo;
-  int ClRe;
-  int ClRe2;
+	int HowTo;
+	int ClRe;
+	int ClRe2;
 	int SegP1;
 	int SegP2;
-  bool CursVis;
-  int oldCp;
-  int Dxp;
-  int Dyp;
-  bool Imoved;
-  int SeRx;
-  int SeRy;
-  bool HaveSelRect;
-  bool LeftPg;
-  bool Magnify;
+	bool CursVis;
+	int oldCp;
+	int Dxp;
+	int Dyp;
+	bool Imoved;
+	int SeRx;
+	int SeRy;
+	bool HaveSelRect;
+	bool LeftPg;
+	bool Magnify;
 	bool FirstPoly;
 	bool EdPoints;
 	bool MoveSym;
@@ -245,63 +245,63 @@ public slots:
 
 signals: // Signals
   /** Mausposition X */
-  void Hrule(int);
+	void Hrule(int);
   /** Mausposition Y */
-  void Vrule(int);
+	void Vrule(int);
   /** Seite gewechselt */
-  void PgCh(int);
+	void PgCh(int);
   /** Element gezeichnet */
-  void PaintingDone();
+	void PaintingDone();
   /** Element ausgewaehlt */
-  void HaveSel(int);
+	void HaveSel(int);
   /** Seite veraendert */
-  void DocChanged();
+	void DocChanged();
   /** Position eines Elementes */
-  void ItemPos(double, double);
+	void ItemPos(double, double);
   /** Breite und Hoehe eines Elementes */
-  void ItemGeom(double, double);
-  void ItemRadius(double);
+	void ItemGeom(double, double);
+	void ItemRadius(double);
   /** Setzt den Drehungswinkel des Elementes */
-  void SetAngle(double);
+	void SetAngle(double);
   /** Zoomfunktionen */
-  void ZoomIn();
-  void ZoomOut();
-  void ZoomAbs();
-  void AbsPosi(int, int);
-  void AbsPosi2(int, int);
+	void ZoomIn();
+	void ZoomOut();
+	void ZoomAbs();
+	void AbsPosi(int, int);
+	void AbsPosi2(int, int);
   /** Sendet die Linienstaerke an die Masspalette */
-  void SetSizeValue(double);
+	void SetSizeValue(double);
   /** Sendet die Linienart an die Masspalette */
-  void SetLineArt(PenStyle, PenCapStyle, PenJoinStyle);
+	void SetLineArt(PenStyle, PenCapStyle, PenJoinStyle);
   /** Sendet die lokalen Bildeigenschaften an die Masspalette */
-  void SetLocalValues(double, double, double, double);
+	void SetLocalValues(double, double, double, double);
   /** Sendet die Stiftfarbe an die Farbpalette */
-  void ItemFarben(QString, QString, int, int);
-  void ItemGradient(QString, QString, int, int, int);
+	void ItemFarben(QString, QString, int, int);
+	void ItemGradient(QString, QString, int, int, int);
   /** Sendet die Textattribute an die Masspalette */
-  void ItemTextAttr(double);
+	void ItemTextAttr(double);
   /** Sendet die Schriftart */
-  void ItemTextFont(QString);
+	void ItemTextFont(QString);
   /** Sendet die Schriftgroesse */
-  void ItemTextSize(int);
-  void ItemTextSca(int);
-  void ItemTextUSval(double);
-  void ItemTextAbs(int);
+	void ItemTextSize(int);
+	void ItemTextSca(int);
+	void ItemTextUSval(double);
+	void ItemTextAbs(int);
 	void ItemTextCols(int, double);
-  void ItemTextFarben(QString, QString, int, int);
+	void ItemTextFarben(QString, QString, int, int);
   /** Text in Textbox selektiert */
-  void HasTextSel();
-  void HasNoTextSel();
-  void CutItem();
-  void CopyItem();
-  void ItemTextStil(int);
-  void LoadPic();
+	void HasTextSel();
+	void HasNoTextSel();
+	void CutItem();
+	void CopyItem();
+	void ItemTextStil(int);
+	void LoadPic();
 	void EditText();
-  void LoadElem(QString, int, int, bool, bool, ScribusDoc *);
-  void Amode(int);
+	void LoadElem(QString, int, int, bool, bool, ScribusDoc *);
+	void Amode(int);
 	void AnnotProps();
 	void ToScrap(QString);
-  void MousePos(double, double);
+	void MousePos(double, double);
 	void ClipPo(double, double);
 	void HavePoint(bool, bool);
 	void PolyOpen();

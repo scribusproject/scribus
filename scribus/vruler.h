@@ -26,8 +26,10 @@
   *@author Franz Schmid
   */
 
-class Vruler : public QWidget  {
-Q_OBJECT
+class Vruler : public QWidget  
+{
+	Q_OBJECT
+
 public: 
 	Vruler(QScrollView *pa, ScribusDoc *doc);
 	~Vruler() {};
@@ -41,10 +43,11 @@ public:
 	bool Mpressed;
 private: // Private attributes
   /** Zeichensatz des Lineals */
-  ScribusDoc *doku;
+	ScribusDoc *doku;
+
 public slots: // Public slots
   /** Zeichnet den Pfeil */
-  void Draw(int wo);
+	void Draw(int wo);
 };
 
 #endif

@@ -57,32 +57,31 @@ public:
     QPushButton* OKButton;
     QPushButton* CancelB;
     double Umrech;
-		int Orient;
-		double Pagebr;
-		double Pageho;
-		double Top;
-		double Bottom;
-		double Left;
-		double Right;
-		double Dist;
+	int Orient;
+	double Pagebr;
+	double Pageho;
+	double Top;
+	double Bottom;
+	double Left;
+	double Right;
+	double Dist;
     QString ein;
-		int einheit;
-    char *units[];
-	void setSize(int gr);
+	int einheit;
+    void setSize(int gr);
     void code_repeat(int);
 
 public slots:
-		void setHoehe(int v);
-		void setBreite(int v);
-		void setTop(int v);
-		void setBottom(int v);
-		void setLeft(int v);
-		void setRight(int v);
-		void setDist(int v);
-		void setUnit(int u);
-		void ExitOK();
-		void setOrien(int ori);
-		void setPGsize();
+	void setHoehe(int v);
+	void setBreite(int v);
+	void setTop(int v);
+	void setBottom(int v);
+	void setLeft(int v);
+	void setRight(int v);
+	void setDist(int v);
+	void setUnit(int u);
+	void ExitOK();
+	void setOrien(int ori);
+	void setPGsize();
     void setDS();
     void setAT();
 
@@ -101,7 +100,6 @@ protected:
     QHBoxLayout* GroupBox4Layout;
     QGridLayout* Layout2;
     QHBoxLayout* Layout1;
-
 };
 
 #endif // NEWDOC_H

@@ -31,9 +31,10 @@ public:
     void SaveContents(QString name);
     void ReadContents(QString name);
     void RebuildView();
-    struct Elem {QString Data;
-    						 QPixmap Preview;
-    						};
+    struct Elem {
+					QString Data;
+    				QPixmap Preview;
+    			};
     QMap<QString,Elem> Objekte;
   	preV *Prefs;
 
@@ -50,7 +51,7 @@ public:
     ~Biblio() {};
     void closeEvent(QCloseEvent *ce);
     void AdjustMenu();
-		void ObjFromMenu(QString text);
+	void ObjFromMenu(QString text);
 
     QPopupMenu* pmenu;
     QPopupMenu* fmenu;
@@ -64,14 +65,14 @@ public:
     int vS;
     int vM;
     int vB;
-		bool Changed;
+	bool Changed;
 
 public slots:
     void Save();
 
 private slots:
-		void HandleMouse(QIconViewItem *ite);
-		void DeleteObj(QString name, QIconViewItem *ite);
+	void HandleMouse(QIconViewItem *ite);
+	void DeleteObj(QString name, QIconViewItem *ite);
     void DropOn(QDropEvent *e);
     void SaveAs();
     void Load();

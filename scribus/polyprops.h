@@ -41,14 +41,14 @@ public:
     QSlider* Slider2;
     QPushButton* PushButton1;
     QPushButton* PushButton2;
-		QPixmap* Pre;
-		double PFactor;
+	QPixmap* Pre;
+	double PFactor;
 
 public slots:
-		void UpdatePreView();
-		double GetFaktor();
-		void ValFromSpin(int a);
-		void ValFromSpin2(int a);
+	void UpdatePreView();
+	double GetFaktor();
+	void ValFromSpin(int a);
+	void ValFromSpin2(int a);
 
 protected:
     QVBoxLayout* PolygonPropsLayout;

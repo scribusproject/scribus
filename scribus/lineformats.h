@@ -17,7 +17,7 @@ public:
     ~LineFormate() {};
 
     QListBox* ListBox1;
-		QPushButton* LoadLS;
+	QPushButton* LoadLS;
     QPushButton* NewB;
     QPushButton* EditB;
     QPushButton* DublicateB;
@@ -25,17 +25,17 @@ public:
     QPushButton* SaveB;
     QPushButton* CancelB;
     QString sFnumber;
-		QMap<QString,multiLine> TempStyles;
-		ScribusDoc *Docu;
+	QMap<QString,multiLine> TempStyles;
+	ScribusDoc *Docu;
   	void UpdateFList();
 
 public slots:
-		void selFormat(QListBoxItem *c);
-		void editFormat();
-		void neuesFormat();
-		void dupFormat();
-		void deleteFormat();
-		void loadLStyles();
+	void selFormat(QListBoxItem *c);
+	void editFormat();
+	void neuesFormat();
+	void dupFormat();
+	void deleteFormat();
+	void loadLStyles();
 
 protected:
     QHBoxLayout* StilFormateLayout;

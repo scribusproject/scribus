@@ -21,9 +21,8 @@ class FontPrefs : public QDialog
 public:
     FontPrefs( QWidget* parent, SCFonts &flist, bool Hdoc, preV *prefs, QString PPath );
     ~FontPrefs() {};
-		void ReadPath();
-		void RebuildDialog();
-
+	void ReadPath();
+	void RebuildDialog();
     QTabWidget* TabWidget;
     QWidget* tab1;
     QWidget* tab;
@@ -44,25 +43,25 @@ public:
     QPtrList<QCheckBox> FlagsSub;
     QPtrList<QComboBox> FlagsRepl;
   	preV *Prefs;
-		QMap<QString,QString> RList;
-		QStringList UsedFonts;
-		QStringList ExtraFonts;
-		QString HomeP;
-		QString CurrentPath;
-		bool DocAvail;
+	QMap<QString,QString> RList;
+	QStringList UsedFonts;
+	QStringList ExtraFonts;
+	QString HomeP;
+	QString CurrentPath;
+	bool DocAvail;
 
 public slots:
-		void LeaveDia();
-		void ReplaceSel(int r, int c);
-		void UpdateFliste();
-		void DelEntry();
-		void SelectPath(QListBoxItem *c);
-		void AddPath();
-		void ChangePath();
-		void DelPath();
+	void LeaveDia();
+	void ReplaceSel(int r, int c);
+	void UpdateFliste();
+	void DelEntry();
+	void SelectPath(QListBoxItem *c);
+	void AddPath();
+	void ChangePath();
+	void DelPath();
 
 signals:
-		void ReReadPrefs();
+	void ReReadPrefs();
 
 protected:
     QVBoxLayout* FontPrefsLayout;
@@ -72,7 +71,6 @@ protected:
     QHBoxLayout* Layout2a;
     QHBoxLayout* tab3Layout;
     QVBoxLayout* LayoutR;
-
 };
 
 #endif // FONTPREFS_H

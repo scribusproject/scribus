@@ -26,15 +26,15 @@ public:
     QListBox* SelFields;
     QPushButton* OK;
     QPushButton* Cancel;
-		QString S_Fields;
-		int FTyp;
+	QString S_Fields;
+	int FTyp;
 
 public slots:
-		void SetRetVal();
-		void RemoveSel();
-		void PutToSel();
-		void SelAField(QListBoxItem *c);
-		void SelEField(QListBoxItem *c);
+	void SetRetVal();
+	void RemoveSel();
+	void PutToSel();
+	void SelAField(QListBoxItem *c);
+	void SelEField(QListBoxItem *c);
 
 protected:
     QVBoxLayout* SelectFieldsLayout;

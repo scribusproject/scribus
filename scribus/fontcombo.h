@@ -32,7 +32,6 @@ class FontListItem : public QListBoxItem
 public:
     FontListItem(QComboBox* parent, QString f, QFont fo);
     virtual ~FontListItem() {};
-
     virtual int width(const QListBox *) const;
     virtual int height(const QListBox *) const;
 
@@ -44,7 +43,8 @@ private:
     QString fontName;
 };
 
-class FontCombo : public QComboBox  {
+class FontCombo : public QComboBox  
+{
 public:
 	FontCombo(QWidget* pa, preV *Prefs);
 	void RebuildList(preV *Prefs);

@@ -29,28 +29,28 @@ class Autoforms;
   *@author Franz Schmid
   */
 
-class WerkToolB : public QToolBar  {
-
-Q_OBJECT
+class WerkToolB : public QToolBar  
+{
+	Q_OBJECT
 
 public: 
 	WerkToolB(QMainWindow* parent);
 	~WerkToolB() {};
 	QToolButton* Select;
-  QToolButton* Rotiere;
+	QToolButton* Rotiere;
 	QToolButton* Textedit;
 	QToolButton* Textedit2;
-  QToolButton* Zoom;
-  QToolButton* Texte;
-  QToolButton* BildB;
-  QToolButton* Linien;
-  Autoforms* Rechteck;
+	QToolButton* Zoom;
+	QToolButton* Texte;
+	QToolButton* BildB;
+	QToolButton* Linien;
+	Autoforms* Rechteck;
 	QToolButton* Polygon;
 	QToolButton* PolyLin;
 	QPopupMenu* PolyM;
 	QPopupMenu* LinM;
-  QToolButton* KetteEin;
-  QToolButton* KetteAus;
+	QToolButton* KetteEin;
+	QToolButton* KetteAus;
 	bool Sichtbar;
 	int SubMode;
 	int ValCount;
@@ -71,16 +71,16 @@ signals:
 	void NewMode(int);
 };
 
-class WerkToolBP : public QToolBar  {
-
-Q_OBJECT
+class WerkToolBP : public QToolBar  
+{
+	Q_OBJECT
 
 public:
 	WerkToolBP(QMainWindow* parent);
 	~WerkToolBP() {};
-  QToolButton* PDFTool;
+	QToolButton* PDFTool;
 	QPopupMenu* PDFM;
-  QToolButton* PDFaTool;
+	QToolButton* PDFaTool;
 	QPopupMenu* PDFA;
 	bool Sichtbar;
 	int PDFwerkz;

@@ -52,9 +52,9 @@ public:
     int Kcode;
 
 public slots:
-		void SetKeyText();
-		void DispKey(int r);
-		void SetNoKey();
+	void SetKeyText();
+	void DispKey(int r);
+	void SetNoKey();
 
 protected:
     QVBoxLayout* KeyManagerLayout;

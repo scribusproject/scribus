@@ -24,6 +24,7 @@ public:
     DelColor(QWidget* parent, CListe farben, QString Fnam, bool HDoc );
     ~DelColor() {};
     QString EFarbe;
+
 private:
     QLabel* TextLabel1;
     QPushButton* PushButton2;
@@ -40,7 +41,6 @@ protected:
 
 private slots:
     virtual void ReplaceColor(int);
-
 };
 
 #endif // DELCOLOR_H

@@ -33,10 +33,10 @@ public:
     QPushButton* OKButton;
 
 public slots:
-		void RangeSel();
-		void SingleSel();
-		void CheckRangeF();
-		void CheckRangeT();
+	void RangeSel();
+	void SingleSel();
+	void CheckRangeF();
+	void CheckRangeT();
 
 protected:
     QVBoxLayout* ApplyTLayout;

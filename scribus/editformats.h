@@ -27,16 +27,16 @@ public:
     int sFnumber;
   	QValueList<StVorL> TempVorl;
     preV *fon;
-		ScribusDoc *Docu;
+	ScribusDoc *Docu;
   	void UpdateFList();
 
 public slots:
-		void selFormat(QListBoxItem *c);
-		void editFormat();
-		void neuesFormat();
-		void dupFormat();
-		void deleteFormat();
-		void loadStyles();
+	void selFormat(QListBoxItem *c);
+	void editFormat();
+	void neuesFormat();
+	void dupFormat();
+	void deleteFormat();
+	void loadStyles();
 
 protected:
     QHBoxLayout* StilFormateLayout;

@@ -43,10 +43,8 @@ public:
 	void translate( double dx, double dy );
 	FPoint WidthHeight();
 	void map(QWMatrix m);
-	FPointArray	 &operator=( const FPointArray &a )
-	{ return (FPointArray&)assign( a ); }
-	FPointArray copy() const
-	{ FPointArray tmp; return *((FPointArray*)&tmp.duplicate(*this)); }
+	FPointArray &operator=( const FPointArray &a ) { return (FPointArray&)assign( a ); }
+	FPointArray copy() const { FPointArray tmp; return *((FPointArray*)&tmp.duplicate(*this)); }
 	void setMarker();
 	void addPoint(double x, double y);
 	void addPoint(FPoint p);

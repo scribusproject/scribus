@@ -32,18 +32,18 @@ public:
     QPushButton* OK;
     QPushButton* Cancel;
     QPushButton* Reset;
-		PageItem* Item;
-		int IcPlace;
-		int IcScaleW;
-		int IcScaleH;
-		double IcPlaceX;
-		double IcPlaceY;
+	PageItem* Item;
+	int IcPlace;
+	int IcScaleW;
+	int IcScaleH;
+	double IcPlaceX;
+	double IcPlaceY;
 
 private slots:
-		void MoveIconY(int y);
-		void MoveIconX(int x);
-		void SetAllVals();
-		void SetScaleHow(int s);
+	void MoveIconY(int y);
+	void MoveIconX(int x);
+	void SetAllVals();
+	void SetScaleHow(int s);
 
 protected:
     QVBoxLayout* ButtonIconLayout;
