@@ -529,6 +529,8 @@ public:
 	static const QString FreeScaling;
 	static const QString KeepRatio;
 	static const QString BreakRatio;
+	static const QString EditContourLine;
+	static const QString EditShape;
 	/*@}*/
 
 	/**
@@ -570,6 +572,7 @@ public:
 	static QPixmap *IEPS;
 	static QPixmap *IImportOOoDraw;
 	static QPixmap *IImageScaling;
+	static QPixmap *IBorder;
 	/*@}*/
 
 protected:

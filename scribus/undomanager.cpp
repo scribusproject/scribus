@@ -775,6 +775,7 @@ void UndoManager::initIcons()
 	UndoManager::ISVG             = new QPixmap(iconDir + "u_svg.png");
 	UndoManager::IEPS             = new QPixmap(iconDir + "u_eps.png");
 	UndoManager::IImageScaling    = new QPixmap(iconDir + "u_scale_image.png");
+	UndoManager::IBorder          = new QPixmap(iconDir + "u_shape.png");
 }
 
 const QString UndoManager::AddVGuide          = tr("Add vertical guide");
@@ -864,6 +865,8 @@ const QString UndoManager::FrameSize          = tr("Frame size");
 const QString UndoManager::FreeScaling        = tr("Free scaling");
 const QString UndoManager::KeepRatio          = tr("Keep aspect ratio");
 const QString UndoManager::BreakRatio         = tr("Break aspect ratio");
+const QString UndoManager::EditContourLine    = tr("Edit contour line");
+const QString UndoManager::EditShape          = tr("Edit shape");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;
@@ -899,3 +902,4 @@ QPixmap *UndoManager::ISVG             = NULL;
 QPixmap *UndoManager::IEPS             = NULL;
 QPixmap *UndoManager::IImportOOoDraw   = NULL;
 QPixmap *UndoManager::IImageScaling    = NULL;
+QPixmap *UndoManager::IBorder          = NULL;

@@ -5259,6 +5259,18 @@ void ScribusView::TransformPoly(int mode, int rot, int scaling)
 		b->paintObj();
 		b->FrameOnly = false;
 		MarkClip(b);
+		if (UndoManager::undoEnabled())
+		{
+			undoManager->setUndoEnabled(false);
+			b->checkChanges(true);
+			undoManager->setUndoEnabled(true);
+			SimpleState *ss = new SimpleState(Um::EditContourLine, "", Um::IBorder);
+			ss->set("EDIT_CONTOUR", "edit_contour");
+			ss->set("MODE", mode);
+			ss->set("ROT", rot);
+			ss->set("SCALING", scaling);
+			undoManager->action(b, ss);
+		}
 		return;
 	}
 	FPoint oldPos = FPoint(b->Xpos, b->Ypos);
@@ -5336,6 +5348,18 @@ void ScribusView::TransformPoly(int mode, int rot, int scaling)
 	RefreshItem(b);
 	MarkClip(b);
 	b->FrameType = 3;
+	if (UndoManager::undoEnabled())
+	{
+		undoManager->setUndoEnabled(false);
+		b->checkChanges(true);
+		undoManager->setUndoEnabled(true);
+		SimpleState *ss = new SimpleState(Um::EditShape, "", Um::IBorder);
+		ss->set("EDIT_SHAPE", "edit_shape");
+		ss->set("MODE", mode);
+		ss->set("ROT", rot);
+		ss->set("SCALING", scaling);
+		undoManager->action(b, ss);
+	}
 }
 
 void ScribusView::Reset1Control()

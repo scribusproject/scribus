@@ -3212,6 +3212,10 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreImageScaling(ss, isUndo);
 		else if (ss->contains("ASPECT_RATIO"))
 			restoreImageScaling(ss, isUndo);
+		else if (ss->contains("EDIT_CONTOUR"))
+			restorePoly(ss, isUndo, true);
+		else if (ss->contains("EDIT_SHAPE"))
+			restorePoly(ss, isUndo, false);
 	}
 }
 
@@ -3595,6 +3599,28 @@ void PageItem::restoreImageScaling(SimpleState *state, bool isUndo)
 		ratio = AspectRatio;
 
 	setImageScalingMode(type, ratio);
+}
+
+void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
+{
+	int mode    = state->getInt("MODE");
+	int rot     = state->getInt("ROT");
+	int scaling = state->getInt("SCALING");
+	bool editContour = ScApp->view->EditContour;
+	ScApp->view->EditContour = isContour;
+	select();
+	if (isUndo)
+	{
+		if (mode % 2 != 0 && mode != 0)
+			--mode;
+		else
+			++mode;
+		ScApp->view->TransformPoly(mode, rot, scaling);
+	}
+	else
+		ScApp->view->TransformPoly(mode, rot, scaling);
+
+	ScApp->view->EditContour = editContour;
 }
 
 void PageItem::select()
