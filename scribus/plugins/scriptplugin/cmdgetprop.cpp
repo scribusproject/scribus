@@ -229,14 +229,36 @@ PyObject *scribus_getrotation(PyObject *self, PyObject* args)
 PyObject *scribus_getallobj(PyObject *self, PyObject* args)
 {
 	PyObject *l;
-	if (!PyArg_ParseTuple(args, ""))
+	int typ = -1;
+	uint counter = 0;
+	uint counter2 = 0;
+	if (!PyArg_ParseTuple(args, "|i", &typ))
 		return NULL;
 	if (Carrier->HaveDoc)
 		{
-		l = PyList_New(Carrier->doc->ActPage->Items.count());
-		for (uint lam=0; lam < Carrier->doc->ActPage->Items.count(); lam++)
+		if (typ != -1)
+		{
+			for (uint lam2 = 0; lam2 < Carrier->doc->ActPage->Items.count(); ++lam2)
 			{
-			PyList_SetItem(l, lam, PyString_FromString(Carrier->doc->ActPage->Items.at(lam)->AnName));
+				if (Carrier->doc->ActPage->Items.at(lam2)->PType == typ)
+					counter++;
+			}
+		}
+		else
+			counter = Carrier->doc->ActPage->Items.count();
+		l = PyList_New(counter);
+		for (uint lam=0; lam < Carrier->doc->ActPage->Items.count(); ++lam)
+			{
+			if (typ != -1)
+			{
+				if (Carrier->doc->ActPage->Items.at(lam)->PType == typ)
+				{
+					PyList_SetItem(l, counter2, PyString_FromString(Carrier->doc->ActPage->Items.at(lam)->AnName));
+					counter2++;
+				}
+			}
+			else
+				PyList_SetItem(l, lam, PyString_FromString(Carrier->doc->ActPage->Items.at(lam)->AnName));
 			}
 		}
 	else

@@ -2643,6 +2643,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			QPopupMenu *pmen4 = new QPopupMenu();
 			QPopupMenu *pmenLevel = new QPopupMenu();
+			QPopupMenu *pmenPDF = new QPopupMenu();
 
 			if ((b->PType == 4) || (b->PType == 2) || (b->PType == 8))
 			{
@@ -2763,18 +2764,19 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem( tr("Insert Sample Text"), this, SLOT(LoremIpsum()));
 				if (PageNam == "")
 				{
-					int pxb = pmen->insertItem( tr("Is PDF-Bookmark"), this, SLOT(ToggleBookmark()));
-					pmen->setItemChecked(pxb, b->isBookmark);
-					pxb = pmen->insertItem( tr("Is PDF-Annotation"), this, SLOT(ToggleAnnotation()));
-					pmen->setItemChecked(pxb, b->isAnnotation);
+					int pxb = pmenPDF->insertItem( tr("Is PDF-Bookmark"), this, SLOT(ToggleBookmark()));
+					pmenPDF->setItemChecked(pxb, b->isBookmark);
+					pxb = pmenPDF->insertItem( tr("Is PDF-Annotation"), this, SLOT(ToggleAnnotation()));
+					pmenPDF->setItemChecked(pxb, b->isAnnotation);
 					if (b->isAnnotation)
 					{
 						if ((b->AnType == 0) || (b->AnType == 1) || (b->AnType > 9))
-							pmen->insertItem( tr("Annotation Properties"), this, SIGNAL(AnnotProps()));
+							pmenPDF->insertItem( tr("Annotation Properties"), this, SIGNAL(AnnotProps()));
 						else
-							pmen->insertItem( tr("Field Properties"), this, SIGNAL(AnnotProps()));
+							pmenPDF->insertItem( tr("Field Properties"), this, SIGNAL(AnnotProps()));
 					}
 				}
+				pmen->insertItem( tr("PDF-Options"), pmenPDF);
 			}
 			if (b->PType == 8)
 				pmen->insertItem( tr("Edit Text..."), this, SIGNAL(EditText()));
@@ -2881,6 +2883,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			delete pmen3;
 			delete pmen4;
 			delete pmenLevel;
+			delete pmenPDF;
 		}
 		if (doku->AppMode == 10)
 			update();

@@ -1,8 +1,13 @@
 Changes since Version 1.1.6
 
 20.05.2004
+	* bug     #684: open-entry in the library should be moved
+	* bug     #692: New Parameter for GetAllObjects
+	* feature #643: Enable EPS and PS Import as Vector Objects
 	* feature #677: Remove lingering empty messages from some .ts files
 	* feature #679: Update for the German language
+	* feature #687: put the pdf-options in the context menu in a submenu
+	* feature #693: Updated Russian Translation
 
 19.05.2004
 	* bug     #673: Borders of tools are messed up on startup

@@ -130,9 +130,9 @@ Biblio::Biblio( QWidget* parent, preV *prefs)
 	BiblioLayout->setMargin( 0 );
 	fmenu = new QPopupMenu();
 	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("New"), this, SLOT(NewLib()), CTRL+Key_N);
+	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("Load..."), this, SLOT(Load()), CTRL+Key_O);
 	fSave = fmenu->insertItem(loadIcon("DateiSave16.png"), tr("Save"), this, SLOT(Save()), CTRL+Key_S);
 	fmenu->insertItem( tr("Save as..."), this, SLOT(SaveAs()));
-	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("Load..."), this, SLOT(Load()), CTRL+Key_O);
 	fmenu->insertItem(loadIcon("DateiClos16.png"), tr("Close"), this, SLOT(CloseWin()));
 	vmenu = new QPopupMenu();
 	vS = vmenu->insertItem( tr( "Small" ) );
