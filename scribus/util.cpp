@@ -1882,7 +1882,8 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 					unsigned int *ptr = (unsigned int *) img.scanLine(i);
 					unsigned char c, m, y ,k;
 //					if ((cinfo.saw_Adobe_marker) && (cinfo.Adobe_transform == 2))
-					if (cinfo.jpeg_color_space != cinfo.out_color_space)
+//					if (cinfo.jpeg_color_space != cinfo.out_color_space)
+					if ((cinfo.jpeg_color_space == JCS_YCCK) || ((cinfo.jpeg_color_space == JCS_CMYK) && (cinfo.saw_Adobe_marker)))
 					{
 						for (int j = 0; j < img.width(); j++)
 						{
