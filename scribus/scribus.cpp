@@ -1323,7 +1323,7 @@ void ScribusApp::initHelpMenuActions()
 	scrActions.insert("helpAboutScribus", new ScrAction(tr("&About Scribus"), QKeySequence(), this, "helpAboutScribus"));
 	scrActions.insert("helpAboutQt", new ScrAction(tr("About &Qt"), QKeySequence(), this, "helpAboutQt"));
 	scrActions.insert("helpTooltips", new ScrAction(tr("Toolti&ps"), QKeySequence(), this, "helpTooltips"));
-	scrActions.insert("helpManual", new ScrAction(tr("Scribus &Manual..."), QKeySequence(), this, "helpManual"));
+	scrActions.insert("helpManual", new ScrAction(tr("Scribus &Manual..."), Key_F1, this, "helpManual"));
 	
 	scrActions["helpTooltips"]->setToggleAction(true);
 	scrActions["helpTooltips"]->setOn(true);
