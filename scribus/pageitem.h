@@ -177,6 +177,8 @@ public:
   /** Zeichnet das Item */
 	void paintObj(QRect e=QRect(), QPixmap *ppX = 0);
 	void DrawObj(ScPainter *p, QRect e);
+	void DrawObj_Pre(ScPainter *p, QRect e);
+	void DrawObj_Post(ScPainter *p, QRect e);
 	void DrawObj_ImageFrame(ScPainter *p, QRect e);
 	void DrawObj_TextFrame(ScPainter *p, QRect e);
 	void DrawObj_Line(ScPainter *p, QRect e);

@@ -312,6 +312,14 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 /** Zeichnet das Item */
 void PageItem::DrawObj(ScPainter *p, QRect e)
 {
+	if (!Doc->DoDrawing)
+	{
+		Redrawn = true;
+		Tinput = false;
+		FrameOnly = false;
+		return;
+	}
+	DrawObj_Pre(p, e);
 	switch(itemType())
 	{
 		case ImageFrame:
@@ -335,6 +343,82 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 		default:
 			break;
 	}
+	//DrawObj_Post(p, e);
+}
+
+void PageItem::DrawObj_Pre(ScPainter *p, QRect e)
+{
+}
+
+void PageItem::DrawObj_Post(ScPainter *p, QRect e)
+{
+	if (Doc->RePos)
+		return;
+	bool doStroke=true;
+	
+	if ((itemType()==PathText && !PoShow)|| itemType()==PolyLine || itemType()==Line)
+		doStroke=false;
+			
+	//if (doStroke) && (!Doc->RePos))
+	if (doStroke)
+	{
+		if (lineColor() != "None")
+		{
+			QColor tmp;
+			SetFarbe(&tmp, lineColor(), lineShade());
+			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			if (DashValues.count() != 0)
+				p->setDash(DashValues, DashOffset);
+		}
+		else
+			p->setLineWidth(0);
+		if (!isTableItem)
+		{
+			p->setupPolygon(&PoLine);
+			if (NamedLStyle == "")
+				p->strokePath();
+			else
+			{
+				multiLine ml = Doc->MLineStyles[NamedLStyle];
+				QColor tmp;
+				for (int it = ml.size()-1; it > -1; it--)
+				{
+					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(tmp, ml[it].Width,
+							  static_cast<PenStyle>(ml[it].Dash),
+							  static_cast<PenCapStyle>(ml[it].LineEnd),
+							  static_cast<PenJoinStyle>(ml[it].LineJoin));
+					p->strokePath();
+				}
+			}
+		}
+	}
+	//if (!Doc->RePos)
+	//{
+		double scpInv = 1.0 / (QMAX(ScApp->view->Scale, 1));
+		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame)))
+		{
+			if ((isBookmark) || (isAnnotation))
+				p->setPen(blue, scpInv, DotLine, FlatCap, MiterJoin);
+			else
+			if ((BackBox != 0) || (NextBox != 0))
+				p->setPen(red, scpInv, SolidLine, FlatCap, MiterJoin);
+			else
+			if (Locked)
+				p->setPen(darkRed, scpInv, SolidLine, FlatCap, MiterJoin);
+			else
+				p->setPen(black, scpInv, DotLine, FlatCap, MiterJoin);
+			p->setFillMode(0);
+			p->setupPolygon(&PoLine);
+			p->strokePath();
+		}
+		if ((Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
+		{
+			p->setPen(lightGray, scpInv, DotLine, FlatCap, MiterJoin);
+			p->setupPolygon(&ContourLine);
+			p->strokePath();
+		}
+	//}
 }
 
 /** Zeichnet das Item */
@@ -343,13 +427,6 @@ void PageItem::DrawObj_ImageFrame(ScPainter *p, QRect e)
 	QColor tmp;
 	QPainter pf;
 	double sc = ScApp->view->Scale;
-	if (!Doc->DoDrawing)
-	{
-		Redrawn = true;
-		Tinput = false;
-		FrameOnly = false;
-		return;
-	}
 	pf.begin(ScApp->view->viewport());
 	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
 	pf.translate(trans.x(), trans.y());
@@ -357,8 +434,6 @@ void PageItem::DrawObj_ImageFrame(ScPainter *p, QRect e)
 	pf.scale(sc, sc);
 	if (!Doc->RePos)
 		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
-	bool doStroke = true;
-	QRect e2 = QRect(qRound(e.x() / sc), qRound(e.y() / sc), qRound(e.width() / sc), qRound(e.height() / sc));
 	p->setZoomFactor(sc);
 	p->save();
 	p->translate(Xpos*sc, Ypos*sc);
@@ -480,60 +555,7 @@ void PageItem::DrawObj_ImageFrame(ScPainter *p, QRect e)
 			}
 	//		break;
 	}
-	if ((doStroke) && (!Doc->RePos))
-	{
-		if (lineColor() != "None")
-		{
-			SetFarbe(&tmp, lineColor(), lineShade());
-			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
-			if (DashValues.count() != 0)
-				p->setDash(DashValues, DashOffset);
-		}
-		else
-			p->setLineWidth(0);
-		if (!isTableItem)
-		{
-			p->setupPolygon(&PoLine);
-			if (NamedLStyle == "")
-				p->strokePath();
-			else
-			{
-				multiLine ml = Doc->MLineStyles[NamedLStyle];
-				for (int it = ml.size()-1; it > -1; it--)
-				{
-					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-					p->setPen(tmp, ml[it].Width,
-							  static_cast<PenStyle>(ml[it].Dash),
-							  static_cast<PenCapStyle>(ml[it].LineEnd),
-							  static_cast<PenJoinStyle>(ml[it].LineJoin));
-					p->strokePath();
-				}
-			}
-		}
-	}
-	if (!Doc->RePos)
-	{
-		double scp = QMAX(ScApp->view->Scale, 1);
-		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame)))
-		{
-			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
-			if ((isBookmark) || (isAnnotation))
-				p->setPen(blue, 1 / scp, DotLine, FlatCap, MiterJoin);
-			if ((BackBox != 0) || (NextBox != 0))
-				p->setPen(red, 1 / scp, SolidLine, FlatCap, MiterJoin);
-			if (Locked)
-				p->setPen(darkRed, 1 / scp, SolidLine, FlatCap, MiterJoin);
-			p->setFillMode(0);
-			p->setupPolygon(&PoLine);
-			p->strokePath();
-		}
-		if ((Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
-		{
-			p->setPen(lightGray, 1 / scp, DotLine, FlatCap, MiterJoin);
-			p->setupPolygon(&ContourLine);
-			p->strokePath();
-		}
-	}
+	DrawObj_Post(p, e);
 	Tinput = false;
 	FrameOnly = false;
 	p->restore();
@@ -573,13 +595,6 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 	int DropLines;
 	bool StartOfCol = true;
 	tTabValues.clear();
-	if (!Doc->DoDrawing)
-	{
-		Redrawn = true;
-		Tinput = false;
-		FrameOnly = false;
-		return;
-	}
 	LiList.setAutoDelete(true);
 	for (int xxx=0; xxx<5; ++xxx)
 	{
@@ -598,7 +613,6 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 	pf.scale(sc, sc);
 	if (!Doc->RePos)
 		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
-	bool doStroke = true;
 	QRect e2 = QRect(qRound(e.x() / sc), qRound(e.y() / sc), qRound(e.width() / sc), qRound(e.height() / sc));
 	p->setZoomFactor(sc);
 	p->save();
@@ -1746,65 +1760,11 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 		default:
 			break;
 	}
-	if ((doStroke) && (!Doc->RePos))
-	{
-		if (lineColor() != "None")
-		{
-			SetFarbe(&tmp, lineColor(), lineShade());
-			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
-			if (DashValues.count() != 0)
-				p->setDash(DashValues, DashOffset);
-		}
-		else
-			p->setLineWidth(0);
-		if (!isTableItem)
-		{
-			p->setupPolygon(&PoLine);
-			if (NamedLStyle == "")
-				p->strokePath();
-			else
-			{
-				multiLine ml = Doc->MLineStyles[NamedLStyle];
-				for (int it = ml.size()-1; it > -1; it--)
-				{
-					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-					p->setPen(tmp, ml[it].Width,
-							  static_cast<PenStyle>(ml[it].Dash),
-							  static_cast<PenCapStyle>(ml[it].LineEnd),
-							  static_cast<PenJoinStyle>(ml[it].LineJoin));
-					p->strokePath();
-				}
-			}
-		}
-	}
-	if (!Doc->RePos)
-	{
-		double scp = QMAX(ScApp->view->Scale, 1);
-		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame)))
-		{
-			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
-			if ((isBookmark) || (isAnnotation))
-				p->setPen(blue, 1 / scp, DotLine, FlatCap, MiterJoin);
-			if ((BackBox != 0) || (NextBox != 0))
-				p->setPen(red, 1 / scp, SolidLine, FlatCap, MiterJoin);
-			if (Locked)
-				p->setPen(darkRed, 1 / scp, SolidLine, FlatCap, MiterJoin);
-			p->setFillMode(0);
-			p->setupPolygon(&PoLine);
-			p->strokePath();
-		}
-		if ((Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
-		{
-			p->setPen(lightGray, 1 / scp, DotLine, FlatCap, MiterJoin);
-			p->setupPolygon(&ContourLine);
-			p->strokePath();
-		}
-	}
+	DrawObj_Post(p, e);
 	Tinput = false;
 	FrameOnly = false;
 	p->restore();
 	pf.end();
-// 	checkChanges(); // check the changes for undo actions
 }
 
 /** Zeichnet das Item */
@@ -1813,13 +1773,6 @@ void PageItem::DrawObj_Line(ScPainter *p, QRect e)
 	QColor tmp;
 	QPainter pf;
 	double sc = ScApp->view->Scale;
-	if (!Doc->DoDrawing)
-	{
-		Redrawn = true;
-		Tinput = false;
-		FrameOnly = false;
-		return;
-	}
 	pf.begin(ScApp->view->viewport());
 	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
 	pf.translate(trans.x(), trans.y());
@@ -1827,8 +1780,6 @@ void PageItem::DrawObj_Line(ScPainter *p, QRect e)
 	pf.scale(sc, sc);
 	if (!Doc->RePos)
 		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
-	bool doStroke = true;
-	QRect e2 = QRect(qRound(e.x() / sc), qRound(e.y() / sc), qRound(e.width() / sc), qRound(e.height() / sc));
 	p->setZoomFactor(sc);
 	p->save();
 	p->translate(Xpos*sc, Ypos*sc);
@@ -1894,7 +1845,6 @@ void PageItem::DrawObj_Line(ScPainter *p, QRect e)
 	//			break;
 	if (!Doc->RePos)
 	{
-			doStroke = false;
 			if (NamedLStyle == "")
 				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 			else
@@ -1941,65 +1891,11 @@ void PageItem::DrawObj_Line(ScPainter *p, QRect e)
 			}
 	//		break;
 	}
-	if ((doStroke) && (!Doc->RePos))
-	{
-		if (lineColor() != "None")
-		{
-			SetFarbe(&tmp, lineColor(), lineShade());
-			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
-			if (DashValues.count() != 0)
-				p->setDash(DashValues, DashOffset);
-		}
-		else
-			p->setLineWidth(0);
-		if (!isTableItem)
-		{
-			p->setupPolygon(&PoLine);
-			if (NamedLStyle == "")
-				p->strokePath();
-			else
-			{
-				multiLine ml = Doc->MLineStyles[NamedLStyle];
-				for (int it = ml.size()-1; it > -1; it--)
-				{
-					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-					p->setPen(tmp, ml[it].Width,
-							  static_cast<PenStyle>(ml[it].Dash),
-							  static_cast<PenCapStyle>(ml[it].LineEnd),
-							  static_cast<PenJoinStyle>(ml[it].LineJoin));
-					p->strokePath();
-				}
-			}
-		}
-	}
-	if (!Doc->RePos)
-	{
-		double scp = QMAX(ScApp->view->Scale, 1);
-		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame)))
-		{
-			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
-			if ((isBookmark) || (isAnnotation))
-				p->setPen(blue, 1 / scp, DotLine, FlatCap, MiterJoin);
-			if ((BackBox != 0) || (NextBox != 0))
-				p->setPen(red, 1 / scp, SolidLine, FlatCap, MiterJoin);
-			if (Locked)
-				p->setPen(darkRed, 1 / scp, SolidLine, FlatCap, MiterJoin);
-			p->setFillMode(0);
-			p->setupPolygon(&PoLine);
-			p->strokePath();
-		}
-		if ((Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
-		{
-			p->setPen(lightGray, 1 / scp, DotLine, FlatCap, MiterJoin);
-			p->setupPolygon(&ContourLine);
-			p->strokePath();
-		}
-	}
+	DrawObj_Post(p, e);
 	Tinput = false;
 	FrameOnly = false;
 	p->restore();
 	pf.end();
-// 	checkChanges(); // check the changes for undo actions
 }
 
 /** Zeichnet das Item */
@@ -2008,13 +1904,6 @@ void PageItem::DrawObj_Polygon(ScPainter *p, QRect e)
 	QColor tmp;
 	QPainter pf;
 	double sc = ScApp->view->Scale;
-	if (!Doc->DoDrawing)
-	{
-		Redrawn = true;
-		Tinput = false;
-		FrameOnly = false;
-		return;
-	}
 	pf.begin(ScApp->view->viewport());
 	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
 	pf.translate(trans.x(), trans.y());
@@ -2022,8 +1911,6 @@ void PageItem::DrawObj_Polygon(ScPainter *p, QRect e)
 	pf.scale(sc, sc);
 	if (!Doc->RePos)
 		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
-	bool doStroke = true;
-	QRect e2 = QRect(qRound(e.x() / sc), qRound(e.y() / sc), qRound(e.width() / sc), qRound(e.height() / sc));
 	p->setZoomFactor(sc);
 	p->save();
 	p->translate(Xpos*sc, Ypos*sc);
@@ -2093,65 +1980,11 @@ void PageItem::DrawObj_Polygon(ScPainter *p, QRect e)
 			p->fillPath();
 	//		break;
 	}
-	if ((doStroke) && (!Doc->RePos))
-	{
-		if (lineColor() != "None")
-		{
-			SetFarbe(&tmp, lineColor(), lineShade());
-			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
-			if (DashValues.count() != 0)
-				p->setDash(DashValues, DashOffset);
-		}
-		else
-			p->setLineWidth(0);
-		if (!isTableItem)
-		{
-			p->setupPolygon(&PoLine);
-			if (NamedLStyle == "")
-				p->strokePath();
-			else
-			{
-				multiLine ml = Doc->MLineStyles[NamedLStyle];
-				for (int it = ml.size()-1; it > -1; it--)
-				{
-					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-					p->setPen(tmp, ml[it].Width,
-							  static_cast<PenStyle>(ml[it].Dash),
-							  static_cast<PenCapStyle>(ml[it].LineEnd),
-							  static_cast<PenJoinStyle>(ml[it].LineJoin));
-					p->strokePath();
-				}
-			}
-		}
-	}
-	if (!Doc->RePos)
-	{
-		double scp = QMAX(ScApp->view->Scale, 1);
-		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame)))
-		{
-			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
-			if ((isBookmark) || (isAnnotation))
-				p->setPen(blue, 1 / scp, DotLine, FlatCap, MiterJoin);
-			if ((BackBox != 0) || (NextBox != 0))
-				p->setPen(red, 1 / scp, SolidLine, FlatCap, MiterJoin);
-			if (Locked)
-				p->setPen(darkRed, 1 / scp, SolidLine, FlatCap, MiterJoin);
-			p->setFillMode(0);
-			p->setupPolygon(&PoLine);
-			p->strokePath();
-		}
-		if ((Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
-		{
-			p->setPen(lightGray, 1 / scp, DotLine, FlatCap, MiterJoin);
-			p->setupPolygon(&ContourLine);
-			p->strokePath();
-		}
-	}
+	DrawObj_Post(p, e);
 	Tinput = false;
 	FrameOnly = false;
 	p->restore();
 	pf.end();
-// 	checkChanges(); // check the changes for undo actions
 }
 
 /** Zeichnet das Item */
@@ -2160,13 +1993,6 @@ void PageItem::DrawObj_PolyLine(ScPainter *p, QRect e)
 	QColor tmp;
 	QPainter pf;
 	double sc = ScApp->view->Scale;
-	if (!Doc->DoDrawing)
-	{
-		Redrawn = true;
-		Tinput = false;
-		FrameOnly = false;
-		return;
-	}
 	pf.begin(ScApp->view->viewport());
 	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
 	pf.translate(trans.x(), trans.y());
@@ -2174,8 +2000,6 @@ void PageItem::DrawObj_PolyLine(ScPainter *p, QRect e)
 	pf.scale(sc, sc);
 	if (!Doc->RePos)
 		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
-	bool doStroke = true;
-	QRect e2 = QRect(qRound(e.x() / sc), qRound(e.y() / sc), qRound(e.width() / sc), qRound(e.height() / sc));
 	p->setZoomFactor(sc);
 	p->save();
 	p->translate(Xpos*sc, Ypos*sc);
@@ -2237,7 +2061,6 @@ void PageItem::DrawObj_PolyLine(ScPainter *p, QRect e)
 	//switch (itemType())
 	//{
 	//	case PolyLine:
-			doStroke = false;
 	//		if (Doc->RePos)
 	//			break;
 	//		if (PoLine.size() < 4)
@@ -2350,60 +2173,7 @@ void PageItem::DrawObj_PolyLine(ScPainter *p, QRect e)
 			}
 	//		break;
 	}
-	if ((doStroke) && (!Doc->RePos))
-	{
-		if (lineColor() != "None")
-		{
-			SetFarbe(&tmp, lineColor(), lineShade());
-			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
-			if (DashValues.count() != 0)
-				p->setDash(DashValues, DashOffset);
-		}
-		else
-			p->setLineWidth(0);
-		if (!isTableItem)
-		{
-			p->setupPolygon(&PoLine);
-			if (NamedLStyle == "")
-				p->strokePath();
-			else
-			{
-				multiLine ml = Doc->MLineStyles[NamedLStyle];
-				for (int it = ml.size()-1; it > -1; it--)
-				{
-					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-					p->setPen(tmp, ml[it].Width,
-							  static_cast<PenStyle>(ml[it].Dash),
-							  static_cast<PenCapStyle>(ml[it].LineEnd),
-							  static_cast<PenJoinStyle>(ml[it].LineJoin));
-					p->strokePath();
-				}
-			}
-		}
-	}
-	if (!Doc->RePos)
-	{
-		double scp = QMAX(ScApp->view->Scale, 1);
-		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame)))
-		{
-			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
-			if ((isBookmark) || (isAnnotation))
-				p->setPen(blue, 1 / scp, DotLine, FlatCap, MiterJoin);
-			if ((BackBox != 0) || (NextBox != 0))
-				p->setPen(red, 1 / scp, SolidLine, FlatCap, MiterJoin);
-			if (Locked)
-				p->setPen(darkRed, 1 / scp, SolidLine, FlatCap, MiterJoin);
-			p->setFillMode(0);
-			p->setupPolygon(&PoLine);
-			p->strokePath();
-		}
-		if ((Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
-		{
-			p->setPen(lightGray, 1 / scp, DotLine, FlatCap, MiterJoin);
-			p->setupPolygon(&ContourLine);
-			p->strokePath();
-		}
-	}
+	DrawObj_Post(p, e);
 	Tinput = false;
 	FrameOnly = false;
 	p->restore();
@@ -2423,13 +2193,6 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 	QString chx, chx2, chx3;
 	struct ScText *hl;
 	struct ZZ *Zli;
-	if (!Doc->DoDrawing)
-	{
-		Redrawn = true;
-		Tinput = false;
-		FrameOnly = false;
-		return;
-	}
 	pf.begin(ScApp->view->viewport());
 	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
 	pf.translate(trans.x(), trans.y());
@@ -2437,8 +2200,6 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 	pf.scale(sc, sc);
 	if (!Doc->RePos)
 		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
-	bool doStroke = true;
-	QRect e2 = QRect(qRound(e.x() / sc), qRound(e.y() / sc), qRound(e.width() / sc), qRound(e.height() / sc));
 	p->setZoomFactor(sc);
 	p->save();
 	p->translate(Xpos*sc, Ypos*sc);
@@ -2501,8 +2262,6 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 	//{
 	//	case PathText:
 		{
-			if (!PoShow)
-				doStroke = false;
 			double dx;
 			double sp = 0;
 			double oldSp = 0;
@@ -2650,72 +2409,16 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 			}
 		}
 	//}
-	if ((doStroke) && (!Doc->RePos))
-	{
-		if (lineColor() != "None")
-		{
-			SetFarbe(&tmp, lineColor(), lineShade());
-			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
-			if (DashValues.count() != 0)
-				p->setDash(DashValues, DashOffset);
-		}
-		else
-			p->setLineWidth(0);
-		if (!isTableItem)
-		{
-			p->setupPolygon(&PoLine);
-			if (NamedLStyle == "")
-				p->strokePath();
-			else
-			{
-				multiLine ml = Doc->MLineStyles[NamedLStyle];
-				for (int it = ml.size()-1; it > -1; it--)
-				{
-					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-					p->setPen(tmp, ml[it].Width,
-							  static_cast<PenStyle>(ml[it].Dash),
-							  static_cast<PenCapStyle>(ml[it].LineEnd),
-							  static_cast<PenJoinStyle>(ml[it].LineJoin));
-					p->strokePath();
-				}
-			}
-		}
-	}
-	if (!Doc->RePos)
-	{
-		double scp = QMAX(ScApp->view->Scale, 1);
-		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame)))
-		{
-			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
-			if ((isBookmark) || (isAnnotation))
-				p->setPen(blue, 1 / scp, DotLine, FlatCap, MiterJoin);
-			if ((BackBox != 0) || (NextBox != 0))
-				p->setPen(red, 1 / scp, SolidLine, FlatCap, MiterJoin);
-			if (Locked)
-				p->setPen(darkRed, 1 / scp, SolidLine, FlatCap, MiterJoin);
-			p->setFillMode(0);
-			p->setupPolygon(&PoLine);
-			p->strokePath();
-		}
-		if ((Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
-		{
-			p->setPen(lightGray, 1 / scp, DotLine, FlatCap, MiterJoin);
-			p->setupPolygon(&ContourLine);
-			p->strokePath();
-		}
-	}
+	DrawObj_Post(p, e);
 	Tinput = false;
 	FrameOnly = false;
 	p->restore();
 	pf.end();
-// 	checkChanges(); // check the changes for undo actions
 }
 
 
 void PageItem::paintObj(QRect e, QPixmap *ppX)
 {
-	QPainter p;
-	double sc = ScApp->view->Scale;
 	if (!Doc->DoDrawing)
 	{
 		Redrawn = true;
@@ -2723,6 +2426,8 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 		FrameOnly = false;
 		return;
 	}
+	QPainter p;
+	double sc = ScApp->view->Scale;
 	if (toPixmap)
 		p.begin(ppX);
 	else
