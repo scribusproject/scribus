@@ -20,6 +20,7 @@
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
 extern FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err);
+extern void setBestEncoding(FT_Face face);
 
 QString Foi_ttf::RealName()
 {
@@ -77,40 +78,7 @@ bool Foi_ttf::ReadMetrics()
 	StdVW = "1";
 	FontBBox = tmp.setNum(face->bbox.xMin * 1000 / uniEM)+" "+tmp2.setNum(face->bbox.yMin * 1000 / uniEM)+" "+tmp3.setNum(face->bbox.xMax * 1000 / uniEM)+" "+tmp4.setNum(face->bbox.yMax * 1000 / uniEM);
 	IsFixedPitch = face->face_flags & 4;
-	bool foundEncoding = false;
-	for(int u = 0; u < face->num_charmaps; u++)
-	{
-		if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
-		{
-			FT_Set_Charmap(face,face->charmaps[u]);
-			foundEncoding = true;
-			break;
-		}
-	}
-	if (!foundEncoding)
-	{
-		for(int u = 0; u < face->num_charmaps; u++)
-		{
-			if (face->charmaps[u]->encoding == FT_ENCODING_UNICODE)
-			{
-				FT_Set_Charmap(face,face->charmaps[u]);
-				foundEncoding = true;
-				break;
-			}
-		}
-		if (!foundEncoding)
-		{
-			for(int u = 0; u < face->num_charmaps; u++)
-			{
-				if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_EXPERT)
-				{
-					FT_Set_Charmap(face,face->charmaps[u]);
-					foundEncoding = true;
-					break;
-				}
-			}
-		}
-	}
+	setBestEncoding(face);
 	gindex = 0;
 	charcode = FT_Get_First_Char( face, &gindex );
 	while ( gindex != 0 )
@@ -156,10 +124,10 @@ bool Foi_ttf::EmbedFont(QString &str)
 	FT_Library library;
 	FT_Face face;
 	FT_ULong  charcode;
-  FT_UInt   gindex;
+	FT_UInt   gindex;
 	FT_Init_FreeType(&library);
 	FT_New_Face(library, file.name(), 0, &face);
-  str+="%!PS-TrueTypeFont\n";
+	str+="%!PS-TrueTypeFont\n";
 	str+="11 dict begin\n";
 	str+="/FontName /" + RealName() + " def\n";
 	str+="/Encoding /ISOLatin1Encoding where {pop ISOLatin1Encoding} {StandardEncoding} ifelse def\n";
@@ -209,40 +177,7 @@ bool Foi_ttf::EmbedFont(QString &str)
 	while (length==65534);
 	str += "\n] def\n";
 	delete tmp;
-	bool foundEncoding = false;
-	for(int u = 0; u < face->num_charmaps; u++)
-	{
-		if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
-		{
-			FT_Set_Charmap(face,face->charmaps[u]);
-			foundEncoding = true;
-			break;
-		}
-	}
-	if (!foundEncoding)
-	{
-		for(int u = 0; u < face->num_charmaps; u++)
-		{
-			if (face->charmaps[u]->encoding == FT_ENCODING_UNICODE)
-			{
-				FT_Set_Charmap(face,face->charmaps[u]);
-				foundEncoding = true;
-				break;
-			}
-		}
-		if (!foundEncoding)
-		{
-			for(int u = 0; u < face->num_charmaps; u++)
-			{
-				if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_EXPERT)
-				{
-					FT_Set_Charmap(face,face->charmaps[u]);
-					foundEncoding = true;
-					break;
-				}
-			}
-		}
-	}
+	setBestEncoding(face);
 	gindex = 0;
 	charcode = FT_Get_First_Char(face, &gindex );
 	while (gindex != 0)

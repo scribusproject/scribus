@@ -1,4 +1,19 @@
-Changes since 1.2 
+Changes since 1.2
+
+14.12.2004
+	* bug     #1376: Some glyphs in Luxi Sans font family disappear when file is exported to PDF
+	* bug     #1378: Some elements on a template don't make it into PDF
+
+12.12.2004
+	* bug     #1163: "adjusting to frame" makes pictures smaller
+	* bug     #1207: Scribus crashes with Story Editor applying to new empty paragraphs..
+	* bug     #1379: slovenian updates
+	* feature #1057: Updates to allow correct build on AMD 64
+
+11.12.2004
+	* bug     #1082: Save state of toolwindows when exiting
+	* bug     #1143: Story editor loses first keystroke
+	* bug     #1359: garbage in preview when inserting graphic file without extension
 
 10.12.2004
 	* bug     # 931: Insert Special should be disabled when not usable

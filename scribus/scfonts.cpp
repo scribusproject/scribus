@@ -31,7 +31,7 @@
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
 extern FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err);
-
+extern void setBestEncoding(FT_Face face);
 extern bool loadText(QString nam, QString *Buffer);
 extern bool GlyNames(QMap<uint, QString> *GList, QString Dat);
 
@@ -203,40 +203,7 @@ class Foi_postscript : public Foi
 			StdVW = "1";
 			FontBBox = tmp.setNum(face->bbox.xMin)+" "+tmp2.setNum(face->bbox.yMin)+" "+tmp3.setNum(face->bbox.xMax)+" "+tmp4.setNum(face->bbox.yMax);
 			IsFixedPitch = face->face_flags & 4;
-			bool foundEncoding = false;
-			for(int u = 0; u < face->num_charmaps; u++)
-			{
-				if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
-				{
-					FT_Set_Charmap(face,face->charmaps[u]);
-					foundEncoding = true;
-					break;
-				}
-			}
-			if (!foundEncoding)
-			{
-				for(int u = 0; u < face->num_charmaps; u++)
-				{
-					if (face->charmaps[u]->encoding == FT_ENCODING_UNICODE)
-					{
-						FT_Set_Charmap(face,face->charmaps[u]);
-						foundEncoding = true;
-						break;
-					}
-				}
-				if (!foundEncoding)
-				{
-					for(int u = 0; u < face->num_charmaps; u++)
-					{
-						if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_EXPERT)
-						{
-							FT_Set_Charmap(face,face->charmaps[u]);
-							foundEncoding = true;
-							break;
-						}
-					}
-				}
-			}
+			setBestEncoding(face);
 			gindex = 0;
 			charcode = FT_Get_First_Char( face, &gindex );
 			while ( gindex != 0 )
