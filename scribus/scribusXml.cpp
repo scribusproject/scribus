@@ -1019,14 +1019,6 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					IT=IT.nextSibling();
 					}
 					OB.itemText = tmp;
-					if ((OB.PType == 5) && (OB.Height != 0))
-					{
-						OB.Rot += atan2(OB.Height,OB.Width)*(180.0/M_PI);
-						OB.Width = sqrt(pow(OB.Width,2)+pow(OB.Height,2));
-						OB.Height = 0;
-						OB.Clip.setPoints(4, -1,-1, static_cast<int>(OB.Width+1),-1, static_cast<int>(OB.Width+1),
-											static_cast<int>(OB.Height+1), -1, static_cast<int>(OB.Height+1));
-					}
 					view->PasteItem(&OB, true);
 					Neu = doc->Items.at(counter);
 					if (QStoInt(obj.attribute("NEXTPAGE")) == PageToLoad)
@@ -1518,14 +1510,14 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					OB.itemText = "";
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
-					if ((OB.PType == 5) && (OB.Height != 0))
+/*					if ((OB.PType == 5) && (OB.Height != 0))
 					{
 						OB.Rot += atan2(OB.Height,OB.Width)*(180.0/M_PI);
 						OB.Width = sqrt(pow(OB.Width,2)+pow(OB.Height,2));
 						OB.Height = 0;
 						OB.Clip.setPoints(4, -1,-1, static_cast<int>(OB.Width+1),-1, static_cast<int>(OB.Width+1),
 											 static_cast<int>(OB.Height+1), -1, static_cast<int>(OB.Height+1));
-					}
+					} */
 					uint last = doc->Items.count();
 					view->PasteItem(&OB, true);
 					doc->GroupCounter = docGc;
@@ -1989,14 +1981,6 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 				IT=IT.nextSibling();
 			}
 			OB.itemText = tmp;
-			if ((OB.PType == 5) && (OB.Height != 0))
-			{
-				OB.Rot += atan2(OB.Height,OB.Width)*(180.0/M_PI);
-				OB.Width = sqrt(pow(OB.Width,2)+pow(OB.Height,2));
-				OB.Height = 0;
-				OB.Clip.setPoints(4, -1,-1, static_cast<int>(OB.Width+1),-1, static_cast<int>(OB.Width+1),
-									static_cast<int>(OB.Height+1), -1, static_cast<int>(OB.Height+1));
-			}
 			OB.LayerNr = -1;
 			view->PasteItem(&OB, true, true);
 			PageItem* Neu = doc->Items.at(doc->Items.count()-1);

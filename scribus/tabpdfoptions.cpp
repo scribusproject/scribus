@@ -1238,11 +1238,15 @@ void TabPDFOptions::PagePr()
 {
 	disconnect(Pages, SIGNAL(highlighted(int)), this, SLOT(SetPgEff(int)));
 	QString tmp;
+	QPixmap pm;
 	int ci = Pages->currentItem();
 	if (PagePrev->isChecked())
 	{
 		for (uint pg = 0; pg < view->Doc->Pages.count(); ++pg)
-			Pages->changeItem(view->PageToPixmap(pg, 70), tr("Page")+" "+tmp.setNum(pg+1), pg);
+		{
+			pm.convertFromImage(view->PageToPixmap(pg, 70));
+			Pages->changeItem(pm, tr("Page")+" "+tmp.setNum(pg+1), pg);
+		}
 	}
 	else
 	{

@@ -189,8 +189,8 @@ void sat::createImages()
 		pageSizeSmall = static_cast<int>(pagew / 10);
 		pageSizeLarge = static_cast<int>(pagew / 3);
 	}
-	QPixmap tnsmall = sapp->view->PageToPixmap(0,pageSizeSmall);
-	QPixmap tnlarge = sapp->view->PageToPixmap(0,pageSizeLarge);
+	QImage tnsmall = sapp->view->PageToPixmap(0,pageSizeSmall);
+	QImage tnlarge = sapp->view->PageToPixmap(0,pageSizeLarge);
 	tnsmall.save(dir+"/"+tnsmallName,"PNG",70);
 	tnlarge.save(dir+"/"+tnlargeName, "PNG", 70);
 }

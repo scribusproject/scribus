@@ -140,8 +140,8 @@ public:
 	void ShowTemplate(int nr);
 	void HideTemplate();
 	int CountElements();
-	QPixmap PageToPixmap(int Nr, int maxGr);
-	QPixmap MPageToPixmap(QString name, int maxGr);
+	QImage PageToPixmap(int Nr, int maxGr);
+	QImage MPageToPixmap(QString name, int maxGr);
 	void RecalcPictures(ProfilesL *Pr, QProgressBar *dia = 0);
 	void FromHRuler(QMouseEvent *m);
 	void FromVRuler(QMouseEvent *m);

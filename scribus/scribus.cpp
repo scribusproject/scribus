@@ -8644,7 +8644,7 @@ void ScribusApp::SaveAsPDF()
 		{
 			QPixmap pm(10,10);
 			if (doc->PDF_Options.Thumbnails)
-				pm = view->PageToPixmap(pageNs[ap]-1, 100);
+				pm.convertFromImage(view->PageToPixmap(pageNs[ap]-1, 100));
 			thumbs.insert(pageNs[ap], pm);
 		}
 		ReOrderText(doc, view);

@@ -1940,7 +1940,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
 			{
 				PS_moveto(0, 0);
-				PS_lineto(c->Width, -c->Height);
+				PS_lineto(c->Width, 0);
 				PS_stroke();
 			}
 			else
@@ -1954,7 +1954,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
 					PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
 					PS_moveto(0, 0);
-					PS_lineto(c->Width, -c->Height);
+					PS_lineto(c->Width, 0);
 					PS_stroke();
 				}
 			}

@@ -680,11 +680,15 @@ void SeitenPal::RebuildTemp()
 	TemplList->clear();
 	if (Vie == 0)
 		return;
+	QPixmap pm;
 	QMap<QString,int>::Iterator it;
 	for (it = Vie->Doc->MasterNames.begin(); it != Vie->Doc->MasterNames.end(); ++it)
 	{
 		if (TemplList->Thumb)
-			TemplList->insertItem(Vie->MPageToPixmap(it.key(),60), it.key() == "Normal" ? tr("Normal") : it.key());
+		{
+			pm.convertFromImage(Vie->MPageToPixmap(it.key(),60));
+			TemplList->insertItem(pm, it.key() == "Normal" ? tr("Normal") : it.key());
+		}
 		else
 			TemplList->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
 	}

@@ -50,6 +50,7 @@ class ScPainter
 {
 public:
 	ScPainter( QPaintDevice *target, unsigned int w = 0, unsigned int h = 0, unsigned int x = 0, unsigned int y = 0 );
+	ScPainter( QImage *target, unsigned int w = 0, unsigned int h = 0, unsigned int x = 0, unsigned int y = 0 );
 	virtual ~ScPainter();
 	enum FillMode { None, Solid, Gradient };
 	virtual void resize( unsigned int w, unsigned int h );
@@ -122,14 +123,13 @@ private:
 	void clampToViewport( const _ArtSVP &, int &, int &, int &, int & );
 	void clampToViewport( int &, int &, int &, int & );
 	void ensureSpace( unsigned int );
-
-private:
 	struct _ArtBpath *m_path;
 	struct _ArtBpath *m_path2;
 	unsigned int m_index;
 	unsigned int m_alloccount;
 	unsigned char *m_buffer;
 	QPaintDevice *m_target;
+	QImage *m_image;
 	unsigned int m_width;
 	unsigned int m_height;
 	unsigned int m_x;
@@ -163,7 +163,7 @@ private:
 /* Zoom Factor of the Painter */
 	double m_zoomFactor;
 	struct _ArtSVP *m_clipPath;
-
+	bool imageMode;
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 	GC gc;
 #endif

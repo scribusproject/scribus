@@ -36,7 +36,7 @@ Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QSt
 			pmx = LoadPDF(fn, 1, Size, &Breite, &Hoehe);
 	}
 	else
-		pmx = vie->PageToPixmap(Seite, Size);
+		pmx.convertFromImage(vie->PageToPixmap(Seite, Size));
 	resize(pmx.width(), pmx.height());
 	Xp = 0;
 	Yp = 0;
@@ -104,7 +104,7 @@ bool Navigator::SetSeite(int Seite, int Size, QString fn)
 	}
 	else
 	{
-		pmx = view->PageToPixmap(Seite, Size);
+		pmx.convertFromImage(view->PageToPixmap(Seite, Size));
 		ret = true;
 	}
 	resize(pmx.width(), pmx.height());

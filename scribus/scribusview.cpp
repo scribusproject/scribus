@@ -8896,9 +8896,10 @@ void ScribusView::RecalcPictures(ProfilesL *Pr, QProgressBar *dia)
 	}
 }
 
-QPixmap ScribusView::MPageToPixmap(QString name, int maxGr)
+QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 {
-	QPixmap pm = QPixmap();
+	QImage pm;
+	QImage im;
 	int Nr = Doc->MasterNames[name];
 	int clipx = static_cast<int>(Doc->ScratchLeft);
 	int clipy = static_cast<int>(Doc->ScratchTop);
@@ -8909,7 +8910,6 @@ QPixmap ScribusView::MPageToPixmap(QString name, int maxGr)
 		double sca = Scale;
 		bool frs = Doc->guidesSettings.framesShown;
 		bool mas = Doc->MasterP;
-//		Doc->MasterP = true;
 		Page* act = Doc->currentPage;
 		Doc->currentPage = Doc->MasterPages.at(Nr);
 		if (!mas)
@@ -8919,7 +8919,7 @@ QPixmap ScribusView::MPageToPixmap(QString name, int maxGr)
 		}
 		Doc->guidesSettings.framesShown = false;
 		Scale = 1;
-		pm = QPixmap(clipw, cliph);
+		pm = QImage(clipw, cliph, 32, QImage::BigEndian);
 		ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height());
 		painter->clear(white);
 		painter->translate(-clipx, -clipy);
@@ -8937,24 +8937,21 @@ QPixmap ScribusView::MPageToPixmap(QString name, int maxGr)
 		}
 		Doc->MasterP = mas;
 		painter->end();
-		QImage im2;
-		QImage im = pm.convertToImage();
 		double sx = im.width() / static_cast<double>(maxGr);
 		double sy = im.height() / static_cast<double>(maxGr);
 		if (sy < sx)
-			im2 = im.smoothScale(static_cast<int>(im.width() / sx), static_cast<int>(im.height() / sx));
+			im = pm.smoothScale(static_cast<int>(pm.width() / sx), static_cast<int>(pm.height() / sx));
 		else
-			im2 = im.smoothScale(static_cast<int>(im.width() / sy), static_cast<int>(im.height() / sy));
-		pm.convertFromImage(im2);
-		im2.detach();
+			im = pm.smoothScale(static_cast<int>(pm.width() / sy), static_cast<int>(pm.height() / sy));
 		delete painter;
 	}
-	return pm;
+	return im;
 }
 
-QPixmap ScribusView::PageToPixmap(int Nr, int maxGr)
+QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 {
-	QPixmap pm = QPixmap();
+	QImage pm;
+	QImage im;
 	int clipx = static_cast<int>(Doc->Pages.at(Nr)->Xoffset);
 	int clipy = static_cast<int>(Doc->Pages.at(Nr)->Yoffset);
 	int clipw = qRound(Doc->Pages.at(Nr)->Width);
@@ -8967,7 +8964,7 @@ QPixmap ScribusView::PageToPixmap(int Nr, int maxGr)
 		Scale = 1;
 		Page* act = Doc->currentPage;
 		Doc->currentPage = Doc->Pages.at(Nr);
-		pm = QPixmap(clipw, cliph);
+		pm = QImage(clipw, cliph, 32, QImage::BigEndian);
 		ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height());
 		painter->clear(Doc->papColor);
 		painter->translate(-clipx, -clipy);
@@ -8982,19 +8979,15 @@ QPixmap ScribusView::PageToPixmap(int Nr, int maxGr)
 		Doc->guidesSettings.framesShown = frs;
 		Scale = sca;
 		Doc->currentPage = act;
-		QImage im2;
-		QImage im = pm.convertToImage();
-		double sx = im.width() / static_cast<double>(maxGr);
-		double sy = im.height() / static_cast<double>(maxGr);
+		double sx = pm.width() / static_cast<double>(maxGr);
+		double sy = pm.height() / static_cast<double>(maxGr);
 		if (sy < sx)
-			im2 = im.smoothScale(static_cast<int>(im.width() / sx), static_cast<int>(im.height() / sx));
+			im = pm.smoothScale(static_cast<int>(pm.width() / sx), static_cast<int>(pm.height() / sx));
 		else
-			im2 = im.smoothScale(static_cast<int>(im.width() / sy), static_cast<int>(im.height() / sy));
-		pm.convertFromImage(im2);
-		im2.detach();
+			im = pm.smoothScale(static_cast<int>(pm.width() / sy), static_cast<int>(pm.height() / sy));
 		delete painter;
 	}
-	return pm;
+	return im;
 }
 
 void ScribusView::FromHRuler(QMouseEvent *m)
@@ -10640,7 +10633,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		Doc->Items.at(z)->convertTo(Buffer->PType);
 		break;
 	case PageItem::Line:
-		z = PaintLine(x, y, w, h, pw, Buffer->Pcolor2);
+		z = PaintLine(x, y, w, 0, pw, Buffer->Pcolor2);
 		break;
 	case PageItem::Polygon:
 		z = PaintPoly(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);

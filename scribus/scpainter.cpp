@@ -94,20 +94,57 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 	fill_gradient = VGradient(VGradient::linear);
 	stroke_gradient = VGradient(VGradient::linear);
 	m_zoomFactor = 1;
+	imageMode = false;
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 	xlib_rgb_init_with_depth( target->x11Display(), XScreenOfDisplay( target->x11Display(), target->x11Screen() ), target->x11Depth() );
 	gc = XCreateGC( target->x11Display(), target->handle(), 0, 0 );
 #endif
 }
 
+ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, unsigned int x, unsigned int y )
+{
+	m_target = 0L;
+	m_width = w;
+	m_height= h;
+	m_x = x;
+	m_y = y;
+	m_buffer = 0L;
+	m_path = 0L;
+	m_index = 0;
+	resize( m_width, m_height );
+	clear();
+	m_stroke = QColor(0,0,0);
+	m_fill = QColor(0,0,0);
+	fill_trans = 1.0;
+	stroke_trans = 1.0;
+	m_fillRule = true;
+	fillMode = 1;
+	LineWidth = 1.0;
+	m_offset = 0;
+	m_array.clear();
+	mf_underline = false;
+	mf_strikeout = false;
+	mf_shadow = false;
+	mf_outlined = false;
+	PLineEnd = Qt::SquareCap;
+	PLineJoin = Qt::RoundJoin;
+	fill_gradient = VGradient(VGradient::linear);
+	stroke_gradient = VGradient(VGradient::linear);
+	m_zoomFactor = 1;
+	imageMode = true;
+	m_image = target;
+}
+
 ScPainter::~ScPainter()
 {
 	// If we are in target mode, we created a buffer, else if we used the other ctor
 	// we didnt.
-	if( m_target )
+	if (( m_target ) || ( imageMode))
 		art_free( m_buffer );
 	if( m_path )
 		art_free( m_path );
+	if (imageMode)
+		return;
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 	if( gc )
 		XFreeGC( m_target->x11Display(), gc );
@@ -135,24 +172,41 @@ void ScPainter::begin()
 
 void ScPainter::end()
 {
-#if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
-	// Use the original gdk-pixbuf based bitblit on X11
-	xlib_draw_rgb_32_image( m_target->handle(), gc, m_x, m_y, m_width, m_height, XLIB_RGB_DITHER_NONE, m_buffer, m_width * 4 );
-#else
-	// Portable copying onto the canvas with no X11 dependency by Andreas Vox
-	QImage qimg(m_width, m_height, 32, QImage::BigEndian);
-	QRgb * bits = (QRgb *) qimg.bits();
-	int words = qimg.numBytes() / 4;
-	art_u8 * p = m_buffer;;
-	for (int i=0; i < words; ++i) {
-		art_u8 r = *p++;
-		art_u8 g = *p++;
-		art_u8 b = *p++;
-		art_u8 a = *p++;
-		*bits++ = qRgba(r,g,b,a);
+	if (imageMode)
+	{
+		QRgb * bits = (QRgb *) m_image->bits();
+		int words = m_image->numBytes() / 4;
+		art_u8 * p = m_buffer;;
+		for (int i=0; i < words; ++i)
+		{
+			art_u8 r = *p++;
+			art_u8 g = *p++;
+			art_u8 b = *p++;
+			art_u8 a = *p++;
+			*bits++ = qRgba(r,g,b,a);
+		}
 	}
-	bitBlt(m_target, m_x, m_y, &qimg);
+	else
+	{
+#if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
+		// Use the original gdk-pixbuf based bitblit on X11
+		xlib_draw_rgb_32_image( m_target->handle(), gc, m_x, m_y, m_width, m_height, XLIB_RGB_DITHER_NONE, m_buffer, m_width * 4 );
+#else
+		// Portable copying onto the canvas with no X11 dependency by Andreas Vox
+		QImage qimg(m_width, m_height, 32, QImage::BigEndian);
+		QRgb * bits = (QRgb *) qimg.bits();
+		int words = qimg.numBytes() / 4;
+		art_u8 * p = m_buffer;;
+		for (int i=0; i < words; ++i) {
+			art_u8 r = *p++;
+			art_u8 g = *p++;
+			art_u8 b = *p++;
+			art_u8 a = *p++;
+			*bits++ = qRgba(r,g,b,a);
+		}
+		bitBlt(m_target, m_x, m_y, &qimg);
 #endif
+	}
 }
 
 void ScPainter::clear()

@@ -1125,7 +1125,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						if (ite->NamedLStyle == "")
 						{
 							PutPage("0 0 m\n");
-							PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+" l\n");
+							PutPage(FToStr(ite->Width)+" 0 l\n");
 							PutPage("S\n");
 						}
 						else
@@ -1135,7 +1135,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 							{
 								PutPage(setStrokeMulti(&ml[it]));
 								PutPage("0 0 m\n");
-								PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+" l\n");
+								PutPage(FToStr(ite->Width)+" 0 l\n");
 								PutPage("S\n");
 							}
 						}
@@ -2077,7 +2077,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						if (ite->NamedLStyle == "")
 						{
 							PutPage("0 0 m\n");
-							PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+" l\n");
+							PutPage(FToStr(ite->Width)+" 0 l\n");
 							PutPage("S\n");
 						}
 						else
@@ -2087,7 +2087,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							{
 								PutPage(setStrokeMulti(&ml[it]));
 								PutPage("0 0 m\n");
-								PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+" l\n");
+								PutPage(FToStr(ite->Width)+" 0 l\n");
 								PutPage("S\n");
 							}
 						}
