@@ -29,6 +29,9 @@ pageitemattributes.cpp: $(srcdir)/pageitemattributes.ui pageitemattributes.h pag
 pageitemattributes.h: $(srcdir)/pageitemattributes.ui
 	$(UIC) -o pageitemattributes.h $(srcdir)/pageitemattributes.ui
 
+pageitemattributes.moc: pageitemattributes.h
+	$(MOC) pageitemattributes.h -o pageitemattributes.moc
+
 docitemattrprefs.cpp: $(srcdir)/docitemattrprefs.ui docitemattrprefs.h docitemattrprefs.moc
 	rm -f docitemattrprefs.cpp
 	$(UIC) -i docitemattrprefs.h $(srcdir)/docitemattrprefs.ui > docitemattrprefs.cpp; ret=$$?; \
@@ -36,6 +39,9 @@ docitemattrprefs.cpp: $(srcdir)/docitemattrprefs.ui docitemattrprefs.h docitemat
 
 docitemattrprefs.h: $(srcdir)/docitemattrprefs.ui
 	$(UIC) -o docitemattrprefs.h $(srcdir)/docitemattrprefs.ui
+
+docitemattrprefs.moc: docitemattrprefs.h
+	$(MOC) docitemattrprefs.h -o docitemattrprefs.moc
 #end hack
 
 
