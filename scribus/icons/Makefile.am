@@ -171,8 +171,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/removef.png $(prefix)/share/scribus/icons/removef.png
 	$(INSTALL_DATA) $(srcdir)/u_undo.png $(prefix)/share/scribus/icons/u_undo.png
 	$(INSTALL_DATA) $(srcdir)/u_redo.png $(prefix)/share/scribus/icons/u_redo.png
-	$(INSTALL_DATA) $(srcdir)/u_undo.png $(prefix)/share/scribus/icons/u_undo16.png
-	$(INSTALL_DATA) $(srcdir)/u_redo.png $(prefix)/share/scribus/icons/u_redo16.png
+	$(INSTALL_DATA) $(srcdir)/u_undo16.png $(prefix)/share/scribus/icons/u_undo16.png
+	$(INSTALL_DATA) $(srcdir)/u_redo16.png $(prefix)/share/scribus/icons/u_redo16.png
 	$(INSTALL_DATA) $(srcdir)/u_margins.png $(prefix)/share/scribus/icons/u_margins.png
 	$(INSTALL_DATA) $(srcdir)/u_margins_locked.png $(prefix)/share/scribus/icons/u_margins_locked.png
 	$(INSTALL_DATA) $(srcdir)/u_move_text.png $(prefix)/share/scribus/icons/u_move_text.png
