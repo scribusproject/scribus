@@ -53,6 +53,7 @@ public:
 		int rmenid;
 		int smenid;
 		int cons;
+		int about;
 		QStringList SavedRecentScripts;
     QStringList RecentScripts;
 
@@ -64,6 +65,7 @@ public slots:
 		QString slotRunScript(QString Script);
 		void slotInteractiveScript();
 		void slotExecute();
+		void aboutScript();
 };
 
 static MenuTest* Tes;
