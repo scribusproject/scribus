@@ -9,10 +9,15 @@ installed as a separate plug-in. To prevent upgrade problems, you might want to
 uninstall if it was installed via a package or RPM. This was also shiped as the 
 scribus-vlna package in both source and rpm format.
 
-Scribus 1.2.x also has a new OpenOffice.org Writer and Draw importer. This 
+Scribus 1.2.2 also has a new OpenOffice.org Writer and Draw importer. This 
 requires libxml2, preferably version 2.6.x+. The OpenOffice.org Writer importer
 will import styles from the OpenOffice.org doc and will create similar styles
 within your Scribus document.
+
+Version 1.2.1 supported Open Office 1.1.x and Star Office 6/7 file formats. 
+Version 1.2.2 supports Open Office 2.x/Star Office 8.x (OASIS) as well.
+
+
 
 
 Additionally Scribus uses now a different way to find fonts, sadly this gives
