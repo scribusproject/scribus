@@ -16,7 +16,7 @@
 #include "fontcombo.h"
 #include "scribusdoc.h"
 #include "alignselect.h"
-#include "styleselect.h"
+class StyleSelect;
 #include "scribusdoc.h"
 #include "shadebutton.h"
 class Tabruler;

@@ -1,10 +1,9 @@
 #ifndef STYLESELECT_H
 #define STYLESELECT_H
 
-#include <qgroupbox.h>
-#include <qtoolbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
+class QGroupBox;
+class QToolButton;
+class QLayout;
 
 class StyleSelect : public QWidget
 {
@@ -17,14 +16,6 @@ public:
 	void setStyle(int s);
 	int getStyle();
 
-    QGroupBox* ButtonGroup1;
-    QToolButton* Underline;
-    QToolButton* Subs;
-    QToolButton* Supers;
-    QToolButton* Kapital;
-    QToolButton* Strike;
-    QToolButton* Outlined;
-		
 private slots:
 	void setTypeStyle();
 
@@ -32,9 +23,15 @@ signals:
 	void State(int);
 
 protected:
-    QHBoxLayout* Layout1;
-    QHBoxLayout* ButtonGroup1Layout;
-
+    QHBoxLayout* ssLayout;
+    QHBoxLayout* buttonGroupLayout;
+    QGroupBox* buttonGroup;
+    QToolButton* underlineButton;
+    QToolButton* subscriptButton;
+    QToolButton* superscriptButton;
+    QToolButton* smallcapsButton;
+    QToolButton* strikeoutButton;
+    QToolButton* outlineButton;
 };
 
 #endif

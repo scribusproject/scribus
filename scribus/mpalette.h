@@ -28,7 +28,7 @@
 #include "linecombo.h"
 #include "spalette.h"
 #include "fontcombo.h"
-#include "styleselect.h"
+class StyleSelect;
 #include "alignselect.h"
 #include "shadebutton.h"
 #include "cpalette.h"

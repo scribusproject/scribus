@@ -8,6 +8,7 @@
 #include "autoform.h"
 #include "tabmanager.h"
 #include "scribus.h"
+#include "styleselect.h"
 
 using namespace std;
 

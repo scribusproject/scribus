@@ -5,6 +5,7 @@ extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 #include <qmessagebox.h>
 #include <qtooltip.h>
+#include "styleselect.h"
 
 EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs, double au, int dEin, ScribusDoc *doc)
 		: QDialog( parent, "EditST", true, 0)

@@ -1,3 +1,8 @@
+#include <qgroupbox.h>
+#include <qtoolbutton.h>
+#include <qlayout.h>
+#include <qtooltip.h>
+
 #include "styleselect.h"
 #include "styleselect.moc"
 
@@ -5,120 +10,123 @@ extern QPixmap loadIcon(QString nam);
 
 StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 {
-	Layout1 = new QHBoxLayout( this, 0, 0, "Layout1");
+	ssLayout = new QHBoxLayout( this, 0, 0, "ssLayout");
 
-    Underline = new QToolButton( this, "Underline" );
-    Underline->setMaximumSize( QSize( 22, 22 ) );
-    Underline->setText("");
-    Underline->setPixmap(loadIcon("Unter.xpm"));
-    Underline->setToggleButton( true );
-    Layout1->addWidget( Underline );
+    underlineButton = new QToolButton( this, "underlineButton" );
+	underlineButton->setText( "" );
+    underlineButton->setMaximumSize( QSize( 22, 22 ) );
+    underlineButton->setPixmap(loadIcon("Unter.xpm"));
+    underlineButton->setToggleButton( true );
+    ssLayout->addWidget( underlineButton );
 
-    ButtonGroup1 = new QGroupBox( this, "ButtonGroup1" );
-    ButtonGroup1->setFrameShape( QGroupBox::NoFrame );
-    ButtonGroup1->setTitle("");
-    ButtonGroup1->setColumnLayout(0, Qt::Vertical );
-    ButtonGroup1->layout()->setSpacing( 0 );
-    ButtonGroup1->layout()->setMargin( 0 );
-    ButtonGroup1Layout = new QHBoxLayout( ButtonGroup1->layout() );
-    ButtonGroup1Layout->setAlignment( Qt::AlignTop );
+    buttonGroup = new QGroupBox( this, "buttonGroup" );
+    buttonGroup->setFrameShape( QGroupBox::NoFrame );
+    buttonGroup->setTitle("");
+    buttonGroup->setColumnLayout(0, Qt::Vertical );
+    buttonGroup->layout()->setSpacing( 0 );
+    buttonGroup->layout()->setMargin( 0 );
+    buttonGroupLayout = new QHBoxLayout( buttonGroup->layout() );
+    buttonGroupLayout->setAlignment( Qt::AlignTop );
 
-    Subs = new QToolButton( ButtonGroup1, "Subs" );
-    Subs->setMaximumSize( QSize( 22, 22 ) );
-    Subs->setText("");
-    Subs->setPixmap(loadIcon("Tief.xpm"));
-    Subs->setToggleButton( true );
-    ButtonGroup1Layout->addWidget( Subs );
+    subscriptButton = new QToolButton( buttonGroup, "subscriptButton" );
+	subscriptButton->setText( "" );
+    subscriptButton->setMaximumSize( QSize( 22, 22 ) );
+    subscriptButton->setPixmap(loadIcon("Tief.xpm"));
+    subscriptButton->setToggleButton( true );
+    buttonGroupLayout->addWidget( subscriptButton );
 
-    Supers = new QToolButton( ButtonGroup1, "Supers" );
-    Supers->setMaximumSize( QSize( 22, 22 ) );
-    Supers->setText("");
-    Supers->setPixmap(loadIcon("Hoch.xpm"));
-    Supers->setToggleButton( true );
-    ButtonGroup1Layout->addWidget( Supers );
-    Layout1->addWidget( ButtonGroup1 );
+    superscriptButton = new QToolButton( buttonGroup, "superscriptButton" );
+	superscriptButton->setText( "" );
+    superscriptButton->setMaximumSize( QSize( 22, 22 ) );
+    superscriptButton->setPixmap(loadIcon("Hoch.xpm"));
+    superscriptButton->setToggleButton( true );
+    buttonGroupLayout->addWidget( superscriptButton );
+    ssLayout->addWidget( buttonGroup );
 
-    Kapital = new QToolButton( this, "Kapital" );
-    Kapital->setMaximumSize( QSize( 22, 22 ) );
-    Kapital->setText("");
-    Kapital->setPixmap(loadIcon("Kapital.xpm"));
-    Kapital->setToggleButton( true );
-    Layout1->addWidget( Kapital );
+    smallcapsButton = new QToolButton( this, "smallcapsButton" );
+    smallcapsButton->setMaximumSize( QSize( 22, 22 ) );
+    smallcapsButton->setText("");
+    smallcapsButton->setPixmap(loadIcon("smallcapsButton.xpm"));
+    smallcapsButton->setToggleButton( true );
+    ssLayout->addWidget( smallcapsButton );
 
-    Strike = new QToolButton( this, "Strike" );
-    Strike->setMaximumSize( QSize( 22, 22 ) );
-    Strike->setText("");
-    Strike->setPixmap(loadIcon("Strike.xpm"));
-    Strike->setToggleButton( true );
-    Layout1->addWidget( Strike );
+    strikeoutButton = new QToolButton( this, "strikeoutButton" );
+	strikeoutButton->setText( "" );
+    strikeoutButton->setMaximumSize( QSize( 22, 22 ) );
+    strikeoutButton->setPixmap(loadIcon("strikeoutButton.xpm"));
+    strikeoutButton->setToggleButton( true );
+    ssLayout->addWidget( strikeoutButton );
 
-    Outlined = new QToolButton( this, "Outlined" );
-    Outlined->setMaximumSize( QSize( 22, 22 ) );
-    Outlined->setText("");
-    Outlined->setPixmap(loadIcon("outlined.png"));
-    Outlined->setToggleButton( true );
-    Layout1->addWidget( Outlined );
-    QToolTip::add( Underline, tr( "Underline" ) );
-    QToolTip::add( Kapital, tr( "Small Caps" ) );
-    QToolTip::add( Subs, tr( "Subscript" ) );
-    QToolTip::add( Supers, tr( "Superscript" ) );
-    QToolTip::add( Strike, tr( "Strike Out" ) );
-    QToolTip::add( Outlined, tr( "Outline Text" ) );
-    connect(Kapital, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
-    connect(Underline, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
-    connect(Subs, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
-    connect(Strike, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
-    connect(Supers, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
-    connect(Outlined, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
+    outlineButton = new QToolButton( this, "outlineButton" );
+	outlineButton->setText( "" );
+    outlineButton->setMaximumSize( QSize( 22, 22 ) );
+    outlineButton->setPixmap(loadIcon("outlineButton.png"));
+    outlineButton->setToggleButton( true );
+    ssLayout->addWidget( outlineButton );
+
+    QToolTip::add( underlineButton, tr( "Underline" ) );
+    QToolTip::add( smallcapsButton, tr( "Small Caps" ) );
+    QToolTip::add( subscriptButton, tr( "Subscript" ) );
+    QToolTip::add( superscriptButton, tr( "Superscript" ) );
+    QToolTip::add( strikeoutButton, tr( "Strike Out" ) );
+    QToolTip::add( outlineButton, tr( "Outline" ) );
+
+    connect(smallcapsButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
+    connect(underlineButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
+    connect(subscriptButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
+    connect(strikeoutButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
+    connect(superscriptButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
+    connect(outlineButton, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
+
     resize(minimumSizeHint());
 }
 
 void StyleSelect::setStyle(int s)
 {
-	Supers->setOn(false);
-	Subs->setOn(false);
-	Strike->setOn(false);
-	Underline->setOn(false);
-	Kapital->setOn(false);
-	Outlined->setOn(false);
+	superscriptButton->setOn(false);
+	subscriptButton->setOn(false);
+	strikeoutButton->setOn(false);
+	underlineButton->setOn(false);
+	smallcapsButton->setOn(false);
+	outlineButton->setOn(false);
 	if (s & 1)
-		Supers->setOn(true);
+		superscriptButton->setOn(true);
 	if (s & 2)
-		Subs->setOn(true);
+		subscriptButton->setOn(true);
 	if (s & 4)
-		Outlined->setOn(true);
+		outlineButton->setOn(true);
 	if (s & 8)
-		Underline->setOn(true);
+		underlineButton->setOn(true);
 	if (s & 16)
-		Strike->setOn(true);
+		strikeoutButton->setOn(true);
 	if (s & 64)
-		Kapital->setOn(true);
+		smallcapsButton->setOn(true);
 }
 
 int StyleSelect::getStyle()
 {
 	int ret = 0;
-	if (Supers->isOn())
+	if (superscriptButton->isOn())
 		ret |= 1;
-	if (Subs->isOn())
+	if (subscriptButton->isOn())
 		ret |= 2;
-	if (Outlined->isOn())
+	if (outlineButton->isOn())
 		ret |= 4;
-	if (Underline->isOn())
+	if (underlineButton->isOn())
 		ret |= 8;
-	if (Strike->isOn())
+	if (strikeoutButton->isOn())
 		ret |= 16;
-	if (Kapital->isOn())
+	if (smallcapsButton->isOn())
 		ret |= 64;
 	return ret;
 }
 
 void StyleSelect::setTypeStyle()
 {
-	if (Supers == sender())
-		Subs->setOn(false);
-	if (Subs == sender())
-		Supers->setOn(false);
+	if (superscriptButton == sender())
+		subscriptButton->setOn(false);
+	if (subscriptButton == sender())
+		superscriptButton->setOn(false);
 	emit State(getStyle());
 }
 
