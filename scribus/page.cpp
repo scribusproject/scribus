@@ -4687,6 +4687,9 @@ void Page::TextToPath()
 			x = (*doku->AllFonts)[b->Ptext.at(a)->cfont]->GlyphArray[chr].x * csi;
 			y = (*doku->AllFonts)[b->Ptext.at(a)->cfont]->GlyphArray[chr].y * csi;
 			pts.map(chma);
+			chma = QWMatrix();
+			chma.scale(b->Ptext.at(a)->cscale / 100.0, 1);
+			pts.map(chma);
 			if (pts.size() == 0)
 				continue;
 			uint z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->Pcolor2, b->Pcolor);
@@ -4695,8 +4698,16 @@ void Page::TextToPath()
 			bb->Rot = b->Rot;
 			bb->Pcolor = b->Ptext.at(a)->ccolor;
 			bb->Shade = b->Ptext.at(a)->cshade;
-			bb->Pcolor2 = b->Ptext.at(a)->cstroke;
-			bb->Shade2 = b->Ptext.at(a)->cshade2;
+			if (b->Ptext.at(a)->cstyle & 4)
+				{
+				bb->Pcolor2 = b->Ptext.at(a)->cstroke;
+				bb->Shade2 = b->Ptext.at(a)->cshade2;
+				}
+			else
+				{
+				bb->Pcolor2 = "None";
+				bb->Shade2 = 100;
+				}
 			bb->Pwidth = (*doku->AllFonts)[b->Ptext.at(a)->cfont]->strokeWidth * chs / 2.0;
 			FPoint tp2 = GetMinClipF(bb->PoLine);
 			bb->PoLine.translate(-tp2.x(), -tp2.y());

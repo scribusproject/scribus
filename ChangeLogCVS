@@ -1,4 +1,6 @@
 Changes since Version 1.1.1
+11.10.2003	Fixed Bug when converting Text to Outlines.
+
 05.10.2003	Improved History in the Helpbrowser.
 		Fixed a Bug with subsetted Fonst and Hyphens
 		Fixed segfault when dragging Objects between Documents.
