@@ -4172,6 +4172,7 @@ bool ScribusApp::DoFileSave(QString fn)
 		doc->setUnModified();
 		ActWin->setCaption(fn);
 		doc->setName(fn);
+		UndoManager::instance()->rename(fn);
 		fileMenu->setItemEnabled(fid4, 0);
 		fileMenu->setItemEnabled(fid52, 0);
 		DatSav->setEnabled(false);

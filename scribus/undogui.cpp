@@ -262,6 +262,8 @@ void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
 
 void UndoPalette::insertRedoItem(UndoObject* target, UndoState* state)
 {
+	if (undoList->count() == 1)
+		undoList->setSelected(0, true);
 	undoList->insertItem(new UndoItem(target->getUName(), state->getName(), state->getPixmap()));
 	updateList();
 }
@@ -318,7 +320,7 @@ void UndoPalette::redoClicked()
 
 void UndoPalette::undoListClicked(int i)
 {
-	if (i == currentSelection)
+	if (i == currentSelection || (i == 0 && undoList->count() == 1))
 		return;
 	if (i > currentSelection)
 		emit redo(i - currentSelection);
@@ -368,11 +370,6 @@ void UndoPalette::UndoItem::paint(QPainter *painter)
 	f.setItalic(true);
 	painter->setFont(f);
 	painter->drawText(32, (2 * QFontMetrics(painter->font()).height()), action);
-//    if ( isSelected() )
-//        painter->eraseRect( r );
-//    painter->fillRect( 5, 5, width( listBox() ) - 10, height( listBox() ) - 10, Qt::red );
-//    if ( isCurrent() )
-//        listBox()->style().drawPrimitive( QStyle::PE_FocusRect, painter, r, listBox()->colorGroup() );
 }
 
 int UndoPalette::UndoItem::height(const QListBox *lb) const

@@ -34,7 +34,6 @@
 #include <qtimer.h>
 
 #include "scribusstructs.h"
-#include "undomanager.h"
 #include "undoobject.h"
 #include "hyphenator.h"
 #ifdef HAVE_CMS
@@ -44,6 +43,8 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 class Page;
+class UndoManager;
+class UndoState;
 
 
 /**
@@ -71,7 +72,7 @@ public:
 	 * @author Riku Leino
 	 */
 	void lockGuides(bool isLocked);
-	/* 
+	/**
 	 * @brief Method used when an undo/redo is requested.
 	 * @param state State describing the action that is wanted to be undone/redone
 	 * @param isUndo If true undo is wanted else if false redo.
@@ -88,7 +89,6 @@ public:
 protected:
     bool modified;
     UndoManager *undoManager;
-    QPixmap uGuideLockPixmap;
 
 public: // Public attributes
 	bool SnapGuides;

@@ -21,7 +21,10 @@
 #include "undomanager.h"
 #include "undomanager.moc"
 #include "undogui.h"
+#include "config.h"
 #include <qvaluelist.h>
+
+extern QPixmap loadIcon(QString nam);
 
 UndoManager* UndoManager::_instance    = 0;
 bool         UndoManager::_undoEnabled = true;
@@ -52,6 +55,8 @@ UndoManager::UndoManager()
 {
 	currentUndoObjectId = -1;
 	historyLength = 20;
+	if (!UndoManager::IGuides)
+		initIcons();
 }
 
 void UndoManager::registerGui(UndoGui* gui)
@@ -138,6 +143,8 @@ void UndoManager::switchStack(const QString& stackName)
 
 void UndoManager::rename(const QString& newName)
 {
+	if (currentDoc == newName)
+		return;
 	StackPair tmp = stacks[currentDoc];
 	stacks.erase(currentDoc);
 	stacks[newName] = tmp;
@@ -158,6 +165,7 @@ void UndoManager::remove(const QString& stackName)
 		{
 			for (uint i = 0; i < undoGuis.size(); ++i)
 				undoGuis[i]->clear();
+			currentDoc = "__no_name__";
 		}
 	}
 }
@@ -200,41 +208,51 @@ void UndoManager::redo(int steps)
 
 void UndoManager::doUndo(int steps)
 {
-	if (steps > 0 && _undoEnabled)
+	if (steps > 0 && _undoEnabled && stacks.size() > 0)
 	{
 		bool tmpUndoEnabled = _undoEnabled;
 		setUndoEnabled(false);
+		UndoState* tmpUndoState = NULL;
 		for (int i = 0; i < steps; ++i)
 		{
 			ActionPair aPair = *stacks[currentDoc].first;
 			UndoObject* tmpUndoObject = aPair.first;
-			UndoState* tmpUndoState = aPair.second;
-			tmpUndoObject->restore(tmpUndoState, true);
+			tmpUndoState = aPair.second;
+			if (tmpUndoState)
+				tmpUndoObject->restore(tmpUndoState, true);
 			++stacks[currentDoc].first;
 		}
-		setUndoEnabled(tmpUndoEnabled);
-		emit undoSignal(steps);
-		emit undoRedoDone();
+		if (tmpUndoState)
+		{
+			setUndoEnabled(tmpUndoEnabled);
+			emit undoSignal(steps);
+			emit undoRedoDone();
+		}
 	}
 }
 
 void UndoManager::doRedo(int steps)
 {
-	if (steps > 0 && _undoEnabled)
+	if (steps > 0 && _undoEnabled && stacks.size() > 0)
 	{
 		bool tmpUndoEnabled = _undoEnabled;
 		setUndoEnabled(false);
+		UndoState* tmpUndoState = NULL;
 		for (int i = 0; i < steps; ++i)
 		{
 			--stacks[currentDoc].first;
 			ActionPair aPair = *stacks[currentDoc].first;
 			UndoObject* tmpUndoObject = aPair.first;
-			UndoState* tmpUndoState = aPair.second;
-			tmpUndoObject->restore(tmpUndoState, false);
+			tmpUndoState = aPair.second;
+			if (tmpUndoState)
+				tmpUndoObject->restore(tmpUndoState, false);
 		}
-		setUndoEnabled(tmpUndoEnabled);
-		emit redoSignal(steps);
-		emit undoRedoDone();
+		if (tmpUndoState)
+		{
+			setUndoEnabled(tmpUndoEnabled);
+			emit redoSignal(steps);
+			emit undoRedoDone();
+		}
 	}
 }
 
@@ -283,3 +301,22 @@ UndoManager::~UndoManager()
 		}
 	}
 }
+
+void UndoManager::initIcons()
+{
+	QString iconDir = ICONDIR;
+	UndoManager::IGuides     = new QPixmap(iconDir + "u_margins.png");
+	UndoManager::ILockGuides = new QPixmap(iconDir + "u_margins_locked.png");
+}
+
+const QString UndoManager::AddVGuide    = tr("Add vertical guide");
+const QString UndoManager::AddHGuide    = tr("Add horizontal guide");
+const QString UndoManager::DelVGuide    = tr("Remove vertical guide");
+const QString UndoManager::DelHGuide    = tr("Remove horizontal guide");
+const QString UndoManager::MoveVGuide   = tr("Move vertical guide");
+const QString UndoManager::MoveHGuide   = tr("Move horizontal guide");
+const QString UndoManager::LockGuides   = tr("Lock guides");
+const QString UndoManager::UnlockGuides = tr("Unlock guides");
+
+QPixmap *UndoManager::IGuides     = NULL;
+QPixmap *UndoManager::ILockGuides = NULL;

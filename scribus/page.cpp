@@ -17,6 +17,8 @@
 
 #include "page.h"
 #include "scribus.h"
+#include "undomanager.h"
+#include "undostate.h"
 
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp *ScApp;
@@ -36,7 +38,6 @@ Page::Page(double x, double y, double b, double h) : UndoObject(QObject::tr("Pag
 	XGuides.clear();
 	YGuides.clear();
 	FromMaster.clear();
-	undoIcon = loadIcon("u_margins.png");
 	undoManager = UndoManager::instance();
 }
 
@@ -57,7 +58,7 @@ void Page::addXGuide(double position)
 	qHeapSort(XGuides);
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState* ss = new SimpleState(QObject::tr("Add vertical guide"), 0, &undoIcon);
+		SimpleState* ss = new SimpleState(Um::AddVGuide, 0, Um::IGuides);
 		ss->set("ADD_V", position);
 		undoManager->action(this, ss);
 	}
@@ -69,7 +70,7 @@ void Page::addYGuide(double position)
 	qHeapSort(YGuides);
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState* ss = new SimpleState(QObject::tr("Add horizontal guide"), 0, &undoIcon);
+		SimpleState* ss = new SimpleState(Um::AddHGuide, 0, Um::IGuides);
 		ss->set("ADD_H", position);
 		undoManager->action(this, ss);
 	}
@@ -102,7 +103,7 @@ void Page::removeXGuide(double position)
 	XGuides.remove(XGuides.find(position));
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState* ss = new SimpleState(QObject::tr("Remove vertical guide"), 0, &undoIcon);
+		SimpleState* ss = new SimpleState(Um::DelVGuide, 0, Um::IGuides);
 		ss->set("REMOVE_V", position);
 		undoManager->action(this, ss);
 	}
@@ -119,7 +120,7 @@ void Page::removeYGuide(double position)
 	YGuides.remove(YGuides.find(position));
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState* ss = new SimpleState(QObject::tr("Remove horizontal guide"), 0, &undoIcon);
+		SimpleState* ss = new SimpleState(Um::DelHGuide, 0, Um::IGuides);
 		ss->set("REMOVE_H", position);
 		undoManager->action(this, ss);
 	}
@@ -141,7 +142,7 @@ void Page::moveXGuide(int fromIndex, double to)
 	undoManager->setUndoEnabled(tmpUndoEnabled);
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState* ss = new SimpleState(QObject::tr("Move vertical guide"), 0, &undoIcon);
+		SimpleState* ss = new SimpleState(Um::MoveVGuide, 0, Um::IGuides);
 		ss->set("MOVE_V_FROM", from);
 		ss->set("MOVE_V_TO", to);
 		undoManager->action(this, ss);
@@ -158,7 +159,7 @@ void Page::moveYGuide(int fromIndex, double to)
 	undoManager->setUndoEnabled(tmpUndoEnabled);
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState* ss = new SimpleState(QObject::tr("Move horizontal guide"), 0, &undoIcon);
+		SimpleState* ss = new SimpleState(Um::MoveHGuide, 0, Um::IGuides);
 		ss->set("MOVE_H_FROM", from);
 		ss->set("MOVE_H_TO", to);
 		undoManager->action(this, ss);

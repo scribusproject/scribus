@@ -254,7 +254,6 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	ScratchBottom = prefsData->ScratchBottom;
 	arrowStyles = prefsData->arrowStyles;
 	undoManager = UndoManager::instance();
-	uGuideLockPixmap = loadIcon("u_margins_locked.png");
 }
 
 ScribusDoc::~ScribusDoc()
@@ -344,10 +343,10 @@ void ScribusDoc::lockGuides(bool isLocked)
 	{
 		QString name;
 		if (isLocked)
-			name = QObject::tr("Lock guides");
+			name = Um::LockGuides;
 		else
-			name = QObject::tr("Unlock guides");
-		SimpleState *ss = new SimpleState(name, "", &uGuideLockPixmap);
+			name = Um::UnlockGuides;
+		SimpleState *ss = new SimpleState(name, "", Um::ILockGuides);
 		ss->set("GUIDE_LOCK", isLocked);
 		undoManager->action(this, ss);
 	}
@@ -374,6 +373,8 @@ void ScribusDoc::setName(const QString& name)
 	QString uname = name;
 	if (name.find("/") > -1)
 		uname = name.right(name.length() - name.findRev("/") - 1);
+	if (uname.find(".sl") > -1)
+		uname = uname.left(uname.findRev(".sl"));
 	setUName(uname); // set the name for the undo object
 }
 

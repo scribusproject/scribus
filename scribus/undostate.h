@@ -48,7 +48,7 @@ private:
 	/** @brief Detailed description of the state (action). */
 	QString actionDescription;
 	/** @brief Icon related to the state (action) */
-	QPixmap* actionPixmap;
+	QPixmap *actionPixmap;
 public:
 	/** 
 	 * @brief Creates a new UndoState instance.

@@ -21,20 +21,20 @@
 class QString;
 #include "qvaluelist.h"
 #include "qptrlist.h"
-#include "qpixmap.h"
 
-#include "undomanager.h"
 #include "undoobject.h"
-#include "undostate.h"
 #include "scribusstructs.h"
 #include "pageitem.h"
+
+class UndoManager;
+class UndoState;
+
 /**
   *@author Franz Schmid
   */
 class Page : public UndoObject
 {
 private:
-	QPixmap undoIcon;
 	UndoManager* undoManager;
 public:
 	Page(double x, double y, double b, double h);

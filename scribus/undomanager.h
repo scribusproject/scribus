@@ -25,6 +25,7 @@
 #include <utility>
 #include <qobject.h>
 #include <qpixmap.h>
+#include <qstring.h>
 #include "undostate.h"
 #include "undoobject.h"
 
@@ -101,6 +102,7 @@ private:
 
 	void connectGuis();
 	void disconnectGuis();
+	void initIcons();
 
 public:
 	/**
@@ -209,6 +211,30 @@ public:
 	 */
 	int getHistoryLength();
 
+	/***
+	* @name Action strings
+	* Strings describing undo actions
+	*/
+	/*@{*/
+	static const QString AddVGuide;
+	static const QString AddHGuide;
+	static const QString DelVGuide;
+	static const QString DelHGuide;
+	static const QString MoveVGuide;
+	static const QString MoveHGuide;
+	static const QString LockGuides;
+	static const QString UnlockGuides;
+	/*@}*/
+	
+	/**
+	 * @name Action icons
+	 * Icons for undo actions
+	 */
+	/*@{*/
+	static QPixmap *IGuides;
+	static QPixmap *ILockGuides;
+	/*@}*/
+
 protected:
 	/** @brief Creates a new UndoManager instance */
 	UndoManager();
@@ -279,7 +305,8 @@ signals:
 	 * @brief Emitted when an undo action has been done.
 	 *
 	 * It is connected to attached guis to inform them to update the visual
-	 * representation of the undo stack.
+	 * representation of the undo stack. This signal will be also sent to the
+	 * <code>UndoGui</code> where it came from.
 	 * @param steps Number of steps to take
 	 */
 	void undoSignal(int steps);
@@ -305,6 +332,9 @@ signals:
 	 * again after undo/redo.
 	 */
 	void undoRedoDone();
+
 };
+
+typedef UndoManager Um;
 
 #endif
