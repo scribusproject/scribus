@@ -1921,7 +1921,7 @@ void Mpalette::NewX()
 		{
 			if ((CurItem->itemType() == PageItem::Line) && (LMode))
 			{
-				double r = atan2(h-y,w-x)*(180.0/3.1415927);
+				double r = atan2(h-y,w-x)*(180.0/M_PI);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
 				ScApp->view->MoveItem(x - CurItem->Xpos, 0, CurItem, true);
 				ScApp->view->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
@@ -1978,7 +1978,7 @@ void Mpalette::NewY()
 		{
 			if ((CurItem->itemType() == PageItem::Line) && (LMode))
 			{
-				double r = atan2(h-y,w-x)*(180.0/3.1415927);
+				double r = atan2(h-y,w-x)*(180.0/M_PI);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
 				ScApp->view->MoveItem(0, y - CurItem->Ypos, CurItem, true);
 				ScApp->view->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
@@ -2039,7 +2039,7 @@ void Mpalette::NewW()
 			{
 				if (LMode)
 				{
-					double r = atan2(h-y,w-x)*(180.0/3.1415927);
+					double r = atan2(h-y,w-x)*(180.0/M_PI);
 					ScApp->view->RotateItem(r, CurItem->ItemNr);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
 				}
@@ -2136,7 +2136,7 @@ void Mpalette::NewH()
 			{
 				if (LMode)
 				{
-					double r = atan2(h-y,w-x)*(180.0/3.1415927);
+					double r = atan2(h-y,w-x)*(180.0/M_PI);
 					ScApp->view->RotateItem(r, CurItem->ItemNr);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
 				}

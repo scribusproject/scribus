@@ -2067,7 +2067,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					FPoint Vector = c->PoLine.point(xx);
 					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 					{
-						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/3.1415927);
+						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 						QWMatrix arrowTrans;
 						FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex-1)).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
@@ -2092,7 +2092,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					FPoint Vector = c->PoLine.point(xx);
 					if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 					{
-						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/3.1415927);
+						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 						QWMatrix arrowTrans;
 						FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex-1)).points.copy();
 						arrowTrans.translate(End.x(), End.y());
@@ -2429,7 +2429,7 @@ void PSLib::HandleGradient(ScribusDoc* Doc, PageItem *c, double w, double h, boo
 		{
 			QWMatrix ma;
 			ma.translate(StartX, StartY);
-			ma.rotate(atan2(EndY - StartY, EndX - StartX)*(180.0/3.1415927));
+			ma.rotate(atan2(EndY - StartY, EndX - StartX)*(180.0/M_PI));
 			double w2 = sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint;
 			double x = fabs(ma.m11() * w2 + ma.dx());
 			double y = fabs(ma.m12() * w2 + ma.dy());

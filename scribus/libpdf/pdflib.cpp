@@ -1066,8 +1066,8 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 				PutPage("1 0 0 1 "+FToStr(ite->Xpos - pag->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - pag->Yoffset))+" cm\n");
 				if (ite->Rot != 0)
 				{
-					double sr = sin(-ite->Rot* 3.1415927 / 180.0);
-					double cr = cos(-ite->Rot* 3.1415927 / 180.0);
+					double sr = sin(-ite->Rot* M_PI / 180.0);
+					double cr = cos(-ite->Rot* M_PI / 180.0);
 					if ((cr * cr) < 0.000001)
 						cr = 0;
 					if ((sr * sr) < 0.000001)
@@ -1263,7 +1263,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								FPoint Vector = ite->PoLine.point(xx);
 								if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 								{
-									double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/3.1415927);
+									double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 									QWMatrix arrowTrans;
 									FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).points.copy();
 									arrowTrans.translate(Start.x(), Start.y());
@@ -1299,7 +1299,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								FPoint Vector = ite->PoLine.point(xx);
 								if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 								{
-									double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/3.1415927);
+									double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 									QWMatrix arrowTrans;
 									FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).points.copy();
 									arrowTrans.translate(End.x(), End.y());
@@ -1697,8 +1697,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							PutPage("1 0 0 1 "+FToStr(ite->Xpos - mPage->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - mPage->Yoffset))+" cm\n");
 							if (ite->Rot != 0)
 							{
-								double sr = sin(-ite->Rot* 3.1415927 / 180.0);
-								double cr = cos(-ite->Rot* 3.1415927 / 180.0);
+								double sr = sin(-ite->Rot* M_PI / 180.0);
+								double cr = cos(-ite->Rot* M_PI / 180.0);
 								if ((cr * cr) < 0.000001)
 									cr = 0;
 								if ((sr * sr) < 0.000001)
@@ -1819,8 +1819,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						PutPage("1 0 0 1 "+FToStr(ite->Xpos - mPage->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - mPage->Yoffset))+" cm\n");
 						if (ite->Rot != 0)
 						{
-							double sr = sin(-ite->Rot* 3.1415927 / 180.0);
-							double cr = cos(-ite->Rot* 3.1415927 / 180.0);
+							double sr = sin(-ite->Rot* M_PI / 180.0);
+							double cr = cos(-ite->Rot* M_PI / 180.0);
 							if ((cr * cr) < 0.000001)
 								cr = 0;
 							if ((sr * sr) < 0.000001)
@@ -1978,8 +1978,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 				PutPage("1 0 0 1 "+FToStr(ite->Xpos - pag->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - pag->Yoffset))+" cm\n");
 				if (ite->Rot != 0)
 				{
-					double sr = sin(-ite->Rot* 3.1415927 / 180.0);
-					double cr = cos(-ite->Rot* 3.1415927 / 180.0);
+					double sr = sin(-ite->Rot* M_PI / 180.0);
+					double cr = cos(-ite->Rot* M_PI / 180.0);
 					if ((cr * cr) < 0.000001)
 						cr = 0;
 					if ((sr * sr) < 0.000001)
@@ -2215,7 +2215,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								FPoint Vector = ite->PoLine.point(xx);
 								if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 								{
-									double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/3.1415927);
+									double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 									QWMatrix arrowTrans;
 									FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).points.copy();
 									arrowTrans.translate(Start.x(), Start.y());
@@ -2251,7 +2251,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								FPoint Vector = ite->PoLine.point(xx);
 								if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 								{
-									double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/3.1415927);
+									double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 									QWMatrix arrowTrans;
 									FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).points.copy();
 									arrowTrans.translate(End.x(), End.y());
@@ -2404,8 +2404,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					PutPage("1 0 0 1 "+FToStr(ite->Xpos - pag->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - pag->Yoffset))+" cm\n");
 					if (ite->Rot != 0)
 					{
-						double sr = sin(-ite->Rot* 3.1415927 / 180.0);
-						double cr = cos(-ite->Rot* 3.1415927 / 180.0);
+						double sr = sin(-ite->Rot* M_PI / 180.0);
+						double cr = cos(-ite->Rot* M_PI / 180.0);
 						if ((cr * cr) < 0.000001)
 							cr = 0;
 						if ((sr * sr) < 0.000001)
@@ -3090,7 +3090,7 @@ void PDFlib::PDF_Gradient(PageItem *b)
 		{
 			QWMatrix ma;
 			ma.translate(StartX, StartY);
-			ma.rotate(atan2(EndY - StartY, EndX - StartX)*(180.0/3.1415927));
+			ma.rotate(atan2(EndY - StartY, EndX - StartX)*(180.0/M_PI));
 			double w2 = sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint;
 			double x = fabs(ma.m11() * w2 + ma.dx());
 			double y = fabs(ma.m12() * w2 + ma.dy());

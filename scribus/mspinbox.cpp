@@ -70,7 +70,7 @@ MSpinBox::MSpinBox(double minValue, double maxValue, QWidget *pa, int s):QSpinBo
 
 void MSpinBox::setParameters( int s )
 {
-	if (s>=0 && s <=4)
+	if (s>=0 && s <=unitGetMaxIndex())
 	{
 		Width=s;
 		Decimals=static_cast<int>(pow(10, s));

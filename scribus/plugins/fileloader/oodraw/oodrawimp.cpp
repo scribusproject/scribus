@@ -678,10 +678,10 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 							flipped = true;
 						}
 						double xpos;
-						xpos = (ite->Width / 2) * tan(GradientAngle* 3.1415927 / 180.0) * (ite->Height / ite->Width) + (ite->Width / 2);
+						xpos = (ite->Width / 2) * tan(GradientAngle* M_PI / 180.0) * (ite->Height / ite->Width) + (ite->Width / 2);
 						if ((xpos < 0) || (xpos > ite->Width))
 						{
-							xpos = (ite->Height / 2)- (ite->Height / 2) * tan(GradientAngle* 3.1415927 / 180.0) * (ite->Height / ite->Width);
+							xpos = (ite->Height / 2)- (ite->Height / 2) * tan(GradientAngle* M_PI / 180.0) * (ite->Height / ite->Width);
 							if (flipped)
 							{
 								ite->GrEndX = ite->Width;
@@ -925,7 +925,7 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 		if(subtransform[0] == "rotate")
 		{
 			result = QWMatrix();
-			result.rotate(-parseUnit(params[0]) * 180 / 3.1415927);
+			result.rotate(-parseUnit(params[0]) * 180 / M_PI);
 			composite->map(result);
 		}
 		else if(subtransform[0] == "translate")

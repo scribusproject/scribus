@@ -407,7 +407,7 @@ QPixmap ScPreview::createPreview(QString data)
 			tmpx = "";
 			if ((OB.PType == 5) && (OB.Height != 0))
 			{
-				OB.Rot += atan2(OB.Height,OB.Width)*(180.0/3.1415927);
+				OB.Rot += atan2(OB.Height,OB.Width)*(180.0/M_PI);
 				OB.Width = sqrt(pow(OB.Width,2)+pow(OB.Height,2));
 				OB.Height = 0;
 				OB.Clip.setPoints(4, -1,-1, static_cast<int>(OB.Width+1),-1, static_cast<int>(OB.Width+1), static_cast<int>(OB.Height+1), -1, static_cast<int>(OB.Height+1));
@@ -684,7 +684,7 @@ QPixmap ScPreview::createPreview(QString data)
 						FPoint Vector = OB.PoLine.point(xx);
 						if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 						{
-							double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/3.1415927);
+							double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 							QWMatrix arrowTrans;
 							FPointArray arrow = (*arrowStyles.at(OB.startArrowIndex-1)).points.copy();
 							arrowTrans.translate(Start.x(), Start.y());
@@ -708,7 +708,7 @@ QPixmap ScPreview::createPreview(QString data)
 						FPoint Vector = OB.PoLine.point(xx);
 						if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 						{
-							double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/3.1415927);
+							double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 							QWMatrix arrowTrans;
 							FPointArray arrow = (*arrowStyles.at(OB.endArrowIndex-1)).points.copy();
 							arrowTrans.translate(End.x(), End.y());

@@ -566,6 +566,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 	{
 		case TextFrame:
 		{
+		//qDebug("DrawObj_TextFrame(ScPainter *p, QRect e)");
 			QPainter pp, pf2;
 			PageItem *nb;
 			QPoint pt1, pt2;
@@ -1858,7 +1859,7 @@ void PageItem::DrawObj_PolyLine(ScPainter *p, QRect e)
 					FPoint Vector = PoLine.point(xx);
 					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 					{
-						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/3.1415927);
+						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 						QWMatrix arrowTrans;
 						FPointArray arrow = (*Doc->arrowStyles.at(startArrowIndex-1)).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
@@ -1883,7 +1884,7 @@ void PageItem::DrawObj_PolyLine(ScPainter *p, QRect e)
 					FPoint Vector = PoLine.point(xx);
 					if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 					{
-						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/3.1415927);
+						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 						QWMatrix arrowTrans;
 						FPointArray arrow = (*Doc->arrowStyles.at(endArrowIndex-1)).points.copy();
 						arrowTrans.translate(End.x(), End.y());
@@ -2084,6 +2085,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 		FrameOnly = false;
 		return;
 	}
+	//qDebug("paintObj(QRect e, QPixmap *ppX)");
 	QPainter p;
 	double sc = ScApp->view->Scale;
 	if (toPixmap)

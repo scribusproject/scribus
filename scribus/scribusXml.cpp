@@ -1021,7 +1021,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					OB.itemText = tmp;
 					if ((OB.PType == 5) && (OB.Height != 0))
 					{
-						OB.Rot += atan2(OB.Height,OB.Width)*(180.0/3.1415927);
+						OB.Rot += atan2(OB.Height,OB.Width)*(180.0/M_PI);
 						OB.Width = sqrt(pow(OB.Width,2)+pow(OB.Height,2));
 						OB.Height = 0;
 						OB.Clip.setPoints(4, -1,-1, static_cast<int>(OB.Width+1),-1, static_cast<int>(OB.Width+1),
@@ -1520,7 +1520,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					doc->GroupCounter = 0;
 					if ((OB.PType == 5) && (OB.Height != 0))
 					{
-						OB.Rot += atan2(OB.Height,OB.Width)*(180.0/3.1415927);
+						OB.Rot += atan2(OB.Height,OB.Width)*(180.0/M_PI);
 						OB.Width = sqrt(pow(OB.Width,2)+pow(OB.Height,2));
 						OB.Height = 0;
 						OB.Clip.setPoints(4, -1,-1, static_cast<int>(OB.Width+1),-1, static_cast<int>(OB.Width+1),
@@ -1991,7 +1991,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.itemText = tmp;
 			if ((OB.PType == 5) && (OB.Height != 0))
 			{
-				OB.Rot += atan2(OB.Height,OB.Width)*(180.0/3.1415927);
+				OB.Rot += atan2(OB.Height,OB.Width)*(180.0/M_PI);
 				OB.Width = sqrt(pow(OB.Width,2)+pow(OB.Height,2));
 				OB.Height = 0;
 				OB.Clip.setPoints(4, -1,-1, static_cast<int>(OB.Width+1),-1, static_cast<int>(OB.Width+1),

@@ -368,7 +368,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 								painter->setPen(black, 5.0 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 								painter->setPenOpacity(0.3);
 								painter->drawLine(Start, End);
-								double r = atan2(End.y()-Start.y(),End.x()-Start.x())*(180.0/3.1415927);
+								double r = atan2(End.y()-Start.y(),End.x()-Start.x())*(180.0/M_PI);
 								QWMatrix arrowTrans;
 								FPointArray arrow;
 								arrow.addQuadPoint(-12, 0, -12, 0, -12, 0, -12, 0);
@@ -2016,7 +2016,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 								Doc->SnapGuides = sav;
 								ApplyGuides(&nx, &ny);
 								Doc->SnapGuides = false;
-								double r = atan2(ny - b->Ypos, nx - b->Xpos)*(180.0/3.1415927);
+								double r = atan2(ny - b->Ypos, nx - b->Xpos)*(180.0/M_PI);
 								RotateItem(r, b->ItemNr);
 								double w = sqrt(pow(nx - b->Xpos, 2) + pow(ny - b->Ypos,2));
 								SizeItem(w, b->Height, b->ItemNr, true);
@@ -2105,7 +2105,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 								ma.rotate(b->Rot);
 								double mx = ma.m11() * b->Width + ma.m21() * b->Height + ma.dx();
 								double my = ma.m22() * b->Height + ma.m12() * b->Width + ma.dy();
-								double r = atan2(my-ny,mx-nx)*(180.0/3.1415927);
+								double r = atan2(my-ny,mx-nx)*(180.0/M_PI);
 								double w = sqrt(pow(mx-nx,2)+pow(my-ny,2));
 								MoveItem(nx - b->Xpos, ny - b->Ypos, b, true);
 								SizeItem(w, b->Height, b->ItemNr, true);
@@ -5689,7 +5689,7 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 	{
 		if (!fromMP)
 		{
-			b->Rot = atan2(b->Height,b->Width)*(180.0/3.1415927);
+			b->Rot = atan2(b->Height,b->Width)*(180.0/M_PI);
 			b->Width = sqrt(pow(b->Width,2)+pow(b->Height,2));
 			b->Height = 1;
 			emit SetAngle(b->Rot);

@@ -993,7 +993,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					}
 					if ((Neu->itemType() == 5) && (Neu->Height != 0))
 					{
-						Neu->Rot += atan2(Neu->Height,Neu->Width)*(180.0/3.1415927);
+						Neu->Rot += atan2(Neu->Height,Neu->Width)*(180.0/M_PI);
 						Neu->Width = sqrt(pow(Neu->Width,2)+pow(Neu->Height,2));
 						Neu->Height = 0;
 						Neu->Clip.setPoints(4, -1,-1, static_cast<int>(Neu->Width+1),-1, static_cast<int>(Neu->Width+1),
