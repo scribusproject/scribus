@@ -7,7 +7,11 @@
 Returns a list containing the names of all defined colors in the document.
 If no document is open, returns a list of the default document colors.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColorNames() -&gt; list
+
+Përgjigjet me një listë që përmban emrat e tërë ngjyrave të përcaktuara për dokumentin.
+Nëse nuk është hapur ndonjë dokument, përgjigjet me një listë ngjyrash për dokumentin parazgjedhje.
+</translation>
     </message>
     <message>
         <source>newDocDialog() -&gt; bool
@@ -16,7 +20,12 @@ Displays the &quot;New Document&quot; dialog box. Creates a new document if the 
 accepts the settings. Does not create a document if the user presses cancel.
 Returns true if a new document was created.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDocDialog() -&gt; bool
+
+Shfaq kutinë e Dialogut &quot;Dokument i Ri&quot;. Krijon një dokument te ri nëse përdoruesi
+pranon rregullimet. Nuk krijon dokument nëse përdoruesi shtyp Anulo.
+Përgjigjet me &quot;true&quot; nëse dokumenti i ri u krijua.
+</translation>
     </message>
     <message>
         <source>newDoc(size, margins, orientation, firstPageNumber,
@@ -52,7 +61,39 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+Krijon një dokument të ri dhe përgjigjet me një &quot;true&quot; nëse ka sukses. Parametrat kanë 
+domethënien vijuese:
+
+    size = Një &quot;tuple&quot; (gjerësi, lartësi) që përshkruan madhësinë e dokumentit. Mund
+    të përdorni konstante të paracaktuara të emërtuara PAPER_&lt;lloj_letre&gt; p.sh. PAPER_A4 etj.
+
+    margins = Një &quot;tuple&quot; (majtas, djathtas, sipër, poshtë) që përshkruan mënjanat 
+    e dokumentit
+
+    orientation = drejtimi i faqes - constants PORTRET, SË GJERI
+
+    firstPageNumber = është numri i faqes së parë te dokumenti përdorur për
+    numërim faqesh. Edhe pse do ta donit zakonisht 1, është e dobishme të keni vlera
+    më të mëdha nëse krijoni një dokument me disa pjesë.
+
+    unit: kjo vlerë cakton njësitë matëse të përdorura nga dokumenti. Përdorni për
+    këtë një konstante të paracaktuar, një prej: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+Vlerat për gjerësi, lartësi dhe mënjana shprehen në njësinë e dhënë për
+dokumentin. Konstantet PAPER_* shprehen në pikë. Nëse dokumenti juaj
+nuk është në pikë, bëni ndryshimin përkatës.
+
+shembull: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</translation>
     </message>
     <message>
         <source>getFillColor([&quot;name&quot;]) -&gt; string
@@ -60,7 +101,11 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
 Returns the name of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFillColor([&quot;name&quot;]) -&gt; string
+
+Përgjigjet me emrin e ngjyrës së mbushjes për objektin &quot;emër&quot;.
+Nëse nuk jepet &quot;emër&quot; përdoret objekti i përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>moveObject(dx, dy [, &quot;name&quot;])
@@ -70,7 +115,13 @@ distances are expressed in the current measurement unit of the document (see
 UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
 If the object &quot;name&quot; belongs to a group, the whole group is moved.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>moveObject(dx, dy [, &quot;name&quot;])
+
+Zhvendos objektin &quot;emër&quot; me dx dhe dy në lidhje me pozicionin e vet të çastit. 
+Hapësirat shprehen në njësinë matëse të çastit të dokumentit (shihni
+konstantet UNIT). Nëse nuk është dhënë &quot;emër&quot; përdoret objekti i përzgjedhur për çastin.
+Nëse objekti &quot;emër&quot; i përket një grupi, zhvendoset tërë grupi.
+</translation>
     </message>
     <message>
         <source>setRedraw(bool)
@@ -79,7 +130,13 @@ Disables page redraw when bool = False, otherwise redrawing is enabled.
 This change will persist even after the script exits, so make sure to call
 setRedraw(True) in a finally: clause at the top level of your script.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setRedraw(bool)
+
+Çaktivizon rivizatimin e faqes kur bool = False, përndryshe rivizatimi është
+veprues. Ky ndryshim do të mbesë edhe pasi programthi të përfundojë, ndaj 
+sigurohuni të thirret setRedraw(True) në një &quot;finally: clause&quot; te niveli sipëror 
+i programthit tuaj.
+</translation>
     </message>
     <message>
         <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -92,7 +149,16 @@ is not given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createRect(x, y, gjerësi, lartësi, [&quot;emër&quot;]) -&gt; string
+
+Krijon një drejtkëndësh të ri në faqen e çastit dhe jep emrin e tij. Koordinatat
+jepen në njësinë matëse të çastit për dokumentin (shihni konstantet UNIT). 
+&quot;emër&quot; do të duhej të ishte një identifikues unik për objektin sepse
+keni nevojë që ky emër të lidhet në të ardhmen me këtë objekt. Nëse nuk
+jepet &quot;emër&quot; Scribus-i do të krijojë një për ju.
+
+Mund të shfaqet NameExistsError nëse jepni shprehimisht një emër tashmë në përdorim.
+</translation>
     </message>
     <message>
         <source>newPage(where [,&quot;template&quot;])
@@ -105,7 +171,15 @@ template page for the new page.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newPage(ku [,&quot;stampë&quot;])
+
+Krijon një faqe të re. Nëse &quot;ku&quot; është -1 faqja e re shtohet te dokumenti, 
+përndryshe faqja e re futet përpara &quot;ku&quot;. Numrat e faqeve numërohen
+prej 1 e sipër, pa pyetur se çfarë numri tregon faqja e parë e dokumentit tuaj. 
+Parametri opsional &quot;stampë&quot; përcakton emrin e faqes stampë për faqen e re.
+
+Mund të shfaqë IndexError nëse numri i faqes zgjidhet është jashtë intervalit
+</translation>
     </message>
     <message>
         <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
@@ -114,7 +188,12 @@ Sets the gradient fill of the object &quot;name&quot; to type. Color description
 the same as for setFillColor() and setFillShade(). See the constants for
 available types (FILL_&lt;type&gt;).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setGradientFill(tip, &quot;ngjyrë1&quot;, hije1, &quot;ngjyrë2&quot;, hije2, [&quot;emër&quot;])
+
+Rregullon mbushjen e shkallëzuar të objektit &quot;emër&quot; sipas tipit. Përshkrimi i ngjyrave
+është i njëjtë si për setFillColor() dhe setFillShade(). Shihni konstantet për tipe të
+mundshëm (FILL_&lt;type&gt;).
+</translation>
     </message>
     <message>
         <source>getFontSize([&quot;name&quot;]) -&gt; float
@@ -124,7 +203,13 @@ frame has some text selected the value assigned to the first character of
 the selection is returned.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFontSize([&quot;emër&quot;]) -&gt; float
+
+Përgjigjet me madhësinë e gërmave për kornizën e teksti me &quot;emër&quot;. Nëse kjo 
+kornizë teksti ka tekst të përzgjedhur sillet vlera e dhënë gërmës së parë te
+përzgjedhja.
+Nëse nuk tregohet &quot;emër&quot; përdoret ai i objektit të përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>register_macro_callable(name, callable, accel=&apos;&apos;)
@@ -140,7 +225,18 @@ __call__ method with no arguments. There is no problem with registering
 a callable more than once, nor with registering multiple bound methods
 of a single instance.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>register_macro_callable(emër, callable, përshpejt=&apos;&apos;)
+
+Krijon një makro të quajtur &quot;emër&quot; me objekt të thirrshëm ekzistues &quot;callable&quot;.
+I thirrshmi që jepet duhet të mos kërkojë ndonjë argument kur thirret (mund 
+të marrë argumente opsionalë, por nuk do t&apos;i jepet ndonjë).
+Nëse jepet një, vargu &quot;përshpejt&quot; do të përdoret për të caktuar një shkurtprerje
+tastiere për makron.
+Nëse i thirrshmi i dhënë është një klasë, nuk do të pranohet. Funksionet dhe 
+metoda &quot;bound&quot; janë goxha të pranueshëm, siç janë edhe instanca klasash që
+ofrojnë një __call__ method pa argumente. Nuk ka problem nëse regjistrohet
+një i thirrshëm më shumë se një herë, as nëse regjistrohen metoda &quot;bound&quot;
+të shumëfishta brenda një instance të vetme.</translation>
     </message>
     <message>
         <source>messagebarText(&quot;string&quot;)
@@ -148,7 +244,11 @@ of a single instance.
 Writes the &quot;string&quot; into the Scribus message bar (status line). The text
 must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>messagebarText(&quot;varg&quot;)
+
+Shkruan &quot;vargun&quot; te shtyllë mesazhesh të Scribus-it (rresht gjendjeje). Teksti
+duhet të jetë i koduar si UTF8 ose varg &apos;unicode&apos; (e këshillueshme).
+</translation>
     </message>
 </context>
 <context>
@@ -6735,7 +6835,15 @@ the value of the named color from the default document colors.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColor(&quot;emër&quot;) -&gt; &quot;tuple&quot;
+
+Përgjigjet me një &quot;tuple&quot; (C, M, Y, K) që përmban përbërësit në katër ngjyra të
+ngjyrës &quot;emër&quot; prej dokumentit të çastit. Nëse nuk ka dokument të hapur, sillet
+vlera e ngjyrës me atë emër prej ngjyrave të dokumentit parazgjedhje.
+
+Mund të sjellë NotFoundError nëse nuk gjendet emri i ngjyrës.
+Mund të sjellë ValueError nëse është dhënë emër i pavlefshëm ngjyre.
+</translation>
     </message>
     <message>
         <source>changeColor(&quot;name&quot;, c, m, y, k)
@@ -6747,7 +6855,14 @@ Color components should be in the range from 0 to 255.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>changeColor(&quot;emër&quot;, c, m, y, k)
+
+Ndryshon ngjyrën &quot;emër&quot; në vlerën e treguar CMYK. Vlera e ngjyrës përcaktohet
+nga katër përbërs c = Cyan, m = Magenta, y = Yellow and k = Black.
+Përbërësit e ngjyrës do të duhej të ishin brenda intervalit nga 0 te 255.
+
+Mund të sjellë NotFoundError nëse emri i ngjyrës nuk gjendet.
+Mund të sjellë ValueError nëse është dhënë emër i pavlefshëm ngjyre.</translation>
     </message>
     <message>
         <source>defineColor(&quot;name&quot;, c, m, y, k)
@@ -6758,7 +6873,13 @@ the range from 0 to 255.
 
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>defineColor(&quot;emër&quot;, c, m, y, k)
+
+Përcakton një ngjyrë të re &quot;emër&quot;. Vlera e ngjyrës përcaktohet nga katër përbërës:
+c = Cyan, m = Magenta, y = Yellow and k = Black. Përbërësit e ngjyrës do të duhej 
+të ishin brenda intervalit nga 0 te 255.
+
+Mund të sjellë ValueError nëse është dhënë emër i pavlefshëm ngjyre.</translation>
     </message>
     <message>
         <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
@@ -6773,7 +6894,17 @@ In that case, &quot;replace&quot;, if specified, has no effect.
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteColor(&quot;emër&quot;, &quot;zëvendëso&quot;)
+
+Fshin ngjyrën &quot;emër&quot;. Çdo hasje e asaj ngjyre zëvendësohet nga
+ngjyra &quot;zëvendëso&quot;. Nëse nuk jepet një, &quot;zëvendëso&quot; merr si vlerë ngjyrën e tejdukshme
+&quot;Asnjë&quot;.
+
+deleteColor funksionon në ngjyra dokumenti parazgjedhje nëse nuk ka dokument të hapur.
+Në atë rast, &quot;zëvendëso&quot;, nëse është caktuar, nuk ka efekt.
+
+Mund të sjellë NotFoundError nëse nuk gjendet emri i ngjyrës.
+Mund të sjellë ValueError nëse është dhënë emër i pavlefshëm ngjyre.</translation>
     </message>
     <message>
         <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
@@ -6783,7 +6914,12 @@ Every occurence of the color &quot;name&quot; is replaced by the color &quot;rep
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>replaceColor(&quot;emër&quot;, &quot;zëvendëso&quot;)
+
+Çdo hasje e ngjyrës &quot;emër&quot; zëvendësohet me ngjyrën &quot;zëvendëso&quot;.
+
+Mund të sjellë NotFoundError nëse nuk gjendet emri i ngjyrës.
+Mund të sjellë ValueError nëse është dhënë emër i pavlefshëm ngjyre.</translation>
     </message>
     <message>
         <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; string with filename
@@ -6804,7 +6940,24 @@ Refer to the Qt-Documentation for QFileDialog for details on filters.
 Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
 Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; varg me emër kartele
+
+Shfaq një kuti dialogu Hap Kartelë me caption &quot;caption&quot;. Kartelat filtrohen me
+vargun e filtrit &quot;filtër&quot;. Mund të jepet edhe një emër kartele ose shteg kartele,
+lëreni bosh këtë varg kur doni të mos e përdorni.  Vlera True për haspreview 
+aktivizon një kuti të vogël paraparjesh te kutiza për Përzgjedhje Kartelash.  Kur
+parametri issave është caktuar True dialogu vepron si një dialog &quot;Ruaj Si&quot; 
+përndryshe vepron si &quot;Dialog Hapje Kartelash&quot;. Parazgjedhja për të dy parametrat
+opsionalë është False.
+
+Filtri, nëse tregohet, merr formën &apos;koment (*.tip *.tip2 ...)&apos;.
+Për shembull &apos;Pamje (*.png *.xpm *.jpg)&apos;.
+
+Këshillohuni me dokumentimin e Qt-së mbi QFileDialog për hollësi  mbi filtra.
+
+Shembull: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
+Shembull: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
+</translation>
     </message>
     <message>
         <source>messageBox(&quot;caption&quot;, &quot;message&quot;,
@@ -6840,7 +6993,39 @@ BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
 BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
 ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>messageBox(&quot;titull&quot;, &quot;mesazh&quot;,
+    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
+    button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer
+
+Shfaq një kuti mesazhesh me titullin &quot;titullin&quot;, mesazhin &quot;mesazh&quot;, dhe
+një ikonë &quot;ikonë&quot; dhe deri në tre butona. Si parazgjedhje nuk përdoret ikonë 
+dhe shfaqet një buton i vetëm, OK. Lipsen vetëm argumentat titull dhe mesazh,
+edhe pse vendosja e një ikone dhe butonit(ave) këshillohet me forcë. 
+Teksti i mesazhit mund të përmbajë shënime të thjeshtë tip HTML.
+
+Përgjigjet me numrin e butonit që shtypi përdoruesi. Numrat e butonave fillojnë 
+nga 1.
+
+Për parametrat e ikonës dhe butonit ka konstante të paracaktuara të mundshme
+me emra të njëjtë si në Dokumentimin e Qt. Këto janë konstantet BUTTON_* dhe
+ICON_* përcaktuar te moduli. Ka po ashtu dy konstante ekstra që
+pranojnë binary-ORed me konstante butonash:
+    BUTTONOPT_DEFAULT   Shtypja e Enter-it shtyp këtë buton.
+    BUTTONOPT_ESCAPE    Shtypja e Esc-ut shtyp këtë buton.
+
+Shembuj përdorimi:
+result = messageBox(&apos;Script failed&apos;,
+                    &apos;This script only works when you have a text frame selected.&apos;,
+                    ICON_ERROR)
+result = messageBox(&apos;Monkeys!&apos;, &apos;Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;&apos;,
+                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
+                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
+
+Konstante të përcaktuara butonash dhe ikonash:
+BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
+BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
+ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
+</translation>
     </message>
     <message>
         <source>valueDialog(caption, message [,defaultvalue]) -&gt; string
@@ -6850,7 +7035,13 @@ Parameters: window title, text in the window and optional &apos;default&apos; va
 
 Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>valueDialog(titull, mesazh [,defaultvalue]) -&gt; string
+
+Shfaq dialogun e zakonshëm &apos;Kërko për varg&apos; dhe sjell vlerën e vargut
+Parametra: titull dritareje, tekst në dritaren dhe vlerë opsionale &apos;parazgjedhje&apos;.
+
+Shembull: valueDialog(&apos;titull&apos;, &apos;tekst në dritaren&apos;, &apos;opsionale&apos;)
+</translation>
     </message>
     <message>
         <source>closeDoc()
@@ -6859,14 +7050,21 @@ Closes the current document without prompting to save.
 
 May throw NoDocOpenError if there is no document to close
 </source>
-        <translation type="unfinished"></translation>
+        <translation>closeDoc()
+
+Mbyll dokumentin e çastit pa pyetur për ruajtje apo jo.
+
+Mund të shfaqë NoDocOpenError nëse nuk ka dokument që të mbyllet</translation>
     </message>
     <message>
         <source>haveDoc() -&gt; bool
 
 Returns true if there is a document open.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>haveDoc() -&gt; bool
+
+Përgjigjet me true nëse ka një dokument të hapur.
+</translation>
     </message>
     <message>
         <source>openDoc(&quot;name&quot;)
@@ -6875,7 +7073,12 @@ Opens the document &quot;name&quot;.
 
 May raise ScribusError if the document could not be opened.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>openDoc(&quot;name&quot;)
+
+Hap dokumentin &quot;emër&quot;.
+
+Mund të sjellë ScribusError nëse dokumenti nuk hapet dot.
+</translation>
     </message>
     <message>
         <source>saveDoc()
@@ -6886,7 +7089,13 @@ save file dialog.
 
 If the save fails, there is currently no way to tell.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>saveDoc()
+
+Ruan dokumentin e çastit me emrin e çastit, përgjigjet me true nëse ka sukses.
+Nëse dokumenti nuk është ruajtur ende, kjo mund të sjellë një dialog ruajtje.
+
+Nëse ruajtja dështon, hëpërhë nuk ka rrugë se si të merret vesh.
+</translation>
     </message>
     <message>
         <source>saveDocAs(&quot;name&quot;)
@@ -6896,7 +7105,13 @@ relative path).
 
 May raise ScribusError if the save fails.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>saveDocAs(&quot;name&quot;)
+
+Ruan dokumentin e çastit nën një emër të ri &quot;emër&quot; (i cili mund të jepet me shteg 
+të plotë ose relativ).
+
+Mund të sjellë ScribusError nëse ruajtja dështon.
+</translation>
     </message>
     <message>
         <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
@@ -6904,7 +7119,11 @@ May raise ScribusError if the save fails.
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>saveDocAs(&quot;autor&quot;, &quot;të dhëna&quot;, &quot;përshkrim&quot;) -&gt; bool
+
+Cakton të dhëna dokumenti. &quot;Autor&quot;, &quot;Të dhëna&quot;, &quot;Përshkrim&quot; janë
+vargje.
+</translation>
     </message>
     <message>
         <source>setMargins(lr, rr, tr, br)
@@ -6913,7 +7132,12 @@ Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
 margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
 constants.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setMargins(lr, rr, tr, br)
+
+Cakton mënjanat e dokumentit, mënjanat Majtas(lr), Djathtas(rr), Sipër(tr) 
+dhe Poshtë(br) jepen në njësi matëse të përdorur për dokumentin - shihni 
+konstantet UNIT_&lt;type&gt;.
+</translation>
     </message>
     <message>
         <source>setUnit(type)
@@ -6923,7 +7147,13 @@ defined as constants UNIT_&lt;type&gt;.
 
 May raise ValueError if an invalid unit is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setUnit(type)
+
+Ndryshon njësinë matëse të dokumentit. Vlera të mundshme për &quot;njësinë&quot; përcaktohen
+si konstante UNIT_&lt;tip&gt;.
+
+Mund të sjellë ValueError nëse jepet një njësi e pavlefshme.
+</translation>
     </message>
     <message>
         <source>getUnit() -&gt; integer (Scribus unit constant)
@@ -6932,7 +7162,12 @@ Returns the measurement units of the document. The returned value will be one
 of the UNIT_* constants:
 UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getUnit() -&gt; integer (konstante Scribus për njësi)
+
+Përgjigjet me njësitë marëse të dokumentit. Vlera e sjellë do të jetë ajo e
+konstanteve UNIT_*:
+UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+</translation>
     </message>
     <message>
         <source>loadStylesFromFile(&quot;filename&quot;)
@@ -6940,7 +7175,11 @@ UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
 Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
 current document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>loadStylesFromFile(&quot;emër kartele&quot;)
+
+Ngarkon në dokumentin e çastit stile paragrafësh prej dokumentit Scribus 
+te &quot;emër kartele&quot;.
+</translation>
     </message>
     <message>
         <source>setDocType(facingPages, firstPageLeft)
@@ -6950,7 +7189,13 @@ FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
 to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
 a right page use FIRSTPAGERIGHT.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setDocType(facingPages, firstPageLeft)
+
+Cakton tipin e dokumentit. Për të pasur faqe për karshi vëreni parametrin e parë si
+FACINGPAGES, për të mos përdorur facingPages përdorni NOFACINGPAGES.  Nëse doni
+që faqja e parë të jetë faqe majtas vëreni parametrin e dytë si FIRSTPAGELEFT, për 
+faqe djathtas përdorni FIRSTPAGERIGHT.
+</translation>
     </message>
     <message>
         <source>getLineColor([&quot;name&quot;]) -&gt; string
@@ -6958,7 +7203,11 @@ a right page use FIRSTPAGERIGHT.
 Returns the name of the line color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineColor([&quot;emër&quot;]) -&gt; string
+
+Përgjigjet me emrin e ngjyrës për vijën e objektit &quot;emër&quot;.
+Nëse nuk jepet &quot;emër&quot; përdoret objekti i përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>getLineWidth([&quot;name&quot;]) -&gt; integer
@@ -6966,7 +7215,10 @@ If &quot;name&quot; is not given the currently selected item is used.
 Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineWidth([&quot;emër&quot;]) -&gt; integer
+
+Përgjigjet me gjerësinë e vijës për objektin &quot;emër&quot;.
+Nëse nuk jepet &quot;emër&quot; përdoret objekti i përzgjedhur për çastin.</translation>
     </message>
     <message>
         <source>getLineShade([&quot;name&quot;]) -&gt; integer
@@ -6974,7 +7226,10 @@ is not given the currently selected Item is used.
 Returns the shading value of the line color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineShade([&quot;emër&quot;]) -&gt; integer
+
+Përgjigjet me vlerën e hijes së ngjyrës për vijën e objektit &quot;emër&quot;.
+Nëse nuk jepet &quot;emër&quot; përdoret objekti i përzgjedhur për çastin.</translation>
     </message>
     <message>
         <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see contants)
@@ -6983,7 +7238,11 @@ Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; 
 the currently selected item is used.  The join types are:
 JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineJoin([&quot;emër&quot;]) -&gt; integer (shihni konstante)
+
+Përgjigjet me stil bashkimi për vijën e objektit &quot;emër&quot;. Nëse nuk jepet &quot;emër&quot; 
+përdoret objekti i përzgjedhur për çastin.  Tipet e bashkimit janë:
+JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND</translation>
     </message>
     <message>
         <source>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
@@ -6992,7 +7251,11 @@ Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; i
 currently selected item is used. The cap types are:
 CAP_FLAT, CAP_ROUND, CAP_SQUARE
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineEnd([&quot;emër&quot;]) -&gt; integer (shihni konstante)
+
+Përgjigjet me stil kulmi për vijën e objektit &quot;emër&quot;. Nëse nuk jepet &quot;emër&quot;
+përdoret objekti i përzgjedhur për çastin. Tipet e kulmeve janë:
+CAP_FLAT, CAP_ROUND, CAP_SQUARE</translation>
     </message>
     <message>
         <source>getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
@@ -7001,7 +7264,11 @@ Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is no
 currently selected item is used. Line style constants are:
 LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineStyle([&quot;emër&quot;]) -&gt; integer (shihni konstante)
+
+Përgjigjet me stil vije për objektin &quot;emër&quot;. Nëse nuk jepet &quot;emër&quot; përdoret 
+objekti i përzgjedhur për çastin.  Konstante tipi vijash janë:
+LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
     </message>
     <message>
         <source>getFillShade([&quot;name&quot;]) -&gt; integer
@@ -7009,7 +7276,10 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 Returns the shading value of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFillShade([&quot;emër&quot;]) -&gt; integer
+
+Përgjigjet me vlerën e hijes së ngjyrës së mbushjes për objektin &quot;emër&quot;.
+Nëse nuk jepet &quot;emër&quot; përdoret objekti i përzgjedhur për çastin.</translation>
     </message>
     <message>
         <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
@@ -7018,7 +7288,10 @@ Returns the corner radius of the object &quot;name&quot;. The radius is
 expressed in points. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getCornerRadius([&quot;emër&quot;]) -&gt; integer
+
+Përgjigjet me rrezen e kulmit për objektin &quot;emër&quot;. Rrezja shprehet
+në pikë. Nëse nuk jepet &quot;emër&quot; përdoret objekti i përzgjedhur për çastin.</translation>
     </message>
     <message>
         <source>getImageScale([&quot;name&quot;]) -&gt; (x,y)
@@ -7026,7 +7299,11 @@ selected item is used.
 Returns a (x, y) tuple containing the scaling values of the image frame
 &quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getImageScale([&quot;emër&quot;]) -&gt; (x,y)
+
+Përgjigjet me një çift (x, y) që përmban vlera ripërmasimi për kornizën e pamjes
+&quot;emër&quot;.  Nëse nuk jepet &quot;emër&quot; përdoret objekti i përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>getImageName([&quot;name&quot;]) -&gt; string
@@ -7034,7 +7311,10 @@ Returns a (x, y) tuple containing the scaling values of the image frame
 Returns the filename for the image in the image frame. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getImageName([&quot;emër&quot;]) -&gt; string
+
+Përgjigjet me emrin e kartelës së pamjes në kornizën e pamjes.
+Nëse nuk jepet &quot;emër&quot; përdoret objekti i përzgjedhur për çastin.</translation>
     </message>
     <message>
         <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
@@ -7044,7 +7324,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 The position is expressed in the actual measurement unit of the document
 - see UNIT_&lt;type&gt; for reference.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPosition([&quot;emër&quot;]) -&gt; (x,y)
+
+Përgjigjet me një çift (x, y) për pozicionin e objektit &quot;emër&quot;.
+Nëse nuk tregohet &quot;emër&quot; përdoret ai i objektit të përzgjedhur për çastin.
+Pozicioni shprehet në njësinë matëse aktuale të dokumentit
+- për sqarime shihni UNIT_&lt;tip&gt;.
+</translation>
     </message>
     <message>
         <source>getSize([&quot;name&quot;]) -&gt; (width,height)
@@ -7054,7 +7340,11 @@ If &quot;name&quot; is not given the currently selected item is used. The size i
 expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
 for reference.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getSize([&quot;emër&quot;]) -&gt; (width,height)
+
+Përgjigjet me një çift (gjerësi, lartësi) për madhësinë e objektit &quot;emër&quot;.
+Nëse nuk tregohet &quot;emër&quot; përdoret ai i objektit të përzgjedhur për çastin. 
+Madhësia shprehet në njësinë matëse aktuale të dokumentit - për sqarime shihni UNIT_&lt;tip&gt;.</translation>
     </message>
     <message>
         <source>getRotation([&quot;name&quot;]) -&gt; integer
@@ -7063,14 +7353,22 @@ Returns the rotation of the object &quot;name&quot;. The value is expressed in d
 and clockwise is positive. If &quot;name&quot; is not given the currently selected item
 is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getRotation([&quot;emër&quot;]) -&gt; integer
+
+Përgjigjet me rrotullimin e objektit &quot;emër&quot;. Vlera shprehet në gradë,
+dhe kahu orar merr vlera pozitive. Nëse nuk jepet &quot;emër&quot; përdoret 
+objekti i përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>getAllObjects() -&gt; list
 
 Returns a list containing the names of all objects on the current page.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getAllObjects() -&gt; list
+
+Përgjigjet me një listë që përmban emrat e tërë objekteve në faqen e çastit.
+</translation>
     </message>
     <message>
         <source>moveObjectAbs(x, y [, &quot;name&quot;])
@@ -7080,7 +7378,13 @@ the current measurement unit of the document (see UNIT constants).  If &quot;nam
 is not given the currently selected item is used.  If the object &quot;name&quot;
 belongs to a group, the whole group is moved.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>moveObjectAbs(x, y [, &quot;emër&quot;])
+
+Zhvendos objektin &quot;emër&quot; te një vendndodhje e re. Koordinatat shprehen në 
+njësinë matëse të çastit për dokumentin (shihni konstante UNIT).  Nëse nuk 
+është dhënë &quot;emër&quot; përdoret objekti i përzgjedhur për çastin. Nëse objekti 
+&quot;emër&quot; i përket një grupi, zhvendoset tërë grupi.
+</translation>
     </message>
     <message>
         <source>rotateObject(rot [, &quot;name&quot;])
@@ -7091,7 +7395,14 @@ default, the top left vertext at zero rotation. Positive values mean counter
 clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">rotateObject(rot [, &quot;emër&quot;])
+
+Rrotullon objektin &quot;emër&quot; në mënyrë relative me gradë &quot;rot&quot;. Objekti rrotullohet
+rotated by the vertex that is currently selected as the rotation point - by
+default, the top left vertext at zero rotation. Vlerat pozitive do të thonë
+rrotullim kundërorar kur përdoret pikë parazgjedhje rrotullimi. Nëse nuk është dhënë
+&quot;emër&quot; përdoret përbërësi i përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>rotateObjectAbs(rot [, &quot;name&quot;])
@@ -7100,7 +7411,12 @@ Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive va
 mean counter clockwise rotation. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>rotateObjectAbs(rot [, &quot;emër&quot;])
+
+Cakton rrotullimin e objektit &quot;emër&quot; sa &quot;rot&quot;. Vlerat pozitive
+nënkuptojnë rrotullim në kah antiorar. Nëse nuk jepet &quot;emër&quot; përdoret
+objekti i përzgjedhur për çastin. 
+</translation>
     </message>
     <message>
         <source>sizeObject(width, height [, &quot;name&quot;])
@@ -7108,7 +7424,11 @@ selected item is used.
 Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>sizeObject(width, height [, &quot;name&quot;])
+
+Ripërmason objektin &quot;emër&quot; në gjerësinë dhe lartësinë e dhënë. Nëse nuk 
+jepet &quot;emër&quot; përdoret objekti i përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>getSelectedObject([nr]) -&gt; string
@@ -7117,28 +7437,42 @@ Returns the name of the selected object. &quot;nr&quot; if given indicates the n
 of the selected object, e.g. 0 means the first selected object, 1 means the
 second selected Object and so on.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getSelectedObject([nr]) -&gt; string
+
+Përgjigjet me emrin e objektit të përzgjedhur. &quot;nr&quot;, nëse jepet, tregon numrin
+e objektit të përzgjedhur, p.sh. 0 do të thotë objekti i parë, 1 do të thotë
+i dyti i përzgjedhur e me radhë.
+</translation>
     </message>
     <message>
         <source>selectionCount() -&gt; integer
 
 Returns the number of selected objects.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>selectionCount() -&gt; integer
+
+Përgjigjet me numrin e objekteve të përzgjedhur.
+</translation>
     </message>
     <message>
         <source>selectObject(&quot;name&quot;)
 
 Selects the object with the given &quot;name&quot;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>selectObject(&quot;emër&quot;)
+
+Përzgjedh objektin me &quot;emrin&quot; e dhënë.
+</translation>
     </message>
     <message>
         <source>deselectAll()
 
 Deselects all objects in the whole document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deselectAll()
+
+Çpërzgjedh tërë objektet në tërë dokumentin.
+</translation>
     </message>
     <message>
         <source>groupObjects(list)
@@ -7147,13 +7481,21 @@ Groups the objects named in &quot;list&quot; together. &quot;list&quot; must con
 of the objects to be grouped. If &quot;list&quot; is not given the currently selected
 items are used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>groupObjects(list)
+
+Grupon bashkë objektet e përmendur në &quot;listë&quot;. &quot;Lista&quot; duhet të përmbajë
+emrat e objekteve që do të grupohen. Nëse nuk jepet &quot;emër&quot; përdoret objektet e 
+përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>unGroupObjects(&quot;name&quot;)
 
 Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</source>
-        <translation type="unfinished"></translation>
+        <translation>unGroupObjects(&quot;emër&quot;)
+
+Shpërbën grupin te i cili bën pjesë objekti &quot;emër&quot;. Nëse nuk jepet &quot;emër&quot; përdoret objekti i përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>scaleGroup(factor [,&quot;name&quot;])
@@ -7166,7 +7508,16 @@ to 150 % of its original size.  The value for &quot;factor&quot; must be greater
 
 May raise ValueError if an invalid scale factor is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>scaleGroup(factor [,&quot;emër&quot;])
+
+Ripërmason grupin të cilit i përket objekti me &quot;emër&quot;. Vlera më të mëdha se 1 e zgjerojnë
+grupin, vlera më të vogla se 1 e bëjnë grupin më të vogël p.sh. një vlerë 0.5
+e ripërmason grupin në 50 % të madhësisë fillestare, një vlerë 1.5 e ripërmason grupin
+sa 150 % e vlerës së tij fillestare.  Vlera për &quot;faktorin&quot; duhet të jetë më e madhe se
+0. Nëse jepet &quot;emër&quot; do të përdoret ai i objektit të përzgjedhur për çastin.
+
+Mund të sjellë ValueError nëse jepet një koeficient i pavlefshëm ripërmasimi.
+</translation>
     </message>
     <message>
         <source>loadImage(&quot;filename&quot; [, &quot;name&quot;])
@@ -7176,7 +7527,13 @@ not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>loadImage(&quot;emër kartele&quot; [, &quot;emër&quot;])
+
+Ngarkon pamjen &quot;pamje&quot; te korniza e pamjes &quot;emër&quot;. Nëse nuk jepet 
+&quot;emër&quot; përdoret objekti i përzgjedhur për çastin.
+
+Mund të sjellë WrongFrameTypeError nëse korniza objektiv nuk është një kornizë pamjeje
+</translation>
     </message>
     <message>
         <source>scaleImage(x, y [, &quot;name&quot;])
@@ -7187,7 +7544,14 @@ means 100 %.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>scaleImage(x, y [, &quot;emër&quot;])
+
+Cakton koeficientët për ripërmasim pamjesh në kornizën e pamjeve &quot;emër&quot;.
+Nëse nuk jepet emër &quot;emër&quot; përdoret objekti i përzgjedhur për çastin. Vlera 1
+nënkupton 100 %.
+
+Mund të sjellë WrongFrameTypeError nëse korniza objektiv nuk është kornizë pamjesh
+</translation>
     </message>
     <message>
         <source>lockObject([&quot;name&quot;]) -&gt; bool
@@ -7196,7 +7560,12 @@ Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;
 If &quot;name&quot; is not given the currently selected item is used. Returns true
 if locked.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>lockObject([&quot;emër&quot;]) -&gt; bool
+
+Kyç objektin &quot;emër&quot; nëse është i çkyçur ose e çkyç në qoftë i kyçur.
+Nëse nuk jepet &quot;emër&quot; përdoret objekti i përzgjedhur për çastin. Përgjigjet me &quot;true&quot;
+nëse gjen kyçje.
+</translation>
     </message>
     <message>
         <source>isLocked([&quot;name&quot;]) -&gt; bool
@@ -7204,7 +7573,11 @@ if locked.
 Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLocked([&quot;emër&quot;]) -&gt; bool
+
+Përgjigjet me &quot;true&quot; nëse objekti &quot;emër&quot; është i kyçur.  Nëse nuk jepet &quot;emër&quot; 
+përdoret objekti i përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)
@@ -7215,14 +7588,24 @@ Both `scaletoframe&apos; and `proportional&apos; are boolean.
 
 May raise WrongFrameTypeError.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)
+
+Cakton ripërmasimin për kornizë në kornizën e përzgjedhur ose të treguar të 
+pamjeve sa `scaletoframe&apos;. Nëse tregohet `proportional&apos;, caktoni ripërmasim me koeficient të fiksuar si `proportional&apos;.
+Si `scaletoframe&apos; ashtu edhe `proportional&apos; janë vlera buleane.
+
+Mund të sjellë WrongFrameTypeError.
+</translation>
     </message>
     <message>
         <source>getFontNames() -&gt; list
 
 Returns a list with the names of all available fonts.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFontNames() -&gt; list
+
+Përgjigjet me një listë me emrat e tërë gërmave të mundshme.
+</translation>
     </message>
     <message>
         <source>getXFontNames() -&gt; list of tuples
@@ -7230,7 +7613,11 @@ Returns a list with the names of all available fonts.
 Returns a larger font info. It&apos;s a list of the tuples with:
 [ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getXFontNames() -&gt; listë vlerash
+
+Përgjigjet me më tepër të dhëna gërmash. Është një listë vlerash me:
+[ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
+</translation>
     </message>
     <message>
         <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
@@ -7241,14 +7628,24 @@ Image is saved into &quot;filename&quot;. Returns true when success.
 May raise NotFoundError if the specified font can&apos;t be found.
 May raise ValueError if an empty sample or filename is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>rendeFont(&quot;name&quot;, &quot;emër kartele&quot;, &quot;shembull&quot;, madhësi) -&gt; bool
+
+Krijon një paraparje pamjeje të gërmave &quot;emër&quot; me tekstin e dhënë &quot;shembull&quot; dhe madhësinë.
+Pamjet ruhen te &quot;emër kartele&quot;. Përgjigjet me &quot;true&quot; në rast suksesi.
+
+Mund të sjellë NotFoundError nëse nuk gjenden gërmat e treguara.
+Mund të sjellë ValueError nëse jepet një shembull ose një emër kartele bosh.
+</translation>
     </message>
     <message>
         <source>getLayers() -&gt; list
 
 Returns a list with the names of all defined layers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLayers() -&gt; list
+
+Përgjigjet me një listë me emrat e tërë shtresave të përcaktuara.
+</translation>
     </message>
     <message>
         <source>setActiveLayer(&quot;name&quot;)
@@ -7258,14 +7655,23 @@ Sets the active layer to the layer named &quot;name&quot;.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setActiveLayer(&quot;emër&quot;)
+
+Vë si shtresë vepruese shtresën e emërtuar &quot;emër&quot;.
+
+Mund të sjellë NotFoundError nëse nuk gjendet shtresa.
+Mund të sjellë ValueError nëse emri i shtresës është i papranueshëm.
+</translation>
     </message>
     <message>
         <source>getActiveLayer() -&gt; string
 
 Returns the name of the current active layer.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getActiveLayer() -&gt; string
+
+Përgjigjet me emrin e shtresë vepruese për çastin.
+</translation>
     </message>
     <message>
         <source>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
@@ -7276,7 +7682,14 @@ If &quot;name&quot; is not given the currently selected item is used.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>sentToLayer(&quot;shtresë&quot; [, &quot;emër&quot;])
+
+Dërgon objektin &quot;emër&quot; te shtresa &quot;shtresë&quot;. Shtresa duhet të ekzistojë.
+Nëse nuk gjendet &quot;emër&quot; përdoret objekti i përzgjedhur për çastin.
+
+Mundet të sjellë NotFoundError nëse nuk gjendet shtresa.
+Mundet të sjellë ValueError nëse emri i shtresës është i papranueshëm.
+</translation>
     </message>
     <message>
         <source>setLayerVisible(&quot;layer&quot;, visible)
@@ -7287,7 +7700,14 @@ the layer is invisible.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLayerVisible(&quot;shtresë&quot;, e dukshme)
+
+Cakton nëse shtresa &quot;shtresë&quot; të jetë apo jo e dukshme. Në qoftë e dukshmja &quot;false&quot;
+shtresa është e padukshme.
+
+Mund të sjellë NotFoundError nëse shtresa nuk gjendet.
+Mund të sjellë ValueError nëse emri i shtresës është i papranueshëm.
+</translation>
     </message>
     <message>
         <source>setLayerPrintable(&quot;layer&quot;, printable)
@@ -7298,7 +7718,54 @@ false the layer won&apos;t be printed.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLayerPrintable(&quot;shtresë&quot;, e shtypshme)
+
+Cakton shtresën &quot;shtresë&quot; si të shtypshme ose jo. Nëse e shtypshme është
+vendosur si &quot;false&quot; shtresa nuk do të jetë e shtypshme.
+
+Mund të sjellë NotFoundError nëse shtresa nuk gjendet.
+Mund të sjellë ValueError nëse emri i shtresës është i papranueshëm.
+</translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns wether the Layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>isLayerPrintable(&quot;shtresë&quot;) -&gt; bool
+
+Përgjigjet nëse Shtresa &quot;shtresë&quot; është e dukshme ose jo, vlera True do të thotë 
+që shtresa &quot;shtresë&quot; është e dukshme, vlera False do të thotë 
+që shtresa &quot;shtresë&quot; është e padukshme.
+
+Mund të sjellë NotFoundError nëse shtresa nuk gjendet.
+Mund të sjellë ValueError nëse emri i shtresës është i papranueshëm.
+</translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns wether the layer &quot;layer&quot; is printable or not, a value of True means
+that the layer &quot;layer&quot; can be printed, a value of False means that printing
+the layer &quot;layer&quot; is disabled.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>isLayerPrintable(&quot;shtresë&quot;) -&gt; bool
+
+Përgjigjet nëse Shtresa &quot;shtresë&quot; është e shtypshme ose jo, vlera True do të thotë 
+që shtresa &quot;shtresë&quot; është e shtypshme, vlera False do të thotë që shtypja e
+shtresës &quot;shtresë&quot; është e çaktivizuar.
+
+Mund të sjellë NotFoundError nëse shtresa nuk gjendet.
+Mund të sjellë ValueError nëse emri i shtresës është i papranueshëm.
+</translation>
     </message>
     <message>
         <source>deleteLayer(&quot;layer&quot;)
@@ -7309,7 +7776,14 @@ exists or if it&apos;s the only layer in the document.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteLayer(&quot;shtresë&quot;)
+
+Fshin shtresën me emrin &quot;shtresë&quot;. Nuk bën gjë nëse shtresa nuk 
+ekziston ose nëse është shtresa e vetme në dokument.
+
+Mund të sjellë NotFoundError nëse shtresa nuk gjendet.
+Mund të sjellë ValueError nëse emri i shtresës është i papranueshëm.
+</translation>
     </message>
     <message>
         <source>createLayer(layer)
@@ -7318,14 +7792,22 @@ Creates a new layer with the name &quot;name&quot;.
 
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createLayer(shtresë)
+
+Krijon shtresë të re me emrin &quot;shtresë&quot;.
+
+Mund të sjellë ValueError nëse emri i shtresës është i papranueshëm.
+</translation>
     </message>
     <message>
         <source>getGuiLanguage() -&gt; string
 
 Returns a string with the -lang value.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getGuiLanguage() -&gt; string
+
+Përgjigjet me një varg me vlerën -lang.
+</translation>
     </message>
     <message>
         <source>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -7338,7 +7820,17 @@ is not given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createEllipse(x, y, gjerësi, lartësi, [&quot;emër&quot;]) -&gt; string
+
+Krijon një elips të ri në faqen e çastit dhe jep edhe emrin e tij.
+Koordinatat jepen në njësinë matëse të çastit për dokumentin
+(shihni konstantet UNIT). &quot;emri&quot; duhet të jetë një identifikues i vetëm
+për objektin sepse ju duhet ky emër për përdorim të mëvonshëm të 
+këtij objekti. Nëse nuk jepet &quot;emër&quot; Scribus-i do të krijojë një për ju.
+
+Mund të sjellë NameExistsError nëse jepni shprehimisht një emër që 
+është tashmë i përdorur.
+</translation>
     </message>
     <message>
         <source>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -7351,7 +7843,16 @@ create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createImage(x, y, gjerësi, lartësi, [&quot;emër&quot;]) -&gt; string
+
+Krijon një pamje të re në faqen e çastit dhe jep edhe emrin e saj. Koordinatat 
+jepen në njësinë matëse të çastit për dokumentin. &quot;emri&quot; duhet të jetë 
+një identifikues i vetëm për objektin sepse ju duhet ky emër për përdorim 
+të mëvonshëm të këtij objekti. Nëse nuk jepet &quot;emër&quot; Scribus-i do të krijojë një për ju.
+
+Mund të sjellë NameExistsError nëse jepni shprehimisht një emër që është 
+tashmë i përdorur.
+</translation>
     </message>
     <message>
         <source>createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -7364,7 +7865,17 @@ given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createText(x, y, gjerësi, lartësi, [&quot;emër&quot;]) -&gt; string
+
+Krijon një kornizë të re teskti në faqen e çastit dhe jep edhe emrin e tij. 
+Koordinatat jepen në njësinë matëse të çastit për dokumentin
+(shihni konstantet UNIT). &quot;emri&quot; duhet të jetë një identifikues i vetëm
+për objektin sepse ju duhet ky emër për përdorim të mëvonshëm të 
+këtij objekti. Nëse nuk jepet &quot;emër&quot; Scribus-i do të krijojë një për ju.
+
+Mund të sjellë NameExistsError nëse jepni shprehimisht një emër që 
+është tashmë i përdorur.
+</translation>
     </message>
     <message>
         <source>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
@@ -7377,7 +7888,17 @@ object because you need this name for further access to that object. If
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createLine(x1, y1, x2, y2, [&quot;emër&quot;]) -&gt; string
+
+Krijon një vijë të re prej pikës(x1, y1) te pika(x2, y2) dhe jep edhe emrin e saj. 
+Koordinatat jepen në njësinë matëse të çastit për dokumentin
+(shihni konstantet UNIT). &quot;emri&quot; duhet të jetë një identifikues i vetëm
+për objektin sepse ju duhet ky emër për përdorim të mëvonshëm të 
+këtij objekti. Nëse nuk jepet &quot;emër&quot; Scribus-i do të krijojë një për ju.
+
+Mund të sjellë NameExistsError nëse jepni shprehimisht një emër që 
+është tashmë i përdorur.
+</translation>
     </message>
     <message>
         <source>createPolyLine(list, [&quot;name&quot;]) -&gt; string
@@ -7393,7 +7914,23 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createPolyLine(listë, [&quot;emër&quot;]) -&gt; string
+
+Krijon një vijë të re të thyer dhe jep edhe emrin e saj. . Pikat për vijën e thyer
+paraqiten në listën &quot;listë&quot; në rendin vijues: [x1, y1, x2, y2...xn. yn].
+Koordinatat jepen në njësinë matëse të çastit për dokumentin
+(shihni konstantet UNIT). &quot;emri&quot; duhet të jetë një identifikues i vetëm
+për objektin sepse ju duhet ky emër për përdorim të mëvonshëm të 
+këtij objekti. Nëse nuk jepet &quot;emër&quot; Scribus-i do të krijojë një për ju.
+
+Mund të sjellë NameExistsError nëse jepni shprehimisht një emër që 
+është tashmë i përdorur.
+Mund të sjellë ValueError nëse jepet një numër i pamjaftueshëm pikash ose
+nëse numri i vlerave nuk përkon pa mbetje me pikat.
+
+
+
+</translation>
     </message>
     <message>
         <source>createPolygon(list, [&quot;name&quot;]) -&gt; string
@@ -7411,7 +7948,22 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createPolygon(listë, [&quot;emër&quot;]) -&gt; string
+
+Krijon një shumëkëndësh të ri dhe jep edhe emrin e tij. Pikat për shumëkëndëshin
+paraqiten në listën &quot;listë&quot; në rendin vijues: [x1, y1, x2, y2...xn. yn]. Lipsen të paktën
+tre pika. Nuk ka nevojë të rijepet pika e parë për të mbyllur shumëkëndëshin. 
+Shumëkëndëshi mbyllet automatikisht duke lidhur pikën e parë me të fundit.  
+Koordinatat jepen në njësinë matëse të çastit për dokumentin
+(shihni konstantet UNIT). &quot;emri&quot; duhet të jetë një identifikues i vetëm
+për objektin sepse ju duhet ky emër për përdorim të mëvonshëm të 
+këtij objekti. Nëse nuk jepet &quot;emër&quot; Scribus-i do të krijojë një për ju.
+
+Mund të sjellë NameExistsError nëse jepni shprehimisht një emër që 
+është tashmë i përdorur.
+Mund të sjellë ValueError nëse jepet një numër i pamjaftueshëm pikash ose
+nëse numri i vlerave nuk përkon pa mbetje me pikat.
+</translation>
     </message>
     <message>
         <source>createBezierLine(list, [&quot;name&quot;]) -&gt; string
@@ -7430,7 +7982,22 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createBezierLine(list, [&quot;emër&quot;]) -&gt; string
+
+Krijon një lakore të re Bezier dhe jep edhe emrin e saj. Pikat për lakoren Bezier
+paraqiten në listën &quot;listë&quot; në rendin vijues:
+[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]
+Në listën e pikave, x dhe y nënkuptojnë koordinatat x dhe y të pikës dhe kx
+e ky nënkupton pikat e kontrollit të lakores.  Koordinatat jepen në njësinë matëse 
+të çastit për dokumentin (shihni konstantet UNIT). &quot;emri&quot; duhet të jetë një 
+identifikues i vetëm për objektin sepse ju duhet ky emër për përdorim të 
+mëvonshëm të këtij objekti. Nëse nuk jepet &quot;emër&quot; Scribus-i do të krijojë një për ju.
+
+Mund të sjellë NameExistsError nëse jepni shprehimisht një emër që 
+është tashmë i përdorur.
+Mund të sjellë ValueError nëse jepet një numër i pamjaftueshëm pikash ose
+nëse numri i vlerave nuk përkon pa mbetje me pikat.
+</translation>
     </message>
     <message>
         <source>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
@@ -7444,7 +8011,18 @@ to that object. If &quot;name&quot; is not given Scribus will create one for you
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 May raise NotFoundError if one or both of the named base object don&apos;t exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;emër&quot;]) -&gt; string
+
+Krijon një pathText të ri duke përzjerë dy objektet &quot;textbox&quot; dhe &quot;beziercurve&quot; 
+dhe jep edhe emrin e tij. Koordinatat jepen në njësinë matëse të çastit për 
+dokumentin (shihni konstantet UNIT). &quot;emri&quot; duhet të jetë një identifikues 
+i vetëm për objektin sepse ju duhet ky emër për përdorim të mëvonshëm 
+të këtij objekti. Nëse nuk jepet &quot;emër&quot; Scribus-i do të krijojë një për ju.
+
+Mund të sjellë NameExistsError nëse jepni shprehimisht një emër që 
+është tashmë i përdorur.
+Mund të sjellë NotFoundError nëse nuk gjenden një ose të dy objektet bazë të emërtuar.
+</translation>
     </message>
     <message>
         <source>deleteObject([&quot;name&quot;])
@@ -7452,7 +8030,11 @@ May raise NotFoundError if one or both of the named base object don&apos;t exist
 Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
 selected item is deleted.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteObject([&quot;emër&quot;])
+
+Fshin objektin me emrin &quot;emër&quot;. Nëse nuk jepet &quot;emër&quot; fshihet objekti i 
+përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>textFlowsAroundFrame(&quot;name&quot; [, state])
@@ -7461,7 +8043,12 @@ Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;na
 Called with parameters string name and optional boolean &quot;state&quot;. If &quot;state&quot;
 is not passed, text flow is toggled.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>textFlowsAroundFrame(&quot;emër&quot; [, gjendje])
+
+Aktivizon/çaktivizon karakteristikën &quot;Teksti Rrjedh Përreth Kornize&quot; për 
+objektin &quot;emër&quot;. Thirru me emër vargu parametrash dhe &quot;gjendje&quot; buleane 
+opsionale. Nëse nuk jepet &quot;gjendje&quot;, këmbehet gjendja për rrjedhje teksti.
+</translation>
     </message>
     <message>
         <source>objectExists([&quot;name&quot;]) -&gt; bool
@@ -7470,7 +8057,12 @@ Test if an object with specified name really exists in the document.
 The optional parameter is the object name. When no object name is given,
 returns True if there is something selected.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>objectExists([&quot;emër&quot;]) -&gt; bool
+
+Sheh nëse një objekt me emrin e treguar gjendet vërtet në dokument.
+Parametri opsional është emri i objektit. Kur nuk tregohet emër objekti,
+përgjigjet me True nëse ka diçka të përzgjedhur.
+</translation>
     </message>
     <message>
         <source>setStyle(&quot;style&quot; [, &quot;name&quot;])
@@ -7478,14 +8070,21 @@ returns True if there is something selected.
 Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
 given, it&apos;s applied on the selected object.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setStyle(&quot;stil&quot; [, &quot;emër&quot;])
+
+Zbaton &quot;stilin&quot; e përmendur te objekti i quajtur &quot;emër&quot;. Nëse nuk jepet emër
+objekti, zbatohet mbi objektin e përzgjedhur.
+</translation>
     </message>
     <message>
         <source>getAllStyles() -&gt; list
 
 Return a list of the names of all paragraph styles in the current document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getAllStyles() -&gt; list
+
+Përgjigjet me një listë emrash të tërë stileve të paragrafëve në dokumentin e përzgjedhur.
+</translation>
     </message>
     <message>
         <source>currentPage() -&gt; integer
@@ -7493,14 +8092,21 @@ Return a list of the names of all paragraph styles in the current document.
 Returns the number of the current working page. Page numbers are counted from 1
 upwards, no matter what the displayed first page number of your document is.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>currentPage() -&gt; integer
+
+Përgjigjet me numrin e faqes ku punohet për çastin. Numrat e faqeve numërohen prej 1
+e sipër, pa pyetur se cili është numri i faqes së parë në dokumentin tuaj.
+</translation>
     </message>
     <message>
         <source>redrawAll()
 
 Redraws all pages.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>redrawAll()
+
+Rivizaton tërë faqet.
+</translation>
     </message>
     <message>
         <source>savePageAsEPS(&quot;name&quot;)
@@ -7509,7 +8115,12 @@ Saves the current page as an EPS to the file &quot;name&quot;.
 
 May raise ScribusError if the save failed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>savePageAsEPS(&quot;emër&quot;)
+
+Ruan faqen e çastit si një kartelë EPS me emrin &quot;emër&quot;.
+
+Mund të sjellë ScribusError nëse dështon ruajtja.
+</translation>
     </message>
     <message>
         <source>deletePage(nr)
@@ -7520,7 +8131,14 @@ page number is.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deletePage(nr)
+
+Fshin faqen e dhënë. Nuk bën gjë nëse dokumenti ka vetëm një faqe.
+Numrat e faqeve numërohen nga 1 e sipër, pa pyetur se cili është 
+numri i shfaqur për faqen e parë.
+
+Mund të sjellë IndexError nëse numri i faqes është jashtë intervali
+</translation>
     </message>
     <message>
         <source>gotoPage(nr)
@@ -7531,14 +8149,24 @@ just sets the page that script commands will operates on.
 
 May raise IndexError if the page number is out of range.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>gotoPage(nr)
+
+Zhvendoset te faqja &quot;nr&quot; (pra, bën të çastit faqen &quot;nr&quot;). Vini re që
+gotoPage nuk ndryshon (hëpërhë) faqen të cilën parësi i përdoruesit 
+po shfaq, thjesht cakton faqen mbi të cilën do të zbatohen urdhrat e programthit.
+
+Mund të sjellë IndexError nëse numri i faqes është jashtë intervali.
+</translation>
     </message>
     <message>
         <source>pageCount() -&gt; integer
 
 Returns the number of pages in the document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>pageCount() -&gt; integer
+
+Përgjigjet me numrin e faqeve të dokumentit.
+</translation>
     </message>
     <message>
         <source>getHGuides() -&gt; list
@@ -7546,7 +8174,11 @@ Returns the number of pages in the document.
 Returns a list containing positions of the horizontal guides. Values are in the
 document&apos;s current units - see UNIT_&lt;type&gt; constants.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getHGuides() -&gt; list
+
+Përgjigjet me një listë që përmban pozicionet e udhëzuesve horizontalë. Vlerat jepen
+njësitë e çastit për dokumentin - shihni konstante UNIT_&lt;tip&gt;.
+</translation>
     </message>
     <message>
         <source>setHGuides(list)
@@ -7557,21 +8189,34 @@ measured in the current document units - see UNIT_&lt;type&gt; constants.
 Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
          setHGuides([90,250]) # replace current guides entirely
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setHGuides(list)
+
+Cakton udhëzuesat horizontalë. Parametri i dhënies duhet të jetë një listë pozicionesh 
+udhëzuesish matur kundrejt njësisë së çastit të dokumentit - shih konstantet UNIT_&lt;type&gt;.
+
+Shembull: setHGuides(getHGuides() + [200.0, 210.0] # shto udhëzues të rinj pa ndonjë humbje
+         setHGuides([90,250]) # zëvendëso tërësisht udhëzuesa të çastit
+</translation>
     </message>
     <message>
         <source>getVGuides()
 
 See getHGuides.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getVGuides()
+
+Shihni getHGuides.
+</translation>
     </message>
     <message>
         <source>setVGuides()
 
 See setHGuides.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setVGuides()
+
+Shihni setHGuides.
+</translation>
     </message>
     <message>
         <source>getPageSize() -&gt; tuple
@@ -7579,7 +8224,11 @@ See setHGuides.
 Returns a tuple with page dimensions measured in the document&apos;s current units.
 See UNIT_&lt;type&gt; constants and getPageMargins()
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageSize() -&gt; tuple
+
+Përgjigjet me një dyshe me përmasat e faqes matur në njësitë e çastit për dokumentin.
+Shihni konstantet UNIT_&lt;type&gt; dhe getPageMargins()
+</translation>
     </message>
     <message>
         <source>getPageItems() -&gt; list
@@ -7589,7 +8238,13 @@ Returns a list of tuples with items on the current page. The tuple is:
 means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at
 the page...
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageItems() -&gt; list
+
+Përgjigjet me një listë vargjesh objektesh të faqes së çastit. Vargu është:
+(emër, objectType, rend) P.sh. [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)]
+do të thotë që objekti me emrin &apos;Text1&apos; është një kornizë teksti (type 4) dhe është 
+i pari në faqen...
+</translation>
     </message>
     <message>
         <source>getPageMargins()
@@ -7597,7 +8252,11 @@ the page...
 Returns the page margins as a (left, right, top, bottom) tuple in the current
 units. See UNIT_&lt;type&gt; constants and getPageSize().
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageMargins()
+
+Përgjigjet me mënjanat e faqes (majtas, djathtas, sipër, krye) në njësitë e çastit.
+Shihni konstantet UNIT_&lt;tip&gt; dhe getPageSize().
+</translation>
     </message>
     <message>
         <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
@@ -7606,7 +8265,12 @@ Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot
 is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFillColor(&quot;ngjyrë&quot;, [&quot;emër&quot;])
+
+Cakton si ngjyrën e mbushjes për objektin &quot;emër&quot; ngjyrën &quot;ngjyrë&quot;. &quot;ngjyra&quot;
+është emri i njërës prej ngjyrave të përcaktuara. Nëse nuk jepet &quot;ngjyrë&quot;
+përdoret ajo e objektit të përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>setLineColor(&quot;color&quot;, [&quot;name&quot;])
@@ -7614,7 +8278,11 @@ currently selected item is used.
 Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineColor(&quot;ngjyrë&quot;, [&quot;emër&quot;])
+
+Cakton si ngjyrën e vijës për objektin &quot;emër&quot; ngjyrën &quot;ngjyrë&quot;.  Nëse nuk jepet 
+&quot;ngjyrë&quot; përdoret ajo e objektit të përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>setLineWidth(width, [&quot;name&quot;])
@@ -7625,7 +8293,14 @@ given the currently selected item is used.
 
 May raise ValueError if the line width is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineWidth(gjerësi, [&quot;emër&quot;])
+
+Cakton gjerësi vije për objektin &quot;emër&quot; sa &quot;gjerësi&quot;. &quot;gjerësia&quot; duhet të jetë 
+brenda segmentit nga 0.0 deri 12.0, dhe e matur në pikë. Nëse nuk jepet &quot;ngjyrë&quot;
+përdoret ajo e objektit të përzgjedhur për çastin.
+
+Mund të sjellë ValueError nëse gjerësia e vijës është jashtë kufijsh.
+</translation>
     </message>
     <message>
         <source>setLineShade(shade, [&quot;name&quot;])
@@ -7637,7 +8312,15 @@ is used.
 
 May raise ValueError if the line shade is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineShade(hije, [&quot;emër&quot;])
+
+Cakton si hijëzimin e ngjyrës së vijës së objektit &quot;emër&quot; &quot;hijen&quot;.
+&quot;hija&quot; duhet të jetë një numër i plotë brenda intervalit 0 (më e ndritshmja)
+deri 100 (intensitet i plotë ngjyre). Nëse nuk jepet &quot;emër&quot; përdoret ai 
+i objektit të përzgjedhur për çastin.
+
+Mund të sjellë ValueError nëse hija e vijës është jashtë kufijve.
+</translation>
     </message>
     <message>
         <source>setLineJoin(join, [&quot;name&quot;])
@@ -7646,7 +8329,12 @@ Sets the line join style of the object &quot;name&quot; to the style &quot;join&
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for join - JOIN_&lt;type&gt;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineJoin(join, [&quot;emër&quot;])
+
+Cakton si stil bashkimi të vijës për objektin &quot;emër&quot; stilin &quot;bashkim&quot;.
+Nëse nuk jepet &quot;emër&quot; përdoret ai i objektit të përzgjedhur për çastin. Ka
+konstante të parapërcaktuara për bashkim - JOIN_&lt;tip&gt;.
+</translation>
     </message>
     <message>
         <source>setLineEnd(endtype, [&quot;name&quot;])
@@ -7655,7 +8343,12 @@ Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&qu
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineEnd(endtype, [&quot;emër&quot;])
+
+Cakton si stil maje të vijës për objektin &quot;emër&quot; stilin &quot;majë&quot;.
+Nëse nuk jepet &quot;emër&quot; përdoret ai i objektit të përzgjedhur për çastin. Ka
+konstante të parapërcaktuar për &quot;majë&quot; - CAP_&lt;tip&gt;.
+</translation>
     </message>
     <message>
         <source>setLineStyle(style, [&quot;name&quot;])
@@ -7664,7 +8357,12 @@ Sets the line style of the object &quot;name&quot; to the style &quot;style&quot
 is not given the currently selected item is used. There are predefined
 constants for &quot;style&quot; - LINE_&lt;style&gt;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineStyle(stil, [&quot;emër&quot;])
+
+Cakton si stil të vijës së objektit &quot;emër&quot; stilin &quot;stil&quot;. Nëse nuk jepet
+&quot;emër&quot; përdoret ai i objektit të përzgjedhur për çastin. Ka konstante 
+të parapërcaktuara për &quot;stil&quot; - LINE_&lt;stil&gt;.
+</translation>
     </message>
     <message>
         <source>setFillShade(shade, [&quot;name&quot;])
@@ -7676,7 +8374,15 @@ Item is used.
 
 May raise ValueError if the fill shade is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFillShade(hije, [&quot;emër&quot;])
+
+Cakton si hijëzimin e ngjyrës së mbushjes së objektit &quot;emër&quot; &quot;hijen&quot;.
+&quot;hija&quot; duhet të jetë një numër i plotë brenda intervalit 0 (më e ndritshmja)
+deri 100 (intensitet i plotë ngjyre). Nëse nuk jepet &quot;emër&quot; përdoret ai 
+i objektit të përzgjedhur për çastin.
+
+Mund të sjellë ValueError nëse hija e mbushjes është jashtë kufijve.
+</translation>
     </message>
     <message>
         <source>setCornerRadius(radius, [&quot;name&quot;])
@@ -7686,7 +8392,13 @@ in points. If &quot;name&quot; is not given the currently selected item is used.
 
 May raise ValueError if the corner radius is negative.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setCornerRadius(rreze, [&quot;emër&quot;])
+
+Cakton rrezen e kulmit të objektit &quot;emër&quot;. Rrezja matet në pikë. 
+Nëse nuk jepet &quot;emër&quot; përdoret ai i objektit të përzgjedhur për çastin.
+
+Mund të sjellë ValueError nëse rrezja e kulmit është negative.
+</translation>
     </message>
     <message>
         <source>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
@@ -7696,7 +8408,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise NotFoundError if the line style doesn&apos;t exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setMultiLine(&quot;namedStyle&quot;, [&quot;emër&quot;])
+
+Cakton si stil vije për objektin &quot;emër&quot; stil e emërtuar &quot;namedStyle&quot;.
+Nëse nuk jepet &quot;emër&quot; përdoret ai i objektit të përzgjedhur për çastin.
+
+Mund të sjellë ValueError nëse stili i vijës nuk ekziston.
+</translation>
     </message>
     <message>
         <source>getFont([&quot;name&quot;]) -&gt; string
@@ -7706,7 +8424,13 @@ has some text selected the value assigned to the first character
 of the selection is returned. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFont([&quot;emër&quot;]) -&gt; string
+
+Përgjigjet me emrin e gërmave të kornizës së tekstit me &quot;emër&quot;. 
+Nëse korniza e tekstit ka ca tekst të përzgjedhur sillet vlera 
+e caktuar për gërmën e parë të përzgjedhjes. Nëse nuk jepet &quot;emër&quot; 
+përdoret ai i objektit të përzgjedhur të çastit.
+</translation>
     </message>
     <message>
         <source>getTextLength([&quot;name&quot;]) -&gt; integer
@@ -7714,7 +8438,11 @@ selected item is used.
 Returns the length of the text in the text frame &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getTextLength([&quot;emër&quot;]) -&gt; integer
+
+Përgjigjet me gjatësinë e tekstit të kornizës së teksit me &quot;emër&quot;.
+Nëse nuk jepet &quot;emër&quot; përdoret objekti i përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>getText([&quot;name&quot;]) -&gt; string
@@ -7724,7 +8452,13 @@ selected, the selected text is returned. All text in the frame, not just
 currently visible text, is returned. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getText([&quot;emër&quot;]) -&gt; string
+
+Përgjigjet me tekstin e kornizës së tekstit &quot;emër&quot;. Nëse kjo kornizë teksti 
+ka ca tekst të përzgjedhur, sillet teksti i përzgjedhur. Sillet tërë teksti 
+i kornizës, jo thjesht teksti i dukshëm për çastin. Nëse nuk jepet &quot;ngjyrë&quot;
+përdoret ajo e objektit të përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>getAllText([&quot;name&quot;]) -&gt; string
@@ -7734,7 +8468,13 @@ linked with this frame. If this textframe has some text selected, the selected
 text is returned. If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getAllText([&quot;emër&quot;]) -&gt; string
+
+Përgjigjet me tekstin e kornizës së tekstit &quot;emër&quot; dhe tërë kornizave të tekstit 
+të cilat janë të lidhura te kjo kornizë. Nëse kjo kornizë teksti ka ca tekst 
+të përzgjedhur, sillet teksti i përzgjedhur. Nëse nuk jepet &quot;emër&quot; përdoret 
+ai i objektit të përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>getLineSpacing([&quot;name&quot;]) -&gt; float
@@ -7742,7 +8482,11 @@ used.
 Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
 points. If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineSpacing([&quot;emër&quot;]) -&gt; float
+
+Përgjigjet me hapësirë vije (&quot;leading&quot;) e kornizës së tekstit &quot;emër&quot; shprehur në
+pikë. Nëse nuk jepet &quot;emër&quot; përdoret objekti i përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>getColumnGap([&quot;name&quot;]) -&gt; float
@@ -7750,7 +8494,11 @@ points. If &quot;name&quot; is not given the currently selected item is used.
 Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
 &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColumnGap([&quot;emër&quot;]) -&gt; float
+
+Përgjigjet me madhësinë e hapësirës së shtyllës së kornizës së tekstit &quot;emër&quot; 
+shprehur në pikë.  Nëse nuk jepet &quot;emër&quot; përdoret objekti i përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>getColumns([&quot;name&quot;]) -&gt; integer
@@ -7758,7 +8506,11 @@ Returns the column gap size of the text frame &quot;name&quot; expressed in poin
 Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColumns([&quot;emër&quot;]) -&gt; integer
+
+Përgjigjet me numrin e shtyllave të kornizës së tekstit &quot;emër&quot;. Nëse nuk jepet 
+&quot;emër&quot; përdoret objekti i përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>setText(&quot;text&quot;, [&quot;name&quot;])
@@ -7768,7 +8520,13 @@ Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See 
 for more details. If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setText(&quot;tekst&quot;, [&quot;emër&quot;])
+
+Rregullon tekstin e kornizës së tekstit &quot;emër&quot; si tekst të llojit &quot;tekst&quot;. Teksti 
+duhet të jetë i koduar në UTF8 - përdorni p.sh. unikod (tekst, &apos;iso-8859-2&apos;). 
+Shihni FAQ për më tepër hollësi. Nëse nuk jepet &quot;emër&quot; përdoret ai i objektit 
+të përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
@@ -7780,7 +8538,14 @@ used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>insertText(&quot;tekst&quot;, pos, [&quot;emër&quot;])
+
+Fut tekstin &quot;tekst&quot; te pozicioni &quot;pos&quot; brenda kornizës së tekstit. Teksti
+duhet të jetë i koduar në UTF (për referencë shihni setText()) Gërma e parë ka
+tregues 0. nëse nuk jepet &quot;emër&quot; përdoret ai i objektit të përzgjedhur për çastin.
+
+Mund të sjellë IndexError për futje jashtë kufijve.
+</translation>
     </message>
     <message>
         <source>setFont(&quot;font&quot;, [&quot;name&quot;])
@@ -7791,7 +8556,14 @@ currently selected item is used.
 
 May throw ValueError if the font cannot be found.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFont(&quot;gërma&quot;, [&quot;emër&quot;])
+
+Rregullon gërmat e kornizës së tekstit &quot;emër&quot; si &quot;gërmat&quot;. Nëse ka ca tekst 
+të përzgjedhur, vetëm teksti i përzgjedhur ndryshohet.  Nëse nuk jepet &quot;emër&quot; 
+përdoret ai i objektit të përzgjedhur të çastit.
+
+Mund të sjellë ValueError nëse gërmat në fjalë nuk gjenden dot.
+</translation>
     </message>
     <message>
         <source>setFontSize(size, [&quot;name&quot;])
@@ -7803,7 +8575,16 @@ currently selected item is used.
 
 May throw ValueError for a font size that&apos;s out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFontSize(size, [&quot;emër&quot;])
+
+Rregullon madhësinë e gërmave të kornizës së tekstit &quot;emër&quot; sa &quot;madhësi&quot;. 
+&quot;size&quot; trajtohet si vlerë në pikë. Nëse ka ca tekst të përzgjedhur, vetëm 
+teksti i përzgjedhur ndryshohet. &quot;madhësi&quot; duhet të jetë brenda intervalit 
+1 deri 512. Nëse nuk jepet &quot;emër&quot; përdoret ai i emrit të objektit të përzgjedhur.
+
+Mund të sjellë ValueError në rast madhësie gërmash që është 
+jashtë kufijsh.
+</translation>
     </message>
     <message>
         <source>setLineSpacing(size, [&quot;name&quot;])
@@ -7814,7 +8595,14 @@ item is used.
 
 May throw ValueError if the line spacing is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineSpacing(size, [&quot;emër&quot;])
+
+Cakton si hapësirë vije (&quot;leading&quot;) të kornizës së tekstit &quot;emër&quot;
+&quot;madhësinë&quot;. &quot;madhësia&quot; është një vlerë në pikë. Nëse nuk jepet 
+&quot;emër&quot; përdoret ai i objektit të përzgjedhur të çastit.
+
+Mund të sjellë ValueError nëse hapësirë vijash është jashtë kufijsh.
+</translation>
     </message>
     <message>
         <source>setColumnGap(size, [&quot;name&quot;])
@@ -7824,7 +8612,13 @@ Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&q
 
 May throw ValueError if the column gap is out of bounds (must be positive).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setColumnGap(size, [&quot;name&quot;])
+
+Cakton boshllëk shtylle të kornizës së tekstit &quot;emër&quot; sa vlera &quot;madhësi&quot;. 
+Nëse nuk jepet &quot;emër&quot; përdoret ai i objektit të përzgjedhur për çastin.
+
+Mund të sjellë ValueError nëse boshllëku i shtyllës është jashtë kufijsh (duhet të jetë pozitiv).
+</translation>
     </message>
     <message>
         <source>setColumns(nr, [&quot;name&quot;])
@@ -7834,7 +8628,13 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May throw ValueError if number of columns is not at least one.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setColumns(nr, [&quot;emër&quot;])
+
+Cakton numrin e shtyllave të kornizës së tekstit &quot;emër&quot; sa numri i plotë &quot;nr&quot;.
+Nëse nuk jepet &quot;emër&quot; përdoret ai i objektit të përzgjedhur për çastin.
+
+Mund të sjellë ValueError nëse numri i shtyllave nuk është të paktën një.
+</translation>
     </message>
     <message>
         <source>setTextAlignment(align, [&quot;name&quot;])
@@ -7845,7 +8645,14 @@ be one of the ALIGN_ constants defined in this module - see dir(scribus).
 
 May throw ValueError for an invalid alignment constant.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setTextAlignment(drejtim, [&quot;emër&quot;])
+
+Rregullon drejtimin e tekstit të kornizës së tekstit &quot;emër&quot; sipas drejtimit të treguar.
+Nëse nuk jepet &quot;emër&quot; përdoret ai i objektit të përzgjedhur për çastin. &quot;drejtimi&quot; 
+do të duhej të ishte një nga konstantet ALIGN_ përcaktuar në këtë modul - shihni dir(scribus).
+
+Mund të sjellë ValueError në rast konstanteje të pavlefshme drejtimi.
+</translation>
     </message>
     <message>
         <source>selectText(start, count, [&quot;name&quot;])
@@ -7857,7 +8664,16 @@ be selected. If &quot;name&quot; is not given the currently selected item is use
 
 May throw IndexError if the selection is outside the bounds of the text.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>selectText(fillim, numërim, [&quot;emër&quot;])
+
+Përzgjedh shenja &quot;numërimi&quot; të tekstit në kornizën e tekstit &quot;emër&quot; duke filluar 
+prej shenjës &quot;fillim&quot;. Numërimi i shenjave nis nga 0. Nëse &quot;numërimi&quot; është zero, 
+do të pastrohet çfarëdo përzgjedhje teksti. Nëse &quot;numërimi&quot; është -1, do të 
+përzgjidhet tërë teksti në kornizën. Nëse nuk jepet &quot;emër&quot; përdoret ai i objektit
+të përzgjedhur për çastin.
+
+Mund të sjellë IndexError nëse përzgjedhja është jashtë kufijve të tekstit.
+</translation>
     </message>
     <message>
         <source>deleteText([&quot;name&quot;])
@@ -7866,7 +8682,12 @@ Deletes any text in the text frame &quot;name&quot;. If there is some text selec
 only the selected text will be deleted. If &quot;name&quot; is not given the currently
 selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteText([&quot;emër&quot;])
+
+Fshin çfarëdo teksti në kornizën e tekstit &quot;emër&quot;. Nëse ka ca tekst të përzgjedhur,
+do të fshihet vetëm teksti i përzgjedhur. Nëse nuk jepet &quot;emër&quot; pëdore ai i objektit 
+të përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>setTextColor(&quot;color&quot;, [&quot;name&quot;])
@@ -7875,7 +8696,12 @@ Sets the text color of the text frame &quot;name&quot; to the color &quot;color&
 is some text selected only the selected text is changed. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setTextColor(&quot;ngjyrë&quot;, [&quot;emër&quot;])
+
+Cakton si ngjyrë teksti për kornizën e tekstit &quot;emër&quot; ngjyrën &quot;ngjyrë&quot;. Nëse ka
+ca tekst të përzgjedhur ndryshohet vetëm teksti i përzgjedhur. 
+Nëse nuk jepet &quot;emër&quot; përdoret ai i objektit të përzgjedhur për çastin.
+</translation>
     </message>
     <message>
         <source>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
@@ -7894,7 +8720,14 @@ be an integer value in the range from 0 (lightest) to 100 (full color
 intensity). If &quot;name&quot; is not given the currently selected item is
 used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setTextShade(hije, [&quot;emër&quot;])
+
+Cakton si hije të ngjyrës së tekstit të objektit &quot;emër&quot; &quot;hijen&quot;. Nëse ka 
+ndoca tekst të përzgjedhur ndryshohet vetëm teksti i përzgjedhur. 
+&quot;hija&quot; duhet të jetë një vlerë e plotë brenda segmentit nga 0 (më e hapta) 
+te 100 (intensitet i plotë ngjyre). Nëse nuk jepet &quot;emër&quot; përdoret ai i objektit
+të përzgjedhur.
+</translation>
     </message>
     <message>
         <source>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
@@ -7905,7 +8738,15 @@ and must not link to or be linked from any other frames already.
 
 May throw ScribusException if linking rules are violated.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>linkTextFrames(&quot;ngaemër&quot;, &quot;teemër&quot;)
+
+Lidh dy korniza tekstesh. Korniza e emërtuar &quot;ngaemër&quot; lidhet te
+korniza e emërtuar &quot;teemër&quot;. Korniza objektiv duhet të jetë një kornizë
+teksti bosh dhe nuk duhet të ketë lidhje nisen apo përfundojnë në të 
+prej kornizash të tjera.
+
+Mund të sjellë ScribusException nëse dhunohen rregulla lidhjeje.
+</translation>
     </message>
     <message>
         <source>unlinkTextFrames(&quot;name&quot;)
@@ -7916,14 +8757,24 @@ connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unl
 
 May throw ScribusException if linking rules are violated.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>unlinkTextFrames(&quot;emër&quot;)
+
+Hiq objektin e treguar (me emër) prej kornize flow/linkage teksti. Nëse
+korniza qe në mes të një zinxhiri, do të lidhen kornizat paraardhëse dhe
+pasuese, p.sh. &apos;a-&gt;b-&gt;c&apos; bëhet &apos;a-&gt;c&apos; kur ju unlinkTextFrames(b)&apos;
+
+Mund të sjellë ScribusException nëse dhunohen rregulla lidhjeje.
+</translation>
     </message>
     <message>
         <source>traceText([&quot;name&quot;])
 
 Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
 currently selected item is used.</source>
-        <translation type="unfinished"></translation>
+        <translation>traceText([&quot;emër&quot;])
+
+Shndërron kornizën e tekstit &quot;emër&quot; në vija të jashtme. Nëse nuk jepet &quot;emër&quot;
+përdoret ai i objektit të përzgjedhur për çastin.</translation>
     </message>
     <message>
         <source>register_macro_code(name, sourcetext, accel=&apos;&apos;)
@@ -7933,7 +8784,13 @@ Create a macro named &quot;name&quot; by evaluating the the source code &quot;so
 If provided, the string &quot;accel&quot; will be used to set a keyboard shortcut
 for the macro.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>register_macro_code(name, sourcetext, accel=&apos;&apos;)
+
+Krijo një makro të quajtur &quot;emër&quot; duke çmuar kodin burim &quot;sourcetext&quot;.
+&quot;sourcetext&quot; duhet të pajtohet me të njëjtët rregulla si makrot e krijuara në GUI.
+Në u dhëntë, vargu &quot;accel&quot; do të përdoret për të rregualluar një shkurtprerje
+tastiere për makron.
+</translation>
     </message>
     <message>
         <source>progressReset()
@@ -7941,7 +8798,11 @@ for the macro.
 Cleans up the Scribus progress bar previous settings. It is called before the
 new progress bar use. See progressSet.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>progressReset()
+
+Heq rregullimet e mëparshmëm për shtyllë përparimi te Scribus. Thirret para
+përdorimit rishtas të shtyllës së përparimit. Shihni progressSet.
+</translation>
     </message>
     <message>
         <source>progressTotal(max)
@@ -7949,7 +8810,11 @@ new progress bar use. See progressSet.
 Sets the progress bar&apos;s maximum steps value to the specified number.
 See progressSet.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>progressTotal(max)
+
+Cakton vlerën më të madhe për hapat e shtyllës së përparimit sa vlera e dhënë.
+Shihni progressSet.
+</translation>
     </message>
     <message>
         <source>progressSet(nr)
@@ -7962,14 +8827,27 @@ total number of steps with progressTotal(). The current number of steps is set
 with progressSet(). The progress bar can be rewound to the beginning with
 progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
 </source>
-        <translation type="unfinished"></translation>
+        <translation>progressSet(nr)
+
+Cakton venndodhjen e shtyllës së përparimit sa &quot;nr&quot;, një vlerë relative ndaj
+asaj të rregulluar më parë për progressTotal. Shtylla e përparimit përdor
+konceptin e hapave; i jepni numrin gjithsej të hapave dhe atë të hapave të
+plotësuar deri tani dhe do t&apos;ju shfaqë përqindjen e hapave që janë plotësuar. 
+Mund të caktoni numrin gjithsej të hapave me progressTotal(). Numri i çastit
+për hapat caktohet nga progressSet(). Shtylla e përparimit mund të riniset nga
+fillimi me progressReset(). [bazuar në të dhëna marrë nga dokumente prej 
+të Trolltech-ut mbi Qt-në]
+</translation>
     </message>
     <message>
         <source>setCursor()
 
 [UNSUPPORTED!] This might break things, so steer clear for now.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setCursor()
+
+[E PAMBULUAR!] Kjo mund t&apos;i prishë gjërat, ndaj larg prej kësaj hëpërhë.
+</translation>
     </message>
     <message>
         <source>docChanged(bool)
@@ -7978,31 +8856,12 @@ Enable/disable save icon in the Scribus icon bar and the Save menu item. It&apos
 useful to call this procedure when you&apos;re changing the document, because Scribus
 won&apos;t automatically notice when you change the document using a script.
 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+        <translation>docChanged(bool)
 
-Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
-that the layer &quot;layer&quot; can be printed, a value of False means that printing
-the layer &quot;layer&quot; is disabled.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
+Aktivizon/çaktivizon ikonë ruajtjesh te shtyllë ikonash të Scribus-it dhe pjesën te menuja Ruaj. 
+Është e dobishme për thirrjen e një procedure kur po ndryshoni dokumentin, ngaqë Scribus-i
+nuk do të vërë re automatikisht ndryshimin e dokumentit përmes përdorimit të një programthi.
+</translation>
     </message>
 </context>
 <context>
@@ -8173,82 +9032,81 @@ Librari suport që mungojnë tregohen me a *</translation>
     </message>
     <message>
         <source>About Scribus %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Reth Scribus-it %1</translation>
     </message>
     <message>
         <source>Development Team:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekipi Zhvillues:</translation>
     </message>
     <message>
         <source>Official Documentation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentacioni Zyrtar:</translation>
     </message>
     <message>
         <source>Other Documentation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentacion Tjetër:</translation>
     </message>
     <message>
         <source>Official Translations and Translators:</source>
-        <translation type="unfinished"></translation>
+        <translation>Përkthime dhe Përkthyes Zyrtarë:</translation>
     </message>
     <message>
         <source>Catalan:</source>
-        <translation type="unfinished"></translation>
+        <translation>Katalane:</translation>
     </message>
     <message>
         <source>English (British):</source>
-        <translation type="unfinished"></translation>
+        <translation>Anglishte (Britanike):</translation>
     </message>
     <message>
         <source>Esperanto:</source>
-        <translation type="unfinished"></translation>
+        <translation>Esperanto:</translation>
     </message>
     <message>
         <source>Korean:</source>
-        <translation type="unfinished"></translation>
+        <translation>Koreane:</translation>
     </message>
     <message>
         <source>Serbian:</source>
-        <translation type="unfinished"></translation>
+        <translation>Serbe:</translation>
     </message>
     <message>
         <source>Spanish:</source>
-        <translation type="unfinished"></translation>
+        <translation>Spanjolle:</translation>
     </message>
     <message>
         <source>Swedish:</source>
-        <translation type="unfinished"></translation>
+        <translation>Suedeze:</translation>
     </message>
     <message>
         <source>Previous Translation Contributors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontribues Përkthimesh të Dikurshëm:</translation>
     </message>
     <message>
         <source>Homepage</source>
-        <translation type="unfinished"></translation>
+        <translation>Faqja Hyrëse</translation>
     </message>
     <message>
         <source>Online Reference</source>
-        <translation type="unfinished">Referencë Online</translation>
+        <translation>Referencë Online</translation>
     </message>
     <message>
         <source>Bugs and Feature Requests</source>
-        <translation type="unfinished"></translation>
+        <translation>Bug-e dhe Kërkesa për Anë të Reja</translation>
     </message>
     <message>
         <source>Mailing List</source>
-        <translation type="unfinished"></translation>
+        <translation>Listë Postimesh</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and
  compiled in library support in Scribus
 The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Portugese (Brazilian):</source>
-        <translation type="unfinished"></translation>
+        <translation>Ky panel tregon versionin, datën e krijimit dhe
+ suport librarish përpiluar në Scribus
+C-C-T është e barazvlefshme me suport C=littlecms C=CUPS T=TIFF.
+Mungesë suporti librarish tregohet me një *</translation>
     </message>
 </context>
 <context>
@@ -8478,7 +9336,7 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     </message>
     <message>
         <source>Combo Box</source>
-        <translation type="unfinished">Listë Kuti</translation>
+        <translation>Listë Kuti</translation>
     </message>
     <message>
         <source>List Box</source>
@@ -9057,31 +9915,31 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     </message>
     <message>
         <source>&amp;Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tip:</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation type="unfinished">Kë&amp;mbe...</translation>
+        <translation>Kë&amp;mbe...</translation>
     </message>
     <message>
         <source>&amp;Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Faqe:</translation>
     </message>
     <message>
         <source>&amp;X-Pos</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;X-Poz</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation type="unfinished">&amp;Y-Poz:</translation>
+        <translation>&amp;Y-Poz:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anulo</translation>
+        <translation>&amp;Anulo</translation>
     </message>
 </context>
 <context>
@@ -9476,7 +10334,7 @@ Këshillohet ta aktivizoni këtë nëse keni foto në dokumentin tuaj.</translat
     </message>
     <message>
         <source>Web Safe RGB</source>
-        <translation type="unfinished">Web Safe RGB</translation>
+        <translation>RGB E përshtatshme për Web</translation>
     </message>
     <message>
         <source>New</source>
@@ -9552,12 +10410,13 @@ Këshillohet ta aktivizoni këtë nëse keni foto në dokumentin tuaj.</translat
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Asnjë</translation>
+        <translation>Asnjë</translation>
     </message>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
 It&apos;s a reserved name for transparent color</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuk mund të krijoni një ngjyrë të quajtur &quot;%1&quot;.(new line)
+Është emër i ruajtur për ngjyrë të tejdukshme</translation>
     </message>
 </context>
 <context>
@@ -9671,35 +10530,35 @@ It&apos;s a reserved name for transparent color</source>
     <name>CsvDialog</name>
     <message>
         <source>CSV Importer Options</source>
-        <translation type="unfinished">Mundësi Importuesi CSV</translation>
+        <translation>Mundësi Importuesi CSV</translation>
     </message>
     <message>
         <source>Field delimiter:</source>
-        <translation type="unfinished">Kufizues fushe:</translation>
+        <translation>Kufizues fushe:</translation>
     </message>
     <message>
         <source>(TAB)</source>
-        <translation type="unfinished">(TAB)</translation>
+        <translation>(TAB)</translation>
     </message>
     <message>
         <source>Value delimiter:</source>
-        <translation type="unfinished">Kufizues vlere:</translation>
+        <translation>Kufizues vlere:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Asnjë</translation>
+        <translation>Asnjë</translation>
     </message>
     <message>
         <source>First row is a header</source>
-        <translation type="unfinished">Rreshti i parë është titull</translation>
+        <translation>Rreshti i parë është titull</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Anulo</translation>
+        <translation>Anulo</translation>
     </message>
 </context>
 <context>
@@ -9838,15 +10697,15 @@ Kjo mund të rregullohet te Parapëlqimet.</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Asnjë</translation>
+        <translation>Asnjë</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anulo</translation>
+        <translation>&amp;Anulo</translation>
     </message>
 </context>
 <context>
@@ -10198,129 +11057,139 @@ dështoi!</translation>
     <name>EditMacroDialog</name>
     <message>
         <source>Editing Macro: &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Po përpunoj Makro: &lt;b&gt;</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Përgjegjës Makrosh</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; already exists.
 Are you sure you want to overwrite it?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Ka një kartelë &apos;%1&apos; tashmë.
+Jeni të sigurtë se doni të mbishkruhet?
+</translation>
     </message>
     <message>
         <source>You have already edited this macro.
 Are you sure you want to discard all your changes?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>E keni përpunuar tashmë këtë makro.
+Jeni të sigurtë se doni të hidhni tej tërë ndryshimet tuaj?
+</translation>
     </message>
     <message>
         <source>A full traceback follows:
 
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Vijon një gjurmim i plotë:
+
+%1
+</translation>
     </message>
     <message>
         <source>Compilation of the macro failed, so it can not 
 be saved in its current form. The error was:
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Dështoi përpunimi i makros, ndaj nuk mund 
+të ruhet në formën e tanishme. Gabimi qe:
+%1
+</translation>
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Makro e Re</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This is the Edit Macro / New Macro dialog box. Here you can change the source code to macros. Edit the source code to the macro in the text editing area below the &quot;Source Code&quot; label and click OK to save your changes to the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Kjo është kutia e dialogut Përpunoni Makro / Makro e Re. Këtu mund të ndryshoni kodin burim për makrot. Përpunoni kodin burim për makron te zona për përpunim teksti nën etiketën &quot;Kod Burim&quot; dhe klikoni OK për të ruajtur ndryshimet te makroja.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Source Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kod Burim:</translation>
     </message>
     <message>
         <source>Editing Macro:</source>
-        <translation type="unfinished"></translation>
+        <translation>Po përpunoj Makro:</translation>
     </message>
     <message>
         <source>The name of the macro being edited.</source>
-        <translation type="unfinished"></translation>
+        <translation>Emri i makros që po përpunohet.</translation>
     </message>
     <message>
         <source>&lt;/qt&gt;This item displays the name of the macro you are currently editing.&lt;qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;/qt&gt;Ky përbërës shfaq emrin e makros që jeni duke përpunuar për çastin.&lt;qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anulo</translation>
+        <translation>&amp;Anulo</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Discard all changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Hidh tej tërë ndryshimetDiscard all changes dhe dil.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Exit the editing dialog, discarding all changes you have made. If you want to exit without saving the macro but don&apos;t want to lose your changes, save your changes with &quot;Save Source As...&quot;.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Dilni nga dialogu i përpunimit, duke hedhur tej tërë ndryshimet që bëtë. Nëse doni të dilni pa ruajtur makron por nuk doni të humbni ndryshimet tuaj, ruajini ndryshimet me &quot;Ruaj Burim Si...&quot;.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ok</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Ruaj ndryshimet dhe dil.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes to the macro and exit. If there is a problem with the macro, a message will be displayed and the editing dialog will not close.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Ruaj ndryshimet te makroja dhe dil. Nëse ka ndonjë problem me makron, do të shfaqet një mesazh dhe dialogu i përpunimit nuk do të mbyllet.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This text area contains the source code of the macro. If you&apos;re creating a new macro there won&apos;t be anything in it, and if you&apos;re editing an existing macro the source code the macro was defined with will be shown here.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Kjo zonë teksti përmban kodin burim të makros. Nëse po krijoni një makro të re nuk do të ketë gjë brenda saj, dhe nëse po përpunoni një makro ekzistuese, këtu do të tregohet kodi burim që përcaktonte makron.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Load Source ...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ngarko Burim ...</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace the current source code with code from a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Zëvendëso kodin e çastit me kod prej një kartele.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Load new source code into the editing area from &quot;file&quot;. Any source code in the editing area is replaced. The loaded source must be a Scribus macro function. If you load any other script, you&apos;ll need to edit it so that it&apos;ll work as a scripter macro before saving it.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Ngarko prej një &quot;kartele&quot; kod të ri burim te zona e përpunimit . Çfarëdo kod burim në zonën e përpunimit zëvendësohet. Burimi i ngarkuar duhet të jetë një funksion makroje Scribus. Nëse ngarkoni një tjetër programth, do t&apos;ju duhet ta përpunoni para ruajtjes së tij që të mund të funksionojë si një programues makro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Save Source As...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ruaj Burim Si...</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save the source code being edited to a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Ruaj te një kartelë kodin burim që po përpunohet.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruaj në një kartelë kodin burim - tekstin - e makros. Mund ta përpunoni kodin e ruajtur dhe ta ngarkoni sërish me &quot;Ngarko Burim...&quot;.</translation>
     </message>
 </context>
 <context>
@@ -10399,7 +11268,7 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source>Tabulators and Indentation</source>
-        <translation type="unfinished">&amp;Krijo dhe Ndrysho</translation>
+        <translation>Tabelëzues dhe Kryeradhë</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -10613,7 +11482,7 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source>C</source>
-        <translation type="unfinished"></translation>
+        <translation>C</translation>
     </message>
     <message>
         <source>Export a range of pages</source>
@@ -10661,11 +11530,11 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Madhësi:</translation>
+        <translation>&amp;Madhësi:</translation>
     </message>
     <message>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Madhësi e pamjeve. 100% për të mos patur ndryshime, 200% për dy herë më të madhe etj.</translation>
     </message>
 </context>
 <context>
@@ -10811,7 +11680,7 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Asnjë</translation>
+        <translation>Asnjë</translation>
     </message>
 </context>
 <context>
@@ -10937,11 +11806,11 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Vër gërma të përzgjedhura te Stil, menu Gërmash</translation>
     </message>
     <message>
         <source>Leave preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Lër paraparje</translation>
     </message>
 </context>
 <context>
@@ -11034,20 +11903,21 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Përmbajtje</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished">Lidhje</translation>
+        <translation>Lidhje</translation>
     </message>
     <message>
         <source>Scribus Online Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndihmë Onlinë për Scribus-in</translation>
     </message>
     <message>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
-        <translation type="unfinished"></translation>
+        <translation>Më ndjeni, nuk ka doracak të passhëm! Ju lutem shihni: http://docs.scribus.net për(new line)
+dokumente të përditësuar dhe www.scribus.net për shkarkime.</translation>
     </message>
 </context>
 <context>
@@ -11125,23 +11995,23 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     </message>
     <message>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation type="unfinished"></translation>
+        <translation>Këshillime &amp;Ndarjeje</translation>
     </message>
     <message>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndaj Tekst Automatikisht &amp;Gjatë Shtypjes</translation>
     </message>
     <message>
         <source>Consecutive Hyphenations &amp;Allowed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndarje të &amp;Njëpasnjëshme të &amp;Lejuara:</translation>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kur përdorni Ekstra, mundësi Ndarjeje Teksti shfaqet një kuti dialogu që tregon tërë ndarësat e mundshëm për çdo fjalë.</translation>
     </message>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivizon ndarje automatike të tekstit tuaj në shtypje e sipër.</translation>
     </message>
 </context>
 <context>
@@ -11270,7 +12140,7 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     </message>
     <message>
         <source>Do you really want to delete this Script?</source>
-        <translation type="unfinished"></translation>
+        <translation>Doni vërtet të fshini këtë Programth?</translation>
     </message>
 </context>
 <context>
@@ -11455,7 +12325,7 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     </message>
     <message>
         <source>Do you really want to delete this Style?</source>
-        <translation type="unfinished"></translation>
+        <translation>Doni vërtet të fshini këtë Stil?</translation>
     </message>
 </context>
 <context>
@@ -11498,46 +12368,46 @@ Një vlerë 0 do të thotë ndarje me vizë të pakufizuara.</translation>
     <message>
         <source>Passed object is not callable</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Objekti i dhënë nuk mund të thirret</translation>
     </message>
 </context>
 <context>
     <name>MacroManager</name>
     <message>
         <source>Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Administro Makro</translation>
     </message>
     <message>
         <source>Brings up a graphical window for creating, deleting, editing, saving and loading macros.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bie një dritare grafike për krijim, fshirje, përpunim, ruajtje dhe ngarkim makrosh.</translation>
     </message>
     <message>
         <source>Create, edit and delete macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Krijoni, përpunoni dhe fshini makro</translation>
     </message>
     <message>
         <source>&amp;Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Makro</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Përgjegjës Makrosh</translation>
     </message>
     <message>
         <source>Unable to open the requested file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>I pazoti të hap kartelën e kërkuar: %1</translation>
     </message>
     <message>
         <source>Scribus - Edit Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Përpunoni Makro</translation>
     </message>
     <message>
         <source>&lt;qt&gt;The macro name you requested is already taken  by another macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Emri i makros që kërkuat është zënë tashmë nga një tjetër makro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Macro creation failed. The macro manager was unable to set up the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Krijimi i makros dështoi. Përgjegjësi i makros nuk qe në gjendje të rregullojë makron.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; has reported a minor error.
@@ -11546,7 +12416,12 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Makroja &apos;%1&apos; ka raportuar një gabim të vockël.
+Gabimi është: %2
+Vijon një gjurmues i plotë:
+
+%3
+</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; failed to execute correctly.
@@ -11555,68 +12430,83 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Makroja &apos;%1&apos; nuk arriti të ekzekutohet saktë.
+Gabimi është: %2
+Vijon një gjurmues i plotë:
+
+%3
+</translation>
     </message>
 </context>
 <context>
     <name>ManageMacrosDialog</name>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Përgjegjës Makrosh</translation>
     </message>
     <message>
         <source>Renaming the macro failed because the name is already in use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Riemërtimi i makros dështoi sepse emri është tashmë në përdorim.</translation>
     </message>
     <message>
         <source>Scribus - Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Administroni Makro</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;This window is the Scribus Macro Manager. Here you can create macros, edit macros, etc. All changes are made using the buttons on the right hand side of the window.&lt;/p&gt;
 &lt;p&gt;All changes made in this dialog take effect instantly - you cannot cancel the actions you make here.
 The table in the center of the dialog lists what macros are currently loaded and some information about them. Use &quot;What&apos;s this&quot; on the table for more information.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Kjo dritare përfaqëson Përgjegjësin e Makrove të Scribus-it. Këtu mund të krijoni makro, përpunoni makro, etj. Tërë ndryshimet bëhen duke përdorur butonat në anën e djathtë të dritares.&lt;/p&gt;
+&lt;p&gt;Tërë ndryshimet e bërë në këtë dialog hyjnë në fuqi në çast - nuk mund të anuloni veprimet që bëni këtu.
+Tabela në qendër të dialogut liston cilat makro janë për çastin të ngarkuara dhe disa të dhëna rreth tyre. Përdorni &quot;Ç&apos;është kjo&quot; prej tabele për më tepër të dhëna.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>E &amp;re</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Krijoni një makro të re.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro by prompting for the macro name then bringing up the edit macro dialog box.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Krijoni një makro të re duke filluar nga emri i makros mandej me hapjen e kutizës së dialogut të përpunimit të makrove.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ok</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>Close this dialog.</source>
+        <translation>Mbyll këtë dialog.</translation>
+    </message>
+    <message>
+        <source>Return to Scribus.</source>
+        <translation>Kthehu te Scribus.</translation>
     </message>
     <message>
         <source>Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Makro</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Përpunoni</translation>
     </message>
     <message>
         <source>Accel</source>
-        <translation type="unfinished"></translation>
+        <translation>Përshpejt</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished">Përshkrim</translation>
+        <translation>Përshkrim</translation>
     </message>
     <message>
         <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
@@ -11625,130 +12515,130 @@ The table in the center of the dialog lists what macros are currently loaded and
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Kjo tabelë liston makrot që janë për çastin të përcaktuara.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Emër:&lt;/b&gt; Emri i makros, si tregohet në shtyllën e menusë dhe në vende të tjerë nëpër Scribus.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Përpunoni:&lt;/b&gt; Nëse makroja mund të përpunohet, në këtë shtyllë shfaqet &quot;Po&quot;. Zakonisht nëse një makro nuk mund të përpunohet ka pas qenë krijuar duke përdorur urdhrin register_macro në një programth.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Përshpejt:&lt;/b&gt; Radha e shtypjes së tasteve për menunë, në pastë, shoqëruar kësaj makroje. Për shembull, CTRL-F8 do të thotë që mund të shtypni Control-F8 kur jeni brenda Scribus-it për të xhiruar makron.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Përshkrim:&lt;/b&gt; Një varg special në krye të përkufizimit që e përshkruan, nëse makroja përmban një &quot;docstring&quot;,  dhe që shfaqet këtu. Nëse docstring-u është shumë i gjatë, tregohet vetëm fillimi - përdorni &quot;Ç&apos;është Kjo&quot; te zëri për makron te menuja Makro për të parë përshkrimin e plotë.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Rena&amp;me</source>
-        <translation type="unfinished"></translation>
+        <translation>Ri&amp;emërto</translation>
     </message>
     <message>
         <source>Alt+M</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+M</translation>
     </message>
     <message>
         <source>Rename the selected macro.</source>
-        <translation type="unfinished"></translation>
+        <translation>Riemërtoni makron e përzgjedhur.</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Rename the selected macro. You will be prompted for the new name.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Riemërtoni makron e përzgjedhur. Do t&apos;ju kërkohet emri i ri.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished">&amp;Përpuno...</translation>
+        <translation>&amp;Përpuno...</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Edit the source of the selected macro, if the source is availible.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+D</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Delete the currently selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Set Accel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+S</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Set the keyboard shortcut for the selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>E&amp;xport</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+X</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Export macros to a file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
-&lt;p&gt;If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt&gt;Edit&lt;/tt&gt;  button, and use the &lt;tt&gt;Save source&lt;/tt&gt; button in the &lt;tt&gt;Edit Macro&lt;/tt&gt; dialog. You won&apos;t be able to load that version with &lt;tt&gt;Load extension script&lt;/tt&gt; - instead, create a new macro with the&lt;tt&gt; New&lt;/tt&gt; button and use &lt;tt&gt;Load source&lt;/tt&gt;.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete &amp;All</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+A</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete all macros.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Import</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+I</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import macros from a file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Close this dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Return to Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Përpunoni burimin e makros së përzgjedhur, nëse burimi është i mundshëm.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
 &lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
-&lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+&lt;p&gt;If scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Përpunoni makron e përzgjedhur. &lt;/p&gt;
+&lt;p&gt;Nëse ky buton është gri, ose nuk është përzgjedhur makro, ose përgjegjësi i makrove nuk e ka kodin burim për makron që keni përzgjedhur (e në këtë rast do të shfaqet një &lt;tt&gt;Jo&lt;/tt&gt; te shtylla &lt;tt&gt;Përpunoni &lt;/tt&gt;e makros).&lt;/p&gt;
+&lt;p&gt;Nëse Scribus-i nuk nuk e ka kodin burim, makroja mbase qe krijuar nga një programth.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>&amp;Fshi</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation>Alt+D</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Delete the currently selected macro.&lt;/qt&gt;</source>
+        <translation>&lt;qt&gt;Fshi makron e përzgjedhur për çastin.&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Fshi makron e përzgjedhur. Kjo është e menjëhershme, dhe nuk ka rrugëdalje nëse fshihet një herë makroja. Nëse makroja është krijuar nga një programth që niset gjatë nisjes së kompjuterit, do të rishfaqet herës pasuese që ngarkoni ngarkoni Scribus-in.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Set Accel</source>
+        <translation>&amp;Cakto Accel</translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation>Alt+S</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Set the keyboard shortcut for the selected macro.&lt;/qt&gt;</source>
+        <translation>&lt;qt&gt;Rregulloni shkurtprerje tastiere për makron e përzgjedhur.&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Caktoni tast shkurtprejrjeje tastiere (përshpejtues) për makron e përzgjedhur. Do t&apos;ju kërkohet shkurtprerja e re te kutia e dialogut.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>E&amp;xport</source>
+        <translation>&amp;Eksportoni</translation>
+    </message>
+    <message>
+        <source>Alt+X</source>
+        <translation>Alt+X</translation>
+    </message>
+    <message>
+        <source>Export macros to a file.</source>
+        <translation>Eksporto makro si një kartelë.</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
+&lt;p&gt;If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt&gt;Edit&lt;/tt&gt;  button, and use the &lt;tt&gt;Save source&lt;/tt&gt; button in the &lt;tt&gt;Edit Macro&lt;/tt&gt; dialog. You won&apos;t be able to load that version with &lt;tt&gt;Load extension script&lt;/tt&gt; - instead, create a new macro with the&lt;tt&gt; New&lt;/tt&gt; button and use &lt;tt&gt;Load source&lt;/tt&gt;.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Eksporto makro në një kartelë të jashtme. Kartela do të jetë një programth Python që përmban urdhra programuesi për të rikrijuar makron. Mund të xhirohet përmes &lt;tt&gt;Ngarko programth zgjerimi&lt;/tt&gt; prej menusë &lt;tt&gt;Programthe&lt;/tt&gt;, ose prej butonit import te përgjegjësi i makrove.&lt;/p&gt;
+&lt;p&gt;Nëse doni një version të këndshëm, të lexueshëm nga syri i njeriut për makrot tuaja, përzgjidhni makron që doni, shtypni butonin &lt;tt&gt;Përpunoni&lt;/tt&gt;, dhe përdorni butonin &lt;tt&gt;Ruaj burim&lt;/tt&gt; te dialogu &lt;tt&gt;Përpunoni Makro&lt;/tt&gt;. Nuk do të jeni në gjendje të ngarkoni atë version me &lt;tt&gt;Ngarko programth zgjerimi&lt;/tt&gt; - në vend të kësaj, krijoni një makro të re me butonin &lt;tt&gt; E re&lt;/tt&gt; dhe përdorni &lt;tt&gt;Ngarko burim&lt;/tt&gt;.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Delete &amp;All</source>
+        <translation>Fshi &amp;Tërë</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>Delete all macros.</source>
+        <translation>Fshi tërë makrot.</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Fshi tërë makrot e regjistruara. Kjo është e menjëhershme, dhe nuk ka rrugë për të ripasur makrot e fshira. Çfarëdo makro e krijuar nga programthi i fillimit do të rishfaqet herës pasuese që ngarkoni Scribus-in.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation>&amp;Importo</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation>Alt+I</translation>
+    </message>
+    <message>
+        <source>Import macros from a file.</source>
+        <translation>Importo makro prej një kartele.</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Ngarkon makro prej një kartele të jashtmee.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -11853,23 +12743,49 @@ The table in the center of the dialog lists what macros are currently loaded and
     <name>MenuTest</name>
     <message>
         <source>Script error</source>
-        <translation type="obsolete">Gabim programthi</translation>
+        <translation>Gabim programthi</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="obsolete">Nëse po xhironit një programth zyrtar ju lutemi raportojeni te &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+        <translation>Nëse po xhironit një programth zyrtar ju lutemi raportojeni te &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="obsolete">Këtë mesazh e keni edhe në clipboard. Përdorni Ctrl+V për ta hedhur te gjurmues bug-esh.</translation>
+        <translation>Këtë mesazh e keni edhe në clipboard. Përdorni Ctrl+V për ta hedhur te gjurmues bug-esh.</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation type="obsolete">Shfaq &amp;Konsol</translation>
+        <translation>Shfaq &amp;Konsol</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation type="obsolete">Fshih &amp;Konsol</translation>
+        <translation>Fshih &amp;Konsol</translation>
+    </message>
+    <message>
+        <source>Scribus - Script Plugin</source>
+        <translation>Scribus - Shtojcë Programthesh</translation>
+    </message>
+    <message>
+        <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
+If you just want to run a normal script, you probably want to use
+&apos;Execute Script...&apos; instead.
+
+If you do actually want to load a Python extension script or macro, you
+need to go into the Scripter Settings in the Script menu and enable
+scripter extensions there.
+
+Please read the documentation on extension scripts first.
+</source>
+        <translation>Funksioni &apos;Ngarko Programth&apos; për shtojcën e programtheve është e çaktivizuar për çastin.
+Nëse doni thjesht të xhironi një programth normal, mbase doni të përdorni programin
+&apos;Ekzekuto Programth...&apos; më mirë.
+
+Nëse në fakt doni të ngarkoni një programth Python zgjerimi ose makro, 
+lipset të shkoni te Rregullime Programuesi te menuja Programthe dhe
+aktivizoni atje zgjerime programuesi.
+
+Ju lutem së pari lexoni dokumentimin mbi programthe zgjerimi.
+</translation>
     </message>
 </context>
 <context>
@@ -12392,7 +13308,7 @@ të Rrumbullakët:</translation>
     </message>
     <message>
         <source>Scaling width of characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndryshim gjerësie shenjash</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -12594,7 +13510,7 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
-        <translation type="unfinished"></translation>
+        <translation>Shkrim nga e Majt në të Djathtë</translation>
     </message>
 </context>
 <context>
@@ -12754,7 +13670,7 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>Do you really want to delete this Template?</source>
-        <translation type="unfinished"></translation>
+        <translation>Doni vërtet të fshini këtë Stampë?</translation>
     </message>
 </context>
 <context>
@@ -12977,15 +13893,15 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Executive</source>
-        <translation type="unfinished"></translation>
+        <translation>Executive</translation>
     </message>
     <message>
         <source>Folio</source>
-        <translation type="unfinished"></translation>
+        <translation>Folio</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation type="unfinished"></translation>
+        <translation>Ledger</translation>
     </message>
 </context>
 <context>
@@ -13111,11 +14027,11 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Reduce the Size of the Path by shown %</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvogëloni Madhësinë e Shtegut me % e treguar</translation>
     </message>
     <message>
         <source>Enlarge the Size of the Path by shown %</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmadhoni Madhësinë e Shtegut me % e treguar</translation>
     </message>
     <message>
         <source>Angle of Rotation</source>
@@ -13123,7 +14039,7 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>% to Enlarge or Reduce By</source>
-        <translation type="unfinished">Zvogëlo ose zmadho shfaqjen e dokumentit </translation>
+        <translation></translation>
     </message>
     <message>
         <source>Activate Contour Line Editing Mode</source>
@@ -13267,7 +14183,7 @@ përndryshe Koordinatat janë relative te Objekti.</translation>
     </message>
     <message>
         <source>&amp;Downsample Images to:</source>
-        <translation type="unfinished">Shto tek stampë</translation>
+        <translation>&amp;thjeshto Pamje në:</translation>
     </message>
     <message>
         <source>&amp;General</source>
@@ -13491,7 +14407,7 @@ përndryshe Koordinatat janë relative te Objekti.</translation>
     </message>
     <message>
         <source>S&amp;pot Function:</source>
-        <translation type="unfinished">Funksion i panjohur</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Simple Dot</source>
@@ -13845,11 +14761,11 @@ përputhje me PDF/X-3. Ju këshillojmë të përdorni titullin e dokumentit.</tr
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Rrotullim:</translation>
+        <translation>&amp;Rrotullim:</translation>
     </message>
     <message>
         <source>Compress Text and &amp;Vector Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Ngjesh Tekst dhe Grafikë &amp;Vektorialë</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
@@ -13861,19 +14777,19 @@ përputhje me PDF/X-3. Ju këshillojmë të përdorni titullin e dokumentit.</tr
     </message>
     <message>
         <source>En&amp;able Presentation Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mundëso Efekte Paraqitjeje</translation>
     </message>
     <message>
         <source>&amp;Presentation</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Paraqitje</translation>
     </message>
     <message>
         <source>Mirror Page(s) horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Pasqyro Faqe(t) horizontalisht</translation>
     </message>
     <message>
         <source>Mirror Page(s) vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Pasqyro Faqe(t) vertikalisht</translation>
     </message>
 </context>
 <context>
@@ -13975,7 +14891,8 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ofron në paraparje një pamje më të pëlqyeshme për Gërma TrueType, Gërma OpenType, EPS, dhe(new line)
+grafikë vektorialë, në kurriz të një ngadalësimi të pakët të pararjeve</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed
@@ -13984,7 +14901,12 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Një rrugë braktisjeje e disa shkallëve të grisë që janë të përbëra nga(new line)
+cyan, yellow dhe magenta dhe përdorjes së të zezës më mirë.(new line)
+UCR prek më tepër pjesë pamjeje që janë tone neutralë dhe/ose të errët(new line)
+të cilët janë afër të zezës. Përdorimi i kësaj mund të përmirësojë disa pamje(new line)
+dhe lipsen ca eksperimente dhe prova për çdo herë.(new line)
+UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
     </message>
 </context>
 <context>
@@ -14215,7 +15137,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>&amp;Outlines</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Jashtëvija</translation>
     </message>
     <message>
         <source>&amp;Text Frame</source>
@@ -14446,16 +15368,17 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Apply &amp;Factor</source>
-        <translation type="unfinished"></translation>
+        <translation>Zbato &amp;Faktor</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Zbato Faktor I lugët/I mysët për të ndryshuar formën e Shumëkëndëshave</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation type="unfinished"></translation>
+        <translation>Një vlerë negative do ta bëjë shumëkëndëshin të lugët (ose si yll),
+një vlerë pozitive do ta bëjë at të mysët</translation>
     </message>
 </context>
 <context>
@@ -14498,7 +15421,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Misc.</source>
-        <translation type="unfinished">Të ndryshme</translation>
+        <translation>Të ndrysh.</translation>
     </message>
     <message>
         <source>GUI</source>
@@ -14542,7 +15465,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>&amp;Wheel Jump:</source>
-        <translation type="unfinished">Hidhu te:</translation>
+        <translation>Kërcim &amp;Miu:</translation>
     </message>
     <message>
         <source> px</source>
@@ -14550,7 +15473,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>&amp;Grab Radius:</source>
-        <translation type="unfinished">Caktoni rrezen e lakimit të kulmit</translation>
+        <translation>&amp;Merr Rreze:</translation>
     </message>
     <message>
         <source>Menus</source>
@@ -14774,7 +15697,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Automatic &amp;Line Spacing:</source>
-        <translation type="unfinished">&amp;Kryeradhë dhe Hapësira</translation>
+        <translation>Ndër&amp;vijë Automatike:</translation>
     </message>
     <message>
         <source>Default &amp;Font:</source>
@@ -14934,7 +15857,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>To adjust the display drag the ruler below with the Slider.</source>
-        <translation type="unfinished"></translation>
+        <translation>Për të përshtatur ekranin tërhiqni vizoren nën Rrëshqitësin.</translation>
     </message>
     <message>
         <source>Postscript Interpreter</source>
@@ -15000,7 +15923,7 @@ Scribus-i bën të vetën cilëndo temë të mundshme KDE apo Q</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="unfinished"></translation>
+        <translation>Rrezja e zonës ku Scribus-i do t&apos;ju lejojë të mbërtheni veshët e një objekti</translation>
     </message>
     <message>
         <source>Number of recently edited documents to show in the File menu</source>
@@ -15074,11 +15997,11 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Distance between the minor grid lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Hapësirë midis vijash rrjete të vogël</translation>
     </message>
     <message>
         <source>Distance between the major grid lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Hapësirë midis vijash rrjete të madhevogël</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
@@ -15118,7 +16041,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Relative size of the superscript compared to the normal font</source>
-        <translation type="unfinished"></translation>
+        <translation>Madhësi relative e mbishkrimit krahasuar me gërmat normale</translation>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font on a line</source>
@@ -15126,11 +16049,11 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Relative size of the subscript compared to the normal font</source>
-        <translation type="unfinished"></translation>
+        <translation>Madhësi relative e poshtëshkrimit krahasuar me gërmat normale</translation>
     </message>
     <message>
         <source>Relative size of the small caps font compared to the normal font</source>
-        <translation type="unfinished"></translation>
+        <translation>Madhësi relative e gërmave të vogla krahasuar me gërmat normale</translation>
     </message>
     <message>
         <source>Percentage increase over the font size for the line spacing</source>
@@ -15362,52 +16285,53 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>T&amp;emplates:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Stampa:</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ndryshoni...</translation>
     </message>
     <message>
         <source>Executive</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekzekutive</translation>
     </message>
     <message>
         <source>Folio</source>
-        <translation type="unfinished"></translation>
+        <translation>Folio</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation type="unfinished"></translation>
+        <translation>Ledger</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation type="unfinished">Legal</translation>
+        <translation>Legal</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished">Letër</translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation type="unfinished">Tabloid</translation>
+        <translation>Tabloid</translation>
     </message>
     <message>
         <source>Apply &amp;Factor</source>
-        <translation type="unfinished"></translation>
+        <translation>Zbato &amp;Faktor</translation>
     </message>
     <message>
         <source>Additional Directory for Document Templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Drejtori Shtesë për Stampa Dokumentesh</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Zbato Faktor I lugët/I mysët për të ndryshuar formën e Shumëkëndëshave</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation type="unfinished"></translation>
+        <translation>Një vlerë negative do ta bëjë shumëkëndëshin të lugët (ose si yll),
+një vlerë pozitive do ta bëjë at të mysët</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed
@@ -15416,7 +16340,12 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Një rrugë për të hequr qafe disa shkallë të grisë të përbëra prej cyan, 
+yellow dhe magenta dhe që në fakt përdorin të zezën. UCR prek më shumë 
+pjesët e pamjeve të cilat janë asnjanëse dhe/ose tone të errët që janë
+afër grisë. Përdorimi i kësaj mund të përmirësojë shtypjen e disa pamjeve
+dhe lyp ca eksperimente dhe prova hap pas hapi. UCR zvogëlon mundësi
+tejngopjeje me bojëra CMY.</translation>
     </message>
 </context>
 <context>
@@ -15475,7 +16404,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Select color</source>
-        <translation type="unfinished">Përzgjidhni ngjyrë</translation>
+        <translation>Përzgjidhni ngjyrë</translation>
     </message>
 </context>
 <context>
@@ -15827,7 +16756,7 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <name>QMainWindow</name>
     <message>
         <source>Line up</source>
-        <translation type="unfinished">Ngjitu</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Customize...</source>
@@ -16087,23 +17016,23 @@ Kontrolloni shteg dhe emër kartele.</translation>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation type="obsolete">Programthe &amp;Scribus</translation>
+        <translation>Programthe &amp;Scribus</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation type="obsolete">&amp;Ekzekuto Programth...</translation>
+        <translation>&amp;Ekzekuto Programth...</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation type="obsolete">Programthe së &amp;Fundmi</translation>
+        <translation>Programthe së &amp;Fundmi</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation type="obsolete">Shfaq &amp;Konsol</translation>
+        <translation>Shfaq &amp;Konsol</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
-        <translation type="obsolete">P&amp;rogramth</translation>
+        <translation>P&amp;rogramth</translation>
     </message>
     <message>
         <source>Online Reference</source>
@@ -16111,7 +17040,7 @@ Kontrolloni shteg dhe emër kartele.</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="obsolete">Programthe Python (*.py);; Tërë Kartelat (*)</translation>
+        <translation>Programthe Python (*.py);; Tërë Kartelat (*)</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -16135,163 +17064,163 @@ Kontrolloni shteg dhe emër kartele.</translation>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrikaanse</translation>
     </message>
     <message>
         <source>Albanian</source>
-        <translation type="unfinished"></translation>
+        <translation>Shqip</translation>
     </message>
     <message>
         <source>Basque</source>
-        <translation type="unfinished"></translation>
+        <translation>Baske</translation>
     </message>
     <message>
         <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
+        <translation>Bullgare</translation>
     </message>
     <message>
         <source>Brazilian</source>
-        <translation type="unfinished"></translation>
+        <translation>Braziliane</translation>
     </message>
     <message>
         <source>Catalan</source>
-        <translation type="unfinished">Katalane</translation>
+        <translation>Katalane</translation>
     </message>
     <message>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>Kineze</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation type="unfinished">Çeke</translation>
+        <translation>Çeke</translation>
     </message>
     <message>
         <source>Danish</source>
-        <translation type="unfinished">Daneze</translation>
+        <translation>Daneze</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Holandeze</translation>
     </message>
     <message>
         <source>English</source>
-        <translation type="unfinished"></translation>
+        <translation>Anglishte</translation>
     </message>
     <message>
         <source>English (British)</source>
-        <translation type="unfinished"></translation>
+        <translation>Anglishte (Britanike)</translation>
     </message>
     <message>
         <source>Esperanto</source>
-        <translation type="unfinished"></translation>
+        <translation>Esperanto</translation>
     </message>
     <message>
         <source>German</source>
-        <translation type="unfinished">Gjermane</translation>
+        <translation>GjermaneGjermane</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation type="unfinished">Finlandeze</translation>
+        <translation>Finlandeze</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="unfinished">Frënge</translation>
+        <translation>Frënge</translation>
     </message>
     <message>
         <source>Galician</source>
-        <translation type="unfinished"></translation>
+        <translation>Galike</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation type="unfinished">Greke</translation>
+        <translation>Greke</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation type="unfinished">Hungareze</translation>
+        <translation>Hungareze</translation>
     </message>
     <message>
         <source>Indonesian</source>
-        <translation type="unfinished"></translation>
+        <translation>Indoneziane</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation type="unfinished">Italisht</translation>
+        <translation>Italisht</translation>
     </message>
     <message>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
+        <translation>Koreane</translation>
     </message>
     <message>
         <source>Lithuanian</source>
-        <translation type="unfinished">Lituaneze</translation>
+        <translation>Lituaneze</translation>
     </message>
     <message>
         <source>Norwegian (Bokmaal)</source>
-        <translation type="unfinished"></translation>
+        <translation>Norvegjeze (Bookmaal)</translation>
     </message>
     <message>
         <source>Norwegian (Nnyorsk)</source>
-        <translation type="unfinished"></translation>
+        <translation>Norvegjeze (Nnyorsk)</translation>
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished"></translation>
+        <translation>Norvegjeze</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="unfinished">Polake</translation>
+        <translation>Polake</translation>
     </message>
     <message>
         <source>Portugese (Brazilian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugeze (Braziliane)</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="unfinished">Ruse</translation>
+        <translation>Ruse</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished">Suedeze</translation>
+        <translation>Suedeze</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="unfinished">Spanjolle</translation>
+        <translation>Spanjolle</translation>
     </message>
     <message>
         <source>Spanish (Latin)</source>
-        <translation type="unfinished"></translation>
+        <translation>Spanjolle (Latine)</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation type="unfinished">Slovake</translation>
+        <translation>Slovake</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation type="unfinished">Slovene</translation>
+        <translation>Slovene</translation>
     </message>
     <message>
         <source>Serbian</source>
-        <translation type="unfinished"></translation>
+        <translation>Serbe</translation>
     </message>
     <message>
         <source>Turkish</source>
-        <translation type="unfinished"></translation>
+        <translation>Turke</translation>
     </message>
     <message>
         <source>Ukranian</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukrainase</translation>
     </message>
     <message>
         <source>Welsh</source>
-        <translation type="unfinished"></translation>
+        <translation>Uellsiane</translation>
     </message>
     <message>
         <source>Font %1 is broken, discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Gërmat %1 janë të dëmtuara, po i hedh tej</translation>
     </message>
     <message>
         <source>Template: </source>
-        <translation type="unfinished"></translation>
+        <translation>Stampë:</translation>
     </message>
     <message>
         <source>Media Cases</source>
@@ -16300,107 +17229,167 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Cannot get a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;mund të kem ngjyrë me një emër bosh.</translation>
+    </message>
+    <message>
+        <source>Color not found</source>
+        <comment>python error</comment>
+        <translation>Ngjyrë që s&apos;gjendet</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;mund të ndryshoj një ngjyrë me një emër bosh.</translation>
+    </message>
+    <message>
+        <source>Color not found in document</source>
+        <comment>python error</comment>
+        <translation>Ngjyrë që s&apos;gjendet në dokument</translation>
+    </message>
+    <message>
+        <source>Color not found in default colors</source>
+        <comment>python error</comment>
+        <translation>Ngjyrë që s&apos;gjendet në ngjyrat parazgjedhje</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;mund të krijoj një ngjyrë me një emër bosh.</translation>
     </message>
     <message>
         <source>Cannot delete a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;mund të fshij një ngjyrë me një emër bosh.</translation>
     </message>
     <message>
         <source>Cannot replace a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;mund të zëvendësoj një ngjyrë me një emër bosh.</translation>
     </message>
     <message>
         <source>Failed to open document</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dështova në hapjen e dokumentit</translation>
     </message>
     <message>
         <source>Failed to save document</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dështova në ruajtjen e dokumentit</translation>
     </message>
     <message>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Njësi jashtë intervali. Përdorni një nga konstantet scribus.UNIT_* .</translation>
     </message>
     <message>
         <source>Color not found - python error</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ngjyrë që s&apos;gjendet - gabim python</translation>
     </message>
     <message>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Objektivi nuk është një kornizë pamje.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t scale by 0%</source>
+        <comment>python error</comment>
+        <translation>S&apos;mund të ripërmasoj dot me 0%</translation>
+    </message>
+    <message>
+        <source>Specified item not an image frame</source>
+        <comment>python error</comment>
+        <translation>Objekti i treguar jo një kornizë pamje</translation>
+    </message>
+    <message>
+        <source>Font not found</source>
+        <comment>python error</comment>
+        <translation>Gërma që s&apos;gjenden</translation>
+    </message>
+    <message>
+        <source>Can&apos;t render an empty sample</source>
+        <comment>python error</comment>
+        <translation>S&apos;vizatoj dot një shembull bosh</translation>
+    </message>
+    <message>
+        <source>Can&apos;t save to a blank filename</source>
+        <comment>python error</comment>
+        <translation>S&apos;ruaj dot te një kartelë bosh</translation>
+    </message>
+    <message>
+        <source>Can&apos;t have an empty layer name</source>
+        <comment>python error</comment>
+        <translation>S&apos;mund të pranoj një emër bosh shtrese</translation>
+    </message>
+    <message>
+        <source>Layer not found</source>
+        <comment>python error</comment>
+        <translation>Shtresë që s&apos;gjenden</translation>
+    </message>
+    <message>
+        <source>Can&apos;t remove the last layer</source>
+        <comment>python error</comment>
+        <translation>S&apos;heq dot shtresën e fundit</translation>
+    </message>
+    <message>
+        <source>Can&apos;t create layer without a name</source>
+        <comment>python error</comment>
+        <translation>S&apos;krijoj dot shtresë pa emër</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ka tashmë një objekt e emrin e kërkuar</translation>
     </message>
     <message>
         <source>Point list must contain at least two points (four values)</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lista e pikave duhet të përmbajë të paktën dy pika (katër vlera)</translation>
     </message>
     <message>
         <source>Point list must contain an even number of values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lista e pikave duhet të përmbajë një numër çift vlerash</translation>
     </message>
     <message>
         <source>Point list must contain at least three points (six values)</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lista e pikave duhet të përmbajë të paktën tri pika (gjashtë vlera)</translation>
     </message>
     <message>
         <source>Point list must contain at least four points (eight values)</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lista e pikave duhet të përmbajë të paktën katër pika (tetë vlera)</translation>
     </message>
     <message>
         <source>Point list must have a multiple of six values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lista e pikave duhet të jetë një shumëfish gjashtë vlerash</translation>
     </message>
     <message>
         <source>Object not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Objekt që s&apos;gjendet</translation>
     </message>
     <message>
         <source>Style not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Stil që s&apos;gjendet</translation>
     </message>
     <message>
         <source>Can&apos;t set style on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;caktoj dot stil në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Failed to save EPS</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dështova në ruajtjen e EPS</translation>
     </message>
     <message>
         <source>Page number out of range</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Numër faqesh jashtë intervali</translation>
     </message>
     <message>
         <source>argument is not list: must be list of float values</source>
@@ -16415,111 +17404,268 @@ Kontrolloni shteg dhe emër kartele.</translation>
     <message>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Gjerësi vije jashtë kufijsh, duhet të jetë 0 &lt;= line_width &lt;= 12</translation>
     </message>
     <message>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hije vije jashtë kufijsh, duhet të jetë 0 &lt;= shade &lt;= 100</translation>
     </message>
     <message>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hije mbushjeje jashtë kufijsh, duhet të jetë 0 &lt;= shade &lt;= 100</translation>
     </message>
     <message>
         <source>Corner radius must be a positive number.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Rrezja e kulmit duhet të jetë një numër pozitiv.</translation>
     </message>
     <message>
         <source>Line style not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Stil vije që s&apos;gjendet</translation>
     </message>
     <message>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;mund të kem madhësi gërmash kornize jo tekst.</translation>
     </message>
     <message>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;mund të kem gërma kornize jo tekst.</translation>
     </message>
     <message>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;mund të kem madhësi teksti kornize jo tekst.</translation>
     </message>
     <message>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nuk mund të numëroj shtylla në një kornizë jo për tekst.</translation>
     </message>
     <message>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;mund të kem hapësirë vije kornize jo tekst.</translation>
     </message>
     <message>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;mund të kem hapësirë shtyllash kornize jo tekst.</translation>
     </message>
     <message>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;mund të kem tekst kornize jo tekst.</translation>
     </message>
     <message>
         <source>Cannot set text of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;rregulloj dot tekst kornize jo tekst.</translation>
     </message>
     <message>
         <source>Cannot insert text into non-text frame.</source>
+        <comment>python error</comment>
+        <translation>S&apos;mund të fus tekst në një kornizë jo tekst.</translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vendosje jashtë intervali. Përdorni një nga konstantet scribus.ALIGN* .</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text alignment on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>S&apos;caktoj dot drejtim teksti në një kornizë jo tekst</translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
+        <comment>python error</comment>
+        <translation>Madhësi gërmash jashtë kufijsh - duhet të jetë 1 &lt;= size &lt;=512</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set font size on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>S&apos;caktoj dot madhësi teksti në një kornizë jo tekst</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set font on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>S&apos;caktoj dot tekst në një kornizë jo tekst</translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1</source>
+        <comment>python error</comment>
+        <translation>Hapësirë vije jashtë kufijsh, duhet të jetë &gt;= 0.1</translation>
+    </message>
+    <message>
+        <source>Can&apos;t line spacing on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>S&apos;mund të fus ndërvijë në një kornizë jo tekst</translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive</source>
+        <comment>python error</comment>
+        <translation>Hapësirë shtylle jashtë kufijsh, duhet të jetë pozitive</translation>
+    </message>
+    <message>
+        <source>Can&apos;t column gap on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>S&apos;mund të vendos hapësirë shtyllash në një kornizë jo tekst</translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1</source>
+        <comment>python error</comment>
+        <translation>Numër shtylle jashtë kufijsh, duhet të jetë &gt;1</translation>
+    </message>
+    <message>
+        <source>Can&apos;t number of columns on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>S&apos;mund të kem numër shtyllash në një kornizë jo tekst</translation>
     </message>
     <message>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
+        <translation>Tregues përzgjedhjeje jashtë kufijsh</translation>
+    </message>
+    <message>
+        <source>Can&apos;t select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation>S&apos;përzgjedh dot tekst në një kornizë jo tekst</translation>
+    </message>
+    <message>
+        <source>Can&apos;t delete text from a non-text frame</source>
+        <comment>python error</comment>
+        <translation>S&apos;fshij dot tekst prej një kornize jo tekst</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text fill on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>S&apos;caktoj dot mbushje teksti në një kornizë jo tekst</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text stroke on a non-text frame</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Can&apos;t set text shade on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>S&apos;caktoj dot hije teksti në një kornizë jo tekst</translation>
+    </message>
+    <message>
+        <source>Can only link text frames</source>
+        <comment>python error</comment>
+        <translation>Mund të lidh vetëm korniza teksti</translation>
+    </message>
+    <message>
+        <source>Target frame must be empty</source>
+        <comment>python error</comment>
+        <translation>Korniza objektiv duhet të jetë bosh</translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame</source>
+        <comment>python error</comment>
+        <translation>Korniza objektiv lidhet te një tjetër kornizë</translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame</source>
+        <comment>python error</comment>
+        <translation>Korniza objektiv është lidhur te një tjetër kornizë</translation>
+    </message>
+    <message>
+        <source>Source and target are the same object</source>
+        <comment>python error</comment>
+        <translation>Pikënisja dhe objektivi janë i njëjti objekt</translation>
+    </message>
+    <message>
+        <source>Can&apos;t unlink a non-text frame</source>
+        <comment>python error</comment>
+        <translation>S&apos;mund të heq lidhje në një kornizë jo tekst</translation>
+    </message>
+    <message>
+        <source>Object is not a linked text frame, can&apos;t unlink.</source>
+        <comment>python error</comment>
+        <translation>Objekti nuk është një kornizë tekst e lidhur, s&apos;heq dot  lidhje.</translation>
+    </message>
+    <message>
+        <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
+        <comment>python error</comment>
+        <translation>Objekti është korniza e fundit në një varg, nuk mund ta zgjidh. Zgjidhni atëherë kornizën e mëparshme.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t convert a non-text frame to outlines</source>
+        <comment>python error</comment>
+        <translation>S&apos;mund të shndërroj një kornizë jo tekst në jashtëvija</translation>
+    </message>
+    <message>
         <source>Tried to set progress &gt; maximum progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Provova të caktoj përparim &gt; përparimi më i madh</translation>
     </message>
     <message>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Emri i kartelës duhet të jetë një varg.</translation>
     </message>
     <message>
         <source>Cannot delete image type settings.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>S&apos;mund të fshij rregullime tipi pamjeje.</translation>
     </message>
     <message>
         <source>The image type must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tipi i pamjes duhet të jetë një varg.</translation>
     </message>
     <message>
         <source>&apos;allTypes&apos; attribute is READ-ONLY</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>atributi &apos;allTypes&apos; është VETËM-LEXIM</translation>
     </message>
     <message>
         <source>Failed to export image</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dështovë në eksportim pamjeje</translation>
+    </message>
+    <message>
+        <source>Run a Python script from a file.</source>
+        <comment>scripter</comment>
+        <translation>Xhiro një programth Python prej një kartele.</translation>
+    </message>
+    <message>
+        <source>&amp;Load Extension Script...</source>
+        <translation>&amp;Ngarko Programth Zgjerimi...</translation>
+    </message>
+    <message>
+        <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
+        <comment>scripter</comment>
+        <translation>Ngarko një programth Python si një zgjerim. Ipërdorur për ngarkim makrosh dhe për programthe të përparuar Python që zgjerojnë ndërfaqen e Scribus-it.</translation>
+    </message>
+    <message>
+        <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
+        <comment>scripter</comment>
+        <translation>Shfaq një konsol ndërvepruese Python ku ju mund të shkruani dhe xhironi programe Python që përdorin mjetet Scripter.</translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation>&amp;Rreth Programthi...</translation>
+    </message>
+    <message>
+        <source>Scripter &amp;Settings</source>
+        <comment>script menu</comment>
+        <translation>&amp;Rregullimet Scripter-i</translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation>Rreth Programthi</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -16547,263 +17693,107 @@ any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
 function&apos;s documentation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul ndërfaqeje Python për Scribus-in
+
+Ky modul është ndërfaqja Python për Scribus-in. Ofron funksione
+për të kontrolluar Scribus-in dhe për të manipuluar objekte te kanavaca. Çdo
+funksion është i dokumentuar veçmas më poshtë.
+
+Ca gjëra janë të përbashkëta nëpër shumicën e ndërfaqes.
+
+Shumica e funksioneve veprojnë mbi korniza. Kornizat identifikohen nga emri i tyre,
+një varg - ato nuk janë objekte realë Python. Plot funksione marrin një parametër
+opsional (jo-fjalëkyç), një emër kornize.
+Ka edhe plot përjashtime të zakonshëm nëpër shumicën e funksioneve. Këta nuk janë 
+të dokumentuar për çastin në docstring-un për secilin funksion.
+- Shumë funksione do të sjellin një NoDocOpenError nëse përpiqeni t&apos;i provoni pa një 
+dokument mbi të cilin të veprohet. 
+- Nëse një funksioni nuk i jepet një emër kornize i nevojshëm, funksioni do të përdorë 
+kornizën e përzgjedhur për çastin, në pastë, ose përgjigjet ne një NoValidObjectError 
+nëse nuk gjen diçka mbi të cilën të veprojë.
+- Shumë funksione do të sjellin një WrongFrameTypeError nëse përpiqeni t&apos;i provoni
+mbi një tip kornize e cila nuk ka kuptim për ta. Për shembull, rregullimi i ngjyrës
+së tekstit në një kornizë grafikësh nuk ka kuptim, dhe do të japë si përfundim
+shfaqjen e këtij gabimi.
+- Gabime të rrjedhur prej thirrjesh drejt API-t Python nën të do të kalojnë 
+të pandryshuar. Prej kësaj, lista e përjashtimeve (gabimeve) kthyer nga 
+funksione, ashtu si jepet këtu dhe në docstring-et përkatës është e paplotë.
+
+Hollësi se çfarë përjashtimesh mund të kthejë çdo funksion jepen në 
+dokumentimin e funksionit.</translation>
     </message>
     <message>
         <source>Custom (optional) configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Formësim vetjak (opsional):</translation>
     </message>
     <message>
         <source>Standard configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Fomësim standard:</translation>
     </message>
     <message>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fjalë të Shkurtra...</translation>
     </message>
     <message>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Po përpunoj Fjalë të Shkurtra. Ju lutem prisni...</translation>
     </message>
     <message>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Po përpunoj Fjalë të Shkurtra. Kryer.</translation>
     </message>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importo Vizatim &amp;OpenOffice.org...</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Vizatim OpenOffice.org (*.sxd);;Tërë Kartelat (*)</translation>
     </message>
     <message>
         <source>Comma Separated Value Files</source>
-        <translation type="unfinished">Kartela Vlerash Ndarë me Presje (CSV)</translation>
+        <translation>Kartela Vlerash Ndarë me Presje (CSV)</translation>
     </message>
     <message>
         <source>CSV_data</source>
-        <translation type="unfinished">Të dhëna CSV</translation>
+        <translation>Të dhëna CSV</translation>
     </message>
     <message>
         <source>CSV_header</source>
-        <translation type="unfinished">Titull CSV</translation>
+        <translation>Titull CSV</translation>
     </message>
     <message>
         <source>HTML Files</source>
-        <translation type="unfinished">Kartela HTML</translation>
+        <translation>Kartela HTML</translation>
     </message>
     <message>
         <source>html</source>
-        <translation type="unfinished">html</translation>
+        <translation>html</translation>
     </message>
     <message>
         <source>
 External Links
 </source>
-        <translation type="unfinished"></translation>
+        <translation>
+Lidhje të Jashtme
+</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumente OpenOffice.org Writer</translation>
     </message>
     <message>
         <source>Text Filters</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtra Tekstesh</translation>
     </message>
     <message>
         <source>Text Files</source>
-        <translation type="unfinished">Kartela Teksti</translation>
-    </message>
-    <message>
-        <source>Color not found.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color not found in document.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color not found in default colors.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot scale by 0%.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Specified item not an image frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Font not found.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot render an empty sample.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot save to a blank filename.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot have an empty layer name.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Layer not found.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot remove the last layer.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot create layer without a name.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Insert index out of bounds.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set text alignment on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set font size on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set font on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line space out of bounds, must be &gt;= 0.1.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set line spacing on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Column gap out of bounds, must be positive.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set column gap on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Column count out of bounds, must be &gt; 1.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set number of columns on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot select text in a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot delete text from a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set text fill on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set text stroke on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set text shade on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can only link text frames.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Target frame must be empty.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Target frame links to another frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Target frame is linked to by another frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Source and target are the same object.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot unlink a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Object is not a linked text frame, cannot unlink.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot convert a non-text frame to outlines.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kartela Teksti</translation>
     </message>
 </context>
 <context>
@@ -16904,7 +17894,7 @@ External Links
     </message>
     <message>
         <source>Restore Down</source>
-        <translation type="unfinished">Ul Volumin</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Close</source>
@@ -17030,39 +18020,39 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">Madhësi Faqeje</translation>
+        <translation>Madhësi Faqeje</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation type="unfinished">Madhësi:</translation>
+        <translation>Madhësi:</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation>Vetjake</translation>
     </message>
     <message>
         <source>Orientation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Orientim:</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished">Portret</translation>
+        <translation>Portret</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished">Së gjeri</translation>
+        <translation>Së gjeri</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation type="unfinished">Gjerësi:</translation>
+        <translation>Gjerësi:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lartësi:</translation>
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
-        <translation type="unfinished"></translation>
+        <translation>Numër i Faqes së &amp;Parë:</translation>
     </message>
 </context>
 <context>
@@ -18345,19 +19335,19 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistem Gërmash i Gatshëm</translation>
     </message>
     <message>
         <source>File %1 is not in Scribus format</source>
-        <translation type="unfinished"></translation>
+        <translation>Kartela %1 nuk është në format Scribus</translation>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrikaanse</translation>
     </message>
     <message>
         <source>Portuguese (BR)</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugeze (BR)</translation>
     </message>
 </context>
 <context>
@@ -18423,224 +19413,138 @@ Nëse Faqe Përkarshi është përzgjedhur, kjo hapësirë mënjane mund të pë
     </message>
 </context>
 <context>
-    <name>ScripterCore</name>
-    <message>
-        <source>&amp;Scribus Scripts</source>
-        <translation type="unfinished">Programthe &amp;Scribus</translation>
-    </message>
-    <message>
-        <source>&amp;Execute Script...</source>
-        <translation type="unfinished">&amp;Ekzekuto Programth...</translation>
-    </message>
-    <message>
-        <source>Run a Python script from a file.</source>
-        <comment>scripter</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Load Extension Script...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
-        <comment>scripter</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Recent Scripts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="unfinished">Shfaq &amp;Konsol</translation>
-    </message>
-    <message>
-        <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
-        <comment>scripter</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;About Script...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>S&amp;cript</source>
-        <translation type="unfinished">P&amp;rogramth</translation>
-    </message>
-    <message>
-        <source>Scripter &amp;Settings</source>
-        <comment>script menu</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation type="unfinished">Hap</translation>
-    </message>
-    <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="unfinished">Programthe Python (*.py);; Tërë Kartelat (*)</translation>
-    </message>
-    <message>
-        <source>Script error</source>
-        <translation type="unfinished">Gabim programthi</translation>
-    </message>
-    <message>
-        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="unfinished">Nëse po xhironit një programth zyrtar ju lutemi raportojeni te &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
-    </message>
-    <message>
-        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="unfinished">Këtë mesazh e keni edhe në clipboard. Përdorni Ctrl+V për ta hedhur te gjurmues bug-esh.</translation>
-    </message>
-    <message>
-        <source>Scribus - Script Plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
-If you just want to run a normal script, you probably want to use
-&apos;Execute Script...&apos; instead.
-
-If you do actually want to load a Python extension script or macro, you
-need to go into the Scripter Settings in the Script menu and enable
-scripter extensions there.
-
-Please read the documentation on extension scripts first.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hide &amp;Console</source>
-        <translation type="unfinished">Fshih &amp;Konsol</translation>
-    </message>
-    <message>
-        <source>About Script</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ScripterPreferences</name>
     <message>
         <source>Scribus - Scripter Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Parapëlqime Scripter-i</translation>
     </message>
     <message>
         <source>Enable Scripter Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivizo Zgjerime Scripter-i</translation>
     </message>
     <message>
         <source>Turn on extension scripts and macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Vëri në punëprogramthet dhe makrot</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt&gt;Load Extension Script&lt;/tt&gt; item in the Script menu.&lt;/p&gt;
 &lt;p&gt;
 Only scripts written to be run as extension scripts should be used with &lt;tt&gt;Load Extension Script&lt;/tt&gt; or as start-up scripts. See the scripter documentation for more details.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Aktivizimi i zgjerime të programuesit vë në punë funksione shtesë programuesi përfshi makro Python dhe mundësinë e ngarkimit të një programthi Python gjatë fillimit. Duke e bërë veprues këtë mundësi zhbllokohet përbërësi &lt;tt&gt;Ngarko Programth të Jashtëm&lt;/tt&gt; te menuja Programth.&lt;/p&gt;
+&lt;p&gt;
+Me &lt;tt&gt;Ngarko Programth të Jashtëm&lt;/tt&gt; ose si programthe fillimi do të duhej të përdoreshin vetëm programthet e shkruajtur të xhirojnë si programthe zgjerim. Shihni dokumentimin e programuesit për më tepër hollësi.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use a Startup Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdor një Programth Nisjeje</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;If &lt;tt&gt;Use a Startup Script&lt;/tt&gt; is checked, Scribus will load the script file specified here as an extension script at start-up. It is important that the script be written as an extension script, as if not written carefully it can potentially cause problems.&lt;/p&gt;
 &lt;p&gt;&lt;tt&gt;Use a Startup Script&lt;/tt&gt; will be disabled if scripter extensions are off, as extension scripts cannot be loaded without scripter extensions enabled.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Nëse &lt;tt&gt;Përdor një Program Nisjeje&lt;/tt&gt; është e zgjedhur, Scribus-i do të ngarkojë kartelën e programthit të treguar këtu si një programth zgjerimi gjatë nisjes. Është e rëndësishme që programthi të jetë shkruajtur si një programth zgjerimi, ngaqë nëse nuk është shkruajtur me kujdes mundet të shkaktojë probleme.&lt;/p&gt;
+&lt;p&gt;&lt;tt&gt;Përdor një Program Nisjeje&lt;/tt&gt; do të çaktivizohet nëse çaktivizohen zgjerimet e programuesit, ngaqë programthe zgjerimi nuk mund të ngarkohen pa zgjerime programuesi zgjerimesh të aktivizuara.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfleto...</translation>
     </message>
     <message>
         <source>Browse for a new script file</source>
-        <translation type="unfinished"></translation>
+        <translation>Shfleto për një kartelë programthi të ri</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Browse for a new script file&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Shfleto për një kartelë programthi të ri&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>What script file to load at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Cilën kartelë programthi të ngarkoj në nisje</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;The file containing the Python script to run as an extension script at start-up.&lt;/p&gt;
 &lt;p&gt;Note that when this script is run, Scribus has not completely started up and the workspace does not yet exist.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Kartela përmban një programth Python që duhet xhiruar gjatë nisjes si një programth zgjerimi.&lt;/p&gt;
+&lt;p&gt;Mbani shënim që kur ky programth xhirohet, Scribus-i nuk ka përfunduar ende nisjen dhe hapësira e punës nuk ekziston ende.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Script File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kartelë Programthi:</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anulo</translation>
+        <translation>&amp;Anulo</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>Close without saving changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbyll pa ruajtur ndryshime</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ok</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Save changes and close</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruaj ndryshime dhe mbyll</translation>
     </message>
     <message>
         <source>Advanced Options</source>
-        <translation type="unfinished">Mundësi të Mëtejshme</translation>
+        <translation>Mundësi të Mëtejshme</translation>
     </message>
     <message>
         <source>Import All Names at Startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Importo Tërë Emrat gjatë Nisjes</translation>
     </message>
     <message>
         <source>Run &apos;from scribus import *&apos; in the script console at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Xhiro  gjatë nisjes &apos;from scribus import *&apos; te konsol programthesh</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Import All Names at Startup&lt;/tt&gt; is an advanced option. You should probably leave it checked unless you have read the documentation and know what you are doing.&lt;/p&gt;
 &lt;p&gt;Unchecking this option will prevent the scripter from running its usual &lt;tt&gt;from scribus import *&lt;/tt&gt; command when it initializes the main interpreter (used for the script console and extension scripts) at start-up.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Importo Tërë Emrat gjatë Nisjes&lt;/tt&gt; është një mundësi e përparuar. Mbase do të duhej ta lini të shenjuar nëse nuk keni lexuar dokumentimin dhe dini se çfarë po bëni.&lt;/p&gt;
+&lt;p&gt;Çshenjimi i kësaj mundësie do të pengojë programuesin të xhirojë urdhrin e vet të zakonshëm &lt;tt&gt;from scribus import *&lt;/tt&gt; kur përgatit interpretuesin kryesor (e përdorur për konsol programthesh dhe programthe zgjerimei) gjatë nisjes.&lt;/p&gt;
+&lt;p&gt;Kjo mundësi nuk ka veprim para se të riniset Scribus-i.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Enable Legacy Name Aliases</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivizo Aliase të Dikurshëm Emrash</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Aktivizo përdorimin e emravë të funksioneve OldStyle&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Aktivizo Aliase të Dikurshëm Emrash&lt;/tt&gt; është një mundësi e mëtejshme. Mbase do të duhej ta lini siç është.&lt;/p&gt;
+&lt;p&gt;Në qoftë e shenjuar, kjo mundësi do të bëjë që programuesi të krijojë një numër të madh aliasesh emrash funksionesh dhe konstantesh për përputhshmëri me programthe 1.2.0. Parazgjedhja është shenjimi.&lt;/p&gt;
+&lt;p&gt;Kjo mundësi nuk ka veprim para se të rinisset Scribus-i.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use Fake Stdin</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdor Stdin të Rremë</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace sys.stdin with a fake file to prevent Scribus hanging when a script tries to read from stdin.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Zëvendëso sys.stdin me një kartelë të rreme për të parandaluar ngecjen e Scribus-it kur një programth përpiqet të lexojë prej stdin.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Use Fake Stdin&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;Normally, scribus will provide Python with a fake file object for &lt;tt&gt;sys.stdin&lt;/tt&gt;, so that reads from stdin always return an empty string. If the real &lt;tt&gt;sys.stdin&lt;/tt&gt; is left in place, scripts that try to read from it will block - and in turn block scribus&apos;s execution, making the app appear to hang - until input arrives on stdin. It&apos;s unusual for GUI apps to expect anything on stdin, so mostly users will think scribus has crashed.&lt;/p&gt;
 &lt;p&gt;You can disable this option if you want to accept input on stdin. Generally you should use &lt;tt&gt;os.popen&lt;/tt&gt; to make a pipe instead, or use some other input mechanism, but this option is here just in case.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Përdor Stdin të Rremë&lt;/tt&gt; është një mundësi e mëtejshme. Mbaset duhet ta lini siç është.&lt;/p&gt;
+&lt;p&gt;Normalisht, Scribus-i do t&apos;i ofrojë Python-it një objekt të rremë kartele për &lt;tt&gt;sys.stdin&lt;/tt&gt;, që leximet prej stdin të kthejnë përherë një varg bosh. Nëse lihet &lt;tt&gt;sys.stdin&lt;/tt&gt; i vërtetë, programthet që përpiqen të lexojnë prej tij do të bllokohen - e kështu do të bllokojnë edhe punën e Scribus-it, duke bërë që zbatimi i tërë të duket sikur ngeci - deri sa të ketë futje në stdin. Është e pazakontë për zbatime GUI të presin diçka në stdin, kështu që shumica e përdoruesve do të mendojnë se Scribus-i u vithis.&lt;/p&gt;
+&lt;p&gt;Mund ta çaktivizoni këtë mundësi nëse doni të pranohen futje prej stdin. Përgjithësisht më mirë do të duhej të përdornit &lt;tt&gt;os.popen&lt;/tt&gt; për të pasur një kanal lidhës, ose përdorni ndonjë mekanizëm tjetër futjesh, por kjo mundësi mbetet këtu për çdo rast.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -18697,11 +19601,11 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     </message>
     <message>
         <source>Stroke Color</source>
-        <translation type="unfinished">Ngjyrë sfondi:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Stroke Shade</source>
-        <translation type="unfinished">Tejdukshmëri me nuancë (hije)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Left</source>
@@ -18769,7 +19673,7 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pastro</translation>
     </message>
 </context>
 <context>
@@ -18949,7 +19853,7 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     </message>
     <message>
         <source>Do you really want to delete this Style?</source>
-        <translation type="unfinished"></translation>
+        <translation>Doni vërtet të fshini këtë Stil?</translation>
     </message>
 </context>
 <context>
@@ -19140,7 +20044,7 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     </message>
     <message>
         <source>&amp;Smart text selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Përzgjedhje e &amp;mençur teksti</translation>
     </message>
 </context>
 <context>
@@ -19174,51 +20078,59 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     <name>SxwDialog</name>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Mundësi Importuesi për OpenOffice.org Writer</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Përditëso stile paragrafësh</translation>
     </message>
     <message>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation type="unfinished"></translation>
+        <translation>Nëse një stil paragrafi me të njëjtin numër si paragrafi i dokumentit OpenOffice.org
+ekziston tashmë, stili në Scribus do të duhej të të përpunohej për përputhje me
+atë të importuar, ose të lihet i paprekur</translation>
     </message>
     <message>
         <source>Pack paragraph styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Paketo stile pargrafësh</translation>
     </message>
     <message>
         <source>Group paragraph styles by attributes.
 Less paragraph styles but controlling them may be hard.
 Should be used if it is known that text must not be edited
 after importing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupo stile paragrafesh sipas atributesh.
+Më pak stile paragrafesh por kontrolli i tyre mund të jetë i vështirë.
+Do të duhej të përdorej nëse dihet që teksti nuk duhet përpunuar
+pas përpunimi.</translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Përdor emra dokumentesh si parashtesë për stile paragrafësh </translation>
     </message>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Nëse do të duhej që importuesi të shtonte emrin e dokumentit
+në ballë të emrit të stilit të paragrafit në Scribus</translation>
     </message>
     <message>
         <source>Do not ask again</source>
-        <translation type="unfinished"></translation>
+        <translation>Mos pyet sërish</translation>
     </message>
     <message>
         <source>Should the importer always use currently
 set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
-        <translation type="unfinished"></translation>
+        <translation>Nëse do të duhej që importuesi të përdorë përherë vlerën
+e vendosur për çastin kur importon dokument OpenOffice.org dhe
+të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -19272,11 +20184,11 @@ never ask your confirmation again</source>
     </message>
     <message>
         <source>Indentation for first line of the paragraph</source>
-        <translation type="unfinished"></translation>
+        <translation>Kryeradhë për rreshtin e parë të paragrafit</translation>
     </message>
     <message>
         <source>Indentation from the left for the whole paragraph</source>
-        <translation type="unfinished"></translation>
+        <translation>Kryeradhë nga e majta për tërë paragrafin</translation>
     </message>
     <message>
         <source>Delete all Tabulators</source>
@@ -19300,7 +20212,7 @@ never ask your confirmation again</source>
     </message>
     <message>
         <source>Left Ind&amp;ent:</source>
-        <translation type="unfinished"></translation>
+        <translation>Krye&amp;radhë Majtas:</translation>
     </message>
 </context>
 <context>
@@ -19384,27 +20296,27 @@ Ju lutem zgjidhni një tjetër.</translation>
     <name>ValueDialog</name>
     <message>
         <source>Insert value</source>
-        <translation type="unfinished"></translation>
+        <translation>Futni vlerë</translation>
     </message>
     <message>
         <source>Enter a value then press OK.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jepni një vlerë e mandej shtypni OK.</translation>
     </message>
     <message>
         <source>Enter a value then press OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Jepni një vlerë e mandej shtypni OK</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Send your value to the script</source>
-        <translation type="unfinished"></translation>
+        <translation>Dërgoni vlerën tuaj te programthi</translation>
     </message>
 </context>
 <context>
@@ -19412,48 +20324,49 @@ Ju lutem zgjidhni një tjetër.</translation>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Fjalë të Shkurtra</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Zbato hapësirë të pandashme në:</translation>
     </message>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Korniza të &amp;Përzgjedhura</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Faqe aktive</translation>
     </message>
     <message>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tërë objektet</translation>
     </message>
     <message>
         <source>&amp;OK</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;Anulo</translation>
+        <translation>&amp;Anulo</translation>
     </message>
     <message>
         <source>&amp;Info and
 Languages</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Të dhëna dhe 
+Gjuhë</translation>
     </message>
     <message>
         <source>Replace defaults by user config</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Zëvendëso parazgjedhje me formësime përdoruesi</translation>
     </message>
     <message>
         <source>When the user config file exists 
@@ -19464,37 +20377,43 @@ to the global configuration by unchecked button.
 You can replace predefined values by yours
 with checked button too.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kur ka kartelë formësimesh përdoruesi
+(%1)
+mund të zgjidhni nëse doni të shtoni formësimin tuaj
+te formësimi i përgjithshëm pa vënë shenjë te butoni.
+
+Mund të zëvendësoni vlerat e parazgjedhura me tuajat
+duke vënë shenjë te butoni.</translation>
     </message>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vetëm korniza të përzgjedhura të përpunuara.</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vetëm faqen aktuale të përpunuar.</translation>
     </message>
     <message>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tërë objektet e përpunuar te dokumenti.</translation>
     </message>
     <message>
         <source>Short Words for Scribus</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Fjalë të Shkurtra për Scribus</translation>
     </message>
     <message>
         <source>Available in the following languages</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Të passhme në gjuhët vijuese</translation>
     </message>
     <message>
         <source>About Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Rreth Fjalësh të Shkurtra</translation>
     </message>
 </context>
 <context>
@@ -19677,21 +20596,23 @@ with checked button too.</source>
     <name>gtImporterDialog</name>
     <message>
         <source>Choose the importer to use</source>
-        <translation type="unfinished">Zgjidhni importuar për t&apos;u përdorur</translation>
+        <translation>Zgjidhni importues për t&apos;u përdorur</translation>
     </message>
     <message>
         <source>Remember association</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbaj mend shoqërimin</translation>
     </message>
     <message>
         <source>Remember the file extension - importer association
 and do not ask again to select an importer for
 files of this type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mbaj mend shoqërimin importues-prapashtesë kartele
+dhe mos pyet sërish për të përzgjedhur një importues për
+kartela të këtij tipi.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -19877,114 +20798,114 @@ template.xml.</translation>
     <name>tfDia</name>
     <message>
         <source>Create filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Krijo filtër</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pastro</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fshi</translation>
     </message>
     <message>
         <source>Choose a previously saved filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Zgjidhni një filtër të ruajtur më parë</translation>
     </message>
     <message>
         <source>Give a name to this filter for saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeoni një emër për ruajtjen e këtij filtri</translation>
     </message>
     <message>
         <source>Give a name for saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeoni një emër për ta ruajtur</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anulo</translation>
+        <translation>&amp;Anulo</translation>
     </message>
 </context>
 <context>
     <name>tfFilter</name>
     <message>
         <source>Disable or enable this filter row</source>
-        <translation type="unfinished"></translation>
+        <translation>Çaktivizoni ose aktivizoni këtë rresht filtri</translation>
     </message>
     <message>
         <source>Remove this filter row</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiq këtë rresht filtri</translation>
     </message>
     <message>
         <source>Add a new filter row</source>
-        <translation type="unfinished"></translation>
+        <translation>Shto një rresht të ri flitri</translation>
     </message>
     <message>
         <source>to</source>
-        <translation type="unfinished"></translation>
+        <translation>te</translation>
     </message>
     <message>
         <source>and</source>
-        <translation type="unfinished"></translation>
+        <translation>dhe</translation>
     </message>
     <message>
         <source>remove match</source>
-        <translation type="unfinished"></translation>
+        <translation>hiq përputhje</translation>
     </message>
     <message>
         <source>do not remove match</source>
-        <translation type="unfinished"></translation>
+        <translation>mos hiq përputhje</translation>
     </message>
     <message>
         <source>words</source>
-        <translation type="unfinished"></translation>
+        <translation>fjalë</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Hiq</translation>
+        <translation>Hiq</translation>
     </message>
     <message>
         <source>Replace</source>
-        <translation type="unfinished"></translation>
+        <translation>Zëvendëso</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished">Zbato</translation>
+        <translation>Zbato</translation>
     </message>
     <message>
         <source>Value at the left is a regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Vlera majtas është shprehje e rregullt</translation>
     </message>
     <message>
         <source>with</source>
-        <translation type="unfinished"></translation>
+        <translation>me</translation>
     </message>
     <message>
         <source>paragraph style</source>
-        <translation type="unfinished"></translation>
+        <translation>stil paragrafi</translation>
     </message>
     <message>
         <source>all instances of</source>
-        <translation type="unfinished"></translation>
+        <translation>tërë hasjet e</translation>
     </message>
     <message>
         <source>all paragraphs</source>
-        <translation type="unfinished"></translation>
+        <translation>tërë paragrafët</translation>
     </message>
     <message>
         <source>paragraphs starting with</source>
-        <translation type="unfinished"></translation>
+        <translation>paragrafë që fillojnë me</translation>
     </message>
     <message>
         <source>paragraphs with less than</source>
-        <translation type="unfinished"></translation>
+        <translation>paragrafë me më pak se</translation>
     </message>
     <message>
         <source>paragraphs with more than</source>
-        <translation type="unfinished"></translation>
+        <translation>paragrfë me më shumë se</translation>
     </message>
 </context>
 </TS>
