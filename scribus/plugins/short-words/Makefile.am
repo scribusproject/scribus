@@ -1,14 +1,4 @@
 pluginsdir = $(libdir)/scribus/plugins
-AM_CPPFLAGS = -I$(prefix)/include/scribus \
-	-s $(LIBFREETYPE_LIBS) \
-	-I$(top_builddir)/scribus \
-	-DDOCDIR=\"$(datadir)/scribus/doc/\" \
-	-DICONDIR=\"$(datadir)/scribus/icons/\" \
-	-DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
-	-DLIBDIR=\"$(libdir)/scribus/\" \
-	-DPLUGINDIR=\"$(libdir)/scribus/plugins/\"
-
-SUBDIRS =
 
 plugins_LTLIBRARIES = libscribusshortwords.la
 
@@ -18,10 +8,24 @@ libscribusshortwords_la_LDFLAGS = -version-info 0:0:0
 libscribusshortwords_la_METASOURCES = AUTO
 libscribusshortwords_la_SOURCES = vlnadialog.cpp parse.cpp shortwords.cpp configuration.cpp version.h
 
-EXTRA_DIST = parse.h vlnadialog.h shortwords.h version.h configuration config.h scribus-short-words.rc
+EXTRA_DIST = parse.h vlnadialog.h shortwords.h version.h configuration.h scribus-short-words.rc
 
 KDE_OPTIONS = qtonly
-AM_LDFLAGS = -s $(LIBFREETYPE_LIBS)
+
+if COMPILE_DEBUG
+ linkflag =
+else
+ linkflag = -s
+endif
+AM_LDFLAGS = $(linkflag) $(LIBFREETYPE_LIBS)
+
+AM_CPPFLAGS = \
+        -I$(top_builddir)/scribus \
+        -DDOCDIR=\"$(datadir)/scribus/doc/\" \
+        -DICONDIR=\"$(datadir)/scribus/icons/\" \
+        -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
+        -DLIBDIR=\"$(libdir)/scribus/\" \
+        -DPLUGINDIR=\"$(libdir)/scribus/plugins/\"
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/plugins/
@@ -29,3 +33,4 @@ install-data-local:
 
 uninstall-local:
 	-rm -f $(prefix)/lib/scribus/plugins/scribus-short-words.rc
+
