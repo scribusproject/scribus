@@ -46,7 +46,7 @@ PyObject *scribus_havedoc(PyObject *self);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_opendoc__doc__,
-    "openDoc(name) -> bool\n\n\
+    "openDoc(\"name\") -> bool\n\n\
 Opens the document \"name\". Returns true if successful.");
 /** Opens a document with given name. */
 PyObject *scribus_opendoc(PyObject *self, PyObject* args);
@@ -59,14 +59,14 @@ PyObject *scribus_savedoc(PyObject *self);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_savedocas__doc__,
-    "saveDocAs(name) -> bool\n\n\
+    "saveDocAs(\"name\") -> bool\n\n\
     Saves the actual Document under the new Name \"name\". Returns true if successful.");
 /** Saves active document with given name */
 PyObject *scribus_savedocas(PyObject *self, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setinfo__doc__,
-    "saveDocAs(author, info, description) -> bool\n\n\
+    "saveDocAs(\"author\", \"info\", \"description\") -> bool\n\n\
 Sets the document information. \"Author\", \"Info\", \"Description\" are strings.\
 Returns true if successful.");
 /** Sets document infos - author, title and description */
@@ -90,7 +90,7 @@ PyObject *scribus_setunit(PyObject *self, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getunit__doc__,
-    "getUnit() -> Scribus typo unit\n\n\
+    "getUnit() -> integer (Scribus typo unit)\n\n\
 Returns the Measurement Unit of the Document.\
 Possible Values for Unit are defined as constants.\
 Constants are:\n\
@@ -100,8 +100,8 @@ PyObject *scribus_getunit(PyObject *self);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_loadstylesfromfile__doc__,
-    "loadStylesFromFile()\n\n\
-    TODO: docstring");
+    "loadStylesFromFile(\"filename\")\n\n\
+Loads styles specified in the \"filename\" document into actual one.");
 /** Loads styles from another .sla file (craig r.)*/
 PyObject *scribus_loadstylesfromfile(PyObject *self, PyObject *args);
 
