@@ -48,7 +48,6 @@ ContentReader::ContentReader(QString documentName, StyleReader *s, gtWriter *w, 
 
 bool ContentReader::startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs) 
 {
-	qDebug("Start element: " + name);
 	if ((name == "text:p") || (name == "text:h"))
 	{
 		append = true;
