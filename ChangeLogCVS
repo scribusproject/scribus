@@ -1,4 +1,9 @@
 Changes since Version 0.9.10
+03.06.2003	scribus.cpp
+		page.cpp
+		pageitem.cpp
+		serializer.cpp		Fixed various Bugs with the Textbox and Styles.
+
 02.06.2003	svgexplugin.cpp		Improved Image Support, Images are now save as PNG-Images in the
 					same Folder as the SVG File.
 		preview.cpp		Added New Plugin for Print Preview.

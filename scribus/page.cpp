@@ -242,7 +242,8 @@ void Page::dropEvent(QDropEvent *e)
   				Serializer *ss = new Serializer(ur.path());
   				if (ss->Read())
   					{
-  					ss->GetText(b, b->Ausrich);
+						int st = doku->CurrentABStil;
+  					ss->GetText(b, st, doku->Vorlagen[st].Font, doku->Vorlagen[st].FontSize);
 						emit DocChanged();
   					}
   				delete ss;
@@ -5546,7 +5547,8 @@ void Page::chFSize(int size)
 					{
 					for (a = 0; a < b->Ptext.count(); ++a)
 						{
-						b->Ptext.at(a)->csize = size;
+						if (b->Ptext.at(a)->cab < 5)
+							b->Ptext.at(a)->csize = size;
 						}
 					}
 				if (b->PType == 8)

@@ -46,7 +46,7 @@ void Serializer::PutText(PageItem *Item)
 	Objekt = Dat;
 }
 
-void Serializer::GetText(PageItem *Item, int Absatz, bool Append)
+void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, bool Append)
 {
 	struct Pti *hg;
 	PageItem *nb;
@@ -76,8 +76,16 @@ void Serializer::GetText(PageItem *Item, int Absatz, bool Append)
 		if (hg->ch == QChar(10)) { hg->ch = QChar(13); }
 		if (hg->ch == QChar(5)) { hg->ch = QChar(13); }
 		if (hg->ch == QChar(9)) { hg->ch = " "; }
-		hg->cfont = Item->IFont;
-		hg->csize = Item->ISize;
+		if (font != "")
+			{
+			hg->cfont = font;
+			hg->csize = size;
+			}
+		else
+			{
+			hg->cfont = Item->IFont;
+			hg->csize = Item->ISize;
+			}
 		hg->ccolor = Item->Pcolor2;
 		hg->cextra = 0;
 		hg->cshade = Item->Shade2;

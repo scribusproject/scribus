@@ -1102,8 +1102,8 @@ NoRoom:	 if (NextBox != 0)
 						}
 					else
 						{
-						if (uint(CPos) > nrc)
-							CPos = nrc;
+//						if (uint(CPos) > nrc)
+//							CPos = nrc;
 						if (!Doc->RePos)
 							{
 							p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
@@ -1313,7 +1313,7 @@ PfadEnd:	MaxChars = Ptext.count();
 					else
 						pr.setPen(QPen(red, 1, DotLine, FlatCap, MiterJoin));
 					pr.setBrush(NoBrush);
-					pr.drawRect(-1, -1, static_cast<int>((Width+1)*Doc->Scale), static_cast<int>((Height+1)*Doc->Scale));
+					pr.drawRect(-1, -1, static_cast<int>(Width*Doc->Scale)+2, static_cast<int>(Height*Doc->Scale)+2);
 					if (Locked)
 						{
 						pr.setPen(QPen(darkRed, 1, SolidLine, FlatCap, MiterJoin));
@@ -1352,7 +1352,7 @@ PfadEnd:	MaxChars = Ptext.count();
 					{
 					p.setPen(QPen(darkCyan, 1, DotLine, FlatCap, MiterJoin));
 					p.setBrush(NoBrush);
-					p.drawRect(-1, -1, static_cast<int>(Width+1), static_cast<int>(Height+1));
+					p.drawRect(-1, -1, static_cast<int>(Width+2), static_cast<int>(Height+2));
 					}
 				}
 			}

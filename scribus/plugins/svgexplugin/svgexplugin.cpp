@@ -271,6 +271,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							ob = docu->createElement("clipPath");
 							ob.setAttribute("id", Clipi+IToStr(ClipCount));
 							ob.setAttribute("clipPathUnits", "userSpaceOnUse");
+							ob.setAttribute("clip-rule", "evenodd");
 							QDomElement cl = docu->createElement("path");
 							cl.setAttribute("d", SetClipPath(Item)+"Z");
 							ob.appendChild(cl);
@@ -280,7 +281,6 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							img.save(fi.baseName()+".png", "PNG");
 							ob = docu->createElement("image");
 							ob.setAttribute("clip-path", "url(#"+Clipi+IToStr(ClipCount)+")");
-							ob.setAttribute("clip-rule", "evenodd");
 							ob.setAttribute("transform", "scale("+FToStr(Item->LocalScX)+", "+FToStr(Item->LocalScY)+") translate("+FToStr(Item->LocalX)+", "+FToStr(Item->LocalY)+")");
 							ob.setAttribute("xlink:href", fi.baseName()+".png");
 							ClipCount++;

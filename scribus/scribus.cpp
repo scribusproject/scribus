@@ -2477,7 +2477,8 @@ void ScribusApp::slotFileOpen()
   			Serializer *ss = new Serializer(fileName);
   			if (ss->Read(LoadEnc))
   				{
-  				ss->GetText(b, doc->CurrentABStil);
+					int st = doc->CurrentABStil;
+  				ss->GetText(b, st, doc->Vorlagen[st].Font, doc->Vorlagen[st].FontSize);
   				}
   			delete ss;
 				if (doc->Trenner->AutoCheck)
@@ -2873,7 +2874,7 @@ void ScribusApp::slotEditCopy()
 		else
 			{
   		ScriXmlDoc *ss = new ScriXmlDoc();
-			Buffer2 = ss->WriteElem(&doc->ActPage->SelItem, doc);
+			BufferI = ss->WriteElem(&doc->ActPage->SelItem, doc);
 			delete ss;
 			}
 		editMenu->setItemEnabled(edid3, 1);
@@ -2935,7 +2936,8 @@ void ScribusApp::slotEditPaste()
 				{
   			Serializer *ss = new Serializer("");
   			ss->Objekt = Buffer2;
-  			ss->GetText(b, doc->CurrentABStil, true);
+				int st = doc->CurrentABStil;
+  			ss->GetText(b, st, doc->Vorlagen[st].Font, doc->Vorlagen[st].FontSize, true);
   			delete ss;
 				if (doc->Trenner->AutoCheck)
 					doc->Trenner->slotHyphenate(b);
