@@ -1,7 +1,9 @@
 #include "muster.h"
 #include "muster.moc"
 #include "newtemp.h"
+#include "mergedoc.h"
 #include <qmessagebox.h>
+#include <qcursor.h>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -23,6 +25,10 @@ MusterSeiten::MusterSeiten( QWidget* parent, ScribusDoc *doc, ScribusView *view,
     Layout2 = new QVBoxLayout; 
     Layout2->setSpacing( 6 );
     Layout2->setMargin( 0 );
+
+    LoadM = new QPushButton( this, "LoadF" );
+    LoadM->setText( tr( "Append" ) );
+    Layout2->addWidget( LoadM );
 
     NewB = new QPushButton( this, "NewB" );
     NewB->setText( tr( "New" ) );
@@ -62,6 +68,7 @@ MusterSeiten::MusterSeiten( QWidget* parent, ScribusDoc *doc, ScribusView *view,
     connect(DuplicateB, SIGNAL(clicked()), this, SLOT(DuplTemp()));
     connect(DeleteB, SIGNAL(clicked()), this, SLOT(DelTemp()));
     connect(NewB, SIGNAL(clicked()), this, SLOT(NewTemp()));
+		connect(LoadM, SIGNAL(clicked()), this, SLOT(loadMpage()));
     connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selTemplate(QListBoxItem*)));
 }
 
@@ -198,6 +205,46 @@ void MusterSeiten::NewTemp()
 			Doc->PageAT = atf;
     	}
     delete dia;
+}
+
+void MusterSeiten::loadMpage()
+{
+  QString nam, nam2;
+  int nr;
+  bool atf;
+	MergeDoc *dia = new MergeDoc(this, true);
+	if (dia->exec())
+		{
+		qApp->setOverrideCursor(QCursor(waitCursor), true);
+   	nr = View->Pages.count();
+		for (uint a=0; a<View->Pages.count(); ++a)
+			{
+			View->Pages.at(a)->parentWidget()->hide();
+			}
+		Doc->PageC = 0;
+		atf = Doc->PageAT;
+		Doc->PageAT = false;
+		emit CreateNew(nr);
+		qApp->processEvents();
+		emit LoadPage(dia->Filename->text(), dia->PageNa->currentItem(), true);
+		qApp->processEvents();
+   	nam = View->Pages.at(nr)->PageNam;
+		nam2 = nam;
+		int copyC = 1;
+    while (View->MasterNames.contains(nam2))
+			{
+			nam2 = tr("Copy #%1 of ").arg(copyC)+nam;
+			copyC++;
+			}
+   	View->MasterNames.insert(nam2, nr);
+		View->Pages.at(nr)->PageNam = nam2;
+		View->Pages.at(nr)->MPageNam = "";
+		View->DrawNew();
+		updateMList(nam2);
+		Doc->PageAT = atf;
+		qApp->setOverrideCursor(QCursor(arrowCursor), true);
+		}
+	delete dia;
 }
 
 void MusterSeiten::selTemplate(QListBoxItem *c)

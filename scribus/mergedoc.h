@@ -17,6 +17,7 @@
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+#include <qcombobox.h>
 
 
 class MergeDoc : public QDialog
@@ -24,7 +25,7 @@ class MergeDoc : public QDialog
     Q_OBJECT
 
 public:
-    MergeDoc( QWidget* parent = 0);
+    MergeDoc( QWidget* parent, bool Mpages);
     ~MergeDoc();
 
     QLabel* textLabel1;
@@ -33,9 +34,11 @@ public:
     QLabel* Inform;
     QLabel* textLabel3;
     QSpinBox* PageNr;
+    QComboBox* PageNa;
     QPushButton* Import;
     QPushButton* Cancel;
     int Count;
+		bool Mpa;
 
 public slots:
 		void ChangeFile();

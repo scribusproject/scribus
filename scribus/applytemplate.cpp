@@ -2,7 +2,7 @@
 #include "applytemplate.moc"
 extern QPixmap loadIcon(QString nam);
 
-ApplyT::ApplyT( QWidget* parent, ScribusView *view)
+ApplyT::ApplyT( QWidget* parent, ScribusView *view, QString Nam)
     : QDialog( parent, "apply", true, 0)
 {
     setCaption( tr( "Apply Template" ) );
@@ -15,10 +15,23 @@ ApplyT::ApplyT( QWidget* parent, ScribusView *view)
     Templ = new QComboBox( true, this, "Templ" );
     Templ->setMinimumSize( QSize( 120, 22 ) );
 		Templ->setEditable(false);
+		QString na, in;
+		if (Nam == "Normal")
+			na = tr("Normal");
+		else
+			na = Nam;
+		int cc = 0;
 		QMap<QString,int>::Iterator it;
 		for (it = view->MasterNames.begin(); it != view->MasterNames.end(); ++it)
 			{
-			it.key() == "Normal" ? Templ->insertItem( tr("Normal")) : Templ->insertItem(it.key());
+			if (it.key() == "Normal")
+				in = tr("Normal");
+			else
+				in = it.key();
+			Templ->insertItem(in);
+			if (in == na)
+				Templ->setCurrentItem(cc);
+			cc++;
 			}
     layout3->addWidget( Templ );
     ApplyTLayout->addLayout( layout3 );

@@ -2,6 +2,8 @@
 #include "lineformats.moc"
 #include "multiline.h"
 #include <qmessagebox.h>
+#include "customfdialog.h"
+#include "scribusXml.h"
 extern QPixmap loadIcon(QString nam);
 
 LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
@@ -23,6 +25,10 @@ LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
     Layout15 = new QVBoxLayout; 
     Layout15->setSpacing( 6 );
     Layout15->setMargin( 0 );
+
+    LoadLS = new QPushButton( this, "LoadF" );
+    LoadLS->setText( tr( "Append" ) );
+    Layout15->addWidget( LoadLS );
 
     NewB = new QPushButton( this, "NewB" );
     NewB->setText( tr( "New" ) );
@@ -58,6 +64,7 @@ LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
     // signals and slots connections
     connect(CancelB, SIGNAL(clicked()), this, SLOT(reject()));
     connect(SaveB, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(LoadLS, SIGNAL(clicked()), this, SLOT(loadLStyles()));
     connect(EditB, SIGNAL(clicked()), this, SLOT(editFormat()));
     connect(NewB, SIGNAL(clicked()), this, SLOT(neuesFormat()));
     connect(DublicateB, SIGNAL(clicked()), this, SLOT(dupFormat()));
@@ -133,6 +140,27 @@ void LineFormate::deleteFormat()
 		TempStyles.remove(sFnumber);
 		UpdateFList();
 		}
+}
+
+void LineFormate::loadLStyles()
+{
+	QString fileName;
+#ifdef HAVE_LIBZ
+	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
+#else
+	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
+#endif
+	if (dia.exec() == QDialog::Accepted)
+		fileName = dia.selectedFile();
+	else
+		return;
+  if (!fileName.isEmpty())
+  	{
+  	ScriXmlDoc *ss = new ScriXmlDoc();
+  	if (ss->ReadLStyles(fileName, &TempStyles))
+			UpdateFList();
+		delete ss;
+  	}
 }
 
 void LineFormate::UpdateFList()

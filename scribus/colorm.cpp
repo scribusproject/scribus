@@ -113,9 +113,9 @@ void Farbmanager::loadFarben()
     			EditColors.insert(it.key(), it.data());
 					}
 				}
-			delete ss;
     	updateCList();
   		}
+		delete ss;
   	}
 }
 

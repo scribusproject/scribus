@@ -17,6 +17,7 @@ public:
     ~LineFormate() {};
 
     QListBox* ListBox1;
+		QPushButton* LoadLS;
     QPushButton* NewB;
     QPushButton* EditB;
     QPushButton* DublicateB;
@@ -34,6 +35,7 @@ public slots:
 		void neuesFormat();
 		void dupFormat();
 		void deleteFormat();
+		void loadLStyles();
 
 protected:
     QHBoxLayout* StilFormateLayout;

@@ -29,6 +29,7 @@ public:
 private:
     void updateMList(QString nam);
     QListBox* ListBox1;
+		QPushButton* LoadM;
     QPushButton* NewB;
     QPushButton* DuplicateB;
     QPushButton* DeleteB;
@@ -42,10 +43,12 @@ private slots:
 		void DuplTemp();
 		void DelTemp();
 		void NewTemp();
+		void loadMpage();
 		void selTemplate(QListBoxItem *c);
 		
 signals:
 		void CreateNew(int);
+		void LoadPage(QString, int, bool);
 		void Fertig();
 		
 protected:

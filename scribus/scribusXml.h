@@ -21,10 +21,11 @@ public:
 	ScriXmlDoc() {};
 	~ScriXmlDoc() {};
 	QString ReadDatei(QString fileName);
+	bool ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty);
 	bool ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs);
 	bool ReadColors(QString fileName);
-	int ReadPageCount(QString fileName);
-	bool ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad);
+	bool ReadPageCount(QString fileName, int *num1, int *num2);
+	bool ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad, bool Mpage);
 	QString WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc);
 	bool ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);
 	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int Xp, int Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, preV *Prefs);
@@ -39,6 +40,7 @@ public:
 									int StPag;
               	};
 	QValueList<Linked> LFrames;
+	QStringList MNames;
 	
 signals:
 	void NewPage(int);

@@ -1861,7 +1861,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				else
 					tmp2 += "1 0 0 -1 "+FToStr(hl->xp)+" "+FToStr((hl->yp - st) * -1)+" cm\n";
 				painter->setupPolygon(&gly);
-				painter->drawUnderline(FPoint(0, tsz-st), FPoint(wid, csi-st), true, &tmp2);
+				painter->drawUnderline(FPoint(0, tsz-st), FPoint(wid, tsz-st), true, &tmp2);
 				tmp2 += "h f Q\n";
 				painter->end();
 				delete painter;
@@ -2246,7 +2246,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 					break;
 				}
 			PutDoc(" >>\n");
-			cnx = "("+ind2PDFabr[ite->AnFont]+" "+IToStr(ite->ISize)+" Tf";
+			cnx = "("+ind2PDFabr[ite->AnFont]+" "+FToStr(ite->ISize / 10.0)+" Tf";
 			if (Options->UseRGB)
 				{
 				if (ite->Pcolor2 != "None")
@@ -2587,7 +2587,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 			}
 #endif
 		cc += ind2PDFabr[ite->AnFont];
-		cc += " "+IToStr(ite->ISize)+" Tf\n";
+		cc += " "+FToStr(ite->ISize / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n"+EncString("("+bm+")",ObjCounter-1)+" Tj\nET\nEMC";
 		PDF_Form(cc);
 		}
@@ -2620,7 +2620,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 #ifdef HAVE_CMS
 			}
 #endif
-		cc += "/ZaDb "+IToStr(ite->ISize)+" Tf\n";
+		cc += "/ZaDb "+FToStr(ite->ISize / 10.0)+" Tf\n";
 		cc += "0 0 Td\n("+ct+") Tj\nET\nQ";
 		PDF_Form(cc);
 		}
@@ -2666,7 +2666,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
 		cc += "/Tx BMC\nq\nBT\n";
 		cc += "0 g\n";
 		cc += ind2PDFabr[ite->AnFont];
-		cc += " "+IToStr(ite->ISize)+" Tf\n";
+		cc += " "+FToStr(ite->ISize / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
 		if (bmst.count() > 0)
 			cc += EncString("("+bmst[0]+")",ObjCounter-1);

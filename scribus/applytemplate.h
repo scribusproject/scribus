@@ -18,7 +18,7 @@ class ApplyT : public QDialog
     Q_OBJECT
 
 public:
-    ApplyT( QWidget* parent, ScribusView *view);
+    ApplyT( QWidget* parent, ScribusView *view, QString Nam);
     ~ApplyT() {};
 
     QLabel* TextLabel1;

@@ -101,6 +101,7 @@ QString DocDir;
 ScribusApp::ScribusApp(SplashScreen *splash)
 {
   setCaption( tr("Scribus " VERSION));
+	setKeyCompression(false);
   setIcon(loadIcon("AppIcon.png"));
   initMenuBar();
   initStatusBar();
@@ -2212,11 +2213,11 @@ bool ScribusApp::slotDocOpen()
 bool ScribusApp::slotDocMerge()
 {
 	bool ret = false;
-	MergeDoc *dia = new MergeDoc(this);
+	MergeDoc *dia = new MergeDoc(this, false);
 	if (dia->exec())
 		{
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
-		ret = LadeSeite(dia->Filename->text(), dia->PageNr->value()-1);
+		ret = LadeSeite(dia->Filename->text(), dia->PageNr->value()-1, false);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 		ret = true;
 		}
@@ -2224,15 +2225,16 @@ bool ScribusApp::slotDocMerge()
 	return ret;
 }
 
-bool ScribusApp::LadeSeite(QString fileName, int Nr)
+bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 {
 	bool ret = false;
   if (!fileName.isEmpty())
   	{
-		doc->OpenNodes = Tpal->buildReopenVals();
+		if (!Mpa)
+			doc->OpenNodes = Tpal->buildReopenVals();
 		doc->loading = true;
   	ScriXmlDoc *ss = new ScriXmlDoc();
-  	if(!ss->ReadPage(fileName, Prefs.AvailFonts, doc, view, Nr))
+  	if(!ss->ReadPage(fileName, Prefs.AvailFonts, doc, view, Nr, Mpa))
   		{
   		delete ss;
 			doc->loading = false;
@@ -2257,8 +2259,11 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr)
 		Mpal->updateCList();
 		Mpal->Spal->SetFormats(doc);
 		Mpal->SetLineFormats(doc);
-		Tpal->BuildTree(view);
-		Tpal->reopenTree(doc->OpenNodes);
+		if (!Mpa)
+			{
+			Tpal->BuildTree(view);
+			Tpal->reopenTree(doc->OpenNodes);
+			}
 		slotDocCh();
 		doc->loading = false;
 		ret = true;
@@ -5744,6 +5749,7 @@ void ScribusApp::ManageTemp(QString temp)
 {
 	MusterSeiten *dia = new MusterSeiten(this, doc, view, temp);
 	connect(dia, SIGNAL(CreateNew(int)), this, SLOT(slotNewPageT(int)));
+	connect(dia, SIGNAL(LoadPage(QString, int, bool)), this, SLOT(LadeSeite(QString, int, bool)));
 	connect(dia, SIGNAL(Fertig()), this, SLOT(ManTempEnd()));
 	for (uint a=0; a<5; ++a)
 		{
@@ -5802,7 +5808,7 @@ void ScribusApp::ManTempEnd()
 void ScribusApp::ApplyTemp()
 {
 	QString mna;
-	ApplyT *dia = new ApplyT(this, view);
+	ApplyT *dia = new ApplyT(this, view, doc->ActPage->MPageNam);
 	if (dia->exec())
 		{
 		mna = dia->Templ->currentText();

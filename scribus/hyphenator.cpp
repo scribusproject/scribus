@@ -126,6 +126,7 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 		return;
 	if (!Sap->Sprachen.contains(it->Language))
 		return;
+	uint maxC = it->Ptext.count() - 1;
 	QString found = text;
 	if (static_cast<int>(found.length()) > MinWordLen)
 		{
@@ -138,14 +139,14 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 			{
 			uint i = 0;
 	  	buffer[strlen(word)] = '\0';
-			for (i = 1; i < strlen(word)-1; ++i)
+			for (i = 1; i < found.length()-1; ++i)
 				{
-				it->Ptext.at(i+firstC)->cstyle &= 127;		// Delete any old Hyphens
+				it->Ptext.at(QMIN(maxC, i+firstC))->cstyle &= 127;		// Delete any old Hyphens
 				}
-			for (i = 1; i < strlen(word)-1; ++i)
+			for (i = 1; i < found.length()-1; ++i)
 				{
 				if(buffer[i] & 1)
-					it->Ptext.at(i+firstC)->cstyle ^= 128;	// Set new Hyphens according Buffer
+					it->Ptext.at(QMIN(maxC, i+firstC))->cstyle ^= 128;	// Set new Hyphens according Buffer
 				}
 			}
 		free(buffer);
@@ -192,6 +193,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	int Ccount = 0;
 	QString found = "";
 	QString found2 = "";
+	uint maxC = it->Ptext.count() - 1;
   qApp->setOverrideCursor(QCursor(waitCursor), true);
 	while ((firstC+Ccount < static_cast<int>(text.length())) && (firstC != -1) && (lastC < static_cast<int>(text.length())))
 		{
@@ -215,12 +217,12 @@ void Hyphenator::slotHyphenate(PageItem* it)
 				{
 	  		uint i = 0;
   			buffer[strlen(word)] = '\0';
-				for (i = 1; i < strlen(word)-1; ++i)
+				for (i = 1; i < found.length()-1; ++i)
 					{
-					it->Ptext.at(i+firstC)->cstyle &= 127;		// Delete any old Hyphens
+					it->Ptext.at(QMIN(maxC, i+firstC))->cstyle &= 127;		// Delete any old Hyphens
 					}
 				bool hasHyphen = false;
-				for (i = 1; i < strlen(word)-1; ++i)
+				for (i = 1; i < found.length()-1; ++i)
 					{
 					if(buffer[i] & 1)
 						{
@@ -234,7 +236,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						{
 						QString outs = "";
 						outs += found2[0];
-						for (i = 1; i < strlen(word)-1; ++i)
+						for (i = 1; i < found.length()-1; ++i)
 							{
 							outs += found2[i];
 							if(buffer[i] & 1)
@@ -252,7 +254,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 								{
 								QChar cht = outs[i];
 								if (cht == "-")
-									it->Ptext.at(ii+firstC)->cstyle ^= 128;	// Set new Hyphens according Buffer
+									it->Ptext.at(QMIN(maxC, ii+firstC))->cstyle ^= 128;	// Set new Hyphens according Buffer
 								else
 									ii++;
 								}
@@ -268,10 +270,10 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						}
 					else
 						{
-						for (i = 1; i < strlen(word)-1; ++i)
+						for (i = 1; i < found.length()-1; ++i)
 							{
 							if(buffer[i] & 1)
-								it->Ptext.at(i+firstC)->cstyle ^= 128;	// Set new Hyphens according Buffer
+								it->Ptext.at(QMIN(maxC, i+firstC))->cstyle ^= 128;	// Set new Hyphens according Buffer
 							}
 	  				}
 					}

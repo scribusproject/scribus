@@ -163,25 +163,34 @@ void StilFormate::loadStyles()
   if (!fileName.isEmpty())
   	{
   	ScriXmlDoc *ss = new ScriXmlDoc();
+		ss->Vorlagen.clear();
+		for (uint x = 5; x < TempVorl.count(); ++x)
+			{
+			ss->Vorlagen.append(TempVorl[x]);
+			}
+		uint old = TempVorl.count()-5;
   	if (ss->ReadStyles(fileName, Docu, fon))
   		{
-			for (uint xx=0; xx<ss->Vorlagen.count(); ++xx)
+			if (ss->Vorlagen.count() > old)
 				{
-		   	struct StVorL sty;
-		   	sty.Vname = ss->Vorlagen[xx].Vname;
-		   	sty.LineSpa = ss->Vorlagen[xx].LineSpa;
-		   	sty.Ausri = ss->Vorlagen[xx].Ausri;
-		   	sty.Indent = ss->Vorlagen[xx].Indent;
-		   	sty.First = ss->Vorlagen[xx].First;
-		   	sty.Avor = ss->Vorlagen[xx].Avor;
-		   	sty.Anach = ss->Vorlagen[xx].Anach;
-		   	sty.Font = ss->Vorlagen[xx].Font;
-		   	sty.FontSize = ss->Vorlagen[xx].FontSize;
-		   	TempVorl.append(sty);
+				for (uint xx=old; xx<ss->Vorlagen.count(); ++xx)
+					{
+			   	struct StVorL sty;
+			   	sty.Vname = ss->Vorlagen[xx].Vname;
+			   	sty.LineSpa = ss->Vorlagen[xx].LineSpa;
+			   	sty.Ausri = ss->Vorlagen[xx].Ausri;
+			   	sty.Indent = ss->Vorlagen[xx].Indent;
+			   	sty.First = ss->Vorlagen[xx].First;
+			   	sty.Avor = ss->Vorlagen[xx].Avor;
+			   	sty.Anach = ss->Vorlagen[xx].Anach;
+			   	sty.Font = ss->Vorlagen[xx].Font;
+			   	sty.FontSize = ss->Vorlagen[xx].FontSize;
+			   	TempVorl.append(sty);
+					}
 				}
-			delete ss;
 			UpdateFList();
   		}
+		delete ss;
   	}
 }
 

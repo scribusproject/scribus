@@ -72,6 +72,60 @@ return ff;
 /** end changes */
 }
 
+bool ScriXmlDoc::ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty)
+{
+	QDomDocument docu("scridoc");
+	QString f = "";
+	f = ReadDatei(fileName);
+	if (f == "")
+		return false;
+	if(!docu.setContent(f))
+		return false;
+	QDomElement elem=docu.documentElement();
+	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
+		return false;
+	QDomNode DOC=elem.firstChild();
+	while(!DOC.isNull())
+		{
+		QDomElement dc=DOC.toElement();
+		QDomNode PAGE=DOC.firstChild();
+		while(!PAGE.isNull())
+			{
+			QDomElement pg=PAGE.toElement();
+			if(pg.tagName()=="MultiLine")
+				{
+				multiLine ml;
+				QDomNode MuLn = PAGE.firstChild();
+				while(!MuLn.isNull())
+					{
+					QDomElement MuL = MuLn.toElement();
+					struct singleLine sl;
+					sl.Color = MuL.attribute("Color");
+					sl.Dash = QStoInt(MuL.attribute("Dash"));
+					sl.LineEnd = QStoInt(MuL.attribute("LineEnd"));
+					sl.LineJoin = QStoInt(MuL.attribute("LineJoin"));
+					sl.Shade = QStoInt(MuL.attribute("Shade"));
+					sl.Width = QStodouble(MuL.attribute("Width"));
+					ml.push_back(sl);
+					MuLn = MuLn.nextSibling();
+					}
+				QString Nam = pg.attribute("Name");
+				QString Nam2 = Nam;
+				int copyC = 1;
+				while (Sty->contains(Nam2))
+					{
+					Nam2 = tr("Copy #%1 of ").arg(copyC)+Nam;
+					copyC++;
+					}
+				Sty->insert(Nam2, ml);
+				}
+			PAGE=PAGE.nextSibling();
+			}
+		DOC=DOC.nextSibling();
+		}
+	return true;
+}
+
 bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs)
 {
 	struct StVorL vg;
@@ -81,7 +135,6 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs)
 	QString tmpf;
 	QFont fo;
 	bool fou;
-	Vorlagen.clear();
 	DoFonts.clear();
 	f = ReadDatei(fileName);
 	if (f == "")
@@ -154,7 +207,29 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs)
 							}
 						else
 							{
-							vg.Vname = "Copy of "+Vorlagen[xx].Vname;
+							QString Nam = vg.Vname;
+							QString Nam2 = Nam;
+							bool fou2 = false;
+							int copyC = 1;
+							do
+								{
+								fou2 = false;
+								for (uint vv=0; vv<Vorlagen.count(); ++vv)
+									{
+									if (Nam2 == Vorlagen[vv].Vname)
+										{
+										fou2 = true;
+										break;
+										}
+									}
+								if (fou2)
+									Nam2 = tr("Copy #%1 of ").arg(copyC)+Nam;
+								else
+									break;
+								copyC++;
+								}
+							while (fou2);
+							vg.Vname = Nam2;
 							fou = false;
 							}
 						break;
@@ -207,20 +282,22 @@ bool ScriXmlDoc::ReadColors(QString fileName)
 	return true;
 }
 
-int ScriXmlDoc::ReadPageCount(QString fileName)
+bool ScriXmlDoc::ReadPageCount(QString fileName, int *num1, int *num2)
 {
 QString PgNam;
 int counter = 0;
+int counter2 = 0;
+MNames.clear();
 QDomDocument docu("scridoc");
 QString f = "";
 f = ReadDatei(fileName);
 if (f == "")
-	return 0;
+	return false;
 if(!docu.setContent(f))
-	return 0;
+	return false;
 QDomElement elem=docu.documentElement();
 if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
-	return 0;
+	return false;
 QDomNode DOC=elem.firstChild();
 while(!DOC.isNull())
 	{
@@ -233,15 +310,22 @@ while(!DOC.isNull())
 			PgNam = pg.attribute("NAM", "");
 			if (PgNam == "")
 				counter++;
+			else
+				{
+				counter2++;
+				MNames.append(PgNam);
+				}
 			}
 		PAGE=PAGE.nextSibling();
 		}
 	DOC=DOC.nextSibling();
 	}
-return counter;
+*num1 = counter;
+*num2 = counter2;
+return true;
 }
 
-bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad)
+bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad, bool Mpage)
 {
 struct CLBuf OB;
 struct StVorL vg;
@@ -362,7 +446,29 @@ while(!DOC.isNull())
 						}
 					else
 						{
-						vg.Vname = "Copy of "+doc->Vorlagen[xx].Vname;
+						QString Nam = vg.Vname;
+						QString Nam2 = Nam;
+						bool fou2 = false;
+						int copyC = 1;
+						do
+							{
+							fou2 = false;
+							for (uint vv=0; vv<doc->Vorlagen.count(); ++vv)
+								{
+								if (Nam2 == doc->Vorlagen[vv].Vname)
+									{
+									fou2 = true;
+									break;
+									}
+								}
+							if (fou2)
+								Nam2 = tr("Copy #%1 of ").arg(copyC)+Nam;
+							else
+								break;
+							copyC++;
+							}
+						while (fou2);
+						vg.Vname = Nam2;
 						fou = false;
 						}
 					break;
@@ -425,14 +531,32 @@ while(!DOC.isNull())
 				ml.push_back(sl);
 				MuLn = MuLn.nextSibling();
 				}
-			doc->MLineStyles.insert(pg.attribute("Name"), ml);
+			QString Nam = pg.attribute("Name");
+			QString Nam2 = Nam;
+			int copyC = 1;
+			while (doc->MLineStyles.contains(Nam2))
+				{
+				Nam2 = tr("Copy #%1 of ").arg(copyC)+Nam;
+				copyC++;
+				}
+			doc->MLineStyles.insert(Nam2, ml);
 			}
 		if ((pg.tagName()=="PAGE") && (QStoInt(pg.attribute("NUM")) == PageToLoad))
 			{
+			a = doc->ActPage->PageNr;
+			if ((pg.attribute("NAM", "") == "") && (Mpage))
+				{
+				PAGE=PAGE.nextSibling();
+				continue;
+				}
+			if (Mpage)
+				{
+				view->Pages.at(a)->LeftPg=QStoInt(pg.attribute("LEFT","0"));
+				view->Pages.at(a)->PageNam = pg.attribute("NAM","");
+				}
 			/*
 			* Attribute von PAGE auslesen
 			*/
-			a = doc->ActPage->PageNr;
 			if ((pg.hasAttribute("NumVGuides")) && (QStoInt(pg.attribute("NumVGuides","0")) != 0))
 				{
 				tmp = pg.attribute("VerticalGuides");
@@ -731,7 +855,8 @@ while(!DOC.isNull())
 //					Itr->paintObj();
 					}
 				}
-			view->reformPages();
+			if (!Mpage)
+				view->reformPages();
 			return true;
 			}
 		PAGE=PAGE.nextSibling();

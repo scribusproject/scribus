@@ -1,4 +1,10 @@
 Changes since Version 1.1.3
+01.12.2003	Fixed crash when holding down a key whilst editing a Textframe.
+		Improved import of Template Pages, Line Styles and Styles.
+		Fixed PDF-Export Issues.
+
+30.11.2003	Template Pages and Line Styles can now imported too.
+
 29.11.2003	Added Button for importing Styles for other Documents to the Style Editor.
 		You can now switch Blackpoint Compensation on or off in the CMS Preferences.
 

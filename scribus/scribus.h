@@ -195,7 +195,7 @@ class ScribusApp : public QMainWindow
     /** generate a new document in the actual view */
     bool slotFileNew();
     bool slotDocMerge();
-    bool LadeSeite(QString fileName, int Nr);
+    bool LadeSeite(QString fileName, int Nr, bool Mpa);
     /** open a document */
     void slotFileOpen();
     /** open a document */

@@ -326,7 +326,7 @@ void StoryEditor::Do_leave()
 	if (TextChanged)
 		{
 		int t = QMessageBox::warning(this, tr("Warning"),
-  														 	tr("Do you really want to loose all your Changes?"),
+  														 	tr("Do you really want to lose all your Changes?"),
                          			 	QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
   	if (t == QMessageBox::No)
 			return;
