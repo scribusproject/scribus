@@ -907,7 +907,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						QString name = it.attribute("NAME");
 						double ramp = QStodouble(it.attribute("RAMP","0.0"));
 						int shade = QStoInt(it.attribute("SHADE","100"));
-						OB.fill_gradient.addStop(SetFarbe(doc, name, shade), ramp, 0.5, 1.0, name, shade);
+						double opa = QStodouble(it.attribute("TRANS","1"));
+						OB.fill_gradient.addStop(SetFarbe(doc, name, shade), ramp, 0.5, opa, name, shade);
 					}
 					if (it.tagName()=="ITEXT")
 					{
@@ -1622,7 +1623,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 							QString name = it.attribute("NAME");
 							double ramp = QStodouble(it.attribute("RAMP","0.0"));
 							int shade = QStoInt(it.attribute("SHADE","100"));
-							OB.fill_gradient.addStop(SetFarbe(doc, name, shade), ramp, 0.5, 1.0, name, shade);
+							double opa = QStodouble(it.attribute("TRANS","1"));
+							OB.fill_gradient.addStop(SetFarbe(doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
 						if (it.tagName()=="ITEXT")
 						{
@@ -2238,7 +2240,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 					QString name = it.attribute("NAME");
 					double ramp = QStodouble(it.attribute("RAMP","0.0"));
 					int shade = QStoInt(it.attribute("SHADE","100"));
-					OB.fill_gradient.addStop(SetFarbe(doc, name, shade), ramp, 0.5, 1.0, name, shade);
+					double opa = QStodouble(it.attribute("TRANS","1"));
+					OB.fill_gradient.addStop(SetFarbe(doc, name, shade), ramp, 0.5, opa, name, shade);
 				}
 				if (it.tagName()=="ITEXT")
 				{
@@ -2405,6 +2408,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 				itcl.setAttribute("RAMP", cstops.at(cst)->rampPoint);
 				itcl.setAttribute("NAME", cstops.at(cst)->name);
 				itcl.setAttribute("SHADE", cstops.at(cst)->shade);
+				itcl.setAttribute("TRANS", cstops.at(cst)->opacity);
 				ob.appendChild(itcl);
 			}
 			ob.setAttribute("GRSTARTX", item->GrStartX);
@@ -2798,6 +2802,7 @@ void ScriXmlDoc::WritePages(ScribusView *view, QDomDocument docu, QDomElement dc
 					itcl.setAttribute("RAMP", cstops.at(cst)->rampPoint);
 					itcl.setAttribute("NAME", cstops.at(cst)->name);
 					itcl.setAttribute("SHADE", cstops.at(cst)->shade);
+					itcl.setAttribute("TRANS", cstops.at(cst)->opacity);
 					ob.appendChild(itcl);
 				}
 				ob.setAttribute("GRSTARTX", item->GrStartX);

@@ -33,7 +33,7 @@
 
 class PDFlib : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
 	PDFlib();
@@ -44,13 +44,14 @@ public:
 	void PDF_TemplatePage(Page* pag);
 	void PDF_ProcessPage(Page* pag, uint PNr);
 	void PDF_End_Doc(QString PrintPr = "", QString Name = "", int Components = 0);
-	struct GlNamInd { 
-			 uint Code;
-			 QString Name;
-			};
+	struct GlNamInd
+	{
+		uint Code;
+		QString Name;
+	};
 	typedef QMap<uint, GlNamInd> GListeInd;
 	QMap<QString, GListeInd> GlyphsIdxOfFont;
-	
+
 private:
 	QString EncStream(QString *in, int ObjNum);
 	QString EncString(QString in, int ObjNum);
@@ -71,10 +72,11 @@ private:
 	QByteArray ComputeMD5(QString in);
 	void PDF_Bookmark(int nr, double ypos);
 	void PDF_Gradient(PageItem *b);
+	void PDF_DoLinGradient(PageItem *b, QValueList<double> Stops, QStringList Colors);
 	void PDF_Transparenz(PageItem *b);
 	void PDF_Annotation(PageItem *ite, uint PNr);
 	void PDF_Form(QString im);
-  void PDF_xForm(double w, double h, QString im);
+	void PDF_xForm(double w, double h, QString im);
 	void PDF_Image(bool inver, QString fn, double sx, double sy, double x, double y, bool fromAN = false, QString Profil = "", bool Embedded = false, int Intent = 1);
 	QString Inhalt;
 	ScribusDoc* doc;
@@ -84,55 +86,67 @@ private:
 	BookMView* Bvie;
 	QFile Spool;
 	int Dokument;
-	struct Dest {
-			QString Name;
-			int Seite;
-			QString Act;
-			};
-	struct Cata { 
-			int Outlines;
-			int PageTree;
-			int Dest;
-			} Catalog;
-	struct PagT { 
-			QValueList<int> Kids;
-			int Count;
-			} PageTree;
-	struct PagL { 
-			int ObjNum;
-			int Thumb;
-			QMap<QString,int> XObjects;
-			QMap<QString,int> FObjects;
-			QValueList<int> AObjects;
-			QValueList<int> FormObjects;
-			} Seite;
-	struct OutL { 
-			int First;
-			int Last;
-			int Count;
-			} Outlines;
-	struct Bead { 
-			int Parent;
-			int Next;
-			int Prev;
-			int Page;
-			QRect Recht;
-			};
-	struct ICCD { 
-			int ResNum;
-			QString ResName;
-			QString ICCArray;
-			};
-	struct ShIm {
-			int ResNum;
-			int Width;
-			int Height;
-			double aufl;
-			double sxa;
-			double sya;
-			double xa;
-			double ya;
-			};
+	struct Dest
+	{
+		QString Name;
+		int Seite;
+		QString Act;
+	};
+	struct Cata
+	{
+		int Outlines;
+		int PageTree;
+		int Dest;
+	}
+	Catalog;
+	struct PagT
+	{
+		QValueList<int> Kids;
+		int Count;
+	}
+	PageTree;
+	struct PagL
+	{
+		int ObjNum;
+		int Thumb;
+		QMap<QString,int> XObjects;
+		QMap<QString,int> FObjects;
+		QValueList<int> AObjects;
+		QValueList<int> FormObjects;
+	}
+	Seite;
+	struct OutL
+	{
+		int First;
+		int Last;
+		int Count;
+	}
+	Outlines;
+	struct Bead
+	{
+		int Parent;
+		int Next;
+		int Prev;
+		int Page;
+		QRect Recht;
+	};
+	struct ICCD
+	{
+		int ResNum;
+		QString ResName;
+		QString ICCArray;
+	};
+	struct ShIm
+	{
+		int ResNum;
+		int Width;
+		int Height;
+		double aufl;
+		double sxa;
+		double sya;
+		double xa;
+		double ya;
+	};
 	QMap<QString,ShIm> SharedImages;
 	QValueList<uint> XRef;
 	QValueList<Dest> NamedDest;

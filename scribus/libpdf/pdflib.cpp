@@ -2279,81 +2279,159 @@ void PDFlib::PDF_Gradient(PageItem *b)
 	double h = -b->Height;
 	double w2 = w / 2.0;
 	double h2 = h / 2.0;
-	double rad = QMIN(w, fabs(h)) / 2.0;
-	StartObj(ObjCounter);
-	QString ShName = ResNam+IToStr(ResCount);
-	Shadings[ShName] = ObjCounter;
-	ResCount++;
-	ObjCounter++;
-	PutDoc("<<\n");
-	PutDoc(b->GrType == 5 ? "/ShadingType 3\n" : "/ShadingType 2\n");
-	if (Options->UseRGB)
-		PutDoc("/ColorSpace /DeviceRGB\n");
-	else
-#ifdef HAVE_CMS
-	{
-		if ((CMSuse) && (Options->UseProfiles))
-			PutDoc("/ColorSpace "+ICCProfiles[Options->SolidProf].ICCArray+"\n");
-		else
-#endif
-		PutDoc("/ColorSpace /DeviceCMYK\n");
-#ifdef HAVE_CMS
-	}
-#endif
+	double StartX, StartY, EndX, EndY;
+	QValueList<double> StopVec;
+	QStringList Gcolors;
+	QPtrVector<VColorStop> cstops = b->fill_gradient.colorStops();
 	switch (b->GrType)
 	{
 		case 1:
-			PutDoc("/Coords [0 "+FToStr(h / 2.0)+" "+FToStr(w)+" "+FToStr(h / 2.0)+"]\n");
+			StartX = 0;
+			StartY = h2;
+			EndX = w;
+			EndY = h2;
 			break;
 		case 2:
-			PutDoc("/Coords ["+FToStr(w / 2.0)+" 0 "+FToStr(w / 2.0)+" "+FToStr(h)+"]\n");
+			StartX = w2;
+			StartY = 0;
+			EndX = w2;
+			EndY = h;
 			break;
 		case 3:
-			PutDoc("/Coords [0 0 "+FToStr(w)+" "+FToStr(h)+"]\n");
+			StartX = 0;
+			StartY = 0;
+			EndX = w;
+			EndY = h;
 			break;
 		case 4:
-			PutDoc("/Coords ["+FToStr(w)+" 0 0 "+FToStr(h)+"]\n");
+			StartX = 0;
+			StartY = h;
+			EndX = w;
+			EndY = 0;
 			break;
 		case 5:
-			PutDoc("/Coords ["+FToStr(w2)+" "+FToStr(h2)+" 0 "+FToStr(w2)+" "+FToStr(h2)+" "+FToStr(rad)+"]\n");
+			StartX = w2;
+			StartY = h2;
+			if (w >= h)
+			{
+				EndX = w;
+				EndY = h2;
+			}
+			else
+			{
+				EndX = w2;
+				EndY = h;
+			}
 			break;
 		case 6:
-			PutDoc("/Coords ["+FToStr(b->GrEndX)+" "+FToStr(-b->GrEndY)+"  "+FToStr(b->GrStartX)+" "+FToStr(-b->GrStartY)+"]\n");
+		case 7:
+			StartX = b->GrStartX;
+			StartY = b->GrStartY;
+			EndX = b->GrEndX;
+			EndY = b->GrEndY;
 			break;
 	}
-	PutDoc("/BBox [0 "+FToStr(h)+" "+FToStr(w)+" 0]\n");
-	PutDoc("/Background ["+SetFarbe(b->Pcolor, b->Shade)+"]\n");
-	if ((b->GrType == 5) || (b->GrType == 6))
-		PutDoc("/Extend [true true]\n");
-	else
-		PutDoc( "/Extend [false false]\n");
-	PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
-	bool t = b->GrType > 3 ? true : false;
-	PutDoc("/C0 [" + 
-		SetFarbe((t == true ? b->GrColor : b->GrColor2), (t == true ? b->GrShade : b->GrShade2)) +
-			 "]\n");
-	PutDoc("/C1 [" + 
-		SetFarbe((t == true ? b->GrColor2 : b->GrColor), (t == true ? b->GrShade2 : b->GrShade)) +
-			"]\n");
-	PutDoc("/N 1\n>>\n>>\nendobj\n");
-	PutPage("q\n");
-	PutPage(SetClipPath(b));
-	PutPage("h\nW* n\n");
-	if (b->GrType == 5)
+	if ((b->GrType == 5) || (b->GrType == 7))
 	{
-		QString sca = FToStr(w2 / rad)+" 0 0 "+FToStr(fabs(h2) / rad)+" ";
-		if (w > fabs(h))
-			sca += "-"+FToStr(w2*(w2 / rad)-w2)+" 0";
+		StopVec.clear();
+		for (uint cst = 0; cst < b->fill_gradient.Stops(); ++cst)
+		{
+			StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
+			Gcolors.prepend(SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade));
+		}
+	}
+	else
+	{
+		StopVec.clear();
+		for (uint cst = 0; cst < b->fill_gradient.Stops(); ++cst)
+		{
+			QWMatrix ma;
+			ma.translate(StartX, StartY);
+			ma.rotate(atan2(EndY - StartY, EndX - StartX)*(180.0/3.1415927));
+			double w2 = sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint;
+			double x = ma.m11() * w2 + ma.dx();
+			double y = ma.m12() * w2 + ma.dy();
+			StopVec.append(x);
+			StopVec.append(y);
+			Gcolors.append(SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade));
+		}
+	}
+	PDF_DoLinGradient(b, StopVec, Gcolors);
+}
+
+void PDFlib::PDF_DoLinGradient(PageItem *b, QValueList<double> Stops, QStringList Colors)
+{
+	bool first = true;
+	double w = b->Width;
+	double h = -b->Height;
+	double w2 = w / 2.0;
+	double h2 = h / 2.0;
+	for (uint c = 0; c < Colors.count()-1; ++c)
+	{
+		StartObj(ObjCounter);
+		QString ShName = ResNam+IToStr(ResCount);
+		Shadings[ShName] = ObjCounter;
+		ResCount++;
+		ObjCounter++;
+		PutDoc("<<\n");
+		if ((b->GrType == 5) || (b->GrType == 7))
+			PutDoc("/ShadingType 3\n");
+		else
+			PutDoc("/ShadingType 2\n");
+		if (Options->UseRGB)
+			PutDoc("/ColorSpace /DeviceRGB\n");
+		else
+#ifdef HAVE_CMS
+		{
+			if ((CMSuse) && (Options->UseProfiles))
+				PutDoc("/ColorSpace "+ICCProfiles[Options->SolidProf].ICCArray+"\n");
+			else
+#endif
+			PutDoc("/ColorSpace /DeviceCMYK\n");
+#ifdef HAVE_CMS
+		}
+#endif
+		PutDoc("/BBox [0 "+FToStr(h)+" "+FToStr(w)+" 0]\n");
+		if ((b->GrType == 5) || (b->GrType == 7))
+		{
+			PutDoc("/Coords ["+FToStr(w2)+" "+FToStr(h2)+" "+FToStr((*Stops.at(c+1)))+" "+FToStr(w2)+" "+FToStr(h2)+" "+FToStr((*Stops.at(c)))+"]\n");
+			if (first)
+				PutDoc("/Extend [false true]\n");
+			else
+			{
+				if (c == Colors.count()-2)
+					PutDoc("/Extend [true false]\n");
+				else
+					PutDoc("/Extend [false false]\n");
+			}
+			first = false;
+			PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
+			PutDoc("/C0 ["+Colors[c+1]+"]\n");
+			PutDoc("/C1 ["+Colors[c]+"]\n");
+		}
 		else
 		{
-			if (w < fabs(h))
-				sca += "0 "+FToStr(fabs(h2)*(fabs(h2) /rad)-fabs(h2));
+			PutDoc("/Coords ["+FToStr((*Stops.at(c*2)))+"  "+FToStr((*Stops.at(c*2+1)))+" "+FToStr((*Stops.at(c*2+2)))+" "+FToStr((*Stops.at(c*2+3)))+"]\n");
+			if (first)
+				PutDoc("/Extend [true false]\n");
 			else
-				sca += "0 0";
+			{
+				if (c == Colors.count()-2)
+					PutDoc("/Extend [false true]\n");
+				else
+					PutDoc("/Extend [false false]\n");
+			}
+			first = false;
+			PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
+			PutDoc("/C0 ["+Colors[c]+"]\n");
+			PutDoc("/C1 ["+Colors[c+1]+"]\n");
 		}
-		PutPage(sca+" cm\n");
+		PutDoc("/N 1\n>>\n>>\nendobj\n");
+		PutPage("q\n");
+		PutPage(SetClipPath(b));
+		PutPage("h\nW* n\n");
+		PutPage("/"+ShName+" sh\nQ\n");
 	}
-	PutPage("/"+ShName+" sh\nQ\n");
 }
 
 void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)

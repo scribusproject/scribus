@@ -716,7 +716,7 @@ void ScPainter::applyGradient( ArtSVP *svp, bool fill )
 		art_free( radial->stops );
 		art_free( radial );
 	}
-	else if( gradient.type() == VGradient::conic )
+/*	else if( gradient.type() == VGradient::conic )
 	{
 		ArtGradientConical *conical = art_new( ArtGradientConical, 1 );
 
@@ -751,12 +751,12 @@ void ScPainter::applyGradient( ArtSVP *svp, bool fill )
 			int opacity = static_cast<int>( opa * 255.0 );
 			art_render_svp( render, svp );
 			art_render_mask_solid (render, (opacity << 8) + opacity + (opacity >> 7));
-			art_karbon_render_gradient_conical( render, conical, ART_FILTER_NEAREST );
+			art_ksvg_render_gradient_conical( render, conical, ART_FILTER_NEAREST );
 			art_render_invoke( render );
 		}
 		art_free( conical->stops );
 		art_free( conical );
-	}
+	} */
 }
 
 

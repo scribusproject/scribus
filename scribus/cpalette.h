@@ -94,6 +94,7 @@ public slots:
 	void changeSpecial();
 	void setActShade();
 	void setActTrans(double, double);
+	void setGradTrans(double val);
 	void slotTrans(int val);
 	void UseTrans(bool b);
 	void UnitChange(double old, double neww, int ein);

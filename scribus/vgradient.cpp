@@ -126,3 +126,17 @@ void VGradient::removeStop( uint n )
 {
 	m_colorStops.remove( n );
 }
+
+void VGradient::transform( const QWMatrix &m )
+{
+	double mx, my;
+	mx = m.m11() * m_origin.x() + m.m21() * m_origin.y() + m.dx();
+	my = m.m22() * m_origin.y() + m.m12() * m_origin.x() + m.dy();
+	m_origin = FPoint(mx, my);
+	mx = m.m11() * m_focalPoint.x() + m.m21() * m_focalPoint.y() + m.dx();
+	my = m.m22() * m_focalPoint.y() + m.m12() * m_focalPoint.x() + m.dy();
+	m_focalPoint = FPoint(mx, my);
+	mx = m.m11() * m_vector.x() + m.m21() * m_vector.y() + m.dx();
+	my = m.m22() * m_vector.y() + m.m12() * m_vector.x() + m.dy();
+	m_vector = FPoint(mx, my);
+}

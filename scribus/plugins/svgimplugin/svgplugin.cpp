@@ -501,26 +501,35 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			ite->DashValues = gc->dashArray;
 			if (gc->Gradient != 0)
 			{
+				if (gc->CSpace)
+				{
+					QWMatrix mm = gc->matrix;
+					FPointArray gra;
+					gra.setPoints(2, gc->GX1, gc->GY1, gc->GX2, gc->GY2);
+					gra.map(mm);
+					gc->GX1 = gra.point(0).x();
+					gc->GY1 = gra.point(0).y();
+					gc->GX2 = gra.point(1).x();
+					gc->GY2 = gra.point(1).y();
+				}
 				ite->fill_gradient = gc->GradCo;
-				if ((gc->GX1 <= 1.0) && (gc->GX1 >= 0.0))
+				if (!gc->CSpace)
 					ite->GrStartX = gc->GX1 * ite->Width;
 				else
-					ite->GrStartX = QMAX(QMIN(gc->GX1, ite->Width), 0);
-				if ((gc->GY1 <= 1.0) && (gc->GY1 >= 0.0))
+					ite->GrStartX = gc->GX1 - ite->Xpos;
+				if (!gc->CSpace)
 					ite->GrStartY = gc->GY1 * ite->Height;
 				else
-					ite->GrStartY = QMAX(QMIN(gc->GY1, ite->Height), 0);
-				if ((gc->GX2 <= 1.0) && (gc->GX2 >= 0.0))
+					ite->GrStartY = gc->GY1 - ite->Ypos;
+				if (!gc->CSpace)
 					ite->GrEndX = gc->GX2 * ite->Width;
 				else
-					ite->GrEndX = QMAX(QMIN(gc->GX2, ite->Width), 0);
-				if ((gc->GY2 <= 1.0) && (gc->GY2 >= 0.0))
+					ite->GrEndX = gc->GX2 - ite->Xpos;
+				if (!gc->CSpace)
 					ite->GrEndY = gc->GY2 * ite->Height;
 				else
-					ite->GrEndY = QMAX(QMIN(gc->GY2, ite->Height), 0);
-				Doku->ActPage->SelItem.append(ite);
-//				Doku->ActPage->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
-				Doku->ActPage->SelItem.clear();
+					ite->GrEndY = gc->GY2 - ite->Ypos;
+				ite->GrType = gc->Gradient;
 			}
 			GElements.append(ite);
 			Elements.append(ite);
@@ -1304,8 +1313,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			QString key = params.mid(start, end - start);
 			obj->Gradient = m_gradients[key].Type;
 			obj->GradCo = m_gradients[key].gradient;
-			obj->GCol1 = m_gradients[key].Color1;
-			obj->GCol2 = m_gradients[key].Color2;
+			obj->CSpace = m_gradients[key].CSpace;
 			obj->GX1 = m_gradients[key].X1;
 			obj->GY1 = m_gradients[key].Y1;
 			obj->GX2 = m_gradients[key].X2;
@@ -1504,10 +1512,10 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 {
 	QString Col = "Black";
-	bool first = false;
-	double offset;
+	double offset, opa;
 	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
+		opa = 1.0;
 		QDomElement stop = n.toElement();
 		if(stop.tagName() == "stop")
 		{
@@ -1519,6 +1527,8 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 			}
 			else
 				offset = temp.toDouble();
+			if( !stop.attribute( "stop-opacity" ).isEmpty() )
+				opa = fromPercentage(stop.attribute("stop-opacity"));
 			if( !stop.attribute( "stop-color" ).isEmpty() )
 				Col = parseColor(stop.attribute("stop-color"));
 			else
@@ -1532,15 +1542,12 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 					QString params	= substyle[1].stripWhiteSpace();
 					if( command == "stop-color" )
 						Col = parseColor(params);
+					if( command == "stop-opacity" )
+						opa = fromPercentage(params);
 				}
 			}
 		}
-		if (!first)
-			gradient->Color2 = Col;
-		else
-			gradient->Color1 = Col;
-		first = true;
-		gradient->gradient.addStop( Doku->PageColors[Col].getRGBColor(), offset, 0.5, 1.0 );
+		gradient->gradient.addStop( Doku->PageColors[Col].getRGBColor(), offset, 0.5, opa, Col, 100 );
 	}
 }
 
@@ -1564,53 +1571,77 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	{
 		gradhelper.Type = m_gradients[href].Type;
 		gradhelper.gradient = m_gradients[href].gradient;
-		gradhelper.Color1 = m_gradients[href].Color1;
-		gradhelper.Color2 = m_gradients[href].Color2;
 		gradhelper.X1 = m_gradients[href].X1;
 		gradhelper.Y1 = m_gradients[href].Y1;
 		gradhelper.X2 = m_gradients[href].X2;
 		gradhelper.Y2 = m_gradients[href].Y2;
+		gradhelper.CSpace = m_gradients[href].CSpace;
 	}
-//	else
-//	{
-		if (e.tagName() == "linearGradient")
+	if (e.tagName() == "linearGradient")
+	{
+		x1 = e.attribute( "x1", "0").toDouble();
+		y1 = e.attribute( "y1", "0" ).toDouble();
+		x2 = e.attribute( "x2", "1" ).toDouble();
+		y2 = e.attribute( "y2", "0" ).toDouble();
+		if ( !e.attribute( "gradientUnits" ).isEmpty() )
 		{
-			if( !e.attribute( "x1" ).isEmpty() )
-				x1 = e.attribute( "x1").toDouble();
+			QString uni = e.attribute( "gradientUnits");
+			if (uni == "userSpaceOnUse")
+				gradhelper.CSpace = true;
 			else
-				x1 = 0;
-			y1 = e.attribute( "y1", "0" ).toDouble();
-			x2 = e.attribute( "x2", "1" ).toDouble();
-			y2 = e.attribute( "y2", "0" ).toDouble();
-			gradhelper.X1 = x1;
-			gradhelper.Y1 = y1;
-			gradhelper.X2 = x2;
-			gradhelper.Y2 = y2;
-			gradhelper.Type = 6;
-/*			if ((x1 == x2) && (y1 != y2))
-				gradhelper.Type = 2;
-			else if ((x1 != x2) && (y1 == y2))
-				gradhelper.Type = 1;
-			else if ((x1 != x2) && (y1 != y2))
-			{
-				if (x1 < x2)
-					gradhelper.Type = 3;
-				else
-					gradhelper.Type = 4;
-			} */
+				gradhelper.CSpace = false;
 		}
 		else
-			gradhelper.Type = 5;
-		QString spreadMethod = e.attribute( "spreadMethod" );
-		if( !spreadMethod.isEmpty() )
+			gradhelper.CSpace = false;
+		gradhelper.X1 = x1;
+		gradhelper.Y1 = y1;
+		gradhelper.X2 = x2;
+		gradhelper.Y2 = y2;
+		gradhelper.Type = 6;
+	}
+	else
+	{
+		x1 = e.attribute( "cx", "0.5").toDouble();
+		y1 = e.attribute( "cy", "0.5" ).toDouble();
+		x2 = e.attribute( "r", "0.5" ).toDouble();
+		y2 = y1;
+		if ( !e.attribute( "gradientUnits" ).isEmpty() )
 		{
-			if( spreadMethod == "reflect" )
-				gradhelper.gradient.setRepeatMethod( VGradient::reflect );
-			else if( spreadMethod == "repeat" )
-				gradhelper.gradient.setRepeatMethod( VGradient::repeat );
+			QString uni = e.attribute( "gradientUnits");
+			if (uni == "userSpaceOnUse")
+				gradhelper.CSpace = true;
+			else
+				gradhelper.CSpace = false;
 		}
-		parseColorStops(&gradhelper, e);
-//	}
+		else
+			gradhelper.CSpace = false;
+		gradhelper.X1 = x1;
+		gradhelper.Y1 = y1;
+		gradhelper.X2 = x1 + x2;
+		gradhelper.Y2 = y1;
+		gradhelper.Type = 7;
+	}
+	QString transf = e.attribute("gradientTransform");
+	if( !transf.isEmpty() )
+	{
+		QWMatrix mat = parseTransform( e.attribute( "gradientTransform" ) );
+		FPointArray gra;
+		gra.setPoints(2, gradhelper.X1, gradhelper.Y1, gradhelper.X2, gradhelper.Y2);
+		gra.map(mat);
+		gradhelper.X1 = gra.point(0).x();
+		gradhelper.Y1 = gra.point(0).y();
+		gradhelper.X2 = gra.point(1).x();
+		gradhelper.Y2 = gra.point(1).y();
+	}
+	QString spreadMethod = e.attribute( "spreadMethod" );
+	if( !spreadMethod.isEmpty() )
+	{
+		if( spreadMethod == "reflect" )
+			gradhelper.gradient.setRepeatMethod( VGradient::reflect );
+		else if( spreadMethod == "repeat" )
+			gradhelper.gradient.setRepeatMethod( VGradient::repeat );
+	}
+	parseColorStops(&gradhelper, e);
 	m_gradients.insert(e.attribute("id"), gradhelper);
 }
 

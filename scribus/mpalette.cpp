@@ -971,10 +971,9 @@ void Mpalette::SelTab(int t)
 	if (ScApp->ScriptRunning)
 		return;
 	TabStack->raiseWidget(t);
-	if ((HaveDoc) && (HaveItem))
+	if ((HaveDoc) && (HaveItem) && (t == 5))
 	{
-		Cpal->GradCombo->setCurrentItem(CurItem->GrType);
-		Cpal->ChooseGrad(CurItem->GrType);
+		Cpal->setActGradient(CurItem->GrType);
 		Cpal->setSpecialGradient(CurItem->GrStartX * UmReFaktor, CurItem->GrStartY * UmReFaktor,
 											CurItem->GrEndX * UmReFaktor, CurItem->GrEndY * UmReFaktor,
 											CurItem->Width * UmReFaktor, CurItem->Height * UmReFaktor);
@@ -1056,8 +1055,8 @@ void Mpalette::SetCurItem(PageItem *i)
 	disconnect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	HaveItem = false;
 	CurItem = i;
-	Cpal->GradCombo->setCurrentItem(CurItem->GrType);
-	Cpal->ChooseGrad(CurItem->GrType);
+	if (TabStack->id(TabStack->visibleWidget()) == 5)
+		Cpal->setActGradient(CurItem->GrType);
 	Cpal->setSpecialGradient(CurItem->GrStartX * UmReFaktor, CurItem->GrStartY * UmReFaktor,
 										  CurItem->GrEndX * UmReFaktor, CurItem->GrEndY * UmReFaktor,
 										  CurItem->Width * UmReFaktor, CurItem->Height * UmReFaktor);

@@ -3,7 +3,7 @@
     <name>@@translation</name>
     <message>
         <source>Project-Id-Version: Scribus 1.2</source>
-        <translation type="obsolete">Revision-Date: 2004-05-09 11:15:00 CET
+        <translation type="obsolete">Revision-Date: 2004-05-28 16:30:00 CET
 Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     </message>
 </context>
@@ -162,6 +162,16 @@ Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     <message>
         <source>Basque:</source>
         <translation>Baskisk:</translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Dette panel viser versionsnummer, dato for kompilering 
+og den indbyggede biblioteksunderstøttelse i Scribus
+C-C-T står for C=CUPS C=littlecms T=TIFF understøttelse.
+Manglende biblioteksunderstøttelse er vist ved en *</translation>
     </message>
 </context>
 <context>
@@ -796,6 +806,10 @@ Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
         <translation>Type:</translation>
     </message>
     <message>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
         <source>Script:</source>
         <translation>Script:</translation>
     </message>
@@ -1000,6 +1014,24 @@ Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
         <source>Medium</source>
         <translation>Medium</translation>
     </message>
+    <message>
+        <source>Rename</source>
+        <translation>Nyt navn</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Advarsel</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation>Navnet &quot;%1&quot; er ikke entydigt.
+Vælg venligst et andet.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
 </context>
 <context>
     <name>BookMView</name>
@@ -1104,6 +1136,10 @@ Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     <message>
         <source>Caption above Icon</source>
         <translation>Tekst over ikon</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <source>OK</source>
@@ -1282,6 +1318,10 @@ Dette kræver en meget nøjagtige profiler og er kun ment som en advarsel.</tran
         <translation>RGB</translation>
     </message>
     <message>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1326,8 +1366,8 @@ Dette kræver en meget nøjagtige profiler og er kun ment som en advarsel.</tran
         <translation>Navnet på denne farve er ikke entydig</translation>
     </message>
     <message>
-        <source>HSB-Colormap</source>
-        <translation>HSB-Farvekort</translation>
+        <source>HSV-Colormap</source>
+        <translation>HSV-Farvekort</translation>
     </message>
 </context>
 <context>
@@ -1404,6 +1444,42 @@ Dette kræver en meget nøjagtige profiler og er kun ment som en advarsel.</tran
         <source>Color of selected object</source>
         <translation>Det valgte objekts farve</translation>
     </message>
+    <message>
+        <source>Free linear Gradient</source>
+        <translation>Fri lineær gradient</translation>
+    </message>
+    <message>
+        <source>X1:</source>
+        <translation>X1:</translation>
+    </message>
+    <message>
+        <source>Y1:</source>
+        <translation>Y1:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>X2:</source>
+        <translation>X2:</translation>
+    </message>
+    <message>
+        <source>Y2:</source>
+        <translation>Y2:</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
 </context>
 <context>
     <name>CupsOptions</name>
@@ -1478,6 +1554,18 @@ Dette kræver en meget nøjagtige profiler og er kun ment som en advarsel.</tran
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>This panel displays various CUPS options when printing. 
+The exact parameters available will depend on your printer driver.
+You can confirm CUPS support by selecting Help &gt; About.
+Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Dette panel viser forskellige CUPS valgmuligheder for udskrivning.
+De precise parametre, som er tilgængelige afhænger af printerdriveren.
+Du kan se om CUPS er understøttet ved at vælge Hjælp &gt; Om Scribus.
+Se efter: C-C-T Disse står for C=CUPS C=littlecms T=TIFF understøttelse.
+Manglende biblioteksunderstøttelse er vist ved en *</translation>
     </message>
 </context>
 <context>
@@ -1720,6 +1808,10 @@ Dette kan indstilles i Præferencer.</translation>
         <translation>Fra side:</translation>
     </message>
     <message>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
         <source>Cyan</source>
         <translation>Cyan</translation>
     </message>
@@ -1759,10 +1851,6 @@ Dette kan indstilles i Præferencer.</translation>
         <translation>Størrelse:</translation>
     </message>
     <message>
-        <source>Tabulators...</source>
-        <translation>Tabulatorer...</translation>
-    </message>
-    <message>
         <source>Name of the Style is not unique</source>
         <translation>Navnet på denne typografi er ikke entydig</translation>
     </message>
@@ -1787,14 +1875,6 @@ Dette kan indstilles i Præferencer.</translation>
         <translation>Linier:</translation>
     </message>
     <message>
-        <source>Indentation</source>
-        <translation>Indrykning</translation>
-    </message>
-    <message>
-        <source>First Line:</source>
-        <translation>Første linie:</translation>
-    </message>
-    <message>
         <source>Drop Caps</source>
         <translation>Uncialer</translation>
     </message>
@@ -1805,10 +1885,6 @@ Dette kan indstilles i Præferencer.</translation>
     <message>
         <source>Character</source>
         <translation>Tegn</translation>
-    </message>
-    <message>
-        <source>Left Indent:</source>
-        <translation>Venstre indrykning:</translation>
     </message>
     <message>
         <source>Effect:</source>
@@ -1899,16 +1975,12 @@ Dette kan indstilles i Præferencer.</translation>
         <translation>Afstand under afsnit</translation>
     </message>
     <message>
-        <source>Indentation for first line of the paragraph</source>
-        <translation>Indrykning af den første linie i et afsnit</translation>
+        <source>Tabulators and Indentation</source>
+        <translation>Tabulatorer og indrykning</translation>
     </message>
     <message>
-        <source>Indentation from the left for the whole paragraph</source>
-        <translation>Indrykning fra venstre af hele afsnittet</translation>
-    </message>
-    <message>
-        <source>Edit tab settings of text frame...</source>
-        <translation>Rediger tabulatorer for tekstramme...</translation>
+        <source>Line Spacing:</source>
+        <translation>Linieafstand:</translation>
     </message>
 </context>
 <context>
@@ -1976,6 +2048,127 @@ Dette kan indstilles i Præferencer.</translation>
     <message>
         <source>Save and Exit</source>
         <translation>Gem og afslut</translation>
+    </message>
+</context>
+<context>
+    <name>ExportForm</name>
+    <message>
+        <source>Export to directory:</source>
+        <translation>Eksportér til mappe:</translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation>&amp;Vælg...</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Quality :</source>
+        <translation>Kvalitet:</translation>
+    </message>
+    <message>
+        <source>%</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation>Størrelse:</translation>
+    </message>
+    <message>
+        <source>Export </source>
+        <translation>Eksport </translation>
+    </message>
+    <message>
+        <source>&amp;One page</source>
+        <translation>&amp;En side</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;All pages</source>
+        <translation>&amp;Alle sider</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Interval from:</source>
+        <translation>&amp;Interval fra:</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation>Alt+I</translation>
+    </message>
+    <message>
+        <source>to:</source>
+        <translation>til:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Annullér</translation>
+    </message>
+    <message>
+        <source>Change the output directory</source>
+        <translation>Vælg mappen for uddata</translation>
+    </message>
+    <message>
+        <source>Available export formats</source>
+        <translation>Tilgængelige eksport-formater</translation>
+    </message>
+    <message>
+        <source>Choose a Export Directory</source>
+        <translation>Vælg en eksportmappe</translation>
+    </message>
+    <message>
+        <source>Export as Image</source>
+        <translation>Eksportér som billede</translation>
+    </message>
+    <message>
+        <source>Image type:</source>
+        <translation>Billedtype:</translation>
+    </message>
+    <message>
+        <source>The output directory - the place to store your images.
+Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
+        <translation>Uddata-mappen - stedet hvor dine billeder gemmes.
+Navnet på den eksporterede fil vil være &apos;dokumentnavn-sidenummer.filtype&apos;</translation>
+    </message>
+    <message>
+        <source>Export only the current page</source>
+        <translation>Eksportér kun den aktuelle side</translation>
+    </message>
+    <message>
+        <source>Export all pages to images</source>
+        <translation>Eksportér alle sider som billeder</translation>
+    </message>
+    <message>
+        <source>Export a range of pages to images</source>
+        <translation>Eksportér nogle af siderne som billeder</translation>
+    </message>
+    <message>
+        <source>First page to export when exporting a range</source>
+        <translation>Første side der eksporteres, når der eksporteres en del af dokumentet</translation>
+    </message>
+    <message>
+        <source>Last page to export when exporting a range</source>
+        <translation>Sidste side der eksporteres, når der eksporteres en del af dokumentet</translation>
+    </message>
+    <message>
+        <source>The height of the output images in pixels</source>
+        <translation>Højden i pixels på uddata-billeder</translation>
+    </message>
+    <message>
+        <source>The quality of your images - 100% is the best, 1% the highest compression</source>
+        <translation>Kvaliteten på dine billeder - 100% er bedst, 1% den største comprimering</translation>
     </message>
 </context>
 <context>
@@ -2216,6 +2409,33 @@ Dette kan indstilles i Præferencer.</translation>
     </message>
 </context>
 <context>
+    <name>FontPreview</name>
+    <message>
+        <source>Font Preview</source>
+        <translation>Font-visning</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Annullér</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Woven silk pyjamas exchanged for blue quartz</source>
+        <translation>Vævet silkepyjamas byttet med blå kvarts</translation>
+    </message>
+</context>
+<context>
     <name>GuideManager</name>
     <message>
         <source>Add</source>
@@ -2276,6 +2496,10 @@ Dette kan indstilles i Præferencer.</translation>
 </context>
 <context>
     <name>HelpBrowser</name>
+    <message>
+        <source></source>
+        <translation></translation>
+    </message>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
         <translation>Desværre er der ingen manual tilgængelig! Se venligst http://scribus.net for den nyeste dokumentation.</translation>
@@ -2555,6 +2779,10 @@ Værdien 0 betyder ubegrænset antal.</translation>
         <translation>Tilføj et ny lag</translation>
     </message>
     <message>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
         <source>Do you want to delete all Objects on this Layer too?</source>
         <translation>Ønsker du også at slette alle objekter i dette lag?</translation>
     </message>
@@ -2632,6 +2860,41 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>MSpinBox</name>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -2811,10 +3074,6 @@ hjørner:</translation>
         <translation>Form</translation>
     </message>
     <message>
-        <source>Size:</source>
-        <translation>Størrelse:</translation>
-    </message>
-    <message>
         <source>Tabulators...</source>
         <translation>Tabulatorer...</translation>
     </message>
@@ -2899,10 +3158,6 @@ Vælg venligst et andet.</translation>
     <message>
         <source>Width:</source>
         <translation>Bredde:</translation>
-    </message>
-    <message>
-        <source>Line Style:</source>
-        <translation>Liniestil:</translation>
     </message>
     <message>
         <source>Columns:</source>
@@ -3027,6 +3282,10 @@ Vælg venligst et andet.</translation>
     <message>
         <source>Rotation:</source>
         <translation>Rotation:</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <source>Top:</source>
@@ -3367,6 +3626,14 @@ Vælg venligst et andet.</translation>
     <message>
         <source>Column width</source>
         <translation>Kolonnebredde</translation>
+    </message>
+    <message>
+        <source>Font Size:</source>
+        <translation>Fontstørrelse:</translation>
+    </message>
+    <message>
+        <source>Type of Line:</source>
+        <translation>Typen af linie:</translation>
     </message>
 </context>
 <context>
@@ -3723,6 +3990,18 @@ Hvis modstående sider er valgt, så kan denne margin afstand bruges til at opn�
         <source>Distance between automatically created columns</source>
         <translation>Afstand mellem kolonner, der laves automatisk</translation>
     </message>
+    <message>
+        <source>Legal</source>
+        <translation>Legal</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation>Letter</translation>
+    </message>
+    <message>
+        <source>Tabloid</source>
+        <translation>Tabloid</translation>
+    </message>
 </context>
 <context>
     <name>NewTm</name>
@@ -3842,6 +4121,10 @@ ellers er coordinaterne vist i forhold til objektet</translation>
     <message>
         <source>Reset Control Points</source>
         <translation>Nulstil kontrolpunkter</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <source>X-Pos:</source>
@@ -4022,10 +4305,6 @@ ellers er coordinaterne vist i forhold til objektet</translation>
         <translation>Skærm / Net</translation>
     </message>
     <message>
-        <source>Copying Text and Graphics is allowed</source>
-        <translation>Kopiering af tekst og grafik er tilladt</translation>
-    </message>
-    <message>
         <source>Outside</source>
         <translation>Yderside</translation>
     </message>
@@ -4104,10 +4383,6 @@ ellers er coordinaterne vist i forhold til objektet</translation>
     <message>
         <source>Enable Presentation Effects</source>
         <translation>anvend præsentationseffekter</translation>
-    </message>
-    <message>
-        <source>Adding Annotations and Fields is allowed</source>
-        <translation>Tilføjelse af kommentarer og felter er tilladt</translation>
     </message>
     <message>
         <source>Saturation</source>
@@ -4383,26 +4658,6 @@ security features in your exported PDF</source>
 sikkerheds-funktioner i det eksporterede PDF-dokument</translation>
     </message>
     <message>
-        <source>Choose a password for users to be able to read your PDF</source>
-        <translation>Vælg en adgangskode, som giver adgang til at læse PDF-dokumentet</translation>
-    </message>
-    <message>
-        <source>Allow printing of the PDF</source>
-        <translation>Tillad udskrivning af PDF-dokumentet</translation>
-    </message>
-    <message>
-        <source>Allow modifying of the PDF</source>
-        <translation>Tillad ændring af PDF-dokumentet</translation>
-    </message>
-    <message>
-        <source>Allow copying of text or graphics from the PDF</source>
-        <translation>Tillad kopiering af tekst eller grafik fra PDF-dokumentet</translation>
-    </message>
-    <message>
-        <source>Allow adding annotations and fields to the PDF</source>
-        <translation>Tillad tilføjelse af kommentarer og felter til PDF-dokumentet</translation>
-    </message>
-    <message>
         <source>Color model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 color CMYK printer.</source>
@@ -4511,6 +4766,38 @@ reglerne for PDF/X-3. Vi anbefaler at bruge titlen på dokumentet. </translation
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
         <translation>Komprimerings-niveauer: Minimum (25%), Lav (50%), Medium (75%), Høj (85%), Maksimum (95%)</translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF.</source>
+        <translation>Vælg en adgangskode for læsere af PDF-Filen.</translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
+        <translation>Tillad udskrivning af PDF-Filen. Udskrivning er ikke muligt uden afkryds.</translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
+        <translation>Tillad ændring af PDF-Filen. Ændring af PDF-Filen er ikke muligt uden afkryds.</translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF. 
+If un-checked, text and graphics cannot be copied.</source>
+        <translation>Tillad kopiering af tekst eller grafik fra PDF-Filen.
+Tekst og grafik kan ikke kopieres uden afkryds.</translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF. 
+If un-checked, editing annotations and fileds is prevented.</source>
+        <translation>Tillad at kommentarer og felter kan tilføjes PDF-Filen.
+Redigering af kommentarer og felter er ikke muligt uden afkryds.</translation>
+    </message>
+    <message>
+        <source>Allow Copying Text and Graphics</source>
+        <translation>Tillad kopiering af tekst og grafik</translation>
+    </message>
+    <message>
+        <source>Allow Adding Annotations and Fields</source>
+        <translation>Tillad at der tilføjes kommentarer og felter</translation>
     </message>
 </context>
 <context>
@@ -4878,6 +5165,22 @@ EPS, PDF og vektorgrafik, men der går lidt længere tid med at vise siden</tran
         <source>Level</source>
         <translation>Niveau</translation>
     </message>
+    <message>
+        <source>Copy Here</source>
+        <translation>Kopiér her</translation>
+    </message>
+    <message>
+        <source>Move Here</source>
+        <translation>Flyt her</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annullér</translation>
+    </message>
+    <message>
+        <source>PDF-Options</source>
+        <translation>PDF indstillinger</translation>
+    </message>
 </context>
 <context>
     <name>PageItem</name>
@@ -5081,10 +5384,6 @@ EPS, PDF og vektorgrafik, men der går lidt længere tid med at vise siden</tran
         <translation>Gitterlinier:</translation>
     </message>
     <message>
-        <source>Keyboard Shortcuts...</source>
-        <translation>Tastaturgenveje...</translation>
-    </message>
-    <message>
         <source>Other Options</source>
         <translation>Andre indstillinger</translation>
     </message>
@@ -5167,10 +5466,6 @@ EPS, PDF og vektorgrafik, men der går lidt længere tid med at vise siden</tran
     <message>
         <source>Typography</source>
         <translation>Typografi</translation>
-    </message>
-    <message>
-        <source>Line Style:</source>
-        <translation>Liniestil:</translation>
     </message>
     <message>
         <source>Columns:</source>
@@ -5409,6 +5704,10 @@ EPS, PDF og vektorgrafik, men der går lidt længere tid med at vise siden</tran
         <translation>min</translation>
     </message>
     <message>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -5513,10 +5812,6 @@ Scribus kan bruge alle tilgængelige KDE og Qt temaer</translation>
     <message>
         <source>Number of recently edited documents to show in the File menu</source>
         <translation>Antal nyeste dokumenter, som vises i fil-menuen</translation>
-    </message>
-    <message>
-        <source>Change the keyboard shortcuts to your preference</source>
-        <translation>Vælg dine egne tastatur-genveje </translation>
     </message>
     <message>
         <source>Default documents directory</source>
@@ -5895,6 +6190,10 @@ Hvis modstående sider er valgt, så kan denne margin afstand bruges til at opn�
     <message>
         <source>Turns off the basegrid</source>
         <translation>Skjuler basislinie-gitter</translation>
+    </message>
+    <message>
+        <source>Type of Line:</source>
+        <translation>Typen af linie:</translation>
     </message>
 </context>
 <context>
@@ -6333,22 +6632,6 @@ Kontrollér sti og filnavn.</translation>
         <translation>Indsæt specialtegn</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation>pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation>mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation>in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation>p</translation>
-    </message>
-    <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
         <translation>Python Scripts (*.py);; Alle filer (*)</translation>
     </message>
@@ -6359,22 +6642,6 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <source>SVG-Images (*.svg);;All Files (*)</source>
         <translation>SVG-billeder (*.svg);;Alle filer (*)</translation>
-    </message>
-    <message>
-        <source>pt</source>
-        <translation>pt</translation>
-    </message>
-    <message>
-        <source>mm</source>
-        <translation>mm</translation>
-    </message>
-    <message>
-        <source>in</source>
-        <translation>in</translation>
-    </message>
-    <message>
-        <source>p</source>
-        <translation>p</translation>
     </message>
     <message>
         <source>Scribus Scripts</source>
@@ -6399,6 +6666,38 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <source>Import SVG-Image...</source>
         <translation>Importér SVG-Billede...</translation>
+    </message>
+    <message>
+        <source>File exists. Overwrite?</source>
+        <translation>Filen eksisterer. Overskriv?</translation>
+    </message>
+    <message>
+        <source>exists already. Overwrite?</source>
+        <translation>eksisterer allerede. Overskriv?</translation>
+    </message>
+    <message>
+        <source>Yes all</source>
+        <translation>Ja alle</translation>
+    </message>
+    <message>
+        <source>Save as Image...</source>
+        <translation>Gem som billede...</translation>
+    </message>
+    <message>
+        <source>Error writing the output file(s).</source>
+        <translation>Fejl ved udskrivning af uddata-fil(er).</translation>
+    </message>
+    <message>
+        <source>Save as Image</source>
+        <translation>Gem som billede</translation>
+    </message>
+    <message>
+        <source>Error writting the output file(s).</source>
+        <translation>Fejl ved skrivning af uddata-fil(er).</translation>
+    </message>
+    <message>
+        <source>Export successful.</source>
+        <translation>Eksporteret uden problemer.</translation>
     </message>
 </context>
 <context>
@@ -7286,16 +7585,8 @@ Hvis modstående sider er valgt, så kan denne margin afstand bruges til at opn�
         <translation>Engelsk</translation>
     </message>
     <message>
-        <source>General...</source>
-        <translation>Generelt...</translation>
-    </message>
-    <message>
         <source>Outlined</source>
         <translation>Indrammet</translation>
-    </message>
-    <message>
-        <source>Preferences</source>
-        <translation>Præferencer</translation>
     </message>
     <message>
         <source>Undo Delete Object</source>
@@ -7382,6 +7673,10 @@ Hvis modstående sider er valgt, så kan denne margin afstand bruges til at opn�
     <message>
         <source>Javascripts...</source>
         <translation>Javascripts...</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <source>50%</source>
@@ -7508,10 +7803,6 @@ Hvis modstående sider er valgt, så kan denne margin afstand bruges til at opn�
         <translation>Frigør alt</translation>
     </message>
     <message>
-        <source>Tool&amp;bars</source>
-        <translation>Værktøjs&amp;Bjælker</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>pt</translation>
     </message>
@@ -7554,6 +7845,18 @@ Hvis modstående sider er valgt, så kan denne margin afstand bruges til at opn�
     <message>
         <source>Slovenian</source>
         <translation>Slovensk</translation>
+    </message>
+    <message>
+        <source>Keyboard Shortcuts...</source>
+        <translation>Tastaturgenveje...</translation>
+    </message>
+    <message>
+        <source>Scribus Manual...</source>
+        <translation>Scribus manual...</translation>
+    </message>
+    <message>
+        <source>&amp;Settings</source>
+        <translation>&amp;Indstillinger</translation>
     </message>
 </context>
 <context>
@@ -8093,16 +8396,23 @@ til vinduet nedenunder, for at lave en ny side.</translation>
 <context>
     <name>TabManager</name>
     <message>
-        <source>Add</source>
-        <translation>Tilføj</translation>
+        <source>Cancel</source>
+        <translation>Annullér</translation>
     </message>
+    <message>
+        <source>Manage Tabulators</source>
+        <translation>Håndtér tabulatorer</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>Tabruler</name>
     <message>
         <source>Left</source>
         <translation>Venstre</translation>
-    </message>
-    <message>
-        <source>Comma</source>
-        <translation>Komma</translation>
     </message>
     <message>
         <source>Right</source>
@@ -8113,36 +8423,44 @@ til vinduet nedenunder, for at lave en ny side.</translation>
         <translation>Punktum</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Annullér</translation>
+        <source>Comma</source>
+        <translation>Komma</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation>Centréret</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>Fjern</translation>
-    </message>
-    <message>
-        <source>Manage Tabulators</source>
-        <translation>Håndtér tabulatorer</translation>
+        <translation>Centrér</translation>
     </message>
     <message>
         <source>Position:</source>
         <translation>Placering:</translation>
     </message>
     <message>
-        <source>Alignment:</source>
-        <translation>Justering:</translation>
+        <source>First Line:</source>
+        <translation>Første linie:</translation>
+    </message>
+    <message>
+        <source>Indent:</source>
+        <translation>Indrykning:</translation>
+    </message>
+    <message>
+        <source>Delete All</source>
+        <translation>Slet alle</translation>
+    </message>
+    <message>
+        <source>Indentation for first line of the paragraph</source>
+        <translation>Indrykning af den første linie i et afsnit</translation>
+    </message>
+    <message>
+        <source>Indentation from the left for the whole paragraph</source>
+        <translation>Indrykning fra venstre af hele afsnittet</translation>
+    </message>
+    <message>
+        <source>Delete all Tabulators</source>
+        <translation>Slet alle tabulatorer</translation>
     </message>
     <message>
         <source> pt</source>
         <translation>pt</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
     </message>
     <message>
         <source> mm</source>
@@ -8229,6 +8547,10 @@ Vælg venligst et andet.</translation>
         <source>OK</source>
         <translation>OK</translation>
     </message>
+    <message>
+        <source>Group </source>
+        <translation>Lav til gruppe </translation>
+    </message>
 </context>
 <context>
     <name>WerkToolB</name>
@@ -8300,6 +8622,10 @@ Vælg venligst et andet.</translation>
         <source>Insert Table</source>
         <translation>Indsæt tabel</translation>
     </message>
+    <message>
+        <source>Do measurements</source>
+        <translation>Udfør opmålinger</translation>
+    </message>
 </context>
 <context>
     <name>WerkToolBP</name>
@@ -8361,6 +8687,18 @@ Vælg venligst et andet.</translation>
     <message>
         <source>Insert</source>
         <translation>Indsæt</translation>
+    </message>
+    <message>
+        <source>Insert the characters at the cursor in the text</source>
+        <translation>Indsæt tegn ved markøren i teksten</translation>
+    </message>
+    <message>
+        <source>Delete the current selection(s).</source>
+        <translation>Slet de(t) markerede område(r).</translation>
+    </message>
+    <message>
+        <source>Close this dialog and return to text editing.</source>
+        <translation>Luk dette vindue og returnér til tekst-redigering.</translation>
     </message>
 </context>
 </TS>

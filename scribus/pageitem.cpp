@@ -335,7 +335,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 		FPointArray gra;
 		switch (GrType)
 		{
-			case 1:
+/*			case 1:
 				gra.setPoints(2, 0, 0, Width, 0);
 				gra.map(grm);
 				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
@@ -363,12 +363,17 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					gv = FPoint(Width / 2.0, Height);
 				p->setGradient(VGradient::radial, FPoint(Width / 2.0,Height / 2.0), gv, 
 								FPoint(Width / 2.0,Height / 2.0));
-				break;
+				break; */
+			case 1:
+			case 2:
+			case 3:
+			case 4:
 			case 6:
 				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
 				gra.map(grm);
 				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
 				break;
+			case 5:
 			case 7:
 				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
 				p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));

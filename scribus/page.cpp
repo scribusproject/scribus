@@ -8566,8 +8566,16 @@ void Page::updateGradientVectors(PageItem *b)
 		case 5:
 			b->GrStartX = b->Width / 2.0;
 			b->GrStartY = b->Height / 2.0;
-			b->GrEndX = 0;
-			b->GrEndY = 0;
+			if (b->Width >= b->Height)
+			{
+				b->GrEndX = b->Width;
+				b->GrEndY = b->Height / 2.0;
+			}
+			else
+			{
+				b->GrEndX = b->Width / 2.0;
+				b->GrEndY = b->Height;
+			}
 			break;
 		default:
 			break;

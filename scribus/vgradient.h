@@ -24,6 +24,7 @@
 #include <qptrvector.h>
 #include "fpoint.h"
 #include <qcolor.h>
+#include <qwmatrix.h>
 
 class VColorStop
 {
@@ -118,7 +119,7 @@ class VColorStopList : public QPtrList<VColorStop>
 	FPoint vector() const { return m_vector; }
 	void setVector( const FPoint &vector ) { m_vector = vector; }
 
-	//	void transform( const QWMatrix& m );
+	void transform( const QWMatrix& m );
 
 protected:
 	VColorStopList        m_colorStops;

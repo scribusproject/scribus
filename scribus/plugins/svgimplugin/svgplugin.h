@@ -26,6 +26,7 @@ public:
 		Type = 1;
 		Color1 = "Black";
 		Color2 = "Black";
+		CSpace = false;
 		}
 	int Type;
 	QString Color1;
@@ -35,6 +36,7 @@ public:
 	double Y1;
 	double X2;
 	double Y2;
+	bool CSpace;
 	};
 
 class SvgStyle
@@ -56,6 +58,7 @@ public:
 		GX2 = 0;
 		GY2 = 0;
 		GradCo = VGradient(VGradient::linear);
+		CSpace = false;
 		Family = "";
 		FontSize = 12;
 		matrix = QWMatrix();
@@ -82,6 +85,7 @@ public:
 	double GY2;
 	int Gradient;
 	VGradient	GradCo;
+	bool CSpace;
 	int FontSize;
 	QString Family;
 	double Transparency;
@@ -118,6 +122,8 @@ public:
 	void parseStyle( SvgStyle *obj, const QDomElement &e );
 	void parseColorStops(GradientHelper *gradient, const QDomElement &e);
 	void parseGradient( const QDomElement &e );
+	FPoint GetMaxClipO(FPointArray Clip);
+	FPoint GetMinClipO(FPointArray Clip);
 	QPtrList<PageItem> parseText(double x, double y, const QDomElement &e);
 
 	ScribusDoc* Doku;

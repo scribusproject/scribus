@@ -111,6 +111,7 @@ void GradientPreview::mousePressEvent(QMouseEvent *m)
 		{
 			ActStop = yg;
 			emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
+			emit currTrans(cstops.at(ActStop)->opacity);
 			repaint();
 			onlyselect = true;
 			return;
@@ -129,6 +130,7 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 		repaint();
 		QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
 		emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
+		emit currTrans(cstops.at(ActStop)->opacity);
 	}
 	if ((m->y() < height()) && (m->y() > 43) && (m->x() > 0) && (m->x() < width()) && (ActStop == -1))
 	{
@@ -145,6 +147,7 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 			{
 				ActStop = yg;
 				emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
+				emit currTrans(cstops.at(ActStop)->opacity);
 				repaint();
 				break;
 			}
@@ -222,6 +225,7 @@ void GradientPreview::updateDisplay()
 	ActStop = 0;
 	QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
 	emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
+	emit currTrans(cstops.at(ActStop)->opacity);
 }
 
 void GradientPreview::setActColor(QColor c, QString n, int s)
@@ -232,5 +236,14 @@ void GradientPreview::setActColor(QColor c, QString n, int s)
 	cstops.at(ActStop)->color = c;
 	cstops.at(ActStop)->name = n;
 	cstops.at(ActStop)->shade = s;
+	repaint();
+}
+
+void GradientPreview::setActTrans(double t)
+{
+	if (ActStop == -1)
+		return;
+	QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+	cstops.at(ActStop)->opacity = t;
 	repaint();
 }

@@ -37,6 +37,7 @@ public:
 	void enterEvent(QEvent*);
 	void updateDisplay();
 	void setActColor(QColor c, QString n, int s);
+	void setActTrans(double t);
 	VGradient fill_gradient;
 	QValueList<int> StopM;
 	bool Mpressed;
@@ -46,6 +47,7 @@ public:
 
 signals:
 	void selectedColor(QString, int);
+	void currTrans(double);
 	void gradientChanged();
 };
 

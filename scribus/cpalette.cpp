@@ -92,7 +92,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	GradCombo->insertItem( tr("Cross Diagonal Gradient"));
 	GradCombo->insertItem( tr("Radial Gradient"));
 	GradCombo->insertItem( tr("Free linear Gradient"));
-//	GradCombo->insertItem( tr("Free radial Gradient"));
+	GradCombo->insertItem( tr("Free radial Gradient"));
 	GradCombo->setCurrentItem(0);
 	GradLayout->addWidget( GradCombo );
 	GradEdit = new GradientPreview(this);
@@ -157,6 +157,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(GradEdit, SIGNAL(selectedColor(QString, int )), this, SLOT(slotColor(QString, int )));
+	connect(GradEdit, SIGNAL(currTrans(double )), this, SLOT(setGradTrans(double )));
 }
 
 void Cpalette::InhaltButton()
@@ -221,6 +222,7 @@ void Cpalette::SetColors(CListe farben)
 
 void Cpalette::updateCList()
 {
+	disconnect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
 	ListBox1->clear();
 	CListe::Iterator it;
 	QPixmap pm = QPixmap(30, 15);
@@ -232,6 +234,7 @@ void Cpalette::updateCList()
 		ListBox1->insertItem(pm, it.key());
 	}
 	ListBox1->setSelected(ListBox1->currentItem(), false);
+	connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
 }
 
 void Cpalette::selFarbe(QListBoxItem *c)
@@ -281,6 +284,7 @@ QColor Cpalette::SetFarbe(QString farbe, int shad)
 
 void Cpalette::updateBoxS(QString Farbe)
 {
+	disconnect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
 	CListe::Iterator it;
 	int c = 0;
 	if ((Farbe != "None") && (Farbe != ""))
@@ -295,6 +299,7 @@ void Cpalette::updateBoxS(QString Farbe)
 		}
 	}
 	ListBox1->setCurrentItem(c);
+	connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
 }
 
 void Cpalette::setActFarben(QString p, QString b, int shp, int shb)
@@ -318,12 +323,15 @@ void Cpalette::setActFarben(QString p, QString b, int shp, int shb)
 
 void Cpalette::slotColor(QString n, int s)
 {
-	disconnect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
-	Color = n;
-	Shade = s;
-	PM1->setValue(Shade);
-	updateBoxS(Color);
-	connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
+	if ((GradientMode) && (Mode ==2))
+	{
+		disconnect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
+		Color = n;
+		Shade = s;
+		PM1->setValue(Shade);
+		updateBoxS(Color);
+		connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
+	}
 }
 
 void Cpalette::slotGrad(int nr)
@@ -336,22 +344,25 @@ void Cpalette::ChooseGrad(int nr)
 {
 	/* PFJ - 29.02.04 - Removed GradGroup and Gradient mode from switch */
 	bool test = nr == 0 ? false : true;
+	int h = 0;
+	bool test2 = GradEdit->isHidden();
 	GradientMode = test;
 	if (nr != 0)
 	{
 		GradEdit->show();
-		if (nr > 5)
+		if (GradCombo->currentItem() > 5)
 			frame8->show();
 		else
 			frame8->hide();
+		h += GradEdit->height();
+		if (test2)
+			ListBox1->resize(ListBox1->width(), ListBox1->height()-h);
 	}
 	else
 	{
-		GradEdit->hide();
 		frame8->hide();
+		GradEdit->hide();
 	}
-	updateGeometry();
-	repaint();
 	disconnect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 	switch (nr)
 	{
@@ -367,6 +378,8 @@ void Cpalette::ChooseGrad(int nr)
 		break;
 	}
 	setFocus();
+	updateGeometry();
+	repaint();
 	connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 }
 
@@ -377,12 +390,30 @@ void Cpalette::setActTrans(double val, double val2)
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
 }
 
+void Cpalette::setGradTrans(double val)
+{
+	if ((GradientMode) && (Mode ==2))
+	{
+		disconnect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
+		TransSpin->setValue(qRound(val * 100));
+		connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
+	}
+}
+
 void Cpalette::slotTrans(int val)
 {
 	if (Mode == 1)
 		emit NewTransS(static_cast<double>(100 - val) / 100.0);
 	else
-		emit NewTrans(static_cast<double>(100 - val) / 100.0);
+	{
+		if (GradCombo->currentItem() == 0)
+			emit NewTrans(static_cast<double>(100 - val) / 100.0);
+		else
+		{
+			GradEdit->setActTrans(static_cast<double>(val) / 100.0);
+			emit gradientChanged();
+		}
+	}
 	setFocus();
 }
 
