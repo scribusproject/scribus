@@ -2126,7 +2126,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		}
 	}
 	elem.setAttribute("COUNT", Selitems->count());
-	elem.setAttribute("Version", "1.2cvs");
+	elem.setAttribute("Version", "1.2.1");
 	QMap<QString,QFont>::Iterator itf;
 	for (itf = doc->UsedFonts.begin(); itf != doc->UsedFonts.end(); ++itf)
 	{
@@ -2581,7 +2581,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 	QString st="<SCRIBUSUTF8></SCRIBUSUTF8>";
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
-	elem.setAttribute("Version", "1.2.1cvs");
+	elem.setAttribute("Version", "1.2.1");
 	QDomElement dc=docu.createElement("DOCUMENT");
 	dc.setAttribute("ANZPAGES",view->DocPages.count());
 	dc.setAttribute("PAGEWITH",doc->PageB);

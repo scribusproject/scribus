@@ -961,7 +961,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 												else
 													desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * Doc->Vorlagen[hl->cab].LineSpa * Doc->Vorlagen[hl->cab].DropLin;
 											}
-//											CurY += Doc->Vorlagen[hl->cab].Avor;
 											if (DropCmode)
 												DropLines = Doc->Vorlagen[hl->cab].DropLin;
 											}
@@ -1774,7 +1773,7 @@ NoRoom: pf2.end();
 			}
 		}
 	}
-	if ((!Tinput) && (!Doc->RePos))
+	if (!Doc->RePos)
 	{
 		double scp = QMAX(Doc->Scale, 1);
 		if ((Frame) && (ScApp->Prefs.FramesShown) && ((PType == 2) || (PType == 4)))
