@@ -366,6 +366,7 @@ void UndoPalette::UndoItem::paint(QPainter *painter)
 	painter->setFont(f);
 	painter->drawText(32, QFontMetrics(f).height(), target);
 	f.setItalic(true);
+	painter->setFont(f);
 	painter->drawText(32, (2 * QFontMetrics(painter->font()).height()), action);
 //    if ( isSelected() )
 //        painter->eraseRect( r );
