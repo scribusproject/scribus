@@ -21,6 +21,8 @@
 #include <zlib.h>
 #endif
 
+using namespace std;
+
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);

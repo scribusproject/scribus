@@ -84,6 +84,8 @@ extern int IntentPrinter;
 extern ProfilesL InputProfiles;
 extern ScribusApp* ScApp;
 
+using namespace std;
+
 void ReOrderText(ScribusDoc *doc, ScribusView *view);
 void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN);
 void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
@@ -845,7 +847,7 @@ double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz)
 	{
 		uint cl = FT_Get_Char_Index(doc->FFonts[name], c1);
 		FT_Load_Glyph( doc->FFonts[name], cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-		w = (doc->FFonts[name]->glyph->metrics.width + fabs(doc->FFonts[name]->glyph->metrics.horiBearingX)) / fo->uniEM * (Siz / 10.0);
+		w = (doc->FFonts[name]->glyph->metrics.width + fabs((double)doc->FFonts[name]->glyph->metrics.horiBearingX)) / fo->uniEM * (Siz / 10.0);
 		ww = doc->FFonts[name]->glyph->metrics.horiAdvance / fo->uniEM * (Siz / 10.0);
 		return QMAX(ww, w);
 	}

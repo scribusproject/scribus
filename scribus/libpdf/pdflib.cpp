@@ -34,6 +34,8 @@
 #include <unistd.h>
 #include "rc4.h"
 
+using namespace std;
+
 extern int callGS(const QStringList & args);
 extern QString Path2Relative(QString Path);
 extern bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat);

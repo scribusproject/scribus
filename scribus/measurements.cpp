@@ -9,6 +9,8 @@
 #include <qpixmap.h>
 #include <cmath>
 
+using namespace std;
+
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 

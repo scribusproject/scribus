@@ -13,6 +13,8 @@
 #include <qwmatrix.h>
 #include <cmath>
 
+using namespace std;
+
 extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
 extern QPixmap loadIcon(QString nam);
 extern QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
@@ -2337,7 +2339,7 @@ void Preferences::UpdatePreView()
  */
 double Preferences::GetZeroFaktor()
 {
-	return sqrt(pow(1,2)-pow(((sin((360.0/(T6_Ecken->value()*2))/180*M_PI)* 2.0)/2.0),2));
+	return sqrt(pow(1.0,2.0)-pow(((sin((360.0/(T6_Ecken->value()*2))/180*M_PI)* 2.0)/2.0),2));
 }
 
 /*!

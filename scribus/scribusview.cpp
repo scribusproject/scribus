@@ -37,6 +37,8 @@
 #include <cmath>
 #include "scribus.h"
 
+using namespace std;
+
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 extern ScribusApp* ScApp;

@@ -9,6 +9,9 @@
 #include "autoform.h"
 #include "tabmanager.h"
 #include "scribus.h"
+
+using namespace std;
+
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 extern ProfilesL InputProfiles;

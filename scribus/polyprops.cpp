@@ -14,6 +14,8 @@
 #include <qwmatrix.h>
 #include <cmath>
 
+using namespace std;
+
 extern int PolyC;
 extern int PolyFd;
 extern double PolyF;
@@ -190,7 +192,7 @@ void PolygonProps::UpdatePreView()
 
 double PolygonProps::GetZeroFaktor()
 {
-	return sqrt(pow(1,2)-pow(((sin((360.0/(Ecken->value()*2))/180*M_PI)* 2.0)/2.0),2));
+	return sqrt(pow(1.0,2.0)-pow(((sin((360.0/(Ecken->value()*2))/180*M_PI)* 2.0)/2.0),2.0));
 }
 
 double PolygonProps::GetMaxFaktor()
