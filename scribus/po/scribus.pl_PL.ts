@@ -176,39 +176,7 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation><byte value="x9"/>newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-Tworzy nowy dokument i zwraca true w przypadku powodzenia. 
-Parametry mają następujące znaczenie:
-
-    size = krotka (szerokość, wysokość), opisująca rozmiar dokumentu. Można użyć
-    predefiniowanych stałych o nazwie PAPER_&lt;paper_type&gt;, np. PAPER_A4 etc.
-
-    margins = krotka (lewy, prawy, górny, dolny) opisująca marginesy dokumentu
-
-    orientation = orientacja strony - stałe PORTRAIT, LANDSCAPE
-
-    firstPageNumber = numer pierwszej strony dokumentu, używany dla
-    numerowania stron. Zazwyczaj używa się 1, jednak warto użyć większych 
-    numerów, jeśli tworzy się dokument złożony z wielu części.
-
-    unit: ta wartość określa jednostkę miary używaną w dokumencie. Użyj 
-    dla tego celu jednej z następjących predefiniowanych stałych: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-Wartości szerokości, wysokości i marginesów wyrażane są w jednostkach danego dokumentu.
-Stałe PAPER_* wyrażane są w punktach. Jeśli twój dokument nie używa
-punktów, trzeba zdawać sobie z tego sprawę.
-
-przykład: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-
-<byte value="x9"/><byte value="x9"/></translation>
+        <translation>O Scribusie %1</translation>
     </message>
 </context>
 <context>
@@ -2301,14 +2269,17 @@ O braku obsługi dla danej biblioteki informuje symbol *</translation>
     </message>
     <message>
         <source>About Scribus %1</source>
-        <translation>O Scribusie %/</translation>
+        <translation>O Scribusie %1</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and
  compiled in library support in Scribus
 The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
+        <translation>Panel ten informuje o numerze wersji, dacie kompilacji
+oraz wkompilowanej obsłudze bibliotek.
+Symbole C-C-T oznaczają wsparcie dla C=littlecms,  C=CUPS i T=TIFF.
+O braku obsługi dla danej biblioteki informuje symbol *</translation>
     </message>
 </context>
 <context>
@@ -10287,6 +10258,18 @@ Zewnętrzne dowiązania
         <translation>Nie mogę zastąpić koloru o pustej nazwie.</translation>
     </message>
     <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation>Importuj &amp;OpenOffice.org Draw...</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation>OpenOffice.org Draw (*.sxd);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Documents</source>
+        <translation>Dokumenty OpenOffice.org Writer</translation>
+    </message>
+    <message>
         <source>Scribus Python interface module
 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
 <byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
@@ -10313,7 +10296,9 @@ Zewnętrzne dowiązania
 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
 <byte value="x9"/><byte value="x9"/>function&apos;s documentation.
 <byte value="x9"/><byte value="x9"/></source>
-        <translation type="obsolete">Moduł interfejsu Pythona dla Scribusa
+        <translation>
+<byte value="x9"/>
+<byte value="x9"/>Moduł interfejsu Pythona dla Scribusa
 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Moduł niniejszy jest interfejsem Pythona dla Scribusa. Udostępnia on funkcje
 <byte value="x9"/><byte value="x9"/>umożliwiające kontrolę Scribusa i manipulowanie obiektami w obszarze roboczym. Każdej
 <byte value="x9"/><byte value="x9"/>funkcji poświęcono poniżej oddzielny opis.
@@ -10336,55 +10321,6 @@ Zewnętrzne dowiązania
 <byte value="x9"/><byte value="x9"/>      bez zmian. Jako taka, lista wyjątków zwracanych przez poszczególne funkcje
 <byte value="x9"/><byte value="x9"/>      opisana tutaj oraz w opisach funkcji jest niekompletna.
 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Szczegóły na temat tego, jakie wyjątki zwraca każda funkcja dostępne są w dokumentacji funkcji.<byte value="x9"/></translation>
-    </message>
-    <message>
-        <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation>Importuj &amp;OpenOffice.org Draw...</translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation>OpenOffice.org Draw (*.sxd);;Wszystkie pliki (*)</translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Writer Documents</source>
-        <translation>Dokumenty OpenOffice.org Writer</translation>
-    </message>
-    <message>
-        <source>Scribus Python interface module
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
-<byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
-<byte value="x9"/><byte value="x9"/>function is documented individually below.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
-<byte value="x9"/><byte value="x9"/>a string - they are not real Python objects. Many functions take an
-<byte value="x9"/><byte value="x9"/>optional (non-keyword) parameter, a frame name.
-<byte value="x9"/><byte value="x9"/>Many exceptions are also common across most functions. These are
-<byte value="x9"/><byte value="x9"/>not currently documented in the docstring for each function.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
-<byte value="x9"/><byte value="x9"/>      without a document to operate on.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
-<byte value="x9"/><byte value="x9"/>      the function will use the currently selected frame, if any, or
-<byte value="x9"/><byte value="x9"/>      raise a NoValidObjectError if it can&apos;t find anything to operate
-<byte value="x9"/><byte value="x9"/>      on.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
-<byte value="x9"/><byte value="x9"/>      on a frame type that they do not make sense with. For example, setting
-<byte value="x9"/><byte value="x9"/>      the text colour on a graphics frame doesn&apos;t make sense, and will result
-<byte value="x9"/><byte value="x9"/>      in this exception being raised.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
-<byte value="x9"/><byte value="x9"/>      passed through unaltered. As such, the list of exceptions thrown by
-<byte value="x9"/><byte value="x9"/>      any function as provided here and in its docstring is incomplete.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
-<byte value="x9"/><byte value="x9"/>function&apos;s documentation.
-<byte value="x9"/><byte value="x9"/></source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
