@@ -1082,7 +1082,10 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					if (doc->AppMode == 23)
 						setAppMode(1);
 					else
+					{
 						setAppMode(23);
+						qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
+					}
 	 				return;
 	 				break;
 	 			case Key_Prior:

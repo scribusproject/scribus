@@ -5149,7 +5149,6 @@ void Page::mousePressEvent(QMouseEvent *m)
 		Deselect(false);
 		break;
 	case 23:
-		qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
 		break;
 	}
 }
@@ -5980,10 +5979,14 @@ void Page::slotDoCurs(bool draw)
 		if (b->CPos > 0)
 		{
 			offs = QMIN(b->CPos-1, static_cast<int>(b->Ptext.count()-1));
-			if (b->Ptext.at(offs+1)->cstyle & 256)
+			if (b->CPos < static_cast<int>(b->Ptext.count()-1))
 			{
-				b->CPos++;
-				return;
+				if (b->Ptext.at(offs+1)->cstyle & 256)
+				{
+					if (b->CPos < static_cast<int>(b->Ptext.count()-1))
+					b->CPos++;
+					return;
+				}
 			}
 			if (b->Ptext.at(offs)->yp == 0)
 				return;

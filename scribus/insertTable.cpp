@@ -38,6 +38,11 @@ InsertTable::InsertTable( QWidget* parent, int maxRow, int maxCol )
 	InsertTableLayout->addLayout( layout1 );
 	resize( QSize(200, 111).expandedTo(minimumSizeHint()) );
 
+	setTabOrder ( Rows, Cols );
+	setTabOrder ( Cols, OKButton );
+	setTabOrder ( OKButton, CancelB);
+	setTabOrder ( CancelB, Rows );
+	Rows->setFocus();
 	// signals and slots connections
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );

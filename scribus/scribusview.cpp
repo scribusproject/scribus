@@ -205,7 +205,7 @@ void ScribusView::Zval()
 	rememberPreviousSettings();
 	Doc->Scale = LE->value() / 100.0 * Prefs->DisScale;
 	slotDoZoom();
-	setFocus();
+	ScApp->setFocus();
 }
 
 /** Fgt eine Seite hinzu */
@@ -219,7 +219,6 @@ Page* ScribusView::addPage(int nr)
 	Doc->ActPage = fe;
 	fe->Margins.Top = Doc->PageM.Top;
 	fe->Margins.Bottom = Doc->PageM.Bottom;
-	fe->setFocusPolicy(QWidget::ClickFocus);
 	addChild(feh, static_cast<int>(10*s), static_cast<int>(Doc->PageC*((Doc->PageH+30)*s)+10*s));
 	feh->show();
 	Doc->PageC++;
@@ -617,7 +616,7 @@ void ScribusView::GotoLa(int l)
 void ScribusView::GotoPa(int Seite)
 {
 	GotoPage(Seite-1);
-	setFocus();
+	ScApp->setFocus();
 }
 
 void ScribusView::ChgUnit(int art)
