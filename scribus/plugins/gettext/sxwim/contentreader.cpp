@@ -291,7 +291,7 @@ xmlSAXHandler cSAXHandlerStruct = {
 
 xmlSAXHandlerPtr cSAXHandler = &cSAXHandlerStruct;
 
-void ContentReader::startElement(void *user_data, const xmlChar *fullname, const xmlChar ** atts)
+void ContentReader::startElement(void*, const xmlChar *fullname, const xmlChar ** atts)
 {
 	QString* name = new QString((const char*) fullname);
 	name = new QString(name->lower());
@@ -304,13 +304,13 @@ void ContentReader::startElement(void *user_data, const xmlChar *fullname, const
 	creader->startElement(NULL, NULL, *name, *attrs);
 }
 
-void ContentReader::characters(void *user_data, const xmlChar *ch, int len)
+void ContentReader::characters(void*, const xmlChar *ch, int len)
 {
 	QString chars = QString::fromUtf8((const char*) ch, len);
 	creader->characters(chars);
 }
 
-void ContentReader::endElement(void *user_data, const xmlChar *name)
+void ContentReader::endElement(void*, const xmlChar *name)
 {
 	QString *nname = new QString((const char*) name);
 	nname = new QString(nname->lower());

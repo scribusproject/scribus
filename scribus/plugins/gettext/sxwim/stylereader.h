@@ -46,6 +46,7 @@ private:
 	gtWriter *writer;
 	bool importTextOnly;
 	bool usePrefix;
+	bool packStyles;
 	bool readProperties;
 	QString docname;
 	StyleMap styles;
@@ -65,7 +66,7 @@ private:
 	void tabStop(const QXmlAttributes& attrs);
 	void setupFrameStyle();
 public:
-	StyleReader(QString documentName, gtWriter *wr, bool textOnly, bool prefix);
+	StyleReader(QString documentName, gtWriter *wr, bool textOnly, bool prefix, bool combineStyles = true);
 	~StyleReader();
 	bool updateStyle(gtStyle* style, gtStyle* parent2Style, const QString& key, const QString& value);
 	static void startElement(void *user_data, const xmlChar * fullname, const xmlChar ** atts);
