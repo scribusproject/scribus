@@ -29,10 +29,10 @@
 LineCombo::LineCombo(QWidget* pa) : QComboBox(true, pa)
 {
 	setEditable(false);
-  insertItem(QPixmap(solidL));
-  insertItem(QPixmap(dashL));
-  insertItem(QPixmap(dotL));
-  insertItem(QPixmap(dashdotL));
-  insertItem(QPixmap(dashdotdotL));
+	insertItem(QPixmap(solidL));
+	insertItem(QPixmap(dashL));
+	insertItem(QPixmap(dotL));
+	insertItem(QPixmap(dashdotL));
+	insertItem(QPixmap(dashdotdotL));
 }
 

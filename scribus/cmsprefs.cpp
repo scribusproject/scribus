@@ -11,7 +11,8 @@
 extern QPixmap loadIcon(QString nam);
 
 CMSPrefs::CMSPrefs( QWidget* parent, CMSset *Vor,
-										ProfilesL *InputProfiles, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles)
+										ProfilesL *InputProfiles, ProfilesL *PrinterProfiles, 
+										ProfilesL *MonitorProfiles)
     : QDialog( parent, "CMS", true, 0 )
 {
     setCaption( tr( "Color Management Settings" ) );
@@ -28,7 +29,7 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSset *Vor,
     CMSPrefsLayout->addWidget( CheckBox1 );
 
     SysProfiles = new QGroupBox( this, "SysProfiles" );
-		if (!CheckBox1->isChecked())
+	if (!CheckBox1->isChecked())
     	SysProfiles->setEnabled( false );
     SysProfiles->setTitle( tr( "System Profiles" ) );
     SysProfiles->setColumnLayout(0, Qt::Vertical );
@@ -54,65 +55,57 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSset *Vor,
     Text3 = new QLabel( SysProfiles, "Text3" );
     Text3->setText( tr( "Printer:" ) );
     SysProfilesLayout->addWidget( Text3, 3, 0 );
-		ProfilesL::Iterator it;
+	ProfilesL::Iterator it;
 
     InputP = new QComboBox( true, SysProfiles, "InputP" );
     InputP->setMinimumSize( QSize( 190, 22 ) );
     InputP->setEditable(false);
-		for (it = InputProfiles->begin(); it != InputProfiles->end(); ++it)
-			{
-			InputP->insertItem(it.key());
+	for (it = InputProfiles->begin(); it != InputProfiles->end(); ++it)
+	{
+		InputP->insertItem(it.key());
     	if (it.key() == Vor->DefaultInputProfile)
-    		{
     		InputP->setCurrentItem(InputP->count()-1);
-    		}
-			}
+	}
     SysProfilesLayout->addWidget( InputP, 0, 1 );
 
     InputP2 = new QComboBox( true, SysProfiles, "InputP2" );
     InputP2->setMinimumSize( QSize( 190, 22 ) );
     InputP2->setEditable(false);
-		for (it = InputProfiles->begin(); it != InputProfiles->end(); ++it)
-			{
-			InputP2->insertItem(it.key());
+	for (it = InputProfiles->begin(); it != InputProfiles->end(); ++it)
+	{
+		InputP2->insertItem(it.key());
     	if (it.key() == Vor->DefaultInputProfile2)
-    		{
     		InputP2->setCurrentItem(InputP2->count()-1);
-    		}
-			}
+	}
     SysProfilesLayout->addWidget( InputP2, 1, 1 );
 
     MonitorP = new QComboBox( true, SysProfiles, "MonitorP" );
     MonitorP->setMinimumSize( QSize( 190, 22 ) );
     MonitorP->setEditable(false);
-		for (it = MonitorProfiles->begin(); it != MonitorProfiles->end(); ++it)
-			{
-			MonitorP->insertItem(it.key());
+	for (it = MonitorProfiles->begin(); it != MonitorProfiles->end(); ++it)
+	{
+		MonitorP->insertItem(it.key());
     	if (it.key() == Vor->DefaultMonitorProfile)
-    		{
     		MonitorP->setCurrentItem(MonitorP->count()-1);
-    		}
-			}
+	}
 
     SysProfilesLayout->addWidget( MonitorP, 2, 1 );
 
     PrinterP = new QComboBox( true, SysProfiles, "PrinterP" );
     PrinterP->setMinimumSize( QSize( 190, 22 ) );
     PrinterP->setEditable(false);
-		for (it = PrinterProfiles->begin(); it != PrinterProfiles->end(); ++it)
-			{
-			PrinterP->insertItem(it.key());
+	for (it = PrinterProfiles->begin(); it != PrinterProfiles->end(); ++it)
+	{
+		PrinterP->insertItem(it.key());
     	if (it.key() == Vor->DefaultPrinterProfile)
-    		{
     		PrinterP->setCurrentItem(PrinterP->count()-1);
-    		}
-			}
+	}
 
     SysProfilesLayout->addWidget( PrinterP, 3, 1 );
     CMSPrefsLayout->addWidget( SysProfiles );
 
     Render = new QGroupBox( this, "Render" );
-		if (!CheckBox1->isChecked())
+	if (!CheckBox1->isChecked())
     	Render->setEnabled( false );
     Render->setTitle( tr( "Rendering Intents" ) );
     Render->setColumnLayout(0, Qt::Vertical );
@@ -171,16 +164,16 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSset *Vor,
     BlackP->setChecked(Vor->BlackPoint);
 #else
     BlackP->setChecked(false);
-		BlackP->hide();
+	BlackP->hide();
 #endif
     CMSPrefsLayout->addWidget( BlackP );
 
-		if (!CheckBox1->isChecked())
-			{
+	if (!CheckBox1->isChecked())
+	{
     	Simulate->setEnabled( false );
     	GamutC->setEnabled( false );
     	BlackP->setEnabled( false );
-			}
+	}
 
     Layout1 = new QHBoxLayout; 
     Layout1->setSpacing( 6 );
@@ -212,16 +205,16 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSset *Vor,
 void CMSPrefs::SetValues()
 {
 	if ((Prefs->DefaultInputProfile != InputP->currentText()) ||
-	(Prefs->DefaultInputProfile2 != InputP2->currentText()) ||
-	(Prefs->DefaultMonitorProfile != MonitorP->currentText()) ||
-	(Prefs->DefaultPrinterProfile != PrinterP->currentText()) ||
-	(Prefs->DefaultIntentPrinter != PrinterI->currentItem()) ||
-	(Prefs->DefaultIntentMonitor != MonitorI->currentItem()) ||
-	(Prefs->SoftProofOn != Simulate->isChecked()) ||
-	(Prefs->GamutCheck != GamutC->isChecked()) ||
-	(Prefs->BlackPoint != BlackP->isChecked()) ||
-	(Prefs->CMSinUse != CheckBox1->isChecked()))
-		Changed = true;
+		(Prefs->DefaultInputProfile2 != InputP2->currentText()) ||
+		(Prefs->DefaultMonitorProfile != MonitorP->currentText()) ||
+		(Prefs->DefaultPrinterProfile != PrinterP->currentText()) ||
+		(Prefs->DefaultIntentPrinter != PrinterI->currentItem()) ||
+		(Prefs->DefaultIntentMonitor != MonitorI->currentItem()) ||
+		(Prefs->SoftProofOn != Simulate->isChecked()) ||
+		(Prefs->GamutCheck != GamutC->isChecked()) ||
+		(Prefs->BlackPoint != BlackP->isChecked()) ||
+		(Prefs->CMSinUse != CheckBox1->isChecked()))
+			Changed = true;
 	Prefs->DefaultInputProfile = InputP->currentText();
 	Prefs->DefaultInputProfile2 = InputP2->currentText();
 	Prefs->DefaultMonitorProfile = MonitorP->currentText();
@@ -245,13 +238,13 @@ void CMSPrefs::slotSimula()
 void CMSPrefs::slotCMSon()
 {
 	bool setter = CheckBox1->isChecked() ? true : false;
-  SysProfiles->setEnabled(setter);
-  Render->setEnabled(setter);
-  Simulate->setEnabled(setter);
+	SysProfiles->setEnabled(setter);
+	Render->setEnabled(setter);
+	Simulate->setEnabled(setter);
 	BlackP->setEnabled(setter);
-  if (setter == true)
-  	slotSimula();
-  else
-    GamutC->setEnabled(setter);
+	if (setter == true)
+  		slotSimula();
+  	else
+    	GamutC->setEnabled(setter);
 }
 

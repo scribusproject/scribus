@@ -23,14 +23,14 @@ KeyManager::KeyManager(QWidget* parent, QMap<int,Keys> Ke)
     TastenT = new QTable( this, "TastenT" );
     TastenT->setMaximumSize(QSize(500,200));
     TastenT->setNumCols( 2 );
-		TastenT->setNumRows( Ke.count() );
-		for (uint a = 0; a < Ke.count(); ++a)
-			{
-			QTableItem *it = new QTableItem(TastenT, QTableItem::Never, Ke[a].Name);
-			TastenT->setItem(a, 0, it);
-			QTableItem *it2 = new QTableItem(TastenT, QTableItem::Never, GetKeyText(Ke[a].KeyID));
-			TastenT->setItem(a, 1, it2);
-			}
+	TastenT->setNumRows( Ke.count() );
+	for (uint a = 0; a < Ke.count(); ++a)
+	{
+		QTableItem *it = new QTableItem(TastenT, QTableItem::Never, Ke[a].Name);
+		TastenT->setItem(a, 0, it);
+		QTableItem *it2 = new QTableItem(TastenT, QTableItem::Never, GetKeyText(Ke[a].KeyID));
+		TastenT->setItem(a, 1, it2);
+	}
     TastenT->setSorting(false);
     TastenT->setSelectionMode(QTable::NoSelection);
     TastenT->setLeftMargin(0);
@@ -113,32 +113,28 @@ bool KeyManager::event( QEvent* ev )
 {
     bool ret = QDialog::event( ev );
     if ( ev->type() == QEvent::KeyPress )
-    	{
     	keyPressEvent((QKeyEvent*)ev);
-    	}
-    if ( ev->type() == QEvent::KeyRelease )
-    	{
+	if ( ev->type() == QEvent::KeyRelease )
     	keyReleaseEvent((QKeyEvent*)ev);
-    	}
     return ret;
 }
 
 void KeyManager::keyPressEvent(QKeyEvent *k)
 {
 	if (SetKey->isOn())
-		{
-    QStringList tl;
-    if (Tdisplay->text() != "")
+	{
+    	QStringList tl;
+    	if (Tdisplay->text() != "")
     	{
-    	tl = tl.split("+", Tdisplay->text());
+    		tl = tl.split("+", Tdisplay->text());
 			Part4 = tl[tl.count()-1];
 			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift"))
 				Part4 = "";
-			}
+		}
 		else
 			Part4 = "";
 		switch (k->key())
-			{
+		{
 			case Key_Shift:
 				Part3 = tr("Shift+");
 				Kcode |= 0x00200000;
@@ -155,26 +151,26 @@ void KeyManager::keyPressEvent(QKeyEvent *k)
 				Kcode |= k->key();
 				Tdisplay->setText(GetKeyText(Kcode));
 				if (CheckKey(Kcode))
-					{
-  				QMessageBox::information(this,
-  																tr("Warning"),
-                                  tr("This Key-Sequence is already in use"),
-                                  tr("OK"), 0, 0, 0, 1);
+				{
+  					QMessageBox::information(this,
+  											tr("Warning"),
+        			                        tr("This Key-Sequence is already in use"),
+                    			            tr("OK"), 0, 0, 0, QMessageBox::Ok);
 					TastenT->setText(ActRow, 1, "");
 					Tdisplay->setText("");
 					KK[ActRow].KeyID = 0;
 					NoKey->setChecked(true);
-					}
+				}
 				else
-					{
+				{
 					TastenT->setText(ActRow, 1, GetKeyText(Kcode));
 					KK[ActRow].KeyID = Kcode;
 					UserDef->setChecked(true);
-					}
+				}
 				SetKey->setOn(false);
 				releaseKeyboard();
-			}
 		}
+	}
 	if (SetKey->isOn())
 		Tdisplay->setText(Part1+Part2+Part3+Part4);
 }
@@ -182,47 +178,47 @@ void KeyManager::keyPressEvent(QKeyEvent *k)
 void KeyManager::keyReleaseEvent(QKeyEvent *k)
 {
 	if (SetKey->isOn())
-		{
-    if (Tdisplay->text() != "")
+	{
+    	if (Tdisplay->text() != "")
     	{
-    	QStringList tl;
-    	tl = tl.split("+", Tdisplay->text());
+    		QStringList tl;
+    		tl = tl.split("+", Tdisplay->text());
 			Part4 = tl[tl.count()-1];
 			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift"))
 				Part4 = "";
-			}
+		}
 		else
 			Part4 = "";
 		if (k->key() == Key_Shift)
-			{
+		{
 			Part3 = "";
 			Kcode &= ~0x00200000;
-			}
+		}
 		if (k->key() == Key_Alt)
-			{
+		{
 			Part2 = "";
 			Kcode &= ~0x00800000;
-			}
+		}
 		if (k->key() == Key_Control)
-			{
+		{
 			Part1 = "";
 			Kcode &= ~0x00400000;
-			}
-		Tdisplay->setText(Part1+Part2+Part3+Part4);
 		}
+		Tdisplay->setText(Part1+Part2+Part3+Part4);
+	}
 }
 
 void KeyManager::SetKeyText()
 {
 	if (SetKey->isOn())
-		{
+	{
 		Kcode = 0;
 		Part1 = "";
 		Part2 = "";
 		Part3 = "";
 		Part4 = "";
 		grabKeyboard();
-		}
+	}
 	else
 		releaseKeyboard();
 }
@@ -240,11 +236,11 @@ void KeyManager::DispKey(int r)
 void KeyManager::SetNoKey()
 {
 	if (NoKey->isChecked())
-		{
+	{
 		TastenT->setText(ActRow, 1, "");
 		Tdisplay->setText("");
 		KK[ActRow].KeyID = 0;
-		}
+	}
 }
 
 QString KeyManager::GetKeyText(int KeyC)
@@ -259,13 +255,13 @@ bool KeyManager::CheckKey(int Code)
 {
 	bool ret = false;
 	for (uint a = 0; a < KK.count(); ++a)
-		{
+	{
 		if (KK[a].KeyID == Code)
-			{
+		{
 			ret = true;
 			break;
-			}
 		}
+	}
 	return ret;
 }
 

@@ -15,7 +15,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
 {
     CMYKmode = true;
     dynamic = true;
-		Wsave = false;
+	Wsave = false;
     imageA = QPixmap(50,50);
     imageA.fill(orig.getRGBColor());
     imageN = QPixmap(50,50);
@@ -158,7 +158,8 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
     Layout1_2->setMargin( 0 );
 
     CyanP = new QLabel( Frame4, "CyanP" );
-    CyanP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5, CyanP->sizePolicy().hasHeightForWidth() ) );
+    CyanP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5,
+										 CyanP->sizePolicy().hasHeightForWidth() ) );
     CyanP->setMinimumSize( QSize( 200, 10 ) );
     CyanP->setPixmap(image0);
     CyanP->setScaledContents( true );
@@ -192,7 +193,8 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
     Layout1_2_2->setMargin( 0 );
 
     MagentaP = new QLabel( Frame4, "MagentaP" );
-    MagentaP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5, MagentaP->sizePolicy().hasHeightForWidth() ) );
+    MagentaP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5,
+							 MagentaP->sizePolicy().hasHeightForWidth() ) );
     MagentaP->setMinimumSize( QSize( 200, 10 ) );
     MagentaP->setPixmap(image1);
     MagentaP->setScaledContents( true );
@@ -226,7 +228,8 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
     Layout1_2_3->setMargin( 0 );
 
     YellowP = new QLabel( Frame4, "YellowP" );
-    YellowP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5, YellowP->sizePolicy().hasHeightForWidth() ) );
+    YellowP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5,
+											 YellowP->sizePolicy().hasHeightForWidth() ) );
     YellowP->setMinimumSize( QSize( 200, 10 ) );
     YellowP->setPixmap(image2);
     YellowP->setScaledContents( true );
@@ -260,7 +263,8 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
     Layout1_2_4->setMargin( 0 );
 
     BlackP = new QLabel( Frame4, "BlackP" );
-    BlackP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5, BlackP->sizePolicy().hasHeightForWidth() ) );
+    BlackP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5,
+										 BlackP->sizePolicy().hasHeightForWidth() ) );
     BlackP->setMinimumSize( QSize( 200, 10 ) );
     BlackP->setPixmap(image3);
     BlackP->setScaledContents( true );
@@ -309,7 +313,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
 void CMYKChoose::mouseReleaseEvent(QMouseEvent *m)
 {
 	if (m->button() == RightButton)
-		{
+	{
 		QPopupMenu *pmen = new QPopupMenu();
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		int px = pmen->insertItem( tr("Dynamic Color Bars"), this, SLOT(ToggleSL()));
@@ -321,113 +325,115 @@ void CMYKChoose::mouseReleaseEvent(QMouseEvent *m)
 			pmen->setItemChecked(py, true);*/
 		pmen->exec(QCursor::pos());
 		delete pmen;
-		}
+	}
 }
 
 void CMYKChoose::ToggleSL()
 {
 	dynamic = !dynamic;
-  if (CMYKmode)
-  	{
-   	CyanP->setPixmap(SliderPix(180));
-   	MagentaP->setPixmap(SliderPix(300));
-   	YellowP->setPixmap(SliderPix(60));
-   	BlackP->setPixmap(SliderBlack());
+	CyanP->setPixmap(SliderPix(CMYKmode ? 180 : 0));
+	MagentaP->setPixmap(SliderPix(CMYKmode? 300 : 120));
+	YellowP->setPixmap(SliderPix(CMYKmode? 60 : 240));
+	if (CMYKmode)
+		BlackP->setPixmap(SliderBlack());
+/*  	{
+   		CyanP->setPixmap(SliderPix(180));
+   		MagentaP->setPixmap(SliderPix(300));
+   		YellowP->setPixmap(SliderPix(60));
+   		BlackP->setPixmap(SliderBlack());
    	}
-  else
+	else
   	{
-   	CyanP->setPixmap(SliderPix(0));
-   	MagentaP->setPixmap(SliderPix(120));
-   	YellowP->setPixmap(SliderPix(240));
-   	}
+   		CyanP->setPixmap(SliderPix(0));
+   		MagentaP->setPixmap(SliderPix(120));
+   		YellowP->setPixmap(SliderPix(240));
+   	}*/
 }
 
 QPixmap CMYKChoose::SliderPix(int farbe)
 {
-  QPixmap image0 = QPixmap(255,10);
-  QPainter p;
-  p.begin(&image0);
-  p.setPen(NoPen);
+	QPixmap image0 = QPixmap(255,10);
+	QPainter p;
+	p.begin(&image0);
+	p.setPen(NoPen);
 	int r, g, b, c, m, y, k;
-  Farbe.getCMYK(&c, &m, &y, &k);
+	Farbe.getCMYK(&c, &m, &y, &k);
 #ifdef HAVE_CMS
 	if ((Gamut) && (CMSuse))
-		{
-  	QColor tmp3 = CMYK2RGB(c, m, y, k);
+	{
+  		QColor tmp3 = CMYK2RGB(c, m, y, k);
 		tmp3.rgb(&r, &g, &b);
-		}
+	}
 	else
 		Farbe.getRGBColor().rgb(&r, &g, &b);
 #else
 	Farbe.getRGBColor().rgb(&r, &g, &b);
 #endif
 	QColor tmp;
-  for (int x = 0; x < 255; x += 5)
+  	for (int x = 0; x < 255; x += 5)
   	{
-  	if (CMYKmode)
-  		if (dynamic)
+  		if (CMYKmode)
+  			if (dynamic)
   			{
-   			switch (farbe)
+   				switch (farbe)
    				{
-   				case 180:
-   					tmp = CMYK2RGB(x, m, y, k);
-   					break;
-   				case 300:
-   					tmp = CMYK2RGB(c, x, y, k);
-   					break;
-   				case 60:
-   					tmp = CMYK2RGB(c, m, x, k);
-   					break;
+   					case 180:
+   						tmp = CMYK2RGB(x, m, y, k);
+   						break;
+   					case 300:
+   						tmp = CMYK2RGB(c, x, y, k);
+   						break;
+   					case 60:
+   						tmp = CMYK2RGB(c, m, x, k);
+   						break;
    				}
 				p.setBrush(tmp);
    			}
+   			else
+   				p.setBrush(QColor(farbe, x, 255, QColor::Hsv));
    		else
-   			p.setBrush(QColor(farbe, x, 255, QColor::Hsv));
-   	else
    		{
-  		if (dynamic)
+  			if (dynamic)
   			{
-   			switch (farbe)
-   				{
-   				case 0:
-   					p.setBrush(QColor(x, g, b, QColor::Rgb));
-   					break;
-   				case 120:
-   					p.setBrush(QColor(r, x, b, QColor::Rgb));
-   					break;
-   				case 240:
-   					p.setBrush(QColor(r, g, x, QColor::Rgb));
-   					break;
-   				}
-   			}
-   		else
-	   		p.setBrush(QColor(farbe, 255, x, QColor::Hsv));
-   		}
-   	p.drawRect(x, 0, 5, 10);
-   	}
-  p.end();
-  return image0;
+   				switch (farbe)
+ 				{
+   					case 0:
+   						p.setBrush(QColor(x, g, b, QColor::Rgb));
+   						break;
+   					case 120:
+   						p.setBrush(QColor(r, x, b, QColor::Rgb));
+   						break;
+	   				case 240:
+   						p.setBrush(QColor(r, g, x, QColor::Rgb));
+   						break;
+ 				}
+ 			}
+   			else
+	   			p.setBrush(QColor(farbe, 255, x, QColor::Hsv));
+ 		}
+   		p.drawRect(x, 0, 5, 10);
+	}
+ 	p.end();
+ 	return image0;
 }
 
 QPixmap CMYKChoose::SliderBlack()
 {
-  QPixmap image0 = QPixmap(255,10);
-  QPainter p;
-  int val = 255;
-  p.begin(&image0);
-  p.setPen(NoPen);
-  int c, m, y, k;
-  Farbe.getCMYK(&c, &m, &y, &k);
-  for (int x = 0; x < 255; x += 5)
+	QPixmap image0 = QPixmap(255,10);
+	QPainter p;
+	int val = 255;
+	p.begin(&image0);
+	p.setPen(NoPen);
+	int c, m, y, k;
+	Farbe.getCMYK(&c, &m, &y, &k);
+	for (int x = 0; x < 255; x += 5)
   	{
-  	if (dynamic)
-  		{
+  		if (dynamic)
 			p.setBrush(CMYK2RGB(c, m, y, x));
-			}
-  	else
-  		p.setBrush(QColor(val, val, val, QColor::Rgb));
-   	p.drawRect(x, 0, 5, 10);
-   	val -= 5;
+  		else
+  			p.setBrush(QColor(val, val, val, QColor::Rgb));
+   		p.drawRect(x, 0, 5, 10);
+   		val -= 5;
    	}
    p.end();
    return image0;
@@ -446,39 +452,39 @@ void CMYKChoose::SelModel(const QString& mod)
 	MagentaSp->setLineStep(1);
 	YellowSp->setLineStep(1);
 	if (mod == tr("CMYK"))
-		{
+	{
 		CMYKmode = true;
 		Wsave = false;
 		CyanT->setText( tr("C:"));
 		MagentaT->setText( tr("M:"));
 		YellowT->setText( tr("Y:"));
-    CyanP->setPixmap(SliderPix(180));
-    MagentaP->setPixmap(SliderPix(300));
-    YellowP->setPixmap(SliderPix(60));
-    BlackP->setPixmap(SliderBlack());
-    BlackP->show();
-    BlackSL->show();
-    BlackSp->show();
-    BlackT->show();
-    setValues();
-		}
+    	CyanP->setPixmap(SliderPix(180));
+    	MagentaP->setPixmap(SliderPix(300));
+    	YellowP->setPixmap(SliderPix(60));
+    	BlackP->setPixmap(SliderBlack());
+    	BlackP->show();
+    	BlackSL->show();
+    	BlackSp->show();
+    	BlackT->show();
+    	setValues();
+	}
 	else
 //	if (mod == tr("RGB"))
-		{
+	{
 		CMYKmode = false;
 		Wsave = false;
 		CyanT->setText( tr("R:"));
 		MagentaT->setText( tr("G:"));
 		YellowT->setText( tr("B:"));
-    CyanP->setPixmap(SliderPix(0));
-    MagentaP->setPixmap(SliderPix(120));
-    YellowP->setPixmap(SliderPix(240));
-    BlackP->hide();
-    BlackSL->hide();
-    BlackSp->hide();
-    BlackT->hide();
+    	CyanP->setPixmap(SliderPix(0));
+    	MagentaP->setPixmap(SliderPix(120));
+    	YellowP->setPixmap(SliderPix(240));
+    	BlackP->hide();
+    	BlackSL->hide();
+    	BlackSp->hide();
+    	BlackT->hide();
 		if (mod == tr("Websave RGB"))
-			{
+		{
 			Wsave = true;
 			CyanSL->setLineStep(51);
 			MagentaSL->setLineStep(51);
@@ -489,9 +495,9 @@ void CMYKChoose::SelModel(const QString& mod)
 			CyanSp->setLineStep(51);
 			MagentaSp->setLineStep(51);
 			YellowSp->setLineStep(51);
-			}
- 		setValues();
 		}
+ 		setValues();
+	}
 	blockSignals(false);
 }
 
@@ -504,7 +510,7 @@ void CMYKChoose::setColor()
  	int h, s, v;
  	BlackComp = BlackSp->value();
 	if (Wsave)
-		{
+	{
 		blockSignals(true);
 		c = c / 51 * 51;
 		m = m / 51 * 51;
@@ -516,53 +522,53 @@ void CMYKChoose::setColor()
 		MagentaSL->setValue(m);
 		YellowSL->setValue(y);
 		blockSignals(false);
-		}
+	}
 	CMYKColor tmp = CMYKColor(c, m, y, k);
 	if (CMYKmode)
-		{
-  	if (dynamic)
+	{
+  		if (dynamic)
   		{
-    	CyanP->setPixmap(SliderPix(180));
-    	MagentaP->setPixmap(SliderPix(300));
-    	YellowP->setPixmap(SliderPix(60));
-    	BlackP->setPixmap(SliderBlack());
+    		CyanP->setPixmap(SliderPix(180));
+    		MagentaP->setPixmap(SliderPix(300));
+    		YellowP->setPixmap(SliderPix(60));
+    		BlackP->setPixmap(SliderBlack());
     	}
-		}
+	}
 	else
-		{
+	{
 		QColor tmp2 = QColor(c, m, y, QColor::Rgb);
 		tmp2.hsv(&h, &s, &v);
 		tmp.fromQColor(tmp2);
 		tmp.RecalcRGB();
-  	BlackComp = 255 - v;
-  	if (dynamic)
+  		BlackComp = 255 - v;
+  		if (dynamic)
   		{
-    	CyanP->setPixmap(SliderPix(0));
-    	MagentaP->setPixmap(SliderPix(120));
-    	YellowP->setPixmap(SliderPix(240));
+    		CyanP->setPixmap(SliderPix(0));
+    		MagentaP->setPixmap(SliderPix(120));
+    		YellowP->setPixmap(SliderPix(240));
     	}
-		}
+	}
 #ifdef HAVE_CMS
 	if ((Gamut) && (CMSuse))
-		{
-  	int cc, cm, cy, ck;
-  	tmp.getCMYK(&cc, &cm, &cy, &ck);
-  	QColor tmp3 = CMYK2RGB(cc, cm, cy, ck);
+	{
+  		int cc, cm, cy, ck;
+  		tmp.getCMYK(&cc, &cm, &cy, &ck);
+  		QColor tmp3 = CMYK2RGB(cc, cm, cy, ck);
 		imageN.fill(tmp3);
  		tmp3.hsv(&h, &s, &v);
-		}
+	}
 	else
-		{
+	{
 		imageN.fill(tmp.getRGBColor());
 	 	tmp.getRGBColor().hsv(&h, &s, &v);
-		}
+	}
 #else
 	imageN.fill(tmp.getRGBColor());
 	tmp.getRGBColor().hsv(&h, &s, &v);
 #endif
-  NewC->setPixmap( imageN );
-  Farbe = tmp;
-  ColorMap->drawPalette(v);
+	NewC->setPixmap( imageN );
+	Farbe = tmp;
+	ColorMap->drawPalette(v);
  	ColorMap->setMark(h, s);
 }
 
@@ -573,79 +579,77 @@ void CMYKChoose::setColor2(int h, int s, bool ende)
 	tm.rgb(&r, &g, &b);
 	CMYKColor tmp = CMYKColor();
 	if (CMYKmode)
-		{
+	{
 		int k = BlackSp->value();
 		int c = QMAX(255 - r - k, 0);
 		int m = QMAX(255 - g - k, 0);
 		int y = QMAX(255 - b - k, 0);
 		tmp.setColor(c, m, y, k);
-		}
+	}
 	else
-		{
 		tmp.fromQColor(tm);
-		}
 #ifdef HAVE_CMS
 	if ((Gamut) && (CMSuse))
-		{
-  	int cc, cm, cy, ck;
-  	tmp.getCMYK(&cc, &cm, &cy, &ck);
-  	QColor tmp3 = CMYK2RGB(cc, cm, cy, ck);
+	{
+  		int cc, cm, cy, ck;
+  		tmp.getCMYK(&cc, &cm, &cy, &ck);
+  		QColor tmp3 = CMYK2RGB(cc, cm, cy, ck);
 		imageN.fill(tmp3);
-		}
+	}
 	else
 		imageN.fill(tmp.getRGBColor());
 #else
 	imageN.fill(tmp.getRGBColor());
 #endif
-  NewC->setPixmap( imageN );
-  Farbe = tmp;
-  if (ende)
-  	setValues();
+	NewC->setPixmap( imageN );
+	Farbe = tmp;
+	if (ende)
+  		setValues();
 }
 
 void CMYKChoose::setValues()
 {
 	if (CMYKmode)
-		{
-  	int cc, cm, cy, ck;
-  	Farbe.getCMYK(&cc, &cm, &cy, &ck);
-  	CyanSp->setValue(cc);
-  	CyanSL->setValue(cc);
-  	MagentaSp->setValue(cm);
-  	MagentaSL->setValue(cm);
-  	YellowSp->setValue(cy);
-  	YellowSL->setValue(cy);
-  	BlackSp->setValue(ck);
-  	BlackSL->setValue(ck);
-  	if (dynamic)
+	{
+  		int cc, cm, cy, ck;
+  		Farbe.getCMYK(&cc, &cm, &cy, &ck);
+  		CyanSp->setValue(cc);
+  		CyanSL->setValue(cc);
+  		MagentaSp->setValue(cm);
+  		MagentaSL->setValue(cm);
+  		YellowSp->setValue(cy);
+  		YellowSL->setValue(cy);
+  		BlackSp->setValue(ck);
+  		BlackSL->setValue(ck);
+  		if (dynamic)
   		{
-    	CyanP->setPixmap(SliderPix(180));
-    	MagentaP->setPixmap(SliderPix(300));
-    	YellowP->setPixmap(SliderPix(60));
-    	BlackP->setPixmap(SliderBlack());
+    		CyanP->setPixmap(SliderPix(180));
+    		MagentaP->setPixmap(SliderPix(300));
+    		YellowP->setPixmap(SliderPix(60));
+    		BlackP->setPixmap(SliderBlack());
     	}
   	}
-  else
+	else
   	{
-  	int cc, cm, cy, ck;
-  	Farbe.getCMYK(&cc, &cm, &cy, &ck);
-  	QColor tmp = CMYK2RGB(cc, cm, cy, ck);
+  		int cc, cm, cy, ck;
+  		Farbe.getCMYK(&cc, &cm, &cy, &ck);
+  		QColor tmp = CMYK2RGB(cc, cm, cy, ck);
  		int r, g, b;
  		tmp.rgb(&r, &g, &b);
-  	CyanSp->setValue(r);
-  	CyanSL->setValue(r);
-  	MagentaSp->setValue(g);
-  	MagentaSL->setValue(g);
-  	YellowSp->setValue(b);
-  	YellowSL->setValue(b);
+  		CyanSp->setValue(r);
+  		CyanSL->setValue(r);
+  		MagentaSp->setValue(g);
+  		MagentaSL->setValue(g);
+  		YellowSp->setValue(b);
+  		YellowSL->setValue(b);
  		int h, s, v;
  		tmp.hsv(&h, &s, &v);
-  	BlackComp = 255 - v;
-  	if (dynamic)
+  		BlackComp = 255 - v;
+  		if (dynamic)
   		{
-    	CyanP->setPixmap(SliderPix(0));
-    	MagentaP->setPixmap(SliderPix(120));
-    	YellowP->setPixmap(SliderPix(240));
+    		CyanP->setPixmap(SliderPix(0));
+    		MagentaP->setPixmap(SliderPix(120));
+    		YellowP->setPixmap(SliderPix(240));
     	}
   	}
 }

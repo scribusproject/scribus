@@ -29,27 +29,27 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	Shade2 = 100;
 	Shade3 = 100;
 	UseTransFeature = false;
-  Form1Layout = new QVBoxLayout( this, 0, 0, "Form1Layout");
+	Form1Layout = new QVBoxLayout( this, 0, 0, "Form1Layout");
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing( 4 );
 	Layout1->setMargin( 0 );
-  Inhalt = new QToolButton(this, "t1");
-  Inhalt->setPixmap(loadIcon("Stiftalt.xpm"));
+	Inhalt = new QToolButton(this, "t1");
+	Inhalt->setPixmap(loadIcon("Stiftalt.xpm"));
 	Inhalt->setToggleButton(true);
 	Inhalt->setAutoRaise(true);
 	Inhalt->setBackgroundMode(PaletteBackground);
 	Layout1->addWidget(Inhalt);
-  Innen = new QToolButton(this, "t2");
-  Innen->setPixmap(loadIcon("fill.png"));
-  Innen->setToggleButton(true);
+	Innen = new QToolButton(this, "t2");
+	Innen->setPixmap(loadIcon("fill.png"));
+	Innen->setToggleButton(true);
 	Innen->setAutoRaise(true);
 	Innen->setBackgroundMode(PaletteBackground);
-  Innen->setOn(true);
+	Innen->setOn(true);
 	Layout1->addWidget(Innen);
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
-  Mode = 2;
-  ShaMenu = new QPopupMenu();
+	Mode = 2;
+	ShaMenu = new QPopupMenu();
 	ShaMenu->insertItem( tr("Other..."));
 	ShaMenu->insertItem("0 %");
 	ShaMenu->insertItem("10 %");
@@ -126,17 +126,17 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	Form1Layout->addLayout(GradLayout);
 
 	ListBox1 = new QListBox(this, "ListBox1");
-  ListBox1->setMinimumSize( QSize( 150, 210 ) );
+	ListBox1->setMinimumSize( QSize( 150, 210 ) );
 	Form1Layout->addWidget(ListBox1);
 	setActGradient("", "", 100, 100, 0);
 	GradientMode = false;
-  connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
-  connect(Innen, SIGNAL(clicked()), this, SLOT(InnenButton()));
-  connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
-  connect(ShaMenu, SIGNAL(activated(int)), this, SLOT(setActShade(int)));
-  connect(GradCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
-  connect(GrColor1, SIGNAL(clicked()), this, SLOT(slotColor()));
-  connect(GrColor2, SIGNAL(clicked()), this, SLOT(slotColor()));
+	connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
+	connect(Innen, SIGNAL(clicked()), this, SLOT(InnenButton()));
+	connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
+	connect(ShaMenu, SIGNAL(activated(int)), this, SLOT(setActShade(int)));
+	connect(GradCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
+	connect(GrColor1, SIGNAL(clicked()), this, SLOT(slotColor()));
+	connect(GrColor2, SIGNAL(clicked()), this, SLOT(slotColor()));
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
 }
 
@@ -144,7 +144,7 @@ void Cpalette::InhaltButton()
 {
 	int h = 0;
 	if (Inhalt->isOn())
-		{
+	{
 		Mode = 1;
 		Innen->setOn(false);
 		h += GradCombo->height();
@@ -157,14 +157,14 @@ void Cpalette::InhaltButton()
 		updateCList();
 		updateGeometry();
 		repaint();
-		}
+	}
 	emit QueryItem();
 }
 
 void Cpalette::InnenButton()
 {
 	if (Innen->isOn())
-		{
+	{
 		Mode = 2;
 		Inhalt->setOn(false);
 		GradCombo->show();
@@ -173,7 +173,7 @@ void Cpalette::InnenButton()
 		updateCList();
 		updateGeometry();
 		repaint();
-		}
+	}
 	emit QueryItem();
 }
 
@@ -192,10 +192,10 @@ void Cpalette::updateCList()
 	if ((!GradientMode) || (Mode == 1))
 		ListBox1->insertItem( tr("None"));
 	for (it = Farbliste.begin(); it != Farbliste.end(); ++it)
-		{
+	{
 		pm.fill(Farbliste[it.key()].getRGBColor());
 		ListBox1->insertItem(pm, it.key());
-		}
+	}
 	ListBox1->setSelected(ListBox1->currentItem(), false);
 }
 
@@ -204,24 +204,24 @@ void Cpalette::selFarbe(QListBoxItem *c)
     if (c == NULL) { return; }
     sFarbe = c->text();
     switch (Mode)
-    	{
+    {
     	case 1:
     		emit NewPen(sFarbe);
     		break;
     	case 2:
 				if (GradCombo->currentItem() == 0)
-					{
+				{
 					Color3 = sFarbe;
-    			emit NewBrush(sFarbe);
-					}
+    				emit NewBrush(sFarbe);
+				}
 				else
-					{
+				{
 					if (GrColor1->isChecked())
 						Color = sFarbe;
 					else
 						Color2 = sFarbe;
 					emit NewGradient(GradCombo->currentItem(), Color, Shade, Color2, Shade2);
-					}
+				}
     		break;
     	}
 }
@@ -231,16 +231,16 @@ void Cpalette::updateBoxS(QString Farbe)
 	CListe::Iterator it;
 	int c = 0;
 	if ((Farbe != "None") && (Farbe != ""))
-		{
+	{
 		if (!GradientMode)
 			c++;
 		for (it = Farbliste.begin(); it != Farbliste.end(); ++it)
-			{
+		{
 			if (it.key() == Farbe)
 				break;
 			c++;
-			}
 		}
+	}
 	ListBox1->setCurrentItem(c);
 }
 
@@ -249,16 +249,16 @@ void Cpalette::updateShade(int sh)
 	if ((sh % 10) == 0)
 		SetMen(sh/10+1);
 	else
-		{
+	{
 		SetMen(0);
 		PM1->setText(QString::number(sh)+" %");
-		}
+	}
 }
 
 void Cpalette::setActFarben(QString p, QString b, int shp, int shb)
 {
 	switch (Mode)
-		{
+	{
 		case 1:
 			updateShade(shp);
 			updateBoxS(p);
@@ -269,21 +269,21 @@ void Cpalette::setActFarben(QString p, QString b, int shp, int shb)
 			Color3 = b;
 			Shade3 = shb;
 			break;
-		}
+	}
 }
 
 void Cpalette::slotColor()
 {
 	if (GrColor1->isChecked())
-		{
+	{
 		updateShade(Shade);
 		updateBoxS(Color);
-		}
+	}
 	if (GrColor2->isChecked())
-		{
+	{
 		updateShade(Shade2);
 		updateBoxS(Color2);
-		}
+	}
 }
 
 void Cpalette::slotGrad(int nr)
@@ -295,7 +295,7 @@ void Cpalette::slotGrad(int nr)
 void Cpalette::ChooseGrad(int nr)
 {
 	switch (nr)
-		{
+	{
 		case 0:
 			GradGroup->setEnabled(false);
 			GradientMode = false;
@@ -310,15 +310,15 @@ void Cpalette::ChooseGrad(int nr)
 			GradientMode = true;
 			updateCList();
 			if (GrColor1->isChecked())
-				{
+			{
 				updateShade(Shade);
 				updateBoxS(Color);
-				}
+			}
 			if (GrColor2->isChecked())
-				{
+			{
 				updateShade(Shade2);
 				updateBoxS(Color2);
-				}
+			}
 			break;
 		}
 	setFocus();
@@ -327,10 +327,11 @@ void Cpalette::ChooseGrad(int nr)
 void Cpalette::setActTrans(double val, double val2)
 {
 	disconnect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
-	if (Mode == 1)
+	TransSpin->setValue(qRound(100 - (Mode == 1 ? val2 * 100 : val * 100)));
+/*	if (Mode == 1)
 		TransSpin->setValue(qRound(100 - val2 * 100));
 	else
-		TransSpin->setValue(qRound(100 - val * 100));
+		TransSpin->setValue(qRound(100 - val * 100));*/
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
 }
 
@@ -351,12 +352,12 @@ void Cpalette::UseTrans(bool b)
 	else
 		{
 		if (!TransGroup->isHidden())
-			{
+		{
 			h += TransGroup->height();
 			TransGroup->hide();
 			ListBox1->resize(ListBox1->width(), ListBox1->height()+h);
-			}
 		}
+	}
 	updateGeometry();
 	repaint();
 	UseTransFeature = b;
@@ -364,17 +365,17 @@ void Cpalette::UseTrans(bool b)
 
 void Cpalette::setActGradient(QString p, QString b, int shp, int shb, int typ)
 {
-  disconnect(GradCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
+	disconnect(GradCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 	Color2 = b;
 	Color = p;
 	Shade = shp;
 	Shade2 = shb;
 	if (Mode == 2)
-		{
+	{
 		GradCombo->setCurrentItem(typ);
 		ChooseGrad(typ);
-		}
-  connect(GradCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
+	}
+	connect(GradCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 }
 
 int Cpalette::SetMen(int c)
@@ -382,14 +383,10 @@ int Cpalette::SetMen(int c)
 	int b = 0;
 	uint a;
 	for (a = 0; a < ShaMenu->count(); ++a)
-		{
 		ShaMenu->setItemChecked(ShaMenu->idAt(a), false);
-		}
 	ShaMenu->setItemChecked(ShaMenu->idAt(c), true);
 	if (c > 0)
-		{
 		b = (c-1) * 10;
-		}
 	PM1->setText(QString::number(b)+" %");
 	return b;
 }
@@ -401,43 +398,43 @@ void Cpalette::setActShade(int id)
 	int c = ShaMenu->indexOf(id);
 	int b = SetMen(c);
 	if (c == 0)
-		{
-    Query* dia = new Query(this, "New", 1, 0, "Shade:", "Shade");
-    if (dia->exec())
+	{
+	    Query* dia = new Query(this, "New", 1, 0, "Shade:", "Shade");
+    	if (dia->exec())
     	{
 			c = dia->Answer->text().toInt(&ok);
 			if (ok)
-				{
+			{
 				b = c;
 				PM1->setText(dia->Answer->text()+" %");
-				}
+			}
 			delete dia;
-      }
-     else
-     	{
-     	delete dia;
-     	return;
-     	}
 		}
+     	else
+     	{
+     		delete dia;
+     		return;
+     	}
+	}
 	switch (Mode)
-		{
+	{
     	case 1:
     		emit NewPenShade(b);
     		break;
     	case 2:
 				if (GradCombo->currentItem() == 0)
-					{
-    			emit NewBrushShade(b);
+				{
+	    			emit NewBrushShade(b);
 					Shade3 = b;
-					}
+				}
 				else
-					{
+				{
 					if (GrColor1->isChecked())
 						Shade = b;
 					else
 						Shade2 = b;
 					emit NewGradient(GradCombo->currentItem(), Color, Shade, Color2, Shade2);
-					}
+				}
     		break;
-		}
+	}
 }

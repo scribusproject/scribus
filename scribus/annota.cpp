@@ -96,9 +96,9 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     SpinBox1->setMaxValue(item->AnActType == 7 ? 1000 : Seite);
     SpinBox1->setValue(item->AnZiel+1);
     GroupBox1Layout->addWidget( SpinBox1, 1, 1 );
-		if ((Destfile->text() != "") && (item->AnActType == 7))
+	if ((Destfile->text() != "") && (item->AnActType == 7))
     	Pg = new Navigator( GroupBox1, 100, item->AnZiel+1, view, item->An_Extern);
-		else
+	else
     	Pg = new Navigator( GroupBox1, 100, item->AnZiel, view);
     Pg->setMinimumSize(QSize(Pg->pmx.width(), Pg->pmx.height()));
     GroupBox1Layout->addMultiCellWidget(Pg, 1, 3, 2, 2);
@@ -134,7 +134,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     Layout1_2->addItem( spacerr );
     PushButton1 = new QPushButton( this, "PushButton1" );
     PushButton1->setText( tr( "OK" ) );
-    PushButton1->setDefault( TRUE );
+    PushButton1->setDefault( true );
     Layout1_2->addWidget( PushButton1 );
     PushButton2 = new QPushButton( this, "PushButton2" );
     PushButton2->setText( tr( "Cancel" ) );
@@ -244,7 +244,7 @@ void Annota::SetZiel(int it)
 	switch (it)
 		{
 		case 1:
-    	Fram->raiseWidget(1);
+    		Fram->raiseWidget(1);
 			Destfile->setText("");
 			Destfile->hide();
 			ChFile->hide();
@@ -257,24 +257,24 @@ void Annota::SetZiel(int it)
 			ChFile->show();
 			Destfile->setReadOnly(true);
 			if ((Destfile->text() == "")  || (item->AnActType == 8))
-				{
+			{
 				Destfile->setText("");
 				GetFile();
-				}
+			}
 			if (Destfile->text() == "")
-				{
+			{
 				item->AnActType = 2;
 				Destfile->setText("");
 				Destfile->hide();
 				ChFile->hide();
 				ComboBox1->setCurrentItem(1);
-				}
+			}
 			else
 				item->AnActType = 7;
 			SetPg(QMIN(SpinBox1->value(), MaxSeite));
 			break;
 		case 3:
-    	Fram->raiseWidget(1);
+    		Fram->raiseWidget(1);
 			Destfile->show();
 			Destfile->setReadOnly(false);
 			ChFile->hide();
@@ -290,13 +290,13 @@ void Annota::SetZiel(int it)
 		case 11:
     	Fram->raiseWidget(1);
 			if (item->AnActType == 7)
-				{
+			{
 				Destfile->show();
 				ChFile->show();
 				Destfile->setReadOnly(true);
-				}
+			}
 			if (item->AnActType == 8)
-				{
+			{
 				Destfile->show();
 				Destfile->setReadOnly(false);
 				ChFile->hide();
@@ -307,12 +307,12 @@ void Annota::SetZiel(int it)
 				SpinBox1->hide();
 				SpinBox2->hide();
 				SpinBox3->hide();
-				}
+			}
 			if (Pg->isVisible())
 				SetPg(QMIN(SpinBox1->value(), MaxSeite));
 			break;
 		default:
-    	Fram->raiseWidget(2);
+    		Fram->raiseWidget(2);
 			break;
 		}
 	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetZiel(int)));
@@ -326,13 +326,13 @@ void Annota::GetFile()
 		dia.setSelection(Destfile->text());
 	if (dia.exec() == QDialog::Accepted)
 		{
-		fn = dia.selectedFile();
-		if (!fn.isEmpty())
+			fn = dia.selectedFile();
+			if (!fn.isEmpty())
 			{
-			Destfile->setText(fn);
-			SpinBox1->setValue(1);
-    	SpinBox1->setMaxValue(1000);
-			SetPg(1);
+				Destfile->setText(fn);
+				SpinBox1->setValue(1);
+    			SpinBox1->setMaxValue(1000);
+				SetPg(1);
 			}
 		}
 }

@@ -26,8 +26,8 @@ PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
 {
     setCaption( tr( "Polygon Properties" ) );
   	setIcon(loadIcon("AppIcon.png"));
-		Pre = new QPixmap(101, 101);
-		Pre->fill(white);
+	Pre = new QPixmap(101, 101);
+	Pre->fill(white);
     PolygonPropsLayout = new QVBoxLayout( this, 10, 5, "PolygonPropsLayout");
     Layout11 = new QHBoxLayout( 0, 0, 5, "Layout11");
     Layout10 = new QVBoxLayout( 0, 0, 5, "Layout10");
@@ -38,10 +38,9 @@ PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
     Ecken = new QSpinBox( this, "Ecken" );
     Ecken->setMaxValue( 999 );
     Ecken->setMinValue( 3 );
-		Ecken->setValue(PolyC);
+	Ecken->setValue(PolyC);
     Layout2->addWidget( Ecken );
     Layout10->addLayout( Layout2 );
-
 
     Layout9_2 = new QHBoxLayout( 0, 0, 5, "Layout9_2");
     Layout8_2 = new QVBoxLayout( 0, 0, 5, "Layout8_2");
@@ -50,16 +49,16 @@ PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
     Text2_2->setText( tr( "Rotation:" ) );
     Layout7_2->addWidget( Text2_2 );
     Faktor2 = new QSpinBox( this, "Faktor_2" );
-    Faktor2->setSuffix(" °");
+    Faktor2->setSuffix(" ");
     Faktor2->setMaxValue( 180 );
     Faktor2->setMinValue( -180 );
-		Faktor2->setValue(static_cast<int>(PolyR));
+	Faktor2->setValue(static_cast<int>(PolyR));
     Layout7_2->addWidget( Faktor2 );
     Layout8_2->addLayout( Layout7_2 );
     Slider2 = new QSlider( this, "Slider1_2" );
     Slider2->setMinValue( -180 );
     Slider2->setMaxValue( 180 );
-		Slider2->setValue(static_cast<int>(PolyR));
+	Slider2->setValue(static_cast<int>(PolyR));
     Slider2->setOrientation( QSlider::Horizontal );
     Slider2->setTickmarks( QSlider::Right );
     Layout8_2->addWidget( Slider2 );
@@ -68,7 +67,7 @@ PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
 
     Konvex = new QCheckBox( this, "Konvex" );
     Konvex->setText( tr( "Convex Polygon" ) );
-		Konvex->setChecked(PolyS);
+	Konvex->setChecked(PolyS);
     Layout10->addWidget( Konvex );
     Layout9 = new QHBoxLayout( 0, 0, 5, "Layout9");
     QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -82,7 +81,7 @@ PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
     Faktor->setSuffix( tr( " %" ) );
     Faktor->setMaxValue( 100 );
     Faktor->setMinValue( -100 );
-		Faktor->setValue(PolyFd);
+	Faktor->setValue(PolyFd);
     Layout7->addWidget( Faktor );
     Layout8->addLayout( Layout7 );
     Slider1 = new QSlider( this, "Slider1" );
@@ -90,7 +89,7 @@ PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
     Slider1->setMaxValue( 100 );
     Slider1->setOrientation( QSlider::Horizontal );
     Slider1->setTickmarks( QSlider::Right );
-		Slider1->setValue(PolyFd);
+	Slider1->setValue(PolyFd);
     Layout8->addWidget( Slider1 );
     Layout9->addLayout( Layout8 );
     Layout10->addLayout( Layout9 );
@@ -100,8 +99,8 @@ PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
     Preview->setMaximumSize( QSize( 106, 106 ) );
     Preview->setFrameShape( QLabel::Panel );
     Preview->setFrameShadow( QLabel::Sunken );
-		Preview->setLineWidth(2);
-		Preview->setAlignment(AlignCenter);
+	Preview->setLineWidth(2);
+	Preview->setAlignment(AlignCenter);
     Preview->setPixmap(*Pre);
     Layout11->addWidget( Preview );
     PolygonPropsLayout->addLayout( Layout11 );
@@ -129,22 +128,22 @@ PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
     connect(Slider1, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
     connect(Slider2, SIGNAL(valueChanged(int)), Faktor2, SLOT(setValue(int)));
     connect(Slider2, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
-		connect(Ecken, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
-		connect(Konvex, SIGNAL(clicked()), this, SLOT(UpdatePreView()));
+	connect(Ecken, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
+	connect(Konvex, SIGNAL(clicked()), this, SLOT(UpdatePreView()));
 }
 
 void PolygonProps::ValFromSpin2(int a)
 {
 	disconnect(Slider2, SIGNAL(valueChanged(int)), Faktor2, SLOT(setValue(int)));
 	Slider2->setValue(a);
-  connect(Slider2, SIGNAL(valueChanged(int)), Faktor2, SLOT(setValue(int)));
+	connect(Slider2, SIGNAL(valueChanged(int)), Faktor2, SLOT(setValue(int)));
 }
 
 void PolygonProps::ValFromSpin(int a)
 {
 	disconnect(Slider1, SIGNAL(valueChanged(int)), Faktor, SLOT(setValue(int)));
 	Slider1->setValue(a);
-  connect(Slider1, SIGNAL(valueChanged(int)), Faktor, SLOT(setValue(int)));
+	connect(Slider1, SIGNAL(valueChanged(int)), Faktor, SLOT(setValue(int)));
 }
 
 void PolygonProps::UpdatePreView()
@@ -162,12 +161,12 @@ void PolygonProps::UpdatePreView()
 		pp.translate(0, -br.y());
 	br = pp.boundingRect();
 	if ((br.height() > 100) || (br.width() > 100))
-		{
+	{
 		QWMatrix ma;
 		double sca = 100.0 / static_cast<double>(QMAX(br.width(), br.height()));
 		ma.scale(sca, sca);
 		pp = ma * pp;
-		}
+	}
 	p.drawPolygon(pp);
 	p.end();
 	Preview->setPixmap(*Pre);
@@ -193,14 +192,12 @@ double PolygonProps::GetFaktor()
 {
 	int val = Slider1->value();
 	if (val < 0)
-		{
 		PFactor = GetZeroFaktor() * (100.0 + val) / 100.0;
-		}
 	else
-		{
+	{
 		double ma = GetMaxFaktor();
 		double mi = GetZeroFaktor();
 		PFactor = ((ma - mi) * val / 100.0) + mi;
-		}
+	}
 	return PFactor;
 }

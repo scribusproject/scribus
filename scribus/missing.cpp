@@ -65,11 +65,8 @@ DmF::DmF( QWidget* parent, QString fon, preV *Prefs, bool miss )
     : QDialog( parent, "mfont", true, 0 )
 {
     QPixmap image0( ( const char** ) image100_data );
-		if (miss)
-    	setCaption( tr( "Missing Font" ) );
-		else
-    	setCaption( tr( "Select Font" ) );
- 		setIcon(loadIcon("AppIcon.png"));
+	setCaption(miss ? tr("Missing Font") : tr("Select Font"));
+ 	setIcon(loadIcon("AppIcon.png"));
     MissingFontLayout = new QHBoxLayout( this );
     MissingFontLayout->setSpacing( 0 );
     MissingFontLayout->setMargin( 10 );
@@ -77,13 +74,10 @@ DmF::DmF( QWidget* parent, QString fon, preV *Prefs, bool miss )
     Layout1->setSpacing( 12 );
     Layout1->setMargin( 0 );
     TextLabel1 = new QLabel( this, "TextLabel1" );
-		if (miss)
-    	TextLabel1->setText( tr("The Font %1 is not installed.").arg(fon));
-		else
-    	TextLabel1->setText( tr("Select New Font:"));
+	TextLabel1->setText(miss ? tr("The Font %1 is not installed.").arg(fon) : tr("Select New Font:"));
     Layout1->addMultiCellWidget( TextLabel1, 0, 0, 1, 2 );
-		if (miss)
-			{
+	if (miss)
+	{
     	PixmapLabel1 = new QLabel( this, "PixmapLabel1" );
     	PixmapLabel1->setMinimumSize( QSize( 50, 50 ) );
     	PixmapLabel1->setMaximumSize( QSize( 50, 50 ) );
@@ -93,24 +87,24 @@ DmF::DmF( QWidget* parent, QString fon, preV *Prefs, bool miss )
     	TextLabel4 = new QLabel( this, "TextLabel4" );
     	TextLabel4->setText( tr( "Use" ) );
     	Layout1->addWidget( TextLabel4, 1, 1 );
-			}
+	}
     Replace = new FontCombo(this, Prefs);
-		Ersatz = Replace->text(0);
-		if (miss)
-			{
+	Ersatz = Replace->text(0);
+	if (miss)
+	{
     	Layout1->addWidget( Replace, 1, 2 );
     	TextLabel6 = new QLabel( this, "TextLabel6" );
     	TextLabel6->setText( tr( "instead" ) );
     	Layout1->addWidget( TextLabel6, 1, 3 );
-			}
-		else
-			{
-			Replace->setCurrentText(fon);
+	}
+	else
+	{
+		Replace->setCurrentText(fon);
     	Layout1->addMultiCellWidget( Replace, 1, 1, 1, 2 );
     	PushButton2 = new QPushButton( this, "PushButton1" );
     	PushButton2->setText( tr( "Cancel" ) );
     	Layout1->addWidget( PushButton2, 2, 1 );
-			}
+	}
     PushButton1 = new QPushButton( this, "PushButton1" );
     PushButton1->setText( tr( "OK" ) );
     Layout1->addWidget( PushButton1, 2, 2 );
@@ -119,7 +113,7 @@ DmF::DmF( QWidget* parent, QString fon, preV *Prefs, bool miss )
     // signals and slots connections
     connect( PushButton1, SIGNAL( clicked() ), this, SLOT( accept() ) );
     connect( Replace, SIGNAL( activated(const QString&) ), this, SLOT( NeuerFont(const QString&) ) );
-		if (!miss)
+	if (!miss)
     	connect( PushButton2, SIGNAL( clicked() ), this, SLOT( reject() ) );
 }
 

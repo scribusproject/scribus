@@ -12,8 +12,8 @@ LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
     resize( 327, 260 );
     setCaption( tr( "Edit Line Styles" ) );
   	setIcon(loadIcon("AppIcon.png"));
-		Docu = doc;
-		TempStyles = doc->MLineStyles;
+	Docu = doc;
+	TempStyles = doc->MLineStyles;
     StilFormateLayout = new QHBoxLayout( this ); 
     StilFormateLayout->setSpacing( 5 );
     StilFormateLayout->setMargin( 10 );
@@ -70,10 +70,7 @@ LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
     connect(DublicateB, SIGNAL(clicked()), this, SLOT(dupFormat()));
     connect(DeleteB, SIGNAL(clicked()), this, SLOT(deleteFormat()));
     connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
-		if (ListBox1->count() > 0)
-    	sFnumber = TempStyles.begin().key();
-		else
-			sFnumber = "";
+	sFnumber = ListBox1->count() > 0 ? TempStyles.begin().key() : "";
     UpdateFList();
 }
 
@@ -91,10 +88,10 @@ void LineFormate::dupFormat()
 	ml = TempStyles[sFnumber];
 	MultiLine* dia = new MultiLine(this, Docu, ml, tr("Copy of %1").arg(sFnumber), true, &TempStyles);
 	if (dia->exec())
-		{
+	{
 		TempStyles.insert(dia->SName->text(), dia->TempVorl);
 		sFnumber = dia->SName->text();
-		}
+	}
 	UpdateFList();
 }
 
@@ -111,10 +108,10 @@ void LineFormate::neuesFormat()
 	ml.push_back(sl);
 	MultiLine* dia = new MultiLine(this, Docu, ml, tr("New Style"), true, &TempStyles);
 	if (dia->exec())
-		{
+	{
 		TempStyles.insert(dia->SName->text(), dia->TempVorl);
 		sFnumber = dia->SName->text();
-		}
+	}
 	UpdateFList();
 }
 
@@ -130,7 +127,7 @@ void LineFormate::editFormat()
 void LineFormate::deleteFormat()
 {
   int exit=QMessageBox::warning(this,
-  															tr("Warning"),
+  								tr("Warning"),
                                 tr("Do you really want do delete this Style?"),
                                 tr("No"),
                                 tr("Yes"),
@@ -139,7 +136,7 @@ void LineFormate::deleteFormat()
   	{
 		TempStyles.remove(sFnumber);
 		UpdateFList();
-		}
+	}
 }
 
 void LineFormate::loadLStyles()
@@ -154,10 +151,10 @@ void LineFormate::loadLStyles()
 		fileName = dia.selectedFile();
 	else
 		return;
-  if (!fileName.isEmpty())
+	if (!fileName.isEmpty())
   	{
-  	ScriXmlDoc *ss = new ScriXmlDoc();
-  	if (ss->ReadLStyles(fileName, &TempStyles))
+  		ScriXmlDoc *ss = new ScriXmlDoc();
+  		if (ss->ReadLStyles(fileName, &TempStyles))
 			UpdateFList();
 		delete ss;
   	}
@@ -169,16 +166,14 @@ void LineFormate::UpdateFList()
 	ListBox1->clear();
 	QMap<QString,multiLine>::Iterator it;
 	for (it = TempStyles.begin(); it != TempStyles.end(); ++it)
-		{
 		ListBox1->insertItem(it.key());
-		}
 	if (ListBox1->count() > 0)
 		ListBox1->setSelected(ListBox1->findItem(sFnumber), true);
 	bool setter = ListBox1->count() == 0 ? true : false;
 	if (setter == false)
 		sFnumber = "";
-  DublicateB->setEnabled(setter);
-  EditB->setEnabled(setter);
-  DeleteB->setEnabled(setter);
+	DublicateB->setEnabled(setter);
+	EditB->setEnabled(setter);
+	DeleteB->setEnabled(setter);
 	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
 }

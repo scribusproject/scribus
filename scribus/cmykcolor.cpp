@@ -134,25 +134,25 @@ void CMYKColor::RecalcRGB()
 	if ((C == M) && (M == Y))
 		return;
 #ifdef HAVE_CMS
-  WORD inC[3];
-  WORD outC[3];
-  int r, g, b;
-  RGB.rgb(&r, &g, &b);
-  inC[0] = r*257;
-  inC[1] = g*257;
-  inC[2] = b*257;
+	WORD inC[3];
+	WORD outC[3];
+	int r, g, b;
+	RGB.rgb(&r, &g, &b);
+	inC[0] = r*257;
+	inC[1] = g*257;
+	inC[2] = b*257;
 	if ((CMSuse) && (SoftProofing))
-		{
+	{
 		cmsDoTransform(stdProof, inC, outC, 1);
 		RGB = QColor(outC[0]/257, outC[1]/257, outC[2]/257);
-		}
+	}
 	else
-		{
+	{
 		if (CMSuse)
-			{
+		{
 			cmsDoTransform(stdTrans, inC, outC, 1);
 			RGB = QColor(outC[0]/257, outC[1]/257, outC[2]/257);
-			}
 		}
+	}
 #endif
 }

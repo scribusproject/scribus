@@ -5,7 +5,7 @@ extern QPixmap loadIcon(QString nam);
 ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
     : QDialog( parent, "bu", true, 0 )
 {
-		Item = ite;
+	Item = ite;
     setCaption( tr( "Icon Placement" ) );
   	setIcon(loadIcon("AppIcon.png"));
     ButtonIconLayout = new QVBoxLayout( this, 11, 6, "ButtonIconLayout"); 
@@ -21,7 +21,7 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
     Place->insertItem( tr( "Caption right to Icon" ) );
     Place->insertItem( tr( "Caption left to Icon" ) );
     Place->insertItem( tr( "Caption overlays Icon" ) );
-		Place->setEditable(false);
+	Place->setEditable(false);
     Layout1->addWidget( Place, 0, 1 );
     TextLabel1 = new QLabel( this, "TextLabel1" );
     TextLabel1->setText( tr( "Scale:" ) );
@@ -31,7 +31,7 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
     ScaleW->insertItem( tr( "When Icon is too small" ) );
     ScaleW->insertItem( tr( "When Icon is too big" ) );
     ScaleW->insertItem( tr( "Never" ) );
-		ScaleW->setEditable(false);
+	ScaleW->setEditable(false);
     Layout1->addWidget( ScaleW, 1, 1 );
     TextLabel2 = new QLabel( this, "TextLabel2" );
     TextLabel2->setText( tr( "Scale How:" ) );
@@ -39,7 +39,7 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
     ScaleH = new QComboBox( true, this, "ScaleH" );
     ScaleH->insertItem( tr( "Proportional" ) );
     ScaleH->insertItem( tr( "Non Proportional" ) );
-		ScaleH->setEditable(false);
+	ScaleH->setEditable(false);
     Layout1->addWidget( ScaleH, 2, 1 );
     ButtonIconLayout->addLayout( Layout1 );
     QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
@@ -92,7 +92,7 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
     Layout4->addWidget( Reset );
     ButtonIconLayout->addLayout( Layout4 );
 
-		SetAllVals();
+	SetAllVals();
 
     connect(ScaleH, SIGNAL(activated(int)), this, SLOT(SetScaleHow(int)));
     connect(SliderX, SIGNAL(valueChanged(int)), this, SLOT(MoveIconX(int)));
@@ -104,13 +104,15 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 
 void ButtonIcon::MoveIconY(int y)
 {
-	TextLabel3->setGeometry(QRect(static_cast<int>(SliderX->value() / 1000.0 * 100), static_cast<int>(y / 1000.0 * 100), 48, 48));
+	TextLabel3->setGeometry(QRect(static_cast<int>(SliderX->value() / 1000.0 * 100), 
+									static_cast<int>(y / 1000.0 * 100), 48, 48));
 	IcPlaceY = y / 1000.0;
 }
 
 void ButtonIcon::MoveIconX(int x)
 {
-	TextLabel3->setGeometry(QRect(static_cast<int>(x / 1000.0 * 100), static_cast<int>(SliderY->value() / 1000.0 * 100), 48, 48));
+	TextLabel3->setGeometry(QRect(static_cast<int>(x / 1000.0 * 100), 
+									static_cast<int>(SliderY->value() / 1000.0 * 100), 48, 48));
 	IcPlaceX = x / 1000.0;
 }
 
@@ -121,14 +123,17 @@ void ButtonIcon::SetAllVals()
 	ScaleH->setCurrentItem(Item->LocalScX != Item->LocalScY ? 1 : 0);
 	SetScaleHow(ScaleH->currentItem());
 	if ((Item->Width/Item->LocalScX - Item->pixm.width()) != 0)
-		SliderX->setValue(static_cast<int>(Item->LocalX / (Item->Width/Item->LocalScX - Item->pixm.width()) * 1000));
+		SliderX->setValue(static_cast<int>
+							(Item->LocalX / (Item->Width/Item->LocalScX - Item->pixm.width()) * 1000));
 	else
 		SliderX->setValue(0);
 	if ((Item->Height/Item->LocalScY - Item->pixm.height()) != 0)
-		SliderY->setValue(static_cast<int>(Item->LocalY / (Item->Height/Item->LocalScY - Item->pixm.height()) * 1000));
+		SliderY->setValue(static_cast<int>
+							(Item->LocalY / (Item->Height/Item->LocalScY - Item->pixm.height()) * 1000));
 	else
 		SliderY->setValue(0);
-	TextLabel3->setGeometry(QRect(static_cast<int>(SliderX->value() / 1000.0 * 100), static_cast<int>(SliderY->value() / 1000.0 * 100), 48, 48));
+	TextLabel3->setGeometry(QRect(static_cast<int>(SliderX->value() / 1000.0 * 100),
+													static_cast<int>(SliderY->value() / 1000.0 * 100), 48, 48));
 }
 
 void ButtonIcon::SetScaleHow(int s)

@@ -24,8 +24,8 @@ extern QImage ProofImage(QImage *Im);
 
 ColorChart::ColorChart(QWidget *parent) : QLabel(parent)
 {
-  setScaledContents( true );
-  setAlignment( static_cast<int>( QLabel::AlignCenter ) );
+	setScaledContents( true );
+	setAlignment( static_cast<int>( QLabel::AlignCenter ) );
 	Xp = 0;
 	Yp = 0;
 	setBackgroundMode(NoBackground);
@@ -71,14 +71,14 @@ void ColorChart::drawMark(int x, int y)
 	p.drawLine(Xp+2, Yp+2, Xp+6, Yp+6);
 	p.drawLine(Xp+2, Yp-2, Xp+6, Yp-6);
 	if (!((Xp == x) && (Yp == y)))
-		{
+	{
 		Xp = x;
 		Yp = y;
 		p.drawLine(Xp-5, Yp-5, Xp-1, Yp-1);
 		p.drawLine(Xp-5, Yp+5, Xp-1, Yp+1);
 		p.drawLine(Xp+2, Yp+2, Xp+6, Yp+6);
 		p.drawLine(Xp+2, Yp-2, Xp+6, Yp-6);
-		}
+	}
 	p.end();
 }
 
@@ -96,15 +96,15 @@ void ColorChart::drawPalette(int val)
 	int x;
 	int y;
 	for (y = 0; y < ySize; ++y)
-		{
-		  unsigned int* p = reinterpret_cast<unsigned int*>(image.scanLine(y));
+	{
+		unsigned int* p = reinterpret_cast<unsigned int*>(image.scanLine(y));
 		for(x = 0; x < xSize; ++x)
-			{
+		{
 			color.setHsv(360*x/xSize, 256*( ySize - 1 - y )/ySize, val);
 			*p = color.rgb();
 			++p;
-			}
 		}
+	}
 	pmx.convertFromImage(ProofImage(&image));
 	setPixmap(pmx);
 }

@@ -15,7 +15,7 @@ extern QPixmap loadIcon(QString nam);
 DelColor::DelColor( QWidget* parent, CListe farben, QString Fnam, bool HDoc)
     : QDialog( parent, "dd", true, 0 )
 {
-		setName( "DelColor" );
+	setName( "DelColor" );
     setCaption( tr( "Delete Color" ) );
   	setIcon(loadIcon("AppIcon.png"));
     DLayout = new QVBoxLayout( this );
@@ -33,24 +33,24 @@ DelColor::DelColor( QWidget* parent, CListe farben, QString Fnam, bool HDoc)
     TextLabel3 = new QLabel( this, "TextLabel3" );
     TextLabel3->setText( tr( "?" ) );
     Layout4->addWidget( TextLabel3, 0, 2 );
-		if (HDoc)
-			{
+	if (HDoc)
+	{
     	TextLabel4 = new QLabel( this, "TextLabel4" );
     	TextLabel4->setText( tr( "Replace it with:" ) );
     	Layout4->addWidget( TextLabel4, 1, 0 );
     	Ersatz = new QComboBox(false, this);
-			Ersatz->setEditable(false);
-			CListe::Iterator it;
-			QPixmap pm = QPixmap(15, 15);
-			farben.remove(Fnam);
-			for (it = farben.begin(); it != farben.end(); ++it)
-				{
-				pm.fill(farben[it.key()].getRGBColor());
-				Ersatz->insertItem(pm, it.key());
-				}
+		Ersatz->setEditable(false);
+		CListe::Iterator it;
+		QPixmap pm = QPixmap(15, 15);
+		farben.remove(Fnam);
+		for (it = farben.begin(); it != farben.end(); ++it)
+		{
+			pm.fill(farben[it.key()].getRGBColor());
+			Ersatz->insertItem(pm, it.key());
+		}
     	Layout4->addWidget( Ersatz, 1, 1 );
     	EFarbe = Ersatz->text(0);
-			}
+	}
     DLayout->addLayout( Layout4 );
     Layout3 = new QHBoxLayout;
     Layout3->setSpacing( 6 );
@@ -68,7 +68,7 @@ DelColor::DelColor( QWidget* parent, CListe farben, QString Fnam, bool HDoc)
     setMaximumSize(sizeHint());
     connect( PushButton2, SIGNAL( clicked() ), this, SLOT( accept() ) );
     connect( PushButton3, SIGNAL( clicked() ), this, SLOT( reject() ) );
-		if (HDoc)
+	if (HDoc)
     	connect( Ersatz, SIGNAL(activated(int)), this, SLOT( ReplaceColor(int) ) );
 }
 

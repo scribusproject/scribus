@@ -38,31 +38,31 @@ int FontListItem::height(const QListBox *lb) const
 void FontListItem::paint(QPainter *p)
 {
 	p->setFont(Ifont);
-  QFontMetrics fm(p->fontMetrics());
-  p->drawText(3, fm.ascent() + fm.leading() / 2, fontName);
+	QFontMetrics fm(p->fontMetrics());
+	p->drawText(3, fm.ascent() + fm.leading() / 2, fontName);
 }
 
 FontCombo::FontCombo(QWidget* pa, preV *Prefs) : QComboBox(true, pa)
 {
 	setEditable(false);
-  QFont f(font());
-  f.setPointSize(f.pointSize()-1);
-  setFont(f);
+	QFont f(font());
+	f.setPointSize(f.pointSize()-1);
+	setFont(f);
 	QStringList rlist;
 	rlist.clear();
 	SCFontsIterator it(Prefs->AvailFonts);
 	for ( ; it.current(); ++it)
-		{
+	{
 		if (it.current()->UseFont)
 			rlist.append(it.currentKey());
-		}
+	}
 	rlist.sort();
 	clear();
 	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
-		{
+	{
 		insertItem(*it2);
 //		new FontListItem(this, *it2, Prefs->AvailFonts[*it2]->Font);
-		}
+	}
 }
 
 void FontCombo::RebuildList(preV *Prefs)
@@ -72,14 +72,11 @@ void FontCombo::RebuildList(preV *Prefs)
 	rlist.clear();
 	SCFontsIterator it(Prefs->AvailFonts);
 	for ( ; it.current(); ++it)
-		{
+	{
 		if (it.current()->UseFont)
 			rlist.append(it.currentKey());
-		}
+	}
 	rlist.sort();
 	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
-		{
 		insertItem(*it2);
-//		new FontListItem(this, *it2, Prefs->AvailFonts[*it2]->Font);
-		}
 }

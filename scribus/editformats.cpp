@@ -12,8 +12,8 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
     resize( 327, 260 );
     setCaption( tr( "Edit Styles" ) );
   	setIcon(loadIcon("AppIcon.png"));
-		fon = avail;
-		Docu = doc;
+	fon = avail;
+	Docu = doc;
     StilFormateLayout = new QHBoxLayout( this ); 
     StilFormateLayout->setSpacing( 5 );
     StilFormateLayout->setMargin( 10 );
@@ -99,11 +99,12 @@ void StilFormate::dupFormat()
    	sty.DropLin = TempVorl[sFnumber].DropLin;
    	TempVorl.append(sty);
    	sFnumber = TempVorl.count()-1;
-		EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon, static_cast<double>(Docu->AutoLine), Docu->Einheit);
-		if (!dia2->exec())
-			TempVorl.remove(TempVorl.fromLast());
+	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon,
+									static_cast<double>(Docu->AutoLine), Docu->Einheit);
+	if (!dia2->exec())
+		TempVorl.remove(TempVorl.fromLast());
    	delete dia2;
-		UpdateFList();
+	UpdateFList();
 }
 
 void StilFormate::neuesFormat()
@@ -116,23 +117,25 @@ void StilFormate::neuesFormat()
    	sty.First = 0;
    	sty.Avor = 0;
    	sty.Anach = 0;
-		sty.Font = Docu->Dfont;
-		sty.FontSize = Docu->Dsize;
-		sty.TabValues.clear();
+	sty.Font = Docu->Dfont;
+	sty.FontSize = Docu->Dsize;
+	sty.TabValues.clear();
    	sty.Drop = false;
    	sty.DropLin = 2;
    	TempVorl.append(sty);
    	sFnumber = TempVorl.count()-1;
-		EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon, static_cast<double>(Docu->AutoLine), Docu->Einheit);
-		if (!dia2->exec())
-			TempVorl.remove(TempVorl.fromLast());
+	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon,
+									static_cast<double>(Docu->AutoLine), Docu->Einheit);
+	if (!dia2->exec())
+		TempVorl.remove(TempVorl.fromLast());
    	delete dia2;
-		UpdateFList();
+	UpdateFList();
 }
 
 void StilFormate::editFormat()
 {
-	EditStyle* dia = new EditStyle(this, &TempVorl[sFnumber], TempVorl, false, fon, static_cast<double>(Docu->AutoLine), Docu->Einheit);
+	EditStyle* dia = new EditStyle(this, &TempVorl[sFnumber], TempVorl, false, fon,
+									static_cast<double>(Docu->AutoLine), Docu->Einheit);
 	dia->exec();
 	delete dia;
 	UpdateFList();
@@ -140,18 +143,18 @@ void StilFormate::editFormat()
 
 void StilFormate::deleteFormat()
 {
-  int exit=QMessageBox::warning(this,
-  															tr("Warning"),
+	int exit=QMessageBox::warning(this,
+  								tr("Warning"),
                                 tr("Do you really want do delete this Style?"),
                                 tr("No"),
                                 tr("Yes"),
-                                0, 0, 1);
-  if (exit == 1)
-  	{
+                                0, QMessageBox::No, QMessageBox::Yes);
+	if (exit == 1)
+	{
 		ListBox1->removeItem(sFnumber);
 		TempVorl.remove(TempVorl.at(sFnumber));
 		UpdateFList();
-		}
+	}
 }
 
 void StilFormate::loadStyles()
@@ -168,35 +171,33 @@ void StilFormate::loadStyles()
 		return;
   if (!fileName.isEmpty())
   	{
-  	ScriXmlDoc *ss = new ScriXmlDoc();
+  		ScriXmlDoc *ss = new ScriXmlDoc();
 		ss->Vorlagen.clear();
 		for (uint x = 5; x < TempVorl.count(); ++x)
-			{
 			ss->Vorlagen.append(TempVorl[x]);
-			}
 		uint old = TempVorl.count()-5;
-  	if (ss->ReadStyles(fileName, Docu, fon))
+  		if (ss->ReadStyles(fileName, Docu, fon))
   		{
 			if (ss->Vorlagen.count() > old)
-				{
+			{
 				for (uint xx=old; xx<ss->Vorlagen.count(); ++xx)
-					{
-			   	struct StVorL sty;
-			   	sty.Vname = ss->Vorlagen[xx].Vname;
-			   	sty.LineSpa = ss->Vorlagen[xx].LineSpa;
-			   	sty.Ausri = ss->Vorlagen[xx].Ausri;
-			   	sty.Indent = ss->Vorlagen[xx].Indent;
-			   	sty.First = ss->Vorlagen[xx].First;
-			   	sty.Avor = ss->Vorlagen[xx].Avor;
-			   	sty.Anach = ss->Vorlagen[xx].Anach;
-			   	sty.Font = ss->Vorlagen[xx].Font;
-			   	sty.FontSize = ss->Vorlagen[xx].FontSize;
-   				sty.TabValues = ss->Vorlagen[xx].TabValues;
-   				sty.Drop = TempVorl[xx].Drop;
-   				sty.DropLin = TempVorl[xx].DropLin;
-			   	TempVorl.append(sty);
-					}
+				{
+				   	struct StVorL sty;
+				   	sty.Vname = ss->Vorlagen[xx].Vname;
+			   		sty.LineSpa = ss->Vorlagen[xx].LineSpa;
+				   	sty.Ausri = ss->Vorlagen[xx].Ausri;
+				   	sty.Indent = ss->Vorlagen[xx].Indent;
+				   	sty.First = ss->Vorlagen[xx].First;
+			   		sty.Avor = ss->Vorlagen[xx].Avor;
+				   	sty.Anach = ss->Vorlagen[xx].Anach;
+				   	sty.Font = ss->Vorlagen[xx].Font;
+				   	sty.FontSize = ss->Vorlagen[xx].FontSize;
+   					sty.TabValues = ss->Vorlagen[xx].TabValues;
+   					sty.Drop = TempVorl[xx].Drop;
+  	 				sty.DropLin = TempVorl[xx].DropLin;
+				   	TempVorl.append(sty);
 				}
+			}
 			UpdateFList();
   		}
 		delete ss;
@@ -209,14 +210,12 @@ void StilFormate::UpdateFList()
 	if (TempVorl.count() < 6)
 		return;
 	for (uint x = 5; x < TempVorl.count(); ++x)
-		{
 		ListBox1->insertItem(TempVorl[x].Vname);
-		}
 	if (ListBox1->currentItem() == -1)
    	{
-   	DublicateB->setEnabled(false);
-   	EditB->setEnabled(false);
-    DeleteB->setEnabled(false);
+	   	DublicateB->setEnabled(false);
+   		EditB->setEnabled(false);
+		DeleteB->setEnabled(false);
    	}
 	ListBox1->setSelected(ListBox1->currentItem(), false);
 }

@@ -35,8 +35,8 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString Capt, QString Datei )
 {
     resize( 547, 450 ); 
     setCaption( Capt );
-		mHistory.clear();
-		struct histd his;
+	mHistory.clear();
+	struct histd his;
   	setIcon(loadIcon("AppIcon.png"));
     HelpBrowserLayout = new QVBoxLayout( this ); 
     HelpBrowserLayout->setSpacing( 2 );
@@ -47,7 +47,8 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString Capt, QString Datei )
     Layout13->setMargin( 0 );
 
     HomeB = new QToolButton( this, "HomeB" );
-    HomeB->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, HomeB->sizePolicy().hasHeightForWidth() ) );
+    HomeB->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1,
+										HomeB->sizePolicy().hasHeightForWidth() ) );
     HomeB->setMinimumSize( QSize( 0, 0 ) );
     HomeB->setMaximumSize( QSize( 32767, 32767 ) );
     HomeB->setText( tr( "" ) );
@@ -56,16 +57,18 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString Capt, QString Datei )
 
     hist = new QPopupMenu( this );
     BackB = new QToolButton( this, "BackB" );
-    BackB->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, BackB->sizePolicy().hasHeightForWidth() ) );
+    BackB->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1,
+										BackB->sizePolicy().hasHeightForWidth() ) );
     BackB->setMinimumSize( QSize( 0, 0 ) );
     BackB->setMaximumSize( QSize( 32767, 32767 ) );
     BackB->setPixmap(loadIcon("back.png"));
-		BackB->setPopup(hist);
-		BackB->setPopupDelay(0);
+	BackB->setPopup(hist);
+	BackB->setPopupDelay(0);
     Layout13->addWidget( BackB );
 
     ForwB = new QToolButton( this, "ForwB" );
-    ForwB->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, ForwB->sizePolicy().hasHeightForWidth() ) );
+    ForwB->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1,
+										ForwB->sizePolicy().hasHeightForWidth() ) );
     ForwB->setMinimumSize( QSize( 0, 0 ) );
     ForwB->setMaximumSize( QSize( 32767, 32767 ) );
     ForwB->setPixmap(loadIcon("forward.png"));
@@ -79,31 +82,31 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString Capt, QString Datei )
   	QString pfad = PREL;
   	QString pfad2;
   	bool Avail = true;
-		if (Datei == "")
+	if (Datei == "")
   		pfad2 = pfad + "/lib/scribus/doc/"+QString(QTextCodec::locale()).left(2)+"/index.html";
-		else
-			pfad2 = Datei;
+	else
+		pfad2 = Datei;
   	QFileInfo fi;
   	fi = QFileInfo(pfad2);
   	if (!fi.exists())
-  		{
+  	{
   		pfad2 = pfad + "/lib/scribus/doc/en/index.html";
   		fi = QFileInfo(pfad2);
   		if (!fi.exists())
-  			{
+  		{
   			Anzeige->setText("<h2>"+ tr("Sorry, no manual available!")+"</h2>");
   			Avail = false;
-  			}
   		}
+  	}
   	if (Avail)
-			{
+	{
     	Anzeige->setSource(pfad2);
-			his.Title = Anzeige->documentTitle();
-			if (his.Title == "")
-				his.Title = pfad2;
-			his.Url = pfad2;
-			mHistory[hist->insertItem(his.Title)] = his;
-			}
+		his.Title = Anzeige->documentTitle();
+		if (his.Title == "")
+			his.Title = pfad2;
+		his.Url = pfad2;
+		mHistory[hist->insertItem(his.Title)] = his;
+	}
     HelpBrowserLayout->addWidget( Anzeige );
 
     // signals and slots connections
@@ -124,22 +127,22 @@ void HelpBrowser::sourceChanged(const QString& url)
 		title = url;
 	QMap<int, histd>::Iterator it;
 	for (it = mHistory.begin(); it != mHistory.end(); ++it)
-		{
+	{
 		if (it.data().Title == title)
 			inList = true;
-		}	
+	}	
 	if (!inList)
-		{
+	{
 		his.Title = title;
 		his.Url = url;
 		mHistory[hist->insertItem(title)] = his;
-		}
+	}
 	if (mHistory.count() > 15)
-		{
+	{
 		int itk = hist->idAt(0);
 		mHistory.remove(itk);
 		hist->removeItem(itk);
-		}
+	}
 }
 
 void HelpBrowser::histChosen(int i)

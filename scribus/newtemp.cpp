@@ -32,7 +32,7 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc)
     Layout2->addWidget( Answer );
     QueryLayout->addLayout( Layout2 );
     if (doc->PageFP)
-    	{
+   	{
     	Layout3 = new QHBoxLayout;
     	Layout3->setSpacing( 6 );
     	Layout3->setMargin( 0 );
@@ -42,7 +42,7 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc)
     	Links->setEditable(false);
     	Layout3->addWidget( Links );
     	QueryLayout->addLayout( Layout3 );
-    	}
+   	}
     Layout1 = new QHBoxLayout;
     Layout1->setSpacing( 6 );
     Layout1->setMargin( 0 );

@@ -12,7 +12,7 @@ Editor::Editor( QWidget* parent, QString daten, ScribusView* vie)
 {
     setCaption( tr( "Editor" ) );
   	setIcon(loadIcon("AppIcon.png"));
-		view = vie;
+	view = vie;
     EditorLayout = new QVBoxLayout( this, 0, 0, "EditorLayout");
     EditTex = new QTextEdit( this, "EditTex" );
 
@@ -20,22 +20,22 @@ Editor::Editor( QWidget* parent, QString daten, ScribusView* vie)
   	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("New"), EditTex, SLOT(clear()), CTRL+Key_N);
   	fmenu->insertItem( tr("Save as..."), this, SLOT(SaveAs()));
   	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("Load..."), this, SLOT(LoadScript()));
-		fmenu->insertSeparator();
-		fmenu->insertItem( tr("Save and Exit"), this, SLOT(accept()));
-		fmenu->insertItem( tr("Exit without Saving"), this, SLOT(reject()));
+	fmenu->insertSeparator();
+	fmenu->insertItem( tr("Save and Exit"), this, SLOT(accept()));
+	fmenu->insertItem( tr("Exit without Saving"), this, SLOT(reject()));
   	emenu = new QPopupMenu();
   	emenu->insertItem( tr("Undo"), EditTex, SLOT(undo()), CTRL+Key_Z);
   	emenu->insertItem( tr("Redo"), EditTex, SLOT(redo()));
-		emenu->insertSeparator();
-		emenu->insertItem(loadIcon("editcut.png"), tr("Cut"), EditTex, SLOT(cut()), CTRL+Key_X);
-		emenu->insertItem(loadIcon("editcopy.png"), tr("Copy"), EditTex, SLOT(copy()), CTRL+Key_C);
-		emenu->insertItem(loadIcon("editpaste.png"), tr("Paste"), EditTex, SLOT(paste()), CTRL+Key_V);
-		emenu->insertItem(loadIcon("editdelete.png"), tr("Clear"), EditTex, SLOT(del()), CTRL+Key_V);
-		emenu->insertSeparator();
+	emenu->insertSeparator();
+	emenu->insertItem(loadIcon("editcut.png"), tr("Cut"), EditTex, SLOT(cut()), CTRL+Key_X);
+	emenu->insertItem(loadIcon("editcopy.png"), tr("Copy"), EditTex, SLOT(copy()), CTRL+Key_C);
+	emenu->insertItem(loadIcon("editpaste.png"), tr("Paste"), EditTex, SLOT(paste()), CTRL+Key_V);
+	emenu->insertItem(loadIcon("editdelete.png"), tr("Clear"), EditTex, SLOT(del()), CTRL+Key_V);
+	emenu->insertSeparator();
   	emenu->insertItem( tr("Get Field Names"), this, SLOT(GetFieldN()));
   	menuBar = new QMenuBar(this);
-		menuBar->insertItem( tr("File"), fmenu);
-		menuBar->insertItem( tr("Edit"), emenu);
+	menuBar->insertItem( tr("File"), fmenu);
+	menuBar->insertItem( tr("Edit"), emenu);
     EditorLayout->setMenuBar( menuBar );
 
     EditTex->setMinimumSize( QSize( 400, 400 ) );
@@ -46,41 +46,41 @@ Editor::Editor( QWidget* parent, QString daten, ScribusView* vie)
 void Editor::GetFieldN()
 {
 	if (view != 0)
-		{
+	{
 		SelectFields* dia = new SelectFields(this, "", "", &view->Pages, 0);
 		if (dia->exec())
-			EditTex->insert(dia->S_Fields);
+		EditTex->insert(dia->S_Fields);
 		delete dia;
-		}
+	}
 }
 
 void Editor::LoadScript()
 {
 	QString fileName = QFileDialog::getOpenFileName(0, tr("Javascripts (*.js);;All Files (*)"),this);
 	if (!fileName.isEmpty())
-		{
+	{
 		QFile file( fileName );
 		if ( file.open( IO_ReadOnly ) )
-			{
+		{
 			QTextStream ts( &file );
 			EditTex->setText( ts.read() );
 			file.close();
-			}
 		}
+	}
 }
 
 void Editor::SaveAs()
 {
-  QString fn = QFileDialog::getSaveFileName(0, tr("Javascripts (*.js);;All Files (*)"), this);
+	QString fn = QFileDialog::getSaveFileName(0, tr("Javascripts (*.js);;All Files (*)"), this);
 	if (!fn.isEmpty())
   	{
 		QFile file( fn );
 		if ( file.open( IO_WriteOnly ) )
-			{
+		{
 			QTextStream ts( &file );
 			ts << EditTex->text();
 			EditTex->setModified(false);
 			file.close();
-			}
+		}
   	}
 }

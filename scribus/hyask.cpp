@@ -15,18 +15,18 @@ void WortEdit::keyPressEvent(QKeyEvent *k)
 	if ((k->key() == Key_Left) || (k->key() == Key_Right))
 		QLineEdit::keyPressEvent(k);
 	if (k->key() == Key_Delete)
-		{
+	{
 		if (cc == "-")
 			QLineEdit::keyPressEvent(k);
 		setCursorPosition(p);
-		}
+	}
 	if ((k->key() == Key_Backspace) && (p != 0))
-		{
+	{
 		cc = text()[p-1];
 		if (cc == "-")
 			QLineEdit::keyPressEvent(k);
 		setCursorPosition(p-1);
-		}
+	}
 	if (k->key() == Key_Minus)
 		QLineEdit::keyPressEvent(k);
 }
@@ -66,10 +66,10 @@ HyAsk::HyAsk( QWidget* parent, QString HWort )
     QSpacerItem* spacer_4 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout1->addItem( spacer_4 );
     HyAskLayout->addLayout( Layout1 );
-		connect(OK, SIGNAL(clicked()), this, SLOT(accept()));
-		connect(Cancel, SIGNAL(clicked()), this, SLOT(reject()));
-		connect(Skip, SIGNAL(clicked()), this, SLOT(DoSkip()));
-		connect(Wort, SIGNAL(textChanged(const QString &)), this, SLOT(Check()));
+	connect(OK, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(Cancel, SIGNAL(clicked()), this, SLOT(reject()));
+	connect(Skip, SIGNAL(clicked()), this, SLOT(DoSkip()));
+	connect(Wort, SIGNAL(textChanged(const QString &)), this, SLOT(Check()));
 }
 
 void HyAsk::Check()

@@ -32,7 +32,7 @@
 MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 {
 	switch (s)
-		{
+	{
 		case 0:
 			Decimals = 1;
 			Width = 0;
@@ -57,7 +57,7 @@ MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 			Decimals = 100;
 			Width = 2;
 			break;
-		}
+	}
 	setValidator(0);
 	ed = editor();
 	QSpinBox::setLineStep(Decimals);
@@ -67,27 +67,27 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 {
 	bool retval = FALSE;
 	if ( ev->type() == QEvent::KeyPress )
-		{
+	{
 		QKeyEvent* k = (QKeyEvent*)ev;
 		if (k->key() == Key_Shift)
-			{
+		{
 			setLineStep(QMAX(Decimals / 10, 1));
 			retval = true;
-	    qApp->sendEvent( this, ev );
+		    qApp->sendEvent( this, ev );
 			return retval;
-			}
 		}
+	}
 	if ( ev->type() == QEvent::KeyRelease )
-		{
+	{
 		QKeyEvent* k = (QKeyEvent*)ev;
 		if (k->key() == Key_Shift)
-			{
+		{
 			setLineStep(Decimals);
 			retval = true;
-	    qApp->sendEvent( this, ev );
+		    qApp->sendEvent( this, ev );
 			return retval;
-			}
-		}
+		}	
+	}
 	return QSpinBox::eventFilter(ob, ev);
 }
 
@@ -107,46 +107,48 @@ QString MSpinBox::mapValueToText(int value)
 
 int MSpinBox::mapTextToValue(bool *)
 {
-  FunctionParser fp;
+	FunctionParser fp;
 	QString ts = text();
 	QString su = suffix();
 	ts.replace(",", ".");
 	if (su == tr( " pt" ))
-		{
+	{
 		ts.replace("pt", "");
 		ts.replace("mm", "/25.4*72");
 		ts.replace("in", "*72");
 		ts.replace("p", "*12");
-		}
-	else if (su == tr( " mm" ))
+	}
+	else 
+		if (su == tr( " mm" ))
 		{
-		ts.replace("pt", "/72*25.4");
-		ts.replace("mm", "");
-		ts.replace("in", "*25.4");
-		ts.replace("p", "/12*25.4");
+			ts.replace("pt", "/72*25.4");
+			ts.replace("mm", "");
+			ts.replace("in", "*25.4");
+			ts.replace("p", "/12*25.4");
 		}
-	else if (su == tr( " in" ))
-		{
-		ts.replace("pt", "/72");
-		ts.replace("mm", "/25.4");
-		ts.replace("in", "");
-		ts.replace("p", "/6");
-		}
-	else if (su == tr( " p" ))
-		{
-		ts.replace("pt", "/12");
-		ts.replace("mm", "/25.4*6");
-		ts.replace("in", "*6");
-		ts.replace("p", "");
-		}
-	else if (su != "")
-		{
-		ts.replace(su, " ");
-		}
-  int ret = fp.Parse(ts.latin1(), "", true);
+		else 
+			if (su == tr( " in" ))
+			{
+				ts.replace("pt", "/72");
+				ts.replace("mm", "/25.4");
+				ts.replace("in", "");
+				ts.replace("p", "/6");
+			}
+			else 
+				if (su == tr( " p" ))
+				{
+					ts.replace("pt", "/12");
+					ts.replace("mm", "/25.4*6");
+					ts.replace("in", "*6");
+					ts.replace("p", "");
+				}
+			else 
+				if (su != "")
+					ts.replace(su, " ");
+	int ret = fp.Parse(ts.latin1(), "", true);
 	if (ret >= 0)
 		return 0;
-  double erg = fp.Eval(NULL);
+	double erg = fp.Eval(NULL);
 	return qRound(erg*Decimals);
 }
 

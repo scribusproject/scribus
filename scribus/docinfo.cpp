@@ -23,7 +23,7 @@ DocInfos::DocInfos( QWidget* parent, QString Autor, QString Titel, QString Des, 
 {
     setMaximumSize( QSize( 32767, 32767 ) );
     setCaption( tr( "Document Info" ) );
- 		setIcon(loadIcon("AppIcon.png"));
+ 	setIcon(loadIcon("AppIcon.png"));
     DocInfosLayout = new QVBoxLayout( this );
     DocInfosLayout->setSpacing( 6 );
     DocInfosLayout->setMargin( 11 );

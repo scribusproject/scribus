@@ -2,24 +2,23 @@
 #include "javadocs.moc"
 #include "query.h"
 #include "editor.h"
+
 extern QPixmap loadIcon(QString nam);
 
 JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
     : QDialog( parent, "Javadocs", true, 0 )
 {
     setCaption( tr( "Global JavaScripts" ) );
- 		setIcon(loadIcon("AppIcon.png"));
+	setIcon(loadIcon("AppIcon.png"));
     Doc = doc;
-		View = vie;
+	View = vie;
     JavaDocsLayout = new QHBoxLayout( this, 11, 6, "JavaDocsLayout"); 
 
     Scripts = new QListBox( this, "Scripts" );
     Scripts->setMinimumSize( QSize( 150, 200 ) );
-		QMap<QString,QString>::Iterator it;
-		for (it = Doc->JavaScripts.begin(); it != Doc->JavaScripts.end(); ++it)
-			{
-			Scripts->insertItem(it.key());
-			}
+	QMap<QString,QString>::Iterator it;
+	for (it = Doc->JavaScripts.begin(); it != Doc->JavaScripts.end(); ++it)
+		Scripts->insertItem(it.key());
     JavaDocsLayout->addWidget( Scripts );
 
     Layout1 = new QVBoxLayout( 0, 0, 6, "Layout1"); 
@@ -42,18 +41,18 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
     ExitDia->setText( tr( "Close" ) );
     ExitDia->setDefault( true );
     Layout1->addWidget( ExitDia );
-		if (Doc->JavaScripts.count() == 0)
-			{
-			EditScript->setEnabled(false);
-			DeleteScript->setEnabled(false);
-			}
-		else
-			Scripts->setCurrentItem(0);
-    JavaDocsLayout->addLayout( Layout1 );
-		connect(AddScript, SIGNAL(clicked()), this, SLOT(slotAdd()));
-		connect(EditScript, SIGNAL(clicked()), this, SLOT(slotEdit()));
-		connect(DeleteScript, SIGNAL(clicked()), this, SLOT(slotDelete()));
-		connect(ExitDia, SIGNAL(clicked()), this, SLOT(accept()));
+	if (Doc->JavaScripts.count() == 0)
+	{
+		EditScript->setEnabled(false);
+		DeleteScript->setEnabled(false);
+	}
+	else
+		Scripts->setCurrentItem(0);
+  	JavaDocsLayout->addLayout( Layout1 );
+	connect(AddScript, SIGNAL(clicked()), this, SLOT(slotAdd()));
+	connect(EditScript, SIGNAL(clicked()), this, SLOT(slotEdit()));
+	connect(DeleteScript, SIGNAL(clicked()), this, SLOT(slotDelete()));
+	connect(ExitDia, SIGNAL(clicked()), this, SLOT(accept()));
 }
 
 void JavaDocs::slotAdd()
@@ -62,28 +61,28 @@ void JavaDocs::slotAdd()
 	Query *dia = new Query(this, "tt", 1, 0, "New Script:", "New Script");
 	dia->Answer->setText( tr("New Script"));
 	if (dia->exec())
-		{
+	{
 		nam = dia->Answer->text();
 		while (Doc->JavaScripts.contains(nam) || (nam == ""))
-			{
+		{
 			if (!dia->exec())
-				{
+			{
 				delete dia;
 				return;
-				}
-			nam = dia->Answer->text();
 			}
+			nam = dia->Answer->text();
+		}
 		Editor* dia2 = new Editor(this, "", View);
 		if (dia2->exec())
-			{
+		{
 			EditScript->setEnabled(true);
 			DeleteScript->setEnabled(true);
 			Doc->JavaScripts[nam] = dia2->EditTex->text();
 			Scripts->insertItem(nam);
-			}
+		}
 		delete dia2;
 		delete dia;
-		}
+	}
 }
 
 void JavaDocs::slotEdit()
@@ -102,14 +101,12 @@ void JavaDocs::slotDelete()
 	Scripts->clear();
 	QMap<QString,QString>::Iterator it;
 	for (it = Doc->JavaScripts.begin(); it != Doc->JavaScripts.end(); ++it)
-		{
 		Scripts->insertItem(it.key());
-		}
 	if (Doc->JavaScripts.count() == 0)
-		{
+	{
 		EditScript->setEnabled(false);
 		DeleteScript->setEnabled(false);
-		}
+	}
 	else
 		Scripts->setCurrentItem(0);
 }

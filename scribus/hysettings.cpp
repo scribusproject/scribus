@@ -1,12 +1,13 @@
 #include "hysettings.h"
 #include "hysettings.moc"
 #include <qpixmap.h>
+
 extern QPixmap loadIcon(QString nam);
 
 HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs )
     : QDialog( parent, "Settings", true, 0 )
 {
-		QStringList lada;
+	QStringList lada;
     resize( 218, 103 ); 
     setCaption( tr( "Hyphenator Settings" ) );
   	setIcon(loadIcon("AppIcon.png"));
@@ -14,22 +15,20 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs )
 
     Layout3 = new QGridLayout( 0, 1, 1, 0, 6, "Layout3"); 
     Verbose = new QCheckBox(this, "Verbose");
-		Verbose->setText( tr("Fully Automatic"));
-		Layout3->addMultiCellWidget(Verbose, 0, 0, 0, 1);
+	Verbose->setText( tr("Fully Automatic"));
+	Layout3->addMultiCellWidget(Verbose, 0, 0, 0, 1);
     QToolTip::add( Verbose, tr( "If you uncheck this you will get a dialog\neverytime a possible Hyphenation is found." ) );
     Input = new QCheckBox(this, "inp");
-		Input->setText( tr("Check during Typing"));
-		Layout3->addMultiCellWidget(Input, 1, 1, 0, 1);
+	Input->setText( tr("Check during Typing"));
+	Layout3->addMultiCellWidget(Input, 1, 1, 0, 1);
     QToolTip::add(Input, tr("Enables automatic checking of your text while typing."));
     Language = new QComboBox( true, this, "Language" );
-		QMap<QString,QString>::Iterator it;
+	QMap<QString,QString>::Iterator it;
     for (it = langs->begin(); it != langs->end(); ++it)
-    	{
-			lada.append(it.key());
-			}
-		lada.sort();
-		Language->insertStringList(lada);
-		Language->setEditable(false);
+		lada.append(it.key());
+	lada.sort();
+	Language->insertStringList(lada);
+	Language->setEditable(false);
     Layout3->addWidget( Language, 2, 1 );
 
     Text1 = new QLabel( this, "Text1" );
@@ -66,7 +65,7 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs )
     QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout1->addItem( spacer_3 );
     HySettingsLayout->addLayout( Layout1 );
-		connect(OK, SIGNAL(clicked()), this, SLOT(accept()));
-		connect(Cancel, SIGNAL(clicked()), this, SLOT(reject()));
+	connect(OK, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(Cancel, SIGNAL(clicked()), this, SLOT(reject()));
 }
 

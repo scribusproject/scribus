@@ -9,9 +9,9 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     : QDialog( parent, "EditST", true, 0)
 {
     setCaption( tr( "Edit Style" ) );
- 		setIcon(loadIcon("AppIcon.png"));
-		AutoVal = au;
-		DocsEin = dEin;
+	setIcon(loadIcon("AppIcon.png"));
+	AutoVal = au;
+	DocsEin = dEin;
     EditStyleLayout = new QGridLayout( this );
     EditStyleLayout->setSpacing( 6 );
     EditStyleLayout->setMargin( 10 );
@@ -40,13 +40,13 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     GroupFontLayout->addWidget( TextF1, 0, 0 );
     FontC = new FontCombo(GroupFont, Prefs);
     for (int fc=0; fc<FontC->count(); ++fc)
-    	{
+   	{
     	if (FontC->text(fc) == vor->Font)
-    		{
+   		{
     		FontC->setCurrentItem(fc);
     		break;
-    		}
-    	}
+   		}
+   	}
     GroupFontLayout->addMultiCellWidget( FontC, 0, 0, 1, 2 );
     TextF2 = new QLabel( GroupFont, "TextF2" );
     TextF2->setMinimumSize( QSize( 50, 22 ) );
@@ -55,33 +55,26 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     SizeC = new MSpinBox( GroupFont, 1 );
     SizeC->setMinimumSize( QSize( 70, 22 ) );
     SizeC->setSuffix( tr( " pt" ) );
-		SizeC->setMinValue(1);
-		SizeC->setMaxValue(1024);
-		SizeC->setValue(vor->FontSize / 10.0);
+	SizeC->setMinValue(1);
+	SizeC->setMaxValue(1024);
+	SizeC->setValue(vor->FontSize / 10.0);
     GroupFontLayout->addWidget( SizeC, 1, 1 );
 
     DropCaps = new QCheckBox( GroupFont, "DropCaps" );
     DropCaps->setText( tr( "Drop Caps" ) );
-		DropCaps->setChecked(vor->Drop);
+	DropCaps->setChecked(vor->Drop);
     GroupFontLayout->addMultiCellWidget( DropCaps, 2, 2, 0, 2 );
     CapLabel = new QLabel( GroupFont, "CapLabel" );
-		CapLabel->setText( tr("Lines:"));
+	CapLabel->setText( tr("Lines:"));
     GroupFontLayout->addWidget( CapLabel, 3, 0 );
     DropLines = new QSpinBox( GroupFont, "DropLines" );
     DropLines->setMinValue( 2 );
     DropLines->setMaxValue( 20 );
     DropLines->setValue(vor->DropLin);
     GroupFontLayout->addWidget( DropLines, 3, 1 );
-		if (vor->Drop)
-			{
-			DropLines->setEnabled(true);
-			CapLabel->setEnabled(true);
-			}
-		else
-			{
-			DropLines->setEnabled(false);
-			CapLabel->setEnabled(false);
-			}
+	bool enable = vor->Drop ? true : false;
+	DropLines->setEnabled(enable);
+	CapLabel->setEnabled(enable);
 
     EditStyleLayout->addWidget( GroupFont, 2, 0 );
 
@@ -95,12 +88,14 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     GroupBox10Layout->setSpacing( 5 );
     GroupBox10Layout->setMargin( 10 );
     TextLabel1_2 = new QLabel( GroupBox10, "TextLabel1_2" );
-    TextLabel1_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, TextLabel1_2->sizePolicy().hasHeightForWidth() ) );
+    TextLabel1_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
+											 TextLabel1_2->sizePolicy().hasHeightForWidth() ) );
     TextLabel1_2->setMinimumSize( QSize( 90, 22 ) );
     TextLabel1_2->setText( tr( "Left Indent:" ) );
     GroupBox10Layout->addWidget( TextLabel1_2, 1, 0 );
     TextLabel2 = new QLabel( GroupBox10, "TextLabel2" );
-    TextLabel2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, TextLabel2->sizePolicy().hasHeightForWidth() ) );
+    TextLabel2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
+											 TextLabel2->sizePolicy().hasHeightForWidth() ) );
     TextLabel2->setMinimumSize( QSize( 90, 22 ) );
     TextLabel2->setText( tr( "First Line:" ) );
     GroupBox10Layout->addWidget( TextLabel2, 0, 0 );
@@ -114,9 +109,9 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     FirstLin->setMaxValue( 300 );
     FirstLin->setMinValue( -300 );
     GroupBox10Layout->addWidget( FirstLin, 0, 1 );
-		TabsButton = new QPushButton( GroupBox10, "Tabul" );
-		TabsButton->setText( tr( "Tabulators..." ) );
-		GroupBox10Layout->addMultiCellWidget( TabsButton, 2, 2, 0, 1 );
+	TabsButton = new QPushButton( GroupBox10, "Tabul" );
+	TabsButton->setText( tr( "Tabulators..." ) );
+	GroupBox10Layout->addMultiCellWidget( TabsButton, 2, 2, 0, 1 );
     EditStyleLayout->addWidget( GroupBox10, 3, 1 );
 
     ButtonGroup1 = new QButtonGroup( this, "ButtonGroup1" );
@@ -149,24 +144,24 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     Forced = new QRadioButton( ButtonGroup1, "Full" );
     Forced->setText( tr( "Forced" ) );
     ButtonGroup1Layout->addWidget( Forced, 2, 1 );
-		switch (vor->Ausri)
-			{
-			case 0 :
-				Left->setChecked( true );
-				break;
-			case 1 :
-				Center->setChecked( true );
-				break;
-			case 2 :
-				Right->setChecked( true );
-				break;
-			case 3 :
-				Full->setChecked( true );
-				break;
-			case 4 :
-				Forced->setChecked( true );
-				break;
-			}
+	switch (vor->Ausri)
+	{
+		case 0 :
+			Left->setChecked( true );
+			break;
+		case 1 :
+			Center->setChecked( true );
+			break;
+		case 2 :
+			Right->setChecked( true );
+			break;
+		case 3 :
+			Full->setChecked( true );
+			break;
+		case 4 :
+			Forced->setChecked( true );
+			break;
+	}
     EditStyleLayout->addWidget( ButtonGroup1, 3, 0 );
 
     AbstandV = new QGroupBox( this, "AbstandV" );
@@ -200,17 +195,20 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     AbstandVLayout->addWidget( LineSpVal, 2, 1 );
 
     TextLabel3 = new QLabel( AbstandV, "TextLabel3" );
-    TextLabel3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, TextLabel3->sizePolicy().hasHeightForWidth() ) );
+    TextLabel3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
+												TextLabel3->sizePolicy().hasHeightForWidth() ) );
     TextLabel3->setMinimumSize( QSize( 90, 22 ) );
     TextLabel3->setText( tr( "Line Spacing" ) );
     AbstandVLayout->addWidget( TextLabel3, 2, 0 );
     TextLabel1_2_2 = new QLabel( AbstandV, "TextLabel1_2_2" );
-    TextLabel1_2_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, TextLabel1_2_2->sizePolicy().hasHeightForWidth() ) );
+    TextLabel1_2_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
+												TextLabel1_2_2->sizePolicy().hasHeightForWidth() ) );
     TextLabel1_2_2->setMinimumSize( QSize( 90, 22 ) );
     TextLabel1_2_2->setText( tr( "Above:" ) );
     AbstandVLayout->addWidget( TextLabel1_2_2, 0, 0 );
     TextLabel1_2_3 = new QLabel( AbstandV, "TextLabel1_2_3" );
-    TextLabel1_2_3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, TextLabel1_2_3->sizePolicy().hasHeightForWidth() ) );
+    TextLabel1_2_3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
+												TextLabel1_2_3->sizePolicy().hasHeightForWidth() ) );
     TextLabel1_2_3->setMinimumSize( QSize( 90, 22 ) );
     TextLabel1_2_3->setText( tr( "Below:" ) );
     AbstandVLayout->addWidget( TextLabel1_2_3, 1, 0 );
@@ -241,30 +239,30 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     connect( TabsButton, SIGNAL( clicked() ), this, SLOT( ManageTabs() ) );
     connect( DropCaps, SIGNAL( clicked() ), this, SLOT( ManageDrops() ) );
     connect(SizeC, SIGNAL(valueChanged(int)), this, SLOT(FontChange()));
-		LeftInd->setDecimals(10);
-		FirstLin->setDecimals(10);
-		AboveV->setDecimals(10);
-		BelowV->setDecimals(10);
-		QString ein;
-		switch (dEin)
-			{
-			case 0:
-				ein = " pt";
-				break;
-			case 1:
-	    	ein = " mm";
-				break;
-			case 2:
+	LeftInd->setDecimals(10);
+	FirstLin->setDecimals(10);
+	AboveV->setDecimals(10);
+	BelowV->setDecimals(10);
+	QString ein;
+	switch (dEin)
+	{
+		case 0:
+			ein = " pt";
+			break;
+		case 1:
+		   	ein = " mm";
+			break;
+		case 2:
 	    	ein = " in";
-				LeftInd->setDecimals(10000);
-				FirstLin->setDecimals(10000);
+			LeftInd->setDecimals(10000);
+			FirstLin->setDecimals(10000);
 	  		AboveV->setDecimals(10000);
 	  		BelowV->setDecimals(10000);
-				break;
-			case 3:
+			break;
+		case 3:
 	    	ein = " p";
-				break;
-			}
+			break;
+	}
     LeftInd->setSuffix(ein);
     FirstLin->setSuffix(ein);
     AboveV->setSuffix(ein);
@@ -277,16 +275,9 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 
 void EditStyle::ManageDrops()
 {
-	if (DropCaps->isChecked())
-		{
-		DropLines->setEnabled(true);
-		CapLabel->setEnabled(true);
-		}
-	else
-		{
-		DropLines->setEnabled(false);
-		CapLabel->setEnabled(false);
-		}
+	bool enabled = DropCaps->isChecked() ? true : false;
+	DropLines->setEnabled(enabled);
+	CapLabel->setEnabled(enabled);
 }
 
 void EditStyle::ManageTabs()
@@ -306,34 +297,36 @@ void EditStyle::FontChange()
 void EditStyle::Verlassen()
 {
 	if (IsNew)
-		{
+	{
 		for (uint x=0; x<allV.count()-1; ++x)
-			{
+		{
 			if (Name->text() == allV[x].Vname)
-				{
-  			QMessageBox::information(this, tr("Warning"), tr("Name of the Style is not unique"), tr("OK"),0, 0, 0, 1);
-      	Name->selectAll();
+			{
+  				QMessageBox::information(this, tr("Warning"), tr("Name of the Style is not unique"), tr("OK"),
+											0, 0, 0, QMessageBox::Ok);
+		      	Name->selectAll();
 				Name->setFocus();
 				return;
-				}
 			}
 		}
+	}
 	else
-		{
+	{
 		if (OldName != Name->text())
-			{
+		{
 			for (uint x=0; x<allV.count(); ++x)
-				{
+			{
 				if (Name->text() == allV[x].Vname)
-					{
-  				QMessageBox::information(this, tr("Warning"), tr("Name of the Style is not unique"), tr("OK"),0, 0, 0, 1);
-      		Name->selectAll();
+				{
+  					QMessageBox::information(this, tr("Warning"), tr("Name of the Style is not unique"),
+					 tr("OK"),0, 0, 0, QMessageBox::Ok);
+      				Name->selectAll();
 					Name->setFocus();
 					return;
-					}
 				}
 			}
 		}
+	}
 	if (Left->isChecked())
 		werte->Ausri = 0;
 	if (Center->isChecked())

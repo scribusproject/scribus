@@ -172,21 +172,17 @@ Align::~Align()
 
 void Align::DistHoriz()
 {
-	bool setter = false;
-  if (CheckH->isChecked())
-  	setter = true;
+	bool setter = CheckH->isChecked() ? true : false;
 	AHor->setEnabled( setter );
-  TextLabelD->setEnabled( setter );
+	TextLabelD->setEnabled( setter );
 
 }
 
 void Align::DistVert()
 {
-	bool setter = false;
-  if (CheckV->isChecked())
-  	setter = true;
+	bool setter = CheckV->isChecked() ? true : false;
 	AVert->setEnabled( setter );
-  TextLabelD2->setEnabled( setter );
+	TextLabelD2->setEnabled( setter );
 }
 
 void Align::slotApplyDiag()

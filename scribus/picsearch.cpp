@@ -21,7 +21,8 @@ PicSearch::PicSearch(QWidget* parent, QString name, QStringList alt)
     setCaption( tr( "Result" ) );
   	setIcon(loadIcon("AppIcon.png"));
   	Bild = "";
-    setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, sizePolicy().hasHeightForWidth() ) );
+    setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1,
+								sizePolicy().hasHeightForWidth() ) );
     PicSearchLayout = new QVBoxLayout( this ); 
     PicSearchLayout->setSpacing( 6 );
     PicSearchLayout->setMargin( 11 );
@@ -83,7 +84,7 @@ PicSearch::PicSearch(QWidget* parent, QString name, QStringList alt)
     PixmapLabel1->setFrameShape( QLabel::WinPanel );
     PixmapLabel1->setFrameShadow( QLabel::Sunken );
     Layout3->addWidget( PixmapLabel1 );
-		PixmapLabel1->hide();
+	PixmapLabel1->hide();
     PicSearchLayout->addLayout( Layout3 );
     minS = minimumSize();
     // signals and slots connections
@@ -104,17 +105,17 @@ PicSearch::PicSearch(QWidget* parent, QString name, QStringList alt)
 void PicSearch::ShowPrev()
 {
 	if (Preview->isChecked())
-		{
+	{
 		PixmapLabel1->show();
 		if (Bild != "")
 			GenPreview();
-		}
+	}
 	else
-		{
+	{
 		PixmapLabel1->hide();
 		setMinimumSize(minS);
 		resize(minS);
-		}
+	}
 }
 
 /*!
@@ -148,7 +149,7 @@ void PicSearch::GenPreview()
 	QPixmap pm;
 	QImage im = LoadPict(Bild);
 	if ((im.width() > 200) || (im.height() > 200))
-		{
+	{
 		QImage im2;
 		double sx = im.width() / 200.0;
 		double sy = im.height() / 200.0;
@@ -157,7 +158,7 @@ void PicSearch::GenPreview()
 			im2 = im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
 		im = im2;
 		im2.detach();
-		}
+	}
 	pm.convertFromImage(im);
 	PixmapLabel1->setPixmap(pm);
 }	

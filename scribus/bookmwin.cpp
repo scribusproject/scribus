@@ -117,7 +117,7 @@ void BookMView::AddPageItem(PageItem* ite)
 	QString bm2 = "";
 	QString cc;
 	for (uint d = 0; d < ite->Ptext.count(); ++d)
-		{
+	{
 		cc = ite->Ptext.at(d)->ch;
 		if ((cc == QChar(13)) || (cc == QChar(10)))
 			break;
@@ -125,9 +125,9 @@ void BookMView::AddPageItem(PageItem* ite)
 			cc = " ";
 		if ((cc == "(") || (cc == ")") || (cc == "\\"))
 			bm2 += "\\";
-			bm += cc;
-			bm2 += cc;
-		}
+		bm += cc;
+		bm2 += cc;
+	}
 	AddItem(bm, bm2, ite->OwnPage->PageNr, ite->ItemNr);
 	ite->BMnr = NrItems;
 	Last = NrItems;
@@ -143,53 +143,53 @@ void BookMView::contentsMousePressEvent(QMouseEvent* e)
 	QListView::contentsMousePressEvent(e);
 	QListViewItem *i = itemAt(contentsToViewport(e->pos()));
 	if (i)
-		{
+	{
 		Mpos = e->pos();
 		Mpressed = true;
-		}
+	}
 }
 
 void BookMView::contentsMouseMoveEvent(QMouseEvent* e)
 {
 	if ((Mpressed) && ((Mpos - e->pos()).manhattanLength() > 4))
-		{
+	{
 		Mpressed = false;
 		QListViewItem *i = itemAt(contentsToViewport(Mpos));
 		if (i)
-			{
+		{
 			DraggedI = (BookMItem*)i;
 			QDragObject *dr = new QTextDrag(i->text(0), this, "BMD");
 			dr->drag();
-			}
 		}
+	}
 }
 
 void BookMView::contentsDropEvent(QDropEvent *e)
 {
 	QString text;
+	if (!QTextDrag::decode(e, text))
+	{
+		e->ignore();
+		return;
+    }
 	int ins, mov, mret;
 	QListViewItem *pp;
 	QListViewItem *lv;
 	BookMItem *ip;
 	BookMItem *ip2;
 	BookMItem *ite;
-	if (!QTextDrag::decode(e, text))
-		{
-		e->ignore();
-		return;
-    }
 	QListViewItem *item = itemAt(contentsToViewport(e->pos()));
 	BookMItem *Bite = (BookMItem*)item;
-  if ((item) && (DraggedI != 0))
+	if ((item) && (DraggedI != 0))
   	{
-  	if ((BookMItem*)item != DraggedI)
+  		if ((BookMItem*)item != DraggedI)
   		{
-  		pp = item->parent();
-  		while (pp)
+  			pp = item->parent();
+  			while (pp)
   			{
-  			if (pp == DraggedI)
-  				return;
-  			pp = pp->parent();
+  				if (pp == DraggedI)
+  					return;
+  				pp = pp->parent();
   			}
 			QPopupMenu *pmenu = new QPopupMenu();
 			mov = pmenu->insertItem( tr("Move Bookmark"));
@@ -197,152 +197,152 @@ void BookMView::contentsDropEvent(QDropEvent *e)
 			pmenu->insertItem( tr("Cancel"));
 			mret = pmenu->exec(QCursor::pos());
 			if (mret == ins)
-				{
+			{
 				lv = DraggedI->parent();
 				lv = lv ? lv->firstChild() : firstChild();
 				if (!DraggedI->Prev == 0)
-					{
+				{
 					while (lv)
-						{
+					{
 						ip = (BookMItem*)lv;
 						if (ip->ItemNr == DraggedI->Prev)
 							break;
 						lv = lv->nextSibling();
-						}
+					}
 					ip = (BookMItem*)lv;
 					lv = DraggedI->nextSibling();
 					if (lv)
-						{
+					{
 						ip2 = (BookMItem*)lv;
 						ip2->Prev = ip->ItemNr;
 						ip->Next = ip2->ItemNr;
-						}
+					}
 					else
 						ip->Next = 0;
-					}
+				}
 				lv = DraggedI->parent();
-  			item->insertItem(DraggedI);
+  				item->insertItem(DraggedI);
 				lv ? lv = lv->firstChild() : lv = firstChild();
 				if (DraggedI->Prev == 0)
-					{
+				{
 					ip = (BookMItem*)lv;
 					ip->Prev = 0;
-					}
+				}
 				QListViewItemIterator it(this);
 				for ( ; it.current(); ++it)
-					{
+				{
 					ite = (BookMItem*)it.current();
 					if (ite->ItemNr == DraggedI->ItemNr)
 						DraggedI = ite;
-					}
-  			DraggedI->Pare = Bite->ItemNr;
-  			ip = (BookMItem*)item->firstChild();
-  			Bite->First = ip->ItemNr;
-  			lv = item->firstChild();
-  			while (lv)
+				}
+  				DraggedI->Pare = Bite->ItemNr;
+  				ip = (BookMItem*)item->firstChild();
+  				Bite->First = ip->ItemNr;
+  				lv = item->firstChild();
+  				while (lv)
   				{
-  				if (!lv->nextSibling())
+  					if (!lv->nextSibling())
   					{
-  					ip = (BookMItem*)lv;
-  					Bite->Last = ip->ItemNr;
-  					break;
+  						ip = (BookMItem*)lv;
+  						Bite->Last = ip->ItemNr;
+  						break;
   					}
-  				lv = lv->nextSibling();
+  					lv = lv->nextSibling();
   				}
-  			if (DraggedI->nextSibling())
+  				if (DraggedI->nextSibling())
   				{
-  				ip = (BookMItem*)DraggedI->nextSibling();
-  				DraggedI->Next = ip->ItemNr;
-  				ip->Prev = DraggedI->ItemNr;
+  					ip = (BookMItem*)DraggedI->nextSibling();
+  					DraggedI->Next = ip->ItemNr;
+  					ip->Prev = DraggedI->ItemNr;
   				}
-  			else
-  				DraggedI->Next = 0;
-  			if (DraggedI != item->firstChild())
+  				else
+  					DraggedI->Next = 0;
+  				if (DraggedI != item->firstChild())
   				{
-  				ip = (BookMItem*)DraggedI->itemAbove();
-  				DraggedI->Prev = ip->ItemNr;
-  				ip->Next = DraggedI->ItemNr;
+  					ip = (BookMItem*)DraggedI->itemAbove();
+  					DraggedI->Prev = ip->ItemNr;
+  					ip->Next = DraggedI->ItemNr;
   				}
-  			else
-  				DraggedI->Prev = 0;
+  				else
+  					DraggedI->Prev = 0;
   			}
 			if (mret == mov)
-				{
+			{
 				lv = DraggedI->parent();
 				lv ? lv = lv->firstChild() : lv = firstChild();
 				if (DraggedI->Prev == 0)
-					{
+				{
 					ip = (BookMItem*)lv->nextSibling();
 					ip->Prev = 0;
-					}
+				}
 				else
-					{
+				{
 					while (lv)
-						{
+					{
 						ip = (BookMItem*)lv;
 						if (ip->ItemNr == DraggedI->Prev)
 							break;
 						lv = lv->nextSibling();
-						}
 					}
+				}
 				ip = (BookMItem*)lv;
 				lv = DraggedI->nextSibling();
 				if (lv)
-					{
+				{
 					ip2 = (BookMItem*)lv;
 					ip2->Prev = ip->ItemNr;
 					ip->Next = ip2->ItemNr;
-					}
+				}
 				else
 					ip->Next = 0;
 				lv = DraggedI->parent();
-  			DraggedI->moveItem(item);
+  				DraggedI->moveItem(item);
 				lv ? lv = lv->firstChild() : lv = firstChild();
 				if (DraggedI->Prev == 0)
-					{
+				{
 					ip = (BookMItem*)lv;
 					ip->Prev = 0;
-					}
+				}
 				QListViewItemIterator it2(this);
 				for ( ; it2.current(); ++it2)
-					{
+				{
 					ite = (BookMItem*)it2.current();
 					if (ite->ItemNr == DraggedI->ItemNr)
 						DraggedI = ite;
-					}
-  			ip = (BookMItem*)item;
-  			DraggedI->Pare = ip->Pare;
-  			DraggedI->Prev = ip->ItemNr;
-  			ip->Next = DraggedI->ItemNr;
-  			if (DraggedI->nextSibling())
+				}
+  				ip = (BookMItem*)item;
+  				DraggedI->Pare = ip->Pare;
+  				DraggedI->Prev = ip->ItemNr;
+  				ip->Next = DraggedI->ItemNr;
+  				if (DraggedI->nextSibling())
   				{
-  				ip = (BookMItem*)DraggedI->nextSibling();
-  				DraggedI->Next = ip->ItemNr;
-  				ip->Prev = DraggedI->ItemNr;
+  					ip = (BookMItem*)DraggedI->nextSibling();
+  					DraggedI->Next = ip->ItemNr;
+  					ip->Prev = DraggedI->ItemNr;
   				}
-  			else
-  				DraggedI->Next = 0;  	
-  			lv = item->parent();
+  				else
+  					DraggedI->Next = 0;  	
+  				lv = item->parent();
 				if (lv)
-					{
+				{
 					ip = (BookMItem*)lv->firstChild();
 					ip2 = (BookMItem*)lv;
 					ip2->First = ip->ItemNr;
-  				lv = lv->firstChild();
-  				while (lv)
+  					lv = lv->firstChild();
+  					while (lv)
   					{
-  					if (!lv->nextSibling())
+  						if (!lv->nextSibling())
   						{
-  						ip = (BookMItem*)lv;
-  						ip2->Last = ip->ItemNr;
-  						break;
+  							ip = (BookMItem*)lv;
+  							ip2->Last = ip->ItemNr;
+  							break;
   						}
-  					lv = lv->nextSibling();
+  						lv = lv->nextSibling();
   					}
-					}		
+				}	
   			}
 			delete pmenu;	
-  		DraggedI = 0;
+  			DraggedI = 0;
 			emit MarkMoved();
   		}
   	}
@@ -352,30 +352,30 @@ void BookMView::contentsDragMoveEvent(QDragMoveEvent *e)
 {
 	QString text;
 	if (!QTextDrag::decode(e, text))
-		{
+	{
 		e->ignore();
 		return;
     }
 	QListViewItem *item = itemAt(contentsToViewport(e->pos()));
-  if (item)
+	if (item)
   	{
 		setSelected(item, true);
 		e->accept();
   	}
-  else
+	else
 		e->ignore();
 }
 
 void BookMView::AddItem(QString text, QString Tit, int s, int el)
 {
-  QListViewItem *lv = firstChild();
-  while (lv)
-  	{
-  	if (!lv->nextSibling())
-  		break;
-  	lv = lv->nextSibling();
+	QListViewItem *lv = firstChild();
+	while (lv)
+	{
+  		if (!lv->nextSibling())
+  			break;
+  		lv = lv->nextSibling();
   	}
-  BookMItem *ip;
+	BookMItem *ip;
 	BookMItem *ite;
 	if (lv)
 		ite = new BookMItem(this, lv, NrItems+1, s, el);
@@ -384,11 +384,11 @@ void BookMView::AddItem(QString text, QString Tit, int s, int el)
 	ite->setText(0, text);
 	ite->Titel = Tit;
 	ite->Next = 0;
-  if (lv)
+	if (lv)
   	{
-  	ip = (BookMItem*)lv;
-  	ip->Next = ite->ItemNr;
-  	ite->Prev = ip->ItemNr;
+  		ip = (BookMItem*)lv;
+  		ip->Next = ite->ItemNr;
+  		ite->Prev = ip->ItemNr;
   	}
 	NrItems++;
 }
@@ -401,56 +401,56 @@ void BookMView::DeleteItem(int nr)
 	BookMItem *ite4;
 	QListViewItemIterator it(this);
 	for ( ; it.current(); ++it)
-		{
+	{
 		ite = (BookMItem*)it.current();
 		if (ite->Next == nr)
 			ite2 = ite;
 		if (ite->ItemNr == nr)
-			{
+		{
 			QListViewItem *pp = ite->firstChild();
 			QListViewItem *ppn = ite->nextSibling();
 			if ((ite->parent()) && (ite2 == 0) && (ppn))
-				{
+			{
 				ite3 = (BookMItem*)ite->parent();
 				ite4 = (BookMItem*)ppn;
 				ite3->First = ite4->ItemNr;
-				}
+			}
 			while (pp)
-				{
-      	ite->parent() ? ite->parent()->insertItem(pp) :	pp->moveItem(ite);
+			{
+    		  	ite->parent() ? ite->parent()->insertItem(pp) :	pp->moveItem(ite);
 				pp = ite->firstChild();
-				}
+			}
 			if (ppn)
-				{
+			{
 				ite3 = (BookMItem*)ppn;
 				if (ite2)
-					{
+				{
 					ite2->Next = ite3->ItemNr;
 					ite3->Prev = ite2->ItemNr;
-					}
+				}
 				else
 					ite3->Prev = 0;
-				}
+			}
 			else
 				if (ite2)
 					ite2->Next = 0;
 			delete ite;
-			}
 		}
+	}
 	QMap<int,int> Tabl;
 	Tabl.clear();
 	Tabl[0] = 0;
 	int Counter = 1;
 	QListViewItemIterator itn(this);
 	for ( ; itn.current(); ++itn)
-		{
+	{
 		ite = (BookMItem*)itn.current();
 		Tabl[ite->ItemNr] = Counter;
 		Counter++;
-		}
+	}
 	QListViewItemIterator itnf(this);
 	for ( ; itnf.current(); ++itnf)
-		{
+	{
 		ite = (BookMItem*)itnf.current();
 		ite->ItemNr = Tabl[ite->ItemNr];
 		ite->Pare = Tabl[ite->Pare];
@@ -459,7 +459,7 @@ void BookMView::DeleteItem(int nr)
 		ite->First = Tabl[ite->First];
 		ite->Last = Tabl[ite->Last];
 		emit ChangeBMNr(ite->Seite, ite->Element, ite->ItemNr);
-		}
+	}
 }
 
 void BookMView::ChangeItem(int nr, int itnr)
@@ -467,14 +467,14 @@ void BookMView::ChangeItem(int nr, int itnr)
 	BookMItem *ite;
 	QListViewItemIterator it(this);
 	for ( ; it.current(); ++it)
-		{
+	{
 		ite = (BookMItem*)it.current();
 		if (ite->ItemNr == nr)
-			{
+		{
 			ite->Element = itnr;
 			break;
-			}
 		}
+	}
 }
 
 void BookMView::SetAction(int nr, QString Act)
@@ -482,14 +482,14 @@ void BookMView::SetAction(int nr, QString Act)
 	BookMItem *ite;
 	QListViewItemIterator it(this);
 	for ( ; it.current(); ++it)
-		{
+	{
 		ite = (BookMItem*)it.current();
 		if (ite->ItemNr == nr)
-			{
+		{
 			ite->Action = Act;
 			break;
-			}
 		}
+	}
 }
 
 void BookMView::ChangeText(PageItem *b)
@@ -500,25 +500,25 @@ void BookMView::ChangeText(PageItem *b)
 	QString cc;
 	int nr = b->BMnr;
 	for (uint d = 0; d < b->Ptext.count(); ++d)
-		{
+	{
 		cc = b->Ptext.at(d)->ch;
 		if ((cc == QChar(13)) || (cc == QChar(10)))
 			break;
 		if ((cc == "(") || (cc == ")") || (cc == "\\"))
 			bm2 += "\\";
-			bm += cc;
-			bm2 += cc;
-		}
+		bm += cc;
+		bm2 += cc;
+	}
 	QListViewItemIterator it(this);
 	for ( ; it.current(); ++it)
-		{
+	{
 		ite = (BookMItem*)it.current();
 		if (ite->ItemNr == nr)
-			{
+		{
 			ite->setText(0, bm);
 			ite->Titel = bm2;
 			break;
-			}
 		}
+	}
 }
 

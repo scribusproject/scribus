@@ -22,6 +22,7 @@
 #include <qcolor.h>
 #include <qrect.h>
 #include <qpointarray.h>
+
 Hruler::Hruler(QScrollView *pa, ScribusDoc *doc) : QWidget(pa)
 {
 	setEraseColor(QColor(255,255,255));
@@ -58,14 +59,14 @@ void Hruler::paintEvent(QPaintEvent *)
 	double of, xl, iter, iter2;
 	double sc = doku->Scale;
 	switch (doku->Einheit)
-		{
+	{
 		case 0:
 			iter = 10.0;
-  		iter2 = iter * 10.0;
+	  		iter2 = iter * 10.0;
 			break;
 		case 1:
 			iter = (10.0 / 25.4) * 72.0;
-  		iter2 = iter * 10.0;
+  			iter2 = iter * 10.0;
 			break;
 		case 2:
 			iter = 18.0;
@@ -75,13 +76,13 @@ void Hruler::paintEvent(QPaintEvent *)
 			iter = 12.0;
 			iter2 = 120.0;
 			break;
-		}
+	}
 	QPainter p;
 	p.begin(this);
 	p.drawLine(0, 24, width(), 24);
 	p.translate(-offs, 0);
 	if (repX)
-		{
+	{
 		p.setPen(red);
 		p.setBrush(red);
 		QPointArray cr;
@@ -90,7 +91,7 @@ void Hruler::paintEvent(QPaintEvent *)
 		p.end();
 		repX = false;
 		return;
-		}
+	}
 	p.setBrush(black);
 	p.setPen(black);
 	p.setFont(font());
@@ -99,19 +100,17 @@ void Hruler::paintEvent(QPaintEvent *)
 	if (doku->MasterP)
 		pc = 1;
 	for (xx = 0; xx < pc; ++xx)
-		{
+	{
 		of = xx * (doku->PageB+30.0);
 		for (xl = 0; xl < doku->PageB; xl += iter)
-			{
 			p.drawLine(static_cast<int>(xl+of), 18, static_cast<int>(xl+of), 24);
-			}
 		for (xl = 0; xl < doku->PageB+(iter2/2); xl += iter2)
-			{
+		{
 			p.drawLine(static_cast<int>(xl+of), 11, static_cast<int>(xl+of), 24);
 			p.save();
 			p.scale(1.0 / sc, 1.0);
 			switch (doku->Einheit)
-				{
+			{
 				case 2:
 					p.drawText(static_cast<int>((xl+of+qRound(2/sc)) * sc), 17, QString::number(xl / iter2));
 					break;
@@ -121,10 +120,10 @@ void Hruler::paintEvent(QPaintEvent *)
 				default:
 					p.drawText(static_cast<int>((xl+of+qRound(2/sc)) * sc), 17, QString::number(xl / iter * 10));
 					break;
-				}
-			p.restore();
 			}
+			p.restore();
 		}
+	}
 }
 
 /** Zeichnet den Pfeil */

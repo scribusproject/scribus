@@ -6,15 +6,15 @@ extern double UmReFaktor;
 GuideManager::GuideManager( QWidget* parent, Page* page, int Einh)
     : QDialog( parent, "GuideManager", true, 0 )
 {
-		QString tmp;
+	QString tmp;
     setCaption( tr( "Manage Guides" ) );
   	setIcon(loadIcon("AppIcon.png"));
-		Einheit = Einh;
-		XLocal = page->XGuides;
-		YLocal = page->YGuides;
-		pag = page;
-		curX = 0;
-		curY = 0;
+	Einheit = Einh;
+	XLocal = page->XGuides;
+	YLocal = page->YGuides;
+	pag = page;
+	curX = 0;
+	curY = 0;
     GuideManagerLayout = new QVBoxLayout( this, 11, 6, "GuideManagerLayout"); 
     Layout6 = new QHBoxLayout( 0, 0, 6, "Layout6"); 
 
@@ -33,8 +33,8 @@ GuideManager::GuideManager( QWidget* parent, Page* page, int Einh)
     TextLabel1->setText( tr( "Y-Pos:" ) );
     Layout2->addWidget( TextLabel1 );
     VertSpin = new MSpinBox( VerGroup, 2 );
-		VertSpin->setMaxValue(page->doku->PageH);
-		VertSpin->setMinValue(0);
+	VertSpin->setMaxValue(page->doku->PageH);
+	VertSpin->setMinValue(0);
     Layout2->addWidget( VertSpin );
     VerGroupLayout->addLayout( Layout2 );
     Layout1 = new QHBoxLayout( 0, 0, 6, "Layout1"); 
@@ -64,8 +64,8 @@ GuideManager::GuideManager( QWidget* parent, Page* page, int Einh)
     TextLabel2->setText( tr( "X-Pos:" ) );
     Layout4->addWidget( TextLabel2 );
     HoriSpin = new MSpinBox( HorGroup, 2 );
-		HoriSpin->setMaxValue(page->doku->PageB);
-		HoriSpin->setMinValue(0);
+	HoriSpin->setMaxValue(page->doku->PageB);
+	HoriSpin->setMinValue(0);
     Layout4->addWidget( HoriSpin );
     HorGroupLayout->addLayout( Layout4 );
     Layout3 = new QHBoxLayout( 0, 0, 6, "Layout3"); 
@@ -99,33 +99,33 @@ GuideManager::GuideManager( QWidget* parent, Page* page, int Einh)
     QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout5->addItem( spacer_3 );
     GuideManagerLayout->addLayout( Layout5 );
-		if (XLocal.count() != 0)
-			GetHVal(0);
-		else
-			HoriSpin->setValue(0);
-		if (YLocal.count() != 0)
-			GetVVal(0);
-		else
-			VertSpin->setValue(0);
-		UnitChange();
-		UpdateHList();
-		UpdateVList();
+	if (XLocal.count() != 0)
+		GetHVal(0);
+	else
+		HoriSpin->setValue(0);
+	if (YLocal.count() != 0)
+		GetVVal(0);
+	else
+		VertSpin->setValue(0);
+	UnitChange();
+	UpdateHList();
+	UpdateVList();
     VerticalList->setFocusPolicy(QWidget::ClickFocus);
-		HorList->setFocusPolicy(QWidget::ClickFocus);
-		OK->setFocus();
+	HorList->setFocusPolicy(QWidget::ClickFocus);
+	OK->setFocus();
     // signals and slots connections
     connect( OK, SIGNAL( clicked() ), this, SLOT( ExitOK() ) );
     connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
     connect(HorList, SIGNAL(highlighted(int)), this, SLOT(GetHVal(int)));
     connect(VerticalList, SIGNAL(highlighted(int)), this, SLOT(GetVVal(int)));
-		connect(VertSet, SIGNAL(clicked()), this, SLOT(SetVVal()));
-		connect(VertDel, SIGNAL(clicked()), this, SLOT(DelVVal()));
-		connect(HoriSet, SIGNAL(clicked()), this, SLOT(SetHVal()));
-		connect(HoriDel, SIGNAL(clicked()), this, SLOT(DelHVal()));
-		connect(HoriSpin, SIGNAL(valueChanged(int)), this, SLOT(valChange()));
-		connect(VertSpin, SIGNAL(valueChanged(int)), this, SLOT(valChange()));
-		connect(Lock, SIGNAL(clicked()), this, SLOT(HandleLock()));
-		valChange();
+	connect(VertSet, SIGNAL(clicked()), this, SLOT(SetVVal()));
+	connect(VertDel, SIGNAL(clicked()), this, SLOT(DelVVal()));
+	connect(HoriSet, SIGNAL(clicked()), this, SLOT(SetHVal()));
+	connect(HoriDel, SIGNAL(clicked()), this, SLOT(DelHVal()));
+	connect(HoriSpin, SIGNAL(valueChanged(int)), this, SLOT(valChange()));
+	connect(VertSpin, SIGNAL(valueChanged(int)), this, SLOT(valChange()));
+	connect(Lock, SIGNAL(clicked()), this, SLOT(HandleLock()));
+	valChange();
 }
 
 void GuideManager::HandleLock()
@@ -144,7 +144,7 @@ QString GuideManager::GetUnit()
 {
 	QString tmp = "";
 	switch (Einheit)
-		{
+	{
 		case 0:
     	tmp = tr(" pt");
 			break;
@@ -166,12 +166,10 @@ void GuideManager::UpdateHList()
 	QString tmp;
 	HorList->clear();
 	if (XLocal.count() != 0)
-		{
+	{
 		for (uint xg = 0; xg < XLocal.count(); ++xg)
-			{
-   		HorList->insertItem(tmp.setNum(qRound(XLocal[xg]*UmReFaktor*100.0)/100.0, 'f', 2)+GetUnit());
-			}
-		}
+	   		HorList->insertItem(tmp.setNum(qRound(XLocal[xg]*UmReFaktor*100.0)/100.0, 'f', 2)+GetUnit());
+	}
 }
 
 void GuideManager::UpdateVList()
@@ -179,12 +177,10 @@ void GuideManager::UpdateVList()
 	QString tmp;
 	VerticalList->clear();
 	if (YLocal.count() != 0)
-		{
+	{
 		for (uint yg = 0; yg < YLocal.count(); ++yg)
-			{
-   		VerticalList->insertItem(tmp.setNum(qRound(YLocal[yg]*UmReFaktor*100.0)/100.0, 'f', 2)+GetUnit());
-			}
-		}
+   			VerticalList->insertItem(tmp.setNum(qRound(YLocal[yg]*UmReFaktor*100.0)/100.0, 'f', 2)+GetUnit());
+	}
 }
 
 void GuideManager::GetHVal(int n)

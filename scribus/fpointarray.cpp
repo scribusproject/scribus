@@ -39,7 +39,7 @@ bool FPointArray::setPoints( int nPoints, double firstx, double firsty, ... )
 	nPoints--;
 	va_start( ap, firsty );
 	while ( nPoints-- )
-		{
+	{
 		x = static_cast<double>(va_arg( ap, double ));
 		y = static_cast<double>(va_arg( ap, double ));
 		setPoint( i++, x, y );
@@ -52,10 +52,10 @@ bool FPointArray::putPoints( int index, int nPoints, double firstx, double first
 {
 	va_list ap;
 	if ( index + nPoints > static_cast<int>(size()) )
-		{
+	{
 		if ( !resize(index + nPoints) )
 			return false;
-		}
+	}
 	if ( nPoints <= 0 )
 		return true;
 	setPoint( index, firstx, firsty );		// set first point
@@ -64,11 +64,11 @@ bool FPointArray::putPoints( int index, int nPoints, double firstx, double first
 	nPoints--;
 	va_start( ap, firsty );
 	while ( nPoints-- )
-		{
+	{
 		x = static_cast<double>(va_arg(ap, double));
 		y = static_cast<double>(va_arg(ap, double));
 		setPoint( i++, x, y );
-		}
+	}
 	va_end( ap );
 	return true;
 }
@@ -76,15 +76,15 @@ bool FPointArray::putPoints( int index, int nPoints, double firstx, double first
 bool FPointArray::putPoints( int index, int nPoints, const FPointArray & from, int fromIndex )
 {
 	if ( index + nPoints > static_cast<int>(size()) )
-		{	// extend array
+	{	// extend array
 		if ( !resize(index + nPoints) )
 			return false;
-		}
+	}
 	if ( nPoints <= 0 )
 		return true;
 	int n = 0;
 	while( n < nPoints )
-		{
+	{
 		setPoint( index+n, from[fromIndex+n] );
 		n++;
     }
@@ -114,14 +114,14 @@ QPoint FPointArray::pointQ(uint i)
 
 void FPointArray::translate( double dx, double dy )
 {
-  FPoint *p = data();
-  int i = size();
-  FPoint pt( dx, dy );
-  while ( i-- )
+	FPoint *p = data();
+	int i = size();
+	FPoint pt( dx, dy );
+	while ( i-- )
     {
 		if (p->x() < 900000)
      	*p += pt;
-     p++;
+    	p++;
     }
 }
 
@@ -135,17 +135,17 @@ FPoint FPointArray::WidthHeight()
 	miny = maxy = pd->y();
 	pd++;
 	for ( int i=1; i < static_cast<int>(size()); ++i )
-		{	// find min+max x and y
+	{	// find min+max x and y
 		if ( pd->x() < minx )
 			minx = pd->x();
 		else
 			if ( pd->x() > maxx )
-	    	maxx = pd->x();
+		    	maxx = pd->x();
 		if ( pd->y() < miny )
 			miny = pd->y();
 		else
 			if ( pd->y() > maxy )
-	    	maxy = pd->y();
+	    		maxy = pd->y();
 		pd++;
     }
 	return FPoint(maxx - minx,maxy - miny);
@@ -157,20 +157,20 @@ void FPointArray::map( QWMatrix m )
 	double mx, my;
 	int i = size();
 	while ( i-- )
-		{
+	{
 		if (p->x() > 900000)
-			{
+		{
 			mx = p->x();
 			my = p->y();
-			}
+		}
 		else
-			{
+		{
 			mx = m.m11() * p->x() + m.m21() * p->y() + m.dx();
 			my = m.m22() * p->y() + m.m12() * p->x() + m.dy();
-			}
+		}
 		*p = FPoint(mx, my);
 		p++;
-		}
+	}
 }
 
 void FPointArray::setMarker()

@@ -41,8 +41,8 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	Table = new QTable( this, "Table1" );
 	Table->setMaximumSize(32000, 300);
 	Table->setMinimumSize(400, 300);
-  Table->setNumCols( 2 );
-  Table->setSorting(false);
+	Table->setNumCols( 2 );
+	Table->setSorting(false);
 	Table->setSelectionMode(QTable::NoSelection);
 	Table->setLeftMargin(0);
 	Table->verticalHeader()->hide();
@@ -69,39 +69,39 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	KeyToText.clear();
 	KeyToDefault.clear();
 	for (i = ppd->num_groups, group = ppd->groups; i > 0; i --, group ++)
-		{
+	{
 		int ix;
 		ppd_option_t	*option;	/* Current option */
 		ppd_choice_t	*choice;	/* Current choice */
-  	for (ix = group->num_options, option = group->options; ix > 0; ix --, option ++)
+  		for (ix = group->num_options, option = group->options; ix > 0; ix --, option ++)
   		{
 			int j;
 			Marked = "";
 			struct OpData Daten;
 			opts.clear();
-			for (j = option->num_choices, choice = option->choices; j > 0; j --, choice ++)
-				{
+			for (j = option->num_choices, choice = option->choices; j > 0; j --, ++choice)
+			{
 				opts.append(QString(choice->choice));
 				if (choice->marked)
 					Marked = QString(choice->choice);
   			}
 			if (Marked != "")
-				{
+			{
 				Table->setNumRows(Table->numRows()+1);
 				Table->setText(Table->numRows()-1, 0, QString(option->text));
-    		QComboBox *item = new QComboBox( true, this, "Replace" );
+    			QComboBox *item = new QComboBox( true, this, "Replace" );
 				item->setEditable(false);
-    		FlagsOpt.append(item);
+    			FlagsOpt.append(item);
 				Daten.Cnum = static_cast<int>(FlagsOpt.count()-1);
 				Daten.KeyW = QString(option->keyword);
 				KeyToText[QString(option->text)] = Daten;
 				item->insertStringList(opts);
 				item->setCurrentText(Marked);
 				KeyToDefault[QString(option->text)] = Marked;
-    		Table->setCellWidget(Table->numRows()-1, 1, item);
-				}
+    			Table->setCellWidget(Table->numRows()-1, 1, item);
 			}
 		}
+	}
 	ppdClose(ppd);
 	cupsFreeDests(num_dests, dests);
 	struct OpData Daten;

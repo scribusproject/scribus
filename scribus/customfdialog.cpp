@@ -31,35 +31,33 @@ extern QString DocDir;
 
 ImIconProvider::ImIconProvider(QWidget *pa) : QFileIconProvider(pa)
 {
-  fmts.clear();
-  fmts += "eps";
-  fmts += "gif";
-  fmts += "png";
-  fmts += "jpg";
-  fmts += "xpm";
-  fmts += "tif";
-  fmts += "bmp";
-  fmts += "pbm";
-  fmts += "pgm";
-  fmts += "ppm";
-  fmts += "xbm";
-  fmts += "xpm";
-  imagepm = loadIcon("image.png");
-  pspm = loadIcon("postscript.png");
-  txtpm = loadIcon("txt.png");
-  docpm = loadIcon("doc.png");
-  pdfpm = loadIcon("pdf.png");
+	fmts.clear();
+	fmts += "eps";
+	fmts += "gif";
+	fmts += "png";
+	fmts += "jpg";
+	fmts += "xpm";
+	fmts += "tif";
+	fmts += "bmp";
+	fmts += "pbm";
+	fmts += "pgm";
+	fmts += "ppm";
+	fmts += "xbm";
+	fmts += "xpm";
+	imagepm = loadIcon("image.png");
+	pspm = loadIcon("postscript.png");
+	txtpm = loadIcon("txt.png");
+	docpm = loadIcon("doc.png");
+	pdfpm = loadIcon("pdf.png");
 }
 
 const QPixmap * ImIconProvider::pixmap(const QFileInfo &fi)
 {
 	QString ext = fi.extension(false).lower();
 	if (fmts.contains(ext))
-   	{
 		return &imagepm;
-		}
 	else
-		{
+	{
 		if (ext == "ps")
 			return &pspm;
 		if (ext == "txt")
@@ -71,7 +69,7 @@ const QPixmap * ImIconProvider::pixmap(const QFileInfo &fi)
 		if (ext == "pdf")
 			return &pdfpm;
 		return QFileIconProvider::pixmap(fi);
-		}
+	}
 }
 
 FDialogPreview::FDialogPreview(QWidget *pa) : QLabel(pa)
@@ -97,23 +95,24 @@ void FDialogPreview::GenPreview(QString name)
 	if (ex == "JPG")
 		ex = "JPEG";
 	if ((imfo.contains(ex))||(ex=="PS")||(ex=="EPS")||(ex=="PDF")||(ex=="TIF"))
-		{
+	{
 		QImage im = LoadPict(name);
 		if (!im.isNull())
-			{
+		{
 			int ix = im.width();
 			int iy = im.height();
 			QString tmp = "";
 			QString tmp2 = "";
 			if ((im.width() > width()-5) || (im.height() > height()-20))
-				{
+			{
 				QImage im2;
 				double sx = im.width() / static_cast<double>(width()-5);
 				double sy = im.height() / static_cast<double>(height()-20);
-				im2 = sy < sx ?  im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) : im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
+				im2 = sy < sx ?  im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) :
+								 im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
 				im = im2;
 				im2.detach();
-				}
+			}
 			QPainter p;
 			pm = QPixmap(width(), height());
 			pm.fill(white);
@@ -122,14 +121,14 @@ void FDialogPreview::GenPreview(QString name)
 			p.drawText(2, height()-5, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
 			p.end();
 			setPixmap(pm);
-			}
 		}
+	}
 	else
-		{
+	{
 		if (loadText(name, &Buffer))
-			{
+		{
 			if (Buffer.startsWith("<SCRIBUS"))
-				{
+			{
 				QDomDocument docu("scridoc");
 				if(!docu.setContent(Buffer))
 					return;
@@ -149,11 +148,11 @@ void FDialogPreview::GenPreview(QString name)
 					au2 = tr("Unknown");
 				Aut += au2;
 				setText( tr("Scribus-Document")+"\n\n"+Tit+Aut);
-				}
+			}
 			else
 				setText(Buffer.left(200));
-			}
 		}
+	}
 }	
 
 void FDialogPreview::previewUrl( const QUrl &url )
@@ -174,7 +173,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre,
 	FDialogPreview *pw = new FDialogPreview( this );
 	setContentsPreview( pw, pw );
 	if (comp)
-		{
+	{
 		Layout = new QFrame(this);
 		Layout1 = new QHBoxLayout(Layout);
 		Layout1->setSpacing( 6 );
@@ -183,18 +182,18 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre,
 		SaveZip->setText( tr("Compress File"));
 		Layout1->addWidget(SaveZip);
 		QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-  	Layout1->addItem( spacer );
-		}
+  		Layout1->addItem( spacer );
+	}
 	if (mod)
 		setMode(QFileDialog::ExistingFile);
 	else
-		{
+	{
 		setMode(QFileDialog::AnyFile);
 		if (comp)
 			addWidgets(0, Layout, 0);
-		}
+	}
 	if (cod)
-		{
+	{
 		LayoutC = new QFrame(this);
 		Layout1C = new QHBoxLayout(LayoutC);
 		Layout1C->setSpacing( 0 );
@@ -229,26 +228,26 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre,
 		TxCodeM->insertItem("CP1257");
 		QString localEn = QTextCodec::codecForLocale()->name();
 		bool hasIt = false;
-		for (int cc = 0; cc < TxCodeM->count(); cc++)
-			{
+		for (int cc = 0; cc < TxCodeM->count(); ++cc)
+		{
 			if (TxCodeM->text(cc) == localEn)
-				{
+			{
 				TxCodeM->setCurrentItem(cc);
 				hasIt = true;
 				break;
-				}
 			}
+		}
 		if (!hasIt)
-			{
+		{
 			TxCodeM->insertItem(localEn);
 			TxCodeM->setCurrentItem(TxCodeM->count()-1);
-			}
+		}
 		TxCodeM->setMinimumSize(QSize(200, 0));
 		Layout1C->addWidget(TxCodeM);
 		QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-  	Layout1C->addItem( spacer2 );
+		Layout1C->addItem( spacer2 );
 		addWidgets(TxCodeT, LayoutC, 0);
-		}
+	}
 	setPreviewMode(Pre ? QFileDialog::Contents : QFileDialog::NoPreview );
 	setViewMode( QFileDialog::List );
 	if (comp)
@@ -276,27 +275,27 @@ void CustomFDialog::HandleComp()
 	QString tmp;
 	tmp = selectedFile();
 	if (SaveZip->isChecked())
-		{
+	{
 		if (tmp.right(3) != ".gz")
-			{
-			if (tmp.right(3) == "svg")
+			tmp = tmp + tmp.right(3) == "svg" ? "z" : ".gz";
+/*			if (tmp.right(3) == "svg")
 				tmp = tmp+"z";
 			else
 				tmp = tmp+".gz";
-			}
+			}*/
 		setSelection(tmp);
-		}
+	}
 	else
-		{
+	{
 		int en = tmp.findRev(".gz");
 		if (en > 0)
 			tmp.remove(en,3);
 		else
-			{
+		{
 			en = tmp.findRev("z");
 			if (en > 0)
 				tmp.remove(en,1);
-			}
 		}
+	}
 	setSelection(tmp);
 }
