@@ -28,6 +28,7 @@
 #include <qimage.h>
 #include <qdir.h>
 #include <qpointarray.h>
+#include <qmessagebox.h>
 #include <cstdlib>
 #include <cmath>
 #include "md5.h"
@@ -60,6 +61,7 @@ extern int IntentPrinter;
 #endif
 extern ProfilesL InputProfiles;
 
+bool overwrite(QWidget *parent, QString filename);
 FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y);
 QString Path2Relative(QString Path);
 QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h);
@@ -1229,4 +1231,30 @@ FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y)
 	pts2.resize(0);
 	pts2.putPoints(0, pts.size()-2, pts, 0);
 	return pts2;
+}
+
+/***************************************************************************
+    begin                : Wed Oct 29 2003
+    copyright            : (C) 2003 The Scribus Team
+    email                : paul@all-the-johnsons.co.uk
+ ***************************************************************************/
+// check if the file exists, if it does, ask if they're sure
+// return true if they're sure, else return false;
+
+bool overwrite(QWidget *parent, QString filename)
+{
+  bool retval = true;
+  QFileInfo fi(filename);
+  if (fi.exists())
+  	{
+    int t = QMessageBox::warning(parent,	QObject::tr("Warning"),
+  																QObject::tr("Do you really want to overwrite the File:\n%1 ?").arg(filename),
+                         					QObject::tr("No"), QObject::tr("Yes"),
+                                	0, 0, 1);
+    if (t == 1)
+      retval = true;
+		else
+			retval = false;
+  	}
+  return retval;
 }

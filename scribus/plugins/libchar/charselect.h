@@ -83,6 +83,7 @@ public:
 		Zoom* dia;
     ScribusApp *ap;
 		ZAuswahl* par;
+		int MaxCount;
 
 signals:
 		void SelectChar(int, int);

@@ -70,6 +70,7 @@
 #include "lineformats.h"
 #include "missing.h"
 extern QPixmap loadIcon(QString nam);
+extern bool overwrite(QWidget *parent, QString filename);
 
 using namespace std;
 
@@ -1887,6 +1888,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			WerkTools->Textedit->setEnabled(false);
 			WerkTools->Rotiere->setEnabled(false);
 			Mpal->Cpal->GradCombo->setCurrentItem(0);
+			Tpal->slotShowSelect(0, -1);
 			break;
 		case 2:
 			importMenu->changeItem(fid2, tr("Get Picture..."));
@@ -2093,7 +2095,10 @@ void ScribusApp::HaveNewSel(int Nr)
 		}
 	Mpal->NewSel(Nr);
 	if (Nr != -1)
+		{
  		Mpal->SetCurItem(b);
+		Tpal->slotShowSelect(b->OwnPage->PageNr, b->ItemNr);
+		}
 }
 
 void ScribusApp::slotDocCh(bool reb)
@@ -2578,20 +2583,11 @@ void ScribusApp::slotFileSaveAs()
 #endif
   if (!fn.isEmpty())
   	{
-  	QFile f(fn);
-  	if (f.exists())
-  		{
-  		int exit=QMessageBox::warning(this,
-  																	tr("Warning"),
-  																	tr("Do you really want to overwrite the File:\n%1 ?").arg(fn),
-                                		tr("No"),
-                                		tr("Yes"),
-                                		0, 0, 1);
-  		if (exit != 1)
-  			return;
-  		}
-		if (!DoFileSave(fn))
-			QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
+		if (overwrite(this, fn))
+			{
+			if (!DoFileSave(fn))
+				QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
+			}
   	}
   FMess->setText(tr("Ready"));
 }
@@ -5371,8 +5367,11 @@ void ScribusApp::SaveAsEps()
   QString fn = CFileDialog(tr("Save as"), tr("EPS-Files (*.eps);;All Files (*)"), "", false, false);
   if (!fn.isEmpty())
   	{
-		if (!DoSaveAsEps(fn))
-			QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
+		if (overwrite(this, fn))
+			{
+			if (!DoSaveAsEps(fn))
+				QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
+			}
   	}
 }
 

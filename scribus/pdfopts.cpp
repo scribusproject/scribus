@@ -3,6 +3,7 @@
 #include "customfdialog.h"
 #include "config.h"
 extern QPixmap loadIcon(QString nam);
+extern bool overwrite(QWidget *parent, QString filename);
 extern double UmReFaktor;
 extern ProfilesL InputProfiles;
 #ifdef HAVE_CMS
@@ -1121,5 +1122,8 @@ void PDF_Opts::ChangeFile()
 	else
 		return;
   if (!fn.isEmpty())
-  	Datei->setText(fn);
+		{
+		if (overwrite(this, fn))
+  		Datei->setText(fn);
+		}
 }

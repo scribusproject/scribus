@@ -36,6 +36,7 @@ public:
 		void rebuildPageD();
 
 public slots:
+		void slotShowSelect(uint SNr, int Nr);
 		void slotRemoveElement(uint SNr, uint Nr);
 		void slotUpdateElement(uint SNr, uint Nr);
 		void slotAddElement(uint SNr, uint Nr);

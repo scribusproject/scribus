@@ -1057,7 +1057,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	EditShape->setEnabled(setter);
 	ShapeGroup->setEnabled(setter);
 	LayerGroup->setEnabled(setter);
-	Locked->setOn(setter);
+	Locked->setOn(!setter);
 	if (i->Locked)
 		{
 		HaveItem = true;

@@ -35,10 +35,20 @@ Tree::Tree( QWidget* parent, WFlags fl )
     ListView1->addColumn(tr("Element"));
     ListView1->addColumn(tr("Type"));
     ListView1->addColumn(tr("Information"));
+		ListView1->setSelectionMode(QListView::Single);
     ListView1->setSorting(0,1);
 
     // signals and slots connections
-    connect( ListView1, SIGNAL( selectionChanged(QListViewItem*) ), this, SLOT( slotSelect(QListViewItem*) ) );
+    connect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
+}
+
+void Tree::slotShowSelect(uint SNr, int Nr)
+{
+	disconnect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
+	ListView1->clearSelection();
+	if (Nr != -1)
+		ListView1->setSelected(PageObj.at(SNr)->Elemente.at(Nr), true);
+  connect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
 
 void Tree::slotRemoveElement(uint SNr, uint Nr)
