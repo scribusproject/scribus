@@ -137,7 +137,7 @@ void STable::adjHeight(int r)
 	updateHeaderStates();;
 }
 
-StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDialog(parent, "StoryEditor", false, 0)
+StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDialog(parent, "StoryEditor", true, 0)
 {
   uint a;
 	int para = 0;
@@ -313,6 +313,14 @@ void StoryEditor::Do_del()
 void StoryEditor::updateTextFrame()
 {
 	bool first = false;
+	PageItem *nb = CurrItem;
+	while (nb != 0)
+		{
+		if (nb->BackBox != 0)
+			nb = nb->BackBox;
+		else
+			break;
+		}
 	for (uint a = 0; a < edList.count(); ++a)
 		{
 		Serializer *ss = new Serializer("");
@@ -322,17 +330,9 @@ void StoryEditor::updateTextFrame()
 		if (a < edList.count()-1)
 			ss->Objekt += QChar(10);
 		int st = cp->currentItem();
-		ss->GetText(CurrItem, st, doc->Vorlagen[st].Font, doc->Vorlagen[st].FontSize, first);
+		ss->GetText(nb, st, doc->Vorlagen[st].Font, doc->Vorlagen[st].FontSize, first);
 		delete ss;
 		first = true;
-		}
-	PageItem *nb = CurrItem;
-	while (nb != 0)
-		{
-		if (nb->BackBox != 0)
-			nb = nb->BackBox;
-		else
-			break;
 		}
 	while (nb != 0)
 		{
@@ -343,10 +343,11 @@ void StoryEditor::updateTextFrame()
 			doc->Trenner->slotHyphenate(nb);
 			}
 		else
-			doc->ActPage->RefreshItem(nb);
+			nb->OwnPage->RefreshItem(nb);
 		nb = nb->NextBox;
 		}
 	TextChanged = false;
+	emit DocChanged();
 }
 
 void StoryEditor::styleChange(int st)
@@ -494,6 +495,13 @@ void StoryEditor::KeyRet()
 	int al = tt->alignment();
 	int st = getStyle(table1->currentRow());
 	int rPos = tmp.find("\n");
+	if (CurrItem->PType == 8)
+		{
+		tmp.remove("\n");
+		tt->setText(tmp);
+		tt->setAlignment(al);
+		return;
+		}
 	if (rPos < static_cast<int>(tmp.length()))
 		{
 		tmp2 = tmp.left(rPos);

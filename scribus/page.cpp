@@ -1940,6 +1940,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 						}
 					}
 				}
+			if (b->PType == 8)
+				pmen->insertItem(tr("Edit Text..."), this, SIGNAL(EditText()));
 			if (!b->Locked)
 				{
 				pmen->insertItem(tr("Lock"), this, SLOT(ToggleLock()));

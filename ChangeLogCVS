@@ -1,4 +1,7 @@
 Changes since Version 1.1.2
+19.11.2003	Fixed Bug in the Story Editor with linked Textframes.
+		You can now edit Texts on a Path with the Story Editor too.
+
 18.11.2003	Fixed Segfault when opening certain Documents.
 		Improved the Hyphenator.
 

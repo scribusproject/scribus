@@ -98,6 +98,9 @@ public slots:
 	void KeyBS();
 	void KeyRet();
 
+signals:
+	void DocChanged();
+
 protected:
 	QHBoxLayout* Form1Layout;
 

@@ -284,5 +284,5 @@ void Hyphenator::slotHyphenate(PageItem* it)
 		}
 	it->Dirty = true;
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-	doc->ActPage->RefreshItem(it);
+	it->OwnPage->RefreshItem(it);
 }

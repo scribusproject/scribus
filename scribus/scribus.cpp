@@ -6842,13 +6842,11 @@ void ScribusApp::slotStoryEditor()
 		{
  		PageItem *b = doc->ActPage->SelItem.at(0);
 		StoryEditor* dia = new StoryEditor(this, doc, b);
+		connect(dia, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 		if (dia->exec())
 			{
 			if (dia->TextChanged)
-				{
 				dia->updateTextFrame();
-				slotDocCh();
-				}
 			}
 		delete dia;
 		}
