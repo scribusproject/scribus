@@ -98,9 +98,15 @@ public:
 	QString tBuffer;
 	ChList cBuffer;
 	int ClipData;
+	bool StoredSel;
+	int SelParaStart;
+	int SelParaEnd;
+	int SelCharStart;
+	int SelCharEnd;
 
 protected:
 	void keyPressEvent(QKeyEvent *k);
+	void focusOutEvent(QFocusEvent *e);
 	QPopupMenu* createPopupMenu(const QPoint & pos);
 
 public slots:

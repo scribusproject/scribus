@@ -10206,7 +10206,7 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>HTML Files</source>
-        <translation>Plików HTML</translation>
+        <translation>Pliki HTML</translation>
     </message>
     <message>
         <source>html</source>
@@ -10214,7 +10214,7 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>Text Files</source>
-        <translation>Plików tekstowych</translation>
+        <translation>Pliki tekstowe</translation>
     </message>
     <message>
         <source>Comma Separated Value Files</source>

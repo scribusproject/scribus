@@ -1,5 +1,10 @@
 Changes since 1.2RC1 
 
+20.08.2004
+	* bug     #977: Font spacing problem
+	* bug     #978: Selecting text font size box deselects text inside the Story Editor
+	* bug     #979: Some characters need to be presented as entity references when saving as template
+
 19.08.2004
 	* bug     #547: multi-frame text disappears from later frames
 

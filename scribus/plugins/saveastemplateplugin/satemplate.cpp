@@ -195,22 +195,56 @@ QString sat::getTemplateTag()
 		}
 	}
 	QDate now = QDate::currentDate();
-	QString tag = "\t<template category=\""+category+"\">\n";
-	tag += "\t\t<name>"+dia->nameEdit->text()+"</name>\n";
+	QString cat = QString(category);
+	replaceIllegalChars(cat);
+	QString tag = "\t<template category=\""+cat+"\">\n";
+	QString name = QString(dia->nameEdit->text());
+	replaceIllegalChars(name);
+	tag += "\t\t<name>"+name+"</name>\n";
 	tag += "\t\t<file>"+file+"</file>\n";
-	tag += "\t\t<tnail>"+dia->nameEdit->text()+"tn.png"+"</tnail>\n";
-	tag += "\t\t<img>"+dia->nameEdit->text()+".png"+"</img>\n";
-	tag += "\t\t<psize>"+dia->psizeEdit->text()+"</psize>\n";
-	tag += "\t\t<color>"+dia->colorsEdit->text()+"</color>\n";
-	tag += "\t\t<descr>"+dia->descrEdit->text()+"</descr>\n";
-	tag += "\t\t<usage>"+dia->usageEdit->text()+"</usage>\n";
-	tag += "\t\t<scribus_version>" + QString(VERSION) + "</scribus_version>\n";
-	tag += "\t\t<date>" + now.toString(Qt::ISODate) + "</date>\n";
-	tag += "\t\t<author>"+dia->authorEdit->text()+"</author>\n";
-	tag += "\t\t<email>"+dia->emailEdit->text()+"</email>\n";
+	tag += "\t\t<tnail>"+name+"tn.png"+"</tnail>\n";
+	tag += "\t\t<img>"+name+".png"+"</img>\n";
+	QString psize = QString(dia->psizeEdit->text());
+	replaceIllegalChars(psize);
+	tag += "\t\t<psize>"+psize+"</psize>\n";
+	QString colors = QString(dia->colorsEdit->text());
+	replaceIllegalChars(colors);
+	tag += "\t\t<color>"+colors+"</color>\n";
+	QString descr = QString(dia->descrEdit->text());
+	replaceIllegalChars(descr);
+	tag += "\t\t<descr>"+descr+"</descr>\n";
+	QString usage = QString(dia->usageEdit->text());
+	replaceIllegalChars(usage);
+	tag += "\t\t<usage>"+usage+"</usage>\n";
+	QString scribus_version = QString(VERSION);
+	replaceIllegalChars(scribus_version);
+	tag += "\t\t<scribus_version>" + scribus_version + "</scribus_version>\n";
+	QString date = QString(now.toString(Qt::ISODate));
+	replaceIllegalChars(date);
+	tag += "\t\t<date>" + date + "</date>\n";
+	QString author = QString(dia->authorEdit->text());
+	replaceIllegalChars(author);
+	tag += "\t\t<author>"+author+"</author>\n";
+	QString email = QString(dia->emailEdit->text());
+	replaceIllegalChars(email);
+	tag += "\t\t<email>"+email+"</email>\n";
 	tag += "\t</template>\n";
 	
 	return tag;
+}
+
+void sat::replaceIllegalChars(QString& s)
+{
+	s.replace("&amp;", "&");
+	s.replace("&lt;", "<");
+	s.replace("&gt;", ">");
+	s.replace("&quot;", "\"");
+	s.replace("&apos;", "\'");
+	s.replace("&", "&amp;");
+	s.replace("<", "&lt;");
+	s.replace(">", "&gt;");
+	s.replace("\"", "&quot;");
+	s.replace("\'", "&apos;");
 }
 
 QString sat::findTemplateXml(QString dir)

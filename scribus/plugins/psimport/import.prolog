@@ -466,9 +466,38 @@
 /ashow
 {
 	% ax ay string
-	exch pop
-	exch pop
-	show
+	exch /ydist exch def
+	exch /xdist exch def
+	userdict begin
+	storeMatrix
+	currentfont /FontName known
+	% stack: string
+	{
+		currentpoint	% x y
+		newpath
+		/clipCnt 0 def
+		moveto
+		% we process each char separately to get smaller paths
+		0 1 2 index length 1 sub
+		{
+			(n\n)print			% start polygon
+			writecurrentcolor	% write color
+			storeMatrix
+			currentpoint	% x y
+			newpath			% clear graphic stack
+			moveto
+			1 index exch 1 getinterval false root_charpath
+			{_move} {_line} {_curve} {_close} pathforall
+			(f\n)print			% close polygon
+		} for
+		currentpoint	% x y
+		exch xdist add exch
+		ydist add
+		newpath				% clear graphic stack (and current point)
+		moveto
+	} if
+	pop
+	end
 } bind def
 
 /widthshow	% cx cy char string

@@ -597,6 +597,18 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					if (!Doc->RePos)
 						DrawZeichenS(p, &Zli3);
 				}
+				if (Ptext.count() > MaxChars)
+				{
+					if (!Doc->RePos)
+					{
+						double scp = QMAX(Doc->Scale, 1);
+						p->setPen(black, 1 / scp, SolidLine, FlatCap, MiterJoin);
+						p->setBrush(white);
+						p->drawRect(Width-16 / scp, Height-16 / scp, 14 / scp, 14 / scp);
+						p->drawLine(FPoint(Width-16 / scp, Height-16 / scp), FPoint(Width-3 / scp, Height-3 / scp));
+						p->drawLine(FPoint(Width-16 / scp, Height-3 / scp), FPoint(Width-3 / scp, Height-16 / scp));
+					}
+				}
 				Dirty = false;
 				Redrawn = true;
 				pf2.end();

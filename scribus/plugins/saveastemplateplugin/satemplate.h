@@ -56,6 +56,7 @@ private:
 	void appendTmplXml();
 	QString getTemplateTag();
 	QString findTemplateXml(QString dir);
+	void replaceIllegalChars(QString& s);
 public:
 	void createTmplXml();
 	void createImages();

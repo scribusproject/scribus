@@ -147,6 +147,7 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc) : QTextEdit(parent)
 {
 	doc = docc;
 	wasMod = false;
+	StoredSel = false;
 	StyledText.clear();
 	StyledText.setAutoDelete(true);
 	ParagStyles.clear();
@@ -375,6 +376,18 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 	QTextEdit::keyPressEvent(k);
 	emit SideBarUp(true);
 	emit SideBarUpdate();
+}
+
+void SEditor::focusOutEvent(QFocusEvent *e)
+{
+	if (hasSelectedText())
+	{
+		getSelection(&SelParaStart, &SelCharStart, &SelParaEnd, &SelCharEnd);
+		StoredSel = true;
+	}
+	else
+		StoredSel = false;
+	QTextEdit::focusOutEvent(e);
 }
 
 void SEditor::insChars(QString t)
@@ -979,6 +992,11 @@ void SEditor::updateSel(int code, struct PtiSmall *hg)
 {
 	int PStart, PEnd, SelStart, SelEnd, start, end;
 	ChList *chars;
+	if (StoredSel)
+	{
+		setSelection(SelParaStart, SelCharStart, SelParaEnd, SelCharEnd);
+		StoredSel = false;
+	}
 	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
 	for (int pa = PStart; pa < PEnd+1; ++pa)
 	{
@@ -2109,6 +2127,7 @@ void StoryEditor::updateTextFrame()
 	{
 		nb2->Ptext.clear();
 		nb2->CPos = 0;
+		nb2->Dirty = false;
 		nb2 = nb2->NextBox;
 	}
 	Editor->saveItemText(nb);
