@@ -372,6 +372,10 @@ void MenuTest::SavePlugPrefs()
 	f.close();
 }
 
+/* 11/1/2004 pv - Show docstring of the script to the user.
+ * I don't know how to get docstring via e.g. pydoc because of
+ * it needs to run script => error cannot find scribus module
+ */
 void MenuTest::aboutScript()
 {
 	QString fname = Carrier->CFileDialog(".", "about", "Scripts (*.py)", "", 0, 0, 0, 0);
@@ -385,9 +389,19 @@ void MenuTest::aboutScript()
 		return;
 	QTextStream intputstream(&input);
 	QTextStream outputstream(&output);
-	outputstream << "<pre>" << endl;
-	outputstream << intputstream.read();
-	outputstream << "</pre>" << endl;
+	QString content = intputstream.read();
+	QString docstring = content.section("\"\"\"", 1, 1);
+	if (docstring != "")
+	{
+		outputstream << "<h1>Documentation for: " << fi.fileName() << "</h1><p>";
+		outputstream << docstring.replace("\n\n", "<p>");
+	}
+	else
+	{
+		outputstream << "<pre>" << endl;
+		outputstream << "<p><b>Script "<< fi.fileName() << " doesn't contain any docstring!</b></p>" << content;
+		outputstream << "</pre>" << endl;
+	}
 	output.close();
 	input.close();
 	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("About Script") + " " + fi.fileName(), html);
@@ -423,8 +437,8 @@ static PyMethodDef scribus_methods[] = {
 	// 2004/09/26 pv
 	{"ValueDialog", scribus_valdialog, METH_VARARGS, "TODO: docstring"},
 	{"valueDialog", scribus_valdialog, METH_VARARGS, "TODO: docstring"},
-	{"GetPageSize", scribus_pagedimension, METH_VARARGS, "TODO: docstring"}, // just an alias to PageDimension()
-	{"getPageSize", scribus_pagedimension, METH_VARARGS, "TODO: docstring"}, // just an alias to PageDimension()
+	{"GetPageSize", scribus_pagedimension, METH_VARARGS, "Returns a tuple with page dimensions in used system e.g. when the document's page is in picas - picas are returned"}, // just an alias to PageDimension()
+	{"getPageSize", scribus_pagedimension, METH_VARARGS, "Returns a tuple with page dimensions in used system e.g. when the document's page is in picas - picas are returned"}, // just an alias to PageDimension()
 	{"GetPageMargins", scribus_getpagemargins, METH_VARARGS, "TODO: docstring"},
 	{"getPageMargins", scribus_getpagemargins, METH_VARARGS, "TODO: docstring"},
 	// 2004/09/13 pv
@@ -443,8 +457,8 @@ static PyMethodDef scribus_methods[] = {
 	{"isLocked", scribus_islocked, METH_VARARGS, "TODO: docstring"},
 	{"ObjectExists",scribus_objectexists, METH_VARARGS, "TODO: docstring"},
 	{"objectExists",scribus_objectexists, METH_VARARGS, "TODO: docstring"},
-	{"GetPageItems", scribus_getpageitems, METH_VARARGS, "TODO: docstring"},
-	{"getPageItems", scribus_getpageitems, METH_VARARGS, "TODO: docstring"},
+	{"GetPageItems", scribus_getpageitems, METH_VARARGS, "Returns a list of tuples with items on the actual page. (name, objectType, order) E.g. [('Text1', 4, 0), ('Image1', 2, 1)] means that object named 'Text1' is a text frame (type 4) and is the first at the page..."},
+	{"getPageItems", scribus_getpageitems, METH_VARARGS, "Returns a list of tuples with items on the actual page. (name, objectType, order) E.g. [('Text1', 4, 0), ('Image1', 2, 1)] means that object named 'Text1' is a text frame (type 4) and is the first at the page..."},
 	{"TextFlowsAroundFrame", scribus_textflow, METH_VARARGS, "TODO: docstring"},
 	{"textFlowsAroundFrame", scribus_textflow, METH_VARARGS, "TODO: docstring"},
 	{"GetXFontNames",scribus_xfontnames, METH_VARARGS, "TODO: docstring"},
@@ -465,8 +479,8 @@ static PyMethodDef scribus_methods[] = {
 	{"docChanged", scribus_docchanged, METH_VARARGS, "TODO: docstring"},
 	{"SetCursor", scribus_setcursor, METH_VARARGS, "TODO: docstring"},
 	{"setCursor", scribus_setcursor, METH_VARARGS, "TODO: docstring"},
-	{"PageDimension", scribus_pagedimension, METH_VARARGS, "TODO: docstring"},
-	{"pageDimension", scribus_pagedimension, METH_VARARGS, "TODO: docstring"},
+	{"PageDimension", scribus_pagedimension, METH_VARARGS, "Returns a tuple with page dimensions in used system e.g. when the document's page is in picas - picas are returned"},
+	{"pageDimension", scribus_pagedimension, METH_VARARGS, "Returns a tuple with page dimensions in used system e.g. when the document's page is in picas - picas are returned"},
 	{"NewDocDialog", scribus_newdocdia, METH_VARARGS, "TODO: docstring"},
 	{"newDocDialog", scribus_newdocdia, METH_VARARGS, "TODO: docstring"},
 	{"FileDialog", scribus_filedia, METH_VARARGS, "TODO: docstring"},
@@ -495,22 +509,22 @@ static PyMethodDef scribus_methods[] = {
 	{"setUnit", scribus_setunit, METH_VARARGS, "Changes the Measurement Unit of the Document. Possible Values for Unit are:\n\t0 = Typographic Points\n\t1 = Millimeters\n\t2 = Inches\n\t3 = Picas "},
 	{"GetUnit", scribus_getunit, METH_VARARGS, "Returns the Measurement Unit of the Document.\nPossible Values for Unit are:\n\t0 = Typographic Points\n\t1 = Millimeters\n\t2 = Inches\n\t3 = Picas "},
 	{"getUnit", scribus_getunit, METH_VARARGS, "Returns the Measurement Unit of the Document.\nPossible Values for Unit are:\n\t0 = Typographic Points\n\t1 = Millimeters\n\t2 = Inches\n\t3 = Picas "},
-	{"CurrentPage", scribus_actualpage, METH_VARARGS, "TODO: docstring"},
-	{"currentPage", scribus_actualpage, METH_VARARGS, "TODO: docstring"},
-	{"SetRedraw", scribus_setredraw, METH_VARARGS, "TODO: docstring"},
-	{"setRedraw", scribus_setredraw, METH_VARARGS, "TODO: docstring"},
-	{"RedrawAll", scribus_redraw, METH_VARARGS, "TODO: docstring"},
-	{"redrawAll", scribus_redraw, METH_VARARGS, "TODO: docstring"},
-	{"SavePageAsEPS", scribus_savepageeps, METH_VARARGS, "TODO: docstring"},
-	{"savePageAsEPS", scribus_savepageeps, METH_VARARGS, "TODO: docstring"},
-	{"NewPage", scribus_newpage, METH_VARARGS, "TODO: docstring"},
-	{"newPage", scribus_newpage, METH_VARARGS, "TODO: docstring"},
-	{"DeletePage", scribus_deletepage, METH_VARARGS, "TODO: docstring"},
-	{"deletePage", scribus_deletepage, METH_VARARGS, "TODO: docstring"},
-	{"GotoPage", scribus_gotopage, METH_VARARGS, "TODO: docstring"},
-	{"gotoPage", scribus_gotopage, METH_VARARGS, "TODO: docstring"},
-	{"PageCount", scribus_pagecount, METH_VARARGS, "TODO: docstring"},
-	{"pageCount", scribus_pagecount, METH_VARARGS, "TODO: docstring"},
+	{"CurrentPage", scribus_actualpage, METH_VARARGS, "Returns the Number of the current working Page. Pagenumbers are counted from 1 upwards."},
+	{"currentPage", scribus_actualpage, METH_VARARGS, "Returns the Number of the current working Page. Pagenumbers are counted from 1 upwards."},
+	{"SetRedraw", scribus_setredraw, METH_VARARGS, "Disables Page Redraw when bool = 0, otherwise redrawing is enabled."},
+	{"setRedraw", scribus_setredraw, METH_VARARGS, "Disables Page Redraw when bool = 0, otherwise redrawing is enabled."},
+	{"RedrawAll", scribus_redraw, METH_VARARGS, "Redraws all Pages."},
+	{"redrawAll", scribus_redraw, METH_VARARGS, "Redraws all Pages."},
+	{"SavePageAsEPS", scribus_savepageeps, METH_VARARGS, "Saves the actual Page as an EPS, returns true if successful."},
+	{"savePageAsEPS", scribus_savepageeps, METH_VARARGS, "Saves the actual Page as an EPS, returns true if successful."},
+	{"NewPage", scribus_newpage, METH_VARARGS, "Creates a new Page If \"where\" is -1 the new Page is appended to the Document, otherwise the new Page is inserted at \"where\". The Pagenumbers are counted from 1 upwards. The optional Parameter \"template\" specifies the Name of the Template Page for the new Page."},
+	{"newPage", scribus_newpage, METH_VARARGS, "Creates a new Page If \"where\" is -1 the new Page is appended to the Document, otherwise the new Page is inserted at \"where\". The Pagenumbers are counted from 1 upwards. The optional Parameter \"template\" specifies the Name of the Template Page for the new Page."},
+	{"DeletePage", scribus_deletepage, METH_VARARGS, "Deletes the given Page, does nothing if the Document contains only one Page. Pagenumbers are counted from 1 upwards."},
+	{"deletePage", scribus_deletepage, METH_VARARGS, "Deletes the given Page, does nothing if the Document contains only one Page. Pagenumbers are counted from 1 upwards."},
+	{"GotoPage", scribus_gotopage, METH_VARARGS, "Moves to the Page \"nr\". If \"nr\" is outside the current rage of Pages nothing happens."},
+	{"gotoPage", scribus_gotopage, METH_VARARGS, "Moves to the Page \"nr\". If \"nr\" is outside the current rage of Pages nothing happens."},
+	{"PageCount", scribus_pagecount, METH_VARARGS, "Returns the Number of Pages in the Document."},
+	{"pageCount", scribus_pagecount, METH_VARARGS, "Returns the Number of Pages in the Document."},
 	{"CreateRect", scribus_newrect, METH_VARARGS, "TODO: docstring"},
 	{"createRect", scribus_newrect, METH_VARARGS, "TODO: docstring"},
 	{"CreateEllipse", scribus_newellipse, METH_VARARGS, "TODO: docstring"},
@@ -579,8 +593,8 @@ static PyMethodDef scribus_methods[] = {
 	{"getText", scribus_getframetext, METH_VARARGS, "TODO: docstring"},
 	{"GetAllText", scribus_gettext, METH_VARARGS, "TODO: docstring"},
 	{"getAllText", scribus_gettext, METH_VARARGS, "TODO: docstring"},
-	{"GetAllObjects", scribus_getallobj, METH_VARARGS, "TODO: docstring"},
-	{"getAllObjects", scribus_getallobj, METH_VARARGS, "TODO: docstring"},
+	{"GetAllObjects", scribus_getallobj, METH_VARARGS, "Returns a List containing the Names of all Objects on the actual Page."},
+	{"getAllObjects", scribus_getallobj, METH_VARARGS, "Returns a List containing the Names of all Objects on the actual Page."},
 	{"SetGradientFill", scribus_setgradfill, METH_VARARGS, "TODO: docstring"},
 	{"setGradientFill", scribus_setgradfill, METH_VARARGS, "TODO: docstring"},
 	{"SetFillColor", scribus_setfillcolor, METH_VARARGS, "TODO: docstring"},

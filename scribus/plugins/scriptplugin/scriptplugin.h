@@ -55,7 +55,7 @@ public:
 		int cons;
 		int about;
 		QStringList SavedRecentScripts;
-    QStringList RecentScripts;
+		QStringList RecentScripts;
 
 public slots:
 		void slotTest();
@@ -65,6 +65,7 @@ public slots:
 		QString slotRunScript(QString Script);
 		void slotInteractiveScript();
 		void slotExecute();
+		/*! 11/1/2004 pv - Show docstring of the script to the user */
 		void aboutScript();
 };
 
