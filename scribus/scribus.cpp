@@ -1486,6 +1486,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						doc->Items.remove(b->ItemNr);
 					}
 					break;
+				case LinkFrames:
+				case UnlinkFrames:
 				case EditMode:
 					break;
 				case DrawBezierLine:
@@ -9485,6 +9487,8 @@ bool ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 	QString chx;
 	bool missing = false;
 	bool ret = true;
+	doc->docItemErrors.clear();
+	errorCodes itemError;
 	QMap<QString, QString> missingPlace;
 	for (uint d = 0; d < doc->MasterItems.count(); ++d)
 	{
@@ -9547,8 +9551,23 @@ bool ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 	for (uint d = 0; d < doc->Items.count(); ++d)
 	{
 		it = doc->Items.at(d);
+		itemError.clear();
+		if (it->OwnPage == -1)
+			itemError.insert(3, 0);
+		if (it->PType == 2)
+		{
+		 	if (!it->PicAvail)
+				itemError.insert(4, 0);
+			else
+			{
+				if  (((72.0 / it->LocalScX) < 72.0) || ((72.0 / it->LocalScY) < 72.0))
+					itemError.insert(5, 0);
+			}
+		}
 		if ((it->PType == 4) || (it->PType == 8))
 		{
+			if (it->itemText.count() > it->MaxChars)
+				itemError.insert(2, 0);
 			for (uint e = 0; e < it->itemText.count(); ++e)
 			{
 				Really->insert(it->itemText.at(e)->cfont, doc->UsedFonts[it->itemText.at(e)->cfont]);
@@ -9580,6 +9599,7 @@ bool ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 							else
 								tmp = "on Page " + tmp2.setNum(it->OwnPage+1);
 							missingPlace.insert(it->AnName, tmp);
+							itemError.insert(1, 0);
 						}
 					}
 					continue;
@@ -9598,9 +9618,12 @@ bool ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 					else
 						tmp = "on Page " + tmp2.setNum(it->OwnPage+1);
 					missingPlace.insert(it->AnName, tmp);
+					itemError.insert(1, 0);
 				}
 			}
 		}
+		if (itemError.count() != 0)
+			doc->docItemErrors.insert(it->ItemNr, itemError);
 	}
 	if (missing)
 	{
@@ -9612,6 +9635,40 @@ bool ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 			mess += it.key() + "  "+ it.data() +"\n";
 		}
 		mess += "\n"+ tr("Do you really want to continue?");
+		if (doc->docItemErrors.count() != 0)
+		{
+			QString tmp, tmp2;
+			mess += "\n";
+			QMap<int, errorCodes>::Iterator it2;
+			for (it2 = doc->docItemErrors.begin(); it2 != doc->docItemErrors.end(); ++it2)
+			{
+				mess += doc->Items.at(it2.key())->AnName + "\n";
+				errorCodes::Iterator it3;
+				for (it3 = it2.data().begin(); it3 != it2.data().end(); ++it3)
+				{
+					mess += "\t ";
+					switch (it3.key())
+					{
+						case 1:
+							mess += "Missing Glyph";
+							break;
+						case 2:
+							mess += "To much Text to fit in Frame";
+							break;
+						case 3:
+							mess += "Object is not on a Page";
+							break;
+						case 4:
+							mess += "Image is missing";
+							break;
+						case 5:
+							mess += "Image has a DPI-Value less than 72 DPI";
+							break;
+					} 
+					mess += "\n";
+				}
+			}
+		}
 		int t = QMessageBox::warning(this, tr("Warning"), mess, tr("No"), tr("Yes"), 0, 0, 0);
 		if (t == 0)
 			ret = false;

@@ -242,6 +242,7 @@ public: // Public attributes
 	bool DoDrawing;
 	QValueList<int> OpenNodes;
 	QTimer *CurTimer;
+	QMap<int, errorCodes> docItemErrors;
 };
 
 #endif

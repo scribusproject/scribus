@@ -533,6 +533,7 @@ struct PrintOptions
 
 typedef QMap<QString,QString> ProfilesL;
 typedef QValueVector<SingleLine> multiLine;
+typedef QMap<int, int> errorCodes;
 enum AppMode
 {
 	NormalMode,
