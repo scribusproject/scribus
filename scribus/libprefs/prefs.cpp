@@ -104,7 +104,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	ButtonGroup1Layout->addWidget( GUICombo, 0, 1, Qt::AlignRight );
 	
 	GFsize = new QSpinBox(ButtonGroup1, "gfs" );
-	GFsize->setSuffix( tr( " pts" ) );
+	GFsize->setSuffix( tr( " pt" ) );
 	GFsize->setMaxValue( 22 );
 	GFsize->setMinValue( 8 );
 	GFsize->setValue( Vor->AppFontSize );
@@ -630,7 +630,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GroupBox4_3aLayout->setMargin( 11 );
 	
 	BaseGrid = new MSpinBox( 1, 100, GroupBox4_3a, 1 );
-	BaseGrid->setSuffix( tr( " pts" ) );
+	BaseGrid->setSuffix( tr( " pt" ) );
 	BaseGrid->setValue(ap->HaveDoc ? ap->doc->BaseGrid : Vor->BaseGrid );
 	TextLabel2_3_3b = new QLabel( BaseGrid, tr( "Baseline &Grid:" ), GroupBox4_3a, "TextLabel2_3_3" );
 	GroupBox4_3aLayout->addWidget( TextLabel2_3_3b, 0, 0 );
@@ -638,7 +638,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GroupBox4_3aLayout->addWidget( BaseGrid, 0, 1 );
 	
 	BaseOffs = new MSpinBox( 0, 1000, GroupBox4_3a, 1 );
-	BaseOffs->setSuffix( tr( " pts" ) );
+	BaseOffs->setSuffix( tr( " pt" ) );
 	BaseOffs->setValue(ap->HaveDoc ? ap->doc->BaseOffs : Vor->BaseOffs );
 	TextLabel2_3_3c = new QLabel( BaseOffs, tr( "Baseline &Offset:" ), GroupBox4_3a, "TextLabel2_3_3" );
 	GroupBox4_3aLayout->addWidget( TextLabel2_3_3c, 1, 0 );
@@ -1018,7 +1018,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout15c->addWidget(Linestyle2, 2, 1);
 	
 	LineW2 = new MSpinBox( 1, 36, ToolFrame3, 1 );
-	LineW2->setSuffix( tr( " pts" ) );
+	LineW2->setSuffix( tr( " pt" ) );
 	LineW2->setValue(ap->HaveDoc ? ap->doc->DwidthLine : Vor->DwidthLine);
 	TextLabelT36 = new QLabel( LineW2, tr( "Line &Width:" ), ToolFrame3, "TextLabel2_3_4" );
 	TextLabelT36->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,

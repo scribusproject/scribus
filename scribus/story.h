@@ -19,7 +19,7 @@
 #define STORY_H
 
 #include <qvariant.h>
-#include <qdialog.h>
+#include <qmainwindow.h>
 #include <qptrlist.h>
 #include <qtable.h>
 #include <qtextedit.h>
@@ -28,64 +28,199 @@
 #include <qstatusbar.h>
 #include <qlabel.h>
 #include <qbuttongroup.h>
+#include <qspinbox.h>
+#include <qtoolbutton.h>
+#include <qtoolbar.h>
+#include <qlayout.h>
 #include "pageitem.h"
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
-class QComboBox;
+#include "mspinbox.h"
+#include "spalette.h"
+#include "fontcombo.h"
+#include "styleselect.h"
+#include "alignselect.h"
+#include "shadebutton.h"
+
+struct PtiSmall { 
+		    int csize;
+		    int cshade;
+		    int cshade2;
+		    int cstyle;
+		    int cab;
+			int cscale;
+		    double cextra;
+			QString ch;
+		    QString cfont;
+		    QString ccolor;
+			QString cstroke;
+		   };
 
 class SEditor : public QTextEdit
 {
 	Q_OBJECT
 
 public:
-	SEditor (QWidget* parent);
+	SEditor (QWidget* parent, ScribusDoc *docc);
 	~SEditor() {};
-	void focusInEvent(QFocusEvent *f);
 	void keyPressEvent(QKeyEvent *k);
-	int clines;
+	void setAlign(int style);
+	void saveItemText(PageItem* b);
+	void loadItemText(PageItem* b);
+	void loadText(QString tx, PageItem* b);
+	void updateFromChars(int p);
+	void updateSel(int code, struct PtiSmall *hg);
+	void deleteSel();
+	void setStyle(int Csty);
+	void setFarbe(QString farbe, int shad);
+	void insChars(QString t);
+
+	typedef QPtrList<PtiSmall> ChList;
+	QPtrList<ChList> StyledText;
+	ScribusDoc* doc;
 	bool UniCinp;
 	int UniCinC;
+	int CurrentStyle;
+	int CurrentABStil;
+	int CurrFontSize;
+	int CurrTextFillSh;
+	int CurrTextStrokeSh;
+	int CurrTextScale;
+	double CurrTextKern;
+	QString CurrTextStroke;
+	QString CurrTextFill;
+	QString CurrFont;
 	QString UniCinS;
 
+public slots:
+	void cut();
+	void paste();
+
 signals:
-	void UnRe(bool, bool);
-	void wrapped();
-	void bsPressed();
-	void delPressed();
+	void setProps(int, int);
 };
 
-class STable : public QTable
+class SToolBColorF : public QToolBar  
 {
 	Q_OBJECT
 
-public:
-	STable (QWidget* parent);
-	~STable() {};
-	void keyPressEvent(QKeyEvent *k);
-	void adjHeight(int r);
-	int HomeK;
-	int EndK;
+public: 
+	SToolBColorF(QMainWindow* parent, ScribusDoc *doc);
+	~SToolBColorF() {};
+	QLabel* FillIcon;
+	QComboBox* TxFill;
+	ShadeButton *PM2;
+
+public slots:
+	void SetColor(int c);
+	void SetShade(int s);
+	void newShadeHandler();
 
 signals:
-	void StatBarUpdt();
+	void NewColor(int, int);
 };
 
-class StoryEditor : public QDialog
+class SToolBColorS : public QToolBar  
+{
+	Q_OBJECT
+
+public: 
+	SToolBColorS(QMainWindow* parent, ScribusDoc *doc);
+	~SToolBColorS() {};
+	QLabel* StrokeIcon;
+	QComboBox* TxStroke;
+	ShadeButton *PM1;
+
+public slots:
+	void SetColor(int c);
+	void SetShade(int s);
+	void newShadeHandler();
+
+signals:
+	void NewColor(int, int);
+};
+
+class SToolBStyle : public QToolBar  
+{
+	Q_OBJECT
+
+public: 
+	SToolBStyle(QMainWindow* parent);
+	~SToolBStyle() {};
+	StyleSelect* SeStyle;
+	QLabel* kerningLabel;
+	MSpinBox* Extra;
+
+public slots:
+	void newKernHandler();
+	void SetStyle(int s);
+	void SetKern(double k);
+
+signals:
+	void NewKern(double);
+	void NewStyle(int);
+};
+
+class SToolBAlign : public QToolBar  
+{
+	Q_OBJECT
+
+public: 
+	SToolBAlign(QMainWindow* parent);
+	~SToolBAlign() {};
+	AlignSelect* GroupAlign;
+	Spalette *Spal;
+
+public slots:
+	void newStyleHandler(int s);
+	void SetAlign(int s);
+
+signals:
+	void NewAlign(int);
+	void NewStyle(int);
+};
+
+class SToolBFont : public QToolBar  
+{
+	Q_OBJECT
+
+public: 
+	SToolBFont(QMainWindow* parent);
+	~SToolBFont() {};
+	FontCombo* Fonts;
+	MSpinBox* Size;
+	QSpinBox* ChScale;
+
+public slots:
+	void SetFont(QString f);
+	void SetSize(double s);
+	void SetScale(int s);
+	void newSizeHandler();
+
+signals:
+	void NewFont(const QString &);
+	void NewSize(double);
+	void NewScale(int);
+};
+
+class StoryEditor : public QMainWindow
 {
 	Q_OBJECT
 
 public:
 	StoryEditor( QWidget* parent, ScribusDoc *docc, PageItem* ite );
 	~StoryEditor() {};
-	void closeEvent(QCloseEvent *event);
-	int getStyle(int where);
-	void addPar(int where, QString text, int sty);
+	void closeEvent(QCloseEvent *);
+	int exec();
+	void changeAlign(int align);
+	int result;
 
 	QPopupMenu* fmenu;
 	QPopupMenu* emenu;
-	QMenuBar* menuBar;
-	QStatusBar* StateBar;
+	SToolBFont* FontTools;
+	SToolBAlign* AlignTools;
+	SToolBColorF* FillTools;
+	SToolBColorS* StrokeTools;
+	SToolBStyle* StyleTools;
+	SEditor* Editor;
 	QButtonGroup* ButtonGroup1;
 	QButtonGroup* ButtonGroup2;
 	QLabel* WordCT1;
@@ -100,45 +235,45 @@ public:
 	QLabel* WordC2;
 	QLabel* CharCT2;
 	QLabel* CharC2;
-	STable* table1;
-	QPtrList<SEditor> edList;
-	QPtrList<QComboBox> stList;
-	QStringList style;
+
 	ScribusDoc* doc;
 	PageItem* CurrItem;
 	bool TextChanged;
-	int Mundo;
-	int Mredo;
 	int Mcopy;
 	int Mcut;
 	int Mdel;
 	int Mpaste;
 	int Mupdt;
+	int fid52;
 
 public slots:
+	void newTxFill(int c, int s);
+	void newTxStroke(int c, int s);
+	void newTxFont(const QString &f);
+	void newTxSize(double s);
+	void newTxScale(int s);
+	void newTxStyle(int s);
+	void newTxKern(double s);
+	void updateProps(int p, int ch);
+	void styleChange(int st);
+	void newAlign(int st);
 	void updateStatus();
 	void Do_leave();
+	void Do_leave2();
 	void Do_saveDocument();
-	void Do_new();
-	void Do_undo();
-	void Do_redo();
+	bool Do_new();
+	void slotFileRevert();
+
 	void Do_copy();
 	void Do_paste();
 	void Do_cut();
 	void Do_del();
 	void Do_insSp();
-	void UnReMenu(bool u, bool r);
 	void CopyAvail(bool u);
 	void updateTextFrame();
 	void SearchText();
 	void slotEditStyles();
-	void styleChange(int st);
 	void modifiedText();
-	void WrapHandler();
-	void clickAt( int row, int col);
-	void KeyDel();
-	void KeyBS();
-	void KeyRet();
 	void LoadTextFile();
 	void SaveTextFile();
 
@@ -147,7 +282,7 @@ signals:
 	void EditSt();
 
 protected:
-	QVBoxLayout* Form1Layout;
+    QHBoxLayout* StoryEd2Layout;
 	QGridLayout* ButtonGroup1Layout;
 	QGridLayout* ButtonGroup2Layout;
 

@@ -20,9 +20,9 @@
 
 Spalette::Spalette(QWidget* parent) : QComboBox(true, parent, "Sfloat")
 {
-	setMinimumSize(QSize(10,static_cast<int>(font().pointSize()*2.5)));
-	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, 0, 0,
-  										 sizePolicy().hasHeightForWidth() ) );
+//	setMinimumSize(QSize(10,static_cast<int>(font().pointSize()*2.5)));
+//	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, 0, 0,
+//  										 sizePolicy().hasHeightForWidth() ) );
 	setEditable(false);
 	insertItem( tr("No Style"));
 	doc = 0;

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-06-18 00:23+0200\n"
+"POT-Creation-Date: 2004-07-28 23:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,9 +24,6 @@ msgstr ""
 msgid "Horizontal"
 msgstr ""
 
-msgid "between:"
-msgstr ""
-
 msgid "Left Sides"
 msgstr ""
 
@@ -36,13 +33,16 @@ msgstr ""
 msgid "Right Sides"
 msgstr ""
 
-msgid "Don't change"
+msgid "&Between:"
 msgstr ""
 
-msgid "Displacement"
+msgid "A&lign"
 msgstr ""
 
-msgid "Distribute evenly"
+msgid "Di&splacement"
+msgstr ""
+
+msgid "Distribute &Evenly"
 msgstr ""
 
 msgid "Vertical"
@@ -54,7 +54,19 @@ msgstr ""
 msgid "Bottom Sides"
 msgstr ""
 
-msgid " pts"
+msgid "Bet&ween:"
+msgstr ""
+
+msgid "Do &Not Change"
+msgstr ""
+
+msgid "Al&ign"
+msgstr ""
+
+msgid "Dis&placement"
+msgstr ""
+
+msgid " pt"
 msgstr ""
 
 msgid " mm"
@@ -66,13 +78,16 @@ msgstr ""
 msgid " p"
 msgstr ""
 
-msgid "OK"
+msgid "Distribute E&venly"
 msgstr ""
 
-msgid "Apply"
+msgid "&OK"
 msgstr ""
 
-msgid "Cancel"
+msgid "&Apply"
+msgstr ""
+
+msgid "&Cancel"
 msgstr ""
 
 msgid "Field Properties"
@@ -108,7 +123,7 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-msgid "Font for use with PDF-1.3:"
+msgid "Font for use with PDF 1.3:"
 msgstr ""
 
 msgid "Border"
@@ -330,9 +345,6 @@ msgstr ""
 msgid "X-Pos:"
 msgstr ""
 
-msgid " pt"
-msgstr ""
-
 msgid "Y-Pos:"
 msgstr ""
 
@@ -444,7 +456,13 @@ msgstr ""
 msgid "Calculate"
 msgstr ""
 
-msgid "Flag is ignored for PDF-1.3"
+msgid "OK"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Flag is ignored for PDF 1.3"
 msgstr ""
 
 msgid "Enter a comma separated list of fields here"
@@ -465,7 +483,7 @@ msgstr ""
 msgid "Selection Change"
 msgstr ""
 
-msgid "PDF-Documents (*.pdf);;All Files (*)"
+msgid "PDF Documents (*.pdf);;All Files (*)"
 msgstr ""
 
 msgid "Annotation Properties"
@@ -480,19 +498,22 @@ msgstr ""
 msgid "External Web-Link"
 msgstr ""
 
+msgid "PDF-Documents (*.pdf);;All Files (*)"
+msgstr ""
+
 msgid "Apply Template"
 msgstr ""
 
-msgid "Template:"
+msgid "&Template:"
 msgstr ""
 
-msgid "Apply to Current Page"
+msgid "Apply to &Current Page"
 msgstr ""
 
-msgid "Apply from Page:"
+msgid "Apply from &Page:"
 msgstr ""
 
-msgid "to:"
+msgid "To:"
 msgstr ""
 
 msgid "Bookmarks"
@@ -564,22 +585,22 @@ msgstr ""
 msgid "Color Management Settings"
 msgstr ""
 
-msgid "Activate Color Management"
+msgid "&Activate Color Management"
 msgstr ""
 
 msgid "System Profiles"
 msgstr ""
 
-msgid "Pictures:"
+msgid "&Pictures:"
 msgstr ""
 
-msgid "Solid Colors:"
+msgid "&Solid Colors:"
 msgstr ""
 
-msgid "Monitor:"
+msgid "&Monitor:"
 msgstr ""
 
-msgid "Printer:"
+msgid "P&rinter:"
 msgstr ""
 
 msgid "Rendering Intents"
@@ -597,13 +618,19 @@ msgstr ""
 msgid "Absolute Colorimetric"
 msgstr ""
 
-msgid "Simulate Printer on the Screen"
+msgid "M&onitor:"
 msgstr ""
 
-msgid "Mark Colors out of Gamut"
+msgid "Pr&inter:"
 msgstr ""
 
-msgid "Use Blackpoint Compensation"
+msgid "Sim&ulate Printer on the Screen"
+msgstr ""
+
+msgid "Mark Colors out of &Gamut"
+msgstr ""
+
+msgid "Use &Blackpoint Compensation"
 msgstr ""
 
 msgid "Default color profile for imported images"
@@ -654,7 +681,10 @@ msgstr ""
 msgid "Edit Color"
 msgstr ""
 
-msgid "Color Model"
+msgid "&Name:"
+msgstr ""
+
+msgid "Color &Model"
 msgstr ""
 
 msgid "CMYK"
@@ -714,19 +744,22 @@ msgstr ""
 msgid "Colors"
 msgstr ""
 
-msgid "Append"
+msgid "&Append"
 msgstr ""
 
-msgid "Edit"
+msgid "&New"
 msgstr ""
 
-msgid "Duplicate"
+msgid "&Edit"
 msgstr ""
 
-msgid "Delete"
+msgid "D&uplicate"
 msgstr ""
 
-msgid "Remove Unused"
+msgid "&Delete"
+msgstr ""
+
+msgid "&Remove Unused"
 msgstr ""
 
 msgid "Color Sets"
@@ -735,7 +768,7 @@ msgstr ""
 msgid "Current Color Set:"
 msgstr ""
 
-msgid "Save Color Set"
+msgid "&Save Color Set"
 msgstr ""
 
 msgid "Choose a color set to load"
@@ -909,13 +942,13 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-msgid "Scribus-Document"
+msgid "Scribus Document"
 msgstr ""
 
-msgid "Compress File"
+msgid "&Compress File"
 msgstr ""
 
-msgid "Include Fonts"
+msgid "&Include Fonts"
 msgstr ""
 
 msgid "Encoding:"
@@ -944,49 +977,166 @@ msgstr ""
 msgid "Delete from:"
 msgstr ""
 
-msgid "Document Info"
+msgid "to:"
 msgstr ""
 
-msgid "Description:"
+msgid "Document Information"
 msgstr ""
 
-msgid "Keywords:"
+msgid "&Title:"
+msgstr ""
+
+msgid "&Author:"
+msgstr ""
+
+msgid "&Keywords:"
+msgstr ""
+
+msgid "Descri&ption:"
+msgstr ""
+
+msgid "P&ublisher:"
+msgstr ""
+
+msgid "&Contributors:"
+msgstr ""
+
+msgid "Dat&e:"
+msgstr ""
+
+msgid "T&ype:"
+msgstr ""
+
+msgid "F&ormat:"
+msgstr ""
+
+msgid "Identi&fier:"
+msgstr ""
+
+msgid "&Source:"
+msgstr ""
+
+msgid "&Language:"
+msgstr ""
+
+msgid "&Relation:"
+msgstr ""
+
+msgid "Co&verage:"
+msgstr ""
+
+msgid "Ri&ghts:"
+msgstr ""
+
+msgid "&Document"
+msgstr ""
+
+msgid "Further &Information"
 msgstr ""
 
 msgid ""
+"The person or organisation primarily responsible for making the content of "
+"the document.\n"
 "This field can be embedded in the Scribus document for reference, as well as "
 "in the metadata of a PDF"
 msgstr ""
 
 msgid ""
+"A name given to the document.\n"
+"This field can be embedded in the Scribus document for reference, as well as "
+"in the metadata of a PDF"
+msgstr ""
+
+msgid ""
+"An account of the content of the document.\n"
 "This field is for a brief description or abstract of the document. It is "
 "embedded in the PDF on export"
 msgstr ""
 
 msgid ""
+"The topic of the content of the document.\n"
 "This field is for document keywords you wish to embed in a PDF, to assist "
 "searches and indexing of PDF files"
+msgstr ""
+
+msgid "A person or organisation responsible for making the document available"
+msgstr ""
+
+msgid ""
+"A person or organisation responsible for making contributions to the content "
+"of the document"
+msgstr ""
+
+msgid ""
+"A date associated with an event in the life cycle of the document, in YYYY-"
+"MM-DD format, as per ISO 8601"
+msgstr ""
+
+msgid ""
+"The nature or genre of the content of the document, eg. categories, "
+"functions, genres, etc"
+msgstr ""
+
+msgid ""
+"The physical or digital manifestation of the document. Media type and "
+"dimensions would be worth noting.\n"
+"RFC2045,RFC2046 for MIME types are also useful here"
+msgstr ""
+
+msgid ""
+"An unambiguous reference to the document within a given context such as ISBN "
+"or URI"
+msgstr ""
+
+msgid ""
+"A reference to a document from which the present document is derived, eg. "
+"ISBN or URI"
+msgstr ""
+
+msgid ""
+"The language in which the content of the document is written, usually a ISO-"
+"639 language code\n"
+"optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-"
+"CH"
+msgstr ""
+
+msgid ""
+"A reference to a related document, possibly using a formal identifier such "
+"as a ISBN or URI"
+msgstr ""
+
+msgid ""
+"The extent or scope of the content of the document, possibly including "
+"location, time and jurisdiction ranges"
+msgstr ""
+
+msgid ""
+"Information about rights held in and over the document, eg. copyright, "
+"patent or trademark"
 msgstr ""
 
 msgid "Advanced Options"
 msgstr ""
 
-msgid "Mirror Page(s) horizontal"
+msgid "Mirror Page(s) &Horizontal"
 msgstr ""
 
-msgid "Mirror Page(s) vertical"
+msgid "Mirror Page(s) &Vertical"
 msgstr ""
 
-msgid "Apply ICC-Profiles"
+msgid "Appy Under Color &Removal"
 msgstr ""
 
-msgid "PostScript Level 3"
+msgid "Apply &ICC Profiles"
 msgstr ""
 
-msgid "PostScript Level 2"
+msgid "PostScript Level &1"
 msgstr ""
 
-msgid "PostScript Level 1"
+msgid "PostScript Level &2"
+msgstr ""
+
+msgid "PostScript Level &3"
 msgstr ""
 
 msgid "Creates PostScript Level 3"
@@ -1005,55 +1155,52 @@ msgstr ""
 msgid "Setup Printer"
 msgstr ""
 
-msgid "Print destination"
+msgid "Print Destination"
 msgstr ""
 
 msgid "File"
 msgstr ""
 
-msgid "Options..."
+msgid "&Options..."
 msgstr ""
 
-msgid "File:"
+msgid "&File:"
 msgstr ""
 
-msgid "Alternative Printer Command"
+msgid "C&hange..."
 msgstr ""
 
-msgid "Command:"
+msgid "A&lternative Printer Command"
 msgstr ""
 
-msgid "Range:"
+msgid "Co&mmand:"
 msgstr ""
 
-msgid "Print all"
+msgid "Range"
 msgstr ""
 
-msgid "Print current page"
+msgid "Print &All"
 msgstr ""
 
-msgid "Print range"
+msgid "Print Current Pa&ge"
 msgstr ""
 
-msgid "From page:"
+msgid "Print &Range"
 msgstr ""
 
-msgid "To page:"
+msgid ""
+"Insert a comma separated list of tokens where\n"
+"a token can be * for all the pages, 1-5 for\n"
+"a range of pages or a single page number."
 msgstr ""
 
-msgid "Print last page first"
+msgid "N&umber of Copies:"
 msgstr ""
 
-msgid "Print first page first"
+msgid "Print &Normal"
 msgstr ""
 
-msgid "Number of copies:"
-msgstr ""
-
-msgid "Print Normal"
-msgstr ""
-
-msgid "Print Separations"
+msgid "Print &Separations"
 msgstr ""
 
 msgid "All"
@@ -1071,16 +1218,16 @@ msgstr ""
 msgid "Black"
 msgstr ""
 
-msgid "Print in color if available"
+msgid "Pr&int In Color If Available"
 msgstr ""
 
-msgid "Print in grayscale"
+msgid "Print In Gra&yscale"
 msgstr ""
 
-msgid "Advanced Options..."
+msgid "Ad&vanced Options..."
 msgstr ""
 
-msgid "Print"
+msgid "&Print"
 msgstr ""
 
 msgid "Save as"
@@ -1095,40 +1242,43 @@ msgstr ""
 msgid "Character"
 msgstr ""
 
-msgid "Face:"
+msgid "&Font:"
+msgstr ""
+
+msgid "Si&ze:"
 msgstr ""
 
 msgid "Effect:"
 msgstr ""
 
-msgid "Alignment:"
+msgid "&Alignment:"
 msgstr ""
 
-msgid "Drop Caps"
+msgid "&Drop Caps"
 msgstr ""
 
-msgid "Lines:"
+msgid "&Lines:"
 msgstr ""
 
-msgid "Fill Color:"
+msgid "F&ill Color:"
 msgstr ""
 
-msgid "Stroke Color:"
+msgid "St&roke Color:"
 msgstr ""
 
 msgid "Vertical Spaces"
 msgstr ""
 
-msgid "Adjust to Baseline Grid"
+msgid "Adjust to Baseline &Grid"
 msgstr ""
 
-msgid "Line Spacing:"
+msgid "Line &Spacing:"
 msgstr ""
 
-msgid "Above:"
+msgid "Abo&ve:"
 msgstr ""
 
-msgid "Below:"
+msgid "&Below:"
 msgstr ""
 
 msgid "Tabulators and Indentation"
@@ -1174,7 +1324,7 @@ msgstr ""
 msgid "Edit Styles"
 msgstr ""
 
-msgid "Save"
+msgid "&Save"
 msgstr ""
 
 msgid "New Style"
@@ -1186,37 +1336,40 @@ msgstr ""
 msgid "Editor"
 msgstr ""
 
-msgid "Save as..."
+msgid "&Open..."
 msgstr ""
 
-msgid "Load..."
+msgid "Save &As..."
 msgstr ""
 
-msgid "Save and Exit"
+msgid "&Save and Exit"
 msgstr ""
 
-msgid "Exit without Saving"
+msgid "&Exit without Saving"
 msgstr ""
 
-msgid "Undo"
+msgid "&Undo"
 msgstr ""
 
-msgid "Redo"
+msgid "&Redo"
 msgstr ""
 
-msgid "Cut"
+msgid "Cu&t"
 msgstr ""
 
-msgid "Copy"
+msgid "&Copy"
 msgstr ""
 
-msgid "Paste"
+msgid "&Paste"
 msgstr ""
 
-msgid "Clear"
+msgid "C&lear"
 msgstr ""
 
-msgid "Get Field Names"
+msgid "&Get Field Names"
+msgstr ""
+
+msgid "&File"
 msgstr ""
 
 msgid "Javascripts (*.js);;All Files (*)"
@@ -1264,7 +1417,10 @@ msgstr ""
 msgid "Font &Substitutions"
 msgstr ""
 
-msgid "Add..."
+msgid "A&dd..."
+msgstr ""
+
+msgid "&Remove"
 msgstr ""
 
 msgid "Additional &Paths"
@@ -1276,10 +1432,22 @@ msgstr ""
 msgid "Nodes"
 msgstr ""
 
-msgid "Absolute Coordinates"
+msgid "&Absolute Coordinates"
 msgstr ""
 
-msgid "End Editing"
+msgid "&X-Pos:"
+msgstr ""
+
+msgid "&Y-Pos:"
+msgstr ""
+
+msgid "Edit &Contour Line"
+msgstr ""
+
+msgid "&Reset Contour Line"
+msgstr ""
+
+msgid "&End Editing"
 msgstr ""
 
 msgid "Move Nodes"
@@ -1294,10 +1462,10 @@ msgstr ""
 msgid "Delete Nodes"
 msgstr ""
 
-msgid "Move Control Points independently"
+msgid "Move Control Points Independently"
 msgstr ""
 
-msgid "Move Control Points symmetrical"
+msgid "Move Control Points Symmetrical"
 msgstr ""
 
 msgid "Reset Control Points"
@@ -1306,40 +1474,53 @@ msgstr ""
 msgid "Reset this Control Point"
 msgstr ""
 
-msgid "Opens a Polygon or cuts a Bezier Curve"
+msgid "Open a Polygon or Cuts a Bezier Curve"
 msgstr ""
 
-msgid "Closes this Bezier Curve"
+msgid "Close this Bezier Curve"
 msgstr ""
 
-msgid "Mirrors the Path Horizontally"
+msgid "Mirror the Path Horizontally"
 msgstr ""
 
-msgid "Mirrors the Path Vertically"
+msgid "Mirror the Path Vertically"
 msgstr ""
 
-msgid "Shears the Path horizontal to the right"
+msgid "Shear the Path Horizontally to the Rright"
 msgstr ""
 
-msgid "Shears the Path horizontal to the left"
+msgid "Shear the Path Horizontally to the Left"
 msgstr ""
 
-msgid "Shears the Path vertical up"
+msgid "Shear the Path Vertically Up"
 msgstr ""
 
-msgid "Shears the Path vertical down"
+msgid "Shear the Path Vertically Down"
 msgstr ""
 
-msgid "Rotates the Path counter-clockwise"
+msgid "Rotate the Path Counter-Clockwise"
 msgstr ""
 
-msgid "Rotates the Path clockwise"
+msgid "Rotate the Path Clockwise"
 msgstr ""
 
-msgid "Reduce the Size of the Path by 10%"
+msgid "Reduce the Size of the Path by shown %"
 msgstr ""
 
-msgid "Enlarges the Size of the Path by 10%"
+msgid "Enlarge the Size of the Path by shown %"
+msgstr ""
+
+msgid "Angle of Rotation"
+msgstr ""
+
+#, c-format
+msgid "% to Enlarge or Reduce By"
+msgstr ""
+
+msgid "Activate Contour Line Editing Mode"
+msgstr ""
+
+msgid "Reset the Contour Line to the Original Shape of the Frame"
 msgstr ""
 
 msgid ""
@@ -1353,13 +1534,22 @@ msgstr ""
 msgid "Horizontal Guides"
 msgstr ""
 
-msgid "Add"
+msgid "&Add"
+msgstr ""
+
+msgid "D&elete"
 msgstr ""
 
 msgid "Vertical Guides"
 msgstr ""
 
-msgid "Lock Guides"
+msgid "A&dd"
+msgstr ""
+
+msgid "De&lete"
+msgstr ""
+
+msgid "&Lock Guides"
 msgstr ""
 
 msgid ""
@@ -1379,7 +1569,16 @@ msgstr ""
 msgid "Hyphenator Settings"
 msgstr ""
 
-msgid "Fully Automatic"
+msgid "&Fully Automatic"
+msgstr ""
+
+msgid "Check &During Typing"
+msgstr ""
+
+msgid "&Smallest Word:"
+msgstr ""
+
+msgid "&Number of Hypenations allowed:"
 msgstr ""
 
 msgid ""
@@ -1387,22 +1586,10 @@ msgid ""
 "everytime a possible Hyphenation is found."
 msgstr ""
 
-msgid "Check during Typing"
-msgstr ""
-
 msgid "Enables automatic checking of your text while typing."
 msgstr ""
 
-msgid "Language:"
-msgstr ""
-
-msgid "Smallest Word:"
-msgstr ""
-
 msgid "Length of the smallest word to be hyphenated."
-msgstr ""
-
-msgid "Number of Hypenations allowed:"
 msgstr ""
 
 msgid ""
@@ -1413,10 +1600,10 @@ msgstr ""
 msgid "Insert Page"
 msgstr ""
 
-msgid "Inserting"
+msgid "&Inserting"
 msgstr ""
 
-msgid "page(s)"
+msgid "Page(s)"
 msgstr ""
 
 msgid "before Page"
@@ -1428,7 +1615,10 @@ msgstr ""
 msgid "at End"
 msgstr ""
 
-msgid "Template (Left Page):"
+msgid "Inserting"
+msgstr ""
+
+msgid "&Template (Left Page):"
 msgstr ""
 
 msgid "Template (Right Page):"
@@ -1437,16 +1627,28 @@ msgstr ""
 msgid "Edit JavaScripts"
 msgstr ""
 
-msgid "Close"
+msgid "&Edit..."
 msgstr ""
 
-msgid "New Script:"
+msgid "&Add..."
+msgstr ""
+
+msgid "&Close"
+msgstr ""
+
+msgid "&New Script:"
 msgstr ""
 
 msgid "New Script"
 msgstr ""
 
 msgid "Do you really want do delete this Script?"
+msgstr ""
+
+msgid "&No"
+msgstr ""
+
+msgid "&Yes"
 msgstr ""
 
 msgid "Manage Keyboard Shortcuts"
@@ -1458,16 +1660,16 @@ msgstr ""
 msgid "Select a Key for this Action"
 msgstr ""
 
-msgid "No Key"
+msgid "&No Key"
 msgstr ""
 
-msgid "User Defined Key"
+msgid "&User Defined Key"
 msgstr ""
 
 msgid "ALT+SHIFT+T"
 msgstr ""
 
-msgid "Set Key"
+msgid "Set &Key"
 msgstr ""
 
 msgid "Alt"
@@ -1488,7 +1690,7 @@ msgstr ""
 msgid "Ctrl+"
 msgstr ""
 
-msgid "This Key-Sequence is already in use"
+msgid "This Key Sequence is already in use"
 msgstr ""
 
 msgid "Layers"
@@ -1518,31 +1720,37 @@ msgstr ""
 msgid "Multiple Duplicate"
 msgstr ""
 
-msgid "Number of Copies:"
+msgid "&Number of Copies:"
 msgstr ""
 
-msgid "Horizontal Shift:"
+msgid "&Horizontal Shift:"
 msgstr ""
 
-msgid "Vertical Shift:"
+msgid "&Vertical Shift:"
 msgstr ""
 
-msgid "Import a Page"
+msgid "Import Template"
 msgstr ""
 
-msgid "Document to load:"
+msgid "Import Page(s)"
 msgstr ""
 
-msgid "Document contains: 0 Page(s)"
+msgid "From Document:"
 msgstr ""
 
-msgid "Import Page Nr:"
+msgid "Import Page(s):"
+msgstr ""
+
+msgid " from 0"
+msgstr ""
+
+msgid "Create Page(s)"
 msgstr ""
 
 msgid "Import"
 msgstr ""
 
-msgid "Document contains: %1 Page(s)"
+msgid " from %1"
 msgstr ""
 
 msgid "Missing Font"
@@ -1566,16 +1774,22 @@ msgstr ""
 msgid "Move Page(s):"
 msgstr ""
 
-msgid "X, Y, Z"
+msgid "X, Y, &Z"
 msgstr ""
 
-msgid "Shape"
+msgid "&Shape"
 msgstr ""
 
-msgid "Image"
+msgid "&Text"
 msgstr ""
 
-msgid "Line"
+msgid "&Image"
+msgstr ""
+
+msgid "&Line"
+msgstr ""
+
+msgid "&Colors"
 msgstr ""
 
 msgid "Name"
@@ -1584,10 +1798,13 @@ msgstr ""
 msgid "Geometry"
 msgstr ""
 
-msgid "Height:"
+msgid "&Width:"
 msgstr ""
 
-msgid "Rotation:"
+msgid "&Height:"
+msgstr ""
+
+msgid "&Rotation:"
 msgstr ""
 
 msgid "Basepoint:"
@@ -1596,45 +1813,39 @@ msgstr ""
 msgid "Level"
 msgstr ""
 
-msgid "Text flows around frame"
-msgstr ""
-
-msgid "Use Bounding Box"
-msgstr ""
-
 msgid "Shape:"
 msgstr ""
 
-msgid "Edit Shape..."
+msgid "&Edit Shape..."
 msgstr ""
 
 msgid ""
-"Round\n"
+"R&ound\n"
 "Corners:"
 msgstr ""
 
 msgid "Distance of Text"
 msgstr ""
 
-msgid "Columns:"
+msgid "Colu&mns:"
 msgstr ""
 
-msgid "Gap:"
+msgid "&Gap:"
 msgstr ""
 
-msgid "Top:"
+msgid "To&p:"
 msgstr ""
 
-msgid "Bottom:"
+msgid "&Bottom:"
 msgstr ""
 
-msgid "Left:"
+msgid "&Left:"
 msgstr ""
 
-msgid "Right:"
+msgid "&Right:"
 msgstr ""
 
-msgid "Tabulators..."
+msgid "T&abulators..."
 msgstr ""
 
 msgid "Path Text Properties"
@@ -1649,31 +1860,46 @@ msgstr ""
 msgid "Distance from Curve:"
 msgstr ""
 
-msgid "Font Size:"
+msgid "Text &Flows Around Frame"
+msgstr ""
+
+msgid "Use &Bounding Box"
+msgstr ""
+
+msgid "&Use Contour Line"
+msgstr ""
+
+msgid "&Font Size:"
 msgstr ""
 
 msgid "Custom Spacing"
 msgstr ""
 
-msgid "Kerning:"
+msgid "&Kerning:"
 msgstr ""
 
-msgid "Free Scaling"
+msgid "L&ine Spacing:"
 msgstr ""
 
-msgid "X-Pos.:"
+msgid "St&yle:"
 msgstr ""
 
-msgid "Y-Pos.:"
+msgid "Lan&guage:"
 msgstr ""
 
-msgid "X-Scale:"
+msgid "&Free Scaling"
 msgstr ""
 
-msgid "Y-Scale:"
+msgid "X-Sc&ale:"
 msgstr ""
 
-msgid "Scale to Frame Size"
+msgid "Y-Scal&e:"
+msgstr ""
+
+msgid "Scale &To Frame Size"
+msgstr ""
+
+msgid "P&roportional"
 msgstr ""
 
 msgid "Input Profile:"
@@ -1688,13 +1914,13 @@ msgstr ""
 msgid "End Points"
 msgstr ""
 
-msgid "Type of Line:"
+msgid "&Basepoint:"
 msgstr ""
 
-msgid "Line Width:"
+msgid "T&ype of Line:"
 msgstr ""
 
-msgid "Edges:"
+msgid "Line &Width:"
 msgstr ""
 
 msgid "Miter Join"
@@ -1706,7 +1932,7 @@ msgstr ""
 msgid "Round Join"
 msgstr ""
 
-msgid "Endings:"
+msgid "Ed&ges:"
 msgstr ""
 
 msgid "Flat Cap"
@@ -1716,6 +1942,9 @@ msgid "Square Cap"
 msgstr ""
 
 msgid "Round Cap"
+msgstr ""
+
+msgid "&Endings:"
 msgstr ""
 
 msgid "No Style"
@@ -1914,6 +2143,18 @@ msgstr ""
 msgid "Rendering intent for the image"
 msgstr ""
 
+msgid "&X1:"
+msgstr ""
+
+msgid "X&2:"
+msgstr ""
+
+msgid "Y&1:"
+msgstr ""
+
+msgid "&Y2:"
+msgstr ""
+
 msgid "Column width"
 msgstr ""
 
@@ -1932,6 +2173,9 @@ msgid "in"
 msgstr ""
 
 msgid "p"
+msgstr ""
+
+msgid "Line Width:"
 msgstr ""
 
 msgid " pt "
@@ -1970,6 +2214,9 @@ msgstr ""
 msgid "Page Size"
 msgstr ""
 
+msgid "&Size:"
+msgstr ""
+
 msgid "Legal"
 msgstr ""
 
@@ -1979,22 +2226,25 @@ msgstr ""
 msgid "Tabloid"
 msgstr ""
 
-msgid "Orientation:"
+msgid "Orie&ntation:"
 msgstr ""
 
-msgid "Facing Pages"
+msgid "&Facing Pages"
 msgstr ""
 
-msgid "Left Page first"
+msgid "Left &Page First"
 msgstr ""
 
 msgid "Margin Guides"
 msgstr ""
 
-msgid "First Page Number:"
+msgid "&Top:"
 msgstr ""
 
-msgid "Default Unit:"
+msgid "F&irst Page Number:"
+msgstr ""
+
+msgid "&Default Unit:"
 msgstr ""
 
 msgid "Points (pts)"
@@ -2009,7 +2259,7 @@ msgstr ""
 msgid "Picas (p)"
 msgstr ""
 
-msgid "Automatic Text Frames"
+msgid "&Automatic Text Frames"
 msgstr ""
 
 msgid "Column Guides"
@@ -2069,10 +2319,10 @@ msgstr ""
 msgid "Distance between automatically created columns"
 msgstr ""
 
-msgid "Inside:"
+msgid "&Inside:"
 msgstr ""
 
-msgid "Outside:"
+msgid "O&utside:"
 msgstr ""
 
 msgid "Left Page"
@@ -2087,46 +2337,28 @@ msgstr ""
 msgid "Move Here"
 msgstr ""
 
-msgid "Hide Margins"
+msgid "Show &Margins"
 msgstr ""
 
-msgid "Show Margins"
+msgid "Show &Frames"
 msgstr ""
 
-msgid "Hide Frames"
+msgid "Show &Images"
 msgstr ""
 
-msgid "Show Frames"
+msgid "Show &Grid"
 msgstr ""
 
-msgid "Hide Images"
+msgid "Show G&uides"
 msgstr ""
 
-msgid "Show Images"
+msgid "Show &Baseline Grid"
 msgstr ""
 
-msgid "Hide Grid"
+msgid "Sn&ap to Grid"
 msgstr ""
 
-msgid "Show Grid"
-msgstr ""
-
-msgid "Hide Guides"
-msgstr ""
-
-msgid "Show Guides"
-msgstr ""
-
-msgid "Hide Baseline Grid"
-msgstr ""
-
-msgid "Show Baseline Grid"
-msgstr ""
-
-msgid "Snap to Grid"
-msgstr ""
-
-msgid "Snap to Guides"
+msgid "Sna&p to Guides"
 msgstr ""
 
 msgid "Picture"
@@ -2135,10 +2367,10 @@ msgstr ""
 msgid "File: "
 msgstr ""
 
-msgid "Original ppi: "
+msgid "Original PPI: "
 msgstr ""
 
-msgid "Actual ppi: "
+msgid "Actual PPI: "
 msgstr ""
 
 msgid "Linked Text"
@@ -2168,103 +2400,118 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
-msgid "Info"
+msgid "In&fo"
 msgstr ""
 
-msgid "Get Picture..."
+msgid "&Get Picture..."
 msgstr ""
 
-msgid "Image Visible"
+msgid "I&mage Visible"
 msgstr ""
 
-msgid "Update Picture"
+msgid "&Update Picture"
 msgstr ""
 
-msgid "Edit Picture"
+msgid "&Edit Picture"
 msgstr ""
 
-msgid "Adjust Frame to Picture"
+msgid "&Adjust Frame to Picture"
 msgstr ""
 
-msgid "Get Text..."
+msgid "&Get Text..."
 msgstr ""
 
-msgid "Append Text..."
+msgid "&Append Text..."
+msgstr ""
+
+msgid "&Edit Text..."
+msgstr ""
+
+msgid "&Insert Sample Text"
+msgstr ""
+
+msgid "Is PDF &Bookmark"
+msgstr ""
+
+msgid "Is PDF A&nnotation"
+msgstr ""
+
+msgid "Annotation P&roperties"
+msgstr ""
+
+msgid "Field P&roperties"
+msgstr ""
+
+msgid "&PDF Options"
 msgstr ""
 
 msgid "Edit Text..."
 msgstr ""
 
-msgid "Insert Sample Text"
+msgid "&Lock"
 msgstr ""
 
-msgid "Is PDF-Bookmark"
+msgid "Un&lock"
 msgstr ""
 
-msgid "Is PDF-Annotation"
+msgid "Lock Object &Size"
 msgstr ""
 
-msgid "PDF-Options"
+msgid "Unlock Object &Size"
 msgstr ""
 
-msgid "Lock"
+msgid "Send to S&crapbook"
 msgstr ""
 
-msgid "Unlock"
+msgid "Send to La&yer"
 msgstr ""
 
-msgid "Lock object size"
+msgid "&Group"
 msgstr ""
 
-msgid "Unlock object size"
+msgid "Un&group"
 msgstr ""
 
-msgid "Send to Scrapbook"
+msgid "Le&vel"
 msgstr ""
 
-msgid "Send to Layer"
+msgid "Send to &Back"
 msgstr ""
 
-msgid "Group"
+msgid "Bring to &Front"
 msgstr ""
 
-msgid "Un-group"
+msgid "&Lower"
 msgstr ""
 
-msgid "Send to Back"
+msgid "&Raise"
 msgstr ""
 
-msgid "Bring to Front"
+msgid "&Picture Frame"
 msgstr ""
 
-msgid "Lower"
+msgid "Pol&ygon"
 msgstr ""
 
-msgid "Raise"
+msgid "&Outlines"
 msgstr ""
 
-msgid "Picture Frame"
+msgid "&Text Frame"
 msgstr ""
 
-msgid "Polygon"
+msgid "&Bezier Curve"
 msgstr ""
 
-msgid "Outlines"
+msgid "Conve&rt to"
 msgstr ""
 
-msgid "Bezier Curve"
+msgid "C&lear Contents"
 msgstr ""
 
-msgid "Convert to"
+msgid "Show P&roperties..."
 msgstr ""
 
-msgid "Clear Contents"
-msgstr ""
-
-msgid "Show Properties..."
-msgstr ""
-
-msgid "Hide Properties..."
+msgid "Hide P&roperties..."
 msgstr ""
 
 msgid "The Program"
@@ -2276,31 +2523,46 @@ msgstr ""
 msgid "Copy of"
 msgstr ""
 
+msgid "Image"
+msgstr ""
+
+msgid "Line"
+msgstr ""
+
+msgid "Polygon"
+msgstr ""
+
 msgid "Polyline"
 msgstr ""
 
 msgid "PathText"
 msgstr ""
 
-msgid "Create PDF-File"
+msgid "Create PDF File"
 msgstr ""
 
-msgid "Output to File:"
+msgid "O&utput to File:"
+msgstr ""
+
+msgid "Cha&nge..."
 msgstr ""
 
 msgid "Export Range"
 msgstr ""
 
-msgid "From:"
+msgid "&All Pages"
+msgstr ""
+
+msgid "C&hoose Pages"
 msgstr ""
 
 msgid "File Options"
 msgstr ""
 
-msgid "Compatibility:"
+msgid "Compatibilit&y:"
 msgstr ""
 
-msgid "Binding:"
+msgid "&Binding:"
 msgstr ""
 
 msgid "Left Margin"
@@ -2309,28 +2571,25 @@ msgstr ""
 msgid "Right Margin"
 msgstr ""
 
-msgid "Generate Thumbnails"
+msgid "Generate &Thumbnails"
 msgstr ""
 
-msgid "Save linked Text Frames as PDF-Articles"
+msgid "Save &Linked Text Frames as PDF Articles"
 msgstr ""
 
-msgid "Include Bookmarks"
-msgstr ""
-
-msgid "Resolution:"
+msgid "&Include Bookmarks"
 msgstr ""
 
 msgid " dpi"
 msgstr ""
 
-msgid "Compress Text and Vector Graphics"
+msgid "&Resolution:"
+msgstr ""
+
+msgid "Com&press Text and Vector Graphics"
 msgstr ""
 
 msgid "Image Settings"
-msgstr ""
-
-msgid "Method:"
 msgstr ""
 
 msgid "Automatic"
@@ -2342,7 +2601,10 @@ msgstr ""
 msgid "Zip"
 msgstr ""
 
-msgid "Quality:"
+msgid "&Method:"
+msgstr ""
+
+msgid "&Quality:"
 msgstr ""
 
 msgid "Maximum"
@@ -2360,13 +2622,13 @@ msgstr ""
 msgid "Minimum"
 msgstr ""
 
-msgid "Downsample Images to:"
+msgid "&Downsample Images to:"
 msgstr ""
 
 msgid "&General"
 msgstr ""
 
-msgid "Embed all Fonts"
+msgid "&Embed all Fonts"
 msgstr ""
 
 msgid "Embedding"
@@ -2375,10 +2637,10 @@ msgstr ""
 msgid "Available Fonts:"
 msgstr ""
 
-msgid ">>"
+msgid "&>>"
 msgstr ""
 
-msgid "<<"
+msgid "&<<"
 msgstr ""
 
 msgid "Fonts to embed:"
@@ -2387,34 +2649,34 @@ msgstr ""
 msgid "&Fonts"
 msgstr ""
 
-msgid "Enable Presentation Effects"
+msgid "Enable &Presentation Effects"
 msgstr ""
 
 msgid "Page"
 msgstr ""
 
-msgid "Show Page Previews"
+msgid "Show Page Pre&views"
 msgstr ""
 
 msgid "Effects"
 msgstr ""
 
-msgid "Display Duration:"
+msgid "&Display Duration:"
 msgstr ""
 
-msgid "Effect Duration:"
+msgid "Effec&t Duration:"
 msgstr ""
 
-msgid "Effect Type:"
+msgid "Effect T&ype:"
 msgstr ""
 
-msgid "Moving Lines:"
+msgid "&Moving Lines:"
 msgstr ""
 
-msgid "From the:"
+msgid "F&rom the:"
 msgstr ""
 
-msgid "Direction:"
+msgid "D&irection:"
 msgstr ""
 
 msgid " sec"
@@ -2462,46 +2724,46 @@ msgstr ""
 msgid "Top-left to Bottom-Right"
 msgstr ""
 
-msgid "Apply Effect on all Pages"
+msgid "&Apply Effect on all Pages"
 msgstr ""
 
 msgid "E&xtras"
 msgstr ""
 
-msgid "Use Encryption"
+msgid "&Use Encryption"
 msgstr ""
 
 msgid "Passwords"
 msgstr ""
 
-msgid "User:"
+msgid "&User:"
 msgstr ""
 
-msgid "Owner:"
+msgid "&Owner:"
 msgstr ""
 
 msgid "Settings"
 msgstr ""
 
-msgid "Allow Printing the Document"
+msgid "Allow &Printing the Document"
 msgstr ""
 
-msgid "Allow Changing the Document"
+msgid "Allow &Changing the Document"
 msgstr ""
 
-msgid "Allow Copying Text and Graphics"
+msgid "Allow Cop&ying Text and Graphics"
 msgstr ""
 
-msgid "Allow Adding Annotations and Fields"
+msgid "Allow Adding &Annotations and Fields"
 msgstr ""
 
-msgid "&Security"
+msgid "S&ecurity"
 msgstr ""
 
 msgid "General"
 msgstr ""
 
-msgid "Output intended for:"
+msgid "Output &Intended For:"
 msgstr ""
 
 msgid "Screen / Web"
@@ -2510,7 +2772,34 @@ msgstr ""
 msgid "Printer"
 msgstr ""
 
-msgid "Use ICC-Profile"
+msgid "&Use Custom Rendering Settings"
+msgstr ""
+
+msgid "Rendering Settings"
+msgstr ""
+
+msgid "Fre&quency:"
+msgstr ""
+
+msgid "&Angle:"
+msgstr ""
+
+msgid "S&pot Function:"
+msgstr ""
+
+msgid "Simple Dot"
+msgstr ""
+
+msgid "Round"
+msgstr ""
+
+msgid "Ellipse"
+msgstr ""
+
+msgid "Solid Colors:"
+msgstr ""
+
+msgid "Use ICC Profile"
 msgstr ""
 
 msgid "Profile:"
@@ -2525,34 +2814,28 @@ msgstr ""
 msgid "Don't use embedded ICC profiles"
 msgstr ""
 
-msgid "&Color"
+msgid "C&olor"
 msgstr ""
 
 msgid "PDF/X-3 Output Intent"
 msgstr ""
 
-msgid "Info String:"
+msgid "&Info String:"
 msgstr ""
 
-msgid "Output Profile:"
+msgid "Output &Profile:"
 msgstr ""
 
 msgid "Trim Box"
 msgstr ""
 
-msgid "&PDF/X-3"
+msgid "PDF/X-&3"
 msgstr ""
 
 msgid "Export all pages to PDF"
 msgstr ""
 
 msgid "Export a range of pages to PDF"
-msgstr ""
-
-msgid "First page to export when exporting a range"
-msgstr ""
-
-msgid "Last page to export when exporting a range"
 msgstr ""
 
 msgid ""
@@ -2697,6 +2980,15 @@ msgid ""
 "Choose Printer when printing to a true 4 color CMYK printer."
 msgstr ""
 
+msgid ""
+"This is an advanced setting which is not enabled by default. This should "
+"only be enabled\n"
+"when specifically requested by your printer and they have given you the "
+"exact details needed.\n"
+"Otherwise, your exported PDF may not print properly and is truly not "
+"portable across systems."
+msgstr ""
+
 msgid "Embed a color profile for solid colors"
 msgstr ""
 
@@ -2740,7 +3032,7 @@ msgstr ""
 msgid "Distance for bleed from the right of the physical page"
 msgstr ""
 
-msgid "PDF-Files (*.pdf);;All Files (*)"
+msgid "PDF Files (*.pdf);;All Files (*)"
 msgstr ""
 
 msgid "Result"
@@ -2761,6 +3053,9 @@ msgstr ""
 msgid "Path"
 msgstr ""
 
+msgid "Print"
+msgstr ""
+
 msgid "Status"
 msgstr ""
 
@@ -2779,6 +3074,9 @@ msgstr ""
 msgid "Corners:"
 msgstr ""
 
+msgid "Rotation:"
+msgstr ""
+
 msgid "Convex Polygon"
 msgstr ""
 
@@ -2788,19 +3086,34 @@ msgstr ""
 msgid "Document Setup"
 msgstr ""
 
+msgid "&Outside:"
+msgstr ""
+
 msgid "Scrapbook"
 msgstr ""
 
-msgid "Small"
+msgid "&Load..."
 msgstr ""
 
-msgid "Big"
+msgid "&Small"
+msgstr ""
+
+msgid "&Medium"
+msgstr ""
+
+msgid "&Large"
+msgstr ""
+
+msgid "&Preview"
 msgstr ""
 
 msgid "Scrapbooks (*.scs);;All Files (*)"
 msgstr ""
 
 msgid "Rename"
+msgstr ""
+
+msgid "Delete"
 msgstr ""
 
 msgid "Object"
@@ -2869,6 +3182,9 @@ msgstr ""
 msgid "Javascripts..."
 msgstr ""
 
+msgid "Undo"
+msgstr ""
+
 msgid "Show Page Palette"
 msgstr ""
 
@@ -2881,7 +3197,7 @@ msgstr ""
 msgid "Reading Preferences"
 msgstr ""
 
-msgid "Getting ICC-Profiles"
+msgid "Getting ICC Profiles"
 msgstr ""
 
 msgid "Init Hyphenator"
@@ -2899,25 +3215,19 @@ msgstr ""
 msgid "Initializing Plugins"
 msgstr ""
 
-msgid "&New"
-msgstr ""
-
-msgid "&Open..."
-msgstr ""
-
 msgid "Open &Recent"
 msgstr ""
 
 msgid "Open..."
 msgstr ""
 
-msgid "&Close"
+msgid "Close"
 msgstr ""
 
-msgid "&Save"
+msgid "Save"
 msgstr ""
 
-msgid "Save &As..."
+msgid "Save as..."
 msgstr ""
 
 msgid "Re&vert to Saved"
@@ -2932,7 +3242,7 @@ msgstr ""
 msgid "Append &Text..."
 msgstr ""
 
-msgid "Insert &Page..."
+msgid "Import &Page(s)..."
 msgstr ""
 
 msgid "&Import"
@@ -2974,22 +3284,19 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
-msgid "&Undo"
-msgstr ""
-
-msgid "Cu&t"
-msgstr ""
-
-msgid "&Copy"
-msgstr ""
-
-msgid "&Paste"
-msgstr ""
-
-msgid "C&lear"
-msgstr ""
-
 msgid "Select &All"
+msgstr ""
+
+msgid "Cut"
+msgstr ""
+
+msgid "Copy"
+msgstr ""
+
+msgid "Paste"
+msgstr ""
+
+msgid "Clear"
 msgstr ""
 
 msgid "Select all"
@@ -3025,34 +3332,31 @@ msgstr ""
 msgid "Select New Font"
 msgstr ""
 
-msgid "D&uplicate"
+msgid "Duplicate"
 msgstr ""
 
 msgid "&Multiple Duplicate"
 msgstr ""
 
-msgid "&Delete"
-msgstr ""
-
-msgid "&Group"
+msgid "Group"
 msgstr ""
 
 msgid "&Ungroup"
 msgstr ""
 
-msgid "&Lock"
+msgid "Un-group"
 msgstr ""
 
-msgid "Send to &Back"
+msgid "Send to Back"
 msgstr ""
 
-msgid "Bring to &Front"
+msgid "Bring to Front"
 msgstr ""
 
-msgid "&Lower"
+msgid "Lower"
 msgstr ""
 
-msgid "&Raise"
+msgid "Raise"
 msgstr ""
 
 msgid "Distribute/&Align..."
@@ -3062,9 +3366,6 @@ msgid "Distribute/Align..."
 msgstr ""
 
 msgid "&Edit Frame"
-msgstr ""
-
-msgid "&Shape"
 msgstr ""
 
 msgid "&Attach Text to Path"
@@ -3106,7 +3407,7 @@ msgstr ""
 msgid "Apply Template..."
 msgstr ""
 
-msgid "&Manage Guides..."
+msgid "Manage &Guides..."
 msgstr ""
 
 msgid "Manage Guides..."
@@ -3127,7 +3428,7 @@ msgstr ""
 msgid "&100%"
 msgstr ""
 
-msgid "Actual Size"
+msgid "100%"
 msgstr ""
 
 msgid "200%"
@@ -3139,28 +3440,19 @@ msgstr ""
 msgid "Thumbnails"
 msgstr ""
 
-msgid "Hide &Margins"
+msgid "Hide Margins"
 msgstr ""
 
-msgid "Hide &Frames"
+msgid "Hide Frames"
 msgstr ""
 
-msgid "Hide &Images"
+msgid "Hide Images"
 msgstr ""
 
-msgid "Show &Grid"
+msgid "Show Grid"
 msgstr ""
 
-msgid "Snap to &Grid"
-msgstr ""
-
-msgid "Hide G&uides"
-msgstr ""
-
-msgid "Sna&p to Guides"
-msgstr ""
-
-msgid "Show &Baseline Grid"
+msgid "Snap to Grid"
 msgstr ""
 
 msgid "&Properties"
@@ -3211,7 +3503,7 @@ msgstr ""
 msgid "Tooltips"
 msgstr ""
 
-msgid "&Preferences..."
+msgid "P&references..."
 msgstr ""
 
 msgid "&Fonts..."
@@ -3242,12 +3534,6 @@ msgid "Scribus &Manual..."
 msgstr ""
 
 msgid "Online-Help..."
-msgstr ""
-
-msgid "&File"
-msgstr ""
-
-msgid "&Edit"
 msgstr ""
 
 msgid "St&yle"
@@ -3313,10 +3599,13 @@ msgstr ""
 msgid "Get Text/Picture..."
 msgstr ""
 
-msgid "&Invert"
+msgid "Get Picture..."
 msgstr ""
 
-msgid "&Get Text..."
+msgid "&Color"
+msgstr ""
+
+msgid "&Invert"
 msgstr ""
 
 msgid "&Font"
@@ -3337,6 +3626,9 @@ msgstr ""
 msgid "&Tabulators..."
 msgstr ""
 
+msgid "Get Text..."
+msgstr ""
+
 msgid "Font"
 msgstr ""
 
@@ -3352,7 +3644,23 @@ msgstr ""
 msgid "Shade"
 msgstr ""
 
-msgid "Un&lock"
+msgid "Importing Pages..."
+msgstr ""
+
+msgid ""
+"<p>You are trying to import more pages than there are available in the "
+"current document counting from the active page.</p>Choose one of the "
+"following:<br><ul><li><b>Create</b> missing pages</li><li><b>Import</b> "
+"pages until the last page</li><li><b>Cancel</b></li></ul><br>"
+msgstr ""
+
+msgid "Create"
+msgstr ""
+
+msgid "Import done"
+msgstr ""
+
+msgid "Found nothing to import"
 msgstr ""
 
 msgid "Loading..."
@@ -3390,22 +3698,13 @@ msgstr ""
 msgid "Scribus Manual"
 msgstr ""
 
-msgid "Show &Images"
+msgid "&Shade:"
 msgstr ""
 
-msgid "Show &Margins"
+msgid "Hide Baseline Grid"
 msgstr ""
 
-msgid "Show &Frames"
-msgstr ""
-
-msgid "Show G&uides"
-msgstr ""
-
-msgid "Hide &Grid"
-msgstr ""
-
-msgid "Hide &Baseline Grid"
+msgid "Show Baseline Grid"
 msgstr ""
 
 msgid "The following Programs are missing:"
@@ -3424,6 +3723,12 @@ msgid "Lock all"
 msgstr ""
 
 msgid "Unlock all"
+msgstr ""
+
+msgid "Unlock"
+msgstr ""
+
+msgid "Lock"
 msgstr ""
 
 msgid "Loading:"
@@ -3516,10 +3821,10 @@ msgstr ""
 msgid "Layer"
 msgstr ""
 
-msgid "Leave Anyway"
+msgid "&Leave Anyway"
 msgstr ""
 
-msgid "Close Anyway"
+msgid "C&lose Anyway"
 msgstr ""
 
 msgid "Document:"
@@ -3528,7 +3833,10 @@ msgstr ""
 msgid "has been changed since the last save."
 msgstr ""
 
-msgid "Save Now"
+msgid "&Save Now"
+msgstr ""
+
+msgid "Show Page Previews"
 msgstr ""
 
 msgid "Show Template Names"
@@ -3541,6 +3849,12 @@ msgid "Available Templates:"
 msgstr ""
 
 msgid "Document Pages:"
+msgstr ""
+
+msgid "Facing Pages"
+msgstr ""
+
+msgid "Left Page first"
 msgstr ""
 
 msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
@@ -3634,58 +3948,64 @@ msgstr ""
 msgid "Draw various Shapes"
 msgstr ""
 
-msgid "PDF-Tools"
+msgid "PDF Tools"
 msgstr ""
 
-msgid "Insert PDF-Fields"
+msgid "Insert PDF Fields"
 msgstr ""
 
-msgid "Insert PDF-Annotations"
+msgid "Insert PDF Annotations"
 msgstr ""
 
 msgid "Manage Tabulators"
 msgstr ""
 
+msgid "F&ill Color Settings"
+msgstr ""
+
+msgid "&Stroke Color Settings"
+msgstr ""
+
+msgid "&Character Settings"
+msgstr ""
+
+msgid "Kerning:"
+msgstr ""
+
+msgid "St&yle Settings"
+msgstr ""
+
+msgid "&Font Settings"
+msgstr ""
+
+msgid "Font of selected text"
+msgstr ""
+
 msgid "Story Editor"
 msgstr ""
 
-msgid "Forced"
+msgid "&Reload Text from Frame"
 msgstr ""
 
-msgid "Block"
+msgid "&Save to File..."
 msgstr ""
 
-msgid "Right"
+msgid "&Load from File..."
 msgstr ""
 
-msgid "Center"
+msgid "Save &Document"
 msgstr ""
 
-msgid "Left"
+msgid "&Update Text Frame and Exit"
 msgstr ""
 
-msgid "Save to File..."
+msgid "&Exit Without Updating Text Frame"
 msgstr ""
 
-msgid "Load from File..."
+msgid "&Insert Special..."
 msgstr ""
 
-msgid "Save Document"
-msgstr ""
-
-msgid "Update Text Frame and Exit"
-msgstr ""
-
-msgid "Exit Without Updating Text Frame"
-msgstr ""
-
-msgid "Insert Special..."
-msgstr ""
-
-msgid "Edit Styles..."
-msgstr ""
-
-msgid "Update Text Frame"
+msgid "&Update Text Frame"
 msgstr ""
 
 msgid "Current Paragraph:"
@@ -3730,22 +4050,37 @@ msgstr ""
 msgid "Stroke Shade"
 msgstr ""
 
+msgid "Left"
+msgstr ""
+
+msgid "Center"
+msgstr ""
+
+msgid "Right"
+msgstr ""
+
+msgid "Block"
+msgstr ""
+
+msgid "Forced"
+msgstr ""
+
 msgid "Replace with:"
 msgstr ""
 
-msgid "Whole Word"
+msgid "&Whole Word"
 msgstr ""
 
-msgid "Ignore Case"
+msgid "&Ignore Case"
 msgstr ""
 
-msgid "Replace"
+msgid "&Search"
 msgstr ""
 
-msgid "Replace All"
+msgid "&Replace"
 msgstr ""
 
-msgid "Leave"
+msgid "Replace &All"
 msgstr ""
 
 msgid "Search finished"
@@ -3773,6 +4108,33 @@ msgid "Align Text Forced Justified"
 msgstr ""
 
 msgid "Other..."
+msgstr ""
+
+msgid "Full Stop"
+msgstr ""
+
+msgid "Comma"
+msgstr ""
+
+msgid "&Position:"
+msgstr ""
+
+msgid "First &Line:"
+msgstr ""
+
+msgid "Ind&ent:"
+msgstr ""
+
+msgid "Delete All"
+msgstr ""
+
+msgid "Indentation for first line of the paragraph"
+msgstr ""
+
+msgid "Indentation from the left for the whole paragraph"
+msgstr ""
+
+msgid "Delete all Tabulators"
 msgstr ""
 
 msgid ""
@@ -3898,12 +4260,6 @@ msgstr ""
 msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
 msgstr ""
 
-msgid "&Yes"
-msgstr ""
-
-msgid "&No"
-msgstr ""
-
 msgid "New Folder 1"
 msgstr ""
 
@@ -3938,9 +4294,6 @@ msgid "Directory:"
 msgstr ""
 
 msgid "Select All"
-msgstr ""
-
-msgid "&Redo"
 msgstr ""
 
 msgid "Line up"
@@ -4039,33 +4392,6 @@ msgstr ""
 msgid "Number of Columns:"
 msgstr ""
 
-msgid "Full Stop"
-msgstr ""
-
-msgid "Comma"
-msgstr ""
-
-msgid "Position:"
-msgstr ""
-
-msgid "First Line:"
-msgstr ""
-
-msgid "Indent:"
-msgstr ""
-
-msgid "Delete All"
-msgstr ""
-
-msgid "Indentation for first line of the paragraph"
-msgstr ""
-
-msgid "Indentation from the left for the whole paragraph"
-msgstr ""
-
-msgid "Delete all Tabulators"
-msgstr ""
-
 msgid "Distances"
 msgstr ""
 
@@ -4079,6 +4405,9 @@ msgid "Angle:"
 msgstr ""
 
 msgid "Length:"
+msgstr ""
+
+msgid "Position:"
 msgstr ""
 
 msgid "Here you can add, change or remove Color-Stops."
@@ -4099,7 +4428,7 @@ msgstr ""
 msgid "Build-ID:"
 msgstr ""
 
-msgid "About"
+msgid "&About"
 msgstr ""
 
 msgid "Programming:"
@@ -4114,7 +4443,7 @@ msgstr ""
 msgid "Documentation:"
 msgstr ""
 
-msgid "Authors"
+msgid "A&uthors"
 msgstr ""
 
 msgid "German:"
@@ -4183,7 +4512,7 @@ msgstr ""
 msgid "Basque:"
 msgstr ""
 
-msgid "Translations"
+msgid "&Translations"
 msgstr ""
 
 msgid "Homepage and online reference"
@@ -4195,7 +4524,7 @@ msgstr ""
 msgid "Bugs and feature requests"
 msgstr ""
 
-msgid "Online"
+msgid "&Online"
 msgstr ""
 
 msgid ""
@@ -4226,7 +4555,7 @@ msgstr ""
 msgid "GUI"
 msgstr ""
 
-msgid "Theme:"
+msgid "&Theme:"
 msgstr ""
 
 msgid "Units"
@@ -4235,169 +4564,211 @@ msgstr ""
 msgid "Points (pt)"
 msgstr ""
 
-msgid "Mouse-Settings"
+msgid "Mouse Settings"
 msgstr ""
 
-msgid "Wheel-Jump:"
-msgstr ""
-
-msgid "Grab-Radius:"
+msgid "&Wheel Jump:"
 msgstr ""
 
 msgid " px"
 msgstr ""
 
+msgid "&Grab Radius:"
+msgstr ""
+
 msgid "Menus"
 msgstr ""
 
-msgid "Recent Documents:"
+msgid "&Recent Documents:"
 msgstr ""
 
 msgid "Paths"
 msgstr ""
 
-msgid "Documents:"
+msgid "&Documents:"
 msgstr ""
 
-msgid "ICC-Profiles:"
+msgid "&Change..."
 msgstr ""
 
-msgid "Scripts:"
+msgid "&ICC Profiles:"
 msgstr ""
 
-msgid "Left Page First"
+msgid "&Scripts:"
+msgstr ""
+
+msgid "Ch&ange..."
 msgstr ""
 
 msgid "Autosave"
 msgstr ""
 
-msgid "Interval:"
+msgid "&Enabled"
 msgstr ""
 
 msgid "min"
 msgstr ""
 
+msgid "&Interval:"
+msgstr ""
+
 msgid "Grid Layout"
 msgstr ""
 
-msgid "Minor Grid Spacing:"
+msgid "M&inor Grid Spacing:"
 msgstr ""
 
-msgid "Major Grid Spacing:"
+msgid "Ma&jor Grid Spacing:"
 msgstr ""
 
-msgid "Guide Snap Distance:"
+msgid "Guide &Snap Distance:"
 msgstr ""
 
 msgid "Grid Colors"
 msgstr ""
 
-msgid "Minor Grid Color:"
+msgid "Min&or Grid Color:"
 msgstr ""
 
-msgid "Major Grid Color:"
+msgid "Majo&r Grid Color:"
 msgstr ""
 
-msgid "User Guides Color:"
+msgid "&User Guides Color:"
+msgstr ""
+
+msgid "Base&line Grid Color:"
 msgstr ""
 
 msgid "Placing"
 msgstr ""
 
-msgid "In the Background"
+msgid "In the &Background"
 msgstr ""
 
-msgid "In the Foreground"
+msgid "In the Fore&ground"
 msgstr ""
 
 msgid "Baseline Grid"
 msgstr ""
 
-msgid "On"
+msgid "O&n"
 msgstr ""
 
-msgid "Off"
+msgid "O&ff"
 msgstr ""
 
-msgid "Scaling:"
+msgid "&Displacement:"
 msgstr ""
 
-msgid "Displacement:"
+msgid "&Scaling:"
 msgstr ""
 
-msgid "Baseline Grid:"
+msgid "D&isplacement:"
 msgstr ""
 
-msgid "Baseline Offset:"
+msgid "S&caling:"
 msgstr ""
 
-msgid "Automatic Line Spacing:"
+msgid "Sc&aling:"
 msgstr ""
 
-msgid "Default Size:"
+msgid "Baseline &Grid:"
 msgstr ""
 
-msgid "Default Font:"
+msgid "Baseline &Offset:"
 msgstr ""
 
-msgid "Text Color:"
+msgid "Automatic &Line Spacing:"
+msgstr ""
+
+msgid "Default &Font:"
+msgstr ""
+
+msgid "Default &Size:"
+msgstr ""
+
+msgid "&Text Color:"
 msgstr ""
 
 msgid "Woven silk pyjamas exchanged for blue quartz"
 msgstr ""
 
-msgid "Line Color:"
+msgid "&Line Color:"
 msgstr ""
 
-msgid "Shading:"
+msgid "&Shading:"
 msgstr ""
 
-msgid "Minimum:"
+msgid "&Fill Color:"
 msgstr ""
 
-msgid "Maximum:"
+msgid "S&hading:"
 msgstr ""
 
-msgid "Stepping:"
+msgid "&Type of Line:"
 msgstr ""
 
-msgid "Horizontal Scaling:"
+msgid "Mi&nimum:"
 msgstr ""
 
-msgid "Vertical Scaling:"
+msgid "Ma&ximum:"
 msgstr ""
 
-msgid "Scale Picture to Frame Size"
+msgid "&Stepping:"
 msgstr ""
 
-msgid "Keep Aspect Ratio"
+msgid "&Horizontal Scaling:"
+msgstr ""
+
+msgid "&Vertical Scaling:"
+msgstr ""
+
+msgid "&Scale Picture to Frame Size"
+msgstr ""
+
+msgid "Keep Aspect &Ratio"
+msgstr ""
+
+msgid "Corn&ers:"
+msgstr ""
+
+msgid "Conve&x Polygon"
+msgstr ""
+
+msgid "&Factor:"
 msgstr ""
 
 msgid "Other Options"
 msgstr ""
 
-msgid "Save Contents on Changes"
+msgid "Sa&ve Contents on Changes"
 msgstr ""
 
-msgid "Display Pages Side by Side"
+msgid "Small"
 msgstr ""
 
-msgid "Page-Colors"
+msgid "Large"
 msgstr ""
 
-msgid "Background:"
+msgid "Display Pages &Side by Side"
 msgstr ""
 
-msgid "Margins:"
+msgid "Page Colors"
 msgstr ""
 
-msgid "Display Unprintable Area in Margin Color"
+msgid "&Background:"
 msgstr ""
 
-msgid "Use PDF-1.4 Transparency Features"
+msgid "&Margins:"
 msgstr ""
 
-msgid "Adjust Display Size"
+msgid "Display &Unprintable Area in Margin Color"
+msgstr ""
+
+msgid "Use PDF 1.4 &Transparency Features"
+msgstr ""
+
+msgid "&Adjust Display Size"
 msgstr ""
 
 msgid "To adjust the display drag the ruler below with the Slider."
@@ -4406,22 +4777,28 @@ msgstr ""
 msgid "Postscript Interpreter"
 msgstr ""
 
-msgid "Name of executable:"
+msgid "&Name of Executable:"
 msgstr ""
 
-msgid "Antialias Text"
+msgid "Antialias &Text"
 msgstr ""
 
-msgid "Antialias Graphics"
+msgid "Antialias &Graphics"
 msgstr ""
 
 msgid "Image Processing Tool"
 msgstr ""
 
+msgid "Name of &Executable:"
+msgstr ""
+
 msgid "Printing"
 msgstr ""
 
-msgid "Clip to Page Margins"
+msgid "Clip to Page &Margins"
+msgstr ""
+
+msgid "Apply &Under Color Removal"
 msgstr ""
 
 msgid ""
@@ -4675,7 +5052,7 @@ msgstr ""
 msgid "Select Character:"
 msgstr ""
 
-msgid "Insert"
+msgid "&Insert"
 msgstr ""
 
 msgid "Insert the characters at the cursor in the text"
@@ -4693,28 +5070,31 @@ msgstr ""
 msgid "Print Preview"
 msgstr ""
 
-msgid "Anti-alias Text"
+msgid "Anti-alias &Text"
 msgstr ""
 
-msgid "Anti-alias Graphics"
+msgid "Anti-alias &Graphics"
 msgstr ""
 
-msgid "Display Transparency"
+msgid "Display Trans&parency"
 msgstr ""
 
-msgid "Display CMYK"
+msgid "&Display CMYK"
 msgstr ""
 
-msgid "C"
+msgid "&Under Color Removal"
 msgstr ""
 
-msgid "M"
+msgid "&C"
 msgstr ""
 
-msgid "Y"
+msgid "&M"
 msgstr ""
 
-msgid "K"
+msgid "&Y"
+msgstr ""
+
+msgid "&K"
 msgstr ""
 
 msgid ""
@@ -4795,10 +5175,18 @@ msgid ""
 "scribus.net\">bugs.scribus.net</a> please."
 msgstr ""
 
+msgid ""
+"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
+"tracker."
+msgstr ""
+
 msgid "Hide &Console"
 msgstr ""
 
 msgid "Script Console"
+msgstr ""
+
+msgid "Oook! Wrong arguments! Call: "
 msgstr ""
 
 msgid "Oook! You're calling an object doesn't exist!"
@@ -4810,22 +5198,29 @@ msgstr ""
 msgid "Oook! An object you're trying to textflow doesn't exist!"
 msgstr ""
 
+msgid ""
+"Oook! You're trying to load image into an object doesn't exist or isn't "
+"selected!"
+msgstr ""
+
+msgid ""
+"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
+msgstr ""
+
+msgid ""
+"Oook! You're trying to query an object doesn't exist! None selected too."
+msgstr ""
+
 msgid "Export as Image"
-msgstr ""
-
-msgid "Export to directory:"
-msgstr ""
-
-msgid "&Change..."
 msgstr ""
 
 msgid "Alt+C"
 msgstr ""
 
-msgid "Image type:"
+msgid "&Export to Directory:"
 msgstr ""
 
-msgid "Quality :"
+msgid "Image &Type:"
 msgstr ""
 
 msgid "%"
@@ -4852,12 +5247,6 @@ msgstr ""
 msgid "Alt+I"
 msgstr ""
 
-msgid "&OK"
-msgstr ""
-
-msgid "&Cancel"
-msgstr ""
-
 msgid "Change the output directory"
 msgstr ""
 
@@ -4873,6 +5262,12 @@ msgid "Export all pages to images"
 msgstr ""
 
 msgid "Export a range of pages to images"
+msgstr ""
+
+msgid "First page to export when exporting a range"
+msgstr ""
+
+msgid "Last page to export when exporting a range"
 msgstr ""
 
 msgid "The height of the output images in pixels"

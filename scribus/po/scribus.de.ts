@@ -198,35 +198,35 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
     </message>
     <message>
         <source>Mirror Page(s) horizontal</source>
-        <translation>Seite(n) horizontal spiegeln</translation>
+        <translation type="obsolete">Seite(n) horizontal spiegeln</translation>
     </message>
     <message>
         <source>Mirror Page(s) vertical</source>
-        <translation>Seite(n) vertikal spiegeln</translation>
+        <translation type="obsolete">Seite(n) vertikal spiegeln</translation>
     </message>
     <message>
         <source>Apply ICC-Profiles</source>
-        <translation>ICC-Profile anwenden</translation>
+        <translation type="obsolete">ICC-Profile anwenden</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
     <message>
         <source>PostScript Level 3</source>
-        <translation>PostScript-Level 3</translation>
+        <translation type="obsolete">PostScript-Level 3</translation>
     </message>
     <message>
         <source>PostScript Level 2</source>
-        <translation>PostScript-Level 2</translation>
+        <translation type="obsolete">PostScript-Level 2</translation>
     </message>
     <message>
         <source>PostScript Level 1</source>
-        <translation>PostScript-Level 1</translation>
+        <translation type="obsolete">PostScript-Level 1</translation>
     </message>
     <message>
         <source>Creates PostScript Level 3</source>
@@ -243,6 +243,42 @@ hierbei können sehr große Dateien entstehen</translation>
 this can create huge files</source>
         <translation>Erstellt eine PostScript-Level 1 Datei. Vorsicht:
 hierbei können sehr große Dateien entstehen</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) &amp;Horizontal</source>
+        <translation>Seiten &amp;horizontal spiegeln</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) &amp;Vertical</source>
+        <translation>Seiten &amp;vertikal spiegeln</translation>
+    </message>
+    <message>
+        <source>Appy Under Color &amp;Removal</source>
+        <translation>Unterfarben&amp;reduktion anwenden</translation>
+    </message>
+    <message>
+        <source>Apply &amp;ICC Profiles</source>
+        <translation>&amp;ICC-Profile anwenden</translation>
+    </message>
+    <message>
+        <source>PostScript Level &amp;1</source>
+        <translation>PostScript-Level &amp;1</translation>
+    </message>
+    <message>
+        <source>PostScript Level &amp;2</source>
+        <translation>PostScript-Level &amp;2</translation>
+    </message>
+    <message>
+        <source>PostScript Level &amp;3</source>
+        <translation>PostScript-Level &amp;3</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -261,7 +297,7 @@ hierbei können sehr große Dateien entstehen</translation>
     </message>
     <message>
         <source>between:</source>
-        <translation>zwischen:</translation>
+        <translation type="obsolete">zwischen:</translation>
     </message>
     <message>
         <source>Left Sides</source>
@@ -277,15 +313,15 @@ hierbei können sehr große Dateien entstehen</translation>
     </message>
     <message>
         <source>Don&apos;t change</source>
-        <translation>Nicht ändern</translation>
+        <translation type="obsolete">Nicht ändern</translation>
     </message>
     <message>
         <source>Displacement</source>
-        <translation>Versatz</translation>
+        <translation type="obsolete">Versatz</translation>
     </message>
     <message>
         <source>Distribute evenly</source>
-        <translation>Gleichmäßig verteilen</translation>
+        <translation type="obsolete">Gleichmäßig verteilen</translation>
     </message>
     <message>
         <source>Vertical</source>
@@ -301,7 +337,7 @@ hierbei können sehr große Dateien entstehen</translation>
     </message>
     <message>
         <source> pts</source>
-        <translation>pts</translation>
+        <translation type="obsolete">pts</translation>
     </message>
     <message>
         <source> mm</source>
@@ -338,6 +374,46 @@ hierbei können sehr große Dateien entstehen</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Abbrechen</translation>
+    </message>
+    <message>
+        <source>&amp;Between:</source>
+        <translation>&amp;zwischen:</translation>
+    </message>
+    <message>
+        <source>A&amp;lign</source>
+        <translation>&amp;Ausrichten</translation>
+    </message>
+    <message>
+        <source>Di&amp;splacement</source>
+        <translation>&amp;Versatz</translation>
+    </message>
+    <message>
+        <source>Distribute &amp;Evenly</source>
+        <translation>&amp;Gleichmäßig verteilen</translation>
+    </message>
+    <message>
+        <source>Bet&amp;ween:</source>
+        <translation>&amp;zwischen:</translation>
+    </message>
+    <message>
+        <source>Do &amp;Not Change</source>
+        <translation>&amp;Nicht verändern</translation>
+    </message>
+    <message>
+        <source>Al&amp;ign</source>
+        <translation>&amp;Ausrichten</translation>
+    </message>
+    <message>
+        <source>Dis&amp;placement</source>
+        <translation>&amp;Versatz</translation>
+    </message>
+    <message>
+        <source>Distribute E&amp;venly</source>
+        <translation>&amp;Gleichmäßig verteilen</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation> pt</translation>
     </message>
 </context>
 <context>
@@ -395,7 +471,7 @@ hierbei können sehr große Dateien entstehen</translation>
     </message>
     <message>
         <source>Font for use with PDF-1.3:</source>
-        <translation>Schriftart für PDF-1.3:</translation>
+        <translation type="obsolete">Schriftart für PDF-1.3:</translation>
     </message>
     <message>
         <source>Border</source>
@@ -759,7 +835,7 @@ hierbei können sehr große Dateien entstehen</translation>
     </message>
     <message>
         <source>Flag is ignored for PDF-1.3</source>
-        <translation>In PDF-1.3 nicht benutzbar</translation>
+        <translation type="obsolete">In PDF-1.3 nicht benutzbar</translation>
     </message>
     <message>
         <source>Enter a comma separated list of fields here</source>
@@ -791,7 +867,7 @@ hierbei können sehr große Dateien entstehen</translation>
     </message>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
-        <translation>PDF-Dateien (*.pdf);;Alle Dateien (*)</translation>
+        <translation type="obsolete">PDF-Dateien (*.pdf);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Button</source>
@@ -900,6 +976,18 @@ hierbei können sehr große Dateien entstehen</translation>
     <message>
         <source>Custom</source>
         <translation>Benutzerdefiniert</translation>
+    </message>
+    <message>
+        <source>Font for use with PDF 1.3:</source>
+        <translation>Schriftart für PDF 1.3:</translation>
+    </message>
+    <message>
+        <source>Flag is ignored for PDF 1.3</source>
+        <translation>Wird von PDF 1.3 ignoriert</translation>
+    </message>
+    <message>
+        <source>PDF Documents (*.pdf);;All Files (*)</source>
+        <translation>PDF-Dateien (*.pdf);;Alle Dateien (*)</translation>
     </message>
 </context>
 <context>
@@ -1088,7 +1176,7 @@ hierbei können sehr große Dateien entstehen</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation>Name:</translation>
+        <translation type="obsolete">Name:</translation>
     </message>
     <message>
         <source>New Entry</source>
@@ -1151,6 +1239,10 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>&amp;Preview</source>
         <translation>Vor&amp;schau</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation>&amp;Name:</translation>
     </message>
 </context>
 <context>
@@ -1446,11 +1538,11 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation>Name:</translation>
+        <translation type="obsolete">Name:</translation>
     </message>
     <message>
         <source>Color Model</source>
-        <translation>Farbmodell</translation>
+        <translation type="obsolete">Farbmodell</translation>
     </message>
     <message>
         <source>CMYK</source>
@@ -1478,7 +1570,7 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
     <message>
         <source>C:</source>
@@ -1535,6 +1627,22 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     <message>
         <source>HSV-Colormap</source>
         <translation>HSV-Farbwähler</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation>&amp;Name:</translation>
+    </message>
+    <message>
+        <source>Color &amp;Model</source>
+        <translation>Farb&amp;modell</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -1724,11 +1832,11 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
     <message>
         <source>This panel displays various CUPS options when printing. 
@@ -1741,6 +1849,14 @@ Die verfügbaren Einstellungen sind von Ihrem Drucker anhängig.
 Hlife -&gt; Über zeigt Ihnen den CUPS-Support an.
 Dabei stehen die Zeichen für C=CUPS, C-LittleCMS und T=TIFF.
 Fehlende Bibliotheken werden durch ein Sternchen angezeigt</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -1819,11 +1935,19 @@ Wird in den Voreinstellungen eingestellt.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -2056,7 +2180,7 @@ optional ergänzt durch ein Bindestrich und den ISO-3166 Ländercode, wie z.B. e
     </message>
     <message>
         <source>Print destination</source>
-        <translation>Ziel</translation>
+        <translation type="obsolete">Ziel</translation>
     </message>
     <message>
         <source>File</source>
@@ -2064,27 +2188,27 @@ optional ergänzt durch ein Bindestrich und den ISO-3166 Ländercode, wie z.B. e
     </message>
     <message>
         <source>Options...</source>
-        <translation>Optionen...</translation>
+        <translation type="obsolete">Optionen...</translation>
     </message>
     <message>
         <source>File:</source>
-        <translation>Datei:</translation>
+        <translation type="obsolete">Datei:</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Ändern...</translation>
+        <translation type="obsolete">Ändern...</translation>
     </message>
     <message>
         <source>Alternative Printer Command</source>
-        <translation>Anderer Druckbefehl</translation>
+        <translation type="obsolete">Anderer Druckbefehl</translation>
     </message>
     <message>
         <source>Command:</source>
-        <translation>Befehl:</translation>
+        <translation type="obsolete">Befehl:</translation>
     </message>
     <message>
         <source>Range:</source>
-        <translation>Bereich:</translation>
+        <translation type="obsolete">Bereich:</translation>
     </message>
     <message>
         <source>To page:</source>
@@ -2096,11 +2220,11 @@ optional ergänzt durch ein Bindestrich und den ISO-3166 Ländercode, wie z.B. e
     </message>
     <message>
         <source>Print range</source>
-        <translation>Druckbereich</translation>
+        <translation type="obsolete">Druckbereich</translation>
     </message>
     <message>
         <source>Print all</source>
-        <translation>Alles drucken</translation>
+        <translation type="obsolete">Alles drucken</translation>
     </message>
     <message>
         <source>Print last page first</source>
@@ -2112,7 +2236,7 @@ optional ergänzt durch ein Bindestrich und den ISO-3166 Ländercode, wie z.B. e
     </message>
     <message>
         <source>Number of copies:</source>
-        <translation>Anzahl der Kopien:</translation>
+        <translation type="obsolete">Anzahl der Kopien:</translation>
     </message>
     <message>
         <source>Options</source>
@@ -2120,11 +2244,11 @@ optional ergänzt durch ein Bindestrich und den ISO-3166 Ländercode, wie z.B. e
     </message>
     <message>
         <source>Print Normal</source>
-        <translation>Normal drucken</translation>
+        <translation type="obsolete">Normal drucken</translation>
     </message>
     <message>
         <source>Print Separations</source>
-        <translation>Farbauszüge drucken</translation>
+        <translation type="obsolete">Farbauszüge drucken</translation>
     </message>
     <message>
         <source>All</source>
@@ -2132,15 +2256,15 @@ optional ergänzt durch ein Bindestrich und den ISO-3166 Ländercode, wie z.B. e
     </message>
     <message>
         <source>Print in color if available</source>
-        <translation>In Farbe drucken, wenn verfügbar</translation>
+        <translation type="obsolete">In Farbe drucken, wenn verfügbar</translation>
     </message>
     <message>
         <source>Print in grayscale</source>
-        <translation>In Graustufen drucken</translation>
+        <translation type="obsolete">In Graustufen drucken</translation>
     </message>
     <message>
         <source>Advanced Options...</source>
-        <translation>Weitere Optionen...</translation>
+        <translation type="obsolete">Weitere Optionen...</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2148,7 +2272,7 @@ optional ergänzt durch ein Bindestrich und den ISO-3166 Ländercode, wie z.B. e
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -2176,11 +2300,11 @@ optional ergänzt durch ein Bindestrich und den ISO-3166 Ländercode, wie z.B. e
     </message>
     <message>
         <source>Print</source>
-        <translation>Drucken</translation>
+        <translation type="obsolete">Drucken</translation>
     </message>
     <message>
         <source>Print current page</source>
-        <translation>Aktuelle Seite drucken</translation>
+        <translation type="obsolete">Aktuelle Seite drucken</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where
@@ -2189,6 +2313,78 @@ a range of pages or a single page number.</source>
         <translation>Geben sie durch Kommata getrennt ein, welche
 Seiten importiert werden sollen, zum Beispiel
 1-5 oder 3,4. * steht  für alle Seiten.</translation>
+    </message>
+    <message>
+        <source>Print Destination</source>
+        <translation>Druckerwahl</translation>
+    </message>
+    <message>
+        <source>&amp;Options...</source>
+        <translation>&amp;Optionen...</translation>
+    </message>
+    <message>
+        <source>&amp;File:</source>
+        <translation>&amp;Datei:</translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation>Ä&amp;ndern...</translation>
+    </message>
+    <message>
+        <source>A&amp;lternative Printer Command</source>
+        <translation>Al&amp;ternativer Druckbefehl</translation>
+    </message>
+    <message>
+        <source>Co&amp;mmand:</source>
+        <translation>&amp;Befehl:</translation>
+    </message>
+    <message>
+        <source>Range</source>
+        <translation>Bereich</translation>
+    </message>
+    <message>
+        <source>Print &amp;All</source>
+        <translation>&amp;Alles drucken</translation>
+    </message>
+    <message>
+        <source>Print Current Pa&amp;ge</source>
+        <translation>Aktue&amp;lle Seite drucken</translation>
+    </message>
+    <message>
+        <source>Print &amp;Range</source>
+        <translation>Be&amp;reich drucken</translation>
+    </message>
+    <message>
+        <source>N&amp;umber of Copies:</source>
+        <translation>Anzahl der &amp;Kopien:</translation>
+    </message>
+    <message>
+        <source>Print &amp;Normal</source>
+        <translation>&amp;Normal drucken</translation>
+    </message>
+    <message>
+        <source>Print &amp;Separations</source>
+        <translation>&amp;Farbauszüge drucken</translation>
+    </message>
+    <message>
+        <source>Pr&amp;int In Color If Available</source>
+        <translation>In Fa&amp;rbe drucken, falls verfügbar</translation>
+    </message>
+    <message>
+        <source>Print In Gra&amp;yscale</source>
+        <translation>In &amp;Graustufen drucken</translation>
+    </message>
+    <message>
+        <source>Ad&amp;vanced Options...</source>
+        <translation>Er&amp;weiterte Optionen...</translation>
+    </message>
+    <message>
+        <source>&amp;Print</source>
+        <translation>&amp;Drucken</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -2214,7 +2410,7 @@ der Datei
     </message>
     <message>
         <source>Name:</source>
-        <translation>Name:</translation>
+        <translation type="obsolete">Name:</translation>
     </message>
     <message>
         <source>Character</source>
@@ -2222,11 +2418,11 @@ der Datei
     </message>
     <message>
         <source>Face:</source>
-        <translation>Schriftart:</translation>
+        <translation type="obsolete">Schriftart:</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation>Größe:</translation>
+        <translation type="obsolete">Größe:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -2238,11 +2434,11 @@ der Datei
     </message>
     <message>
         <source>Alignment:</source>
-        <translation>Ausrichtung:</translation>
+        <translation type="obsolete">Ausrichtung:</translation>
     </message>
     <message>
         <source>Fill Color:</source>
-        <translation>Füllfarbe:</translation>
+        <translation type="obsolete">Füllfarbe:</translation>
     </message>
     <message>
         <source>None</source>
@@ -2250,11 +2446,11 @@ der Datei
     </message>
     <message>
         <source>Drop Caps</source>
-        <translation>Initialien</translation>
+        <translation type="obsolete">Initialien</translation>
     </message>
     <message>
         <source>Lines:</source>
-        <translation>Zeilen:</translation>
+        <translation type="obsolete">Zeilen:</translation>
     </message>
     <message>
         <source>Indentation</source>
@@ -2282,11 +2478,11 @@ der Datei
     </message>
     <message>
         <source>Above:</source>
-        <translation>Oben:</translation>
+        <translation type="obsolete">Oben:</translation>
     </message>
     <message>
         <source>Below:</source>
-        <translation>Unten:</translation>
+        <translation type="obsolete">Unten:</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2294,7 +2490,7 @@ der Datei
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -2306,11 +2502,11 @@ der Datei
     </message>
     <message>
         <source>Stroke Color:</source>
-        <translation>Randfarbe:</translation>
+        <translation type="obsolete">Randfarbe:</translation>
     </message>
     <message>
         <source>Adjust to Baseline Grid</source>
-        <translation>Ausrichten am Grundlinienraster</translation>
+        <translation type="obsolete">Ausrichten am Grundlinienraster</translation>
     </message>
     <message>
         <source>Name of your paragraph style</source>
@@ -2382,7 +2578,63 @@ der Datei
     </message>
     <message>
         <source>Line Spacing:</source>
-        <translation>Zeilenabstand:</translation>
+        <translation type="obsolete">Zeilenabstand:</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation>&amp;Name:</translation>
+    </message>
+    <message>
+        <source>&amp;Font:</source>
+        <translation>Schrift&amp;art:</translation>
+    </message>
+    <message>
+        <source>Si&amp;ze:</source>
+        <translation>&amp;Größe:</translation>
+    </message>
+    <message>
+        <source>&amp;Alignment:</source>
+        <translation>&amp;Ausrichtung:</translation>
+    </message>
+    <message>
+        <source>&amp;Drop Caps</source>
+        <translation>&amp;Initialien</translation>
+    </message>
+    <message>
+        <source>&amp;Lines:</source>
+        <translation>&amp;Zeilen:</translation>
+    </message>
+    <message>
+        <source>F&amp;ill Color:</source>
+        <translation>Füll&amp;farbe:</translation>
+    </message>
+    <message>
+        <source>St&amp;roke Color:</source>
+        <translation>&amp;Randfarbe:</translation>
+    </message>
+    <message>
+        <source>Adjust to Baseline &amp;Grid</source>
+        <translation>Text am &amp;Grundlinienraster ausrichten</translation>
+    </message>
+    <message>
+        <source>Line &amp;Spacing:</source>
+        <translation>Zeilenab&amp;stand:</translation>
+    </message>
+    <message>
+        <source>Abo&amp;ve:</source>
+        <translation>&amp;Oberhalb:</translation>
+    </message>
+    <message>
+        <source>&amp;Below:</source>
+        <translation>&amp;Unterhalb:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -2393,63 +2645,119 @@ der Datei
     </message>
     <message>
         <source>New</source>
-        <translation>Neu</translation>
+        <translation type="obsolete">Neu</translation>
     </message>
     <message>
         <source>Save as...</source>
-        <translation>Speichern unter...</translation>
+        <translation type="obsolete">Speichern unter...</translation>
     </message>
     <message>
         <source>Load...</source>
-        <translation>Laden...</translation>
+        <translation type="obsolete">Laden...</translation>
     </message>
     <message>
         <source>Save and Exit</source>
-        <translation>Speichern und Beenden</translation>
+        <translation type="obsolete">Speichern und Beenden</translation>
     </message>
     <message>
         <source>Exit without Saving</source>
-        <translation>Beenden ohne Speichern</translation>
+        <translation type="obsolete">Beenden ohne Speichern</translation>
     </message>
     <message>
         <source>Undo</source>
-        <translation>Rückgängig</translation>
+        <translation type="obsolete">Rückgängig</translation>
     </message>
     <message>
         <source>Redo</source>
-        <translation>Wiederherstellen</translation>
+        <translation type="obsolete">Wiederherstellen</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation>Ausschneiden</translation>
+        <translation type="obsolete">Ausschneiden</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopieren</translation>
+        <translation type="obsolete">Kopieren</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Einfügen</translation>
+        <translation type="obsolete">Einfügen</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation>Löschen</translation>
+        <translation type="obsolete">Löschen</translation>
     </message>
     <message>
         <source>Get Field Names</source>
-        <translation>Feldnamen auswählen</translation>
+        <translation type="obsolete">Feldnamen auswählen</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Datei</translation>
+        <translation type="obsolete">Datei</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Bearbeiten</translation>
+        <translation type="obsolete">Bearbeiten</translation>
     </message>
     <message>
         <source>Javascripts (*.js);;All Files (*)</source>
         <translation>Javascripte (*.js);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation>&amp;Neu</translation>
+    </message>
+    <message>
+        <source>&amp;Open...</source>
+        <translation>Ö&amp;ffnen...</translation>
+    </message>
+    <message>
+        <source>Save &amp;As...</source>
+        <translation>Speichern &amp;unter...</translation>
+    </message>
+    <message>
+        <source>&amp;Save and Exit</source>
+        <translation>Speicher&amp;n und beenden</translation>
+    </message>
+    <message>
+        <source>&amp;Exit without Saving</source>
+        <translation>Nicht speichern und &amp;beenden</translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation>&amp;Rückgängig</translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation>Wieder&amp;herstellen</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation>&amp;Ausschneiden</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Kopieren</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation>Einf&amp;ügen</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation>&amp;Löschen</translation>
+    </message>
+    <message>
+        <source>&amp;Get Field Names</source>
+        <translation>&amp;Feldnamen auslesen</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Datei</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Bearbeiten</translation>
     </message>
 </context>
 <context>
@@ -2460,11 +2768,11 @@ der Datei
     </message>
     <message>
         <source>Export to directory:</source>
-        <translation>Exportieren nach:</translation>
+        <translation type="obsolete">Exportieren nach:</translation>
     </message>
     <message>
         <source>&amp;Change...</source>
-        <translation>&amp;Wechseln...</translation>
+        <translation type="obsolete">&amp;Wechseln...</translation>
     </message>
     <message>
         <source>Alt+C</source>
@@ -2476,7 +2784,7 @@ der Datei
     </message>
     <message>
         <source>Quality :</source>
-        <translation>Qualität:</translation>
+        <translation type="obsolete">Qualität:</translation>
     </message>
     <message>
         <source>%</source>
@@ -2484,7 +2792,7 @@ der Datei
     </message>
     <message>
         <source>Size:</source>
-        <translation>Größe:</translation>
+        <translation type="obsolete">Größe:</translation>
     </message>
     <message>
         <source>Export </source>
@@ -2578,7 +2886,7 @@ Name der Datei: &apos;NamedesDokuments-Seitenzahl.Dateiformat&apos;</translation
     </message>
     <message>
         <source>Image type:</source>
-        <translation>Exportformat:</translation>
+        <translation type="obsolete">Exportformat:</translation>
     </message>
     <message>
         <source>The output directory - the place to store your images.
@@ -2613,6 +2921,26 @@ Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat<
     <message>
         <source>The quality of your images - 100% is the best, 1% the highest compression</source>
         <translation>Bildqualität: 100% bedeutet keine, 1% höchste Komprimierung</translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation>Ä&amp;ndern...</translation>
+    </message>
+    <message>
+        <source>&amp;Export to Directory:</source>
+        <translation>In &amp;Verzeichnis exportieren:</translation>
+    </message>
+    <message>
+        <source>Image &amp;Type:</source>
+        <translation>&amp;Dateityp:</translation>
+    </message>
+    <message>
+        <source>&amp;Quality:</source>
+        <translation>&amp;Qualität:</translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation>&amp;Größe:</translation>
     </message>
 </context>
 <context>
@@ -2694,7 +3022,7 @@ Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat<
     </message>
     <message>
         <source>Name:</source>
-        <translation>Name:</translation>
+        <translation type="obsolete">Name:</translation>
     </message>
     <message>
         <source>Choose a Name</source>
@@ -2803,6 +3131,10 @@ Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat<
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Abbrechen</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation>&amp;Name:</translation>
     </message>
 </context>
 <context>
@@ -3190,7 +3522,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>page(s)</source>
-        <translation>Seite(n)</translation>
+        <translation type="obsolete">Seite(n)</translation>
     </message>
     <message>
         <source>before Page</source>
@@ -3206,11 +3538,11 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>Template (Left Page):</source>
-        <translation>Linke Seite basiert auf:</translation>
+        <translation type="obsolete">Linke Seite basiert auf:</translation>
     </message>
     <message>
         <source>Template:</source>
-        <translation>Musterseite:</translation>
+        <translation type="obsolete">Musterseite:</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -3222,11 +3554,35 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
+    </message>
+    <message>
+        <source>&amp;Inserting</source>
+        <translation>&amp;Einfügen von</translation>
+    </message>
+    <message>
+        <source>Page(s)</source>
+        <translation>Seite(n)</translation>
+    </message>
+    <message>
+        <source>&amp;Template (Left Page):</source>
+        <translation>&amp;Musterseite (Links):</translation>
+    </message>
+    <message>
+        <source>&amp;Template:</source>
+        <translation>&amp;Musterseite:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -3276,7 +3632,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>New Script:</source>
-        <translation>Neues Script:</translation>
+        <translation type="obsolete">Neues Script:</translation>
     </message>
     <message>
         <source>New Script</source>
@@ -3296,11 +3652,11 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>Nein</translation>
+        <translation type="obsolete">Nein</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Ja</translation>
+        <translation type="obsolete">Ja</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
@@ -3317,6 +3673,18 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <source>&amp;Close</source>
         <translation>Schl&amp;ießen</translation>
+    </message>
+    <message>
+        <source>&amp;New Script:</source>
+        <translation>&amp;Neues Script:</translation>
+    </message>
+    <message>
+        <source>&amp;No</source>
+        <translation>N&amp;ein</translation>
+    </message>
+    <message>
+        <source>&amp;Yes</source>
+        <translation>&amp;Ja</translation>
     </message>
 </context>
 <context>
@@ -3505,11 +3873,11 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>Nein</translation>
+        <translation type="obsolete">Nein</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Ja</translation>
+        <translation type="obsolete">Ja</translation>
     </message>
     <message>
         <source>Open</source>
@@ -3562,6 +3930,14 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Abbrechen</translation>
+    </message>
+    <message>
+        <source>&amp;No</source>
+        <translation>N&amp;ein</translation>
+    </message>
+    <message>
+        <source>&amp;Yes</source>
+        <translation>&amp;Ja</translation>
     </message>
 </context>
 <context>
@@ -3875,11 +4251,19 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -3890,27 +4274,27 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>X, Y, Z</source>
-        <translation>X, Y, Z</translation>
+        <translation type="obsolete">X, Y, Z</translation>
     </message>
     <message>
         <source>Shape</source>
-        <translation>Form</translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Text</translation>
+        <translation type="obsolete">Text</translation>
     </message>
     <message>
         <source>Image</source>
-        <translation>Bild</translation>
+        <translation type="obsolete">Bild</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation>Linie</translation>
+        <translation type="obsolete">Linie</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation>Farben</translation>
+        <translation type="obsolete">Farben</translation>
     </message>
     <message>
         <source>Name</source>
@@ -3922,19 +4306,19 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>X-Position:</translation>
+        <translation type="obsolete">X-Position:</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Y-Position:</translation>
+        <translation type="obsolete">Y-Position:</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation>Breite:</translation>
+        <translation type="obsolete">Breite:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation>Höhe:</translation>
+        <translation type="obsolete">Höhe:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -3942,7 +4326,7 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>Rotation:</source>
-        <translation>Drehung:</translation>
+        <translation type="obsolete">Drehung:</translation>
     </message>
     <message>
         <source>Basepoint:</source>
@@ -3958,7 +4342,7 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>Use Bounding Box</source>
-        <translation>Umgebendes Rechteck benutzen</translation>
+        <translation type="obsolete">Umgebendes Rechteck benutzen</translation>
     </message>
     <message>
         <source>Shape:</source>
@@ -3966,12 +4350,12 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>Edit Shape...</source>
-        <translation>Form bearbeiten...</translation>
+        <translation type="obsolete">Form bearbeiten...</translation>
     </message>
     <message>
         <source>Round
 Corners:</source>
-        <translation>Eckrundung:</translation>
+        <translation type="obsolete">Eckrundung:</translation>
     </message>
     <message>
         <source>Distance of Text</source>
@@ -3979,31 +4363,31 @@ Corners:</source>
     </message>
     <message>
         <source>Columns:</source>
-        <translation>Spalten:</translation>
+        <translation type="obsolete">Spalten:</translation>
     </message>
     <message>
         <source>Gap:</source>
-        <translation>Abstand:</translation>
+        <translation type="obsolete">Abstand:</translation>
     </message>
     <message>
         <source>Top:</source>
-        <translation>Oben:</translation>
+        <translation type="obsolete">Oben:</translation>
     </message>
     <message>
         <source>Bottom:</source>
-        <translation>Unten:</translation>
+        <translation type="obsolete">Unten:</translation>
     </message>
     <message>
         <source>Left:</source>
-        <translation>Links:</translation>
+        <translation type="obsolete">Links:</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation>Rechts:</translation>
+        <translation type="obsolete">Rechts:</translation>
     </message>
     <message>
         <source>Tabulators...</source>
-        <translation>Tabulatoren...</translation>
+        <translation type="obsolete">Tabulatoren...</translation>
     </message>
     <message>
         <source>Path Text Properites</source>
@@ -4035,11 +4419,11 @@ Corners:</source>
     </message>
     <message>
         <source>Kerning:</source>
-        <translation>Kerning:</translation>
+        <translation type="obsolete">Kerning:</translation>
     </message>
     <message>
         <source>Line Spacing:</source>
-        <translation>Zeilenabstand:</translation>
+        <translation type="obsolete">Zeilenabstand:</translation>
     </message>
     <message>
         <source>Styles</source>
@@ -4051,27 +4435,27 @@ Corners:</source>
     </message>
     <message>
         <source>Free Scaling</source>
-        <translation>Freie Skalierung</translation>
+        <translation type="obsolete">Freie Skalierung</translation>
     </message>
     <message>
         <source>X-Pos.:</source>
-        <translation>X-Pos.:</translation>
+        <translation type="obsolete">X-Pos.:</translation>
     </message>
     <message>
         <source>Y-Pos.:</source>
-        <translation>Y-Pos.:</translation>
+        <translation type="obsolete">Y-Pos.:</translation>
     </message>
     <message>
         <source>X-Scale:</source>
-        <translation>X-Skalierung:</translation>
+        <translation type="obsolete">X-Skalierung:</translation>
     </message>
     <message>
         <source>Y-Scale:</source>
-        <translation>Y-Skalierung:</translation>
+        <translation type="obsolete">Y-Skalierung:</translation>
     </message>
     <message>
         <source>Scale to Frame Size</source>
-        <translation>An Rahmen anpassen</translation>
+        <translation type="obsolete">An Rahmen anpassen</translation>
     </message>
     <message>
         <source>Keep Aspect Ratio</source>
@@ -4079,7 +4463,7 @@ Corners:</source>
     </message>
     <message>
         <source>Proportional</source>
-        <translation>Proportional</translation>
+        <translation type="obsolete">Proportional</translation>
     </message>
     <message>
         <source>Input Profile:</source>
@@ -4119,11 +4503,11 @@ Corners:</source>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation>Linienbreite:</translation>
+        <translation type="obsolete">Linienbreite:</translation>
     </message>
     <message>
         <source>Edges:</source>
-        <translation>Ecken:</translation>
+        <translation type="obsolete">Ecken:</translation>
     </message>
     <message>
         <source>Miter Join</source>
@@ -4139,7 +4523,7 @@ Corners:</source>
     </message>
     <message>
         <source>Endings:</source>
-        <translation>Enden:</translation>
+        <translation type="obsolete">Enden:</translation>
     </message>
     <message>
         <source>Flat Cap</source>
@@ -4207,19 +4591,19 @@ Corners:</source>
     </message>
     <message>
         <source>X1:</source>
-        <translation>X1:</translation>
+        <translation type="obsolete">X1:</translation>
     </message>
     <message>
         <source>X2:</source>
-        <translation>X2:</translation>
+        <translation type="obsolete">X2:</translation>
     </message>
     <message>
         <source>Y1:</source>
-        <translation>Y1:</translation>
+        <translation type="obsolete">Y1:</translation>
     </message>
     <message>
         <source>Y2:</source>
-        <translation>Y2:</translation>
+        <translation type="obsolete">Y2:</translation>
     </message>
     <message>
         <source>None</source>
@@ -4241,7 +4625,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Text flows around frame</source>
-        <translation>Text umfließt Rahmen</translation>
+        <translation type="obsolete">Text umfließt Rahmen</translation>
     </message>
     <message>
         <source>Shade:</source>
@@ -4249,7 +4633,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Language:</source>
-        <translation>Sprache:</translation>
+        <translation type="obsolete">Sprache:</translation>
     </message>
     <message>
         <source>Name of selected object</source>
@@ -4505,7 +4889,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Style:</source>
-        <translation>Stil:</translation>
+        <translation type="obsolete">Stil:</translation>
     </message>
     <message>
         <source>Make text in lower objects flow around this frame</source>
@@ -4553,15 +4937,185 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Font Size:</source>
-        <translation>Schriftgröße:</translation>
+        <translation type="obsolete">Schriftgröße:</translation>
     </message>
     <message>
         <source>Type of Line:</source>
-        <translation>Linienart:</translation>
+        <translation type="obsolete">Linienart:</translation>
     </message>
     <message>
         <source>Use Contour Line</source>
-        <translation>Umgebende Form benutzen</translation>
+        <translation type="obsolete">Umgebende Form benutzen</translation>
+    </message>
+    <message>
+        <source>X, Y, &amp;Z</source>
+        <translation>X, Y, &amp;Z</translation>
+    </message>
+    <message>
+        <source>&amp;Shape</source>
+        <translation>&amp;Form</translation>
+    </message>
+    <message>
+        <source>&amp;Text</source>
+        <translation>&amp;Text</translation>
+    </message>
+    <message>
+        <source>&amp;Image</source>
+        <translation>&amp;Bild</translation>
+    </message>
+    <message>
+        <source>&amp;Line</source>
+        <translation>&amp;Linien</translation>
+    </message>
+    <message>
+        <source>&amp;Colors</source>
+        <translation>&amp;Farben</translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos:</source>
+        <translation>&amp;X-Position:</translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation>&amp;Y-Position:</translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation>&amp;Breite:</translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation>&amp;Höhe:</translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation>&amp;Drehung:</translation>
+    </message>
+    <message>
+        <source>Text &amp;Flows Around Frame</source>
+        <translation>Text &amp;umfließt Rahmen</translation>
+    </message>
+    <message>
+        <source>Use &amp;Bounding Box</source>
+        <translation>&amp;Bounding Box benutzen</translation>
+    </message>
+    <message>
+        <source>&amp;Use Contour Line</source>
+        <translation>&amp;Objektumriss benutzen</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Shape...</source>
+        <translation>&amp;Form bearbeiten...</translation>
+    </message>
+    <message>
+        <source>R&amp;ound
+Corners:</source>
+        <translation>Ecken
+ab&amp;runden:</translation>
+    </message>
+    <message>
+        <source>Colu&amp;mns:</source>
+        <translation>&amp;Spalten:</translation>
+    </message>
+    <message>
+        <source>&amp;Gap:</source>
+        <translation>&amp;Abstand:</translation>
+    </message>
+    <message>
+        <source>To&amp;p:</source>
+        <translation>&amp;Oben:</translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation>&amp;Unten:</translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation>&amp;Links:</translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation>&amp;Rechts:</translation>
+    </message>
+    <message>
+        <source>T&amp;abulators...</source>
+        <translation>&amp;Tabulatoren...</translation>
+    </message>
+    <message>
+        <source>&amp;Font Size:</source>
+        <translation>Schrift&amp;größe:</translation>
+    </message>
+    <message>
+        <source>&amp;Kerning:</source>
+        <translation>&amp;Kerning:</translation>
+    </message>
+    <message>
+        <source>L&amp;ine Spacing:</source>
+        <translation>&amp;Zeilenabstand:</translation>
+    </message>
+    <message>
+        <source>St&amp;yle:</source>
+        <translation>S&amp;til:</translation>
+    </message>
+    <message>
+        <source>Lan&amp;guage:</source>
+        <translation>&amp;Sprache:</translation>
+    </message>
+    <message>
+        <source>&amp;Free Scaling</source>
+        <translation>&amp;Freie Skalierung</translation>
+    </message>
+    <message>
+        <source>X-Sc&amp;ale:</source>
+        <translation>&amp;X-Größe:</translation>
+    </message>
+    <message>
+        <source>Y-Scal&amp;e:</source>
+        <translation>&amp;Y-Größe:</translation>
+    </message>
+    <message>
+        <source>Scale &amp;To Frame Size</source>
+        <translation>An Rahmen an&amp;passen</translation>
+    </message>
+    <message>
+        <source>P&amp;roportional</source>
+        <translation>&amp;Proportional</translation>
+    </message>
+    <message>
+        <source>&amp;Basepoint:</source>
+        <translation>&amp;Ursprung:</translation>
+    </message>
+    <message>
+        <source>T&amp;ype of Line:</source>
+        <translation>Linien&amp;art:</translation>
+    </message>
+    <message>
+        <source>Line &amp;Width:</source>
+        <translation>Linien&amp;breite:</translation>
+    </message>
+    <message>
+        <source>Ed&amp;ges:</source>
+        <translation>&amp;Ecken:</translation>
+    </message>
+    <message>
+        <source>&amp;Endings:</source>
+        <translation>En&amp;den:</translation>
+    </message>
+    <message>
+        <source>&amp;X1:</source>
+        <translation>&amp;X1:</translation>
+    </message>
+    <message>
+        <source>X&amp;2:</source>
+        <translation>X&amp;2:</translation>
+    </message>
+    <message>
+        <source>Y&amp;1:</source>
+        <translation>Y&amp;1:</translation>
+    </message>
+    <message>
+        <source>&amp;Y2:</source>
+        <translation>&amp;Y2:</translation>
     </message>
 </context>
 <context>
@@ -4612,7 +5166,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
     <message>
         <source> pt </source>
@@ -4647,6 +5201,14 @@ Bitte wählen Sie einen anderen.</translation>
 Please choose another.</source>
         <translation>Der Name %1 ist nicht eindeutig.
 Bitte wählen Sie einen anderen.</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -4685,11 +5247,11 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>Nein</translation>
+        <translation type="obsolete">Nein</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Ja</translation>
+        <translation type="obsolete">Ja</translation>
     </message>
     <message>
         <source>Copy of %1</source>
@@ -4734,6 +5296,18 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>&amp;Close</source>
         <translation>Schl&amp;ießen</translation>
+    </message>
+    <message>
+        <source>&amp;No</source>
+        <translation>N&amp;ein</translation>
+    </message>
+    <message>
+        <source>&amp;Yes</source>
+        <translation>&amp;Ja</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation>&amp;Name:</translation>
     </message>
 </context>
 <context>
@@ -5051,11 +5625,19 @@ Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -5066,19 +5648,19 @@ Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine
     </message>
     <message>
         <source>Absolute Coordinates</source>
-        <translation>Absolute Koordinaten</translation>
+        <translation type="obsolete">Absolute Koordinaten</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>X-Pos:</translation>
+        <translation type="obsolete">X-Pos:</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Y-Pos:</translation>
+        <translation type="obsolete">Y-Pos:</translation>
     </message>
     <message>
         <source>End Editing</source>
-        <translation>Beenden</translation>
+        <translation type="obsolete">Beenden</translation>
     </message>
     <message>
         <source>Move Nodes</source>
@@ -5098,11 +5680,11 @@ Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine
     </message>
     <message>
         <source>Move Control Points independently</source>
-        <translation>Kontrollpunkte unabhängig verschieben</translation>
+        <translation type="obsolete">Kontrollpunkte unabhängig verschieben</translation>
     </message>
     <message>
         <source>Move Control Points symmetrical</source>
-        <translation>Kontrollpunkte symmetrisch verschieben</translation>
+        <translation type="obsolete">Kontrollpunkte symmetrisch verschieben</translation>
     </message>
     <message>
         <source>Reset Control Points</source>
@@ -5114,43 +5696,43 @@ Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine
     </message>
     <message>
         <source>Opens a Polygon or cuts a Bezier Curve</source>
-        <translation>Öffnet ein Polygon oder trennt eine Bezier Kurve auf</translation>
+        <translation type="obsolete">Öffnet ein Polygon oder trennt eine Bezier Kurve auf</translation>
     </message>
     <message>
         <source>Closes this Bezier Curve</source>
-        <translation>Schließt diese Bezier Kurve</translation>
+        <translation type="obsolete">Schließt diese Bezier Kurve</translation>
     </message>
     <message>
         <source>Mirrors the Path Horizontally</source>
-        <translation>Spiegelt den Pfad horizontal</translation>
+        <translation type="obsolete">Spiegelt den Pfad horizontal</translation>
     </message>
     <message>
         <source>Mirrors the Path Vertically</source>
-        <translation>Spiegelt den Pfad vertikal</translation>
+        <translation type="obsolete">Spiegelt den Pfad vertikal</translation>
     </message>
     <message>
         <source>Shears the Path horizontal to the right</source>
-        <translation>Scherung nach rechts</translation>
+        <translation type="obsolete">Scherung nach rechts</translation>
     </message>
     <message>
         <source>Shears the Path horizontal to the left</source>
-        <translation>Scherung nach links</translation>
+        <translation type="obsolete">Scherung nach links</translation>
     </message>
     <message>
         <source>Shears the Path vertical up</source>
-        <translation>Scherung nach open</translation>
+        <translation type="obsolete">Scherung nach open</translation>
     </message>
     <message>
         <source>Shears the Path vertical down</source>
-        <translation>Scherung nach unten</translation>
+        <translation type="obsolete">Scherung nach unten</translation>
     </message>
     <message>
         <source>Rotates the Path counter-clockwise</source>
-        <translation>Rotiert den Pfad um 1° gegen den Uhrzeigersinn</translation>
+        <translation type="obsolete">Rotiert den Pfad um 1° gegen den Uhrzeigersinn</translation>
     </message>
     <message>
         <source>Rotates the Path clockwise</source>
-        <translation>Rotiert den Pfad um 1° im Uhrzeigersinn</translation>
+        <translation type="obsolete">Rotiert den Pfad um 1° im Uhrzeigersinn</translation>
     </message>
     <message>
         <source>Reduce the Size of the Path by 10%</source>
@@ -5168,19 +5750,115 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Edit Contour Line</source>
-        <translation>Umgebende Form bearbeiten</translation>
+        <translation type="obsolete">Umgebende Form bearbeiten</translation>
     </message>
     <message>
         <source>Reset Contour Line</source>
-        <translation>Kontrollpunkte zurücksetzen</translation>
+        <translation type="obsolete">Kontrollpunkte zurücksetzen</translation>
     </message>
     <message>
         <source>Reduce the Size of the Path</source>
-        <translation>Verkleinert den Pfad</translation>
+        <translation type="obsolete">Verkleinert den Pfad</translation>
     </message>
     <message>
         <source>Enlarges the Size of the Path</source>
-        <translation>Vergrößert den Pfad</translation>
+        <translation type="obsolete">Vergrößert den Pfad</translation>
+    </message>
+    <message>
+        <source>&amp;Absolute Coordinates</source>
+        <translation>&amp;Absolute Koordinaten</translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos:</source>
+        <translation>&amp;X-Position:</translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation>&amp;Y-Position:</translation>
+    </message>
+    <message>
+        <source>Edit &amp;Contour Line</source>
+        <translation>&amp;Objektumriss bearbeiten</translation>
+    </message>
+    <message>
+        <source>&amp;Reset Contour Line</source>
+        <translation>Objektumriss &amp;zurücksetzen</translation>
+    </message>
+    <message>
+        <source>&amp;End Editing</source>
+        <translation>Beabeitung &amp;beenden</translation>
+    </message>
+    <message>
+        <source>Move Control Points Independently</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move Control Points Symmetrical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open a Polygon or Cuts a Bezier Curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close this Bezier Curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror the Path Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror the Path Vertically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shear the Path Horizontally to the Rright</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shear the Path Horizontally to the Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shear the Path Vertically Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shear the Path Vertically Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rotate the Path Counter-Clockwise</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rotate the Path Clockwise</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reduce the Size of the Path by shown %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enlarge the Size of the Path by shown %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Angle of Rotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% to Enlarge or Reduce By</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate Contour Line Editing Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset the Contour Line to the Original Shape of the Frame</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5430,7 +6108,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Use ICC-Profile</source>
-        <translation>ICC-Profile einbetten</translation>
+        <translation type="obsolete">ICC-Profile einbetten</translation>
     </message>
     <message>
         <source>Profile:</source>
@@ -6083,11 +6761,11 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>S&amp;pot Function:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Punktaufbau:</translation>
     </message>
     <message>
         <source>Simple Dot</source>
-        <translation type="unfinished"></translation>
+        <translation>Punkt</translation>
     </message>
     <message>
         <source>Line</source>
@@ -6130,12 +6808,16 @@ Seiten importiert werden sollen, zum Beispiel
         <translation>&amp;Abbrechen</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF-Dateien (*.pdf);;Alle Dateien (*.*)</translation>
+    </message>
+    <message>
+        <source>This is an advanced setting which is not enabled by default. This should only be enabled
+when specifically requested by your printer and they have given you the exact details needed.
+Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
+        <translation>Diese erweiterte Optio ist normalerweise deaktiviert und sollte nur aktiviert werden,
+wenn Ihre Druckerei es fordert und sie die notwendigen Informationen haben.
+Andernfalls könnte ihre PDF-Datei fehlerhaft gedruckt werden und sie kann nicht plattformübergreifend verwendet werden.</translation>
     </message>
 </context>
 <context>
@@ -6251,6 +6933,10 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     <message>
         <source>&amp;K</source>
         <translation>&amp;K</translation>
+    </message>
+    <message>
+        <source>&amp;Under Color Removal</source>
+        <translation>&amp;Unterfarbenreduktion</translation>
     </message>
 </context>
 <context>
@@ -6725,7 +7411,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Umrisse</translation>
     </message>
     <message>
         <source>&amp;Text Frame</source>
@@ -6943,7 +7629,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source> pts</source>
-        <translation>pts</translation>
+        <translation type="obsolete">pts</translation>
     </message>
     <message>
         <source>Units</source>
@@ -8165,6 +8851,10 @@ des Dokuments mit der Erweiterung .bak</translation>
         <source>O&amp;utside:</source>
         <translation>A&amp;ußen:</translation>
     </message>
+    <message>
+        <source>Apply &amp;Under Color Removal</source>
+        <translation>Unterfarben&amp;reduktion anwenden</translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -8936,11 +9626,11 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation type="unfinished">Fehler: Sie versuchen ein Objekt zu (ent)sperren, das gar nicht existiert. Außerdem ist gar keins ausgewählt.</translation>
+        <translation>Fehler: Sie versuchen ein Objekt zu (ent)sperren, das gar nicht existiert. Außerdem ist gar keins ausgewählt.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation type="unfinished">Fehler: Sie versuchen ein Objekt zu aktivieren, das gar nicht exisitiert! Außerdem ist nichts ausgewählt.</translation>
+        <translation>Fehler: Sie versuchen ein Objekt zu aktivieren, das gar nicht exisitiert! Außerdem ist nichts ausgewählt.</translation>
     </message>
 </context>
 <context>
@@ -9064,11 +9754,19 @@ wirklich überschreiben?</translation>
     <name>Query</name>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -9207,6 +9905,101 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
 </context>
 <context>
+    <name>SToolBAlign</name>
+    <message>
+        <source>St&amp;yle Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Style of current paragraph</source>
+        <translation>Stilvorlage für aktuellen Absatz</translation>
+    </message>
+</context>
+<context>
+    <name>SToolBColorF</name>
+    <message>
+        <source>F&amp;ill Color Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Keine</translation>
+    </message>
+    <message>
+        <source>Color of text fill</source>
+        <translation>Textfarbe</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text fill</source>
+        <translation>Tonwert der Textfarbe</translation>
+    </message>
+</context>
+<context>
+    <name>SToolBColorS</name>
+    <message>
+        <source>&amp;Stroke Color Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Keine</translation>
+    </message>
+    <message>
+        <source>Color of text stroke</source>
+        <translation>Textumrissfarbe</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text stroke</source>
+        <translation>Tonwert der Textumrissfarbe</translation>
+    </message>
+</context>
+<context>
+    <name>SToolBFont</name>
+    <message>
+        <source>&amp;Font Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation> pt</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
+    <message>
+        <source>Font of selected text</source>
+        <translation>Schriftart des Objekts</translation>
+    </message>
+    <message>
+        <source>Font Size</source>
+        <translation>Schriftgröße</translation>
+    </message>
+    <message>
+        <source>Scaling width of characters</source>
+        <translation>Zeichenbreiten skalieren</translation>
+    </message>
+</context>
+<context>
+    <name>SToolBStyle</name>
+    <message>
+        <source>&amp;Character Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Kerning:</source>
+        <translation>Kerning:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation> pt</translation>
+    </message>
+    <message>
+        <source>Manual Kerning</source>
+        <translation>Manuelles Kerning</translation>
+    </message>
+</context>
+<context>
     <name>ScriXmlDoc</name>
     <message>
         <source>Copy #%1 of </source>
@@ -9317,7 +10110,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Getting ICC-Profiles</source>
-        <translation>ICC-Profile werden geladen</translation>
+        <translation type="obsolete">ICC-Profile werden geladen</translation>
     </message>
     <message>
         <source>Init Hyphenator</source>
@@ -9920,11 +10713,11 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation>Größe:</translation>
+        <translation type="obsolete">Größe:</translation>
     </message>
     <message>
         <source>Shade:</source>
-        <translation>Tonwert:</translation>
+        <translation type="obsolete">Tonwert:</translation>
     </message>
     <message>
         <source>The following Programs are missing:</source>
@@ -10424,7 +11217,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Manage Guides...</source>
-        <translation>&amp;Hilfslinien bearbeiten...</translation>
+        <translation type="obsolete">&amp;Hilfslinien bearbeiten...</translation>
     </message>
     <message>
         <source>&amp;Fit in Window</source>
@@ -10690,6 +11483,22 @@ nicht speichern</translation>
         <source>P&amp;references...</source>
         <translation>&amp;Voreinstellungen...</translation>
     </message>
+    <message>
+        <source>Getting ICC Profiles</source>
+        <translation>ICC-Profile werden geladen</translation>
+    </message>
+    <message>
+        <source>Manage &amp;Guides...</source>
+        <translation>&amp;Hilfslinien bearbeiten...</translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation>&amp;Größe:</translation>
+    </message>
+    <message>
+        <source>&amp;Shade:</source>
+        <translation>Ton&amp;wert:</translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -10851,27 +11660,27 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Whole Word</source>
-        <translation>Ganzes Wort</translation>
+        <translation type="obsolete">Ganzes Wort</translation>
     </message>
     <message>
         <source>Ignore Case</source>
-        <translation>Groß-/Kleinschreibung ignorieren</translation>
+        <translation type="obsolete">Groß-/Kleinschreibung ignorieren</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation>Suchen</translation>
+        <translation type="obsolete">Suchen</translation>
     </message>
     <message>
         <source>Replace</source>
-        <translation>Ersetzen</translation>
+        <translation type="obsolete">Ersetzen</translation>
     </message>
     <message>
         <source>Replace All</source>
-        <translation>Alles ersetzen</translation>
+        <translation type="obsolete">Alles ersetzen</translation>
     </message>
     <message>
         <source>Leave</source>
-        <translation>Verlassen</translation>
+        <translation type="obsolete">Verlassen</translation>
     </message>
     <message>
         <source>Search finished</source>
@@ -10900,6 +11709,30 @@ nicht speichern</translation>
     <message>
         <source>Forced</source>
         <translation>Erzw. Blocksatz</translation>
+    </message>
+    <message>
+        <source>&amp;Whole Word</source>
+        <translation>&amp;Ganzes Wort</translation>
+    </message>
+    <message>
+        <source>&amp;Ignore Case</source>
+        <translation>Groß-/&amp;Kleinschreibung ignorieren</translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation>&amp;Suchen</translation>
+    </message>
+    <message>
+        <source>&amp;Replace</source>
+        <translation>&amp;Ersetzen</translation>
+    </message>
+    <message>
+        <source>Replace &amp;All</source>
+        <translation>&amp;Alles ersetzen</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>Schl&amp;ießen</translation>
     </message>
 </context>
 <context>
@@ -11002,11 +11835,15 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Shade:</source>
-        <translation>Tonwert:</translation>
+        <translation type="obsolete">Tonwert:</translation>
     </message>
     <message>
         <source>Shade</source>
         <translation>Tonwert</translation>
+    </message>
+    <message>
+        <source>&amp;Shade:</source>
+        <translation>Ton&amp;wert:</translation>
     </message>
 </context>
 <context>
@@ -11135,15 +11972,15 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Neu</translation>
+        <translation type="obsolete">Neu</translation>
     </message>
     <message>
         <source>Save to File...</source>
-        <translation>In Datei speichern...</translation>
+        <translation type="obsolete">In Datei speichern...</translation>
     </message>
     <message>
         <source>Load from File...</source>
-        <translation>Von Datei laden...</translation>
+        <translation type="obsolete">Von Datei laden...</translation>
     </message>
     <message>
         <source>Save and Exit</source>
@@ -11155,47 +11992,47 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Undo</source>
-        <translation>Rückgängig</translation>
+        <translation type="obsolete">Rückgängig</translation>
     </message>
     <message>
         <source>Redo</source>
-        <translation>Wiederherstellen</translation>
+        <translation type="obsolete">Wiederherstellen</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation>Ausschneiden</translation>
+        <translation type="obsolete">Ausschneiden</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopieren</translation>
+        <translation type="obsolete">Kopieren</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Einfügen</translation>
+        <translation type="obsolete">Einfügen</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation>Löschen</translation>
+        <translation type="obsolete">Löschen</translation>
     </message>
     <message>
         <source>Edit Styles...</source>
-        <translation>Stilvorlagen bearbeiten...</translation>
+        <translation type="obsolete">Stilvorlagen bearbeiten...</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Datei</translation>
+        <translation type="obsolete">Datei</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Bearbeiten</translation>
+        <translation type="obsolete">Bearbeiten</translation>
     </message>
     <message>
         <source>Style</source>
-        <translation>Stil</translation>
+        <translation type="obsolete">Stil</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Text</translation>
+        <translation type="obsolete">Text</translation>
     </message>
     <message>
         <source>Current Paragraph:</source>
@@ -11243,27 +12080,27 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation>Links</translation>
+        <translation type="obsolete">Links</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation>Zentriert</translation>
+        <translation type="obsolete">Zentriert</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation>Rechts</translation>
+        <translation type="obsolete">Rechts</translation>
     </message>
     <message>
         <source>Block</source>
-        <translation>Blocksatz</translation>
+        <translation type="obsolete">Blocksatz</translation>
     </message>
     <message>
         <source>Forced</source>
-        <translation>Erzw. Blocksatz</translation>
+        <translation type="obsolete">Erzw. Blocksatz</translation>
     </message>
     <message>
         <source>Update Text Frame</source>
-        <translation>Textrahmen auffrischen</translation>
+        <translation type="obsolete">Textrahmen auffrischen</translation>
     </message>
     <message>
         <source>Search/Replace...</source>
@@ -11275,7 +12112,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Insert Special...</source>
-        <translation>Sonderzeichen einfügen...</translation>
+        <translation type="obsolete">Sonderzeichen einfügen...</translation>
     </message>
     <message>
         <source>Insert Special</source>
@@ -11287,19 +12124,79 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation>Änderungen übernehmen</translation>
+        <translation type="obsolete">Änderungen übernehmen</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation>Änderungen ignorieren</translation>
+        <translation type="obsolete">Änderungen ignorieren</translation>
     </message>
     <message>
         <source>Save Document</source>
-        <translation>Dokument speichern</translation>
+        <translation type="obsolete">Dokument speichern</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
         <translation>&amp;Sonderzeichen einfügen</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation>&amp;Neu</translation>
+    </message>
+    <message>
+        <source>&amp;Reload Text from Frame</source>
+        <translation>&amp;Text neu vom Text-Rahmen</translation>
+    </message>
+    <message>
+        <source>&amp;Save to File...</source>
+        <translation>In Datei &amp;speichern...</translation>
+    </message>
+    <message>
+        <source>&amp;Load from File...</source>
+        <translation>Von Datei &amp;laden...</translation>
+    </message>
+    <message>
+        <source>Save &amp;Document</source>
+        <translation>&amp;Dokument speichern</translation>
+    </message>
+    <message>
+        <source>&amp;Update Text Frame and Exit</source>
+        <translation>Änderungen &amp;übernehmen</translation>
+    </message>
+    <message>
+        <source>&amp;Exit Without Updating Text Frame</source>
+        <translation>Änderungen &amp;ignorieren</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation>&amp;Ausschneiden</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Kopieren</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation>Einf&amp;ügen</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation>&amp;Löschen</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Special...</source>
+        <translation>&amp;Sonderzeichen einfügen...</translation>
+    </message>
+    <message>
+        <source>&amp;Update Text Frame</source>
+        <translation>&amp;Textrahmen auffrischen</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Datei</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Bearbeiten</translation>
     </message>
 </context>
 <context>
@@ -11420,15 +12317,15 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Position:</source>
-        <translation>Position:</translation>
+        <translation type="obsolete">Position:</translation>
     </message>
     <message>
         <source>First Line:</source>
-        <translation>Erste Zeile:</translation>
+        <translation type="obsolete">Erste Zeile:</translation>
     </message>
     <message>
         <source>Indent:</source>
-        <translation>Einzug:</translation>
+        <translation type="obsolete">Einzug:</translation>
     </message>
     <message>
         <source>Delete All</source>
@@ -11461,6 +12358,18 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     <message>
         <source> p</source>
         <translation>p</translation>
+    </message>
+    <message>
+        <source>&amp;Position:</source>
+        <translation>&amp;Position:</translation>
+    </message>
+    <message>
+        <source>First &amp;Line:</source>
+        <translation>&amp;Erste Zeile:</translation>
+    </message>
+    <message>
+        <source>Ind&amp;ent:</source>
+        <translation>Ein&amp;zug:</translation>
     </message>
 </context>
 <context>
@@ -11631,11 +12540,11 @@ Bitte wählen Sie einen anderen.</translation>
     <name>WerkToolBP</name>
     <message>
         <source>PDF-Tools</source>
-        <translation>PDF-Werkzeuge</translation>
+        <translation type="obsolete">PDF-Werkzeuge</translation>
     </message>
     <message>
         <source>Insert PDF-Fields</source>
-        <translation>PDF-Felder einfügen</translation>
+        <translation type="obsolete">PDF-Felder einfügen</translation>
     </message>
     <message>
         <source>Text</source>
@@ -11647,7 +12556,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Insert PDF-Annotations</source>
-        <translation>PDF-Anmerkungen einfügen</translation>
+        <translation type="obsolete">PDF-Anmerkungen einfügen</translation>
     </message>
     <message>
         <source>Button</source>
@@ -11668,6 +12577,18 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>List Box</source>
         <translation>Listenfeld</translation>
+    </message>
+    <message>
+        <source>PDF Tools</source>
+        <translation>PDF-Werkzeuge</translation>
+    </message>
+    <message>
+        <source>Insert PDF Fields</source>
+        <translation>PDF-Felder einfügen</translation>
+    </message>
+    <message>
+        <source>Insert PDF Annotations</source>
+        <translation>PDF Anmerkungen einfügen</translation>
     </message>
 </context>
 <context>

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.0\n"
-"POT-Creation-Date: 2004-07-19 23:24+0200\n"
+"POT-Creation-Date: 2004-07-28 23:12+0200\n"
 "PO-Revision-Date: 2003-07-30 09:04+0700\n"
 "Last-Translator: Triyan W. Nugroho <iyan_kid@yahoo.com>\n"
 "Language-Team: Bahasa Indonesia <id@li.org>\n"
@@ -21,9 +21,6 @@ msgstr "Bariskan"
 msgid "Horizontal"
 msgstr "Horisontal"
 
-msgid "between:"
-msgstr "di antara:"
-
 msgid "Left Sides"
 msgstr "Sisi Kiri"
 
@@ -33,13 +30,20 @@ msgstr "Tengah"
 msgid "Right Sides"
 msgstr "Sisi Kanan"
 
-msgid "Don't change"
-msgstr "Jangan dirubah"
+#, fuzzy
+msgid "&Between:"
+msgstr "di antara:"
 
-msgid "Displacement"
-msgstr ""
+#, fuzzy
+msgid "A&lign"
+msgstr "Bariskan"
 
-msgid "Distribute evenly"
+#, fuzzy
+msgid "Di&splacement"
+msgstr "Penggantian"
+
+#, fuzzy
+msgid "Distribute &Evenly"
 msgstr "Sebar mendatar"
 
 msgid "Vertical"
@@ -51,7 +55,23 @@ msgstr "Sisi Atas"
 msgid "Bottom Sides"
 msgstr "Sisi Bawah"
 
-msgid " pts"
+#, fuzzy
+msgid "Bet&ween:"
+msgstr "di antara:"
+
+#, fuzzy
+msgid "Do &Not Change"
+msgstr "Jangan dirubah"
+
+#, fuzzy
+msgid "Al&ign"
+msgstr "Bariskan"
+
+#, fuzzy
+msgid "Dis&placement"
+msgstr "Penggantian"
+
+msgid " pt"
 msgstr ""
 
 msgid " mm"
@@ -62,6 +82,10 @@ msgstr ""
 
 msgid " p"
 msgstr ""
+
+#, fuzzy
+msgid "Distribute E&venly"
+msgstr "Sebar mendatar"
 
 #, fuzzy
 msgid "&OK"
@@ -108,7 +132,8 @@ msgstr "Tool-Tip:"
 msgid "Text"
 msgstr "Teks"
 
-msgid "Font for use with PDF-1.3:"
+#, fuzzy
+msgid "Font for use with PDF 1.3:"
 msgstr "Font yang digunakan dengan PDF-1.3:"
 
 msgid "Border"
@@ -333,9 +358,6 @@ msgstr "Halaman:"
 msgid "X-Pos:"
 msgstr ""
 
-msgid " pt"
-msgstr ""
-
 msgid "Y-Pos:"
 msgstr ""
 
@@ -453,7 +475,8 @@ msgstr "OK"
 msgid "Cancel"
 msgstr "Batal"
 
-msgid "Flag is ignored for PDF-1.3"
+#, fuzzy
+msgid "Flag is ignored for PDF 1.3"
 msgstr "Bendera diabaikan untuk PDF-1.3"
 
 #, fuzzy
@@ -478,7 +501,7 @@ msgid "Selection Change"
 msgstr "Perubahan Pilihan"
 
 #, fuzzy
-msgid "PDF-Documents (*.pdf);;All Files (*)"
+msgid "PDF Documents (*.pdf);;All Files (*)"
 msgstr "Dokumen (*.sla *.scd);; Semua File (*)"
 
 msgid "Annotation Properties"
@@ -492,6 +515,10 @@ msgstr ""
 
 msgid "External Web-Link"
 msgstr ""
+
+#, fuzzy
+msgid "PDF-Documents (*.pdf);;All Files (*)"
+msgstr "Dokumen (*.sla *.scd);; Semua File (*)"
 
 msgid "Apply Template"
 msgstr "Terapkan Template"
@@ -687,7 +714,12 @@ msgstr ""
 msgid "Edit Color"
 msgstr "Edit Warna"
 
-msgid "Color Model"
+#, fuzzy
+msgid "&Name:"
+msgstr "Nama:"
+
+#, fuzzy
+msgid "Color &Model"
 msgstr "Model Warna"
 
 msgid "CMYK"
@@ -1169,23 +1201,32 @@ msgstr ""
 msgid "Advanced Options"
 msgstr "Pilihan Advanced"
 
-msgid "Mirror Page(s) horizontal"
+#, fuzzy
+msgid "Mirror Page(s) &Horizontal"
 msgstr "Balik Halaman horisontal"
 
-msgid "Mirror Page(s) vertical"
+#, fuzzy
+msgid "Mirror Page(s) &Vertical"
 msgstr "Balik Halaman vertikal"
 
-msgid "Apply ICC-Profiles"
+msgid "Appy Under Color &Removal"
+msgstr ""
+
+#, fuzzy
+msgid "Apply &ICC Profiles"
 msgstr "Terapkan Profil ICC"
 
-msgid "PostScript Level 3"
-msgstr ""
+#, fuzzy
+msgid "PostScript Level &1"
+msgstr "Tegak"
 
-msgid "PostScript Level 2"
-msgstr ""
+#, fuzzy
+msgid "PostScript Level &2"
+msgstr "Tegak"
 
-msgid "PostScript Level 1"
-msgstr ""
+#, fuzzy
+msgid "PostScript Level &3"
+msgstr "Tegak"
 
 msgid "Creates PostScript Level 3"
 msgstr ""
@@ -1203,36 +1244,47 @@ msgstr ""
 msgid "Setup Printer"
 msgstr "Pengaturan Printer"
 
-msgid "Print destination"
+#, fuzzy
+msgid "Print Destination"
 msgstr "Tujuan cetak"
 
 msgid "File"
 msgstr "Berkas"
 
-msgid "Options..."
+#, fuzzy
+msgid "&Options..."
 msgstr "Pilihan..."
 
-msgid "File:"
+#, fuzzy
+msgid "&File:"
 msgstr "File:"
 
 #, fuzzy
-msgid "Alternative Printer Command"
+msgid "C&hange..."
+msgstr "Ubah..."
+
+#, fuzzy
+msgid "A&lternative Printer Command"
 msgstr "Cetak melalui Perintah lain"
 
-msgid "Command:"
+#, fuzzy
+msgid "Co&mmand:"
 msgstr "Perintah:"
 
-msgid "Range:"
+#, fuzzy
+msgid "Range"
 msgstr "Cakupan:"
 
-msgid "Print all"
+#, fuzzy
+msgid "Print &All"
 msgstr "Cetak semua"
 
 #, fuzzy
-msgid "Print current page"
+msgid "Print Current Pa&ge"
 msgstr "Cakupan cetak"
 
-msgid "Print range"
+#, fuzzy
+msgid "Print &Range"
 msgstr "Cakupan cetak"
 
 msgid ""
@@ -1241,13 +1293,16 @@ msgid ""
 "a range of pages or a single page number."
 msgstr ""
 
-msgid "Number of copies:"
+#, fuzzy
+msgid "N&umber of Copies:"
 msgstr "Jumlah salinan:"
 
-msgid "Print Normal"
+#, fuzzy
+msgid "Print &Normal"
 msgstr "Cetak Normal"
 
-msgid "Print Separations"
+#, fuzzy
+msgid "Print &Separations"
 msgstr "Cetak Separasi"
 
 msgid "All"
@@ -1267,16 +1322,20 @@ msgstr "Bawah:"
 msgid "Black"
 msgstr "Blok"
 
-msgid "Print in color if available"
+#, fuzzy
+msgid "Pr&int In Color If Available"
 msgstr "Cetak berwarna jika tersedia"
 
-msgid "Print in grayscale"
+#, fuzzy
+msgid "Print In Gra&yscale"
 msgstr "Cetak abu-abu"
 
-msgid "Advanced Options..."
+#, fuzzy
+msgid "Ad&vanced Options..."
 msgstr "Pilihan Advanced"
 
-msgid "Print"
+#, fuzzy
+msgid "&Print"
 msgstr "Cetak"
 
 msgid "Save as"
@@ -1292,45 +1351,54 @@ msgstr "Edit Gaya"
 msgid "Character"
 msgstr "Karakter"
 
-msgid "Face:"
-msgstr "Bentuk:"
+#, fuzzy
+msgid "&Font:"
+msgstr "&Font"
+
+#, fuzzy
+msgid "Si&ze:"
+msgstr "Ukuran:"
 
 #, fuzzy
 msgid "Effect:"
 msgstr "Efek"
 
 #, fuzzy
-msgid "Alignment:"
+msgid "&Alignment:"
 msgstr "Peletakan"
 
-msgid "Drop Caps"
+msgid "&Drop Caps"
 msgstr ""
 
 #, fuzzy
-msgid "Lines:"
+msgid "&Lines:"
 msgstr "Baris:"
 
-msgid "Fill Color:"
+#, fuzzy
+msgid "F&ill Color:"
 msgstr "Warna Isian:"
 
 #, fuzzy
-msgid "Stroke Color:"
+msgid "St&roke Color:"
 msgstr "Warna Baru:"
 
 msgid "Vertical Spaces"
 msgstr "Spasi Vertikal"
 
-msgid "Adjust to Baseline Grid"
-msgstr ""
+#, fuzzy
+msgid "Adjust to Baseline &Grid"
+msgstr "Sembunyikan Grid"
 
 #, fuzzy
-msgid "Line Spacing:"
+msgid "Line &Spacing:"
 msgstr "Spasi Baris:"
 
-msgid "Above:"
+#, fuzzy
+msgid "Abo&ve:"
 msgstr "Atas:"
 
-msgid "Below:"
+#, fuzzy
+msgid "&Below:"
 msgstr "Bawah:"
 
 msgid "Tabulators and Indentation"
@@ -1393,41 +1461,53 @@ msgstr "Apakah anda benar-benar ingin menghapus Gaya ini?"
 msgid "Editor"
 msgstr "Edit"
 
-msgid "Save as..."
+#, fuzzy
+msgid "&Open..."
+msgstr "Buka..."
+
+#, fuzzy
+msgid "Save &As..."
 msgstr "Simpan sebagai..."
 
-msgid "Load..."
-msgstr "Muatkan..."
-
-msgid "Save and Exit"
+#, fuzzy
+msgid "&Save and Exit"
 msgstr "Simpan dan Keluar"
 
-msgid "Exit without Saving"
+#, fuzzy
+msgid "&Exit without Saving"
 msgstr "Keluar tanpa Simpan"
 
-msgid "Undo"
+#, fuzzy
+msgid "&Undo"
 msgstr "Batal"
 
-msgid "Redo"
+#, fuzzy
+msgid "&Redo"
 msgstr "Redo"
 
-msgid "Cut"
+#, fuzzy
+msgid "Cu&t"
 msgstr "Cut"
 
-msgid "Copy"
+#, fuzzy
+msgid "&Copy"
 msgstr "Salin"
 
-msgid "Paste"
+#, fuzzy
+msgid "&Paste"
 msgstr "Tempel"
 
-msgid "Clear"
+#, fuzzy
+msgid "C&lear"
 msgstr "Bersihkan"
 
-msgid "Get Field Names"
+#, fuzzy
+msgid "&Get Field Names"
 msgstr "Dapatkan Nama Field"
 
-msgid "Edit"
-msgstr "Edit"
+#, fuzzy
+msgid "&File"
+msgstr "Berkas"
 
 #, fuzzy
 msgid "Javascripts (*.js);;All Files (*)"
@@ -1481,10 +1561,6 @@ msgid "Font &Substitutions"
 msgstr "Substitusi Font"
 
 #, fuzzy
-msgid "C&hange..."
-msgstr "Ubah..."
-
-#, fuzzy
 msgid "A&dd..."
 msgstr "Tambahkan..."
 
@@ -1503,14 +1579,25 @@ msgid "Nodes"
 msgstr "Node"
 
 #, fuzzy
-msgid "Absolute Coordinates"
+msgid "&Absolute Coordinates"
 msgstr "Colorimetric Absolut"
 
+msgid "&X-Pos:"
+msgstr ""
+
+msgid "&Y-Pos:"
+msgstr ""
+
 #, fuzzy
-msgid "Edit Contour Line"
+msgid "Edit &Contour Line"
 msgstr "Edit Warna"
 
-msgid "End Editing"
+#, fuzzy
+msgid "&Reset Contour Line"
+msgstr "Garis Putus Titik"
+
+#, fuzzy
+msgid "&End Editing"
 msgstr "Selesai Mengedit"
 
 msgid "Move Nodes"
@@ -1525,10 +1612,12 @@ msgstr "Tambahkan Node"
 msgid "Delete Nodes"
 msgstr "Hapus Node"
 
-msgid "Move Control Points independently"
+#, fuzzy
+msgid "Move Control Points Independently"
 msgstr "Pindahkan Titik Kontrol secara independen"
 
-msgid "Move Control Points symmetrical"
+#, fuzzy
+msgid "Move Control Points Symmetrical"
 msgstr "Pindahkan Titik Kontrol secara simetris"
 
 msgid "Reset Control Points"
@@ -1538,42 +1627,62 @@ msgstr "Reset Titik Kontrol"
 msgid "Reset this Control Point"
 msgstr "Reset Titik Kontrol ini"
 
-msgid "Opens a Polygon or cuts a Bezier Curve"
+#, fuzzy
+msgid "Open a Polygon or Cuts a Bezier Curve"
 msgstr "Buka Poligon atau cut Kurva Bezier"
 
-msgid "Closes this Bezier Curve"
+#, fuzzy
+msgid "Close this Bezier Curve"
 msgstr "Tutup Kurva Bezier ini"
 
 #, fuzzy
-msgid "Mirrors the Path Horizontally"
+msgid "Mirror the Path Horizontally"
 msgstr "Balik Halaman horisontal"
 
 #, fuzzy
-msgid "Mirrors the Path Vertically"
+msgid "Mirror the Path Vertically"
 msgstr "Balik Halaman vertikal"
 
-msgid "Shears the Path horizontal to the right"
+#, fuzzy
+msgid "Shear the Path Horizontally to the Rright"
+msgstr "Balik Halaman horisontal"
+
+#, fuzzy
+msgid "Shear the Path Horizontally to the Left"
+msgstr "Balik Halaman horisontal"
+
+#, fuzzy
+msgid "Shear the Path Vertically Up"
+msgstr "Balik Halaman vertikal"
+
+#, fuzzy
+msgid "Shear the Path Vertically Down"
+msgstr "Balik Halaman vertikal"
+
+msgid "Rotate the Path Counter-Clockwise"
 msgstr ""
 
-msgid "Shears the Path horizontal to the left"
+msgid "Rotate the Path Clockwise"
 msgstr ""
 
-msgid "Shears the Path vertical up"
+msgid "Reduce the Size of the Path by shown %"
 msgstr ""
 
-msgid "Shears the Path vertical down"
+msgid "Enlarge the Size of the Path by shown %"
 msgstr ""
 
-msgid "Rotates the Path counter-clockwise"
+#, fuzzy
+msgid "Angle of Rotation"
+msgstr "Rotasi"
+
+#, c-format
+msgid "% to Enlarge or Reduce By"
 msgstr ""
 
-msgid "Rotates the Path clockwise"
+msgid "Activate Contour Line Editing Mode"
 msgstr ""
 
-msgid "Reduce the Size of the Path by 10%"
-msgstr ""
-
-msgid "Enlarges the Size of the Path by 10%"
+msgid "Reset the Contour Line to the Original Shape of the Frame"
 msgstr ""
 
 msgid ""
@@ -1587,9 +1696,6 @@ msgstr "Atur Pemandu"
 msgid "Horizontal Guides"
 msgstr "Pemandu Horisontal"
 
-msgid "&Y-Pos:"
-msgstr ""
-
 #, fuzzy
 msgid "&Add"
 msgstr "Tambahkan"
@@ -1600,9 +1706,6 @@ msgstr "Hapus"
 
 msgid "Vertical Guides"
 msgstr "Pemandu Vertikal"
-
-msgid "&X-Pos:"
-msgstr ""
 
 #, fuzzy
 msgid "A&dd"
@@ -1668,10 +1771,12 @@ msgstr ""
 msgid "Insert Page"
 msgstr "Masukkan Halaman"
 
-msgid "Inserting"
+#, fuzzy
+msgid "&Inserting"
 msgstr "Memasukkan"
 
-msgid "page(s)"
+#, fuzzy
+msgid "Page(s)"
 msgstr "halaman"
 
 msgid "before Page"
@@ -1683,11 +1788,12 @@ msgstr "sesudah Halaman"
 msgid "at End"
 msgstr "di Akhir"
 
-msgid "Template (Left Page):"
-msgstr "Template (Halaman Kiri):"
+msgid "Inserting"
+msgstr "Memasukkan"
 
-msgid "Template:"
-msgstr "Template:"
+#, fuzzy
+msgid "&Template (Left Page):"
+msgstr "Template (Halaman Kiri):"
 
 msgid "Template (Right Page):"
 msgstr "Template (Halaman Kanan):"
@@ -1707,7 +1813,8 @@ msgstr "Tambahkan..."
 msgid "&Close"
 msgstr "&Tutup"
 
-msgid "New Script:"
+#, fuzzy
+msgid "&New Script:"
 msgstr "Skrip Baru:"
 
 msgid "New Script"
@@ -1716,6 +1823,14 @@ msgstr "Skrip Baru"
 #, fuzzy
 msgid "Do you really want do delete this Script?"
 msgstr "Apakah anda benar-benar ingin menghapus Gaya ini?"
+
+#, fuzzy
+msgid "&No"
+msgstr "Tidak"
+
+#, fuzzy
+msgid "&Yes"
+msgstr "Ya"
 
 msgid "Manage Keyboard Shortcuts"
 msgstr "Atur Shortcut Keyboard"
@@ -1855,17 +1970,28 @@ msgstr "Salin Halaman"
 msgid "Move Page(s):"
 msgstr "Pindah Halaman:"
 
-msgid "X, Y, Z"
+msgid "X, Y, &Z"
 msgstr ""
 
-msgid "Shape"
+#, fuzzy
+msgid "&Shape"
 msgstr "Bentuk"
 
-msgid "Image"
+#, fuzzy
+msgid "&Text"
+msgstr "Teks"
+
+#, fuzzy
+msgid "&Image"
 msgstr "Gambar"
 
-msgid "Line"
+#, fuzzy
+msgid "&Line"
 msgstr "Garis"
+
+#, fuzzy
+msgid "&Colors"
+msgstr "Warna"
 
 #, fuzzy
 msgid "Name"
@@ -1874,10 +2000,16 @@ msgstr "Nama:"
 msgid "Geometry"
 msgstr "Geometri"
 
-msgid "Height:"
+#, fuzzy
+msgid "&Width:"
+msgstr "Lebar:"
+
+#, fuzzy
+msgid "&Height:"
 msgstr "Tinggi:"
 
-msgid "Rotation:"
+#, fuzzy
+msgid "&Rotation:"
 msgstr "Rotasi:"
 
 msgid "Basepoint:"
@@ -1887,52 +2019,47 @@ msgid "Level"
 msgstr "Level"
 
 #, fuzzy
-msgid "Text flows around frame"
-msgstr "Teks di seputar Kotak"
-
-#, fuzzy
-msgid "Use Bounding Box"
-msgstr "gunakan Kotak Bounding"
-
-#, fuzzy
-msgid "Use Contour Line"
-msgstr "Garis Putus Titik"
-
-#, fuzzy
 msgid "Shape:"
 msgstr "Bentuk"
 
-msgid "Edit Shape..."
+#, fuzzy
+msgid "&Edit Shape..."
 msgstr "Edit Bentuk..."
 
+#, fuzzy
 msgid ""
-"Round\n"
+"R&ound\n"
 "Corners:"
-msgstr ""
+msgstr "Sudut:"
 
 msgid "Distance of Text"
 msgstr "Jarak Teks"
 
-msgid "Columns:"
+#, fuzzy
+msgid "Colu&mns:"
 msgstr "Kolom:"
 
-msgid "Gap:"
+msgid "&Gap:"
 msgstr ""
 
-msgid "Top:"
+#, fuzzy
+msgid "To&p:"
 msgstr "Atas:"
 
-msgid "Bottom:"
+#, fuzzy
+msgid "&Bottom:"
 msgstr "Bawah:"
 
-msgid "Left:"
+#, fuzzy
+msgid "&Left:"
 msgstr "Kiri:"
 
-msgid "Right:"
+#, fuzzy
+msgid "&Right:"
 msgstr "Kanan:"
 
 #, fuzzy
-msgid "Tabulators..."
+msgid "T&abulators..."
 msgstr "Template..."
 
 #, fuzzy
@@ -1949,38 +2076,60 @@ msgstr "Offset awal:"
 msgid "Distance from Curve:"
 msgstr "Jarak dari Kurva:"
 
-msgid "Font Size:"
+#, fuzzy
+msgid "Text &Flows Around Frame"
+msgstr "Teks di seputar Kotak"
+
+#, fuzzy
+msgid "Use &Bounding Box"
+msgstr "gunakan Kotak Bounding"
+
+#, fuzzy
+msgid "&Use Contour Line"
+msgstr "Garis Putus Titik"
+
+#, fuzzy
+msgid "&Font Size:"
 msgstr "Ukuran Font:"
 
 msgid "Custom Spacing"
 msgstr "Spasi Sendiri"
 
 #, fuzzy
-msgid "Kerning:"
+msgid "&Kerning:"
 msgstr "Peringatan"
 
-msgid "Language:"
+#, fuzzy
+msgid "L&ine Spacing:"
+msgstr "Spasi Baris:"
+
+#, fuzzy
+msgid "St&yle:"
+msgstr "Gaya"
+
+#, fuzzy
+msgid "Lan&guage:"
 msgstr "Bahasa:"
 
-msgid "Free Scaling"
+#, fuzzy
+msgid "&Free Scaling"
 msgstr "Skala Bebas"
 
-msgid "X-Pos.:"
-msgstr ""
-
-msgid "Y-Pos.:"
-msgstr ""
-
 #, fuzzy
-msgid "X-Scale:"
+msgid "X-Sc&ale:"
 msgstr "Skala:"
 
 #, fuzzy
-msgid "Y-Scale:"
+msgid "Y-Scal&e:"
 msgstr "Skala:"
 
-msgid "Scale to Frame Size"
+#, fuzzy
+msgid "Scale &To Frame Size"
 msgstr "Skala ke Ukuran Halaman"
+
+#, fuzzy
+msgid "P&roportional"
+msgstr "Proporsional"
 
 msgid "Input Profile:"
 msgstr "Profil Masukan:"
@@ -1995,14 +2144,16 @@ msgstr "Titik Kiri"
 msgid "End Points"
 msgstr "Titik Akhir"
 
-msgid "Type of Line:"
+msgid "&Basepoint:"
 msgstr ""
 
-msgid "Line Width:"
-msgstr "Lebar Garis:"
+#, fuzzy
+msgid "T&ype of Line:"
+msgstr "Profil Sistem"
 
-msgid "Edges:"
-msgstr "Tepi:"
+#, fuzzy
+msgid "Line &Width:"
+msgstr "Lebar Garis:"
 
 msgid "Miter Join"
 msgstr ""
@@ -2013,8 +2164,9 @@ msgstr ""
 msgid "Round Join"
 msgstr ""
 
-msgid "Endings:"
-msgstr "Akhir:"
+#, fuzzy
+msgid "Ed&ges:"
+msgstr "Tepi:"
 
 msgid "Flat Cap"
 msgstr ""
@@ -2025,6 +2177,10 @@ msgstr "Persegi"
 
 msgid "Round Cap"
 msgstr ""
+
+#, fuzzy
+msgid "&Endings:"
+msgstr "Akhir:"
 
 msgid "No Style"
 msgstr "Tanpa Gaya"
@@ -2238,6 +2394,19 @@ msgstr ""
 msgid "Rendering intent for the image"
 msgstr "Intensitas Rendering"
 
+msgid "&X1:"
+msgstr ""
+
+msgid "X&2:"
+msgstr ""
+
+msgid "Y&1:"
+msgstr ""
+
+#, fuzzy
+msgid "&Y2:"
+msgstr "Ya"
+
 #, fuzzy
 msgid "Column width"
 msgstr "Pemandu Kolom"
@@ -2261,6 +2430,9 @@ msgstr "Garis"
 
 msgid "p"
 msgstr ""
+
+msgid "Line Width:"
+msgstr "Lebar Garis:"
 
 msgid " pt "
 msgstr ""
@@ -2318,14 +2490,6 @@ msgid "Orie&ntation:"
 msgstr "Orientasi:"
 
 #, fuzzy
-msgid "&Width:"
-msgstr "Lebar:"
-
-#, fuzzy
-msgid "&Height:"
-msgstr "Tinggi:"
-
-#, fuzzy
 msgid "&Facing Pages"
 msgstr "Halaman Berhadapan"
 
@@ -2337,20 +2501,8 @@ msgid "Margin Guides"
 msgstr "Pemandu Gari Tepi"
 
 #, fuzzy
-msgid "&Left:"
-msgstr "Kiri:"
-
-#, fuzzy
-msgid "&Right:"
-msgstr "Kanan:"
-
-#, fuzzy
 msgid "&Top:"
 msgstr "Atas:"
-
-#, fuzzy
-msgid "&Bottom:"
-msgstr "Bawah:"
 
 #, fuzzy
 msgid "F&irst Page Number:"
@@ -2379,13 +2531,6 @@ msgstr "Frame Teks Otomatis"
 
 msgid "Column Guides"
 msgstr "Pemandu Kolom"
-
-msgid "&Gap:"
-msgstr ""
-
-#, fuzzy
-msgid "Colu&mns:"
-msgstr "Kolom:"
 
 msgid "Document page size, either a standard size or a custom size"
 msgstr ""
@@ -2460,10 +2605,6 @@ msgstr "Salin ke Sini"
 
 msgid "Move Here"
 msgstr "Pindah ke Sini"
-
-#, fuzzy
-msgid "&Paste"
-msgstr "Tempel"
 
 #, fuzzy
 msgid "Show &Margins"
@@ -2681,14 +2822,6 @@ msgid "Conve&rt to"
 msgstr "Konversikan ke"
 
 #, fuzzy
-msgid "Cu&t"
-msgstr "Cut"
-
-#, fuzzy
-msgid "&Copy"
-msgstr "Salin"
-
-#, fuzzy
 msgid "C&lear Contents"
 msgstr "Isi"
 
@@ -2711,6 +2844,12 @@ msgstr "Hilang"
 #, fuzzy
 msgid "Copy of"
 msgstr "Salinan dari"
+
+msgid "Image"
+msgstr "Gambar"
+
+msgid "Line"
+msgstr "Garis"
 
 msgid "Polygon"
 msgstr "Poligon"
@@ -3033,7 +3172,8 @@ msgstr ""
 msgid "Solid Colors:"
 msgstr "Warna Solid:"
 
-msgid "Use ICC-Profile"
+#, fuzzy
+msgid "Use ICC Profile"
 msgstr "Gunakan Profil ICC"
 
 #, fuzzy
@@ -3045,10 +3185,6 @@ msgstr "Intensitas Rendering"
 
 msgid "Images:"
 msgstr "Gambar:"
-
-#, fuzzy
-msgid "Use ICC Profile"
-msgstr "Gunakan Profil ICC"
 
 #, fuzzy
 msgid "Don't use embedded ICC profiles"
@@ -3225,6 +3361,15 @@ msgid ""
 "Choose Printer when printing to a true 4 color CMYK printer."
 msgstr ""
 
+msgid ""
+"This is an advanced setting which is not enabled by default. This should "
+"only be enabled\n"
+"when specifically requested by your printer and they have given you the "
+"exact details needed.\n"
+"Otherwise, your exported PDF may not print properly and is truly not "
+"portable across systems."
+msgstr ""
+
 msgid "Embed a color profile for solid colors"
 msgstr ""
 
@@ -3292,6 +3437,9 @@ msgstr "Gambar"
 msgid "Path"
 msgstr "Lokasi"
 
+msgid "Print"
+msgstr "Cetak"
+
 msgid "Status"
 msgstr "Status"
 
@@ -3309,6 +3457,9 @@ msgstr "Properti Poligon"
 
 msgid "Corners:"
 msgstr "Sudut:"
+
+msgid "Rotation:"
+msgstr "Rotasi:"
 
 msgid "Convex Polygon"
 msgstr "Poligon Cembung"
@@ -3331,10 +3482,6 @@ msgid "&Load..."
 msgstr "Muatkan..."
 
 #, fuzzy
-msgid "Save &As..."
-msgstr "Simpan sebagai..."
-
-#, fuzzy
 msgid "&Small"
 msgstr "Kecil"
 
@@ -3345,10 +3492,6 @@ msgstr "Sedang"
 #, fuzzy
 msgid "&Large"
 msgstr "Halaman"
-
-#, fuzzy
-msgid "&File"
-msgstr "Berkas"
 
 #, fuzzy
 msgid "&Preview"
@@ -3441,6 +3584,9 @@ msgstr "Tampilkan Layer"
 msgid "Javascripts..."
 msgstr "Java Script"
 
+msgid "Undo"
+msgstr "Batal"
+
 msgid "Show Page Palette"
 msgstr "Tampilkan Palet Halaman"
 
@@ -3454,7 +3600,8 @@ msgstr ""
 msgid "Reading Preferences"
 msgstr "Membaca Preferensi"
 
-msgid "Getting ICC-Profiles"
+#, fuzzy
+msgid "Getting ICC Profiles"
 msgstr "Dapatkan Profil ICC"
 
 msgid "Init Hyphenator"
@@ -3474,10 +3621,6 @@ msgid "Initializing Plugins"
 msgstr "Inisialisasi Plugin"
 
 #, fuzzy
-msgid "&Open..."
-msgstr "Buka..."
-
-#, fuzzy
 msgid "Open &Recent"
 msgstr "Buka Dokumen"
 
@@ -3489,6 +3632,9 @@ msgstr "Tutup"
 
 msgid "Save"
 msgstr "Simpan"
+
+msgid "Save as..."
+msgstr "Simpan sebagai..."
 
 #, fuzzy
 msgid "Re&vert to Saved"
@@ -3559,16 +3705,20 @@ msgid "Quit"
 msgstr "Keluar"
 
 #, fuzzy
-msgid "&Undo"
-msgstr "Batal"
-
-#, fuzzy
-msgid "C&lear"
-msgstr "Bersihkan"
-
-#, fuzzy
 msgid "Select &All"
 msgstr "Pilih semua"
+
+msgid "Cut"
+msgstr "Cut"
+
+msgid "Copy"
+msgstr "Salin"
+
+msgid "Paste"
+msgstr "Tempel"
+
+msgid "Clear"
+msgstr "Bersihkan"
 
 msgid "Select all"
 msgstr "Pilih semua"
@@ -3651,10 +3801,6 @@ msgid "&Edit Frame"
 msgstr "Edit Frame"
 
 #, fuzzy
-msgid "&Shape"
-msgstr "Bentuk"
-
-#, fuzzy
 msgid "&Attach Text to Path"
 msgstr "Masukkan Teks ke Path"
 
@@ -3703,7 +3849,7 @@ msgid "Apply Template..."
 msgstr "Terapkan Template..."
 
 #, fuzzy
-msgid "&Manage Guides..."
+msgid "Manage &Guides..."
 msgstr "Atur Pemandu..."
 
 msgid "Manage Guides..."
@@ -4042,6 +4188,10 @@ msgid "Scribus Manual"
 msgstr "Manual Scribus"
 
 #, fuzzy
+msgid "&Shade:"
+msgstr "Tingkat Kegelapan:"
+
+#, fuzzy
 msgid "Hide Baseline Grid"
 msgstr "Sembunyikan Grid"
 
@@ -4322,65 +4472,82 @@ msgid "Draw various Shapes"
 msgstr ""
 
 #, fuzzy
-msgid "PDF-Tools"
-msgstr "Tampilkan Alat PDF"
+msgid "PDF Tools"
+msgstr "Alat bantu"
 
-msgid "Insert PDF-Fields"
+#, fuzzy
+msgid "Insert PDF Fields"
 msgstr "Masukkan Field-PDF"
 
-msgid "Insert PDF-Annotations"
+#, fuzzy
+msgid "Insert PDF Annotations"
 msgstr "Masukkan Anotasi PDF"
 
 #, fuzzy
 msgid "Manage Tabulators"
 msgstr "Manajemen Gambar"
 
+#, fuzzy
+msgid "F&ill Color Settings"
+msgstr "Warna Isian:"
+
+#, fuzzy
+msgid "&Stroke Color Settings"
+msgstr "Warna Baru"
+
+#, fuzzy
+msgid "&Character Settings"
+msgstr "Pengaturan Karakter"
+
+#, fuzzy
+msgid "Kerning:"
+msgstr "Peringatan"
+
+#, fuzzy
+msgid "St&yle Settings"
+msgstr "Pengaturan"
+
+#, fuzzy
+msgid "&Font Settings"
+msgstr "Pengaturan"
+
+#, fuzzy
+msgid "Font of selected text"
+msgstr "Batalkan Hapus obyek"
+
 msgid "Story Editor"
 msgstr ""
 
-msgid "Forced"
-msgstr "Paksakan"
-
-msgid "Block"
-msgstr "Blok"
-
-msgid "Right"
-msgstr "Kanan"
-
-msgid "Center"
-msgstr "Tengah"
-
-msgid "Left"
-msgstr "Kiri"
+#, fuzzy
+msgid "&Reload Text from Frame"
+msgstr "Masukkan Teks ke Path"
 
 #, fuzzy
-msgid "Save to File..."
+msgid "&Save to File..."
 msgstr "Simpan sebagai PDF..."
 
-msgid "Load from File..."
-msgstr ""
+#, fuzzy
+msgid "&Load from File..."
+msgstr "Simpan sebagai PDF..."
 
 #, fuzzy
-msgid "Save Document"
+msgid "Save &Document"
 msgstr "Dokumen Baru"
 
-msgid "Update Text Frame and Exit"
-msgstr ""
+#, fuzzy
+msgid "&Update Text Frame and Exit"
+msgstr "Frame Teks"
 
 #, fuzzy
-msgid "Exit Without Updating Text Frame"
+msgid "&Exit Without Updating Text Frame"
 msgstr "Keluar tanpa Simpan"
 
 #, fuzzy
-msgid "Insert Special..."
+msgid "&Insert Special..."
 msgstr "Masukkan Spesial"
 
 #, fuzzy
-msgid "Edit Styles..."
-msgstr "Edit Gaya"
-
-#, fuzzy
-msgid "Update Text Frame"
+msgid "&Update Text Frame"
 msgstr "Frame Teks"
 
 msgid "Current Paragraph:"
@@ -4434,27 +4601,43 @@ msgstr "Warna Baru"
 msgid "Stroke Shade"
 msgstr ""
 
+msgid "Left"
+msgstr "Kiri"
+
+msgid "Center"
+msgstr "Tengah"
+
+msgid "Right"
+msgstr "Kanan"
+
+msgid "Block"
+msgstr "Blok"
+
+msgid "Forced"
+msgstr "Paksakan"
+
 #, fuzzy
 msgid "Replace with:"
 msgstr "Gantikan dengan:"
 
-msgid "Whole Word"
-msgstr ""
+#, fuzzy
+msgid "&Whole Word"
+msgstr "Kata Terpendek:"
 
-msgid "Ignore Case"
+msgid "&Ignore Case"
 msgstr ""
 
 #, fuzzy
-msgid "Replace"
+msgid "&Search"
+msgstr "Cari"
+
+#, fuzzy
+msgid "&Replace"
 msgstr "Penggantian"
 
 #, fuzzy
-msgid "Replace All"
+msgid "Replace &All"
 msgstr "Penggantian"
-
-#, fuzzy
-msgid "Leave"
-msgstr "Level"
 
 msgid "Search finished"
 msgstr ""
@@ -4486,6 +4669,39 @@ msgstr "Bariskan Teks di Tengah"
 
 msgid "Other..."
 msgstr "Lainnya..."
+
+msgid "Full Stop"
+msgstr ""
+
+#, fuzzy
+msgid "Comma"
+msgstr "Perintah:"
+
+#, fuzzy
+msgid "&Position:"
+msgstr "Uraian:"
+
+#, fuzzy
+msgid "First &Line:"
+msgstr "Baris Pertama:"
+
+#, fuzzy
+msgid "Ind&ent:"
+msgstr "Indentasi Kiri:"
+
+#, fuzzy
+msgid "Delete All"
+msgstr "Hapus"
+
+msgid "Indentation for first line of the paragraph"
+msgstr ""
+
+msgid "Indentation from the left for the whole paragraph"
+msgstr ""
+
+#, fuzzy
+msgid "Delete all Tabulators"
+msgstr "Hapus Warna"
 
 msgid ""
 "<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
@@ -4632,14 +4848,6 @@ msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
 msgstr ""
 
 #, fuzzy
-msgid "&Yes"
-msgstr "Ya"
-
-#, fuzzy
-msgid "&No"
-msgstr "Tidak"
-
-#, fuzzy
 msgid "New Folder 1"
 msgstr "Buat Folder Baru"
 
@@ -4683,10 +4891,6 @@ msgstr "Arah:"
 #, fuzzy
 msgid "Select All"
 msgstr "Pilih semua"
-
-#, fuzzy
-msgid "&Redo"
-msgstr "Redo"
 
 msgid "Line up"
 msgstr ""
@@ -4793,38 +4997,6 @@ msgstr "Jumlah salinan:"
 msgid "Number of Columns:"
 msgstr "Jumlah salinan:"
 
-msgid "Full Stop"
-msgstr ""
-
-#, fuzzy
-msgid "Comma"
-msgstr "Perintah:"
-
-#, fuzzy
-msgid "Position:"
-msgstr "Uraian:"
-
-msgid "First Line:"
-msgstr "Baris Pertama:"
-
-#, fuzzy
-msgid "Indent:"
-msgstr "Indentasi Kiri:"
-
-#, fuzzy
-msgid "Delete All"
-msgstr "Hapus"
-
-msgid "Indentation for first line of the paragraph"
-msgstr ""
-
-msgid "Indentation from the left for the whole paragraph"
-msgstr ""
-
-#, fuzzy
-msgid "Delete all Tabulators"
-msgstr "Hapus Warna"
-
 msgid "Distances"
 msgstr "Jarak"
 
@@ -4839,6 +5011,10 @@ msgstr "Sudut:"
 
 msgid "Length:"
 msgstr "Panjang:"
+
+#, fuzzy
+msgid "Position:"
+msgstr "Uraian:"
 
 msgid "Here you can add, change or remove Color-Stops."
 msgstr ""
@@ -5003,10 +5179,6 @@ msgstr "GUI"
 #, fuzzy
 msgid "&Theme:"
 msgstr "Tema"
-
-#, fuzzy
-msgid "&Font Size:"
-msgstr "Ukuran Font:"
 
 msgid "Units"
 msgstr "Satuan"
@@ -5197,10 +5369,6 @@ msgid "&Type of Line:"
 msgstr "Profil Sistem"
 
 #, fuzzy
-msgid "Line &Width:"
-msgstr "Lebar Garis:"
-
-#, fuzzy
 msgid "Mi&nimum:"
 msgstr "minimum"
 
@@ -5211,10 +5379,6 @@ msgstr "maksimum"
 #, fuzzy
 msgid "&Stepping:"
 msgstr "Langkah:"
-
-#, fuzzy
-msgid "&Free Scaling"
-msgstr "Skala Bebas"
 
 #, fuzzy
 msgid "&Horizontal Scaling:"
@@ -5232,16 +5396,8 @@ msgid "Keep Aspect &Ratio"
 msgstr ""
 
 #, fuzzy
-msgid "F&ill Color:"
-msgstr "Warna Isian:"
-
-#, fuzzy
 msgid "Corn&ers:"
 msgstr "Sudut:"
-
-#, fuzzy
-msgid "&Rotation:"
-msgstr "Rotasi:"
 
 #, fuzzy
 msgid "Conve&x Polygon"
@@ -5327,6 +5483,9 @@ msgstr "Mencetak..."
 #, fuzzy
 msgid "Clip to Page &Margins"
 msgstr "Sembunyikan Garis Tepi"
+
+msgid "Apply &Under Color Removal"
+msgstr ""
 
 msgid ""
 "Choose the default window decoration and looks.\n"
@@ -5627,6 +5786,9 @@ msgstr "Tampilkan Frame"
 msgid "&Display CMYK"
 msgstr "Tampilan"
 
+msgid "&Under Color Removal"
+msgstr ""
+
 msgid "&C"
 msgstr ""
 
@@ -5772,19 +5934,16 @@ msgstr ""
 msgid "Export as Image"
 msgstr "Ekspor Cakupan"
 
-msgid "Export to directory:"
-msgstr ""
-
 msgid "Alt+C"
 msgstr ""
 
 #, fuzzy
-msgid "Image type:"
-msgstr "Gambar:"
+msgid "&Export to Directory:"
+msgstr "Pilih Direktori"
 
 #, fuzzy
-msgid "Quality :"
-msgstr "Keluar"
+msgid "Image &Type:"
+msgstr "Gambar:"
 
 msgid "%"
 msgstr ""
@@ -6033,6 +6192,74 @@ msgstr "Atur Sendiri"
 #, fuzzy
 msgid "Save as &Template..."
 msgstr "Simpan Teks..."
+
+#~ msgid "Number of copies:"
+#~ msgstr "Jumlah salinan:"
+
+#~ msgid "Face:"
+#~ msgstr "Bentuk:"
+
+#~ msgid "Fill Color:"
+#~ msgstr "Warna Isian:"
+
+#~ msgid "Load..."
+#~ msgstr "Muatkan..."
+
+#~ msgid "Redo"
+#~ msgstr "Redo"
+
+#~ msgid "Edit"
+#~ msgstr "Edit"
+
+#~ msgid "Template:"
+#~ msgstr "Template:"
+
+#~ msgid "Shape"
+#~ msgstr "Bentuk"
+
+#~ msgid "Height:"
+#~ msgstr "Tinggi:"
+
+#~ msgid "Columns:"
+#~ msgstr "Kolom:"
+
+#~ msgid "Bottom:"
+#~ msgstr "Bawah:"
+
+#~ msgid "Left:"
+#~ msgstr "Kiri:"
+
+#~ msgid "Right:"
+#~ msgstr "Kanan:"
+
+#~ msgid "Font Size:"
+#~ msgstr "Ukuran Font:"
+
+#~ msgid "Free Scaling"
+#~ msgstr "Skala Bebas"
+
+#~ msgid "Use ICC-Profile"
+#~ msgstr "Gunakan Profil ICC"
+
+#, fuzzy
+#~ msgid "&Manage Guides..."
+#~ msgstr "Atur Pemandu..."
+
+#, fuzzy
+#~ msgid "PDF-Tools"
+#~ msgstr "Tampilkan Alat PDF"
+
+#, fuzzy
+#~ msgid "Edit Styles..."
+#~ msgstr "Edit Gaya"
+
+#, fuzzy
+#~ msgid "Leave"
+#~ msgstr "Level"
+
+#, fuzzy
+#~ msgid "Quality :"
+#~ msgstr "Keluar"
 
 #~ msgid "From page:"
 #~ msgstr "Dari halaman:"
@@ -6351,9 +6578,6 @@ msgstr "Simpan Teks..."
 #~ msgid "Scaling"
 #~ msgstr "Skala"
 
-#~ msgid "Character Settings"
-#~ msgstr "Pengaturan Karakter"
-
 #~ msgid "Edit Polygon"
 #~ msgstr "Edit Poligon"
 
@@ -6386,9 +6610,6 @@ msgstr "Simpan Teks..."
 
 #~ msgid "Hide Bookmarks"
 #~ msgstr "Sembunyikan Bookmark"
-
-#~ msgid "Rotation"
-#~ msgstr "Rotasi"
 
 #~ msgid "by:"
 #~ msgstr "oleh:"

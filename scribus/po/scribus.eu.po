@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
-"POT-Creation-Date: 2004-07-19 23:24+0200\n"
+"POT-Creation-Date: 2004-07-28 23:12+0200\n"
 "PO-Revision-Date: 2003-12-15 23:36+0100\n"
 "Last-Translator: Hizkuntza Politikarako Sailburuordetza <hizpol@ej-gv.es>\n"
 "Language-Team: basque <itzulpena@euskalgnu.org>\n"
@@ -25,9 +25,6 @@ msgstr "Lerrokatu"
 msgid "Horizontal"
 msgstr "Horizontala"
 
-msgid "between:"
-msgstr "hauen artean:"
-
 msgid "Left Sides"
 msgstr "Ezkerreko aldeak"
 
@@ -37,13 +34,20 @@ msgstr "Erdikoak"
 msgid "Right Sides"
 msgstr "Eskuineko aldeak"
 
-msgid "Don't change"
-msgstr "Ez aldatu"
+#, fuzzy
+msgid "&Between:"
+msgstr "hauen artean:"
 
-msgid "Displacement"
+#, fuzzy
+msgid "A&lign"
+msgstr "Lerrokatu"
+
+#, fuzzy
+msgid "Di&splacement"
 msgstr "Desplazamendua"
 
-msgid "Distribute evenly"
+#, fuzzy
+msgid "Distribute &Evenly"
 msgstr "Banatu uniformeki"
 
 msgid "Vertical"
@@ -55,8 +59,24 @@ msgstr "Goikoak"
 msgid "Bottom Sides"
 msgstr "Behekoak"
 
-msgid " pts"
-msgstr " pts"
+#, fuzzy
+msgid "Bet&ween:"
+msgstr "hauen artean:"
+
+#, fuzzy
+msgid "Do &Not Change"
+msgstr "Ez aldatu"
+
+#, fuzzy
+msgid "Al&ign"
+msgstr "Lerrokatu"
+
+#, fuzzy
+msgid "Dis&placement"
+msgstr "Desplazamendua"
+
+msgid " pt"
+msgstr " pt"
 
 msgid " mm"
 msgstr " mm"
@@ -66,6 +86,10 @@ msgstr " in"
 
 msgid " p"
 msgstr " p"
+
+#, fuzzy
+msgid "Distribute E&venly"
+msgstr "Banatu uniformeki"
 
 #, fuzzy
 msgid "&OK"
@@ -112,7 +136,8 @@ msgstr "Argibidea:"
 msgid "Text"
 msgstr "Testua"
 
-msgid "Font for use with PDF-1.3:"
+#, fuzzy
+msgid "Font for use with PDF 1.3:"
 msgstr "PDF 1.3rekin erabiltzeko letra-tipoa:"
 
 msgid "Border"
@@ -334,9 +359,6 @@ msgstr "Orrialdea:"
 msgid "X-Pos:"
 msgstr "X posizioa:"
 
-msgid " pt"
-msgstr " pt"
-
 msgid "Y-Pos:"
 msgstr "Y posizioa:"
 
@@ -454,7 +476,8 @@ msgstr "Ados"
 msgid "Cancel"
 msgstr "Utzi"
 
-msgid "Flag is ignored for PDF-1.3"
+#, fuzzy
+msgid "Flag is ignored for PDF 1.3"
 msgstr "PDF 1.3rako bandera ez da kontuan hartzen"
 
 #, fuzzy
@@ -477,7 +500,8 @@ msgstr "Adibidea:"
 msgid "Selection Change"
 msgstr "Hautapen-aldaketa"
 
-msgid "PDF-Documents (*.pdf);;All Files (*)"
+#, fuzzy
+msgid "PDF Documents (*.pdf);;All Files (*)"
 msgstr "Dokumentuak (*.pdf);; Fitxategi guztiak (*)"
 
 msgid "Annotation Properties"
@@ -492,6 +516,9 @@ msgstr "Kanpoko esteka"
 #, fuzzy
 msgid "External Web-Link"
 msgstr "Kanpoko esteka"
+
+msgid "PDF-Documents (*.pdf);;All Files (*)"
+msgstr "Dokumentuak (*.pdf);; Fitxategi guztiak (*)"
 
 msgid "Apply Template"
 msgstr "Aplikatu txantiloia"
@@ -688,7 +715,12 @@ msgstr ""
 msgid "Edit Color"
 msgstr "Editatu kolorea"
 
-msgid "Color Model"
+#, fuzzy
+msgid "&Name:"
+msgstr "Izena:"
+
+#, fuzzy
+msgid "Color &Model"
 msgstr "Kolore-eredua"
 
 msgid "CMYK"
@@ -1168,25 +1200,31 @@ msgstr ""
 msgid "Advanced Options"
 msgstr "Aukera aurreratuak"
 
-msgid "Mirror Page(s) horizontal"
+#, fuzzy
+msgid "Mirror Page(s) &Horizontal"
 msgstr "Ispilatu orrialdea(k) horizontalki"
 
-msgid "Mirror Page(s) vertical"
+#, fuzzy
+msgid "Mirror Page(s) &Vertical"
 msgstr "Ispilatu orrialdea(k) bertikalki"
 
-msgid "Apply ICC-Profiles"
+msgid "Appy Under Color &Removal"
+msgstr ""
+
+#, fuzzy
+msgid "Apply &ICC Profiles"
 msgstr "Aplikatu ICC profilak"
 
 #, fuzzy
-msgid "PostScript Level 3"
+msgid "PostScript Level &1"
 msgstr "Postscript"
 
 #, fuzzy
-msgid "PostScript Level 2"
+msgid "PostScript Level &2"
 msgstr "Postscript"
 
 #, fuzzy
-msgid "PostScript Level 1"
+msgid "PostScript Level &3"
 msgstr "Postscript"
 
 msgid "Creates PostScript Level 3"
@@ -1205,36 +1243,47 @@ msgstr ""
 msgid "Setup Printer"
 msgstr "Konfiguratu inprimagailua"
 
-msgid "Print destination"
+#, fuzzy
+msgid "Print Destination"
 msgstr "Inprimatze-helburua"
 
 msgid "File"
 msgstr "Fitxategia"
 
-msgid "Options..."
+#, fuzzy
+msgid "&Options..."
 msgstr "Aukerak..."
 
-msgid "File:"
+#, fuzzy
+msgid "&File:"
 msgstr "Fitxategia:"
 
 #, fuzzy
-msgid "Alternative Printer Command"
+msgid "C&hange..."
+msgstr "Aldatu..."
+
+#, fuzzy
+msgid "A&lternative Printer Command"
 msgstr "Inprimatu beste komando baten bidez"
 
-msgid "Command:"
+#, fuzzy
+msgid "Co&mmand:"
 msgstr "Komandoa:"
 
-msgid "Range:"
+#, fuzzy
+msgid "Range"
 msgstr "Barrutia:"
 
-msgid "Print all"
+#, fuzzy
+msgid "Print &All"
 msgstr "Inprimatu dena"
 
 #, fuzzy
-msgid "Print current page"
+msgid "Print Current Pa&ge"
 msgstr "Inprimatze-area"
 
-msgid "Print range"
+#, fuzzy
+msgid "Print &Range"
 msgstr "Inprimatze-area"
 
 msgid ""
@@ -1243,13 +1292,16 @@ msgid ""
 "a range of pages or a single page number."
 msgstr ""
 
-msgid "Number of copies:"
+#, fuzzy
+msgid "N&umber of Copies:"
 msgstr "Kopia-kopurua:"
 
-msgid "Print Normal"
+#, fuzzy
+msgid "Print &Normal"
 msgstr "Inprimatu normal"
 
-msgid "Print Separations"
+#, fuzzy
+msgid "Print &Separations"
 msgstr "Inprimatu banantzeak"
 
 msgid "All"
@@ -1269,16 +1321,20 @@ msgstr "Azpian:"
 msgid "Black"
 msgstr "Blokeatu"
 
-msgid "Print in color if available"
+#, fuzzy
+msgid "Pr&int In Color If Available"
 msgstr "Inprimatu koloretan ahal bada"
 
-msgid "Print in grayscale"
+#, fuzzy
+msgid "Print In Gra&yscale"
 msgstr "Inprimatu gris-eskalan"
 
-msgid "Advanced Options..."
+#, fuzzy
+msgid "Ad&vanced Options..."
 msgstr "Aukera aurreratuak..."
 
-msgid "Print"
+#, fuzzy
+msgid "&Print"
 msgstr "Inprimatu"
 
 msgid "Save as"
@@ -1294,45 +1350,54 @@ msgstr "Editatu estiloa"
 msgid "Character"
 msgstr "Karakterea"
 
-msgid "Face:"
-msgstr "Aurpegia:"
+#, fuzzy
+msgid "&Font:"
+msgstr "&Letra-tipoa"
+
+#, fuzzy
+msgid "Si&ze:"
+msgstr "Tamaina:"
 
 #, fuzzy
 msgid "Effect:"
 msgstr "Efektuak"
 
 #, fuzzy
-msgid "Alignment:"
+msgid "&Alignment:"
 msgstr "Lerrokatzea"
 
-msgid "Drop Caps"
+msgid "&Drop Caps"
 msgstr ""
 
 #, fuzzy
-msgid "Lines:"
+msgid "&Lines:"
 msgstr "Lerroa"
 
-msgid "Fill Color:"
+#, fuzzy
+msgid "F&ill Color:"
 msgstr "Kolore betegarria:"
 
 #, fuzzy
-msgid "Stroke Color:"
+msgid "St&roke Color:"
 msgstr "Kolore berria:"
 
 msgid "Vertical Spaces"
 msgstr "Tarte bertikalak"
 
-msgid "Adjust to Baseline Grid"
-msgstr ""
+#, fuzzy
+msgid "Adjust to Baseline &Grid"
+msgstr "Ezkutatu sareta"
 
 #, fuzzy
-msgid "Line Spacing:"
+msgid "Line &Spacing:"
 msgstr "Lerroartea:"
 
-msgid "Above:"
+#, fuzzy
+msgid "Abo&ve:"
 msgstr "Gainean:"
 
-msgid "Below:"
+#, fuzzy
+msgid "&Below:"
 msgstr "Azpian:"
 
 msgid "Tabulators and Indentation"
@@ -1394,41 +1459,53 @@ msgstr "Benetan ezabatu nahi duzu estilo hau?"
 msgid "Editor"
 msgstr "Editorea"
 
-msgid "Save as..."
+#, fuzzy
+msgid "&Open..."
+msgstr "Ireki..."
+
+#, fuzzy
+msgid "Save &As..."
 msgstr "Gorde honela..."
 
-msgid "Load..."
-msgstr "Kargatu..."
-
-msgid "Save and Exit"
+#, fuzzy
+msgid "&Save and Exit"
 msgstr "Gorde eta irten"
 
-msgid "Exit without Saving"
+#, fuzzy
+msgid "&Exit without Saving"
 msgstr "Irten gorde gabe"
 
-msgid "Undo"
+#, fuzzy
+msgid "&Undo"
 msgstr "Desegin"
 
-msgid "Redo"
+#, fuzzy
+msgid "&Redo"
 msgstr "Berregin"
 
-msgid "Cut"
+#, fuzzy
+msgid "Cu&t"
 msgstr "Ebaki"
 
-msgid "Copy"
+#, fuzzy
+msgid "&Copy"
 msgstr "Kopiatu"
 
-msgid "Paste"
+#, fuzzy
+msgid "&Paste"
 msgstr "Itsatsi"
 
-msgid "Clear"
+#, fuzzy
+msgid "C&lear"
 msgstr "Garbitu"
 
-msgid "Get Field Names"
+#, fuzzy
+msgid "&Get Field Names"
 msgstr "Eskuratu eremu-izenak"
 
-msgid "Edit"
-msgstr "Editatu"
+#, fuzzy
+msgid "&File"
+msgstr "Fitxategia"
 
 #, fuzzy
 msgid "Javascripts (*.js);;All Files (*)"
@@ -1482,10 +1559,6 @@ msgid "Font &Substitutions"
 msgstr "Letra-tipoen ordezteak"
 
 #, fuzzy
-msgid "C&hange..."
-msgstr "Aldatu..."
-
-#, fuzzy
 msgid "A&dd..."
 msgstr "Gehitu..."
 
@@ -1504,14 +1577,27 @@ msgid "Nodes"
 msgstr "Nodoak"
 
 #, fuzzy
-msgid "Absolute Coordinates"
+msgid "&Absolute Coordinates"
 msgstr "Koloremetria absolutua"
 
 #, fuzzy
-msgid "Edit Contour Line"
+msgid "&X-Pos:"
+msgstr "X posizioa:"
+
+#, fuzzy
+msgid "&Y-Pos:"
+msgstr "Y posizioa:"
+
+#, fuzzy
+msgid "Edit &Contour Line"
 msgstr "Editatu kolorea"
 
-msgid "End Editing"
+#, fuzzy
+msgid "&Reset Contour Line"
+msgstr "Marratxoak eta puntuak"
+
+#, fuzzy
+msgid "&End Editing"
 msgstr "Bukatu editatzea"
 
 msgid "Move Nodes"
@@ -1526,10 +1612,12 @@ msgstr "Gehitu nodoak"
 msgid "Delete Nodes"
 msgstr "Ezabatu nodoak"
 
-msgid "Move Control Points independently"
+#, fuzzy
+msgid "Move Control Points Independently"
 msgstr "Lekuz aldatu kontrol-puntuak independenteki"
 
-msgid "Move Control Points symmetrical"
+#, fuzzy
+msgid "Move Control Points Symmetrical"
 msgstr "Lekuz aldatu kontrol-puntuak simetrikoki"
 
 msgid "Reset Control Points"
@@ -1539,44 +1627,62 @@ msgstr "Berrezarri kontrol-puntuak"
 msgid "Reset this Control Point"
 msgstr "Berrezarri kontrol-puntu hau"
 
-msgid "Opens a Polygon or cuts a Bezier Curve"
+#, fuzzy
+msgid "Open a Polygon or Cuts a Bezier Curve"
 msgstr "Poligono bat irekitzen du edo Bezier kurba ebakitzen du"
 
-msgid "Closes this Bezier Curve"
+#, fuzzy
+msgid "Close this Bezier Curve"
 msgstr "Bezier kurba hau ixten du"
 
 #, fuzzy
-msgid "Mirrors the Path Horizontally"
+msgid "Mirror the Path Horizontally"
 msgstr "Bide-izena horizontalki ispilatzen du"
 
 #, fuzzy
-msgid "Mirrors the Path Vertically"
+msgid "Mirror the Path Vertically"
 msgstr "Bide-izena bertikalki ispilatzen du"
 
 #, fuzzy
-msgid "Shears the Path horizontal to the right"
+msgid "Shear the Path Horizontally to the Rright"
 msgstr "Bide-izena horizontalki eskuinerantz zizailatzen du"
 
 #, fuzzy
-msgid "Shears the Path horizontal to the left"
+msgid "Shear the Path Horizontally to the Left"
 msgstr "Bide-izena horizontalki ezkerrerantz zizailatzen du"
 
-msgid "Shears the Path vertical up"
+#, fuzzy
+msgid "Shear the Path Vertically Up"
 msgstr "Bide-izena bertikalki gorantz zizailatzen du"
 
-msgid "Shears the Path vertical down"
+#, fuzzy
+msgid "Shear the Path Vertically Down"
 msgstr "Bide-izena bertikalki beherantz zizailatzen d"
 
-msgid "Rotates the Path counter-clockwise"
+msgid "Rotate the Path Counter-Clockwise"
 msgstr ""
 
-msgid "Rotates the Path clockwise"
+msgid "Rotate the Path Clockwise"
 msgstr ""
 
-msgid "Reduce the Size of the Path by 10%"
+msgid "Reduce the Size of the Path by shown %"
 msgstr ""
 
-msgid "Enlarges the Size of the Path by 10%"
+msgid "Enlarge the Size of the Path by shown %"
+msgstr ""
+
+#, fuzzy
+msgid "Angle of Rotation"
+msgstr "Biraketa"
+
+#, c-format
+msgid "% to Enlarge or Reduce By"
+msgstr ""
+
+msgid "Activate Contour Line Editing Mode"
+msgstr ""
+
+msgid "Reset the Contour Line to the Original Shape of the Frame"
 msgstr ""
 
 msgid ""
@@ -1591,10 +1697,6 @@ msgid "Horizontal Guides"
 msgstr "Gida horizontalak"
 
 #, fuzzy
-msgid "&Y-Pos:"
-msgstr "Y posizioa:"
-
-#, fuzzy
 msgid "&Add"
 msgstr "Gehitu"
 
@@ -1604,10 +1706,6 @@ msgstr "Ezabatu"
 
 msgid "Vertical Guides"
 msgstr "Gida bertikalak"
-
-#, fuzzy
-msgid "&X-Pos:"
-msgstr "X posizioa:"
 
 #, fuzzy
 msgid "A&dd"
@@ -1677,10 +1775,12 @@ msgstr ""
 msgid "Insert Page"
 msgstr "Txertatu orrialdea"
 
-msgid "Inserting"
+#, fuzzy
+msgid "&Inserting"
 msgstr "Txertatzen"
 
-msgid "page(s)"
+#, fuzzy
+msgid "Page(s)"
 msgstr "orrialdea(k)"
 
 msgid "before Page"
@@ -1692,11 +1792,12 @@ msgstr "orrialde honen ondoren:"
 msgid "at End"
 msgstr "Amaieran"
 
-msgid "Template (Left Page):"
-msgstr "Txantiloia (ezker-orrialdea):"
+msgid "Inserting"
+msgstr "Txertatzen"
 
-msgid "Template:"
-msgstr "Txantiloiak:"
+#, fuzzy
+msgid "&Template (Left Page):"
+msgstr "Txantiloia (ezker-orrialdea):"
 
 msgid "Template (Right Page):"
 msgstr "Txantiloia (eskuin-orrialdea):"
@@ -1717,7 +1818,8 @@ msgstr "Gehitu..."
 msgid "&Close"
 msgstr "Itxi"
 
-msgid "New Script:"
+#, fuzzy
+msgid "&New Script:"
 msgstr "Script berria:"
 
 msgid "New Script"
@@ -1726,6 +1828,14 @@ msgstr "Script berria"
 #, fuzzy
 msgid "Do you really want do delete this Script?"
 msgstr "Benetan ezabatu nahi duzu estilo hau?"
+
+#, fuzzy
+msgid "&No"
+msgstr "Ez"
+
+#, fuzzy
+msgid "&Yes"
+msgstr "Bai"
 
 msgid "Manage Keyboard Shortcuts"
 msgstr "Kudeatu laster-teklak"
@@ -1863,17 +1973,29 @@ msgstr "Kopiatu orria"
 msgid "Move Page(s):"
 msgstr "Lekuz aldatu orrialdea(k):"
 
-msgid "X, Y, Z"
+#, fuzzy
+msgid "X, Y, &Z"
 msgstr "X, Y, Z"
 
-msgid "Shape"
+#, fuzzy
+msgid "&Shape"
 msgstr "Forma"
 
-msgid "Image"
+#, fuzzy
+msgid "&Text"
+msgstr "Testua"
+
+#, fuzzy
+msgid "&Image"
 msgstr "Irudia"
 
-msgid "Line"
+#, fuzzy
+msgid "&Line"
 msgstr "Lerroa"
+
+#, fuzzy
+msgid "&Colors"
+msgstr "Koloreak"
 
 msgid "Name"
 msgstr "Izena:"
@@ -1881,10 +2003,16 @@ msgstr "Izena:"
 msgid "Geometry"
 msgstr "Geometria"
 
-msgid "Height:"
+#, fuzzy
+msgid "&Width:"
+msgstr "Zabalera:"
+
+#, fuzzy
+msgid "&Height:"
 msgstr "Altuera:"
 
-msgid "Rotation:"
+#, fuzzy
+msgid "&Rotation:"
 msgstr "Biraketa:"
 
 #, fuzzy
@@ -1895,25 +2023,16 @@ msgid "Level"
 msgstr "Maila"
 
 #, fuzzy
-msgid "Text flows around frame"
-msgstr "Testua koadroaren inguruan"
-
-msgid "Use Bounding Box"
-msgstr "Erabili txertatze-kutxa"
-
-#, fuzzy
-msgid "Use Contour Line"
-msgstr "Marratxoak eta puntuak"
-
-#, fuzzy
 msgid "Shape:"
 msgstr "Forma"
 
-msgid "Edit Shape..."
+#, fuzzy
+msgid "&Edit Shape..."
 msgstr "Editatu forma..."
 
+#, fuzzy
 msgid ""
-"Round\n"
+"R&ound\n"
 "Corners:"
 msgstr ""
 "Biribildu\n"
@@ -1922,27 +2041,32 @@ msgstr ""
 msgid "Distance of Text"
 msgstr "Distantzia testutik"
 
-msgid "Columns:"
+#, fuzzy
+msgid "Colu&mns:"
 msgstr "Zutabeak:"
 
 #, fuzzy
-msgid "Gap:"
+msgid "&Gap:"
 msgstr "B:"
 
-msgid "Top:"
+#, fuzzy
+msgid "To&p:"
 msgstr "Goian:"
 
-msgid "Bottom:"
+#, fuzzy
+msgid "&Bottom:"
 msgstr "Behean:"
 
-msgid "Left:"
+#, fuzzy
+msgid "&Left:"
 msgstr "Ezkerrean:"
 
-msgid "Right:"
+#, fuzzy
+msgid "&Right:"
 msgstr "Eskuinean:"
 
 #, fuzzy
-msgid "Tabulators..."
+msgid "T&abulators..."
 msgstr "Txantiloiak..."
 
 #, fuzzy
@@ -1959,39 +2083,60 @@ msgstr "Hasi desplazamendua:"
 msgid "Distance from Curve:"
 msgstr "Distantzia kurbatik:"
 
-msgid "Font Size:"
+#, fuzzy
+msgid "Text &Flows Around Frame"
+msgstr "Testua koadroaren inguruan"
+
+#, fuzzy
+msgid "Use &Bounding Box"
+msgstr "Erabili txertatze-kutxa"
+
+#, fuzzy
+msgid "&Use Contour Line"
+msgstr "Marratxoak eta puntuak"
+
+#, fuzzy
+msgid "&Font Size:"
 msgstr "Letra-tamaina:"
 
 msgid "Custom Spacing"
 msgstr "Script pertsonalizatuak"
 
-msgid "Kerning:"
+#, fuzzy
+msgid "&Kerning:"
 msgstr "Karaktere arteko tartea:"
 
-msgid "Language:"
+#, fuzzy
+msgid "L&ine Spacing:"
+msgstr "Lerroartea:"
+
+#, fuzzy
+msgid "St&yle:"
+msgstr "Estiloa:"
+
+#, fuzzy
+msgid "Lan&guage:"
 msgstr "Hizkuntza:"
 
-msgid "Free Scaling"
+#, fuzzy
+msgid "&Free Scaling"
 msgstr "Eskalatze librea"
 
 #, fuzzy
-msgid "X-Pos.:"
-msgstr "X posizioa:"
-
-#, fuzzy
-msgid "Y-Pos.:"
-msgstr "Y posizioa:"
-
-#, fuzzy
-msgid "X-Scale:"
+msgid "X-Sc&ale:"
 msgstr "Eskalatu:"
 
 #, fuzzy
-msgid "Y-Scale:"
+msgid "Y-Scal&e:"
 msgstr "Eskalatu:"
 
-msgid "Scale to Frame Size"
+#, fuzzy
+msgid "Scale &To Frame Size"
 msgstr "Eskalatu markoaren tamainara"
+
+#, fuzzy
+msgid "P&roportional"
+msgstr "proportzionalki"
 
 msgid "Input Profile:"
 msgstr "Sarrera-profila:"
@@ -2006,14 +2151,17 @@ msgstr "Ezkerreko puntua"
 msgid "End Points"
 msgstr "Amaiera-puntuak"
 
-msgid "Type of Line:"
-msgstr ""
+#, fuzzy
+msgid "&Basepoint:"
+msgstr "Honetan oinarrituta:"
 
-msgid "Line Width:"
+#, fuzzy
+msgid "T&ype of Line:"
+msgstr "Sistemaren profilak"
+
+#, fuzzy
+msgid "Line &Width:"
 msgstr "Lerro-zabalera:"
-
-msgid "Edges:"
-msgstr "Ertzak:"
 
 #, fuzzy
 msgid "Miter Join"
@@ -2027,8 +2175,9 @@ msgstr "Alaka-elkartzea"
 msgid "Round Join"
 msgstr "Elkartze biribila"
 
-msgid "Endings:"
-msgstr "Amaierak:"
+#, fuzzy
+msgid "Ed&ges:"
+msgstr "Ertzak:"
 
 #, fuzzy
 msgid "Flat Cap"
@@ -2041,6 +2190,10 @@ msgstr "Estalki karratua"
 #, fuzzy
 msgid "Round Cap"
 msgstr "Estalki biribila"
+
+#, fuzzy
+msgid "&Endings:"
+msgstr "Amaierak:"
 
 msgid "No Style"
 msgstr "Estilorik ez"
@@ -2260,6 +2413,22 @@ msgid "Rendering intent for the image"
 msgstr "Errendatze-modua"
 
 #, fuzzy
+msgid "&X1:"
+msgstr "X1 :"
+
+#, fuzzy
+msgid "X&2:"
+msgstr "X2 :"
+
+#, fuzzy
+msgid "Y&1:"
+msgstr "Y1 :"
+
+#, fuzzy
+msgid "&Y2:"
+msgstr "Y2 :"
+
+#, fuzzy
 msgid "Column width"
 msgstr "Zutabeen gidak"
 
@@ -2285,6 +2454,9 @@ msgstr " in"
 #, fuzzy
 msgid "p"
 msgstr " p"
+
+msgid "Line Width:"
+msgstr "Lerro-zabalera:"
 
 msgid " pt "
 msgstr " pt "
@@ -2342,14 +2514,6 @@ msgid "Orie&ntation:"
 msgstr "Orientazioa:"
 
 #, fuzzy
-msgid "&Width:"
-msgstr "Zabalera:"
-
-#, fuzzy
-msgid "&Height:"
-msgstr "Altuera:"
-
-#, fuzzy
 msgid "&Facing Pages"
 msgstr "Aurrez aurre dauden orrialdeak"
 
@@ -2361,20 +2525,8 @@ msgid "Margin Guides"
 msgstr "Marjinen gidak"
 
 #, fuzzy
-msgid "&Left:"
-msgstr "Ezkerrean:"
-
-#, fuzzy
-msgid "&Right:"
-msgstr "Eskuinean:"
-
-#, fuzzy
 msgid "&Top:"
 msgstr "Goian:"
-
-#, fuzzy
-msgid "&Bottom:"
-msgstr "Behean:"
 
 #, fuzzy
 msgid "F&irst Page Number:"
@@ -2403,14 +2555,6 @@ msgstr "Testu-marko automatikoak"
 
 msgid "Column Guides"
 msgstr "Zutabeen gidak"
-
-#, fuzzy
-msgid "&Gap:"
-msgstr "B:"
-
-#, fuzzy
-msgid "Colu&mns:"
-msgstr "Zutabeak:"
 
 msgid "Document page size, either a standard size or a custom size"
 msgstr ""
@@ -2485,10 +2629,6 @@ msgstr "Kopiatu hemen"
 
 msgid "Move Here"
 msgstr "Ekarri hona"
-
-#, fuzzy
-msgid "&Paste"
-msgstr "Itsatsi"
 
 #, fuzzy
 msgid "Show &Margins"
@@ -2706,14 +2846,6 @@ msgid "Conve&rt to"
 msgstr "Bihurtu "
 
 #, fuzzy
-msgid "Cu&t"
-msgstr "Ebaki"
-
-#, fuzzy
-msgid "&Copy"
-msgstr "Kopiatu"
-
-#, fuzzy
 msgid "C&lear Contents"
 msgstr "Edukia"
 
@@ -2735,6 +2867,12 @@ msgstr "Falta da"
 
 msgid "Copy of"
 msgstr "Honen kopia"
+
+msgid "Image"
+msgstr "Irudia"
+
+msgid "Line"
+msgstr "Lerroa"
 
 msgid "Polygon"
 msgstr "Poligonoa"
@@ -3061,7 +3199,8 @@ msgstr "Elipsea"
 msgid "Solid Colors:"
 msgstr "Kolore lisoak:"
 
-msgid "Use ICC-Profile"
+#, fuzzy
+msgid "Use ICC Profile"
 msgstr "Erabili ICC profilak"
 
 msgid "Profile:"
@@ -3072,10 +3211,6 @@ msgstr "Asmoa errendatzen:"
 
 msgid "Images:"
 msgstr "Irudiak:"
-
-#, fuzzy
-msgid "Use ICC Profile"
-msgstr "Erabili ICC profilak"
 
 #, fuzzy
 msgid "Don't use embedded ICC profiles"
@@ -3253,6 +3388,15 @@ msgid ""
 "Choose Printer when printing to a true 4 color CMYK printer."
 msgstr ""
 
+msgid ""
+"This is an advanced setting which is not enabled by default. This should "
+"only be enabled\n"
+"when specifically requested by your printer and they have given you the "
+"exact details needed.\n"
+"Otherwise, your exported PDF may not print properly and is truly not "
+"portable across systems."
+msgstr ""
+
 msgid "Embed a color profile for solid colors"
 msgstr ""
 
@@ -3320,6 +3464,9 @@ msgstr "Irudiak"
 msgid "Path"
 msgstr "Bide-izena"
 
+msgid "Print"
+msgstr "Inprimatu"
+
 msgid "Status"
 msgstr "Egoera"
 
@@ -3337,6 +3484,9 @@ msgstr "Poligonoaren propietateak"
 
 msgid "Corners:"
 msgstr "Izkinak:"
+
+msgid "Rotation:"
+msgstr "Biraketa:"
 
 msgid "Convex Polygon"
 msgstr "Poligono ganbila"
@@ -3359,10 +3509,6 @@ msgid "&Load..."
 msgstr "Kargatu..."
 
 #, fuzzy
-msgid "Save &As..."
-msgstr "Gorde honela..."
-
-#, fuzzy
 msgid "&Small"
 msgstr "Txikia"
 
@@ -3373,10 +3519,6 @@ msgstr "Tartekoa"
 #, fuzzy
 msgid "&Large"
 msgstr "Orrialdea"
-
-#, fuzzy
-msgid "&File"
-msgstr "Fitxategia"
 
 #, fuzzy
 msgid "&Preview"
@@ -3468,6 +3610,9 @@ msgstr "Erakutsi geruzak"
 msgid "Javascripts..."
 msgstr "JavaScript-ak..."
 
+msgid "Undo"
+msgstr "Desegin"
+
 msgid "Show Page Palette"
 msgstr "Erakutsi orrialdearen paleta"
 
@@ -3481,7 +3626,8 @@ msgstr "Zuriune zatiezina"
 msgid "Reading Preferences"
 msgstr "Hobespenak irakurtzen"
 
-msgid "Getting ICC-Profiles"
+#, fuzzy
+msgid "Getting ICC Profiles"
 msgstr "ICC profilak eskuratzen"
 
 msgid "Init Hyphenator"
@@ -3501,10 +3647,6 @@ msgid "Initializing Plugins"
 msgstr "Plugin-ak hasieratzen"
 
 #, fuzzy
-msgid "&Open..."
-msgstr "Ireki..."
-
-#, fuzzy
 msgid "Open &Recent"
 msgstr "Dokumentua irekitzen du"
 
@@ -3516,6 +3658,9 @@ msgstr "Itxi"
 
 msgid "Save"
 msgstr "Gorde"
+
+msgid "Save as..."
+msgstr "Gorde honela..."
 
 #, fuzzy
 msgid "Re&vert to Saved"
@@ -3586,16 +3731,20 @@ msgid "Quit"
 msgstr "Irten"
 
 #, fuzzy
-msgid "&Undo"
-msgstr "Desegin"
-
-#, fuzzy
-msgid "C&lear"
-msgstr "Garbitu"
-
-#, fuzzy
 msgid "Select &All"
 msgstr "Hautatu dena"
+
+msgid "Cut"
+msgstr "Ebaki"
+
+msgid "Copy"
+msgstr "Kopiatu"
+
+msgid "Paste"
+msgstr "Itsatsi"
+
+msgid "Clear"
+msgstr "Garbitu"
 
 msgid "Select all"
 msgstr "Hautatu dena"
@@ -3678,10 +3827,6 @@ msgid "&Edit Frame"
 msgstr "Editatu markoa"
 
 #, fuzzy
-msgid "&Shape"
-msgstr "Forma"
-
-#, fuzzy
 msgid "&Attach Text to Path"
 msgstr "Lotu testua bide-izenari"
 
@@ -3730,7 +3875,7 @@ msgid "Apply Template..."
 msgstr "Aplikatu txantiloia..."
 
 #, fuzzy
-msgid "&Manage Guides..."
+msgid "Manage &Guides..."
 msgstr "Kudeatu gidak..."
 
 msgid "Manage Guides..."
@@ -4073,6 +4218,10 @@ msgid "Scribus Manual"
 msgstr "Scribus-en eskuliburua"
 
 #, fuzzy
+msgid "&Shade:"
+msgstr "Itzala:"
+
+#, fuzzy
 msgid "Hide Baseline Grid"
 msgstr "Ezkutatu sareta"
 
@@ -4352,13 +4501,16 @@ msgstr "Neurriak"
 msgid "Draw various Shapes"
 msgstr ""
 
-msgid "PDF-Tools"
+#, fuzzy
+msgid "PDF Tools"
 msgstr "PDF tresnak"
 
-msgid "Insert PDF-Fields"
+#, fuzzy
+msgid "Insert PDF Fields"
 msgstr "Txertatu PDF eremuak"
 
-msgid "Insert PDF-Annotations"
+#, fuzzy
+msgid "Insert PDF Annotations"
 msgstr "Txertatu PDF oharrak"
 
 #, fuzzy
@@ -4366,52 +4518,66 @@ msgid "Manage Tabulators"
 msgstr "Kudeatu irudiak"
 
 #, fuzzy
+msgid "F&ill Color Settings"
+msgstr "Kolore betegarria:"
+
+#, fuzzy
+msgid "&Stroke Color Settings"
+msgstr "Erakutsi koloreak"
+
+#, fuzzy
+msgid "&Character Settings"
+msgstr "Karaktere"
+
+msgid "Kerning:"
+msgstr "Karaktere arteko tartea:"
+
+#, fuzzy
+msgid "St&yle Settings"
+msgstr "Ezarpenak"
+
+#, fuzzy
+msgid "&Font Settings"
+msgstr "Ezarpenak"
+
+#, fuzzy
+msgid "Font of selected text"
+msgstr "Desegin objektu-ezabatzea"
+
+#, fuzzy
 msgid "Story Editor"
 msgstr "Editorea"
 
-msgid "Forced"
-msgstr "Behartuta"
-
-msgid "Block"
-msgstr "Blokeatu"
-
-msgid "Right"
-msgstr "Eskuinean"
-
-msgid "Center"
-msgstr "Erdian"
-
-msgid "Left"
-msgstr "Ezkerrean"
+#, fuzzy
+msgid "&Reload Text from Frame"
+msgstr "Lotu testua bide-izenari"
 
 #, fuzzy
-msgid "Save to File..."
+msgid "&Save to File..."
 msgstr "Gorde PDF gisa..."
 
-msgid "Load from File..."
-msgstr ""
+#, fuzzy
+msgid "&Load from File..."
+msgstr "Gorde PDF gisa..."
 
 #, fuzzy
-msgid "Save Document"
+msgid "Save &Document"
 msgstr "Dokumentu berria"
 
-msgid "Update Text Frame and Exit"
-msgstr ""
+#, fuzzy
+msgid "&Update Text Frame and Exit"
+msgstr "Testuaren markoa"
 
 #, fuzzy
-msgid "Exit Without Updating Text Frame"
+msgid "&Exit Without Updating Text Frame"
 msgstr "Irten gorde gabe"
 
 #, fuzzy
-msgid "Insert Special..."
+msgid "&Insert Special..."
 msgstr "Txertatu orrialdea..."
 
 #, fuzzy
-msgid "Edit Styles..."
-msgstr "Editatu estiloak"
-
-#, fuzzy
-msgid "Update Text Frame"
+msgid "&Update Text Frame"
 msgstr "Testuaren markoa"
 
 msgid "Current Paragraph:"
@@ -4465,27 +4631,43 @@ msgstr "Erakutsi koloreak"
 msgid "Stroke Shade"
 msgstr ""
 
+msgid "Left"
+msgstr "Ezkerrean"
+
+msgid "Center"
+msgstr "Erdian"
+
+msgid "Right"
+msgstr "Eskuinean"
+
+msgid "Block"
+msgstr "Blokeatu"
+
+msgid "Forced"
+msgstr "Behartuta"
+
 #, fuzzy
 msgid "Replace with:"
 msgstr "Ordeztu honekin:"
 
-msgid "Whole Word"
-msgstr ""
+#, fuzzy
+msgid "&Whole Word"
+msgstr "Hitz laburrena"
 
-msgid "Ignore Case"
+msgid "&Ignore Case"
 msgstr ""
 
 #, fuzzy
-msgid "Replace"
+msgid "&Search"
+msgstr "Bilatu"
+
+#, fuzzy
+msgid "&Replace"
 msgstr "Ordeztea"
 
 #, fuzzy
-msgid "Replace All"
+msgid "Replace &All"
 msgstr "Ordeztea"
-
-#, fuzzy
-msgid "Leave"
-msgstr "Maila"
 
 msgid "Search finished"
 msgstr ""
@@ -4517,6 +4699,39 @@ msgstr "Lerrokatu testua erdian"
 
 msgid "Other..."
 msgstr "Bestelakoak..."
+
+msgid "Full Stop"
+msgstr ""
+
+#, fuzzy
+msgid "Comma"
+msgstr "Komandoa:"
+
+#, fuzzy
+msgid "&Position:"
+msgstr "Kokalekua:"
+
+#, fuzzy
+msgid "First &Line:"
+msgstr "Lehen lerroa:"
+
+#, fuzzy
+msgid "Ind&ent:"
+msgstr "Ezkerreko koska:"
+
+#, fuzzy
+msgid "Delete All"
+msgstr "Ezabatu"
+
+msgid "Indentation for first line of the paragraph"
+msgstr ""
+
+msgid "Indentation from the left for the whole paragraph"
+msgstr ""
+
+#, fuzzy
+msgid "Delete all Tabulators"
+msgstr "Ezabatu kolorea"
 
 msgid ""
 "<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
@@ -4663,14 +4878,6 @@ msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
 msgstr ""
 
 #, fuzzy
-msgid "&Yes"
-msgstr "Bai"
-
-#, fuzzy
-msgid "&No"
-msgstr "Ez"
-
-#, fuzzy
 msgid "New Folder 1"
 msgstr "Kolore berria"
 
@@ -4714,10 +4921,6 @@ msgstr "Helbidea:"
 #, fuzzy
 msgid "Select All"
 msgstr "Hautatu dena"
-
-#, fuzzy
-msgid "&Redo"
-msgstr "Berregin"
 
 #, fuzzy
 msgid "Line up"
@@ -4832,37 +5035,6 @@ msgstr "Kopia-kopurua:"
 msgid "Number of Columns:"
 msgstr "Kopia-kopurua:"
 
-msgid "Full Stop"
-msgstr ""
-
-#, fuzzy
-msgid "Comma"
-msgstr "Komandoa:"
-
-msgid "Position:"
-msgstr "Kokalekua:"
-
-msgid "First Line:"
-msgstr "Lehen lerroa:"
-
-#, fuzzy
-msgid "Indent:"
-msgstr "Ezkerreko koska:"
-
-#, fuzzy
-msgid "Delete All"
-msgstr "Ezabatu"
-
-msgid "Indentation for first line of the paragraph"
-msgstr ""
-
-msgid "Indentation from the left for the whole paragraph"
-msgstr ""
-
-#, fuzzy
-msgid "Delete all Tabulators"
-msgstr "Ezabatu kolorea"
-
 msgid "Distances"
 msgstr "Distantziak"
 
@@ -4879,6 +5051,9 @@ msgstr "Angelua:"
 
 msgid "Length:"
 msgstr "Luzera:"
+
+msgid "Position:"
+msgstr "Kokalekua:"
 
 msgid "Here you can add, change or remove Color-Stops."
 msgstr ""
@@ -5044,10 +5219,6 @@ msgstr "GUI"
 #, fuzzy
 msgid "&Theme:"
 msgstr "Gaia"
-
-#, fuzzy
-msgid "&Font Size:"
-msgstr "Letra-tamaina:"
 
 msgid "Units"
 msgstr "Unitateak"
@@ -5241,10 +5412,6 @@ msgid "&Type of Line:"
 msgstr "Sistemaren profilak"
 
 #, fuzzy
-msgid "Line &Width:"
-msgstr "Lerro-zabalera:"
-
-#, fuzzy
 msgid "Mi&nimum:"
 msgstr "Gutxienekoa:"
 
@@ -5255,10 +5422,6 @@ msgstr "Gehienezkoa:"
 #, fuzzy
 msgid "&Stepping:"
 msgstr "Urratsak:"
-
-#, fuzzy
-msgid "&Free Scaling"
-msgstr "Eskalatze librea"
 
 #, fuzzy
 msgid "&Horizontal Scaling:"
@@ -5277,16 +5440,8 @@ msgid "Keep Aspect &Ratio"
 msgstr "Mantendu aspektu-erlazioa"
 
 #, fuzzy
-msgid "F&ill Color:"
-msgstr "Kolore betegarria:"
-
-#, fuzzy
 msgid "Corn&ers:"
 msgstr "Izkinak:"
-
-#, fuzzy
-msgid "&Rotation:"
-msgstr "Biraketa:"
 
 #, fuzzy
 msgid "Conve&x Polygon"
@@ -5372,6 +5527,9 @@ msgstr "Inprimatzen..."
 #, fuzzy
 msgid "Clip to Page &Margins"
 msgstr "Ezkutatu marjinak"
+
+msgid "Apply &Under Color Removal"
+msgstr ""
 
 msgid ""
 "Choose the default window decoration and looks.\n"
@@ -5672,6 +5830,9 @@ msgstr "Bistaratu markoak"
 msgid "&Display CMYK"
 msgstr "Bistaratu"
 
+msgid "&Under Color Removal"
+msgstr ""
+
 #, fuzzy
 msgid "&C"
 msgstr "C:"
@@ -5819,20 +5980,17 @@ msgstr ""
 msgid "Export as Image"
 msgstr "Esportatu barrutia"
 
-msgid "Export to directory:"
-msgstr ""
-
 #, fuzzy
 msgid "Alt+C"
 msgstr "Alt+"
 
 #, fuzzy
-msgid "Image type:"
-msgstr "Irudiak:"
+msgid "&Export to Directory:"
+msgstr "Aukeratu direktorioa"
 
 #, fuzzy
-msgid "Quality :"
-msgstr "Irten"
+msgid "Image &Type:"
+msgstr "Irudiak:"
 
 #, fuzzy
 msgid "%"
@@ -6087,6 +6245,88 @@ msgstr "Pertsonalizatua"
 msgid "Save as &Template..."
 msgstr "Gorde testua..."
 
+#~ msgid " pts"
+#~ msgstr " pts"
+
+#~ msgid "Number of copies:"
+#~ msgstr "Kopia-kopurua:"
+
+#~ msgid "Face:"
+#~ msgstr "Aurpegia:"
+
+#~ msgid "Fill Color:"
+#~ msgstr "Kolore betegarria:"
+
+#~ msgid "Load..."
+#~ msgstr "Kargatu..."
+
+#~ msgid "Redo"
+#~ msgstr "Berregin"
+
+#~ msgid "Edit"
+#~ msgstr "Editatu"
+
+#~ msgid "Template:"
+#~ msgstr "Txantiloiak:"
+
+#~ msgid "Shape"
+#~ msgstr "Forma"
+
+#~ msgid "Height:"
+#~ msgstr "Altuera:"
+
+#~ msgid "Columns:"
+#~ msgstr "Zutabeak:"
+
+#, fuzzy
+#~ msgid "Gap:"
+#~ msgstr "B:"
+
+#~ msgid "Bottom:"
+#~ msgstr "Behean:"
+
+#~ msgid "Left:"
+#~ msgstr "Ezkerrean:"
+
+#~ msgid "Right:"
+#~ msgstr "Eskuinean:"
+
+#~ msgid "Font Size:"
+#~ msgstr "Letra-tamaina:"
+
+#~ msgid "Free Scaling"
+#~ msgstr "Eskalatze librea"
+
+#, fuzzy
+#~ msgid "X-Pos.:"
+#~ msgstr "X posizioa:"
+
+#, fuzzy
+#~ msgid "Y-Pos.:"
+#~ msgstr "Y posizioa:"
+
+#~ msgid "Use ICC-Profile"
+#~ msgstr "Erabili ICC profilak"
+
+#, fuzzy
+#~ msgid "&Manage Guides..."
+#~ msgstr "Kudeatu gidak..."
+
+#~ msgid "PDF-Tools"
+#~ msgstr "PDF tresnak"
+
+#, fuzzy
+#~ msgid "Edit Styles..."
+#~ msgstr "Editatu estiloak"
+
+#, fuzzy
+#~ msgid "Leave"
+#~ msgstr "Maila"
+
+#, fuzzy
+#~ msgid "Quality :"
+#~ msgstr "Irten"
+
 #~ msgid "From page:"
 #~ msgstr "Orrialde honetatik:"
 
@@ -6300,9 +6540,6 @@ msgstr "Gorde testua..."
 
 #~ msgid "Copy Page:"
 #~ msgstr "Kopiatu orrialdea:"
-
-#~ msgid "Rotation"
-#~ msgstr "Biraketa"
 
 #~ msgid "by:"
 #~ msgstr "honen inguruan:"

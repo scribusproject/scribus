@@ -94,7 +94,7 @@ Align::Align( QWidget* parent, int anz, int ein)
 	AVert->setEnabled(false);
 	TextLabelD2->setBuddy(AVert);
 
-	QString tmp = (ein == 0) ? tr(" pts") :
+	QString tmp = (ein == 0) ? tr(" pt") :
 				(ein == 1) ? tr(" mm") :
 				(ein == 2) ? tr(" in") : tr(" p");
 	AHor->setSuffix(tmp);

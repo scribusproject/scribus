@@ -272,7 +272,7 @@ void WerkToolB::setLinMode(int id)
 	Linien->setOn(true);
 }
 
-WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar( tr("PDF-Tools"), parent)
+WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar( tr("PDF Tools"), parent)
 {
 	PDFM = new QPopupMenu();
 	char *tmp_icn[] = {"pushbutton.png", "textview.png", "checkbox.png", "combobox.png", "listbox.png"};
@@ -280,7 +280,7 @@ WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar( tr("PDF-Tools"), parent)
 	size_t ar_tmp = sizeof(tmp_icn) / sizeof(*tmp_icn);
 	for (uint a = 0; a < ar_tmp; ++a)
 		PDFM->insertItem(loadIcon(tmp_icn[a]), tmp_txt[a]);
-	PDFTool = new QToolButton(loadIcon("pushbutton.png"), tr("Insert PDF-Fields"), QString::null, this,
+	PDFTool = new QToolButton(loadIcon("pushbutton.png"), tr("Insert PDF Fields"), QString::null, this,
 								 SLOT(ModeFromTB()), this);
 	PDFTool->setToggleButton(true);
 	PDFTool->setPopup(PDFM);
@@ -289,7 +289,7 @@ WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar( tr("PDF-Tools"), parent)
 	PDFA = new QPopupMenu();
 	PDFA->insertItem(loadIcon("charset.png"), tr("Text"));
 	PDFA->insertItem(loadIcon("goto.png"), tr("Link"));
-	PDFaTool = new QToolButton(loadIcon("charset.png"), tr("Insert PDF-Annotations"), QString::null, this,
+	PDFaTool = new QToolButton(loadIcon("charset.png"), tr("Insert PDF Annotations"), QString::null, this,
 								 SLOT(ModeFromTB()), this);
 	PDFaTool->setToggleButton(true);
 	PDFaTool->setPopup(PDFA);

@@ -7946,10 +7946,11 @@ void ScribusApp::SetShortCut()
 	{
 		fileMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
 	}
-	for (a = 9; a < 19; ++a)
+	for (a = 9; a < 17; ++a)
 	{
 		editMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
 	}
+	editMenu->setAccel(Prefs.KeyActions[19].KeyID, Prefs.KeyActions[19].MenuID);
 	for (a = 20; a < 30; ++a)
 	{
 		ObjMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
@@ -7981,6 +7982,7 @@ void ScribusApp::SetShortCut()
 	toolMenu->setAccel(Prefs.KeyActions[65].KeyID, Prefs.KeyActions[65].MenuID);
 	ObjMenu->setAccel(Prefs.KeyActions[66].KeyID, Prefs.KeyActions[66].MenuID);
 	ObjMenu->setAccel(Prefs.KeyActions[67].KeyID, Prefs.KeyActions[67].MenuID);
+	fileMenu->setAccel(Prefs.KeyActions[18].KeyID, Prefs.KeyActions[18].MenuID);
 }
 
 void ScribusApp::PutScrap(QString t)
@@ -8690,6 +8692,7 @@ void ScribusApp::slotStoryEditor()
 			if (dia->TextChanged)
 				dia->updateTextFrame();
 		}
+		BuildFontMenu();
 		delete dia;
 	}
 }

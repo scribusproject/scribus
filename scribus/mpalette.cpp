@@ -328,16 +328,6 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	layout60->addItem( spacer5 );
 	pageLayout->addLayout( layout60 );
 
-	Textflow = new QCheckBox( page, "Textflow" );
-	Textflow->setText( tr( "Text &Flows Around Frame" ) );
-	pageLayout->addWidget( Textflow );
-	Textflow2 = new QCheckBox( page, "Textflow2" );
-	Textflow2->setText( tr( "Use &Bounding Box" ) );
-	pageLayout->addWidget( Textflow2 );
-	Textflow3 = new QCheckBox( page, "Textflow3" );
-	Textflow3->setText( tr( "&Use Contour Line" ) );
-	pageLayout->addWidget( Textflow3 );
-
 	QSpacerItem* spacer13 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	pageLayout->addItem( spacer13 );
 	TabStack->addWidget( page, 0 );
@@ -457,6 +447,17 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	TabStack2->addWidget( page_2b, 1 );
 
 	pageLayout_2->addWidget( TabStack2 );
+
+	Textflow = new QCheckBox( page_2, "Textflow" );
+	Textflow->setText( tr( "Text &Flows Around Frame" ) );
+	pageLayout_2->addWidget( Textflow );
+	Textflow2 = new QCheckBox( page_2, "Textflow2" );
+	Textflow2->setText( tr( "Use &Bounding Box" ) );
+	pageLayout_2->addWidget( Textflow2 );
+	Textflow3 = new QCheckBox( page_2, "Textflow3" );
+	Textflow3->setText( tr( "&Use Contour Line" ) );
+	pageLayout_2->addWidget( Textflow3 );
+
 	QSpacerItem* spacer6 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	pageLayout_2->addItem( spacer6 );
 	TabStack->addWidget( page_2, 1 );

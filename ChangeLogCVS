@@ -1,5 +1,11 @@
 Changes since Version 1.1.7
 
+28.07.2004
+	* bug     #135: Text properties disappears when using story editor and not set by styles
+	* feature #746: Story Editor rewrite
+	* feature #896: German translation update
+	* feature #897: Finnish translation update
+
 27.07.2004
 	* bug     #892: resizing imported svg with rotated elements  hurts gradients
 	* feature #893: Polish Translation Update

@@ -109,7 +109,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 	GroupBox40Layout = new QGridLayout( GroupBox40->layout() );
 	GroupBox40Layout->setAlignment( Qt::AlignTop );
 	TextLabel60 = new QLabel( GroupBox40, "TextLabel6" );
-	TextLabel60->setText( tr( "Font for use with PDF-1.3:" ) );
+	TextLabel60->setText( tr( "Font for use with PDF 1.3:" ) );
 	GroupBox40Layout->addWidget( TextLabel60, 0, 0 );
 	Schrift = new QComboBox( true, GroupBox40, "Schrift" );
 	/* PFJ - 28/02/04 - Altered from char* to QString. Renamed to fonts and the
@@ -1072,8 +1072,8 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 	connect(PlaceIcon, SIGNAL(clicked()), this, SLOT(IPlace()));
 	connect(ChFile, SIGNAL(clicked()), this, SLOT(GetFile()));
 	connect(LExtern, SIGNAL(clicked()), this, SLOT(SetExternL()));
-	QToolTip::add(NoSpell, tr( "Flag is ignored for PDF-1.3" ) );
-	QToolTip::add(NoScroll, tr( "Flag is ignored for PDF-1.3" ) );
+	QToolTip::add(NoSpell, tr( "Flag is ignored for PDF 1.3" ) );
+	QToolTip::add(NoScroll, tr( "Flag is ignored for PDF 1.3" ) );
 	QToolTip::add(CalcFields, tr( "Enter a comma separated list of fields here" ) );
 	QToolTip::add(IconNR, tr("You need at least the Icon for Normal to use Icons for Buttons"));
 	SetPg(QMIN(SpinBox11->value(), MaxSeite));
@@ -2107,7 +2107,7 @@ void Annot::SetActScript(int it)
 void Annot::GetFile()
 {
 	QString fn;
-	CustomFDialog dia(this, tr("Open"), tr("PDF-Documents (*.pdf);;All Files (*)"));
+	CustomFDialog dia(this, tr("Open"), tr("PDF Documents (*.pdf);;All Files (*)"));
 	if (Destfile->text() != "")
 		dia.setSelection(Destfile->text());
 	if (dia.exec() == QDialog::Accepted)
