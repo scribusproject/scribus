@@ -1059,11 +1059,29 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	LFrames.clear();
 	QDomDocument docu("scridoc");
 	QString f = "";
-	f = ReadDatei(fileName);
+	QFile fi(fileName);
 	/* 2004/10/02 - petr vanek - bug #1092 - missing <PAGE> crash Scribus. The check constraint moved into IsScribus()
 	FIXME: I've add test on containig tag PAGE but returning FALSE freezes S. in scribus.cpp need some hack too...  */
-	if (!docu.setContent(f))
-		return false;
+	if (fileName.right(2) == "gz")
+	{
+		f = ReadDatei(fileName);
+		if (!docu.setContent(f))
+			return false;
+	}
+	else
+	{
+		if ( !fi.open( IO_ReadOnly ) )
+		{
+			fi.close();
+			return false;
+		}
+		if (!docu.setContent(&fi))
+		{
+			fi.close();
+			return false;
+		}
+		fi.close();
+	}
 	doc->PageColors.clear();	
 	doc->Layers.clear();
 	CMYKColor lf = CMYKColor();

@@ -7535,12 +7535,25 @@ void ScribusApp::ObjektLower()
 void ScribusApp::ObjektDup()
 {
 	slotSelect();
+	double dx, dy;
+	if (view->SelItem.at(0)->OwnPage == -1)
+	{
+		dx = 0;
+		dy = 0;
+	}
+	else
+	{
+		dx = doc->currentPage->Xoffset;
+		dy = doc->currentPage->Yoffset;
+	}
 	slotEditCopy();
 	view->Deselect(true);
 	slotEditPaste();
 	for (uint b=0; b<view->SelItem.count(); ++b)
 	{
 		view->SelItem.at(b)->setLocked(false);
+		view->SelItem.at(b)->Xpos += dx;
+		view->SelItem.at(b)->Ypos += dy;
 		view->MoveItem(DispX, DispY, view->SelItem.at(b));
 	}
 }
@@ -7548,6 +7561,17 @@ void ScribusApp::ObjektDup()
 void ScribusApp::ObjektDupM()
 {
 	slotSelect();
+	double dx, dy;
+	if (view->SelItem.at(0)->OwnPage == -1)
+	{
+		dx = 0;
+		dy = 0;
+	}
+	else
+	{
+		dx = doc->currentPage->Xoffset;
+		dy = doc->currentPage->Yoffset;
+	}
 	NoFrameEdit();
 	Mdup *dia = new Mdup(this, DispX * UmReFaktor, DispY * UmReFaktor, doc->docUnitIndex);
 	if (dia->exec())
@@ -7568,6 +7592,8 @@ void ScribusApp::ObjektDupM()
 				for (uint b=0; b<view->SelItem.count(); ++b)
 				{
 					view->SelItem.at(b)->setLocked(false);
+					view->SelItem.at(b)->Xpos += dx;
+					view->SelItem.at(b)->Ypos += dy;
 					view->MoveItem(dH2, dV2, view->SelItem.at(b), true);
 				}
 				dH2 += dH;
