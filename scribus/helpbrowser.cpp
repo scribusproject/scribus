@@ -256,13 +256,13 @@ void HelpBrowser::loadMenu()
 	QString pfad = PREL;
 	QString pfad2;
 	bool Avail = true;
-	pfad2 = pfad + "/share/scribus/doc/"+QString(QTextCodec::locale()).left(2)+"/menu.xml";
+	//add in gui language handling code here
+	//pfad2 = pfad + "/share/scribus/doc/"+QString(QTextCodec::locale()).left(2)+"/menu.xml";
 	pfad2 = pfad + "/share/scribus/doc/en/menu.xml";
 
 	QFileInfo fi = QFileInfo(pfad2);
 	if (fi.exists())
 	{
-		textBrowser->setText("menu found");
 		QDomDocument doc( "menuentries" );
 		QFile file( pfad2 );
 		if ( !file.open( IO_ReadOnly ) )
