@@ -21,16 +21,22 @@
 ScrAction::ScrAction( QObject * parent, const char * name ) : QAction( parent, name )
 {
 	menuType=ScrAction::Normal;
+	menuIndex=-1;
+	widgetAddedTo=NULL;
 }
 
 ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * parent, const char * name ) : QAction( menuText, accel, parent, name )
 {
 	menuType=ScrAction::Normal;
+	menuIndex=-1;
+	widgetAddedTo=NULL;
 }
 
 ScrAction::ScrAction( MenuType mType, const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraInt, double extraDouble, QString extraQString ) : QAction( icon, menuText, accel, parent, name )
 {
 	setIconSizes();
+	menuIndex=-1;
+	widgetAddedTo=NULL;
 	menuType=mType;
 	switch (mType)
 	{
@@ -70,6 +76,8 @@ ScrAction::ScrAction( const QIconSet & icon, const QString & menuText, QKeySeque
 {
 	menuType=ScrAction::Normal;
 	setIconSizes();
+	menuIndex=-1;
+	widgetAddedTo=NULL;
 }
 
 ScrAction::~ScrAction()
@@ -127,17 +135,23 @@ void ScrAction::toggledToToggledData()
 
 void ScrAction::addedTo ( int index, QPopupMenu * menu )
 {
-	menuIndex=index;
-	popupMenuAddedTo=menu;
+	if (menuIndex==-1) // Add the first time, not for secondary popups.
+	{
+		menuIndex=index;
+		popupMenuAddedTo=menu;
+	}
 }
 
 
 void ScrAction::addedTo( QWidget * actionWidget, QWidget * container )
 {
-	if (widgetAddedTo)
-		widgetAddedTo = actionWidget;
-	if (containerWidgetAddedTo)
-		containerWidgetAddedTo = container;
+	if (widgetAddedTo==NULL) // Add the first time, not for secondary popups.
+	{
+		if (widgetAddedTo)
+			widgetAddedTo = actionWidget;
+		if (containerWidgetAddedTo)
+			containerWidgetAddedTo = container;
+	}
 }
 
 

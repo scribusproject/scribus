@@ -1591,7 +1591,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["viewShowImages"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowGrid"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowGuides"], "View");
-	scrMenuMgr->addMenuItem(scrActions["viewShowBaselineGrid"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewShowBaseline"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowTextChain"], "View");
 	scrMenuMgr->addMenuSeparator("View");
 	scrMenuMgr->addMenuItem(scrActions["viewSnapToGrid"], "View");
@@ -3608,7 +3608,9 @@ void ScribusApp::HaveNewDoc()
 	scrActions["editSelectAll"]->setEnabled(true);
 	scrActions["editParaStyles"]->setEnabled(true);
 	scrActions["editLineStyles"]->setEnabled(true);
-	
+	scrActions["editTemplates"]->setEnabled(true);
+	scrActions["editJavascripts"]->setEnabled(true);
+		
 	scrMenuMgr->setMenuEnabled("View", true);
 	scrActions["viewSnapToGrid"]->setOn(doc->useRaster);
 	scrActions["viewSnapToGuides"]->setOn(doc->SnapGuides);
@@ -3623,9 +3625,6 @@ void ScribusApp::HaveNewDoc()
 	bool setter = doc->Pages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
-
-	scrActions["editTemplates"]->setEnabled(true);
-	scrActions["editJavascripts"]->setEnabled(true);
 		
 	ColorList::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
@@ -3644,7 +3643,6 @@ void ScribusApp::HaveNewDoc()
 	Mpal->Cpal->ChooseGrad(0);
 	ActWin->setCaption(doc->DocName);
 	scrActions["shade100"]->setOn(true);
-	//ShadeMenu->setItemChecked(ShadeMenu->idAt(11), true);
 	Mpal->SetDoc(doc);
 	Mpal->updateCList();
 	Sepal->SetView(view);
@@ -3759,7 +3757,6 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["editCopy"]->setEnabled(false);
 		scrActions["editClear"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
-		
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrMenuMgr->clearMenu("Style");
 		
@@ -4126,9 +4123,7 @@ void ScribusApp::loadRecent(QString fn)
 		rebuildRecentFileMenu();
 		return;
 	}
-	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	LadeDoc(fn);
-	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 }
 
 void ScribusApp::rebuildRecentFileMenu()
@@ -4147,7 +4142,6 @@ void ScribusApp::rebuildRecentFileMenu()
 
 bool ScribusApp::slotDocOpen()
 {
-	bool ret = false;
 	PrefsContext* docContext = prefsFile->getContext("docdirs", false);
 	QString docDir = ".";
 	if (Prefs.DocDir != "")
@@ -4173,9 +4167,7 @@ bool ScribusApp::slotDocOpen()
 	formats + tr("All Files (*)");
 	QString fileName = CFileDialog( docDir, tr("Open"), formats);
 	docContext->set("docsopen", fileName.left(fileName.findRev("/")));
-	qApp->setOverrideCursor(QCursor(waitCursor), true);
-	ret = LadeDoc(fileName);
-	qApp->setOverrideCursor(QCursor(arrowCursor), true);
+	bool ret = LadeDoc(fileName);
 	return ret;
 }
 
@@ -4337,6 +4329,7 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 
 bool ScribusApp::LadeDoc(QString fileName)
 {
+	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	QFileInfo fi(fileName);
 	if (!fi.exists())
 		return false;
@@ -4692,6 +4685,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 	}
 	undoManager->switchStack(doc->DocName);
 //	Sepal->Rebuild();
+	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	return ret;
 }
 
@@ -4800,9 +4794,7 @@ void ScribusApp::slotFileRevert()
 		doc->setUnModified();
 		slotFileClose();
 		qApp->processEvents();
-		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		LadeDoc(fn);
-		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 }
 
@@ -6492,7 +6484,6 @@ void ScribusApp::setItemTypeStyle(int id)
 	
 	if (id == 0)
 	{
-		qDebug("Setting normal");
 		scrActions["typeEffectNormal"]->setOn(true);
 		scrActions["typeEffectUnderline"]->setOn(false);
 		scrActions["typeEffectStrikeThrough"]->setOn(false);
@@ -9049,22 +9040,6 @@ QString ScribusApp::CFileDialog(QString wDir, QString caption, QString filter, Q
 	return retval;
 }
 
-void ScribusApp::RunPlug(int)
-{
-}
-
-void ScribusApp::RunImportPlug(int )
-{
-}
-
-void ScribusApp::RunExportPlug(int )
-{
-}
-
-void ScribusApp::RunHelpPlug(int)
-{
-}
-
 void ScribusApp::FinalizePlugs()
 {
 	const char *error;
@@ -9150,11 +9125,6 @@ void ScribusApp::initPlugs()
 					splashScreen->setStatus( tr("Loading:")+" "+nam);
 			}
 		}
-
-//		connect(extraMenu, SIGNAL(activated(int)), this, SLOT(RunPlug(int)));
-//CB TODO		connect(importMenu, SIGNAL(activated(int)), this, SLOT(RunImportPlug(int)));
-//CB TODO		connect(exportMenu, SIGNAL(activated(int)), this, SLOT(RunExportPlug(int)));
-		//connect(helpMenu, SIGNAL(activated(int)), this, SLOT(RunHelpPlug(int)));
 	}
 }
 
@@ -9598,11 +9568,15 @@ void ScribusApp::SetShortCut()
 	/*
 	extraMenu->setAccel(Prefs.KeyActions[50].KeyID, Prefs.KeyActions[50].MenuID);
 	extraMenu->setAccel(Prefs.KeyActions[51].KeyID, Prefs.KeyActions[51].MenuID);
+	*/
 	for (a = 52; a < 56; ++a)
 	{
-		helpMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
+		if (Prefs.KeyActions.contains(a))
+			if (Prefs.KeyActions[a].actionName!="")
+				if (scrActions[Prefs.KeyActions[a].actionName])
+					scrActions[Prefs.KeyActions[a].actionName]->setAccel(Prefs.KeyActions[a].KeyID);
 	}
-	*/
+	
 	//CB itemMenu->setAccel(Prefs.KeyActions[61].KeyID, Prefs.KeyActions[61].MenuID);
 	//CB toolMenu->setAccel(Prefs.KeyActions[62].KeyID, Prefs.KeyActions[62].MenuID);
 	//CB toolMenu->setAccel(Prefs.KeyActions[66].KeyID, Prefs.KeyActions[66].MenuID);

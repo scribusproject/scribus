@@ -442,10 +442,6 @@ public slots:
 	void GroupObj(bool showLockDia = true);
 	void UnGroupObj();
 	void StatusPic();
-	void RunPlug(int id);
-	void RunImportPlug(int id);
-	void RunExportPlug(int id);
-	void RunHelpPlug(int id);
 	void ModifyAnnot();
 	void ToggleGuides();
 	void ToggleBase();
