@@ -6,13 +6,8 @@
 #include <qmessagebox.h>
 #include <qcursor.h>
 
-PyObject *scribus_newdocdia(PyObject *self, PyObject* args)
+PyObject *scribus_newdocdia(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("newDocDialog()"));
-		return NULL;
-	}
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 	bool ret = Carrier->slotFileNew();
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));

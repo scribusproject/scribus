@@ -20,13 +20,8 @@ PyObject *scribus_setredraw(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_fontnames(PyObject *self, PyObject* args)
+PyObject *scribus_fontnames(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getFontNames()"));
-		return NULL;
-	}
 	int cc2 = 0;
 	SCFontsIterator it2(Carrier->Prefs.AvailFonts);
 	for ( ; it2.current() ; ++it2)
@@ -48,13 +43,8 @@ PyObject *scribus_fontnames(PyObject *self, PyObject* args)
 	return l;
 }
 
-PyObject *scribus_xfontnames(PyObject *self, PyObject* args)
+PyObject *scribus_xfontnames(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getXFontNames()"));
-		return NULL;
-	}
 	PyObject *l = PyList_New(Carrier->Prefs.AvailFonts.count());
 	SCFontsIterator it(Carrier->Prefs.AvailFonts);
 	int cc = 0;
@@ -98,13 +88,8 @@ PyObject *scribus_renderfont(PyObject *self, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
-PyObject *scribus_getlayers(PyObject *self, PyObject* args)
+PyObject *scribus_getlayers(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getLayers()"));
-		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PyObject *l;
@@ -144,13 +129,8 @@ PyObject *scribus_setactlayer(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_getactlayer(PyObject *self, PyObject* args)
+PyObject *scribus_getactlayer(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getActiveLayer()"));
-		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	return PyString_FromString(Carrier->doc->Layers[Carrier->doc->ActiveLayer].Name);
@@ -362,12 +342,7 @@ PyObject *scribus_createlayer(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_getlanguage(PyObject *self, PyObject* args)
+PyObject *scribus_getlanguage(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getGuiLanguage()"));
-		return NULL;
-	}
 	return PyString_FromString(Carrier->GuiLanguage);
 }

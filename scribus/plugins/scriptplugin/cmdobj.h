@@ -58,7 +58,7 @@ PyObject *scribus_setstyle(PyObject *self, PyObject* args);
  Craig Ringer, 2004-09-09
  Enumerate all known paragraph styles
 */
-PyObject *scribus_getstylenames(PyObject *self, PyObject* args);
+PyObject *scribus_getstylenames(PyObject *self);
 
 #endif
 

@@ -4,7 +4,7 @@
 
 /** Calling Dialogs from Scribus */
 /** Raises the Scribus New Document dialog */
-PyObject *scribus_newdocdia(PyObject *self, PyObject* args);
+PyObject *scribus_newdocdia(PyObject *self);
 /** Raises file dialog.
  Params - caption, filter, default name and opt. pre, mode. */
 PyObject *scribus_filedia(PyObject *self, PyObject* args);

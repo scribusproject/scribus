@@ -3,25 +3,15 @@
 #include "cmdvar.h"
 #include "cmdutil.h"
 
-PyObject *scribus_actualpage(PyObject *self, PyObject* args)
+PyObject *scribus_actualpage(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("currentPage()"));
-		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	return PyInt_FromLong(static_cast<long>(Carrier->doc->ActPage->PageNr + 1));
 }
 
-PyObject *scribus_redraw(PyObject *self, PyObject* args)
+PyObject *scribus_redraw(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("redrawAll()"));
-		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	Carrier->view->DrawNew();
@@ -112,25 +102,15 @@ PyObject *scribus_newpage(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_pagecount(PyObject *self, PyObject* args)
+PyObject *scribus_pagecount(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("pageCount()"));
-		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	return PyInt_FromLong(static_cast<long>(Carrier->view->Pages.count()));
 }
 
-PyObject *scribus_pagedimension(PyObject *self, PyObject *args)
+PyObject *scribus_pagedimension(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getPageSize()"));
-		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PyObject *t;
@@ -142,13 +122,8 @@ PyObject *scribus_pagedimension(PyObject *self, PyObject *args)
 	return t;
 }
 
-PyObject *scribus_getpageitems(PyObject *self, PyObject* args)
+PyObject *scribus_getpageitems(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getPageItems()"));
-		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (Carrier->doc->ActPage->Items.count() == 0)
@@ -167,13 +142,8 @@ PyObject *scribus_getpageitems(PyObject *self, PyObject* args)
 	return l;
 }
 
-PyObject *scribus_getHguides(PyObject *self, PyObject* args)
+PyObject *scribus_getHguides(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getHGuides()"));
-		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	int n = Carrier->doc->ActPage->YGuides.count();
@@ -227,13 +197,8 @@ PyObject *scribus_setHguides(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_getVguides(PyObject *self, PyObject* args)
+PyObject *scribus_getVguides(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getVGuides()"));
-		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	int n = Carrier->doc->ActPage->XGuides.count();
@@ -287,14 +252,9 @@ PyObject *scribus_setVguides(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_getpagemargins(PyObject *self,  PyObject* args)
+PyObject *scribus_getpagemargins(PyObject *self)
 {
 	PyObject *margins = NULL;
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getPageMargins()"));
-		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	margins = Py_BuildValue("ffff", Carrier->doc->PageM.Top, Carrier->doc->PageM.Left,

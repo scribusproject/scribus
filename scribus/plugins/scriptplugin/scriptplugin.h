@@ -65,7 +65,6 @@ public slots:
 		QString slotRunScript(QString Script);
 		void slotInteractiveScript();
 		void slotExecute();
-		/*! 11/1/2004 pv - Show docstring of the script to the user */
 		void aboutScript();
 };
 
