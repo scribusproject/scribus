@@ -1,7 +1,7 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
 
-EXTRA_DIST = Sample1.py Calender.py trait_de_coupe.py pochette_cd.py htmlimport.py 3columnUSLTR.py 3columnA4.py ReadMe 
+EXTRA_DIST = Sample1.py Calender.py trait_de_coupe.py pochette_cd.py htmlimport.py 3columnUSLTR.py 3columnA4.py legende.py moins_10_pourcent_group.py plus_10_pourcent_group.py ReadMe 
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/lib/scribus/samples/
@@ -19,6 +19,12 @@ install-data-local:
 	$(mkinstalldirs) $(prefix)/lib/scribus/samples/
 	$(INSTALL_DATA) $(srcdir)/3columnA4.py $(prefix)/lib/scribus/samples/3columnA4.py
 	$(mkinstalldirs) $(prefix)/lib/scribus/samples/
+	$(INSTALL_DATA) $(srcdir)/legende.py $(prefix)/lib/scribus/samples/legende.py
+	$(mkinstalldirs) $(prefix)/lib/scribus/samples/
+	$(INSTALL_DATA) $(srcdir)/moins_10_pourcent_group.py $(prefix)/lib/scribus/samples/moins_10_pourcent_group.py
+	$(mkinstalldirs) $(prefix)/lib/scribus/samples/
+	$(INSTALL_DATA) $(srcdir)/plus_10_pourcent_group.py $(prefix)/lib/scribus/samples/plus_10_pourcent_group.py
+	$(mkinstalldirs) $(prefix)/lib/scribus/samples/
 	$(INSTALL_DATA) $(srcdir)/ReadMe $(prefix)/lib/scribus/samples/ReadMe
 
 uninstall-local:
@@ -29,6 +35,9 @@ uninstall-local:
 	-rm -f $(prefix)/lib/scribus/samples/htmlimport.py
 	-rm -f $(prefix)/lib/scribus/samples/3columnUSLTR.py
 	-rm -f $(prefix)/lib/scribus/samples/3columnA4.py
+	-rm -f $(prefix)/lib/scribus/samples/moins_10_pourcent_group.py
+	-rm -f $(prefix)/lib/scribus/samples/plus_10_pourcent_group.py
+	-rm -f $(prefix)/lib/scribus/samples/legende.py
 	-rm -f $(prefix)/lib/scribus/samples/ReadMe
 
 ####### kdevelop will overwrite this part!!! (end)############

@@ -3974,6 +3974,7 @@ else
   AC_SUBST(PYTHONLIB)
   AC_SUBST(LIBPYTHON)
   AC_SUBST(PYTHONMODDIR)
+	hapy=yes
   AC_DEFINE(HAVE_PYTHON, 1, [Define if you have the development files for python])
 fi
 

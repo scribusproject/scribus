@@ -37,10 +37,11 @@ class Zoom : public QDialog
 Q_OBJECT
 
 public:
-	Zoom( QWidget* parent, QPixmap pix);
+	Zoom( QWidget* parent, QPixmap pix, uint val);
 	~Zoom();
 	void paintEvent(QPaintEvent *);
 	QPixmap pixm;
+	QString valu;
 };
 
 class ChTable;

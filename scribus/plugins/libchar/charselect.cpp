@@ -36,12 +36,15 @@ void Run(QWidget *d, ScribusApp *plug)
   	}
 }
 
-Zoom::Zoom(QWidget* parent, QPixmap pix) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorderEx)
+Zoom::Zoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorderEx)
 {
-	resize(pix.width()+2,pix.height()+2);
-	setMinimumSize(QSize(pix.width()+2,pix.height()+2));
-	setMaximumSize(QSize(pix.width()+2,pix.height()+2));
+	QString tmp;
+	resize(pix.width()+2,pix.height()+20);
+	setMinimumSize(QSize(pix.width()+2,pix.height()+20));
+	setMaximumSize(QSize(pix.width()+2,pix.height()+20));
 	pixm = pix;
+	tmp.sprintf("%04X", val);
+	valu = "0x"+tmp;
 }
 
 Zoom::~Zoom()
@@ -56,6 +59,7 @@ void Zoom::paintEvent(QPaintEvent *)
 	p.setBrush(NoBrush);
   p.drawRect(0, 0, width(), height());
 	p.drawPixmap(1, 1, pixm);
+	p.drawText(5, height()-3, valu);
 	p.end();
 }
 
@@ -95,7 +99,7 @@ void ChTable::contentsMousePressEvent(QMouseEvent* e)
 			p->end();
 			}
 		delete p;
-		dia = new Zoom(this, pixm);
+		dia = new Zoom(this, pixm, par->Zeich[r*32+c]);
 		QPoint ps = QCursor::pos();
 		dia->move(ps.x()-2, ps.y()-2);
 		dia->show();

@@ -1,4 +1,7 @@
 Changes since Version 1.1.2
+06.11.2003	Added a --without-python option to ./configure for
+		those who don't have a use for the Scripter-Plugin.
+
 05.11.2003	Improved the Preview in the charselect plugin.
 
 04.11.2003	When you resize a Textframe with the Mouse and press
