@@ -35,8 +35,8 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	Layout6->addWidget( TextLabel1, 0, 0 );
 	ComboBox1 = new QComboBox( true, ButtonGroup1_2, "ComboBox1" );
 	QString sizelist[] = {"A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "B0", "B1", "B2", "B3", "B4",
-	                      "B5", "B6", "B7", "B8", "B9", "B10", "C5E", "Comm10E", "DLE", "Executive", "Folio",
-	                      "Ledger", tr("Legal"), tr("Letter"), tr("Tabloid"), tr("Custom")};
+	                      "B5", "B6", "B7", "B8", "B9", "B10", "C5E", "Comm10E", "DLE", tr("Executive"), tr("Folio"),
+	                      tr("Ledger"), tr("Legal"), tr("Letter"), tr("Tabloid"), tr("Custom")};
 	size_t const num_mappings = (sizeof sizelist)/(sizeof *sizelist);
 	for (uint m = 0; m < num_mappings; ++m)
 		ComboBox1->insertItem(sizelist[m]);
