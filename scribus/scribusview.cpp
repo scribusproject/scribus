@@ -2048,6 +2048,35 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								}
 							break;
 						case 7:
+								if ((c->Pcolor != "None") || (c->GrType != 0))
+								{
+									SetClipPath(p, &c->PoLine);
+									p->PS_closepath();
+									if (c->GrType != 0)
+										{
+										SetFarbe(c->GrColor2, c->GrShade2, &h, &s, &v, &k);
+										p->PS_GradientCol1(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+										SetFarbe(c->GrColor, c->GrShade, &h, &s, &v, &k);
+										p->PS_GradientCol2(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+										switch (c->GrType)
+											{
+											case 1:
+											case 2:
+											case 3:
+											case 4:
+												p->PS_LinGradient(c->Width, -c->Height, c->PType, c->GrType, multiPath);
+												break;
+											case 5:
+												p->PS_RadGradient(c->Width, -c->Height, c->PType, multiPath);
+												break;
+											default:
+												break;
+											}
+										}
+									else
+										p->PS_fill(multiPath);
+									p->PS_newpath();
+								}
 							if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
 								{						
 								SetClipPath(p, &c->PoLine, false);

@@ -2787,9 +2787,9 @@ void ScribusApp::LoadRecent(int id)
 			}
 		return;
 		}
-  qApp->setOverrideCursor(QCursor(waitCursor), true);
+	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	LadeDoc(recentMenu->text(id));
-  qApp->setOverrideCursor(QCursor(arrowCursor), true);
+	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 }
 
 bool ScribusApp::slotDocOpen()
@@ -2800,9 +2800,9 @@ bool ScribusApp::slotDocOpen()
 #else
 	QString fileName = CFileDialog( tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
 #endif
-  qApp->setOverrideCursor(QCursor(waitCursor), true);
+	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	ret = LadeDoc(fileName);
-  qApp->setOverrideCursor(QCursor(arrowCursor), true);
+	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	return ret;
 }
 
@@ -2811,12 +2811,12 @@ bool ScribusApp::slotDocMerge()
 	bool ret = false;
 	MergeDoc *dia = new MergeDoc(this, false);
 	if (dia->exec())
-		{
+	{
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		ret = LadeSeite(dia->Filename->text(), dia->PageNr->value()-1, false);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 		ret = true;
-		}
+	}
 	delete dia;
 	return ret;
 }
@@ -2824,19 +2824,19 @@ bool ScribusApp::slotDocMerge()
 bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 {
 	bool ret = false;
-  if (!fileName.isEmpty())
+	if (!fileName.isEmpty())
   	{
 		if (!Mpa)
 			doc->OpenNodes = Tpal->buildReopenVals();
 		doc->loading = true;
-  	ScriXmlDoc *ss = new ScriXmlDoc();
-  	if(!ss->ReadPage(fileName, Prefs.AvailFonts, doc, view, Nr, Mpa))
-  		{
-  		delete ss;
+		ScriXmlDoc *ss = new ScriXmlDoc();
+		if(!ss->ReadPage(fileName, Prefs.AvailFonts, doc, view, Nr, Mpa))
+		{
+			delete ss;
 			doc->loading = false;
-  		return false;
-  		}
-  	delete ss;
+			return false;
+		}
+		delete ss;
 		if (CMSavail)
 			{
 			if (doc->CMSSettings.CMSinUse)
@@ -2874,6 +2874,23 @@ bool ScribusApp::LadeDoc(QString fileName)
 	if (HaveDoc)
 		doc->OpenNodes = Tpal->buildReopenVals();
 	bool ret = false;
+	QWidgetList windows = wsp->windowList();
+	bool found = false;
+	int id = 0;
+	for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
+	{
+		if (windows.at(i)->caption() == fileName)
+		{
+			found = true;
+			id = i;
+			break;
+		}
+	}
+	if (found)
+	{
+		windowsMenuActivated(id);
+		return true;
+	}
   if (!fileName.isEmpty())
   	{
   	QFileInfo fi(fileName);

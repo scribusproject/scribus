@@ -561,6 +561,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	RadioButton9->setText( tr( "Off" ) );
 	Layout18->addWidget( RadioButton9 );
 	RadioButton8->setChecked(Vor->BaseShown );
+	RadioButton9->setChecked(!Vor->BaseShown );
 	ButtonGroup6Layout->addLayout( Layout18 );
 	tabLayout_2->addWidget( ButtonGroup6, 1, 1 );
 	TabWidget3->addWidget( tab_2, 2 );

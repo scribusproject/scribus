@@ -1,4 +1,10 @@
 Changes since Version 1.1.6
+24.04.2004	Opening the same Document twice is now no longer possible.
+		Fixed Bug #514, Spinbox values are reset to 0.0 in Polish Language.
+		Fixed Bug #513, Not able to delete highlighted Guide in the Guidemanager.
+		Fixed Bug #508, Short font and color list in object properties.
+		Fixed Bug #495, unclosed SVG paths not importing properly
+
 23.04.2004	Fixed wrong clipping in the Postscript Output with styled Lines.
 		Fixed vanishing text in flipped Textframes when zooming in.
 		Updated the Czech and Danish Translations.

@@ -2656,12 +2656,19 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			if (b->PType == 8)
 				pmen->insertItem( tr("Edit Text..."), this, SIGNAL(EditText()));
 			if (!b->Locked)
+				pmen->insertItem( tr("Lock"), this, SLOT(ToggleLock()));
+			else
+				pmen->insertItem( tr("Unlock"), this, SLOT(ToggleLock()));
+			if (!b->LockRes)
+				pmen->insertItem( tr("Lock object size"), this, SLOT(ToggleResize()));
+			else
+				pmen->insertItem( tr("Unlock object size"), this, SLOT(ToggleResize()));
+			if (!b->Locked)
 			{
 				if (SelItem.count() > 1)
 					pmen->insertItem( tr("Group"), this, SIGNAL(DoGroup()));
 				if (b->Groups.count() != 0)
 					pmen->insertItem( tr("Un-group"), this, SIGNAL(DoUnGroup()));
-				pmen->insertItem( tr("Lock"), this, SLOT(ToggleLock()));
 				if ((!b->isTableItem) && (!b->isSingleSel))
 				{
 					pmen->insertItem( tr("Send to Back"), this, SLOT(ToBack()));
@@ -2670,12 +2677,6 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					pmen->insertItem( tr("Raise"), this, SLOT(RaiseItem()));
 				}
 			}
-			else
-				pmen->insertItem( tr("Unlock"), this, SLOT(ToggleLock()));
-			if (!b->LockRes)
-				pmen->insertItem( tr("Disable resizing"), this, SLOT(ToggleResize()));
-			else
-				pmen->insertItem( tr("Enable resizing"), this, SLOT(ToggleResize()));
 			if ((!b->isTableItem) && (!b->isSingleSel))
 			{
 				pmen->insertItem( tr("Send to Scrapbook"), this, SLOT(sentToScrap()));

@@ -834,7 +834,7 @@ void ScPainter::drawImage( const QImage &image )
 					 affineresult, ART_FILTER_NEAREST, 0L, qRound( 255 * fill_trans ) );
 }
 
-void ScPainter::setupPolygon(FPointArray *points)
+void ScPainter::setupPolygon(FPointArray *points, bool closed)
 {
 	bool nPath = true;
 	FPoint np, np1, np2, np3;
@@ -854,7 +854,10 @@ void ScPainter::setupPolygon(FPointArray *points)
 				{
 				np = points->point(poi);
 				ensureSpace( m_index + 1 );
-				m_path[ m_index ].code = ART_MOVETO;
+				if (closed)
+					m_path[ m_index ].code = ART_MOVETO;
+				else
+					m_path[ m_index ].code = ART_MOVETO_OPEN;
 				m_path[ m_index ].x3 = np.x() * m_zoomFactor;
 				m_path[ m_index ].y3 = np.y() * m_zoomFactor;
 				m_index++;

@@ -86,6 +86,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 			for (uint x = 5; x < doc->Vorlagen.count(); ++x)
 				SStyleVal->insertItem(doc->Vorlagen[x].Vname);
 		}
+		SStyleVal->listBox()->setMinimumWidth(SStyleVal->listBox()->maxItemWidth()+24);
 		SStyleVal->setCurrentItem(doc->CurrentABStil);
 		SStyleVal->setEnabled(false);
 		SearchLayout->addWidget( SStyleVal, 1, 1 );
@@ -113,6 +114,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 			pm.fill(doc->PageColors[it.key()].getRGBColor());
 			SFillVal->insertItem(pm, it.key());
 		}
+		SFillVal->listBox()->setMinimumWidth(SFillVal->listBox()->maxItemWidth()+24);
 		SFillVal->setCurrentText(doc->CurrTextFill);
 		SFillVal->setEnabled(false);
 		SearchLayout->addWidget( SFillVal, 5, 1 );
@@ -127,6 +129,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 			pm.fill(doc->PageColors[it.key()].getRGBColor());
 			SStrokeVal->insertItem(pm, it.key());
 		}
+		SStrokeVal->listBox()->setMinimumWidth(SStrokeVal->listBox()->maxItemWidth()+24);
 		SStrokeVal->setCurrentText(doc->CurrTextStroke);
 		SStrokeVal->setEnabled(false);
 		SearchLayout->addWidget( SStrokeVal, 7, 1 );
@@ -181,6 +184,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 			for (uint x = 5; x < doc->Vorlagen.count(); ++x)
 				RStyleVal->insertItem(doc->Vorlagen[x].Vname);
 		}
+		RStyleVal->listBox()->setMinimumWidth(RStyleVal->listBox()->maxItemWidth()+24);
 		RStyleVal->setCurrentItem(doc->CurrentABStil);
 		RStyleVal->setEnabled(false);
 		ReplaceLayout->addWidget( RStyleVal, 1, 1 );
@@ -208,6 +212,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 			pm.fill(doc->PageColors[it.key()].getRGBColor());
 			RFillVal->insertItem(pm, it.key());
 		}
+		RFillVal->listBox()->setMinimumWidth(RFillVal->listBox()->maxItemWidth()+24);
 		RFillVal->setCurrentText(doc->CurrTextFill);
 		RFillVal->setEnabled(false);
 		ReplaceLayout->addWidget( RFillVal, 5, 1 );
@@ -222,6 +227,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 			pm.fill(doc->PageColors[it.key()].getRGBColor());
 			RStrokeVal->insertItem(pm, it.key());
 		}
+		RStrokeVal->listBox()->setMinimumWidth(RStrokeVal->listBox()->maxItemWidth()+24);
 		RStrokeVal->setCurrentText(doc->CurrTextStroke);
 		RStrokeVal->setEnabled(false);
 		ReplaceLayout->addWidget( RStrokeVal, 7, 1 );

@@ -1026,11 +1026,9 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							if (Options->UseRGB)
 							{
 								if (ite->Pcolor != "None")
-									PutPage(SetFarbe(ite->Pcolor,
-											 ite->Shade)+" rg\n");
+									PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" rg\n");
 								if (ite->Pcolor2 != "None")
-									PutPage(SetFarbe(ite->Pcolor2,
-											 ite->Shade2)+" RG\n");
+									PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" RG\n");
 							}
 							else
 							{
@@ -1056,21 +1054,17 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 									PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
 									PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" CS\n");
 									if (ite->Pcolor != "None")
-										PutPage(SetFarbe(ite->Pcolor,
-											 ite->Shade)+" scn\n");
+										PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" scn\n");
 									if (ite->Pcolor2 != "None")
-										PutPage(SetFarbe(ite->Pcolor2,
-											 ite->Shade2)+" SCN\n");
+										PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" SCN\n");
 								}
 								else
 								{
 #endif
 									if (ite->Pcolor != "None")
-										PutPage(SetFarbe(ite->Pcolor,
-											 ite->Shade)+" k\n");
+										PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" k\n");
 									if (ite->Pcolor2 != "None")
-										PutPage(SetFarbe(ite->Pcolor2,
-											 ite->Shade2)+" K\n");
+										PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" K\n");
 								}
 #ifdef HAVE_CMS
 							}
@@ -1492,6 +1486,16 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 						}
 						break;
 					case 7:
+						if (ite->GrType != 0)
+							PDF_Gradient(ite);
+						else
+						{
+							if (ite->Pcolor != "None")
+							{
+								PutPage(SetClipPath(ite));
+								PutPage(ite->Segments.count() != 0 ? "h\nf*\n" : "h\nf\n");
+							}
+						}
 						if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
 						{
 							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
@@ -2159,15 +2163,15 @@ QString PDFlib::SetFarbe(QString farbe, int Shade)
 			{
 				tmpC.getRawRGBColor(&h, &s, &v);
 				tmpR.setRgb(h, s, v);
-				tmpR.hsv(&h, &s, &v);
-
 				if ((h == s) && (s == v))
 				{
+					tmpR.hsv(&h, &s, &v);
 					sneu = 255 - ((255 - v) * Shade / 100);
 					tmpR.setHsv(h, s, sneu);
 				}
 				else
 				{
+					tmpR.hsv(&h, &s, &v);
 					sneu = s * Shade / 100;
 					tmpR.setHsv(h, sneu, v);
 				}
@@ -2182,8 +2186,7 @@ QString PDFlib::SetFarbe(QString farbe, int Shade)
 				s = s * Shade / 100;
 				v = v * Shade / 100;
 				k = k * Shade / 100;
-				tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+
-					FToStr(k / 255.0);
+				tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
 			}
 		}
 		else

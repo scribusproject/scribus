@@ -2327,19 +2327,19 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source> pt</source>
-        <translation></translation>
+        <translation> pkt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation></translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation></translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation></translation>
+        <translation> p</translation>
     </message>
 </context>
 <context>
@@ -6754,19 +6754,19 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation></translation>
+        <translation> pkt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation></translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation></translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation></translation>
+        <translation> p</translation>
     </message>
     <message>
         <source>pt</source>
@@ -6774,7 +6774,7 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>mm</source>
-        <translation></translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source>in</source>
@@ -6782,7 +6782,7 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>p</source>
-        <translation></translation>
+        <translation>p</translation>
     </message>
     <message>
         <source>Scribus Scripts</source>

@@ -57,6 +57,7 @@ void Spalette::updateFList()
 		st.sort();
 		insertStringList(st);
 	}
+	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
 

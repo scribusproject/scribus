@@ -2749,6 +2749,8 @@ void Mpalette::updateCList()
 		TxFill->insertItem(pm, it.key());
 		TxStroke->insertItem(pm, it.key());
 	}
+	TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);
+	TxStroke->listBox()->setMinimumWidth(TxStroke->listBox()->maxItemWidth()+24);
 }
 
 void Mpalette::updateCmsList()
@@ -2785,8 +2787,7 @@ void Mpalette::updateCmsList()
 				InputP->insertItem(CurItem->EmProfile);
 		}
 		MonitorI->setCurrentItem(CurItem->IRender);
-		connect(InputP, SIGNAL(activated(const QString&)), this,
-		        SLOT(ChProf(const QString&)));
+		connect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
 	}
 }
 
@@ -3050,6 +3051,7 @@ void Mpalette::fillLangCombo(QMap<QString,QString> Sprachen)
 	QMap<QString,QString>::Iterator it;
 	for (it = Sprachen.begin(); it != Sprachen.end(); ++it)
 		LangCombo->insertItem(it.key());
+	LangCombo->listBox()->setMinimumWidth(LangCombo->listBox()->maxItemWidth()+24);
 }
 
 void Mpalette::NewLanguage()

@@ -213,16 +213,24 @@ GuideManager::GuideManager(
 	
 	/* Intialise selection in ListBoxes */
 	if (HorList->numRows() > 0)
+	{
 		HorList->setCurrentItem(0);
+		HorDel->setEnabled(true);
+	}
 	else
 	{
+		HorDel->setEnabled(false);
 		HorSpin->setValue(0);
 		if (VerList->numRows() > 0)
+		{
 			VerList->setCurrentItem(0);
+			VerDel->setEnabled(true);
+		}
 		else
+		{
 			VerSpin->setValue(0);
-		HorDel->setEnabled(false);
-		VerDel->setEnabled(false);
+			VerDel->setEnabled(false);
+		}
 	} 
 }	
 void GuideManager::DelHorVal()

@@ -71,7 +71,7 @@ public:
 	virtual void strokePath();
 
 	virtual void drawImage( const QImage & );
-	virtual void setupPolygon(FPointArray *points);
+	virtual void setupPolygon(FPointArray *points, bool closed = true);
 	virtual void drawPolygon();
 	virtual void drawPolyLine();
 	virtual void drawLine(FPoint start, FPoint end);

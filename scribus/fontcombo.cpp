@@ -60,6 +60,7 @@ FontCombo::FontCombo(QWidget* pa, preV *Prefs) : QComboBox(true, pa)
 	clear();
 	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 		insertItem(*it2);
+	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 }
 
 void FontCombo::RebuildList(preV *Prefs)
@@ -76,4 +77,5 @@ void FontCombo::RebuildList(preV *Prefs)
 	rlist.sort();
 	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 		insertItem(*it2);
+	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 }

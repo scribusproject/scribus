@@ -519,7 +519,39 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 		case 7:
 			if (Doc->RePos)
 				break;
-			p->setupPolygon(&PoLine);
+			if ((Pcolor != "None") || (GrType != 0))
+			{
+				FPointArray cli;
+				for (uint n = 0; n < PoLine.size()-3; n += 4)
+				{
+					if (PoLine.point(n).x() > 900000)
+					{
+						cli.addPoint(PoLine.point(n-2));
+						cli.addPoint(PoLine.point(n-2));
+						cli.addPoint(cli.point(0));
+						cli.addPoint(cli.point(0));
+						p->setupPolygon(&cli);
+						p->drawPolygon();
+						cli.resize(0);
+						continue;
+					}
+					cli.addPoint(PoLine.point(n));
+					cli.addPoint(PoLine.point(n+1));
+					cli.addPoint(PoLine.point(n+2));
+					cli.addPoint(PoLine.point(n+3));
+				}
+				if (cli.size() > 2)
+				{
+					FPoint l1 = cli.point(cli.size()-2);
+					cli.addPoint(l1);
+					cli.addPoint(l1);
+					cli.addPoint(cli.point(0));
+					cli.addPoint(cli.point(0));
+					p->setupPolygon(&cli);
+					p->drawPolygon();
+				}
+			}
+			p->setupPolygon(&PoLine, false);
 			if (NamedLStyle == "")
 				p->drawPolyLine();
 			else
