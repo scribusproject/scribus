@@ -1494,6 +1494,9 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	settingsMenu = new QPopupMenu();
 	settingsMenu->insertItem( tr("&Background..."), this , SLOT(setBackPref()));
 	settingsMenu->insertItem( tr("&Display Font..."), this , SLOT(setFontPref()));
+	smartSel = settingsMenu->insertItem( tr("&Smart text selection"), this, SLOT(ToggleSmart()));
+	smartSelection = false;
+	settingsMenu->setItemChecked(smartSel, smartSelection);
 	menuBar()->insertItem( tr("&File"), fmenu);
 	menuBar()->insertItem( tr("&Edit"), emenu);
 	menuBar()->insertItem( tr("&Settings"), settingsMenu );
@@ -1657,7 +1660,7 @@ void StoryEditor::doubleClick(int para, int position)
 {
 	int paraFrom, indexFrom, paraTo, indexTo;
 	QString selText = Editor->selectedText();
-	if (selText.length() == 0)
+	if (selText.length() == 0 || !smartSelection)
 	{
 		updateProps(para, position);
 		return;
@@ -1666,6 +1669,12 @@ void StoryEditor::doubleClick(int para, int position)
 	selText =  selText.stripWhiteSpace();
 	Editor->setSelection(paraFrom, indexFrom, paraFrom, indexFrom + selText.length());
 	updateProps(para, position);
+}
+
+void StoryEditor::ToggleSmart()
+{
+	smartSelection = !smartSelection;
+	settingsMenu->setItemChecked(smartSel, smartSelection);
 }
 
 int StoryEditor::exec()

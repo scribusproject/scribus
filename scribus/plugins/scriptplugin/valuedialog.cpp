@@ -39,7 +39,7 @@ ValueDialog::ValueDialog( QWidget* parent, const char* name, bool modal, WFlags 
 
 	ScripterValueLayout->addLayout( layout3, 0, 0 );
 	languageChange();
-	resize( QSize(315, 101).expandedTo(minimumSizeHint()) );
+//	resize( QSize(315, 101).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
 
 	// signals and slots connections

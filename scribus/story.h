@@ -33,6 +33,7 @@
 #include <qtoolbar.h>
 #include <qlayout.h>
 #include <qsplitter.h>
+#include <qcheckbox.h>
 #include "pageitem.h"
 #include "mspinbox.h"
 #include "spalette.h"
@@ -300,6 +301,9 @@ public:
 	QLabel* WordC2;
 	QLabel* CharCT2;
 	QLabel* CharC2;
+	/*! Enables/disables the "smart" selection (#1203) - 10/16/2004 pv */
+	bool smartSelection;
+	int smartSel;
 
 	ScribusDoc* doc;
 	PageItem* CurrItem;
@@ -349,6 +353,7 @@ public slots:
 	void SaveTextFile();
 	// 10/12/2004 - pv - #1203: wrong selection on double click
 	void doubleClick(int para, int pos);
+	void ToggleSmart();
 
 signals:
 	void DocChanged();
