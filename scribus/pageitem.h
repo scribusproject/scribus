@@ -473,6 +473,16 @@ public:
 	 * @param newFont name of the font
 	 */
 	void setFont(const QString& newFont);
+	/**
+	 * @brief Set the font size of the frame
+	 * @param newSize font size
+	 */
+	void setFontSize(int newSize);
+	/**
+	 * @brief Set scaling width of character
+	 * @param newWidth width of character
+	 */
+	void setFontWidth(int newWidth);
 
 	/** 
 	 * @brief Check the changes to the item and add undo actions for them.
@@ -518,6 +528,8 @@ protected:
 	void restoreCustomLineStyle(SimpleState *state, bool isUndo);
 	void restoreArrow(SimpleState *state, bool isUndo, bool isStart);
 	void restoreFont(SimpleState *state, bool isUndo);
+	void restoreFontSize(SimpleState *state, bool isUndo);
+	void restoreFontWidth(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**

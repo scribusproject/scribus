@@ -674,6 +674,8 @@ const QString UndoManager::EndArrow          = tr("Set end arrow");
 const QString UndoManager::CreateTable       = tr("Create table");
 const QString UndoManager::RowsCols          = tr("Rows: %1, Cols: %2");
 const QString UndoManager::SetFont           = tr("Set font");
+const QString UndoManager::SetFontSize       = tr("Set font size");
+const QString UndoManager::SetFontWidth      = tr("Set font width");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;

@@ -445,6 +445,8 @@ public:
 	static const QString CreateTable;
 	static const QString RowsCols;
 	static const QString SetFont;
+	static const QString SetFontSize;
+	static const QString SetFontWidth;
 	/*@}*/
 
 	/**

@@ -2625,13 +2625,41 @@ void PageItem::setFont(const QString& newFont)
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetFont,
-                        QString(Um::FromTo).arg(IFont).arg(newFont), Um::IFont);
+										  QString(Um::FromTo).arg(IFont).arg(newFont), Um::IFont);
 		ss->set("SET_FONT", "setfont");
 		ss->set("OLD_FONT", IFont);
 		ss->set("NEW_FONT", newFont);
 		undoManager->action(this, ss);
 	}
 	IFont = newFont;
+}
+
+void PageItem::setFontSize(int newSize)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SetFontSize,
+										  QString(Um::FromTo).arg(ISize/10.0).arg(newSize/10.0), Um::IFont);
+		ss->set("SET_FONT_SIZE", "setfontsize");
+		ss->set("OLD_SIZE", ISize);
+		ss->set("NEW_SIZE", newSize);
+		undoManager->action(this, ss);
+	}
+	ISize = newSize;
+}
+
+void PageItem::setFontWidth(int newWidth)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SetFontWidth,
+										  QString(Um::FromTo).arg(TxtScale).arg(newWidth), Um::IFont);
+		ss->set("SET_FONT_WIDTH", "setfontwidth");
+		ss->set("OLD_WIDTH", TxtScale);
+		ss->set("NEW_WIDTH", newWidth);
+		undoManager->action(this, ss);
+	}
+	TxtScale = newWidth;
 }
 
 void PageItem::checkChanges(bool force)
@@ -2802,6 +2830,10 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreArrow(ss, isUndo, false);
 		else if (ss->contains("SET_FONT"))
 			restoreFont(ss, isUndo);
+		else if (ss->contains("SET_FONT_SIZE"))
+			restoreFontSize(ss, isUndo);
+		else if (ss->contains("SET_FONT_WIDTH"))
+			restoreFontWidth(ss, isUndo);
 		
 	}
 }
@@ -3024,6 +3056,24 @@ void PageItem::restoreFont(SimpleState *state, bool isUndo)
 		font = state->get("NEW_FONT");
 	select();
 	ScApp->view->ItemFont(font);
+}
+
+void PageItem::restoreFontSize(SimpleState *state, bool isUndo)
+{
+	int size = state->getInt("OLD_SIZE");
+	if (!isUndo)
+		size = state->getInt("NEW_SIZE");
+	select();
+	ScApp->view->chFSize(size);
+}
+
+void PageItem::restoreFontWidth(SimpleState *state, bool isUndo)
+{
+	int width = state->getInt("OLD_WIDTH");
+	if (!isUndo)
+		width = state->getInt("NEW_WIDTH");
+	select();
+	ScApp->view->ItemTextScale(width);
 }
 
 void PageItem::select()

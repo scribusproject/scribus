@@ -9664,6 +9664,9 @@ void ScribusView::ItemTextScale(int sha)
 {
 	if (SelItem.count() != 0)
 	{
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontWidth,
+										  QString("%1").arg(sha), Um::IFont);
 		PageItem *b;
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
@@ -9671,7 +9674,7 @@ void ScribusView::ItemTextScale(int sha)
 			if (b->PType == 4)
 			{
 				if (Doc->appMode != EditMode)
-					b->TxtScale = sha;
+					b->setFontWidth(sha);
 				for (uint i=0; i<b->itemText.count(); ++i)
 				{
 					if (Doc->appMode == EditMode)
@@ -9685,6 +9688,8 @@ void ScribusView::ItemTextScale(int sha)
 			}
 			RefreshItem(b);
 		}
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 
@@ -10007,6 +10012,9 @@ void ScribusView::chFSize(int size)
 {
 	if (SelItem.count() != 0)
 	{
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontSize,
+										  QString("%1").arg(size/10.0), Um::IFont);
 		for (uint aa = 0; aa < SelItem.count(); ++aa)
 		{
 			PageItem *b = SelItem.at(0);
@@ -10016,7 +10024,7 @@ void ScribusView::chFSize(int size)
 				b->LineSp = ((size / 10.0) * static_cast<double>(Doc->typographicSetttings.autoLineSpacing) / 100) + (size / 10.0);
 				Doc->docParagraphStyles[0].LineSpa = b->LineSp;
 				emit ItemTextAttr(b->LineSp);
-				b->ISize = size;
+				b->setFontSize(size);
 				emit ItemTextSize(b->ISize);
 				emit ItemTextCols(b->Cols, b->ColGap);
 			}
@@ -10046,6 +10054,8 @@ void ScribusView::chFSize(int size)
 				RefreshItem(b);
 			}
 		}
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 
