@@ -203,7 +203,7 @@ O braku obsługi dla danej biblioteki informuje symbol *</translation>
     </message>
     <message>
         <source>About Scribus %1</source>
-        <translation type="unfinished"></translation>
+        <translation>O Scribusie %/</translation>
     </message>
 </context>
 <context>
@@ -1005,11 +1005,11 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -1773,11 +1773,11 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -2462,11 +2462,11 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Rozmiar:</translation>
+        <translation>&amp;Rozmiar:</translation>
     </message>
     <message>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozmiar obrazków. 100% oznacza niezmieniony rozmiar, 200%  dwa razy większy itd.</translation>
     </message>
 </context>
 <context>
@@ -2738,11 +2738,11 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Dołącz wybrane czcionki do Czcionek w menu Styl</translation>
     </message>
     <message>
         <source>Leave preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamknij podgląd</translation>
     </message>
 </context>
 <context>
@@ -2837,15 +2837,15 @@ proszę również zajrzeć pod www.scribus.net do działu &quot;Download&quot;.<
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawartość</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished">Dowiązanie</translation>
+        <translation>Dowiązanie</translation>
     </message>
     <message>
         <source>Scribus Online Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Pomoc online Scribusa</translation>
     </message>
 </context>
 <context>
@@ -5458,7 +5458,13 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>UCR jest to sposób zamiany niektórych odcieni szarości, które
+składają się z cyjanu (C), żółci (Y) i madżenty (M) na czarny.
+UCR ma największy wpływ na obszary obrazków, które mają neutralne
+lub ciemne odcienie bliskie szarości. Użycie go może poprawić wydruk niektórych 
+obrazków, jednakże wymaga wykonania wcześniej kilku prób i testów dla każdego
+przypadku.
+UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
 </context>
 <context>
@@ -7609,155 +7615,155 @@ Zewnętrzne dowiązania
     </message>
     <message>
         <source>Albanian</source>
-        <translation type="unfinished"></translation>
+        <translation>Albański</translation>
     </message>
     <message>
         <source>Basque</source>
-        <translation type="unfinished"></translation>
+        <translation>Baskijski</translation>
     </message>
     <message>
         <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
+        <translation>Bułgarski</translation>
     </message>
     <message>
         <source>Brazilian</source>
-        <translation type="unfinished"></translation>
+        <translation>Brazylijski</translation>
     </message>
     <message>
         <source>Catalan</source>
-        <translation type="unfinished">Kataloński</translation>
+        <translation>Kataloński</translation>
     </message>
     <message>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiński</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation type="unfinished">Czeski</translation>
+        <translation>Czeski</translation>
     </message>
     <message>
         <source>Danish</source>
-        <translation type="unfinished">Duński</translation>
+        <translation>Duński</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation type="unfinished">Holenderski</translation>
+        <translation>Holenderski</translation>
     </message>
     <message>
         <source>English</source>
-        <translation type="unfinished">Angielski</translation>
+        <translation>Angielski</translation>
     </message>
     <message>
         <source>English (British)</source>
-        <translation type="unfinished"></translation>
+        <translation>Angielski (Brytyjski)</translation>
     </message>
     <message>
         <source>Esperanto</source>
-        <translation type="unfinished"></translation>
+        <translation>Esperanto</translation>
     </message>
     <message>
         <source>German</source>
-        <translation type="unfinished">Niemiecki</translation>
+        <translation>Niemiecki</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation type="unfinished">Fiński</translation>
+        <translation>Fiński</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="unfinished">Francuski</translation>
+        <translation>Francuski</translation>
     </message>
     <message>
         <source>Galician</source>
-        <translation type="unfinished"></translation>
+        <translation>Galicyjski</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation type="unfinished">Grecki</translation>
+        <translation>Grecki</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation type="unfinished">Węgierski</translation>
+        <translation>Węgierski</translation>
     </message>
     <message>
         <source>Indonesian</source>
-        <translation type="unfinished"></translation>
+        <translation>Indonezyjski</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation type="unfinished">Włoski</translation>
+        <translation>Włoski</translation>
     </message>
     <message>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
+        <translation>Koreański</translation>
     </message>
     <message>
         <source>Lithuanian</source>
-        <translation type="unfinished">Litewski</translation>
+        <translation>Litewski</translation>
     </message>
     <message>
         <source>Norwegian (Bokmaal)</source>
-        <translation type="unfinished"></translation>
+        <translation>Norweski (Bokmaal)</translation>
     </message>
     <message>
         <source>Norwegian (Nnyorsk)</source>
-        <translation type="unfinished"></translation>
+        <translation>Norweski (Nynorsk)</translation>
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished"></translation>
+        <translation>Norweski</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="unfinished">Polski</translation>
+        <translation>Polski</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="unfinished">Rosyjski</translation>
+        <translation>Rosyjski</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished">Szwedzki</translation>
+        <translation>Szwedzki</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="unfinished">Hiszpański</translation>
+        <translation>Hiszpański</translation>
     </message>
     <message>
         <source>Spanish (Latin)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiszpański (LA)</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation type="unfinished">Słowacki</translation>
+        <translation>Słowacki</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation type="unfinished">Słoweński</translation>
+        <translation>Słoweński</translation>
     </message>
     <message>
         <source>Serbian</source>
-        <translation type="unfinished"></translation>
+        <translation>Serbski</translation>
     </message>
     <message>
         <source>Tried to set progress &gt; maximum progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Próba ustawienia postępu większego niż maksymalny</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>O sk&amp;rypcie...</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished"></translation>
+        <translation>O skrypcie</translation>
     </message>
     <message>
         <source>Import &amp;Open Office Draw...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuj &amp;Open Office Draw...</translation>
     </message>
     <message>
         <source>Open Office Draw (*.sxd);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Open Office Draw (*.sxd);;Wszystkie pliki (*)</translation>
     </message>
 </context>
 <context>
@@ -8016,7 +8022,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
-        <translation type="unfinished">Pierwszy &amp;numer strony:</translation>
+        <translation>Pierwszy &amp;numer strony:</translation>
     </message>
 </context>
 <context>
