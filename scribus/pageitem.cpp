@@ -982,7 +982,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					{
 						if (a > 0)
 						{
-							if (Ptext.at(a-1)->ch !=  " ")
+							if ((Ptext.at(a-1)->ch !=  " ") || ((Doc->AppMode == 7) && (Ptext.at(QMAX(CPos-1,0))->yp == hl->yp) && (Select)))
 							{
 							LastXp = hl->xp;
 							LastSP = BuPos;
