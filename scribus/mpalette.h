@@ -18,6 +18,7 @@
 #include <qtooltip.h>
 #include <qimage.h>
 #include <qpixmap.h>
+#include <qlistbox.h>
 #include "mspinbox.h"
 #include "pageitem.h"
 #include "page.h"
@@ -139,6 +140,7 @@ public:
     QComboBox* LEndStyle;
     QLabel* Text8;
     LineCombo* LStyle;
+		QListBox* StyledLine;
     PageItem *CurItem;
     bool HaveDoc;
     bool HaveItem;
@@ -166,6 +168,8 @@ public slots:
 		void setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj);
 		void setStil(int s);
 		void setAli(int e);
+		void SetLineFormats(ScribusDoc *dd);
+		void SetSTline(QListBoxItem *c);
 		
 private slots:
 		void SelTab(int t);
@@ -212,6 +216,7 @@ signals:
 	void BackHome();
 	void Stellung(int);
 	void EditCL();
+	void EditLSt();
 
 protected:
     QVBoxLayout* MpalLayout;

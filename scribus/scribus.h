@@ -345,6 +345,7 @@ class ScribusApp : public QMainWindow
 	void slotFontOrg();
 	void slotPrefsOrg();
 	void slotEditStyles();
+	void slotEditLineStyles();
 	void setNewAbStyle(int a);
 	void setAbsValue(int a);
 	void SelectFromOutl(int Page, int Item);
@@ -372,6 +373,7 @@ class ScribusApp : public QMainWindow
 	void ModifyAnnot();
 	void ToggleGuides();
 	void ToggleUGuides();
+	void HaveRaster(bool art);
 
 signals:
 	void TextISize(int);
@@ -470,6 +472,7 @@ private:
     int edid4;
     int edid5;
     int edid6;
+    int edid6a;
     int Loesch;
     int tman;
     int jman;

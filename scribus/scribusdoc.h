@@ -25,6 +25,7 @@
 #include <qcolor.h>
 #include <qvaluelist.h>
 #include <qvaluestack.h>
+#include <qvaluevector.h>
 #include <qptrlist.h>
 #include <qfont.h>
 #include <qmap.h>
@@ -164,6 +165,7 @@ struct CLBuf { int PType;
 							 float Transparency;
 							 bool Reverse;
 							 bool InvPict;
+							 QString NamedLStyle;
 							};
 
   /** Seitenraender */
@@ -218,6 +220,15 @@ struct UndoData {
 /** Definition der Farbenlisten */
 typedef QMap<QString,CMYKColor> CListe;
 typedef QMap<QString,QString> ProfilesL;
+
+struct singleLine { float Width;
+										int Dash;
+ 										int LineEnd;
+ 										int LineJoin;
+										QString Color;
+										int Shade;
+									};
+typedef QValueVector<singleLine> multiLine;
 
 struct Layer { int LNr;
 							 int Level;
@@ -556,6 +567,7 @@ public:
 	FT_Library   library;
   QMap<QString,FT_Face> FFonts;
 #endif
+	QMap<QString,multiLine> MLineStyles;
 };
 
 #endif

@@ -576,22 +576,19 @@ Mpalette::Mpalette( QWidget* parent, QPopupMenu* FontMenu)
     Layout13_2->addItem( spacer10 );
     pageLayout_5->addLayout( Layout13_2 );
 
-    Layout12_2 = new QGridLayout( 0, 1, 1, 0, 6, "Layout12_2"); 
-
+    Layout12_2 = new QGridLayout( 0, 1, 1, 0, 3, "Layout12_2"); 
     Text8 = new QLabel( page_5, "Text8" );
     Text8->setText( tr( "Linestyle:" ) );
     Layout12_2->addWidget( Text8, 0, 0 );
     LStyle = new LineCombo(page_5);
     Layout12_2->addWidget( LStyle, 1, 0 );
     TextLabel1 = new QLabel( page_5, "TextLabel1" );
-
     TextLabel1->setText( tr( "Linewidth:" ) );
     Layout12_2->addWidget( TextLabel1, 2, 0 );
     LSize = new MSpinBox( page_5, 1 );
     LSize->setSuffix( tr( " pt" ) );
 		LSize->setDecimals(10);
     Layout12_2->addWidget( LSize, 3, 0 );
-
     Text9 = new QLabel( page_5, "Text9" );
     Text9->setText( tr( "Edges:" ) );
     Layout12_2->addWidget( Text9, 4, 0 );
@@ -601,7 +598,6 @@ Mpalette::Mpalette( QWidget* parent, QPopupMenu* FontMenu)
     LJoinStyle->insertItem(loadIcon("BevelJoin.png"), tr( "BevelJoin" ) );
     LJoinStyle->insertItem(loadIcon("BevelJoin.png"), tr( "RoundJoin" ) );
     Layout12_2->addWidget( LJoinStyle, 5, 0 );
-
     Text10 = new QLabel( page_5, "Text10" );
     Text10->setText( tr( "Endings:" ) );
     Layout12_2->addWidget( Text10, 6, 0 );
@@ -611,8 +607,12 @@ Mpalette::Mpalette( QWidget* parent, QPopupMenu* FontMenu)
     LEndStyle->insertItem(loadIcon("SquareCap.png"), tr( "SquareCap" ) );
     LEndStyle->insertItem(loadIcon("RoundCap.png"), tr( "RoundCap" ) );
     Layout12_2->addWidget( LEndStyle, 7, 0 );
-
     pageLayout_5->addLayout( Layout12_2 );
+
+		StyledLine = new QListBox(page_5, "StyledL");
+		StyledLine->insertItem(tr("No Style"));
+		pageLayout_5->addWidget(StyledLine);
+
     QSpacerItem* spacer11 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     pageLayout_5->addItem( spacer11 );
     TabStack->addWidget( page_5, 4 );
@@ -684,6 +684,8 @@ Mpalette::Mpalette( QWidget* parent, QPopupMenu* FontMenu)
     connect(DRight, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
     connect(DBottom, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
     connect(buttonGroup5, SIGNAL(clicked(int)), this, SLOT(SelTab(int)));
+  	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+  	connect(StyledLine, SIGNAL(selected(int)), this, SIGNAL(EditLSt()));
 		HaveItem = false;
 		Xpos->setValue(0);
 		Ypos->setValue(0);
@@ -769,6 +771,7 @@ void Mpalette::UnsetDoc()
 
 void Mpalette::SetCurItem(PageItem *i)
 {
+ 	disconnect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 	HaveItem = false;
 	CurItem = i;
 	if (i->IFont != "");
@@ -779,6 +782,23 @@ void Mpalette::SetCurItem(PageItem *i)
   DBottom->setValue(static_cast<int>(i->BExtra*10));
   DRight->setValue(static_cast<int>(i->RExtra*10));
   Revert->setOn(i->Reverse);
+	if (i->NamedLStyle == "")
+		{
+		StyledLine->setCurrentItem(0);
+		LStyle->setEnabled(true);
+		LSize->setEnabled(true);
+		LJoinStyle->setEnabled(true);
+		LEndStyle->setEnabled(true);
+		}
+	else
+		{
+		StyledLine->setSelected(StyledLine->findItem(i->NamedLStyle), true);
+		LStyle->setEnabled(false);
+		LSize->setEnabled(false);
+		LJoinStyle->setEnabled(false);
+		LEndStyle->setEnabled(false);
+		}
+  connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 	if (i->Locked)
 		{
 		Xpos->setEnabled(false);
@@ -1874,4 +1894,45 @@ void Mpalette::DoRevert()
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
 		}
+}
+
+void Mpalette::SetLineFormats(ScribusDoc *dd)
+{
+  disconnect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	StyledLine->clear();
+	if (dd != 0)
+		{
+		StyledLine->insertItem(tr("No Style"));
+		QMap<QString,multiLine>::Iterator it;
+		for (it = doc->MLineStyles.begin(); it != doc->MLineStyles.end(); ++it)
+			{
+			StyledLine->insertItem(it.key());
+			}
+		StyledLine->setSelected(StyledLine->currentItem(), false);
+		}
+  connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+}
+
+void Mpalette::SetSTline(QListBoxItem *c)
+{
+	if (c == NULL)
+  	return;
+  if (c->listBox()->currentItem() == 0)
+		{
+		CurItem->NamedLStyle = "";
+		LStyle->setEnabled(true);
+		LSize->setEnabled(true);
+		LJoinStyle->setEnabled(true);
+		LEndStyle->setEnabled(true);
+		}
+	else
+		{
+		CurItem->NamedLStyle = c->text();
+		LStyle->setEnabled(false);
+		LSize->setEnabled(false);
+		LJoinStyle->setEnabled(false);
+		LEndStyle->setEnabled(false);
+		}
+	doc->ActPage->RefreshItem(CurItem);
+	emit DocChanged();
 }

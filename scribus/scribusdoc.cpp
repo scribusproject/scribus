@@ -136,6 +136,7 @@ ScribusDoc::ScribusDoc()
 	hasName = false;
 	RotMode = 0;
 	ASaveTimer = new QTimer(this);
+	MLineStyles.clear();
 #ifdef HAVE_FREETYPE
 	FT_Init_FreeType( &library );
 #endif

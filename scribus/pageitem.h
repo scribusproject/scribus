@@ -96,6 +96,7 @@ public:
   PenStyle PLineArt;
   PenCapStyle PLineEnd;
   PenJoinStyle PLineJoin;
+	QString NamedLStyle;
   /** Element selektiert Ja/Nein */
   bool Select;
   /** Definiert die Clipping-Region des Elements; */

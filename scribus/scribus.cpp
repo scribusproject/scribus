@@ -66,6 +66,7 @@
 #include "hysettings.h"
 #include "guidemanager.h"
 #include "mergedoc.h"
+#include "lineformats.h"
 extern QPixmap loadIcon(QString nam);
 
 using namespace std;
@@ -388,6 +389,7 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		connect(Tpal, SIGNAL(SelectSeite(int)), this, SLOT(SelectFromOutlS(int)));
 		connect(Mpal->Spal, SIGNAL(NewStyle(int)), this, SLOT(setNewAbStyle(int)));
 		connect(Mpal->Spal, SIGNAL(EditSt()), this, SLOT(slotEditStyles()));
+		connect(Mpal, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
 		connect(Npal, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
 		connect(Lpal, SIGNAL(LayerActivated(int)), this, SLOT(changeLayer(int)));
 		connect(Lpal, SIGNAL(LayerRemoved(int)), this, SLOT(LayerRemove(int)));
@@ -491,6 +493,7 @@ void ScribusApp::initMenuBar()
 	MenID = editMenu->insertItem(tr("Colors..."), this , SLOT(slotEditColors()));
 	SetKeyEntry(14, tr("Colors..."), MenID, 0);
 	edid6 = editMenu->insertItem(tr("Styles..."), this , SLOT(slotEditStyles()));
+	edid6a = editMenu->insertItem(tr("Line Styles..."), this , SLOT(slotEditLineStyles()));
 	SetKeyEntry(15, tr("Styles..."), edid6, 0);
 	tman = editMenu->insertItem(tr("Templates..."), this, SLOT(ManageTemp()));
 	SetKeyEntry(16, tr("Templates..."), tman, 0);
@@ -509,6 +512,7 @@ void ScribusApp::initMenuBar()
 	editMenu->setItemEnabled(edid4, 0);
 	editMenu->setItemEnabled(edid5, 0);
 	editMenu->setItemEnabled(edid6, 0);
+	editMenu->setItemEnabled(edid6a, 0);
 	editMenu->setItemEnabled(tman, 0);
 	editMenu->setItemEnabled(jman, 0);
 	StilMenu = new QPopupMenu();
@@ -1683,6 +1687,7 @@ void ScribusApp::SwitchWin()
 	Mpal->SetDoc(doc);
 	Sepal->SetView(view);
 	Mpal->Spal->SetFormats(doc);
+	Mpal->SetLineFormats(doc);
 	Lpal->setLayers(&doc->Layers, &doc->ActiveLayer);
 	view->LaMenu();
 	view->setLayMenTxt(doc->ActiveLayer);
@@ -1773,6 +1778,7 @@ void ScribusApp::HaveNewDoc()
 	editMenu->setItemEnabled(edid2, 0);
 	editMenu->setItemEnabled(edid3, 0);
 	editMenu->setItemEnabled(edid6, 1);
+	editMenu->setItemEnabled(edid6a, 1);
 	for (a=0; a<6; ++a)
 		{
 		viewMenu->setItemEnabled(viewMenu->idAt(a), 1);
@@ -1824,6 +1830,7 @@ void ScribusApp::HaveNewDoc()
 	Mpal->SetDoc(doc);
 	Sepal->SetView(view);
 	Mpal->Spal->SetFormats(doc);
+	Mpal->SetLineFormats(doc);
 	Lpal->setLayers(&doc->Layers, &doc->ActiveLayer);
 	view->LaMenu();
 	view->setLayMenTxt(doc->ActiveLayer);
@@ -2593,6 +2600,7 @@ bool ScribusApp::DoFileClose()
 	Sepal->Vie = 0;
 	Sepal->Rebuild();
   Mpal->Spal->SetFormats(0);
+	Mpal->SetLineFormats(0);
 	if (doc->EditClip)
 		Npal->doc = 0;
 	BookPal->BView->clear();
@@ -2621,6 +2629,7 @@ bool ScribusApp::DoFileClose()
 		editMenu->setItemEnabled(edid4, 0);
 		editMenu->setItemEnabled(edid5, 0);
 		editMenu->setItemEnabled(edid6, 0);
+		editMenu->setItemEnabled(edid6a, 0);
 		extraMenu->setItemEnabled(hyph, 0);
 		for (int a=0; a<6; ++a)
 			{
@@ -3244,6 +3253,7 @@ void ScribusApp::slotNewPage(int w)
 	connect(doc->ActPage, SIGNAL(DelBM(PageItem *)), this, SLOT(DelBookMark(PageItem *)));
 	connect(doc->ActPage, SIGNAL(ChBMText(PageItem *)), this, SLOT(BookMarkTxT(PageItem *)));
 	connect(doc->ActPage, SIGNAL(NewBMNr(int, int)), BookPal->BView, SLOT(ChangeItem(int, int)));
+	connect(doc->ActPage, SIGNAL(RasterPic(bool)), this, SLOT(HaveRaster(bool)));
 	slotDocCh(!doc->loading);
 }
 
@@ -4097,6 +4107,37 @@ void ScribusApp::setCSMenu(QString k, QString l, int lk , int ls)
 	ShadeMenu->setItemChecked(ShadeMenu->idAt(lb/10+1), true);
 }
 
+void ScribusApp::slotEditLineStyles()
+{
+	if (HaveDoc)
+		{
+		LineFormate *dia = new LineFormate(this, doc);
+		if (dia->exec())
+			{
+			doc->MLineStyles = dia->TempStyles;
+			for (uint c = 0; c < view->DocPages.count(); ++c)
+				{
+				for (uint d = 0; d < view->DocPages.at(c)->Items.count(); ++d)
+					{
+					if (!doc->MLineStyles.contains(view->DocPages.at(c)->Items.at(d)->NamedLStyle))
+						view->DocPages.at(c)->Items.at(d)->NamedLStyle = "";
+					}
+				}
+			for (uint c1 = 0; c1 < view->MasterPages.count(); ++c1)
+				{
+				for (uint d1 = 0; d1 < view->MasterPages.at(c1)->Items.count(); ++d1)
+					{
+					if (!doc->MLineStyles.contains(view->MasterPages.at(c1)->Items.at(d1)->NamedLStyle))
+						view->MasterPages.at(c1)->Items.at(d1)->NamedLStyle = "";
+					}
+				}
+			Mpal->SetLineFormats(doc);
+			view->DrawNew();
+			}
+		delete dia;
+		}
+}
+
 void ScribusApp::slotEditStyles()
 {
 	QValueList<uint> ers;
@@ -4128,20 +4169,39 @@ void ScribusApp::slotEditStyles()
 					ers.append(0);
 				}
 			doc->Vorlagen = dia->TempVorl;
-			for (uint c=0; c<view->Pages.count(); ++c)
+			for (uint c=0; c<view->DocPages.count(); ++c)
 				{
-				for (uint d=0; d<view->Pages.at(c)->Items.count(); ++d)
+				for (uint d=0; d<view->DocPages.at(c)->Items.count(); ++d)
 					{
-					if (view->Pages.at(c)->Items.at(d)->PType == 4)
+					if (view->DocPages.at(c)->Items.at(d)->PType == 4)
 						{
-						for (uint e=0; e<view->Pages.at(c)->Items.at(d)->Ptext.count(); ++e)
+						for (uint e=0; e<view->DocPages.at(c)->Items.at(d)->Ptext.count(); ++e)
 							{
-							if (view->Pages.at(c)->Items.at(d)->Ptext.at(e)->cab > 4)
-								view->Pages.at(c)->Items.at(d)->Ptext.at(e)->cab = ers[view->Pages.at(c)->Items.at(d)->Ptext.at(e)->cab];
+							if (view->DocPages.at(c)->Items.at(d)->Ptext.at(e)->cab > 4)
+								view->DocPages.at(c)->Items.at(d)->Ptext.at(e)->cab = ers[view->DocPages.at(c)->Items.at(d)->Ptext.at(e)->cab];
 							if (doc->Vorlagen[view->Pages.at(c)->Items.at(d)->Ptext.at(e)->cab].Font != "")
 								{
-								view->Pages.at(c)->Items.at(d)->Ptext.at(e)->cfont = doc->Vorlagen[view->Pages.at(c)->Items.at(d)->Ptext.at(e)->cab].Font;
-								view->Pages.at(c)->Items.at(d)->Ptext.at(e)->csize = doc->Vorlagen[view->Pages.at(c)->Items.at(d)->Ptext.at(e)->cab].FontSize;
+								view->DocPages.at(c)->Items.at(d)->Ptext.at(e)->cfont = doc->Vorlagen[view->DocPages.at(c)->Items.at(d)->Ptext.at(e)->cab].Font;
+								view->DocPages.at(c)->Items.at(d)->Ptext.at(e)->csize = doc->Vorlagen[view->DocPages.at(c)->Items.at(d)->Ptext.at(e)->cab].FontSize;
+								}
+							}
+						}
+					}
+				}
+			for (uint c=0; c<view->MasterPages.count(); ++c)
+				{
+				for (uint d=0; d<view->MasterPages.at(c)->Items.count(); ++d)
+					{
+					if (view->MasterPages.at(c)->Items.at(d)->PType == 4)
+						{
+						for (uint e=0; e<view->MasterPages.at(c)->Items.at(d)->Ptext.count(); ++e)
+							{
+							if (view->MasterPages.at(c)->Items.at(d)->Ptext.at(e)->cab > 4)
+								view->MasterPages.at(c)->Items.at(d)->Ptext.at(e)->cab = ers[view->MasterPages.at(c)->Items.at(d)->Ptext.at(e)->cab];
+							if (doc->Vorlagen[view->MasterPages.at(c)->Items.at(d)->Ptext.at(e)->cab].Font != "")
+								{
+								view->MasterPages.at(c)->Items.at(d)->Ptext.at(e)->cfont = doc->Vorlagen[view->MasterPages.at(c)->Items.at(d)->Ptext.at(e)->cab].Font;
+								view->MasterPages.at(c)->Items.at(d)->Ptext.at(e)->csize = doc->Vorlagen[view->MasterPages.at(c)->Items.at(d)->Ptext.at(e)->cab].FontSize;
 								}
 							}
 						}
@@ -4244,28 +4304,43 @@ void ScribusApp::slotEditColors()
 					QMap<QString,QString>::Iterator it;
 					for (it = ers.begin(); it != ers.end(); ++it)
 						{
-						for (b=0; b<view->Pages.count(); ++b)
+						for (b=0; b<view->DocPages.count(); ++b)
 							{
-							for (c=0; c<view->Pages.at(b)->Items.count(); ++c)
+							for (c=0; c<view->DocPages.at(b)->Items.count(); ++c)
 								{
-								if (view->Pages.at(b)->Items.at(c)->PType == 4)
+								if (view->DocPages.at(b)->Items.at(c)->PType == 4)
 									{
-									for (d=0; d<view->Pages.at(b)->Items.at(c)->Ptext.count(); ++d)
+									for (d=0; d<view->DocPages.at(b)->Items.at(c)->Ptext.count(); ++d)
 										{
-										if (it.key() == view->Pages.at(b)->Items.at(c)->Ptext.at(d)->ccolor)
-											{
-											view->Pages.at(b)->Items.at(c)->Ptext.at(d)->ccolor = it.data();
-											}
+										if (it.key() == view->DocPages.at(b)->Items.at(c)->Ptext.at(d)->ccolor)
+											view->DocPages.at(b)->Items.at(c)->Ptext.at(d)->ccolor = it.data();
 										}
 									}
-								if (it.key() == view->Pages.at(b)->Items.at(c)->Pcolor)
+								if (it.key() == view->DocPages.at(b)->Items.at(c)->Pcolor)
+									view->DocPages.at(b)->Items.at(c)->Pcolor = it.data();
+								if (it.key() == view->DocPages.at(b)->Items.at(c)->Pcolor2)
+									view->DocPages.at(b)->Items.at(c)->Pcolor2 = it.data();
+								}
+							}
+						}
+					for (it = ers.begin(); it != ers.end(); ++it)
+						{
+						for (b=0; b<view->MasterPages.count(); ++b)
+							{
+							for (c=0; c<view->MasterPages.at(b)->Items.count(); ++c)
+								{
+								if (view->MasterPages.at(b)->Items.at(c)->PType == 4)
 									{
-									view->Pages.at(b)->Items.at(c)->Pcolor = it.data();
+									for (d=0; d<view->MasterPages.at(b)->Items.at(c)->Ptext.count(); ++d)
+										{
+										if (it.key() == view->MasterPages.at(b)->Items.at(c)->Ptext.at(d)->ccolor)
+											view->MasterPages.at(b)->Items.at(c)->Ptext.at(d)->ccolor = it.data();
+										}
 									}
-								if (it.key() == view->Pages.at(b)->Items.at(c)->Pcolor2)
-									{
-									view->Pages.at(b)->Items.at(c)->Pcolor2 = it.data();
-									}
+								if (it.key() == view->MasterPages.at(b)->Items.at(c)->Pcolor)
+									view->MasterPages.at(b)->Items.at(c)->Pcolor = it.data();
+								if (it.key() == view->MasterPages.at(b)->Items.at(c)->Pcolor2)
+									view->MasterPages.at(b)->Items.at(c)->Pcolor2 = it.data();
 								}
 							}
 						}
@@ -6488,6 +6563,20 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 					Really->insert(view->Pages.at(c)->Items.at(d)->Ptext.at(e)->cfont, doc->UsedFonts[view->Pages.at(c)->Items.at(d)->Ptext.at(e)->cfont]);
 					}
 				}
+			}
+		}
+}
+
+void ScribusApp::HaveRaster(bool art)
+{
+ 	if (doc->ActPage->SelItem.count() != 0)
+		{
+ 		PageItem *b = doc->ActPage->SelItem.at(0);
+		if ((b->PType == 2) && (art))
+			{
+			StilMenu->clear();
+			StilMenu->insertItem(tr("Color"), ColorMenu);
+			StilMenu->insertItem(tr("Invert"), this, SLOT(InvertPict()));
 			}
 		}
 }

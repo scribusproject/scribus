@@ -192,6 +192,7 @@ PageItem::PageItem(Page *pa, int art, float x, float y, float w, float h, float 
 	Transparency = 0.0;
 	Reverse = false;
 	InvPict = false;
+	NamedLStyle = "";
 }
 
 /** Zeichnet das Item */
@@ -1119,7 +1120,24 @@ NoRoom:	 if (NextBox != 0)
 					break;
 			case 5:
 				if (!Doc->RePos)
-					p.drawLine(0, 0, qRound(Width), 0);
+					{
+					if (NamedLStyle == "")
+						p.drawLine(0, 0, qRound(Width), 0);
+					else
+						{
+						multiLine ml = Doc->MLineStyles[NamedLStyle];
+						for (int it = ml.count()-1; it > -1; it--)
+							{
+							SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+							p.setPen(QPen(tmp,
+											 QMAX(static_cast<int>(ml[it].Width*Doc->Scale), 1),
+											 static_cast<PenStyle>(ml[it].Dash),
+											 static_cast<PenCapStyle>(ml[it].LineEnd),
+											 static_cast<PenJoinStyle>(ml[it].LineJoin)));
+							p.drawLine(0, 0, qRound(Width), 0);
+							}
+						}
+					}
 				break;
 			case 1:
 			case 3:
@@ -1127,7 +1145,11 @@ NoRoom:	 if (NextBox != 0)
 				if (GrType == 0)
 					{
 					if (!Doc->RePos)
+						{
 						DrawPoly(&p, Clip, p.brush().color());
+						p.setBrush(NoBrush);
+						DrawPolyL(&p, Clip);
+						}
 					}
 				else
 					{
@@ -1175,7 +1197,24 @@ NoRoom:	 if (NextBox != 0)
 							continue;
 						BezierPoints(&Bez, PoLine.pointQ(poi), PoLine.pointQ(poi+1), PoLine.pointQ(poi+3), PoLine.pointQ(poi+2));
 						if (!Doc->RePos)
-							p.drawCubicBezier(Bez);
+							{
+							if (NamedLStyle == "")
+								p.drawCubicBezier(Bez);
+							else
+								{
+								multiLine ml = Doc->MLineStyles[NamedLStyle];
+								for (int it = ml.count()-1; it > -1; it--)
+									{
+									SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+									p.setPen(QPen(tmp,
+													 QMAX(static_cast<int>(ml[it].Width*Doc->Scale), 1),
+													 static_cast<PenStyle>(ml[it].Dash),
+													 static_cast<PenCapStyle>(ml[it].LineEnd),
+											 		 static_cast<PenJoinStyle>(ml[it].LineJoin)));
+									p.drawCubicBezier(Bez);
+									}
+								}
+							}
 						}
 					}
 				break;
@@ -1190,7 +1229,24 @@ NoRoom:	 if (NextBox != 0)
 								continue;
 							BezierPoints(&Bez, PoLine.pointQ(poi), PoLine.pointQ(poi+1), PoLine.pointQ(poi+3), PoLine.pointQ(poi+2));
 							if (!Doc->RePos)
-								p.drawCubicBezier(Bez);
+								{
+								if (NamedLStyle == "")
+									p.drawCubicBezier(Bez);
+								else
+									{
+									multiLine ml = Doc->MLineStyles[NamedLStyle];
+									for (int it = ml.count()-1; it > -1; it--)
+										{
+										SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+										p.setPen(QPen(tmp,
+														 QMAX(static_cast<int>(ml[it].Width*Doc->Scale), 1),
+														 static_cast<PenStyle>(ml[it].Dash),
+														 static_cast<PenCapStyle>(ml[it].LineEnd),
+												 		 static_cast<PenJoinStyle>(ml[it].LineJoin)));
+										p.drawCubicBezier(Bez);
+										}
+									}
+								}
 							}
 						}
 					}
@@ -1593,38 +1649,73 @@ void PageItem::DrawPoly(QPainter *p, QPointArray pts, QColor BackF, bool bitm)
 			p->drawPixmap(0, 0, ppm);
 			}
 		}
-	p->setBrush(Qt::NoBrush);
-	if (Segments.count() != 0)
-		{
-		QValueList<uint>::Iterator it2;
-		uint FirstVal = 0;
-		for (it2 = Segments.begin(); it2 != Segments.end(); ++it2)
-			{
-			p->drawPolyline(pts, FirstVal, (*it2)-FirstVal);
-			FirstVal = (*it2);
-			}
-		p->drawPolyline(pts, FirstVal);
-		}
-	else
-		p->drawPolyline(pts);
 }
 
 void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 {
+	QColor tmp;
 	if (Segments.count() != 0)
 		{
 		QValueList<uint>::Iterator it2;
 		uint FirstVal = 0;
 		for (it2 = Segments.begin(); it2 != Segments.end(); ++it2)
 			{
-			p->drawPolyline(pts, FirstVal, (*it2)-FirstVal);
+			if (NamedLStyle == "")
+				p->drawPolyline(pts, FirstVal, (*it2)-FirstVal);
+			else
+				{
+				multiLine ml = Doc->MLineStyles[NamedLStyle];
+				for (int it = ml.count()-1; it > -1; it--)
+					{
+					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(QPen(tmp,
+									 QMAX(static_cast<int>(ml[it].Width*Doc->Scale), 1),
+									 static_cast<PenStyle>(ml[it].Dash),
+									 static_cast<PenCapStyle>(ml[it].LineEnd),
+									 static_cast<PenJoinStyle>(ml[it].LineJoin)));
+					p->drawPolyline(pts, FirstVal, (*it2)-FirstVal);
+					}
+				}
 			FirstVal = (*it2);
 			}
-		p->drawPolyline(pts, FirstVal);
+		if (NamedLStyle == "")
+			p->drawPolyline(pts, FirstVal);
+		else
+			{
+			multiLine ml = Doc->MLineStyles[NamedLStyle];
+			for (int it = ml.count()-1; it > -1; it--)
+				{
+				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+				p->setPen(QPen(tmp,
+								 QMAX(static_cast<int>(ml[it].Width*Doc->Scale), 1),
+								 static_cast<PenStyle>(ml[it].Dash),
+								 static_cast<PenCapStyle>(ml[it].LineEnd),
+								 static_cast<PenJoinStyle>(ml[it].LineJoin)));
+				p->drawPolyline(pts, FirstVal);
+				}
+			}
 		}
 	else
-		p->drawPolyline(pts);
+		{
+		if (NamedLStyle == "")
+			p->drawPolyline(pts);
+		else
+			{
+			multiLine ml = Doc->MLineStyles[NamedLStyle];
+			for (int it = ml.count()-1; it > -1; it--)
+				{
+				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+				p->setPen(QPen(tmp,
+								 QMAX(static_cast<int>(ml[it].Width*Doc->Scale), 1),
+								 static_cast<PenStyle>(ml[it].Dash),
+								 static_cast<PenCapStyle>(ml[it].LineEnd),
+								 static_cast<PenJoinStyle>(ml[it].LineJoin)));
+				p->drawPolyline(pts);
+				}
+			}
+		}
 }
+
 
 void PageItem::CopyIt(struct CLBuf *Buffer)
 {
@@ -1747,4 +1838,5 @@ void PageItem::CopyIt(struct CLBuf *Buffer)
 	Buffer->Transparency = Transparency;
 	Buffer->Reverse = Reverse;
 	Buffer->InvPict = InvPict;
+	Buffer->NamedLStyle = NamedLStyle;
 }

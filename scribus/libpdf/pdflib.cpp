@@ -1350,12 +1350,12 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							else
 								PutPage("h\nf\n");
 							}
+						PutPage("q\n");
 						PutPage(SetClipPath(ite));
 						if (ite->Segments.count() != 0)
 							PutPage("h\nW*\nn\n");
 						else
 							PutPage("h\nW\nn\n");
-						PutPage("q\n");
 						if ((ite->flippedH % 2) != 0)
 							PutPage("-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n");
 						if ((ite->flippedV % 2) != 0)
@@ -1365,10 +1365,23 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							PDF_Image(ite->InvPict, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX, -ite->LocalY, false, ite->IProfile, ite->UseEmbedded, ite->IRender);
 							}
 						PutPage("Q\n");
-						if (ite->Pcolor2 != "None")
+						if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
 							{
-							PutPage(SetClipPath(ite));
-							PutPage("h\nS\n");
+							if (ite->NamedLStyle == "")
+								{
+								PutPage(SetClipPath(ite));
+								PutPage("h\nS\n");
+								}
+							else
+								{
+								multiLine ml = doc->MLineStyles[ite->NamedLStyle];
+								for (int it = ml.count()-1; it > -1; it--)
+									{
+									PutPage(setStrokeMulti(&ml[it]));
+									PutPage(SetClipPath(ite));
+									PutPage("h\nS\n");
+									}
+								}
 							}
 						break;
 					case 4:
@@ -1397,9 +1410,23 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 						PutPage(setTextSt(ite, PNr));
 						break;
 					case 5:
-						PutPage("0 0 m\n");
-						PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+" l\n");
-						PutPage("S\n");
+						if (ite->NamedLStyle == "")
+							{
+							PutPage("0 0 m\n");
+							PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+" l\n");
+							PutPage("S\n");
+							}
+						else
+							{
+							multiLine ml = doc->MLineStyles[ite->NamedLStyle];
+							for (int it = ml.count()-1; it > -1; it--)
+								{
+								PutPage(setStrokeMulti(&ml[it]));
+								PutPage("0 0 m\n");
+								PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+" l\n");
+								PutPage("S\n");
+								}
+							}
 						break;
 					case 1:
 					case 3:
@@ -1417,15 +1444,44 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 									PutPage("h\nf\n");
 								}
 							}
-						if (ite->Pcolor2 != "None")
+						if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
 							{
-							PutPage(SetClipPath(ite));
-							PutPage("h\nS\n");
+							if (ite->NamedLStyle == "")
+								{
+								PutPage(SetClipPath(ite));
+								PutPage("h\nS\n");
+								}
+							else
+								{
+								multiLine ml = doc->MLineStyles[ite->NamedLStyle];
+								for (int it = ml.count()-1; it > -1; it--)
+									{
+									PutPage(setStrokeMulti(&ml[it]));
+									PutPage(SetClipPath(ite));
+									PutPage("h\nS\n");
+									}
+								}
 							}
 						break;
 					case 7:
-						PutPage(SetClipPath(ite));
-						PutPage("S\n");
+						if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
+							{
+							if (ite->NamedLStyle == "")
+								{
+								PutPage(SetClipPath(ite));
+								PutPage("S\n");
+								}
+							else
+								{
+								multiLine ml = doc->MLineStyles[ite->NamedLStyle];
+								for (int it = ml.count()-1; it > -1; it--)
+									{
+									PutPage(setStrokeMulti(&ml[it]));
+									PutPage(SetClipPath(ite));
+									PutPage("S\n");
+									}
+								}
+							}
 						break;
 					case 8:
 						if (ite->PoShow)
@@ -1433,8 +1489,25 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							if (ite->PoLine.size() > 3)
 								{
 								PutPage("q\n");
-								PutPage(SetClipPath(ite));
-								PutPage("S\nQ\n");
+								if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
+									{
+									if (ite->NamedLStyle == "")
+										{
+										PutPage(SetClipPath(ite));
+										PutPage("S\n");
+										}
+									else
+										{
+										multiLine ml = doc->MLineStyles[ite->NamedLStyle];
+										for (int it = ml.count()-1; it > -1; it--)
+											{
+											PutPage(setStrokeMulti(&ml[it]));
+											PutPage(SetClipPath(ite));
+											PutPage("S\n");
+											}
+										}
+									}
+								PutPage("Q\n");
 								}
 							}
 						PutPage(setTextSt(ite, PNr));
@@ -1445,6 +1518,100 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 			}
 		Lnr++;
 		}
+}
+
+QString PDFlib::setStrokeMulti(struct singleLine *sl)
+{
+	QString tmp = "";
+	if (Options->UseRGB)
+		tmp += SetFarbe(sl->Color, sl->Shade)+" RG\n";
+	else
+		{
+#ifdef HAVE_CMS
+		if ((CMSuse) && (Options->UseProfiles))
+			{
+			switch (Options->Intent)
+				{
+				case 0:
+					tmp += "/Perceptual";
+					break;
+				case 1:
+					tmp += "/RelativeColorimetric";
+					break;
+				case 2:
+					tmp += "/Saturation";
+					break;
+				case 3:
+					tmp += "/AbsoluteColorimetric";
+					break;
+				}
+			tmp += " ri\n";
+			tmp += "/"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
+			tmp += SetFarbe(sl->Color, sl->Shade)+" SCN\n";
+			}
+		else
+			{
+#endif
+			tmp += SetFarbe(sl->Color, sl->Shade)+" K\n";
+			}
+#ifdef HAVE_CMS
+			}
+#endif
+	tmp += FToStr(sl->Width)+" w\n";
+	QString Dt = FToStr(QMAX(sl->Width, 1));
+	QString Da = FToStr(QMAX(3*sl->Width, 1));
+	switch (static_cast<PenStyle>(sl->Dash))
+		{
+		case Qt::SolidLine:
+			tmp += "[] 0 d\n";
+			break;
+		case Qt::DashLine:
+			tmp += "["+Da+" "+Dt+"] 0 d\n";
+			break;
+		case Qt::DotLine:
+			tmp += "["+Dt+"] 0 d\n";
+			break;
+		case Qt::DashDotLine:
+			tmp += "["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n";
+			break;
+		case Qt::DashDotDotLine:
+			tmp += "["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n";
+			break;
+		default:
+			tmp += "[] 0 d\n";
+			break;
+		}
+	switch (static_cast<PenCapStyle>(sl->LineEnd))
+		{
+		case Qt::FlatCap:
+			tmp += "0 J\n";
+			break;
+		case Qt::SquareCap:
+			tmp += "2 J\n";
+			break;
+		case Qt::RoundCap:
+			tmp += "1 J\n";
+			break;
+		default:
+			tmp += "0 J\n";
+			break;
+		}
+	switch (static_cast<PenJoinStyle>(sl->LineJoin))
+		{
+		case Qt::MiterJoin:
+			tmp += "0 j\n";
+			break;
+		case Qt::BevelJoin:
+			tmp += "2 j\n";
+			break;
+		case Qt::RoundJoin:
+			tmp += "1 j\n";
+			break;
+		default:
+			tmp += "0 j\n";
+			break;
+		}
+	return tmp;
 }
 
 QString PDFlib::setTextSt(PageItem *ite, uint PNr)

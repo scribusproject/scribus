@@ -324,6 +324,9 @@ while(!DOC.isNull())
 				OB.Pwidth=QStoFloat(obj.attribute("PWIDTH"));
 				OB.Pcolor=obj.attribute("PCOLOR");
 				OB.Pcolor2=obj.attribute("PCOLOR2");
+				OB.NamedLStyle = obj.attribute("NAMEDLST", "");
+				if (!doc->MLineStyles.contains(OB.NamedLStyle))
+					OB.NamedLStyle = "";
 				OB.Shade=QStoInt(obj.attribute("SHADE"));
 				OB.Shade2=QStoInt(obj.attribute("SHADE2"));
 				OB.GrColor = obj.attribute("GRCOLOR","");
@@ -736,6 +739,25 @@ while(!DOC.isNull())
 				PFO = PFO.nextSibling();
 				}
 			}
+		if(pg.tagName()=="MultiLine")
+			{
+			multiLine ml;
+			QDomNode MuLn = PAGE.firstChild();
+			while(!MuLn.isNull())
+				{
+				QDomElement MuL = MuLn.toElement();
+				struct singleLine sl;
+				sl.Color = MuL.attribute("Color");
+				sl.Dash = QStoInt(MuL.attribute("Dash"));
+				sl.LineEnd = QStoInt(MuL.attribute("LineEnd"));
+				sl.LineJoin = QStoInt(MuL.attribute("LineJoin"));
+				sl.Shade = QStoInt(MuL.attribute("Shade"));
+				sl.Width = QStoFloat(MuL.attribute("Width"));
+				ml.append(sl);
+				MuLn = MuLn.nextSibling();
+				}
+			doc->MLineStyles.insert(pg.attribute("Name"), ml);
+			}
 		if(pg.tagName()=="PAGE")
 		{
 			/*
@@ -826,6 +848,7 @@ while(!DOC.isNull())
 				OB.Pwidth=QStoFloat(obj.attribute("PWIDTH"));
 				OB.Pcolor=obj.attribute("PCOLOR");
 				OB.Pcolor2=obj.attribute("PCOLOR2");
+				OB.NamedLStyle = obj.attribute("NAMEDLST", "");
 				OB.Shade=QStoInt(obj.attribute("SHADE"));
 				OB.Shade2=QStoInt(obj.attribute("SHADE2"));
 				OB.GrColor = obj.attribute("GRCOLOR","");
@@ -1265,6 +1288,9 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.Pwidth = QStoFloat(pg.attribute("PWIDTH"));
 			OB.Pcolor = pg.attribute("PCOLOR");
 			OB.Pcolor2 = pg.attribute("PCOLOR2");
+			OB.NamedLStyle = pg.attribute("NAMEDLST", "");
+			if (!doc->MLineStyles.contains(OB.NamedLStyle))
+				OB.NamedLStyle = "";
 			OB.Shade = QStoInt(pg.attribute("SHADE"));
 			OB.Shade2 = QStoInt(pg.attribute("SHADE2"));
 			OB.GrColor = pg.attribute("GRCOLOR","");
@@ -1518,6 +1544,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		ob.setAttribute("PWIDTH",item->Pwidth);
 		ob.setAttribute("PCOLOR",item->Pcolor);
 		ob.setAttribute("PCOLOR2",item->Pcolor2);
+		ob.setAttribute("NAMEDLST",item->NamedLStyle);
 		ob.setAttribute("SHADE",item->Shade);
 		ob.setAttribute("SHADE2",item->Shade2);
 		ob.setAttribute("GRCOLOR",item->GrColor);
@@ -1832,6 +1859,7 @@ for(uint i=0;i<view->Pages.count();++i)
 		ob.setAttribute("PWIDTH",item->Pwidth);
 		ob.setAttribute("PCOLOR",item->Pcolor);
 		ob.setAttribute("PCOLOR2",item->Pcolor2);
+		ob.setAttribute("NAMEDLST",item->NamedLStyle);
 		ob.setAttribute("SHADE",item->Shade);
 		ob.setAttribute("SHADE2",item->Shade2);
 		ob.setAttribute("GRCOLOR",item->GrColor);
@@ -2130,6 +2158,26 @@ dc.setAttribute("MINWORDLEN", doc->MinWordLen);
 dc.setAttribute("AUTOMATIC", static_cast<int>(doc->Automatic));
 dc.setAttribute("AUTOCHECK", static_cast<int>(doc->AutoCheck));
 dc.setAttribute("GUIDELOCK", static_cast<int>(doc->GuideLock));
+QMap<QString,multiLine>::Iterator itMU;
+for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
+	{
+	QDomElement MuL=docu.createElement("MultiLine");
+	MuL.setAttribute("Name",itMU.key());
+	multiLine ml = itMU.data();
+	multiLine::Iterator itMU2;
+	for (itMU2 = ml.begin(); itMU2 != ml.end(); ++itMU2)
+		{
+		QDomElement SuL=docu.createElement("SubLine");
+		SuL.setAttribute("Color", (*itMU2).Color);
+		SuL.setAttribute("Shade", (*itMU2).Shade);
+		SuL.setAttribute("Dash", (*itMU2).Dash);
+		SuL.setAttribute("LineEnd", (*itMU2).LineEnd);
+		SuL.setAttribute("LineJoin", (*itMU2).LineJoin);
+		SuL.setAttribute("Width", (*itMU2).Width);
+		MuL.appendChild(SuL);
+		}
+	dc.appendChild(MuL);
+	}
 QMap<QString,QString>::Iterator itja;
 for (itja = doc->JavaScripts.begin(); itja != doc->JavaScripts.end(); ++itja)
 	{

@@ -58,6 +58,7 @@ private:
 	QString FitKey(QString pass);
 	QString FToStr(float c);
 	QString IToStr(int c);
+	QString setStrokeMulti(struct singleLine *sl);
 	QString SetClipPath(PageItem *ite);
 	QString SetFarbe(QString farbe, int Shade);
 	QString setTextSt(PageItem *ite, uint PNr);

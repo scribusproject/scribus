@@ -304,6 +304,7 @@ signals: // Signals
 	void NewBMNr(int, int);
 	void ChBMText(PageItem *);
 	void RotMode(int);
+	void RasterPic(bool);
 };
 
 #endif

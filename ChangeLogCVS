@@ -1,4 +1,8 @@
 Changes since Version 0.9.10
+09.06.2003	lineformats.cpp
+		multiline.cpp		Added Support for Named Linestyles, allowing to have
+					Paths stroked with multiple Lines.
+
 07.06.2003	pdflib.cpp
 		scribus.cpp		Fixed grave Bug with the PDF-Exporter.
 

@@ -989,11 +989,28 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 									p->PS_image(ite->InvPict, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic);
 									}
 								p->PS_restore();
-								if (ite->Pcolor2 != "None")
+								if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
 									{
-									SetClipPath(p, ite);
-									p->PS_closepath();
-									p->PS_stroke();
+									if (ite->NamedLStyle == "")
+										{
+										SetClipPath(p, ite);
+										p->PS_closepath();
+										p->PS_stroke();
+										}
+									else
+										{
+										multiLine ml = Doc->MLineStyles[ite->NamedLStyle];
+										for (int it = ml.count()-1; it > -1; it--)
+											{
+											SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
+											p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+											p->PS_setlinewidth(ml[it].Width);
+											p->PS_setdash(static_cast<PenStyle>(ml[it].Dash), static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
+											SetClipPath(p, ite);
+											p->PS_closepath();
+											p->PS_stroke();
+											}
+										}
 									}
 								p->PS_restore();
 								}
@@ -1012,29 +1029,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 									{
 									SetClipPath(p, ite);
 									p->PS_closepath();
-									if (ite->GrType != 0)
-										{
-										SetFarbe(ite->GrColor2, ite->GrShade2, &h, &s, &v, &k);
-										p->PS_GradientCol1(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-										SetFarbe(ite->GrColor, ite->GrShade, &h, &s, &v, &k);
-										p->PS_GradientCol2(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-										switch (ite->GrType)
-											{
-											case 1:
-											case 2:
-											case 3:
-											case 4:
-												p->PS_LinGradient(ite->Width, -ite->Height, ite->PType, ite->GrType, multiPath);
-												break;
-											case 5:
-												p->PS_RadGradient(ite->Width, -ite->Height, ite->PType, multiPath);
-												break;
-											default:
-												break;
-											}
-										}
-									else
-										p->PS_fill(multiPath);
+									p->PS_fill(multiPath);
 									}
 								if ((ite->flippedH % 2) != 0)
 									{
@@ -1227,7 +1222,6 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 	QString chx, chglyph;
 	PageItem *c;
 	struct Pti *hl;
-	bool needsStroke = false;
 	bool multiPath = false;
 	int Lnr = 0;
 	struct Layer ll;
@@ -1272,16 +1266,38 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 					switch (c->PType)
 						{
 						case 2:
-							if (c->Pcolor != "None")
+							if ((c->Pcolor != "None") || (c->GrType != 0))
 								{
 								SetClipPath(p, c);
 								p->PS_closepath();
-								p->PS_fill(multiPath);
+								if ((c->GrType != 0) && (a->PageNam == ""))
+									{
+									SetFarbe(c->GrColor2, c->GrShade2, &h, &s, &v, &k);
+									p->PS_GradientCol1(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+									SetFarbe(c->GrColor, c->GrShade, &h, &s, &v, &k);
+									p->PS_GradientCol2(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+									switch (c->GrType)
+										{
+										case 1:
+										case 2:
+										case 3:
+										case 4:
+											p->PS_LinGradient(c->Width, -c->Height, c->PType, c->GrType, multiPath);
+											break;
+										case 5:
+											p->PS_RadGradient(c->Width, -c->Height, c->PType, multiPath);
+											break;
+										default:
+											break;
+										}
+									}
+								else
+									p->PS_fill(multiPath);
 								}
+							p->PS_save();
 							SetClipPath(p, c);
 							p->PS_closepath();
 							p->PS_clip(multiPath);
-							p->PS_save();
 							if ((c->flippedH % 2) != 0)
 								{
 								p->PS_translate(c->Width, 0);
@@ -1301,16 +1317,31 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									p->PS_image(c->InvPict, -c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic);
 								}
 							p->PS_restore();
-							if (c->Pcolor2 != "None")
+							if ((c->Pcolor2 != "None") || (c->NamedLStyle != ""))
 								{
-								SetClipPath(p, c);
-								p->PS_closepath();
-								p->PS_stroke();
+								if (c->NamedLStyle == "")
+									{
+									SetClipPath(p, c);
+									p->PS_closepath();
+									p->PS_stroke();
+									}
+								else
+									{
+									multiLine ml = Doc->MLineStyles[c->NamedLStyle];
+									for (int it = ml.count()-1; it > -1; it--)
+										{
+										SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
+										p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+										p->PS_setlinewidth(ml[it].Width);
+										p->PS_setdash(static_cast<PenStyle>(ml[it].Dash), static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
+										SetClipPath(p, c);
+										p->PS_closepath();
+										p->PS_stroke();
+										}
+									}
 								}						
-							needsStroke = false;
 							break;
 						case 4:
-							needsStroke = false;
 							if (c->isBookmark)
 								{
 								QString bm = "";
@@ -1517,22 +1548,101 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								}
 							break;
 						case 5:
-							p->PS_moveto(0, 0);
-							p->PS_lineto(c->Width, -c->Height);
-							p->PS_stroke();
-							needsStroke = false;
+							if (c->NamedLStyle == "")
+								{
+								p->PS_moveto(0, 0);
+								p->PS_lineto(c->Width, -c->Height);
+								p->PS_stroke();
+								}
+							else
+								{
+								multiLine ml = Doc->MLineStyles[c->NamedLStyle];
+								for (int it = ml.count()-1; it > -1; it--)
+									{
+									SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
+									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+									p->PS_setlinewidth(ml[it].Width);
+									p->PS_setdash(static_cast<PenStyle>(ml[it].Dash), static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
+									p->PS_moveto(0, 0);
+									p->PS_lineto(c->Width, -c->Height);
+									p->PS_stroke();
+									}
+								}
 							break;
 						case 1:
 						case 3:
 						case 6:
-							SetClipPath(p, c);
-							p->PS_closepath();
-							needsStroke = true;
+							if ((c->Pcolor != "None") || (c->GrType != 0))
+								{
+								SetClipPath(p, c);
+								p->PS_closepath();
+								if (c->GrType != 0)
+									{
+									SetFarbe(c->GrColor2, c->GrShade2, &h, &s, &v, &k);
+									p->PS_GradientCol1(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+									SetFarbe(c->GrColor, c->GrShade, &h, &s, &v, &k);
+									p->PS_GradientCol2(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+									switch (c->GrType)
+										{
+										case 1:
+										case 2:
+										case 3:
+										case 4:
+											p->PS_LinGradient(c->Width, -c->Height, c->PType, c->GrType, multiPath);
+											break;
+										case 5:
+											p->PS_RadGradient(c->Width, -c->Height, c->PType, multiPath);
+											break;
+										default:
+											break;
+										}
+									}
+								else
+									p->PS_fill(multiPath);
+								}
+							if ((c->Pcolor2 != "None") || (c->NamedLStyle != ""))
+								{
+								if (c->NamedLStyle == "")
+									{
+									SetClipPath(p, c);
+									p->PS_closepath();
+									p->PS_stroke();
+									}
+								else
+									{
+									multiLine ml = Doc->MLineStyles[c->NamedLStyle];
+									for (int it = ml.count()-1; it > -1; it--)
+										{
+										SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
+										p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+										p->PS_setlinewidth(ml[it].Width);
+										p->PS_setdash(static_cast<PenStyle>(ml[it].Dash), static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
+										SetClipPath(p, c);
+										p->PS_closepath();
+										p->PS_stroke();
+										}
+									}
+								}
 							break;
-						case 7:						
-							SetClipPath(p, c);
-							needsStroke = false;
-							p->PS_stroke();
+						case 7:
+							if (c->NamedLStyle == "")
+								{						
+								SetClipPath(p, c);
+								p->PS_stroke();
+								}
+							else
+								{
+								multiLine ml = Doc->MLineStyles[c->NamedLStyle];
+								for (int it = ml.count()-1; it > -1; it--)
+									{
+									SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
+									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+									p->PS_setlinewidth(ml[it].Width);
+									p->PS_setdash(static_cast<PenStyle>(ml[it].Dash), static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
+									SetClipPath(p, c);
+									p->PS_stroke();
+									}
+								}
 							break;
 						case 8:
 							if (c->PoShow)
@@ -1540,12 +1650,27 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								if (c->PoLine.size() > 3)
 									{
 									p->PS_save();
-									SetClipPath(p, c);
-									p->PS_stroke();
+									if (c->NamedLStyle == "")
+										{
+										SetClipPath(p, c);
+										p->PS_stroke();
+										}
+									else
+										{
+										multiLine ml = Doc->MLineStyles[c->NamedLStyle];
+										for (int it = ml.count()-1; it > -1; it--)
+											{
+											SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
+											p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+											p->PS_setlinewidth(ml[it].Width);
+											p->PS_setdash(static_cast<PenStyle>(ml[it].Dash), static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
+											SetClipPath(p, c);
+											p->PS_stroke();
+											}
+										}
 									p->PS_restore();
 									}
 								}
-							needsStroke = false;
 							for (d = 0; d < c->MaxChars; ++d)
 								{
 								hl = c->Ptext.at(d);
@@ -1607,49 +1732,6 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								p->PS_restore();
 								}
 							break;
-						}
-					if (needsStroke)
-						{
-						if ((c->GrType != 0) && (a->PageNam == ""))
-							{
-							SetFarbe(c->GrColor2, c->GrShade2, &h, &s, &v, &k);
-							p->PS_GradientCol1(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							SetFarbe(c->GrColor, c->GrShade, &h, &s, &v, &k);
-							p->PS_GradientCol2(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							switch (c->GrType)
-								{
-								case 1:
-								case 2:
-								case 3:
-								case 4:
-									p->PS_LinGradient(c->Width, -c->Height, c->PType, c->GrType, multiPath);
-									break;
-								case 5:
-									p->PS_RadGradient(c->Width, -c->Height, c->PType, multiPath);
-									break;
-								default:
-									break;
-								}
-							if (c->Pcolor2 != "None")
-								p->PS_stroke();
-							}
-						else
-							{
-							if ((c->Pcolor2 != "None") && (c->Pcolor != "None"))
-								p->PS_fill_stroke(multiPath);
-							else
-								{
-								if ((c->Pcolor2 == "None") && (c->Pcolor == "None"))
-									p->PS_newpath();
-								else
-									{
-									if (c->Pcolor == "None")
-										p->PS_stroke();
-									if (c->Pcolor2 == "None")
-										p->PS_fill(multiPath);
-									}
-								}
-							}
 						}
 					p->PS_restore();
 					}

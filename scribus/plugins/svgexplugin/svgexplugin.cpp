@@ -245,18 +245,39 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 				gr.setAttribute("transform", trans);
 				if (Item->PType != 4)
 					{
-					if ((Item->PType == 5) || (Item->PType == 7) || (Item->PType == 8))
-						gr.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
-					else
-						gr.setAttribute("style", fill+" "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
+					if (Item->NamedLStyle == "")
+						{
+						if ((Item->PType == 5) || (Item->PType == 7) || (Item->PType == 8))
+							gr.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
+						else
+							gr.setAttribute("style", fill+" "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
+						}
 					}
 				switch (Item->PType)
 					{
 					case 1:
 					case 3:
 					case 6:
-						ob = docu->createElement("path");
-						ob.setAttribute("d", SetClipPath(Item)+"Z");
+						if (Item->NamedLStyle == "")
+							{
+							ob = docu->createElement("path");
+							ob.setAttribute("d", SetClipPath(Item)+"Z");
+							}
+						else
+							{
+							ob = docu->createElement("path");
+							ob.setAttribute("d", SetClipPath(Item)+"Z");
+							ob.setAttribute("style", fill);
+							gr.appendChild(ob);
+							multiLine ml = plug->doc->MLineStyles[Item->NamedLStyle];
+							for (int it = ml.count()-1; it > -1; it--)
+								{
+								ob = docu->createElement("path");
+								ob.setAttribute("d", SetClipPath(Item)+"Z");
+								ob.setAttribute("style", GetMultiStroke(plug, &ml[it], Item));
+								gr.appendChild(ob);
+								}
+							}
 						break;
 					case 2:
 						if (Item->Pcolor != "None")
@@ -284,11 +305,42 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							ob.setAttribute("transform", "scale("+FToStr(Item->LocalScX)+", "+FToStr(Item->LocalScY)+") translate("+FToStr(Item->LocalX)+", "+FToStr(Item->LocalY)+")");
 							ob.setAttribute("xlink:href", fi.baseName()+".png");
 							ClipCount++;
+							gr.appendChild(ob);
+							}
+						if (Item->NamedLStyle == "")
+							{
+							ob = docu->createElement("path");
+							ob.setAttribute("d", SetClipPath(Item));
+							}
+						else
+							{
+							multiLine ml = plug->doc->MLineStyles[Item->NamedLStyle];
+							for (int it = ml.count()-1; it > -1; it--)
+								{
+								ob = docu->createElement("path");
+								ob.setAttribute("d", SetClipPath(Item));
+								ob.setAttribute("style", GetMultiStroke(plug, &ml[it], Item));
+								gr.appendChild(ob);
+								}
 							}
 						break;
 					case 7:
-						ob = docu->createElement("path");
-						ob.setAttribute("d", SetClipPath(Item));
+						if (Item->NamedLStyle == "")
+							{
+							ob = docu->createElement("path");
+							ob.setAttribute("d", SetClipPath(Item));
+							}
+						else
+							{
+							multiLine ml = plug->doc->MLineStyles[Item->NamedLStyle];
+							for (int it = ml.count()-1; it > -1; it--)
+								{
+								ob = docu->createElement("path");
+								ob.setAttribute("d", SetClipPath(Item));
+								ob.setAttribute("style", GetMultiStroke(plug, &ml[it], Item));
+								gr.appendChild(ob);
+								}
+							}
 						break;
 					case 4:
 						if (Item->Pcolor != "None")
@@ -316,15 +368,43 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							}
 						break;
 					case 5:
-						ob = docu->createElement("path");
-						ob.setAttribute("d", "M 0 0 L "+FToStr(Item->Width)+" 0");
+						if (Item->NamedLStyle == "")
+							{
+							ob = docu->createElement("path");
+							ob.setAttribute("d", "M 0 0 L "+FToStr(Item->Width)+" 0");
+							}
+						else
+							{
+							multiLine ml = plug->doc->MLineStyles[Item->NamedLStyle];
+							for (int it = ml.count()-1; it > -1; it--)
+								{
+								ob = docu->createElement("path");
+								ob.setAttribute("d", "M 0 0 L "+FToStr(Item->Width)+" 0");
+								ob.setAttribute("style", GetMultiStroke(plug, &ml[it], Item));
+								gr.appendChild(ob);
+								}
+							}
 						break;
 					case 8:
 						if (Item->PoShow)
 							{
-							ob = docu->createElement("path");
-							ob.setAttribute("d", SetClipPath(Item));
-							gr.appendChild(ob);
+							if (Item->NamedLStyle == "")
+								{
+								ob = docu->createElement("path");
+								ob.setAttribute("d", SetClipPath(Item));
+								gr.appendChild(ob);
+								}
+							else
+								{
+								multiLine ml = plug->doc->MLineStyles[Item->NamedLStyle];
+								for (int it = ml.count()-1; it > -1; it--)
+									{
+									ob = docu->createElement("path");
+									ob.setAttribute("d", SetClipPath(Item));
+									ob.setAttribute("style", GetMultiStroke(plug, &ml[it], Item));
+									gr.appendChild(ob);
+									}
+								}
 							}
 						ob = docu->createElement("text");
 						for (d = 0; d < Item->MaxChars; d++)
@@ -444,6 +524,72 @@ QString SVGExPlug::SetFarbe(QString farbe, int shad, ScribusApp *plug)
 		tmp.setHsv(h, sneu, v);
 		}
 	return tmp.name();
+}
+
+QString SVGExPlug::GetMultiStroke(ScribusApp *plug, struct singleLine *sl, PageItem *Item)
+{
+	QString tmp = "fill:none; ";
+	tmp += "stroke:"+SetFarbe(sl->Color, sl->Shade, plug)+"; ";
+	if (Item->Transparency != 0)
+		tmp += " stroke-opacity:"+FToStr(1.0 - Item->Transparency)+"; ";
+	tmp += "stroke-width:"+FToStr(sl->Width)+"; ";
+	tmp += "stroke-linecap:";
+	switch (static_cast<PenCapStyle>(sl->LineEnd))
+		{
+		case Qt::FlatCap:
+			tmp += "butt;";
+			break;
+		case Qt::SquareCap:
+			tmp += "square;";
+			break;
+		case Qt::RoundCap:
+			tmp += "round;";
+			break;
+		default:
+			tmp += "butt;";
+			break;
+		}
+	tmp += " stroke-linejoin:";
+	switch (static_cast<PenJoinStyle>(sl->LineJoin))
+		{
+		case Qt::MiterJoin:
+			tmp += "miter;";
+			break;
+		case Qt::BevelJoin:
+			tmp += "bevel;";
+			break;
+		case Qt::RoundJoin:
+			tmp += "round;";
+			break;
+		default:
+			tmp += "miter;";
+			break;
+		}
+	tmp += " stroke-dasharray:";
+	QString Dt = FToStr(QMAX(sl->Width, 1));
+	QString Da = FToStr(QMAX(3*sl->Width, 1));
+	switch (static_cast<PenStyle>(sl->Dash))
+		{
+		case Qt::SolidLine:
+			tmp += "none;";
+			break;
+		case Qt::DashLine:
+			tmp += Da+","+Dt+";";
+			break;
+		case Qt::DotLine:
+			tmp += Dt+";";
+			break;
+		case Qt::DashDotLine:
+			tmp += Da+","+Dt+","+Dt+","+Dt+";";
+			break;
+		case Qt::DashDotDotLine:
+			tmp += Da+","+Dt+","+Dt+","+Dt+","+Dt+","+Dt+";";
+			break;
+		default:
+			tmp += "none;";
+			break;
+		}
+	return tmp;
 }
 
 SVGExPlug::~SVGExPlug()

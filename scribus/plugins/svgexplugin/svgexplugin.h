@@ -31,6 +31,7 @@ private:
 		QString IToStr(int c);
 		void SetTextProps(QDomElement *tp, struct Pti *hl, ScribusApp *plug);
 		QString SetFarbe(QString farbe, int shad, ScribusApp *plug);
+		QString GetMultiStroke(ScribusApp *plug, struct singleLine *sl, PageItem *Item);
 		int GradCount;
 		int ClipCount;
 };
