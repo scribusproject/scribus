@@ -54,12 +54,37 @@ QString Name()
  */
 int Type()
 {
-	return 2;
+	return 7;
 }
 
 int ID()
 {
 	return 10;
+}
+
+QString actionName()
+{
+	return "ImportSVG";
+}
+
+QString actionKeySequence()
+{
+	return "";
+}
+
+QString actionMenu()
+{
+	return "FileImport";
+}
+
+QString actionMenuAfterName()
+{
+	return "";
+}
+
+bool actionEnabledOnStartup()
+{
+	return true;
 }
 
 /*!

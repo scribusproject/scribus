@@ -6,6 +6,9 @@
 #include <qdir.h>
 #include <qcursor.h>
 
+#include "scraction.h"
+#include "menumanager.h"
+
 
 QString Name()
 {
@@ -15,7 +18,7 @@ QString Name()
 
 int Type()
 {
-	return 3;
+	return 6;
 }
 
 int ID()
@@ -23,6 +26,30 @@ int ID()
 	return 4;
 }
 
+QString actionName()
+{
+	return "ExportAsImage";
+}
+
+QString actionKeySequence()
+{
+	return "";
+}
+
+QString actionMenu()
+{
+	return "FileExport";
+}
+
+QString actionMenuAfterName()
+{
+	return "";
+}
+
+bool actionEnabledOnStartup()
+{
+	return true;
+}
 
 void Run(QWidget *d, ScribusApp *plug)
 {

@@ -120,7 +120,7 @@ class ScribusApp : public QMainWindow
     void SavePrefs();
     void ShowSubs();
     void applyNewMaster(QString name);
-    void UpdateRecent(QString fn);
+    void updateRecent(QString fn);
     void InitPlugs(SplashScreen *spl);
 		void InitHyphenator();
 		void FinalizePlugs();
@@ -226,7 +226,7 @@ class ScribusApp : public QMainWindow
     /** open a document */
     void slotFileOpen();
     /** open a document */
-    void LoadRecent(int id);
+    void loadRecent(int id);
     bool slotDocOpen();
     bool LadeDoc(QString fileName);
     void slotAutoSaved();
@@ -419,8 +419,8 @@ private:
     QPopupMenu *editMenu;
     /** StilMenu enthaelt das Stilemenue */
     QPopupMenu *StilMenu;
-    /** ObjMenu enthaelt das Objektemenue */
-    QPopupMenu *ObjMenu;
+    /** itemMenu enthaelt das Objektemenue */
+    QPopupMenu *itemMenu;
     /** pageMenu enthaelt das Seitenmenue */
     QPopupMenu *pageMenu;
     /** view_menu contains all items of the menubar entry "View" */
@@ -436,7 +436,7 @@ private:
     /** FontMenu enthaelt die Fonts */
     QPopupMenu *FontMenu;
     QPopupMenu *TypeStyleMenu;
-    QPopupMenu *AliMenu;
+    QPopupMenu *alignMenu;
     QPopupMenu *recentMenu;
     QPopupMenu *hymen;
     QToolBar *WerkTools2;
@@ -451,7 +451,7 @@ private:
     int KeyMod;
     int ShapeEdit;
     int ShapeM;
-    int DistM;
+    int M_ItemAlignDist;
 		int PfadT;
 		int PfadS;
 		int PfadV;
@@ -461,12 +461,12 @@ private:
     int pgmv;
     int Stm;
     int Obm;
-    int Markers;
-    int FrameDr;
-    int Bilder;
-    int Ras;
+    int M_ViewShowMarkers;
+    int M_ViewDrawFrames;
+    int M_ViewShowImages;
+    int M_ViewShowGrid;
     int uRas;
-		int Guide;
+		int M_ViewShowGuides;
 		int uGuide;
     int viewTools;
     int viewToolsP;
@@ -477,43 +477,43 @@ private:
 		int viewLpal;
 		int viewSepal;
 		int viewBopal;
-    int fid1;
-    int fid2;
-    int fid2a;
-    int fid3;
-    int fid4;
+    int M_FileClose;
+    int M_FileImportGetText;
+    int M_FileImportPages;
+    int M_FileExportSaveText;
+    int M_FileSave;
     int fid5;
-    int fid51;
-    int fid6;
-    int fid7;
-    int fid8;
+    int M_FileCollect;
+    int M_FileDocInfo;
+    int M_FileDocSetup;
+    int M_FileExportSavePageAsEPS;
     int fid9;
-    int fid10;
-    int fid11;
+    int M_FileExportSaveAsPDF;
+    int M_FileExport;
     int fid12;
-    int fid13;
-    int fid14;
+    int M_FileOpen;
+    int M_OpenRecentFile;
 		int edUndo;
-    int edid1;
-    int edid2;
-    int edid3;
-    int edid4;
-    int edid5;
-    int edid6;
-    int edid6a;
-    int Loesch;
-    int tman;
-    int jman;
+    int M_EditCut;
+    int M_EditCopy;
+    int M_EditPaste;
+    int M_EditDelete;
+    int M_EditSelectAll;
+    int M_EditParaStyles;
+    int M_EditLineStyles;
+    int M_ItemDelete;
+    int M_EditTemplates;
+    int M_EditJavascripts;
     int tip;
-    int Gr;
-    int UnGr;
-		int LockOb;
+    int M_ItemGroup;
+    int M_ItemUngroup;
+		int M_ItemLock;
     int exmn;
 		int hyph;
-		int ORaise;
-		int OLower;
-		int OBack;
-		int OFront;
+		int M_ItemRaise;
+		int M_ItemLower;
+		int M_ItemSendToBack;
+		int M_ItemBringToFront;
     bool tipsOn;
     QPopupMenu *helpMenu;
     QPopupMenu *toolMenu;

@@ -9,6 +9,7 @@
 #include <qvaluelist.h>
 #include <qvaluevector.h> 
 #include <qstring.h>
+#include <qaction.h>
 #include <vector>
 
 #include "scfonts.h"
@@ -16,6 +17,7 @@
 #include "fpointarray.h"
 #include "vgradient.h"
 #include "pageitem.h"
+#include "scraction.h"
 
 /* Struktur fuer Pageitem Text */
 struct ScText

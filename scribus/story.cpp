@@ -1472,7 +1472,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 /* Setting up Menu Bar */
 	fmenu = new QPopupMenu();
 	fmenu->insertItem(loadIcon("editdelete.png"), tr("&New"), this, SLOT(Do_new()), CTRL+Key_N);
-	fid52 = fmenu->insertItem(loadIcon("reload16.png"),  tr("&Reload Text from Frame"), this, SLOT(slotFileRevert()));
+	M_FileRevert = fmenu->insertItem(loadIcon("reload16.png"),  tr("&Reload Text from Frame"), this, SLOT(slotFileRevert()));
 	fmenu->insertSeparator();
 	fmenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save to File..."), this, SLOT(SaveTextFile()));
 	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("&Load from File..."), this, SLOT(LoadTextFile()));
@@ -1611,7 +1611,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	statusBar()->addWidget(ButtonGroup2, 1, true);
 	setCentralWidget( vb );
 /* Final polishment */
-	fmenu->setItemEnabled(fid52, 0);
+	fmenu->setItemEnabled(M_FileRevert, 0);
 	emenu->setItemEnabled(Mcopy, 0);
 	emenu->setItemEnabled(Mcut, 0);
 	emenu->setItemEnabled(Mpaste, 0);
@@ -2106,7 +2106,7 @@ bool StoryEditor::Do_new()
 	emenu->setItemEnabled(Mcopy, 0);
 	emenu->setItemEnabled(Mcut, 0);
 	emenu->setItemEnabled(Mdel, 0);
-	fmenu->setItemEnabled(fid52, 0);
+	fmenu->setItemEnabled(M_FileRevert, 0);
 	TextChanged = false;
 	updateProps(0, 0);
 	updateStatus();
@@ -2220,7 +2220,7 @@ void StoryEditor::updateTextFrame()
 	ScApp->view->DrawNew();
 	TextChanged = false;
 	emenu->setItemEnabled(Mupdt, 0);
-	fmenu->setItemEnabled(fid52, 0);
+	fmenu->setItemEnabled(M_FileRevert, 0);
 	DatUpdt->setEnabled(false);
 	DatRel->setEnabled(false);
 	emit DocChanged();
@@ -2476,7 +2476,7 @@ void StoryEditor::modifiedText()
 	TextChanged = true;
 	firstSet = true;
 	emenu->setItemEnabled(Mupdt, 1);
-	fmenu->setItemEnabled(fid52, 1);
+	fmenu->setItemEnabled(M_FileRevert, 1);
 	if (Editor->tBuffer.length() != 0)
 		emenu->setItemEnabled(Mpaste, 1);
 	else

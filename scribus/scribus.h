@@ -38,6 +38,7 @@
 #include <qmessagebox.h>
 #include <qpainter.h>
 #include <qmap.h>
+#include <qdict.h>
 #include <qfont.h>
 #include <qtimer.h>
 #include <qintdict.h>
@@ -60,6 +61,7 @@
 #include "bookpalette.h"
 #include "splash.h"
 #include "prefscontext.h"
+
 class Autoforms;
 class FontCombo;
 class StilFormate;
@@ -72,6 +74,8 @@ class WerkToolB;
 class WerkToolBP;
 class UndoPalette;
 class FileWatcher;
+class ScrAction;
+class MenuManager;
 
 /**
   * This Class is the base class for your application. It sets up the main
@@ -106,10 +110,10 @@ public:
 	void SavePrefsXML();
 	void ShowSubs();
 	void applyNewMaster(QString name);
-	void UpdateRecent(QString fn);
+	void updateRecent(QString fn);
 	QString GetLang(QString inLang);
 	void FinalizePlugs();
-	bool DLLName(QString name, QString *PName, int *typ, void **Zeig, int *idNr);
+	bool DLLName(QString name, QString *PName, int *typ, void **Zeig, int *idNr, QString *actName, QString *actKeySequence, QString *actMenu, QString *actMenuAfterName, bool *actEnabledOnStartup);
 	void CallDLLbyMenu(int id);
 	void CallDLL(int ident);
 	bool DLLexists(int ident);
@@ -196,18 +200,22 @@ public:
 	bool UniCinp;
 	int UniCinC;
 	QString UniCinS;
-	/** file_menu contains all items of the menubar entry "File" */
-	QPopupMenu *fileMenu;
-	int M_NewFile;
-	int M_Print;
-	int M_SaveAs;
-	QValueList<int> MenuItemsFile;
+
+	//int M_FileNew;
+	//int M_FilePrint;
+	//int M_FileSaveAs;
+	//int M_FileQuit;
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
 	FileWatcher* fileWatcher;
 	QProcess *ExternalApp;
+	QDict<ScrAction> scrActions;
+	QDict<ScrAction> scrDLLActions;
+	QDict<ScrAction> scrRecentFileActions;
+	MenuManager* scrMenuMgr;
 
 public slots:
+	void callDLLBySlot(int pluginID);
 	void ToggleAllPalettes();
 	void slotStoryEditor();
 	void slotCharSelect();
@@ -256,8 +264,9 @@ public slots:
 	void slotFileOpen();
 	void slotFileAppend();
 	/** open a document */
-	void RemoveRecent(QString fn);
-	void LoadRecent(int id);
+	void removeRecent(QString fn);
+	void loadRecent(QString fn);
+	void rebuildRecentFileMenu();
 	bool slotDocOpen();
 	bool LadeDoc(QString fileName);
 	void slotAutoSaved();
@@ -343,7 +352,7 @@ public slots:
 	void setBookpal(bool visible);
 	void ToggleUndoPalette();
 	void setUndoPalette(bool visible);
-	/** Schaltet Bilder ein/aus */
+	/** Schaltet M_ViewShowImages ein/aus */
 	void TogglePics();
 	/** Schaltet Raster ein/aus */
 	void ToggleRaster();
@@ -479,17 +488,19 @@ private:
 	void initScrapbook();
 	void initCrashHandler();
 	void initCMS();
+	void initActions();
 
 	QString guiLanguage;
+	QString recentFileMenuName;
 
 	QString getPreferencesLocation(); //Find preferences location
-	void convertToXMLPreferences(QString prefsLocation); //convert 1.2 style rc prefs to .xml style
+	void convertToXMLPreferences(const QString prefsLocation); //convert 1.2 style rc prefs to .xml style
 	/** edit_menu contains all items of the menubar entry "Edit" */
 	QPopupMenu *editMenu;
 	/** StilMenu enthaelt das Stilemenue */
 	QPopupMenu *StilMenu;
-	/** ObjMenu enthaelt das Objektemenue */
-	QPopupMenu *ObjMenu;
+	/** itemMenu enthaelt das Objektemenue */
+	QPopupMenu *itemMenu;
 	/** pageMenu enthaelt das Seitenmenue */
 	QPopupMenu *pageMenu;
 	/** viewMenu contains all items of the menubar entry "View" */
@@ -508,8 +519,8 @@ private:
 	QPopupMenu *FontMenu;
 	FontCombo* FontSub;
 	QPopupMenu *TypeStyleMenu;
-	QPopupMenu *AliMenu;
-	QPopupMenu *recentMenu;
+	QPopupMenu *alignMenu;
+	//QPopupMenu *recentMenu;
 	QToolBar *WerkTools2;
 	QToolBar *editToolBar;
 	WerkToolBP* WerkToolsP;
@@ -522,7 +533,7 @@ private:
 	int KeyMod;
 	int ShapeEdit;
 	int ShapeM;
-	int DistM;
+	int M_ItemAlignDist;
 	int PfadT;
 	int PfadDT;
 	int PfadS;
@@ -533,15 +544,15 @@ private:
 	int pgmv;
 	int Stm;
 	int Obm;
-	int Markers;
-	int FrameDr;
-	int Bilder;
-	int Ras;
-	int uRas;
-	int Guide;
-	int uGuide;
-	int Base;
-	int textLinks;
+	int M_ViewShowMarkers;
+	int M_ViewDrawFrames;
+	int M_ViewShowImages;
+	int M_ViewShowGrid;
+	int M_ViewSnapToGrid;
+	int M_ViewShowGuides;
+	int M_ViewSnapToGuides;
+	int M_ViewShowBaseline;
+	int M_ViewShowTextChain;
 	int toolbarMenuTools;
 	int toolbarMenuPDFTools;
 	int viewToolbars;
@@ -553,47 +564,47 @@ private:
 	int viewSepal;
 	int viewBopal;
 	int viewUndoPalette;
-	int fid1;
-	int fid2;
-	int fid2a;
-	int fid2aa;
-	int fid3;
-	int fid4;
-	int fid51;
-	int fid52;
-	int fid6;
-	int fid7;
-	int fid8;
-	int fid10;
-	int fid11;
-	int fid13;
-	int fid14;
+	//int M_FileClose;
+	//int M_FileImportGetText;
+	//int M_FileImportPages;
+	//int M_FileImportAppendText;
+	//int M_FileExportSaveText;
+	//int M_FileSave;
+	//int M_FileCollect;
+	//int M_FileRevert;
+	//int M_FileDocInfo;
+	//int M_FileDocSetup;
+	//int M_FileExportSavePageAsEPS;
+	//int M_FileExportSaveAsPDF;
+	//int M_FileExport;
+	//int M_FileOpen;
+	//int M_OpenRecentFile;
 	int edUndo;
 	int edRedo;
-	int edid1;
-	int edid2;
-	int edid3;
-	int edid4;
-	int edid5;
-	int edid6;
-	int edid6a;
-	int Sear;
-	int Loesch;
-	int tman;
-	int jman;
+	int M_EditCut;
+	int M_EditCopy;
+	int M_EditPaste;
+	int M_EditDelete;
+	int M_EditSelectAll;
+	int M_EditParaStyles;
+	int M_EditLineStyles;
+	int M_EditSearchReplace;
+	int M_ItemDelete;
+	int M_EditTemplates;
+	int M_EditJavascripts;
 	int tip;
-	int Gr;
-	int UnGr;
-	int LockOb;
+	int M_ItemGroup;
+	int M_ItemUngroup;
+	int M_ItemLock;
 	int exmn;
 	int hyph;
-	int cSelect;
-	int ORaise;
-	int OLower;
-	int OBack;
-	int OFront;
-	int ODup;
-	int OMDup;
+	int M_ExtraCharSelect;
+	int M_ItemRaise;
+	int M_ItemLower;
+	int M_ItemSendToBack;
+	int M_ItemBringToFront;
+	int M_ItemDuplicate;
+	int M_ItemMultiDuplicate;
 	bool PalettesStat[9];
 	bool GuidesStat[7];
 	bool tipsOn;
@@ -603,8 +614,8 @@ private:
 	QPopupMenu *helpMenu;
 	QPopupMenu *toolMenu;
 	QPopupMenu *extraMenu;
-	QPopupMenu *importMenu;
-	QPopupMenu *exportMenu;
+	//QPopupMenu *importMenu;
+	//QPopupMenu *exportMenu;
 	QPopupMenu *toolbarMenu;
 	void addNewPages(int wo, int where, int numPages, QString based1 = tr("Normal"), QString based2 = tr("Normal"));
 	QMap<int,QString> FontID;
@@ -618,6 +629,12 @@ private:
 					  	void *Zeiger;
 					  	int Typ;
 						int MenuID;
+						//CB
+						QString actName;
+						QString actKeySequence;
+						QString actMenu;
+						QString actMenuAfterName;
+						bool actEnabledOnStartup;
 					} ;
 	QMap<int, PlugData> PluginMap;
 	bool PrinterUsed;

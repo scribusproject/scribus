@@ -16,7 +16,7 @@ QString Name()
 
 int Type()
 {
-    return 5;
+    return 6;
 }
 
 int ID()
@@ -24,17 +24,42 @@ int ID()
 	return 7;
 }
 
+QString actionName()
+{
+	return "SaveAsTemplate";
+}
+
+QString actionKeySequence()
+{
+	return "Ctrl+Shift+S";
+}
+
+QString actionMenu()
+{
+	return "File";
+}
+
+QString actionMenuAfterName()
+{
+	return "SaveAs";
+}
+
+bool actionEnabledOnStartup()
+{
+	return false;
+}
+/*
 void InitPlug(QWidget *d, ScribusApp *plug)
 {
 	Carrier = plug;
 	par = d;
 	satm = new MenuSAT(d);
-	int id = plug->fileMenu->insertItem(QObject::tr("Save as &Template..."), -1, plug->fileMenu->indexOf(plug->M_SaveAs)+1);
+	int id = plug->fileMenu->insertItem(QObject::tr("Save as &Template..."), -1, plug->fileMenu->indexOf(plug->M_FileSaveAs)+1);
 	plug->fileMenu->connectItem(id, satm, SLOT(RunSATPlug()));
 	plug->fileMenu->setItemEnabled(id, 0);
 	plug->MenuItemsFile.append(id);
 }
-
+*/
 void CleanUpPlug()
 {}
 
@@ -96,7 +121,7 @@ void MenuSAT::RunSATPlug()
 			Carrier->doc->setUnModified();
 			Carrier->ActWin->setCaption(currentFile);
 		}
-		Carrier->RemoveRecent(docPath);
+		Carrier->removeRecent(docPath);
 		QDir::setCurrent(currentDirPath);
 		delete satdia;
 	}

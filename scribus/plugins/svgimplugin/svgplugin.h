@@ -19,6 +19,12 @@ extern "C" QString Name();
 extern "C" int Type();
 extern "C" int ID();
 
+extern "C" QString actionName();
+extern "C" QString actionKeySequence();
+extern "C" QString actionMenu();
+extern "C" QString actionMenuAfterName();
+extern "C" bool actionEnabledOnStartup();
+
 class GradientHelper
 {
 public:

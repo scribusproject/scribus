@@ -18,7 +18,7 @@
 #ifndef FPOINT_H
 #define FPOINT_H
 
-#include "qpoint.h"
+#include <qpoint.h>
 /**
   *@author Franz Schmid
   */

@@ -24,6 +24,8 @@
 #include <qtooltip.h>
 #include <qfile.h>
 #include "libpostscript/pslib.h"
+#include "scraction.h"
+#include "menumanager.h"
 
 extern QPixmap loadIcon(QString nam);
 extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
@@ -53,7 +55,7 @@ QString Name()
  */
 int Type()
 {
-	return 5;
+	return 6;
 }
 
 int ID()
@@ -61,19 +63,44 @@ int ID()
 	return 5;
 }
 
+QString actionName()
+{
+	return "PrintPreview";
+}
+
+QString actionKeySequence()
+{
+	return "Ctrl+Alt+P"; // KDE/X swallows Ctrl+Shift+P ???
+}
+
+QString actionMenu()
+{
+	return "File";
+}
+
+QString actionMenuAfterName()
+{
+	return "Print";
+}
+
+bool actionEnabledOnStartup()
+{
+	return false;
+}
+/*
 void InitPlug(QWidget *d, ScribusApp *plug)
 {
 	Carrier = plug;
 	par = d;
 	Tes = new MenuPreview(d);
-	int id = plug->fileMenu->insertItem(QObject::tr("Print Previe&w"), -1, plug->fileMenu->indexOf(plug->M_Print)+1);
+	int id = plug->fileMenu->insertItem(QObject::tr("Print Previe&w"), -1, plug->fileMenu->indexOf(plug->M_FilePrint)+1);
 	plug->fileMenu->setAccel(Qt::CTRL+Qt::SHIFT+Qt::Key_P, id);
 	plug->fileMenu->connectItem(id, Tes, SLOT(RunPreview()));
 	plug->fileMenu->setItemEnabled(id, 0);
 	plug->MenuItemsFile.append(id);
 	plug->SetKeyEntry(18, QObject::tr("Print Preview"), id, Qt::CTRL+Qt::SHIFT+Qt::Key_P);
 }
-
+*/
 void CleanUpPlug()
 {}
 
@@ -86,9 +113,14 @@ void CleanUpPlug()
  \param plug ScribusApp *
  \retval None
  */
- /*
+		
 void Run(QWidget *d, ScribusApp *plug)
-{} */
+{
+	Carrier = plug;
+	par = d;
+	Tes = new MenuPreview(d);
+	Tes->RunPreview();
+}
 
 void MenuPreview::RunPreview()
 {

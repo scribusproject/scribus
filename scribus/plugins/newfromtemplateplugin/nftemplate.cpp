@@ -1,13 +1,17 @@
 /***************************************************************************
  *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
-#include "nftemplate.h"
-#include "nftemplate.moc"
-#include "nftdialog.h"
 #include <qstring.h>
 #include <qcursor.h>
 #include <qdir.h>
 #include <qwidget.h>
+
+#include "nftemplate.h"
+#include "nftemplate.moc"
+#include "nftdialog.h"
+#include "scraction.h"
+#include "menumanager.h"
+
 ScribusApp* Carrier;
 QWidget* par;
 
@@ -18,7 +22,7 @@ QString Name()
 
 int Type()
 {
-    return 5;
+    return 6;
 }
 
 int ID()
@@ -26,19 +30,53 @@ int ID()
 	return 3;
 }
 
+QString actionName()
+{
+	return "NewFromTemplate";
+}
+
+QString actionKeySequence()
+{
+	return "Ctrl+Shift+N";
+}
+
+QString actionMenu()
+{
+	return "File";
+}
+
+QString actionMenuAfterName()
+{
+	return "New";
+}
+
+bool actionEnabledOnStartup()
+{
+	return true;
+}
+/*
 void InitPlug(QWidget *d, ScribusApp *plug)
 {
 	Carrier = plug;
 	par = d;
 	Nft = new MenuNFT(d);
-	int id = plug->fileMenu->insertItem(QObject::tr("New &from Template..."), -1, plug->fileMenu->indexOf(plug->M_NewFile)+1);
+	int id = plug->fileMenu->insertItem(QObject::tr("New &from Template..."), -1, plug->fileMenu->indexOf(plug->scrActions["fileNew"]->getMenuIndex())+1);
 	plug->fileMenu->connectItem(id, Nft, SLOT(RunNFTPlug()));
 	plug->fileMenu->setItemEnabled(id, 1);
 }
-
+*/
 void CleanUpPlug()
 {
 }
+
+void Run(QWidget *d, ScribusApp *plug)
+{
+	Carrier = plug;
+	par = d;
+	Nft = new MenuNFT(d);
+	Nft->RunNFTPlug();
+}
+
 
 void MenuNFT::RunNFTPlug()
 {
@@ -51,7 +89,7 @@ void MenuNFT::RunNFTPlug()
 		Carrier->doc->DocName = nftdia->currentTemplate->name;
 		Carrier->ActWin->setCaption(QObject::tr("Template: ") + nftdia->currentTemplate->name);
 		QDir::setCurrent(Carrier->Prefs.DocDir);
-		Carrier->RemoveRecent(QDir::cleanDirPath(nftdia->currentTemplate->file));
+		Carrier->removeRecent(QDir::cleanDirPath(nftdia->currentTemplate->file));
 		qApp->restoreOverrideCursor();
 	}
 	delete nftdia;

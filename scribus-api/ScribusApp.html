@@ -61,7 +61,7 @@
 </LI>
 <LI>void &nbsp;<b><A HREF="#ref16">applyNewMaster</A></b> (QString name) 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref17">UpdateRecent</A></b> (QString fn) 
+<LI>void &nbsp;<b><A HREF="#ref17">updateRecent</A></b> (QString fn) 
 </LI>
 <LI>void &nbsp;<b><A HREF="#ref18">InitPlugs</A></b> (<A HREF="SplashScreen.html">SplashScreen</A> *spl) 
 </LI>
@@ -177,7 +177,7 @@
 </LI>
 <LI>void &nbsp;<b><A HREF="#ref109">slotFileOpen</A></b> () 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref110">LoadRecent</A></b> (int id) 
+<LI>void &nbsp;<b><A HREF="#ref110">loadRecent</A></b> (int id) 
 </LI>
 <LI>bool &nbsp;<b><A HREF="#ref111">slotDocOpen</A></b> () 
 </LI>
@@ -475,7 +475,7 @@
 </ul><h4>Private Members</h4><ul><LI>QPopupMenu *<b><A HREF="#ref235">fileMenu</A></b></LI>
 <LI>QPopupMenu *<b><A HREF="#ref236">editMenu</A></b></LI>
 <LI>QPopupMenu *<b><A HREF="#ref237">StilMenu</A></b></LI>
-<LI>QPopupMenu *<b><A HREF="#ref238">ObjMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref238">itemMenu</A></b></LI>
 <LI>QPopupMenu *<b><A HREF="#ref239">pageMenu</A></b></LI>
 <LI>QPopupMenu *<b><A HREF="#ref240">viewMenu</A></b></LI>
 <LI>QPopupMenu *<b><A HREF="#ref241">ColorMenu</A></b></LI>
@@ -484,7 +484,7 @@
 <LI>QPopupMenu *<b><A HREF="#ref244">ShapeMenu</A></b></LI>
 <LI>QPopupMenu *<b><A HREF="#ref245">FontMenu</A></b></LI>
 <LI>QPopupMenu *<b><A HREF="#ref246">TypeStyleMenu</A></b></LI>
-<LI>QPopupMenu *<b><A HREF="#ref247">AliMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref247">alignMenu</A></b></LI>
 <LI>QPopupMenu *<b><A HREF="#ref248">recentMenu</A></b></LI>
 <LI>QPopupMenu *<b><A HREF="#ref249">hymen</A></b></LI>
 <LI>QToolBar *<b><A HREF="#ref250">WerkTools2</A></b></LI>
@@ -499,7 +499,7 @@
 <LI>int <b><A HREF="#ref259">KeyMod</A></b></LI>
 <LI>int <b><A HREF="#ref260">ShapeEdit</A></b></LI>
 <LI>int <b><A HREF="#ref261">ShapeM</A></b></LI>
-<LI>int <b><A HREF="#ref262">DistM</A></b></LI>
+<LI>int <b><A HREF="#ref262">M_ItemAlignDist</A></b></LI>
 <LI>int <b><A HREF="#ref263">PfadT</A></b></LI>
 <LI>int <b><A HREF="#ref264">PfadS</A></b></LI>
 <LI>int <b><A HREF="#ref265">PfadV</A></b></LI>
@@ -509,12 +509,12 @@
 <LI>int <b><A HREF="#ref269">pgmv</A></b></LI>
 <LI>int <b><A HREF="#ref270">Stm</A></b></LI>
 <LI>int <b><A HREF="#ref271">Obm</A></b></LI>
-<LI>int <b><A HREF="#ref272">Markers</A></b></LI>
-<LI>int <b><A HREF="#ref273">FrameDr</A></b></LI>
-<LI>int <b><A HREF="#ref274">Bilder</A></b></LI>
-<LI>int <b><A HREF="#ref275">Ras</A></b></LI>
+<LI>int <b><A HREF="#ref272">M_ViewShowMarkers</A></b></LI>
+<LI>int <b><A HREF="#ref273">M_ViewDrawFrames</A></b></LI>
+<LI>int <b><A HREF="#ref274">M_ViewShowImages</A></b></LI>
+<LI>int <b><A HREF="#ref275">M_ViewShowGrid</A></b></LI>
 <LI>int <b><A HREF="#ref276">uRas</A></b></LI>
-<LI>int <b><A HREF="#ref277">Guide</A></b></LI>
+<LI>int <b><A HREF="#ref277">M_ViewShowGuides</A></b></LI>
 <LI>int <b><A HREF="#ref278">uGuide</A></b></LI>
 <LI>int <b><A HREF="#ref279">viewTools</A></b></LI>
 <LI>int <b><A HREF="#ref280">viewToolsP</A></b></LI>
@@ -525,43 +525,43 @@
 <LI>int <b><A HREF="#ref285">viewLpal</A></b></LI>
 <LI>int <b><A HREF="#ref286">viewSepal</A></b></LI>
 <LI>int <b><A HREF="#ref287">viewBopal</A></b></LI>
-<LI>int <b><A HREF="#ref288">fid1</A></b></LI>
-<LI>int <b><A HREF="#ref289">fid2</A></b></LI>
-<LI>int <b><A HREF="#ref290">fid2a</A></b></LI>
-<LI>int <b><A HREF="#ref291">fid3</A></b></LI>
-<LI>int <b><A HREF="#ref292">fid4</A></b></LI>
+<LI>int <b><A HREF="#ref288">M_FileClose</A></b></LI>
+<LI>int <b><A HREF="#ref289">M_FileImportGetText</A></b></LI>
+<LI>int <b><A HREF="#ref290">M_FileImportPages</A></b></LI>
+<LI>int <b><A HREF="#ref291">M_FileExportSaveText</A></b></LI>
+<LI>int <b><A HREF="#ref292">M_FileSave</A></b></LI>
 <LI>int <b><A HREF="#ref293">fid5</A></b></LI>
-<LI>int <b><A HREF="#ref294">fid51</A></b></LI>
-<LI>int <b><A HREF="#ref295">fid6</A></b></LI>
-<LI>int <b><A HREF="#ref296">fid7</A></b></LI>
-<LI>int <b><A HREF="#ref297">fid8</A></b></LI>
+<LI>int <b><A HREF="#ref294">M_FileCollect</A></b></LI>
+<LI>int <b><A HREF="#ref295">M_FileDocInfo</A></b></LI>
+<LI>int <b><A HREF="#ref296">M_FileDocSetup</A></b></LI>
+<LI>int <b><A HREF="#ref297">M_FileExportSavePageAsEPS</A></b></LI>
 <LI>int <b><A HREF="#ref298">fid9</A></b></LI>
-<LI>int <b><A HREF="#ref299">fid10</A></b></LI>
-<LI>int <b><A HREF="#ref300">fid11</A></b></LI>
+<LI>int <b><A HREF="#ref299">M_FileExportSaveAsPDF</A></b></LI>
+<LI>int <b><A HREF="#ref300">M_FileExport</A></b></LI>
 <LI>int <b><A HREF="#ref301">fid12</A></b></LI>
-<LI>int <b><A HREF="#ref302">fid13</A></b></LI>
-<LI>int <b><A HREF="#ref303">fid14</A></b></LI>
+<LI>int <b><A HREF="#ref302">M_FileOpen</A></b></LI>
+<LI>int <b><A HREF="#ref303">M_OpenRecentFile</A></b></LI>
 <LI>int <b><A HREF="#ref304">edUndo</A></b></LI>
-<LI>int <b><A HREF="#ref305">edid1</A></b></LI>
-<LI>int <b><A HREF="#ref306">edid2</A></b></LI>
-<LI>int <b><A HREF="#ref307">edid3</A></b></LI>
-<LI>int <b><A HREF="#ref308">edid4</A></b></LI>
-<LI>int <b><A HREF="#ref309">edid5</A></b></LI>
-<LI>int <b><A HREF="#ref310">edid6</A></b></LI>
-<LI>int <b><A HREF="#ref311">edid6a</A></b></LI>
-<LI>int <b><A HREF="#ref312">Loesch</A></b></LI>
-<LI>int <b><A HREF="#ref313">tman</A></b></LI>
-<LI>int <b><A HREF="#ref314">jman</A></b></LI>
+<LI>int <b><A HREF="#ref305">M_EditCut</A></b></LI>
+<LI>int <b><A HREF="#ref306">M_EditCopy</A></b></LI>
+<LI>int <b><A HREF="#ref307">M_EditPaste</A></b></LI>
+<LI>int <b><A HREF="#ref308">M_EditDelete</A></b></LI>
+<LI>int <b><A HREF="#ref309">M_EditSelectAll</A></b></LI>
+<LI>int <b><A HREF="#ref310">M_EditParaStyles</A></b></LI>
+<LI>int <b><A HREF="#ref311">M_EditLineStyles</A></b></LI>
+<LI>int <b><A HREF="#ref312">M_ItemDelete</A></b></LI>
+<LI>int <b><A HREF="#ref313">M_EditTemplates</A></b></LI>
+<LI>int <b><A HREF="#ref314">M_EditJavascripts</A></b></LI>
 <LI>int <b><A HREF="#ref315">tip</A></b></LI>
-<LI>int <b><A HREF="#ref316">Gr</A></b></LI>
-<LI>int <b><A HREF="#ref317">UnGr</A></b></LI>
-<LI>int <b><A HREF="#ref318">LockOb</A></b></LI>
+<LI>int <b><A HREF="#ref316">M_ItemGroup</A></b></LI>
+<LI>int <b><A HREF="#ref317">M_ItemUngroup</A></b></LI>
+<LI>int <b><A HREF="#ref318">M_ItemLock</A></b></LI>
 <LI>int <b><A HREF="#ref319">exmn</A></b></LI>
 <LI>int <b><A HREF="#ref320">hyph</A></b></LI>
-<LI>int <b><A HREF="#ref321">ORaise</A></b></LI>
-<LI>int <b><A HREF="#ref322">OLower</A></b></LI>
-<LI>int <b><A HREF="#ref323">OBack</A></b></LI>
-<LI>int <b><A HREF="#ref324">OFront</A></b></LI>
+<LI>int <b><A HREF="#ref321">M_ItemRaise</A></b></LI>
+<LI>int <b><A HREF="#ref322">M_ItemLower</A></b></LI>
+<LI>int <b><A HREF="#ref323">M_ItemSendToBack</A></b></LI>
+<LI>int <b><A HREF="#ref324">M_ItemBringToFront</A></b></LI>
 <LI>bool <b><A HREF="#ref325">tipsOn</A></b></LI>
 <LI>QPopupMenu *<b><A HREF="#ref326">helpMenu</A></b></LI>
 <LI>QPopupMenu *<b><A HREF="#ref327">toolMenu</A></b></LI>
@@ -598,8 +598,8 @@
 <br></td><td align="right"><h3><strong>setTBvals</strong></h3></td></tr></table><p></p><A NAME="SavePrefs"></A><A NAME="ref14"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SavePrefs</strong> ()
 <br></td><td align="right"><h3><strong>SavePrefs</strong></h3></td></tr></table><p></p><A NAME="ShowSubs"></A><A NAME="ref15"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ShowSubs</strong> ()
 <br></td><td align="right"><h3><strong>ShowSubs</strong></h3></td></tr></table><p></p><A NAME="applyNewMaster"></A><A NAME="ref16"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>applyNewMaster</strong> (QString name)
-<br></td><td align="right"><h3><strong>applyNewMaster</strong></h3></td></tr></table><p></p><A NAME="UpdateRecent"></A><A NAME="ref17"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>UpdateRecent</strong> (QString fn)
-<br></td><td align="right"><h3><strong>UpdateRecent</strong></h3></td></tr></table><p></p><A NAME="InitPlugs"></A><A NAME="ref18"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>InitPlugs</strong> (<A HREF="SplashScreen.html">SplashScreen</A> *spl)
+<br></td><td align="right"><h3><strong>applyNewMaster</strong></h3></td></tr></table><p></p><A NAME="updateRecent"></A><A NAME="ref17"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>updateRecent</strong> (QString fn)
+<br></td><td align="right"><h3><strong>updateRecent</strong></h3></td></tr></table><p></p><A NAME="InitPlugs"></A><A NAME="ref18"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>InitPlugs</strong> (<A HREF="SplashScreen.html">SplashScreen</A> *spl)
 <br></td><td align="right"><h3><strong>InitPlugs</strong></h3></td></tr></table><p></p><A NAME="InitHyphenator"></A><A NAME="ref19"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>InitHyphenator</strong> ()
 <br></td><td align="right"><h3><strong>InitHyphenator</strong></h3></td></tr></table><p></p><A NAME="FinalizePlugs"></A><A NAME="ref20"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>FinalizePlugs</strong> ()
 <br></td><td align="right"><h3><strong>FinalizePlugs</strong></h3></td></tr></table><p></p><A NAME="DLLName"></A><A NAME="ref21"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>DLLName</strong> (QString name, QString *PName, int *typ, void **Zeig)
@@ -692,8 +692,8 @@
 <br></td><td align="right"><h3><strong>slotFileNew</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotDocMerge"></A><A NAME="ref107"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>slotDocMerge</strong> ()
 <br></td><td align="right"><h3><strong>slotDocMerge</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="LadeSeite"></A><A NAME="ref108"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>LadeSeite</strong> (QString fileName, int Nr)
 <br></td><td align="right"><h3><strong>LadeSeite</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotFileOpen"></A><A NAME="ref109"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotFileOpen</strong> ()
-<br></td><td align="right"><h3><strong>slotFileOpen</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="LoadRecent"></A><A NAME="ref110"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>LoadRecent</strong> (int id)
-<br></td><td align="right"><h3><strong>LoadRecent</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotDocOpen"></A><A NAME="ref111"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>slotDocOpen</strong> ()
+<br></td><td align="right"><h3><strong>slotFileOpen</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="loadRecent"></A><A NAME="ref110"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>loadRecent</strong> (int id)
+<br></td><td align="right"><h3><strong>loadRecent</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotDocOpen"></A><A NAME="ref111"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>slotDocOpen</strong> ()
 <br></td><td align="right"><h3><strong>slotDocOpen</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="LadeDoc"></A><A NAME="ref112"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>LadeDoc</strong> (QString fileName)
 <br></td><td align="right"><h3><strong>LadeDoc</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotAutoSaved"></A><A NAME="ref113"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotAutoSaved</strong> ()
 <br></td><td align="right"><h3><strong>slotAutoSaved</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotFileSave"></A><A NAME="ref114"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotFileSave</strong> ()
@@ -822,8 +822,8 @@
 <br></td><td align="right"><h3><strong>TextScale</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="fileMenu"></A><A NAME="ref235"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>fileMenu</strong>
 </td><td align="right"><h3><strong>fileMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="editMenu"></A><A NAME="ref236"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>editMenu</strong>
 </td><td align="right"><h3><strong>editMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="StilMenu"></A><A NAME="ref237"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>StilMenu</strong>
-</td><td align="right"><h3><strong>StilMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ObjMenu"></A><A NAME="ref238"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>ObjMenu</strong>
-</td><td align="right"><h3><strong>ObjMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="pageMenu"></A><A NAME="ref239"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>pageMenu</strong>
+</td><td align="right"><h3><strong>StilMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="itemMenu"></A><A NAME="ref238"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>itemMenu</strong>
+</td><td align="right"><h3><strong>itemMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="pageMenu"></A><A NAME="ref239"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>pageMenu</strong>
 </td><td align="right"><h3><strong>pageMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewMenu"></A><A NAME="ref240"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>viewMenu</strong>
 </td><td align="right"><h3><strong>viewMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ColorMenu"></A><A NAME="ref241"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>ColorMenu</strong>
 </td><td align="right"><h3><strong>ColorMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="SizeTMenu"></A><A NAME="ref242"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>SizeTMenu</strong>
@@ -831,8 +831,8 @@
 </td><td align="right"><h3><strong>ShadeMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ShapeMenu"></A><A NAME="ref244"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>ShapeMenu</strong>
 </td><td align="right"><h3><strong>ShapeMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="FontMenu"></A><A NAME="ref245"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>FontMenu</strong>
 </td><td align="right"><h3><strong>FontMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="TypeStyleMenu"></A><A NAME="ref246"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>TypeStyleMenu</strong>
-</td><td align="right"><h3><strong>TypeStyleMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="AliMenu"></A><A NAME="ref247"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>AliMenu</strong>
-</td><td align="right"><h3><strong>AliMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="recentMenu"></A><A NAME="ref248"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>recentMenu</strong>
+</td><td align="right"><h3><strong>TypeStyleMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="alignMenu"></A><A NAME="ref247"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>alignMenu</strong>
+</td><td align="right"><h3><strong>alignMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="recentMenu"></A><A NAME="ref248"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>recentMenu</strong>
 </td><td align="right"><h3><strong>recentMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="hymen"></A><A NAME="ref249"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>hymen</strong>
 </td><td align="right"><h3><strong>hymen</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="WerkTools2"></A><A NAME="ref250"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QToolBar * <strong>WerkTools2</strong>
 </td><td align="right"><h3><strong>WerkTools2</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="WerkTools"></A><A NAME="ref251"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="WerkToolB.html">WerkToolB</A>*  <strong>WerkTools</strong>
@@ -846,8 +846,8 @@
 </td><td align="right"><h3><strong>DatNeu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="KeyMod"></A><A NAME="ref259"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>KeyMod</strong>
 </td><td align="right"><h3><strong>KeyMod</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ShapeEdit"></A><A NAME="ref260"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>ShapeEdit</strong>
 </td><td align="right"><h3><strong>ShapeEdit</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ShapeM"></A><A NAME="ref261"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>ShapeM</strong>
-</td><td align="right"><h3><strong>ShapeM</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="DistM"></A><A NAME="ref262"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>DistM</strong>
-</td><td align="right"><h3><strong>DistM</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PfadT"></A><A NAME="ref263"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>PfadT</strong>
+</td><td align="right"><h3><strong>ShapeM</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_ItemAlignDist"></A><A NAME="ref262"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_ItemAlignDist</strong>
+</td><td align="right"><h3><strong>M_ItemAlignDist</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PfadT"></A><A NAME="ref263"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>PfadT</strong>
 </td><td align="right"><h3><strong>PfadT</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PfadS"></A><A NAME="ref264"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>PfadS</strong>
 </td><td align="right"><h3><strong>PfadS</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PfadV"></A><A NAME="ref265"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>PfadV</strong>
 </td><td align="right"><h3><strong>PfadV</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PfadTP"></A><A NAME="ref266"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>PfadTP</strong>
@@ -856,13 +856,13 @@
 </td><td align="right"><h3><strong>pgmm</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="pgmv"></A><A NAME="ref269"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>pgmv</strong>
 </td><td align="right"><h3><strong>pgmv</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Stm"></A><A NAME="ref270"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Stm</strong>
 </td><td align="right"><h3><strong>Stm</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Obm"></A><A NAME="ref271"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Obm</strong>
-</td><td align="right"><h3><strong>Obm</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Markers"></A><A NAME="ref272"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Markers</strong>
-</td><td align="right"><h3><strong>Markers</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="FrameDr"></A><A NAME="ref273"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>FrameDr</strong>
-</td><td align="right"><h3><strong>FrameDr</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Bilder"></A><A NAME="ref274"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Bilder</strong>
-</td><td align="right"><h3><strong>Bilder</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Ras"></A><A NAME="ref275"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Ras</strong>
-</td><td align="right"><h3><strong>Ras</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="uRas"></A><A NAME="ref276"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>uRas</strong>
-</td><td align="right"><h3><strong>uRas</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Guide"></A><A NAME="ref277"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Guide</strong>
-</td><td align="right"><h3><strong>Guide</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="uGuide"></A><A NAME="ref278"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>uGuide</strong>
+</td><td align="right"><h3><strong>Obm</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_ViewShowMarkers"></A><A NAME="ref272"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_ViewShowMarkers</strong>
+</td><td align="right"><h3><strong>M_ViewShowMarkers</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_ViewDrawFrames"></A><A NAME="ref273"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_ViewDrawFrames</strong>
+</td><td align="right"><h3><strong>M_ViewDrawFrames</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_ViewShowImages"></A><A NAME="ref274"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_ViewShowImages</strong>
+</td><td align="right"><h3><strong>M_ViewShowImages</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_ViewShowGrid"></A><A NAME="ref275"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_ViewShowGrid</strong>
+</td><td align="right"><h3><strong>M_ViewShowGrid</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="uRas"></A><A NAME="ref276"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>uRas</strong>
+</td><td align="right"><h3><strong>uRas</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_ViewShowGuides"></A><A NAME="ref277"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_ViewShowGuides</strong>
+</td><td align="right"><h3><strong>M_ViewShowGuides</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="uGuide"></A><A NAME="ref278"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>uGuide</strong>
 </td><td align="right"><h3><strong>uGuide</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewTools"></A><A NAME="ref279"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewTools</strong>
 </td><td align="right"><h3><strong>viewTools</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewToolsP"></A><A NAME="ref280"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewToolsP</strong>
 </td><td align="right"><h3><strong>viewToolsP</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewMpal"></A><A NAME="ref281"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewMpal</strong>
@@ -873,43 +873,43 @@
 </td><td align="right"><h3><strong>viewLpal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewSepal"></A><A NAME="ref286"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewSepal</strong>
 </td><td align="right"><h3><strong>viewSepal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewBopal"></A><A NAME="ref287"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewBopal</strong>
 </td><td align="right"><h3><strong>viewBopal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid1"></A><A NAME="ref288"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid1</strong>
-</td><td align="right"><h3><strong>fid1</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid2"></A><A NAME="ref289"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid2</strong>
-</td><td align="right"><h3><strong>fid2</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid2a"></A><A NAME="ref290"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid2a</strong>
-</td><td align="right"><h3><strong>fid2a</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid3"></A><A NAME="ref291"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid3</strong>
-</td><td align="right"><h3><strong>fid3</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid4"></A><A NAME="ref292"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid4</strong>
-</td><td align="right"><h3><strong>fid4</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid5"></A><A NAME="ref293"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid5</strong>
-</td><td align="right"><h3><strong>fid5</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid51"></A><A NAME="ref294"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid51</strong>
-</td><td align="right"><h3><strong>fid51</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid6"></A><A NAME="ref295"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid6</strong>
-</td><td align="right"><h3><strong>fid6</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid7"></A><A NAME="ref296"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid7</strong>
-</td><td align="right"><h3><strong>fid7</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid8"></A><A NAME="ref297"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid8</strong>
-</td><td align="right"><h3><strong>fid8</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid9"></A><A NAME="ref298"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid9</strong>
-</td><td align="right"><h3><strong>fid9</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid10"></A><A NAME="ref299"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid10</strong>
-</td><td align="right"><h3><strong>fid10</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid11"></A><A NAME="ref300"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid11</strong>
-</td><td align="right"><h3><strong>fid11</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid12"></A><A NAME="ref301"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid12</strong>
-</td><td align="right"><h3><strong>fid12</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid13"></A><A NAME="ref302"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid13</strong>
-</td><td align="right"><h3><strong>fid13</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid14"></A><A NAME="ref303"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid14</strong>
-</td><td align="right"><h3><strong>fid14</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="edUndo"></A><A NAME="ref304"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>edUndo</strong>
-</td><td align="right"><h3><strong>edUndo</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="edid1"></A><A NAME="ref305"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>edid1</strong>
-</td><td align="right"><h3><strong>edid1</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="edid2"></A><A NAME="ref306"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>edid2</strong>
-</td><td align="right"><h3><strong>edid2</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="edid3"></A><A NAME="ref307"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>edid3</strong>
-</td><td align="right"><h3><strong>edid3</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="edid4"></A><A NAME="ref308"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>edid4</strong>
-</td><td align="right"><h3><strong>edid4</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="edid5"></A><A NAME="ref309"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>edid5</strong>
-</td><td align="right"><h3><strong>edid5</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="edid6"></A><A NAME="ref310"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>edid6</strong>
-</td><td align="right"><h3><strong>edid6</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="edid6a"></A><A NAME="ref311"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>edid6a</strong>
-</td><td align="right"><h3><strong>edid6a</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Loesch"></A><A NAME="ref312"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Loesch</strong>
-</td><td align="right"><h3><strong>Loesch</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="tman"></A><A NAME="ref313"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>tman</strong>
-</td><td align="right"><h3><strong>tman</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="jman"></A><A NAME="ref314"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>jman</strong>
-</td><td align="right"><h3><strong>jman</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="tip"></A><A NAME="ref315"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>tip</strong>
-</td><td align="right"><h3><strong>tip</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Gr"></A><A NAME="ref316"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Gr</strong>
-</td><td align="right"><h3><strong>Gr</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="UnGr"></A><A NAME="ref317"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>UnGr</strong>
-</td><td align="right"><h3><strong>UnGr</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="LockOb"></A><A NAME="ref318"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>LockOb</strong>
-</td><td align="right"><h3><strong>LockOb</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="exmn"></A><A NAME="ref319"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>exmn</strong>
+</td><td align="right"><h3><strong>fid1</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_FileImportGetText"></A><A NAME="ref289"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_FileImportGetText</strong>
+</td><td align="right"><h3><strong>M_FileImportGetText</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_FileImportPages"></A><A NAME="ref290"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_FileImportPages</strong>
+</td><td align="right"><h3><strong>M_FileImportPages</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_FileExportSaveText"></A><A NAME="ref291"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_FileExportSaveText</strong>
+</td><td align="right"><h3><strong>M_FileExportSaveText</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_FileSave"></A><A NAME="ref292"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_FileSave</strong>
+</td><td align="right"><h3><strong>M_FileSave</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid5"></A><A NAME="ref293"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid5</strong>
+</td><td align="right"><h3><strong>fid5</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_FileCollect"></A><A NAME="ref294"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_FileCollect</strong>
+</td><td align="right"><h3><strong>M_FileCollect</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_FileDocInfo"></A><A NAME="ref295"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_FileDocInfo</strong>
+</td><td align="right"><h3><strong>M_FileDocInfo</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_FileDocSetup"></A><A NAME="ref296"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_FileDocSetup</strong>
+</td><td align="right"><h3><strong>M_FileDocSetup</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_FileExportSavePageAsEPS"></A><A NAME="ref297"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_FileExportSavePageAsEPS</strong>
+</td><td align="right"><h3><strong>M_FileExportSavePageAsEPS</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid9"></A><A NAME="ref298"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid9</strong>
+</td><td align="right"><h3><strong>fid9</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_FileExportSaveAsPDF"></A><A NAME="ref299"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_FileExportSaveAsPDF</strong>
+</td><td align="right"><h3><strong>M_FileExportSaveAsPDF</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_FileExport"></A><A NAME="ref300"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_FileExport</strong>
+</td><td align="right"><h3><strong>M_FileExport</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid12"></A><A NAME="ref301"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid12</strong>
+</td><td align="right"><h3><strong>fid12</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_FileOpen"></A><A NAME="ref302"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_FileOpen</strong>
+</td><td align="right"><h3><strong>M_FileOpen</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_OpenRecentFile"></A><A NAME="ref303"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_OpenRecentFile</strong>
+</td><td align="right"><h3><strong>M_OpenRecentFile</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="edUndo"></A><A NAME="ref304"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>edUndo</strong>
+</td><td align="right"><h3><strong>edUndo</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_EditCut"></A><A NAME="ref305"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_EditCut</strong>
+</td><td align="right"><h3><strong>M_EditCut</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_EditCopy"></A><A NAME="ref306"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_EditCopy</strong>
+</td><td align="right"><h3><strong>M_EditCopy</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_EditPaste"></A><A NAME="ref307"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_EditPaste</strong>
+</td><td align="right"><h3><strong>M_EditPaste</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_EditDelete"></A><A NAME="ref308"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_EditDelete</strong>
+</td><td align="right"><h3><strong>M_EditDelete</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_EditSelectAll"></A><A NAME="ref309"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_EditSelectAll</strong>
+</td><td align="right"><h3><strong>M_EditSelectAll</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_EditParaStyles"></A><A NAME="ref310"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_EditParaStyles</strong>
+</td><td align="right"><h3><strong>M_EditParaStyles</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_EditLineStyles"></A><A NAME="ref311"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_EditLineStyles</strong>
+</td><td align="right"><h3><strong>M_EditLineStyles</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_ItemDelete"></A><A NAME="ref312"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_ItemDelete</strong>
+</td><td align="right"><h3><strong>M_ItemDelete</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_EditTemplates"></A><A NAME="ref313"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_EditTemplates</strong>
+</td><td align="right"><h3><strong>M_EditTemplates</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_EditJavascripts"></A><A NAME="ref314"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_EditJavascripts</strong>
+</td><td align="right"><h3><strong>M_EditJavascripts</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="tip"></A><A NAME="ref315"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>tip</strong>
+</td><td align="right"><h3><strong>tip</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_ItemGroup"></A><A NAME="ref316"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_ItemGroup</strong>
+</td><td align="right"><h3><strong>M_ItemGroup</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_ItemUngroup"></A><A NAME="ref317"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_ItemUngroup</strong>
+</td><td align="right"><h3><strong>M_ItemUngroup</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_ItemLock"></A><A NAME="ref318"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_ItemLock</strong>
+</td><td align="right"><h3><strong>M_ItemLock</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="exmn"></A><A NAME="ref319"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>exmn</strong>
 </td><td align="right"><h3><strong>exmn</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="hyph"></A><A NAME="ref320"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>hyph</strong>
-</td><td align="right"><h3><strong>hyph</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ORaise"></A><A NAME="ref321"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>ORaise</strong>
-</td><td align="right"><h3><strong>ORaise</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="OLower"></A><A NAME="ref322"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>OLower</strong>
-</td><td align="right"><h3><strong>OLower</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="OBack"></A><A NAME="ref323"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>OBack</strong>
-</td><td align="right"><h3><strong>OBack</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="OFront"></A><A NAME="ref324"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>OFront</strong>
-</td><td align="right"><h3><strong>OFront</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="tipsOn"></A><A NAME="ref325"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>tipsOn</strong>
+</td><td align="right"><h3><strong>hyph</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_ItemRaise"></A><A NAME="ref321"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_ItemRaise</strong>
+</td><td align="right"><h3><strong>M_ItemRaise</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_ItemLower"></A><A NAME="ref322"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_ItemLower</strong>
+</td><td align="right"><h3><strong>M_ItemLower</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_ItemSendToBack"></A><A NAME="ref323"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_ItemSendToBack</strong>
+</td><td align="right"><h3><strong>M_ItemSendToBack</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_ItemBringToFront"></A><A NAME="ref324"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_ItemBringToFront</strong>
+</td><td align="right"><h3><strong>M_ItemBringToFront</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="tipsOn"></A><A NAME="ref325"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>tipsOn</strong>
 </td><td align="right"><h3><strong>tipsOn</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="helpMenu"></A><A NAME="ref326"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>helpMenu</strong>
 </td><td align="right"><h3><strong>helpMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="toolMenu"></A><A NAME="ref327"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>toolMenu</strong>
 </td><td align="right"><h3><strong>toolMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="extraMenu"></A><A NAME="ref328"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>extraMenu</strong>

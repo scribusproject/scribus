@@ -313,7 +313,7 @@ public:
 	int Mdel;
 	int Mpaste;
 	int Mupdt;
-	int fid52;
+	int M_FileRevert;
 	bool firstSet;
 
 public slots:

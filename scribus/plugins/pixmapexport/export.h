@@ -1,9 +1,11 @@
 #ifndef _SCRIBUS_PIXMAPEXPORT_H_
 #define _SCRIBUS_PIXMAPEXPORT_H_
 
-#include <scribus.h>
 #include <qstring.h>
 #include <qfiledialog.h>
+#include "scribus.h"
+
+class ScrAction;
 
 /*! Calls the Plugin with the main Application window as parent
 	and the main Application Class as parameter */
@@ -22,6 +24,12 @@ extern "C" QString Name();
   \retval 4 = the Plugin is a resident Plugin	*/
 extern "C" int Type();
 extern "C" int ID();
+
+extern "C" QString actionName();
+extern "C" QString actionKeySequence();
+extern "C" QString actionMenu();
+extern "C" QString actionMenuAfterName();
+extern "C" bool actionEnabledOnStartup();
 
 /*! Handles export. */
 class ExportBitmap: public QObject
@@ -61,6 +69,8 @@ private:
 	*/
   bool exportPage(uint pageNr, bool single);
 };
+
+ScrAction *fileNewFromTemplateAction;
 
 #endif
 

@@ -45,12 +45,38 @@ QString Name()
  */
 int Type()
 {
-	return 2;
+	return 7;
 }
 
 int ID()
 {
 	return 6;
+}
+
+
+QString actionName()
+{
+	return "ImportPS";
+}
+
+QString actionKeySequence()
+{
+	return "";
+}
+
+QString actionMenu()
+{
+	return "FileImport";
+}
+
+QString actionMenuAfterName()
+{
+	return "";
+}
+
+bool actionEnabledOnStartup()
+{
+	return true;
 }
 
 /*!

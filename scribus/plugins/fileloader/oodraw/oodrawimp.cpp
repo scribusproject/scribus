@@ -64,12 +64,37 @@ QString Name()
  */
 int Type()
 {
-	return 2;
+	return 7;
 }
 
 int ID()
 {
 	return 12;
+}
+
+QString actionName()
+{
+	return "ImportOpenOfficeDraw";
+}
+
+QString actionKeySequence()
+{
+	return "";
+}
+
+QString actionMenu()
+{
+	return "FileImport";
+}
+
+QString actionMenuAfterName()
+{
+	return "";
+}
+
+bool actionEnabledOnStartup()
+{
+	return true;
 }
 
 void Run(QWidget *d, ScribusApp *plug)

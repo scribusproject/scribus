@@ -12,6 +12,8 @@
 #include "scribus.h"
 #include "pageselector.h"
 
+
+
 /** Returns the Name of the Plugin.
   * This name appears in the relevant Menue-Entrys */
 extern "C" QString Name();
@@ -21,12 +23,20 @@ extern "C" QString Name();
   * 3 = the Plugins is a export Plugin, which appears in the Export Menue */
 extern "C" int Type();
 
-/** Initializes the Plugin if it's a Plugin of Type 4 or 5 */
-extern "C" void InitPlug(QWidget *d, ScribusApp *plug);
+///** Initializes the Plugin if it's a Plugin of Type 4 or 5 */
+//extern "C" void InitPlug(QWidget *d, ScribusApp *plug);
+/** Type 6 plugin needs this again */
+extern "C" void Run(QWidget *d, ScribusApp *plug);
 
 /** Possible CleanUpOperations when closing the Plugin */
 extern "C" void CleanUpPlug();
 extern "C" int ID();
+
+extern "C" QString actionName();
+extern "C" QString actionKeySequence();
+extern "C" QString actionMenu();
+extern "C" QString actionMenuAfterName();
+extern "C" bool actionEnabledOnStartup();
 
 class MenuPreview : public QObject
 {

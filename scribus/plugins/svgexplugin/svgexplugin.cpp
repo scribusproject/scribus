@@ -64,12 +64,37 @@ QString Name()
  */
 int Type()
 {
-	return 3;
+	return 6;
 }
 
 int ID()
 {
 	return 9;
+}
+
+QString actionName()
+{
+	return "ExportAsSVG";
+}
+
+QString actionKeySequence()
+{
+	return "";
+}
+
+QString actionMenu()
+{
+	return "FileExport";
+}
+
+QString actionMenuAfterName()
+{
+	return "";
+}
+
+bool actionEnabledOnStartup()
+{
+	return true;
 }
 
 /*!
