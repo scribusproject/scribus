@@ -297,6 +297,16 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	undoManager = UndoManager::instance();
 	imgInfo.valid = false;
 	imgInfo.isRequest = false;
+	
+	//Page Item Attributes
+	pageItemAttributes.clear();
+	for(ObjAttrVector::Iterator objAttrIt = Doc->docItemAttributes.begin() ; objAttrIt != Doc->docItemAttributes.end(); ++objAttrIt )
+	{
+		if (((*objAttrIt).autoaddto=="textframes" && itemTypeVal==TextFrame) ||
+			((*objAttrIt).autoaddto=="imageframes" && itemTypeVal==ImageFrame)
+			)
+			pageItemAttributes.append(*objAttrIt);
+	}
 }
 
 /** Zeichnet das Item */
