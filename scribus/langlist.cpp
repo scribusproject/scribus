@@ -39,7 +39,7 @@ LangList::LangList()
     insert("no_NO", QObject::tr( "Norwegian" ));
     insert("pl",    QObject::tr( "Polish" ));
     insert("pl_PL", QObject::tr( "Polish" ));
-    insert("pt_BR", QObject::tr( "Portugese (Brazilian)" ));
+    insert("pt_BR", QObject::tr( "Portuguese (Brazilian)" ));
     insert("ru",    QObject::tr( "Russian" ));
     insert("se",    QObject::tr( "Swedish" ));
     insert("es",    QObject::tr( "Spanish" ));
