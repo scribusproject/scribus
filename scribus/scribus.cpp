@@ -136,7 +136,7 @@ void ScribusApp::initGui()
 	initScribus();
 	splash->close();
 	delete splash;
-	splash = 0;
+	splash = NULL;
 }
 
 void ScribusApp::initScribus()
@@ -7049,7 +7049,7 @@ void ScribusApp::SavePrefsXML()
 void ScribusApp::ReadPrefs()
 {
 	ScriXmlDoc *ss = new ScriXmlDoc();
-	bool erg = ss->ReadPref(&Prefs, PrefsPfad+"/scribus.rc");
+	bool erg = ss->ReadPref(&Prefs, PrefsPfad+"/scribus.rc", splash);
 	delete ss;
 	if (!erg)
 		return;
