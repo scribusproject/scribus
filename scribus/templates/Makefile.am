@@ -4,11 +4,20 @@ install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/templates/
 	$(INSTALL_DATA) $(srcdir)/template.xml $(prefix)/share/scribus/templates/template.xml
 	$(mkinstalldirs) $(prefix)/share/scribus/templates/nl1
-	$(INSTALL_DATA) $(srcdir)/nl1/* $(prefix)/share/scribus/templates/nl1/
+	$(INSTALL_DATA) $(srcdir)/nl1/kites.png $(prefix)/share/scribus/templates/nl1/kites.png
+	$(INSTALL_DATA) $(srcdir)/nl1/nl1.png $(prefix)/share/scribus/templates/nl1/nl1.png
+	$(INSTALL_DATA) $(srcdir)/nl1/nl1tn.png $(prefix)/share/scribus/templates/nl1/nl1tn.png
+	$(INSTALL_DATA) $(srcdir)/nl1/nl1.sla $(prefix)/share/scribus/templates/nl1/nl1.sla
 	$(mkinstalldirs) $(prefix)/share/scribus/templates/nl2
-	$(INSTALL_DATA) $(srcdir)/nl2/* $(prefix)/share/scribus/templates/nl2/
+	$(INSTALL_DATA) $(srcdir)/nl2/flowers.jpg $(prefix)/share/scribus/templates/nl2/flowers.jpg
+	$(INSTALL_DATA) $(srcdir)/nl2/nl2.sla $(prefix)/share/scribus/templates/nl2/nl2.sla
+	$(INSTALL_DATA) $(srcdir)/nl2/nl2tn.png $(prefix)/share/scribus/templates/nl2/nl2tn.png
+	$(INSTALL_DATA) $(srcdir)/nl2/nl2.png $(prefix)/share/scribus/templates/nl2/nl2.png
 	$(mkinstalldirs) $(prefix)/share/scribus/templates/br1
-	$(INSTALL_DATA) $(srcdir)/br1/* $(prefix)/share/scribus/templates/br1/
+	$(INSTALL_DATA) $(srcdir)/br1/br1.png $(prefix)/share/scribus/templates/br1/br1.png
+	$(INSTALL_DATA) $(srcdir)/br1/br1tn.png $(prefix)/share/scribus/templates/br1/br1tn.png
+	$(INSTALL_DATA) $(srcdir)/br1/map.png $(prefix)/share/scribus/templates/br1/map.png
+	$(INSTALL_DATA) $(srcdir)/br1/br1.sla $(prefix)/share/scribus/templates/br1/br1.sla
 
 uninstall-local:
 	-rm -f $(prefix)/share/scribus/templates/nl1/*
