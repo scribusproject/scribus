@@ -2574,7 +2574,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("GuideC", doc->guidesSettings.guideColor.name());
 	dc.setAttribute("BaseC", doc->guidesSettings.baseColor.name());
 	dc.setAttribute("GuideZ", doc->guidesSettings.guideRad);
-	dc.setAttribute("BACKG", static_cast<int>(doc->Before));
+	dc.setAttribute("BACKG", static_cast<int>(doc->guidesSettings.before));
 	dc.setAttribute("PAGEC",doc->papColor.name());
 	dc.setAttribute("MARGC",doc->guidesSettings.margColor.name());
 	dc.setAttribute("RANDF", static_cast<int>(doc->marginColored));
@@ -2849,7 +2849,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc1.setAttribute("GuideC", Vor->guidesSettings.guideColor.name());
 	dc1.setAttribute("BaseC", Vor->guidesSettings.baseColor.name());
 	dc1.setAttribute("GuideZ", Vor->guidesSettings.guideRad);
-	dc1.setAttribute("BACKG", static_cast<int>(Vor->Before));
+	dc1.setAttribute("BACKG", static_cast<int>(Vor->guidesSettings.before));
 	dc1.setAttribute("SHOW", static_cast<int>(Vor->guidesSettings.gridShown));
 	elem.appendChild(dc1);
 	QDomElement dc1a=docu.createElement("PAGE");
@@ -3127,7 +3127,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->guidesSettings.majorGrid = QStodouble(dc.attribute("MAJOR"));
 			Vorein->guidesSettings.minorColor = QColor(dc.attribute("MINORC"));
 			Vorein->guidesSettings.majorColor = QColor(dc.attribute("MAJORC"));
-			Vorein->Before = static_cast<bool>(QStoInt(dc.attribute("BACKG","1")));
+			Vorein->guidesSettings.before = static_cast<bool>(QStoInt(dc.attribute("BACKG","1")));
 			Vorein->guidesSettings.gridShown = static_cast<bool>(QStoInt(dc.attribute("SHOW","0")));
 			if (dc.hasAttribute("GuideC"))
 				Vorein->guidesSettings.guideColor = QColor(dc.attribute("GuideC"));

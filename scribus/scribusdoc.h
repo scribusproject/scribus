@@ -207,7 +207,6 @@ public: // Public attributes
 	double ScaleY;
 	bool ScaleType;
 	bool AspectRatio;
-	bool Before;
 	int docUnitIndex;
 	bool DragP;
 	bool leaveDrag;

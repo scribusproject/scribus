@@ -98,9 +98,6 @@ public:
 	QLabel* TextLabel5s;
 	QLabel* Linkss;
 	QLabel* Rechtss;
-	QButtonGroup* buttonGroup1;
-	QRadioButton* inBackground;
-	QRadioButton* inForeground;
 
 	QWidget* tabTools;
 	QButtonGroup* buttonGroupTools;
@@ -300,7 +297,6 @@ protected:
 	QHBoxLayout* pageBackgroundLayout;
 	QHBoxLayout* groupScratchLayout;
 	QGridLayout* Layout4s;
-	QHBoxLayout* buttonGroup1Layout;
 	QHBoxLayout* tabToolsLayout;
 	QVBoxLayout* buttonGroupToolsLayout;
 	QGridLayout* subTabTextLayout;

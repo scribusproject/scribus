@@ -418,7 +418,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.ShadePict = 100;
 	Prefs.ScaleX = 1;
 	Prefs.ScaleY = 1;
-	Prefs.Before = true;
+	Prefs.guidesSettings.before = true;
 	Prefs.docUnitIndex = 0;
 	Prefs.PolyC = 4;
 	Prefs.PolyF = 0.5;
@@ -2560,7 +2560,7 @@ bool ScribusApp::SetupDoc()
 			doc->FirstPageLeft = dia->firstPage->isChecked();
 		doc->FirstPnum = dia->pageNumber->value();
 		doc->resetPage(tpr2, lr2, rr2, br2, fp);
-		doc->Before = dia->inBackground->isChecked();
+		doc->guidesSettings.before = dia->tabGuides->inBackground->isChecked();
 		doc->marginColored = dia->checkUnprintable->isChecked();
 		doc->papColor = dia->colorPaper;
 		doc->guidesSettings.marginsShown = dia->tabGuides->checkMargin->isChecked();
@@ -7096,7 +7096,7 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.gs_exe = dia->GSName->text();
 		Prefs.ClipMargin = dia->ClipMarg->isChecked();
 		Prefs.GCRMode = dia->DoGCR->isChecked();
-		Prefs.Before = dia->inBackground->isChecked();
+		Prefs.guidesSettings.before = dia->tabGuides->inBackground->isChecked();
 		Prefs.marginColored = dia->checkUnprintable->isChecked();
 		if (Prefs.DisScale != dia->DisScale)
 		{
@@ -7240,7 +7240,7 @@ void ScribusApp::slotPrefsOrg()
 		{
 			QWidget* w = wsp->windowList().at( i );
 			ScribusWin* swin = (ScribusWin*)w;
-			swin->doc->Before = Prefs.Before;
+			swin->doc->guidesSettings.before = Prefs.guidesSettings.before;
 			swin->doc->marginColored = Prefs.marginColored;
 		}
 	}

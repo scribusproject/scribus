@@ -376,6 +376,7 @@ struct guidesPrefs
 	bool baseShown;
 	bool linkShown;
 	bool showPic;
+	bool before;
 	QColor guideColor;
 	QColor baseColor;
 	QColor margColor;
@@ -415,7 +416,6 @@ struct ApplicationPrefs
 	int ShadePict;
 	double ScaleX;
 	double ScaleY;
-	bool Before;
 	int docUnitIndex;
 	windowPrefs mainToolBarSettings;
 	windowPrefs pdfToolBarSettings;

@@ -82,10 +82,7 @@ public:
 	CMSPrefs* tabColorManagement;
 	QLabel* textLabel9;
 	QPushButton* backColor;
-	QButtonGroup* buttonGroup1;
 	QButtonGroup* pageBackground;
-	QRadioButton* inBackground;
-	QRadioButton* inForeground;
 	QCheckBox* checkUnprintable;
 
 	QButtonGroup* buttonGroupTools;

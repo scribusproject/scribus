@@ -55,6 +55,7 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	guidesSettings.margColor = prefsData->guidesSettings.margColor;
 	guidesSettings.guideColor = prefsData->guidesSettings.guideColor;
 	guidesSettings.baseColor = prefsData->guidesSettings.baseColor;
+	guidesSettings.before = prefsData->guidesSettings.before;
 	PageColors.clear();
 	PageColors.insert("Black", CMYKColor(0, 0, 0, 255));
 	PageColors.insert("White", CMYKColor(0, 0, 0, 0));
@@ -108,7 +109,6 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	MagMin = prefsData->MagMin;
 	MagMax = prefsData->MagMax;
 	MagStep = prefsData->MagStep;
-	Before = prefsData->Before;
 	docUnitIndex = prefsData->docUnitIndex;
 	marginColored = prefsData->marginColored;
 	Language = prefsData->Language;

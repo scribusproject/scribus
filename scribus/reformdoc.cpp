@@ -288,24 +288,6 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, ApplicationPrefs *prefsD
 	layout4s->addWidget( Rechtss, 1, 2 );
 	groupScratchLayout->addLayout( layout4s );
 	tabViewLayout->addWidget( groupScratch );
-
-	buttonGroup1 = new QButtonGroup( tabView, "buttonGroup1" );
-	buttonGroup1->setExclusive( true );
-	buttonGroup1->setColumnLayout(0, Qt::Vertical );
-	buttonGroup1->layout()->setSpacing( 5 );
-	buttonGroup1->layout()->setMargin( 10 );
-	buttonGroup1->setTitle( tr( "Placing of Guides" ) );
-	buttonGroup1Layout = new QVBoxLayout( buttonGroup1->layout() );
-	buttonGroup1Layout->setAlignment( Qt::AlignTop );
-	inBackground = new QRadioButton( buttonGroup1, "inBackground" );
-	inBackground->setText( tr( "In the Background" ) );
-	buttonGroup1Layout->addWidget( inBackground );
-	inForeground = new QRadioButton( buttonGroup1, "inForeground" );
-	inForeground->setText( tr( "In the Foreground" ) );
-	buttonGroup1Layout->addWidget( inForeground );
-	inBackground->setChecked( doc->Before );
-	inForeground->setChecked( !doc->Before );
-	tabViewLayout->addWidget( buttonGroup1 );
 	addItem( tr("Display"), loadIcon("screen.png"), tabView);
 
 	tabTypo = new TabTypograpy(  prefsWidgets, &doc->typographicSetttings, UmReFaktor, ein);

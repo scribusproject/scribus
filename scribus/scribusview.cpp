@@ -228,13 +228,13 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 						painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 					painter->setBrush(Doc->papColor);
 					painter->drawRect(x, y, w, h);
-					if (Doc->Before)
+					if (Doc->guidesSettings.before)
 						DrawPageMarks(painter, Doc->Pages.at(a), QRect(clipx, clipy, clipw, cliph));
 				}
 				DrawMasterItems(painter, Doc->Pages.at(a), QRect(clipx, clipy, clipw, cliph));
 			}
 			DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
-			if (!Doc->Before)
+			if (!Doc->guidesSettings.before)
 			{
 				for (uint a = 0; a < Doc->Pages.count(); ++a)
 				{
@@ -261,11 +261,11 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 				painter->drawRect(x+5, y+5, w, h);
 				painter->setBrush(Doc->papColor);
 				painter->drawRect(x, y, w, h);
-				if (Doc->Before)
+				if (Doc->guidesSettings.before)
 					DrawPageMarks(painter, Doc->currentPage, QRect(clipx, clipy, clipw, cliph));
 			}
 			DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
-			if ((!Doc->Before) && (QRect(x, y, w+5, h+5).intersects(QRect(clipx, clipy, clipw, cliph))))
+			if ((!Doc->guidesSettings.before) && (QRect(x, y, w+5, h+5).intersects(QRect(clipx, clipy, clipw, cliph))))
 				DrawPageMarks(painter, Doc->currentPage, QRect(clipx, clipy, clipw, cliph));
 		}
 		if ((SelItem.count() != 0) || (linkedFramesToShow.count() != 0))

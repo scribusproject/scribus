@@ -2,6 +2,8 @@
 #include "tabguides.moc"
 #include <qlayout.h>
 #include <qgroupbox.h>
+#include <qbuttongroup.h>
+#include <qradiobutton.h>
 #include <qlabel.h>
 #include <qtooltip.h>
 #include <qspinbox.h>
@@ -84,6 +86,23 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, double uni
 	groupBox2Layout->addWidget( minorSpace, 0, 1 );
 	checkGridLayout->addWidget( groupBox2, 0, 1 );
 	tabGuidesLayout->addWidget( checkGrid );
+	buttonGroup1 = new QButtonGroup( this, "buttonGroup1" );
+	buttonGroup1->setExclusive( true );
+	buttonGroup1->setColumnLayout(0, Qt::Vertical );
+	buttonGroup1->layout()->setSpacing( 5 );
+	buttonGroup1->layout()->setMargin( 10 );
+	buttonGroup1->setTitle( tr( "Placing of Guides" ) );
+	buttonGroup1Layout = new QHBoxLayout( buttonGroup1->layout() );
+	buttonGroup1Layout->setAlignment( Qt::AlignTop );
+	inBackground = new QRadioButton( buttonGroup1, "inBackground" );
+	inBackground->setText( tr( "In the Background" ) );
+	buttonGroup1Layout->addWidget( inBackground );
+	inForeground = new QRadioButton( buttonGroup1, "inForeground" );
+	inForeground->setText( tr( "In the Foreground" ) );
+	buttonGroup1Layout->addWidget( inForeground );
+	inBackground->setChecked( prefsData->before );
+	inForeground->setChecked( !prefsData->before );
+	tabGuidesLayout->addWidget( buttonGroup1 );
 	layout11 = new QGridLayout( 0, 1, 1, 0, 5, "layout11");
 	textLabel8 = new QLabel( this, "textLabel8" );
 	textLabel8->setText( tr( "Guide Snap Distance:" ) );

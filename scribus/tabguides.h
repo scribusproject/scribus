@@ -7,6 +7,8 @@ class QGridLayout;
 class QVBoxLayout;
 class QHBoxLayout;
 class QGroupBox;
+class QButtonGroup;
+class QRadioButton;
 class QLabel;
 class MSpinBox;
 class QSpinBox;
@@ -39,6 +41,9 @@ public:
 	QGroupBox* checkGrid;
 	QGroupBox* groupBox1;
 	QGroupBox* groupBox2;
+	QButtonGroup* buttonGroup1;
+	QRadioButton* inBackground;
+	QRadioButton* inForeground;
 	QLabel* textLabel1;
 	QLabel* textLabel2;
 	QLabel* textLabel3;
@@ -67,6 +72,7 @@ protected:
 	QGridLayout* checkGridLayout;
 	QGridLayout* groupBox1Layout;
 	QGridLayout* groupBox2Layout;
+	QHBoxLayout* buttonGroup1Layout;
 	QGridLayout* layout11;
 	QHBoxLayout* layout2;
 	QHBoxLayout* layout3;
