@@ -102,6 +102,8 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	LocalViewY = 1;
 	OrigW = 0;
 	OrigH = 0;
+	dpiX = 72.0;
+	dpiY = 72.0;
 	LocalX = 0;
 	LocalY = 0;
 	flippedH = 0;

@@ -149,6 +149,8 @@ public:
   double LocalY;
 	int OrigW;
 	int OrigH;
+	double dpiX;
+	double dpiY;
   /** Anzahl horizontaler Spiegelungen */
   int flippedH;
   /** Anzahl vertikaler Spiegelungen */

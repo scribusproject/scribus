@@ -778,10 +778,7 @@ void Page::RefreshItem(PageItem *b, bool single)
 	QPainter p;
 	p.begin(this);
 	Transform(b, &p);
-	QRect rd = QRect(static_cast<int>(QMAX(b->Pwidth / 2.0, 10.0) * -1),
-									 static_cast<int>(QMAX(b->Pwidth / 2.0, 10.0) * -1),
-									 static_cast<int>(b->Width + QMAX(b->Pwidth / 2.0, 10.0)),
-									 static_cast<int>(b->Height + QMAX(b->Pwidth / 2.0, 10.0)));
+	QRect rd = QRect(-36, -36, qRound(b->Width) + 72, qRound(b->Height) + 72);
 	if (single)
 		RepaintTextRegion(b, QRegion(p.xForm(rd)), true);
 	else
@@ -1947,7 +1944,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			QPopupMenu *pmen4 = new QPopupMenu();
 
-			if (b->PType == 4)
+			if ((b->PType == 4) || (b->PType == 2) || (b->PType == 8))
 				{
 				QButtonGroup *InfoGroup = new QButtonGroup( this, "InfoGroup" );
 				InfoGroup->setFrameShape( QButtonGroup::NoFrame );
@@ -1961,48 +1958,73 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				InfoGroupLayout->setAlignment( Qt::AlignTop );
 				InfoGroupLayout->setSpacing( 2 );
 				InfoGroupLayout->setMargin( 0 );
-	
 				QString txtC, txtC2;
-				int Parag = 0;
-				int Words = 0;
-				int Chara = 0;
-				int ParagN = 0;
-				int WordsN = 0;
-				int CharaN = 0;
 				QLabel *InfoT = new QLabel(InfoGroup, "ct");
-				if ((b->NextBox != 0) || (b->BackBox != 0))
-					InfoT->setText( tr("Text Chain"));
-				else
-					InfoT->setText( tr("Text Frame"));
-				InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1 );
-				WordAndPara(b, &Words, &Parag, &Chara, &WordsN, &ParagN, &CharaN);
 				QLabel *ParCT = new QLabel(InfoGroup, "pt");
-				ParCT->setText( tr("Paragraphs: "));
-				InfoGroupLayout->addWidget( ParCT, 1, 0 );
 				QLabel *ParC = new QLabel(InfoGroup, "pc");
-				if (ParagN != 0)
-					ParC->setText(txtC.setNum(Parag+ParagN)+" ("+txtC2.setNum(ParagN)+")");
-				else
-					ParC->setText(txtC.setNum(Parag));
-				InfoGroupLayout->addWidget( ParC, 1, 1 );
 				QLabel *WordCT = new QLabel(InfoGroup, "wt");
-				WordCT->setText( tr("Words: "));
-				InfoGroupLayout->addWidget( WordCT, 2, 0 );
 				QLabel *WordC = new QLabel(InfoGroup, "wc");
-				if (WordsN != 0)
-					WordC->setText(txtC.setNum(Words+WordsN)+" ("+txtC2.setNum(WordsN)+")");
-				else
-					WordC->setText(txtC.setNum(Words));
-				InfoGroupLayout->addWidget( WordC, 2, 1 );
 				QLabel *CharCT = new QLabel(InfoGroup, "ct");
-				CharCT->setText( tr("Chars: "));
-				InfoGroupLayout->addWidget( CharCT, 3, 0 );
 				QLabel *CharC = new QLabel(InfoGroup, "cc");
-				if (CharaN != 0)
-					CharC->setText(txtC.setNum(Chara+CharaN)+" ("+txtC2.setNum(CharaN)+")");
-				else
-					CharC->setText(txtC.setNum(Chara));
-				InfoGroupLayout->addWidget( CharC, 3, 1 );
+				if (b->PType == 2)
+					{
+					QFileInfo fi = QFileInfo(b->Pfile);
+					InfoT->setText( tr("Picture"));
+					InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignCenter );
+					ParCT->setText( tr("File: "));
+					InfoGroupLayout->addWidget( ParCT, 1, 0, Qt::AlignRight );
+					ParC->setText(fi.fileName());
+					InfoGroupLayout->addWidget( ParC, 1, 1 );
+					WordCT->setText( tr("Original ppi: "));
+					InfoGroupLayout->addWidget( WordCT, 2, 0, Qt::AlignRight );
+					WordC->setText(txtC.setNum(qRound(b->dpiX))+" x "+txtC2.setNum(qRound(b->dpiY)));
+					InfoGroupLayout->addWidget( WordC, 2, 1 );
+					CharCT->setText( tr("Actual ppi: "));
+					InfoGroupLayout->addWidget( CharCT, 3, 0, Qt::AlignRight );
+					CharC->setText(txtC.setNum(qRound(72.0 / b->LocalScX))+" x "+txtC2.setNum(qRound(72.0 / b->LocalScY)));
+					InfoGroupLayout->addWidget( CharC, 3, 1 );
+					}
+				if ((b->PType == 4) || (b->PType == 8))
+					{
+					int Parag = 0;
+					int Words = 0;
+					int Chara = 0;
+					int ParagN = 0;
+					int WordsN = 0;
+					int CharaN = 0;
+					if (b->PType == 4)
+						{ 
+						if ((b->NextBox != 0) || (b->BackBox != 0))
+							InfoT->setText( tr("Text Chain"));
+						else
+							InfoT->setText( tr("Text Frame"));
+						}
+					else
+						InfoT->setText( tr("Text on a Path"));
+					InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignCenter );
+					WordAndPara(b, &Words, &Parag, &Chara, &WordsN, &ParagN, &CharaN);
+					ParCT->setText( tr("Paragraphs: "));
+					InfoGroupLayout->addWidget( ParCT, 1, 0, Qt::AlignRight );
+					if (ParagN != 0)
+						ParC->setText(txtC.setNum(Parag+ParagN)+" ("+txtC2.setNum(ParagN)+")");
+					else
+						ParC->setText(txtC.setNum(Parag));
+					InfoGroupLayout->addWidget( ParC, 1, 1 );
+					WordCT->setText( tr("Words: "));
+					InfoGroupLayout->addWidget( WordCT, 2, 0, Qt::AlignRight );
+					if (WordsN != 0)
+						WordC->setText(txtC.setNum(Words+WordsN)+" ("+txtC2.setNum(WordsN)+")");
+					else
+						WordC->setText(txtC.setNum(Words));
+					InfoGroupLayout->addWidget( WordC, 2, 1 );
+					CharCT->setText( tr("Chars: "));
+					InfoGroupLayout->addWidget( CharCT, 3, 0, Qt::AlignRight );
+					if (CharaN != 0)
+						CharC->setText(txtC.setNum(Chara+CharaN)+" ("+txtC2.setNum(CharaN)+")");
+					else
+						CharC->setText(txtC.setNum(Chara));
+					InfoGroupLayout->addWidget( CharC, 3, 1 );
+					}
 
 				pmen4->insertItem(InfoGroup);
 
@@ -6891,6 +6913,8 @@ void Page::LoadPict(QString fn, int ItNr)
 			Items.at(ItNr)->OrigH = Items.at(ItNr)->pixm.height();
 			Items.at(ItNr)->LocalViewX = Items.at(ItNr)->LocalScX;
 			Items.at(ItNr)->LocalViewY = Items.at(ItNr)->LocalScY;
+			Items.at(ItNr)->dpiX = 72.0;
+			Items.at(ItNr)->dpiY = 72.0;
 			system("rm -f /tmp/sc.png");
 			}
 		else
@@ -7022,6 +7046,8 @@ void Page::LoadPict(QString fn, int ItNr)
 					Items.at(ItNr)->OrigH = Items.at(ItNr)->pixm.height();
 					Items.at(ItNr)->LocalViewX = Items.at(ItNr)->LocalScX;
 					Items.at(ItNr)->LocalViewY = Items.at(ItNr)->LocalScY;
+					Items.at(ItNr)->dpiX = 72.0;
+					Items.at(ItNr)->dpiY = 72.0;
 					system("rm -f /tmp/sc.png");
 					}
 				else
@@ -7143,6 +7169,8 @@ void Page::LoadPict(QString fn, int ItNr)
 					Items.at(ItNr)->OrigW = Items.at(ItNr)->pixm.width();
 					Items.at(ItNr)->OrigH = Items.at(ItNr)->pixm.height();
 					Items.at(ItNr)->isRaster = true;
+					Items.at(ItNr)->dpiX = xres;
+					Items.at(ItNr)->dpiY = yres;
 					}
 				_TIFFfree(bits);
 				}
@@ -7163,14 +7191,16 @@ void Page::LoadPict(QString fn, int ItNr)
 		if (inI.load(fn))
 			{
 			inI = inI.convertDepth(32);
+			double dpiX = QMAX(72.0, qRound(inI.dotsPerMeterX() / 100.0 * 2.54));
+			double dpiY = QMAX(72.0, qRound(inI.dotsPerMeterY() / 100.0 * 2.54));
 			inI2 = ProofPict(&inI, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
 			Items.at(ItNr)->pixm = inI2.copy();
 			if (Items.at(ItNr)->Pfile != fn)
 				{
-				Items.at(ItNr)->LocalScX = 72.0 / (QMAX(72, inI2.dotsPerMeterX() / 100.0 * 2.54));
-				Items.at(ItNr)->LocalScY = 72.0 / (QMAX(72, inI2.dotsPerMeterY() / 100.0 * 2.54));
-				Items.at(ItNr)->LocalViewX = 72.0 / (QMAX(72, inI2.dotsPerMeterX() / 100.0 * 2.54));
-				Items.at(ItNr)->LocalViewY = 72.0 / (QMAX(72, inI2.dotsPerMeterY() / 100.0 * 2.54));
+				Items.at(ItNr)->LocalScX = 72.0 / dpiX;
+				Items.at(ItNr)->LocalScY = 72.0 / dpiY;
+				Items.at(ItNr)->LocalViewX = 72.0 / dpiX;
+				Items.at(ItNr)->LocalViewY = 72.0 / dpiY;
 				}
 			else
 				{
@@ -7185,6 +7215,8 @@ void Page::LoadPict(QString fn, int ItNr)
 			Items.at(ItNr)->isRaster = true;
 			Items.at(ItNr)->OrigW = Items.at(ItNr)->pixm.width();
 			Items.at(ItNr)->OrigH = Items.at(ItNr)->pixm.height();
+			Items.at(ItNr)->dpiX = dpiX;
+			Items.at(ItNr)->dpiY = dpiY;
 			}
 		else
 			{
