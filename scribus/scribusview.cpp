@@ -195,6 +195,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	connect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 	connect(Unitmen, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
 	connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
+	connect(this, SIGNAL(HaveSel(int)), this, SLOT(selectionChanged()));
 }
 
 void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int cliph)
@@ -6736,6 +6737,19 @@ void ScribusView::SelectItem(PageItem *pi, bool draw, bool single)
 		else
 			EmitValues(b);
 		emit HaveSel(b->PType);
+	}
+}
+
+void ScribusView::selectionChanged()
+{
+	if (ScApp->isObjectSpecificUndo())
+	{
+		if (SelItem.count() == 1)
+			undoManager->showObject(SelItem.at(0)->getUId());
+		else if (SelItem.count() == 0)
+			undoManager->showObject(Doc->currentPage->getUId());
+		else
+			undoManager->showObject(-2);
 	}
 }
 

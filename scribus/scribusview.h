@@ -330,6 +330,7 @@ private: // Private attributes
 private slots:
 	void Zval();
 	void setRulerPos(int x, int y);
+	void selectionChanged();
 
 protected: // Protected methods
 	virtual void drawContents(QPainter *p, int clipx, int clipy, int clipw, int cliph);

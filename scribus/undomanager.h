@@ -101,6 +101,13 @@ private:
 		 */
 		ActionPair* at(int index);
 		/**
+		 * @brief Returns true if this transaction contains UndoObject with the id <code>uid</code>
+		 * @brief otherwise returns false.
+		 * @return true if this transaction contains UndoObject with the ide <code>uid</code>
+		 * @return otherwise returns false.
+		 */
+		bool contains(int uid);
+		/**
 		 * @brief Replace object with id uid with new UndoObject newUndoObject.
 		 * @param uid id of the object that is wanted to be replaced
 		 * @param newUndoObject object that is used for replacing
@@ -365,24 +372,14 @@ public:
 	 * or disabled depending on the status of the undo stack.
 	 * @return true if there are actions that can be undone otherwise returns false
 	 */
-	bool hasUndoActions();
+	bool hasUndoActions(int uid = -1);
 
 	/**
 	 * @brief Returns true if there are actions that can be redone otherwise returns false.
 	 * @return true if there are actions that can be redone otherwise returns false
 	 * @sa UndoManager::hasUndoActions()
 	 */
-	bool hasRedoActions();
-
-	/**
-	 * @brief Switches the state of UndoManager (global/object specific undo).
-	 *
-	 * If parameter uid is less than 0 global undo is used else the undo state
-	 * is object specific using the object whose uid is given as a parameter.
-	 * @param uid UndoObject's id for what the object specific undo is wanted or
-	 * -1 if global undo is wanted.
-	 */
-	void showObject(int uid);
+	bool hasRedoActions(int uid = -1);
 
 	/**
 	 * @brief Replace an UndoObject with the id uid with a new UndoObject new.
@@ -588,6 +585,16 @@ public slots:
 	 * @sa UndoManager::undo(int steps)
 	 */
 	void redo(int steps);
+
+	/**
+	 * @brief Switches the state of UndoManager (global/object specific undo).
+	 *
+	 * If parameter uid is less than 0 global undo is used else the undo state
+	 * is object specific using the object whose uid is given as a parameter.
+	 * @param uid UndoObject's id for what the object specific undo is wanted or
+	 * -1 if global undo is wanted.
+	 */
+	void showObject(int uid);
 
 	/**
 	 * @brief Sets the length of the undo stack.

@@ -147,6 +147,11 @@ public:
 	 * @return true if an arrow key is pressed down otherwise returns false
 	 */
 	bool arrowKeyDown();
+	/** 
+	 * @brief Returns true if application is in object specific undo mode, other wise returns false.
+	 * @return true if application is in object specific undo mode, other wise returns false
+	 */
+	bool isObjectSpecificUndo();
 	void restore(UndoState* state, bool isUndo);
 	void restoreGroupping(SimpleState *state, bool isUndo);
 	void restoreUngroupping(SimpleState *state, bool isUndo);
@@ -247,7 +252,6 @@ public slots:
 	void ToggleObjLock();
 	void UnDoAction();
 	void RedoAction();
-	void refreshUndoRedoItems();
 	void doHyphenate();
 	void slotTest();
 	void slotTest2();
@@ -454,6 +458,7 @@ public slots:
 	void CallGimp();
 	void scanDocument();
 	void slotCheckDoc();
+	void setUndoMode(bool isObjectSpecific);
 
 signals:
 	void TextISize(int);
@@ -533,6 +538,8 @@ private:
 	bool keyrep;
 	/** @brief Tells if an arrow key is pressed down */
 	bool _arrowKeyDown;
+	/** @brief tells the undo mode */
+	bool objectSpecificUndo;
 
 	void addNewPages(int wo, int where, int numPages, QString based1 = tr("Normal"), QString based2 = tr("Normal"));
 	QMap<int,QString> FontID;

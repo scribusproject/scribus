@@ -247,6 +247,7 @@ private:
 	PrefsContext* undoPrefs;
 	void updateList();
 	void removeRedoItems();
+	void storePosition();
 	
 /*** UndoPalette::UndoItem ****************************************************/
 	
@@ -255,7 +256,7 @@ private:
 	{
 	private:
 		/** @brief An icon for the undo target */
-						   QPixmap *targetpixmap;
+		QPixmap *targetpixmap;
 		/** @brief An icon for the undo state (action) */
 		QPixmap *actionpixmap;
 		/** @brief Name of the target of the state (action) */
@@ -303,6 +304,7 @@ private slots:
 	void undoListClicked(int i);
 	void showToolTip(QListBoxItem *i);
 	void removeToolTip();
+	void objectCheckBoxClicked(bool on);
 
 protected:
 	/**
@@ -384,6 +386,13 @@ public slots:
 	void updateFromPrefs();
 
 signals:
+
+	/**
+	 * @brief Emitted when undo behaviour should be changed from global undo
+	 * @brief to object specific undo and other way around.
+	 * @param isEnabled true if object specific undo is wanted, false for global undo
+	 */
+	void objectMode(bool isEnabled);
 	/** 
 	 * @brief Emitted when undo is requested.
 	 * 

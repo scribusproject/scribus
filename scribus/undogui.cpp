@@ -148,6 +148,7 @@ void UndoWidget::insertUndoItem(UndoObject* target, UndoState* state)
                                         .arg(target->getUName()).arg(state->getName()));
 	clearRedoMenu();
 	updateUndoMenu();
+	updateRedoMenu();
 }
 
 void UndoWidget::insertRedoItem(UndoObject* target, UndoState* state)
@@ -155,6 +156,7 @@ void UndoWidget::insertRedoItem(UndoObject* target, UndoState* state)
 	redoItems.push_back(QString(tr("%1: %2", "undo target: action (f.e. Text frame: Resize)"))
                         .arg(target->getUName()).arg(state->getName()));
 	updateRedoMenu();
+	updateUndoMenu();
 }
 
 void UndoWidget::clearRedoMenu()
@@ -233,7 +235,7 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 
 	QCheckBox* objectBox = new QCheckBox(tr("Show selected object only"), this, "objectBox");
 	layout->addWidget(objectBox);
-	objectBox->setEnabled(false);
+// 	objectBox->setEnabled(false);
 
 	undoList = new QListBox(this, "undoList");
 	undoList->setMultiSelection(false);
@@ -263,6 +265,7 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	connect(undoList, SIGNAL(highlighted(int)), this, SLOT(undoListClicked(int)));
 	connect(undoList, SIGNAL(onItem(QListBoxItem*)), this, SLOT(showToolTip(QListBoxItem*)));
 	connect(undoList, SIGNAL(onViewport()), this, SLOT(removeToolTip()));
+	connect(objectBox, SIGNAL(toggled(bool)), this, SLOT(objectCheckBoxClicked(bool)));
 }
 
 void UndoPalette::clear()
@@ -302,15 +305,7 @@ void UndoPalette::updateFromPrefs()
 
 void UndoPalette::hideEvent(QHideEvent*)
 {
-	QRect r    = frameGeometry();
-	int left   = r.left();
-	int top    = r.top();
-	int width  = r.width();
-	int height = r.height();
-	undoPrefs->set("up_left", left);
-	undoPrefs->set("up_top", top);
-	undoPrefs->set("up_width", width);
-	undoPrefs->set("up_height", height);
+	storePosition();
 }
 
 void UndoPalette::keyPressEvent(QKeyEvent* e)
@@ -344,7 +339,10 @@ void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
 void UndoPalette::insertRedoItem(UndoObject* target, UndoState* state)
 {
 	if (undoList->count() == 1)
+	{
 		undoList->setSelected(0, true);
+		currentSelection = 0;
+	}
 	undoList->insertItem(new UndoItem(target->getUName(), state->getName(),
                          state->getDescription(), target->getUPixmap(),
                          state->getPixmap()));
@@ -394,6 +392,19 @@ void UndoPalette::removeRedoItems()
 		undoList->removeItem(i);
 }
 
+void UndoPalette::storePosition()
+{
+	QRect r    = frameGeometry();
+	int left   = r.left();
+	int top    = r.top();
+	int width  = r.width();
+	int height = r.height();
+	undoPrefs->set("up_left", left);
+	undoPrefs->set("up_top", top);
+	undoPrefs->set("up_width", width);
+	undoPrefs->set("up_height", height);
+}
+
 void UndoPalette::undoClicked()
 {
 	emit undo(1);
@@ -416,6 +427,11 @@ void UndoPalette::undoListClicked(int i)
 	updateList();
 }
 
+void UndoPalette::objectCheckBoxClicked(bool on)
+{
+	emit objectMode(on);
+}
+
 void UndoPalette::showToolTip(QListBoxItem *i)
 {
 	UndoItem *item = dynamic_cast<UndoItem*>(i);
@@ -436,7 +452,7 @@ void UndoPalette::removeToolTip()
 
 UndoPalette::~UndoPalette()
 {
-
+	storePosition();
 }
 
 /*** UndoPalette::UndoItem ****************************************************/
@@ -523,5 +539,5 @@ QString UndoPalette::UndoItem::getDescription()
 
 UndoPalette::UndoItem::~UndoItem()
 {
-	
+
 }

@@ -182,6 +182,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	
 
 	undoManager = UndoManager::instance();
+	objectSpecificUndo = false;
 
 	initFileMenuActions();
 	initEditMenuActions();
@@ -751,6 +752,7 @@ void ScribusApp::initPalettes()
 	undoPalette = new UndoPalette(this, "undoPalette");
 	undoManager->registerGui(undoPalette);
 	connect(undoPalette, SIGNAL(closePalette(bool)), this, SLOT(setUndoPalette(bool)));
+	connect(undoPalette, SIGNAL(objectMode(bool)), this, SLOT(setUndoMode(bool)));
 	
 	connect(MaPal, SIGNAL(Schliessen(bool)), this, SLOT(setMapal(bool)));
 	connect(Mpal, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
@@ -1324,10 +1326,10 @@ void ScribusApp::initHelpMenuActions()
 	scrActions.insert("helpAboutQt", new ScrAction(tr("About &Qt"), QKeySequence(), this, "helpAboutQt"));
 	scrActions.insert("helpTooltips", new ScrAction(tr("Toolti&ps"), QKeySequence(), this, "helpTooltips"));
 	scrActions.insert("helpManual", new ScrAction(tr("Scribus &Manual..."), Key_F1, this, "helpManual"));
-	
+
 	scrActions["helpTooltips"]->setToggleAction(true);
 	scrActions["helpTooltips"]->setOn(true);
-	
+
 	connect( scrActions["helpAboutScribus"], SIGNAL(activated()) , this, SLOT(slotHelpAbout()) );
 	connect( scrActions["helpAboutQt"], SIGNAL(activated()) , this, SLOT(slotHelpAboutQt()) );
 	connect( scrActions["helpTooltips"], SIGNAL(activated()) , this, SLOT(ToggleTips()) );
@@ -1578,10 +1580,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["alignRight"], "Alignment");
 	scrMenuMgr->addMenuItem(scrActions["alignBlock"], "Alignment");
 	scrMenuMgr->addMenuItem(scrActions["alignForced"], "Alignment");
-	
-	connect(undoManager, SIGNAL(newAction(UndoObject*, UndoState*)),
-	        this, SLOT(refreshUndoRedoItems()));
-	connect(undoManager, SIGNAL(undoRedoDone()), this, SLOT(refreshUndoRedoItems()));
+
 	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 }
@@ -9579,13 +9578,6 @@ void ScribusApp::RedoAction()
 	undoManager->redo(1);
 }
 
-void ScribusApp::refreshUndoRedoItems()
-{
-	scrActions["toolsActionHistory"]->setOn(undoPalette->isVisible());
-	scrActions["editUndoAction"]->setEnabled(undoManager->hasUndoActions());
-	scrActions["editRedoAction"]->setEnabled(undoManager->hasRedoActions());
-}
-
 void ScribusApp::initHyphenator()
 {
 	QString pfad = LIBDIR;
@@ -10562,6 +10554,27 @@ void ScribusApp::slotCharSelect()
 			delete dia;
 		}
 	}
+}
+
+void ScribusApp::setUndoMode(bool isObjectSpecific)
+{
+	objectSpecificUndo = isObjectSpecific;
+	if (!objectSpecificUndo)
+		undoManager->showObject(-1);
+	else
+	{
+		if (view->SelItem.count() == 1)
+			undoManager->showObject(view->SelItem.at(0)->getUId());
+		else if (view->SelItem.count() == 0)
+			undoManager->showObject(doc->currentPage->getUId());
+		else
+			undoManager->showObject(-2);
+	}
+}
+
+bool ScribusApp::isObjectSpecificUndo()
+{
+	return objectSpecificUndo;
 }
 
 void ScribusApp::slotTest()
