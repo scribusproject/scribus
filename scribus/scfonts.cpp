@@ -571,7 +571,7 @@ void SCFonts::AddXFontServerPath()
  * fallback if no suitable Font was found elsewere */
 void SCFonts::AddUserPath(QString pf)
 {
-	QFile fx(pf+"/scribusfont.rc");
+	QFile fx(pf+"/scribusfont13.rc");
 	ExtraPath="";
 	if ((fx.exists()) && (fx.size() > 0))
 	{

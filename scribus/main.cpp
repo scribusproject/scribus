@@ -257,22 +257,26 @@ QStringList getLang(QString lang)
 	
 	//add in user preferences lang, only overridden by lang command line option
 	QString Pff = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
-	QString PrefsPfad;
 	QFileInfo Pffi = QFileInfo(Pff);
 	if (Pffi.exists())
 	{
+		QString PrefsPfad;
 		if (Pffi.isDir())
 			PrefsPfad = Pff;
 		else
 			PrefsPfad = QDir::homeDirPath();
-			
-		PrefsFile* prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs.xml"));
-		if (prefsFile) {
-			PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
-			if (userprefsContext) {
-				QString prefslang = userprefsContext->get("gui_language","");
-				if (prefslang!="")
-					langs.push_back(prefslang);
+		QString prefsXMLFile=QDir::convertSeparators(PrefsPfad + "/prefs13.xml");
+		QFileInfo infoPrefsFile(prefsXMLFile);
+		if (infoPrefsFile.exists())
+		{
+			PrefsFile* prefsFile = new PrefsFile(prefsXMLFile);
+			if (prefsFile) {
+				PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
+				if (userprefsContext) {
+					QString prefslang = userprefsContext->get("gui_language","");
+					if (prefslang!="")
+						langs.push_back(prefslang);
+				}
 			}
 		}
 	}

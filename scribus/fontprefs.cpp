@@ -253,7 +253,7 @@ void FontPrefs::DelEntry()
 
 void FontPrefs::ReadPath()
 {
-	QFile fx(HomeP+"/scribusfont.rc");
+	QFile fx(HomeP+"/scribusfont13.rc");
 	QString ExtraPath = "";
 	ExtraFonts.clear();
 	PathList->clear();
@@ -288,7 +288,7 @@ void FontPrefs::AddPath()
 		s = s.left(s.length()-1);
 		if (PathList->findItem(s))
 			return;
-		QFile fx(HomeP+"/scribusfont.rc");
+		QFile fx(HomeP+"/scribusfont13.rc");
 		if (fx.open(IO_WriteOnly))
 		{
 			QTextStream tsx(&fx);
@@ -315,7 +315,7 @@ void FontPrefs::ChangePath()
 		s = s.left(s.length()-1);
 		if (PathList->findItem(s))
 			return;
-		QFile fx(HomeP+"/scribusfont.rc");
+		QFile fx(HomeP+"/scribusfont13.rc");
 		if (fx.open(IO_WriteOnly))
 		{
 			PathList->changeItem(s, PathList->currentItem());
@@ -335,7 +335,7 @@ void FontPrefs::ChangePath()
 
 void FontPrefs::DelPath()
 {
-	QFile fx(HomeP+"/scribusfont.rc");
+	QFile fx(HomeP+"/scribusfont13.rc");
 	if (fx.open(IO_WriteOnly))
 	{
 		if (PathList->count() == 1)

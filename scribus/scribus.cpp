@@ -509,7 +509,7 @@ void ScribusApp::initDefaultPrefs()
 
 void ScribusApp::initDefaultValues()
 {
-	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs.xml"));
+	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs13.xml"));
 	dirs = prefsFile->getContext("dirs");
 
 	HaveDoc = 0;
@@ -694,7 +694,7 @@ void ScribusApp::initPalettes()
 
 void ScribusApp::initScrapbook()
 {
-	QString scrapbookFile = PrefsPfad+"/scrap.scs";
+	QString scrapbookFile = PrefsPfad+"/scrap13.scs";
 	QFileInfo scrapbookFileInfo = QFileInfo(scrapbookFile);
 	if (scrapbookFileInfo.exists())
 		ScBook->BibWin->ReadContents(scrapbookFile);
@@ -754,6 +754,7 @@ QString ScribusApp::getPreferencesLocation()
 	QString Pff = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
 	QFileInfo Pffi = QFileInfo(Pff);
 	QString PrefsPfad;
+	//If we are using ~/.scribus
 	if (Pffi.exists())
 	{
 		if (Pffi.isDir())
@@ -761,25 +762,84 @@ QString ScribusApp::getPreferencesLocation()
 		else
 			PrefsPfad = QDir::homeDirPath();
 	}
-	else
+	else // Move to using ~/.scribus/scribus.* from ~/.scribus.*
 	{
-		QDir di = QDir();
-		di.mkdir(Pff);
+		QDir prefsDirectory = QDir();
+		prefsDirectory.mkdir(Pff);
 		PrefsPfad = Pff;
-		QString OldPR = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus.rc");
-		QFileInfo OldPi = QFileInfo(OldPR);
-		if (OldPi.exists())
-			moveFile(OldPR, Pff+"/scribus.rc");
-		QString OldPR2 = QDir::convertSeparators(QDir::homeDirPath()+"/.scribusfont.rc");
-		QFileInfo OldPi2 = QFileInfo(OldPR2);
-		if (OldPi2.exists())
-			moveFile(OldPR2, Pff+"/scribusfont.rc");
-		QString OldPR3 = QDir::convertSeparators(QDir::homeDirPath()+"/.scribusscrap.scs");
-		QFileInfo OldPi3 = QFileInfo(OldPR3);
-		if (OldPi3.exists())
-			moveFile(OldPR3, Pff+"/scrap.scs");
+		QString oldPR = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus.rc");
+		QFileInfo oldPi = QFileInfo(oldPR);
+		if (oldPi.exists())
+			moveFile(oldPR, Pff+"/scribus.rc");
+		QString oldPR2 = QDir::convertSeparators(QDir::homeDirPath()+"/.scribusfont.rc");
+		QFileInfo oldPi2 = QFileInfo(oldPR2);
+		if (oldPi2.exists())
+			moveFile(oldPR2, Pff+"/scribusfont.rc");
+		QString oldPR3 = QDir::convertSeparators(QDir::homeDirPath()+"/.scribusscrap.scs");
+		QFileInfo oldPi3 = QFileInfo(oldPR3);
+		if (oldPi3.exists())
+			moveFile(oldPR3, Pff+"/scrap.scs");
 	}
+
+	//Now make copies for 1.3 use and leave the old ones alone for <1.3.0 usage
+	QString oldPR =QDir::convertSeparators(PrefsPfad+"/scribus.rc");
+	QString oldPR2=QDir::convertSeparators(PrefsPfad+"/scribusfont.rc");
+	QString oldPR3=QDir::convertSeparators(PrefsPfad+"/scrap.scs");
+	QString oldPR4=QDir::convertSeparators(PrefsPfad+"/prefs.xml");	
+	QString newPR =QDir::convertSeparators(PrefsPfad+"/scribus13.rc");
+	QString newPR2=QDir::convertSeparators(PrefsPfad+"/scribusfont13.rc");
+	QString newPR3=QDir::convertSeparators(PrefsPfad+"/scrap13.scs");
+	QString newPR4=QDir::convertSeparators(PrefsPfad+"/prefs13.xml");
+		
+	bool existsOldPR =QFile::exists(oldPR);
+	bool existsOldPR2=QFile::exists(oldPR2);
+	bool existsOldPR3=QFile::exists(oldPR3);
+	bool existsOldPR4=QFile::exists(oldPR4);
+	bool existsNewPR =QFile::exists(newPR);
+	bool existsNewPR2=QFile::exists(newPR2);
+	bool existsNewPR3=QFile::exists(newPR3);
+	bool existsNewPR4=QFile::exists(newPR4);	
+	
+	//Only check for these two as they will be autocreated if they dont exist.
+	if( (existsOldPR && !existsNewPR) || (existsOldPR4 && !existsNewPR4) )
+	{
+		if (splashScreen)
+			splashScreen->hide();
+		if ( (QMessageBox::question( this, tr("Migrate Old Scribus Settings?"),
+				tr("Scribus has detected existing Scribus 1.2 preferences files.\n"
+					"Do you want to migrate them to the new Scribus version?"),
+				QMessageBox::Yes, QMessageBox::No, QMessageBox::NoButton))==QMessageBox::Yes )
+		{
+			if (existsOldPR && !existsNewPR)
+				copyFile(oldPR, newPR);
+			if (existsOldPR2 && !existsNewPR2)
+				copyFile(oldPR2, newPR2);
+			if (existsOldPR3 && !existsNewPR3)
+				copyFile(oldPR3, newPR3);
+			if (existsOldPR4 && !existsNewPR4)
+				copyFile(oldPR4, newPR4);
+				
+			//Now convert them to XML based preferences files
+			convertToXMLPreferences(PrefsPfad);
+		}
+		if (splashScreen)
+			splashScreen->show();
+	}
+
 	return PrefsPfad;
+}
+
+/*!
+ \fn QString ScribusApp::convertToXMLPreferences(QString prefsLocation)
+ \author Craig Bradney
+ \date Sun 09 Jan 2005
+ \brief Convert 1.2 prefs to 1.3 prefs
+ \param prefsLocation Location of user preferences
+ \retval None
+ */
+void ScribusApp::convertToXMLPreferences(QString prefsLocation)
+{
+
 }
 
 void ScribusApp::initMenuBar()
@@ -2112,11 +2172,11 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		if ((Prefs.SaveAtQ) && (ScBook->Changed == true))
 		{
 			if (ScBook->ScFilename.isEmpty())
-				ScBook->ScFilename = PrefsPfad+"/scrap.scs";
+				ScBook->ScFilename = PrefsPfad+"/scrap13.scs";
 			ScBook->Save();
 		}
 		if (ScBook->BibWin->Objekte.count() == 0)
-			unlink(PrefsPfad+"/scrap.scs");
+			unlink(PrefsPfad+"/scrap13.scs");
 		Prefs.AvailFonts.~SCFonts();
 		FinalizePlugs();
 		exit(0);
@@ -2129,11 +2189,11 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		if ((Prefs.SaveAtQ) && (ScBook->Changed == true))
 		{
 			if (ScBook->ScFilename.isEmpty())
-				ScBook->ScFilename = PrefsPfad+"/scrap.scs";
+				ScBook->ScFilename = PrefsPfad+"/scrap13.scs";
 			ScBook->Save();
 		}
 		if (ScBook->BibWin->Objekte.count() == 0)
-			unlink(PrefsPfad+"/scrap.scs");
+			unlink(PrefsPfad+"/scrap13.scs");
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		Prefs.AvailFonts.~SCFonts();
 		FinalizePlugs();
@@ -7216,7 +7276,7 @@ void ScribusApp::SavePrefs()
 	Prefs.PrinterFile = PDef.Dname;
 	Prefs.PrinterCommand = PDef.Command;
 	ScriXmlDoc *ss = new ScriXmlDoc();
-	ss->WritePref(&Prefs, PrefsPfad+"/scribus.rc");
+	ss->WritePref(&Prefs, PrefsPfad+"/scribus13.rc");
 	delete ss;
 
     SavePrefsXML();
@@ -7239,7 +7299,7 @@ void ScribusApp::SavePrefsXML()
 void ScribusApp::ReadPrefs()
 {
 	ScriXmlDoc *ss = new ScriXmlDoc();
-	bool erg = ss->ReadPref(&Prefs, PrefsPfad+"/scribus.rc", splashScreen);
+	bool erg = ss->ReadPref(&Prefs, PrefsPfad+"/scribus13.rc", splashScreen);
 	delete ss;
 	if (!erg)
 		return;

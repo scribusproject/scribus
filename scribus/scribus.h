@@ -470,6 +470,7 @@ private:
 	QString guiLanguage;
 
 	QString getPreferencesLocation(); //Find preferences location
+	void convertToXMLPreferences(QString prefsLocation); //convert 1.2 style rc prefs to .xml style
 	/** edit_menu contains all items of the menubar entry "Edit" */
 	QPopupMenu *editMenu;
 	/** StilMenu enthaelt das Stilemenue */
