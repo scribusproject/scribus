@@ -1,7 +1,6 @@
 #ifndef CMDMANI_H
 #define CMDMANI_H
 
-#include <Python.h>
 
 /** Manipulating Objects */
 PyObject *scribus_moveobjrel(PyObject *self, PyObject* args);

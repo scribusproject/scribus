@@ -1,7 +1,6 @@
 #ifndef CMDGETPROP_H
 #define CMDGETPROP_H
 
-#include <Python.h>
 
 /** Query-Functions */
 PyObject *scribus_getfillcolor(PyObject *self, PyObject* args);

@@ -1,7 +1,6 @@
 #ifndef CMDDOC_H
 #define CMDDOC_H
 
-#include <Python.h>
 
 /**	Document related Commands */
 PyObject *scribus_newdoc(PyObject *self, PyObject* args);

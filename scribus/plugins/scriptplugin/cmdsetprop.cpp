@@ -1,3 +1,4 @@
+#include <Python.h>
 #include "cmdsetprop.h"
 #include "cmdutil.h"
 #include "cmdvar.h"

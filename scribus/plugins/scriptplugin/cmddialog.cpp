@@ -1,3 +1,4 @@
+#include <Python.h>
 #include "cmddialog.h"
 #include "cmdvar.h"
 

@@ -1,7 +1,6 @@
 #ifndef CMDTEXT_H
 #define CMDTEXT_H
 
-#include <Python.h>
 
 PyObject *scribus_getfontsize(PyObject *self, PyObject* args);
 PyObject *scribus_getfont(PyObject *self, PyObject* args);

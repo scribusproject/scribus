@@ -14,6 +14,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+#include "Python.h"
 #include "cmddialog.h"
 #include "cmddoc.h"
 #include "cmdpage.h"

@@ -1,7 +1,6 @@
 #ifndef CMDOBJ_H
 #define CMDOBJ_H
 
-#include <Python.h>
 
 /** Object related Commands */
 PyObject *scribus_newrect(PyObject *self, PyObject* args);

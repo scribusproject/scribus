@@ -1,7 +1,6 @@
 #ifndef SCRIPTPLUG_H
 #define SCRIPTPLUG_H
 
-#include "Python.h"
 #include "scribus.h"
 #include "pconsole.h"
 

@@ -1,7 +1,6 @@
 #ifndef CMDMISC_H
 #define CMDMISC_H
 
-#include <Python.h>
 
 /** Other Commands */
 PyObject *scribus_setredraw(PyObject *self, PyObject* args);

@@ -1,3 +1,5 @@
+#include <Python.h>
+
 #include "cmdobj.h"
 #include "cmdutil.h"
 #include "cmdvar.h"

@@ -1,3 +1,4 @@
+#include <Python.h>
 #include "cmdmisc.h"
 #include "cmdutil.h"
 #include "cmdvar.h"

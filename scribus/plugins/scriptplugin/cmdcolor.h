@@ -1,7 +1,6 @@
 #ifndef CMDCOLOR_H
 #define CMDCOLOR_H
 
-#include <Python.h>
 
 /** Managing Colors */
 PyObject *scribus_colornames(PyObject *self, PyObject* args);

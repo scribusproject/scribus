@@ -1,7 +1,6 @@
 #ifndef CMDPAGE_H
 #define CMDPAGE_H
 
-#include <Python.h>
 
 /** Page related Commands */
 PyObject *scribus_newpage(PyObject *self, PyObject* args);

@@ -1,7 +1,6 @@
 #ifndef CMDSETPROP_H
 #define CMDSETPROP_H
 
-#include <Python.h>
 
 /** Setting Object Properties */
 PyObject *scribus_setgradfill(PyObject *self, PyObject* args);
