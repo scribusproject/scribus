@@ -1,5 +1,2071 @@
 <!DOCTYPE TS><TS>
 <context>
+    <name></name>
+    <message>
+        <source>getFontSize([&quot;name&quot;]) -&gt; float
+
+Returns the font size in points for the text frame &quot;name&quot;. If this text
+frame has some text selected the value assigned to the first character of
+the selection is returned.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getFontSize([&quot;nazwa&quot;]) -&gt; float
+
+Zwraca rozmiar czcionki w punktach dla ramki tekstowej &quot;nazwa&quot;. Jeśli ta ramka 
+tekstowa zawiera jakiś zaznaczony tekst, zwracana jest wartość przypisana do pierwszej litery zaznaczonego tekstu.
+Jeśli nie zostanie podana &quot;nazwa&quot;, użyty zostanie aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>getColorNames() -&gt; list
+
+Returns a list containing the names of all defined colors in the document.
+If no document is open, returns a list of the default document colors.
+</source>
+        <translation>getColorNames() -&gt; list
+
+Zwraca listę zawierającą nazwy wszystkich zdefiniowanych kolorów w danym dokumencie.
+Jeśli nie jest aktualnie otwarty żaden dokument, zwrócona zostanie lista wszystkich domyślnych kolorów.</translation>
+    </message>
+    <message>
+        <source>newDocDialog() -&gt; bool
+
+Displays the &quot;New Document&quot; dialog box. Creates a new document if the user
+accepts the settings. Does not create a document if the user presses cancel.
+Returns true if a new document was created.
+</source>
+        <translation>newDocDialog() -&gt; bool
+
+Wyświetla okno dialogowe &quot;Nowy dokument&quot;. Tworzy nowy dokument, jeśli użytkownik zaakceptuje ustawienia. Nie tworzy dokumentu, jeśli użytkownik naciśnie na przycisk 
+&quot;Anuluj&quot;. Zwraca true, jeśli dokument zostanie utworzony.</translation>
+    </message>
+    <message>
+        <source>getFillColor([&quot;name&quot;]) -&gt; string
+
+Returns the name of the fill color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getFillColor([&quot;nazwa&quot;]) -&gt; string
+
+Zwraca nazwę koloru wypełnienia obiektu &quot;nazwa&quot;.
+Jeśli nie zostanie podana &quot;nazwa&quot;, zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>moveObject(dx, dy [, &quot;name&quot;])
+
+Moves the object &quot;name&quot; by dx and dy relative to its current position. The
+distances are expressed in the current measurement unit of the document (see
+UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
+If the object &quot;name&quot; belongs to a group, the whole group is moved.
+</source>
+        <translation>moveObject(dx, dy [, &quot;nazwa&quot;])
+
+Przesuwa obiekt &quot;nazwa&quot; o dx i dy w stosunku do aktualnej pozycji.
+Odległości podawane są w aktualnych jednostkach miary dla danego dokumentu (zobacz
+stałe UNIT). Jeśli &quot;nazwa nie zostanie podana, użyty zostanie aktualnie wybrany obiekt.
+Jeśli obiekt &quot;nazwa&quot; należy do grupy, zostanie przesunięta cała grupa.</translation>
+    </message>
+    <message>
+        <source>setRedraw(bool)
+
+Disables page redraw when bool = False, otherwise redrawing is enabled.
+This change will persist even after the script exits, so make sure to call
+setRedraw(True) in a finally: clause at the top level of your script.
+</source>
+        <translation>setRedraw(bool)
+
+Blokuje aktualizację widoku strony, kiedy bool = False, w innym przypadku aktualizowanie jest włączone.
+Ta zmiana zachowa ważność po zakończeniu pracy skryptu, pamiętaj więc, aby wykonać
+setRedraw(True) w  finally: na samym dole skryptu.</translation>
+    </message>
+    <message>
+        <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new rectangle on the current page and returns its name. The
+coordinates are given in the current measurement units of the document
+(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
+because you need this name to reference that object in future. If &quot;name&quot;
+is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation>createRect(x, y, width, height, [&quot;nazwa&quot;]) -&gt; string
+
+Tworzy nowy prostokąt na aktualnej stronie i zwraca jego nazwę. 
+Współrzędne podaje się w aktualnych jednostkach miar dla danego dokumentu.
+(zobacz stałe UNIT). &quot;nazwa&quot; powinna być jednoznacznym identyfikatorem obiektu, 
+ponieważ będziesz potrzebował jej, aby przywoływać ten obiekt w przyszłości.
+Jeśli nie zostanie podana, Scribus utworzy ją za ciebie.
+
+Może zwrócić błąd NameExistsError, jeśli podasz nazwę, która już jest w użyciu.</translation>
+    </message>
+    <message>
+        <source>newPage(where [,&quot;template&quot;])
+
+Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
+document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
+counted from 1 upwards, no matter what the displayed first page number of your
+document is. The optional parameter &quot;template&quot; specifies the name of the
+template page for the new page.
+
+May raise IndexError if the page number is out of range
+</source>
+        <translation>newPage(gdzie [,&quot;szablon&quot;])
+
+Tworzy nową stronę. Creates a new page. Jeśli &quot;gdzie&quot; jest równe -1, nowa strona zostanie dołączona
+do dokumentu, w innym przypadku nowa strona zostanie wklejona przed &quot;gdzie&quot;. Numery stron są
+liczone od 1 wzwyż, niezależnie jaki numer strony wyświetla się na pierwszej stronie twojego
+dokumentu. Opcjonalny parametr &quot;szablon&quot; oznacza nazwę strony szablonu dla nowej strony.
+
+Może zwrócić błąd IndexError, jeśli numer strony będzie poza dozwolonym zakresem</translation>
+    </message>
+    <message>
+        <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
+
+Sets the gradient fill of the object &quot;name&quot; to type. Color descriptions are
+the same as for setFillColor() and setFillShade(). See the constants for
+available types (FILL_&lt;type&gt;).
+</source>
+        <translation>setGradientFill(typ, &quot;kolor1&quot;, cieniowanie1, &quot;kolor2&quot;, cieniowanie2, [&quot;nazwa&quot;])
+
+Przypisuje wypełnienie gradientem &quot;typ&quot; do obiektu &quot;nazwa&quot;. Opisy kolorów są
+takie same jak dla setFillColor() i setFillShade(). Zobacz stałe dla
+istniejących typów (FILL_&lt;type&gt;).</translation>
+    </message>
+    <message>
+        <source>messagebarText(&quot;string&quot;)
+
+Writes the &quot;string&quot; into the Scribus message bar (status line). The text
+must be UTF8 encoded or &apos;unicode&apos; string(recommended).
+</source>
+        <translation>messagebarText(&quot;string&quot;)
+
+Pisze &quot;string&quot; w linijce statusu Scribusa. Tekst ten
+musi być łańcuchem znaków w kowoaniu UTF8 lub &apos;unicode&apos; (zalecane).</translation>
+    </message>
+    <message>
+        <source>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+    size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+    margins = A tuple (left, right, top, bottom) describing the document
+    margins
+
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+    firstPageNumber = is the number of the first page in the document used for
+    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+    numbers if you&apos;re creating a document in several parts.
+
+    unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</source>
+        <translation>O Scribusie %1</translation>
+    </message>
+</context>
+<context>
+    <name>@default</name>
+    <message>
+        <source>getFont([&quot;name&quot;]) -&gt; string
+
+Returns the font name for the text frame &quot;name&quot;. If this text frame
+has some text selected the value assigned to the first character
+of the selection is returned. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>getFont([&quot;nazwa&quot;]) -&gt; string
+
+Zwraca nazwę czcionki dla ramki tekstowej &quot;nazwa&quot;. Jeśli ta ramka tekstowa zawiera 
+zaznaczony tekst, zwrócona zostanie wartość przypisana do pierwszej litery zaznaczonego 
+tekstu. Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie użyty zaznaczony aktualnie obiekt.</translation>
+    </message>
+    <message>
+        <source>getTextLength([&quot;name&quot;]) -&gt; integer
+
+Returns the length of the text in the text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getTextLength([&quot;nazwa&quot;]) -&gt; integer
+
+Zwraca długość tekstu w ramce tekstowej &quot;nazwa&quot;.
+Jeśli nazwa nie zostanie podana, zostanie użyty aktualnie wybrany obiekt.</translation>
+    </message>
+    <message>
+        <source>getText([&quot;name&quot;]) -&gt; string
+
+Returns the text of the text frame &quot;name&quot;. If this text frame has some text
+selected, the selected text is returned. All text in the frame, not just
+currently visible text, is returned. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>getText([&quot;nazwa&quot;]) -&gt; string
+
+Zwraca tekst zawarty w ramce tekstowej &quot;nazwa&quot;. Jeśli ramka ta zawiera
+zaznaczony tekst, zostanie zwrócony tylko ten tekst. Zwracany jest cały tekst ramki,
+a nie tylko jego widoczna część. Jeśli &quot;nazwa&apos; nie zostanie podana,
+zostanie użyty zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>getAllText([&quot;name&quot;]) -&gt; string
+
+Returns the text of the text frame &quot;name&quot; and of all text frames which are
+linked with this frame. If this textframe has some text selected, the selected
+text is returned. If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation>getAllText([&quot;nazwa&quot;]) -&gt; string
+
+Zwraca tekst zawarty w ramce &quot;nazwa&quot; i wszystkie teksty z ramek, 
+które są połączone z tą ramką. Jeśli ramka zawiera zaznaczony tekst,
+zwrócony zostanie ten tekst. Jeśli &quot;nazwa&quot; nie zostanie podana, 
+zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>getLineSpacing([&quot;name&quot;]) -&gt; float
+
+Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
+points. If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getLineSpacing([&quot;nazwa&quot;]) -&gt; float
+
+Zwraca interlinię (&quot;leading&quot;) z ramki tekstowej &quot;nazwa&quot; wyrażoną w punktach.
+Jeśli &quot;nazwa&quot; nie zostanie podana, użyty zostanie aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>getColumnGap([&quot;name&quot;]) -&gt; float
+
+Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
+&quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getColumnGap([&quot;nazwa&quot;]) -&gt; float
+
+Zwraca odstęp pomiędzy szpaltami w ramce tekstowej &quot;nazwa&quot; wyrażony w punktach. 
+Jeśli &quot;nazwa&quot; nie zostanie podana, użyty zostanie aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>getColumns([&quot;name&quot;]) -&gt; integer
+
+Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation>getColumns([&quot;nazwa&quot;]) -&gt; integer
+
+Zwraca ilość szpalt w ramce tekstowej &quot;nazwa&quot;. 
+Jeśli &quot;nazwa&quot; nie zostanie podana, użyty zostanie aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>setText(&quot;text&quot;, [&quot;name&quot;])
+
+Sets the text of the text frame &quot;name&quot; to the text of the string &quot;text&quot;.
+Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See the FAQ
+for more details. If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation>setText(&quot;teks&quot;, [&quot;name&quot;])
+
+Przypisuje ramce tekstowej &quot;nazwa&quot; tekst łańcucha &quot;tekst&quot;.
+Tekst musi być kodowany w UTF8, użyj np. unicode(text, &apos;iso-8859-2&apos;). 
+Zobacz FAQ, aby poznać dalsze szczegóły. Jeśli &quot;nazwa&quot; nie zostanie podana, 
+użyty zostanie aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
+must be UTF encoded (see setText() as reference) The first character has an
+index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is
+used.
+
+May throw IndexError for an insertion out of bounds.
+</source>
+        <translation>insertText(&quot;tekst&quot;, poz, [&quot;nazwa&quot;])
+
+Wstawia tekst &quot;tekst&quot; na pozycji &quot;poz&quot; w ramce tekstowej. Tekst musi 
+być kodowany w UTF (zobacz setText()),. Pierwsza litera ma indeks 0.
+Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie użyty aktualnie wybrany obiekt.
+
+Może zwrócić błąd IndexError w przypadku wstawiania tekstu poza dozwolonym zakresem.</translation>
+    </message>
+    <message>
+        <source>setFont(&quot;font&quot;, [&quot;name&quot;])
+
+Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
+selected only the selected text is changed.  If &quot;name&quot; is not given the
+currently selected item is used.
+
+May throw ValueError if the font cannot be found.
+</source>
+        <translation>setFont(&quot;font&quot;, [&quot;nazwa&quot;])
+
+Przypisuje czcionce w ramce tekstowej &quot;nazwa&quot; czcionkę &quot;font&quot;. Jeśli ramka zawiera
+zaznaczony tekst, zostanie zmieniony tylko ten tekst. Jeśli &quot;nazwa&quot; nie zostanie podana,
+zostanie użyty aktualnie zaznaczony obiekt.
+
+Może zwrócić błąd ValueError, jeśli nie znajdzie czcionki.</translation>
+    </message>
+    <message>
+        <source>setFontSize(size, [&quot;name&quot;])
+
+Sets the font size of the text frame &quot;name&quot; to &quot;size&quot;. &quot;size&quot; is treated
+as a value in points. If there is some text selected only the selected text is
+changed. &quot;size&quot; must be in the range 1 to 512. If &quot;name&quot; is not given the
+currently selected item is used.
+
+May throw ValueError for a font size that&apos;s out of bounds.
+</source>
+        <translation>setFontSize(rozmiar, [&quot;nazwa&quot;])
+
+Przypisuje nowy rozmiar czcionce w ramce tekstowej &quot;nazwa&quot;. &quot;rozmiar&quot; traktowany jest
+jako wartość w punktach. Jeśli ramka zawiera zaznaczony tekst, zostanie zmieniony tylko
+ten tekst. &quot;rozmiar&quot; musi zawierać się w zakresie od 1 do 512. Jeśli &quot;nazwa&quot; nie zostanie
+podana, zostanie użyty aktualnie wybrany obiekt.
+
+Może zwrócić błąd ValueError dla rozmiaru czcionki poza dozwolonym zakresem.</translation>
+    </message>
+    <message>
+        <source>setLineSpacing(size, [&quot;name&quot;])
+
+Sets the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; to &quot;size&quot;.
+&quot;size&quot; is a value in points. If &quot;name&quot; is not given the currently selected
+item is used.
+
+May throw ValueError if the line spacing is out of bounds.
+</source>
+        <translation>setLineSpacing(rozmiar, [&quot;nazwa&quot;])
+
+Przypisuje interlinię (&quot;leading&quot;) wielkości &quot;rozmiar&quot; ramce tekstowej &quot;nazwa&quot;.
+&quot;rozmiar&quot; jest wartością w punktach. Jeśli &quot;nazwa&quot; nie zostanie podana, 
+zostanie użyty aktualnie zaznaczony obiekt.
+
+Może zwrócić błąd ValueError, jeśli interlinia jest poza dozwolonym zakresem.</translation>
+    </message>
+    <message>
+        <source>setColumnGap(size, [&quot;name&quot;])
+
+Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&quot;. If
+&quot;name&quot; is not given the currently selected item is used.
+
+May throw ValueError if the column gap is out of bounds (must be positive).
+</source>
+        <translation>setColumnGap(rozmiar, [&quot;nazwa&quot;])
+
+Przypisuje odstępowi między szpaltami w ramce &quot;nazwa&quot; wartość &quot;rozmiar&quot;. 
+Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt.
+
+Może zwrócić błąd ValueError, jeśli odstęp między szpaltami będzie poza dopuszczalnym zakresem.</translation>
+    </message>
+    <message>
+        <source>setColumns(nr, [&quot;name&quot;])
+
+Sets the number of columns of the text frame &quot;name&quot; to the integer &quot;nr&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May throw ValueError if number of columns is not at least one.
+</source>
+        <translation>setColumns(nr, [&quot;nazwa&quot;])
+
+Przypisuje ilość kolumn w ramce tekstowej &quot;nazwa&quot; wartości liczby całkowitej &quot;nr&quot;.
+Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt.
+
+Może zwrócić błąd ValueError, jeśli ilość kolumn nie wynosi przynajmniej 1.</translation>
+    </message>
+    <message>
+        <source>setTextAlignment(align, [&quot;name&quot;])
+
+Sets the text alignment of the text frame &quot;name&quot; to the specified alignment.
+If &quot;name&quot; is not given the currently selected item is used. &quot;align&quot; should
+be one of the ALIGN_ constants defined in this module - see dir(scribus).
+
+May throw ValueError for an invalid alignment constant.
+</source>
+        <translation>setTextAlignment(wyrównanie, [&quot;nazwa&quot;])
+
+Przypisuje wyrównanie tekstu w ramce tekstowej &quot;nazwa&quot;.
+Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt.
+&quot;wyrównanie&quot; powinno być jedną ze stałych ALIGN_ zdefiniowanych 
+w tym module - zobacz dir(scribus).
+
+Może zwrócić błąd ValueError w przypadku podania błędnego wyrównania.</translation>
+    </message>
+    <message>
+        <source>selectText(start, count, [&quot;name&quot;])
+
+Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
+character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
+text selection will be cleared.  If &quot;name&quot; is not given the currently
+selected item is used.
+
+May throw IndexError if the selection is outside the bounds of the text.
+</source>
+        <translation>selectText(start, liczba, [&quot;nazwa&quot;])
+
+Zaznacza podaną &quot;liczbę&quot; znaków tekstu w ramce tekstowej &quot;nazwa&quot;, poczynając od znaku &quot;start&quot;.
+Liczenie znaków zaczyna się od 0. Jeśli &quot;liczba&quot; równa się 0, zaznaczenie tekstu zostanie zniesione.
+Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt.
+
+Może zwrócić błąd IndexError, jeśli zaznaczenie wyjdzie poza zakres tekstu.</translation>
+    </message>
+    <message>
+        <source>deleteText([&quot;name&quot;])
+
+Deletes any text in the text frame &quot;name&quot;. If there is some text selected,
+only the selected text will be deleted. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>deleteText([&quot;nazwa&quot;])
+
+Usuwa cały tekst w ramce tekstowej &quot;nazwa&quot;. Jeśli ramka zawiera zaznaczony tekst, 
+zostanie usunięty tylko zaznaczony tekst. Jeśli &quot;nazwa&quot; nie zostanie podana, 
+zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>setTextColor(&quot;color&quot;, [&quot;name&quot;])
+
+Sets the text color of the text frame &quot;name&quot; to the color &quot;color&quot;. If there
+is some text selected only the selected text is changed. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation>setTextColor(&quot;kolor&quot;, [&quot;nazwa&quot;])
+
+Przypisuje tekstowi w ramce tekstowej &quot;nazwa&quot; kolor &quot;kolor&quot;. Jeśli ramka zawiera 
+zaznaczony tekst, zostanie zmieniony tylko ten tekst. Jeśli &quot;nazwa&quot; nie zostanie 
+podana, zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
+
+Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>setTextStroke(&quot;kolor&quot;, [&quot;nazwa&quot;])
+
+Przypisuje &quot;kolor&quot; obrysu tekstu. Jeśli &quot;nazwa&quot; nie zostanie 
+podana, zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>setTextShade(shade, [&quot;name&quot;])
+
+Sets the shading of the text color of the object &quot;name&quot; to &quot;shade&quot;. If
+there is some text selected only the selected text is changed. &quot;shade&quot; must
+be an integer value in the range from 0 (lightest) to 100 (full color
+intensity). If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation>setTextShade(cieniowanie, [&quot;nazwa&quot;])
+
+Przypisuje cieniowanie koloru tekstu w ramce &quot;nazwa&quot; wartość &quot;cieniowanie&quot;.
+Jeśli ramka zawiera zaznaczony tekst, zostanie zmieniony tylko ten tekst.
+&quot;cieniowaie&quot; musi być liczbą całkowitą w zakresio od 0 (najjaśniejsze) od 100 
+(pełna intensywność koloru). Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie 
+użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
+
+Link two text frames. The frame named &quot;fromname&quot; is linked to the
+frame named &quot;toname&quot;. The target frame must be an empty text frame
+and must not link to or be linked from any other frames already.
+
+May throw ScribusException if linking rules are violated.
+</source>
+        <translation>linkTextFrames(&quot;nazwa_od&quot;, &quot;nazwa_do&quot;)
+
+Łączy dwie ramki tekstowe. Ramka &quot;nazwa_od&quot; połączona zostanie z ramką
+&quot;nazwa_do&quot;. Ramka docelowa musi być pustą ramką tekstową i nie może 
+być połączona z żadną inną ramką tekstową.
+
+Może zwrócić błąd ScribusException, jeśli ograniczenia dotyczące łączenia ramek nie zostaną dotrzymane.</translation>
+    </message>
+    <message>
+        <source>unlinkTextFrames(&quot;name&quot;)
+
+Remove the specified (named) object from the text frame flow/linkage. If the
+frame was in the middle of a chain, the previous and next frames will be
+connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unlinkTextFrames(b)&apos;
+
+May throw ScribusException if linking rules are violated.
+</source>
+        <translation>unlinkTextFrames(&quot;nazwa&quot;)
+
+Usuń obiekt &quot;nazwa&quot; z połączonych ramek tekstowych. Jeśli ramka
+znajduje się w środku łańcucha połączonych ramek, poprzednia i następna ramka zostaną 
+ze zobą połączone. tzn.  &apos;a-&gt;b-&gt;c&apos; zmieni się w &apos;a-&gt;c&apos;, jeśli wykonasz unlinkTextFrames(b)&apos;
+
+Może zwrócić błąd ScribusException, jeśli ograniczenia dotyczące łączenia ramek nie zostaną dotrzymane.</translation>
+    </message>
+    <message>
+        <source>traceText([&quot;name&quot;])
+
+Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
+currently selected item is used.</source>
+        <translation>traceText([&quot;nazwa&quot;])
+
+Zamienia ramkę tekstową &quot;nazwa&quot; na krzywe. Jeśli &quot;nazwa&quot; nie 
+zostanie podana, zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>getColor(&quot;name&quot;) -&gt; tuple
+
+Returns a tuple (C, M, Y, K) containing the four color components of the
+color &quot;name&quot; from the current document. If no document is open, returns
+the value of the named color from the default document colors.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>getColor(&quot;nazwa&quot;) -&gt; tuple
+
+Zwraca krotkę (C, M, Y, K) zawierającą cztery składowe koloru &quot;nazwa&quot; w aktualnym dokumencie.
+Jeśli nie jest otwarty żaden dokument, zwraca wartość koloru o tej nazwie z domyślnych kolorów.
+
+Może zwrócić błąd NotFoundError, jeśli nazwa koloru nie zostanie znaleziona.
+Może zwrócić błąd ValueError, jeśli zostanie podana błędna nazwa koloru.</translation>
+    </message>
+    <message>
+        <source>changeColor(&quot;name&quot;, c, m, y, k)
+
+Changes the color &quot;name&quot; to the specified CMYK value. The color value is
+defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
+Color components should be in the range from 0 to 255.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>changeColor(&quot;nazwa&quot;, c, m, y, k)
+
+Zmienia kolor &quot;nazwa&quot; na podaną wartość CMYK. Wartość koloru definiuje się
+za pomocą czterech komponentów c = Cyjan, m = Madżenta, y = Żółty i k = Czarny.
+Komponetu koloru powinny mieścić się w zakresie od 0 do 255.
+
+Może zwrócić błąd NotFoundError, jeśli nazwa koloru nie zostanie znaleziona.
+Może zwrócić błąd ValueError, jeśli zostanie podana błędna nazwa koloru.</translation>
+    </message>
+    <message>
+        <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
+
+Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
+color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
+&quot;None&quot; - transparent.
+
+deleteColor works on the default document colors if there is no document open.
+In that case, &quot;replace&quot;, if specified, has no effect.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>deleteColor(&quot;nazwa&quot;, &quot;nowy&quot;)
+
+Usuwa kolor &quot;nazwa&quot;. Każde wystąpienie tego koloru zastąpione zostanie
+kolorem &quot;nowy&quot;. Jeśli kolor &quot;nowy&quot; nie zostanie podany, użyty zostanie 
+kolor &quot;None&quot; czyli przezroczystość.
+
+deleteColor zastępuje domyślne kolory, jeśli nie jest otwarty żaden dokument.
+W takim przypadku, kolor &quot;nowy&quot; nie zostanie uwzględniony.
+
+Może zwrócić błąd NotFoundError, jeśli nazwa koloru nie zostanie znaleziona.
+Może zwrócić błąd ValueError, jeśli zostanie podana błędna nazwa koloru.</translation>
+    </message>
+    <message>
+        <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
+
+Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>replaceColor(&quot;nazwa&quot;, &quot;nowy&quot;)
+
+Każde wystąpienie koloru &quot;nazwa&quot; zastąpione zostanie kolorem &quot;nowy&quot;.
+
+Może zwrócić błąd NotFoundError, jeśli nazwa koloru nie zostanie znaleziona.
+Może zwrócić błąd ValueError, jeśli zostanie podana błędna nazwa koloru.</translation>
+    </message>
+    <message>
+        <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; string with filename
+
+Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
+with the filter string &quot;filter&quot;. A default filename or file path can also
+supplied, leave this string empty when you don&apos;t want to use it.  A value of
+True for haspreview enables a small preview widget in the FileSelect box.  When
+the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
+otherwise it acts like a &quot;File Open Dialog&quot;. The default for both of the
+opional parameters is False.
+
+The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.
+For example &apos;Images (*.png *.xpm *.jpg)&apos;.
+
+Refer to the Qt-Documentation for QFileDialog for details on filters.
+
+Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
+Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
+</source>
+        <translation>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; łańcuch z nazwą pliku
+
+Wyświetla okienko dialogowe &quot;Otwórz plik&quot; z nagłówkiem &quot;caption&quot;. Pliki filtrowane są
+według łańcucha &quot;filter&quot;. Można również podać domyślną nazwę pliku lub ścieżkę - jeśli nie chcesz 
+używać tego parametru, pozostaw pusty łancuch. Wartość &quot;haspreview&quot; równa True włącza mały 
+okienko podglądu wewnątrz okienka Wybierz Plik. Jeśli parametr &quot;issave&quot; równa się True, dialog 
+będzie się zachowywał jak dialog &quot;Zapisz jako&quot;, w innym przypadku zachowa się jak dialog &quot;Otwórz plik&quot;. 
+Domyślne ustawienie dla obu opcjonalnych parametrów to False.
+
+Filtr &quot;filter&quot;, jeśli zostanie podany, przybiera formę &apos;komentarz (*.typ *.typ2 ...)&apos;,
+przykładowo &apos;Obrazki (*.png *.xpm *.jpg)&apos;.
+
+Zobacz opis dialogu QFileDialog w dokumentacji QT, aby poznać dalsze szczegóły na temat filtrów.
+
+Przykład: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
+Przykład: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)</translation>
+    </message>
+    <message>
+        <source>messageBox(&quot;caption&quot;, &quot;message&quot;,
+    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
+    button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer
+
+Displays a message box with the title &quot;caption&quot;, the message &quot;message&quot;, and
+an icon &quot;icon&quot; and up to 3 buttons. By default no icon is used and a single
+button, OK, is displayed. Only the caption and message arguments are required,
+though setting an icon and appropriate button(s) is strongly
+recommended. The message text may contain simple HTML-like markup.
+
+Returns the number of the button the user pressed. Button numbers start
+at 1.
+
+For the icon and the button parameters there are predefined constants available
+with the same names as in the Qt Documentation. These are the BUTTON_* and
+ICON_* constants defined in the module. There are also two extra constants that
+can be binary-ORed with button constants:
+    BUTTONOPT_DEFAULT   Pressing enter presses this button.
+    BUTTONOPT_ESCAPE    Pressing escape presses this button.
+
+Usage examples:
+result = messageBox(&apos;Script failed&apos;,
+                    &apos;This script only works when you have a text frame selected.&apos;,
+                    ICON_ERROR)
+result = messageBox(&apos;Monkeys!&apos;, &apos;Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;&apos;,
+                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
+                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
+
+Defined button and icon constants:
+BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
+BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
+ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
+</source>
+        <translation>messageBox(&quot;caption&quot;, &quot;message&quot;,
+    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
+    button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer
+
+Wyświetla okienko z tytułem &quot;caption&quot;, z informacją &quot;message&quot;, ikoną &quot;icon&quot;
+ oraz maksymalnie 3 przyciskami. Domyślnie okienko wyświetla się bez ikony i jednym 
+przyciskiem OK. Wymagane są jedynie argumenty &quot;caption&quot; i &quot;message&quot;, chociaż 
+podanie ikony i odpowiedniego przycisku jest bardzo zalecane. Argument &quot;message&quot;
+może zawierać proste formatowanie HTML.
+
+Zwraca numer przycisku naciśniętego przez użytkownika. Numery przycisków 
+zaczynają się od 1.
+
+Parametry ikony i przycisku są predefiniowanymi stałymi opisanymi pod tymi samymi
+nazwami w dokumentacji QT. Są to stałe  BUTTON_* i ICON_*  zdefiniowane w tym module.
+Są również dwie specjalne stałe które mogą być binary-ORed ze stałymi przycisków:
+    BUTTONOPT_DEFAULT   Wciśnięcie enter wciska ten przycisk.
+    BUTTONOPT_ESCAPE    Wciśnięcie escape wciska ten przycisk.
+
+Przykłady użycia:
+wynik = messageBox(&apos;Skrypt przerwał działanie&apos;,
+                    &apos;Ten skrypt działa tylko wtedy, kiedy zostanie zaznaczona ramka tekstowa.&apos;,
+                    ICON_ERROR)
+wynik = messageBox(&apos;Małpy!&apos;, &apos;Coś poszło nie tak! &lt;i&gt;Czy to była małpa?&lt;/i&gt;&apos;,
+                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
+                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
+
+Zdefiniowane stałe przycisków i ikon:
+BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
+BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
+ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/></translation>
+    </message>
+    <message>
+        <source>valueDialog(caption, message [,defaultvalue]) -&gt; string
+
+Shows the common &apos;Ask for string&apos; dialog and returns its value as a string
+Parameters: window title, text in the window and optional &apos;default&apos; value.
+
+Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)
+</source>
+        <translation>valueDialog(caption, message [,defaultvalue]) -&gt; string
+
+Wyświetla zwykły dialog zapytania o łańcuch znaków i zwraca jego wartość jako łańcuch.
+Parametry: tytuł okna, tekst w oknie i &apos;opcjonalna&apos; domyślna wartość.
+
+Przykład: valueDialog(&apos;tytuł&apos;, &apos;tekst w oknie&apos;, &apos;opcjonalna&apos;)</translation>
+    </message>
+    <message>
+        <source>closeDoc()
+
+Closes the current document without prompting to save.
+
+May throw NoDocOpenError if there is no document to close
+</source>
+        <translation>closeDoc()
+
+Zamyka aktualny dokument bez zapytania o potwierdzenie.
+
+Może zwrócić błąd NoDocOpenError, jeśli żaden dokument nie będzie otwarty</translation>
+    </message>
+    <message>
+        <source>haveDoc() -&gt; bool
+
+Returns true if there is a document open.
+</source>
+        <translation>haveDoc() -&gt; bool
+
+Zwraca true, jeśli znajdzie otwarty dokument.</translation>
+    </message>
+    <message>
+        <source>openDoc(&quot;name&quot;)
+
+Opens the document &quot;name&quot;.
+
+May raise ScribusError if the document could not be opened.
+</source>
+        <translation>openDoc(&quot;nazwa&quot;)
+
+Otwiera dokument &quot;nazwa&quot;.
+
+Może zwrócić błąd ScribusError, jeśli nie będzie mógł otworzyć dokumentu.</translation>
+    </message>
+    <message>
+        <source>saveDoc()
+
+Saves the current document with its current name, returns true if successful.
+If the document has not already been saved, this may bring up an interactive
+save file dialog.
+
+If the save fails, there is currently no way to tell.
+</source>
+        <translation>saveDoc()
+
+Zapisuje aktualny dokument pod jego aktualną nazwą, zwraca true jeśli zapis się powiedzie.
+Jeśli dokument jeszcze nie został zapisany, może wyświetlić dialog zapisywania pliku.
+
+Aktualnie nie ma możliwości pokazania, czy zapis się powiódł.</translation>
+    </message>
+    <message>
+        <source>saveDocAs(&quot;name&quot;)
+
+Saves the current document under the new name &quot;name&quot; (which may be a full or
+relative path).
+
+May raise ScribusError if the save fails.
+</source>
+        <translation>saveDocAs(&quot;nazwa&quot;)
+
+Zapisuje aktualny dokument pod nową nazwą &quot;nazwa&quot; 
+(która może być bezwględną lub względną ścieżką)
+
+Może zwrócić błąd ScribusError, jeśli zapis się nie powiedzie.</translation>
+    </message>
+    <message>
+        <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation>saveDocAs(&quot;autor&quot;, &quot;info&quot;, &quot;opis&quot;) -&gt; bool
+
+Przypisuje informacje o dokumencie.  &quot;Autor&quot;, &quot;Info&quot;, &quot;Opis&quot; 
+to łańcuchy znaków.</translation>
+    </message>
+    <message>
+        <source>setMargins(lr, rr, tr, br)
+
+Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
+margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
+constants.
+</source>
+        <translation>setMargins(lr, rr, tr, br)
+
+Ustawia marginesy dokumentu: Lewy(lr), Prawy(rr), Górny(tr) i Dolny(br),
+które podane są w jednostkach miar dokumentu - zobacz stałe UNIT_&lt;type&gt;.</translation>
+    </message>
+    <message>
+        <source>setUnit(type)
+
+Changes the measurement unit of the document. Possible values for &quot;unit&quot; are
+defined as constants UNIT_&lt;type&gt;.
+
+May raise ValueError if an invalid unit is passed.
+</source>
+        <translation>setUnit(typ)
+
+Zmienia jednostkę miary dokumentu. Możliwe wartości &quot;typu&quot; 
+są zdefiniowane jako stałe UNIT_&lt;type&gt;.
+
+Może zwrócić błąd ValueError, jeśli podana zostanie błędna jednostka.</translation>
+    </message>
+    <message>
+        <source>getUnit() -&gt; integer (Scribus unit constant)
+
+Returns the measurement units of the document. The returned value will be one
+of the UNIT_* constants:
+UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+</source>
+        <translation>getUnit() -&gt; integer (stała jednostki Scribusa)
+
+Zwraca jednostki miar dokumentu. Zwrócona wartość będzie jedną
+ze stałych UNIT_* :
+UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</translation>
+    </message>
+    <message>
+        <source>loadStylesFromFile(&quot;filename&quot;)
+
+Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
+current document.
+</source>
+        <translation>loadStylesFromFile(&quot;nazwa_pliku&quot;)
+
+Wczytuje style akapitów z dokumentu Scribusa &quot;nazwa_pliku&quot; do aktualnego dokumentu.</translation>
+    </message>
+    <message>
+        <source>setDocType(facingPages, firstPageLeft)
+
+Sets the document type. To get facing pages set the first parameter to
+FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
+to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
+a right page use FIRSTPAGERIGHT.
+</source>
+        <translation>setDocType(strony_widzące_się, pierwsza_strona_po_lewej)
+
+Ustawia typ dokumentu. Aby uzyskać strony widzące się, podaj jako pierwszy parametr
+FACINGPAGES, aby wyłączyć strony widzące się podaj NOFACINGPAGES. Jeśli chcesz,
+aby pierwsza strona była po lewej stronie, jako drugi parametr podaj FIRSTPAGELEFT, 
+w innym przypadku podaj FIRSTPAGERIGHT.</translation>
+    </message>
+    <message>
+        <source>getLineColor([&quot;name&quot;]) -&gt; string
+
+Returns the name of the line color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getLineColor([&quot;nazwa&quot;]) -&gt; string
+
+Zwraca nazwę koloru linii objektu &quot;nazwa&quot;. Jeśli &quot;nazwa&quot; 
+nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>getLineWidth([&quot;name&quot;]) -&gt; integer
+
+Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation>getLineWidth([&quot;nazwa&quot;]) -&gt; integer
+
+Zwraca grubość linii obiektu &quot;nazwa&quot;. Jeśli &quot;nazwa&quot; nie zostanie podana, 
+zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>getLineShade([&quot;name&quot;]) -&gt; integer
+
+Returns the shading value of the line color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getLineShade([&quot;nazwa&quot;]) -&gt; integer
+
+Zwraca wartość cieniowania koloru linii obiektu &quot;nazwa&quot;. Jeśli &quot;nazwa&quot; nie zostanie podana, 
+zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see contants)
+
+Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
+the currently selected item is used.  The join types are:
+JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
+</source>
+        <translation>getLineJoin([&quot;nazwa&quot;]) -&gt; integer (zobacz stałe)
+
+Zwraca styl połączenia linii obiektu &quot;nazwa&quot;. Jeśli &quot;nazwa&quot; nie zostanie podana, 
+zostanie użyty aktualnie zaznaczony obiekt. Są następujące typy połączeń linii:
+JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND</translation>
+    </message>
+    <message>
+        <source>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
+
+Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; is not given the
+currently selected item is used. The cap types are:
+CAP_FLAT, CAP_ROUND, CAP_SQUARE
+</source>
+        <translation>getLineEnd([&quot;nazwa&quot;]) -&gt; integer (zobacz stałe)
+
+Zwraca styl zakończenia linii obiektu &quot;nazwa&quot;. Jeśli &quot;nazwa&quot; nie zostanie podana, 
+zostanie użyty aktualnie zaznaczony obiekt. Są następujące typy zakończeń:
+CAP_FLAT, CAP_ROUND, CAP_SQUARE</translation>
+    </message>
+    <message>
+        <source>getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
+
+Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is not given the
+currently selected item is used. Line style constants are:
+LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
+</source>
+        <translation>getLineStyle([&quot;name&quot;]) -&gt; integer (zobacz stałe)
+
+Zwraca styl linii obiektu &quot;nazwa&quot;. Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie 
+użyty aktualnie zaznaczony obiekt. Stałe stylu linii to:
+LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
+    </message>
+    <message>
+        <source>getFillShade([&quot;name&quot;]) -&gt; integer
+
+Returns the shading value of the fill color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getFillShade([&quot;nazwa&quot;]) -&gt; integer
+
+Zwraca wartość cieniowania koloru wypełnienia obiektu &quot;nazwa&quot;.
+Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>getImageScale([&quot;name&quot;]) -&gt; (x,y)
+
+Returns a (x, y) tuple containing the scaling values of the image frame
+&quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getImageScale([&quot;nazwa&quot;]) -&gt; (x,y)
+
+Zwraca krotkę (x, y) zawierającą wartości skalowania ramki graficznej &quot;nazwa&quot;.
+Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>getImageName([&quot;name&quot;]) -&gt; string
+
+Returns the filename for the image in the image frame. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation>getImageName([&quot;nazwa&quot;]) -&gt; string
+
+Zwraca nazwę pliku dla obrazka w ramce graficznej &quot;nazwa&quot;. Jeśli &quot;nazwa&quot; 
+nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>getSize([&quot;name&quot;]) -&gt; (width,height)
+
+Returns a (width, height) tuple with the size of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used. The size is
+expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
+for reference.
+</source>
+        <translation>getSize([&quot;nazwa&quot;]) -&gt; (szerokość,wysokość)
+
+Zwraca krotkę  (szerokość, wysokość) z rozmiarami obiektu &quot;nazwa&quot;.
+Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie użyty aktualnie zaznaczony 
+obiekt. Rozmiar podany jest w aktualnych jednostkach miary dokumentu.
+Zobacz stałe UNIT_&lt;type&gt;.</translation>
+    </message>
+    <message>
+        <source>getRotation([&quot;name&quot;]) -&gt; integer
+
+Returns the rotation of the object &quot;name&quot;. The value is expressed in degrees,
+and clockwise is positive. If &quot;name&quot; is not given the currently selected item
+is used.
+</source>
+        <translation>getRotation([&quot;nazwa&quot;]) -&gt; integer
+
+Zwraca obrót obiektu &quot;nazwa&quot;. Wartość obrotu wyrażona jest w stopniach, obrót zgodny 
+z ruchem wskazówek zegara ma wartość dodatnią.Jeśli &quot;nazwa&quot; nie zostanie podana, 
+zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>getAllObjects() -&gt; list
+
+Returns a list containing the names of all objects on the current page.
+</source>
+        <translation>getAllObjects() -&gt; list
+
+Zwraca listę zawierającą nazwy wszystkich obiektów na aktualnej stronie.</translation>
+    </message>
+    <message>
+        <source>moveObjectAbs(x, y [, &quot;name&quot;])
+
+Moves the object &quot;name&quot; to a new location. The coordinates are expressed in
+the current measurement unit of the document (see UNIT constants).  If &quot;name&quot;
+is not given the currently selected item is used.  If the object &quot;name&quot;
+belongs to a group, the whole group is moved.
+</source>
+        <translation>moveObjectAbs(x, y [, &quot;name&quot;])
+
+Przesuwa obiekt &quot;nazwa&quot; na nową pozycję. Współrzędne pozycji wyrażone są
+w aktualnych jednostkach miary dokumentu (zobacz stałe UNIT). Jeśli &quot;nazwa&quot; 
+nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt. Jeśli obiekt 
+&quot;nazwa&quot; należy do grupy, zostanie przesunięta cała grupa.</translation>
+    </message>
+    <message>
+        <source>rotateObject(rot [, &quot;name&quot;])
+
+Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
+rotated by the vertex that is currently selected as the rotation point - by
+default, the top left vertext at zero rotation. Positive values mean counter
+clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation>rotateObject(obrót [, &quot;nazwa&quot;])
+
+Obraca obiekt &quot;nazwa&quot; względnie o &quot;obrót&quot; stopni. Obiekt obracany jest wokół
+punktu, który jest aktualnie wybrany jako środek obrotu - domyślnie środkiem 
+jest górny lewy róg przy zerowym obrocie. Wartości dodatnie oznaczają ruch 
+przeciwny do ruchu wskazówek zegara, jeśli używany jest domyśny środek obrotu.
+Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>sizeObject(width, height [, &quot;name&quot;])
+
+Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
+is not given the currently selected item is used.
+</source>
+        <translation>sizeObject(szerokość, wysokość [, &quot;nazwa&quot;])
+
+Zmienia rozmiar obiektu &quot;nazwa&quot; na podaną szerokość i wysokość. 
+Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>getSelectedObject([nr]) -&gt; string
+
+Returns the name of the selected object. &quot;nr&quot; if given indicates the number
+of the selected object, e.g. 0 means the first selected object, 1 means the
+second selected Object and so on.
+</source>
+        <translation>getSelectedObject([nr]) -&gt; string
+
+Zwraca nazwę zaznaczonego obiektu. Jeśli podany zostanie &quot;nr&quot;, oznacza on numer
+zaznaczonego obiektu, tzn. 0 oznacza pierwszy wybrany obiekt, 1 drugi obiekt itd.</translation>
+    </message>
+    <message>
+        <source>selectionCount() -&gt; integer
+
+Returns the number of selected objects.
+</source>
+        <translation>selectionCount() -&gt; integer
+
+Zwraca ilość zaznaczonych obiektów.</translation>
+    </message>
+    <message>
+        <source>selectObject(&quot;name&quot;)
+
+Selects the object with the given &quot;name&quot;.
+</source>
+        <translation>selectObject(&quot;nazwa&quot;)
+
+Zaznacza obiekt &quot;nazwa&quot;.</translation>
+    </message>
+    <message>
+        <source>deselectAll()
+
+Deselects all objects in the whole document.
+</source>
+        <translation>deselectAll()
+
+Usuwa zaznaczenie obiektu nazwa.</translation>
+    </message>
+    <message>
+        <source>groupObjects(list)
+
+Groups the objects named in &quot;list&quot; together. &quot;list&quot; must contain the names
+of the objects to be grouped. If &quot;list&quot; is not given the currently selected
+items are used.
+</source>
+        <translation>groupObjects(list)
+
+Grupuje obiekty podane w liście &quot;list&quot;. Parametr &quot;list&quot; musi zawierać nazwy
+obiektów, które mają być zgrupowane. Jeśli lista nie zostanie podana, zostaną 
+użyte aktualnie zaznaczone obiekty.</translation>
+    </message>
+    <message>
+        <source>unGroupObjects(&quot;name&quot;)
+
+Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</source>
+        <translation>unGroupObjects(&quot;nazwa&quot;)
+
+Znosi grupę, do której należy obiekt &quot;nazwa&quot;. Jeśli &quot;nazwa&quot; 
+nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>scaleGroup(factor [,&quot;name&quot;])
+
+Scales the group the object &quot;name&quot; belongs to. Values greater than 1 enlarge
+the group, values smaller than 1 make the group smaller e.g a value of 0.5
+scales the group to 50 % of its original size, a value of 1.5 scales the group
+to 150 % of its original size.  The value for &quot;factor&quot; must be greater than
+0. If &quot;name&quot; is not given the currently selected item is used.
+
+May raise ValueError if an invalid scale factor is passed.
+</source>
+        <translation>scaleGroup(wsp [,&quot;nazwa&quot;])
+
+Skaluje grupę, do której należy obiekt &quot;nazwa&quot;. Wartości większe niż 1 powiększają grupę,
+wartości mniejsze niż 1 zmniejszają ją, np. wartość 0,5 skaluje grupę do 50% jej oryginalnego
+rozmiaru, wartość 1,5 skaluje grupę do 150% oryginalnego rozmiaru. Wartość współczynnika 
+&quot;wsp&quot; musi być większa niż 0. Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie użyty aktualnie 
+zaznaczony obiekt.
+
+Może zwrócić błąd ValueError, jeśli zostanie podany błędny współczynnik.</translation>
+    </message>
+    <message>
+        <source>loadImage(&quot;filename&quot; [, &quot;name&quot;])
+
+Loads the picture &quot;picture&quot; into the image frame &quot;name&quot;. If &quot;name&quot; is
+not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not an image frame
+</source>
+        <translation>loadImage(&quot;nazwa_pliku&quot; [, &quot;nazwa&quot;])
+
+Wczytuje obrazek &quot;nazwa_pliku&quot; do ramki graficznej &quot;nazwa&quot;. Jeśli &quot;nazwa&quot; nie 
+zostanie podana, zostanie użyty aktualnie zaznaczony obiekt.
+
+Może zwrócić błąd May raise WrongFrameTypeError, jeśli ramka docelowa nie jest ramką graficzną</translation>
+    </message>
+    <message>
+        <source>scaleImage(x, y [, &quot;name&quot;])
+
+Sets the scaling factors of the picture in the image frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used. A number of 1
+means 100 %.
+
+May raise WrongFrameTypeError if the target frame is not an image frame
+</source>
+        <translation>scaleImage(x, y [, &quot;nazwa&quot;])
+
+Przypisuje współczynniki skalowania obrazkowi w ramce graficznej &quot;nazwa&quot;. Jeśli &quot;nazwa&quot; 
+nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt. Liczba 1 oznacza 100%.
+
+Może zwrócić błąd WrongFrameTypeError, jeśli ramka docelowa nie jest ramką graficzną</translation>
+    </message>
+    <message>
+        <source>lockObject([&quot;name&quot;]) -&gt; bool
+
+Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;s locked.
+If &quot;name&quot; is not given the currently selected item is used. Returns true
+if locked.
+</source>
+        <translation>lockObject([&quot;nazwa&quot;]) -&gt; bool
+
+Zabezpiecza obiekt &quot;nazwa&quot;, jeśli nie jest zabezpieczony bądź odbezpiecza go,
+jeśli jest zabezpieczony. Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie 
+użyty aktualnie zaznaczony obiekt. Zwraca true, jeśli obiekt jest zabezpieczony. </translation>
+    </message>
+    <message>
+        <source>isLocked([&quot;name&quot;]) -&gt; bool
+
+Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation>isLocked([&quot;nazwa&quot;]) -&gt; bool
+
+Zwraca true, jeśli obiekt &quot;nazwa&quot; jest zabezpieczony. Jeśli &quot;nazwa&quot; 
+nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>getFontNames() -&gt; list
+
+Returns a list with the names of all available fonts.
+</source>
+        <translation>getFontNames() -&gt; list
+
+Zwraca listę z nazwami wszystkich dostępnych czcionek.</translation>
+    </message>
+    <message>
+        <source>getXFontNames() -&gt; list of tuples
+
+Returns a larger font info. It&apos;s a list of the tuples with:
+[ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
+</source>
+        <translation>getXFontNames() -&gt; list of tuples
+
+Zwraca obszerną informację o czcionkach. Jest to lista krotek zawierająca:
+[ (nazwę w Scribusie, rodzinę, prawdziwą nazwę, podzbiór (1|0), zagnieźdź w PS (1|0), plik czcionki), (...), ... ]</translation>
+    </message>
+    <message>
+        <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
+
+Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
+Image is saved into &quot;filename&quot;. Returns true when success.
+
+May raise NotFoundError if the specified font can&apos;t be found.
+May raise ValueError if an empty sample or filename is passed.
+</source>
+        <translation>rendeFont(&quot;nazwa&quot;, &quot;nazwa_pliku&quot;, &quot;wzór&quot;, rozmiar) -&gt; bool
+
+Tworzy obrazek z podglądem czcionki &quot;nazwa&quot; z podanym &quot;wzorem&quot; tekstu 
+i w podanym rozmiarze. Obrazek zapisywany jest w pliku &quot;nazwa_pliku&quot;. 
+Zwraca true w przypadku powodzenia.
+
+Może zwrócić błąd NotFoundError, jeśli wymieniona czcionka nie zostanie znaleziona.
+Może zwrócić błąd ValueError, jeśli zostanie przekazany pusty parametr &quot;wzór&quot; lub &quot;nazwa_pliku&quot;.</translation>
+    </message>
+    <message>
+        <source>getLayers() -&gt; list
+
+Returns a list with the names of all defined layers.
+</source>
+        <translation>getLayers() -&gt; list
+
+Zwraca listę nazw wszystkich zdefiniowanych warstw.</translation>
+    </message>
+    <message>
+        <source>setActiveLayer(&quot;name&quot;)
+
+Sets the active layer to the layer named &quot;name&quot;.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>setActiveLayer(&quot;nazwa&quot;)
+
+Ustawia warstę &quot;nazwa&quot; jako aktywną wartstwę.
+
+Może zwrócić błąd NotFoundError, jeśli warstwa nie zostanie znaleziona.
+Może zwrócić błąd ValueError, jeśli nazwa wartwy jest niedopuszczalna.</translation>
+    </message>
+    <message>
+        <source>getActiveLayer() -&gt; string
+
+Returns the name of the current active layer.
+</source>
+        <translation>getActiveLayer() -&gt; string
+
+Zwraca nazwę aktualnej warstwy.</translation>
+    </message>
+    <message>
+        <source>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
+
+Sends the object &quot;name&quot; to the layer &quot;layer&quot;. The layer must exist.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>sentToLayer(&quot;warstwa&quot; [, &quot;nazwa&quot;])
+
+Przenosi obiekt &quot;nazwa&quot; do warstwy &quot;warstwa&quot;. Warstwa ta musi istnieć.
+Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie  użyty aktualnie zaznaczony obiekt.
+
+Może zwrócić błąd NotFoundError, jeśli warsta nie zostanie znaleziona.
+Może zwrócić błąd ValueError, jeśli nazwa jest niedopuszczalna.</translation>
+    </message>
+    <message>
+        <source>setLayerVisible(&quot;layer&quot;, visible)
+
+Sets the layer &quot;layer&quot; to be visible or not. If is the visible set to false
+the layer is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>setLayerVisible(&quot;warstwa&quot;, widoczna)
+
+Zmienia widoczność warstwy &quot;warstwa&quot; na widoczną lub nie. 
+Jeśli widoczność ma wartość false, warstwa będzie niewidoczna.
+
+Może zwrócić błąd NotFoundError, jeśli warstwa nie zostanie znaleziona.
+Może zwrócić błąd ValueError, jeśli nazwa warstwy jest niedopuszczalna. </translation>
+    </message>
+    <message>
+        <source>setLayerPrintable(&quot;layer&quot;, printable)
+
+Sets the layer &quot;layer&quot; to be printable or not. If is the printable set to
+false the layer won&apos;t be printed.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>setLayerPrintable(&quot;warstwa&quot;, drukowalna)
+
+Przypisuje warstwie &quot;warstwa&quot; parametr &quot;drukowalna&quot;. Jeśli &quot;drukowalna&quot; 
+ma wartość false, wastwa nie będzie drukowana.
+
+Może zwrócić błąd NotFoundError, jeśli warstwa nie zostanie znaleziona.
+Może zwrócić błąd ValueError, jeśli nazwa warstwy jest niedopuszczalna.</translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns wether the Layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>isLayerPrintable(&quot;warstwa&quot;) -&gt; bool
+
+Zwraca informację, czy warstwa jest widoczna. Wartość True oznacza, że warstwa
+jest widoczna, wartość False oznacza niewidoczność warstwy.
+
+Może zwrócić błąd NotFoundError, jeśli warstwa nie zostanie znaleziona.
+Może zwrócić błąd ValueError, jeśli nazwa warstwy jest niedopuszczalna. </translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns wether the layer &quot;layer&quot; is printable or not, a value of True means
+that the layer &quot;layer&quot; can be printed, a value of False means that printing
+the layer &quot;layer&quot; is disabled.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>isLayerPrintable(&quot;warstwa&quot;) -&gt; bool
+
+Zwraca informację, czy warstwa jest drukowalna. Wartość True oznacza, że warstwa
+może być drukowana, wartość False oznacza, że druk warstwy jest wyłączony.
+
+Może zwrócić błąd NotFoundError, jeśli warstwa nie zostanie znaleziona.
+Może zwrócić błąd ValueError, jeśli nazwa warstwy jest niedopuszczalna. </translation>
+    </message>
+    <message>
+        <source>deleteLayer(&quot;layer&quot;)
+
+Deletes the layer with the name &quot;layer&quot;. Nothing happens if the layer doesn&apos;t
+exists or if it&apos;s the only layer in the document.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>deleteLayer(&quot;warstwa&quot;)
+
+Usuwa warstwę o nazwie &quot;warstwa&quot;. Nie usuwa nic, jeśli taka warstwa 
+nie istnieje albo jeśli warstwa ta jest jedyną warstwą dokumentu.
+
+Może zwrócić błąd NotFoundError, jeśli warstwa nie zostanie znaleziona.
+Może zwrócić błąd ValueError, jeśli nazwa warstwy jest niedopuszczalna. </translation>
+    </message>
+    <message>
+        <source>createLayer(layer)
+
+Creates a new layer with the name &quot;name&quot;.
+
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>createLayer(warstwa)
+
+Tworzy nową warstwę o nazwie &quot;warstwa&quot;.
+
+Może zwrócić błąd ValueError, jeśli nazwa warstwy jest niedopuszczalna. </translation>
+    </message>
+    <message>
+        <source>getGuiLanguage() -&gt; string
+
+Returns a string with the -lang value.
+</source>
+        <translation>getGuiLanguage() -&gt; string
+
+Zwraca łańcuch z wartością języka interfejsu -lang.</translation>
+    </message>
+    <message>
+        <source>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new ellipse on the current page and returns its name.
+The coordinates are given in the current measurement units of the document
+(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
+because you need this name for further referencing of that object. If &quot;name&quot;
+is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation>createEllipse(x, y, szerokość, wysokość, [&quot;nazwa&quot;]) -&gt; string
+
+Tworzy nową elipsę na aktualnej stronie i zwraca jej nazwę. Współrzędne podaje się
+w aktualnych jednostkach miary dokumentu (zobacz stałe UNIT). &quot;nazwa&quot; powinna 
+być jednoznacznym identyfikatorem obiektu, ponieważ będzie ona potrzebna przy
+późniejszym odnoszeniu się do obiektu. Jeśli &quot;nazwa&quot; nie zostanie podana, Scribus
+sam utworzy taką nazwę.
+
+Może zwrócić błąd NameExistsError, jeśli podana nazwa jest już w użyciu.</translation>
+    </message>
+    <message>
+        <source>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new picture frame on the current page and returns its name. The
+coordinates are given in the current measurement units of the document.
+&quot;name&quot; should be a unique identifier for the object because you need this
+name for further access to that object. If &quot;name&quot; is not given Scribus will
+create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation>createImage(x, y, szerokość, wysokość, [&quot;nazwa&quot;]) -&gt; string
+
+Tworzy nową ramkę graficzną na aktualnej stronie i zwraca jej nazwę. Współrzędne
+podaje się w aktualnych jednostkach miary dokumentu. &quot;nazwa&quot; powinna być
+jednoznacznym identyfikatorem obiektu, ponieważ będzie ona potrzebna aby 
+odnosić się do tego obiektu. Jeśli nazwa nie zostanie podana, Scribus utworzy
+ją automatycznie.
+
+Może zwrócić błąd NameExistsError, jeśli podana nazwa jest już w użyciu.</translation>
+    </message>
+    <message>
+        <source>createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new text frame on the actual page and returns its name.
+The coordinates are given in the actual measurement unit of the document (see
+UNIT constants). &quot;name&quot; should be a unique identifier for the object because
+you need this name for further referencing of that object. If &quot;name&quot; is not
+given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation>createText(x, y, szerokość, wysokość, [&quot;nazwa&quot;]) -&gt; string
+
+Tworzy nową ramkę tekstową na aktualnej stronie i zwraca jej nazwę. Współrzędne 
+podawane są w aktualnej jednostce miary dokumentu (zobacz stałe UNIT). &quot;nazwa&quot; 
+powinna być jednoznacznym identyfikatorem obiektu, ponieważ będzie potrzebna w 
+przyszłości, aby odnosić się do obiektu. Jeśli nazwa nie zostanie podana, Scribus 
+utworzy ją automatycznie.
+
+Może zwrócić błąd NameExistsError, jeśli podana nazwa jest już w użyciu.</translation>
+    </message>
+    <message>
+        <source>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
+
+Creates a new line from the point(x1, y1) to the point(x2, y2) and returns
+its name. The coordinates are given in the current measurement unit of the
+document (see UNIT constants). &quot;name&quot; should be a unique identifier for the
+object because you need this name for further access to that object. If
+&quot;name&quot; is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation>createLine(x1, y1, x2, y2, [&quot;nazwa&quot;]) -&gt; string
+
+Tworzy nową linię od punktu(x1, y1) do punktu(x2, y2) i zwraca jej nazwę.
+Współrzędne podawane są w aktualnej jednostce miary dokumentu (zobacz stałe UNIT). 
+&quot;nazwa&quot;  powinna być jednoznacznym identyfikatorem obiektu, ponieważ będzie potrzebna
+ w przyszłości, aby odnosić się do obiektu. Jeśli nazwa nie zostanie podana, Scribus 
+utworzy ją automatycznie.
+
+Może zwrócić błąd NameExistsError, jeśli podana nazwa jest już w użyciu.</translation>
+    </message>
+    <message>
+        <source>createPolyLine(list, [&quot;name&quot;]) -&gt; string
+
+Creates a new polyline and returns its name. The points for the polyline are
+stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
+The coordinates are given in the current measurement units of the document (see
+UNIT constants). &quot;name&quot; should be a unique identifier for the object because
+you need this name for further access to that object. If &quot;name&quot; is not given
+Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise ValueError if an insufficient number of points is passed or if
+the number of values passed don&apos;t group into points without leftovers.
+</source>
+        <translation>createPolyLine(lista, [&quot;nazwa&quot;]) -&gt; string
+
+Tworzy nową linię łamaną i zwraca jej nazwę. Punkty linii łamanej zapisane 
+są w liście &quot;lista&quot; w następującej kolejności: [x1, y1, x2, y2...xn. yn].
+Współrzędne podawane są w aktualnej jednostce miary dokumentu (zobacz stałe UNIT). 
+&quot;nazwa&quot;  powinna być jednoznacznym identyfikatorem obiektu, ponieważ będzie potrzebna
+ w przyszłości, aby odnosić się do obiektu. Jeśli nazwa nie zostanie podana, Scribus 
+utworzy ją automatycznie.
+
+Może zwrócić błąd NameExistsError, jeśli podana nazwa jest już w użyciu.
+Może zwrócić błąd ValueError, jeśli podana zostanie niewystarczająca ilość
+punktów lub ilość wartości nie da się zgrupować w punkty bez pozostawiania reszty.</translation>
+    </message>
+    <message>
+        <source>createPolygon(list, [&quot;name&quot;]) -&gt; string
+
+Creates a new polygon and returns its name. The points for the polygon are
+stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
+At least three points are required. There is no need to repeat the first point
+to close the polygon. The polygon is automatically closed by connecting the
+first and the last point.  The coordinates are given in the current measurement
+units of the document (see UNIT constants).  &quot;name&quot; should be a unique
+identifier for the object because you need this name for further access to that
+object. If &quot;name&quot; is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise ValueError if an insufficient number of points is passed or if
+the number of values passed don&apos;t group into points without leftovers.
+</source>
+        <translation>createPolygon(lista, [&quot;nazwa&quot;]) -&gt; string
+
+Tworzy nowy wielokąt i zwraca jego nazwę. Creates a new polygon and returns its name. 
+Punkty wielokąta zapisane są w liście &quot;lista&quot; w następującej kolejności: [x1, y1, x2, y2...xn. yn].
+Współrzędne podawane są w aktualnej jednostce miary dokumentu (zobacz stałe UNIT). 
+Wymagane są co najmniej 3 punkty. Nie trzeba powtarzać punktu początkowego., aby zamknąć
+wielokąt. Wielokąt jest zamykany automatycznie przez połączenie pierwszego i ostatniego punktu. 
+Współrzędne podawane są w aktualnej jednostce miary dokumentu (zobacz stałe UNIT). 
+&quot;nazwa&quot;  powinna być jednoznacznym identyfikatorem obiektu, ponieważ będzie potrzebna
+ w przyszłości, aby odnosić się do obiektu. Jeśli nazwa nie zostanie podana, Scribus 
+utworzy ją automatycznie.
+
+Może zwrócić błąd NameExistsError, jeśli podana nazwa jest już w użyciu.
+Może zwrócić błąd ValueError, jeśli podana zostanie niewystarczająca ilość
+punktów lub ilość wartości nie da się zgrupować w punkty bez pozostawiania reszty.</translation>
+    </message>
+    <message>
+        <source>createBezierLine(list, [&quot;name&quot;]) -&gt; string
+
+Creates a new bezier curve and returns its name. The points for the bezier
+curve are stored in the list &quot;list&quot; in the following order:
+[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]
+In the points list, x and y mean the x and y coordinates of the point and kx
+and ky meaning the control point for the curve.  The coordinates are given in
+the current measurement units of the document (see UNIT constants). &quot;name&quot;
+should be a unique identifier for the object because you need this name for
+further access to that object. If &quot;name&quot; is not given Scribus will create one
+for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise ValueError if an insufficient number of points is passed or if
+the number of values passed don&apos;t group into points without leftovers.
+</source>
+        <translation>createBezierLine(lista, [&quot;nazwa&quot;]) -&gt; string
+
+Tworzy nową krzywą Beziera i zwraca jej nazwę. Punkty krzywej Beziera
+zapisane są w liście &quot;lista&quot; w następującej kolejności:
+[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]
+W liście punktów x i y oznaczają współrzędne x i y punktu, a kx i ky 
+oznaczają punkt kontrolny krzywej. Współrzędne podawane są w aktualnej 
+jednostce miary dokumentu (zobacz stałe UNIT).  &quot;nazwa&quot;  powinna być 
+jednoznacznym identyfikatorem obiektu, ponieważ będzie potrzebna w 
+przyszłości, aby odnosić się do obiektu. Jeśli nazwa nie zostanie podana, 
+Scribus utworzy ją automatycznie.
+
+Może zwrócić błąd NameExistsError, jeśli podana nazwa jest już w użyciu.
+Może zwrócić błąd ValueError, jeśli podana zostanie niewystarczająca ilość
+punktów lub ilość wartości nie da się zgrupować w punkty bez pozostawiania reszty.</translation>
+    </message>
+    <message>
+        <source>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
+
+Creates a new pathText by merging the two objects &quot;textbox&quot; and
+&quot;beziercurve&quot; and returns its name. The coordinates are given in the current
+measurement unit of the document (see UNIT constants). &quot;name&quot; should be a
+unique identifier for the object because you need this name for further access
+to that object. If &quot;name&quot; is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise NotFoundError if one or both of the named base object don&apos;t exist.
+</source>
+        <translation>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;nazwa&quot;]) -&gt; string
+
+Tworzy nową krzywą pathText przez połączenie ze sobą obiektu &quot;textbox&quot; i &quot;beziercurve&quot; 
+i zwraca jej nazwę. and returns its name. Współrzędne podawane są w aktualnej 
+jednostce miary dokumentu (zobacz stałe UNIT).  &quot;nazwa&quot;  powinna być 
+jednoznacznym identyfikatorem obiektu, ponieważ będzie potrzebna w 
+przyszłości, aby odnosić się do obiektu. Jeśli nazwa nie zostanie podana, 
+Scribus utworzy ją automatycznie.
+
+Może zwrócić błąd NameExistsError, jeśli podana nazwa jest już w użyciu.
+Może zwrócić błąd ValueError, jeśli podana zostanie niewystarczająca ilość
+punktów lub ilość wartości nie da się zgrupować w punkty bez pozostawiania reszty.</translation>
+    </message>
+    <message>
+        <source>deleteObject([&quot;name&quot;])
+
+Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
+selected item is deleted.
+</source>
+        <translation>deleteObject([&quot;nazwa&quot;])
+
+Usuwa obiekt o nazwie &quot;nazwa&quot;. Jeśli nazwa nie zostanie podana,
+zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>textFlowsAroundFrame(&quot;name&quot; [, state])
+
+Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
+Called with parameters string name and optional boolean &quot;state&quot;. If &quot;state&quot;
+is not passed, text flow is toggled.
+</source>
+        <translation>textFlowsAroundFrame(&quot;nazwa&quot; [, status])
+
+Włącza/wyłącza właściowość &quot;Tekst opływa ramkę&quot; dla obiektu &quot;nazwa&quot;.
+Wywołanie z użyciem parametrów &quot;nazwa&quot; (łańcuch) i opcjonalnego parametru
+&quot;status&quot; (bool). Jeśli &quot;status&quot; nie zostanie podany, opływanie tekstu zostanie 
+przełączone.</translation>
+    </message>
+    <message>
+        <source>objectExists([&quot;name&quot;]) -&gt; bool
+
+Test if an object with specified name really exists in the document.
+The optional parameter is the object name. When no object name is given,
+returns True if there is something selected.
+</source>
+        <translation>objectExists([&quot;nazwa&quot;]) -&gt; bool
+
+Sprawdza, czy obiekt o nazwie &quot;nazwa&quot; istnieje w dokumencie. Parametr &quot;nazwa&quot; 
+jest opcjonalny, jeśli nie zostanie podany, funkcja zwraca True, jeśli znajdzie jakiś 
+zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>setStyle(&quot;style&quot; [, &quot;name&quot;])
+
+Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
+given, it&apos;s applied on the selected object.
+</source>
+        <translation>setStyle(&quot;styl&quot; [, &quot;nazwa&quot;])
+
+Przypisuje &quot;styl&quot; do obiektu &quot;nazwa&quot;. Jeśli nazwa nie zostanie podana,
+styl zostanie przypisany do zaznaczonego obiektu.</translation>
+    </message>
+    <message>
+        <source>getAllStyles() -&gt; list
+
+Return a list of the names of all paragraph styles in the current document.
+</source>
+        <translation>getAllStyles() -&gt; list
+
+Zwraca listę nazw wszystkich stylów akapitu w aktualnym dokumencie.</translation>
+    </message>
+    <message>
+        <source>currentPage() -&gt; integer
+
+Returns the number of the current working page. Page numbers are counted from 1
+upwards, no matter what the displayed first page number of your document is.
+</source>
+        <translation>currentPage() -&gt; integer
+
+Zwraca numer aktualnej strony. Numer stron liczone są od 1 w górę, 
+niezależnie od tego, jaki pierwszy numer wyświetlany jest w dokumencie.</translation>
+    </message>
+    <message>
+        <source>redrawAll()
+
+Redraws all pages.
+</source>
+        <translation>redrawAll()
+
+Aktualizuje wszystkie strony.</translation>
+    </message>
+    <message>
+        <source>savePageAsEPS(&quot;name&quot;)
+
+Saves the current page as an EPS to the file &quot;name&quot;.
+
+May raise ScribusError if the save failed.
+</source>
+        <translation>savePageAsEPS(&quot;nazwa&quot;)
+
+Zapisuje aktualną stronę jako EPS w pliku &quot;nazwa&quot;.
+
+Może zwrócić błąd ScribusError, jest zapis się nie powiedzie.</translation>
+    </message>
+    <message>
+        <source>deletePage(nr)
+
+Deletes the given page. Does nothing if the document contains only one page.
+Page numbers are counted from 1 upwards, no matter what the displayed first
+page number is.
+
+May raise IndexError if the page number is out of range
+</source>
+        <translation>deletePage(nr)
+
+Usuwa podaną stronę. Nie robi nic, jeśli dokument zawiera tylko jedną stronę.
+Numery stron zaczynają się od 1 niezależnie od tego, jaki pierszy numer jest
+wyświetlany w dokumencie.
+
+Może zwrócić błąd IndexError, jeśli numer strony jest poza dopuszczalnym zakresem</translation>
+    </message>
+    <message>
+        <source>gotoPage(nr)
+
+Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
+gotoPage doesn&apos;t (curently) change the page the user&apos;s view is displaying, it
+just sets the page that script commands will operates on.
+
+May raise IndexError if the page number is out of range.
+</source>
+        <translation>gotoPage(nr)
+
+Przesuwa stronę do numeru &quot;nr&quot;  (tzn. przypisuje aktualnej stronie nr &quot;nr&quot;). 
+Zauważ, że gotoPage nie zmienia (aktualnie) strony, która wyświetlana jest
+użytkownikowi, tylko ustala stronę, na której będzie operował skrypt.
+
+Może zwrócić błąd IndexError, jeśli numer strony jest poza dopuszczalnym zakresem.</translation>
+    </message>
+    <message>
+        <source>pageCount() -&gt; integer
+
+Returns the number of pages in the document.
+</source>
+        <translation>pageCount() -&gt; integer
+
+Zwraca ilość stron w dokumencie.</translation>
+    </message>
+    <message>
+        <source>getHGuides() -&gt; list
+
+Returns a list containing positions of the horizontal guides. Values are in the
+document&apos;s current units - see UNIT_&lt;type&gt; constants.
+</source>
+        <translation>getHGuides() -&gt; list
+
+Zwraca listę zawierającą pozycje poziomych linii pomocniczych. Wartości
+podane są w aktualnych jednostkach dokumentu - zobacz stałe UNIT_&lt;type&gt;.</translation>
+    </message>
+    <message>
+        <source>setHGuides(list)
+
+Sets horizontal guides. Input parameter must be a list of guide positions
+measured in the current document units - see UNIT_&lt;type&gt; constants.
+
+Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
+         setHGuides([90,250]) # replace current guides entirely
+</source>
+        <translation>setHGuides(list)
+
+Ustawia poziome linie pomocnicze. Podane parametry muszą być listą pozycji linii
+pomocniczych w aktualnych jednostkach dokumentu - zobacz stałe UNIT_&lt;type&gt;.
+
+Przykład: setHGuides(getHGuides() + [200.0, 210.0] # dodaje nowe linie nie usuwając istniejących
+               setHGuides([90,250]) # całkowicie zastępuje istniejące linie</translation>
+    </message>
+    <message>
+        <source>getVGuides()
+
+See getHGuides.
+</source>
+        <translation>getVGuides()
+
+Zobacz getHGuides.</translation>
+    </message>
+    <message>
+        <source>setVGuides()
+
+See setHGuides.
+</source>
+        <translation>setVGuides()
+
+Zobacz setHGuides.</translation>
+    </message>
+    <message>
+        <source>getPageSize() -&gt; tuple
+
+Returns a tuple with page dimensions measured in the document&apos;s current units.
+See UNIT_&lt;type&gt; constants and getPageMargins()
+</source>
+        <translation>getPageSize() -&gt; tuple
+
+Zwraca krotkę z wymiarami strony w aktualnych jednostkach dokumentu.
+Zobacz stałe UNIT_&lt;type&gt; i getPageMargins()</translation>
+    </message>
+    <message>
+        <source>getPageItems() -&gt; list
+
+Returns a list of tuples with items on the current page. The tuple is:
+(name, objectType, order) E.g. [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)]
+means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at
+the page...
+</source>
+        <translation>getPageItems() -&gt; list
+
+Zwraca listę krotek z obiektami na aktualnej stronie. Składowe krotki to:
+(nazwa, typ_obiektu, kolejność). Np. [(&apos;Tekst1&apos;, 4, 0), (&apos;Obrazek1&apos;, 2, 1)]
+oznacza, że obiekt o nazwie &apos;Tekst1&apos; jest ramką tekstową (typ 4) i jest 
+pierwszy w kolejności na stronie...</translation>
+    </message>
+    <message>
+        <source>getPageMargins()
+
+Returns the page margins as a (left, right, top, bottom) tuple in the current
+units. See UNIT_&lt;type&gt; constants and getPageSize().
+</source>
+        <translation>getPageMargins()
+
+Zwraca marginesy strony jako krotkę (lewy, prawy, górny, dolny) w aktualnych
+jednostkach miary. Zobasz stałe UNIT_&lt;type&gt; i getPageSize().</translation>
+    </message>
+    <message>
+        <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
+
+Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot;. &quot;color&quot;
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation>setFillColor(&quot;kolor&quot;, [&quot;nazwa&quot;])
+
+Przypisuje kolorowi wypełnienia obiektu &quot;nazwa&quot; wartość &quot;kolor&quot;. &quot;kolor&quot; jest
+nazwą jednego ze zdefiniowanych kolorów. Jesli &quot;nazwa&quot; nie zostanie podana,
+zostanie użyty aktualnie zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>setLineColor(&quot;color&quot;, [&quot;name&quot;])
+
+Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
+is not given the currently selected item is used.
+</source>
+        <translation>setLineColor(&quot;kolor&quot;, [&quot;nazwa&quot;])
+
+Przypisuje kolorowi obrysu obiektu &quot;nazwa&quot; wartość &quot;kolor&quot;.Jesli &quot;nazwa&quot; 
+nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt. </translation>
+    </message>
+    <message>
+        <source>setLineWidth(width, [&quot;name&quot;])
+
+Sets line width of the object &quot;name&quot; to &quot;width&quot;. &quot;width&quot; must be in the
+range from 0.0 to 12.0 inclusive, and is measured in points. If &quot;name&quot; is not
+given the currently selected item is used.
+
+May raise ValueError if the line width is out of bounds.
+</source>
+        <translation>setLineWidth(grubuść, [&quot;nazwa&quot;])
+
+Przypisuje grubość linii obiektowi &quot;nazwa&quot;. &quot;grubość&quot; musi mieścić się
+w zakresie od 0.0 do 12.0 włącznie i podawana jest w punktach. Jesli &quot;nazwa&quot; 
+nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt.
+
+Może zwrócić błąd ValueError, jeśli grubość linii będzie poza dozwolonym zakresem.</translation>
+    </message>
+    <message>
+        <source>setLineShade(shade, [&quot;name&quot;])
+
+Sets the shading of the line color of the object &quot;name&quot; to &quot;shade&quot;.
+&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
+(full color intensity). If &quot;name&quot; is not given the currently selected item
+is used.
+
+May raise ValueError if the line shade is out of bounds.
+</source>
+        <translation>setLineShade(cieniowanie, [&quot;nazwa&quot;])
+
+Przypisuje cieniowaniu koloru linii obiektu &quot;nazwa&quot; wartość &quot;cieniowanie&quot;.
+&quot;cieniowanie&quot; musi być liczbą całkowitą w zakresio od 0 (najjaśniejsze) 
+do 100(pełna intensywność koloru). Jesli &quot;nazwa&quot; nie zostanie podana, 
+zostanie użyty aktualnie zaznaczony obiekt.
+
+Może zwrócić błąd ValueError, jeśli cieniowanie będzie poza dozwolonym zakresem.</translation>
+    </message>
+    <message>
+        <source>setLineJoin(join, [&quot;name&quot;])
+
+Sets the line join style of the object &quot;name&quot; to the style &quot;join&quot;.
+If &quot;name&quot; is not given the currently selected item is used. There are
+predefined constants for join - JOIN_&lt;type&gt;.
+</source>
+        <translation>setLineJoin(połączenie, [&quot;nazwa&quot;])
+
+Przypisuje połączeniu linii obiektu &quot;nazwa&quot; styl &quot;połączenie&quot;.  Jesli &quot;nazwa&quot; 
+nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt. Istnieją 
+predefiniowane stałe dla połączeń linii - zobacz stałe JOIN_&lt;type&gt;.</translation>
+    </message>
+    <message>
+        <source>setLineEnd(endtype, [&quot;name&quot;])
+
+Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&quot;.
+If &quot;name&quot; is not given the currently selected item is used. There are
+predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
+</source>
+        <translation>setLineEnd(koniec, [&quot;nazwa&quot;])
+
+Przypisuje zakończeniu linii obiektu &quot;nazwa&quot; styl &quot;koniec&quot;.  Jesli &quot;nazwa&quot; 
+nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt. Istnieją 
+predefiniowane stałe dla zakończeń linii - zobacz stałe CAP_&lt;type&gt;.</translation>
+    </message>
+    <message>
+        <source>setLineStyle(style, [&quot;name&quot;])
+
+Sets the line style of the object &quot;name&quot; to the style &quot;style&quot;. If &quot;name&quot;
+is not given the currently selected item is used. There are predefined
+constants for &quot;style&quot; - LINE_&lt;style&gt;.
+</source>
+        <translation>setLineStyle(styl, [&quot;nazwa&quot;])
+
+Przypisuje stylowi linii obiektu &quot;nazwa&quot; wartość &quot;styl&quot;.Jesli &quot;nazwa&quot; 
+nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt. Istnieją 
+predefiniowane stałe dla stylu linii - zobacz stałe LINE_&lt;type&gt;.</translation>
+    </message>
+    <message>
+        <source>setFillShade(shade, [&quot;name&quot;])
+
+Sets the shading of the fill color of the object &quot;name&quot; to &quot;shade&quot;.
+&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
+(full Color intensity). If &quot;name&quot; is not given the currently selected
+Item is used.
+
+May raise ValueError if the fill shade is out of bounds.
+</source>
+        <translation>setFillShade(cieniowanie, [&quot;nazwa&quot;])
+
+Przypisuje cieniowaniu koloru wypełnienia obiektu &quot;nazwa&quot; wartość &quot;cieniowanie&quot;. 
+&quot;cieniowanie&quot; musi być liczbą całkowitą w zakresie od 0(najjaśniejsze) do 10(pełna
+intensywność koloru). Jesli &quot;nazwa&quot; nie zostanie podana, zostanie użyty aktualnie 
+zaznaczony obiekt.
+
+Może zwrócić błąd ValueError, jeśli cieniowanie będzie poza dozwolonym zakresem.</translation>
+    </message>
+    <message>
+        <source>setCornerRadius(radius, [&quot;name&quot;])
+
+Sets the corner radius of the object &quot;name&quot;. The radius is expressed
+in points. If &quot;name&quot; is not given the currently selected item is used.
+
+May raise ValueError if the corner radius is negative.
+</source>
+        <translation>setCornerRadius(promień, [&quot;nazwa&quot;])
+
+Przypisuje promieniowi zaokrąglenia rogów obiektu &quot;nazwa&quot; wartość &quot;promień&quot;. 
+Promień podawany jest w punktach. Jesli &quot;nazwa&quot; nie zostanie podana, zostanie
+użyty aktualnie zaznaczony obiekt.
+
+Może zwrócić błąd ValueError, jeśli promień będzie ujemny.</translation>
+    </message>
+    <message>
+        <source>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
+
+Sets the line style of the object &quot;name&quot; to the named style &quot;namedStyle&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise NotFoundError if the line style doesn&apos;t exist.
+</source>
+        <translation>setMultiLine(&quot;styl&quot;, [&quot;nazwa&quot;])
+
+Przypisuje stylowi linii obiektu &quot;nazwa&quot; wartość &quot;styl&quot;. Jesli &quot;nazwa&quot; nie zostanie podana, zostanie
+użyty aktualnie zaznaczony obiekt.
+
+Może zwrócić błąd NotFoundError, jeśli styl linii nie istnieje.</translation>
+    </message>
+    <message>
+        <source>progressReset()
+
+Cleans up the Scribus progress bar previous settings. It is called before the
+new progress bar use. See progressSet.
+</source>
+        <translation>progressReset()
+
+Wyzerowuje ustawienia linijki postępu Scribusa. Wywoływany przed użyciem 
+nowej linijki postępu. Zobacz  progressSet.</translation>
+    </message>
+    <message>
+        <source>progressTotal(max)
+
+Sets the progress bar&apos;s maximum steps value to the specified number.
+See progressSet.
+</source>
+        <translation>progressTotal(max)
+
+Przypisuje maksymalnej ilości kroków linijki postępu wartość &quot;max&quot;. 
+Zobacz progressSet.</translation>
+    </message>
+    <message>
+        <source>progressSet(nr)
+
+Set the progress bar position to &quot;nr&quot;, a value relative to the previously set
+progressTotal. The progress bar uses the concept of steps; you give it the
+total number of steps and the number of steps completed so far and it will
+display the percentage of steps that have been completed. You can specify the
+total number of steps with progressTotal(). The current number of steps is set
+with progressSet(). The progress bar can be rewound to the beginning with
+progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
+</source>
+        <translation>progressSet(nr)
+
+Przypisuje pozycji linijki postępu wartość &quot;nr&quot;, będącą wartością względna odnoszącą się 
+do poprzednio przypisanej wartości progressTotal. Linijka postępu robi użytek z koncepcji 
+kroków: podaje się jej całkowitą liczbę kroków i liczbę kroków zakończonych do tego momentu,
+a linijka postępu wyświetli procent zakończonych kroków. Można podać całkowitą liczbę kroków
+używając  progressTotal(). Aktualna ilość kroków przypisywana jest za pomocą progressSet(). 
+Linijka postępu może być przewinięta do początku za pomocą progressReset(). 
+[w oparciu o dokumentację QT firmy Trolltech]</translation>
+    </message>
+    <message>
+        <source>setCursor()
+
+[UNSUPPORTED!] This might break things, so steer clear for now.
+</source>
+        <translation>setCursor()
+
+[BRAK WSPARCIA!] Ta funkcja może doprowadzić do niestabilności, na razie nie używaj jej.</translation>
+    </message>
+    <message>
+        <source>docChanged(bool)
+
+Enable/disable save icon in the Scribus icon bar and the Save menu item. It&apos;s
+useful to call this procedure when you&apos;re changing the document, because Scribus
+won&apos;t automatically notice when you change the document using a script.
+</source>
+        <translation>docChanged(bool)
+
+Włącza/wyłącza ikonę zapisu na pasku ikon Scribusa i punkt menu &quot;Zapisz&quot;. Warto włączyć
+tę procedurę przy zmianie dokumentu, ponieważ Scribus nie zauważy automatycznie, kiedy
+dokument zostanie zmieniony za pomocą skryptu.</translation>
+    </message>
+    <message>
+        <source>defineColor(&quot;name&quot;, c, m, y, k)
+
+Defines a new color &quot;name&quot;. The color Value is defined via four components:
+c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
+the range from 0 to 255.
+
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>defineColor(&quot;nazwa&quot;, c, m, y, k)
+
+Definiuje nowy kolor o nazwie &quot;nazwa&quot;. Wartość koloru definiowana jest za pomocą
+czterech komponentów: c = Cyjan, m = Madżenta, y = Żółty i k = Czarny. Komponentyz
+koloru powinny się zawierać w zakresie od 0 do 255.
+
+Może zwrócić błąd ValueError, jeśli zostanie podana niedopuszczalna nazwa koloru.</translation>
+    </message>
+    <message>
+        <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
+
+Returns the corner radius of the object &quot;name&quot;. The radius is
+expressed in points. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>getCornerRadius([&quot;nazwa&quot;]) -&gt; integer
+
+Zwraca promień zaokrąglenia rogów obiektu &quot;nazwa&quot;. Promień podawany 
+jest w punktach. Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie użyty aktualnie
+zaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
+
+Returns a (x, y) tuple with the position of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+The position is expressed in the actual measurement unit of the document
+- see UNIT_&lt;type&gt; for reference.
+</source>
+        <translation>getPosition([&quot;nazwa&quot;]) -&gt; (x,y)
+
+Zwraca krotkę (x, y) z pozycją obiektu &quot;nazwa&quot;. Jeśli nazwa nie zostanie podana, 
+zostanie użyty aktualnie zaznaczony obiekt. Pozycja wyrażana jest w aktualnych
+jednostkach dokumentu - zobacz również stałe  UNIT_&lt;type&gt;.</translation>
+    </message>
+    <message>
+        <source>rotateObjectAbs(rot [, &quot;name&quot;])
+
+Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
+mean counter clockwise rotation. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>rotateObjectAbs(obrót [, &quot;nazwa&quot;])
+
+Przypisuje obiektowi &quot;nazwa&quot; obrót &quot;obrót&quot;. Wartości dodatnie oznaczają ruch przeciwny
+do ruchu wskazówek zegara. Jeśli nazwa nie zostanie podana, zostanie użyty aktualnie 
+zaznaczony obiekt.</translation>
+    </message>
+</context>
+<context>
     <name>About</name>
     <message>
         <source>About Scribus%1%2</source>
@@ -112,7 +2178,7 @@
  compiled in library support in Scribus
 The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation>Panel ten informuje o numerze wersji, dacie kompilacji
+        <translation type="obsolete">Panel ten informuje o numerze wersji, dacie kompilacji
 oraz wkompilowanej obsłudze bibliotek.
 Symbole C-C-T oznaczają wsparcie dla C=CUPS C=littlecms T=TIFF
 O braku obsługi dla danej biblioteki informuje symbol *</translation>
@@ -203,7 +2269,17 @@ O braku obsługi dla danej biblioteki informuje symbol *</translation>
     </message>
     <message>
         <source>About Scribus %1</source>
-        <translation>O Scribusie %/</translation>
+        <translation>O Scribusie %1</translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Panel ten informuje o numerze wersji, dacie kompilacji
+oraz wkompilowanej obsłudze bibliotek.
+Symbole C-C-T oznaczają wsparcie dla C=littlecms,  C=CUPS i T=TIFF.
+O braku obsługi dla danej biblioteki informuje symbol *</translation>
     </message>
 </context>
 <context>
@@ -407,7 +2483,11 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Align Text Forced Justified</source>
-        <translation>Justuj tekst (z ostatnią linią)</translation>
+        <translation>getLineStyle([&quot;nazwa&quot;]) -&gt; integer (zobacz stałe)
+
+Zwraca styl linii obiektu &quot;nazwa&quot;. Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie 
+użyty aktualnie zaznaczony obiekt. Stałe stylu linii to:
+LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
     </message>
 </context>
 <context>
@@ -4477,6 +6557,18 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <source>O&amp;utside:</source>
         <translation>Na &amp;zewnątrz:</translation>
     </message>
+    <message>
+        <source>Executive</source>
+        <translation>Executive</translation>
+    </message>
+    <message>
+        <source>Folio</source>
+        <translation>Folio</translation>
+    </message>
+    <message>
+        <source>Ledger</source>
+        <translation>Ledger</translation>
+    </message>
 </context>
 <context>
     <name>NewTm</name>
@@ -5373,7 +7465,7 @@ generowania podglądu. Dotyczy to tylko czcionek Type 1</translation>
     <message>
         <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Polepsza wygląd czcionek True Type, Open Type, plików EPS, PDF i  grafik wektorowych 
+        <translation type="obsolete">Polepsza wygląd czcionek True Type, Open Type, plików EPS, PDF i  grafik wektorowych 
 w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</translation>
     </message>
     <message>
@@ -5465,6 +7557,12 @@ lub ciemne odcienie bliskie szarości. Użycie go może poprawić wydruk niektó
 obrazków, jednakże wymaga wykonania wcześniej kilku prób i testów dla każdego
 przypadku.
 UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
+vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation>Polepsza wygląd czcionek True Type i Open Type oraz grafik EPS i PDF 
+w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</translation>
     </message>
 </context>
 <context>
@@ -6858,6 +8956,30 @@ obrazków, jednakże wymaga wykonania wcześniej kilku prób i testów dla każd
 przypadku.
 UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
+    <message>
+        <source>Executive</source>
+        <translation>Executive</translation>
+    </message>
+    <message>
+        <source>Folio</source>
+        <translation>Folio</translation>
+    </message>
+    <message>
+        <source>Ledger</source>
+        <translation>Ledger</translation>
+    </message>
+    <message>
+        <source>Legal</source>
+        <translation>Legal</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation>Letter</translation>
+    </message>
+    <message>
+        <source>Tabloid</source>
+        <translation>Tabloid</translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -7539,7 +9661,7 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>Oook! Wrong arguments! Call: </source>
-        <translation>Uwaga! Niepoprawne argumenty! Wywołaj:</translation>
+        <translation type="obsolete">Uwaga! Niepoprawne argumenty! Wywołaj:</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
@@ -7603,7 +9725,7 @@ Zewnętrzne dowiązania
     </message>
     <message>
         <source>OO.o Writer Documents</source>
-        <translation>Dokumenty w formacie programu OO.o Writer</translation>
+        <translation type="obsolete">Dokumenty w formacie programu OO.o Writer</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -7759,11 +9881,446 @@ Zewnętrzne dowiązania
     </message>
     <message>
         <source>Import &amp;Open Office Draw...</source>
-        <translation>Importuj &amp;Open Office Draw...</translation>
+        <translation type="obsolete">Importuj &amp;Open Office Draw...</translation>
     </message>
     <message>
         <source>Open Office Draw (*.sxd);;All Files (*)</source>
-        <translation>Open Office Draw (*.sxd);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Open Office Draw (*.sxd);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Cannot get font size of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Nie można ustalić rozmiaru czcionki w ramce nietekstowej.</translation>
+    </message>
+    <message>
+        <source>Cannot get font of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Nie można ustalić czcionki w ramce nietekstowej.</translation>
+    </message>
+    <message>
+        <source>Cannot get text size of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Nie można ustalić rozmiaru tekstu w ramce nietekstowej.</translation>
+    </message>
+    <message>
+        <source>Cannot get column count of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Nie można ustalić liczby szpalt w ramce nietekstowej.</translation>
+    </message>
+    <message>
+        <source>Cannot get line space of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Nie można ustalić interlinii w ramce nietekstowej.</translation>
+    </message>
+    <message>
+        <source>Cannot get column gap of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Nie można ustalić odstępu między szpaltami w ramce nietekstowej.</translation>
+    </message>
+    <message>
+        <source>Cannot get text of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Nie można pobrać tekstu z ramki nietekstowej.</translation>
+    </message>
+    <message>
+        <source>Cannot set text of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Nie można wstawić tekstu do ramki nietekstowej.</translation>
+    </message>
+    <message>
+        <source>Cannot insert text into non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Nie można wstawić tekstu do ramki nietekstowej.</translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds</source>
+        <comment>python error</comment>
+        <translation>Wstawianie indeksu poza dozwononym zakresem</translation>
+    </message>
+    <message>
+        <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
+        <comment>python error</comment>
+        <translation>Wyrównanie poza zakresem. Zastosuj jedną ze stałych scribus.ALIGN*.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text alignment on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Nie można przypisać wyrównania tekstu do ramki nietekstowej</translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
+        <comment>python error</comment>
+        <translation>Rozmiar czcionki poza dozwolonym zakresem - powinno być 1 &lt;= rozmiar &lt;= 512</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set font size on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Nie można przypisać rozmiaru czcionki do ramki nietekstowej</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set font on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Nie można przypisać czcionki do ramki nietekstowej</translation>
+    </message>
+    <message>
+        <source>Font not found</source>
+        <comment>python error</comment>
+        <translation>Nie znaleziono czcionki</translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1</source>
+        <comment>python error</comment>
+        <translation>Interlinia poza dozwolonym zakresem, powinna być  &gt;= 0.1</translation>
+    </message>
+    <message>
+        <source>Can&apos;t line spacing on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Nie można przypisać interlinii w ramce nietekstowej</translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive</source>
+        <comment>python error</comment>
+        <translation>Odstęp pomiędzy szpaltami poza dozwolonym zakresem, wartość powinna być dodatnia</translation>
+    </message>
+    <message>
+        <source>Can&apos;t column gap on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Nie można przypisać odstępu między szpaltami w ramce nietekstowej</translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1</source>
+        <comment>python error</comment>
+        <translation>Liczba szpalt poza dozwolonym zakresem, powinna być  &gt; 1</translation>
+    </message>
+    <message>
+        <source>Can&apos;t number of columns on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Nie można przypisać ilości szpalt w ramce nietekstowej</translation>
+    </message>
+    <message>
+        <source>Selection index out of bounds</source>
+        <comment>python error</comment>
+        <translation>Indeks zaznaczenia poza dozwolonym zakresem</translation>
+    </message>
+    <message>
+        <source>Can&apos;t select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Nie można wybrać tekstu w ramce nietekstowej</translation>
+    </message>
+    <message>
+        <source>Can&apos;t delete text from a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Nie można usunąć tekstu w ramce nietekstowej</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text fill on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Nie można przypisać wypełnienia tekstu w ramce nietekstowej</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text stroke on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Nie można przypisać obrysu tekst w ramce nietekstowej</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text shade on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Nie można przypisać cieniowania tekstu w ramce nietekstowej</translation>
+    </message>
+    <message>
+        <source>Can only link text frames</source>
+        <comment>python error</comment>
+        <translation>Można tylko połączyć ramki tekstowe</translation>
+    </message>
+    <message>
+        <source>Target frame must be empty</source>
+        <comment>python error</comment>
+        <translation>Ramka docelowa musi być pusta</translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame</source>
+        <comment>python error</comment>
+        <translation>Ramka docelowa jest połączona z inną ramką</translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame</source>
+        <comment>python error</comment>
+        <translation>Ramka docelowa jest przyłączona do innej ramki</translation>
+    </message>
+    <message>
+        <source>Source and target are the same object</source>
+        <comment>python error</comment>
+        <translation>Źródło i cel są tym samym obiektem</translation>
+    </message>
+    <message>
+        <source>Can&apos;t unlink a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Nie można odłączyć ramki nietekstowej</translation>
+    </message>
+    <message>
+        <source>Object is not a linked text frame, can&apos;t unlink.</source>
+        <comment>python error</comment>
+        <translation>Obiekt nie jest ramką tekstową, nie można połączyć.</translation>
+    </message>
+    <message>
+        <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
+        <comment>python error</comment>
+        <translation>Obiekt jest ostatnią ramką w kolejności, nie można rozłączyć. Zamiast tego odłącz poprzednią ramkę. </translation>
+    </message>
+    <message>
+        <source>Can&apos;t convert a non-text frame to outlines</source>
+        <comment>python error</comment>
+        <translation>Nie można zamienić ramki nietekstowej na krzywe</translation>
+    </message>
+    <message>
+        <source>Failed to open document</source>
+        <comment>python error</comment>
+        <translation>Nie udało się otworzyć dokumentu</translation>
+    </message>
+    <message>
+        <source>Failed to save document</source>
+        <comment>python error</comment>
+        <translation>Nie udało się zapisać dokumentu</translation>
+    </message>
+    <message>
+        <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
+        <comment>python error</comment>
+        <translation>Jednostka spoza dozwolonego zakresu. Proszę użyć jednej ze stałych scribus.UNIT_*.</translation>
+    </message>
+    <message>
+        <source>Target is not an image frame.</source>
+        <comment>python error</comment>
+        <translation>Obiekt docelowy nie jest ramką graficzną.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t scale by 0%</source>
+        <comment>python error</comment>
+        <translation>Nie można skalować do 0%</translation>
+    </message>
+    <message>
+        <source>Can&apos;t render an empty sample</source>
+        <comment>python error</comment>
+        <translation>Niemożliwy rendering pustej próbki</translation>
+    </message>
+    <message>
+        <source>Can&apos;t save to a blank filename</source>
+        <comment>python error</comment>
+        <translation>Niemożliwy zapis do pustej nazwy pliku</translation>
+    </message>
+    <message>
+        <source>Can&apos;t have an empty layer name</source>
+        <comment>python error</comment>
+        <translation>Niedopuszczalna pusta nazwa warstwy</translation>
+    </message>
+    <message>
+        <source>Layer not found</source>
+        <comment>python error</comment>
+        <translation>Nie znaleziono warstwy</translation>
+    </message>
+    <message>
+        <source>Can&apos;t remove the last layer</source>
+        <comment>python error</comment>
+        <translation>Nie można usunąć ostatniej warstwy</translation>
+    </message>
+    <message>
+        <source>Can&apos;t create layer without a name</source>
+        <comment>python error</comment>
+        <translation>Nie można utworzyć wartswy bez nazwy</translation>
+    </message>
+    <message>
+        <source>An object with the requested name already exists</source>
+        <comment>python error</comment>
+        <translation>Obiekt o wybranej nazwie już istnieje</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least two points (four values)</source>
+        <comment>python error</comment>
+        <translation>Lista punktowa musi zawierać co najmniej dwa punkty (cztery wartości)</translation>
+    </message>
+    <message>
+        <source>Point list must contain an even number of values</source>
+        <comment>python error</comment>
+        <translation>Lista punktowa musi zawierać parzystą liczbę wartości</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least three points (six values)</source>
+        <comment>python error</comment>
+        <translation>Lista punktowa musi zawierać przynajmniej trzy punkty (sześć wartości)</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least four points (eight values)</source>
+        <comment>python error</comment>
+        <translation>Lista punktowa musi zawierać co najmniej cztery punkty (osiem wartości)</translation>
+    </message>
+    <message>
+        <source>Point list must have a multiple of six values</source>
+        <comment>python error</comment>
+        <translation>Lista punktowa musi zawierać wielokrotność sześciu wartości</translation>
+    </message>
+    <message>
+        <source>Object not found</source>
+        <comment>python error</comment>
+        <translation>Nie znaleziono obiektu</translation>
+    </message>
+    <message>
+        <source>Style not found</source>
+        <comment>python error</comment>
+        <translation>Nie znaleziono stylu</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set style on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Nie można przypisać stylu do ramki nietekstowej</translation>
+    </message>
+    <message>
+        <source>Failed to save EPS</source>
+        <comment>python error</comment>
+        <translation>Zapis EPS nie powiódł się</translation>
+    </message>
+    <message>
+        <source>Page number out of range</source>
+        <comment>python error</comment>
+        <translation>Numer strony poza dozwolonym zakresem</translation>
+    </message>
+    <message>
+        <source>argument is not list: must be list of float values</source>
+        <comment>python error</comment>
+        <translation>argument nie jest listą: musi być listą wartości typu zmiennoprzecinkowego</translation>
+    </message>
+    <message>
+        <source>argument contains non-numeric values: must be list of float values</source>
+        <comment>python error</comment>
+        <translation>argument zawiera wartości nienumeryczne: musi być listą wartości typu zmiennoprzecinkowego</translation>
+    </message>
+    <message>
+        <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
+        <comment>python error</comment>
+        <translation>Długość linii poza dopuszczalnym zakresem, powinno być &lt;= długość linii &lt;= 12</translation>
+    </message>
+    <message>
+        <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
+        <comment>python error</comment>
+        <translation>Cieniowanie linii poza dopuszczalnym zakresem, powinno być  0 &lt;= cieniowanie &lt;= 100</translation>
+    </message>
+    <message>
+        <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
+        <comment>python error</comment>
+        <translation>Cieniowanie wypełnienia poza dopuszczalnym zakresem, powinno być 0 &lt;= cieniowanie &lt;= 100</translation>
+    </message>
+    <message>
+        <source>Corner radius must be a positive number.</source>
+        <comment>python error</comment>
+        <translation>Promień zaokrąglenia rogu musi być liczbą dodatnią.</translation>
+    </message>
+    <message>
+        <source>Line style not found</source>
+        <comment>python error</comment>
+        <translation>Nie znaleziono stylu linii</translation>
+    </message>
+    <message>
+        <source>Cannot get a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>Nie można znaleźć koloru o pustej nazwie.</translation>
+    </message>
+    <message>
+        <source>Color not found</source>
+        <comment>python error</comment>
+        <translation>Nie znaleziono koloru</translation>
+    </message>
+    <message>
+        <source>Cannot change a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>Nie można zmienić koloru o pustej nazwie.</translation>
+    </message>
+    <message>
+        <source>Color not found in document</source>
+        <comment>python error</comment>
+        <translation>W dokumencie nie znaleziono koloru</translation>
+    </message>
+    <message>
+        <source>Color not found in default colors</source>
+        <comment>python error</comment>
+        <translation>Nie znaleziono koloru w domyślnych kolorach</translation>
+    </message>
+    <message>
+        <source>Cannot create a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>Nie mogę utworzyć koloru o pustej nazwie.</translation>
+    </message>
+    <message>
+        <source>Cannot delete a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>Nie mogę usunąć koloru o pustej nazwie.</translation>
+    </message>
+    <message>
+        <source>Cannot replace a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>Nie mogę zastąpić koloru o pustej nazwie.</translation>
+    </message>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation>Importuj &amp;OpenOffice.org Draw...</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation>OpenOffice.org Draw (*.sxd);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Documents</source>
+        <translation>Dokumenty OpenOffice.org Writer</translation>
+    </message>
+    <message>
+        <source>Scribus Python interface module
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
+<byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
+<byte value="x9"/><byte value="x9"/>function is documented individually below.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
+<byte value="x9"/><byte value="x9"/>a string - they are not real Python objects. Many functions take an
+<byte value="x9"/><byte value="x9"/>optional (non-keyword) parameter, a frame name.
+<byte value="x9"/><byte value="x9"/>Many exceptions are also common across most functions. These are
+<byte value="x9"/><byte value="x9"/>not currently documented in the docstring for each function.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
+<byte value="x9"/><byte value="x9"/>      without a document to operate on.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
+<byte value="x9"/><byte value="x9"/>      the function will use the currently selected frame, if any, or
+<byte value="x9"/><byte value="x9"/>      raise a NoValidObjectError if it can&apos;t find anything to operate
+<byte value="x9"/><byte value="x9"/>      on.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
+<byte value="x9"/><byte value="x9"/>      on a frame type that they do not make sense with. For example, setting
+<byte value="x9"/><byte value="x9"/>      the text colour on a graphics frame doesn&apos;t make sense, and will result
+<byte value="x9"/><byte value="x9"/>      in this exception being raised.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
+<byte value="x9"/><byte value="x9"/>      passed through unaltered. As such, the list of exceptions thrown by
+<byte value="x9"/><byte value="x9"/>      any function as provided here and in its docstring is incomplete.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
+<byte value="x9"/><byte value="x9"/>function&apos;s documentation.
+<byte value="x9"/><byte value="x9"/></source>
+        <translation>
+<byte value="x9"/>
+<byte value="x9"/>Moduł interfejsu Pythona dla Scribusa
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Moduł niniejszy jest interfejsem Pythona dla Scribusa. Udostępnia on funkcje
+<byte value="x9"/><byte value="x9"/>umożliwiające kontrolę Scribusa i manipulowanie obiektami w obszarze roboczym. Każdej
+<byte value="x9"/><byte value="x9"/>funkcji poświęcono poniżej oddzielny opis.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Parę rzeczy jest wspólnych dla prawie całego interfejsu.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Większość funkcji operuje na ramkach. Ramki identyfikowane są na podstawie ich nazwy,
+<byte value="x9"/><byte value="x9"/>łańcucha tekstowego - nie są one prawdziwymi obiektami Pythona. Wiele funkcji wymaga opcjonalnego
+<byte value="x9"/><byte value="x9"/>(nie kluczowego) parametru, nazwy ramki.
+<byte value="x9"/><byte value="x9"/>Wiele wyjątków jest również wspólnych dla większości funkcji. Nie są one
+<byte value="x9"/><byte value="x9"/>na razie udokumentowane w opisach poszczególnych funkcji.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Wiele funkcji zwróci błąd NoDocOpenError, jeśli użyjesz ich
+<byte value="x9"/><byte value="x9"/>      bez podania dokumentu, którego dotyczy operacja.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Jeśli nie przekażesz nazwy ramki do funkcji, która jej wymaga,
+<byte value="x9"/><byte value="x9"/>      funkcja ta użyje aktualnie zaznaczonej ramki, jeśli taką znajdzie, albo
+<byte value="x9"/><byte value="x9"/>      zwróci błąd NoValidObjectError, jeśli nie znajdzie niczego, czego może dotyczyć operacja.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Wiele funkcji zwróci błąd WrongFrameTypeError, jeśli użyjesz ich do operacji
+<byte value="x9"/><byte value="x9"/>      na rodzaju ramki, dla którego funkce te nie są przeznaczone. Na przykład, przypisanie
+<byte value="x9"/><byte value="x9"/>      koloru tekstu do ramki graficznej nie ma żadnego sensu i zakończy się zwróceniem
+<byte value="x9"/><byte value="x9"/>      tego błędu.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Błędy zwracane przez API Pythona będą przekazywane
+<byte value="x9"/><byte value="x9"/>      bez zmian. Jako taka, lista wyjątków zwracanych przez poszczególne funkcje
+<byte value="x9"/><byte value="x9"/>      opisana tutaj oraz w opisach funkcji jest niekompletna.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Szczegóły na temat tego, jakie wyjątki zwraca każda funkcja dostępne są w dokumentacji funkcji.<byte value="x9"/></translation>
     </message>
 </context>
 <context>
@@ -9311,6 +11868,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <source>Afrikaans</source>
         <translation>Afrykanerski</translation>
     </message>
+    <message>
+        <source>Font System Initialized</source>
+        <translation>Inicjalizacja systemu czcionek</translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -9497,6 +12058,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>&amp;Close</source>
         <translation>&amp;Zamknij</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation>W&amp;yczyść</translation>
     </message>
 </context>
 <context>
@@ -9897,7 +12462,7 @@ przeciągnij szablon na widok strony na dole.</translation>
     <name>SxwDialog</name>
     <message>
         <source>OO.o Writer Importer Options</source>
-        <translation>Ustawienia importu z OO.o Writera</translation>
+        <translation type="obsolete">Ustawienia importu z OO.o Writera</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
@@ -9919,7 +12484,7 @@ przeciągnij szablon na widok strony na dole.</translation>
         <source>Should the importer always use currently
 set value when importing OO.o document and
 never ask your confirmation again</source>
-        <translation>Włącza domyślne używanie aktualnych ustawień
+        <translation type="obsolete">Włącza domyślne używanie aktualnych ustawień
 w trakcie importu dokumentów OO.o i wyłącza 
 pytanie o potwierdzenie przez użytkownika</translation>
     </message>
@@ -9935,6 +12500,18 @@ OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
         <translation>Zmień właściwości istniejącego stylu akapitu w Scribusie, 
 jeśli w dokumencie OO.o Writera pojawi się styl o tej samej nazwie</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Importer Options</source>
+        <translation>Opcje importera z formatu OpenOffice.org Writer</translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OpenOffice.org document and
+never ask your confirmation again</source>
+        <translation>Czy importer ma używać wybranej aktualnie wartości
+w trakcie importu dokumentów OpenOffice.org i
+nie pytać już więcej o potwierdzenie</translation>
     </message>
 </context>
 <context>
@@ -10016,7 +12593,11 @@ jeśli w dokumencie OO.o Writera pojawi się styl o tej samej nazwie</translatio
     </message>
     <message>
         <source>Ind&amp;ent:</source>
-        <translation>&amp;Wcięcie:</translation>
+        <translation type="obsolete">&amp;Wcięcie:</translation>
+    </message>
+    <message>
+        <source>Left Ind&amp;ent:</source>
+        <translation>W&amp;cięcie z lewej:</translation>
     </message>
 </context>
 <context>

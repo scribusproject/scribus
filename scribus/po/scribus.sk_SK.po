@@ -1,6 +1,4 @@
-# Slovak translation of 
-# Slovak translation of
-# Slovak translation of
+# translation of scribus.sk_SK.po to Slovak
 # translation of scribus to Slovak
 # This is a Qt message file in .po format.  Each msgid starts with
 # a scope.  This scope should *NOT* be translated - eg. "Foo::Bar"
@@ -10,27 +8,1906 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: scribus.sk_SK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-01 13:06+0100\n"
-"PO-Revision-Date: 23.08.2004 19:41\n"
+"POT-Creation-Date: 2004-12-22 14:28+0100\n"
+"PO-Revision-Date: 2004-12-19 22:54+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
-"Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
+"Language-Team: Slovak <<sk-i18n@lists.linux.sk>>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3\n"
+"X-Generator: KBabel 1.3.1\n"
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "Distances"
+msgstr "Vzdialenosti"
+
+msgid "X1:"
+msgstr "X1:"
+
+msgid "Y1:"
+msgstr "Y1:"
+
+msgid "X2:"
+msgstr "X2:"
+
+msgid "Y2:"
+msgstr "Y2:"
+
+msgid "DX:"
+msgstr "DX:"
+
+msgid "DY:"
+msgstr "DY:"
+
+msgid "Angle:"
+msgstr "Uhol:"
+
+msgid "Length:"
+msgstr "Dĺžka:"
+
+msgid " pt"
+msgstr " pt"
+
+msgid " mm"
+msgstr " mm"
+
+msgid " in"
+msgstr " in"
+
+msgid " p"
+msgstr " p"
+
+msgid "All Supported Formats"
+msgstr "Všetky podporované formáty"
+
+msgid "All Files (*)"
+msgstr "Všetky súbory (*)"
+
+msgid "Global Font Settings"
+msgstr "Globálne nastavenia písma"
+
+msgid "Available Fonts"
+msgstr "Dostupné písma"
+
+msgid "Font Substitutions"
+msgstr "Substitúcia písem"
+
+msgid "Additional Paths"
+msgstr "Dodatočné cesty"
+
+msgid "Postscript"
+msgstr "Postscript"
+
+msgid "Yes"
+msgstr "Áno"
+
+msgid "Font Name"
+msgstr "Názov písma"
+
+msgid "Use Font"
+msgstr "Použiť písmo"
+
+msgid "Embed in:"
+msgstr "Vložiť do:"
+
+msgid "Subset"
+msgstr "Podmnožina"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Path to Font File"
+msgstr "Cesta k súborom písma"
+
+msgid "&Available Fonts"
+msgstr "Dostupné písm&a"
+
+msgid "Replacement"
+msgstr "Náhrada"
+
+msgid "&Delete"
+msgstr "&Odstrániť"
+
+msgid "Font &Substitutions"
+msgstr "&Substitúcia písem"
+
+msgid "C&hange..."
+msgstr "&Zmeniť..."
+
+msgid "A&dd..."
+msgstr "&Pridať..."
+
+msgid "&Remove"
+msgstr "&Odstrániť"
+
+msgid "Additional &Paths"
+msgstr "&Dodatočné cesty"
+
+msgid "&OK"
+msgstr "&OK"
+
+msgid "&Cancel"
+msgstr "&Zrušiť"
+
+msgid "Choose a Directory"
+msgstr "Vybrať priečinok"
+
+msgid "Outline"
+msgstr "Prehľad"
+
+msgid "Element"
+msgstr "Prvok"
+
+msgid "Information"
+msgstr "Informácie"
+
+msgid "Warning"
+msgstr "Varovanie"
+
+msgid ""
+"Name \"%1\" isn't unique.\n"
+"Please choose another."
+msgstr ""
+"Názov \"%1\" nie je jedinečný.\n"
+"Vyberte si, prosím, iný."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "X:"
+msgstr "X:"
+
+msgid "Y:"
+msgstr "Y:"
+
+msgid "Font:"
+msgstr "Písmo:"
+
+msgid "Group "
+msgstr "Zoskupiť "
+
+msgid "Image"
+msgstr "Obrázok"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Line"
+msgstr "Čiara"
+
+msgid "Polygon"
+msgstr "Mnohouholník"
+
+msgid "Polyline"
+msgstr "Lomená čiara"
+
+msgid "PathText"
+msgstr "Text na cestu"
+
+msgid "Page"
+msgstr "Strana"
+
+msgid "Font %1 is broken, discarding it"
+msgstr "Písmo %1 je poškodené, odkladám ho"
+
+msgid "Left"
+msgstr "Vľavo"
+
+msgid "Right"
+msgstr "Vpravo"
+
+msgid "Full Stop"
+msgstr "Bodka"
+
+msgid "Comma"
+msgstr "Čiarka"
+
+msgid "Center"
+msgstr "Na stred"
+
+msgid "&Position:"
+msgstr "&Pozícia:"
+
+msgid "First &Line:"
+msgstr "Prvý r&iadok:"
+
+msgid "Left Ind&ent:"
+msgstr "Ľ&avé zarovnanie:"
+
+msgid "Delete All"
+msgstr "Odstrániť všetko"
+
+msgid "Indentation for first line of the paragraph"
+msgstr "Odsadenie pre prvý riadok odseku"
+
+msgid "Indentation from the left for the whole paragraph"
+msgstr "Odsadenie zľava pre celý odsek"
+
+msgid "Delete all Tabulators"
+msgstr "Odstrániť všetky tabulátory"
+
+msgid "Document"
+msgstr "Dokument"
+
+msgid "Background"
+msgstr "Pozadie"
+
+msgid "Nodes"
+msgstr "Uzly"
+
+msgid "&Absolute Coordinates"
+msgstr "&Absolútne súradnice"
+
+msgid "&X-Pos:"
+msgstr "&X-Poz:"
+
+msgid "&Y-Pos:"
+msgstr "&Y-Poz:"
+
+msgid "Edit &Contour Line"
+msgstr "Upraviť vrstevni&cu"
+
+msgid "&Reset Contour Line"
+msgstr "Vynulovať v&rstevnicu"
+
+msgid "&End Editing"
+msgstr "&Koniec úprav"
+
+msgid "Move Nodes"
+msgstr "Presunúť uzly"
+
+msgid "Move Control Points"
+msgstr "Presunúť riadiace body"
+
+msgid "Add Nodes"
+msgstr "Pridať uzly"
+
+msgid "Delete Nodes"
+msgstr "Odstrániť uzly"
+
+msgid "Move Control Points Independently"
+msgstr "Presúvať riadiace body nezávislo"
+
+msgid "Move Control Points Symmetrical"
+msgstr "Presúvať riadiace body symetricky"
+
+msgid "Reset Control Points"
+msgstr "Vynulovať riadiace body"
+
+msgid "Reset this Control Point"
+msgstr "Vynulovať tento riadiaci bod"
+
+msgid "Open a Polygon or Cuts a Bezier Curve"
+msgstr "Otvorí polygón alebo oreže Bézierovú krivku"
+
+msgid "Close this Bezier Curve"
+msgstr "Uzavrie túto Bézierovú krivku"
+
+msgid "Mirror the Path Horizontally"
+msgstr "Horizontálne zrkadliť cestu"
+
+msgid "Mirror the Path Vertically"
+msgstr "Vertikálne zrkadliť cestu"
+
+msgid "Shear the Path Horizontally to the Right"
+msgstr "Uvoľniť horizontálu doprava"
+
+msgid "Shear the Path Horizontally to the Left"
+msgstr "Uvoľniť horizontálu doľava"
+
+msgid "Shear the Path Vertically Up"
+msgstr "Uvoľniť vertikálu hore"
+
+msgid "Shear the Path Vertically Down"
+msgstr "Uvoľniť vertikálu dole"
+
+msgid "Rotate the Path Counter-Clockwise"
+msgstr "Rotácia v smere hodinových ručičiek"
+
+msgid "Rotate the Path Clockwise"
+msgstr "Rotácia proti smeru hodinových ručičiek"
+
+msgid "Reduce the Size of the Path by shown %"
+msgstr "Zmenšiť o zobrazené %"
+
+msgid "Enlarge the Size of the Path by shown %"
+msgstr "Zväčšiť o zobrazené %"
+
+msgid "Angle of Rotation"
+msgstr "Uhol otočenia"
+
+#, c-format
+msgid "% to Enlarge or Reduce By"
+msgstr "% zväčšenia alebo zmenšenia"
+
+msgid "Activate Contour Line Editing Mode"
+msgstr "Aktivuje režim úprav vrstevnice"
+
+msgid "Reset the Contour Line to the Original Shape of the Frame"
+msgstr "Vrátiť vrstevnicu do pôvodného tvaru rámu"
+
+msgid ""
+"When checked use Coordinates relative to the Page,\n"
+"otherwise Coordinates are relative to the Object."
+msgstr ""
+"Keď je označené, súradnice sú relatívne vzhľadom k strane,\n"
+"v opačnom prípade sú relatívne k objektu."
+
+msgid "Apply Template"
+msgstr "Použiť šablónu"
+
+msgid "&Template:"
+msgstr "Ša&blóna:"
+
+msgid "Normal"
+msgstr "Normálna"
+
+msgid "Apply to &Current Page"
+msgstr "Použiť na a&ktuálnu stranu"
+
+msgid "Apply to all &even Pages"
+msgstr "Použiť na párn&e strany"
+
+msgid "Apply to all &odd Pages"
+msgstr "P&oužiť na nepárne strany"
+
+msgid "Apply from &Page:"
+msgstr "Použiť od &strany:"
+
+msgid "To:"
+msgstr "Do:"
+
+msgid "Printer Options"
+msgstr "Možnosti tlačiarne"
+
+msgid "Page Set"
+msgstr "Nastavenie strany"
+
+msgid "All Pages"
+msgstr "Všetky strany"
+
+msgid "Even Pages only"
+msgstr "Iba párne strany"
+
+msgid "Odd Pages only"
+msgstr "Iba nepárne strany"
+
+msgid "Mirror"
+msgstr "Zrkadlo"
+
+msgid "No"
+msgstr "Nie"
+
+msgid "Orientation"
+msgstr "Orientácia"
+
+msgid "Portrait"
+msgstr "Na výšku"
+
+msgid "Landscape"
+msgstr "Na šírku"
+
+msgid "N-Up Printing"
+msgstr "N-Up tlač"
+
+msgid "Page per Sheet"
+msgstr "Strana na list"
+
+msgid "Pages per Sheet"
+msgstr "Strany na liste"
+
+msgid "Option"
+msgstr "Voľba"
+
+msgid "Value"
+msgstr "Hodnota"
+
+msgid ""
+"This panel displays various CUPS options when printing. \n"
+"The exact parameters available will depend on your printer driver.\n"
+"You can confirm CUPS support by selecting Help > About.\n"
+"Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF "
+"support.\n"
+"Missing library support is indicated by a *"
+msgstr ""
+"Tento panel zobrazuje rôzne CUPS nastavená počas tlače.\n"
+"Dostupnosť jednotlivých parametrov závisí na ovládači vašej tlačiarne.\n"
+"Podpory CUPS zistíte v ponuke Pomocník > O Scribuse.\n"
+"Text: C-C-T znamená podporu C-CUPS, C-littlecms a T-Tiff.\n"
+"Chýbajúce knižnice sú zobrazené ako *"
+
+msgid "Move Pages"
+msgstr "Presunúť strany"
+
+msgid "Copy Page"
+msgstr "Kopírovať stránku"
+
+msgid "Move Page(s):"
+msgstr "Presun strán:"
+
+msgid "to:"
+msgstr "po:"
+
+msgid "before Page"
+msgstr "pred stranu"
+
+msgid "after Page"
+msgstr "za stranu"
+
+msgid "at End"
+msgstr "na koniec"
+
+msgid "Manage Tabulators"
+msgstr "Správa tabulátorov"
+
+msgid " %"
+msgstr " %"
+
+msgid "Layer"
+msgstr "Vrstva"
+
+msgid "pt"
+msgstr "pt"
+
+msgid "mm"
+msgstr "mm"
+
+msgid "in"
+msgstr "in"
+
+msgid "p"
+msgstr "p"
+
+msgid "All"
+msgstr "Všetky"
+
+msgid "Copy Here"
+msgstr "Kopírovať sem"
+
+msgid "Move Here"
+msgstr "Sem presunúť"
+
+msgid "Cancel"
+msgstr "Zrušiť"
+
+msgid "&Paste"
+msgstr "V&ložiť"
+
+msgid "Show &Margins"
+msgstr "Zobraziť o&kraje"
+
+msgid "Show &Frames"
+msgstr "Zobraziť &rámy"
+
+msgid "Show &Images"
+msgstr "Ukázať &obrázky"
+
+msgid "Show &Grid"
+msgstr "Zobraziť m&riežku"
+
+msgid "Show G&uides"
+msgstr "Zobraziť &vodítka"
+
+msgid "Show &Baseline Grid"
+msgstr "Zo&braziť pomocnú mriežku"
+
+msgid "Sn&ap to Grid"
+msgstr "Priti&ahnuť k mriežke"
+
+msgid "Sna&p to Guides"
+msgstr "&Pritiahnuť k vodítkam"
+
+msgid "Picture"
+msgstr "Obrázok"
+
+msgid "File: "
+msgstr "Súbor: "
+
+msgid "Original PPI: "
+msgstr "Pôvodné PPI"
+
+msgid "Actual PPI: "
+msgstr "Aktuálne PPI: "
+
+msgid "Linked Text"
+msgstr "Prepojený text"
+
+msgid "Text Frame"
+msgstr "Textový rám"
+
+msgid "Text on a Path"
+msgstr "Text na cestu"
+
+msgid "Paragraphs: "
+msgstr "Odseky"
+
+msgid "Words: "
+msgstr "Slová:"
+
+msgid "Chars: "
+msgstr "Znaky"
+
+msgid "Print: "
+msgstr "Tlačiť: "
+
+msgid "Enabled"
+msgstr "Povolené"
+
+msgid "Disabled"
+msgstr "Zakázané"
+
+msgid "In&fo"
+msgstr "In&fo"
+
+msgid "&Get Picture..."
+msgstr "V&ložiť obrázok..."
+
+msgid "I&mage Visible"
+msgstr "&Viditeľný obrázok"
+
+msgid "&Update Picture"
+msgstr "Ak&tualizovať obrázok"
+
+msgid "&Edit Picture"
+msgstr "&Upraviť obrázok"
+
+msgid "&Adjust Frame to Picture"
+msgstr "&Prispôsobiť rám podľa obrázku"
+
+msgid "&Get Text..."
+msgstr "V&ložiť text..."
+
+msgid "&Append Text..."
+msgstr "Pr&ipojiť text..."
+
+msgid "&Edit Text..."
+msgstr "&Upraviť text..."
+
+msgid "Is PDF &Bookmark"
+msgstr "Je PDF &záložkou"
+
+msgid "Is PDF A&nnotation"
+msgstr "Je PDF a&notáciou"
+
+msgid "Annotation P&roperties"
+msgstr "V&lastnosti anotácie"
+
+msgid "Field P&roperties"
+msgstr "Vlas&tnosti pola"
+
+msgid "&PDF Options"
+msgstr "Nastavenia &PDF"
+
+msgid "Edit Text..."
+msgstr "Upraviť text..."
+
+msgid "&Lock"
+msgstr "&Zamknúť"
+
+msgid "Un&lock"
+msgstr "Odo&mknúť"
+
+msgid "Lock Object &Size"
+msgstr "Uzamknúť veľko&sť objektu"
+
+msgid "Unlock Object &Size"
+msgstr "Odomknúť veľko&sť objektu"
+
+msgid "Send to S&crapbook"
+msgstr "Poslať do z&ápisníka"
+
+msgid "Send to La&yer"
+msgstr "Poslať do vrstv&y"
+
+msgid "&Insert Sample Text"
+msgstr "Vlož&iť ukážkový text"
+
+msgid "&Group"
+msgstr "Zos&kupiť"
+
+msgid "Un&group"
+msgstr "Z&rušiť zoskupenie"
+
+msgid "Le&vel"
+msgstr "Úro&veň"
+
+msgid "Send to &Back"
+msgstr "Presunúť &dozadu"
+
+msgid "Bring to &Front"
+msgstr "Presunúť do&predu"
+
+msgid "&Lower"
+msgstr "Z&nížiť"
+
+msgid "&Raise"
+msgstr "Z&výšiť"
+
+msgid "&Picture Frame"
+msgstr "&Rám obrázka"
+
+msgid "Pol&ygon"
+msgstr "&Mnohouholník"
+
+msgid "&Outlines"
+msgstr "&Obrysy"
+
+msgid "&Text Frame"
+msgstr "&Textový rám"
+
+msgid "&Bezier Curve"
+msgstr "&Bézierová krivka"
+
+msgid "Conve&rt to"
+msgstr "Konve&rzia na"
+
+msgid "Cu&t"
+msgstr "Vys&trihnúť"
+
+msgid "&Copy"
+msgstr "&Kopírovať"
+
+msgid "C&lear Contents"
+msgstr "V&ymazať obsah"
+
+msgid "Show P&roperties..."
+msgstr "Zob&raziť vlastnosti..."
+
+msgid "Hide P&roperties..."
+msgstr "Sk&ryť vlastnosti..."
+
+msgid "None"
+msgstr "Žiadne"
+
+msgid "Do you really want to clear all your Text?"
+msgstr "Skutočne chcete odstrániť celý text?"
+
+msgid "The Program"
+msgstr "Program"
+
+msgid "is missing!"
+msgstr "chýba!"
+
+msgid "Copy of"
+msgstr "Kópia z "
+
+msgid "Page "
+msgstr "Strana "
+
+msgid " of %1"
+msgstr " z %1"
+
+msgid "Icon Placement"
+msgstr "Umiestnenie ikony"
+
+msgid "Layout:"
+msgstr "Rozloženie:"
+
+msgid "Caption only"
+msgstr "Iba popisky"
+
+msgid "Icon only"
+msgstr "Iba ikony "
+
+msgid "Caption below Icon"
+msgstr "Popisky pod ikonami"
+
+msgid "Caption above Icon"
+msgstr "Popisky nad ikonami"
+
+msgid "Caption right to Icon"
+msgstr "Popisky vpravo od ikon"
+
+msgid "Caption left to Icon"
+msgstr "Popisky vľavo od ikon"
+
+msgid "Caption overlays Icon"
+msgstr "Popisky prekrývajú ikony"
+
+msgid "Scale:"
+msgstr "Mierka:"
+
+msgid "Always"
+msgstr "Vždy"
+
+msgid "When Icon is too small"
+msgstr "Keď ikony sú príliš malé"
+
+msgid "When Icon is too big"
+msgstr "Keď ikony sú príliš veľké"
+
+msgid "Never"
+msgstr "Nikdy"
+
+msgid "Scale How:"
+msgstr "Ako zmeniť:"
+
+msgid "Proportional"
+msgstr "Proporcionálne"
+
+msgid "Non Proportional"
+msgstr "Neproporcionálny"
+
+msgid "Icon"
+msgstr "Ikona"
+
+msgid "Reset"
+msgstr "Vynulovať"
+
+msgid "Importing text"
+msgstr "Importovanie textu"
+
+msgid "Select Fields"
+msgstr "Zvoliť polia"
+
+msgid "Available Fields"
+msgstr "Dostupné polia:"
+
+msgid "&>>"
+msgstr "&>>"
+
+msgid "&<<"
+msgstr "&<<"
+
+msgid "Selected Fields"
+msgstr "Zvolené polia"
+
+msgid "Choose the importer to use"
+msgstr "Vyberte import, ktorý sa má použiť"
+
+msgid "Automatic"
+msgstr "Automatické"
+
+msgid "Get text only"
+msgstr "Iba text"
+
+msgid "Import text without any formatting"
+msgstr "Importovať text bez formátovania"
+
+msgid "Importer:"
+msgstr "Importér:"
+
+msgid "Encoding:"
+msgstr "Kódovanie:"
+
+msgid "Remember association"
+msgstr "Zapamätať asociáciu"
+
+msgid ""
+"Remember the file extension - importer association\n"
+"and do not ask again to select an importer for\n"
+"files of this type."
+msgstr ""
+"Pamätať si príponu súbora tohoto typu ako asociáciu\n"
+"a nepýtať sa znova na typ importu."
+
+msgid "Manage Guides"
+msgstr "Ovládanie vodítok"
+
+msgid "Horizontal Guides"
+msgstr "Vodorovné vodítka"
+
+msgid "&Add"
+msgstr "&Pridať"
+
+msgid "D&elete"
+msgstr "O&dstrániť"
+
+msgid "Vertical Guides"
+msgstr "Zvislé vodítka"
+
+msgid "A&dd"
+msgstr "&Pridať"
+
+msgid "De&lete"
+msgstr "&Odstrániť"
+
+msgid "&Lock Guides"
+msgstr "&Uzamknúť vodítka"
+
+msgid "Other..."
+msgstr "Iný..."
+
+msgid "&Shade:"
+msgstr "&Tieň:"
+
+msgid "Shade"
+msgstr "Tieň"
+
+msgid "Copy #%1 of "
+msgstr "Kópia  #%1 z "
+
+msgid "Delete Pages"
+msgstr "Odstrániť strany"
+
+msgid "Delete from:"
+msgstr "Odstrániť od:"
+
+msgid "Edit Style"
+msgstr "Upraviť štýl"
+
+msgid "Flat Cap"
+msgstr "Rovná hlavička"
+
+msgid "Square Cap"
+msgstr "Štvorcová hlavička"
+
+msgid "Round Cap"
+msgstr "Oblá hlavička"
+
+msgid "Miter Join"
+msgstr "Kolmý spoj"
+
+msgid "Bevel Join"
+msgstr "Skosený spoj"
+
+msgid "Round Join"
+msgstr "Oblý spoj"
+
+msgid "Line Width:"
+msgstr "Šírka čiary:"
+
+msgid " pt "
+msgstr " pt "
+
+msgid "Solid Line"
+msgstr "Plná čiara"
+
+msgid "Dashed Line"
+msgstr "Čiarkovaná čiara"
+
+msgid "Dotted Line"
+msgstr "Bodkovaná čiara"
+
+msgid "Dash Dot Line"
+msgstr "Bodko-čiarkovaná čiara"
+
+msgid "Dash Dot Dot Line"
+msgstr "Čiarka-bodka-bodka čiara"
+
+msgid "Layers"
+msgstr "Vrstvy"
+
+msgid "Add a new Layer"
+msgstr "Pridať novú vrstvu"
+
+msgid "Delete Layer"
+msgstr "Odstrániť vrstvu"
+
+msgid "Raise Layer"
+msgstr "Vrstvu dopredu"
+
+msgid "Lower Layer"
+msgstr "Vrstvu dozadu"
+
+msgid "New Layer"
+msgstr "Nová vrstva"
+
+msgid "Do you want to delete all Objects on this Layer too?"
+msgstr "Skutočne chcete odstrániť všetky objekty v tejto vrstve?"
+
+msgid "Create PDF File"
+msgstr "Vytvoriť PDF-súbor"
+
+msgid "O&utput to File:"
+msgstr "Výst&up do súboru:"
+
+msgid "Cha&nge..."
+msgstr "&Zmeniť..."
+
+msgid "Export Range"
+msgstr "Exportovať rozsah"
+
+msgid "&All Pages"
+msgstr "Všetky str&any"
+
+msgid "C&hoose Pages"
+msgstr "Zvo&liť strany"
+
+msgid "&Rotation:"
+msgstr "&Otočenie:"
+
+msgid "File Options"
+msgstr "Súborové nastavenia"
+
+msgid "Compatibilit&y:"
+msgstr "Kompatibili&ta:"
+
+msgid "&Binding:"
+msgstr "&Viazanie:"
+
+msgid "Left Margin"
+msgstr "Ľavý okraj"
+
+msgid "Right Margin"
+msgstr "Pravý okraj"
+
+msgid "Generate &Thumbnails"
+msgstr "Vy&tvoriť náhľady"
+
+msgid "Save &Linked Text Frames as PDF Articles"
+msgstr "U&ložiť prepojené textové rámy ako PDF články"
+
+msgid "&Include Bookmarks"
+msgstr "Vrátane zálož&iek"
+
+msgid " dpi"
+msgstr " dpi"
+
+msgid "&Resolution:"
+msgstr "&Rozlíšenie:"
+
+msgid "Compress Text and &Vector Graphics"
+msgstr "Komprimovať text a &vektorovú grafiku"
+
+msgid "Image Settings"
+msgstr "Nastavenie obrázku"
+
+msgid "JPEG"
+msgstr "JPEG"
+
+msgid "Zip"
+msgstr "Zip"
+
+msgid "&Method:"
+msgstr "&Metóda:"
+
+msgid "&Quality:"
+msgstr "&Kvalita:"
+
+msgid "Maximum"
+msgstr "Maximum"
+
+msgid "High"
+msgstr "Vysoká"
+
+msgid "Medium"
+msgstr "Stredná"
+
+msgid "Low"
+msgstr "Nízka"
+
+msgid "Minimum"
+msgstr "Minimum"
+
+msgid "&Downsample Images to:"
+msgstr "Z&níženie kvality obrázkov na:"
+
+msgid "&General"
+msgstr "&Všeobecné"
+
+msgid "&Embed all Fonts"
+msgstr "Vložiť vš&etky písma"
+
+msgid "&Subset all Fonts"
+msgstr "Podmnožina všetkých písem"
+
+msgid "Embedding"
+msgstr "Vkladanie"
+
+msgid "Available Fonts:"
+msgstr "Dostupné písma:"
+
+msgid "Fonts to embed:"
+msgstr "Písma na vloženie:"
+
+msgid "Fonts to subset:"
+msgstr "Písma do podmnožiny:"
+
+msgid "&Fonts"
+msgstr "&Písma"
+
+msgid "En&able Presentation Effects"
+msgstr "&Povoliť prezentačné efekty"
+
+msgid "Show Page Pre&views"
+msgstr "Zo&braziť náhľady pre strany"
+
+msgid "Effects"
+msgstr "Efekty"
+
+msgid "&Display Duration:"
+msgstr "&Doba zobrazenia:"
+
+msgid "Effec&t Duration:"
+msgstr "&Trvanie efektu:"
+
+msgid "Effect T&ype:"
+msgstr "T&yp efektu:"
+
+msgid "&Moving Lines:"
+msgstr "Pres&úvanie riadkov:"
+
+msgid "F&rom the:"
+msgstr "&Z:"
+
+msgid "D&irection:"
+msgstr "S&mer:"
+
+msgid " sec"
+msgstr " sek"
+
+msgid "No Effect"
+msgstr "Bez efektu"
+
+msgid "Blinds"
+msgstr "Pruhy"
+
+msgid "Box"
+msgstr "Rám"
+
+msgid "Dissolve"
+msgstr "Rozpustenie"
+
+msgid "Glitter"
+msgstr "Lesk"
+
+msgid "Split"
+msgstr "Rozdeliť"
+
+msgid "Wipe"
+msgstr "Zotrieť"
+
+msgid "Horizontal"
+msgstr "Vodorovne"
+
+msgid "Vertical"
+msgstr "Zvisle"
+
+msgid "Inside"
+msgstr "Vnútorný"
+
+msgid "Outside"
+msgstr "Vonkajší"
+
+msgid "Left to Right"
+msgstr "Zľava doprava"
+
+msgid "Top to Bottom"
+msgstr "Zhora dole"
+
+msgid "Bottom to Top"
+msgstr "Zdola hore"
+
+msgid "Right to Left"
+msgstr "Sprava doľava"
+
+msgid "Top-left to Bottom-Right"
+msgstr "Zľava hore doprava dole"
+
+msgid "&Apply Effect on all Pages"
+msgstr "Použiť efekt n&a všetky strany"
+
+msgid "&Presentation"
+msgstr "Prezentácia"
+
+msgid "&Use Encryption"
+msgstr "Po&užiť šifrovanie"
+
+msgid "Passwords"
+msgstr "Heslá"
+
+msgid "&User:"
+msgstr "&Používateľ:"
+
+msgid "&Owner:"
+msgstr "V&lastník:"
+
+msgid "Settings"
+msgstr "Nastavenia"
+
+msgid "Allow &Printing the Document"
+msgstr "&Povoliť tlač dokumentu"
+
+msgid "Allow &Changing the Document"
+msgstr "P&ovoliť zmeny dokumentu"
+
+msgid "Allow Cop&ying Text and Graphics"
+msgstr "Povoliť kopírovanie textu a grafik&y"
+
+msgid "Allow Adding &Annotations and Fields"
+msgstr "Povoliť pridávanie &anotácií a polí"
+
+msgid "S&ecurity"
+msgstr "Be&zpečnosť"
+
+msgid "General"
+msgstr "Všeobecné"
+
+msgid "Output &Intended For:"
+msgstr "Plánovaný &výstup pre:"
+
+msgid "Screen / Web"
+msgstr "Obrazovka/Web"
+
+msgid "Printer"
+msgstr "Tlačiareň"
+
+msgid "&Use Custom Rendering Settings"
+msgstr "Po&užiť vlastné nastavenia generovania"
+
+msgid "Rendering Settings"
+msgstr "Nastavenie generovania"
+
+msgid "Fre&quency:"
+msgstr "Fre&kvencia:"
+
+msgid "&Angle:"
+msgstr "&Uhol:"
+
+msgid "S&pot Function:"
+msgstr "Funkcia &bodu:"
+
+msgid "Simple Dot"
+msgstr "Bodka"
+
+msgid "Round"
+msgstr "Kruh"
+
+msgid "Ellipse"
+msgstr "Elipsa"
+
+msgid "Solid Colors:"
+msgstr "Plné farby (Solid colors):"
+
+msgid "Use ICC Profile"
+msgstr "Použiť ICC-profil"
+
+msgid "Profile:"
+msgstr "Profil:"
+
+msgid "Rendering-Intent:"
+msgstr "Účel generovania:"
+
+msgid "Perceptual"
+msgstr "Vnímateľné (Perceptual)"
+
+msgid "Relative Colorimetric"
+msgstr "Relatívna kolorimetria"
+
+msgid "Saturation"
+msgstr "Sýtosť"
+
+msgid "Absolute Colorimetric"
+msgstr "Absolútna kolorimetria"
+
+msgid "Images:"
+msgstr "Obrázky:"
+
+msgid "Don't use embedded ICC profiles"
+msgstr "Nepoužívať vložené ICC profily"
+
+msgid "C&olor"
+msgstr "&Farba"
+
+msgid "PDF/X-3 Output Intent"
+msgstr "Výstup do PDF/X-3"
+
+msgid "&Info String:"
+msgstr "&Informačný reťazec:"
+
+msgid "Output &Profile:"
+msgstr "Výstupný &profil:"
+
+msgid "Trim Box"
+msgstr "Orezanie"
+
+msgid "PDF/X-&3"
+msgstr "PDF/X-&3"
+
+msgid "&Save"
+msgstr "&Uložiť"
+
+msgid "Export all pages to PDF"
+msgstr "Exportovať všetky strany do PDF"
+
+msgid "Export a range of pages to PDF"
+msgstr "Exportovať rozsah strán do PDF"
+
+msgid ""
+"Insert a comma separated list of tokens where\n"
+"a token can be * for all the pages, 1-5 for\n"
+"a range of pages or a single page number."
+msgstr ""
+"Vložiť čiarkou oddelený zoznam prvkov,\n"
+"kde prvok môže byť * pre všetky strany,\n"
+"1-5 pre rozsah strán alebo jedno číslo strany."
+
+msgid ""
+"Determines the PDF compatibility. The default is Acrobat 4.0 which gives the "
+"widest compatibility.\n"
+"Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or "
+"you require 128 bit encryption.\n"
+"PDF/X-3 is for exporting the PDF for commercial printing and is selectable "
+"when you have activated color management."
+msgstr ""
+"Určuje PDF kompatibilitu. Štandardne je to Acrobat 4.0, ktorá poskytuje "
+"najširšiu kompatibilitu.\n"
+"Acrobat 5.0 si vyberte v prípade, že váš súbor obsahuje vlastnosti PDF 1.4 "
+"ako napríklad priesvitnosť,alebo požaduje 128 bitové šifrovanie.\n"
+"PDF/X-3 je pre export PDF pre komerčnú tlač a je voliteľné len v prípade "
+"aktivácie správy farieb."
+
+msgid ""
+"Determines the binding of pages in the PDF. Unless you know\n"
+"you need to change it leave the default choice - Left."
+msgstr ""
+"Určuje viazanie strán v PDF. Ak nepotrebujete špeciálne nastavenia,\n"
+"neupravujte túto voľbu."
+
+msgid ""
+"Generates thumbnails of each page in the PDF.\n"
+"Some viewers can use the thumbnails for navigation."
+msgstr ""
+"Generuje náhľady všetkých strán v PDF.\n"
+"Niektoré prehliadače používajú k navigácií."
+
+msgid ""
+"Generate PDF Articles, which is useful for navigating linked articles in a "
+"PDF."
+msgstr "Generuje PDF články, čo umožňuje navigáciu odkazov v PDF."
+
+msgid ""
+"Embed the bookmarks you created in your document.\n"
+"These are useful for navigating long PDF documents."
+msgstr ""
+"Vložiť záložky obsiahnuté v dokumente.\n"
+"Tie sú užitočné pri navigácií v rozsiahlych dokumentoch."
+
+msgid ""
+"Export resolution of text and vector graphics.\n"
+"This does not affect the resolution of bitmap images like photos."
+msgstr ""
+"Rozlíšenie textu a vektorovej grafiky pri exporte.\n"
+"Neovplyvňuje rozlíšenie bitmapových obrázkov ako sú napr. fotografie."
+
+msgid ""
+"Compression of text and graphics.\n"
+"Unless you have a reason, leave this checked. This reduces PDF size."
+msgstr ""
+"Kompresia textu a grafiky.\n"
+"Pokiaľ na to nemáte dôvod, tak nechajte túto voľbu povolenú. Znižuje veľkosť "
+"PDF súboru."
+
+msgid ""
+"Version of compression for images.\n"
+"Automatic allows Scribus to choose the best method.\n"
+"ZIP is good for images with solid colors.\n"
+"JPEG is better at creating smaller PDF files which have many photos (with "
+"slight image loss possible).\n"
+"Leave it set to automatic, unless you have a need for special compression "
+"options."
+msgstr ""
+"Verzia kompresie pre obrázky.\n"
+"Automaticky - Scribus vyberie najvhodnejšiu metódu.\n"
+"ZIP - vhodná pre obrázky s plnými farbami.\n"
+"JPEG - najlepšia voľba pre vytváranie malých PDF súborov, ktoré majú veľa "
+"fotiek (malá strata kvality).\n"
+"Pokiaľ nepotrebujete špeciálnu kompresiu, tak nechajte túto voľbu nastavenú "
+"na Automaticky."
+
+msgid ""
+"Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), "
+"Maximum (95%)"
+msgstr ""
+"Úroveň kompresie: Minimálna (25%), Nízka (50%), Stredná (75%), Vysoká(85%), "
+"Maximálna (95%)"
+
+msgid ""
+"Downsample your bitmap images to the selected DPI.\n"
+"Leaving this unchecked will render them at their native resolution."
+msgstr ""
+"Znížiť kvalitu bitmapových obrázkov na zvolené DPI.Ak voľbu nepovolíte, bude "
+"im ponechané pôvodné rozlíšenie."
+
+msgid "DPI (Dots Per Inch) for image export."
+msgstr "DPI (Body na palec) pre export obrázkov."
+
+msgid ""
+"Embed fonts into the PDF. Embedding the fonts\n"
+"will preserve the layout and appearance of your document."
+msgstr ""
+"Vložiť písma do PDF. Vloženie písma\n"
+"zachová rozloženie a vzhľad vášho dokumentu."
+
+msgid ""
+"Enables presentation effects when using Acrobat Reader in full screen mode."
+msgstr ""
+"Povolenie prezentačných efektov pri celoobrazovkovom použití Acrobat Reader."
+
+msgid "Show page previews of each page listed above."
+msgstr "Ukázať náhľad každej strany v zozname uvedenom hore."
+
+msgid ""
+"Length of time the page is shown before the presentation starts on the "
+"selected page."
+msgstr "Ako dlho je strana zobrazené, než sa spustí prechod na ďalšiu stranu."
+
+msgid ""
+"Length of time the effect runs.\n"
+"A shorter time will speed up the effect, a longer one will slow it down."
+msgstr ""
+"Ako dlho beží prezentačný efekt.\n"
+"Menšia hodnota efekt zrýchli, väčšia spomalí."
+
+msgid "Type of the display effect."
+msgstr "Typ efektu."
+
+msgid ""
+"Direction of the effect of moving lines for the split and blind effects."
+msgstr "Smer efektu presúvania riadkov pre efekty pruhy a rozdeliť."
+
+msgid "Starting position for the box and split effects."
+msgstr "Štartovacia pozícia efektov rám a rozdeliť."
+
+msgid "Direction of the glitter or wipe effects."
+msgstr "Smer efektu lesk alebo zotrieť."
+
+msgid "Apply the selected effect to all pages."
+msgstr "Použiť zvolený efekt na všetky strany."
+
+msgid ""
+"Enable the security features in your exported PDF.\n"
+"If you selected Acrobat 4.0, the PDF will be protected by 40 bit "
+"encryption.\n"
+"If you selected Acrobat 5.0, the PDF will be protected by 128 bit "
+"encryption.\n"
+"Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and "
+"does have some limitations."
+msgstr ""
+"Povoliť bezpečnostné vlastnosti exportovaného PDF.Pokiaľ mate zvolený  "
+"Acrobat 4.0, bude použité 40 bitové šifrovanie.\n"
+"Pokiaľ mate zvolený  Acrobat 5.0, bude použité 128 bitové šifrovanie.\n"
+"Poznámka: PDF šifrovanie nie je tak spoľahlivé ako GPG alebo PGP a má svoje "
+"obmedzenia."
+
+msgid ""
+"Choose a master password which enables or disables all the\n"
+"security features in your exported PDF"
+msgstr ""
+"Zvoľte heslo, ktoré povolí alebo zakáže všetky\n"
+"bezpečnostné vlastnosti exportovaného PDF"
+
+msgid "Choose a password for users to be able to read your PDF."
+msgstr "Zvoľte heslo pre používateľom, ktorý budú môcť čítať PDF."
+
+msgid "Allow printing of the PDF. If un-checked, printing is prevented. "
+msgstr "Povolí tlač PDF. Ak je odznačené, tlač bude zakázaná. "
+
+msgid ""
+"Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
+msgstr "Povolí úpravu PDF. Ak je odznačené, úprava PDF bude zakázaná. "
+
+msgid ""
+"Allow copying of text or graphics from the PDF. \n"
+"If un-checked, text and graphics cannot be copied."
+msgstr ""
+"Povolí kopírovanie textu a grafiky z PDF.\n"
+"Ak je odznačené, kopírovanie textu a grafiky z PDF bude zakázané. "
+
+msgid ""
+"Allow adding annotations and fields to the PDF. \n"
+"If un-checked, editing annotations and fileds is prevented."
+msgstr ""
+"Povolí pridávanie anotácií a polí do PDF.\n"
+" Ak je odznačené, úprava anotácií a polí bude zakázaná. "
+
+msgid ""
+"Color model for the output of your PDF.\n"
+"Choose Screen/Web for PDFs which are used for screen display and for "
+"printing on typical inkjets.\n"
+"Choose Printer when printing to a true 4 color CMYK printer."
+msgstr ""
+"Farebný model výstupu PDF.\n"
+"Zvoľte Monitor/Web pre PDF, ktoré bude publikované na monitore alebo na "
+"typickej kancelárskej tlačiarni.\n"
+"Zvoľte Tlačiareň, ak PDF bude tlačené na CMYK tlačiarni."
+
+msgid ""
+"This is an advanced setting which is not enabled by default. This should "
+"only be enabled\n"
+"when specifically requested by your printer and they have given you the "
+"exact details needed.\n"
+"Otherwise, your exported PDF may not print properly and is truly not "
+"portable across systems."
+msgstr ""
+"Toto je pokročilé nastavenie, ktoré nie je štandardne povolené. Malo by byť "
+"povolené len v tom prípade\n"
+"pokiaľ je špeciálne vyžadované tlačiarňou a máte k dispozícií presné "
+"detaily.\n"
+"Inak vytvoríte PDF, ktoré sa nebude dať správne vytlačiť a nebude skutočne "
+"prenosné medzi systémami."
+
+msgid "Embed a color profile for solid colors"
+msgstr "Vložiť farebný profil pre plné farieb"
+
+msgid "Color profile for solid colors"
+msgstr "Farebný profil pre plné farby"
+
+msgid "Rendering intent for solid colors"
+msgstr "Účel generovania pre plných farieb"
+
+msgid "Embed a color profile for images"
+msgstr "Vložiť farebný profil pre obrázky"
+
+msgid "Do not use color profiles that are embedded in source images"
+msgstr "Nepoužívať farebné profily, ktoré sú vložené do zdrojových obrázkov"
+
+msgid "Color profile for images"
+msgstr "Farebný profil pre obrázky"
+
+msgid "Rendering intent for images"
+msgstr "Účel generovania pre obrázky"
+
+msgid ""
+"Output profile for printing. If possible, get some guidance from your "
+"printer on profile selection."
+msgstr ""
+"Výstupný profil pre tlač. Ak je to možné, použite príručku k tlačiarni pri "
+"výbere profilu."
+
+msgid ""
+"Mandatory string for PDF/X-3 or the PDF will fail\n"
+"PDF/X-3 conformance. We recommend you use the title of the document."
+msgstr ""
+"Voliteľný text, ktorého vyplnením bude PDF alebo PDF/X-3\n"
+"spĺňať špecifikáciu PDF/X-3. Doporučujeme použiť názov dokumentu."
+
+msgid "Distance for bleed from the top of the physical page"
+msgstr "Vzdialenosť orezania od horného fyzického okraja strany"
+
+msgid "Distance for bleed from the bottom of the physical page"
+msgstr "Vzdialenosť orezania od dolného fyzického okraja strany"
+
+msgid "Distance for bleed from the left of the physical page"
+msgstr "Vzdialenosť orezania od ľavého fyzického okraja strany"
+
+msgid "Distance for bleed from the right of the physical page"
+msgstr "Vzdialenosť orezania od pravého fyzického okraja strany"
+
+msgid "Mirror Page(s) horizontally"
+msgstr "Vodorovne zrkadliť stranu(y)"
+
+msgid "Mirror Page(s) vertically"
+msgstr "Zvislo zrkadliť stranu(y)"
+
+msgid "Save as"
+msgstr "Uložiť ako"
+
+msgid "PDF Files (*.pdf);;All Files (*)"
+msgstr "PDF súbory (*.pdf);;Všetky súbory (*)"
+
+msgid "Delete Color"
+msgstr "Odstrániť farbu"
+
+msgid "Delete color:"
+msgstr "Odstrániť farbu:"
+
+msgid "?"
+msgstr "?"
+
+msgid "Replace it with:"
+msgstr "Nahradiť s:"
+
+msgid "Tools"
+msgstr "Nástroje"
+
+msgid "Select Items"
+msgstr "Vybrať položky"
+
+msgid "Insert Text Frame"
+msgstr "Vložiť textový rám"
+
+msgid "Insert Picture"
+msgstr "Vložiť obrázok"
+
+msgid "Insert Table"
+msgstr "Vložiť tabuľku"
+
+msgid "Properties..."
+msgstr "Vlastnosti..."
+
+msgid "Insert Polygons"
+msgstr "Vložiť mnohouholníky"
+
+msgid "Insert Lines"
+msgstr "Vložiť čiary"
+
+msgid "Insert Bezier Curves"
+msgstr "Vložiť bézierové krivky"
+
+msgid "Insert Freehand Line"
+msgstr "Vložiť rukou kreslenú čiaru"
+
+msgid "Rotate Item"
+msgstr "Otočiť objekt"
+
+msgid "Zoom in or out"
+msgstr "Zväčšiť alebo zmenšiť"
+
+msgid "Edit Contents of Frame"
+msgstr "Upraviť obsah rámu"
+
+msgid "Edit the text with the Story Editor"
+msgstr "Upraviť text v Story editore"
+
+msgid "Link Text Frames"
+msgstr "Prepojiť textové rámy"
+
+msgid "Unlink Text Frames"
+msgstr "Zrušiť prepojenie textových rámom"
+
+msgid "Do measurements"
+msgstr "Merať"
+
+msgid "Draw various Shapes"
+msgstr "Kreslenie rôznych tvarov"
+
+msgid "PDF Tools"
+msgstr "PDF nástroje"
+
+msgid "Button"
+msgstr "Tlačítko"
+
+msgid "Text Field"
+msgstr "Textové pole"
+
+msgid "Check Box"
+msgstr "Políčko k zaškrtnutiu"
+
+msgid "Combo Box"
+msgstr "Výber"
+
+msgid "List Box"
+msgstr "Zoznam"
+
+msgid "Insert PDF Fields"
+msgstr "Vložiť PDF polia"
+
+msgid "Link"
+msgstr "Odkaz"
+
+msgid "Insert PDF Annotations"
+msgstr "Vložiť PDF anotáciu"
+
+msgid "Possible Hyphenation"
+msgstr "Možné delenie slov"
+
+msgid "Accept"
+msgstr "Akceptovať"
+
+msgid "Skip"
+msgstr "Preskočiť"
+
+msgid "Missing Font"
+msgstr "Chýbajúce písmo"
+
+msgid "The Font %1 is not installed."
+msgstr "Písmo %1 nie je nainštalované."
+
+msgid "Use"
+msgstr "Použiť"
+
+msgid "instead"
+msgstr "namiesto"
+
+msgid "Left Page"
+msgstr "Ľavá strana"
+
+msgid "Right Page"
+msgstr "Pravá strana"
+
+msgid "Size:"
+msgstr "Veľkosť:"
+
+msgid "Title:"
+msgstr "Názov:"
+
+msgid "No Title"
+msgstr "Bez názvu"
+
+msgid "Author:"
+msgstr "Autor:"
+
+msgid "Unknown"
+msgstr "Neznámy"
+
+msgid "Scribus Document"
+msgstr "Scribus dokument"
+
+msgid "&Compress File"
+msgstr "&Komprimovaný súbor"
+
+msgid "&Include Fonts"
+msgstr "&Vrátanie písma"
+
+msgid ""
+"Moves to your Document Directory.\n"
+"This can be set in the Preferences."
+msgstr ""
+"Presunutie vášho priečinku s dokumentmi.\n"
+"V nastaveniach je toto možné určiť."
+
+msgid "Align Text Left"
+msgstr "Zarovnať text doľava"
+
+msgid "Align Text Right"
+msgstr "Zarovnať text doprava"
+
+msgid "Align Text Center"
+msgstr "Zarovnať text na stred"
+
+msgid "Align Text Justified"
+msgstr "Zarovnať text do bloku"
+
+msgid "Align Text Forced Justified"
+msgstr "Zarovnať podľa okrajov"
+
+msgid "Edit Templates"
+msgstr "Upraviť šablóny"
+
+msgid "&Append"
+msgstr "Prid&ať"
+
+msgid "&New"
+msgstr "&Nový"
+
+msgid "D&uplicate"
+msgstr "D&uplikovať"
+
+msgid "&Close"
+msgstr "&Zavrieť"
+
+msgid "Do you really want to delete this Template?"
+msgstr "Skutočne chcete zmazať túto šablónu?"
+
+msgid "&No"
+msgstr "&Nie"
+
+msgid "&Yes"
+msgstr "&Áno"
+
+msgid "&Name:"
+msgstr "&Názov:"
+
+msgid "New Template"
+msgstr "Nová šablóna"
+
+msgid "Copy of %1"
+msgstr "Kópia %1"
+
+msgid "Name:"
+msgstr "Názov:"
+
+msgid "New Document"
+msgstr "Nový dokument"
+
+msgid "Page Size"
+msgstr "Veľkosť strany"
+
+msgid "&Size:"
+msgstr "&Veľkosť:"
+
+msgid "Executive"
+msgstr "Executive"
+
+msgid "Folio"
+msgstr "Folio"
+
+msgid "Ledger"
+msgstr "Ledger"
+
+msgid "Legal"
+msgstr "Legal"
+
+msgid "Letter"
+msgstr "Letter"
+
+msgid "Tabloid"
+msgstr "Tabloid"
+
+msgid "Custom"
+msgstr "Vlastné"
+
+msgid "Orie&ntation:"
+msgstr "Orie&ntácia:"
+
+msgid "&Width:"
+msgstr "Šír&ka:"
+
+msgid "&Height:"
+msgstr "&Výška:"
+
+msgid "&Facing Pages"
+msgstr "&Protiľahlé strany"
+
+msgid "Left &Page First"
+msgstr "&Prvá strana vľavo"
+
+msgid "Margin Guides"
+msgstr "Vodítka okrajov"
+
+msgid "&Left:"
+msgstr "&Ľavý:"
+
+msgid "&Right:"
+msgstr "P&ravý:"
+
+msgid "&Top:"
+msgstr "&Hore:"
+
+msgid "&Bottom:"
+msgstr "&Dolný:"
+
+msgid "Options"
+msgstr "Možnosti"
+
+msgid "F&irst Page Number:"
+msgstr "Č&íslo prvej strany:"
+
+msgid "&Default Unit:"
+msgstr "Štan&dardná jednotka:"
+
+msgid "Points (pts)"
+msgstr "Body (pts)"
+
+msgid "Millimetres (mm)"
+msgstr "Milimetre (mm)"
+
+msgid "Inches (in)"
+msgstr "Palce (in)"
+
+msgid "Picas (p)"
+msgstr "Piká (p)"
+
+msgid "&Automatic Text Frames"
+msgstr "&Autom. textové rámy"
+
+msgid "Column Guides"
+msgstr "Vodítka stĺpcov"
+
+msgid "&Gap:"
+msgstr "&Odstup:"
+
+msgid "Colu&mns:"
+msgstr "&Stĺpce:"
+
+msgid "Document page size, either a standard size or a custom size"
+msgstr "veľkosť strany dokumentu, či už štandardná alebo vlastná"
+
+msgid "Orientation of the document's pages"
+msgstr "Orientácia strán dokumentu"
+
+msgid ""
+"Width of the document's pages, editable if you have chosen a custom page size"
+msgstr ""
+"Šírka strán dokumentu, upraviteľná, pokiaľ si zvolíte vlastnú veľkosť strany."
+
+msgid ""
+"Height of the document's pages, editable if you have chosen a custom page "
+"size"
+msgstr ""
+"Výska strán dokumentu, upraviteľná, pokiaľ si zvolíte vlastnú veľkosť strany."
+
+msgid "Enable single or spread based layout"
+msgstr "povoliť rozloženie po jednej alebo po viacerých stranách"
+
+msgid "Make the first page the left page of the document"
+msgstr "Prvá strana je ľavou stranou dokumentu"
+
+msgid "Distance between the top margin guide and the edge of the page"
+msgstr "Vzdialenosť medzi horným vodítkom okraja a hranou strany"
+
+msgid "Distance between the bottom margin guide and the edge of the page"
+msgstr "Vzdialenosť medzi dolným vodítkom okraja a hranou strany"
+
+msgid ""
+"Distance between the left margin guide and the edge of the page.\n"
+"If Facing Pages is selected, this margin space can be used to achieve the "
+"correct margins for binding"
+msgstr ""
+"Vzdialenosť medzi ľavým vodítkom okraja a hranou strany.\n"
+"Pri použití protiľahlých strán, táto medzera môže byť použitá na dosiahnutie "
+"správneho okraja pre väzbu"
+
+msgid ""
+"Distance between the right margin guide and the edge of the page.\n"
+"If Facing Pages is selected, this margin space can be used to achieve the "
+"correct margins for binding"
+msgstr ""
+"Vzdialenosť medzi pravým vodítkom okraja a hranou strany.\n"
+"Pri použití protiľahlých strán, táto medzera môže byť použitá na dosiahnutie "
+"správneho okraja pre väzbu"
+
+msgid "First page number of the document"
+msgstr "Prvé číslo strany dokumentu"
+
+msgid "Default unit of measurement for document editing"
+msgstr "Štandardná merná jednotka dokumentu"
+
+msgid "Create text frames automatically when new pages are added"
+msgstr "Automaticky vytvorí textový rám pri pridaní novej strany"
+
+msgid "Number of columns to create in automatically created text frames"
+msgstr "Počet automaticky vytvorených stĺpcov pri vytvorení textového rámu"
+
+msgid "Distance between automatically created columns"
+msgstr "Vzdialenosť medzi automaticky vytvorenými stĺpcami"
+
+msgid "&Inside:"
+msgstr "&Vnútorný:"
+
+msgid "O&utside:"
+msgstr "V&onkajší:"
+
+msgid "Shade:"
+msgstr "Tieň:"
+
+msgid "Opacity:"
+msgstr "Krytie:"
+
+msgid "Horizontal Gradient"
+msgstr "Horizontálny prechod"
+
+msgid "Vertical Gradient"
+msgstr "Vertikálny prechod"
+
+msgid "Diagonal Gradient"
+msgstr "Diagonálny prechod"
+
+msgid "Cross Diagonal Gradient"
+msgstr "Krížovodiagonálny prechod"
+
+msgid "Radial Gradient"
+msgstr "Radiálny prechod"
+
+msgid "Free linear Gradient"
+msgstr "Voľný lineárny prechod"
+
+msgid "Free radial Gradient"
+msgstr "Voľný radiálny prechod"
+
+msgid "Edit Line Color Properties"
+msgstr "Upraviť vlastnosti farby čiary"
+
+msgid "Edit Fill Color Properties"
+msgstr "Upraviť vlastnosti farby výplne"
+
+msgid "Saturation of color"
+msgstr "Sýtosť farby"
+
+msgid "Normal or gradient fill method"
+msgstr "Bežná metóda vyplnenia alebo prechod"
+
+msgid "Set the transparency for the color selected"
+msgstr "Nastaviť priesvitnosť pre zvolenú farbu"
+
+msgid "Color of selected object"
+msgstr "Farba zvoleného objektu"
+
+msgid "Document Setup"
+msgstr "Nastavenie dokumentu"
+
+msgid "Orientation:"
+msgstr "Orientácia:"
+
+msgid "Width:"
+msgstr "Šírka:"
+
+msgid "Height:"
+msgstr "Výška:"
+
+msgid "&Outside:"
+msgstr "V&onkajší:"
 
 msgid "Distribute/Align"
 msgstr "Umiestniť/Zarovnať"
 
 msgid "Align"
 msgstr "Zarovnať"
-
-msgid "Horizontal"
-msgstr "Vodorovne"
 
 msgid "Left Sides"
 msgstr "Ľavé strany"
@@ -56,9 +1933,6 @@ msgstr "Po&sunutie"
 msgid "Distribute &Evenly"
 msgstr "Umi&estniť rovnomerne"
 
-msgid "Vertical"
-msgstr "Zvisle"
-
 msgid "Top Sides"
 msgstr "Horné strany"
 
@@ -77,44 +1951,11 @@ msgstr "Z&arovnať"
 msgid "Dis&placement"
 msgstr "&Posunutie"
 
-msgid " pt"
-msgstr " pt"
-
-msgid " mm"
-msgstr " mm"
-
-msgid " in"
-msgstr " in"
-
-msgid " p"
-msgstr " p"
-
 msgid "Distribute E&venly"
 msgstr "Umiestniť ro&vnomerne"
 
-msgid "&OK"
-msgstr "&OK"
-
 msgid "&Apply"
 msgstr "&Použiť"
-
-msgid "&Cancel"
-msgstr "&Zrušiť"
-
-msgid "Align Text Left"
-msgstr "Zarovnať text doľava"
-
-msgid "Align Text Right"
-msgstr "Zarovnať text doprava"
-
-msgid "Align Text Center"
-msgstr "Zarovnať text na stred"
-
-msgid "Align Text Justified"
-msgstr "Zarovnať text do bloku"
-
-msgid "Align Text Forced Justified"
-msgstr "Zarovnať podľa okrajov"
 
 msgid "Field Properties"
 msgstr "Vlastnosti pola"
@@ -122,32 +1963,11 @@ msgstr "Vlastnosti pola"
 msgid "Type:"
 msgstr "Typ:"
 
-msgid "Button"
-msgstr "Tlačítko"
-
-msgid "Text Field"
-msgstr "Textové pole"
-
-msgid "Check Box"
-msgstr "Políčko k zaškrtnutiu"
-
-msgid "Combo Box"
-msgstr "Výber"
-
-msgid "List Box"
-msgstr "Zoznam"
-
 msgid "Properties"
 msgstr "Vlastnosti"
 
-msgid "Name:"
-msgstr "Názov:"
-
 msgid "Tool-Tip:"
 msgstr "Tipy pre nástroje:"
-
-msgid "Text"
-msgstr "Text"
 
 msgid "Font for use with PDF 1.3:"
 msgstr "Písmo pre použitie s PDF-1.3:"
@@ -158,17 +1978,8 @@ msgstr "Ohraničenie"
 msgid "Color:"
 msgstr "Farba:"
 
-msgid "None"
-msgstr "Žiadne"
-
-msgid "Width:"
-msgstr "Šírka:"
-
 msgid "Thin"
 msgstr "Tenká"
-
-msgid "Normal"
-msgstr "Normálna"
 
 msgid "Wide"
 msgstr "Široká"
@@ -302,9 +2113,6 @@ msgstr "Štandardne je označené"
 msgid "Editable"
 msgstr "Upraviteľné"
 
-msgid "Options"
-msgstr "Možnosti"
-
 msgid "Java Script"
 msgstr "Java skript"
 
@@ -323,17 +2131,21 @@ msgstr "Importovať dáta"
 msgid "Event:"
 msgstr "Udalosť:"
 
+#, fuzzy
 msgid "Mouse Up"
-msgstr ""
+msgstr "Posunúť vyššie"
 
+#, fuzzy
 msgid "Mouse Down"
-msgstr ""
+msgstr "Posunúť nižšie"
 
+#, fuzzy
 msgid "Mouse Enter"
-msgstr ""
+msgstr "Vložiť hodnoty"
 
+#, fuzzy
 msgid "Mouse Exit"
-msgstr ""
+msgstr "Ukončí GnuCash"
 
 msgid "On Focus"
 msgstr "Po prepnutí"
@@ -394,9 +2206,6 @@ msgstr "Dátum"
 
 msgid "Time"
 msgstr "Čas"
-
-msgid "Custom"
-msgstr "Vlastné"
 
 msgid "Number Format"
 msgstr "Formát čísla"
@@ -482,12 +2291,6 @@ msgstr "Vlastný počítací skript:"
 msgid "Calculate"
 msgstr "Vypočítať"
 
-msgid "OK"
-msgstr "OK"
-
-msgid "Cancel"
-msgstr "Zrušiť"
-
 msgid "Flag is ignored for PDF 1.3"
 msgstr "Indikátor je v PDF-1.3 ignorovaný"
 
@@ -512,568 +2315,116 @@ msgstr "Príklad:"
 msgid "Selection Change"
 msgstr "Zmena výberu"
 
-msgid "PDF Files (*.pdf);;All Files (*)"
-msgstr "PDF súbory (*.pdf);;Všetky súbory (*)"
+msgid "Result"
+msgstr "Výsledok"
 
-msgid "Annotation Properties"
-msgstr "Vlastnosti anotácie"
+msgid "Search Results for: "
+msgstr "Hľadať výsledok pre:"
 
-msgid "Link"
-msgstr "Odkaz"
+msgid "Preview"
+msgstr "Náhľad"
 
-msgid "External Link"
-msgstr "Externý odkaz"
+msgid "Select"
+msgstr "Výber"
 
-msgid "External Web-Link"
-msgstr "Externý odkaz na web"
+msgid "Albanian"
+msgstr "Albánsky"
 
-#, fuzzy
-msgid "&Type:"
-msgstr "Typ:"
+msgid "Basque"
+msgstr "Baskitsky"
 
-msgid "C&hange..."
-msgstr "&Zmeniť..."
+msgid "Bulgarian"
+msgstr "Bulharský"
 
-#, fuzzy
-msgid "&Page:"
-msgstr "&Strana"
+msgid "Brazilian"
+msgstr "Brazílsky"
 
-#, fuzzy
-msgid "&X-Pos"
-msgstr "&X-Poz:"
+msgid "Catalan"
+msgstr "Katalánsky"
 
-msgid "&Y-Pos:"
-msgstr "&Y-Poz:"
+msgid "Chinese"
+msgstr "Čínsky"
 
-msgid "PDF-Documents (*.pdf);;All Files (*)"
-msgstr "PDF-Dokumenty (*.pdf);; Všetky súbory (*)"
+msgid "Czech"
+msgstr "Český"
 
-msgid "Apply Template"
-msgstr "Použiť šablónu"
+msgid "Danish"
+msgstr "Dánsky"
 
-msgid "&Template:"
-msgstr "Ša&blóna:"
+msgid "Dutch"
+msgstr "Holandský"
 
-msgid "Apply to &Current Page"
-msgstr "Použiť na a&ktuálnu stranu"
+msgid "English"
+msgstr "Anglický"
 
-msgid "Apply to all &even Pages"
-msgstr "Použiť na párn&e strany"
+msgid "English (British)"
+msgstr "Anglický (Britský)"
 
-msgid "Apply to all &odd Pages"
-msgstr "P&oužiť na nepárne strany"
+msgid "Esperanto"
+msgstr "Esperanto"
 
-msgid "Apply from &Page:"
-msgstr "Použiť od &strany:"
+msgid "German"
+msgstr "Nemecký"
 
-msgid "To:"
-msgstr "Do:"
+msgid "Finnish"
+msgstr "Fínsky"
 
-msgid "Bookmarks"
-msgstr "Záložky"
+msgid "French"
+msgstr "Francúzsky"
 
-msgid "Move Bookmark"
-msgstr "Presunúť záložku"
+msgid "Galician"
+msgstr "Halíčsky"
 
-msgid "Insert Bookmark"
-msgstr "Vložiť záložku"
+msgid "Greek"
+msgstr "Grécky"
 
-msgid "Icon Placement"
-msgstr "Umiestnenie ikony"
+msgid "Hungarian"
+msgstr "Maďarský"
 
-msgid "Layout:"
-msgstr "Rozloženie:"
+msgid "Indonesian"
+msgstr "Indonézsky"
 
-msgid "Caption only"
-msgstr "Iba popisky"
+msgid "Italian"
+msgstr "Taliansky"
 
-msgid "Icon only"
-msgstr "Iba ikony "
+msgid "Korean"
+msgstr "Kórejsky"
 
-msgid "Caption below Icon"
-msgstr "Popisky pod ikonami"
+msgid "Lithuanian"
+msgstr "Litovský"
 
-msgid "Caption above Icon"
-msgstr "Popisky nad ikonami"
+msgid "Norwegian (Bokmaal)"
+msgstr "Nórsky (Bokmaal)"
 
-msgid "Caption right to Icon"
-msgstr "Popisky vpravo od ikon"
+msgid "Norwegian (Nnyorsk)"
+msgstr "Nórsky (Nnyorsk)"
 
-msgid "Caption left to Icon"
-msgstr "Popisky vľavo od ikon"
+msgid "Norwegian"
+msgstr "Nórsky"
 
-msgid "Caption overlays Icon"
-msgstr "Popisky prekrývajú ikony"
+msgid "Polish"
+msgstr "Poľský"
 
-msgid "Scale:"
-msgstr "Mierka:"
+msgid "Russian"
+msgstr "Ruský"
 
-msgid "Always"
-msgstr "Vždy"
+msgid "Swedish"
+msgstr "Švédsky"
 
-msgid "When Icon is too small"
-msgstr "Keď ikony sú príliš malé"
+msgid "Spanish"
+msgstr "Španielsky"
 
-msgid "When Icon is too big"
-msgstr "Keď ikony sú príliš veľké"
+msgid "Spanish (Latin)"
+msgstr "Španielsky (Latinská Amerika)"
 
-msgid "Never"
-msgstr "Nikdy"
+msgid "Slovak"
+msgstr "Slovenský"
 
-msgid "Scale How:"
-msgstr "Ako zmeniť:"
+msgid "Slovenian"
+msgstr "Slovinský"
 
-msgid "Proportional"
-msgstr "Proporcionálne"
-
-msgid "Non Proportional"
-msgstr "Neproporcionálny"
-
-msgid "Icon"
-msgstr "Ikona"
-
-msgid "Reset"
-msgstr "Vynulovať"
-
-msgid "Color Management Settings"
-msgstr "Nastavenie manažmentu farieb"
-
-msgid "&Activate Color Management"
-msgstr "&Aktívny manažment farieb"
-
-msgid "System Profiles"
-msgstr "Systémové profily"
-
-msgid "&Pictures:"
-msgstr "&Obrázky:"
-
-msgid "&Solid Colors:"
-msgstr "Plné farby (&Solid colors):"
-
-msgid "&Monitor:"
-msgstr "&Monitor:"
-
-msgid "P&rinter:"
-msgstr "&Tlačiareň:"
-
-msgid "Rendering Intents"
-msgstr "Účel generovania"
-
-msgid "Perceptual"
-msgstr "Vnímateľné (Perceptual)"
-
-msgid "Relative Colorimetric"
-msgstr "Relatívna kolorimetria"
-
-msgid "Saturation"
-msgstr "Sýtosť"
-
-msgid "Absolute Colorimetric"
-msgstr "Absolútna kolorimetria"
-
-msgid "M&onitor:"
-msgstr "M&onitor:"
-
-msgid "Pr&inter:"
-msgstr "Tlač&iareň:"
-
-msgid "Sim&ulate Printer on the Screen"
-msgstr "Sim&ulácia tlačiarne na obrazovke"
-
-msgid "Mark Colors out of &Gamut"
-msgstr "Označ netlačiteľné farby (&gamut)"
-
-msgid "Use &Blackpoint Compensation"
-msgstr "P&oužiť mapovanie čiernej z dvoch profilov"
-
-msgid "Default color profile for imported images"
-msgstr "Štandardný farebný profil pre importované obrázky"
-
-msgid "Default color profile for solid colors on the page"
-msgstr "Štandardný farebný profil na plné farby na strane"
-
-msgid ""
-"Color profile that you have generated or received from the manufacturer.\n"
-"This profile should be specific to your monitor and not a generic profile (i."
-"e. sRGB)."
-msgstr ""
-"Farebný profil, ktorý máte vygenerovaný alebo dodaný od výrobcu  "
-"zariadenia.\n"
-"Tento profil by mal byť nastavený na váš monitor a nie všeobecný profil "
-"(napr. s RGB)."
-
-msgid ""
-"Color profile for your printer model from the manufacturer.\n"
-"This profile should be specific to your printer and not a generic profile (i."
-"e. sRGB)."
-msgstr ""
-"Farebný profil pre váš model tlačiarne od výrobcu.\n"
-"Tento profil by mal byť nastavený pre vašu tlačiareň a nie všeobecný profil "
-"(napr. s RGB)."
-
-msgid ""
-"Default rendering intent for your monitor. Unless you know why to change "
-"it,\n"
-"Relative Colorimetric or Perceptual should be chosen."
-msgstr ""
-"Štandardný účel generovania pre váš monitor. Pokiaľ viete, prečo ho meniť,\n"
-"zvoľte relatívnu kolorimetrickú transformáciu alebo perceptuálanu "
-"(fotografickú) transformáciu."
-
-msgid ""
-"Default rendering intent for your printer. Unless you know why to change "
-"it,\n"
-"Relative Colorimetric or Perceptual should be chosen."
-msgstr ""
-"Štandardný účel generovania pre vašu tlačiareň. Pokiaľ neviete prečo to "
-"meniť,\n"
-"zvoľte relatívnu kolorimetrickú transformáciu alebo perceptuálnu "
-"(fotografickú) transformáciu."
-
-msgid ""
-"Enable 'soft proofing' of how your document colors will print,\n"
-"based on the chosen printer profile."
-msgstr "Povoliť 'soft proofing' založený na vybranom profile tlačiarne."
-
-msgid ""
-"Method of showing colors on the screen which may not print properly.\n"
-"This requires very accurate profiles and serves only as a warning."
-msgstr ""
-"Metóda zobrazovania farieb na obrazovke, ktoré nemusia byť správne "
-"vytlačené.\n"
-"Toto vyžaduje veľmi presné profily a slúži iba ako varovanie."
-
-msgid ""
-"Black Point Compensation is a method of improving contrast in photos.\n"
-"It is recommended that you enable this if you have photos in your document."
-msgstr ""
-"Kompenzácia čierneho bodu je metóda zlepšovania kontrastu fotiek\n"
-"Odporúča sa, aby ste povolili túto možnosť, pokiaľ váš dokument obsahuje "
-"fotografie."
-
-msgid "Edit Color"
-msgstr "Upraviť farby"
-
-msgid "&Name:"
-msgstr "&Názov:"
-
-msgid "Color &Model"
-msgstr "Farebný &model"
-
-msgid "CMYK"
-msgstr "CMYK"
-
-msgid "RGB"
-msgstr "RGB"
-
-msgid "Web Safe RGB"
-msgstr "Uložiť pre web RGB"
-
-msgid "New"
-msgstr "Nový"
-
-msgid "Old"
-msgstr "Starý"
-
-msgid "HSV-Colormap"
-msgstr "HSV- farebná mapa"
-
-msgid "C:"
-msgstr "C:"
-
-msgid " %"
-msgstr " %"
-
-msgid "M:"
-msgstr "M:"
-
-msgid "Y:"
-msgstr "Y:"
-
-msgid "K:"
-msgstr "K:"
-
-msgid "Dynamic Color Bars"
-msgstr "Mriežky so dynamickými farbami"
-
-msgid "Static Color Bars"
-msgstr "Mriežky so statickými farbami"
-
-msgid "R:"
-msgstr "R:"
-
-msgid "G:"
-msgstr "G:"
-
-msgid "B:"
-msgstr "B:"
-
-msgid "Warning"
-msgstr "Varovanie"
-
-msgid ""
-"You cannot create a color named \"%1\".\n"
-"It's a reserved name for transparent color"
-msgstr ""
-
-msgid "Name of the Color is not unique"
-msgstr "Názov farby nie je jedinečný"
-
-msgid "Colors"
-msgstr "Farby"
-
-msgid "&Append"
-msgstr "Prid&ať"
-
-msgid "&New"
-msgstr "&Nový"
-
-msgid "&Edit"
-msgstr "&Upraviť"
-
-msgid "D&uplicate"
-msgstr "D&uplikovať"
-
-msgid "&Delete"
-msgstr "&Odstrániť"
-
-msgid "&Remove Unused"
-msgstr "Odst&rániť nepoužité"
-
-msgid "Color Sets"
-msgstr "Sada farieb"
-
-msgid "Current Color Set:"
-msgstr "Aktuálna sada farieb:"
-
-msgid "&Save Color Set"
-msgstr "Uložiť farebnú &sadu"
-
-msgid "Choose a color set to load"
-msgstr "Nahrať sadu farieb"
-
-msgid "Save the current color set"
-msgstr "Uloží aktuálny sadu farieb"
-
-msgid "Remove unused colors from current document's color set"
-msgstr "Odstrániť nepoužité farby z aktuálnej sady dokumentu"
-
-msgid "Append colors to the current set from an existing document"
-msgstr "Pripojiť farby k aktuálnej sade z existujúceho dokumentu"
-
-msgid "Create a new color within the current set"
-msgstr "Vytvorí novú farbu v aktuálnej sade"
-
-msgid "Edit the currently selected color"
-msgstr "Upraviť aktuálne zvolenú farbu"
-
-msgid "Make a copy of the currently selected color"
-msgstr "Vytvoriť kópiu aktuálne zvolenej farby"
-
-msgid "Delete the currently selected color"
-msgstr "Odstrániť aktuálne zvolenú farbu"
-
-msgid "Make the current colorset the default color set"
-msgstr "Nastaviť aktuálnu farebnú sadu za štandardnú"
-
-msgid "Choose a Name"
-msgstr "Vybrať názov"
-
-msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
-msgstr "Dokumenty (*.sla *sla.gz *.scd *scd.gz);; Všetky súbory (*)"
-
-msgid "Documents (*.sla *.scd);;All Files (*)"
-msgstr "Dokumenty (*.sla *.scd);; Všetky súbory (*)"
-
-msgid "Copy of %1"
-msgstr "Kópia %1"
-
-msgid "New Color"
-msgstr "Nová farba"
-
-msgid "Shade:"
-msgstr "Tieň:"
-
-msgid "Opacity:"
-msgstr "Krytie:"
-
-msgid "Horizontal Gradient"
-msgstr "Horizontálny prechod"
-
-msgid "Vertical Gradient"
-msgstr "Vertikálny prechod"
-
-msgid "Diagonal Gradient"
-msgstr "Diagonálny prechod"
-
-msgid "Cross Diagonal Gradient"
-msgstr "Krížovodiagonálny prechod"
-
-msgid "Radial Gradient"
-msgstr "Radiálny prechod"
-
-msgid "Free linear Gradient"
-msgstr "Voľný lineárny prechod"
-
-msgid "Free radial Gradient"
-msgstr "Voľný radiálny prechod"
-
-msgid "X1:"
-msgstr "X1:"
-
-msgid "Y1:"
-msgstr "Y1:"
-
-msgid "X2:"
-msgstr "X2:"
-
-msgid "Y2:"
-msgstr "Y2:"
-
-#, fuzzy
-msgid "Move Vector"
-msgstr "Sem presunúť"
-
-msgid "Edit Line Color Properties"
-msgstr "Upraviť vlastnosti farby čiary"
-
-msgid "Edit Fill Color Properties"
-msgstr "Upraviť vlastnosti farby výplne"
-
-msgid "Saturation of color"
-msgstr "Sýtosť farby"
-
-msgid "Normal or gradient fill method"
-msgstr "Bežná metóda vyplnenia alebo prechod"
-
-msgid "Set the transparency for the color selected"
-msgstr "Nastaviť priesvitnosť pre zvolenú farbu"
-
-msgid "Color of selected object"
-msgstr "Farba zvoleného objektu"
-
-msgid ""
-"Move the start of the Gradient Vector with the left Mouse Button pressed "
-"and\n"
-"nove the end of the Gradient Vector with the right Mouse Button pressed"
-msgstr ""
-
-msgid "Printer Options"
-msgstr "Možnosti tlačiarne"
-
-msgid "Page Set"
-msgstr "Nastavenie strany"
-
-msgid "All Pages"
-msgstr "Všetky strany"
-
-msgid "Even Pages only"
-msgstr "Iba párne strany"
-
-msgid "Odd Pages only"
-msgstr "Iba nepárne strany"
-
-msgid "Mirror"
-msgstr "Zrkadlo"
-
-msgid "No"
-msgstr "Nie"
-
-msgid "Yes"
-msgstr "Áno"
-
-msgid "Orientation"
-msgstr "Orientácia"
-
-msgid "Portrait"
-msgstr "Na výšku"
-
-msgid "Landscape"
-msgstr "Na šírku"
-
-msgid "N-Up Printing"
-msgstr "N-Up tlač"
-
-msgid "Page per Sheet"
-msgstr "Strana na list"
-
-msgid "Pages per Sheet"
-msgstr "Strany na liste"
-
-msgid "Option"
-msgstr "Voľba"
-
-msgid "Value"
-msgstr "Hodnota"
-
-msgid ""
-"This panel displays various CUPS options when printing. \n"
-"The exact parameters available will depend on your printer driver.\n"
-"You can confirm CUPS support by selecting Help > About.\n"
-"Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF "
-"support.\n"
-"Missing library support is indicated by a *"
-msgstr ""
-"Tento panel zobrazuje rôzne CUPS nastavená počas tlače.\n"
-"Dostupnosť jednotlivých parametrov závisí na ovládači vašej tlačiarne.\n"
-"Podpory CUPS zistíte v ponuke Pomocník > O Scribuse.\n"
-"Text: C-C-T znamená podporu C-CUPS, C-littlecms a T-Tiff.\n"
-"Chýbajúce knižnice sú zobrazené ako *"
-
-msgid "Size:"
-msgstr "Veľkosť:"
-
-msgid "Title:"
-msgstr "Názov:"
-
-msgid "No Title"
-msgstr "Bez názvu"
-
-msgid "Author:"
-msgstr "Autor:"
-
-msgid "Unknown"
-msgstr "Neznámy"
-
-msgid "Scribus Document"
-msgstr "Scribus dokument"
-
-msgid "&Compress File"
-msgstr "&Komprimovaný súbor"
-
-msgid "&Include Fonts"
-msgstr "&Vrátanie písma"
-
-msgid "Encoding:"
-msgstr "Kódovanie:"
-
-msgid ""
-"Moves to your Document Directory.\n"
-"This can be set in the Preferences."
-msgstr ""
-"Presunutie vášho priečinku s dokumentmi.\n"
-"V nastaveniach je toto možné určiť."
-
-msgid "Delete Color"
-msgstr "Odstrániť farbu"
-
-#, fuzzy
-msgid "Delete Color:"
-msgstr "Odstrániť farbu"
-
-#, fuzzy
-msgid "Replace With:"
-msgstr "Nahradiť s:"
-
-msgid "Delete Pages"
-msgstr "Odstrániť strany"
-
-#, fuzzy
-msgid "Delete From:"
-msgstr "Odstrániť od:"
-
-msgid "to:"
-msgstr "po:"
+msgid "Serbian"
+msgstr "Srbsky"
 
 msgid "Document Information"
 msgstr "Informácie o dokumente"
@@ -1237,445 +2588,120 @@ msgstr ""
 "Informácie o právach držby dokumentu, napr. copyright, patent alebo obchodná "
 "značka"
 
-msgid "Advanced Options"
-msgstr "Pokročilé nastavenia"
+msgid "Edit Color"
+msgstr "Upraviť farby"
 
-msgid "Mirror Page(s) &Horizontal"
-msgstr "&Horizontálne zrkadlenie strán"
+msgid "Color &Model"
+msgstr "Farebný &model"
 
-msgid "Mirror Page(s) &Vertical"
-msgstr "&Vertikálne zrkadlenie strán"
+msgid "CMYK"
+msgstr "CMYK"
 
-msgid "Apply Under Color &Removal"
-msgstr ""
+msgid "RGB"
+msgstr "RGB"
 
-msgid "Apply &ICC Profiles"
-msgstr "Použiť &ICC-profily"
+msgid "Web Safe RGB"
+msgstr "Uložiť pre web RGB"
 
-msgid "PostScript Level &1"
-msgstr "PostScript Level &1"
+msgid "New"
+msgstr "Nový"
 
-msgid "PostScript Level &2"
-msgstr "PostScript Level &2"
+msgid "Old"
+msgstr "Starý"
 
-msgid "PostScript Level &3"
-msgstr "PostScript Level &3"
+msgid "HSV-Colormap"
+msgstr "HSV- farebná mapa"
 
-msgid "Creates PostScript Level 3"
-msgstr "Vytvorí PostScript Level 3"
+msgid "C:"
+msgstr "C:"
 
-msgid ""
-"Creates PostScript Level 2 only, beware,\n"
-"this can create huge files"
-msgstr ""
-"Vytvorí iba  PostScript Level 2.\n"
-"Pozor! Môže vytvoriť veľké súbory"
+msgid "M:"
+msgstr "M:"
 
-msgid ""
-"Creates PostScript Level 1 only, beware,\n"
-"this can create huge files"
-msgstr ""
-"Vytvorí iba  PostScript Level 1.\n"
-"Pozor! Môže vytvoriť veľké súbory"
+msgid "K:"
+msgstr "K:"
 
-msgid ""
-"A way of switching off some of the gray shades which are composed\n"
-"of cyan, yellow and magenta and using black instead.\n"
-"UCR most affects parts of images which are neutral and/or dark tones\n"
-"which are close to the gray. Use of this may improve printing some images\n"
-"and some experimentation and testing is need on a case by case basis.\n"
-"UCR reduces the possibility of over saturation with CMY inks."
-msgstr ""
-"Spôsob prepínania niektorých šedých tieňov, ktoré sú zložené\n"
-"z azúrovej, fialovej a žltej farby namiesto použitia čiernej.\n"
-"UCR naviac ovplyvňuje časti obrázkov, ktoré sú neutrálne a/alebo\n"
-"v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže "
-"zlepšiť\n"
-"tlač niektorých obrázkov - je však potrebné testovať jednotlivé prípady.\n"
-"UCR znižuje možnosť presýtenosti s CMY atramentmi."
+msgid "Dynamic Color Bars"
+msgstr "Mriežky so dynamickými farbami"
 
-msgid "Setup Printer"
-msgstr "Nastaviť tlačiareň"
+msgid "Static Color Bars"
+msgstr "Mriežky so statickými farbami"
 
-msgid "Print Destination"
-msgstr "Cieľ tlače"
+msgid "R:"
+msgstr "R:"
 
-msgid "File"
-msgstr "Súbor"
+msgid "G:"
+msgstr "G:"
 
-msgid "&Options..."
-msgstr "M&ožnosti..."
-
-msgid "&File:"
-msgstr "&Súbor:"
-
-msgid "A&lternative Printer Command"
-msgstr "A&lternatívny príkaz tlače"
+msgid "B:"
+msgstr "B:"
 
 msgid ""
-"Use an alternative print manager, such as kprinter or gtklp,\n"
-"to utilize additional printing options"
+"You cannot create a color named \"%1\".\n"
+"It's a reserved name for transparent color"
 msgstr ""
-"Použiť alternatívneho správcu tlače ako je kprinter alebo gtklp,\n"
-"na spracovanie prídavných nastavení tlače"
+"Nie je možné vytvoriť farbu s názvom \"%1\".\n"
+"Je rezervovaný pre transparentnú farbu."
 
-msgid "Co&mmand:"
-msgstr "&Príkaz:"
+msgid "Name of the Color is not unique"
+msgstr "Názov farby nie je jedinečný"
 
-msgid "Range"
-msgstr "Rozsah"
+msgid "Colors"
+msgstr "Farby"
 
-msgid "Print &All"
-msgstr "Tl&ačiť všetko"
+msgid "&Edit"
+msgstr "&Upraviť"
 
-msgid "Print Current Pa&ge"
-msgstr "Tlačiť akt&uálnu stranu"
+msgid "&Remove Unused"
+msgstr "Odst&rániť nepoužité"
 
-msgid "Print &Range"
-msgstr "Tlačiť &rozsah"
+msgid "Color Sets"
+msgstr "Sada farieb"
 
-msgid ""
-"Insert a comma separated list of tokens where\n"
-"a token can be * for all the pages, 1-5 for\n"
-"a range of pages or a single page number."
-msgstr ""
-"Vložiť čiarkou oddelený zoznam prvkov,\n"
-"kde prvok môže byť * pre všetky strany,\n"
-"1-5 pre rozsah strán alebo jedno číslo strany."
+msgid "Current Color Set:"
+msgstr "Aktuálna sada farieb:"
 
-msgid "N&umber of Copies:"
-msgstr "P&očet kópií:"
+msgid "&Save Color Set"
+msgstr "Uložiť farebnú &sadu"
 
-msgid "Print &Normal"
-msgstr "&Normálna tlač"
+msgid "Choose a color set to load"
+msgstr "Nahrať sadu farieb"
 
-msgid "Print &Separations"
-msgstr "Oddelená tlač &farebných zložiek"
+msgid "Save the current color set"
+msgstr "Uloží aktuálny sadu farieb"
 
-msgid "All"
-msgstr "Všetky"
+msgid "Remove unused colors from current document's color set"
+msgstr "Odstrániť nepoužité farby z aktuálnej sady dokumentu"
 
-msgid "Cyan"
-msgstr "Azúrová"
+msgid "Append colors to the current set from an existing document"
+msgstr "Pripojiť farby k aktuálnej sade z existujúceho dokumentu"
 
-msgid "Magenta"
-msgstr "Purpurová"
+msgid "Create a new color within the current set"
+msgstr "Vytvorí novú farbu v aktuálnej sade"
 
-msgid "Yellow"
-msgstr "Žltá"
+msgid "Edit the currently selected color"
+msgstr "Upraviť aktuálne zvolenú farbu"
 
-msgid "Black"
-msgstr "Čierna"
+msgid "Make a copy of the currently selected color"
+msgstr "Vytvoriť kópiu aktuálne zvolenej farby"
 
-msgid "Pr&int In Color If Available"
-msgstr "Tlač&iť farebne, ak je to možné"
+msgid "Delete the currently selected color"
+msgstr "Odstrániť aktuálne zvolenú farbu"
 
-msgid "Print In Gra&yscale"
-msgstr "T&lačiť v odtieňoch šedej"
+msgid "Make the current colorset the default color set"
+msgstr "Nastaviť aktuálnu farebnú sadu za štandardnú"
 
-msgid "Ad&vanced Options..."
-msgstr "&Pokročilé možnosti..."
+msgid "Choose a Name"
+msgstr "Vybrať názov"
 
-msgid "&Print"
-msgstr "&Tlač"
+msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
+msgstr "Dokumenty (*.sla *sla.gz *.scd *scd.gz);; Všetky súbory (*)"
 
-msgid "Save as"
-msgstr "Uložiť ako"
+msgid "Documents (*.sla *.scd);;All Files (*)"
+msgstr "Dokumenty (*.sla *.scd);; Všetky súbory (*)"
 
-msgid "Postscript-Files (*.ps);;All Files (*)"
-msgstr "Postscript súbory(*.ps);;Všetky súbory (*)"
-
-msgid "Edit Style"
-msgstr "Upraviť štýl"
-
-msgid "Character"
-msgstr "Znak"
-
-msgid "&Font:"
-msgstr "&Písmo:"
-
-msgid "Si&ze:"
-msgstr "&Veľkosť:"
-
-msgid "Effect:"
-msgstr "Efekt:"
-
-msgid "&Alignment:"
-msgstr "Z&arovnanie:"
-
-msgid "&Drop Caps"
-msgstr "&Iniciály"
-
-msgid "&Lines:"
-msgstr "Č&iary:"
-
-msgid "F&ill Color:"
-msgstr "&Farba výplne:"
-
-msgid "St&roke Color:"
-msgstr "Fa&rba obrysu:"
-
-msgid "Vertical Spaces"
-msgstr "Vertikálne medzery"
-
-msgid "Adjust to Baseline &Grid"
-msgstr "Zarovnať k pomocnej &mriežke"
-
-msgid "Line &Spacing:"
-msgstr "&Riadkovanie:"
-
-msgid "Abo&ve:"
-msgstr "&Nad:"
-
-msgid "&Below:"
-msgstr "&Pod:"
-
-msgid "Tabulators and Indentation"
-msgstr "Tabulátory a odsadenie"
-
-msgid "Name of your paragraph style"
-msgstr "Názov štýlu odstavca"
-
-msgid "Font of selected text or object"
-msgstr "Písmo pre zvolený text alebo objekt"
-
-msgid "Font Size"
-msgstr "Veľkosť písma"
-
-msgid "Color of text fill"
-msgstr "Farba výplne písma"
-
-msgid "Color of text stroke"
-msgstr "Farba obrysu písma"
-
-msgid ""
-"Provides an oversized first letter for a paragraph. Used for stylistic effect"
-msgstr "Nastaví oveľa vyššie prvé písmeno odstavca. Štylistický efekt"
-
-msgid "Determines the overall height, in line numbers, of the Drop Caps"
-msgstr "Určuje celkovú výšku iniciály v závislosti od počtu riadkov"
-
-msgid "Align text to baseline grid"
-msgstr "Zarovnať text k pomocnej mriežke"
-
-msgid "Spacing above the paragraph"
-msgstr "Medzera nad odsekom"
-
-msgid "Spacing below the paragraph"
-msgstr "Medzere pod odsekom"
-
-msgid "Line Spacing"
-msgstr "Riadkovanie"
-
-msgid "Name of the Style is not unique"
-msgstr "Názov štýlu nie je jedinečný"
-
-msgid "Edit Styles"
-msgstr "Upraviť štýly"
-
-msgid "&Save"
-msgstr "&Uložiť"
-
-msgid "New Style"
-msgstr "Nový štýl"
-
-#, fuzzy
-msgid "Do you really want to delete this Style?"
-msgstr "Skutočne chcete odstrániť tento štýl?"
-
-msgid "Editor"
-msgstr "Editor"
-
-msgid "&Open..."
-msgstr "&Otvoriť..."
-
-msgid "Save &As..."
-msgstr "Uložiť &ako..."
-
-msgid "&Save and Exit"
-msgstr "&Uložiť a ukončiť"
-
-msgid "&Exit without Saving"
-msgstr "U&končiť bez uloženia"
-
-msgid "&Undo"
-msgstr "V&rátiť späť"
-
-msgid "&Redo"
-msgstr "&Opakovať vrátené"
-
-msgid "Cu&t"
-msgstr "Vys&trihnúť"
-
-msgid "&Copy"
-msgstr "&Kopírovať"
-
-msgid "&Paste"
-msgstr "V&ložiť"
-
-msgid "C&lear"
-msgstr "&Zmazať"
-
-msgid "&Get Field Names"
-msgstr "&Získať názvy polí"
-
-msgid "&File"
-msgstr "&Súbor"
-
-msgid "Javascripts (*.js);;All Files (*)"
-msgstr "Java skripty (*.js);;Všetky súbory (*)"
-
-msgid "Global Font Settings"
-msgstr "Globálne nastavenia písma"
-
-msgid "Available Fonts"
-msgstr "Dostupné písma"
-
-msgid "Font Substitutions"
-msgstr "Substitúcia písem"
-
-msgid "Additional Paths"
-msgstr "Dodatočné cesty"
-
-msgid "Postscript"
-msgstr "Postscript"
-
-msgid "Font Name"
-msgstr "Názov písma"
-
-msgid "Use Font"
-msgstr "Použiť písmo"
-
-msgid "Embed in:"
-msgstr "Vložiť do:"
-
-msgid "Subset"
-msgstr "Podmnožina"
-
-msgid "Type"
-msgstr "Typ"
-
-msgid "Path to Font File"
-msgstr "Cesta k súborom písma"
-
-msgid "&Available Fonts"
-msgstr "Dostupné písm&a"
-
-msgid "Replacement"
-msgstr "Náhrada"
-
-msgid "Font &Substitutions"
-msgstr "&Substitúcia písem"
-
-msgid "A&dd..."
-msgstr "&Pridať..."
-
-msgid "&Remove"
-msgstr "&Odstrániť"
-
-msgid "Additional &Paths"
-msgstr "&Dodatočné cesty"
-
-msgid "Choose a Directory"
-msgstr "Vybrať priečinok"
-
-msgid "Nodes"
-msgstr "Uzly"
-
-msgid "&Absolute Coordinates"
-msgstr "&Absolútne súradnice"
-
-msgid "&X-Pos:"
-msgstr "&X-Poz:"
-
-msgid "Edit &Contour Line"
-msgstr "Upraviť vrstevni&cu"
-
-msgid "&Reset Contour Line"
-msgstr "Vynulovať v&rstevnicu"
-
-msgid "&End Editing"
-msgstr "&Koniec úprav"
-
-msgid "Move Nodes"
-msgstr "Presunúť uzly"
-
-msgid "Move Control Points"
-msgstr "Presunúť riadiace body"
-
-msgid "Add Nodes"
-msgstr "Pridať uzly"
-
-msgid "Delete Nodes"
-msgstr "Odstrániť uzly"
-
-msgid "Move Control Points Independently"
-msgstr "Presúvať riadiace body nezávislo"
-
-msgid "Move Control Points Symmetrical"
-msgstr "Presúvať riadiace body symetricky"
-
-msgid "Reset Control Points"
-msgstr "Vynulovať riadiace body"
-
-msgid "Reset this Control Point"
-msgstr "Vynulovať tento riadiaci bod"
-
-msgid "Open a Polygon or Cuts a Bezier Curve"
-msgstr "Otvorí polygón alebo oreže Bézierovú krivku"
-
-msgid "Close this Bezier Curve"
-msgstr "Uzavrie túto Bézierovú krivku"
-
-msgid "Mirror the Path Horizontally"
-msgstr "Horizontálne zrkadliť cestu"
-
-msgid "Mirror the Path Vertically"
-msgstr "Vertikálne zrkadliť cestu"
-
-msgid "Shear the Path Horizontally to the Right"
-msgstr "Uvoľniť horizontálu doprava"
-
-msgid "Shear the Path Horizontally to the Left"
-msgstr "Uvoľniť horizontálu doľava"
-
-msgid "Shear the Path Vertically Up"
-msgstr "Uvoľniť vertikálu hore"
-
-msgid "Shear the Path Vertically Down"
-msgstr "Uvoľniť vertikálu dole"
-
-msgid "Rotate the Path Counter-Clockwise"
-msgstr "Rotácia v smere hodinových ručičiek"
-
-msgid "Rotate the Path Clockwise"
-msgstr "Rotácia proti smeru hodinových ručičiek"
-
-msgid "Reduce the Size of the Path by shown %"
-msgstr "Zmenšiť o zobrazené %"
-
-msgid "Enlarge the Size of the Path by shown %"
-msgstr "Zväčšiť o zobrazené %"
-
-msgid "Angle of Rotation"
-msgstr "Uhol otočenia"
-
-#, c-format
-msgid "% to Enlarge or Reduce By"
-msgstr "% zväčšenia alebo zmenšenia"
-
-msgid "Activate Contour Line Editing Mode"
-msgstr "Aktivuje režim úprav vrstevnice"
-
-msgid "Reset the Contour Line to the Original Shape of the Frame"
-msgstr "Vrátiť vrstevnicu do pôvodného tvaru rámu"
-
-msgid ""
-"When checked use Coordinates relative to the Page,\n"
-"otherwise Coordinates are relative to the Object."
-msgstr ""
-"Keď je označené, súradnice sú relatívne vzhľadom k strane,\n"
-"v opačnom prípade sú relatívne k objektu."
+msgid "New Color"
+msgstr "Nová farba"
 
 msgid "Position:"
 msgstr "Pozícia:"
@@ -1684,1886 +2710,47 @@ msgid "Here you can add, change or remove Color-Stops."
 msgstr ""
 "Tu môžete pridať zmeniť alebo odstrániť Požadované farby (Stop-colors)."
 
-msgid "Importing text"
-msgstr "Importovanie textu"
-
-msgid "Choose the importer to use"
-msgstr "Vyberte import, ktorý sa má použiť"
-
-msgid "Automatic"
-msgstr "Automatické"
-
-msgid "Get text only"
-msgstr "Iba text"
-
-msgid "Import text without any formatting"
-msgstr "Importovať text bez formátovania"
-
-msgid "Importer:"
-msgstr "Importér:"
-
-msgid "Remember association"
-msgstr ""
-
-msgid ""
-"Remember the file extension - importer association\n"
-"and do not ask again to select an importer for\n"
-"files of this type."
-msgstr ""
-
-msgid "All Supported Formats"
-msgstr "Všetky podporované formáty"
-
-msgid "All Files (*)"
-msgstr "Všetky súbory (*)"
-
-msgid "Manage Guides"
-msgstr "Ovládanie vodítok"
-
-msgid "Horizontal Guides"
-msgstr "Vodorovné vodítka"
-
-msgid "&Add"
-msgstr "&Pridať"
-
-msgid "D&elete"
-msgstr "O&dstrániť"
-
-msgid "Vertical Guides"
-msgstr "Zvislé vodítka"
-
-msgid "A&dd"
-msgstr "&Pridať"
-
-msgid "De&lete"
-msgstr "&Odstrániť"
-
-msgid "&Lock Guides"
-msgstr "&Uzamknúť vodítka"
-
-#, fuzzy
-msgid "Contents"
-msgstr "V&ymazať obsah"
-
-#, fuzzy
-msgid "Scribus Online Help"
-msgstr "Online Pomocník..."
-
-#, fuzzy
-msgid ""
-"Sorry, no manual available! Please see: http://docs.scribus.net for updated "
-"docs\n"
-"and www.scribus.net for downloads."
-msgstr ""
-"Ľutujem, ale manuál nie je dostupný! Aktualizovanú dokumentáciu si môžete "
-"stiahnuť na http://scribus.net"
-
-msgid "Possible Hyphenation"
-msgstr "Možné delenie slov"
-
-msgid "Accept"
-msgstr "Akceptovať"
-
-msgid "Skip"
-msgstr "Preskočiť"
-
-msgid "Hyphenator Settings"
-msgstr "Nastavenie delenia slov"
-
-#, fuzzy
-msgid "&Hyphenation Suggestions"
-msgstr "Nastavenie delenia slov"
-
-msgid "Hyphenate Text Automatically &During Typing"
-msgstr ""
-
-msgid "&Smallest Word:"
-msgstr "&Najmenšie slovo:"
-
-#, fuzzy
-msgid "Consecutive Hyphenations &Allowed:"
-msgstr "&Počet povolených delení slov:"
-
-msgid ""
-"A dialog box showing all possible hyphens for each word will show up when "
-"you use the Extras, Hyphenate Text option."
-msgstr ""
-
-#, fuzzy
-msgid "Enables automatic hyphenation of your text while typing."
-msgstr "Povolí automatickú kontrolu vášho textu počas písania."
-
-msgid "Length of the smallest word to be hyphenated."
-msgstr "Toto je dĺžka najmenšieho slova, ktoré sa bude deliť."
-
-msgid ""
-"Maximum number of Hyphenations following each other.\n"
-"A value of 0 means unlimited hyphenations."
-msgstr ""
-"Maximálny počet delení slov za sebou.\n"
-"Hodnota 0 znamená neobmedzené delenie slov."
-
-msgid "Insert Table"
-msgstr "Vložiť tabuľku"
-
-msgid "Number of Rows:"
-msgstr "Počet riadkov:"
-
-msgid "Number of Columns:"
-msgstr "Počet stĺpcov:"
-
-msgid "Insert Page"
-msgstr "Vložiť stranu"
-
-msgid "&Insert"
-msgstr "&Vložiť"
-
-msgid "Page(s)"
-msgstr "strana"
-
-msgid "before Page"
-msgstr "pred stranu"
-
-msgid "after Page"
-msgstr "za stranu"
-
-msgid "at End"
-msgstr "na koniec"
-
-#, fuzzy
-msgid "Template (&Left Page):"
-msgstr "Ša&blóna (ľavá strana):"
-
-#, fuzzy
-msgid "Template (&Right Page):"
-msgstr "Šablóna (Pravá strana):"
-
-msgid "Edit JavaScripts"
-msgstr "Upraviť Java skripty"
-
-msgid "&Edit..."
-msgstr "&Upraviť..."
-
-msgid "&Add..."
-msgstr "&Pridať..."
-
-msgid "&Close"
-msgstr "&Zavrieť"
-
-msgid "&New Script:"
-msgstr "&Nový skript:"
-
-msgid "New Script"
-msgstr "Nový skript"
-
-#, fuzzy
-msgid "Do you really want to delete this Script?"
-msgstr "Skutočne chcete odstrániť tento skript?"
-
-msgid "&No"
-msgstr "&Nie"
-
-msgid "&Yes"
-msgstr "&Áno"
-
-msgid "Manage Keyboard Shortcuts"
-msgstr "Správa klávesových skratiek"
-
-msgid "Current Key"
-msgstr "Aktuálny kláves"
-
-msgid "Select a Key for this Action"
-msgstr "Zvoľte kláves pre túto akciu"
-
-msgid "&No Key"
-msgstr "Žiad&ny kláves"
-
-msgid "&User Defined Key"
-msgstr "Po&užívateľom definovaný kláves"
-
-msgid "ALT+SHIFT+T"
-msgstr "ALT+SHIFT+T"
-
-msgid "Set &Key"
-msgstr "Nastaviť &kláves"
-
-msgid "Alt"
-msgstr "Alt"
-
-msgid "Ctrl"
-msgstr "Ctrl"
-
-msgid "Shift"
-msgstr "Shift"
-
-msgid "Shift+"
-msgstr "Shift+"
-
-msgid "Alt+"
-msgstr "Alt+"
-
-msgid "Ctrl+"
-msgstr "Ctrl+"
-
-msgid "This Key Sequence is already in use"
-msgstr "Táto klávesová sekvencia sa už používa"
-
-msgid "Layers"
-msgstr "Vrstvy"
-
-msgid "Add a new Layer"
-msgstr "Pridať novú vrstvu"
-
-msgid "Delete Layer"
-msgstr "Odstrániť vrstvu"
-
-msgid "Raise Layer"
-msgstr "Vrstvu dopredu"
-
-msgid "Lower Layer"
-msgstr "Vrstvu dozadu"
-
-msgid "New Layer"
-msgstr "Nová vrstva"
-
-msgid "Do you want to delete all Objects on this Layer too?"
-msgstr "Skutočne chcete odstrániť všetky objekty v tejto vrstve?"
-
-msgid "Edit Line Styles"
-msgstr "Upraviť štýly čiary"
-
-msgid "Multiple Duplicate"
-msgstr "Viacnásobné duplikovanie"
-
-msgid "&Number of Copies:"
-msgstr "&Počet kópií:"
-
-msgid "&Horizontal Shift:"
-msgstr "&Vodorovné posunutie:"
-
-msgid "&Vertical Shift:"
-msgstr "&Zvislé posunutie:"
-
-msgid "pt"
-msgstr "pt"
-
-msgid "Distances"
-msgstr "Vzdialenosti"
-
-msgid "DX:"
-msgstr "DX:"
-
-msgid "DY:"
-msgstr "DY:"
-
-msgid "Angle:"
-msgstr "Uhol:"
-
-msgid "Length:"
-msgstr "Dĺžka:"
-
-msgid "Import Template"
-msgstr "Importovať šablónu"
-
-msgid "Import Page(s)"
-msgstr "Importovať stranu"
-
-#, fuzzy
-msgid "&From Document:"
-msgstr "Z dokumentu:"
-
-#, fuzzy
-msgid "Chan&ge..."
-msgstr "Zmeniť..."
-
-#, fuzzy
-msgid "&Import Page(s):"
-msgstr "Importovať stranu:"
-
-#, fuzzy
-msgid "&Import Template"
-msgstr "Importovať šablónu"
-
-#, fuzzy
-msgid ""
-"Insert a comma separated list of tokens importWhereData\n"
-"a token can be * for all the pages, 1-5 for\n"
-"a range of pages or a single page number."
-msgstr ""
-"Vložiť čiarkou oddelený zoznam prvkov,\n"
-"kde prvok môže byť * pre všetky strany,\n"
-"1-5 pre rozsah strán alebo jedno číslo strany."
-
-msgid " from 0"
-msgstr " z 0"
-
-msgid "Create Page(s)"
-msgstr "Vytvoriť stranu"
-
-#, fuzzy
-msgid "Before Page"
-msgstr "pred stranu"
-
-#, fuzzy
-msgid "After Page"
-msgstr "za stranu"
-
-#, fuzzy
-msgid "At End"
-msgstr "na koniec"
-
-msgid "&Import"
-msgstr "&Import"
-
-msgid " from %1"
-msgstr " z %1"
-
-msgid "Missing Font"
-msgstr "Chýbajúce písmo"
-
-msgid "The Font %1 is not installed."
-msgstr "Písmo %1 nie je nainštalované."
-
-msgid "Use"
-msgstr "Použiť"
-
-msgid "instead"
-msgstr "namiesto"
-
-msgid "Move Pages"
-msgstr "Presunúť strany"
-
-msgid "Copy Page"
-msgstr "Kopírovať stránku"
-
-#, fuzzy
-msgid "Move Page(s)"
-msgstr "Presun strán:"
-
-msgid "Move Page(s):"
-msgstr "Presun strán:"
-
-msgid "X, Y, &Z"
-msgstr "X, Y, &Z"
-
-msgid "&Shape"
-msgstr "&Tvar"
-
-msgid "&Text"
-msgstr "&Text"
-
-msgid "&Image"
-msgstr "&Obrázok"
-
-msgid "&Line"
-msgstr "&Čiara"
-
-msgid "&Colors"
-msgstr "&Farby"
-
-msgid "Name"
-msgstr "Názov"
-
-msgid "Geometry"
-msgstr "Geometria"
-
-msgid "&Width:"
-msgstr "Šír&ka:"
-
-msgid "&Height:"
-msgstr "&Výška:"
-
-msgid "&Rotation:"
-msgstr "&Otočenie:"
-
-msgid "Basepoint:"
-msgstr "Základný bod:"
-
-msgid "Level"
-msgstr "Úroveň"
-
-msgid "Shape:"
-msgstr "Tvar:"
-
-msgid "&Edit Shape..."
-msgstr "&Upraviť tvar..."
-
-msgid ""
-"R&ound\n"
-"Corners:"
-msgstr ""
-"Za&obliť\n"
-"Rohy:"
-
-msgid "Distance of Text"
-msgstr "Vzdialenosť textu"
-
-msgid "Colu&mns:"
-msgstr "&Stĺpce:"
-
-msgid "&Gap:"
-msgstr "&Odstup:"
-
-msgid "To&p:"
-msgstr "&Horný:"
-
-msgid "&Bottom:"
-msgstr "&Dolný:"
-
-msgid "&Left:"
-msgstr "&Ľavý:"
-
-msgid "&Right:"
-msgstr "P&ravý:"
-
-msgid "T&abulators..."
-msgstr "T&abulátory..."
-
-msgid "Path Text Properties"
-msgstr "Vlastnosti textu na krivky"
-
-msgid "Show Curve"
-msgstr "Zobraziť krivku"
-
-msgid "Start Offset:"
-msgstr "Počiatočný posun:"
-
-msgid "Distance from Curve:"
-msgstr "Vzdialenosť od krivky:"
-
-msgid "Text &Flows Around Frame"
-msgstr "Text o&bteká okolo rámu"
-
-msgid "Use &Bounding Box"
-msgstr "Použiť &viazané pole"
-
-msgid "&Use Contour Line"
-msgstr "Po&užiť vrstevnicu"
-
-msgid "&Font Size:"
-msgstr "V&eľkosť písma:"
-
-msgid "Custom Spacing"
-msgstr "Vlastné medzery"
-
-msgid "&Kerning:"
-msgstr "Vyrovnávanie zna&kov (kerning):"
-
-msgid "L&ine Spacing:"
-msgstr "R&iadkovanie:"
-
-msgid "St&yle:"
-msgstr "Š&týl:"
-
-msgid "Lan&guage:"
-msgstr "&Jazyk:"
-
-msgid "&Free Scaling"
-msgstr "Voľ&ná zmena veľkosti"
-
-msgid "X-Sc&ale:"
-msgstr "X-Mierk&a:"
-
-msgid "Y-Scal&e:"
-msgstr "Y-Mi&erka:"
-
-msgid "Scale &To Frame Size"
-msgstr "Zmeniť veľ&kosť na rozmer rámu"
-
-msgid "P&roportional"
-msgstr "P&roporcionálne"
-
-msgid "Input Profile:"
-msgstr "Vložiť profil:"
-
-msgid "Rendering Intent:"
-msgstr "Účel generovania:"
-
-msgid "Left Point"
-msgstr "Ľavý bod"
-
-msgid "End Points"
-msgstr "Koncové body"
-
-msgid "&Basepoint:"
-msgstr "Základný &bod:"
-
-msgid "T&ype of Line:"
-msgstr "T&yp čiary:"
-
-msgid "Start Arrow:"
-msgstr ""
-
-msgid "End Arrow:"
-msgstr ""
-
-msgid "Line &Width:"
-msgstr "Ší&rka čiary:"
-
-msgid "Miter Join"
-msgstr "Kolmý spoj"
-
-msgid "Bevel Join"
-msgstr "Skosený spoj"
-
-msgid "Round Join"
-msgstr "Oblý spoj"
-
-msgid "Ed&ges:"
-msgstr "&Hrany:"
-
-msgid "Flat Cap"
-msgstr "Rovná hlavička"
-
-msgid "Square Cap"
-msgstr "Štvorcová hlavička"
-
-msgid "Round Cap"
-msgstr "Oblá hlavička"
-
-msgid "&Endings:"
-msgstr "Ukonč&enia:"
-
-msgid "No Style"
-msgstr "Bez štýlu"
-
-msgid "Cell Lines"
-msgstr "Čiary bunky"
-
-msgid "Line at Top"
-msgstr "Horná čiara"
-
-msgid "Line at the Left"
-msgstr "Ľavá čiara"
-
-msgid "Line at the Right "
-msgstr "Pravá čiara"
-
-msgid "Line at Bottom"
-msgstr "Dolná čiara"
-
-msgid "Name of selected object"
-msgstr "Názov zvoleného objektu"
-
-msgid "Horizontal position of current basepoint"
-msgstr "Vodorovná pozícia aktuálneho základného bodu"
-
-msgid "Vertical position of current basepoint"
-msgstr "Zvislá pozícia aktuálneho základného bodu"
-
-msgid "Width"
-msgstr "Šírka"
-
-msgid "Height"
-msgstr "Výška"
-
-msgid "Rotation of object at current basepoint"
-msgstr "Otočenie objektu v aktuálnom základnom bode"
-
-msgid "Point from which measurements or rotation angles are referenced"
-msgstr "Bod, od ktorého sú odvodené vzdialenosti alebo uhly rotácie"
-
-msgid "Select top left for basepoint"
-msgstr "Zvoliť ľavý horný roh za základný bod"
-
-msgid "Select top right for basepoint"
-msgstr "Zvoliť pravý horný roh za základný bod"
-
-msgid "Select bottom left for basepoint"
-msgstr "Zvoliť ľavý dolný roh za základný bod"
-
-msgid "Select bottom right for basepoint"
-msgstr "Zvoliť pravý dolný roh za základný bod"
-
-msgid "Select center for basepoint"
-msgstr "Zvoliť stred za základný bod"
-
-msgid "Flip Horizontal"
-msgstr "Vodorovne zameniť"
-
-msgid "Flip Vertical"
-msgstr "Zvislo zameniť"
-
-msgid "Move one level up"
-msgstr "Presunúť o jednu úroveň vyššie"
-
-msgid "Move one level down"
-msgstr "Presunúť o jednu úroveň nižšie"
-
-msgid "Move to front"
-msgstr "Presunúť dopredu"
-
-msgid "Move to back"
-msgstr "Presunúť dozadu"
-
-msgid ""
-"Indicates the level the object is on, 0 means the object is at the bottom"
-msgstr ""
-"Ukazuje hladinu zvoleného objektu. 0 znamená, že objekt je na najnižšej "
-"úrovni"
-
-msgid "Lock or unlock the object"
-msgstr "Uzamknúť alebo odomknúť objekt"
-
-msgid "Lock or unlock the size of the object"
-msgstr "Uzamknúť alebo odomknúť veľkosť objekt"
-
-msgid "Enable or disable printing of the object"
-msgstr "Povoliť alebo zakázať tlač objektu"
-
-msgid "Make text in lower frames flow around the object shape"
-msgstr "Povoliť obtekanie textu v nižších rámoch okolo zvoleného objektu"
-
-msgid "Use a surrounding box instead of the frame's shape for text flow"
-msgstr "Použiť obklopujúce pole namiesto tvaru rámu pre tok textu"
-
-msgid "Use a second line originally based on the frame's shape for text flow"
-msgstr "Použiť druhú čiaru pôvodne založenú na tvare rámu pre tok textu"
-
-msgid "Scaling width of characters"
-msgstr "Zmena šírky znakov"
-
-msgid "Saturation of color of text stroke"
-msgstr "Sýtosť farby obrysu písma"
-
-msgid "Saturation of color of text fill"
-msgstr "Sýtosť farby výplne textu"
-
-#, fuzzy
-msgid "Right to Left Writing"
-msgstr "Sprava doľava"
-
-msgid "Manual Kerning"
-msgstr "Ručné párovanie znakov (Kerning)"
-
-msgid "Style of current paragraph"
-msgstr "Štýl aktuálneho odseku"
-
-msgid "Hyphenation language of frame"
-msgstr "Jazyk rámu pre delenie slov"
-
-msgid "Change settings for left or end points"
-msgstr "Zmena nastavenia bodov čiary"
-
-msgid "Pattern of line"
-msgstr "Štýl čiary"
-
-msgid "Thickness of line"
-msgstr "Hrúbka čiary"
-
-msgid "Type of line joins"
-msgstr "Typ spojenia čiar"
-
-msgid "Type of line end"
-msgstr "Zakončenie čiar"
-
-msgid "Line style of current object"
-msgstr "Štýl čiary aktuálneho objektu"
-
-msgid "Choose the shape of frame..."
-msgstr "Vyberte tvar rámu..."
-
-msgid "Edit shape of the frame..."
-msgstr "Upraviť tvar rámu..."
-
-msgid "Set radius of corner rounding"
-msgstr "Nastaví polomer zaoblenia rohov"
-
-msgid "Number of columns in text frame"
-msgstr "Počet stĺpcov v textovom ráme"
-
-msgid "Switches between Gap or Column width"
-msgstr "Prepína medzi medzerou alebo šírkou stĺpca"
-
-msgid "Distance between columns"
-msgstr "vzdialenosť medzi stĺpcami"
-
-msgid "Distance of text from top of frame"
-msgstr "Vzdialenosť textu od horného okraja rámu"
-
-msgid "Distance of text from bottom of frame"
-msgstr "Vzdialenosť textu od dolného okraja rámu"
-
-msgid "Distance of text from left of frame"
-msgstr "Vzdialenosť textu od ľavého okraja rámu"
-
-msgid "Distance of text from right of frame"
-msgstr "Vzdialenosť textu od pravého okraja rámu"
-
-msgid "Edit tab settings of text frame..."
-msgstr "Úprava nastavení tabulátorov textového rámu..."
-
-msgid "Allow the image to be a different size to the frame"
-msgstr "Povolí nastavenie iných rozmerov obrázku ako má rám"
-
-msgid "Horizontal offset of image within frame"
-msgstr "Vodorovný posun obrázku v ráme"
-
-msgid "Vertical offset of image within frame"
-msgstr "Zvislý posun obrázku v ráme"
-
-msgid "Resize the image horizontally"
-msgstr "Zmena šírky obrázku"
-
-msgid "Resize the image vertically"
-msgstr "Zmeniť výšku obrázku"
-
-msgid "Keep the X and Y scaling the same"
-msgstr "Použije sa rovnaká zmena veľkosti pre oba rozmery (X a Y)"
-
-msgid "Keep the aspect ratio"
-msgstr "Zachovať pomer strán"
-
-msgid "Make the image fit within the size of the frame"
-msgstr "Obrázok zmení veľkosť podľa rozmeru rámu"
-
-msgid "Use image proportions rather than those of the frame"
-msgstr "Obrázok si zachová svoje proporcie"
-
-msgid "Source profile of the image"
-msgstr "Zdrojový profil obrázku"
-
-msgid "Rendering intent for the image"
-msgstr "Účel generovania obrázka"
-
-msgid "&X1:"
-msgstr "&X1:"
-
-msgid "X&2:"
-msgstr "X&2:"
-
-msgid "Y&1:"
-msgstr "Y&1:"
-
-msgid "&Y2:"
-msgstr "&Y2:"
-
-msgid "Column width"
-msgstr "Šírka stĺpca"
-
-msgid ""
-"Name \"%1\" isn't unique.\n"
-"Please choose another."
-msgstr ""
-"Názov \"%1\" nie je jedinečný.\n"
-"Vyberte si, prosím, iný."
-
-msgid "mm"
-msgstr "mm"
-
-msgid "in"
-msgstr "in"
-
-msgid "p"
-msgstr "p"
-
-msgid "Line Width:"
-msgstr "Šírka čiary:"
-
-msgid " pt "
-msgstr " pt "
-
-msgid "Solid Line"
-msgstr "Plná čiara"
-
-msgid "Dashed Line"
-msgstr "Čiarkovaná čiara"
-
-msgid "Dotted Line"
-msgstr "Bodkovaná čiara"
-
-msgid "Dash Dot Line"
-msgstr "Bodko-čiarkovaná čiara"
-
-msgid "Dash Dot Dot Line"
-msgstr "Čiarka-bodko-bodkovaná čiara"
-
-msgid "Edit Templates"
-msgstr "Upraviť šablóny"
-
-#, fuzzy
-msgid "Do you really want to delete this Template?"
-msgstr "Skutočne chcete odstrániť túto šablónu?"
-
-msgid "New Template"
-msgstr "Nová šablóna"
-
-msgid "Copy #%1 of "
-msgstr "Kópia  #%1 z "
-
-msgid "New Document"
-msgstr "Nový dokument"
-
-msgid "Page Size"
-msgstr "Veľkosť strany"
-
-msgid "&Size:"
-msgstr "&Veľkosť:"
-
-msgid "Legal"
-msgstr "Legal"
-
-msgid "Letter"
-msgstr "Letter"
-
-msgid "Tabloid"
-msgstr "Tabloid"
-
-msgid "Orie&ntation:"
-msgstr "Orie&ntácia:"
-
-msgid "&Facing Pages"
-msgstr "&Protiľahlé strany"
-
-msgid "Left &Page First"
-msgstr "&Prvá strana vľavo"
-
-msgid "Margin Guides"
-msgstr "Vodítka okrajov"
-
-msgid "&Top:"
-msgstr "&Hore:"
-
-msgid "F&irst Page Number:"
-msgstr "Č&íslo prvej strany:"
-
-msgid "&Default Unit:"
-msgstr "Štan&dardná jednotka:"
-
-msgid "Points (pts)"
-msgstr "Body (pts)"
-
-msgid "Millimetres (mm)"
-msgstr "Milimetre (mm)"
-
-msgid "Inches (in)"
-msgstr "Palce (in)"
-
-msgid "Picas (p)"
-msgstr "Piká (p)"
-
-msgid "&Automatic Text Frames"
-msgstr "&Autom. textové rámy"
-
-msgid "Column Guides"
-msgstr "Vodítka stĺpcov"
-
-msgid "Document page size, either a standard size or a custom size"
-msgstr "veľkosť strany dokumentu, či už štandardná alebo vlastná"
-
-msgid "Orientation of the document's pages"
-msgstr "Orientácia strán dokumentu"
-
-msgid ""
-"Width of the document's pages, editable if you have chosen a custom page size"
-msgstr ""
-"Šírka strán dokumentu, upraviteľná, pokiaľ si zvolíte vlastnú veľkosť strany."
-
-msgid ""
-"Height of the document's pages, editable if you have chosen a custom page "
-"size"
-msgstr ""
-"Výska strán dokumentu, upraviteľná, pokiaľ si zvolíte vlastnú veľkosť strany."
-
-msgid "Enable single or spread based layout"
-msgstr "povoliť rozloženie po jednej alebo po viacerých stranách"
-
-msgid "Make the first page the left page of the document"
-msgstr "Prvá strana je ľavou stranou dokumentu"
-
-msgid "Distance between the top margin guide and the edge of the page"
-msgstr "Vzdialenosť medzi horným vodítkom okraja a hranou strany"
-
-msgid "Distance between the bottom margin guide and the edge of the page"
-msgstr "Vzdialenosť medzi dolným vodítkom okraja a hranou strany"
-
-msgid ""
-"Distance between the left margin guide and the edge of the page.\n"
-"If Facing Pages is selected, this margin space can be used to achieve the "
-"correct margins for binding"
-msgstr ""
-"Vzdialenosť medzi ľavým vodítkom okraja a hranou strany.\n"
-"Pri použití protiľahlých strán, táto medzera môže byť použitá na dosiahnutie "
-"správneho okraja pre väzbu"
-
-msgid ""
-"Distance between the right margin guide and the edge of the page.\n"
-"If Facing Pages is selected, this margin space can be used to achieve the "
-"correct margins for binding"
-msgstr ""
-"Vzdialenosť medzi pravým vodítkom okraja a hranou strany.\n"
-"Pri použití protiľahlých strán, táto medzera môže byť použitá na dosiahnutie "
-"správneho okraja pre väzbu"
-
-msgid "First page number of the document"
-msgstr "Prvé číslo strany dokumentu"
-
-msgid "Default unit of measurement for document editing"
-msgstr "Štandardná merná jednotka dokumentu"
-
-msgid "Create text frames automatically when new pages are added"
-msgstr "Automaticky vytvorí textový rám pri pridaní novej strany"
-
-msgid "Number of columns to create in automatically created text frames"
-msgstr "Počet automaticky vytvorených stĺpcov pri vytvorení textového rámu"
-
-msgid "Distance between automatically created columns"
-msgstr "Vzdialenosť medzi automaticky vytvorenými stĺpcami"
-
-msgid "&Inside:"
-msgstr "&Vnútorný:"
-
-msgid "O&utside:"
-msgstr "V&onkajší:"
-
-msgid "Left Page"
-msgstr "Ľavá strana"
-
-msgid "Right Page"
-msgstr "Pravá strana"
-
-msgid "Image"
-msgstr "Obrázok"
-
-msgid "Line"
-msgstr "Čiara"
-
-msgid "Polygon"
-msgstr "Mnohouholník"
-
-msgid "Polyline"
-msgstr "Lomená čiara"
-
-msgid "PathText"
-msgstr "Text na cestu"
-
-msgid "Page "
-msgstr "Strana "
-
-msgid " of %1"
-msgstr " z %1"
-
-msgid "Create PDF File"
-msgstr "Vytvoriť PDF-súbor"
-
-msgid "O&utput to File:"
-msgstr "Výst&up do súboru:"
-
-msgid "Cha&nge..."
-msgstr "&Zmeniť..."
-
-msgid "Export Range"
-msgstr "Exportovať rozsah"
-
-msgid "&All Pages"
-msgstr "Všetky str&any"
-
-msgid "C&hoose Pages"
-msgstr "Zvo&liť strany"
-
-msgid "File Options"
-msgstr "Súborové nastavenia"
-
-msgid "Compatibilit&y:"
-msgstr "Kompatibili&ta:"
-
-msgid "&Binding:"
-msgstr "&Viazanie:"
-
-msgid "Left Margin"
-msgstr "Ľavý okraj"
-
-msgid "Right Margin"
-msgstr "Pravý okraj"
-
-msgid "Generate &Thumbnails"
-msgstr "Vy&tvoriť náhľady"
-
-msgid "Save &Linked Text Frames as PDF Articles"
-msgstr "U&ložiť prepojené textové rámy ako PDF články"
-
-msgid "&Include Bookmarks"
-msgstr "Vrátane zálož&iek"
-
-msgid " dpi"
-msgstr " dpi"
-
-msgid "&Resolution:"
-msgstr "&Rozlíšenie:"
-
-#, fuzzy
-msgid "Com&press Text and Vector Graphics"
-msgstr "Kom&primovať text a vektorovú grafiku"
-
-msgid "Image Settings"
-msgstr "Nastavenie obrázku"
-
-msgid "JPEG"
-msgstr "JPEG"
-
-msgid "Zip"
-msgstr "Zip"
-
-msgid "&Method:"
-msgstr "&Metóda:"
-
-msgid "&Quality:"
-msgstr "&Kvalita:"
-
-msgid "Maximum"
-msgstr "Maximum"
-
-msgid "High"
-msgstr "Vysoká"
-
-msgid "Medium"
-msgstr "Stredná"
-
-msgid "Low"
-msgstr "Nízka"
-
-msgid "Minimum"
-msgstr "Minimum"
-
-msgid "&Downsample Images to:"
-msgstr "Z&níženie kvality obrázkov na:"
-
-msgid "&General"
-msgstr "&Všeobecné"
-
-msgid "&Embed all Fonts"
-msgstr "Vložiť vš&etky písma"
-
-#, fuzzy
-msgid "&Subset all Fonts"
-msgstr "Vložiť vš&etky písma"
-
-msgid "Embedding"
-msgstr "Vkladanie"
-
-msgid "Available Fonts:"
-msgstr "Dostupné písma:"
-
-msgid "&>>"
-msgstr "&>>"
-
-msgid "&<<"
-msgstr "&<<"
-
-msgid "Fonts to embed:"
-msgstr "Písma na vloženie:"
-
-#, fuzzy
-msgid "Fonts to subset:"
-msgstr "Písma na vloženie:"
-
-msgid "&Fonts"
-msgstr "&Písma"
-
-#, fuzzy
-msgid "Enable &Presentation Effects"
-msgstr "&Povoliť prezentačné efekty"
-
-msgid "Page"
-msgstr "Strana"
-
-msgid "Show Page Pre&views"
-msgstr "Zo&braziť náhľady pre strany"
-
-msgid "Effects"
-msgstr "Efekty"
-
-msgid "&Display Duration:"
-msgstr "&Doba zobrazenia:"
-
-msgid "Effec&t Duration:"
-msgstr "&Trvanie efektu:"
-
-msgid "Effect T&ype:"
-msgstr "T&yp efektu:"
-
-msgid "&Moving Lines:"
-msgstr "Pres&úvanie riadkov:"
-
-msgid "F&rom the:"
-msgstr "&Z:"
-
-msgid "D&irection:"
-msgstr "S&mer:"
-
-msgid " sec"
-msgstr " sek"
-
-msgid "No Effect"
-msgstr "Bez efektu"
-
-msgid "Blinds"
-msgstr "Pruhy"
-
-msgid "Box"
-msgstr "Rám"
-
-msgid "Dissolve"
-msgstr "Rozpustenie"
-
-msgid "Glitter"
-msgstr "Lesk"
-
-msgid "Split"
-msgstr "Rozdeliť"
-
-msgid "Wipe"
-msgstr "Zotrieť"
-
-msgid "Inside"
-msgstr "Vnútorný"
-
-msgid "Outside"
-msgstr "Vonkajší"
-
-msgid "Left to Right"
-msgstr "Zľava doprava"
-
-msgid "Top to Bottom"
-msgstr "Zhora dole"
-
-msgid "Bottom to Top"
-msgstr "Zdola hore"
-
-msgid "Right to Left"
-msgstr "Sprava doľava"
-
-msgid "Top-left to Bottom-Right"
-msgstr "Zľava hore doprava dole"
-
-msgid "&Apply Effect on all Pages"
-msgstr "Použiť efekt n&a všetky strany"
-
-msgid "E&xtras"
-msgstr "E&xtra"
-
-msgid "&Use Encryption"
-msgstr "Po&užiť šifrovanie"
-
-msgid "Passwords"
-msgstr "Heslá"
-
-msgid "&User:"
-msgstr "&Používateľ:"
-
-msgid "&Owner:"
-msgstr "V&lastník:"
-
-msgid "Settings"
-msgstr "Nastavenia"
-
-msgid "Allow &Printing the Document"
-msgstr "&Povoliť tlač dokumentu"
-
-msgid "Allow &Changing the Document"
-msgstr "P&ovoliť zmeny dokumentu"
-
-msgid "Allow Cop&ying Text and Graphics"
-msgstr "Povoliť kopírovanie textu a grafik&y"
-
-msgid "Allow Adding &Annotations and Fields"
-msgstr "Povoliť pridávanie &anotácií a polí"
-
-msgid "S&ecurity"
-msgstr "Be&zpečnosť"
-
-msgid "General"
-msgstr "Všeobecné"
-
-msgid "Output &Intended For:"
-msgstr "Plánovaný &výstup pre:"
-
-msgid "Screen / Web"
-msgstr "Obrazovka/Web"
-
-msgid "Printer"
-msgstr "Tlačiareň"
-
-msgid "&Use Custom Rendering Settings"
-msgstr "Po&užiť vlastné nastavenia generovania"
-
-msgid "Rendering Settings"
-msgstr "Nastavenie generovania"
-
-msgid "Fre&quency:"
-msgstr "Fre&kvencia:"
-
-msgid "&Angle:"
-msgstr "&Uhol:"
-
-msgid "S&pot Function:"
-msgstr ""
-
-msgid "Simple Dot"
-msgstr "Bodka"
-
-msgid "Round"
-msgstr "Kruh"
-
-msgid "Ellipse"
-msgstr "Elipsa"
-
-msgid "Solid Colors:"
-msgstr "Plné farby (Solid colors):"
-
-msgid "Use ICC Profile"
-msgstr "Použiť ICC-profil"
-
-msgid "Profile:"
-msgstr "Profil:"
-
-msgid "Rendering-Intent:"
-msgstr "Účel generovania:"
-
-msgid "Images:"
-msgstr "Obrázky:"
-
-msgid "Don't use embedded ICC profiles"
-msgstr "Nepoužívať vložené ICC profily"
-
-msgid "C&olor"
-msgstr "&Farba"
-
-msgid "PDF/X-3 Output Intent"
-msgstr "Výstup do PDF/X-3"
-
-msgid "&Info String:"
-msgstr "&Informačný reťazec:"
-
-msgid "Output &Profile:"
-msgstr "Výstupný &profil:"
-
-msgid "Trim Box"
-msgstr "Orezanie"
-
-msgid "PDF/X-&3"
-msgstr "PDF/X-&3"
-
-msgid "Export all pages to PDF"
-msgstr "Exportovať všetky strany do PDF"
-
-msgid "Export a range of pages to PDF"
-msgstr "Exportovať rozsah strán do PDF"
-
-msgid ""
-"Determines the PDF compatibility. The default is Acrobat 4.0 which gives the "
-"widest compatibility.\n"
-"Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or "
-"you require 128 bit encryption.\n"
-"PDF/X-3 is for exporting the PDF for commercial printing and is selectable "
-"when you have activated color management."
-msgstr ""
-"Určuje PDF kompatibilitu. Štandardne je to Acrobat 4.0, ktorá poskytuje "
-"najširšiu kompatibilitu.\n"
-"Acrobat 5.0 si vyberte v prípade, že váš súbor obsahuje vlastnosti PDF 1.4 "
-"ako napríklad priesvitnosť,alebo požaduje 128 bitové šifrovanie.\n"
-"PDF/X-3 je pre export PDF pre komerčnú tlač a je voliteľné len v prípade "
-"aktivácie správy farieb."
-
-msgid ""
-"Determines the binding of pages in the PDF. Unless you know\n"
-"you need to change it leave the default choice - Left."
-msgstr ""
-"Určuje viazanie strán v PDF. Ak nepotrebujete špeciálne nastavenia,\n"
-"neupravujte túto voľbu."
-
-msgid ""
-"Generates thumbnails of each page in the PDF.\n"
-"Some viewers can use the thumbnails for navigation."
-msgstr ""
-"Generuje náhľady všetkých strán v PDF.\n"
-"Niektoré prehliadače používajú k navigácií."
-
-msgid ""
-"Generate PDF Articles, which is useful for navigating linked articles in a "
-"PDF."
-msgstr "Generuje PDF články, čo umožňuje navigáciu odkazov v PDF."
-
-msgid ""
-"Embed the bookmarks you created in your document.\n"
-"These are useful for navigating long PDF documents."
-msgstr ""
-"Vložiť záložky obsiahnuté v dokumente.\n"
-"Tie sú užitočné pri navigácií v rozsiahlych dokumentoch."
-
-msgid ""
-"Export resolution of text and vector graphics.\n"
-"This does not affect the resolution of bitmap images like photos."
-msgstr ""
-"Rozlíšenie textu a vektorovej grafiky pri exporte.\n"
-"Neovplyvňuje rozlíšenie bitmapových obrázkov ako sú napr. fotografie."
-
-msgid ""
-"Compression of text and graphics.\n"
-"Unless you have a reason, leave this checked. This reduces PDF size."
-msgstr ""
-"Kompresia textu a grafiky.\n"
-"Pokiaľ na to nemáte dôvod, tak nechajte túto voľbu povolenú. Znižuje veľkosť "
-"PDF súboru."
-
-msgid ""
-"Version of compression for images.\n"
-"Automatic allows Scribus to choose the best method.\n"
-"ZIP is good for images with solid colors.\n"
-"JPEG is better at creating smaller PDF files which have many photos (with "
-"slight image loss possible).\n"
-"Leave it set to automatic, unless you have a need for special compression "
-"options."
-msgstr ""
-"Verzia kompresie pre obrázky.\n"
-"Automaticky - Scribus vyberie najvhodnejšiu metódu.\n"
-"ZIP - vhodná pre obrázky s plnými farbami.\n"
-"JPEG - najlepšia voľba pre vytváranie malých PDF súborov, ktoré majú veľa "
-"fotiek (malá strata kvality).\n"
-"Pokiaľ nepotrebujete špeciálnu kompresiu, tak nechajte túto voľbu nastavenú "
-"na Automaticky."
-
-#, fuzzy
-msgid ""
-"Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), "
-"Maximum (95%)"
-msgstr ""
-"Úroveň kompresie: Minimálna (25\\%), Nízka (50\\%), Stredná (75\\%), Vysoká"
-"(85\\%), Maximálna (95\\%)"
-
-msgid ""
-"Downsample your bitmap images to the selected DPI.\n"
-"Leaving this unchecked will render them at their native resolution."
-msgstr ""
-"Znížiť kvalitu bitmapových obrázkov na zvolené DPI.Ak voľbu nepovolíte, bude "
-"im ponechané pôvodné rozlíšenie."
-
-msgid "DPI (Dots Per Inch) for image export."
-msgstr "DPI (Body na palec) pre export obrázkov."
-
-msgid ""
-"Embed fonts into the PDF. Embedding the fonts\n"
-"will preserve the layout and appearance of your document."
-msgstr ""
-"Vložiť písma do PDF. Vloženie písma\n"
-"zachová rozloženie a vzhľad vášho dokumentu."
-
-msgid ""
-"Enables presentation effects when using Acrobat Reader in full screen mode."
-msgstr ""
-"Povolenie prezentačných efektov pri celoobrazovkovom použití Acrobat Reader."
-
-msgid "Show page previews of each page listed above."
-msgstr "Ukázať náhľad každej strany v zozname uvedenom hore."
-
-msgid ""
-"Length of time the page is shown before the presentation starts on the "
-"selected page."
-msgstr "Ako dlho je strana zobrazené, než sa spustí prechod na ďalšiu stranu."
-
-msgid ""
-"Length of time the effect runs.\n"
-"A shorter time will speed up the effect, a longer one will slow it down."
-msgstr ""
-"Ako dlho beží prezentačný efekt.\n"
-"Menšia hodnota efekt zrýchli, väčšia spomalí."
-
-msgid "Type of the display effect."
-msgstr "Typ efektu."
-
-#, fuzzy
-msgid ""
-"Direction of the effect of moving lines for the split and blind effects."
-msgstr "Smer efektu presúvania riadkov pre efekty pruhy a rozdeliť."
-
-msgid "Starting position for the box and split effects."
-msgstr "Štartovacia pozícia efektov rám a rozdeliť."
-
-msgid "Direction of the glitter or wipe effects."
-msgstr "Smer efektu lesk alebo zotrieť."
-
-msgid "Apply the selected effect to all pages."
-msgstr "Použiť zvolený efekt na všetky strany."
-
-msgid ""
-"Enable the security features in your exported PDF.\n"
-"If you selected Acrobat 4.0, the PDF will be protected by 40 bit "
-"encryption.\n"
-"If you selected Acrobat 5.0, the PDF will be protected by 128 bit "
-"encryption.\n"
-"Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and "
-"does have some limitations."
-msgstr ""
-"Povoliť bezpečnostné vlastnosti exportovaného PDF.Pokiaľ mate zvolený  "
-"Acrobat 4.0, bude použité 40 bitové šifrovanie.\n"
-"Pokiaľ mate zvolený  Acrobat 5.0, bude použité 128 bitové šifrovanie.\n"
-"Poznámka: PDF šifrovanie nie je tak spoľahlivé ako GPG alebo PGP a má svoje "
-"obmedzenia."
-
-msgid ""
-"Choose a master password which enables or disables all the\n"
-"security features in your exported PDF"
-msgstr ""
-"Zvoľte heslo, ktoré povolí alebo zakáže všetky\n"
-"bezpečnostné vlastnosti exportovaného PDF"
-
-msgid "Choose a password for users to be able to read your PDF."
-msgstr "Zvoľte heslo pre používateľom, ktorý budú môcť čítať PDF."
-
-msgid "Allow printing of the PDF. If un-checked, printing is prevented. "
-msgstr "Povolí tlač PDF. Ak je odznačené, tlač bude zakázaná. "
-
-msgid ""
-"Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
-msgstr "Povolí úpravu PDF. Ak je odznačené, úprava PDF bude zakázaná. "
-
-msgid ""
-"Allow copying of text or graphics from the PDF. \n"
-"If un-checked, text and graphics cannot be copied."
-msgstr ""
-"Povolí kopírovanie textu a grafiky z PDF.\n"
-"Ak je odznačené, kopírovanie textu a grafiky z PDF bude zakázané. "
-
-msgid ""
-"Allow adding annotations and fields to the PDF. \n"
-"If un-checked, editing annotations and fileds is prevented."
-msgstr ""
-"Povolí pridávanie anotácií a polí do PDF.\n"
-" Ak je odznačené, úprava anotácií a polí bude zakázaná. "
-
-msgid ""
-"Color model for the output of your PDF.\n"
-"Choose Screen/Web for PDFs which are used for screen display and for "
-"printing on typical inkjets.\n"
-"Choose Printer when printing to a true 4 color CMYK printer."
-msgstr ""
-"Farebný model výstupu PDF.\n"
-"Zvoľte Monitor/Web pre PDF, ktoré bude publikované na monitore alebo na "
-"typickej kancelárskej tlačiarni.\n"
-"Zvoľte Tlačiareň, ak PDF bude tlačené na CMYK tlačiarni."
-
-msgid ""
-"This is an advanced setting which is not enabled by default. This should "
-"only be enabled\n"
-"when specifically requested by your printer and they have given you the "
-"exact details needed.\n"
-"Otherwise, your exported PDF may not print properly and is truly not "
-"portable across systems."
-msgstr ""
-"Toto je pokročilé nastavenie, ktoré nie je štandardne povolené. Malo by byť "
-"povolené len v tom prípade\n"
-"pokiaľ je špeciálne vyžadované tlačiarňou a máte k dispozícií presné "
-"detaily.\n"
-"Inak vytvoríte PDF, ktoré sa nebude dať správne vytlačiť a nebude skutočne "
-"prenosné medzi systémami."
-
-msgid "Embed a color profile for solid colors"
-msgstr "Vložiť farebný profil pre plné farieb"
-
-msgid "Color profile for solid colors"
-msgstr "Farebný profil pre plné farby"
-
-msgid "Rendering intent for solid colors"
-msgstr "Účel generovania pre plných farieb"
-
-msgid "Embed a color profile for images"
-msgstr "Vložiť farebný profil pre obrázky"
-
-msgid "Do not use color profiles that are embedded in source images"
-msgstr "Nepoužívať farebné profily, ktoré sú vložené do zdrojových obrázkov"
-
-msgid "Color profile for images"
-msgstr "Farebný profil pre obrázky"
-
-msgid "Rendering intent for images"
-msgstr "Účel generovania pre obrázky"
-
-msgid ""
-"Output profile for printing. If possible, get some guidance from your "
-"printer on profile selection."
-msgstr ""
-"Výstupný profil pre tlač. Ak je to možné, použite príručku k tlačiarni pri "
-"výbere profilu."
-
-msgid ""
-"Mandatory string for PDF/X-3 or the PDF will fail\n"
-"PDF/X-3 conformance. We recommend you use the title of the document."
-msgstr ""
-"Voliteľný text, ktorého vyplnením bude PDF alebo PDF/X-3\n"
-"spĺňať špecifikáciu PDF/X-3. Doporučujeme použiť názov dokumentu."
-
-msgid "Distance for bleed from the top of the physical page"
-msgstr "Vzdialenosť orezania od horného fyzického okraja strany"
-
-msgid "Distance for bleed from the bottom of the physical page"
-msgstr "Vzdialenosť orezania od dolného fyzického okraja strany"
-
-msgid "Distance for bleed from the left of the physical page"
-msgstr "Vzdialenosť orezania od ľavého fyzického okraja strany"
-
-msgid "Distance for bleed from the right of the physical page"
-msgstr "Vzdialenosť orezania od pravého fyzického okraja strany"
-
-#, fuzzy
-msgid "Mirror Page(s) horizontally"
-msgstr "&Horizontálne zrkadlenie strán"
-
-#, fuzzy
-msgid "Mirror Page(s) vertically"
-msgstr "&Vertikálne zrkadlenie strán"
-
-msgid "Result"
-msgstr "Výsledok"
-
-msgid "Search Results for: "
-msgstr "Hľadať výsledok pre:"
-
-msgid "Preview"
-msgstr "Náhľad"
-
-msgid "Select"
-msgstr "Výber"
-
-msgid "Pictures"
-msgstr "Obrázky"
-
-msgid "Path"
-msgstr "Cesta"
-
-msgid "Print"
-msgstr "Tlač"
-
-msgid "Status"
-msgstr "Stav"
-
-msgid "Goto"
-msgstr "Ísť na"
-
-msgid "Missing"
-msgstr "Chýba"
-
-msgid "Search"
-msgstr "Hľadať"
-
-msgid "Polygon Properties"
-msgstr "Vlastnosti mnohouholníkov"
-
-msgid "Document Setup"
-msgstr "Nastavenie dokumentu"
-
-#, fuzzy
-msgid "Layout"
-msgstr "Rozloženie:"
-
-msgid "Show Grid"
-msgstr "Ukázať mriežku"
-
-#, fuzzy
-msgid "Major Grid"
-msgstr "Farba hlavnej mriežky:"
-
-#, fuzzy
-msgid "Spacing:"
-msgstr "R&iadkovanie:"
-
-#, fuzzy
-msgid "Minor Grid"
-msgstr "Farba vedľajšej mriežky:"
-
-#, fuzzy
-msgid "Guide Snap Distance:"
-msgstr "V&zdialenosť medzi vodítkami:"
-
-#, fuzzy
-msgid "Grab Radius:"
-msgstr "&Zachytiť polomer"
-
-msgid " px"
-msgstr " px"
-
-#, fuzzy
-msgid "Show Margins"
-msgstr "Zobraziť o&kraje"
-
-#, fuzzy
-msgid "Show Guides"
-msgstr "Zobraziť &vodítka"
-
-msgid "Show Baseline Grid"
-msgstr "Zobraziť mriežku základných čiar"
-
-#, fuzzy
-msgid "Show Text Chains"
-msgstr "Zobraziť názvy šablón"
-
-#, fuzzy
-msgid "Show Frames"
-msgstr "Zobraziť &rámy"
-
-#, fuzzy
-msgid "Show Pictures"
-msgstr "Obrázky"
-
-msgid "Guides"
-msgstr "Vodítka"
-
-#, fuzzy
-msgid "Page Background"
-msgstr "Pozadie"
-
-msgid "Display &Unprintable Area in Margin Color"
-msgstr "Zobraziť &netlačiteľnú oblasť vo farbe okrajov"
-
-#, fuzzy
-msgid "Alt+U"
-msgstr "Alt+"
-
-#, fuzzy
-msgid "Scratch Space"
-msgstr "Vertikálne medzery"
-
-#, fuzzy
-msgid "Placing of Guides"
-msgstr "Vodítka okrajov"
-
-#, fuzzy
-msgid "In the Background"
-msgstr "V pozadí"
-
-#, fuzzy
-msgid "In the Foreground"
-msgstr "V popredí"
-
-msgid "Display"
-msgstr "Zobraziť"
-
-msgid "Subscript"
-msgstr "Dolný index"
-
-msgid "&Displacement:"
-msgstr "&Posunutie:"
-
-msgid "&Scaling:"
-msgstr "&Zmena veľkosti:"
-
-msgid "Superscript"
-msgstr "Horný index"
-
-msgid "D&isplacement:"
-msgstr "P&osunutie:"
-
-msgid "S&caling:"
-msgstr "Z&mena veľkosti:"
-
-msgid "Small Caps"
-msgstr "Kapitálky"
-
-msgid "Sc&aling:"
-msgstr "Zmen&a veľkosti:"
-
-msgid "Baseline &Grid:"
-msgstr "Mriežka zá&kladných čiar:"
-
-msgid "Baseline &Offset:"
-msgstr "P&osun základných čiar:"
-
-msgid "Automatic &Line Spacing:"
-msgstr "Automa&tické riadkovanie:"
-
-msgid "Typography"
-msgstr "Typografia"
-
-msgid "Font:"
-msgstr "Písmo:"
-
-#, fuzzy
-msgid "Fill Color:"
-msgstr "&Farba výplne:"
-
-#, fuzzy
-msgid "Stroke Color:"
-msgstr "Fa&rba obrysu:"
-
-msgid "Woven silk pyjamas exchanged for blue quartz"
-msgstr "Príliš žltučký kôň spieval diabolské ódy"
-
-msgid "&Line Color:"
-msgstr "Farba čia&ry:"
-
-msgid "&Shading:"
-msgstr "&Tieňovanie:"
-
-msgid "&Fill Color:"
-msgstr "&Farba výplne:"
-
-msgid "S&hading:"
-msgstr "Tie&ňovanie:"
-
-#, fuzzy
-msgid "Line Style:"
-msgstr "Štý&ly čiar..."
-
-#, fuzzy
-msgid "Line S&tyle:"
-msgstr "Štý&ly čiar..."
-
-msgid "Arrows:"
-msgstr ""
-
-#, fuzzy
-msgid "Start:"
-msgstr "Hviezda"
-
-#, fuzzy
-msgid "End:"
-msgstr "Kódovanie:"
-
-msgid "&Horizontal Scaling:"
-msgstr "&Vodorovné zväčšenie"
-
-msgid "&Vertical Scaling:"
-msgstr "&Zvislé zväčšenie"
-
-msgid "&Scale Picture to Frame Size"
-msgstr "Z&meniť veľkosť obrázka na rozmer rámu"
-
-msgid "Keep Aspect &Ratio"
-msgstr "Zachovať pome&r strán"
-
-msgid "Mi&nimum:"
-msgstr "Mi&nimum"
-
-msgid "Ma&ximum:"
-msgstr "Ma&ximum"
-
-msgid "&Stepping:"
-msgstr "&Krokovanie:"
-
-msgid "Tools"
-msgstr "Nástroje"
-
-msgid "Autosave"
-msgstr "Automatické ukladanie"
-
-msgid "min"
-msgstr "min"
-
-msgid "&Interval:"
-msgstr "&Interval:"
-
-msgid "Units"
-msgstr "Jednotky"
-
-msgid "Points (pt)"
-msgstr "Body (pt)"
-
-msgid "Misc."
-msgstr "Rôzne"
-
-msgid "Color for paper"
-msgstr "Farba pre papier"
-
-msgid "Mask the area outside the margins in the margin color"
-msgstr "Vyplniť plochu za hranicami strany farbou okrajov"
-
-msgid "Distance between the minor grid lines"
-msgstr "Vzdialenosť medzi čiarami vedľajšej mriežky"
-
-msgid "Distance between the major grid lines"
-msgstr "Vzdialenosť medzi čiarami hlavnej mriežky"
-
-msgid "Distance within which an object will snap to your placed guides"
-msgstr "Vzdialenosť, v ktorej sa čiara mriežky chová voči objektu ako magnet"
-
-msgid ""
-"Radius of the area where Scribus will allow you to grab an objects handles"
-msgstr "Polomer oblasti, ktorú Scribus považuje za oblasť daného objektu "
-
-msgid "Color of the minor grid lines"
-msgstr "Farba vedľajších čiar mriežky"
-
-msgid "Color of the major grid lines"
-msgstr "Farba hlavných čiar mriežky"
-
-msgid "Color of the guide lines you insert"
-msgstr "Farba vodítok, ktoré vkladáte manuálne"
-
-msgid "Color for the margin lines"
-msgstr "Farba pre čiary okrajov"
-
-#, fuzzy
-msgid "Color for the basegrid lines"
-msgstr "Farba pre čiary okrajov"
-
-#, fuzzy
-msgid "Turns the basegrid on or off"
-msgstr "Zapnúť základnú mriežku"
-
-msgid "Turns the gridlines on or off"
-msgstr ""
-
-msgid "Turns the guides on or off"
-msgstr ""
-
-msgid "Turns the margins on or off"
-msgstr ""
-
-msgid "Turns the of linked frames on or off"
-msgstr ""
-
-msgid "Turns the display of frames on or off"
-msgstr ""
-
-msgid "Turns the display of pictures on or off"
-msgstr ""
-
-msgid "&Outside:"
-msgstr "V&onkajší:"
-
-msgid "Font %1 is broken, discarding it"
-msgstr ""
-
-msgid "Font %1 (found using fontconfig) is broken, discarding it"
-msgstr ""
-
-msgid "Failed to load a font - freetype couldn't find the font file"
-msgstr ""
-
-msgid "Scrapbook"
-msgstr "Zápisník"
-
-msgid "&Load..."
-msgstr "Načí&tať..."
-
-msgid "&Small"
-msgstr "&Malé"
-
-msgid "&Medium"
-msgstr "&Stredné"
-
-msgid "&Large"
-msgstr "&Veľké"
-
-msgid "&Preview"
-msgstr "&Náhľad"
-
-msgid "Scrapbooks (*.scs);;All Files (*)"
-msgstr "Zápisník (*.scs);;Všetky súbory (*)"
-
-msgid "Rename"
-msgstr "Premenovať"
-
-msgid "Delete"
-msgstr "Odstrániť"
-
-msgid "Object"
-msgstr "Objekt"
-
-msgid "New Entry"
-msgstr "Nová položka"
+msgid "Initializing..."
+msgstr "Inicializácia..."
 
 msgid "Scribus "
 msgstr "Scribus "
+
+msgid "File"
+msgstr "Súbor"
+
+msgid "Create a new Document"
+msgstr "Vytvorí nový dokument"
+
+msgid "Open a Document"
+msgstr "Otvorí dokument"
+
+msgid "Save the current Document"
+msgstr "Uloží aktuálny dokument"
+
+msgid "Close the current Document"
+msgstr "Zavrie aktuálny dokument"
+
+msgid "Print the current Document"
+msgstr "Vytlačí aktuálny dokument"
+
+msgid "Save the current Document as PDF"
+msgstr "Uložiť aktuálny dokument ako PDF"
+
+msgid "Searching for Fonts"
+msgstr "Hľadanie písem"
+
+msgid "There are no Postscript-Fonts on your System"
+msgstr "Vo vašom systéme nie sú postscriptové písma"
+
+msgid "Exiting now"
+msgstr "Končím"
+
+msgid "Fatal Error"
+msgstr "Kritická chyba"
+
+msgid "Font System Initialized"
+msgstr "Systém písem bol inicializovaný"
 
 msgid "Smart Hyphen"
 msgstr "Inteligentný spojovník"
@@ -3622,39 +2809,8 @@ msgstr "Načítavanie zápisníka"
 msgid "Initializing Plugins"
 msgstr "Inicializácia zásuvných modulov"
 
-msgid "Initializing..."
-msgstr "Inicializácia..."
-
-msgid "Create a new Document"
-msgstr "Vytvorí nový dokument"
-
-msgid "Open a Document"
-msgstr "Otvorí dokument"
-
-msgid "Save the current Document"
-msgstr "Uloží aktuálny dokument"
-
-msgid "Close the current Document"
-msgstr "Zavrie aktuálny dokument"
-
-msgid "Print the current Document"
-msgstr "Vytlačí aktuálny dokument"
-
-msgid "Save the current Document as PDF"
-msgstr "Uložiť aktuálny dokument ako PDF"
-
-msgid "Searching for Fonts"
-msgstr "Hľadanie písem"
-
-#, fuzzy
-msgid "There are no Postscript fonts on your system"
-msgstr "Vo vašom systéme nie sú postscriptové písma"
-
-msgid "Exiting now"
-msgstr "Končím"
-
-msgid "Fatal Error"
-msgstr "Kritická chyba"
+msgid "&Open..."
+msgstr "&Otvoriť..."
 
 msgid "Open &Recent"
 msgstr "Otvoriť n&edávne"
@@ -3667,6 +2823,9 @@ msgstr "Zavrieť"
 
 msgid "Save"
 msgstr "Uložiť"
+
+msgid "Save &As..."
+msgstr "Uložiť &ako..."
 
 msgid "Save as..."
 msgstr "Uložiť ako..."
@@ -3685,6 +2844,9 @@ msgstr "Pripojiť &text..."
 
 msgid "Import &Page(s)..."
 msgstr "Im&portovať stranu..."
+
+msgid "&Import"
+msgstr "&Import"
 
 msgid "Save &Text..."
 msgstr "Uložiť &text..."
@@ -3721,6 +2883,12 @@ msgstr "&Koniec"
 
 msgid "Quit"
 msgstr "Koniec"
+
+msgid "&Undo"
+msgstr "V&rátiť späť"
+
+msgid "C&lear"
+msgstr "&Zmazať"
 
 msgid "Select &All"
 msgstr "Vybrať &všetko"
@@ -3776,8 +2944,11 @@ msgstr "Duplikovať"
 msgid "&Multiple Duplicate"
 msgstr "&Viacnásobné duplikovanie"
 
-msgid "&Group"
-msgstr "Zos&kupiť"
+msgid "Multiple Duplicate"
+msgstr "Viacnásobné duplikovanie"
+
+msgid "Delete"
+msgstr "Odstrániť"
 
 msgid "Group"
 msgstr "Zoskupiť"
@@ -3788,29 +2959,14 @@ msgstr "Z&rušiť zoskupenie"
 msgid "Un-group"
 msgstr "Zrušiť zoskupenie"
 
-msgid "&Lock"
-msgstr "&Zamknúť"
-
-msgid "Send to &Back"
-msgstr "Presunúť &dozadu"
-
 msgid "Send to Back"
 msgstr "Preniesť do pozadia"
-
-msgid "Bring to &Front"
-msgstr "Presunúť do&predu"
 
 msgid "Bring to Front"
 msgstr "Preniesť do popredia"
 
-msgid "&Lower"
-msgstr "Z&nížiť"
-
 msgid "Lower"
 msgstr "Dozadu"
-
-msgid "&Raise"
-msgstr "Z&výšiť"
 
 msgid "Raise"
 msgstr "Dopredu"
@@ -3821,9 +2977,11 @@ msgstr "Umiestniť/zarovnať..."
 msgid "Distribute/Align..."
 msgstr "Umiestniť/zarovnať..."
 
-#, fuzzy
 msgid "&Edit Shape"
-msgstr "&Upraviť tvar..."
+msgstr "&Upraviť tvar"
+
+msgid "&Shape"
+msgstr "&Tvar"
 
 msgid "&Attach Text to Path"
 msgstr "&Pripojiť text k ceste"
@@ -3897,45 +3055,20 @@ msgstr "Minia&túry"
 msgid "Thumbnails"
 msgstr "Miniatúry"
 
-msgid "Show &Margins"
-msgstr "Zobraziť o&kraje"
-
 msgid "Hide Margins"
 msgstr "Skryť okraje"
-
-msgid "Show &Frames"
-msgstr "Zobraziť &rámy"
 
 msgid "Hide Frames"
 msgstr "Skryť rámy"
 
-msgid "Show &Images"
-msgstr "Ukázať &obrázky"
-
 msgid "Hide Images"
 msgstr "Skryť obrázky"
 
-msgid "Show &Grid"
-msgstr "Zobraziť m&riežku"
-
-msgid "Show G&uides"
-msgstr "Zobraziť &vodítka"
-
-msgid "Show &Baseline Grid"
-msgstr "Zo&braziť pomocnú mriežku"
-
-#, fuzzy
-msgid "Show &Text Chain"
-msgstr "Zobraziť o&kraje"
-
-msgid "Sn&ap to Grid"
-msgstr "Priti&ahnuť k mriežke"
+msgid "Show Grid"
+msgstr "Ukázať mriežku"
 
 msgid "Snap to Grid"
 msgstr "Pritiahnuť k mriežke"
-
-msgid "Sna&p to Guides"
-msgstr "&Pritiahnuť k vodítkam"
 
 msgid "&Properties"
 msgstr "&Vlastnosti"
@@ -3943,11 +3076,11 @@ msgstr "&Vlastnosti"
 msgid "&Outline"
 msgstr "&Prehľad"
 
-msgid "Outline"
-msgstr "Prehľad"
-
 msgid "&Scrapbook"
 msgstr "&Zápisník"
+
+msgid "Scrapbook"
+msgstr "Zápisník"
 
 msgid "&Layers"
 msgstr "V&rstvy"
@@ -4015,6 +3148,9 @@ msgstr "Scribus &manuál"
 msgid "Online-Help..."
 msgstr "Online Pomocník..."
 
+msgid "&File"
+msgstr "&Súbor"
+
 msgid "St&yle"
 msgstr "Š&týl"
 
@@ -4026,6 +3162,9 @@ msgstr "&Strana"
 
 msgid "&View"
 msgstr "&Zobraziť"
+
+msgid "E&xtras"
+msgstr "E&xtra"
 
 msgid "&Settings"
 msgstr "Nas&tavenia"
@@ -4057,6 +3196,15 @@ msgstr "&Iné..."
 msgid "Strikethru"
 msgstr "Prečiarknuté vyššie"
 
+msgid "Small Caps"
+msgstr "Kapitálky"
+
+msgid "Superscript"
+msgstr "Horný index"
+
+msgid "Subscript"
+msgstr "Dolný index"
+
 msgid "Ready"
 msgstr "Pripravený"
 
@@ -4077,9 +3225,6 @@ msgstr "&Farba"
 
 msgid "&Invert"
 msgstr "&Invertovať"
-
-msgid "&Get Text..."
-msgstr "V&ložiť text..."
 
 msgid "&Font"
 msgstr "&Písmo"
@@ -4114,38 +3259,11 @@ msgstr "Štýl"
 msgid "Color"
 msgstr "Farba"
 
-msgid "Shade"
-msgstr "Tieň"
-
-msgid "Un&lock"
-msgstr "Odo&mknúť"
-
-#, fuzzy
-msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;"
-msgstr "Dokumenty (*.sla *sla.gz *.scd *scd.gz);; Všetky súbory (*)"
-
-#, fuzzy
-msgid "Documents (*.sla *.scd);;"
-msgstr "Dokumenty (*.sla *.scd);; Všetky súbory (*)"
-
-#, fuzzy
-msgid "Postscript-Files (*.eps *.EPS *.ps *.PS);;"
-msgstr "Všetky podporované formáty (*.eps *.EPS *.ps *.PS);;"
-
-#, fuzzy
-msgid "SVG-Images (*.svg *.svgz);;"
-msgstr "SVG obrázky (*.svg *.svgz);; Všetky súbory (*)"
-
-#, fuzzy
-msgid "SVG-Images (*.svg);;"
-msgstr "SVG obrázky (*.svg);; Všetky súbory (*)"
-
-#, fuzzy
-msgid "Open Office Draw (*.sxd);;All Files (*)"
-msgstr "Textové súbory (*.txt);;Všetky súbory (*)"
-
 msgid "Importing Pages..."
 msgstr "Importovanie strán..."
+
+msgid "Import Page(s)"
+msgstr "Importovať stranu"
 
 msgid ""
 "<p>You are trying to import more pages than there are available in the "
@@ -4170,16 +3288,11 @@ msgstr "Import je dokončený"
 msgid "Found nothing to import"
 msgstr "Nebolo nájdené nič na importovanie"
 
-msgid ""
-"File %1 \n"
-"is not in an acceptable format"
-msgstr ""
+msgid "File %1 is not in Scribus format"
+msgstr "Súbor %1 nie je vo formáte Scribus"
 
 msgid "Loading..."
 msgstr "Načítavam..."
-
-msgid "(converted)"
-msgstr ""
 
 msgid ""
 "Can't write the File: \n"
@@ -4197,9 +3310,6 @@ msgstr "Ukladám..."
 msgid "Printing..."
 msgstr "Tlačím..."
 
-msgid "Document"
-msgstr "Dokument"
-
 msgid "Printing failed!"
 msgstr "Tlač sa nepodarila!"
 
@@ -4209,8 +3319,11 @@ msgstr "Scribus manuál"
 msgid "Text Files (*.txt);;All Files(*)"
 msgstr "Textové súbory (*.txt);;Všetky súbory (*)"
 
-msgid "&Shade:"
-msgstr "&Tieň:"
+msgid "Hide Baseline Grid"
+msgstr "Skryť mriežku základných čiar"
+
+msgid "Show Baseline Grid"
+msgstr "Zobraziť mriežku základných čiar"
 
 msgid "The following Programs are missing:"
 msgstr "Tieto programy chýbajú:"
@@ -4251,71 +3364,17 @@ msgstr "Vrátiť s&päť presun objektu"
 msgid "&Undo Object Change"
 msgstr "Vrátiť s&päť zmenu objektu"
 
-msgid "English"
-msgstr "Anglický"
-
-msgid "German"
-msgstr "Nemecký"
-
-msgid "Spanish"
-msgstr "Španielsky"
-
-msgid "Italian"
-msgstr "Taliansky"
-
-msgid "French"
-msgstr "Francúzsky"
-
-msgid "Russian"
-msgstr "Ruský"
-
-msgid "Danish"
-msgstr "Dánsky"
-
-msgid "Slovak"
-msgstr "Slovenský"
-
-msgid "Hungarian"
-msgstr "Maďarský"
-
-msgid "Czech"
-msgstr "Český"
-
-msgid "Dutch"
-msgstr "Holandský"
-
 msgid "Portuguese"
 msgstr "Portugalský"
 
 msgid "Ukrainian"
 msgstr "Ukrajinský"
 
-msgid "Polish"
-msgstr "Poľský"
-
-msgid "Greek"
-msgstr "Grécky"
-
-msgid "Catalan"
-msgstr "Katalánsky"
-
-msgid "Finnish"
-msgstr "Fínsky"
-
 msgid "Irish"
 msgstr "Írsky"
 
-msgid "Lithuanian"
-msgstr "Litovský"
-
-msgid "Swedish"
-msgstr "Švédsky"
-
-msgid "Slovenian"
-msgstr "Slovinský"
-
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikánsky"
 
 msgid "Scribus Crash"
 msgstr "Pád Scribusu"
@@ -4323,408 +3382,159 @@ msgstr "Pád Scribusu"
 msgid "Scribus crashes due to Signal #%1"
 msgstr "Scribus spadol kvôli signálu #%1"
 
-msgid "Background"
-msgstr "Pozadie"
-
-msgid "Layer"
-msgstr "Vrstva"
-
-msgid "Copy Here"
-msgstr "Kopírovať sem"
-
-msgid "Move Here"
-msgstr "Sem presunúť"
-
-msgid "Picture"
-msgstr "Obrázok"
-
-msgid "File: "
-msgstr "Súbor: "
-
-msgid "Original PPI: "
-msgstr "Pôvodné PPI"
-
-msgid "Actual PPI: "
-msgstr "Aktuálne PPI: "
-
-msgid "Linked Text"
-msgstr "Prepojený text"
-
-msgid "Text Frame"
-msgstr "Textový rám"
-
-msgid "Text on a Path"
-msgstr "Text na cestu"
-
-msgid "Paragraphs: "
-msgstr "Odseky"
-
-msgid "Words: "
-msgstr "Slová:"
-
-msgid "Chars: "
-msgstr "Znaky"
-
-msgid "Print: "
-msgstr "Tlačiť: "
-
-msgid "Enabled"
-msgstr "Povolené"
-
-msgid "Disabled"
-msgstr "Zakázané"
-
-msgid "In&fo"
-msgstr "In&fo"
-
-msgid "&Get Picture..."
-msgstr "V&ložiť obrázok..."
-
-msgid "I&mage Visible"
-msgstr "&Viditeľný obrázok"
-
-msgid "&Update Picture"
-msgstr "Ak&tualizovať obrázok"
-
-msgid "&Edit Picture"
-msgstr "&Upraviť obrázok"
-
-msgid "&Adjust Frame to Picture"
-msgstr "&Prispôsobiť rám podľa obrázku"
-
-msgid "&Append Text..."
-msgstr "Pr&ipojiť text..."
-
-msgid "&Edit Text..."
-msgstr "&Upraviť text..."
-
-msgid "Is PDF &Bookmark"
-msgstr "Je PDF &záložkou"
-
-msgid "Is PDF A&nnotation"
-msgstr "Je PDF a&notáciou"
-
-msgid "Annotation P&roperties"
-msgstr "V&lastnosti anotácie"
-
-msgid "Field P&roperties"
-msgstr "Vlas&tnosti pola"
-
-msgid "&PDF Options"
-msgstr "Nastavenia &PDF"
-
-msgid "Edit Text..."
-msgstr "Upraviť text..."
-
-msgid "Lock Object &Size"
-msgstr "Uzamknúť veľko&sť objektu"
-
-msgid "Unlock Object &Size"
-msgstr "Odomknúť veľko&sť objektu"
-
-msgid "Send to S&crapbook"
-msgstr "Poslať do z&ápisníka"
-
-msgid "Send to La&yer"
-msgstr "Poslať do vrstv&y"
-
-msgid "&Insert Sample Text"
-msgstr "Vlož&iť ukážkový text"
-
-msgid "Un&group"
-msgstr "Z&rušiť zoskupenie"
-
-msgid "Le&vel"
-msgstr "Úro&veň"
-
-msgid "&Picture Frame"
-msgstr "&Rám obrázka"
-
-msgid "Pol&ygon"
-msgstr "&Mnohouholník"
-
-msgid "&Outlines"
-msgstr "&Obrysy"
-
-msgid "&Text Frame"
-msgstr "&Textový rám"
-
-msgid "&Bezier Curve"
-msgstr "&Bézierová krivka"
-
-msgid "Conve&rt to"
-msgstr "Konve&rzia na"
-
-msgid "C&lear Contents"
-msgstr "V&ymazať obsah"
-
-msgid "Show P&roperties..."
-msgstr "Zob&raziť vlastnosti..."
-
-msgid "Hide P&roperties..."
-msgstr "Sk&ryť vlastnosti..."
-
-msgid "The Program"
-msgstr "Program"
-
-msgid "is missing!"
-msgstr "chýba!"
-
-msgid "Do you really want to clear all your Text?"
-msgstr "Skutočne chcete odstrániť celý text?"
-
-msgid "Copy of"
-msgstr "Kópia z "
-
-msgid "&Leave Anyway"
-msgstr "Zaho&diť"
-
-msgid "C&lose Anyway"
-msgstr "&Zavrieť"
-
-msgid "Document:"
-msgstr "Dokument:"
-
-msgid "has been changed since the last save."
-msgstr "bol od posledného uloženia zmenený."
-
-msgid "&Save Now"
-msgstr "&Uložiť"
-
-msgid "Search/Replace"
-msgstr "Nájsť/Nahradiť"
-
-msgid "Search for:"
-msgstr "Hľadať:"
-
-msgid "Paragraph Style"
-msgstr "Štýl odstavca"
-
-msgid "Font Effects"
-msgstr "Efekty písma"
-
-msgid "Fill Color"
-msgstr "Farba výplne"
-
-msgid "Fill Shade"
-msgstr "Tieň výplne"
-
-msgid "Stroke Color"
-msgstr "Farba obrysu"
-
-msgid "Stroke Shade"
-msgstr "Tieň obrysu"
-
-msgid "Left"
-msgstr "Vľavo"
-
-msgid "Center"
-msgstr "Na stred"
-
-msgid "Right"
-msgstr "Vpravo"
-
-msgid "Block"
-msgstr "Do bloku"
-
-msgid "Forced"
-msgstr "Vynútené"
-
-msgid "Replace with:"
-msgstr "Nahradiť s:"
-
-msgid "&Whole Word"
-msgstr "&Celé slovo:"
-
-msgid "&Ignore Case"
-msgstr "&Ignorovať veľkosť písma"
-
-msgid "&Search"
-msgstr "&Hľadať"
-
-msgid "&Replace"
-msgstr "&Nahradiť"
-
-msgid "Replace &All"
-msgstr "Nahradiť &všetko"
-
-msgid "Search finished"
-msgstr "Vyhľadávanie ukončené"
-
-msgid "Show Page Previews"
-msgstr "Zobraziť náhľady pre strany"
-
-msgid "Show Template Names"
-msgstr "Zobraziť názvy šablón"
-
-msgid "Arrange Pages"
-msgstr "Usporiadať strany"
-
-msgid "Available Templates:"
-msgstr "Dostupné šablóny:"
-
-msgid "Document Pages:"
-msgstr "Strany dokumentu:"
-
-msgid "Facing Pages"
-msgstr "Dvojstrany"
-
-msgid "Left Page first"
-msgstr "Prvá strana vľavo"
-
-msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
-msgstr "Strany alebo šablóny zmažete potiahnutím do odpadkového koša."
-
-msgid "Previews all the pages of your document."
-msgstr "Náhľady na všetky strany vášho dokumentu."
-
-msgid ""
-"Here are all your Templates, to create a new Page\n"
-"drag a Template to the Pageview below."
-msgstr ""
-"Tu sú všetky vaše šablóny; na vytvorenie novej strany\n"
-"potiahnite šablónu do náhľadu strany."
-
-msgid "Select Fields"
-msgstr "Zvoliť polia"
-
-msgid "Available Fields"
-msgstr "Dostupné polia:"
-
-msgid "Selected Fields"
-msgstr "Zvolené polia"
-
-msgid "Other..."
-msgstr "Iný..."
-
-msgid "Fill Color Settings"
-msgstr "Nastavenia farby výplne:"
-
-msgid "Stroke Color Settings"
-msgstr "Nastavenia farby obrysu"
-
-msgid "Character Settings"
-msgstr "Nastavenia znakov"
-
-msgid "Kerning:"
-msgstr "Párovanie (kerning):"
-
-msgid "Style Settings"
-msgstr "Nastavenie štýlu"
-
-msgid "Font Settings"
-msgstr "Nastavenie písma"
-
-msgid "Font of selected text"
-msgstr "Písmo označeného textu"
-
-msgid "Story Editor"
-msgstr "Story Editor"
-
-msgid "&Reload Text from Frame"
-msgstr "&Znova načítať text z rámu"
-
-msgid "&Save to File..."
-msgstr "Uložiť do súboru..."
-
-msgid "&Load from File..."
-msgstr "Načítať zo súboru..."
-
-msgid "Save &Document"
-msgstr "Uložiť &dokument"
-
-msgid "&Update Text Frame and Exit"
-msgstr "&Aktualizovať textový rám a ukončiť"
-
-msgid "&Exit Without Updating Text Frame"
-msgstr "Ukončiť b&ez aktualizácie textového rámu"
-
-msgid "&Insert Special..."
-msgstr "Vlož&iť špeciálne..."
-
-msgid "&Edit Styles..."
-msgstr "&Upraviť štýly"
-
-msgid "&Fonts Preview..."
-msgstr "Náhľad na písmo..."
-
-msgid "&Update Text Frame"
-msgstr "&Aktualizovať textový rám"
-
-msgid "&Background..."
-msgstr "&Pozadie..."
-
-msgid "&Display Font..."
-msgstr "Písm&o zobrazenia..."
-
-msgid "&Smart text selection"
-msgstr ""
-
-msgid "Clear all Text"
-msgstr "Odstrániť celý text"
-
-msgid "Load Text from File"
-msgstr "Načítať text zo súboru"
-
-msgid "Save Text to File"
-msgstr "Uložiť text do súboru..."
-
-msgid "Update Text Frame and Exit"
-msgstr "Aktualizovať textový rám a ukončiť"
-
-msgid "Exit Without Updating Text Frame"
-msgstr "Ukončiť bez aktualizácie textového rámu"
-
-msgid "Reload Text from Frame"
-msgstr "Znovu načítať text z rámu"
-
-msgid "Update Text Frame"
-msgstr "Aktualizovať textový rám"
-
-msgid "Current Paragraph:"
-msgstr "Aktuálny odsek:"
-
-msgid "Totals:"
-msgstr "Celkom:"
-
-msgid "Do you want to save your changes?"
-msgstr "Chcete uložiť zmeny?"
-
-msgid "Do you really want to lose all your Changes?"
-msgstr "Skutočne chcete stratiť všetky zmeny?"
-
 msgid "Strike Out"
 msgstr "Prečiarknuté"
 
-msgid "Manage Tabulators"
-msgstr "Správa tabulátorov"
+msgid "Outline Text"
+msgstr "Obrys textu"
 
-msgid "Full Stop"
-msgstr "Bodka"
+msgid "Advanced Options"
+msgstr "Pokročilé nastavenia"
 
-msgid "Comma"
-msgstr "Čiarka"
+msgid "Mirror Page(s) &Horizontal"
+msgstr "&Horizontálne zrkadlenie strán"
 
-msgid "&Position:"
-msgstr "&Pozícia:"
+msgid "Mirror Page(s) &Vertical"
+msgstr "&Vertikálne zrkadlenie strán"
 
-msgid "First &Line:"
-msgstr "Prvý r&iadok:"
+msgid "Apply Under Color &Removal"
+msgstr "Aplikovať  Under Color &Removal"
 
-msgid "Ind&ent:"
-msgstr "Odsad&enie"
+msgid "Apply &ICC Profiles"
+msgstr "Použiť &ICC-profily"
 
-msgid "Delete All"
-msgstr "Odstrániť všetko"
+msgid "PostScript Level &1"
+msgstr "PostScript Level &1"
 
-msgid "Indentation for first line of the paragraph"
-msgstr "Odsadenie pre prvý riadok odseku"
+msgid "PostScript Level &2"
+msgstr "PostScript Level &2"
 
-msgid "Indentation from the left for the whole paragraph"
-msgstr "Odsadenie zľava pre celý odsek"
+msgid "PostScript Level &3"
+msgstr "PostScript Level &3"
 
-msgid "Delete all Tabulators"
-msgstr "Odstrániť všetky tabulátory"
+msgid "Creates PostScript Level 3"
+msgstr "Vytvorí PostScript Level 3"
+
+msgid ""
+"Creates PostScript Level 2 only, beware,\n"
+"this can create huge files"
+msgstr ""
+"Vytvorí iba  PostScript Level 2.\n"
+"Pozor! Môže vytvoriť veľké súbory"
+
+msgid ""
+"Creates PostScript Level 1 only, beware,\n"
+"this can create huge files"
+msgstr ""
+"Vytvorí iba  PostScript Level 1.\n"
+"Pozor! Môže vytvoriť veľké súbory"
+
+msgid ""
+"A way of switching off some of the gray shades which are composed\n"
+"of cyan, yellow and magenta and using black instead.\n"
+"UCR most affects parts of images which are neutral and/or dark tones\n"
+"which are close to the gray. Use of this may improve printing some images\n"
+"and some experimentation and testing is need on a case by case basis.\n"
+"UCR reduces the possibility of over saturation with CMY inks."
+msgstr ""
+"Spôsob prepínania niektorých šedých tieňov, ktoré sú zložené\n"
+"z azúrovej, fialovej a žltej farby namiesto použitia čiernej.\n"
+"UCR naviac ovplyvňuje časti obrázkov, ktoré sú neutrálne a/alebo\n"
+"v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže "
+"zlepšiť\n"
+"tlač niektorých obrázkov - je však potrebné testovať jednotlivé prípady.\n"
+"UCR znižuje možnosť presýtenosti s CMY atramentmi."
+
+msgid "Setup Printer"
+msgstr "Nastaviť tlačiareň"
+
+msgid "Print Destination"
+msgstr "Cieľ tlače"
+
+msgid "&Options..."
+msgstr "M&ožnosti..."
+
+msgid "&File:"
+msgstr "&Súbor:"
+
+msgid "A&lternative Printer Command"
+msgstr "A&lternatívny príkaz tlače"
+
+msgid ""
+"Use an alternative print manager, such as kprinter or gtklp,\n"
+"to utilize additional printing options"
+msgstr ""
+"Použiť alternatívneho správcu tlače ako je kprinter alebo gtklp,\n"
+"na spracovanie prídavných nastavení tlače"
+
+msgid "Co&mmand:"
+msgstr "&Príkaz:"
+
+msgid "Range"
+msgstr "Rozsah"
+
+msgid "Print &All"
+msgstr "Tl&ačiť všetko"
+
+msgid "Print Current Pa&ge"
+msgstr "Tlačiť akt&uálnu stranu"
+
+msgid "Print &Range"
+msgstr "Tlačiť &rozsah"
+
+msgid "N&umber of Copies:"
+msgstr "P&očet kópií:"
+
+msgid "Print &Normal"
+msgstr "&Normálna tlač"
+
+msgid "Print &Separations"
+msgstr "Oddelená tlač &farebných zložiek"
+
+msgid "Cyan"
+msgstr "Azúrová"
+
+msgid "Magenta"
+msgstr "Purpurová"
+
+msgid "Yellow"
+msgstr "Žltá"
+
+msgid "Black"
+msgstr "Čierna"
+
+msgid "Pr&int In Color If Available"
+msgstr "Tlač&iť farebne, ak je to možné"
+
+msgid "Print In Gra&yscale"
+msgstr "T&lačiť v odtieňoch šedej"
+
+msgid "Ad&vanced Options..."
+msgstr "&Pokročilé možnosti..."
+
+msgid "&Print"
+msgstr "&Tlač"
+
+msgid "Postscript-Files (*.ps);;All Files (*)"
+msgstr "Postscript súbory(*.ps);;Všetky súbory (*)"
+
+msgid "Insert Page"
+msgstr "Vložiť stranu"
+
+msgid "&Inserting"
+msgstr "&Vkladanie"
+
+msgid "Page(s)"
+msgstr "strana"
+
+msgid "Inserting"
+msgstr "Vkladanie"
+
+msgid "&Template (Left Page):"
+msgstr "Ša&blóna (ľavá strana):"
+
+msgid "Template (Right Page):"
+msgstr "Šablóna (Pravá strana):"
 
 msgid ""
 "<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
@@ -4758,6 +3568,9 @@ msgstr "&Typ súboru:"
 
 msgid "One directory up"
 msgstr "O priečinok vyššie"
+
+msgid "Name"
+msgstr "Názov"
 
 msgid "Attributes"
 msgstr "Atribúty"
@@ -4894,6 +3707,9 @@ msgstr "Priečinok:"
 msgid "Select All"
 msgstr "Vybrať všetko"
 
+msgid "&Redo"
+msgstr "&Opakovať vrátené"
+
 msgid "Line up"
 msgstr "Zoradiť"
 
@@ -4978,180 +3794,580 @@ msgstr "Pridať k &vlastným farbám"
 msgid "Select color"
 msgstr "Výber farby"
 
-#, fuzzy
 msgid "Font st&yle"
-msgstr "Bez štýlu"
+msgstr "Š&týl písma"
 
-#, fuzzy
 msgid "Stri&keout"
-msgstr "Prečiarknuté"
+msgstr "Prečiar&knuť"
 
-#, fuzzy
 msgid "&Underline"
-msgstr "Podčiarknuté"
+msgstr "&Podčiarknuť"
 
-#, fuzzy
 msgid "Sample"
-msgstr "Príklad:"
+msgstr "Vzorka"
 
-#, fuzzy
 msgid "Scr&ipt"
 msgstr "Skr&ipt"
 
-#, fuzzy
 msgid "Apply"
-msgstr "&Použiť"
+msgstr "Použiť"
 
-#, fuzzy
 msgid "Select Font"
-msgstr "Vybrať nové písmo:"
+msgstr "Vybrať písmo"
 
-msgid "Element"
-msgstr "Prvok"
+msgid "X, Y, &Z"
+msgstr "X, Y, &Z"
 
-msgid "Information"
-msgstr "Informácie"
+msgid "&Text"
+msgstr "&Text"
+
+msgid "&Image"
+msgstr "&Obrázok"
+
+msgid "&Line"
+msgstr "&Čiara"
+
+msgid "&Colors"
+msgstr "&Farby"
+
+msgid "Geometry"
+msgstr "Geometria"
+
+msgid "Basepoint:"
+msgstr "Základný bod:"
+
+msgid "Level"
+msgstr "Úroveň"
+
+msgid "Shape:"
+msgstr "Tvar:"
+
+msgid "&Edit Shape..."
+msgstr "&Upraviť tvar..."
 
 msgid ""
-"Do you really want to overwrite the File:\n"
-"%1 ?"
+"R&ound\n"
+"Corners:"
 msgstr ""
-"Skutočne chcete prepísať súbor:\n"
-"%1 ?"
+"Za&obliť\n"
+"Rohy:"
 
-msgid "Select Items"
-msgstr "Vybrať položky"
+msgid "Distance of Text"
+msgstr "Vzdialenosť textu"
 
-msgid "Insert Text Frame"
-msgstr "Vložiť textový rám"
+msgid "To&p:"
+msgstr "&Horný:"
 
-msgid "Insert Picture"
-msgstr "Vložiť obrázok"
+msgid "T&abulators..."
+msgstr "T&abulátory..."
 
-msgid "Properties..."
-msgstr "Vlastnosti..."
+msgid "Path Text Properties"
+msgstr "Vlastnosti textu na krivky"
 
-msgid "Insert Polygons"
-msgstr "Vložiť mnohouholníky"
+msgid "Show Curve"
+msgstr "Zobraziť krivku"
 
-msgid "Insert Lines"
-msgstr "Vložiť čiary"
+msgid "Start Offset:"
+msgstr "Počiatočný posun:"
 
-msgid "Insert Bezier Curves"
-msgstr "Vložiť bézierové krivky"
+msgid "Distance from Curve:"
+msgstr "Vzdialenosť od krivky:"
 
-msgid "Insert Freehand Line"
-msgstr "Vložiť rukou kreslenú čiaru"
+msgid "Text &Flows Around Frame"
+msgstr "Text o&bteká okolo rámu"
 
-msgid "Rotate Item"
-msgstr "Otočiť objekt"
+msgid "Use &Bounding Box"
+msgstr "Použiť &viazané pole"
 
-msgid "Zoom in or out"
-msgstr "Zväčšiť alebo zmenšiť"
+msgid "&Use Contour Line"
+msgstr "Po&užiť vrstevnicu"
 
-msgid "Edit Contents of Frame"
-msgstr "Upraviť obsah rámu"
+msgid "&Font Size:"
+msgstr "V&eľkosť písma:"
 
-msgid "Edit the text with the Story Editor"
-msgstr "Upraviť text v Story editore"
+msgid "Custom Spacing"
+msgstr "Vlastné medzery"
 
-msgid "Link Text Frames"
-msgstr "Prepojiť textové rámy"
+msgid "&Kerning:"
+msgstr "Vyrovnávanie zna&kov (kerning):"
 
-msgid "Unlink Text Frames"
-msgstr "Zrušiť prepojenie textových rámom"
+msgid "L&ine Spacing:"
+msgstr "R&iadkovanie:"
 
-msgid "Do measurements"
-msgstr "Merať"
+msgid "St&yle:"
+msgstr "Š&týl:"
 
-msgid "Draw various Shapes"
-msgstr "Kreslenie rôznych tvarov"
+msgid "Lan&guage:"
+msgstr "&Jazyk:"
 
-msgid "PDF Tools"
-msgstr "PDF nástroje"
+msgid "&Free Scaling"
+msgstr "Voľ&ná zmena veľkosti"
 
-msgid "Insert PDF Fields"
-msgstr "Vložiť PDF polia"
+msgid "X-Sc&ale:"
+msgstr "X-Mierk&a:"
 
-msgid "Insert PDF Annotations"
-msgstr "Vložiť PDF anotáciu"
+msgid "Y-Scal&e:"
+msgstr "Y-Mi&erka:"
 
-#, fuzzy
-msgid "Albanian"
-msgstr "Zarovnať"
+msgid "Scale &To Frame Size"
+msgstr "Zmeniť veľ&kosť na rozmer rámu"
 
-#, fuzzy
-msgid "Basque"
-msgstr "Baskitský:"
+msgid "P&roportional"
+msgstr "P&roporcionálne"
 
-#, fuzzy
-msgid "Bulgarian"
-msgstr "Bulharský:"
+msgid "Input Profile:"
+msgstr "Vložiť profil:"
 
-#, fuzzy
-msgid "Brazilian"
-msgstr "Brazílsky:"
+msgid "Rendering Intent:"
+msgstr "Účel generovania:"
 
-msgid "Chinese"
+msgid "Left Point"
+msgstr "Ľavý bod"
+
+msgid "End Points"
+msgstr "Koncové body"
+
+msgid "&Basepoint:"
+msgstr "Základný &bod:"
+
+msgid "T&ype of Line:"
+msgstr "T&yp čiary:"
+
+msgid "Line &Width:"
+msgstr "Ší&rka čiary:"
+
+msgid "Ed&ges:"
+msgstr "&Hrany:"
+
+msgid "&Endings:"
+msgstr "Ukonč&enia:"
+
+msgid "No Style"
+msgstr "Bez štýlu"
+
+msgid "Cell Lines"
+msgstr "Čiary bunky"
+
+msgid "Line at Top"
+msgstr "Horná čiara"
+
+msgid "Line at the Left"
+msgstr "Ľavá čiara"
+
+msgid "Line at the Right "
+msgstr "Pravá čiara"
+
+msgid "Line at Bottom"
+msgstr "Dolná čiara"
+
+msgid "Name of selected object"
+msgstr "Názov zvoleného objektu"
+
+msgid "Horizontal position of current basepoint"
+msgstr "Vodorovná pozícia aktuálneho základného bodu"
+
+msgid "Vertical position of current basepoint"
+msgstr "Zvislá pozícia aktuálneho základného bodu"
+
+msgid "Width"
+msgstr "Šírka"
+
+msgid "Height"
+msgstr "Výška"
+
+msgid "Rotation of object at current basepoint"
+msgstr "Otočenie objektu v aktuálnom základnom bode"
+
+msgid "Point from which measurements or rotation angles are referenced"
+msgstr "Bod, od ktorého sú odvodené vzdialenosti alebo uhly rotácie"
+
+msgid "Select top left for basepoint"
+msgstr "Zvoliť ľavý horný roh za základný bod"
+
+msgid "Select top right for basepoint"
+msgstr "Zvoliť pravý horný roh za základný bod"
+
+msgid "Select bottom left for basepoint"
+msgstr "Zvoliť ľavý dolný roh za základný bod"
+
+msgid "Select bottom right for basepoint"
+msgstr "Zvoliť pravý dolný roh za základný bod"
+
+msgid "Select center for basepoint"
+msgstr "Zvoliť stred za základný bod"
+
+msgid "Flip Horizontal"
+msgstr "Vodorovne zameniť"
+
+msgid "Flip Vertical"
+msgstr "Zvislo zameniť"
+
+msgid "Move one level up"
+msgstr "Presunúť o jednu úroveň vyššie"
+
+msgid "Move one level down"
+msgstr "Presunúť o jednu úroveň nižšie"
+
+msgid "Move to front"
+msgstr "Presunúť dopredu"
+
+msgid "Move to back"
+msgstr "Presunúť dozadu"
+
+msgid ""
+"Indicates the level the object is on, 0 means the object is at the bottom"
 msgstr ""
+"Ukazuje hladinu zvoleného objektu. 0 znamená, že objekt je na najnižšej "
+"úrovni"
 
-#, fuzzy
-msgid "English (British)"
-msgstr "Anglický"
+msgid "Lock or unlock the object"
+msgstr "Uzamknúť alebo odomknúť objekt"
 
-#, fuzzy
-msgid "Esperanto"
-msgstr "Udalosť:"
+msgid "Lock or unlock the size of the object"
+msgstr "Uzamknúť alebo odomknúť veľkosť objekt"
 
-#, fuzzy
-msgid "Galician"
-msgstr "Galícky:"
+msgid "Enable or disable printing of the object"
+msgstr "Povoliť alebo zakázať tlač objektu"
 
-msgid "Indonesian"
-msgstr ""
+msgid "Make text in lower frames flow around the object shape"
+msgstr "Povoliť obtekanie textu v nižších rámoch okolo zvoleného objektu"
 
-#, fuzzy
-msgid "Korean"
-msgstr "Nórsky:"
+msgid "Use a surrounding box instead of the frame's shape for text flow"
+msgstr "Použiť obklopujúce pole namiesto tvaru rámu pre tok textu"
 
-#, fuzzy
-msgid "Norwegian (Bokmaal)"
-msgstr "Nórsky:"
+msgid "Use a second line originally based on the frame's shape for text flow"
+msgstr "Použiť druhú čiaru pôvodne založenú na tvare rámu pre tok textu"
 
-#, fuzzy
-msgid "Norwegian (Nnyorsk)"
-msgstr "Nórsky:"
+msgid "Font of selected text or object"
+msgstr "Písmo pre zvolený text alebo objekt"
 
-#, fuzzy
-msgid "Norwegian"
-msgstr "Nórsky:"
+msgid "Font Size"
+msgstr "Veľkosť písma"
 
-#, fuzzy
-msgid "Spanish (Latin)"
-msgstr "Španielsky"
+msgid "Scaling width of characters"
+msgstr "Zmena šírky znakov"
 
-#, fuzzy
-msgid "Serbian"
-msgstr "Slovinský:"
+msgid "Color of text stroke"
+msgstr "Farba obrysu písma"
 
-#, fuzzy
-msgid "Turkish"
-msgstr "Turecký:"
+msgid "Color of text fill"
+msgstr "Farba výplne písma"
 
-#, fuzzy
-msgid "Ukranian"
-msgstr "Ukrajinský"
+msgid "Saturation of color of text stroke"
+msgstr "Sýtosť farby obrysu písma"
 
-#, fuzzy
-msgid "Welsh"
-msgstr "Welský:"
+msgid "Saturation of color of text fill"
+msgstr "Sýtosť farby výplne textu"
+
+msgid "Right to Left Writing"
+msgstr "Písanie sprava doľava"
+
+msgid "Manual Kerning"
+msgstr "Ručné párovanie znakov (Kerning)"
+
+msgid "Line Spacing"
+msgstr "Riadkovanie"
+
+msgid "Style of current paragraph"
+msgstr "Štýl aktuálneho odseku"
+
+msgid "Hyphenation language of frame"
+msgstr "Jazyk rámu pre delenie slov"
+
+msgid "Change settings for left or end points"
+msgstr "Zmena nastavenia bodov čiary"
+
+msgid "Pattern of line"
+msgstr "Štýl čiary"
+
+msgid "Thickness of line"
+msgstr "Hrúbka čiary"
+
+msgid "Type of line joins"
+msgstr "Typ spojenia čiar"
+
+msgid "Type of line end"
+msgstr "Zakončenie čiar"
+
+msgid "Line style of current object"
+msgstr "Štýl čiary aktuálneho objektu"
+
+msgid "Choose the shape of frame..."
+msgstr "Vyberte tvar rámu..."
+
+msgid "Edit shape of the frame..."
+msgstr "Upraviť tvar rámu..."
+
+msgid "Set radius of corner rounding"
+msgstr "Nastaví polomer zaoblenia rohov"
+
+msgid "Number of columns in text frame"
+msgstr "Počet stĺpcov v textovom ráme"
+
+msgid "Switches between Gap or Column width"
+msgstr "Prepína medzi medzerou alebo šírkou stĺpca"
+
+msgid "Distance between columns"
+msgstr "vzdialenosť medzi stĺpcami"
+
+msgid "Distance of text from top of frame"
+msgstr "Vzdialenosť textu od horného okraja rámu"
+
+msgid "Distance of text from bottom of frame"
+msgstr "Vzdialenosť textu od dolného okraja rámu"
+
+msgid "Distance of text from left of frame"
+msgstr "Vzdialenosť textu od ľavého okraja rámu"
+
+msgid "Distance of text from right of frame"
+msgstr "Vzdialenosť textu od pravého okraja rámu"
+
+msgid "Edit tab settings of text frame..."
+msgstr "Úprava nastavení tabulátorov textového rámu..."
+
+msgid "Allow the image to be a different size to the frame"
+msgstr "Povolí nastavenie iných rozmerov obrázku ako má rám"
+
+msgid "Horizontal offset of image within frame"
+msgstr "Vodorovný posun obrázku v ráme"
+
+msgid "Vertical offset of image within frame"
+msgstr "Zvislý posun obrázku v ráme"
+
+msgid "Resize the image horizontally"
+msgstr "Zmena šírky obrázku"
+
+msgid "Resize the image vertically"
+msgstr "Zmeniť výšku obrázku"
+
+msgid "Keep the X and Y scaling the same"
+msgstr "Použije sa rovnaká zmena veľkosti pre oba rozmery (X a Y)"
+
+msgid "Keep the aspect ratio"
+msgstr "Zachovať pomer strán"
+
+msgid "Make the image fit within the size of the frame"
+msgstr "Obrázok zmení veľkosť podľa rozmeru rámu"
+
+msgid "Use image proportions rather than those of the frame"
+msgstr "Obrázok si zachová svoje proporcie"
+
+msgid "Source profile of the image"
+msgstr "Zdrojový profil obrázku"
+
+msgid "Rendering intent for the image"
+msgstr "Účel generovania obrázka"
+
+msgid "&X1:"
+msgstr "&X1:"
+
+msgid "X&2:"
+msgstr "X&2:"
+
+msgid "Y&1:"
+msgstr "Y&1:"
+
+msgid "&Y2:"
+msgstr "&Y2:"
+
+msgid "Column width"
+msgstr "Šírka stĺpca"
+
+msgid "Search/Replace"
+msgstr "Nájsť/Nahradiť"
+
+msgid "Search for:"
+msgstr "Hľadať:"
+
+msgid "Paragraph Style"
+msgstr "Štýl odstavca"
+
+msgid "Font Effects"
+msgstr "Efekty písma"
+
+msgid "Fill Color"
+msgstr "Farba výplne"
+
+msgid "Fill Shade"
+msgstr "Tieň výplne"
+
+msgid "Stroke Color"
+msgstr "Farba obrysu"
+
+msgid "Stroke Shade"
+msgstr "Tieň obrysu"
+
+msgid "Block"
+msgstr "Do bloku"
+
+msgid "Forced"
+msgstr "Vynútené"
+
+msgid "Replace with:"
+msgstr "Nahradiť s:"
+
+msgid "&Whole Word"
+msgstr "&Celé slovo:"
+
+msgid "&Ignore Case"
+msgstr "&Ignorovať veľkosť písma"
+
+msgid "&Search"
+msgstr "&Hľadať"
+
+msgid "&Replace"
+msgstr "&Nahradiť"
+
+msgid "Replace &All"
+msgstr "Nahradiť &všetko"
+
+msgid "Search finished"
+msgstr "Vyhľadávanie ukončené"
+
+msgid "Character"
+msgstr "Znak"
+
+msgid "&Font:"
+msgstr "&Písmo:"
+
+msgid "Si&ze:"
+msgstr "&Veľkosť:"
+
+msgid "Effect:"
+msgstr "Efekt:"
+
+msgid "&Alignment:"
+msgstr "Z&arovnanie:"
+
+msgid "&Drop Caps"
+msgstr "&Iniciály"
+
+msgid "&Lines:"
+msgstr "Č&iary:"
+
+msgid "F&ill Color:"
+msgstr "&Farba výplne:"
+
+msgid "St&roke Color:"
+msgstr "Fa&rba obrysu:"
+
+msgid "Vertical Spaces"
+msgstr "Vertikálne medzery"
+
+msgid "Adjust to Baseline &Grid"
+msgstr "Zarovnať k pomocnej &mriežke"
+
+msgid "Line &Spacing:"
+msgstr "&Riadkovanie:"
+
+msgid "Abo&ve:"
+msgstr "&Nad:"
+
+msgid "&Below:"
+msgstr "&Pod:"
+
+msgid "Tabulators and Indentation"
+msgstr "Tabulátory a odsadenie"
+
+msgid "Name of your paragraph style"
+msgstr "Názov štýlu odstavca"
+
+msgid ""
+"Provides an oversized first letter for a paragraph. Used for stylistic effect"
+msgstr "Nastaví oveľa vyššie prvé písmeno odstavca. Štylistický efekt"
+
+msgid "Determines the overall height, in line numbers, of the Drop Caps"
+msgstr "Určuje celkovú výšku iniciály v závislosti od počtu riadkov"
+
+msgid "Align text to baseline grid"
+msgstr "Zarovnať text k pomocnej mriežke"
+
+msgid "Spacing above the paragraph"
+msgstr "Medzera nad odsekom"
+
+msgid "Spacing below the paragraph"
+msgstr "Medzere pod odsekom"
+
+msgid "Name of the Style is not unique"
+msgstr "Názov štýlu nie je jedinečný"
+
+msgid "Manage Keyboard Shortcuts"
+msgstr "Správa klávesových skratiek"
+
+msgid "Current Key"
+msgstr "Aktuálny kláves"
+
+msgid "Select a Key for this Action"
+msgstr "Zvoľte kláves pre túto akciu"
+
+msgid "&No Key"
+msgstr "Žiad&ny kláves"
+
+msgid "&User Defined Key"
+msgstr "Po&užívateľom definovaný kláves"
+
+msgid "ALT+SHIFT+T"
+msgstr "ALT+SHIFT+T"
+
+msgid "Set &Key"
+msgstr "Nastaviť &kláves"
+
+msgid "Alt"
+msgstr "Alt"
+
+msgid "Ctrl"
+msgstr "Ctrl"
+
+msgid "Shift"
+msgstr "Shift"
+
+msgid "Shift+"
+msgstr "Shift+"
+
+msgid "Alt+"
+msgstr "Alt+"
+
+msgid "Ctrl+"
+msgstr "Ctrl+"
+
+msgid "This Key Sequence is already in use"
+msgstr "Táto klávesová sekvencia sa už používa"
+
+msgid "&Load..."
+msgstr "Načí&tať..."
+
+msgid "&Small"
+msgstr "&Malé"
+
+msgid "&Medium"
+msgstr "&Stredné"
+
+msgid "&Large"
+msgstr "&Veľké"
+
+msgid "&Preview"
+msgstr "&Náhľad"
+
+msgid "Scrapbooks (*.scs);;All Files (*)"
+msgstr "Zápisník (*.scs);;Všetky súbory (*)"
+
+msgid "Rename"
+msgstr "Premenovať"
+
+msgid "Object"
+msgstr "Objekt"
+
+msgid "New Entry"
+msgstr "Nová položka"
+
+msgid "Polygon Properties"
+msgstr "Vlastnosti mnohouholníkov"
 
 msgid "Corn&ers:"
 msgstr "R&ohy:"
 
-#, fuzzy
 msgid "Apply &Factor"
-msgstr "&Faktor:"
+msgstr "Použiť &faktor"
 
 msgid "&Factor:"
 msgstr "&Faktor:"
@@ -5163,7 +4379,7 @@ msgid "Degrees of rotation for polygons"
 msgstr "Stupne otočenia pre mnohouholníky"
 
 msgid "Apply Convex/Concave Factor to change shape of Polygons"
-msgstr ""
+msgstr "Použiť konvexný/konkávny faktor na zmenu tvaru mnohouholníkov"
 
 msgid "Sample Polygon"
 msgstr "Ukážka mnohouholníka"
@@ -5172,10 +4388,445 @@ msgid ""
 "A negative value will make the polygon concave (or star shaped),\n"
 " a positive value will make it convex"
 msgstr ""
+"Záporná hodnota nastaví mnohouholník ako konkávny (alebo v tvare hviezdy),\n"
+"a kladná na konvexný"
 
-#, fuzzy
+msgid "Pictures"
+msgstr "Obrázky"
+
+msgid "Path"
+msgstr "Cesta"
+
+msgid "Print"
+msgstr "Tlač"
+
+msgid "Status"
+msgstr "Stav"
+
+msgid "Goto"
+msgstr "Ísť na"
+
+msgid "Missing"
+msgstr "Chýba"
+
+msgid "Search"
+msgstr "Hľadať"
+
+msgid "Edit Line Styles"
+msgstr "Upraviť štýly čiary"
+
+msgid "New Style"
+msgstr "Nový štýl"
+
+msgid "Do you really want to delete this Style?"
+msgstr "Skutočne chcete zmazať tento štýl?"
+
+msgid "Import Template"
+msgstr "Importovať šablónu"
+
+msgid "From Document:"
+msgstr "Z dokumentu:"
+
+msgid "Import Page(s):"
+msgstr "Importovať stranu:"
+
+msgid " from 0"
+msgstr " z 0"
+
+msgid "Create Page(s)"
+msgstr "Vytvoriť stranu"
+
+msgid " from %1"
+msgstr " z %1"
+
+msgid "Bookmarks"
+msgstr "Záložky"
+
+msgid "Annotation Properties"
+msgstr "Vlastnosti anotácie"
+
+msgid "External Link"
+msgstr "Externý odkaz"
+
+msgid "External Web-Link"
+msgstr "Externý odkaz na web"
+
+msgid "&Type:"
+msgstr "&Typ:"
+
+msgid "&Page:"
+msgstr "&Strana:"
+
+msgid "&X-Pos"
+msgstr "&X-Pos"
+
+msgid "PDF-Documents (*.pdf);;All Files (*)"
+msgstr "PDF-Dokumenty (*.pdf);; Všetky súbory (*)"
+
+msgid "&Leave Anyway"
+msgstr "Zaho&diť"
+
+msgid "C&lose Anyway"
+msgstr "&Zavrieť"
+
+msgid "Document:"
+msgstr "Dokument:"
+
+msgid "has been changed since the last save."
+msgstr "bol od posledného uloženia zmenený."
+
+msgid "&Save Now"
+msgstr "&Uložiť"
+
+msgid "Number of Rows:"
+msgstr "Počet riadkov:"
+
+msgid "Number of Columns:"
+msgstr "Počet stĺpcov:"
+
+msgid "Show Page Previews"
+msgstr "Zobraziť náhľady pre strany"
+
+msgid "Show Template Names"
+msgstr "Zobraziť názvy šablón"
+
+msgid "Arrange Pages"
+msgstr "Usporiadať strany"
+
+msgid "Available Templates:"
+msgstr "Dostupné šablóny:"
+
+msgid "Document Pages:"
+msgstr "Strany dokumentu:"
+
+msgid "Facing Pages"
+msgstr "Dvojstrany"
+
+msgid "Left Page first"
+msgstr "Prvá strana vľavo"
+
+msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
+msgstr "Strany alebo šablóny zmažete potiahnutím do odpadkového koša."
+
+msgid "Previews all the pages of your document."
+msgstr "Náhľady na všetky strany vášho dokumentu."
+
+msgid ""
+"Here are all your Templates, to create a new Page\n"
+"drag a Template to the Pageview below."
+msgstr ""
+"Tu sú všetky vaše šablóny; na vytvorenie novej strany\n"
+"potiahnite šablónu do náhľadu strany."
+
+msgid "Fill Color Settings"
+msgstr "Nastavenia farby výplne:"
+
+msgid "Stroke Color Settings"
+msgstr "Nastavenia farby obrysu"
+
+msgid "Character Settings"
+msgstr "Nastavenia znakov"
+
+msgid "Kerning:"
+msgstr "Párovanie (kerning):"
+
+msgid "Style Settings"
+msgstr "Nastavenie štýlu"
+
+msgid "Font Settings"
+msgstr "Nastavenie písma"
+
+msgid "Font of selected text"
+msgstr "Písmo označeného textu"
+
+msgid "Story Editor"
+msgstr "Story Editor"
+
+msgid "&Reload Text from Frame"
+msgstr "&Znova načítať text z rámu"
+
+msgid "&Save to File..."
+msgstr "Uložiť do súboru..."
+
+msgid "&Load from File..."
+msgstr "Načítať zo súboru..."
+
+msgid "Save &Document"
+msgstr "Uložiť &dokument"
+
+msgid "&Update Text Frame and Exit"
+msgstr "&Aktualizovať textový rám a ukončiť"
+
+msgid "&Exit Without Updating Text Frame"
+msgstr "Ukončiť b&ez aktualizácie textového rámu"
+
+msgid "&Insert Special..."
+msgstr "Vlož&iť špeciálne..."
+
+msgid "&Edit Styles..."
+msgstr "&Upraviť štýly"
+
+msgid "&Fonts Preview..."
+msgstr "Náhľad na písmo..."
+
+msgid "&Update Text Frame"
+msgstr "&Aktualizovať textový rám"
+
+msgid "&Background..."
+msgstr "&Pozadie..."
+
+msgid "&Display Font..."
+msgstr "Písm&o zobrazenia..."
+
+msgid "&Smart text selection"
+msgstr "&Inteligentný výber textu"
+
+msgid "Clear all Text"
+msgstr "Odstrániť celý text"
+
+msgid "Load Text from File"
+msgstr "Načítať text zo súboru"
+
+msgid "Save Text to File"
+msgstr "Uložiť text do súboru..."
+
+msgid "Update Text Frame and Exit"
+msgstr "Aktualizovať textový rám a ukončiť"
+
+msgid "Exit Without Updating Text Frame"
+msgstr "Ukončiť bez aktualizácie textového rámu"
+
+msgid "Reload Text from Frame"
+msgstr "Znovu načítať text z rámu"
+
+msgid "Update Text Frame"
+msgstr "Aktualizovať textový rám"
+
+msgid "Current Paragraph:"
+msgstr "Aktuálny odsek:"
+
+msgid "Totals:"
+msgstr "Celkom:"
+
+msgid "Do you want to save your changes?"
+msgstr "Chcete uložiť zmeny?"
+
+msgid "Do you really want to lose all your Changes?"
+msgstr "Skutočne chcete stratiť všetky zmeny?"
+
+msgid "Editor"
+msgstr "Editor"
+
+msgid "&Save and Exit"
+msgstr "&Uložiť a ukončiť"
+
+msgid "&Exit without Saving"
+msgstr "U&končiť bez uloženia"
+
+msgid "&Get Field Names"
+msgstr "&Získať názvy polí"
+
+msgid "Javascripts (*.js);;All Files (*)"
+msgstr "Java skripty (*.js);;Všetky súbory (*)"
+
+msgid "Move Bookmark"
+msgstr "Presunúť záložku"
+
+msgid "Insert Bookmark"
+msgstr "Vložiť záložku"
+
+msgid "Edit Styles"
+msgstr "Upraviť štýly"
+
+msgid "Color Management Settings"
+msgstr "Nastavenie manažmentu farieb"
+
+msgid "&Activate Color Management"
+msgstr "&Aktívny manažment farieb"
+
+msgid "System Profiles"
+msgstr "Systémové profily"
+
+msgid "&Pictures:"
+msgstr "&Obrázky:"
+
+msgid "&Solid Colors:"
+msgstr "Plné farby (&Solid colors):"
+
+msgid "&Monitor:"
+msgstr "&Monitor:"
+
+msgid "P&rinter:"
+msgstr "&Tlačiareň:"
+
+msgid "Rendering Intents"
+msgstr "Účel generovania"
+
+msgid "M&onitor:"
+msgstr "M&onitor:"
+
+msgid "Pr&inter:"
+msgstr "Tlač&iareň:"
+
+msgid "Sim&ulate Printer on the Screen"
+msgstr "Sim&ulácia tlačiarne na obrazovke"
+
+msgid "Mark Colors out of &Gamut"
+msgstr "Označ netlačiteľné farby (&gamut)"
+
+msgid "Use &Blackpoint Compensation"
+msgstr "P&oužiť mapovanie čiernej z dvoch profilov"
+
+msgid "Default color profile for imported images"
+msgstr "Štandardný farebný profil pre importované obrázky"
+
+msgid "Default color profile for solid colors on the page"
+msgstr "Štandardný farebný profil na plné farby na strane"
+
+msgid ""
+"Color profile that you have generated or received from the manufacturer.\n"
+"This profile should be specific to your monitor and not a generic profile (i."
+"e. sRGB)."
+msgstr ""
+"Farebný profil, ktorý máte vygenerovaný alebo dodaný od výrobcu  "
+"zariadenia.\n"
+"Tento profil by mal byť nastavený na váš monitor a nie všeobecný profil "
+"(napr. s RGB)."
+
+msgid ""
+"Color profile for your printer model from the manufacturer.\n"
+"This profile should be specific to your printer and not a generic profile (i."
+"e. sRGB)."
+msgstr ""
+"Farebný profil pre váš model tlačiarne od výrobcu.\n"
+"Tento profil by mal byť nastavený pre vašu tlačiareň a nie všeobecný profil "
+"(napr. s RGB)."
+
+msgid ""
+"Default rendering intent for your monitor. Unless you know why to change "
+"it,\n"
+"Relative Colorimetric or Perceptual should be chosen."
+msgstr ""
+"Štandardný účel generovania pre váš monitor. Pokiaľ viete, prečo ho meniť,\n"
+"zvoľte relatívnu kolorimetrickú transformáciu alebo perceptuálanu "
+"(fotografickú) transformáciu."
+
+msgid ""
+"Default rendering intent for your printer. Unless you know why to change "
+"it,\n"
+"Relative Colorimetric or Perceptual should be chosen."
+msgstr ""
+"Štandardný účel generovania pre vašu tlačiareň. Pokiaľ neviete prečo to "
+"meniť,\n"
+"zvoľte relatívnu kolorimetrickú transformáciu alebo perceptuálnu "
+"(fotografickú) transformáciu."
+
+msgid ""
+"Enable 'soft proofing' of how your document colors will print,\n"
+"based on the chosen printer profile."
+msgstr "Povoliť 'soft proofing' založený na vybranom profile tlačiarne."
+
+msgid ""
+"Method of showing colors on the screen which may not print properly.\n"
+"This requires very accurate profiles and serves only as a warning."
+msgstr ""
+"Metóda zobrazovania farieb na obrazovke, ktoré nemusia byť správne "
+"vytlačené.\n"
+"Toto vyžaduje veľmi presné profily a slúži iba ako varovanie."
+
+msgid ""
+"Black Point Compensation is a method of improving contrast in photos.\n"
+"It is recommended that you enable this if you have photos in your document."
+msgstr ""
+"Kompenzácia čierneho bodu je metóda zlepšovania kontrastu fotiek\n"
+"Odporúča sa, aby ste povolili túto možnosť, pokiaľ váš dokument obsahuje "
+"fotografie."
+
+msgid "Contents"
+msgstr "Obsahy"
+
+msgid "Scribus Online Help"
+msgstr "Scribus online pomocník"
+
+msgid ""
+"Sorry, no manual available! Please see: http://docs.scribus.net for updated "
+"docs\n"
+"and www.scribus.net for downloads."
+msgstr ""
+"Ľutujem, ale manuál nie je dostupný! Aktualizovanú dokumentáciu si môžete\n"
+"stiahnuť z http://docs.scribus.net."
+
+msgid "Edit JavaScripts"
+msgstr "Upraviť Java skripty"
+
+msgid "&Edit..."
+msgstr "&Upraviť..."
+
+msgid "&Add..."
+msgstr "&Pridať..."
+
+msgid "&New Script:"
+msgstr "&Nový skript:"
+
+msgid "New Script"
+msgstr "Nový skript"
+
+msgid "Do you really want to delete this Script?"
+msgstr "Skutočne chcete zmazať tento skript?"
+
+msgid "&Number of Copies:"
+msgstr "&Počet kópií:"
+
+msgid "&Horizontal Shift:"
+msgstr "&Vodorovné posunutie:"
+
+msgid "&Vertical Shift:"
+msgstr "&Zvislé posunutie:"
+
+msgid "Hyphenator Settings"
+msgstr "Nastavenie delenia slov"
+
+msgid "&Hyphenation Suggestions"
+msgstr "N&ávrhy pre delenie slov"
+
+msgid "Hyphenate Text Automatically &During Typing"
+msgstr "Automaticky deliť slová pri písaní"
+
+msgid "&Smallest Word:"
+msgstr "&Najmenšie slovo:"
+
+msgid "Consecutive Hyphenations &Allowed:"
+msgstr "M&aximálny počet po sebe nasledujúcich delení:"
+
+msgid ""
+"A dialog box showing all possible hyphens for each word will show up when "
+"you use the Extras, Hyphenate Text option."
+msgstr ""
+"Pri voľbe Extra -> Delenie slov sa zobrazí dialóg, v ktorom budú zobrazené "
+"všetky možnosti delenia slova."
+
+msgid "Enables automatic hyphenation of your text while typing."
+msgstr "Povolí automatické delenie slov vášho textu počas písania."
+
+msgid "Length of the smallest word to be hyphenated."
+msgstr "Toto je dĺžka najmenšieho slova, ktoré sa bude deliť."
+
+msgid ""
+"Maximum number of Hyphenations following each other.\n"
+"A value of 0 means unlimited hyphenations."
+msgstr ""
+"Maximálny počet delení slov za sebou.\n"
+"Hodnota 0 znamená neobmedzené delenie slov."
+
+msgid ""
+"Do you really want to overwrite the File:\n"
+"%1 ?"
+msgstr ""
+"Skutočne chcete prepísať súbor:\n"
+"%1 ?"
+
 msgid "About Scribus %1"
-msgstr "O Scribuse %1%2"
+msgstr "Scribus %1"
 
 msgid "%1. %2 %3 "
 msgstr "%1. %2 %3 "
@@ -5194,7 +4845,7 @@ msgid "&About"
 msgstr "&Informácie"
 
 msgid "Development Team:"
-msgstr ""
+msgstr "Vývojársky tím:"
 
 msgid "Contributions from:"
 msgstr "Príspevky od:"
@@ -5202,23 +4853,20 @@ msgstr "Príspevky od:"
 msgid "Windows port:"
 msgstr "Windows verzia"
 
-#, fuzzy
 msgid "Official Documentation:"
-msgstr "Dokumentácia:"
+msgstr "Oficiálna dokumentácia:"
 
-#, fuzzy
 msgid "Other Documentation:"
-msgstr "Dokumentácia:"
+msgstr "Ďalšia dokumentácia:"
 
 msgid "A&uthors"
 msgstr "A&utori"
 
 msgid "Official Translations and Translators:"
-msgstr ""
+msgstr "Oficiálne preklady a prekladatelia:"
 
-#, fuzzy
 msgid "Catalan:"
-msgstr "Katalánsky"
+msgstr "Katalánsky:"
 
 msgid "Czech:"
 msgstr "Český:"
@@ -5226,13 +4874,11 @@ msgstr "Český:"
 msgid "Danish:"
 msgstr "Dánsky:"
 
-#, fuzzy
 msgid "English (British):"
-msgstr "Anglický"
+msgstr "Anglický (Britský):"
 
-#, fuzzy
 msgid "Esperanto:"
-msgstr "Udalosť:"
+msgstr "Esperanto:"
 
 msgid "Finnish:"
 msgstr "Fínsky:"
@@ -5246,9 +4892,8 @@ msgstr "Nemecký:"
 msgid "Italian:"
 msgstr "Taliansky:"
 
-#, fuzzy
 msgid "Korean:"
-msgstr "Nórsky:"
+msgstr "Kórejský:"
 
 msgid "Norwegian:"
 msgstr "Nórsky:"
@@ -5259,9 +4904,8 @@ msgstr "Poľský:"
 msgid "Russian:"
 msgstr "Ruský:"
 
-#, fuzzy
 msgid "Serbian:"
-msgstr "Slovinský:"
+msgstr "Srbsky:"
 
 msgid "Slovak:"
 msgstr "Slovenský"
@@ -5269,13 +4913,11 @@ msgstr "Slovenský"
 msgid "Slovenian:"
 msgstr "Slovinský:"
 
-#, fuzzy
 msgid "Spanish:"
-msgstr "Španielsky"
+msgstr "Španielsky:"
 
-#, fuzzy
 msgid "Swedish:"
-msgstr "Švédsky"
+msgstr "Švédsky:"
 
 msgid "Ukrainian:"
 msgstr "Ukrajinský:"
@@ -5284,7 +4926,7 @@ msgid "Welsh:"
 msgstr "Welský:"
 
 msgid "Previous Translation Contributors:"
-msgstr ""
+msgstr "Minulí prispievatelia prekladov:"
 
 msgid "Basque:"
 msgstr "Baskitský:"
@@ -5310,18 +4952,15 @@ msgstr "Turecký:"
 msgid "&Translations"
 msgstr "Pre&klady"
 
-#, fuzzy
 msgid "Homepage"
-msgstr "Obrázok"
+msgstr "Domovská stránka"
 
 msgid "Online Reference"
 msgstr "Online referencie"
 
-#, fuzzy
 msgid "Bugs and Feature Requests"
-msgstr "Chyba a požiadavky na vlastnosti"
+msgstr "Chyby a požiadavky na vlastnosti"
 
-#, fuzzy
 msgid "Mailing List"
 msgstr "E-mailová konferencia"
 
@@ -5332,8 +4971,7 @@ msgstr "&On-line"
 msgid ""
 "This panel shows the version, build date and\n"
 " compiled in library support in Scribus\n"
-"The C-C-T-F equates to C=CUPS C=littlecms T=TIFF support F=Fontconfig "
-"support.\n"
+"The C-C-T equates to C=littlecms C=CUPS T=TIFF support.\n"
 "Missing library support is indicated by a *"
 msgstr ""
 "Tento panel zobrazuje verziu, dátum kompilácie\n"
@@ -5344,18 +4982,47 @@ msgstr ""
 msgid "Preferences"
 msgstr "Nastavenia"
 
+msgid "Guides"
+msgstr "Vodítka"
+
+msgid "Typography"
+msgstr "Typografia"
+
+msgid "Display"
+msgstr "Zobraziť"
+
+msgid "External Tools"
+msgstr "Externé nástroje"
+
+msgid "Misc."
+msgstr "Rôzne"
+
 msgid "GUI"
 msgstr "GUI"
 
 msgid "&Theme:"
 msgstr "&Téma:"
 
-#, fuzzy
-msgid "Other Settings"
-msgstr "Nastavenie štýlu"
+msgid "Units"
+msgstr "Jednotky"
+
+msgid "Points (pt)"
+msgstr "Body (pt)"
+
+msgid "Mouse Settings"
+msgstr "Nastavenie myši"
 
 msgid "&Wheel Jump:"
 msgstr "&Krok kolieska"
+
+msgid " px"
+msgstr " px"
+
+msgid "&Grab Radius:"
+msgstr "&Zachytiť polomer"
+
+msgid "Menus"
+msgstr "Ponuky"
 
 msgid "&Recent Documents:"
 msgstr "&Nedávne dokumenty:"
@@ -5378,15 +5045,89 @@ msgstr "&Skripty:"
 msgid "Ch&ange..."
 msgstr "Z&meniť..."
 
-#, fuzzy
 msgid "T&emplates:"
-msgstr "Ša&blóna:"
+msgstr "Ša&blóny:"
+
+msgid "Autosave"
+msgstr "Automatické ukladanie"
 
 msgid "&Enabled"
 msgstr "&Povolené"
 
-msgid "&Grab Radius:"
-msgstr "&Zachytiť polomer"
+msgid "min"
+msgstr "min"
+
+msgid "&Interval:"
+msgstr "&Interval:"
+
+msgid "Grid Layout"
+msgstr "Rozloženie mriežky:"
+
+msgid "M&inor Grid Spacing:"
+msgstr "Vedľajšia vzdialenosť mriežky:"
+
+msgid "Ma&jor Grid Spacing:"
+msgstr "Hlavná vzdialenosť mriežky:"
+
+msgid "Guide &Snap Distance:"
+msgstr "V&zdialenosť medzi vodítkami:"
+
+msgid "Grid Colors"
+msgstr "Farby mriežky"
+
+msgid "Min&or Grid Color:"
+msgstr "Farba vedľajšej mriežky:"
+
+msgid "Majo&r Grid Color:"
+msgstr "Farba hlavnej mriežky:"
+
+msgid "&User Guides Color:"
+msgstr "&Vlastná farba vodítok:"
+
+msgid "Base&line Grid Color:"
+msgstr "Farba mriežky základných čiar:"
+
+msgid "Placing"
+msgstr "Umiestnenie"
+
+msgid "In the &Background"
+msgstr "V pozadí"
+
+msgid "In the Fore&ground"
+msgstr "V popredí"
+
+msgid "Baseline Grid"
+msgstr "Mriežka základných čiar"
+
+msgid "O&n"
+msgstr "Zap&nuté"
+
+msgid "O&ff"
+msgstr "&Vypnuté"
+
+msgid "&Displacement:"
+msgstr "&Posunutie:"
+
+msgid "&Scaling:"
+msgstr "&Zmena veľkosti:"
+
+msgid "D&isplacement:"
+msgstr "P&osunutie:"
+
+msgid "S&caling:"
+msgstr "Z&mena veľkosti:"
+
+msgid "Sc&aling:"
+msgstr "Zmen&a veľkosti:"
+
+msgid "Baseline &Grid:"
+msgstr "Mriežka zá&kladných čiar:"
+
+msgid "Baseline &Offset:"
+msgstr "P&osun základných čiar:"
+
+msgid "Automatic &Line Spacing:"
+msgstr "Automa&tické riadkovanie:"
 
 msgid "Default &Font:"
 msgstr "Štandardné &písmo:"
@@ -5397,8 +5138,44 @@ msgstr "Štandardná &veľkosť"
 msgid "&Text Color:"
 msgstr "Farbu &textu:"
 
+msgid "Woven silk pyjamas exchanged for blue quartz"
+msgstr "Príliš žltučký kôň spieval diabolské ódy"
+
+msgid "&Line Color:"
+msgstr "Farba čia&ry:"
+
+msgid "&Shading:"
+msgstr "&Tieňovanie:"
+
+msgid "&Fill Color:"
+msgstr "&Farba výplne:"
+
+msgid "S&hading:"
+msgstr "Tie&ňovanie:"
+
 msgid "&Type of Line:"
 msgstr "&Typ čiary:"
+
+msgid "Mi&nimum:"
+msgstr "Mi&nimum"
+
+msgid "Ma&ximum:"
+msgstr "Ma&ximum"
+
+msgid "&Stepping:"
+msgstr "&Krokovanie:"
+
+msgid "&Horizontal Scaling:"
+msgstr "&Vodorovné zväčšenie"
+
+msgid "&Vertical Scaling:"
+msgstr "&Zvislé zväčšenie"
+
+msgid "&Scale Picture to Frame Size"
+msgstr "Z&meniť veľkosť obrázka na rozmer rámu"
+
+msgid "Keep Aspect &Ratio"
+msgstr "Zachovať pome&r strán"
 
 msgid "Other Options"
 msgstr "Ostatné nastavenia"
@@ -5411,6 +5188,24 @@ msgstr "Malá"
 
 msgid "Large"
 msgstr "Veľká"
+
+msgid "Display Pages &Side by Side"
+msgstr "Zobrazovať stranu za stranou"
+
+msgid "Page Colors"
+msgstr "Farby strany"
+
+msgid "&Background:"
+msgstr "&Pozadie:"
+
+msgid "&Margins:"
+msgstr "Okra&je:"
+
+msgid "Display &Unprintable Area in Margin Color"
+msgstr "Zobraziť &netlačiteľnú oblasť vo farbe okrajov"
+
+msgid "Use PDF 1.4 &Transparency Features"
+msgstr "Požiť vlastnosti priesvitnosti PDF-1.4"
 
 msgid "&Adjust Display Size"
 msgstr "P&rispôsobiť veľkosti obrazovky"
@@ -5436,10 +5231,6 @@ msgstr "Nástroj na úpravu obrázkov"
 msgid "Name of &Executable:"
 msgstr "P&ríkaz pre spustenie programu:"
 
-#, fuzzy
-msgid "External Tools."
-msgstr "Externé nástroje"
-
 msgid "Printing"
 msgstr "Tlač"
 
@@ -5447,14 +5238,7 @@ msgid "Clip to Page &Margins"
 msgstr "Pripnúť k okrajo&m strany"
 
 msgid "Apply &Under Color Removal"
-msgstr ""
-
-msgid ""
-"Select your default language for Scribus to run with.\n"
-"Leave this blank to choose based on environment variables.\n"
-"You can still override this by passing a command line option when starting "
-"Scribus"
-msgstr ""
+msgstr "Aplikovať  &Under Color Removal"
 
 msgid ""
 "Choose the default window decoration and looks.\n"
@@ -5470,6 +5254,10 @@ msgid "Number of lines Scribus will scroll for each move of the mouse wheel"
 msgstr ""
 "Počet riadkov, ktoré posunie Scribus pri každom pohybe kolieska na myši"
 
+msgid ""
+"Radius of the area where Scribus will allow you to grab an objects handles"
+msgstr "Polomer oblasti, ktorú Scribus považuje za oblasť daného objektu "
+
 msgid "Number of recently edited documents to show in the File menu"
 msgstr ""
 "Počet nedávno upravovaných dokumentov, ktoré sa zobrazia v ponuke Súbor"
@@ -5484,7 +5272,7 @@ msgid "Default Scripter scripts directory"
 msgstr "Štandardný priečinok Scriptera pre skripty"
 
 msgid "Additional Directory for Document Templates"
-msgstr ""
+msgstr "Ďalší priečinok pre šablóny dokumentov"
 
 msgid "Default page size, either a standard size or a custom size"
 msgstr "Štandardná veľkosť papiera, či už vlastné alebo štandardné rozmery"
@@ -5515,11 +5303,35 @@ msgstr ""
 msgid "Time period between saving automatically"
 msgstr "Časový interval medzi automatickými uloženiami"
 
+msgid "Distance between the minor grid lines"
+msgstr "Vzdialenosť medzi čiarami vedľajšej mriežky"
+
+msgid "Distance between the major grid lines"
+msgstr "Vzdialenosť medzi čiarami hlavnej mriežky"
+
+msgid "Distance within which an object will snap to your placed guides"
+msgstr "Vzdialenosť, v ktorej sa čiara mriežky chová voči objektu ako magnet"
+
+msgid "Color of the minor grid lines"
+msgstr "Farba vedľajších čiar mriežky"
+
+msgid "Color of the major grid lines"
+msgstr "Farba hlavných čiar mriežky"
+
+msgid "Color of the guide lines you insert"
+msgstr "Farba vodítok, ktoré vkladáte manuálne"
+
 msgid "Place the grid behind your page objects"
 msgstr "Umiestniť mriežku za objekty"
 
 msgid "Place the grid in front of your page objects"
 msgstr "Umiestniť mriežku pred objekty"
+
+msgid "Turns on the basegrid"
+msgstr "Zapnúť základnú mriežku"
+
+msgid "Turns off the basegrid"
+msgstr "Vypnúť základnú mriežku"
 
 msgid "Displacement above the baseline of the font on a line"
 msgstr "Posunutie nad základnú čiaru"
@@ -5638,6 +5450,21 @@ msgstr "Vyberte veľkosť náhľadu v zápisníku"
 msgid "Save the scrapbook contents everytime after a change"
 msgstr "Uložiť obsah zápisníku pri každej zmene"
 
+msgid "When using facing pages, show the two pages side by side"
+msgstr "zobrazovať strany vedľa seba, ak sú nastavené protiľahlé strany"
+
+msgid "Color for paper"
+msgstr "Farba pre papier"
+
+msgid "Color for the margin lines"
+msgstr "Farba pre čiary okrajov"
+
+msgid "Mask the area outside the margins in the margin color"
+msgstr "Vyplniť plochu za hranicami strany farbou okrajov"
+
+msgid "Enable transparency features within PDF 1.4 export"
+msgstr "Povoliť vlastnosti priesvitnosť pri exporte do PDF 1.4"
+
 msgid "Set the default zoom level"
 msgstr "Nastavenie štandardnej úrovne zväčšenie"
 
@@ -5657,196 +5484,6 @@ msgid ""
 "Do not show objects outside the margins on the printed page or exported file"
 msgstr ""
 "Neukazovať objekty mimo hraníc tlačiteľnej strany alebo exportovaného súboru"
-
-msgid "&Fonts Preview"
-msgstr "Náhľad na &písma"
-
-msgid "Fonts Preview"
-msgstr "Náhľad na súbory"
-
-msgid "Alt+O"
-msgstr "Alt+O"
-
-msgid "Alt+C"
-msgstr "Alt+C"
-
-msgid "Append selected font into Style, Font menu"
-msgstr ""
-
-#, fuzzy
-msgid "Leave preview"
-msgstr "Náhľad"
-
-#, fuzzy
-msgid "CSV Importer Options"
-msgstr "Možnosti tlačiarne"
-
-msgid "Field delimiter:"
-msgstr ""
-
-msgid "(TAB)"
-msgstr ""
-
-#, fuzzy
-msgid "Value delimiter:"
-msgstr "Hodnota je"
-
-msgid "First row is a header"
-msgstr ""
-
-msgid "Comma Separated Value Files"
-msgstr ""
-
-msgid "CSV_data"
-msgstr ""
-
-#, fuzzy
-msgid "CSV_header"
-msgstr "Tieň"
-
-msgid "HTML Files"
-msgstr "HTML súbory"
-
-msgid "html"
-msgstr "html"
-
-#, fuzzy
-msgid ""
-"\n"
-"External Links\n"
-msgstr "Externý odkaz"
-
-#, fuzzy
-msgid "OO.o Writer Importer Options"
-msgstr "Možnosti tlačiarne"
-
-#, fuzzy
-msgid "Update paragraph styles"
-msgstr "Názov štýlu odstavca"
-
-msgid ""
-"If a paragraph style already exists with the same name as the current\n"
-"OpenOffice.org document's paragraph, should the style in Scribus be\n"
-"edited to match the one being imported, or left untouched"
-msgstr ""
-
-#, fuzzy
-msgid "Use document name as a prefix for paragraph styles"
-msgstr "Názov štýlu odstavca"
-
-msgid ""
-"Should importer add the name of the document\n"
-"on front of the paragraph style name in Scribus"
-msgstr ""
-
-msgid "Do not ask again"
-msgstr ""
-
-msgid ""
-"Should the importer always use currently\n"
-"set value when importing OO.o document and\n"
-"never ask your confirmation again"
-msgstr ""
-
-#, fuzzy
-msgid "OO.o Writer Documents"
-msgstr "Textové dokumenty"
-
-#, fuzzy
-msgid "Text Filters"
-msgstr "Textové súbory"
-
-#, fuzzy
-msgid "Create filter"
-msgstr "Vytvorené v"
-
-msgid "Choose a previously saved filter"
-msgstr ""
-
-msgid "Give a name to this filter for saving"
-msgstr ""
-
-msgid "Give a name for saving"
-msgstr ""
-
-msgid "Disable or enable this filter row"
-msgstr ""
-
-msgid "Remove this filter row"
-msgstr ""
-
-#, fuzzy
-msgid "Add a new filter row"
-msgstr "Pridať novú vrstvu"
-
-#, fuzzy
-msgid "to"
-msgstr "po:"
-
-#, fuzzy
-msgid "and"
-msgstr "na koniec"
-
-msgid "remove match"
-msgstr ""
-
-msgid "do not remove match"
-msgstr ""
-
-#, fuzzy
-msgid "words"
-msgstr "Heslá"
-
-#, fuzzy
-msgid "Replace"
-msgstr "&Nahradiť"
-
-msgid "Value at the left is a regular expression"
-msgstr ""
-
-#, fuzzy
-msgid "with"
-msgstr "Šírka"
-
-#, fuzzy
-msgid "paragraph style"
-msgstr "Štýl odstavca"
-
-#, fuzzy
-msgid "all instances of"
-msgstr "Vzdialenosti"
-
-#, fuzzy
-msgid "all paragraphs"
-msgstr "Odseky"
-
-msgid "paragraphs starting with"
-msgstr ""
-
-#, fuzzy
-msgid "paragraphs with less than"
-msgstr "Štýl odstavca"
-
-msgid "paragraphs with more than"
-msgstr ""
-
-msgid "Text Files"
-msgstr "Textové súbory"
-
-msgid "&Insert Special"
-msgstr "Vlož&iť špeciálne"
-
-msgid "Select Character:"
-msgstr "Vybrať znak:"
-
-msgid "Insert the characters at the cursor in the text"
-msgstr "Vložiť znak na pozíciu kurzora"
-
-msgid "Delete the current selection(s)."
-msgstr "Odstrániť označené."
-
-msgid "Close this dialog and return to text editing."
-msgstr "Zatvorí tento dialóg a vráti sa do úprav textu."
 
 msgid "New From Template"
 msgstr "Nový podľa šablóny"
@@ -5936,13 +5573,6 @@ msgstr ""
 "template.xml. Kópia musí byť umiestnená v rovnakom priečinku ako pôvodný "
 "template.xml, aby ho Scribus mohol načítať."
 
-msgid "New &from Template..."
-msgstr "Nový p&odľa šablóny..."
-
-#, fuzzy
-msgid "Template: "
-msgstr "Ša&blóna:"
-
 msgid "Newsletters"
 msgstr "Letáky s novinkami"
 
@@ -5979,9 +5609,6 @@ msgstr "Reklamy"
 msgid "Labels"
 msgstr "Popisy"
 
-msgid "Menus"
-msgstr "Ponuky"
-
 msgid "Programs"
 msgstr "Programy"
 
@@ -6004,13 +5631,660 @@ msgid "Text Documents"
 msgstr "Textové dokumenty"
 
 msgid "Folds"
-msgstr ""
+msgstr "Zložky"
 
 msgid "Media Cases"
-msgstr ""
+msgstr "Obaly médií"
 
 msgid "Own Templates"
 msgstr "Vlastné šablóny"
+
+msgid "New &from Template..."
+msgstr "Nový p&odľa šablóny..."
+
+msgid "Template: "
+msgstr "Šablóna:"
+
+msgid "&Insert Special"
+msgstr "Vlož&iť špeciálne"
+
+msgid "Select Character:"
+msgstr "Vybrať znak:"
+
+msgid "&Insert"
+msgstr "&Vložiť"
+
+msgid "Insert the characters at the cursor in the text"
+msgstr "Vložiť znak na pozíciu kurzora"
+
+msgid "Delete the current selection(s)."
+msgstr "Odstrániť označené."
+
+msgid "Close this dialog and return to text editing."
+msgstr "Zatvorí tento dialóg a vráti sa do úprav textu."
+
+msgid "Save as &Template..."
+msgstr "Uložiť ako ša&blónu..."
+
+msgid "Save as Template"
+msgstr "Uložiť ako šablónu"
+
+msgid "Category"
+msgstr "Kategória"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "More Details"
+msgstr "Viac detailov"
+
+msgid "Less Details"
+msgstr "Menej detailov"
+
+msgid "landscape"
+msgstr "na šírku"
+
+msgid "portrait"
+msgstr "na výšku"
+
+msgid "custom"
+msgstr "vlastné"
+
+msgid "Import &OpenOffice.org Draw..."
+msgstr "Import OpenOffice.org Draw..."
+
+msgid "OpenOffice.org Draw (*.sxd);;All Files (*)"
+msgstr "OpenOffice.org Draw (*.sxd);;Všetky súbory (*)"
+
+msgid "&Fonts Preview"
+msgstr "Náhľad na &písma"
+
+msgid "Fonts Preview"
+msgstr "Náhľad na súbory"
+
+msgid "Alt+O"
+msgstr "Alt+O"
+
+msgid "Alt+C"
+msgstr "Alt+C"
+
+msgid "Append selected font into Style, Font menu"
+msgstr "Pridať zvolené písmo do štýlu, ponuky písmo"
+
+msgid "Leave preview"
+msgstr "Zanechať náhľad"
+
+msgid "Text Filters"
+msgstr "Textové filtre"
+
+msgid "Create filter"
+msgstr "Vytvoriť filter"
+
+msgid "Choose a previously saved filter"
+msgstr "Vybrať uložený filter"
+
+msgid "Give a name to this filter for saving"
+msgstr "Zadajte názov filtra"
+
+msgid "Give a name for saving"
+msgstr "Zadajte názov pre ukladanie"
+
+msgid "Disable or enable this filter row"
+msgstr "Povoliť alebo zakázať túto časť filtra"
+
+msgid "Remove this filter row"
+msgstr "Odstrániť tento riadok filtra"
+
+msgid "Add a new filter row"
+msgstr "Pridať nový riadok filtra"
+
+msgid "to"
+msgstr "na"
+
+msgid "and"
+msgstr "a"
+
+msgid "remove match"
+msgstr "odstrániť vzor"
+
+msgid "do not remove match"
+msgstr "neodstraňovať vzor"
+
+msgid "words"
+msgstr "slová"
+
+msgid "Replace"
+msgstr "Nahradiť"
+
+msgid "Value at the left is a regular expression"
+msgstr "Hodnota vľavo je regulárny výraz"
+
+msgid "with"
+msgstr "s"
+
+msgid "paragraph style"
+msgstr "štýl odstavca"
+
+msgid "all instances of"
+msgstr "všetky inštancie"
+
+msgid "all paragraphs"
+msgstr "všetky odstavce"
+
+msgid "paragraphs starting with"
+msgstr "odstavce začínajúce s "
+
+msgid "paragraphs with less than"
+msgstr "odstavce s menej než"
+
+msgid "paragraphs with more than"
+msgstr "odstavce s viac než"
+
+msgid "CSV Importer Options"
+msgstr "CVS import nastavenia"
+
+msgid "Field delimiter:"
+msgstr "Oddeľovač polí:"
+
+msgid "(TAB)"
+msgstr "(TAB)"
+
+msgid "Value delimiter:"
+msgstr "Oddeľovač hodnôt:"
+
+msgid "First row is a header"
+msgstr "Prvý riadok obsahuje hlavičku"
+
+msgid "Comma Separated Value Files"
+msgstr "Súbor s hodnotami oddeľovanými čiarkami (CSV)"
+
+msgid "CSV_data"
+msgstr "CSV_dáta"
+
+msgid "CSV_header"
+msgstr "CSV_hlavička"
+
+msgid "OpenOffice.org Writer Documents"
+msgstr "Dokument OpenOffice.org Writer"
+
+msgid "OpenOffice.org Writer Importer Options"
+msgstr "Nastavenia importu OpenOffice.org Writer dokumentu"
+
+msgid "Update paragraph styles"
+msgstr "Aktualizovať štýly odstavcov"
+
+msgid ""
+"If a paragraph style already exists with the same name as the current\n"
+"OpenOffice.org document's paragraph, should the style in Scribus be\n"
+"edited to match the one being imported, or left untouched"
+msgstr ""
+"Ak už existuje štýl odseku s rovnakým názvom ako je štýl odseku\n"
+"v aktuálnom OpenOffice.org dokumente, má sa Scribus štýl upraviť\n"
+"podľa importovaného, alebo zostať nezmenený?"
+
+msgid "Use document name as a prefix for paragraph styles"
+msgstr "Použiť názov dokumentu ako prefix pre štýl odsekov"
+
+msgid ""
+"Should importer add the name of the document\n"
+"on front of the paragraph style name in Scribus"
+msgstr ""
+"Má pridať importér pridať názov dokumentu\n"
+"na začiatok názvu štýlu odseku v Scribuse?"
+
+msgid "Do not ask again"
+msgstr "Už sa znovu nepýtať"
+
+msgid ""
+"Should the importer always use currently\n"
+"set value when importing OpenOffice.org document and\n"
+"never ask your confirmation again"
+msgstr ""
+"Má importér vždy použiť aktuálne nastavené hodnoty\n"
+"pri importovaní OpenOffice.org dokumentu\n"
+"a už sa nepýtať na potvrdenie?"
+
+msgid "Text Files"
+msgstr "Textové súbory"
+
+msgid ""
+"\n"
+"External Links\n"
+msgstr ""
+"\n"
+"Externé odkazy\n"
+
+msgid "HTML Files"
+msgstr "HTML súbory"
+
+msgid "html"
+msgstr "html"
+
+msgid "Print Preview"
+msgstr "Ukážka pred tlačou"
+
+msgid "Print Previe&w"
+msgstr "&Ukážka pred tlačou"
+
+msgid "Anti-alias &Text"
+msgstr "Vyhladiť &text"
+
+msgid "Anti-alias &Graphics"
+msgstr "Vyhladiť &grafiku"
+
+msgid "Display Trans&parency"
+msgstr "Zobraziť priesvitnosť"
+
+msgid "&Under Color Removal"
+msgstr "&Under Color Removal"
+
+msgid "&Display CMYK"
+msgstr "Zobraziť CMYK"
+
+msgid "&C"
+msgstr "&C"
+
+msgid "&M"
+msgstr "&M"
+
+msgid "&Y"
+msgstr "&Y"
+
+msgid "&K"
+msgstr "&K"
+
+msgid ""
+"Provides a more pleasant view of text items in the viewer, at the expense\n"
+"of a slight slowdown in previewing. This only affects Type 1 fonts"
+msgstr ""
+"Poskytuje krajší pohľad na textové položky v prehliadači, za čo zaplatíte\n"
+"miernym spomalením prezerania. Toto sa týka iba Type 1 písma"
+
+msgid ""
+"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
+"and\n"
+"vector graphics in the preview, at the expense of a slight slowdown in "
+"previewing"
+msgstr ""
+"Poskytuje krajší pohľad na písma True Type, Open Type, EPS, PDF\n"
+"a vektorovej grafiky v náhľade, na úkor mierneho spomalenia prezerania"
+
+msgid ""
+"Shows transparency and transparent items in your document. Requires "
+"Ghostscript 7.07 or later"
+msgstr ""
+"Zobrazuje transparentnosť a transparentné položky vo vašom dokumente."
+"Vyžaduje Ghostscript 7.07 alebo vyšší"
+
+msgid ""
+"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
+"colors"
+msgstr "Vytvorí náhľad tlače simuláciou CMYK atramentov namiesto RGB farieb"
+
+msgid "Enable/disable the C (Cyan) ink plate"
+msgstr "Povolí/zakáže C (azúrovú) zložku"
+
+msgid "Enable/disable the M (Magenta) ink plate"
+msgstr "Povolí/zakáže M (fialovú) zložku"
+
+msgid "Enable/disable the Y (Yellow) ink plate"
+msgstr "Povolí/zakáže Y (žltú) zložku"
+
+msgid "Enable/disable the K (Black) ink plate"
+msgstr "Povolí/zakáže K (čiernu) zložku"
+
+msgid "Failed to open document"
+msgstr "Nepodarilo sa otvoriť dokument"
+
+msgid "Failed to save document"
+msgstr "Nepodarilo sa uložiť dokument"
+
+msgid "Unit out of range. Use one of the scribus.UNIT_* constants."
+msgstr "Jednotka je mimo rozsahu. Použiť jednu z scribus.UNIT_* konštánt."
+
+msgid "S&cripter Manual..."
+msgstr "S&cripter manuál..."
+
+msgid "&Scribus Scripts"
+msgstr "&Scribus skripty"
+
+msgid "&Execute Script..."
+msgstr "&Spustiť skript..."
+
+msgid "&Recent Scripts"
+msgstr "&Posledné skripty"
+
+msgid "Show &Console"
+msgstr "Ukázať &konzolu"
+
+msgid "&About Script..."
+msgstr "&O skripte..."
+
+msgid "S&cript"
+msgstr "Skr&ipt"
+
+msgid "Python Scripts (*.py);; All Files (*)"
+msgstr "Python skripty (*.py);;Všetky súbory (*)"
+
+msgid "Script error"
+msgstr "Chyba skriptu"
+
+msgid ""
+"If you are running an official script report it at <a href=\"http://bugs."
+"scribus.net\">bugs.scribus.net</a> please."
+msgstr ""
+"Ak ste spustili oficiálny skript, tak nahláste toto na <a href=\"http://bugs."
+"scribus.net\">bugs.scribus.net</a>."
+
+msgid ""
+"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
+"tracker."
+msgstr ""
+"Táto správa je tiež vo vašej schránke (clipboard). Použite Ctrl+V a vložte "
+"ju do stopovača chýb (bug tracker)."
+
+msgid "Hide &Console"
+msgstr "Skryť &konzolu"
+
+msgid "About Script"
+msgstr "O skripte"
+
+msgid ""
+"Scribus Python interface module\n"
+"\t\t\n"
+"\t\tThis module is the Python interface for Scribus. It provides functions\n"
+"\t\tto control scribus and to manipulate objects on the canvas. Each\n"
+"\t\tfunction is documented individually below.\n"
+"\t\t\n"
+"\t\tA few things are common across most of the interface.\n"
+"\t\t\n"
+"\t\tMost functions operate on frames. Frames are identified by their name,\n"
+"\t\ta string - they are not real Python objects. Many functions take an\n"
+"\t\toptional (non-keyword) parameter, a frame name.\n"
+"\t\tMany exceptions are also common across most functions. These are\n"
+"\t\tnot currently documented in the docstring for each function.\n"
+"\t\t\n"
+"\t\t    - Many functions will raise a NoDocOpenError if you try to use them\n"
+"\t\t      without a document to operate on.\n"
+"\t\t\n"
+"\t\t    - If you do not pass a frame name to a function that requires one,\n"
+"\t\t      the function will use the currently selected frame, if any, or\n"
+"\t\t      raise a NoValidObjectError if it can't find anything to operate\n"
+"\t\t      on.\n"
+"\t\t\n"
+"\t\t    - Many functions will raise WrongFrameTypeError if you try to use "
+"them\n"
+"\t\t      on a frame type that they do not make sense with. For example, "
+"setting\n"
+"\t\t      the text colour on a graphics frame doesn't make sense, and will "
+"result\n"
+"\t\t      in this exception being raised.\n"
+"\t\t\n"
+"\t\t    - Errors resulting from calls to the underlying Python API will be\n"
+"\t\t      passed through unaltered. As such, the list of exceptions thrown "
+"by\n"
+"\t\t      any function as provided here and in its docstring is incomplete.\n"
+"\t\t\n"
+"\t\tDetails of what exceptions each function may throw are provided on the\n"
+"\t\tfunction's documentation.\n"
+"\t\t"
+msgstr ""
+
+msgid "Script Console"
+msgstr "Konzola skriptu"
+
+msgid "Tried to set progress > maximum progress"
+msgstr ""
+
+msgid "Failed to save EPS"
+msgstr "Nepodarilo sa uložiť EPS"
+
+msgid "Page number out of range"
+msgstr "Počet strán je mimo rozsah"
+
+msgid "argument is not list: must be list of float values"
+msgstr "argument nie je zoznam: musí byť zoznamom plávajúcich hodnôt"
+
+msgid "argument contains non-numeric values: must be list of float values"
+msgstr ""
+"argument obsahuje nenumerické hodnoty: musí to byť zoznam plávajúcich hodnôt"
+
+msgid "An object with the requested name already exists"
+msgstr "Objekt s požadovaným názvom už existuje"
+
+msgid "Point list must contain at least two points (four values)"
+msgstr "Bodový zoznam musí obsahovať najmenej dva body (štyri hodnoty)"
+
+msgid "Point list must contain an even number of values"
+msgstr "Bodový zoznam musí obsahovať párny počet hodnôt"
+
+msgid "Point list must contain at least three points (six values)"
+msgstr "Bodový zoznam musí obsahovať najmenej tri body (šesť hodnôt)"
+
+msgid "Point list must contain at least four points (eight values)"
+msgstr "Bodový zoznam musí obsahovať najmenej štyri body (osem hodnôt)"
+
+msgid "Point list must have a multiple of six values"
+msgstr "Bodový zoznam musí byť násobok šiestich hodnôt"
+
+msgid "Object not found"
+msgstr "Objekt nebol nájdený"
+
+msgid "Style not found"
+msgstr "Štýl nebol nájdený"
+
+msgid "Can't set style on a non-text frame"
+msgstr "Nie je možné použiť štýl na netextový rám"
+
+msgid "Line width out of bounds, must be 0 <= line_width <= 12"
+msgstr "Šírka čiara je mimo hraníc, musí byť 0 <= šírka_čiary <= 12"
+
+msgid "Line shade out of bounds, must be 0 <= shade <= 100"
+msgstr "Tieň čiary je mimo hraníc, musí byť 0 <= tieň <= 100"
+
+msgid "Fill shade out of bounds, must be 0 <= shade <= 100"
+msgstr "Výplň čiary je mimo hraníc, musí byť 0 <= tieň <= 100"
+
+msgid "Corner radius must be a positive number."
+msgstr "Polomer roku musí byť kladné číslo."
+
+msgid "Line style not found"
+msgstr "Štýl čiary nebol nájdený"
+
+msgid "Target is not an image frame."
+msgstr "Cieľ nie je obrázkový rám."
+
+msgid "Can't scale by 0%"
+msgstr "Nie je možné zmeniť mierku o 0%"
+
+msgid "Cannot get font size of non-text frame."
+msgstr "Nie je možné získať veľkosť písma netextového rámu."
+
+msgid "Cannot get font of non-text frame."
+msgstr "Nie je možné získať písmo netextového rámu."
+
+msgid "Cannot get text size of non-text frame."
+msgstr "Nie je možné získať veľkosť text netextového rámu."
+
+msgid "Cannot get column count of non-text frame."
+msgstr "Nie je možné získať počet stĺpcov netextového rámu."
+
+msgid "Cannot get line space of non-text frame."
+msgstr "Nie je možné získať vzdialenosť čiar netextového rámu."
+
+#, fuzzy
+msgid "Cannot get column gap of non-text frame."
+msgstr "Nie je možné nastaviť stĺpce v netextovom ráme"
+
+msgid "Cannot get text of non-text frame."
+msgstr "Nie je možné získať text netextového rámu."
+
+msgid "Cannot set text of non-text frame."
+msgstr "Nie je možné nastaviť text netextového rámu."
+
+#, fuzzy
+msgid "Cannot insert text into non-text frame."
+msgstr "Nie je možné získať písmo netextového rámu."
+
+msgid "Insert index out of bounds"
+msgstr "Vkladanie indexu mimo hraníc"
+
+msgid "Alignment out of range. Use one of the scribus.ALIGN* constants."
+msgstr "Zarovnanie je mimo rozsahu. Použiť jednu zo scribus.ALIGN* konštánt."
+
+#, fuzzy
+msgid "Can't set text alignment on a non-text frame"
+msgstr "Nie je možné použiť štýl na netextový rám"
+
+msgid "Font size out of bounds - must be 1 <= size <= 512"
+msgstr "Veľkosť písma je mimo hraníc - musí byť 1 <= veľkosť <= 512"
+
+msgid "Can't set font size on a non-text frame"
+msgstr "Nie je možné nastaviť veľkosť písma pre netextový rám."
+
+msgid "Can't set font on a non-text frame"
+msgstr "Nie je možné nastaviť písmo v netextovom ráme."
+
+msgid "Font not found"
+msgstr "Písmo nebolo nájdené"
+
+#, fuzzy
+msgid "Line space out of bounds, must be >= 0.1"
+msgstr "Šírka čiara je mimo hraníc, musí byť 0 <= šírka_čiary <= 12"
+
+#, fuzzy
+msgid "Can't line spacing on a non-text frame"
+msgstr "Nie je možné použiť štýl na netextový rám"
+
+msgid "Column gap out of bounds, must be positive"
+msgstr "Vzdialenosť medzi stĺpcami je mimo hraníc, musí byť kladná"
+
+msgid "Can't column gap on a non-text frame"
+msgstr "Nie je možné nastaviť stĺpce v netextovom ráme"
+
+#, fuzzy
+msgid "Column count out of bounds, must be > 1"
+msgstr "Šírka čiara je mimo hraníc, musí byť 0 <= šírka_čiary <= 12"
+
+msgid "Can't number of columns on a non-text frame"
+msgstr "Nie je možné číslovať stĺpce v netextovom ráme"
+
+msgid "Selection index out of bounds"
+msgstr "Index výberu je mimo hraníc"
+
+#, fuzzy
+msgid "Can't select text in a non-text frame"
+msgstr "Nie je možné odstrániť text z netextového rámu"
+
+msgid "Can't delete text from a non-text frame"
+msgstr "Nie je možné odstrániť text z netextového rámu"
+
+#, fuzzy
+msgid "Can't set text fill on a non-text frame"
+msgstr "Nie je možné použiť štýl na netextový rám"
+
+#, fuzzy
+msgid "Can't set text stroke on a non-text frame"
+msgstr "Nie je možné použiť štýl na netextový rám"
+
+#, fuzzy
+msgid "Can't set text shade on a non-text frame"
+msgstr "Nie je možné použiť štýl na netextový rám"
+
+msgid "Can only link text frames"
+msgstr "Prepojiť je možné len textové rámce"
+
+msgid "Target frame must be empty"
+msgstr "Cieľový rám musí byť prázdny"
+
+msgid "Target frame links to another frame"
+msgstr "Cieľový rám je prepojený na iný rám"
+
+msgid "Target frame is linked to by another frame"
+msgstr "Cieľový rám je prepojený na iný rám"
+
+msgid "Source and target are the same object"
+msgstr "Zdroj a cieľ je rovnaký objekt."
+
+#, fuzzy
+msgid "Can't unlink a non-text frame"
+msgstr "Nie je možné odstrániť text z netextového rámu"
+
+msgid "Object is not a linked text frame, can't unlink."
+msgstr "Objekt nie je pripojený textový rám - nie je možné ho odpojiť"
+
+msgid ""
+"Object the last frame in a series, can't unlink. Unlink the previous frame "
+"instead."
+msgstr ""
+"Objekt je posledný rám v sérií, nie je možné ho odpojiť. Odpojte namiesto "
+"neho predchádzajúci rám."
+
+msgid "Can't convert a non-text frame to outlines"
+msgstr "Nie je možné konvertovať netextový rám na obrysy"
+
+msgid "Insert value"
+msgstr "Vložiť hodnotu"
+
+msgid "Enter a value then press OK."
+msgstr "Vložte hodnotu a potom stlačte OK."
+
+msgid "Enter a value then press OK"
+msgstr "Vložte hodnotu a potom stlačte OK"
+
+msgid "Send your value to the script"
+msgstr "Pošle vaše hodnoty skriptu"
+
+msgid "Can't render an empty sample"
+msgstr "Nie je možné vygenerovať prázdnu vzorku"
+
+msgid "Can't save to a blank filename"
+msgstr "Nie je možné uložiť súbor bez názvu"
+
+msgid "Can't have an empty layer name"
+msgstr "Nie je možné mať vrstvu bez názvu"
+
+msgid "Layer not found"
+msgstr "Vrstva nebola nájdená"
+
+msgid "Can't remove the last layer"
+msgstr "Nie je možné odstrániť poslednú vrstvu"
+
+msgid "Can't create layer without a name"
+msgstr "Nie je možné vytvoriť vrstvu bez názvu"
+
+msgid "Cannot get a color with an empty name."
+msgstr "Nie je možné získať farbu bez názvu."
+
+msgid "Color not found"
+msgstr "Farba nebola nájdená"
+
+msgid "Cannot change a color with an empty name."
+msgstr "Nie je možné zmeniť farbu bez názvu."
+
+msgid "Color not found in document"
+msgstr "Farba nebol nájdená v dokumente"
+
+msgid "Color not found in default colors"
+msgstr "Farba nebol nájdená medzi štandardnými farbami"
+
+msgid "Cannot create a color with an empty name."
+msgstr "Nie je možné vytvoriť farbu bez názvu."
+
+msgid "Cannot delete a color with an empty name."
+msgstr "Nie je možné odstrániť farbu bez názvu."
+
+msgid "Cannot replace a color with an empty name."
+msgstr "Nie je možné nahradiť farbu bez názvu."
+
+msgid "Import &SVG..."
+msgstr "Import &SVG..."
+
+msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
+msgstr "SVG obrázky (*.svg *.svgz);; Všetky súbory (*)"
+
+msgid "SVG-Images (*.svg);;All Files (*)"
+msgstr "SVG obrázky (*.svg);; Všetky súbory (*)"
 
 msgid "Choose a Export Directory"
 msgstr "Vybrať priečinok pre export"
@@ -6055,6 +6329,7 @@ msgstr ""
 #, c-format
 msgid "Size of the images. 100% for no changes, 200% for two times larger etc."
 msgstr ""
+"Veľkosť obrázkov. 100% - bez zmien, 200% - pre dvojnásobnú veľkosť atď."
 
 #, c-format
 msgid "The quality of your images - 100% is the best, 1% the lowest quality"
@@ -6097,78 +6372,8 @@ msgstr "už existuje. Prepísať?"
 msgid "Yes all"
 msgstr "Áno všetko"
 
-msgid "Print Preview"
-msgstr "Ukážka pred tlačou"
-
-msgid "Print Previe&w"
-msgstr "&Ukážka pred tlačou"
-
-msgid "Anti-alias &Text"
-msgstr "Vyhladiť &text"
-
-msgid "Anti-alias &Graphics"
-msgstr "Vyhladiť &grafiku"
-
-msgid "Display Trans&parency"
-msgstr "Zobraziť priesvitnosť"
-
-msgid "&Under Color Removal"
-msgstr ""
-
-msgid "&Display CMYK"
-msgstr "Zobraziť CMYK"
-
-msgid "&C"
-msgstr "&C"
-
-msgid "&M"
-msgstr "&M"
-
-msgid "&Y"
-msgstr "&Y"
-
-msgid "&K"
-msgstr "&K"
-
-msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense\n"
-"of a slight slowdown in previewing. This only affects Type 1 fonts"
-msgstr ""
-"Poskytuje krajší pohľad na textové položky v prehliadači, za čo zaplatíte\n"
-"miernym spomalením prezerania. Toto sa týka iba Type 1 písma"
-
-msgid ""
-"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
-"and\n"
-"vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
-msgstr ""
-"Poskytuje krajší pohľad na písma True Type, Open Type, EPS, PDF\n"
-"a vektorovej grafiky, za čo zaplatíte miernym spomalením prezerania"
-
-msgid ""
-"Shows transparency and transparent items in your document. Requires "
-"Ghostscript 7.07 or later"
-msgstr ""
-"Zobrazuje transparentnosť a transparentné položky vo vašom dokumente."
-"Vyžaduje Ghostscript 7.07 alebo vyšší"
-
-msgid ""
-"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
-"colors"
-msgstr "Vytvorí náhľad tlače simuláciou CMYK atramentov namiesto RGB farieb"
-
-msgid "Enable/disable the C (Cyan) ink plate"
-msgstr "Povolí/zakáže C (azúrovú) zložku"
-
-msgid "Enable/disable the M (Magenta) ink plate"
-msgstr "Povolí/zakáže M (fialovú) zložku"
-
-msgid "Enable/disable the Y (Yellow) ink plate"
-msgstr "Povolí/zakáže Y (žltú) zložku"
-
-msgid "Enable/disable the K (Black) ink plate"
-msgstr "Povolí/zakáže K (čiernu) zložku"
+msgid "Save Page as &SVG..."
+msgstr "Uložiť stranu ako &SVG..."
 
 msgid "Import &EPS/PS..."
 msgstr "Import &EPS/PS..."
@@ -6184,313 +6389,3 @@ msgstr ""
 "Importovanie súboru:\n"
 "%1\n"
 "zlyhalo!"
-
-msgid "Save as Template"
-msgstr "Uložiť ako šablónu"
-
-msgid "Category"
-msgstr "Kategória"
-
-msgid "Email"
-msgstr "E-mail"
-
-msgid "More Details"
-msgstr "Viac detailov"
-
-msgid "Less Details"
-msgstr "Menej detailov"
-
-msgid "landscape"
-msgstr "na šírku"
-
-msgid "portrait"
-msgstr "na výšku"
-
-msgid "custom"
-msgstr "vlastné"
-
-msgid "Save as &Template..."
-msgstr "Uložiť ako ša&blónu..."
-
-msgid "Specified item not an image frame"
-msgstr ""
-
-msgid "Oook! Wrong arguments! Call: "
-msgstr "Ups! Zlé argumenty! Volajte: "
-
-msgid "Script Console"
-msgstr "Konzola skriptu"
-
-msgid "S&cripter Manual..."
-msgstr "S&cripter manuál..."
-
-msgid "&Scribus Scripts"
-msgstr "&Scribus skripty"
-
-msgid "&Execute Script..."
-msgstr "&Spustiť skript..."
-
-msgid "&Recent Scripts"
-msgstr "&Posledné skripty"
-
-msgid "Show &Console"
-msgstr "Ukázať &konzolu"
-
-#, fuzzy
-msgid "&About Script..."
-msgstr "&Spustiť skript..."
-
-msgid "S&cript"
-msgstr "Skr&ipt"
-
-msgid "Python Scripts (*.py);; All Files (*)"
-msgstr "Python skripty (*.py);;Všetky súbory (*)"
-
-msgid "Script error"
-msgstr "Chyba skriptu"
-
-msgid ""
-"If you are running an official script report it at <a href=\"http://bugs."
-"scribus.net\">bugs.scribus.net</a> please."
-msgstr ""
-"Ak ste spustili oficiálny skript, tak nahláste toto na <a href=\"http://bugs."
-"scribus.net\">bugs.scribus.net</a>."
-
-msgid ""
-"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
-"tracker."
-msgstr ""
-"Táto správa je tiež vo vašej schránke (clipboard). Použite Ctrl+V a vložte "
-"ju do stopovača chýb (bug tracker)."
-
-msgid "Hide &Console"
-msgstr "Skryť &konzolu"
-
-#, fuzzy
-msgid "About Script"
-msgstr "O Scribuse"
-
-#, fuzzy
-msgid "Insert value"
-msgstr "Vložiť tabuľku"
-
-msgid "Enter a value then press OK."
-msgstr ""
-
-msgid "Enter a value then press OK"
-msgstr ""
-
-msgid "Send your value to the script"
-msgstr ""
-
-msgid "Save Page as &SVG..."
-msgstr "Uložiť stranu ako &SVG..."
-
-msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
-msgstr "SVG obrázky (*.svg *.svgz);; Všetky súbory (*)"
-
-msgid "SVG-Images (*.svg);;All Files (*)"
-msgstr "SVG obrázky (*.svg);; Všetky súbory (*)"
-
-msgid "Import &SVG..."
-msgstr "Import &SVG..."
-
-msgid "Import &Open Office Draw..."
-msgstr ""
-
-#, fuzzy
-#~ msgid "ShowGrid"
-#~ msgstr "Ukázať mriežku"
-
-#~ msgid "Mouse Settings"
-#~ msgstr "Nastavenie myši"
-
-#~ msgid "Grid Layout"
-#~ msgstr "Rozloženie mriežky:"
-
-#~ msgid "M&inor Grid Spacing:"
-#~ msgstr "Vedľajšia vzdialenosť mriežky:"
-
-#~ msgid "Ma&jor Grid Spacing:"
-#~ msgstr "Hlavná vzdialenosť mriežky:"
-
-#~ msgid "Guide &Snap Distance:"
-#~ msgstr "V&zdialenosť medzi vodítkami:"
-
-#~ msgid "Grid Colors"
-#~ msgstr "Farby mriežky"
-
-#~ msgid "Min&or Grid Color:"
-#~ msgstr "Farba vedľajšej mriežky:"
-
-#~ msgid "Majo&r Grid Color:"
-#~ msgstr "Farba hlavnej mriežky:"
-
-#~ msgid "&User Guides Color:"
-#~ msgstr "&Vlastná farba vodítok:"
-
-#~ msgid "Base&line Grid Color:"
-#~ msgstr "Farba mriežky základných čiar:"
-
-#~ msgid "Placing"
-#~ msgstr "Umiestnenie"
-
-#~ msgid "In the &Background"
-#~ msgstr "V pozadí"
-
-#~ msgid "In the Fore&ground"
-#~ msgstr "V popredí"
-
-#~ msgid "Baseline Grid"
-#~ msgstr "Mriežka základných čiar"
-
-#~ msgid "O&n"
-#~ msgstr "Zap&nuté"
-
-#~ msgid "O&ff"
-#~ msgstr "&Vypnuté"
-
-#~ msgid "Display Pages &Side by Side"
-#~ msgstr "Zobrazovať stranu za stranou"
-
-#~ msgid "Page Colors"
-#~ msgstr "Farby strany"
-
-#~ msgid "&Background:"
-#~ msgstr "&Pozadie:"
-
-#~ msgid "&Margins:"
-#~ msgstr "Okra&je:"
-
-#~ msgid "Use PDF 1.4 &Transparency Features"
-#~ msgstr "Požiť vlastnosti priesvitnosti PDF-1.4"
-
-#~ msgid "Turns off the basegrid"
-#~ msgstr "Vypnúť základnú mriežku"
-
-#~ msgid "When using facing pages, show the two pages side by side"
-#~ msgstr "zobrazovať strany vedľa seba, ak sú nastavené protiľahlé strany"
-
-#~ msgid "Enable transparency features within PDF 1.4 export"
-#~ msgstr "Povoliť vlastnosti priesvitnosť pri exporte do PDF 1.4"
-
-#~ msgid "Delete color:"
-#~ msgstr "Odstrániť farbu:"
-
-#~ msgid "?"
-#~ msgstr "?"
-
-#~ msgid "Replace it with:"
-#~ msgstr "Nahradiť s:"
-
-#~ msgid "Hide Baseline Grid"
-#~ msgstr "Skryť mriežku základných čiar"
-
-#~ msgid "Outline Text"
-#~ msgstr "Obrys textu"
-
-#~ msgid "&Inserting"
-#~ msgstr "&Vkladanie"
-
-#~ msgid "Inserting"
-#~ msgstr "Vkladanie"
-
-#~ msgid ""
-#~ "A way of switching some of the gray shades which are composed\n"
-#~ "of cyan, yellow and magenta and using black instead.\n"
-#~ "UCR most affects parts of images which are neutral and/or dark tones\n"
-#~ "which are close to the gray. Use of this may improve printing some "
-#~ "images\n"
-#~ "and some experimentation and testing is need on a case by case basis.\n"
-#~ "UCR reduces the possibility of over saturation with CMY inks."
-#~ msgstr ""
-#~ "Spôsob prepínania niektorých šedých tieňov, ktoré sú zložené\n"
-#~ "z azúrovej, fialovej a žltej farby namiesto použitia čiernej.\n"
-#~ "UCR naviac ovplyvňuje časti obrázkov, ktoré sú neutrálne a/alebo\n"
-#~ "v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže "
-#~ "zlepšiť\n"
-#~ "tlač niektorých obrázkov - je však potrebné testovať jednotlivé prípady.\n"
-#~ "UCR znižuje možnosť presýtenosti s CMY atramentom."
-
-#~ msgid "Oook! You're calling an object doesn't exist!"
-#~ msgstr "Ups! Voláte objekt, ktorý neexistuje!"
-
-#~ msgid "Oook! You're trying to erase an object doesn't exist!"
-#~ msgstr "Ups! Pokúšate sa odstrániť objekt, ktorý neexistuje!"
-
-#~ msgid "Oook! An object you're trying to textflow doesn't exist!"
-#~ msgstr "Ups! Objekt, ktorý sa snažíte zreťaziť neexistuje!"
-
-#~ msgid ""
-#~ "Oook! You're trying to load image into an object doesn't exist or isn't "
-#~ "selected!"
-#~ msgstr ""
-#~ "Ups! Snažíte sa načítať obrázok do objektu, ktorý neexistuje, alebo nie "
-#~ "je označený!"
-
-#~ msgid ""
-#~ "Oook! You're trying to (un)lock an object doesn't exist! None selected "
-#~ "too."
-#~ msgstr ""
-#~ "Ups! Snažíte sa uzamknúť/odomknúť objekt, ktorý neexistuje! Alebo nič nie "
-#~ "je označené."
-
-#~ msgid ""
-#~ "Oook! You're trying to query an object doesn't exist! None selected too."
-#~ msgstr ""
-#~ "Ups! Snažíte sa dať požiadavku na objekt, ktorý neexistuje! Alebo nič nie "
-#~ "je označené."
-
-#, fuzzy
-#~ msgid "&Presentation"
-#~ msgstr "PDF prezentácie"
-
-#, fuzzy
-#~ msgid "&Options"
-#~ msgstr "Možnosti"
-
-#~ msgid "X:"
-#~ msgstr "X:"
-
-#~ msgid "Group "
-#~ msgstr "Zoskupiť "
-
-#~ msgid "Reverse Writing"
-#~ msgstr "Písať sprava doľava"
-
-#~ msgid "Spanish and Catalan:"
-#~ msgstr "Španielsky a Katalánsky:"
-
-#~ msgid "&Fully Automatic"
-#~ msgstr "&Plnoautomaticky"
-
-#~ msgid "Check &During Typing"
-#~ msgstr "&Kontrolovať počas písania"
-
-#~ msgid ""
-#~ "If you uncheck this you will get a dialog\n"
-#~ "everytime a possible Hyphenation is found."
-#~ msgstr ""
-#~ "Ak toto odznačíte, potom vždy, keď bude\n"
-#~ "nájdené možné rozdelenie slova, zobrazí sa vám dialóg."
-
-#~ msgid "Conve&x Polygon"
-#~ msgstr "Konve&xný mnohouholník"
-
-#~ msgid "Polygons will be convex rather than concave"
-#~ msgstr "Mnohouholníky budú radšej konvexné než konkávne"
-
-#~ msgid "Change the angles at which lines of the polygon join"
-#~ msgstr "Zmení uhly, v ktorých sa spájajú čiary mnohouholníka"
-
-#~ msgid "&Edit Frame"
-#~ msgstr "&Upraviť rám"
-
-#~ msgid "Importer"
-#~ msgstr "Importér"
-
-#~ msgid "Programming:"
-#~ msgstr "Programovanie:"
-
-#~ msgid "Homepage and online reference"
-#~ msgstr "Domovská stránka a online referencie"

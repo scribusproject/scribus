@@ -1,6 +1,2265 @@
 <!DOCTYPE TS><TS>
 <context>
+    <name></name>
+    <message>
+        <source>getFontSize([&quot;name&quot;]) -&gt; float
+
+Returns the font size in points for the text frame &quot;name&quot;. If this text
+frame has some text selected the value assigned to the first character of
+the selection is returned.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getFontSize([&quot;nom&quot;]) -&gt; float
+
+Retorna la mida del tipus de lletra en punts del quadre de text &quot;nom&quot;. Si 
+aquest quadre de text té algun text seleccionat es torna el primer caràcter 
+de la selecció.
+Si no es passa &quot;nom&quot;  es fa servir l&apos;ítem actualment seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>getColorNames() -&gt; list
+
+Returns a list containing the names of all defined colors in the document.
+If no document is open, returns a list of the default document colors.
+</source>
+        <translation>getColorNames() -&gt; llista
+
+Retorna una llista que conté els noms dels colors definits en el document.
+Si no hi ha cap document obert, retorna una llista amb els colors per defecte.
+</translation>
+    </message>
+    <message>
+        <source>newDocDialog() -&gt; bool
+
+Displays the &quot;New Document&quot; dialog box. Creates a new document if the user
+accepts the settings. Does not create a document if the user presses cancel.
+Returns true if a new document was created.
+</source>
+        <translation>newDocDialog() -&gt; bool
+
+Mostra el diàleg &quot;Nou Document&quot;. Crea un nou document si l&apos;usuari accepta 
+els paràmetres. No en fa cap en cas de que hagi triat cancel.lar. 
+Retorna cert si s&apos;ha creat un nou document.
+</translation>
+    </message>
+    <message>
+        <source>getFillColor([&quot;name&quot;]) -&gt; string
+
+Returns the name of the fill color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getFillColor([&quot;nom&quot;]) -&gt; string
+
+Retorna el nom del color de l&apos;objecte &quot;nom&quot;.
+Si no es dóna cap &quot;nom&quot;, es fa servir l&apos;ítem sel.leccionat.
+</translation>
+    </message>
+    <message>
+        <source>moveObject(dx, dy [, &quot;name&quot;])
+
+Moves the object &quot;name&quot; by dx and dy relative to its current position. The
+distances are expressed in the current measurement unit of the document (see
+UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
+If the object &quot;name&quot; belongs to a group, the whole group is moved.
+</source>
+        <translation>moveObject(dx, dy [,&quot;nom&quot;])
+
+Mou l&apos;objecte &quot;nom&quot; una distància dx i dx respecte la posició actual. Les
+distàncies estan expressades en les unitats actuals del document (mireu
+unitats). Si no es dóna cap &quot;nom&quot;, es fa servir l&apos;ítem sel.leccionat.
+Si l&apos;objecte &quot;nom&quot; pertany a un grup, es mou tot el grup.
+</translation>
+    </message>
+    <message>
+        <source>setRedraw(bool)
+
+Disables page redraw when bool = False, otherwise redrawing is enabled.
+This change will persist even after the script exits, so make sure to call
+setRedraw(True) in a finally: clause at the top level of your script.
+</source>
+        <translation>setRedraw(bool)
+
+Desactiva el repintat de la pàgina quan bool=fals, altrament està activat.
+Aquest canvi continuarà fins i tot quan acabi l&apos;execució de la seqüència, per tant cal estar 
+segur d&apos;acabar amb setRedraw(True): clausula a nivell alt de la teva seqüència.
+</translation>
+    </message>
+    <message>
+        <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new rectangle on the current page and returns its name. The
+coordinates are given in the current measurement units of the document
+(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
+because you need this name to reference that object in future. If &quot;name&quot;
+is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation>createRect(x,y,amplada, alçada, [&quot;name&quot;]) -&gt; string
+
+Crea un nou rectangle en la pàgina actual i retorna el seu nom. Les 
+coordenades donades estaran en les unitats per defecte del document 
+(mireu unitats). &quot;nom&quot; ha de ser un identificador únic per l&apos;objecte 
+ja que necessites aquest nom per fer referència a l&apos;objecte en el futur. Si no
+es dóna &quot;nom&quot; Scribus en crearà un per nosaltres.
+
+Es generar un NameExistsError si passem un nom que ja existeix.
+</translation>
+    </message>
+    <message>
+        <source>newPage(where [,&quot;template&quot;])
+
+Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
+document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
+counted from 1 upwards, no matter what the displayed first page number of your
+document is. The optional parameter &quot;template&quot; specifies the name of the
+template page for the new page.
+
+May raise IndexError if the page number is out of range
+</source>
+        <translation>newPage(on [,&quot;plantilla&quot;])
+
+Crea una nova pàgina. Si &quot;on&quot; és -1 la nova pàgina es afegida al 
+document, altrament la nova pàgina es afegida abans de &quot;on&quot;. Els números de pàgina estan
+contats des de 1 endavant, no importa el número de pàgina que s&apos;ensenya al 
+document. El paràmetre opcional &quot;plantilla&quot; especifica el nom de la 
+plantilla a fer servir en la pàgina.
+
+Es pot generar un IndexError si el número de pàgina està fora de rang
+</translation>
+    </message>
+    <message>
+        <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
+
+Sets the gradient fill of the object &quot;name&quot; to type. Color descriptions are
+the same as for setFillColor() and setFillShade(). See the constants for
+available types (FILL_&lt;type&gt;).
+</source>
+        <translation>setGradientFill(tipus, &quot;color1&quot;, intensitat1, &quot;color2&quot;, intensitat2, [&quot;nom&quot;])
+
+Estableix el gradient d&apos;emplenat de l&apos;objecte &quot;nom&quot; a tipus. Les descripcions de colors
+són les mateixes que per setFillColor() i setFillShade(). Mireu les constants pels
+tipus disponibles (FILL_&lt;tipus&gt;).
+</translation>
+    </message>
+    <message>
+        <source>messagebarText(&quot;string&quot;)
+
+Writes the &quot;string&quot; into the Scribus message bar (status line). The text
+must be UTF8 encoded or &apos;unicode&apos; string(recommended).
+</source>
+        <translation>messagebarText(&quot;string&quot;)
+
+Escriu la cadena &quot;string&quot; en la barra d&apos;estat de l&apos;Scribus. El text
+ha de ser codificat en UTF8 o una cadena &apos;unicode&apos; (recomanat).
+</translation>
+    </message>
+    <message>
+        <source>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+    size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+    margins = A tuple (left, right, top, bottom) describing the document
+    margins
+
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+    firstPageNumber = is the number of the first page in the document used for
+    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+    numbers if you&apos;re creating a document in several parts.
+
+    unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</source>
+        <translation>newDoc(mida, marges, orientació, primerNúmeroPàgina,
+                   unitats, PaginesAcarades, primeraPaginaEsquerra) -&gt; bool
+
+Crea un nou document i retorna cert si tot ha anat bé. Els paràmetres tenen el 
+següent significat:
+
+    mida = Una parella (amplada, alçada) que descriu la mida del document. Pots
+    fer servir constants predefinides com PAPER_&lt;tipus de paper&gt; ex. PAPER_A4 etc.
+
+    marges = Una agrupació (esquerra, dreta, dalt, baix) que descriu els marges
+    del document.
+
+    orientació = la orientació de la pàgina - constants PORTRAIT, LANDSCAPE
+
+    PrimerNúmeroPàgina = és el número de la primera pàgina en el document que farem
+    servir per numerar les pàgines. Encara que normalment es farà servir 1, a vegades
+    es útil poder posar números més grans si es creen documents en parts.
+
+    unitats : aquest valor estableix les unitats que el document farà servir. Cal usar una 
+    constant predefinida, pot ser una de: UNIT_INCHES, UNIT_MILLIMETERS, 
+    UNIT_PICAS, UNIT_POINTS.
+
+    PàginesAcarades = FACINPAGES, NOFACINPAGES
+
+    PrimeraPàginaEsquerra = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+Els valors per l&apos;amplada, l&apos;alçada i els marges està expressada en les unitats donades
+pel document. Les constants PAPER_* estan expressades en punts. Si el nostre document
+no està en punts, cal tenir-ho en compte.
+
+exemple: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                 FACINGPAGES, FIRSTPAGERIGHT)
+</translation>
+    </message>
+</context>
+<context>
+    <name>@default</name>
+    <message>
+        <source>getFont([&quot;name&quot;]) -&gt; string
+
+Returns the font name for the text frame &quot;name&quot;. If this text frame
+has some text selected the value assigned to the first character
+of the selection is returned. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>getFont([&quot;nom]) -&gt; string
+
+Retorna el nom de la font del quadre de text &quot;nom&quot;. Si aquest quadre
+de text té algun text seleccionat es retorna el valor assignat al primer
+caràcter de la selecció. Si no especifiquem &quot;nom&quot;  es fa servir l&apos;ítem
+seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>getTextLength([&quot;name&quot;]) -&gt; integer
+
+Returns the length of the text in the text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getFillColor([&quot;nom&quot;]) -&gt; string
+
+Retorna el nom del color de l&apos;objecte &quot;nom&quot;.
+Si no es dóna cap &quot;nom&quot;, es fa servir l&apos;ítem sel.leccionat.
+getTextLength([&quot;nom&quot;]) -&gt; integer
+
+Retorna la llargada del text del quadre de text &quot;nom&quot;.
+Si no es dóna cap &quot;nom&quot;, es fa servir l&apos;ítem sel.leccionat.
+</translation>
+    </message>
+    <message>
+        <source>getText([&quot;name&quot;]) -&gt; string
+
+Returns the text of the text frame &quot;name&quot;. If this text frame has some text
+selected, the selected text is returned. All text in the frame, not just
+currently visible text, is returned. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>getText([&quot;nom&quot;]) -&gt; string
+
+Retorna el text del quadre de text &quot;nom&quot;. Si el quadre de text té algun 
+text seleccionat, es torna el text seleccionat. Es torna tot el text, 
+no només el text visible. Si no es dóna cap &quot;nom&quot;, es fa servir 
+l&apos;ítem sel.leccionat.
+</translation>
+    </message>
+    <message>
+        <source>getAllText([&quot;name&quot;]) -&gt; string
+
+Returns the text of the text frame &quot;name&quot; and of all text frames which are
+linked with this frame. If this textframe has some text selected, the selected
+text is returned. If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation>getAllText([&quot;nom&quot;]) -&gt; string
+
+Retorna el text del quadre de text &quot;nom&quot; i de tots els quadres de text que estan
+enllaçats amb aquest. Si el quadre de text té algun text seleccionat, es retorna 
+el text seleccionat. Si no es dóna cap &quot;nom&quot;, es fa servir l&apos;ítem 
+sel.leccionat.
+</translation>
+    </message>
+    <message>
+        <source>getLineSpacing([&quot;name&quot;]) -&gt; float
+
+Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
+points. If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getLineSpacing([&quot;nom&quot;]) -&gt; float
+
+Retorna l&apos;espaiat entre línies del quadre de text &quot;nom&quot; expressat en
+punts. Si no es dóna cap &quot;nom&quot;, es fa servir l&apos;ítem sel.leccionat.
+</translation>
+    </message>
+    <message>
+        <source>getColumnGap([&quot;name&quot;]) -&gt; float
+
+Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
+&quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getColumnGap([&quot;nom&quot;]) -&gt; float
+
+Retorna l&apos;espai entre columnes del quadre de text &quot;nom&quot; expressat en punts. Si
+no es dóna cap &quot;nom&quot;, es fa servir l&apos;ítem sel.leccionat.
+</translation>
+    </message>
+    <message>
+        <source>getColumns([&quot;name&quot;]) -&gt; integer
+
+Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation>getColumns([&quot;nom&quot;]) -&gt; integer
+
+Dóna el número de columnes del quadre de text &quot;nom&quot;. Si no es dóna 
+cap &quot;nom&quot;, es fa servir l&apos;ítem sel.leccionat.
+</translation>
+    </message>
+    <message>
+        <source>setText(&quot;text&quot;, [&quot;name&quot;])
+
+Sets the text of the text frame &quot;name&quot; to the text of the string &quot;text&quot;.
+Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See the FAQ
+for more details. If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation>setText(&quot;text&quot;,[&quot;nom&quot;])
+
+Posa al quadre de text &quot;name&quot; el text contingut a la cadena &quot;text&quot;. 
+El text ha de ser codificat UTF8 - feu servir unicode(text, &apos;iso-8859-2&apos;). Mireu el 
+FAQ per més detalls. Si no es dóna cap &quot;nom&quot;, es fa servir l&apos;ítem 
+sel.leccionat.
+</translation>
+    </message>
+    <message>
+        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
+must be UTF encoded (see setText() as reference) The first character has an
+index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is
+used.
+
+May throw IndexError for an insertion out of bounds.
+</source>
+        <translation>insertText(&quot;text&quot;, pos, [&quot;nom&quot;])
+
+Insereix el text &quot;text&quot; a la posició &quot;pos&quot; del quadre de text. Text ha de ser
+codificat UTF (mireu setText() per referència). El primer caràcter té un
+índex de 0. Si no es dóna cap &quot;nom&quot;, es fa servir l&apos;ítem 
+sel.leccionat.
+
+Pot provocar un IndexError al inserir fora de marges.</translation>
+    </message>
+    <message>
+        <source>setFont(&quot;font&quot;, [&quot;name&quot;])
+
+Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
+selected only the selected text is changed.  If &quot;name&quot; is not given the
+currently selected item is used.
+
+May throw ValueError if the font cannot be found.
+</source>
+        <translation>setFont(&quot;font&quot;,[&quot;nom])
+
+Passa el quadre de text &quot;nom&quot; al tipus de lletra &quot;font&quot;. Si hi ha alguna
+part de text seleccionada només canvia aquesta.   Si no especifiquem &quot;nom&quot;  
+es fa servir l&apos;ítem seleccionat.
+
+Pot generar ValueError si la font no es pot trobar.
+</translation>
+    </message>
+    <message>
+        <source>setFontSize(size, [&quot;name&quot;])
+
+Sets the font size of the text frame &quot;name&quot; to &quot;size&quot;. &quot;size&quot; is treated
+as a value in points. If there is some text selected only the selected text is
+changed. &quot;size&quot; must be in the range 1 to 512. If &quot;name&quot; is not given the
+currently selected item is used.
+
+May throw ValueError for a font size that&apos;s out of bounds.
+</source>
+        <translation>setFontSize(mida, [&quot;nom&quot;])
+
+Estableix la mida de la font del quadre de text &quot;nom&quot; a &quot;mida&quot;. &quot;mida&quot;
+ha de ser en punts. Si hi ha text seleccionat només es canvia 
+aquest. &quot;mida&quot; ha de ser un valor entre 1 i 512. Si no especifiquem 
+&quot;nom&quot;  es fa servir l&apos;ítem seleccionat.
+
+Pot provocar ValueError per mides fora de rang.
+</translation>
+    </message>
+    <message>
+        <source>setLineSpacing(size, [&quot;name&quot;])
+
+Sets the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; to &quot;size&quot;.
+&quot;size&quot; is a value in points. If &quot;name&quot; is not given the currently selected
+item is used.
+
+May throw ValueError if the line spacing is out of bounds.
+</source>
+        <translation>setLineSpacing(mida,[&quot;nom&quot;])
+
+Estableix l&apos;espaiat de línia del quadre de text &quot;nom&quot; a &quot;mida&quot;.
+&quot;mida&quot; està en punts. Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem 
+seleccionat.
+
+Pot provocar ValueError si l&apos;espaiat està fora de marges.</translation>
+    </message>
+    <message>
+        <source>setColumnGap(size, [&quot;name&quot;])
+
+Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&quot;. If
+&quot;name&quot; is not given the currently selected item is used.
+
+May throw ValueError if the column gap is out of bounds (must be positive).
+</source>
+        <translation>setColumnGap(mida,[&quot;nom&quot;])
+
+Estableix l&apos;espai entre columnes del quadre de text &quot;nom&quot; a &quot;mida&quot;. Si 
+no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat.
+
+Pot provocar ValueError si el valor està fora de rang (ha de ser positiu).
+</translation>
+    </message>
+    <message>
+        <source>setColumns(nr, [&quot;name&quot;])
+
+Sets the number of columns of the text frame &quot;name&quot; to the integer &quot;nr&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May throw ValueError if number of columns is not at least one.
+</source>
+        <translation>setColumns(nr, [&quot;nom&quot;])
+
+Estableix que el quadre de text &quot;nom&quot; tindrà &quot;nr&quot; columnes.
+Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat.
+
+Pot provocar ValueError si el número de columnes no és almenys una.
+</translation>
+    </message>
+    <message>
+        <source>setTextAlignment(align, [&quot;name&quot;])
+
+Sets the text alignment of the text frame &quot;name&quot; to the specified alignment.
+If &quot;name&quot; is not given the currently selected item is used. &quot;align&quot; should
+be one of the ALIGN_ constants defined in this module - see dir(scribus).
+
+May throw ValueError for an invalid alignment constant.
+</source>
+        <translation>setTextAlignment(alineacio, [&quot;nom&quot;])
+
+Estableix l&apos;alineació del quadre de text &quot;nom&quot; a la especificada.
+Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat. &quot;alineació&quot; ha de ser
+una de les constants ALIGN_ definides en aquest mòdul - Mireu dir(scribus).
+
+Pot provocar ValueError si posem una constant invàl.lida.
+</translation>
+    </message>
+    <message>
+        <source>selectText(start, count, [&quot;name&quot;])
+
+Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
+character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
+text selection will be cleared.  If &quot;name&quot; is not given the currently
+selected item is used.
+
+May throw IndexError if the selection is outside the bounds of the text.
+</source>
+        <translation>selectText(inici, número, [&quot;name&quot;])
+
+Seleccióna &quot;número&quot; caràcters del quadre de text &quot;nom&quot; començant pel
+caràcter &quot;inici&quot;. Els caràcters comencen per 0. Si &quot;número&quot; és zero, es 
+deselecciona tot el que hi pogués haver seleccionat.  Si no especifiquem 
+&quot;nom&quot;  es fa servir l&apos;ítem seleccionat.
+
+Pot provocar un IndexError si la selecció és massa gran pel text.
+</translation>
+    </message>
+    <message>
+        <source>deleteText([&quot;name&quot;])
+
+Deletes any text in the text frame &quot;name&quot;. If there is some text selected,
+only the selected text will be deleted. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>deleteText([&quot;nom&quot;])
+
+Esborra qualsevol text del quadre de text &quot;nom&quot;. Si hi ha algun text 
+seleccionat només s&apos;esborra la selecció. Si no especifiquem &quot;nom&quot;  
+es fa servir l&apos;ítem seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>setTextColor(&quot;color&quot;, [&quot;name&quot;])
+
+Sets the text color of the text frame &quot;name&quot; to the color &quot;color&quot;. If there
+is some text selected only the selected text is changed. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation>setTextColor(&quot;color&quot;, [&quot;nom&quot;])
+
+Posa el text del quadre de text &quot;nom&quot; al color &quot;color&quot;. Si hi ha algun
+text seleccionat només es canvia el text seleccionat. Si no 
+especifiquem &quot;nom&quot;  es fa servir l&apos;ítem seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
+
+Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>setTextStroke(&quot;color&quot;, [&quot;nom&quot;])
+
+Posa el &quot;color&quot; a les línies de contorn. Si no especifiquem &quot;nom&quot;  
+es fa servir l&apos;ítem seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>setTextShade(shade, [&quot;name&quot;])
+
+Sets the shading of the text color of the object &quot;name&quot; to &quot;shade&quot;. If
+there is some text selected only the selected text is changed. &quot;shade&quot; must
+be an integer value in the range from 0 (lightest) to 100 (full color
+intensity). If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation>setTextShade(intensitat, [&quot;nom&quot;])
+
+Posa la intensitat del color del text &quot;nom&quot; a &quot;intensitat&quot;. Si hi ha algun
+text seleccionat només es canvia aquest. &quot;intensitat&quot; ha de ser
+un valor enter que va des de 0 (clarejat) a 100 (intensitat de 
+color).Si no especifiquem &quot;nom&quot;  es fa servir l&apos;ítem 
+seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
+
+Link two text frames. The frame named &quot;fromname&quot; is linked to the
+frame named &quot;toname&quot;. The target frame must be an empty text frame
+and must not link to or be linked from any other frames already.
+
+May throw ScribusException if linking rules are violated.
+</source>
+        <translation>linkTextFrames(&quot;desdenom&quot;,&quot;anom&quot;)
+
+Enllaça dos quadres de text. El quadre de text &quot;desdenom&quot; és enllaçat a
+el quadre de text &quot;anom&quot;. El quadre de text de destí ha de ser buit
+i no es pot enllaçar o ser enllaçat per cap altre quadre de text.
+
+Podem tenir ScribusException si es violen les normes d&apos;enllaçat.
+</translation>
+    </message>
+    <message>
+        <source>unlinkTextFrames(&quot;name&quot;)
+
+Remove the specified (named) object from the text frame flow/linkage. If the
+frame was in the middle of a chain, the previous and next frames will be
+connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unlinkTextFrames(b)&apos;
+
+May throw ScribusException if linking rules are violated.
+</source>
+        <translation>unlinkTextFrames(&quot;nom&quot;)
+
+Elimina l&apos;objecte especificat del camí de quadre de text. Si el quadre
+de text estava al mig d&apos;una cadena, els anteriors i els següents seran
+connectats, ex. &apos;a-&gt;b-&gt;c&apos; esdevé &apos;a-&gt;c&apos; quan fem unlinkTextFrames(b)&apos;
+
+Podem tenir ScribusException si violem les normes.
+</translation>
+    </message>
+    <message>
+        <source>traceText([&quot;name&quot;])
+
+Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
+currently selected item is used.</source>
+        <translation>traceText([&quot;nom&quot;])
+
+Convertim el quadre de text &quot;nom&quot; a esquema. Si no especifiquem 
+&quot;nom&quot; es fa servir l&apos;ítem seleccionat.</translation>
+    </message>
+    <message>
+        <source>getColor(&quot;name&quot;) -&gt; tuple
+
+Returns a tuple (C, M, Y, K) containing the four color components of the
+color &quot;name&quot; from the current document. If no document is open, returns
+the value of the named color from the default document colors.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>getColor(&quot;nom&quot;) -&gt; tupla
+
+Retorna una tupla (C, M, Y, K) que conté els quatre components de color
+de &quot;nom&quot; del document actual. Si no hi ha cap document obert, torna
+el valor del color anomenat dels colors per defecte.
+
+Pot produir un NotFoundError si no es troba el color.
+Pot produir ValueError si s&apos;especifica un color invàl.lid.
+</translation>
+    </message>
+    <message>
+        <source>changeColor(&quot;name&quot;, c, m, y, k)
+
+Changes the color &quot;name&quot; to the specified CMYK value. The color value is
+defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
+Color components should be in the range from 0 to 255.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>changeColor(&quot;nom&quot;, c, m, y, k)
+
+Canvia el color &quot;nom&quot; a els valors CMYK. El valor del color està 
+definit via els quatre components c=Cian, m=Magenta, y=Groc i k=Negre
+Els colors del component han d&apos;estar dins del rang 0 a 255.
+
+Pot produir un NotFoundError si no es troba el color.
+Pot produir ValueError si s&apos;especifica un color erròni.</translation>
+    </message>
+    <message>
+        <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
+
+Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
+color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
+&quot;None&quot; - transparent.
+
+deleteColor works on the default document colors if there is no document open.
+In that case, &quot;replace&quot;, if specified, has no effect.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>deleteColor(&quot;nom&quot;, &quot;canvi&quot;)
+
+Esborra el color &quot;nom&quot;. Cada ocurrència d&apos;aquest color es canvia pel 
+color &quot;canvi&quot;. Si no s&apos;especifica, &quot;canvi&quot; es canvia pel color &quot;cap&quot;
+- transparent.
+
+deleteColor treballa en els colors per defecte del document  si no n&apos;hi
+ha cap d&apos;obert, encara que s&apos;especifiqui, no fa res.
+
+Pot generar NotFoundError si no existeix el color.
+Pot generar ValueError si s&apos;especifica un color invàlid.
+</translation>
+    </message>
+    <message>
+        <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
+
+Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>replaceColor(&quot;nom&quot;, &quot;canvi&quot;)
+
+Cada ocurrència del color &quot;name&quot; es canvia pel color &quot;canvi&quot;.
+
+Pot generar un NotFoundError si no existeix el color.
+Pot generar un ValueError si el color especificat és invalid.
+</translation>
+    </message>
+    <message>
+        <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; string with filename
+
+Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
+with the filter string &quot;filter&quot;. A default filename or file path can also
+supplied, leave this string empty when you don&apos;t want to use it.  A value of
+True for haspreview enables a small preview widget in the FileSelect box.  When
+the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
+otherwise it acts like a &quot;File Open Dialog&quot;. The default for both of the
+opional parameters is False.
+
+The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.
+For example &apos;Images (*.png *.xpm *.jpg)&apos;.
+
+Refer to the Qt-Documentation for QFileDialog for details on filters.
+
+Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
+Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
+</source>
+        <translation>fileDialog(&quot;caption&quot;, [&quot;filtre&quot;, &quot;nomdefecte&quot;, haspreview, issave])-&gt;string
+
+Mostra el diàleg d&apos;obrir fitxer amb el text &quot;caption&quot;. Els fitxers seran filtrats
+amb la cadena de filtre &quot;filter&quot;. També es podrà donar un nom de fitxer, 
+deixa aquesta cadena buida si no el vols fer servir.  Quan el paràmetre
+&quot;issave&quot; està com a Cert el diàleg actua com un diàleg &quot;Desa com&quot;
+altrament actual com un diàleg &quot;Obrir&quot;. Per defecte els paràmetres 
+opcionals són falsos.
+
+El filtre, si s&apos;especifica, agafa la forma &apos;comentari (*.tipus, *.tipus2 ...)&apos;
+Per exemple &apos;Imatges (*.png *.xpm *.jpg)&apos;. 
+
+Per més detalls aneu a la Documentació Qt en el QFileDialog pels filtres.
+
+Exemple: fileDialog(&apos;Obrir entrades&apos;, &apos;CSV files (*.csv)&apos;)
+Exemple: fileDialog(&apos;Gravar resultat&apos;, defaultname=&apos;report.txt&apos;, issave=True)
+</translation>
+    </message>
+    <message>
+        <source>messageBox(&quot;caption&quot;, &quot;message&quot;,
+    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
+    button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer
+
+Displays a message box with the title &quot;caption&quot;, the message &quot;message&quot;, and
+an icon &quot;icon&quot; and up to 3 buttons. By default no icon is used and a single
+button, OK, is displayed. Only the caption and message arguments are required,
+though setting an icon and appropriate button(s) is strongly
+recommended. The message text may contain simple HTML-like markup.
+
+Returns the number of the button the user pressed. Button numbers start
+at 1.
+
+For the icon and the button parameters there are predefined constants available
+with the same names as in the Qt Documentation. These are the BUTTON_* and
+ICON_* constants defined in the module. There are also two extra constants that
+can be binary-ORed with button constants:
+    BUTTONOPT_DEFAULT   Pressing enter presses this button.
+    BUTTONOPT_ESCAPE    Pressing escape presses this button.
+
+Usage examples:
+result = messageBox(&apos;Script failed&apos;,
+                    &apos;This script only works when you have a text frame selected.&apos;,
+                    ICON_ERROR)
+result = messageBox(&apos;Monkeys!&apos;, &apos;Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;&apos;,
+                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
+                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
+
+Defined button and icon constants:
+BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
+BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
+ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
+</source>
+        <translation>messageBox(&quot;caption&quot;, &quot;missatge&quot;,
+    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
+    button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer
+
+Mostra un diàleg amb el títol de finestra &quot;caption&quot;, el missatge &quot;missatge&quot;, i 
+una icona &quot;icon&quot; amb fins a 3 botons. Per defecte no es fa servir cap icona i
+només un sol botó, OK. Només calen els textos de &quot;caption&quot; i de &quot;missatge&quot;,
+per tant afegir una icona i els botons apropiats és molt 
+recomanat. El missatge de text pot contenir tags HTML.
+
+Retorna el número del botó que l&apos;usuari a premit. El número de botos comença
+a 1.
+
+Per la icona i pels paràmetres dels botons hi ha diverses constants predeterminades
+amb els mateixos noms que a la documentació de Qt. Són constants BUTTON_* i
+ICON_* definides al mòdul. També hi ha constants extres a les que poden fer
+un OR binari amb constants de botó:
+    BUTTONOPT_DEFAULT   Prement enter tria aquest botó.
+    BUTTONOPT_ESCAPE    Prement escape tria aquest botó.
+
+Exemples d&apos;ús:
+result = messageBox(&apos;Script failed&apos;,
+messageBox(&quot;caption&quot;, &quot;message&quot;,(new line)
+(sp)(sp)(sp)(sp)icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,(new line)
+(sp)(sp)(sp)(sp)button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer(new line)
+(new line)
+Displays a message box with the title &quot;caption&quot;, the message &quot;message&quot;, and(new line)
+an icon &quot;icon&quot; and up to 3 buttons. By default no icon is used and a single(new line)
+button, OK, is displayed. Only the caption and message arguments are required,(new line)
+though setting an icon and appropriate button(s) is strongly(new line)
+recommended. The message text may contain simple HTML-like markup.(new line)
+(new line)
+Returns the number of the button the user pressed. Button numbers start(new line)
+at 1.(new line)
+(new line)
+For the icon and the button parameters there are predefined constants available(new line)
+with the same names as in the Qt Documentation. These are the BUTTON_* and(new line)
+ICON_* constants defined in the module. There are also two extra constants that(new line)
+can be binary-ORed with button constants:(new line)
+(sp)(sp)(sp)(sp)BUTTONOPT_DEFAULT(sp)(sp)(sp)Pressing enter presses this button.(new line)
+(sp)(sp)(sp)(sp)BUTTONOPT_ESCAPE(sp)(sp)(sp)(sp)Pressing escape presses this button.(new line)
+(new line)
+Usage examples:(new line)
+result = messageBox(&apos;Script failed&apos;,(new line)
+                    &apos;This script only works when you have a text frame selected.&apos;,
+                    ICON_ERROR)
+result = messageBox(&apos;Monkeys!&apos;, &apos;Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;&apos;,
+                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
+                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
+
+Les constants de botó són: 
+BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
+BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
+ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
+</translation>
+    </message>
+    <message>
+        <source>valueDialog(caption, message [,defaultvalue]) -&gt; string
+
+Shows the common &apos;Ask for string&apos; dialog and returns its value as a string
+Parameters: window title, text in the window and optional &apos;default&apos; value.
+
+Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)
+</source>
+        <translation>valueDialog(caption, missatge, [,valorperdefecte]) -&gt; string
+
+Mostra el diàleg comú &quot;Demana per cadena&quot; i retorna el seu valor.
+Paràmetres: títol de finestra, text en la finestra i un valor per defecte opcional.
+
+Exemple: valueDialog(&apos;titol&apos;, &apos;text en la finestra&apos;, &apos;opcional&apos;)
+</translation>
+    </message>
+    <message>
+        <source>closeDoc()
+
+Closes the current document without prompting to save.
+
+May throw NoDocOpenError if there is no document to close
+</source>
+        <translation>closeDoc()
+
+Tanca el document actual sense preguntar per desar.
+
+Pot generar un NoDocOpenError si no hi ha cap document per tancar
+</translation>
+    </message>
+    <message>
+        <source>haveDoc() -&gt; bool
+
+Returns true if there is a document open.
+</source>
+        <translation>haveDoc() -&gt; bool
+
+Retorna cert si hi ha un document obert.
+</translation>
+    </message>
+    <message>
+        <source>openDoc(&quot;name&quot;)
+
+Opens the document &quot;name&quot;.
+
+May raise ScribusError if the document could not be opened.
+</source>
+        <translation>openDoc(&quot;nom&quot;)
+
+Obre el document &quot;nom&quot;.
+
+Pot generar ScribusError si el document no es pot obrir.</translation>
+    </message>
+    <message>
+        <source>saveDoc()
+
+Saves the current document with its current name, returns true if successful.
+If the document has not already been saved, this may bring up an interactive
+save file dialog.
+
+If the save fails, there is currently no way to tell.
+</source>
+        <translation>saveDoc()
+
+Desa el document actual amb el seu nom actual, retorna cert si ha funcionat.
+Si el document no ha estat gravat previament, ens sortirà un diàleg interactiu
+per guardar.
+
+Si no es pot desar, no hi ha cap forma de saber-ho.
+</translation>
+    </message>
+    <message>
+        <source>saveDocAs(&quot;name&quot;)
+
+Saves the current document under the new name &quot;name&quot; (which may be a full or
+relative path).
+
+May raise ScribusError if the save fails.
+</source>
+        <translation>saveDocAs(&quot;nom&quot;)
+
+Desa el document actual sota el nou nom &quot;nom&quot; (que pot ser amb camí absolut
+o camí relatiu).
+
+Pot generar un ScribusError si falla el desat.
+</translation>
+    </message>
+    <message>
+        <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation>saveDocAs(&quot;autor&quot;, &quot;info&quot;, &quot;descripcio&quot;) -&gt; bool
+
+Posa la informació al document. &quot;Autor&quot;, &quot;Informació&quot;, &quot;Descripció&quot; són
+cadenes.
+</translation>
+    </message>
+    <message>
+        <source>setMargins(lr, rr, tr, br)
+
+Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
+margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
+constants.
+</source>
+        <translation>setMargins(lr, rr, tr, br)
+
+Posa els marges del document, Esquerra (lr), Dreta (rr), Dalt (tr) i Baix (br)
+Els marges s&apos;han de posar en unitats de mesura del document - veure les constants
+UNIT_&lt;tipus&gt;.
+</translation>
+    </message>
+    <message>
+        <source>setUnit(type)
+
+Changes the measurement unit of the document. Possible values for &quot;unit&quot; are
+defined as constants UNIT_&lt;type&gt;.
+
+May raise ValueError if an invalid unit is passed.
+</source>
+        <translation>setUnit(unitats)
+
+Canvia les unitats de mesura del document. Possible valors de les unitats estan
+definides com a constants UNIT_&lt;tipus&gt;.
+</translation>
+    </message>
+    <message>
+        <source>getUnit() -&gt; integer (Scribus unit constant)
+
+Returns the measurement units of the document. The returned value will be one
+of the UNIT_* constants:
+UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+</source>
+        <translation>getUnit() -&gt; integer (unitats de constants Scribus)
+
+Retorna les unitats des mesura del document. El valor retornat serà una de 
+les constants UNIT_*: 
+UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+</translation>
+    </message>
+    <message>
+        <source>loadStylesFromFile(&quot;filename&quot;)
+
+Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
+current document.
+</source>
+        <translation>loadStylesFromFile(&quot;nomfitxer&quot;)
+
+Carregar els estils de paràgraf des d&apos;un document Scribus especificat a &quot;nomfitxer&quot; 
+en el document actual.
+</translation>
+    </message>
+    <message>
+        <source>setDocType(facingPages, firstPageLeft)
+
+Sets the document type. To get facing pages set the first parameter to
+FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
+to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
+a right page use FIRSTPAGERIGHT.
+</source>
+        <translation>setDocType(facingPages, firstPageLeft)
+
+Estableix el tipus de document. Per tenir pàgines acarades cal establir primer
+paràmetre a FACINPAGES, i per no tenir-ne NOFACINPAGES.  Si vols que la primera 
+pàgina sigui a l&apos;esquerra cal posar al segon paràmetre FIRSTPAGELEFT, i perquè 
+sigui la dreta FIRSTPAGERIGHT.
+</translation>
+    </message>
+    <message>
+        <source>getLineColor([&quot;name&quot;]) -&gt; string
+
+Returns the name of the line color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getLineColor([&quot;nom&quot;]) -&gt; string
+
+Retorna el nom del color de línia de l&apos;objecte &quot;nom&quot;.
+Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>getLineWidth([&quot;name&quot;]) -&gt; integer
+
+Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation>getLineWidth([&quot;nom&quot;]) -&gt; integer
+
+Retorna l&apos;amplada de la línia de l&apos;objecte &quot;nom&quot;. Si no 
+especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>getLineShade([&quot;name&quot;]) -&gt; integer
+
+Returns the shading value of the line color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getLineShade([&quot;nom&quot;]) -&gt; integer
+
+Retorna el valor de la intensitat del color de la línia de l&apos;objecte &quot;nom&quot;.
+Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see contants)
+
+Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
+the currently selected item is used.  The join types are:
+JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
+</source>
+        <translation>getLineJoin([&quot;nom&quot;]) -&gt; integer (mirar constants)
+
+Retorna l&apos;estil d&apos;unió de línia de l&apos;objecte &quot;nom&quot;. Si no especifiquem 
+&quot;nom&quot; es fa servir l&apos;ítem seleccionat.  Els tipus d&apos;unió són:
+JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
+</translation>
+    </message>
+    <message>
+        <source>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
+
+Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; is not given the
+currently selected item is used. The cap types are:
+CAP_FLAT, CAP_ROUND, CAP_SQUARE
+</source>
+        <translation>getLineEnd([&quot;nom&quot;]) -&gt; integer (mirar constants)
+
+Retorna el tap de línia de l&apos;objecte &quot;nom&quot;. Si no especifiquem &quot;nom&quot; es fa 
+servir l&apos;ítem seleccionat. Els tipus de tap són:
+CAP_FLAT, CAP_ROUND, CAP_SQUARE
+</translation>
+    </message>
+    <message>
+        <source>getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
+
+Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is not given the
+currently selected item is used. Line style constants are:
+LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
+</source>
+        <translation>getLineStyle([&quot;nom&quot;]) -&gt; integer (mirar constants)
+
+Retorna l&apos;estil de línia de l&apos;objecte &quot;nom&quot;. Si no especifiquem &quot;nom&quot; es 
+fa servir l&apos;ítem seleccionat.. Les constants de línia són:
+LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
+</translation>
+    </message>
+    <message>
+        <source>getFillShade([&quot;name&quot;]) -&gt; integer
+
+Returns the shading value of the fill color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getFillShade([&quot;nom&quot;]) -&gt; integer
+
+Retorna el valor de la intensitat del color d&apos;emplenament de l&apos;objecte &quot;nom&quot;.
+Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>getImageScale([&quot;name&quot;]) -&gt; (x,y)
+
+Returns a (x, y) tuple containing the scaling values of the image frame
+&quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getImageScale([&quot;name&quot;]) -&gt; (x,y)
+
+Retorna una parella (x,y) contenint els valors d&apos;escalat de la imatge
+&quot;nom&quot;.  Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>getImageName([&quot;name&quot;]) -&gt; string
+
+Returns the filename for the image in the image frame. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation>getImageName([&quot;nom&quot;]) -&gt; string
+
+Retorna el nom del fitxer de la imatge que tenim. Si no especifiquem &quot;nom&quot;
+ es fa servir l&apos;ítem seleccionat.</translation>
+    </message>
+    <message>
+        <source>getSize([&quot;name&quot;]) -&gt; (width,height)
+
+Returns a (width, height) tuple with the size of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used. The size is
+expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
+for reference.
+</source>
+        <translation>getSize([&quot;nom&quot;]) -&gt; (amplada,alçada)
+
+Retorna un parell (amplada, alçada) amb la mida de l&apos;objecte &quot;nom&quot;.
+Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat. La mida està
+expressada en les unitats de mesura del document - mireu UNIT_&lt;tipus&gt;
+per referència.</translation>
+    </message>
+    <message>
+        <source>getRotation([&quot;name&quot;]) -&gt; integer
+
+Returns the rotation of the object &quot;name&quot;. The value is expressed in degrees,
+and clockwise is positive. If &quot;name&quot; is not given the currently selected item
+is used.
+</source>
+        <translation>getRotation([&quot;name&quot;]) -&gt; integer
+
+Retorna la rotació de l&apos;objecte &quot;nom&quot;. El valor està expressat en graus, 
+en sentit horari és positiu. Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem 
+seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>getAllObjects() -&gt; list
+
+Returns a list containing the names of all objects on the current page.
+</source>
+        <translation>getAllObjects() -&gt; list
+
+Retorna una llista que conté els noms de tots els objectes de la pàgina actual.
+</translation>
+    </message>
+    <message>
+        <source>moveObjectAbs(x, y [, &quot;name&quot;])
+
+Moves the object &quot;name&quot; to a new location. The coordinates are expressed in
+the current measurement unit of the document (see UNIT constants).  If &quot;name&quot;
+is not given the currently selected item is used.  If the object &quot;name&quot;
+belongs to a group, the whole group is moved.
+</source>
+        <translation>moveObjectAbs(x, y [, &quot;nom&quot;])
+
+Mou l&apos;objecte &quot;nom&quot; a una nova posició. Les coordenades estan expressades en
+les unitats de mesura del document (veure constants UNIT).  Si no especifiquem &quot;nom&quot; 
+es fa servir l&apos;ítem seleccionat.  Si l&apos;objecte &quot;nom&quot; pertany a un grup,
+es mou tot el grup.
+</translation>
+    </message>
+    <message>
+        <source>rotateObject(rot [, &quot;name&quot;])
+
+Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
+rotated by the vertex that is currently selected as the rotation point - by
+default, the top left vertext at zero rotation. Positive values mean counter
+clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation>rotateObject(rot, [, &quot;nom&quot;])
+
+Rota l&apos;objecte &quot;nom&quot; &quot;rot&quot; graus respecte el punt actual. L&apos;objecte és 
+rotat pel vertex seleccionat com a punt de rotació - per defecte, el 
+punt superior esquerre a rotació zero. Valors positius representen rodar
+en sentit horari quan es fa servir el punt de rotació per defecte. Si no 
+especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>sizeObject(width, height [, &quot;name&quot;])
+
+Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
+is not given the currently selected item is used.
+</source>
+        <translation>sizeObject(amplada, alçada [, &quot;nom&quot;])
+
+Canvia la mida de l&apos;objecte &quot;nom&quot; a la mida especificada. Si no 
+especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>getSelectedObject([nr]) -&gt; string
+
+Returns the name of the selected object. &quot;nr&quot; if given indicates the number
+of the selected object, e.g. 0 means the first selected object, 1 means the
+second selected Object and so on.
+</source>
+        <translation>getSelectedObject([nr]) -&gt; string
+
+Retorna el nom de l&apos;objecte seleccionat. &quot;nr&quot; si es dóna especifica el número
+de l&apos;objecte seleccionat, ex. 0 significa el primer objecte seleccionat, 1 el 
+segon i així.
+</translation>
+    </message>
+    <message>
+        <source>selectionCount() -&gt; integer
+
+Returns the number of selected objects.
+</source>
+        <translation>seleccionCount() -&gt; integer
+
+Retorna el número d&apos;objectes seleccionats.
+</translation>
+    </message>
+    <message>
+        <source>selectObject(&quot;name&quot;)
+
+Selects the object with the given &quot;name&quot;.
+</source>
+        <translation>selectObject(&quot;nom&quot;)
+
+Selecciona l&apos;objecte amb el nom &quot;nom&quot;.
+</translation>
+    </message>
+    <message>
+        <source>deselectAll()
+
+Deselects all objects in the whole document.
+</source>
+        <translation>deselectAll()
+
+Deselecciona tots els objectes de tot el document.
+</translation>
+    </message>
+    <message>
+        <source>groupObjects(list)
+
+Groups the objects named in &quot;list&quot; together. &quot;list&quot; must contain the names
+of the objects to be grouped. If &quot;list&quot; is not given the currently selected
+items are used.
+</source>
+        <translation>groupObjects(llista)
+
+Agrupa els objectes que especifiquem a la llista &quot;llista&quot;. La llista ha de contenir
+els noms dels objectes a agrupar. Si no s&apos;especifica llista es fan servir els 
+objectes que estiguin seleccionats.
+</translation>
+    </message>
+    <message>
+        <source>unGroupObjects(&quot;name&quot;)
+
+Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</source>
+        <translation>unGroupObjects(&quot;nom&quot;)
+
+Destrueix el grup al qual pertany l&apos;objecte &quot;nom&quot;. Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat.</translation>
+    </message>
+    <message>
+        <source>scaleGroup(factor [,&quot;name&quot;])
+
+Scales the group the object &quot;name&quot; belongs to. Values greater than 1 enlarge
+the group, values smaller than 1 make the group smaller e.g a value of 0.5
+scales the group to 50 % of its original size, a value of 1.5 scales the group
+to 150 % of its original size.  The value for &quot;factor&quot; must be greater than
+0. If &quot;name&quot; is not given the currently selected item is used.
+
+May raise ValueError if an invalid scale factor is passed.
+</source>
+        <translation>scaleGroup(factor [,&quot;nom&quot;])
+
+Escala el grup al qual pertany l&apos;objecte &quot;nom&quot;. Valors més grans que 1 incrementen
+el grup, i valors més petits que 1 decrementen el grup. ex. Un valor de 0.5 escala 
+el grup al 50% del valor original, un valor de 1.5 escala el grup a un 
+150% del valor original.  El valor de &quot;factor&quot; ha de ser més gran que 
+0. Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat.
+
+Pot provocar un ValueError si s&apos;especifica un factor invàlid.
+</translation>
+    </message>
+    <message>
+        <source>loadImage(&quot;filename&quot; [, &quot;name&quot;])
+
+Loads the picture &quot;picture&quot; into the image frame &quot;name&quot;. If &quot;name&quot; is
+not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not an image frame
+</source>
+        <translation>loadImage(&quot;nomFitxer&quot;, [,&quot;nom&quot;])
+
+Carrega la imatge &quot;nomFitxer&quot; en el marc d&apos;imatge &quot;nom&quot;. Si no especifiquem 
+&quot;nom&quot; es fa servir l&apos;ítem seleccionat.
+
+Pot provocar WrongFrameTypeError si el marc no és d&apos;imatge
+</translation>
+    </message>
+    <message>
+        <source>scaleImage(x, y [, &quot;name&quot;])
+
+Sets the scaling factors of the picture in the image frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used. A number of 1
+means 100 %.
+
+May raise WrongFrameTypeError if the target frame is not an image frame
+</source>
+        <translation>scaleImage(x, y [, &quot;nom&quot;])
+
+Estableix els factors d&apos;escalat de la imatge del marc d&apos;imatge &quot;nom&quot;.
+Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat. Un valor de 1
+significa 100 %.
+
+Pot provocar WrongFrameTypeError si el marc no és d&apos;imatge
+</translation>
+    </message>
+    <message>
+        <source>lockObject([&quot;name&quot;]) -&gt; bool
+
+Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;s locked.
+If &quot;name&quot; is not given the currently selected item is used. Returns true
+if locked.
+</source>
+        <translation>lockObject([&quot;nom&quot;]) -&gt; bool
+
+Bloqueja l&apos;objecte &quot;nom&quot; si està desbloquejat o el desbloqueja si està bloquejat.
+Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat. Retorna cert
+si bloqueja.
+</translation>
+    </message>
+    <message>
+        <source>isLocked([&quot;name&quot;]) -&gt; bool
+
+Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation>isLocked([&quot;nom&quot;]) -&gt; bool
+
+Retorna cert si l&apos;objecte &quot;nom&quot; està bloquejat.  Si no especifiquem &quot;nom&quot; es 
+fa servir l&apos;ítem seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>getFontNames() -&gt; list
+
+Returns a list with the names of all available fonts.
+</source>
+        <translation>getFontNames() -&gt; llista
+
+Retorna una llista amb els noms de totes les fonts.
+</translation>
+    </message>
+    <message>
+        <source>getXFontNames() -&gt; list of tuples
+
+Returns a larger font info. It&apos;s a list of the tuples with:
+[ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
+</source>
+        <translation>getXFontNames() -&gt; llista de tuples
+
+Retorna molta informació de font. És una llista de tuples amb:
+[ (Nom Scribus, Familia, Nom Real, subconjunt (1|0), embed PS (1|0), fitxer de font), (...), ...]
+</translation>
+    </message>
+    <message>
+        <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
+
+Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
+Image is saved into &quot;filename&quot;. Returns true when success.
+
+May raise NotFoundError if the specified font can&apos;t be found.
+May raise ValueError if an empty sample or filename is passed.
+</source>
+        <translation>rendeFont(&quot;nom&quot;, &quot;nomFitxer&quot;, &quot;sample&quot;, mida) -&gt; bool
+
+Crea una imatge de previsualització de la font &quot;nom&quot; amb el text &quot;sample&quot; i mida.
+La imatge és desa en el fitxer &quot;nomFitxer&quot;. Retorna cert quan tot va bé.
+
+Pot provocar un NotFoundError si la font especificada no es pot trobar.
+Pot provocar un ValueError si es passa un sample buit.
+</translation>
+    </message>
+    <message>
+        <source>getLayers() -&gt; list
+
+Returns a list with the names of all defined layers.
+</source>
+        <translation>getLayers() -&gt; llista
+
+Retorna una llista amb els noms de totes les capes.
+</translation>
+    </message>
+    <message>
+        <source>setActiveLayer(&quot;name&quot;)
+
+Sets the active layer to the layer named &quot;name&quot;.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>setActiveLayer(&quot;nom&quot;)
+
+Canvia la capa activa a una capa anomenada &quot;nom&quot;.
+
+Pot generar NotFoundError si la capa no es pot trobar.
+Pot generar ValueError si la capa nom no és acceptable.
+</translation>
+    </message>
+    <message>
+        <source>getActiveLayer() -&gt; string
+
+Returns the name of the current active layer.
+</source>
+        <translation>getActiveLayer() -&gt; string
+
+Retorna el nom de la capa activa.
+</translation>
+    </message>
+    <message>
+        <source>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
+
+Sends the object &quot;name&quot; to the layer &quot;layer&quot;. The layer must exist.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>sendToLayer(&quot;capa&quot; [, &quot;nom&quot;])
+
+Envia l&apos;objecte &quot;nom&quot; a la capa &quot;capa&quot;. La capa ha d&apos;existir.
+Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat.
+
+Pot provocar NotFoundError si la capa no es pot trobar.
+Pot provocar ValueError si el nom no és acceptable.
+
+
+</translation>
+    </message>
+    <message>
+        <source>setLayerVisible(&quot;layer&quot;, visible)
+
+Sets the layer &quot;layer&quot; to be visible or not. If is the visible set to false
+the layer is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>setLayerVisible(&quot;capa&quot;, visible)
+
+Estableix la capa especificada a visible o no. Si visible està false
+la capa és invisible.
+
+Pot generar NotFoundError si la capa no es pot trobar.
+Pot generar ValueError si el nom de capa no és acceptable.
+</translation>
+    </message>
+    <message>
+        <source>setLayerPrintable(&quot;layer&quot;, printable)
+
+Sets the layer &quot;layer&quot; to be printable or not. If is the printable set to
+false the layer won&apos;t be printed.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>setLayerPrintable(&quot;capa&quot;, printable)
+
+Estableix la capa especificada a printable o no. Si printable està 
+false la capa no s&apos;imprimirà.
+
+Pot generar NotFoundError si la capa no es pot trobar.
+Pot generar ValueError si el nom de capa no és acceptable.
+</translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns wether the Layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>isLayerVisible(&quot;capa&quot;) -&gt; bool
+
+Ens retorna si la capa &quot;capa&quot; és visible o no, un valor de Cert significa
+que la capa és visible, un valor de Fals significa que la capa
+&quot;layer&quot; és invisible
+
+Pot generar NotFoundError si la capa no es pot trobar.
+Pot generar ValueError si el nom de capa no és acceptable.</translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns wether the layer &quot;layer&quot; is printable or not, a value of True means
+that the layer &quot;layer&quot; can be printed, a value of False means that printing
+the layer &quot;layer&quot; is disabled.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>isLayerPrintable(&quot;capa&quot;) -&gt; bool
+
+Ens retorna si la capa &quot;capa&quot; és printable o no, un valor de Cert significa
+que la capa pot ser imprimible, un valor de Fals significa que la capa
+&quot;layer&quot; no és imprimible.
+
+Pot generar NotFoundError si la capa no es pot trobar.
+Pot generar ValueError si el nom de capa no és acceptable.
+</translation>
+    </message>
+    <message>
+        <source>deleteLayer(&quot;layer&quot;)
+
+Deletes the layer with the name &quot;layer&quot;. Nothing happens if the layer doesn&apos;t
+exists or if it&apos;s the only layer in the document.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>deleteLayer(&quot;capa&quot;)
+
+Esborra la capa amb el nom &quot;capa&quot;. Si la capa no existeix o és la única del 
+document no passa res.
+
+Pot generar NotFoundError si la capa no es pot trobar.
+Pot generar ValueError si el nom de capa no és acceptable.
+</translation>
+    </message>
+    <message>
+        <source>createLayer(layer)
+
+Creates a new layer with the name &quot;name&quot;.
+
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>createLayer(capa)
+
+Crea una nova capa amb el nom &quot;capa&quot;.
+
+Pot generar ValueError si el nom de capa no és acceptable.
+</translation>
+    </message>
+    <message>
+        <source>getGuiLanguage() -&gt; string
+
+Returns a string with the -lang value.
+</source>
+        <translation>getGuiLanguage() -&gt; string
+
+Retorna una cadena amb el valor de -lang.
+</translation>
+    </message>
+    <message>
+        <source>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new ellipse on the current page and returns its name.
+The coordinates are given in the current measurement units of the document
+(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
+because you need this name for further referencing of that object. If &quot;name&quot;
+is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation>createEllipse(x, y, amplada, alçada, [&quot;nom&quot;]) -&gt; string
+
+Crea una nova elipse en la pàgina actual i en retorna el nom.
+Les coordenades estan especificades amb les unitats de mesura del document
+(mireu constants UNIT). &quot;nom&quot; ha de ser un identificador únic per l&apos;objecte
+ja que necessitem aquest nom per referències futures. Si &quot;nom&quot; no s&apos;especifica
+Scribus en crearà un per nosaltres.
+
+Pot generar un NameExistsError si especifiquem un nom que ja es fa servir.
+</translation>
+    </message>
+    <message>
+        <source>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new picture frame on the current page and returns its name. The
+coordinates are given in the current measurement units of the document.
+&quot;name&quot; should be a unique identifier for the object because you need this
+name for further access to that object. If &quot;name&quot; is not given Scribus will
+create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation>createImage(x, y, amplada, alçada, [&quot;nom&quot;]) -&gt; string
+
+Crea un nou marc d&apos;imatge en la pàgina actual i en retorna el nom.
+Les coordenades estan especificades amb les unitats de mesura del document
+(mireu constants UNIT). &quot;nom&quot; ha de ser un identificador únic per l&apos;objecte
+ja que necessitem aquest nom per referències futures. Si &quot;nom&quot; no s&apos;especifica
+Scribus en crearà un per nosaltres.
+
+Pot generar un NameExistsError si especifiquem un nom que ja es fa servir.
+</translation>
+    </message>
+    <message>
+        <source>createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new text frame on the actual page and returns its name.
+The coordinates are given in the actual measurement unit of the document (see
+UNIT constants). &quot;name&quot; should be a unique identifier for the object because
+you need this name for further referencing of that object. If &quot;name&quot; is not
+given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation>createText(x, y, amplada, alçada, [&quot;nom&quot;]) -&gt; string
+
+Crea un nou quadre de text en la pàgina actual i en retorna el nom.
+Les coordenades estan especificades amb les unitats de mesura del document
+(mireu constants UNIT). &quot;nom&quot; ha de ser un identificador únic per l&apos;objecte
+ja que necessitem aquest nom per referències futures. Si &quot;nom&quot; no s&apos;especifica
+Scribus en crearà un per nosaltres.
+
+Pot generar un NameExistsError si especifiquem un nom que ja es fa servir.
+</translation>
+    </message>
+    <message>
+        <source>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
+
+Creates a new line from the point(x1, y1) to the point(x2, y2) and returns
+its name. The coordinates are given in the current measurement unit of the
+document (see UNIT constants). &quot;name&quot; should be a unique identifier for the
+object because you need this name for further access to that object. If
+&quot;name&quot; is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation>createLine(x1, y1, x2, y2, [&quot;nom&quot;]) -&gt; string
+
+Crea una nova línia des del punt (x1,y1) al punt (x2,y2) i en retorna el 
+nom. Les coordenades estan especificades amb les unitats de mesura del 
+document (mireu constants UNIT). &quot;nom&quot; ha de ser un identificador únic 
+per l&apos;objecte ja que necessitem aquest nom per referències futures. Si 
+&quot;nom&quot; no s&apos;especifica Scribus en crearà un per nosaltres.
+
+Pot generar un NameExistsError si especifiquem un nom que ja es fa servir.
+</translation>
+    </message>
+    <message>
+        <source>createPolyLine(list, [&quot;name&quot;]) -&gt; string
+
+Creates a new polyline and returns its name. The points for the polyline are
+stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
+The coordinates are given in the current measurement units of the document (see
+UNIT constants). &quot;name&quot; should be a unique identifier for the object because
+you need this name for further access to that object. If &quot;name&quot; is not given
+Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise ValueError if an insufficient number of points is passed or if
+the number of values passed don&apos;t group into points without leftovers.
+</source>
+        <translation>createPolyLine(llista, [&quot;nom&quot;]) -&gt; string
+
+Crea un nou conjunt de línies i en retorna el nom. Els punts de cada línia estan
+guardats en la llista &quot;llista&quot; en l&apos;ordre [x1, y1, x2, y2, .., xn, yn].
+Les coordenades estan especificades amb les unitats de mesura del document
+(mireu constants UNIT). &quot;nom&quot; ha de ser un identificador únic per l&apos;objecte
+ja que necessitem aquest nom per referències futures. Si &quot;nom&quot; no s&apos;especifica
+Scribus en crearà un per nosaltres.
+
+Pot generar un NameExistsError si especifiquem un nom que ja es fa servir.
+Pot generar un ValueError si es passa un número de punts insuficient o si el
+número de valors passat no agrupa bé els punts.
+</translation>
+    </message>
+    <message>
+        <source>createPolygon(list, [&quot;name&quot;]) -&gt; string
+
+Creates a new polygon and returns its name. The points for the polygon are
+stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
+At least three points are required. There is no need to repeat the first point
+to close the polygon. The polygon is automatically closed by connecting the
+first and the last point.  The coordinates are given in the current measurement
+units of the document (see UNIT constants).  &quot;name&quot; should be a unique
+identifier for the object because you need this name for further access to that
+object. If &quot;name&quot; is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise ValueError if an insufficient number of points is passed or if
+the number of values passed don&apos;t group into points without leftovers.
+</source>
+        <translation>createPolygon(llista, [&quot;nom&quot;]) -&gt; string
+
+Crea un nou polígon i en retorna el nom. Els punts pel polígon estan 
+guardats en la llista &quot;llista&quot; en el següent ordre: [x1, y1, x2, y2, ...xn, yn].
+Almenys calen tres punts. No cal repetir el primer punt per 
+tancar el polígon. El polígon es tancarà automàticament connectant el 
+primer punt i el darrer.  Les coordenades estan especificades amb les unitats 
+de mesura del document (mireu constants UNIT).  &quot;nom&quot; ha de ser un identificador 
+únic per l&apos;objecte ja que necessitem aquest nom per referències futures. 
+Si &quot;nom&quot; no s&apos;especifica Scribus en crearà un per nosaltres.
+
+Pot generar un NameExistsError si especifiquem un nom que ja es fa servir.
+Pot generar un ValueError si es passa un número de punts insuficient o si el
+número de valors passat no agrupa bé els punts.
+</translation>
+    </message>
+    <message>
+        <source>createBezierLine(list, [&quot;name&quot;]) -&gt; string
+
+Creates a new bezier curve and returns its name. The points for the bezier
+curve are stored in the list &quot;list&quot; in the following order:
+[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]
+In the points list, x and y mean the x and y coordinates of the point and kx
+and ky meaning the control point for the curve.  The coordinates are given in
+the current measurement units of the document (see UNIT constants). &quot;name&quot;
+should be a unique identifier for the object because you need this name for
+further access to that object. If &quot;name&quot; is not given Scribus will create one
+for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise ValueError if an insufficient number of points is passed or if
+the number of values passed don&apos;t group into points without leftovers.
+</source>
+        <translation>createBezierLine(llista, [&quot;nom&quot;]) -&gt; string
+
+Crea una corba bezier i en retorna el nom. Els punts per la corba bezier es
+guarden en la llista &quot;llista&quot; en el següent ordre:  
+[x1, y1, kx1, ky1, x2, y2, kx2, ky2, ...xn, yn, kxn, kyn].
+En els punts x i y són els valors de x i de y del punt, mentre que kx 
+i ky són els punts de control de la corba.  Les coordenades es dónen en
+les unitats de mesura del document (mireu constants UNIT).  &quot;nom&quot; 
+ha de ser un identificador únic per l&apos;objecte ja que necessitem aquest nom 
+per referències futures. Si &quot;nom&quot; no s&apos;especifica Scribus en crearà un per 
+nosaltres.
+
+Pot generar un NameExistsError si especifiquem un nom que ja es fa servir.
+Pot generar un ValueError si es passa un número de punts insuficient o si el
+número de valors passat no agrupa bé els punts.
+</translation>
+    </message>
+    <message>
+        <source>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
+
+Creates a new pathText by merging the two objects &quot;textbox&quot; and
+&quot;beziercurve&quot; and returns its name. The coordinates are given in the current
+measurement unit of the document (see UNIT constants). &quot;name&quot; should be a
+unique identifier for the object because you need this name for further access
+to that object. If &quot;name&quot; is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise NotFoundError if one or both of the named base object don&apos;t exist.
+</source>
+        <translation>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;nom&quot;]) -&gt; string
+
+Crea una nou camí de text barrejant els dos objectes &quot;textbox&quot; i 
+&quot;beziercurve&quot; i en retorna el nom. Les coordenades estan especificades 
+amb les unitats de mesura del document (mireu constants UNIT). &quot;nom&quot; ha de 
+ser un identificador únic per l&apos;objecte ja que necessitem aquest nom per referències 
+futures. Si &quot;nom&quot; no s&apos;especifica Scribus en crearà un per nosaltres.
+
+Pot generar un NameExistsError si especifiquem un nom que ja es fa servir.
+Pot generar un NotFoundError si un dels dos objectes no existeix.
+</translation>
+    </message>
+    <message>
+        <source>deleteObject([&quot;name&quot;])
+
+Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
+selected item is deleted.
+</source>
+        <translation>deleteObject([&quot;nom&quot;])
+
+Esborra l&apos;ítem amb el nom &quot;nom&quot;. Si no especifiquem &quot;nom&quot; l&apos;ítem 
+seleccionat és el que s&apos;esborra.
+</translation>
+    </message>
+    <message>
+        <source>textFlowsAroundFrame(&quot;name&quot; [, state])
+
+Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
+Called with parameters string name and optional boolean &quot;state&quot;. If &quot;state&quot;
+is not passed, text flow is toggled.
+</source>
+        <translation>textFlowsAroundFrame(&quot;nom&quot; [,estat])
+
+Activa/desactiva &quot;El Text flueix al voltant del marc&quot; de l&apos;objecte &quot;nom&quot;.
+Creat amb els paràmetres nom del objecte i el opcional &quot;estat&quot;. Si &quot;estat&quot;
+no es passa, s&apos;activa.
+</translation>
+    </message>
+    <message>
+        <source>objectExists([&quot;name&quot;]) -&gt; bool
+
+Test if an object with specified name really exists in the document.
+The optional parameter is the object name. When no object name is given,
+returns True if there is something selected.
+</source>
+        <translation>objectExists([&quot;nom&quot;]) -&gt; bool
+
+Prova si un objecte amb el nom especificat existeix en el document.
+El paràmetre opcional és el nom de l&apos;objecte. Quan no especifiquem cap
+nom retorna cert si hi ha res seleccionat.</translation>
+    </message>
+    <message>
+        <source>setStyle(&quot;style&quot; [, &quot;name&quot;])
+
+Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
+given, it&apos;s applied on the selected object.
+</source>
+        <translation>setStyle(&quot;estil&quot; [, &quot;nom&quot;])
+
+Aplica l&apos;estil especificat a &quot;estil&quot; a l&apos;objecte &quot;nom&quot;. Si no especifiquem el nom
+s&apos;aplica a l&apos;ítem seleccionat.</translation>
+    </message>
+    <message>
+        <source>getAllStyles() -&gt; list
+
+Return a list of the names of all paragraph styles in the current document.
+</source>
+        <translation>getAllStyles() -&gt; llista
+
+Retorna una llista amb els noms dels estils de paràgraf del document actual.
+</translation>
+    </message>
+    <message>
+        <source>currentPage() -&gt; integer
+
+Returns the number of the current working page. Page numbers are counted from 1
+upwards, no matter what the displayed first page number of your document is.
+</source>
+        <translation>currentPage() -&gt; integer
+
+Retorna el número de pàgina actual. Els números de pàgina comencen per 1
+i van endavant, no importa de quina forma fem numerar les pàgines.
+</translation>
+    </message>
+    <message>
+        <source>redrawAll()
+
+Redraws all pages.
+</source>
+        <translation>redrawAll()
+
+Repinta totes les pàgines.
+</translation>
+    </message>
+    <message>
+        <source>savePageAsEPS(&quot;name&quot;)
+
+Saves the current page as an EPS to the file &quot;name&quot;.
+
+May raise ScribusError if the save failed.
+</source>
+        <translation>savePageAsEPS(&quot;nom&quot;)
+
+Desa la pàgina actual com un fitxer EPS amb el nom &quot;nom&quot;.
+
+Pot generar un  ScribusError si el desat falla.</translation>
+    </message>
+    <message>
+        <source>deletePage(nr)
+
+Deletes the given page. Does nothing if the document contains only one page.
+Page numbers are counted from 1 upwards, no matter what the displayed first
+page number is.
+
+May raise IndexError if the page number is out of range
+</source>
+        <translation>deletePage(nr)
+
+Esborra la pàgina especificada. No fa res si el document només conté una pàgina.
+Els números de pàgina estan comptats des de 1, no importa la forma en que 
+mostrem els números de pàgina.
+
+Pot generar un IndexError si el número de pàgina està fora de rang
+</translation>
+    </message>
+    <message>
+        <source>gotoPage(nr)
+
+Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
+gotoPage doesn&apos;t (curently) change the page the user&apos;s view is displaying, it
+just sets the page that script commands will operates on.
+
+May raise IndexError if the page number is out of range.
+</source>
+        <translation>gotoPage(nr)
+
+Canvia a la pàgina &quot;nr&quot; (o sigui, fa que &quot;nr&quot; sigui la pàgina actual). Cal tenir
+en compte que gotoPage no canvia la visió de pàgina que té l&apos;usuari, només
+canvia la pàgina en que les seqüències treballaran.
+
+Pot generar un IndexError si la pàgina està fora de rang.
+</translation>
+    </message>
+    <message>
+        <source>pageCount() -&gt; integer
+
+Returns the number of pages in the document.
+</source>
+        <translation>pageCount() -&gt; integer
+
+Retorna el número de pàgines del document.
+</translation>
+    </message>
+    <message>
+        <source>getHGuides() -&gt; list
+
+Returns a list containing positions of the horizontal guides. Values are in the
+document&apos;s current units - see UNIT_&lt;type&gt; constants.
+</source>
+        <translation>getHGuides() -&gt; llista
+
+Retorna una llista que conté posicions de les guies horitzontals. Els valors estan
+en les unitats del document - mireu les constants UNIT_&lt;tipus&gt;.
+</translation>
+    </message>
+    <message>
+        <source>setHGuides(list)
+
+Sets horizontal guides. Input parameter must be a list of guide positions
+measured in the current document units - see UNIT_&lt;type&gt; constants.
+
+Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
+         setHGuides([90,250]) # replace current guides entirely
+</source>
+        <translation>setHGuides(llista)
+
+Estableix les guies horitzontals. La entrada ha de ser una llista de posicions 
+mesurades en les unitats del document - mireu les constants UNIT_&lt;tipus&gt;.
+
+Exemple setHGuides(getHGuides() + [200.0, 210.0] # afegeix noves guies sense perdre
+                setHGuides([90,250]) # canvia les guies actuals completament
+</translation>
+    </message>
+    <message>
+        <source>getVGuides()
+
+See getHGuides.
+</source>
+        <translation>getVGuides()
+
+Mireu getHGuides.
+</translation>
+    </message>
+    <message>
+        <source>setVGuides()
+
+See setHGuides.
+</source>
+        <translation>setVGuides()
+
+Mireu setHGuides.
+</translation>
+    </message>
+    <message>
+        <source>getPageSize() -&gt; tuple
+
+Returns a tuple with page dimensions measured in the document&apos;s current units.
+See UNIT_&lt;type&gt; constants and getPageMargins()
+</source>
+        <translation>getPageSize() -&gt; tupla
+
+Retorna una tupla amb les mides de la pàgina mesurades amb les unitats del document.
+Mireu les constants UNIT_&lt;tipus&gt;  i getPageMargins()
+</translation>
+    </message>
+    <message>
+        <source>getPageItems() -&gt; list
+
+Returns a list of tuples with items on the current page. The tuple is:
+(name, objectType, order) E.g. [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)]
+means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at
+the page...
+</source>
+        <translation>getPageItems() -&gt; llista
+
+Retorna una llista de tuples amb els ítems de la pàgina actual. La tupla és:
+(nom, Tipusd&apos;Objecte, ordre) Ex. [ (&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)]
+significa que l&apos;objecte &apos;Text1&apos; és un marc de text (tipus 4) i és el primer de
+la pàgina ...
+</translation>
+    </message>
+    <message>
+        <source>getPageMargins()
+
+Returns the page margins as a (left, right, top, bottom) tuple in the current
+units. See UNIT_&lt;type&gt; constants and getPageSize().
+</source>
+        <translation>getPageMargins()
+
+Retorna els marges de pàgina com a una tupla (esquerra, dreta, dalt, baix) en 
+les unitats actuals. Mireu les constants UNIT_&lt;tipus&gt; u getPageSize().
+</translation>
+    </message>
+    <message>
+        <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
+
+Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot;. &quot;color&quot;
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation>setFillColor(&quot;color&quot;, [&quot;nom&quot;])
+
+Estableix el color d&apos;ompliment de l&apos;objecte &quot;nom&quot; al color &quot;color&quot;. 
+&quot;color&quot; és el nom d&apos;un dels colors definits. Si no especifiquem &quot;nom&quot; 
+es fa servir l&apos;ítem seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>setLineColor(&quot;color&quot;, [&quot;name&quot;])
+
+Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
+is not given the currently selected item is used.
+</source>
+        <translation>setLineColor(&quot;color&quot;, [&quot;nom&quot;])
+
+Estableix el color de la línia de l&apos;objecte &quot;nom&quot; al color &quot;color&quot;. Si no 
+especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>setLineWidth(width, [&quot;name&quot;])
+
+Sets line width of the object &quot;name&quot; to &quot;width&quot;. &quot;width&quot; must be in the
+range from 0.0 to 12.0 inclusive, and is measured in points. If &quot;name&quot; is not
+given the currently selected item is used.
+
+May raise ValueError if the line width is out of bounds.
+</source>
+        <translation>setLineWidth(amplada, [&quot;nom&quot;])
+
+Estableix l&apos;amplada de línia de l&apos;objecte &quot;nom&quot; a &quot;amplada&quot;. &quot;amplada&quot; ha d&apos;estar
+dins d&apos;un rang  entre 0.0 a 12.0, i està mesurat en punts. Si no especifiquem &quot;nom&quot; 
+es fa servir l&apos;ítem seleccionat.
+
+Pot generar un ValueError si l&apos;ample de línia és erròni.
+</translation>
+    </message>
+    <message>
+        <source>setLineShade(shade, [&quot;name&quot;])
+
+Sets the shading of the line color of the object &quot;name&quot; to &quot;shade&quot;.
+&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
+(full color intensity). If &quot;name&quot; is not given the currently selected item
+is used.
+
+May raise ValueError if the line shade is out of bounds.
+</source>
+        <translation>setLineShade(intensitat, [&quot;nom&quot;])
+
+Estableix la intensitat del color de la línea de contorn de l&apos;objecte &quot;nom&quot;
+a &quot;intensitat&quot;.&quot;intensitat&quot; ha de ser un valor enter entre 0 (més clar) i 100 
+(intensitat total). Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem 
+seleccionat.
+
+Pot generar un ValueError si &quot;intensitat&quot; està fora de marges.
+</translation>
+    </message>
+    <message>
+        <source>setLineJoin(join, [&quot;name&quot;])
+
+Sets the line join style of the object &quot;name&quot; to the style &quot;join&quot;.
+If &quot;name&quot; is not given the currently selected item is used. There are
+predefined constants for join - JOIN_&lt;type&gt;.
+</source>
+        <translation>setLineJoin(Unio, [&quot;nom&quot;])
+
+Estableix l&apos;estil d&apos;unió de l&apos;objecte &quot;nom&quot; a l&apos;estil &quot;join&quot;.
+Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat. Hi ha
+constants predefinides d&apos;unions - JOIN_&lt;tipus&gt;.
+</translation>
+    </message>
+    <message>
+        <source>setLineEnd(endtype, [&quot;name&quot;])
+
+Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&quot;.
+If &quot;name&quot; is not given the currently selected item is used. There are
+predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
+</source>
+        <translation>setLsetLineEnd(Final, [&quot;nom&quot;])
+
+Estableix l&apos;estil de tancament de l&apos;objecte &quot;nom&quot; a l&apos;estil &quot;final&quot;.
+Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat. Hi ha
+constants predefinides de tancaments - CAP_&lt;tipus&gt;.
+</translation>
+    </message>
+    <message>
+        <source>setLineStyle(style, [&quot;name&quot;])
+
+Sets the line style of the object &quot;name&quot; to the style &quot;style&quot;. If &quot;name&quot;
+is not given the currently selected item is used. There are predefined
+constants for &quot;style&quot; - LINE_&lt;style&gt;.
+</source>
+        <translation>setLsetLineStyle(estil, [&quot;nom&quot;])
+
+Estableix l&apos;estil de línia de l&apos;objecte &quot;nom&quot; a l&apos;estil &quot;estil&quot;.
+Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat. Hi ha
+constants predefinides d&apos;estils de línia - LINE_&lt;tipus&gt;.
+</translation>
+    </message>
+    <message>
+        <source>setFillShade(shade, [&quot;name&quot;])
+
+Sets the shading of the fill color of the object &quot;name&quot; to &quot;shade&quot;.
+&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
+(full Color intensity). If &quot;name&quot; is not given the currently selected
+Item is used.
+
+May raise ValueError if the fill shade is out of bounds.
+</source>
+        <translation>setLineShade(intensitat, [&quot;nom&quot;])
+
+Estableix la intensitat del color d&apos;ompliment de l&apos;objecte &quot;nom&quot; a &quot;intensitat&quot;
+&quot;intensitat&quot; ha de ser un valor enter entre 0 (més clar) i 100 
+(intensitat total). Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem 
+seleccionat.
+
+Pot generar un ValueError si la intensitat està fora de marges.
+</translation>
+    </message>
+    <message>
+        <source>setCornerRadius(radius, [&quot;name&quot;])
+
+Sets the corner radius of the object &quot;name&quot;. The radius is expressed
+in points. If &quot;name&quot; is not given the currently selected item is used.
+
+May raise ValueError if the corner radius is negative.
+</source>
+        <translation>setCornerRadius(radi, [&quot;nom&quot;])
+
+Estableix el radi d&apos;arrodoniment de l&apos;objecte &quot;nom&quot;. El radi està expressat
+en punts. Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat.
+
+Pot generar un ValueError si el radi és negatiu.
+</translation>
+    </message>
+    <message>
+        <source>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
+
+Sets the line style of the object &quot;name&quot; to the named style &quot;namedStyle&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise NotFoundError if the line style doesn&apos;t exist.
+</source>
+        <translation>setMultiLine(&quot;nomEstil&quot;, [&quot;nom&quot;])
+
+Estableix l&apos;estil de línia de l&apos;objecte &quot;nom&quot; a &quot;nomEstil&quot;.
+Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat.
+
+Pot generar un NotFoundError si l&apos;estil de línia no existeix.
+</translation>
+    </message>
+    <message>
+        <source>progressReset()
+
+Cleans up the Scribus progress bar previous settings. It is called before the
+new progress bar use. See progressSet.
+</source>
+        <translation>progressReset()
+
+Buida la barra de progrés de l&apos;Scribus. Es fa servir abans de fer servir
+una nova barra de progrés. Mireu ProgressSet.
+</translation>
+    </message>
+    <message>
+        <source>progressTotal(max)
+
+Sets the progress bar&apos;s maximum steps value to the specified number.
+See progressSet.
+</source>
+        <translation>progressTotal(max)
+
+Estableix el màxim número de salts d&apos;una barra de progrés al número.
+Mireu progressSet.
+</translation>
+    </message>
+    <message>
+        <source>progressSet(nr)
+
+Set the progress bar position to &quot;nr&quot;, a value relative to the previously set
+progressTotal. The progress bar uses the concept of steps; you give it the
+total number of steps and the number of steps completed so far and it will
+display the percentage of steps that have been completed. You can specify the
+total number of steps with progressTotal(). The current number of steps is set
+with progressSet(). The progress bar can be rewound to the beginning with
+progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
+</source>
+        <translation>progressSet(nr)
+
+Estableix la posició de la barra de progrés a &quot;nr&quot;, un valor relatiu al de 
+progressTotal. La barra de progrés fa servir el concepte de passes; pits donar 
+el número total de passes i el número total de passes fetes i es mostrarà
+el percentatge de passes que s&apos;han completat. Pots especificar el número total 
+de passes amb progressTotal(). El número actual de passes es passa amb 
+progressSet(). La barra de progrés pot tornar-se al principi amb progressReset(). 
+[basat en la informació passada la documentació de QT de TrollTech]
+</translation>
+    </message>
+    <message>
+        <source>setCursor()
+
+[UNSUPPORTED!] This might break things, so steer clear for now.
+</source>
+        <translation>setCursor()
+
+[NO SUPORTAT!] Això farà anar malament, per tant no l&apos;utilitzeu per ara.
+</translation>
+    </message>
+    <message>
+        <source>docChanged(bool)
+
+Enable/disable save icon in the Scribus icon bar and the Save menu item. It&apos;s
+useful to call this procedure when you&apos;re changing the document, because Scribus
+won&apos;t automatically notice when you change the document using a script.
+</source>
+        <translation>docChanged(bool)
+
+Activa/desactiva la icona de desar en la barra d&apos;icones i el menu de l&apos;Scribus. És 
+útil cridar aquest procediment quan estas canviant el document amb una
+seqüència, perquè Scribus no se n&apos;adonarà automàticament dels canvis.
+</translation>
+    </message>
+    <message>
+        <source>defineColor(&quot;name&quot;, c, m, y, k)
+
+Defines a new color &quot;name&quot;. The color Value is defined via four components:
+c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
+the range from 0 to 255.
+
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>defineColor(&quot;nom&quot;, c, m, y, k)
+
+Defineix un nou color &quot;nom&quot;. El valor del color està definit amb els quatre components:
+c=cian, m=Magenta, y=Groc i k=Negre. Els components de color han d&apos;estar dins
+del rang que va des de 0 a 255.
+
+Pot provocar un ValueError si s&apos;especifica un color invàlid.
+</translation>
+    </message>
+    <message>
+        <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
+
+Returns the corner radius of the object &quot;name&quot;. The radius is
+expressed in points. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>getCornerRadius([&quot;nom&quot;]) -&gt; integer
+
+Retorna el radi d&apos;arrodoniment de l&apos;objecte &quot;nom&quot;. El radi està
+expressat en punts. Si no especifiquem &quot;nom&quot; es fa servir 
+l&apos;ítem seleccionat.
+</translation>
+    </message>
+    <message>
+        <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
+
+Returns a (x, y) tuple with the position of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+The position is expressed in the actual measurement unit of the document
+- see UNIT_&lt;type&gt; for reference.
+</source>
+        <translation>getPosition([&quot;nom&quot;]) -&gt; (x,y)
+
+Retorna una parella (x,y) amb la posició de l&apos;objecte &quot;nom&quot;.
+Si no especifiquem &quot;nom&quot; es fa servir l&apos;ítem seleccionat.
+La posició està expressada en les unitats de mesura del document
+- mireu UNIT_&lt;tipus&gt; per referència.
+</translation>
+    </message>
+    <message>
+        <source>rotateObjectAbs(rot [, &quot;name&quot;])
+
+Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
+mean counter clockwise rotation. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>rotateObjectAbs(rot [,&quot;nom&quot;])
+
+Estableix la rotació de l&apos;objecte &quot;nom&quot; a &quot;rot&quot;. Els valors positius
+signifiquen rotació horaria. Si no especifiquem &quot;nom&quot; es fa servir 
+l&apos;ítem seleccionat.
+</translation>
+    </message>
+</context>
+<context>
     <name>About</name>
+    <message>
+        <source>About Scribus%1%2</source>
+        <translation type="obsolete">Quant a Scribus %1%2</translation>
+    </message>
     <message>
         <source>%1. %2 %3 </source>
         <translation>%1. %2 %3</translation>
@@ -160,41 +2419,52 @@
         <translation>&amp;Tanca</translation>
     </message>
     <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation type="obsolete">Aquest panell ensenya la versió, data de creació i 
+el suport de llibreries de Scribus
+C-C-T equival a suport per C=CUPS C=littlecms T=TIFF
+La falta de llibreries està indicat per un *
+</translation>
+    </message>
+    <message>
         <source>Official Translations and Translators:</source>
-        <translation type="unfinished"></translation>
+        <translation>Traduccions oficials i Traductors:</translation>
     </message>
     <message>
         <source>Esperanto:</source>
-        <translation type="unfinished"></translation>
+        <translation>Esperanto:</translation>
     </message>
     <message>
         <source>Korean:</source>
-        <translation type="unfinished"></translation>
+        <translation>Coreà:</translation>
     </message>
     <message>
         <source>Serbian:</source>
-        <translation type="unfinished"></translation>
+        <translation>Serbi:</translation>
     </message>
     <message>
         <source>Spanish:</source>
-        <translation type="unfinished"></translation>
+        <translation>Espanyol:</translation>
     </message>
     <message>
         <source>Previous Translation Contributors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Antics Col.laboradors en Traduccions:</translation>
     </message>
     <message>
         <source>Catalan:</source>
-        <translation type="unfinished"></translation>
+        <translation>Català:</translation>
     </message>
     <message>
         <source>About Scribus %1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>This panel shows the version, build date and
  compiled in library support in Scribus
-The C-C-T-F equates to C=CUPS C=littlecms T=TIFF support F=Fontconfig support.
+The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
 Missing library support is indicated by a *</source>
         <translation type="unfinished"></translation>
     </message>
@@ -977,31 +3247,31 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
     <message>
         <source>&amp;Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tipus:</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;anvia...</translation>
     </message>
     <message>
         <source>&amp;Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pàgina:</translation>
     </message>
     <message>
         <source>&amp;X-Pos</source>
-        <translation type="unfinished"></translation>
+        <translation>Posició &amp;X</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation type="unfinished">Posició &amp;Y:</translation>
+        <translation>Posició &amp;Y:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">D&apos;ac&amp;ord</translation>
+        <translation>D&apos;ac&amp;ord</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel.la</translation>
+        <translation>&amp;Cancel.la</translation>
     </message>
 </context>
 <context>
@@ -1045,13 +3315,6 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancel.la</translation>
-    </message>
-</context>
-<context>
-    <name>ArrowChooser</name>
-    <message>
-        <source>None</source>
-        <translation type="unfinished">Cap</translation>
     </message>
 </context>
 <context>
@@ -1481,12 +3744,13 @@ Es recomana activar-lo si tens colors en el teu document.</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Cap</translation>
+        <translation>Cap</translation>
     </message>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
 It&apos;s a reserved name for transparent color</source>
-        <translation type="unfinished"></translation>
+        <translation>No pots crear un color que es digui &quot;%1&quot;.
+És un nom reservat per un color transparent</translation>
     </message>
 </context>
 <context>
@@ -1584,13 +3848,16 @@ It&apos;s a reserved name for transparent color</source>
         <translation>Cap</translation>
     </message>
     <message>
-        <source>Move Vector</source>
-        <translation type="unfinished"></translation>
+        <source> mm</source>
+        <translation>mm</translation>
     </message>
     <message>
-        <source>Move the start of the Gradient Vector with the left Mouse Button pressed and
-nove the end of the Gradient Vector with the right Mouse Button pressed</source>
-        <translation type="unfinished"></translation>
+        <source> in</source>
+        <translation>po</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -1743,24 +4010,36 @@ Això es pot posar en les Preferències.</translation>
         <translation>Esborra Color</translation>
     </message>
     <message>
+        <source>Delete color:</source>
+        <translation>Esborra Color:</translation>
+    </message>
+    <message>
+        <source>?</source>
+        <translation>?</translation>
+    </message>
+    <message>
+        <source>Replace it with:</source>
+        <translation>Canvia&apos;l per:</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="obsolete">D&apos;acord</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="obsolete">Cancel.la</translation>
+    </message>
+    <message>
         <source>None</source>
-        <translation type="unfinished">Cap</translation>
-    </message>
-    <message>
-        <source>Delete Color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Replace With:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cap</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">D&apos;ac&amp;ord</translation>
+        <translation>D&apos;ac&amp;ord</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel.la</translation>
+        <translation>&amp;Cancel.la</translation>
     </message>
 </context>
 <context>
@@ -1768,6 +4047,10 @@ Això es pot posar en les Preferències.</translation>
     <message>
         <source>Delete Pages</source>
         <translation>Esborra Pàgines</translation>
+    </message>
+    <message>
+        <source>Delete from:</source>
+        <translation>Esborra des de:</translation>
     </message>
     <message>
         <source>to:</source>
@@ -1781,9 +4064,28 @@ Això es pot posar en les Preferències.</translation>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancel.la</translation>
     </message>
+</context>
+<context>
+    <name>DmF</name>
     <message>
-        <source>Delete From:</source>
-        <translation type="unfinished"></translation>
+        <source>Missing Font</source>
+        <translation>Font Perduda</translation>
+    </message>
+    <message>
+        <source>The Font %1 is not installed.</source>
+        <translation>La Font %1 no està instal.lada.</translation>
+    </message>
+    <message>
+        <source>Use</source>
+        <translation>Usa</translation>
+    </message>
+    <message>
+        <source>instead</source>
+        <translation>en comptes</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>D&apos;acord</translation>
     </message>
 </context>
 <context>
@@ -2425,11 +4727,11 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Mida:</translation>
+        <translation>&amp;Mida:</translation>
     </message>
     <message>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mida de les imatges. 100% per no canviar, 200% per dues vegades més gros etc.</translation>
     </message>
 </context>
 <context>
@@ -2575,7 +4877,7 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Cap</translation>
+        <translation>Cap</translation>
     </message>
 </context>
 <context>
@@ -2701,11 +5003,11 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Afegir font seleccionada a l&apos;Estil, Menu Font</translation>
     </message>
     <message>
         <source>Leave preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortir de la previsualització</translation>
     </message>
 </context>
 <context>
@@ -2795,19 +5097,20 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     <message>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ho sento, no hi ha manual! Si us plau mira: http://docs.scribus.net per la documentació actualitzada
+i www.scribus.net per descàrregues.</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Contingut</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished">Enllaç</translation>
+        <translation>Enllaç</translation>
     </message>
     <message>
         <source>Scribus Online Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuda en línia de l&apos;Scribus</translation>
     </message>
 </context>
 <context>
@@ -2875,11 +5178,11 @@ Un valor de 0 significa infinites separacions.</translation>
     </message>
     <message>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation type="unfinished"></translation>
+        <translation>Consells de &amp;separació</translation>
     </message>
     <message>
         <source>Consecutive Hyphenations &amp;Allowed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Separacions consecutives &amp;Permeses:</translation>
     </message>
 </context>
 <context>
@@ -2887,6 +5190,10 @@ Un valor de 0 significa infinites separacions.</translation>
     <message>
         <source>Insert Page</source>
         <translation>Insereix Pàgina</translation>
+    </message>
+    <message>
+        <source>&amp;Inserting</source>
+        <translation>&amp;Inserint</translation>
     </message>
     <message>
         <source>Page(s)</source>
@@ -2905,6 +5212,14 @@ Un valor de 0 significa infinites separacions.</translation>
         <translation>al Final</translation>
     </message>
     <message>
+        <source>Inserting</source>
+        <translation>Inserint</translation>
+    </message>
+    <message>
+        <source>&amp;Template (Left Page):</source>
+        <translation>Plan&amp;tilla (Pàgina Esquerra):</translation>
+    </message>
+    <message>
         <source>&amp;Template:</source>
         <translation>&amp;Plantilla:</translation>
     </message>
@@ -2913,24 +5228,16 @@ Un valor de 0 significa infinites separacions.</translation>
         <translation>Normal</translation>
     </message>
     <message>
+        <source>Template (Right Page):</source>
+        <translation>Plantilla (Pàgina Dreta):</translation>
+    </message>
+    <message>
         <source>&amp;OK</source>
         <translation>D&apos;ac&amp;ord</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancel.la</translation>
-    </message>
-    <message>
-        <source>&amp;Insert</source>
-        <translation type="unfinished">&amp;Insereix</translation>
-    </message>
-    <message>
-        <source>Template (&amp;Left Page):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Template (&amp;Right Page):</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3301,8 +5608,20 @@ Un valor de 0 significa infinites separacions.</translation>
         <translation>Llargada:</translation>
     </message>
     <message>
-        <source>pt</source>
-        <translation type="unfinished">pt</translation>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>po</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -3339,12 +5658,53 @@ Un valor de 0 significa infinites separacions.</translation>
         <translation>Importa Pàgina(es)</translation>
     </message>
     <message>
+        <source>From Document:</source>
+        <translation>Des del Document:</translation>
+    </message>
+    <message>
+        <source>Change...</source>
+        <translation>Canvia...</translation>
+    </message>
+    <message>
+        <source>Import Page(s):</source>
+        <translation>Importa Pàgina(es):</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation>Insereix una llista de tokens separats per coma
+un token pot ser * per totes, 1-5 per
+un rang de pàgines o un número sol.
+</translation>
+    </message>
+    <message>
         <source> from 0</source>
         <translation>Des de 0</translation>
     </message>
     <message>
         <source>Create Page(s)</source>
         <translation>Crea Pàgina(es)</translation>
+    </message>
+    <message>
+        <source>before Page</source>
+        <translation>abans Pàgina</translation>
+    </message>
+    <message>
+        <source>after Page</source>
+        <translation>després Pàgina</translation>
+    </message>
+    <message>
+        <source>at End</source>
+        <translation>al Final</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Importa</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancel.la</translation>
     </message>
     <message>
         <source>Open</source>
@@ -3361,71 +5721,6 @@ Un valor de 0 significa infinites separacions.</translation>
     <message>
         <source> from %1</source>
         <translation>Des de %1</translation>
-    </message>
-    <message>
-        <source>&amp;From Document:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Chan&amp;ge...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Import Page(s):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Import Template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens importWhereData
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Before Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>After Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>At End</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Importa</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel.la</translation>
-    </message>
-</context>
-<context>
-    <name>MissingFont</name>
-    <message>
-        <source>Missing Font</source>
-        <translation type="unfinished">Font Perduda</translation>
-    </message>
-    <message>
-        <source>The Font %1 is not installed.</source>
-        <translation type="unfinished">La Font %1 no està instal.lada.</translation>
-    </message>
-    <message>
-        <source>Use</source>
-        <translation type="unfinished">Usa</translation>
-    </message>
-    <message>
-        <source>instead</source>
-        <translation type="unfinished">en comptes</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished">D&apos;ac&amp;ord</translation>
     </message>
 </context>
 <context>
@@ -3447,28 +5742,24 @@ a range of pages or a single page number.</source>
         <translation>a:</translation>
     </message>
     <message>
+        <source>before Page</source>
+        <translation>abans Pàgina</translation>
+    </message>
+    <message>
+        <source>after Page</source>
+        <translation>després Pàgina</translation>
+    </message>
+    <message>
+        <source>at End</source>
+        <translation>al Final</translation>
+    </message>
+    <message>
         <source>&amp;OK</source>
         <translation>D&apos;ac&amp;ord</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancel.la</translation>
-    </message>
-    <message>
-        <source>Move Page(s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Before Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>After Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>At End</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3629,7 +5920,7 @@ A&amp;rrodonits:</translation>
     </message>
     <message>
         <source>Custom Spacing</source>
-        <translation>Espai Personalitzat</translation>
+        <translation>Personalització Espaiat</translation>
     </message>
     <message>
         <source>&amp;Kerning:</source>
@@ -4075,15 +6366,7 @@ Si us plau tria&apos;n un altre.</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Start Arrow:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>End Arrow:</source>
-        <translation type="unfinished"></translation>
+        <translation>Escriptura d&apos;esquerra a dreta</translation>
     </message>
 </context>
 <context>
@@ -4460,6 +6743,18 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <source>O&amp;utside:</source>
         <translation>&amp;Fora:</translation>
     </message>
+    <message>
+        <source>Executive</source>
+        <translation>Executiu</translation>
+    </message>
+    <message>
+        <source>Folio</source>
+        <translation>Foli</translation>
+    </message>
+    <message>
+        <source>Ledger</source>
+        <translation>Llibre major</translation>
+    </message>
 </context>
 <context>
     <name>NewTm</name>
@@ -4687,10 +6982,6 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
         <translation>&amp;Resolució:</translation>
     </message>
     <message>
-        <source>Com&amp;press Text and Vector Graphics</source>
-        <translation type="unfinished">Com&amp;primir Text i Gràfics Vectorials</translation>
-    </message>
-    <message>
         <source>Image Settings</source>
         <translation>Paràmetres d&apos;Imatge</translation>
     </message>
@@ -4773,10 +7064,6 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     <message>
         <source>&amp;Fonts</source>
         <translation>&amp;Fonts</translation>
-    </message>
-    <message>
-        <source>Enable &amp;Presentation Effects</source>
-        <translation type="unfinished">Activa Efectes de &amp;Presentació</translation>
     </message>
     <message>
         <source>Page</source>
@@ -4885,10 +7172,6 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
         <translation>&amp;Efectes a totes les Pàgines</translation>
-    </message>
-    <message>
-        <source>E&amp;xtras</source>
-        <translation type="unfinished">E&amp;xtres</translation>
     </message>
     <message>
         <source>&amp;Use Encryption</source>
@@ -5318,24 +7601,36 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
         <translation>Fitxers PDF (*.pdf);;Tots els fitxers (*)</translation>
     </message>
     <message>
+        <source>Compress Text and &amp;Vector Graphics</source>
+        <translation>Comprimir Text i gràfics &amp;Vectorials</translation>
+    </message>
+    <message>
+        <source>En&amp;able Presentation Effects</source>
+        <translation>&amp;Activa Efectes de Presentació</translation>
+    </message>
+    <message>
+        <source>&amp;Presentation</source>
+        <translation>&amp;Presentació</translation>
+    </message>
+    <message>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Rotació:</translation>
+        <translation>&amp;Rotació:</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Agrupa totes les Font&amp;s</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonts a agrupar:</translation>
     </message>
     <message>
         <source>Mirror Page(s) horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Enmiralla la Pàgina(es) horitzontalment</translation>
     </message>
     <message>
         <source>Mirror Page(s) vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Enmiralla la Pàgina(es) verticalment</translation>
     </message>
 </context>
 <context>
@@ -5389,7 +7684,7 @@ d&apos;un petit ralentiment de la previsualització. Només afecta les fonts Typ
     <message>
         <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Dóna un punt de vista més agradabe de fonts True Type, Open Type, EPS, PDF i 
+        <translation type="obsolete">Dóna un punt de vista més agradabe de fonts True Type, Open Type, EPS, PDF i 
 gràfics vectorials en la previsualització, a canvi d&apos;un petit ralentiment</translation>
     </message>
     <message>
@@ -5417,6 +7712,20 @@ gràfics vectorials en la previsualització, a canvi d&apos;un petit ralentiment
         <translation>Activa/desactiva la placa de tinta K(Negre)</translation>
     </message>
     <message>
+        <source>A way of switching some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="obsolete">Una forma de canviar algunes de les ombres grises que estan compostes
+de cian, groc i magenta i al seu lloc fer servir negre.
+UCR pot afectar parts d&apos;imatges que són neutrals i/o amb tons foscos
+que estan propers al gris. Fes servir això millora la impressió d&apos;algunes imatges
+però cal alguna experimentació en cada un dels casos.
+UCR redueix la possibilitat de sobresaturació amb tintes CMY.</translation>
+    </message>
+    <message>
         <source>All</source>
         <translation>Tot</translation>
     </message>
@@ -5427,12 +7736,309 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">Una forma d&apos;apagar algunes de les ombres grises que estan composades
-per cian, groc i magenta però fan servir negre
-UCR pot afectar parts de imatges que són de color neutral o tons foscos
+        <translation>Una forma d&apos;apagar algunes de les intensitats de grisos que estan 
+composades per cian, groc i magenta però es veuen negres.
+UCR pot afectar parts de imatges que són de color neutral o de tons foscos
 propers a gris. Fes servir això pot millorar la impressió d&apos;algunes imatges 
-però cal algunes proves i experimentació per cada cas
+però cal algunes proves i experimentació per cada cas.
 UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
+vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation>Dóna una visió més agradable de les fonts TrueType, OpenType, EPS, PDF i 
+els gràfics vectorials en la previsualització, però la previsualitació serà més lenta</translation>
+    </message>
+</context>
+<context>
+    <name>Page</name>
+    <message>
+        <source>Copy Here</source>
+        <translation>Copia Aquí</translation>
+    </message>
+    <message>
+        <source>Move Here</source>
+        <translation>Mou Aquí</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancel.la</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation>&amp;Enganxa</translation>
+    </message>
+    <message>
+        <source>Show &amp;Margins</source>
+        <translation>Mostra &amp;Marges</translation>
+    </message>
+    <message>
+        <source>Show &amp;Frames</source>
+        <translation>Mostra &amp;Marcs</translation>
+    </message>
+    <message>
+        <source>Show &amp;Images</source>
+        <translation>Mostra &amp;Imatges</translation>
+    </message>
+    <message>
+        <source>Show &amp;Grid</source>
+        <translation>Mostra &amp;Reixa</translation>
+    </message>
+    <message>
+        <source>Show G&amp;uides</source>
+        <translation>Mostra G&amp;uies</translation>
+    </message>
+    <message>
+        <source>Show &amp;Baseline Grid</source>
+        <translation>Mostra Reixa &amp;Base</translation>
+    </message>
+    <message>
+        <source>Sn&amp;ap to Grid</source>
+        <translation>Desplaça &amp;a la Reixa</translation>
+    </message>
+    <message>
+        <source>Sna&amp;p to Guides</source>
+        <translation>Des&amp;plaça a les Guies</translation>
+    </message>
+    <message>
+        <source>Picture</source>
+        <translation>Imatge</translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation>Fitxer:</translation>
+    </message>
+    <message>
+        <source>Original PPI: </source>
+        <translation>Original PPI:</translation>
+    </message>
+    <message>
+        <source>Actual PPI: </source>
+        <translation>Actual PPI:</translation>
+    </message>
+    <message>
+        <source>Linked Text</source>
+        <translation>Text enllaçat</translation>
+    </message>
+    <message>
+        <source>Text Frame</source>
+        <translation>Marc de Text</translation>
+    </message>
+    <message>
+        <source>Text on a Path</source>
+        <translation>Text en un Camí</translation>
+    </message>
+    <message>
+        <source>Paragraphs: </source>
+        <translation>Paràgrafs:</translation>
+    </message>
+    <message>
+        <source>Words: </source>
+        <translation>Paraules:</translation>
+    </message>
+    <message>
+        <source>Chars: </source>
+        <translation>Lletres:</translation>
+    </message>
+    <message>
+        <source>Print: </source>
+        <translation>Impressió:</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation>Activat</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>Desactivat</translation>
+    </message>
+    <message>
+        <source>In&amp;fo</source>
+        <translation>In&amp;formació</translation>
+    </message>
+    <message>
+        <source>&amp;Get Picture...</source>
+        <translation>&amp;Obtenir Imatge...</translation>
+    </message>
+    <message>
+        <source>I&amp;mage Visible</source>
+        <translation>I&amp;matge Visible</translation>
+    </message>
+    <message>
+        <source>&amp;Update Picture</source>
+        <translation>&amp;Actualitza Imatge</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Picture</source>
+        <translation>&amp;Edita Imatge</translation>
+    </message>
+    <message>
+        <source>&amp;Adjust Frame to Picture</source>
+        <translation>&amp;Ajusta Marc a la Imatge</translation>
+    </message>
+    <message>
+        <source>&amp;Get Text...</source>
+        <translation>&amp;Obtenir Text...</translation>
+    </message>
+    <message>
+        <source>&amp;Append Text...</source>
+        <translation>&amp;Afegeix Text...</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Text...</source>
+        <translation>&amp;Editar Text...</translation>
+    </message>
+    <message>
+        <source>Is PDF &amp;Bookmark</source>
+        <translation>Es un P&amp;unt de PDF</translation>
+    </message>
+    <message>
+        <source>Is PDF A&amp;nnotation</source>
+        <translation>És una A&amp;notació de PDF</translation>
+    </message>
+    <message>
+        <source>Annotation P&amp;roperties</source>
+        <translation>P&amp;ropietats Anotació</translation>
+    </message>
+    <message>
+        <source>Field P&amp;roperties</source>
+        <translation>P&amp;ropietats de Camp</translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation>Opcions &amp;PDF</translation>
+    </message>
+    <message>
+        <source>Edit Text...</source>
+        <translation>Edita Text...</translation>
+    </message>
+    <message>
+        <source>&amp;Lock</source>
+        <translation>&amp;Bloqueja</translation>
+    </message>
+    <message>
+        <source>Un&amp;lock</source>
+        <translation>DesB&amp;loqueja</translation>
+    </message>
+    <message>
+        <source>Lock Object &amp;Size</source>
+        <translation>Bloqueja &amp;Mida</translation>
+    </message>
+    <message>
+        <source>Unlock Object &amp;Size</source>
+        <translation>Desbloqueja M&amp;ida</translation>
+    </message>
+    <message>
+        <source>Send to S&amp;crapbook</source>
+        <translation>Envia a l&apos;àlbum de &amp;retalls</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation>Envia a la Ca&amp;pa</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Sample Text</source>
+        <translation>&amp;Inserir Text de Mostra</translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation>A&amp;grupa</translation>
+    </message>
+    <message>
+        <source>Un&amp;group</source>
+        <translation>Desa&amp;grupa</translation>
+    </message>
+    <message>
+        <source>Le&amp;vel</source>
+        <translation>Ni&amp;vell</translation>
+    </message>
+    <message>
+        <source>Send to &amp;Back</source>
+        <translation>Envia al &amp;fons</translation>
+    </message>
+    <message>
+        <source>Bring to &amp;Front</source>
+        <translation>Envia a &amp;Davant</translation>
+    </message>
+    <message>
+        <source>&amp;Lower</source>
+        <translation>&amp;Abaixa</translation>
+    </message>
+    <message>
+        <source>&amp;Raise</source>
+        <translation>A&amp;puja</translation>
+    </message>
+    <message>
+        <source>&amp;Picture Frame</source>
+        <translation>&amp;Marc d&apos;Imatge</translation>
+    </message>
+    <message>
+        <source>Pol&amp;ygon</source>
+        <translation>Polí&amp;gon</translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <translation>&amp;Esquemes</translation>
+    </message>
+    <message>
+        <source>&amp;Text Frame</source>
+        <translation>Marc de &amp;Text</translation>
+    </message>
+    <message>
+        <source>&amp;Bezier Curve</source>
+        <translation>Corba &amp;Bezier</translation>
+    </message>
+    <message>
+        <source>Conve&amp;rt to</source>
+        <translation>Conve&amp;rteix a</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation>T&amp;alla</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Copia</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>Es&amp;borra</translation>
+    </message>
+    <message>
+        <source>C&amp;lear Contents</source>
+        <translation>Neteja C&amp;ontingut</translation>
+    </message>
+    <message>
+        <source>Show P&amp;roperties...</source>
+        <translation>Mostra P&amp;ropietats...</translation>
+    </message>
+    <message>
+        <source>Hide P&amp;roperties...</source>
+        <translation>Amaga P&amp;ropietats...</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Cap</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Avís</translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your Text?</source>
+        <translation>Realment vols esborrar tot el Text?</translation>
+    </message>
+    <message>
+        <source>The Program</source>
+        <translation>El Programa</translation>
+    </message>
+    <message>
+        <source>is missing!</source>
+        <translation>està perdut!</translation>
+    </message>
+    <message>
+        <source>Copy of</source>
+        <translation>Còpia de</translation>
     </message>
 </context>
 <context>
@@ -5554,6 +8160,26 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation>Propietats del Polígon</translation>
     </message>
     <message>
+        <source>Corn&amp;ers:</source>
+        <translation>Can&amp;tos:</translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation>&amp;Rotació:</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation>Aplica &amp;Factor</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>&amp;Factor:</source>
+        <translation>&amp;Factor:</translation>
+    </message>
+    <message>
         <source>&amp;OK</source>
         <translation>D&apos;ac&amp;ord</translation>
     </message>
@@ -5561,49 +8187,26 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancel.la</translation>
     </message>
-</context>
-<context>
-    <name>PolygonWidget</name>
-    <message>
-        <source>Corn&amp;ers:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Rotació:</translation>
-    </message>
-    <message>
-        <source>Apply &amp;Factor</source>
-        <translation type="unfinished">Aplica &amp;Factor</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="unfinished">%</translation>
-    </message>
-    <message>
-        <source>&amp;Factor:</source>
-        <translation type="unfinished">&amp;Factor:</translation>
-    </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de cantos pels polígons</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation type="unfinished">Graus de rotació dels polígons</translation>
+        <translation>Graus de rotació dels polígons</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="unfinished">Aplica factor Convex/Concau per canviar la forma del Polígon</translation>
+        <translation>Aplica factor Convex/Concau per canviar la forma del Polígon</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
-        <translation type="unfinished">Polígon de Mostra</translation>
+        <translation>Polígon de Mostra</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation type="unfinished">Un valor negatiu farà el polígon concau ( o de forma estrellada),
+        <translation>Un valor negatiu farà el polígon concau ( o de forma estrellada),
 i un valor positiu el farà convex</translation>
     </message>
 </context>
@@ -5640,6 +8243,10 @@ i un valor positiu el farà convex</translation>
     <message>
         <source>Display</source>
         <translation>Pantalla</translation>
+    </message>
+    <message>
+        <source>External Tools</source>
+        <translation>Eines Externes</translation>
     </message>
     <message>
         <source>Misc.</source>
@@ -5682,6 +8289,10 @@ i un valor positiu el farà convex</translation>
         <translation>Piques (p)</translation>
     </message>
     <message>
+        <source>Mouse Settings</source>
+        <translation>Paràmetres del Ratolí</translation>
+    </message>
+    <message>
         <source>&amp;Wheel Jump:</source>
         <translation>&amp;Salt de Roda:</translation>
     </message>
@@ -5692,6 +8303,10 @@ i un valor positiu el farà convex</translation>
     <message>
         <source>&amp;Grab Radius:</source>
         <translation>A&amp;gafar Radi:</translation>
+    </message>
+    <message>
+        <source>Menus</source>
+        <translation>Menus</translation>
     </message>
     <message>
         <source>&amp;Recent Documents:</source>
@@ -5808,6 +8423,66 @@ i un valor positiu el farà convex</translation>
     <message>
         <source>&amp;Interval:</source>
         <translation>&amp;Interval:</translation>
+    </message>
+    <message>
+        <source>Grid Layout</source>
+        <translation>Distribució de Reixa</translation>
+    </message>
+    <message>
+        <source>M&amp;inor Grid Spacing:</source>
+        <translation>Espai pet&amp;it de Reixa:</translation>
+    </message>
+    <message>
+        <source>Ma&amp;jor Grid Spacing:</source>
+        <translation>Espai &amp;Gran de Reixa:</translation>
+    </message>
+    <message>
+        <source>Guide &amp;Snap Distance:</source>
+        <translation>De&amp;splaçament de Guia:</translation>
+    </message>
+    <message>
+        <source>Grid Colors</source>
+        <translation>Colors de Reixa</translation>
+    </message>
+    <message>
+        <source>Min&amp;or Grid Color:</source>
+        <translation>Color de Reixa Pe&amp;tita:</translation>
+    </message>
+    <message>
+        <source>Majo&amp;r Grid Color:</source>
+        <translation>Color de Reixa G&amp;ran:</translation>
+    </message>
+    <message>
+        <source>&amp;User Guides Color:</source>
+        <translation>Color de Guies d&apos;&amp;Usuari:</translation>
+    </message>
+    <message>
+        <source>Base&amp;line Grid Color:</source>
+        <translation>Co&amp;lor de Reixa Base:</translation>
+    </message>
+    <message>
+        <source>Placing</source>
+        <translation>Colocant</translation>
+    </message>
+    <message>
+        <source>In the &amp;Background</source>
+        <translation>e&amp;n Segon Pla</translation>
+    </message>
+    <message>
+        <source>In the Fore&amp;ground</source>
+        <translation>en &amp;Primer Pla</translation>
+    </message>
+    <message>
+        <source>Baseline Grid</source>
+        <translation>Reixa Base</translation>
+    </message>
+    <message>
+        <source>O&amp;n</source>
+        <translation>O&amp;n</translation>
+    </message>
+    <message>
+        <source>O&amp;ff</source>
+        <translation>O&amp;ff</translation>
     </message>
     <message>
         <source>Subscript</source>
@@ -5950,6 +8625,22 @@ i un valor positiu el farà convex</translation>
         <translation>Color d&apos;&amp;Emplenat:</translation>
     </message>
     <message>
+        <source>Corn&amp;ers:</source>
+        <translation>Vor&amp;es:</translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation>&amp;Rotació:</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation>Aplica &amp;Factor</translation>
+    </message>
+    <message>
+        <source>&amp;Factor:</source>
+        <translation>&amp;Factor:</translation>
+    </message>
+    <message>
         <source>Other Options</source>
         <translation>Altres Opcions</translation>
     </message>
@@ -5974,8 +8665,28 @@ i un valor positiu el farà convex</translation>
         <translation>Gran</translation>
     </message>
     <message>
+        <source>Display Pages &amp;Side by Side</source>
+        <translation>Mostra Pàgines Co&amp;stat per Costat</translation>
+    </message>
+    <message>
+        <source>Page Colors</source>
+        <translation>Colors de Pàgina</translation>
+    </message>
+    <message>
+        <source>&amp;Background:</source>
+        <translation>Sego&amp;n Pla:</translation>
+    </message>
+    <message>
+        <source>&amp;Margins:</source>
+        <translation>&amp;Marges:</translation>
+    </message>
+    <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
         <translation>Mostra àrea no imprimible en C&amp;olor de marge</translation>
+    </message>
+    <message>
+        <source>Use PDF 1.4 &amp;Transparency Features</source>
+        <translation>Característiques de &amp;Transparècies PDF 1.4</translation>
     </message>
     <message>
         <source>&amp;Adjust Display Size</source>
@@ -6020,6 +8731,14 @@ i un valor positiu el farà convex</translation>
     <message>
         <source>Apply &amp;Under Color Removal</source>
         <translation>Aplica sobre Elimina&amp;r Color</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>D&apos;ac&amp;ord</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancel.la</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks.
@@ -6148,6 +8867,14 @@ cada vegada que passa el període de temps</translation>
     <message>
         <source>Place the grid in front of your page objects</source>
         <translation>Col.loca la reixa davant dels objectes</translation>
+    </message>
+    <message>
+        <source>Turns on the basegrid</source>
+        <translation>Activa la reixa base</translation>
+    </message>
+    <message>
+        <source>Turns off the basegrid</source>
+        <translation>Desactiva la reixa base</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
@@ -6302,12 +9029,38 @@ cada vegada que passa el període de temps</translation>
         <translation>Gruix de línies</translation>
     </message>
     <message>
+        <source>Number of corners for polygons</source>
+        <translation>Número de vores dels polígons</translation>
+    </message>
+    <message>
+        <source>Degrees of rotation for polygons</source>
+        <translation>Graus de rotació dels polígons</translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation>Aplica factor Convex/Concau per canviar la forma del Polígon</translation>
+    </message>
+    <message>
+        <source>Sample Polygon</source>
+        <translation>Polígon de Mostra</translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation>Un valor negatiu farà el polígon concau ( o de forma estrellada),
+i un valor positiu el farà convex</translation>
+    </message>
+    <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
         <translation>Tria la mida de previsualització en l&apos;àlbum de retalls</translation>
     </message>
     <message>
         <source>Save the scrapbook contents everytime after a change</source>
         <translation>Desa l&apos;àlbum després de cada canvi</translation>
+    </message>
+    <message>
+        <source>When using facing pages, show the two pages side by side</source>
+        <translation>Al fer servir pàgines acarades, motre-les de costat</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -6320,6 +9073,10 @@ cada vegada que passa el període de temps</translation>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
         <translation>Marca l&apos;àrea fora de marges amb el color de marge</translation>
+    </message>
+    <message>
+        <source>Enable transparency features within PDF 1.4 export</source>
+        <translation>Activa característique de transparència amb PDF 1.4</translation>
     </message>
     <message>
         <source>Set the default zoom level</source>
@@ -6352,8 +9109,8 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Una forma d&apos;apagar algunes de les ombres grises que estan composades
-per cian, groc i magenta però fan servir negre
+        <translation>Una forma d&apos;apagar algunes de les intensitats de grisos que estan composades
+per cian, groc i magenta però fan servir negre.
 UCR pot afectar parts de imatges que són de color neutral o tons foscos
 propers a gris. Fes servir això pot millorar la impressió d&apos;algunes imatges 
 però cal algunes proves i experimentació per cada cas
@@ -6384,137 +9141,28 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation>p</translation>
     </message>
     <message>
-        <source>&amp;Language:</source>
-        <translation type="unfinished">&amp;Idioma:</translation>
+        <source>Executive</source>
+        <translation>Executiu</translation>
     </message>
     <message>
-        <source>Select your default language for Scribus to run with.
-Leave this blank to choose based on environment variables.
-You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="unfinished"></translation>
+        <source>Folio</source>
+        <translation>Foli</translation>
     </message>
     <message>
-        <source>Other Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Ledger</source>
+        <translation>Llibre Major</translation>
     </message>
     <message>
-        <source>Show Grid</source>
-        <translation type="unfinished">Mostra Reixa</translation>
+        <source>Legal</source>
+        <translation>Legal</translation>
     </message>
     <message>
-        <source>Major Grid</source>
-        <translation type="unfinished"></translation>
+        <source>Letter</source>
+        <translation>Carta</translation>
     </message>
     <message>
-        <source>Color:</source>
-        <translation type="unfinished">Color:</translation>
-    </message>
-    <message>
-        <source>Spacing:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Minor Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Guide Snap Distance:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Margins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Baseline Grid</source>
-        <translation type="unfinished">Mostra Reixa Base</translation>
-    </message>
-    <message>
-        <source>Show Text Chains</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Frames</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Pictures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Page Background</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+U</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scratch Space</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Placing of Guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In the Background</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In the Foreground</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>External Tools.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color for the basegrid lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the basegrid on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the gridlines on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the guides on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the margins on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the of linked frames on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of frames on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PrefsDialogBase</name>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished">D&apos;ac&amp;ord</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel.la</translation>
+        <source>Tabloid</source>
+        <translation>Tabloide</translation>
     </message>
 </context>
 <context>
@@ -6943,7 +9591,7 @@ Comprova el nom i el camí.</translation>
     <name>QObject</name>
     <message>
         <source>Oook! Wrong arguments! Call: </source>
-        <translation>Ostres! Arguments errònis! Crida:</translation>
+        <translation type="obsolete">Ostres! Arguments errònis! Crida:</translation>
     </message>
     <message>
         <source>Importing text</source>
@@ -7013,7 +9661,7 @@ Comprova el nom i el camí.</translation>
     </message>
     <message>
         <source>Flyers</source>
-        <translation type="unfinished">Quartilles</translation>
+        <translation>Quartilles</translation>
     </message>
     <message>
         <source>Signs</source>
@@ -7152,6 +9800,30 @@ Comprova el nom i el camí.</translation>
         <translation>Desa com &amp;Plantilla...</translation>
     </message>
     <message>
+        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
+        <translation type="obsolete">Ostres! Intentes carregar una imatge a un objecte que no existeix o no està triat!</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
+        <translation type="obsolete">Ostres! Intentes (des)bloquejar un objecte que no existeix! Ni seleccionat.</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
+        <translation type="obsolete">Ostres! Intentes preguntar a un objecte que no existeix! Ni seleccionat.</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
+        <translation type="obsolete">Ostres! Crides un objecte que no existeix!</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
+        <translation type="obsolete">Ostres! Vols esborrar un objecte que no existeix!</translation>
+    </message>
+    <message>
+        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
+        <translation type="obsolete">Ostres! Vols passar text a un objecte que no existeix!</translation>
+    </message>
+    <message>
         <source>S&amp;cripter Manual...</source>
         <translation>Manual de Seqüèn&amp;cies...</translation>
     </message>
@@ -7234,7 +9906,7 @@ Enllaços Externs
     </message>
     <message>
         <source>OO.o Writer Documents</source>
-        <translation>Documents OO.o Writer</translation>
+        <translation type="obsolete">Documents OO.o Writer</translation>
     </message>
     <message>
         <source>Text Files</source>
@@ -7242,218 +9914,573 @@ Enllaços Externs
     </message>
     <message>
         <source>Media Cases</source>
-        <translation type="unfinished"></translation>
+        <translation>Caixes de dispositius</translation>
     </message>
     <message>
         <source>Text Filters</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="unfinished">Tot</translation>
-    </message>
-    <message>
-        <source>pt</source>
-        <translation type="unfinished">pt</translation>
-    </message>
-    <message>
-        <source>mm</source>
-        <translation type="unfinished">mm</translation>
-    </message>
-    <message>
-        <source>in</source>
-        <translation type="unfinished">po</translation>
-    </message>
-    <message>
-        <source>p</source>
-        <translation type="unfinished">p</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="unfinished">pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="unfinished">mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="unfinished">po</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="unfinished">p</translation>
+        <translation>Filtres de Text</translation>
     </message>
     <message>
         <source>Albanian</source>
-        <translation type="unfinished"></translation>
+        <translation>Albanès</translation>
     </message>
     <message>
         <source>Basque</source>
-        <translation type="unfinished"></translation>
+        <translation>Basc</translation>
     </message>
     <message>
         <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
+        <translation>Búlgar</translation>
     </message>
     <message>
         <source>Brazilian</source>
-        <translation type="unfinished"></translation>
+        <translation>Brasil.ler</translation>
     </message>
     <message>
         <source>Catalan</source>
-        <translation type="unfinished">Català</translation>
+        <translation>Català</translation>
     </message>
     <message>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>Xinès</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation type="unfinished">Txec</translation>
+        <translation>Txec</translation>
     </message>
     <message>
         <source>Danish</source>
-        <translation type="unfinished">Danès</translation>
+        <translation>Danès</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation type="unfinished">Holandès</translation>
+        <translation>Holandès</translation>
     </message>
     <message>
         <source>English</source>
-        <translation type="unfinished">Anglès</translation>
+        <translation>Anglès</translation>
     </message>
     <message>
         <source>English (British)</source>
-        <translation type="unfinished"></translation>
+        <translation>Anglès (Britànic)</translation>
     </message>
     <message>
         <source>Esperanto</source>
-        <translation type="unfinished"></translation>
+        <translation>Esperanto</translation>
     </message>
     <message>
         <source>German</source>
-        <translation type="unfinished">Alemany</translation>
+        <translation>Alemany</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation type="unfinished">Finès</translation>
+        <translation>Finès</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="unfinished">Francès</translation>
+        <translation>Francès</translation>
     </message>
     <message>
         <source>Galician</source>
-        <translation type="unfinished"></translation>
+        <translation>Gallec</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation type="unfinished">Grec</translation>
+        <translation>Grec</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation type="unfinished">Hongarès</translation>
+        <translation>Hongarès</translation>
     </message>
     <message>
         <source>Indonesian</source>
-        <translation type="unfinished"></translation>
+        <translation>Indonesi</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation type="unfinished">Italià</translation>
+        <translation>Italià</translation>
     </message>
     <message>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
+        <translation>Coreà</translation>
     </message>
     <message>
         <source>Lithuanian</source>
-        <translation type="unfinished">Lituà</translation>
+        <translation>Lituà</translation>
     </message>
     <message>
         <source>Norwegian (Bokmaal)</source>
-        <translation type="unfinished"></translation>
+        <translation>Noruec (Bokmaal)</translation>
     </message>
     <message>
         <source>Norwegian (Nnyorsk)</source>
-        <translation type="unfinished"></translation>
+        <translation>Noruec (Nnyorsk)</translation>
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished"></translation>
+        <translation>Noruec</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="unfinished">Polonès</translation>
+        <translation>Polonès</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="unfinished">Rus</translation>
+        <translation>Rus</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished">Suec</translation>
+        <translation>Suec</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="unfinished">Espanyol</translation>
+        <translation>Espanyol</translation>
     </message>
     <message>
         <source>Spanish (Latin)</source>
-        <translation type="unfinished"></translation>
+        <translation>Espanyol (Sudamericà)</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation type="unfinished">Eslovac</translation>
+        <translation>Eslovac</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation type="unfinished">Eslovè</translation>
+        <translation>Eslovè</translation>
     </message>
     <message>
         <source>Serbian</source>
-        <translation type="unfinished"></translation>
+        <translation>Serbi</translation>
     </message>
     <message>
-        <source>Turkish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ukranian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Welsh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Specified item not an image frame</source>
-        <translation type="unfinished"></translation>
+        <source>Tried to set progress &gt; maximum progress</source>
+        <translation>Triat per marcar el progrés &gt; Màxim progrés</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>Quant &amp;a Sequència...</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Quant a Sequència</translation>
     </message>
     <message>
-        <source>Import &amp;Open Office Draw...</source>
-        <translation type="unfinished"></translation>
+        <source>Cannot get font size of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>No puc obtenir la mida de font si no és un quadre de text.</translation>
     </message>
     <message>
-        <source>Open Office Draw (*.sxd);;All Files (*)</source>
+        <source>Cannot get font of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>No puc obtenir la font si no és un quadre de text.</translation>
+    </message>
+    <message>
+        <source>Cannot get text size of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>No puc obtenir la mida de text si no és un quadre de text.</translation>
+    </message>
+    <message>
+        <source>Cannot get column count of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>No puc obtenir les columnes si no és un quadre de text.</translation>
+    </message>
+    <message>
+        <source>Cannot get line space of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>No puc obtenir l&apos;espaiat de línia si no és un quadre de text.</translation>
+    </message>
+    <message>
+        <source>Cannot get column gap of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>No puc obtenir l&apos;espai entre les columnes si no és un quadre de text.</translation>
+    </message>
+    <message>
+        <source>Cannot get text of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>No puc obtenir el text si no és un quadre de text.</translation>
+    </message>
+    <message>
+        <source>Cannot set text of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>No puc posar el text si no és un quadre de text.</translation>
+    </message>
+    <message>
+        <source>Cannot insert text into non-text frame.</source>
+        <comment>python error</comment>
+        <translation>No puc inserir el text si no és un quadre de text.</translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds</source>
+        <comment>python error</comment>
+        <translation>Índex fora d&apos;ordre</translation>
+    </message>
+    <message>
+        <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
+        <comment>python error</comment>
+        <translation>Alineament fora de rang. Feu servir les constants d&apos;Scribus ALIGN* .</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text alignment on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>No puc posar alineació de text si no és un quadre de text</translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
+        <comment>python error</comment>
+        <translation>Mida de font errònia - ha de ser 1&lt;= mida &lt;= 512</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set font size on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>No puc posar mida de font si no és un quadre de text</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set font on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>No puc tipus de font si no és un quadre de text</translation>
+    </message>
+    <message>
+        <source>Font not found</source>
+        <comment>python error</comment>
+        <translation>Font no trobada</translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1</source>
+        <comment>python error</comment>
+        <translation>Espaiat de línia erroni, ha de ser &gt;=0.1</translation>
+    </message>
+    <message>
+        <source>Can&apos;t line spacing on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>No puc posar espaiat de línia si no és un quadre de text</translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive</source>
+        <comment>python error</comment>
+        <translation>Espai entre columnes fora de marge, ha de ser positiu</translation>
+    </message>
+    <message>
+        <source>Can&apos;t column gap on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>No puc posar espai entre columnes si no és un quadre de text</translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1</source>
+        <comment>python error</comment>
+        <translation>Número de columnes erroni, ha de ser &gt;1</translation>
+    </message>
+    <message>
+        <source>Can&apos;t number of columns on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>No puc numerar columnes si no és un quadre de text</translation>
+    </message>
+    <message>
+        <source>Selection index out of bounds</source>
+        <comment>python error</comment>
+        <translation>Índex de selecció fora de marge</translation>
+    </message>
+    <message>
+        <source>Can&apos;t select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation>No puc seleccionar text si no és un quadre de text</translation>
+    </message>
+    <message>
+        <source>Can&apos;t delete text from a non-text frame</source>
+        <comment>python error</comment>
+        <translation>No puc esborrar text si no és un quadre de text</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text fill on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>No puc emplenar el text amb color si no és un quadre de text</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text stroke on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>No puc posar separació de text si no és un quadre de text</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text shade on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>No puc posar intensitat de text si no és un quadre de text</translation>
+    </message>
+    <message>
+        <source>Can only link text frames</source>
+        <comment>python error</comment>
+        <translation>Només s&apos;enllacen els quadres de text</translation>
+    </message>
+    <message>
+        <source>Target frame must be empty</source>
+        <comment>python error</comment>
+        <translation>El quadre destí ha d&apos;estar buit</translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame</source>
+        <comment>python error</comment>
+        <translation>El quadre de destí ja enllaça a un altre</translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame</source>
+        <comment>python error</comment>
+        <translation>El quadre de destí està enllaçat a un altre</translation>
+    </message>
+    <message>
+        <source>Source and target are the same object</source>
+        <comment>python error</comment>
+        <translation>Origent i destí són el mateix objecte</translation>
+    </message>
+    <message>
+        <source>Can&apos;t unlink a non-text frame</source>
+        <comment>python error</comment>
+        <translation>No put desenllaçar si no és un quadre de text</translation>
+    </message>
+    <message>
+        <source>Object is not a linked text frame, can&apos;t unlink.</source>
+        <comment>python error</comment>
+        <translation>L&apos;objecte no és un quadre de text, no es desenllaça.</translation>
+    </message>
+    <message>
+        <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
+        <comment>python error</comment>
+        <translation>L&apos;Objecte és el darrer d&apos;una sèrie. No puc desenllaçar-lo. Desenllaça l&apos;anterior.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t convert a non-text frame to outlines</source>
+        <comment>python error</comment>
+        <translation>No puc convertir a esquemes si no és un quadre de text</translation>
+    </message>
+    <message>
+        <source>Failed to open document</source>
+        <comment>python error</comment>
+        <translation>Error a l&apos;obrir el document</translation>
+    </message>
+    <message>
+        <source>Failed to save document</source>
+        <comment>python error</comment>
+        <translation>Error al guardar el document</translation>
+    </message>
+    <message>
+        <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
+        <comment>python error</comment>
+        <translation>Unitats errònies. Feu servir les constants UNIT_* d&apos;Scribus.</translation>
+    </message>
+    <message>
+        <source>Target is not an image frame.</source>
+        <comment>python error</comment>
+        <translation>El destí no és una imatge.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t scale by 0%</source>
+        <comment>python error</comment>
+        <translation>No es pot escalar un 0%</translation>
+    </message>
+    <message>
+        <source>Can&apos;t render an empty sample</source>
+        <comment>python error</comment>
+        <translation>No es pot representar si és buit</translation>
+    </message>
+    <message>
+        <source>Can&apos;t save to a blank filename</source>
+        <comment>python error</comment>
+        <translation>No es pot guardar sense nom</translation>
+    </message>
+    <message>
+        <source>Can&apos;t have an empty layer name</source>
+        <comment>python error</comment>
+        <translation>No se pot tenir capes sense nom</translation>
+    </message>
+    <message>
+        <source>Layer not found</source>
+        <comment>python error</comment>
+        <translation>Capa no trobada</translation>
+    </message>
+    <message>
+        <source>Can&apos;t remove the last layer</source>
+        <comment>python error</comment>
+        <translation>No es pot esborrar la última capa</translation>
+    </message>
+    <message>
+        <source>Can&apos;t create layer without a name</source>
+        <comment>python error</comment>
+        <translation>No es pot crear una capa sense nom</translation>
+    </message>
+    <message>
+        <source>An object with the requested name already exists</source>
+        <comment>python error</comment>
+        <translation>Ja hi ha un objecte amb aquest nom</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least two points (four values)</source>
+        <comment>python error</comment>
+        <translation>La llista de punts ha de tenir almenys dos punts (4 valors)</translation>
+    </message>
+    <message>
+        <source>Point list must contain an even number of values</source>
+        <comment>python error</comment>
+        <translation>La llista de punts ha de tenir un número parell de valors</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least three points (six values)</source>
+        <comment>python error</comment>
+        <translation>La llista de punts ha de tenir almenys tres punts (6 valors)</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least four points (eight values)</source>
+        <comment>python error</comment>
+        <translation>La llista de punts ha de tenir almenys quatre punts (8 valors)</translation>
+    </message>
+    <message>
+        <source>Point list must have a multiple of six values</source>
+        <comment>python error</comment>
+        <translation>La llista de punts ha de tenir un múltiple de sis valors</translation>
+    </message>
+    <message>
+        <source>Object not found</source>
+        <comment>python error</comment>
+        <translation>Objecte no trobat</translation>
+    </message>
+    <message>
+        <source>Style not found</source>
+        <comment>python error</comment>
+        <translation>Estil no trobat</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set style on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>No puc posar estil si no és un quadre de text</translation>
+    </message>
+    <message>
+        <source>Failed to save EPS</source>
+        <comment>python error</comment>
+        <translation>Error al gravar l&apos;EPS</translation>
+    </message>
+    <message>
+        <source>Page number out of range</source>
+        <comment>python error</comment>
+        <translation>Número de pàgina fora de rang</translation>
+    </message>
+    <message>
+        <source>argument is not list: must be list of float values</source>
+        <comment>python error</comment>
+        <translation>L&apos;argument no és una llista: ha de ser una llista de floats</translation>
+    </message>
+    <message>
+        <source>argument contains non-numeric values: must be list of float values</source>
+        <comment>python error</comment>
+        <translation>L&apos;argument conté valors no numèrics: ha de ser una llista de floats</translation>
+    </message>
+    <message>
+        <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
+        <comment>python error</comment>
+        <translation>Amplada de línia errònia, ha de ser 0 &lt;= amplada &lt;=12</translation>
+    </message>
+    <message>
+        <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
+        <comment>python error</comment>
+        <translation>Intensitat de línia errònia, ha de ser 0 &lt;= intensitat &lt;= 100</translation>
+    </message>
+    <message>
+        <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
+        <comment>python error</comment>
+        <translation>Intensitat d&apos;emplenat erròni, ha de ser 0 &lt;= emplenat &lt;= 100</translation>
+    </message>
+    <message>
+        <source>Corner radius must be a positive number.</source>
+        <comment>python error</comment>
+        <translation>L&apos;arrodoniment ha de ser un número positiu.</translation>
+    </message>
+    <message>
+        <source>Line style not found</source>
+        <comment>python error</comment>
+        <translation>Estil de línia no trobat</translation>
+    </message>
+    <message>
+        <source>Cannot get a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>No es pot tenir un color sense nom.</translation>
+    </message>
+    <message>
+        <source>Color not found</source>
+        <comment>python error</comment>
+        <translation>Color no trobat</translation>
+    </message>
+    <message>
+        <source>Cannot change a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>No es pot canviar un color sense nom.</translation>
+    </message>
+    <message>
+        <source>Color not found in document</source>
+        <comment>python error</comment>
+        <translation>Color no trobat en el document</translation>
+    </message>
+    <message>
+        <source>Color not found in default colors</source>
+        <comment>python error</comment>
+        <translation>Color no trobat en els colors per defecte</translation>
+    </message>
+    <message>
+        <source>Cannot create a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>No puc crear un color sense nom.</translation>
+    </message>
+    <message>
+        <source>Cannot delete a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>No es pot esborrar un color sense nom.</translation>
+    </message>
+    <message>
+        <source>Cannot replace a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>No es pot remplaçar un color sense nom.</translation>
+    </message>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation>Importar &amp;OpenOffice.org Draw...</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation>OpenOffice.org Draw (*.sxd);;Tots els fitxers (*)</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Documents</source>
+        <translation>Documents d&apos;OpenOffice.org Writer</translation>
+    </message>
+    <message>
+        <source>Scribus Python interface module
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
+<byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
+<byte value="x9"/><byte value="x9"/>function is documented individually below.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
+<byte value="x9"/><byte value="x9"/>a string - they are not real Python objects. Many functions take an
+<byte value="x9"/><byte value="x9"/>optional (non-keyword) parameter, a frame name.
+<byte value="x9"/><byte value="x9"/>Many exceptions are also common across most functions. These are
+<byte value="x9"/><byte value="x9"/>not currently documented in the docstring for each function.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
+<byte value="x9"/><byte value="x9"/>      without a document to operate on.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
+<byte value="x9"/><byte value="x9"/>      the function will use the currently selected frame, if any, or
+<byte value="x9"/><byte value="x9"/>      raise a NoValidObjectError if it can&apos;t find anything to operate
+<byte value="x9"/><byte value="x9"/>      on.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
+<byte value="x9"/><byte value="x9"/>      on a frame type that they do not make sense with. For example, setting
+<byte value="x9"/><byte value="x9"/>      the text colour on a graphics frame doesn&apos;t make sense, and will result
+<byte value="x9"/><byte value="x9"/>      in this exception being raised.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
+<byte value="x9"/><byte value="x9"/>      passed through unaltered. As such, the list of exceptions thrown by
+<byte value="x9"/><byte value="x9"/>      any function as provided here and in its docstring is incomplete.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
+<byte value="x9"/><byte value="x9"/>function&apos;s documentation.
+<byte value="x9"/><byte value="x9"/></source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7636,6 +10663,14 @@ Enllaços Externs
         <translation>Primera &amp;Pàgina Esquerra</translation>
     </message>
     <message>
+        <source>&amp;OK</source>
+        <translation>D&apos;ac&amp;ord</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancel.la</translation>
+    </message>
+    <message>
         <source>Enable single or spread based layout</source>
         <translation>Activa la distribució sola o extesa</translation>
     </message>
@@ -7673,427 +10708,39 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">Mida de Pàgina</translation>
-    </message>
-    <message>
-        <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Mida:</translation>
-    </message>
-    <message>
-        <source>Legal</source>
-        <translation type="unfinished">Legal</translation>
-    </message>
-    <message>
-        <source>Letter</source>
-        <translation type="unfinished">Carta</translation>
-    </message>
-    <message>
-        <source>Tabloid</source>
-        <translation type="unfinished">Tabloide</translation>
-    </message>
-    <message>
-        <source>Custom</source>
-        <translation type="unfinished">Personalitzat</translation>
-    </message>
-    <message>
-        <source>Orie&amp;ntation:</source>
-        <translation type="unfinished">Orie&amp;ntació:</translation>
-    </message>
-    <message>
-        <source>Portrait</source>
-        <translation type="unfinished">Vertical</translation>
-    </message>
-    <message>
-        <source>Landscape</source>
-        <translation type="unfinished">Apaisat</translation>
-    </message>
-    <message>
-        <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;Amplada:</translation>
-    </message>
-    <message>
-        <source>&amp;Height:</source>
-        <translation type="unfinished">A&amp;lçada:</translation>
-    </message>
-    <message>
-        <source>Layout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>F&amp;irst Page Number:</source>
-        <translation type="unfinished">Pr&amp;imer Número de Pàgina:</translation>
-    </message>
-    <message>
-        <source>Page</source>
-        <translation type="unfinished">Pàgina</translation>
-    </message>
-    <message>
-        <source>Major Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color:</source>
-        <translation type="unfinished">Color:</translation>
-    </message>
-    <message>
-        <source>Spacing:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Minor Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Guide Snap Distance:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Margins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Baseline Grid</source>
-        <translation type="unfinished">Mostra Reixa Base</translation>
-    </message>
-    <message>
-        <source>Show Text Chains</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Frames</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Pictures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Guides</source>
-        <translation type="unfinished">Guies</translation>
-    </message>
-    <message>
-        <source>Page Background</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation type="unfinished">Mostra àrea no imprimible en C&amp;olor de marge</translation>
-    </message>
-    <message>
-        <source>Alt+U</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scratch Space</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Placing of Guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In the Background</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In the Foreground</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Display</source>
-        <translation type="unfinished">Pantalla</translation>
-    </message>
-    <message>
-        <source>Subscript</source>
-        <translation type="unfinished">Subíndex</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="unfinished">%</translation>
-    </message>
-    <message>
-        <source>&amp;Displacement:</source>
-        <translation type="unfinished">&amp;Desplaçament:</translation>
-    </message>
-    <message>
-        <source>&amp;Scaling:</source>
-        <translation type="unfinished">E&amp;scalat:</translation>
-    </message>
-    <message>
-        <source>Superscript</source>
-        <translation type="unfinished">Superíndex</translation>
-    </message>
-    <message>
-        <source>D&amp;isplacement:</source>
-        <translation type="unfinished">De&amp;splaçament:</translation>
-    </message>
-    <message>
-        <source>S&amp;caling:</source>
-        <translation type="unfinished">Es&amp;calat:</translation>
-    </message>
-    <message>
-        <source>Small Caps</source>
-        <translation type="unfinished">Majúscules Petites</translation>
-    </message>
-    <message>
-        <source>Sc&amp;aling:</source>
-        <translation type="unfinished">Es&amp;calat:</translation>
-    </message>
-    <message>
-        <source>Other</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Baseline &amp;Grid:</source>
-        <translation type="unfinished">&amp;Reixa Base:</translation>
-    </message>
-    <message>
-        <source>Baseline &amp;Offset:</source>
-        <translation type="unfinished">C&amp;ompensa Linea Base:</translation>
-    </message>
-    <message>
-        <source>Automatic &amp;Line Spacing:</source>
-        <translation type="unfinished">Inter&amp;lineat Automàtic:</translation>
-    </message>
-    <message>
-        <source>Typography</source>
-        <translation type="unfinished">Tipografia</translation>
-    </message>
-    <message>
-        <source>Font:</source>
-        <translation type="unfinished">Font:</translation>
+        <translation>Mida de Pàgina</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation type="unfinished">Mida:</translation>
+        <translation>Mida:</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation type="unfinished">Cap</translation>
+        <source>Custom</source>
+        <translation>Personalitzat</translation>
     </message>
     <message>
-        <source>Fill Color:</source>
-        <translation type="unfinished"></translation>
+        <source>Orientation:</source>
+        <translation>Orientació:</translation>
     </message>
     <message>
-        <source>Stroke Color:</source>
-        <translation type="unfinished"></translation>
+        <source>Portrait</source>
+        <translation>Vertical</translation>
     </message>
     <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="unfinished">Colu&amp;mnes:</translation>
+        <source>Landscape</source>
+        <translation>Apaisat</translation>
     </message>
     <message>
-        <source>&amp;Gap:</source>
-        <translation type="unfinished"></translation>
+        <source>Width:</source>
+        <translation>Amplada:</translation>
     </message>
     <message>
-        <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="unfinished">Woven silk pyjamas exchanged for blue quartz</translation>
+        <source>Height:</source>
+        <translation>Alçada:</translation>
     </message>
     <message>
-        <source>&amp;Line Color:</source>
-        <translation type="unfinished">Color de &amp;Línia:</translation>
-    </message>
-    <message>
-        <source>&amp;Shading:</source>
-        <translation type="unfinished">Ombre&amp;jat:</translation>
-    </message>
-    <message>
-        <source>&amp;Fill Color:</source>
-        <translation type="unfinished">Color d&apos;&amp;Emplenat:</translation>
-    </message>
-    <message>
-        <source>S&amp;hading:</source>
-        <translation type="unfinished">Ombre&amp;jat:</translation>
-    </message>
-    <message>
-        <source>Line Style:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line &amp;Width:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line S&amp;tyle:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Arrows:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Start:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>End:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Free Scaling</source>
-        <translation type="unfinished">Escalat Lli&amp;ure</translation>
-    </message>
-    <message>
-        <source>&amp;Horizontal Scaling:</source>
-        <translation type="unfinished">Escalat &amp;Horitzontal:</translation>
-    </message>
-    <message>
-        <source>&amp;Vertical Scaling:</source>
-        <translation type="unfinished">Escalat &amp;Vertical:</translation>
-    </message>
-    <message>
-        <source>&amp;Scale Picture to Frame Size</source>
-        <translation type="unfinished">E&amp;scala Imatge a Mida de Marc</translation>
-    </message>
-    <message>
-        <source>Keep Aspect &amp;Ratio</source>
-        <translation type="unfinished">Manteni&amp;r l&apos;aspecte</translation>
-    </message>
-    <message>
-        <source>F&amp;ill Color:</source>
-        <translation type="unfinished">Color d&apos;&amp;Emplenat:</translation>
-    </message>
-    <message>
-        <source>Mi&amp;nimum:</source>
-        <translation type="unfinished">Mí&amp;nim:</translation>
-    </message>
-    <message>
-        <source>Ma&amp;ximum:</source>
-        <translation type="unfinished">Mà&amp;xim:</translation>
-    </message>
-    <message>
-        <source>&amp;Stepping:</source>
-        <translation type="unfinished">&amp;Increment:</translation>
-    </message>
-    <message>
-        <source>Tools</source>
-        <translation type="unfinished">Eines</translation>
-    </message>
-    <message>
-        <source>Autosave</source>
-        <translation type="unfinished">Autodesa</translation>
-    </message>
-    <message>
-        <source>min</source>
-        <translation type="unfinished">min</translation>
-    </message>
-    <message>
-        <source>&amp;Interval:</source>
-        <translation type="unfinished">&amp;Interval:</translation>
-    </message>
-    <message>
-        <source>Units</source>
-        <translation type="unfinished">Unitats</translation>
-    </message>
-    <message>
-        <source>Points (pt)</source>
-        <translation type="unfinished">Punts (pts)</translation>
-    </message>
-    <message>
-        <source>Millimetres (mm)</source>
-        <translation type="unfinished">Milímetres (mm)</translation>
-    </message>
-    <message>
-        <source>Inches (in)</source>
-        <translation type="unfinished">Polzades (po)</translation>
-    </message>
-    <message>
-        <source>Picas (p)</source>
-        <translation type="unfinished">Piques (p)</translation>
-    </message>
-    <message>
-        <source>Misc.</source>
-        <translation type="unfinished">Misc.</translation>
-    </message>
-    <message>
-        <source>Show Grid</source>
-        <translation type="unfinished">Mostra Reixa</translation>
-    </message>
-    <message>
-        <source>Grab Radius:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> px</source>
-        <translation type="unfinished">px</translation>
-    </message>
-    <message>
-        <source>Color for paper</source>
-        <translation type="unfinished">Color del paper</translation>
-    </message>
-    <message>
-        <source>Mask the area outside the margins in the margin color</source>
-        <translation type="unfinished">Marca l&apos;àrea fora de marges amb el color de marge</translation>
-    </message>
-    <message>
-        <source>Distance between the minor grid lines</source>
-        <translation type="unfinished">Distància entre les línies de reixa petites</translation>
-    </message>
-    <message>
-        <source>Distance between the major grid lines</source>
-        <translation type="unfinished">Distància entre les línies de reixa grans</translation>
-    </message>
-    <message>
-        <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="unfinished">Distància en la qual un objecte des desplaçarà cap a les guies</translation>
-    </message>
-    <message>
-        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="unfinished">Radi de l&apos;àrea on Scribus pemetrà capturar objectes</translation>
-    </message>
-    <message>
-        <source>Color of the minor grid lines</source>
-        <translation type="unfinished">Color de les línies de reixa petites</translation>
-    </message>
-    <message>
-        <source>Color of the major grid lines</source>
-        <translation type="unfinished">Color de les línies de reixa grans</translation>
-    </message>
-    <message>
-        <source>Color of the guide lines you insert</source>
-        <translation type="unfinished">Color de les línies guia que inserim</translation>
-    </message>
-    <message>
-        <source>Color for the margin lines</source>
-        <translation type="unfinished">Color de les línies de marge</translation>
-    </message>
-    <message>
-        <source>Color for the basegrid lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the basegrid on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the gridlines on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the guides on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the margins on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the of linked frames on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of frames on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished"></translation>
+        <source>F&amp;irst Page Number:</source>
+        <translation>Pr&amp;imer Número de Pàgina:</translation>
     </message>
 </context>
 <context>
@@ -8239,6 +10886,10 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>Searching for Fonts</source>
         <translation>Buscant les Fonts</translation>
+    </message>
+    <message>
+        <source>There are no Postscript-Fonts on your System</source>
+        <translation>No hi ha Postscript Fonts en el teu Sistema</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -9085,6 +11736,10 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation>Obre</translation>
     </message>
     <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Tots els fitxers (*)</translation>
+    </message>
+    <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Documents (*.sla *.scd);;Tots els fitxers (*)</translation>
     </message>
@@ -9119,6 +11774,10 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>Warning</source>
         <translation>Avís</translation>
+    </message>
+    <message>
+        <source>File %1 is not in Scribus format</source>
+        <translation>El Fitxer %1 no està en format Scribus</translation>
     </message>
     <message>
         <source>OK</source>
@@ -9181,6 +11840,14 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>&amp;Shade:</source>
         <translation>&amp;Intensitat:</translation>
+    </message>
+    <message>
+        <source>Hide Baseline Grid</source>
+        <translation>Amaga Reixa Base</translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation>Mostra Reixa Base</translation>
     </message>
     <message>
         <source>The following Programs are missing:</source>
@@ -9363,45 +12030,8 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <translation>Scribus ha petat amb el Signal #%1</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Postscript-Files (*.eps *.EPS *.ps *.PS);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG-Images (*.svg *.svgz);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG-Images (*.svg);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File %1 
-is not in an acceptable format</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>There are no Postscript fonts on your system</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show &amp;Text Chain</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open Office Draw (*.sxd);;All Files (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(converted)</source>
-        <translation type="unfinished"></translation>
+        <source>Font System Initialized</source>
+        <translation>Sistema de Fonts Iniciat</translation>
     </message>
 </context>
 <context>
@@ -9431,292 +12061,8 @@ is not in an acceptable format</source>
         <translation>p</translation>
     </message>
     <message>
-        <source>Copy Here</source>
-        <translation type="unfinished">Copia Aquí</translation>
-    </message>
-    <message>
-        <source>Move Here</source>
-        <translation type="unfinished">Mou Aquí</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished">Cancel.la</translation>
-    </message>
-    <message>
-        <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;Enganxa</translation>
-    </message>
-    <message>
-        <source>Show &amp;Margins</source>
-        <translation type="unfinished">Mostra &amp;Marges</translation>
-    </message>
-    <message>
-        <source>Show &amp;Frames</source>
-        <translation type="unfinished">Mostra &amp;Marcs</translation>
-    </message>
-    <message>
-        <source>Show &amp;Images</source>
-        <translation type="unfinished">Mostra &amp;Imatges</translation>
-    </message>
-    <message>
-        <source>Show &amp;Grid</source>
-        <translation type="unfinished">Mostra &amp;Reixa</translation>
-    </message>
-    <message>
-        <source>Show G&amp;uides</source>
-        <translation type="unfinished">Mostra G&amp;uies</translation>
-    </message>
-    <message>
-        <source>Show &amp;Baseline Grid</source>
-        <translation type="unfinished">Mostra Reixa &amp;Base</translation>
-    </message>
-    <message>
-        <source>Sn&amp;ap to Grid</source>
-        <translation type="unfinished">Desplaça &amp;a la Reixa</translation>
-    </message>
-    <message>
-        <source>Sna&amp;p to Guides</source>
-        <translation type="unfinished">Des&amp;plaça a les Guies</translation>
-    </message>
-    <message>
-        <source>Picture</source>
-        <translation type="unfinished">Imatge</translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="unfinished">Fitxer:</translation>
-    </message>
-    <message>
-        <source>Original PPI: </source>
-        <translation type="unfinished">Original PPI:</translation>
-    </message>
-    <message>
-        <source>Actual PPI: </source>
-        <translation type="unfinished">Actual PPI:</translation>
-    </message>
-    <message>
-        <source>Linked Text</source>
-        <translation type="unfinished">Text enllaçat</translation>
-    </message>
-    <message>
-        <source>Text Frame</source>
-        <translation type="unfinished">Marc de Text</translation>
-    </message>
-    <message>
-        <source>Text on a Path</source>
-        <translation type="unfinished">Text en un Camí</translation>
-    </message>
-    <message>
-        <source>Paragraphs: </source>
-        <translation type="unfinished">Paràgrafs:</translation>
-    </message>
-    <message>
-        <source>Words: </source>
-        <translation type="unfinished">Paraules:</translation>
-    </message>
-    <message>
-        <source>Chars: </source>
-        <translation type="unfinished">Lletres:</translation>
-    </message>
-    <message>
-        <source>Print: </source>
-        <translation type="unfinished">Impressió:</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="unfinished">Activat</translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation type="unfinished">Desactivat</translation>
-    </message>
-    <message>
-        <source>In&amp;fo</source>
-        <translation type="unfinished">In&amp;formació</translation>
-    </message>
-    <message>
-        <source>&amp;Get Picture...</source>
-        <translation type="unfinished">&amp;Obtenir Imatge...</translation>
-    </message>
-    <message>
-        <source>I&amp;mage Visible</source>
-        <translation type="unfinished">I&amp;matge Visible</translation>
-    </message>
-    <message>
-        <source>&amp;Update Picture</source>
-        <translation type="unfinished">&amp;Actualitza Imatge</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Picture</source>
-        <translation type="unfinished">&amp;Edita Imatge</translation>
-    </message>
-    <message>
-        <source>&amp;Adjust Frame to Picture</source>
-        <translation type="unfinished">&amp;Ajusta Marc a la Imatge</translation>
-    </message>
-    <message>
-        <source>&amp;Get Text...</source>
-        <translation type="unfinished">&amp;Obtenir Text...</translation>
-    </message>
-    <message>
-        <source>&amp;Append Text...</source>
-        <translation type="unfinished">&amp;Afegeix Text...</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Text...</source>
-        <translation type="unfinished">&amp;Editar Text...</translation>
-    </message>
-    <message>
-        <source>Is PDF &amp;Bookmark</source>
-        <translation type="unfinished">Es un P&amp;unt de PDF</translation>
-    </message>
-    <message>
-        <source>Is PDF A&amp;nnotation</source>
-        <translation type="unfinished">És una A&amp;notació de PDF</translation>
-    </message>
-    <message>
-        <source>Annotation P&amp;roperties</source>
-        <translation type="unfinished">P&amp;ropietats Anotació</translation>
-    </message>
-    <message>
-        <source>Field P&amp;roperties</source>
-        <translation type="unfinished">P&amp;ropietats de Camp</translation>
-    </message>
-    <message>
-        <source>&amp;PDF Options</source>
-        <translation type="unfinished">Opcions &amp;PDF</translation>
-    </message>
-    <message>
-        <source>Edit Text...</source>
-        <translation type="unfinished">Edita Text...</translation>
-    </message>
-    <message>
-        <source>&amp;Lock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Un&amp;lock</source>
-        <translation type="unfinished">DesB&amp;loqueja</translation>
-    </message>
-    <message>
-        <source>Lock Object &amp;Size</source>
-        <translation type="unfinished">Bloqueja &amp;Mida</translation>
-    </message>
-    <message>
-        <source>Unlock Object &amp;Size</source>
-        <translation type="unfinished">Desbloqueja M&amp;ida</translation>
-    </message>
-    <message>
-        <source>Send to S&amp;crapbook</source>
-        <translation type="unfinished">Envia a l&apos;àlbum de &amp;retalls</translation>
-    </message>
-    <message>
-        <source>Send to La&amp;yer</source>
-        <translation type="unfinished">Envia a la Ca&amp;pa</translation>
-    </message>
-    <message>
-        <source>&amp;Insert Sample Text</source>
-        <translation type="unfinished">&amp;Inserir Text de Mostra</translation>
-    </message>
-    <message>
-        <source>&amp;Group</source>
-        <translation type="unfinished">A&amp;grupa</translation>
-    </message>
-    <message>
-        <source>Un&amp;group</source>
-        <translation type="unfinished">Desa&amp;grupa</translation>
-    </message>
-    <message>
-        <source>Le&amp;vel</source>
-        <translation type="unfinished">Ni&amp;vell</translation>
-    </message>
-    <message>
-        <source>Send to &amp;Back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bring to &amp;Front</source>
-        <translation type="unfinished">Envia a &amp;Davant</translation>
-    </message>
-    <message>
-        <source>&amp;Lower</source>
-        <translation type="unfinished">&amp;Abaixa</translation>
-    </message>
-    <message>
-        <source>&amp;Raise</source>
-        <translation type="unfinished">A&amp;puja</translation>
-    </message>
-    <message>
-        <source>&amp;Picture Frame</source>
-        <translation type="unfinished">&amp;Marc d&apos;Imatge</translation>
-    </message>
-    <message>
-        <source>Pol&amp;ygon</source>
-        <translation type="unfinished">Polí&amp;gon</translation>
-    </message>
-    <message>
-        <source>&amp;Outlines</source>
-        <translation type="unfinished">&amp;Esquemes</translation>
-    </message>
-    <message>
-        <source>&amp;Text Frame</source>
-        <translation type="unfinished">Marc de &amp;Text</translation>
-    </message>
-    <message>
-        <source>&amp;Bezier Curve</source>
-        <translation type="unfinished">Corba &amp;Bezier</translation>
-    </message>
-    <message>
-        <source>Conve&amp;rt to</source>
-        <translation type="unfinished">Conve&amp;rteix a</translation>
-    </message>
-    <message>
-        <source>Cu&amp;t</source>
-        <translation type="unfinished">T&amp;alla</translation>
-    </message>
-    <message>
-        <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Copia</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>C&amp;lear Contents</source>
-        <translation type="unfinished">Neteja C&amp;ontingut</translation>
-    </message>
-    <message>
-        <source>Show P&amp;roperties...</source>
-        <translation type="unfinished">Mostra P&amp;ropietats...</translation>
-    </message>
-    <message>
-        <source>Hide P&amp;roperties...</source>
-        <translation type="unfinished">Amaga P&amp;ropietats...</translation>
-    </message>
-    <message>
-        <source>The Program</source>
-        <translation type="unfinished">El Programa</translation>
-    </message>
-    <message>
-        <source>is missing!</source>
-        <translation type="unfinished">està perdut!</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="unfinished">Avís</translation>
-    </message>
-    <message>
-        <source>Do you really want to clear all your Text?</source>
-        <translation type="unfinished">Realment vols esborrar tot el Text?</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="unfinished">Cap</translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="unfinished">Còpia de</translation>
+        <source>All</source>
+        <translation>Tot</translation>
     </message>
 </context>
 <context>
@@ -9873,6 +12219,10 @@ is not in an acceptable format</source>
     <message>
         <source>OK</source>
         <translation>D&apos;acord</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation>B&amp;uida</translation>
     </message>
 </context>
 <context>
@@ -10210,6 +12560,14 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
         <translation>Vols desar els canvis?</translation>
     </message>
     <message>
+        <source>&amp;Insert Special</source>
+        <translation type="obsolete">&amp;Inserir Especial</translation>
+    </message>
+    <message>
+        <source>&amp;Fonts Preview</source>
+        <translation type="obsolete">Vista Prèvia de &amp;Fonts</translation>
+    </message>
+    <message>
         <source>Do you really want to lose all your Changes?</source>
         <translation>Realment vols perdre els teus Canvis?</translation>
     </message>
@@ -10231,7 +12589,7 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
     <message>
         <source>&amp;Smart text selection</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Selecció acurada de text</translation>
     </message>
 </context>
 <context>
@@ -10257,15 +12615,15 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
         <translation>Barrat</translation>
     </message>
     <message>
-        <source>Outline</source>
-        <translation type="unfinished">Esquema</translation>
+        <source>Outline Text</source>
+        <translation>Text amb Contorn</translation>
     </message>
 </context>
 <context>
     <name>SxwDialog</name>
     <message>
         <source>OO.o Writer Importer Options</source>
-        <translation>Opcions d&apos;Importació OO.o Writer</translation>
+        <translation type="obsolete">Opcions d&apos;Importació OO.o Writer</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
@@ -10283,7 +12641,7 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
         <source>Should the importer always use currently
 set value when importing OO.o document and
 never ask your confirmation again</source>
-        <translation>L&apos;importador sempre farà servir el seus 
+        <translation type="obsolete">L&apos;importador sempre farà servir el seus 
 conjunt de valors al importar d&apos;OO.o i 
 mai tornarà a demanar confirmació</translation>
     </message>
@@ -10294,13 +12652,28 @@ mai tornarà a demanar confirmació</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;importador ha d&apos;afegir el nom del document
+davant de l&apos;estil de paràgraf de l&apos;Scribus</translation>
     </message>
     <message>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation type="unfinished"></translation>
+        <translation>Si un estil de paràgraf ja existeix amb el mateix nom de l&apos;actual
+paràgraf del document OpenOffice.org, s&apos;ha d&apos;editar l&apos;estil per deixar-lo
+com el nou, o deixar-lo igual </translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Importer Options</source>
+        <translation>Opcions de l&apos;Importador d&apos;OpenOffice.org Writer</translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OpenOffice.org document and
+never ask your confirmation again</source>
+        <translation>L&apos;importador sempre fa servir el conjunt de 
+valors actual al importar documents OpenOffice.org i 
+mai tornarà a preguntar de nou</translation>
     </message>
 </context>
 <context>
@@ -10350,7 +12723,7 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>Ind&amp;ent:</source>
-        <translation>&amp;Sangrat:</translation>
+        <translation type="obsolete">&amp;Sangrat:</translation>
     </message>
     <message>
         <source>Delete All</source>
@@ -10384,6 +12757,10 @@ edited to match the one being imported, or left untouched</source>
         <source> p</source>
         <translation>p</translation>
     </message>
+    <message>
+        <source>Left Ind&amp;ent:</source>
+        <translation>Id&amp;entació Esquerra:</translation>
+    </message>
 </context>
 <context>
     <name>Tree</name>
@@ -10404,6 +12781,60 @@ edited to match the one being imported, or left untouched</source>
         <translation>Informació</translation>
     </message>
     <message>
+        <source>Warning</source>
+        <translation>Avís</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation>El Nom &quot;%1&quot; no és únic
+Si us plau tria&apos;n un altre.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>D&apos;acord</translation>
+    </message>
+    <message>
+        <source>X:</source>
+        <translation>X:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation>Y:</translation>
+    </message>
+    <message>
+        <source>Font:</source>
+        <translation>Font:</translation>
+    </message>
+    <message>
+        <source>Group </source>
+        <translation>Grup</translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation>Imatge</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Text</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation>Línia</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation>Polígon</translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation>Polilínia</translation>
+    </message>
+    <message>
+        <source>PathText</source>
+        <translation>Camí de Text</translation>
+    </message>
+    <message>
         <source>Page</source>
         <translation>Pàgina</translation>
     </message>
@@ -10412,27 +12843,27 @@ edited to match the one being imported, or left untouched</source>
     <name>ValueDialog</name>
     <message>
         <source>Insert value</source>
-        <translation type="unfinished"></translation>
+        <translation>Insereix valor</translation>
     </message>
     <message>
         <source>Enter a value then press OK.</source>
-        <translation type="unfinished"></translation>
+        <translation>Entra un valor i prem D&apos;acord.</translation>
     </message>
     <message>
         <source>Enter a value then press OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Entra un valor i prem D&apos;acord</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">D&apos;ac&amp;ord</translation>
+        <translation>D&apos;ac&amp;ord</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Send your value to the script</source>
-        <translation type="unfinished"></translation>
+        <translation>Envia el valor a la seqüència</translation>
     </message>
 </context>
 <context>
@@ -10698,7 +13129,7 @@ per fitxers d&apos;aquest tipus.</translation>
     </message>
     <message>
         <source>Downloading Templates</source>
-        <translation>Plantilles Descarregades</translation>
+        <translation>Descarregar Plantilles</translation>
     </message>
     <message>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
@@ -10706,40 +13137,39 @@ per fitxers d&apos;aquest tipus.</translation>
     </message>
     <message>
         <source>Installing Templates</source>
-        <translation>Instal.lant Plantilles</translation>
+        <translation>Instal.lar Plantilles</translation>
     </message>
     <message>
         <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
-        <translation>Extreure el paquet en el directori de Plantilles ~/.scribus/templates per l&apos;usuari actual o a PREFIX/share/scribus/templates per tots els usuaris.</translation>
+        <translation>Cal extreure el paquet en el directori de Plantilles ~/.scribus/templates per l&apos;usuari actual o a PREFIX/share/scribus/templates per tots els usuaris.</translation>
     </message>
     <message>
         <source>Preparing a template</source>
-        <translation>Preparant Plantilla</translation>
+        <translation>Preparar una Plantilla</translation>
     </message>
     <message>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Assegurar-se que les imatges i fonts que fas servir poden ser usades lliurement. Si les fonts no són lliures no les guardis amb la plantilla.</translation>
+        <translation>Cal assegurar-se que les imatges i els tipus de lletra que fas servir poden ser usades lliurement. Si les fonts no són lliures no les guardis amb la plantilla.</translation>
     </message>
     <message>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation>El creador de Plantilles hauria d&apos;estar segur que la secció d&apos;instal.lació de Plantilles anterir també li funciona a ell. Això significa que un usuari podrà
-descarregar un paquet, extreu-re&apos;l i començar a fer-lo servir.</translation>
+        <translation>El creador de Plantilles hauria d&apos;estar segur que la secció d&apos;instal.lació de Plantilles anterior també li funciona a ell. Això farà que un usuari es podrà descarregar el paquet, descomprimir-lo i començar a fer servir la plantilla.</translation>
     </message>
     <message>
         <source>Removing a template</source>
-        <translation>Eliminant una Plantilla</translation>
+        <translation>Eliminar una Plantilla</translation>
     </message>
     <message>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Eliminar una Plantilla des del diàleg &quot;Nova des de Plantilla&quot; només eliminarà la entrada de template.xml, no esborrarà fisicament els fitxers de document. Un menú emergent per esborrar només us apareixerà si teniu accés al fitxer template.xml.</translation>
+        <translation>Si eliminem una Plantilla des del diàleg &quot;Nova des de Plantilla&quot; només s&apos;eliminarà la entrada de template.xml, no s&apos;esborraran fisicament els fitxers del document. Només us apareixerà un menú emergent demanant confirmació per esborrar si teniu accés al fitxer template.xml.</translation>
     </message>
     <message>
         <source>Translating template.xml</source>
-        <translation>Traduint template.xml</translation>
+        <translation>Traduir template.xml</translation>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
-        <translation>Copia el fitxer template.xml a un fitxer amb nom template.lang_PAIS.xml (fes servir el mateix codi que és present en el fitxer qm del teu idioma), per exemple template.fi.xml per una versió en finès de template.xml. La copia ha d&apos;estar en el mateix directori que el template.xml l&apos;original perquè l&apos;Scribus el pugui fer servir.</translation>
+        <translation>Copia el fitxer template.xml a un fitxer amb nom template.lang_PAIS.xml (fes servir el mateix codi que hi ha en el fitxer qm del teu idioma), per exemple template.fi.xml per una versió en finès de template.xml. La copia ha d&apos;estar en el mateix directori que el template.xml l&apos;original perquè l&apos;Scribus el pugui fer servir.</translation>
     </message>
 </context>
 <context>
@@ -10821,114 +13251,114 @@ descarregar un paquet, extreu-re&apos;l i començar a fer-lo servir.</translatio
     <name>tfDia</name>
     <message>
         <source>Create filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Crea un filtre</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">B&amp;uida</translation>
+        <translation>B&amp;uida</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Es&amp;borra</translation>
     </message>
     <message>
         <source>Choose a previously saved filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Tria un filtre gravat previament</translation>
     </message>
     <message>
         <source>Give a name to this filter for saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Dóna un nom al filtre per desar-lo</translation>
     </message>
     <message>
         <source>Give a name for saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Dóna un nom per desar</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">D&apos;ac&amp;ord</translation>
+        <translation>D&apos;ac&amp;ord</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel.la</translation>
+        <translation>&amp;Cancel.la</translation>
     </message>
 </context>
 <context>
     <name>tfFilter</name>
     <message>
         <source>Disable or enable this filter row</source>
-        <translation type="unfinished"></translation>
+        <translation>Desactiva o activa aquest filtre de línia</translation>
     </message>
     <message>
         <source>Remove this filter row</source>
-        <translation type="unfinished"></translation>
+        <translation>Esborra aquest filtre de línia</translation>
     </message>
     <message>
         <source>Add a new filter row</source>
-        <translation type="unfinished"></translation>
+        <translation>Afegeix un nou filtre de línia</translation>
     </message>
     <message>
         <source>to</source>
-        <translation type="unfinished"></translation>
+        <translation>a</translation>
     </message>
     <message>
         <source>and</source>
-        <translation type="unfinished"></translation>
+        <translation>i</translation>
     </message>
     <message>
         <source>remove match</source>
-        <translation type="unfinished"></translation>
+        <translation>elimina coincidents</translation>
     </message>
     <message>
         <source>do not remove match</source>
-        <translation type="unfinished"></translation>
+        <translation>no eliminis coincidents</translation>
     </message>
     <message>
         <source>words</source>
-        <translation type="unfinished"></translation>
+        <translation>paraules</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Eliminar</translation>
+        <translation>Eliminar</translation>
     </message>
     <message>
         <source>Replace</source>
-        <translation type="unfinished"></translation>
+        <translation>Remplaça</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished">Aplicar</translation>
+        <translation>Aplicar</translation>
     </message>
     <message>
         <source>Value at the left is a regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>El valor de l&apos;esquerra és una expressió regular</translation>
     </message>
     <message>
         <source>with</source>
-        <translation type="unfinished"></translation>
+        <translation>amb</translation>
     </message>
     <message>
         <source>paragraph style</source>
-        <translation type="unfinished"></translation>
+        <translation>estil de paràgraf</translation>
     </message>
     <message>
         <source>all instances of</source>
-        <translation type="unfinished"></translation>
+        <translation>totes les instàncies de </translation>
     </message>
     <message>
         <source>all paragraphs</source>
-        <translation type="unfinished"></translation>
+        <translation>tots els paràgrafs</translation>
     </message>
     <message>
         <source>paragraphs starting with</source>
-        <translation type="unfinished"></translation>
+        <translation>paràgrafs començats per</translation>
     </message>
     <message>
         <source>paragraphs with less than</source>
-        <translation type="unfinished"></translation>
+        <translation>paràgrafs amb menys de</translation>
     </message>
     <message>
         <source>paragraphs with more than</source>
-        <translation type="unfinished"></translation>
+        <translation>paràgrafs amb més de</translation>
     </message>
 </context>
 </TS>

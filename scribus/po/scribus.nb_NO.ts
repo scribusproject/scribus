@@ -8,7 +8,9 @@
 Returns a list containing the names of all defined colors in the document.
 If no document is open, returns a list of the default document colors.
 </source>
-      <translation type="unfinished" />
+      <translation>getColorNames() -> list 
+
+Returnerer en liste med navn på alle definerte farger i dokumentet. Hvis ikke et dokument er åpnet, så vil en liste med standard dokumentfarger bli returnert. </translation>
     </message>
     <message>
       <source>newDocDialog() -> bool
@@ -17,7 +19,11 @@ Displays the &quot;New Document&quot; dialog box. Creates a new document if the 
 accepts the settings. Does not create a document if the user presses cancel.
 Returns true if a new document was created.
 </source>
-      <translation type="unfinished" />
+      <translation>newDocDialog() -> bool 
+
+Viser dialogboksen &quot;New Document&quot;. Lager et nytt dokument hvis brukeren aksepterer 
+innstillingene. Lager ikke et nytt dokument hvis brukeren trykker Avbryt. Returnerer 
+true hvis et nytt dokument lages.</translation>
     </message>
     <message>
       <source>getFillColor([&quot;name&quot;]) -> string
@@ -25,7 +31,10 @@ Returns true if a new document was created.
 Returns the name of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-      <translation type="unfinished" />
+      <translation>getFillColor([&quot;name&quot;]) -> string 
+
+Returnerer navnet på fyllfargen til objektet med navn &quot;name&quot;. 
+Hvis &quot;name&quot;.ikke er oppgitt, så vil det objektet som er valgt bli brukt.</translation>
     </message>
     <message>
       <source>moveObject(dx, dy [, &quot;name&quot;])
@@ -35,7 +44,12 @@ distances are expressed in the current measurement unit of the document (see
 UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
 If the object &quot;name&quot; belongs to a group, the whole group is moved.
 </source>
-      <translation type="unfinished" />
+      <translation>moveObject(dx, dy [, &quot;name&quot;]) 
+
+Flytter objektet &quot;name&quot; en avstand dy og dx relativt til dets nåværende posisjon. 
+Enhetene som brukes er den enhet som er valgt for dokumentet. Hvis &quot;name&quot; ikke er 
+oppgitt, så vil det objektet som er valgt bli brukt. Hvis objektet &quot;name&quot; tilhører en 
+gruppe, så vil hele gruppen bli flyttet.</translation>
     </message>
     <message>
       <source>setRedraw(bool)
@@ -1681,7 +1695,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
       <source>Align</source>
-      <translation>Stil opp</translation>
+      <translation>Still opp</translation>
     </message>
     <message>
       <source>Horizontal</source>
@@ -1741,7 +1755,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
       <source>A&amp;lign</source>
-      <translation>St&amp;il opp</translation>
+      <translation>St&amp;ill opp</translation>
     </message>
     <message>
       <source>Di&amp;splacement</source>
@@ -1761,7 +1775,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
       <source>Al&amp;ign</source>
-      <translation>S&amp;til opp</translation>
+      <translation>S&amp;till opp</translation>
     </message>
     <message>
       <source>Dis&amp;placement</source>
@@ -4290,7 +4304,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
       <source>Hyphenate Text Automatically &amp;During Typing</source>
-      <translation>Bruk ordeling automatisk mens du skriver</translation>
+      <translation>Bruk orddeling automatisk mens du skriver</translation>
     </message>
     <message>
       <source>Consecutive Hyphenations &amp;Allowed:</source>
@@ -5865,11 +5879,11 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
       <source>Executive</source>
-      <translation type="unfinished" />
+      <translation>Executive</translation>
     </message>
     <message>
       <source>Folio</source>
-      <translation type="unfinished" />
+      <translation>Folio</translation>
     </message>
     <message>
       <source>Ledger</source>
@@ -6757,13 +6771,13 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
     <message>
       <source>Provides a more pleasant view of text items in the viewer, at the expense
 of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-      <translation>Gir en pener visning av tekst i viseren, men forhåndsvisning blir
+      <translation>Gir en penere visning av tekst i viseren, men forhåndsvisning blir
 litt langsommere. Har kun effekt på Type 1 skrifttyper</translation>
     </message>
     <message>
       <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-      <translation>Gir en pener visning av True Type skrifttyper, Open Type skrifttyper, EPS, PDF og 
+      <translation>Gir en penere visning av True Type skrifttyper, Open Type skrifttyper, EPS, PDF og 
 vektor grafikk i forhåndsvisningen, men det går litt langsommere å forhåndsvise</translation>
     </message>
     <message>
@@ -7037,7 +7051,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
       <source>Un&amp;lock</source>
-      <translation>&amp;Lås/Lås opp</translation>
+      <translation>&amp;Lås opp</translation>
     </message>
     <message>
       <source>Lock Object &amp;Size</source>
@@ -7057,7 +7071,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
       <source>&amp;Group</source>
-      <translation>&amp;Gruper</translation>
+      <translation>&amp;Grupèr</translation>
     </message>
     <message>
       <source>Un&amp;group</source>
@@ -7069,11 +7083,11 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
       <source>Send to &amp;Back</source>
-      <translation>Send til &amp;bakgrunn</translation>
+      <translation>Bring til &amp;bakgrunnen</translation>
     </message>
     <message>
       <source>Bring to &amp;Front</source>
-      <translation>Bring til &amp;Forgrunn</translation>
+      <translation>Bring til &amp;forgrunnen</translation>
     </message>
     <message>
       <source>&amp;Lower</source>
@@ -7296,7 +7310,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
       <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-      <translation>Bruk konvenks/konkav faktor for å fornandre formen på polygoner</translation>
+      <translation>Bruk konveks/konkav faktor for å forandre formen på polygoner</translation>
     </message>
     <message>
       <source>A negative value will make the polygon concave (or star shaped),
@@ -7345,7 +7359,7 @@ positiv verdi vil gjøre det konveks</translation>
     </message>
     <message>
       <source>Misc.</source>
-      <translation>Misc.</translation>
+      <translation>Diverse</translation>
     </message>
     <message>
       <source>GUI</source>
@@ -7515,7 +7529,7 @@ Scribus kan bruke alle KDE og Qt temaer</translation>
     </message>
     <message>
       <source>Number of recently edited documents to show in the File menu</source>
-      <translation>Antall nylig redigerte filer vist i filmenyen</translation>
+      <translation>Antall nylig brukte filer som vises i filmenyen</translation>
     </message>
     <message>
       <source>Default documents directory</source>
@@ -7527,7 +7541,7 @@ Scribus kan bruke alle KDE og Qt temaer</translation>
     </message>
     <message>
       <source>Default Scripter scripts directory</source>
-      <translation>Standard Scripter script katalog</translation>
+      <translation>Standard Scripter skript katalog</translation>
     </message>
     <message>
       <source>Default page size, either a standard size or a custom size</source>
@@ -7653,7 +7667,7 @@ gang tidsperioden utløper</translation>
     </message>
     <message>
       <source>Picture Frame Properties</source>
-      <translation>Billderamme egenskaper</translation>
+      <translation>Billedramme egenskaper</translation>
     </message>
     <message>
       <source>Shape Drawing Properties</source>
@@ -7693,7 +7707,7 @@ gang tidsperioden utløper</translation>
     </message>
     <message>
       <source>Sample of your font</source>
-      <translation>Eksempel på skriftypen din</translation>
+      <translation>Eksempel på skrifttypen din</translation>
     </message>
     <message>
       <source>Picture frames allow pictures to scale to any size</source>
@@ -7949,7 +7963,7 @@ gang tidsperioden utløper</translation>
     </message>
     <message>
       <source>&amp;Interval:</source>
-      <translation>&amp;Interval:</translation>
+      <translation>&amp;Intervall:</translation>
     </message>
     <message>
       <source>M&amp;inor Grid Spacing:</source>
@@ -8230,18 +8244,18 @@ and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
       <translation>En måte å skru av noen av de gråskygger som er laget 
 av cyan, gult og magenta rød ved å  bruke svart istedenfor. 
-UCR virker best på deler av bilder som er nøyeutrale og/eller mørke toner
+UCR virker best på deler av bilder som er nøytrale og/eller mørke toner 
 som ligger nært opptil grått. Bruk dette for å få utsftening enkelteoen bilder til å se bedre; 
 og noe eksperimentering og testing er nødvendig neste gang.
 UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
       <source>Executive</source>
-      <translation type="unfinished" />
+      <translation>Executive</translation>
     </message>
     <message>
       <source>Folio</source>
-      <translation type="unfinished" />
+      <translation>Folio</translation>
     </message>
     <message>
       <source>Ledger</source>
@@ -8371,7 +8385,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
       <source>Attributes</source>
-      <translation>Attributer</translation>
+      <translation>Attributter</translation>
     </message>
     <message>
       <source>OK</source>
@@ -8679,7 +8693,7 @@ Sjekk sti og filnavn.</translation>
     <name>QMessageBox</name>
     <message>
       <source>&lt;h3>About Qt&lt;/h3>&lt;p>This program uses Qt version %1.&lt;/p>&lt;p>Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p>&lt;p>Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br>Qt is also available for embedded devices.&lt;/p>&lt;p>Qt is a Trolltech product. See &lt;tt>http://www.trolltech.com/qt/&lt;/tt> for more information.&lt;/p></source>
-      <translation>&lt;h3>Om Qt&lt;/h3>&lt;p>dette program bruker Qt versjon %1.&lt;/p>&lt;p>Qt er et C++ toolkit for multiplatform GUI &amp;amp; program utvikling&lt;/p>&lt;p>Qt gir single-source portabilitet mellom MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, og alle større kommersielle Unix varianter.&lt;br>Qt er også tilgjengelig for embedded deviced.&lt;/p>&lt;p>Qt er et Trolltech produkt. See &lt;tt>http://www.trolltech.com/qt/&lt;/tt> former informasjon.&lt;/p></translation>
+      <translation>&lt;h3>Om Qt&lt;/h3>&lt;p>dette program bruker Qt versjon %1.&lt;/p>&lt;p>Qt er et C++ toolkit for multiplattform GUI &amp;amp; program utvikling&lt;/p>&lt;p>Qt gir single-source portabilitet mellom MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, og alle større kommersielle Unix varianter.&lt;br>Qt er også tilgjengelig for embedded deviced.&lt;/p>&lt;p>Qt er et Trolltech produkt. Se &lt;tt>http://www.trolltech.com/qt/&lt;/tt> former informasjon.&lt;/p></translation>
     </message>
   </context>
   <context>
@@ -8748,11 +8762,11 @@ Sjekk sti og filnavn.</translation>
     </message>
     <message>
       <source>Envelopes</source>
-      <translation>Konvoluter</translation>
+      <translation>Konvolutter</translation>
     </message>
     <message>
       <source>Business Cards</source>
-      <translation>Visitkort</translation>
+      <translation>Visittkort</translation>
     </message>
     <message>
       <source>Calendars</source>
@@ -8876,7 +8890,7 @@ Sjekk sti og filnavn.</translation>
     </message>
     <message>
       <source>&amp;Scribus Scripts</source>
-      <translation>&amp;Scribus Scripts</translation>
+      <translation>&amp;Scribus Skripts</translation>
     </message>
     <message>
       <source>&amp;Execute Script...</source>
@@ -8884,7 +8898,7 @@ Sjekk sti og filnavn.</translation>
     </message>
     <message>
       <source>&amp;Recent Scripts</source>
-      <translation>Nylig b&amp;rukte Scripts</translation>
+      <translation>Nylig b&amp;rukte skript</translation>
     </message>
     <message>
       <source>Show &amp;Console</source>
@@ -8900,7 +8914,7 @@ Sjekk sti og filnavn.</translation>
     </message>
     <message>
       <source>Python Scripts (*.py);; All Files (*)</source>
-      <translation>Python Scripts (*.py);; Alle filtyper (*)</translation>
+      <translation>Python skript (*.py);; Alle filtyper (*)</translation>
     </message>
     <message>
       <source>Save Page as &amp;SVG...</source>
@@ -8983,7 +8997,7 @@ Eksterne lenker</translation>
     </message>
     <message>
       <source>Text Filters</source>
-      <translation>Textfiltre</translation>
+      <translation>Tekstfiltre</translation>
     </message>
     <message>
       <source>Albanian</source>
@@ -9019,7 +9033,7 @@ Eksterne lenker</translation>
     </message>
     <message>
       <source>Dutch</source>
-      <translation>Nderlandsk</translation>
+      <translation>Nederlandsk</translation>
     </message>
     <message>
       <source>English</source>
@@ -9135,12 +9149,12 @@ Eksterne lenker</translation>
     </message>
     <message>
       <source>Open Office Draw (*.sxd);;All Files (*)</source>
-      <translation>Open Office Draw (*.sxd);;Alle filtyper (*)</translation>
+      <translation>OpenOffice Draw (*.sxd);;Alle filtyper (*)</translation>
     </message>
     <message>
       <source>Failed to open document</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Klarte ikke å åpne dokument</translation>
     </message>
     <message>
       <source>Failed to save document</source>
@@ -9165,7 +9179,7 @@ Eksterne lenker</translation>
     <message>
       <source>Font not found</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Fant ikke skrifttypen</translation>
     </message>
     <message>
       <source>Can't render an empty sample</source>
@@ -9180,22 +9194,22 @@ Eksterne lenker</translation>
     <message>
       <source>Can't have an empty layer name</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke ha et lag uten navn</translation>
     </message>
     <message>
       <source>Layer not found</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Fant ikke laget</translation>
     </message>
     <message>
       <source>Can't remove the last layer</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Klarte ikke å fjerne det siste laget</translation>
     </message>
     <message>
       <source>Can't create layer without a name</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke lage et lag uten navn</translation>
     </message>
     <message>
       <source>An object with the requested name already exists</source>
@@ -9230,12 +9244,12 @@ Eksterne lenker</translation>
     <message>
       <source>Object not found</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Objektet ble ikke funnet</translation>
     </message>
     <message>
       <source>Style not found</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Stilen ble ikke funnet</translation>
     </message>
     <message>
       <source>Can't set style on a non-text frame</source>
@@ -9245,7 +9259,7 @@ Eksterne lenker</translation>
     <message>
       <source>Failed to save EPS</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Klarte ikke å lagre til EPS</translation>
     </message>
     <message>
       <source>Page number out of range</source>
@@ -9280,12 +9294,12 @@ Eksterne lenker</translation>
     <message>
       <source>Corner radius must be a positive number.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Hjørneradius må være et positivt tall.</translation>
     </message>
     <message>
       <source>Line style not found</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Fant ikke linjestilen</translation>
     </message>
     <message>
       <source>Cannot get font size of non-text frame.</source>
@@ -9330,7 +9344,7 @@ Eksterne lenker</translation>
     <message>
       <source>Cannot insert text into non-text frame.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke sette inn tekst i en ikke-tekstramme</translation>
     </message>
     <message>
       <source>Insert index out of bounds</source>
@@ -9355,12 +9369,12 @@ Eksterne lenker</translation>
     <message>
       <source>Can't set font size on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke sette størrelsen på skrifttypen på en ikke-tekstramme</translation>
     </message>
     <message>
       <source>Can't set font on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke sette skrifttypenavnet på en ikke-tekstramme</translation>
     </message>
     <message>
       <source>Line space out of bounds, must be >= 0.1</source>
@@ -9385,12 +9399,12 @@ Eksterne lenker</translation>
     <message>
       <source>Column count out of bounds, must be > 1</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Spaltenummerering ute av system, må være > 1</translation>
     </message>
     <message>
       <source>Can't number of columns on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan kun nummerer spalter i tekstrammer</translation>
     </message>
     <message>
       <source>Selection index out of bounds</source>
@@ -9400,97 +9414,97 @@ Eksterne lenker</translation>
     <message>
       <source>Can't select text in a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke velge tekst i en ikke-tekstramme</translation>
     </message>
     <message>
       <source>Can't delete text from a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke slette tekst fra en ikke-tekstramme</translation>
     </message>
     <message>
       <source>Can't set text fill on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke bruke tekstfyll på en ikke-tekstramme</translation>
     </message>
     <message>
       <source>Can't set text stroke on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke bruke tekststrek på en ikke-tekstramme</translation>
     </message>
     <message>
       <source>Can't set text shade on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke bruke tekstskygge på en ikke-tekstramme</translation>
     </message>
     <message>
       <source>Can only link text frames</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan kun blinke sammen tekstrammer</translation>
     </message>
     <message>
       <source>Target frame must be empty</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Målrammen må være tom</translation>
     </message>
     <message>
       <source>Target frame links to another frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Målrammen er allerede lenket sammen med en annen ramme</translation>
     </message>
     <message>
       <source>Target frame is linked to by another frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Målrammen er allerede lenket sammen med en annen ramme</translation>
     </message>
     <message>
       <source>Source and target are the same object</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kilden og målet er det samme objektet</translation>
     </message>
     <message>
       <source>Can't unlink a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke fjerne lenken til en ikke-tekstramme</translation>
     </message>
     <message>
       <source>Object is not a linked text frame, can't unlink.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Objektet er ikke en lenket tekstramme, kan derfor ikke fjerne noen lenke.</translation>
     </message>
     <message>
       <source>Object the last frame in a series, can't unlink. Unlink the previous frame instead.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Objektet er det siste i en serie, kan ikke fjerne lenken. Fjern lenken til den forrige rammen istedenfor.</translation>
     </message>
     <message>
       <source>Can't convert a non-text frame to outlines</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke konvertere en ikke-tekst ramme til outlines</translation>
     </message>
     <message>
       <source>Cannot get a color with an empty name.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke hente en farge uten navn.</translation>
     </message>
     <message>
       <source>Color not found</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Fargen ble ikke funnet</translation>
     </message>
     <message>
       <source>Cannot change a color with an empty name.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke forandre en farge uten navn.</translation>
     </message>
     <message>
       <source>Color not found in document</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Fargen ble ikke funnet i filen</translation>
     </message>
     <message>
       <source>Color not found in default colors</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Fargen ble ikke funnet blant standard fargene</translation>
     </message>
     <message>
       <source>Cannot create a color with an empty name.</source>
@@ -9773,7 +9787,7 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
       <source>Orientation:</source>
-      <translation>Rettning:</translation>
+      <translation>Retning:</translation>
     </message>
     <message>
       <source>Portrait</source>
@@ -9888,7 +9902,7 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
       <source>Character Settings</source>
-      <translation>Tegninstillinger</translation>
+      <translation>Tegninnstilling</translation>
     </message>
   </context>
   <context>
@@ -9986,7 +10000,7 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
       <source>Show Page Palette</source>
-      <translation>Vis side Palet</translation>
+      <translation>Vis sidepalet</translation>
     </message>
     <message>
       <source>Lock/Unlock</source>
@@ -10110,7 +10124,7 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
       <source>Group</source>
-      <translation>Gruper</translation>
+      <translation>Grupèr</translation>
     </message>
     <message>
       <source>Un-group</source>
@@ -10724,7 +10738,7 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
       <source>&amp;Multiple Duplicate</source>
-      <translation>&amp;Flere duplikasjoner</translation>
+      <translation>&amp;Flere kopier</translation>
     </message>
     <message>
       <source>&amp;Delete</source>
@@ -10732,7 +10746,7 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
       <source>&amp;Group</source>
-      <translation>&amp;Gruper</translation>
+      <translation>&amp;Grupèr</translation>
     </message>
     <message>
       <source>&amp;Ungroup</source>
@@ -10844,7 +10858,7 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
       <source>P&amp;age Palette</source>
-      <translation>Side P&amp;alet</translation>
+      <translation>Sidep&amp;alet</translation>
     </message>
     <message>
       <source>&amp;Bookmarks</source>
@@ -11020,7 +11034,7 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
       <source>&lt;p>You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p>Choose one of the following:&lt;br>&lt;ul>&lt;li>&lt;b>Create&lt;/b> missing pages&lt;/li>&lt;li>&lt;b>Import&lt;/b> pages until the last page&lt;/li>&lt;li>&lt;b>Cancel&lt;/b>&lt;/li>&lt;/ul>&lt;br></source>
-      <translation>&lt;p>Du prøver å importere flere sider end hva som er tilgjengelig i det nåværende dokument hvis man teller fra den aktive side.&lt;/p>Velg et av de følgende:&lt;br>&lt;ul>&lt;li>&lt;b>Lag&lt;/b> maglende sider&lt;/li>&lt;li>&lt;b>Importer&lt;/b> sider inntil den siste siden&lt;/li>&lt;li>&lt;b>Kanseler&lt;/b>&lt;/li>&lt;/ul>&lt;br></translation>
+      <translation>&lt;p>Du prøver å importere flere sider end hva som er tilgjengelig i det nåværende dokument hvis man teller fra den aktive side.&lt;/p>Velg et av de følgende:&lt;br>&lt;ul>&lt;li>&lt;b>Lag&lt;/b> manglende sider&lt;/li>&lt;li>&lt;b>Importer&lt;/b> sider inntil den siste siden&lt;/li>&lt;li>&lt;b>Avbryt&lt;/b>&lt;/li>&lt;/ul>&lt;br></translation>
     </message>
     <message>
       <source>Create</source>
@@ -11311,7 +11325,7 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     <message>
       <source>Here are all your Templates, to create a new Page
 drag a Template to the Pageview below.</source>
-      <translation>Her er alle dine maler. Trekk en mal
+      <translation>Her er alle dine maler. Trekk en mal 
 til vinduet nedenunder, for å lage en ny side.</translation>
     </message>
     <message>
@@ -11701,7 +11715,7 @@ never ask your confirmation again</source>
       <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document's paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-      <translation>Hvis det allerde finnes en avsnittsstil med det samme navnet som avsnittet fra OpenOffice dokumentet, skal da stilen i Scribus endres slik at det passer avsnittet som importeres, eller skal være i fred?</translation>
+      <translation>Hvis det allerede finnes en avsnittsstil med det samme navnet som avsnittet fra OpenOffice dokumentet, skal da stilen i Scribus endres slik at det passer avsnittet som importeres, eller skal være i fred?</translation>
     </message>
   </context>
   <context>
@@ -12074,7 +12088,7 @@ Vennligst velg et annet.</translation>
     </message>
     <message>
       <source>Remember association</source>
-      <translation>Husk filassosiasjon</translation>
+      <translation>Husk filendelsen</translation>
     </message>
     <message>
       <source>Remember the file extension - importer association
@@ -12282,7 +12296,7 @@ denne filendelsen, og ikke spør i fremtiden om dette.</translation>
     </message>
     <message>
       <source>Choose a previously saved filter</source>
-      <translation>Velg et tidligrere lagred filter</translation>
+      <translation>Velg et tidligere lagret filter</translation>
     </message>
     <message>
       <source>Give a name to this filter for saving</source>
