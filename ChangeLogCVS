@@ -1,5 +1,11 @@
 Changes since 1.2
 
+07.01.2005
+	* bug     #1061: Rasterized EPS/PS files on import do not export at selected resolution
+	* bug     #1228: Ghost layer with Append Templates
+	* bug     #1502: German Version: After starting Scribus menu-shortcut for file-menu (Alt-D for "_Datei") doesn't work .
+	* bug     #1503: German Ver.:  Same ALT-shortcut in Menu for "_Search" (_Suchen) and "Inserts _Special" (_Sonderzeichen einfügen)
+
 06.01.2005
 	* bug     #1296: End key in right-aligned text is 1 char short
 	* bug     #1307: wrong indentation on first line
