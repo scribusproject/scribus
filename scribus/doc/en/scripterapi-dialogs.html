@@ -1,0 +1,35 @@
+<h2>Using Dialogs from Scribus</h2> 
+
+<dl>
+	<dt>FileDialog("caption", "filter" "defaultName" [preview, mode]) </dt>
+	<dd>Shows a FileSelect Box with the Caption "caption". Files are filtered with the Filter String "filter", refer to the Qt-Documentation for it's use. A default Filename can also supplied, leave this string empty when you don't want to use it. A Value of 1 for preview enables a small Preview Widget in the FileSelect Box. 
+	When the mode parameter is set to 1 the Dialog acts like a "Save As" Dialog otherwise it acts like a "File Open Dialog". The default for both of the opional Parameters is 0. </dd>
+	
+	<dt>GetGuiLanguage()</dt>
+	<dd>Returns a string with the -lang value.</dd>
+	
+	<dt>MessagebarText(string)</dt>
+	<dd>Writes the param string into the Scribus message bar (status line).</dd>
+	
+	<dt>MessageBox("caption", "message", icon, Button1 [Button2, Button3]) </dt>
+	<dd>Shows a Message Box with the Title "caption", the Message "message", and an Icon icon and up to 3 Buttons. Button1 is always needed. For the icon and the Button Parameters there are predefined Constants available with the same Names as in the Qt Documentation. Returns the number of the selected Button. </dd>
+	
+	<dt>NewDocDialog()</dt> 
+	<dd>Shows the "New Document" Dialog Box. Returns true if a new Document was created. </dd>
+	
+	<dt>StatusMessage("string") </dt>
+	<dd>Displays the Message "string" in the StatusBar.</dd>
+	
+	<dt>ProgressReset()</dt>
+	<dd>Cleans up the Scribus progress bar previous settings. It is called before the new progress bar use.</dd>
+	
+	<dt>ProgressTotal(number)</dt>
+	<dd>Sets the progress bar's maximum steps value to the specified number. </dd>
+	
+	<dt>ProgressSet(number)</dt>
+	<dd>Progress bar handling. The progress bar uses the concept of steps; you give it the total number of steps and the number of steps completed so far and it will display the percentage of steps that have been completed. You can specify the total number of steps in the constructor or later with ProgressTotal(). The current number of steps is set with ProgressSet(). The progress bar can be rewound to the beginning with ProgressReset(). [taken from Trolltech's Qt docs]</dd>
+	
+	<dt>DocChanged(1|0)</dt>
+	<dd>Enable/disable save icon.</dd>
+
+</dl>

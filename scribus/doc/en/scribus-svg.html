@@ -1,0 +1,50 @@
+<h2>Scribus SVG Import/Export</h2>
+<p>Scribus 1.2 includes SVG import/export plug-ins, which enables you to export Scribus pages or objects as SVG. The import plug-in allows you to import SVG drawings and documents from illustration programs like Inkscape, Skencil and Adobe Illustrator.</p>
+<p>These plug-ins have the capability to import and export SVG 1.0 standards 2D graphics primitives and text, which can then be displayed in web browsers with SVG capability, within SVG viewers or further edited with SVG capable vector editors, like Skencil, Inkscape or Adobe Illustrator.
+</p>
+<h4>Exporting using the Plug-in:</h4>
+<p>Simply have the page you want to be exported open, selected and use <strong>File > Export > Save as SVG..</strong></p>
+<h4>Importing using the Plug-in:</h4>
+<p>Go <strong>File..>Import SVG Image</strong> When you import an SVG image or drawing, it will appear like an object from the Scrapbook. Drag the cursor where you want to place the SVG image. </p>
+
+<h4>SVG Importing Hints:</h4>
+<p>Scribus can handle most of the SVG features which can be created in Inkscape and Sketch, two well known vector drawing programs for Linux. The biggest issue I have observed is sometimes the paths when interpreted do not show up as closed. So parts of the SVG file look empty upon import. The simple fix is to ungroup the elements and then select the empty looking objects, then double click to bring up the editing palette for drawing objects and click on the close path button. Typically, then the invisible object will appear.</p>
+
+<h3>Scribus - SVG Q and A</h3>
+<h4>What is an SVG?</h4>
+<p>SVG (Scalable Vector Graphics) is a W3C recommended standard for vector graphics like line drawings, maps and logos. </p>
+<h4>Why add SVG Export to Scribus?</h4>
+<p>Increasingly, Scribus has more sophisticated drawing tools, which are both familiar and easy to use. End users might like to use Scribus created objects in other applications like web design. Many other applications can import SVG and export an SVG object into other file formats. This also makes it easy for your print and web objects to be created from the same source.</p>
+<h4>What features can I export with the plug-in?</h4>
+<p>Basic 2D graphics and text. Text on a path works sometimes with other applications, sometimes not. Adobe Illustrator and Sodipodi (increasingly) both do a good job of importing Scribus SVG. All features in a Scribus doc can be exported as SVG. Images within a page are converted to PNG. The Amaya Web browser will also display Scribus SVG. Some builds of Mozilla have native SVG rendering built in and future versions may include this in standard builds.</p>
+<h4>What features are not supported</h4>
+<p>The current version of the SVG-Import Plug-in has the following limitations:</p>
+<ol>
+	<li>Text isn't supported fully yet.</li>
+	<li>Not all gradient styles are fully supported.</li>
+	<li>No support for masking and clipping</li>
+	<li>Embedded SVG-Images aren't supported.</li>
+	<li>The SVG should be well formed, with all tags and structures should be correct. Corrupted SVGs could crash the plug-in.</li>
+	<li>Animations, multi-media and "extensions" or proprietary tags within SVG, which can only be viewed with certain viewers.</li>
+</ol>
+
+<h4>Why SVG?</h4>
+<p>SVG as a file format has many advantages:</p>
+<ul>
+	<li>Easy to implement. The SVG file format is based on XML and has many similarities to Scribus' native file format.</li>
+	<li>SVG is a scalable vector graphics, so graphics do not become pixellated when zoomed.</li>
+	<li>They are XML format, text based and quick to load - much smaller than bitmap images. A typical SVG files is under 10k.</li>
+	<li>SVG is an open XML-based standard from the W3 consortium</li>
+	<li>It is platform neutral</li>
+	<li>Can be scripted for user interaction and control. Also has support for ICC color spaces so color display accurately, even within a browser.</li>
+	<li>Browser support is increasing. KDE has fairly complete native support for SVG in KDE 3.2. KSVG will is now part of the kdegraphics package. More details: <a href="http://svg.kde.org/preview_kde32.html">svg.kde.org</a></li>
+	<li>SVG can also be color managed and supports a well defined way to specify ICC profiles.</li>
+</ul>
+
+<h4>What about browser support?</h4>
+<p>Mozilla has long had special builds which have native SVG support. Mozilla trunk code is regularly built with SVG support. You can find them on the Mozilla ftp site. Also interesting is the
+latest SVG plug-in from Adobe it works well in my testing with Mozilla 1.4+ and in Konqueror.</p>
+<h4>Where can I learn more?</h4>
+<p><a href="http://www.svgx.org/">SVG Foundation</a> has a wealth of links and news.</p><p>Other links are listed in the <a href="sclinks.html">Links page</a></p>
+<h4>A Scribus page displayed in a browser:</strong></h4>
+<div style="text-align: center"><img src="<?php echo $scr_shots_root; ?>svg1.png" title="Scribus Page Exported as SVG in Browser" alt="Scribus Page Exported as SVG in Browser" /></div>

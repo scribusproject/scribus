@@ -1,0 +1,21 @@
+<h2>Color related Commands </h2>
+
+<dl>
+	<dt>ChangeColor("name", c, m, y, k) </dt>
+	<dd>Changes the Color "name", The Color Value is defined via four Components c = Cyan, m = Magenta, y = Yello and k = Black. Color Compontens should be in the range from 0 to 255.</dd> 
+	
+	<dt>DefineColor("name", c, m, y, k) </dt>
+	<dd>Defines a new Color "name". The Color Value is defined via four Components c = Cyan, m = Magenta, y = Yello and k = Black. Color Compontens should be in the range from 0 to 255. </dd>
+	
+	<dt>DeleteColor("name", "replace") </dt>
+	<dd>Deletes the Color "name". Every occurence of that Color is replaced by the Color "replace". </dd>
+	
+	<dt>GetColor("name") </dt>
+	<dd>Returns a Tuple containing the four Color Components of the Color "name". </dd>
+	
+	<dt>GetColorNames() </dt>
+	<dd>Returns a List with the Names of all defined Colors. </dd>
+	
+	<dt>ReplaceColor("name", "replace")</dt> 
+	<dd>Every occurence of that Color is replaced by the Color "replace".</dd>
+</dl>

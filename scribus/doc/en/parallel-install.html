@@ -1,0 +1,20 @@
+<h2>How to install more than one version of Scribus on one computer </h2>
+
+<p>Imagine a situation when you have one Scribus already installed. It's likely possible because of Scribus quality, usability and presence in a wide amount of distributions :)</p>
+<p>And then the day came. The day you read about <em><strong>the magnificent feature</strong></em> implemented in CVS. You really want to try it but you're afraid of the possible problems with untested code etc, so you don't want to replace your stable installed package.</p>
+<p>Assume a situation when you've got Scribus installed from your favorite distro (rpm, deb etc. depending on distro) or installed from sources (tar.gz usually into <code>/usr/local</code>) and you have a freshly downloaded CVS snapshot. The following operations are made by a normal user not as <code>root</code>.</p>
+<p>Create a directory where you want the new Scribus located (in your favourite filemanager) e.g.:</p>
+<pre>mkdir ~/scribus_cvs</pre>
+<p>Then go into the downloaded and unpacked CVS directory:</p>
+<pre>cd ~/Scribus</pre>
+<p>and run: (It's needed only for CVS)</p>
+<pre>make -f Makefile.dist</pre>
+<p>And now the important task. You have to specify the target where CVS Scribus to install not to replace the distribution's release or standard installed tar.gz package:</p>
+<pre>
+$./configure --prefix=/home/yourusername/scribus_cvs</pre>
+<p>Then it's time for the classic:</p>
+<pre>
+make
+make install
+</pre>
+<p>When it's done, you can run the new Scribus by <code>~/scribus_cvs/bin/scribus</code></p>

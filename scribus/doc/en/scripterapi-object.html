@@ -1,0 +1,40 @@
+<h2>Creating and Destroying Objects</h2>
+
+<dl>
+	<dt>CreateBezierLine(<i>list</i>,&nbsp;["name"])</dt>
+	<dd>Creates a new Bezier Curve and returns its Name. The Points for the Bezier Curve are stored in the List "list" in the following Order: x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn. Where x and y mean the x and y Coordinates of the Point and kx and ky meaning the Controlpoint for the Curve. The Coordinates are given in the actual measurement Unit of the Document. "name" should be a unique Identifier for the Object because you need this Name for further referencing of that Object. If "name is not given Scribus will create one for you.</dd>
+	
+	<dt>CreateEllipse(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;["name"])</dt>
+	<dd>Creates a new Ellipse on the actual Page and returns its Name. The Coordinates are given in the actual measurement Unit of the Document. "name" should be a unique Identifier for the Object because you need this Name for further referencing of that Object. If "name is not given Scribus will create one for you.</dd>
+	
+	<dt>CreateImage(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;["name"])</dt>
+	<dd>Creates a new Picture on the actual Page and returns its Name. The Coordinates are given in the actual measurement Unit of the Document. "name" should be a unique Identifier for the Object because you need this Name for further referencing of that Object. If "name is not given Scribus will create one for you.</dd>
+
+	<dt>CreateLine(x1,&nbsp;y1,&nbsp;x2,&nbsp;y2,&nbsp;["name"])</dt>
+	<dd>Creates a new Line from the Point(x1, y1) to the Point(x2, y2) and returns its Name. The Coordinates are given in the actual measurement Unit of the Document. "name" should be a unique Identifier for the Object because you need this Name for further referencing of that Object. If "name is not given Scribus will create one for you.</dd>
+	
+	<dt>CreatePathText(x,&nbsp;y,&nbsp;"textbox",&nbsp;"beziercurve",&nbsp;["name"])</dt>
+	<dd>Creates a new PathText by merging the 2 Objects "textbox" and "beziercurve" and returns its Name. The Coordinates are given in the actual measurement Unit of the Document "name" should be a unique Identifier for the Object because you need this Name for further referencing of that Object. If "name is not given Scribus will create one for you.</dd>
+	
+	<dt>CreatePolygon(<i>list</i>,&nbsp;["name"])</dt>
+	<dd>Creates a new Polygon and returns its Name. The Points for the Polygon are stored in the List "list" in the following Order: x1, y1, x2, y2...xn. yn. At least three Points are required. There is no need to repeat the first Point to close the Polygon. The Polygon is automatically closed by connecting the first and the last Point. The Coordinates are given in the actual measurement Unit of the Document. "name" should be a unique Identifier for the Object because you need this Name for further referencing of that Object. If "name is not given Scribus will create one for you.</dd>
+	
+	<dt>CreatePolyLine(<i>list</i>,&nbsp;["name"])</dt>
+	<dd>Creates a new Polyline and returns its Name. The Points for the Polyline are stored in the List "list" in the following Order: x1, y1, x2, y2...xn. yn. The Coordinates are given in the actual measurement Unit of the Document. "name" should be a unique Identifier for the Object because you need this Name for further referencing of that Object. If "name is not given Scribus will create one for you.</dd>
+	
+	<dt>CreateRect(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;["name"])</dt>
+	<dd>Creates a new Rectangle on the actual Page and returns its Name. The Coordinates are given in the actual measurement Unit of the Document. "name" should be a unique Identifier for the Object because you need this Name for further referencing of that Object. If "name is not given Scribus will create one for you.</dd>
+
+	<dt>CreateText(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;["name"])</dt>
+	<dd>Creates a new Rectangle on the actual Page and returns its Name. The Coordinates are given in the actual measurement Unit of the Document. "name" should be a unique Identifier for the Object because you need this Name for further referencing of that Object. If "name is not given Scribus will create one for you.</dd>
+
+	<dt>DeleteObject(["name"])</dt>
+	<dd>Deletes the Item with the Name "name". If "name" is not given the currently selected Item is deleted.</dd>
+	
+	<dt>ObjectExists(['objectname'])</dt>
+	<dd>User test if an object with specified name really exists in the doc. Optional parameter is the object name. When no param given returns if there is something selected. For example:
+		<pre>
+        if ObjectExists('Text1'):
+                DeleteObject('Text1')</pre></dd>
+
+</dl>

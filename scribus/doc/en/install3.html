@@ -1,0 +1,50 @@
+<h2>Compiling and Installing</h2>
+<!--<p>If you have never compiled programs before, this article: <a href="compile-first.html">Compiling
+Scribus for the First Time</a> has detailed instructions for setting up your
+workstation to compiling Scribus from the source.</p>-->
+<p>In order to compile and install Scribus on your system, type the following
+in the base directory of the Scribus distribution after uncompressing the
+downloaded package:</p>
+<pre>
+./configure
+make
+make install
+</pre>
+<p>The <code>make install</code> command will have to be done with root access if you have not run the <code>./configure</code> command with a <code>--prefix=[dir]</code> option to specify a different install directory. The following is an example of how to configure and install into your home directory. (For more informaiton than the following line, look at the <a href="<?php echo "{$_SERVER['PHP_SELF']}&#063;lang=$lang&#038;sm=install&#038;page=parallel-install";
+?>">Parallel Install</a> section for more on having more than one version of Scribus installed at once)</p>
+<pre>
+./configure --prefix=/usr;make;make install prefix=~/scribus/cvs
+</pre>
+
+<p>If you receive warnings when running <code>./configure</code>, you will need to verify the versions of <code>autoconf</code> and <code>automake</code> by running:</p>
+<pre>
+autoconf --version
+automake --version
+</pre>
+<p>If they are not at least of the versions mentioned in the <a href="<?php echo "{$_SERVER['PHP_SELF']}&#063;lang=$lang&#038;sm=install&#038;page=install2";
+?>">Requirements</a> section, you may, depending on your distribution, need to tell it to use a higher version like following:</p>
+<pre>
+export WANT_AUTOCONF=&#034;2.5&#034;
+export WANT_AUTOMAKE=&#034;1.7&#034;
+</pre>
+<p>Having run those two commands, recheck the versions. If they still do not comply to those required, you will need to upgrade those programs, however most distributions contain a high enough version.</p>
+<p>You can launch scribus from the command line with the following options:</p>
+<pre>
+scribus -help
+</pre>
+<p>Output:</p>
+<pre>
+Scribus, a DTP-Program
+
+Usage: scribus [option ... ] [file]
+Options:
+-lang xx      Uses xx as shortcut for a language
+-help         Print help (this message) and exit
+-version      Output version information and exit
+-file|-- name Open file &#034;name&#034;
+name          Open file &#034;name&#034;, the file name must not begin with &#034;-&#034; QT specific options as -display ...
+</pre>
+<p>The default location for the Scribus executable is located in <code>/usr/local/bin</code>. Documentation is located in <code>/usr/local/lib/scribus/doc</code></p>
+<p>In addition, there is a <code>desktop.config</code> file named <code>scribus.desktop</code> which can be used for a menu shortcut or desktop shortcut. Simply copy this from the base directory of the installation source directory to your KDE desktop and this will launch Scribus. After dragging this to the desktop, right click and make sure the execute check box is checked. This file conforms to the latest <a href="http://www.freedesktop.org">www.freedesktop.org</a> specifications.</p>
+<p>Since Scribus uses <code>autoconf</code>, as long as you have the correct developement versions of the libraries, you should have little difficulty compiling it. Should you run into problems please report them to the Scribus mailing list or IRC channel. See <a href="<?php echo "{$_SERVER['PHP_SELF']}&#063;lang=$lang&#038;sm=community&#038;page=resources";
+?>">Community Resources</a> section of this manual.</p>

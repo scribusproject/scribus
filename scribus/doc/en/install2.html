@@ -1,0 +1,41 @@
+<h2>Requirements</h2>
+<p>The programs you will need to compile Scribus are:</p>
+<ol>
+	<li><strong>For Scribus 1.1.2+ GCC 3.x+ is required, GCC 3.2+ is strongly recommended</strong>. The Scribus Team has tested compiling with GCC 3.4 and recommends its use, if available, for the performance benefits.</li>
+	<li>autoconf 2.53+</li>
+	<li>automake 1.6.3+</li>
+</ol>
+The dependencies for compilation, and also to run Scribus are:
+<ol>
+	<li>Qt 3.0.5+, both the runtime libraries and development libraries, we <strong>strongly</strong> recommend using Qt 3.3.2+.</li>
+	<li>Python and python-devel libraries 2.1+.</li>
+	<li>Freetype2 2.1.3+.</li>
+	<li>libart_lgpl 2.3.10+, 2.3.16+ recommended.</li>
+	<li>libxml 2.6+.</li>
+	<li>Ghostscript &gt; 6.53+. GNU Ghostscript 7.07+ or AFPL Ghostscript 8.14 is highly recommended.</li>
+	<li>Postscript-Fonts. True Type Fonts. Scribus also can support Open Type fonts both True Type and Type 1 Outline Open Type Fonts in 1.1.1+.</li>
+</ol>
+<p>Scribus will run under most any window manager and does not require KDE
+itself. However, drag and drop functionality will be lost without KDE. One
+of the Scribus developers runs Gnome. The author of this documentation has
+made a point of testing each release of Scribus under Blackbox as well.
+This has shown no incompatibilities or problems for Scribus, except for
+the loss of drop and drag functionality.</p>
+<p>If color management does not work, you may not have installed the
+development libraries for littlecms. When downloading the package from
+littlecms the make files are already configured for Linux, so compiling is
+straight forward. You also need at least one RGB profile and one CMYK
+profile installed or the color preferences and options will not appear in
+the menus. On Red Hat and Mandrake 9.x you may have to type export
+LDFLAGS=&quot;-lm&quot;, just before compiling or littlecms may not link correctly
+to Scribus. This issue has been fixed in littlecms 1.10 and in Scribus 1.2</p>
+<p>Testing suggests setting the correct &#034;-march=&#034; CXXFLAGS has a very
+benefitial effect on Scribus performance. For example, if you have a Duron or Athlon processor, using <code>export
+CXXFLAGS=&#034;-march=athlon&#034;</code> would be of benefit. Check if your distribution sets these for you and how they are set, and for further information see:<pre>man gcc</pre> for detailed options</p>
+<h3>Optionally:</h3>
+<ul>
+<li>CUPS development librairies - Scribus now directly supports printing
+with CUPS.</li>
+<li>Gimp Print development librairies - Scribus now directly supports the
+Gimp Print plug-in with CUPS.</li>
+</ul>

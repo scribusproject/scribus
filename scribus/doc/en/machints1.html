@@ -1,0 +1,40 @@
+<h2>Mac OSX Hints and Notes</h2>
+
+<p><strong>Editor's Note:</strong> These notes are based on advice and notes kindly provided by Martin Costabel. He has done a terrific job of maintaining the Scribus fink package, as well as, providing assistance to fink users on the mailing list. Some of these hints are directed to DTP users who might not have much experience with the vagaries of X11 or its font handling.</p>
+
+<h3>Installing Scribus Binaries</h3>
+
+<p>There are two ways - equally simple:</p>
+<ul>
+	<li>If you have Fink Commander select it from the list and <strong>right click</strong> ><strong> install binaries</strong>.</li>
+	<li>From a terminal window:
+		<pre>sudo fink install scribus</pre>
+	</li>
+</ul>
+<p>Depending on what you already have installed and your Internet speed, this could be just a few short minutes or a long download to install the needed support libraries. The Depends will automatically be installed by Fink if you install Scribus binaries. The Recommends will not be so if you want them you will need to ask Fink to install them for you.</p>
+
+<p>Scribus Depends on the following:</p>
+<ul>
+	<li>x11</li>
+	<li>Ghostscript</li>
+	<li>qt3-shlibs</li>
+	<li>libjpeg-shlibs</li>
+	<li>libjpeg-bin</li>
+	<li>lcms-shlibs</li>
+	<li>libart2-shlibs</li>
+	<li>libpng3-shlibs</li>
+	<li>libtiff-shlibs</li>
+	<li>freetype2-shlibs or freetype2-hinting-shlibs</li>
+</ul>
+<p>Recommended, but not absolutely necessary:</p>
+<ul>
+	<li>applesystemfonts</li>
+	<li>msttcorefonts</li>
+	<li>ghostscript-fonts - Note the "unstable" 8.11 fonts are actually of better quality.</li>
+	<li>x-ghostscript-fonts</li>
+</ul>
+<p>I would avoid using the gimp-freefonts package in Scribus, while they might be fine in other applications.</p>
+<p>In addition, Scribus supports Open Type Fonts, but not in the DFONT format that MacOSX uses. You can use <a href="http://fondu.sourceforge.net/">fondu</a>, a tool to convert fonts with resource forks, into a format which can be understood by X11. You are recommended to convert Open Type fonts into True Type/ Open Type fonts, to preserve all the glyphs. (Type 1 fonts are limited to 256 gylphs per font.) </p>
+<p>Newer X windows system with the so-called <strong>fontconfig</strong> system have the concept of a personal fonts directory, usually in a hidden directory named <code>.fonts</code>. Scribus can add this and any other directories which contain Type 1 (PC) or True Type / Open Type fonts. Scribus does not need the <code>.afm</code> files for a Type 1 font, just the <code>.pfm</code> files. Scribus obtains the font metrics via freetype2.</p>
+<p>To build the latest greatest CVS version, look here: <a href="<?php echo "{$_SERVER['PHP_SELF']}&#063;lang=$lang&#038;sm=crossplatform&#038;page=machints2";
+?>">Mac OSX/Fink &#038; CVS</a></p>

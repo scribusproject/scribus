@@ -1,0 +1,32 @@
+<h2>Manipulating Objects </h2>
+
+<dl>
+	<dt>GroupObjects([list])</dt>
+	<dd>Groups the Objects in "list" together. "list" must contain the Names of the Objects to be grouped. If "list" is not given the currently selected Items are used.</dd>
+	
+	<dt>MoveObject(dx, dy, ["name"])</dt>
+	<dd>Moves the Object "name" by dx and dy relative to its origin. The Distances are expressed in the actual Measurement Unit of the Document. If "name" is not given the currently selected Item is used. If the Object "name" belongs to a Group, the whole Group is moved.</dd>
+	
+	<dt>MoveObjectAbs(x, y, ["name"])</dt>
+	<dd>Moves the Object "name" to a new Location. The Coordinates are expressed in the actual Measurement Unit of the Document. If "name" is not given the currently selected Item is used. If the Object "name" belongs to a Group, the whole Group is moved.</dd>
+	
+	<dt>RotateObject(rot, ["name"])</dt>
+	<dd>Rotates the Object "name" by "rot" Degrees. Positve Values mean counter clockwise Rotation. If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>RotateObjectAbs(rot, ["name"])</dt>
+	<dd>Sets the Rotation of the Object "name" to "rot". Positve Values mean counter clockwise Rotation. If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>ScaleGroup(factor, ["name"])</dt>
+	<dd>Scales the Group the Object "name" belongs to. Values greater than 1 enlarge the Group, Values smaller than 1 make the Group smaller e.g a Value of 0.5 scales the Group to 50 % of is original Size, a Value of 1.5 scales the Group to 150 % of its original Size. The Value for "factor" must be greater than 0. If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>SizeObject(width, height, ["name"])</dt>
+	<dd>Resizes the Object "name" to the given Width and Height. If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>UnGroupObject(["name"])</dt>
+	<dd>Destructs the Group the Object "name" belongs to. If "name" is not given the currently selected Item is used.</dd>
+	<dt>TextFlowsAroundFrame('objectname' [,state])</dt>
+	<dd>Enables/disables "Text Flows Around Box" feature for object. Called with params string objectName and voluntary 1|0. When 1 set flowing to true (0 to false). When the second parameter is empty flowing is reverted. For example:
+		<pre>
+        objnamme = GetSelectedObject()
+        TextFlowsAroundFrame(objname, 1) # causes the text flows around the object</pre></dd>
+</dl>

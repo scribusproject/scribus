@@ -1,0 +1,20 @@
+<h2>Scripting Scribus with Python</h2>
+
+<h4>Abstract</h4>
+<p>This is the description how to use the Scripting Plugin for Scribus. This Plugin allows you to use the powerful Python Language as a Scripting Language in Scribus.</p>
+
+<p>This manual is the first version, by no means complete or fully accurate. There are just a couple of commands written in red letters aren't yet implemented yet in this version.</p>
+
+<p>There are some simple example scripts in the samples subdirectory where Scribus is installed. If you have created scripts which would be useful for other users, please feel free to contribute a copy to the program author, Franz Schmid. Hopefully, in the near future, a Scribus plug-in gallery will be added.</p>
+
+<h3>Using the Plugin</h3>
+
+<div style="text-align: center"><img src="<?php echo $scr_shots_root; ?>Scripter.png" align="center" alt="Running a script" title="Running a script" /></div>
+
+<p>To execute a Python Script select "Script-&gt;Execute Script..." Scribus will display a File select Box which allows you to select a Python Script. Below there is an extra Menu item "Recent Scripts" where all your recent Scripts are remembered. How many Scripts are remembered depends on your Setting for Recent Documents in the Scribus Preferences.</p> 
+
+<p>You can use many Python Programs with this Plugin. The only exception are Scripts who expect Parameters from the Command Line. They won't work because the Plugin gives the Python Interpreter an empty Command Line.</p>
+
+<p>The Menu Item "Show Console" gives you an interactive Python Console, where you can execute Commands directly. There is no need to do a "from scribus import *", this has already been done. You can use all the following Commands in the Scripter API section directly without any Prefix.</p>
+
+<p>You can display this Reference Manual when you select "Help-&gt;Scripter Manual...".</p>

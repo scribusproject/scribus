@@ -1,0 +1,39 @@
+<h2>Page related Commands</h2>
+
+<dl>
+	<dt>CurrentPage()</dt>
+	<dd>Returns the Number of the current working Page. Pagenumbers are counted from 1 upwards.</dd>
+	
+	<dt>DeletePage(nr)</dt>
+	<dd>Deletes the given Page, does nothing if the Document contains only one Page. Pagenumbers are counted from 1 upwards.</dd>
+
+	<dt>GetAllObjects()</dt>
+	<dd>Returns a List containing the Names of all Objects on the actual Page.</dd>
+	
+	<dt>GotoPage(nr)</dt>
+	<dd>Moves to the Page "nr". If "nr" is outside the current rage of Pages nothing happens.</dd>
+	
+	<dt>NewPage(where,&nbsp;["template"])</dt>
+	<dd>Creates a new Page If "where" is -1 the new Page is appended to the Document, otherwise the new Page is inserted at "where". The Pagenumbers are counted from 1 upwards. The optional Parameter "template" specifies the Name of the Template Page for the new Page.</dd>
+	
+	<dt>PageCount()</dt>
+	<dd>Returns the Number of Pages in the Document.</dd>
+	
+	<dt>PageDimensions()</dt>
+	<dd>Returns a tuple with page domensions in used system e.g. when the document's page is in picas - picas are returned</dd>
+	
+	<dt>RedrawAll()</dt>
+	<dd>Redraws all Pages.</dd>
+	
+	<dt>SetRedraw(bool)</dt>
+	<dd>Disables Page Redraw when bool = 0, otherwise redrawing is enabled.</dd>
+	
+	<dt>SavePageAsEPS("name")</dt> 
+	<dd>Saves the actual Page as an EPS, returns true if successful.</dd>
+	
+	<dt>GetPageItems()</dt>
+	<dd>Returns a list of tuples with items on the actual page. (name, objectType, order) E.g. [('Text1', 4, 0), ('Image1', 2, 1)] means that object named 'Text1' is a text frame (type 4) and is the first at the page...</dd>
+
+	<dt>PageDimension()</dt>
+	<dd>Returns a tupple with page dimensions in chosen measurements type (see e.g. GetUnit())</dd>
+</dl>

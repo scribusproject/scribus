@@ -1,0 +1,67 @@
+<h2>Scripter API - Document related Commands</h2>
+
+<dl>
+	<dt>CloseDoc()</dt>
+	<dd>Closes the current Document. Returns true if successful.</dd>
+
+	<dt>GetUnit()</dt>
+	<dd>Returns the Measurement Unit of the Document. Possible Values for Unit are:
+		<blockquote>
+			0 = Typographic Points<br>
+			1 = Millimeters<br>
+			2 = Inches<br>
+			3 = Picas
+		</blockquote>
+	</dd>
+	
+	<dt>HaveDoc()</dt>
+	<dd>Returns true if there is a Document open.</dd>
+	
+	<dt>NewDoc(size,&nbsp;margins,&nbsp;orientation,&nbsp;firstPageNumber,&nbsp;unit,&nbsp;FacingPages,&nbsp;FirstSideLeft)</dt>
+	<dd>Creates a new Document. The Parameters have the following Meaning:
+		<blockquote>
+			size = A Tuple (width, height) describing the Size of the Document.<br>
+			margins = A Tuple (Left, Right, Top, Bottom) describing the Margins of the Document.<br>
+			orientation = the Page Orientation, 0 means Portrait, 1 is Landscape<br>
+			firstPageNumer is the Number of the first Page in the Document used for Pagenumbering<br>
+			unit: this Value sets the Measurement Unit of the Document
+			<blockquote>
+				0 = Typographic Points<br>
+				1 = Millimeters<br>
+				2 = Inches<br>
+				3 = Picas
+			</blockquote>
+			FacingPages: 1 means FacingPages turned on, 0 means FacingPages turned off<br>
+			FirstSideLeft: 1 means that the first Page in the Document is a left Page, 0 means a right Page as first Page<br>
+		</blockquote>
+		The values for Width, Height and the Margins are expressed in the given unit for the Document.
+		</blockquote>
+	</dd>
+	<dt>OpenDoc("name")</dt>
+	<dd>Opens the Document "name". Returns true if successful.</dd>
+	
+	<dt>SaveDoc()</dt>
+	<dd>Saves the Document under its actual Name, returns true if successful.</dd>
+	
+	<dt>SaveDocAs("name")</dt>
+	<dd>Saves the actual Document under the new Name "name". Returns true if successful.</dd>
+
+	<dt>SetInfo("Author",&nbsp;"Info",&nbsp;"Description")</dt>
+	<dd>Sets the Document Information.</dd>
+	
+	<dt>SetMargins(lr,&nbsp;rr,&nbsp;tr,&nbsp;br)</dt>
+	<dd>Sets the Print margins of the Document, Left(lr), Right(rr), Top(tr) and Bottom(br) Margins are given in the measurement unit of the Document.</dd>
+
+	<dt class="unfinished">SetDocType(FacingPages,&nbsp;FirstSideLeft)</dt>
+	<dd>Sets the Type of the Documents, to get Facing Pages set the first Parameter to 1, to switch FacingPages off use 0 instead. If you want to be the first Page a left Side set the second Parameter to 1, for a right Page use 0.</dd>
+	
+	<dt>SetUnit(unit)</dt>
+	<dd>Changes the Measurement Unit of the Document. Possible Values for Unit are:
+		<blockquote>
+			0 = Typographic Points<br>
+			1 = Millimeters<br>
+			2 = Inches<br>
+			3 = Picas
+		</blockquote>
+	</dd>
+</dl>
