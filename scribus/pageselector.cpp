@@ -1,12 +1,3 @@
-/****************************************************************************
-** Form implementation generated from reading ui file 'pageselector.ui'
-**
-** Created: Son Feb 15 10:09:03 2004
-**      by: The User Interface Compiler ($Id$)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
-
 #include "pageselector.h"
 #include "pageselector.moc"
 
