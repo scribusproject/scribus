@@ -456,6 +456,12 @@ public:
 	static const QString SetLanguage;
 	static const QString AlignText;
 	static const QString SetFontEffect;
+	static const QString ImageFrame;
+	static const QString TextFrame;
+	static const QString Polygon;
+	static const QString BezierCurve;
+	static const QString Polyline;
+	static const QString ConvertTo;
 	/*@}*/
 
 	/**

@@ -685,6 +685,12 @@ const QString UndoManager::SetStyle           = tr("Set paragraph style");
 const QString UndoManager::SetLanguage        = tr("Set language");
 const QString UndoManager::AlignText          = tr("Align text");
 const QString UndoManager::SetFontEffect      = tr("Set font effect");
+const QString UndoManager::ImageFrame         = tr("Image frame");
+const QString UndoManager::TextFrame          = tr("Text frame");
+const QString UndoManager::Polygon            = tr("Polygon");
+const QString UndoManager::BezierCurve        = tr("Bezier curve");
+const QString UndoManager::Polyline           = tr("Polyline");
+const QString UndoManager::ConvertTo          = tr("Convert to");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;

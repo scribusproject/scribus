@@ -2780,6 +2780,51 @@ void PageItem::setLanguage(const QString& newLanguage)
 	Language = newLanguage;
 }
 
+void PageItem::convertTo(int newType)
+{
+	QString fromType = "", toType = "";
+	switch (PType)
+	{
+		case 2: fromType = Um::ImageFrame; break;
+		case 4: fromType = Um::TextFrame; break;
+		case 6: fromType = Um::Polygon; break;
+		default: fromType = ""; break;
+	}
+	switch (newType)
+	{
+		case 2:
+			toType = Um::ImageFrame; 
+			setUPixmap(Um::IImageFrame);
+			break;
+		case 4:
+			toType = Um::TextFrame;
+			setUPixmap(Um::ITextFrame);
+			break;
+		case 6:
+			toType = Um::Polygon;
+			setUPixmap(Um::IPolygon);
+			break;
+		case 7:
+			toType = Um::Polyline;
+			setUPixmap(Um::IPolyline);
+			break;
+		default: 
+			toType = ""; 
+			setUPixmap(NULL);
+			break;
+	}
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::ConvertTo + " " + toType,
+										  QString(Um::FromTo).arg(fromType).arg(toType));
+		ss->set("CONVERT", "convert");
+		ss->set("OLD_TYPE", PType);
+		ss->set("NEW_TYPE", newType);
+		undoManager->action(this, ss);
+	}
+	PType = newType;
+}
+
 void PageItem::checkChanges(bool force)
 {
 	// has the item been resized
@@ -2970,6 +3015,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restorePStyle(ss, isUndo);
 		else if (ss->contains("FONT_EFFECTS"))
 			restoreFontEffect(ss, isUndo);
+		else if (ss->contains("CONVERT"))
+			restoreType(ss, isUndo);
 	}
 }
 
@@ -3288,6 +3335,21 @@ void PageItem::restoreFontEffect(SimpleState *state, bool isUndo)
 		effect = state->getInt("NEW_EFFECT");
 	select();
 	ScApp->view->chTyStyle(effect);
+}
+
+void PageItem::restoreType(SimpleState *state, bool isUndo)
+{
+	int type = state->getInt("OLD_TYPE");
+	if (!isUndo)
+		type = state->getInt("NEW_TYPE");
+	select();
+	switch (type) {
+		case 2: ScApp->view->ToPicFrame(); break;
+		case 4: ScApp->view->ToTextFrame(); break;
+		case 6: ScApp->view->ToPolyFrame(); break;
+		case 7: ScApp->view->ToBezierFrame(); break;
+	}
+	ScApp->setAppMode(NormalMode);
 }
 
 void PageItem::select()

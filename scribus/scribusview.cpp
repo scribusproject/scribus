@@ -7756,7 +7756,7 @@ void ScribusView::ToPicFrame()
 {
 	emit Amode(1);
 	PageItem *b = SelItem.at(0);
-	b->PType = 2;
+	b->convertTo(2);
 	b->Frame = true;
 	RefreshItem(b);
 	emit HaveSel(b->PType);
@@ -7770,7 +7770,7 @@ void ScribusView::ToPolyFrame()
 {
 	emit Amode(1);
 	PageItem *b = SelItem.at(0);
-	b->PType = 6;
+	b->convertTo(6);
 	b->Frame = false;
 	b->ClipEdited = true;
 	b->FrameType = 3;
@@ -7788,7 +7788,7 @@ void ScribusView::ToTextFrame()
 {
 	emit Amode(1);
 	PageItem *b = SelItem.at(0);
-	b->PType = 4;
+	b->convertTo(4);
 	b->Frame = true;
 	RefreshItem(b);
 	emit HaveSel(b->PType);

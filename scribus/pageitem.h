@@ -524,6 +524,12 @@ public:
 	 */
 	void setLanguage(const QString& newLanguage);
 
+	/**
+	 * @brief Convert this PageItem to PageItem type <code>newType</code>
+	 * @param newType PageItem type for conversion
+	 */
+	void convertTo(int newType);
+
 	/** 
 	 * @brief Check the changes to the item and add undo actions for them.
 	 * @param force Force the check. Do not care if mouse button or arrow key is down
@@ -579,6 +585,7 @@ protected:
 	void restoreLanguage(SimpleState *state, bool isUndo);
 	void restorePStyle(SimpleState *state, bool isUndo);
 	void restoreFontEffect(SimpleState *state, bool isUndo);
+	void restoreType(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**
