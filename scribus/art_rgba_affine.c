@@ -17,7 +17,12 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "config.h"
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include "art_rgba_affine.h"
 
 #include <math.h>

@@ -17,7 +17,13 @@
 
 #include "pdflib.h"
 #include "pdflib.moc"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include <qregexp.h>
 #include <qdatetime.h>
 #include <qfileinfo.h>

@@ -16,7 +16,13 @@
  ***************************************************************************/
 #include "svgexplugin.h"
 #include "svgexplugin.moc"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include "customfdialog.h"
 #include <qfile.h>
 #include <qtextstream.h>

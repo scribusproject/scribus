@@ -5,7 +5,13 @@
 #include <sys/types.h>
 
 #include "scfonts_ttf.h"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H

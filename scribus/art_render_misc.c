@@ -29,7 +29,12 @@
  *          Alexander Larsson <alla@lysator.liu.se>
  */
 
-#include "config.h"
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif 
+
 #include "art_render_misc.h"
 
 #include <math.h>

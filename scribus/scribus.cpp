@@ -62,7 +62,13 @@
 #include "annot.h"
 #include "annota.h"
 #include "javadocs.h"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "hysettings.h"

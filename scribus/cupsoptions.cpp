@@ -17,7 +17,13 @@
 
 #include "cupsoptions.h"
 #include "cupsoptions.moc"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include <qstringlist.h>
 #ifdef HAVE_CUPS
 #include <cups/cups.h>

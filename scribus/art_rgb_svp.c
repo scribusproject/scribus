@@ -19,7 +19,12 @@
 
 /* Render a sorted vector path into an RGB buffer. */
 
-#include "config.h"
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include "art_rgb_svp.h"
 
 #include <libart_lgpl/art_svp.h>

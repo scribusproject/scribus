@@ -16,7 +16,13 @@
 #include "dcolor.h"
 #include "scribusXml.h"
 #include "cmykfw.h"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 extern QPixmap loadIcon(QString nam);
 
 Farbmanager::Farbmanager( QWidget* parent, CListe doco )

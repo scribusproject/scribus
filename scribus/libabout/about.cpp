@@ -1,7 +1,12 @@
 #include "about.h"
 #include "about.moc"
 #include <qpixmap.h>
-#include "config.h"
+
+#if (_MSC_VER >=1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
 
 extern QPixmap loadIcon(QString nam);
 
@@ -33,7 +38,7 @@ About::About( QWidget* parent )
     tabLayout1->addWidget( PixmapLabel1 );
     BuildID = new QLabel( tab, "BB" );
     BuildID->setAlignment(Qt::AlignCenter);
-    QString bu = tr("%1. %2 %3 ").arg(15).arg("December").arg(2003);
+    QString bu = tr("%1. %2 %3 ").arg(16).arg("December").arg(2003);
 #ifdef HAVE_CMS
 		bu += "C";
 #else
@@ -64,11 +69,16 @@ About::About( QWidget* parent )
                         "<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
                         "<tr><td><b>" + tr("Contributions from:") + "</b></td><td></td></tr>" +
-                        "<tr><td>Paul Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
+                        "<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
                         "<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
                         "<tr><td>Christian Töpp</td><td>mr-ct@gmx.de</td></tr>" +
                         "<tr><td>Alastair Robinson</td><td>blackfive@fakenhamweb.co.uk</td></tr>" +
                         "<tr><td></td><td> </td></tr>" +
+                        #if (_MSC_VER >= 1200)
+                        "<tr><td><b>" + tr("Windows port:") + "</b></td><td> </td></tr>" +
+                        "<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
+                        "<tr><td> </td><td> </td></tr>" +
+                        #endif
                         "<tr><td><b>" + tr("Documentation:") + "</b></td><td></td></tr>" +
                         "<tr><td>Peter Linnell</td><td>scribusdocs@atlantictechsolutions.com</td></tr>" +
                         "<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" +

@@ -14,7 +14,13 @@
 #include <qpixmap.h>
 #include <qtextcodec.h>
 #include <qfileinfo.h>
-#include <config.h>
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 extern QPixmap loadIcon(QString nam);
 
 /* 

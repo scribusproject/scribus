@@ -15,7 +15,7 @@
  *                                                                         *
  ***************************************************************************/
 #include <qstringlist.h>
-#include <fontcombo.h>
+#include "fontcombo.h"
 
 FontListItem::FontListItem(QComboBox* parent, QString f, QFont fo) : QListBoxItem(parent->listBox())
 {

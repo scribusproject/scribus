@@ -16,7 +16,13 @@
  ***************************************************************************/
 
 #include "cmykcolor.h"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #ifdef HAVE_CMS
 	#include CMS_INC
 extern cmsHTRANSFORM stdTrans;

@@ -21,7 +21,12 @@
  *
  */
 
-#include "config.h"
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+ 
 #include "art_render_pattern.h"
 
 #include <math.h>

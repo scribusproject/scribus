@@ -1,6 +1,12 @@
 #include "svgplugin.h"
 #include "svgplugin.moc"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include "customfdialog.h"
 #include "color.h"
 #include "scribusXml.h"

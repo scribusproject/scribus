@@ -85,7 +85,7 @@ void STable::keyPressEvent(QKeyEvent *k)
 	c = currentColumn();
 	if (c == 1)
 		{
-		tt = (SEditor*)cellWidget(r, 1);
+		tt = static_cast<SEditor*>(cellWidget(r, 1));
 		if ((k->key() == Key_Prior) || (k->key() == Key_Next))
 			{
 			HomeK = 0;
@@ -115,7 +115,7 @@ void STable::keyPressEvent(QKeyEvent *k)
 							move = QTextEdit::MoveHome;
 							break;
 						case 3:
-							tt = (SEditor*)cellWidget(0, 1);
+							tt = dynamic_cast<SEditor*>(cellWidget(0, 1));
 							setCurrentCell(0, 1);
 							move = QTextEdit::MoveHome;
 							HomeK = 0;
@@ -134,7 +134,7 @@ void STable::keyPressEvent(QKeyEvent *k)
 							move = QTextEdit::MoveEnd;
 							break;
 						case 3:
-							tt = (SEditor*)cellWidget(n-1, 1);
+							tt = dynamic_cast<SEditor*>(cellWidget(n-1, 1));
 							setCurrentCell(n-1, 1);
 							move = QTextEdit::MoveEnd;
 							EndK = 0;
@@ -144,7 +144,7 @@ void STable::keyPressEvent(QKeyEvent *k)
 				case Key_Left:
 					if ((i == 0) && (r > 0))
 						{
-						tt = (SEditor*)cellWidget(r-1, 1);
+						tt = dynamic_cast<SEditor*>(cellWidget(r-1, 1));
 						setCurrentCell(r-1, 1);
 						move = QTextEdit::MoveEnd;
 						}
@@ -154,7 +154,7 @@ void STable::keyPressEvent(QKeyEvent *k)
 				case Key_Right:
 					if ((i == static_cast<int>(tt->text().length())) && (r < n-1))
 						{
-						tt = (SEditor*)cellWidget(r+1, 1);
+						tt = dynamic_cast<SEditor*>(cellWidget(r+1, 1));
 						setCurrentCell(r+1, 1);
 						move = QTextEdit::MoveLineStart;
 						}
@@ -165,7 +165,7 @@ void STable::keyPressEvent(QKeyEvent *k)
 					l = tt->lineOfChar(0, i);
 					if ((l == 0) && (r > 0))
 						{
-						tt = (SEditor*)cellWidget(r-1, 1);
+						tt = dynamic_cast<SEditor*>(cellWidget(r-1, 1));
 						setCurrentCell(r-1, 1);
 						move = QTextEdit::MoveEnd;
 						}
@@ -176,7 +176,7 @@ void STable::keyPressEvent(QKeyEvent *k)
 					l = tt->lineOfChar(0, i);
 					if ((l == tt->lines()-1) && (r < n-1))
 						{
-						tt = (SEditor*)cellWidget(r+1, 1);
+						tt = dynamic_cast<SEditor*>(cellWidget(r+1, 1));
 						setCurrentCell(r+1, 1);
 						move = QTextEdit::MoveLineStart;
 						}
@@ -204,7 +204,7 @@ void STable::keyPressEvent(QKeyEvent *k)
 
 void STable::adjHeight(int r)
 {
-	SEditor *cp = (SEditor*)cellWidget(r, 1);
+	SEditor *cp = dynamic_cast<SEditor*>(cellWidget(r, 1));
 	cp->sync();
 	QFontMetrics fm2(cp->currentFont());
 	setRowHeight(r, QMAX((fm2.lineSpacing() * (cp->lines()+1)), 24));
@@ -233,9 +233,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	if (doc->Vorlagen.count() > 5)
 		{
 		for (uint a = 5; a < doc->Vorlagen.count(); ++a)
-			{
 			style.append(doc->Vorlagen[a].Vname);
-			}
 		}
 	CurrItem = ite;
 
@@ -371,7 +369,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	TextChanged = false;
 	table1->setCurrentCell(0, 1);
 	table1->ensureVisible(0, 1);
-	SEditor *cp = (SEditor*)table1->cellWidget(0, 1);
+	SEditor *cp = dynamic_cast<SEditor*>(table1->cellWidget(0, 1));
 	cp->setFocus();
 	cp->setCursorPosition(0, 0);
 	for (uint a = 0; a < edList.count(); ++a)
@@ -460,7 +458,7 @@ void StoryEditor::Do_new()
 	stList.clear();
 	edList.clear();
 	addPar(0, "", doc->CurrentABStil);
-	SEditor *cp = (SEditor*)table1->cellWidget(0, 1);
+	SEditor *cp = dynamic_cast<SEditor*>(table1->cellWidget(0, 1));
 	cp->setUndoRedoEnabled(false);
 	cp->setUndoRedoEnabled(true);
 	cp->setFocus();
@@ -475,42 +473,42 @@ void StoryEditor::Do_new()
 
 void StoryEditor::Do_undo()
 {
-	SEditor *cp = (SEditor*)table1->cellWidget(table1->currentRow(), 1);
+	SEditor *cp = dynamic_cast<SEditor*>(table1->cellWidget(table1->currentRow(), 1));
 	cp->undo();
 	table1->adjHeight(table1->currentRow());
 }
 
 void StoryEditor::Do_redo()
 {
-	SEditor *cp = (SEditor*)table1->cellWidget(table1->currentRow(), 1);
+	SEditor *cp = dynamic_cast<SEditor*>(table1->cellWidget(table1->currentRow(), 1));
 	cp->redo();
 	table1->adjHeight(table1->currentRow());
 }
 
 void StoryEditor::Do_copy()
 {
-	SEditor *cp = (SEditor*)table1->cellWidget(table1->currentRow(), 1);
+	SEditor *cp = dynamic_cast<SEditor*>(table1->cellWidget(table1->currentRow(), 1));
 	cp->copy();
 	table1->adjHeight(table1->currentRow());
 }
 
 void StoryEditor::Do_paste()
 {
-	SEditor *cp = (SEditor*)table1->cellWidget(table1->currentRow(), 1);
+	SEditor *cp = dynamic_cast<SEditor*>(table1->cellWidget(table1->currentRow(), 1));
 	cp->paste();
 	table1->adjHeight(table1->currentRow());
 }
 
 void StoryEditor::Do_cut()
 {
-	SEditor *cp = (SEditor*)table1->cellWidget(table1->currentRow(), 1);
+	SEditor *cp = dynamic_cast<SEditor*>(table1->cellWidget(table1->currentRow(), 1));
 	cp->cut();
 	table1->adjHeight(table1->currentRow());
 }
 
 void StoryEditor::Do_del()
 {
-	SEditor *cp = (SEditor*)table1->cellWidget(table1->currentRow(), 1);
+	SEditor *cp = dynamic_cast<SEditor*>(table1->cellWidget(table1->currentRow(), 1));
 	cp->del();
 	table1->adjHeight(table1->currentRow());
 }
@@ -583,9 +581,7 @@ void StoryEditor::slotEditStyles()
 	if (doc->Vorlagen.count() > 5)
 		{
 		for (uint a = 5; a < doc->Vorlagen.count(); ++a)
-			{
 			style.append(doc->Vorlagen[a].Vname);
-			}
 		}
 	for (uint b = 0; b < stList.count(); ++b)
 		{
@@ -606,14 +602,10 @@ void StoryEditor::slotEditStyles()
 void StoryEditor::styleChange(int st)
 {
 	int r = stList.findRef((QComboBox*)sender());
-	int align;
-	if (st > 4)
-		align = doc->Vorlagen[st].Ausri;
-	else
-		align = st;
+	int align = st > 4 ? doc->Vorlagen[st].Ausri : st;
 	if (r != -1)
 		{
-		SEditor *tt = (SEditor*)table1->cellWidget(r, 1);
+		SEditor *tt = dynamic_cast<SEditor*>(table1->cellWidget(r, 1));
 		switch (align)
 			{
 			case 0:

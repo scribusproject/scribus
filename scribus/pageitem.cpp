@@ -26,7 +26,13 @@
 #include <qbitmap.h>
 #include <cmath>
 #include "page.h"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include <ft2build.h>
 #include FT_GLYPH_H
 extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");

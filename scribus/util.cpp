@@ -32,7 +32,13 @@
 #include <cstdlib>
 #include <cmath>
 #include "md5.h"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include "scribusdoc.h"
 #include "libpdf/pdflib.h"
 #include <ft2build.h>

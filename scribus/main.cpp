@@ -22,9 +22,16 @@
 #include <qfileinfo.h>
 #include <qdir.h>
 #include <qtextcodec.h>
+#include <cstdlib>
 #include "splash.h"
 #include "scribus.h"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include <iostream>
 using namespace std;
 
@@ -91,57 +98,62 @@ int main(int argc, char *argv[])
 			}
 		}
   if (argc > 1)
-  	{
+  	{ 
   	if (Arg1 == "--version")
   		{
-  		std::cout << "Scribus Version " << VERSION << endl;
+  		cout << "Scribus Version " << VERSION << endl;
 //			a.unlock();
   		return 0;
   		}
   	if (Arg1 == "--help")
   		{
-  		std::cout << endl;
-  		std::cout << "Scribus, a DTP-Program" << endl;
-  		std::cout << endl;
-  		std::cout << "Usage:" << endl;
-  		std::cout << "scribus --version  -> prints Version-Number and exits." << endl;
-  		std::cout << "scribus --help     -> prints this Info and exits." << endl;
-  		std::cout << "scribus --lang xx  -> uses xx as Shortcut for a Language." << endl;
-  		std::cout << "scribus \"String\"   -> Interprets \"String\" as Filename" << endl;
-  		std::cout << "                      for a Document and tries to open it." << endl;
-  		std::cout << endl;
+  		cout << endl;
+  		cout << "Scribus, a DTP-Program" << endl;
+  		cout << endl;
+  		cout << "Usage:" << endl;
+  		cout << "scribus --version  -> prints Version-Number and exits." << endl;
+  		cout << "scribus --help     -> prints this Info and exits." << endl;
+  		cout << "scribus --lang xx  -> uses xx as Shortcut for a Language." << endl;
+  		cout << "scribus \"String\"   -> Interprets \"String\" as Filename" << endl;
+  		cout << "                      for a Document and tries to open it." << endl;
+  		cout << endl;
 //			a.unlock();
   		return 0;
   		}
-  	if ((Arg1 != "--lang") && (Arg1 != "--help") && (Arg1 != "--version"))
+  	if ((Arg1 != "--lang") && (Arg1 != "--help") && (Arg1 != "--version") && (Arg1 != "--nosplash"))
 			{
   		QFileInfo fi = QFileInfo(Arg1);
   		if (!fi.exists())
   			{
-  			std::cout << "File does not exist, aborting." << endl;
-  			std::cout << endl;
-  			std::cout << "Usage:" << endl;
-  			std::cout << "scribus --version  -> prints Version-Number and exits." << endl;
-  			std::cout << "scribus --help     -> prints this Info and exits." << endl;
-  			std::cout << "scribus --lang xx  -> uses xx as Shortcut for a Language." << endl;
-  			std::cout << "scribus \"String\"   -> Interprets \"String\" as Filename" << endl;
-  			std::cout << "                      for a Document and tries to open it." << endl;
-  			std::cout << endl;
+  			cout << "File does not exist, aborting." << endl;
+  			cout << endl;
+  			cout << "Usage:" << endl;
+  			cout << "scribus --version  -> prints Version-Number and exits." << endl;
+  			cout << "scribus --help     -> prints this Info and exits." << endl;
+  			cout << "scribus --lang xx  -> uses xx as Shortcut for a Language." << endl;
+  			cout << "scribus \"String\"   -> Interprets \"String\" as Filename" << endl;
+  			cout << "                      for a Document and tries to open it." << endl;
+  			cout << endl;
 //				a.unlock();
   			return 0;
 				}
   		}
   	}
- 	SplashScreen *splash = new SplashScreen();
- 	splash->setStatus( "Initializing..." );
- 	a.processEvents();      
-  ScribusApp *scribus=new ScribusApp(splash);
-  if (scribus->NoFonts)
-  	return 0;
-  a.setMainWidget(scribus);
-  a.connect(&a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()));
- 	splash->close();
- 	delete splash;
+
+ 	 SplashScreen *splash = new SplashScreen();
+ 	 splash->setStatus( "Initializing..." );
+ 	 a.processEvents();
+   ScribusApp *scribus = new ScribusApp(splash);
+   if (scribus->NoFonts)
+   {
+     delete splash;
+     exit(EXIT_FAILURE);
+   }
+   a.setMainWidget(scribus);
+   a.connect(&a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()));
+   splash->close();
+   delete splash;
+
   scribus->show();
   scribus->ShowSubs();
   if (argc > 1)

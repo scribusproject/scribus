@@ -108,6 +108,7 @@ public:
 	void AdjustPictScale(PageItem *b);
 	bool SizeItem(double newX, double newY, int ite, bool fromMP = false, bool DoUpdateClip = true);
 	bool MoveSizeItem(FPoint newX, FPoint newY, int ite);
+	void RotateGroup(double win);
 	void RotateItem(double win, int ite);
 	void MarkClip(PageItem *b);
 	void Transform(PageItem *b, QPainter *p);

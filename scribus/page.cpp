@@ -20,7 +20,13 @@
 #include "pageitem.h"
 #include "serializer.h"
 #include "scribusXml.h"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include <qapplication.h>
 #include <qcolor.h>
 #include <qrect.h>
@@ -1167,6 +1173,32 @@ bool Page::MoveItem(double newX, double newY, PageItem* b, bool fromMP)
 	if (!doku->loading)
 		emit UpdtObj(PageNr, b->ItemNr);
 	return retw;
+}
+
+void Page::RotateGroup(double win)
+{
+	double gx, gy, gh, gw, gxS, gyS, ghS, gwS;
+	PageItem* b;
+	FPoint n;
+	setGroupRect();
+	getGroupRect(&gx, &gy, &gw, &gh);
+	getGroupRectScreen(&gxS, &gyS, &gwS, &ghS);
+	QRect alt = QRect(static_cast<int>(gxS-5), static_cast<int>(gyS-5), static_cast<int>(gwS+10), static_cast<int>(ghS+10));
+	for (uint a = 0; a < SelItem.count(); ++a)
+		{
+		QWMatrix ma;
+		b = SelItem.at(a);
+		ma.translate(gx, gy);
+		ma.scale(1, 1);
+		ma.rotate(win);
+		n = FPoint(b->Xpos - gx, b->Ypos - gy);
+		b->Xpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+		b->Ypos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+		b->Rot = win;
+		}
+	setGroupRect();
+	getGroupRectScreen(&gxS, &gyS, &gwS, &ghS);
+	repaint(QRect(static_cast<int>(gxS-5), static_cast<int>(gyS-5), static_cast<int>(gwS+10), static_cast<int>(ghS+10)).unite(alt));
 }
 
 void Page::RotateItem(double win, int ite)
@@ -3553,7 +3585,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 							else
 								{
 								cli.putPoints(0, StartInd, Clip);
-								cli.putPoints(cli.size(), EndInd - StartInd - 4, Clip, StartInd);
+								cli.putPoints(cli.size(), EndInd - StartInd - 4, Clip, StartInd+4);
 								cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
 								}
 							}
@@ -4709,8 +4741,8 @@ void Page::Bezier2Poly()
 	b->Frame = false;
 	b->ClipEdited = true;
 	b->FrameType = 3;
+	b->PoLine.addPoint(b->PoLine.point(b->PoLine.size()-2));
 	b->PoLine.addPoint(b->PoLine.point(b->PoLine.size()-3));
-	b->PoLine.addPoint(b->PoLine.point(b->PoLine.size()-4));
 	b->PoLine.addPoint(b->PoLine.point(0));
 	b->PoLine.addPoint(b->PoLine.point(0));
 	b->Clip = FlattenPath(b->PoLine, b->Segments);

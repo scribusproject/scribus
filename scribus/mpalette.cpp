@@ -222,7 +222,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     TopLeft = new QRadioButton( RotationGroup, "TopLeft" );
     TopLeft->setText( tr( "" ) );
     TopLeft->setChecked( true );
-    Layout12->addWidget( TopLeft, 0, 0 );
+    Layout12->addWidget( TopLeft, 0, 0, Qt::AlignCenter );
     Line1 = new QFrame( RotationGroup, "Line1" );
     Line1->setMinimumSize( QSize( 20, 4 ) );
     Line1->setMaximumSize( QSize( 20, 4 ) );
@@ -230,10 +230,10 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Line1->setFrameShadow( QFrame::Plain );
     Line1->setLineWidth( 3 );
     Line1->setFrameShape( QFrame::HLine );
-    Layout12->addWidget( Line1, 0, 1 );
+    Layout12->addWidget( Line1, 0, 1, Qt::AlignCenter );
     TopRight = new QRadioButton( RotationGroup, "TopRight" );
     TopRight->setText( tr( "" ) );
-    Layout12->addWidget( TopRight, 0, 2 );
+    Layout12->addWidget( TopRight, 0, 2, Qt::AlignCenter );
     Line2 = new QFrame( RotationGroup, "Line2" );
     Line2->setMinimumSize( QSize( 4, 20 ) );
     Line2->setMaximumSize( QSize( 4, 20 ) );
@@ -241,21 +241,20 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Line2->setFrameShadow( QFrame::Plain );
     Line2->setLineWidth( 3 );
     Line2->setFrameShape( QFrame::VLine );
-    Layout12->addWidget( Line2, 1, 0, Qt::AlignHCenter );
+    Layout12->addWidget( Line2, 1, 0, Qt::AlignCenter );
     Center = new QRadioButton( RotationGroup, "Center" );
     Center->setText( tr( "" ) );
-    Layout12->addWidget( Center, 1, 1, Qt::AlignHCenter );
+    Layout12->addWidget( Center, 1, 1, Qt::AlignCenter );
     Line4 = new QFrame( RotationGroup, "Line4" );
     Line4->setMinimumSize( QSize( 4, 20 ) );
     Line4->setMaximumSize( QSize( 4, 20 ) );
-    Line4->setFrameShape( QFrame::VLine );
     Line4->setFrameShadow( QFrame::Plain );
     Line4->setLineWidth( 3 );
     Line4->setFrameShape( QFrame::VLine );
-    Layout12->addWidget( Line4, 1, 2, Qt::AlignHCenter );
+    Layout12->addWidget( Line4, 1, 2, Qt::AlignCenter );
     BottomLeft = new QRadioButton( RotationGroup, "BottomLeft" );
     BottomLeft->setText( tr( "" ) );
-    Layout12->addWidget( BottomLeft, 2, 0 );
+    Layout12->addWidget( BottomLeft, 2, 0, Qt::AlignCenter );
     Line5 = new QFrame( RotationGroup, "Line5" );
     Line5->setMinimumSize( QSize( 20, 4 ) );
     Line5->setMaximumSize( QSize( 20, 4 ) );
@@ -263,10 +262,10 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Line5->setFrameShadow( QFrame::Plain );
     Line5->setLineWidth( 3 );
     Line5->setFrameShape( QFrame::HLine );
-    Layout12->addWidget( Line5, 2, 1 );
+    Layout12->addWidget( Line5, 2, 1, Qt::AlignCenter );
     BottomRight = new QRadioButton( RotationGroup, "BottomRight" );
     BottomRight->setText( tr( "" ) );
-    Layout12->addWidget( BottomRight, 2, 2 );
+    Layout12->addWidget( BottomRight, 2, 2, Qt::AlignCenter );
     RotationGroupLayout->addLayout( Layout12 );
     Layout15_2 = new QVBoxLayout( 0, 3, 0, "Layout15_2");
     Text3 = new QLabel( RotationGroup, "Text3" );
@@ -1803,8 +1802,9 @@ void Mpalette::NewR()
 	if ((HaveDoc) && (HaveItem))
 		{
 		if (doc->ActPage->GroupSel)
-			return;
-		doc->ActPage->RotateItem(static_cast<double>(Rot->value())/100.0*(-1), CurItem->ItemNr);
+			doc->ActPage->RotateGroup(static_cast<double>(Rot->value())/100.0*(-1));
+		else
+			doc->ActPage->RotateItem(static_cast<double>(Rot->value())/100.0*(-1), CurItem->ItemNr);
 		emit DocChanged();
 		}
 }

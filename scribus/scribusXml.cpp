@@ -20,7 +20,13 @@
 #include <cstdlib>
 #include <cmath>
 #include "missing.h"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #ifdef HAVE_LIBZ
 #include <zlib.h>
 #endif

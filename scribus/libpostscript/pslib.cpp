@@ -22,7 +22,13 @@
 #include <qfontinfo.h>
 #include <cstdlib>
 #include <qregexp.h>
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include "pslib.h"
 #include "scfonts.h"
 #include <cmath>

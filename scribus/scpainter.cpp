@@ -20,7 +20,13 @@
 // kopainter/libart wrapper
 
 #include "scpainter.h"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include <qpaintdevice.h>
 #include <qpixmap.h>
 #include <qpointarray.h>

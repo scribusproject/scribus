@@ -1,7 +1,13 @@
 #include "pdfopts.h"
 #include "pdfopts.moc"
 #include "customfdialog.h"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
 extern double UmReFaktor;

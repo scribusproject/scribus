@@ -73,6 +73,7 @@ class ScribusApp : public QMainWindow
   public:
     /** construtor */
     ScribusApp(SplashScreen *splash);
+    ScribusApp();
     /** destructor */
     ~ScribusApp() {};
     /** initMenuBar creates the menu_bar and inserts the menuitems */

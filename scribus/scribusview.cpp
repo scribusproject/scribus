@@ -17,7 +17,13 @@
 
 #include "scribusview.h"
 #include "scribusview.moc"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include "pageback.h"
 #include <qcolor.h>
 #include <qfont.h>

@@ -17,7 +17,13 @@
 #include "hyphenator.h"
 #include "hyphenator.moc"
 #include "hyask.h"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include <qregexp.h>
 #include <qcursor.h>
 #include <qdir.h>
