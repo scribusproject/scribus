@@ -288,6 +288,14 @@ dnl Compile and link the gdk-pixbuf sources unless building
 dnl a Mac-native build.
 AM_CONDITIONAL(LINK_PIXBUF, test "$enable_mac" != "yes" )
 
+build_mac_bundle=no
+AC_ARG_ENABLE(bundle, [  --enable-bundle     Make an executable suitable for use in a .app bundle],
+[if test "$enable_bundle" = "yes"; then
+	build_mac_bundle=yes
+	AC_DEFINE_UNQUOTED(BUILD_MAC_BUNDLE, 1, [Are we building an executable to be included in MacOS/X .app bundle?])
+fi])
+AM_CONDITIONAL(BUILD_MAC_BUNDLE, test "$build_mac_bundle" = "yes")
+
 all_libraries="$all_libraries $USER_LDFLAGS"
 all_includes="$all_includes $USER_INCLUDES"
 AC_SUBST(all_includes)
