@@ -33,6 +33,10 @@
 #include "cmdutil.h"
 #include "objprinter.h"
 #include "objpdffile.h"
+#include "macro.h"
+#include "macromanager.h"
+#include "extmacro.h"
+#include "scripterprefs.h"
 #include "guiapp.h"
 #include "customfdialog.h"
 #include "helpbrowser.h"
@@ -59,6 +63,7 @@ PyObject* WrongFrameTypeError;
 PyObject* NoValidObjectError;
 PyObject* NotFoundError;
 PyObject* NameExistsError;
+PyObject* AccessDeniedError;
 
 QString Name()
 {
@@ -77,6 +82,9 @@ int ID()
 
 void InitPlug(QWidget *d, ScribusApp *plug)
 {
+	// push the QApplication instance we've been passed into the Carrier global
+	Carrier = plug;
+	// init Python
 	QString cm;
 	Py_Initialize();
 	if (PyUnicode_SetDefaultEncoding("utf-8"))
@@ -84,14 +92,21 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 		qDebug("Failed to set default encoding to utf-8.\n");
 		PyErr_Clear();
 	}
-	Carrier = plug;
 	RetVal = 0;
-	initscribus(Carrier);
+	// Init the class that manages the scripter and its gui
 	Tes = new MenuTest(d);
 	men = new QPopupMenu();
 	Tes->rmen = new QPopupMenu();
 	Tes->smen = new QPopupMenu();
 	Tes->SavedRecentScripts.clear();
+	// init prefs variables
+	Tes->enableExtPython = false;
+	Tes->importAllNames = true;
+	Tes->legacyAliases = true;
+	Tes->startupScriptEnable = false;
+	Tes->useDummyStdin = true;
+	Tes->startupScript = QString();
+	// now load the prefs
 	Tes->ReadPlugPrefs();
 	QString pfad = SCRIPTSDIR;
 	QString pfad2;
@@ -119,24 +134,53 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 			}
 		}
 	}
+	int id = -1;
 	Tes->pcon = new PConsole(d);
 	Tes->smenid = men->insertItem(QObject::tr("&Scribus Scripts"), Tes->smen);
-	men->insertItem(QObject::tr("&Execute Script..."), Tes, SLOT(slotTest()));
+	id = men->insertItem(QObject::tr("&Execute Script..."), Tes, SLOT(slotTest()));
+	men->setWhatsThis(id, QObject::tr("Run a Python script from a file.","scripter"));
+	id = men->insertItem(QObject::tr("&Load Extension Script..."), Tes, SLOT(loadScript()));
+	men->setWhatsThis(id, QObject::tr("Load a Python script as an extension. "
+	                  "Used for loading macros and for advanced Python scripts that "
+	                  "extend the Scribus user interface.","scripter"));
 	Tes->rmenid = men->insertItem(QObject::tr("&Recent Scripts"), Tes->rmen);
 	men->insertSeparator();
-	Tes->cons = men->insertItem(QObject::tr("Show &Console"), Tes, SLOT(slotInteractiveScript()));
+	id = Tes->cons = men->insertItem(QObject::tr("Show &Console"), Tes, SLOT(slotInteractiveScript()));
+	men->setWhatsThis(id, QObject::tr("Display an interactive Python console where you can write and "
+	                                  "run Python programs that use the Scripter tools.","scripter"));
 	Tes->about = men->insertItem(QObject::tr("&About Script..."), Tes, SLOT(aboutScript()));
 	plug->menuBar()->insertItem(QObject::tr("S&cript"), men, -1, plug->menuBar()->count() - 2);
 	QObject::connect(Tes->pcon->OutWin, SIGNAL(returnPressed()), Tes, SLOT(slotExecute()));
 	QObject::connect(Tes->pcon, SIGNAL(Schliessen()), Tes, SLOT(slotInteractiveScript()));
 	QObject::connect(Tes->rmen, SIGNAL(activated(int)), Tes, SLOT(RecentScript(int)));
 	QObject::connect(Tes->smen, SIGNAL(activated(int)), Tes, SLOT(StdScript(int)));
+	men->insertSeparator();
+	id = men->insertItem(QObject::tr("Scripter &Settings","script menu"), Tes, SLOT(preferencesDialog()));
+	// Now init the scribus module in the main interpreter
+	initscribus(Carrier);
+	// If Python extensions are enabled, load the macro manager.
+	if (Tes->enableExtPython)
+		MacroManager::instance();
+	// and run the start-up script, if any
+	if (Tes->enableExtPython && Tes->startupScriptEnable)
+	{
+		if (QFile::exists(Tes->startupScript))
+		{
+			// run the script in the main interpreter. The user will be informed
+			// with a dialog if something has gone wrong.
+			Tes->slotRunScriptFile(Tes->startupScript, true);
+		}
+		else
+			qDebug("Startup script enabled, but couln't find script %s.", (const char*)(Tes->startupScript.utf8()) );
+	}
 }
 
 void CleanUpPlug()
 {
+	MacroManager::deleteInstance();
 	Py_Finalize();
 	Tes->SavePlugPrefs();
+	delete(Tes);
 }
 
 void Run(QWidget *d, ScribusApp *plug)
@@ -232,20 +276,30 @@ void MenuTest::RecentScript(int id)
 	FinishScriptRun();
 }
 
-void MenuTest::slotRunScriptFile(QString fileName)
+void MenuTest::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 {
-	Carrier->ScriptRunning = true;
-	qApp->setOverrideCursor(QCursor(waitCursor), false);
 	char* comm[1];
+	PyThreadState *stateo, *state;
 	QFileInfo fi(fileName);
 	QCString na = fi.fileName().latin1();
-	QDir::setCurrent(fi.dirPath(true));
-	PyThreadState *stateo = PyEval_SaveThread();
-	PyThreadState *state = Py_NewInterpreter();
-	initscribus(Carrier);
+	// Set up a sub-interpreter if needed:
+	if (!inMainInterpreter)
+	{
+		Carrier->ScriptRunning = true;
+		qApp->setOverrideCursor(QCursor(waitCursor), false);
+		// Actually make the sub interpreter
+		// FIXME: This calls abort() in a Python debug build. We're doing something wrong.
+		stateo = PyEval_SaveThread();
+		state = Py_NewInterpreter();
+		// chdir to the dir the script is in
+		QDir::setCurrent(fi.dirPath(true));
+		// init the 'scribus' module in the sub-interpreter
+		initscribus(Carrier);
+	}
+	// make sure sys.argv[0] is the path to the script
 	comm[0] = na.data();
-	// call python script
 	PySys_SetArgv(1, comm);
+	// call python script
 	PyObject* m = PyImport_AddModule((char*)"__main__");
 	if (m == NULL)
 		qDebug("Failed to get __main__ - aborting script");
@@ -254,31 +308,43 @@ void MenuTest::slotRunScriptFile(QString fileName)
 		// FIXME: If filename contains chars outside 7bit ascii, might be problems
 		PyObject* globals = PyModule_GetDict(m);
 		// Build the Python code to run the script
-		QString cm = QString("import sys,StringIO,traceback\n");
+		QString cm = QString("from __future__ import division\n");
+		cm        += QString("import sys\n");
+		cm        += QString("import cStringIO\n");
 		cm        += QString("sys.path[0] = \"%1\"\n").arg(fi.dirPath(true));
+		// Replace sys.stdin with a dummy StringIO that always returns
+		// "" for read
+		if (useDummyStdin)
+			cm    += QString("sys.stdin = cStringIO.StringIO()\n");
 		cm        += QString("try:\n");
 		cm        += QString("    execfile(\"%1\")\n").arg(fileName);
 		cm        += QString("except SystemExit:\n");
 		cm        += QString("    pass\n");
 		// Capture the text of any other exception that's raised by the interpreter
 		// into a StringIO buffer for later extraction.
-		cm        += QString("except Exception, err:\n");
-		cm        += QString("    f=StringIO.StringIO()\n");
-		cm        += QString("    traceback.print_exc(file=f)\n");
-		cm        += QString("    errorMsg = f.getvalue()\n");
-		cm        += QString("    del(f)\n");
-		// We re-raise the exception so the return value of PyRun_String reflects
+		cm        += QString("except:\n");
+		cm        += QString("    import traceback\n");
+		cm        += QString("    import scribus\n");                  // we stash our working vars here
+		cm        += QString("    scribus._f=cStringIO.StringIO()\n");
+		cm        += QString("    traceback.print_exc(file=scribus._f)\n");
+		cm        += QString("    _errorMsg = scribus._f.getvalue()\n");
+		cm        += QString("    del(scribus._f)\n");
+		// We re-raise the exception so the return value of PyRun_StringFlags reflects
 		// the fact that an exception has ocurred.
 		cm        += QString("    raise\n");
 		// FIXME: if cmd contains chars outside 7bit ascii, might be problems
 		QCString cmd = cm.latin1();
-		// Now run the script in the interpreter's global scope
+		// Now run the script in the interpreter's global scope. It'll run in a
+		// sub-interpreter if we created and switched to one earlier, otherwise
+		// it'll run in the main interpreter.
 		PyObject* result = PyRun_String(cmd.data(), Py_file_input, globals, globals);
 		// NULL is returned if an exception is set. We don't care about any
 		// other return value (most likely None anyway) and can ignore it.
 		if (result == NULL)
 		{
-			PyObject* errorMsgPyStr = PyMapping_GetItemString(globals, (char*)"errorMsg");
+			// We've already saved the exception text, so clear the exception
+			PyErr_Clear();
+			PyObject* errorMsgPyStr = PyMapping_GetItemString(globals, (char*)"_errorMsg");
 			if (errorMsgPyStr == NULL)
 			{
 				// It's rather unlikely that this will ever be reached - to get here
@@ -303,15 +369,17 @@ void MenuTest::slotRunScriptFile(QString fileName)
 		// Because 'result' may be NULL, not a PyObject*, we must call PyXDECREF not Py_DECREF
 		Py_XDECREF(result);
 	} // end if m == NULL
-	Py_EndInterpreter(state);
-	PyEval_RestoreThread(stateo);
-	Carrier->ScriptRunning = false;
-	qApp->restoreOverrideCursor();
+	if (!inMainInterpreter)
+	{
+		Py_EndInterpreter(state);
+		PyEval_RestoreThread(stateo);
+		Carrier->ScriptRunning = false;
+		qApp->restoreOverrideCursor();
+	}
 }
 
 QString MenuTest::slotRunScript(QString Script)
 {
-	Carrier->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(waitCursor), false);
 	char* comm[1];
 	QString cm;
@@ -323,22 +391,29 @@ QString MenuTest::slotRunScript(QString Script)
 		if (RetVal == 0)
 		{
 			// FIXME: if CurDir contains chars outside 7bit ascii, might be problems
-			cm = "import sys\nsys.path[0] = \""+CurDir+"\"\n";
+			cm =  "import sys\n";
+			cm += "sys.path[0] = \""+CurDir+"\"\n";
 			cm += "import cStringIO\n";
-			cm += "from scribus import *\n";
-			cm += "bu = cStringIO.StringIO()\n";
-			cm += "sys.stdout = bu\n";
-			cm += "sys.stderr = bu\n";
+			cm += "import scribus\n";
+			// Only import all names from 'scribus' to the global namespace if the user wants us to.
+			// We still need to pull in a few special names used by Scribus though.
+			if (importAllNames)
+				cm += "from scribus import *\n";
+			if (useDummyStdin)
+				cm += "sys.stdin = cStringIO.StringIO()\n";
+			cm += "scribus._bu = cStringIO.StringIO()\n";
+			cm += "sys.stdout = scribus._bu\n";
+			cm += "sys.stderr = scribus._bu\n";
 			cm += "import code\n";
-			cm += "ia = code.InteractiveConsole(globals())\n";
+			cm += "scribus._ia = code.InteractiveConsole(globals())\n";
 		}
-		cm += "sc = getval()\n";
-		cm += "rv = ia.push(sc)\n";
-		cm += "if rv == 1:\n";
-		cm += "\tre = \"...\"\n";
+		cm += "scribus._sc = scribus._getval()\n";
+		cm += "scribus._rv = scribus._ia.push(scribus._sc)\n";
+		cm += "if scribus._rv == 1:\n";
+		cm += "    scribus._re = \"...\"\n";
 		cm += "else:\n";
-		cm += "\tre = bu.getvalue()\n";
-		cm += "retval(re, rv)\n";
+		cm += "    scribus._re = scribus._bu.getvalue()\n";
+		cm += "scribus._retval(scribus._re, scribus._rv)\n";
 	}
 	// FIXME: if cmd contains chars outside 7bit ascii, might be problems
 	QCString cmd = cm.latin1();
@@ -352,9 +427,35 @@ QString MenuTest::slotRunScript(QString Script)
 	}
 	else
 		pcon->OutWin->Prompt = "...";
-	Carrier->ScriptRunning = false;
 	qApp->restoreOverrideCursor();
 	return RetString;
+}
+
+void MenuTest::loadScript()
+{
+	if (!this->enableExtPython)
+	{
+		QMessageBox::information(Carrier, tr("Scribus - Script Plugin"),
+			tr("The 'Load Script' function of the script plugin is currently disabled.\n"
+			   "If you just want to run a normal script, you probably want to use\n"
+			   "'Execute Script...' instead.\n\n"
+			   "If you do actually want to load a Python extension script or macro, you\n"
+			   "need to go into the Scripter Settings in the Script menu and enable\n"
+			   "scripter extensions there.\n\n"
+			   "Please read the documentation on extension scripts first.\n"));
+		return;
+	}
+	QString fileName;
+	QString scriptDir = Carrier->Prefs.ScriptDir;
+	if (scriptDir == "")
+		scriptDir = QDir::currentDirPath();
+	CustomFDialog diaf((QWidget*)parent(), scriptDir, QObject::tr("Open"), QObject::tr("Python Scripts (*.py);; All Files (*)"));
+	if (diaf.exec())
+	{
+		fileName = diaf.selectedFile();
+		// Run the script in the main interpreter, not a sub-interpreter
+		slotRunScriptFile(fileName, true);
+	}
 }
 
 void MenuTest::slotInteractiveScript()
@@ -402,6 +503,24 @@ void MenuTest::ReadPlugPrefs()
 		QDomElement dc=DOC.toElement();
 		if (dc.tagName()=="RECENT")
 			SavedRecentScripts.append(dc.attribute("NAME"));
+		// Check to see if the 'load script' menu item should be enabled
+		else if (dc.tagName() == "EXTPYTHON")
+			enableExtPython = dc.attribute("ENABLE") == "TRUE";
+		// and check whether we should do a 'from scribus import *' in the main interpreter;
+		else if (dc.tagName() == "IMPORTNAMES")
+			importAllNames = dc.attribute("ENABLE") == "TRUE";
+		// Should we import the old-style names?
+		else if (dc.tagName() == "LEGACYALIASES")
+			legacyAliases = dc.attribute("ENABLE") == "TRUE";
+		// Should we run a startup script? If so, where to load it from?
+		else if (dc.tagName() == "STARTUPSCRIPT")
+		{
+			startupScriptEnable = dc.attribute("ENABLE") == "TRUE";
+			startupScript = dc.attribute("FILE");
+		}
+		// replace stdin with a dummy object that always returns "" ?
+		else if (dc.tagName() == "USEDUMMYSTDIN")
+			useDummyStdin = dc.attribute("ENABLE") == "TRUE";
 		DOC=DOC.nextSibling();
 	}
 }
@@ -418,6 +537,31 @@ void MenuTest::SavePlugPrefs()
 		rde.setAttribute("NAME",Tes->RecentScripts[rd]);
 		elem.appendChild(rde);
 	}
+
+	// save the "load script" flag, from import flag, and aliases flag
+	QDomElement extPythonItem = docu.createElement("EXTPYTHON");
+	extPythonItem.setAttribute("ENABLE", enableExtPython ? "TRUE" : "FALSE");
+	elem.appendChild(extPythonItem);
+
+	QDomElement allNamesItem = docu.createElement("IMPORTNAMES");
+	allNamesItem.setAttribute("ENABLE", importAllNames ? "TRUE" : "FALSE");
+	elem.appendChild(allNamesItem);
+
+	QDomElement legacyAliasesItem = docu.createElement("LEGACYALIASES");
+	legacyAliasesItem.setAttribute("ENABLE", legacyAliases ? "TRUE" : "FALSE");
+	elem.appendChild(legacyAliasesItem);
+
+	QDomElement dummyStdinItem = docu.createElement("USEDUMMYSTDIN");
+	dummyStdinItem.setAttribute("ENABLE", useDummyStdin ? "TRUE" : "FALSE");
+	elem.appendChild(dummyStdinItem);
+
+	// save the startup script path and flag
+	QDomElement startupScriptItem = docu.createElement("STARTUPSCRIPT");
+	startupScriptItem.setAttribute("ENABLE", startupScriptEnable ? "TRUE" : "FALSE");
+	startupScriptItem.setAttribute("FILE", startupScript);
+	elem.appendChild(startupScriptItem);
+
+	// then write out the prefs file
 	QString ho = QDir::homeDirPath();
 	QFile f(QDir::convertSeparators(ho+"/.scribus/scripter.rc"));
 	if(!f.open(IO_WriteOnly))
@@ -461,6 +605,33 @@ void MenuTest::aboutScript()
 	input.close();
 	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("About Script") + " " + fi.fileName(), "en", "", html);
 	dia->show();
+}
+
+/* 2005-01-02 CR
+ * Display a preferences dialog to let the user configure
+ * scripter settings such as enabling Python extension scripts
+ * and setting a start-up script. The prefs dialog is defined in
+ * scripterprefs.ui .
+ */
+void MenuTest::preferencesDialog()
+{
+	ScripterPreferences* prefDia = new ScripterPreferences(Carrier, "scripterPreferences");
+	prefDia->extPythonChk->setChecked(this->enableExtPython);
+	prefDia->startupScriptGroup->setChecked(this->startupScriptEnable);
+	prefDia->startupScriptPath->setText(this->startupScript);
+	prefDia->importNamesChk->setChecked(this->importAllNames);
+	prefDia->legacyAliasesChk->setChecked(this->legacyAliases);
+	prefDia->useFakeStdinChk->setChecked(this->useDummyStdin);
+	if (prefDia->exec())
+	{
+		this->enableExtPython = prefDia->extPythonChk->isChecked();
+		this->startupScriptEnable = prefDia->startupScriptGroup->isChecked();
+		this->startupScript = prefDia->startupScriptPath->text();
+		this->importAllNames = prefDia->importNamesChk->isChecked();
+		this->legacyAliases = prefDia->legacyAliasesChk->isChecked();
+		this->useDummyStdin = prefDia->useFakeStdinChk->isChecked();
+	}
+	delete prefDia;
 }
 
 // This function builds a Python wrapper function called newName around the
@@ -520,7 +691,7 @@ void constantAlias(PyObject* scribusdict, const char* oldName, const char* newNa
 /*                                                                                      */
 /****************************************************************************************/
 
-static PyObject *scribus_retval(PyObject */*self*/, PyObject* args)
+static PyObject *scribus_retval(PyObject* /*self*/, PyObject* args)
 {
 	char *Name = NULL;
 	int retV = 0;
@@ -534,7 +705,7 @@ static PyObject *scribus_retval(PyObject */*self*/, PyObject* args)
 	return PyInt_FromLong(0L);
 }
 
-static PyObject *scribus_getval(PyObject */*self*/)
+static PyObject *scribus_getval(PyObject* /*self*/)
 {
 	return PyString_FromString(InValue.utf8().data());
 }
@@ -716,9 +887,13 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("unGroupObject"), scribus_ungroupobj, METH_VARARGS, tr(scribus_ungroupobj__doc__)},
 	{const_cast<char*>("unlinkTextFrames"), scribus_unlinktextframes, METH_VARARGS, tr(scribus_unlinktextframes__doc__)},
 	{const_cast<char*>("valueDialog"), scribus_valdialog, METH_VARARGS, tr(scribus_valdialog__doc__)},
-	// end of aliases
-	{const_cast<char*>("retval"), scribus_retval, METH_VARARGS, const_cast<char*>("Scribus internal.")},
-	{const_cast<char*>("getval"), (PyCFunction)scribus_getval, METH_NOARGS, const_cast<char*>("Scribus internal.")},
+	// Functions for use by extension scripts
+	{const_cast<char*>("register_macro_callable"), (PyCFunction)register_macro_callable, METH_KEYWORDS, tr(register_macro_callable__doc__)},
+	{const_cast<char*>("register_macro_code"), (PyCFunction)register_macro_code, METH_KEYWORDS, tr(register_macro_code__doc__)},
+	{const_cast<char*>("unregister_macro"), (PyCFunction)unregister_macro, METH_KEYWORDS, const_cast<char*>("Un-register a macro")},
+	// Private functions for use by the scripter API its self
+	{const_cast<char*>("_retval"), scribus_retval, METH_VARARGS, const_cast<char*>("Scribus internal API for console.")},
+	{const_cast<char*>("_getval"), (PyCFunction)scribus_getval, METH_NOARGS, const_cast<char*>("Scribus internal API for console.")},
 	{NULL, (PyCFunction)(0), 0, NULL} /* sentinel */
 };
 
@@ -760,6 +935,10 @@ void initscribus(ScribusApp *pl)
 	NameExistsError = PyErr_NewException((char*)"scribus.NameExistsError", ScribusException, NULL);
 	Py_INCREF(NameExistsError);
 	PyModule_AddObject(m, (char*)"NameExistsError", NameExistsError);
+	// Tried to run an extension only function with python extensions disabled or from a normal script
+	AccessDeniedError = PyErr_NewException((char*)"scribus.AccessDeniedError", ScribusException, NULL);
+	Py_INCREF(AccessDeniedError);
+	PyModule_AddObject(m, (char*)"AccessDeniedError", AccessDeniedError);
 	// Done with exception setup
 
 	// CONSTANTS
@@ -862,6 +1041,22 @@ void initscribus(ScribusApp *pl)
 	else
 			qDebug("Couldn't parse version string '%s' in scripter", VERSION);
 
+	// Push some build defines into the scribus module so scripts can see them.
+	PyDict_SetItemString(d, const_cast<char*>("LIBDIR"),
+		PyString_FromString(const_cast<char*>(LIBDIR)));
+	PyDict_SetItemString(d, const_cast<char*>("SAMPLESDIR"),
+		PyString_FromString(const_cast<char*>(SAMPLESDIR)));
+	PyDict_SetItemString(d, const_cast<char*>("SCRIPTSDIR"),
+		PyString_FromString(const_cast<char*>(SCRIPTSDIR)));
+	PyDict_SetItemString(d, const_cast<char*>("ICONDIR"),
+		PyString_FromString(const_cast<char*>(ICONDIR)));
+	PyDict_SetItemString(d, const_cast<char*>("DOCDIR"),
+		PyString_FromString(const_cast<char*>(DOCDIR)));
+	PyDict_SetItemString(d, const_cast<char*>("TEMPLATEDIR"),
+		PyString_FromString(const_cast<char*>(TEMPLATEDIR)));
+	PyDict_SetItemString(d, const_cast<char*>("PLUGINDIR"),
+		PyString_FromString(const_cast<char*>(PLUGINDIR)));
+
 	Carrier = pl;
 	// Function aliases for compatibility
 	// We need to import the __builtins__, warnings and exceptions modules to be able to run
@@ -893,225 +1088,231 @@ void initscribus(ScribusApp *pl)
 	}
 	PyDict_SetItemString(d, const_cast<char*>("warnings"), warningsModule);
 	// Now actually add the aliases
-	deprecatedFunctionAlias(d, const_cast<char*>("changeColor"), const_cast<char*>("ChangeColor"));
-	deprecatedFunctionAlias(d, const_cast<char*>("closeDoc"), const_cast<char*>("CloseDoc"));
-	deprecatedFunctionAlias(d, const_cast<char*>("createBezierLine"), const_cast<char*>("CreateBezierLine"));
-	deprecatedFunctionAlias(d, const_cast<char*>("createEllipse"), const_cast<char*>("CreateEllipse"));
-	deprecatedFunctionAlias(d, const_cast<char*>("createImage"), const_cast<char*>("CreateImage"));
-	deprecatedFunctionAlias(d, const_cast<char*>("createLayer"), const_cast<char*>("CreateLayer"));
-	deprecatedFunctionAlias(d, const_cast<char*>("createLine"), const_cast<char*>("CreateLine"));
-	deprecatedFunctionAlias(d, const_cast<char*>("createPathText"), const_cast<char*>("CreatePathText"));
-	deprecatedFunctionAlias(d, const_cast<char*>("createPolygon"), const_cast<char*>("CreatePolygon"));
-	deprecatedFunctionAlias(d, const_cast<char*>("createPolyLine"), const_cast<char*>("CreatePolyLine"));
-	deprecatedFunctionAlias(d, const_cast<char*>("createRect"), const_cast<char*>("CreateRect"));
-	deprecatedFunctionAlias(d, const_cast<char*>("createText"), const_cast<char*>("CreateText"));
-	deprecatedFunctionAlias(d, const_cast<char*>("currentPage"), const_cast<char*>("CurrentPage"));
-	deprecatedFunctionAlias(d, const_cast<char*>("defineColor"), const_cast<char*>("DefineColor"));
-	deprecatedFunctionAlias(d, const_cast<char*>("deleteColor"), const_cast<char*>("DeleteColor"));
-	deprecatedFunctionAlias(d, const_cast<char*>("deleteLayer"), const_cast<char*>("DeleteLayer"));
-	deprecatedFunctionAlias(d, const_cast<char*>("deleteObject"), const_cast<char*>("DeleteObject"));
-	deprecatedFunctionAlias(d, const_cast<char*>("deletePage"), const_cast<char*>("DeletePage"));
-	deprecatedFunctionAlias(d, const_cast<char*>("deleteText"), const_cast<char*>("DeleteText"));
-	deprecatedFunctionAlias(d, const_cast<char*>("deselectAll"), const_cast<char*>("DeselectAll"));
-	deprecatedFunctionAlias(d, const_cast<char*>("docChanged"), const_cast<char*>("DocChanged"));
-	deprecatedFunctionAlias(d, const_cast<char*>("fileDialog"), const_cast<char*>("FileDialog"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getActiveLayer"), const_cast<char*>("GetActiveLayer"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getAllObjects"), const_cast<char*>("GetAllObjects"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getAllStyles"), const_cast<char*>("GetAllStyles"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getAllText"), const_cast<char*>("GetAllText"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getColor"), const_cast<char*>("GetColor"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getColorNames"), const_cast<char*>("GetColorNames"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getColumnGap"), const_cast<char*>("GetColumnGap"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getColumns"), const_cast<char*>("GetColumns"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getCornerRadius"), const_cast<char*>("GetCornerRadius"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getFillColor"), const_cast<char*>("GetFillColor"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getFillShade"), const_cast<char*>("GetFillShade"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getFont"), const_cast<char*>("GetFont"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getFontNames"), const_cast<char*>("GetFontNames"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getFontSize"), const_cast<char*>("GetFontSize"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getGuiLanguage"), const_cast<char*>("GetGuiLanguage"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getHGuides"), const_cast<char*>("GetHGuides"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getImageFile"), const_cast<char*>("GetImageFile"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getImageScale"), const_cast<char*>("GetImageScale"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getLayers"), const_cast<char*>("GetLayers"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getLineCap"), const_cast<char*>("GetLineCap"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getLineColor"), const_cast<char*>("GetLineColor"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getLineJoin"), const_cast<char*>("GetLineJoin"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getLineShade"), const_cast<char*>("GetLineShade"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getLineSpacing"), const_cast<char*>("GetLineSpacing"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getLineStyle"), const_cast<char*>("GetLineStyle"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getLineWidth"), const_cast<char*>("GetLineWidth"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getPageItems"), const_cast<char*>("GetPageItems"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getPageMargins"), const_cast<char*>("GetPageMargins"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getPageSize"), const_cast<char*>("GetPageSize"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getPosition"), const_cast<char*>("GetPosition"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getRotation"), const_cast<char*>("GetRotation"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getSelectedObject"), const_cast<char*>("GetSelectedObject"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getSize"), const_cast<char*>("GetSize"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getText"), const_cast<char*>("GetText"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getTextColor"), const_cast<char*>("GetTextColor"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getTextLength"), const_cast<char*>("GetTextLength"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getTextShade"), const_cast<char*>("GetTextShade"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getUnit"), const_cast<char*>("GetUnit"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getVGuides"), const_cast<char*>("GetVGuides"));
-	deprecatedFunctionAlias(d, const_cast<char*>("getXFontNames"), const_cast<char*>("GetXFontNames"));
-	deprecatedFunctionAlias(d, const_cast<char*>("gotoPage"), const_cast<char*>("GotoPage"));
-	deprecatedFunctionAlias(d, const_cast<char*>("groupObjects"), const_cast<char*>("GroupObjects"));
-	deprecatedFunctionAlias(d, const_cast<char*>("haveDoc"), const_cast<char*>("HaveDoc"));
-	deprecatedFunctionAlias(d, const_cast<char*>("insertText"), const_cast<char*>("InsertText"));
-	deprecatedFunctionAlias(d, const_cast<char*>("isLayerPrintable"), const_cast<char*>("IsLayerPrintable"));
-	deprecatedFunctionAlias(d, const_cast<char*>("isLayerVisible"), const_cast<char*>("IsLayerVisible"));
-	deprecatedFunctionAlias(d, const_cast<char*>("isLocked"), const_cast<char*>("IsLocked"));
-	deprecatedFunctionAlias(d, const_cast<char*>("linkTextFrames"), const_cast<char*>("LinkTextFrames"));
-	deprecatedFunctionAlias(d, const_cast<char*>("loadImage"), const_cast<char*>("LoadImage"));
-	deprecatedFunctionAlias(d, const_cast<char*>("loadStylesFromFile"), const_cast<char*>("LoadStylesFromFile"));
-	deprecatedFunctionAlias(d, const_cast<char*>("lockObject"), const_cast<char*>("LockObject"));
-	deprecatedFunctionAlias(d, const_cast<char*>("messagebarText"), const_cast<char*>("MessagebarText"));
-	deprecatedFunctionAlias(d, const_cast<char*>("messageBox"), const_cast<char*>("MessageBox"));
-	deprecatedFunctionAlias(d, const_cast<char*>("moveObject"), const_cast<char*>("MoveObject"));
-	deprecatedFunctionAlias(d, const_cast<char*>("moveObjectAbs"), const_cast<char*>("MoveObjectAbs"));
-	deprecatedFunctionAlias(d, const_cast<char*>("newDoc"), const_cast<char*>("NewDoc"));
-	deprecatedFunctionAlias(d, const_cast<char*>("newDocDialog"), const_cast<char*>("NewDocDialog"));
-	deprecatedFunctionAlias(d, const_cast<char*>("newPage"), const_cast<char*>("NewPage"));
-	deprecatedFunctionAlias(d, const_cast<char*>("objectExists"), const_cast<char*>("ObjectExists"));
-	deprecatedFunctionAlias(d, const_cast<char*>("openDoc"), const_cast<char*>("OpenDoc"));
-	deprecatedFunctionAlias(d, const_cast<char*>("pageCount"), const_cast<char*>("PageCount"));
-	deprecatedFunctionAlias(d, const_cast<char*>("pageDimension"), const_cast<char*>("PageDimension"));
-	deprecatedFunctionAlias(d, const_cast<char*>("progressReset"), const_cast<char*>("ProgressReset"));
-	deprecatedFunctionAlias(d, const_cast<char*>("progressSet"), const_cast<char*>("ProgressSet"));
-	deprecatedFunctionAlias(d, const_cast<char*>("progressTotal"), const_cast<char*>("ProgressTotal"));
-	deprecatedFunctionAlias(d, const_cast<char*>("redrawAll"), const_cast<char*>("RedrawAll"));
-	deprecatedFunctionAlias(d, const_cast<char*>("renderFont"), const_cast<char*>("RenderFont"));
-	deprecatedFunctionAlias(d, const_cast<char*>("replaceColor"), const_cast<char*>("ReplaceColor"));
-	deprecatedFunctionAlias(d, const_cast<char*>("rotateObject"), const_cast<char*>("RotateObject"));
-	deprecatedFunctionAlias(d, const_cast<char*>("rotateObjectAbs"), const_cast<char*>("RotateObjectAbs"));
-	deprecatedFunctionAlias(d, const_cast<char*>("saveDoc"), const_cast<char*>("SaveDoc"));
-	deprecatedFunctionAlias(d, const_cast<char*>("saveDocAs"), const_cast<char*>("SaveDocAs"));
-	deprecatedFunctionAlias(d, const_cast<char*>("savePageAsEPS"), const_cast<char*>("SavePageAsEPS"));
-	deprecatedFunctionAlias(d, const_cast<char*>("scaleGroup"), const_cast<char*>("ScaleGroup"));
-	deprecatedFunctionAlias(d, const_cast<char*>("scaleImage"), const_cast<char*>("ScaleImage"));
-	deprecatedFunctionAlias(d, const_cast<char*>("selectionCount"), const_cast<char*>("SelectionCount"));
-	deprecatedFunctionAlias(d, const_cast<char*>("selectObject"), const_cast<char*>("SelectObject"));
-	deprecatedFunctionAlias(d, const_cast<char*>("selectText"), const_cast<char*>("SelectText"));
-	deprecatedFunctionAlias(d, const_cast<char*>("sentToLayer"), const_cast<char*>("SentToLayer"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setActiveLayer"), const_cast<char*>("SetActiveLayer"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setColumnGap"), const_cast<char*>("SetColumnGap"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setColumns"), const_cast<char*>("SetColumns"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setCornerRadius"), const_cast<char*>("SetCornerRadius"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setCursor"), const_cast<char*>("SetCursor"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setDocType"), const_cast<char*>("SetDocType"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setFillColor"), const_cast<char*>("SetFillColor"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setFillShade"), const_cast<char*>("SetFillShade"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setFont"), const_cast<char*>("SetFont"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setFontSize"), const_cast<char*>("SetFontSize"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setGradientFill"), const_cast<char*>("SetGradientFill"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setHGuides"), const_cast<char*>("SetHGuides"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setInfo"), const_cast<char*>("SetInfo"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setLayerPrintable"), const_cast<char*>("SetLayerPrintable"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setLayerVisible"), const_cast<char*>("SetLayerVisible"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setLineCap"), const_cast<char*>("SetLineCap"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setLineColor"), const_cast<char*>("SetLineColor"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setLineJoin"), const_cast<char*>("SetLineJoin"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setLineShade"), const_cast<char*>("SetLineShade"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setLineSpacing"), const_cast<char*>("SetLineSpacing"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setLineStyle"), const_cast<char*>("SetLineStyle"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setLineWidth"), const_cast<char*>("SetLineWidth"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setMargins"), const_cast<char*>("SetMargins"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setMultiLine"), const_cast<char*>("SetMultiLine"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setMultiLine"), const_cast<char*>("SetMultiLine"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setRedraw"), const_cast<char*>("SetRedraw"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setSelectedObject"), const_cast<char*>("SetSelectedObject"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setStyle"), const_cast<char*>("SetStyle"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setText"), const_cast<char*>("SetText"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setTextAlignment"), const_cast<char*>("SetTextAlignment"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setTextColor"), const_cast<char*>("SetTextColor"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setTextShade"), const_cast<char*>("SetTextShade"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setTextStroke"), const_cast<char*>("SetTextStroke"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setUnit"), const_cast<char*>("SetUnit"));
-	deprecatedFunctionAlias(d, const_cast<char*>("setVGuides"), const_cast<char*>("SetVGuides"));
-	deprecatedFunctionAlias(d, const_cast<char*>("sizeObject"), const_cast<char*>("SizeObject"));
-	deprecatedFunctionAlias(d, const_cast<char*>("statusMessage"), const_cast<char*>("StatusMessage"));
-	deprecatedFunctionAlias(d, const_cast<char*>("textFlowsAroundFrame"), const_cast<char*>("TextFlowsAroundFrame"));
-	deprecatedFunctionAlias(d, const_cast<char*>("traceText"), const_cast<char*>("TraceText"));
-	deprecatedFunctionAlias(d, const_cast<char*>("unGroupObject"), const_cast<char*>("UnGroupObject"));
-	deprecatedFunctionAlias(d, const_cast<char*>("unlinkTextFrames"), const_cast<char*>("UnlinkTextFrames"));
-	deprecatedFunctionAlias(d, const_cast<char*>("valueDialog"), const_cast<char*>("ValueDialog"));
+	if (Tes->legacyAliases)
+	{
+		deprecatedFunctionAlias(d, const_cast<char*>("changeColor"), const_cast<char*>("ChangeColor"));
+		deprecatedFunctionAlias(d, const_cast<char*>("closeDoc"), const_cast<char*>("CloseDoc"));
+		deprecatedFunctionAlias(d, const_cast<char*>("createBezierLine"), const_cast<char*>("CreateBezierLine"));
+		deprecatedFunctionAlias(d, const_cast<char*>("createEllipse"), const_cast<char*>("CreateEllipse"));
+		deprecatedFunctionAlias(d, const_cast<char*>("createImage"), const_cast<char*>("CreateImage"));
+		deprecatedFunctionAlias(d, const_cast<char*>("createLayer"), const_cast<char*>("CreateLayer"));
+		deprecatedFunctionAlias(d, const_cast<char*>("createLine"), const_cast<char*>("CreateLine"));
+		deprecatedFunctionAlias(d, const_cast<char*>("createPathText"), const_cast<char*>("CreatePathText"));
+		deprecatedFunctionAlias(d, const_cast<char*>("createPolygon"), const_cast<char*>("CreatePolygon"));
+		deprecatedFunctionAlias(d, const_cast<char*>("createPolyLine"), const_cast<char*>("CreatePolyLine"));
+		deprecatedFunctionAlias(d, const_cast<char*>("createRect"), const_cast<char*>("CreateRect"));
+		deprecatedFunctionAlias(d, const_cast<char*>("createText"), const_cast<char*>("CreateText"));
+		deprecatedFunctionAlias(d, const_cast<char*>("currentPage"), const_cast<char*>("CurrentPage"));
+		deprecatedFunctionAlias(d, const_cast<char*>("defineColor"), const_cast<char*>("DefineColor"));
+		deprecatedFunctionAlias(d, const_cast<char*>("deleteColor"), const_cast<char*>("DeleteColor"));
+		deprecatedFunctionAlias(d, const_cast<char*>("deleteLayer"), const_cast<char*>("DeleteLayer"));
+		deprecatedFunctionAlias(d, const_cast<char*>("deleteObject"), const_cast<char*>("DeleteObject"));
+		deprecatedFunctionAlias(d, const_cast<char*>("deletePage"), const_cast<char*>("DeletePage"));
+		deprecatedFunctionAlias(d, const_cast<char*>("deleteText"), const_cast<char*>("DeleteText"));
+		deprecatedFunctionAlias(d, const_cast<char*>("deselectAll"), const_cast<char*>("DeselectAll"));
+		deprecatedFunctionAlias(d, const_cast<char*>("docChanged"), const_cast<char*>("DocChanged"));
+		deprecatedFunctionAlias(d, const_cast<char*>("fileDialog"), const_cast<char*>("FileDialog"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getActiveLayer"), const_cast<char*>("GetActiveLayer"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getAllObjects"), const_cast<char*>("GetAllObjects"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getAllStyles"), const_cast<char*>("GetAllStyles"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getAllText"), const_cast<char*>("GetAllText"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getColor"), const_cast<char*>("GetColor"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getColorNames"), const_cast<char*>("GetColorNames"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getColumnGap"), const_cast<char*>("GetColumnGap"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getColumns"), const_cast<char*>("GetColumns"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getCornerRadius"), const_cast<char*>("GetCornerRadius"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getFillColor"), const_cast<char*>("GetFillColor"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getFillShade"), const_cast<char*>("GetFillShade"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getFont"), const_cast<char*>("GetFont"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getFontNames"), const_cast<char*>("GetFontNames"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getFontSize"), const_cast<char*>("GetFontSize"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getGuiLanguage"), const_cast<char*>("GetGuiLanguage"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getHGuides"), const_cast<char*>("GetHGuides"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getImageFile"), const_cast<char*>("GetImageFile"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getImageScale"), const_cast<char*>("GetImageScale"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getLayers"), const_cast<char*>("GetLayers"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getLineCap"), const_cast<char*>("GetLineCap"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getLineColor"), const_cast<char*>("GetLineColor"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getLineJoin"), const_cast<char*>("GetLineJoin"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getLineShade"), const_cast<char*>("GetLineShade"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getLineSpacing"), const_cast<char*>("GetLineSpacing"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getLineStyle"), const_cast<char*>("GetLineStyle"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getLineWidth"), const_cast<char*>("GetLineWidth"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getPageItems"), const_cast<char*>("GetPageItems"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getPageMargins"), const_cast<char*>("GetPageMargins"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getPageSize"), const_cast<char*>("GetPageSize"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getPosition"), const_cast<char*>("GetPosition"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getRotation"), const_cast<char*>("GetRotation"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getSelectedObject"), const_cast<char*>("GetSelectedObject"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getSize"), const_cast<char*>("GetSize"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getText"), const_cast<char*>("GetText"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getTextColor"), const_cast<char*>("GetTextColor"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getTextLength"), const_cast<char*>("GetTextLength"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getTextShade"), const_cast<char*>("GetTextShade"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getUnit"), const_cast<char*>("GetUnit"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getVGuides"), const_cast<char*>("GetVGuides"));
+		deprecatedFunctionAlias(d, const_cast<char*>("getXFontNames"), const_cast<char*>("GetXFontNames"));
+		deprecatedFunctionAlias(d, const_cast<char*>("gotoPage"), const_cast<char*>("GotoPage"));
+		deprecatedFunctionAlias(d, const_cast<char*>("groupObjects"), const_cast<char*>("GroupObjects"));
+		deprecatedFunctionAlias(d, const_cast<char*>("haveDoc"), const_cast<char*>("HaveDoc"));
+		deprecatedFunctionAlias(d, const_cast<char*>("insertText"), const_cast<char*>("InsertText"));
+		deprecatedFunctionAlias(d, const_cast<char*>("isLayerPrintable"), const_cast<char*>("IsLayerPrintable"));
+		deprecatedFunctionAlias(d, const_cast<char*>("isLayerVisible"), const_cast<char*>("IsLayerVisible"));
+		deprecatedFunctionAlias(d, const_cast<char*>("isLocked"), const_cast<char*>("IsLocked"));
+		deprecatedFunctionAlias(d, const_cast<char*>("linkTextFrames"), const_cast<char*>("LinkTextFrames"));
+		deprecatedFunctionAlias(d, const_cast<char*>("loadImage"), const_cast<char*>("LoadImage"));
+		deprecatedFunctionAlias(d, const_cast<char*>("loadStylesFromFile"), const_cast<char*>("LoadStylesFromFile"));
+		deprecatedFunctionAlias(d, const_cast<char*>("lockObject"), const_cast<char*>("LockObject"));
+		deprecatedFunctionAlias(d, const_cast<char*>("messagebarText"), const_cast<char*>("MessagebarText"));
+		deprecatedFunctionAlias(d, const_cast<char*>("messageBox"), const_cast<char*>("MessageBox"));
+		deprecatedFunctionAlias(d, const_cast<char*>("moveObject"), const_cast<char*>("MoveObject"));
+		deprecatedFunctionAlias(d, const_cast<char*>("moveObjectAbs"), const_cast<char*>("MoveObjectAbs"));
+		deprecatedFunctionAlias(d, const_cast<char*>("newDoc"), const_cast<char*>("NewDoc"));
+		deprecatedFunctionAlias(d, const_cast<char*>("newDocDialog"), const_cast<char*>("NewDocDialog"));
+		deprecatedFunctionAlias(d, const_cast<char*>("newPage"), const_cast<char*>("NewPage"));
+		deprecatedFunctionAlias(d, const_cast<char*>("objectExists"), const_cast<char*>("ObjectExists"));
+		deprecatedFunctionAlias(d, const_cast<char*>("openDoc"), const_cast<char*>("OpenDoc"));
+		deprecatedFunctionAlias(d, const_cast<char*>("pageCount"), const_cast<char*>("PageCount"));
+		deprecatedFunctionAlias(d, const_cast<char*>("pageDimension"), const_cast<char*>("PageDimension"));
+		deprecatedFunctionAlias(d, const_cast<char*>("progressReset"), const_cast<char*>("ProgressReset"));
+		deprecatedFunctionAlias(d, const_cast<char*>("progressSet"), const_cast<char*>("ProgressSet"));
+		deprecatedFunctionAlias(d, const_cast<char*>("progressTotal"), const_cast<char*>("ProgressTotal"));
+		deprecatedFunctionAlias(d, const_cast<char*>("redrawAll"), const_cast<char*>("RedrawAll"));
+		deprecatedFunctionAlias(d, const_cast<char*>("renderFont"), const_cast<char*>("RenderFont"));
+		deprecatedFunctionAlias(d, const_cast<char*>("replaceColor"), const_cast<char*>("ReplaceColor"));
+		deprecatedFunctionAlias(d, const_cast<char*>("rotateObject"), const_cast<char*>("RotateObject"));
+		deprecatedFunctionAlias(d, const_cast<char*>("rotateObjectAbs"), const_cast<char*>("RotateObjectAbs"));
+		deprecatedFunctionAlias(d, const_cast<char*>("saveDoc"), const_cast<char*>("SaveDoc"));
+		deprecatedFunctionAlias(d, const_cast<char*>("saveDocAs"), const_cast<char*>("SaveDocAs"));
+		deprecatedFunctionAlias(d, const_cast<char*>("savePageAsEPS"), const_cast<char*>("SavePageAsEPS"));
+		deprecatedFunctionAlias(d, const_cast<char*>("scaleGroup"), const_cast<char*>("ScaleGroup"));
+		deprecatedFunctionAlias(d, const_cast<char*>("scaleImage"), const_cast<char*>("ScaleImage"));
+		deprecatedFunctionAlias(d, const_cast<char*>("selectionCount"), const_cast<char*>("SelectionCount"));
+		deprecatedFunctionAlias(d, const_cast<char*>("selectObject"), const_cast<char*>("SelectObject"));
+		deprecatedFunctionAlias(d, const_cast<char*>("selectText"), const_cast<char*>("SelectText"));
+		deprecatedFunctionAlias(d, const_cast<char*>("sentToLayer"), const_cast<char*>("SentToLayer"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setActiveLayer"), const_cast<char*>("SetActiveLayer"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setColumnGap"), const_cast<char*>("SetColumnGap"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setColumns"), const_cast<char*>("SetColumns"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setCornerRadius"), const_cast<char*>("SetCornerRadius"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setCursor"), const_cast<char*>("SetCursor"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setDocType"), const_cast<char*>("SetDocType"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setFillColor"), const_cast<char*>("SetFillColor"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setFillShade"), const_cast<char*>("SetFillShade"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setFont"), const_cast<char*>("SetFont"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setFontSize"), const_cast<char*>("SetFontSize"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setGradientFill"), const_cast<char*>("SetGradientFill"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setHGuides"), const_cast<char*>("SetHGuides"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setInfo"), const_cast<char*>("SetInfo"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setLayerPrintable"), const_cast<char*>("SetLayerPrintable"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setLayerVisible"), const_cast<char*>("SetLayerVisible"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setLineCap"), const_cast<char*>("SetLineCap"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setLineColor"), const_cast<char*>("SetLineColor"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setLineJoin"), const_cast<char*>("SetLineJoin"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setLineShade"), const_cast<char*>("SetLineShade"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setLineSpacing"), const_cast<char*>("SetLineSpacing"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setLineStyle"), const_cast<char*>("SetLineStyle"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setLineWidth"), const_cast<char*>("SetLineWidth"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setMargins"), const_cast<char*>("SetMargins"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setMultiLine"), const_cast<char*>("SetMultiLine"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setMultiLine"), const_cast<char*>("SetMultiLine"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setRedraw"), const_cast<char*>("SetRedraw"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setSelectedObject"), const_cast<char*>("SetSelectedObject"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setStyle"), const_cast<char*>("SetStyle"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setText"), const_cast<char*>("SetText"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setTextAlignment"), const_cast<char*>("SetTextAlignment"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setTextColor"), const_cast<char*>("SetTextColor"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setTextShade"), const_cast<char*>("SetTextShade"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setTextStroke"), const_cast<char*>("SetTextStroke"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setUnit"), const_cast<char*>("SetUnit"));
+		deprecatedFunctionAlias(d, const_cast<char*>("setVGuides"), const_cast<char*>("SetVGuides"));
+		deprecatedFunctionAlias(d, const_cast<char*>("sizeObject"), const_cast<char*>("SizeObject"));
+		deprecatedFunctionAlias(d, const_cast<char*>("statusMessage"), const_cast<char*>("StatusMessage"));
+		deprecatedFunctionAlias(d, const_cast<char*>("textFlowsAroundFrame"), const_cast<char*>("TextFlowsAroundFrame"));
+		deprecatedFunctionAlias(d, const_cast<char*>("traceText"), const_cast<char*>("TraceText"));
+		deprecatedFunctionAlias(d, const_cast<char*>("unGroupObject"), const_cast<char*>("UnGroupObject"));
+		deprecatedFunctionAlias(d, const_cast<char*>("unlinkTextFrames"), const_cast<char*>("UnlinkTextFrames"));
+		deprecatedFunctionAlias(d, const_cast<char*>("valueDialog"), const_cast<char*>("ValueDialog"));
+	}
 	// end function aliases
 	// legacy constants - alas, we can't print warnings when these
 	// are used.
-	constantAlias(d, "UNIT_POINTS", "Points");
-	constantAlias(d, "UNIT_MILLIMETERS", "Millimeters");
-	constantAlias(d, "UNIT_INCHES", "Inches");
-	constantAlias(d, "UNIT_PICAS", "Picas");
-	constantAlias(d, "PORTRAIT", "Portrait");
-	constantAlias(d, "LANDSCAPE", "Landscape");
-	constantAlias(d, "NOFACINGPAGES", "NoFacingPages");
-	constantAlias(d, "FACINGPAGES", "FacingPages");
-	constantAlias(d, "FIRSTPAGERIGHT", "FirstPageRight");
-	constantAlias(d, "FIRSTPAGELEFT", "FirstPageLeft");
-	constantAlias(d, "ALIGN_LEFT", "LeftAlign");
-	constantAlias(d, "ALIGN_RIGHT", "RightAlign");
-	constantAlias(d, "ALIGN_CENTERED", "Centered");
-	constantAlias(d, "ALIGN_FORCED", "Forced");
-	constantAlias(d, "FILL_NOG", "NoGradient");
-	constantAlias(d, "FILL_HORIZONTALG", "HorizontalGradient");
-	constantAlias(d, "FILL_VERTICALG", "VerticalGradient");
-	constantAlias(d, "FILL_DIAGONALG", "DiagonalGradient");
-	constantAlias(d, "FILL_CROSSDIAGONALG", "CrossDiagonalGradient");
-	constantAlias(d, "FILL_RADIALG", "RadialGradient");
-	constantAlias(d, "LINE_SOLID", "SolidLine");
-	constantAlias(d, "LINE_DASH", "DashLine");
-	constantAlias(d, "LINE_DOT", "DotLine");
-	constantAlias(d, "LINE_DASHDOT", "DashDotLine");
-	constantAlias(d, "LINE_DASHDOTDOT", "DashDotDotLine");
-	constantAlias(d, "JOIN_MITTER", "MiterJoin");
-	constantAlias(d, "JOIN_BEVEL", "BevelJoin");
-	constantAlias(d, "JOIN_ROUND", "RoundJoin");
-	constantAlias(d, "CAP_FLAT", "FlatCap");
-	constantAlias(d, "CAP_SQUARE", "SquareCap");
-	constantAlias(d, "CAP_ROUND", "RoundCap");
-	constantAlias(d, "BUTTON_NONE", "NoButton");
-	constantAlias(d, "BUTTON_OK", "Ok");
-	constantAlias(d, "BUTTON_CANCEL", "Cancel");
-	constantAlias(d, "BUTTON_YES", "Yes");
-	constantAlias(d, "BUTTON_NO", "No");
-	constantAlias(d, "BUTTON_ABORT", "Abort");
-	constantAlias(d, "BUTTON_RETRY", "Retry");
-	constantAlias(d, "BUTTON_IGNORE", "Ignore");
-	constantAlias(d, "ICON_NONE", "NoIcon");
-	constantAlias(d, "ICON_INFORMATION", "Information");
-	constantAlias(d, "ICON_WARNING", "Warning");
-	constantAlias(d, "ICON_CRITICAL", "Critical");
-	constantAlias(d, "PAPER_A0", "Paper_A0");
-	constantAlias(d, "PAPER_A1", "Paper_A1");
-	constantAlias(d, "PAPER_A2", "Paper_A2");
-	constantAlias(d, "PAPER_A3", "Paper_A3");
-	constantAlias(d, "PAPER_A4", "Paper_A4");
-	constantAlias(d, "PAPER_A5", "Paper_A5");
-	constantAlias(d, "PAPER_A6", "Paper_A6");
-	constantAlias(d, "PAPER_A7", "Paper_A7");
-	constantAlias(d, "PAPER_A8", "Paper_A8");
-	constantAlias(d, "PAPER_A9", "Paper_A9");
-	constantAlias(d, "PAPER_B0", "Paper_B0");
-	constantAlias(d, "PAPER_B1", "Paper_B1");
-	constantAlias(d, "PAPER_B2", "Paper_B2");
-	constantAlias(d, "PAPER_B3", "Paper_B3");
-	constantAlias(d, "PAPER_B4", "Paper_B4");
-	constantAlias(d, "PAPER_B5", "Paper_B5");
-	constantAlias(d, "PAPER_B6", "Paper_B6");
-	constantAlias(d, "PAPER_B7", "Paper_B7");
-	constantAlias(d, "PAPER_B8", "Paper_B8");
-	constantAlias(d, "PAPER_B9", "Paper_B9");
-	constantAlias(d, "PAPER_B10", "Paper_B10");
-	constantAlias(d, "PAPER_C5E", "Paper_C5E");
-	constantAlias(d, "PAPER_COMM10E", "Paper_Comm10E");
-	constantAlias(d, "PAPER_DLE", "Paper_DLE");
-	constantAlias(d, "PAPER_EXECUTIVE", "Paper_Executive");
-	constantAlias(d, "PAPER_FOLIO", "Paper_Folio");
-	constantAlias(d, "PAPER_LEDGER", "Paper_Ledger");
-	constantAlias(d, "PAPER_LEGAL", "Paper_Legal");
-	constantAlias(d, "PAPER_LETTER", "Paper_Letter");
-	constantAlias(d, "PAPER_TABLOID", "Paper_Tabloid");
+	if (Tes->legacyAliases)
+	{
+		constantAlias(d, "UNIT_POINTS", "Points");
+		constantAlias(d, "UNIT_MILLIMETERS", "Millimeters");
+		constantAlias(d, "UNIT_INCHES", "Inches");
+		constantAlias(d, "UNIT_PICAS", "Picas");
+		constantAlias(d, "PORTRAIT", "Portrait");
+		constantAlias(d, "LANDSCAPE", "Landscape");
+		constantAlias(d, "NOFACINGPAGES", "NoFacingPages");
+		constantAlias(d, "FACINGPAGES", "FacingPages");
+		constantAlias(d, "FIRSTPAGERIGHT", "FirstPageRight");
+		constantAlias(d, "FIRSTPAGELEFT", "FirstPageLeft");
+		constantAlias(d, "ALIGN_LEFT", "LeftAlign");
+		constantAlias(d, "ALIGN_RIGHT", "RightAlign");
+		constantAlias(d, "ALIGN_CENTERED", "Centered");
+		constantAlias(d, "ALIGN_FORCED", "Forced");
+		constantAlias(d, "FILL_NOG", "NoGradient");
+		constantAlias(d, "FILL_HORIZONTALG", "HorizontalGradient");
+		constantAlias(d, "FILL_VERTICALG", "VerticalGradient");
+		constantAlias(d, "FILL_DIAGONALG", "DiagonalGradient");
+		constantAlias(d, "FILL_CROSSDIAGONALG", "CrossDiagonalGradient");
+		constantAlias(d, "FILL_RADIALG", "RadialGradient");
+		constantAlias(d, "LINE_SOLID", "SolidLine");
+		constantAlias(d, "LINE_DASH", "DashLine");
+		constantAlias(d, "LINE_DOT", "DotLine");
+		constantAlias(d, "LINE_DASHDOT", "DashDotLine");
+		constantAlias(d, "LINE_DASHDOTDOT", "DashDotDotLine");
+		constantAlias(d, "JOIN_MITTER", "MiterJoin");
+		constantAlias(d, "JOIN_BEVEL", "BevelJoin");
+		constantAlias(d, "JOIN_ROUND", "RoundJoin");
+		constantAlias(d, "CAP_FLAT", "FlatCap");
+		constantAlias(d, "CAP_SQUARE", "SquareCap");
+		constantAlias(d, "CAP_ROUND", "RoundCap");
+		constantAlias(d, "BUTTON_NONE", "NoButton");
+		constantAlias(d, "BUTTON_OK", "Ok");
+		constantAlias(d, "BUTTON_CANCEL", "Cancel");
+		constantAlias(d, "BUTTON_YES", "Yes");
+		constantAlias(d, "BUTTON_NO", "No");
+		constantAlias(d, "BUTTON_ABORT", "Abort");
+		constantAlias(d, "BUTTON_RETRY", "Retry");
+		constantAlias(d, "BUTTON_IGNORE", "Ignore");
+		constantAlias(d, "ICON_NONE", "NoIcon");
+		constantAlias(d, "ICON_INFORMATION", "Information");
+		constantAlias(d, "ICON_WARNING", "Warning");
+		constantAlias(d, "ICON_CRITICAL", "Critical");
+		constantAlias(d, "PAPER_A0", "Paper_A0");
+		constantAlias(d, "PAPER_A1", "Paper_A1");
+		constantAlias(d, "PAPER_A2", "Paper_A2");
+		constantAlias(d, "PAPER_A3", "Paper_A3");
+		constantAlias(d, "PAPER_A4", "Paper_A4");
+		constantAlias(d, "PAPER_A5", "Paper_A5");
+		constantAlias(d, "PAPER_A6", "Paper_A6");
+		constantAlias(d, "PAPER_A7", "Paper_A7");
+		constantAlias(d, "PAPER_A8", "Paper_A8");
+		constantAlias(d, "PAPER_A9", "Paper_A9");
+		constantAlias(d, "PAPER_B0", "Paper_B0");
+		constantAlias(d, "PAPER_B1", "Paper_B1");
+		constantAlias(d, "PAPER_B2", "Paper_B2");
+		constantAlias(d, "PAPER_B3", "Paper_B3");
+		constantAlias(d, "PAPER_B4", "Paper_B4");
+		constantAlias(d, "PAPER_B5", "Paper_B5");
+		constantAlias(d, "PAPER_B6", "Paper_B6");
+		constantAlias(d, "PAPER_B7", "Paper_B7");
+		constantAlias(d, "PAPER_B8", "Paper_B8");
+		constantAlias(d, "PAPER_B9", "Paper_B9");
+		constantAlias(d, "PAPER_B10", "Paper_B10");
+		constantAlias(d, "PAPER_C5E", "Paper_C5E");
+		constantAlias(d, "PAPER_COMM10E", "Paper_Comm10E");
+		constantAlias(d, "PAPER_DLE", "Paper_DLE");
+		constantAlias(d, "PAPER_EXECUTIVE", "Paper_Executive");
+		constantAlias(d, "PAPER_FOLIO", "Paper_Folio");
+		constantAlias(d, "PAPER_LEDGER", "Paper_Ledger");
+		constantAlias(d, "PAPER_LEGAL", "Paper_Legal");
+		constantAlias(d, "PAPER_LETTER", "Paper_Letter");
+		constantAlias(d, "PAPER_TABLOID", "Paper_Tabloid");
+	}
 	// end of deprecated cosntants
 
 	// Create the module-level docstring. This can be a proper unicode string, unlike

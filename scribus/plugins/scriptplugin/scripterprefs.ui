@@ -1,0 +1,326 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>ScripterPreferences</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>ScripterPreferences</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>526</width>
+            <height>308</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Scribus - Scripter Preferences</string>
+    </property>
+    <property name="whatsThis" stdset="0">
+        <string></string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QCheckBox" row="0" column="0" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>extPythonChk</cstring>
+            </property>
+            <property name="text">
+                <string>Enable Scripter Extensions</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Turn on extension scripts and macros</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;qt&gt;&lt;p&gt;Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt&gt;Load Extension Script&lt;/tt&gt; item in the Script menu.&lt;/p&gt;
+&lt;p&gt;
+Only scripts written to be run as extension scripts should be used with &lt;tt&gt;Load Extension Script&lt;/tt&gt; or as start-up scripts. See the scripter documentation for more details.&lt;/p&gt;&lt;/qt&gt;</string>
+            </property>
+        </widget>
+        <widget class="QGroupBox" row="1" column="0" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>startupScriptGroup</cstring>
+            </property>
+            <property name="enabled">
+                <bool>false</bool>
+            </property>
+            <property name="title">
+                <string>Use a Startup Script</string>
+            </property>
+            <property name="checkable">
+                <bool>true</bool>
+            </property>
+            <property name="checked">
+                <bool>false</bool>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;qt&gt;&lt;p&gt;If &lt;tt&gt;Use a Startup Script&lt;/tt&gt; is checked, Scribus will load the script file specified here as an extension script at start-up. It is important that the script be written as an extension script, as if not written carefully it can potentially cause problems.&lt;/p&gt;
+&lt;p&gt;&lt;tt&gt;Use a Startup Script&lt;/tt&gt; will be disabled if scripter extensions are off, as extension scripts cannot be loaded without scripter extensions enabled.&lt;/p&gt;&lt;/qt&gt;</string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QPushButton" row="0" column="2">
+                    <property name="name">
+                        <cstring>startupScriptBrowseBtn</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="text">
+                        <string>Browse...</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Browse for a new script file</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>&lt;qt&gt;Browse for a new script file&lt;/qt&gt;</string>
+                    </property>
+                </widget>
+                <widget class="QLineEdit" row="0" column="1">
+                    <property name="name">
+                        <cstring>startupScriptPath</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="text">
+                        <string></string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>What script file to load at start-up</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>&lt;qt&gt;&lt;p&gt;The file containing the Python script to run as an extension script at start-up.&lt;/p&gt;
+&lt;p&gt;Note that when this script is run, Scribus has not completely started up and the workspace does not yet exist.&lt;/p&gt;&lt;/qt&gt;</string>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="0" column="0">
+                    <property name="name">
+                        <cstring>textLabel1</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>false</bool>
+                    </property>
+                    <property name="text">
+                        <string>Script File:</string>
+                    </property>
+                    <property name="buddy" stdset="0">
+                        <cstring>startupScriptPath</cstring>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QPushButton" row="3" column="2">
+            <property name="name">
+                <cstring>cancelButton</cstring>
+            </property>
+            <property name="text">
+                <string>&amp;Cancel</string>
+            </property>
+            <property name="accel">
+                <string>Alt+C</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Close without saving changes</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>Close without saving changes</string>
+            </property>
+        </widget>
+        <spacer row="3" column="0">
+            <property name="name">
+                <cstring>spacer1</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>211</width>
+                    <height>20</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QPushButton" row="3" column="1">
+            <property name="name">
+                <cstring>okButton</cstring>
+            </property>
+            <property name="text">
+                <string>&amp;Ok</string>
+            </property>
+            <property name="accel">
+                <string>Alt+O</string>
+            </property>
+            <property name="default">
+                <bool>true</bool>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Save changes and close</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>Save changes and close</string>
+            </property>
+        </widget>
+        <widget class="QGroupBox" row="2" column="0" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>advancedOptionsGroup</cstring>
+            </property>
+            <property name="title">
+                <string>Advanced Options</string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QCheckBox" row="0" column="0">
+                    <property name="name">
+                        <cstring>importNamesChk</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Import All Names at Startup</string>
+                    </property>
+                    <property name="checked">
+                        <bool>true</bool>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>Run 'from scribus import *' in the script console at start-up</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Import All Names at Startup&lt;/tt&gt; is an advanced option. You should probably leave it checked unless you have read the documentation and know what you are doing.&lt;/p&gt;
+&lt;p&gt;Unchecking this option will prevent the scripter from running its usual &lt;tt&gt;from scribus import *&lt;/tt&gt; command when it initializes the main interpreter (used for the script console and extension scripts) at start-up.&lt;/p&gt;
+&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="1" column="0">
+                    <property name="name">
+                        <cstring>legacyAliasesChk</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Enable Legacy Name Aliases</string>
+                    </property>
+                    <property name="checked">
+                        <bool>true</bool>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
+&lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
+&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</string>
+                    </property>
+                </widget>
+                <widget class="QCheckBox" row="2" column="0">
+                    <property name="name">
+                        <cstring>useFakeStdinChk</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Use Fake Stdin</string>
+                    </property>
+                    <property name="checked">
+                        <bool>true</bool>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>&lt;qt&gt;Replace sys.stdin with a fake file to prevent Scribus hanging when a script tries to read from stdin.&lt;/qt&gt;</string>
+                    </property>
+                    <property name="whatsThis" stdset="0">
+                        <string>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Use Fake Stdin&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
+&lt;p&gt;Normally, scribus will provide Python with a fake file object for &lt;tt&gt;sys.stdin&lt;/tt&gt;, so that reads from stdin always return an empty string. If the real &lt;tt&gt;sys.stdin&lt;/tt&gt; is left in place, scripts that try to read from it will block - and in turn block scribus's execution, making the app appear to hang - until input arrives on stdin. It's unusual for GUI apps to expect anything on stdin, so mostly users will think scribus has crashed.&lt;/p&gt;
+&lt;p&gt;You can disable this option if you want to accept input on stdin. Generally you should use &lt;tt&gt;os.popen&lt;/tt&gt; to make a pipe instead, or use some other input mechanism, but this option is here just in case.&lt;/p&gt;&lt;/qt&gt;</string>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>importNamesChk</sender>
+        <signal>clicked()</signal>
+        <receiver>importNamesChk</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>okButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ScripterPreferences</receiver>
+        <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>cancelButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ScripterPreferences</receiver>
+        <slot>reject()</slot>
+    </connection>
+    <connection>
+        <sender>extPythonChk</sender>
+        <signal>clicked()</signal>
+        <receiver>extPythonChk</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>extPythonChk</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>startupScriptGroup</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>startupScriptGroup</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>textLabel1</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>startupScriptBrowseBtn</sender>
+        <signal>clicked()</signal>
+        <receiver>startupScriptPath</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>startupScriptGroup</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>startupScriptPath</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>ScripterPreferences</sender>
+        <signal>pathChanged(const QString &amp;)</signal>
+        <receiver>startupScriptPath</receiver>
+        <slot>setText(const QString&amp;)</slot>
+    </connection>
+    <connection>
+        <sender>startupScriptGroup</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>startupScriptBrowseBtn</receiver>
+        <slot>setEnabled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>startupScriptBrowseBtn</sender>
+        <signal>clicked()</signal>
+        <receiver>ScripterPreferences</receiver>
+        <slot>browseForScript()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>extPythonChk</tabstop>
+    <tabstop>startupScriptPath</tabstop>
+    <tabstop>startupScriptBrowseBtn</tabstop>
+    <tabstop>importNamesChk</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">scripterprefs.ui.h</include>
+</includes>
+<signals>
+    <signal>pathChanged(const QString &amp;)</signal>
+</signals>
+<slots>
+    <slot>browseForScript()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

@@ -192,3 +192,22 @@ bool checkHaveDocument()
     PyErr_SetString(NoDocOpenError, QString("Command does not make sense without an open document"));
     return false;
 }
+
+/*!
+ * Checks to see whether it is ok for the currently running code to
+ * call "extended" python functions like macro registration, etc.
+ * If the loading of Python extensions is disabled, or the currently
+ * running script is being run as a "normal" script in a sub-interpreter,
+ * raises AccessDeniedError and returns false. Otherwise returns true.
+ */
+/* DISABLED until menutest can be refactored out of scriptplugin.{cpp,h}
+bool extFunctionOk()
+{
+    if ((!Tes->enableExtPython)||(Tes->ScriptRunning))
+    {
+        PyErr_SetString(AccessDeniedError, QObject::tr("The called function may only be used by extension scripts.","scripter error"));
+        return false;
+    }
+    return true;
+}
+*/

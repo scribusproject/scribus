@@ -8,6 +8,12 @@
 #include <Python.h>
 #include "scribus.h"
 
+/* Python.h may or may not define CO_FUTURE_DIVISION, so if it doesn't
+ * we need to include compile.h directly. */
+#ifndef CO_FUTURE_DIVISION
+#include "compile.h"
+#endif
+
 /* These will go away in 1.3, but help readability in 1.2.1 code a LOT */
 #define FRAME_IMAGE 2
 #define FRAME_TEXT 4
@@ -17,6 +23,7 @@
 #define FRAME_PATHTEXT 8
 
 /* Static global Variables */
+// the QApplication instance passed to the plugin setup
 extern ScribusApp* Carrier;
 
 /* Exceptions */
@@ -32,6 +39,8 @@ extern PyObject* NoValidObjectError;
 extern PyObject* NotFoundError;
 /*! Exception raised when the user tries to create an object with the same name as one that already exists */
 extern PyObject* NameExistsError;
+/*! Raised when a normal script tries to run code reserved for extension scripts, or when extension scripts are disabled */
+extern PyObject* AccessDeniedError;
 
 #endif
 

@@ -38,6 +38,7 @@ LangList::LangList()
     insert("no_NO", QObject::tr( "Norwegian" ));
     insert("pl",    QObject::tr( "Polish" ));
     insert("pl_PL", QObject::tr( "Polish" ));
+    insert("pt_BR", QObject::tr( "Portugese (Brazilian)" ));
     insert("ru",    QObject::tr( "Russian" ));
     insert("se",    QObject::tr( "Swedish" ));
     insert("es",    QObject::tr( "Spanish" ));
@@ -45,4 +46,5 @@ LangList::LangList()
     insert("sk",    QObject::tr( "Slovak" ));
     insert("sl",    QObject::tr( "Slovenian" ));
     insert("sr",    QObject::tr( "Serbian" ));
+    insert("cy",    QObject::tr( "Welsh" ));
 }

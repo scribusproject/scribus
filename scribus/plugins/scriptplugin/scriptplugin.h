@@ -57,17 +57,32 @@ public:
 		int about;
 		QStringList SavedRecentScripts;
 		QStringList RecentScripts;
+		/// pref: Enable the "load script" menu item?
+		bool enableExtPython;
+		/// pref: Run 'from scribus import *' in the main interpreter at startup?
+		bool importAllNames;
+		/// pref: Make aliases of renamed functions for compatibility?
+		bool legacyAliases;
+		/// pref: Replace stdin with dummy cStringIO?
+		bool useDummyStdin;
+		/// pref: Run a script in the main interpreter at startup?
+		bool startupScriptEnable;
+		/// pref: Which script to run at startup, if enabled
+		QString startupScript;
 
 public slots:
 		void slotTest();
+		void loadScript();
 		void StdScript(int id);
 		void RecentScript(int id);
-		void slotRunScriptFile(QString fileName);
+		void slotRunScriptFile(QString fileName, bool inMainInterpreter = false);
 		QString slotRunScript(QString Script);
 		void slotInteractiveScript();
 		void slotExecute();
 		void aboutScript();
+		void preferencesDialog();
 };
 
 static MenuTest* Tes;
+
 #endif // CMSPLUG_H

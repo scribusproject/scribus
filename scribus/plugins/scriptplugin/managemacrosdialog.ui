@@ -1,0 +1,410 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>ManageMacrosDialog</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>ManageMacrosDialog</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>843</width>
+            <height>480</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Scribus - Manage Macros</string>
+    </property>
+    <property name="toolTip" stdset="0">
+        <string></string>
+    </property>
+    <property name="whatsThis" stdset="0">
+        <string>&lt;qt&gt;&lt;p&gt;This window is the Scribus Macro Manager. Here you can create macros, edit macros, etc. All changes are made using the buttons on the right hand side of the window.&lt;/p&gt;
+&lt;p&gt;All changes made in this dialog take effect instantly - you cannot cancel the actions you make here.
+The table in the center of the dialog lists what macros are currently loaded and some information about them. Use "What's this" on the table for more information.&lt;/p&gt;&lt;/qt&gt;</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QPushButton" row="0" column="1">
+            <property name="name">
+                <cstring>newMacroButton</cstring>
+            </property>
+            <property name="enabled">
+                <bool>true</bool>
+            </property>
+            <property name="text">
+                <string>&amp;New</string>
+            </property>
+            <property name="accel">
+                <string>Alt+N</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>&lt;qt&gt;Create a new macro.&lt;/qt&gt;</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;qt&gt;Create a new macro by prompting for the macro name then bringing up the edit macro dialog box.&lt;/qt&gt;</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="10" column="1">
+            <property name="name">
+                <cstring>okButton</cstring>
+            </property>
+            <property name="text">
+                <string>&amp;Ok</string>
+            </property>
+            <property name="accel">
+                <string>Alt+O</string>
+            </property>
+            <property name="default">
+                <bool>true</bool>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Close this dialog.</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>Return to Scribus.</string>
+            </property>
+        </widget>
+        <widget class="QTable" row="0" column="0" rowspan="11" colspan="1">
+            <column>
+                <property name="text">
+                    <string>Macro</string>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Edit</string>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Accel</string>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Description</string>
+                </property>
+            </column>
+            <property name="name">
+                <cstring>macroTable</cstring>
+            </property>
+            <property name="numRows">
+                <number>0</number>
+            </property>
+            <property name="numCols">
+                <number>4</number>
+            </property>
+            <property name="readOnly">
+                <bool>true</bool>
+            </property>
+            <property name="selectionMode">
+                <enum>SingleRow</enum>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string></string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Name:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, "Yes" appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a "docstring", a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use "What's This" on the macro's entry in the Macro menu to see the full description.&lt;/p&gt;</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="1" column="1">
+            <property name="name">
+                <cstring>renameButton</cstring>
+            </property>
+            <property name="enabled">
+                <bool>false</bool>
+            </property>
+            <property name="text">
+                <string>Rena&amp;me</string>
+            </property>
+            <property name="accel">
+                <string>Alt+M</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Rename the selected macro.</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;qt&gt;Rename the selected macro. You will be prompted for the new name.&lt;/qt&gt;</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="2" column="1">
+            <property name="name">
+                <cstring>editMacroButton</cstring>
+            </property>
+            <property name="enabled">
+                <bool>false</bool>
+            </property>
+            <property name="text">
+                <string>&amp;Edit...</string>
+            </property>
+            <property name="accel">
+                <string>Alt+E</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>&lt;qt&gt;Edit the source of the selected macro, if the source is availible.&lt;/qt&gt;</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
+&lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
+&lt;p&gt;If scribus doesn't have the source, the macro was probably created by a script.&lt;/p&gt;</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="4" column="1">
+            <property name="name">
+                <cstring>deleteMacroButton</cstring>
+            </property>
+            <property name="enabled">
+                <bool>false</bool>
+            </property>
+            <property name="text">
+                <string>&amp;Delete</string>
+            </property>
+            <property name="accel">
+                <string>Alt+D</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>&lt;qt&gt;Delete the currently selected macro.&lt;/qt&gt;</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;p&gt;Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p&gt;</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="3" column="1">
+            <property name="name">
+                <cstring>setAccelButton</cstring>
+            </property>
+            <property name="enabled">
+                <bool>false</bool>
+            </property>
+            <property name="text">
+                <string>&amp;Set Accel</string>
+            </property>
+            <property name="accel">
+                <string>Alt+S</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>&lt;qt&gt;Set the keyboard shortcut for the selected macro.&lt;/qt&gt;</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;p&gt;Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p&gt;</string>
+            </property>
+        </widget>
+        <spacer row="9" column="1">
+            <property name="name">
+                <cstring>spacer1</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>20</width>
+                    <height>120</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QPushButton" row="8" column="1">
+            <property name="name">
+                <cstring>exportMacrosButton</cstring>
+            </property>
+            <property name="enabled">
+                <bool>false</bool>
+            </property>
+            <property name="text">
+                <string>E&amp;xport</string>
+            </property>
+            <property name="accel">
+                <string>Alt+X</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Export macros to a file.</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
+&lt;p&gt;If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt&gt;Edit&lt;/tt&gt;  button, and use the &lt;tt&gt;Save source&lt;/tt&gt; button in the &lt;tt&gt;Edit Macro&lt;/tt&gt; dialog. You won't be able to load that version with &lt;tt&gt;Load extension script&lt;/tt&gt; - instead, create a new macro with the&lt;tt&gt; New&lt;/tt&gt; button and use &lt;tt&gt;Load source&lt;/tt&gt;.&lt;/p&gt;</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="6" column="1">
+            <property name="name">
+                <cstring>clearButton</cstring>
+            </property>
+            <property name="text">
+                <string>Delete &amp;All</string>
+            </property>
+            <property name="accel">
+                <string>Alt+A</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Delete all macros.</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;p&gt;Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p&gt;</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="7" column="1">
+            <property name="name">
+                <cstring>importMacrosButton</cstring>
+            </property>
+            <property name="enabled">
+                <bool>true</bool>
+            </property>
+            <property name="text">
+                <string>&amp;Import</string>
+            </property>
+            <property name="accel">
+                <string>Alt+I</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Import macros from a file.</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</string>
+            </property>
+        </widget>
+        <widget class="Line" row="5" column="1">
+            <property name="name">
+                <cstring>line1</cstring>
+            </property>
+            <property name="frameShape">
+                <enum>HLine</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>Sunken</enum>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>newMacroButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ManageMacrosDialog</receiver>
+        <slot>newClicked()</slot>
+    </connection>
+    <connection>
+        <sender>editMacroButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ManageMacrosDialog</receiver>
+        <slot>editClicked()</slot>
+    </connection>
+    <connection>
+        <sender>deleteMacroButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ManageMacrosDialog</receiver>
+        <slot>deleteClicked()</slot>
+    </connection>
+    <connection>
+        <sender>okButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ManageMacrosDialog</receiver>
+        <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>macroTable</sender>
+        <signal>selectionChanged()</signal>
+        <receiver>ManageMacrosDialog</receiver>
+        <slot>updateButtonStatus()</slot>
+    </connection>
+    <connection>
+        <sender>clearButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ManageMacrosDialog</receiver>
+        <slot>deleteAllClicked()</slot>
+    </connection>
+    <connection>
+        <sender>ManageMacrosDialog</sender>
+        <signal>tableModified()</signal>
+        <receiver>ManageMacrosDialog</receiver>
+        <slot>updateButtonStatus()</slot>
+    </connection>
+    <connection>
+        <sender>importMacrosButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ManageMacrosDialog</receiver>
+        <slot>importClicked()</slot>
+    </connection>
+    <connection>
+        <sender>exportMacrosButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ManageMacrosDialog</receiver>
+        <slot>exportClicked()</slot>
+    </connection>
+    <connection>
+        <sender>renameButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ManageMacrosDialog</receiver>
+        <slot>renameClicked()</slot>
+    </connection>
+    <connection>
+        <sender>setAccelButton</sender>
+        <signal>clicked()</signal>
+        <receiver>ManageMacrosDialog</receiver>
+        <slot>setAccelClicked()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">qdir.h</include>
+    <include location="local" impldecl="in implementation">qinputdialog.h</include>
+    <include location="local" impldecl="in implementation">qfiledialog.h</include>
+    <include location="local" impldecl="in implementation">qmessagebox.h</include>
+    <include location="local" impldecl="in implementation">managemacrosdialog.ui.h</include>
+</includes>
+<variables>
+    <variable access="private">bool macroCreationSignaled;</variable>
+    <variable access="private">bool macroCreationSucceeded;</variable>
+</variables>
+<signals>
+    <signal>newMacro()</signal>
+    <signal>editMacro(QString)</signal>
+    <signal>deleteMacro(QString)</signal>
+    <signal>deleteAll()</signal>
+    <signal>tableModified()</signal>
+    <signal>exportMacros(QString)</signal>
+    <signal>importMacros(QString)</signal>
+    <signal>renameMacro(QString,QString)</signal>
+    <signal>changeMacroAccel(QString,QString)</signal>
+</signals>
+<slots>
+    <slot>newClicked()</slot>
+    <slot>editClicked()</slot>
+    <slot>deleteClicked()</slot>
+    <slot>deleteAllClicked()</slot>
+    <slot>importClicked()</slot>
+    <slot>exportClicked()</slot>
+    <slot>renameClicked()</slot>
+    <slot>setAccelClicked()</slot>
+    <slot>adjust()</slot>
+    <slot>updateButtonStatus()</slot>
+    <slot>appendRow( QString macroName, QString description, QString accel, QString sourceCode )</slot>
+    <slot>appendRow( QString macroName, QString description )</slot>
+    <slot>deleteRow( QString macroName )</slot>
+    <slot>clearTable()</slot>
+    <slot>updateName( QString newName, QString oldName )</slot>
+    <slot>updateDescription( QString macroName, QString newDescription )</slot>
+    <slot>updateEditable( QString macroName, QString newSource )</slot>
+    <slot>updateAccel( QString macroName, QString accel )</slot>
+    <slot>renameFailed( QString macroName )</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+    <function access="private" returnType="QString">getNameOfSelection()</function>
+    <function access="private" returnType="QString">getAccelOfSelection()</function>
+    <function access="private" returnType="bool">selectionEditable()</function>
+    <function access="private" returnType="int">getRowNumByName( QString macroName )</function>
+</functions>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

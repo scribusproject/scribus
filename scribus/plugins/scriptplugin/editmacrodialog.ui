@@ -1,0 +1,229 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>EditMacroDialog</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>EditMacroDialog</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>574</width>
+            <height>484</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Scribus - New Macro</string>
+    </property>
+    <property name="toolTip" stdset="0">
+        <string></string>
+    </property>
+    <property name="whatsThis" stdset="0">
+        <string>&lt;qt&gt;This is the Edit Macro / New Macro dialog box. Here you can change the source code to macros. Edit the source code to the macro in the text editing area below the "Source Code" label and click OK to save your changes to the macro.&lt;/qt&gt;</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QLabel" row="2" column="0" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>textLabel2</cstring>
+            </property>
+            <property name="text">
+                <string>Source Code:</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="0" column="0" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>nameLabel</cstring>
+            </property>
+            <property name="text">
+                <string>Editing Macro:</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>The name of the macro being edited.</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;/qt&gt;This item displays the name of the macro you are currently editing.&lt;qt&gt;</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="4" column="5">
+            <property name="name">
+                <cstring>cancelButton</cstring>
+            </property>
+            <property name="text">
+                <string>&amp;Cancel</string>
+            </property>
+            <property name="accel">
+                <string>Alt+C</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>&lt;qt&gt;Discard all changes and exit.&lt;/qt&gt;</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;qt&gt;Exit the editing dialog, discarding all changes you have made. If you want to exit without saving the macro but don't want to lose your changes, save your changes with "Save Source As...".&lt;/qt&gt;</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="4" column="4">
+            <property name="name">
+                <cstring>okButton</cstring>
+            </property>
+            <property name="text">
+                <string>&amp;Ok</string>
+            </property>
+            <property name="accel">
+                <string>Alt+O</string>
+            </property>
+            <property name="default">
+                <bool>true</bool>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>&lt;qt&gt;Save changes and exit.&lt;/qt&gt;</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;qt&gt;Save changes to the macro and exit. If there is a problem with the macro, a message will be displayed and the editing dialog will not close.&lt;/qt&gt;</string>
+            </property>
+        </widget>
+        <widget class="QTextEdit" row="3" column="0" rowspan="1" colspan="6">
+            <property name="name">
+                <cstring>sourceCodeEdit</cstring>
+            </property>
+            <property name="font">
+                <font>
+                    <family>Fixed</family>
+                    <pointsize>11</pointsize>
+                </font>
+            </property>
+            <property name="vScrollBarMode">
+                <enum>AlwaysOn</enum>
+            </property>
+            <property name="hScrollBarMode">
+                <enum>Auto</enum>
+            </property>
+            <property name="textFormat">
+                <enum>PlainText</enum>
+            </property>
+            <property name="text">
+                <string></string>
+            </property>
+            <property name="wordWrap">
+                <enum>WidgetWidth</enum>
+            </property>
+            <property name="autoFormatting">
+                <set>AutoNone</set>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string></string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;qt&gt;This text area contains the source code of the macro. If you're creating a new macro there won't be anything in it, and if you're editing an existing macro the source code the macro was defined with will be shown here.&lt;/qt&gt;</string>
+            </property>
+        </widget>
+        <spacer row="4" column="2" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>spacer2</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>190</width>
+                    <height>20</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QPushButton" row="4" column="1">
+            <property name="name">
+                <cstring>loadSourceButton</cstring>
+            </property>
+            <property name="text">
+                <string>&amp;Load Source ...</string>
+            </property>
+            <property name="accel">
+                <string>Alt+L</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>&lt;qt&gt;Replace the current source code with code from a file.&lt;/qt&gt;</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>&lt;qt&gt;Load new source code into the editing area from "file". Any source code in the editing area is replaced. The loaded source must be a Scribus macro function. If you load any other script, you'll need to edit it so that it'll work as a scripter macro before saving it.&lt;/qt&gt;</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="4" column="0">
+            <property name="name">
+                <cstring>saveSourceButton</cstring>
+            </property>
+            <property name="text">
+                <string>&amp;Save Source As...</string>
+            </property>
+            <property name="accel">
+                <string>Alt+S</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>&lt;qt&gt;Save the source code being edited to a file.&lt;/qt&gt;</string>
+            </property>
+            <property name="whatsThis" stdset="0">
+                <string>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with "Load Source...".</string>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>okButton</sender>
+        <signal>clicked()</signal>
+        <receiver>EditMacroDialog</receiver>
+        <slot>accept()</slot>
+    </connection>
+    <connection>
+        <sender>cancelButton</sender>
+        <signal>clicked()</signal>
+        <receiver>EditMacroDialog</receiver>
+        <slot>reject()</slot>
+    </connection>
+    <connection>
+        <sender>saveSourceButton</sender>
+        <signal>clicked()</signal>
+        <receiver>EditMacroDialog</receiver>
+        <slot>saveSourceClicked()</slot>
+    </connection>
+    <connection>
+        <sender>loadSourceButton</sender>
+        <signal>clicked()</signal>
+        <receiver>EditMacroDialog</receiver>
+        <slot>loadSourceClicked()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">qmessagebox.h</include>
+    <include location="local" impldecl="in implementation">qfile.h</include>
+    <include location="local" impldecl="in implementation">qdir.h</include>
+    <include location="local" impldecl="in implementation">qtextstream.h</include>
+    <include location="local" impldecl="in implementation">qfiledialog.h</include>
+    <include location="local" impldecl="in implementation">editmacrodialog.ui.h</include>
+</includes>
+<variables>
+    <variable access="private">bool gotCompileNotification;</variable>
+    <variable access="private">bool compileSuccessful;</variable>
+    <variable access="private">QString macroName;</variable>
+</variables>
+<signals>
+    <signal>compile(QString,QString)</signal>
+</signals>
+<slots>
+    <slot>setName( QString name )</slot>
+    <slot>setSource( QString text )</slot>
+    <slot returnType="QString">getSource()</slot>
+    <slot access="protected">saveSourceClicked()</slot>
+    <slot access="protected">loadSourceClicked()</slot>
+    <slot>compileWorked( QString macroName )</slot>
+    <slot>compileFailed( QString macroName, QString, QString excText, QString excTraceback )</slot>
+    <slot>accept()</slot>
+    <slot returnType="QString">getName()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

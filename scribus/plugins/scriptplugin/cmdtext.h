@@ -203,8 +203,8 @@ QT_TR_NOOP("selectText(start, count, [\"name\"])\n\
 \n\
 Selects \"count\" characters of text in the text frame \"name\" starting from the\n\
 character \"start\". Character counting starts at 0. If \"count\" is zero, any\n\
-text selection will be cleared.  If \"name\" is not given the currently\n\
-selected item is used.\n\
+text selection will be cleared. If \"count\" is -1, all text in the frame will\n\
+be selected. If \"name\" is not given the currently selected item is used.\n\
 \n\
 May throw IndexError if the selection is outside the bounds of the text.\n\
 "));
