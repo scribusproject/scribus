@@ -259,7 +259,7 @@ void MusterSeiten::loadMpage()
 		Doc->PageAT = false;
 		emit CreateNew(nr);
 		qApp->processEvents();
-		emit LoadPage(dia->Filename->text(), dia->PageNa->currentItem(), true);
+		emit LoadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true);
 		qApp->processEvents();
 		nam = Doc->Pages.at(nr)->PageNam;
 		nam2 = nam;

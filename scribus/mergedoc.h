@@ -2,15 +2,19 @@
 #define MERGEDOC_H
 
 #include <qdialog.h>
-#include <qpushbutton.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qspinbox.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qtooltip.h>
+class QPushButton;
+class QLabel;
+class QLineEdit;
+class QSpinBox;
+class QString;
+class QLayout;
+class QToolTip;
+class QComboBox;
+class QCheckBox;
+class QTooltip;
+class QVBoxLayout;
+class QHBoxLayout;
+class QGridLayout;
 
 
 class MergeDoc : public QDialog
@@ -18,36 +22,41 @@ class MergeDoc : public QDialog
 	Q_OBJECT
 
 public:
-	MergeDoc( QWidget* parent, bool Mpages, int targetDocPageCount = -1, int activePage = 1 );
+	MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCount = -1, int currentPage = 1 );
 	~MergeDoc();
 
-	QLabel* textLabel1;
-	QLineEdit* Filename;
-	QPushButton* Change;
-	QLabel* Inform;
-	QLabel* textLabel3;
-	QLabel* fromLabel;
-	QLineEdit* PageNr;
-	QComboBox* PageNa;
-	QPushButton* Import;
-	QPushButton* Cancel;
-	QCheckBox* Create;
-	QComboBox* Where;
-	QSpinBox* ActualPage;
-	int Count;
-	bool Mpa;
-	int targetCount;
+	const QString getFromDoc();
+	const int getMasterPageNameItem();
+	const int getImportWhere();
+	const int getImportWherePage();
+	const bool getCreatePageChecked();
+	const QString getPageNumbers();
+	const int getPageCounter();
 
-public slots:
-	void ChangeFile();
-	void CheckDestPageStatus( int positionComboSelection );
+private:
+	QLabel* fromDocLabel;
+	QLabel* importPageLabel;
+	QLabel* fromLabel;
+	QLineEdit* pageNumberData;
+	QLineEdit* fromDocData;
+	QPushButton* importButton;
+	QPushButton* cancelButton;
+	QPushButton* changeButton;
+	QCheckBox* createPageData;
+	QComboBox* masterPageNameData;
+	QComboBox* importWhereData;
+	QSpinBox* importWherePageData;
+	QVBoxLayout* dialogLayout;
+	QGridLayout* fromInfoLayout;
+	QHBoxLayout* importCancelLayout;
+	int count;
+	bool masterPages;
+
+private slots:
+	void changeFile();
+	void checkDestPageStatus( int positionComboSelection );
 	void enableCreateWidgets();
 
-protected:
-	QVBoxLayout* MergeDocLayout;
-	QGridLayout* layout1;
-	QHBoxLayout* layout2;
-	QHBoxLayout* layout3;
 };
 
 #endif // MERGEDOC_H

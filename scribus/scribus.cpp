@@ -3130,26 +3130,27 @@ bool ScribusApp::slotDocMerge()
 		FMess->setText(tr("Importing Pages..."));
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		std::vector<int> pageNs;
-		parsePagesString(dia->PageNr->text(), &pageNs, dia->Count);
+		parsePagesString(dia->getPageNumbers(), &pageNs, dia->getPageCounter());
 		int startPage, nrToImport;
 		bool doIt = true;
 		if (doc->TemplateMode)
 		{
 			if (pageNs.size() > 1)
 			{
-				LadeSeite(dia->Filename->text(), pageNs[0] - 1, false);
+				LadeSeite(dia->getFromDoc(), pageNs[0] - 1, false);
 			}
 			doIt = false;
 		}
-		else if (dia->Create->isChecked())
+		else if (dia->getCreatePageChecked())
 		{
-			if (dia->Where->currentItem() == 0)
-				startPage = dia->ActualPage->value();
-			else if (dia->Where->currentItem() == 1)
-				startPage = dia->ActualPage->value() + 1;
+			int importWhere=dia->getImportWhere();
+			if (importWhere == 0)
+				startPage = dia->getImportWherePage();
+			else if (importWhere == 1)
+				startPage = dia->getImportWherePage() + 1;
 			else
 				startPage = doc->PageC + 1;
-			addNewPages(dia->ActualPage->value(), dia->Where->currentItem(), pageNs.size());
+			addNewPages(dia->getImportWherePage(), importWhere, pageNs.size());
 			nrToImport = pageNs.size();
 		}
 		else
@@ -3199,7 +3200,7 @@ bool ScribusApp::slotDocMerge()
 				for (int i = 0; i < nrToImport; ++i)
 				{
 					view->GotoPa(counter);
-					LadeSeite(dia->Filename->text(), pageNs[i] - 1, false);
+					LadeSeite(dia->getFromDoc(), pageNs[i] - 1, false);
 					counter++;
 					FProg->setProgress(i + 1);
 				}

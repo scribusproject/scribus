@@ -57,8 +57,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	templLayout->setSpacing( 6 );
 	templLayout->setMargin( 0 );
 
-	templData = new QComboBox(true, this, "templData");
-	templData->setEditable(false);
+	templData = new QComboBox(false, this, "templData");
 	for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
 		templData->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
 
