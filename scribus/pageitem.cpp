@@ -887,7 +887,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						if (StartOfCol)
 						{
 							CurY = asce+TExtra+lineCorr+1;
-							if (((a > 0) && (Ptext.at(a-1)->ch == QChar(13))) || (a == 0))
+							if ((a > 0) && (Ptext.at(a-1)->ch == QChar(13)))
 							{
 								CurY += Doc->Vorlagen[hl->cab].Avor;
 								CurX += Doc->Vorlagen[hl->cab].First;
@@ -934,7 +934,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									int ol2 = static_cast<int>(ol1 / Doc->BaseGrid);
 									CurY = ceil(  ol2 / 10000.0 ) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
 								}
-//								CurX = ColBound.x();
 								if (CurY+BExtra+lineCorr > Height)
 									{
 									StartOfCol = true;
@@ -962,7 +961,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 												else
 													desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * Doc->Vorlagen[hl->cab].LineSpa * Doc->Vorlagen[hl->cab].DropLin;
 											}
-											CurY += Doc->Vorlagen[hl->cab].Avor;
+//											CurY += Doc->Vorlagen[hl->cab].Avor;
 											if (DropCmode)
 												DropLines = Doc->Vorlagen[hl->cab].DropLin;
 											}
