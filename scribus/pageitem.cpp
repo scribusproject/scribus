@@ -465,16 +465,14 @@ void PageItem::DrawObj_Post(ScPainter *p, QRect &e)
 		double scpInv = 1.0 / (QMAX(ScApp->view->Scale, 1));
 		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame)))
 		{
+			p->setPen(black, scpInv, DotLine, FlatCap, MiterJoin);
 			if ((isBookmark) || (isAnnotation))
 				p->setPen(blue, scpInv, DotLine, FlatCap, MiterJoin);
-			else
 			if ((BackBox != 0) || (NextBox != 0))
 				p->setPen(red, scpInv, SolidLine, FlatCap, MiterJoin);
-			else
 			if (Locked)
 				p->setPen(darkRed, scpInv, SolidLine, FlatCap, MiterJoin);
-			else
-				p->setPen(black, scpInv, DotLine, FlatCap, MiterJoin);
+				
 			p->setFillMode(0);
 			p->setupPolygon(&PoLine);
 			p->strokePath();
