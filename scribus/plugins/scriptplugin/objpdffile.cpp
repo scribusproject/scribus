@@ -1,11 +1,10 @@
-#include <Python.h>
+#include "objpdffile.h"
+#include "cmdutil.h"
+
 #include <structmember.h>
 #include <qfileinfo.h>
-
-#include "cmdvar.h"
-#include "cmdutil.h"
-#include "objpdffile.h"
 #include <vector>
+
 // these functions are located at utils.cpp
 void ReOrderText(ScribusDoc *doc, ScribusView *view);
 // end of utils.cpp

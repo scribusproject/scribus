@@ -1,7 +1,5 @@
-#include <Python.h>
 #include "cmddoc.h"
 #include "cmdutil.h"
-#include "cmdvar.h"
 
 PyObject *scribus_newdoc(PyObject *self, PyObject* args)
 {

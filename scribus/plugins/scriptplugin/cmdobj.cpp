@@ -1,8 +1,5 @@
-#include <Python.h>
-
 #include "cmdobj.h"
 #include "cmdutil.h"
-#include "cmdvar.h"
 
 PyObject *scribus_newrect(PyObject *self, PyObject* args)
 {

@@ -1,8 +1,7 @@
-#include <Python.h>
 #include "cmddialog.h"
-#include "cmdvar.h"
 #include "cmdutil.h"
 #include "valuedialog.h"
+
 #include <qmessagebox.h>
 #include <qcursor.h>
 

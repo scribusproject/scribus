@@ -1,6 +1,4 @@
-#include <Python.h>
 #include "cmdpage.h"
-#include "cmdvar.h"
 #include "cmdutil.h"
 
 PyObject *scribus_actualpage(PyObject *self)

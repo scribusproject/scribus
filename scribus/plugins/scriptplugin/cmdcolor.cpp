@@ -1,7 +1,5 @@
-#include <Python.h>
 #include "cmdcolor.h"
 #include "cmdutil.h"
-#include "cmdvar.h"
 
 PyObject *scribus_colornames(PyObject *self)
 {
