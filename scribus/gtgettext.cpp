@@ -18,6 +18,8 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "qlibrary.h"
+
 #include "gtgettext.h"
 #include "pluginmanager.h"
 #include "scribus.h"
@@ -70,7 +72,7 @@ void gtGetText::loadImporterPlugins()
 	{
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
-			if (DLLName(d[dc], &ida.fileFormatName, &ida.fileEndings, &ida.pointer))
+			if (DLLName(d[dc], &ida.fileFormatName, &ida.fileEndings))
 			{
 				ida.soFilePath = d[dc];
 				if (ida.soFilePath.left(1) != "/")
@@ -118,68 +120,47 @@ void gtGetText::run(bool append)
 void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
                         const QString& encoding, bool textOnly, bool append)
 {
-	void *mo;
-	const char *error;
 	typedef void (*sdem)(QString filename, QString encoding, bool textOnly, gtWriter *writer);
-	sdem demo;
-	QString pfad = PLUGINDIR;
-	pfad += "gettext" + idata.soFilePath;
-	mo = dlopen(pfad, RTLD_LAZY | RTLD_GLOBAL);
-	if (!mo)
-		return;
-
-	dlerror();
-	demo = (sdem)dlsym(mo, "GetText");
-	if ((error = dlerror()) != NULL)
+	sdem fp_GetText;
+	QString pluginFilePath = QString("%1/gettext/%2").arg(PLUGINDIR).arg(idata.soFilePath);
+	// This is the new, QLibrary based plugin loading code.
+	QLibrary gtplugin(pluginFilePath);
+	gtplugin.setAutoUnload(true);
+	fp_GetText = (sdem)gtplugin.resolve("GetText");
+	if (!fp_GetText)
 	{
-		std::cout << "Cannot find Symbol" << "\n";
-		dlclose(mo);
+		qWarning("Failed to get GetText() from %s", pluginFilePath.ascii());
 		return;
 	}
 	gtWriter *w = new gtWriter(append);
-	(*demo)(filePath, encoding, textOnly, w);
+	(*fp_GetText)(filePath, encoding, textOnly, w);
 	delete w;
-	dlclose(mo);
 }
 
-bool gtGetText::DLLName(QString name, QString *ffName, QStringList *fEndings, void **Zeig)
+bool gtGetText::DLLName(QString name, QString *ffName, QStringList *fEndings)
 {
-	void *mo;
-	const char *error;
 	typedef QString (*sdem0)();
 	typedef QStringList (*sdem1)();
-	sdem0 demo;
-	sdem1 demo1;
-	QString pfad = PLUGINDIR;
-	pfad += "gettext";
-	if (name.left(1) != "/")
-		pfad += "/";
-	pfad += name;
-	mo = dlopen(pfad, RTLD_LAZY | RTLD_GLOBAL);
-	if (!mo)
-	{
-		std::cout << dlerror() << "\n";
-		return false;
-	}
-	dlerror();
-	demo = (sdem0)dlsym(mo, "FileFormatName");
-	if ((error = dlerror()) != NULL)
-	{
-		dlclose(mo);
-		return false;
-	}
-	*ffName = (*demo)();
-	dlerror();
-	demo1 = (sdem1)dlsym(mo, "FileExtensions");
-	if ((error = dlerror()) != NULL)
-	{
-		dlclose(mo);
-		return false;
-	}
-	*fEndings = (*demo1)();
-	*Zeig = mo;
-	dlclose(mo);
+	sdem0 fp_FileFormatName;
+	sdem1 fp_FileExtensions;
+	QString pluginFilePath = QString("%1/gettext/%2").arg(PLUGINDIR).arg(name);
 
+	QLibrary gtplugin(pluginFilePath);
+	gtplugin.setAutoUnload(true);
+	fp_FileFormatName = (sdem0)gtplugin.resolve("FileFormatName");
+	if (!fp_FileFormatName)
+	{
+		qWarning("Failed to get FileFormatName() from %s", pluginFilePath.ascii());
+		return false;
+	}
+	fp_FileExtensions = (sdem1)gtplugin.resolve("FileExtensions");
+	if (!fp_FileExtensions)
+	{
+		qWarning("Failed to get FileExtensions() from %s", pluginFilePath.ascii());
+		return false;
+	}
+	*ffName = (*fp_FileFormatName)();
+	*fEndings = (*fp_FileExtensions)();
 	return true;
 }
 
