@@ -2620,6 +2620,11 @@ void PageItem::setSizeLocked(bool isLocked)
 		toggleSizeLock();
 }
 
+QString PageItem::font() const
+{
+	return IFont;
+}
+
 void PageItem::setFont(const QString& newFont)
 {
 	if (UndoManager::undoEnabled())
@@ -2632,6 +2637,11 @@ void PageItem::setFont(const QString& newFont)
 		undoManager->action(this, ss);
 	}
 	IFont = newFont;
+}
+
+int PageItem::fontSize() const
+{
+	return ISize;
 }
 
 void PageItem::setFontSize(int newSize)
@@ -2648,6 +2658,11 @@ void PageItem::setFontSize(int newSize)
 	ISize = newSize;
 }
 
+int PageItem::fontWidth() const
+{
+	return TxtScale;
+}
+
 void PageItem::setFontWidth(int newWidth)
 {
 	if (UndoManager::undoEnabled())
@@ -2660,6 +2675,11 @@ void PageItem::setFontWidth(int newWidth)
 		undoManager->action(this, ss);
 	}
 	TxtScale = newWidth;
+}
+
+QString PageItem::fontFillColor() const
+{
+	return TxtFill;
 }
 
 void PageItem::setFontFillColor(const QString& newColor)
@@ -2676,6 +2696,11 @@ void PageItem::setFontFillColor(const QString& newColor)
 	TxtFill = newColor;
 }
 
+QString PageItem::fontStrokeColor() const
+{
+	return TxtStroke;
+}
+
 void PageItem::setFontStrokeColor(const QString& newColor)
 {
 	if (UndoManager::undoEnabled())
@@ -2688,6 +2713,11 @@ void PageItem::setFontStrokeColor(const QString& newColor)
 		undoManager->action(this, ss);
 	}
 	TxtStroke = newColor;
+}
+
+int PageItem::fontFillShade() const
+{
+	return ShTxtFill;
 }
 
 void PageItem::setFontFillShade(int newShade)
@@ -2705,6 +2735,11 @@ void PageItem::setFontFillShade(int newShade)
 	ShTxtFill = newShade;
 }
 
+int PageItem::fontStrokeShade() const
+{
+	return ShTxtStroke;
+}
+
 void PageItem::setFontStrokeShade(int newShade)
 {
 	if (UndoManager::undoEnabled())
@@ -2720,6 +2755,10 @@ void PageItem::setFontStrokeShade(int newShade)
 	ShTxtStroke = newShade;
 }
 
+int PageItem::fontEffects() const
+{
+	return TxTStyle;
+}
 
 void PageItem::setFontEffects(int newEffects)
 {
@@ -2733,6 +2772,11 @@ void PageItem::setFontEffects(int newEffects)
 	}
 	TxTStyle &= ~127;
 	TxTStyle |= newEffects;
+}
+
+double PageItem::kerning() const
+{
+	return ExtraV;
 }
 
 void PageItem::setKerning(double newKerning)
@@ -2750,6 +2794,11 @@ void PageItem::setKerning(double newKerning)
 	ExtraV = newKerning;
 }
 
+double PageItem::lineSpacing() const
+{
+	return LineSp;
+}
+
 void PageItem::setLineSpacing(double newSpacing)
 {
 	if (UndoManager::undoEnabled())
@@ -2765,6 +2814,11 @@ void PageItem::setLineSpacing(double newSpacing)
 	LineSp = newSpacing;
 }
 
+QString PageItem::language() const
+{
+	return Language;
+}
+
 void PageItem::setLanguage(const QString& newLanguage)
 {
 	if (UndoManager::undoEnabled())
@@ -2778,6 +2832,11 @@ void PageItem::setLanguage(const QString& newLanguage)
 		undoManager->action(this, ss);
 	}
 	Language = newLanguage;
+}
+
+int PageItem::frameType() const
+{
+	return PType;
 }
 
 void PageItem::convertTo(int newType)

@@ -56,12 +56,36 @@ class PageItem : public QObject, public UndoObject
 	Q_PROPERTY(QString customLineStyle READ customLineStyle WRITE setCustomLineStyle DESIGNABLE false)
 	Q_PROPERTY(int startArrowIndex READ getStartArrowIndex WRITE setStartArrowIndex DESIGNABLE false)
 	Q_PROPERTY(int endArrowIndex READ getEndArrowIndex WRITE setEndArrowIndex DESIGNABLE false)
+	Q_PROPERTY(QString font READ font WRITE setFont DESIGNABLE false)
+	Q_PROPERTY(int fontSize READ fontSize WRITE setFontSize DESIGNABLE false)
+	Q_PROPERTY(int fontWidth READ fontWidth WRITE setFontWidth DESIGNABLE false)
+	Q_PROPERTY(QString fontFillColor READ fontFillColor WRITE setFontFillColor DESIGNABLE false)
+	Q_PROPERTY(int fontFillShade READ fontFillShade WRITE setFontFillShade DESIGNABLE false)
+	Q_PROPERTY(QString fontStrokeColor READ fontStrokeColor WRITE setFontStrokeColor DESIGNABLE false)
+	Q_PROPERTY(int fontStrokeShade READ fontStrokeShade WRITE setFontStrokeShade DESIGNABLE false)
+	Q_PROPERTY(int fontEffects READ fontEffects WRITE setFontEffects DESIGNABLE false)
+	Q_PROPERTY(double kerning READ kerning WRITE setKerning  DESIGNABLE false)
+	Q_PROPERTY(double lineSpacing READ lineSpacing WRITE setLineSpacing DESIGNABLE false)
+	Q_PROPERTY(QString language READ language WRITE setLanguage DESIGNABLE false)
+
+	// FIXME: QMetaProperty can't translate these to/from enumerator names, probably because the
+	// properties aren't moc'd in the Qt sources. They work fine in their
+	// current state as plain integer properties.
 	Q_ENUMS(PenStyle)
 	Q_PROPERTY(PenStyle lineStyle READ lineStyle WRITE setLineStyle DESIGNABLE false)
 	Q_ENUMS(PenCapStyle)
 	Q_PROPERTY(PenCapStyle lineEnd READ lineEnd WRITE setLineEnd DESIGNABLE false)
 	Q_ENUMS(PenJoinStyle)
 	Q_PROPERTY(PenJoinStyle lineJoin READ lineJoin WRITE setLineJoin DESIGNABLE false)
+
+	// This property may not hang around for too long, but should be useful
+	// when testing out the pageitem refactoring work.  Setting it is unlikely
+	// to currently have the desired effect.
+	/**
+	 * @brief Frame type.
+	 * @warning Do not set this property except for testing and debug purposes.
+	 */
+	Q_PROPERTY(int frameType READ frameType WRITE convertTo DESIGNABLE false)
 
 public: 
 	PageItem(ScribusDoc *pa, int art, double x, double y, double w, double h, double w2, QString fill, QString outline);
@@ -468,62 +492,105 @@ public:
 	/** @brief set lock for resizing */
 	void setSizeLocked(bool isLocked);
 
+	/** @brief Get the PageItem-wide font name */
+	QString font() const;
 	/**
 	 * @brief Set font for the PageItem.
 	 * @param newFont name of the font
 	 */
 	void setFont(const QString& newFont);
+
+	/** @brief Get the PageItem-wide font size */
+	int fontSize() const;
 	/**
 	 * @brief Set the font size of the frame
 	 * @param newSize font size
 	 */
 	void setFontSize(int newSize);
+
+	/** @brief Get the PageItem-wide character width scaling percentage */
+	int fontWidth() const;
 	/**
 	 * @brief Set scaling width of character
 	 * @param newWidth width of character
 	 */
 	void setFontWidth(int newWidth);
+
+	/** @brief Get the name of the PageItem-wide font fill color */
+	QString fontFillColor() const;
 	/** 
 	 * @brief Set font fill color
 	 * @param newColor font fill color
 	 */
 	void setFontFillColor(const QString& newColor);
+
+	/** @brief Get the PageItem-wide font fill shade */
+	int fontFillShade() const;
 	/**
 	 * @brief Set the shade of font fill color
 	 * @param newShade shade of font fill color
 	 */
 	void setFontFillShade(int newShade);
+
+	/** @brief Get the PageItem-wide font stroke color */
+	QString fontStrokeColor() const;
 	/** 
 	 * @brief Set the color of font stroke
 	 * @param newColor color of font stroke
 	 */
 	void setFontStrokeColor(const QString& newColor);
+
+	/** @brief Get the PageItem-wide font stroke shade */
+	int fontStrokeShade() const;
 	/**
 	 * @brief Set the shade of font stroke color
 	 * @param newShade shade of font stroke color
 	 */
 	void setFontStrokeShade(int newShade);
+
+	/** @brief Get the PageItem-wide font effects flags
+	 *
+	 * TODO This should probably be an enum set
+	 */
+	int fontEffects() const;
 	/**
 	 * @brief Set font effects
 	 * @param newEffects font effects
 	 */
 	void setFontEffects(int newEffects);
+
+	/** @brief Get PageItem-wide text kerning */
+	double kerning() const;
 	/**
 	 * @brief Set kerning for the text
 	 * @param newKerning kerning for the text
 	 */
 	void setKerning(double newKerning);
+
+	/** @brief Get the PageItem-wide line spacing */
+	double lineSpacing() const;
 	/**
 	 * @brief Set a line spacing for the frame
 	 * @param newSpacing line spacing for the frame
 	 */
 	void setLineSpacing(double newSpacing);
+
+	/** @brief Get the hyphenation language for the frame */
+	QString language() const;
 	/**
 	 * @brief Set the hyphenation language for the frame
 	 * @param newLanguage hyphenation language for the frame
 	 */
 	void setLanguage(const QString& newLanguage);
 
+	/** @brief Get the frame type
+	 *
+	 * @attention The whole concept of frame types is due for some radical
+	 *            re-working, so don't rely on this interface staying stable.
+	 *            It's here as an interim step to eliminate direct member access
+	 *            on PageItems.
+	 */
+	int frameType() const;
 	/**
 	 * @brief Convert this PageItem to PageItem type <code>newType</code>
 	 * @param newType PageItem type for conversion
