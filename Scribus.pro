@@ -24,7 +24,8 @@ DEPENDPATH += scribus \
               scribus/plugins/gettext/htmlim \
               scribus/plugins/gettext/sxwim \
               scribus/plugins/gettext/textfilter \
-              scribus/plugins/gettext/txtim
+              scribus/plugins/gettext/txtim \
+              scribus/plugins/short-words
 INCLUDEPATH += . \
                scribus \
                scribus/libpostscript \
@@ -46,7 +47,8 @@ INCLUDEPATH += . \
                scribus/plugins/gettext/htmlim \
                scribus/plugins/gettext/sxwim \
                scribus/plugins/gettext/textfilter \
-               scribus/plugins/gettext/txtim
+               scribus/plugins/gettext/txtim \
+               scribus/plugins/short-words
 
 # Input
 HEADERS += config.h \
@@ -236,7 +238,12 @@ HEADERS += config.h \
            scribus/plugins/gettext/textfilter/textfilter.h \
            scribus/plugins/gettext/textfilter/tfdia.h \
            scribus/plugins/gettext/textfilter/tffilter.h \
-           scribus/plugins/gettext/txtim/txtim.h
+           scribus/plugins/gettext/txtim/txtim.h \
+           scribus/plugins/short-words/configuration.h \
+           scribus/plugins/short-words/parse.h \
+           scribus/plugins/short-words/shortwords.h \
+           scribus/plugins/short-words/version.h \
+           scribus/plugins/short-words/vlnadialog.h
 SOURCES += scribus/align.cpp \
            scribus/alignselect.cpp \
            scribus/annot.cpp \
@@ -291,7 +298,6 @@ SOURCES += scribus/align.cpp \
            scribus/gtwriter.cpp \
            scribus/guidemanager.cpp \
            scribus/helpbrowser.cpp \
-           scribus/helpbrowser.moc.cpp \
            scribus/hnjalloc.c \
            scribus/hruler.cpp \
            scribus/hyask.cpp \
@@ -420,7 +426,11 @@ SOURCES += scribus/align.cpp \
            scribus/plugins/gettext/textfilter/textfilter.cpp \
            scribus/plugins/gettext/textfilter/tfdia.cpp \
            scribus/plugins/gettext/textfilter/tffilter.cpp \
-           scribus/plugins/gettext/txtim/txtim.cpp
+           scribus/plugins/gettext/txtim/txtim.cpp \
+           scribus/plugins/short-words/configuration.cpp \
+           scribus/plugins/short-words/parse.cpp \
+           scribus/plugins/short-words/shortwords.cpp \
+           scribus/plugins/short-words/vlnadialog.cpp
 TRANSLATIONS += scribus/po/scribus.bg.ts \
                 scribus/po/scribus.br.ts \
                 scribus/po/scribus.ca.ts \
