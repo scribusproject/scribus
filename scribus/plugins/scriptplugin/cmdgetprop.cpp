@@ -1,6 +1,6 @@
-#include "cmdvar.h"
-#include "cmdutil.h"
 #include "cmdgetprop.h"
+#include "cmdutil.h"
+#include "cmdvar.h"
 
 PyObject *scribus_getfillcolor(PyObject *self, PyObject* args)
 {

@@ -1,5 +1,5 @@
-#include "cmdvar.h"
 #include "cmddialog.h"
+#include "cmdvar.h"
 
 PyObject *scribus_newdocdia(PyObject *self, PyObject* args)
 {

@@ -4,7 +4,6 @@
 #include <Python.h>
 
 /** Managing Colors */
-void ReplaceColor(QString col, QString rep);
 PyObject *scribus_colornames(PyObject *self, PyObject* args);
 PyObject *scribus_getcolor(PyObject *self, PyObject* args);
 PyObject *scribus_setcolor(PyObject *self, PyObject* args);

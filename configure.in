@@ -183,9 +183,9 @@ else
 	echo "FreeType2 installed: No"
 fi
 if test $hacups = yes; then
-	echo "CUPS installed: Yes"
+	echo "CUPS installed:      Yes"
 else
-	echo "CUPS installed: No"
+	echo "CUPS installed:      No"
 fi
 if test $hacms = yes; then
 	echo "LittleCMS installed: Yes"
@@ -193,17 +193,18 @@ else
 	echo "LittleCMS installed: No"
 fi
 if test $hastif = yes; then
-	echo "TiffLib installed: Yes"
+	echo "TiffLib installed:   Yes"
 else
-	echo "TiffLib installed: No"
+	echo "TiffLib installed:   No"
 fi
 if test $COMPILE_PYTHON = no; then
 	echo "The Scripter-Plugin will not be compiled."
-fi
-if test $hapython = yes; then
-  echo "Using Python 2.3"
 else
-  echo "Using Python < 2.3"
+	if test $hapython = yes; then
+  	echo "Using Python 2.3"
+	else
+  	echo "Using Python < 2.3"
+	fi
 fi
 echo ""
 echo "Start make now."

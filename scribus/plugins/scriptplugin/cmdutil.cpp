@@ -68,3 +68,27 @@ int GetItem(QString Name)
 	return -1;
 }
 
+void ReplaceColor(QString col, QString rep)
+{
+	for (uint b = 0; b < Carrier->view->Pages.count(); b++)
+		{
+		for (uint c = 0; c < Carrier->view->Pages.at(b)->Items.count(); c++)
+			{
+			if (Carrier->view->Pages.at(b)->Items.at(c)->PType == 4)
+				{
+				for (uint d = 0; d < Carrier->view->Pages.at(b)->Items.at(c)->Ptext.count(); d++)
+					{
+					if (col == Carrier->view->Pages.at(b)->Items.at(c)->Ptext.at(d)->ccolor)
+						{
+						Carrier->view->Pages.at(b)->Items.at(c)->Ptext.at(d)->ccolor = rep;
+						}
+					}
+				}
+			if (col == Carrier->view->Pages.at(b)->Items.at(c)->Pcolor)
+				Carrier->view->Pages.at(b)->Items.at(c)->Pcolor = rep;
+			if (col == Carrier->view->Pages.at(b)->Items.at(c)->Pcolor2)
+				Carrier->view->Pages.at(b)->Items.at(c)->Pcolor2 = rep;
+			}
+		}
+}
+

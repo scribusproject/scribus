@@ -2919,9 +2919,9 @@ void ScribusApp::slotEditCut()
 			doc->ActPage->DeleteItem();
 			}
 		slotDocCh();
-		editMenu->setItemEnabled(edid3, 1);
 		ClipB->setText(BufferI);
 		BuFromApp = true;
+		editMenu->setItemEnabled(edid3, 1);
 		}
 }
 
@@ -2971,9 +2971,9 @@ void ScribusApp::slotEditCopy()
 			BufferI = ss->WriteElem(&doc->ActPage->SelItem, doc);
 			delete ss;
 			}
-		editMenu->setItemEnabled(edid3, 1);
 		ClipB->setText(BufferI);
 		BuFromApp = true;
+		editMenu->setItemEnabled(edid3, 1);
 		}
 }
 
@@ -6839,11 +6839,13 @@ void ScribusApp::slotStoryEditor()
 		{
  		PageItem *b = doc->ActPage->SelItem.at(0);
 		StoryEditor* dia = new StoryEditor(this, doc, b);
-		dia->exec();
-		if (dia->TextChanged)
+		if (dia->exec())
 			{
-			dia->updateTextFrame();
-			slotDocCh();
+			if (dia->TextChanged)
+				{
+				dia->updateTextFrame();
+				slotDocCh();
+				}
 			}
 		delete dia;
 		}

@@ -1,6 +1,6 @@
-#include "cmdvar.h"
-#include "cmdutil.h"
 #include "cmdsetprop.h"
+#include "cmdutil.h"
+#include "cmdvar.h"
 
 PyObject *scribus_setgradfill(PyObject *self, PyObject* args)
 {

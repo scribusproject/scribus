@@ -761,7 +761,7 @@ msgstr "Rahmeninhalt bearbeiten"
 msgid "Zooms in or out"
 msgstr "Ansicht vergrößern/verkleinern"
 
-msgid "Insert Textbox"
+msgid "Insert Text Frame"
 msgstr "Textrahmen einfügen"
 
 msgid "Insert Picture"
@@ -926,10 +926,10 @@ msgstr "Inhalt"
 msgid "Tools"
 msgstr "Werkzeuge"
 
-msgid "Create Textchains"
+msgid "Create Text Chains"
 msgstr "Verbinde Textrahmen"
 
-msgid "Break Textchains"
+msgid "Break Text Chains"
 msgstr "Löse Textverbindung"
 
 msgid "Stepping:"
@@ -965,10 +965,10 @@ msgstr "Erzeugt ein neues Dokument"
 msgid "Opens a Document"
 msgstr "Öffnet ein Dokument"
 
-msgid "Saves the current Document"
+msgid "Saves the Current Document"
 msgstr "Speichert das aktuelle Dokument"
 
-msgid "Prints the current Document"
+msgid "Prints the Current Document"
 msgstr "Druckt das aktuelle Dokument"
 
 msgid "Copy Here"
@@ -1019,7 +1019,7 @@ msgstr "Ukrainisch:"
 msgid "None"
 msgstr "Keine"
 
-msgid "Closes the current Document"
+msgid "Closes the Current Document"
 msgstr "Schließt das aktuelle Dokument"
 
 msgid "Range:"
@@ -1607,7 +1607,7 @@ msgstr "Schräg von Links Oben"
 msgid "Extras"
 msgstr "Extras"
 
-msgid "Saves the current Document as PDF"
+msgid "Saves the Current Document as PDF"
 msgstr "Speichert das aktuelle Dokument als PDF"
 
 msgid "Rounded Rectangle"
@@ -2977,4 +2977,19 @@ msgstr "Pfadtext Eigenschaften"
 
 msgid "Absolute Coordinates"
 msgstr "Absolute Koordinaten"
+
+msgid "Story Editor"
+msgstr "Story Editor"
+
+msgid "Update Textframe"
+msgstr "Textrahmen auffrischen"
+
+msgid "Do you really want to loose all your Changes?"
+msgstr "Wollen Sie wirklich alle Änderungen verlieren?"
+
+msgid "Do you really want to clear all your Text?"
+msgstr "Wollen Sie wirklich den ganzen Text löschen?"
+
+msgid "Edit Text..."
+msgstr "Text bearbeiten..."
 

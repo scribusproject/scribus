@@ -1,6 +1,6 @@
-#include "cmdvar.h"
-#include "cmdutil.h"
 #include "cmdtext.h"
+#include "cmdutil.h"
+#include "cmdvar.h"
 
 PyObject *scribus_getfontsize(PyObject *self, PyObject* args)
 {

@@ -1,6 +1,6 @@
-#include "cmdvar.h"
-#include "cmdutil.h"
 #include "cmdmani.h"
+#include "cmdutil.h"
+#include "cmdvar.h"
 
 PyObject *scribus_loadimage(PyObject *self, PyObject* args)
 {

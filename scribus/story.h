@@ -23,6 +23,8 @@
 #include <qptrlist.h>
 #include <qtable.h>
 #include <qtextedit.h>
+#include <qpopupmenu.h>
+#include <qmenubar.h>
 #include "pageitem.h"
 class QVBoxLayout;
 class QHBoxLayout;
@@ -63,11 +65,15 @@ class StoryEditor : public QDialog
 public:
 	StoryEditor( QWidget* parent, ScribusDoc *docc, PageItem* ite );
 	~StoryEditor() {};
+	void closeEvent(QCloseEvent *);
 	int getStyle(int where);
 	void addPar(int where, QString text, int sty);
 
+	QPopupMenu* fmenu;
+	QPopupMenu* emenu;
+	QMenuBar* menuBar;
 	STable* table1;
-	QPtrList<QTextEdit> edList;
+	QPtrList<SEditor> edList;
 	QPtrList<QComboBox> stList;
 	QStringList style;
 	ScribusDoc* doc;
@@ -75,6 +81,14 @@ public:
 	bool TextChanged;
 
 public slots:
+	void Do_leave();
+	void Do_new();
+	void Do_undo();
+	void Do_redo();
+	void Do_copy();
+	void Do_paste();
+	void Do_cut();
+	void Do_del();
 	void updateTextFrame();
 	void styleChange(int st);
 	void modifiedText();

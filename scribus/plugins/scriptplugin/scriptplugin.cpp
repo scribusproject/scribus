@@ -14,18 +14,6 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include "scriptplugin.h"
-#include "scriptplugin.moc"
-#include "customfdialog.h"
-#include "helpbrowser.h"
-#include "config.h"
-#include <qmessagebox.h>
-#include <qtextcodec.h>
-#include <qdom.h>
-#include <qtextstream.h>
-#include <cstdlib>
-#include "cmdvar.h"
-#include "cmdutil.h"
 #include "cmddialog.h"
 #include "cmddoc.h"
 #include "cmdpage.h"
@@ -36,6 +24,18 @@
 #include "cmdmani.h"
 #include "cmdcolor.h"
 #include "cmdmisc.h"
+#include "scriptplugin.h"
+#include "scriptplugin.moc"
+#include "cmdutil.h"
+#include "cmdvar.h"
+#include "customfdialog.h"
+#include "helpbrowser.h"
+#include "config.h"
+#include <qmessagebox.h>
+#include <qtextcodec.h>
+#include <qdom.h>
+#include <qtextstream.h>
+#include <cstdlib>
 
 QString Name()
 {

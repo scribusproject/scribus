@@ -1,5 +1,5 @@
-#include "cmdvar.h"
 #include "cmdpage.h"
+#include "cmdvar.h"
 
 PyObject *scribus_actualpage(PyObject *self, PyObject* args)
 {

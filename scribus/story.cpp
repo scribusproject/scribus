@@ -20,6 +20,7 @@
 #include <qtooltip.h>
 #include <qpixmap.h>
 #include <qcombobox.h>
+#include <qmessagebox.h>
 #include "serializer.h"
 extern QPixmap loadIcon(QString nam);
 
@@ -62,13 +63,13 @@ void STable::keyPressEvent(QKeyEvent *k)
 {
 	QString tmp;
 	int p, i, l, r, c, n;
-	QTextEdit *tt;
+	SEditor *tt;
 	n = numRows();
 	r = currentRow();
 	c = currentColumn();
 	if (c == 1)
 		{
-		tt = (QTextEdit*)cellWidget(r, 1);
+		tt = (SEditor*)cellWidget(r, 1);
 		if ((k->key() == Key_Left) || (k->key() == Key_Right) || (k->key() == Key_Down) || (k->key() == Key_Up))
 			{
 			QTextEdit::CursorAction move;
@@ -78,7 +79,7 @@ void STable::keyPressEvent(QKeyEvent *k)
 				case Key_Left:
 					if ((i == 0) && (r > 0))
 						{
-						tt = (QTextEdit*)cellWidget(r-1, 1);
+						tt = (SEditor*)cellWidget(r-1, 1);
 						setCurrentCell(r-1, 1);
 						move = QTextEdit::MoveEnd;
 						}
@@ -88,7 +89,7 @@ void STable::keyPressEvent(QKeyEvent *k)
 				case Key_Right:
 					if ((i == static_cast<int>(tt->text().length())) && (r < n-1))
 						{
-						tt = (QTextEdit*)cellWidget(r+1, 1);
+						tt = (SEditor*)cellWidget(r+1, 1);
 						setCurrentCell(r+1, 1);
 						move = QTextEdit::MoveLineStart;
 						}
@@ -99,7 +100,7 @@ void STable::keyPressEvent(QKeyEvent *k)
 					l = tt->lineOfChar(0, i);
 					if ((l == 0) && (r > 0))
 						{
-						tt = (QTextEdit*)cellWidget(r-1, 1);
+						tt = (SEditor*)cellWidget(r-1, 1);
 						setCurrentCell(r-1, 1);
 						move = QTextEdit::MoveEnd;
 						}
@@ -110,7 +111,7 @@ void STable::keyPressEvent(QKeyEvent *k)
 					l = tt->lineOfChar(0, i);
 					if ((l == tt->lines()-1) && (r < n-1))
 						{
-						tt = (QTextEdit*)cellWidget(r+1, 1);
+						tt = (SEditor*)cellWidget(r+1, 1);
 						setCurrentCell(r+1, 1);
 						move = QTextEdit::MoveLineStart;
 						}
@@ -129,7 +130,7 @@ void STable::keyPressEvent(QKeyEvent *k)
 
 void STable::adjHeight(int r)
 {
-	QTextEdit *cp = (QTextEdit*)cellWidget(r, 1);
+	SEditor *cp = (SEditor*)cellWidget(r, 1);
 	cp->sync();
 	QFontMetrics fm2(cp->currentFont());
 	setRowHeight(r, QMAX((fm2.lineSpacing() * (cp->lines()+1)), 24));
@@ -146,7 +147,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	QPtrList<Pti> y = ite->Ptext;
 	setCaption( tr( "Story Editor" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	Form1Layout = new QHBoxLayout( this, 11, 6, "Form1Layout"); 
+	Form1Layout = new QHBoxLayout( this, 5, 5, "Form1Layout"); 
 	edList.clear();
 	stList.clear();
 	style.append(tr("Left"));
@@ -162,6 +163,28 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 			}
 		}
 	CurrItem = ite;
+
+ 	fmenu = new QPopupMenu();
+ 	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("New"), this, SLOT(Do_new()), CTRL+Key_N);
+/*  	fmenu->insertItem(tr("Save as..."), this, SLOT(SaveAs()));
+  	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("Load..."), this, SLOT(LoadScript()));
+		fmenu->insertSeparator();      */
+	fmenu->insertItem(tr("Save and Exit"), this, SLOT(accept()));
+	fmenu->insertItem(tr("Exit without Saving"), this, SLOT(Do_leave()));
+ 	emenu = new QPopupMenu();
+ 	emenu->insertItem(tr("Undo"), this, SLOT(Do_undo()), CTRL+Key_Z);
+ 	emenu->insertItem(tr("Redo"), this, SLOT(Do_redo()));
+	emenu->insertSeparator();
+	emenu->insertItem(loadIcon("editcut.png"), tr("Cut"), this, SLOT(Do_cut()), CTRL+Key_X);
+	emenu->insertItem(loadIcon("editcopy.png"), tr("Copy"), this, SLOT(Do_copy()), CTRL+Key_C);
+	emenu->insertItem(loadIcon("editpaste.png"), tr("Paste"), this, SLOT(Do_paste()), CTRL+Key_V);
+	emenu->insertItem(loadIcon("editdelete.png"), tr("Clear"), this, SLOT(Do_del()), CTRL+Key_V);
+	emenu->insertSeparator();
+	emenu->insertItem(tr("Update Textframe"), this, SLOT(updateTextFrame()));
+ 	menuBar = new QMenuBar(this);
+	menuBar->insertItem(tr("File"), fmenu);
+	menuBar->insertItem(tr("Edit"), emenu);
+	Form1Layout->setMenuBar( menuBar );
 	table1 = new STable( this );
 	table1->setNumCols( 2 );
 	table1->horizontalHeader()->setLabel( 0, tr( "Style" ) );
@@ -187,7 +210,89 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
     }
 	if (Dat != "")
 		addPar(para, Dat, pstyle);
+	if (table1->numRows() == 0)
+		addPar(0, "", doc->CurrentABStil);
 	TextChanged = false;
+	SEditor *cp = (SEditor*)table1->cellWidget(0, 1);
+	cp->setFocus();
+	cp->setCursorPosition(0, 0);
+}
+
+void StoryEditor::closeEvent(QCloseEvent *)
+{
+	Do_leave();
+}
+
+void StoryEditor::Do_leave()
+{
+	if (TextChanged)
+		{
+		int t = QMessageBox::warning(this, tr("Warning"),
+  														 	tr("Do you really want to loose all your Changes?"),
+                         			 	QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
+  	if (t == QMessageBox::No)
+			return;
+		}
+	reject();
+}
+
+void StoryEditor::Do_new()
+{
+	int t = QMessageBox::warning(this, tr("Warning"),
+  														 tr("Do you really want to clear all your Text?"),
+                         			 QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
+  if (t == QMessageBox::No)
+		return;
+	table1->setNumCols( 2 );
+	table1->setNumRows( 0 );
+	stList.clear();
+	edList.clear();
+	addPar(0, "", doc->CurrentABStil);
+	SEditor *cp = (SEditor*)table1->cellWidget(0, 1);
+	cp->setFocus();
+	cp->setCursorPosition(0, 0);
+}
+
+void StoryEditor::Do_undo()
+{
+	SEditor *cp = (SEditor*)table1->cellWidget(table1->currentRow(), 1);
+	cp->undo();
+	table1->adjHeight(table1->currentRow());
+}
+
+void StoryEditor::Do_redo()
+{
+	SEditor *cp = (SEditor*)table1->cellWidget(table1->currentRow(), 1);
+	cp->redo();
+	table1->adjHeight(table1->currentRow());
+}
+
+void StoryEditor::Do_copy()
+{
+	SEditor *cp = (SEditor*)table1->cellWidget(table1->currentRow(), 1);
+	cp->copy();
+	table1->adjHeight(table1->currentRow());
+}
+
+void StoryEditor::Do_paste()
+{
+	SEditor *cp = (SEditor*)table1->cellWidget(table1->currentRow(), 1);
+	cp->paste();
+	table1->adjHeight(table1->currentRow());
+}
+
+void StoryEditor::Do_cut()
+{
+	SEditor *cp = (SEditor*)table1->cellWidget(table1->currentRow(), 1);
+	cp->cut();
+	table1->adjHeight(table1->currentRow());
+}
+
+void StoryEditor::Do_del()
+{
+	SEditor *cp = (SEditor*)table1->cellWidget(table1->currentRow(), 1);
+	cp->del();
+	table1->adjHeight(table1->currentRow());
 }
 
 void StoryEditor::updateTextFrame()
@@ -196,7 +301,7 @@ void StoryEditor::updateTextFrame()
 	for (uint a = 0; a < edList.count(); ++a)
 		{
 		Serializer *ss = new Serializer("");
-		QTextEdit *tt = edList.at(a);
+		SEditor *tt = edList.at(a);
 		QComboBox *cp = stList.at(a);
 		ss->Objekt = tt->text();
 		if (a < edList.count()-1)
@@ -222,7 +327,7 @@ void StoryEditor::styleChange(int st)
 		align = st;
 	if (r != -1)
 		{
-		QTextEdit *tt = (QTextEdit*)table1->cellWidget(r, 1);
+		SEditor *tt = (SEditor*)table1->cellWidget(r, 1);
 		switch (align)
 			{
 			case 0:
@@ -286,14 +391,14 @@ void StoryEditor::modifiedText()
 
 void StoryEditor::WrapHandler()
 {
-	int r = edList.findRef((QTextEdit*)sender());
+	int r = edList.findRef((SEditor*)sender());
 	if (r != -1)
 		table1->adjHeight(r);
 }
 
 void StoryEditor::clickAt( int row, int col)
 {
-	int r = edList.findRef((QTextEdit*)sender());
+	int r = edList.findRef((SEditor*)sender());
 	if (r != -1)
 		{
 		table1->setCurrentCell(r, 1);
@@ -306,12 +411,12 @@ void StoryEditor::KeyDel()
 {
 	QString tmp, tmp2;
 	int r = table1->currentRow();
-	QTextEdit *tt = (QTextEdit*)sender();
+	SEditor *tt = (SEditor*)sender();
 	tmp = tt->text();
 	if (r < table1->numRows()-1)
 		{
 		int al = tt->alignment();
-		QTextEdit *bt = edList.at(r+1);
+		SEditor *bt = edList.at(r+1);
 		tmp2 = bt->text();
 		tt->setText(tmp + tmp2);
 		tt->setAlignment(al);
@@ -329,11 +434,11 @@ void StoryEditor::KeyBS()
 {
 	QString tmp, tmp2;
 	int r = table1->currentRow();
-	QTextEdit *tt = (QTextEdit*)sender();
+	SEditor *tt = (SEditor*)sender();
 	tmp = tt->text();
 	if (r > 0)
 		{
-		QTextEdit *bt = edList.at(r-1);
+		SEditor *bt = edList.at(r-1);
 		int al = bt->alignment();
 		tmp2 = bt->text();
 		bt->setText(tmp2 + tmp);
@@ -352,7 +457,7 @@ void StoryEditor::KeyRet()
 {
 	QString tmp, tmp2;
 	QString tmp3 = "";
-	QTextEdit *tt = (QTextEdit*)sender();
+	SEditor *tt = (SEditor*)sender();
 	tmp = tt->text();
 	int al = tt->alignment();
 	int st = getStyle(table1->currentRow());

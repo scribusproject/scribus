@@ -1,6 +1,6 @@
-#include "cmdvar.h"
-#include "cmdutil.h"
 #include "cmdmisc.h"
+#include "cmdutil.h"
+#include "cmdvar.h"
 
 PyObject *scribus_setredraw(PyObject *self, PyObject* args)
 {
