@@ -1,9 +1,13 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
 
-EXTRA_DIST = Sample1.py Calender.py trait_de_coupe.py pochette_cd.py htmlimport.py 3columnUSLTR.py 3columnA4.py legende.py moins_10_pourcent_group.py plus_10_pourcent_group.py ReadMe 
+EXTRA_DIST = Sample1.py Calender.py trait_de_coupe.py pochette_cd.py htmlimport.py 3columnUSLTR.py 3columnA4.py legende.py moins_10_pourcent_group.py plus_10_pourcent_group.py wordcount.py quote.py ReadMe 
 
 install-data-local:
+	$(mkinstalldirs) $(prefix)/lib/scribus/samples/
+	$(INSTALL_DATA) $(srcdir)/quote.py $(prefix)/lib/scribus/samples/quote.py
+	$(mkinstalldirs) $(prefix)/lib/scribus/samples/
+	$(INSTALL_DATA) $(srcdir)/wordcount.py $(prefix)/lib/scribus/samples/wordcount.py
 	$(mkinstalldirs) $(prefix)/lib/scribus/samples/
 	$(INSTALL_DATA) $(srcdir)/Sample1.py $(prefix)/lib/scribus/samples/Sample1.py
 	$(mkinstalldirs) $(prefix)/lib/scribus/samples/
@@ -28,6 +32,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/ReadMe $(prefix)/lib/scribus/samples/ReadMe
 
 uninstall-local:
+	-rm -f $(prefix)/lib/scribus/samples/quote.py
+	-rm -f $(prefix)/lib/scribus/samples/wordcount.py
 	-rm -f $(prefix)/lib/scribus/samples/Sample1.py
 	-rm -f $(prefix)/lib/scribus/samples/Calendar.py
 	-rm -f $(prefix)/lib/scribus/samples/trait_de_coupe.py

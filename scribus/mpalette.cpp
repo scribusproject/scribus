@@ -732,6 +732,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Layout18->addWidget( Aspect );
     Layout24->addLayout( Layout18 );
     pageLayout_4->addLayout( Layout24 );
+
  		TextCms1 = new QLabel( page_4, "Text1" );
     TextCms1->setText( tr( "Input Profile:" ) );
 		pageLayout_4->addWidget( TextCms1 );
@@ -1121,6 +1122,9 @@ void Mpalette::NewSel(int nr)
 	int visID;
 	if (doc->ActPage->GroupSel)
 		{
+		double gx, gy, gh, gw;
+		doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
+		doc->ActPage->RCenter = FPoint(gx, gy);
     Text1->setText( tr( "X-Pos:" ) );
     Text2->setText( tr( "Width:" ) );
     Text1a->setText( tr( "Y-Pos:" ) );
@@ -1802,7 +1806,7 @@ void Mpalette::NewR()
 	if ((HaveDoc) && (HaveItem))
 		{
 		if (doc->ActPage->GroupSel)
-			doc->ActPage->RotateGroup(static_cast<double>(Rot->value())/100.0*(-1));
+			doc->ActPage->RotateGroup(-1);
 		else
 			doc->ActPage->RotateItem(static_cast<double>(Rot->value())/100.0*(-1), CurItem->ItemNr);
 		emit DocChanged();

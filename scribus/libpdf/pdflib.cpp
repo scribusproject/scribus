@@ -177,6 +177,7 @@ void PDFlib::PutDoc(QString in)
 {
 	QTextStream t(&Spool);
 	t.writeRawBytes(in, in.length());
+	Spool.flush();
 	Dokument += in.length();
 }
 

@@ -2289,11 +2289,8 @@ msgstr "Verfügbare Vorlagen:"
 msgid "Document Pages:"
 msgstr "Seiten des Dokuments:"
 
-msgid "Hide Page Palette"
-msgstr "Seitenpalette verbergen"
-
-msgid "Show Page Palette"
-msgstr "Seitenpalette zeigen"
+msgid "Page Palette"
+msgstr "Seitenpalette"
 
 msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
 msgstr "Ziehen Sie Seiten oder Vorlagen auf den Mülleimer um sie zu löschen"
@@ -2999,4 +2996,52 @@ msgstr "Wollen Sie wirklich den ganzen Text löschen?"
 
 msgid "Edit Text..."
 msgstr "Text bearbeiten..."
+
+msgid "Paragraphs: "
+msgstr "Absätze: "
+
+msgid "Words: "
+msgstr "Wörter: "
+
+msgid "Chars: "
+msgstr "Zeichen: "
+
+msgid "Text Chain"
+msgstr "Textkette"
+
+msgid "Current Paragraph:"
+msgstr "Aktueller Absatz"
+
+msgid "Totals:"
+msgstr "Gesamt:"
+
+msgid "Brazilian:"
+msgstr "Brasilianisch"
+
+msgid "Edit Styles..."
+msgstr "Stile bearbeiten..."
+
+msgid "Picture"
+msgstr "Bild"
+
+msgid "File: "
+msgstr "Datei: "
+
+msgid "Original ppi: "
+msgstr "DPI original: "
+
+msgid "Actual ppi: "
+msgstr "DPI aktuell: "
+
+msgid "Info"
+msgstr "Information"
+
+msgid "Outlines"
+msgstr "Pfade"
+
+msgid "Text on a Path"
+msgstr "Pfadtext"
+
+msgid "Shape:"
+msgstr "Form:"
 

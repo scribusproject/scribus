@@ -1177,24 +1177,22 @@ bool Page::MoveItem(double newX, double newY, PageItem* b, bool fromMP)
 
 void Page::RotateGroup(double win)
 {
-	double gx, gy, gh, gw, gxS, gyS, ghS, gwS;
+	double gxS, gyS, ghS, gwS;
 	PageItem* b;
 	FPoint n;
-	setGroupRect();
-	getGroupRect(&gx, &gy, &gw, &gh);
 	getGroupRectScreen(&gxS, &gyS, &gwS, &ghS);
+	QWMatrix ma;
+	ma.translate(RCenter.x(), RCenter.y());
+	ma.scale(1, 1);
+	ma.rotate(win);
 	QRect alt = QRect(static_cast<int>(gxS-5), static_cast<int>(gyS-5), static_cast<int>(gwS+10), static_cast<int>(ghS+10));
 	for (uint a = 0; a < SelItem.count(); ++a)
 		{
-		QWMatrix ma;
 		b = SelItem.at(a);
-		ma.translate(gx, gy);
-		ma.scale(1, 1);
-		ma.rotate(win);
-		n = FPoint(b->Xpos - gx, b->Ypos - gy);
+		n = FPoint(b->Xpos - RCenter.x(), b->Ypos - RCenter.y());
 		b->Xpos = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 		b->Ypos = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
-		b->Rot = win;
+		b->Rot += win;
 		}
 	setGroupRect();
 	getGroupRectScreen(&gxS, &gyS, &gwS, &ghS);
