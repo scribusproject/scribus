@@ -361,10 +361,11 @@ void UndoPalette::UndoItem::paint(QPainter *painter)
 {
 	if (pixmap)
 		painter->drawPixmap(5, 5, *pixmap);
-	painter->drawText(32, QFontMetrics(painter->font()).height(), target);
 	QFont f = QFont(painter->font());
-	f.setItalic(true);
+	f.setPointSize(f.pointSize() - 2);
 	painter->setFont(f);
+	painter->drawText(32, QFontMetrics(f).height(), target);
+	f.setItalic(true);
 	painter->drawText(32, (2 * QFontMetrics(painter->font()).height()), action);
 //    if ( isSelected() )
 //        painter->eraseRect( r );
@@ -376,7 +377,7 @@ void UndoPalette::UndoItem::paint(QPainter *painter)
 int UndoPalette::UndoItem::height(const QListBox *lb) const
 {
 	if (lb)
-		return (5 + (2 * QFontMetrics(lb->font()).height()));
+		return (2 * QFontMetrics(lb->font()).height());
 	else
 		return 0;
 }
