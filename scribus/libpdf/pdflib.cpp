@@ -875,13 +875,13 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	return true;
 }
 
-void PDFlib::PDF_TemplatePage(Page* pag)
+void PDFlib::PDF_TemplatePage(Page* pag, bool clip)
 {
 	QString tmp;
 	ActPageP = pag;
 	Inhalt = "";
 	Seite.AObjects.clear();
-//	PDF_ProcessPage(pag, pag->PageNr);
+//	PDF_ProcessPage(pag, pag->PageNr, clip);
 	StartObj(ObjCounter);
 	ObjCounter++;
 	PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
@@ -1062,7 +1062,7 @@ void PDFlib::PDF_End_Page()
 	ObjCounter++;
 }
 
-void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
+void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 {
 /*	QString tmp;
 	ActPageP = pag;
@@ -1076,6 +1076,17 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 	QString name = "/"+pag->MPageNam.simplifyWhiteSpace().replace( QRegExp("\\s"), "" );
 	if ( (Options->MirrorH) && (pag->MPageNam != "") )
 		PutPage("-1 0 0 1 "+FToStr(doc->PageB)+" 0 cm\n");
+	if ( (Options->MirrorV) && (pag->MPageNam != "") )
+		PutPage("1 0 0 -1 0 "+FToStr(doc->PageH)+" cm\n");
+	if (clip)
+	{
+		PutPage(FToStr(pag->Margins.Left) + " " + FToStr(pag->Margins.Bottom) + " m\n");
+		PutPage(FToStr(doc->PageB - pag->Margins.Right) + " " + FToStr(pag->Margins.Bottom) + " l\n");
+		PutPage(FToStr(doc->PageB - pag->Margins.Right) + " " + FToStr(doc->PageH - pag->Margins.Top) + " l\n");
+		PutPage(FToStr(pag->Margins.Left) + " " + FToStr(doc->PageH - pag->Margins.Top) + " l h W n\n");
+	}
+	else
+		PutPage("0 0 "+FToStr(doc->PageB)+" "+FToStr(doc->PageH)+" re W n\n");
 	if (pag->MPageNam != "")
 	{
 		Page* mPage = view->MasterPages.at(view->MasterNames[view->Pages.at(PNr)->MPageNam]);

@@ -83,6 +83,29 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	PageNr->setEnabled(false);
 	Layout11->addWidget( PageNr, 1, 0 );
 	RangeGroupLayout->addLayout( Layout11 );
+	TextLabel3 = new QLabel( tr( "&Rotation:" ), RangeGroup, "TextLabel3" );
+	RangeGroupLayout->addWidget( TextLabel3 );
+	RotateDeg = new QComboBox( true, RangeGroup, "RotateDeg" );
+	RotateDeg->insertItem(QString::fromUtf8("0 °"));
+	RotateDeg->insertItem(QString::fromUtf8("90 °"));
+	RotateDeg->insertItem(QString::fromUtf8("180 °"));
+	RotateDeg->insertItem(QString::fromUtf8("270 °"));
+	RotateDeg->setEditable(false);
+	TextLabel3->setBuddy(RotateDeg);
+	RotateDeg->setCurrentItem(Optionen->RotateDeg / 90);
+	RangeGroupLayout->addWidget( RotateDeg );
+	Layout11a = new QGridLayout( 0, 1, 1, 0, 5, "Layout11a");
+	MirrorH = new QToolButton( RangeGroup, "MirrorH" );
+	MirrorH->setPixmap(loadIcon("FlipH.xpm"));
+	MirrorH->setToggleButton( true );
+	MirrorH->setOn(Optionen->MirrorH);
+	Layout11a->addWidget( MirrorH, 0, 0 );
+	MirrorV = new QToolButton( RangeGroup, "MirrorH" );
+	MirrorV->setPixmap(loadIcon("FlipV.xpm"));
+	MirrorV->setToggleButton( true );
+	MirrorV->setOn(Optionen->MirrorV);
+	Layout11a->addWidget( MirrorV, 0, 1 );
+	RangeGroupLayout->addLayout( Layout11a );
 	Layout13->addWidget( RangeGroup );
 
 	GroupBox1 = new QGroupBox( tr( "File Options" ), tabGeneral, "GroupBox1" );
@@ -100,15 +123,12 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	ComboBox1->insertItem("Acrobat 4.0");
 	ComboBox1->insertItem("Acrobat 5.0");
 #ifdef HAVE_CMS
-
 	if ((CMSuse) && (CMSavail) && (!PDFXProfiles->isEmpty()))
 		ComboBox1->insertItem("PDF/X-3");
 #endif
-
 	ComboBox1->setEditable(false);
 	TextLabel1->setBuddy(ComboBox1);
 #ifdef HAVE_CMS
-
 	if ((CMSuse) && (CMSavail))
 	{
 		if (Optionen->Version == 12)
@@ -117,7 +137,6 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	else
 		ComboBox1->setCurrentItem(0);
 #endif
-
 	if (Optionen->Version == 13)
 		ComboBox1->setCurrentItem(0);
 	if (Optionen->Version == 14)
@@ -685,7 +704,6 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	BleedLeft->setMaxValue(view->Doc->PageB*UmReFaktor);
 	BleedLeft->setValue(Optionen->BleedLeft*UmReFaktor);
 #ifdef HAVE_CMS
-
 	if ((!CMSuse) || (!CMSavail))
 		Options->setTabEnabled(tabPDFX, false);
 	if ((CMSuse) && (CMSavail) && (Optionen->Version == 12) && (!PDFXProfiles->isEmpty()))
@@ -693,28 +711,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	else
 		Options->setTabEnabled(tabPDFX, false);
 #else
-
 	Options->setTabEnabled(tabPDFX, false);
 #endif
-
- 
-	tabOptions = new QWidget( Options, "taboptions" );
-	tabOptionsLayout = new QVBoxLayout( tabOptions, 11, 5, "tabOptionsLayout");
-	MirrorH = new QCheckBox( tr( "Mirror Page(s) &Horizontally" ), tabOptions, "MirrorH" );
-	MirrorH->setChecked(Optionen->MirrorH);
-	tabOptionsLayout->addWidget( MirrorH );
-	
-	RotateDeg = new QSpinBox(0, 270, 90, tabOptions, "RotateDeg");
-	RotateDeg->setValue(Optionen->RotateDeg);
-
-	TextLabel3 = new QLabel( RotateDeg, tr( "&Rotation:" ), tabOptions, "TextLabel3" );
-	TextLabel3->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
-	tabOptionsRotateHBox = new QHBoxLayout( tabOptionsLayout, -1, "tabOptionsRotateHBox" );
-	tabOptionsRotateHBox->addWidget( TextLabel3 );
-	tabOptionsRotateHBox->addWidget( RotateDeg );
-	tabOptionsRotateHBox->addStretch();
-	tabOptionsLayout->addStretch();
-	Options->insertTab( tabOptions, tr( "&Options" ) );
 	BleedChanged();
 	PgSel = 0;
 	Pages->setCurrentItem(0);
@@ -819,6 +817,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	QToolTip::add( BleedBottom, tr( "Distance for bleed from the bottom of the physical page" ) );
 	QToolTip::add( BleedLeft, tr( "Distance for bleed from the left of the physical page" ) );
 	QToolTip::add( BleedRight, tr( "Distance for bleed from the right of the physical page" ) );
+	QToolTip::add( MirrorH, tr( "Mirror Page(s) horizontal" ) );
+	QToolTip::add( MirrorV, tr( "Mirror Page(s) vertical" ) );
 
 	// signals and slots connections
 	connect( FileC, SIGNAL( clicked() ), this, SLOT( ChangeFile() ) );
@@ -835,7 +835,9 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
 	connect(EDirection_2_2, SIGNAL(activated(int)), this, SLOT(ValidDI(int)));
 	connect(CheckBox10, SIGNAL(clicked()), this, SLOT(DoEffects()));
-	connect(MirrorH, SIGNAL(clicked()), this, SLOT(PDFMirrorH()));
+	connect(MirrorH, SIGNAL(activated()), this, SLOT(PDFMirror()));
+	connect(MirrorV, SIGNAL(activated()), this, SLOT(PDFMirror()));
+	connect(RotateDeg, SIGNAL(activated(int)), this, SLOT(Rotation(int)));
 	connect(EonAllPg, SIGNAL(clicked()), this, SLOT(EffectOnAll()));
 	connect(AllPages, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
 	connect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
@@ -850,7 +852,6 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	connect(Encry, SIGNAL(clicked()), this, SLOT(ToggleEncr()));
 	connect(UseLPI, SIGNAL(clicked()), this, SLOT(EnableLPI2()));
 	connect(LPIcolor, SIGNAL(activated(int)), this, SLOT(SelLPIcol(int)));
-	connect(RotateDeg, SIGNAL(valueChanged(int)), this, SLOT(Rotation(int)));
 }
 
 /*
@@ -1052,15 +1053,15 @@ void PDF_Opts::EffectOnAll()
 	}
 }
 
-void PDF_Opts::PDFMirrorH()
+void PDF_Opts::PDFMirror()
 {
-	Opts->MirrorH = MirrorH->isChecked() ? true : false;
+	Opts->MirrorH = MirrorH->isOn();
+	Opts->MirrorV = MirrorV->isOn();
 }
- 
+
 void PDF_Opts::Rotation( int value )
 {
-	Opts->RotateDeg = value / 90 * 90; 
-	RotateDeg->setValue(value / 90 * 90);
+	Opts->RotateDeg = value * 90; 
 }
 
 void PDF_Opts::DoEffects()
