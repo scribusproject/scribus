@@ -105,6 +105,8 @@ void TabManager::DelTab()
 	it = tmpTab.remove(it);
 	tmpTab.remove(it);
 	selTab = tmpTab.isEmpty() ? -1 : static_cast<int>(tmpTab.count() - 2);
+  if (selTab == -1)
+    DelButton->setEnabled(false);
 	UpdateTabL();
 }
 
@@ -113,7 +115,10 @@ void TabManager::AddTab()
 	tmpTab.prepend(0);
 	tmpTab.prepend(0);
 	selTab = 0;
+  DelButton->setEnabled(true);
 	UpdateTabL();
+  Position->setFocus();
+  Position->selectAll();
 }
 
 void TabManager::ChangeType()

@@ -1,7 +1,7 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
 
-EXTRA_DIST = hyph_fi.dic hyph_el.dic hyph_cs.dic hyph_de.dic hyph_en.dic hyph_es.dic hyph_fr.dic hyph_it.dic hyph_ru.dic hyph_da.dic hyph_sk.dic hyph_hu.dic hyph_pt.dic hyph_nl.dic hyph_uk.dic hyph_ca.dic 
+EXTRA_DIST = hyph_ga.dic hyph_fi.dic hyph_el.dic hyph_cs.dic hyph_de.dic hyph_en.dic hyph_es.dic hyph_fr.dic hyph_it.dic hyph_ru.dic hyph_da.dic hyph_sk.dic hyph_hu.dic hyph_pt.dic hyph_nl.dic hyph_uk.dic hyph_ca.dic 
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/lib/scribus/dicts/
@@ -38,6 +38,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/hyph_el.dic $(prefix)/lib/scribus/dicts/hyph_el.dic
 	$(mkinstalldirs) $(prefix)/lib/scribus/dicts/
 	$(INSTALL_DATA) $(srcdir)/hyph_ca.dic $(prefix)/lib/scribus/dicts/hyph_ca.dic
+	$(mkinstalldirs) $(prefix)/lib/scribus/dicts/
+	$(INSTALL_DATA) $(srcdir)/hyph_ga.dic $(prefix)/lib/scribus/dicts/hyph_ga.dic
 
 uninstall-local:
 	-rm -f $(prefix)/lib/scribus/dicts/hyph_cs.dic
@@ -57,6 +59,7 @@ uninstall-local:
 	-rm -f $(prefix)/lib/scribus/dicts/hyph_pl.dic
 	-rm -f $(prefix)/lib/scribus/dicts/hyph_el.dic
 	-rm -f $(prefix)/lib/scribus/dicts/hyph_ca.dic
+	-rm -f $(prefix)/lib/scribus/dicts/hyph_ga.dic
 
 
 ####### kdevelop will overwrite this part!!! (end)############

@@ -2967,10 +2967,6 @@ bool ScribusApp::DoFileClose()
 		Mpal->Cpal->SetColors(Prefs.DColors);
 		Mpal->Cpal->ChooseGrad(0);
 	  FMess->setText( tr("Ready"));
-		Tpal->PageObj.clear();
-		Tpal->Seiten.clear();
-	  Tpal->ListView1->clear();
-		Lpal->ClearInhalt();
 		DatPri->setEnabled(false);
 		DatPDF->setEnabled(false);
 		DatSav->setEnabled(false);
@@ -2984,7 +2980,13 @@ bool ScribusApp::DoFileClose()
 #endif
 		}
   view->close();
-  HaveDoc--;
+	delete view;
+	Tpal->PageObj.clear();
+	Tpal->Seiten.clear();
+	doc->loading = true;
+	Tpal->ListView1->clear();
+	Lpal->ClearInhalt();
+	HaveDoc--;
 	view = NULL;
 	delete doc;
 	doc = NULL;
@@ -5662,7 +5664,7 @@ void ScribusApp::ReadPrefs()
 		QFileInfo fd(QString::fromUtf8(Prefs.RecentDocs[m]));
 		if (fd.exists())
 			{
-			RecentDocs.append(Prefs.RecentDocs[m]);
+			RecentDocs.append(QString::fromUtf8(Prefs.RecentDocs[m]));
 			recentMenu->insertItem(QString::fromUtf8(Prefs.RecentDocs[m]));
 			}
 		}
@@ -6896,6 +6898,8 @@ void ScribusApp::InitHyphenator()
 				datein = tr("Catalan");
 			if (d[dc] == "hyph_fi.dic")
 				datein = tr("Finnish");
+			if (d[dc] == "hyph_ga.dic")
+				datein = tr("Irish");
 			Sprachen.insert(datein, d[dc]);
 			if (d[dc] == "hyph_"+lang+".dic")
 				Prefs.Language = datein;
@@ -6983,6 +6987,7 @@ void ScribusApp::ManageGuides()
             doc->ActPage->YGuides = dia->LocHor;
             doc->GuideLock = dia->LocLocked;
             doc->ActPage->update();
+            slotDocCh();
         }
         delete dia;
     }

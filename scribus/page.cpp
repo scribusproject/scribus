@@ -812,10 +812,10 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt, bool single)
 	p.end();
 	b->Dirty = true;
 	QRect g = neu.boundingRect();
-	g.setX(g.x()-static_cast<int>(QMAX(10.0, b->Pwidth / 2.0)));
-	g.setY(g.y()-static_cast<int>(QMAX(10.0, b->Pwidth / 2.0)));
-	g.setWidth(g.width()+static_cast<int>(QMAX(10.0, b->Pwidth / 2.0)));
-	g.setHeight(g.height()+static_cast<int>(QMAX(10.0, b->Pwidth / 2.0)));
+	g.setX(g.x()-static_cast<int>(QMAX(10.0, b->Pwidth / 1.4)));
+	g.setY(g.y()-static_cast<int>(QMAX(10.0, b->Pwidth / 1.4)));
+	g.setWidth(g.width()+static_cast<int>(QMAX(10.0, b->Pwidth / 1.4)));
+	g.setHeight(g.height()+static_cast<int>(QMAX(10.0, b->Pwidth / 1.4)));
 	if (single)
 	{
 		QRect rd = ViewReg().boundingRect().intersect(g);
@@ -1818,6 +1818,7 @@ void Page::scaleGroup(double scx, double scy)
 	uint aa;
 	FPoint n;
 	getGroupRect(&gx, &gy, &gw, &gh);
+	setUpdatesEnabled(false);
 	for (uint a = 0; a < SelItem.count(); ++a)
 	{
 		bb = SelItem.at(a);
@@ -1843,11 +1844,32 @@ void Page::scaleGroup(double scx, double scy)
 				h -= g;
 				h1 = transformPoint(h, 0, 0, 0, scx, scy);
 				bb->Pwidth = QMAX(bb->Pwidth*((scx+scy)/2), 0.01);
-				MoveItem(b1.x()-b.x(), b1.y()-b.y(), bb);
-				SizeItem(sqrt(pow(t1.x()-b1.x(),2)+pow(t1.y()-b1.y(),2)),
-						 sqrt(pow(h1.x()-b1.x(),2)+pow(h1.y()-b1.y(),2)), bb->ItemNr, true);
-				if (bb->Rot != 0)
+				FPoint oldPos = FPoint(bb->Xpos, bb->Ypos);
+				QWMatrix ma;
+				ma.rotate(bb->Rot);
+				bb->PoLine.map(ma);
+				QWMatrix ma2;
+				ma2.translate(gx-bb->Xpos, gy-bb->Ypos);
+				ma2.scale(scx, scy);
+				bb->PoLine.map(ma2);
+				bb->Rot = 0;
+				bb->ClipEdited = true;
+				AdjustItemSize(bb);
+				QWMatrix ma3;
+				ma3.translate(gx, gy);
+				ma3.scale(scx, scy);
+				n = FPoint(gx-oldPos.x(), gy-oldPos.y());
+				double x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
+				double y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
+				MoveItem(gx-x, gy-y, bb);
+				if (oldRot != 0)
+					{
 					bb->Rot = atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI);
+					QWMatrix ma;
+					ma.rotate(-bb->Rot);
+					bb->PoLine.map(ma);
+					AdjustItemSize(bb);
+					}
 				bb->ISize = QMAX(qRound(bb->ISize*((scx+scy)/2)), 1);
 				if (bb->Ptext.count() != 0)
 				{
@@ -1862,6 +1884,7 @@ void Page::scaleGroup(double scx, double scy)
 		}
 	}
 	setGroupRect();
+	setUpdatesEnabled(true);
 	update();
 	emit DocChanged();
 }
@@ -3103,15 +3126,13 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 					{
 						case 1:
 							np = QPoint(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc));
-							np2 = QPoint(m->x(), static_cast<int>((gy+(gh * ((newX-gx) / gw)))*sc));
-							QCursor::setPos(mapToGlobal(np2));
-/*							if (m->state() & ShiftButton)
+							if (m->state() & ControlButton)
 								{
-								np2 = QPoint(m->x(), int((gy+(gh * ((newX-gx) / gw)))*sc));
+								np2 = QPoint(m->x(), static_cast<int>((gy+(gh * ((newX-gx) / gw)))*sc));
 								QCursor::setPos(mapToGlobal(np2));
 								}
 							else
-								np2 = QPoint(m->x(), m->y());   */
+								np2 = QPoint(m->x(), m->y());
 							Mxp = static_cast<int>(np2.x()/sc);
 							Myp = static_cast<int>(np2.y()/sc);
 							PaintSizeRect(&p, QRect(QPoint(static_cast<int>(gx*sc), static_cast<int>(gy*sc)), np),
@@ -4440,7 +4461,7 @@ bool Page::SeleItem(QMouseEvent *m)
 		doku->ActPage = this;
 		emit PgCh(PageNr);
 	}
-	if ((m->state() == ControlButton) && (SelItem.count() != 0))
+	if ((m->state() == (ControlButton | ShiftButton)) && (SelItem.count() != 0))
 	{
 		for (a = 0; a < Items.count(); ++a)
 		{

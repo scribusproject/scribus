@@ -106,7 +106,7 @@ public:
 	VGradient stroke_gradient;
 
 private:
-	void drawVPath( struct _ArtVpath *, int mode );
+	void drawVPath( struct _ArtVpath *vec, int mode );
 	void applyGradient( _ArtSVP *, bool );
 //	void applyPattern( _ArtSVP *, bool );
 	_ArtGradientStop *buildStopArray( VGradient &gradient, int & );
