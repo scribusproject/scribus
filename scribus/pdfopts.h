@@ -45,7 +45,6 @@ public:
 	QWidget* tabSecurity;
 	QWidget* tabColor;
 	QWidget* tabPDFX;
-	QWidget* tabOptions;
 
 	QLabel* Name;
 	QLabel* TextLabel1;
@@ -71,8 +70,9 @@ public:
 	QLabel* TextLabel1x;
 	QComboBox* ComboBind;
 	QCheckBox* CheckBox1;
-	QCheckBox* MirrorH;
-	QSpinBox* RotateDeg;
+	QToolButton* MirrorH;
+	QToolButton* MirrorV;
+	QComboBox* RotateDeg;
 	QLabel* TextLabel3;
 	QCheckBox* CheckBox10;
 	QPushButton* EonAllPg;
@@ -177,7 +177,7 @@ public slots:
 	void SetPgEff(int nr);
 	void SetEffOpts(int nr);
 	void ValidDI(int nr);
-	void PDFMirrorH();
+	void PDFMirror();
 	void Rotation(int value);
 	void DoEffects();
 	void EffectOnAll();
@@ -193,8 +193,6 @@ public slots:
 protected:
 	QGridLayout* CBoxLayout;
 	QVBoxLayout* PDFOptsLayout;
-	QVBoxLayout* tabOptionsLayout;
-	QHBoxLayout* tabOptionsRotateHBox;
 	QHBoxLayout* Layout5;
 	QVBoxLayout* tabLayout;
 	QVBoxLayout* Layout3;
@@ -214,6 +212,7 @@ protected:
 	QHBoxLayout* Layout13;
 	QVBoxLayout* RangeGroupLayout;
 	QGridLayout* Layout11;
+	QGridLayout* Layout11a;
 	QVBoxLayout* tabColorLayout;
 	QHBoxLayout* ColorGroupLayout;
 	QGridLayout* ProfsGroupLayout;
