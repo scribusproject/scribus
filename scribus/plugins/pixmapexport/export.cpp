@@ -34,7 +34,7 @@ QString actionName()
 
 QString actionKeySequence()
 {
-	return "";
+	return "CTRL+SHIFT+E";
 }
 
 QString actionMenu()

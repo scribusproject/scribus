@@ -203,11 +203,13 @@
     <include location="local" impldecl="in implementation">docitemattrprefs.ui.h</include>
 </includes>
 <variables>
-    <variable>QStringList autoAddToData;</variable>
-    <variable>QStringList relationshipsData;</variable>
-    <variable>QStringList autoAddTo;</variable>
-    <variable access="public">ObjAttrVector localAttributes;</variable>
+    <variable>QStringList typesData;</variable>
+    <variable>QStringList types;</variable>
     <variable>QStringList relationships;</variable>
+    <variable access="public">ObjAttrVector localAttributes;</variable>
+    <variable>QStringList autoAddTo;</variable>
+    <variable>QStringList relationshipsData;</variable>
+    <variable>QStringList autoAddToData;</variable>
 </variables>
 <slots>
     <slot>setup( ObjAttrVector * docItemAttrs )</slot>

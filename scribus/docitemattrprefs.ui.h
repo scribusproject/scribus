@@ -16,6 +16,8 @@ void DocumentItemAttributes::init()
 	relationshipsData << "none" << "relation" << "parent" << "child";
 	autoAddTo << tr("None") << tr("Text Frames") << tr("Image Frames");
 	autoAddToData << "none" << "textframes" << "imageframes";
+	types << tr("None") << tr("Boolean") << tr("Integer") << "Real Number" << tr("String");
+	typesData << "none" << "boolean" << "integer" << "double" << "string";
 }
 
 void DocumentItemAttributes::destroy()
@@ -45,7 +47,15 @@ void DocumentItemAttributes::tableItemChanged( int row, int col )
 		localAttributes[row].name=attributesTable->text(row, col);
 		break;
 	case 1:
-		localAttributes[row].type=attributesTable->text(row, col);
+		{
+			QComboTableItem* qcti=dynamic_cast<QComboTableItem*>(attributesTable->item(row,col));
+			if (qcti!=NULL)
+			{
+				uint index=qcti->currentItem();
+				if (index<typesData.count())
+					localAttributes[row].type=typesData[index];
+			}
+		}
 		break;
 	case 2:
 		localAttributes[row].value=attributesTable->text(row, col);
@@ -89,6 +99,7 @@ void DocumentItemAttributes::addEntry()
 	ObjectAttribute blank;
 	blank.relationship="none";
 	blank.autoaddto="none";
+	blank.type="none";
 	localAttributes.append(blank);
 	updateTable();
 }
@@ -105,8 +116,15 @@ void DocumentItemAttributes::updateTable()
 		QTableItem *item1 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).name);
 		attributesTable->setItem(row, i++, item1);
 		//Type
-		QTableItem *item2 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).type);
+		QComboTableItem *item2 = new QComboTableItem(attributesTable, types);
 		attributesTable->setItem(row, i++, item2);
+		int index=typesData.findIndex((*it).type);
+		if (index==-1)
+		{
+			(*it).type="none";
+			index=0;
+		}
+		item2->setCurrentItem(index);
 		//Default Value
 		QTableItem *item3 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).value);
 		attributesTable->setItem(row, i++, item3);
@@ -116,7 +134,7 @@ void DocumentItemAttributes::updateTable()
 		//Relationship
 		QComboTableItem *item5 = new QComboTableItem(attributesTable, relationships);
 		attributesTable->setItem(row, i++, item5);
-		int index=relationshipsData.findIndex((*it).relationship);
+		index=relationshipsData.findIndex((*it).relationship);
 		if (index==-1)
 		{
 			(*it).relationship="none";
