@@ -6609,6 +6609,7 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.SaveAtQ = dia->SaveAtQuit->isChecked();
 		ScBook->BibWin->RebuildView();
 		ScBook->AdjustMenu();
+		Prefs.guiLanguage=dia->selectedGUILang;
 		if (Prefs.GUI != dia->GUICombo->currentText())
 		{
 			Prefs.GUI = dia->GUICombo->currentText();

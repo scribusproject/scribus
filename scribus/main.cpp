@@ -34,7 +34,7 @@
 #define BASE_QM "scribus"
 
 #include "scribus.h"
-#include "langlist.h"
+#include "langmgr.h"
 #include "prefsfile.h"
 
 
@@ -162,23 +162,9 @@ void showAvailLangs()
 
 	QString path = SCRIBUS_LIB;
 	QString langAbbrev;
-	LangList langlist;
-	LangList::Iterator it;
-
-	QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
-	if (dir.exists() && (dir.count() != 0))
-		for (uint i = 0; i < dir.count(); ++i) {
-			QFileInfo file(path + dir[i]);
-			if (file.extension(false).lower() == "qm") {
-				langAbbrev = file.extension().remove(".qm");
-				std::cout << langAbbrev.leftJustify(6) << ": ";
-				if ((it=langlist.find(langAbbrev))!=langlist.end())
-					std::cout << it.data();
-				else
-					std::cout << "Unknown";
-				std::cout << std::endl;
-			}
-		}
+	LanguageManager langMgr;
+	langMgr.init();
+	langMgr.printInstalledList();
 
 	std::cout << std::endl;
 	std::cout << "To override the default language choice:" << std::endl;

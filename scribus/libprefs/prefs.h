@@ -27,6 +27,8 @@
 #include "scribus.h"
 #include "fontcombo.h"
 
+#include "langlist.h"
+
 class Preferences : public QDialog
 {
     	Q_OBJECT
@@ -34,6 +36,9 @@ class Preferences : public QDialog
 public:
 	Preferences( QWidget* parent, preV *Vor);
 	~Preferences();
+
+	//const QString getSelectedGUILang( void );
+	QString selectedGUILang;
 	double GetZeroFaktor();
 	double GetMaxFaktor();
 	void DrawRuler();
@@ -50,9 +55,11 @@ public:
 	QSpinBox* SpinBox3_2;
 	QSpinBox* Recen;
 	QButtonGroup* ButtonGroup1;
+	QLabel* guiLangLabel;
 	QLabel* TextGstil;
 	QLabel* TextGstil2;
 	QSpinBox* GFsize;
+	QComboBox* guiLangCombo;
 	QComboBox* GUICombo;
 	QComboBox* UnitCombo;
 	QGroupBox* GroupBox20;
@@ -271,7 +278,9 @@ public:
 	double DisScale;
 	ScribusApp *ap;
 
+
 public slots:
+
 	virtual void changeMaColor();
 	virtual void changeMicolor();
 	void ChangeDocs();
@@ -380,6 +389,12 @@ protected:
 	QHBoxLayout* groupGimpLayout;
 	QVBoxLayout* MiscLayout;
 	QVBoxLayout* groupPrintLayout;
+
+private slots:
+	void setSelectedGUILang( const QString &newLang );
+
+private:
+	LanguageManager langMgr;	
 };
 
 #endif // PREFS_H

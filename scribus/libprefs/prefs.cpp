@@ -4,6 +4,7 @@
 #include "scribusdoc.h"
 #include <qfont.h>
 #include <qcolordialog.h>
+#include <qcombobox.h>
 #include <qcolor.h>
 #include <qstringlist.h>
 #include <qstylefactory.h>
@@ -12,6 +13,7 @@
 #include <qrect.h>
 #include <qwmatrix.h>
 #include <cmath>
+#include "langmgr.h"
 
 using namespace std;
 
@@ -84,6 +86,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	tabLayout = new QGridLayout( tab );
 	tabLayout->setSpacing( 6 );
 	tabLayout->setMargin( 10 );
+
+	// GUI Group
 	ButtonGroup1 = new QButtonGroup( tr( "GUI" ), tab, "ButtonGroup1" );
 	ButtonGroup1->setColumnLayout(0, Qt::Vertical );
 	ButtonGroup1->layout()->setSpacing( 0 );
@@ -92,7 +96,17 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	ButtonGroup1Layout->setAlignment( Qt::AlignTop );
 	ButtonGroup1Layout->setSpacing( 6 );
 	ButtonGroup1Layout->setMargin( 10 );
-	
+
+	langMgr.init();
+	QStringList languageList;
+	langMgr.fillInstalledStringList(&languageList, true);
+	guiLangCombo = new QComboBox( false, ButtonGroup1, "guiLangCombo");
+	guiLangCombo->insertStringList( languageList );
+	guiLangCombo->setCurrentText(langMgr.getLangFromAbbrev(Vor->guiLanguage));
+	selectedGUILang=Vor->guiLanguage;
+	guiLangLabel = new QLabel(guiLangCombo, tr("&Language:"), ButtonGroup1, "guiLangLabel");
+	ButtonGroup1Layout->addWidget( guiLangLabel, 0, 0 );
+	ButtonGroup1Layout->addWidget( guiLangCombo, 0, 1, Qt::AlignRight );
 	
 	GUICombo = new QComboBox( true, ButtonGroup1, "GUICombo" );
 	QStringList STtest;
@@ -102,8 +116,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GUICombo->setEditable(false);
 	GUICombo->setCurrentText(Vor->GUI);
 	TextGstil = new QLabel(GUICombo, tr("&Theme:"), ButtonGroup1, "dd");
-	ButtonGroup1Layout->addWidget( TextGstil, 0, 0 );
-	ButtonGroup1Layout->addWidget( GUICombo, 0, 1, Qt::AlignRight );
+	ButtonGroup1Layout->addWidget( TextGstil, 1, 0 );
+	ButtonGroup1Layout->addWidget( GUICombo, 1, 1, Qt::AlignRight );
 	
 	GFsize = new QSpinBox(ButtonGroup1, "gfs" );
 	GFsize->setSuffix( tr( " pt" ) );
@@ -111,9 +125,11 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GFsize->setMinValue( 8 );
 	GFsize->setValue( Vor->AppFontSize );
 	TextGstil2 = new QLabel(GFsize, tr("&Font Size:"), ButtonGroup1, "dd");
-	ButtonGroup1Layout->addWidget( TextGstil2, 1, 0 );
-	ButtonGroup1Layout->addWidget( GFsize, 1, 1, Qt::AlignRight );
+	ButtonGroup1Layout->addWidget( TextGstil2, 2, 0 );
+	ButtonGroup1Layout->addWidget( GFsize, 2, 1, Qt::AlignRight );
 	tabLayout->addWidget( ButtonGroup1, 0, 0 );
+
+
 	GroupBox20 = new QGroupBox( tr( "Units" ), tab, "GroupBox20" );
 	GroupBox20->setColumnLayout(0, Qt::Vertical );
 	GroupBox20->layout()->setSpacing( 0 );
@@ -1627,6 +1643,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 							"UCR reduces the possibility of over saturation with CMY inks." ) );
 
 	// signals and slots connections
+	connect( guiLangCombo, SIGNAL( activated( const QString & ) ), this, SLOT( setSelectedGUILang( const QString & ) ) );
+
 	connect( minColor, SIGNAL( clicked() ), this, SLOT( changeMicolor() ) );
 	connect( MaxColor, SIGNAL( clicked() ), this, SLOT( changeMaColor() ) );
 	connect( PapColor, SIGNAL( clicked() ), this, SLOT( changePapColor() ) );
@@ -2467,5 +2485,15 @@ void Preferences::DrawRuler()
 	}
 	p.end();
 	CaliRuler->setPixmap(pm);
+}
+/*
+QString Preferences::getSelectedGUILang( )
+{
+	return langMgr.getAbbrevFromLang(guiLangCombo->currentText());
+}
+*/
+void Preferences::setSelectedGUILang( const QString &newLang )
+{
+	selectedGUILang=langMgr.getAbbrevFromLang(newLang);
 }
 
