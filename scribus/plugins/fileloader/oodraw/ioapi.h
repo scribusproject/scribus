@@ -6,10 +6,6 @@
    Copyright (C) 1998-2004 Gilles Vollant
 */
 
-#include "config.h"
-
-#ifdef HAVE_XML
-
 #ifndef _ZLIBIOAPI_H
 #define _ZLIBIOAPI_H
 
@@ -77,4 +73,3 @@ void fill_fopen_filefunc OF((zlib_filefunc_def* pzlib_filefunc_def));
 
 #endif
 
-#endif // HAVE_XML

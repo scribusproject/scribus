@@ -20,8 +20,6 @@
 
 #include "sxwunzip.h"
 
-#ifdef HAVE_XML
-
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
@@ -260,5 +258,4 @@ void change_file_date(const char* filename, uLong dosdate, tm_unz tmu_date)
   utime(filename,&ut);
 }
 
-#endif // HAVE_XML
 
