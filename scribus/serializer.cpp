@@ -77,6 +77,8 @@ void Serializer::GetText(PageItem *Item, int Absatz, bool Append)
 		{
 		hg = new Pti;
 		hg->ch = Objekt.at(a);
+		if (hg->ch == QChar(0)) { continue; }
+		if (hg->ch == QChar(13)) { continue; }
 		if (hg->ch == QChar(10)) { hg->ch = QChar(13); }
 		if (hg->ch == QChar(5)) { hg->ch = QChar(13); }
 		if (hg->ch == QChar(9)) { hg->ch = " "; }

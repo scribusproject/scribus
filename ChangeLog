@@ -1,4 +1,18 @@
 Changes since Version 0.9.9
+16.05.2003	Added the possiblity to adjust the Display for true WYSIWYG.
+		e.g 1 Inch displayed on the Rulers is now really an Inch on the
+		Screen.
+
+14.05.2003	Picture Frames can now have a Borderline too.
+
+11.05.2003	Added Support for Automatic Kerning Values from .afm Files.
+		
+09.05.2003	Added Color Model "Websave RGB".
+		Solved the Problem that the last Hyphen in linked Textframes wasn't printed.
+		Fixed crash with PDF-Previes enabled.
+
+06.05.2003	Added a Command to split combined Polygons.
+
 05.05.2003	When you edit a Path, you can select now more than one Point for moving,
 		either by pressing the Shift Key or using the selection Rectangle.
 		Fonts are now scanned for their Chararcter width only when they are used.

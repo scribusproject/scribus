@@ -267,7 +267,7 @@ ModObj::ModObj( QWidget* parent, PageItem *b, CListe Farben, ScribusDoc *docu, S
     		Radius->setMinimumSize( QSize( 65, 22 ) );
     		Radius->setSuffix( tr( " pt" ) );
    			Radius->setMaxValue(QMIN(static_cast<int>(b->Width),static_cast<int>(b->Height))/2 );
-    		Radius->setMinValue(0);
+    		Radius->setMinValue(QMIN(static_cast<int>(b->Width),static_cast<int>(b->Height))/2 * -1);
     		Radius->setValue(qRound(b->RadRect));
     		if (b->ClipEdited)
     			Radius->setEnabled(false);
@@ -410,7 +410,7 @@ ModObj::ModObj( QWidget* parent, PageItem *b, CListe Farben, ScribusDoc *docu, S
     		Radius->setMinimumSize( QSize( 65, 22 ) );
     		Radius->setSuffix( tr( " pt" ) );
    			Radius->setMaxValue(QMIN(static_cast<int>(b->Width),static_cast<int>(b->Height))/2 );
-    		Radius->setMinValue(0);
+    		Radius->setMinValue(QMIN(static_cast<int>(b->Width),static_cast<int>(b->Height))/2 * -1);
     		Radius->setValue(qRound(b->RadRect));
     		if (b->ClipEdited)
     			Radius->setEnabled(false);

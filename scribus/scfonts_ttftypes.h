@@ -1,6 +1,12 @@
 #ifndef SCFONTS_TTFTYPES_H
 #define SCFONTS_TTFTYPES_H
 
+#if defined(__hpux)
+  typedef unsigned char u_int8_t;
+  typedef unsigned short u_int16_t;
+  typedef unsigned int u_int32_t;
+#endif
+
 #include <sys/types.h>
 
 #ifndef MAKE_ID

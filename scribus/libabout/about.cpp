@@ -124,6 +124,9 @@ About::About( QWidget* parent )
                         "<tr><td><b>" + tr("Danish:") + "</b></td><td></td></tr>" +
                         "<tr><td>Morten Langlo</td><td>mlanglo@post6.tele.dk</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
+                        "<tr><td><b>" + tr("Norwegian:") + "</b></td><td></td></tr>" +
+                        "<tr><td>Johannes Wilm</td><td>j@indymedia.no</td></tr>" +
+                        "<tr><td> </td><td> </td></tr>" +
                         "<tr><td><b>" + tr("English:") + "</b></td><td></td></tr>" +
                         "<tr><td>Paul F. Johnson</td><td>paulf.johnson@ukonline.co.uk</td></tr></table>");
     TextView2->setTextFormat( QTextView::RichText );

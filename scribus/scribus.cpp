@@ -2864,7 +2864,7 @@ void ScribusApp::slotEditPaste()
 	if (HaveDoc)
 		{
 		if (!BuFromApp)
-			Buffer2 = ClipB->text();
+			Buffer2 = ClipB->text(QClipboard::Clipboard);
 		if (Buffer2.isNull())
 			return;
 		if (doc->AppMode == 7)
@@ -2952,7 +2952,7 @@ void ScribusApp::SelectAll()
 void ScribusApp::ClipChange()
 {
 	QString cc;
-	cc = ClipB->text();
+	cc = ClipB->text(QClipboard::Clipboard);
 	editMenu->setItemEnabled(edid3, 0);
 	if (!cc.isNull())
 		{
@@ -3620,6 +3620,17 @@ void ScribusApp::setAppMode(int mode)
 					doc->AppMode = 1;
 					ToggleFrameEdit();
 					return;
+					}
+				}
+			QString cc;
+			cc = ClipB->text(QClipboard::Clipboard);
+			editMenu->setItemEnabled(edid3, 0);
+			if (!cc.isNull())
+				{
+				if (!cc.startsWith("<SCRIBUSELEM"))
+					{
+					BuFromApp = false;
+					editMenu->setItemEnabled(edid3, 1);
 					}
 				}
   		WerkTools->Select->setOn(false);
