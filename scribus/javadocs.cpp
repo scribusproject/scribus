@@ -57,10 +57,10 @@ void JavaDocs::slotAdd()
 {
 	QString nam;
 	Query *dia = new Query(this, "tt", 1, 0, tr("&New Script:"), tr("New Script"));
-	dia->Answer->setText( tr("New Script"));
+	dia->setEditText( tr("New Script"), false );
 	if (dia->exec())
 	{
-		nam = dia->Answer->text();
+		nam = dia->getEditText();
 		while (Doc->JavaScripts.contains(nam) || (nam == ""))
 		{
 			if (!dia->exec())
@@ -68,7 +68,7 @@ void JavaDocs::slotAdd()
 				delete dia;
 				return;
 			}
-			nam = dia->Answer->text();
+			nam = dia->getEditText();
 		}
 		Editor* dia2 = new Editor(this, "", View);
 		if (dia2->exec())

@@ -38,7 +38,7 @@ void ShadeButton::setShade(int id)
 		Query* dia = new Query(this, "New", 1, 0, tr("&Shade:"), tr("Shade"));
 		if (dia->exec())
     		{
-			c = dia->Answer->text().toInt(&ok);
+			c = dia->getEditText().toInt(&ok);
 			if (ok)
 				b = QMAX(QMIN(c, 100),0);
 			else

@@ -10,10 +10,13 @@
 #define QUERY_H
 
 #include <qdialog.h>
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
+class QLayout;
+class QLabel;
+class QLineEdit;
+class QPushButton;
+class QString;
+class QVBoxLayout;
+class QHBoxLayout;
 
 class Query : public QDialog
 {
@@ -24,18 +27,20 @@ public:
 			QString titel=0 );
     ~Query() {};
 
-    QPushButton* PushButton1;
-    QPushButton* PushButton2;
-    QLineEdit* Answer;
-    QLabel* Frage;
+	const QString getEditText();
+	void setEditText(QString newText, bool setSelected);
 
 public slots:
 	void Leave();
 
-protected:
-    QVBoxLayout* QueryLayout;
-    QHBoxLayout* Layout2;
-    QHBoxLayout* Layout1;
+private:
+    QVBoxLayout* queryLayout;
+    QHBoxLayout* editLayout;
+    QHBoxLayout* okCancelLayout;
+    QPushButton* okButton;
+    QPushButton* cancelButton;
+    QLineEdit* answerEdit;
+    QLabel* questionLabel;
 };
 
 #endif // QUERY_H

@@ -11,13 +11,12 @@
 extern QPixmap loadIcon(QString nam);
 
 #include <qtooltip.h>
-/* 
- *  Constructs a Query which is a child of 'parent', with the 
- *  name 'name' and widget flags set to 'f' 
- *
- *  The dialog will by default be modeless, unless you set 'modal' to
- *  TRUE to construct a modal dialog.
- */
+#include <qdialog.h>
+#include <qlayout.h>
+#include <qlabel.h>
+#include <qlineedit.h>
+#include <qpushbutton.h>
+
 Query::Query( QWidget* parent,  const char* name, bool modal, WFlags fl, QString text, QString titel )
     : QDialog( parent, name, modal, fl )
 {
@@ -25,48 +24,57 @@ Query::Query( QWidget* parent,  const char* name, bool modal, WFlags fl, QString
 		setName( "Query" );
     setCaption( titel );
   	setIcon(loadIcon("AppIcon.png"));
-    QueryLayout = new QVBoxLayout( this );
-    QueryLayout->setSpacing( 6 );
-    QueryLayout->setMargin( 11 );
-    Layout2 = new QHBoxLayout;
-    Layout2->setSpacing( 6 );
-    Layout2->setMargin( 0 );
-    Answer = new QLineEdit( this, "Answer" );
-    Frage = new QLabel( Answer, text, this, "Frage" );
-    Frage->setFrameShape( QLabel::MShape );
-    Frage->setFrameShadow( QLabel::MShadow );
-    Frage->adjustSize();
-    Layout2->addWidget( Frage );
-    Layout2->addWidget( Answer );
-    QueryLayout->addLayout( Layout2 );
-    Layout1 = new QHBoxLayout;
-    Layout1->setSpacing( 6 );
-    Layout1->setMargin( 0 );
+    queryLayout = new QVBoxLayout( this, 11, 6 );
+    editLayout = new QHBoxLayout;
+    editLayout->setSpacing( 6 );
+    editLayout->setMargin( 0 );
+    answerEdit = new QLineEdit( this, "answerEdit" );
+    questionLabel = new QLabel( answerEdit, text, this, "questionLabel" );
+    questionLabel->setFrameShape( QLabel::MShape );
+    questionLabel->setFrameShadow( QLabel::MShadow );
+    questionLabel->adjustSize();
+    editLayout->addWidget( questionLabel );
+    editLayout->addWidget( answerEdit );
+    queryLayout->addLayout( editLayout );
+    okCancelLayout = new QHBoxLayout;
+    okCancelLayout->setSpacing( 6 );
+    okCancelLayout->setMargin( 0 );
     QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    Layout1->addItem( spacer );
-    PushButton1 = new QPushButton( tr( "&OK" ), this, "PushButton1" );
-    PushButton1->setDefault( true );
-    Layout1->addWidget( PushButton1 );
-    PushButton2 = new QPushButton( tr( "&Cancel"), this, "PushButton2" );
-    Layout1->addWidget( PushButton2 );
-    QueryLayout->addLayout( Layout1 );
+    okCancelLayout->addItem( spacer );
+    okButton = new QPushButton( tr( "&OK" ), this, "okButton" );
+    okButton->setDefault( true );
+    okCancelLayout->addWidget( okButton );
+    cancelButton = new QPushButton( tr( "&Cancel"), this, "cancelButton" );
+    okCancelLayout->addWidget( cancelButton );
+    queryLayout->addLayout( okCancelLayout );
     setMaximumSize(sizeHint());
-    Answer->setFocus();
+    answerEdit->setFocus();
 
     // signals and slots connections
-    connect( PushButton1, SIGNAL( clicked() ), this, SLOT( Leave() ) );
-    connect( PushButton2, SIGNAL( clicked() ), this, SLOT( reject() ) );
+    connect( okButton, SIGNAL( clicked() ), this, SLOT( Leave() ) );
+    connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 
     // tab order
-    setTabOrder( Answer, PushButton1 );
-    setTabOrder( PushButton1, PushButton2 );
+    setTabOrder( answerEdit, okButton );
+    setTabOrder( okButton, cancelButton );
 }
 
 void Query::Leave()
 {
-	if (Answer->text() == "")
+	if (answerEdit->text() == "")
 		return;
 	else
 		accept();
 }
 
+const QString Query::getEditText()
+{
+	return answerEdit->text();
+}
+
+void Query::setEditText(QString newText, bool setSelected)
+{
+	answerEdit->setText(newText);
+	if (setSelected)
+		answerEdit->selectAll();
+}

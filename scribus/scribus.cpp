@@ -5691,7 +5691,7 @@ void ScribusApp::setItemFSize(int id)
 		Query* dia = new Query(this, "New", 1, 0, tr("&Size:"), tr("Size"));
 		if (dia->exec())
 		{
-			c = qRound(dia->Answer->text().toDouble(&ok) * 10);
+			c = qRound(dia->getEditText().toDouble(&ok) * 10);
 			if ((ok) && (c < 10250) && (c > 0))
 				view->chFSize(c);
 			delete dia;
@@ -5752,7 +5752,7 @@ void ScribusApp::setItemShade(int id)
 			Query* dia = new Query(this, "New", 1, 0, tr("&Shade:"), tr("Shade"));
 			if (dia->exec())
 			{
-				c = dia->Answer->text().toInt(&ok);
+				c = dia->getEditText().toInt(&ok);
 				if (ok)
 				{
 					if ((b->PType == 4) || (b->PType == 8))

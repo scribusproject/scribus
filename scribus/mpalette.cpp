@@ -4,7 +4,6 @@
 #include <qpoint.h>
 #include <qwmatrix.h>
 #include <qmessagebox.h>
-#include "query.h"
 #include "scribusview.h"
 #include "autoform.h"
 #include "tabmanager.h"

@@ -414,11 +414,10 @@ void Biblio::ObjFromMenu(QString text)
 	QString nam, tmp;
 	nam = tr("Object") + tmp.setNum(BibWin->Objekte.count());
 	Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
-	dia->Answer->setText(nam);
-	dia->Answer->selectAll();
+	dia->setEditText(nam, true);
 	if (dia->exec())
 	{
-		nam = dia->Answer->text();
+		nam = dia->getEditText();
 		while (BibWin->Objekte.contains(nam))
 		{
 			if (!dia->exec())
@@ -426,7 +425,7 @@ void Biblio::ObjFromMenu(QString text)
 				delete dia;
 				return;
 			}
-			nam = dia->Answer->text();
+			nam = dia->getEditText();
 		}
 	}
 	else

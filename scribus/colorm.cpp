@@ -171,20 +171,20 @@ void Farbmanager::saveDefaults()
 	Query* dia = new Query(this, "Name", 1, 0, tr("&Name:"), tr("Choose a Name"));
 	if ((Name == "Scribus Small") || (Name == "X11 RGB-Set")
 	        || (Name == "X11 Grey-Set") || (Name == "Gnome-Set") || (Name == "SVG-Set"))
-		dia->Answer->setText("");
+		dia->setEditText("", false);
 	else
-		dia->Answer->setText(Name);
+		dia->setEditText(Name, false);
 	if (dia->exec())
 	{
-		QString Fname = Cpfad+dia->Answer->text();
-		LoadColSet->setText(dia->Answer->text());
+		QString Fname = Cpfad+dia->getEditText();
+		LoadColSet->setText(dia->getEditText());
 		QFile fx(Fname);
 		if (fx.open(IO_WriteOnly))
 		{
 			QTextStream tsx(&fx);
 			QString tmp;
 			CListe::Iterator itc;
-			tsx << "Color Set:"+dia->Answer->text()+"\n";
+			tsx << "Color Set:"+dia->getEditText()+"\n";
 			int cp, mp, yp, kp;
 			for (itc = EditColors.begin(); itc != EditColors.end(); ++itc)
 			{
@@ -196,10 +196,10 @@ void Farbmanager::saveDefaults()
 				tsx << itc.key() << "\n" ;
 			}
 			fx.close();
-			if (dia->Answer->text() != Name)
+			if (dia->getEditText() != Name)
 			{
-				CColSet.append(dia->Answer->text());
-				CSets->insertItem(dia->Answer->text());
+				CColSet.append(dia->getEditText());
+				CSets->insertItem(dia->getEditText());
 			}
 		}
 	}
