@@ -20,6 +20,7 @@
 #include <cstdlib>
 
 extern QPixmap loadIcon(QString nam);
+extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
  
 /*!
  \fn QString Name()
@@ -268,6 +269,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	QString cmd1, cmd2, tmp, tmp2, tmp3;
 	QMap<QString,QFont> ReallyUsed;
 	QPixmap Bild;
+	ReOrderText(app->doc, app->view);
 	ReallyUsed.clear();
 	app->GetUsedFonts(&ReallyUsed);
 	PSLib *dd = app->getPSDriver(true, app->Prefs.AvailFonts, ReallyUsed, app->doc->PageColors, false);

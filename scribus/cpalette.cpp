@@ -48,6 +48,9 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
 	Mode = 2;
+	ShadeTxt = new QLabel( this, "ShadeTxt" );
+	ShadeTxt->setText( tr( "Shade:" ) );
+	Layout1->addWidget( ShadeTxt );
 	PM1 = new ShadeButton(this);
 	PM1->setValue(100);
 	Layout1->addWidget(PM1);

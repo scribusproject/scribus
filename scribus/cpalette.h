@@ -53,6 +53,7 @@ public:
 	QRadioButton* GrColor2;
 	QButtonGroup* TransGroup;
 	QLabel* TransTxt;
+	QLabel* ShadeTxt;
 	QSpinBox* TransSpin;
 	int Mode;
 	QString sFarbe;

@@ -1844,32 +1844,42 @@ void Page::scaleGroup(double scx, double scy)
 				h -= g;
 				h1 = transformPoint(h, 0, 0, 0, scx, scy);
 				bb->Pwidth = QMAX(bb->Pwidth*((scx+scy)/2), 0.01);
-				FPoint oldPos = FPoint(bb->Xpos, bb->Ypos);
-				QWMatrix ma;
-				ma.rotate(bb->Rot);
-				bb->PoLine.map(ma);
-				QWMatrix ma2;
-				ma2.translate(gx-bb->Xpos, gy-bb->Ypos);
-				ma2.scale(scx, scy);
-				bb->PoLine.map(ma2);
-				bb->Rot = 0;
-				bb->ClipEdited = true;
-				AdjustItemSize(bb);
-				QWMatrix ma3;
-				ma3.translate(gx, gy);
-				ma3.scale(scx, scy);
-				n = FPoint(gx-oldPos.x(), gy-oldPos.y());
-				double x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
-				double y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
-				MoveItem(gx-x, gy-y, bb);
-				if (oldRot != 0)
-					{
+				if (bb->PType == 5)
+				{
 					bb->Rot = atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI);
+					bb->Width = sqrt(pow(t1.x()-b1.x(),2)+pow(t1.y()-b1.y(),2));
+					bb->Xpos = b1.x()+gx;
+					bb->Ypos = b1.y()+gy;
+				}
+				else
+				{
+					FPoint oldPos = FPoint(bb->Xpos, bb->Ypos);
 					QWMatrix ma;
-					ma.rotate(-bb->Rot);
+					ma.rotate(bb->Rot);
 					bb->PoLine.map(ma);
+					QWMatrix ma2;
+					ma2.translate(gx-bb->Xpos, gy-bb->Ypos);
+					ma2.scale(scx, scy);
+					bb->PoLine.map(ma2);
+					bb->Rot = 0;
+					bb->ClipEdited = true;
 					AdjustItemSize(bb);
+					QWMatrix ma3;
+					ma3.translate(gx, gy);
+					ma3.scale(scx, scy);
+					n = FPoint(gx-oldPos.x(), gy-oldPos.y());
+					double x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
+					double y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
+					MoveItem(gx-x, gy-y, bb);
+					if (oldRot != 0)
+					{
+						bb->Rot = atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI);
+						QWMatrix ma;
+						ma.rotate(-bb->Rot);
+						bb->PoLine.map(ma);
+						AdjustItemSize(bb);
 					}
+				}
 				bb->ISize = QMAX(qRound(bb->ISize*((scx+scy)/2)), 1);
 				if (bb->Ptext.count() != 0)
 				{
@@ -4462,7 +4472,7 @@ bool Page::SeleItem(QMouseEvent *m)
 		doku->ActPage = this;
 		emit PgCh(PageNr);
 	}
-	if ((m->state() & (ControlButton | ShiftButton)) && (SelItem.count() != 0))
+	if ((m->state() == (ControlButton | ShiftButton)) && (SelItem.count() != 0))
 	{
 		for (a = 0; a < Items.count(); ++a)
 		{
@@ -4478,7 +4488,7 @@ bool Page::SeleItem(QMouseEvent *m)
 			}
 			b = Items.prev();
 		}
-	}
+	} 
 	for (a = 0; a < Items.count(); ++a)
 	{
 		if (b == NULL)

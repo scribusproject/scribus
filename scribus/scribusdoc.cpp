@@ -115,14 +115,14 @@ ScribusDoc::ScribusDoc()
 	PDF_Optionen.RecalcPic = false;
 	PDF_Optionen.Bookmarks = false;
 	PDF_Optionen.PicRes = 300;
-	PDF_Optionen.Version = 13;
+	PDF_Optionen.Version = 14;
 	PDF_Optionen.Resolution = 300;
 	PDF_Optionen.Binding = 0;
 	PDF_Optionen.EmbedList.clear();
 	PDF_Optionen.PresentMode = false;
 	PDF_Optionen.Datei = "";
 	PDF_Optionen.PresentVals.clear();
-	PDF_Optionen.UseRGB = false;
+	PDF_Optionen.UseRGB = true;
 	PDF_Optionen.UseProfiles = false;
 	PDF_Optionen.UseProfiles2 = false;
 	PDF_Optionen.SolidProf = "";

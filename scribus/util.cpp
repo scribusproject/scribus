@@ -81,6 +81,7 @@ extern int IntentPrinter;
 #endif
 extern ProfilesL InputProfiles;
 
+void ReOrderText(ScribusDoc *doc, ScribusView *view);
 void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN);
 void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
 bool overwrite(QWidget *parent, QString filename);
@@ -100,6 +101,7 @@ QString ImageToCMYK(QImage *im);
 QString ImageToCMYK_PS(QImage *im, int pl, bool pre);
 void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK);
 QString MaskToTxt(QImage *im, bool PDF = true);
+QString MaskToTxt14(QImage *im);
 void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 double xy2Deg(double x, double y);
@@ -946,6 +948,24 @@ QString MaskToTxt(QImage *im, bool PDF)
 	return ImgStr;
 }
 
+QString MaskToTxt14(QImage *im)
+{
+	int h = im->height();
+	int w = im->width();
+	QString ImgStr = "";
+	for( int yi=0; yi < h; ++yi )
+	{
+		QRgb * s = (QRgb*)(im->scanLine( yi ));
+		for( int xi=0; xi < w; ++xi )
+		{
+			QRgb r=*s++;
+			unsigned char u=qAlpha(r);
+			ImgStr += u;
+		}
+	}
+	return ImgStr;
+}
+
 typedef struct my_error_mgr
 {
   struct jpeg_error_mgr pub;            /* "public" fields */
@@ -1604,4 +1624,35 @@ void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN)
 	*wN = wwN;
 	*pN = paraN;
 	*cN = ccN;
+}
+
+void ReOrderText(ScribusDoc *doc, ScribusView *view)
+{
+	double savScale = doc->Scale;
+	doc->Scale = 1.0;
+	doc->RePos = true;
+	QPixmap pgPix(10, 10);
+	QRect rd = QRect(0,0,9,9);
+	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
+	for (uint az=0; az<view->MasterPages.count(); az++)
+	{
+		for (uint azz=0; azz<view->MasterPages.at(az)->Items.count(); ++azz)
+		{
+			PageItem *ite = view->MasterPages.at(az)->Items.at(azz);
+			if (ite->PType == 4)
+				ite->DrawObj(painter, rd);
+		}
+	}
+	for (uint az=0; az<view->Pages.count(); az++)
+	{
+		for (uint azz=0; azz<view->Pages.at(az)->Items.count(); ++azz)
+		{
+			PageItem *ite = view->Pages.at(az)->Items.at(azz);
+			if (ite->PType == 4)
+				ite->DrawObj(painter, rd);
+		}
+	}
+	doc->RePos = false;
+	doc->Scale = savScale;
+	delete painter;
 }

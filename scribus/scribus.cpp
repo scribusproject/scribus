@@ -88,6 +88,7 @@
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
 extern void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
+extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
 
 using namespace std;
 
@@ -2139,10 +2140,10 @@ void ScribusApp::HaveNewSel(int Nr)
 			StilMenu->insertItem( tr("Font"), FontMenu);
 			StilMenu->insertItem( tr("Size"), SizeTMenu);
 			StilMenu->insertItem( tr("Effects"), TypeStyleMenu);
-			StilMenu->insertItem( tr("Tabulators..."), this, SLOT(EditTabs()));
 			StilMenu->insertItem( tr("Alignment"), AliMenu);
 			StilMenu->insertItem( tr("Color"), ColorMenu);
 			StilMenu->insertItem( tr("Shade"), ShadeMenu);
+			StilMenu->insertItem( tr("Tabulators..."), this, SLOT(EditTabs()));
 			WerkTools->Rotiere->setEnabled(true);
 			WerkTools->Textedit2->setEnabled(true);
 			if ((b->NextBox != 0) || (b->BackBox != 0))
@@ -3052,6 +3053,7 @@ void ScribusApp::slotFilePrint()
   printer->setFromTo(1, view->Pages.count());
   if (printer->exec())
   	{
+	ReOrderText(doc, view);
   	qApp->setOverrideCursor(QCursor(waitCursor), true);
   	prn = printer->printerName();
   	fna = printer->outputFileName();
@@ -5806,6 +5808,7 @@ bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, int frPa,
 bool ScribusApp::DoSaveAsEps(QString fn)
 {
 	bool return_value = true;
+	ReOrderText(doc, view);
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
@@ -5874,6 +5877,7 @@ void ScribusApp::SaveAsPDF()
   if (dia->exec())
   	{
   	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	ReOrderText(doc, view);
   	fn = dia->Datei->text();
 		doc->PDF_Optionen.Datei = fn;
 		doc->PDF_Optionen.Thumbnails = dia->CheckBox1->isChecked();

@@ -27,14 +27,14 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
   	EffVal = Eff;
 	Einheit = view->Doc->Einheit;
   	PDFOptsLayout = new QVBoxLayout( this );
-    PDFOptsLayout->setSpacing( 6 );
+    PDFOptsLayout->setSpacing( 5 );
     PDFOptsLayout->setMargin( 11 );
     Name = new QLabel( this, "Name" );
     Name->setFrameShape( QLabel::NoFrame );
     Name->setText( tr( "Output to File:" ) );
     PDFOptsLayout->addWidget( Name );
     Layout5 = new QHBoxLayout;
-    Layout5->setSpacing( 6 );
+    Layout5->setSpacing( 5 );
     Layout5->setMargin( 0 );
     Datei = new QLineEdit( this, "Datei" );
     Datei->setMinimumSize( QSize( 268, 22 ) );
@@ -54,15 +54,15 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     Options = new QTabWidget( this, "TabWidget2" );
     tab = new QWidget( Options, "tab" );
     tabLayout = new QVBoxLayout( tab );
-    tabLayout->setSpacing( 6 );
+    tabLayout->setSpacing( 5 );
     tabLayout->setMargin( 11 );
 
-    Layout13 = new QHBoxLayout( 0, 0, 6, "Layout13");
+    Layout13 = new QHBoxLayout( 0, 0, 5, "Layout13");
 
     RangeGroup = new QButtonGroup( tab, "RangeGroup" );
     RangeGroup->setTitle( tr( "Export Range" ) );
     RangeGroup->setColumnLayout(0, Qt::Vertical );
-    RangeGroup->layout()->setSpacing( 6 );
+    RangeGroup->layout()->setSpacing( 5 );
     RangeGroup->layout()->setMargin( 11 );
     RangeGroupLayout = new QVBoxLayout( RangeGroup->layout() );
     RangeGroupLayout->setAlignment( Qt::AlignTop );
@@ -70,7 +70,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     AllPages->setText( tr( "All Pages" ) );
     AllPages->setChecked( true );
     RangeGroupLayout->addWidget( AllPages );
-    Layout11 = new QGridLayout( 0, 1, 1, 0, 6, "Layout11");
+    Layout11 = new QGridLayout( 0, 1, 1, 0, 5, "Layout11");
     OnlySome = new QRadioButton( RangeGroup, "OnlySome" );
     OnlySome->setText( tr( "From:" ) );
     Layout11->addWidget( OnlySome, 0, 0 );
@@ -100,7 +100,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     GroupBox1->layout()->setMargin( 0 );
     GroupBox1Layout = new QGridLayout( GroupBox1->layout() );
     GroupBox1Layout->setAlignment( Qt::AlignTop );
-    GroupBox1Layout->setSpacing( 6 );
+    GroupBox1Layout->setSpacing( 5 );
     GroupBox1Layout->setMargin( 11 );
     TextLabel1 = new QLabel( GroupBox1, "TextLabel1" );
     TextLabel1->setText( tr( "Compatibility:" ) );
@@ -169,7 +169,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	CBox = new QGroupBox( tab, "CBox" );
 	CBox->setTitle( tr( "Image Settings" ) );
 	CBox->setColumnLayout(0, Qt::Vertical );
-	CBox->layout()->setSpacing( 6 );
+	CBox->layout()->setSpacing( 5 );
 	CBox->layout()->setMargin( 11 );
 	CBoxLayout = new QGridLayout( CBox->layout() );
 	CBoxLayout->setAlignment( Qt::AlignTop );
@@ -214,7 +214,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 
     tab_3 = new QWidget( Options, "tab_3" );
     tabLayout_3 = new QVBoxLayout( tab_3 );
-    tabLayout_3->setSpacing( 6 );
+    tabLayout_3->setSpacing( 5 );
     tabLayout_3->setMargin( 11 );
     EmbedFonts = new QCheckBox( tab_3, "EmbedFonts" );
     EmbedFonts->setText( tr( "Embed all Fonts" ) );
@@ -226,7 +226,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     GroupFont->layout()->setMargin( 0 );
     GroupFontLayout = new QHBoxLayout( GroupFont->layout() );
     GroupFontLayout->setAlignment( Qt::AlignTop );
-    GroupFontLayout->setSpacing( 6 );
+    GroupFontLayout->setSpacing( 5 );
     GroupFontLayout->setMargin( 11 );
     Layout4_2 = new QVBoxLayout;
     Layout4_2->setSpacing( 6 );
@@ -247,11 +247,11 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 		}
 	}
     AvailFlist->setMinimumSize(QSize(150, 140));
-    AvailFlist->setMaximumSize(QSize(150, 140));
+//    AvailFlist->setMaximumSize(QSize(150, 140));
     Layout4_2->addWidget( AvailFlist );
    	GroupFontLayout->addLayout( Layout4_2 );
     Layout5_2 = new QVBoxLayout;
-    Layout5_2->setSpacing( 6 );
+    Layout5_2->setSpacing( 5 );
     Layout5_2->setMargin( 0 );
     ToEmbed = new QPushButton( GroupFont, "ToEmbed" );
     ToEmbed->setText( tr( ">>" ) );
@@ -263,14 +263,14 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     Layout5_2->addWidget( FromEmbed );
     GroupFontLayout->addLayout( Layout5_2 );
     Layout6 = new QVBoxLayout;
-    Layout6->setSpacing( 6 );
+    Layout6->setSpacing( 5 );
     Layout6->setMargin( 0 );
     TextFont1_2 = new QLabel( GroupFont, "TextFont1_2" );
     TextFont1_2->setText( tr( "Fonts to embed:" ) );
     Layout6->addWidget( TextFont1_2 );
     EmbedList = new QListBox( GroupFont, "EmbedList" );
     EmbedList->setMinimumSize(QSize(150, 140));
-    EmbedList->setMaximumSize(QSize(150, 140));
+//    EmbedList->setMaximumSize(QSize(150, 140));
 	if (Optionen->EmbedList.count() != 0)
 	{
 		for (uint efo = 0; efo < Optionen->EmbedList.count(); ++efo)
@@ -290,7 +290,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     Options->insertTab( tab_3, tr( "Fonts" ) );
    	tab_5 = new QWidget( Options, "tab_5" );
     tabLayout_5 = new QGridLayout( tab_5 );
-    tabLayout_5->setSpacing( 6 );
+    tabLayout_5->setSpacing( 5 );
     tabLayout_5->setMargin( 11 );
     CheckBox10 = new QCheckBox( tab_5, "CheckBox10" );
     CheckBox10->setText( tr( "Enable Presentation Effects" ) );
@@ -344,7 +344,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     Effects->layout()->setMargin( 0 );
     EffectsLayout = new QGridLayout( Effects->layout() );
     EffectsLayout->setAlignment( Qt::AlignTop );
-    EffectsLayout->setSpacing( 6 );
+    EffectsLayout->setSpacing( 5 );
     EffectsLayout->setMargin( 11 );
     TextLabel1e = new QLabel( Effects, "TextLabel1_2" );
     TextLabel1e->setText( tr( "Display Duration:" ) );
@@ -408,7 +408,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     Options->insertTab( tab_5, tr( "Extras" ) );
 
     tabsec = new QWidget( Options, "tabsec" );
-    tabsecLayout = new QVBoxLayout( tabsec, 11, 6, "tabsecLayout");
+    tabsecLayout = new QVBoxLayout( tabsec, 11, 5, "tabsecLayout");
     Encry = new QCheckBox( tabsec, "Enc" );
     Encry->setText( tr( "Use Encryption" ) );
     Encry->setChecked( Optionen->Encrypt );
@@ -418,7 +418,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 											GroupPass->sizePolicy().hasHeightForWidth() ) );
     GroupPass->setTitle( tr( "Passwords" ) );
     GroupPass->setColumnLayout(0, Qt::Vertical );
-    GroupPass->layout()->setSpacing( 6 );
+    GroupPass->layout()->setSpacing( 5 );
     GroupPass->layout()->setMargin( 11 );
     GroupPassLayout = new QGridLayout( GroupPass->layout() );
     GroupPassLayout->setAlignment( Qt::AlignTop );
@@ -443,7 +443,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 												GroupSecSet->sizePolicy().hasHeightForWidth() ) );
     GroupSecSet->setTitle( tr( "Settings" ) );
     GroupSecSet->setColumnLayout(0, Qt::Vertical );
-    GroupSecSet->layout()->setSpacing( 6 );
+    GroupSecSet->layout()->setSpacing( 5 );
     GroupSecSet->layout()->setMargin( 11 );
     GroupSecSetLayout = new QVBoxLayout( GroupSecSet->layout() );
     GroupSecSetLayout->setAlignment( Qt::AlignTop );
@@ -472,11 +472,11 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     Options->insertTab( tabsec, tr( "Security" ) );
 
     tabcolor = new QWidget( Options, "tabcolor" );
-    tabcolorLayout = new QVBoxLayout( tabcolor, 11, 6, "tabcolorLayout");
+    tabcolorLayout = new QVBoxLayout( tabcolor, 11, 5, "tabcolorLayout");
     ColorGroup = new QGroupBox( tabcolor, "ColorGroup" );
     ColorGroup->setTitle( tr( "General" ) );
     ColorGroup->setColumnLayout(0, Qt::Vertical );
-    ColorGroup->layout()->setSpacing( 6 );
+    ColorGroup->layout()->setSpacing( 5 );
     ColorGroup->layout()->setMargin( 11 );
     ColorGroupLayout = new QHBoxLayout( ColorGroup->layout() );
     ColorGroupLayout->setAlignment( Qt::AlignTop );
@@ -494,7 +494,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     GroupBox9 = new QGroupBox( tabcolor, "GroupBox9" );
     GroupBox9->setTitle( tr( "Solid Colors:" ) );
     GroupBox9->setColumnLayout(0, Qt::Vertical );
-    GroupBox9->layout()->setSpacing( 6 );
+    GroupBox9->layout()->setSpacing( 5 );
     GroupBox9->layout()->setMargin( 11 );
     GroupBox9Layout = new QGridLayout( GroupBox9->layout() );
     GroupBox9Layout->setAlignment( Qt::AlignTop );
@@ -522,7 +522,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     ProfsGroup = new QGroupBox( tabcolor, "ProfsGroup" );
     ProfsGroup->setTitle( tr( "Images:" ) );
     ProfsGroup->setColumnLayout(0, Qt::Vertical );
-    ProfsGroup->layout()->setSpacing( 6 );
+    ProfsGroup->layout()->setSpacing( 5 );
     ProfsGroup->layout()->setMargin( 11 );
     ProfsGroupLayout = new QGridLayout( ProfsGroup->layout() );
     ProfsGroupLayout->setAlignment( Qt::AlignTop );
@@ -601,7 +601,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     Options->insertTab( tabcolor, tr( "Color" ) );
 
     tabpdfx = new QWidget( Options, "tabpdfx" );
-    tabpdfxLayout = new QVBoxLayout( tabpdfx, 11, 6, "tabpdfxLayout");
+    tabpdfxLayout = new QVBoxLayout( tabpdfx, 11, 5, "tabpdfxLayout");
     X3Group = new QGroupBox( tabpdfx, "X3Group" );
     X3Group->setTitle( tr( "PDF/X-3 Output Intent" ) );
     X3Group->setColumnLayout(0, Qt::Vertical );
@@ -637,7 +637,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     BleedGroup = new QGroupBox( tabpdfx, "BleedGroup" );
     BleedGroup->setTitle( tr( "Trim Box" ) );
     BleedGroup->setColumnLayout(0, Qt::Vertical );
-    BleedGroup->layout()->setSpacing( 6 );
+    BleedGroup->layout()->setSpacing( 5 );
     BleedGroup->layout()->setMargin( 11 );
     BleedGroupLayout = new QGridLayout( BleedGroup->layout() );
     BleedGroupLayout->setAlignment( Qt::AlignTop );
@@ -712,7 +712,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 		SetEffOpts(EffectType->currentItem());
 	}
     Layout7 = new QHBoxLayout;
-    Layout7->setSpacing( 6 );
+    Layout7->setSpacing( 5 );
     Layout7->setMargin( 0 );
     QSpacerItem* spacer_2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout7->addItem( spacer_2 );

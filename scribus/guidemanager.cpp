@@ -92,7 +92,7 @@ GuideManager::GuideManager(
     Layout4 = new QHBoxLayout(0, 0, 6, "Layout4"); 
 
     TextLabel2 = new QLabel(HorGroup, "TextLabel2");
-    TextLabel2->setText( tr("X-Pos:"));
+    TextLabel2->setText( tr("Y-Pos:"));
     Layout4->addWidget(TextLabel2);
 
     HorSpin = new MSpinBox(HorGroup, 4);
@@ -134,7 +134,7 @@ GuideManager::GuideManager(
     Layout2 = new QHBoxLayout(0, 0, 6, "Layout2"); 
 
     TextLabel1 = new QLabel(VerGroup, "TextLabel1");
-    TextLabel1->setText( tr("Y-Pos:"));
+    TextLabel1->setText( tr("X-Pos:"));
     Layout2->addWidget(TextLabel1);
 
     VerSpin = new MSpinBox(VerGroup, 4);

@@ -43,6 +43,7 @@ extern QString ImageToTxt(QImage *im);
 extern QString ImageToCMYK(QImage *im);
 extern void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK);
 extern QString MaskToTxt(QImage *im, bool PDF = true);
+extern QString MaskToTxt14(QImage *im);
 extern char *toHex( uchar u );
 extern QString String2Hex(QString *in, bool lang = true);
 extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
@@ -2952,17 +2953,32 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 	}
   	if (alphaM)
  	{
-		QImage iMask = img.createAlphaMask();
-		QString im2 = MaskToTxt(&iMask);
+		QString im2;
 		StartObj(ObjCounter);
 		ObjCounter++;
-		if ((Options->CompressMethod != 3) && (CompAvail))
-			im2 = CompressStr(&im2);
 		PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
-		PutDoc("/Width "+IToStr(iMask.width())+"\n");
-		PutDoc("/Height "+IToStr(iMask.height())+"\n");
-		PutDoc("/ImageMask true\n/BitsPerComponent 1\n");
-		PutDoc("/Length "+IToStr(im2.length())+"\n");
+		if (Options->Version == 14)
+		{
+			im2 = MaskToTxt14(&img);
+			if ((Options->CompressMethod != 3) && (CompAvail))
+				im2 = CompressStr(&im2);
+			PutDoc("/Width "+IToStr(img.width())+"\n");
+			PutDoc("/Height "+IToStr(img.height())+"\n");
+			PutDoc("/ColorSpace /DeviceGray\n");
+			PutDoc("/BitsPerComponent 8\n");
+			PutDoc("/Length "+IToStr(im2.length())+"\n");
+		}
+		else
+		{
+			QImage iMask = img.createAlphaMask();
+			im2 = MaskToTxt(&iMask);
+			if ((Options->CompressMethod != 3) && (CompAvail))
+				im2 = CompressStr(&im2);
+			PutDoc("/Width "+IToStr(iMask.width())+"\n");
+			PutDoc("/Height "+IToStr(iMask.height())+"\n");
+			PutDoc("/ImageMask true\n/BitsPerComponent 1\n");
+			PutDoc("/Length "+IToStr(im2.length())+"\n");
+		}
 		if ((Options->CompressMethod != 3) && (CompAvail))
 			PutDoc("/Filter /FlateDecode\n");
 		PutDoc(">>\nstream\n"+EncStream(&im2, ObjCounter-1)+"\nendstream\nendobj\n");
@@ -3050,7 +3066,12 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 		PutDoc("/BitsPerComponent 8\n");
 		PutDoc("/Length "+IToStr(im.length())+"\n");
 	  	if (alphaM)
-			PutDoc("/Mask "+IToStr(ObjCounter-2)+" 0 R\n");
+		{
+			if (Options->Version == 14)
+				PutDoc("/SMask "+IToStr(ObjCounter-2)+" 0 R\n");
+			else
+				PutDoc("/Mask "+IToStr(ObjCounter-2)+" 0 R\n");
+		}
 		if (CompAvail)
 		{
 			if (cm == 1)

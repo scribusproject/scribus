@@ -29,6 +29,7 @@
 #include "scriptplugin.moc"
 #include "cmdutil.h"
 #include "cmdvar.h"
+#include "guiapp.h"
 #include "customfdialog.h"
 #include "helpbrowser.h"
 
@@ -365,6 +366,11 @@ static PyObject *scribus_getval(PyObject *self, PyObject* args)
 }
 
 static PyMethodDef scribus_methods[] = {
+    {"ProgressReset",    scribus_progressreset,    METH_VARARGS},
+    {"ProgressTotal",    scribus_progresssettotalsteps,    METH_VARARGS},
+    {"ProgressSet",    scribus_progresssetprogress,    METH_VARARGS},
+    {"MessagebarText",    scribus_messagebartext,    METH_VARARGS},
+    {"SetCursor",    scribus_setcursor,    METH_VARARGS},
 	{"PageDimension",	scribus_pagedimension,	METH_VARARGS},
 	{"NewDocDialog",			scribus_newdocdia,			METH_VARARGS},
 	{"FileDialog",				scribus_filedia,				METH_VARARGS},
