@@ -54,8 +54,8 @@ public:
   /** Laedt ein Bild */
   void LoadPict(QString fn, int ItNr);
   void insertColor(QString nam, double c, double m, double y, double k);
-  void DrawPageMarks(QPaintEvent *e, ScPainter *p, QRect rd);
-  void DrawPageItems(QPaintEvent *e, ScPainter *painter, QRect rd);
+  void DrawPageMarks(ScPainter *p, QRect rd);
+  void DrawPageItems(ScPainter *painter, QRect rd);
 	void paintEvent(QPaintEvent *e);
 	void setGroupRect();
 	void getGroupRect(double *x, double *y, double *w, double *h);

@@ -502,6 +502,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							{
 							Ptext.append(nb->Ptext.take(0));
 							}
+						nb->MaxChars = 0;
 						nb->Dirty = true;
 						nb = nb->NextBox;
 						}

@@ -349,13 +349,13 @@ void Page::paintEvent(QPaintEvent *e)
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 	painter->translate(0.5, 0.5);
 	if (doku->Before)
-		DrawPageMarks(e, painter, vr);
+		DrawPageMarks(painter, vr);
 //	QTime tim;
 //	tim.start();
-	DrawPageItems(e, painter, vr);
+	DrawPageItems(painter, vr);
 //	qDebug( "Time elapsed: %d ms", tim.elapsed() );
 	if (!doku->Before)
-		DrawPageMarks(e, painter, vr);
+		DrawPageMarks(painter, vr);
 	painter->end();
 	bitBlt( this, vr.x(), vr.y(), &pgPix, 0, 0, pgPix.width(), pgPix.height() );
 	QPainter p;
@@ -379,7 +379,7 @@ void Page::paintEvent(QPaintEvent *e)
 	delete painter;
 }
 
-void Page::DrawPageMarks(QPaintEvent *e, ScPainter *p, QRect rd)
+void Page::DrawPageMarks(ScPainter *p, QRect rd)
 {
 	double b;
 	if ((rd.width() == 0) || (rd.height() == 0))
@@ -410,10 +410,14 @@ void Page::DrawPageMarks(QPaintEvent *e, ScPainter *p, QRect rd)
 		}
 	if (doku->Raster)
 		{
-		double stx = rd.x()/doku->Scale;
+/*		double stx = rd.x()/doku->Scale;
 		double endx = rd.x()/doku->Scale+e->rect().width()/doku->Scale;
 		double sty = rd.y()/doku->Scale;
-		double endy = rd.y()/doku->Scale+e->rect().height()/doku->Scale;
+		double endy = rd.y()/doku->Scale+e->rect().height()/doku->Scale; */
+		double stx = rd.x()/doku->Scale;
+		double endx = rd.x()/doku->Scale+rd.width()/doku->Scale;
+		double sty = rd.y()/doku->Scale;
+		double endy = rd.y()/doku->Scale+rd.height()/doku->Scale;
 		if (doku->Scale > 0.49)
 			{
 			double i,start;
@@ -461,7 +465,7 @@ void Page::DrawPageMarks(QPaintEvent *e, ScPainter *p, QRect rd)
 	p->setWorldMatrix(ma2);
 }
 
-void Page::DrawPageItems(QPaintEvent *e, ScPainter *painter, QRect rd)
+void Page::DrawPageItems(ScPainter *painter, QRect rd)
 {
 	QPainter p;
 	uint a;
@@ -804,7 +808,11 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt, bool single)
 		QPixmap pgPix(rd.width(), rd.height());
 		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 		painter->translate(0.5, 0.5);
+		if (doku->Before)
+			DrawPageMarks(painter, rd);
 		b->DrawObj(painter, rd);
+		if (!doku->Before)
+			DrawPageMarks(painter, rd);
 		painter->end();
 		bitBlt( this, rd.x(), rd.y(), &pgPix, 0, 0, pgPix.width(), pgPix.height() );
 		QPainter px;
@@ -5952,7 +5960,7 @@ void Page::DeleteItem()
 	  					}
 	  				c = b->Ptext.count();
 	  				for (a = 0; a < c; ++a)
- 	 					{
+ 	 						{
 	  					b->BackBox->Ptext.append(b->Ptext.take(0));
 	  					}
 	  				}

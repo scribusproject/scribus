@@ -95,7 +95,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	LWidth = new MSpinBox( Properties, 1 );
 	LWidth->setSuffix( tr( " pt" ) );
 	LWidth->setDecimals(10);
-	LWidth->setMaxValue( 300 );
+	LWidth->setMaxValue( 360 );
 	LWidth->setMinValue( 1 );
 	layout1->addWidget( LWidth );
 	PropertiesLayout->addLayout( layout1 );
@@ -161,7 +161,7 @@ MultiLine::~MultiLine()
 
 void MultiLine::updatePreview()
 {
-	QPixmap pm = QPixmap(200, 35);
+	QPixmap pm = QPixmap(200, 37);
 	pm.fill(white);
 	QPainter p;
 	p.begin(&pm);
@@ -172,7 +172,7 @@ void MultiLine::updatePreview()
 									static_cast<PenStyle>(TempVorl[it].Dash),
 									static_cast<PenCapStyle>(TempVorl[it].LineEnd),
 									static_cast<PenJoinStyle>(TempVorl[it].LineJoin)));
-		p.drawLine(17, 17, 183, 17);
+		p.drawLine(17, 18, 183, 18);
 		}
 	p.end();
 	Preview->setPixmap(pm);

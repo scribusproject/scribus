@@ -3982,9 +3982,14 @@ void ScribusApp::DeletePage2(int pg)
 		return;
 	for (uint d = 0; d < view->Pages.at(pg)->Items.count(); ++d)
 		{
+		view->Pages.at(pg)->SelItem.clear();
 		if (view->Pages.at(pg)->Items.at(d)->isBookmark)
 			DelBookMark(view->Pages.at(pg)->Items.at(d));
+		if (view->Pages.at(pg)->Items.at(d)->PType == 4)
+			view->Pages.at(pg)->SelItem.append(view->Pages.at(pg)->Items.at(d));
 		}
+	if (view->Pages.at(pg)->SelItem.count() != 0)
+		view->Pages.at(pg)->DeleteItem();
 	view->delPage(pg);
 	AdjustBM();
 	Tpal->slotDelPage(pg);
@@ -5519,6 +5524,7 @@ void ScribusApp::SaveAsPDF()
 		frPa = dia->AllPages->isChecked() ? 0 : static_cast<unsigned int>(dia->FirstPage->value() - 1);
 		toPa = dia->AllPages->isChecked() ? view->Pages.count() : static_cast<unsigned int>(dia->LastPage->value());
 		QMap<int,QPixmap> thumbs;
+		view->RecalcTextPos();
 		for (uint ap = frPa; ap < toPa; ++ap)
 			{
 			QPixmap pm(10,10);

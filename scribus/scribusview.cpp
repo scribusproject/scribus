@@ -257,6 +257,7 @@ void ScribusView::delPage(int Nr)
 	removeChild(Pages.at(Nr)->parentWidget());
 	delete Pages.at(Nr)->parentWidget();
 	Pages.remove(Nr);
+	Doc->UnDoValid = false;
 	Doc->PageC -= 1;
 	Doc->ActPage = Pages.at(0);
 	LA->setText(tr("Page")+" 1");
@@ -627,6 +628,34 @@ int ScribusView::CountElements()
 	return cc;
 }
 
+void ScribusView::RecalcTextPos()
+{
+	Doc->RePos = true;
+	QPixmap pgPix(10, 10);
+	QRect rd = QRect(0,0,9,9);
+	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
+	for (uint az=0; az<MasterPages.count(); az++)
+		{
+		for (uint azz=0; azz<MasterPages.at(az)->Items.count(); ++azz)
+			{
+			PageItem *ite = MasterPages.at(az)->Items.at(azz);
+			if (ite->PType == 4)
+				ite->DrawObj(painter, rd);
+			}
+		}
+	for (uint az=0; az<Pages.count(); az++)
+		{
+		for (uint azz=0; azz<Pages.at(az)->Items.count(); ++azz)
+			{
+			PageItem *ite = Pages.at(az)->Items.at(azz);
+			if (ite->PType == 4)
+				ite->DrawObj(painter, rd);
+			}
+		}
+	delete painter;
+	Doc->RePos = false;
+}
+
 void ScribusView::RecalcPictures(ProfilesL *Pr, QProgressBar *dia)
 {
 	uint a, i;
@@ -895,6 +924,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 	int sepac;
 	double wideR;
 	bool multiPath = false;
+	RecalcTextPos();
 	p->PS_set_Info("Author", Doc->DocAutor);
 	p->PS_set_Info("Title", Doc->DocTitel);
 	if (!farb)

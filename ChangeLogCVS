@@ -1,4 +1,8 @@
 Changes since Version 1.1.2
+20.11.2003	Fixed Bug in the PDF and Postscript Export with linked Frames.
+		Increased the maximum Linewidth to 36 pts.
+		Fixed Segfault when deleting more than one Page at once.
+
 19.11.2003	Fixed Bug in the Story Editor with linked Textframes.
 		You can now edit Texts on a Path with the Story Editor too.
 
