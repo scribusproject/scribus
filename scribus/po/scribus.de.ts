@@ -189,6 +189,10 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
         <source>&amp;Close</source>
         <translation>Schl&amp;ießen</translation>
     </message>
+    <message>
+        <source>Swedish:</source>
+        <translation>Schwedisch:</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -9953,6 +9957,17 @@ wirklich überschreiben?</translation>
         <source>CSV_header</source>
         <translation>CSV_header</translation>
     </message>
+    <message>
+        <source>Template: </source>
+        <translation>Vorlage:</translation>
+    </message>
+    <message>
+        <source>
+External Links
+</source>
+        <translation>
+Externe Links</translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -11839,6 +11854,14 @@ nicht speichern</translation>
     <message>
         <source>&amp;Edit Shape</source>
         <translation>&amp;Form bearbeiten</translation>
+    </message>
+    <message>
+        <source>File %1 is not in Scribus format</source>
+        <translation>Die Datei ist nicht mit Scribus erstellt worden</translation>
+    </message>
+    <message>
+        <source>Afrikaans</source>
+        <translation>Afrikaans</translation>
     </message>
 </context>
 <context>

@@ -2,6 +2,8 @@ Changes since 1.2
 
 08.09.2004
 	* bug     #1031: Bad version number in the sla files
+	* bug     #1040: Adjust Frame to Picture scales frame incorrectly
+	* feature #1043: german ts-update
 
 05.09.2004
 	* bug     #1029: Crash with empty text when pressing left cursor key

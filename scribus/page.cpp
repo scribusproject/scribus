@@ -8210,8 +8210,8 @@ void Page::FrameToPic()
 		PageItem *b = SelItem.at(0);
 		if (b->PicAvail)
 		{
-			double w = static_cast<double>(b->pixm.width()) * b->LocalScX;
-			double h = static_cast<double>(b->pixm.height()) * b->LocalScY;
+			double w = static_cast<double>(b->pixm.width()) * (b->dpiX / 72.0) * b->LocalScX;
+			double h = static_cast<double>(b->pixm.height()) * (b->dpiY / 72.0) * b->LocalScY;
 			double x = b->LocalX * b->LocalScX;
 			double y = b->LocalY * b->LocalScY;
 			if (!b->isTableItem)
