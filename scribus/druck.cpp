@@ -218,7 +218,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 
 	ButtonGroup5 = new QButtonGroup( Umfang, "ButtonGroup5" );
 	ButtonGroup5->setFrameShape( QButtonGroup::NoFrame );
-	ButtonGroup5->setTitle( tr( "" ) );
+	ButtonGroup5->setTitle( "" );
 	ButtonGroup5->setColumnLayout(0, Qt::Vertical );
 	ButtonGroup5->layout()->setSpacing( 0 );
 	ButtonGroup5->layout()->setMargin( 0 );
@@ -272,7 +272,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 
 	ButtonGroup4 = new QButtonGroup( Umfang, "ButtonGroup4" );
 	ButtonGroup4->setFrameShape( QButtonGroup::NoFrame );
-	ButtonGroup4->setTitle( tr( "" ) );
+	ButtonGroup4->setTitle( "" );
 	ButtonGroup4->setColumnLayout(0, Qt::Vertical );
 	ButtonGroup4->layout()->setSpacing( 0 );
 	ButtonGroup4->layout()->setMargin( 0 );
@@ -324,7 +324,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	ButtonGroup3 = new QButtonGroup( Optionen, "ButtonGroup3" );
 	ButtonGroup3->setGeometry( QRect( 11, 19, 138, 95 ) );
 	ButtonGroup3->setFrameShape( QButtonGroup::NoFrame );
-	ButtonGroup3->setTitle( tr( "" ) );
+	ButtonGroup3->setTitle( "" );
 	ButtonGroup3->setColumnLayout(0, Qt::Vertical );
 	ButtonGroup3->layout()->setSpacing( 0 );
 	ButtonGroup3->layout()->setMargin( 0 );

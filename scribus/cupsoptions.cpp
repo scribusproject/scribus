@@ -28,6 +28,7 @@
 #ifdef HAVE_CUPS
 #include <cups/cups.h>
 #endif
+#include <qtooltip.h>
 extern QPixmap loadIcon(QString nam);
 
 CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "prin", true, 0 )
@@ -191,6 +192,9 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	CupsOptionsLayout->addLayout( Layout2 );
 	setMinimumSize( sizeHint() );
 	resize(minimumSizeHint());
+
+//tooltips
+	QToolTip::add( Table, tr( "This panel displays various CUPS options when printing. \nThe exact parameters available will depend on your printer driver.\nYou can confirm CUPS support by selecting Help > About.\nLook for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.\nMissing library support is indicated by a *" ) );
 
     // signals and slots connections
 	connect( PushButton2, SIGNAL( clicked() ), this, SLOT( reject() ) );

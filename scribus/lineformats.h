@@ -27,6 +27,7 @@ public:
 	QPushButton* CancelB;
 	QString sFnumber;
 	QMap<QString,multiLine> TempStyles;
+	QMap<QString,QString> Replacement;
 	ScribusDoc *Docu;
 	void UpdateFList();
 

@@ -53,7 +53,7 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 	GroupButton = new QGroupBox( this, "GroupButton" );
 	GroupButton->setMinimumSize( QSize( 150, 150 ) );
 	GroupButton->setMaximumSize( QSize( 150, 150 ) );
-	GroupButton->setTitle( tr( "" ) );
+	GroupButton->setTitle( "" );
 	TextLabel3 = new QLabel( GroupButton, "TextLabel3" );
 	TextLabel3->setGeometry( QRect( 50, 50, 48, 48 ) );
 	TextLabel3->setFrameShape( QLabel::Box );

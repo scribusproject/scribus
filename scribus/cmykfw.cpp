@@ -98,7 +98,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	OldC->setMaximumSize( QSize( 50, 50 ) );
 	OldC->setFrameShape( QLabel::WinPanel );
 	OldC->setFrameShadow( QLabel::Sunken );
-	OldC->setText( tr( "" ) );
+	OldC->setText( "" );
 	OldC->setScaledContents( true );
 	OldC->setAlignment( int( QLabel::AlignCenter ) );
 	OldC->setPixmap( imageA );
@@ -117,7 +117,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	NewC->setMaximumSize( QSize( 50, 50 ) );
 	NewC->setFrameShape( QLabel::WinPanel );
 	NewC->setFrameShadow( QLabel::Sunken );
-	NewC->setText( tr( "" ) );
+	NewC->setText( "" );
 	NewC->setScaledContents( true );
 	NewC->setAlignment( int( QLabel::AlignCenter ) );
 	NewC->setPixmap( imageN );

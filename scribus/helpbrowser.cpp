@@ -51,7 +51,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString Capt, QString Datei )
 	                                   HomeB->sizePolicy().hasHeightForWidth() ) );
 	HomeB->setMinimumSize( QSize( 0, 0 ) );
 	HomeB->setMaximumSize( QSize( 32767, 32767 ) );
-	HomeB->setText( tr( "" ) );
+	HomeB->setText( "" );
 	HomeB->setPixmap(loadIcon("gohome.png"));
 	Layout13->addWidget( HomeB );
 

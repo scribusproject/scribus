@@ -115,6 +115,9 @@ SOURCES += scribus/align.cpp \
            scribus/libpostscript/pslib.cpp \
            scribus/libprefs/prefs.cpp \
            scribus/plugins/libchar/charselect.cpp \
+           scribus/plugins/pixmapexport/dialog.cpp \
+           scribus/plugins/pixmapexport/dialog.ui.h \
+           scribus/plugins/pixmapexport/export.cpp \
            scribus/plugins/printpreview/preview.cpp \
            scribus/plugins/scriptplugin/cmdcolor.cpp \
            scribus/plugins/scriptplugin/cmddialog.cpp \

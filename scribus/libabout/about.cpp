@@ -1,6 +1,8 @@
 #include "about.h"
 #include "about.moc"
 #include <qpixmap.h>
+#include <qtextstream.h>
+#include <qtooltip.h>
 
 #if (_MSC_VER >=1200)
  #include "win-config.h"
@@ -54,7 +56,7 @@ About::About( QWidget* parent )
 	tabLayout1->addWidget( PixmapLabel1 );
 	BuildID = new QLabel( tab, "BB" );
 	BuildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1. %2 %3 ").arg("11").arg("May").arg("2004");
+	QString bu = tr("%1. %2 %3 ").arg("12").arg("May").arg("2004");
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -221,6 +223,8 @@ About::About( QWidget* parent )
 	AboutLayout->addLayout( Layout2 );
 	setMaximumSize(sizeHint());
 
+//tooltips
+	QToolTip::add( BuildID, tr( "This panel shows the version, build date and\n compiled in library support in Scribus\nThe C-C-T equates to C=CUPS C=littlecms T=TIFF support.\nMissing library support is indicated by a *" ) );
 	// signals and slots connections
 	connect( PushButton1, SIGNAL( clicked() ), this, SLOT( accept() ) );
 }

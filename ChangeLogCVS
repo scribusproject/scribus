@@ -1,5 +1,14 @@
 Changes since Version 1.1.6
 
+13.05.2004
+	* bug     #634: Can't edit Line Style name
+	* bug     #638: Rename the translation file for Basque language
+	* bug     #644: Crash caused by mouse cursor crossing from linked text frame # 2 to # 1
+	* bug     #645: Update scribus.no_NO.po to remove some obsolete strings that interfere with msgmerge
+	* bug     #646: There are many empty tr( "" ) strings that confuse and slow down xgettext on the .pot file update
+	* feature #592: Ability to export a page to a bitmap format
+	* feature #640: delete any object by pressing <del>
+
 12.05.2004
 	* bug     #613: Autotools fix for Debian
 	* bug     #625: Suggestion for Speed up of SVG Import

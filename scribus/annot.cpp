@@ -386,7 +386,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 	FramOp->addWidget( Frame4a , 2);
 
 	OptTextFeld = new QGroupBox( tab_3, "OptTextFeld" );
-	OptTextFeld->setTitle( tr( "" ) );
+	OptTextFeld->setTitle( "" );
 	OptTextFeld->setColumnLayout(0, Qt::Vertical );
 	OptTextFeld->layout()->setSpacing( 6 );
 	OptTextFeld->layout()->setMargin( 11 );
@@ -429,7 +429,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 	FramOp->addWidget( OptTextFeld , 3);
 
 	OptCheck = new QGroupBox( tab_3, "OptCheck" );
-	OptCheck->setTitle( tr( "" ) );
+	OptCheck->setTitle( "" );
 	OptCheck->setColumnLayout(0, Qt::Vertical );
 	OptCheck->layout()->setSpacing( 6 );
 	OptCheck->layout()->setMargin( 11 );
@@ -460,7 +460,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 	FramOp->addWidget( OptCheck, 4);
 
 	OptCombo = new QGroupBox( tab_3, "OptCombo" );
-	OptCombo->setTitle( tr( "" ) );
+	OptCombo->setTitle( "" );
 	OptCombo->setColumnLayout(0, Qt::Vertical );
 	OptCombo->layout()->setSpacing( 6 );
 	OptCombo->layout()->setMargin( 11 );
@@ -794,7 +794,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 	LayoutFN1c->addItem( spacer_4c );
 	DateGroupLayout->addLayout( LayoutFN1c );
 	TextDa1 = new QLabel( DateGroup, "TextNu1" );
-	TextDa1->setText( tr( "" ) );
+	TextDa1->setText( "" );
 	DateGroupLayout->addWidget( TextDa1 );
 	FoFram->addWidget(DateGroup, 3);
 
@@ -882,7 +882,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 	tabLayout_4 = new QVBoxLayout( tab_4, 11, 6, "tabLayout_4");
 
 	ValidateGroup = new QButtonGroup( tab_4, "ValidateGroup" );
-	ValidateGroup->setTitle( tr( "" ) );
+	ValidateGroup->setTitle( "" );
 	ValidateGroup->setColumnLayout(0, Qt::Vertical );
 	ValidateGroup->layout()->setSpacing( 6 );
 	ValidateGroup->layout()->setMargin( 11 );
@@ -939,7 +939,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 	tabLayout_5 = new QVBoxLayout( tab_5, 11, 6, "tabLayout_5");
 
 	CalcGroup = new QButtonGroup( tab_5, "CalcGroup" );
-	CalcGroup->setTitle( tr( "" ) );
+	CalcGroup->setTitle( "" );
 	CalcGroup->setColumnLayout(0, Qt::Vertical );
 	CalcGroup->layout()->setSpacing( 6 );
 	CalcGroup->layout()->setMargin( 11 );

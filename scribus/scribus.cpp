@@ -448,7 +448,7 @@ void ScribusApp::initScribus()
 		Mpal->Fonts->RebuildList(&Prefs);
 		Mpal->fillLangCombo(Sprachen);
 		DocDir = Prefs.DocDir;
-		splash->setStatus( tr(""));
+		splash->setStatus("");
 		splash->setStatus( tr("Setting up Shortcuts"));
 		SetShortCut();
 		if (CMSavail)
@@ -1581,11 +1581,27 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								}
 							}
 						}
-						while (b->Ptext.at(b->CPos)->cstyle & 256)
+						if (b->CPos == static_cast<int>(b->Ptext.count()))
 						{
-							b->CPos--;
-							if (b->CPos == 0)
-								break;
+							if (b->Ptext.at(b->CPos-1)->cstyle & 256)
+							{
+								b->CPos -= 1;
+								while (b->Ptext.at(b->CPos)->cstyle & 256)
+								{
+									b->CPos--;
+									if (b->CPos == 0)
+										break;
+								}
+							}
+						}
+						else
+						{
+							while (b->Ptext.at(b->CPos)->cstyle & 256)
+							{
+								b->CPos--;
+								if (b->CPos == 0)
+									break;
+							}
 						}
 						if ( b->HasSel )
 							doc->ActPage->RefreshItem(b, true);
@@ -5349,8 +5365,11 @@ void ScribusApp::saveLStyles(LineFormate *dia)
 		for (uint d = 0; d < view->DocPages.at(c)->Items.count(); ++d)
 		{
 			ite = view->DocPages.at(c)->Items.at(d);
-			if (!doc->MLineStyles.contains(ite->NamedLStyle))
-				ite->NamedLStyle = "";
+			if (ite->NamedLStyle != "")
+			{
+				if (!doc->MLineStyles.contains(ite->NamedLStyle))
+					ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
+			}
 		}
 	}
 	for (uint c1 = 0; c1 < view->MasterPages.count(); ++c1)
@@ -5358,8 +5377,11 @@ void ScribusApp::saveLStyles(LineFormate *dia)
 		for (uint d1 = 0; d1 < view->MasterPages.at(c1)->Items.count(); ++d1)
 		{
 			ite = view->MasterPages.at(c1)->Items.at(d1);
-			if (!doc->MLineStyles.contains(ite->NamedLStyle))
-				ite->NamedLStyle = "";
+			if (ite->NamedLStyle != "")
+			{
+				if (!doc->MLineStyles.contains(ite->NamedLStyle))
+					ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
+			}
 		}
 	}
 	Mpal->SetLineFormats(doc);

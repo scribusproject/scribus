@@ -771,11 +771,11 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 
 	QToolTip::add( Encry, tr( "Enable the security features in your exported PDF.\nIf you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.\nIf you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.\nDisclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations." ) );
 	QToolTip::add( PassOwner, tr( "Choose a master password which enables or disables all the\nsecurity features in your exported PDF" ) );
-	QToolTip::add( PassUser, tr( "Choose a password for users to be able to read your PDF" ) );
-	QToolTip::add( PrintSec, tr( "Allow printing of the PDF" ) );
-	QToolTip::add( ModifySec, tr( "Allow modifying of the PDF" ) );
-	QToolTip::add( CopySec, tr( "Allow copying of text or graphics from the PDF" ) );
-	QToolTip::add( AddSec, tr( "Allow adding annotations and fields to the PDF" ) );
+	QToolTip::add( PassUser, tr( "Choose a password for users to be able to read your PDF." ) );
+	QToolTip::add( PrintSec, tr( "Allow printing of the PDF. If un-checked, printing is prevented. " ) );
+	QToolTip::add( ModifySec, tr( "Allow modifying of the PDF. If un-checked, modifying the PDF is prevented." ) );
+	QToolTip::add( CopySec, tr( "Allow copying of text or graphics from the PDF. \nIf un-checked, text and graphics cannot be copied." ) );
+	QToolTip::add( AddSec, tr( "Allow adding annotations and fields to the PDF. \nIf un-checked, editing annotations and fileds is prevented." ) );
 
 	QToolTip::add( OutCombo, tr( "Color model for the output of your PDF.\nChoose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.\nChoose Printer when printing to a true 4 color CMYK printer." ) );
 	QToolTip::add( EmbedProfs, tr( "Embed a color profile for solid colors" ) );

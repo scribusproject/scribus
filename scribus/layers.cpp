@@ -44,7 +44,7 @@ LayerPalette::LayerPalette(QWidget* parent)
     NewLayer = new QPushButton( this, "NewLayer" );
     NewLayer->setMinimumSize( QSize( 50, 24 ) );
     NewLayer->setMaximumSize( QSize( 50, 24 ) );
-    NewLayer->setText( tr( "" ) );
+    NewLayer->setText( "" );
     NewLayer->setPixmap(loadIcon("Newlayer.png"));
     QToolTip::add( NewLayer, tr( "Add a new Layer" ) );
     Layout1->addWidget( NewLayer );
@@ -52,7 +52,7 @@ LayerPalette::LayerPalette(QWidget* parent)
     DeleteLayer = new QPushButton( this, "DeleteLayer" );
     DeleteLayer->setMinimumSize( QSize( 50, 24 ) );
     DeleteLayer->setMaximumSize( QSize( 50, 24 ) );
-    DeleteLayer->setText( tr( "" ) );
+    DeleteLayer->setText( "" );
     DeleteLayer->setPixmap(loadIcon("Deletelayer.png"));
     QToolTip::add( DeleteLayer, tr( "Delete Layer" ) );
     Layout1->addWidget( DeleteLayer );
@@ -60,7 +60,7 @@ LayerPalette::LayerPalette(QWidget* parent)
     RaiseLayer = new QPushButton( this, "RaiseLayer" );
     RaiseLayer->setMinimumSize( QSize( 50, 24 ) );
     RaiseLayer->setMaximumSize( QSize( 50, 24 ) );
-    RaiseLayer->setText( tr( "" ) );
+    RaiseLayer->setText( "" );
     RaiseLayer->setPixmap(loadIcon("Raiselayer.png"));
     QToolTip::add( RaiseLayer, tr( "Raise Layer" ) );
     Layout1->addWidget( RaiseLayer );
@@ -68,7 +68,7 @@ LayerPalette::LayerPalette(QWidget* parent)
     LowerLayer = new QPushButton( this, "LowerLayer" );
     LowerLayer->setMinimumSize( QSize( 50, 24 ) );
     LowerLayer->setMaximumSize( QSize( 50, 24 ) );
-    LowerLayer->setText( tr( "" ) );
+    LowerLayer->setText( "" );
     LowerLayer->setPixmap(loadIcon("Lowerlayer.png"));
     QToolTip::add( LowerLayer, tr( "Lower Layer" ) );
     Layout1->addWidget( LowerLayer );

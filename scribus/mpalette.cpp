@@ -207,7 +207,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	RotationGroupLayout->setAlignment( Qt::AlignTop );
 	Layout12 = new QGridLayout( 0, 1, 1, 0, 0, "Layout12");
 	TopLeft = new QRadioButton( RotationGroup, "TopLeft" );
-	TopLeft->setText( tr( "" ) );
+	TopLeft->setText( "" );
 	TopLeft->setChecked( true );
 	Layout12->addWidget( TopLeft, 0, 0, Qt::AlignCenter );
 	Line1 = new QFrame( RotationGroup, "Line1" );
@@ -219,7 +219,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Line1->setFrameShape( QFrame::HLine );
 	Layout12->addWidget( Line1, 0, 1, Qt::AlignCenter );
 	TopRight = new QRadioButton( RotationGroup, "TopRight" );
-	TopRight->setText( tr( "" ) );
+	TopRight->setText( "" );
 	Layout12->addWidget( TopRight, 0, 2, Qt::AlignCenter );
 	Line2 = new QFrame( RotationGroup, "Line2" );
 	Line2->setMinimumSize( QSize( 4, 20 ) );
@@ -230,7 +230,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Line2->setFrameShape( QFrame::VLine );
 	Layout12->addWidget( Line2, 1, 0, Qt::AlignCenter );
 	Center = new QRadioButton( RotationGroup, "Center" );
-	Center->setText( tr( "" ) );
+	Center->setText( "" );
 	Layout12->addWidget( Center, 1, 1, Qt::AlignCenter );
 	Line4 = new QFrame( RotationGroup, "Line4" );
 	Line4->setMinimumSize( QSize( 4, 20 ) );
@@ -240,7 +240,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Line4->setFrameShape( QFrame::VLine );
 	Layout12->addWidget( Line4, 1, 2, Qt::AlignCenter );
 	BottomLeft = new QRadioButton( RotationGroup, "BottomLeft" );
-	BottomLeft->setText( tr( "" ) );
+	BottomLeft->setText( "" );
 	Layout12->addWidget( BottomLeft, 2, 0, Qt::AlignCenter );
 	Line5 = new QFrame( RotationGroup, "Line5" );
 	Line5->setMinimumSize( QSize( 20, 4 ) );
@@ -251,7 +251,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Line5->setFrameShape( QFrame::HLine );
 	Layout12->addWidget( Line5, 2, 1, Qt::AlignCenter );
 	BottomRight = new QRadioButton( RotationGroup, "BottomRight" );
-	BottomRight->setText( tr( "" ) );
+	BottomRight->setText( "" );
 	Layout12->addWidget( BottomRight, 2, 2, Qt::AlignCenter );
 	RotationGroupLayout->addLayout( Layout12 );
 	QSpacerItem* spacer12 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -348,7 +348,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
 	ShapeGroup = new QButtonGroup( page_2, "ShapeGroup" );
 	ShapeGroup->setFrameShape( QButtonGroup::NoFrame );
-	ShapeGroup->setTitle( tr( "" ) );
+	ShapeGroup->setTitle( "" );
 	ShapeGroup->setExclusive( true );
 	ShapeGroup->setColumnLayout(0, Qt::Vertical );
 	ShapeGroup->layout()->setSpacing( 2 );

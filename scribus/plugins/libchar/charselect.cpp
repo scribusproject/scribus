@@ -251,6 +251,12 @@ ZAuswahl::ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *pl)
 	Zeichen->setMaximumSize(width(), 50);
 	DelEdit();
 
+//tooltips
+	QToolTip::add( Einf, tr( "Insert the characters at the cursor in the text" ) );
+	QToolTip::add( Delete, tr( "Delete the current selection(s)." ) );
+	QToolTip::add( Close, tr( "Close this dialog and return to text editing." ) );
+
+
 	// signals and slots connections
 	connect(Close, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(Delete, SIGNAL(clicked()), this, SLOT(DelEdit()));
