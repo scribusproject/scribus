@@ -18,7 +18,7 @@
 #include FT_GLYPH_H
 
 extern QPixmap loadIcon(QString nam);
-extern QPixmap FontSample(QString da, int s, QString ts, QColor back);
+extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
 extern void setBestEncoding(FT_Face face);
 
 QString Name()
@@ -221,6 +221,8 @@ ZAuswahl::ZAuswahl( QWidget* parent, PageItem *item, ScribusApp *pl)
 	ZTabelle->MaxCount = MaxCount;
 
 	Zeichen = new QLabel( this, "Zeichen" );
+	Zeichen->setFrameShape(QFrame::Box);
+	Zeichen->setPaletteBackgroundColor(paletteBackgroundColor());
 	ZAuswahlLayout->addWidget( Zeichen );
 
 	Layout1 = new QHBoxLayout;
@@ -236,7 +238,8 @@ ZAuswahl::ZAuswahl( QWidget* parent, PageItem *item, ScribusApp *pl)
 	Close = new QPushButton(tr("&Close"), this, "Close" );
 	Layout1->addWidget( Close );
 	ZAuswahlLayout->addLayout( Layout1 );
-	Zeichen->setMaximumSize(width(), 50);
+	Zeichen->setMaximumSize(width(), 52);
+	Zeichen->setMinimumSize(width(), 52);
 	DelEdit();
 
 //tooltips
@@ -263,7 +266,7 @@ void ZAuswahl::NeuesZeichen(int r, int c) // , int b, const QPoint &pp)
 	{
 		ChToIns += QChar(Zeich[r*32+c]);
 		QString da = (*ap->doc->AllFonts)[font]->Datei;
-		Zeichen->setPixmap(FontSample(da, 28, ChToIns, paletteBackgroundColor()));
+		Zeichen->setPixmap(fontSamples(da, 28, ChToIns, paletteBackgroundColor()));
 		Einf->setEnabled(true);
 	}
 }

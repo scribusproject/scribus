@@ -24,7 +24,7 @@ extern "C" void* Run(QWidget *d, preV *Vor);
 /*!
  \fn void* Run(QWidget *d, preV *Vor)
  \author Franz Schmid
- \date  
+ \date
  \brief Creates Preferences dialog and returns pointer to it
  \param d QWidget * to Preferences dialog widget
  \param Vor preV * struct
@@ -38,8 +38,8 @@ void* Run(QWidget *d, preV *Vor)
 
 /*!
  \fn Preferences::Preferences( QWidget* parent, preV *Vor)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Constructor for Preferences dialog box
  \param parent QWidget pointer to parent window
  \param Vor preV * struct
@@ -92,8 +92,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	ButtonGroup1Layout->setAlignment( Qt::AlignTop );
 	ButtonGroup1Layout->setSpacing( 6 );
 	ButtonGroup1Layout->setMargin( 10 );
-	
-	
+
+
 	GUICombo = new QComboBox( true, ButtonGroup1, "GUICombo" );
 	QStringList STtest;
 	STtest = QStyleFactory::keys();
@@ -104,7 +104,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextGstil = new QLabel(GUICombo, tr("&Theme:"), ButtonGroup1, "dd");
 	ButtonGroup1Layout->addWidget( TextGstil, 0, 0 );
 	ButtonGroup1Layout->addWidget( GUICombo, 0, 1, Qt::AlignRight );
-	
+
 	GFsize = new QSpinBox(ButtonGroup1, "gfs" );
 	GFsize->setSuffix( tr( " pt" ) );
 	GFsize->setMaxValue( 22 );
@@ -142,7 +142,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout5 = new QGridLayout;
 	Layout5->setSpacing( 6 );
 	Layout5->setMargin( 0 );
-	
+
 	SpinBox3 = new QSpinBox( Mouse, "SpinBox3" );
 	SpinBox3->setMaxValue( 1000 );
 	SpinBox3->setMinValue( 0 );
@@ -153,7 +153,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	                             TextLabel1_2->sizePolicy().hasHeightForWidth() ) );
 	Layout5->addWidget( TextLabel1_2, 0, 0 );
 	Layout5->addWidget( SpinBox3, 0, 1 );
-	
+
 	SpinBox3_2 = new QSpinBox( Mouse, "SpinBox3_2" );
 	SpinBox3_2->setMaxValue( 1000 );
 	SpinBox3_2->setMinValue( 1 );
@@ -196,7 +196,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GroupBox200Layout->setAlignment( Qt::AlignTop );
 	GroupBox200Layout->setSpacing( 0 );
 	GroupBox200Layout->setMargin( 5 );
-	
+
 	Docs = new QLineEdit( GroupBox200, "Datei" );
 	Docs->setMinimumSize( QSize( 268, 22 ) );
 	Docs->setText(Vor->DocDir);
@@ -207,8 +207,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GroupBox200Layout->addWidget( PfadText, 0, 0 );
 	GroupBox200Layout->addWidget( Docs, 0, 1 );
 	GroupBox200Layout->addWidget( FileC, 0, 2 );
-	
-	
+
+
 	ProPfad = new QLineEdit( GroupBox200, "Datei1" );
 	ProPfad->setMinimumSize( QSize( 268, 22 ) );
 	ProPfad->setText(Vor->ProfileDir);
@@ -256,7 +256,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GroupSizeLayout = new QVBoxLayout( GroupSize->layout() );
 	GroupSizeLayout->setAlignment( Qt::AlignTop );
 	Layout6 = new QGridLayout( 0, 1, 1, 0, 6, "Layout6");
-	
+
 	GZComboF = new QComboBox( true, GroupSize, "GZComboF" );
 	const QString ar_size[] = {"A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "B0", "B1", "B2", "B3",
 	                   "B4", "B5", "B6", "B7", "B8", "B9", "B10", "C5E", "Comm10E", "DLE", tr("Executive"),
@@ -290,7 +290,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Breite->setMinimumSize( QSize( 70, 20 ) );
 	Breite->setValue(Vor->PageBreite * Umrech);
 	GZText3 = new QLabel( Breite, tr( "&Width:" ), GroupSize, "GZText3" );
-	Layout5_2->addWidget( GZText3 );	
+	Layout5_2->addWidget( GZText3 );
 	Layout5_2->addWidget( Breite );
 
 	Hoehe = new MSpinBox( 1, 10000, GroupSize, decimals );
@@ -298,11 +298,11 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Hoehe->setMinimumSize( QSize( 70, 20 ) );
 	Hoehe->setValue(Vor->PageHoehe * Umrech);
 	GZText4 = new QLabel( Hoehe, tr( "&Height:" ), GroupSize, "GZText4" );
-	Layout5_2->addWidget( GZText4 );	
+	Layout5_2->addWidget( GZText4 );
 	Layout5_2->addWidget( Hoehe );
-	
+
 	GroupSizeLayout->addLayout( Layout5_2 );
-	
+
 	Layout8 = new QHBoxLayout( 0, 0, 6, "Layout8");
 
 	Doppelseiten = new QCheckBox( tr( "&Facing Pages" ), GroupSize, "Doppelseiten" );
@@ -381,12 +381,12 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	tabLayout_7->addLayout( Layout21b );
 	TabWidget3->addWidget( tab_7, 1 );
 
-	
+
 	tab_2 = new QWidget( TabWidget3, "tab_2" );
 	tabLayout_2 = new QGridLayout( tab_2 );
 	tabLayout_2->setSpacing( 6 );
 	tabLayout_2->setMargin( 11 );
-	
+
 	GroupBox1 = new QGroupBox( tr( "Grid Layout" ), tab_2, "GroupBox1" );
 	GroupBox1->setColumnLayout(0, Qt::Vertical );
 	GroupBox1->layout()->setSpacing( 0 );
@@ -398,34 +398,34 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout10 = new QGridLayout;
 	Layout10->setSpacing( 6 );
 	Layout10->setMargin( 0 );
-	
+
 	SpinBox1 = new MSpinBox( Umrech, 1000 * Umrech, GroupBox1, decimals );
 	TextLabel1 = new QLabel( SpinBox1, tr( "M&inor Grid Spacing:" ), GroupBox1, "TextLabel1" );
 	TextLabel1->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabel1->sizePolicy().hasHeightForWidth() ) );
-	Layout10->addWidget( TextLabel1, 0, 0 );	
+	Layout10->addWidget( TextLabel1, 0, 0 );
 	Layout10->addWidget( SpinBox1, 0, 1 );
-	
+
 	SpinBox2 = new MSpinBox( 10 * Umrech, 1000 * Umrech, GroupBox1, decimals );
 	TextLabel2 = new QLabel( SpinBox2, tr( "Ma&jor Grid Spacing:" ), GroupBox1, "TextLabel2" );
 	TextLabel2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabel2->sizePolicy().hasHeightForWidth() ) );
 	Layout10->addWidget( TextLabel2, 1, 0 );
 	Layout10->addWidget( SpinBox2, 1, 1 );
-	
+
 	SpinBox2g = new MSpinBox( Umrech, 1000 * Umrech, GroupBox1, decimals );
 	TextLabel2g = new QLabel( SpinBox2g, tr( "Guide &Snap Distance:" ), GroupBox1, "TextLabel2" );
 	TextLabel2g->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                            TextLabel2->sizePolicy().hasHeightForWidth() ) );
 	Layout10->addWidget( TextLabel2g, 2, 0 );
 	Layout10->addWidget( SpinBox2g, 2, 1 );
-	
+
 	SpinBox2->setValue(ap->HaveDoc ? ap->doc->majorGrid * Umrech : Vor->DmajGrid * Umrech);
 	SpinBox1->setValue(ap->HaveDoc ? ap->doc->minorGrid * Umrech : Vor->DminGrid * Umrech);
 	SpinBox2g->setValue(ap->HaveDoc ? ap->doc->GuideRad * Umrech : Vor->GuideRad * Umrech);
 	GroupBox1Layout->addLayout( Layout10 );
 	tabLayout_2->addWidget( GroupBox1, 0, 0 );
-	
+
 	GroupBox2 = new QGroupBox( tr( "Grid Colors" ), tab_2, "GroupBox2" );
 	GroupBox2->setColumnLayout(0, Qt::Vertical );
 	GroupBox2->layout()->setSpacing( 0 );
@@ -437,7 +437,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout11 = new QGridLayout;
 	Layout11->setSpacing( 6 );
 	Layout11->setMargin( 0 );
-	
+
 	minColor = new QPushButton( "", GroupBox2, "minColor" );
 	minColor->setAutoDefault( false );
 	QPixmap pm = QPixmap(40, 20);
@@ -447,7 +447,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabel3 = new QLabel( minColor, tr( "Min&or Grid Color:" ), GroupBox2, "TextLabel3" );
 	TextLabel3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabel3->sizePolicy().hasHeightForWidth() ) );
-	Layout11->addWidget( TextLabel3, 0, 0 );	
+	Layout11->addWidget( TextLabel3, 0, 0 );
 	Layout11->addWidget( minColor, 0, 1 );
 	MaxColor = new QPushButton( "", GroupBox2, "MaxColor" );
 	MaxColor->setAutoDefault( false );
@@ -459,7 +459,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabel4->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabel4->sizePolicy().hasHeightForWidth() ) );
 	Layout11->addWidget( TextLabel4, 1, 0 );
-	
+
 	Layout11->addWidget( MaxColor, 1, 1 );
 	GuideColor = new QPushButton( "", GroupBox2, "GuideColor" );
 	GuideColor->setAutoDefault( false );
@@ -472,7 +472,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	                            TextLabel4g->sizePolicy().hasHeightForWidth() ) );
 	Layout11->addWidget( TextLabel4g, 2, 0 );
 	Layout11->addWidget( GuideColor, 2, 1 );
-	
+
 	BaseColor = new QPushButton( "", GroupBox2, "BaseColor" );
 	BaseColor->setAutoDefault( false );
 	QPixmap pm13 = QPixmap(40, 20);
@@ -482,11 +482,11 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabel4ba = new QLabel( BaseColor, tr( "Base&line Grid Color:" ), GroupBox2, "TextLabel4ba" );
 	TextLabel4ba->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                            TextLabel4ba->sizePolicy().hasHeightForWidth() ) );
-	Layout11->addWidget( TextLabel4ba, 3, 0 );	
+	Layout11->addWidget( TextLabel4ba, 3, 0 );
 	Layout11->addWidget( BaseColor, 3, 1 );
 	GroupBox2Layout->addLayout( Layout11 );
 	tabLayout_2->addWidget( GroupBox2, 1, 0 );
-	
+
 	ButtonGroup5 = new QButtonGroup( tr( "Placing" ), tab_2, "ButtonGroup5" );
 	ButtonGroup5->setExclusive( true );
 	ButtonGroup5->setColumnLayout(0, Qt::Vertical );
@@ -530,7 +530,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	ButtonGroup6Layout->addLayout( Layout18 );
 	tabLayout_2->addWidget( ButtonGroup6, 1, 1 );
 	TabWidget3->addWidget( tab_2, 2 );
-	
+
 	tab_4 = new QWidget( TabWidget3, "tab_4" );
 	tabLayout_3 = new QGridLayout( tab_4 );
 	tabLayout_3->setSpacing( 6 );
@@ -547,7 +547,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout12 = new QGridLayout;
 	Layout12->setSpacing( 6 );
 	Layout12->setMargin( 0 );
-	
+
 	VTiefW = new QSpinBox( GroupBox4_2, "VTiefW" );
 	VTiefW->setSuffix( tr( " %" ) );
 	VTiefW->setMaxValue( 100 );
@@ -558,7 +558,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	                               TextLabel1_5_2->sizePolicy().hasHeightForWidth() ) );
 	Layout12->addWidget( TextLabel1_5_2, 0, 0 );
 	Layout12->addWidget( VTiefW, 0, 1 );
-	
+
 	VTiefWSc = new QSpinBox( GroupBox4_2, "VTiefWSc" );
 	VTiefWSc->setSuffix( tr( " %" ) );
 	VTiefWSc->setMaxValue( 100 );
@@ -567,10 +567,10 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabel2_3_2 = new QLabel( VTiefWSc, tr( "&Scaling:" ), GroupBox4_2, "TextLabel2_3_2" );
 	TextLabel2_3_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                               TextLabel2_3_2->sizePolicy().hasHeightForWidth() ) );
-	Layout12->addWidget( TextLabel2_3_2, 1, 0 );	
+	Layout12->addWidget( TextLabel2_3_2, 1, 0 );
 	Layout12->addWidget( VTiefWSc, 1, 1 );
 	GroupBox4_2Layout->addLayout( Layout12 );
-	
+
 	tabLayout_3->addWidget( GroupBox4_2, 0, 0 );
 	GroupBox4 = new QGroupBox( tr( "Superscript" ), tab_4, "GroupBox4" );
 	GroupBox4->setColumnLayout(0, Qt::Vertical );
@@ -592,7 +592,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabel1_5 = new QLabel( VHochW, tr( "D&isplacement:" ), GroupBox4, "TextLabel1_5" );
 	TextLabel1_5->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                             TextLabel1_5->sizePolicy().hasHeightForWidth() ) );
-	Layout13->addWidget( TextLabel1_5, 0, 0 );	
+	Layout13->addWidget( TextLabel1_5, 0, 0 );
 	Layout13->addWidget( VHochW, 0, 1 );
 	VHochWSc = new QSpinBox( GroupBox4, "VHochWSc" );
 	VHochWSc->setSuffix( tr( " %" ) );
@@ -602,10 +602,10 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabel2_3 = new QLabel( VHochWSc, tr( "S&caling:" ), GroupBox4, "TextLabel2_3" );
 	TextLabel2_3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                             TextLabel2_3->sizePolicy().hasHeightForWidth() ) );
-	Layout13->addWidget( TextLabel2_3, 1, 0 );	
+	Layout13->addWidget( TextLabel2_3, 1, 0 );
 	Layout13->addWidget( VHochWSc, 1, 1 );
 	GroupBox4Layout->addLayout( Layout13 );
-	
+
 	tabLayout_3->addWidget( GroupBox4, 1, 0 );
 	GroupBox4_3 = new QGroupBox( tr( "Small Caps" ), tab_4, "GroupBox4_3" );
 	GroupBox4_3->setColumnLayout(0, Qt::Vertical );
@@ -627,10 +627,10 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabel2_3_3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                               TextLabel2_3_3->sizePolicy().hasHeightForWidth() ) );
 	Layout14->addWidget( TextLabel2_3_3 );
-	
+
 	Layout14->addWidget( SmallCaps );
 	GroupBox4_3Layout->addLayout( Layout14 );
-	
+
 	tabLayout_3->addWidget( GroupBox4_3, 0, 1 );
 
 	GroupBox4_3a = new QGroupBox( tr( "Other" ), tab_4, "GroupBox4_3a" );
@@ -641,22 +641,22 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GroupBox4_3aLayout->setAlignment( Qt::AlignTop );
 	GroupBox4_3aLayout->setSpacing( 6 );
 	GroupBox4_3aLayout->setMargin( 11 );
-	
+
 	BaseGrid = new MSpinBox( 1, 100, GroupBox4_3a, 1 );
 	BaseGrid->setSuffix( tr( " pt" ) );
 	BaseGrid->setValue(ap->HaveDoc ? ap->doc->BaseGrid : Vor->BaseGrid );
 	TextLabel2_3_3b = new QLabel( BaseGrid, tr( "Baseline &Grid:" ), GroupBox4_3a, "TextLabel2_3_3" );
 	GroupBox4_3aLayout->addWidget( TextLabel2_3_3b, 0, 0 );
-	
+
 	GroupBox4_3aLayout->addWidget( BaseGrid, 0, 1 );
-	
+
 	BaseOffs = new MSpinBox( 0, 1000, GroupBox4_3a, 1 );
 	BaseOffs->setSuffix( tr( " pt" ) );
 	BaseOffs->setValue(ap->HaveDoc ? ap->doc->BaseOffs : Vor->BaseOffs );
 	TextLabel2_3_3c = new QLabel( BaseOffs, tr( "Baseline &Offset:" ), GroupBox4_3a, "TextLabel2_3_3" );
 	GroupBox4_3aLayout->addWidget( TextLabel2_3_3c, 1, 0 );
 	GroupBox4_3aLayout->addWidget( BaseOffs, 1, 1 );
-	
+
 	AutoLineV = new QSpinBox( GroupBox4_3a, "LineS" );
 	AutoLineV->setSuffix( tr( " %" ) );
 	AutoLineV->setMaxValue( 100 );
@@ -770,7 +770,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabel1_3 = new QLabel( FontComb, tr( "Default &Font:" ), ToolFrame, "TextLabel1_3" );
 	TextLabel1_3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                             TextLabel1_3->sizePolicy().hasHeightForWidth() ) );
-	Layout15a->addWidget( TextLabel1_3, 0, 0 );	
+	Layout15a->addWidget( TextLabel1_3, 0, 0 );
 	Layout15a->addWidget( FontComb, 0, 1 );
 	SizeCombo = new QComboBox( true, ToolFrame, "SizeCombo" );
 	SizeCombo->setEditable(false);
@@ -816,9 +816,9 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabelT1 = new QLabel( ForegroundT, tr( "&Text Color:" ), ToolFrame, "TextLabel1_3_2" );
 	TextLabelT1->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                            TextLabelT1->sizePolicy().hasHeightForWidth() ) );
-	Layout15a->addWidget( TextLabelT1, 2, 0 );	
+	Layout15a->addWidget( TextLabelT1, 2, 0 );
 	Layout15a->addWidget( ForegroundT, 2, 1 );
-	
+
 	TextColVal = new QSpinBox( ToolFrame, "TextColVal" );
 	TextColVal->setMaxValue( 100 );
 	TextColVal->setMinValue( 1 );
@@ -826,18 +826,20 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextCol = new QLabel(TextColVal, tr("Colu&mns:"), ToolFrame, "TextCol");
 	Layout15a->addWidget( TextCol, 3, 0 );
 	Layout15a->addWidget( TextColVal, 3, 1 );
-	
+
 	TextGapVal = new MSpinBox( 0, 200, ToolFrame, decimals );
 	TextGapVal->setSuffix( tr( " pt" ) );
 	TextGapVal->setValue(ap->HaveDoc ? ap->doc->DGap : Vor->DGap);
 	TextGap = new QLabel(TextGapVal, tr("&Gap:"), ToolFrame, "TextCol");
 	Layout15a->addWidget( TextGap, 4, 0 );
 	Layout15a->addWidget( TextGapVal, 4, 1 );
-	
+
 	TextLabel1_4 = new QLabel( tr( "Woven silk pyjamas exchanged for blue quartz" ), ToolFrame, "TextLabel1_4" );
 	TextLabel1_4->setMinimumSize(QSize(260, 70));
 	TextLabel1_4->setMaximumSize(QSize(260, 70));
 	TextLabel1_4->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
+	TextLabel1_4->setFrameShape(QFrame::Box);
+	TextLabel1_4->setPaletteBackgroundColor(paletteBackgroundColor());
 	SetSample();
 	Layout15a->addMultiCellWidget( TextLabel1_4, 5, 5, 0, 1 );
 	QSpacerItem* sp09 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -856,7 +858,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout15b = new QGridLayout;
 	Layout15b->setSpacing( 6 );
 	Layout15b->setMargin( 0 );
-	
+
 	Foreground = new QComboBox( true, ToolFrame2, "Foreground" );
 	Foreground->setEditable(false);
 	Foreground->insertItem( tr("None"));
@@ -875,7 +877,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	                                        TextLabelT21->sizePolicy().hasHeightForWidth() ) );
 	Layout15b->addWidget(TextLabelT21, 0, 0);
 	Layout15b->addWidget(Foreground, 0, 1);
-	
+
 	Shade2 = new QSpinBox( ToolFrame2, "Shade2" );
 	Shade2->setSuffix( tr( " %" ) );
 	Shade2->setMaxValue( 100 );
@@ -886,7 +888,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	                                        TextLabelT22->sizePolicy().hasHeightForWidth() ) );
 	Layout15b->addWidget(TextLabelT22, 1, 0);
 	Layout15b->addWidget(Shade2, 1, 1);
-	
+
 	Background = new QComboBox( true, ToolFrame2, "Background" );
 	Background->setEditable(false);
 	Background->insertItem( tr("None"));
@@ -904,7 +906,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	                                        TextLabelT23->sizePolicy().hasHeightForWidth() ) );
 	Layout15b->addWidget(TextLabelT23, 2, 0);
 	Layout15b->addWidget(Background, 2, 1);
-	
+
 	Shade = new QSpinBox( ToolFrame2, "Shade" );
 	Shade->setSuffix( tr( " %" ) );
 	Shade->setMaxValue( 100 );
@@ -915,7 +917,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	                                        TextLabelT24->sizePolicy().hasHeightForWidth() ) );
 	Layout15b->addWidget(TextLabelT24, 3, 0);
 	Layout15b->addWidget(Shade, 3, 1);
-	
+
 	Linestyle = new LineCombo(ToolFrame2);
 	Linestyle->setEditable(false);
 	int dla = ap->HaveDoc ? ap->doc->DLineArt : Vor->DLineArt;
@@ -945,7 +947,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	                                        TextLabelT25->sizePolicy().hasHeightForWidth() ) );
 	Layout15b->addWidget(TextLabelT25, 4, 0);
 	Layout15b->addWidget(Linestyle, 4, 1);
-	
+
 	LineW = new MSpinBox( 0, 36, ToolFrame2, 1 );
 	LineW->setSuffix( tr( " pt" ) );
 	LineW->setValue(ap->HaveDoc ? ap->doc->Dwidth : Vor->Dwidth);
@@ -953,9 +955,9 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabelT26->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT26->sizePolicy().hasHeightForWidth() ) );
 	Layout15b->addWidget(TextLabelT26, 5, 0);
-	
+
 	Layout15b->addWidget(LineW, 5, 1);
-	
+
 	QSpacerItem* sp07 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	ToolFrame2Layout->addItem( sp07 );
 	ToolFrame2Layout->addLayout( Layout15b );
@@ -988,7 +990,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabelT31 = new QLabel( Foreground2, tr( "&Line Color:" ), ToolFrame3, "TextLabel1_3_2" );
 	TextLabelT31->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT31->sizePolicy().hasHeightForWidth() ) );
-	Layout15c->addWidget(TextLabelT31, 0, 0);	
+	Layout15c->addWidget(TextLabelT31, 0, 0);
 	Layout15c->addWidget(Foreground2, 0, 1);
 	Shade22 = new QSpinBox( ToolFrame3, "Shade2" );
 	Shade22->setSuffix( tr( " %" ) );
@@ -998,7 +1000,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabelT32 = new QLabel( Shade22, tr( "&Shading:" ), ToolFrame3, "TextLabel2_2" );
 	TextLabelT32->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT32->sizePolicy().hasHeightForWidth() ) );
-	Layout15c->addWidget(TextLabelT32, 1, 0);	
+	Layout15c->addWidget(TextLabelT32, 1, 0);
 	Layout15c->addWidget(Shade22, 1, 1);
 	Linestyle2 = new LineCombo(ToolFrame3);
 	Linestyle2->setEditable(false);
@@ -1029,14 +1031,14 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	                                        TextLabelT35->sizePolicy().hasHeightForWidth() ) );
 	Layout15c->addWidget(TextLabelT35, 2, 0);
 	Layout15c->addWidget(Linestyle2, 2, 1);
-	
+
 	LineW2 = new MSpinBox( 1, 36, ToolFrame3, 1 );
 	LineW2->setSuffix( tr( " pt" ) );
 	LineW2->setValue(ap->HaveDoc ? ap->doc->DwidthLine : Vor->DwidthLine);
 	TextLabelT36 = new QLabel( LineW2, tr( "Line &Width:" ), ToolFrame3, "TextLabel2_3_4" );
 	TextLabelT36->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT36->sizePolicy().hasHeightForWidth() ) );
-	Layout15c->addWidget(TextLabelT36, 3, 0);	
+	Layout15c->addWidget(TextLabelT36, 3, 0);
 	Layout15c->addWidget(LineW2, 3, 1);
 	QSpacerItem* sp05 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	ToolFrame3Layout->addItem( sp05 );
@@ -1054,7 +1056,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout15d = new QGridLayout;
 	Layout15d->setSpacing( 6 );
 	Layout15d->setMargin( 0 );
-	
+
 	MinMag = new QSpinBox( ToolFrame4, "Shade2" );
 	MinMag->setSuffix( tr( " %" ) );
 	MinMag->setMaxValue( 800 );
@@ -1066,7 +1068,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	                                        TextLabelT42->sizePolicy().hasHeightForWidth() ) );
 	Layout15d->addWidget(TextLabelT42, 0, 0);
 	Layout15d->addWidget(MinMag, 0, 1);
-	
+
 	MaxMag = new QSpinBox( ToolFrame4, "Shade" );
 	MaxMag->setSuffix( tr( " %" ) );
 	MaxMag->setMaxValue( 800 );
@@ -1078,7 +1080,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	                                        TextLabelT43->sizePolicy().hasHeightForWidth() ) );
 	Layout15d->addWidget(TextLabelT43, 1, 0);
 	Layout15d->addWidget(MaxMag, 1, 1);
-	
+
 	StepMag = new QSpinBox( ToolFrame4, "LineW" );
 	StepMag->setSuffix( tr( " %" ) );
 	StepMag->setMaxValue( 200 );
@@ -1088,9 +1090,9 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabelT44 = new QLabel( StepMag, tr( "&Stepping:" ), ToolFrame4, "TextLabel2_3_4" );
 	TextLabelT44->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT44->sizePolicy().hasHeightForWidth() ) );
-	Layout15d->addWidget(TextLabelT44, 2, 0);	
+	Layout15d->addWidget(TextLabelT44, 2, 0);
 	Layout15d->addWidget(StepMag, 2, 1);
-	
+
 	QSpacerItem* sp03 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	ToolFrame4Layout->addItem( sp03 );
 	ToolFrame4Layout->addLayout( Layout15d );
@@ -1120,7 +1122,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabelT51 = new QLabel( XScale, tr( "&Horizontal Scaling:" ), ToolFrame5, "TextLabelT51" );
 	TextLabelT51->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                             TextLabelT51->sizePolicy().hasHeightForWidth() ) );
-	Layout15->addWidget( TextLabelT51, 1, 1 );	
+	Layout15->addWidget( TextLabelT51, 1, 1 );
 	Layout15->addWidget( XScale, 1, 2 );
 	YScale = new QSpinBox( ToolFrame5, "YScale" );
 	YScale->setSuffix( tr( " %" ) );
@@ -1130,7 +1132,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabelT52 = new QLabel( YScale, tr( "&Vertical Scaling:" ), ToolFrame5, "TextLabelT52" );
 	TextLabelT52->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                             TextLabelT52->sizePolicy().hasHeightForWidth() ) );
-	Layout15->addWidget( TextLabelT52, 2, 1 );	
+	Layout15->addWidget( TextLabelT52, 2, 1 );
 	Layout15->addWidget( YScale, 2, 2 );
 	Kette = new LinkButton( ToolFrame5 );
 	Kette->setToggleButton( true );
@@ -1148,7 +1150,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabelT54 = new QLabel( ShadeP, tr( "S&hading:" ), ToolFrame5, "TextLabelT54" );
 	TextLabelT54->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT54->sizePolicy().hasHeightForWidth() ) );
-	Layout15->addWidget( TextLabelT54, 6, 0 );	
+	Layout15->addWidget( TextLabelT54, 6, 0 );
 	Layout15->addWidget( ShadeP, 6, 1 );
 	BackgroundP = new QComboBox( true, ToolFrame5, "BackgroundP" );
 	BackgroundP->setEditable(false);
@@ -1194,7 +1196,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	T6_Ecken->setMinValue( 3 );
 	T6_Ecken->setValue(Vor->PolyC);
 	T6_Text1 = new QLabel( T6_Ecken, tr( "Corn&ers:" ), ToolFrame6, "Text1" );
-	T6_Layout2->addWidget( T6_Text1 );	
+	T6_Layout2->addWidget( T6_Text1 );
 	T6_Layout2->addWidget( T6_Ecken );
 	T6_Layout10->addLayout( T6_Layout2 );
 	T6_Layout9_2 = new QHBoxLayout( 0, 0, 5, "Layout9_2");
@@ -1207,7 +1209,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	T6_Faktor2->setMinValue( -180 );
 	T6_Faktor2->setValue(static_cast<int>(Vor->PolyR));
 	T6_Text2_2 = new QLabel( T6_Faktor2, tr( "&Rotation:" ), ToolFrame6, "Text2_2" );
-	T6_Layout7_2->addWidget( T6_Text2_2 );	
+	T6_Layout7_2->addWidget( T6_Text2_2 );
 	T6_Layout7_2->addWidget( T6_Faktor2 );
 	T6_Layout8_2->addLayout( T6_Layout7_2 );
 	T6_Slider2 = new QSlider( ToolFrame6, "Slider1_2" );
@@ -1233,7 +1235,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	T6_Faktor->setMinValue( -100 );
 	T6_Faktor->setValue(Vor->PolyFd);
 	T6_Text2 = new QLabel( T6_Faktor, tr( "&Factor:" ), ToolFrame6, "Text2" );
-	T6_Layout7->addWidget( T6_Text2 );	
+	T6_Layout7->addWidget( T6_Text2 );
 	T6_Layout7->addWidget( T6_Faktor );
 	T6_Layout8->addLayout( T6_Layout7 );
 	T6_Slider1 = new QSlider( ToolFrame6, "Slider1" );
@@ -1355,7 +1357,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	                            TextLabel4a->sizePolicy().hasHeightForWidth() ) );
 	GroupBox20aLayout->addWidget( TextLabel4a);
 	GroupBox20aLayout->addWidget( PapColor );
-	
+
 	RandColor = new QPushButton( "", GroupBox20a, "RColor" );
 	RandColor->setAutoDefault( false );
 	pm1a.fill(ap->HaveDoc ? ap->doc->margColor : Vor->DmargColor);
@@ -1367,7 +1369,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GroupBox20aLayout->addWidget( TextLabel4b);
 	GroupBox20aLayout->addWidget( RandColor );
 	Layout_6b->addWidget(GroupBox20a);
-	
+
 	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout_6b->addItem( spacer2 );
 	GroupBox10Layout->addLayout(Layout_6b);
@@ -1412,16 +1414,16 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 
 	tabLayout_6->addWidget( GroupBox10 );
 	TabWidget3->addWidget( tab_6, 6 );
-	
+
 	ExtTool = new QWidget( TabWidget3, "ExtTool" );
-	ExtToolLayout = new QVBoxLayout( ExtTool, 11, 6, "ExtToolLayout"); 
+	ExtToolLayout = new QVBoxLayout( ExtTool, 11, 6, "ExtToolLayout");
 	groupGS = new QGroupBox( tr( "Postscript Interpreter" ), ExtTool, "groupGS" );
 	groupGS->setColumnLayout(0, Qt::Vertical );
 	groupGS->layout()->setSpacing( 6 );
 	groupGS->layout()->setMargin( 10 );
 	groupGSLayout = new QVBoxLayout( groupGS->layout() );
 	groupGSLayout->setAlignment( Qt::AlignTop );
-	GSlayout = new QHBoxLayout( 0, 0, 6, "GSlayout"); 
+	GSlayout = new QHBoxLayout( 0, 0, 6, "GSlayout");
 	GSName = new QLineEdit( groupGS, "GSName" );
 	GSName->setText(Vor->gs_exe);
 	GSText = new QLabel( GSName, tr( "&Name of Executable:" ), groupGS, "GSText" );
@@ -1452,7 +1454,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TabWidget3->addWidget( ExtTool, 7 );
 
 	Misc = new QWidget( TabWidget3, "Misc" );
-	MiscLayout = new QVBoxLayout( Misc, 11, 6, "MiscLayout"); 
+	MiscLayout = new QVBoxLayout( Misc, 11, 6, "MiscLayout");
 	groupPrint = new QGroupBox( tr( "Printing" ), Misc, "groupPrint" );
 	groupPrint->setColumnLayout(0, Qt::Vertical );
 	groupPrint->layout()->setSpacing( 10 );
@@ -1545,7 +1547,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QToolTip::add( RadioButton6, tr( "Place the grid behind your page objects" ) );
 	QToolTip::add( RadioButton7, tr( "Place the grid in front of your page objects" ) );
 	QToolTip::add( RadioButton8, tr("Turns on the basegrid"));
-	QToolTip::add( RadioButton9, tr("Turns off the basegrid")); 
+	QToolTip::add( RadioButton9, tr("Turns off the basegrid"));
 
 	QToolTip::add( VHochW, tr( "Displacement above the baseline of the font on a line" ) );
 	QToolTip::add( VHochWSc, tr( "Relative size of the superscript compared to the normal font" ) );
@@ -1682,8 +1684,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 
 /*!
  \fn Preferences::~Preferences
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Destructor for Preferences dialog box
  \param None
  \retval None
@@ -1696,8 +1698,8 @@ Preferences::~Preferences()
 
 /*!
  \fn void Preferences::ChangeDocs()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Runs QFileDialog to get Preferences (General) Path to Documents directory
  \param None
  \retval None
@@ -1711,8 +1713,8 @@ void Preferences::ChangeDocs()
 
 /*!
  \fn void Preferences::ChangeProfs()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Runs QFileDialog to get Preferences (General) Path to Colour Profiles directory
  \param None
  \retval None
@@ -1726,11 +1728,11 @@ void Preferences::ChangeProfs()
 
 /*!
  \fn void Preferences::ChangeScripts()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Runs QFileDialog to get Preferences (General) Path to Scripts directory
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::ChangeScripts()
 {
@@ -1741,11 +1743,11 @@ void Preferences::ChangeScripts()
 
 /*!
  \fn void Preferences::ChangeTemplates()
- \author Riku Leino 
- \date  
+ \author Riku Leino
+ \date
  \brief Runs QFileDialog to get Preferences (General) Path to Templates directory
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::ChangeTemplates()
 {
@@ -1756,11 +1758,11 @@ void Preferences::ChangeTemplates()
 
 /*!
  \fn void Preferences::ChangeScaling()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Tools / Image Frame), switches default between free or set scaling and their settings
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::ChangeScaling()
 {
@@ -1775,11 +1777,11 @@ void Preferences::ChangeScaling()
 
 /*!
  \fn void Preferences::setDS()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), switches default between Facing Pages and swaps text labels for margin guides
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::setDS()
 {
@@ -1793,11 +1795,11 @@ void Preferences::setDS()
 
 /*!
  \fn void Preferences::setBreite(int v)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), sets Page width values
  \param v Width value
- \retval None 
+ \retval None
  */
 void Preferences::setBreite(int)
 {
@@ -1810,11 +1812,11 @@ void Preferences::setBreite(int)
 
 /*!
  \fn void Preferences::setHoehe(int v)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), sets Page height values
  \param v Height value
- \retval None 
+ \retval None
  */
 void Preferences::setHoehe(int)
 {
@@ -1827,11 +1829,11 @@ void Preferences::setHoehe(int)
 
 /*!
  \fn void Preferences::setTop(int v)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), sets Page top values
  \param v Top value
- \retval None 
+ \retval None
  */
 void Preferences::setTop(int)
 {
@@ -1841,11 +1843,11 @@ void Preferences::setTop(int)
 
 /*!
  \fn void Preferences::setBottom(int v)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), sets Page bottom values
  \param v Bottom value
- \retval None 
+ \retval None
  */
 void Preferences::setBottom(int)
 {
@@ -1855,11 +1857,11 @@ void Preferences::setBottom(int)
 
 /*!
  \fn void Preferences::setLeft(int v)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), sets Page left values
  \param v Top value
- \retval None 
+ \retval None
  */
 void Preferences::setLeft(int)
 {
@@ -1869,11 +1871,11 @@ void Preferences::setLeft(int)
 
 /*!
  \fn void Preferences::setRight(int v)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), sets Page right values
  \param v Right value
- \retval None 
+ \retval None
  */
 void Preferences::setRight(int)
 {
@@ -1883,11 +1885,11 @@ void Preferences::setRight(int)
 
 /*!
  \fn void Preferences::setSize(int gr)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), sets Page size values. Connects signals for setting page dimensions.
  \param gr Standard page size value (eg A4)
- \retval None 
+ \retval None
  */
 void Preferences::setSize(int gr)
 {
@@ -1923,11 +1925,11 @@ void Preferences::setSize(int gr)
 
 /*!
  \fn void Preferences::setOrien(int ori)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Document / Page Size), sets Page orientation value and page dimensions
  \param ori Orientation value
- \retval None 
+ \retval None
  */
 void Preferences::setOrien(int ori)
 {
@@ -1956,11 +1958,11 @@ void Preferences::setOrien(int ori)
 
 /*!
  \fn void Preferences::SetSample()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Tools, Text frame), Sets the sample text in selected font in text frame preferences
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::SetSample()
 {
@@ -1973,11 +1975,11 @@ void Preferences::SetSample()
 
 /*!
  \fn void Preferences::changeMaColor()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences ([dox?], [dox?]), Sets Maximum colour [dox?]
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::changeMaColor()
 {
@@ -1994,11 +1996,11 @@ void Preferences::changeMaColor()
 
 /*!
  \fn void Preferences::changeMicolor()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences ([dox?], [dox?]), Sets Minimum colour [dox?]
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::changeMicolor()
 {
@@ -2015,11 +2017,11 @@ void Preferences::changeMicolor()
 
 /*!
  \fn void Preferences::changePapColor()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences ([dox?], [dox?]), Sets Paper colour [dox?]
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::changePapColor()
 {
@@ -2036,11 +2038,11 @@ void Preferences::changePapColor()
 
 /*!
  \fn void Preferences::changeRandColor()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences ([dox?], [dox?]), Sets Rand colour [dox?]
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::changeRandColor()
 {
@@ -2057,11 +2059,11 @@ void Preferences::changeRandColor()
 
 /*!
  \fn void Preferences::changeGuideColor()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences ([dox?], [dox?]), Sets Guide colour [dox?]
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::changeGuideColor()
 {
@@ -2090,11 +2092,11 @@ void Preferences::changeBaseColor()
 
 /*!
  \fn void Preferences::SetTool()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Tools), Raises widget for selected Tool properties
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::SetTool()
 {
@@ -2116,11 +2118,11 @@ void Preferences::SetTool()
 
 /*!
  \fn void Preferences::ToggleKette()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Tools, Image Frame), Sets Y Scale value from X Scale value when chain is toggled
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::ToggleKette()
 {
@@ -2130,11 +2132,11 @@ void Preferences::ToggleKette()
 
 /*!
  \fn void Preferences::HChange()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Tools, Image Frame), Sets Y Scale value from X Scale value when X Scale value is changed
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::HChange()
 {
@@ -2144,11 +2146,11 @@ void Preferences::HChange()
 
 /*!
  \fn void Preferences::VChange()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Tools, Image Frame). Sets X Scale value from Y Scale value when Y Scale value is changed
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::VChange()
 {
@@ -2158,11 +2160,11 @@ void Preferences::VChange()
 
 /*!
  \fn void Preferences::UnitChange()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (General, Units). Sets scaling factors and units descriptions when default units are changed. Updates preference values
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::UnitChange()
 {
@@ -2256,11 +2258,11 @@ void Preferences::UnitChange()
 
 /*!
  \fn void Preferences::ValFromSpin2(int a)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief [dox?]
  \param a
- \retval None 
+ \retval None
  */
 void Preferences::ValFromSpin2(int a)
 {
@@ -2271,11 +2273,11 @@ void Preferences::ValFromSpin2(int a)
 
 /*!
  \fn void Preferences::ValFromSpin(int a)
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief [dox?]
  \param a
- \retval None 
+ \retval None
  */
 void Preferences::ValFromSpin(int a)
 {
@@ -2286,11 +2288,11 @@ void Preferences::ValFromSpin(int a)
 
 /*!
  \fn void Preferences::UpdatePreView()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Tools, Polygon). Updates polygon preview based on current settings
  \param None
- \retval None 
+ \retval None
  */
 void Preferences::UpdatePreView()
 {
@@ -2331,8 +2333,8 @@ void Preferences::UpdatePreView()
 
 /*!
  \fn double Preferences::GetZeroFaktor()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Tools, Polygon). Calculates Zero Factor [dox?] for polygon
  \param None
  \retval (double) Zero Factor
@@ -2344,8 +2346,8 @@ double Preferences::GetZeroFaktor()
 
 /*!
  \fn double Preferences::GetMaxFaktor()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Tools, Polygon). Calculates Max Factor [dox?] for polygon
  \param None
  \retval ret (double) Max Factor
@@ -2363,8 +2365,8 @@ double Preferences::GetMaxFaktor()
 
 /*!
  \fn double Preferences::GetFaktor()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Tools, Polygon). Calculates Zero Factor [dox?] for polygon
  \param None
  \retval PFactor (double) Zero Factor
@@ -2385,8 +2387,8 @@ double Preferences::GetFaktor()
 
 /*!
  \fn void Preferences::SetDisScale()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Display, Display Size). Sets Scale for ruler scale
  \param None
  \retval None
@@ -2400,8 +2402,8 @@ void Preferences::SetDisScale()
 
 /*!
  \fn void Preferences::DrawRuler()
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Preferences (Display, Display Size). Draws ruler depending on scaling factor
  \param None
  \retval None
