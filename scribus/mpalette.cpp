@@ -937,52 +937,31 @@ void Mpalette::SelTab(int t)
 void Mpalette::SetDoc(ScribusDoc *d)
 {
 	doc = d;
+	double maxXYWHVal=(QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor;
+	double minXYVal=-3000 * UmReFaktor;
 	HaveDoc = true;
 	HaveItem = false;
-	Xpos->setDecimals(100);
-	Ypos->setDecimals(100);
-	Width->setDecimals(100);
-	Height->setDecimals(100);
-	Rot->setDecimals(100);
-	RoundRect->setDecimals(10);
-	Extra->setDecimals(10);
-	Size->setDecimals(10);
-	LineSp->setDecimals(10);
-	LXpos->setDecimals(100);
-	LYpos->setDecimals(100);
-	ScaleX->setDecimals(10);
-	ScaleY->setDecimals(10);
+
+	Xpos->setValues( minXYVal, maxXYWHVal, 100, minXYVal);
+	Ypos->setValues( minXYVal, maxXYWHVal, 100, minXYVal);
+	Width->setValues( UmReFaktor, maxXYWHVal, 100, UmReFaktor);
+	Height->setValues( UmReFaktor, maxXYWHVal, 100, UmReFaktor);
+	LXpos->setValues( -3000, maxXYWHVal, 100, 0);
+	LYpos->setValues( -3000, maxXYWHVal, 100, 0);
+
+	Rot->setValues( 0, 360, 100, 0);
+	RoundRect->setValues( -300, 300, 10, 0);
+	Extra->setValues( -300, 300, 10, 0);
+	Size->setValues( 1, 1024, 10, 1);
+	LineSp->setValues( 1, 300, 10, 1);
+	ScaleX->setValues( 1, 3000, 10, 1);
+	ScaleY->setValues( 1, 3000, 10, 1);
+
 	DGap->setDecimals(10);
 	DTop->setDecimals(10);
 	DLeft->setDecimals(10);
 	DBottom->setDecimals(10);
 	DRight->setDecimals(10);
-	Xpos->setMaxValue( (QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor );
-	Xpos->setMinValue( -3000  * UmReFaktor);
-	Ypos->setMaxValue( (QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor );
-	Ypos->setMinValue( -3000  * UmReFaktor);
-	Width->setMaxValue( (QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor );
-	Width->setMinValue( 1  * UmReFaktor);
-	Height->setMaxValue( (QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor );
-	Height->setMinValue( 1  * UmReFaktor);
-	Rot->setMaxValue( 360 );
-	Rot->setMinValue( 0 );
-	RoundRect->setMaxValue( 300 );
-	RoundRect->setMinValue( -300);
-	LYpos->setMaxValue( (QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor );
-	LYpos->setMinValue( -3000 );
-	ScaleY->setMaxValue( 3000 );
-	ScaleY->setMinValue( 1 );
-	ScaleX->setMaxValue( 3000 );
-	ScaleX->setMinValue( 1 );
-	LXpos->setMaxValue( (QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor );
-	LXpos->setMinValue( -3000 );
-	Size->setMaxValue( 1024 );
-	Size->setMinValue( 1 );
-	LineSp->setMaxValue( 300 );
-	LineSp->setMinValue( 1 );
-	Extra->setMaxValue( 300 );
-	Extra->setMinValue( -300 );
 	LSize->setMaxValue( 36 );
 	LSize->setMinValue( 0 );
 	Dist->setMaxValue( 300 );
@@ -991,6 +970,7 @@ void Mpalette::SetDoc(ScribusDoc *d)
 	LineW->setMaxValue( 300 );
 	LineW->setMinValue( -300 );
 	LineW->setLineStep(10);
+
 	updateCList();
 }
 
@@ -1071,18 +1051,18 @@ void Mpalette::SetCurItem(PageItem *i)
 	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	NoPrint->setOn(!i->isPrintable);
-	setter = i->Locked ? false : true;
+	setter = i->Locked;
 	Kette2->setOn(false);
-	Width->setEnabled(setter);
-	Height->setEnabled(setter);
+	Width->setReadOnly(setter);
+	Height->setReadOnly(setter);
 	RoundRect->setEnabled(setter);
 	EditShape->setEnabled(setter);
 	ShapeGroup->setEnabled(setter);
 	LayerGroup->setEnabled(setter);
-	Locked->setOn(!setter);
+	Locked->setOn(setter);
 	if ((i->isTableItem) && (i->isSingleSel))
 	{
-		setter = false;
+		setter = true;
 		TabStack3->raiseWidget(1);
 		TopLine->setChecked(i->TopLine);
 		LeftLine->setChecked(i->LeftLine);
@@ -1092,15 +1072,15 @@ void Mpalette::SetCurItem(PageItem *i)
 	else
 		TabStack3->raiseWidget(0);
 	LayerGroup->setEnabled(setter);
-	Xpos->setEnabled(setter);
-	Ypos->setEnabled(setter);
-	Rot->setEnabled(setter);
+	Xpos->setReadOnly(setter);
+	Ypos->setReadOnly(setter);
+	Rot->setReadOnly(setter);
 	setter = i->LockRes;
 	NoResize->setOn(setter);
 	if (!i->Locked)
 	{
-		Width->setEnabled(!setter);
-		Height->setEnabled(!setter);
+		Width->setReadOnly(setter);
+		Height->setReadOnly(setter);
 	}
 	if (i->Locked)
 	{
@@ -1394,59 +1374,32 @@ void Mpalette::NewSel(int nr)
 void Mpalette::UnitChange()
 {
 	double old = Umrech;
+	Umrech = UmReFaktor;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	QString ein;
-	double oldX = Xpos->value() / old;
-	double oldY = Ypos->value() / old;
-	double oldW = Width->value() / old;
-	double oldH = Height->value() / old;
-	double oldLX = LXpos->value() / old;
-	double oldLY = LYpos->value() / old;
-	double oldG = DGap->value() / old;
-	double oldGM = DGap->maxValue() / old;
-	double oldDT = DTop->value() / old;
-	double oldDL = DLeft->value() / old;
-	double oldDB = DBottom->value() / old;
-	double oldDR = DRight->value() / old;
-	double oldRR = RoundRect->value() / old;
-	double oldRM = RoundRect->maxValue() / old;
-	Umrech = UmReFaktor;
-	Xpos->setDecimals(100);
-	Ypos->setDecimals(100);
-	Width->setDecimals(100);
-	Height->setDecimals(100);
-	LXpos->setDecimals(100);
-	LYpos->setDecimals(100);
-	DGap->setDecimals(10);
-	DLeft->setDecimals(10);
-	DTop->setDecimals(10);
-	DBottom->setDecimals(10);
-	DRight->setDecimals(10);
-	RoundRect->setDecimals(10);
+	double maxXYWHVal=(QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor;
+	double minXYVal=-3000 * UmReFaktor;
+
+	double newX = Xpos->value() / old * UmReFaktor;
+	double newY = Ypos->value() / old * UmReFaktor;
+	double newW = Width->value() / old * UmReFaktor;
+	double newH = Height->value() / old * UmReFaktor;
+	double newLX = LXpos->value() / old * UmReFaktor;
+	double newLY = LYpos->value() / old * UmReFaktor;
+	double newG = DGap->value() / old * UmReFaktor;
+	double newGM = DGap->maxValue() / old * UmReFaktor;
+	double newDT = DTop->value() / old * UmReFaktor;
+	double newDL = DLeft->value() / old * UmReFaktor;
+	double newDB = DBottom->value() / old * UmReFaktor;
+	double newDR = DRight->value() / old * UmReFaktor;
+	double newRR = RoundRect->value() / old * UmReFaktor;
+	double newRM = RoundRect->maxValue() / old * UmReFaktor;
+
 	QString point[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
 	if (doc->Einheit > 3)
 		doc->Einheit = 0;
-	ein = point[doc->Einheit];
-	int val = doc->Einheit == 1 ? 1000 : 10000;
-	switch (doc->Einheit)
-	{
-	case 1:
-	case 2:
-		Xpos->setDecimals(val);
-		Ypos->setDecimals(val);
-		Width->setDecimals(val);
-		Height->setDecimals(val);
-		LXpos->setDecimals(val);
-		LYpos->setDecimals(val);
-		DGap->setDecimals(val);
-		DLeft->setDecimals(val);
-		DTop->setDecimals(val);
-		DBottom->setDecimals(val);
-		DRight->setDecimals(val);
-		RoundRect->setDecimals(val);
-		break;
-	}
+	QString ein = point[doc->Einheit];
+
 	Xpos->setSuffix( ein );
 	Ypos->setSuffix( ein );
 	Width->setSuffix( ein );
@@ -1459,34 +1412,49 @@ void Mpalette::UnitChange()
 	DBottom->setSuffix( ein );
 	DRight->setSuffix( ein );
 	RoundRect->setSuffix( ein );
-	Xpos->setMaxValue( (QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor );
-	Xpos->setMinValue( -3000 * UmReFaktor );
-	Ypos->setMaxValue( (QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor );
-	Ypos->setMinValue( -3000 * UmReFaktor );
-	Width->setMaxValue( (QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor );
-	Width->setMinValue( 1 * UmReFaktor );
-	Height->setMaxValue( (QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor );
-	Height->setMinValue( 1 * UmReFaktor );
-	Xpos->setValue(oldX * UmReFaktor);
-	Ypos->setValue(oldY * UmReFaktor);
-	Width->setValue(oldW * UmReFaktor);
-	Height->setValue(oldH * UmReFaktor);
-	LXpos->setMaxValue((QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor);
-	LYpos->setMaxValue((QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor);
-	LXpos->setValue(oldLX * UmReFaktor);
-	LYpos->setValue(oldLY * UmReFaktor);
-	DGap->setMaxValue(oldGM * UmReFaktor);
-	DGap->setValue(oldG * UmReFaktor);
-	DTop->setMaxValue( 300 );
+
+    int dp[] = {100, 1000, 10000, 100};
+    int xywhdecimals = dp[doc->Einheit];
+    int dp2[] = {10, 1000, 10000, 10};
+    int distdecimals = dp2[doc->Einheit];
+
+	Xpos->setValues( minXYVal, maxXYWHVal, xywhdecimals, newX );
+	Ypos->setValues( minXYVal, maxXYWHVal, xywhdecimals, newY );
+	Width->setValues( UmReFaktor, maxXYWHVal, xywhdecimals, newW );
+	Height->setValues( UmReFaktor, maxXYWHVal, xywhdecimals, newH );
+
+	LXpos->setMaxValue( maxXYWHVal );
+	LXpos->setDecimals(xywhdecimals);
+	LXpos->setValue(newLX);
+
+	LYpos->setValue(newLY);
+	LYpos->setDecimals(xywhdecimals);
+	LYpos->setMaxValue( maxXYWHVal );
+
+	DGap->setDecimals(distdecimals);
+	DGap->setMaxValue(newGM);
+	DGap->setValue(newG);
+
+	DLeft->setDecimals(distdecimals);
 	DLeft->setMaxValue( 300 );
-	DRight->setMaxValue( 300 );
+	DLeft->setValue(newDL);
+
+	DTop->setDecimals(distdecimals);
+	DTop->setMaxValue( 300 );
+	DTop->setValue(newDT);
+
+	DBottom->setDecimals(distdecimals);
 	DBottom->setMaxValue( 300 );
-	DLeft->setValue(oldDL * UmReFaktor);
-	DTop->setValue(oldDT * UmReFaktor);
-	DBottom->setValue(oldDB * UmReFaktor);
-	DRight->setValue(oldDR * UmReFaktor);
-	RoundRect->setMaxValue(oldRM * UmReFaktor);
-	RoundRect->setValue(oldRR * UmReFaktor);
+	DBottom->setValue(newDB);
+
+	DRight->setDecimals(distdecimals);
+	DRight->setMaxValue( 300 );
+	DRight->setValue(newDR);
+
+	RoundRect->setDecimals(distdecimals);
+	RoundRect->setMaxValue(newRM);
+	RoundRect->setValue(newRR);
+
 	Cpal->UnitChange(old, UmReFaktor, doc->Einheit);
 	HaveItem = tmp;
 }
@@ -3005,7 +2973,7 @@ void Mpalette::handleLock()
 			doc->ActPage->SelItem.at(a)->Locked = Locked->isOn();
 			doc->ActPage->RefreshItem(doc->ActPage->SelItem.at(a));
 		}
-		bool setter = Locked->isOn() ? false : true;
+		bool setter = Locked->isOn();
 		Xpos->setReadOnly(setter);
 		Ypos->setReadOnly(setter);
 		Width->setReadOnly(setter);
@@ -3040,8 +3008,8 @@ void Mpalette::handleResize()
 			doc->ActPage->SelItem.at(a)->LockRes = NoResize->isOn();
 			doc->ActPage->RefreshItem(doc->ActPage->SelItem.at(a));
 		}
-		Width->setEnabled(!NoResize->isOn());
-		Height->setEnabled(!NoResize->isOn());
+		Width->setReadOnly(NoResize->isOn());
+		Height->setReadOnly(NoResize->isOn());
 		emit DocChanged();
 	}
 }

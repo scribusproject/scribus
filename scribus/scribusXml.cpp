@@ -645,7 +645,14 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct StVorL *vg, QValueList<StVorL>
 					(vg->SShade == Vorlagen[xx].SShade) &&
 					(vg->BaseAdj == Vorlagen[xx].BaseAdj) &&
 					(vg->FontSize == Vorlagen[xx].FontSize))
+			{
+				if (fl)
+				{
+					DoVorl[VorlC] = tmV.setNum(xx);
+					VorlC++;
+				}
 				fou = true;
+			}
 			else
 			{
 				vg->Vname = "Copy of "+Vorlagen[xx].Vname;
@@ -2116,6 +2123,10 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		QDir::setCurrent(QDir::homeDirPath());
 		item = doc->ActPage->Items.at(ELL[co]);
 		QDomElement ob=docu.createElement("ITEM");
+		if (item->Ausrich > 4)
+			ob.setAttribute("ALIGN",UsedMapped2Saved[item->Ausrich]);
+		else
+			ob.setAttribute("ALIGN",item->Ausrich);
 		SetItemProps(&ob, item);
 		if (item->GrType != 0)
 		{

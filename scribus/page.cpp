@@ -336,6 +336,7 @@ void Page::dropEvent(QDropEvent *e)
 		}
 		else
 		{
+			uint ac = Items.count();
 			if ((!img) && (doku->DraggedElem == 0))
 				emit LoadElem(QString(text), qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), false, false, doku);
 			else
@@ -361,7 +362,6 @@ void Page::dropEvent(QDropEvent *e)
 					}
 					if ((re == 1) || (doku->leaveDrag))
 					{
-						uint ac = Items.count();
 						QPtrList<PageItem> pasted;
 						emit LoadElem(QString(text), qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), false, false, doku);
 						for (uint as = ac; as < doku->ActPage->Items.count(); ++as)
@@ -413,6 +413,11 @@ void Page::dropEvent(QDropEvent *e)
 					emit LoadElem(QString(text), qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), false, false, doku);
 				doku->DraggedElem = 0;
 				doku->DragElements.clear();
+				doku->ActPage->SelItem.clear();
+				for (uint as = ac; as < doku->ActPage->Items.count(); ++as)
+				{
+					doku->ActPage->SelectItemNr(as);
+				}
 				update();
 			}
 		}

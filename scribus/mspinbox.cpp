@@ -300,7 +300,8 @@ double MSpinBox::maxValue()
 
 void MSpinBox::setReadOnly( bool ro )
 {
-	if (readOnly!=ro) {
+	if (readOnly!=ro) 
+	{
 		if (!readOnly && ro) {
 			oldLineStep=QSpinBox::lineStep();
 			QSpinBox::setLineStep( 0 );
@@ -310,6 +311,7 @@ void MSpinBox::setReadOnly( bool ro )
 			oldLineStep=0;
 		}
 		ed->setReadOnly( ro );
+		readOnly=ro;
 	}
 }
 
