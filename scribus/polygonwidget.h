@@ -15,11 +15,11 @@ class PolygonWidget : public QWidget
 	Q_OBJECT
 
 public:
-	PolygonWidget(QWidget* parent, int PolyC, int PolyFd, double PolyF, bool PolyS, double PolyR);
+	PolygonWidget(QWidget* parent, int polyC, int polyFd, double polyF, bool polyS, double polyR);
 	~PolygonWidget() {};
 	double GetZeroFaktor();
 	double GetMaxFaktor();
-	void getValues(int* PolyC, int* PolyFd, double* PolyF, bool* PolyS, double* PolyR);
+	void getValues(int* polyC, int* polyFd, double* polyF, bool* polyS, double* polyR);
 
 	QLabel* Text1;
 	QSpinBox* Ecken;

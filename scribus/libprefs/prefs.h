@@ -22,20 +22,15 @@
 
 #include "scribusstructs.h"
 
-#include "linecombo.h"
-#include "linkbutton.h"
-#include "scfonts.h"
 #include "mspinbox.h"
 #include "scribus.h"
 #include "prefsdialogbase.h"
-class FontCombo;
-class PolygonWidget;
-class ArrowChooser;
 class TabTypograpy;
 class HySettings;
 class CMSPrefs;
 class KeyManager;
 class TabGuides;
+class TabTools;
 
 #include "langmgr.h"
 
@@ -99,78 +94,7 @@ public:
 	QLabel* Linkss;
 	QLabel* Rechtss;
 
-	QWidget* tabTools;
-	QButtonGroup* buttonGroupTools;
-	QToolButton* toolShape;
-	QToolButton* toolPoly;
-	QToolButton* toolImage;
-	QToolButton* toolText;
-	QToolButton* toolLine;
-	QToolButton* toolZoom;
-	QWidgetStack* subStackTools;
-	QWidget* subTabText;
-	QLabel* textLabel3b;
-	QLabel* textLabel3b2;
-	QLabel* textLabel1b;
-	QLabel* textLabel2b;
-	QLabel* textLabel4b;
-	QSpinBox* columnsText;
-	QLabel* previewText;
-	FontCombo* fontComboText;
-	QComboBox* sizeComboText;
-	QComboBox* colorComboText;
-	QComboBox* colorComboStrokeText;
-	QLabel* textLabel5b;
-	MSpinBox* gapText;
-	QWidget* subTabShape;
-	QLabel* textLabel9b;
-	QLabel* textLabel10b;
-	MSpinBox* lineWidthShape;
-	QLabel* textLabel12b;
-	QLabel* textLabel11b;
-	LineCombo* comboStyleShape;
-	QSpinBox* shadingFillShape;
-	QComboBox* comboFillShape;
-	QSpinBox* shadingLineShape;
-	QLabel* textLabel7b;
-	QComboBox* colorComboLineShape;
-	QLabel* textLabel8b;
-	QWidget* subTabLine;
-	MSpinBox* lineWidthLine;
-	QSpinBox* shadingLine;
-	QComboBox* colorComboLine;
-	QLabel* textLabel13b;
-	QLabel* textLabel14b;
-	QLabel* textLabel15b;
-	QLabel* textLabel16b;
-	LineCombo* comboStyleLine;
-	QWidget* subTabImage;
-	QComboBox* comboFillImage;
-	QLabel* textLabel19b;
-	QSpinBox* shadingFillImage;
-	QLabel* textLabel20b;
-	QButtonGroup* buttonGroup3;
-	QLabel* textLabel17b;
-	QLabel* textLabel18b;
-	QSpinBox* scalingHorizontal;
-	QSpinBox* scalingVertical;
-	LinkButton* chainButton;
-	QButtonGroup* buttonGroup5;
-	QCheckBox* checkRatioImage;
-	QWidget* subTabPolygon;
-	PolygonWidget* polyWidget;
-	QWidget* subTabZoom;
-	QLabel* textLabel21b;
-	QSpinBox* minimumZoom;
-	QLabel* textLabel22b;
-	QLabel* textLabel23b;
-	QSpinBox* maximumZoom;
-	QSpinBox* zoomStep;
-	ArrowChooser* startArrow;
-	ArrowChooser* endArrow;
-	QLabel* startArrowText;
-	QLabel* endArrowText;
-	QLabel* arrowText;
+	TabTools* tabTools;
 
 	HySettings* tabHyphenator;
 	CMSPrefs* tabColorManagement;
@@ -225,8 +149,7 @@ public:
 	QGroupBox* groupPrint;
 	QCheckBox* ClipMarg;
 	QCheckBox* DoGCR;
-	
-	SCFonts *fon; // can't use a reference, and can't copy whole structure...
+
 	double Umrech;
 	double PFactor;
 	double Pagebr;
@@ -243,13 +166,6 @@ public:
 
 public slots:
 	virtual void changePaperColor();
-	virtual void toggleChain();
-	virtual void hChange();
-	virtual void vChange();
-	virtual void changeImageScalingFree(int);
-	virtual void changeImageScalingRatio(int);
-	virtual void setSample();
-	virtual void setTool();
 	void changeDocs();
 	void changeProfs();
 	void changeScripts();
@@ -297,16 +213,6 @@ protected:
 	QHBoxLayout* pageBackgroundLayout;
 	QHBoxLayout* groupScratchLayout;
 	QGridLayout* Layout4s;
-	QHBoxLayout* tabToolsLayout;
-	QVBoxLayout* buttonGroupToolsLayout;
-	QGridLayout* subTabTextLayout;
-	QGridLayout* subTabShapeLayout;
-	QGridLayout* subTabLineLayout;
-	QGridLayout* subTabImageLayout;
-	QGridLayout* buttonGroup3Layout;
-	QHBoxLayout* buttonGroup5Layout;
-	QHBoxLayout* subTabPolygonLayout;
-	QGridLayout* subTabZoomLayout;
 
 private slots:
 	void setSelectedGUILang( const QString &newLang );

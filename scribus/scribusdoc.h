@@ -157,28 +157,10 @@ public: // Public attributes
 	int SubMode;
 	double *ShapeValues;
 	int ValCount;
-	QString Dpen;
-	QString Dbrush;
-	double Dwidth;
-	int Dshade;
-	int Dshade2;
-	PenStyle DLineArt;
-	QString DpenLine;
-	QString DpenText;
-	QString DstrokeText;
-	int DstartArrow;
-	int DendArrow;
-	int DCols;
-	double DGap;
-	int DshadeLine;
-	PenStyle DLstyleLine;
-	double DwidthLine;
-	QString Dfont;
 	QString DocName;
 	QMap<QString,QFont> UsedFonts;
 	SCFonts *AllFonts;
 	ApplicationPrefs *prefsValues;
-	int Dsize;
 	QColor papColor;
 	int CurrentSel;
 	int CurrentStyle;
@@ -194,19 +176,11 @@ public: // Public attributes
 	int EditClipMode;
 	typoPrefs typographicSetttings;
 	guidesPrefs guidesSettings;
+	toolPrefs toolSettings;
   /** Letztes Element fuer AutoTextrahmen */
 	PageItem *LastAuto;
   /** Erstes Element fuer AutoTextrahmen */
 	PageItem *FirstAuto;
-	int MagMin;
-	int MagMax;
-	int MagStep;
-	QString DbrushPict;
-	int ShadePict;
-	double ScaleX;
-	double ScaleY;
-	bool ScaleType;
-	bool AspectRatio;
 	int docUnitIndex;
 	bool DragP;
 	bool leaveDrag;
@@ -268,11 +242,6 @@ public: // Public attributes
 	bool DoDrawing;
 	QValueList<int> OpenNodes;
 	QTimer *CurTimer;
-	int PolyC;
-	int PolyFd;
-	double PolyF;
-	bool PolyS;
-	double PolyR;
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include <qtextcodec.h>
 #include <qcursor.h>
-
+#include <qtimer.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qtable.h>
@@ -9,6 +9,7 @@
 #include <qstringlist.h>
 #include <qcombobox.h>
 #include <qfont.h>
+#include <qpopupmenu.h>
 
 #include "scribus.h"
 #include "fontcombo.h"
@@ -85,7 +86,12 @@ void Zoom::paintEvent(QPaintEvent *)
 
 ChTable::ChTable(CharSelect* parent, ScribusApp *pl) : QTable(parent)
 {
+	watchTimer = new QTimer(this);
+//	connect(watchTimer, SIGNAL(timeout()), this, SLOT(showAlternate()));
 	mPressed = false;
+	alternate = false;
+	rowA = 0;
+	colA = 0;
 	setFocusPolicy(NoFocus);
 	ap = pl;
 	par = parent;
@@ -95,13 +101,15 @@ ChTable::ChTable(CharSelect* parent, ScribusApp *pl) : QTable(parent)
 void ChTable::contentsMousePressEvent(QMouseEvent* e)
 {
 	e->accept();
-	int r = rowAt(e->pos().y());
-	int c = columnAt(e->pos().x());
+	uint r = rowAt(e->pos().y());
+	uint c = columnAt(e->pos().x());
 	QString font;
 	font = par->fontInUse;
+	mPressed = true;
+	alternate = false;
 	if ((e->button() == RightButton) && ((r*16+c) < maxCount))
 	{
-		mPressed = true;
+		watchTimer->stop();
 		int bh = 48 + qRound(-(*ap->doc->AllFonts)[font]->numDescender * 48) + 3;
 		QPixmap pixm(bh,bh);
 		ScPainter *p = new ScPainter(&pixm, bh, bh);
@@ -127,19 +135,50 @@ void ChTable::contentsMousePressEvent(QMouseEvent* e)
 		dia->move(ps.x()-2, ps.y()-2);
 		dia->show();
 	}
+/*	if (e->button() == LeftButton)
+	{
+		rowA = rowAt(e->pos().y());
+		colA = columnAt(e->pos().x());
+		watchTimer->start(3000, true);
+	} */
 }
 
 void ChTable::contentsMouseReleaseEvent(QMouseEvent* e)
 {
 	e->accept();
+	watchTimer->stop();
 	if ((e->button() == RightButton) && (mPressed))
 	{
-		mPressed = false;
 		dia->close();
 		delete dia;
 	}
-	if (e->button() == LeftButton)
+	if ((e->button() == LeftButton) && (!alternate))
 		emit selectChar(rowAt(e->pos().y()), columnAt(e->pos().x()));
+	mPressed = false;
+	alternate = false;
+}
+
+void ChTable::showAlternate()
+{
+/*	watchTimer->stop();
+	alternate = true;
+	QString font;
+	QString chToIns = "";
+	font = par->fontInUse;
+	uint baseChar = rowA*16+colA;
+	if (baseChar < maxCount)
+	{
+		QPopupMenu *pmen = new QPopupMenu();
+		chToIns = QChar(par->characters[baseChar]);
+		pmen->insertItem(FontSample((*ap->doc->AllFonts)[font]->Datei, 20, chToIns, paletteBackgroundColor(), true));
+		if ((*ap->doc->AllFonts)[font]->CharWidth.contains(par->characters[baseChar] + 0xF720))
+		{
+			chToIns = QChar(par->characters[baseChar] + 0xF720);
+			pmen->insertItem(FontSample((*ap->doc->AllFonts)[font]->Datei, 20, chToIns, paletteBackgroundColor(), true));
+		}
+		int re = pmen->indexOf(pmen->exec(QCursor::pos()));
+		delete pmen;
+	} */
 }
 
 CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDialog( parent, "CharSelect", true, 0 )
@@ -228,7 +267,7 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDial
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(delEdit()));
 	connect(insertButton, SIGNAL(clicked()), this, SLOT(insChar()));
-	connect(zTabelle, SIGNAL(selectChar(int, int)), this, SLOT(newChar(int, int)));
+	connect(zTabelle, SIGNAL(selectChar(uint, uint)), this, SLOT(newChar(uint, uint)));
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 	setupRangeCombo();
@@ -547,7 +586,7 @@ void CharSelect::generatePreview(int charClass)
 	zTabelle->maxCount = maxCount;
 	int ab = maxCount / 16;
 	int ac = maxCount % 16;
-	int cc = 0;
+	uint cc = 0;
 	if (ac != 0)
 		ab++;
 	zTabelle->setNumRows( ab );
@@ -606,7 +645,7 @@ void CharSelect::newFont(int font)
 	setupRangeCombo();
 }
 
-void CharSelect::newChar(int r, int c) // , int b, const QPoint &pp)
+void CharSelect::newChar(uint r, uint c) // , int b, const QPoint &pp)
 {
 	QString font;
 	font = fontInUse;

@@ -188,7 +188,7 @@ void SVGPlug::convert()
 	Prog->view->setUpdatesEnabled(false);
 	Prog->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
-	gc->Family = Doku->Dfont;
+	gc->Family = Doku->toolSettings.defFont;
 	if (!Doku->PageColors.contains("Black"))
 		Doku->PageColors.insert("Black", CMYKColor(0, 0, 0, 255));
 	m_gc.push( gc );
@@ -1577,7 +1577,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		QString family = params;
 		QString ret = "";
 		family.replace( QRegExp( "'" ) , QChar( ' ' ) );
-		obj->Family = Doku->Dfont; // family;
+		obj->Family = Doku->toolSettings.defFont; // family;
 		bool found = false;
 		SCFontsIterator it(Prog->Prefs.AvailFonts);
 		for ( ; it.current(); ++it)
@@ -1595,7 +1595,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		if (found)
 			obj->Family = ret;
 		else
-			obj->Family = Doku->Dfont;
+			obj->Family = Doku->toolSettings.defFont;
 	}
 	else if( command == "font-size" )
 		obj->FontSize = static_cast<int>(parseUnit(params) * 10.0);

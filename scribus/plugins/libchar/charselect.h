@@ -3,6 +3,7 @@
 
 #include <qdialog.h>
 
+class QTimer;
 class QLabel;
 class QPushbutton;
 class QTable;
@@ -96,11 +97,11 @@ public:
 	QMap<int,int> usedCharClasses;
 	QString chToIns;
 	QString fontInUse;
-	int maxCount;
+	uint maxCount;
 	int characterClass;
 
 public slots:
-	void newChar(int r, int c);
+	void newChar(uint r, uint c);
 	void newFont(int font);
 	void newCharClass(int c);
 	void delEdit();
@@ -120,13 +121,20 @@ public:
 	ChTable(CharSelect* parent, ScribusApp *pl);
 	~ChTable() {};
 	bool mPressed;
+	bool alternate;
 	Zoom* dia;
 	ScribusApp *ap;
 	CharSelect* par;
-	int maxCount;
+	QTimer* watchTimer;
+	uint maxCount;
+	uint rowA;
+	uint colA;
+
+public slots:
+	void showAlternate();
 
 signals:
-	void selectChar(int, int);
+	void selectChar(uint, uint);
 
 protected:
 	virtual void contentsMouseReleaseEvent(QMouseEvent *m);

@@ -386,12 +386,12 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent,
 	DistanceLayout->addWidget( columnsLabel, 0, 0 );
 	DistanceLayout->addWidget( DCol, 0, 1 );
 
-	DGap = new MSpinBox( 0, 300, Distance, 1 );
-	DGap->setSuffix( ptSuffix );
+	dGap = new MSpinBox( 0, 300, Distance, 1 );
+	dGap->setSuffix( ptSuffix );
 	colgapLabel = new LabelButton( Distance, tr("&Gap:"), tr("&Width:"));
-	colgapLabel->setBuddy(DGap);
+	colgapLabel->setBuddy(dGap);
 	DistanceLayout->addWidget( colgapLabel, 1, 0 );
-	DistanceLayout->addWidget( DGap, 1, 1 );
+	DistanceLayout->addWidget( dGap, 1, 1 );
 
 	DTop = new MSpinBox( 0, 300, Distance, 1 );
 	DTop->setSuffix( ptSuffix );
@@ -815,7 +815,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent,
 	QToolTip::add( RoundRect, tr( "Set radius of corner rounding" ) );
 	QToolTip::add( DCol, tr( "Number of columns in text frame" ) );
 	QToolTip::add( colgapLabel, tr("Switches between Gap or Column width"));
-	QToolTip::add( DGap, tr( "Distance between columns" ) );
+	QToolTip::add( dGap, tr( "Distance between columns" ) );
 	QToolTip::add( DTop, tr( "Distance of text from top of frame" ) );
 	QToolTip::add( DBottom, tr( "Distance of text from bottom of frame" ) );
 	QToolTip::add( DLeft, tr( "Distance of text from left of frame" ) );
@@ -871,7 +871,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent,
 	connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeIrre(int, int, double *)));
 	connect(EditShape, SIGNAL(clicked()), this, SLOT(EditSh()));
-	connect(DGap, SIGNAL(valueChanged(int)), this, SLOT(NewGap()));
+	connect(dGap, SIGNAL(valueChanged(int)), this, SLOT(NewGap()));
 	connect(DCol, SIGNAL(valueChanged(int)), this, SLOT(NewCols()));
 	connect(DTop, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
 	connect(DLeft, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
@@ -1008,7 +1008,7 @@ void Mpalette::SetDoc(ScribusDoc *d)
 	ScaleX->setValues( 1, 3000, 10, 1);
 	ScaleY->setValues( 1, 3000, 10, 1);
 
-	DGap->setDecimals(10);
+	dGap->setDecimals(10);
 	DTop->setDecimals(10);
 	DLeft->setDecimals(10);
 	DBottom->setDecimals(10);
@@ -1071,12 +1071,12 @@ void Mpalette::SetCurItem(PageItem *i)
 	LevelTxt->setText(tm.setNum(i->ItemNr));
 	DCol->setMaxValue(QMAX(qRound(i->Width / QMAX(i->ColGap, 10.0)), 1));
 	DCol->setMinValue(1);
-	DGap->setMinValue(0);
+	dGap->setMinValue(0);
 	DCol->setValue(i->Cols);
 	if (colgapLabel->getState())
 	{
-		DGap->setMaxValue(QMAX((i->Width / i->Cols - i->Extra - i->RExtra)*UmReFaktor, 0));
-		DGap->setValue(i->ColGap*UmReFaktor);
+		dGap->setMaxValue(QMAX((i->Width / i->Cols - i->Extra - i->RExtra)*UmReFaktor, 0));
+		dGap->setValue(i->ColGap*UmReFaktor);
 	}
 	else
 	{
@@ -1086,8 +1086,8 @@ void Mpalette::SetCurItem(PageItem *i)
 		else
 			lineCorr = 0;
 		double ColWidth = (i->Width - (i->ColGap * (i->Cols - 1)) - i->Extra - i->RExtra - lineCorr) / i->Cols;
-		DGap->setMaxValue(QMAX((i->Width / i->Cols)*UmReFaktor, 0));
-		DGap->setValue(ColWidth*UmReFaktor);
+		dGap->setMaxValue(QMAX((i->Width / i->Cols)*UmReFaktor, 0));
+		dGap->setValue(ColWidth*UmReFaktor);
 	}
 	DLeft->setValue(i->Extra*UmReFaktor);
 	DTop->setValue(i->TExtra*UmReFaktor);
@@ -1471,8 +1471,8 @@ void Mpalette::UnitChange()
 	double newH = Height->value() / old * UmReFaktor;
 	double newLX = LXpos->value() / old * UmReFaktor;
 	double newLY = LYpos->value() / old * UmReFaktor;
-	double newG = DGap->value() / old * UmReFaktor;
-	double newGM = DGap->maxValue() / old * UmReFaktor;
+	double newG = dGap->value() / old * UmReFaktor;
+	double newGM = dGap->maxValue() / old * UmReFaktor;
 	double newDT = DTop->value() / old * UmReFaktor;
 	double newDL = DLeft->value() / old * UmReFaktor;
 	double newDB = DBottom->value() / old * UmReFaktor;
@@ -1490,7 +1490,7 @@ void Mpalette::UnitChange()
 	Height->setSuffix( ein );
 	LXpos->setSuffix( ein );
 	LYpos->setSuffix( ein );
-	DGap->setSuffix( ein );
+	dGap->setSuffix( ein );
 	DLeft->setSuffix( ein );
 	DTop->setSuffix( ein );
 	DBottom->setSuffix( ein );
@@ -1514,9 +1514,9 @@ void Mpalette::UnitChange()
 	LYpos->setDecimals(xywhdecimals);
 	LYpos->setMaxValue( maxXYWHVal );
 
-	DGap->setDecimals(distdecimals);
-	DGap->setMaxValue(newGM);
-	DGap->setValue(newG);
+	dGap->setDecimals(distdecimals);
+	dGap->setMaxValue(newGM);
+	dGap->setValue(newG);
 
 	DLeft->setDecimals(distdecimals);
 	DLeft->setMaxValue( 300 );
@@ -1662,14 +1662,14 @@ void Mpalette::setCols(int r, double g)
 	bool tmp = HaveItem;
 	HaveItem = false;
 	DCol->setValue(r);
-	DGap->setValue(g*UmReFaktor);
+	dGap->setValue(g*UmReFaktor);
 	if (tmp)
 	{
 		DCol->setMaxValue(QMAX(qRound(CurItem->Width / QMAX(CurItem->ColGap, 10.0)), 1));
 		if (colgapLabel->getState())
 		{
-			DGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols - CurItem->Extra - CurItem->RExtra)*UmReFaktor, 0));
-			DGap->setValue(CurItem->ColGap*UmReFaktor);
+			dGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols - CurItem->Extra - CurItem->RExtra)*UmReFaktor, 0));
+			dGap->setValue(CurItem->ColGap*UmReFaktor);
 		}
 		else
 		{
@@ -1679,12 +1679,12 @@ void Mpalette::setCols(int r, double g)
 			else
 				lineCorr = 0;
 			double ColWidth = (CurItem->Width - (CurItem->ColGap * (CurItem->Cols - 1)) - CurItem->Extra - CurItem->RExtra - lineCorr) / CurItem->Cols;
-			DGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols)*UmReFaktor, 0));
-			DGap->setValue(ColWidth*UmReFaktor);
+			dGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols)*UmReFaktor, 0));
+			dGap->setValue(ColWidth*UmReFaktor);
 		}
 	}
 	DCol->setMinValue(1);
-	DGap->setMinValue(0);
+	dGap->setMinValue(0);
 	HaveItem = tmp;
 }
 
@@ -2260,11 +2260,11 @@ void Mpalette::HandleGapSwitch()
 	if ((HaveDoc) && (HaveItem))
 	{
 		setCols(CurItem->Cols, CurItem->ColGap);
-		QToolTip::remove(DGap);
+		QToolTip::remove(dGap);
 		if (colgapLabel->getState())
-			QToolTip::add( DGap, tr( "Distance between columns" ) );
+			QToolTip::add( dGap, tr( "Distance between columns" ) );
 		else
-			QToolTip::add( DGap, tr( "Column width" ) );
+			QToolTip::add( dGap, tr( "Column width" ) );
 	}
 }
 
@@ -2288,7 +2288,7 @@ void Mpalette::NewGap()
 	if ((HaveDoc) && (HaveItem))
 	{
 		if (colgapLabel->getState())
-			CurItem->ColGap = DGap->value() / UmReFaktor;
+			CurItem->ColGap = dGap->value() / UmReFaktor;
 		else
 		{
 			double lineCorr;
@@ -2296,7 +2296,7 @@ void Mpalette::NewGap()
 				lineCorr = CurItem->Pwidth;
 			else
 				lineCorr = 0;
-			double newWidth = DGap->value() / UmReFaktor;
+			double newWidth = dGap->value() / UmReFaktor;
 			double newGap = QMAX(((CurItem->Width - CurItem->Extra - CurItem->RExtra - lineCorr) - (newWidth * CurItem->Cols)) / (CurItem->Cols - 1), 0);
 			CurItem->ColGap = newGap;
 		}

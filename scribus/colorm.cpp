@@ -335,9 +335,9 @@ void Farbmanager::delUnused()
 	for (it = EditColors.begin(); it != EditColors.end(); ++it)
 	{
 		found = false;
-		if ((it.key() == ScApp->doc->Dbrush) || (it.key() == ScApp->doc->Dpen) ||
-		        (it.key() == ScApp->doc->DbrushPict)
-		        || (it.key() == ScApp->doc->DpenLine) || (it.key() == ScApp->doc->DpenText))
+		if ((it.key() == ScApp->doc->toolSettings.dBrush) || (it.key() == ScApp->doc->toolSettings.dPen) ||
+		        (it.key() == ScApp->doc->toolSettings.dBrushPict)
+		        || (it.key() == ScApp->doc->toolSettings.dPenLine) || (it.key() == ScApp->doc->toolSettings.dPenText))
 		{
 			UsedC.insert(it.key(), it.data());
 			continue;

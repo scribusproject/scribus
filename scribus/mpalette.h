@@ -223,7 +223,7 @@ public:
 	MSpinBox* Height;
 	MSpinBox* Rot;
 	MSpinBox* RoundRect;
-	MSpinBox* DGap;
+	MSpinBox* dGap;
 	MSpinBox* DTop;
 	MSpinBox* DBottom;
 	MSpinBox* DLeft;

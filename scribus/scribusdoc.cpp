@@ -35,9 +35,9 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	UsedFonts.clear();
 	FT_Init_FreeType( &library );
 	AllFonts = &prefsData->AvailFonts;
-	AddFont(prefsData->DefFont, prefsData->AvailFonts[prefsData->DefFont]->Font);
-	Dfont = prefsData->DefFont;
-	Dsize = prefsData->DefSize;
+	AddFont(prefsData->toolSettings.defFont, prefsData->AvailFonts[prefsData->toolSettings.defFont]->Font);
+	toolSettings.defFont = prefsData->toolSettings.defFont;
+	toolSettings.defSize = prefsData->toolSettings.defSize;
 	guidesSettings.marginsShown = prefsData->guidesSettings.marginsShown;
 	guidesSettings.framesShown = prefsData->guidesSettings.framesShown;
 	guidesSettings.gridShown = prefsData->guidesSettings.gridShown;
@@ -59,24 +59,24 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	PageColors.clear();
 	PageColors.insert("Black", CMYKColor(0, 0, 0, 255));
 	PageColors.insert("White", CMYKColor(0, 0, 0, 0));
-	if (prefsData->Dpen != "None")
-		PageColors.insert(prefsData->Dpen, prefsData->DColors[prefsData->Dpen]);
-	Dpen = prefsData->Dpen;
-	if (prefsData->DpenLine != "None")
-		PageColors.insert(prefsData->DpenLine, prefsData->DColors[prefsData->DpenLine]);
-	DpenLine = prefsData->DpenLine;
-	if (prefsData->DpenText != "None")
-		PageColors.insert(prefsData->DpenText, prefsData->DColors[prefsData->DpenText]);
-	DpenText = prefsData->DpenText;
-	if (prefsData->DstrokeText != "None")
-		PageColors.insert(prefsData->DstrokeText, prefsData->DColors[prefsData->DstrokeText]);
-	DstrokeText = prefsData->DstrokeText;
-	if (prefsData->Dbrush != "None")
-		PageColors.insert(prefsData->Dbrush, prefsData->DColors[prefsData->Dbrush]);
-	Dbrush = prefsData->Dbrush;
-	if (prefsData->DbrushPict != "None")
-		PageColors.insert(prefsData->DbrushPict, prefsData->DColors[prefsData->DbrushPict]);
-	DbrushPict = prefsData->DbrushPict;
+	if (prefsData->toolSettings.dPen != "None")
+		PageColors.insert(prefsData->toolSettings.dPen, prefsData->DColors[prefsData->toolSettings.dPen]);
+	toolSettings.dPen = prefsData->toolSettings.dPen;
+	if (prefsData->toolSettings.dPenLine != "None")
+		PageColors.insert(prefsData->toolSettings.dPenLine, prefsData->DColors[prefsData->toolSettings.dPenLine]);
+	toolSettings.dPenLine = prefsData->toolSettings.dPenLine;
+	if (prefsData->toolSettings.dPenText != "None")
+		PageColors.insert(prefsData->toolSettings.dPenText, prefsData->DColors[prefsData->toolSettings.dPenText]);
+	toolSettings.dPenText = prefsData->toolSettings.dPenText;
+	if (prefsData->toolSettings.dStrokeText != "None")
+		PageColors.insert(prefsData->toolSettings.dStrokeText, prefsData->DColors[prefsData->toolSettings.dStrokeText]);
+	toolSettings.dStrokeText = prefsData->toolSettings.dStrokeText;
+	if (prefsData->toolSettings.dBrush != "None")
+		PageColors.insert(prefsData->toolSettings.dBrush, prefsData->DColors[prefsData->toolSettings.dBrush]);
+	toolSettings.dBrush = prefsData->toolSettings.dBrush;
+	if (prefsData->toolSettings.dBrushPict != "None")
+		PageColors.insert(prefsData->toolSettings.dBrushPict, prefsData->DColors[prefsData->toolSettings.dBrushPict]);
+	toolSettings.dBrushPict = prefsData->toolSettings.dBrushPict;
 	typographicSetttings.valueSuperScript = prefsData->typographicSetttings.valueSuperScript;
 	typographicSetttings.scalingSuperScript = prefsData->typographicSetttings.scalingSuperScript;
 	typographicSetttings.valueSubScript = prefsData->typographicSetttings.valueSubScript;
@@ -85,30 +85,30 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	typographicSetttings.autoLineSpacing = prefsData->typographicSetttings.autoLineSpacing;
 	typographicSetttings.valueBaseGrid = prefsData->typographicSetttings.valueBaseGrid;
 	typographicSetttings.offsetBaseGrid = prefsData->typographicSetttings.offsetBaseGrid;
-	Dshade = prefsData->Dshade;
-	Dshade2 = prefsData->Dshade2;
-	ShadePict = prefsData->ShadePict;
-	ScaleX = prefsData->ScaleX;
-	ScaleY = prefsData->ScaleY;
-	ScaleType = prefsData->ScaleType;
-	AspectRatio = prefsData->AspectRatio;
-	DCols = prefsData->DCols;
-	DGap = prefsData->DGap;
-	DLineArt = PenStyle(prefsData->DLineArt);
-	Dwidth = prefsData->Dwidth;
-	DshadeLine = prefsData->DshadeLine;
-	DLstyleLine = PenStyle(prefsData->DLstyleLine);
-	DwidthLine = prefsData->DwidthLine;
-	DstartArrow = prefsData->DstartArrow;
-	DendArrow = prefsData->DendArrow;
-	PolyC = prefsData->PolyC;
-	PolyF = prefsData->PolyF;
-	PolyS = prefsData->PolyS;
-	PolyFd = prefsData->PolyFd;
-	PolyR = prefsData->PolyR;
-	MagMin = prefsData->MagMin;
-	MagMax = prefsData->MagMax;
-	MagStep = prefsData->MagStep;
+	toolSettings.dShade = prefsData->toolSettings.dShade;
+	toolSettings.dShade2 = prefsData->toolSettings.dShade2;
+	toolSettings.shadePict = prefsData->toolSettings.shadePict;
+	toolSettings.scaleX = prefsData->toolSettings.scaleX;
+	toolSettings.scaleY = prefsData->toolSettings.scaleY;
+	toolSettings.scaleType = prefsData->toolSettings.scaleType;
+	toolSettings.aspectRatio = prefsData->toolSettings.aspectRatio;
+	toolSettings.dCols = prefsData->toolSettings.dCols;
+	toolSettings.dGap = prefsData->toolSettings.dGap;
+	toolSettings.dLineArt = PenStyle(prefsData->toolSettings.dLineArt);
+	toolSettings.dWidth = prefsData->toolSettings.dWidth;
+	toolSettings.dShadeLine = prefsData->toolSettings.dShadeLine;
+	toolSettings.dLstyleLine = PenStyle(prefsData->toolSettings.dLstyleLine);
+	toolSettings.dWidthLine = prefsData->toolSettings.dWidthLine;
+	toolSettings.dStartArrow = prefsData->toolSettings.dStartArrow;
+	toolSettings.dEndArrow = prefsData->toolSettings.dEndArrow;
+	toolSettings.polyC = prefsData->toolSettings.polyC;
+	toolSettings.polyF = prefsData->toolSettings.polyF;
+	toolSettings.polyS = prefsData->toolSettings.polyS;
+	toolSettings.polyFd = prefsData->toolSettings.polyFd;
+	toolSettings.polyR = prefsData->toolSettings.polyR;
+	toolSettings.magMin = prefsData->toolSettings.magMin;
+	toolSettings.magMax = prefsData->toolSettings.magMax;
+	toolSettings.magStep = prefsData->toolSettings.magStep;
 	docUnitIndex = prefsData->docUnitIndex;
 	marginColored = prefsData->marginColored;
 	Language = prefsData->Language;
@@ -154,15 +154,15 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	vg.gapBefore = 0;
 	vg.gapAfter = 0;
 	vg.Font = "";
-	vg.FontSize = Dsize;
+	vg.FontSize = toolSettings.defSize;
 	vg.TabValues.clear();
 	vg.Drop = false;
 	vg.DropLin = 2;
 	vg.FontEffect = 0;
-	vg.FColor = Dbrush;
-	vg.FShade = Dshade;
-	vg.SColor = Dpen;
-	vg.SShade = Dshade2;
+	vg.FColor = toolSettings.dBrush;
+	vg.FShade = toolSettings.dShade;
+	vg.SColor = toolSettings.dPen;
+	vg.SShade = toolSettings.dShade2;
 	vg.BaseAdj = false;
 	docParagraphStyles.append(vg);
 	vg.Vname = "Center Internal";

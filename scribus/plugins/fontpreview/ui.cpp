@@ -70,7 +70,7 @@ FontPreview::FontPreview( ScribusApp *carrier, QWidget* parent, const char* name
 		if (carrier->view->SelItem.count() != 0)
 			item = fontList->findItem(carrier->doc->CurrFont);
 		else
-			item = fontList->findItem(carrier->Prefs.DefFont);
+			item = fontList->findItem(carrier->Prefs.toolSettings.defFont);
 	}
 	if (item != 0)
 	{
@@ -114,8 +114,8 @@ void FontPreview::fontList_changed( QListBoxItem *item )
 {
 	uint size = 16;
 	QString t = tr("Woven silk pyjamas exchanged for blue quartz");
-	if (carrier->doc->Dsize && carrier->doc->Dsize < 28 && carrier->doc->Dsize > 10)
-		size = carrier->doc->Dsize;
+	if (carrier->doc->toolSettings.defSize && carrier->doc->toolSettings.defSize < 28 && carrier->doc->toolSettings.defSize > 10)
+		size = carrier->doc->toolSettings.defSize;
 	t.replace('\n', " "); // remove French <NL> from translation...
 	QString da = carrier->Prefs.AvailFonts[item->text()]->Datei;
 	QPixmap pixmap = fontSamples(da, size, t, paletteBackgroundColor());

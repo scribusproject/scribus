@@ -75,6 +75,7 @@
 #include "arrowchooser.h"
 #include "tabtypography.h"
 #include "tabguides.h"
+#include "tabtools.h"
 #include "undogui.h"
 #include "filewatcher.h"
 #ifdef _MSC_VER
@@ -322,8 +323,8 @@ void ScribusApp::initDefaultPrefs()
 {
 	/** Default font and size **/
 	SCFontsIterator it(Prefs.AvailFonts);
-	Prefs.DefFont = it.currentKey();
-	Prefs.DefSize = 120;
+	Prefs.toolSettings.defFont = it.currentKey();
+	Prefs.toolSettings.defSize = 120;
 	Prefs.AppFontSize = qApp->font().pointSize();
 
 	/** Default colours **/
@@ -394,37 +395,37 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.typographicSetttings.valueBaseGrid = 14.4;
 	Prefs.typographicSetttings.offsetBaseGrid = 0.0;
 	Prefs.GUI = "Default";
-	Prefs.Dpen = "Black";
-	Prefs.Dbrush = "Black";
-	Prefs.Dshade = 100;
-	Prefs.Dshade2 = 100;
-	Prefs.DLineArt = SolidLine;
-	Prefs.Dwidth = 1;
-	Prefs.DpenLine = "Black";
-	Prefs.DpenText = "Black";
-	Prefs.DstrokeText = "Black";
+	Prefs.toolSettings.dPen = "Black";
+	Prefs.toolSettings.dBrush = "Black";
+	Prefs.toolSettings.dShade = 100;
+	Prefs.toolSettings.dShade2 = 100;
+	Prefs.toolSettings.dLineArt = SolidLine;
+	Prefs.toolSettings.dWidth = 1;
+	Prefs.toolSettings.dPenLine = "Black";
+	Prefs.toolSettings.dPenText = "Black";
+	Prefs.toolSettings.dStrokeText = "Black";
 	Prefs.DpapColor = QColor(white);
-	Prefs.DCols = 1;
-	Prefs.DGap = 0.0;
-	Prefs.DshadeLine = 100;
-	Prefs.DLstyleLine = SolidLine;
-	Prefs.DwidthLine = 1;
-	Prefs.DstartArrow = 0;
-	Prefs.DendArrow = 0;
-	Prefs.MagMin = 10;
-	Prefs.MagMax = 3200;
-	Prefs.MagStep = 25;
-	Prefs.DbrushPict = "White";
-	Prefs.ShadePict = 100;
-	Prefs.ScaleX = 1;
-	Prefs.ScaleY = 1;
+	Prefs.toolSettings.dCols = 1;
+	Prefs.toolSettings.dGap = 0.0;
+	Prefs.toolSettings.dShadeLine = 100;
+	Prefs.toolSettings.dLstyleLine = SolidLine;
+	Prefs.toolSettings.dWidthLine = 1;
+	Prefs.toolSettings.dStartArrow = 0;
+	Prefs.toolSettings.dEndArrow = 0;
+	Prefs.toolSettings.magMin = 10;
+	Prefs.toolSettings.magMax = 3200;
+	Prefs.toolSettings.magStep = 25;
+	Prefs.toolSettings.dBrushPict = "White";
+	Prefs.toolSettings.shadePict = 100;
+	Prefs.toolSettings.scaleX = 1;
+	Prefs.toolSettings.scaleY = 1;
 	Prefs.guidesSettings.before = true;
 	Prefs.docUnitIndex = 0;
-	Prefs.PolyC = 4;
-	Prefs.PolyF = 0.5;
-	Prefs.PolyS = false;
-	Prefs.PolyFd = 0;
-	Prefs.PolyR = 0;
+	Prefs.toolSettings.polyC = 4;
+	Prefs.toolSettings.polyF = 0.5;
+	Prefs.toolSettings.polyS = false;
+	Prefs.toolSettings.polyFd = 0;
+	Prefs.toolSettings.polyR = 0;
 	Prefs.mainToolBarSettings.visible = true;
 	Prefs.pdfToolBarSettings.visible = true;
 	Prefs.mPaletteSettings.visible = false;
@@ -465,8 +466,8 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.RandRechts = 9;
 	Prefs.DoppelSeiten = false;
 	Prefs.ErsteLinks = false;
-	Prefs.ScaleType = true;
-	Prefs.AspectRatio = true;
+	Prefs.toolSettings.scaleType = true;
+	Prefs.toolSettings.aspectRatio = true;
 	Prefs.MinWordLen = 3;
 	Prefs.HyCount = 2;
 	Prefs.Language = "";
@@ -2547,7 +2548,7 @@ bool ScribusApp::SetupDoc()
 	bool fp = doc->PageFP;
 	double tpr2, lr2, rr2, br2;
 	bool ret = false;
-	ReformDoc* dia = new ReformDoc(this, doc, &Prefs);
+	ReformDoc* dia = new ReformDoc(this, doc);
 	if (dia->exec())
 	{
 		slotChangeUnit(dia->unitCombo->currentItem(), false);
@@ -2587,80 +2588,80 @@ bool ScribusApp::SetupDoc()
 		doc->typographicSetttings.autoLineSpacing = dia->tabTypo->autoLine->value();
 		doc->typographicSetttings.valueBaseGrid = dia->tabTypo->baseGrid->value() / UmReFaktor;
 		doc->typographicSetttings.offsetBaseGrid = dia->tabTypo->baseOffset->value() / UmReFaktor;
-		doc->Dfont = dia->fontComboText->currentText();
-		doc->Dsize = dia->sizeComboText->currentText().left(2).toInt() * 10;
-		doc->DstrokeText = dia->colorComboStrokeText->currentText();
-		if (doc->DstrokeText == tr("None"))
-			doc->DstrokeText = "None";
-		doc->DpenText = dia->colorComboText->currentText();
-		if (doc->DpenText == tr("None"))
-			doc->DpenText = "None";
-		doc->DCols = dia->columnsText->value();
-		doc->DGap = dia->gapText->value() / UmReFaktor;
-		doc->Dpen = dia->colorComboLineShape->currentText();
-		if (doc->Dpen == tr("None"))
-			doc->Dpen = "None";
-		doc->Dbrush = dia->comboFillShape->currentText();
-		if (doc->Dbrush == tr("None"))
-			doc->Dbrush = "None";
-		doc->Dshade = dia->shadingFillShape->value();
-		doc->Dshade2 = dia->shadingLineShape->value();
-		switch (dia->comboStyleShape->currentItem())
+		doc->toolSettings.defFont = dia->tabTools->fontComboText->currentText();
+		doc->toolSettings.defSize = dia->tabTools->sizeComboText->currentText().left(2).toInt() * 10;
+		doc->toolSettings.dStrokeText = dia->tabTools->colorComboStrokeText->currentText();
+		if (doc->toolSettings.dStrokeText == tr("None"))
+			doc->toolSettings.dStrokeText = "None";
+		doc->toolSettings.dPenText = dia->tabTools->colorComboText->currentText();
+		if (doc->toolSettings.dPenText == tr("None"))
+			doc->toolSettings.dPenText = "None";
+		doc->toolSettings.dCols = dia->tabTools->columnsText->value();
+		doc->toolSettings.dGap = dia->tabTools->gapText->value() / UmReFaktor;
+		doc->toolSettings.dPen = dia->tabTools->colorComboLineShape->currentText();
+		if (doc->toolSettings.dPen == tr("None"))
+			doc->toolSettings.dPen = "None";
+		doc->toolSettings.dBrush = dia->tabTools->comboFillShape->currentText();
+		if (doc->toolSettings.dBrush == tr("None"))
+			doc->toolSettings.dBrush = "None";
+		doc->toolSettings.dShade = dia->tabTools->shadingFillShape->value();
+		doc->toolSettings.dShade2 = dia->tabTools->shadingLineShape->value();
+		switch (dia->tabTools->comboStyleShape->currentItem())
 		{
 		case 0:
-			doc->DLineArt = SolidLine;
+			doc->toolSettings.dLineArt = SolidLine;
 			break;
 		case 1:
-			doc->DLineArt = DashLine;
+			doc->toolSettings.dLineArt = DashLine;
 			break;
 		case 2:
-			doc->DLineArt = DotLine;
+			doc->toolSettings.dLineArt = DotLine;
 			break;
 		case 3:
-			doc->DLineArt = DashDotLine;
+			doc->toolSettings.dLineArt = DashDotLine;
 			break;
 		case 4:
-			doc->DLineArt = DashDotDotLine;
+			doc->toolSettings.dLineArt = DashDotDotLine;
 			break;
 		}
-		doc->Dwidth = dia->lineWidthShape->value();
-		doc->DstartArrow = dia->startArrow->currentItem();
-		doc->DendArrow = dia->endArrow->currentItem();
-		doc->MagMin = dia->minimumZoom->value();
-		doc->MagMax = dia->maximumZoom->value();
-		doc->MagStep = dia->zoomStep->value();
-		doc->DpenLine = dia->colorComboLine->currentText();
-		if (doc->DpenLine == tr("None"))
-			doc->DpenLine = "None";
-		doc->DshadeLine = dia->shadingLine->value();
-		switch (dia->comboStyleLine->currentItem())
+		doc->toolSettings.dWidth = dia->tabTools->lineWidthShape->value();
+		doc->toolSettings.dStartArrow = dia->tabTools->startArrow->currentItem();
+		doc->toolSettings.dEndArrow = dia->tabTools->endArrow->currentItem();
+		doc->toolSettings.magMin = dia->tabTools->minimumZoom->value();
+		doc->toolSettings.magMax = dia->tabTools->maximumZoom->value();
+		doc->toolSettings.magStep = dia->tabTools->zoomStep->value();
+		doc->toolSettings.dPenLine = dia->tabTools->colorComboLine->currentText();
+		if (doc->toolSettings.dPenLine == tr("None"))
+			doc->toolSettings.dPenLine = "None";
+		doc->toolSettings.dShadeLine = dia->tabTools->shadingLine->value();
+		switch (dia->tabTools->comboStyleLine->currentItem())
 		{
 		case 0:
-			doc->DLstyleLine = SolidLine;
+			doc->toolSettings.dLstyleLine = SolidLine;
 			break;
 		case 1:
-			doc->DLstyleLine = DashLine;
+			doc->toolSettings.dLstyleLine = DashLine;
 			break;
 		case 2:
-			doc->DLstyleLine = DotLine;
+			doc->toolSettings.dLstyleLine = DotLine;
 			break;
 		case 3:
-			doc->DLstyleLine = DashDotLine;
+			doc->toolSettings.dLstyleLine = DashDotLine;
 			break;
 		case 4:
-			doc->DLstyleLine = DashDotDotLine;
+			doc->toolSettings.dLstyleLine = DashDotDotLine;
 			break;
 		}
-		doc->DwidthLine = dia->lineWidthLine->value();
-		doc->DbrushPict = dia->comboFillImage->currentText();
-		if (doc->DbrushPict == tr("None"))
-			doc->DbrushPict = "None";
-		doc->ShadePict = dia->shadingFillImage->value();
-		doc->ScaleX = static_cast<double>(dia->scalingHorizontal->value()) / 100.0;
-		doc->ScaleY = static_cast<double>(dia->scalingVertical->value()) / 100.0;
-		doc->ScaleType = dia->buttonGroup3->isChecked();
-		doc->AspectRatio = dia->checkRatioImage->isChecked();
-		dia->polyWidget->getValues(&doc->PolyC, &doc->PolyFd, &doc->PolyF, &doc->PolyS, &doc->PolyR);
+		doc->toolSettings.dWidthLine = dia->tabTools->lineWidthLine->value();
+		doc->toolSettings.dBrushPict = dia->tabTools->comboFillImage->currentText();
+		if (doc->toolSettings.dBrushPict == tr("None"))
+			doc->toolSettings.dBrushPict = "None";
+		doc->toolSettings.shadePict = dia->tabTools->shadingFillImage->value();
+		doc->toolSettings.scaleX = static_cast<double>(dia->tabTools->scalingHorizontal->value()) / 100.0;
+		doc->toolSettings.scaleY = static_cast<double>(dia->tabTools->scalingVertical->value()) / 100.0;
+		doc->toolSettings.scaleType = dia->tabTools->buttonGroup3->isChecked();
+		doc->toolSettings.aspectRatio = dia->tabTools->checkRatioImage->isChecked();
+		dia->tabTools->polyWidget->getValues(&doc->toolSettings.polyC, &doc->toolSettings.polyFd, &doc->toolSettings.polyF, &doc->toolSettings.polyS, &doc->toolSettings.polyR);
 		doc->ScratchBottom = dia->bottomScratch->value() / UmReFaktor;
 		doc->ScratchLeft = dia->leftScratch->value() / UmReFaktor;
 		doc->ScratchRight = dia->rightScratch->value() / UmReFaktor;
@@ -2773,7 +2774,7 @@ void ScribusApp::SwitchWin()
 	{
 		pm.fill(doc->PageColors[it.key()].getRGBColor());
 		ColorMenC->insertItem(pm, it.key());
-		if (it.key() == doc->Dbrush)
+		if (it.key() == doc->toolSettings.dBrush)
 			ColorMenC->setCurrentItem(a);
 		a++;
 	}
@@ -2918,7 +2919,7 @@ void ScribusApp::HaveNewDoc()
 	{
 		pm.fill(doc->PageColors[it.key()].getRGBColor());
 		ColorMenC->insertItem(pm, it.key());
-		if (it.key() == doc->Dbrush)
+		if (it.key() == doc->toolSettings.dBrush)
 			ColorMenC->setCurrentItem(a);
 		a++;
 	}
@@ -6514,7 +6515,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 					FontID.insert(ff, Prefs.AvailFonts[nf]->SCName);
 				}
 				else
-					doc->docParagraphStyles[a].Font = doc->Dfont;
+					doc->docParagraphStyles[a].Font = doc->toolSettings.defFont;
 			}
 		}
 	}
@@ -6583,7 +6584,7 @@ void ScribusApp::slotEditColors()
 			{
 				pm.fill(doc->PageColors[it.key()].getRGBColor());
 				ColorMenC->insertItem(pm, it.key());
-				if (it.key() == doc->Dbrush)
+				if (it.key() == doc->toolSettings.dBrush)
 					ColorMenC->setCurrentItem(a);
 				a++;
 			}
@@ -6957,7 +6958,7 @@ void ScribusApp::buildFontMenu()
 		for (it3 = doc->UsedFonts.begin(); it3 != doc->UsedFonts.end(); ++it3)
 		{
 			a = FontMenu->insertItem(new FmItem(it3.key(), it3.data()));
-			if (it3.key() == doc->Dfont)
+			if (it3.key() == doc->toolSettings.defFont)
 				FontMenu->setItemChecked(a, true);
 			FontID.insert(a, it3.key());
 		}
@@ -7080,7 +7081,7 @@ void ScribusApp::slotPrefsOrg()
 		QFont apf = qApp->font();
 		apf.setPointSize(Prefs.AppFontSize);
 		qApp->setFont(apf,true);
-		dia->polyWidget->getValues(&Prefs.PolyC, &Prefs.PolyFd, &Prefs.PolyF, &Prefs.PolyS, &Prefs.PolyR);
+		dia->tabTools->polyWidget->getValues(&Prefs.toolSettings.polyC, &Prefs.toolSettings.polyFd, &Prefs.toolSettings.polyF, &Prefs.toolSettings.polyS, &Prefs.toolSettings.polyR);
 		Prefs.PageFormat = dia->GZComboF->currentItem();
 		Prefs.Ausrichtung = dia->GZComboO->currentItem();
 		Prefs.PageBreite = dia->Pagebr;
@@ -7126,8 +7127,8 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.ScratchRight = dia->rightScratch->value() / UmReFaktor;
 		Prefs.ScratchTop = dia->topScratch->value() / UmReFaktor;
 		Prefs.DpapColor = dia->colorPaper;
-		Prefs.DefFont = dia->fontComboText->currentText();
-		Prefs.DefSize = dia->sizeComboText->currentText().left(2).toInt() * 10;
+		Prefs.toolSettings.defFont = dia->tabTools->fontComboText->currentText();
+		Prefs.toolSettings.defSize = dia->tabTools->sizeComboText->currentText().left(2).toInt() * 10;
 		Prefs.guidesSettings.marginsShown = dia->tabGuides->checkMargin->isChecked();
 		Prefs.guidesSettings.framesShown = dia->tabGuides->checkFrame->isChecked();
 		Prefs.guidesSettings.gridShown = dia->tabGuides->checkGrid->isChecked();
@@ -7152,77 +7153,77 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.typographicSetttings.autoLineSpacing = dia->tabTypo->autoLine->value();
 		Prefs.typographicSetttings.valueBaseGrid = dia->tabTypo->baseGrid->value() / UmReFaktor;
 		Prefs.typographicSetttings.offsetBaseGrid = dia->tabTypo->baseOffset->value() / UmReFaktor;
-		Prefs.Dpen = dia->colorComboLineShape->currentText();
-		if (Prefs.Dpen == tr("None"))
-			Prefs.Dpen = "None";
-		Prefs.DpenText = dia->colorComboText->currentText();
-		if (Prefs.DpenText == tr("None"))
-			Prefs.DpenText = "None";
-		Prefs.DstrokeText = dia->colorComboStrokeText->currentText();
-		if (Prefs.DstrokeText == tr("None"))
-			Prefs.DstrokeText = "None";
-		Prefs.DCols = dia->columnsText->value();
-		Prefs.DGap = dia->gapText->value() / UmReFaktor;
-		Prefs.Dbrush = dia->comboFillShape->currentText();
-		if (Prefs.Dbrush == tr("None"))
-			Prefs.Dbrush = "None";
-		Prefs.Dshade = dia->shadingFillShape->value();
-		Prefs.Dshade2 = dia->shadingLineShape->value();
-		switch (dia->comboStyleShape->currentItem())
+		Prefs.toolSettings.dPen = dia->tabTools->colorComboLineShape->currentText();
+		if (Prefs.toolSettings.dPen == tr("None"))
+			Prefs.toolSettings.dPen = "None";
+		Prefs.toolSettings.dPenText = dia->tabTools->colorComboText->currentText();
+		if (Prefs.toolSettings.dPenText == tr("None"))
+			Prefs.toolSettings.dPenText = "None";
+		Prefs.toolSettings.dStrokeText = dia->tabTools->colorComboStrokeText->currentText();
+		if (Prefs.toolSettings.dStrokeText == tr("None"))
+			Prefs.toolSettings.dStrokeText = "None";
+		Prefs.toolSettings.dCols = dia->tabTools->columnsText->value();
+		Prefs.toolSettings.dGap = dia->tabTools->gapText->value() / UmReFaktor;
+		Prefs.toolSettings.dBrush = dia->tabTools->comboFillShape->currentText();
+		if (Prefs.toolSettings.dBrush == tr("None"))
+			Prefs.toolSettings.dBrush = "None";
+		Prefs.toolSettings.dShade = dia->tabTools->shadingFillShape->value();
+		Prefs.toolSettings.dShade2 = dia->tabTools->shadingLineShape->value();
+		switch (dia->tabTools->comboStyleShape->currentItem())
 		{
 		case 0:
-			Prefs.DLineArt = SolidLine;
+			Prefs.toolSettings.dLineArt = SolidLine;
 			break;
 		case 1:
-			Prefs.DLineArt = DashLine;
+			Prefs.toolSettings.dLineArt = DashLine;
 			break;
 		case 2:
-			Prefs.DLineArt = DotLine;
+			Prefs.toolSettings.dLineArt = DotLine;
 			break;
 		case 3:
-			Prefs.DLineArt = DashDotLine;
+			Prefs.toolSettings.dLineArt = DashDotLine;
 			break;
 		case 4:
-			Prefs.DLineArt = DashDotDotLine;
+			Prefs.toolSettings.dLineArt = DashDotDotLine;
 			break;
 		}
-		Prefs.Dwidth = dia->lineWidthShape->value();
-		Prefs.DpenLine = dia->colorComboLine->currentText();
-		if (Prefs.DpenLine == tr("None"))
-			Prefs.DpenLine = "None";
-		Prefs.DshadeLine = dia->shadingLine->value();
-		switch (dia->comboStyleLine->currentItem())
+		Prefs.toolSettings.dWidth = dia->tabTools->lineWidthShape->value();
+		Prefs.toolSettings.dPenLine = dia->tabTools->colorComboLine->currentText();
+		if (Prefs.toolSettings.dPenLine == tr("None"))
+			Prefs.toolSettings.dPenLine = "None";
+		Prefs.toolSettings.dShadeLine = dia->tabTools->shadingLine->value();
+		switch (dia->tabTools->comboStyleLine->currentItem())
 		{
 		case 0:
-			Prefs.DLstyleLine = SolidLine;
+			Prefs.toolSettings.dLstyleLine = SolidLine;
 			break;
 		case 1:
-			Prefs.DLstyleLine = DashLine;
+			Prefs.toolSettings.dLstyleLine = DashLine;
 			break;
 		case 2:
-			Prefs.DLstyleLine = DotLine;
+			Prefs.toolSettings.dLstyleLine = DotLine;
 			break;
 		case 3:
-			Prefs.DLstyleLine = DashDotLine;
+			Prefs.toolSettings.dLstyleLine = DashDotLine;
 			break;
 		case 4:
-			Prefs.DLstyleLine = DashDotDotLine;
+			Prefs.toolSettings.dLstyleLine = DashDotDotLine;
 			break;
 		}
-		Prefs.DwidthLine = dia->lineWidthLine->value();
-		Prefs.DstartArrow = dia->startArrow->currentItem();
-		Prefs.DendArrow = dia->endArrow->currentItem();
-		Prefs.MagMin = dia->minimumZoom->value();
-		Prefs.MagMax = dia->maximumZoom->value();
-		Prefs.MagStep = dia->zoomStep->value();
-		Prefs.DbrushPict = dia->comboFillImage->currentText();
-		if (Prefs.DbrushPict == tr("None"))
-			Prefs.DbrushPict = "None";
-		Prefs.ShadePict = dia->shadingFillImage->value();
-		Prefs.ScaleX = static_cast<double>(dia->scalingHorizontal->value()) / 100.0;
-		Prefs.ScaleY = static_cast<double>(dia->scalingVertical->value()) / 100.0;
-		Prefs.ScaleType = dia->buttonGroup3->isChecked();
-		Prefs.AspectRatio = dia->checkRatioImage->isChecked();
+		Prefs.toolSettings.dWidthLine = dia->tabTools->lineWidthLine->value();
+		Prefs.toolSettings.dStartArrow = dia->tabTools->startArrow->currentItem();
+		Prefs.toolSettings.dEndArrow = dia->tabTools->endArrow->currentItem();
+		Prefs.toolSettings.magMin = dia->tabTools->minimumZoom->value();
+		Prefs.toolSettings.magMax = dia->tabTools->maximumZoom->value();
+		Prefs.toolSettings.magStep = dia->tabTools->zoomStep->value();
+		Prefs.toolSettings.dBrushPict = dia->tabTools->comboFillImage->currentText();
+		if (Prefs.toolSettings.dBrushPict == tr("None"))
+			Prefs.toolSettings.dBrushPict = "None";
+		Prefs.toolSettings.shadePict = dia->tabTools->shadingFillImage->value();
+		Prefs.toolSettings.scaleX = static_cast<double>(dia->tabTools->scalingHorizontal->value()) / 100.0;
+		Prefs.toolSettings.scaleY = static_cast<double>(dia->tabTools->scalingVertical->value()) / 100.0;
+		Prefs.toolSettings.scaleType = dia->tabTools->buttonGroup3->isChecked();
+		Prefs.toolSettings.aspectRatio = dia->tabTools->checkRatioImage->isChecked();
 		Prefs.AutoSave = dia->ASon->isChecked();
 		Prefs.AutoSaveTime = dia->ASTime->value() * 60 * 1000;
 		Prefs.MinWordLen = dia->tabHyphenator->wordLen->value();
@@ -8404,8 +8405,11 @@ void ScribusApp::GetCMSProfilesDir(QString pfad)
 						InputProfiles[nam] = pfad + d[dc];
 					break;
 				case icSigDisplayClass:
-					MonitorProfiles[nam] = pfad + d[dc];
-					InputProfiles[nam] = pfad + d[dc];
+					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
+					{
+						MonitorProfiles[nam] = pfad + d[dc];
+						InputProfiles[nam] = pfad + d[dc];
+					}
 					break;
 				case icSigOutputClass:
 					PrinterProfiles[nam] = pfad + d[dc];
@@ -8442,7 +8446,7 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 			doc->PageColors[it.key()].RecalcRGB();
 			pm.fill(doc->PageColors[it.key()].getRGBColor());
 			ColorMenC->insertItem(pm, it.key());
-			if (it.key() == doc->Dbrush)
+			if (it.key() == doc->toolSettings.dBrush)
 				ColorMenC->setCurrentItem(a);
 			a++;
 			if (dia != NULL)
@@ -9236,8 +9240,8 @@ void ScribusApp::ReorgFonts()
 			doc->UsedFonts.remove(itfo);
 		}
 	}
-	doc->AddFont(Prefs.DefFont, Prefs.AvailFonts[Prefs.DefFont]->Font);
-	doc->AddFont(doc->Dfont, Prefs.AvailFonts[doc->Dfont]->Font);
+	doc->AddFont(Prefs.toolSettings.defFont, Prefs.AvailFonts[Prefs.toolSettings.defFont]->Font);
+	doc->AddFont(doc->toolSettings.defFont, Prefs.AvailFonts[doc->toolSettings.defFont]->Font);
 	buildFontMenu();
 }
 

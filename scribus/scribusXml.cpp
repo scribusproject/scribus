@@ -107,9 +107,9 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 	tmp2.replace(QRegExp("\r"), QChar(5));
 	tmp2.replace(QRegExp("\n"), QChar(5));
 	tmp2.replace(QRegExp("\t"), QChar(4));
-	tmpf = it->attribute("CFONT", doc->Dfont);
+	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
 	if (tmpf == "")
-		tmpf = doc->Dfont;
+		tmpf = doc->toolSettings.defFont;
 	tmf = tmpf;
 	if (!DoFonts.contains(tmpf))
 		tmpf = AskForFont(Prefs->AvailFonts, tmpf, Prefs, doc);
@@ -164,7 +164,7 @@ QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, ApplicationPrefs *P
 		ReplacedFonts[fStr] = tmpf;
 	}
 	fo = avail[tmpf]->Font;
-	fo.setPointSize(qRound(doc->Dsize / 10.0));
+	fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
 	doc->AddFont(tmpf, fo);
 	DoFonts[fStr] = tmpf;
 	return tmpf;
@@ -436,9 +436,9 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	vg->textAlignment = QStoInt(pg->attribute("ALIGN"));
 	vg->gapBefore = QStodouble(pg->attribute("VOR","0"));
 	vg->gapAfter = QStodouble(pg->attribute("NACH","0"));
-	tmpf = pg->attribute("FONT", doc->Dfont);
+	tmpf = pg->attribute("FONT", doc->toolSettings.defFont);
 	if (tmpf == "")
-		tmpf = doc->Dfont;
+		tmpf = doc->toolSettings.defFont;
 	tmf = tmpf;
 	if (!DoFonts.contains(tmpf))
 		tmpf = AskForFont(Prefs->AvailFonts, tmpf, Prefs, doc);
@@ -449,9 +449,9 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 	vg->Drop = static_cast<bool>(QStoInt(pg->attribute("DROP","0")));
 	vg->DropLin = QStoInt(pg->attribute("DROPLIN","2"));
 	vg->FontEffect = QStoInt(pg->attribute("EFFECT","0"));
-	vg->FColor = pg->attribute("FCOLOR", doc->Dbrush);
+	vg->FColor = pg->attribute("FCOLOR", doc->toolSettings.dBrush);
 	vg->FShade = QStoInt(pg->attribute("FSHADE", "100"));
-	vg->SColor = pg->attribute("SCOLOR", doc->Dpen);
+	vg->SColor = pg->attribute("SCOLOR", doc->toolSettings.dPen);
 	vg->SShade = QStoInt(pg->attribute("SSHADE", "100"));
 	vg->BaseAdj = static_cast<bool>(QStoInt(pg->attribute("BASE","0")));
 	if ((pg->hasAttribute("NUMTAB")) && (QStoInt(pg->attribute("NUMTAB","0")) != 0))
@@ -694,7 +694,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 	}
 	DoVorl.clear();
 	DoFonts.clear();
-	DoFonts[doc->Dfont] = doc->Dfont;
+	DoFonts[doc->toolSettings.defFont] = doc->toolSettings.defFont;
 	DoVorl[0] = "0";
 	DoVorl[1] = "1";
 	DoVorl[2] = "2";
@@ -887,9 +887,9 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						doc->OldBM = true;
 					OB.BMnr = QStoInt(obj.attribute("BookNr","0"));
 					OB.textAlignment = DoVorl[QStoInt(obj.attribute("ALIGN","0"))].toUInt();
-					tmpf = obj.attribute("IFONT", doc->Dfont);
+					tmpf = obj.attribute("IFONT", doc->toolSettings.defFont);
 					if (tmpf == "")
-						tmpf = doc->Dfont;
+						tmpf = doc->toolSettings.defFont;
 					tmf = tmpf;
 					if (!DoFonts.contains(tmpf))
 						tmpf = AskForFont(avail, tmpf, view->Prefs, doc);
@@ -1079,7 +1079,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->guidesSettings.linkShown = view->Prefs->guidesSettings.linkShown;
 		doc->guidesSettings.showPic = true;
 		DoFonts.clear();
-		doc->Dsize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
+		doc->toolSettings.defSize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
 		Defont=dc.attribute("DFONT");
 		if (!avail.find(Defont))
 		{
@@ -1087,17 +1087,17 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			if (view->Prefs->GFontSub.contains(Defont))
 				Defont = view->Prefs->GFontSub[dd];
 			else
-				Defont = view->Prefs->DefFont;
+				Defont = view->Prefs->toolSettings.defFont;
 			DoFonts[dd] = Defont;
 		}
 		else
 			DoFonts[Defont] = Defont;
 		fo = avail[Defont]->Font;
-		fo.setPointSize(qRound(doc->Dsize / 10.0));
+		fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
 		doc->AddFont(Defont, fo);
-		doc->Dfont = Defont;
-		doc->DCols=QStoInt(dc.attribute("DCOL", "1"));
-		doc->DGap=QStodouble(dc.attribute("DGAP", "0.0"));
+		doc->toolSettings.defFont = Defont;
+		doc->toolSettings.dCols=QStoInt(dc.attribute("DCOL", "1"));
+		doc->toolSettings.dGap=QStodouble(dc.attribute("DGAP", "0.0"));
 		doc->DocAutor=dc.attribute("AUTHOR");
 		doc->DocComments=dc.attribute("COMMENTS");
 		doc->DocKeyWords=dc.attribute("KEYWORDS","");
@@ -1143,8 +1143,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->GuideLock = static_cast<bool>(QStoInt(dc.attribute("GUIDELOCK", "0")));
 		doc->guidesSettings.minorGrid = QStodouble(dc.attribute("MINGRID", tmp.setNum(view->Prefs->guidesSettings.minorGrid)));
 		doc->guidesSettings.majorGrid = QStodouble(dc.attribute("MAJGRID", tmp.setNum(view->Prefs->guidesSettings.majorGrid)));
-		doc->DstartArrow = 0;
-		doc->DendArrow = 0;
+		doc->toolSettings.dStartArrow = 0;
+		doc->toolSettings.dEndArrow = 0;
 		doc->LastAuto = 0;
 		QDomNode PAGE=DOC.firstChild();
 		counter = 0;
@@ -1171,9 +1171,9 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				vg.textAlignment = QStoInt(pg.attribute("ALIGN"));
 				vg.gapBefore = QStodouble(pg.attribute("VOR","0"));
 				vg.gapAfter = QStodouble(pg.attribute("NACH","0"));
-				tmpf = pg.attribute("FONT", doc->Dfont);
+				tmpf = pg.attribute("FONT", doc->toolSettings.defFont);
 				if (tmpf == "")
-					tmpf = doc->Dfont;
+					tmpf = doc->toolSettings.defFont;
 				tmf = tmpf;
 				if (!DoFonts.contains(tmpf))
 					tmpf = AskForFont(avail, tmpf, view->Prefs, doc);
@@ -1184,9 +1184,9 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				vg.Drop = static_cast<bool>(QStoInt(pg.attribute("DROP","0")));
 				vg.DropLin = QStoInt(pg.attribute("DROPLIN","2"));
 				vg.FontEffect = QStoInt(pg.attribute("EFFECT","0"));
-				vg.FColor = pg.attribute("FCOLOR", doc->Dbrush);
+				vg.FColor = pg.attribute("FCOLOR", doc->toolSettings.dBrush);
 				vg.FShade = QStoInt(pg.attribute("FSHADE","100"));
-				vg.SColor = pg.attribute("SCOLOR", doc->Dpen);
+				vg.SColor = pg.attribute("SCOLOR", doc->toolSettings.dPen);
 				vg.SShade = QStoInt(pg.attribute("SSHADE","100"));
 				vg.BaseAdj = static_cast<bool>(QStoInt(pg.attribute("BASE","0")));
 				if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
@@ -1343,9 +1343,9 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					OB.textAlignment = QStoInt(obj.attribute("ALIGN","0"));
 					OB.startArrowIndex =  0;
 					OB.endArrowIndex =  0;
-					tmpf = obj.attribute("IFONT", doc->Dfont);
+					tmpf = obj.attribute("IFONT", doc->toolSettings.defFont);
 					if (tmpf == "")
-						tmpf = doc->Dfont;
+						tmpf = doc->toolSettings.defFont;
 					tmf = tmpf;
 					if (!DoFonts.contains(tmpf))
 						tmpf = AskForFont(avail, tmpf, view->Prefs, doc);
@@ -1691,7 +1691,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 		newVersion = true;
 	QDomNode DOC=elem.firstChild();
 	DoFonts.clear();
-	DoFonts[doc->Dfont] = doc->Dfont;
+	DoFonts[doc->toolSettings.defFont] = doc->toolSettings.defFont;
 	DoVorl.clear();
 	DoVorl[0] = "0";
 	DoVorl[1] = "1";
@@ -1747,7 +1747,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 					tmpf = FontSub[tmpf];
 			}
 			fo = avail[tmpf]->Font;
-			fo.setPointSize(qRound(doc->Dsize / 10.0));
+			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
 			if(!doc->UsedFonts.contains(tmpf))
 				doc->AddFont(tmpf, fo);
 			DoFonts[pg.attribute("NAME")] = tmpf;
@@ -1806,11 +1806,11 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.isBookmark = false;
 			OB.BMnr = 0;
 			OB.textAlignment = DoVorl[QStoInt(pg.attribute("ALIGN","0"))].toUInt();
-			tmf = pg.attribute("IFONT", doc->Dfont);
+			tmf = pg.attribute("IFONT", doc->toolSettings.defFont);
 			if (tmf == "")
-				tmf = doc->Dfont;
+				tmf = doc->toolSettings.defFont;
 			if (DoFonts[tmf] == "")
-				OB.IFont = doc->Dfont;
+				OB.IFont = doc->toolSettings.defFont;
 			else
 				OB.IFont = DoFonts[tmf];
 			OB.LayerNr = 0;
@@ -2477,10 +2477,10 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("AUTOSPALTEN",doc->PageSp);
 	dc.setAttribute("ABSTSPALTEN",doc->PageSpa);
 	dc.setAttribute("UNITS",doc->docUnitIndex);
-	dc.setAttribute("DFONT",doc->Dfont);
-	dc.setAttribute("DSIZE",doc->Dsize / 10.0);
-	dc.setAttribute("DCOL",doc->DCols);
-	dc.setAttribute("DGAP",doc->DGap);
+	dc.setAttribute("DFONT",doc->toolSettings.defFont);
+	dc.setAttribute("DSIZE",doc->toolSettings.defSize / 10.0);
+	dc.setAttribute("DCOL",doc->toolSettings.dCols);
+	dc.setAttribute("DGAP",doc->toolSettings.dGap);
 	dc.setAttribute("AUTHOR",doc->DocAutor);
 	dc.setAttribute("COMMENTS",doc->DocComments);
 	dc.setAttribute("KEYWORDS",doc->DocKeyWords);
@@ -2535,40 +2535,40 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("SHOWLINK", static_cast<int>(doc->guidesSettings.linkShown));
 	dc.setAttribute("GuideRad", doc->guidesSettings.guideRad);
 	dc.setAttribute("GRAB",doc->guidesSettings.grabRad);
-	dc.setAttribute("POLYC", doc->PolyC);
-	dc.setAttribute("POLYF", doc->PolyF);
-	dc.setAttribute("POLYR", doc->PolyR);
-	dc.setAttribute("POLYFD", doc->PolyFd);
-	dc.setAttribute("POLYS", static_cast<int>(doc->PolyS));
+	dc.setAttribute("POLYC", doc->toolSettings.polyC);
+	dc.setAttribute("POLYF", doc->toolSettings.polyF);
+	dc.setAttribute("POLYR", doc->toolSettings.polyR);
+	dc.setAttribute("POLYFD", doc->toolSettings.polyFd);
+	dc.setAttribute("POLYS", static_cast<int>(doc->toolSettings.polyS));
 	dc.setAttribute("AutoSave", static_cast<int>(doc->AutoSave));
 	dc.setAttribute("AutoSaveTime", doc->AutoSaveTime);
 	dc.setAttribute("ScratchBottom", doc->ScratchBottom);
 	dc.setAttribute("ScatchLeft", doc->ScratchLeft);
 	dc.setAttribute("ScratchRight", doc->ScratchRight);
 	dc.setAttribute("ScratchTop", doc->ScratchTop);
-	dc.setAttribute("StartArrow", doc->DstartArrow);
-	dc.setAttribute("EndArrow", doc->DendArrow);
-	dc.setAttribute("PEN",doc->Dpen);
-	dc.setAttribute("BRUSH",doc->Dbrush);
-	dc.setAttribute("PENLINE",doc->DpenLine);
-	dc.setAttribute("PENTEXT",doc->DpenText);
-	dc.setAttribute("StrokeText",doc->DstrokeText);
-	dc.setAttribute("STIL",doc->DLineArt);
-	dc.setAttribute("STILLINE",doc->DLstyleLine);
-	dc.setAttribute("WIDTH",doc->Dwidth);
-	dc.setAttribute("WIDTHLINE",doc->DwidthLine);
-	dc.setAttribute("PENSHADE",doc->Dshade2);
-	dc.setAttribute("LINESHADE",doc->DshadeLine);
-	dc.setAttribute("BRUSHSHADE",doc->Dshade);
-	dc.setAttribute("MAGMIN",doc->MagMin);
-	dc.setAttribute("MAGMAX",doc->MagMax);
-	dc.setAttribute("MAGSTEP",doc->MagStep);
-	dc.setAttribute("CPICT",doc->DbrushPict);
-	dc.setAttribute("PICTSHADE",doc->ShadePict);
-	dc.setAttribute("PICTSCX",doc->ScaleX);
-	dc.setAttribute("PICTSCY",doc->ScaleY);
-	dc.setAttribute("PSCALE", static_cast<int>(doc->ScaleType));
-	dc.setAttribute("PASPECT", static_cast<int>(doc->AspectRatio));
+	dc.setAttribute("StartArrow", doc->toolSettings.dStartArrow);
+	dc.setAttribute("EndArrow", doc->toolSettings.dEndArrow);
+	dc.setAttribute("PEN",doc->toolSettings.dPen);
+	dc.setAttribute("BRUSH",doc->toolSettings.dBrush);
+	dc.setAttribute("PENLINE",doc->toolSettings.dPenLine);
+	dc.setAttribute("PENTEXT",doc->toolSettings.dPenText);
+	dc.setAttribute("StrokeText",doc->toolSettings.dStrokeText);
+	dc.setAttribute("STIL",doc->toolSettings.dLineArt);
+	dc.setAttribute("STILLINE",doc->toolSettings.dLstyleLine);
+	dc.setAttribute("WIDTH",doc->toolSettings.dWidth);
+	dc.setAttribute("WIDTHLINE",doc->toolSettings.dWidthLine);
+	dc.setAttribute("PENSHADE",doc->toolSettings.dShade2);
+	dc.setAttribute("LINESHADE",doc->toolSettings.dShadeLine);
+	dc.setAttribute("BRUSHSHADE",doc->toolSettings.dShade);
+	dc.setAttribute("MAGMIN",doc->toolSettings.magMin);
+	dc.setAttribute("MAGMAX",doc->toolSettings.magMax);
+	dc.setAttribute("MAGSTEP",doc->toolSettings.magStep);
+	dc.setAttribute("CPICT",doc->toolSettings.dBrushPict);
+	dc.setAttribute("PICTSHADE",doc->toolSettings.shadePict);
+	dc.setAttribute("PICTSCX",doc->toolSettings.scaleX);
+	dc.setAttribute("PICTSCY",doc->toolSettings.scaleY);
+	dc.setAttribute("PSCALE", static_cast<int>(doc->toolSettings.scaleType));
+	dc.setAttribute("PASPECT", static_cast<int>(doc->toolSettings.aspectRatio));
 	dc.setAttribute("MINORC",doc->guidesSettings.minorColor.name());
 	dc.setAttribute("MAJORC",doc->guidesSettings.majorColor.name());
 	dc.setAttribute("GuideC", doc->guidesSettings.guideColor.name());
@@ -2859,8 +2859,8 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc1a.setAttribute("DScale",Vor->DisScale);
 	elem.appendChild(dc1a);
 	QDomElement dc2=docu.createElement("FONTS");
-	dc2.setAttribute("FACE",Vor->DefFont);
-	dc2.setAttribute("SIZE",Vor->DefSize / 10.0);
+	dc2.setAttribute("FACE",Vor->toolSettings.defFont);
+	dc2.setAttribute("SIZE",Vor->toolSettings.defSize / 10.0);
 	elem.appendChild(dc2);
 	QDomElement dc3=docu.createElement("TYPO");
 	dc3.setAttribute("TIEF",Vor->typographicSetttings.valueSubScript);
@@ -2873,36 +2873,36 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc3.setAttribute("BASEO", Vor->typographicSetttings.offsetBaseGrid);
 	elem.appendChild(dc3);
 	QDomElement dc9=docu.createElement("TOOLS");
-	dc9.setAttribute("PEN",Vor->Dpen);
-	dc9.setAttribute("BRUSH",Vor->Dbrush);
-	dc9.setAttribute("PENLINE",Vor->DpenLine);
-	dc9.setAttribute("PENTEXT",Vor->DpenText);
-	dc9.setAttribute("StrokeText",Vor->DstrokeText);
-	dc9.setAttribute("TEXTCOL",Vor->DCols);
-	dc9.setAttribute("TEXTGAP",Vor->DGap);
-	dc9.setAttribute("STIL",Vor->DLineArt);
-	dc9.setAttribute("STILLINE",Vor->DLstyleLine);
-	dc9.setAttribute("WIDTH",Vor->Dwidth);
-	dc9.setAttribute("WIDTHLINE",Vor->DwidthLine);
-	dc9.setAttribute("PENSHADE",Vor->Dshade2);
-	dc9.setAttribute("LINESHADE",Vor->DshadeLine);
-	dc9.setAttribute("BRUSHSHADE",Vor->Dshade);
-	dc9.setAttribute("MAGMIN",Vor->MagMin);
-	dc9.setAttribute("MAGMAX",Vor->MagMax);
-	dc9.setAttribute("MAGSTEP",Vor->MagStep);
-	dc9.setAttribute("CPICT",Vor->DbrushPict);
-	dc9.setAttribute("PICTSHADE",Vor->ShadePict);
-	dc9.setAttribute("PICTSCX",Vor->ScaleX);
-	dc9.setAttribute("PICTSCY",Vor->ScaleY);
-	dc9.setAttribute("POLYC", Vor->PolyC);
-	dc9.setAttribute("POLYF", Vor->PolyF);
-	dc9.setAttribute("POLYR", Vor->PolyR);
-	dc9.setAttribute("POLYFD", Vor->PolyFd);
-	dc9.setAttribute("POLYS", static_cast<int>(Vor->PolyS));
-	dc9.setAttribute("PSCALE", static_cast<int>(Vor->ScaleType));
-	dc9.setAttribute("PASPECT", static_cast<int>(Vor->AspectRatio));
-	dc9.setAttribute("StartArrow", Vor->DstartArrow);
-	dc9.setAttribute("EndArrow", Vor->DendArrow);
+	dc9.setAttribute("PEN",Vor->toolSettings.dPen);
+	dc9.setAttribute("BRUSH",Vor->toolSettings.dBrush);
+	dc9.setAttribute("PENLINE",Vor->toolSettings.dPenLine);
+	dc9.setAttribute("PENTEXT",Vor->toolSettings.dPenText);
+	dc9.setAttribute("StrokeText",Vor->toolSettings.dStrokeText);
+	dc9.setAttribute("TEXTCOL",Vor->toolSettings.dCols);
+	dc9.setAttribute("TEXTGAP",Vor->toolSettings.dGap);
+	dc9.setAttribute("STIL",Vor->toolSettings.dLineArt);
+	dc9.setAttribute("STILLINE",Vor->toolSettings.dLstyleLine);
+	dc9.setAttribute("WIDTH",Vor->toolSettings.dWidth);
+	dc9.setAttribute("WIDTHLINE",Vor->toolSettings.dWidthLine);
+	dc9.setAttribute("PENSHADE",Vor->toolSettings.dShade2);
+	dc9.setAttribute("LINESHADE",Vor->toolSettings.dShadeLine);
+	dc9.setAttribute("BRUSHSHADE",Vor->toolSettings.dShade);
+	dc9.setAttribute("MAGMIN",Vor->toolSettings.magMin);
+	dc9.setAttribute("MAGMAX",Vor->toolSettings.magMax);
+	dc9.setAttribute("MAGSTEP",Vor->toolSettings.magStep);
+	dc9.setAttribute("CPICT",Vor->toolSettings.dBrushPict);
+	dc9.setAttribute("PICTSHADE",Vor->toolSettings.shadePict);
+	dc9.setAttribute("PICTSCX",Vor->toolSettings.scaleX);
+	dc9.setAttribute("PICTSCY",Vor->toolSettings.scaleY);
+	dc9.setAttribute("POLYC", Vor->toolSettings.polyC);
+	dc9.setAttribute("POLYF", Vor->toolSettings.polyF);
+	dc9.setAttribute("POLYR", Vor->toolSettings.polyR);
+	dc9.setAttribute("POLYFD", Vor->toolSettings.polyFd);
+	dc9.setAttribute("POLYS", static_cast<int>(Vor->toolSettings.polyS));
+	dc9.setAttribute("PSCALE", static_cast<int>(Vor->toolSettings.scaleType));
+	dc9.setAttribute("PASPECT", static_cast<int>(Vor->toolSettings.aspectRatio));
+	dc9.setAttribute("StartArrow", Vor->toolSettings.dStartArrow);
+	dc9.setAttribute("EndArrow", Vor->toolSettings.dEndArrow);
 	elem.appendChild(dc9);
 	QDomElement dc4=docu.createElement("MAINWINDOW");
 	dc4.setAttribute("XPOS",Vor->mainWinSettings.xPosition);
@@ -3156,36 +3156,36 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 		}
 		if (dc.tagName()=="TOOLS")
 		{
-			Vorein->Dpen = dc.attribute("PEN");
-			Vorein->Dbrush = dc.attribute("BRUSH");
-			Vorein->DpenLine = dc.attribute("PENLINE");
-			Vorein->DpenText = dc.attribute("PENTEXT");
-			Vorein->DstrokeText = dc.attribute("StrokeText", Vorein->DpenText);
-			Vorein->DCols = QStoInt(dc.attribute("TEXTCOL", "1"));
-			Vorein->DGap = QStodouble(dc.attribute("TEXTGAP", "0.0"));
-			Vorein->DLineArt = QStoInt(dc.attribute("STIL"));
-			Vorein->DLstyleLine = QStoInt(dc.attribute("STILLINE"));
-			Vorein->Dwidth = QStodouble(dc.attribute("WIDTH"));
-			Vorein->DwidthLine = QStodouble(dc.attribute("WIDTHLINE"));
-			Vorein->Dshade2 = QStoInt(dc.attribute("PENSHADE"));
-			Vorein->DshadeLine = QStoInt(dc.attribute("LINESHADE"));
-			Vorein->Dshade = QStoInt(dc.attribute("BRUSHSHADE"));
-			Vorein->MagMin = QStoInt(dc.attribute("MAGMIN","10"));
-			Vorein->MagMax = QStoInt(dc.attribute("MAGMAX","3200"));
-			Vorein->MagStep = QStoInt(dc.attribute("MAGSTEP","25"));
-			Vorein->DbrushPict = dc.attribute("CPICT");
-			Vorein->ShadePict = QStoInt(dc.attribute("PICTSHADE","100"));
-			Vorein->ScaleX = QStodouble(dc.attribute("PICTSCX","1"));
-			Vorein->ScaleY = QStodouble(dc.attribute("PICTSCY","1"));
-			Vorein->ScaleType = static_cast<bool>(QStoInt(dc.attribute("PSCALE", "1")));
-			Vorein->AspectRatio = static_cast<bool>(QStoInt(dc.attribute("PASPECT", "0")));
-			Vorein->PolyC = QStoInt(dc.attribute("POLYC", "4"));
-			Vorein->PolyF = QStodouble(dc.attribute("POLYF", "0.5"));
-			Vorein->PolyR = QStodouble(dc.attribute("POLYR", "0"));
-			Vorein->PolyFd = QStoInt(dc.attribute("POLYFD", "0"));
-			Vorein->PolyS = static_cast<bool>(QStoInt(dc.attribute("POLYS", "0")));
-			Vorein->DstartArrow = QStoInt(dc.attribute("StartArrow", "0"));
-			Vorein->DendArrow = QStoInt(dc.attribute("EndArrow", "0"));
+			Vorein->toolSettings.dPen = dc.attribute("PEN");
+			Vorein->toolSettings.dBrush = dc.attribute("BRUSH");
+			Vorein->toolSettings.dPenLine = dc.attribute("PENLINE");
+			Vorein->toolSettings.dPenText = dc.attribute("PENTEXT");
+			Vorein->toolSettings.dStrokeText = dc.attribute("StrokeText", Vorein->toolSettings.dPenText);
+			Vorein->toolSettings.dCols = QStoInt(dc.attribute("TEXTCOL", "1"));
+			Vorein->toolSettings.dGap = QStodouble(dc.attribute("TEXTGAP", "0.0"));
+			Vorein->toolSettings.dLineArt = QStoInt(dc.attribute("STIL"));
+			Vorein->toolSettings.dLstyleLine = QStoInt(dc.attribute("STILLINE"));
+			Vorein->toolSettings.dWidth = QStodouble(dc.attribute("WIDTH"));
+			Vorein->toolSettings.dWidthLine = QStodouble(dc.attribute("WIDTHLINE"));
+			Vorein->toolSettings.dShade2 = QStoInt(dc.attribute("PENSHADE"));
+			Vorein->toolSettings.dShadeLine = QStoInt(dc.attribute("LINESHADE"));
+			Vorein->toolSettings.dShade = QStoInt(dc.attribute("BRUSHSHADE"));
+			Vorein->toolSettings.magMin = QStoInt(dc.attribute("MAGMIN","10"));
+			Vorein->toolSettings.magMax = QStoInt(dc.attribute("MAGMAX","3200"));
+			Vorein->toolSettings.magStep = QStoInt(dc.attribute("MAGSTEP","25"));
+			Vorein->toolSettings.dBrushPict = dc.attribute("CPICT");
+			Vorein->toolSettings.shadePict = QStoInt(dc.attribute("PICTSHADE","100"));
+			Vorein->toolSettings.scaleX = QStodouble(dc.attribute("PICTSCX","1"));
+			Vorein->toolSettings.scaleY = QStodouble(dc.attribute("PICTSCY","1"));
+			Vorein->toolSettings.scaleType = static_cast<bool>(QStoInt(dc.attribute("PSCALE", "1")));
+			Vorein->toolSettings.aspectRatio = static_cast<bool>(QStoInt(dc.attribute("PASPECT", "0")));
+			Vorein->toolSettings.polyC = QStoInt(dc.attribute("POLYC", "4"));
+			Vorein->toolSettings.polyF = QStodouble(dc.attribute("POLYF", "0.5"));
+			Vorein->toolSettings.polyR = QStodouble(dc.attribute("POLYR", "0"));
+			Vorein->toolSettings.polyFd = QStoInt(dc.attribute("POLYFD", "0"));
+			Vorein->toolSettings.polyS = static_cast<bool>(QStoInt(dc.attribute("POLYS", "0")));
+			Vorein->toolSettings.dStartArrow = QStoInt(dc.attribute("StartArrow", "0"));
+			Vorein->toolSettings.dEndArrow = QStoInt(dc.attribute("EndArrow", "0"));
 		}
 		if (dc.tagName()=="MAINWINDOW")
 		{
@@ -3337,8 +3337,8 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			else
 				newFont = dc.attribute("FACE");
 			if (newFont!="")
-				Vorein->DefFont = newFont;
-			Vorein->DefSize = qRound(QStodouble(dc.attribute("SIZE")) * 10.0);
+				Vorein->toolSettings.defFont = newFont;
+			Vorein->toolSettings.defSize = qRound(QStodouble(dc.attribute("SIZE")) * 10.0);
 		}
 		if (dc.tagName()=="FONT")
 		{

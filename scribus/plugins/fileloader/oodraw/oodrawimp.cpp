@@ -569,7 +569,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			bool firstPa = false;
 			for ( QDomNode n = b.firstChild(); !n.isNull(); n = n.nextSibling() )
 			{
-				int FontSize = Doku->Dsize;
+				int FontSize = Doku->toolSettings.defSize;
 				int AbsStyle = 0;
 				QDomElement e = n.toElement();
 				if( m_styleStack.hasAttribute("fo:text-align"))
@@ -589,7 +589,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				ite->LineSp = FontSize + FontSize * 0.2;
 				Serializer *ss = new Serializer("");
 				ss->Objekt = QString::fromUtf8(e.text())+QChar(10);
-				ss->GetText(ite, AbsStyle, Doku->Dfont, FontSize*10, firstPa);
+				ss->GetText(ite, AbsStyle, Doku->toolSettings.defFont, FontSize*10, firstPa);
 				delete ss;
 				firstPa = true;
 				if (ite->PType != 7)

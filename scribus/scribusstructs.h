@@ -382,12 +382,52 @@ struct guidesPrefs
 	QColor margColor;
 };
 
+struct toolPrefs
+{
+	/* Texttool */
+	QString defFont;
+	int defSize;
+	QString dPenText;
+	QString dStrokeText;
+	int dCols;
+	double dGap;
+	/* ShapeTool */
+	QString dPen;
+	QString dBrush;
+	int dShade;
+	int dShade2;
+	int dLineArt;
+	double dWidth;
+	/* Line Tool */
+	QString dPenLine;
+	int dShadeLine;
+	double dWidthLine;
+	int dLstyleLine;
+	int dStartArrow;
+	int dEndArrow;
+	/* Regular Polygon Tool */
+	int polyC;
+	int polyFd;
+	double polyF;
+	bool polyS;
+	double polyR;
+	/* Picture Tool */
+	QString dBrushPict;
+	int shadePict;
+	double scaleX;
+	double scaleY;
+	bool scaleType;
+	bool aspectRatio;
+	/* Magnifier Tool */
+	int magMin;
+	int magMax;
+	int magStep;
+};
+
 struct ApplicationPrefs
 { 
 	SCFonts AvailFonts;
 	QValueList<ArrowDesc> arrowStyles;
-	QString DefFont;
-	int DefSize;
 	ColorList DColors;
 	int Wheelval;
 	int AppFontSize;
@@ -395,27 +435,7 @@ struct ApplicationPrefs
 	QString GUI;
 	guidesPrefs guidesSettings;
 	typoPrefs typographicSetttings;
-	QString Dpen;
-	QString Dbrush;
-	int Dshade;
-	int Dshade2;
-	int DLineArt;
-	double Dwidth;
-	QString DpenLine;
-	QString DpenText;
-	QString DstrokeText;
-	int DshadeLine;
-	double DwidthLine;
-	int DLstyleLine;
-	int DstartArrow;
-	int DendArrow;
-	int MagMin;
-	int MagMax;
-	int MagStep;
-	QString DbrushPict;
-	int ShadePict;
-	double ScaleX;
-	double ScaleY;
+	toolPrefs toolSettings;
 	int docUnitIndex;
 	windowPrefs mainToolBarSettings;
 	windowPrefs pdfToolBarSettings;
@@ -437,11 +457,6 @@ struct ApplicationPrefs
 	uint RecentDCount;
 	CMSData DCMSset;
 	QMap<int,Keys> KeyActions;
-	int PolyC;
-	int PolyFd;
-	double PolyF;
-	bool PolyS;
-	double PolyR;
 	QString PrinterName;
 	QString PrinterFile;
 	QString PrinterCommand;
@@ -455,8 +470,6 @@ struct ApplicationPrefs
 	double RandRechts;
 	bool DoppelSeiten;
 	bool ErsteLinks;
-	bool ScaleType;
-	bool AspectRatio;
 	int MinWordLen;
 	int HyCount;
 	QString Language;
@@ -471,8 +484,6 @@ struct ApplicationPrefs
 	bool AutoSave;
 	int AutoSaveTime;
 	double DisScale;
-	int DCols;
-	double DGap;
 	QString DColorSet;
 	QStringList CustomColorSets;
 	bool PrPr_Mode;

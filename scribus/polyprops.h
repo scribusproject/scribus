@@ -12,9 +12,9 @@ class PolygonProps : public QDialog
 	Q_OBJECT
 
 public:
-	PolygonProps(QWidget* parent, int PolyC, int PolyFd, double PolyF, bool PolyS, double PolyR);
+	PolygonProps(QWidget* parent, int polyC, int polyFd, double polyF, bool polyS, double polyR);
 	~PolygonProps() {};
-	void getValues(int* PolyC, int* PolyFd, double* PolyF, bool* PolyS, double* PolyR);
+	void getValues(int* polyC, int* polyFd, double* polyF, bool* polyS, double* polyR);
 	PolygonWidget* polyWidget;
 	QPushButton* okButton;
 	QPushButton* cancelButton;

@@ -313,13 +313,13 @@ MissingFont::MissingFont( QWidget* parent, QString fon, ApplicationPrefs *Prefs,
 	replaceFontCombo = new FontCombo(this, Prefs);
 	if (doc != 0)
 	{
-		replaceFontCombo->setCurrentText(doc->Dfont);
-		replacementFont = doc->Dfont;
+		replaceFontCombo->setCurrentText(doc->toolSettings.defFont);
+		replacementFont = doc->toolSettings.defFont;
 	}
 	else
 	{
-		replaceFontCombo->setCurrentText(Prefs->DefFont);
-		replacementFont = Prefs->DefFont;
+		replaceFontCombo->setCurrentText(Prefs->toolSettings.defFont);
+		replacementFont = Prefs->toolSettings.defFont;
 	}
 	missingFontGridLayout->addWidget( replaceFontCombo, 1, 2 );
 	insteadLabel = new QLabel( tr( "instead" ), this, "insteadLabel" );

@@ -158,11 +158,11 @@ bool FileLoader::LoadFile(ScribusApp* app)
 	app->doc->guidesSettings.guidesShown = app->Prefs.guidesSettings.guidesShown;
 	app->doc->guidesSettings.baseShown = app->Prefs.guidesSettings.baseShown;
 	app->doc->guidesSettings.linkShown = app->Prefs.guidesSettings.linkShown;
-	app->doc->PolyC = app->Prefs.PolyC;
-	app->doc->PolyF = app->Prefs.PolyF;
-	app->doc->PolyR = app->Prefs.PolyR;
-	app->doc->PolyFd = app->Prefs.PolyFd;
-	app->doc->PolyS = app->Prefs.PolyS;
+	app->doc->toolSettings.polyC = app->Prefs.toolSettings.polyC;
+	app->doc->toolSettings.polyF = app->Prefs.toolSettings.polyF;
+	app->doc->toolSettings.polyR = app->Prefs.toolSettings.polyR;
+	app->doc->toolSettings.polyFd = app->Prefs.toolSettings.polyFd;
+	app->doc->toolSettings.polyS = app->Prefs.toolSettings.polyS;
 	app->doc->AutoSave = app->Prefs.AutoSave;
 	app->doc->AutoSaveTime = app->Prefs.AutoSaveTime;
 	switch (FileType)
@@ -260,7 +260,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
 		doc->docUnitIndex = QStoInt(dc.attribute("UNITS","0"));
 		DoFonts.clear();
-		doc->Dsize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
+		doc->toolSettings.defSize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
 		Defont=dc.attribute("DFONT");
 		if (!avail.find(Defont))
 		{
@@ -268,17 +268,17 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			if (view->Prefs->GFontSub.contains(Defont))
 				Defont = view->Prefs->GFontSub[dd];
 			else
-				Defont = view->Prefs->DefFont;
+				Defont = view->Prefs->toolSettings.defFont;
 			DoFonts[dd] = Defont;
 		}
 		else
 			DoFonts[Defont] = Defont;
 		fo = avail[Defont]->Font;
-		fo.setPointSize(qRound(doc->Dsize / 10.0));
+		fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
 		doc->AddFont(Defont, fo);
-		doc->Dfont = Defont;
-		doc->DCols=QStoInt(dc.attribute("DCOL", "1"));
-		doc->DGap=QStodouble(dc.attribute("DGAP", "0.0"));
+		doc->toolSettings.defFont = Defont;
+		doc->toolSettings.dCols=QStoInt(dc.attribute("DCOL", "1"));
+		doc->toolSettings.dGap=QStodouble(dc.attribute("DGAP", "0.0"));
 		doc->DocAutor=dc.attribute("AUTHOR");
 		doc->DocComments=dc.attribute("COMMENTS");
 		doc->DocKeyWords=dc.attribute("KEYWORDS","");
@@ -337,46 +337,46 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->guidesSettings.baseShown = static_cast<bool>(QStoInt(dc.attribute("SHOWBASE", "0")));
 		doc->guidesSettings.showPic = static_cast<bool>(QStoInt(dc.attribute("SHOWPICT", "1")));
 		doc->guidesSettings.linkShown = static_cast<bool>(QStoInt(dc.attribute("SHOWLINK", "0")));
-		doc->PolyC = QStoInt(dc.attribute("POLYC", "4"));
-		doc->PolyF = QStodouble(dc.attribute("POLYF", "0.5"));
-		doc->PolyR = QStodouble(dc.attribute("POLYR", "0"));
-		doc->PolyFd = QStoInt(dc.attribute("POLYFD", "0"));
-		doc->PolyS = static_cast<bool>(QStoInt(dc.attribute("POLYS", "0")));
+		doc->toolSettings.polyC = QStoInt(dc.attribute("POLYC", "4"));
+		doc->toolSettings.polyF = QStodouble(dc.attribute("POLYF", "0.5"));
+		doc->toolSettings.polyR = QStodouble(dc.attribute("POLYR", "0"));
+		doc->toolSettings.polyFd = QStoInt(dc.attribute("POLYFD", "0"));
+		doc->toolSettings.polyS = static_cast<bool>(QStoInt(dc.attribute("POLYS", "0")));
 		doc->AutoSave = static_cast<bool>(QStoInt(dc.attribute("AutoSave","0")));
 		doc->AutoSaveTime = QStoInt(dc.attribute("AutoSaveTime","600000"));
 		doc->ScratchBottom = QStodouble(dc.attribute("ScratchBottom", "20"));
 		doc->ScratchLeft = QStodouble(dc.attribute("ScatchLeft", "100"));
 		doc->ScratchRight = QStodouble(dc.attribute("ScratchRight", "100"));
 		doc->ScratchTop = QStodouble(dc.attribute("ScratchTop", "20"));
-		doc->DstartArrow = QStoInt(dc.attribute("StartArrow", "0"));
-		doc->DendArrow = QStoInt(dc.attribute("EndArrow", "0"));
-		doc->ScaleX = QStodouble(dc.attribute("PICTSCX","1"));
-		doc->ScaleY = QStodouble(dc.attribute("PICTSCY","1"));
-		doc->ScaleType = static_cast<bool>(QStoInt(dc.attribute("PSCALE", "1")));
-		doc->AspectRatio = static_cast<bool>(QStoInt(dc.attribute("PASPECT", "0")));
+		doc->toolSettings.dStartArrow = QStoInt(dc.attribute("StartArrow", "0"));
+		doc->toolSettings.dEndArrow = QStoInt(dc.attribute("EndArrow", "0"));
+		doc->toolSettings.scaleX = QStodouble(dc.attribute("PICTSCX","1"));
+		doc->toolSettings.scaleY = QStodouble(dc.attribute("PICTSCY","1"));
+		doc->toolSettings.scaleType = static_cast<bool>(QStoInt(dc.attribute("PSCALE", "1")));
+		doc->toolSettings.aspectRatio = static_cast<bool>(QStoInt(dc.attribute("PASPECT", "0")));
 		if (dc.hasAttribute("PEN"))
-			doc->Dpen = dc.attribute("PEN");
+			doc->toolSettings.dPen = dc.attribute("PEN");
 		if (dc.hasAttribute("BRUSH"))
-			doc->Dbrush = dc.attribute("BRUSH");
+			doc->toolSettings.dBrush = dc.attribute("BRUSH");
 		if (dc.hasAttribute("PENLINE"))
-			doc->DpenLine = dc.attribute("PENLINE");
+			doc->toolSettings.dPenLine = dc.attribute("PENLINE");
 		if (dc.hasAttribute("PENTEXT"))
-			doc->DpenText = dc.attribute("PENTEXT");
+			doc->toolSettings.dPenText = dc.attribute("PENTEXT");
 		if (dc.hasAttribute("StrokeText"))
-			doc->DstrokeText = dc.attribute("StrokeText");
-		doc->DLineArt = static_cast<Qt::PenStyle>(QStoInt(dc.attribute("STIL")));
-		doc->DLstyleLine = static_cast<Qt::PenStyle>(QStoInt(dc.attribute("STILLINE")));
-		doc->Dwidth = QStodouble(dc.attribute("WIDTH", "1"));
-		doc->DwidthLine = QStodouble(dc.attribute("WIDTHLINE", "1"));
-		doc->Dshade2 = QStoInt(dc.attribute("PENSHADE", "100"));
-		doc->DshadeLine = QStoInt(dc.attribute("LINESHADE", "100"));
-		doc->Dshade = QStoInt(dc.attribute("BRUSHSHADE", "100"));
-		doc->MagMin = QStoInt(dc.attribute("MAGMIN","10"));
-		doc->MagMax = QStoInt(dc.attribute("MAGMAX","3200"));
-		doc->MagStep = QStoInt(dc.attribute("MAGSTEP","25"));
+			doc->toolSettings.dStrokeText = dc.attribute("StrokeText");
+		doc->toolSettings.dLineArt = static_cast<Qt::PenStyle>(QStoInt(dc.attribute("STIL")));
+		doc->toolSettings.dLstyleLine = static_cast<Qt::PenStyle>(QStoInt(dc.attribute("STILLINE")));
+		doc->toolSettings.dWidth = QStodouble(dc.attribute("WIDTH", "1"));
+		doc->toolSettings.dWidthLine = QStodouble(dc.attribute("WIDTHLINE", "1"));
+		doc->toolSettings.dShade2 = QStoInt(dc.attribute("PENSHADE", "100"));
+		doc->toolSettings.dShadeLine = QStoInt(dc.attribute("LINESHADE", "100"));
+		doc->toolSettings.dShade = QStoInt(dc.attribute("BRUSHSHADE", "100"));
+		doc->toolSettings.magMin = QStoInt(dc.attribute("MAGMIN","10"));
+		doc->toolSettings.magMax = QStoInt(dc.attribute("MAGMAX","3200"));
+		doc->toolSettings.magStep = QStoInt(dc.attribute("MAGSTEP","25"));
 		if (dc.hasAttribute("CPICT"))
-			doc->DbrushPict = dc.attribute("CPICT");
-		doc->ShadePict = QStoInt(dc.attribute("PICTSHADE","100"));
+			doc->toolSettings.dBrushPict = dc.attribute("CPICT");
+		doc->toolSettings.shadePict = QStoInt(dc.attribute("PICTSHADE","100"));
 		if (dc.hasAttribute("PAGEC"))
 			doc->papColor = QColor(dc.attribute("PAGEC"));
 		if (dc.hasAttribute("MARGC"))
@@ -419,9 +419,9 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				vg.textAlignment = QStoInt(pg.attribute("ALIGN"));
 				vg.gapBefore = QStodouble(pg.attribute("VOR","0"));
 				vg.gapAfter = QStodouble(pg.attribute("NACH","0"));
-				tmpf = pg.attribute("FONT", doc->Dfont);
+				tmpf = pg.attribute("FONT", doc->toolSettings.defFont);
 				if (tmpf == "")
-					tmpf = doc->Dfont;
+					tmpf = doc->toolSettings.defFont;
 				tmf = tmpf;
 				if (!DoFonts.contains(tmpf))
 					tmpf = AskForFont(avail, tmpf, view->Prefs, doc);
@@ -432,9 +432,9 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				vg.Drop = static_cast<bool>(QStoInt(pg.attribute("DROP","0")));
 				vg.DropLin = QStoInt(pg.attribute("DROPLIN","2"));
 				vg.FontEffect = QStoInt(pg.attribute("EFFECT","0"));
-				vg.FColor = pg.attribute("FCOLOR", doc->Dbrush);
+				vg.FColor = pg.attribute("FCOLOR", doc->toolSettings.dBrush);
 				vg.FShade = QStoInt(pg.attribute("FSHADE","100"));
-				vg.SColor = pg.attribute("SCOLOR", doc->Dpen);
+				vg.SColor = pg.attribute("SCOLOR", doc->toolSettings.dPen);
 				vg.SShade = QStoInt(pg.attribute("SSHADE","100"));
 				vg.BaseAdj = static_cast<bool>(QStoInt(pg.attribute("BASE","0")));
 				if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
@@ -632,9 +632,9 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						doc->OldBM = true;
 					OB.BMnr = QStoInt(pg.attribute("BookNr","0"));
 					OB.textAlignment = QStoInt(pg.attribute("ALIGN","0"));
-					tmpf = pg.attribute("IFONT", doc->Dfont);
+					tmpf = pg.attribute("IFONT", doc->toolSettings.defFont);
 					if (tmpf == "")
-						tmpf = doc->Dfont;
+						tmpf = doc->toolSettings.defFont;
 					tmf = tmpf;
 					if (!DoFonts.contains(tmpf))
 						tmpf = AskForFont(avail, tmpf, view->Prefs, doc);
@@ -890,9 +890,9 @@ QString FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 	tmp2.replace(QRegExp("\r"), QChar(5));
 	tmp2.replace(QRegExp("\n"), QChar(5));
 	tmp2.replace(QRegExp("\t"), QChar(4));
-	tmpf = it->attribute("CFONT", doc->Dfont);
+	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
 	if (tmpf == "")
-		tmpf = doc->Dfont;
+		tmpf = doc->toolSettings.defFont;
 	tmf = tmpf;
 	if (!DoFonts.contains(tmpf))
 		tmpf = AskForFont(Prefs->AvailFonts, tmpf, Prefs, doc);
@@ -947,7 +947,7 @@ QString FileLoader::AskForFont(SCFonts &avail, QString fStr, ApplicationPrefs *P
 		ReplacedFonts[fStr] = tmpf;
 	}
 	fo = avail[tmpf]->Font;
-	fo.setPointSize(qRound(doc->Dsize / 10.0));
+	fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
 	doc->AddFont(tmpf, fo);
 	DoFonts[fStr] = tmpf;
 	return tmpf;

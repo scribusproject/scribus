@@ -1298,7 +1298,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			{
 				for (int cc = 0; cc < Cols; ++cc)
 				{
-					z = PaintText(Tx + offX, Ty + offY, deltaX, deltaY, Doc->Dwidth, Doc->DpenText);
+					z = PaintText(Tx + offX, Ty + offY, deltaX, deltaY, Doc->toolSettings.dWidth, Doc->toolSettings.dPenText);
 					b = Doc->Items.at(z);
 					b->isTableItem = true;
 					SelItem.append(b);
@@ -1343,7 +1343,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		Doc->appMode = NormalMode;
 		if (RecordP.size() > 1)
 		{
-			uint z = PaintPolyLine(0, 0, 1, 1, Doc->Dwidth, "None", Doc->DpenLine);
+			uint z = PaintPolyLine(0, 0, 1, 1, Doc->toolSettings.dWidth, "None", Doc->toolSettings.dPenLine);
 			b = Doc->Items.at(z);
 			b->PoLine.resize(0);
 			b->PoLine.addPoint(RecordP.point(0));
@@ -1763,7 +1763,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			np1 = ApplyGridF(np1);
 			b->Width = np1.x() - b->Xpos;
 			b->Height = np1.y()- b->Ypos;
-			FPointArray cli = RegularPolygonF(b->Width, b->Height, Doc->PolyC, Doc->PolyS, Doc->PolyF, Doc->PolyR);
+			FPointArray cli = RegularPolygonF(b->Width, b->Height, Doc->toolSettings.polyC, Doc->toolSettings.polyS, Doc->toolSettings.polyF, Doc->toolSettings.polyR);
 			FPoint np = FPoint(cli.point(0));
 			b->PoLine.resize(2);
 			b->PoLine.setPoint(0, np);
@@ -3987,15 +3987,15 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			switch (Doc->SubMode)
 			{
 			case 0:
-				z = PaintRect(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->Dwidth, Doc->Dbrush, Doc->Dpen);
+				z = PaintRect(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen);
 				SetupDraw(z);
 				break;
 			case 1:
-				z = PaintEllipse(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->Dwidth, Doc->Dbrush, Doc->Dpen);
+				z = PaintEllipse(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen);
 				SetupDraw(z);
 				break;
 			default:
-				z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->Dwidth, Doc->Dbrush, Doc->Dpen);
+				z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen);
 				SetFrameShape(Doc->Items.at(z), Doc->ValCount, Doc->ShapeValues);
 				Doc->Items.at(z)->FrameType = Doc->SubMode+2;
 				SetupDraw(z);
@@ -4011,7 +4011,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			break;
 		case DrawText:
 			selectPage(m);
-			z = PaintText(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->Dwidth, Doc->DpenText);
+			z = PaintText(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dPenText);
 			SetupDraw(z);
 			emit HaveSel(4);
 			break;
@@ -4106,7 +4106,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			break;
 		case DrawLine:
 			selectPage(m);
-			z = PaintLine(Rxp, Ryp, 1+Rxpd, Rypd, Doc->DwidthLine, Doc->DpenLine);
+			z = PaintLine(Rxp, Ryp, 1+Rxpd, Rypd, Doc->toolSettings.dWidthLine, Doc->toolSettings.dPenLine);
 			b = Doc->Items.at(z);
 			b->Select = true;
 			qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
@@ -4242,9 +4242,9 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 		case DrawRegularPolygon:
 			{
 				selectPage(m);
-				z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->Dwidth, Doc->Dbrush, Doc->Dpen);
+				z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dBrush, Doc->toolSettings.dPen);
 				b = Doc->Items.at(z);
-				FPointArray cli = RegularPolygonF(b->Width, b->Height, Doc->PolyC, Doc->PolyS, Doc->PolyF, Doc->PolyR);
+				FPointArray cli = RegularPolygonF(b->Width, b->Height, Doc->toolSettings.polyC, Doc->toolSettings.polyS, Doc->toolSettings.polyF, Doc->toolSettings.polyR);
 				FPoint np = FPoint(cli.point(0));
 				b->PoLine.resize(2);
 				b->PoLine.setPoint(0, np);
@@ -4278,7 +4278,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			if (FirstPoly)
 			{
 				selectPage(m);
-				z = PaintPolyLine(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->Dwidth, "None", Doc->DpenLine);
+				z = PaintPolyLine(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, "None", Doc->toolSettings.dPenLine);
 				b = Doc->Items.at(z);
 				SelItem.clear();
 				SelItem.append(b);
@@ -4322,7 +4322,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 		case InsertPDFTextAnnotation:
 		case InsertPDFLinkAnnotation:
 			selectPage(m);
-			z = PaintText(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->Dwidth, Doc->DpenText);
+			z = PaintText(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dPenText);
 			b = Doc->Items.at(z);
 			b->isAnnotation = true;
 			switch (Doc->appMode)
@@ -7228,8 +7228,8 @@ void ScribusView::SetupDraw(int nr)
 {
 	PageItem* b = Doc->Items.at(nr);
 	b->Select = true;
-	b->IFont = Doc->Dfont;
-	b->ISize = Doc->Dsize;
+	b->IFont = Doc->toolSettings.defFont;
+	b->ISize = Doc->toolSettings.defSize;
 	mCG = true;
 	HowTo = 1;
 	qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
@@ -8073,7 +8073,7 @@ Page* ScribusView::addPage(int nr)
 		                  fe->Margins.Top+fe->Yoffset,
 		                  Doc->PageB-fe->Margins.Right-fe->Margins.Left,
 		                  Doc->PageH-fe->Margins.Bottom-fe->Margins.Top,
-		                  1, Doc->Dpen);
+		                  1, Doc->toolSettings.dPen);
 		Doc->Items.at(z)->isAutoText = true;
 		Doc->Items.at(z)->BackBox = Doc->LastAuto;
 		Doc->Items.at(z)->Cols = qRound(Doc->PageSp);
@@ -8430,10 +8430,10 @@ void ScribusView::slotZoomOut(int mx,int my)
 void ScribusView::slotZoomIn2(int mx,int my)
 {
 	rememberPreviousSettings(mx,my);
-	Scale += static_cast<double>(Doc->MagStep*Prefs->DisScale)/100.0;
-	if (Scale > static_cast<double>(Doc->MagMax*Prefs->DisScale)/100.0)
+	Scale += static_cast<double>(Doc->toolSettings.magStep*Prefs->DisScale)/100.0;
+	if (Scale > static_cast<double>(Doc->toolSettings.magMax*Prefs->DisScale)/100.0)
 	{
-		Scale = static_cast<double>(Doc->MagMax*Prefs->DisScale)/100.0;
+		Scale = static_cast<double>(Doc->toolSettings.magMax*Prefs->DisScale)/100.0;
 		return;
 	}
 	slotDoZoom();
@@ -8443,9 +8443,9 @@ void ScribusView::slotZoomIn2(int mx,int my)
 void ScribusView::slotZoomOut2(int mx,int my)
 {
 	rememberPreviousSettings(mx,my);
-	Scale -= static_cast<double>(Doc->MagStep*Prefs->DisScale)/100.0;
-	if (Scale < static_cast<double>(Doc->MagMin*Prefs->DisScale)/100.0)
-		Scale = static_cast<double>(Doc->MagMin*Prefs->DisScale)/100.0;
+	Scale -= static_cast<double>(Doc->toolSettings.magStep*Prefs->DisScale)/100.0;
+	if (Scale < static_cast<double>(Doc->toolSettings.magMin*Prefs->DisScale)/100.0)
+		Scale = static_cast<double>(Doc->toolSettings.magMin*Prefs->DisScale)/100.0;
 	slotDoZoom();
 }
 
@@ -8968,9 +8968,9 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 		Doc->MasterItems = Doc->Items;
 	else
 		Doc->DocItems = Doc->Items;
-	ite->PLineArt = Doc->DLineArt;
-	ite->Shade = Doc->Dshade;
-	ite->Shade2 = Doc->Dshade2;
+	ite->PLineArt = PenStyle(Doc->toolSettings.dLineArt);
+	ite->Shade = Doc->toolSettings.dShade;
+	ite->Shade2 = Doc->toolSettings.dShade2;
 	ite->ItemNr = Doc->Items.count()-1;
 	SetOvalFrame(ite);
 	ite->ContourLine = ite->PoLine.copy();
@@ -8985,17 +8985,17 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 /** Zeichnet einen Bildrahmen */
 int ScribusView::PaintPict(double x, double y, double b, double h)
 {
-	PageItem* ite = new PageItem(Doc, 2, x, y, b, h, 1, Doc->DbrushPict, "None");
+	PageItem* ite = new PageItem(Doc, 2, x, y, b, h, 1, Doc->toolSettings.dBrushPict, "None");
 	Doc->Items.append(ite);
 	if (Doc->MasterP)
 		Doc->MasterItems = Doc->Items;
 	else
 		Doc->DocItems = Doc->Items;
-	ite->Shade = Doc->ShadePict;
-	ite->LocalScX = Doc->ScaleX;
-	ite->LocalScY = Doc->ScaleY;
-	ite->ScaleType = Doc->ScaleType;
-	ite->AspectRatio = Doc->AspectRatio;
+	ite->Shade = Doc->toolSettings.shadePict;
+	ite->LocalScX = Doc->toolSettings.scaleX;
+	ite->LocalScY = Doc->toolSettings.scaleY;
+	ite->ScaleType = Doc->toolSettings.scaleType;
+	ite->AspectRatio = Doc->toolSettings.aspectRatio;
 	ite->IProfile = Doc->CMSSettings.DefaultInputProfile;
 	ite->IRender = Doc->CMSSettings.DefaultIntentMonitor2;
 	ite->ItemNr = Doc->Items.count()-1;
@@ -9018,9 +9018,9 @@ int ScribusView::PaintRect(double x, double y, double b, double h, double w, QSt
 		Doc->MasterItems = Doc->Items;
 	else
 		Doc->DocItems = Doc->Items;
-	ite->PLineArt = Doc->DLineArt;
-	ite->Shade = Doc->Dshade;
-	ite->Shade2 = Doc->Dshade2;
+	ite->PLineArt = PenStyle(Doc->toolSettings.dLineArt);
+	ite->Shade = Doc->toolSettings.dShade;
+	ite->Shade2 = Doc->toolSettings.dShade2;
 	ite->ItemNr = Doc->Items.count()-1;
 	SetRectFrame(ite);
 	ite->ContourLine = ite->PoLine.copy();
@@ -9041,9 +9041,9 @@ int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QSt
 		Doc->MasterItems = Doc->Items;
 	else
 		Doc->DocItems = Doc->Items;
-	ite->PLineArt = Doc->DLineArt;
-	ite->Shade = Doc->Dshade;
-	ite->Shade2 = Doc->Dshade2;
+	ite->PLineArt = PenStyle(Doc->toolSettings.dLineArt);
+	ite->Shade = Doc->toolSettings.dShade;
+	ite->Shade2 = Doc->toolSettings.dShade2;
 	ite->ItemNr =Doc-> Items.count()-1;
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
@@ -9064,9 +9064,9 @@ int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w,
 		Doc->MasterItems = Doc->Items;
 	else
 		Doc->DocItems = Doc->Items;
-	ite->PLineArt = Doc->DLineArt;
-	ite->Shade = Doc->Dshade;
-	ite->Shade2 = Doc->Dshade2;
+	ite->PLineArt = PenStyle(Doc->toolSettings.dLineArt);
+	ite->Shade = Doc->toolSettings.dShade;
+	ite->Shade2 = Doc->toolSettings.dShade2;
 	ite->ItemNr = Doc->Items.count()-1;
 	ite->ClipEdited = true;
 	if (!Doc->loading)
@@ -9108,8 +9108,8 @@ int ScribusView::PaintLine(double x, double y, double b, double h, double w, QSt
 		Doc->MasterItems = Doc->Items;
 	else
 		Doc->DocItems = Doc->Items;
-	ite->PLineArt = Doc->DLstyleLine;
-	ite->Shade2 = Doc->DshadeLine;
+	ite->PLineArt = PenStyle(Doc->toolSettings.dLstyleLine);
+	ite->Shade2 = Doc->toolSettings.dShadeLine;
 	ite->ItemNr = Doc->Items.count()-1;
 	if (!Doc->loading)
 	{
@@ -10605,7 +10605,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		AdjustPreview(b, false);
 	}
 	if ((b->PType != 4) && (b->PType != 8))
-		b->IFont = Doc->Dfont;
+		b->IFont = Doc->toolSettings.defFont;
 	if (Buffer->GrType != 0)
 	{
 		if ((Buffer->GrColor != "") && (Buffer->GrColor2 != ""))

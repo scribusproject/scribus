@@ -74,8 +74,8 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	Doc = pa;
 	Pcolor = fill;
 	Pcolor2 = PType == 4 ? fill : outline;
-	TxtFill = Doc->DpenText;
-	TxtStroke = Doc->DstrokeText;
+	TxtFill = Doc->toolSettings.dPenText;
+	TxtStroke = Doc->toolSettings.dStrokeText;
 	ShTxtStroke = 100;
 	ShTxtFill = 100;
 	TxtScale = 100;
@@ -89,16 +89,16 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	GrEndY = 0;
 	Pwidth = w2;
 	OldPwidth = w2;
-	PLineArt = Doc->DLineArt;
+	PLineArt = PenStyle(Doc->toolSettings.dLineArt);
 	PLineEnd = FlatCap;
 	PLineJoin = MiterJoin;
 	Select = false;
 	FrameOnly = false;
 	ClipEdited = false;
 	FrameType = 0;
-	IFont = Doc->Dfont;
-	ISize = Doc->Dsize;
-	LineSp = ((Doc->Dsize / 10.0) * static_cast<double>(Doc->typographicSetttings.autoLineSpacing) / 100) + (Doc->Dsize / 10.0);
+	IFont = Doc->toolSettings.defFont;
+	ISize = Doc->toolSettings.defSize;
+	LineSp = ((Doc->toolSettings.defSize / 10.0) * static_cast<double>(Doc->typographicSetttings.autoLineSpacing) / 100) + (Doc->toolSettings.defSize / 10.0);
 	Doc->docParagraphStyles[0].LineSpa = LineSp;
 	CurX = 0;
 	CurY = 0;
@@ -245,16 +245,16 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	fill_gradient = VGradient(VGradient::linear);
 	fill_gradient.clearStops();
 	if (Pcolor == "None")
-		fill_gradient.addStop(Doc->PageColors[Doc->Dbrush].getRGBColor(), 0.0, 0.5, 1.0, Doc->Dbrush, 100);
+		fill_gradient.addStop(Doc->PageColors[Doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, Doc->toolSettings.dBrush, 100);
 	else
 		fill_gradient.addStop(Doc->PageColors[Pcolor].getRGBColor(), 0.0, 0.5, 1.0, Pcolor, 100);
 	if (Pcolor2 == "None")
-		fill_gradient.addStop(Doc->PageColors[Doc->Dpen].getRGBColor(), 1.0, 0.5, 1.0, Doc->Dpen, 100);
+		fill_gradient.addStop(Doc->PageColors[Doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, Doc->toolSettings.dPen, 100);
 	else
 	fill_gradient.addStop(Doc->PageColors[Pcolor2].getRGBColor(), 1.0, 0.5, 1.0, Pcolor2, 100);
 	Language = Doc->Language;
-	Cols = Doc->DCols;
-	ColGap = Doc->DGap;
+	Cols = Doc->toolSettings.dCols;
+	ColGap = Doc->toolSettings.dGap;
 	LeftLink = 0;
 	RightLink = 0;
 	TopLink = 0;
@@ -272,8 +272,8 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	Dirty = false;
 	ChangedMasterItem = false;
 	OnMasterPage = Doc->currentPage->PageNam;
-	startArrowIndex = Doc->DstartArrow;
-	endArrowIndex = Doc->DendArrow;
+	startArrowIndex = Doc->toolSettings.dStartArrow;
+	endArrowIndex = Doc->toolSettings.dEndArrow;
 }
 
 /** Zeichnet das Item */

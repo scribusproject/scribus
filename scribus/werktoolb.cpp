@@ -106,9 +106,9 @@ void WerkToolB::Verbergen(bool vis)
 
 void WerkToolB::GetPolyProps()
 {
-	PolygonProps* dia = new PolygonProps(this, ScApp->doc->PolyC, ScApp->doc->PolyFd, ScApp->doc->PolyF, ScApp->doc->PolyS, ScApp->doc->PolyR);
+	PolygonProps* dia = new PolygonProps(this, ScApp->doc->toolSettings.polyC, ScApp->doc->toolSettings.polyFd, ScApp->doc->toolSettings.polyF, ScApp->doc->toolSettings.polyS, ScApp->doc->toolSettings.polyR);
 	if (dia->exec())
-		dia->getValues(&ScApp->doc->PolyC, &ScApp->doc->PolyFd, &ScApp->doc->PolyF, &ScApp->doc->PolyS, &ScApp->doc->PolyR);
+		dia->getValues(&ScApp->doc->toolSettings.polyC, &ScApp->doc->toolSettings.polyFd, &ScApp->doc->toolSettings.polyF, &ScApp->doc->toolSettings.polyS, &ScApp->doc->toolSettings.polyR);
 	delete dia;
 }
 

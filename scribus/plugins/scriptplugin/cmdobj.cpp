@@ -18,7 +18,7 @@ PyObject *scribus_newrect(PyObject */*self*/, PyObject* args)
 	}
 	int i = Carrier->view->PaintRect(ValueToPoint(x), ValueToPoint(y),
 															ValueToPoint(b), ValueToPoint(h),
-															Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
+															Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush, Carrier->doc->toolSettings.dPen);
 	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
 	if (Name != "")
 		Carrier->doc->Items.at(i)->AnName = QString::fromUtf8(Name);
@@ -34,7 +34,7 @@ PyObject *scribus_newellipse(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	int i = Carrier->view->PaintEllipse(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h), Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
+	int i = Carrier->view->PaintEllipse(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h), Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush, Carrier->doc->toolSettings.dPen);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
@@ -76,7 +76,7 @@ PyObject *scribus_newtext(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	int i = Carrier->view->PaintText(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h), Carrier->doc->Dwidth, Carrier->doc->DpenText);
+	int i = Carrier->view->PaintText(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h), Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dPenText);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
@@ -106,7 +106,7 @@ PyObject *scribus_newline(PyObject */*self*/, PyObject* args)
 		return NULL;
 	}
 	h = ValueToPoint(h);
-	int i = Carrier->view->PaintPolyLine(x, y, 1, 1,	Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
+	int i = Carrier->view->PaintPolyLine(x, y, 1, 1,	Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush, Carrier->doc->toolSettings.dPen);
 	PageItem *it = Carrier->doc->Items.at(i);
 	it->PoLine.resize(4);
 	it->PoLine.setPoint(0, 0, 0);
@@ -163,7 +163,7 @@ PyObject *scribus_polyline(PyObject */*self*/, PyObject* args)
 	i++;
 	y = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	int ic = Carrier->view->PaintPolyLine(x, y, 1, 1,	Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
+	int ic = Carrier->view->PaintPolyLine(x, y, 1, 1,	Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush, Carrier->doc->toolSettings.dPen);
 	PageItem *it = Carrier->doc->Items.at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
@@ -238,7 +238,7 @@ PyObject *scribus_polygon(PyObject */*self*/, PyObject* args)
 	i++;
 	y = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	int ic = Carrier->view->PaintPoly(x, y, 1, 1,	Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
+	int ic = Carrier->view->PaintPoly(x, y, 1, 1,	Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush, Carrier->doc->toolSettings.dPen);
 	PageItem *it = Carrier->doc->Items.at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
@@ -323,7 +323,7 @@ PyObject *scribus_bezierline(PyObject */*self*/, PyObject* args)
 	i++;
 	ky2 = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	int ic = Carrier->view->PaintPolyLine(x, y, 1, 1,	Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
+	int ic = Carrier->view->PaintPolyLine(x, y, 1, 1,	Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush, Carrier->doc->toolSettings.dPen);
 	PageItem *it = Carrier->doc->Items.at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);

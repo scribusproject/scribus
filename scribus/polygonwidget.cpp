@@ -10,11 +10,11 @@ using namespace std;
 
 extern QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
 
-PolygonWidget::PolygonWidget(QWidget* parent, int PolyC, int PolyFd, double PolyF, bool PolyS, double PolyR) : QWidget( parent )
+PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double polyF, bool polyS, double polyR) : QWidget( parent )
 {
 	Pre = new QPixmap(101, 101);
 	Pre->fill(white);
-	PFactor = PolyF;
+	PFactor = polyF;
 	PolygonPropsLayout = new QVBoxLayout( this, 10, 5, "PolygonPropsLayout");
 	Layout11 = new QHBoxLayout( 0, 0, 5, "Layout11");
 	Layout10 = new QVBoxLayout( 0, 0, 5, "Layout10");
@@ -22,7 +22,7 @@ PolygonWidget::PolygonWidget(QWidget* parent, int PolyC, int PolyFd, double Poly
 	Ecken = new QSpinBox( this, "Ecken" );
 	Ecken->setMaxValue( 999 );
 	Ecken->setMinValue( 3 );
-	Ecken->setValue(PolyC);
+	Ecken->setValue(polyC);
 	Text1 = new QLabel( Ecken, tr("Corn&ers:"), this, "Text1" );
 	Layout2->addWidget( Text1 );
 	Layout2->addWidget( Ecken );
@@ -35,7 +35,7 @@ PolygonWidget::PolygonWidget(QWidget* parent, int PolyC, int PolyFd, double Poly
 	Faktor2->setSuffix(" ");
 	Faktor2->setMaxValue( 180 );
 	Faktor2->setMinValue( -180 );
-	Faktor2->setValue(static_cast<int>(PolyR));
+	Faktor2->setValue(static_cast<int>(polyR));
 	Text2_2 = new QLabel( Faktor2, tr("&Rotation:"), this, "Text2_2" );
 	Layout7_2->addWidget( Text2_2 );
 	Layout7_2->addWidget( Faktor2 );
@@ -43,7 +43,7 @@ PolygonWidget::PolygonWidget(QWidget* parent, int PolyC, int PolyFd, double Poly
 	Slider2 = new QSlider( this, "Slider1_2" );
 	Slider2->setMinValue( -180 );
 	Slider2->setMaxValue( 180 );
-	Slider2->setValue(static_cast<int>(PolyR));
+	Slider2->setValue(static_cast<int>(polyR));
 	Slider2->setOrientation( QSlider::Horizontal );
 	Slider2->setTickmarks( QSlider::Right );
 	Layout8_2->addWidget( Slider2 );
@@ -52,7 +52,7 @@ PolygonWidget::PolygonWidget(QWidget* parent, int PolyC, int PolyFd, double Poly
 
 	Konvex = new QCheckBox( this, "Konvex" );
 	Konvex->setText( tr( "Apply &Factor" ) );
-	Konvex->setChecked(PolyS);
+	Konvex->setChecked(polyS);
 	Layout10->addWidget( Konvex );
 	Layout9 = new QHBoxLayout( 0, 0, 5, "Layout9");
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -63,7 +63,7 @@ PolygonWidget::PolygonWidget(QWidget* parent, int PolyC, int PolyFd, double Poly
 	Faktor->setSuffix( tr( " %" ) );
 	Faktor->setMaxValue( 100 );
 	Faktor->setMinValue( -100 );
-	Faktor->setValue(PolyFd);
+	Faktor->setValue(polyFd);
 	Text2 = new QLabel( Faktor, tr("&Factor:"), this, "Text2" );
 	Layout7->addWidget( Text2 );
 	Layout7->addWidget( Faktor );
@@ -73,8 +73,8 @@ PolygonWidget::PolygonWidget(QWidget* parent, int PolyC, int PolyFd, double Poly
 	Slider1->setMaxValue( 100 );
 	Slider1->setOrientation( QSlider::Horizontal );
 	Slider1->setTickmarks( QSlider::Right );
-	Slider1->setValue(PolyFd);
-	if (PolyFd == 0)
+	Slider1->setValue(polyFd);
+	if (polyFd == 0)
 		Konvex->setChecked(false);
 	Layout8->addWidget( Slider1 );
 	Layout9->addLayout( Layout8 );
@@ -111,13 +111,13 @@ PolygonWidget::PolygonWidget(QWidget* parent, int PolyC, int PolyFd, double Poly
 	connect(Konvex, SIGNAL(clicked()), this, SLOT(UpdatePreView()));
 }
 
-void PolygonWidget::getValues(int* PolyC, int* PolyFd, double* PolyF, bool* PolyS, double* PolyR)
+void PolygonWidget::getValues(int* polyC, int* polyFd, double* polyF, bool* polyS, double* polyR)
 {
-	*PolyC = Ecken->value();
-	*PolyF = PFactor;
-	*PolyS = Konvex->isChecked();
-	*PolyFd = Slider1->value();
-	*PolyR = Faktor2->value();
+	*polyC = Ecken->value();
+	*polyF = PFactor;
+	*polyS = Konvex->isChecked();
+	*polyFd = Slider1->value();
+	*polyR = Faktor2->value();
 }
 
 void PolygonWidget::ValFromSpin2(int a)

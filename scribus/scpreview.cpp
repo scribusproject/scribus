@@ -126,12 +126,12 @@ QPixmap ScPreview::createPreview(QString data)
 				FT_Face      face;
 				error = FT_New_Face( library, Prefs->AvailFonts[tmpf]->Datei, 0, &face );
 				if (error)
-					tmpf = Prefs->DefFont;
+					tmpf = Prefs->toolSettings.defFont;
 				if (Prefs->AvailFonts[tmpf]->ReadMetrics())
 					Prefs->AvailFonts[tmpf]->CharWidth[13] = 0;
 				else
 				{
-					tmpf = Prefs->DefFont;
+					tmpf = Prefs->toolSettings.defFont;
 					Prefs->AvailFonts[tmpf]->ReadMetrics();
 					Prefs->AvailFonts[tmpf]->CharWidth[13] = 0;
 				}
