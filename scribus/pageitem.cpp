@@ -2662,6 +2662,34 @@ void PageItem::setFontWidth(int newWidth)
 	TxtScale = newWidth;
 }
 
+void PageItem::setFontFillColor(const QString& newColor)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SetFontFill,
+										  QString(Um::FromTo).arg(TxtFill).arg(newColor), Um::IFont);
+		ss->set("SET_FONT_FILL", "setfontfill");
+		ss->set("OLD_FILL", TxtFill);
+		ss->set("NEW_FILL", newColor);
+		undoManager->action(this, ss);
+	}
+	TxtFill = newColor;
+}
+
+void PageItem::setFontStrokeColor(const QString& newColor)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SetFontStroke,
+										  QString(Um::FromTo).arg(TxtStroke).arg(newColor), Um::IFont);
+		ss->set("SET_FONT_STROKE", "setfontstroke");
+		ss->set("OLD_STROKE", TxtStroke);
+		ss->set("NEW_STROKE", newColor);
+		undoManager->action(this, ss);
+	}
+	TxtStroke = newColor;
+}
+
 void PageItem::checkChanges(bool force)
 {
 	// has the item been resized
@@ -2834,6 +2862,10 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreFontSize(ss, isUndo);
 		else if (ss->contains("SET_FONT_WIDTH"))
 			restoreFontWidth(ss, isUndo);
+		else if (ss->contains("SET_FONT_FILL"))
+			restoreFontFill(ss, isUndo);
+		else if (ss->contains("SET_FONT_STROKE"))
+			restoreFontStroke(ss, isUndo);
 		
 	}
 }
@@ -3074,6 +3106,24 @@ void PageItem::restoreFontWidth(SimpleState *state, bool isUndo)
 		width = state->getInt("NEW_WIDTH");
 	select();
 	ScApp->view->ItemTextScale(width);
+}
+
+void PageItem::restoreFontFill(SimpleState *state, bool isUndo)
+{
+	QString color = state->get("OLD_FILL");
+	if (!isUndo)
+		color = state->get("NEW_FILL");
+	select();
+	ScApp->view->ItemTextBrush(color);
+}
+
+void PageItem::restoreFontStroke(SimpleState *state, bool isUndo)
+{
+	QString color = state->get("OLD_STROKE");
+	if (!isUndo)
+		color = state->get("NEW_STROKE");
+	select();
+	ScApp->view->ItemTextPen(color);
 }
 
 void PageItem::select()

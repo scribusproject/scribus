@@ -270,6 +270,7 @@ void Page::restorePageItemCreation(ItemState *state, bool isUndo)
 		ScApp->view->Deselect();
 		ScApp->view->SelectItem(ite, false);
 		ScApp->view->DeleteItem();
+		ScApp->view->Deselect();
 	}
 	else
 	{
@@ -301,6 +302,7 @@ void Page::restorePageItemDeletion(ItemState *state, bool isUndo)
 		ScApp->view->Deselect();
 		ScApp->view->SelectItem(ite, false);
 		ScApp->view->DeleteItem();
+		ScApp->view->Deselect();
 	}
 }
 

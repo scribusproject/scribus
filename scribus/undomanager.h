@@ -447,6 +447,8 @@ public:
 	static const QString SetFont;
 	static const QString SetFontSize;
 	static const QString SetFontWidth;
+	static const QString SetFontFill;
+	static const QString SetFontStroke;
 	/*@}*/
 
 	/**

@@ -483,6 +483,16 @@ public:
 	 * @param newWidth width of character
 	 */
 	void setFontWidth(int newWidth);
+	/** 
+	 * @brief Set font fill color
+	 * @param newColor font fill color
+	 */
+	void setFontFillColor(const QString& newColor);
+	/** 
+	 * @brief Set the color of font stroke
+	 * @param newColor color of font stroke
+	 */
+	void setFontStrokeColor(const QString& newColor);
 
 	/** 
 	 * @brief Check the changes to the item and add undo actions for them.
@@ -530,6 +540,8 @@ protected:
 	void restoreFont(SimpleState *state, bool isUndo);
 	void restoreFontSize(SimpleState *state, bool isUndo);
 	void restoreFontWidth(SimpleState *state, bool isUndo);
+	void restoreFontFill(SimpleState *state, bool isUndo);
+	void restoreFontStroke(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**
