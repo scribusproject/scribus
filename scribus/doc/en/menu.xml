@@ -100,6 +100,7 @@
 			<submenuitem text="Using Dialogs" file="scripterapi-dialogs.html"/>
 			<submenuitem text="PDF Export" file="scripterapi-PDFfile.html"/>
 			<submenuitem text="Printing" file="scripterapi-Printer.html"/>
+			<submenuitem text="Image Export" file="scripterapi-ImageExport.html"/>
 			<submenuitem text="Predefined Constants" file="scripterapi-constants.html"/>
 			<submenuitem text="All Commands from PyDoc" file="scripterapi-pydoc.html"/>
 		</submenuitem>
