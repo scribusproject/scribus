@@ -112,9 +112,9 @@ QString Config::getAvailableLanguagesFromFile(QString filename)
 		return QString();
 	}
 	if (filename == RC_PATH_USR)
-		return QObject::tr("Custom (optional) configuration: ", TR_INFO) + " " + nations.join(", ");
+		return QObject::tr("Custom (optional) configuration: ", "short words plugin") + " " + nations.join(", ");
 	if (filename == RC_PATH)
-		return QObject::tr("Standard configuration: ", TR_INFO) + " " + nations.join(", ");
+		return QObject::tr("Standard configuration: ", "short words plugin") + " " + nations.join(", ");
 	return nations.join(", "); // save return only
 }
 

@@ -26,7 +26,7 @@ extern ScribusApp *ScApp;
 
 QString Name()
 {
-	return QObject::tr("Short &Words...", TR_INFO);
+	return QObject::tr("Short &Words...", "short words plugin");
 }
 
 
@@ -59,7 +59,7 @@ ShortWords::ShortWords()
 	if (dlg->exec() == QDialog::Accepted) {
 		parse = new Parse();
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-		ScApp->FMess->setText(QObject::tr("Short Words processing. Wait please...", TR_INFO));
+		ScApp->FMess->setText(QObject::tr("Short Words processing. Wait please...", "short words plugin"));
 		dlg->userCheckBox->isChecked() ? cfg->userConfig = 1 : cfg->userConfig = 0;
 		cfg->action = dlg->actionSelected;
 		switch (dlg->actionSelected) {
@@ -79,7 +79,7 @@ ShortWords::ShortWords()
 		// redraw document
 		ScApp->view->DrawNew();
 		QApplication::restoreOverrideCursor();
-		ScApp->FMess->setText(QObject::tr("Short Words processing. Done.", TR_INFO));
+		ScApp->FMess->setText(QObject::tr("Short Words processing. Done.", "short words plugin"));
 		ScApp->FProg->reset();
 		// set page where user calls vlna
 		ScApp->view->GotoPage(originalPage);

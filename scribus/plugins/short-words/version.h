@@ -19,6 +19,4 @@ or documentation
 #define UNBREAKABLE_SPACE QString(QChar(29))
 #define SPACE QChar(' ')
 
-#define TR_INFO "short words plug"
-
 #endif
