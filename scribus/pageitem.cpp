@@ -2271,6 +2271,11 @@ void PageItem::setItemName(const QString& newName)
 	setUName(newName); // set the name for the UndoObject too
 }
 
+QString PageItem::fillColor() const
+{
+	return Pcolor;
+}
+
 void PageItem::setFillColor(const QString &newColor)
 {
 	if (UndoManager::undoEnabled())
@@ -2284,6 +2289,11 @@ void PageItem::setFillColor(const QString &newColor)
 		undoManager->action(this, ss);
 	}
 	Pcolor = newColor;
+}
+
+int PageItem::fillShade() const
+{
+	return Shade;
 }
 
 void PageItem::setFillShade(int newShade)
@@ -2301,6 +2311,11 @@ void PageItem::setFillShade(int newShade)
 	Shade = newShade;
 }
 
+double PageItem::fillTransparency() const
+{
+	return Transparency;
+}
+
 void PageItem::setFillTransparency(double newTransparency)
 {
 	if (UndoManager::undoEnabled())
@@ -2314,6 +2329,11 @@ void PageItem::setFillTransparency(double newTransparency)
 		undoManager->action(this, ss);
 	}
 	Transparency = newTransparency;
+}
+
+QString PageItem::lineColor() const
+{
+	return Pcolor2;
 }
 
 void PageItem::setLineColor(const QString &newColor)
@@ -2331,6 +2351,11 @@ void PageItem::setLineColor(const QString &newColor)
 	Pcolor2 = newColor;
 }
 
+int PageItem::lineShade() const
+{
+	return Shade2;
+}
+
 void PageItem::setLineShade(int newShade)
 {
 	if (UndoManager::undoEnabled())
@@ -2344,6 +2369,12 @@ void PageItem::setLineShade(int newShade)
 		undoManager->action(this, ss);
 	}
 	Shade2 = newShade;
+}
+
+
+double PageItem::lineTransparency() const
+{
+	return TranspStroke;
 }
 
 void PageItem::setLineTransparency(double newTransparency)
@@ -2398,6 +2429,11 @@ void PageItem::toggleLock()
 	Locked = !Locked;
 }
 
+bool PageItem::locked() const
+{
+	return Locked;
+}
+
 void PageItem::setLocked(bool isLocked)
 {
 	if (isLocked != Locked)
@@ -2417,6 +2453,11 @@ void PageItem::toggleSizeLock()
 		undoManager->action(this, ss);
 	}
 	LockRes = !LockRes;
+}
+
+bool PageItem::sizeLocked() const
+{
+	return LockRes;
 }
 
 void PageItem::setSizeLocked(bool isLocked)

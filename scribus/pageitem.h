@@ -39,7 +39,16 @@ class PageItem : public QObject, public UndoObject
 {
 	Q_OBJECT
 	// Properties - see http://doc.trolltech.com/3.3/properties.html
+	// See the getters and setters of these properties for details on their use.
 	Q_PROPERTY(QString itemName READ itemName WRITE setItemName DESIGNABLE false)
+	Q_PROPERTY(QString fillColor READ fillColor WRITE setFillColor DESIGNABLE false)
+	Q_PROPERTY(int fillShade READ fillShade WRITE setFillShade DESIGNABLE false)
+	Q_PROPERTY(double fillTransparency READ fillTransparency WRITE setFillTransparency DESIGNABLE false)
+	Q_PROPERTY(QString lineColor READ lineColor WRITE setLineColor DESIGNABLE false)
+	Q_PROPERTY(int lineShade READ lineShade WRITE setLineShade DESIGNABLE false)
+	Q_PROPERTY(double lineTransparency READ lineTransparency WRITE setLineTransparency DESIGNABLE false)
+	Q_PROPERTY(bool locked READ locked WRITE setLocked DESIGNABLE false)
+	Q_PROPERTY(bool sizeLocked READ sizeLocked WRITE setSizeLocked DESIGNABLE false)
 public: 
 	PageItem(ScribusDoc *pa, int art, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	~PageItem() {};
@@ -321,48 +330,74 @@ public:
 	 * See also PageItem::itemName()
 	 */
 	void setItemName(const QString& newName);
+
+	/** @brief Get the (name of the) fill color of the object */
+	QString fillColor() const;
 	/**
 	 * @brief Set the fill color of the object.
 	 * @param newColor fill color for the object
 	 */
 	void setFillColor(const QString &newColor);
+
+	/** @brief Get the shade of the fill color */
+	int fillShade() const;
 	/**
 	 * @brief Set the fill color shade.
 	 * @param newShade shade for the fill color
 	 */
 	void setFillShade(int newShade);
+
+	/** @brief Get the transparency of the fill color */
+	double fillTransparency() const;
 	/**
 	 * @brief Set the transparency of the fill color.
 	 * @param newTransparency transparency of the fill color
 	 */
 	void setFillTransparency(double newTransparency);
+
+	/** @brief Get the line color of the object */
+	QString lineColor() const;
 	/**
 	 * @brief Set the line color of the object.
 	 * @param newFill line color for the object
 	 */
 	void setLineColor(const QString &newColor);
+
+	/** @brief Get the line color shade */
+	int lineShade() const;
 	/**
 	 * @brief Set the line color shade.
 	 * @param newColor shade for the line color
 	 */
 	void setLineShade(int newShade);
+
+	/** @brief Get the line transparency */
+	double lineTransparency() const;
 	/**
 	 * @brief Set the transparency of the line color.
 	 * @param newTransparency transparency of the line color
 	 */
 	void setLineTransparency(double newTransparency);
+
 	/** @brief Flip an image horizontally. */
 	void flipImageH();
 	/** @brief Flip an image vertically */
 	void flipImageV();
+
 	/** @brief Lock or unlock this pageitem. */
 	void toggleLock();
+	/** @brief is the item locked ? */
+	bool locked() const;
 	/** @brief Lock or unlock this pageitem */
 	void setLocked(bool isLocked);
+
 	/** @brief Toggle lock for resizing */
 	void toggleSizeLock();
-	/** @brief Toggle lock for resizing */
+	/** @brief Is the item's size locked? */
+	bool sizeLocked() const;
+	/** @brief set lock for resizing */
 	void setSizeLocked(bool isLocked);
+
 	/** 
 	 * @brief Check the changes to the item and add undo actions for them.
 	 * @param force Force the check. Do not care if mouse button or arrow key is down
