@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'ReformDoc.ui'
-**
-** Created: Mon Apr 30 10:53:08 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #ifndef REFORMDOC_H
 #define REFORMDOC_H
 
@@ -25,13 +17,15 @@ class ReformDoc : public QDialog
 
 public:
     ReformDoc( QWidget* parent, double t, double l, double r, double b, double Pagebr, double Pageho, 
-				bool fp, bool fpe, int Einh, int ori, QString pageSize );
+				bool fp, bool fpe, int Einh, int ori, QString pageSize, int PageNr );
     ~ReformDoc() {};
 
     QGroupBox* GroupBox7;
     QGroupBox* dsGroupBox7;
     QLabel* TextLabel5;
     QLabel* TextLabel7;
+    QLabel* TextLabel1_3;
+    QSpinBox* PgNr;
     MSpinBox* TopR;
     MSpinBox* BottomR;
     MSpinBox* LeftR;

@@ -361,8 +361,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							b->BoundingX = OldBX - Mp->Xoffset + page->Xoffset;
 							b->BoundingY = OldBY - Mp->Yoffset + page->Yoffset;
 						}
-						QRect oldR = getRedrawBounding(b);
-						if (clip.intersects(oldR))
+//						QRect oldR = getRedrawBounding(b);
+						if (clip.intersects(b->RedrawRect))
 							b->DrawObj(painter, clip);
 						b->OwnPage = OldOwn;
 						if (!b->ChangedMasterItem)
@@ -393,8 +393,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							b->BoundingX = OldBX - Mp->Xoffset + page->Xoffset;
 							b->BoundingY = OldBY - Mp->Yoffset + page->Yoffset;
 						}
-						QRect oldR = getRedrawBounding(b);
-						if (clip.intersects(oldR))
+//						QRect oldR = getRedrawBounding(b);
+						if (clip.intersects(b->RedrawRect))
 						{
 							painter->setZoomFactor(Scale);
 							painter->save();
@@ -460,8 +460,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						continue;
 					if ((Doc->MasterP) && ((b->OwnPage != -1) && (b->OwnPage != static_cast<int>(Doc->ActPage->PageNr))))
 						continue;
-					QRect oldR = getRedrawBounding(b);
-					if (clip.intersects(oldR))
+//					QRect oldR = getRedrawBounding(b);
+					if (clip.intersects(b->RedrawRect))
 					{
 						if (!((Doc->EditClip) && (Mpressed)))
 							b->DrawObj(painter, clip);
@@ -502,8 +502,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						continue;
 					if (!b->isTableItem)
 						continue;
-					QRect oldR = getRedrawBounding(b);
-					if (clip.intersects(oldR))
+//					QRect oldR = getRedrawBounding(b);
+					if (clip.intersects(b->RedrawRect))
 					{
 						painter->setZoomFactor(Scale);
 						painter->save();
@@ -4393,6 +4393,7 @@ void ScribusView::setRedrawBounding(PageItem* b)
 	getBoundingRect(b, &b->BoundingX, &b->BoundingY, &bw, &bh);
 	b->BoundingW = bw - b->BoundingX;
 	b->BoundingH = bh - b->BoundingY;
+	b->RedrawRect = getRedrawBounding(b);
 }
 
 void ScribusView::setGroupRect()
@@ -7442,6 +7443,7 @@ void ScribusView::ToPicFrame()
 	if (!Doc->loading)
 		emit UpdtObj(Doc->ActPage->PageNr, b->ItemNr);
 	EmitValues(b);
+	emit DocChanged();
 }
 
 void ScribusView::ToPolyFrame()
@@ -7459,6 +7461,7 @@ void ScribusView::ToPolyFrame()
 	if (!Doc->loading)
 		emit UpdtObj(Doc->ActPage->PageNr, b->ItemNr);
 	EmitValues(b);
+	emit DocChanged();
 }
 
 void ScribusView::ToTextFrame()
@@ -7472,6 +7475,7 @@ void ScribusView::ToTextFrame()
 	if (!Doc->loading)
 		emit UpdtObj(Doc->ActPage->PageNr, b->ItemNr);
 	EmitValues(b);
+	emit DocChanged();
 }
 
 void ScribusView::ToBezierFrame()
@@ -7487,6 +7491,7 @@ void ScribusView::ToBezierFrame()
 	if (!Doc->loading)
 		emit UpdtObj(Doc->ActPage->PageNr, b->ItemNr);
 	EmitValues(b);
+	emit DocChanged();
 }
 
 void ScribusView::Bezier2Poly()
@@ -7507,6 +7512,7 @@ void ScribusView::Bezier2Poly()
 	if (!Doc->loading)
 		emit UpdtObj(Doc->ActPage->PageNr, b->ItemNr);
 	EmitValues(b);
+	emit DocChanged();
 }
 
 void ScribusView::ClearItem()
@@ -10326,6 +10332,7 @@ void ScribusView::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 		b->GrEndY = Buffer->GrEndY;
 		updateGradientVectors(b);
 	}
+	setRedrawBounding(b);
 	if (!loading)
 	{
 		b->Select = true;

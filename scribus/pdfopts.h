@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'PDFOpts.ui'
-**
-** Created: Mon Jun 4 10:02:30 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #ifndef PDF_OPTS_H
 #define PDF_OPTS_H
 
@@ -198,6 +190,7 @@ public slots:
 	void EnableLPI(int a);
 	void EnableLPI2();
 	void SelLPIcol(int);
+	void EnablePDFX3save();
 
 protected:
 	QGridLayout* CBoxLayout;

@@ -4,7 +4,7 @@
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 
-ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, double Pagebr, double Pageho, bool fp, bool fpe, int Einh, int ori, QString pageSize)
+ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, double Pagebr, double Pageho, bool fp, bool fpe, int Einh, int ori, QString pageSize, int PageNr)
 		: QDialog( parent, "r", true, 0 )
 {
 	einheit = Einh;
@@ -149,6 +149,14 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 	if (!fp)
 		ErsteSeite->setEnabled(false);
 	setDS();
+	TextLabel1_3 = new QLabel( tr( "F&irst Page Number:" ), GroupBox7, "TextLabel1_3" );
+	Layout4->addMultiCellWidget( TextLabel1_3, 3, 3, 0, 1 );
+	PgNr = new QSpinBox( GroupBox7, "PgNr" );
+	PgNr->setMaxValue( 1000 );
+	PgNr->setMinValue( 1 );
+	PgNr->setValue(PageNr);
+	Layout4->addWidget( PgNr, 3, 2, Qt::AlignRight );
+	TextLabel1_3->setBuddy(PgNr);
 	GroupBox7Layout->addLayout( Layout4 );
 	ReformDocLayout->addWidget( GroupBox7 );
 	Layout3 = new QHBoxLayout;

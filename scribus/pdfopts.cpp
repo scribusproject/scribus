@@ -901,6 +901,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	connect(SubsetList, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SelSFont(QListBoxItem*)));
 	connect(ToSubset, SIGNAL(clicked()), this, SLOT(PutToSubset()));
 	connect(FromSubset, SIGNAL(clicked()), this, SLOT(RemoveSubset()));
+	connect(InfoString, SIGNAL(lostFocus()), this, SLOT(EnablePDFX3save()));
+	connect(InfoString, SIGNAL(textChanged ( const QString & )), this, SLOT(EnablePDFX3save()));
 }
 
 /*
@@ -989,7 +991,17 @@ void PDF_Opts::EnablePDFX(int a)
 	EnablePGI();
 	Options->setTabEnabled(tabPDFX, true);
 	Options->setTabEnabled(tabSecurity, false);
+	if (InfoString->text() == "")
+		OK->setEnabled(false);
 	connect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
+}
+
+void PDF_Opts::EnablePDFX3save()
+{
+	if (!InfoString->text().isEmpty())
+		OK->setEnabled(true);
+	else
+		OK->setEnabled(false);
 }
 
 void PDF_Opts::EnablePGI()
