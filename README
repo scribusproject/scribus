@@ -1,10 +1,15 @@
-This is Scribus Version 1.2.1
+This is Scribus Version 1.2.2
 
 The Scribus 1.2.x versions feature a complete rewrite of the rendering engine.
 All rendering is done via libart and freetype2. 
 This requires that libart_lgpl and freetype2 are installed.
 
-Scribus 1.2.1 also has a new OpenOffice.org Writer and Draw importer. This 
+Version 1.2.2 now includes the Short Words plug-in, which was previously 
+installed as a separate plug-in. To prevent upgrade problems, you might want to 
+uninstall if it was installed via a package or RPM. This was also shiped as the 
+scribus-vlna package in both source and rpm format.
+
+Scribus 1.2.x also has a new OpenOffice.org Writer and Draw importer. This 
 requires libxml2, preferably version 2.6.x+. The OpenOffice.org Writer importer
 will import styles from the OpenOffice.org doc and will create similar styles
 within your Scribus document.
@@ -81,4 +86,4 @@ For the Scribus Team,
 
 Franz Schmid
 Peter Linnell
-in January 2005
+in February 2005
