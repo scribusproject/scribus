@@ -212,7 +212,7 @@ private slots:
 	 */
 	void activatedToActivatedData();
 	/*!
-			\fn ScrAction::toggledToToggledData()
+		\fn ScrAction::toggledToToggledData()
 		\author Craig Bradney
 		\date Jan 2005
 		\brief This passed the toggled() action signal in and back out but with some data, easier than 	overriding menu and menu bar classes for now.
