@@ -503,6 +503,26 @@ public:
 	 * @param newShade shade of font stroke color
 	 */
 	void setFontStrokeShade(int newShade);
+	/**
+	 * @brief Set kerning for the text
+	 * @param newKerning kerning for the text
+	 */
+	void setKerning(double newKerning);
+	/**
+	 * @brief Set a line spacing for the frame
+	 * @param newSpacing line spacing for the frame
+	 */
+	void setLineSpacing(double newSpacing);
+	/**
+	 * @brief Set a paragraph style for the frame
+	 * @param newStyle paragraph style for the frame
+	 */
+// 	void setParagraphStyle(const QString& newStyle);
+	/**
+	 * @brief Set the hyphenation language for the frame
+	 * @param newLanguage hyphenation language for the frame
+	 */
+	void setLanguage(const QString& newLanguage);
 
 	/** 
 	 * @brief Check the changes to the item and add undo actions for them.
@@ -554,6 +574,10 @@ protected:
 	void restoreFontStroke(SimpleState *state, bool isUndo);
 	void restoreFontFillShade(SimpleState *state, bool isUndo);
 	void restoreFontStrokeShade(SimpleState *state, bool isUndo);
+	void restoreKerning(SimpleState *state, bool isUndo);
+	void restoreLineSpacing(SimpleState *state, bool isUndo);
+	void restoreLanguage(SimpleState *state, bool isUndo);
+// 	void restorePStyle(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**

@@ -450,6 +450,10 @@ public:
 	static const QString SetFontStroke;
 	static const QString SetFontFillShade;
 	static const QString SetFontStrokeShade;
+	static const QString SetKerning;
+	static const QString SetLineSpacing;
+	static const QString SetStyle;
+	static const QString SetLanguage;
 	/*@}*/
 
 	/**

@@ -679,6 +679,10 @@ const QString UndoManager::SetFontFill        = tr("Set font fill color");
 const QString UndoManager::SetFontStroke      = tr("Set font stroke color");
 const QString UndoManager::SetFontFillShade   = tr("Set font fill color shade");
 const QString UndoManager::SetFontStrokeShade = tr("Set font stroke color shade");
+const QString UndoManager::SetKerning         = tr("Set kerning");
+const QString UndoManager::SetLineSpacing     = tr("Set line spacing");
+const QString UndoManager::SetStyle           = tr("Set paragraph style");
+const QString UndoManager::SetLanguage        = tr("Set language");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;

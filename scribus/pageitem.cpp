@@ -2720,6 +2720,56 @@ void PageItem::setFontStrokeShade(int newShade)
 	ShTxtStroke = newShade;
 }
 
+void PageItem::setKerning(double newKerning)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SetKerning,
+										  QString(Um::FromTo).arg(ExtraV).arg(newKerning),
+										  Um::IFont);
+		ss->set("KERNING", "kerning");
+		ss->set("OLD_KERNING", ExtraV);
+		ss->set("NEW_KERNING", newKerning);
+		undoManager->action(this, ss);
+	}
+	ExtraV = newKerning;
+}
+
+void PageItem::setLineSpacing(double newSpacing)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SetLineSpacing,
+										  QString(Um::FromTo).arg(LineSp).arg(newSpacing),
+										  Um::IFont);
+		ss->set("SPACING", "spacing");
+		ss->set("OLD_SPACING", LineSp);
+		ss->set("NEW_SPACING", newSpacing);
+		undoManager->action(this, ss);
+	}
+	LineSp = newSpacing;
+}
+
+// void PageItem::setParagraphStyle(const QString& newStyle)
+// {
+// 	
+// }
+
+void PageItem::setLanguage(const QString& newLanguage)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SetLanguage,
+										  QString(Um::FromTo).arg(Language).arg(newLanguage),
+										  Um::IFont);
+		ss->set("LANGUAGE", "lang");
+		ss->set("OLD_LANG", Language);
+		ss->set("NEW_LANG", newLanguage);
+		undoManager->action(this, ss);
+	}
+	Language = newLanguage;
+}
+
 void PageItem::checkChanges(bool force)
 {
 	// has the item been resized
@@ -2900,6 +2950,12 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreFontFillShade(ss, isUndo);
 		else if (ss->contains("FONT_STROKE_SHADE"))
 			restoreFontStrokeShade(ss, isUndo);
+		else if (ss->contains("LANGUAGE"))
+			restoreLanguage(ss, isUndo);
+		else if (ss->contains("KERNING"))
+			restoreKerning(ss, isUndo);
+		else if (ss->contains("SPACING"))
+			restoreLineSpacing(ss, isUndo);
 		
 	}
 }
@@ -3177,6 +3233,37 @@ void PageItem::restoreFontStrokeShade(SimpleState *state, bool isUndo)
 	select();
 	ScApp->view->ItemTextPenS(shade);
 }
+
+void PageItem::restoreKerning(SimpleState *state, bool isUndo)
+{
+	double kerning = state->getDouble("OLD_KERNING");
+	if (!isUndo)
+		kerning = state->getDouble("NEW_KERNING");
+	select();
+	ScApp->view->chKerning(kerning);
+}
+
+void PageItem::restoreLineSpacing(SimpleState *state, bool isUndo)
+{
+	double lsp = state->getDouble("OLD_SPACING");
+	if (!isUndo)
+		lsp = state->getDouble("NEW_SPACING");
+	select();
+	ScApp->view->ChLineSpa(lsp);
+}
+
+void PageItem::restoreLanguage(SimpleState *state, bool isUndo)
+{
+	QString lang = state->get("OLD_LANG");
+	if (!isUndo)
+		lang = state->get("NEW_LANG");
+	setLanguage(lang);
+}
+
+// void restorePStyle(SimpleState *state, bool isUndo)
+// {
+// 	
+// }
 
 void PageItem::select()
 {

@@ -9427,12 +9427,17 @@ void ScribusView::ChLineSpa(double w)
 {
 	if (SelItem.count() != 0)
 	{
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::SelectionGroup,
+										  Um::IGroup, Um::SetLineSpacing, QString("%1").arg(w), Um::IFont);
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
-			SelItem.at(a)->LineSp = w;
+			SelItem.at(a)->setLineSpacing(w);
 			RefreshItem(SelItem.at(a));
 		}
 		Doc->docParagraphStyles[0].LineSpa = w;
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 
@@ -9995,6 +10000,9 @@ void ScribusView::chKerning(double us)
 {
 	if (SelItem.count() != 0)
 	{
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetKerning,
+										  QString("%1").arg(us), Um::IFont);
 		for (uint aa = 0; aa < SelItem.count(); ++aa)
 		{
 			PageItem *b = SelItem.at(aa);
@@ -10013,7 +10021,7 @@ void ScribusView::chKerning(double us)
 			else
 			{
 				if (Doc->appMode != EditMode)
-					b->ExtraV = us;
+					b->setKerning(us);
 				if (b->itemText.count() != 0)
 				{
 					for (uint a = 0; a < b->itemText.count(); ++a)
@@ -10024,6 +10032,8 @@ void ScribusView::chKerning(double us)
 				}
 			}
 		}
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 

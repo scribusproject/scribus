@@ -3304,7 +3304,7 @@ void Mpalette::NewLanguage()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->Language = ScApp->GetLang(langCombo->currentText());
+		CurItem->setLanguage(ScApp->GetLang(langCombo->currentText()));
 		emit DocChanged();
 	}
 }
