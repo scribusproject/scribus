@@ -1,4 +1,7 @@
 Changes since Version 1.1.1
+26.10.2003	Added patch for acinclude.m4 to recognize Python 2.3
+		Fixed issue with certain Hebrew fonts.
+
 25.10.2003	Scribus can now handle Filenames with Spaces correctly.
 		Included Patch for BigEndian Systems.
 

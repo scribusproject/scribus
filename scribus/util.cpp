@@ -1220,13 +1220,13 @@ FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y)
 	glyphIndex = FT_Get_Char_Index(face, chr);
 	FT_Load_Glyph( face, glyphIndex, FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP );
 	FT_Outline_Decompose(&face->glyph->outline, &OutlineMethods, reinterpret_cast<void*>(&pts));
+	*x = face->glyph->metrics.horiBearingX / 64.0;
+	*y = face->glyph->metrics.horiBearingY / 64.0;
 	QWMatrix ma;
 	ma.scale(1, -1);
 	pts.map(ma);
 	pts.translate(0, chs);
 	pts2.resize(0);
 	pts2.putPoints(0, pts.size()-2, pts, 0);
-	*x = face->glyph->metrics.horiBearingX / 64.0;
-	*y = face->glyph->metrics.horiBearingY / 64.0;
 	return pts2;
 }

@@ -79,18 +79,3 @@ void ConsWin::contentsMousePressEvent(QMouseEvent *m)
 		setCursorPosition(p, i);
 	return;
 }
-
-void ConsWin::contentsMouseReleaseEvent(QMouseEvent *)
-{
-	return;
-}
-
-void ConsWin::contentsMouseMoveEvent(QMouseEvent *)
-{
-	return;
-}
-
-void ConsWin::contentsMouseDoubleClickEvent(QMouseEvent *)
-{
-	return;
-}

@@ -44,17 +44,23 @@ Tree::Tree( QWidget* parent, WFlags fl )
 
 void Tree::slotSelect(QListViewItem* ite)
 {
-    if (ite->text(0).startsWith(tr("Page")))
-    	{
-    	QStringList Sel = QStringList::split(" ", ite->text(0));
-    	emit SelectSeite(Sel[1].toInt()-1);
-    	}
-    if (ite->text(0).startsWith(tr("Item")))
-    	{
-    	QStringList Sel = QStringList::split(" ", ite->text(0));
-    	QStringList Sep = QStringList::split(" ", ite->parent()->text(0));
-    	emit SelectElement(Sep[1].toInt()-1, Sel[1].toInt()-1);
-    	}
+	int sref, oref;
+	if (Seiten.containsRef(ite))
+		{
+		sref = Seiten.findRef(ite);
+		if (sref != -1)
+			emit SelectSeite(sref);
+		}
+	if (Elemente.containsRef(ite))
+		{
+		oref = Elemente.findRef(ite);
+		if (oref != -1)
+			{
+			sref = Seiten.findRef(ite->parent());
+			if (sref != -1)
+    		emit SelectElement(sref, oref);
+			}
+		}
 }
 
 void Tree::closeEvent(QCloseEvent *ce)
@@ -88,23 +94,15 @@ void Tree::BuildTree(ScribusView *view)
   		for (b = 0; b < view->Pages.at(a)->Items.count(); b++)
   			{
   			Elemente.append(new QListViewItem(Seiten.current(), "Items"));
-  			Elemente.current()->setText(0, tr("Item")+" "+cc.setNum(b+1));
+  			Elemente.current()->setText(0, view->Pages.at(a)->Items.at(b)->AnName);
   			xp = tr("X:")+" "+cc.setNum(view->Pages.at(a)->Items.at(b)->Xpos);
   			yp = tr("Y:")+" "+cc.setNum(view->Pages.at(a)->Items.at(b)->Ypos);
   			fon = tr("Font:")+" "+view->Pages.at(a)->Items.at(b)->IFont;
   			switch (view->Pages.at(a)->Items.at(b)->PType)
   				{
-  				case 1:
-  					Elemente.current()->setText(1, tr("Ellipse"));
-  					Elemente.current()->setText(2, xp+" "+yp);
-  					break;
   				case 2:
   					Elemente.current()->setText(1, tr("Image"));
   					Elemente.current()->setText(2, xp+" "+yp+" "+view->Pages.at(a)->Items.at(b)->Pfile);
-  					break;
-  				case 3:
-  					Elemente.current()->setText(1, tr("Rectangle"));
-  					Elemente.current()->setText(2, xp+" "+yp);
   					break;
   				case 4:
   					Elemente.current()->setText(1, tr("Text"));
@@ -112,6 +110,18 @@ void Tree::BuildTree(ScribusView *view)
   					break;
   				case 5:
   					Elemente.current()->setText(1, tr("Line"));
+  					Elemente.current()->setText(2, xp+" "+yp);
+  					break;
+  				case 6:
+  					Elemente.current()->setText(1, tr("Polygon"));
+  					Elemente.current()->setText(2, xp+" "+yp);
+  					break;
+  				case 7:
+  					Elemente.current()->setText(1, tr("Polyline"));
+  					Elemente.current()->setText(2, xp+" "+yp);
+  					break;
+  				case 8:
+  					Elemente.current()->setText(1, tr("PathText"));
   					Elemente.current()->setText(2, xp+" "+yp);
   					break;
   				}

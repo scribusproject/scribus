@@ -32,9 +32,9 @@ public:
 	~ConsWin() {} ;
 	void keyPressEvent(QKeyEvent *k);
 	void contentsMousePressEvent(QMouseEvent *m);
-	void contentsMouseReleaseEvent(QMouseEvent *);
-	void contentsMouseMoveEvent(QMouseEvent *);
-	void contentsMouseDoubleClickEvent(QMouseEvent *);
+	void contentsMouseReleaseEvent(QMouseEvent *) {return;}
+	void contentsMouseMoveEvent(QMouseEvent *) {return;}
+	void contentsMouseDoubleClickEvent(QMouseEvent *) {return;}
 	QString LastComm;
 	QString Prompt;
 };

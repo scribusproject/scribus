@@ -1060,7 +1060,7 @@ if test -z "$1"; then
   kde_qtsubver=1
 else
   kde_qtsubver=`echo "$1" | sed -e 's#[0-9][0-9]*\.\([0-9][0-9]*\).*#\1#'`
-  # following is the check if subversion isn´t found in passed argument
+  # following is the check if subversion isnt found in passed argument
   if test "$kde_qtsubver" = "$1"; then
     kde_qtsubver=1
   fi
@@ -3982,10 +3982,11 @@ fi
 
 AC_DEFUN(KDE_CHECK_PYTHON,
 [
-  KDE_CHECK_PYTHON_INTERN("2.2", 
-    [KDE_CHECK_PYTHON_INTERN("2.1", 
-      [KDE_CHECK_PYTHON_INTERN("2.0", [ KDE_CHECK_PYTHON_INTERN($1, $2) ])
-  ])])
+  KDE_CHECK_PYTHON_INTERN("2.3",
+    [KDE_CHECK_PYTHON_INTERN("2.2",
+      [KDE_CHECK_PYTHON_INTERN("2.1",
+        [KDE_CHECK_PYTHON_INTERN("2.0", [ KDE_CHECK_PYTHON_INTERN($1, $2) ])
+  ])])])
 ])
 
 AC_DEFUN(KDE_CHECK_STL_SGI,

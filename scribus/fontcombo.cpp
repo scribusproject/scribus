@@ -45,6 +45,9 @@ void FontListItem::paint(QPainter *p)
 FontCombo::FontCombo(QWidget* pa, preV *Prefs) : QComboBox(true, pa)
 {
 	setEditable(false);
+  QFont f(font());
+  f.setPointSize(f.pointSize()-1);
+  setFont(f);
 	QStringList rlist;
 	rlist.clear();
 	SCFontsIterator it(Prefs->AvailFonts);

@@ -63,7 +63,7 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	if (Tes->SavedRecentScripts.count() != 0)
 		{
 		uint max = QMIN(Carrier->Prefs.RecentDCount, Tes->SavedRecentScripts.count());
-		for (uint m = 0; m < max; m++)
+		for (uint m = 0; m < max; ++m)
 			{
 			QFileInfo fd(Tes->SavedRecentScripts[m]);
 			if (fd.exists())
@@ -98,19 +98,11 @@ void Run(QWidget *d, ScribusApp *plug)
 	mess += "\n" + QObject::tr("scripting Language for Scribus.");
 	mess += "\n\n" + QObject::tr("Programming:");
 	mess += "\n\t" + QObject::tr("Franz Schmid <Franz.Schmid@altmuehlnet.de>");
-	mess += "\n\t" + QObject::tr("Paul F. Johnson <paulf.johnson@ukonline.co.uk>");
+	mess += "\n\t" + QObject::tr("Paul F. Johnson <paul@all-the-johnsons.co.uk>");
 	mess += "\n\n" + QObject::tr("Documentation:");
 	mess += "\n\t" + QObject::tr("Peter Linnell <netscribe@attbi.com>");
 	mess += "\n\t" + QObject::tr("Franz Schmid <Franz.Schmid@altmuehlnet.de>");
 	QMessageBox::about(d, QObject::tr("About Scripter"), mess);
-}
-
-MenuTest::MenuTest(QWidget* parent) : QObject( parent, "bu")
-{
-}
-
-MenuTest::~MenuTest()
-{
 }
 
 void MenuTest::slotHelp()
@@ -282,7 +274,7 @@ void MenuTest::SavePlugPrefs()
 	QString st="<SCRIPTRC></SCRIPTRC>";
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
-	for (uint rd=0; rd < Tes->RecentScripts.count(); rd++)
+	for (uint rd=0; rd < Tes->RecentScripts.count(); ++rd)
 		{
 		QDomElement rde=docu.createElement("RECENT");
 		rde.setAttribute("NAME",Tes->RecentScripts[rd]);

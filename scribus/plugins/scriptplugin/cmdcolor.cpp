@@ -33,10 +33,7 @@ PyObject *scribus_colornames(PyObject *self, PyObject* args)
 	int cc = 0;
 	if (!PyArg_ParseTuple(args, ""))
 		return NULL;
-	if (Carrier->HaveDoc)
-		edc = Carrier->doc->PageColors;
-	else
-		edc = Carrier->Prefs.DColors;
+	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : Carrier->Prefs.DColors;
 	CListe::Iterator it;
 	l = PyList_New(edc.count());
 	for (it = edc.begin(); it != edc.end(); ++it)
@@ -56,10 +53,7 @@ PyObject *scribus_getcolor(PyObject *self, PyObject* args)
 		return NULL;
 	if (Name == "")
 		return Py_BuildValue("(iiii)", 0, 0, 0, 0);
-	if (Carrier->HaveDoc)
-		edc = Carrier->doc->PageColors;
-	else
-		edc = Carrier->Prefs.DColors;
+	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : Carrier->Prefs.DColors;
 	QString col = QString(Name);
 	if (!edc.contains(col))
 		return Py_BuildValue("(iiii)", 0, 0, 0, 0);

@@ -938,10 +938,21 @@ void SVGPlug::svgLineTo(FPointArray *i, double x1, double y1)
 		}
 	FirstM = false;
 	WasM = false;
-	i->addPoint(FPoint(static_cast<double>(CurrX), static_cast<double>(CurrY)));
-	i->addPoint(FPoint(static_cast<double>(CurrX), static_cast<double>(CurrY)));
-	i->addPoint(FPoint(static_cast<double>(x1), static_cast<double>(y1)));
-	i->addPoint(FPoint(static_cast<double>(x1), static_cast<double>(y1)));
+	if (i->size() > 3)
+		{
+		FPoint b1 = i->point(i->size()-4);
+		FPoint b2 = i->point(i->size()-3);
+		FPoint b3 = i->point(i->size()-2);
+		FPoint b4 = i->point(i->size()-1);
+		FPoint n1 = FPoint(CurrX, CurrY);
+		FPoint n2 = FPoint(x1, y1);
+		if ((b1 == n1) && (b2 == n1) && (b3 == n2) && (b4 == n2))
+			return;
+		}
+	i->addPoint(FPoint(CurrX, CurrY));
+	i->addPoint(FPoint(CurrX, CurrY));
+	i->addPoint(FPoint(x1, y1));
+	i->addPoint(FPoint(x1, y1));
 	CurrX = x1;
 	CurrY = y1;
 	PathLen += 4;
@@ -956,10 +967,23 @@ void SVGPlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, d
 		}
 	FirstM = false;
 	WasM = false;
-	i->addPoint(FPoint(static_cast<double>(CurrX), static_cast<double>(CurrY)));
-	i->addPoint(FPoint(static_cast<double>(x1), static_cast<double>(y1)));
-	i->addPoint(FPoint(static_cast<double>(x3), static_cast<double>(y3)));
-	i->addPoint(FPoint(static_cast<double>(x2), static_cast<double>(y2)));
+	if (PathLen > 3)
+		{
+		FPoint b1 = i->point(i->size()-4);
+		FPoint b2 = i->point(i->size()-3);
+		FPoint b3 = i->point(i->size()-2);
+		FPoint b4 = i->point(i->size()-1);
+		FPoint n1 = FPoint(CurrX, CurrY);
+		FPoint n2 = FPoint(x1, y1);
+		FPoint n3 = FPoint(x3, y3);
+		FPoint n4 = FPoint(x2, y2);
+		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
+			return;
+		}
+	i->addPoint(FPoint(CurrX, CurrY));
+	i->addPoint(FPoint(x1, y1));
+	i->addPoint(FPoint(x3, y3));
+	i->addPoint(FPoint(x2, y2));
 	CurrX = x3;
 	CurrY = y3;
 	PathLen += 4;
@@ -967,12 +991,12 @@ void SVGPlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, d
 
 void SVGPlug::svgClosePath(FPointArray *i)
 {
-	if ((PathLen == 4) || (i->point(i->size()-2).x() != static_cast<double>(StartX)) || (i->point(i->size()-2).y() != static_cast<double>(StartY)))
+	if ((PathLen == 4) || (i->point(i->size()-2).x() != StartX) || (i->point(i->size()-2).y() != StartY))
 		{
 		i->addPoint(i->point(i->size()-2));
 		i->addPoint(i->point(i->size()-3));
-		i->addPoint(FPoint(static_cast<double>(StartX), static_cast<double>(StartY)));
-		i->addPoint(FPoint(static_cast<double>(StartX), static_cast<double>(StartY)));
+		i->addPoint(FPoint(StartX, StartY));
+		i->addPoint(FPoint(StartX, StartY));
 		}
 }
 

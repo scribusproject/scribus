@@ -6,13 +6,12 @@ PyObject *scribus_loadimage(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	char *Image;
-	int i;
 	if (!PyArg_ParseTuple(args, "s|s", &Image, &Name))
 		return NULL;
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
-	i = GetItem(QString(Name));
+	int i = GetItem(QString(Name));
 	if (i != -1)
 		doc->ActPage->LoadPict(QString(Image), i);
 	return Py_None;
@@ -22,13 +21,12 @@ PyObject *scribus_scaleimage(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	double x, y;
-	int i;
 	if (!PyArg_ParseTuple(args, "dd|s", &x, &y, &Name))
 		return NULL;
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
-	i = GetItem(QString(Name));
+	int i = GetItem(QString(Name));
 	if ((i != -1) && (doc->ActPage->Items.at(i)->PType == 2))
 		{
 		PageItem *b = doc->ActPage->Items.at(i);
@@ -42,13 +40,12 @@ PyObject *scribus_moveobjrel(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	double x, y;
-	int i;
 	if (!PyArg_ParseTuple(args, "dd|s", &x, &y, &Name))
 		return NULL;
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
-	i = GetItem(QString(Name));
+	int i = GetItem(QString(Name));
 	if (i != -1)
 		{
 		if (doc->ActPage->GroupSel)
@@ -62,18 +59,18 @@ PyObject *scribus_moveobjrel(PyObject *self, PyObject* args)
 PyObject *scribus_moveobjabs(PyObject *self, PyObject* args)
 {
 	char *Name = "";
-	double x, y, x2, y2, w, h;
-	int i;
+	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|s", &x, &y, &Name))
 		return NULL;
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
-	i = GetItem(QString(Name));
+	int i = GetItem(QString(Name));
 	if (i != -1)
 		{
 		if (doc->ActPage->GroupSel)
 			{
+			double x2, y2, w, h;
 			doc->ActPage->getGroupRect(&x2, &y2, &w, &h);
 			doc->ActPage->moveGroup(ValueToPoint(x) - x2, ValueToPoint(y) - y2);
 			}
@@ -90,13 +87,12 @@ PyObject *scribus_rotobjrel(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	double x;
-	int i;
 	if (!PyArg_ParseTuple(args, "d|s", &x, &Name))
 		return NULL;
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
-	i = GetItem(QString(Name));
+	int i = GetItem(QString(Name));
 	if (i != -1)
 		doc->ActPage->RotateItem(doc->ActPage->Items.at(i)->Rot - x, i);
 	return Py_None;
@@ -106,13 +102,12 @@ PyObject *scribus_rotobjabs(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	double x;
-	int i;
 	if (!PyArg_ParseTuple(args, "d|s", &x, &Name))
 		return NULL;
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
-	i = GetItem(QString(Name));
+	int i = GetItem(QString(Name));
 	if (i != -1)
 		doc->ActPage->RotateItem(x * -1.0, i);
 	return Py_None;
@@ -122,13 +117,12 @@ PyObject *scribus_sizeobjabs(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	double x, y;
-	int i;
 	if (!PyArg_ParseTuple(args, "dd|s", &x, &y, &Name))
 		return NULL;
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
-	i = GetItem(QString(Name));
+	int i = GetItem(QString(Name));
 	if (i != -1)
 		{
 		PageItem *b = doc->ActPage->Items.at(i);
@@ -139,8 +133,6 @@ PyObject *scribus_sizeobjabs(PyObject *self, PyObject* args)
 
 PyObject *scribus_groupobj(PyObject *self, PyObject* args)
 {
-	int i = 0;
-	int ic, len;
 	char *Name = "";
 	PyObject *il = 0;
 	if (!PyArg_ParseTuple(args, "|O", &il))
@@ -152,13 +144,13 @@ PyObject *scribus_groupobj(PyObject *self, PyObject* args)
 		Py_INCREF(Py_None);
 		if (!Carrier->HaveDoc)
 			return Py_None;
-		len = PyList_Size(il);
+		int len = PyList_Size(il);
 		if (len == 0)
 			return Py_None;
-		for (i = 0; i < len; i++)
+		for (int i = 0; i < len; i++)
 			{
 			Name = PyString_AsString(PyList_GetItem(il, i));
-			ic = GetItem(QString(Name));
+			int ic = GetItem(QString(Name));
 			if (ic != -1)
 				doc->ActPage->SelectItemNr(ic);
 			}
@@ -179,14 +171,13 @@ PyObject *scribus_groupobj(PyObject *self, PyObject* args)
 
 PyObject *scribus_ungroupobj(PyObject *self, PyObject* args)
 {
-	char *Name = "";
-	int i;
+	char *Name = "";;
 	if (!PyArg_ParseTuple(args, "|s", &Name))
 		return NULL;
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
-	i = GetItem(QString(Name));
+	int i = GetItem(QString(Name));
 	if (i != -1)
 		Carrier->UnGroupObj();
 	return Py_None;
@@ -196,7 +187,6 @@ PyObject *scribus_scalegroup(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	double sc;
-	int i, h;
 	if (!PyArg_ParseTuple(args, "d|s", &sc, &Name))
 		return NULL;
 	Py_INCREF(Py_None);
@@ -205,12 +195,12 @@ PyObject *scribus_scalegroup(PyObject *self, PyObject* args)
 	else
 	if (sc == 0.0)
 		return Py_None;
-	i = GetItem(QString(Name));
+	int i = GetItem(QString(Name));
 	if (i != -1)
 		{
 		doc->ActPage->Deselect();
 		doc->ActPage->SelectItemNr(i);
-		h = doc->ActPage->HowTo;
+		int h = doc->ActPage->HowTo;
 		doc->ActPage->HowTo = 1;
 		doc->ActPage->scaleGroup(sc, sc);
 		doc->ActPage->HowTo = h;
@@ -243,7 +233,6 @@ PyObject *scribus_selcount(PyObject *self, PyObject* args)
 PyObject *scribus_selectobj(PyObject *self, PyObject* args)
 {
 	char *Name = "";
-	int i;
 	if (!PyArg_ParseTuple(args, "s", &Name))
 		return NULL;
 	Py_INCREF(Py_None);
@@ -251,7 +240,7 @@ PyObject *scribus_selectobj(PyObject *self, PyObject* args)
 		return Py_None;
 	if (Name == "")
 		return Py_None;
-	i = GetItem(QString(Name));
+	int i = GetItem(QString(Name));
 	if (i != -1)
 		doc->ActPage->SelectItemNr(i);
 	return Py_None;

@@ -32,7 +32,7 @@ About::About( QWidget* parent )
     tabLayout1->addWidget( PixmapLabel1 );
     BuildID = new QLabel( tab, "BB" );
     BuildID->setAlignment(Qt::AlignCenter);
-    QString bu = "25. October 2003 ";
+    QString bu = "26. October 2003 ";
 #ifdef HAVE_CMS
 		bu += "C";
 #else
@@ -151,11 +151,5 @@ About::About( QWidget* parent )
     connect( PushButton1, SIGNAL( clicked() ), this, SLOT( accept() ) );
 }
 
-/*  
- *  Destroys the object and frees any allocated resources
- */
-About::~About()
-{
-    // no need to delete child widgets, Qt does it all for us
-}
+
 

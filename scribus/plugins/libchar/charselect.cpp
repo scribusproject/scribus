@@ -172,6 +172,20 @@ ZAuswahl::ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *pl)
 				if (gly.size() > 4)
 					{
 					gly.map(chma);
+					FPoint np;
+					double mx = 99999.9;
+					double my = 99999.9;
+					for (uint c = 0; c < gly.size(); ++c)
+						{
+						np = gly.point(c);
+						if (np.x() > 900000)
+							continue;
+						if (np.x() < mx)
+							mx = np.x();
+						if (np.y() < my)
+							my = np.y();
+						}
+					gly.translate(-mx, 0);
 					p->setBrush(black);
 					p->setFillMode(1);
 					p->setupPolygon(&gly);

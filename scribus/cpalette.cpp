@@ -73,7 +73,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 
 	GradLayout = new QVBoxLayout( 0, 0, 6, "GradLayout");
 	QFont fo = QFont(font());
-	fo.setPointSize(10);
+	fo.setPointSize(fo.pointSize()-1);
 	GradCombo = new QComboBox( true, this, "GradCombo" );
 	GradCombo->setEditable(false);
 	GradCombo->setFont(fo);

@@ -18,8 +18,7 @@ PyObject *scribus_filedia(PyObject *self, PyObject* args)
 	char *defName;
 	int pre = 0;
 	int mode = 0;
-	if (!PyArg_ParseTuple(args, "sss|ii", &caption, &filter, &defName, &pre, &mode))
-		return NULL;
-	return PyString_FromString(Carrier->CFileDialog(caption, filter, defName, static_cast<bool>(pre), static_cast<bool>(mode), 0, 0));
+	return !PyArg_ParseTuple(args, "sss|ii", &caption, &filter, &defName, &pre, &mode) ? NULL :
+		PyString_FromString(Carrier->CFileDialog(caption, filter, defName, static_cast<bool>(pre), static_cast<bool>(mode), 0, 0));
 }
 

@@ -5,13 +5,12 @@
 PyObject *scribus_newrect(PyObject *self, PyObject* args)
 {
 	double x, y, b, h;
-	int i;
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
 		return NULL;
 	if (!Carrier->HaveDoc)
 		return PyString_FromString("");
-	i = doc->ActPage->PaintRect(ValueToPoint(x), ValueToPoint(y),
+	int i = doc->ActPage->PaintRect(ValueToPoint(x), ValueToPoint(y),
 															ValueToPoint(b), ValueToPoint(h),
 															doc->Dwidth, doc->Dbrush, doc->Dpen);
 	doc->ActPage->SetRectFrame(doc->ActPage->Items.at(i));
@@ -23,13 +22,12 @@ PyObject *scribus_newrect(PyObject *self, PyObject* args)
 PyObject *scribus_newellipse(PyObject *self, PyObject* args)
 {
 	double x, y, b, h;
-	int i;
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
 		return NULL;
 	if (!Carrier->HaveDoc)
 		return PyString_FromString("");
-	i = doc->ActPage->PaintEllipse(ValueToPoint(x), ValueToPoint(y),
+	int i = doc->ActPage->PaintEllipse(ValueToPoint(x), ValueToPoint(y),
 																 ValueToPoint(b), ValueToPoint(h),
 																 doc->Dwidth, doc->Dbrush, doc->Dpen);
 	doc->ActPage->SetOvalFrame(doc->ActPage->Items.at(i));
@@ -41,13 +39,12 @@ PyObject *scribus_newellipse(PyObject *self, PyObject* args)
 PyObject *scribus_newimage(PyObject *self, PyObject* args)
 {
 	double x, y, b, h;
-	int i;
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
 		return NULL;
 	if (!Carrier->HaveDoc)
 		return PyString_FromString("");
-	i = doc->ActPage->PaintPict(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h));
+	int i = doc->ActPage->PaintPict(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h));
 	doc->ActPage->SetRectFrame(doc->ActPage->Items.at(i));
 	if (Name != "")
 		doc->ActPage->Items.at(i)->AnName = QString(Name);
@@ -57,13 +54,12 @@ PyObject *scribus_newimage(PyObject *self, PyObject* args)
 PyObject *scribus_newtext(PyObject *self, PyObject* args)
 {
 	double x, y, b, h;
-	int i;
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
 		return NULL;
 	if (!Carrier->HaveDoc)
 		return PyString_FromString("");
-	i = doc->ActPage->PaintText(ValueToPoint(x), ValueToPoint(y),
+	int i = doc->ActPage->PaintText(ValueToPoint(x), ValueToPoint(y),
 															ValueToPoint(b), ValueToPoint(h),
 															doc->Dwidth, doc->DpenText);
 	doc->ActPage->SetRectFrame(doc->ActPage->Items.at(i));
@@ -75,7 +71,6 @@ PyObject *scribus_newtext(PyObject *self, PyObject* args)
 PyObject *scribus_newline(PyObject *self, PyObject* args)
 {
 	double x, y, b, h;
-	int i;
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
 		return NULL;
@@ -85,7 +80,7 @@ PyObject *scribus_newline(PyObject *self, PyObject* args)
 	y = ValueToPoint(y);
 	b = ValueToPoint(b);
 	h = ValueToPoint(h);
-	i = doc->ActPage->PaintPolyLine(x, y, 1, 1,	doc->Dwidth, doc->Dbrush, doc->Dpen);
+	int i = doc->ActPage->PaintPolyLine(x, y, 1, 1,	doc->Dwidth, doc->Dbrush, doc->Dpen);
 	PageItem *it = doc->ActPage->Items.at(i);
 	it->PoLine.resize(4);
 	it->PoLine.setPoint(0, 0, 0);
@@ -112,28 +107,27 @@ PyObject *scribus_newline(PyObject *self, PyObject* args)
 
 PyObject *scribus_polyline(PyObject *self, PyObject* args)
 {
-	double x, y, b, h;
-	int i = 0;
-	int ic, pp, len;
 	char *Name = "";
 	PyObject *il;
 	if ((!PyArg_ParseTuple(args, "O|s", &il, &Name)) || (!PyList_Check(il)))
 		return NULL;
 	if (!Carrier->HaveDoc)
-		return PyString_FromString("");
-	len = PyList_Size(il);
+		return PyString_FromString("");	
+	int len = PyList_Size(il);
 	if ((len < 4) || ((len % 2) != 0))
 		return PyString_FromString("");
+	double x, y, b, h;
+	int i = 0;		
 	x = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
 	y = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	ic = doc->ActPage->PaintPolyLine(x, y, 1, 1,	doc->Dwidth, doc->Dbrush, doc->Dpen);
+	int ic = doc->ActPage->PaintPolyLine(x, y, 1, 1,	doc->Dwidth, doc->Dbrush, doc->Dpen);
 	PageItem *it = doc->ActPage->Items.at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
 	it->PoLine.setPoint(1, 0, 0);
-	pp = 6;
+	int pp = 6;
 	for (i = 2; i < len - 2; i += 2)
 		{
 		b = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
@@ -171,28 +165,27 @@ PyObject *scribus_polyline(PyObject *self, PyObject* args)
 
 PyObject *scribus_polygon(PyObject *self, PyObject* args)
 {
-	double x, y, b, h;
-	int i = 0;
-	int ic, pp, len;
 	char *Name = "";
 	PyObject *il;
 	if ((!PyArg_ParseTuple(args, "O|s", &il, &Name)) || (!PyList_Check(il)))
 		return NULL;
 	if (!Carrier->HaveDoc)
 		return PyString_FromString("");
-	len = PyList_Size(il);
+	int len = PyList_Size(il);
 	if ((len < 6) || ((len % 2) != 0))
 		return PyString_FromString("");
+	double x, y, b, h;
+	int i = 0;	
 	x = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
 	y = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	ic = doc->ActPage->PaintPoly(x, y, 1, 1,	doc->Dwidth, doc->Dbrush, doc->Dpen);
+	int ic = doc->ActPage->PaintPoly(x, y, 1, 1,	doc->Dwidth, doc->Dbrush, doc->Dpen);
 	PageItem *it = doc->ActPage->Items.at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
 	it->PoLine.setPoint(1, 0, 0);
-	pp = 6;
+	int pp = 6;
 	for (i = 2; i < len - 2; i += 2)
 		{
 		b = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
@@ -235,18 +228,17 @@ PyObject *scribus_polygon(PyObject *self, PyObject* args)
 
 PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 {
-	double x, y, b, h, kx, ky, kx2, ky2;
-	int i = 0;
-	int ic, pp, len;
 	char *Name = "";
 	PyObject *il;
 	if ((!PyArg_ParseTuple(args, "O|s", &il, &Name)) || (!PyList_Check(il)))
 		return NULL;
 	if (!Carrier->HaveDoc)
 		return PyString_FromString("");
-	len = PyList_Size(il);
+	int len = PyList_Size(il);
 	if ((len < 8) || ((len % 6) != 0))
 		return PyString_FromString("");
+	double x, y, b, h, kx, ky, kx2, ky2;
+	int i = 0;		
 	x = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
 	y = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
@@ -259,12 +251,12 @@ PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 	i++;
 	ky2 = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	ic = doc->ActPage->PaintPolyLine(x, y, 1, 1,	doc->Dwidth, doc->Dbrush, doc->Dpen);
+	int ic = doc->ActPage->PaintPolyLine(x, y, 1, 1,	doc->Dwidth, doc->Dbrush, doc->Dpen);
 	PageItem *it = doc->ActPage->Items.at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
 	it->PoLine.setPoint(1, kx-x, ky-y);
-	pp = 6;
+	int pp = 6;
 	for (i = 6; i < len - 6; i += 6)
 		{
 		b = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
@@ -308,7 +300,6 @@ PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 
 PyObject *scribus_pathtext(PyObject *self, PyObject* args)
 {
-	int i, ii;
 	double x, y;
 	char *Name = "";
 	char *TextB = "";
@@ -317,8 +308,8 @@ PyObject *scribus_pathtext(PyObject *self, PyObject* args)
 		return NULL;
 	if ((!Carrier->HaveDoc) || ((TextB == "") || (PolyB == "")))
 		return PyString_FromString("");
-	i = GetItem(QString(TextB));
-	ii = GetItem(QString(PolyB));
+	int i = GetItem(QString(TextB));
+	int ii = GetItem(QString(PolyB));
 	if ((i == -1) || (ii == -1))
 		return PyString_FromString("");
 	doc->ActPage->SelItem.clear();
@@ -335,7 +326,6 @@ PyObject *scribus_pathtext(PyObject *self, PyObject* args)
 PyObject *scribus_deleteobj(PyObject *self, PyObject* args)
 {
 	char *Name = "";
-	int i;
 	if (!PyArg_ParseTuple(args, "|s", &Name))
 		return NULL;
 	Py_INCREF(Py_None);
@@ -344,7 +334,7 @@ PyObject *scribus_deleteobj(PyObject *self, PyObject* args)
 	if (Name != "")
 		{
 		doc->ActPage->SelItem.clear();
-		i = GetItem(QString(Name));
+		int i = GetItem(QString(Name));
 		if (i != -1)
 			doc->ActPage->SelItem.append(doc->ActPage->Items.at(i));
 		}

@@ -6150,8 +6150,11 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	b->An_Extern = Buffer->An_Extern;
 	b->AnZiel = Buffer->AnZiel;
 	b->AnActType = Buffer->AnActType;
-	if ((Buffer->AnName != "") && (!drag) && (b->isAnnotation))
+	if ((Buffer->AnName != "") && (!drag))
+		{
 		b->AnName = Buffer->AnName;
+		b->AutoName = false;
+		}
 	b->AnToolTip = Buffer->AnToolTip;
 	b->AnBwid = Buffer->AnBwid;
 	b->AnBsty = Buffer->AnBsty;
@@ -6172,7 +6175,6 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	b->AnScaleW = Buffer->AnScaleW;
 	b->AnBColor = Buffer->AnBColor;
 	b->Clip = Buffer->Clip.copy();
-	b->PoLine = Buffer->PoLine.copy();
 	b->PoShow = Buffer->PoShow;
 	b->BaseOffs = Buffer->BaseOffs;
 	b->Textflow = Buffer->Textflow;
@@ -6191,6 +6193,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	b->Language = Buffer->Language;
 	if (Buffer->LayerNr != -1)
 		b->LayerNr = Buffer->LayerNr;
+	b->PoLine = Buffer->PoLine.copy();
 	if (b->PType != 5)
 		{
 		if ((b->PoLine.size() == 0) && (b->PType != 1))

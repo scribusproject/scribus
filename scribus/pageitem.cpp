@@ -148,6 +148,7 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	An_C_act = "";
 	An_Extern = "";
 	AnName = "Item"+tmp.setNum(Doc->TotalItems);
+	AutoName = true;
 	Doc->TotalItems++;
 	AnToolTip = "";
 	AnRollOver = "";
@@ -878,7 +879,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								}
 							if (!Doc->RePos)
 								{
-								if (e.intersects(pf.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide), qRound(LineSp)))))
+								if (e.intersects(pf.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide+1), qRound(LineSp)))))
 									DrawZeichenS(p, Zli2);
 								}
 							}
@@ -965,7 +966,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					if (!Doc->RePos)
 						{
-						if (e.intersects(pf.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide), qRound(LineSp)))))
+						if (e.intersects(pf.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide+1), qRound(LineSp)))))
 							DrawZeichenS(p, Zli2);
 						}
 					}
@@ -1386,7 +1387,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		QWMatrix chma;
 		chma.scale(csi, csi);
 		FPointArray gly = (*Doc->AllFonts)[hl->ZFo]->GlyphArray[chr].Outlines.copy();
-		if (gly.size() > 4)
+		if (gly.size() > 3)
 			{
 			gly.map(chma);
 			chma = QWMatrix();
@@ -1404,8 +1405,8 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			else
 				chma.translate(hl->xco, hl->yco-hl->Siz);
 			gly.map(chma);
-			p->setupPolygon(&gly);
 			p->setFillMode(1);
+			p->setupPolygon(&gly);
 			if (hl->Farb != "None")
 				p->fillPath();
 			if ((hl->Style & 4) && (hl->Farb2 != "None"))

@@ -1802,7 +1802,10 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			}
 		else
 			ob.setAttribute("ANNOTATION",0);
-		ob.setAttribute("ANNAME", item->AnName);
+		if (!item->AutoName)
+			ob.setAttribute("ANNAME", item->AnName);
+		else
+			ob.setAttribute("ANNAME", "");
 		if(item->Textflow)
 			ob.setAttribute("TEXTFLOW",1);
 		else
@@ -2179,7 +2182,10 @@ for(uint i=0;i<view->Pages.count();++i)
 			}
 		else
 			ob.setAttribute("ANNOTATION",0);
-		ob.setAttribute("ANNAME", item->AnName);
+		if (!item->AutoName)
+			ob.setAttribute("ANNAME", item->AnName);
+		else
+			ob.setAttribute("ANNAME", "");
 		if(item->Textflow)
 			ob.setAttribute("TEXTFLOW",1);
 		else

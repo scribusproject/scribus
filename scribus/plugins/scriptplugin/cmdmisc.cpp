@@ -16,12 +16,11 @@ PyObject *scribus_setredraw(PyObject *self, PyObject* args)
 
 PyObject *scribus_fontnames(PyObject *self, PyObject* args)
 {
-	PyObject *l;
-	int cc = 0;
 	if (!PyArg_ParseTuple(args, ""))
 		return NULL;
-	l = PyList_New(Carrier->Prefs.AvailFonts.count());
+	PyObject *l = PyList_New(Carrier->Prefs.AvailFonts.count());
 	SCFontsIterator it(Carrier->Prefs.AvailFonts);
+	int cc = 0;
 	for ( ; it.current() ; ++it)
 		{
 		PyList_SetItem(l, cc, PyString_FromString(it.currentKey()));
@@ -32,9 +31,9 @@ PyObject *scribus_fontnames(PyObject *self, PyObject* args)
 
 PyObject *scribus_getlayers(PyObject *self, PyObject* args)
 {
-	PyObject *l;
 	if (!PyArg_ParseTuple(args, ""))
 		return NULL;
+	PyObject *l;	
 	if (Carrier->HaveDoc)
 		{
 		l = PyList_New(doc->Layers.count());
@@ -51,13 +50,13 @@ PyObject *scribus_getlayers(PyObject *self, PyObject* args)
 PyObject *scribus_setactlayer(PyObject *self, PyObject* args)
 {
 	char *Name = "";
-	int i = -1;
 	if (!PyArg_ParseTuple(args, "s", &Name))
 		return NULL;
 	Py_INCREF(Py_None);
 	if ((!Carrier->HaveDoc) || (Name == ""))
 		return Py_None;
-	for (uint lam=0; lam < doc->Layers.count(); lam++)
+	int i = -1;
+	for (uint lam=0; lam < doc->Layers.count(); ++lam)
 		{
 		if (doc->Layers[lam].Name == QString(Name))
 			{
@@ -83,19 +82,18 @@ PyObject *scribus_senttolayer(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	char *Layer = "";
-	int i, la;
 	if (!PyArg_ParseTuple(args, "s|s", &Layer, &Name))
 		return NULL;
 	Py_INCREF(Py_None);
 	if ((!Carrier->HaveDoc) || (Layer == ""))
 		return Py_None;
-	i = GetItem(QString(Name));
+	int i = GetItem(QString(Name));
 	if (i != -1)
 		{
-		la = -1;
+		int la = -1;
 		PageItem *b = doc->ActPage->Items.at(i);
 		doc->ActPage->SelectItemNr(i);
-		for (uint lam=0; lam < doc->Layers.count(); lam++)
+		for (uint lam=0; lam < doc->Layers.count(); ++lam)
 			{
 			if (doc->Layers[lam].Name == QString(Layer))
 				{
@@ -116,7 +114,7 @@ PyObject *scribus_layervisible(PyObject *self, PyObject* args)
 	Py_INCREF(Py_None);
 	if ((!Carrier->HaveDoc) || (Name == ""))
 		return Py_None;
-	for (uint lam=0; lam < doc->Layers.count(); lam++)
+	for (uint lam=0; lam < doc->Layers.count(); ++lam)
 		{
 		if (doc->Layers[lam].Name == QString(Name))
 			{
@@ -136,7 +134,7 @@ PyObject *scribus_layerprint(PyObject *self, PyObject* args)
 	Py_INCREF(Py_None);
 	if ((!Carrier->HaveDoc) || (Name == ""))
 		return Py_None;
-	for (uint lam=0; lam < doc->Layers.count(); lam++)
+	for (uint lam=0; lam < doc->Layers.count(); ++lam)
 		{
 		if (doc->Layers[lam].Name == QString(Name))
 			{
@@ -150,11 +148,11 @@ PyObject *scribus_layerprint(PyObject *self, PyObject* args)
 PyObject *scribus_glayervisib(PyObject *self, PyObject* args)
 {
 	char *Name = "";
-	int i = 0;
 	if (!PyArg_ParseTuple(args, "s", &Name))
 		return NULL;
 	if ((!Carrier->HaveDoc) || (Name == ""))
 		return PyInt_FromLong(0L);
+	int i = 0;
 	for (uint lam=0; lam < doc->Layers.count(); lam++)
 		{
 		if (doc->Layers[lam].Name == QString(Name))
@@ -169,12 +167,12 @@ PyObject *scribus_glayervisib(PyObject *self, PyObject* args)
 PyObject *scribus_glayerprint(PyObject *self, PyObject* args)
 {
 	char *Name = "";
-	int i = 0;
 	if (!PyArg_ParseTuple(args, "s", &Name))
 		return NULL;
 	if ((!Carrier->HaveDoc) || (Name == ""))
 		return PyInt_FromLong(0L);
-	for (uint lam=0; lam < doc->Layers.count(); lam++)
+	int i = 0;
+	for (uint lam=0; lam < doc->Layers.count(); ++lam)
 		{
 		if (doc->Layers[lam].Name == QString(Name))
 			{
@@ -188,20 +186,18 @@ PyObject *scribus_glayerprint(PyObject *self, PyObject* args)
 PyObject *scribus_removelayer(PyObject *self, PyObject* args)
 {
 	char *Name = "";
-	int num, num2;
 	if (!PyArg_ParseTuple(args, "s", &Name))
 		return NULL;
 	Py_INCREF(Py_None);
 	if ((!Carrier->HaveDoc) || (Name == "") || (doc->Layers.count() == 1))
 		return Py_None;
-	for (uint lam=0; lam < doc->Layers.count(); lam++)
+	for (uint lam=0; lam < doc->Layers.count(); ++lam)
 		{
 		if (doc->Layers[lam].Name == QString(Name))
 			{
-			QValueList<Layer>::iterator it2;
-			it2 = doc->Layers.at(lam);
-			num2 = (*it2).LNr;
-			num = (*it2).Level;
+			QValueList<Layer>::iterator it2 = doc->Layers.at(lam);
+			int num2 = (*it2).LNr;
+			int num = (*it2).Level;
 			doc->Layers.remove(it2);
 			QValueList<Layer>::iterator it;
 			for (uint l = 0; l < doc->Layers.count(); l++)

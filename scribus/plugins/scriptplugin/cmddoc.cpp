@@ -7,11 +7,9 @@ PyObject *scribus_newdoc(PyObject *self, PyObject* args)
 	double b, h, lr, tpr, btr, rr, ebr;
 	int unit, ds, fsl, fNr, ori;
 	PyObject *p, *m;
-	if (!PyArg_ParseTuple(args, "OOiiiii", &p, &m, &ori, &fNr, &unit, &ds, &fsl))
-		return NULL;
-	if (!PyArg_ParseTuple(p, "dd", &b, &h))
-		return NULL;
-	if (!PyArg_ParseTuple(m, "dddd", &lr, &rr, &tpr, &btr))
+	if ((!PyArg_ParseTuple(args, "OOiiiii", &p, &m, &ori, &fNr, &unit, &ds, &fsl)) ||
+		  (!PyArg_ParseTuple(p, "dd", &b, &h)) ||
+			(!PyArg_ParseTuple(m, "dddd", &lr, &rr, &tpr, &btr)))
 		return NULL;
 	b = ValToPts(b, unit);
 	h = ValToPts(h, unit);
