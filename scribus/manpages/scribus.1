@@ -1,0 +1,104 @@
+.TH scribus "1" "Updated 2004-09-27"
+.SH NAME
+scribus - open source X11-based WYSIWYG desktop publishing app
+.SH SYNOPSIS
+scribus [-h|--help] [-v|--version] [-l|--lang language] [-la|--langs-available] [-f|--file|--] [filename]
+.SH DESCRIPTION
+Scribus is an open source desktop publishing program. It provides true WYSIWYG editing, excellent PDF export facilities, and a wide range of other input and output options.
+
+Please see the scribus documentation at
+.I http://docs.scribus.net/
+or the program's built in help for more comprehensive and up-to-date documentation.
+
+This man page only provides summaries of some aspects of the program's use. It's main purpose is to make sure you can find the full documentation quickly and easily.
+.SH OPTIONS
+The definitive options are in the program's usage statement. Run:
+.B scribus --help
+to view the usage statement.
+
+.TP
+.B -l, --lang xx
+Overrides the system locale and runs Scribus in language xx. The language is specified with the same POSIX language codes that are used in the LANG and LC_ALL environment variables. For example, English can be selected with 'en' (generic English), 'en_GB' (British English), 'en_US' (American english), etc. Similarly, Deutsch can be selected with 'de' or 'de_DE'.
+.TP
+.B -la, --langs-available
+Print a list of languages for which user interface translations are available. To use that language run Scribus as 'scribus -l xx' where xx is the short language code, or set the locale environment variables as described below.
+.TP
+.B -v, --version
+Prints the Scribus version number and exits.
+.TP
+.B -f, --file
+Open the specified file. It's possible to simply pass the file name as an unqualified argument instead of using this, though if the name begins with a - you will need to use --, eg 'scribus -- -myfile.sla'.
+.TP
+.B -h, --help
+Print a brief usage summary.
+.SH ENVIRONMENT
+Scribus respects the standard locale environment variables. Others may be used through underlying libraries, such as Qt, or by programs used by Scribus.
+.I http://docs.scribus.net/
+and the in-program documentation may note other environment variables used by Scribus or the programs and libraries it uses.
+.TP
+.B LC_ALL, LC_MESSAGES, LANG
+POSIX locale. See
+.I locale(1).
+Scribus uses these three environment variables, in the listed order of precedence, to select the language (including the user interface translation) to use. If none are set, it will fall back on the locale set by the underlying Qt library.
+.TP
+.B PATH
+Scribus may search the PATH for external tools if their paths are not specified absolutely. This is currently most likely to affect you if you have multiple copies of gs(1) installed. You can set an absolute path to the correct gs(1) in your Scribus preferences and bypass the
+.B PATH
+search.
+.PP
+A few important environment variables from other programs are summarised here for convenience, though you should check the original program's documentation if you are having trouble.
+.TP
+.B GS_FONTPATH
+GhostScript font path. Affects the font search path for GhostScript, a component Scribus uses for some PostScript operations. Add new directories containing fonts to this colon-separated list to help GhostScript find fonts in non-standard locations. See gs(1) and the GhostScript HTML documentation for more information.
+.TP
+.B GS_LIB
+GhostScript library path. GhostScript searches this path for Fontmap files. Like
+.B GS_FONTPATH
+it's a colon separated list of directories. You will usually want to use 
+.B GS_FONTPATH
+instead, though building a Fontmap file and using
+.B GS_LIB
+can speed things up if you have a
+.I lot
+of fonts. See gs(1) and the GhostScript HTML documentation for more information.
+.SH FILES
+.TP
+.B $HOME/.scribus/
+User preferences are stored in $HOME/.scribus/ . Most other paths are configurable from the Scribus preferences.
+.B $HOME/.scribus/scribus.rc
+Scribus preferences file - formatted in a custom xml schema. May eventually be retired in favour of new format prefs file.
+.B $HOME/.scribus/prefs.xml
+New format prefs file. As of time of writing (v1.2.x) this file was mostly unused.
+Configuration files for related programs:
+.TP
+.B $HOME/.fonts
+.TP
+.B /etc/fonts
+Fontconfig, the library used by Scribus to locate fonts, is normally configured with files in /etc/fonts, mainly /etc/fonts/fonts.conf and /etc/fonts/local.conf . It may also use a config file in $HOME/.fonts/ . See fonts.conf(5) and the fontconfig documentation for more information. Note that Scribus may also use its internal font path to locate more fonts - see the Preferences dialog and scribus help.
+.SH SEE ALSO
+The scribus documentation site http://docs.scribus.net/ and home page http://www.scribus.net/
+
+gs(1), the gs html docs, and http://www.ghostscript.com/
+
+.PP
+The Qt library - http://www.trolltech.com/
+
+fonts-conf(5) for info on configuring FontConfig
+.SH RELATED SOFTWARE AND AFFILIATES
+
+inkscape(1) - http://inkscape.org/
+
+OpenClipArt - http://openclipart.org/
+
+Other affiliates may be listed in the footer on http://www.scribus.net/
+
+gimp(1) - http://www.gimp.org/
+
+.SH BUGS
+See
+.I
+http://bugs.scribus.net/
+for the Scribus on-line status tracker, which is used to track bug reports and feature requests.
+.B If you intend to submit a bug report or feature request, please search the bug database first.
+.SH AUTHORS
+Please see the About Scribus option in the Help menu for a list of authors, translators, and contributors.

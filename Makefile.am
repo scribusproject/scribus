@@ -15,15 +15,7 @@ package-messages:
 	cd $(top_srcdir) && $(MAKE) -f admin/Makefile.common package-messages
 	$(MAKE) -C po merge
 
-install-data-local:
-	$(mkinstalldirs) $(prefix)/share/man
-	$(mkinstalldirs) $(prefix)/share/man/man1
-	$(INSTALL_DATA) $(srcdir)/scribus.1 $(prefix)/share/man/man1/scribus.1
-
-uninstall-local:
-	-rm -f $(prefix)/share/man/man1/scribus.1
-
-EXTRA_DIST = AUTHORS admin COPYING configure.in.in ChangeLog INSTALL README TODO scribus.1 scribus.lsm scribus.desktop
+EXTRA_DIST = AUTHORS admin COPYING configure.in.in ChangeLog INSTALL README TODO scribus.lsm scribus.desktop
 
 dist-hook:
 	cd $(top_distdir) && perl admin/am_edit -padmin
