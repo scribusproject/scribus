@@ -174,7 +174,7 @@ void GuideManager::UpdateHList()
 	if (XLocal.count() != 0)
 	{
 		for (uint xg = 0; xg < XLocal.count(); ++xg)
-	   		HorList->insertItem(tmp.setNum(qRound(XLocal[xg]*UmReFaktor*100.0)/100.0, 'f', 2)+GetUnit());
+	   		HorList->insertItem(tmp.setNum(qRound(XLocal[xg]*UmReFaktor*10000.0)/10000.0, 'f', 4)+GetUnit());
 	}
 }
 
@@ -185,7 +185,7 @@ void GuideManager::UpdateVList()
 	if (YLocal.count() != 0)
 	{
 		for (uint yg = 0; yg < YLocal.count(); ++yg)
-   			VerticalList->insertItem(tmp.setNum(qRound(YLocal[yg]*UmReFaktor*100.0)/100.0, 'f', 2)+GetUnit());
+   			VerticalList->insertItem(tmp.setNum(qRound(YLocal[yg]*UmReFaktor*10000.0)/10000.0, 'f', 4)+GetUnit());
 	}
 }
 

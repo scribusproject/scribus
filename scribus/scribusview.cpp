@@ -405,10 +405,12 @@ void ScribusView::reformPages()
 
 void ScribusView::setMenTxt(int Seite)
 {
+	disconnect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 	PGS->setPrefix( tr("Page "));
 	PGS->setSuffix( tr( " of %1").arg(Doc->PageC) );
 	PGS->setMaxValue(Doc->PageC);
 	PGS->setValue(Seite+1);
+	connect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 }
 
 void ScribusView::setLayMenTxt(int l)

@@ -774,7 +774,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     connect(DBottom, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
     connect(buttonGroup5, SIGNAL(clicked(int)), this, SLOT(SelTab(int)));
   	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
-  	connect(StyledLine, SIGNAL(selected(int)), this, SIGNAL(EditLSt()));
+//  	connect(StyledLine, SIGNAL(selected(int)), this, SIGNAL(EditLSt()));
     connect(Fonts, SIGNAL(activated(int)), this, SLOT(NewTFont(int)));
     connect(TxFill, SIGNAL(activated(int)), this, SLOT(newTxtFill()));
     connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newTxtStroke()));
@@ -1369,6 +1369,10 @@ void Mpalette::UnitChange()
 	LYpos->setValue(oldLY * UmReFaktor);
 	DGap->setMaxValue(oldGM * UmReFaktor);
 	DGap->setValue(oldG * UmReFaktor);
+    DTop->setMaxValue( 300 );
+    DLeft->setMaxValue( 300 );
+    DRight->setMaxValue( 300 );
+    DBottom->setMaxValue( 300 );
 	DLeft->setValue(oldDL * UmReFaktor);
 	DTop->setValue(oldDT * UmReFaktor);
 	DBottom->setValue(oldDB * UmReFaktor);
@@ -2435,6 +2439,7 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 			{
 			StyledLine->insertItem(it.key());
 			}
+		StyledLine->sort( TRUE );
 		StyledLine->setSelected(StyledLine->currentItem(), false);
 		}
   connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));

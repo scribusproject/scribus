@@ -170,10 +170,16 @@ void Tree::rebuildPageD()
 {
 	if (ScApp->ScriptRunning)
 		return;
-	QString cc;
+	QString cc,tmpstr;
+	uint pagenumwidth;
+	
+	tmpstr.setNum( Seiten.count() );
+	pagenumwidth=tmpstr.length();
 	for (uint e = 0; e < Seiten.count(); ++e)
 		{
-  	Seiten.at(e)->setText(0, tr("Page")+" "+cc.setNum(e+1));
+	tmpstr.setNum(e+1);
+	cc = tmpstr.rightJustify (pagenumwidth, '0');
+  	Seiten.at(e)->setText(0, tr("Page")+" "+cc);
 		}
 }
 
@@ -253,18 +259,22 @@ void Tree::BuildTree(ScribusView *view)
 {
 	if (ScApp->ScriptRunning)
 		return;
-	uint a, b;
-	QString cc;
+	uint a, b, pagenumwidth;
+	QString cc, tmpstr;
 	PageObj.clear();
 	Seiten.clear();
 	ListView1->clear();
 	vie = view;
 	QListViewItem * item = new QListViewItem( ListView1, 0 );
-  item->setText( 0, tr(view->Doc->DocName));
+	item->setText( 0, tr(view->Doc->DocName));
+	tmpstr.setNum (view->Pages.count() );
+	pagenumwidth = tmpstr.length();
   for (a = 0; a < view->Pages.count(); ++a)
   	{
+	tmpstr.setNum(a+1);
+	cc = tmpstr.rightJustify (pagenumwidth, '0');
   	Seiten.append(new QListViewItem(item, "Seiten"));
-  	Seiten.current()->setText(0, tr("Page")+" "+cc.setNum(a+1));
+  	Seiten.current()->setText(0, tr("Page")+" "+cc);
 		PageObj.append(new Elem);
   	if (view->Pages.at(a)->Items.count() != 0)
   		{

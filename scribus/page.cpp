@@ -792,7 +792,7 @@ void Page::RefreshItem(PageItem *b, bool single)
 	QPainter p;
 	p.begin(this);
 	Transform(b, &p);
-	QRect rd = QRect(-36, -36, qRound(b->Width) + 72, qRound(b->Height) + 72);
+	QRect rd = QRect(-36, -36, qRound(b->Width) + 74, qRound(b->Height) + 74);
 	if (single)
 		RepaintTextRegion(b, QRegion(p.xForm(rd)), true);
 	else
@@ -4017,7 +4017,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 			SeleItem(m);
 			if (GetItem(&bb))
 			{
-				if ((bb->Ptext.count() == 0) && (bb->BackBox == 0) && (b != bb))
+				if ((bb->Ptext.count() == 0) && (bb->NextBox == 0) && (bb->BackBox == 0) && (b != bb))
 				{
 					b->NextBox = bb;
 					bb->BackBox = b;

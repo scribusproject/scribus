@@ -26,7 +26,7 @@ Spalette::Spalette(QWidget* parent) : QListBox(parent, "Sfloat")
 	insertItem( tr("No Style"));
 	doc = 0;
 	connect(this, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
-	connect(this, SIGNAL(selected(int)), this, SIGNAL(EditSt()));
+//	connect(this, SIGNAL(selected(int)), this, SIGNAL(EditSt()));
 }
 
 void Spalette::SetFormats(ScribusDoc *dd)
@@ -44,6 +44,7 @@ void Spalette::updateFList()
 		insertItem( tr("No Style"));
 		for (uint x = 5; x < doc->Vorlagen.count(); ++x)
 			insertItem(doc->Vorlagen[x].Vname);
+		sort( true );
 		setSelected(currentItem(), false);
 	}
   connect(this, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
@@ -53,8 +54,17 @@ void Spalette::selFormat(QListBoxItem *c)
 {
 	if (c == NULL)
   		return;
-	if (c->listBox()->currentItem() > 0)
-  		emit NewStyle(c->listBox()->currentItem()+4);
-	else
-  		emit NewStyle(c->listBox()->currentItem());
+	if (c->text() == tr("No Style"))
+		{
+		emit NewStyle(0);
+		return;
+		}
+	for (uint x = 5; x < doc->Vorlagen.count(); ++x)
+		{
+		if (doc->Vorlagen[x].Vname == c->text())
+			{
+			emit NewStyle(x);
+			break;
+			}
+		}
 }

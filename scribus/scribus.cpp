@@ -771,6 +771,7 @@ void ScribusApp::initMenuBar()
 	Stm = menuBar()->insertItem( tr("Style"), StilMenu);
 	Obm = menuBar()->insertItem( tr("Item"), ObjMenu);
 	pgmm = menuBar()->insertItem( tr("Page"), pageMenu);
+	menuBar()->setItemEnabled(Stm, 0);
 	menuBar()->setItemEnabled(Obm, 0);
 	menuBar()->setItemEnabled(pgmm, 0);
 	menuBar()->insertItem( tr("View"), viewMenu);
@@ -2064,6 +2065,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			importMenu->changeItem(fid2, tr("Get Text/Picture..."));
 			importMenu->setItemEnabled(fid2, 0);
 			exportMenu->setItemEnabled(fid3, 0);
+			menuBar()->setItemEnabled(Stm, 0);
 			menuBar()->setItemEnabled(Obm, 0);
 			ObjMenu->setItemEnabled(ShapeM, 0);
 			ObjMenu->setItemEnabled(PfadTP, 0);
@@ -2092,6 +2094,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			editMenu->setItemEnabled(edid5, 0);
 			editMenu->setItemEnabled(Sear, 0);
 			extraMenu->setItemEnabled(hyph, 0);
+			menuBar()->setItemEnabled(Stm, 1);
 			menuBar()->setItemEnabled(Obm, 1);
 			ObjMenu->setItemEnabled(ShapeM, 1);
 			ObjMenu->setItemEnabled(PfadTP, 0);
@@ -2115,6 +2118,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			editMenu->setItemEnabled(edid5, 0);
 			editMenu->setItemEnabled(Sear, 1);
 			extraMenu->setItemEnabled(hyph, 1);
+			menuBar()->setItemEnabled(Stm, 1);
 			menuBar()->setItemEnabled(Obm, 1);
 			ObjMenu->setItemEnabled(ShapeM, 1);
 			ObjMenu->setItemEnabled(PfadTP, 1);
@@ -2172,6 +2176,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			editMenu->setItemEnabled(edid5, 0);
 			editMenu->setItemEnabled(Sear, 0);
 			extraMenu->setItemEnabled(hyph, 0);
+			menuBar()->setItemEnabled(Stm, 1);
 			menuBar()->setItemEnabled(Obm, 1);
 			ObjMenu->setItemEnabled(ShapeM, 0);
 			ObjMenu->setItemEnabled(PfadDT, 1);
@@ -2215,6 +2220,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			editMenu->setItemEnabled(edid5, 0);
 			editMenu->setItemEnabled(Sear, 0);
 			extraMenu->setItemEnabled(hyph, 0);
+			menuBar()->setItemEnabled(Stm, 1);
 			menuBar()->setItemEnabled(Obm, 1);
 			StilMenu->clear();
 			StilMenu->insertItem( tr("Color"), ColorMenu);
@@ -2954,6 +2960,7 @@ bool ScribusApp::DoFileClose()
 		editMenu->setItemEnabled(jman, 0);
 		menuBar()->setItemEnabled(pgmm, 0);
 		menuBar()->setItemEnabled(exmn, 0);
+		menuBar()->setItemEnabled(Stm, 0);
 		menuBar()->setItemEnabled(Obm, 0);
 		WerkTools->setEnabled(false);
 		WerkToolsP->setEnabled(false);
@@ -3608,6 +3615,8 @@ void ScribusApp::slotNewPageT(int w)
 
 void ScribusApp::slotNewPage(int w)
 {
+	if ((!doc->loading) && (!doc->TemplateMode))
+		Tpal->slotAddPage(w);
 	view->addPage(w);
 	if (view->Pages.count() > 1)
 		{
@@ -3617,7 +3626,8 @@ void ScribusApp::slotNewPage(int w)
 	if ((!doc->loading) && (!doc->TemplateMode))
 		{
 		AdjustBM();
-		Tpal->slotAddPage(w);
+		if ((doc->PageAT) && (doc->PageC != 1))
+			Tpal->slotAddElement(w, 0);
 		}
 	connect(doc->ActPage, SIGNAL(Amode(int)), this, SLOT(setAppMode(int)));
 	connect(doc->ActPage, SIGNAL(PaintingDone()), this, SLOT(slotSelect()));
@@ -4119,6 +4129,7 @@ void ScribusApp::setAppMode(int mode)
 			if (b != 0)
 				{
 				doc->ActPage->RefreshItem(b);
+				menuBar()->setItemEnabled(Stm, 1);
 				menuBar()->setItemEnabled(Obm, 1);
 				}
 			}
@@ -4147,6 +4158,7 @@ void ScribusApp::setAppMode(int mode)
 			WerkTools->Textedit2->setOn(false);
 			doc->ActPage->slotDoCurs(true);
 			menuBar()->setItemEnabled(Obm, 0);
+			menuBar()->setItemEnabled(Stm, 0);
 			doc->CurTimer = new QTimer(doc->ActPage);
 			connect(doc->CurTimer, SIGNAL(timeout()), doc->ActPage, SLOT(BlinkCurs()));
 			doc->CurTimer->start(500);
@@ -4423,6 +4435,7 @@ void ScribusApp::CopyPage()
 	MovePages *dia = new MovePages(this, doc->ActPage->PageNr+1, view->Pages.count(), false);
 	if (dia->exec())
 		{
+		doc->loading = true;
 		Page* from = view->Pages.at(dia->FromPage->value()-1);
 		int wo = dia->ActualPage->value();
 		switch (dia->Where->currentItem())
@@ -4447,11 +4460,13 @@ void ScribusApp::CopyPage()
 			}
 		Ziel->MPageNam = from->MPageNam;
 		Ziel->Deselect(true);
+		doc->loading = false;
 		view->DrawNew();
 		slotDocCh();
 		doc->UnDoValid = false;
 		CanUndo();
 		Sepal->RebuildPage();
+		Tpal->BuildTree(view);
 		AdjustBM();
 		}
 	delete dia;

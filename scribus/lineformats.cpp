@@ -172,8 +172,9 @@ void LineFormate::UpdateFList()
 	bool setter = ListBox1->count() == 0 ? true : false;
 	if (setter == false)
 		sFnumber = "";
-	DublicateB->setEnabled(setter);
-	EditB->setEnabled(setter);
-	DeleteB->setEnabled(setter);
+	DublicateB->setEnabled(!setter);
+	EditB->setEnabled(!setter);
+	DeleteB->setEnabled(!setter);
+	ListBox1->sort( TRUE );
 	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
 }

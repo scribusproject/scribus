@@ -141,7 +141,7 @@ int main(int argc, char *argv[])
   	}
 	
 	SplashScreen *splash = new SplashScreen();
- 	splash->setStatus( "Initializing..." );
+ 	splash->setStatus( QObject::tr("Initializing...") );
  	a.processEvents();
 	ScribusApp *scribus = new ScribusApp(splash);
 	if (scribus->NoFonts)

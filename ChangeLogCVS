@@ -1,4 +1,9 @@
 Changes since Version 1.1.4
+28.01.2004	Line Styles and Paragraph Styles are now listed in alphapetical Order.
+		The Style Menue is now disabled instead of being empty when no Object is selected.
+
+27.01.2004	Fixed several Issues with automatic Textframes.
+
 26.01.2004	Added a Finnish Hyphenation.
 		Adjusted behavior of the Text Effects Selector.
 

@@ -76,7 +76,14 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
 
 void StilFormate::selFormat(QListBoxItem *c)
 {
-    sFnumber = c->listBox()->currentItem() + 5;
+	for (uint x = 5; x < TempVorl.count(); ++x)
+		{
+		if (TempVorl[x].Vname == c->text())
+			{
+			sFnumber = x;
+			break;
+			}
+		}
     EditB->setEnabled(true);
     DublicateB->setEnabled(true);
     DeleteB->setEnabled(true);
@@ -233,5 +240,6 @@ void StilFormate::UpdateFList()
    		EditB->setEnabled(false);
 		DeleteB->setEnabled(false);
    	}
+	ListBox1->sort( TRUE );
 	ListBox1->setSelected(ListBox1->currentItem(), false);
 }
