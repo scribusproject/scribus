@@ -107,6 +107,7 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	Tes->rmenid = men->insertItem(QObject::tr("&Recent Scripts"), Tes->rmen);
 	men->insertSeparator();
 	Tes->cons = men->insertItem(QObject::tr("Show &Console"), Tes, SLOT(slotInteractiveScript()));
+	Tes->about = men->insertItem(QObject::tr("&About Script..."), Tes, SLOT(aboutScript()));
 	plug->menuBar()->insertItem(QObject::tr("S&cript"), men, -1, plug->menuBar()->count() - 2);
 	QObject::connect(Tes->pcon->OutWin, SIGNAL(returnPressed()), Tes, SLOT(slotExecute()));
 	QObject::connect(Tes->pcon, SIGNAL(Schliessen()), Tes, SLOT(slotInteractiveScript()));
@@ -371,9 +372,31 @@ void MenuTest::SavePlugPrefs()
 	f.close();
 }
 
+void MenuTest::aboutScript()
+{
+	QString fname = Carrier->CFileDialog(".", "about", "Scripts (*.py)", "", 0, 0, 0, 0);
+	QFileInfo fi = QFileInfo(fname);
+	QString html = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/aboutScript.html");
+	QFile input(fname);
+	if(!input.open(IO_ReadOnly))
+		return;
+	QFile output(html);
+	if(!output.open(IO_WriteOnly))
+		return;
+	QTextStream intputstream(&input);
+	QTextStream outputstream(&output);
+	outputstream << "<pre>" << endl;
+	outputstream << intputstream.read();
+	outputstream << "</pre>" << endl;
+	output.close();
+	input.close();
+	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("About Script") + " " + fi.fileName(), html);
+	dia->show();
+}
+
 /****************************************************************************************/
 /*                                                                                      */
-/*   Definitionen der Python-Befehle                                                    */
+/*   Definitions of the Python commands                                                 */
 /*                                                                                      */
 /****************************************************************************************/
 
