@@ -155,12 +155,7 @@ void SVGPlug::convert()
 	QDomElement docElem = inpdoc.documentElement();
 	double width	= !docElem.attribute("width").isEmpty() ? parseUnit(docElem.attribute( "width" )) : 550.0;
 	double height	= !docElem.attribute("height").isEmpty() ? parseUnit(docElem.attribute( "height" )) : 841.0;
-	if (!docElem.attribute("width").isEmpty())
-		getDefaultUnit(docElem.attribute( "width" ));
-	else if (!docElem.attribute("height").isEmpty())
-		getDefaultUnit(docElem.attribute( "height" ));
-	else
-		Conversion = 1.0 / 1.25;
+	Conversion = 0.8;
 	if (!Prog->HaveDoc)
 	{
 		Prog->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
@@ -602,48 +597,6 @@ double SVGPlug::fromPercentage( const QString &s )
 }
 
 /*!
- \fn void SVGPlug::getDefaultUnit(const QString &unit)
- \author Franz Schmid
- \date
- \brief
- \param unit const QString &
- \retval none
- */
-void SVGPlug::getDefaultUnit(const QString &unit)
-{
-	QString unitval=unit;
-	QString un = unit.right(2);
-	Conversion = 1.0;
-	if( un == "pt" )
-	{
-		unitval.replace( "pt", "" );
-		Conversion = 1.0;
-	}
-	else if( un == "cm" )
-	{
-		unitval.replace( "cm", "" );
-		Conversion = 72.0 / 2.54;
-	}
-	else if( un == "mm" )
-	{
-		unitval.replace( "mm", "" );
-		Conversion = 72.0 / 25.4;
-	}
-	else if( un == "in" )
-	{
-		unitval.replace( "in", "" );
-		Conversion = 72.0;
-	}
-	else if( un == "px" )
-	{
-		unitval.replace( "px", "" );
-		Conversion = 0.8;
-	}
-	if (unitval == unit)
-		Conversion = 0.8;
-}
-
-/*!
  \fn double SVGPlug::parseUnit(const QString &unit)
  \author Franz Schmid
  \date
@@ -715,8 +668,8 @@ QWMatrix SVGPlug::parseTransform( const QString &transform )
 		{
 			if(params.count() == 3)
 			{
-				double x = params[1].toDouble();
-				double y = params[2].toDouble();
+				double x = params[1].toDouble() * 0.8;
+				double y = params[2].toDouble() * 0.8;
 
 				result.translate(x, y);
 				result.rotate(params[0].toDouble());
@@ -728,9 +681,9 @@ QWMatrix SVGPlug::parseTransform( const QString &transform )
 		else if(subtransform[0] == "translate")
 		{
 			if(params.count() == 2)
-				result.translate(params[0].toDouble(), params[1].toDouble());
+				result.translate(params[0].toDouble() * 0.8, params[1].toDouble() * 0.8);
 			else    // Spec : if only one param given, assume 2nd param to be 0
-				result.translate(params[0].toDouble() , 0);
+				result.translate(params[0].toDouble() * 0.8 , 0);
 		}
 		else if(subtransform[0] == "scale")
 		{
@@ -753,7 +706,7 @@ QWMatrix SVGPlug::parseTransform( const QString &transform )
 				double sy = params[3].toDouble();
 				if (sy == 0)
 					sy = 1.0;
-				result.setMatrix(sx, params[1].toDouble(), params[2].toDouble(), sy, params[4].toDouble(), params[5].toDouble());
+				result.setMatrix(sx, params[1].toDouble(), params[2].toDouble(), sy, params[4].toDouble() * 0.8, params[5].toDouble() * 0.8);
 			}
 		}
 	}
@@ -824,7 +777,6 @@ const char * SVGPlug::getCoord( const char *ptr, double &number )
 	}
 	number = integer + decimal;
 	number *= sign * pow( static_cast<double>(10), static_cast<double>( expsign * exponent ) );
-	number *= Conversion;
 
 	// skip the following space
 	if(*ptr == ' ')
@@ -871,6 +823,8 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 				{
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
+					tox *= Conversion;
+					toy *= Conversion;
 					WasM = true;
 					subpathx = curx = relative ? curx + tox : tox;
 					subpathy = cury = relative ? cury + toy : toy;
@@ -883,6 +837,8 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 				{
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
+					tox *= Conversion;
+					toy *= Conversion;
 					curx = relative ? curx + tox : tox;
 					cury = relative ? cury + toy : toy;
 					svgLineTo(ite, curx, cury );
@@ -891,6 +847,7 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 			case 'h':
 				{
 					ptr = getCoord( ptr, tox );
+					tox *= Conversion;
 					curx = curx + tox;
 					svgLineTo(ite, curx, cury );
 					break;
@@ -898,6 +855,7 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 			case 'H':
 				{
 					ptr = getCoord( ptr, tox );
+					tox *= Conversion;
 					curx = tox;
 					svgLineTo(ite, curx, cury );
 					break;
@@ -905,6 +863,7 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 			case 'v':
 				{
 					ptr = getCoord( ptr, toy );
+					toy *= Conversion;
 					cury = cury + toy;
 					svgLineTo(ite, curx, cury );
 					break;
@@ -912,6 +871,7 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 			case 'V':
 				{
 					ptr = getCoord( ptr, toy );
+					toy *= Conversion;
 					cury = toy;
 					svgLineTo(ite,  curx, cury );
 					break;
@@ -934,6 +894,12 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 					ptr = getCoord( ptr, y2 );
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
+					tox *= Conversion;
+					toy *= Conversion;
+					x1 *= Conversion;
+					y1 *= Conversion;
+					x2 *= Conversion;
+					y2 *= Conversion;
 					px1 = relative ? curx + x1 : x1;
 					py1 = relative ? cury + y1 : y1;
 					px2 = relative ? curx + x2 : x2;
@@ -955,6 +921,10 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 					ptr = getCoord( ptr, y2 );
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
+					tox *= Conversion;
+					toy *= Conversion;
+					x2 *= Conversion;
+					y2 *= Conversion;
 					px1 = 2 * curx - contrlx;
 					py1 = 2 * cury - contrly;
 					px2 = relative ? curx + x2 : x2;
@@ -976,6 +946,10 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 					ptr = getCoord( ptr, y1 );
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
+					tox *= Conversion;
+					toy *= Conversion;
+					x1 *= Conversion;
+					y1 *= Conversion;
 					px1 = relative ? (curx + 2 * (x1 + curx)) * (1.0 / 3.0) : (curx + 2 * x1) * (1.0 / 3.0);
 					py1 = relative ? (cury + 2 * (y1 + cury)) * (1.0 / 3.0) : (cury + 2 * y1) * (1.0 / 3.0);
 					px2 = relative ? ((curx + tox) + 2 * (x1 + curx)) * (1.0 / 3.0) : (tox + 2 * x1) * (1.0 / 3.0);
@@ -995,6 +969,8 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 				{
 					ptr = getCoord(ptr, tox);
 					ptr = getCoord(ptr, toy);
+					tox *= Conversion;
+					toy *= Conversion;
 					xc = 2 * curx - contrlx;
 					yc = 2 * cury - contrly;
 					px1 = relative ? (curx + 2 * xc) * (1.0 / 3.0) : (curx + 2 * xc) * (1.0 / 3.0);
@@ -1018,6 +994,8 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 					double angle, rx, ry;
 					ptr = getCoord( ptr, rx );
 					ptr = getCoord( ptr, ry );
+					ry *= Conversion;
+					rx *= Conversion;
 					ptr = getCoord( ptr, angle );
 					ptr = getCoord( ptr, tox );
 					largeArc = tox == 1;
@@ -1025,6 +1003,8 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 					sweep = tox == 1;
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
+					tox *= Conversion;
+					toy *= Conversion;
 					calculateArc(ite, relative, curx, cury, angle, tox, toy, rx, ry, largeArc, sweep );
 				}
 			}
@@ -1416,25 +1396,28 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			unsigned int start = params.find("#") + 1;
 			unsigned int end = params.findRev(")");
 			QString key = params.mid(start, end - start);
-			if (m_gradients[key].reference != "")
+			while (m_gradients[key].reference != "")
 			{
-				if (m_gradients[m_gradients[key].reference].typeValid)
-					obj->Gradient = m_gradients[m_gradients[key].reference].Type;
-				if (m_gradients[m_gradients[key].reference].gradientValid)
-					obj->GradCo = m_gradients[m_gradients[key].reference].gradient;
-				if (m_gradients[m_gradients[key].reference].cspaceValid)
-					obj->CSpace = m_gradients[m_gradients[key].reference].CSpace;
-				if (m_gradients[m_gradients[key].reference].x1Valid)
-					obj->GX1 = m_gradients[m_gradients[key].reference].X1;
-				if (m_gradients[m_gradients[key].reference].y1Valid)
-					obj->GY1 = m_gradients[m_gradients[key].reference].Y1;
-				if (m_gradients[m_gradients[key].reference].x2Valid)
-					obj->GX2 = m_gradients[m_gradients[key].reference].X2;
-				if (m_gradients[m_gradients[key].reference].y2Valid)
-					obj->GY2 = m_gradients[m_gradients[key].reference].Y2;
-				if (m_gradients[m_gradients[key].reference].matrixValid)
-					obj->matrixg = m_gradients[m_gradients[key].reference].matrix;
+				QString key2 = m_gradients[key].reference;
+				if (m_gradients[key2].typeValid)
+					obj->Gradient = m_gradients[key2].Type;
+				if (m_gradients[key2].gradientValid)
+					obj->GradCo = m_gradients[key2].gradient;
+				if (m_gradients[key2].cspaceValid)
+					obj->CSpace = m_gradients[key2].CSpace;
+				if (m_gradients[key2].x1Valid)
+					obj->GX1 = m_gradients[key2].X1;
+				if (m_gradients[key2].y1Valid)
+					obj->GY1 = m_gradients[key2].Y1;
+				if (m_gradients[key2].x2Valid)
+					obj->GX2 = m_gradients[key2].X2;
+				if (m_gradients[key2].y2Valid)
+					obj->GY2 = m_gradients[key2].Y2;
+				if (m_gradients[key2].matrixValid)
+					obj->matrixg = m_gradients[key2].matrix;
+				key = m_gradients[key].reference;
 			}
+			key = params.mid(start, end - start);
 			if (m_gradients[key].typeValid)
 				obj->Gradient = m_gradients[key].Type;
 			if (m_gradients[key].gradientValid)
