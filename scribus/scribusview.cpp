@@ -9064,6 +9064,13 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 		is->set("CREATE_ITEM", "create_item");
 		is->setPageItem(ite);
 		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+		if (!Mpressed) // commit the creation transaction if the item
+		{              // is not created by dragging with a mouse
+			ite->checkChanges(true);
+			undoManager->commit(ite->getUName(), ite->getUPixmap(),
+								Um::Create, "", Um::ICreate);
+			_itemCreationTransactionStarted = false;
+		}
 	}
 	return ite->ItemNr;
 }
@@ -9103,6 +9110,13 @@ int ScribusView::PaintPict(double x, double y, double b, double h)
 		is->set("CREATE_ITEM", "create_item");
 		is->setPageItem(ite);
 		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+		if (!Mpressed)
+		{
+			ite->checkChanges(true);
+			undoManager->commit(ite->getUName(), ite->getUPixmap(),
+								Um::Create, "", Um::ICreate);
+			_itemCreationTransactionStarted = false;
+		}
 	}
 	return ite->ItemNr;
 }
@@ -9138,6 +9152,13 @@ int ScribusView::PaintRect(double x, double y, double b, double h, double w, QSt
 		is->set("CREATE_ITEM", "create_item");
 		is->setPageItem(ite);
 		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+		if (!Mpressed)
+		{
+			ite->checkChanges(true);
+			undoManager->commit(ite->getUName(), ite->getUPixmap(),
+								Um::Create, "", Um::ICreate);
+			_itemCreationTransactionStarted = false;
+		}
 	}
 	return ite->ItemNr;
 }
@@ -9173,6 +9194,13 @@ int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QSt
 		is->set("CREATE_ITEM", "create_item");
 		is->setPageItem(ite);
 		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+		if (!Mpressed)
+		{
+			ite->checkChanges(true);
+			undoManager->commit(ite->getUName(), ite->getUPixmap(),
+								Um::Create, "", Um::ICreate);
+			_itemCreationTransactionStarted = false;
+		}
 	}
 	return ite->ItemNr;
 }
@@ -9207,6 +9235,13 @@ int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w,
 		is->set("CREATE_ITEM", "create_item");
 		is->setPageItem(ite);
 		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+		if (!Mpressed)
+		{
+			ite->checkChanges(true);
+			undoManager->commit(ite->getUName(), ite->getUPixmap(),
+								Um::Create, "", Um::ICreate);
+			_itemCreationTransactionStarted = false;
+		}
 	}
 	return ite->ItemNr;
 }
@@ -9239,6 +9274,13 @@ int ScribusView::PaintText(double x, double y, double b, double h, double w, QSt
 		is->set("CREATE_ITEM", "create_item");
 		is->setPageItem(ite);
 		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+		if (!Mpressed)
+		{
+			ite->checkChanges(true);
+			undoManager->commit(ite->getUName(), ite->getUPixmap(),
+								Um::Create, "", Um::ICreate);
+			_itemCreationTransactionStarted = false;
+		}
 	}
 	return ite->ItemNr;
 }
@@ -9273,6 +9315,13 @@ int ScribusView::PaintLine(double x, double y, double b, double h, double w, QSt
 		is->set("CREATE_ITEM", "create_item");
 		is->setPageItem(ite);
 		undoManager->action(Doc->Pages.at(ite->OwnPage), is);
+		if (!Mpressed)
+		{
+			ite->checkChanges(true);
+			undoManager->commit(ite->getUName(), ite->getUPixmap(),
+								Um::Create, "", Um::ICreate);
+			_itemCreationTransactionStarted = false;
+		}
 	}
 	return ite->ItemNr;
 }
