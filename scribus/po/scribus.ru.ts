@@ -7,7 +7,11 @@
 Returns a list containing the names of all defined colors in the document.
 If no document is open, returns a list of the default document colors.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColorNames() -&gt; list
+
+Возвращает список имён цветов, определённых для этого документа.
+Если ни один документ не открыт, возвращается список стандартных цветов документа.
+</translation>
     </message>
     <message>
         <source>newDocDialog() -&gt; bool
@@ -16,7 +20,12 @@ Displays the &quot;New Document&quot; dialog box. Creates a new document if the 
 accepts the settings. Does not create a document if the user presses cancel.
 Returns true if a new document was created.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDocDialog() -&gt; bool
+
+Показавает диалог &quot;Новый документ&quot;. Создаёт новый документ, если пользователь
+примет установки. Не создаёт документ, если пользователь нажимает &quot;Отменить&quot;.
+Возвращает значение true, если документ создан.
+</translation>
     </message>
     <message>
         <source>newDoc(size, margins, orientation, firstPageNumber,
@@ -60,7 +69,11 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
 Returns the name of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFillColor([&quot;name&quot;]) -&gt; string
+
+Возвращает имя цвета заливки объекта &quot;name&quot;. Если &quot;name&quot; 
+не задан, используется текущий выбранный объект.
+</translation>
     </message>
     <message>
         <source>moveObject(dx, dy [, &quot;name&quot;])
@@ -70,7 +83,14 @@ distances are expressed in the current measurement unit of the document (see
 UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
 If the object &quot;name&quot; belongs to a group, the whole group is moved.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>moveObject(dx, dy [, &quot;name&quot;])
+
+Смещает обект &quot;name&quot; на dx и dy по отношению к текущей позиции.
+Расстояния выражаются в текущей единице измерения документа 
+(см. константы UNIT). Если &quot;name&quot; не задано, используется выбранный
+в данный момент объект. Если объект &quot;name&quot; принадлежит группе, 
+перемещается вся группа.
+</translation>
     </message>
     <message>
         <source>setRedraw(bool)
@@ -1509,7 +1529,7 @@ won&apos;t automatically notice when you change the document using a script.
  compiled in library support in Scribus
 The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation type="obsolete">Здесь отображается версия, дата сборки и 
+        <translation>Здесь отображается версия, дата сборки и 
 статус поддержки различных библиотек в Scribus.
 &quot;C-C-T&quot; расшифровывается так: 
 C=CUPS C=littlecms T=TIFF
@@ -1602,13 +1622,6 @@ C=CUPS C=littlecms T=TIFF
     <message>
         <source>About Scribus %1</source>
         <translation>О Scribus %1</translation>
-    </message>
-    <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5862,7 +5875,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Tabloid</source>
-        <translation>Таблоид</translation>
+        <translation>Tabloid</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -5942,15 +5955,15 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Executive</source>
-        <translation type="unfinished"></translation>
+        <translation>Executive</translation>
     </message>
     <message>
         <source>Folio</source>
-        <translation type="unfinished"></translation>
+        <translation>Folio</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation type="unfinished"></translation>
+        <translation>Ledger</translation>
     </message>
 </context>
 <context>
@@ -8409,27 +8422,27 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Executive</source>
-        <translation type="unfinished"></translation>
+        <translation>Executive</translation>
     </message>
     <message>
         <source>Folio</source>
-        <translation type="unfinished"></translation>
+        <translation>Folio</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation type="unfinished"></translation>
+        <translation>Ledger</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation type="unfinished">Legal</translation>
+        <translation>Legal</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation type="unfinished">Таблоид</translation>
+        <translation>Tabloid</translation>
     </message>
 </context>
 <context>
@@ -9357,52 +9370,52 @@ External Links
     <message>
         <source>Cannot get a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно получить цвет с пустым именем.</translation>
     </message>
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Цвет не найден</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно изменить цвет с пустым именем.</translation>
     </message>
     <message>
         <source>Color not found in document</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Цвет не найден в документе</translation>
     </message>
     <message>
         <source>Color not found in default colors</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Цвет не найден среди стандартных цветов</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно создать цвет с пустым именем.</translation>
     </message>
     <message>
         <source>Cannot delete a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно удалить цвет с пустым именем.</translation>
     </message>
     <message>
         <source>Cannot replace a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно заменить цвет с пустым именем.</translation>
     </message>
     <message>
         <source>Failed to open document</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось открыть документ</translation>
     </message>
     <message>
         <source>Failed to save document</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось сохранить документ</translation>
     </message>
     <message>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
@@ -9412,27 +9425,27 @@ External Links
     <message>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Цель не является рамкой изображения.</translation>
     </message>
     <message>
         <source>Can&apos;t scale by 0%</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Масштабирование на 0% невозможно</translation>
     </message>
     <message>
         <source>Font not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт не найден</translation>
     </message>
     <message>
         <source>Can&apos;t render an empty sample</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно обработать пустой пример</translation>
     </message>
     <message>
         <source>Can&apos;t save to a blank filename</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно сохранить в файл с пустым именем</translation>
     </message>
     <message>
         <source>Can&apos;t have an empty layer name</source>
@@ -9442,22 +9455,22 @@ External Links
     <message>
         <source>Layer not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Слой не найден</translation>
     </message>
     <message>
         <source>Can&apos;t remove the last layer</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно удалить последний слой</translation>
     </message>
     <message>
         <source>Can&apos;t create layer without a name</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно создать слой без имени</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Объект с запрошенным именем уже существует</translation>
     </message>
     <message>
         <source>Point list must contain at least two points (four values)</source>
@@ -9487,27 +9500,27 @@ External Links
     <message>
         <source>Object not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Объект не найден</translation>
     </message>
     <message>
         <source>Style not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Стиль не найден</translation>
     </message>
     <message>
         <source>Can&apos;t set style on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно назначить стиль нетекстовой рамке</translation>
     </message>
     <message>
         <source>Failed to save EPS</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось сохранить EPS-файл</translation>
     </message>
     <message>
         <source>Page number out of range</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Количество страниц вне допустимого диапазона</translation>
     </message>
     <message>
         <source>argument is not list: must be list of float values</source>
@@ -9542,22 +9555,22 @@ External Links
     <message>
         <source>Line style not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Стиль линии не найден</translation>
     </message>
     <message>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно получить кегль шрифта из нетекстовой рамки.</translation>
     </message>
     <message>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно шрифт из нетекстовой рамки.</translation>
     </message>
     <message>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно получить текстовый кегль из нетекстовой рамки.</translation>
     </message>
     <message>
         <source>Cannot get column count of non-text frame.</source>
@@ -9577,7 +9590,7 @@ External Links
     <message>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно получить текст из нетекстовой рамки.</translation>
     </message>
     <message>
         <source>Cannot set text of non-text frame.</source>
@@ -9587,7 +9600,7 @@ External Links
     <message>
         <source>Cannot insert text into non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно вставить текст в нетекстовую рамку.</translation>
     </message>
     <message>
         <source>Insert index out of bounds</source>
@@ -9602,7 +9615,7 @@ External Links
     <message>
         <source>Can&apos;t set text alignment on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно установить выключку текста для нетекстовой рамки</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
@@ -9612,12 +9625,12 @@ External Links
     <message>
         <source>Can&apos;t set font size on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно установить кегль для нетекстовой рамки</translation>
     </message>
     <message>
         <source>Can&apos;t set font on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно установить шрифт для нетекстовой рамки</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1</source>
@@ -9725,53 +9738,45 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Scribus Python interface module
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
+<byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
+<byte value="x9"/><byte value="x9"/>function is documented individually below.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
+<byte value="x9"/><byte value="x9"/>a string - they are not real Python objects. Many functions take an
+<byte value="x9"/><byte value="x9"/>optional (non-keyword) parameter, a frame name.
+<byte value="x9"/><byte value="x9"/>Many exceptions are also common across most functions. These are
+<byte value="x9"/><byte value="x9"/>not currently documented in the docstring for each function.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
+<byte value="x9"/><byte value="x9"/>      without a document to operate on.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
+<byte value="x9"/><byte value="x9"/>      the function will use the currently selected frame, if any, or
+<byte value="x9"/><byte value="x9"/>      raise a NoValidObjectError if it can&apos;t find anything to operate
+<byte value="x9"/><byte value="x9"/>      on.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
+<byte value="x9"/><byte value="x9"/>      on a frame type that they do not make sense with. For example, setting
+<byte value="x9"/><byte value="x9"/>      the text colour on a graphics frame doesn&apos;t make sense, and will result
+<byte value="x9"/><byte value="x9"/>      in this exception being raised.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
+<byte value="x9"/><byte value="x9"/>      passed through unaltered. As such, the list of exceptions thrown by
+<byte value="x9"/><byte value="x9"/>      any function as provided here and in its docstring is incomplete.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
+<byte value="x9"/><byte value="x9"/>function&apos;s documentation.
+<byte value="x9"/><byte value="x9"/></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenOffice.org Draw (*.sxd);;Все файлы (*)</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Documents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scribus Python interface module
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
-<byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
-<byte value="x9"/><byte value="x9"/>function is documented individually below.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
-<byte value="x9"/><byte value="x9"/>a string - they are not real Python objects. Many functions take an
-<byte value="x9"/><byte value="x9"/>optional (non-keyword) parameter, a frame name.
-<byte value="x9"/><byte value="x9"/>Many exceptions are also common across most functions. These are
-<byte value="x9"/><byte value="x9"/>not currently documented in the docstring for each function.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
-<byte value="x9"/><byte value="x9"/>      without a document to operate on.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
-<byte value="x9"/><byte value="x9"/>      the function will use the currently selected frame, if any, or
-<byte value="x9"/><byte value="x9"/>      raise a NoValidObjectError if it can&apos;t find anything to operate
-<byte value="x9"/><byte value="x9"/>      on.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
-<byte value="x9"/><byte value="x9"/>      on a frame type that they do not make sense with. For example, setting
-<byte value="x9"/><byte value="x9"/>      the text colour on a graphics frame doesn&apos;t make sense, and will result
-<byte value="x9"/><byte value="x9"/>      in this exception being raised.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
-<byte value="x9"/><byte value="x9"/>      passed through unaltered. As such, the list of exceptions thrown by
-<byte value="x9"/><byte value="x9"/>      any function as provided here and in its docstring is incomplete.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
-<byte value="x9"/><byte value="x9"/>function&apos;s documentation.
-<byte value="x9"/><byte value="x9"/></source>
-        <translation type="unfinished"></translation>
+        <translation>Документы OpenOffice.org Writer</translation>
     </message>
 </context>
 <context>
@@ -11075,7 +11080,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation type="unfinished">С&amp;труктура</translation>
+        <translation>С&amp;труктура</translation>
     </message>
     <message>
         <source>&amp;Scrapbook</source>
