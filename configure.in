@@ -70,7 +70,6 @@ if test -n "$FREETYPE_CONFIG"; then
 else
   AC_MSG_ERROR([You need at least freetype 2.1.0])
 fi
- 
 XML_LIBS=""
 XML_CFLAGS=""
 
@@ -86,6 +85,11 @@ if test -n "$XML_CONFIG"; then
 		AC_DEFINE_UNQUOTED(HAVE_XML, 1, [Defines if your system has the libxml2 library])
 		AC_SUBST(XML_LIBS)
 		AC_SUBST(XML_CFLAGS)
+	fi
+	vers=`$XML_CONFIG --version 2>/dev/null | awk 'BEGIN { FS = "."; } { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}'`
+  	if test -n "$vers" && test "$vers" -ge 2006000
+	then
+		AC_DEFINE_UNQUOTED(HAVE_XML26, 1, [Defines if your system has the libxml2 library6])
 	fi
 fi
 
@@ -147,10 +151,10 @@ AC_CHECK_COMPILERS
 AC_ENABLE_SHARED(yes)
 AC_ENABLE_STATIC(no)
 KDE_PROG_LIBTOOL
+
 hapython=yes
 kde_python_link_found=no
 KDE_CHECK_PYTHON(1.5)
-
 COMPILE_PYTHON=no
 AC_ARG_WITH(python, [  --without-python     Do not compile the Scripter Plugin],[ COMPILE_PYTHON=no ],[ COMPILE_PYTHON=yes ])
 if test $kde_python_link_found = no; then
@@ -173,7 +177,6 @@ all_libraries="$all_libraries $USER_LDFLAGS"
 all_includes="$all_includes $USER_INCLUDES"
 AC_SUBST(all_includes)
 AC_SUBST(all_libraries)
-
 
 AC_PATH_QT
 
@@ -205,8 +208,8 @@ AC_CONFIG_FILES([scribus/plugins/gettext/csvim/Makefile])
 AC_CONFIG_FILES([scribus/plugins/gettext/htmlim/Makefile])
 AC_CONFIG_FILES([scribus/profiles/Makefile])
 AC_CONFIG_FILES([scribus/dicts/Makefile])
-AC_CONFIG_FILES([scribus/qm/Makefile])
 AC_CONFIG_FILES([scribus/po/Makefile])
+AC_CONFIG_FILES([scribus/qm/Makefile])
 AC_CONFIG_FILES([scribus/templates/Makefile])
 AC_OUTPUT
 echo "Configuration Summary:"

@@ -455,12 +455,14 @@ htmlSAXHandler mySAXHandlerStruct = {
 	NULL, // cdataDebug,
 	NULL,
 	1
-};
-/*	NULL,
+#ifdef HAVE_XML26
+	,
+	NULL,
 	NULL,
 	NULL,
 	NULL
-}; */
+#endif
+};
 
 htmlSAXHandlerPtr mySAXHandler = &mySAXHandlerStruct;
 

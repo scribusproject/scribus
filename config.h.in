@@ -82,6 +82,12 @@
 /* Define if you want Xinerama support */
 #undef HAVE_XINERAMA
 
+/* Defines if your system has the libxml2 library */
+#undef HAVE_XML
+
+/* Defines if your system has the libxml2 library6 */
+#undef HAVE_XML26
+
 /* Name of package */
 #undef PACKAGE
 
