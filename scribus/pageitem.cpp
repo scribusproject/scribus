@@ -14,7 +14,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include <iostream>
+
 #include "pageitem.h"
 #include <qpainter.h>
 #include <qpen.h>
@@ -155,7 +155,7 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	An_V_act = "";
 	An_C_act = "";
 	An_Extern = "";
-	AnName = "Item"+tmp.setNum(Doc->TotalItems);
+	AnName = "Item"+tmp.setNum(Doc->TotalItems)+" "+QDateTime::currentDateTime().toString();
 	AutoName = true;
 	Doc->TotalItems++;
 	AnToolTip = "";
@@ -567,8 +567,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				if ((Doc->AppMode == 7) && (Dirty))
 					Dirty = false;
 				CurrCol = 0;
-				ColWidth = (Width - (ColGap * (Cols - 1))) / Cols;
-				ColBound = FPoint((ColWidth + ColGap) * CurrCol, ColWidth * (CurrCol+1) + ColGap * CurrCol);
+				ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra) / Cols;
+				ColBound = FPoint((ColWidth + ColGap) * CurrCol, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
 				if (Cols > 1)
 					ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
 				CurX = Extra + lineCorr + ColBound.x();
@@ -674,12 +674,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									CurrCol++;
 									if (CurrCol < Cols)
 										{
-										ColWidth = (Width - (ColGap * (Cols - 1))) / Cols;
-										ColBound = FPoint((ColWidth + ColGap) * CurrCol, ColWidth * (CurrCol+1) + ColGap * CurrCol);
+										ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra) / Cols;
+										ColBound = FPoint((ColWidth + ColGap) * CurrCol + Extra+lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
 										CurY = Doc->Vorlagen[0].LineSpa+TExtra+lineCorr;
-										CurX = ColBound.x(); // +Extra+lineCorr;
-										if (CurrCol < (Cols-1))
-											ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
+										CurX = ColBound.x();
+										ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
 										oldCurY = CurY;
 										if ((a > 0) && (Ptext.at(a-1)->ch == QChar(13)))
 											{

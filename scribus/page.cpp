@@ -4950,9 +4950,15 @@ void Page::UniteObj()
   		{
   		bb = SelItem.at(a);
 			toDel.append(bb->ItemNr);
-			double dx = b->Xpos - bb->Xpos;
-			double dy = b->Ypos - bb->Ypos;
-			bb->PoLine.translate(-dx, -dy);
+			QWMatrix ma;
+			ma.translate(bb->Xpos, bb->Ypos);
+			ma.rotate(bb->Rot);
+			bb->PoLine.map(ma);
+			QWMatrix ma2;
+			ma2.translate(b->Xpos, b->Ypos);
+			ma2.rotate(b->Rot);
+			ma2 = ma2.invert();
+			bb->PoLine.map(ma2);
 			b->PoLine.setMarker();
 			b->PoLine.putPoints(b->PoLine.size(), bb->PoLine.size(), bb->PoLine);
 			}
@@ -5045,6 +5051,7 @@ void Page::TextToPath()
 			bb->Width = tp.x();
 			bb->Height = tp.y();
 			bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
+			FPoint npo;
 			if (b->Reverse)
 				{
 				double wide;
@@ -5052,14 +5059,12 @@ void Page::TextToPath()
 					wide = Cwidth(doku, b->Ptext.at(a)->cfont, chx, b->Ptext.at(a)->csize, b->Ptext.at(a+1)->ch);
 				else
 					wide = Cwidth(doku, b->Ptext.at(a)->cfont, chx, b->Ptext.at(a)->csize);
-				bb->Xpos = b->Xpos+b->Width-b->Ptext.at(a)->xp-wide+x;
-				bb->Ypos = b->Ypos+b->Ptext.at(a)->yp-y;
+				npo = transformPoint(FPoint(b->Width-b->Ptext.at(a)->xp-wide+x,b->Ptext.at(a)->yp-y), b->Xpos, b->Ypos, b->Rot, 1.0, 1.0);
 				}
 			else
-				{
-				bb->Xpos = b->Xpos+b->Ptext.at(a)->xp+x;
-				bb->Ypos = b->Ypos+b->Ptext.at(a)->yp-y;
-				}
+				npo = transformPoint(FPoint(b->Ptext.at(a)->xp+x,b->Ptext.at(a)->yp-y), 0.0, 0.0, b->Rot, 1.0, 1.0);
+			bb->Xpos = b->Xpos+npo.x();
+			bb->Ypos = b->Ypos+npo.y();
 			bb->ClipEdited = true;
 			SelItem.append(bb);
 			}

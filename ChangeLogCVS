@@ -1,4 +1,8 @@
 Changes since Version 1.1.4
+26.12.2003	Fixed Issues with rotated Text when converting to Outlines.
+		Fixed Issues with rotated Object when joining Polygons.
+		Fixed column width not being equal for all columns on Textframes.
+
 25.12.2003	Added a Gap Setting for multi-column Textframes.
 
 23.12.2003	Textframes can have now more than 1 Column.
