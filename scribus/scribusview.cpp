@@ -202,13 +202,17 @@ void ScribusView::setRulerPos(int x, int y)
 
 void ScribusView::Zval()
 {
-	rememberPreviousSettings();
+	int x = qRound(QMAX(Doc->ActPage->ViewReg().boundingRect().x() / Doc->Scale, 0));
+	int y = qRound(QMAX(Doc->ActPage->ViewReg().boundingRect().y() / Doc->Scale, 0));
+	int w = qRound(QMIN(Doc->ActPage->ViewReg().boundingRect().width() / Doc->Scale, Doc->PageB));
+	int h = qRound(QMIN(Doc->ActPage->ViewReg().boundingRect().height() / Doc->Scale, Doc->PageH));
+	rememberPreviousSettings(w / 2 + x,h / 2 + y);
 	Doc->Scale = LE->value() / 100.0 * Prefs->DisScale;
 	slotDoZoom();
 	ScApp->setFocus();
 }
 
-/** Fgt eine Seite hinzu */
+/** Adds a Page */
 Page* ScribusView::addPage(int nr)
 {
 	int z;
@@ -521,53 +525,10 @@ void ScribusView::slotDoZoom()
 				resizeContents(static_cast<int>(PSeite->width()*2+60*Doc->Scale),
 				               static_cast<int>(((Doc->PageC-1)/2 + 1) * (PSeite->height()+25*Doc->Scale)+30));
 			else
-				resizeContents(static_cast<int>(PSeite->width()*2+60*Doc->Scale),
-				               static_cast<int>((Doc->PageC/2 + 1) * (PSeite->height()+25*Doc->Scale)+30));
-			updateScrollBars();
-			int newAbsX = (int)(((double)(oldX) * Doc->Scale / oldScale)+.5);
-			int newAbsY = (int)(((double)(oldY) * Doc->Scale / oldScale)+.5);
-
-			oldSbx += newAbsX - oldX;
-			oldSbx += newAbsY - oldY;
-
-			int maxx = horizontalScrollBar()->maxValue();
-			if ( oldSbx < 0 )
-				oldSbx = 0;
-			else if ( oldSbx > maxx )
-				oldSbx = maxx;
-			horizontalScrollBar()->setValue(oldSbx);
-
-			int maxy = verticalScrollBar()->maxValue();
-			if ( oldSby < 0 )
-				oldSby = 0;
-			else if ( oldSby > maxy )
-				oldSby = maxy;
-			verticalScrollBar()->setValue(oldSby);
+				resizeContents(static_cast<int>(PSeite->width()*2+60*Doc->Scale), static_cast<int>((Doc->PageC/2 + 1) * (PSeite->height()+25*Doc->Scale)+30));
 		}
 		else
-		{
 			resizeContents(static_cast<int>(PSeite->width()+30*Doc->Scale), static_cast<int>(Doc->PageC * (PSeite->height()+25*Doc->Scale)+30));
-			updateScrollBars();
-			int newAbsX = (int)(((double)(oldX) * Doc->Scale / oldScale)+.5);
-			int newAbsY = (int)(((double)(oldY) * Doc->Scale / oldScale)+.5);
-
-			oldSbx += newAbsX - oldX;
-			oldSby += newAbsY - oldY;
-
-			int maxx = horizontalScrollBar()->maxValue();
-			if ( oldSbx < 0 )
-				oldSbx = 0;
-			else if ( oldSbx > maxx )
-				oldSbx = maxx;
-			horizontalScrollBar()->setValue(oldSbx);
-
-			int maxy = verticalScrollBar()->maxValue();
-			if ( oldSby < 0 )
-				oldSby = 0;
-			else if ( oldSby > maxy )
-				oldSby = maxy;
-			verticalScrollBar()->setValue(oldSby);
-		}
 		disconnect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
 		LE->setValue(Doc->Scale/Prefs->DisScale*100);
 		connect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));

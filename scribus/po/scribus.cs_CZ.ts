@@ -4111,7 +4111,11 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>UCR - under color removal - odstranění přebytečné barvy, která by 
+způsobila rozpíjení (při přílišné saturaci papíru barvou) nebo trhání 
+barvy při několika vrstvém (např. barevném) laserovém tisku.
+Viz. např. http://www.typo.cz/_pismo/pis-tech-post.html
+a jiné.</translation>
     </message>
 </context>
 <context>
@@ -5674,6 +5678,41 @@ jakým lze zlepšit kontrast fotografií. Doporučeno, jestliže je máte v doku
     </message>
 </context>
 <context>
+    <name>CsvDialog</name>
+    <message>
+        <source>CSV Importer Options</source>
+        <translation>Nastavení importu CSV</translation>
+    </message>
+    <message>
+        <source>Field delimiter:</source>
+        <translation>Oddělovač položek:</translation>
+    </message>
+    <message>
+        <source>(TAB)</source>
+        <translation>(TAB)</translation>
+    </message>
+    <message>
+        <source>Value delimiter:</source>
+        <translation>Oddělovač hodnot:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Žádný</translation>
+    </message>
+    <message>
+        <source>First row is a header</source>
+        <translation>První řádek je hlavička</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Zrušit</translation>
+    </message>
+</context>
+<context>
     <name>CupsOptions</name>
     <message>
         <source>Printer Options</source>
@@ -7223,7 +7262,7 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     <name>FontPreview</name>
     <message>
         <source>Font Preview</source>
-        <translation>Náhled písem</translation>
+        <translation type="obsolete">Náhled písem</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -7244,6 +7283,10 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Příliš žluťoučký kůň úpěl ďábelské Ódy</translation>
+    </message>
+    <message>
+        <source>Fonts Preview</source>
+        <translation>Náhled písem</translation>
     </message>
 </context>
 <context>
@@ -10993,7 +11036,11 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>UCR - under color removal - odstranění přebytečné barvy, která by 
+způsobila rozpíjení (při přílišné saturaci papíru barvou) nebo trhání 
+barvy při několika vrstvém (např. barevném) laserovém tisku.
+Viz. např. http://www.typo.cz/_pismo/pis-tech-post.html
+a jiné.</translation>
     </message>
 </context>
 <context>
@@ -13280,6 +13327,65 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
 </context>
 <context>
+    <name>QFontDialog</name>
+    <message>
+        <source>&amp;Font</source>
+        <translation>&amp;Písmo</translation>
+    </message>
+    <message>
+        <source>Font st&amp;yle</source>
+        <translation>S&amp;tyl písma</translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation>&amp;Velikost</translation>
+    </message>
+    <message>
+        <source>Effects</source>
+        <translation>Efekty</translation>
+    </message>
+    <message>
+        <source>Stri&amp;keout</source>
+        <translation>Přešk&amp;rtnuté</translation>
+    </message>
+    <message>
+        <source>&amp;Underline</source>
+        <translation>Po&amp;dtržené</translation>
+    </message>
+    <message>
+        <source>&amp;Color</source>
+        <translation>&amp;Barva</translation>
+    </message>
+    <message>
+        <source>Sample</source>
+        <translation>Příklad</translation>
+    </message>
+    <message>
+        <source>Scr&amp;ipt</source>
+        <translation>Skr&amp;ipt</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation>Použít</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Zrušit</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Zavřít</translation>
+    </message>
+    <message>
+        <source>Select Font</source>
+        <translation>Vybrat písmo</translation>
+    </message>
+</context>
+<context>
     <name>QLineEdit</name>
     <message>
         <source>Clear</source>
@@ -13715,6 +13821,18 @@ Zkontrolujte cestu a název souboru.</translation>
     <message>
         <source>Text Files</source>
         <translation>Textové soubory</translation>
+    </message>
+    <message>
+        <source>Comma Separated Value Files</source>
+        <translation>Soubory CSV (čárkou oddělěné hodnoty)</translation>
+    </message>
+    <message>
+        <source>CSV_data</source>
+        <translation>CSV_data</translation>
+    </message>
+    <message>
+        <source>CSV_header</source>
+        <translation>CSV_hlavička</translation>
     </message>
 </context>
 <context>
@@ -15276,7 +15394,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>&amp;Edit Frame</source>
-        <translation>&amp;Editovat rám</translation>
+        <translation type="obsolete">&amp;Editovat rám</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
@@ -15617,6 +15735,10 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     <message>
         <source>&amp;Undo Object Change</source>
         <translation>&amp;Zpět změna objektu</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Shape</source>
+        <translation>Upravit &amp;obrys</translation>
     </message>
 </context>
 <context>
@@ -16958,22 +17080,46 @@ Vyberte, prosím, jiný.</translation>
     </message>
     <message>
         <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
-        <translation>Šablony získáte na &lt;a href=&quot;http://www.scribus.net/&quot;&gt;www.scribus.net&lt;/a&gt; v sekci Download.</translation>
+        <translation type="obsolete">Šablony získáte na &lt;a href=&quot;http://www.scribus.net/&quot;&gt;www.scribus.net&lt;/a&gt; v sekci Download.</translation>
     </message>
     <message>
         <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Ujistěte se, že použité obrázky mohou být použity všude. Také písma musí být zkontrolována. Jestliže písma nesmíte distribuovat, nevkládejte je do šablony. </translation>
+        <translation type="obsolete">Ujistěte se, že použité obrázky mohou být použity všude. Také písma musí být zkontrolována. Jestliže písma nesmíte distribuovat, nevkládejte je do šablony. </translation>
     </message>
     <message>
         <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation>Autor šablony by se měl také ujistit, že se jeho šablona korektně nainstaluje, což mimo jiné znamená, že se správně zachová v cizím systému.</translation>
+        <translation type="obsolete">Autor šablony by se měl také ujistit, že se jeho šablona korektně nainstaluje, což mimo jiné znamená, že se správně zachová v cizím systému.</translation>
     </message>
     <message>
         <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation>Jestliže odstraníte šablonu z aplikace, odstraníte pouze záznam z template.xml. Soubory zůstanou na disku. Menu s mazací položkou se zobrazí pouze tehdy, jestliže máte právo měnit soubor template.xml.</translation>
+        <translation type="obsolete">Jestliže odstraníte šablonu z aplikace, odstraníte pouze záznam z template.xml. Soubory zůstanou na disku. Menu s mazací položkou se zobrazí pouze tehdy, jestliže máte právo měnit soubor template.xml.</translation>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
+        <translation type="obsolete">Zkopírujte existující template.xml a přejmenujte kopii na template.lang.xml (použijte stejný kód, jaký je ve jménu QM souboru jazyka). Např. template.cs.xml bude použito v Českém prostředí. Soubor musí být ve stejném adresáři jako původní.</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Datum</translation>
+    </message>
+    <message>
+        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
+        <translation>Šablony získáte na &lt;a href=&quot;http://www.scribus.net/&quot;&gt;www.scribus.net&lt;/a&gt; v sekci Download.</translation>
+    </message>
+    <message>
+        <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation>Ujistěte se, že použité obrázky mohou být použity všude. Také písma musí být zkontrolována. Jestliže písma nesmíte distribuovat, nevkládejte je do šablony. </translation>
+    </message>
+    <message>
+        <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation>Autor šablony by se měl také ujistit, že se jeho šablona korektně nainstaluje, což mimo jiné znamená, že se správně zachová v cizím systému.</translation>
+    </message>
+    <message>
+        <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation>Jestliže odstraníte šablonu z aplikace, odstraníte pouze záznam z template.xml. Soubory zůstanou na disku. Menu s mazací položkou se zobrazí pouze tehdy, jestliže máte právo měnit soubor template.xml.</translation>
+    </message>
+    <message>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation>Zkopírujte existující template.xml a přejmenujte kopii na template.lang.xml (použijte stejný kód, jaký je ve jménu QM souboru jazyka). Např. template.cs.xml bude použito v Českém prostředí. Soubor musí být ve stejném adresáři jako původní.</translation>
     </message>
 </context>

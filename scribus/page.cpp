@@ -466,6 +466,7 @@ void Page::paintEvent(QPaintEvent *e)
 		return;
 	if (doku->AppMode == 7)
 		slotDoCurs(false);
+	bool sp = e->spontaneous();
 	QPixmap pgPix(vr.width(), vr.height());
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 	painter->clear(doku->papColor);
@@ -474,7 +475,7 @@ void Page::paintEvent(QPaintEvent *e)
 		DrawPageMarks(painter, vr);
 //	QTime tim;
 //	tim.start();
-	DrawPageItems(painter, vr);
+	DrawPageItems(painter, vr, sp);
 //	qDebug( "Time elapsed: %d ms", tim.elapsed() );
 	if (!doku->Before)
 		DrawPageMarks(painter, vr);
@@ -590,7 +591,7 @@ void Page::DrawPageMarks(ScPainter *p, QRect rd)
 	p->setWorldMatrix(ma2);
 }
 
-void Page::DrawPageItems(ScPainter *painter, QRect rd)
+void Page::DrawPageItems(ScPainter *painter, QRect rd, bool sp)
 {
 	QPainter p;
 	uint a;
@@ -707,6 +708,8 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 					p.end();
 					if ((rd.intersects(apr.boundingRect())) || (rd.intersects(apr2.boundingRect())))
 					{
+						if ((sp) && (b->Ptext.count() >= b->MaxChars))
+							b->Dirty = true;
 						if (!((doku->EditClip) && (Mpressed)))
 							b->DrawObj(painter, rd);
 						b->Redrawn = true;

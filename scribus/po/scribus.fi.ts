@@ -147,7 +147,7 @@ Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
     </message>
     <message>
         <source>&amp;About</source>
-        <translation>&amp;Tietoja</translation>
+        <translation>T&amp;ietoja</translation>
     </message>
     <message>
         <source>A&amp;uthors</source>
@@ -222,7 +222,7 @@ luoda erittäin suuria tiedostoja</translation>
     </message>
     <message>
         <source>Apply Under Color &amp;Removal</source>
-        <translation>Käytä &amp;peitetyn värin poistoa (UCR)</translation>
+        <translation>Käytä &amp;alivärinpoistoa (UCR)</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed
@@ -302,7 +302,7 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>&amp;Between:</source>
-        <translation>&amp;Kohde:</translation>
+        <translation>K&amp;ohde:</translation>
     </message>
     <message>
         <source>A&amp;lign</source>
@@ -318,7 +318,7 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>Bet&amp;ween:</source>
-        <translation>K&amp;ohde:</translation>
+        <translation>Ko&amp;hde:</translation>
     </message>
     <message>
         <source>Do &amp;Not Change</source>
@@ -342,7 +342,7 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>&amp;Do Not Change</source>
-        <translation>&amp;Älä muuta</translation>
+        <translation>Ä&amp;lä muuta</translation>
     </message>
 </context>
 <context>
@@ -376,7 +376,7 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source>sum</source>
@@ -444,7 +444,7 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>On Focus</source>
-        <translation>Saadessa fokuksen</translation>
+        <translation>Valittaessa</translation>
     </message>
     <message>
         <source>Go To</source>
@@ -1087,7 +1087,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Tiedosto</translation>
+        <translation>Tie&amp;dosto</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
@@ -1264,7 +1264,7 @@ Profiilin tulee olla tulostimellesi tarkoitettu ei yleinen väriprofiili kuten s
     <message>
         <source>Black Point Compensation is a method of improving contrast in photos.
 It is recommended that you enable this if you have photos in your document.</source>
-        <translation>Black Point Compensation on keino parantaa kuvien kontrastia.
+        <translation>Tumman pään tasaus on keino parantaa kuvien kontrastia.
 On suositeltavaa että valitsen tämän, jos asiakirjasi sisältää kuvia.</translation>
     </message>
     <message>
@@ -1293,7 +1293,7 @@ Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan 
     </message>
     <message>
         <source>&amp;Activate Color Management</source>
-        <translation>&amp;Käytä värien hallintaa</translation>
+        <translation>Käytä &amp;värien hallintaa</translation>
     </message>
     <message>
         <source>&amp;Pictures:</source>
@@ -1309,15 +1309,15 @@ Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan 
     </message>
     <message>
         <source>P&amp;rinter:</source>
-        <translation>T&amp;ulostin:</translation>
+        <translation>Tu&amp;lostin:</translation>
     </message>
     <message>
         <source>M&amp;onitor:</source>
-        <translation>&amp;Näyttö:</translation>
+        <translation>N&amp;äyttö:</translation>
     </message>
     <message>
         <source>Pr&amp;inter:</source>
-        <translation>&amp;Tulostin:</translation>
+        <translation>T&amp;ulostin:</translation>
     </message>
     <message>
         <source>Sim&amp;ulate Printer on the Screen</source>
@@ -1329,7 +1329,7 @@ Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan 
     </message>
     <message>
         <source>Use &amp;Blackpoint Compensation</source>
-        <translation>Käytä &amp;Blackpoint Compensationia</translation>
+        <translation>Käytä &amp;Tumman pään tasausta (BPC)</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -1550,35 +1550,35 @@ Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan 
     <name>CsvDialog</name>
     <message>
         <source>CSV Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>CSV-tuojan ominaisuudet</translation>
     </message>
     <message>
         <source>Field delimiter:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kentän erotin:</translation>
     </message>
     <message>
         <source>(TAB)</source>
-        <translation type="unfinished"></translation>
+        <translation>(SARKAIN)</translation>
     </message>
     <message>
         <source>Value delimiter:</source>
-        <translation type="unfinished"></translation>
+        <translation>Arvon erotin:</translation>
     </message>
     <message>
         <source>First row is a header</source>
-        <translation type="unfinished"></translation>
+        <translation>Ensimmäinen rivi on otsikko</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Peruuta</translation>
+        <translation>Peruuta</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei mitään</translation>
     </message>
 </context>
 <context>
@@ -1770,7 +1770,7 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>&amp;Title:</source>
-        <translation>&amp;Otsikko:</translation>
+        <translation>O&amp;tsikko:</translation>
     </message>
     <message>
         <source>&amp;Author:</source>
@@ -1778,11 +1778,11 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>&amp;Keywords:</source>
-        <translation>&amp;Avainsanat:</translation>
+        <translation>A&amp;vainsanat:</translation>
     </message>
     <message>
         <source>Descri&amp;ption:</source>
-        <translation>&amp;Kuvaus:</translation>
+        <translation>Kuvau&amp;s:</translation>
     </message>
     <message>
         <source>P&amp;ublisher:</source>
@@ -1790,7 +1790,7 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>&amp;Contributors:</source>
-        <translation>&amp;Avustajat:</translation>
+        <translation>Av&amp;ustajat:</translation>
     </message>
     <message>
         <source>Dat&amp;e:</source>
@@ -1810,7 +1810,7 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>&amp;Source:</source>
-        <translation>&amp;Lähde:</translation>
+        <translation>L&amp;ähde:</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -1826,7 +1826,7 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>Ri&amp;ghts:</source>
-        <translation>&amp;Oikeudet:</translation>
+        <translation>O&amp;ikeudet:</translation>
     </message>
     <message>
         <source>&amp;Document</source>
@@ -1945,7 +1945,7 @@ jota voidaan jatkaa tavuviivalla ja ISO-3166 maakoodilla</translation>
     </message>
     <message>
         <source>Cyan</source>
-        <translation>Cyan</translation>
+        <translation>Syaani</translation>
     </message>
     <message>
         <source>Magenta</source>
@@ -1985,7 +1985,7 @@ Pelkän sivunumeron lisäksi voit käyttää
     </message>
     <message>
         <source>A&amp;lternative Printer Command</source>
-        <translation>&amp;Oma tulostuskomento</translation>
+        <translation>Oma tulo&amp;stuskomento</translation>
     </message>
     <message>
         <source>Co&amp;mmand:</source>
@@ -2001,7 +2001,7 @@ Pelkän sivunumeron lisäksi voit käyttää
     </message>
     <message>
         <source>Print Current Pa&amp;ge</source>
-        <translation>Tulosta &amp;nykyinen sivu</translation>
+        <translation>Tulosta n&amp;ykyinen sivu</translation>
     </message>
     <message>
         <source>Print &amp;Range</source>
@@ -2017,11 +2017,11 @@ Pelkän sivunumeron lisäksi voit käyttää
     </message>
     <message>
         <source>Print &amp;Separations</source>
-        <translation>Tulosta &amp;erottimet</translation>
+        <translation>Tulosta &amp;erottelut</translation>
     </message>
     <message>
         <source>Pr&amp;int In Color If Available</source>
-        <translation>Tulosta &amp;värit, jos mahdollista</translation>
+        <translation>Tulosta vä&amp;rit, jos mahdollista</translation>
     </message>
     <message>
         <source>Print In Gra&amp;yscale</source>
@@ -2033,7 +2033,7 @@ Pelkän sivunumeron lisäksi voit käyttää
     </message>
     <message>
         <source>&amp;Print</source>
-        <translation>&amp;Tulosta</translation>
+        <translation>T&amp;ulosta</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -2146,11 +2146,11 @@ failed!</source>
     </message>
     <message>
         <source>Spacing above the paragraph</source>
-        <translation>Välistys kappaleen yläpuolella</translation>
+        <translation>Tila kappaleen yläpuolella</translation>
     </message>
     <message>
         <source>Spacing below the paragraph</source>
-        <translation>Välistys kappaleen alapuolella</translation>
+        <translation>Tila kappaleen alapuolella</translation>
     </message>
     <message>
         <source>Tabulators and Indentation</source>
@@ -2162,23 +2162,23 @@ failed!</source>
     </message>
     <message>
         <source>&amp;Font:</source>
-        <translation>&amp;Kirjasin:</translation>
+        <translation>Kir&amp;jasin:</translation>
     </message>
     <message>
         <source>Si&amp;ze:</source>
-        <translation>K&amp;oko:</translation>
+        <translation>&amp;Koko:</translation>
     </message>
     <message>
         <source>&amp;Alignment:</source>
-        <translation>T&amp;asaus:</translation>
+        <translation>Ta&amp;saus:</translation>
     </message>
     <message>
         <source>&amp;Drop Caps</source>
-        <translation>&amp;Anfangi</translation>
+        <translation>An&amp;fangi</translation>
     </message>
     <message>
         <source>&amp;Lines:</source>
-        <translation>&amp;Viivat:</translation>
+        <translation>V&amp;iivat:</translation>
     </message>
     <message>
         <source>F&amp;ill Color:</source>
@@ -2190,7 +2190,7 @@ failed!</source>
     </message>
     <message>
         <source>Adjust to Baseline &amp;Grid</source>
-        <translation>&amp;Kiinnitä peruslinjaan</translation>
+        <translation>Kiinnitä &amp;peruslinjaan</translation>
     </message>
     <message>
         <source>Line &amp;Spacing:</source>
@@ -2225,7 +2225,7 @@ failed!</source>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Uusi</translation>
+        <translation>Uu&amp;si</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
@@ -2265,7 +2265,7 @@ failed!</source>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation>&amp;Tyhjennä</translation>
+        <translation>T&amp;yhjennä</translation>
     </message>
     <message>
         <source>&amp;Get Field Names</source>
@@ -2342,7 +2342,7 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>&amp;Resolution:</source>
-        <translation>&amp;Tarkkuus:</translation>
+        <translation>Ta&amp;rkkuus:</translation>
     </message>
     <message>
         <source> %</source>
@@ -2498,7 +2498,7 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation>&amp;Jatka</translation>
+        <translation>&amp;Tuo</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -2514,7 +2514,7 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Poista</translation>
+        <translation>P&amp;oista</translation>
     </message>
     <message>
         <source>&amp;Remove Unused</source>
@@ -2597,7 +2597,7 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>&amp;Available Fonts</source>
-        <translation>&amp;Löydetyt kirjasimet</translation>
+        <translation>L&amp;öydetyt kirjasimet</translation>
     </message>
     <message>
         <source>Font &amp;Substitutions</source>
@@ -2605,11 +2605,11 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>Additional &amp;Paths</source>
-        <translation>Lisätyt &amp;polut</translation>
+        <translation>Lisätyt p&amp;olut</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Poista</translation>
+        <translation>P&amp;oista</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
@@ -2621,7 +2621,7 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;Poista</translation>
+        <translation>Po&amp;ista</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2634,10 +2634,6 @@ joita on tarkoitus katsella näytöltä</translation>
 </context>
 <context>
     <name>FontPreview</name>
-    <message>
-        <source>Font Preview</source>
-        <translation type="obsolete">Kirjasinten esikatselu</translation>
-    </message>
     <message>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
@@ -2718,7 +2714,7 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>D&amp;elete</source>
-        <translation>&amp;Poista</translation>
+        <translation>P&amp;oista</translation>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
@@ -2726,15 +2722,15 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>A&amp;dd</source>
-        <translation>&amp;Lisää</translation>
+        <translation>L&amp;isää</translation>
     </message>
     <message>
         <source>De&amp;lete</source>
-        <translation>&amp;Poista</translation>
+        <translation>Poi&amp;sta</translation>
     </message>
     <message>
         <source>&amp;Lock Guides</source>
-        <translation>&amp;Lukitse apuviivat</translation>
+        <translation>L&amp;ukitse apuviivat</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2803,7 +2799,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Check &amp;During Typing</source>
-        <translation>Tarkasta &amp;kirjoitettaessa</translation>
+        <translation>&amp;Tarkasta kirjoitettaessa</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -2948,7 +2944,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation>Ky&amp;llä</translation>
+        <translation>&amp;Kyllä</translation>
     </message>
 </context>
 <context>
@@ -3007,7 +3003,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>&amp;User Defined Key</source>
-        <translation>&amp;Oma näppäin</translation>
+        <translation>O&amp;ma näppäin</translation>
     </message>
     <message>
         <source>Set &amp;Key</source>
@@ -3109,7 +3105,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Poista</translation>
+        <translation>P&amp;oista</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -3199,7 +3195,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>&amp;Vertical Shift:</source>
-        <translation>&amp;Pystysuora siirtymä:</translation>
+        <translation>P&amp;ystysuora siirtymä:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -4316,7 +4312,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation>&amp;Korkeus:</translation>
+        <translation>Ko&amp;rkeus:</translation>
     </message>
     <message>
         <source>&amp;Facing Pages</source>
@@ -4332,7 +4328,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation>&amp;Oikea:</translation>
+        <translation>O&amp;ikea:</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
@@ -4344,7 +4340,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>&amp;Automatic Text Frames</source>
-        <translation>&amp;Automaattiset tekstikehykset</translation>
+        <translation>A&amp;utomaattiset tekstikehykset</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
@@ -4352,7 +4348,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation>&amp;Palstoja:</translation>
+        <translation>Pal&amp;stoja:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -4364,11 +4360,11 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>&amp;Inside:</source>
-        <translation>&amp;Sisäpuoli:</translation>
+        <translation>Sis&amp;äpuoli:</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation>&amp;Suunta:</translation>
+        <translation>Suu&amp;nta:</translation>
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
@@ -4376,7 +4372,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>&amp;Default Unit:</source>
-        <translation>&amp;Oletusyksikkö:</translation>
+        <translation>Ol&amp;etusyksikkö:</translation>
     </message>
     <message>
         <source>O&amp;utside:</source>
@@ -4456,7 +4452,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>&amp;Reset Contour Line</source>
-        <translation>&amp;Nollaa reunus</translation>
+        <translation>&amp;Palauta reunus</translation>
     </message>
     <message>
         <source>&amp;End Editing</source>
@@ -4975,11 +4971,11 @@ Suosittelemme käyttämään asiakirjan otsikkoa/nimeä.</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
-        <translation>&amp;Kirjasimet</translation>
+        <translation>K&amp;irjasimet</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>&amp;Apuvälineet</translation>
+        <translation>Apu&amp;välineet</translation>
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
@@ -5143,7 +5139,7 @@ Pelkän sivunumeron lisäksi voit käyttää
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation>&amp;Käytä efektiä kaikkiin sivuihin</translation>
+        <translation>Kä&amp;ytä efektiä kaikkiin sivuihin</translation>
     </message>
     <message>
         <source>&amp;Use Encryption</source>
@@ -5183,7 +5179,7 @@ Pelkän sivunumeron lisäksi voit käyttää
     </message>
     <message>
         <source>&amp;Use Custom Rendering Settings</source>
-        <translation>&amp;Käytä omia sovitusasetuksia</translation>
+        <translation>Käytä &amp;omia sovitusasetuksia</translation>
     </message>
     <message>
         <source>Fre&amp;quency:</source>
@@ -5191,7 +5187,7 @@ Pelkän sivunumeron lisäksi voit käyttää
     </message>
     <message>
         <source>&amp;Angle:</source>
-        <translation>&amp;Kulma:</translation>
+        <translation>K&amp;ulma:</translation>
     </message>
     <message>
         <source>S&amp;pot Function:</source>
@@ -5224,6 +5220,10 @@ Pelkän sivunumeron lisäksi voit käyttää
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Peruuta</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
@@ -5270,19 +5270,19 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Enable/disable the C (Cyan) ink plate</source>
-        <translation>Näytä/Älä näytä C (Cyan) muste</translation>
+        <translation>Näytä/Älä näytä C (syaani) muste</translation>
     </message>
     <message>
         <source>Enable/disable the M (Magenta) ink plate</source>
-        <translation>Näytä/Älä näytä M (Magenta) muste</translation>
+        <translation>Näytä/Älä näytä M (magenta) muste</translation>
     </message>
     <message>
         <source>Enable/disable the Y (Yellow) ink plate</source>
-        <translation>Näytä/Älä näytä Y (Yellow) muste</translation>
+        <translation>Näytä/Älä näytä Y (keltainen) muste</translation>
     </message>
     <message>
         <source>Enable/disable the K (Black) ink plate</source>
-        <translation>Näytä/Älä näytä K (Black) muste</translation>
+        <translation>Näytä/Älä näytä K (musta) muste</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Text</source>
@@ -5318,7 +5318,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>&amp;Under Color Removal</source>
-        <translation>&amp;Peitetyn värin poisto (UCR)</translation>
+        <translation>&amp;Alivärin poisto (UCR)</translation>
     </message>
     <message>
         <source>A way of switching some of the gray shades which are composed
@@ -5327,7 +5327,7 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Tapa vaihtaa C, Y ja M värien tekemä harmaa mustalla tehdyksi.
+        <translation>Tapa vaihtaa syaanin, magentan ja keltaisen värien tekemä harmaa mustalla tehdyksi.
 UCR vaikuttaa kuvien kohdissa, jotka ovat neutraaleja tai lähellä harmaata
 olevia tummia värejä. UCR:n käyttäminen saattaa parantaa joidenkin kuvien
 tulostamista. Parhaan tuloksen saavuttamiseksi tarvitaan tapauskohtaista
@@ -5554,7 +5554,7 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>Le&amp;vel</source>
-        <translation>&amp;Taso</translation>
+        <translation>&amp;Kerros</translation>
     </message>
     <message>
         <source>Send to &amp;Back</source>
@@ -5749,7 +5749,7 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>Corn&amp;ers:</source>
-        <translation>&amp;Kulmat:</translation>
+        <translation>K&amp;ulmat:</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
@@ -5757,7 +5757,7 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>&amp;Pyöristetty monikulmio</translation>
+        <translation>P&amp;yöristetty monikulmio</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -6648,7 +6648,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Use PDF 1.4 &amp;Transparency Features</source>
-        <translation>&amp;Käytä PDF 1.:n4 läpinäkyvyysominaisuuksia</translation>
+        <translation>&amp;Käytä PDF 1.4:n läpinäkyvyysominaisuuksia</translation>
     </message>
     <message>
         <source>&amp;Adjust Display Size</source>
@@ -6692,7 +6692,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Apply &amp;Under Color Removal</source>
-        <translation>&amp;Käytä peitetyn värin poistoa (UCR)</translation>
+        <translation>&amp;Käytä alivärinpoistoa (UCR)</translation>
     </message>
 </context>
 <context>
@@ -6902,11 +6902,11 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Poista</translation>
+        <translation>P&amp;oista</translation>
     </message>
     <message>
         <source>R&amp;eload</source>
-        <translation>Pä&amp;ivitä</translation>
+        <translation>P&amp;äivitä</translation>
     </message>
     <message>
         <source>Sort by &amp;Name</source>
@@ -7017,11 +7017,11 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Font st&amp;yle</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirjasimen &amp;tyyli</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation>&amp;Koko</translation>
+        <translation>K&amp;oko</translation>
     </message>
     <message>
         <source>Effects</source>
@@ -7029,11 +7029,11 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Stri&amp;keout</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Yliviivattu</translation>
     </message>
     <message>
         <source>&amp;Underline</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Alleviivattu</translation>
     </message>
     <message>
         <source>&amp;Color</source>
@@ -7041,11 +7041,11 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Sample</source>
-        <translation type="unfinished"></translation>
+        <translation>Esimerkki</translation>
     </message>
     <message>
         <source>Scr&amp;ipt</source>
-        <translation type="unfinished"></translation>
+        <translation>Sk&amp;ripti</translation>
     </message>
     <message>
         <source>OK</source>
@@ -7053,7 +7053,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -7065,7 +7065,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Select Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse kirjasin</translation>
     </message>
 </context>
 <context>
@@ -7080,11 +7080,11 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation>&amp;Kumoa</translation>
+        <translation>K&amp;umoa</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation>Tee &amp;uudelleen</translation>
+        <translation>&amp;Tee uudelleen</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
@@ -7346,7 +7346,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation>T&amp;ulosta...</translation>
+        <translation>Tul&amp;osta...</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
@@ -7362,7 +7362,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation>&amp;Viimeaikaiset skriptit</translation>
+        <translation>Vii&amp;meaikaiset skriptit</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
@@ -7374,11 +7374,11 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Import &amp;SVG...</source>
-        <translation>Tuo &amp;SVG...</translation>
+        <translation>Tuo S&amp;VG...</translation>
     </message>
     <message>
         <source>Import &amp;EPS/PS...</source>
-        <translation>Tuo &amp;EPS/PS...</translation>
+        <translation>Tuo E&amp;PS/PS...</translation>
     </message>
     <message>
         <source>Oook! Wrong arguments! Call: </source>
@@ -7430,15 +7430,15 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Comma Separated Value Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Pilkuin eroteltu tekstitiedosto</translation>
     </message>
     <message>
         <source>CSV_data</source>
-        <translation type="unfinished"></translation>
+        <translation>CSV</translation>
     </message>
     <message>
         <source>CSV_header</source>
-        <translation type="unfinished"></translation>
+        <translation>CSV_otsikko</translation>
     </message>
 </context>
 <context>
@@ -7453,7 +7453,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation>&amp;Kumoa</translation>
+        <translation>K&amp;umoa</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
@@ -7488,7 +7488,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Normalize</source>
-        <translation></translation>
+        <translation>Palauta</translation>
     </message>
     <message>
         <source>Minimize</source>
@@ -7511,7 +7511,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>&amp;Move</source>
-        <translation>&amp;Siirrä</translation>
+        <translation>S&amp;iirrä</translation>
     </message>
     <message>
         <source>&amp;Size</source>
@@ -7637,7 +7637,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation>&amp;Oikea:</translation>
+        <translation>O&amp;ikea:</translation>
     </message>
     <message>
         <source>&amp;Facing Pages</source>
@@ -8635,10 +8635,6 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
         <translation>J&amp;aa/Tasaa...</translation>
     </message>
     <message>
-        <source>&amp;Edit Frame</source>
-        <translation type="obsolete">&amp;Muokkaa kehystä</translation>
-    </message>
-    <message>
         <source>&amp;Shape</source>
         <translation>Ku&amp;vio</translation>
     </message>
@@ -8940,11 +8936,11 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Document &amp;Information...</source>
-        <translation>Asiakirjan &amp;tiedot...</translation>
+        <translation>Asiakirjan t&amp;iedot...</translation>
     </message>
     <message>
         <source>&amp;Edit Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Muokkaa kuviota</translation>
     </message>
 </context>
 <context>
@@ -8994,7 +8990,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>&amp;Leave Anyway</source>
-        <translation>&amp;Poistu</translation>
+        <translation>P&amp;oistu</translation>
     </message>
     <message>
         <source>C&amp;lose Anyway</source>
@@ -9111,7 +9107,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>&amp;Whole Word</source>
-        <translation>&amp;Kokonainen sana</translation>
+        <translation>K&amp;okonainen sana</translation>
     </message>
     <message>
         <source>&amp;Ignore Case</source>
@@ -9127,7 +9123,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Replace &amp;All</source>
-        <translation>K&amp;orvaa kaikki</translation>
+        <translation>Ko&amp;rvaa kaikki</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -9225,7 +9221,7 @@ raahaa malli sivualueelle.</translation>
     <name>SideBar</name>
     <message>
         <source>No Style</source>
-        <translation type="unfinished">Ei tyyliä</translation>
+        <translation>Ei tyyliä</translation>
     </message>
 </context>
 <context>
@@ -9295,7 +9291,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Poista</translation>
+        <translation>P&amp;oista</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -9603,7 +9599,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Ind&amp;ent:</source>
-        <translation>&amp;Sisennys:</translation>
+        <translation>S&amp;isennys:</translation>
     </message>
 </context>
 <context>
@@ -9918,10 +9914,6 @@ Ole hyvä ja valitse toinen nimi.</translation>
         <translation>Asiakirjamallien hakeminen</translation>
     </message>
     <message>
-        <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
-        <translation type="obsolete">Asiakirjapohjia on ladattavissa osoitteesta http://www.scribus.net/ kohdasta Downloads.</translation>
-    </message>
-    <message>
         <source>Installing Templates</source>
         <translation>Asiakirjamallien asennus</translation>
     </message>
@@ -9934,52 +9926,36 @@ Ole hyvä ja valitse toinen nimi.</translation>
         <translation>Asiakirjamallin valmistelu</translation>
     </message>
     <message>
-        <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation type="obsolete">Varmista, että kuvia voidaan käyttää vapaasti. Kirjasimien täytyy olla myös vapaita. Ellei kirjasimia voida jakaa älä kerää niitä tallentaessasi asiakirjaa mallina.</translation>
-    </message>
-    <message>
-        <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation type="obsolete">Asiakirjapohjan tekijän tulisi noudattaa ohjeita jotka annettiin kohdassa &quot;Asiakirjamallien asennus&quot;. Tämä tarkoittaa, että malliasiakirjan käyttäjän tulisi voida vain purkaa asiakirjapohja mallihakemistoonsa ja alkaa käyttää sitä.</translation>
-    </message>
-    <message>
         <source>Removing a template</source>
         <translation>Malliasiakirjan poistaminen</translation>
-    </message>
-    <message>
-        <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation type="obsolete">Malliasiakirjan poistaminen NFT dialogista poistaa ainoastaan asiakirjaan liittyvän kohdan template.xml-tiedostosta. Se ei poista asiakirjaa eikä siihen liittyviä tiedostoja. Poistaminen on ainoastaan mahdollista mikäli käyttäjällä on kirjoitusoikeus hakemistoon, jossa template.xml-tiedosto sijaitsee.</translation>
     </message>
     <message>
         <source>Translating template.xml</source>
         <translation>Template.xml-tiedoston kääntäminen</translation>
     </message>
     <message>
-        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
-        <translation type="obsolete">Kopioi olemassaoleva template.xml tiedostoon, jonka nimeksi anna template.kieli_ALUE.xml (käytä samoja kieli- ja aluekoodeja, joita käytetään qm-tiedostoissa). Esimerkiksi suomenkielinen template.xml:n tulisi olla nimetty template.fi.xml. Kopion täytyy sijaita samassa hakemistossa alkuperäisen tiedoston kanssa, jotta NFT voi käyttää sitä.</translation>
+        <source>Date</source>
+        <translation>Päivämäärä</translation>
     </message>
     <message>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation type="unfinished"></translation>
+        <translation>Asiakirjamalleja löytyy osoitteesta http://www.scribus.net/ Downloads-sivulta.</translation>
     </message>
     <message>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation type="unfinished"></translation>
+        <translation>Varmista että kuvia voidaan käyttää vapaasti. Jos kirjasimia ei voi levittää, älä kerää niitä tallentaessasi asiakirjamallin.</translation>
     </message>
     <message>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Asiakirjapohjan tekijän tulisi varmistaa että kohta &quot;Asiakirjamallien asennus&quot; pätee myös hänen malleihinsa. Käyttäjän tulisi saada mallit käyttöönsä purkamalla asiakirjapohjapaketin mallihakemistoonsa.</translation>
     </message>
     <message>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Poistettaessa malli &quot;Uusi mallista&quot;-dialogissa vain malliin liittyvät rivit template.xml-tiedostossa poistetaan; siihen liittyviä tiedostoja ei. Poistaminen on mahdollista ainoastaan, kun käyttäjällä on kirjoitusoikeus template.xml-tiedostoon.</translation>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Date</source>
-        <translation type="unfinished">Päivämäärä</translation>
+        <translation>Kopioi olemassaoleva template.xml-tiedosto tiedostoon template.kieli_MAA.xml. Käytä samaa kielikoodia kuin käännöstiedostossa on käytetty kielellesi. Esimerkiksi suomenkielinen käännös tulisi nimetä template.fi.xml. Kopion tulee sijaita samassa hakemistossa kuin alkuperäinen template.xml-tiedosto.</translation>
     </message>
 </context>
 <context>

@@ -1787,35 +1787,35 @@ To zahteva zelo natančno izbiro vseh profilov.</translation>
     <name>CsvDialog</name>
     <message>
         <source>CSV Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Možnosti CVS uvoza</translation>
     </message>
     <message>
         <source>Field delimiter:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ločilo polj:</translation>
     </message>
     <message>
         <source>(TAB)</source>
-        <translation type="unfinished"></translation>
+        <translation>(TAB)</translation>
     </message>
     <message>
         <source>Value delimiter:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ločilo vrednosti:</translation>
     </message>
     <message>
         <source>First row is a header</source>
-        <translation type="unfinished"></translation>
+        <translation>Prva vrstica so naslovi</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">V redu</translation>
+        <translation>V redu</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Prekliči</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Brez</translation>
+        <translation>Brez</translation>
     </message>
 </context>
 <context>
@@ -3349,7 +3349,7 @@ uporabite 72 dpi</translation>
     </message>
     <message>
         <source>Fonts Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Predogled pisav</translation>
     </message>
 </context>
 <context>
@@ -9185,59 +9185,59 @@ Preverite ime in pot do nje.</translation>
     <name>QFontDialog</name>
     <message>
         <source>&amp;Font</source>
-        <translation type="unfinished">&amp;Pisava</translation>
+        <translation>&amp;Pisava</translation>
     </message>
     <message>
         <source>Font st&amp;yle</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;log pisave</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation type="unfinished">&amp;Velikost</translation>
+        <translation>&amp;Velikost</translation>
     </message>
     <message>
         <source>Effects</source>
-        <translation type="unfinished">Učinki</translation>
+        <translation>Učinki</translation>
     </message>
     <message>
         <source>Stri&amp;keout</source>
-        <translation type="unfinished"></translation>
+        <translation>Pre&amp;črtano</translation>
     </message>
     <message>
         <source>&amp;Underline</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Podčrtano</translation>
     </message>
     <message>
         <source>&amp;Color</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Barva</translation>
     </message>
     <message>
         <source>Sample</source>
-        <translation type="unfinished"></translation>
+        <translation>Primer</translation>
     </message>
     <message>
         <source>Scr&amp;ipt</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;kripta</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">V redu</translation>
+        <translation>V redu</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished">Uporabi</translation>
+        <translation>Uporabi</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Prekliči</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Zapri</translation>
+        <translation>Zapri</translation>
     </message>
     <message>
         <source>Select Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Izberi pisavo</translation>
     </message>
 </context>
 <context>
@@ -9679,15 +9679,15 @@ Preverite ime in pot do nje.</translation>
     </message>
     <message>
         <source>Comma Separated Value Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Datoteke z vrednostmi, ločene z vejicami</translation>
     </message>
     <message>
         <source>CSV_data</source>
-        <translation type="unfinished"></translation>
+        <translation>podatki CVS</translation>
     </message>
     <message>
         <source>CSV_header</source>
-        <translation type="unfinished"></translation>
+        <translation>glava CVS</translation>
     </message>
 </context>
 <context>
@@ -11532,7 +11532,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Edit Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Uredi obliko</translation>
     </message>
 </context>
 <context>
@@ -12813,27 +12813,27 @@ prebere, mora biti kopija v istem imeniku kot izvirna template.xml.</translation
     </message>
     <message>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation type="unfinished"></translation>
+        <translation>Predloge dokumentov lahko najdete na http://www.scribus.net/, v rubriki &quot;Downloads&quot;.</translation>
     </message>
     <message>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation type="unfinished"></translation>
+        <translation>Prepričajte se, da uporabljate prosto dostopne slike in pisave. Če pisave niso za prosto uporabo jih ne shranjujte v predlogo.</translation>
     </message>
     <message>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kdor ustvarja predlogo mora poskrbeti, da se gornji razdelek &quot;Nalagam predloge&quot; nanaša tudi na njegove predloge. Tako bodo uporabniki lahko uporabili paket s predlogo v svojih imenikih za predloge.</translation>
     </message>
     <message>
         <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstranjevanje predloge preko pogovornega okna &quot;Nova iz predloge&quot; odstrani le vnos v nastavitveni datoteki template.xmln ne pa tudi dejanske datoteke. Meni za brisanje se prikaže le, le imate pravico pisanja v datoteko template.xml.</translation>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Skopiraj obstoječo datoteko template.xml v datoteko z imenom template.jezik_DRŽAVA.xml (uporabite isto jezikovno oznako kot za .qm datoteko vašega jezika), na primer template.sl_SI.xml za slovensko datoteko s predlogami. Kopija mora biti v istem imeniku kot izvirna datoteka template.xml.</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished">Datum</translation>
+        <translation>Datum</translation>
     </message>
 </context>
 <context>

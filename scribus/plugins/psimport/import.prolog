@@ -438,6 +438,7 @@
 	currentfont /FontName known
 	% stack: string
 	{
+		currentpoint /ycur exch def /xcur exch def
 		currentpoint	% x y
 		newpath
 		/clipCnt 0 def
@@ -448,12 +449,14 @@
 			(n\n)print			% start polygon
 			writecurrentcolor	% write color
 			storeMatrix
-			currentpoint	% x y
-			newpath			% clear graphic stack
-			moveto
-			1 index exch 1 getinterval false root_charpath
+			1 index exch 1 getinterval dup /curstr exch def false root_charpath
 			{_move} {_line} {_curve} {_close} pathforall
 			(f\n)print			% close polygon
+			newpath
+			curstr stringwidth exch xcur add exch ycur add moveto
+			currentpoint /ycur exch def /xcur exch def
+			newpath			% clear graphic stack
+			xcur ycur moveto
 		} for
 		currentpoint	% x y
 		newpath				% clear graphic stack (and current point)
@@ -473,6 +476,7 @@
 	currentfont /FontName known
 	% stack: string
 	{
+		currentpoint /ycur exch def /xcur exch def
 		currentpoint	% x y
 		newpath
 		/clipCnt 0 def
@@ -483,16 +487,17 @@
 			(n\n)print			% start polygon
 			writecurrentcolor	% write color
 			storeMatrix
-			currentpoint	% x y
-			newpath			% clear graphic stack
-			moveto
-			1 index exch 1 getinterval false root_charpath
+			1 index exch 1 getinterval dup /curstr exch def false root_charpath
 			{_move} {_line} {_curve} {_close} pathforall
 			(f\n)print			% close polygon
+			newpath
+			curstr stringwidth exch xcur add exch ycur add
+			exch xdist add exch ydist add moveto
+			currentpoint /ycur exch def /xcur exch def
+			newpath			% clear graphic stack
+			xcur ycur moveto
 		} for
 		currentpoint	% x y
-		exch xdist add exch
-		ydist add
 		newpath				% clear graphic stack (and current point)
 		moveto
 	} if

@@ -1,5 +1,10 @@
 Changes since 1.2RC1 
 
+21.08.2004
+	* feature #980: Finnish translation update
+	* feature #981: czech translation
+	* feature #982: scribus 1.2rc1slovene translation file
+
 20.08.2004
 	* bug     #977: Font spacing problem
 	* bug     #978: Selecting text font size box deselects text inside the Story Editor

@@ -55,7 +55,7 @@ public:
 	void LoadPict(QString fn, int ItNr);
 	void insertColor(QString nam, double c, double m, double y, double k);
 	void DrawPageMarks(ScPainter *p, QRect rd);
-	void DrawPageItems(ScPainter *painter, QRect rd);
+	void DrawPageItems(ScPainter *painter, QRect rd, bool sp = false);
 	void leaveEvent(QEvent *);
 	void paintEvent(QPaintEvent *e);
 	void setGroupRect();
