@@ -312,13 +312,242 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 /** Zeichnet das Item */
 void PageItem::DrawObj(ScPainter *p, QRect e)
 {
+	switch(itemType())
+	{
+		case ImageFrame:
+			DrawObj_ImageFrame(p, e);
+			break;
+		case TextFrame:
+			DrawObj_TextFrame(p, e);
+			break;
+		case Line:
+			DrawObj_Line(p, e);
+			break;
+		case Polygon:
+			DrawObj_Polygon(p, e);
+			break;
+		case PolyLine:
+			DrawObj_PolyLine(p, e);
+			break;
+		case PathText:
+			DrawObj_PathText(p, e);
+			break;
+		default:
+			break;
+	}
+}
+
+/** Zeichnet das Item */
+void PageItem::DrawObj_ImageFrame(ScPainter *p, QRect e)
+{
 	QColor tmp;
-	FPointArray CL;
-	QPointArray cl;
+	QPainter pf;
+	double sc = ScApp->view->Scale;
+	if (!Doc->DoDrawing)
+	{
+		Redrawn = true;
+		Tinput = false;
+		FrameOnly = false;
+		return;
+	}
+	pf.begin(ScApp->view->viewport());
+	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
+	pf.translate(trans.x(), trans.y());
+	pf.rotate(Rot);
+	pf.scale(sc, sc);
+	if (!Doc->RePos)
+		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
+	bool doStroke = true;
+	QRect e2 = QRect(qRound(e.x() / sc), qRound(e.y() / sc), qRound(e.width() / sc), qRound(e.height() / sc));
+	p->setZoomFactor(sc);
+	p->save();
+	p->translate(Xpos*sc, Ypos*sc);
+	p->rotate(Rot);
+	p->setLineWidth(Pwidth);
+	if (GrType != 0)
+	{
+		p->setFillMode(ScPainter::Gradient);
+		p->fill_gradient = fill_gradient;
+		QWMatrix grm;
+		grm.rotate(Rot);
+		FPointArray gra;
+		switch (GrType)
+		{
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 6:
+				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+				gra.map(grm);
+				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+				break;
+			case 5:
+			case 7:
+				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+				p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
+				break;
+		}
+	}
+	else
+	{
+		p->fill_gradient = VGradient(VGradient::linear);
+		if (fillColor() != "None")
+		{
+			SetFarbe(&tmp, fillColor(), fillShade());
+			p->setBrush(tmp);
+			p->setFillMode(ScPainter::Solid);
+		}
+		else
+			p->setFillMode(ScPainter::None);
+	}
+	if (lineColor() != "None")
+	{
+		SetFarbe(&tmp, lineColor(), lineShade());
+		if ((Pwidth == 0) && (itemType() != Line))
+			p->setLineWidth(0);
+		else
+		{
+			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			if (DashValues.count() != 0)
+				p->setDash(DashValues, DashOffset);
+		}
+	}
+	else
+		p->setLineWidth(0);
+	p->setBrushOpacity(1.0 - fillTransparency());
+	p->setPenOpacity(1.0 - lineTransparency());
+	//switch (itemType())
+	//{
+	//	case ImageFrame:
+	//		if (Doc->RePos)
+	//			break;
+	if(!Doc->RePos)
+	{
+			if ((fillColor() != "None") || (GrType != 0))
+			{
+				p->setupPolygon(&PoLine);
+				p->fillPath();
+			}
+			if (Pfile == "")
+			{
+				if ((Frame) && (Doc->guidesSettings.framesShown))
+				{
+					p->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+					p->drawLine(FPoint(0, 0), FPoint(Width, Height));
+					p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+				}
+			}
+			else
+			{
+				if ((!PicArt) || (!PicAvail))
+				{
+					if ((Frame) && (Doc->guidesSettings.framesShown))
+					{
+						p->setPen(red, 1, SolidLine, FlatCap, MiterJoin);
+						p->drawLine(FPoint(0, 0), FPoint(Width, Height));
+						p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+					}
+				}
+				else
+				{
+					p->setupPolygon(&PoLine);
+					p->setClipPath();
+					p->save();
+					if (imageFlippedH())
+					{
+						p->translate(Width * sc, 0);
+						p->scale(-1, 1);
+					}
+					if (imageFlippedV())
+					{
+						p->translate(0, Height * sc);
+						p->scale(1, -1);
+					}
+					if ((LocalViewX != 1) || (LocalViewY != 1))
+						p->scale(LocalViewX, LocalViewY);
+					p->translate(LocalX*LocalScX*sc, LocalY*LocalScY*sc);
+					if (InvPict)
+					{
+						QImage ip = pixm.copy();
+						ip.invertPixels();
+						p->drawImage(&ip);
+					}
+					else
+						p->drawImage(&pixm);
+					p->restore();
+				}
+			}
+	//		break;
+	}
+	if ((doStroke) && (!Doc->RePos))
+	{
+		if (lineColor() != "None")
+		{
+			SetFarbe(&tmp, lineColor(), lineShade());
+			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			if (DashValues.count() != 0)
+				p->setDash(DashValues, DashOffset);
+		}
+		else
+			p->setLineWidth(0);
+		if (!isTableItem)
+		{
+			p->setupPolygon(&PoLine);
+			if (NamedLStyle == "")
+				p->strokePath();
+			else
+			{
+				multiLine ml = Doc->MLineStyles[NamedLStyle];
+				for (int it = ml.size()-1; it > -1; it--)
+				{
+					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(tmp, ml[it].Width,
+							  static_cast<PenStyle>(ml[it].Dash),
+							  static_cast<PenCapStyle>(ml[it].LineEnd),
+							  static_cast<PenJoinStyle>(ml[it].LineJoin));
+					p->strokePath();
+				}
+			}
+		}
+	}
+	if (!Doc->RePos)
+	{
+		double scp = QMAX(ScApp->view->Scale, 1);
+		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame)))
+		{
+			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
+			if ((isBookmark) || (isAnnotation))
+				p->setPen(blue, 1 / scp, DotLine, FlatCap, MiterJoin);
+			if ((BackBox != 0) || (NextBox != 0))
+				p->setPen(red, 1 / scp, SolidLine, FlatCap, MiterJoin);
+			if (Locked)
+				p->setPen(darkRed, 1 / scp, SolidLine, FlatCap, MiterJoin);
+			p->setFillMode(0);
+			p->setupPolygon(&PoLine);
+			p->strokePath();
+		}
+		if ((Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
+		{
+			p->setPen(lightGray, 1 / scp, DotLine, FlatCap, MiterJoin);
+			p->setupPolygon(&ContourLine);
+			p->strokePath();
+		}
+	}
+	Tinput = false;
+	FrameOnly = false;
+	p->restore();
+	pf.end();
+}
+
+/** Zeichnet das Item */
+void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
+{
+	QColor tmp;
 	QPainter pf, pp, pf2;
 	PageItem *nb;
 	QPoint pt1, pt2;
-	FPoint gv, ColBound;
+	FPoint ColBound;
 	QRegion cm;
 	uint a, nrc, nrc2, startLin;
 	int desc, asce, absa, aSpa, chs, chsd, CurrCol;
@@ -431,234 +660,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	p->setPenOpacity(1.0 - lineTransparency());
 	switch (itemType())
 	{
-		case ImageFrame:
-			if (Doc->RePos)
-				break;
-			if ((fillColor() != "None") || (GrType != 0))
-			{
-				p->setupPolygon(&PoLine);
-				p->fillPath();
-			}
-			if (Pfile == "")
-			{
-				if ((Frame) && (Doc->guidesSettings.framesShown))
-				{
-					p->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
-					p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-					p->drawLine(FPoint(0, Height), FPoint(Width, 0));
-				}
-			}
-			else
-			{
-				if ((!PicArt) || (!PicAvail))
-				{
-					if ((Frame) && (Doc->guidesSettings.framesShown))
-					{
-						p->setPen(red, 1, SolidLine, FlatCap, MiterJoin);
-						p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-						p->drawLine(FPoint(0, Height), FPoint(Width, 0));
-					}
-				}
-				else
-				{
-					p->setupPolygon(&PoLine);
-					p->setClipPath();
-					p->save();
-					if (imageFlippedH())
-					{
-						p->translate(Width * sc, 0);
-						p->scale(-1, 1);
-					}
-					if (imageFlippedV())
-					{
-						p->translate(0, Height * sc);
-						p->scale(1, -1);
-					}
-					if ((LocalViewX != 1) || (LocalViewY != 1))
-						p->scale(LocalViewX, LocalViewY);
-					p->translate(LocalX*LocalScX*sc, LocalY*LocalScY*sc);
-					if (InvPict)
-					{
-						QImage ip = pixm.copy();
-						ip.invertPixels();
-						p->drawImage(&ip);
-					}
-					else
-						p->drawImage(&pixm);
-					p->restore();
-				}
-			}
-			break;
-		case Line:
-			if (Doc->RePos)
-				break;
-			doStroke = false;
-			if (NamedLStyle == "")
-				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
-			else
-			{
-				multiLine ml = Doc->MLineStyles[NamedLStyle];
-				for (int it = ml.size()-1; it > -1; it--)
-				{
-					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-					p->setPen(tmp, ml[it].Width,
-									 static_cast<PenStyle>(ml[it].Dash),
-									 static_cast<PenCapStyle>(ml[it].LineEnd),
-									 static_cast<PenJoinStyle>(ml[it].LineJoin));
-					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
-				}
-			}
-			if (startArrowIndex != 0)
-			{
-				QWMatrix arrowTrans;
-				FPointArray arrow = (*Doc->arrowStyles.at(startArrowIndex-1)).points.copy();
-				arrowTrans.translate(0, 0);
-				arrowTrans.scale(Pwidth, Pwidth);
-				arrowTrans.scale(-1,1);
-				arrow.map(arrowTrans);
-				p->setBrush(p->pen());
-				p->setBrushOpacity(1.0 - lineTransparency());
-				p->setLineWidth(0);
-				p->setFillMode(ScPainter::Solid);
-				p->setupPolygon(&arrow);
-				p->fillPath();
-			}
-			if (endArrowIndex != 0)
-			{
-				QWMatrix arrowTrans;
-				FPointArray arrow = (*Doc->arrowStyles.at(endArrowIndex-1)).points.copy();
-				arrowTrans.translate(Width, 0);
-				arrowTrans.scale(Pwidth, Pwidth);
-				arrow.map(arrowTrans);
-				p->setBrush(p->pen());
-				p->setBrushOpacity(1.0 - lineTransparency());
-				p->setLineWidth(0);
-				p->setFillMode(ScPainter::Solid);
-				p->setupPolygon(&arrow);
-				p->fillPath();
-			}
-			break;
-		/* OBSOLETE CR 2005-02-06
-		case 1:
-		case 3:
-		*/
-		case Polygon:
-			if (Doc->RePos)
-				break;
-			p->setupPolygon(&PoLine);
-			p->fillPath();
-			break;
-		case PolyLine:
-			doStroke = false;
-			if (Doc->RePos)
-				break;
-			if (PoLine.size() < 4)
-				break;
-			if ((fillColor() != "None") || (GrType != 0))
-			{
-				FPointArray cli;
-				FPoint Start;
-				bool firstp = true;
-				for (uint n = 0; n < PoLine.size()-3; n += 4)
-				{
-					if (firstp)
-					{
-						Start = PoLine.point(n);
-						firstp = false;
-					}
-					if (PoLine.point(n).x() > 900000)
-					{
-						cli.addPoint(PoLine.point(n-2));
-						cli.addPoint(PoLine.point(n-2));
-						cli.addPoint(Start);
-						cli.addPoint(Start);
-						cli.setMarker();
-						firstp = true;
-						continue;
-					}
-					cli.addPoint(PoLine.point(n));
-					cli.addPoint(PoLine.point(n+1));
-					cli.addPoint(PoLine.point(n+2));
-					cli.addPoint(PoLine.point(n+3));
-				}
-				if (cli.size() > 2)
-				{
-					FPoint l1 = cli.point(cli.size()-2);
-					cli.addPoint(l1);
-					cli.addPoint(l1);
-					cli.addPoint(Start);
-					cli.addPoint(Start);
-				}
-				p->setupPolygon(&cli);
-				p->fillPath();
-			}
-			p->setupPolygon(&PoLine, false);
-			if (NamedLStyle == "")
-				p->strokePath();
-			else
-			{
-				multiLine ml = Doc->MLineStyles[NamedLStyle];
-				for (int it = ml.size()-1; it > -1; it--)
-				{
-					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-					p->setPen(tmp, ml[it].Width,
-									 static_cast<PenStyle>(ml[it].Dash),
-									 static_cast<PenCapStyle>(ml[it].LineEnd),
-									 static_cast<PenJoinStyle>(ml[it].LineJoin));
-					p->strokePath();
-				}
-			}
-			if (startArrowIndex != 0)
-			{
-				FPoint Start = PoLine.point(0);
-				for (uint xx = 1; xx < PoLine.size(); xx += 2)
-				{
-					FPoint Vector = PoLine.point(xx);
-					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
-					{
-						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/3.1415927);
-						QWMatrix arrowTrans;
-						FPointArray arrow = (*Doc->arrowStyles.at(startArrowIndex-1)).points.copy();
-						arrowTrans.translate(Start.x(), Start.y());
-						arrowTrans.rotate(r);
-						arrowTrans.scale(Pwidth, Pwidth);
-						arrow.map(arrowTrans);
-						p->setBrush(p->pen());
-						p->setBrushOpacity(1.0 - lineTransparency());
-						p->setLineWidth(0);
-						p->setFillMode(ScPainter::Solid);
-						p->setupPolygon(&arrow);
-						p->fillPath();
-						break;
-					}
-				}
-			}
-			if (endArrowIndex != 0)
-			{
-				FPoint End = PoLine.point(PoLine.size()-2);
-				for (uint xx = PoLine.size()-1; xx > 0; xx -= 2)
-				{
-					FPoint Vector = PoLine.point(xx);
-					if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
-					{
-						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/3.1415927);
-						QWMatrix arrowTrans;
-						FPointArray arrow = (*Doc->arrowStyles.at(endArrowIndex-1)).points.copy();
-						arrowTrans.translate(End.x(), End.y());
-						arrowTrans.rotate(r);
-						arrowTrans.scale(Pwidth, Pwidth);
-						arrow.map(arrowTrans);
-						p->setBrush(p->pen());
-						p->setBrushOpacity(1.0 - lineTransparency());
-						p->setLineWidth(0);
-						p->setFillMode(ScPainter::Solid);
-						p->setupPolygon(&arrow);
-						p->fillPath();
-						break;
-					}
-				}
-			}
-			break;
 		case TextFrame:
 			p->save();
 			pf2.begin(ScApp->view->viewport());
@@ -793,7 +794,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				for (a = 0; a < Doc->Items.count(); ++a)
 				{
 					if (((Doc->Items.at(a)->ItemNr > ItemNr) && (Doc->Items.at(a)->LayerNr == LayerNr))
-   							|| (Doc->Layers[Doc->Items.at(a)->LayerNr].Level > Doc->Layers[LayerNr].Level))
+										 || (Doc->Layers[Doc->Items.at(a)->LayerNr].Level > Doc->Layers[LayerNr].Level))
 					{
 						if (Doc->Items.at(a)->textFlowsAroundFrame())
 						{
@@ -1125,8 +1126,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					if (RTab)
 					{
 						if (((hl->ch == ".") && (TabCode == 2)) ||
-							((hl->ch == ",") && (TabCode == 3)) ||
-							(hl->ch == QChar(9)))
+												((hl->ch == ",") && (TabCode == 3)) ||
+												(hl->ch == QChar(9)))
 						{
 							RTab = false;
 							TabCode = 0;
@@ -1234,8 +1235,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						{
 							if (itemText.at(a-1)->ch !=  " ")
 							{
-							LastXp = hl->xp;
-							LastSP = BuPos;
+								LastXp = hl->xp;
+								LastSP = BuPos;
 							}
 						}
 						else
@@ -1264,14 +1265,14 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							cen = 2;
 						for (uint rtx = StartRT; rtx < LiList.count(); ++rtx)
 						{
-								LiList.at(rtx)->xco = QMAX(LiList.at(rtx)->xco-(wide+kernVal) / cen, 0.0);
-								itemText.at(StartRT2+rtx2)->xp = QMAX(itemText.at(StartRT2+rtx2)->xp-(wide+kernVal) / cen, 0.0);
-								if (itemText.at(StartRT2+rtx2)->xp < RTabX)
-								{
-									RTab = false;
-									TabCode = 0;
-								}
-								rtx2++;
+							LiList.at(rtx)->xco = QMAX(LiList.at(rtx)->xco-(wide+kernVal) / cen, 0.0);
+							itemText.at(StartRT2+rtx2)->xp = QMAX(itemText.at(StartRT2+rtx2)->xp-(wide+kernVal) / cen, 0.0);
+							if (itemText.at(StartRT2+rtx2)->xp < RTabX)
+							{
+								RTab = false;
+								TabCode = 0;
+							}
+							rtx2++;
 						}
 					}
 					BuPos++;
@@ -1684,66 +1685,822 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 			pf2.end();
 			p->restore();
 			break;
-NoRoom: pf2.end();
-				if (NextBox != 0)
+			NoRoom: pf2.end();
+			if (NextBox != 0)
+			{
+				nrc2 = itemText.count();
+				for (uint ss=nrc; ss<nrc2; ++ss)
 				{
-					nrc2 = itemText.count();
-					for (uint ss=nrc; ss<nrc2; ++ss)
+					NextBox->itemText.append(itemText.take(nrc));
+				}
+				if (uint(CPos) > nrc)
+				{
+					int nCP = CPos - nrc;
+					CPos = nrc;
+					if ((Doc->appMode == EditMode) && (Tinput))
 					{
-						NextBox->itemText.append(itemText.take(nrc));
-					}
-					if (uint(CPos) > nrc)
-					{
-						int nCP = CPos - nrc;
-						CPos = nrc;
-						if ((Doc->appMode == EditMode) && (Tinput))
-						{
 //							OwnPage->Deselect(true);
-							NextBox->CPos = QMAX(nCP, 1);
+						NextBox->CPos = QMAX(nCP, 1);
 //							Doc->currentPage = NextBox->OwnPage;
 //							NextBox->OwnPage->SelectItemNr(NextBox->ItemNr);
-							break;
-						}
-					}
-					p->save();
-					bool rep = Doc->RePos;
-					Doc->RePos = true;
-					NextBox->Dirty = false;
-					QPixmap pgPix(1, 1);
-					ScPainter *painter = new ScPainter(&pgPix, 1, 1);
-					painter->translate(0.5, 0.5);
-					NextBox->DrawObj(painter, QRect(0, 0, 1, 1));
-					NextBox->Dirty = true;
-					painter->end();
-					delete painter;
-					p->restore();
-					Doc->RePos = rep;
-				}
-				else
-				{
-					if (!Doc->RePos)
-					{
-						double scp1 = 1.0/QMAX(ScApp->view->Scale, 1);
-						double scp16 = 16.0*scp1;
-						double scp14 = 14.0*scp1;
-						double scp3 = 3.0*scp1;
-						double scpwidth16 = Width - scp16;
-						double scpheight16 = Height - scp16;
-						double scpwidth3 = Width - scp3;
-						double scpheight3 = Height - scp3;
-						p->setPen(black, scp1, SolidLine, FlatCap, MiterJoin);
-						p->setBrush(white);
-						p->drawRect(scpwidth16, scpheight16, scp14, scp14);
-						p->drawLine(FPoint(scpwidth16, scpheight16), FPoint(scpwidth3, scpheight3));
-						p->drawLine(FPoint(scpwidth16, scpheight3), FPoint(scpwidth3, scpheight16));
+						break;
 					}
 				}
-				MaxChars = nrc;
-				Redrawn = true;
+				p->save();
+				bool rep = Doc->RePos;
+				Doc->RePos = true;
+				NextBox->Dirty = false;
+				QPixmap pgPix(1, 1);
+				ScPainter *painter = new ScPainter(&pgPix, 1, 1);
+				painter->translate(0.5, 0.5);
+				NextBox->DrawObj(painter, QRect(0, 0, 1, 1));
+				NextBox->Dirty = true;
+				painter->end();
+				delete painter;
 				p->restore();
-				break;
-		case PathText:
+				Doc->RePos = rep;
+			}
+			else
 			{
+				if (!Doc->RePos)
+				{
+					double scp1 = 1.0/QMAX(ScApp->view->Scale, 1);
+					double scp16 = 16.0*scp1;
+					double scp14 = 14.0*scp1;
+					double scp3 = 3.0*scp1;
+					double scpwidth16 = Width - scp16;
+					double scpheight16 = Height - scp16;
+					double scpwidth3 = Width - scp3;
+					double scpheight3 = Height - scp3;
+					p->setPen(black, scp1, SolidLine, FlatCap, MiterJoin);
+					p->setBrush(white);
+					p->drawRect(scpwidth16, scpheight16, scp14, scp14);
+					p->drawLine(FPoint(scpwidth16, scpheight16), FPoint(scpwidth3, scpheight3));
+					p->drawLine(FPoint(scpwidth16, scpheight3), FPoint(scpwidth3, scpheight16));
+				}
+			}
+			MaxChars = nrc;
+			Redrawn = true;
+			p->restore();
+			break;
+		default:
+			break;
+	}
+	if ((doStroke) && (!Doc->RePos))
+	{
+		if (lineColor() != "None")
+		{
+			SetFarbe(&tmp, lineColor(), lineShade());
+			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			if (DashValues.count() != 0)
+				p->setDash(DashValues, DashOffset);
+		}
+		else
+			p->setLineWidth(0);
+		if (!isTableItem)
+		{
+			p->setupPolygon(&PoLine);
+			if (NamedLStyle == "")
+				p->strokePath();
+			else
+			{
+				multiLine ml = Doc->MLineStyles[NamedLStyle];
+				for (int it = ml.size()-1; it > -1; it--)
+				{
+					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(tmp, ml[it].Width,
+							  static_cast<PenStyle>(ml[it].Dash),
+							  static_cast<PenCapStyle>(ml[it].LineEnd),
+							  static_cast<PenJoinStyle>(ml[it].LineJoin));
+					p->strokePath();
+				}
+			}
+		}
+	}
+	if (!Doc->RePos)
+	{
+		double scp = QMAX(ScApp->view->Scale, 1);
+		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame)))
+		{
+			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
+			if ((isBookmark) || (isAnnotation))
+				p->setPen(blue, 1 / scp, DotLine, FlatCap, MiterJoin);
+			if ((BackBox != 0) || (NextBox != 0))
+				p->setPen(red, 1 / scp, SolidLine, FlatCap, MiterJoin);
+			if (Locked)
+				p->setPen(darkRed, 1 / scp, SolidLine, FlatCap, MiterJoin);
+			p->setFillMode(0);
+			p->setupPolygon(&PoLine);
+			p->strokePath();
+		}
+		if ((Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
+		{
+			p->setPen(lightGray, 1 / scp, DotLine, FlatCap, MiterJoin);
+			p->setupPolygon(&ContourLine);
+			p->strokePath();
+		}
+	}
+	Tinput = false;
+	FrameOnly = false;
+	p->restore();
+	pf.end();
+// 	checkChanges(); // check the changes for undo actions
+}
+
+/** Zeichnet das Item */
+void PageItem::DrawObj_Line(ScPainter *p, QRect e)
+{
+	QColor tmp;
+	QPainter pf;
+	double sc = ScApp->view->Scale;
+	if (!Doc->DoDrawing)
+	{
+		Redrawn = true;
+		Tinput = false;
+		FrameOnly = false;
+		return;
+	}
+	pf.begin(ScApp->view->viewport());
+	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
+	pf.translate(trans.x(), trans.y());
+	pf.rotate(Rot);
+	pf.scale(sc, sc);
+	if (!Doc->RePos)
+		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
+	bool doStroke = true;
+	QRect e2 = QRect(qRound(e.x() / sc), qRound(e.y() / sc), qRound(e.width() / sc), qRound(e.height() / sc));
+	p->setZoomFactor(sc);
+	p->save();
+	p->translate(Xpos*sc, Ypos*sc);
+	p->rotate(Rot);
+	p->setLineWidth(Pwidth);
+	if (GrType != 0)
+	{
+		p->setFillMode(ScPainter::Gradient);
+		p->fill_gradient = fill_gradient;
+		QWMatrix grm;
+		grm.rotate(Rot);
+		FPointArray gra;
+		switch (GrType)
+		{
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 6:
+				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+				gra.map(grm);
+				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+				break;
+			case 5:
+			case 7:
+				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+				p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
+				break;
+		}
+	}
+	else
+	{
+		p->fill_gradient = VGradient(VGradient::linear);
+		if (fillColor() != "None")
+		{
+			SetFarbe(&tmp, fillColor(), fillShade());
+			p->setBrush(tmp);
+			p->setFillMode(ScPainter::Solid);
+		}
+		else
+			p->setFillMode(ScPainter::None);
+	}
+	if (lineColor() != "None")
+	{
+		SetFarbe(&tmp, lineColor(), lineShade());
+		if ((Pwidth == 0) && (itemType() != Line))
+			p->setLineWidth(0);
+		else
+		{
+			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			if (DashValues.count() != 0)
+				p->setDash(DashValues, DashOffset);
+		}
+	}
+	else
+		p->setLineWidth(0);
+	p->setBrushOpacity(1.0 - fillTransparency());
+	p->setPenOpacity(1.0 - lineTransparency());
+	//switch (itemType())
+	//{
+	//	case Line:
+	//		if (Doc->RePos)
+	//			break;
+	if (!Doc->RePos)
+	{
+			doStroke = false;
+			if (NamedLStyle == "")
+				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+			else
+			{
+				multiLine ml = Doc->MLineStyles[NamedLStyle];
+				for (int it = ml.size()-1; it > -1; it--)
+				{
+					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(tmp, ml[it].Width,
+							  static_cast<PenStyle>(ml[it].Dash),
+							  static_cast<PenCapStyle>(ml[it].LineEnd),
+							  static_cast<PenJoinStyle>(ml[it].LineJoin));
+					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+				}
+			}
+			if (startArrowIndex != 0)
+			{
+				QWMatrix arrowTrans;
+				FPointArray arrow = (*Doc->arrowStyles.at(startArrowIndex-1)).points.copy();
+				arrowTrans.translate(0, 0);
+				arrowTrans.scale(Pwidth, Pwidth);
+				arrowTrans.scale(-1,1);
+				arrow.map(arrowTrans);
+				p->setBrush(p->pen());
+				p->setBrushOpacity(1.0 - lineTransparency());
+				p->setLineWidth(0);
+				p->setFillMode(ScPainter::Solid);
+				p->setupPolygon(&arrow);
+				p->fillPath();
+			}
+			if (endArrowIndex != 0)
+			{
+				QWMatrix arrowTrans;
+				FPointArray arrow = (*Doc->arrowStyles.at(endArrowIndex-1)).points.copy();
+				arrowTrans.translate(Width, 0);
+				arrowTrans.scale(Pwidth, Pwidth);
+				arrow.map(arrowTrans);
+				p->setBrush(p->pen());
+				p->setBrushOpacity(1.0 - lineTransparency());
+				p->setLineWidth(0);
+				p->setFillMode(ScPainter::Solid);
+				p->setupPolygon(&arrow);
+				p->fillPath();
+			}
+	//		break;
+	}
+	if ((doStroke) && (!Doc->RePos))
+	{
+		if (lineColor() != "None")
+		{
+			SetFarbe(&tmp, lineColor(), lineShade());
+			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			if (DashValues.count() != 0)
+				p->setDash(DashValues, DashOffset);
+		}
+		else
+			p->setLineWidth(0);
+		if (!isTableItem)
+		{
+			p->setupPolygon(&PoLine);
+			if (NamedLStyle == "")
+				p->strokePath();
+			else
+			{
+				multiLine ml = Doc->MLineStyles[NamedLStyle];
+				for (int it = ml.size()-1; it > -1; it--)
+				{
+					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(tmp, ml[it].Width,
+							  static_cast<PenStyle>(ml[it].Dash),
+							  static_cast<PenCapStyle>(ml[it].LineEnd),
+							  static_cast<PenJoinStyle>(ml[it].LineJoin));
+					p->strokePath();
+				}
+			}
+		}
+	}
+	if (!Doc->RePos)
+	{
+		double scp = QMAX(ScApp->view->Scale, 1);
+		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame)))
+		{
+			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
+			if ((isBookmark) || (isAnnotation))
+				p->setPen(blue, 1 / scp, DotLine, FlatCap, MiterJoin);
+			if ((BackBox != 0) || (NextBox != 0))
+				p->setPen(red, 1 / scp, SolidLine, FlatCap, MiterJoin);
+			if (Locked)
+				p->setPen(darkRed, 1 / scp, SolidLine, FlatCap, MiterJoin);
+			p->setFillMode(0);
+			p->setupPolygon(&PoLine);
+			p->strokePath();
+		}
+		if ((Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
+		{
+			p->setPen(lightGray, 1 / scp, DotLine, FlatCap, MiterJoin);
+			p->setupPolygon(&ContourLine);
+			p->strokePath();
+		}
+	}
+	Tinput = false;
+	FrameOnly = false;
+	p->restore();
+	pf.end();
+// 	checkChanges(); // check the changes for undo actions
+}
+
+/** Zeichnet das Item */
+void PageItem::DrawObj_Polygon(ScPainter *p, QRect e)
+{
+	QColor tmp;
+	QPainter pf;
+	double sc = ScApp->view->Scale;
+	if (!Doc->DoDrawing)
+	{
+		Redrawn = true;
+		Tinput = false;
+		FrameOnly = false;
+		return;
+	}
+	pf.begin(ScApp->view->viewport());
+	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
+	pf.translate(trans.x(), trans.y());
+	pf.rotate(Rot);
+	pf.scale(sc, sc);
+	if (!Doc->RePos)
+		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
+	bool doStroke = true;
+	QRect e2 = QRect(qRound(e.x() / sc), qRound(e.y() / sc), qRound(e.width() / sc), qRound(e.height() / sc));
+	p->setZoomFactor(sc);
+	p->save();
+	p->translate(Xpos*sc, Ypos*sc);
+	p->rotate(Rot);
+	p->setLineWidth(Pwidth);
+	if (GrType != 0)
+	{
+		p->setFillMode(ScPainter::Gradient);
+		p->fill_gradient = fill_gradient;
+		QWMatrix grm;
+		grm.rotate(Rot);
+		FPointArray gra;
+		switch (GrType)
+		{
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 6:
+				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+				gra.map(grm);
+				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+				break;
+			case 5:
+			case 7:
+				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+				p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
+				break;
+		}
+	}
+	else
+	{
+		p->fill_gradient = VGradient(VGradient::linear);
+		if (fillColor() != "None")
+		{
+			SetFarbe(&tmp, fillColor(), fillShade());
+			p->setBrush(tmp);
+			p->setFillMode(ScPainter::Solid);
+		}
+		else
+			p->setFillMode(ScPainter::None);
+	}
+	if (lineColor() != "None")
+	{
+		SetFarbe(&tmp, lineColor(), lineShade());
+		if ((Pwidth == 0) && (itemType() != Line))
+			p->setLineWidth(0);
+		else
+		{
+			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			if (DashValues.count() != 0)
+				p->setDash(DashValues, DashOffset);
+		}
+	}
+	else
+		p->setLineWidth(0);
+	p->setBrushOpacity(1.0 - fillTransparency());
+	p->setPenOpacity(1.0 - lineTransparency());
+	//switch (itemType())
+	//{
+	//	case Polygon:
+	//		if (Doc->RePos)
+	//			break;
+	if (!Doc->RePos)
+	{
+			p->setupPolygon(&PoLine);
+			p->fillPath();
+	//		break;
+	}
+	if ((doStroke) && (!Doc->RePos))
+	{
+		if (lineColor() != "None")
+		{
+			SetFarbe(&tmp, lineColor(), lineShade());
+			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			if (DashValues.count() != 0)
+				p->setDash(DashValues, DashOffset);
+		}
+		else
+			p->setLineWidth(0);
+		if (!isTableItem)
+		{
+			p->setupPolygon(&PoLine);
+			if (NamedLStyle == "")
+				p->strokePath();
+			else
+			{
+				multiLine ml = Doc->MLineStyles[NamedLStyle];
+				for (int it = ml.size()-1; it > -1; it--)
+				{
+					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(tmp, ml[it].Width,
+							  static_cast<PenStyle>(ml[it].Dash),
+							  static_cast<PenCapStyle>(ml[it].LineEnd),
+							  static_cast<PenJoinStyle>(ml[it].LineJoin));
+					p->strokePath();
+				}
+			}
+		}
+	}
+	if (!Doc->RePos)
+	{
+		double scp = QMAX(ScApp->view->Scale, 1);
+		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame)))
+		{
+			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
+			if ((isBookmark) || (isAnnotation))
+				p->setPen(blue, 1 / scp, DotLine, FlatCap, MiterJoin);
+			if ((BackBox != 0) || (NextBox != 0))
+				p->setPen(red, 1 / scp, SolidLine, FlatCap, MiterJoin);
+			if (Locked)
+				p->setPen(darkRed, 1 / scp, SolidLine, FlatCap, MiterJoin);
+			p->setFillMode(0);
+			p->setupPolygon(&PoLine);
+			p->strokePath();
+		}
+		if ((Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
+		{
+			p->setPen(lightGray, 1 / scp, DotLine, FlatCap, MiterJoin);
+			p->setupPolygon(&ContourLine);
+			p->strokePath();
+		}
+	}
+	Tinput = false;
+	FrameOnly = false;
+	p->restore();
+	pf.end();
+// 	checkChanges(); // check the changes for undo actions
+}
+
+/** Zeichnet das Item */
+void PageItem::DrawObj_PolyLine(ScPainter *p, QRect e)
+{
+	QColor tmp;
+	QPainter pf;
+	double sc = ScApp->view->Scale;
+	if (!Doc->DoDrawing)
+	{
+		Redrawn = true;
+		Tinput = false;
+		FrameOnly = false;
+		return;
+	}
+	pf.begin(ScApp->view->viewport());
+	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
+	pf.translate(trans.x(), trans.y());
+	pf.rotate(Rot);
+	pf.scale(sc, sc);
+	if (!Doc->RePos)
+		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
+	bool doStroke = true;
+	QRect e2 = QRect(qRound(e.x() / sc), qRound(e.y() / sc), qRound(e.width() / sc), qRound(e.height() / sc));
+	p->setZoomFactor(sc);
+	p->save();
+	p->translate(Xpos*sc, Ypos*sc);
+	p->rotate(Rot);
+	p->setLineWidth(Pwidth);
+	if (GrType != 0)
+	{
+		p->setFillMode(ScPainter::Gradient);
+		p->fill_gradient = fill_gradient;
+		QWMatrix grm;
+		grm.rotate(Rot);
+		FPointArray gra;
+		switch (GrType)
+		{
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 6:
+				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+				gra.map(grm);
+				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+				break;
+			case 5:
+			case 7:
+				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+				p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
+				break;
+		}
+	}
+	else
+	{
+		p->fill_gradient = VGradient(VGradient::linear);
+		if (fillColor() != "None")
+		{
+			SetFarbe(&tmp, fillColor(), fillShade());
+			p->setBrush(tmp);
+			p->setFillMode(ScPainter::Solid);
+		}
+		else
+			p->setFillMode(ScPainter::None);
+	}
+	if (lineColor() != "None")
+	{
+		SetFarbe(&tmp, lineColor(), lineShade());
+		if ((Pwidth == 0) && (itemType() != Line))
+			p->setLineWidth(0);
+		else
+		{
+			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			if (DashValues.count() != 0)
+				p->setDash(DashValues, DashOffset);
+		}
+	}
+	else
+		p->setLineWidth(0);
+	p->setBrushOpacity(1.0 - fillTransparency());
+	p->setPenOpacity(1.0 - lineTransparency());
+	//switch (itemType())
+	//{
+	//	case PolyLine:
+			doStroke = false;
+	//		if (Doc->RePos)
+	//			break;
+	//		if (PoLine.size() < 4)
+	//			break;
+	if (!Doc->RePos && PoLine.size()>=4)
+	{
+			if ((fillColor() != "None") || (GrType != 0))
+			{
+				FPointArray cli;
+				FPoint Start;
+				bool firstp = true;
+				for (uint n = 0; n < PoLine.size()-3; n += 4)
+				{
+					if (firstp)
+					{
+						Start = PoLine.point(n);
+						firstp = false;
+					}
+					if (PoLine.point(n).x() > 900000)
+					{
+						cli.addPoint(PoLine.point(n-2));
+						cli.addPoint(PoLine.point(n-2));
+						cli.addPoint(Start);
+						cli.addPoint(Start);
+						cli.setMarker();
+						firstp = true;
+						continue;
+					}
+					cli.addPoint(PoLine.point(n));
+					cli.addPoint(PoLine.point(n+1));
+					cli.addPoint(PoLine.point(n+2));
+					cli.addPoint(PoLine.point(n+3));
+				}
+				if (cli.size() > 2)
+				{
+					FPoint l1 = cli.point(cli.size()-2);
+					cli.addPoint(l1);
+					cli.addPoint(l1);
+					cli.addPoint(Start);
+					cli.addPoint(Start);
+				}
+				p->setupPolygon(&cli);
+				p->fillPath();
+			}
+			p->setupPolygon(&PoLine, false);
+			if (NamedLStyle == "")
+				p->strokePath();
+			else
+			{
+				multiLine ml = Doc->MLineStyles[NamedLStyle];
+				for (int it = ml.size()-1; it > -1; it--)
+				{
+					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(tmp, ml[it].Width,
+							  static_cast<PenStyle>(ml[it].Dash),
+							  static_cast<PenCapStyle>(ml[it].LineEnd),
+							  static_cast<PenJoinStyle>(ml[it].LineJoin));
+					p->strokePath();
+				}
+			}
+			if (startArrowIndex != 0)
+			{
+				FPoint Start = PoLine.point(0);
+				for (uint xx = 1; xx < PoLine.size(); xx += 2)
+				{
+					FPoint Vector = PoLine.point(xx);
+					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+					{
+						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/3.1415927);
+						QWMatrix arrowTrans;
+						FPointArray arrow = (*Doc->arrowStyles.at(startArrowIndex-1)).points.copy();
+						arrowTrans.translate(Start.x(), Start.y());
+						arrowTrans.rotate(r);
+						arrowTrans.scale(Pwidth, Pwidth);
+						arrow.map(arrowTrans);
+						p->setBrush(p->pen());
+						p->setBrushOpacity(1.0 - lineTransparency());
+						p->setLineWidth(0);
+						p->setFillMode(ScPainter::Solid);
+						p->setupPolygon(&arrow);
+						p->fillPath();
+						break;
+					}
+				}
+			}
+			if (endArrowIndex != 0)
+			{
+				FPoint End = PoLine.point(PoLine.size()-2);
+				for (uint xx = PoLine.size()-1; xx > 0; xx -= 2)
+				{
+					FPoint Vector = PoLine.point(xx);
+					if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+					{
+						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/3.1415927);
+						QWMatrix arrowTrans;
+						FPointArray arrow = (*Doc->arrowStyles.at(endArrowIndex-1)).points.copy();
+						arrowTrans.translate(End.x(), End.y());
+						arrowTrans.rotate(r);
+						arrowTrans.scale(Pwidth, Pwidth);
+						arrow.map(arrowTrans);
+						p->setBrush(p->pen());
+						p->setBrushOpacity(1.0 - lineTransparency());
+						p->setLineWidth(0);
+						p->setFillMode(ScPainter::Solid);
+						p->setupPolygon(&arrow);
+						p->fillPath();
+						break;
+					}
+				}
+			}
+	//		break;
+	}
+	if ((doStroke) && (!Doc->RePos))
+	{
+		if (lineColor() != "None")
+		{
+			SetFarbe(&tmp, lineColor(), lineShade());
+			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			if (DashValues.count() != 0)
+				p->setDash(DashValues, DashOffset);
+		}
+		else
+			p->setLineWidth(0);
+		if (!isTableItem)
+		{
+			p->setupPolygon(&PoLine);
+			if (NamedLStyle == "")
+				p->strokePath();
+			else
+			{
+				multiLine ml = Doc->MLineStyles[NamedLStyle];
+				for (int it = ml.size()-1; it > -1; it--)
+				{
+					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(tmp, ml[it].Width,
+							  static_cast<PenStyle>(ml[it].Dash),
+							  static_cast<PenCapStyle>(ml[it].LineEnd),
+							  static_cast<PenJoinStyle>(ml[it].LineJoin));
+					p->strokePath();
+				}
+			}
+		}
+	}
+	if (!Doc->RePos)
+	{
+		double scp = QMAX(ScApp->view->Scale, 1);
+		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame)))
+		{
+			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
+			if ((isBookmark) || (isAnnotation))
+				p->setPen(blue, 1 / scp, DotLine, FlatCap, MiterJoin);
+			if ((BackBox != 0) || (NextBox != 0))
+				p->setPen(red, 1 / scp, SolidLine, FlatCap, MiterJoin);
+			if (Locked)
+				p->setPen(darkRed, 1 / scp, SolidLine, FlatCap, MiterJoin);
+			p->setFillMode(0);
+			p->setupPolygon(&PoLine);
+			p->strokePath();
+		}
+		if ((Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
+		{
+			p->setPen(lightGray, 1 / scp, DotLine, FlatCap, MiterJoin);
+			p->setupPolygon(&ContourLine);
+			p->strokePath();
+		}
+	}
+	Tinput = false;
+	FrameOnly = false;
+	p->restore();
+	pf.end();
+// 	checkChanges(); // check the changes for undo actions
+}
+
+/** Zeichnet das Item */
+void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
+{
+	QColor tmp;
+	QPainter pf;
+	uint a;
+	int chs;
+	double wide;
+	double sc = ScApp->view->Scale;
+	QString chx, chx2, chx3;
+	struct ScText *hl;
+	struct ZZ *Zli;
+	if (!Doc->DoDrawing)
+	{
+		Redrawn = true;
+		Tinput = false;
+		FrameOnly = false;
+		return;
+	}
+	pf.begin(ScApp->view->viewport());
+	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
+	pf.translate(trans.x(), trans.y());
+	pf.rotate(Rot);
+	pf.scale(sc, sc);
+	if (!Doc->RePos)
+		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
+	bool doStroke = true;
+	QRect e2 = QRect(qRound(e.x() / sc), qRound(e.y() / sc), qRound(e.width() / sc), qRound(e.height() / sc));
+	p->setZoomFactor(sc);
+	p->save();
+	p->translate(Xpos*sc, Ypos*sc);
+	p->rotate(Rot);
+	p->setLineWidth(Pwidth);
+	if (GrType != 0)
+	{
+		p->setFillMode(ScPainter::Gradient);
+		p->fill_gradient = fill_gradient;
+		QWMatrix grm;
+		grm.rotate(Rot);
+		FPointArray gra;
+		switch (GrType)
+		{
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 6:
+				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+				gra.map(grm);
+				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+				break;
+			case 5:
+			case 7:
+				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+				p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
+				break;
+		}
+	}
+	else
+	{
+		p->fill_gradient = VGradient(VGradient::linear);
+		if (fillColor() != "None")
+		{
+			SetFarbe(&tmp, fillColor(), fillShade());
+			p->setBrush(tmp);
+			p->setFillMode(ScPainter::Solid);
+		}
+		else
+			p->setFillMode(ScPainter::None);
+	}
+	if (lineColor() != "None")
+	{
+		SetFarbe(&tmp, lineColor(), lineShade());
+		if ((Pwidth == 0) && (itemType() != Line))
+			p->setLineWidth(0);
+		else
+		{
+			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			if (DashValues.count() != 0)
+				p->setDash(DashValues, DashOffset);
+		}
+	}
+	else
+		p->setLineWidth(0);
+	p->setBrushOpacity(1.0 - fillTransparency());
+	p->setPenOpacity(1.0 - lineTransparency());
+	//switch (itemType())
+	//{
+	//	case PathText:
+		{
 			if (!PoShow)
 				doStroke = false;
 			double dx;
@@ -1892,9 +2649,7 @@ NoRoom: pf2.end();
 				first = false;
 			}
 		}
-		default:
-			break;
-	}
+	//}
 	if ((doStroke) && (!Doc->RePos))
 	{
 		if (lineColor() != "None")
@@ -1918,9 +2673,9 @@ NoRoom: pf2.end();
 				{
 					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 					p->setPen(tmp, ml[it].Width,
-									 static_cast<PenStyle>(ml[it].Dash),
-									 static_cast<PenCapStyle>(ml[it].LineEnd),
-									 static_cast<PenJoinStyle>(ml[it].LineJoin));
+							  static_cast<PenStyle>(ml[it].Dash),
+							  static_cast<PenCapStyle>(ml[it].LineEnd),
+							  static_cast<PenJoinStyle>(ml[it].LineJoin));
 					p->strokePath();
 				}
 			}
@@ -1955,6 +2710,7 @@ NoRoom: pf2.end();
 	pf.end();
 // 	checkChanges(); // check the changes for undo actions
 }
+
 
 void PageItem::paintObj(QRect e, QPixmap *ppX)
 {
@@ -3782,4 +4538,3 @@ void PageItem::setObjectAttributes(ObjAttrVector* map)
 {
 	pageItemAttributes=*map;
 }
-

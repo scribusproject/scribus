@@ -177,6 +177,13 @@ public:
   /** Zeichnet das Item */
 	void paintObj(QRect e=QRect(), QPixmap *ppX = 0);
 	void DrawObj(ScPainter *p, QRect e);
+	void DrawObj_ImageFrame(ScPainter *p, QRect e);
+	void DrawObj_TextFrame(ScPainter *p, QRect e);
+	void DrawObj_Line(ScPainter *p, QRect e);
+	void DrawObj_Polygon(ScPainter *p, QRect e);
+	void DrawObj_PolyLine(ScPainter *p, QRect e);
+	void DrawObj_PathText(ScPainter *p, QRect e);
+
 	double SetZeichAttr(struct ScText *hl, int *chs, QString *chx);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
 	void DrawZeichenS(ScPainter *p, struct ZZ *hl);
