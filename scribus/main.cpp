@@ -53,8 +53,8 @@ QString file;
 
 void showUsage();
 int mainGui(int argc, char **argv);
-QString getLang(QString lang);
-void installTranslators(QApplication *app, QString lang);
+QStringList getLang(QString lang);
+void installTranslators(QApplication *app, QStringList langs);
 
 
 int main(int argc, char *argv[])
@@ -223,10 +223,10 @@ int mainGui(int argc, char **argv)
 {
     QApplication app(argc, argv);
 
-    lang = getLang(QString(lang));
+    QStringList langs = getLang(QString(lang));
 
-    if (lang != "")
-        installTranslators(&app, lang);
+    if (!langs.isEmpty())
+        installTranslators(&app, langs);
 
     app.processEvents();
 
@@ -247,7 +247,7 @@ int mainGui(int argc, char **argv)
 }
 
 /*!
- \fn void installTranslators(QApplication *app, QString lang)
+ \fn void getLang(QString lang)
  \author Franz Schmid
  \author Alessandro Rimoldi
  \date Mon Feb  9 14:07:46 CET 2004
@@ -257,27 +257,44 @@ int mainGui(int argc, char **argv)
  the whole string is returned. For all the other locales starting
  with "en", no locale is returned.
 
+ (Inspired from Klocale.cpp)
+
  \param lang QString a two letter string describing the lang environement
  \retval QString A string describing the language environement
  */
-QString getLang(QString lang)
+QStringList getLang(QString lang)
 {
-	if (lang == "")
-		lang = QString(QTextCodec::locale());
-	
-	if (lang.left(5) == "en_GB")
-		lang = "en_GB";
-	else {
-		if (lang.left(2) == "en")
-			lang = "";
-		else
-	    	lang = lang.left(2);
-	}
-    return lang;
-}
+    QStringList langs;
+
+    // read the locales
+    if (lang != "")
+        langs.push_back(lang);
+    #ifdef linux
+    if ((lang = ::getenv("LC_ALL")) != "")
+        langs.push_back(lang);
+    if ((lang = ::getenv("LC_MESSAGES")) != "")
+        langs.push_back(lang);
+    if ((lang = ::getenv("LANG")) != "")
+        langs.push_back(lang);
+    #endif
+    langs.push_back(QString(QTextCodec::locale()));
+
+    // remove duplicate entries... how can i remove the empty entries?
+    for (QStringList::Iterator it = langs.fromLast(); it != langs.begin(); --it)
+        // if (langs.contains(*it) > 1 || (*it == "") || (*it).isEmpty())
+        if (langs.contains(*it) > 1)
+            it = langs.remove(it);
+
+    // debugging code
+//    for (QStringList::Iterator it = langs.begin(); it != langs.end(); ++it)
+//        std::cout << "**" << *it << "**" << std::endl;
+
+    return langs;
+} 
+    
 
 /*!
- \fn void installTranslators(QApplication *app, QString lang)
+ \fn void installTranslators(QApplication *app, QStringList langs)
  \author Franz Schmid
  \author Alessandro Rimoldi
  \date Mon Feb  9 14:07:46 CET 2004
@@ -286,15 +303,31 @@ QString getLang(QString lang)
  \param lang QString a two letter string describing the lang environement
  \retval void
  */
-void installTranslators(QApplication *app, QString lang)
+void installTranslators(QApplication *app, QStringList langs)
 {
     QTranslator *trans = new QTranslator(0);
 
     QString path = SCRIBUS_LIB;
     path += BASE_QM;
 
-    trans->load(QString(path + '.' + lang), ".");
-    app->installTranslator(trans);
+ //   QString lang = "";
+
+    bool loaded = false;
+    for (QStringList::Iterator it = langs.begin(); it != langs.end() && !loaded; ++it) {
+        if ((*it).left(5) == "en_GB")
+            lang = "en_GB";
+        else
+            lang = (*it).left(2);
+
+        if (lang == "en")
+            break;
+        else if (loaded = trans->load(QString(path + '.' + lang), "."))
+            loaded = true;
+    }
+
+    if (loaded)
+        app->installTranslator(trans);
+
 
     /* ! the en_GB localisations cannot be loaded... ! */
     path = SCRIBUS_PLUGIN;

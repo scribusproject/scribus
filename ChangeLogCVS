@@ -1,5 +1,13 @@
 Changes since Version 1.1.6
 
+16.05.2004
+	* bug     #282: Update language detection to use LC_* variables
+	* bug     #623: Selecting Compress file deletes existing file name in dialog
+	* bug     #660: UI translations shouldn't influence scribus behaviour
+	* bug     #664: Bug 572 reloaded
+	* feature #657: update for the german language
+	* feature #661: Finnish translation update
+
 15.05.2004
 	* bug     #604: Grouped items can be grouped again
 	* bug     #634: Can't edit Line Style name

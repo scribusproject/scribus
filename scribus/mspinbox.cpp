@@ -110,43 +110,42 @@ int MSpinBox::mapTextToValue(bool *)
 {
 	FunctionParser fp;
 	QString ts = text();
-	QString su = suffix();
+	QString su = suffix().stripWhiteSpace();
 	ts.replace(",", ".");
 	ts.replace("%", "");
-	if ((su == QObject::tr( " pt" )) || (su == QObject::tr( "pt" )))
+	if ((su == tr( " pt" )) || (su == tr( "pt" )))
 	{
-		ts.replace(QObject::tr( "pt"), "");
-		ts.replace(QObject::tr( "mm"), "/25.4*72");
-		ts.replace(QObject::tr( "in"), "*72");
-		ts.replace(QObject::tr( "p"), "*12");
+		ts.replace(tr( "pt"), "");
+		ts.replace(tr( "mm"), "/25.4*72");
+		ts.replace(tr( "in"), "*72");
+		ts.replace(tr( "p"), "*12");
 	}
 	else 
-		if ((su == QObject::tr( " mm" )) || (su == QObject::tr( "mm" )))
+		if ((su == tr( " mm" )) || (su == tr( "mm" )))
 		{
-			ts.replace(QObject::tr( "pt"), "/72*25.4");
-			ts.replace(QObject::tr( "mm"), "");
-			ts.replace(QObject::tr( "in"), "*25.4");
-			ts.replace(QObject::tr( "p"), "/12*25.4");
+			ts.replace(tr( "pt"), "/72*25.4");
+			ts.replace(tr( "mm"), "");
+			ts.replace(tr( "in"), "*25.4");
+			ts.replace(tr( "p"), "/12*25.4");
 		}
 		else 
-			if ((su == QObject::tr( " in" )) || (su == QObject::tr( "in" )))
+			if ((su == tr( " in" )) || (su == tr( "in" )))
 			{
-				ts.replace(QObject::tr( "pt"), "/72");
-				ts.replace(QObject::tr( "mm"), "/25.4");
-				ts.replace(QObject::tr( "in"), "");
-				ts.replace(QObject::tr( "p"), "/6");
+				ts.replace(tr( "pt"), "/72");
+				ts.replace(tr( "mm"), "/25.4");
+				ts.replace(tr( "in"), "");
+				ts.replace(tr( "p"), "/6");
 			}
 			else 
-				if ((su == QObject::tr( " p" )) || (su == QObject::tr( "p" )))
+				if ((su == tr( " p" )) || (su == tr( "p" )))
 				{
-					ts.replace(QObject::tr( "pt"), "/12");
-					ts.replace(QObject::tr( "mm"), "/25.4*6");
-					ts.replace(QObject::tr( "in"), "*6");
-					ts.replace(QObject::tr( "p"), "");
+					ts.replace(tr( "pt"), "/12");
+					ts.replace(tr( "mm"), "/25.4*6");
+					ts.replace(tr( "in"), "*6");
+					ts.replace(tr( "p"), "");
 				}
-			else 
-				if (su != "")
-					ts.replace(su, " ");
+	if (su != "")
+		ts.replace(su, " ");
 	int ret = fp.Parse(ts.latin1(), "", true);
 	if (ret >= 0)
 		return 0;

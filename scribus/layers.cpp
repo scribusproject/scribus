@@ -99,7 +99,8 @@ void LayerPalette::reject()
 void LayerPalette::ClearInhalt()
 {
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
-	for (int a = 0; a < Table->numRows(); ++a)
+	int b = Table->numRows();
+	for (int a = 0; a < b; ++a)
 		Table->removeRow(0);
 	FlagsPrint.clear();
 	FlagsSicht.clear();

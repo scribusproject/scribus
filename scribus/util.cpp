@@ -415,10 +415,18 @@ QImage LoadPict(QString fn, bool *gray)
 					if ((tc != '\n') && (tc != '\r'))
 						tmp += tc;
 				}
-				if (tmp.startsWith("%%BoundingBox"))
+				if (tmp.startsWith("%%BoundingBox:"))
 				{
 					found = true;
-					BBox = tmp;
+					BBox = tmp.remove("%%BoundingBox:");
+				}
+				if (!found)
+				{
+					if (tmp.startsWith("%%BoundingBox"))
+					{
+						found = true;
+						BBox = tmp.remove("%%BoundingBox");
+					}
 				}
 				if (tmp.startsWith("%%EndComments"))
 					break;
@@ -427,7 +435,7 @@ QImage LoadPict(QString fn, bool *gray)
 			if (found)
 			{
 				QTextStream ts2(&BBox, IO_ReadOnly);
-				ts2 >> dummy >> x >> y >> b >> h;
+				ts2 >> x >> y >> b >> h;
 				QStringList args;
 				args.append("-r72");
 				args.append("-sOutputFile="+tmpFile);
@@ -569,10 +577,18 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 						if ((tc != '\n') && (tc != '\r'))
 							tmp += tc;
 					}
-					if (tmp.startsWith("%%BoundingBox"))
+					if (tmp.startsWith("%%BoundingBox:"))
 					{
 						found = true;
-						BBox = tmp;
+						BBox = tmp.remove("%%BoundingBox:");
+					}
+					if (!found)
+					{
+						if (tmp.startsWith("%%BoundingBox"))
+						{
+							found = true;
+							BBox = tmp.remove("%%BoundingBox");
+						}
 					}
 					if (tmp.startsWith("%%EndComments"))
 						break;
@@ -581,7 +597,7 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 				if (found)
 				{
 					QTextStream ts2(&BBox, IO_ReadOnly);
-					ts2 >> dummy >> x >> y >> b >> h;
+					ts2 >> x >> y >> b >> h;
 					QStringList args;
 					args.append("-r72");
 					args.append("-sOutputFile="+tmpFile);

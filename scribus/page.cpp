@@ -8944,10 +8944,18 @@ void Page::LoadPict(QString fn, int ItNr)
 					if ((tc != '\n') && (tc != '\r'))
 						tmp += tc;
 				}
-				if (tmp.startsWith("%%BoundingBox"))
+				if (tmp.startsWith("%%BoundingBox:"))
 				{
 					found = true;
-					BBox = tmp;
+					BBox = tmp.remove("%%BoundingBox:");
+				}
+				if (!found)
+				{
+					if (tmp.startsWith("%%BoundingBox"))
+					{
+						found = true;
+						BBox = tmp.remove("%%BoundingBox");
+					}
 				}
 				if (tmp.startsWith("%%CMYKCustomColor"))
 				{
@@ -8986,7 +8994,7 @@ void Page::LoadPict(QString fn, int ItNr)
 			if (found)
 			{
 				QTextStream ts2(&BBox, IO_ReadOnly);
-				ts2 >> dummy >> x >> y >> b >> h;
+				ts2 >> x >> y >> b >> h;
 				QStringList args;
 				args.append("-r72");
 				args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));

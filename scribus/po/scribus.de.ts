@@ -153,11 +153,21 @@
     </message>
     <message>
         <source>Slovenian:</source>
-        <translation>SlSlovenisch:</translation>
+        <translation>Slovenisch:</translation>
     </message>
     <message>
         <source>Basque:</source>
         <translation>Baskisch:</translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Dieser Dialog zeigt die Version, das Kompilierungsdatum und
+die unterstützten Bibliotheken in Scribus an
+Die Zeichen stehen für C=CUPS, C=LittleCMS und T=TIFF.
+Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
     </message>
 </context>
 <context>
@@ -833,7 +843,7 @@
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1123,7 +1133,7 @@
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1338,11 +1348,11 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>HSB-Colormap</source>
-        <translation type="unfinished">HSB-Farbwähler</translation>
+        <translation>HSB-Farbwähler</translation>
     </message>
 </context>
 <context>
@@ -1493,6 +1503,18 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     <message>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>This panel displays various CUPS options when printing. 
+The exact parameters available will depend on your printer driver.
+You can confirm CUPS support by selecting Help &gt; About.
+Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Dieser Dialog zeigt verschiedene CUPS-Optionen zum Drucken an.
+Die verfügbaren Einstellungen sind von Ihrem Drucker anhängig.
+Hlife -&gt; Über zeigt Ihnen den CUPS-Support an.
+Dabei stehen die Zeichen für C=CUPS, C-LittleCMS und T=TIFF.
+Fehlende Bibliotheken werden durch ein Sternchen angezeigt</translation>
     </message>
 </context>
 <context>
@@ -1764,7 +1786,7 @@ Wird in den Voreinstellungen eingestellt.</translation>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1939,7 +1961,7 @@ Wird in den Voreinstellungen eingestellt.</translation>
     </message>
     <message>
         <source>Tabulators and Indentation</source>
-        <translation type="unfinished">Tabulatoren und Einzüge</translation>
+        <translation>Tabulatoren und Einzüge</translation>
     </message>
 </context>
 <context>
@@ -2007,6 +2029,127 @@ Wird in den Voreinstellungen eingestellt.</translation>
     <message>
         <source>Javascripts (*.js);;All Files (*)</source>
         <translation>Javascripte (*.js);;Alle Dateien (*)</translation>
+    </message>
+</context>
+<context>
+    <name>ExportForm</name>
+    <message>
+        <source>Export Bitmap - Save As Image</source>
+        <translation>Bitmap exportieren - Als Bild speichern</translation>
+    </message>
+    <message>
+        <source>Export to directory:</source>
+        <translation>Exportieren nach:</translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation>&amp;Wechseln...</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Bitmap type:</source>
+        <translation>Dateiformat:</translation>
+    </message>
+    <message>
+        <source>Quality :</source>
+        <translation>Qualität:</translation>
+    </message>
+    <message>
+        <source>%</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation>Größe:</translation>
+    </message>
+    <message>
+        <source>Export </source>
+        <translation>Export-Einstellungen</translation>
+    </message>
+    <message>
+        <source>&amp;One page</source>
+        <translation>Eine &amp;Seite</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;All pages</source>
+        <translation>&amp;Alle Seiten</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Interval from:</source>
+        <translation>Seiten &amp;von:</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation>Alt+I</translation>
+    </message>
+    <message>
+        <source>to:</source>
+        <translation>bis:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Abbrechen</translation>
+    </message>
+    <message>
+        <source>Change the output directory</source>
+        <translation>Ausgabeverzeichnis wechseln</translation>
+    </message>
+    <message>
+        <source>The output directory - the place to store your bitmaps.
+Name of the eport file will be &apos;documentname-pagenumber.filetype&apos;</source>
+        <translation>Das Ausgabeverzeichnis - der Ort, an dem die Bilder gespeichert werden.
+Name der Datei: &apos;NamedesDokuments-Seitenzahl.Dateiformat&apos;</translation>
+    </message>
+    <message>
+        <source>Export only the actual page</source>
+        <translation>Nur die aktuelle Seite exportieren</translation>
+    </message>
+    <message>
+        <source>Export all pages of your document</source>
+        <translation>Alles Seiten des Dokuments exportieren</translation>
+    </message>
+    <message>
+        <source>Export only specified pages</source>
+        <translation>Nur bestimmte Seiten exportieren</translation>
+    </message>
+    <message>
+        <source>The beginning of the export</source>
+        <translation>Bereich exportieren: erste Seite</translation>
+    </message>
+    <message>
+        <source>The end of the export</source>
+        <translation>Bereich exportieren: letzte Seite</translation>
+    </message>
+    <message>
+        <source>The height of the output bitmap in pixels</source>
+        <translation>Die Höhe des Bildes in Pixeln</translation>
+    </message>
+    <message>
+        <source>The quality of your bitmaps - 100% is the best, 1% the biggest compression</source>
+        <translation>DIe Qualität des Bildes - 100% ist die schwächste, 1% die stärkste Komprimierung</translation>
+    </message>
+    <message>
+        <source>Available export formats</source>
+        <translation>Verfügbare Export-Formate</translation>
+    </message>
+    <message>
+        <source>Choose a Export Directory</source>
+        <translation>Wählen Sie ein Ausgabe-Verzeichnis</translation>
     </message>
 </context>
 <context>
@@ -2325,7 +2468,7 @@ Wird in den Voreinstellungen eingestellt.</translation>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -2619,7 +2762,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -3480,7 +3623,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Column width</source>
@@ -3488,11 +3631,11 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Path Text Properties</source>
-        <translation type="unfinished">Eigenschaften des Pfadtextes</translation>
+        <translation>Eigenschaften des Pfadtextes</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Text in untergeordneten Textrahmen um die Objektform fließen lassen</translation>
     </message>
     <message>
         <source>Use the frame shape instead of the object one</source>
@@ -3504,7 +3647,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -4003,7 +4146,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -4464,7 +4607,7 @@ in der exportierten Datei aktiviert</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation>Wählen Sie ein Passwort, dass es Benutzern erlaubt, die PDF-Datei zu lesen</translation>
+        <translation type="obsolete">Wählen Sie ein Passwort, dass es Benutzern erlaubt, die PDF-Datei zu lesen</translation>
     </message>
     <message>
         <source>Embed a color profile for solid colors</source>
@@ -4649,19 +4792,19 @@ Hinweis: Die Verschlüsselung ist nicht so zuverlässig wie GPG oder PGP und hat
     </message>
     <message>
         <source>Allow printing of the PDF</source>
-        <translation>Erlaubt das Drucken der PDF-Datei</translation>
+        <translation type="obsolete">Erlaubt das Drucken der PDF-Datei</translation>
     </message>
     <message>
         <source>Allow modifying of the PDF</source>
-        <translation>Erlaubt das Verändern der PDF-Datei</translation>
+        <translation type="obsolete">Erlaubt das Verändern der PDF-Datei</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF</source>
-        <translation>Erlaubt das Kopieren von Bildern oder Texten aus der PDF-Datei</translation>
+        <translation type="obsolete">Erlaubt das Kopieren von Bildern oder Texten aus der PDF-Datei</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF</source>
-        <translation>Erlaubt das Anfügen von Anmerkungen zu der PDF-Datei</translation>
+        <translation type="obsolete">Erlaubt das Anfügen von Anmerkungen zu der PDF-Datei</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF.
@@ -4699,6 +4842,30 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
         <translation>Kompressionsstärke: Minimal (25%), Niedrig (50%), Mittel (75%), Hoch (80%), Maximal (95%)</translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF.</source>
+        <translation>Wählen Sie ein Password für Benutzer, um die PDF-Datei ansehen zu können.</translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
+        <translation>Drucken erlauben. Wenn nicht ausgewählt, ist das Drucken verboten.</translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
+        <translation>Veränderung der PDF-Datei gestatten. Wenn nicht ausgewählt, wird die Veränderung verhindert.</translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF. 
+If un-checked, text and graphics cannot be copied.</source>
+        <translation>Kopieren von Text oder Bildern gestatten.
+Wenn nicht ausgewählt, können weder Text von Bilder kopiert werden.</translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF. 
+If un-checked, editing annotations and fileds is prevented.</source>
+        <translation>Hinzufügen von Anmerkungen gestatten.
+Wenn nicht ausgewählt, wird das Hinzufügen von Anmerkungen verhindert.</translation>
     </message>
 </context>
 <context>
@@ -4788,15 +4955,15 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     <name>Page</name>
     <message>
         <source>Copy Here</source>
-        <translation type="obsolete">An diese Stelle kopieren</translation>
+        <translation>An diese Stelle kopieren</translation>
     </message>
     <message>
         <source>Move Here</source>
-        <translation type="obsolete">An diese Stelle verschieben</translation>
+        <translation>An diese Stelle verschieben</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="obsolete">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Paste</source>
@@ -5107,7 +5274,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Polyline</source>
-        <translation type="unfinished">Polyline</translation>
+        <translation>Polyline</translation>
     </message>
     <message>
         <source>PathText</source>
@@ -6106,15 +6273,15 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Grab-Radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Grab-Radius:</translation>
     </message>
     <message>
         <source>Horizontal Scaling:</source>
-        <translation type="unfinished">Horizontale Größe:</translation>
+        <translation>Horizontale Größe:</translation>
     </message>
     <message>
         <source>Vertical Scaling:</source>
-        <translation type="unfinished">Vertikale Größe</translation>
+        <translation>Vertikale Größe:</translation>
     </message>
     <message>
         <source>Baseline Grid</source>
@@ -6142,7 +6309,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -6656,6 +6823,38 @@ wirklich überschreiben?</translation>
     <message>
         <source>Import SVG-Image...</source>
         <translation>SVG-Bild importieren...</translation>
+    </message>
+    <message>
+        <source>Save As Image...</source>
+        <translation>Als Bild speichern...</translation>
+    </message>
+    <message>
+        <source>Export to bitmap</source>
+        <translation>Als Bitmap exportieren</translation>
+    </message>
+    <message>
+        <source>Error writting the ouptut file(s).</source>
+        <translation>Fehler beim Exportieren.</translation>
+    </message>
+    <message>
+        <source>Error writing the ouptut file(s).</source>
+        <translation>Fehler beim Exportieren.</translation>
+    </message>
+    <message>
+        <source>Hooray! Export successfull.</source>
+        <translation>Export erfolgreich abgeschlossen.</translation>
+    </message>
+    <message>
+        <source>File exists. Overwrite?</source>
+        <translation>Datei existiert bereits. Soll sie überschrieben werden?</translation>
+    </message>
+    <message>
+        <source>exists already. Overwrite?</source>
+        <translation>existiert bereits. Soll die Datei überschrieben werden?</translation>
+    </message>
+    <message>
+        <source>Yes all</source>
+        <translation>Alle</translation>
     </message>
 </context>
 <context>
@@ -7867,7 +8066,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -8770,6 +8969,18 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>Close</source>
         <translation>Schließen</translation>
+    </message>
+    <message>
+        <source>Insert the characters at the cursor in the text</source>
+        <translation>Zeichen an der Cursorposition einfügen</translation>
+    </message>
+    <message>
+        <source>Delete the current selection(s).</source>
+        <translation>Gewählte Markierung(en) löschen.</translation>
+    </message>
+    <message>
+        <source>Close this dialog and return to text editing.</source>
+        <translation>Diesen Dialog schließen und zur Textbearbeitung zurückkehren.</translation>
     </message>
 </context>
 </TS>

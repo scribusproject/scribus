@@ -252,12 +252,13 @@ void CustomFDialog::HandleComp()
 	if (SaveZip->isChecked())
 	{
 		if (tmp.right(3) != ".gz")
-			tmp = tmp + tmp.right(3) == "svg" ? "z" : ".gz";
-/*			if (tmp.right(3) == "svg")
+		{
+//			tmp = tmp + tmp.right(3) == "svg" ? "z" : ".gz";
+			if (tmp.right(3) == "svg")
 				tmp = tmp+"z";
 			else
 				tmp = tmp+".gz";
-			}*/
+		}
 		setSelection(tmp);
 	}
 	else

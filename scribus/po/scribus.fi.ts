@@ -151,6 +151,20 @@
         <source>Basque:</source>
         <translation>Baski:</translation>
     </message>
+    <message>
+        <source>Slovenian:</source>
+        <translation>Slovenia:</translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Tämä sivu näyttää version, käännöspäivämäärän ja
+Scribukseen sisällytetyt tuet kirjastoille.
+C-C-T muodostuu seuraavasti C=CUPS, C=littlecms, T=TIFF support.
+Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -1325,6 +1339,10 @@ Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan 
         <source>Name of the Color is not unique</source>
         <translation>Värin nimi on jo käytössä</translation>
     </message>
+    <message>
+        <source>HSB-Colormap</source>
+        <translation>HSB-värikartta</translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -1474,6 +1492,18 @@ Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan 
     <message>
         <source>All Pages</source>
         <translation>Kaikki sivut</translation>
+    </message>
+    <message>
+        <source>This panel displays various CUPS options when printing. 
+The exact parameters available will depend on your printer driver.
+You can confirm CUPS support by selecting Help &gt; About.
+Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Tämä sivu näyttää useita CUPS-asetuksia.
+Tarkat asetukset riippuvat tulostimesi ajurista.
+Voit varmistaa CUPS-tuen menemällä valikon kohtaan Ohje-&gt;Tietoja Scribuksesta.
+Tarkastele C-C-T merkintää sivulla (C=CUPS, C=littlecms, T=TIFF support).
+Puuttuva kirjasto on merkitty * -merkillä</translation>
     </message>
 </context>
 <context>
@@ -1781,11 +1811,11 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
     </message>
     <message>
         <source>Indentation</source>
-        <translation>Sisennys</translation>
+        <translation type="obsolete">Sisennys</translation>
     </message>
     <message>
         <source>First Line:</source>
-        <translation>Ensimmäinen rivi:</translation>
+        <translation type="obsolete">Ensimmäinen rivi:</translation>
     </message>
     <message>
         <source>Edit Style</source>
@@ -1797,7 +1827,7 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
     </message>
     <message>
         <source>Left Indent:</source>
-        <translation>Vasen sisennys:</translation>
+        <translation type="obsolete">Vasen sisennys:</translation>
     </message>
     <message>
         <source>Vertical Spaces</source>
@@ -1821,7 +1851,7 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
     </message>
     <message>
         <source>Tabulators...</source>
-        <translation>Sarkaimet...</translation>
+        <translation type="obsolete">Sarkaimet...</translation>
     </message>
     <message>
         <source>Alignment:</source>
@@ -1901,15 +1931,23 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
     </message>
     <message>
         <source>Indentation for first line of the paragraph</source>
-        <translation>Kappaleen ensimmäisen rivin sisennys</translation>
+        <translation type="obsolete">Kappaleen ensimmäisen rivin sisennys</translation>
     </message>
     <message>
         <source>Indentation from the left for the whole paragraph</source>
-        <translation>Koko kappaleen sisennys vasemmalta</translation>
+        <translation type="obsolete">Koko kappaleen sisennys vasemmalta</translation>
     </message>
     <message>
         <source>Edit tab settings of text frame...</source>
-        <translation>Muokkaa tekstikehyksen sarkainasetuksia...</translation>
+        <translation type="obsolete">Muokkaa tekstikehyksen sarkainasetuksia...</translation>
+    </message>
+    <message>
+        <source>Tabulators and Indentation</source>
+        <translation>Sarkaimet ja sisennykset</translation>
+    </message>
+    <message>
+        <source>Line Spacing:</source>
+        <translation>Riviväli:</translation>
     </message>
 </context>
 <context>
@@ -1977,6 +2015,165 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
     <message>
         <source>Save and Exit</source>
         <translation>Tallenna ja poistu</translation>
+    </message>
+</context>
+<context>
+    <name>ExportForm</name>
+    <message>
+        <source>Export Bitmap - Save As Image</source>
+        <translation type="obsolete">Vie bittikarttana - Tallenna kuvana</translation>
+    </message>
+    <message>
+        <source>Export to directory:</source>
+        <translation>Vie hakemistoon:</translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation>&amp;Muuta...</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Bitmap type:</source>
+        <translation type="obsolete">Bittikartan tyyppi:</translation>
+    </message>
+    <message>
+        <source>Quality :</source>
+        <translation>Laatu:</translation>
+    </message>
+    <message>
+        <source>%</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation>Koko:</translation>
+    </message>
+    <message>
+        <source>Export </source>
+        <translation>Vie</translation>
+    </message>
+    <message>
+        <source>&amp;One page</source>
+        <translation>&amp;Yksi sivu</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;All pages</source>
+        <translation>&amp;Kaikki sivut</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Interval from:</source>
+        <translation>&amp;Väli, mistä:</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation>Alt+I</translation>
+    </message>
+    <message>
+        <source>to:</source>
+        <translation>mihin:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Peruuta</translation>
+    </message>
+    <message>
+        <source>Change the output directory</source>
+        <translation>Muuta kohdehakemistoa</translation>
+    </message>
+    <message>
+        <source>The output directory - the place to store your bitmaps.
+Name of the eport file will be &apos;documentname-pagenumber.filetype&apos;</source>
+        <translation type="obsolete">Kohdehakemisto, jonne kuvat sijoitetaan. Kuvan nimi on muotoa 
+&apos;dokumentin_nimi-sivunumero.tiedostotyyppi&apos;</translation>
+    </message>
+    <message>
+        <source>Available export formats</source>
+        <translation>Käytettävät tiedostotyypit</translation>
+    </message>
+    <message>
+        <source>Choose a Export Directory</source>
+        <translation>Valitse Kohdehakemisto</translation>
+    </message>
+    <message>
+        <source>Export as Image</source>
+        <translation>Vie kuvana</translation>
+    </message>
+    <message>
+        <source>Image type:</source>
+        <translation>Kuvan tyyppi:</translation>
+    </message>
+    <message>
+        <source>The output directory - the place to store your images.
+Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
+        <translation>Kohdehakemisto, jonne kuvat tallennetaan. Vietyjen tiedostojen 
+nimet ovat muotoa dokumentin_nimi-sivunumero.tiedostotyyppi</translation>
+    </message>
+    <message>
+        <source>Export only the current page</source>
+        <translation>Vie ainoastaan nykyinen sivu</translation>
+    </message>
+    <message>
+        <source>Export all pages to images</source>
+        <translation>Vie kaikki sivut kuvina</translation>
+    </message>
+    <message>
+        <source>Export a range of pages to images</source>
+        <translation>Vie osa sivuista</translation>
+    </message>
+    <message>
+        <source>First page to export when exporting a range</source>
+        <translation>Ensimmäinen vietävä sivu eli välin alaraja</translation>
+    </message>
+    <message>
+        <source>Last page to export when exporting a range</source>
+        <translation>Viimeinen vietävä sivu eli välin yläraja</translation>
+    </message>
+    <message>
+        <source>The height of the output images in pixels</source>
+        <translation>Vietävien kuvien korkeus pikseleinä</translation>
+    </message>
+    <message>
+        <source>The quality of your images - 100% is the best, 1% the highest compression</source>
+        <translation>Kuvien laatu, 100 % on paras ja 1 % pakkaa parhaiten</translation>
+    </message>
+    <message>
+        <source>Export all pages of your document</source>
+        <translation type="obsolete">Vie kaikki dokumenttisi sivut</translation>
+    </message>
+    <message>
+        <source>Export only specified pages</source>
+        <translation type="obsolete">Vie ainoastaan osa sivuista</translation>
+    </message>
+    <message>
+        <source>The beginning of the export</source>
+        <translation type="obsolete">Viennin alkukohta</translation>
+    </message>
+    <message>
+        <source>The end of the export</source>
+        <translation type="obsolete">Viennin loppukohta</translation>
+    </message>
+    <message>
+        <source>The height of the output bitmap in pixels</source>
+        <translation type="obsolete">Kuvan korkeus pikseleinä</translation>
+    </message>
+    <message>
+        <source>The quality of your bitmaps - 100% is the best, 1% the biggest compression</source>
+        <translation type="obsolete">Bittikartan laatu - 100 % on paras ja 1 % merkitsee suurinta pakkausta</translation>
     </message>
 </context>
 <context>
@@ -2848,7 +3045,7 @@ Corners:</source>
     </message>
     <message>
         <source>Size:</source>
-        <translation>Koko:</translation>
+        <translation type="obsolete">Koko:</translation>
     </message>
     <message>
         <source>Path Text Properites</source>
@@ -3392,6 +3589,10 @@ Valitse toinen nimi.</translation>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation>Ilmaisee kerroksen jolla kohde on. 0 kertoo kohteen olevan alimmaisena</translation>
     </message>
+    <message>
+        <source>Font Size:</source>
+        <translation>Kirjasimen koko:</translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -3747,6 +3948,18 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
         <source>Number of columns to create in automatically created text frames</source>
         <translation>Automaattisesti luotujen tekstikehysten palstojen lukumäärä</translation>
     </message>
+    <message>
+        <source>Legal</source>
+        <translation>Legal</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation>Letter</translation>
+    </message>
+    <message>
+        <source>Tabloid</source>
+        <translation>Tabloid</translation>
+    </message>
 </context>
 <context>
     <name>NewTm</name>
@@ -4083,7 +4296,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Copying Text and Graphics is allowed</source>
-        <translation>Salli tekstin ja grafiikan kopiointi</translation>
+        <translation type="obsolete">Salli tekstin ja grafiikan kopiointi</translation>
     </message>
     <message>
         <source>Outside</source>
@@ -4167,7 +4380,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Adding Annotations and Fields is allowed</source>
-        <translation>Salli huomautusten ja kenttien lisäys</translation>
+        <translation type="obsolete">Salli huomautusten ja kenttien lisäys</translation>
     </message>
     <message>
         <source>Saturation</source>
@@ -4322,7 +4535,7 @@ turvallisuusominaisuudet tehdyssä PDF:ssa</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation>Valitse salasana, jolla käyttäjät voivat lukea PDF:n</translation>
+        <translation type="obsolete">Valitse salasana, jolla käyttäjät voivat lukea PDF:n</translation>
     </message>
     <message>
         <source>Embed a color profile for solid colors</source>
@@ -4462,19 +4675,19 @@ Varoitus: PDF-salaus ei ole yhtä luotettava kuin GPG tai PGP ja siinä on joita
     </message>
     <message>
         <source>Allow printing of the PDF</source>
-        <translation>Salli PDF:n tulostaminen</translation>
+        <translation type="obsolete">Salli PDF:n tulostaminen</translation>
     </message>
     <message>
         <source>Allow modifying of the PDF</source>
-        <translation>Salli PDF:n muokkaaminen</translation>
+        <translation type="obsolete">Salli PDF:n muokkaaminen</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF</source>
-        <translation>Salli tekstin ja kuvien kopioiminen PDF:sta</translation>
+        <translation type="obsolete">Salli tekstin ja kuvien kopioiminen PDF:sta</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF</source>
-        <translation>Salli huomautusten ja kenttien lisääminen PDF:ään</translation>
+        <translation type="obsolete">Salli huomautusten ja kenttien lisääminen PDF:ään</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF.
@@ -4541,6 +4754,38 @@ Suosittelemme käyttämään dokumentin otsikkoa/nimeä.</translation>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
         <translation>Pakkaustasot: Heikoin (25 %), Matala (50 %), Keskitaso (75 %), Korkea (85 %), Paras (95 %)</translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF.</source>
+        <translation>Valitse salasana käyttäjille PDF-dokumentin lukua varten.</translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
+        <translation>Salli PDF-dokumentin tulostaminen. Jos kohta ei ole valittuna tulostaminen on estetty.</translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
+        <translation>Salli PDF-dokumentin muokkaus. Jos ei ole valittuna, muokkaus on estetty.</translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF. 
+If un-checked, text and graphics cannot be copied.</source>
+        <translation>Salli tekstin ja graafikan kopiointi PDF-dokumentista.
+Jos kohta ei ole valittuna, kopiointi on estetty.</translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF. 
+If un-checked, editing annotations and fileds is prevented.</source>
+        <translation>Salli PDF-huomautusten ja -kenttien lisääminen.
+Jos kohta ei ole valittuna huomautuksia ja kenttiä ei voi lisätä.</translation>
+    </message>
+    <message>
+        <source>Allow Copying Text and Graphics</source>
+        <translation>Salli tekstin ja grafiikan kopiointi</translation>
+    </message>
+    <message>
+        <source>Allow Adding Annotations and Fields</source>
+        <translation>Salli huomautusten ja kenttien lisääminen</translation>
     </message>
 </context>
 <context>
@@ -5164,7 +5409,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Keyboard Shortcuts...</source>
-        <translation>Näppäinoikopolut...</translation>
+        <translation type="obsolete">Näppäinoikopolut...</translation>
     </message>
     <message>
         <source>Other Options</source>
@@ -5562,7 +5807,7 @@ mahdollisten KDE- ja QT-teemojen käytön</translation>
     </message>
     <message>
         <source>Change the keyboard shortcuts to your preference</source>
-        <translation>Muuta näppäinoikopolut mieleisiksisi</translation>
+        <translation type="obsolete">Muuta näppäinoikopolut mieleisiksisi</translation>
     </message>
     <message>
         <source>Default documents directory</source>
@@ -5937,6 +6182,10 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source>Turns off the basegrid</source>
         <translation>Ottaa peruslinjan pois käytöstä</translation>
+    </message>
+    <message>
+        <source> px</source>
+        <translation>px</translation>
     </message>
 </context>
 <context>
@@ -6441,6 +6690,54 @@ Tarkasta polku ja tiedostonimi.</translation>
         <source>Import SVG-Image...</source>
         <translation>Tuo SVG-kuva...</translation>
     </message>
+    <message>
+        <source>Save As Image...</source>
+        <translation type="obsolete">Tallenna kuvana...</translation>
+    </message>
+    <message>
+        <source>Export to bitmap</source>
+        <translation type="obsolete">Vie bittikarttana</translation>
+    </message>
+    <message>
+        <source>Error writting the ouptut file(s).</source>
+        <translation type="obsolete">Virhe kirjoitettaessa tiedostoa.</translation>
+    </message>
+    <message>
+        <source>File exists. Overwrite?</source>
+        <translation>Tiedosto on jo olemassa. Ylikirjoitetaanko?</translation>
+    </message>
+    <message>
+        <source>exists already. Overwrite?</source>
+        <translation>on jo olemassa. Ylikirjoitetaanko?</translation>
+    </message>
+    <message>
+        <source>Yes all</source>
+        <translation>Kyllä kaikkiin</translation>
+    </message>
+    <message>
+        <source>Save as Image...</source>
+        <translation>Tallenna kuvana...</translation>
+    </message>
+    <message>
+        <source>Export to image</source>
+        <translation>Vie kuvana</translation>
+    </message>
+    <message>
+        <source>Error writing the output file(s).</source>
+        <translation>Virhe kirjoitettaessa kohdetiedostoa.</translation>
+    </message>
+    <message>
+        <source>Export to Image successful</source>
+        <translation>Kuvan vienti onnistui</translation>
+    </message>
+    <message>
+        <source>Error writing the ouptut file(s).</source>
+        <translation type="obsolete">Virhe kirjoitettaessa tiedostoa.</translation>
+    </message>
+    <message>
+        <source>Hooray! Export successfull.</source>
+        <translation type="obsolete">Hurraa! Vienti onnistui.</translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -6647,6 +6944,22 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation>Paperin reunan ja oikean reunuksen välinen etäisyys.
 Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuksen ottaen sidonnan huomioon</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation> pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation> mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation> in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation> p</translation>
     </message>
 </context>
 <context>
@@ -7308,7 +7621,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>General...</source>
-        <translation>Yleiset...</translation>
+        <translation type="obsolete">Yleiset...</translation>
     </message>
     <message>
         <source>Outlined</source>
@@ -7316,7 +7629,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Preferences</source>
-        <translation>Asetukset</translation>
+        <translation type="obsolete">Asetukset</translation>
     </message>
     <message>
         <source>Undo Delete Object</source>
@@ -7538,7 +7851,63 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Tool&amp;bars</source>
-        <translation>Työkalu&amp;rivit</translation>
+        <translation type="obsolete">Työkalu&amp;rivit</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation> pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation> mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation> in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation> p</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation>Liettua</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation>Ruotsi</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation>Slovenia</translation>
+    </message>
+    <message>
+        <source>Keyboard Shortcuts...</source>
+        <translation>Näppäinoikopolut...</translation>
+    </message>
+    <message>
+        <source>Scribus Manual...</source>
+        <translation>Scribuksen ohje...</translation>
+    </message>
+    <message>
+        <source>&amp;Settings</source>
+        <translation>A&amp;setukset</translation>
     </message>
 </context>
 <context>
@@ -7554,6 +7923,22 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source>Layer</source>
         <translation>Taso</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -8075,15 +8460,15 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Position:</source>
-        <translation>Sijainti:</translation>
+        <translation type="obsolete">Sijainti:</translation>
     </message>
     <message>
         <source>Alignment:</source>
-        <translation>Tasaus:</translation>
+        <translation type="obsolete">Tasaus:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source>OK</source>
@@ -8095,12 +8480,47 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Poista</translation>
+        <translation type="obsolete">Poista</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation>Lisää</translation>
+        <translation type="obsolete">Lisää</translation>
     </message>
+    <message>
+        <source>Left</source>
+        <translation type="obsolete">Vasen</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="obsolete">Oikea</translation>
+    </message>
+    <message>
+        <source>Full Stop</source>
+        <translation type="obsolete">Piste</translation>
+    </message>
+    <message>
+        <source>Comma</source>
+        <translation type="obsolete">Pilkku</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation type="obsolete">Keskitä</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation type="obsolete"> mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation type="obsolete"> in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation type="obsolete"> p</translation>
+    </message>
+</context>
+<context>
+    <name>Tabruler</name>
     <message>
         <source>Left</source>
         <translation>Vasen</translation>
@@ -8119,7 +8539,51 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation>Keskitä</translation>
+        <translation>Keskitetty</translation>
+    </message>
+    <message>
+        <source>Position:</source>
+        <translation>Sijainti:</translation>
+    </message>
+    <message>
+        <source>First Line:</source>
+        <translation>Ensimmäinen rivi:</translation>
+    </message>
+    <message>
+        <source>Indent:</source>
+        <translation>Sisennys:</translation>
+    </message>
+    <message>
+        <source>Delete All</source>
+        <translation>Poista kaikki</translation>
+    </message>
+    <message>
+        <source>Indentation for first line of the paragraph</source>
+        <translation>Kappaleen ensimmäisen rivin sisennys</translation>
+    </message>
+    <message>
+        <source>Indentation from the left for the whole paragraph</source>
+        <translation>Koko kappaleen sisennys vasemmalta</translation>
+    </message>
+    <message>
+        <source>Delete all Tabulators</source>
+        <translation>Poista kaikki sarkaimet</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation> pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation> mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation> in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation> p</translation>
     </message>
 </context>
 <context>
@@ -8265,6 +8729,10 @@ Ole hyvä ja valitse toinen nimi.</translation>
         <source>Insert Table</source>
         <translation>Lisää taulukko</translation>
     </message>
+    <message>
+        <source>Do measurements</source>
+        <translation>Suorita mittauksia</translation>
+    </message>
 </context>
 <context>
     <name>WerkToolBP</name>
@@ -8326,6 +8794,18 @@ Ole hyvä ja valitse toinen nimi.</translation>
     <message>
         <source>Insert</source>
         <translation>Lisää</translation>
+    </message>
+    <message>
+        <source>Insert the characters at the cursor in the text</source>
+        <translation>Lisää merkit kursorin kohdalle tekstiin</translation>
+    </message>
+    <message>
+        <source>Delete the current selection(s).</source>
+        <translation>Poista valinta/valinnat.</translation>
+    </message>
+    <message>
+        <source>Close this dialog and return to text editing.</source>
+        <translation>Sulje ikkuna ja palaa muokkaamaan tekstiä.</translation>
     </message>
 </context>
 </TS>

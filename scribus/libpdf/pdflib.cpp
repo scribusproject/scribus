@@ -3105,10 +3105,18 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 							if ((tc != '\n') && (tc != '\r'))
 								tmp += tc;
 						}
-						if (tmp.startsWith("%%BoundingBox"))
+						if (tmp.startsWith("%%BoundingBox:"))
 						{
 							found = true;
-							BBox = tmp;
+							BBox = tmp.remove("%%BoundingBox:");
+						}
+						if (!found)
+						{
+						if (tmp.startsWith("%%BoundingBox"))
+							{
+								found = true;
+								BBox = tmp.remove("%%BoundingBox");
+							}
 						}
 						if (tmp.startsWith("%%EndComments"))
 							break;
@@ -3117,7 +3125,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 					if (found)
 					{
 						QTextStream ts2(&BBox, IO_ReadOnly);
-						ts2 >> dummy >> x2 >> y2 >> b >> h;
+						ts2 >> x2 >> y2 >> b >> h;
 						x2 = x2 * aufl;
 						y2 = y2 * aufl;
 						b = b * aufl;
