@@ -39,7 +39,7 @@ ScPaths::ScPaths() :
 {
 // On MacOS/X, override the compile-time settings with a location
 // obtained from the system.
-#if defined(QT_MAC)
+#if defined(QT_MAC) && defined(BUILD_MAC_BUNDLE)
 	// Set up the various app paths to look inside the app bundle
 	CFURLRef pluginRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
 	CFStringRef macPath = CFURLCopyFileSystemPath(pluginRef,
