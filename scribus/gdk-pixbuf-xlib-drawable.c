@@ -32,11 +32,6 @@
 #include "gdk-pixbuf-xlib-private.h"
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
-/*
-#if (KSVG_BYTE_ORDER == KSVG_LITTLE_ENDIAN)
-#define LITTLE
-#endif
-  */
 
 #ifndef WORDS_BIGENDIAN
 #define LITTLE

@@ -780,7 +780,7 @@ xlib_rgb_init_with_depth (Display *display, Screen *screen, int prefDepth)
 
   initialized = 1;
 
-#if KSVG_BYTE_ORDER == KSVG_BIG_ENDIAN
+#ifdef WORDS_BIGENDIAN
   if (((char *)byte_order)[0] == 1) {
     printf ("xlib_rgb_init: compiled for big endian, but this is a little endian machine.\n\n");
     exit(1);
@@ -1055,7 +1055,7 @@ xlib_rgb_gc_set_background (GC gc, unsigned int rgb)
   XSetBackground(image_info->display, gc, color);
 }
 
-#if KSVG_BYTE_ORDER == KSVG_LITTLE_ENDIAN
+#ifndef WORDS_BIGENDIAN
 #define HAIRY_CONVERT_8
 #endif
 
@@ -1519,7 +1519,7 @@ xlib_rgb_convert_gray8_gray (XImage *image,
     }
 }
 
-#if KSVG_BYTE_ORDER == KSVG_LITTLE_ENDIAN
+#ifndef WORDS_BIGENDIAN
 #define HAIRY_CONVERT_565
 #endif
 
@@ -2062,7 +2062,7 @@ xlib_rgb_convert_888_msb (XImage *image,
 }
 
 /* todo: optimize this */
-#if KSVG_BYTE_ORDER == KSVG_LITTLE_ENDIAN
+#ifndef WORDS_BIGENDIAN
 #define HAIRY_CONVERT_888
 #endif
 
@@ -2999,7 +2999,7 @@ xlib_rgb_select_conv (XImage *image, ByteOrder byte_order)
 	    (int)image_info->x_visual_info->visual->visualid,
 	    bpp, byte_order == LSB_FIRST ? "lsb" : "msb");
 
-#if KSVG_BYTE_ORDER == KSVG_BIG_ENDIAN
+#ifdef WORDS_BIGENDIAN
   byterev = (byte_order == LSB_FIRST);
 #else
   byterev = (byte_order == MSB_FIRST);
@@ -3064,7 +3064,7 @@ xlib_rgb_select_conv (XImage *image, ByteOrder byte_order)
 	   ((mask_rgb && byte_order == MSB_FIRST) ||
 	    (mask_bgr && byte_order == LSB_FIRST)))
     conv = xlib_rgb_convert_888_msb;
-#if KSVG_BYTE_ORDER == KSVG_BIG_ENDIAN
+#ifdef WORDS_BIGENDIAN
   else if (bpp == 32 && depth == 24 && vtype == TrueColor &&
 	   (mask_rgb && byte_order == LSB_FIRST))
     conv = xlib_rgb_convert_0888_br;
