@@ -6,6 +6,8 @@ class ScribusDoc;
 
 class ArrowChooser : public QComboBox
 {
+    Q_OBJECT
+
 public:
 	ArrowChooser(QWidget* pa, bool direction);
 	~ArrowChooser() {};

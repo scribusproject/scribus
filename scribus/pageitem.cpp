@@ -1888,18 +1888,6 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	}
 	if ((!Tinput) && (!Doc->RePos))
 	{
-		if ((Frame) && (Doc->FramesShown))
-		{
-			p.setPen(QPen(black, 1, DotLine, FlatCap, MiterJoin));
-			if ((isBookmark) || (isAnnotation))
-				p.setPen(QPen(blue, 1, DotLine, FlatCap, MiterJoin));
-			if ((BackBox != 0) || (NextBox != 0))
-				p.setPen(QPen(red, 1, SolidLine, FlatCap, MiterJoin));
-			if (Locked)
-				p.setPen(QPen(darkRed, 1, SolidLine, FlatCap, MiterJoin));
-			p.setBrush(NoBrush);
-			DrawPolyL(&p, Clip);
-		}
 		if (Select) // && (!Doc->EditClip))
 		{
 			if (!ScApp->view->SelItem.isEmpty())
@@ -1909,7 +1897,6 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					QPainter pr;
 					pr.begin(ScApp->view->viewport());
 					pr.translate(out.x(), out.y());
-//					pr.scale(sc, sc);
 					pr.rotate(Rot);
 					if (Locked)
 						pr.setPen(QPen(darkRed, 1, SolidLine, FlatCap, MiterJoin));
@@ -1956,7 +1943,6 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 						QPainter pr;
 						pr.begin(ScApp->view->viewport());
 						pr.translate(out.x(), out.y());
-//						pr.scale(sc, sc);
 						pr.rotate(Rot);
 						pr.setPen(QPen(darkCyan, 1, SolidLine, FlatCap, MiterJoin));
 						pr.setBrush(darkCyan);

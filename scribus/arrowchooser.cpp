@@ -1,4 +1,5 @@
 #include "arrowchooser.h"
+#include "arrowchooser.moc"
 #include "fpointarray.h"
 #include "scribusdoc.h"
 #include <qpixmap.h>
