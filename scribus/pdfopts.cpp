@@ -720,12 +720,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	OK->setAutoDefault( true );
 	OK->setDefault( true );
 	Layout7->addWidget( OK );
-	QSpacerItem* spacer_3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout7->addItem( spacer_3 );
 	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
 	Layout7->addWidget( Cancel );
-	QSpacerItem* spacer_4 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout7->addItem( spacer_4 );
 	PDFOptsLayout->addLayout( Layout7 );
 	resize(sizeHint());
 //	setMaximumSize( sizeHint() );
