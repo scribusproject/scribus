@@ -203,6 +203,12 @@ void gtFont::setWeight(FontWeight newWeight)
 		setSlant(NO_SLANT);
 		setWidth(NO_WIDTH);
 	}
+	if (weightIndex < 0)
+	{
+		weightIndex = 0;
+		slantIndex = 1;
+		widthIndex = 2;
+	}
 }
 
 void gtFont::setWeight(QString newWeight)
@@ -214,6 +220,12 @@ void gtFont::setWeight(QString newWeight)
 	{
 		setSlant(NO_SLANT);
 		setWidth(NO_WIDTH);
+	}
+	if (weightIndex < 0)
+	{
+		weightIndex = 0;
+		slantIndex = 1;
+		widthIndex = 2;
 	}
 }
 
@@ -233,6 +245,12 @@ void gtFont::setSlant(FontSlant newSlant)
 		else if (weight == fontWeights[ROMAN])
 			setWeight(NO_WEIGHT);
 	}
+	if (slantIndex < 0)
+	{
+		weightIndex = 0;
+		slantIndex = 1;
+		widthIndex = 2;
+	}
 }
 
 void gtFont::setSlant(QString newSlant)
@@ -245,6 +263,12 @@ void gtFont::setSlant(QString newSlant)
 			setWeight(NO_WEIGHT);
 		else if (weight == fontWeights[ROMAN])
 			setWeight(NO_WEIGHT);
+	}
+	if (slantIndex < 0)
+	{
+		weightIndex = 0;
+		slantIndex = 1;
+		widthIndex = 2;
 	}
 }
 
@@ -264,6 +288,12 @@ void gtFont::setWidth(FontWidth newWidth)
 		else if (weight == fontWeights[ROMAN])
 			setWeight(NO_WEIGHT);
 	}
+	if (widthIndex < 0)
+	{
+		weightIndex = 0;
+		slantIndex = 1;
+		widthIndex = 2;
+	}
 }
 
 void gtFont::setWidth(QString newWidth)
@@ -276,6 +306,12 @@ void gtFont::setWidth(QString newWidth)
 			setWeight(NO_WEIGHT);
 		else if (weight == fontWeights[ROMAN])
 			setWeight(NO_WEIGHT);
+	}
+	if (widthIndex < 0)
+	{
+		weightIndex = 0;
+		slantIndex = 1;
+		widthIndex = 2;
 	}
 }
 
