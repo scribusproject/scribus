@@ -9,7 +9,11 @@ frame has some text selected the value assigned to the first character of
 the selection is returned.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFontSize([&quot;name&quot;]) -&gt; float
+
+Vráti velikost písma v bodech rámce &quot;name&quot;. Jestliže je
+vybrán nějaký text, vrátí velikost prvního znaku výběru.
+Jeztliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>getColorNames() -&gt; list
@@ -17,7 +21,10 @@ If &quot;name&quot; is not given the currently selected item is used.
 Returns a list containing the names of all defined colors in the document.
 If no document is open, returns a list of the default document colors.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColorNames() -&gt; list
+
+Vrátí seznam se jmény všech barev v dokumentu. Jestliže není žádný dokument
+otevřen, vrátí seznam implicitních barev.</translation>
     </message>
     <message>
         <source>newDocDialog() -&gt; bool
@@ -26,7 +33,11 @@ Displays the &quot;New Document&quot; dialog box. Creates a new document if the 
 accepts the settings. Does not create a document if the user presses cancel.
 Returns true if a new document was created.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDocDialog() -&gt; bool
+
+Zobrazí &quot;Nový dokument&quot; dialogové okno a vytvoří nový dokument poté, co
+uživatel potvrdí nastavení. Nic nevytvoří, jestliže uživatel okno zruší. Vrátí true,
+pokud je dokument vytvořen.</translation>
     </message>
     <message>
         <source>getFillColor([&quot;name&quot;]) -&gt; string
@@ -34,7 +45,10 @@ Returns true if a new document was created.
 Returns the name of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFillColor([&quot;name&quot;]) -&gt; string
+
+Vrátí jméno výplňové barvy objektu &quot;name&quot;.
+Jeztliže není &quot;name&quot; uvedeno, použije vybraný objekt.</translation>
     </message>
     <message>
         <source>moveObject(dx, dy [, &quot;name&quot;])
@@ -44,7 +58,12 @@ distances are expressed in the current measurement unit of the document (see
 UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
 If the object &quot;name&quot; belongs to a group, the whole group is moved.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>moveObject(dx, dy [, &quot;name&quot;])
+
+Posune objekt &quot;name&quot; relativně o dx a dy vůči aktuální pozici. Vzdálenosti
+jsou vyjádřeny v délkových jednotkách dokumentu (viz. konstanty UNIT).
+Jeztliže není &quot;name&quot; uvedeno, použije vybraný objekt. Jestliže &quot;name&quot;
+patří do nějaké skupiny, je posunuta celá skupina.</translation>
     </message>
     <message>
         <source>setRedraw(bool)
@@ -53,7 +72,11 @@ Disables page redraw when bool = False, otherwise redrawing is enabled.
 This change will persist even after the script exits, so make sure to call
 setRedraw(True) in a finally: clause at the top level of your script.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setRedraw(bool)
+
+V případě false zruší překreslování stránek, jinak povolí. Tato změna přetrvá
+i po ukončení skriptu, takže se ujistěte, že zavoláte setRedraw(true) v nejvyšší
+úrovni skriptu.</translation>
     </message>
     <message>
         <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -66,7 +89,14 @@ is not given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Vytvoří nový čtyřúhelník na aktuální stránce a vráti jeho jméno. X, Y, W a H koordináty
+jsou dány ve zvolených měrných jednotkách dokumentu (viz. konstanty UNIT*).
+&quot;name&quot; musí být unikátní řetězec, protože slouží jako identifikátor. Jestliže není
+&quot;name&quot; zadáno, Scribus jméno vytvoří sám.
+
+Může vyvolat výjimku NameExistsError, když se pokusíte zduplikovat jméno.</translation>
     </message>
     <message>
         <source>newPage(where [,&quot;template&quot;])
@@ -79,7 +109,14 @@ template page for the new page.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newPage(where [,&quot;template&quot;])
+
+Vytvoří novou stránku. Jestliže je &quot;where&quot; -1, pak je nová stránka přidána na
+konec dokumentu, jinak je vsazena před stránku &quot;where&quot;. Číslování stran je od 1,
+a nezáleží na tom, jaké je číslo první stránky. Volitelný parametr &quot;template&quot; udává
+jméno šablony, která bude aplikována na novou stránku.
+
+Může vyvolat výjimku IndexError, když se pokusíte založit stránku na špatném místě</translation>
     </message>
     <message>
         <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
@@ -88,7 +125,11 @@ Sets the gradient fill of the object &quot;name&quot; to type. Color description
 the same as for setFillColor() and setFillShade(). See the constants for
 available types (FILL_&lt;type&gt;).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
+
+Nastaví gradient výplně objektu &quot;name&quot; na specifikovaný typ. Specifikace barev
+je stejná jako v setFillColor() a setFillShade(). Dostupné gradienty viz.
+konstanty FILL_&lt;typ&gt;.</translation>
     </message>
     <message>
         <source>messagebarText(&quot;string&quot;)
@@ -96,7 +137,10 @@ available types (FILL_&lt;type&gt;).
 Writes the &quot;string&quot; into the Scribus message bar (status line). The text
 must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>messagebarText(&quot;string&quot;)
+
+Zapíše řetězec &quot;string&quot; do stavového řádku Scribusu. Text musí být kódován
+UTF8 nebo unicode (např. unicode(&quot;text&quot;, &quot;iso-8859-2&quot;)).</translation>
     </message>
     <message>
         <source>newDoc(size, margins, orientation, firstPageNumber,
@@ -132,7 +176,23 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDoc(size, margins, orientation, firstPageNumber, unit, facingPages, firstSideLeft) -&gt; bool
+
+Vytvoří nový dokument a vrátí true v případě úspěchu. Parametry mají tento význam:
+    size - Tuple (šířka, výška) rozměrů velikost stránky. Viz. konstanty PAPER_&lt;typ&gt; např. PAPER_A4.
+    margins - Tuple (L, P, N, D) popisuje velikost okrajů stránky.
+    orientation - Orienrace stránky. Viz. předdefinované konstanty PORTRAIT a LANDSCAPE.
+    firstPageNumber - Číslo první stránky dokumentu, které je použito při automatickém číslování stran.
+    unit - Nastaví typ měrných jednotek dokumentu. Viz. UNIT_INCHES, UNIT_MILLIMETERS,
+             UNIT_PICAS, UNIT_POINTS.
+    facingPages - FACINGPAGES, NOFACINGPAGES
+    firstSideLeft - FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+Hodnoty výšky, šířky a okrajů jsou uvedeny ve specifikovaných měrných jednotkách dokumentu.
+Konstanty PAPER_* jsou v bodech. Jestliže je dokument v jiných jednotkách, musíte provést
+patřičnou konverzi.
+
+příklad: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS, FACINGPAGES, FIRSTPAGERIGHT)</translation>
     </message>
 </context>
 <context>
@@ -1113,7 +1173,7 @@ upwards, no matter what the displayed first page number of your document is.
 
 Redraws all pages.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Překreslí/obnoví všechny stránky.</translation>
     </message>
     <message>
         <source>savePageAsEPS(&quot;name&quot;)
@@ -1122,7 +1182,9 @@ Saves the current page as an EPS to the file &quot;name&quot;.
 
 May raise ScribusError if the save failed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Uloží aktuální stránku jako EPS do souboru &quot;name&quot;.
+
+Může vyvolat výjimu ScribusErro, dojde-li k chybě.</translation>
     </message>
     <message>
         <source>deletePage(nr)
@@ -1151,7 +1213,7 @@ May raise IndexError if the page number is out of range.
 
 Returns the number of pages in the document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Vrátí počet stránek dokumentu.</translation>
     </message>
     <message>
         <source>getHGuides() -&gt; list
@@ -1177,14 +1239,14 @@ Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any l
 
 See getHGuides.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Viz. getHGuides().</translation>
     </message>
     <message>
         <source>setVGuides()
 
 See setHGuides.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Viz. setHGuides().</translation>
     </message>
     <message>
         <source>getPageSize() -&gt; tuple
@@ -1345,7 +1407,7 @@ progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
 
 [UNSUPPORTED!] This might break things, so steer clear for now.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>[UNSUPPORTED!] This might break things, so steer clear for now.</translation>
     </message>
     <message>
         <source>docChanged(bool)
@@ -1509,7 +1571,7 @@ selected item is used.
  compiled in library support in Scribus
 The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation>Okno ukazuje verzi programu, datum kompilace
+        <translation type="obsolete">Okno ukazuje verzi programu, datum kompilace
 a knihovny v něm použité.
 Symboly C-C-T znamenají C-CUPS C-littlecms T-TIFF podporu.
 Chybějící knihovny jsou zobrazeny jako *</translation>
@@ -1600,7 +1662,17 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
     <message>
         <source>About Scribus %1</source>
-        <translation type="unfinished"></translation>
+        <translation>O Scribusu %1</translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Okno ukazuje verzi programu, datum kompilace
+a knihovny v něm použité.
+Symboly C-C-T znamenají C-littlecms C-CUPS T-TIFF podporu.
+Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
 </context>
 <context>
@@ -3167,11 +3239,11 @@ Lze uvést v Nastavení.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zrušit</translation>
     </message>
 </context>
 <context>
@@ -3857,11 +3929,11 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Velikost:</translation>
+        <translation>&amp;Velikost:</translation>
     </message>
     <message>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Velikost obrázků. 100% beze změny, 200% dvakrát větší atd.</translation>
     </message>
 </context>
 <context>
@@ -4133,11 +4205,11 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat zvolené písmo do Styl, Písmo menu</translation>
     </message>
     <message>
         <source>Leave preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavřít náhled písem</translation>
     </message>
 </context>
 <context>
@@ -4232,15 +4304,15 @@ kde naleznete aktuální dokumentaci.</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Obsah</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished"></translation>
+        <translation>Odkaz</translation>
     </message>
     <message>
         <source>Scribus Online Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus nápověda</translation>
     </message>
 </context>
 <context>
@@ -5877,15 +5949,15 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>Executive</source>
-        <translation type="unfinished"></translation>
+        <translation>Executive</translation>
     </message>
     <message>
         <source>Folio</source>
-        <translation type="unfinished"></translation>
+        <translation>Folio</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation type="unfinished"></translation>
+        <translation>Ledger</translation>
     </message>
 </context>
 <context>
@@ -6867,7 +6939,7 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">UCR - under color removal - odstranění přebytečné barvy, která by 
+        <translation>UCR - under color removal - odstranění přebytečné barvy, která by 
 způsobila rozpíjení (při přílišné saturaci papíru barvou) nebo trhání 
 barvy při několika vrstvém (např. barevném) laserovém tisku.
 Viz. např. http://www.typo.cz/_pismo/pis-tech-post.html
@@ -6876,7 +6948,8 @@ a jiné.</translation>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
+        <translation>Zajistí hezčí vzhled TrueType a OpenType písem, EPS, PDF a vektorové grafiky
+v náhledu, ale zpomalí se jeho vytváření</translation>
     </message>
 </context>
 <context>
@@ -8270,27 +8343,27 @@ a jiné.</translation>
     </message>
     <message>
         <source>Executive</source>
-        <translation type="unfinished"></translation>
+        <translation>Executive</translation>
     </message>
     <message>
         <source>Folio</source>
-        <translation type="unfinished"></translation>
+        <translation>Folio</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation type="unfinished"></translation>
+        <translation>Ledger</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation type="unfinished">Legal</translation>
+        <translation>Legal</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation type="unfinished">Tabloid</translation>
+        <translation>Tabloid</translation>
     </message>
 </context>
 <context>
@@ -9049,566 +9122,573 @@ Odkazy ven
     </message>
     <message>
         <source>Albanian</source>
-        <translation type="unfinished"></translation>
+        <translation>Albánština</translation>
     </message>
     <message>
         <source>Basque</source>
-        <translation type="unfinished"></translation>
+        <translation>Baskitština</translation>
     </message>
     <message>
         <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
+        <translation>Bulharština</translation>
     </message>
     <message>
         <source>Brazilian</source>
-        <translation type="unfinished"></translation>
+        <translation>Brazilština</translation>
     </message>
     <message>
         <source>Catalan</source>
-        <translation type="unfinished">Katalánsky</translation>
+        <translation>Katalánština</translation>
     </message>
     <message>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>Čínština</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation type="unfinished">Česky</translation>
+        <translation>Čeština</translation>
     </message>
     <message>
         <source>Danish</source>
-        <translation type="unfinished">Dánsky</translation>
+        <translation>Dánština</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation type="unfinished">Dánsky</translation>
+        <translation>Holandština</translation>
     </message>
     <message>
         <source>English</source>
-        <translation type="unfinished">Anglicky</translation>
+        <translation>Angličtina</translation>
     </message>
     <message>
         <source>English (British)</source>
-        <translation type="unfinished"></translation>
+        <translation>Angličtina (Britská)</translation>
     </message>
     <message>
         <source>Esperanto</source>
-        <translation type="unfinished"></translation>
+        <translation>Esperanto</translation>
     </message>
     <message>
         <source>German</source>
-        <translation type="unfinished">Německy</translation>
+        <translation>Němčina</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation type="unfinished">Finsky</translation>
+        <translation>Finština</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="unfinished">Francouzsky</translation>
+        <translation>Francouzština</translation>
     </message>
     <message>
         <source>Galician</source>
-        <translation type="unfinished"></translation>
+        <translation>Galština</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation type="unfinished">Řecky</translation>
+        <translation>Řečtina</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation type="unfinished">Maďarsky</translation>
+        <translation>Maďarština</translation>
     </message>
     <message>
         <source>Indonesian</source>
-        <translation type="unfinished"></translation>
+        <translation>Indonéský</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation type="unfinished">Italsky</translation>
+        <translation>Italština</translation>
     </message>
     <message>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
+        <translation>Korejština</translation>
     </message>
     <message>
         <source>Lithuanian</source>
-        <translation type="unfinished">Litevsky</translation>
+        <translation>Litevština</translation>
     </message>
     <message>
         <source>Norwegian (Bokmaal)</source>
-        <translation type="unfinished"></translation>
+        <translation>Norština (Bokmaal)</translation>
     </message>
     <message>
         <source>Norwegian (Nnyorsk)</source>
-        <translation type="unfinished"></translation>
+        <translation>Norština (Nnyorsk)</translation>
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished"></translation>
+        <translation>Norština</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="unfinished">Polsky</translation>
+        <translation>Polština</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="unfinished">Rusky</translation>
+        <translation>Ruština</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished">Švédsky</translation>
+        <translation>Švédština</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="unfinished">Španělsky</translation>
+        <translation>Španělština</translation>
     </message>
     <message>
         <source>Spanish (Latin)</source>
-        <translation type="unfinished"></translation>
+        <translation>Španělština (Latin)</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation type="unfinished">Slovensky</translation>
+        <translation>Slovenština</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation type="unfinished">Slovinsky</translation>
+        <translation>Slovinština</translation>
     </message>
     <message>
         <source>Serbian</source>
-        <translation type="unfinished"></translation>
+        <translation>Srbština</translation>
     </message>
     <message>
         <source>Tried to set progress &gt; maximum progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Nelze nastavit větší progres než je maximální</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;O skriptu...</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished"></translation>
+        <translation>O skriptu</translation>
     </message>
     <message>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze získat velikost písma z netextového rámce.</translation>
     </message>
     <message>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze získat písmo z netextového rámce.</translation>
     </message>
     <message>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze získat velikost textu z netextového rámce.</translation>
     </message>
     <message>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze získat počet sloupců z netextového rámce.</translation>
     </message>
     <message>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze získat řádkování z netextového rámu.</translation>
     </message>
     <message>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze získat odstup sloupců z netextového rámu.</translation>
     </message>
     <message>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze získat text z netextového rámu.</translation>
     </message>
     <message>
         <source>Cannot set text of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze vložit text do netextového rámu.</translation>
     </message>
     <message>
         <source>Cannot insert text into non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze vložit text do netextového rámu.</translation>
     </message>
     <message>
         <source>Insert index out of bounds</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Pozice je mimo povolené hranice</translation>
     </message>
     <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hodnota zarovnání je mimo povolený rozsah. Použijte jednu z předdefinovaných konstant scribus.ALIGN*.</translation>
     </message>
     <message>
         <source>Can&apos;t set text alignment on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze nastavit typ zarovnání netextového rámce</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Velikost písma mimo povolený rozsah. Musí být mezi 1 a 512</translation>
     </message>
     <message>
         <source>Can&apos;t set font size on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze nasatvit velikost písma netextového rámu</translation>
     </message>
     <message>
         <source>Can&apos;t set font on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze nastavit písmo netextového rámu</translation>
     </message>
     <message>
         <source>Font not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Písmo nenalezeno</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Velikost řádkování je mimo povolený rozsah. Musí být větší než 0</translation>
     </message>
     <message>
         <source>Can&apos;t line spacing on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze nastavit řádkovéní netextového rámce</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mezisloupcová mezera nesmí být negativní</translation>
     </message>
     <message>
         <source>Can&apos;t column gap on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze nastavit mezisloupcovou mezeru netextového rámu</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Počet slupců je mimo povolený rozsah. Musí být větší než 1</translation>
     </message>
     <message>
         <source>Can&apos;t number of columns on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze nastavit počet sloupců netextového rámce</translation>
     </message>
     <message>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Pozice výběru mimo povolené hranice</translation>
     </message>
     <message>
         <source>Can&apos;t select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze vybrat text v netextovém rámce</translation>
     </message>
     <message>
         <source>Can&apos;t delete text from a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze smazat text z netextového rámce</translation>
     </message>
     <message>
         <source>Can&apos;t set text fill on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze nastavit výplň textu netextového rámce</translation>
     </message>
     <message>
         <source>Can&apos;t set text stroke on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze nastavit obrys netextového rámce</translation>
     </message>
     <message>
         <source>Can&apos;t set text shade on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze nastavit stín netextového rámce</translation>
     </message>
     <message>
         <source>Can only link text frames</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Pouze textové rámce se mohou zřetězit</translation>
     </message>
     <message>
         <source>Target frame must be empty</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cílový rámec musí být prázdný</translation>
     </message>
     <message>
         <source>Target frame links to another frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Text cilového rámce už poračuje v rámci jiném</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cílový rámec už je zřetězený</translation>
     </message>
     <message>
         <source>Source and target are the same object</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Oba rámce jsou stejný objekt</translation>
     </message>
     <message>
         <source>Can&apos;t unlink a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze zrušit zřetězení netextového rámce</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Objekt není zřetězený textový rámec, proto nelze řetězeí zrušit.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Objektu na posledním místě nelze zrušit zřetězení. Použijte místo něj předchozí rámec.</translation>
     </message>
     <message>
         <source>Can&apos;t convert a non-text frame to outlines</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze převést netextový rámec na křivky</translation>
     </message>
     <message>
         <source>Failed to open document</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při otvírání dokumentu</translation>
     </message>
     <message>
         <source>Failed to save document</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při ukládání dokumentu</translation>
     </message>
     <message>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Jednotka mimo povolený rozsah. Použijte jednu z předdefinovanýcj konstant scribus.UNIT*.</translation>
     </message>
     <message>
         <source>Target is not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cíl není obrázkový rámec.</translation>
     </message>
     <message>
         <source>Can&apos;t scale by 0%</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze měnit velikost pomocí 0%</translation>
     </message>
     <message>
         <source>Can&apos;t render an empty sample</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze vytvořit prázdný náhled</translation>
     </message>
     <message>
         <source>Can&apos;t save to a blank filename</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze ukládat bez názvu souboru</translation>
     </message>
     <message>
         <source>Can&apos;t have an empty layer name</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze vytvořit vrstvu s prázdným jménem</translation>
     </message>
     <message>
         <source>Layer not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vrstva nenalezena</translation>
     </message>
     <message>
         <source>Can&apos;t remove the last layer</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze odstranit poslední vrstvu</translation>
     </message>
     <message>
         <source>Can&apos;t create layer without a name</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze vytvořit vrstvu beze jména</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Objekt se zadaným názvem už existuje</translation>
     </message>
     <message>
         <source>Point list must contain at least two points (four values)</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Seznam musí obsahovat alespoň dva body (čtyři hodnoty)</translation>
     </message>
     <message>
         <source>Point list must contain an even number of values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Seznam musí obsahovat sudý počet hodnot</translation>
     </message>
     <message>
         <source>Point list must contain at least three points (six values)</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Seznam musí obsahovat alespoň tři body (šest hodnot)</translation>
     </message>
     <message>
         <source>Point list must contain at least four points (eight values)</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>SeSeznam musí obsahovat alespoň čtyři body (osm hodnot)</translation>
     </message>
     <message>
         <source>Point list must have a multiple of six values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Seznam musí obsahovat násobek šesti položek</translation>
     </message>
     <message>
         <source>Object not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Objekt nenalezen</translation>
     </message>
     <message>
         <source>Style not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Styl nenalezen</translation>
     </message>
     <message>
         <source>Can&apos;t set style on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze nastavit styl netextového rámce</translation>
     </message>
     <message>
         <source>Failed to save EPS</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při ukládání EPS</translation>
     </message>
     <message>
         <source>Page number out of range</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Číslo strany je mimo povolený rozsah</translation>
     </message>
     <message>
         <source>argument is not list: must be list of float values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>parametr není seznam: musí být seznam s float hodnotami</translation>
     </message>
     <message>
         <source>argument contains non-numeric values: must be list of float values</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>parametr obsahuje nečíselné hodnoty: musí být seznam s float hodnotami</translation>
     </message>
     <message>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Šířka čáry mimo povolený rozsah: &lt;0; 12&gt;</translation>
     </message>
     <message>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Stín čáry mimo povolený rozsah: &lt;0; 100&gt;</translation>
     </message>
     <message>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Stín mimo povolený rozsah: &lt;0; 100&gt;</translation>
     </message>
     <message>
         <source>Corner radius must be a positive number.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Úhel rohu nesmí být negativní číslo.</translation>
     </message>
     <message>
         <source>Line style not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Styl čáry nenalezen</translation>
     </message>
     <message>
         <source>Cannot get a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze získat barvu s prázdným jménem.</translation>
     </message>
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Barva nenalezena</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze změnit barvu s prázdným jménem.</translation>
     </message>
     <message>
         <source>Color not found in document</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Barva není v dokumentu nalezena</translation>
     </message>
     <message>
         <source>Color not found in default colors</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Barva není nalezena v implicitních barvách</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze vytvořit barvu s prázdným jménem.</translation>
     </message>
     <message>
         <source>Cannot delete a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze smazat barvu s prázdným jménem.</translation>
     </message>
     <message>
         <source>Cannot replace a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nelze nahradit barvu s prázdným jménem.</translation>
+    </message>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation>Import OpenOffice.org &amp;Draw...</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation>OpenOffice.org Draw (*.sxd);;Všechny soubory (*)</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Documents</source>
+        <translation>OpenOffice.o Writer dokumenty</translation>
     </message>
     <message>
         <source>Scribus Python interface module
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
 <byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
 <byte value="x9"/><byte value="x9"/>function is documented individually below.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
 <byte value="x9"/><byte value="x9"/>a string - they are not real Python objects. Many functions take an
 <byte value="x9"/><byte value="x9"/>optional (non-keyword) parameter, a frame name.
 <byte value="x9"/><byte value="x9"/>Many exceptions are also common across most functions. These are
 <byte value="x9"/><byte value="x9"/>not currently documented in the docstring for each function.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
 <byte value="x9"/><byte value="x9"/>      without a document to operate on.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
 <byte value="x9"/><byte value="x9"/>      the function will use the currently selected frame, if any, or
 <byte value="x9"/><byte value="x9"/>      raise a NoValidObjectError if it can&apos;t find anything to operate
 <byte value="x9"/><byte value="x9"/>      on.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
 <byte value="x9"/><byte value="x9"/>      on a frame type that they do not make sense with. For example, setting
 <byte value="x9"/><byte value="x9"/>      the text colour on a graphics frame doesn&apos;t make sense, and will result
 <byte value="x9"/><byte value="x9"/>      in this exception being raised.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
 <byte value="x9"/><byte value="x9"/>      passed through unaltered. As such, the list of exceptions thrown by
 <byte value="x9"/><byte value="x9"/>      any function as provided here and in its docstring is incomplete.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
 <byte value="x9"/><byte value="x9"/>function&apos;s documentation.
 <byte value="x9"/><byte value="x9"/></source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Writer Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Scripter - Python modul programu Scribus
+Scripter je rozhraní jazyka Python programu Scribus. Umožňuje ovládat Scribus a manipulovat
+s objekty v dokumentu. Všechny dostupné třídy, procedury, funkce a konstanty jsou popsány dále.
+Několik věci platí v celém Scripteru. Většina funkčnosti pracuje s rámy. Rámce jsou identifikovány
+svým jménem - textovým řetězcem (není Python objektem). Některé funkce akceptují volitelný
+parametr, t.j. jméno rámce. Některé obecnější výjimky mohou být vyvolány v různých funkcích,
+ale zatím nejsou dokumentovány v nápovědě jednotlivých funkcí.
+    - Mnoho funkcí vyvolá NoDocOpenError, jestliže je zavoláte a nemáte otevřený žádný dokument.
+    - Jestliže nepoužijete jméno rámce jako parametr, funkce zkusí nejít vybraný objekt. Pokud
+      nenalezne, vyvolá NoValidObjectError.
+    - Funkce vyvolá WrongFrameTypeError, jestliže bude zpracovávat rámec, se kterým operace
+      nebude dávat smysl. Např. nastavení barvy textu obrázkovému rámci smysl nedává, takže je
+      výjimka vyvolána.
+    - Chyby a výjimky, které vzniknou v ostatních Python modulech, budou předány interpreteru
+      beze změny, takže vyjmenované výjimky v dokumentaci Scripteru nejsou ani zdaleka kompletní.
+Detaily a výjimky Scripteru jsou popsány v dokumentaci jednotlivých funkcí.</translation>
     </message>
 </context>
 <context>
@@ -9867,7 +9947,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
-        <translation type="unfinished">Čí&amp;slo první strany:</translation>
+        <translation>Čí&amp;slo první strany:</translation>
     </message>
 </context>
 <context>
@@ -11154,11 +11234,11 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation>Afrikánsky</translation>
+        <translation>Afrikánština</translation>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicializován systém písem</translation>
     </message>
 </context>
 <context>
@@ -11349,7 +11429,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished"></translation>
+        <translation>Vy&amp;mazat</translation>
     </message>
 </context>
 <context>
@@ -11790,13 +11870,14 @@ existuje styl se stejným jménem nebo se nemá změnit</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavení importu OpenOffice.org Writer</translation>
     </message>
     <message>
         <source>Should the importer always use currently
 set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
-        <translation type="unfinished"></translation>
+        <translation>Má si importer vždy pamatovat nastavenou hodnotu
+a nikdy znovu nevyžadovat potvrzení</translation>
     </message>
 </context>
 <context>
@@ -11882,7 +11963,7 @@ never ask your confirmation again</source>
     </message>
     <message>
         <source>Left Ind&amp;ent:</source>
-        <translation type="unfinished"></translation>
+        <translation>Levé &amp;odsazení:</translation>
     </message>
 </context>
 <context>
