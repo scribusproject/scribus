@@ -9588,12 +9588,11 @@ QString ScribusApp::GetLang(QString inLang)
 
 void ScribusApp::doHyphenate()
 {
-	PageItem *b;
 	if (HaveDoc)
 	{
 		if (view->SelItem.count() != 0)
 		{
-			b = view->SelItem.at(0);
+			PageItem *b = view->SelItem.at(0);
 			if (doc->docHyphenator->Language != b->Language)
 				doc->docHyphenator->slotNewDict(b->Language);
 			doc->docHyphenator->slotHyphenate(b);
@@ -9634,12 +9633,11 @@ void ScribusApp::ManageGuides()
 
 void ScribusApp::SetTranspar(double t)
 {
-	PageItem *b;
 	if (HaveDoc)
 	{
 		if (view->SelItem.count() != 0)
 		{
-			b = view->SelItem.at(0);
+			PageItem *b = view->SelItem.at(0);
 			b->Transparency = t;
 			view->DrawNew();
 			slotDocCh();
@@ -9649,12 +9647,11 @@ void ScribusApp::SetTranspar(double t)
 
 void ScribusApp::SetTransparS(double t)
 {
-	PageItem *b;
 	if (HaveDoc)
 	{
 		if (view->SelItem.count() != 0)
 		{
-			b = view->SelItem.at(0);
+			PageItem *b = view->SelItem.at(0);
 			b->TranspStroke = t;
 			view->DrawNew();
 			slotDocCh();
@@ -9664,12 +9661,11 @@ void ScribusApp::SetTransparS(double t)
 
 void ScribusApp::InvertPict()
 {
-	PageItem *b;
 	if (HaveDoc)
 	{
 		if (view->SelItem.count() != 0)
 		{
-			b = view->SelItem.at(0);
+			PageItem *b = view->SelItem.at(0);
 			b->InvPict = !b->InvPict;
 			view->DrawNew();
 			slotDocCh();
@@ -10115,10 +10111,10 @@ void ScribusApp::scanDocument()
 
 void ScribusApp::HaveRaster(bool art)
 {
-	if (view->SelItem.count() != 0)
+	if (art && view->SelItem.count() != 0)
 	{
 		PageItem *b = view->SelItem.at(0);
-		if ((b->PType == 2) && (art))
+		if (b->PType == 2)
 		{
 			StilMenu->clear();
 			StilMenu->insertItem( tr("Color"), ColorMenu);

@@ -1608,7 +1608,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			if (b->PType == 2)
 			{
-				pmen->insertItem( tr("&Get Picture..."), this, SIGNAL(LoadPic()));
+				ScApp->scrActions["fileImportImage"]->addTo(pmen);
+				//pmen->insertItem( tr("&Get Picture..."), this, SIGNAL(LoadPic()));
 				int px = pmen->insertItem( tr("I&mage Visible"), this, SLOT(TogglePic()));
 				pmen->setItemChecked(px, b->PicArt);
 				if (b->PicAvail)
@@ -1620,8 +1621,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			if (b->PType == 4)
 			{
-				pmen->insertItem( tr("&Get Text..."), this, SIGNAL(LoadPic()));
-				pmen->insertItem( tr("&Append Text..."), this, SIGNAL(AppendText()));
+				ScApp->scrActions["fileImportText"]->addTo(pmen);
+				ScApp->scrActions["fileImportAppendText"]->addTo(pmen);
+				//pmen->insertItem( tr("&Get Text..."), this, SIGNAL(LoadPic()));
+				//pmen->insertItem( tr("&Append Text..."), this, SIGNAL(AppendText()));
 				pmen->insertItem( tr("&Edit Text..."), this, SIGNAL(EditText()));
 				if (Doc->currentPage->PageNam == "")
 				{
@@ -9184,10 +9187,9 @@ void ScribusView::insertColor(QString nam, double c, double m, double y, double 
 
 void ScribusView::ChLineWidth(double w)
 {
-	uint a;
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			PageItem *b = SelItem.at(a);
 			b->OldPwidth = b->Pwidth;
@@ -9208,10 +9210,9 @@ void ScribusView::ChLineWidth(double w)
 
 void ScribusView::ChLineArt(PenStyle w)
 {
-	uint a;
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			SelItem.at(a)->PLineArt = w;
 			RefreshItem(SelItem.at(a));
@@ -9221,10 +9222,9 @@ void ScribusView::ChLineArt(PenStyle w)
 
 void ScribusView::ChLineJoin(PenJoinStyle w)
 {
-	uint a;
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			SelItem.at(a)->PLineJoin = w;
 			RefreshItem(SelItem.at(a));
@@ -9234,10 +9234,9 @@ void ScribusView::ChLineJoin(PenJoinStyle w)
 
 void ScribusView::ChLineEnd(PenCapStyle w)
 {
-	uint a;
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			SelItem.at(a)->PLineEnd = w;
 			RefreshItem(SelItem.at(a));
@@ -9247,10 +9246,9 @@ void ScribusView::ChLineEnd(PenCapStyle w)
 
 void ScribusView::ChLineSpa(double w)
 {
-	uint a;
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			SelItem.at(a)->LineSp = w;
 			RefreshItem(SelItem.at(a));
@@ -9261,11 +9259,10 @@ void ScribusView::ChLineSpa(double w)
 
 void ScribusView::ChLocalXY(double x, double y)
 {
-	uint a;
-	PageItem *b;
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		PageItem *b;
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
 			b->LocalX = x;
@@ -9277,12 +9274,12 @@ void ScribusView::ChLocalXY(double x, double y)
 
 void ScribusView::ChLocalSc(double x, double y)
 {
-	uint a;
-	double oldx, oldy;
-	PageItem *b;
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		double oldx, oldy;
+		PageItem *b;
+
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
 			oldx = b->LocalViewX / b->LocalScX;
@@ -9298,11 +9295,9 @@ void ScribusView::ChLocalSc(double x, double y)
 
 void ScribusView::ItemFont(QString fon)
 {
-	uint a;
-	uint aa;
 	if (SelItem.count() != 0)
 	{
-		for (aa = 0; aa < SelItem.count(); ++aa)
+		for (uint aa = 0; aa < SelItem.count(); ++aa)
 		{
 			PageItem *b = SelItem.at(aa);
 			if (Doc->appMode == NormalMode)
@@ -9310,7 +9305,7 @@ void ScribusView::ItemFont(QString fon)
 				b->IFont = fon;
 				if (b->itemText.count() != 0)
 				{
-					for (a = 0; a < b->itemText.count(); ++a)
+					for (uint a = 0; a < b->itemText.count(); ++a)
 						b->itemText.at(a)->cfont = fon;
 					if (b->PType == 8)
 					{
@@ -9326,7 +9321,7 @@ void ScribusView::ItemFont(QString fon)
 			{
 				if (b->itemText.count() != 0)
 				{
-					for (a = 0; a < b->itemText.count(); ++a)
+					for (uint a = 0; a < b->itemText.count(); ++a)
 					{
 						if (b->itemText.at(a)->cselect)
 							b->itemText.at(a)->cfont = fon;
@@ -9340,13 +9335,12 @@ void ScribusView::ItemFont(QString fon)
 
 void ScribusView::ItemPen(QString farbe)
 {
-	uint a;
-	PageItem *i;
 	if (farbe == tr("None"))
 		farbe = "None";
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		PageItem *i;
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			i = SelItem.at(a);
 			if ((i->PType == 5) && (farbe == "None"))
@@ -9360,20 +9354,19 @@ void ScribusView::ItemPen(QString farbe)
 
 void ScribusView::ItemTextBrush(QString farbe)
 {
-	uint a, i;
-	PageItem *b;
 	if (farbe == tr("None"))
 		farbe = "None";
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		PageItem *b;
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
 			if ((b->PType == 4) || (b->PType == 8))
 			{
 				if (Doc->appMode != EditMode)
 					b->TxtFill = farbe;
-				for (i=0; i<b->itemText.count(); ++i)
+				for (uint i=0; i<b->itemText.count(); ++i)
 				{
 					if (Doc->appMode == EditMode)
 					{
@@ -9392,18 +9385,18 @@ void ScribusView::ItemTextBrush(QString farbe)
 
 void ScribusView::ItemTextBrushS(int sha)
 {
-	uint a, i;
-	PageItem *b;
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		PageItem *b;
+
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
 			if (b->PType == 4)
 			{
 				if (Doc->appMode != EditMode)
 					b->ShTxtFill = sha;
-				for (i=0; i<b->itemText.count(); ++i)
+				for (uint i=0; i<b->itemText.count(); ++i)
 				{
 					if (Doc->appMode == EditMode)
 					{
@@ -9422,20 +9415,19 @@ void ScribusView::ItemTextBrushS(int sha)
 
 void ScribusView::ItemTextPen(QString farbe)
 {
-	uint a, i;
-	PageItem *b;
 	if (farbe == tr("None"))
 		farbe = "None";
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		PageItem *b;
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
 			if ((b->PType == 4) || (b->PType == 8))
 			{
 				if (Doc->appMode != EditMode)
 					b->TxtStroke = farbe;
-				for (i=0; i<b->itemText.count(); ++i)
+				for (uint i=0; i<b->itemText.count(); ++i)
 				{
 					if (Doc->appMode == EditMode)
 					{
@@ -9453,18 +9445,17 @@ void ScribusView::ItemTextPen(QString farbe)
 
 void ScribusView::ItemTextPenS(int sha)
 {
-	uint a, i;
-	PageItem *b;
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		PageItem *b;
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
 			if (b->PType == 4)
 			{
 				if (Doc->appMode != EditMode)
 					b->ShTxtStroke = sha;
-				for (i=0; i<b->itemText.count(); ++i)
+				for (uint i=0; i<b->itemText.count(); ++i)
 				{
 					if (Doc->appMode == EditMode)
 					{
@@ -9482,18 +9473,17 @@ void ScribusView::ItemTextPenS(int sha)
 
 void ScribusView::ItemTextScale(int sha)
 {
-	uint a, i;
-	PageItem *b;
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		PageItem *b;
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
 			if (b->PType == 4)
 			{
 				if (Doc->appMode != EditMode)
 					b->TxtScale = sha;
-				for (i=0; i<b->itemText.count(); ++i)
+				for (uint i=0; i<b->itemText.count(); ++i)
 				{
 					if (Doc->appMode == EditMode)
 					{
@@ -9511,13 +9501,14 @@ void ScribusView::ItemTextScale(int sha)
 
 void ScribusView::ItemBrush(QString farbe)
 {
-	uint a;
-	PageItem *b;
 	if (farbe == tr("None"))
 		farbe = "None";
+
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		PageItem *b;
+
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
 			b->Pcolor = farbe;
@@ -9529,11 +9520,10 @@ void ScribusView::ItemBrush(QString farbe)
 
 void ScribusView::ItemBrushShade(int sha)
 {
-	uint a;
-	PageItem *b;
 	if (SelItem.count() != 0)
 	{
-		for (a = 0; a < SelItem.count(); ++a)
+		PageItem *b;
+		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
 			b->Shade = sha;
@@ -9545,9 +9535,9 @@ void ScribusView::ItemBrushShade(int sha)
 
 void ScribusView::ItemPenShade(int sha)
 {
-	PageItem *i;
 	if (SelItem.count() != 0)
 	{
+		PageItem *i;
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			i = SelItem.at(a);
@@ -9559,9 +9549,9 @@ void ScribusView::ItemPenShade(int sha)
 
 void ScribusView::ItemGradFill(int typ)
 {
-	PageItem *i;
 	if (SelItem.count() != 0)
 	{
+		PageItem *i;
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			i = SelItem.at(a);
@@ -9775,18 +9765,16 @@ void ScribusView::chAbStyle(PageItem *b, int s)
 
 void ScribusView::chKerning(double us)
 {
-	uint a;
-	uint aa;
 	if (SelItem.count() != 0)
 	{
-		for (aa = 0; aa < SelItem.count(); ++aa)
+		for (uint aa = 0; aa < SelItem.count(); ++aa)
 		{
 			PageItem *b = SelItem.at(aa);
 			if ((b->HasSel) && (Doc->appMode == EditMode))
 			{
 				if (b->itemText.count() != 0)
 				{
-					for (a = 0; a < b->itemText.count(); ++a)
+					for (uint a = 0; a < b->itemText.count(); ++a)
 					{
 						if (b->itemText.at(a)->cselect)
 							b->itemText.at(a)->cextra = us;
@@ -9800,7 +9788,7 @@ void ScribusView::chKerning(double us)
 					b->ExtraV = us;
 				if (b->itemText.count() != 0)
 				{
-					for (a = 0; a < b->itemText.count(); ++a)
+					for (uint a = 0; a < b->itemText.count(); ++a)
 					{
 						b->itemText.at(a)->cextra = us;
 					}
@@ -9813,11 +9801,9 @@ void ScribusView::chKerning(double us)
 
 void ScribusView::chFSize(int size)
 {
-	uint a;
-	uint aa;
 	if (SelItem.count() != 0)
 	{
-		for (aa = 0; aa < SelItem.count(); ++aa)
+		for (uint aa = 0; aa < SelItem.count(); ++aa)
 		{
 			PageItem *b = SelItem.at(0);
 			Doc->CurrFontSize = size;
@@ -9834,7 +9820,7 @@ void ScribusView::chFSize(int size)
 			{
 				if (Doc->appMode == EditMode)
 				{
-					for (a = 0; a < b->itemText.count(); ++a)
+					for (uint a = 0; a < b->itemText.count(); ++a)
 					{
 						if (b->itemText.at(a)->cselect)
 							b->itemText.at(a)->csize = size;
@@ -9842,7 +9828,7 @@ void ScribusView::chFSize(int size)
 				}
 				else
 				{
-					for (a = 0; a < b->itemText.count(); ++a)
+					for (uint a = 0; a < b->itemText.count(); ++a)
 					{
 						if (b->itemText.at(a)->cab < 5)
 							b->itemText.at(a)->csize = size;
@@ -10951,11 +10937,10 @@ void ScribusView::QueryFarben()
 
 void ScribusView::ToPathText()
 {
-	PageItem *b;
-	PageItem *bb;
 	if (SelItem.count() > 1)
 	{
-		b = SelItem.at(0);
+		PageItem *b = SelItem.at(0);
+		PageItem *bb;
 		if (b->PType == 4)
 			bb = SelItem.at(1);
 		else
@@ -10993,12 +10978,10 @@ void ScribusView::ToPathText()
 void ScribusView::FromPathText()
 {
 	PageItem *b;
-	PageItem *bb;
-	uint z;
 	if (GetItem(&b))
 	{
-		z = PaintPolyLine(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, "None", b->Pcolor2);
-		bb = Doc->Items.at(z);
+		uint z = PaintPolyLine(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, "None", b->Pcolor2);
+		PageItem *bb = Doc->Items.at(z);
 		bb->PoLine = b->PoLine.copy();
 		bb->ClipEdited = true;
 		bb->FrameType = 3;
@@ -11018,14 +11001,13 @@ void ScribusView::FromPathText()
 
 void ScribusView::TextToPath()
 {
-	PageItem *b;
-	PageItem *bb;
-	FPointArray pts;
-	double x, y;
-	QString chx,ccounter;
 	if (SelItem.count() > 0)
 	{
-		b = SelItem.at(0);
+		PageItem *bb;
+		FPointArray pts;
+		double x, y;
+		QString chx, ccounter;
+		PageItem *b = SelItem.at(0);
 		Deselect();
 		if (b->itemText.count() == 0)
 			return;
