@@ -1,5 +1,15 @@
 Changes since 1.2 
 
+10.12.2004
+	* bug     # 931: Insert Special should be disabled when not usable
+	* bug     #1100: libfreetype not found by ./configure
+	* bug     #1328: SVG Import: incorrect units
+	* bug     #1361: after attaching text to path the shape cannot be resized without dissappearing
+	* bug     #1369: Crash when using <esc> to end line drawing
+	* bug     #1370: Bezier tool does not set document changed when escaped pressed to end drawing.
+	* bug     #1372: Change of Translator email-adress.
+	* bug     #1373: Updated nb_NO translation.
+
 09.12.2004
 	* bug     # 984: Can Search/Replace dialog remember from last time?
 	* bug     #1135: Page number in TTF font doesn't print

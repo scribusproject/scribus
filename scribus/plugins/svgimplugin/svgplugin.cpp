@@ -155,6 +155,12 @@ void SVGPlug::convert()
 	QDomElement docElem = inpdoc.documentElement();
 	double width	= !docElem.attribute("width").isEmpty() ? parseUnit(docElem.attribute( "width" )) : 550.0;
 	double height	= !docElem.attribute("height").isEmpty() ? parseUnit(docElem.attribute( "height" )) : 841.0;
+	if (!docElem.attribute("width").isEmpty())
+		getDefaultUnit(docElem.attribute( "width" ));
+	else if (!docElem.attribute("height").isEmpty())
+		getDefaultUnit(docElem.attribute( "height" ));
+	else
+		Conversion = 1.0 / 1.25;
 	if (!Prog->HaveDoc)
 	{
 		Prog->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
@@ -596,6 +602,48 @@ double SVGPlug::fromPercentage( const QString &s )
 }
 
 /*!
+ \fn void SVGPlug::getDefaultUnit(const QString &unit)
+ \author Franz Schmid
+ \date
+ \brief
+ \param unit const QString &
+ \retval none
+ */
+void SVGPlug::getDefaultUnit(const QString &unit)
+{
+	QString unitval=unit;
+	QString un = unit.right(2);
+	Conversion = 1.0;
+	if( un == "pt" )
+	{
+		unitval.replace( "pt", "" );
+		Conversion = 1.0;
+	}
+	else if( un == "cm" )
+	{
+		unitval.replace( "cm", "" );
+		Conversion = 72.0 / 2.54;
+	}
+	else if( un == "mm" )
+	{
+		unitval.replace( "mm", "" );
+		Conversion = 72.0 / 25.4;
+	}
+	else if( un == "in" )
+	{
+		unitval.replace( "in", "" );
+		Conversion = 72.0;
+	}
+	else if( un == "px" )
+	{
+		unitval.replace( "px", "" );
+		Conversion = 0.8;
+	}
+	if (unitval == unit)
+		Conversion = 0.8;
+}
+
+/*!
  \fn double SVGPlug::parseUnit(const QString &unit)
  \author Franz Schmid
  \date
@@ -605,6 +653,7 @@ double SVGPlug::fromPercentage( const QString &s )
  */
 double SVGPlug::parseUnit(const QString &unit)
 {
+	bool noUnit = false;
 	QString unitval=unit;
 	if( unit.right( 2 ) == "pt" )
 		unitval.replace( "pt", "" );
@@ -616,6 +665,8 @@ double SVGPlug::parseUnit(const QString &unit)
 		unitval.replace( "in", "" );
 	else if( unit.right( 2 ) == "px" )
 		unitval.replace( "px", "" );
+	if (unitval == unit)
+		noUnit = true;
 	double value = unitval.toDouble();
 	if( unit.right( 2 ) == "pt" )
 		value = value;
@@ -626,7 +677,9 @@ double SVGPlug::parseUnit(const QString &unit)
 	else if( unit.right( 2 ) == "in" )
 		value = value * 72;
 	else if( unit.right( 2 ) == "px" )
-		value = value;
+		value = value * 0.8;
+	else if (noUnit)
+		value = value * 0.8;
 	return value;
 }
 
@@ -771,6 +824,7 @@ const char * SVGPlug::getCoord( const char *ptr, double &number )
 	}
 	number = integer + decimal;
 	number *= sign * pow( static_cast<double>(10), static_cast<double>( expsign * exponent ) );
+	number *= Conversion;
 
 	// skip the following space
 	if(*ptr == ' ')

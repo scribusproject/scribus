@@ -2643,6 +2643,8 @@ void ScribusApp::HaveNewSel(int Nr)
 	if (Nr != -1)
 		b = doc->ActPage->SelItem.at(0);
 	ObjMenu->setItemEnabled(PfadDT, 0);
+	if (PluginMap.contains(1))
+		extraMenu->setItemEnabled(PluginMap[1].MenuID, 0);
 	view->HR->ItemPosValid = false;
 	view->HR->repX = false;
 	view->HR->repaint();
@@ -2746,6 +2748,8 @@ void ScribusApp::HaveNewSel(int Nr)
 		{
 			setTBvals(b);
 			editMenu->setItemEnabled(edid5, 1);
+			if (PluginMap.contains(1))
+				extraMenu->setItemEnabled(PluginMap[1].MenuID, 1);
 			view->HR->ItemPos = b->Xpos;
 			view->HR->ItemEndPos = b->Xpos+b->Width;
 			if (b->Pcolor2 != "None")
@@ -5216,6 +5220,8 @@ void ScribusApp::setAppMode(int mode)
 			delete doc->CurTimer;
 			doc->CurTimer = 0;
 			editMenu->setItemEnabled(edid4, 0);
+			if (PluginMap.contains(1))
+				extraMenu->setItemEnabled(PluginMap[1].MenuID, 0);
 			doc->ActPage->slotDoCurs(false);
 			if (b != 0)
 			{
@@ -5242,6 +5248,8 @@ void ScribusApp::setAppMode(int mode)
 				setTBvals(b);
 			}
 			editMenu->setItemEnabled(edid3, 0);
+			if (PluginMap.contains(1))
+				extraMenu->setItemEnabled(PluginMap[1].MenuID, 1);
 			if (!Buffer2.isNull())
 			{
 				if (!Buffer2.startsWith("<SCRIBUSELEM"))

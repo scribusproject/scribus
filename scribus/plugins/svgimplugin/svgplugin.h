@@ -111,7 +111,8 @@ public:
 	void addGraphicContext();
 	void setupTransform( const QDomElement &e );
 	void parseGroup(const QDomElement &e);
-	double fromPercentage( const QString &s );	
+	double fromPercentage( const QString &s );
+	void getDefaultUnit(const QString &unit);
 	double parseUnit(const QString &unit);
 	QWMatrix parseTransform(const QString &transform);
 	const char * getCoord( const char *ptr, double &number );
@@ -134,7 +135,7 @@ public:
 	ScribusDoc* Doku;
 	ScribusApp* Prog;
 	QDomDocument inpdoc;
-	double CurrX, CurrY, StartX, StartY;
+	double CurrX, CurrY, StartX, StartY, Conversion;
 	int PathLen;
 	QPtrList<PageItem> Elements;
 	QPtrStack<SvgStyle>	m_gc;
