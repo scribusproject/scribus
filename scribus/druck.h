@@ -9,6 +9,7 @@
 #ifndef DRUCK_H
 #define DRUCK_H
 
+#include "prefscontext.h"
 #include <qdialog.h>
 #include <qbuttongroup.h>
 #include <qcombobox.h>
@@ -99,6 +100,7 @@ private slots:
 	void SelMode(bool e);
 	void SelFile();
 	void SelComm();
+	void okButtonClicked();
 
 private:
 	QGroupBox* Drucker;
@@ -127,6 +129,8 @@ private:
 	QString Geraet;
 	bool ToFile;
 	bool ToSeparation;
+	PrefsContext* prefs;
+	void setStoredValues();
 };
 
 #endif // DRUCK_H

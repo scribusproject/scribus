@@ -111,6 +111,7 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool 
 Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool gcr)
 		: QDialog( parent, "Dr", true, 0)
 {
+	prefs = prefsFile->getContext("print_options");
 	PrinterOpts = "";
 	setCaption( tr( "Setup Printer" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -184,6 +185,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	}
 	else
 		Geraet = PDev;
+
 	Layout1x->addWidget( PrintDest );
 
 #ifdef HAVE_CUPS
@@ -350,11 +352,11 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 
 	PrintGray2 = new QRadioButton( tr( "Print In Gra&yscale" ), ButtonGroup3_2, "PrintGray2" );
 	ButtonGroup3_2Layout->addWidget( PrintGray2 );
-	MirrorH = false;
-	MirrorV = false,
-	ICCinUse = false;
-	DoGCR = gcr;
-	PSLevel = 3;
+	MirrorH = prefs->getBool("MirrorH", false);
+	MirrorV = prefs->getBool("MirrorV", false);
+	ICCinUse = prefs->getBool("ICCinUse", false);
+	DoGCR = prefs->getBool("DoGCR", gcr);
+	PSLevel = prefs->getInt("PSLevel", 3);
 	AdvOptButton = new QPushButton( tr("Ad&vanced Options..."), ButtonGroup3_2, "Adv");
 	ButtonGroup3_2Layout->addWidget( AdvOptButton );
 
@@ -409,7 +411,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 //	setTabOrder( OKButton_2, PrintDest );
 	PrintDest->setFocus();
 	// signals and slots connections
-	connect( OKButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( OKButton, SIGNAL( clicked() ), this, SLOT( okButtonClicked() ) );
 	connect( OKButton_2, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( PrintDest, SIGNAL(activated(const QString&)), this, SLOT(SelPrinter(const QString&)));
 	connect( RadioButton1, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
@@ -421,6 +423,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 #ifdef HAVE_CUPS
 	connect( OptButton, SIGNAL( clicked() ), this, SLOT( SetOptions() ) );
 #endif
+	setStoredValues();
 }
 
 void Druck::SetAdvOptions()
@@ -433,7 +436,10 @@ void Druck::SetAdvOptions()
 		DoGCR = dia->GcR->isChecked();
 #ifdef HAVE_CMS
 		if (CMSuse)
+		{
 			ICCinUse = dia->UseICC->isChecked();
+			prefs->set("ICCinUse", ICCinUse);
+		}
 #endif
 		if (dia->PS1->isChecked())
 			PSLevel = 1;
@@ -441,6 +447,10 @@ void Druck::SetAdvOptions()
 			PSLevel = 2;
 		if (dia->PS3->isChecked())
 			PSLevel = 3;
+		prefs->set("MirrorH", MirrorH);
+		prefs->set("MirrorV", MirrorV);
+		prefs->set("DoGCR", DoGCR);
+		prefs->set("PSLevel", PSLevel);
 	}
 	delete dia;
 }
@@ -582,6 +592,49 @@ void Druck::setMinMax(int min, int max, int cur)
 	QString tmp, tmp2;
 	CurrentPage->setText(tr( "Print Current Pa&ge" )+" ("+tmp.setNum(cur)+")");
 	PageNr->setText(tmp.setNum(min)+"-"+tmp2.setNum(max));
+}
+
+void Druck::okButtonClicked()
+{
+	prefs->set("PrintDest", PrintDest->currentItem());
+	prefs->set("OtherCom", OtherCom->isChecked());
+	prefs->set("PrintAll", RadioButton1->isChecked());
+	prefs->set("CurrentPage", CurrentPage->isChecked());
+	prefs->set("PrintRange", RadioButton2->isChecked());
+	prefs->set("PageNr", PageNr->text());
+	prefs->set("Copies", Copies->value());
+	prefs->set("NormalP", NormalP->isChecked());
+	prefs->set("PrintSep", PrintSep->isChecked());
+	prefs->set("PrintGray", PrintGray->isChecked());
+	prefs->set("PrintGray2", PrintGray2->isChecked());
+	prefs->set("SepArt", SepArt->currentItem());
+	accept();	
+}
+
+void Druck::setStoredValues()
+{
+	int selectedDest = prefs->getInt("PrintDest", 0);
+	if ((selectedDest > -1) && (selectedDest < PrintDest->count()))
+	{
+		PrintDest->setCurrentItem(selectedDest);
+		if (PrintDest->currentText() == tr("File"))
+			SelPrinter(tr("File"));
+	}
+	OtherCom->setChecked(prefs->getBool("OtherCom", false));
+	if (OtherCom->isChecked())
+		SelComm();
+	RadioButton1->setChecked(prefs->getBool("PrintAll", true));
+	CurrentPage->setChecked(prefs->getBool("CurrentPage", false));
+	RadioButton2->setChecked(prefs->getBool("PrintRange", false));
+	PageNr->setText(prefs->get("PageNr", "1-1"));
+	Copies->setValue(prefs->getInt("Copies", 1));
+	NormalP->setChecked(prefs->getBool("NormalP", true));
+	PrintSep->setChecked(prefs->getBool("PrintSep", false));
+	PrintGray->setChecked(prefs->getBool("PrintGray", true));
+	PrintGray2->setChecked(prefs->getBool("PrintGray2", false));
+	int selectedSep = prefs->getInt("SepArt", 0);
+	if ((selectedSep > -1) && (selectedSep < 5))
+		SepArt->setCurrentItem(selectedSep);
 }
 
 QString Druck::printerName()
