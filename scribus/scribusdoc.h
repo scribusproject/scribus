@@ -360,6 +360,7 @@ struct preV  {
 				QColor DpapColor;
 				QColor DmargColor;
 				QColor guideColor;
+				QColor baseColor;
 				QString GUI;
 				int DVHoch;
 				int DVHochSc;
@@ -584,6 +585,7 @@ public: // Public attributes
 	QColor papColor;
 	QColor margColor;
 	QColor guideColor;
+	QColor baseColor;
 	double minorGrid;
 	double majorGrid;
 	int CurrentSel;

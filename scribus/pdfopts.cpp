@@ -588,7 +588,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 		ProfsGroup->setEnabled(false);
 		GroupBox9->setEnabled(false);
 	}
-	EnableLPI(OutCombo->currentItem());
+	EnablePr(Optionen->UseRGB ? 0 : 1);
 	EnablePG();
 	EnablePGI();
 #ifdef HAVE_CMS
@@ -770,7 +770,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	QSpacerItem* spacer_4 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout7->addItem( spacer_4 );
 	PDFOptsLayout->addLayout( Layout7 );
-	setMaximumSize( sizeHint() );
+	resize(sizeHint());
+//	setMaximumSize( sizeHint() );
 	//tab order
 	QWidget::setTabOrder ( AllPages, OnlySome );
 	QWidget::setTabOrder ( OnlySome, PageNr );
@@ -1012,12 +1013,16 @@ void PDF_Opts::EnableLPI(int a)
 		UseLPI->show();
 		if (UseLPI->isChecked())
 			LPIgroup->show();
+		else
+			LPIgroup->hide();
 	}
 	else
 	{
 		UseLPI->hide();
 		LPIgroup->hide();
 	}
+	tabcolor->layout()->activate();
+	tabcolor->updateGeometry();
 	adjustSize();
 }
 
@@ -1027,6 +1032,8 @@ void PDF_Opts::EnableLPI2()
 		LPIgroup->show();
 	else
 		LPIgroup->hide();
+	tabcolor->layout()->activate();
+	tabcolor->updateGeometry();
 	adjustSize();
 }
 

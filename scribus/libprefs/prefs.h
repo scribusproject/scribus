@@ -90,11 +90,13 @@ public:
 	QLabel* TextLabel4b;
 	QLabel* TextLabel4c;
 	QLabel* TextLabel4g;
+	QLabel* TextLabel4ba;
 	QPushButton* minColor;
 	QPushButton* MaxColor;
 	QPushButton* GuideColor;
 	QPushButton* PapColor;
 	QPushButton* RandColor;
+	QPushButton* BaseColor;
 	QWidget* tab_3;
 	QWidgetStack* Fram;
 	QLabel* TextLabel2_2;
@@ -254,6 +256,7 @@ public:
 	QColor Crand;
 	QColor Cpaper;
 	QColor Cgui;
+	QColor Cbase;
 	double Pagebr;
 	double Pageho;
 	double RandT;
@@ -284,6 +287,7 @@ public slots:
 	void changePapColor();
 	void changeRandColor();
 	void changeGuideColor();
+	void changeBaseColor();
 	void SetSample();
 	void SetTool();
 	void ToggleKette();

@@ -472,7 +472,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout11->addWidget( MaxColor, 1, 1 );
 	TextLabel4g = new QLabel( GroupBox2, "TextLabel4g" );
 	TextLabel4g->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                            TextLabel4->sizePolicy().hasHeightForWidth() ) );
+	                            TextLabel4g->sizePolicy().hasHeightForWidth() ) );
 	TextLabel4g->setText( tr( "User Guides Color:" ) );
 	Layout11->addWidget( TextLabel4g, 2, 0 );
 	GuideColor = new QPushButton( GroupBox2, "GuideColor" );
@@ -483,6 +483,20 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Cgui = ap->HaveDoc ? ap->doc->guideColor : Vor->guideColor;
 	GuideColor->setPixmap(pm12);
 	Layout11->addWidget( GuideColor, 2, 1 );
+	
+	TextLabel4ba = new QLabel( GroupBox2, "TextLabel4ba" );
+	TextLabel4ba->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
+	                            TextLabel4ba->sizePolicy().hasHeightForWidth() ) );
+	TextLabel4ba->setText( tr( "Baseline Grid Color:" ) );
+	Layout11->addWidget( TextLabel4ba, 3, 0 );
+	BaseColor = new QPushButton( GroupBox2, "BaseColor" );
+	BaseColor->setText("");
+	BaseColor->setAutoDefault( false );
+	QPixmap pm13 = QPixmap(40, 20);
+	pm13.fill(ap->HaveDoc ? ap->doc->baseColor : Vor->baseColor);
+	Cbase = ap->HaveDoc ? ap->doc->baseColor : Vor->baseColor;
+	BaseColor->setPixmap(pm13);
+	Layout11->addWidget( BaseColor, 3, 1 );
 	GroupBox2Layout->addLayout( Layout11 );
 	tabLayout_2->addWidget( GroupBox2, 1, 0 );
 	
@@ -786,7 +800,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout15a->addWidget( FontComb, 0, 1 );
 	SizeCombo = new QComboBox( true, ToolFrame, "SizeCombo" );
 	SizeCombo->setEditable(false);
-	char *ar_sizes[] = {" 7", " 9", "10", "12", "14", "18", "24", "36", "48", "60", "72"};
+	char *ar_sizes[] = {" 7", " 9", "10", "11", "12", "14", "18", "24", "36", "48", "60", "72"};
 	size_t f_size = sizeof(ar_sizes) / sizeof(*ar_sizes);
 	for (uint s = 0; s < f_size; ++s)
 		SizeCombo->insertItem(ar_sizes[s] + tr(" pt"));
@@ -1658,6 +1672,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	connect( PapColor, SIGNAL( clicked() ), this, SLOT( changePapColor() ) );
 	connect( RandColor, SIGNAL( clicked() ), this, SLOT( changeRandColor() ) );
 	connect( GuideColor, SIGNAL( clicked() ), this, SLOT( changeGuideColor() ) );
+	connect( BaseColor, SIGNAL( clicked() ), this, SLOT( changeBaseColor() ) );
 	connect( buttonOK, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( buttonCancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect(FontComb, SIGNAL(activated(int)), this, SLOT(SetSample()));
@@ -2082,6 +2097,18 @@ void Preferences::changeGuideColor()
 		pm.fill(neu);
 		Cgui = neu;
 		GuideColor->setPixmap(pm);
+	}
+}
+void Preferences::changeBaseColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(Cbase, this);
+	if (neu.isValid())
+	{
+		QPixmap pm = QPixmap(40, 20);
+		pm.fill(neu);
+		Cbase = neu;
+		BaseColor->setPixmap(pm);
 	}
 }
 

@@ -1055,10 +1055,10 @@ void Mpalette::SetCurItem(PageItem *i)
 	Kette2->setOn(false);
 	Width->setReadOnly(setter);
 	Height->setReadOnly(setter);
-	RoundRect->setEnabled(setter);
-	EditShape->setEnabled(setter);
-	ShapeGroup->setEnabled(setter);
-	LayerGroup->setEnabled(setter);
+	RoundRect->setEnabled(!setter);
+	EditShape->setEnabled(!setter);
+	ShapeGroup->setEnabled(!setter);
+	LayerGroup->setEnabled(!setter);
 	Locked->setOn(setter);
 	if ((i->isTableItem) && (i->isSingleSel))
 	{
@@ -2979,10 +2979,10 @@ void Mpalette::handleLock()
 		Width->setReadOnly(setter);
 		Height->setReadOnly(setter);
 		Rot->setReadOnly(setter);
-		RoundRect->setEnabled(setter);
-		EditShape->setEnabled(setter);
-		ShapeGroup->setEnabled(setter);
-		LayerGroup->setEnabled(setter);
+		RoundRect->setEnabled(!setter);
+		EditShape->setEnabled(!setter);
+		ShapeGroup->setEnabled(!setter);
+		LayerGroup->setEnabled(!setter);
 		emit DocChanged();
 	}
 }

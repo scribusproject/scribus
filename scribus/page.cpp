@@ -534,7 +534,7 @@ void Page::DrawPageMarks(ScPainter *p, QRect rd)
 	}
 	if (ScApp->Prefs.BaseShown)
 	{
-		p->setPen(doku->guideColor, lw, SolidLine, FlatCap, MiterJoin);
+		p->setPen(doku->baseColor, lw, SolidLine, FlatCap, MiterJoin);
 		for (double yg = doku->BaseOffs; yg < doku->PageH; yg += doku->BaseGrid)
 			p->drawLine(FPoint(0, yg), FPoint(doku->PageB, yg));
 	}

@@ -2762,6 +2762,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc1.setAttribute("MINORC",Vor->DminColor.name());
 	dc1.setAttribute("MAJORC",Vor->DmajColor.name());
 	dc1.setAttribute("GuideC", Vor->guideColor.name());
+	dc1.setAttribute("BaseC", Vor->baseColor.name());
 	dc1.setAttribute("GuideZ", Vor->GuideRad);
 	dc1.setAttribute("BACKG", static_cast<int>(Vor->Before));
 	dc1.setAttribute("SHOW", static_cast<int>(Vor->GridShown));
@@ -3033,6 +3034,8 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 				Vorein->guideColor = QColor(dc.attribute("GuideC"));
 			if (dc.hasAttribute("GuideZ"))
 				Vorein->GuideRad = QStodouble(dc.attribute("GuideZ"));
+			if (dc.hasAttribute("BaseC"))
+				Vorein->baseColor = QColor(dc.attribute("BaseC"));
 		}
 		if (dc.tagName()=="PAGE")
 		{

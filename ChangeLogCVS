@@ -1,6 +1,9 @@
 Changes since Version 1.1.7
 
 16.07.2004
+	* bug     #860: Lots of crash saying that is due to signal 11
+	* bug     #868: Editing shapes of frames needs lock/unlock actions
+	* feature #848: Baseline Grid Behaviour
 	* feature #855: Setting Linescreen in PDF export
 	* feature #864: Ukrainian Translation Update
 

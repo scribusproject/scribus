@@ -66,9 +66,6 @@ MergeDoc::MergeDoc( QWidget* parent, bool Mpages, int targetDocPageCount, int ac
 		fromLabel = new QLabel(this, "fromLabel");
 		fromLabel->setText(tr(" from 0"));
 		layout1->addWidget( fromLabel, 1, 2 );
-	}
-	if (!Mpa)
-	{
 		Create = new QCheckBox( this, "Create" );
 		Create->setText(tr("Create Page(s)"));
 		layout1->addWidget( Create, 2, 0 );
@@ -108,10 +105,11 @@ MergeDoc::MergeDoc( QWidget* parent, bool Mpages, int targetDocPageCount, int ac
 	connect( Import, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( Change, SIGNAL( clicked() ), this, SLOT( ChangeFile() ) );
-	if (Where)
+	if (!Mpa)
+	{
 		connect( Where, SIGNAL( activated(int) ), this, SLOT( CheckDestPageStatus(int) ) );
-	if (Create)
 		connect( Create, SIGNAL( clicked() ), this, SLOT( enableCreateWidgets() ) );
+	}
 }
 
 /*

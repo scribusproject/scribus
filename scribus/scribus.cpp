@@ -282,6 +282,7 @@ void ScribusApp::initScribus()
 		Prefs.DpapColor = QColor(white);
 		Prefs.DmargColor = QColor(blue);
 		Prefs.guideColor = QColor(darkBlue);
+		Prefs.baseColor = QColor(lightGray);
 		Prefs.DVHoch = 33;
 		Prefs.DVHochSc = 100;
 		Prefs.DVTief = 33;
@@ -856,7 +857,7 @@ void ScribusApp::initMenuBar()
 	ColorMenu->insertItem(ColorMenC);
 	SizeTMenu = new QPopupMenu();
 	SizeTMenu->insertItem( tr("&Other..."));
-	char *ar_sizes[] = {" 7", " 9", "10", "12", "14", "18", "24", "36", "48", "60", "72"};
+	char *ar_sizes[] = {" 7", " 9", "10", "11", "12", "14", "18", "24", "36", "48", "60", "72"};
 	size_t f_size = sizeof(ar_sizes) / sizeof(*ar_sizes);
 	for (uint s = 0; s < f_size; ++s)
 		SizeTMenu->insertItem(ar_sizes[s] + tr(" pt"));
@@ -2061,6 +2062,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->papColor = Prefs.DpapColor;
 	doc->margColor = Prefs.DmargColor;
 	doc->guideColor = Prefs.guideColor;
+	doc->baseColor = Prefs.baseColor;
 	doc->VHoch = Prefs.DVHoch;
 	doc->VHochSc = Prefs.DVHochSc;
 	doc->VTief = Prefs.DVTief;
@@ -2110,6 +2112,14 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->PDF_Optionen.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
 	doc->PDF_Optionen.Intent = doc->CMSSettings.DefaultIntentMonitor;
 	doc->PDF_Optionen.Intent2 = doc->CMSSettings.DefaultIntentMonitor2;
+	struct LPIset lpo;
+	lpo.Angle = 0;
+	lpo.Frequency = 75;
+	lpo.SpotFunc = 2;
+	doc->PDF_Optionen.LPISettings.insert("Cyan", lpo);
+	doc->PDF_Optionen.LPISettings.insert("Magenta", lpo);
+	doc->PDF_Optionen.LPISettings.insert("Yellow", lpo);
+	doc->PDF_Optionen.LPISettings.insert("Black", lpo);
 	doc->ActiveLayer = 0;
 	HaveDoc++;
 	DocNr++;
@@ -3092,7 +3102,8 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 		doc->loading = false;
 		ret = true;
 	}
-	Sepal->Rebuild();
+	if (!Mpa)
+		Sepal->Rebuild();
 	doc->ActPage->update();
 	return ret;
 }
@@ -3138,6 +3149,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		doc->papColor = Prefs.DpapColor;
 		doc->margColor = Prefs.DmargColor;
 		doc->guideColor = Prefs.guideColor;
+		doc->baseColor = Prefs.baseColor;
 		doc->Dpen = Prefs.Dpen;
 		doc->DpenText = Prefs.DpenText;
 		doc->Dbrush = Prefs.Dbrush;
@@ -3214,6 +3226,17 @@ bool ScribusApp::LadeDoc(QString fileName)
 		CMSuse = cmsu;
 #endif
 		HaveDoc++;
+		if (doc->PDF_Optionen.LPISettings.count() == 0)
+		{
+			struct LPIset lpo;
+			lpo.Angle = 0;
+			lpo.Frequency = 75;
+			lpo.SpotFunc = 2;
+			doc->PDF_Optionen.LPISettings.insert("Cyan", lpo);
+			doc->PDF_Optionen.LPISettings.insert("Magenta", lpo);
+			doc->PDF_Optionen.LPISettings.insert("Yellow", lpo);
+			doc->PDF_Optionen.LPISettings.insert("Black", lpo);
+		}
 		connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 		if (!doc->HasCMS)
 		{
@@ -6470,6 +6493,7 @@ void ScribusApp::slotPrefsOrg()
 			doc->papColor = dia->Cpaper;
 			doc->margColor = dia->Crand;
 			doc->guideColor = dia->Cgui;
+			doc->baseColor = dia->Cbase;
 			doc->VHoch = dia->VHochW->value();
 			doc->VHochSc = dia->VHochWSc->value();
 			doc->VTief = dia->VTiefW->value();
@@ -6582,6 +6606,7 @@ void ScribusApp::slotPrefsOrg()
 			Prefs.DpapColor = dia->Cpaper;
 			Prefs.DmargColor = dia->Crand;
 			Prefs.guideColor = dia->Cgui;
+			Prefs.baseColor = dia->Cbase;
 			Prefs.DVHoch = dia->VHochW->value();
 			Prefs.DVHochSc = dia->VHochWSc->value();
 			Prefs.DVTief = dia->VTiefW->value();
