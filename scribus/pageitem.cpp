@@ -237,7 +237,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	else
 		p.begin(Parent);
 	QPaintDeviceMetrics pm(Parent);
-	DevRes = 75.0 / float(pm.logicalDpiX());
+	DevRes = 75.0 / static_cast<float>(pm.logicalDpiX());
 	if ((!toPixmap) && (!Doc->RePos))
 		{
 		if (!e.isEmpty())

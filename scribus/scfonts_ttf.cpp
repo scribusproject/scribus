@@ -210,7 +210,7 @@ bool sc_TTFont::ReadMetrics(float *charwidths)
 		}
 
 		float ndw=Hmtx[0].advanceWidth+Hmtx[0].lsb;
-		ndw/=float(Head.unitsPerEm);
+		ndw/=static_cast<float>(Head.unitsPerEm);
 
 		for(int i=0; i<256; ++i)
 		{
@@ -223,7 +223,7 @@ bool sc_TTFont::ReadMetrics(float *charwidths)
 					if(gn>=Hhea.numberOfHMetrics)
 						gn=Hhea.numberOfHMetrics-1;
 					float cw=Hmtx[gn].advanceWidth+Hmtx[gn].lsb;
-					charwidths[i]=cw/float(Head.unitsPerEm);
+					charwidths[i]=cw / static_cast<float>(Head.unitsPerEm);
 				}
 				else
 					charwidths[i]=ndw;

@@ -4587,7 +4587,7 @@ void ScribusApp::ObjektAlign()
 		{
 		xdp = float(dia->AHor->value()) / UmReFaktor / 100.0;
 		xa = (dia->CheckH->isChecked() || dia->VerteilenH->isChecked());
-		ydp = float(dia->AVert->value()) / UmReFaktor/ 100.0;
+		ydp = static_cast<float>(dia->AVert->value()) / UmReFaktor/ 100.0;
 		ya = (dia->CheckV->isChecked() || dia->VerteilenV->isChecked());
 		xart = dia->VartH->currentItem();
 		yart = dia->VartV->currentItem();
@@ -4623,7 +4623,7 @@ void ScribusApp::BuildFontMenu()
 		it.toFirst();
 		a = FontMenu->insertItem(new FmItem(it.currentKey(), it.current()->Font));
 		FontMenu->setItemChecked(a, true);
-		FontID.insert(long(a), &it.current()->SCName);
+		FontID.insert(static_cast<long>(a), &it.current()->SCName);
 		}
 	else
 		{
@@ -4633,7 +4633,7 @@ void ScribusApp::BuildFontMenu()
 			a = FontMenu->insertItem(new FmItem(it3.key(), it3.data()));
 			if (it3.key() == doc->Dfont)
 				FontMenu->setItemChecked(a, true);
-			FontID.insert(long(a), &it3.key());
+			FontID.insert(static_cast<long>(a), &it3.key());
 			}
 		}
 	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
@@ -5330,18 +5330,18 @@ void ScribusApp::SaveAsPDF()
 				hIn = cmsOpenProfileFromFile(pfad+PrinterProfiles[doc->PDF_Optionen.PrintProf], "r");
   			Descriptor = cmsTakeProductDesc(hIn);
 				nam = QString(Descriptor);
-				if ((int) cmsGetColorSpace(hIn) == icSigRgbData)
+				if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
 					Components = 3;
-				if ((int)cmsGetColorSpace(hIn) == icSigCmykData)
+				if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
 					Components = 4;
-				if ((int)cmsGetColorSpace(hIn) == icSigCmyData)
+				if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmyData)
 					Components = 3;
 				cmsCloseProfile(hIn);
 				doc->PDF_Optionen.Info = dia->InfoString->text();
-				doc->PDF_Optionen.BleedTop = float(dia->BleedTop->value())/UmReFaktor/100.0;
-				doc->PDF_Optionen.BleedLeft = float(dia->BleedLeft->value())/UmReFaktor/100.0;
-				doc->PDF_Optionen.BleedRight = float(dia->BleedRight->value())/UmReFaktor/100.0;
-				doc->PDF_Optionen.BleedBottom = float(dia->BleedBottom->value())/UmReFaktor/100.0;
+				doc->PDF_Optionen.BleedTop = static_cast<float>(dia->BleedTop->value())/UmReFaktor/100.0;
+				doc->PDF_Optionen.BleedLeft = static_cast<float>(dia->BleedLeft->value())/UmReFaktor/100.0;
+				doc->PDF_Optionen.BleedRight = static_cast<float>(dia->BleedRight->value())/UmReFaktor/100.0;
+				doc->PDF_Optionen.BleedBottom = static_cast<float>(dia->BleedBottom->value())/UmReFaktor/100.0;
 				doc->PDF_Optionen.Encrypt = false;
 				doc->PDF_Optionen.PresentMode = false;
 				doc->PDF_Optionen.Encrypt = false;
@@ -5895,14 +5895,14 @@ void ScribusApp::GetCMSProfiles()
 				hIn = cmsOpenProfileFromFile(pfad + d[dc], "r");
   			Descriptor = cmsTakeProductDesc(hIn);
 				nam = QString(Descriptor);
-				switch ((int) cmsGetDeviceClass(hIn))
+				switch (static_cast<int>(cmsGetDeviceClass(hIn)))
 					{
 					case icSigInputClass:
-						if ((int) cmsGetColorSpace(hIn) == icSigRgbData)
+						if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
 							InputProfiles[nam] = pfad + d[dc];
 						break;
 					case icSigColorSpaceClass:
-						if ((int) cmsGetColorSpace(hIn) == icSigRgbData)
+						if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
 							InputProfiles[nam] = pfad + d[dc];
 						break;
 					case icSigDisplayClass:
@@ -5911,7 +5911,7 @@ void ScribusApp::GetCMSProfiles()
 						break;
 					case icSigOutputClass:
 						PrinterProfiles[nam] = d[dc];
-						if ((int) cmsGetColorSpace(hIn) == icSigCmykData)
+						if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
 							PDFXProfiles[nam] = d[dc];
 						break;
 					}

@@ -89,8 +89,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
     		QComboBox *item = new QComboBox( true, this, "Replace" );
 				item->setEditable(false);
     		FlagsOpt.append(item);
-				Daten.Cnum = static_cast<int>
-				  (FlagsOpt.count()-1);
+				Daten.Cnum = static_cast<int>(FlagsOpt.count()-1);
 				Daten.KeyW = QString(option->keyword);
 				KeyToText[QString(option->text)] = Daten;
 				item->insertStringList(opts);

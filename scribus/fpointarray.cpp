@@ -51,7 +51,7 @@ bool FPointArray::setPoints( int nPoints, double firstx, double firsty, ... )
 bool FPointArray::putPoints( int index, int nPoints, double firstx, double firsty,  ... )
 {
 	va_list ap;
-	if ( index + nPoints > (int)size() )
+	if ( index + nPoints > static_cast<int>(size()) )
 		{
 		if ( !resize(index + nPoints) )
 			return false;
@@ -75,7 +75,7 @@ bool FPointArray::putPoints( int index, int nPoints, double firstx, double first
 
 bool FPointArray::putPoints( int index, int nPoints, const FPointArray & from, int fromIndex )
 {
-	if ( index + nPoints > (int)size() )
+	if ( index + nPoints > static_cast<int>(size()) )
 		{	// extend array
 		if ( !resize(index + nPoints) )
 			return false;

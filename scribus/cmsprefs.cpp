@@ -199,25 +199,15 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSset *Vor,
 
 void CMSPrefs::SetValues()
 {
-	if (Prefs->DefaultInputProfile != InputP->currentText())
-		Changed = true;
-	if (Prefs->DefaultInputProfile != InputP->currentText())
-		Changed = true;
-	if (Prefs->DefaultInputProfile2 != InputP2->currentText())
-		Changed = true;
-	if (Prefs->DefaultMonitorProfile != MonitorP->currentText())
-		Changed = true;
-	if (Prefs->DefaultPrinterProfile != PrinterP->currentText())
-		Changed = true;
-	if (Prefs->DefaultIntentPrinter != PrinterI->currentItem())
-		Changed = true;
-	if (Prefs->DefaultIntentMonitor != MonitorI->currentItem())
-		Changed = true;
-	if (Prefs->SoftProofOn != Simulate->isChecked())
-		Changed = true;
-	if (Prefs->GamutCheck != GamutC->isChecked())
-		Changed = true;
-	if (Prefs->CMSinUse != CheckBox1->isChecked())
+	if ((Prefs->DefaultInputProfile != InputP->currentText()) ||
+	(Prefs->DefaultInputProfile2 != InputP2->currentText()) ||
+	(Prefs->DefaultMonitorProfile != MonitorP->currentText()) ||
+	(Prefs->DefaultPrinterProfile != PrinterP->currentText()) ||
+	(Prefs->DefaultIntentPrinter != PrinterI->currentItem()) ||
+	(Prefs->DefaultIntentMonitor != MonitorI->currentItem()) ||
+	(Prefs->SoftProofOn != Simulate->isChecked()) ||
+	(Prefs->GamutCheck != GamutC->isChecked()) ||
+	(Prefs->CMSinUse != CheckBox1->isChecked()))
 		Changed = true;
 	Prefs->DefaultInputProfile = InputP->currentText();
 	Prefs->DefaultInputProfile2 = InputP2->currentText();

@@ -97,7 +97,7 @@ void ColorChart::drawPalette(int val)
 	int y;
 	for (y = 0; y < ySize; ++y)
 		{
-		  unsigned int* p = (unsigned int*)(image.scanLine(y));
+		  unsigned int* p = reinterpret_cast<unsigned int*>(image.scanLine(y));
 		for(x = 0; x < xSize; ++x)
 			{
 			color.setHsv(360*x/xSize, 256*( ySize - 1 - y )/ySize, val);

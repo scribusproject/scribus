@@ -698,7 +698,8 @@ QRegion Page::ViewReg()
 
 void Page::Transform(PageItem *b, QPainter *p)
 {
-	p->translate(static_cast<int>(b->Xpos*doku->Scale), static_cast<int>(b->Ypos*doku->Scale));
+	p->translate(static_cast<int>(b->Xpos*doku->Scale),
+    static_cast<int>(b->Ypos*doku->Scale));
 	p->scale(doku->Scale, doku->Scale);
 	p->rotate(b->Rot);
 }
@@ -876,8 +877,8 @@ void Page::AdjustPictScale(PageItem *b)
 	b->LocalY = 0;
 	if ((b->OrigW == 0) || (b->OrigH == 0))
 		return;
-	float xs = b->Width / float(b->OrigW);
-	float ys = b->Height / float(b->OrigH);
+	float xs = b->Width / static_cast<float>(b->OrigW);
+	float ys = b->Height / static_cast<float>(b->OrigH);
 	if (!b->Sizing)
 		{
 		fho = b->flippedH;

@@ -469,7 +469,7 @@ void ScribusView::slotDoZoom()
 			resizeContents(static_cast<int>(PSeite->width()+30*Doc->Scale), static_cast<int>(Doc->PageC * (PSeite->height()+25*Doc->Scale)+30));
 			setContentsPos(0, childY(Doc->ActPage->parentWidget())-static_cast<int>(10*Doc->Scale));
 			}
-		LE->setText(QString::number(double(Doc->Scale/Prefs->DisScale*100), 'f', 2)+" %");
+		LE->setText(QString::number(static_cast<double>(Doc->Scale/Prefs->DisScale*100), 'f', 2)+" %");
 		setRulerPos(contentsX(), contentsY());
 		if (Doc->ActPage->SelItem.count() != 0)
 			{
@@ -595,7 +595,7 @@ void ScribusView::DrawNew()
 	HR->repaint();
 	VR->repaint();
 	Doc->ActPage = b;
-	LE->setText(QString::number(double(Doc->Scale/Prefs->DisScale*100), 'f', 2)+" %");
+	LE->setText(QString::number(static_cast<double>(Doc->Scale/Prefs->DisScale*100), 'f', 2)+" %");
 }
 
 int ScribusView::CountElements()
@@ -1790,17 +1790,11 @@ void ScribusView::contentsWheelEvent(QWheelEvent *w)
 {
 	if ((Doc->ActPage->Mpressed) && (Doc->ActPage->MidButt))
 		{
-		if (w->delta() > 0)
-			slotZoomIn2();
-		else
-			slotZoomOut2();
+      w->delta() > 0 ? slotZoomIn2() : slotZoomOut2();
 		}
 	else
 		{
-		if (w->delta() < 0)
-			scrollBy(0, Prefs->Wheelval);
-		else
-			scrollBy(0, -Prefs->Wheelval);
+      w->delta() < 0 ? scrollBy(0, Prefs->Wheelval) : scrollBy(0, -Prefs->Wheelval);
 		}
 	w->accept();
 }

@@ -49,8 +49,7 @@ void BibView::SaveContents(QString name)
 	QString st="<SCRIBUSSCRAPUTF8></SCRIBUSSCRAPUTF8>";
 	docu.setContent(st);
 	QDomElement ele=docu.documentElement();
-	QMap<QString,Elem>::Iterator itf;
-	for (itf = Objekte.begin(); itf != Objekte.end(); ++itf)
+	for (QMap<QString,Elem>::Iterator itf = Objekte.begin(); itf != Objekte.end(); ++itf)
 		{
 		QDomElement dc=docu.createElement("OBJEKT");
 		dc.setAttribute("NAME",itf.key());

@@ -603,7 +603,7 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 		Bild.load(fn);
   	Bild = Bild.convertDepth(32);
 		inputProf = cmsOpenProfileFromFile(InputProfiles[Prof], "r");
-		switch ((int) cmsGetColorSpace(CMSprinterProf))
+		switch (static_cast<int>(cmsGetColorSpace(CMSprinterProf)))
 			{
 			case icSigRgbData:
 				*realCMYK = false;
@@ -1059,7 +1059,7 @@ QString String2Hex(QString *in, bool lang)
 QByteArray ComputeMD5Sum(QByteArray *in)
 {
 	QByteArray MDsum(16);
-	md5_buffer (in->data(), in->size(), (void*)MDsum.data());
+	md5_buffer (in->data(), in->size(), reinterpret_cast<void*>(MDsum.data()));
 	return MDsum;
 }
 
@@ -1109,7 +1109,7 @@ bool GlyNames(QMap<uint, QString> *GList, QString Dat)
   while (gindex != 0)
 		{
 		FT_Get_Glyph_Name(face, gindex, buf, 50);
-		GList->insert(charcode, QString((char*)buf));
+		GList->insert(charcode, QString(reinterpret_cast<char*>(buf)));
     charcode = FT_Get_Next_Char(face, charcode, &gindex );
 		}
 	FT_Done_FreeType( library );
@@ -1136,7 +1136,7 @@ bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat)
 		{
 		FT_Get_Glyph_Name(face, gindex, buf, 50);
 		gln.Code = counter1 + counter2;
-		gln.Name = "/"+QString((char*)buf);
+		gln.Name = "/"+QString(reinterpret_cast<char*>(buf));
 		GListInd->insert(charcode, gln);
     charcode = FT_Get_Next_Char(face, charcode, &gindex );
     counter1++;
@@ -1269,7 +1269,7 @@ FPointArray traceCharacter(PageItem *b, QString chx, uint ind, float *x, float *
 	FT_Set_Char_Size(	face, 0, chs*64, 72, 72 );
 	glyphIndex = FT_Get_Char_Index(face, chr);
 	FT_Load_Glyph( face, glyphIndex, FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP );
-	FT_Outline_Decompose(&face->glyph->outline, &OutlineMethods, (void*) &pts );
+	FT_Outline_Decompose(&face->glyph->outline, &OutlineMethods, reinterpret_cast<void*>(&pts));
 	QWMatrix ma;
 	ma.scale(1, -1);
 	pts.map(ma);
