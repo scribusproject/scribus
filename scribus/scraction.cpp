@@ -145,13 +145,10 @@ void ScrAction::addedTo ( int index, QPopupMenu * menu )
 
 void ScrAction::addedTo( QWidget * actionWidget, QWidget * container )
 {
-	if (widgetAddedTo==NULL) // Add the first time, not for secondary popups.
-	{
-		if (widgetAddedTo)
-			widgetAddedTo = actionWidget;
-		if (containerWidgetAddedTo)
-			containerWidgetAddedTo = container;
-	}
+	if (actionWidget)
+		widgetAddedTo = actionWidget;
+	if (containerWidgetAddedTo)
+		containerWidgetAddedTo = container;
 }
 
 

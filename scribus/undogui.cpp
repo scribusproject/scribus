@@ -84,8 +84,11 @@ UndoWidget::UndoWidget(QWidget* parent, const char* name)
 	ScApp->scrMenuMgr->addMenuToWidgetOfAction("redoButtonMenu", ScApp->scrActions["editRedoAction"]);
 	QToolButton *undoButton = dynamic_cast<QToolButton*>(ScApp->scrActions["editUndoAction"]->getWidgetAddedTo());
 	QToolButton *redoButton = dynamic_cast<QToolButton*>(ScApp->scrActions["editRedoAction"]->getWidgetAddedTo());
-	undoButton->setPopupDelay(0);
-	redoButton->setPopupDelay(0);
+	if (undoButton && redoButton)
+	{
+		undoButton->setPopupDelay(0);
+		redoButton->setPopupDelay(0);
+	}
 	
 	ScApp->scrActions["editCut"]->addTo(parent);
 	ScApp->scrActions["editCopy"]->addTo(parent);
