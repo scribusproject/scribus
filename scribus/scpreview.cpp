@@ -14,7 +14,7 @@
 #include <cstdlib>
 #include "missing.h"
 #include "scribus.h"
-#include "splash.h";
+#include "splash.h"
 
 using namespace std;
 
