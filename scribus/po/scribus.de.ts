@@ -12507,7 +12507,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation>Sonder&amp;zeichen einfügen</translation>
+        <translation>&amp;Sonderzeichen einfügen</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -12591,7 +12591,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
-        <translation>&amp;Suchen &amp;&amp; Ersetzen...</translation>
+        <translation>&amp;Suche/Ersetzen...</translation>
     </message>
     <message>
         <source>&amp;Edit Styles...</source>
