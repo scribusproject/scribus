@@ -61,6 +61,7 @@ extern int IntentPrinter;
 #endif
 extern ProfilesL InputProfiles;
 
+void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
 bool overwrite(QWidget *parent, QString filename);
 FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y);
 FPoint GetMaxClipF(FPointArray Clip);
@@ -1359,4 +1360,139 @@ bool overwrite(QWidget *parent, QString filename)
 			retval = false;
   	}
   return retval;
+}
+
+void CopyPageItem(struct CLBuf *Buffer, PageItem *b)
+{
+	uint a;
+	Buffer->PType = b->PType;
+	Buffer->Xpos = b->Xpos;
+	Buffer->Ypos = b->Ypos;
+	Buffer->Width = b->Width;
+	Buffer->Height = b->Height;
+	Buffer->RadRect = b->RadRect;
+	Buffer->FrameType = b->FrameType;
+	Buffer->ClipEdited = b->ClipEdited;
+	Buffer->Pwidth = b->Pwidth;
+	Buffer->Pcolor = b->Pcolor;
+	Buffer->Pcolor2 = b->Pcolor2;
+	Buffer->Shade = b->Shade;
+	Buffer->Shade2 = b->Shade2;
+	Buffer->GrColor = b->GrColor;
+	Buffer->GrColor2 = b->GrColor2;
+	Buffer->GrShade = b->GrShade;
+	Buffer->GrShade2 = b->GrShade2;
+	Buffer->GrType = b->GrType;
+	Buffer->TxtStroke = b->TxtStroke;
+	Buffer->TxtFill = b->TxtFill;
+	Buffer->ShTxtStroke = b->ShTxtStroke;
+	Buffer->ShTxtFill = b->ShTxtFill;
+	Buffer->TxtScale = b->TxtScale;
+	Buffer->TxTStyle = b->TxTStyle;
+	Buffer->Rot = b->Rot;
+	Buffer->PLineArt = b->PLineArt;
+	Buffer->PLineEnd = b->PLineEnd;
+	Buffer->PLineJoin = b->PLineJoin;
+	Buffer->LineSp = b->LineSp;
+	Buffer->LocalScX = b->LocalScX;
+	Buffer->LocalScY = b->LocalScY;
+	Buffer->LocalX = b->LocalX;
+	Buffer->LocalY = b->LocalY;
+	Buffer->PicArt = b->PicArt;
+	Buffer->flippedH = b->flippedH;
+	Buffer->flippedV = b->flippedV;
+	Buffer->BBoxX = b->BBoxX;
+	Buffer->BBoxH = b->BBoxH;
+	Buffer->isPrintable = b->isPrintable;
+	Buffer->isBookmark = b->isBookmark;
+	Buffer->BMnr = b->BMnr;
+	Buffer->isAnnotation = b->isAnnotation;
+	Buffer->AnType = b->AnType;
+	Buffer->AnAction = b->AnAction;
+	Buffer->An_E_act = b->An_E_act;
+	Buffer->An_X_act = b->An_X_act;
+	Buffer->An_D_act = b->An_D_act;
+	Buffer->An_Fo_act = b->An_Fo_act;
+	Buffer->An_Bl_act = b->An_Bl_act;
+	Buffer->An_K_act = b->An_K_act;
+	Buffer->An_F_act = b->An_F_act;
+	Buffer->An_V_act = b->An_V_act;
+	Buffer->An_C_act = b->An_C_act;
+	Buffer->An_Extern = b->An_Extern;
+	Buffer->AnZiel = b->AnZiel;
+	Buffer->AnName = b->AnName;
+	Buffer->AnActType = b->AnActType;
+	Buffer->AnToolTip = b->AnToolTip;
+	Buffer->AnBwid = b->AnBwid;
+	Buffer->AnBsty = b->AnBsty;
+	Buffer->AnFeed = b->AnFeed;
+	Buffer->AnFlag = b->AnFlag;
+	Buffer->AnFont = b->AnFont;
+	Buffer->AnRollOver = b->AnRollOver;
+	Buffer->AnDown = b->AnDown;
+	Buffer->AnFormat = b->AnFormat;
+	Buffer->AnVis = b->AnVis;
+	Buffer->AnMaxChar = b->AnMaxChar;
+	Buffer->AnChkStil = b->AnChkStil;
+	Buffer->AnIsChk = b->AnIsChk;
+	Buffer->AnAAact = b->AnAAact;
+	Buffer->AnBColor = b->AnBColor;
+	Buffer->AnHTML = b->AnHTML;
+	Buffer->AnUseIcons = b->AnUseIcons;
+	Buffer->AnIPlace = b->AnIPlace;
+	Buffer->AnScaleW = b->AnScaleW;
+	Buffer->Extra = b->Extra;
+	Buffer->TExtra = b->TExtra;
+	Buffer->BExtra = b->BExtra;
+	Buffer->RExtra = b->RExtra;
+	Buffer->Pfile = b->Pfile;
+	Buffer->Pfile2 = b->Pfile2;
+	Buffer->Pfile3 = b->Pfile3;
+	QString Text = "";
+	if (b->Ptext.count() != 0)
+		{
+		for (a=0; a<b->Ptext.count(); ++a)
+			{
+			if( (b->Ptext.at(a)->ch == "\n") || (b->Ptext.at(a)->ch == "\r"))
+				Text += QString(QChar(5))+"\t";
+			else
+				Text += b->Ptext.at(a)->ch+"\t";
+			Text += b->Ptext.at(a)->cfont+"\t";
+			Text += QString::number(b->Ptext.at(a)->csize / 10.0)+"\t";
+			Text += b->Ptext.at(a)->ccolor+"\t";
+			Text += QString::number(b->Ptext.at(a)->cextra)+"\t";
+			Text += QString::number(b->Ptext.at(a)->cshade)+'\t';
+			Text += QString::number(b->Ptext.at(a)->cstyle)+'\t';
+			Text += QString::number(b->Ptext.at(a)->cab)+'\t';
+			Text += b->Ptext.at(a)->cstroke+"\t";
+			Text += QString::number(b->Ptext.at(a)->cshade2)+'\t';
+			Text += QString::number(b->Ptext.at(a)->cscale)+'\n';
+			}
+		}
+	Buffer->Ptext = Text;
+	Buffer->Clip = b->Clip.copy();
+	Buffer->PoLine = b->PoLine.copy();
+	Buffer->PoShow = b->PoShow;
+	Buffer->BaseOffs = b->BaseOffs;
+	Buffer->Textflow = b->Textflow;
+	Buffer->Textflow2 = b->Textflow2;
+	Buffer->Ausrich = b->Ausrich;
+	Buffer->IFont = b->IFont;
+	Buffer->ISize = b->ISize;
+	Buffer->ExtraV = b->ExtraV;
+	Buffer->Groups = b->Groups;
+	Buffer->IProfile = b->IProfile;
+	Buffer->IRender = b->IRender;
+	Buffer->UseEmbedded = b->UseEmbedded;
+	Buffer->EmProfile = b->EmProfile;
+	Buffer->LayerNr = b->LayerNr;
+	Buffer->ScaleType = b->ScaleType;
+	Buffer->AspectRatio = b->AspectRatio;
+	Buffer->Locked = b->Locked;
+	Buffer->Transparency = b->Transparency;
+	Buffer->TranspStroke = b->TranspStroke;
+	Buffer->Reverse = b->Reverse;
+	Buffer->InvPict = b->InvPict;
+	Buffer->NamedLStyle = b->NamedLStyle;
+	Buffer->Language = b->Language;
 }

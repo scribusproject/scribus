@@ -793,10 +793,10 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt, bool single)
 	p.end();
 	b->Dirty = true;
 	QRect g = neu.boundingRect();
-	g.setX(g.x()-static_cast<int>(b->Pwidth / 2.0));
-	g.setY(g.y()-static_cast<int>(b->Pwidth / 2.0));
-	g.setWidth(g.width()+static_cast<int>(b->Pwidth / 2.0));
-	g.setHeight(g.height()+static_cast<int>(b->Pwidth / 2.0));
+	g.setX(g.x()-static_cast<int>(QMAX(6, b->Pwidth / 2.0)));
+	g.setY(g.y()-static_cast<int>(QMAX(6, b->Pwidth / 2.0)));
+	g.setWidth(g.width()+static_cast<int>(QMAX(6, b->Pwidth / 2.0)));
+	g.setHeight(g.height()+static_cast<int>(QMAX(6, b->Pwidth / 2.0)));
 	if (single)
 		{
 		QRect rd = ViewReg().boundingRect().intersect(g);
@@ -2782,8 +2782,14 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 						int storedClRe = ClRe;
 						for (uint itm = 0; itm < SelNode.count(); ++itm)
 							{
-							npf.setX(b->PoLine.point(*SelNode.at(itm)).x() + (newX-Mxp));
-							npf.setY(b->PoLine.point(*SelNode.at(itm)).y() + (newY-Myp));
+							p.begin(this);
+							p.translate(static_cast<int>(b->Xpos*doku->Scale), static_cast<int>(b->Ypos*doku->Scale));
+							p.rotate(b->Rot);
+							FPoint npfN = FPoint(p.xFormDev(QPoint(newX, newY)));
+							FPoint npfM = FPoint(p.xFormDev(QPoint(Mxp, Myp)));
+							p.end();
+							npf.setX(b->PoLine.point(*SelNode.at(itm)).x() + (npfN.x()-npfM.x()));
+							npf.setY(b->PoLine.point(*SelNode.at(itm)).y() + (npfN.y()-npfM.y()));
 							ClRe = *SelNode.at(itm);
 							b->OldB2 = b->Width;
 							b->OldH2 = b->Height;
@@ -2792,11 +2798,11 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 						b->OldB2 = b->Width;
 						b->OldH2 = b->Height;
 						ClRe = storedClRe;
-						Mxp = newX;
-						Myp = newY;
 						}
 					else
 						MoveClipPoint(b, npf);
+					Mxp = newX;
+					Myp = newY;
 					}
 				return;
 				}
@@ -3576,6 +3582,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 					break;
 				default:
 					z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, doku->Dwidth, doku->Dbrush, doku->Dpen);
+					SetFrameShape(Items.at(z), doku->ValCount, doku->ShapeValues);
 					SetupDraw(z);
 					emit HaveSel(6);
 					break;

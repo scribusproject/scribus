@@ -74,6 +74,7 @@
 #include "autoform.h"
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
+extern void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
 
 using namespace std;
 
@@ -1966,6 +1967,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			WerkTools->KetteAus->setEnabled(false);
 			WerkTools->KetteEin->setEnabled(false);
 			WerkTools->Textedit->setEnabled(false);
+			WerkTools->Textedit2->setEnabled(false);
 			WerkTools->Rotiere->setEnabled(false);
 			Mpal->Cpal->GradCombo->setCurrentItem(0);
 			Tpal->slotShowSelect(doc->ActPage->PageNr, -1);
@@ -1988,6 +1990,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			WerkTools->KetteAus->setEnabled(false);
 			WerkTools->KetteEin->setEnabled(false);
 			WerkTools->Textedit->setEnabled(true);
+			WerkTools->Textedit2->setEnabled(false);
 			WerkTools->Rotiere->setEnabled(true);
 			break;
 		case 4:
@@ -2010,6 +2013,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			StilMenu->insertItem( tr("Color"), ColorMenu);
 			StilMenu->insertItem( tr("Shade"), ShadeMenu);
 			WerkTools->Rotiere->setEnabled(true);
+			WerkTools->Textedit2->setEnabled(true);
 			if ((b->NextBox != 0) || (b->BackBox != 0))
 				{
 				WerkTools->KetteAus->setEnabled(true);
@@ -2063,6 +2067,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			StilMenu->insertItem( tr("Shade"), ShadeMenu);
 			WerkTools->Rotiere->setEnabled(true);
 			WerkTools->Textedit->setEnabled(false);
+			WerkTools->Textedit2->setEnabled(false);
 			WerkTools->KetteEin->setEnabled(false);
 			WerkTools->KetteAus->setEnabled(false);
 			if (doc->AppMode == 7)
@@ -3795,6 +3800,7 @@ void ScribusApp::ToggleFrameEdit()
 		WerkTools->Select->setEnabled(false);
 		WerkTools->Rotiere->setEnabled(false);
 		WerkTools->Textedit->setEnabled(false);
+		WerkTools->Textedit2->setEnabled(false);
 		WerkTools->Zoom->setEnabled(false);
 		WerkTools->Texte->setEnabled(false);
 		WerkTools->BildB->setEnabled(false);
@@ -3833,6 +3839,7 @@ void ScribusApp::NoFrameEdit()
 	WerkToolsP->PDFTool->setEnabled(true);
 	WerkToolsP->PDFaTool->setEnabled(true);
 	WerkTools->Textedit->setOn(false);
+	WerkTools->Textedit2->setOn(false);
 	ObjMenu->setItemEnabled(Loesch, true);
 	ShapeMenu->setItemChecked(ShapeEdit, false);
 	if (HaveDoc)
@@ -3853,6 +3860,7 @@ void ScribusApp::slotSelect()
   WerkTools->Select->setOn(true);
 	WerkTools->Rotiere->setOn(false);
 	WerkTools->Textedit->setOn(false);
+	WerkTools->Textedit2->setOn(false);
 	WerkTools->Zoom->setOn(false);
 	WerkTools->Texte->setOn(false);
 	WerkTools->BildB->setOn(false);
@@ -3869,6 +3877,12 @@ void ScribusApp::slotSelect()
 
 void ScribusApp::ModeFromTB(int m)
 {
+	if (m == 3)
+		{
+		slotStoryEditor();
+		slotSelect();
+		return;
+		}
 	if (m == 10)
 		doc->ElemToLink = doc->ActPage->SelItem.at(0);
 	if (doc->AppMode == 13)
@@ -3933,6 +3947,7 @@ void ScribusApp::setAppMode(int mode)
 				}
   		WerkTools->Select->setOn(false);
 			WerkTools->Textedit->setOn(true);
+			WerkTools->Textedit2->setOn(true);
 			doc->ActPage->slotDoCurs(true);
 			menuBar()->setItemEnabled(Obm, 0);
 			CurTimer = new QTimer(doc->ActPage);
@@ -4212,7 +4227,7 @@ void ScribusApp::CopyPage()
 		Page* Ziel = doc->ActPage;
 		for (uint ite = 0; ite < from->Items.count(); ++ite)
 			{
-			from->Items.at(ite)->CopyIt(&Buffer);
+			CopyPageItem(&Buffer, from->Items.at(ite));
 			Ziel->PasteItem(&Buffer, true, true);
 			if (from->Items.at(ite)->isBookmark)
 				AddBookMark(Ziel->Items.at(Ziel->Items.count()-1));

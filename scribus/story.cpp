@@ -21,6 +21,7 @@
 #include <qpixmap.h>
 #include <qcombobox.h>
 #include <qmessagebox.h>
+#include <qregexp.h>
 #include "serializer.h"
 extern QPixmap loadIcon(QString nam);
 
@@ -189,7 +190,10 @@ void STable::keyPressEvent(QKeyEvent *k)
 				EndK = 0;
 			tt->moveCursor(move, false);
 			tt->setFocus();
-			updateHeaderStates(); 
+#if QT_VERSION  >= 0x030100
+			updateHeaderStates();
+#endif
+			emit StatBarUpdt(); 
 			return;
 			}
 		}
@@ -204,7 +208,9 @@ void STable::adjHeight(int r)
 	cp->sync();
 	QFontMetrics fm2(cp->currentFont());
 	setRowHeight(r, QMAX((fm2.lineSpacing() * (cp->lines()+1)), 24));
-	updateHeaderStates();;
+#if QT_VERSION  >= 0x030100
+	updateHeaderStates();
+#endif
 }
 
 StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDialog(parent, "StoryEditor", true, 0)
@@ -216,7 +222,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
   QString Dat = "";
 	setCaption( tr( "Story Editor" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	Form1Layout = new QHBoxLayout( this, 5, 5, "Form1Layout"); 
+	Form1Layout = new QVBoxLayout( this, 5, 5, "Form1Layout"); 
 	edList.clear();
 	stList.clear();
 	style.append( tr("Left"));
@@ -262,7 +268,38 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	table1->setSelectionMode( QTable::Single );
 	table1->setColumnStretchable(0, false);
 	table1->setColumnStretchable(1, true);
+	table1->verticalHeader()->hide();
+	table1->setLeftMargin(0);
 	Form1Layout->addWidget( table1 );
+
+	StateBar = new QStatusBar(this, "st");
+	WordCT = new QLabel(StateBar, "wt");
+	WordCT->setText( tr("Words: "));
+	StateBar->addWidget(WordCT, 0, true);
+	WordC = new QLabel(StateBar, "wc");
+	StateBar->addWidget(WordC, 1, true);
+	CharCT = new QLabel(StateBar, "ct");
+	CharCT->setText( tr("Chars: "));
+	StateBar->addWidget(CharCT, 0, true);
+	CharC = new QLabel(StateBar, "cc");
+	StateBar->addWidget(CharC, 1, true);
+	ParCT = new QLabel(StateBar, "pt");
+	ParCT->setText( tr("Total Paragraphs: "));
+	StateBar->addWidget(ParCT, 0, true);
+	ParC = new QLabel(StateBar, "pc");
+	StateBar->addWidget(ParC, 1, true);
+	WordCT2 = new QLabel(StateBar, "wt");
+	WordCT2->setText( tr("Words: "));
+	StateBar->addWidget(WordCT2, 0, true);
+	WordC2 = new QLabel(StateBar, "wc");
+	StateBar->addWidget(WordC2, 1, true);
+	CharCT2 = new QLabel(StateBar, "ct");
+	CharCT2->setText( tr("Chars: "));
+	StateBar->addWidget(CharCT2, 0, true);
+	CharC2 = new QLabel(StateBar, "cc");
+	StateBar->addWidget(CharC2, 1, true);
+	Form1Layout->addWidget( StateBar );
+
 	resize( QSize(509, 326).expandedTo(minimumSizeHint()) );
 	show();
 	QPtrList<Pti> y;
@@ -314,6 +351,48 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	emenu->setItemEnabled(Mcut, 0);
 	emenu->setItemEnabled(Mdel, 0);
 	emenu->setItemEnabled(Mupdt, 0);
+	updateStatus();
+	connect(table1, SIGNAL(StatBarUpdt()), this, SLOT(updateStatus()));
+}
+
+void StoryEditor::updateStatus()
+{
+	QString tmp;
+	ParC->setText(tmp.setNum(edList.count()));
+	SEditor *cp = (SEditor*)table1->cellWidget(table1->currentRow(), 1);
+	QRegExp rx( "(\\w+)\\b" );
+	int pos = 0;
+	int counter = 0;
+	int counter1 = 0;
+	int counter2 = 0;
+  while ( pos >= 0 )
+		{
+  	pos = rx.search( cp->text(), pos );
+  	if ( pos > -1 )
+			{
+			counter++;
+			pos += rx.matchedLength();
+			}
+		}
+	WordC->setText(tmp.setNum(counter));
+	CharC->setText(tmp.setNum(cp->length()));
+	for (uint a = 0; a < edList.count(); ++a)
+		{
+		SEditor *tt = edList.at(a);
+		int pos = 0;
+  	while ( pos >= 0 )
+			{
+  		pos = rx.search( tt->text(), pos );
+  		if ( pos > -1 )
+				{
+				counter2++;
+				pos += rx.matchedLength();
+				}
+			}
+		counter1 += tt->length();
+		}
+	WordC2->setText(tmp.setNum(counter2));
+	CharC2->setText(tmp.setNum(counter1));
 }
 
 void StoryEditor::closeEvent(QCloseEvent *)
@@ -356,6 +435,7 @@ void StoryEditor::Do_new()
 	emenu->setItemEnabled(Mcopy, 0);
 	emenu->setItemEnabled(Mcut, 0);
 	emenu->setItemEnabled(Mdel, 0);
+	updateStatus();
 }
 
 void StoryEditor::Do_undo()
@@ -564,6 +644,7 @@ void StoryEditor::modifiedText()
 	table1->HomeK = 0;
 	table1->EndK = 0;
 	emenu->setItemEnabled(Mupdt, 1);
+	updateStatus();
 }
 
 void StoryEditor::WrapHandler()
@@ -580,7 +661,10 @@ void StoryEditor::clickAt( int row, int col)
 		{
 		table1->setCurrentCell(r, 1);
 		table1->cellWidget(r, 1)->setFocus();
+#if QT_VERSION  >= 0x030100
 		table1->updateHeaderStates();
+#endif
+		updateStatus();
 		}
 }
 
@@ -604,6 +688,7 @@ void StoryEditor::KeyDel()
 		table1->adjHeight(r);
 		tt->setFocus();
 		tt->setCursorPosition(0, tmp.length());
+		updateStatus();
 		}
 }
 
@@ -627,6 +712,7 @@ void StoryEditor::KeyBS()
 		table1->adjHeight(r-1);
 		bt->setFocus();
 		bt->setCursorPosition(0, tmp2.length());
+		updateStatus();
 		}
 }
 
@@ -660,5 +746,6 @@ void StoryEditor::KeyRet()
 	tt->setAlignment(al);
 	table1->adjHeight(table1->currentRow());
 	addPar(table1->currentRow()+1, tmp3, st);
+	updateStatus();
 }
 

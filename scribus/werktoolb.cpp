@@ -48,6 +48,9 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	Textedit = new QToolButton(loadIcon("Editm.xpm"), tr("Edit Contents of Frame"), QString::null, this, SLOT(ModeFromTB()), this);
 	Textedit->setToggleButton( true );
 	Textedit->setEnabled( FALSE );
+	Textedit2 = new QToolButton(loadIcon("signature.png"), tr("Edit the Text with the Story Editor"), QString::null, this, SLOT(ModeFromTB()), this);
+	Textedit2->setToggleButton( true );
+	Textedit2->setEnabled( FALSE );
 	KetteEin = new QToolButton(loadIcon("Lock.xpm"), tr("Create Text Chains"), QString::null, this, SLOT(ModeFromTB()), this);
 	KetteEin->setToggleButton( true );
 	KetteEin->setEnabled(false);
@@ -110,6 +113,7 @@ void WerkToolB::SelShape(int s, int c, double *vals)
 	Select->setOn(false);
 	Rotiere->setOn(false);
 	Textedit->setOn(false);
+	Textedit2->setOn(false);
 	Zoom->setOn(false);
 	Texte->setOn(false);
 	BildB->setOn(false);
@@ -130,6 +134,7 @@ void WerkToolB::SelShape2()
 	Select->setOn(false);
 	Rotiere->setOn(false);
 	Textedit->setOn(false);
+	Textedit2->setOn(false);
 	Zoom->setOn(false);
 	Texte->setOn(false);
 	BildB->setOn(false);
@@ -147,6 +152,7 @@ void WerkToolB::ModeFromTB()
 	Select->setOn(false);
 	Rotiere->setOn(false);
 	Textedit->setOn(false);
+	Textedit2->setOn(false);
 	Zoom->setOn(false);
 	Texte->setOn(false);
 	BildB->setOn(false);
@@ -170,6 +176,11 @@ void WerkToolB::ModeFromTB()
 		{
 		Textedit->setOn(true);
 		emit NewMode(7);
+		}
+	if (Textedit2 == sender())
+		{
+		Textedit2->setOn(true);
+		emit NewMode(3);
 		}
 	if (Zoom == sender())
 		{

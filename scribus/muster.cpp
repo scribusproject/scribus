@@ -6,6 +6,7 @@
 #include <qcursor.h>
 
 extern QPixmap loadIcon(QString nam);
+extern void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
 
 MusterSeiten::MusterSeiten( QWidget* parent, ScribusDoc *doc, ScribusView *view, QString temp)
     : QDialog( parent, "Muster", false, WDestructiveClose)
@@ -152,7 +153,8 @@ void MusterSeiten::DuplTemp()
 			int inde = View->MasterNames[sMuster];
 			for (uint a=0; a<View->Pages.at(inde)->Items.count(); ++a)
 				{
-				View->Pages.at(inde)->Items.at(a)->CopyIt(&Buffer);
+				CopyPageItem(&Buffer, View->Pages.at(inde)->Items.at(a));
+//				View->Pages.at(inde)->Items.at(a)->CopyIt(&Buffer);
 				Doc->ActPage->PasteItem(&Buffer, true, true);
 				}
 			Doc->ActPage->Deselect(true);

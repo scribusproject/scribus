@@ -25,6 +25,8 @@
 #include <qtextedit.h>
 #include <qpopupmenu.h>
 #include <qmenubar.h>
+#include <qstatusbar.h>
+#include <qlabel.h>
 #include "pageitem.h"
 class QVBoxLayout;
 class QHBoxLayout;
@@ -60,6 +62,9 @@ public:
 	void adjHeight(int r);
 	int HomeK;
 	int EndK;
+
+signals:
+	void StatBarUpdt();
 };
 
 class StoryEditor : public QDialog
@@ -76,6 +81,17 @@ public:
 	QPopupMenu* fmenu;
 	QPopupMenu* emenu;
 	QMenuBar* menuBar;
+	QStatusBar* StateBar;
+	QLabel* ParCT;
+	QLabel* ParC;
+	QLabel* WordCT;
+	QLabel* WordC;
+	QLabel* CharCT;
+	QLabel* CharC;
+	QLabel* WordCT2;
+	QLabel* WordC2;
+	QLabel* CharCT2;
+	QLabel* CharC2;
 	STable* table1;
 	QPtrList<SEditor> edList;
 	QPtrList<QComboBox> stList;
@@ -92,6 +108,7 @@ public:
 	int Mupdt;
 
 public slots:
+	void updateStatus();
 	void Do_leave();
 	void Do_new();
 	void Do_undo();
@@ -117,7 +134,7 @@ signals:
 	void EditSt();
 
 protected:
-	QHBoxLayout* Form1Layout;
+	QVBoxLayout* Form1Layout;
 
 };
 

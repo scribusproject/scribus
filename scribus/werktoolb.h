@@ -39,6 +39,7 @@ public:
 	QToolButton* Select;
   QToolButton* Rotiere;
 	QToolButton* Textedit;
+	QToolButton* Textedit2;
   QToolButton* Zoom;
   QToolButton* Texte;
   QToolButton* BildB;

@@ -55,7 +55,6 @@ public:
   /** Zeichnet das Item */
   void paintObj(QRect e=QRect(), QPixmap *ppX = 0);
   void DrawObj(ScPainter *p, QRect e);
-  void CopyIt(struct CLBuf *Buffer);
 	void SetZeichAttr(struct Pti *hl, int *chs, QString *chx);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
 	void DrawZeichenS(ScPainter *p, struct ZZ *hl);

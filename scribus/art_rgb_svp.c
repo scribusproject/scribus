@@ -427,9 +427,15 @@ art_rgb_svp_alpha_ (const ArtSVP *svp,
   int i;
   int a, da;
 
+#ifdef WORDS_BIGENDIAN
+  r = (rgb >> 8)  & 0xff;
+  g = (rgb >> 16) & 0xff;
+  b = (rgb >> 24) & 0xff;
+#else
   r = (rgb >> 16) & 0xff;
   g = (rgb >> 8) & 0xff;
   b = rgb & 0xff;
+#endif
 
   data.r = r;
   data.g = g;

@@ -1,4 +1,7 @@
 Changes since Version 1.1.3
+12.12.2003	Added a Toolbar Button for the Story Editor.
+		Added a Statusbar to the Story Editor.
+
 10.12.2003	Fixed Preferences Issues.
 		Combined the Toolbar Buttons for Rectangles and Circles into one Button
 		containing all Autoforms.
