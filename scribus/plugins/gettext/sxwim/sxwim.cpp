@@ -26,7 +26,7 @@
 #include <prefsfile.h>
 #include <prefscontext.h>
 #include <prefstable.h>
-#include "sxwunzip.h"
+#include "fileunzip.h"
 #include "stylereader.h"
 #include "contentreader.h"
 #include "sxwdia.h"
@@ -78,10 +78,10 @@ SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 	filename = fileName;
 	writer = w;
 	writer->setUpdateParagraphStyles(update);
-	SxwUnzip* sun = new SxwUnzip(fileName);
-	stylePath   = sun->getFile(STYLE);
-	contentPath = sun->getFile(CONTENT);
-	delete sun;
+	FileUnzip* fun = new FileUnzip(fileName);
+	stylePath   = fun->getFile(STYLE);
+	contentPath = fun->getFile(CONTENT);
+	delete fun;
 	if ((stylePath != NULL) && (contentPath != NULL))
 	{
 		QString docname = filename.right(filename.length() - filename.findRev("/") - 1);
