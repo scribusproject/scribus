@@ -833,10 +833,6 @@ Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
         <source>Selection Change</source>
         <translation>Valinta muuttui</translation>
     </message>
-    <message>
-        <source></source>
-        <translation></translation>
-    </message>
 </context>
 <context>
     <name>Annota</name>
@@ -1119,10 +1115,6 @@ Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
         <source>Caption above Icon</source>
         <translation>Teksti kuvakkeen yläpuolella</translation>
     </message>
-    <message>
-        <source></source>
-        <translation></translation>
-    </message>
 </context>
 <context>
     <name>CMSPrefs</name>
@@ -1322,10 +1314,6 @@ Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan 
     <message>
         <source>Dynamic Color Bars</source>
         <translation>Dynaamiset väripalkit</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source> %</source>
@@ -1745,10 +1733,6 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
     <message>
         <source>From page:</source>
         <translation>Sivulta:</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Cyan</source>
@@ -2475,10 +2459,6 @@ nimet ovat muotoa dokumentin_nimi-sivunumero.tiedostotyyppi</translation>
 <context>
     <name>HelpBrowser</name>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
         <translation>Pahoittelen, ohjetta ei ole saatavilla. Päivitykset ja dokumentit löytyvät osoitteesta http://scribus.net.</translation>
     </message>
@@ -2755,10 +2735,6 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Add a new Layer</source>
         <translation>Uusi taso</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Do you want to delete all Objects on this Layer too?</source>
@@ -3248,10 +3224,6 @@ Valitse toinen nimi.</translation>
     <message>
         <source>Basepoint:</source>
         <translation>Toimintapiste:</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Columns:</source>
@@ -4071,10 +4043,6 @@ muulloin suhteessa kohteeseen.</translation>
     <message>
         <source>Reset Control Points</source>
         <translation>Palauta hallintapisteet</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Rotates the Path counter-clockwise</source>
@@ -5718,10 +5686,6 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     <message>
         <source>User Guides Color:</source>
         <translation>Apuviivojen väri:</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Columns:</source>
@@ -7708,10 +7672,6 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source>Alignment</source>
         <translation>Tasaus</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Search/Replace...</source>

@@ -872,10 +872,6 @@
         <translation>Pressionado</translation>
     </message>
     <message>
-        <source></source>
-        <translation> </translation>
-    </message>
-    <message>
         <source>Page:</source>
         <translation>Página:</translation>
     </message>
@@ -1090,10 +1086,6 @@
 <context>
     <name>ButtonIcon</name>
     <message>
-        <source></source>
-        <translation>Ícone de Botão</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1305,10 +1297,6 @@ It is recommended that you enable this if you have photos in your document.</tra
 </context>
 <context>
     <name>CMYKChoose</name>
-    <message>
-        <source></source>
-        <translation></translation>
-    </message>
     <message>
         <source>B:</source>
         <translation>B:</translation>
@@ -1693,10 +1681,6 @@ Isto pode ser definido nas Preferencias.</translation>
 </context>
 <context>
     <name>Druck</name>
-    <message>
-        <source></source>
-        <translation></translation>
-    </message>
     <message>
         <source>OK</source>
         <translation>OK</translation>
@@ -2311,10 +2295,6 @@ Isto pode ser definido nas Preferencias.</translation>
 <context>
     <name>HelpBrowser</name>
     <message>
-        <source></source>
-        <translation>Browser de Ajuda</translation>
-    </message>
-    <message>
         <source>Sorry, no manual available!</source>
         <translation type="obsolete">Desculpe, sem manual disponvel</translation>
     </message>
@@ -2582,10 +2562,6 @@ everytime a possible Hyphenation is found.</source>
 </context>
 <context>
     <name>LayerPalette</name>
-    <message>
-        <source></source>
-        <translation>Palheta de Camada</translation>
-    </message>
     <message>
         <source>Delete Layer</source>
         <translation>Deletar Camada</translation>
@@ -3234,10 +3210,6 @@ Por favor escolha outro.</translation>
     <message>
         <source>Basepoint:</source>
         <translation>Basepoint:</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Text flows around frame</source>
@@ -3987,10 +3959,6 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <source>Reset Control Points</source>
         <translation>Resetar Pontos de Controle***</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Rotates the Path counter-clockwise</source>
@@ -5569,10 +5537,6 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>Millimetres (mm)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source></source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7506,10 +7470,6 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Save the current Document as PDF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source></source>
         <translation type="unfinished"></translation>
     </message>
     <message>

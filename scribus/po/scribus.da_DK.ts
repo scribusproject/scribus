@@ -796,10 +796,6 @@ Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
         <translation>Type:</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Script:</source>
         <translation>Script:</translation>
     </message>
@@ -1110,10 +1106,6 @@ Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
         <translation>Tekst over ikon</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1288,10 +1280,6 @@ Dette kræver en meget nøjagtige profiler og er kun ment som en advarsel.</tran
     <message>
         <source>RGB</source>
         <translation>RGB</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>OK</source>
@@ -1730,10 +1718,6 @@ Dette kan indstilles i Præferencer.</translation>
     <message>
         <source>From page:</source>
         <translation>Fra side:</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Cyan</source>
@@ -2293,10 +2277,6 @@ Dette kan indstilles i Præferencer.</translation>
 <context>
     <name>HelpBrowser</name>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
         <translation>Desværre er der ingen manual tilgængelig! Se venligst http://scribus.net for den nyeste dokumentation.</translation>
     </message>
@@ -2573,10 +2553,6 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <source>Add a new Layer</source>
         <translation>Tilføj et ny lag</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Do you want to delete all Objects on this Layer too?</source>
@@ -3051,10 +3027,6 @@ Vælg venligst et andet.</translation>
     <message>
         <source>Rotation:</source>
         <translation>Rotation:</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Top:</source>
@@ -3870,10 +3842,6 @@ ellers er coordinaterne vist i forhold til objektet</translation>
     <message>
         <source>Reset Control Points</source>
         <translation>Nulstil kontrolpunkter</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>X-Pos:</source>
@@ -5439,10 +5407,6 @@ EPS, PDF og vektorgrafik, men der går lidt længere tid med at vise siden</tran
     <message>
         <source>min</source>
         <translation>min</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source> %</source>
@@ -7418,10 +7382,6 @@ Hvis modstående sider er valgt, så kan denne margin afstand bruges til at opn�
     <message>
         <source>Javascripts...</source>
         <translation>Javascripts...</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>50%</source>

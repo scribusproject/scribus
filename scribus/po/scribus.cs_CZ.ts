@@ -4368,10 +4368,6 @@ přetáhněte šablonu do náhledu strany.</translation>
         <translation>Stisknout</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Multi-Line</source>
         <translation>Víceřádkový</translation>
     </message>
@@ -4986,10 +4982,6 @@ přetáhněte šablonu do náhledu strany.</translation>
         <translation>Neproporcionálně</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Icon</source>
         <translation>Ikona</translation>
     </message>
@@ -5155,10 +5147,6 @@ jakým lze zlepšit kontrast fotografií. Doporučeno, jestliže je máte v doku
     <message>
         <source>New</source>
         <translation>Nový</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Old</source>
@@ -5569,10 +5557,6 @@ Lze uvést v Nastavení.</translation>
     <message>
         <source>Range:</source>
         <translation>Rozsah:</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>To page:</source>
@@ -6236,10 +6220,6 @@ Lze uvést v Nastavení.</translation>
 <context>
     <name>HelpBrowser</name>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Sorry, no manual available!</source>
         <translation type="obsolete">Lituji, není dostupný žádný manuál!</translation>
     </message>
@@ -6508,10 +6488,6 @@ Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translati
     <message>
         <source>Layers</source>
         <translation>Vrstvy</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Add a new Layer</source>
@@ -6849,10 +6825,6 @@ Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translati
     <message>
         <source>Basepoint:</source>
         <translation>Střed otáčení:</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Level</source>
@@ -7923,10 +7895,6 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     <message>
         <source>Nodes</source>
         <translation>Uzly</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Absolute Coordinates</source>
@@ -9504,10 +9472,6 @@ a vektorové grafiky náhledu, ale zpomalí jeho vytváření</translation>
         <translation>Barva hlavní mřížky:</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>User Guides Color:</source>
         <translation>Vlastní barva vodítek:</translation>
     </message>
@@ -11051,10 +11015,6 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     <message>
         <source>Init Hyphenator</source>
         <translation>Inicializace dělení slov</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Setting up Shortcuts</source>

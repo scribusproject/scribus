@@ -460,10 +460,6 @@
         <translation>Натиснути</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Multi-Line</source>
         <translation>Багаторядкова</translation>
     </message>
@@ -1066,10 +1062,6 @@
         <translation>Непропорційно</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Icon</source>
         <translation>Іконка</translation>
     </message>
@@ -1266,10 +1258,6 @@ It is recommended that you enable this if you have photos in your document.</sou
     <message>
         <source>New</source>
         <translation>Новий</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Old</source>
@@ -1656,10 +1644,6 @@ This can be set in the Preferences.</source>
     <message>
         <source>Range:</source>
         <translation>Діапазон:</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>To page:</source>
@@ -2263,10 +2247,6 @@ This can be set in the Preferences.</source>
 <context>
     <name>HelpBrowser</name>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
         <translation>Вибачте - довідка відсутня! Будь-ласка зверніться до http://scribus.net за поновленою документацією та матеріалами доступними для зкачування.</translation>
     </message>
@@ -2548,10 +2528,6 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Layers</source>
         <translation>Плани</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Add a new Layer</source>
@@ -2850,10 +2826,6 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Basepoint:</source>
         <translation>Точка відліку:</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Level</source>
@@ -3773,10 +3745,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Nodes</source>
         <translation>Вузли</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Absolute Coordinates</source>
@@ -5264,10 +5232,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
         <source>Major Grid Color:</source>
         <translation>Колір основної сітки:</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>User Guides Color:</source>
@@ -6761,10 +6725,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Init Hyphenator</source>
         <translation>Ініціалізувати переніс</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Setting up Shortcuts</source>

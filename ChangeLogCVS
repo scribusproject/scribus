@@ -1,5 +1,9 @@
 Changes since Version 1.1.6
 
+20.05.2004
+	* feature #677: Remove lingering empty messages from some .ts files
+	* feature #679: Update for the German language
+
 19.05.2004
 	* bug     #673: Borders of tools are messed up on startup
 	* feature #672: integrate the font preview plugin
