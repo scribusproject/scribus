@@ -16,10 +16,7 @@ PyObject *scribus_loadimage(PyObject *self, PyObject* args)
 		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
 	if (item == NULL)
-	{
-		PyErr_SetString(PyExc_Exception, QObject::tr("Oook! You're trying to load image into an object doesn't exist or isn't selected!"));
 		return NULL;
-	}
 	item->OwnPage->LoadPict(QString(Image), item->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -37,10 +34,17 @@ PyObject *scribus_scaleimage(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(Name);
-	if (item != NULL && item->PType == 2)
+	if (item == NULL)
+		return NULL;
+	if (item->PType == 2)
 	{
 		item->LocalScX = x;
 		item->LocalScY = y;
+	}
+	else
+	{
+		PyErr_SetString(ScribusException, QString("Specified item not an image frame"));
+		return NULL;
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -58,13 +62,12 @@ PyObject *scribus_moveobjrel(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
-	if (item!=NULL)
-	{
-		if (item->OwnPage->GroupSel)
-			item->OwnPage->moveGroup(ValueToPoint(x), ValueToPoint(y));
-		else
-			item->OwnPage->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
-	}
+	if (item == NULL)
+		return NULL;
+	if (item->OwnPage->GroupSel)
+		item->OwnPage->moveGroup(ValueToPoint(x), ValueToPoint(y));
+	else
+		item->OwnPage->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -81,18 +84,17 @@ PyObject *scribus_moveobjabs(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
-	if (item != NULL)
+	if (item == NULL)
+		return NULL;
+	if (item->OwnPage->GroupSel)
 	{
-		if (item->OwnPage->GroupSel)
-		{
-			double x2, y2, w, h;
-			item->OwnPage->getGroupRect(&x2, &y2, &w, &h);
-			item->OwnPage->moveGroup(ValueToPoint(x) - x2, ValueToPoint(y) - y2);
-		}
-		else
-			//PageItem *b = Carrier->doc->ActPage->Items.at(i);
-			item->OwnPage->MoveItem(ValueToPoint(x) - item->Xpos, ValueToPoint(y) - item->Ypos, item);
+		double x2, y2, w, h;
+		item->OwnPage->getGroupRect(&x2, &y2, &w, &h);
+		item->OwnPage->moveGroup(ValueToPoint(x) - x2, ValueToPoint(y) - y2);
 	}
+	else
+		//PageItem *b = Carrier->doc->ActPage->Items.at(i);
+		item->OwnPage->MoveItem(ValueToPoint(x) - item->Xpos, ValueToPoint(y) - item->Ypos, item);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -109,8 +111,9 @@ PyObject *scribus_rotobjrel(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
-	if (item != NULL)
-		item->OwnPage->RotateItem(item->Rot - x, item->ItemNr);
+	if (item == NULL)
+		return NULL;
+	item->OwnPage->RotateItem(item->Rot - x, item->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -127,8 +130,9 @@ PyObject *scribus_rotobjabs(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
-	if (item != NULL)
-		item->OwnPage->RotateItem(x * -1.0, item->ItemNr);
+	if (item == NULL)
+		return NULL;
+	item->OwnPage->RotateItem(x * -1.0, item->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -145,8 +149,9 @@ PyObject *scribus_sizeobjabs(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
-	if (item != NULL)
-		item->OwnPage->SizeItem(ValueToPoint(x) - item->Xpos, ValueToPoint(y) - item->Ypos, item->ItemNr);
+	if (item == NULL)
+		return NULL;
+	item->OwnPage->SizeItem(ValueToPoint(x) - item->Xpos, ValueToPoint(y) - item->Ypos, item->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -176,11 +181,10 @@ PyObject *scribus_groupobj(PyObject *self, PyObject* args)
 		{
 			Name = PyString_AsString(PyList_GetItem(il, i));
 			PageItem *ic = GetUniqueItem(QString(Name));
-			if (ic != NULL)
-			{
-				ic->OwnPage->SelectItemNr(ic->ItemNr);
-				p = ic->OwnPage;
-			}
+			if (ic == NULL)
+				return NULL;
+			ic->OwnPage->SelectItemNr(ic->ItemNr);
+			p = ic->OwnPage;
 		}
 	}
 	if (p->SelItem.count() != 0)
@@ -205,13 +209,12 @@ PyObject *scribus_ungroupobj(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
-	if (i != NULL)
-	{
-		uint p = Carrier->doc->ActPage->PageNr;
-		Carrier->view->GotoPage(i->OwnPage->PageNr);
-		Carrier->UnGroupObj();
-		Carrier->view->GotoPage(p);
-	}
+	if (i == NULL)
+		return NULL;
+	uint p = Carrier->doc->ActPage->PageNr;
+	Carrier->view->GotoPage(i->OwnPage->PageNr);
+	Carrier->UnGroupObj();
+	Carrier->view->GotoPage(p);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -229,19 +232,18 @@ PyObject *scribus_scalegroup(PyObject *self, PyObject* args)
 		return NULL;
 	if (sc == 0.0)
 	{
-		Py_INCREF(Py_None);
-		return Py_None;
+		PyErr_SetString(PyExc_ValueError, QString("Can't scale by 0%"));
+		return NULL;
 	}
 	PageItem *i = GetUniqueItem(QString(Name));
-	if (i != NULL)
-	{
-		i->OwnPage->Deselect();
-		i->OwnPage->SelectItemNr(i->ItemNr);
-		int h = i->OwnPage->HowTo;
-		i->OwnPage->HowTo = 1;
-		i->OwnPage->scaleGroup(sc, sc);
-		i->OwnPage->HowTo = h;
-	}
+	if (i == NULL)
+		return NULL;
+	i->OwnPage->Deselect();
+	i->OwnPage->SelectItemNr(i->ItemNr);
+	int h = i->OwnPage->HowTo;
+	i->OwnPage->HowTo = 1;
+	i->OwnPage->scaleGroup(sc, sc);
+	i->OwnPage->HowTo = h;
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -280,8 +282,9 @@ PyObject *scribus_selectobj(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
-	if (i != NULL)
-		i->OwnPage->SelectItemNr(i->ItemNr);
+	if (i == NULL)
+		return NULL;
+	i->OwnPage->SelectItemNr(i->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -308,14 +311,13 @@ PyObject *scribus_lockobject(PyObject *self, PyObject* args)
 		return NULL;
 	PageItem *item = GetUniqueItem(QString(name));
 	if (item == NULL)
-	{
-		PyErr_SetString(PyExc_Exception, QObject::tr("Oook! You're trying to (un)lock an object doesn't exist! None selected too."));
 		return NULL;
-	}
+	// FIXME: Rather than toggling the lock, we should probably let the user set the lock state
+	// and instead provide a different function like toggleLock()
 	item->Locked = !item->Locked;
 	if (item->Locked)
-		return PyInt_FromLong(1);
-	return PyInt_FromLong(0);
+		return PyBool_FromLong(1);
+	return PyBool_FromLong(0);
 }
 
 PyObject *scribus_islocked(PyObject *self, PyObject* args)
@@ -330,11 +332,8 @@ PyObject *scribus_islocked(PyObject *self, PyObject* args)
 		return NULL;
 	PageItem *item = GetUniqueItem(name);
 	if (item == NULL)
-	{
-		PyErr_SetString(PyExc_Exception, QObject::tr("Oook! You're trying to query an object doesn't exist! None selected too."));
 		return NULL;
-	}
 	if (item->Locked)
-		return PyInt_FromLong(1);
-	return PyInt_FromLong(0);
+		return PyBool_FromLong(1);
+	return PyBool_FromLong(0);
 }

@@ -78,13 +78,26 @@ PyObject *scribus_renderfont(PyObject *self, PyObject* args)
 		return NULL;
 	}
 	if (!Carrier->Prefs.AvailFonts.find(QString(Name)))
-		return PyInt_FromLong(static_cast<long>(ret));
+	{
+		PyErr_SetString(ScribusException, QString("Font not found"));
+		return NULL;
+	}
 	QString ts = QString(Sample);
-	if ((ts == "") || (QString(FileName) == ""))
-		return PyInt_FromLong(static_cast<long>(ret));
+	if (ts == "")
+	{
+		PyErr_SetString(PyExc_ValueError, QString("Can't render an empty sample"));
+		return NULL;
+	}
+	if (QString(FileName) == "")
+	{
+		PyErr_SetString(PyExc_ValueError, QString("Can't save to a blank filename"));
+		return NULL;
+	}
 	QString da = Carrier->Prefs.AvailFonts[QString(Name)]->Datei;
 	QPixmap pm = FontSample(da, Size, ts, Qt::white);
 	ret = pm.save(QString(FileName), "PPM");
+	// FIXME: we should probably return None on success and throw an exception on failure
+	// rather than returning an error code here.
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
@@ -104,17 +117,18 @@ PyObject *scribus_setactlayer(PyObject *self, PyObject* args)
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "s", &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setActiveLayer(layername)"));
+		PyErr_SetString(PyExc_ValueError, ERRPARAM + QString("setActiveLayer(layername)"));
 		return NULL;
 	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (Name == "")
 	{
-		Py_INCREF(Py_None);
-		return Py_None;
+		PyErr_SetString(PyExc_ValueError, QString("Can't have an empty layer name"));
+		return NULL;
 	}
 	int i = -1;
+	bool found = false;
 	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 	{
 		if (Carrier->doc->Layers[lam].Name == QString(Name))
@@ -122,8 +136,14 @@ PyObject *scribus_setactlayer(PyObject *self, PyObject* args)
 			i = static_cast<int>(lam);
 			Carrier->doc->ActiveLayer = i;
 			Carrier->changeLayer(i);
+			found = true;
 			break;
 		}
+	}
+	if (!found)
+	{
+		PyErr_SetString(ScribusException, QString("Layer not found"));
+		return NULL;
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -149,19 +169,27 @@ PyObject *scribus_senttolayer(PyObject *self, PyObject* args)
 		return NULL;
 	if (Layer == "")
 	{
-		Py_INCREF(Py_None);
-		return Py_None;
+		PyErr_SetString(PyExc_ValueError, QString("Can't have an empty layer name"));
+		return NULL;
 	}
 	PageItem *i = GetUniqueItem(QString(Name));
-	if (i != NULL)
+	if (i == NULL)
+		return NULL;
+	i->OwnPage->SelectItemNr(i->ItemNr);
+	bool found = false;
+	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 	{
-		i->OwnPage->SelectItemNr(i->ItemNr);
-		for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
-			if (Carrier->doc->Layers[lam].Name == QString(Layer))
-			{
-				i->LayerNr = static_cast<int>(lam);
-				break;
-			}
+		if (Carrier->doc->Layers[lam].Name == QString(Layer))
+		{
+			i->LayerNr = static_cast<int>(lam);
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+	{
+		PyErr_SetString(ScribusException, QString("Layer not found"));
+		return NULL;
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -180,16 +208,23 @@ PyObject *scribus_layervisible(PyObject *self, PyObject* args)
 		return NULL;
 	if (Name == "")
 	{
-		Py_INCREF(Py_None);
-		return Py_None;
+		PyErr_SetString(PyExc_ValueError, QString("Can't have an empty layer name"));
+		return NULL;
 	}
+	bool found = false;
 	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 	{
 		if (Carrier->doc->Layers[lam].Name == QString(Name))
 		{
 			Carrier->doc->Layers[lam].Sichtbar = vis;
+			found = true;
 			break;
 		}
+	}
+	if (!found)
+	{
+		PyErr_SetString(ScribusException, QString("Layer not found"));
+		return NULL;
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -208,16 +243,23 @@ PyObject *scribus_layerprint(PyObject *self, PyObject* args)
 		return NULL;
 	if (Name == "")
 	{
-		Py_INCREF(Py_None);
-		return Py_None;
+		PyErr_SetString(PyExc_ValueError, QString("Can't have an empty layer name"));
+		return NULL;
 	}
+	bool found = false;
 	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 	{
 		if (Carrier->doc->Layers[lam].Name == QString(Name))
 		{
 			Carrier->doc->Layers[lam].Drucken = vis;
+			found = true;
 			break;
 		}
+	}
+	if (!found)
+	{
+		PyErr_SetString(ScribusException, QString("Layer not found"));
+		return NULL;
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -234,15 +276,25 @@ PyObject *scribus_glayervisib(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	if (Name == "")
-		return PyInt_FromLong(0L);
+	{
+		PyErr_SetString(PyExc_ValueError, QString("Can't have an empty layer name"));
+		return NULL;
+	}
 	int i = 0;
+	bool found = false;
 	for (uint lam=0; lam < Carrier->doc->Layers.count(); lam++)
 	{
 		if (Carrier->doc->Layers[lam].Name == QString(Name))
 		{
 			i = static_cast<int>(Carrier->doc->Layers[lam].Sichtbar);
+			found = true;
 			break;
 		}
+	}
+	if (!found)
+	{
+		PyErr_SetString(ScribusException, QString("Layer not found"));
+		return NULL;
 	}
 	return PyInt_FromLong(static_cast<long>(i));
 }
@@ -258,15 +310,25 @@ PyObject *scribus_glayerprint(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	if (Name == "")
-		return PyInt_FromLong(0L);
+	{
+		PyErr_SetString(PyExc_ValueError, QString("Can't have an empty layer name"));
+		return NULL;
+	}
 	int i = 0;
+	bool found = false;
 	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 	{
 		if (Carrier->doc->Layers[lam].Name == QString(Name))
 		{
 			i = static_cast<int>(Carrier->doc->Layers[lam].Drucken);
+			found = true;
 			break;
 		}
+	}
+	if (!found)
+	{
+		PyErr_SetString(ScribusException, QString("Layer not found"));
+		return NULL;
 	}
 	return PyInt_FromLong(static_cast<long>(i));
 }
@@ -281,11 +343,17 @@ PyObject *scribus_removelayer(PyObject *self, PyObject* args)
 	}
 	if(!checkHaveDocument())
 		return NULL;
-	if ((Name == "") || (Carrier->doc->Layers.count() == 1))
+	if (Name == "")
 	{
-		Py_INCREF(Py_None);
-		return Py_None;
+		PyErr_SetString(PyExc_ValueError, QString("Can't have an empty layer name"));
+		return NULL;
 	}
+	if (Carrier->doc->Layers.count() == 1)
+	{
+		PyErr_SetString(ScribusException, QString("Can't remove the last layer"));
+		return NULL;
+	}
+	bool found = false;
 	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 	{
 		if (Carrier->doc->Layers[lam].Name == QString(Name))
@@ -293,7 +361,11 @@ PyObject *scribus_removelayer(PyObject *self, PyObject* args)
 			QValueList<Layer>::iterator it2 = Carrier->doc->Layers.at(lam);
 			int num2 = (*it2).LNr;
 			if (!num2)
+			{
+				// FIXME: WTF DOES THIS DO?
+				Py_INCREF(Py_None);
 				return Py_None;
+			}
 			int num = (*it2).Level;
 			Carrier->doc->Layers.remove(it2);
 			QValueList<Layer>::iterator it;
@@ -306,8 +378,14 @@ PyObject *scribus_removelayer(PyObject *self, PyObject* args)
 			Carrier->LayerRemove(num2);
 			Carrier->doc->ActiveLayer = 0;
 			Carrier->changeLayer(0);
+			found = true;
 			break;
 		}
+	}
+	if (!found)
+	{
+		PyErr_SetString(ScribusException, QString("Layer not found"));
+		return NULL;
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -323,10 +401,10 @@ PyObject *scribus_createlayer(PyObject *self, PyObject* args)
 	}
 	if(!checkHaveDocument())
 		return NULL;
-	if ((!Carrier->HaveDoc) || (Name == ""))
+	if (Name == "")
 	{
-		Py_INCREF(Py_None);
-		return Py_None;
+		PyErr_SetString(ScribusException, QString("Can't remove the last layer"));
+		return NULL;
 	}
 	QString tmp;
 	struct Layer ll;

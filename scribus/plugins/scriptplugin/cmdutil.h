@@ -18,4 +18,7 @@ PageItem* GetUniqueItem(QString name);
 // 2004-10-27 Craig Ringer see cmdutil.cpp for description
 bool checkHaveDocument();
 
+// 2004-11-12 Craig Ringer see cmdutil.cpp for description
+bool ItemExists(QString name);
+
 #endif

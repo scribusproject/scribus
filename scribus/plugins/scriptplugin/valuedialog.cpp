@@ -13,7 +13,7 @@ ValueDialog::ValueDialog( QWidget* parent, const char* name, bool modal, WFlags 
 	: QDialog( parent, name, modal, fl )
 {
 	if ( !name )
-	setName( "ValueDialog" );
+		setName( "ValueDialog" );
 	setModal( TRUE );
 	ScripterValueLayout = new QGridLayout( this, 1, 1, 11, 6, "ScripterValueLayout");
 

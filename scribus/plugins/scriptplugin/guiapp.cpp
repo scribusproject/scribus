@@ -55,11 +55,14 @@ PyObject *scribus_progresssetprogress(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("progressSet(number)"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
 	if (position > Carrier->FProg->totalSteps())
-		return Py_None;
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Tried to set progress > maximum progress"));
+		return NULL;
+	}
 	Carrier->FProg->setProgress(position);
 	qApp->processEvents();
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -70,7 +73,7 @@ PyObject *scribus_setcursor(PyObject *self, PyObject* args)
 	qDebug("WARNING! SetCursor() is not stable!");
 	if (!PyArg_ParseTuple(args, "s", &aCursor))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setCusrsor(string)"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setCursor(string)"));
 		return NULL;
 	}
 	if (aCursor=="wait")
