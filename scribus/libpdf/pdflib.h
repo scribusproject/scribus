@@ -19,11 +19,11 @@
 #define PDFLIB_H
 
 #include "qvaluelist.h"
+#include <qfile.h>
 
 class QString;
 class QRect;
 class QImage;
-class QFile;
 class PageItem;
 class ScribusView;
 class BookMItem;

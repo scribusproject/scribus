@@ -55,9 +55,6 @@
 #include "frameedit.h"
 #include "scrap.h"
 #include "layers.h"
-#include "libpostscript/pslib.h"
-class WerkToolB;
-class WerkToolBP;
 #include "seiten.h"
 #include "bookpalette.h"
 #include "splash.h"
@@ -69,7 +66,9 @@ class LineFormate;
 class Mpalette;
 class Measurements;
 class StoryEditor;
-
+class PSLib;
+class WerkToolB;
+class WerkToolBP;
 
 /**
   * This Class is the base class for your application. It sets up the main

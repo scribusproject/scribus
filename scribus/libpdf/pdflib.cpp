@@ -29,7 +29,6 @@
 #include <qstring.h>
 #include <qrect.h>
 #include <qimage.h>
-#include <qfile.h>
 #include <qregexp.h>
 #include <qdatetime.h>
 #include <qfileinfo.h>

@@ -22,6 +22,8 @@
 #include <qpainter.h>
 #include <qcolor.h>
 #include <qtooltip.h>
+#include <qfile.h>
+#include "libpostscript/pslib.h"
 
 extern QPixmap loadIcon(QString nam);
 extern void ReOrderText(ScribusDoc *doc, ScribusView *view);

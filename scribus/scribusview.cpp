@@ -3925,17 +3925,13 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				else
 				{
-					p.begin(viewport());
-					Transform(b, &p);
-					if (!QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(b->Width), static_cast<int>(b->Height))))).contains(mpo))
+					SeleItem(m);
+					if (SelItem.count() != 0)
 					{
-						SeleItem(m);
-						if (SelItem.count() != 0)
-							storeUndoInf(SelItem.at(0));
-					}
-					else
-					{
-						SeleItem(m);
+						storeUndoInf(SelItem.at(0));
+						b = SelItem.at(0);
+						p.begin(viewport());
+						Transform(b, &p);
 						if (!b->Locked)
 						{
 							HandleSizer(&p, b, mpo, m);
@@ -3951,8 +3947,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							Doc->UnDoValid = true;
 							emit UndoAvail();
 						}
+						p.end();
 					}
-					p.end();
 				}
 			}
 			else

@@ -4,6 +4,7 @@
 #include <structmember.h>
 #include <qfileinfo.h>
 #include <vector>
+#include "libpostscript/pslib.h"
 
 #ifdef HAVE_CUPS
 #include <cups/cups.h>

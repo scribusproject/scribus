@@ -55,6 +55,7 @@
 #include "helpbrowser.h"
 #include "scribusXml.h"
 #include "libabout/about.h"
+#include "libpostscript/pslib.h"
 #include "druck.h"
 #include "editformats.h"
 #include "muster.h"
@@ -3722,7 +3723,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 				replacement.append(Prefs.DCMSset.DefaultInputProfile2);
 				doc->PDF_Optionen.SolidProf = doc->CMSSettings.DefaultInputProfile2;
 			}
-			if (cmsWarning)
+			if ((cmsWarning) && (doc->HasCMS))
 			{
 				qApp->setOverrideCursor(QCursor(arrowCursor), true);
 				QString mess = tr("Some ICC-Profiles used by this Document are not installed:")+"\n\n";

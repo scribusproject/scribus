@@ -323,22 +323,17 @@ QString PSLib::PSEncode(QString in)
 
 void PSLib::PS_TemplateStart(QString Name, double breite, double hoehe)
 {
-	PutDoc("/"+PSEncode(Name)+"\n<<\n");
-	PutDoc("/FormType 1\n");
-	PutDoc("/BBox [0 0 "+ToStr(breite)+" "+ToStr(hoehe)+"]\n");
-	PutDoc("/Matrix [1 0 0 1 0 0]\n");
-	PutDoc("/PaintProc\n{\n");
+	PutDoc("/"+PSEncode(Name)+"\n{\n");
 }
 
 void PSLib::PS_UseTemplate(QString Name)
 {
-	PutDoc(PSEncode(Name)+" execform\n");
+	PutDoc(PSEncode(Name)+"\n");
 }
 
 void PSLib::PS_TemplateEnd()
 {
-	PutDoc("pop } bind\n");
-	PutDoc(">> def\n");
+	PutDoc("} bind def\n");
 }
 
 void PSLib::PS_begin_page(double breite, double hoehe, struct Margs* Ma, bool Clipping)
@@ -1036,30 +1031,39 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 	{
 		if (Doc->MasterItems.count() != 0)
 		{
-			if ((!sep) && (farb))
+			int Lnr = 0;
+			struct Layer ll;
+			ll.Drucken = false;
+			ll.LNr = 0;
+			for (uint lam = 0; lam < Doc->Layers.count(); ++lam)
 			{
-				for (uint api = 0; api < Doc->MasterItems.count(); ++api)
+				Level2Layer(Doc, &ll, Lnr);
+				if (ll.Drucken)
 				{
-					PageItem *it = Doc->MasterItems.at(api);
-					int x = static_cast<int>(Doc->MasterPages.at(ap)->Xoffset);
-					int y = static_cast<int>(Doc->MasterPages.at(ap)->Yoffset);
-					int w = static_cast<int>(Doc->MasterPages.at(ap)->Width);
-					int h = static_cast<int>(Doc->MasterPages.at(ap)->Height);
-					int x2 = static_cast<int>(it->BoundingX - it->Pwidth / 2.0);
-					int y2 = static_cast<int>(it->BoundingY - it->Pwidth / 2.0);
-					int w2 = static_cast<int>(it->BoundingW + it->Pwidth);
-					int h2 = static_cast<int>(it->BoundingH + it->Pwidth);
-					if (!QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
-						continue;
-					if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->PageNr)) && (it->OwnPage != -1))
-						continue;
-					if ((it->PType == 2) && (it->PicAvail) && (it->Pfile != "") && (it->isPrintable))
-						PS_ImageData(it->InvPict, it->Pfile, it->AnName, it->IProfile, it->UseEmbedded, Ic);
+					for (uint api = 0; api < Doc->MasterItems.count(); ++api)
+					{
+						QString tmps;
+						PageItem *it = Doc->MasterItems.at(api);
+						int x = static_cast<int>(Doc->MasterPages.at(ap)->Xoffset);
+						int y = static_cast<int>(Doc->MasterPages.at(ap)->Yoffset);
+						int w = static_cast<int>(Doc->MasterPages.at(ap)->Width);
+						int h = static_cast<int>(Doc->MasterPages.at(ap)->Height);
+						int x2 = static_cast<int>(it->BoundingX - it->Pwidth / 2.0);
+						int y2 = static_cast<int>(it->BoundingY - it->Pwidth / 2.0);
+						int w2 = static_cast<int>(it->BoundingW + it->Pwidth);
+						int h2 = static_cast<int>(it->BoundingH + it->Pwidth);
+						if (!QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
+							continue;
+						if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->PageNr)) && (it->OwnPage != -1))
+							continue;
+						if ((it->PType == 2) && (it->PicAvail) && (it->Pfile != "") && (it->isPrintable) && (!sep) && (farb))
+							PS_ImageData(it->InvPict, it->Pfile, it->AnName, it->IProfile, it->UseEmbedded, Ic);
+						PS_TemplateStart(Doc->MasterPages.at(ap)->PageNam + tmps.setNum(it->ItemNr), Doc->PageB, Doc->PageH);
+						ProcessItem(Doc, Doc->MasterPages.at(ap), it, ap+1, sep, farb, Ic, gcr, true);
+						PS_TemplateEnd();
+					}
 				}
 			}
-			PS_TemplateStart(Doc->MasterPages.at(ap)->PageNam, Doc->PageB, Doc->PageH);
-			ProcessPage(Doc, view, Doc->MasterPages.at(ap), ap+1, sep, farb, Ic, gcr);
-			PS_TemplateEnd();
 		}
 	}
 	sepac = 0;
@@ -1114,7 +1118,6 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 			Page* mPage = Doc->MasterPages.at(Doc->MasterNames[Doc->Pages.at(a)->MPageNam]);
 			if (Doc->MasterItems.count() != 0)
 			{
-				PS_UseTemplate(Doc->Pages.at(a)->MPageNam);
 				for (uint lam = 0; lam < Doc->Layers.count(); ++lam)
 				{
 					Level2Layer(Doc, &ll, Lnr);
@@ -1122,10 +1125,13 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 					{
 						for (uint am = 0; am < Doc->Pages.at(a)->FromMaster.count(); ++am)
 						{
+							QString tmps;
 							PageItem *ite = Doc->Pages.at(a)->FromMaster.at(am);
 							if ((ite->LayerNr != ll.LNr) || (!ite->isPrintable))
 								continue;
-							if ((ite->PType == 2) && ((sep) || (!farb)))
+							if ((ite->PType != 4) && (ite->PType != 2))
+								PS_UseTemplate(Doc->Pages.at(a)->MPageNam + tmps.setNum(ite->ItemNr));
+							else if (ite->PType == 2)
 							{
 								PS_save();
 								PS_translate(ite->Xpos - mPage->Xoffset, Doc->PageH -(ite->Ypos) - mPage->Yoffset);
@@ -1158,7 +1164,10 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 								if ((ite->PicAvail) && (ite->Pfile != ""))
 								{
 									PS_translate(0, -ite->BBoxH*ite->LocalScY);
-									PS_image(ite->InvPict, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic, ite->AnName);
+									if ((!sep) && (farb))
+										PS_image(ite->InvPict, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic, ite->AnName);
+									else
+										PS_image(ite->InvPict, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic);
 								}
 								PS_restore();
 								if (((ite->Pcolor2 != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
@@ -1192,7 +1201,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 								}
 								PS_restore();
 							}
-							if (ite->PType == 4)
+							else if (ite->PType == 4)
 							{
 								double savScale = view->Scale;
 								view->Scale = 1.0;
@@ -1501,7 +1510,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 					for (uint am = 0; am < Doc->Pages.at(a)->FromMaster.count(); ++am)
 					{
 						PageItem *ite = Doc->Pages.at(a)->FromMaster.at(am);
-						if ((ite->PType == 2) && ((sep) || (!farb)))
+						if (!ite->isTableItem)
 							continue;
 						if (ite->isPrintable)
 						{
@@ -1517,32 +1526,29 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 							PS_translate(ite->Xpos - mPage->Xoffset, Doc->PageH - (ite->Ypos - mPage->Yoffset));
 							if (ite->Rot != 0)
 								PS_rotate(-ite->Rot);
-							if (ite->isTableItem)
+							if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
 							{
-								if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
+								if (ite->TopLine)
 								{
-									if (ite->TopLine)
-									{
-										PS_moveto(0, 0);
-										PS_lineto(ite->Width, 0);
-									}
-									if (ite->RightLine)
-									{
-										PS_moveto(ite->Width, 0);
-										PS_lineto(ite->Width, -ite->Height);
-									}
-									if (ite->BottomLine)
-									{
-										PS_moveto(0, -ite->Height);
-										PS_lineto(ite->Width, -ite->Height);
-									}
-									if (ite->LeftLine)
-									{
-										PS_moveto(0, 0);
-										PS_lineto(0, -ite->Height);
-									}
-									PS_stroke();
+									PS_moveto(0, 0);
+									PS_lineto(ite->Width, 0);
 								}
+								if (ite->RightLine)
+								{
+									PS_moveto(ite->Width, 0);
+									PS_lineto(ite->Width, -ite->Height);
+								}
+								if (ite->BottomLine)
+								{
+									PS_moveto(0, -ite->Height);
+									PS_lineto(ite->Width, -ite->Height);
+								}
+								if (ite->LeftLine)
+								{
+									PS_moveto(0, 0);
+									PS_lineto(0, -ite->Height);
+								}
+								PS_stroke();
 							}
 							PS_restore();
 						}
@@ -1574,18 +1580,704 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 	PS_close();
 }
 
-void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, bool sep, bool farb, bool ic, bool gcr)
+void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master)
 {
-	uint b, d;
 	int h, s, v, k, tsz;
-	double wideR = 0;
+	uint d;
+	double wideR;
+	struct Pti *hl;
 	QValueList<double> dum;
 	dum.clear();
+	QString tmps, chx;
+	if (c->isPrintable)
+	{
+		PS_save();
+		if (c->Pcolor != "None")
+		{
+			SetFarbe(Doc, c->Pcolor, c->Shade, &h, &s, &v, &k, gcr);
+			PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+		}
+		if (c->Pcolor2 != "None")
+		{
+			SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+		}
+		PS_setlinewidth(c->Pwidth);
+		PS_setcapjoin(c->PLineEnd, c->PLineJoin);
+		PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
+		PS_translate(c->Xpos - a->Xoffset, Doc->PageH - (c->Ypos - a->Yoffset));
+		if (c->Rot != 0)
+			PS_rotate(-c->Rot);
+		switch (c->PType)
+		{
+		case 2:
+			if (master)
+				break;
+			if ((c->Pcolor != "None") || (c->GrType != 0))
+			{
+				SetClipPath(&c->PoLine);
+				PS_closepath();
+				if ((c->GrType != 0) && (a->PageNam == ""))
+					HandleGradient(Doc, c, c->Width, c->Height, gcr);
+				else
+					PS_fill();
+				PS_newpath();
+			}
+			PS_save();
+			SetClipPath(&c->PoLine);
+			PS_closepath();
+			PS_clip(true);
+			if ((c->flippedH % 2) != 0)
+			{
+				PS_translate(c->Width, 0);
+				PS_scale(-1, 1);
+			}
+			if ((c->flippedV % 2) != 0)
+			{
+				PS_translate(0, -c->Height);
+				PS_scale(1, -1);
+			}
+			if ((c->PicAvail) && (c->Pfile != ""))
+			{
+				PS_translate(0, -c->BBoxH*c->LocalScY);
+				if ((a->PageNam != "") && (!sep) && (farb))
+					PS_image(c->InvPict, -c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic, c->AnName);
+				else
+					PS_image(c->InvPict, -c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic);
+			}
+			PS_restore();
+			if (((c->Pcolor2 != "None") || (c->NamedLStyle != "")) && (!c->isTableItem))
+			{
+				if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
+				{
+					SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+					PS_setlinewidth(c->Pwidth);
+					PS_setcapjoin(c->PLineEnd, c->PLineJoin);
+					PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
+					SetClipPath(&c->PoLine);
+					PS_closepath();
+					PS_stroke();
+				}
+				else
+				{
+					multiLine ml = Doc->MLineStyles[c->NamedLStyle];
+					for (int it = ml.size()-1; it > -1; it--)
+					{
+						SetFarbe(Doc, ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						PS_setlinewidth(ml[it].Width);
+						PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+						PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
+						SetClipPath(&c->PoLine);
+						PS_closepath();
+						PS_stroke();
+					}
+				}
+			}
+			break;
+		case 4:
+			if (master)
+				break;
+			if (c->isBookmark)
+			{
+				QString bm = "";
+				QString cc;
+				for (d = 0; d < c->Ptext.count(); ++d)
+				{
+					if ((c->Ptext.at(d)->ch == QChar(13)) || (c->Ptext.at(d)->ch == QChar(10)) || (c->Ptext.at(d)->ch == QChar(28)))
+						break;
+					bm += "\\"+cc.setNum(QMAX(c->Ptext.at(d)->ch.at(0).unicode(), 32), 8);
+				}
+				PDF_Bookmark(bm, a->PageNr+1);
+			}
+			if (c->isAnnotation)
+			{
+				QString bm = "";
+				QString cc;
+				for (d = 0; d < c->Ptext.count(); ++d)
+				{
+					bm += "\\"+cc.setNum(QMAX(c->Ptext.at(d)->ch.at(0).unicode(), 32), 8);
+				}
+				PDF_Annotation(bm, 0, 0, c->Width, -c->Height);
+				break;
+			}
+			if ((c->Pcolor != "None") || (c->GrType != 0))
+			{
+				SetClipPath(&c->PoLine);
+				PS_closepath();
+				if ((c->GrType != 0) && (a->PageNam == ""))
+					HandleGradient(Doc, c, c->Width, c->Height, gcr);
+				else
+					PS_fill();
+			}
+			if ((c->flippedH % 2) != 0)
+			{
+				PS_translate(c->Width, 0);
+				PS_scale(-1, 1);
+			}
+			if ((c->flippedV % 2) != 0)
+			{
+				PS_translate(0, -c->Height);
+				PS_scale(1, -1);
+			}
+			for (d = 0; d < c->MaxChars; ++d)
+			{
+				hl = c->Ptext.at(d);
+				if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
+					continue;
+				if (hl->cstyle & 256)
+					continue;
+				if (hl->yp == 0)
+					continue;
+				tsz = hl->csize;
+				chx = hl->ch;
+				if (hl->ch == QChar(29))
+					chx = " ";
+				if (hl->ch == QChar(0xA0))
+					chx = " ";
+				if (hl->ch == QChar(30))
+				{
+					if (Doc->MasterP)
+						chx = "#";
+					else
+					{
+						uint zae = 0;
+						uint za2 = d;
+						do
+						{
+							if (za2 == 0)
+								break;
+							za2--;
+						}
+						while (c->Ptext.at(za2)->ch == QChar(30));
+						if (c->Ptext.at(za2)->ch != QChar(30))
+							za2++;
+						while (c->Ptext.at(za2+zae)->ch == QChar(30))
+						{
+							zae++;
+							if (za2+zae == c->MaxChars)
+								break;
+						}
+						QString out="%1";
+						QString out2;
+						out2 = out.arg(PNr-1+Doc->FirstPnum, -zae);
+						chx = out2.mid(d-za2, 1);
+					}
+				}
+				if (hl->cstyle & 64)
+				{
+					if (chx.upper() != chx)
+					{
+						tsz = hl->csize * Doc->typographicSetttings.valueSmallCaps / 100;
+						chx = chx.upper();
+					}
+				}
+				if (hl->cstyle & 1)
+					tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
+				if (hl->cstyle & 2)
+					tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
+				/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
+				QFileInfo fd = QFileInfo((*Doc->AllFonts)[hl->cfont]->Datei);
+				QString fext = fd.extension(false).lower();
+				if ((fext == "ttf") || ((*Doc->AllFonts)[hl->cfont]->isOTF) || ((*Doc->AllFonts)[hl->cfont]->Subset))
+				{
+					uint chr = chx[0].unicode();
+					if (((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr)) && (chr != 32))
+					{
+						PS_save();
+						if (c->Reverse)
+						{
+							PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
+							PS_scale(-1, 1);
+							if (d < c->MaxChars-1)
+							{
+								QString ctx = c->Ptext.at(d+1)->ch;
+								if (ctx == QChar(29))
+									ctx = " ";
+								if (ctx == QChar(0xA0))
+									ctx = " ";
+								wideR = -Cwidth(Doc, hl->cfont, chx, tsz, ctx) * (hl->cscale / 100.0);
+							}
+							else
+								wideR = -Cwidth(Doc, hl->cfont, chx, tsz) * (hl->cscale / 100.0);
+							PS_translate(wideR, 0);
+						}
+						else
+							PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
+						if (hl->cscale != 100)
+							PS_scale(hl->cscale / 100.0, 1);
+						if (hl->ccolor != "None")
+						{
+							SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
+							PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName(), tsz / 10.0, false);
+						}
+						PS_restore();
+					}
+				}
+				else
+				{
+					PS_selectfont(hl->cfont, tsz / 10.0);
+					if (hl->ccolor != "None")
+					{
+						SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+					}
+					PS_save();
+					if (c->Reverse)
+					{
+						int chs = hl->csize;
+						c->SetZeichAttr(hl, &chs, &chx);
+						PS_translate(hl->xp, -hl->yp);
+						PS_scale(-1, 1);
+						if (d < c->MaxChars-1)
+						{
+							QString ctx = c->Ptext.at(d+1)->ch;
+							if (ctx == QChar(29))
+								ctx = " ";
+							if (ctx == QChar(0xA0))
+								ctx = " ";
+							wideR = -Cwidth(Doc, hl->cfont, chx, chs, ctx) * (hl->cscale / 100.0);
+							PS_translate(wideR, 0);
+						}
+						else
+						{
+							wideR = -Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
+							PS_translate(wideR, 0);
+						}
+						if (hl->cscale != 100)
+							PS_scale(hl->cscale / 100.0, 1);
+						PS_show_xyG(hl->cfont, chx, 0, 0);
+					}
+					else
+					{
+						PS_translate(hl->xp, -hl->yp);
+						if (hl->cscale != 100)
+							PS_scale(hl->cscale / 100.0, 1);
+						PS_show_xyG(hl->cfont, chx, 0, 0);
+					}
+					PS_restore();
+				}
+				if ((hl->cstyle & 4) && (chx != QChar(13)))
+				{
+					uint chr = chx[0].unicode();
+					if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))
+					{
+						FPointArray gly = (*Doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
+						QWMatrix chma;
+						chma.scale(tsz / 100.0, tsz / 100.0);
+						gly.map(chma);
+						chma = QWMatrix();
+						chma.scale(hl->cscale / 100.0, 1);
+						gly.map(chma);
+						if (c->Reverse)
+						{
+							chma = QWMatrix();
+							chma.scale(-1, 1);
+							chma.translate(wideR, 0);
+							gly.map(chma);
+						}
+						if (hl->cstroke != "None")
+						{
+							PS_save();
+							PS_setlinewidth(QMAX((*Doc->AllFonts)[hl->cfont]->strokeWidth / 2 * (tsz / 10.0), 1));
+							PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
+							PS_setdash(Qt::SolidLine, 0, dum);
+							PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
+							SetFarbe(Doc, hl->cstroke, hl->cshade2, &h, &s, &v, &k, gcr);
+							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							SetClipPath(&gly);
+							PS_closepath();
+							PS_stroke();
+							PS_restore();
+						}
+					}
+				}
+				if ((hl->cstyle & 16) && (chx != QChar(13)))
+				{
+					double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
+					double Upos = (*Doc->AllFonts)[hl->cfont]->strikeout_pos * (tsz / 10.0);
+					if (hl->ccolor != "None")
+					{
+						PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
+						PS_setdash(Qt::SolidLine, 0, dum);
+						SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+					}
+					PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
+					PS_moveto(hl->xp, -hl->yp+Upos);
+					PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
+					PS_stroke();
+				}
+				if ((hl->cstyle & 8) && (chx != QChar(13)))
+				{
+					double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
+					double Upos = (*Doc->AllFonts)[hl->cfont]->underline_pos * (tsz / 10.0);
+					if (hl->ccolor != "None")
+					{
+						PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
+						PS_setdash(Qt::SolidLine, 0, dum);
+						SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+					}
+					PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
+					PS_moveto(hl->xp, -hl->yp+Upos);
+					PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
+					PS_stroke();
+				}
+				if (hl->cstyle & 512)
+				{
+					int chs = hl->csize;
+					c->SetZeichAttr(hl, &chs, &chx);
+					double wide = Cwidth(Doc, hl->cfont, chx, chs);
+					chx = "-";
+					uint chr = chx[0].unicode();
+					if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))
+					{
+						FPointArray gly = (*Doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
+						QWMatrix chma;
+						chma.scale(tsz / 100.0, tsz / 100.0);
+						gly.map(chma);
+						chma = QWMatrix();
+						chma.scale(hl->cscale / 100.0, 1);
+						gly.map(chma);
+						if (hl->ccolor != "None")
+						{
+							PS_save();
+							PS_newpath();
+							PS_translate(hl->xp+wide, (hl->yp - (tsz / 10.0)) * -1);
+							SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
+							PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							SetClipPath(&gly);
+							PS_closepath();
+							PS_fill();
+							PS_restore();
+						}
+					}
+				}
+			}
+			if (((c->Pcolor2 != "None") || (c->NamedLStyle != "")) && (!c->isTableItem))
+			{
+				SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+				PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+				PS_setlinewidth(c->Pwidth);
+				PS_setcapjoin(c->PLineEnd, c->PLineJoin);
+				PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
+				if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
+				{
+					SetClipPath(&c->PoLine);
+					PS_closepath();
+					PS_stroke();
+				}
+				else
+				{
+					multiLine ml = Doc->MLineStyles[c->NamedLStyle];
+					for (int it = ml.size()-1; it > -1; it--)
+					{
+						SetFarbe(Doc, ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						PS_setlinewidth(ml[it].Width);
+						PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+						PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
+						SetClipPath(&c->PoLine);
+						PS_closepath();
+						PS_stroke();
+					}
+				}
+			}
+			break;
+		case 5:
+			if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
+			{
+				PS_moveto(0, 0);
+				PS_lineto(c->Width, -c->Height);
+				PS_stroke();
+			}
+			else
+			{
+				multiLine ml = Doc->MLineStyles[c->NamedLStyle];
+				for (int it = ml.size()-1; it > -1; it--)
+				{
+					SetFarbe(Doc, ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+					PS_setlinewidth(ml[it].Width);
+					PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+					PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
+					PS_moveto(0, 0);
+					PS_lineto(c->Width, -c->Height);
+					PS_stroke();
+				}
+			}
+			if (c->startArrowIndex != 0)
+			{
+				QWMatrix arrowTrans;
+				FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex-1)).points.copy();
+				arrowTrans.translate(0, 0);
+				arrowTrans.scale(c->Pwidth, c->Pwidth);
+				arrowTrans.scale(-1,1);
+				arrow.map(arrowTrans);
+				SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+				PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+				PS_newpath();
+				SetClipPath(&arrow);
+				PS_closepath();
+				PS_fill();
+			}
+			if (c->endArrowIndex != 0)
+			{
+				QWMatrix arrowTrans;
+				FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex-1)).points.copy();
+				arrowTrans.translate(c->Width, 0);
+				arrowTrans.scale(c->Pwidth, c->Pwidth);
+				arrow.map(arrowTrans);
+				SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+				PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+				PS_newpath();
+				SetClipPath(&arrow);
+				PS_closepath();
+				PS_fill();
+			}
+			break;
+		case 1:
+		case 3:
+		case 6:
+			if ((c->Pcolor != "None") || (c->GrType != 0))
+			{
+				SetClipPath(&c->PoLine);
+				PS_closepath();
+				if (c->GrType != 0)
+					HandleGradient(Doc, c, c->Width, c->Height, gcr);
+				else
+					PS_fill();
+			}
+			if ((c->Pcolor2 != "None") || (c->NamedLStyle != ""))
+			{
+				if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
+				{
+					SetClipPath(&c->PoLine);
+					PS_closepath();
+					PS_stroke();
+				}
+				else
+				{
+					multiLine ml = Doc->MLineStyles[c->NamedLStyle];
+					for (int it = ml.size()-1; it > -1; it--)
+					{
+						SetFarbe(Doc, ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						PS_setlinewidth(ml[it].Width);
+						PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+						PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
+						SetClipPath(&c->PoLine);
+						PS_closepath();
+						PS_stroke();
+					}
+				}
+			}
+			break;
+		case 7:
+			if ((c->Pcolor != "None") || (c->GrType != 0))
+			{
+				SetClipPath(&c->PoLine);
+				PS_closepath();
+				if (c->GrType != 0)
+					HandleGradient(Doc, c, c->Width, c->Height, gcr);
+				else
+					PS_fill();
+				PS_newpath();
+			}
+			if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
+			{
+				SetClipPath(&c->PoLine, false);
+				PS_stroke();
+			}
+			else
+			{
+				multiLine ml = Doc->MLineStyles[c->NamedLStyle];
+				for (int it = ml.size()-1; it > -1; it--)
+				{
+					SetFarbe(Doc, ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+					PS_setlinewidth(ml[it].Width);
+					PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+					PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
+					SetClipPath(&c->PoLine, false);
+					PS_stroke();
+				}
+			}
+			if (c->startArrowIndex != 0)
+			{
+				FPoint Start = c->PoLine.point(0);
+				for (uint xx = 1; xx < c->PoLine.size(); xx += 2)
+				{
+					FPoint Vector = c->PoLine.point(xx);
+					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+					{
+						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/3.1415927);
+						QWMatrix arrowTrans;
+						FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex-1)).points.copy();
+						arrowTrans.translate(Start.x(), Start.y());
+						arrowTrans.rotate(r);
+						arrowTrans.scale(c->Pwidth, c->Pwidth);
+						arrow.map(arrowTrans);
+						SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						PS_newpath();
+						SetClipPath(&arrow);
+						PS_closepath();
+						PS_fill();
+						break;
+					}
+				}
+			}
+			if (c->endArrowIndex != 0)
+			{
+				FPoint End = c->PoLine.point(c->PoLine.size()-2);
+				for (uint xx = c->PoLine.size()-1; xx > 0; xx -= 2)
+				{
+					FPoint Vector = c->PoLine.point(xx);
+					if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+					{
+						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/3.1415927);
+						QWMatrix arrowTrans;
+						FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex-1)).points.copy();
+						arrowTrans.translate(End.x(), End.y());
+						arrowTrans.rotate(r);
+						arrowTrans.scale(c->Pwidth, c->Pwidth);
+						arrow.map(arrowTrans);
+						SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						PS_newpath();
+						SetClipPath(&arrow);
+						PS_closepath();
+						PS_fill();
+						break;
+					}
+				}
+			}
+			break;
+		case 8:
+			if (c->PoShow)
+			{
+				if (c->PoLine.size() > 3)
+				{
+					PS_save();
+					if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
+					{
+						SetClipPath(&c->PoLine, false);
+						PS_stroke();
+					}
+					else
+					{
+						multiLine ml = Doc->MLineStyles[c->NamedLStyle];
+						for (int it = ml.size()-1; it > -1; it--)
+						{
+							SetFarbe(Doc, ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							PS_setlinewidth(ml[it].Width);
+							PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+							PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
+							SetClipPath(&c->PoLine, false);
+							PS_stroke();
+						}
+					}
+					PS_restore();
+				}
+			}
+			for (d = 0; d < c->MaxChars; ++d)
+			{
+				hl = c->Ptext.at(d);
+				if ((hl->ch == QChar(13)) || (hl->ch == QChar(30)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
+					continue;
+				tsz = hl->csize;
+				chx = hl->ch;
+				if (hl->ch == QChar(29))
+					chx = " ";
+				if (hl->ch == QChar(0xA0))
+					chx = " ";
+				if (hl->cstyle & 64)
+				{
+					if (chx.upper() != chx)
+					{
+						tsz = hl->csize * Doc->typographicSetttings.valueSmallCaps / 100;
+						chx = chx.upper();
+					}
+				}
+				if (hl->cstyle & 1)
+					tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
+				if (hl->cstyle & 2)
+					tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
+				if (hl->ccolor != "None")
+				{
+					SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
+					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+				}
+				/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
+				QFileInfo fd = QFileInfo((*Doc->AllFonts)[hl->cfont]->Datei);
+				QString fext = fd.extension(false).lower();
+				if ((fext == "ttf") || ((*Doc->AllFonts)[hl->cfont]->isOTF) || ((*Doc->AllFonts)[hl->cfont]->Subset))
+				{
+					uint chr = chx[0].unicode();
+					if (((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr)) && (chr != 32))
+					{
+						PS_save();
+						PS_translate(hl->PtransX, -hl->PtransY);
+						PS_rotate(-hl->PRot);
+						if (c->Reverse)
+						{
+							PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
+							PS_scale(-1, 1);
+							if (d < c->MaxChars-1)
+							{
+								QString ctx = c->Ptext.at(d+1)->ch;
+								if (ctx == QChar(29))
+									ctx = " ";
+								if (ctx == QChar(0xA0))
+									ctx = " ";
+								wideR = -Cwidth(Doc, hl->cfont, chx, tsz, ctx) * (hl->cscale / 100.0);
+							}
+							else
+								wideR = -Cwidth(Doc, hl->cfont, chx, tsz) * (hl->cscale / 100.0);
+							PS_translate(wideR, 0);
+						}
+						else
+							PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
+						if (hl->cscale != 100)
+							PS_scale(hl->cscale / 100.0, 1);
+						if (hl->ccolor != "None")
+						{
+							SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
+							PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName(), tsz / 10.0, false);
+						}
+						PS_restore();
+					}
+				}
+				else
+				{
+					PS_selectfont(hl->cfont, tsz / 10.0);
+					PS_save();
+					PS_translate(hl->PtransX, -hl->PtransY);
+					PS_rotate(-hl->PRot);
+					PS_show_xyG(hl->cfont, chx, hl->xp, -hl->yp);
+					PS_restore();
+				}
+			}
+			break;
+		}
+		PS_restore();
+	}
+}
+
+void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, bool sep, bool farb, bool ic, bool gcr)
+{
+	uint b;
+	int h, s, v, k;
 	QCString chxc;
 	QString chx, chglyph, tmp;
 	PageItem *c;
 	QPtrList<PageItem> PItems;
-	struct Pti *hl;
 	int Lnr = 0;
 	struct Layer ll;
 	ll.Drucken = false;
@@ -1624,681 +2316,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 					continue;
 				if ((a->PageNam != "") && (c->OwnPage != static_cast<int>(a->PageNr)) && (c->OwnPage != -1))
 					continue;
-				if (c->isPrintable)
-				{
-					PS_save();
-					if (c->Pcolor != "None")
-					{
-						SetFarbe(Doc, c->Pcolor, c->Shade, &h, &s, &v, &k, gcr);
-						PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-					}
-					if (c->Pcolor2 != "None")
-					{
-						SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
-						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-					}
-					PS_setlinewidth(c->Pwidth);
-					PS_setcapjoin(c->PLineEnd, c->PLineJoin);
-					PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
-					PS_translate(c->Xpos - a->Xoffset, Doc->PageH - (c->Ypos - a->Yoffset));
-					if (c->Rot != 0)
-						PS_rotate(-c->Rot);
-					switch (c->PType)
-					{
-					case 2:
-						if ((c->Pcolor != "None") || (c->GrType != 0))
-						{
-							SetClipPath(&c->PoLine);
-							PS_closepath();
-							if ((c->GrType != 0) && (a->PageNam == ""))
-								HandleGradient(Doc, c, c->Width, c->Height, gcr);
-							else
-								PS_fill();
-							PS_newpath();
-						}
-						PS_save();
-						SetClipPath(&c->PoLine);
-						PS_closepath();
-						PS_clip(true);
-						if ((c->flippedH % 2) != 0)
-						{
-							PS_translate(c->Width, 0);
-							PS_scale(-1, 1);
-						}
-						if ((c->flippedV % 2) != 0)
-						{
-							PS_translate(0, -c->Height);
-							PS_scale(1, -1);
-						}
-						if ((c->PicAvail) && (c->Pfile != ""))
-						{
-							PS_translate(0, -c->BBoxH*c->LocalScY);
-							if (a->PageNam != "")
-								PS_image(c->InvPict, -c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic, c->AnName);
-							else
-								PS_image(c->InvPict, -c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic);
-						}
-						PS_restore();
-						if (((c->Pcolor2 != "None") || (c->NamedLStyle != "")) && (!c->isTableItem))
-						{
-							if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
-							{
-								SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
-								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								PS_setlinewidth(c->Pwidth);
-								PS_setcapjoin(c->PLineEnd, c->PLineJoin);
-								PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
-								SetClipPath(&c->PoLine);
-								PS_closepath();
-								PS_stroke();
-							}
-							else
-							{
-								multiLine ml = Doc->MLineStyles[c->NamedLStyle];
-								for (int it = ml.size()-1; it > -1; it--)
-								{
-									SetFarbe(Doc, ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
-									PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-									PS_setlinewidth(ml[it].Width);
-									PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-									PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
-									SetClipPath(&c->PoLine);
-									PS_closepath();
-									PS_stroke();
-								}
-							}
-						}
-						break;
-					case 4:
-						if (c->isBookmark)
-						{
-							QString bm = "";
-							QString cc;
-							for (d = 0; d < c->Ptext.count(); ++d)
-							{
-								if ((c->Ptext.at(d)->ch == QChar(13)) || (c->Ptext.at(d)->ch == QChar(10)) || (c->Ptext.at(d)->ch == QChar(28)))
-									break;
-								bm += "\\"+cc.setNum(QMAX(c->Ptext.at(d)->ch.at(0).unicode(), 32), 8);
-							}
-							PDF_Bookmark(bm, a->PageNr+1);
-						}
-						if (c->isAnnotation)
-						{
-							QString bm = "";
-							QString cc;
-							for (d = 0; d < c->Ptext.count(); ++d)
-							{
-								bm += "\\"+cc.setNum(QMAX(c->Ptext.at(d)->ch.at(0).unicode(), 32), 8);
-							}
-							PDF_Annotation(bm, 0, 0, c->Width, -c->Height);
-							break;
-						}
-						if ((c->Pcolor != "None") || (c->GrType != 0))
-						{
-							SetClipPath(&c->PoLine);
-							PS_closepath();
-							if ((c->GrType != 0) && (a->PageNam == ""))
-								HandleGradient(Doc, c, c->Width, c->Height, gcr);
-							else
-								PS_fill();
-						}
-						if ((c->flippedH % 2) != 0)
-						{
-							PS_translate(c->Width, 0);
-							PS_scale(-1, 1);
-						}
-						if ((c->flippedV % 2) != 0)
-						{
-							PS_translate(0, -c->Height);
-							PS_scale(1, -1);
-						}
-						for (d = 0; d < c->MaxChars; ++d)
-						{
-							hl = c->Ptext.at(d);
-							if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
-								continue;
-							if (hl->cstyle & 256)
-								continue;
-							if (hl->yp == 0)
-								continue;
-							tsz = hl->csize;
-							chx = hl->ch;
-							if (hl->ch == QChar(29))
-								chx = " ";
-							if (hl->ch == QChar(0xA0))
-								chx = " ";
-							if (hl->ch == QChar(30))
-							{
-								if (Doc->MasterP)
-									chx = "#";
-								else
-								{
-									uint zae = 0;
-									uint za2 = d;
-									do
-									{
-										if (za2 == 0)
-											break;
-										za2--;
-									}
-									while (c->Ptext.at(za2)->ch == QChar(30));
-									if (c->Ptext.at(za2)->ch != QChar(30))
-										za2++;
-									while (c->Ptext.at(za2+zae)->ch == QChar(30))
-									{
-										zae++;
-										if (za2+zae == c->MaxChars)
-											break;
-									}
-									QString out="%1";
-									QString out2;
-									out2 = out.arg(PNr-1+Doc->FirstPnum, -zae);
-									chx = out2.mid(d-za2, 1);
-								}
-							}
-							if (hl->cstyle & 64)
-							{
-								if (chx.upper() != chx)
-								{
-									tsz = hl->csize * Doc->typographicSetttings.valueSmallCaps / 100;
-									chx = chx.upper();
-								}
-							}
-							if (hl->cstyle & 1)
-								tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
-							if (hl->cstyle & 2)
-								tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
-							/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-							QFileInfo fd = QFileInfo((*Doc->AllFonts)[hl->cfont]->Datei);
-							QString fext = fd.extension(false).lower();
-							if ((fext == "ttf") || ((*Doc->AllFonts)[hl->cfont]->isOTF) || ((*Doc->AllFonts)[hl->cfont]->Subset))
-							{
-								uint chr = chx[0].unicode();
-								if (((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr)) && (chr != 32))
-								{
-									PS_save();
-									if (c->Reverse)
-									{
-										PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
-										PS_scale(-1, 1);
-										if (d < c->MaxChars-1)
-										{
-											QString ctx = c->Ptext.at(d+1)->ch;
-											if (ctx == QChar(29))
-												ctx = " ";
-											if (ctx == QChar(0xA0))
-												ctx = " ";
-											wideR = -Cwidth(Doc, hl->cfont, chx, tsz, ctx) * (hl->cscale / 100.0);
-										}
-										else
-											wideR = -Cwidth(Doc, hl->cfont, chx, tsz) * (hl->cscale / 100.0);
-										PS_translate(wideR, 0);
-									}
-									else
-										PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
-									if (hl->cscale != 100)
-										PS_scale(hl->cscale / 100.0, 1);
-									if (hl->ccolor != "None")
-									{
-										SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-										PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-										PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName(), tsz / 10.0, false);
-									}
-									PS_restore();
-								}
-							}
-							else
-							{
-								PS_selectfont(hl->cfont, tsz / 10.0);
-								if (hl->ccolor != "None")
-								{
-									SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-									PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								}
-								PS_save();
-								if (c->Reverse)
-								{
-									int chs = hl->csize;
-									c->SetZeichAttr(hl, &chs, &chx);
-									PS_translate(hl->xp, -hl->yp);
-									PS_scale(-1, 1);
-									if (d < c->MaxChars-1)
-									{
-										QString ctx = c->Ptext.at(d+1)->ch;
-										if (ctx == QChar(29))
-											ctx = " ";
-										if (ctx == QChar(0xA0))
-											ctx = " ";
-										wideR = -Cwidth(Doc, hl->cfont, chx, chs, ctx) * (hl->cscale / 100.0);
-										PS_translate(wideR, 0);
-									}
-									else
-									{
-										wideR = -Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
-										PS_translate(wideR, 0);
-									}
-									if (hl->cscale != 100)
-										PS_scale(hl->cscale / 100.0, 1);
-									PS_show_xyG(hl->cfont, chx, 0, 0);
-								}
-								else
-								{
-									PS_translate(hl->xp, -hl->yp);
-									if (hl->cscale != 100)
-										PS_scale(hl->cscale / 100.0, 1);
-									PS_show_xyG(hl->cfont, chx, 0, 0);
-								}
-								PS_restore();
-							}
-							if ((hl->cstyle & 4) && (chx != QChar(13)))
-							{
-								uint chr = chx[0].unicode();
-								if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))
-								{
-									FPointArray gly = (*Doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
-									QWMatrix chma;
-									chma.scale(tsz / 100.0, tsz / 100.0);
-									gly.map(chma);
-									chma = QWMatrix();
-									chma.scale(hl->cscale / 100.0, 1);
-									gly.map(chma);
-									if (c->Reverse)
-									{
-										chma = QWMatrix();
-										chma.scale(-1, 1);
-										chma.translate(wideR, 0);
-										gly.map(chma);
-									}
-									if (hl->cstroke != "None")
-									{
-										PS_save();
-										PS_setlinewidth(QMAX((*Doc->AllFonts)[hl->cfont]->strokeWidth / 2 * (tsz / 10.0), 1));
-										PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
-										PS_setdash(Qt::SolidLine, 0, dum);
-										PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
-										SetFarbe(Doc, hl->cstroke, hl->cshade2, &h, &s, &v, &k, gcr);
-										PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-										SetClipPath(&gly);
-										PS_closepath();
-										PS_stroke();
-										PS_restore();
-									}
-								}
-							}
-							if ((hl->cstyle & 16) && (chx != QChar(13)))
-							{
-								double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-								double Upos = (*Doc->AllFonts)[hl->cfont]->strikeout_pos * (tsz / 10.0);
-								if (hl->ccolor != "None")
-								{
-									PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
-									PS_setdash(Qt::SolidLine, 0, dum);
-									SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-									PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								}
-								PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
-								PS_moveto(hl->xp, -hl->yp+Upos);
-								PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
-								PS_stroke();
-							}
-							if ((hl->cstyle & 8) && (chx != QChar(13)))
-							{
-								double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-								double Upos = (*Doc->AllFonts)[hl->cfont]->underline_pos * (tsz / 10.0);
-								if (hl->ccolor != "None")
-								{
-									PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
-									PS_setdash(Qt::SolidLine, 0, dum);
-									SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-									PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								}
-								PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
-								PS_moveto(hl->xp, -hl->yp+Upos);
-								PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
-								PS_stroke();
-							}
-							if (hl->cstyle & 512)
-							{
-								int chs = hl->csize;
-								c->SetZeichAttr(hl, &chs, &chx);
-								double wide = Cwidth(Doc, hl->cfont, chx, chs);
-								chx = "-";
-								uint chr = chx[0].unicode();
-								if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))
-								{
-									FPointArray gly = (*Doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
-									QWMatrix chma;
-									chma.scale(tsz / 100.0, tsz / 100.0);
-									gly.map(chma);
-									chma = QWMatrix();
-									chma.scale(hl->cscale / 100.0, 1);
-									gly.map(chma);
-									if (hl->ccolor != "None")
-									{
-										PS_save();
-										PS_newpath();
-										PS_translate(hl->xp+wide, (hl->yp - (tsz / 10.0)) * -1);
-										SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-										PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-										SetClipPath(&gly);
-										PS_closepath();
-										PS_fill();
-										PS_restore();
-									}
-								}
-							}
-						}
-						if (((c->Pcolor2 != "None") || (c->NamedLStyle != "")) && (!c->isTableItem))
-						{
-							SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
-							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							PS_setlinewidth(c->Pwidth);
-							PS_setcapjoin(c->PLineEnd, c->PLineJoin);
-							PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
-							if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
-							{
-								SetClipPath(&c->PoLine);
-								PS_closepath();
-								PS_stroke();
-							}
-							else
-							{
-								multiLine ml = Doc->MLineStyles[c->NamedLStyle];
-								for (int it = ml.size()-1; it > -1; it--)
-								{
-									SetFarbe(Doc, ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
-									PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-									PS_setlinewidth(ml[it].Width);
-									PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-									PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
-									SetClipPath(&c->PoLine);
-									PS_closepath();
-									PS_stroke();
-								}
-							}
-						}
-						break;
-					case 5:
-						if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
-						{
-							PS_moveto(0, 0);
-							PS_lineto(c->Width, -c->Height);
-							PS_stroke();
-						}
-						else
-						{
-							multiLine ml = Doc->MLineStyles[c->NamedLStyle];
-							for (int it = ml.size()-1; it > -1; it--)
-							{
-								SetFarbe(Doc, ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
-								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								PS_setlinewidth(ml[it].Width);
-								PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-								PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
-								PS_moveto(0, 0);
-								PS_lineto(c->Width, -c->Height);
-								PS_stroke();
-							}
-						}
-						if (c->startArrowIndex != 0)
-						{
-							QWMatrix arrowTrans;
-							FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex-1)).points.copy();
-							arrowTrans.translate(0, 0);
-							arrowTrans.scale(c->Pwidth, c->Pwidth);
-							arrowTrans.scale(-1,1);
-							arrow.map(arrowTrans);
-							SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
-							PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							PS_newpath();
-							SetClipPath(&arrow);
-							PS_closepath();
-							PS_fill();
-						}
-						if (c->endArrowIndex != 0)
-						{
-							QWMatrix arrowTrans;
-							FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex-1)).points.copy();
-							arrowTrans.translate(c->Width, 0);
-							arrowTrans.scale(c->Pwidth, c->Pwidth);
-							arrow.map(arrowTrans);
-							SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
-							PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							PS_newpath();
-							SetClipPath(&arrow);
-							PS_closepath();
-							PS_fill();
-						}
-						break;
-					case 1:
-					case 3:
-					case 6:
-						if ((c->Pcolor != "None") || (c->GrType != 0))
-						{
-							SetClipPath(&c->PoLine);
-							PS_closepath();
-							if (c->GrType != 0)
-								HandleGradient(Doc, c, c->Width, c->Height, gcr);
-							else
-								PS_fill();
-						}
-						if ((c->Pcolor2 != "None") || (c->NamedLStyle != ""))
-						{
-							if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
-							{
-								SetClipPath(&c->PoLine);
-								PS_closepath();
-								PS_stroke();
-							}
-							else
-							{
-								multiLine ml = Doc->MLineStyles[c->NamedLStyle];
-								for (int it = ml.size()-1; it > -1; it--)
-								{
-									SetFarbe(Doc, ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
-									PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-									PS_setlinewidth(ml[it].Width);
-									PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-									PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
-									SetClipPath(&c->PoLine);
-									PS_closepath();
-									PS_stroke();
-								}
-							}
-						}
-						break;
-					case 7:
-						if ((c->Pcolor != "None") || (c->GrType != 0))
-						{
-							SetClipPath(&c->PoLine);
-							PS_closepath();
-							if (c->GrType != 0)
-								HandleGradient(Doc, c, c->Width, c->Height, gcr);
-							else
-								PS_fill();
-							PS_newpath();
-						}
-						if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
-						{
-							SetClipPath(&c->PoLine, false);
-							PS_stroke();
-						}
-						else
-						{
-							multiLine ml = Doc->MLineStyles[c->NamedLStyle];
-							for (int it = ml.size()-1; it > -1; it--)
-							{
-								SetFarbe(Doc, ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
-								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								PS_setlinewidth(ml[it].Width);
-								PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-								PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
-								SetClipPath(&c->PoLine, false);
-								PS_stroke();
-							}
-						}
-						if (c->startArrowIndex != 0)
-						{
-							FPoint Start = c->PoLine.point(0);
-							for (uint xx = 1; xx < c->PoLine.size(); xx += 2)
-							{
-								FPoint Vector = c->PoLine.point(xx);
-								if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
-								{
-									double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/3.1415927);
-									QWMatrix arrowTrans;
-									FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex-1)).points.copy();
-									arrowTrans.translate(Start.x(), Start.y());
-									arrowTrans.rotate(r);
-									arrowTrans.scale(c->Pwidth, c->Pwidth);
-									arrow.map(arrowTrans);
-									SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
-									PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-									PS_newpath();
-									SetClipPath(&arrow);
-									PS_closepath();
-									PS_fill();
-									break;
-								}
-							}
-						}
-						if (c->endArrowIndex != 0)
-						{
-							FPoint End = c->PoLine.point(c->PoLine.size()-2);
-							for (uint xx = c->PoLine.size()-1; xx > 0; xx -= 2)
-							{
-								FPoint Vector = c->PoLine.point(xx);
-								if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
-								{
-									double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/3.1415927);
-									QWMatrix arrowTrans;
-									FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex-1)).points.copy();
-									arrowTrans.translate(End.x(), End.y());
-									arrowTrans.rotate(r);
-									arrowTrans.scale(c->Pwidth, c->Pwidth);
-									arrow.map(arrowTrans);
-									SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
-									PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-									PS_newpath();
-									SetClipPath(&arrow);
-									PS_closepath();
-									PS_fill();
-									break;
-								}
-							}
-						}
-						break;
-					case 8:
-						if (c->PoShow)
-						{
-							if (c->PoLine.size() > 3)
-							{
-								PS_save();
-								if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
-								{
-									SetClipPath(&c->PoLine, false);
-									PS_stroke();
-								}
-								else
-								{
-									multiLine ml = Doc->MLineStyles[c->NamedLStyle];
-									for (int it = ml.size()-1; it > -1; it--)
-									{
-										SetFarbe(Doc, ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
-										PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-										PS_setlinewidth(ml[it].Width);
-										PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-										PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
-										SetClipPath(&c->PoLine, false);
-										PS_stroke();
-									}
-								}
-								PS_restore();
-							}
-						}
-						for (d = 0; d < c->MaxChars; ++d)
-						{
-							hl = c->Ptext.at(d);
-							if ((hl->ch == QChar(13)) || (hl->ch == QChar(30)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
-								continue;
-							tsz = hl->csize;
-							chx = hl->ch;
-							if (hl->ch == QChar(29))
-								chx = " ";
-							if (hl->ch == QChar(0xA0))
-								chx = " ";
-							if (hl->cstyle & 64)
-							{
-								if (chx.upper() != chx)
-								{
-									tsz = hl->csize * Doc->typographicSetttings.valueSmallCaps / 100;
-									chx = chx.upper();
-								}
-							}
-							if (hl->cstyle & 1)
-								tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
-							if (hl->cstyle & 2)
-								tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
-							if (hl->ccolor != "None")
-							{
-								SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							}
-							/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-							QFileInfo fd = QFileInfo((*Doc->AllFonts)[hl->cfont]->Datei);
-							QString fext = fd.extension(false).lower();
-							if ((fext == "ttf") || ((*Doc->AllFonts)[hl->cfont]->isOTF) || ((*Doc->AllFonts)[hl->cfont]->Subset))
-							{
-								uint chr = chx[0].unicode();
-								if (((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr)) && (chr != 32))
-								{
-									PS_save();
-									PS_translate(hl->PtransX, -hl->PtransY);
-									PS_rotate(-hl->PRot);
-									if (c->Reverse)
-									{
-										PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
-										PS_scale(-1, 1);
-										if (d < c->MaxChars-1)
-										{
-											QString ctx = c->Ptext.at(d+1)->ch;
-											if (ctx == QChar(29))
-												ctx = " ";
-											if (ctx == QChar(0xA0))
-												ctx = " ";
-											wideR = -Cwidth(Doc, hl->cfont, chx, tsz, ctx) * (hl->cscale / 100.0);
-										}
-										else
-											wideR = -Cwidth(Doc, hl->cfont, chx, tsz) * (hl->cscale / 100.0);
-										PS_translate(wideR, 0);
-									}
-									else
-										PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
-									if (hl->cscale != 100)
-										PS_scale(hl->cscale / 100.0, 1);
-									if (hl->ccolor != "None")
-									{
-										SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
-										PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-										PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName(), tsz / 10.0, false);
-									}
-									PS_restore();
-								}
-							}
-							else
-							{
-								PS_selectfont(hl->cfont, tsz / 10.0);
-								PS_save();
-								PS_translate(hl->PtransX, -hl->PtransY);
-								PS_rotate(-hl->PRot);
-								PS_show_xyG(hl->cfont, chx, hl->xp, -hl->yp);
-								PS_restore();
-							}
-						}
-						break;
-					}
-					PS_restore();
-				}
+				ProcessItem(Doc, a, c, PNr, sep, farb, ic, gcr, false);
 			}
 		}
 		for (b = 0; b < PItems.count(); ++b)
@@ -2322,6 +2340,8 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 				continue;
 			if (c->ChangedMasterItem)
 				continue;
+			if (!c->isTableItem)
+				continue;
 			if ((a->PageNam != "") && (c->OwnPage != static_cast<int>(a->PageNr)) && (c->OwnPage != -1))
 				continue;
 			if (c->isPrintable)
@@ -2338,32 +2358,29 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 				PS_translate(c->Xpos - a->Xoffset, Doc->PageH - (c->Ypos - a->Yoffset));
 				if (c->Rot != 0)
 					PS_rotate(-c->Rot);
-				if (c->isTableItem)
+				if ((c->TopLine) || (c->RightLine) || (c->BottomLine) || (c->LeftLine))
 				{
-					if ((c->TopLine) || (c->RightLine) || (c->BottomLine) || (c->LeftLine))
+					if (c->TopLine)
 					{
-						if (c->TopLine)
-						{
-							PS_moveto(0, 0);
-							PS_lineto(c->Width, 0);
-						}
-						if (c->RightLine)
-						{
-							PS_moveto(c->Width, 0);
-							PS_lineto(c->Width, -c->Height);
-						}
-						if (c->BottomLine)
-						{
-							PS_moveto(0, -c->Height);
-							PS_lineto(c->Width, -c->Height);
-						}
-						if (c->LeftLine)
-						{
-							PS_moveto(0, 0);
-							PS_lineto(0, -c->Height);
-						}
-						PS_stroke();
+						PS_moveto(0, 0);
+						PS_lineto(c->Width, 0);
 					}
+					if (c->RightLine)
+					{
+						PS_moveto(c->Width, 0);
+						PS_lineto(c->Width, -c->Height);
+					}
+					if (c->BottomLine)
+					{
+						PS_moveto(0, -c->Height);
+						PS_lineto(c->Width, -c->Height);
+					}
+					if (c->LeftLine)
+					{
+						PS_moveto(0, 0);
+						PS_lineto(0, -c->Height);
+					}
+					PS_stroke();
 				}
 				PS_restore();
 			}

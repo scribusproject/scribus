@@ -79,6 +79,7 @@ public:
 	virtual void PS_UseTemplate(QString Name);
 	virtual void PS_ImageData(bool inver, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
 	virtual void CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageNs, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic, bool gcr);
+	virtual void ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master);
 	virtual void ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
 	virtual void SetClipPath(FPointArray *c, bool poly = true);
 	virtual void HandleGradient(ScribusDoc* Doc, PageItem *c, double w, double h, bool gcr);
