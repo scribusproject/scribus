@@ -101,6 +101,12 @@ void FDialogPreview::GenPreview(QString name)
 	QPixmap pm;
 	QString Buffer = "";
 	ImageInfoRecord imgInfo;
+	imgInfo.valid = false;
+	imgInfo.clipPath = "";
+	imgInfo.PDSpathData.clear();
+	imgInfo.layerInfo.clear();
+	imgInfo.isRequest = false;
+	imgInfo.colorspace = 0;
 	QFileInfo fi = QFileInfo(name);
 	if (fi.isDir())
 		return;

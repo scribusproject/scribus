@@ -2124,6 +2124,7 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 					info->colorspace = 0;
 				else if (cinfo.output_components == 1)
 					info->colorspace = 2;
+				info->progressive = jpeg_has_multiple_scans(&cinfo);
 			}
 		}
 		(void) jpeg_finish_decompress(&cinfo);

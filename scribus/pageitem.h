@@ -67,6 +67,7 @@ struct ImageInfoRecord
 	int colorspace; /* 0 = RGB  1 = CMYK  2 = Grayscale */
 	bool valid;
 	bool isRequest;
+	bool progressive;
 	QMap<QString, FPointArray> PDSpathData;
 	QMap<int, LoadRequest> RequestProps;
 	QString clipPath;

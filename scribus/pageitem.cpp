@@ -297,6 +297,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	undoManager = UndoManager::instance();
 	imgInfo.valid = false;
 	imgInfo.isRequest = false;
+	imgInfo.colorspace = 0;
+	imgInfo.progressive = false;
 	
 	//Page Item Attributes
 	pageItemAttributes.clear();
