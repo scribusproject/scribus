@@ -68,6 +68,9 @@ public:
 	QLabel*	orientationQLabel;
 	QComboBox*	sizeQComboBox;
 	QComboBox*	orientationQComboBox;
+	QCheckBox* checkLink;
+	QCheckBox* checkFrame;
+	QCheckBox* checkPictures;
 
 	TabGuides* tabGuides;
 	QWidget* tabView;
@@ -109,7 +112,6 @@ protected:
 	QHBoxLayout* layout7;
 	QVBoxLayout* pageBackgroundLayout;
 	QHBoxLayout* layout10;
-	QSpacerItem* spacer3;
 	QHBoxLayout* groupAutoSaveLayout;
 
 protected slots:

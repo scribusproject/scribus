@@ -21,15 +21,12 @@ class TabGuides : public QWidget
 	Q_OBJECT
 
 public:
-	TabGuides( QWidget* parent, struct guidesPrefs *prefsData, double unitBase, QString unit);
+	TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, double unitBase, QString unit);
 	~TabGuides() {};
 
 	MSpinBox* majorSpace;
 	MSpinBox* minorSpace;
 	MSpinBox* snapDistance;
-	QCheckBox* checkLink;
-	QCheckBox* checkFrame;
-	QCheckBox* checkPictures;
 	QCheckBox* checkMargin;
 	QCheckBox* checkGuides;
 	QCheckBox* checkBaseline;
@@ -41,12 +38,14 @@ public:
 	QGroupBox* checkGrid;
 	QGroupBox* groupBox1;
 	QGroupBox* groupBox2;
+	QGroupBox* commonBox;
+	QGroupBox* snapBox;
+	QGroupBox* guideBox;
+	QGroupBox* marginBox;
+	QGroupBox* baselineBox;
 	QButtonGroup* buttonGroup1;
 	QRadioButton* inBackground;
 	QRadioButton* inForeground;
-	QLabel* textLabel1;
-	QLabel* textLabel2;
-	QLabel* textLabel3;
 	QLabel* textLabel4;
 	QLabel* textLabel5;
 	QLabel* textLabel6;
@@ -59,6 +58,12 @@ public:
 	QPushButton* guideColor;
 	QPushButton* marginColor;
 	QSpinBox* grabDistance;
+	QLabel* textLabel6a;
+	QSpinBox* autoLine;
+	QLabel* textLabel7a;
+	MSpinBox* baseGrid;
+	MSpinBox* baseOffset;
+	QLabel* textLabel8a;
 
 protected slots:
 	virtual void changeMajorColor();
@@ -72,11 +77,12 @@ protected:
 	QGridLayout* checkGridLayout;
 	QGridLayout* groupBox1Layout;
 	QGridLayout* groupBox2Layout;
-	QHBoxLayout* buttonGroup1Layout;
-	QGridLayout* layout11;
-	QHBoxLayout* layout2;
-	QHBoxLayout* layout3;
+	QHBoxLayout* commonBoxLayout;
+	QGridLayout* snapBoxLayout;
+	QHBoxLayout* guideBoxLayout;
+	QHBoxLayout* marginBoxLayout;
+	QGridLayout* baselineBoxLayout;
+	QVBoxLayout* buttonGroup1Layout;
 	QHBoxLayout* layout9;
-	QGridLayout* layout12;
 };
 #endif

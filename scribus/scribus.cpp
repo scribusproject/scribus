@@ -2565,12 +2565,12 @@ bool ScribusApp::SetupDoc()
 		doc->marginColored = dia->checkUnprintable->isChecked();
 		doc->papColor = dia->colorPaper;
 		doc->guidesSettings.marginsShown = dia->tabGuides->checkMargin->isChecked();
-		doc->guidesSettings.framesShown = dia->tabGuides->checkFrame->isChecked();
+		doc->guidesSettings.framesShown = dia->checkFrame->isChecked();
 		doc->guidesSettings.gridShown = dia->tabGuides->checkGrid->isChecked();
 		doc->guidesSettings.guidesShown = dia->tabGuides->checkGuides->isChecked();
 		doc->guidesSettings.baseShown = dia->tabGuides->checkBaseline->isChecked();
-		doc->guidesSettings.showPic = dia->tabGuides->checkPictures->isChecked();
-		doc->guidesSettings.linkShown = dia->tabGuides->checkLink->isChecked();
+		doc->guidesSettings.showPic = dia->checkPictures->isChecked();
+		doc->guidesSettings.linkShown = dia->checkLink->isChecked();
 		doc->guidesSettings.grabRad = dia->tabGuides->grabDistance->value();
 		doc->guidesSettings.guideRad = dia->tabGuides->snapDistance->value() / UmReFaktor;
 		doc->guidesSettings.minorGrid = dia->tabGuides->minorSpace->value() / UmReFaktor;
@@ -2585,9 +2585,9 @@ bool ScribusApp::SetupDoc()
 		doc->typographicSetttings.valueSubScript = dia->tabTypo->subDisplacement->value();
 		doc->typographicSetttings.scalingSubScript = dia->tabTypo->subScaling->value();
 		doc->typographicSetttings.valueSmallCaps = dia->tabTypo->capsScaling->value();
-		doc->typographicSetttings.autoLineSpacing = dia->tabTypo->autoLine->value();
-		doc->typographicSetttings.valueBaseGrid = dia->tabTypo->baseGrid->value() / UmReFaktor;
-		doc->typographicSetttings.offsetBaseGrid = dia->tabTypo->baseOffset->value() / UmReFaktor;
+		doc->typographicSetttings.autoLineSpacing = dia->tabGuides->autoLine->value();
+		doc->typographicSetttings.valueBaseGrid = dia->tabGuides->baseGrid->value() / UmReFaktor;
+		doc->typographicSetttings.offsetBaseGrid = dia->tabGuides->baseOffset->value() / UmReFaktor;
 		doc->toolSettings.defFont = dia->tabTools->fontComboText->currentText();
 		doc->toolSettings.defSize = dia->tabTools->sizeComboText->currentText().left(2).toInt() * 10;
 		doc->toolSettings.dStrokeText = dia->tabTools->colorComboStrokeText->currentText();
@@ -7130,12 +7130,12 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.toolSettings.defFont = dia->tabTools->fontComboText->currentText();
 		Prefs.toolSettings.defSize = dia->tabTools->sizeComboText->currentText().left(2).toInt() * 10;
 		Prefs.guidesSettings.marginsShown = dia->tabGuides->checkMargin->isChecked();
-		Prefs.guidesSettings.framesShown = dia->tabGuides->checkFrame->isChecked();
+		Prefs.guidesSettings.framesShown = dia->checkFrame->isChecked();
 		Prefs.guidesSettings.gridShown = dia->tabGuides->checkGrid->isChecked();
 		Prefs.guidesSettings.guidesShown = dia->tabGuides->checkGuides->isChecked();
 		Prefs.guidesSettings.baseShown = dia->tabGuides->checkBaseline->isChecked();
-		Prefs.guidesSettings.showPic = dia->tabGuides->checkPictures->isChecked();
-		Prefs.guidesSettings.linkShown = dia->tabGuides->checkLink->isChecked();
+		Prefs.guidesSettings.showPic = dia->checkPictures->isChecked();
+		Prefs.guidesSettings.linkShown = dia->checkLink->isChecked();
 		Prefs.guidesSettings.grabRad = dia->tabGuides->grabDistance->value();
 		Prefs.guidesSettings.guideRad = dia->tabGuides->snapDistance->value() / UmReFaktor;
 		Prefs.guidesSettings.minorGrid = dia->tabGuides->minorSpace->value() / UmReFaktor;
@@ -7150,9 +7150,9 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.typographicSetttings.valueSubScript = dia->tabTypo->subDisplacement->value();
 		Prefs.typographicSetttings.scalingSubScript = dia->tabTypo->subScaling->value();
 		Prefs.typographicSetttings.valueSmallCaps = dia->tabTypo->capsScaling->value();
-		Prefs.typographicSetttings.autoLineSpacing = dia->tabTypo->autoLine->value();
-		Prefs.typographicSetttings.valueBaseGrid = dia->tabTypo->baseGrid->value() / UmReFaktor;
-		Prefs.typographicSetttings.offsetBaseGrid = dia->tabTypo->baseOffset->value() / UmReFaktor;
+		Prefs.typographicSetttings.autoLineSpacing = dia->tabGuides->autoLine->value();
+		Prefs.typographicSetttings.valueBaseGrid = dia->tabGuides->baseGrid->value() / UmReFaktor;
+		Prefs.typographicSetttings.offsetBaseGrid = dia->tabGuides->baseOffset->value() / UmReFaktor;
 		Prefs.toolSettings.dPen = dia->tabTools->colorComboLineShape->currentText();
 		if (Prefs.toolSettings.dPen == tr("None"))
 			Prefs.toolSettings.dPen = "None";

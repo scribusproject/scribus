@@ -14,7 +14,7 @@ class TabTypograpy : public QWidget
 	Q_OBJECT
 
 public:
-	TabTypograpy( QWidget* parent, struct typoPrefs *prefsData, double unitBase, QString unit);
+	TabTypograpy( QWidget* parent, struct typoPrefs *prefsData);
 	~TabTypograpy() {};
 
 	QGroupBox* groupBox1a;
@@ -30,20 +30,12 @@ public:
 	QGroupBox* groupBox3a;
 	QLabel* textLabel5a;
 	QSpinBox* capsScaling;
-	QGroupBox* groupBox4a;
-	QLabel* textLabel6a;
-	QSpinBox* autoLine;
-	QLabel* textLabel7a;
-	MSpinBox* baseGrid;
-	MSpinBox* baseOffset;
-	QLabel* textLabel8a;
 
 protected:
 	QGridLayout* tabTypoLayout;
 	QGridLayout* groupBox1aLayout;
 	QGridLayout* groupBox2aLayout;
 	QGridLayout* groupBox3aLayout;
-	QGridLayout* groupBox4aLayout;
 };
 
 #endif

@@ -328,9 +328,9 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	tabLayout_7->addLayout( Layout21 );
 	addItem( tr("Document"), loadIcon("page.png"), tab_7);
 
-	tabGuides = new TabGuides(prefsWidgets, &prefsData->guidesSettings, Umrech, "");
+	tabGuides = new TabGuides(prefsWidgets, &prefsData->guidesSettings, &prefsData->typographicSetttings, Umrech, "");
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
-	tabTypo = new TabTypograpy(  prefsWidgets, &prefsData->typographicSetttings, Umrech, "");
+	tabTypo = new TabTypograpy(  prefsWidgets, &prefsData->typographicSetttings);
 	addItem( tr("Typography"), loadIcon("font.png"), tabTypo);
 	tabTools = new TabTools(  prefsWidgets, &prefsData->toolSettings, Umrech, "", 0);
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
@@ -393,15 +393,16 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	tabViewLayout = new QVBoxLayout( tabView, 10, 5, "tabViewLayout");
 	tabViewLayout->setAlignment( Qt::AlignTop );
 	pageBackground = new QButtonGroup( tabView, "pageBackground" );
-	pageBackground->setTitle( tr( "Page Background" ) );
+	pageBackground->setTitle( tr( "Page Display" ) );
 	pageBackground->setColumnLayout(0, Qt::Vertical );
 	pageBackground->layout()->setSpacing( 5 );
 	pageBackground->layout()->setMargin( 10 );
-	pageBackgroundLayout = new QHBoxLayout( pageBackground->layout() );
+	pageBackgroundLayout = new QVBoxLayout( pageBackground->layout() );
 	pageBackgroundLayout->setAlignment( Qt::AlignTop );
+	layout10 = new QHBoxLayout( 0, 0, 5, "layout10");
 	textLabel9 = new QLabel( pageBackground, "textLabel9" );
 	textLabel9->setText( tr( "Color:" ) );
-	pageBackgroundLayout->addWidget( textLabel9 );
+	layout10->addWidget( textLabel9 );
 	backColor = new QPushButton( pageBackground, "backColor" );
 	backColor->setMinimumSize( QSize( 60, 20 ) );
 	backColor->setMaximumSize( QSize( 60, 20 ) );
@@ -412,12 +413,27 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	colorPaper = prefsData->DpapColor;
 	backColor->setPixmap(pm5);
 	backColor->setText( QString::null );
-	pageBackgroundLayout->addWidget( backColor );
+	layout10->addWidget( backColor );
+	QSpacerItem* spacer3 = new QSpacerItem( 61, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout10->addItem( spacer3 );
+	pageBackgroundLayout->addLayout( layout10 );
 	checkUnprintable = new QCheckBox( pageBackground, "checkUnprintable" );
 	checkUnprintable->setText( tr( "Display &Unprintable Area in Margin Color" ) );
 	checkUnprintable->setAccel( QKeySequence( tr( "Alt+U" ) ) );
 	checkUnprintable->setChecked( prefsData->marginColored );
 	pageBackgroundLayout->addWidget( checkUnprintable );
+	checkPictures = new QCheckBox( pageBackground, "checkPictures" );
+	checkPictures->setText( tr( "Show Pictures" ) );
+	checkPictures->setChecked(prefsData->guidesSettings.showPic);
+	pageBackgroundLayout->addWidget( checkPictures );
+	checkLink = new QCheckBox( pageBackground, "checkLink" );
+	checkLink->setText( tr( "Show Text Chains" ) );
+	checkLink->setChecked(prefsData->guidesSettings.linkShown);
+	pageBackgroundLayout->addWidget( checkLink );
+	checkFrame = new QCheckBox( pageBackground, "checkFrame" );
+	checkFrame->setText( tr( "Show Frames" ) );
+	checkFrame->setChecked(prefsData->guidesSettings.framesShown);
+	pageBackgroundLayout->addWidget( checkFrame );
 	tabViewLayout->addWidget( pageBackground );
 
 	groupScratch = new QGroupBox( tabView, "GroupBox7" );
@@ -575,6 +591,9 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 
 	QWidget::setTabOrder( PreviewSize, SaveAtQuit );
 
+	QToolTip::add( checkLink, tr("Turns the of linked frames on or off"));
+	QToolTip::add( checkFrame, tr("Turns the display of frames on or off"));
+	QToolTip::add( checkPictures, tr("Turns the display of pictures on or off"));
 	QToolTip::add( guiLangCombo, tr( "Select your default language for Scribus to run with.\nLeave this blank to choose based on environment variables.\nYou can still override this by passing a command line option when starting Scribus" ) );
 	QToolTip::add( GUICombo, tr( "Choose the default window decoration and looks.\nScribus inherits any available KDE or Qt themes" ) );
 	QToolTip::add( GFsize, tr( "Default font size for the menus and windows" ) );
@@ -983,8 +1002,8 @@ void Preferences::unitChange()
 	tabGuides->minorSpace->setSuffix(einh);
 	tabGuides->majorSpace->setSuffix(einh);
 	tabGuides->snapDistance->setSuffix(einh);
-	tabTypo->baseGrid->setSuffix(einh);
-	tabTypo->baseOffset->setSuffix(einh);
+	tabGuides->baseGrid->setSuffix(einh);
+	tabGuides->baseOffset->setSuffix(einh);
 	tabTools->gapText->setSuffix(einh);
 	topScratch->setSuffix(einh);
 	bottomScratch->setSuffix(einh);
@@ -1004,10 +1023,10 @@ void Preferences::unitChange()
 	tabGuides->majorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabGuides->snapDistance->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	tabGuides->snapDistance->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabTypo->baseGrid->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabTypo->baseGrid->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabTypo->baseOffset->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabTypo->baseOffset->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabGuides->baseGrid->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabGuides->baseGrid->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabGuides->baseOffset->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabGuides->baseOffset->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabTools->gapText->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	tabTools->gapText->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	topScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);

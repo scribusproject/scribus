@@ -200,13 +200,13 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	reformDocLayout->addWidget( groupAutoSave );
 	addItem( tr("Document"), loadIcon("page.png"), tabPage);
 
-	tabGuides = new TabGuides(prefsWidgets, &doc->guidesSettings, UmReFaktor, ein);
+	tabGuides = new TabGuides(prefsWidgets, &doc->guidesSettings, &doc->typographicSetttings, UmReFaktor, ein);
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
 
 	tabView = new QWidget( prefsWidgets, "tabView" );
 	tabViewLayout = new QVBoxLayout( tabView, 10, 5, "tabViewLayout");
 	pageBackground = new QButtonGroup( tabView, "pageBackground" );
-	pageBackground->setTitle( tr( "Page Background" ) );
+	pageBackground->setTitle( tr( "Page Display" ) );
 	pageBackground->setColumnLayout(0, Qt::Vertical );
 	pageBackground->layout()->setSpacing( 5 );
 	pageBackground->layout()->setMargin( 10 );
@@ -227,7 +227,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	backColor->setPixmap(pm5);
 	backColor->setText( QString::null );
 	layout10->addWidget( backColor );
-	spacer3 = new QSpacerItem( 61, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer3 = new QSpacerItem( 61, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout10->addItem( spacer3 );
 	pageBackgroundLayout->addLayout( layout10 );
 	checkUnprintable = new QCheckBox( pageBackground, "checkUnprintable" );
@@ -235,6 +235,18 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	checkUnprintable->setAccel( QKeySequence( tr( "Alt+U" ) ) );
 	checkUnprintable->setChecked( doc->marginColored );
 	pageBackgroundLayout->addWidget( checkUnprintable );
+	checkPictures = new QCheckBox( pageBackground, "checkPictures" );
+	checkPictures->setText( tr( "Show Pictures" ) );
+	checkPictures->setChecked(doc->guidesSettings.showPic);
+	pageBackgroundLayout->addWidget( checkPictures );
+	checkLink = new QCheckBox( pageBackground, "checkLink" );
+	checkLink->setText( tr( "Show Text Chains" ) );
+	checkLink->setChecked(doc->guidesSettings.linkShown);
+	pageBackgroundLayout->addWidget( checkLink );
+	checkFrame = new QCheckBox( pageBackground, "checkFrame" );
+	checkFrame->setText( tr( "Show Frames" ) );
+	checkFrame->setChecked(doc->guidesSettings.framesShown);
+	pageBackgroundLayout->addWidget( checkFrame );
 	tabViewLayout->addWidget( pageBackground );
 
 	groupScratch = new QGroupBox( tabView, "GroupBox7" );
@@ -283,9 +295,11 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	layout4s->addWidget( Rechtss, 1, 2 );
 	groupScratchLayout->addLayout( layout4s );
 	tabViewLayout->addWidget( groupScratch );
+
+
 	addItem( tr("Display"), loadIcon("screen.png"), tabView);
 
-	tabTypo = new TabTypograpy(  prefsWidgets, &doc->typographicSetttings, UmReFaktor, ein);
+	tabTypo = new TabTypograpy(  prefsWidgets, &doc->typographicSetttings);
 	addItem( tr("Typography"), loadIcon("font.png"), tabTypo);
 
 	tabTools = new TabTools(  prefsWidgets, &doc->toolSettings, UmReFaktor, ein, doc);
@@ -311,6 +325,9 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	topR->setMaxValue(pageHeight - bottomR->value());
 	bottomR->setMaxValue(pageHeight - topR->value());
 	//tooltips
+	QToolTip::add( checkLink, tr("Turns the of linked frames on or off"));
+	QToolTip::add( checkFrame, tr("Turns the display of frames on or off"));
+	QToolTip::add( checkPictures, tr("Turns the display of pictures on or off"));
 	QToolTip::add( backColor, tr( "Color for paper" ) );
 	QToolTip::add( checkUnprintable, tr( "Mask the area outside the margins in the margin color" ) );
 	QToolTip::add( facingPages, tr( "Enable single or spread based layout" ) );
@@ -381,8 +398,8 @@ void ReformDoc::unitChange()
 	tabGuides->minorSpace->setSuffix(einh);
 	tabGuides->majorSpace->setSuffix(einh);
 	tabGuides->snapDistance->setSuffix(einh);
-	tabTypo->baseGrid->setSuffix(einh);
-	tabTypo->baseOffset->setSuffix(einh);
+	tabGuides->baseGrid->setSuffix(einh);
+	tabGuides->baseOffset->setSuffix(einh);
 	tabTools->gapText->setSuffix(einh);
 	topScratch->setSuffix(einh);
 	bottomScratch->setSuffix(einh);
@@ -409,10 +426,10 @@ void ReformDoc::unitChange()
 	tabGuides->majorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabGuides->snapDistance->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	tabGuides->snapDistance->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabTypo->baseGrid->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabTypo->baseGrid->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabTypo->baseOffset->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabTypo->baseOffset->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabGuides->baseGrid->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabGuides->baseGrid->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabGuides->baseOffset->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabGuides->baseOffset->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabTools->gapText->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	tabTools->gapText->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	topScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);

@@ -82,6 +82,9 @@ public:
 	QWidget* tabView;
 	QButtonGroup* pageBackground;
 	QLabel* textLabel9;
+	QCheckBox* checkLink;
+	QCheckBox* checkFrame;
+	QCheckBox* checkPictures;
 	QPushButton* backColor;
 	QCheckBox* checkUnprintable;
 	QGroupBox* groupScratch;
@@ -210,7 +213,8 @@ protected:
 	QVBoxLayout* MiscLayout;
 	QVBoxLayout* groupPrintLayout;
 	QVBoxLayout* tabViewLayout;
-	QHBoxLayout* pageBackgroundLayout;
+	QVBoxLayout* pageBackgroundLayout;
+	QHBoxLayout* layout10;
 	QHBoxLayout* groupScratchLayout;
 	QGridLayout* Layout4s;
 
