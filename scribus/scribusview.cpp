@@ -568,6 +568,8 @@ void ScribusView::LaMenu()
 		for (a=0; a < Doc->Layers.count(); a++)
 		{
 			Laymen->insertItem(Doc->Layers[a].Name);
+			if (Doc->ActiveLayer == static_cast<int>(a))
+				Laymen->setItemChecked(Laymen->idAt(a), true);
 		}
 	}
 }
