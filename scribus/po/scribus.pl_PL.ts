@@ -159,6 +159,16 @@
         <source>Basque:</source>
         <translation>Baskijski:</translation>
     </message>
+    <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Panel ten informuje o numerze wersji, dacie kompilacji
+oraz wkompilowanej obsłudze bibliotek.
+Symbole C-C-T oznaczają wsparcie dla C=CUPS C=littlecms T=TIFF
+O braku obsługi dla danej biblioteki informuje symbol *</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -1357,6 +1367,10 @@ Wymaga ona bardzo dokładnie dopasowanych profili i służy jedynie jako ostrze�
         <source>Name of the Color is not unique</source>
         <translation>Nazwa koloru nie jest jednoznaczna</translation>
     </message>
+    <message>
+        <source>HSV-Colormap</source>
+        <translation>Mapa kolorów HSV</translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -1510,6 +1524,18 @@ Wymaga ona bardzo dokładnie dopasowanych profili i służy jedynie jako ostrze�
     <message>
         <source>Cancel</source>
         <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>This panel displays various CUPS options when printing. 
+The exact parameters available will depend on your printer driver.
+You can confirm CUPS support by selecting Help &gt; About.
+Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Panel ten wyświetla opcje CUPS dla druku.
+Opcje te zależą od zainstalowanego sterownika drukarki.
+Aby upewnić się, czy wbudowana została obsługa CUPS, należy zajrzeć pod Pomoc &gt; O Scribusie
+Sprawdź, czy identyfikator kompilacji zawiera C-C-C. Symbole te oznaczają wsparcie dla C=CUPS C=littlecms T=TIFF
+Brak wparcia dla danej biblioteki symbolizuje znak *</translation>
     </message>
 </context>
 <context>
@@ -1793,6 +1819,20 @@ This can be set in the Preferences.</source>
     </message>
 </context>
 <context>
+    <name>EPSPlug</name>
+    <message>
+        <source>Importing File:
+%1
+failed!</source>
+        <translation>Błąd podczas importu pliku %1! 
+</translation>
+    </message>
+    <message>
+        <source>Fatal Error</source>
+        <translation>Krytyczny błąd</translation>
+    </message>
+</context>
+<context>
     <name>EditStyle</name>
     <message>
         <source>Edit Style</source>
@@ -1828,19 +1868,19 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Indentation</source>
-        <translation>Wcięcie</translation>
+        <translation type="obsolete">Wcięcie</translation>
     </message>
     <message>
         <source>Left Indent:</source>
-        <translation>Wcięcie z lewej:</translation>
+        <translation type="obsolete">Wcięcie z lewej:</translation>
     </message>
     <message>
         <source>First Line:</source>
-        <translation>Pierwsza linia:</translation>
+        <translation type="obsolete">Pierwsza linia:</translation>
     </message>
     <message>
         <source>Tabulators...</source>
-        <translation>Tabulatory...</translation>
+        <translation type="obsolete">Tabulatory...</translation>
     </message>
     <message>
         <source>Alignment</source>
@@ -1976,15 +2016,23 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Indentation for first line of the paragraph</source>
-        <translation>Wcięcie pierszego wiersza akapitu</translation>
+        <translation type="obsolete">Wcięcie pierszego wiersza akapitu</translation>
     </message>
     <message>
         <source>Indentation from the left for the whole paragraph</source>
-        <translation>Wcięcie z lewej strony całego akapitu</translation>
+        <translation type="obsolete">Wcięcie z lewej strony całego akapitu</translation>
     </message>
     <message>
         <source>Edit tab settings of text frame...</source>
-        <translation>Edytuj ustawienia tabulatorów ramki tekstowej...</translation>
+        <translation type="obsolete">Edytuj ustawienia tabulatorów ramki tekstowej...</translation>
+    </message>
+    <message>
+        <source>Line Spacing:</source>
+        <translation>Interlinia:</translation>
+    </message>
+    <message>
+        <source>Tabulators and Indentation</source>
+        <translation>Tabulatory i wcięcie</translation>
     </message>
 </context>
 <context>
@@ -2052,6 +2100,127 @@ This can be set in the Preferences.</source>
     <message>
         <source>Javascripts (*.js);;All Files (*)</source>
         <translation>Skrypty Javascript (*.js);;Wszystkie pliki(*)</translation>
+    </message>
+</context>
+<context>
+    <name>ExportForm</name>
+    <message>
+        <source>Choose a Export Directory</source>
+        <translation>Wybierz katalog dla eksportu</translation>
+    </message>
+    <message>
+        <source>Export as Image</source>
+        <translation>Eksportuj jako obrazek</translation>
+    </message>
+    <message>
+        <source>Export to directory:</source>
+        <translation>Eksportuj do katalogu:</translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation>&amp;Zmień...</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Image type:</source>
+        <translation>Typ obrazka:</translation>
+    </message>
+    <message>
+        <source>Quality :</source>
+        <translation>Jakość:</translation>
+    </message>
+    <message>
+        <source>%</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation>Rozmiar:</translation>
+    </message>
+    <message>
+        <source>Export </source>
+        <translation>Eksportuj</translation>
+    </message>
+    <message>
+        <source>&amp;One page</source>
+        <translation>&amp;Jedną stronę</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;All pages</source>
+        <translation>&amp;Wszystkie strony</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Interval from:</source>
+        <translation>Za&amp;kres od:</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation>Alt+I</translation>
+    </message>
+    <message>
+        <source>to:</source>
+        <translation>do:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Anuluj</translation>
+    </message>
+    <message>
+        <source>Change the output directory</source>
+        <translation>Zmień katalog wyjściowy</translation>
+    </message>
+    <message>
+        <source>The output directory - the place to store your images.
+Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
+        <translation>Katalog wyjściowy - miejsce, w którym zapisywane będą twoje obrazki. 
+Nazwa wyeksportowanego pliku będzie następująca: &quot;nazwa_dokumentu-numer_strony.typ_pliku&quot;</translation>
+    </message>
+    <message>
+        <source>Export only the current page</source>
+        <translation>Eksportuj tylko aktualną stronę</translation>
+    </message>
+    <message>
+        <source>Export all pages to images</source>
+        <translation>Eksportuje wszystkie strony jako obrazki</translation>
+    </message>
+    <message>
+        <source>Export a range of pages to images</source>
+        <translation>Eksportuj zakres stron jako obrazki</translation>
+    </message>
+    <message>
+        <source>First page to export when exporting a range</source>
+        <translation>Pierwsza strona zakresu stron przeznaczonego do eskportu</translation>
+    </message>
+    <message>
+        <source>Last page to export when exporting a range</source>
+        <translation>Ostatnia strona zakresu stron przeznaczonego do eksportu</translation>
+    </message>
+    <message>
+        <source>The height of the output images in pixels</source>
+        <translation>Wysokość obrazków wyjściowych w pikslach</translation>
+    </message>
+    <message>
+        <source>The quality of your images - 100% is the best, 1% the highest compression</source>
+        <translation>Jakość obrazków - 100% oznacza najlepszą jakość, 1% oznacza najwyższą kompresję</translation>
+    </message>
+    <message>
+        <source>Available export formats</source>
+        <translation>Dostępne formaty eksportu</translation>
     </message>
 </context>
 <context>
@@ -2297,6 +2466,33 @@ This can be set in the Preferences.</source>
     <message>
         <source>Additional &amp;Paths</source>
         <translation>D&amp;odatkowe ścieżki</translation>
+    </message>
+</context>
+<context>
+    <name>FontPreview</name>
+    <message>
+        <source>Font Preview</source>
+        <translation>Podgląd czcionek</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Anuluj</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Woven silk pyjamas exchanged for blue quartz</source>
+        <translation>Zażółć Gęślą Jaźń AaBbCc1!2@3#</translation>
     </message>
 </context>
 <context>
@@ -2761,6 +2957,41 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
 </context>
 <context>
+    <name>MSpinBox</name>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+</context>
+<context>
     <name>Mdup</name>
     <message>
         <source>Multiple Duplicate</source>
@@ -2785,6 +3016,61 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     <message>
         <source>Cancel</source>
         <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>Measurements</name>
+    <message>
+        <source>Distances</source>
+        <translation>Odstępy</translation>
+    </message>
+    <message>
+        <source>X1:</source>
+        <translation>X1:</translation>
+    </message>
+    <message>
+        <source>Y1:</source>
+        <translation>Y1:</translation>
+    </message>
+    <message>
+        <source>X2:</source>
+        <translation>X2:</translation>
+    </message>
+    <message>
+        <source>Y2:</source>
+        <translation>Y2:</translation>
+    </message>
+    <message>
+        <source>DX:</source>
+        <translation>DX:</translation>
+    </message>
+    <message>
+        <source>DY:</source>
+        <translation>DY:</translation>
+    </message>
+    <message>
+        <source>Angle:</source>
+        <translation>Kąt:</translation>
+    </message>
+    <message>
+        <source>Length:</source>
+        <translation>Długość:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -3034,7 +3320,7 @@ rogi:</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation>Rozmiar:</translation>
+        <translation type="obsolete">Rozmiar:</translation>
     </message>
     <message>
         <source> %</source>
@@ -3568,7 +3854,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm<byte value="x9"/></translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
@@ -3625,6 +3911,10 @@ Proszę wybrać inną.</translation>
     <message>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation>Pokazuje poziom, na którym znajduje się obiekt. 0 oznacza, że obiekt jest na spodzie</translation>
+    </message>
+    <message>
+        <source>Font Size:</source>
+        <translation>Rozmiar czcionki:</translation>
     </message>
 </context>
 <context>
@@ -4001,6 +4291,18 @@ on automatically created pages</source>
     <message>
         <source>Number of columns to create in automatically created text frames</source>
         <translation>Ilość szpalt w  automatycznie tworzonych ramkach tekstowych</translation>
+    </message>
+    <message>
+        <source>Legal</source>
+        <translation>Legal</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation>Letter</translation>
+    </message>
+    <message>
+        <source>Tabloid</source>
+        <translation>Tabloid</translation>
     </message>
 </context>
 <context>
@@ -4398,11 +4700,11 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Copying Text and Graphics is allowed</source>
-        <translation>Dozwolone kopiowanie tekstu i grafiki</translation>
+        <translation type="obsolete">Dozwolone kopiowanie tekstu i grafiki</translation>
     </message>
     <message>
         <source>Adding Annotations and Fields is allowed</source>
-        <translation>Dozwolone dodawanie adnotacji i pól</translation>
+        <translation type="obsolete">Dozwolone dodawanie adnotacji i pól</translation>
     </message>
     <message>
         <source>Security</source>
@@ -4700,7 +5002,7 @@ zabezpieczenia w wyeksportowanym pliku PDF</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation>Wybierz hasło dla użytkowników, aby umożliwić im czytanie twojego pliku PDF</translation>
+        <translation type="obsolete">Wybierz hasło dla użytkowników, aby umożliwić im czytanie twojego pliku PDF</translation>
     </message>
     <message>
         <source>Unchecking this will disallow printing of the PDF</source>
@@ -4891,19 +5193,19 @@ Zastrzeżenie: szyfrowanie w PDF nie jest tak godne zaufania jak GPG lub PGP i m
     </message>
     <message>
         <source>Allow printing of the PDF</source>
-        <translation>Dozwolone drukowanie dokumentu PDF</translation>
+        <translation type="obsolete">Dozwolone drukowanie dokumentu PDF</translation>
     </message>
     <message>
         <source>Allow modifying of the PDF</source>
-        <translation>Dozwolona zmiana dokumentu</translation>
+        <translation type="obsolete">Dozwolona zmiana dokumentu</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF</source>
-        <translation>Dozwolone kopiowanie tekstu i grafiki</translation>
+        <translation type="obsolete">Dozwolone kopiowanie tekstu i grafiki</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF</source>
-        <translation>Dozwolone dodawanie adnotacji i pól</translation>
+        <translation type="obsolete">Dozwolone dodawanie adnotacji i pól</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF.
@@ -4986,6 +5288,37 @@ Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
         <translation>Stopnie kompresji: minimalny (25%), niski (50%), średni (75%), wysoki (85%), maksymalny (95%)</translation>
+    </message>
+    <message>
+        <source>Allow Copying Text and Graphics</source>
+        <translation>Dozwolone kopiowanie tekstu i grafik</translation>
+    </message>
+    <message>
+        <source>Allow Adding Annotations and Fields</source>
+        <translation>Dozwolone dodawanie adnotacji i pól</translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF.</source>
+        <translation>Wybierz hasło dla użytkowników, którym będzie wolno czytać twój PDF.</translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
+        <translation>Dozwolone drukowanie dokumentu PDF. W przypadku braku zakreślenia druk zostanie uniemożliwiony.</translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
+        <translation>Dozwolona edycja dokumentu PDF. W przypadku braku zakreślenia edycja zostanie uniemożliwiona.</translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF. 
+If un-checked, text and graphics cannot be copied.</source>
+        <translation>Dozwolone kopiowanie tekstu i grafik z dokumentu PDF. W przypadku braku zakreślenia, kopiowanie zostanie uniemożliwione.</translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF. 
+If un-checked, editing annotations and fileds is prevented.</source>
+        <translation>Dozwolone dodawanie adnotacji i pól do dokumentu PDF.
+W przypadku braku zakreślenie edycja adnotacji i pól zostanie uniemożliwiona.</translation>
     </message>
 </context>
 <context>
@@ -5381,6 +5714,10 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
         <source>Insert Sample Text</source>
         <translation>Wstaw przykładowy tekst</translation>
     </message>
+    <message>
+        <source>PDF-Options</source>
+        <translation>Opcje PDF</translation>
+    </message>
 </context>
 <context>
     <name>PageItem</name>
@@ -5529,7 +5866,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     <name>Preferences</name>
     <message>
         <source>Preferences</source>
-        <translation>Ustawienia</translation>
+        <translation>Konfiguracja</translation>
     </message>
     <message>
         <source>General</source>
@@ -5617,7 +5954,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Keyboard Shortcuts...</source>
-        <translation>Skróty klawiszowe...</translation>
+        <translation type="obsolete">Skróty klawiszowe...</translation>
     </message>
     <message>
         <source>Paths</source>
@@ -6055,7 +6392,7 @@ Scribus dziedziczy wszystkie dostępne tematy KDE i QT</translation>
     </message>
     <message>
         <source>Change the keyboard shortcuts to your preference</source>
-        <translation>Zmień skróty klawiszowe w twoich ustawieniach</translation>
+        <translation type="obsolete">Zmień skróty klawiszowe w twoich ustawieniach</translation>
     </message>
     <message>
         <source>Default documents directory</source>
@@ -6901,35 +7238,35 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation type="obsolete">in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source>mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source>in</source>
-        <translation>in</translation>
+        <translation type="obsolete">in</translation>
     </message>
     <message>
         <source>p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>Scribus Scripts</source>
@@ -6954,6 +7291,50 @@ Sprawdź katalog i nazwę pliku.</translation>
     <message>
         <source>Import SVG-Image...</source>
         <translation>Importuj grafikę SVG...</translation>
+    </message>
+    <message>
+        <source>Save as Image...</source>
+        <translation>Zapisz jako obrazek...</translation>
+    </message>
+    <message>
+        <source>Save as Image</source>
+        <translation>Zapisz jako obrazek</translation>
+    </message>
+    <message>
+        <source>Error writting the output file(s).</source>
+        <translation>Błąd podczas zapisu do pliku wyjściowego.</translation>
+    </message>
+    <message>
+        <source>Error writing the output file(s).</source>
+        <translation>Błąd podczas zapisu do pliku wyjściowego.</translation>
+    </message>
+    <message>
+        <source>Export successful.</source>
+        <translation>Eksport został zakończony.</translation>
+    </message>
+    <message>
+        <source>File exists. Overwrite?</source>
+        <translation>Plik istnieje. Nadpisać?</translation>
+    </message>
+    <message>
+        <source>exists already. Overwrite?</source>
+        <translation>już istnieje. Nadpisać?</translation>
+    </message>
+    <message>
+        <source>Yes all</source>
+        <translation>Tak dla wszystkich</translation>
+    </message>
+    <message>
+        <source>Import EPS/PS...</source>
+        <translation>Importuj EPS/PS...</translation>
+    </message>
+    <message>
+        <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
+        <translation>Wszystkie obsługiwane formaty (*.eps *.EPS *.ps *.PS);;</translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation>Wszystkie pliki (*)</translation>
     </message>
 </context>
 <context>
@@ -7430,11 +7811,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>General...</source>
-        <translation>Ogólne...</translation>
+        <translation type="obsolete">Ogólne...</translation>
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>Ustawienia...</translation>
+        <translation>Konfiguracja...</translation>
     </message>
     <message>
         <source>Fonts...</source>
@@ -7446,7 +7827,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Preferences</source>
-        <translation>Ustawienia</translation>
+        <translation type="obsolete">Ustawienia</translation>
     </message>
     <message>
         <source>Select New Font</source>
@@ -8128,7 +8509,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Tool&amp;bars</source>
-        <translation>&amp;Listwy narzędziowe</translation>
+        <translation type="obsolete">&amp;Listwy narzędziowe</translation>
     </message>
     <message>
         <source> pt</source>
@@ -8173,6 +8554,18 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Slovenian</source>
         <translation>Słoweński</translation>
+    </message>
+    <message>
+        <source>Keyboard Shortcuts...</source>
+        <translation>Skróty klawiszowe...</translation>
+    </message>
+    <message>
+        <source>Scribus Manual...</source>
+        <translation>Podręcznik Scribusa...</translation>
+    </message>
+    <message>
+        <source>&amp;Settings</source>
+        <translation>&amp;Ustawienia</translation>
     </message>
 </context>
 <context>
@@ -8760,12 +9153,55 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Position:</source>
-        <translation>Pozycja:</translation>
+        <translation type="obsolete">Pozycja:</translation>
     </message>
     <message>
         <source>Alignment:</source>
-        <translation>Wyrównanie:</translation>
+        <translation type="obsolete">Wyrównanie:</translation>
     </message>
+    <message>
+        <source>Left</source>
+        <translation type="obsolete">Do lewej</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="obsolete">Do prawej</translation>
+    </message>
+    <message>
+        <source>Full Stop</source>
+        <translation type="obsolete">Kropka</translation>
+    </message>
+    <message>
+        <source>Comma</source>
+        <translation type="obsolete">Przecinek</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation type="obsolete">Wyśrodkowane</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="obsolete">pt</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="obsolete">Usuń</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation type="obsolete">Dodaj</translation>
+    </message>
+</context>
+<context>
+    <name>Tabruler</name>
     <message>
         <source>Left</source>
         <translation>Do lewej</translation>
@@ -8787,24 +9223,48 @@ przeciągnij szablon na widok strony na dole.</translation>
         <translation>Wyśrodkowane</translation>
     </message>
     <message>
+        <source>Position:</source>
+        <translation>Pozycja:</translation>
+    </message>
+    <message>
+        <source>First Line:</source>
+        <translation>Pierwsza linia:</translation>
+    </message>
+    <message>
+        <source>Indent:</source>
+        <translation>Wcięcie:</translation>
+    </message>
+    <message>
+        <source>Delete All</source>
+        <translation>Usuń wszystko</translation>
+    </message>
+    <message>
+        <source>Indentation for first line of the paragraph</source>
+        <translation>Wcięcie pierszego wiersza akapitu</translation>
+    </message>
+    <message>
+        <source>Indentation from the left for the whole paragraph</source>
+        <translation>Wcięcie z lewej strony całego akapitu</translation>
+    </message>
+    <message>
+        <source>Delete all Tabulators</source>
+        <translation>Usuń wszystkie tabulatory</translation>
+    </message>
+    <message>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+        <source> mm</source>
+        <translation>mm</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <source> in</source>
+        <translation>in</translation>
     </message>
     <message>
-        <source>Remove</source>
-        <translation>Usuń</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>Dodaj</translation>
+        <source> p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -8962,6 +9422,10 @@ Proszę wybrać inną.</translation>
         <source>Insert Table</source>
         <translation>Utwórz tabelę</translation>
     </message>
+    <message>
+        <source>Do measurements</source>
+        <translation>Rób pomiary</translation>
+    </message>
 </context>
 <context>
     <name>WerkToolBP</name>
@@ -9023,6 +9487,18 @@ Proszę wybrać inną.</translation>
     <message>
         <source>Close</source>
         <translation>Zamknij</translation>
+    </message>
+    <message>
+        <source>Insert the characters at the cursor in the text</source>
+        <translation>Wstaw znak do tekstu obok kursora</translation>
+    </message>
+    <message>
+        <source>Delete the current selection(s).</source>
+        <translation>Usuń aktualne zaznaczenie.</translation>
+    </message>
+    <message>
+        <source>Close this dialog and return to text editing.</source>
+        <translation>Zamknij to okienko dialogowe i powróć do edycji tekstu.</translation>
     </message>
 </context>
 </TS>

@@ -39,7 +39,7 @@ Tree::Tree( QWidget* parent, WFlags fl )
 	ListView1->addColumn( tr("Information"));
 	ListView1->setSelectionMode(QListView::Single);
 	ListView1->setDefaultRenameAction(QListView::Accept);
-	ListView1->setSorting(-1,1);
+//	ListView1->setSorting(-1,1);
 
 	// signals and slots connections
 	connect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
@@ -163,7 +163,7 @@ void Tree::slotUpdateElement(uint SNr, uint Nr)
 {
 	if (ScApp->ScriptRunning)
 		return;
-	QString cc, xp, yp, fon;
+	QString cc, xp, yp, fon, GroupTxt;
 	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
 		return;
 	if (SNr > Seiten.count()-1)
@@ -175,6 +175,11 @@ void Tree::slotUpdateElement(uint SNr, uint Nr)
 	xp = tr("X:")+" "+cc.setNum(vie->Pages.at(SNr)->Items.at(Nr)->Xpos);
 	yp = tr("Y:")+" "+cc.setNum(vie->Pages.at(SNr)->Items.at(Nr)->Ypos);
 	fon = tr("Font:")+" "+vie->Pages.at(SNr)->Items.at(Nr)->IFont;
+	if (vie->Pages.at(SNr)->Items.at(Nr)->Groups.count() != 0)
+	{
+		GroupTxt = tr("Group ")+cc.setNum(vie->Pages.at(SNr)->Items.at(Nr)->Groups.top())+" ";
+		xp.prepend(GroupTxt);
+	}
 	switch (vie->Pages.at(SNr)->Items.at(Nr)->PType)
 	{
 	case 2:

@@ -62,6 +62,7 @@ public:
 	BibView* BibWin;
 	preV *Prefs;
 	QString ScFilename;
+	QString OldName;
 	int fSave;
 	int vS;
 	int vM;
@@ -74,6 +75,7 @@ public slots:
 private slots:
 	void HandleMouse(QIconViewItem *ite);
 	void DeleteObj(QString name, QIconViewItem *ite);
+	void ItemRenamed(QIconViewItem *ite);
 	void DropOn(QDropEvent *e);
 	void SaveAs();
 	void Load();

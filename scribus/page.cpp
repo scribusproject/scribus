@@ -2165,7 +2165,12 @@ void Page::mouseDoubleClickEvent(QMouseEvent *m)
 	m->accept();
 	Mpressed = false;
 	PageItem *b = 0;
-	if ((GroupSel) || (doku->AppMode != 1) || (doku->EditClip))
+	if (doku->EditClip)
+	{
+		emit EndNodeEdit();
+		return;
+	}
+	if ((GroupSel) || (doku->AppMode != 1))
 	{
 		if ((GroupSel) && (doku->AppMode == 1))
 		{
@@ -5005,7 +5010,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 		break;
 	case 6:
 		Mpressed = true;
-		if (m->state() == ShiftButton)
+		if ((m->state() == ShiftButton) || (m->button() == RightButton))
 			Magnify = false;
 		else
 			Magnify = true;

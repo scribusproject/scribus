@@ -1,5 +1,12 @@
 Changes since Version 1.1.6
 
+22.05.2004
+	* bug     #606: Pressing END causes wrong cursor jump
+	* feature #680: show grouped objects as grouped in the object manager
+	* feature #681: sort objects in object manager
+	* feature #690: doubleclick out of the shape could end editing
+	* feature #694: Updated Polish Translation
+
 20.05.2004
 	* bug     #684: open-entry in the library should be moved
 	* bug     #692: New Parameter for GetAllObjects

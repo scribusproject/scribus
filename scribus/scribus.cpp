@@ -1338,7 +1338,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						keyrep = false;
 						return;
 						break;
-					case Key_Prior:
+					case Key_Home:
 						// go to begin of line
 						if ( (pos = b->CPos) == 0 )
 							break; // at begin of frame
@@ -1386,7 +1386,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						if ( buttonState & ShiftButton )
 							doc->ActPage->ExpandSel(b, -1, oldPos);
 						break;
-					case Key_Next:
+					case Key_End:
 						// go to end of line
 						len = static_cast<int>(b->Ptext.count());
 						if ( b->CPos >= len )
@@ -1543,13 +1543,13 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							doc->ActPage->RefreshItem(b);
 						setTBvals(b);
 						break;
-					case Key_Home:
+					case Key_Prior:
 						b->CPos = 0;
 						if ( buttonState & ShiftButton )
 							doc->ActPage->ExpandSel(b, -1, oldPos);
 						setTBvals(b);
 						break;
-					case Key_End:
+					case Key_Next:
 						b->CPos = static_cast<int>(b->Ptext.count());
 						if ( buttonState & ShiftButton )
 							doc->ActPage->ExpandSel(b, 1, oldPos);
@@ -2790,7 +2790,10 @@ void ScribusApp::HaveNewSel(int Nr)
 void ScribusApp::slotDocCh(bool reb)
 {
 	if ((reb) && (!doc->TemplateMode) && (doc->ActPage->SelItem.count() != 0))
-		Tpal->slotUpdateElement(doc->ActPage->PageNr, doc->ActPage->SelItem.at(0)->ItemNr);
+	{
+		for (uint upd = 0; upd < doc->ActPage->SelItem.count(); ++upd)
+			Tpal->slotUpdateElement(doc->ActPage->PageNr, doc->ActPage->SelItem.at(upd)->ItemNr);
+	}
 	if (!doc->isModified())
 		doc->setModified();
 	ActWin->setCaption( doc->DocName + "*");
@@ -4236,6 +4239,7 @@ void ScribusApp::slotNewPage(int w)
 	connect(doc->ActPage, SIGNAL(EditText()), this, SLOT(slotStoryEditor()));
 	connect(doc->ActPage, SIGNAL(DoGroup()), this, SLOT(GroupObj()));
 	connect(doc->ActPage, SIGNAL(DoUnGroup()), this, SLOT(UnGroupObj()));
+	connect(doc->ActPage, SIGNAL(EndNodeEdit()), this, SLOT(ToggleFrameEdit()));
 	connect(doc->ActPage, SIGNAL(LevelChanged(uint )), Mpal, SLOT(setLevel(uint)));
 	if (!doc->TemplateMode)
 	{
@@ -7095,8 +7099,8 @@ void ScribusApp::UnGroupObj()
 		b->TopLink = 0;
 		b->BottomLink = 0;
 	}
-	doc->ActPage->Deselect(true);
 	slotDocCh();
+	doc->ActPage->Deselect(true);
 	doc->UnDoValid = false;
 	CanUndo();
 }

@@ -12,6 +12,7 @@
 #include <qtextstream.h>
 #include <qdom.h>
 #include <qfiledialog.h>
+#include <qmessagebox.h>
 #include <qcursor.h>
 #include "query.h"
 #include "scpreview.h"
@@ -170,6 +171,7 @@ Biblio::Biblio( QWidget* parent, preV *prefs)
 	BiblioLayout->addWidget( Frame3 );
 	connect(BibWin, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));
 	connect(BibWin, SIGNAL(rightButtonClicked(QIconViewItem*, const QPoint &)), this, SLOT(HandleMouse(QIconViewItem*)));
+	connect(BibWin, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
 	connect(vmenu, SIGNAL(activated(int)), this, SLOT(SetPreview(int)));
 }
 
@@ -265,15 +267,23 @@ void Biblio::AdjustMenu()
 
 void Biblio::HandleMouse(QIconViewItem *ite)
 {
-	int mret, del;
+	int mret, del, ren;
 	if (ite != 0)
 	{
 		QPopupMenu *pmenu = new QPopupMenu();
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		ren = pmenu->insertItem( tr("Rename"));
 		del = pmenu->insertItem( tr("Delete"));
 		mret = pmenu->exec(QCursor::pos());
 		if (mret == del)
 			DeleteObj(ite->text(), ite);
+		if (mret == ren)
+		{
+			ite->setRenameEnabled(true);
+			OldName = ite->text();
+			ite->rename();
+			ite->setRenameEnabled(false);
+		}
 		delete pmenu;
 	}
 }
@@ -292,10 +302,39 @@ void Biblio::DeleteObj(QString name, QIconViewItem *ite)
 {
 	BibWin->Objekte.remove(name);
 	delete ite;
+	BibWin->sort(BibWin->sortDirection());
 	BibWin->arrangeItemsInGrid(true);
 	Changed = true;
 	if (Prefs->SaveAtQ)
 		Save();
+}
+
+void Biblio::ItemRenamed(QIconViewItem *ite)
+{
+	QString ObjData;
+	QPixmap ObjPreview;
+	disconnect(BibWin, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
+	if (OldName != ite->text())
+	{
+		if (BibWin->Objekte.contains(ite->text()))
+		{
+			QMessageBox::warning(this, tr("Warning"), tr("Name \"%1\" isn't unique.\nPlease choose another.").arg(ite->text()), tr("OK"));
+			ite->setText(OldName);
+		}
+		else
+		{
+			ObjData = BibWin->Objekte[OldName].Data;
+			ObjPreview = BibWin->Objekte[OldName].Preview;
+			BibWin->Objekte.remove(OldName);
+			BibWin->AddObj(ite->text(), ObjData, ObjPreview);
+			BibWin->sort(BibWin->sortDirection());
+			BibWin->arrangeItemsInGrid(true);
+			Changed = true;
+			if (Prefs->SaveAtQ)
+				Save();
+		}
+	}
+	connect(BibWin, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
 }
 
 void Biblio::DropOn(QDropEvent *e)
