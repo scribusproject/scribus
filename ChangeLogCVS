@@ -1,5 +1,9 @@
 Changes since 1.2 
 
+16.11.2004
+	* bug     #1316: xlib_rgb_init: compiled for big endian ... scribus won't run
+	* bug     #1320: Updated Czech Translation
+
 10.11.2004
 	* bug     #1306: Scribus crashes Sig 11 with Insert Special Char in StoryEditor
 	* feature #1313: Updated french translation
