@@ -356,7 +356,6 @@ void FontPrefs::DelPath()
 
 void FontPrefs::RebuildDialog()
 {
-	//		Prefs->AvailFonts.FreeExtraFonts();
 	Prefs->AvailFonts.clear();
 	Prefs->AvailFonts.GetFonts(HomeP);
 	UsedFonts.clear();

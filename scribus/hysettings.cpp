@@ -43,7 +43,7 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs )
 	Text3->setText( tr("Number of Hypenations allowed:"));
 	Layout3->addWidget( Text3, 4, 0 );
 	MaxCount = new QSpinBox( this, "MaxCount" );
-	QToolTip::add( MaxCount, tr( "Maximum number of Hyphenations following each other." ) );
+	QToolTip::add( MaxCount, tr( "Maximum number of Hyphenations following each other.\nA value of 0 means unlimited hyphenations." ) );
 	Layout3->addWidget( MaxCount, 4, 1);
 	MaxCount->setMinValue( 0 );
 	HySettingsLayout->addLayout( Layout3 );

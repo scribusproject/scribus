@@ -137,21 +137,40 @@ void Vruler::paintEvent(QPaintEvent *)
 	{
 		of = xx * (doku->PageH+30.0);
 		for (xl = 0; xl < doku->PageH; xl += iter)
-			p.drawLine(18, qRound((xl+of)*sc), 24, qRound((xl+of)*sc));
+		{
+			if ((qRound((xl+of)*sc) > offs) && (qRound((xl+of)*sc) < offs+height()))
+				p.drawLine(18, qRound((xl+of)*sc), 24, qRound((xl+of)*sc));
+		}
 		for (xl = 0; xl < doku->PageH+(iter2/2); xl += iter2)
 		{
-			p.drawLine(11, qRound((xl+of)*sc), 24, qRound((xl+of)*sc));
-			switch (doku->Einheit)
+			if ((qRound((xl+of)*sc) > offs) && (qRound((xl+of)*sc) < offs+height()))
 			{
-				case 2:
-					p.drawText(9, qRound((xl+of+10/sc) * sc), QString::number(xl / iter2 / cor));
-					break;
-				case 3:
-					p.drawText(9, qRound((xl+of+10/sc) * sc), QString::number(xl / iter / cor));
-					break;
-				default:
-					p.drawText(9, qRound((xl+of+10/sc) * sc), QString::number(xl / iter * 10 / cor));
-					break;
+				p.drawLine(11, qRound((xl+of)*sc), 24, qRound((xl+of)*sc));
+				switch (doku->Einheit)
+				{
+					case 2:
+					{
+						QString tx = "";
+						int num1 = static_cast<int>(xl / iter2 / cor);
+						if (num1 != 0)
+							tx = QString::number(num1);
+						double frac = (xl / iter2 / cor) - num1;
+						if ((frac > 0.24) && (frac < 0.26))
+							tx += QChar(0xBC);
+						if ((frac > 0.49) && (frac < 0.51))
+							tx += QChar(0xBD);
+						if ((frac > 0.74) && (frac < 0.76))
+							tx += QChar(0xBE);
+						p.drawText(9, qRound((xl+of+10/sc) * sc), tx);
+						break;
+					}
+					case 3:
+						p.drawText(9, qRound((xl+of+10/sc) * sc), QString::number(xl / iter / cor));
+						break;
+					default:
+						p.drawText(9, qRound((xl+of+10/sc) * sc), QString::number(xl / iter * 10 / cor));
+						break;
+				}
 			}
 		}
 	}

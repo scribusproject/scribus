@@ -141,8 +141,21 @@ void Hruler::paintEvent(QPaintEvent *)
 			switch (doku->Einheit)
 			{
 				case 2:
-					p.drawText(qRound((xl+of+2/sc) * sc), 17, QString::number(xl / iter2 / cor));
+				{
+					QString tx = "";
+					int num1 = static_cast<int>(xl / iter2 / cor);
+					if (num1 != 0)
+						tx = QString::number(num1);
+					double frac = (xl / iter2 / cor) - num1;
+					if ((frac > 0.24) && (frac < 0.26))
+						tx += QChar(0xBC);
+					if ((frac > 0.49) && (frac < 0.51))
+						tx += QChar(0xBD);
+					if ((frac > 0.74) && (frac < 0.76))
+						tx += QChar(0xBE);
+					p.drawText(qRound((xl+of+2/sc) * sc), 17, tx);
 					break;
+				}
 				case 3:
 					p.drawText(qRound((xl+of+2/sc) * sc), 17, QString::number(xl / iter / cor));
 					break;

@@ -1775,6 +1775,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 		hl = ite->Ptext.at(d);
 		if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 			continue;
+		if (hl->cstyle & 256)
+			continue;
 		if (ite->PType == 8)
 		{
 			tmp += "q\n";
@@ -1935,10 +1937,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					}
 					tmp2 += "s\n";
 				}
-				if ((hl->cstyle & 128) && 
-					((ite->Ptext.at(QMIN(d+1, ite->Ptext.count()-1))->yp != hl->yp) &&
-					 (ite->Ptext.at(QMIN(d+1, ite->Ptext.count()-1))->ch != QChar(13)) || 
-					  ((ite->NextBox != 0) && (d == ite->Ptext.count()-1))))
+				if (hl->cstyle & 512)
 				{
 					int chs = hl->csize;
 					double wtr = Cwidth(doc, hl->cfont, chx, chs);
@@ -2025,10 +2024,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			tmp += IToStr(hl->cscale) + " Tz\n";
 			uchar idx2 = idx & 0xFF;
 			tmp += "<"+QString(toHex(idx2))+"> Tj\n";
-			if ((hl->cstyle & 128) && 
-				((ite->Ptext.at(QMIN(d+1, ite->Ptext.count()-1))->yp != hl->yp) &&
-				(ite->Ptext.at(QMIN(d+1, ite->Ptext.count()-1))->ch != QChar(13)) || 
-				((ite->NextBox != 0) && (d == ite->Ptext.count()-1))))
+			if (hl->cstyle & 512)
 			{
 				int chs = hl->csize;
 				double wtr = Cwidth(doc, hl->cfont, chx, chs);

@@ -7166,7 +7166,6 @@ void Page::chAbStyle(PageItem *b, int s)
 					cr = false;
 					break;
 				}
-				nb->Ptext.at(a)->cab = s;
 				if (s > 4)
 				{
 					if (doku->Vorlagen[s].Font != "")
@@ -7181,7 +7180,7 @@ void Page::chAbStyle(PageItem *b, int s)
 						nb->Ptext.at(a)->cshade2 = doku->Vorlagen[s].SShade;
 					}
 				}
-				if (s == 0)
+				if ((s < 5) && (nb->Ptext.at(a)->cab > 4))
 				{
 					nb->Ptext.at(a)->ccolor = nb->TxtFill;
 					nb->Ptext.at(a)->cshade = nb->ShTxtFill;
@@ -7192,6 +7191,7 @@ void Page::chAbStyle(PageItem *b, int s)
 					nb->Ptext.at(a)->cstyle &= ~127;
 					nb->Ptext.at(a)->cstyle |= nb->TxTStyle;
 				}
+				nb->Ptext.at(a)->cab = s;
 				a--;
 			}
 			if (cr)
@@ -7210,7 +7210,6 @@ void Page::chAbStyle(PageItem *b, int s)
 		{
 			while (a < static_cast<int>(nb->Ptext.count()))
 			{
-				nb->Ptext.at(a)->cab = s;
 				if (s > 4)
 				{
 					if (doku->Vorlagen[s].Font != "")
@@ -7225,7 +7224,7 @@ void Page::chAbStyle(PageItem *b, int s)
 						nb->Ptext.at(a)->cshade2 = doku->Vorlagen[s].SShade;
 					}
 				}
-				if (s == 0)
+				if ((s < 5) && (nb->Ptext.at(a)->cab > 4))
 				{
 					nb->Ptext.at(a)->ccolor = nb->TxtFill;
 					nb->Ptext.at(a)->cshade = nb->ShTxtFill;
@@ -7236,6 +7235,7 @@ void Page::chAbStyle(PageItem *b, int s)
 					nb->Ptext.at(a)->cstyle &= ~127;
 					nb->Ptext.at(a)->cstyle |= nb->TxTStyle;
 				}
+				nb->Ptext.at(a)->cab = s;
 				if (nb->Ptext.at(a)->ch == QChar(13))
 				{
 					cr = false;
@@ -7257,7 +7257,6 @@ void Page::chAbStyle(PageItem *b, int s)
 		{
 			for (a = 0; a < static_cast<int>(b->Ptext.count()); ++a)
 			{
-				b->Ptext.at(a)->cab = s;
 				if (s > 4)
 				{
 					if (doku->Vorlagen[s].Font != "")
@@ -7272,7 +7271,7 @@ void Page::chAbStyle(PageItem *b, int s)
 						b->Ptext.at(a)->cshade2 = doku->Vorlagen[s].SShade;
 					}
 				}
-				if (s == 0)
+				if ((s < 5) && (b->Ptext.at(a)->cab > 4))
 				{
 					b->Ptext.at(a)->ccolor = b->TxtFill;
 					b->Ptext.at(a)->cshade = b->ShTxtFill;
@@ -7283,6 +7282,7 @@ void Page::chAbStyle(PageItem *b, int s)
 					b->Ptext.at(a)->cstyle &= ~127;
 					b->Ptext.at(a)->cstyle |= b->TxTStyle;
 				}
+				b->Ptext.at(a)->cab = s;
 			}
 		}
 	}

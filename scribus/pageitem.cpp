@@ -238,9 +238,9 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	QPoint pt1, pt2;
 	FPoint gv, ColBound;
 	QRegion cm;
-	uint a, nrc, nrc2, zae;
+	uint a, nrc, nrc2, zae, startLin;
 	int desc, asce, absa, aSpa, chs, CurrCol;
-	uint BuPos, LastSP, BuPos2, MaxText;
+	uint BuPos, LastSP, MaxText;
 	double oldCurY, LastXp, EndX, OFs, OFs2, wide, rota, wid, lineCorr, ColWidth, kernVal;
 	double sc = Doc->Scale;
 	QString chx, chx2, chx3;
@@ -678,7 +678,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				firstDes = desc2;
 				LiList.clear();
 				BuPos = 0;
-				BuPos2 = 0;
 				LastSP = 0;
 				LastXp = 0;
 				outs = false;
@@ -802,6 +801,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					fBorder = false;
 					if (LiList.isEmpty())
 						{
+						startLin = a;
 						double TopOffset = asce;
 						double BotOffset = desc2;
 						if (StartOfCol)
@@ -1059,8 +1059,9 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								a -= BuPos - LastSP;
 								a++;
 								if (Ptext.at(a)->cstyle & 128)
-									{
+								{
 									HyphenCount++;
+									Ptext.at(a)->cstyle ^= 512;
 									Zli = new ZZ;
 									Zli->Zeich = "-";
 									Zli->Farb = Ptext.at(a)->ccolor;
@@ -1078,9 +1079,12 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									Zli->scale = Ptext.at(a)->cscale;
 									LiList.insert(LastSP+1, Zli);
 									LastSP += 1;
-									}
+								}
 								else
+								{
 									HyphenCount = 0;
+									hl->cstyle &= 511;
+								}
 								BuPos = LastSP+1;
 								if (Doc->Vorlagen[absa].Ausri != 0)
 									{
@@ -1117,8 +1121,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										for (uint yof = 0; yof < LiList.count(); ++yof)
 											{
 											LiList.at(yof)->xco += OFs;
-											Ptext.at(QMIN(BuPos2, MaxText-1))->xp += OFs;
-											BuPos2++;
 											if ((LiList.at(yof)->Zeich == QChar(32)) || (LiList.at(yof)->Zeich == QChar(29)))
 												OFs += OFs2;
 											}
@@ -1128,8 +1130,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										for (uint xof = 0; xof<LiList.count(); ++xof)
 											{
 											LiList.at(xof)->xco += OFs;
-											Ptext.at(QMIN(BuPos2, MaxText-1))->xp += OFs;
-											BuPos2++;
 											}
 										}
 									}
@@ -1176,8 +1176,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									for (uint yof = 0; yof < LiList.count(); ++yof)
 										{
 										LiList.at(yof)->xco += OFs;
-										Ptext.at(QMIN(BuPos2, MaxText-1))->xp += OFs;
-										BuPos2++;
 										if ((LiList.at(yof)->Zeich == QChar(32)) || (LiList.at(yof)->Zeich == QChar(29)))
 											OFs += OFs2;
 										}
@@ -1187,14 +1185,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									for (uint xof = 0; xof<LiList.count(); ++xof)
 										{
 										LiList.at(xof)->xco += OFs;
-										Ptext.at(QMIN(BuPos2, MaxText-1))->xp += OFs;
-										BuPos2++;
 										}
 									}
 								}
 							}
-						BuPos2 = a;
-						BuPos2++;
 						uint BuPos3 = BuPos;
 						if ((outs) || (hl->ch == QChar(13)) || (hl->ch == QChar(28)))
 							{
@@ -1219,7 +1213,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										CurY += Doc->Vorlagen[hl->cab].LineSpa;
 										if ((CurY+BExtra+lineCorr > Height) && (CurrCol+1 == Cols))
 										{
-											nrc = BuPos2;
+											nrc = a+1;
 											goto NoRoom;
 										}
 										if (AbsHasDrop)
@@ -1288,6 +1282,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						for (uint zc = 0; zc<BuPos3; ++zc)
 							{
 							Zli2 = LiList.at(zc);
+							Ptext.at(startLin+zc)->xp = Zli2->xco;
+							Ptext.at(startLin+zc)->yp = Zli2->yco;
 							if (Zli2->Farb != "None")
 								{
 								SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
@@ -1356,8 +1352,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						for (uint yof = 0; yof < LiList.count(); ++yof)
 							{
 							LiList.at(yof)->xco += OFs;
-							Ptext.at(QMIN(BuPos2, MaxText-1))->xp += OFs;
-							BuPos2++;
 							if ((LiList.at(yof)->Zeich == QChar(32)) || (LiList.at(yof)->Zeich == QChar(29)))
 								OFs += OFs2;
 							}
@@ -1367,14 +1361,14 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						for (uint xof = 0; xof<LiList.count(); ++xof)
 							{
 							LiList.at(xof)->xco += OFs;
-							Ptext.at(QMIN(BuPos2, MaxText-1))->xp += OFs;
-							BuPos2++;
 							}
 						}
 					}
 				for (uint zc = 0; zc<LiList.count(); ++zc)
 					{
 					Zli2 = LiList.at(zc);
+					Ptext.at(startLin+zc)->xp = Zli2->xco;
+					Ptext.at(startLin+zc)->yp = Zli2->yco;
 					if (Zli2->Farb != "None")
 						{
 						SetFarbe(&tmp, Zli2->Farb, Zli2->shade);

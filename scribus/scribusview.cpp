@@ -1315,7 +1315,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 										p->PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 										p->PS_stroke();
 										}
-									if ((hl->cstyle & 128) && (((ite->Ptext.at(QMIN(d+1, ite->Ptext.count()-1))->yp != hl->yp) && (ite->Ptext.at(QMIN(d+1, ite->Ptext.count()-1))->ch != QChar(13))) || ((ite->NextBox != 0) && (d == ite->Ptext.count()-1))))
+									if (hl->cstyle & 512)
 										{
 										int chs = hl->csize;
 										ite->SetZeichAttr(hl, &chs, &chx);
@@ -1912,7 +1912,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									p->PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 									p->PS_stroke();
 									}
-								if ((hl->cstyle & 128) && (((c->Ptext.at(QMIN(d+1, c->Ptext.count()-1))->yp != hl->yp) && (c->Ptext.at(QMIN(d+1, c->Ptext.count()-1))->ch != QChar(13))) || ((c->NextBox != 0) && (d == c->Ptext.count()-1))))
+								if (hl->cstyle & 512)
 									{
 									int chs = hl->csize;
 									c->SetZeichAttr(hl, &chs, &chx);
