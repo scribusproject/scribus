@@ -3,6 +3,7 @@
 # translation of scribus.cs_CZ.po to
 # translation of scribus.cs_CZ.po to
 # translation of scribus.cs_CZ.po to
+# translation of scribus.cs_CZ.po to
 # This is a Qt message file in .po format.  Each msgid starts with
 # a scope.  This scope should *NOT* be translated - eg. "Foo::Bar"
 # would be translated to "Pub", not "Foo::Pub".
@@ -11,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.cs_CZ\n"
 "POT-Creation-Date: 2003-06-19 10:00+0200\n"
-"PO-Revision-Date: 2003-07-02 10:40+0200\n"
+"PO-Revision-Date: 2003-07-04 13:21+0200\n"
 "Last-Translator: Petr Vanìk <subzero@py.cz>\n"
 "Language-Team:  <cs@li.org>\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
@@ -598,7 +599,7 @@ msgid "Default Font:"
 msgstr "Standardní písmo:"
 
 msgid "Woven silk pyjamas exchanged for blue quartz"
-msgstr "Pøíli¹ ¾lu»ouèký kùò úpìl dábelské Ódy"
+msgstr "Pøíli¹ ¾lu»ouèký kùò úpìl ïábelské Ódy"
 
 msgid "Fonts"
 msgstr "Písma"
@@ -1592,7 +1593,7 @@ msgid "Outside"
 msgstr "Vnìj¹í"
 
 msgid "Left to Right"
-msgstr "Z leva do prava"
+msgstr "Zleva doprava"
 
 msgid "Top to Bottom"
 msgstr "Shora dolù"
@@ -1601,10 +1602,10 @@ msgid "Bottom to Top"
 msgstr "Zdola nahoru"
 
 msgid "Right to Left"
-msgstr "Z prava doleva"
+msgstr "Zprava doleva"
 
 msgid "Top-Left to Bottom-Right"
-msgstr "Z leva nahoøe doprava dolù"
+msgstr "Zleva nahoøe doprava dolù"
 
 msgid "Extras"
 msgstr "Extra"
@@ -1616,10 +1617,10 @@ msgid "Rounded Rectangle"
 msgstr "Oblý pravoúhelník"
 
 msgid "Align Text Left"
-msgstr "Zarovnat text do leva"
+msgstr "Zarovnat text doleva"
 
 msgid "Align Text Right"
-msgstr "Zarovnat text do prava"
+msgstr "Zarovnat text doprava"
 
 msgid "Align Text Center"
 msgstr "Zarovnat text na støed"
@@ -2499,10 +2500,10 @@ msgid "Vertical Gradient"
 msgstr "Svislý pøechod"
 
 msgid "Diagonal Gradient"
-msgstr "Uhlopøíèný pøechod"
+msgstr "Úhlopøíèný pøechod"
 
 msgid "CrossDiagonal Gradient"
-msgstr "Uhlopøíènì køí¾ený pøechod"
+msgstr "Úhlopøíènì køí¾ený pøechod"
 
 msgid "Radial Gradient"
 msgstr "Kruhový pøechod"
