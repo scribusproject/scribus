@@ -373,7 +373,7 @@ void GuideManager::UnitChange()
 	
 QString GuideManager::GetUnit()
 {
-	QString tmp = tr(tp[Einheit]);
+	QString tmp = tp[Einheit];
 	return tmp;
 }
 	

@@ -107,6 +107,7 @@ public:
 	double ColGap;
   /** Strichstaerke */
 	double Pwidth;
+	double OldPwidth;
   /** Linienart */
 	PenStyle PLineArt;
 	PenCapStyle PLineEnd;

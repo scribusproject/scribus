@@ -528,6 +528,7 @@ void PSLib::PS_LinGradient(double w, double h, int item, int grad, bool mu)
 {
 	if (item == 1)
 		PutSeite("-"+ToStr(w / 2.0)+" "+ToStr(-h / 2.0)+" tr\n");
+	PutSeite( "gs\n" );
 	PutSeite( mu ? "eoclip\n" : "clip\n" );
 	PutSeite("<<\n");
 	PutSeite("/ShadingType 2\n");
@@ -586,7 +587,7 @@ void PSLib::PS_LinGradient(double w, double h, int item, int grad, bool mu)
 	PutSeite("/N 1\n");
 	PutSeite(">>\n");
 	PutSeite(">>\n");
-	PutSeite("shfill\n");
+	PutSeite("shfill\ngr\n");
 }
 
 void PSLib::PS_RadGradient(double w, double h, int item, bool mu)
@@ -596,6 +597,7 @@ void PSLib::PS_RadGradient(double w, double h, int item, bool mu)
 	h2 = h / 2.0;
 	rad = QMIN(w, fabs(h)) / 2.0;
 	PutSeite("/cmtx matrix currentmatrix def\n");
+	PutSeite( "gs\n" );
 	PutSeite( mu ? "eoclip\n" : "clip\n" );
 	PutSeite("<<\n");
 	PutSeite("/ShadingType 3\n");
@@ -639,7 +641,7 @@ void PSLib::PS_RadGradient(double w, double h, int item, bool mu)
 		}
 	}
 	PutSeite(ToStr(w2 / rad)+" "+ToStr(fabs(h2) / rad)+" scale\n");
-	PutSeite("shfill\n");
+	PutSeite("shfill\ngr\n");
 	PutSeite("cmtx setmatrix\n");
 }
 

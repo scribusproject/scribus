@@ -2135,14 +2135,15 @@ QString PDFlib::SetFarbe(QString farbe, int Shade)
 	{
 		tmpC.getRawRGBColor(&h, &s, &v);
 		tmpR.setRgb(h, s, v);
-		tmpR.hsv(&h, &s, &v);
 		if ((h == s) && (s == v))
 		{
+			tmpR.hsv(&h, &s, &v);
 			sneu = 255 - ((255 - v) * Shade / 100);
 			tmpR.setHsv(h, s, sneu);
 		}
 		else
 		{
+			tmpR.hsv(&h, &s, &v);
 			sneu = s * Shade / 100;
 			tmpR.setHsv(h, sneu, v);
 		}

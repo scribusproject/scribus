@@ -3,8 +3,8 @@
     <name>@@translation</name>
     <message>
         <source>Project-Id-Version: Scribus 1.2</source>
-        <translation type="obsolete">Revision-Date: 2004-03-14 14:30:00 CET
-Last-Translator: Morten Langlo &lt;mlanglo@post6.tele.dk&gt;</translation>
+        <translation type="obsolete">Revision-Date: 2004-04-19 14:00:00 CET
+Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     </message>
 </context>
 <context>
@@ -138,10 +138,6 @@ Last-Translator: Morten Langlo &lt;mlanglo@post6.tele.dk&gt;</translation>
     <message>
         <source>Build-ID:</source>
         <translation>Build-ID:</translation>
-    </message>
-    <message>
-        <source>March</source>
-        <translation type="obsolete">Marts</translation>
     </message>
     <message>
         <source>Homepage and online reference</source>
@@ -279,10 +275,6 @@ Last-Translator: Morten Langlo &lt;mlanglo@post6.tele.dk&gt;</translation>
     <message>
         <source>Align Text Center</source>
         <translation>Centrér</translation>
-    </message>
-    <message>
-        <source>Align Text Block</source>
-        <translation type="obsolete">Lige margener</translation>
     </message>
     <message>
         <source>Align Text Right</source>
@@ -1082,10 +1074,6 @@ Last-Translator: Morten Langlo &lt;mlanglo@post6.tele.dk&gt;</translation>
         <translation>Kun ikon</translation>
     </message>
     <message>
-        <source>When Icon is too small</source>
-        <translation type="obsolete">Når ikon er for lille</translation>
-    </message>
-    <message>
         <source>Caption left to Icon</source>
         <translation>Tekst til venstre for ikon</translation>
     </message>
@@ -1122,7 +1110,7 @@ Last-Translator: Morten Langlo &lt;mlanglo@post6.tele.dk&gt;</translation>
         <translation>OK</translation>
     </message>
     <message>
-        <source>When Icon it too small</source>
+        <source>When Icon is too small</source>
         <translation>Når ikon er for lille</translation>
     </message>
 </context>
@@ -1150,7 +1138,7 @@ Last-Translator: Morten Langlo &lt;mlanglo@post6.tele.dk&gt;</translation>
     </message>
     <message>
         <source>Mark Colors out of Gamut</source>
-        <translation>Marker farver uden for skalaen</translation>
+        <translation>Markér farver uden for skalaen (gamut)</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
@@ -1195,6 +1183,56 @@ Last-Translator: Morten Langlo &lt;mlanglo@post6.tele.dk&gt;</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>Default color profile for imported images</source>
+        <translation>Standard Farveprofil for importerede billeder</translation>
+    </message>
+    <message>
+        <source>Default color profile for solid colors on the page</source>
+        <translation>Standard Farveprofil for massive farver på siden</translation>
+    </message>
+    <message>
+        <source>Color profile that you have generated or received from the manufacturer.
+This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
+        <translation>Farveprofil som du har lavet eller har modtaget fra producenten.
+Denne profil bør være beregnet for din skærm og ikke en generel profil (d.v.s sRGB).</translation>
+    </message>
+    <message>
+        <source>Color profile for your printer model from the manufacturer.
+This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
+        <translation>Farveprofil for din printer fra producenten.
+Denne profil bør være beregnet for din printer og ikke en generel profil (d.v.s sRGB).</translation>
+    </message>
+    <message>
+        <source>Black Point Compensation is a method of improving contrast in photos.
+It is recommended that you enable this if you have photos in your document.</source>
+        <translation>Sortpunkt kompensation er en metode til at forbedre kontrasten i fotografier.
+Det anbefales at bruge dette, hvis der er fotografier i dokumentet.</translation>
+    </message>
+    <message>
+        <source>Default rendering intent for your monitor. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation>Standard gengivelse beregnet for din skærm. Hvis du ikke ved hvorfor man ændrer det,
+vælg da relativ kolorimetrisk eller opfattelsesmæssigt.</translation>
+    </message>
+    <message>
+        <source>Default rendering intent for your printer. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation>Standard gengivelse beregnet for din printer. Hvis du ikke ved hvorfor man ændrer det,
+vælg da relativ kolorimetrisk eller opfattelsesmæssigt.</translation>
+    </message>
+    <message>
+        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
+based on the chosen printer profile.</source>
+        <translation>Viser på skærmen hvordan dokumentets farver udskrives,
+baseret på den valgte printerprofil.</translation>
+    </message>
+    <message>
+        <source>Method of showing colors on the screen which may not print properly.
+This requires very accurate profiles and serves only as a warning.</source>
+        <translation>Metode til at vise på skærmen de farver, som måske ikke udskrives rigtigt.
+Dette kræver en meget nøjagtige profiler og er kun ment som en advarsel.</translation>
     </message>
 </context>
 <context>
@@ -1282,6 +1320,14 @@ Last-Translator: Morten Langlo &lt;mlanglo@post6.tele.dk&gt;</translation>
     <message>
         <source> %</source>
         <translation>%</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Advarsel</translation>
+    </message>
+    <message>
+        <source>Name of the Color is not unique</source>
+        <translation>Navnet på denne farve er ikke entydig</translation>
     </message>
 </context>
 <context>
@@ -1466,10 +1512,6 @@ Dette kan indstilles i Præferencer.</translation>
         <translation>Annullér</translation>
     </message>
     <message>
-        <source>OK to delete Color:</source>
-        <translation type="obsolete">OK at slette farve:</translation>
-    </message>
-    <message>
         <source>?</source>
         <translation>?</translation>
     </message>
@@ -1524,18 +1566,6 @@ Dette kan indstilles i Præferencer.</translation>
         <translation>Fonten %1 er ikke installeret.</translation>
     </message>
     <message>
-        <source>Select New Font:</source>
-        <translation type="obsolete">Vælg ny font:</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Annullér</translation>
-    </message>
-    <message>
-        <source>Select Font</source>
-        <translation type="obsolete">Vælg font</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1569,6 +1599,18 @@ Dette kan indstilles i Præferencer.</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation>Dette felt kan indlejres i Scribus-dokumentet som reference og som metadata i et PDF-dokument</translation>
+    </message>
+    <message>
+        <source>This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
+        <translation>Dette felt er til en kort beskrivelse eller dokument-resumé og indlejres i PDF ved eksport</translation>
+    </message>
+    <message>
+        <source>This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
+        <translation>Dette felt er til dokument nøgleord som du ønsker at indlejre i et PDF-dokument, til hjælp ved søgning og indeksering af PDF-filer</translation>
     </message>
 </context>
 <context>
@@ -1682,10 +1724,6 @@ Dette kan indstilles i Præferencer.</translation>
         <translation></translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
         <source>Cyan</source>
         <translation>Cyan</translation>
     </message>
@@ -1700,6 +1738,10 @@ Dette kan indstilles i Præferencer.</translation>
     <message>
         <source>Black</source>
         <translation>Sort</translation>
+    </message>
+    <message>
+        <source>Print</source>
+        <translation>Udskriv</translation>
     </message>
 </context>
 <context>
@@ -1803,6 +1845,74 @@ Dette kan indstilles i Præferencer.</translation>
     <message>
         <source>Stroke Color:</source>
         <translation>Stregfarve:</translation>
+    </message>
+    <message>
+        <source>Adjust to Baseline Grid</source>
+        <translation>Juster til basislinie-gitter</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Name of your paragraph style</source>
+        <translation>Navn på  din afsnits-typografi</translation>
+    </message>
+    <message>
+        <source>Font of selected text or object</source>
+        <translation>Font for den markerede tekst eller objekt</translation>
+    </message>
+    <message>
+        <source>Font Size</source>
+        <translation>Font størrelse</translation>
+    </message>
+    <message>
+        <source>Color of text fill</source>
+        <translation>Tekstens fyldfarve</translation>
+    </message>
+    <message>
+        <source>Color of text stroke</source>
+        <translation>Tekstens stregfarve</translation>
+    </message>
+    <message>
+        <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
+        <translation>Laver det første bogstav i et afsnit større. Bruges som blikfang</translation>
+    </message>
+    <message>
+        <source>Determines the overall height, in line numbers, of the Drop Caps</source>
+        <translation>Bestemmer højden af unicialen i antal linier</translation>
+    </message>
+    <message>
+        <source>Align text to baseline grid</source>
+        <translation>Juster tekst til basislinie-gitter</translation>
+    </message>
+    <message>
+        <source>Spacing above the paragraph</source>
+        <translation>Afstand over afsnit</translation>
+    </message>
+    <message>
+        <source>Spacing below the paragraph</source>
+        <translation>Afstand under afsnit</translation>
+    </message>
+    <message>
+        <source>Indentation for first line of the paragraph</source>
+        <translation>Indrykning af den første linie i et afsnit</translation>
+    </message>
+    <message>
+        <source>Indentation from the left for the whole paragraph</source>
+        <translation>Indrykning fra venstre af hele afsnittet</translation>
+    </message>
+    <message>
+        <source>Edit tab settings of text frame...</source>
+        <translation>Rediger tabulatorer for tekstramme...</translation>
     </message>
 </context>
 <context>
@@ -1914,10 +2024,6 @@ Dette kan indstilles i Præferencer.</translation>
         <translation>Åbn</translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation>Gem</translation>
-    </message>
-    <message>
         <source>Name:</source>
         <translation>Navn:</translation>
     </message>
@@ -1932,10 +2038,6 @@ Dette kan indstilles i Præferencer.</translation>
     <message>
         <source>Cancel</source>
         <translation>Annullér</translation>
-    </message>
-    <message>
-        <source>New Color:</source>
-        <translation>Ny farve:</translation>
     </message>
     <message>
         <source>Colors</source>
@@ -2016,6 +2118,10 @@ Dette kan indstilles i Præferencer.</translation>
     <message>
         <source>Make the current colorset the default color set</source>
         <translation>Lav det aktive farvesæt til standard farvesættet</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -2100,6 +2206,18 @@ Dette kan indstilles i Præferencer.</translation>
         <source>OK</source>
         <translation>OK</translation>
     </message>
+    <message>
+        <source>&amp;Available Fonts</source>
+        <translation>&amp;Tilgængelige fonte</translation>
+    </message>
+    <message>
+        <source>Font &amp;Substitutions</source>
+        <translation>&amp;Erstatninger af fonte</translation>
+    </message>
+    <message>
+        <source>Additional &amp;Paths</source>
+        <translation>Ekstra &amp;Stier</translation>
+    </message>
 </context>
 <context>
     <name>GuideManager</name>
@@ -2143,13 +2261,25 @@ Dette kan indstilles i Præferencer.</translation>
         <source>OK</source>
         <translation>OK</translation>
     </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
 </context>
 <context>
     <name>HelpBrowser</name>
-    <message>
-        <source>Sorry, no manual available!</source>
-        <translation type="obsolete">Desværre, der er ingen manual tilgængelig!</translation>
-    </message>
     <message>
         <source></source>
         <translation></translation>
@@ -2180,10 +2310,6 @@ Dette kan indstilles i Præferencer.</translation>
 </context>
 <context>
     <name>HySettings</name>
-    <message>
-        <source>This is the length of the smallest word to be hyphenated.</source>
-        <translation>Dette er længden af det mindste ord der deles.</translation>
-    </message>
     <message>
         <source>Hyphenator Settings</source>
         <translation>Orddelings instillinger</translation>
@@ -2221,6 +2347,20 @@ dialogboks, hver gang en mulig orddeling er fundet.</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>Length of the smallest word to be hyphenated.</source>
+        <translation>Længden af det mindste ord der deles.</translation>
+    </message>
+    <message>
+        <source>Number of Hypenations allowed:</source>
+        <translation>Antal tilladte orddelinger:</translation>
+    </message>
+    <message>
+        <source>Maximum number of Hyphenations following each other.
+A value of 0 means unlimited hyphenations.</source>
+        <translation>Maksimale antal orddelinger, der følger lige efter hinanden.
+Værdien 0 betyder ubegrænset antal.</translation>
     </message>
 </context>
 <context>
@@ -2281,10 +2421,6 @@ dialogboks, hver gang en mulig orddeling er fundet.</translation>
         <translation>Luk</translation>
     </message>
     <message>
-        <source>Global JavaScripts</source>
-        <translation type="obsolete">Global javascripts</translation>
-    </message>
-    <message>
         <source>Add...</source>
         <translation>Tilføj...</translation>
     </message>
@@ -2307,6 +2443,22 @@ dialogboks, hver gang en mulig orddeling er fundet.</translation>
     <message>
         <source>Edit JavaScripts</source>
         <translation>Redigér JavaScripts</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Advarsel</translation>
+    </message>
+    <message>
+        <source>Do you really want do delete this Script?</source>
+        <translation>Ønsker du virkelig at slette denne script?</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Nej</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Ja</translation>
     </message>
 </context>
 <context>
@@ -2397,10 +2549,6 @@ dialogboks, hver gang en mulig orddeling er fundet.</translation>
     <message>
         <source>Layers</source>
         <translation>Lag</translation>
-    </message>
-    <message>
-        <source>Closes this Dialog</source>
-        <translation>Lukker dette vindue</translation>
     </message>
     <message>
         <source>Raise Layer</source>
@@ -2494,8 +2642,8 @@ dialogboks, hver gang en mulig orddeling er fundet.</translation>
         <translation>Advarsel</translation>
     </message>
     <message>
-        <source>Close</source>
-        <translation>Luk</translation>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -2663,10 +2811,6 @@ Corners:</source>
 hjørner:</translation>
     </message>
     <message>
-        <source>Move to Back</source>
-        <translation type="obsolete">Placér bagerst</translation>
-    </message>
-    <message>
         <source>Left:</source>
         <translation>Venstre:</translation>
     </message>
@@ -2691,24 +2835,12 @@ hjørner:</translation>
         <translation>Tabulatorer...</translation>
     </message>
     <message>
-        <source>Flip horizontal</source>
-        <translation type="obsolete">Flip horisontalt</translation>
-    </message>
-    <message>
         <source>No Style</source>
         <translation>Ingen typografier</translation>
     </message>
     <message>
-        <source>Flip vertical</source>
-        <translation type="obsolete">Flip vertikalt</translation>
-    </message>
-    <message>
         <source>Reverse Writing</source>
         <translation>Baglæns skrivning</translation>
-    </message>
-    <message>
-        <source>Keep Aspect Ratio</source>
-        <translation type="obsolete">Behold bredde/højde forhold</translation>
     </message>
     <message>
         <source>Flat Cap</source>
@@ -2747,14 +2879,6 @@ hjørner:</translation>
         <translation>Hjørner:</translation>
     </message>
     <message>
-        <source>Move to Front</source>
-        <translation type="obsolete">Placér forrest</translation>
-    </message>
-    <message>
-        <source>Lang.:</source>
-        <translation type="obsolete">Sprog:</translation>
-    </message>
-    <message>
         <source>Edit Shape...</source>
         <translation>Redigér form...</translation>
     </message>
@@ -2781,10 +2905,6 @@ hjørner:</translation>
     <message>
         <source>Shape:</source>
         <translation>Form:</translation>
-    </message>
-    <message>
-        <source>Styles</source>
-        <translation>Typografier</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
@@ -2841,20 +2961,8 @@ Vælg venligst et andet.</translation>
         <translation>Opfattelsesmæssigt</translation>
     </message>
     <message>
-        <source>Text flows around Box</source>
-        <translation type="obsolete">Tekst flyder rundt om boks</translation>
-    </message>
-    <message>
-        <source>Move one Level up</source>
-        <translation type="obsolete">Flyt forud</translation>
-    </message>
-    <message>
         <source>Bevel Join</source>
         <translation>Afskårne</translation>
-    </message>
-    <message>
-        <source>Move one Level down</source>
-        <translation type="obsolete">Flyt bagud</translation>
     </message>
     <message>
         <source>Miter Join</source>
@@ -2879,14 +2987,6 @@ Vælg venligst et andet.</translation>
     <message>
         <source>Kerning:</source>
         <translation>Knibning:</translation>
-    </message>
-    <message>
-        <source>Locks or unlocks the Object</source>
-        <translation type="obsolete">Låser eller frigør objektet</translation>
-    </message>
-    <message>
-        <source>Enables or disables printing of the Object</source>
-        <translation type="obsolete">Muliggør eller forhindrer udskrivning af objektet</translation>
     </message>
     <message>
         <source>Proportional</source>
@@ -2997,10 +3097,6 @@ Vælg venligst et andet.</translation>
         <translation>Farvemætning:</translation>
     </message>
     <message>
-        <source>Enables or disables resizing of the Object</source>
-        <translation type="obsolete">Muliggør eller forhindrer ændring af objektets størrelse</translation>
-    </message>
-    <message>
         <source>Text flows around frame</source>
         <translation>Tekst flyder uden om ramme</translation>
     </message>
@@ -3091,14 +3187,6 @@ Vælg venligst et andet.</translation>
     <message>
         <source>Enable or disable printing of the object</source>
         <translation>Muliggør eller forhindre udskrivning af objektet</translation>
-    </message>
-    <message>
-        <source>Enable this to make text in lower objects flow around this frame</source>
-        <translation>et kryds her får tekst i bagvedliggende objekter til at flyde rundt om denne ramme</translation>
-    </message>
-    <message>
-        <source>Enable this to use the imaginary square border around your object, rather than its actual shape</source>
-        <translation>Sæt kryds her for at bruge den imaginære firkant omkring objektet i stedet for den valgte form</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -3229,12 +3317,60 @@ Vælg venligst et andet.</translation>
         <translation>Brug billedets højde og bredde i stedet for rammens</translation>
     </message>
     <message>
-        <source>Select the source profile of the image</source>
-        <translation>Vælg billedet kildeprofil</translation>
+        <source>Cell Lines</source>
+        <translation>Cellelinier</translation>
     </message>
     <message>
-        <source>Select the rendering intent for the image</source>
-        <translation>Vælg Hensigt med gengivelsen af billedet</translation>
+        <source>Line at Top</source>
+        <translation>Linie for oven</translation>
+    </message>
+    <message>
+        <source>Line at the Left</source>
+        <translation>Linie i venstre side</translation>
+    </message>
+    <message>
+        <source>Line at the Right </source>
+        <translation>Linie i højre side</translation>
+    </message>
+    <message>
+        <source>Line at Bottom</source>
+        <translation>Linie i bunden</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Make text in lower objects flow around this frame</source>
+        <translation>Får tekst i bagvedliggende objekter til at flyde rundt om denne ramme</translation>
+    </message>
+    <message>
+        <source>Use the imaginary square border around your object, rather than its actual shape</source>
+        <translation>Brug den imaginære firkant omkring objektet i stedet for den valgte form</translation>
+    </message>
+    <message>
+        <source>Keep the aspect ratio</source>
+        <translation>Bevar bredde/højde forholdet</translation>
+    </message>
+    <message>
+        <source>Source profile of the image</source>
+        <translation>Billedets kildeprofil</translation>
+    </message>
+    <message>
+        <source>Rendering intent for the image</source>
+        <translation>Hensigt med gengivelsen af billedet</translation>
+    </message>
+    <message>
+        <source>Style:</source>
+        <translation>Stil:</translation>
     </message>
 </context>
 <context>
@@ -3337,10 +3473,6 @@ Vælg venligst et andet.</translation>
         <translation>Ja</translation>
     </message>
     <message>
-        <source>Exit</source>
-        <translation type="obsolete">Afslut</translation>
-    </message>
-    <message>
         <source>Name:</source>
         <translation>Navn:</translation>
     </message>
@@ -3391,10 +3523,6 @@ Vælg venligst et andet.</translation>
 </context>
 <context>
     <name>NewDoc</name>
-    <message>
-        <source>Autom. Text Frames</source>
-        <translation>Autom. tekstrammer</translation>
-    </message>
     <message>
         <source>Left:</source>
         <translation>Venstre:</translation>
@@ -3464,10 +3592,6 @@ Vælg venligst et andet.</translation>
         <translation>Venstre side først</translation>
     </message>
     <message>
-        <source>Gutter Width:</source>
-        <translation>Afstand:</translation>
-    </message>
-    <message>
         <source>Inches (in)</source>
         <translation>Tommer (in)</translation>
     </message>
@@ -3514,6 +3638,94 @@ Vælg venligst et andet.</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Automatic Text Frames</source>
+        <translation>Automatiske tekstrammer</translation>
+    </message>
+    <message>
+        <source>Gap:</source>
+        <translation>Afstand:</translation>
+    </message>
+    <message>
+        <source>Document page size, either a standard size or a custom size</source>
+        <translation>Dokumentets papirstørrelse, enten standard- eller brugerdefineret størrelse</translation>
+    </message>
+    <message>
+        <source>Orientation of the document&apos;s pages</source>
+        <translation>Retning på dokumentets sider</translation>
+    </message>
+    <message>
+        <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
+        <translation>Bredde af dokumentets sider, kan ændres hvis du har valgt en brugerdefineret størrelse</translation>
+    </message>
+    <message>
+        <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
+        <translation>Højde af dokumentets sider, kan ændres hvis du har valgt en brugerdefineret størrelse</translation>
+    </message>
+    <message>
+        <source>Enable single or spread based layout</source>
+        <translation>Vælg enkelt- eller tosidet layout</translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of the document</source>
+        <translation>Vælg venstre side af dokumentet som den første side</translation>
+    </message>
+    <message>
+        <source>Distance between the top margin guide and the edge of the page</source>
+        <translation>Afstand mellem top margin-hjælpelinie og sidens kant</translation>
+    </message>
+    <message>
+        <source>Distance between the bottom margin guide and the edge of the page</source>
+        <translation>Afstand mellem bund margin-hjælpelinie og sidens kant</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Afstand mellem venstre margin-hjælpelinie og sidens kant.
+Hvis der er valgt modstående sider , så kan denne margin bruges til at opnå de rigtige margener for indbinding</translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Afstand mellem højre margin-hjælpelinie og kanten af siden.
+Hvis modstående sider er valgt, så kan denne margin afstand bruges til at opnå de rigtige margener for indbinding</translation>
+    </message>
+    <message>
+        <source>First page number of the document</source>
+        <translation>Første sidenummer i dokumentet</translation>
+    </message>
+    <message>
+        <source>Default unit of measurement for document editing</source>
+        <translation>Standard målenhed for dokument-redigering</translation>
+    </message>
+    <message>
+        <source>Create text frames automatically when new pages are added</source>
+        <translation>Lav tekstrammer automatisk, når der tilføjes nye sider</translation>
+    </message>
+    <message>
+        <source>Number of columns to create in automatically created text frames</source>
+        <translation>Antal kolonner i tekstrammer, der laves automatisk</translation>
+    </message>
+    <message>
+        <source>Distance between automatically created columns</source>
+        <translation>Afstand mellem kolonner, der laves automatisk</translation>
     </message>
 </context>
 <context>
@@ -3678,16 +3890,8 @@ ellers er coordinaterne vist i forhold til objektet</translation>
         <translation>Billeder:</translation>
     </message>
     <message>
-        <source>Color</source>
-        <translation>Farve</translation>
-    </message>
-    <message>
         <source>Binding:</source>
         <translation>Indbinding:</translation>
-    </message>
-    <message>
-        <source>Fonts</source>
-        <translation>Fonte</translation>
     </message>
     <message>
         <source>From:</source>
@@ -3775,7 +3979,7 @@ ellers er coordinaterne vist i forhold til objektet</translation>
     </message>
     <message>
         <source>Generate Thumbnails</source>
-        <translation>Lav små sider</translation>
+        <translation>Lav miniaturer</translation>
     </message>
     <message>
         <source>PDF-Files (*.pdf);;All Files (*)</source>
@@ -3802,10 +4006,6 @@ ellers er coordinaterne vist i forhold til objektet</translation>
         <translation>Brug ikke indlejrede ICC-profiler</translation>
     </message>
     <message>
-        <source>Extras</source>
-        <translation>Ekstra</translation>
-    </message>
-    <message>
         <source>Available Fonts:</source>
         <translation>Tilgængelige fonte:</translation>
     </message>
@@ -3828,10 +4028,6 @@ ellers er coordinaterne vist i forhold til objektet</translation>
     <message>
         <source>Screen / Web</source>
         <translation>Skærm / Net</translation>
-    </message>
-    <message>
-        <source>from the:</source>
-        <translation>Fra:</translation>
     </message>
     <message>
         <source>Copying Text and Graphics is allowed</source>
@@ -3860,10 +4056,6 @@ ellers er coordinaterne vist i forhold til objektet</translation>
     <message>
         <source>Change...</source>
         <translation>Vælg...</translation>
-    </message>
-    <message>
-        <source>Compression</source>
-        <translation type="obsolete">Komprimering</translation>
     </message>
     <message>
         <source>Apply Effect on all Pages</source>
@@ -3903,15 +4095,11 @@ ellers er coordinaterne vist i forhold til objektet</translation>
     </message>
     <message>
         <source>Show Page Previews</source>
-        <translation>Vis Sidevisninger</translation>
+        <translation>Vis miniaturer</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
         <translation>Hensigt med PDF/X-3 udskrift</translation>
-    </message>
-    <message>
-        <source>Security</source>
-        <translation>Sikkerhed</translation>
     </message>
     <message>
         <source>Direction:</source>
@@ -3943,7 +4131,7 @@ ellers er coordinaterne vist i forhold til objektet</translation>
     </message>
     <message>
         <source>Save linked Text Frames as PDF-Articles</source>
-        <translation>Gem kædede tekstrammer som PDF-artikler</translation>
+        <translation>Gem kædede tekstrammer som PDF-indlæg</translation>
     </message>
     <message>
         <source>General</source>
@@ -4010,14 +4198,6 @@ ellers er coordinaterne vist i forhold til objektet</translation>
         <translation>Absolut kolorimetrisk</translation>
     </message>
     <message>
-        <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
         <source>Image Settings</source>
         <translation>Billed-indstillinger</translation>
     </message>
@@ -4065,6 +4245,281 @@ ellers er coordinaterne vist i forhold til objektet</translation>
         <source>Minimum</source>
         <translation>minimum</translation>
     </message>
+    <message>
+        <source>From the:</source>
+        <translation>Fra:</translation>
+    </message>
+    <message>
+        <source>Export all pages to PDF</source>
+        <translation>Eksportér alle sider til PDF</translation>
+    </message>
+    <message>
+        <source>Export a range of pages to PDF</source>
+        <translation>Eksportér nogle af siderne til PDF</translation>
+    </message>
+    <message>
+        <source>First page to export when exporting a range</source>
+        <translation>Første side der eksporteres</translation>
+    </message>
+    <message>
+        <source>Last page to export when exporting a range</source>
+        <translation>Sidste side der eksporteres</translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
+Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
+PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
+        <translation>Bestemmer PDF kompatibiliteten. Standarden er Acrobat 4.0, som giver den største kompatibilitet.
+Vælg Acrobat 5.0, hvis filen har PDF 1.4 egenskaber, som f.eks. transparens eller hvis du ønsker 128 bit kryptering.
+PDF/X-3 bruges til eksport til PDF for kommerciel udskrivning og kan vælges, når farvestyring er aktiveret.</translation>
+    </message>
+    <message>
+        <source>Determines the binding of pages in the PDF. Unless you know
+you need to change it leave the default choice - Left.</source>
+        <translation>Bestemmer sidernes indbinding i PDF. Behold standardværdien - venstre, 
+medmindre du ved, at du bøhøver at ændre det.</translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF.
+Some viewers can use the thumbnails for navigation.</source>
+        <translation>Laver miniaturer af hver side i PDF-filen.
+Nogle PDF-læsere kan bruge disse til navigering.</translation>
+    </message>
+    <message>
+        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
+        <translation>Lav PDF-indlæg, som er anvendelig for navigering i sammenkædede indlæg i en PDF.</translation>
+    </message>
+    <message>
+        <source>Embed the bookmarks you created in your document.
+These are useful for navigating long PDF documents.</source>
+        <translation>Indlejr bogmærkerne, som du lavede i dit dokument.
+Disse er anvendelig for navigering i lange PDF dokumenter.</translation>
+    </message>
+    <message>
+        <source>Export resolution of text and vector graphics.
+This does not affect the resolution of bitmap images like photos.</source>
+        <translation>Opløsning af eksporteret tekst og vektorgrafik.
+Dette påvirker ikke opløsningen af bitmap billeder som fotografier.</translation>
+    </message>
+    <message>
+        <source>Compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</source>
+        <translation>Komprimering af tekst og grafik.
+Medmindre du har grund til andet, så lade dette være aktiveret, Det reducerer størrelsen af PDF-filen.</translation>
+    </message>
+    <message>
+        <source>Version of compression for images.
+Automatic allows Scribus to choose the best method.
+ZIP is good for images with solid colors.
+JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
+Leave it set to automatic, unless you have a need for special compression options.</source>
+        <translation>Komprimerings-metode for billeder.
+Automatisk tillader Scribus at vælge den bedste metode.
+ZIP er god til billeder med masive farver.
+JPEG er bedre til at lave PDF-filerne mindre, når der er mange fotografier (evt. med et lille tab af billedkvalitet).
+Vælg automatisk, medmindre du har brug for specielle komprimerings-indstillinger.</translation>
+    </message>
+    <message>
+        <source>Compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation>Komprimerings-niveau: Minimum (25%), Lav (50%), Medium (75%), Høj (85%), Maksimum (95%)</translation>
+    </message>
+    <message>
+        <source>Downsample your bitmap images to the selected DPI.
+Leaving this unchecked will render them at their native resolution.</source>
+        <translation>Ændrer bitmap-billedet til valgte DPI.
+Hvis dette ikke vælges, så bruges billedets oprindelige opløsning.</translation>
+    </message>
+    <message>
+        <source>DPI (Dots Per Inch) for image export.</source>
+        <translation>DPI (Punkter pr tomme) for eksport af billede.</translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts
+will preserve the layout and appearance of your document.</source>
+        <translation>Indlejr fonte i PDF-filen. 
+Dette vil bevare opsætning og udseende af dokumentet.</translation>
+    </message>
+    <message>
+        <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
+        <translation>Aktiverer præsentations-effekter, når &apos;Acrobat Reader&apos; bruges i fuldskærm tilstand.</translation>
+    </message>
+    <message>
+        <source>Show page previews of each page listed above.</source>
+        <translation>Viser en miniature af hver side, som er vist her ovenover.</translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page.</source>
+        <translation>Den tid siden er vist, før præsentationen starter på den valgte side.</translation>
+    </message>
+    <message>
+        <source>Length of time the effect runs.
+A shorter time will speed up the effect, a longer one will slow it down.</source>
+        <translation>Den tid effekten varer.
+En kortere tid vil øge farten af effekten, en længere tid vil nedsætte tempoet.</translation>
+    </message>
+    <message>
+        <source>Type of the display effect.</source>
+        <translation>Skærm-effektens type.</translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects.</source>
+        <translation>Retning på bevægelige liner for adskil og gardin effekter.</translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects.</source>
+        <translation>Start position for boks og adskil effekter.</translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects.</source>
+        <translation>Retning på gitter eller udvisk effekter.
+</translation>
+    </message>
+    <message>
+        <source>Apply the selected effect to all pages.</source>
+        <translation>Anvend den valgte effekt på alle sider.</translation>
+    </message>
+    <message>
+        <source>Enable the security features in your exported PDF.
+If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
+If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
+Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
+        <translation>Aktivér sikkerheds-unktionerne i det eksporterede PDF-dokument.
+Hvis du valgte Acrobat 4.0, så vil PDF være beskyttet af 40 bit kryptering.
+Hvis du valgte Acrobat 5.0, så vil PDF være beskyttet af 128 bit kryptering.
+OBS: PDF kryptering er ikke så pålidelig som GPG eller PGP kryptering og har desuden en del begrænsninger.</translation>
+    </message>
+    <message>
+        <source>Choose a master password which enables or disables all the
+security features in your exported PDF</source>
+        <translation>Vælg en ejer adgangskode, som aktiverer eller deaktiverer alle
+sikkerheds-funktioner i det eksporterede PDF-dokument</translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF</source>
+        <translation>Vælg en adgangskode, som giver adgang til at læse PDF-dokumentet</translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF</source>
+        <translation>Tillad udskrivning af PDF-dokumentet</translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF</source>
+        <translation>Tillad ændring af PDF-dokumentet</translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF</source>
+        <translation>Tillad kopiering af tekst eller grafik fra PDF-dokumentet</translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF</source>
+        <translation>Tillad tilføjelse af kommentarer og felter til PDF-dokumentet</translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF.
+Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
+Choose Printer when printing to a true 4 color CMYK printer.</source>
+        <translation>Farvemodel for uddata fra PDF-dokumentet.
+Vælg Skærm/Web for PDF-filer, som bruges til visning på skærm og til udskrivning på almindeliger Blæk-printere.
+Vælg Printer, når der udskrives til en rigtig 4 farvet CMYK-printer.</translation>
+    </message>
+    <message>
+        <source>Embed a color profile for solid colors</source>
+        <translation>Indlejr en farve-profil for masive farver</translation>
+    </message>
+    <message>
+        <source>Color profile for solid colors</source>
+        <translation>Farve-profil for masive farver</translation>
+    </message>
+    <message>
+        <source>Rendering intent for solid colors</source>
+        <translation>Gengivelse-hensigt for masive farver</translation>
+    </message>
+    <message>
+        <source>Embed a color profile for images</source>
+        <translation>Indlejr en farve-profil for billeder</translation>
+    </message>
+    <message>
+        <source>Do not use color profiles that are embedded in source images</source>
+        <translation>Brug ikke farve-profiler, som er indlejret i kilde-billeder</translation>
+    </message>
+    <message>
+        <source>Color profile for images</source>
+        <translation>Farve-profil for billeder</translation>
+    </message>
+    <message>
+        <source>Rendering intent for images</source>
+        <translation>Gengivelses-hensigt for billeder</translation>
+    </message>
+    <message>
+        <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
+        <translation>Uddata-profil for udskrivning. Hvis det er muligt, så få hjælp fra din printer til valg af profil.</translation>
+    </message>
+    <message>
+        <source>Mandatory string for PDF/X-3 or the PDF will fail
+PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation>Obligatorisk streng for PDF/X-3. Skal udfyldes for at overholde 
+reglerne for PDF/X-3. Vi anbefaler at bruge titlen på dokumentet. </translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation>Afstand for beskæring fra toppen af den fysiske side</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation>Afstand for beskæring fra bunden af den fysiske side</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation>Afstand for beskæring fra venstre side af den fysiske side</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation>Afstand for beskæring fra højre side af den fysiske side</translation>
+    </message>
+    <message>
+        <source>&amp;General</source>
+        <translation>&amp;Generelt</translation>
+    </message>
+    <message>
+        <source>&amp;Fonts</source>
+        <translation>&amp;Fonte</translation>
+    </message>
+    <message>
+        <source>E&amp;xtras</source>
+        <translation>E&amp;kstra</translation>
+    </message>
+    <message>
+        <source>&amp;Security</source>
+        <translation>&amp;Sikkerhed</translation>
+    </message>
+    <message>
+        <source>&amp;Color</source>
+        <translation>&amp;Farve</translation>
+    </message>
+    <message>
+        <source>&amp;PDF/X-3</source>
+        <translation>&amp;PDF/X-3</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Gem</translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -4075,10 +4530,6 @@ ellers er coordinaterne vist i forhold til objektet</translation>
     <message>
         <source>Print Preview</source>
         <translation>Vis udskrift</translation>
-    </message>
-    <message>
-        <source>Page:</source>
-        <translation type="obsolete">Side:</translation>
     </message>
     <message>
         <source>Anti-alias Graphics</source>
@@ -4111,6 +4562,42 @@ ellers er coordinaterne vist i forhold til objektet</translation>
     <message>
         <source>K</source>
         <translation>K</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of text items in the viewer, at the expense
+of a slight slowdown in previewing. This only affects Type 1 fonts</source>
+        <translation>Giver en mere behagelig forhåndsvisning af tekst-objekter, men der
+går lidt længere tid med at vise siden. Det gælder kun type 1 fonte</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
+vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation>Giver en mere behagelig forhåndsvisning af &apos;True Type&apos; og &apos;Open Type&apos; fonte, 
+EPS, PDF og vektorgrafik, men der går lidt længere tid med at vise siden</translation>
+    </message>
+    <message>
+        <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
+        <translation>Viser transparens og gennemsigtige objekter i dit dokument. Ghostscript 7.07 eller nyere skal være installeret</translation>
+    </message>
+    <message>
+        <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
+        <translation>Giver forhåndsvisning af udskrift med simulering af CMYK farver istedet for RGB farver</translation>
+    </message>
+    <message>
+        <source>Enable/disable the C (Cyan) ink plate</source>
+        <translation>Vælger/Fravælger farven C (Cyan) </translation>
+    </message>
+    <message>
+        <source>Enable/disable the M (Magenta) ink plate</source>
+        <translation>Vælger/Fravælger farven M (Magenta)</translation>
+    </message>
+    <message>
+        <source>Enable/disable the Y (Yellow) ink plate</source>
+        <translation>Vælger/Fravælger farven Y (Gul)</translation>
+    </message>
+    <message>
+        <source>Enable/disable the K (Black) ink plate</source>
+        <translation>Vælger/Fravælger farven K (Sort)</translation>
     </message>
 </context>
 <context>
@@ -4238,10 +4725,6 @@ ellers er coordinaterne vist i forhold til objektet</translation>
     <message>
         <source>Text Frame</source>
         <translation>Tekstramme</translation>
-    </message>
-    <message>
-        <source>Text Chain</source>
-        <translation type="obsolete">Tekst-kæde</translation>
     </message>
     <message>
         <source>Show Grid</source>
@@ -4386,6 +4869,18 @@ ellers er coordinaterne vist i forhold til objektet</translation>
     <message>
         <source>Copy of</source>
         <translation>Kopi af</translation>
+    </message>
+    <message>
+        <source>Hide Baseline Grid</source>
+        <translation>Skjul basislinie-gitter</translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation>Vis basislinie-gitter</translation>
+    </message>
+    <message>
+        <source>Adjust Frame to Picture</source>
+        <translation>Juster rammen efter billedet</translation>
     </message>
 </context>
 <context>
@@ -4599,10 +5094,6 @@ ellers er coordinaterne vist i forhold til objektet</translation>
         <translation>Vertikal skalering</translation>
     </message>
     <message>
-        <source>Display Frames</source>
-        <translation type="obsolete">Vis rammer</translation>
-    </message>
-    <message>
         <source>Cancel</source>
         <translation>Annullér</translation>
     </message>
@@ -4611,16 +5102,8 @@ ellers er coordinaterne vist i forhold til objektet</translation>
         <translation>Bruger</translation>
     </message>
     <message>
-        <source>Disp.:</source>
-        <translation type="obsolete">Forskydning:</translation>
-    </message>
-    <message>
         <source>Landscape</source>
         <translation>Landskab</translation>
-    </message>
-    <message>
-        <source>Save Contents on Exit</source>
-        <translation>Gem indhold ved afslutning</translation>
     </message>
     <message>
         <source>Line Color:</source>
@@ -4823,10 +5306,6 @@ ellers er coordinaterne vist i forhold til objektet</translation>
         <translation>Faktor:</translation>
     </message>
     <message>
-        <source>Linestyle:</source>
-        <translation type="obsolete">Liniestil:</translation>
-    </message>
-    <message>
         <source>Autosave</source>
         <translation>Gem automatisk</translation>
     </message>
@@ -4977,10 +5456,6 @@ ellers er coordinaterne vist i forhold til objektet</translation>
     <message>
         <source>Postscript Interpreter</source>
         <translation>Postscript-fortolker</translation>
-    </message>
-    <message>
-        <source>Name of executeable:</source>
-        <translation type="obsolete">Navn på program:</translation>
     </message>
     <message>
         <source>Antialias Text</source>
@@ -5313,10 +5788,6 @@ hver gang det valgte tids-interval udløber</translation>
         <translation>Vælg størrelse på ikoner af scrapbogen indhold</translation>
     </message>
     <message>
-        <source>Keep the scrapbook contents after closing Scribus</source>
-        <translation>Behold scrapbogens indhold efter lukning af Scribus</translation>
-    </message>
-    <message>
         <source>When using facing pages, show the two pages side by side</source>
         <translation>Når modstående sider anvendes, vis da de to sider ved siden af hinanden</translation>
     </message>
@@ -5353,12 +5824,34 @@ hver gang det valgte tids-interval udløber</translation>
         <translation>Antialias grafik for EPS og PDF skærmvisning</translation>
     </message>
     <message>
-        <source>Filesystem location for editing graphics</source>
-        <translation>Placering af grafik-programmet i filsystemet</translation>
-    </message>
-    <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
         <translation>Vis ikke objekter udenfor marginer på den udskrevne side eller i den eksporterede fil</translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Afstand mellem højre margin-hjælpelinie og kanten af siden.
+Hvis modstående sider er valgt, så kan denne margin afstand bruges til at opnå de rigtige margener for indbinding</translation>
+    </message>
+    <message>
+        <source>Baseline Grid:</source>
+        <translation>Basislinie gitter:</translation>
+    </message>
+    <message>
+        <source>Baseline Offset:</source>
+        <translation>Basislinie forskydning:</translation>
+    </message>
+    <message>
+        <source>Save Contents on Changes</source>
+        <translation>Gem indhold ved ændringer</translation>
+    </message>
+    <message>
+        <source>Save the scrapbook contents everytime after a change</source>
+        <translation>Gem scrapbogens indhold hver gang efter en ændring</translation>
+    </message>
+    <message>
+        <source>Filesystem location for graphics editor</source>
+        <translation>Placering af grafikprogram i filsystemet</translation>
     </message>
 </context>
 <context>
@@ -5759,10 +6252,6 @@ Kontrollér sti og filnavn.</translation>
         <translation>Nyeste scripts</translation>
     </message>
     <message>
-        <source>Script</source>
-        <translation>Script</translation>
-    </message>
-    <message>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
@@ -5851,6 +6340,22 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <source>Scribus Scripts</source>
         <translation>Scribus scripts</translation>
+    </message>
+    <message>
+        <source>S&amp;cript</source>
+        <translation>S&amp;cript</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
+        <translation>Ubs! Du kalder et objekt, som ikke eksisterer!</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
+        <translation>Ubs! Du forsøger at slette et objekt, som ikke eksisterer!</translation>
+    </message>
+    <message>
+        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
+        <translation>Ubs! Et objekt, som du forsøger at flyde tekst igennem eksisterer ikke!</translation>
     </message>
 </context>
 <context>
@@ -6031,6 +6536,34 @@ Kontrollér sti og filnavn.</translation>
         <source>OK</source>
         <translation>OK</translation>
     </message>
+    <message>
+        <source>Enable single or spread based layout</source>
+        <translation>Vælg enkelt- eller tosidet layout</translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of the document</source>
+        <translation>Vælg venstre side af dokumentet som den første side</translation>
+    </message>
+    <message>
+        <source>Distance between the top margin guide and the edge of the page</source>
+        <translation>Afstand mellem top margin-hjælpelinie og sidens kant</translation>
+    </message>
+    <message>
+        <source>Distance between the bottom margin guide and the edge of the page</source>
+        <translation>Afstand mellem bund margin-hjælpelinie og sidens kant</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Afstand mellem venstre margin-hjælpelinie og sidens kant.
+Hvis der er valgt modstående sider , så kan denne margin bruges til at opnå de rigtige margener for indbinding</translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Afstand mellem højre margin-hjælpelinie og kanten af siden.
+Hvis modstående sider er valgt, så kan denne margin afstand bruges til at opnå de rigtige margener for indbinding</translation>
+    </message>
 </context>
 <context>
     <name>ScriXmlDoc</name>
@@ -6062,24 +6595,12 @@ Kontrollér sti og filnavn.</translation>
         <translation>Kopiér</translation>
     </message>
     <message>
-        <source>Edit</source>
-        <translation>Redigér</translation>
-    </message>
-    <message>
         <source>File</source>
         <translation>Fil</translation>
     </message>
     <message>
         <source>Font</source>
         <translation>Font</translation>
-    </message>
-    <message>
-        <source>Help</source>
-        <translation>Hjælp</translation>
-    </message>
-    <message>
-        <source>Item</source>
-        <translation>Objekt</translation>
     </message>
     <message>
         <source>Left</source>
@@ -6096,10 +6617,6 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <source>Open</source>
         <translation>Åbn</translation>
-    </message>
-    <message>
-        <source>Page</source>
-        <translation>Side</translation>
     </message>
     <message>
         <source>Quit</source>
@@ -6126,10 +6643,6 @@ Kontrollér sti og filnavn.</translation>
         <translation>Fortryd</translation>
     </message>
     <message>
-        <source>View</source>
-        <translation>Vis</translation>
-    </message>
-    <message>
         <source>Align Right</source>
         <translation>Justér mod højre</translation>
     </message>
@@ -6152,10 +6665,6 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <source>Block</source>
         <translation>Blok</translation>
-    </message>
-    <message>
-        <source>Rounded Rectangle</source>
-        <translation type="obsolete">Afrundet rektangel</translation>
     </message>
     <message>
         <source>Clear</source>
@@ -6262,10 +6771,6 @@ Kontrollér sti og filnavn.</translation>
         <translation>Klæb til gitter</translation>
     </message>
     <message>
-        <source>Opens a Document</source>
-        <translation type="obsolete">Åbn et dokument</translation>
-    </message>
-    <message>
         <source>Tabulators...</source>
         <translation>Tabulatorer...</translation>
     </message>
@@ -6302,10 +6807,6 @@ Kontrollér sti og filnavn.</translation>
         <translation>Små kapitæler</translation>
     </message>
     <message>
-        <source>Prints the Current Document</source>
-        <translation type="obsolete">Udskriv det aktive dokument</translation>
-    </message>
-    <message>
         <source>Split Polygons</source>
         <translation>Adskil polygon</translation>
     </message>
@@ -6331,7 +6832,7 @@ Kontrollér sti og filnavn.</translation>
     </message>
     <message>
         <source>Thumbnails</source>
-        <translation>Små sider</translation>
+        <translation>Miniaturer</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
@@ -6394,10 +6895,6 @@ Kontrollér sti og filnavn.</translation>
         <translation>Skjul billeder</translation>
     </message>
     <message>
-        <source>Extras</source>
-        <translation>Ekstra</translation>
-    </message>
-    <message>
         <source>Forced</source>
         <translation>Tvunget</translation>
     </message>
@@ -6416,10 +6913,6 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <source>Lock/Unlock</source>
         <translation>Lås/Lås op</translation>
-    </message>
-    <message>
-        <source>Images</source>
-        <translation type="obsolete">Billeder</translation>
     </message>
     <message>
         <source>Invert</source>
@@ -6464,10 +6957,6 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <source>Unlock</source>
         <translation>Lås op</translation>
-    </message>
-    <message>
-        <source>Closes the Current Document</source>
-        <translation type="obsolete">Luk det aktive dokument</translation>
     </message>
     <message>
         <source>Tool-Tips</source>
@@ -6650,10 +7139,6 @@ Kontrollér sti og filnavn.</translation>
         <translation>Dokumenter (*.sla *.sla.gz *.scd *scd.gz);; Alle filer (*)</translation>
     </message>
     <message>
-        <source>Creates a new Document</source>
-        <translation type="obsolete">Nyt dokument</translation>
-    </message>
-    <message>
         <source>Spanish</source>
         <translation>Spansk</translation>
     </message>
@@ -6672,10 +7157,6 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <source>Color Management...</source>
         <translation>Farvestyring...</translation>
-    </message>
-    <message>
-        <source>Rectangle</source>
-        <translation type="obsolete">Rektangel</translation>
     </message>
     <message>
         <source>Printing...</source>
@@ -6706,10 +7187,6 @@ Kontrollér sti og filnavn.</translation>
         <translation>Tekstfiler (*.txt);;Alle filer (*)</translation>
     </message>
     <message>
-        <source>);;Vector Files (*.eps *.pdf);;All Files (*)</source>
-        <translation type="obsolete">);;Vectorfiler (*.eps *.pdf);;Alle Filer (*)</translation>
-    </message>
-    <message>
         <source>Collect for Output...</source>
         <translation>Saml projekt i mappe...</translation>
     </message>
@@ -6728,10 +7205,6 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <source>Select all</source>
         <translation>Markér alt</translation>
-    </message>
-    <message>
-        <source>Saves the Current Document</source>
-        <translation type="obsolete">Gem det aktive dokument</translation>
     </message>
     <message>
         <source>Portuguese</source>
@@ -6810,20 +7283,12 @@ Kontrollér sti og filnavn.</translation>
         <translation>Laver genveje</translation>
     </message>
     <message>
-        <source>Saves the Current Document as PDF</source>
-        <translation type="obsolete">Gem det aktive dokument som PDF</translation>
-    </message>
-    <message>
         <source>Fatal Error</source>
         <translation>Fatal fejl</translation>
     </message>
     <message>
         <source>Align Left</source>
         <translation>Justér mod venstre</translation>
-    </message>
-    <message>
-        <source>Windows</source>
-        <translation>Vinduer</translation>
     </message>
     <message>
         <source>Select New Font</source>
@@ -6923,6 +7388,74 @@ Kontrollér sti og filnavn.</translation>
         <source>Append Text...</source>
         <translation>Tilføj tekst...</translation>
     </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Fil</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Redigér</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation>Vi&amp;s</translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation>&amp;Værktøjer</translation>
+    </message>
+    <message>
+        <source>&amp;Windows</source>
+        <translation>Vi&amp;nduer</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation>&amp;Hjælp</translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation>Vis basislinie-gitter</translation>
+    </message>
+    <message>
+        <source>&amp;Style</source>
+        <translation>&amp;Stil</translation>
+    </message>
+    <message>
+        <source>&amp;Item</source>
+        <translation>&amp;Objekt</translation>
+    </message>
+    <message>
+        <source>&amp;Page</source>
+        <translation>Si&amp;de</translation>
+    </message>
+    <message>
+        <source>E&amp;xtras</source>
+        <translation>E&amp;kstra</translation>
+    </message>
+    <message>
+        <source>Hide Baseline Grid</source>
+        <translation>Skjul basislinie-gitter</translation>
+    </message>
+    <message>
+        <source>Some Objects are locked.</source>
+        <translation>Nogle objekter er låst.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annullér</translation>
+    </message>
+    <message>
+        <source>Lock all</source>
+        <translation>Lås alt</translation>
+    </message>
+    <message>
+        <source>Unlock all</source>
+        <translation>Frigør alt</translation>
+    </message>
+    <message>
+        <source>Tool&amp;bars</source>
+        <translation>Værktøjs&amp;Bjælker</translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -6933,14 +7466,6 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <source>Layer</source>
         <translation>Lag</translation>
-    </message>
-    <message>
-        <source>Page </source>
-        <translation type="obsolete">Side </translation>
-    </message>
-    <message>
-        <source> of %1</source>
-        <translation type="obsolete">af %1</translation>
     </message>
     <message>
         <source> %</source>
@@ -7106,10 +7631,6 @@ Kontrollér sti og filnavn.</translation>
 <context>
     <name>SeitenPal</name>
     <message>
-        <source>This previews all the pages of your Document.</source>
-        <translation>Her kan du se alle siderne i dit dokument.</translation>
-    </message>
-    <message>
         <source>Here are all your Templates, to create a new Page
 drag a Template to the Pageview below.</source>
         <translation>Her er alle dine skabeloner. Træk en skabelon
@@ -7142,6 +7663,10 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     <message>
         <source>Normal</source>
         <translation>Normal</translation>
+    </message>
+    <message>
+        <source>Previews all the pages of your document.</source>
+        <translation>Vis alle sider i dokumentet.</translation>
     </message>
 </context>
 <context>
@@ -7268,8 +7793,8 @@ til vinduet nedenunder, for at lave en ny side.</translation>
         <translation>Advarsel</translation>
     </message>
     <message>
-        <source>Close</source>
-        <translation>Luk</translation>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -7418,6 +7943,14 @@ til vinduet nedenunder, for at lave en ny side.</translation>
         <source>Do you want save your changes?</source>
         <translation>Ønsker du at gemme dine ændringer?</translation>
     </message>
+    <message>
+        <source>Insert Special...</source>
+        <translation>Indsæt specialtegn...</translation>
+    </message>
+    <message>
+        <source>Insert Special</source>
+        <translation>Indsæt specialtegn</translation>
+    </message>
 </context>
 <context>
     <name>StyleSelect</name>
@@ -7428,10 +7961,6 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     <message>
         <source>Small Caps</source>
         <translation>Små kapitæler</translation>
-    </message>
-    <message>
-        <source>Strikeout</source>
-        <translation type="obsolete">Gennemstreget</translation>
     </message>
     <message>
         <source>Subscript</source>
@@ -7571,14 +8100,6 @@ til vinduet nedenunder, for at lave en ny side.</translation>
         <translation>Værktøjer</translation>
     </message>
     <message>
-        <source>Edit the Text with the Story Editor</source>
-        <translation type="obsolete">Rediger tekst i den indbyggede tekstbehandler</translation>
-    </message>
-    <message>
-        <source>Zooms in or out</source>
-        <translation type="obsolete">Zoom ind eller ud</translation>
-    </message>
-    <message>
         <source>Insert Lines</source>
         <translation>Indsæt linier</translation>
     </message>
@@ -7589,10 +8110,6 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     <message>
         <source>Select Items</source>
         <translation>Markér objekter</translation>
-    </message>
-    <message>
-        <source>Draws various Shapes</source>
-        <translation type="obsolete">Indsæt forskellige figurer</translation>
     </message>
     <message>
         <source>Edit Contents of Frame</source>
@@ -7641,6 +8158,10 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     <message>
         <source>Draw various Shapes</source>
         <translation>Tegn forskellige figurer</translation>
+    </message>
+    <message>
+        <source>Insert Table</source>
+        <translation>Indsæt tabel</translation>
     </message>
 </context>
 <context>

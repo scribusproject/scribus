@@ -351,7 +351,7 @@ void ScribusApp::initScribus()
 	  Prefs.GridShown = false;
 	  Prefs.MarginsShown = true;
 	  Prefs.GuidesShown = true;
-	  Prefs.BaseShown = false;
+	  Prefs.BaseShown = true;
 	  Prefs.ClipMargin = true;
 	  Prefs.PagesSbS = true;
 	  Prefs.RecentDocs.clear();
@@ -491,10 +491,8 @@ void ScribusApp::initScribus()
 		QString SCf = PrefsPfad+"/scrap.scs";
 		QFileInfo SCfi = QFileInfo(SCf);
 		if (SCfi.exists())
-			{
 			ScBook->BibWin->ReadContents(SCf);
-			ScBook->ScFilename = SCf;
-			}
+		ScBook->ScFilename = SCf;
 		ScBook->AdjustMenu();
 		HaveGS = system(Prefs.gs_exe+" -h > /dev/null 2>&1");
 		HavePngAlpha = system(Prefs.gs_exe+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
@@ -1314,7 +1312,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  									b->CPos += 1;
  									b->Dirty = true;
  									b->Tinput = true;
-									doc->ActPage->RefreshItem(b);
+									doc->ActPage->RefreshItem(b, true);
 									keyrep = false;
 									return;
 									}
@@ -1479,7 +1477,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  										}
  									}
 									if ( b->HasSel )
-										doc->ActPage->RefreshItem(b);
+										doc->ActPage->RefreshItem(b, true);
  								setTBvals(b);
  								break;
  							case Key_Up:
@@ -1589,7 +1587,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 											break;
 									}
 									if ( b->HasSel )
-										doc->ActPage->RefreshItem(b);
+										doc->ActPage->RefreshItem(b, true);
 								setTBvals(b);
 								break;
  							case Key_Right:
@@ -1627,7 +1625,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 										}
 									}
 										if ( b->HasSel )
-											doc->ActPage->RefreshItem(b);
+											doc->ActPage->RefreshItem(b, true);
 								setTBvals(b);
 								break;
  							case Key_Delete:
@@ -1654,7 +1652,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  									}
  								setTBvals(b);
  								b->Dirty = true;
-								doc->ActPage->RefreshItem(b);
+								doc->ActPage->RefreshItem(b, true);
  								break;
  							case Key_Backspace:
  								if (b->CPos == 0)
@@ -1681,14 +1679,14 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  									}
  								setTBvals(b);
  								b->Dirty = true;
-								doc->ActPage->RefreshItem(b);
+								doc->ActPage->RefreshItem(b, true);
  								break;
  							default:
  								if ((b->HasSel) && (kk < 0x1000))
  									{
  									DeleteSel(b);
  									b->Dirty = true;
-									doc->ActPage->RefreshItem(b);
+									doc->ActPage->RefreshItem(b, true);
  									}
  								if ((kk == Key_Tab)
 								|| ((kk == Key_Return) && (buttonState & ShiftButton))
@@ -1729,7 +1727,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  									b->CPos += 1;
  									b->Dirty = true;
  									b->Tinput = true;
-									doc->ActPage->RefreshItem(b);
+									doc->ActPage->RefreshItem(b, true);
  									break;
  									}
  								if ((kk + KeyMod) == Prefs.KeyActions[56].KeyID)
@@ -1737,7 +1735,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  									b->Ptext.at(QMAX(b->CPos-1,0))->cstyle ^= 128;
  									b->Dirty = true;
  									b->Tinput = true;
-									doc->ActPage->RefreshItem(b);
+									doc->ActPage->RefreshItem(b, true);
  									break;
  									}
  								if ((kk + KeyMod) == Prefs.KeyActions[59].KeyID)
@@ -1745,7 +1743,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 									setNewAbStyle(1);
  									b->Dirty = true;
  									b->Tinput = true;
-									doc->ActPage->RefreshItem(b);
+									doc->ActPage->RefreshItem(b, true);
  									break;
  									}
  								if ((kk + KeyMod) == Prefs.KeyActions[57].KeyID)
@@ -1753,7 +1751,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 									setNewAbStyle(0);
  									b->Dirty = true;
  									b->Tinput = true;
-									doc->ActPage->RefreshItem(b);
+									doc->ActPage->RefreshItem(b, true);
  									break;
  									}
  								if ((kk + KeyMod) == Prefs.KeyActions[58].KeyID)
@@ -5923,6 +5921,11 @@ void ScribusApp::slotPrefsOrg()
 			zChange = true;
 			}
 		Mpal->Cpal->UseTrans(Prefs.PDFTransparency);
+		Prefs.BaseShown = dia->RadioButton8->isChecked();
+		if (Prefs.BaseShown)
+			viewMenu->changeItem(Base, tr("Hide Baseline Grid"));
+		else
+			viewMenu->changeItem(Base, tr("Show Baseline Grid"));
 		if (HaveDoc)
 			{
 			slotChangeUnit(dia->UnitCombo->currentItem(), false);

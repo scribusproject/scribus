@@ -978,12 +978,33 @@ void Page::RefreshItem(PageItem *b, bool single)
 	QPainter p;
 	p.begin(this);
 	Transform(b, &p);
-	QRect rd = QRect(-36, -36, qRound(b->Width) + 74, qRound(b->Height) + 74);
+	QRect rd = QRect(qRound(ceil(-b->OldPwidth / 2.0)), 
+							   qRound(ceil(-b->OldPwidth / 2.0)),
+							   qRound(ceil(b->Width+b->OldPwidth*2)),
+							   qRound(ceil(b->Height+b->OldPwidth*2)));
+	if ((b->isTableItem) && (b->Pcolor2 != "None"))
+	{
+		if (!b->TopLine)
+		{
+			rd.setY(rd.y()+qRound(ceil(b->OldPwidth / 2.0)));
+			rd.setHeight(rd.height()-qRound(ceil(b->OldPwidth)));
+		}
+		if (!b->RightLine)
+			rd.setWidth(rd.width()-qRound(ceil(b->OldPwidth)));
+		if (!b->BottomLine)
+			rd.setHeight(rd.height()-qRound(ceil(b->OldPwidth)));
+		if (!b->LeftLine)
+		{
+			rd.setX(rd.x()+qRound(ceil(b->OldPwidth / 2.0)));
+			rd.setWidth(rd.width()-qRound(ceil(b->OldPwidth)));
+		}
+	}
 	if (single)
 		RepaintTextRegion(b, QRegion(p.xForm(rd)), true);
 	else
 		update(QRegion(p.xForm(rd)).intersect(ViewReg()).boundingRect());
 	p.end();
+	b->OldPwidth = b->Pwidth;
 }
 
 void Page::RepaintTextRegion(PageItem *b, QRegion alt, bool single)
@@ -998,10 +1019,13 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt, bool single)
 	p.end();
 	b->Dirty = true;
 	QRect g = neu.boundingRect();
-	g.setX(g.x()-static_cast<int>(QMAX(10.0, b->Pwidth / 1.4)));
-	g.setY(g.y()-static_cast<int>(QMAX(10.0, b->Pwidth / 1.4)));
-	g.setWidth(g.width()+static_cast<int>(QMAX(10.0, b->Pwidth / 1.4)));
-	g.setHeight(g.height()+static_cast<int>(QMAX(10.0, b->Pwidth / 1.4)));
+	if (!single)
+	{
+		g.setX(g.x()-static_cast<int>(QMAX(0.0, b->OldPwidth * 1.4)));
+		g.setY(g.y()-static_cast<int>(QMAX(0.0, b->OldPwidth * 1.4)));
+		g.setWidth(g.width()+static_cast<int>(QMAX(0.0, b->OldPwidth * 1.4)));
+		g.setHeight(g.height()+static_cast<int>(QMAX(0.0, b->OldPwidth * 1.4)));
+	}
 	if (single)
 	{
 		QRect rd = ViewReg().boundingRect().intersect(g);
@@ -1016,6 +1040,32 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt, bool single)
 			b->DrawObj(painter, rd);
 		if (!doku->Before)
 			DrawPageMarks(painter, rd);
+		if (b->isTableItem)
+		{
+			painter->setZoomFactor(doku->Scale);
+			painter->save();
+			painter->translate(-rd.x(), -rd.y());
+			painter->translate(b->Xpos*doku->Scale, b->Ypos*doku->Scale);
+			painter->rotate(b->Rot);
+			if (b->Pcolor2 != "None")
+			{
+				QColor tmp;
+				b->SetFarbe(&tmp, b->Pcolor2, b->Shade2);
+				if ((b->TopLine) || (b->RightLine) || (b->BottomLine) || (b->LeftLine))
+				{
+					painter->setPen(tmp, b->Pwidth, b->PLineArt, Qt::SquareCap, b->PLineJoin);
+					if (b->TopLine)
+						painter->drawLine(FPoint(0.0, 0.0), FPoint(b->Width, 0.0));
+					if (b->RightLine)
+						painter->drawLine(FPoint(b->Width, 0.0), FPoint(b->Width, b->Height));
+					if (b->BottomLine)
+						painter->drawLine(FPoint(b->Width, b->Height), FPoint(0.0, b->Height));
+					if (b->LeftLine)
+						painter->drawLine(FPoint(0.0, b->Height), FPoint(0.0, 0.0));
+				}
+			}
+			painter->restore();
+		}
 		painter->end();
 		bitBlt( this, rd.x(), rd.y(), &pgPix, 0, 0, pgPix.width(), pgPix.height() );
 		QPainter px;
@@ -2622,6 +2672,10 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			}
 			else
 				pmen->insertItem( tr("Unlock"), this, SLOT(ToggleLock()));
+			if (!b->LockRes)
+				pmen->insertItem( tr("Disable resizing"), this, SLOT(ToggleResize()));
+			else
+				pmen->insertItem( tr("Enable resizing"), this, SLOT(ToggleResize()));
 			if ((!b->isTableItem) && (!b->isSingleSel))
 			{
 				pmen->insertItem( tr("Send to Scrapbook"), this, SLOT(sentToScrap()));
@@ -6655,6 +6709,7 @@ void Page::ChLineWidth(double w)
 		for (a = 0; a < SelItem.count(); ++a)
 		{
 			PageItem *b = SelItem.at(a);
+			b->OldPwidth = b->Pwidth;
 			b->Pwidth = w;
 			if (b->PType == 7)
 				SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
@@ -7431,6 +7486,20 @@ void Page::ToggleAnnotation()
 					emit DelBM(SelItem.at(a));
 				SelItem.at(a)->isBookmark = false;
 			}
+		}
+		emit DocChanged();
+	}
+}
+
+void Page::ToggleResize()
+{
+	if (SelItem.count() != 0)
+	{
+		for ( uint a = 0; a < SelItem.count(); ++a)
+		{
+			SelItem.at(a)->LockRes = !SelItem.at(a)->LockRes;
+			RefreshItem(SelItem.at(a));
+			emit HaveSel(SelItem.at(a)->PType);
 		}
 		emit DocChanged();
 	}

@@ -210,6 +210,7 @@ public slots:
 	void ToggleBookmark();
 	void ToggleAnnotation();
 	void ToggleLock();
+	void ToggleResize();
 	void TogglePic();
 	void UpdatePic();
 	void FrameToPic();

@@ -1,6 +1,7 @@
 #include "prefs.h"
 #include "prefs.moc"
 #include "keymanager.h"
+#include "scribusdoc.h"
 #include <qfont.h>
 #include <qcolordialog.h>
 #include <qcolor.h>
@@ -412,6 +413,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	tabLayout_2 = new QGridLayout( tab_2 );
 	tabLayout_2->setSpacing( 6 );
 	tabLayout_2->setMargin( 11 );
+	
 	GroupBox1 = new QGroupBox( tab_2, "GroupBox1" );
 	GroupBox1->setTitle( tr( "Grid Layout" ) );
 	GroupBox1->setColumnLayout(0, Qt::Vertical );
@@ -459,6 +461,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	SpinBox2g->setValue(ap->HaveDoc ? ap->doc->GuideRad * Umrech : Vor->GuideRad * Umrech);
 	GroupBox1Layout->addLayout( Layout10 );
 	tabLayout_2->addWidget( GroupBox1, 0, 0 );
+	
 	GroupBox2 = new QGroupBox( tab_2, "GroupBox2" );
 	GroupBox2->setTitle( tr( "Grid Colors" ) );
 	GroupBox2->setColumnLayout(0, Qt::Vertical );
@@ -512,6 +515,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout11->addWidget( GuideColor, 2, 1 );
 	GroupBox2Layout->addLayout( Layout11 );
 	tabLayout_2->addWidget( GroupBox2, 1, 0 );
+	
 	ButtonGroup5 = new QButtonGroup( tab_2, "ButtonGroup5" );
 	ButtonGroup5->setTitle( tr( "Placing" ) );
 	ButtonGroup5->setExclusive( true );
@@ -535,8 +539,32 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout7->addWidget( RadioButton7 );
 	ButtonGroup5Layout->addLayout( Layout7 );
 	tabLayout_2->addWidget( ButtonGroup5, 0, 1 );
-	TabWidget3->addWidget( tab_2, 2 );
+	//TabWidget3->addWidget( tab_2, 2 );
 
+	ButtonGroup6 = new QButtonGroup( tab_2, "ButtonGroup6" );
+	ButtonGroup6->setTitle( tr( "Baseline Grid" ) );
+	ButtonGroup6->setExclusive( true );
+	ButtonGroup6->setColumnLayout(0, Qt::Vertical );
+	ButtonGroup6->layout()->setSpacing( 0 );
+	ButtonGroup6->layout()->setMargin( 0 );
+	ButtonGroup6Layout = new QHBoxLayout( ButtonGroup6->layout() );
+	ButtonGroup6Layout->setAlignment( Qt::AlignTop );
+	ButtonGroup6Layout->setSpacing( 6 );
+	ButtonGroup6Layout->setMargin( 11 );
+	Layout18 = new QVBoxLayout;
+	Layout18->setSpacing( 6 );
+	Layout18->setMargin( 0 );
+	RadioButton8 = new QRadioButton( ButtonGroup6, "RadioButton8" );
+	RadioButton8->setText( tr( "On" ) );
+	Layout18->addWidget( RadioButton8 );
+	RadioButton9 = new QRadioButton( ButtonGroup6, "RadioButton8_2" );
+	RadioButton9->setText( tr( "Off" ) );
+	Layout18->addWidget( RadioButton9 );
+	RadioButton8->setChecked(Vor->BaseShown );
+	ButtonGroup6Layout->addLayout( Layout18 );
+	tabLayout_2->addWidget( ButtonGroup6, 1, 1 );
+	TabWidget3->addWidget( tab_2, 2 );
+	
 	tab_4 = new QWidget( TabWidget3, "tab_4" );
 	tabLayout_3 = new QGridLayout( tab_4 );
 	tabLayout_3->setSpacing( 6 );
@@ -1591,6 +1619,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QToolTip::add( GuideColor, tr( "Color of the guide lines you insert" ) );
 	QToolTip::add( RadioButton6, tr( "Place the grid behind your page objects" ) );
 	QToolTip::add( RadioButton7, tr( "Place the grid in front of your page objects" ) );
+	QToolTip::add( RadioButton8, tr("Turns on the basegrid"));
+	QToolTip::add( RadioButton9, tr("Turns off the basegrid")); 
 
 	QToolTip::add( VHochW, tr( "Displacement above the baseline of the font on a line" ) );
 	QToolTip::add( VHochWSc, tr( "Relative size of the superscript compared to the normal font" ) );
@@ -1728,6 +1758,7 @@ Preferences::~Preferences()
 {
 	// no need to delete child widgets, Qt does it all for us
 }
+
 
 /*!
  \fn void Preferences::ChangeDocs()

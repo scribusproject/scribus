@@ -1,4 +1,13 @@
 Changes since Version 1.1.6
+23.04.2004	Fixed wrong clipping in the Postscript Output with styled Lines.
+		Fixed vanishing text in flipped Textframes when zooming in.
+		Updated the Czech and Danish Translations.
+		Fixed Bug #511 "Lock object size" is now in context menu
+		Fixed Bug #510 Translated units are shown as question marks in the Page>Manage guides dialog.
+		Fixed Bug #501 screen refresh when editing tables not nice.
+		Fixed Bug #493 Additional Patch to configure for Debian Systems.
+		Fixed Bug #462 PDF export resets color tints to solids.
+
 18.04.2004	Fixed wrong Display with flipped Textframes.
 		Added "Insert LoremIpsum" Command for Textframes to the Context Menue.
 		Fixed display issues with Tables.

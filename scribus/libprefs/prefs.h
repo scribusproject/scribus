@@ -70,8 +70,11 @@ public:
 	QToolButton* FileC3;
 	QButtonGroup* ButtonGroup2;
 	QButtonGroup* ButtonGroup5;
+	QButtonGroup* ButtonGroup6;
 	QRadioButton* RadioButton6;
 	QRadioButton* RadioButton7;
+	QRadioButton* RadioButton8;
+	QRadioButton* RadioButton9;
 	QWidget* tab_2;
 	QGroupBox* GroupBox1;
 	QLabel* TextLabel1;
@@ -270,6 +273,7 @@ public slots:
 	void ChangeProfs();
 	void ChangeScripts();
 	void ChangeScaling();
+	void ChangeGrid();
 	void setDS();
 	void setBreite(int v);
 	void setHoehe(int v);
@@ -308,7 +312,9 @@ protected:
 	QGridLayout* Layout5;
 	QGridLayout* tabLayout_2;
 	QHBoxLayout* ButtonGroup5Layout;
+	QHBoxLayout* ButtonGroup6Layout;
 	QVBoxLayout* Layout7;
+	QVBoxLayout* Layout18;
 	QHBoxLayout* GroupBox1Layout;
 	QGridLayout* Layout10;
 	QHBoxLayout* GroupBox2Layout;

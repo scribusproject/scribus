@@ -85,8 +85,13 @@ else
 fi)
 LIBCUPS=""
 hacups=
-AC_CHECK_LIB(cups, httpConnect, [LIBCUPS="-lcups -lssl";hacups=yes],[LIBCUPS="";hacups=no],[-lssl])
-AC_SUBST(LIBCUPS)
+AC_CHECK_PROG(hacups, cups-config, yes)
+if test x"$hacups" = x"yes"
+then
+	LIBCUPS="`cups-config --libs`"
+	AC_SUBST(LIBCUPS)
+fi
+
 LIBLCMS=""
 hacms=
 AC_CHECK_LIB(lcms, _cmsChannelsOf, [LIBLCMS="-llcms";hacms=yes],[LIBLCMS="";hacms=no],[-lm])
