@@ -37,6 +37,11 @@
 <p>Scales the group the object "name" belongs to. Values greater than 1 enlarge the group, values smaller than 1 make the group smaller e.g a value of 0.5 scales the group to 50 % of its original size, a value of 1.5 scales the group to 150 % of its original size.  The value for "factor" must be greater than 0. If "name" is not given the currently selected item is used.</p>
 <p>May raise ValueError if an invalid scale factor is passed.</p></dd>
 
+<dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
+<dd><code><a href="#-setScaleImageToFrame">setScaleImageToFrame</a>(scaletoframe, proportional=None, name=<selection>)</code>
+<p>Sets the scale to frame on the selected or specified image frame to `scaletoframe'. If `proportional' is specified, set fixed aspect ratio scaling to `proportional'. Both `scaletoframe' and `proportional' are boolean.</p>
+<p>May raise WrongFrameTypeError.</p></dd>
+
 <dt><a name="-setStyle"><strong>setStyle</strong></a>(...)</dt>
 <dd><code><a href="#-setStyle">setStyle</a>("style" [, "name"])</code>
 <p>Apply the named "style" to the object named "name". If is no object name given, it's applied on the selected object.</p></dd>
@@ -52,11 +57,6 @@
 <dt><a name="-textFlowsAroundFrame"><strong>textFlowsAroundFrame</strong></a>(...)</dt>
 <dd><code><a href="#-textFlowsAroundFrame">textFlowsAroundFrame</a>("name" [, state])</code>
 <p>Enables/disables "Text Flows Around Frame" feature for object "name". Called with parameters string name and optional boolean "state". If "state" is not passed, text flow is toggled.</p></dd>
-
-<dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
-<dd><code><a href="#-setScaleImageToFrame">setScaleImageToFrame</a>(scaletoframe, proportional=None, name=<selection>)</code>
-<p>Sets the scale to frame on the selected or specified image frame to `scaletoframe'. If `proportional' is specified, set fixed aspect ratio scaling to `proportional'. Both `scaletoframe' and `proportional' are boolean.</p>
-<p>May raise WrongFrameTypeError.</p></dd>
 
 </dl>
 </qt>
