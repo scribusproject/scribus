@@ -1,3 +1,12 @@
+
+
+Scribus - 1.3.0cvs
+==================
+- 0001762: [Default] Implement a configure check for libtiff 3.6+ (ringerc)
+- 0001761: [Default] Implement an OASIS document format importer (Tsoots)
+- 0001744: [Default] Add in centimeters as a unit of measurment (cbradney)
+- 0001733: [User Interface] Quit key should quit scribus even when a palette has focus (cbradney)
+- 0001658: [Scripter] PATCH: Minor scripter fixes, initialize variable in ScrAction constructor (ringerc)
 - 0001722: [Default] create page / inserte frame / crash (fschmid)
 - 0001723: [Default] Page sizes are innaccurate where they are predefined values (cbradney)
 - 0001690: [Default] Alllow the loading of customised shortcut sets (cbradney)
