@@ -345,6 +345,7 @@ void ScribusApp::initScribus()
 	  Prefs.GridShown = false;
 	  Prefs.MarginsShown = true;
 	  Prefs.GuidesShown = true;
+	  Prefs.BaseShown = false;
 	  Prefs.ClipMargin = true;
 	  Prefs.PagesSbS = true;
 	  Prefs.RecentDocs.clear();
@@ -387,6 +388,8 @@ void ScribusApp::initScribus()
 		Prefs.gs_antiGraph = true;
 		Prefs.gs_antiText = true;
 		Prefs.gs_exe = "gs";
+		Prefs.BaseGrid = 14.4;
+		Prefs.BaseOffs = 0.0;
 		PDef.Pname = "";
 		PDef.Dname = "";
 		PDef.Command = "";
@@ -762,6 +765,7 @@ void ScribusApp::initMenuBar()
 	SetKeyEntry(44, tr("Snap to Grid"), uRas, 0);
 	Guide = viewMenu->insertItem( tr("Hide Guides"), this, SLOT(ToggleGuides()));
 	uGuide = viewMenu->insertItem( tr("Snap to Guides"), this, SLOT(ToggleUGuides()));
+	Base = viewMenu->insertItem( tr("Show Baseline Grid"), this, SLOT(ToggleBase()));
 	for (a=0; a<6; ++a)
 		{
 		viewMenu->setItemEnabled(viewMenu->idAt(a), 0);
@@ -773,6 +777,7 @@ void ScribusApp::initMenuBar()
 	viewMenu->setItemEnabled(uRas, 0);
 	viewMenu->setItemEnabled(Guide, 0);
 	viewMenu->setItemEnabled(uGuide, 0);
+	viewMenu->setItemEnabled(Base, 0);
 	toolMenu=new QPopupMenu();
 	viewTools = toolMenu->insertItem( tr("Tools"), this, SLOT(ToggleTools()));
 	SetKeyEntry(45, tr("Tools"), viewTools, 0);
@@ -1911,6 +1916,8 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->Automatic = Prefs.Automatic;
 	doc->AutoCheck = Prefs.AutoCheck;
 	doc->PageColors = Prefs.DColors;
+	doc->BaseGrid = Prefs.BaseGrid;
+	doc->BaseOffs = Prefs.BaseOffs;
 	doc->loading = true;
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	view = new ScribusView(w, doc, &Prefs);
@@ -2266,6 +2273,7 @@ void ScribusApp::HaveNewDoc()
 	viewMenu->setItemChecked(uRas, doc->useRaster);
 	viewMenu->setItemEnabled(Guide, 1);
 	viewMenu->setItemEnabled(uGuide, 1);
+	viewMenu->setItemEnabled(Base, 1);
 	viewMenu->setItemChecked(uGuide, doc->SnapGuides);
 	menuBar()->setItemEnabled(pgmm, 1);
 	menuBar()->setItemEnabled(exmn, 1);
@@ -2317,6 +2325,7 @@ void ScribusApp::HaveNewDoc()
 	doc->Guides = Prefs.GuidesShown;
 	doc->Raster = Prefs.GridShown;
 	doc->Marks = Prefs.MarginsShown;
+	doc->Base = Prefs.BaseShown;
 }
 
 void ScribusApp::HaveNewSel(int Nr)
@@ -2822,6 +2831,8 @@ bool ScribusApp::LadeDoc(QString fileName)
 		doc->MinWordLen = Prefs.MinWordLen;
 		doc->Automatic = Prefs.Automatic;
 		doc->AutoCheck = Prefs.AutoCheck;
+		doc->BaseGrid = Prefs.BaseGrid;
+		doc->BaseOffs = Prefs.BaseOffs;
 		doc->OpenNodes.clear();
 		doc->loading = true;
 		FMess->setText( tr("Loading..."));
@@ -3308,6 +3319,7 @@ bool ScribusApp::DoFileClose()
 		viewMenu->setItemChecked(uRas, false);
 		viewMenu->setItemEnabled(Guide, 0);
 		viewMenu->setItemEnabled(uGuide, 0);
+		viewMenu->setItemEnabled(Base, 0);
 		viewMenu->setItemChecked(uGuide, false);
 		editMenu->setItemEnabled(tman, 0);
 		editMenu->setItemEnabled(jman, 0);
@@ -4320,6 +4332,17 @@ void ScribusApp::ToggleGuides()
 		viewMenu->changeItem(Guide, tr("Hide Guides"));
 	doc->Guides = !doc->Guides;
 	Prefs.GuidesShown = doc->Guides;
+	view->DrawNew();
+}
+
+void ScribusApp::ToggleBase()
+{
+	if (doc->Base)
+		viewMenu->changeItem(Base, tr("Show Baseline Grid"));
+	else
+		viewMenu->changeItem(Base, tr("Hide Baseline Grid"));
+	doc->Base = !doc->Base;
+	Prefs.BaseShown = doc->Base;
 	view->DrawNew();
 }
 
@@ -5895,6 +5918,8 @@ void ScribusApp::slotPrefsOrg()
 			doc->RandFarbig = dia->RandFarb->isChecked();
 			doc->AutoLine = dia->AutoLineV->value();
 			doc->AutoSave = dia->ASon->isChecked();
+			doc->BaseGrid = dia->BaseGrid->value();
+			doc->BaseOffs = dia->BaseOffs->value();
 			if (doc->AutoSave)
 				{
 				doc->ASaveTimer->stop();
@@ -6009,6 +6034,8 @@ void ScribusApp::slotPrefsOrg()
 			Prefs.AutoLine = dia->AutoLineV->value();
 			Prefs.AutoSave = dia->ASon->isChecked();
 			Prefs.AutoSaveTime = dia->ASTime->value() * 60 * 1000;
+			Prefs.BaseGrid = dia->BaseGrid->value();
+			Prefs.BaseOffs = dia->BaseOffs->value();
 			}
 		SavePrefs();
 		}
@@ -6132,6 +6159,10 @@ void ScribusApp::ReadPrefs()
 		viewMenu->changeItem(Ras, tr("Hide Grid"));
 	else
 		viewMenu->changeItem(Ras, tr("Show Grid"));
+	if (Prefs.BaseShown)
+		viewMenu->changeItem(Base, tr("Hide Baseline Grid"));
+	else
+		viewMenu->changeItem(Base, tr("Show Baseline Grid"));
 }
 
 void ScribusApp::ShowSubs()

@@ -1271,25 +1271,25 @@ Profiilin tulee olla tulostimellesi tarkoitettu ei yleinen väriprofiili kuten s
     <message>
         <source>Choose the default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Valitse sovitustapa näytöllesi. Ellet tiedä mikä tapa valita, tulisi käyttää
+        <translation type="obsolete">Valitse sovitustapa näytöllesi. Ellet tiedä mikä tapa valita, tulisi käyttää
 sovitustapoja Relative Colorimetric tai Perceptual.</translation>
     </message>
     <message>
         <source>Choose the default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Valitse sovitustapa tulostimellesi. Ellet tiedä mikä tapa valita, tulisi käyttää
+        <translation type="obsolete">Valitse sovitustapa tulostimellesi. Ellet tiedä mikä tapa valita, tulisi käyttää
 sovitustapoja Relative Colorimetric tai Perceptual.</translation>
     </message>
     <message>
         <source>This enables &apos;soft proofing&apos; of how your document colors will print,
 based on the chosen printer profile.</source>
-        <translation>Mahdollistaa tulosteen värien jäljittelyn näytöllä perustuen
+        <translation type="obsolete">Mahdollistaa tulosteen värien jäljittelyn näytöllä perustuen
 käytettävään väriprofiiliin.</translation>
     </message>
     <message>
         <source>This is a method of showing colors on the screen which may not print properly.
 This requires very accurate profiles and serves only as a warning.</source>
-        <translation>Toiminto näyttää värit, jotka mahdollisesti eivät tulostu oikein.
+        <translation type="obsolete">Toiminto näyttää värit, jotka mahdollisesti eivät tulostu oikein.
 Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan varoituksena.</translation>
     </message>
     <message>
@@ -1297,6 +1297,30 @@ Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan 
 It is recommended that you enable this if you have photos in your document.</source>
         <translation>Black Point Compensation on keino parantaa kuvien kontrastia.
 On suositeltavaa että valitsen tämän, jos dokumenttisi sisältää kuvia.</translation>
+    </message>
+    <message>
+        <source>Default rendering intent for your monitor. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation>Sovitustapa näytöllesi. Ellet tiedä mikä tapa valita, tulisi käyttää
+sovitustapoja Relative Colorimetric tai Perceptual.</translation>
+    </message>
+    <message>
+        <source>Default rendering intent for your printer. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation>Sovitustapa tulostimellesi. Ellet tiedä mikä tapa valita, tulisi käyttää
+sovitustapoja Relative Colorimetric tai Perceptual.</translation>
+    </message>
+    <message>
+        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
+based on the chosen printer profile.</source>
+        <translation>Mahdollistaa tulosteen värien jäljittelyn näytöllä 
+perustuen käytettävään väriprofiiliin.</translation>
+    </message>
+    <message>
+        <source>Method of showing colors on the screen which may not print properly.
+This requires very accurate profiles and serves only as a warning.</source>
+        <translation>Toiminto näyttää värit, jotka saattavat tulostua väärin.
+Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan varoituksena.</translation>
     </message>
 </context>
 <context>
@@ -1701,7 +1725,7 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>Alternative Printer Command</source>
-        <translation>Vaihtoehtoinen tuolostuskomento</translation>
+        <translation>Vaihtoehtoinen tulostuskomento</translation>
     </message>
     <message>
         <source>File:</source>
@@ -2340,7 +2364,7 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>This is the length of the smallest word to be hyphenated.</source>
-        <translation>Lyhimmän tavutettavan sanan pituus.</translation>
+        <translation type="obsolete">Lyhimmän tavutettavan sanan pituus.</translation>
     </message>
     <message>
         <source>Hyphenator Settings</source>
@@ -2375,6 +2399,10 @@ Voit määrittää sen asetuksissa.</translation>
 everytime a possible Hyphenation is found.</source>
         <translation>Jos et valitse tätä, ilmestyy jokaisen mahdollisen
 tavutuksen kohdalla kysymysikkuna.</translation>
+    </message>
+    <message>
+        <source>Length of the smallest word to be hyphenated.</source>
+        <translation>Lyhimmän tavutettavan sanan pituus.</translation>
     </message>
 </context>
 <context>
@@ -3358,7 +3386,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Enable this to use the imaginary square border around your object, rather than its actual shape</source>
-        <translation>Käytä kuvitteellista neliötä kohteen reunuksena todellisen muodon sijaan</translation>
+        <translation type="obsolete">Käytä kuvitteellista neliötä kohteen reunuksena todellisen muodon sijaan</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -3490,15 +3518,15 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Select the source profile of the image</source>
-        <translation>Valitse kuvan profiili</translation>
+        <translation type="obsolete">Valitse kuvan profiili</translation>
     </message>
     <message>
         <source>Select the rendering intent for the image</source>
-        <translation>Valitse kuvan sovitustapa</translation>
+        <translation type="obsolete">Valitse kuvan sovitustapa</translation>
     </message>
     <message>
         <source>Enable this to make text in lower objects flow around this frame</source>
-        <translation>Pakota alempana olevien kohteiden teksti kiertämään tämä kehys</translation>
+        <translation type="obsolete">Pakota alempana olevien kohteiden teksti kiertämään tämä kehys</translation>
     </message>
     <message>
         <source>Cell Lines</source>
@@ -3531,6 +3559,26 @@ Valitse toinen nimi.</translation>
     <message>
         <source> p</source>
         <translation> p</translation>
+    </message>
+    <message>
+        <source>Keep the aspect ratio</source>
+        <translation>Säilytä suhteet</translation>
+    </message>
+    <message>
+        <source>Make text in lower objects flow around this frame</source>
+        <translation>Pakota teksti alemmissa kohteissa kiertämään tämä kehys</translation>
+    </message>
+    <message>
+        <source>Use the imaginary square border around your object, rather than its actual shape</source>
+        <translation>Käytä kuvitteellista neliötä kohteen reunuksena todellisen muodon sijaan</translation>
+    </message>
+    <message>
+        <source>Source profile of the image</source>
+        <translation>Kuvan profiili</translation>
+    </message>
+    <message>
+        <source>Rendering intent for the image</source>
+        <translation>Kuvan sovitustapa</translation>
     </message>
 </context>
 <context>
@@ -3814,6 +3862,22 @@ Valitse toinen nimi.</translation>
     <message>
         <source>Millimetres (mm)</source>
         <translation>Millimetrit (mm)</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation> pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation> mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation> in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation> p</translation>
     </message>
 </context>
 <context>
@@ -4191,7 +4255,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>from the:</source>
-        <translation>mistä:</translation>
+        <translation type="obsolete">mistä:</translation>
     </message>
     <message>
         <source>Copying Text and Graphics is allowed</source>
@@ -4271,7 +4335,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
-        <translation>PDF/X-3 tulosteen tarkoitus</translation>
+        <translation>PDF/X-3 tuloste</translation>
     </message>
     <message>
         <source>Security</source>
@@ -4404,6 +4468,283 @@ muulloin suhteessa kohteeseen.</translation>
     <message>
         <source>Minimum</source>
         <translation>Heikoin</translation>
+    </message>
+    <message>
+        <source>From the:</source>
+        <translation>Mistä:</translation>
+    </message>
+    <message>
+        <source>Export all pages to PDF</source>
+        <translation>Vie kaikki sivut PDF:ään</translation>
+    </message>
+    <message>
+        <source>Export a range of pages to PDF</source>
+        <translation>Vie valittu väli sivuja PDF:ään</translation>
+    </message>
+    <message>
+        <source>First page to export when exporting a range</source>
+        <translation>Ensimmäinen vietävä sivu eli välin alaraja</translation>
+    </message>
+    <message>
+        <source>Last page to export when exporting a range</source>
+        <translation>Viimeinen vietävä sivu eli välin yläraja</translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility.
+The default is Acrobat 4.0 which gives the widest compatibility.
+Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
+PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
+        <translation type="obsolete">Määrittää PDF-yhteensopivuuden
+Oletuksena käytetään Acrobat 4.0, jolla saadaan laajin yhteensopivuus.
+Valitse Acrobat 5.0, jos dokumentissasi on PDF 1.4-ominaisuuksia kuten läpinäkyvyys tai jos tarvitse 128 bittisen salauksen.
+PDF/X-3 on tarkoitettu ammattimaiseen tulostamiseen. Se voidaan valita, kun värien hallinta on aktivoitu.</translation>
+    </message>
+    <message>
+        <source>This determines the binding of pages in the PDF. Unless you know
+you need to change it leave the default choice - Left.</source>
+        <translation type="obsolete">Määrittää sivujen sidonnan PDF:ään.
+Jos et ole varma, jätä oletusarvo - vasen.</translation>
+    </message>
+    <message>
+        <source>Choose the compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation type="obsolete">Valitse pakkaustaso: Heikoin (25 %), Matala (50 %), Keskitaso (75 %), Korkea (85 %), Paras (95 %)</translation>
+    </message>
+    <message>
+        <source>This choice will enable downsampling of your bitmap images to the selected DPI.</source>
+        <translation type="obsolete">Mahdollistaa bitmap-kuvien heikentämisen halutulle DPI-arvolle.</translation>
+    </message>
+    <message>
+        <source>Checking this enables presentation effects when using Acrobat Reader in full screen mode.</source>
+        <translation type="obsolete">Mahdollistaa esitysefektien käytön Acrobat Readeria käytettäessä koko näytön tilassa.</translation>
+    </message>
+    <message>
+        <source>Checking this will show page previews of each page listed above.</source>
+        <translation type="obsolete">Näyttää esikatselun kaikista sivuista.</translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page.</source>
+        <translation>Aika, joka odotetaan ennen esityksen alkua valitulla sivulla.</translation>
+    </message>
+    <message>
+        <source>Length of time the effect runs.
+A shorter time will speed up the effect, a longer one will slow it down.</source>
+        <translation>Efektin kesto. Lyhyt aika nopeuttaa effektiä, pitkä hidastaa sitä.</translation>
+    </message>
+    <message>
+        <source>Choose type of the display effect.</source>
+        <translation type="obsolete">Valitse esitysefektin tyyppi.</translation>
+    </message>
+    <message>
+        <source>Apply the selected effect to all pages.</source>
+        <translation>Käytä valittua esitysefektiä kaikkiin sivuihin.</translation>
+    </message>
+    <message>
+        <source>Choose a master password which enables or disables all the
+security features in your exported PDF</source>
+        <translation>Valitse salasana, joka sallii tai estää kaikki 
+turvallisuusominaisuudet tehdyssä PDF:ssa</translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF</source>
+        <translation>Valitse salasana, jolla käyttäjät voivat lukea PDF:n</translation>
+    </message>
+    <message>
+        <source>Unchecking this will disallow printing of the PDF</source>
+        <translation type="obsolete">Valinnan poistaminen estää PDF:n tulostamisen</translation>
+    </message>
+    <message>
+        <source>Unchecking this will disallow modifying of the PDF</source>
+        <translation type="obsolete">Valinnan poistaminen estää PDF:n muokkaamisen</translation>
+    </message>
+    <message>
+        <source>Unchecking this will disallow copying of text or graphics from the PDF</source>
+        <translation type="obsolete">Valinnan poistaminen estää tekstin ja kuvien kopioimisen PDF:sta</translation>
+    </message>
+    <message>
+        <source>Embed a color profile for solid colors</source>
+        <translation>Upota väriprofiili tasaisille väreille</translation>
+    </message>
+    <message>
+        <source>Embed a color profile for images</source>
+        <translation>Upota väriprofiili kuville</translation>
+    </message>
+    <message>
+        <source>Do not use color profiles that are embedded in source images</source>
+        <translation>Älä käytä väriprofiileja jotka on upotettu kuviin</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation>Etäisyys bleed:lle sivun todellisesta yläreunasta</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation>Etäisyys bleed:lle sivun todellista alareunasta</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation>Etäisyys bleed:lle sivun todellisesta vasemmasta reunasta</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation>Etäisyys bleed:lle sivun todellisesta oikeasta reunasta</translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
+Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
+PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
+        <translation>PDF-yhteensopivuus. Oletuksena on Acrobat 4.0, joka antaa laajimman yhteensopivuuden.
+Valitse Acrobat 5.0, jos dokumentti sisältää PDF 1.4:n ominaisuuksia kuten läpinäkyvyys tai jos tarvitset 128 bittistä salausta.
+PDF/X-3 on tarkoitettu ammattimaiseen tulostamiseen. Se voidaan valita, kun värien hallinta on aktivoitu.</translation>
+    </message>
+    <message>
+        <source>Determines the binding of pages in the PDF. Unless you know
+you need to change it leave the default choice - Left.</source>
+        <translation>Määrittää sivujen sidonnan PDF:ään.
+Jos et ole varma, jätä oletusarvo - vasen.</translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF.
+Some viewers can use the thumbnails for navigation.</source>
+        <translation>Tekee esikatselukuvan jokaisesta sivusta PDF:ään.
+Jotkin ohjelmat käyttävät kuvia navigointiin.</translation>
+    </message>
+    <message>
+        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
+        <translation>Tekee PDF-artikkeleita, jotka ovat hyödyllisiä navigoidessa linkitettyjen artikkelien välillä PDF:ssä.</translation>
+    </message>
+    <message>
+        <source>Embed the bookmarks you created in your document.
+These are useful for navigating long PDF documents.</source>
+        <translation>Sisällytä dokumenttiin luomasi kirjanmerkit.
+Ne helpottavat navigointia pitkässä PDF-dokumentissa.</translation>
+    </message>
+    <message>
+        <source>Export resolution of text and vector graphics.
+This does not affect the resolution of bitmap images like photos.</source>
+        <translation>Vietävän tekstin ja vektorigrafiikan resoluutio.
+Tämä ei vaikuta bitmap-kuvien kuten valokuvien resoluutioon.</translation>
+    </message>
+    <message>
+        <source>Compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</source>
+        <translation>Tekstin ja grafiikan pakkaus. 
+Valitse tämä ellet tiedä mitä teet. Valinta pienentää PDF:n kokoa.</translation>
+    </message>
+    <message>
+        <source>Version of compression for images.
+Automatic allows Scribus to choose the best method.
+ZIP is good for images with solid colors.
+JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
+Leave it set to automatic, unless you have a need for special compression options.</source>
+        <translation>Kuvien pakkausmenetelmä.
+Automaattinen valitsee parhaan keinon.
+ZIP on hyvä kuville joissa on tasaisia värejä.
+JPEG on hyvä keino luoda pienempiä PDF-tiedostoja, joissa on paljon kuvia (kuvat saattavat heikentyä).
+Valitse automaattinen ellet tarvitse mitään erityistä pakkausmenetelmää.</translation>
+    </message>
+    <message>
+        <source>Compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation>Pakkaustaso: Heikoin (25 %), Matala (50 %), Keskitaso (75 %), Korkea (85 %), Paras (95 %)</translation>
+    </message>
+    <message>
+        <source>Downsample your bitmap images to the selected DPI.
+Leaving this unchecked will render them at their native resolution.</source>
+        <translation>Heikennä bitmap-kuvat halutulle DPI-arvolle (pistettä tuumalla).
+Jos ominaisuutta ei valitse, kuvat säilyttävät resoluutionsa.</translation>
+    </message>
+    <message>
+        <source>DPI (Dots Per Inch) for image export.</source>
+        <translation>DPI (pistettä tuumalle) kuvien vientiä varten.</translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts
+will preserve the layout and appearance of your document.</source>
+        <translation>Upota kirjasimet PDF:ään. Kirjasimien upotus 
+säilyttää dokumenttisi ulkonäön.</translation>
+    </message>
+    <message>
+        <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
+        <translation>Mahdollistaa esitysefektit kun käytössä on Acrobat Reader koko ruudun tilassa.</translation>
+    </message>
+    <message>
+        <source>Show page previews of each page listed above.</source>
+        <translation>Näytä sivujen esikatselu sivuista jotka on listattu yllä.</translation>
+    </message>
+    <message>
+        <source>Type of the display effect.</source>
+        <translation>Näytettävän efektin tyyppi.</translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects.</source>
+        <translation>Liikkuvien viivojen suunta jako- ja kaihdinefekteille.</translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects.</source>
+        <translation>Alkupiste laatikko- ja jakoefekteille.</translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects.</source>
+        <translation>Suunta kimallus- ja pyyhkimisefekteille.</translation>
+    </message>
+    <message>
+        <source>Enable the security features in your exported PDF.
+If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
+If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
+Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
+        <translation>Mahdollista turvallisuusominaisuudet PDF:ssä.
+Jos valitset Acrobat 4.0, PDF on suojattu 40 bittisellä salauksella.
+Jos valitset Acrobat 5.0, PDF on suojattu 128 bittisellä salauksella.
+Varoitus: PDF-salaus ei ole yhtä luotettava kuin GPG tai PGP ja siinä on joitain rajoituksia.</translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF</source>
+        <translation>Salli PDF:n tulostaminen</translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF</source>
+        <translation>Salli PDF:n muokkaaminen</translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF</source>
+        <translation>Salli tekstin ja kuvien kopioiminen PDF:sta</translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF</source>
+        <translation>Salli huomautusten ja kenttien lisääminen PDF:ään</translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF.
+Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
+Choose Printer when printing to a true 4 color CMYK printer.</source>
+        <translation>Värimalli tehtävälle PDF:lle.
+Valitse Näytölle/Verkkoon PDF:lle, joka on tarkoitettu näytölle tai tulostettavaksi tyypillisellä mustesuihkutulostimella.
+Valitse Tulostimelle, kun tulostetaan todellisella CMYK-neliväritulostimella.</translation>
+    </message>
+    <message>
+        <source>Color profile for solid colors</source>
+        <translation>Väriprofiili tasaisille väreille</translation>
+    </message>
+    <message>
+        <source>Rendering intent for solid colors</source>
+        <translation>Sovitustapa tasaisille väreille</translation>
+    </message>
+    <message>
+        <source>Color profile for images</source>
+        <translation>Väriprofiili kuville</translation>
+    </message>
+    <message>
+        <source>Rendering intent for images</source>
+        <translation>Sovitustapa kuville</translation>
+    </message>
+    <message>
+        <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
+        <translation>Profiili tulosteelle. Jos mahdollista pyydä ohjeita painolta profiilin valinnassa.</translation>
+    </message>
+    <message>
+        <source>Mandatory string for PDF/X-3 or the PDF will fail
+PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation>Pakollinen teksti PDF/X-3:lle. Ilman tätä PDF ei ole validi.
+Suosittelemme käyttämään dokumentin otsikkoa/nimeä.</translation>
     </message>
 </context>
 <context>
@@ -6094,7 +6435,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Script</source>
-        <translation>Skripti</translation>
+        <translation type="obsolete">Skripti</translation>
     </message>
     <message>
         <source>Execute Script...</source>
@@ -6236,6 +6577,10 @@ Tarkasta polku ja tiedostonimi.</translation>
     <message>
         <source>Scribus Scripts</source>
         <translation>Scribus-skriptit</translation>
+    </message>
+    <message>
+        <source>S&amp;cript</source>
+        <translation>Sk&amp;riptit</translation>
     </message>
 </context>
 <context>
@@ -6464,7 +6809,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Muokkaa</translation>
+        <translation type="obsolete">Muokkaa</translation>
     </message>
     <message>
         <source>File</source>
@@ -6476,11 +6821,11 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Ohje</translation>
+        <translation type="obsolete">Ohje</translation>
     </message>
     <message>
         <source>Item</source>
-        <translation>Kohde</translation>
+        <translation type="obsolete">Kohde</translation>
     </message>
     <message>
         <source>Left</source>
@@ -6500,7 +6845,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>Sivu</translation>
+        <translation type="obsolete">Sivu</translation>
     </message>
     <message>
         <source>Oval</source>
@@ -6532,7 +6877,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>View</source>
-        <translation>Näytä</translation>
+        <translation type="obsolete">Näytä</translation>
     </message>
     <message>
         <source>Align Right</source>
@@ -6780,7 +7125,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Extras</source>
-        <translation>Apuvälineet</translation>
+        <translation type="obsolete">Apuvälineet</translation>
     </message>
     <message>
         <source>Forced</source>
@@ -7204,7 +7549,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Windows</source>
-        <translation>Ikkunat</translation>
+        <translation type="obsolete">Ikkunat</translation>
     </message>
     <message>
         <source>Select New Font</source>
@@ -7311,6 +7656,66 @@ Tarkasta polku ja tiedostonimi.</translation>
     <message>
         <source>Append Text...</source>
         <translation>Jatka tekstiä...</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Tiedosto</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Muokkaa</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation>&amp;Näytä</translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation>Työ&amp;kalut</translation>
+    </message>
+    <message>
+        <source>&amp;Extras</source>
+        <translation type="obsolete">&amp;Apuvälineet</translation>
+    </message>
+    <message>
+        <source>&amp;Windows</source>
+        <translation>&amp;Ikkuna</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation>&amp;Ohje</translation>
+    </message>
+    <message>
+        <source>&amp;Style</source>
+        <translation>T&amp;yyli</translation>
+    </message>
+    <message>
+        <source>&amp;Item</source>
+        <translation>Ko&amp;hde</translation>
+    </message>
+    <message>
+        <source>&amp;Page</source>
+        <translation>Si&amp;vu</translation>
+    </message>
+    <message>
+        <source>E&amp;xtras</source>
+        <translation>&amp;Apuvälineet</translation>
+    </message>
+    <message>
+        <source>Some Objects are locked.</source>
+        <translation>Jotkin kohteet ovat lukkittuina.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Peruuta</translation>
+    </message>
+    <message>
+        <source>Lock all</source>
+        <translation>Lukitse kaikki</translation>
+    </message>
+    <message>
+        <source>Unlock all</source>
+        <translation>Vapauta kaikki</translation>
     </message>
 </context>
 <context>
@@ -7511,7 +7916,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     <name>SeitenPal</name>
     <message>
         <source>This previews all the pages of your Document.</source>
-        <translation>Tässä näet esikatselun kaikista dokumenttisi sivuista.</translation>
+        <translation type="obsolete">Tässä näet esikatselun kaikista dokumenttisi sivuista.</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -7546,6 +7951,10 @@ raahaa malli sivualueelle.</translation>
     <message>
         <source>Arrange Pages</source>
         <translation>Sivujen hallinta</translation>
+    </message>
+    <message>
+        <source>Previews all the pages of your document.</source>
+        <translation>Esikatselu kaikista dokumenttisi sivuista.</translation>
     </message>
 </context>
 <context>

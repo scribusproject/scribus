@@ -238,6 +238,10 @@ public:
 	QWidget* Misc;
 	QGroupBox* groupPrint;
 	QCheckBox* ClipMarg;
+	MSpinBox* BaseGrid;
+	QLabel* TextLabel2_3_3b;
+	MSpinBox* BaseOffs;
+	QLabel* TextLabel2_3_3c;
 	
 	SCFonts *fon; // can't use a reference, and can't copy whole structure...
 	double Umrech;
@@ -316,8 +320,7 @@ protected:
 	QGridLayout* Layout13;
 	QHBoxLayout* GroupBox4_3Layout;
 	QHBoxLayout* Layout14;
-	QHBoxLayout* GroupBox4_3aLayout;
-	QHBoxLayout* Layout14a;
+	QGridLayout* GroupBox4_3aLayout;
 	QHBoxLayout* tabLayout_4;
 	QHBoxLayout* ButtonGroup2Layout;
 	QGridLayout* Layout16;

@@ -21,53 +21,54 @@
 #include "shadebutton.h"
 
 class EditStyle : public QDialog
-{ 
-    Q_OBJECT
+{
+	Q_OBJECT
 
 public:
-    EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs, 
-				double au, int dEin, ScribusDoc *doc);
-    ~EditStyle() {};
+	EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs,
+	           double au, int dEin, ScribusDoc *doc);
+	~EditStyle() {};
 
-    QLabel* TextLabel1;
-    QLabel* TextLabel1_2;
-    QLabel* TextLabel2;
-    QLabel* TextLabel3;
-    QLabel* TextLabel1_2_2;
-    QLabel* TextLabel1_2_3;
-    QLineEdit* Name;
-    MSpinBox* LineSpVal;
-    MSpinBox* LeftInd;
-    MSpinBox* FirstLin;
-    MSpinBox* AboveV;
-    MSpinBox* BelowV;
-    QLabel* EffeLabel;
+	QLabel* TextLabel1;
+	QLabel* TextLabel1_2;
+	QLabel* TextLabel2;
+	QLabel* TextLabel3;
+	QLabel* TextLabel1_2_2;
+	QLabel* TextLabel1_2_3;
+	QLineEdit* Name;
+	MSpinBox* LineSpVal;
+	MSpinBox* LeftInd;
+	MSpinBox* FirstLin;
+	MSpinBox* AboveV;
+	MSpinBox* BelowV;
+	QLabel* EffeLabel;
 	StyleSelect* EffeS;
-    QLabel* AligLabel;
+	QLabel* AligLabel;
 	AlignSelect* AligS;
-    QGroupBox* GroupBox10;
-    QGroupBox* AbstandV;
-    QGroupBox* GroupFont;
-    QLabel* TextF1;
-    FontCombo* FontC;
-    MSpinBox* SizeC;
-    QLabel* TextF2;
-    QPushButton* TabsButton;
-    QLabel* StrokeIcon;
-    QComboBox* TxStroke;
+	QGroupBox* GroupBox10;
+	QGroupBox* AbstandV;
+	QGroupBox* GroupFont;
+	QLabel* TextF1;
+	FontCombo* FontC;
+	MSpinBox* SizeC;
+	QLabel* TextF2;
+	QPushButton* TabsButton;
+	QLabel* StrokeIcon;
+	QComboBox* TxStroke;
 	ShadeButton *PM1;
-    QLabel* FillIcon;
-    QComboBox* TxFill;
+	QLabel* FillIcon;
+	QComboBox* TxFill;
 	ShadeButton *PM2;
-    QCheckBox* DropCaps;
-    QLabel* CapLabel;
-    QSpinBox* DropLines;
-    QPushButton* Cancel;
-    QPushButton* OkButton;
-    struct StVorL *werte;
-    QValueList<StVorL> allV;
-    QString OldName;
-    bool IsNew;
+	QCheckBox* DropCaps;
+	QCheckBox* BaseGrid;
+	QLabel* CapLabel;
+	QSpinBox* DropLines;
+	QPushButton* Cancel;
+	QPushButton* OkButton;
+	struct StVorL *werte;
+	QValueList<StVorL> allV;
+	QString OldName;
+	bool IsNew;
 	double AutoVal;
 	int DocsEin;
 
@@ -79,11 +80,11 @@ private slots:
 	void ColorChange();
 
 protected:
-    QHBoxLayout* Layout17;
-    QGridLayout* EditStyleLayout;
-    QGridLayout* GroupBox10Layout;
-    QGridLayout* AbstandVLayout;
-    QGridLayout* GroupFontLayout;
+	QHBoxLayout* Layout17;
+	QGridLayout* EditStyleLayout;
+	QGridLayout* GroupBox10Layout;
+	QGridLayout* AbstandVLayout;
+	QGridLayout* GroupFontLayout;
 };
 
 #endif // EDITSTYLE_H

@@ -173,17 +173,21 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     AbstandVLayout->setSpacing( 5 );
     AbstandVLayout->setMargin( 10 );
 
+    BaseGrid = new QCheckBox( AbstandV, "BaseGrid" );
+    BaseGrid->setText( tr( "Adjust to Baseline Grid" ) );
+	BaseGrid->setChecked(vor->BaseAdj);
+	AbstandVLayout->addMultiCellWidget( BaseGrid, 0, 0, 0, 1 );
     AboveV = new MSpinBox( AbstandV, 1 );
     AboveV->setMinimumSize( QSize( 70, 22 ) );
     AboveV->setMaxValue( 300 );
     AboveV->setMinValue( 0 );
-    AbstandVLayout->addWidget( AboveV, 0, 1 );
+    AbstandVLayout->addWidget( AboveV, 1, 1 );
 
     BelowV = new MSpinBox( AbstandV, 1 );
     BelowV->setMinimumSize( QSize( 70, 22 ) );
     BelowV->setMaxValue( 300 );
     BelowV->setMinValue( 0 );
-	AbstandVLayout->addWidget( BelowV, 1, 1 );
+	AbstandVLayout->addWidget( BelowV, 2, 1 );
 
     LineSpVal = new MSpinBox( AbstandV, 1 );
     LineSpVal->setMinimumSize( QSize( 70, 22 ) );
@@ -191,26 +195,26 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     LineSpVal->setMaxValue( 300 );
     LineSpVal->setMinValue( 1 );
     LineSpVal->setValue(vor->LineSpa);
-    AbstandVLayout->addWidget( LineSpVal, 2, 1 );
+    AbstandVLayout->addWidget( LineSpVal, 3, 1 );
 
     TextLabel3 = new QLabel( AbstandV, "TextLabel3" );
     TextLabel3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 											TextLabel3->sizePolicy().hasHeightForWidth() ) );
     TextLabel3->setMinimumSize( QSize( 90, 22 ) );
     TextLabel3->setText( tr( "Line Spacing" ) );
-    AbstandVLayout->addWidget( TextLabel3, 2, 0 );
+    AbstandVLayout->addWidget( TextLabel3, 3, 0 );
     TextLabel1_2_2 = new QLabel( AbstandV, "TextLabel1_2_2" );
     TextLabel1_2_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 													TextLabel1_2_2->sizePolicy().hasHeightForWidth() ) );
     TextLabel1_2_2->setMinimumSize( QSize( 90, 22 ) );
     TextLabel1_2_2->setText( tr( "Above:" ) );
-    AbstandVLayout->addWidget( TextLabel1_2_2, 0, 0 );
+    AbstandVLayout->addWidget( TextLabel1_2_2, 1, 0 );
     TextLabel1_2_3 = new QLabel( AbstandV, "TextLabel1_2_3" );
     TextLabel1_2_3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 												TextLabel1_2_3->sizePolicy().hasHeightForWidth() ) );
     TextLabel1_2_3->setMinimumSize( QSize( 90, 22 ) );
     TextLabel1_2_3->setText( tr( "Below:" ) );
-    AbstandVLayout->addWidget( TextLabel1_2_3, 1, 0 );
+    AbstandVLayout->addWidget( TextLabel1_2_3, 2, 0 );
     EditStyleLayout->addWidget( AbstandV, 2, 1 );
 
     Layout17 = new QHBoxLayout;
@@ -244,7 +248,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	AboveV->setDecimals(10);
 	BelowV->setDecimals(10);
 	/* PFJ - 29.02.04 - Altered switch so only case 2 is tested */
-	QString ein, measure[] = {" pt", " mm", " in", " p"};
+	QString ein, measure[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
 	ein = measure[dEin];
 	if (dEin == 2)
 	{
@@ -342,5 +346,6 @@ void EditStyle::Verlassen()
 	werte->FShade = PM2->getValue();
 	werte->SColor = TxStroke->currentText();
 	werte->SShade = PM1->getValue();
+	werte->BaseAdj = BaseGrid->isChecked();
 	accept();
 }

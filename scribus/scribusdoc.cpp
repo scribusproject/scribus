@@ -28,6 +28,7 @@ ScribusDoc::ScribusDoc()
 	SnapGuides = false;
 	ShowPic = true;
 	Raster = false;
+	Base = false;
 	useRaster = false;
 	EditClip = false;
 	EditClipMode = 0;
@@ -78,6 +79,7 @@ ScribusDoc::ScribusDoc()
 	vg.FShade = Dshade;
 	vg.SColor = Dpen;
 	vg.SShade = Dshade2;
+	vg.BaseAdj = false;
 	Vorlagen.append(vg);
 	vg.Vname = "Center Internal";
 	vg.Ausri = 1;

@@ -119,6 +119,7 @@ void StilFormate::dupFormat()
 	sty.FShade = TempVorl[sFnumber].FShade;
 	sty.SColor = TempVorl[sFnumber].SColor;
 	sty.SShade = TempVorl[sFnumber].SShade;
+	sty.BaseAdj = TempVorl[sFnumber].BaseAdj;
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
 	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon,
@@ -149,10 +150,10 @@ void StilFormate::neuesFormat()
 	sty.FShade = Docu->Dshade;
 	sty.SColor = Docu->Dpen;
 	sty.SShade = Docu->Dshade2;
+	sty.BaseAdj = false;
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
-	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon,
-	                                static_cast<double>(Docu->AutoLine), Docu->Einheit, Docu);
+	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon, static_cast<double>(Docu->AutoLine), Docu->Einheit, Docu);
 	if (!dia2->exec())
 		TempVorl.remove(TempVorl.fromLast());
 	delete dia2;
@@ -229,6 +230,7 @@ void StilFormate::loadStyles()
 					sty.FShade = ss->Vorlagen[xx].FShade;
 					sty.SColor = ss->Vorlagen[xx].SColor;
 					sty.SShade = ss->Vorlagen[xx].SShade;
+					sty.BaseAdj = ss->Vorlagen[xx].BaseAdj;
 					TempVorl.append(sty);
 				}
 			}

@@ -220,6 +220,7 @@ struct StVorL {
 				int FShade;
 				QString SColor;
 				int SShade;
+				bool BaseAdj;
 			  };
 
 struct CMSset {
@@ -462,7 +463,10 @@ struct preV  {
 				bool GuidesShown;
 				bool MarginsShown;
 				bool GridShown;
+				bool BaseShown;
 				bool ClipMargin;
+				double BaseGrid;
+				double BaseOffs;
 			};
 /**
   * the Document Class
@@ -478,8 +482,7 @@ public:
     void setUnModified();
     bool isModified() const;
   /** Setzt die Seitenattribute */
-	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, 
-					bool atf, bool fp);
+	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, bool fp);
 	void resetPage(double t, double l, double r, double bo, bool fp);
 	bool AddFont(QString name, QFont fo);
 
@@ -656,6 +659,9 @@ public: // Public attributes
 	bool DoDrawing;
 	QValueList<int> OpenNodes;
 	QTimer *CurTimer;
+	double BaseGrid;
+	double BaseOffs;
+	bool Base;
 };
 
 #endif

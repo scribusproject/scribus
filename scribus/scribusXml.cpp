@@ -200,6 +200,7 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs)
 				vg.FShade = QStoInt(pg.attribute("FSHADE", "100"));
 				vg.SColor = pg.attribute("SCOLOR", doc->Dpen);
 				vg.SShade = QStoInt(pg.attribute("SSHADE", "100"));
+				vg.BaseAdj = static_cast<bool>(QStoInt(pg.attribute("BASE","0")));
 				if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 				{
 					QString tmp = pg.attribute("TABS");
@@ -233,6 +234,7 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs)
 								(vg.FShade == Vorlagen[xx].FShade) &&
 								(vg.SColor == Vorlagen[xx].SColor) &&
 								(vg.SShade == Vorlagen[xx].SShade) &&
+								(vg.BaseAdj == Vorlagen[xx].BaseAdj) &&
 								(vg.FontSize == Vorlagen[xx].FontSize))
 							fou = true;
 						else
@@ -466,6 +468,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				vg.FShade = QStoInt(pg.attribute("FSHADE", "100"));
 				vg.SColor = pg.attribute("SCOLOR", doc->Dpen);
 				vg.SShade = QStoInt(pg.attribute("SSHADE", "100"));
+				vg.BaseAdj = static_cast<bool>(QStoInt(pg.attribute("BASE","0")));
 				if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 				{
 					tmp = pg.attribute("TABS");
@@ -499,6 +502,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 							(vg.FShade == doc->Vorlagen[xx].FShade) &&
 							(vg.SColor == doc->Vorlagen[xx].SColor) &&
 							(vg.SShade == doc->Vorlagen[xx].SShade) &&
+							(vg.BaseAdj == doc->Vorlagen[xx].BaseAdj) &&
 							(vg.FontSize == doc->Vorlagen[xx].FontSize))
 						{
 							DoVorl[VorlC] = tmV.setNum(xx);
@@ -1104,6 +1108,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->Automatic = static_cast<bool>(QStoInt(dc.attribute("AUTOMATIC", "1")));
 		doc->AutoCheck = static_cast<bool>(QStoInt(dc.attribute("AUTOCHECK", "0")));
 		doc->GuideLock = static_cast<bool>(QStoInt(dc.attribute("GUIDELOCK", "0")));
+		doc->BaseGrid = QStodouble(dc.attribute("BASEGRID", "12"));
+		doc->BaseOffs = QStodouble(dc.attribute("BASEO", "0"));
 		QDomNode PAGE=DOC.firstChild();
 		while(!PAGE.isNull())
 		{
@@ -1165,6 +1171,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				vg.FShade = QStoInt(pg.attribute("FSHADE","100"));
 				vg.SColor = pg.attribute("SCOLOR", doc->Dpen);
 				vg.SShade = QStoInt(pg.attribute("SSHADE","100"));
+				vg.BaseAdj = static_cast<bool>(QStoInt(pg.attribute("BASE","0")));
 				if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 				{
 					tmp = pg.attribute("TABS");
@@ -1898,6 +1905,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			vg.FShade = QStoInt(pg.attribute("FSHADE", "100"));
 			vg.SColor = pg.attribute("SCOLOR", doc->Dpen);
 			vg.SShade = QStoInt(pg.attribute("SSHADE", "100"));
+			vg.BaseAdj = static_cast<bool>(QStoInt(pg.attribute("BASE","0")));
 			if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
 			{
 				tmp = pg.attribute("TABS");
@@ -1931,6 +1939,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 							(vg.FShade == doc->Vorlagen[xx].FShade) &&
 							(vg.SColor == doc->Vorlagen[xx].SColor) &&
 							(vg.SShade == doc->Vorlagen[xx].SShade) &&
+							(vg.BaseAdj == doc->Vorlagen[xx].BaseAdj) &&
 							(vg.FontSize == doc->Vorlagen[xx].FontSize))
 					{
 						DoVorl[VorlC] = tmV.setNum(xx);
@@ -2632,6 +2641,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			fo.setAttribute("FSHADE",doc->Vorlagen[ff].FShade);
 			fo.setAttribute("SCOLOR",doc->Vorlagen[ff].SColor);
 			fo.setAttribute("SSHADE",doc->Vorlagen[ff].SShade);
+			fo.setAttribute("BASE", static_cast<int>(doc->Vorlagen[ff].BaseAdj));
 			elem.appendChild(fo);
 		}
 	}
@@ -3045,6 +3055,8 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 	dc.setAttribute("AUTOMATIC", static_cast<int>(doc->Automatic));
 	dc.setAttribute("AUTOCHECK", static_cast<int>(doc->AutoCheck));
 	dc.setAttribute("GUIDELOCK", static_cast<int>(doc->GuideLock));
+	dc.setAttribute("BASEGRID",doc->BaseGrid);
+	dc.setAttribute("BASEO", doc->BaseOffs);
 	QMap<QString,multiLine>::Iterator itMU;
 	for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
 	{
@@ -3134,6 +3146,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 			fo.setAttribute("FSHADE",doc->Vorlagen[ff].FShade);
 			fo.setAttribute("SCOLOR",doc->Vorlagen[ff].SColor);
 			fo.setAttribute("SSHADE",doc->Vorlagen[ff].SShade);
+			fo.setAttribute("BASE", static_cast<int>(doc->Vorlagen[ff].BaseAdj));
 			dc.appendChild(fo);
 		}
 	}
@@ -3294,6 +3307,8 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc3.setAttribute("HOCHSC",Vor->DVHochSc);
 	dc3.setAttribute("SMCAPS",Vor->DVKapit);
 	dc3.setAttribute("AUTOL", Vor->AutoLine);
+	dc3.setAttribute("BASE", Vor->BaseGrid);
+	dc3.setAttribute("BASEO", Vor->BaseOffs);
 	elem.appendChild(dc3);
 	QDomElement dc9=docu.createElement("TOOLS");
 	dc9.setAttribute("PEN",Vor->Dpen);
@@ -3551,6 +3566,8 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->DVHochSc = QStoInt(dc.attribute("HOCHSC"));
 			Vorein->DVKapit = QStoInt(dc.attribute("SMCAPS"));
 			Vorein->AutoLine = QStoInt(dc.attribute("AUTOL","20"));
+			Vorein->BaseGrid = QStodouble(dc.attribute("BASE","12"));
+			Vorein->BaseOffs = QStodouble(dc.attribute("BASEO","0"));
 		}
 		if (dc.tagName()=="TOOLS")
 		{

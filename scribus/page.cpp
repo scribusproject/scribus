@@ -511,6 +511,12 @@ void Page::DrawPageMarks(ScPainter *p, QRect rd)
 		p->drawLine(FPoint(width()/doku->Scale-Margins.Right, 0), FPoint(width()/doku->Scale-Margins.Right,
 		            height()/doku->Scale));
 	}
+	if (doku->Base)
+	{
+		p->setPen(doku->guideColor, lw, SolidLine, FlatCap, MiterJoin);
+		for (double yg = doku->BaseOffs; yg < doku->PageH; yg += doku->BaseGrid)
+			p->drawLine(FPoint(0, yg), FPoint(doku->PageB, yg));
+	}
 	if (doku->Raster)
 	{
 		double stx = rd.x()/doku->Scale;

@@ -396,6 +396,7 @@ public slots:
 	void RunHelpPlug(int id);
 	void ModifyAnnot();
 	void ToggleGuides();
+	void ToggleBase();
 	void ToggleUGuides();
 	void HaveRaster(bool art);
 	void EditTabs();
@@ -472,6 +473,7 @@ private:
 	int uRas;
 	int Guide;
 	int uGuide;
+	int Base;
 	int viewTools;
 	int viewToolsP;
 	int viewMpal;

@@ -656,7 +656,12 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					{
 					hl = Ptext.at(0);
 					if (Doc->Vorlagen[hl->cab].Drop)
-						chs = qRound(Doc->Vorlagen[hl->cab].LineSpa * Doc->Vorlagen[hl->cab].DropLin * 10);
+					{
+						if (Doc->Vorlagen[hl->cab].BaseAdj)
+							chs = qRound(Doc->BaseGrid  * Doc->Vorlagen[hl->cab].DropLin * 10);
+						else
+							chs = qRound(Doc->Vorlagen[hl->cab].LineSpa * Doc->Vorlagen[hl->cab].DropLin * 10);
+					}
 					else
 						chs = hl->csize;
 					desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * (chs / 10.0);
@@ -746,13 +751,19 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							if (DropCmode)
 								{
 								DropLines = Doc->Vorlagen[absa].DropLin;
-								CurY += Doc->Vorlagen[absa].LineSpa * (DropLines-1);
+								if (Doc->Vorlagen[hl->cab].BaseAdj)
+									CurY += Doc->BaseGrid * (DropLines-1);
+								else
+									CurY += Doc->Vorlagen[absa].LineSpa * (DropLines-1);
 								}
 							}
 						}
 					if (DropCmode)
 						{
-						chs = qRound(10 * ((Doc->Vorlagen[absa].LineSpa * DropLines) / (*Doc->AllFonts)[hl->cfont]->numAscent));
+						if (Doc->Vorlagen[hl->cab].BaseAdj)
+							chs = qRound(10 * ((Doc->BaseGrid * DropLines) / (*Doc->AllFonts)[hl->cfont]->numAscent));
+						else
+							chs = qRound(10 * ((Doc->Vorlagen[absa].LineSpa * DropLines) / (*Doc->AllFonts)[hl->cfont]->numAscent));
 						hl->csize = chs;
 						}
 					else
@@ -790,6 +801,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 						else
 							TopOffset = asce;
+						if (Doc->Vorlagen[hl->cab].BaseAdj)
+							CurY = ceil((Ypos + CurY - Doc->BaseOffs) / Doc->BaseGrid) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
 						pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(CurY+BotOffset));
 						pt2 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY-TopOffset)));
 						while ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))))
@@ -803,6 +816,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									CurY++;
 								else
 									CurY += Doc->Vorlagen[hl->cab].LineSpa;
+								if (Doc->Vorlagen[hl->cab].BaseAdj)
+									CurY = ceil((Ypos + CurY - Doc->BaseOffs) / Doc->BaseGrid) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
 								CurX = ColBound.x();
 								if (CurY+BExtra+lineCorr > Height)
 									{
@@ -826,13 +841,20 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 											CurX += Doc->Vorlagen[hl->cab].First;
 											CurX += Doc->Vorlagen[hl->cab].Indent;
 											if (DropCmode)
-												desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * Doc->Vorlagen[hl->cab].LineSpa * Doc->Vorlagen[hl->cab].DropLin;
+											{
+												if (Doc->Vorlagen[hl->cab].BaseAdj)
+													desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * Doc->BaseGrid * Doc->Vorlagen[hl->cab].DropLin;
+												else
+													desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * Doc->Vorlagen[hl->cab].LineSpa * Doc->Vorlagen[hl->cab].DropLin;
+											}
 											CurY += Doc->Vorlagen[hl->cab].Avor;
 											if (DropCmode)
 												DropLines = Doc->Vorlagen[hl->cab].DropLin;
 											}
 										else
 											CurX += Doc->Vorlagen[hl->cab].Indent;
+										if (Doc->Vorlagen[hl->cab].BaseAdj)
+											CurY = ceil((Ypos + CurY - Doc->BaseOffs) / Doc->BaseGrid) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
 										}
 									else
 										{
@@ -970,11 +992,21 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						AbsHasDrop = true;
 						maxDY = CurY;
 						maxDX = CurX;
-						CurY -= Doc->Vorlagen[absa].LineSpa * (DropLines-1);
 						QPointArray tcli;
 						tcli.resize(4);
-						tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*Doc->Vorlagen[absa].LineSpa)));
-						tcli.setPoint(1, QPoint(qRound(hl->xp+wide), qRound(maxDY-DropLines*Doc->Vorlagen[absa].LineSpa)));
+						if (Doc->Vorlagen[hl->cab].BaseAdj)
+						{
+							CurY -= Doc->BaseGrid * (DropLines-1);
+							CurY = ceil((Ypos + CurY - Doc->BaseOffs) / Doc->BaseGrid) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
+							tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*Doc->BaseGrid)));
+							tcli.setPoint(1, QPoint(qRound(hl->xp+wide), qRound(maxDY-DropLines*Doc->BaseGrid)));
+						}
+						else
+						{
+							CurY -= Doc->Vorlagen[absa].LineSpa * (DropLines-1);
+							tcli.setPoint(0, QPoint(qRound(hl->xp), qRound(maxDY-DropLines*Doc->Vorlagen[absa].LineSpa)));
+							tcli.setPoint(1, QPoint(qRound(hl->xp+wide), qRound(maxDY-DropLines*Doc->Vorlagen[absa].LineSpa)));
+						}
 						tcli.setPoint(2, QPoint(qRound(hl->xp+wide), qRound(maxDY)));
 						tcli.setPoint(3, QPoint(qRound(hl->xp), qRound(maxDY)));
 						cm = QRegion(pf2.xForm(tcli));
@@ -1146,6 +1178,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										{
 										fromOut = false;
 										CurY += Doc->Vorlagen[hl->cab].LineSpa;
+										if (Doc->Vorlagen[hl->cab].BaseAdj)
+											CurY = ceil((Ypos + CurY - Doc->BaseOffs) / Doc->BaseGrid) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
 										if ((CurY+BExtra+lineCorr > Height) && (CurrCol+1 == Cols))
 										{
 											nrc = BuPos2;
@@ -1188,6 +1222,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										CurY = maxDY;
 									}
 								CurY += Doc->Vorlagen[hl->cab].LineSpa;
+								if (Doc->Vorlagen[hl->cab].BaseAdj)
+									CurY = ceil((Ypos + CurY - Doc->BaseOffs) / Doc->BaseGrid) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
 								if (AbsHasDrop)
 									{
 									if (CurY > maxDY)
@@ -1205,6 +1241,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								else
 									{
 									CurY += Doc->Vorlagen[hl->cab].Anach;
+									if (Doc->Vorlagen[hl->cab].BaseAdj)
+										CurY = ceil((Ypos + CurY - Doc->BaseOffs) / Doc->BaseGrid) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
 									if (BuPos3 > 0)
 										BuPos3 -= 1;
 									}

@@ -253,7 +253,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GZText2->setText( tr( "Orientation:" ) );
 	Layout6->addWidget( GZText2, 1, 0 );
 	GZComboF = new QComboBox( true, GroupSize, "GZComboF" );
-	char *ar_size[] = {"A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "B0", "B1", "B2", "B3",
+	const char *ar_size[] = {"A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "B0", "B1", "B2", "B3",
 	                   "B4", "B5", "B6", "B7", "B8", "B9", "B10", "C5E", "Comm10E", "DLE", "Executive",
 	                   "Folio", "Ledger", "Legal", "Letter", "Tabloid"};
 	size_t ar_s = sizeof(ar_size) / sizeof(*ar_size);
@@ -644,25 +644,37 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GroupBox4_3a->setColumnLayout(0, Qt::Vertical );
 	GroupBox4_3a->layout()->setSpacing( 0 );
 	GroupBox4_3a->layout()->setMargin( 0 );
-	GroupBox4_3aLayout = new QHBoxLayout( GroupBox4_3a->layout() );
+	GroupBox4_3aLayout = new QGridLayout( GroupBox4_3a->layout() );
 	GroupBox4_3aLayout->setAlignment( Qt::AlignTop );
 	GroupBox4_3aLayout->setSpacing( 6 );
 	GroupBox4_3aLayout->setMargin( 11 );
-	Layout14a = new QHBoxLayout;
-	Layout14a->setSpacing( 6 );
-	Layout14a->setMargin( 0 );
+	TextLabel2_3_3b = new QLabel( GroupBox4_3a, "TextLabel2_3_3" );
+	TextLabel2_3_3b->setText( tr( "Baseline Grid:" ) );
+	GroupBox4_3aLayout->addWidget( TextLabel2_3_3b, 0, 0 );
+	BaseGrid = new MSpinBox( GroupBox4_3a, 1 );
+	BaseGrid->setSuffix( tr( " pts" ) );
+	BaseGrid->setMaxValue( 100 );
+	BaseGrid->setMinValue( 1 );
+	BaseGrid->setValue(ap->HaveDoc ? ap->doc->BaseGrid : Vor->BaseGrid );
+	GroupBox4_3aLayout->addWidget( BaseGrid, 0, 1 );
+	TextLabel2_3_3c = new QLabel( GroupBox4_3a, "TextLabel2_3_3" );
+	TextLabel2_3_3c->setText( tr( "Baseline Offset:" ) );
+	GroupBox4_3aLayout->addWidget( TextLabel2_3_3c, 1, 0 );
+	BaseOffs = new MSpinBox( GroupBox4_3a, 1 );
+	BaseOffs->setSuffix( tr( " pts" ) );
+	BaseOffs->setMaxValue( 1000 );
+	BaseOffs->setMinValue( 0 );
+	BaseOffs->setValue(ap->HaveDoc ? ap->doc->BaseOffs : Vor->BaseOffs );
+	GroupBox4_3aLayout->addWidget( BaseOffs, 1, 1 );
 	TextLabel2_3_3a = new QLabel( GroupBox4_3a, "TextLabel2_3_3" );
-	TextLabel2_3_3a->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-	                                TextLabel2_3_3a->sizePolicy().hasHeightForWidth() ) );
 	TextLabel2_3_3a->setText( tr( "Automatic Line Spacing:" ) );
-	Layout14a->addWidget( TextLabel2_3_3a );
+	GroupBox4_3aLayout->addWidget( TextLabel2_3_3a, 2, 0 );
 	AutoLineV = new QSpinBox( GroupBox4_3a, "LineS" );
 	AutoLineV->setSuffix( tr( " %" ) );
 	AutoLineV->setMaxValue( 100 );
 	AutoLineV->setMinValue( 1 );
 	AutoLineV->setValue(ap->HaveDoc ? ap->doc->AutoLine : Vor->AutoLine );
-	Layout14a->addWidget( AutoLineV );
-	GroupBox4_3aLayout->addLayout( Layout14a );
+	GroupBox4_3aLayout->addWidget( AutoLineV, 2, 1 );
 	tabLayout_3->addWidget( GroupBox4_3a, 1, 1 );
 
 	TabWidget3->addWidget( tab_4, 3 );

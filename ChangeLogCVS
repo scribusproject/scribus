@@ -1,4 +1,7 @@
 Changes since Version 1.1.6
+03.04.2004	Added a frame independent baseline setting for Textframes.
+		Updated the Finnish Translation.
+
 02.04.2004	Flipping state of images is now preserved when updating or editing Images, Bug #408
 		Properties Palette is now updated immediately after text style change, Bug #404
 		Textcolor is now imported too when appending Styles, Bug #402
