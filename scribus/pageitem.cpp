@@ -77,6 +77,7 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	OldH2 = Height;
 	PType = art;
 	Rot = 0;
+	oldRot = 0;
 	Doc = pa;
 	Pcolor = fill;
 	Pcolor2 = PType == 4 ? fill : outline;
@@ -158,6 +159,7 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	PoShow = false;
 	BaseOffs = 0;
 	OwnPage = Doc->currentPage->PageNr;
+	oldOwnPage = OwnPage;
 	PicArt = true;
 	PicAvail = false;
 	isPrintable = true;
@@ -184,36 +186,43 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 		AnName = tr("Image");
 		undoIconMove = Um::IMoveImage;
 		undoIconResize = Um::IResizeImage;
+		undoIconRotate = Um::IRotateImage;
 		break;
 	case 4:
 		AnName = tr("Text");
 		undoIconMove = Um::IMoveText;
 		undoIconResize = Um::IResizeText;
+		undoIconRotate = Um::IRotateText;
 		break;
 	case 5:
 		AnName = tr("Line");
 		undoIconMove = Um::IMoveLine;
 		undoIconResize = Um::IResizeLine;
+		undoIconRotate = Um::IRotateLine;
 		break;
 	case 6:
 		AnName = tr("Polygon");
 		undoIconMove = Um::IMovePolygon;
 		undoIconResize = Um::IResizePolygon;
+		undoIconRotate = Um::IRotatePolygon;
 		break;
 	case 7:
 		AnName = tr("Polyline");
 		undoIconMove = Um::IMovePolyline;
 		undoIconResize = Um::IResizePolyline;
+		undoIconRotate = Um::IRotatePolyline;
 		break;
 	case 8:
 		AnName = tr("PathText");
 		undoIconMove = Um::IMovePathText;
 		undoIconResize = Um::IResizePathText;
+		undoIconRotate = Um::IRotatePathText;
 		break;
 	default:
 		AnName = "Item";
 		undoIconMove = NULL;
 		undoIconResize = NULL;
+		undoIconRotate = NULL;
 		break;
 	}
 	AnName += tmp.setNum(Doc->TotalItems); // +" "+QDateTime::currentDateTime().toString();
@@ -1913,14 +1922,7 @@ NoRoom: pf2.end();
 	FrameOnly = false;
 	p->restore();
 	pf.end();
-	// store an undo action if object has been resize but is not being resized at the moment
-	if ((oldWidth != Width || oldHeight != Height) && 
-        (!ScApp->view->Mpressed) && (!ScApp->arrowKeyDown()))
-		resizeUndoAction();
-	// store an undo action if object has moved and it's not been moved at the moment
-	if ((oldXpos != Xpos || oldYpos != Ypos) && 
-        (!ScApp->view->Mpressed) && (!ScApp->arrowKeyDown()))
-		moveUndoAction();
+	checkChanges(); // check the changes for undo actions
 }
 
 void PageItem::paintObj(QRect e, QPixmap *ppX)
@@ -2048,6 +2050,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	Tinput = false;
 	FrameOnly = false;
 	p.end();
+	checkChanges(); // Check changes for undo actions
 }
 
 QString PageItem::ExpandToken(uint base)
@@ -2270,12 +2273,29 @@ void PageItem::setName(const QString& newName)
 	setUName(newName);
 }
 
+void PageItem::checkChanges(bool force)
+{
+	// has the item been rotated
+	if ((force) || ((oldRot != Rot) && (!ScApp->view->mousePressed()) && (!ScApp->arrowKeyDown())))
+		rotateUndoAction();
+	// has the item been resized
+	if ((force) || ((oldWidth != Width || oldHeight != Height) && 
+			(!ScApp->view->mousePressed()) && (!ScApp->arrowKeyDown())))
+		resizeUndoAction();
+	// has the item been moved
+	if ((force) || ((oldXpos != Xpos || oldYpos != Ypos) && 
+			(!ScApp->view->mousePressed()) && (!ScApp->arrowKeyDown())))
+		moveUndoAction();
+}
+
 void PageItem::moveUndoAction()
 {
+	if (oldXpos == Xpos && oldYpos == Ypos)
+		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::Move,
-			QString(Um::FromXToY).arg(oldXpos).arg(oldYpos).arg(Xpos).arg(Ypos),
+           QString(Um::MoveFromTo).arg(oldXpos).arg(oldYpos).arg(oldOwnPage).arg(Xpos).arg(Ypos).arg(OwnPage),
                                           undoIconMove);
 		ss->set("OLD_XPOS", oldXpos);
 		ss->set("OLD_YPOS", oldYpos);
@@ -2285,14 +2305,17 @@ void PageItem::moveUndoAction()
 	}
 	oldXpos = Xpos;
 	oldYpos = Ypos;
+	oldOwnPage = OwnPage;
 }
 
 void PageItem::resizeUndoAction()
 {
+	if (oldHeight == Height && oldWidth == Width)
+		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::Resize, 
-                           QString(Um::FromHToW).arg(oldWidth).arg(oldHeight).arg(Width).arg(Height),
+                           QString(Um::ResizeFromTo).arg(oldWidth).arg(oldHeight).arg(Width).arg(Height),
 										  undoIconResize);
 		ss->set("OLD_WIDTH", oldWidth);
 		ss->set("OLD_HEIGHT", oldHeight);
@@ -2308,6 +2331,30 @@ void PageItem::resizeUndoAction()
 	oldYpos = Ypos;
 	oldHeight = Height;
 	oldWidth = Width;
+	oldOwnPage = OwnPage;
+}
+
+void PageItem::rotateUndoAction()
+{
+	if (oldRot == Rot)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::Rotate,
+                                          QString(Um::RotateFromTo).arg(oldRot).arg(Rot),
+                                          undoIconRotate);
+		ss->set("OLD_ROT", oldRot);
+		ss->set("NEW_ROT", Rot);
+		ss->set("OLD_RXPOS", oldXpos);
+		ss->set("OLD_RYPOS", oldYpos);
+		ss->set("NEW_RXPOS", Xpos);
+		ss->set("NEW_RYPOS", Ypos);
+		undoManager->action(this, ss);
+	}
+	oldRot = Rot;
+	oldXpos = Xpos;
+	oldYpos = Ypos;
+	oldOwnPage = OwnPage;
 }
 
 void PageItem::restore(UndoState *state, bool isUndo)
@@ -2316,50 +2363,88 @@ void PageItem::restore(UndoState *state, bool isUndo)
 	if (ss)
 	{
 		if (ss->contains("OLD_XPOS"))
-		{
-			double ox = ss->getDouble("OLD_XPOS");
-			double oy = ss->getDouble("OLD_YPOS");
-			double  x = ss->getDouble("NEW_XPOS");
-			double  y = ss->getDouble("NEW_YPOS");
-			double mx = ox - x;
-			double my = oy - y;
-			if (!isUndo)
-			{
-				mx = x - ox;
-				my = y - oy;
-			}
-			ScApp->view->MoveItem(mx, my, this, false);
-			oldXpos = Xpos;
-			oldYpos = Ypos;
-		}
+			restoreMove(ss, isUndo);
 		else if (ss->contains("OLD_HEIGHT"))
-		{
-			double ow = ss->getDouble("OLD_WIDTH");
-			double oh = ss->getDouble("OLD_HEIGHT");
-			double  w = ss->getDouble("NEW_WIDTH");
-			double  h = ss->getDouble("NEW_HEIGHT");
-			double ox = ss->getDouble("OLD_RXPOS");
-			double oy = ss->getDouble("OLD_RYPOS");
-			double  x = ss->getDouble("NEW_RXPOS");
-			double  y = ss->getDouble("NEW_RYPOS");
-			double mx = ox - x;
-			double my = oy - y;
-			if (isUndo)
-			{
-				ScApp->view->SizeItem(ow, oh, this, false, true, true);
-				ScApp->view->MoveItem(mx, my, this, false);
-			}
-			else
-			{
-				mx = x - ox;
-				my = y - oy;
-				ScApp->view->SizeItem(w, h, this, false, true, true);
-				ScApp->view->MoveItem(mx, my, this, false);
-			}
-			oldWidth = Width;
-			oldHeight = Height;
-			oldXpos = Xpos;
-			oldYpos = Ypos;
-		}
+			restoreResize(ss, isUndo);
+		else if (ss->contains("OLD_ROT"))
+			restoreRotate(ss, isUndo);
 	}
+}
+
+void PageItem::restoreMove(SimpleState *state, bool isUndo)
+{
+	double ox = state->getDouble("OLD_XPOS");
+	double oy = state->getDouble("OLD_YPOS");
+	double  x = state->getDouble("NEW_XPOS");
+	double  y = state->getDouble("NEW_YPOS");
+	double mx = ox - x;
+	double my = oy - y;
+	if (!isUndo)
+	{
+		mx = x - ox;
+		my = y - oy;
+	}
+	ScApp->view->MoveItem(mx, my, this, false);
+	oldXpos = Xpos;
+	oldYpos = Ypos;
+	oldOwnPage = OwnPage;
+}
+
+void PageItem::restoreResize(SimpleState *state, bool isUndo)
+{
+	double ow = state->getDouble("OLD_WIDTH");
+	double oh = state->getDouble("OLD_HEIGHT");
+	double  w = state->getDouble("NEW_WIDTH");
+	double  h = state->getDouble("NEW_HEIGHT");
+	double ox = state->getDouble("OLD_RXPOS");
+	double oy = state->getDouble("OLD_RYPOS");
+	double  x = state->getDouble("NEW_RXPOS");
+	double  y = state->getDouble("NEW_RYPOS");
+	double mx = ox - x;
+	double my = oy - y;
+	if (isUndo)
+	{
+		ScApp->view->SizeItem(ow, oh, this, false, true, true);
+		ScApp->view->MoveItem(mx, my, this, false);
+	}
+	else
+	{
+		mx = x - ox;
+		my = y - oy;
+		ScApp->view->SizeItem(w, h, this, false, true, true);
+		ScApp->view->MoveItem(mx, my, this, false);
+	}
+	oldWidth = Width;
+	oldHeight = Height;
+	oldXpos = Xpos;
+	oldYpos = Ypos;
+	oldOwnPage = OwnPage;
+}
+
+void PageItem::restoreRotate(SimpleState *state, bool isUndo)
+{
+	double ort = state->getDouble("OLD_ROT");
+	double  rt = state->getDouble("NEW_ROT");
+	double ox = state->getDouble("OLD_RXPOS");
+	double oy = state->getDouble("OLD_RYPOS");
+	double  x = state->getDouble("NEW_RXPOS");
+	double  y = state->getDouble("NEW_RYPOS");
+	double mx = ox - x;
+	double my = oy - y;
+	if (isUndo)
+	{
+		ScApp->view->RotateItem(ort, this);
+		ScApp->view->MoveItem(mx, my, this, false);
+	}
+	else
+	{
+		mx = x - ox;
+		my = y - oy;
+		ScApp->view->RotateItem(rt, this);
+		ScApp->view->MoveItem(mx, my, this, false);
+	}
+	oldRot = Rot;
+	oldXpos = Xpos;
+	oldYpos = Ypos;
+	oldOwnPage = OwnPage;
 }

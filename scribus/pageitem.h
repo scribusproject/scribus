@@ -91,6 +91,8 @@ public:
 	int PType;
   /** Winkel um den das Item gedreht wird */
 	double Rot;
+	/** @brief Stores the old rotation value for undo action. Is used to detect rotation actions. */
+	double oldRot;
   /** Enthaelt das Dokument */
 	ScribusDoc *Doc;
 	int GrType;
@@ -140,6 +142,8 @@ public:
 	bool Frame;
   /** Seite zu der das Element gehoert */
 	int OwnPage;
+	/** @brief Old page number tracked for the move undo action */
+	int oldOwnPage;
   /** Darzustellendes Bild */
 	QImage pixm;
 	QImage pixmOrg;
@@ -302,6 +306,9 @@ public:
 	QPixmap *undoIconMove;
 	/** @brief Icon for resize action */
 	QPixmap *undoIconResize;
+	/** @brief Icon for rotate action */
+	QPixmap *undoIconRotate;
+	/** @brief Manages undostack and is where all undo actions/states are sent. */
 	UndoManager *undoManager;
 	/** 
 	 * @brief Set name of the item
@@ -309,17 +316,36 @@ public:
 	 * @author Riku Leino
 	 */
 	void setName(const QString& newName);
+	/** 
+	 * @brief Check the changes to the item and add undo actions for them.
+	 * @param force Force the check. Do not care if mouse button or arrow key is down
+	 * check anyway.
+	 * @author Riku Leino
+	 */
+	void checkChanges(bool force = false);
 	/**
+	 * @name Store undo actions
 	 * @brief Add an undo action to the undo guis
 	 * @author Riku Leino
 	 */
+	/*@{*/
 	void moveUndoAction();
+	void resizeUndoAction();
+	void rotateUndoAction();
+	/*@}*/
+	/** @brief Required by the UndoObject */
+	void restore(UndoState *state, bool isUndo);
+private:
 	/**
-	 * @brief Add an undo action to the undo guis
+	 * @name Restore helper methods
+	 * Split the restore method for easier handling.
 	 * @author Riku Leino
 	 */
-	void resizeUndoAction();
-	void restore(UndoState *state, bool isUndo);
+	/*@{*/
+	void restoreMove(SimpleState *state, bool isUndo);
+	void restoreResize(SimpleState *state, bool isUndo);
+	void restoreRotate(SimpleState *state, bool isUndo);
+	/*@}*/
 };
 
 #endif

@@ -183,6 +183,7 @@ public:
 	void RotateGroup(double win);
 	void scaleGroup(double scx, double scy);
 	void RotateItem(double win, int ite);
+	void RotateItem(double win, PageItem *pi);
 	void AdjustItemSize(PageItem *b);
 	void AdvanceSel(PageItem *b, int oldPos, int len, int dir, int expandSel, int state);
 	void setNewPos(PageItem *b, int oldPos, int len, int dir);
@@ -259,6 +260,7 @@ public:
 	void UniteObj();
 	void SplitObj();
 	void rememberPreviousSettings(int mx=0, int my=0);
+	bool mousePressed();
 
 public slots: // Public slots
   /** Fhrt die Vergr�erung/Verkleinerung aus; */
@@ -318,6 +320,7 @@ private: // Private attributes
 	bool Ready;
 	int    oldX;
 	int    oldY;
+	bool _mousePressed;
 	
 private slots:
 	void Zval();
@@ -337,6 +340,8 @@ protected: // Protected methods
 	virtual void contentsWheelEvent ( QWheelEvent *ev );
 	virtual void setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
 	virtual void setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
+	virtual void mousePressEvent(QMouseEvent *e);
+	virtual void mouseReleaseEvent(QMouseEvent *e);
 
 signals:
 	void changeUN(int);

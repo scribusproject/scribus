@@ -342,6 +342,12 @@ void UndoManager::initIcons()
 	UndoManager::IResizePolygon  = new QPixmap(iconDir + "u_resize_polygon.png");
 	UndoManager::IResizePolyline = new QPixmap(iconDir + "u_resize_polyline.png");
 // 	UndoManager::IResizePathText = new QPixmap(iconDir + "u_resize_pathtext.png");
+	UndoManager::IRotateText     = new QPixmap(iconDir + "u_rotate_text.png");
+	UndoManager::IRotateImage    = new QPixmap(iconDir + "u_rotate_image.png");
+	UndoManager::IRotateLine     = new QPixmap(iconDir + "u_rotate_line.png");
+	UndoManager::IRotatePolygon  = new QPixmap(iconDir + "u_rotate_polygon.png");
+	UndoManager::IRotatePolyline = new QPixmap(iconDir + "u_rotate_polyline.png");
+// 	UndoManager::IRotatePathText = new QPixmap(iconDir + "u_rotate_pathtext.png");
 }
 
 const QString UndoManager::AddVGuide    = tr("Add vertical guide");
@@ -354,8 +360,10 @@ const QString UndoManager::LockGuides   = tr("Lock guides");
 const QString UndoManager::UnlockGuides = tr("Unlock guides");
 const QString UndoManager::Move         = tr("Move");
 const QString UndoManager::Resize       = tr("Resize");
-const QString UndoManager::FromXToY     = tr("X: %1, Y: %2 (from)\nX: %3, Y: %4 (to)");
-const QString UndoManager::FromHToW     = tr("W: %1, H: %2 (from)\nW: %3, H: %4 (to)");
+const QString UndoManager::Rotate       = tr("Rotate");
+const QString UndoManager::MoveFromTo   = tr("X1: %1, Y1: %2, Page %3\nX2: %4, Y2: %5, Page %6");
+const QString UndoManager::ResizeFromTo = tr("W1: %1, H1: %2\nW2: %3, H2: %4");
+const QString UndoManager::RotateFromTo = tr("From %1 to %2");
 const QString UndoManager::From         = tr("from");
 const QString UndoManager::To           = tr("to");
 const QString UndoManager::X            = tr("X");
@@ -381,3 +389,9 @@ QPixmap *UndoManager::IResizeLine     = NULL;
 QPixmap *UndoManager::IResizePolygon  = NULL;
 QPixmap *UndoManager::IResizePolyline = NULL;
 QPixmap *UndoManager::IResizePathText = NULL;
+QPixmap *UndoManager::IRotateText     = NULL;
+QPixmap *UndoManager::IRotateImage    = NULL;
+QPixmap *UndoManager::IRotateLine     = NULL;
+QPixmap *UndoManager::IRotatePolygon  = NULL;
+QPixmap *UndoManager::IRotatePolyline = NULL;
+QPixmap *UndoManager::IRotatePathText = NULL;

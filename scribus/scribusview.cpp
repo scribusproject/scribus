@@ -180,6 +180,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	GxM = 0;
 	ClRe = -1;
 	ClRe2 = -1;
+	_mousePressed = false;
 	connect(SB1, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
 	connect(SB2, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
 	connect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
@@ -1164,6 +1165,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 {
 	PageItem *b;
 	Mpressed = false;
+	mouseReleaseEvent(m);
 	if (Doc->guidesSettings.guidesShown)
 	{
 		bool fg = false;
@@ -3579,6 +3581,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 	QPointArray Bez(4);
 	QRect tx, mpo;
 	Mpressed = true;
+	mousePressEvent(m);
 	Imoved = false;
 	SeRx = qRound(m->x()/Scale);
 	SeRy = qRound(m->x()/Scale);
@@ -5508,7 +5511,7 @@ void ScribusView::MoveClipPoint(PageItem *b, FPoint ip)
 
 bool ScribusView::SizeItem(double newX, double newY, int ite, bool fromMP, bool DoUpdateClip, bool redraw)
 {
-	SizeItem(newX, newY, Doc->Items.at(ite), fromMP, DoUpdateClip, redraw);
+	return SizeItem(newX, newY, Doc->Items.at(ite), fromMP, DoUpdateClip, redraw);
 }
 
 bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, bool DoUpdateClip, bool redraw)
@@ -5890,8 +5893,13 @@ void ScribusView::scaleGroup(double scx, double scy)
 
 void ScribusView::RotateItem(double win, int ite)
 {
+	RotateItem(win, Doc->Items.at(ite));
+}
+
+void ScribusView::RotateItem(double win, PageItem *pi)
+{
 	PageItem *b;
-	b = Doc->Items.at(ite);
+	b = pi;
 	if (b->Locked)
 		return;
 	FPoint n;
@@ -8028,6 +8036,25 @@ void ScribusView::setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 		VR->setGeometry(1, 25, 25, h-24);
 		UN->setGeometry(1, 1, 25, 25);
 	}
+}
+
+void ScribusView::mousePressEvent(QMouseEvent *e)
+{
+	_mousePressed = true;
+	QScrollView::mousePressEvent(e);
+}
+
+void ScribusView::mouseReleaseEvent(QMouseEvent *e)
+{
+	_mousePressed = false;
+	for (uint i = 0; i < SelItem.count(); ++i)
+		SelItem.at(i)->checkChanges(true);
+	QScrollView::mouseReleaseEvent(e);
+}
+
+bool ScribusView::mousePressed()
+{
+	return _mousePressed;
 }
 
 // jjsa 27-03-2004 add for better settinf while zooming
