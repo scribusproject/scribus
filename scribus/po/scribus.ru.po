@@ -1,0 +1,2876 @@
+# translation of scribus.ru.po to Russian
+# This is a Qt message file in .po format.  Each msgid starts with
+# a scope.  This scope should *NOT* be translated - eg. "Foo::Bar"
+# would be translated to "Pub", not "Foo::Pub".
+# Alexandre Prokoudine <avp@altlinux.ru>, 2003
+msgid ""
+msgstr ""
+"Project-Id-Version: scribus.ru\n"
+"POT-Creation-Date: 2003-06-19 10:00+0200\n"
+"PO-Revision-Date: 2003-06-24 21:25+0400\n"
+"Last-Translator: Alexandre Prokoudine <avp@altlinux.ru>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0.1\n"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "New"
+msgstr "Новый"
+
+msgid "Open..."
+msgstr "Открыть..."
+
+msgid "Open"
+msgstr "Открыть"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Save as..."
+msgstr "Сохранить как..."
+
+msgid "Save as"
+msgstr "Сохранить как"
+
+msgid "Revert to Saved"
+msgstr "Вернуться к сохранённому"
+
+msgid "Save Text..."
+msgstr "Сохранить текст..."
+
+msgid "Save Page as EPS..."
+msgstr "Сохранить страницу как EPS-файл..."
+
+msgid "Save as PDF..."
+msgstr "Сохранить как PDF..."
+
+msgid "Document Setup..."
+msgstr "Свойства документа..."
+
+msgid "Document Setup"
+msgstr "Свойства документа"
+
+msgid "Document Info..."
+msgstr "Информация о документе..."
+
+msgid "Print..."
+msgstr "Напечатать..."
+
+msgid "Quit"
+msgstr "Выйти"
+
+msgid "View"
+msgstr "Вид"
+
+msgid "Fit in Window"
+msgstr "Уместить в окне"
+
+msgid "Actual Size"
+msgstr "Реальный размер"
+
+msgid "Thumbnails"
+msgstr "Миниатюры"
+
+msgid "Show Tools"
+msgstr "Показать инструменты"
+
+msgid "Hide Tools"
+msgstr "Спрятать инструменты"
+
+msgid "Hide Margins"
+msgstr "Спрятать поля"
+
+msgid "Show Margins"
+msgstr "Показать поля"
+
+msgid "Hide Guides"
+msgstr "Спрятать направляющие"
+
+msgid "Hide Images"
+msgstr "Спрятать изображения"
+
+msgid "Show Images"
+msgstr "Показать изображения"
+
+msgid "Show Guides"
+msgstr "Показать направляющие"
+
+msgid "Show Measurements"
+msgstr "Показать измерения"
+
+msgid "Hide Measurements"
+msgstr "Спрятать измерения"
+
+msgid "Help"
+msgstr "Помощь"
+
+msgid "About Scribus"
+msgstr "О программе Scribus"
+
+msgid "About Qt"
+msgstr "О Qt"
+
+msgid "Ready"
+msgstr "Готово"
+
+msgid "Scaled to "
+msgstr "Масштаб изменён на "
+
+msgid "Get Picture..."
+msgstr "Получить изображение..."
+
+msgid "Get Text/Picture..."
+msgstr "Получить текст или изображение..."
+
+msgid "Get Text..."
+msgstr "Получить текст..."
+
+msgid "New Document"
+msgstr "Новый документ"
+
+msgid "Page Size"
+msgstr "Размер страницы"
+
+msgid "Margin Guides"
+msgstr "Направляющие полей"
+
+msgid "Column Guides"
+msgstr "Направляющие столбцов"
+
+msgid "Columns:"
+msgstr "Столбцы:"
+
+msgid "Gutter Width:"
+msgstr ""
+
+msgid "Width:"
+msgstr "Ширина:"
+
+msgid "Height:"
+msgstr "Высота:"
+
+msgid "Top:"
+msgstr "Сверху:"
+
+msgid "Left:"
+msgstr "Слева:"
+
+msgid "Inside:"
+msgstr "Внутри:"
+
+msgid "Right:"
+msgstr "Справа:"
+
+msgid "Outside:"
+msgstr "Снаружи:"
+
+msgid "Bottom:"
+msgstr "Внизу:"
+
+msgid "Other"
+msgstr "Другое"
+
+msgid "Facing Pages"
+msgstr "Противоположные страницы"
+
+msgid "OK"
+msgstr "ОК"
+
+msgid "Cancel"
+msgstr "Отменить"
+
+msgid "Autom. Textframes"
+msgstr "Автомат. текстовые рамки"
+
+msgid "W:"
+msgstr "Ш:"
+
+msgid "Tabloid"
+msgstr "Таблоид"
+
+msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
+msgstr "Документы (*.sla *.sla.gz *.scd *scd.gz);; Все файлы (*)"
+
+msgid "Documents (*.sla *.scd);; All Files (*)"
+msgstr "Документы (*.sla *.scd);; Все файлы (*)"
+
+msgid "Document "
+msgstr "Документ "
+
+msgid "No Document"
+msgstr "Нет документа"
+
+msgid "Warning"
+msgstr "Предупреждение"
+
+msgid "Save Now"
+msgstr "Сохранить сейчас"
+
+msgid "Leave Anyway"
+msgstr "Выйти без сохранения"
+
+msgid "Textfiles (*.txt);;All Files (*)"
+msgstr "Текстовые файлы (*.txt);;Все файлы (*)"
+
+msgid "Images"
+msgstr "Изображения"
+
+msgid ");;Vectorimages (*.eps *.pdf);;All Files (*)"
+msgstr ");;Векторные изображения (*.eps *.pdf);;Все файлы (*)"
+
+msgid "Look &in:"
+msgstr ""
+
+msgid "File &type:"
+msgstr "&Тип файла:"
+
+msgid "File &name:"
+msgstr "&Имя файла:"
+
+msgid "PDF-Options"
+msgstr "Параметры PDF"
+
+msgid "Compatibility:"
+msgstr "Совместимость:"
+
+msgid "Images:"
+msgstr "Изображения:"
+
+msgid "Resolution for EPS-Images:"
+msgstr "Разрешение для EPS-изображения:"
+
+msgid "Document Info"
+msgstr "Информация о документе"
+
+msgid "Description:"
+msgstr "Описание:"
+
+msgid "Author:"
+msgstr "Автор:"
+
+msgid "Edit"
+msgstr "Правка"
+
+msgid "Cut"
+msgstr "Вырезать"
+
+msgid "Copy"
+msgstr "Скопировать"
+
+msgid "Paste"
+msgstr "Вставить"
+
+msgid "Clear"
+msgstr "Очистить"
+
+msgid "Select all"
+msgstr "Выделить всё"
+
+msgid "Deselect all"
+msgstr "Снять выделение"
+
+msgid "Theme"
+msgstr "Тема"
+
+msgid "Other..."
+msgstr "Другое..."
+
+msgid "Item"
+msgstr "Предмет"
+
+msgid "Page"
+msgstr "Страница"
+
+msgid "Insert..."
+msgstr "Вставить..."
+
+msgid "Delete..."
+msgstr "Удалить..."
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Font"
+msgstr "Шрифт"
+
+msgid "Size"
+msgstr "Кегль"
+
+msgid "Font Size"
+msgstr "Кегль шрифта"
+
+msgid "Font Size:"
+msgstr "Кегль шрифта:"
+
+msgid "Shade:"
+msgstr "Тень:"
+
+msgid "Shade"
+msgstr "Тень"
+
+msgid "Color"
+msgstr "Цвет"
+
+msgid "Colors..."
+msgstr "Цвета..."
+
+msgid "Duplicate"
+msgstr "Дублировать"
+
+msgid "New Color:"
+msgstr "Новый цвет:"
+
+msgid "New Color"
+msgstr "Новый цвет"
+
+msgid "OK to delete Color:"
+msgstr "ОК для удаления цвета:"
+
+msgid "Replace it with:"
+msgstr "Заменить на:"
+
+msgid "Delete Color"
+msgstr "Удалить цвет"
+
+msgid "Colors"
+msgstr "Цвета"
+
+msgid "Edit Colors"
+msgstr "Редактировать цвета"
+
+msgid "Show Outline"
+msgstr "Показать контур"
+
+msgid "Hide Outline"
+msgstr "Спрятать контур"
+
+msgid "Outline"
+msgstr "Контур"
+
+msgid "Rectangle"
+msgstr "Прямоугольник"
+
+msgid "Shape"
+msgstr "Очертания"
+
+msgid "Edit Frame"
+msgstr "Редактировать рамку"
+
+msgid "Image"
+msgstr "Изображение"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Send to Back"
+msgstr "Переместить вниз"
+
+msgid "Bring to Front"
+msgstr "Переместить наверх"
+
+msgid "Lower"
+msgstr "Ниже"
+
+msgid "Raise"
+msgstr "Выше"
+
+msgid "Delete Page:"
+msgstr "Удалить страницу:"
+
+msgid "Delete Page"
+msgstr "Удалить страницу"
+
+msgid "Line"
+msgstr "Линия"
+
+msgid "Line Width"
+msgstr "Ширина линии"
+
+msgid "Line Width:"
+msgstr "Ширина линии:"
+
+msgid "Print destination"
+msgstr "Куда печатать"
+
+msgid "Print to printer:"
+msgstr "Вывести на принтер:"
+
+msgid "Printer"
+msgstr "Принтер"
+
+msgid "Comment"
+msgstr "Комментарий"
+
+msgid "Print to file:"
+msgstr "Напечатать в файл:"
+
+msgid "Browse..."
+msgstr "Просмотреть"
+
+msgid "Printer settings"
+msgstr "Настройки принтера"
+
+msgid "Print in color if available"
+msgstr "Напечатать в цвете, если возможно"
+
+msgid "Print in grayscale"
+msgstr "Напечатать в оттенках серого"
+
+msgid "Paper format"
+msgstr "Формат бумаги"
+
+msgid "Portrait"
+msgstr "Портрет"
+
+msgid "Landscape"
+msgstr "Ландшафт"
+
+msgid "Options"
+msgstr "Параметры"
+
+msgid "Print all"
+msgstr "Напечатать все"
+
+msgid "Print range"
+msgstr "Напечатать в диапазоне"
+
+msgid "From page:"
+msgstr "От стр.:"
+
+msgid "To page:"
+msgstr "До стр.:"
+
+msgid "Print first page first"
+msgstr "Печатать первую страницу первой"
+
+msgid "Print last page first"
+msgstr "Печатать последнюю страницу первой"
+
+msgid "Number of copies:"
+msgstr "Количество копий:"
+
+msgid "Select color"
+msgstr "Выбрать цвет"
+
+msgid "&Basic colors"
+msgstr "&Основные цвета"
+
+msgid "&Custom colors"
+msgstr "&Свои цвета"
+
+msgid "&Add To Custom Colors"
+msgstr "&Добавить к своим цветам"
+
+msgid "&Define Custom Colors >>"
+msgstr "&Определить свои цвета >>"
+
+msgid "&Red:"
+msgstr "&Красный:"
+
+msgid "&Green:"
+msgstr "&Зелёный:"
+
+msgid "Bl&ue:"
+msgstr "&Синий:"
+
+msgid "Select Font"
+msgstr "Выбрать шрифт"
+
+msgid "&Font"
+msgstr "&Шрифт"
+
+msgid "Font st&yle"
+msgstr "&Стиль шрифта"
+
+msgid "&Size"
+msgstr "&Кегль"
+
+msgid "Effects"
+msgstr "Эффекты"
+
+msgid "Stri&keout"
+msgstr "В&ычеркнутый"
+
+msgid "&Underline"
+msgstr "П&одчёркнутый"
+
+msgid "Sample"
+msgstr "Пример"
+
+msgid "Scr&ipt"
+msgstr "&Сценарий"
+
+msgid "Preferences..."
+msgstr "Настройки..."
+
+msgid "Preferences"
+msgstr "Настройки"
+
+msgid "General"
+msgstr "Общие"
+
+msgid "Guides"
+msgstr "Направляющие"
+
+msgid "Major Grid Spacing:"
+msgstr "Основная разбивка сетки:"
+
+msgid "Minor Grid Spacing:"
+msgstr "Неосновная разбивка сетки:"
+
+msgid "Major Grid Color:"
+msgstr "Основной цвет сетки:"
+
+msgid "Minor Grid Color:"
+msgstr "Неосновной цвет сетки:"
+
+msgid "Grid Colors"
+msgstr "Цвета сетки"
+
+msgid "Grid Layout"
+msgstr "Облик сетки"
+
+msgid "Image visible"
+msgstr "Изображение видимо"
+
+msgid "Is PDF-Bookmark"
+msgstr "Является PDF-закладкой"
+
+msgid "Snap to Guides"
+msgstr "Пристёгивать к направляющим"
+
+msgid "Apply"
+msgstr "Применить"
+
+msgid "Snap to Grid"
+msgstr "Пристёгивать к сетке"
+
+msgid "Mouse-Settings"
+msgstr "Настройки мыши"
+
+msgid "Wheel-Jump"
+msgstr ""
+
+msgid "Grab-Radius"
+msgstr "Радиус захвата"
+
+msgid "Printing-Error"
+msgstr "Ошибки при печати"
+
+msgid "Printing completed"
+msgstr "Печать завершена"
+
+msgid "Printing aborted"
+msgstr "Печать прервана"
+
+msgid "Printing..."
+msgstr "Происходит вывод на печать..."
+
+msgid "Saving aborted"
+msgstr "Сохранение прервано"
+
+msgid "Loading aborted"
+msgstr "Загрузка прервана"
+
+msgid "Global Fontsettings"
+msgstr "Глобальные установки шрифтов"
+
+msgid "Path to Fontfile"
+msgstr "Путь к файлу со шрифтом"
+
+msgid "Embed in:"
+msgstr "Встроен в:"
+
+msgid "Default Size:"
+msgstr "Стандартный кегль:"
+
+msgid "Default Font:"
+msgstr "Стандартный шрифт:"
+
+msgid "Woven silk pyjamas exchanged for blue quartz"
+msgstr "А ещё хорошо уметь всем на зависть чётко и складно писать буквы и цифры!"
+
+msgid "Fonts"
+msgstr "Шрифты"
+
+msgid "Missing Font"
+msgstr "Отсутствует шрифт"
+
+msgid "Missing"
+msgstr "Отсутствует"
+
+msgid "The Font %1 is not installed."
+msgstr "Шрифт %1 не установлен."
+
+msgid "Use"
+msgstr "Использовать"
+
+msgid "instead"
+msgstr "вместо"
+
+msgid "Fonts..."
+msgstr "Шрифты..."
+
+msgid " loaded"
+msgstr " загружено"
+
+msgid "Picture "
+msgstr "Изображение "
+
+msgid "File "
+msgstr "Файл "
+
+msgid " saved"
+msgstr " сохранено"
+
+msgid "Unable to create PDF-File."
+msgstr "Невозможно создать PDF-файл."
+
+msgid "Error creating PDF-File.."
+msgstr "Произошла ошибка при создании PDF-файла..."
+
+msgid "Error during EPS-Export"
+msgstr "Произошла ошибка при экспорте в EPS..."
+
+msgid "The following Programs are missing:"
+msgstr "Следующие программы отсутствуют:"
+
+msgid "Ghostscript : You cannot use EPS-Images"
+msgstr "Ghostscript : вы не можете использовать EPS-изображения"
+
+msgid "Multiple Duplicate"
+msgstr "Многократно дублировать"
+
+msgid "Number of Copies:"
+msgstr "Количество копий:"
+
+msgid "Horizontal Shift:"
+msgstr "Смещение по горизонтали:"
+
+msgid "Vertical Shift:"
+msgstr "Смещение по вертикали:"
+
+msgid "Distribute/Align"
+msgstr "Распределять/Выравнивать"
+
+msgid "Distribute/Align..."
+msgstr "Распределять/Выравнивать..."
+
+msgid "Don't change"
+msgstr "Не изменять"
+
+msgid "Align"
+msgstr "Выровнять"
+
+msgid "Displacement"
+msgstr "Смещение"
+
+msgid "Distribute evenly"
+msgstr "Распределить равномерно"
+
+msgid "between:"
+msgstr "между:"
+
+msgid "Left Sides"
+msgstr "Левые стороны"
+
+msgid "Middles"
+msgstr "Середина"
+
+msgid "Right Sides"
+msgstr "Правые стороны"
+
+msgid "Top Sides"
+msgstr "Верхние стороны"
+
+msgid "Bottom Sides"
+msgstr "Нижние стороны"
+
+msgid "Vertical"
+msgstr "Вертикально"
+
+msgid "Horizontal"
+msgstr "Горизонтально"
+
+msgid "Fatal Error"
+msgstr "Критическая ошибка"
+
+msgid "There are no Postscript-Fonts on your System"
+msgstr "В вашей системе не установлены Postscript-шрифты"
+
+msgid "Exiting now"
+msgstr "Завершается сессия работы с программой"
+
+msgid "Insert Page"
+msgstr "Вставить страницу"
+
+msgid "Inserting"
+msgstr "Производится вставка"
+
+msgid "before Page"
+msgstr "перед стр."
+
+msgid "after Page"
+msgstr "после стр."
+
+msgid "at End"
+msgstr "в конец"
+
+msgid "page(s)"
+msgstr "страниц(а)"
+
+msgid "To End"
+msgstr "В конец"
+
+msgid "Delete Pages"
+msgstr "Удалить страницы"
+
+msgid "Delete from:"
+msgstr "Удалить от:"
+
+msgid "Move Page(s):"
+msgstr "Переместить страницу(ы):"
+
+msgid "Move Pages"
+msgstr "Переместить страницы"
+
+msgid "Move..."
+msgstr "Переместить..."
+
+msgid "to:"
+msgstr "до:"
+
+msgid "Select Items"
+msgstr "Выбрать объекты"
+
+msgid "Edit Contents of Frame"
+msgstr "Редактировать содержимое рамки"
+
+msgid "Zooms in or out"
+msgstr "Масштабирование просмотра"
+
+msgid "Insert Textbox"
+msgstr "Вставить текстовую рамку"
+
+msgid "Insert Picture"
+msgstr "Вставить изображение"
+
+msgid "Insert Lines"
+msgstr "Вставить линию"
+
+msgid "Insert Ovals"
+msgstr "Вставить овал"
+
+msgid "Insert Rectangles"
+msgstr "Вставить прямоугольник"
+
+msgid "Rotate Item"
+msgstr "Повернуть объект"
+
+msgid "Modify..."
+msgstr "Изменить..."
+
+msgid "Modify Textframe"
+msgstr "Изменить текстовую рамку"
+
+msgid "Modify Frame"
+msgstr "Изменить рамку"
+
+msgid "Other:"
+msgstr "Другое:"
+
+msgid "Don't print"
+msgstr "Не печатать"
+
+msgid "Properties:"
+msgstr "Свойства:"
+
+msgid "Ordinary Text"
+msgstr "Обычный текст"
+
+msgid "Is PDF-Annotation"
+msgstr "Является PDF-аннотацией"
+
+msgid "Angle:"
+msgstr "Угол:"
+
+msgid "Textdistance"
+msgstr "Расстояние до текста"
+
+msgid "Face"
+msgstr ""
+
+msgid "Superscript"
+msgstr "Верхний индекс"
+
+msgid "Subscript"
+msgstr "Нижний индекс"
+
+msgid "Flip horizontal"
+msgstr "Перевернуть по горизонтали"
+
+msgid "Flip vertical"
+msgstr "Перевернуть по вертикали"
+
+msgid "Scaling:"
+msgstr "Масштабирование:"
+
+msgid "Disp.:"
+msgstr ""
+
+msgid "Small Caps"
+msgstr "Капитель"
+
+msgid "Typographics"
+msgstr "Типографика"
+
+msgid "Italic"
+msgstr "Курсив"
+
+msgid "No Fill"
+msgstr "Без заполнения"
+
+msgid "Underline"
+msgstr "Подчёркнутый"
+
+msgid "Strikethru"
+msgstr "Зачёркнутый"
+
+msgid "Strikeout"
+msgstr "Вычеркнутый"
+
+msgid "Append"
+msgstr "Добавить"
+
+msgid "Bold"
+msgstr "Жирный"
+
+msgid "Shading:"
+msgstr "Тень:"
+
+msgid "Background Color:"
+msgstr "Цвет фона:"
+
+msgid "Vertical flipped"
+msgstr "Перевёрнуто вертикально"
+
+msgid "Horizontal flipped"
+msgstr "Перевёрнуто горизонтально"
+
+msgid "Text flows around Box"
+msgstr "Текст обтекает рамку"
+
+msgid "Online-Help..."
+msgstr "Электронная справка..."
+
+msgid "Scribus Manual"
+msgstr "Руководство по Scribus"
+
+msgid "Local X-Pos:"
+msgstr ""
+
+msgid "Local Y-Pos:"
+msgstr ""
+
+msgid "Horizontal Scaling"
+msgstr "Горизонт. масштабирование"
+
+msgid "Vertical Scaling"
+msgstr "Вертикал. масштабирование"
+
+msgid "Modify Pictureframe"
+msgstr "Изменить рамку с изображением"
+
+msgid "Line Color:"
+msgstr "Цвет линии:"
+
+msgid "Fill Color:"
+msgstr "Цвет заполнения:"
+
+msgid "Linestyle:"
+msgstr "Стиль линии:"
+
+msgid "Linewidth:"
+msgstr "Толщина линии:"
+
+msgid "Scaling X:"
+msgstr "Масштабирование по X:"
+
+msgid "Scaling Y:"
+msgstr "Масштабирование по Y:"
+
+msgid "Manual Kerning"
+msgstr "Ручной кернинг"
+
+msgid "Linespacing"
+msgstr "Межстрочное расстояние"
+
+msgid "Frame"
+msgstr "Рамка"
+
+msgid "Contents"
+msgstr "Содержание"
+
+msgid "Tools"
+msgstr "Инструменты"
+
+msgid "Create Textchains"
+msgstr "Создать текстовую цепь"
+
+msgid "Break Textchains"
+msgstr "Разбить текстовую цепь"
+
+#, fuzzy
+msgid "Stepping:"
+msgstr "Пошагово:"
+
+msgid "Placing"
+msgstr "Расположение"
+
+msgid "In the Background"
+msgstr "На заднем плане"
+
+msgid "In the Foreground"
+msgstr "На переднем плане"
+
+msgid "Text Color:"
+msgstr "Цвет текста:"
+
+msgid "Units"
+msgstr "Единицы"
+
+msgid "Points (pts)"
+msgstr "Точки (pts)"
+
+msgid "Points (pt)"
+msgstr "Точки (pt)"
+
+msgid "Millimeters (mm)"
+msgstr "Миллиметры (мм)"
+
+msgid "Creates a new Document"
+msgstr "Создаёт новый документ"
+
+msgid "Opens a Document"
+msgstr "Открывает документ"
+
+msgid "Saves the current Document"
+msgstr "Сохраняет документ"
+
+msgid "Prints the current Document"
+msgstr "Печатает текущий документ"
+
+msgid "Copy Here"
+msgstr "Скопировать сюда"
+
+msgid "Move Here"
+msgstr "Переместить сюда"
+
+msgid "About"
+msgstr "О программе"
+
+msgid "Authors"
+msgstr "Авторы"
+
+msgid "Translations"
+msgstr "Переводы"
+
+msgid "Programming:"
+msgstr "Программирование:"
+
+msgid "Contributions from:"
+msgstr "Помощь от:"
+
+msgid "Documentation:"
+msgstr "Документация:"
+
+msgid "German:"
+msgstr "На немецкий:"
+
+msgid "French:"
+msgstr "На французский:"
+
+msgid "Spanish and Catalan:"
+msgstr "На испанский и каталанский::"
+
+msgid "Hungarian and Italian:"
+msgstr "На венгерский и итальянский:"
+
+msgid "Slovak:"
+msgstr "На словацкий:"
+
+msgid "Slovak"
+msgstr "Словацкий"
+
+msgid "Ukrainian:"
+msgstr "На украинский:"
+
+msgid "None"
+msgstr "Ничего"
+
+msgid "Closes the current Document"
+msgstr "Закрывает текущий документ"
+
+#, fuzzy
+msgid "Range:"
+msgstr "Область:"
+
+msgid "File:"
+msgstr "Файл:"
+
+msgid "Print Normal"
+msgstr "Напечатать обычным способом"
+
+msgid "Print Separations"
+msgstr "Напечатать разделения"
+
+msgid "All"
+msgstr "Все"
+
+msgid "Setup Printer"
+msgstr "Настроить принтер"
+
+msgid "Old"
+msgstr "Старый"
+
+msgid "Color Model"
+msgstr "Цветовая модель"
+
+#, fuzzy
+msgid "Is Spot-Color"
+msgstr "Является цветовой заливкой"
+
+msgid "Edit Color"
+msgstr "Изменить цвет"
+
+msgid "Alignment"
+msgstr "Выравнивание"
+
+msgid "Left"
+msgstr "Слева"
+
+msgid "Center"
+msgstr "По центру"
+
+msgid "Right"
+msgstr "Справа"
+
+msgid "Edit Styles"
+msgstr "Изменить стили"
+
+msgid "Edit Style"
+msgstr "Изменить стиль"
+
+msgid "New Style"
+msgstr "Новый стиль"
+
+msgid "New Style:"
+msgstr "Новый стиль:"
+
+msgid "Show Styles"
+msgstr "Показать стили"
+
+msgid "Hide Styles"
+msgstr "Спрятать стили"
+
+msgid "Styles..."
+msgstr "Стили..."
+
+msgid "Styles"
+msgstr "Стили"
+
+msgid "No Style"
+msgstr "Без стиля"
+
+msgid "Block"
+msgstr "Блочно"
+
+msgid "Forced"
+msgstr "Принудительно"
+
+msgid "Indentation"
+msgstr "Отступ"
+
+msgid "Page-Colors"
+msgstr "Цвета страницы"
+
+msgid "Background:"
+msgstr "Задний план:"
+
+msgid "Left Indent:"
+msgstr "Отступ слева:"
+
+msgid "First Line:"
+msgstr "Первая строка:"
+
+msgid "Character"
+msgstr "Символ"
+
+msgid "Face:"
+msgstr "Вид:"
+
+msgid "Size:"
+msgstr "Кегль:"
+
+msgid "Color:"
+msgstr "Цвет:"
+
+msgid "Name of the Style is not unique"
+msgstr "Имя этого стиля не уникально"
+
+msgid "Do you really want do delete this Style?"
+msgstr "Вы действительно хотите удалить этот стиль?"
+
+msgid "No"
+msgstr "Нет"
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "Vertical Spaces"
+msgstr "Вертикал. пространство"
+
+msgid "Above:"
+msgstr "Выше:"
+
+msgid "Below:"
+msgstr "Ниже:"
+
+msgid "AFM-File available"
+msgstr "Доступен AFM-файл"
+
+msgid "Nodes"
+msgstr "Узлы"
+
+msgid "End Editing"
+msgstr "Завершить правку"
+
+msgid "Add Nodes"
+msgstr "Добавить узлы"
+
+msgid "Delete Nodes"
+msgstr "Удалить узлы"
+
+msgid "Move Nodes"
+msgstr "Переместить узлы"
+
+msgid "Move Control Points"
+msgstr "Переместить контрольные точки"
+
+msgid "Move Control Points independently"
+msgstr "Переместить контрольные точки независимо"
+
+msgid "Move Control Points symmetrical"
+msgstr "Переместить контрольные точки симметрично"
+
+msgid "Insert Bezier Curves"
+msgstr "Вставить кривую Безье"
+
+msgid "New Entry"
+msgstr "Новая запись"
+
+msgid "Scrapbooks (*.scs);; All Files (*)"
+msgstr "Запасники (*.scs);; Все файлы (*)"
+
+#, fuzzy
+msgid "Scrapbook"
+msgstr "Запасник"
+
+msgid "Load..."
+msgstr "Загрузить..."
+
+msgid "Object"
+msgstr "Объект"
+
+#, fuzzy
+msgid "Show Scrapbook"
+msgstr "Показать запасник"
+
+#, fuzzy
+msgid "Hide Scrapbook"
+msgstr "Спрятать запасник"
+
+msgid "Other Options"
+msgstr "Другие параметры"
+
+msgid "Save Contents on Exit"
+msgstr "Сохранить содержимое при выходе"
+
+msgid "Preview"
+msgstr "Просмотр"
+
+msgid "Small"
+msgstr "Маленький"
+
+msgid "Medium"
+msgstr "Средний"
+
+msgid "Big"
+msgstr "Большой"
+
+msgid "Edit Templates"
+msgstr "Редактировать шаблоны"
+
+msgid "Apply Template..."
+msgstr "Применить шаблон..."
+
+msgid "Exit"
+msgstr "Выйти"
+
+msgid "Copy of "
+msgstr "Копия "
+
+msgid "Name:"
+msgstr "Имя:"
+
+msgid "New Template"
+msgstr "Новый шаблон"
+
+msgid "Normal"
+msgstr "Обычный"
+
+msgid "Templates..."
+msgstr "Шаблоны..."
+
+msgid "Template:"
+msgstr "Шаблон:"
+
+msgid "Apply Template"
+msgstr "Применить шаблон"
+
+msgid "Template for this Page:"
+msgstr "Шаблон для этой страницы:"
+
+msgid "Do you really want do delete this Template?"
+msgstr "Вы действительно хотите удалить этот шаблон?"
+
+msgid "Left Page"
+msgstr "Левая страница"
+
+msgid "Right Page"
+msgstr "Правая страница"
+
+msgid "Display Frames"
+msgstr "Показать рамки"
+
+msgid "Display Pages Side by Side"
+msgstr "Показать страницы по сторонам"
+
+msgid "Display"
+msgstr "Показать"
+
+msgid "Left Page first"
+msgstr "Сначала левая страница"
+
+msgid "Group"
+msgstr "Сгруппировать"
+
+msgid "Ungroup"
+msgstr "Разгруппировать"
+
+msgid ""
+"Do you really want to overwrite the File:\n"
+"%1 ?"
+msgstr ""
+"Вы действительно хотите перписать этот файл::\n"
+"%1 ?"
+
+msgid "Show Frames"
+msgstr "Показать рамки"
+
+msgid "Hide Frames"
+msgstr "Спрятать рамки"
+
+msgid "Template (Left Page):"
+msgstr "Шаблон (левая страница):"
+
+msgid "Template (Right Page):"
+msgstr "Шаблон (правая страница):"
+
+msgid "Manage Pictures"
+msgstr "Управление изображениями"
+
+msgid "Pictures"
+msgstr "Изображения"
+
+msgid "Goto"
+msgstr "Перейти"
+
+msgid "Search"
+msgstr "Искать"
+
+msgid "Path"
+msgstr "Путь"
+
+msgid "Print"
+msgstr "Печатаемо"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Margins:"
+msgstr "Поля:"
+
+msgid "Recent Documents:"
+msgstr "Недавно открытых документов:"
+
+msgid "Recent Documents"
+msgstr "Недавно открытые документы"
+
+msgid "Display unprintable Area in Margin Color"
+msgstr "Показать непечатаемую область цветом полей"
+
+msgid "Automatic Linespaceing:"
+msgstr ""
+
+msgid "Distances"
+msgstr "Расстояния"
+
+msgid "Menues"
+msgstr "Меню"
+
+msgid "Result"
+msgstr "Результат"
+
+msgid "Search Results for: "
+msgstr "Искать результат для: "
+
+msgid "Select"
+msgstr "Выбрать"
+
+msgid "Import..."
+msgstr "Импортировать..."
+
+msgid "Export..."
+msgstr "Экспортировать..."
+
+msgid "Dynamic Color Bars"
+msgstr "Динамические цветовые шкалы"
+
+msgid "Static Color Bars"
+msgstr "Статические цветовые шкалы"
+
+msgid "Color Management Settings"
+msgstr "Настройки управления цветом"
+
+msgid "Activate Color Management"
+msgstr "Задействовать управление цветом"
+
+msgid "System Profiles"
+msgstr "Системные профайлы"
+
+msgid "Pictures:"
+msgstr "Изображения:"
+
+msgid "Solid Colors:"
+msgstr "Чистые цвета:"
+
+msgid "Monitor:"
+msgstr "Монитор:"
+
+msgid "Printer:"
+msgstr "Принтер:"
+
+msgid "Rendering Intents"
+msgstr "Цели рендеринга"
+
+msgid "Rendering Intent:"
+msgstr "Цель рендеринга:"
+
+msgid "Perceptual"
+msgstr "Перцепционный"
+
+msgid "Relative Colorimetric"
+msgstr "Относительный колориметрический"
+
+msgid "Saturation"
+msgstr "Насыщенность"
+
+msgid "Absolute Colorimetric"
+msgstr "Абсолютный колориметрический"
+
+msgid "Simulate Printer on the Screen"
+msgstr "Симулировать принтер на экране"
+
+msgid "Color Management..."
+msgstr "Управление цветом..."
+
+msgid "Input Profile:"
+msgstr "Входящий профайл:"
+
+msgid "No Title"
+msgstr "Без имени"
+
+msgid "Unknown"
+msgstr "Неизвестный"
+
+msgid "Adjusting Colors"
+msgstr "Подстройка цветов"
+
+msgid "Scribus-Document"
+msgstr "Документ Sсribus"
+
+msgid "Title:"
+msgstr "Заголовок:"
+
+msgid "Sorry, no Manual available!"
+msgstr "Извините, но руководство недоступно!"
+
+msgid "Embed all Fonts"
+msgstr "Встроить все шрифты"
+
+msgid "Embedding"
+msgstr "Встраивание"
+
+msgid "Available Fonts:"
+msgstr "Доступные шрифты:"
+
+msgid "Fonts to embed:"
+msgstr "Встраиваемые шрифты:"
+
+msgid "Output to File:"
+msgstr "Вывод в файл:"
+
+msgid "Change..."
+msgstr "Изменить..."
+
+msgid "Compression"
+msgstr "Сжатие"
+
+msgid "Downsample Images to:"
+msgstr "Уменьшить разрешение изображений до:"
+
+msgid "Compress Text and Vector Graphics"
+msgstr "Сжимать текст и векторную графику"
+
+msgid "File Options"
+msgstr "Параметры файла"
+
+msgid "Generate Thumbnails"
+msgstr "Создавать миниатюры"
+
+msgid "Resolution:"
+msgstr "Разрешение:"
+
+msgid "Create PDF-File"
+msgstr "Создавать PDF-файл"
+
+msgid "X-Pos:"
+msgstr ""
+
+msgid "Y-Pos:"
+msgstr ""
+
+msgid "Page:"
+msgstr "Стр.:"
+
+msgid "Destination"
+msgstr "Место назначения"
+
+msgid "Type:"
+msgstr "Тип:"
+
+msgid "Annotation Properties"
+msgstr "Свойства аннотаций"
+
+msgid "Bookmarks"
+msgstr "Закладки"
+
+msgid "Include Bookmarks"
+msgstr "Включить закладки"
+
+msgid "Manage Keyboard Shortcuts"
+msgstr "Настроить горячие клавиши"
+
+msgid "Action"
+msgstr "Действие"
+
+msgid "Current Key"
+msgstr "Комбинация"
+
+msgid "Select a Key for this Action"
+msgstr "Выберите комбинацию клавиш"
+
+msgid "No Key"
+msgstr "Без горячих клавиш"
+
+msgid "User Defined Key"
+msgstr "Собственная комбинация"
+
+msgid "Set Key"
+msgstr "Установить"
+
+msgid "This Key-Sequence is already in use"
+msgstr "Эта комбинация уже используется"
+
+msgid "Keyboard Shortcuts..."
+msgstr "Горячие клавиши..."
+
+msgid "Smart Hyphen"
+msgstr ""
+
+msgid "Align Left"
+msgstr "Выровнять по левой стороне"
+
+msgid "Align Right"
+msgstr "Выровнять по правой стороне"
+
+msgid "Align Center"
+msgstr "Выровнять по центру"
+
+msgid "Insert Pagenumber"
+msgstr "Вставить номер страницы"
+
+msgid "Binding:"
+msgstr "Связка:"
+
+msgid "Left Margin"
+msgstr "Левое поле"
+
+msgid "Right Margin"
+msgstr "Правое поле"
+
+msgid "Corner Radius:"
+msgstr "Радиус угла:"
+
+msgid "Save linked Text Frames as PDF-Articles"
+msgstr "Сохранить связанные текстовые рамки как PDF-Articles"
+
+msgid "Enable Presentation Effects"
+msgstr "Разрешить презентационные эффекты"
+
+msgid "Show Page Previews"
+msgstr "Предпоказ страницы"
+
+msgid "Display Duration:"
+msgstr "Продолжительность отображения:"
+
+msgid "Effect Duration:"
+msgstr "Продолжительность эффекта:"
+
+msgid "Effect Type:"
+msgstr "Тип эффекта:"
+
+msgid "Moving Lines:"
+msgstr "Движущиеся линии:"
+
+msgid "from the:"
+msgstr "откуда:"
+
+msgid "Direction:"
+msgstr "Направление:"
+
+msgid "No Effect"
+msgstr "Без эффекта"
+
+msgid "Blinds"
+msgstr ""
+
+msgid "Box"
+msgstr "Рамка"
+
+msgid "Dissolve"
+msgstr "Плавное исчезновение"
+
+msgid "Glitter"
+msgstr "Сияние"
+
+msgid "Split"
+msgstr "Раделение"
+
+msgid "Wipe"
+msgstr "Вытирание"
+
+msgid "Inside"
+msgstr "Изнутри"
+
+msgid "Outside"
+msgstr "Снаружи"
+
+msgid "Left to Right"
+msgstr "Слева направо"
+
+msgid "Top to Bottom"
+msgstr "Сверху вниз"
+
+msgid "Bottom to Top"
+msgstr "Снизу вверх"
+
+msgid "Right to Left"
+msgstr "Справа налево"
+
+msgid "Top-Left to Bottom-Right"
+msgstr "Сверху слева вниз направо"
+
+msgid "Extras"
+msgstr "Дополнительно"
+
+msgid "Saves the current Document as PDF"
+msgstr "Сохраняет текущий документ как PDF"
+
+msgid "Rounded Rectangle"
+msgstr "Закруглённый прямоугольник"
+
+msgid "Align Text Left"
+msgstr "Выровнять текст слева"
+
+msgid "Align Text Right"
+msgstr "Выровнять текст справа"
+
+msgid "Align Text Center"
+msgstr "Выровнять текст по центру"
+
+msgid "Align Text Block"
+msgstr "Выровнять текст блочно"
+
+msgid "Endings:"
+msgstr ""
+
+msgid "Edges:"
+msgstr "Края:"
+
+msgid "MiterJoin"
+msgstr ""
+
+msgid "BevelJoin"
+msgstr ""
+
+msgid "RoundJoin"
+msgstr ""
+
+msgid "FlatCap"
+msgstr ""
+
+msgid "SquareCap"
+msgstr ""
+
+msgid "RoundCap"
+msgstr ""
+
+msgid "Move Bookmark"
+msgstr "Переместить закладку"
+
+msgid "Insert Bookmark"
+msgstr "Вставить закладку"
+
+msgid "Copy Page"
+msgstr "Скопировать страницу"
+
+msgid "To the End"
+msgstr "К концу"
+
+msgid "GUI"
+msgstr "GUI"
+
+msgid "Fontsize"
+msgstr "Кегль шрифта"
+
+msgid "Apply Effect on all Pages"
+msgstr "Применить эффект ко всем страницам"
+
+msgid "Print via other Command"
+msgstr "Напечатать через команду"
+
+msgid "Command:"
+msgstr "Команда:"
+
+msgid "Orientation:"
+msgstr "Ориентация:"
+
+msgid "First Pagenumber:"
+msgstr "Номер первой страницы:"
+
+msgid "Default Unit:"
+msgstr "Стандартная единица:"
+
+#, fuzzy
+msgid "Send to Scrapbook"
+msgstr "Переслать в запасник"
+
+msgid "Left Point"
+msgstr ""
+
+msgid "Endpoints"
+msgstr ""
+
+msgid "Scaling"
+msgstr "Масштабирование"
+
+msgid "Linespacing:"
+msgstr "Межстрочный интервал:"
+
+msgid "Character Settings"
+msgstr "Параметры символа"
+
+msgid "Length:"
+msgstr ""
+
+msgid "Polygon Properties"
+msgstr "Свойства многоугольника"
+
+msgid "Corners:"
+msgstr "Углы:"
+
+msgid "Convex Polygon"
+msgstr "Выпуклость"
+
+msgid "Factor:"
+msgstr "Коэфф.:"
+
+msgid "Edit Polygon"
+msgstr "Изменить многоугольник"
+
+msgid "Properties..."
+msgstr "Свойства..."
+
+msgid "Lithuanian:"
+msgstr "На литовский:"
+
+msgid "Measurements"
+msgstr ""
+
+msgid "Insert Polygons"
+msgstr "Вставить многоугольник"
+
+msgid "Rotation:"
+msgstr "Поворот:"
+
+msgid "Loading..."
+msgstr "Идёт загрузка..."
+
+msgid "Convert to"
+msgstr "Преобразовать в"
+
+msgid "Text Frame"
+msgstr "текстовую рамку"
+
+msgid "Picture Frame"
+msgstr "рамку с изображением"
+
+msgid "Polygon"
+msgstr "Многоугольник"
+
+msgid "Bezier Curve"
+msgstr "кривую Безье"
+
+msgid "Style"
+msgstr "Стиль"
+
+msgid "Modify Pathtext"
+msgstr ""
+
+msgid "Show Curve"
+msgstr "Показать кривую"
+
+msgid "Startoffset:"
+msgstr ""
+
+msgid "Distance from Curve:"
+msgstr "Расстояние от кривой:"
+
+msgid "Attach Text to Path"
+msgstr ""
+
+msgid "Layers"
+msgstr "Слои"
+
+msgid "Add a new Layer"
+msgstr "Добавить новый слой"
+
+msgid "Delete Layer"
+msgstr "Удалить слой"
+
+msgid "Raise Layer"
+msgstr "Поднять слой"
+
+msgid "Lower Layer"
+msgstr "Опустить слой"
+
+msgid "Closes this Dialog"
+msgstr "Закрывает этот диалог"
+
+msgid "New Layer"
+msgstr "Новый слой"
+
+msgid "Background"
+msgstr "Задний план"
+
+msgid "Reset Control Points"
+msgstr "Перечитать контрольные точки"
+
+msgid "Reset this Control Points"
+msgstr "Перечитывает эти контрольные точки"
+
+msgid "Opens a Polygon or cuts a Bezier Curve"
+msgstr "Открывает многоугольник или вырезает кривую Безье"
+
+msgid "Closes this Bezier Curve"
+msgstr "Закрывает эту кривую Безье"
+
+msgid "Show Layers"
+msgstr "Показать Слои"
+
+msgid "Hide Layers"
+msgstr "Скрыть Слои"
+
+msgid "Sent to Layer"
+msgstr ""
+
+msgid "Link"
+msgstr "Ссылка"
+
+msgid "Text Field"
+msgstr "Текстовое поле"
+
+msgid "Button"
+msgstr "Кнопка"
+
+#, fuzzy
+msgid "Check Box"
+msgstr "Чекбокс"
+
+msgid "Properties"
+msgstr "Свойства"
+
+msgid "Tool-Tip:"
+msgstr "Подсказка:"
+
+msgid "Read Only"
+msgstr "Только для чтения"
+
+msgid "Visibility:"
+msgstr "Видимость:"
+
+msgid "Border"
+msgstr "Граница"
+
+msgid "Thin"
+msgstr "Тонкая"
+
+msgid "Wide"
+msgstr "Толстая"
+
+msgid "Solid"
+msgstr "Сплошная"
+
+msgid "Dashed"
+msgstr "Пунктирная"
+
+msgid "Beveled"
+msgstr ""
+
+msgid "Inset"
+msgstr ""
+
+#, fuzzy
+msgid "Visible"
+msgstr "Видима"
+
+#, fuzzy
+msgid "Hidden"
+msgstr "Скрыта"
+
+msgid "No Print"
+msgstr "Не печатаема"
+
+msgid "No View"
+msgstr "Не видна на экране"
+
+msgid "Appearance"
+msgstr "Облик"
+
+msgid "Text"
+msgstr "Текст"
+
+msgid "Text for Button Down"
+msgstr "Текст для нажатой кнопки"
+
+msgid "Text for Roll Over"
+msgstr ""
+
+msgid "Highlight"
+msgstr ""
+
+msgid "Invert"
+msgstr ""
+
+msgid "Outlined"
+msgstr ""
+
+msgid "Push"
+msgstr ""
+
+msgid "Multi-Line"
+msgstr "В несколько строк"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Limit of"
+msgstr "Предел до"
+
+msgid "Characters"
+msgstr "символов"
+
+msgid "Do Not Scroll"
+msgstr "Не прокручивать"
+
+msgid "Do Not Spell Check"
+msgstr "Не проверять орфографию"
+
+msgid "Check Style:"
+msgstr "Стиль:"
+
+msgid "Check"
+msgstr "Галочка"
+
+msgid "Cross"
+msgstr "Крестик"
+
+msgid "Diamond"
+msgstr "Алмаз"
+
+msgid "Circle"
+msgstr "Кружок"
+
+msgid "Star"
+msgstr "Звёздочка"
+
+msgid "Square"
+msgstr "Квадрат"
+
+msgid "Default is Checked"
+msgstr "По умолчанию отмечено"
+
+msgid "Java Script"
+msgstr "Сценарий на Java"
+
+msgid "Go To"
+msgstr "Переход"
+
+msgid "Submit Form"
+msgstr "Отправить форму"
+
+msgid "Reset Form"
+msgstr "Обнулить форму"
+
+msgid "Flag is ignored for PDF-1.3"
+msgstr "Параметр игнорируется для PDF-1.3"
+
+msgid "Font for use with PDF-1.3:"
+msgstr "Шрифт для PDF-1.3:"
+
+msgid "Required"
+msgstr "Необходимо"
+
+msgid "Don't Export Value"
+msgstr "Не экспортировать значение"
+
+msgid "Event:"
+msgstr "Событие:"
+
+msgid "Mouse Up"
+msgstr ""
+
+msgid "Mouse Down"
+msgstr ""
+
+msgid "Mouse Enter"
+msgstr ""
+
+msgid "Mouse Exit"
+msgstr ""
+
+msgid "On Focus"
+msgstr ""
+
+msgid "On Blur"
+msgstr ""
+
+msgid "Script:"
+msgstr "Сценарий:"
+
+msgid "Field is formatted as:"
+msgstr "Поле форматировано как:"
+
+msgid "Plain"
+msgstr "Просто текст"
+
+msgid "Number"
+msgstr "Число"
+
+msgid "Percentage"
+msgstr "Процент"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Time"
+msgstr "Время"
+
+msgid "Custom"
+msgstr "Свой тип..."
+
+msgid "Number Format"
+msgstr "Числовой формат"
+
+msgid "Decimals:"
+msgstr "Десятичный"
+
+msgid "Use Currency Symbol"
+msgstr "Использовать символ валюты"
+
+msgid "Prepend Currency Symbol"
+msgstr "Ставить символ валюты перед числом"
+
+msgid "Formatting"
+msgstr "Форматирование"
+
+msgid "Percent Format"
+msgstr "Формат процента"
+
+msgid "Date Format"
+msgstr "Формат даты"
+
+msgid "Time Format"
+msgstr "Формат времени"
+
+msgid "Custom Scripts"
+msgstr "Свои сценарии"
+
+msgid "Format:"
+msgstr "Формат:"
+
+msgid "Edit..."
+msgstr "Изменить..."
+
+msgid "Combo Box"
+msgstr "Выпадающий список (combo box)"
+
+msgid "List Box"
+msgstr "Список (list box)"
+
+msgid "Keystroke:"
+msgstr ""
+
+msgid "Format"
+msgstr "Формат"
+
+msgid "Value is not validated"
+msgstr "Значение не проверяется"
+
+msgid "Value must be greater than or equal to:"
+msgstr "Значение должно быть больше или равно:"
+
+msgid "and less or equal to:"
+msgstr "и меньше или равно:"
+
+msgid "Custom validate script:"
+msgstr "Собственный проверяющий сценарий:"
+
+msgid "Value is not calculated"
+msgstr "Значение не подсчитывается"
+
+msgid "Value is the"
+msgstr "Значение является"
+
+msgid "sum"
+msgstr "суммой"
+
+msgid "product"
+msgstr "произведением"
+
+msgid "average"
+msgstr "средним арифметическим"
+
+msgid "minimum"
+msgstr "минимумом"
+
+msgid "maximum"
+msgstr "максимумом"
+
+msgid "of the following fields:"
+msgstr "следующих полей:"
+
+msgid "Custom calculation script:"
+msgstr "Собственный вычисляющий сценарий:"
+
+msgid "Calculate"
+msgstr "Вычислить"
+
+msgid "Validate"
+msgstr "Проверить"
+
+msgid "Enter a comma separated list of Fields here"
+msgstr ""
+
+msgid "Example:"
+msgstr "Пример:"
+
+msgid "Selection Change"
+msgstr ""
+
+msgid "Use Icons"
+msgstr "Использовать пиктограммы"
+
+msgid "Remove"
+msgstr "Удалить"
+
+msgid "Pressed"
+msgstr "Нажата"
+
+msgid "Roll Over"
+msgstr ""
+
+msgid "Icon Placement..."
+msgstr "Расположение..."
+
+msgid "Editable"
+msgstr "Редактируем"
+
+msgid "Submit to URL:"
+msgstr "Передать по URL:"
+
+msgid "Submit Data as HTML"
+msgstr "Передать данные в формате HTML"
+
+msgid "Layout:"
+msgstr "Облик:"
+
+msgid "Caption only"
+msgstr "Только заголовок"
+
+msgid "Icon only"
+msgstr "Только пиктограмма"
+
+msgid "Caption below Icon"
+msgstr "Заголовок ниже пиктограммы"
+
+msgid "Caption above Icon"
+msgstr "Заголовок выше пиктограммы"
+
+msgid "Caption right to Icon"
+msgstr "Заголовок справа от пиктограммы"
+
+msgid "Caption left to Icon"
+msgstr "Заголовок слева от пиктограммы"
+
+msgid "Caption overlays Icon"
+msgstr "Заголовок поверх пиктограммы"
+
+msgid "Scale:"
+msgstr ""
+
+msgid "Always"
+msgstr "Всегда"
+
+msgid "When Icon is too small"
+msgstr "Когда пикторамма слишком мала"
+
+msgid "When Icon is too big"
+msgstr "Когда пикторамма слишком велика"
+
+msgid "Never"
+msgstr "Никогда"
+
+msgid "Scale How:"
+msgstr ""
+
+msgid "Proportional"
+msgstr "Пропорционально"
+
+msgid "Non Proportional"
+msgstr "Непропорционально"
+
+#, fuzzy
+msgid "Reset"
+msgstr "Перечитать"
+
+msgid "You need at least the Icon for Normal to use Icons for Buttons"
+msgstr ""
+
+msgid "Save and Exit"
+msgstr "Сохранить и выйти"
+
+msgid "Exit without Saving"
+msgstr "Выйти без сохранения"
+
+msgid "Get Field Names"
+msgstr "Получить имена полей"
+
+msgid "JavaScripts (*.js);; All Files (*)"
+msgstr "JavaScripts (*.js);; Все файлы (*)"
+
+msgid "Pick..."
+msgstr "Выбрать..."
+
+msgid "Export Range"
+msgstr ""
+
+msgid "All Pages"
+msgstr "Все страницы"
+
+msgid "From:"
+msgstr ""
+
+msgid "Insert PDF-Fields"
+msgstr "Вставить PDF-Поля"
+
+msgid "Undo"
+msgstr "Отменить"
+
+msgid "Redo"
+msgstr "Повторить"
+
+msgid "Select Fields"
+msgstr "Выбрать поля"
+
+msgid "Available Fields"
+msgstr "Доступные поля"
+
+msgid "Selected Fields"
+msgstr "Выбранные поля"
+
+msgid "Field Properties"
+msgstr "Свойства поля"
+
+#, fuzzy
+msgid "Global JavaScripts"
+msgstr "Глобальные сценарии на JavaScript"
+
+msgid "Add..."
+msgstr "Добавить..."
+
+msgid "New Script:"
+msgstr "Новый сценарий:"
+
+msgid "New Script"
+msgstr "Новый сценарий"
+
+msgid "Insert PDF-Annotations"
+msgstr "Вставить PDF-аннотации"
+
+msgid "Import Data"
+msgstr "Импортировать данные"
+
+msgid "Import Data from:"
+msgstr "Импортировать данные из:"
+
+msgid "Undo Object Change"
+msgstr "Отменить изменение объекта"
+
+msgid "Undo Object Move"
+msgstr "Отменить перемещение объекта"
+
+msgid "Undo Delete Object"
+msgstr "Отменить удаление объекта"
+
+msgid "Compress File"
+msgstr "Сжать файл"
+
+msgid "Inches (in)"
+msgstr "Дюймы (in)"
+
+msgid "Picas (p)"
+msgstr "Пики (p)"
+
+msgid "Show Template Names"
+msgstr "Показать названия шаблонов"
+
+msgid "Arrange Pages"
+msgstr "Отсортировать страницы"
+
+msgid "Available Templates:"
+msgstr "Доступные шаблоны:"
+
+msgid "Document Pages:"
+msgstr ""
+
+msgid "Hide Page Palette"
+msgstr ""
+
+msgid "Show Page Palette"
+msgstr ""
+
+msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
+msgstr ""
+
+msgid ""
+"Here are all your Templates, to create a new Page\n"
+"drag a Template to the Pageview below."
+msgstr ""
+
+msgid "Here you can see all Pages of your Document."
+msgstr ""
+
+msgid "Free Scaling"
+msgstr ""
+
+msgid "Scale to Frame Size"
+msgstr ""
+
+msgid "Hyphenate Text"
+msgstr ""
+
+msgid "Hyphenator..."
+msgstr ""
+
+msgid "General..."
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "German"
+msgstr ""
+
+msgid "French"
+msgstr ""
+
+msgid "Italian"
+msgstr ""
+
+msgid "Spanish"
+msgstr ""
+
+msgid "Possible Hyphenation"
+msgstr ""
+
+msgid "Accept"
+msgstr ""
+
+msgid "Skip"
+msgstr ""
+
+msgid "Hyphenator Settings"
+msgstr ""
+
+msgid "Check during Typing"
+msgstr ""
+
+msgid "Enables automatic checking of your Text during Typing."
+msgstr ""
+
+msgid "Fully Automatic"
+msgstr ""
+
+msgid "Language:"
+msgstr ""
+
+msgid "Smallest Word:"
+msgstr ""
+
+msgid "This is the length of the smallest word to be hyphenated."
+msgstr ""
+
+msgid ""
+"If you uncheck this you will get an Dialog\n"
+"everytime a possible Hyphenation is found."
+msgstr ""
+
+msgid "Windows"
+msgstr ""
+
+msgid "Cascade"
+msgstr ""
+
+msgid "Tile"
+msgstr ""
+
+msgid "&Restore"
+msgstr ""
+
+msgid "&Move"
+msgstr ""
+
+msgid "Mi&nimize"
+msgstr ""
+
+msgid "Minimize"
+msgstr ""
+
+msgid "Ma&ximize"
+msgstr ""
+
+msgid "Maximize"
+msgstr ""
+
+msgid "System Menu"
+msgstr ""
+
+msgid "&Close"
+msgstr ""
+
+msgid "Line up"
+msgstr ""
+
+msgid "Restore Down"
+msgstr ""
+
+msgid "Document"
+msgstr ""
+
+msgid ""
+"Name \"%1\" isn't unique.\n"
+"Please choose another."
+msgstr ""
+
+msgid ""
+"Can't write the File: \n"
+"%1"
+msgstr ""
+
+msgid "Russian"
+msgstr ""
+
+msgid "Printing failed!"
+msgstr ""
+
+msgid "Lock"
+msgstr ""
+
+msgid "Unlock"
+msgstr ""
+
+msgid ""
+"Moves to your Document Directory.\n"
+"This can be set in the Preferences."
+msgstr ""
+
+msgid "Choose a Directory"
+msgstr ""
+
+msgid "Paths"
+msgstr ""
+
+msgid "Documents:"
+msgstr ""
+
+msgid "One directory up"
+msgstr ""
+
+msgid "Create New Folder"
+msgstr ""
+
+msgid "List View"
+msgstr ""
+
+msgid "Detail View"
+msgstr ""
+
+msgid "Preview File Contents"
+msgstr ""
+
+msgid "Hide Grid"
+msgstr ""
+
+msgid "Show Grid"
+msgstr ""
+
+msgid "Manage Guides..."
+msgstr ""
+
+msgid "Manage Guides"
+msgstr ""
+
+msgid "Vertical Guides"
+msgstr ""
+
+msgid "Horizontal Guides"
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
+msgid "Horizontal Gradient"
+msgstr ""
+
+msgid "Vertical Gradient"
+msgstr ""
+
+msgid "Diagonal Gradient"
+msgstr ""
+
+msgid "CrossDiagonal Gradient"
+msgstr ""
+
+msgid "Radial Gradient"
+msgstr ""
+
+msgid "Polish:"
+msgstr ""
+
+msgid "User Guides Color:"
+msgstr ""
+
+msgid "Guide Snap Distance:"
+msgstr ""
+
+msgid "Use PDF-1.4 Transparency Features"
+msgstr ""
+
+msgid "Opacity:"
+msgstr ""
+
+msgid "Font Name"
+msgstr ""
+
+msgid "Use Font"
+msgstr ""
+
+msgid "Available Fonts"
+msgstr ""
+
+msgid "Replacement"
+msgstr ""
+
+msgid "Font Substitutions"
+msgstr ""
+
+msgid "Additional Paths"
+msgstr ""
+
+msgid "Screen"
+msgstr ""
+
+msgid "Output intended for:"
+msgstr ""
+
+msgid "Use ICC-Profile"
+msgstr ""
+
+msgid "Profiles"
+msgstr ""
+
+msgid "Rendering-Intent:"
+msgstr ""
+
+msgid "Don't use embedded Profiles"
+msgstr ""
+
+msgid "Options..."
+msgstr ""
+
+msgid "Option"
+msgstr ""
+
+msgid "Value"
+msgstr ""
+
+msgid "Printing Mode"
+msgstr ""
+
+msgid "Page Set"
+msgstr ""
+
+msgid "Mirror"
+msgstr ""
+
+msgid "N-Up Printing"
+msgstr ""
+
+msgid "Page per Sheet"
+msgstr ""
+
+msgid "Pages per Sheet"
+msgstr ""
+
+msgid "Even Pages only"
+msgstr ""
+
+msgid "Odd Pages only"
+msgstr ""
+
+msgid "PDF/X-3 Output Intent"
+msgstr ""
+
+msgid "Info String:"
+msgstr ""
+
+msgid "Output Profile:"
+msgstr ""
+
+msgid "Use Encryption"
+msgstr ""
+
+msgid "Passwords"
+msgstr ""
+
+msgid "User:"
+msgstr ""
+
+msgid "Owner:"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Allow Printing the Document"
+msgstr ""
+
+msgid "Allow Changing the Document"
+msgstr ""
+
+msgid "Copying Text and Graphics is allowed"
+msgstr ""
+
+msgid "Adding Annotations and Fields is allowed"
+msgstr ""
+
+msgid "Security"
+msgstr ""
+
+msgid "Printer Options"
+msgstr ""
+
+msgid "Element"
+msgstr ""
+
+msgid "X-Pos+:"
+msgstr ""
+
+msgid "Y-Pos+:"
+msgstr ""
+
+msgid "Horiz. Scale:"
+msgstr ""
+
+msgid "Vert. Scale:"
+msgstr ""
+
+msgid "Show Bookmarks"
+msgstr ""
+
+msgid "Hide Bookmarks"
+msgstr ""
+
+msgid "Collect for Output..."
+msgstr ""
+
+msgid "Danish"
+msgstr ""
+
+msgid "Danish:"
+msgstr ""
+
+msgid "Lock Guides"
+msgstr ""
+
+msgid "Mirror Page(s) horizontal"
+msgstr ""
+
+msgid "Mirror Page(s) vertical"
+msgstr ""
+
+msgid "Rotation"
+msgstr ""
+
+msgid "by:"
+msgstr ""
+
+msgid "Edit Shape..."
+msgstr ""
+
+msgid ""
+"Round\n"
+"Corners:"
+msgstr ""
+
+msgid "Distance of Text"
+msgstr ""
+
+msgid "Custom Spacing"
+msgstr ""
+
+msgid "Character:"
+msgstr ""
+
+msgid "Line:"
+msgstr ""
+
+msgid "Level"
+msgstr ""
+
+msgid "Geometry"
+msgstr ""
+
+msgid "Document:"
+msgstr ""
+
+msgid "has been changed since the last save."
+msgstr ""
+
+msgid "Insert Page..."
+msgstr ""
+
+msgid "Import a Page"
+msgstr ""
+
+msgid "Document to load:"
+msgstr ""
+
+msgid "Document contains: 0 Page(s)"
+msgstr ""
+
+msgid "Import Page Nr:"
+msgstr ""
+
+msgid "Import"
+msgstr ""
+
+msgid "Document contains: %1 Page(s)"
+msgstr ""
+
+msgid "Advanced Options..."
+msgstr ""
+
+msgid "Advanced Options"
+msgstr ""
+
+msgid "Apply ICC-Profiles"
+msgstr ""
+
+msgid "Mark Colors out of Gamut"
+msgstr ""
+
+msgid "Scale Picture to Frame Size"
+msgstr ""
+
+msgid "Combine Polygons"
+msgstr ""
+
+msgid "Split Polygon"
+msgstr ""
+
+msgid "Convert to Polygons"
+msgstr ""
+
+msgid "Websave RGB"
+msgstr ""
+
+msgid "Adjust Display Size"
+msgstr ""
+
+msgid "To adjust the Display drag the Ruler below with the Slider."
+msgstr ""
+
+msgid "Show PDF-Tools"
+msgstr ""
+
+msgid "Hide PDF-Tools"
+msgstr ""
+
+msgid "Shears the Path horizotal to the right"
+msgstr ""
+
+msgid "Shears the Path horizotal to the left"
+msgstr ""
+
+msgid "Shears the Path vertical up"
+msgstr ""
+
+msgid "Shears the Path vertical down"
+msgstr ""
+
+msgid "Line Styles..."
+msgstr ""
+
+msgid "Initializing Plugins"
+msgstr ""
+
+msgid "Reading Scrapbook"
+msgstr ""
+
+msgid "Setting up Shortcuts"
+msgstr ""
+
+msgid "Reading Preferences"
+msgstr ""
+
+msgid "Init Hyphenator"
+msgstr ""
+
+msgid "Getting ICC-Profiles"
+msgstr ""
+
+msgid "Searching for Fonts"
+msgstr ""
+
+msgid "Print Preview"
+msgstr ""
+
+msgid "Antialias Text"
+msgstr ""
+
+msgid "Antialias Graphics"
+msgstr ""
+
+msgid "Russian:"
+msgstr ""
+
+msgid "Loading:"
+msgstr "Загружается:"
+
+msgid "Autosave"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "use Bounding Box"
+msgstr ""
+
+msgid "Czech:"
+msgstr ""
+
+msgid "Norwegian:"
+msgstr ""
+
+msgid "Select new Font:"
+msgstr "Выбрать шрифт:"
+
+msgid "Insert Special"
+msgstr ""
+
+msgid "Select Character"
+msgstr "Выбрать символ"
+
+msgid "Insert"
+msgstr "Вставить"
+
+msgid "Save Page as SVG..."
+msgstr "Сохранить страницу как SVG..."
+
+msgid "SVG-Images (*.svg);; All Files (*)"
+msgstr "Изображения в формате SVG (*.svg);;Все файлы (*)"
+
+msgid "Solid Line"
+msgstr ""
+
+msgid "Dashed Line"
+msgstr ""
+
+msgid "Dotted Line"
+msgstr ""
+
+msgid "Dash Dot Line"
+msgstr ""
+
+msgid "Dash Dot Dot Line"
+msgstr ""
+
+#~ msgid "Hide Colors"
+#~ msgstr "Спрятать цвета"
+
+#~ msgid "Show Colors"
+#~ msgstr "Показать цвета"
+
+#~ msgid "locally connected"
+#~ msgstr "Присоединённый локально"
+
