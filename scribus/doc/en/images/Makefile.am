@@ -1,4 +1,4 @@
-EXTRA_DIST = acropass.png acroinfo.png acrosec.png acro1.png acro3.png cmsmodify1.png colormgmtscreen.png cups1.png cups2.png docheader1.png docheader2.png fonts2.png fontpref2.png fontpref3.png fontpref1.png gammagrayscale.png gsadv1.png gsadv2.png gsadv3.png hyphen1.png hyphen2.png hyphen3.png inkscape.png kfontinstaller.png ksnapshot.png monprof1.png monprof2.png monprof3.png pdfxcolor.png pdfxintent.png pstoedit1.png pdfx3-1.png svg1.png gimpoptions1.png prefsguides.png printpreview.png  RDF.png batik1.png  gimpoptions2.png  prefspanel1.png  scribus2.png cmspanel.png  gimpoptions3.png  prefspanel2.png scribustru4.png colormanager2.png  hyphen1.png prefspanel3.png  Scripter_error_string.png fontprev.png hyphen2.png  prefspanel4.png Scripter.png fonts.png  hyphen3.png printer3.png xnview.png spinbox1.png scribuscms1.png
+EXTRA_DIST = acropass.png acroinfo.png acrosec.png acro1.png acro3.png cmsmodify1.png colormgmtscreen.png cups1.png cups2.png docheader1.png docheader2.png fonts2.png fontpref2.png fontpref3.png fontpref1.png gammagrayscale.png gsadv1.png gsadv2.png gsadv3.png hyphen1.png hyphen2.png hyphen3.png inkscape.png kfontinstaller.png ksnapshot.png monprof1.png monprof2.png monprof3.png pdfxcolor.png pdfxintent.png pstoedit1.png pdfx3-1.png svg1.png gimpoptions1.png prefsguides.png printpreview.png  RDF.png batik1.png  gimpoptions2.png  prefspanel1.png  scribus2.png cmspanel.png  gimpoptions3.png  prefspanel2.png scribustru4.png colormanager2.png  hyphen1.png prefspanel3.png  Scripter_error_string.png fontprev.png hyphen2.png  prefspanel4.png Scripter.png fonts.png  hyphen3.png printer3.png xnview.png spinbox1.png scribuscms1.png printer1.png printer2.png printseps.png
 
 install-data-local:
 
@@ -48,7 +48,10 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/prefspanel3.png $(prefix)/share/scribus/doc/en/images/prefspanel3.png
 	$(INSTALL_DATA) $(srcdir)/prefspanel4.png $(prefix)/share/scribus/doc/en/images/prefspanel4.png
 	$(INSTALL_DATA) $(srcdir)/RDF.png $(prefix)/share/scribus/doc/en/images/RDF.png
+	$(INSTALL_DATA) $(srcdir)/printer1.png $(prefix)/share/scribus/doc/en/images/printer1.png
+	$(INSTALL_DATA) $(srcdir)/printer2.png $(prefix)/share/scribus/doc/en/images/printer2.png
 	$(INSTALL_DATA) $(srcdir)/printer3.png $(prefix)/share/scribus/doc/en/images/printer3.png
+	$(INSTALL_DATA) $(srcdir)/printseps.png $(prefix)/share/scribus/doc/en/images/printseps.png
 	$(INSTALL_DATA) $(srcdir)/printpreview.png $(prefix)/share/scribus/doc/en/images/printpreview.png
 	$(INSTALL_DATA) $(srcdir)/Scripter_error_string.png $(prefix)/share/scribus/doc/en/images/Scripter_error_string.png
 	$(INSTALL_DATA) $(srcdir)/Scripter.png $(prefix)/share/scribus/doc/en/images/Scripter.png
@@ -106,9 +109,12 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/doc/en/images/prefspanel1.png
 	-rm -f $(prefix)/share/scribus/doc/en/images/prefspanel2.png
 	-rm -f $(prefix)/share/scribus/doc/en/images/prefspanel3.png
-	-rm -f $(prefix)/share/scribus/doc/en/images/prefspanel4.png 
+	-rm -f $(prefix)/share/scribus/doc/en/images/prefspanel4.png
+	-rm -f $(prefix)/share/scribus/doc/en/images/printer1.png 
+	-rm -f $(prefix)/share/scribus/doc/en/images/printer2.png
 	-rm -f $(prefix)/share/scribus/doc/en/images/printer3.png
 	-rm -f $(prefix)/share/scribus/doc/en/images/printpreview.png
+	-rm -f $(prefix)/share/scribus/doc/en/images/printseps.png
 	-rm -f $(prefix)/share/scribus/doc/en/images/pstoedit1.png
 	-rm -f $(prefix)/share/scribus/doc/en/images/pdfx3-1.png
 	-rm -f $(prefix)/share/scribus/doc/en/images/RDF.png
