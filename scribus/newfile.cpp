@@ -1,6 +1,12 @@
 #include "newfile.h"
 #include "newfile.moc"
 #include <qtooltip.h>
+
+// definitions for clear reading the code - pv
+#define PORTRAIT    0
+#define LANDSCAPE   1
+#define USERFORMAT 30
+
 extern QPixmap loadIcon(QString nam);
 
 NewDoc::NewDoc( QWidget* parent, preV *Vor )
@@ -8,27 +14,14 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 {
 	QString units[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
 	int decimals;
-	ein = units[Vor->Einheit];
-	switch (Vor->Einheit)
-	{
-	case 0:
-		Umrech = 1.0;
-		decimals = 2;
-		break;
-	case 1:
-		Umrech = 0.3527777;
-		decimals = 3;
-		break;
-	case 2:
-		Umrech = 1.0 / 72.0;
-		decimals = 4;
-		break;
-	case 3:
-		Umrech = 1.0 / 12.0;
-		decimals = 2;
-		break;
-	}
+	// pv - removed switch hell
+	double umr[] = {1.0, 0.3527777, (1.0 / 72.0), (1.0 / 12.0)};
+	int dec[] = {2, 3, 4, 2};
+
 	einheit = Vor->Einheit;
+	ein = units[einheit];
+	Umrech = umr[einheit];
+	decimals = dec[einheit];
 	Orient = 0;
 	setCaption( tr( "New Document" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -270,6 +263,15 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 
 void NewDoc::code_repeat(int m)
 {
+	// #869 pv - auto-flip landscape/portrait based on the height:width ratio
+	if (ComboBox1->currentItem() == USERFORMAT)
+	{
+		if (Breite->value() > Hoehe->value())
+			ComboBox2->setCurrentItem(LANDSCAPE);
+		else
+			ComboBox2->setCurrentItem(PORTRAIT);
+	} // end of #869
+
 	switch (m)
 	{
 	case 0 :
@@ -339,6 +341,10 @@ void NewDoc::setUnit(int u)
 	int decimals;
 	double AltUmrech = Umrech;
 	double val, oldB, oldBM, oldH, oldHM;
+	// pv - removed switch hell
+	double umr[] = {1.0, 0.3527777, (1.0 / 72.0), (1.0 / 12.0)};
+	int dec[] = {100, 1000, 10000, 100};
+
 	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	disconnect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
@@ -351,25 +357,9 @@ void NewDoc::setUnit(int u)
 	Hoehe->getValues(&oldH, &oldHM, &decimals, &val);
 	oldH /= AltUmrech;
 	oldHM /= AltUmrech;
-	switch (u)
-	{
-	case 0:
-		Umrech = 1.0;
-		decimals = 100;
-		break;
-	case 1:
-		Umrech = 0.3527777;
-		decimals = 1000;
-		break;
-	case 2:
-		Umrech = 1.0 / 72.0;
-		decimals = 10000;
-		break;
-	case 3:
-		Umrech = 1.0 / 12.0;
-		decimals = 100;
-		break;
-	}
+
+	Umrech = umr[u];
+	decimals = dec[u];
 	einheit = u;
 	Breite->setValues(oldB * Umrech, oldBM * Umrech, decimals, Pagebr * Umrech);
 	Hoehe->setValues(oldH * Umrech, oldHM * Umrech, decimals, Pageho * Umrech);
@@ -396,20 +386,9 @@ void NewDoc::setUnit(int u)
 
 void NewDoc::ExitOK()
 {
-	if (ComboBox1->currentItem() == 30)
-	{
 		Pagebr = Breite->value() / Umrech;
 		Pageho = Hoehe->value() / Umrech;
 		accept();
-		return;
-	}
-	if (Orient == 1)
-	{
-		double br = Pagebr;
-		Pagebr = Pageho;
-		Pageho = br;
-	}
-	accept();
 }
 
 void NewDoc::setOrien(int ori)
@@ -423,10 +402,10 @@ void NewDoc::setOrien(int ori)
 		Breite->setValue(Hoehe->value());
 		Hoehe->setValue(br);
 	}
-	if (ori == 0)
-		Orient = 0;
-	else
-		Orient = 1;
+	// #869 pv - defined constants added + code repeat (check w/h)
+	(ori == PORTRAIT) ? Orient = PORTRAIT : Orient = LANDSCAPE;
+	code_repeat(666); // just check w/h
+	// end of #869
 	RightR->setMaxValue(Breite->value() - LeftR->value());
 	LeftR->setMaxValue(Breite->value() - RightR->value());
 	TopR->setMaxValue(Hoehe->value() - BottomR->value());
@@ -437,7 +416,7 @@ void NewDoc::setOrien(int ori)
 
 void NewDoc::setPGsize()
 {
-	if (ComboBox1->currentItem() == 30)
+	if (ComboBox1->currentItem() == USERFORMAT)
 		setSize(ComboBox1->currentItem());
 	else
 	{
@@ -458,15 +437,22 @@ void NewDoc::setSize(int gr)
 	                355, 250, 178, 125, 89, 462, 298, 312, 542, 595, 1224, 612, 612, 792};
 	int page_y[] = {3368, 2380, 1684, 1190, 842, 595, 421, 297, 210, 148, 4008, 2836, 2004, 1418, 1002, 709,
 	                501, 355, 250, 178, 125, 649, 683, 624, 720, 935, 792, 1008, 792, 1225};
-	if (gr == 30)
+	if (gr == USERFORMAT)
 	{
 		Breite->setEnabled(true);
 		Hoehe->setEnabled(true);
 	}
 	else
 	{
+		// pv - correct handling of the disabled spins
+		if (ComboBox2->currentItem() == PORTRAIT)
+		{
 		Pagebr = page_x[gr];
 		Pageho = page_y[gr];
+		} else {
+			Pagebr = page_y[gr];
+			Pageho = page_x[gr];
+		}
 	}
 	Breite->setValue(Pagebr * Umrech);
 	Hoehe->setValue(Pageho * Umrech);

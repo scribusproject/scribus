@@ -5464,10 +5464,40 @@ void Page::mousePressEvent(QMouseEvent *m)
 		if (!inText)
 		{
 			Deselect(true);
+			slotDoCurs(true);
 			if (!SeleItem(m))
 			{
-				slotDoCurs(true);
 				emit Amode(1);
+				return;
+			}
+			else
+			{
+				b = doku->ActPage->SelItem.at(0);
+				if ((m->button() == MidButton) && (b->PType == 4))
+				{
+					Mpressed = false;
+					MidButt = false;
+					QString cc;
+					cc = QApplication::clipboard()->text(QClipboard::Selection);
+					if (cc.isNull())
+						cc = QApplication::clipboard()->text(QClipboard::Clipboard);
+					if (!cc.isNull())
+					{
+						Serializer *ss = new Serializer("");
+						ss->Objekt = cc;
+						int st = doku->CurrentABStil;
+						ss->GetText(b, st, doku->Vorlagen[st].Font, doku->Vorlagen[st].FontSize, true);
+						delete ss;
+						if (doku->Trenner->AutoCheck)
+							doku->Trenner->slotHyphenate(b);
+					}
+					else
+					{
+						if (ScApp->Buffer2.startsWith("<SCRIBUSTEXT"))
+							ScApp->slotEditPaste();
+					}
+					RefreshItem(b);
+				}
 				return;
 			}
 		}
