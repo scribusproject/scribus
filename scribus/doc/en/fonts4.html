@@ -1,0 +1,28 @@
+<qt>
+<title>Basic Font Tests</title>
+<h2>Basic Fonts Tests</h2>
+
+<h4>How does one decide which fonts are good, bad or indifferent? </h4>
+
+<p>So, you have down-loaded and installed a selection of fonts. All through the docs, on the mailing list in IRC, everyone talks about using good fonts, How do I know ? How can I tell?  Below is a simple checklist you can use. It is not 100% fool proof. It comes with no guarantee: </p>
+
+<p>One very useful feature in KDE 3.3+ is the kio-fonts slave which can pickup metadata about fonts and browse this data in konqueror. It is my first tool for assessing a font. Enabling this is as simple as opening konqueror, browsing to a directory of fonts and click icon view and let the previews build in the back ground. Then, simply hover your mouse over a single font icon for more data. This will generate a mouseover preview. You can alternatively, right click and choose <strong>Open With... Kfontview</strong></p><br />
+
+<p><div align="center"><img src="images/fonts3.png" alt="font previews in Konqueror" width="733" height="631" border="0" title="font previews in Konqueror" /></div></p><br /><br />
+
+<p>In the example above, there are a couple of hints for a potentially troublesome font. First is no preview, indicating some internal problems. In more than two dozen fonts which showed with no preview, most everyone had printing/exporting issues in Scribus.  Second is the lack of a foundry, indicating it might be a poorly made clone of a higher quality original.</p>
+
+<ul>
+<li>Check the file dates: Type 1 fonts before 1991, can cause problems.  </li>
+<li>When checking Type 1 fonts, the <strong>.pfb</strong> file will create the preview. <strong>.afm</strong> and <strong>.pfm</strong> files have the font metrics useful for ligatures and kern pairing info.</li>
+<li>Check the size, there is no absolute, but smaller sizes, <em>especially</em> with True Type fonts, can indicate missing glyphs. This is not the case with special fonts such as symbols or other fonts. Note, Scribus 1.3+ will automatically show missing glyphs in a font right on the canvas.</li>
+<li>Does the font come from a well known foundry ? If the foundry is marked unknown use with caution and you should not be surprised if it causes troubles in Scribus. This again is not an absolute. Some excellent special purpose fonts do not have this info embedded for some reason.</li>
+<li>Does the font's foundry name Altsys or Macromedia? Macromedia sells Fontographer, a type creation/editing software which used to be sold by Altsys. Some clones are actually fonts edited with Fontographer if the default settings are not changed, the foundry will be listed as Macromedia or Altsys. Most often well known type designers embed their name or foundry name in the font. If you acquire a font attributed to Altsys or Macromedia - use caution.. Fontographer itself, in the right hands, a superb tool. </li>
+
+</ul>
+<p>Below, a good font from a well known reliable foundry with correct meta data displayed.</p>
+<br />
+<p><div align="center"><img src="images/fonts4.png" alt="A correct listing of font metadata" width="602" height="483" border="0" title="A correct listing of font metadata" /></div></p><br />
+
+
+</qt>
