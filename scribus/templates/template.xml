@@ -9,8 +9,8 @@
     	<color>2 colors, green and orange</color>
     	<descr>Simple newsletter template</descr>
     	<usage>Right click on text and image frames and replace what's inside with your own. Images are free to be used in your documents as well.</usage>
-    	<scribus_version>1.1.7</scribus_version>
-		<date>2004-06-11</date>
+    	<scribus_version>1.2RC1cvs</scribus_version>
+		<date>2004-07-11</date>
 		<author>RL</author>
     	<email>tsoots@welho.com</email>
 	</template>
@@ -23,8 +23,8 @@
     	<color>b/w</color>
     	<descr>Simple newsletter template</descr>
     	<usage>Right click on text and image frames and replace what's inside with your own. Images are free to be used in your documents as well.</usage>
-		<scribus_version>1.1.7</scribus_version>
-		<date>2004-06-11</date>
+		<scribus_version>1.2RC1cvs</scribus_version>
+		<date>2004-07-11</date>
     	<author>RL</author>
     	<email>tsoots@welho.com</email>
   	</template>
@@ -35,10 +35,10 @@
     	<img>br1/br1.png</img>
     	<psize>A4</psize>
     	<color>color</color>
-    	<descr>Simple brochure with colorful fruity theme.</descr>
+    	<descr>Simple brochure with a colorful fruity theme.</descr>
     	<usage>Right click on text replace what's inside with your own.</usage>
-    	<scribus_version>1.1.7</scribus_version>
-		<date>2004-06-11</date>
+    	<scribus_version>1.2RC1cvs</scribus_version>
+		<date>2004-07-11</date>
 		<author>RL</author>
     	<email>tsoots@welho.com</email>
 	</template>
