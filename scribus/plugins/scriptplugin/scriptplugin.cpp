@@ -400,6 +400,9 @@ QString MenuTest::slotRunScript(QString Script)
 			// FIXME: if CurDir contains chars outside 7bit ascii, might be problems
 			cm = "import sys\nsys.path[0] = \""+CurDir+"\"\n";
 			cm += "import cStringIO\n";
+			// TODO: fix it during macro/properties merging
+			//if (useDummyStdin)
+			cm += QString("sys.stdin = cStringIO.StringIO()\n");
 			cm += "from scribus import *\n";
 			cm += "bu = cStringIO.StringIO()\n";
 			cm += "sys.stdout = bu\n";
