@@ -15,11 +15,17 @@
     </message>
     <message>
         <source>Finnish:</source>
-        <translation>Finščina:</translation>
+        <translation>Finščina</translation>
     </message>
     <message>
         <source>Brazilian:</source>
-        <translation>Brazilščina:</translation>
+        <translation>Brazilščina</translation>
+    </message>
+    <message>
+        <source>Scribus Version %1
+%2 %3</source>
+        <translation>Različica Scribusa %1
+ %2 %3</translation>
     </message>
     <message>
         <source>Mailing list</source>
@@ -27,7 +33,7 @@
     </message>
     <message>
         <source>%1. %2 %3 </source>
-        <translation>%1, %2 %3 </translation>
+        <translation>%1. %2 %3 </translation>
     </message>
     <message>
         <source>Homepage and online reference</source>
@@ -35,7 +41,7 @@
     </message>
     <message>
         <source>Galician:</source>
-        <translation>Galščina:</translation>
+        <translation>Galščina</translation>
     </message>
     <message>
         <source>Programming:</source>
@@ -43,11 +49,11 @@
     </message>
     <message>
         <source>Czech:</source>
-        <translation>Češčina:</translation>
+        <translation>Češčina</translation>
     </message>
     <message>
         <source>English:</source>
-        <translation>Angleščina:</translation>
+        <translation>Angleščina</translation>
     </message>
     <message>
         <source>Online</source>
@@ -55,7 +61,7 @@
     </message>
     <message>
         <source>Welsh:</source>
-        <translation>Valižansko:</translation>
+        <translation>Valižanščina</translation>
     </message>
     <message>
         <source>Contributions from:</source>
@@ -67,17 +73,15 @@
     </message>
     <message>
         <source>Polish:</source>
-        <translation>Poljščina:</translation>
+        <translation>Poljščina</translation>
     </message>
     <message>
         <source>Ukrainian:</source>
-        <translation>Ukrajinščina:</translation>
+        <translation>Ukrajinščina</translation>
     </message>
     <message>
-        <source>Scribus Version %1
- %2 %3</source>
-        <translation>Različica Scribusa %1
- %2 %3</translation>
+        <source>Basque:</source>
+        <translation>Baskovščina:</translation>
     </message>
     <message>
         <source>Authors</source>
@@ -89,15 +93,15 @@
     </message>
     <message>
         <source>Slovak:</source>
-        <translation>Slovaščina:</translation>
+        <translation>Slovaščina</translation>
     </message>
     <message>
         <source>Italian:</source>
-        <translation>Italjanščina:</translation>
+        <translation>Italijanščina</translation>
     </message>
     <message>
         <source>Danish:</source>
-        <translation>Danščina:</translation>
+        <translation>Danščina</translation>
     </message>
     <message>
         <source>Bugs and feature requests</source>
@@ -105,7 +109,7 @@
     </message>
     <message>
         <source>Lithuanian:</source>
-        <translation>Litvanščina:</translation>
+        <translation>Litvanščina</translation>
     </message>
     <message>
         <source>Windows port:</source>
@@ -113,31 +117,35 @@
     </message>
     <message>
         <source>Turkish:</source>
-        <translation>Turščina:</translation>
+        <translation>Turščina</translation>
     </message>
     <message>
         <source>Russian:</source>
-        <translation>Ruščina:</translation>
+        <translation>Ruščina</translation>
+    </message>
+    <message>
+        <source>Slovenian:</source>
+        <translation>Slovenščina</translation>
     </message>
     <message>
         <source>Hungarian:</source>
-        <translation>Madžarščina:</translation>
+        <translation>Madžarščina</translation>
     </message>
     <message>
         <source>French:</source>
-        <translation>Francoščina:</translation>
+        <translation>Francoščina</translation>
     </message>
     <message>
         <source>Bulgarian:</source>
-        <translation>Bolgarščina:</translation>
+        <translation>Bolgarščina</translation>
     </message>
     <message>
         <source>Norwegian:</source>
-        <translation>Norveščina:</translation>
+        <translation>Norveščina</translation>
     </message>
     <message>
         <source>German:</source>
-        <translation>Nemščina:</translation>
+        <translation>Nemščina</translation>
     </message>
     <message>
         <source>Documentation:</source>
@@ -172,14 +180,14 @@
     </message>
     <message>
         <source>Advanced Options</source>
-        <translation>Dodatne možnosti</translation>
+        <translation>Napredne možnosti</translation>
     </message>
 </context>
 <context>
     <name>Align</name>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation> pik</translation>
     </message>
     <message>
         <source>OK</source>
@@ -187,7 +195,7 @@
     </message>
     <message>
         <source> in</source>
-        <translation> palcev</translation>
+        <translation> pal</translation>
     </message>
     <message>
         <source> mm</source>
@@ -195,7 +203,7 @@
     </message>
     <message>
         <source> pts</source>
-        <translation> pik</translation>
+        <translation> točk</translation>
     </message>
     <message>
         <source>Align</source>
@@ -227,7 +235,7 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Prekliči</translation>
+        <translation>prekliči</translation>
     </message>
     <message>
         <source>Right Sides</source>
@@ -247,7 +255,7 @@
     </message>
     <message>
         <source>between:</source>
-        <translation>Med:</translation>
+        <translation>med:</translation>
     </message>
     <message>
         <source>Distribute/Align</source>
@@ -289,7 +297,7 @@
     </message>
     <message>
         <source> pt</source>
-        <translation> pik</translation>
+        <translation> točk</translation>
     </message>
     <message>
         <source>sum</source>
@@ -353,7 +361,7 @@
     </message>
     <message>
         <source>Cross</source>
-        <translation>Križaj</translation>
+        <translation>Križ</translation>
     </message>
     <message>
         <source>On Focus</source>
@@ -405,7 +413,7 @@
     </message>
     <message>
         <source>Number Format</source>
-        <translation>Oblika številk</translation>
+        <translation>Oblika števil</translation>
     </message>
     <message>
         <source>Check Style:</source>
@@ -421,7 +429,7 @@
     </message>
     <message>
         <source>Submit to URL:</source>
-        <translation>Pošlji na naslov:</translation>
+        <translation>Pošlji na URL:</translation>
     </message>
     <message>
         <source>Calculate</source>
@@ -462,10 +470,6 @@
     <message>
         <source>Border</source>
         <translation>Rob</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Prekliči</translation>
     </message>
     <message>
         <source>Date Format</source>
@@ -517,11 +521,11 @@
     </message>
     <message>
         <source>Custom calculation script:</source>
-        <translation>Posebna skripta za izračunavanja:</translation>
+        <translation>Posebna skripta za izračunavanje</translation>
     </message>
     <message>
         <source>Enter a comma separated list of fields here</source>
-        <translation>Vpiši spisek polj, ločen z vejicami</translation>
+        <translation>Tu vnesite spisek polj, ločenih z vejicami</translation>
     </message>
     <message>
         <source>Custom Scripts</source>
@@ -532,12 +536,16 @@
         <translation>Zaobrni barve</translation>
     </message>
     <message>
+        <source>CancelAnnot::Flag is ignored for PDF-1.3</source>
+        <translation>Možnost se ne upošteva za PDF-1.3</translation>
+    </message>
+    <message>
         <source>No View</source>
-        <translation>Ne prikaži</translation>
+        <translation>Brez predogleda</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Običajen</translation>
+        <translation>Običajno</translation>
     </message>
     <message>
         <source>Number</source>
@@ -573,7 +581,7 @@
     </message>
     <message>
         <source>Width:</source>
-        <translation>Širina:</translation>
+        <translation>Ĺširina:</translation>
     </message>
     <message>
         <source>Tool-Tip:</source>
@@ -585,7 +593,7 @@
     </message>
     <message>
         <source>Don&apos;t Export Value</source>
-        <translation>Ne izvažaj vrednosti</translation>
+        <translation>Ne izvozi vrednosti</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
@@ -621,7 +629,7 @@
     </message>
     <message>
         <source>Mouse Enter</source>
-        <translation>Kazalec vztopi</translation>
+        <translation>Kazalec vstopi</translation>
     </message>
     <message>
         <source>Use Icons</source>
@@ -720,10 +728,6 @@
         <translation>in manjša ali enaka kot:</translation>
     </message>
     <message>
-        <source>Flag is ignored for PDF-1.3</source>
-        <translation>Te nastavitve ne upoštevaj za PDF-1.3</translation>
-    </message>
-    <message>
         <source>Keystroke:</source>
         <translation>Natipk:</translation>
     </message>
@@ -753,7 +757,7 @@
     </message>
     <message>
         <source>Value is not calculated</source>
-        <translation>Vrednost ni preračunana</translation>
+        <translation>Vrednost ni izračunana</translation>
     </message>
     <message>
         <source>Edit...</source>
@@ -781,7 +785,7 @@
     </message>
     <message>
         <source>Value must be greater than or equal to:</source>
-        <translation>Vrednost mora biti večja ali enaka kot:</translation>
+        <translation>Vrednost mora biti večja ali enakakot :</translation>
     </message>
     <message>
         <source>Format:</source>
@@ -824,7 +828,7 @@
     </message>
     <message>
         <source> pt</source>
-        <translation> Pik</translation>
+        <translation>pik</translation>
     </message>
     <message>
         <source>Destination</source>
@@ -832,7 +836,7 @@
     </message>
     <message>
         <source>Link</source>
-        <translation>Poveži</translation>
+        <translation>Povezava</translation>
     </message>
     <message>
         <source>Open</source>
@@ -903,7 +907,7 @@
     </message>
     <message>
         <source>Normal</source>
-        <translation>Običajno</translation>
+        <translation>Običajo</translation>
     </message>
     <message>
         <source>Apply to Current Page</source>
@@ -950,11 +954,11 @@
     </message>
     <message>
         <source>Load...</source>
-        <translation>Naloži...</translation>
+        <translation>Odpri...</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Zbriši</translation>
+        <translation>Izbriši</translation>
     </message>
     <message>
         <source>Medium</source>
@@ -1107,18 +1111,18 @@
     <message>
         <source>Color profile that you have generated or received from the manufacturer.
 This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
-        <translation>Colour profile that you have generated or received from the manufacturer.
-This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</translation>
+        <translation>Barvni profil, ki ste ga pripravili sami ali dobili od proizvajalca. 
+Ta naj bi bil prirejen vašemu modelu zaslona in ne kak splošen profil.</translation>
     </message>
     <message>
         <source>Color profile for your printer model from the manufacturer.
 This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
-        <translation>Colour profile for your printer model from the manufacturer.
-This profile should be specific to your printer and not a generic profile (i.e. sRGB).</translation>
+        <translation>Barvni profil vašega tiskalnika. To naj bi bil poseben profil za vaš model,
+priložen s strani proizvajalca.</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Absolute Colorimetric</translation>
+        <translation>Absolutne barvne vrednosti</translation>
     </message>
     <message>
         <source>Simulate Printer on the Screen</source>
@@ -1134,11 +1138,11 @@ This profile should be specific to your printer and not a generic profile (i.e. 
     </message>
     <message>
         <source>Default color profile for imported images</source>
-        <translation>Default colour profile for imported images</translation>
+        <translation>Privzet profil pri uvažanju slik.</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
-        <translation>Čiste barve:</translation>
+        <translation>Barve:</translation>
     </message>
     <message>
         <source>Mark Colors out of Gamut</source>
@@ -1163,20 +1167,20 @@ This profile should be specific to your printer and not a generic profile (i.e. 
     <message>
         <source>Black Point Compensation is a method of improving contrast in photos.
 It is recommended that you enable this if you have photos in your document.</source>
-        <translation>Black Point Compensation is a method of improving contrast in photos.
-It is recommended that you enable this if you have photos in your document.</translation>
+        <translation>Nadomeščanje po črnini je način za izboljšanje kontrasta slike. 
+Če v dokumentu uporabljate slike je to priporočljivo.</translation>
     </message>
     <message>
         <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Default rendering intent for your printer. Unless you know why to change it,
-Relative Colorimetric or Perceptual should be chosen.</translation>
+        <translation>Privzet namen izrisovanja strani. Če niste gotovi,
+izberite Relative-Colorimetric ali &quot;Samo pogled&quot;.</translation>
     </message>
     <message>
         <source>Enable &apos;soft proofing&apos; of how your document colors will print,
 based on the chosen printer profile.</source>
-        <translation>Enable &apos;soft proofing&apos; of how your document colours will print,
-based on the chosen printer profile.</translation>
+        <translation>Omogoči &quot;mehko nastavljanje&quot; barv dokumenta pri tisku,
+glede na izbran tiskalniški profil.</translation>
     </message>
     <message>
         <source>Printer:</source>
@@ -1184,23 +1188,23 @@ based on the chosen printer profile.</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation>Samo pogled</translation>
+        <translation>Samo ze predogled</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Relative Colorimetric</translation>
+        <translation>Relativne barvne vrednosti</translation>
     </message>
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Default rendering intent for your monitor. Unless you know why to change it,
-Relative Colorimetric or Perceptual should be chosen.</translation>
+        <translation>Privzet namen izrisovanja strani. Če niste gotovi,
+izberite Relative-Colorimetric ali &quot;Samo pogled&quot;.</translation>
     </message>
     <message>
         <source>Method of showing colors on the screen which may not print properly.
 This requires very accurate profiles and serves only as a warning.</source>
-        <translation>Method of showing colours on the screen which may not print properly.
-This requires very accurate profiles and serves only as a warning.</translation>
+        <translation>Način prikazovanja barv na zaslonu, ki se morda ne bodo natisnile pravilno. 
+To zahteva zelo natančno izbiro vseh profilov.</translation>
     </message>
     <message>
         <source>Pictures:</source>
@@ -1216,7 +1220,7 @@ This requires very accurate profiles and serves only as a warning.</translation>
     </message>
     <message>
         <source>Default color profile for solid colors on the page</source>
-        <translation>Default colour profile for solid colours on the page</translation>
+        <translation>Privzet profil za barvne površine na strani.</translation>
     </message>
 </context>
 <context>
@@ -1286,6 +1290,10 @@ This requires very accurate profiles and serves only as a warning.</translation>
         <translation>Spletne RGB</translation>
     </message>
     <message>
+        <source>HSB-Colormap</source>
+        <translation>Barvna paleta HSB</translation>
+    </message>
+    <message>
         <source>Color Model</source>
         <translation>Model barve</translation>
     </message>
@@ -1329,10 +1337,6 @@ This requires very accurate profiles and serves only as a warning.</translation>
         <translation>Krožen preliv</translation>
     </message>
     <message>
-        <source>Horizontal Gradient</source>
-        <translation>Vodoravni preliv</translation>
-    </message>
-    <message>
         <source>Edit the second color of object</source>
         <translation>Uredi drugo barvo predmeta</translation>
     </message>
@@ -1341,12 +1345,12 @@ This requires very accurate profiles and serves only as a warning.</translation>
         <translation>Način prelivanja</translation>
     </message>
     <message>
-        <source>Normal</source>
-        <translation>Običajno</translation>
-    </message>
-    <message>
         <source>Shade:</source>
         <translation>Senca:</translation>
+    </message>
+    <message>
+        <source>NormalCpalette::Horizontal Gradient</source>
+        <translation>Vodoravni preliv</translation>
     </message>
     <message>
         <source>Opacity:</source>
@@ -1354,7 +1358,7 @@ This requires very accurate profiles and serves only as a warning.</translation>
     </message>
     <message>
         <source>Vertical Gradient</source>
-        <translation>Navpični preliv</translation>
+        <translation>Navpičen preliv</translation>
     </message>
     <message>
         <source>Set the transparency for the color selected</source>
@@ -1366,7 +1370,7 @@ This requires very accurate profiles and serves only as a warning.</translation>
     </message>
     <message>
         <source>Cross Diagonal Gradient</source>
-        <translation>Križem nagnjen preliv</translation>
+        <translation>Križem postrani preliv</translation>
     </message>
     <message>
         <source>Edit Fill Color Properties</source>
@@ -1378,7 +1382,7 @@ This requires very accurate profiles and serves only as a warning.</translation>
     </message>
     <message>
         <source>Diagonal Gradient</source>
-        <translation>Nagnjen preliv</translation>
+        <translation>Preliv postrani</translation>
     </message>
     <message>
         <source>Edit Line Color Properties</source>
@@ -1412,8 +1416,8 @@ This requires very accurate profiles and serves only as a warning.</translation>
         <translation>Stran na list</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Prekliči</translation>
+        <source>CancelCustomFDialog::Compress File</source>
+        <translation>Stisni datoteko</translation>
     </message>
     <message>
         <source>Landscape</source>
@@ -1441,7 +1445,7 @@ This requires very accurate profiles and serves only as a warning.</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation>Pokončno</translation>
+        <translation>Navpično</translation>
     </message>
     <message>
         <source>Page Set</source>
@@ -1469,10 +1473,6 @@ This can be set in the Preferences.</source>
 To lahko nastavite v Nastavitvah.</translation>
     </message>
     <message>
-        <source>Compress File</source>
-        <translation>Stisni datoteko</translation>
-    </message>
-    <message>
         <source>Encoding:</source>
         <translation>Razpored znakov:</translation>
     </message>
@@ -1480,28 +1480,20 @@ To lahko nastavite v Nastavitvah.</translation>
 <context>
     <name>DelColor</name>
     <message>
-        <source>?</source>
-        <translation>?</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>V redu</translation>
-    </message>
-    <message>
-        <source>Delete Color</source>
-        <translation>Izbriši barvo</translation>
     </message>
     <message>
         <source>Replace it with:</source>
         <translation>Zamenjaj z:</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Prekliči</translation>
+        <source>CancelDelColor::Delete color:</source>
+        <translation>Izbriši barvo</translation>
     </message>
     <message>
-        <source>Delete color:</source>
-        <translation>Izbriši barvo</translation>
+        <source>Delete ColorDelColor::?</source>
+        <translation>?</translation>
     </message>
 </context>
 <context>
@@ -1523,8 +1515,8 @@ To lahko nastavite v Nastavitvah.</translation>
         <translation>Odstrani strani</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Prekliči</translation>
+        <source>CancelDmF::Missing Font</source>
+        <translation>Manjka pisava</translation>
     </message>
 </context>
 <context>
@@ -1534,35 +1526,19 @@ To lahko nastavite v Nastavitvah.</translation>
         <translation>V redu</translation>
     </message>
     <message>
-        <source>Use</source>
-        <translation>Uporabi</translation>
-    </message>
-    <message>
         <source>instead</source>
         <translation>namesto</translation>
     </message>
     <message>
-        <source>Missing Font</source>
-        <translation>Manjka pisava</translation>
-    </message>
-    <message>
-        <source>The Font %1 is not installed.</source>
-        <translation>Pisava %1 ni nameščena</translation>
+        <source>The Font %1 is not installed.DmF::Use</source>
+        <translation>Uporabi</translation>
     </message>
 </context>
 <context>
     <name>DocInfos</name>
     <message>
-        <source>OK</source>
+        <source>Keywords:DocInfos::OK</source>
         <translation>V redu</translation>
-    </message>
-    <message>
-        <source>Keywords:</source>
-        <translation>Ključne besede:</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Prekliči</translation>
     </message>
     <message>
         <source>Description:</source>
@@ -1573,16 +1549,20 @@ To lahko nastavite v Nastavitvah.</translation>
         <translation>Naziv:</translation>
     </message>
     <message>
+        <source>CancelDocInfos::This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation>To polje je lahko kot referenca vključeno v dokument, ali pa kot metapodatki v PDF dokumentu.</translation>
+    </message>
+    <message>
+        <source>This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
+        <translation>To je polje za ključne besede o dokumentu, ki jih želite vključiti v PDF, za lažje iskanje in katalogiziranje PDF dokumentov.</translation>
+    </message>
+    <message>
         <source>Author:</source>
         <translation>Avtor:</translation>
     </message>
     <message>
         <source>This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
         <translation>To je polje za kratek opis ali povzetek dokumenta. Vključeno je tudi v PDF izvoz.</translation>
-    </message>
-    <message>
-        <source>This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>To polje je lahko kot referenca vključeno v dokument, ali pa kot metapodatki v PDF dokumentu.</translation>
     </message>
     <message>
         <source>Document Info</source>
@@ -1608,10 +1588,6 @@ To lahko nastavite v Nastavitvah.</translation>
         <translation>Nadomesten ukaz za tiskanje</translation>
     </message>
     <message>
-        <source>Black</source>
-        <translation>Črna</translation>
-    </message>
-    <message>
         <source>File:</source>
         <translation>Datoteka:</translation>
     </message>
@@ -1620,16 +1596,16 @@ To lahko nastavite v Nastavitvah.</translation>
         <translation>Natisni vse</translation>
     </message>
     <message>
-        <source>Print</source>
-        <translation>Natisni</translation>
-    </message>
-    <message>
         <source>Options...</source>
         <translation>Možnosti...</translation>
     </message>
     <message>
         <source>To page:</source>
         <translation>Na stran:</translation>
+    </message>
+    <message>
+        <source>BlackDruck::Print</source>
+        <translation>Natisni</translation>
     </message>
     <message>
         <source>Print Normal</source>
@@ -1649,7 +1625,7 @@ To lahko nastavite v Nastavitvah.</translation>
     </message>
     <message>
         <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation>Postscript-datoteke (*.ps);;Vse datoteke (*)</translation>
+        <translation>Postscript datoteke (*.ps);;Vse datoteke (*)</translation>
     </message>
     <message>
         <source>Range:</source>
@@ -1669,7 +1645,7 @@ To lahko nastavite v Nastavitvah.</translation>
     </message>
     <message>
         <source>Number of copies:</source>
-        <translation>Število izvodov:</translation>
+        <translation>Število kopij:</translation>
     </message>
     <message>
         <source>Options</source>
@@ -1677,7 +1653,7 @@ To lahko nastavite v Nastavitvah.</translation>
     </message>
     <message>
         <source>Print in color if available</source>
-        <translation>Če mogoče tiskaj barvno</translation>
+        <translation>Če je mogoče tiskaj v barvah</translation>
     </message>
     <message>
         <source>Change...</source>
@@ -1720,7 +1696,7 @@ To lahko nastavite v Nastavitvah.</translation>
     <name>EditStyle</name>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation> pik</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1736,7 +1712,7 @@ To lahko nastavite v Nastavitvah.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> Pik</translation>
+        <translation> točk</translation>
     </message>
     <message>
         <source>None</source>
@@ -1755,10 +1731,6 @@ To lahko nastavite v Nastavitvah.</translation>
         <translation>Velikost:</translation>
     </message>
     <message>
-        <source>Tabulators...</source>
-        <translation>Tabulatorji...</translation>
-    </message>
-    <message>
         <source>Name of the Style is not unique</source>
         <translation>Ime sloga ni edinstveno</translation>
     </message>
@@ -1767,8 +1739,8 @@ To lahko nastavite v Nastavitvah.</translation>
         <translation>Razmik nad odstavkom</translation>
     </message>
     <message>
-        <source>Edit tab settings of text frame...</source>
-        <translation>Uredi nastavitve okvirja z besedilom...</translation>
+        <source>Tabulators and Indentation</source>
+        <translation>Tabulatorji in zamikanje</translation>
     </message>
     <message>
         <source>Name of your paragraph style</source>
@@ -1792,7 +1764,7 @@ To lahko nastavite v Nastavitvah.</translation>
     </message>
     <message>
         <source>Lines:</source>
-        <translation>Črte:</translation>
+        <translation>Črte</translation>
     </message>
     <message>
         <source>Font Size</source>
@@ -1803,16 +1775,8 @@ To lahko nastavite v Nastavitvah.</translation>
         <translation>Nastavi celotno višino ozaljšanih začetnic</translation>
     </message>
     <message>
-        <source>Indentation</source>
-        <translation>Zamikanje</translation>
-    </message>
-    <message>
         <source>Font of selected text or object</source>
         <translation>Pisava za izbrano besedilo ali predmet</translation>
-    </message>
-    <message>
-        <source>First Line:</source>
-        <translation>Prva vrstica:</translation>
     </message>
     <message>
         <source>Drop Caps</source>
@@ -1839,24 +1803,8 @@ To lahko nastavite v Nastavitvah.</translation>
         <translation>Barva črt besedila</translation>
     </message>
     <message>
-        <source>Indentation for first line of the paragraph</source>
-        <translation>Zamik prve vrstice odstavka</translation>
-    </message>
-    <message>
-        <source>Left Indent:</source>
-        <translation>Levi zamik:</translation>
-    </message>
-    <message>
-        <source>Effect:</source>
-        <translation>Učinek:</translation>
-    </message>
-    <message>
-        <source>Indentation from the left for the whole paragraph</source>
-        <translation>Zamik celotnega odstavka v levo</translation>
-    </message>
-    <message>
         <source>Vertical Spaces</source>
-        <translation>Navpični razmik</translation>
+        <translation>Navpični presledki</translation>
     </message>
     <message>
         <source>Align text to baseline grid</source>
@@ -1879,12 +1827,12 @@ To lahko nastavite v Nastavitvah.</translation>
         <translation>Barva poteze:</translation>
     </message>
     <message>
-        <source>Alignment:</source>
-        <translation>Poravnava:</translation>
-    </message>
-    <message>
         <source>Line Spacing</source>
         <translation>Razmik vrstic</translation>
+    </message>
+    <message>
+        <source>Effect:EditStyle::Alignment:</source>
+        <translation>Poravnava:</translation>
     </message>
 </context>
 <context>
@@ -1931,7 +1879,7 @@ To lahko nastavite v Nastavitvah.</translation>
     </message>
     <message>
         <source>Load...</source>
-        <translation>Naloži...</translation>
+        <translation>Odpri...</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -2032,16 +1980,12 @@ To lahko nastavite v Nastavitvah.</translation>
         <translation>Prekliči</translation>
     </message>
     <message>
-        <source>New Color:</source>
-        <translation>Nove barve</translation>
-    </message>
-    <message>
         <source>Colors</source>
         <translation>Barve</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Zbriši</translation>
+        <translation>Izbriši</translation>
     </message>
     <message>
         <source>Delete the currently selected color</source>
@@ -2124,7 +2068,7 @@ To lahko nastavite v Nastavitvah.</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Zbriši</translation>
+        <translation>Izbriši</translation>
     </message>
     <message>
         <source>Font Name</source>
@@ -2199,7 +2143,7 @@ To lahko nastavite v Nastavitvah.</translation>
     <name>GuideManager</name>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation> pik</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2215,7 +2159,7 @@ To lahko nastavite v Nastavitvah.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation> točk</translation>
     </message>
     <message>
         <source>Add</source>
@@ -2227,7 +2171,7 @@ To lahko nastavite v Nastavitvah.</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Zbriši</translation>
+        <translation>Izbriši</translation>
     </message>
     <message>
         <source>Lock Guides</source>
@@ -2264,28 +2208,20 @@ To lahko nastavite v Nastavitvah.</translation>
 <context>
     <name>HyAsk</name>
     <message>
-        <source>Skip</source>
-        <translation>Preskoči</translation>
+        <source>SkipHyAsk::Cancel</source>
+        <translation>Prekliči</translation>
     </message>
     <message>
         <source>Accept</source>
         <translation>Sprejmi</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Prekliči</translation>
-    </message>
-    <message>
         <source>Possible Hyphenation</source>
-        <translation>Možnosti deljenja besed</translation>
+        <translation>Možno deljenje</translation>
     </message>
 </context>
 <context>
     <name>HySettings</name>
-    <message>
-        <source>OK</source>
-        <translation>V redu</translation>
-    </message>
     <message>
         <source>Hyphenator Settings</source>
         <translation>Nastavitve deljenja besed</translation>
@@ -2299,6 +2235,10 @@ To lahko nastavite v Nastavitvah.</translation>
         <translation>Jezik:</translation>
     </message>
     <message>
+        <source>Smallest Word:HySettings::OK</source>
+        <translation>V redu</translation>
+    </message>
+    <message>
         <source>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</source>
         <translation>Največ zaporednih deljenj besed.
@@ -2306,15 +2246,11 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Enables automatic checking of your text while typing.</source>
-        <translation>Vključi samodejno preverjanje med pisanjem.</translation>
-    </message>
-    <message>
-        <source>Smallest Word:</source>
-        <translation>Najmanjša beseda:</translation>
+        <translation>Omogoči samodejno preverjanje med pisanjem.</translation>
     </message>
     <message>
         <source>Length of the smallest word to be hyphenated.</source>
-        <translation>To je dolžina najkrajše besede, ki se jo še prelamlja.</translation>
+        <translation>Dolžina najkrajše besede, ki se jo še deli.</translation>
     </message>
     <message>
         <source>Check during Typing</source>
@@ -2327,12 +2263,12 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>If you uncheck this you will get a dialog
 everytime a possible Hyphenation is found.</source>
-        <translation>Če tega ne izberete, vas bom vprašal vedno,
-ko bom naletel na možnost za delitev besede.</translation>
+        <translation>Če tega ne izberete, vas bom povprašal
+vsakič, ko bom našel možnost za deljenje besede.</translation>
     </message>
     <message>
         <source>Number of Hypenations allowed:</source>
-        <translation>Dovoljeno število deljenj:</translation>
+        <translation>Dovoljeno število deljenj v besedi:</translation>
     </message>
 </context>
 <context>
@@ -2387,6 +2323,29 @@ ko bom naletel na možnost za delitev besede.</translation>
     </message>
 </context>
 <context>
+    <name>InsertTable</name>
+    <message>
+        <source>OK</source>
+        <translation>V redu</translation>
+    </message>
+    <message>
+        <source>Insert Table</source>
+        <translation>Vstavi tabelo</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Prekliči</translation>
+    </message>
+    <message>
+        <source>Number of Columns:</source>
+        <translation>Število stolpcev:</translation>
+    </message>
+    <message>
+        <source>Number of Rows:</source>
+        <translation>Število vrstic</translation>
+    </message>
+</context>
+<context>
     <name>JavaDocs</name>
     <message>
         <source>No</source>
@@ -2406,7 +2365,7 @@ ko bom naletel na možnost za delitev besede.</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Zbriši</translation>
+        <translation>Izbriši</translation>
     </message>
     <message>
         <source>Do you really want do delete this Script?</source>
@@ -2414,11 +2373,11 @@ ko bom naletel na možnost za delitev besede.</translation>
     </message>
     <message>
         <source>New Script</source>
-        <translation>Nov skript</translation>
+        <translation>Nova skripta</translation>
     </message>
     <message>
         <source>New Script:</source>
-        <translation>Nov skript:</translation>
+        <translation>Nova skripta:</translation>
     </message>
     <message>
         <source>Edit...</source>
@@ -2430,7 +2389,7 @@ ko bom naletel na možnost za delitev besede.</translation>
     </message>
     <message>
         <source>Edit JavaScripts</source>
-        <translation>Uredi Java skripte</translation>
+        <translation>Uredi Javaskripte</translation>
     </message>
 </context>
 <context>
@@ -2481,7 +2440,7 @@ ko bom naletel na možnost za delitev besede.</translation>
     </message>
     <message>
         <source>Manage Keyboard Shortcuts</source>
-        <translation>Urejaj bližnjice na tipkovnici</translation>
+        <translation>Uredi bližnjice na tipkovnici</translation>
     </message>
     <message>
         <source>ALT+SHIFT+T</source>
@@ -2497,7 +2456,7 @@ ko bom naletel na možnost za delitev besede.</translation>
     </message>
     <message>
         <source>This Key-Sequence is already in use</source>
-        <translation>Ta kombinacija tipk je že v uporabi</translation>
+        <translation>Ta kombinacija tipk je že uporabljena</translation>
     </message>
     <message>
         <source>Current Key</source>
@@ -2579,7 +2538,7 @@ ko bom naletel na možnost za delitev besede.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Ali res želite izbrisati ta slog?</translation>
+        <translation>Ali zares želite izbrisati ta slog?</translation>
     </message>
     <message>
         <source>Append</source>
@@ -2591,7 +2550,7 @@ ko bom naletel na možnost za delitev besede.</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Zbriši</translation>
+        <translation>Izbriši</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
@@ -2634,7 +2593,7 @@ ko bom naletel na možnost za delitev besede.</translation>
     </message>
     <message>
         <source>Number of Copies:</source>
-        <translation>Število izvodov:</translation>
+        <translation>Število kopij</translation>
     </message>
     <message>
         <source>Vertical Shift:</source>
@@ -2653,7 +2612,7 @@ ko bom naletel na možnost za delitev besede.</translation>
     </message>
     <message>
         <source>Show Console</source>
-        <translation>Pokaži konzolo</translation>
+        <translation>Prikaži konzolo</translation>
     </message>
     <message>
         <source>Hide Console</source>
@@ -2663,24 +2622,20 @@ ko bom naletel na možnost za delitev besede.</translation>
 <context>
     <name>MergeDoc</name>
     <message>
-        <source>Open</source>
-        <translation>Odpri</translation>
-    </message>
-    <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation>Dokumenti (*.sla *.sla.gz *.scd *.scd.gz);;Vse datoteke (*)</translation>
     </message>
     <message>
         <source>Import Page Nr:</source>
-        <translation>Uvozi stran št.:</translation>
+        <translation>Vključi stran št.:</translation>
+    </message>
+    <message>
+        <source>CancelMergeDoc::Open</source>
+        <translation>Odpri</translation>
     </message>
     <message>
         <source>Document contains: %1 Page(s)</source>
         <translation>Dokument vsebuje: %1 stran(i)</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Prekliči</translation>
     </message>
     <message>
         <source>Import</source>
@@ -2688,7 +2643,7 @@ ko bom naletel na možnost za delitev besede.</translation>
     </message>
     <message>
         <source>Document contains: 0 Page(s)</source>
-        <translation>Dokument vsebuje: 0 stran(i)</translation>
+        <translation>Dokument vsebuje: 0 strani</translation>
     </message>
     <message>
         <source>Document to load:</source>
@@ -2754,7 +2709,7 @@ ko bom naletel na možnost za delitev besede.</translation>
     </message>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation> pik</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2770,7 +2725,7 @@ ko bom naletel na možnost za delitev besede.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pik</translation>
+        <translation> točk</translation>
     </message>
     <message>
         <source>X1:</source>
@@ -2818,7 +2773,7 @@ ko bom naletel na možnost za delitev besede.</translation>
     </message>
     <message>
         <source>Move to back</source>
-        <translation>Premakni na dno</translation>
+        <translation>Premakni na dno </translation>
     </message>
     <message>
         <source>Round
@@ -2848,15 +2803,15 @@ koti:</translation>
     </message>
     <message>
         <source>Keep the X and Y scaling the same</source>
-        <translation>Obrdi razmerje raztega po X in Y enako</translation>
+        <translation>Obdrži razmerje raztega po X in Y enako</translation>
     </message>
     <message>
         <source>Select bottom left for basepoint</source>
         <translation>Izberi spodnji levi kot za izhodišče</translation>
     </message>
     <message>
-        <source>Path Text Properites</source>
-        <translation>Lastnosti poti besedila</translation>
+        <source>Path Text Properties</source>
+        <translation>Lastnosti besedila po poti</translation>
     </message>
     <message>
         <source>Tabulators...</source>
@@ -2868,11 +2823,11 @@ koti:</translation>
     </message>
     <message>
         <source>Flip Horizontal</source>
-        <translation>Obrni vodoravno</translation>
+        <translation>Obrni vodoravno </translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Absolute Colorimetric</translation>
+        <translation>Absolutne barvne vrednosti</translation>
     </message>
     <message>
         <source>No Style</source>
@@ -2963,8 +2918,12 @@ koti:</translation>
         <translation>Črta na dnu</translation>
     </message>
     <message>
+        <source>Column width</source>
+        <translation>Širina stolpcev</translation>
+    </message>
+    <message>
         <source>Language:</source>
-        <translation>Jezik:</translation>
+        <translation>Jezik: </translation>
     </message>
     <message>
         <source>Height</source>
@@ -2976,7 +2935,7 @@ koti:</translation>
     </message>
     <message>
         <source>Move to front</source>
-        <translation>Premakni na vrh</translation>
+        <translation>Premakni na vrh </translation>
     </message>
     <message>
         <source>Edit Shape...</source>
@@ -3000,7 +2959,7 @@ koti:</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation>Debelina črte:</translation>
+        <translation>Širina črte:</translation>
     </message>
     <message>
         <source>Right:</source>
@@ -3042,7 +3001,7 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation>Širina:</translation>
+        <translation>Širina</translation>
     </message>
     <message>
         <source>Line Style:</source>
@@ -3066,7 +3025,7 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source>Text flows around frame</source>
-        <translation>Besedilo poteka okrog okvirja</translation>
+        <translation>Besedilo poteka okrog okvirja </translation>
     </message>
     <message>
         <source>Left Point</source>
@@ -3138,7 +3097,7 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source>Show Curve</source>
-        <translation>Pokaži krivuljo</translation>
+        <translation>Prikaži krivuljo</translation>
     </message>
     <message>
         <source>Bottom:</source>
@@ -3146,15 +3105,19 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source>Manual Kerning</source>
-        <translation>Ročno spodsekavanje</translation>
+        <translation>Ročno zgoščevanje</translation>
     </message>
     <message>
         <source>Lock or unlock the object</source>
-        <translation>Zakleni ali odkleni predmet</translation>
+        <translation>Zakleni ali odkleni predmet </translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation>Samo pogled</translation>
+        <translation>Samo za predogled</translation>
+    </message>
+    <message>
+        <source>Switches between Gap or Column width</source>
+        <translation>Zamenja med presledkom in širino stolpca</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -3162,11 +3125,15 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Relative Colorimetric</translation>
+        <translation>Relativne barvne vrednosti</translation>
     </message>
     <message>
         <source>Rotation:</source>
         <translation>Sukanje:</translation>
+    </message>
+    <message>
+        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
+        <translation>Nakaže raven na kateri je predmet, 0 pomeni da je predmet na dnu</translation>
     </message>
     <message>
         <source>X, Y, Z</source>
@@ -3185,6 +3152,10 @@ Prosim, izberite drugo.</translation>
         <translation>Zakleni ali odkleni velikost predmeta</translation>
     </message>
     <message>
+        <source>Make text in lower frames flow around the object shape</source>
+        <translation>Naj besedilo iz nižjih okvirjev obliva obliko predmeta</translation>
+    </message>
+    <message>
         <source>Select top left for basepoint</source>
         <translation>Izberi zgornji levi kot za izhodišče</translation>
     </message>
@@ -3194,7 +3165,7 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source>Move one level up</source>
-        <translation>Premakni raven navzgor</translation>
+        <translation>Premakni raven navzgor </translation>
     </message>
     <message>
         <source>Bevel Join</source>
@@ -3206,7 +3177,7 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source>Move one level down</source>
-        <translation>Premakni raven navzdol</translation>
+        <translation>Premakni raven navzdol </translation>
     </message>
     <message>
         <source>Y-Pos.:</source>
@@ -3230,7 +3201,7 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source>Basepoint:</source>
-        <translation>Izhodišče:</translation>
+        <translation>Izhodišče</translation>
     </message>
     <message>
         <source>Saturation</source>
@@ -3238,7 +3209,7 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Vključi ali izključi tiskanje predmeta</translation>
+        <translation>Vključi ali izključi možnost tiskanja predmeta</translation>
     </message>
     <message>
         <source>Kerning:</source>
@@ -3254,7 +3225,7 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source>Keep the aspect ratio</source>
-        <translation>Ohrani razmerja</translation>
+        <translation>Ohrani razmerja </translation>
     </message>
     <message>
         <source>Proportional</source>
@@ -3263,10 +3234,6 @@ Prosim, izberite drugo.</translation>
     <message>
         <source>Use Bounding Box</source>
         <translation>Naredi obrobo</translation>
-    </message>
-    <message>
-        <source>Use the imaginary square border around your object, rather than its actual shape</source>
-        <translation>Uporabi namišljen kvadrat okrog objekta raje, kot njegovo dejansko obliko</translation>
     </message>
     <message>
         <source>Free Scaling</source>
@@ -3279,10 +3246,6 @@ Prosim, izberite drugo.</translation>
     <message>
         <source>Distance of text from right of frame</source>
         <translation>Razdalja med besedilom in desnim robom okvirja</translation>
-    </message>
-    <message>
-        <source>Make text in lower objects flow around this frame</source>
-        <translation>Naj besedilo spodaj ležečih predmetov obliva ta okvir</translation>
     </message>
     <message>
         <source>Input Profile:</source>
@@ -3314,7 +3277,11 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation>Višina:</translation>
+        <translation>Višina</translation>
+    </message>
+    <message>
+        <source>Use the frame shape instead of the object one</source>
+        <translation>Upoštevaj obliko okvirja namesto oblike predmeta</translation>
     </message>
     <message>
         <source>Choose the shape of frame...</source>
@@ -3322,7 +3289,7 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source>Distance of Text</source>
-        <translation>Dolžina besedila</translation>
+        <translation>Razdalja besedila</translation>
     </message>
     <message>
         <source>Number of columns in text frame</source>
@@ -3334,7 +3301,7 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source>Start Offset:</source>
-        <translation>Začni zamikanje:</translation>
+        <translation>Začetni zamik:</translation>
     </message>
 </context>
 <context>
@@ -3349,11 +3316,7 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pik</translation>
-    </message>
-    <message>
-        <source> pt </source>
-        <translation> pik </translation>
+        <translation> točk</translation>
     </message>
     <message>
         <source>Flat Cap</source>
@@ -3361,19 +3324,15 @@ Prosim, izberite drugo.</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation>Črtica pika pika črta</translation>
+        <translation>Črta pika pika črta</translation>
     </message>
     <message>
         <source>Round Join</source>
         <translation>Zaobljen spoj</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Prekliči</translation>
-    </message>
-    <message>
         <source>Line Width:</source>
-        <translation>Debelina črte:</translation>
+        <translation>Širina črte:</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
@@ -3411,7 +3370,7 @@ Prosim izberite drugo.</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation>Črtica pika črta</translation>
+        <translation>Črta pia črta</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -3420,6 +3379,10 @@ Prosim izberite drugo.</translation>
     <message>
         <source>Solid Line</source>
         <translation>Polna črta</translation>
+    </message>
+    <message>
+        <source>CancelMultiLine:: pt </source>
+        <translation> točk </translation>
     </message>
 </context>
 <context>
@@ -3454,7 +3417,7 @@ Prosim izberite drugo.</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Zbriši</translation>
+        <translation>Izbriši</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -3489,7 +3452,7 @@ Prosim izberite drugo.</translation>
     <name>NewDoc</name>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation> pik</translation>
     </message>
     <message>
         <source>OK</source>
@@ -3521,7 +3484,7 @@ Prosim izberite drugo.</translation>
     </message>
     <message>
         <source>Points (pts)</source>
-        <translation>Pik (pts)</translation>
+        <translation>Točk (pts)</translation>
     </message>
     <message>
         <source>Inside:</source>
@@ -3597,7 +3560,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Portrait</source>
-        <translation>Pokončno</translation>
+        <translation>Navpično</translation>
     </message>
     <message>
         <source>Distance between automatically created columns</source>
@@ -3617,7 +3580,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Picas (p)</source>
-        <translation>Točk (p)</translation>
+        <translation>Pik</translation>
     </message>
     <message>
         <source>Left Page first</source>
@@ -3629,7 +3592,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Automatic Text Frames</source>
-        <translation>Samodejni Besedilni okvirji</translation>
+        <translation>Samodejni okvirji za besedilo</translation>
     </message>
     <message>
         <source>Create text frames automatically when new pages are added</source>
@@ -3831,7 +3794,7 @@ sicer glede na predmet.</translation>
     <name>PDF_Opts</name>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation> pik</translation>
     </message>
     <message>
         <source>&lt;&lt;</source>
@@ -3840,6 +3803,10 @@ sicer glede na predmet.</translation>
     <message>
         <source>&gt;&gt;</source>
         <translation>&gt;&gt;</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>V redu</translation>
     </message>
     <message>
         <source> in</source>
@@ -3851,7 +3818,7 @@ sicer glede na predmet.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation> točk</translation>
     </message>
     <message>
         <source>Box</source>
@@ -3906,8 +3873,16 @@ sicer glede na predmet.</translation>
         <translation>Slike:</translation>
     </message>
     <message>
+        <source>Color</source>
+        <translation>Barva </translation>
+    </message>
+    <message>
         <source>Binding:</source>
         <translation>Povezave:</translation>
+    </message>
+    <message>
+        <source>Fonts</source>
+        <translation>Pisave </translation>
     </message>
     <message>
         <source>From:</source>
@@ -3927,7 +3902,7 @@ sicer glede na predmet.</translation>
     </message>
     <message>
         <source>Starting position for the box and split effects.</source>
-        <translation>Starting position for the box and split effects.</translation>
+        <translation>Začetek učinkov škatlja in razcep.</translation>
     </message>
     <message>
         <source>Use ICC-Profile</source>
@@ -3935,11 +3910,11 @@ sicer glede na predmet.</translation>
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation>Output profile for printing. If possible, get some guidance from your printer on profile selection.</translation>
+        <translation>Izvozni profil za tiskanje. Če je mogoče izberite profil v povezavi z vašim tiskalnikom.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</translation>
+        <translation>Ustvari PDF prispevke, kar je koristno pri pregledovanju povezanih člankov v PDFju.</translation>
     </message>
     <message>
         <source>Color profile for solid colors</source>
@@ -3951,7 +3926,7 @@ sicer glede na predmet.</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Absolute Colorimetric</translation>
+        <translation>Absolutne barvne vrednosti</translation>
     </message>
     <message>
         <source>Moving Lines:</source>
@@ -3968,12 +3943,12 @@ sicer glede na predmet.</translation>
     <message>
         <source>Export resolution of text and vector graphics.
 This does not affect the resolution of bitmap images like photos.</source>
-        <translation>Export resolution of text and vector graphics.
-This does not affect the resolution of bitmap images like photos.</translation>
+        <translation>Izvozna resolucija za besedilo in vektorsko grafiko.
+To ne vpliva na resolucijo slik.</translation>
     </message>
     <message>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation>Distance for bleed from the left of the physical page</translation>
+        <translation>Velikost odmika od fizičnega levega robu strani</translation>
     </message>
     <message>
         <source>Allow printing of the PDF</source>
@@ -4001,10 +3976,10 @@ security features in your exported PDF</source>
 If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
 If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
 Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation>Enable the security features in your exported PDF.
-If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
-If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
-Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</translation>
+        <translation>Omogoči varnostne zmožnosti v izvoznem PDFju.
+Če izberete Acrobat 4, bo PDF zaščiten s 40 bitno enkripcijo.
+Če izberete Acrobat 5, bo PDF zaščiten s 128 bitno enkripcijo.
+Pozor: PDF enkripcija ni tako zanesljiva kot GPG ali PGP in ima nekatere omejitve.</translation>
     </message>
     <message>
         <source>Export Range</source>
@@ -4025,8 +4000,8 @@ Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does 
     <message>
         <source>Embed the bookmarks you created in your document.
 These are useful for navigating long PDF documents.</source>
-        <translation>Embed the bookmarks you created in your document.
-These are useful for navigating long PDF documents.</translation>
+        <translation>Vključi povezave iz dokumenta.
+To je uporabno za pregledovanje dolgih PDFjev.</translation>
     </message>
     <message>
         <source>Right Margin</source>
@@ -4038,11 +4013,11 @@ Automatic allows Scribus to choose the best method.
 ZIP is good for images with solid colors.
 JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
 Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colours.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</translation>
+        <translation>Vrsta stiskanja slik.
+Samodejno dovoli Scribusu, da sam izbere najboljši način.
+ZIP je uporabna za slike z barvnimi ploskvami.
+JPEG je boljši pri ustvarjanju majhnih PDFjev z mnogo slikami.
+Če ne potrebujete posebnih nastavitev stiskanja, raje pustite samodejno.</translation>
     </message>
     <message>
         <source>Effect Type:</source>
@@ -4062,13 +4037,13 @@ Leave it set to automatic, unless you have a need for special compression option
     </message>
     <message>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation>Distance for bleed from the right of the physical page</translation>
+        <translation>Velikost odmika od fizičnega desnega robu strani</translation>
     </message>
     <message>
         <source>Downsample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.</source>
-        <translation>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</translation>
+        <translation>Pretvori slike na izbrano DPI resolucijo.
+Če tega ne izberete, bodo slike risane pri izvirni resoluciji.</translation>
     </message>
     <message>
         <source>Maximum</source>
@@ -4085,8 +4060,8 @@ Leaving this unchecked will render them at their native resolution.</translation
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail
 PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</translation>
+        <translation>Ključna beseda za PDF/X-3, sicer izvoz ne uspe pravilno.
+Predlagamo, da uporabite naslov dokumenta.</translation>
     </message>
     <message>
         <source>Left to Right</source>
@@ -4103,6 +4078,10 @@ PDF/X-3 conformance. We recommend you use the title of the document.</translatio
     <message>
         <source>Output Profile:</source>
         <translation>Profil izvoza</translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation>Raven stiskanja: najmanj (25%), malo (50%), srednje (75%), močno (85%), najmočneje (95%)</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
@@ -4125,6 +4104,10 @@ PDF/X-3 conformance. We recommend you use the title of the document.</translatio
         <translation>&amp;PDF/X-3</translation>
     </message>
     <message>
+        <source>PDF/X-3</source>
+        <translation>PDF/X-3</translation>
+    </message>
+    <message>
         <source>Blinds</source>
         <translation>Zavese</translation>
     </message>
@@ -4134,19 +4117,19 @@ PDF/X-3 conformance. We recommend you use the title of the document.</translatio
     </message>
     <message>
         <source>No Effect</source>
-        <translation>Brez učinka</translation>
+        <translation>Brez učinkov</translation>
     </message>
     <message>
         <source>Don&apos;t use embedded ICC profiles</source>
         <translation>Ne uporabi priloženih ICC profilov</translation>
     </message>
     <message>
-        <source>Available Fonts:</source>
-        <translation>Dostopne pisave:</translation>
+        <source>Extras</source>
+        <translation>Dodatki </translation>
     </message>
     <message>
-        <source>Inside</source>
-        <translation>Znotraj</translation>
+        <source>Available Fonts:</source>
+        <translation>Dostopne pisave:</translation>
     </message>
     <message>
         <source>Medium</source>
@@ -4154,7 +4137,7 @@ PDF/X-3 conformance. We recommend you use the title of the document.</translatio
     </message>
     <message>
         <source>Direction of the glitter or wipe effects.</source>
-        <translation>Direction of the glitter or wipe effects.</translation>
+        <translation>Smer učinkov bleščice in metla.</translation>
     </message>
     <message>
         <source>Left Margin</source>
@@ -4173,8 +4156,8 @@ PDF/X-3 conformance. We recommend you use the title of the document.</translatio
         <translation>Zaslon / Splet</translation>
     </message>
     <message>
-        <source>From the:</source>
-        <translation>iz:</translation>
+        <source>from the:</source>
+        <translation>iz: </translation>
     </message>
     <message>
         <source>Copying Text and Graphics is allowed</source>
@@ -4200,9 +4183,9 @@ PDF/X-3 conformance. We recommend you use the title of the document.</translatio
         <source>Color model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation>Colour model for the output of your PDF.
-Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
-Choose Printer when printing to a true 4 colour CMYK printer.</translation>
+        <translation>Barvni model za izvoz vašega PDFja.
+Izberite Zaslon/splet za PDFje ki bodo brani na ekranu ali tiskani na običajnih tiskalnikih.
+Izberite Tiskalnik, za tiskanje s CMYK tiskalniki.</translation>
     </message>
     <message>
         <source>Embed all Fonts</source>
@@ -4210,7 +4193,7 @@ Choose Printer when printing to a true 4 colour CMYK printer.</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
-        <translation>Enables presentation effects when using Acrobat Reader in full screen mode.</translation>
+        <translation>Omogoči učinke za predstavitve, kadar uporabljate Acrobat Reader v celozaslonskem načinu.</translation>
     </message>
     <message>
         <source>Allow Changing the Document</source>
@@ -4218,7 +4201,7 @@ Choose Printer when printing to a true 4 colour CMYK printer.</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation>Distance for bleed from the top of the physical page</translation>
+        <translation>Velikost odmika od fizičnega vrha strani</translation>
     </message>
     <message>
         <source>Color profile for images</source>
@@ -4235,6 +4218,10 @@ Choose Printer when printing to a true 4 colour CMYK printer.</translation>
     <message>
         <source>Change...</source>
         <translation>Spremeni...</translation>
+    </message>
+    <message>
+        <source>Compression</source>
+        <translation>Stiskanje</translation>
     </message>
     <message>
         <source>Apply Effect on all Pages</source>
@@ -4259,8 +4246,8 @@ Choose Printer when printing to a true 4 colour CMYK printer.</translation>
     <message>
         <source>Compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</translation>
+        <translation>Stiskanje besedila in slik.
+Če nimate dobrega razloga, raje pustite to vključeno, ker zmanjša velikost PDFja.</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -4268,11 +4255,11 @@ Unless you have a reason, leave this checked. This reduces PDF size.</translatio
     </message>
     <message>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation>Direction of the effect of moving lines for the split and blind effects.</translation>
+        <translation>Smer gibajočih črt pri učinkih razcep in zavesa.</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation>Samo pogled</translation>
+        <translation>Samo za predogled</translation>
     </message>
     <message>
         <source>First page to export when exporting a range</source>
@@ -4288,7 +4275,7 @@ Unless you have a reason, leave this checked. This reduces PDF size.</translatio
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Relative Colorimetric</translation>
+        <translation>Relativne barvne vrednosti</translation>
     </message>
     <message>
         <source>Output to File:</source>
@@ -4309,8 +4296,8 @@ Unless you have a reason, leave this checked. This reduces PDF size.</translatio
     <message>
         <source>Generates thumbnails of each page in the PDF.
 Some viewers can use the thumbnails for navigation.</source>
-        <translation>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</translation>
+        <translation>Pripravi pomanjšane sličice vsake strani v PDFju.
+Nekateri pregledovalniki jih lahko uporabijo za pregledovanje.</translation>
     </message>
     <message>
         <source>Passwords</source>
@@ -4330,11 +4317,11 @@ Some viewers can use the thumbnails for navigation.</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
-        <translation>NAmen upodobitve PDF/X-3</translation>
+        <translation>Namen upodobitve PDF/X-3</translation>
     </message>
     <message>
         <source>&amp;Security</source>
-        <translation>Varnost</translation>
+        <translation>Varno&amp;st</translation>
     </message>
     <message>
         <source>Direction:</source>
@@ -4346,11 +4333,11 @@ Some viewers can use the thumbnails for navigation.</translation>
     </message>
     <message>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation>Distance for bleed from the bottom of the physical page</translation>
+        <translation>Velikost odmika od fizičnega dna strani</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
-        <translation>DPI (Dots Per Inch) for image export.</translation>
+        <translation>DPI (Dots Per Inch) pri izvozu slik.</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF</source>
@@ -4377,10 +4364,6 @@ Some viewers can use the thumbnails for navigation.</translation>
         <translation>Nasičenost</translation>
     </message>
     <message>
-        <source>Vertical</source>
-        <translation>Navpično</translation>
-    </message>
-    <message>
         <source>Settings</source>
         <translation>Nastavitve</translation>
     </message>
@@ -4390,15 +4373,17 @@ Some viewers can use the thumbnails for navigation.</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
-        <translation>Brez učinka</translation>
+        <translation>Vrsta učinka ob izrisu</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
 Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
 PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated colour management.</translation>
+        <translation>Določi združljivost PDF. Privzeta je naširše združljiva oblika Acrobat 4.
+Izberite Acrobat 5, če vaš dokument uproablja zmožnosti PDF-1.4, kot na
+primer prosojnosti, ali če potrebujete enkripcijo.
+PDF/X-3 se uporablja za pošiljanje v tiskarno, in je omogočeno le, če 
+uporabljate tudi upravljanje barv.</translation>
     </message>
     <message>
         <source>Save linked Text Frames as PDF-Articles</source>
@@ -4432,8 +4417,12 @@ A shorter time will speed up the effect, a longer one will slow it down.</source
     <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
-        <translation>Determines the binding of pages in the PDF. Unless you know
-you need to change it leave the default choice - Left.</translation>
+        <translation>Določi povezovanje strani PDF. Če niste prepričani
+pustite na privzeti vrednosti - levo.</translation>
+    </message>
+    <message>
+        <source>VerticalPDF_Opts::Inside</source>
+        <translation>Znotraj</translation>
     </message>
     <message>
         <source>Compatibility:</source>
@@ -4454,8 +4443,8 @@ you need to change it leave the default choice - Left.</translation>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
-        <translation>Embed fonts into the PDF. Embedding the fonts
-will preserve the layout and appearance of your document.</translation>
+        <translation>Vključi pisave v PDF. To bo omogočilo, da se pri
+prenosu izgled in postavitev dokumenta ne spremenita.</translation>
     </message>
     <message>
         <source>Info String:</source>
@@ -4464,10 +4453,6 @@ will preserve the layout and appearance of your document.</translation>
     <message>
         <source>Image Settings</source>
         <translation>Nastavitve slik</translation>
-    </message>
-    <message>
-        <source>Compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</translation>
     </message>
     <message>
         <source>Include Bookmarks</source>
@@ -4480,10 +4465,6 @@ will preserve the layout and appearance of your document.</translation>
 </context>
 <context>
     <name>PPreview</name>
-    <message>
-        <source>C</source>
-        <translation>C</translation>
-    </message>
     <message>
         <source>K</source>
         <translation>K</translation>
@@ -4501,22 +4482,16 @@ will preserve the layout and appearance of your document.</translation>
         <translation>Vse</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of text items in the viewer, at the expense
-of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Provides a more pleasant view of text items in the viewer, at the expense
-of a slight slowdown in previewing. This only affects Type 1 fonts</translation>
-    </message>
-    <message>
         <source>Print Preview</source>
         <translation>Predogled tiskanja</translation>
     </message>
     <message>
         <source>Enable/disable the M (Magenta) ink plate</source>
-        <translation>Enable/disable the M (Magenta) ink plate</translation>
+        <translation>Vključi/izključi barvilo M (Magenta)</translation>
     </message>
     <message>
         <source>Enable/disable the K (Black) ink plate</source>
-        <translation>Enable/disable the K (Black) ink plate</translation>
+        <translation>Vključi/izključi barvilo K (Črno)</translation>
     </message>
     <message>
         <source>Anti-alias Graphics</source>
@@ -4527,34 +4502,36 @@ of a slight slowdown in previewing. This only affects Type 1 fonts</translation>
         <translation>Uporabi glajenje pisav</translation>
     </message>
     <message>
-        <source>Display Transparency</source>
-        <translation>Prikaži prosojnost</translation>
-    </message>
-    <message>
         <source>Enable/disable the C (Cyan) ink plate</source>
-        <translation>Enable/disable the C (Cyan) ink plate</translation>
+        <translation>Vključi/izključi barvilo C (cyan)</translation>
     </message>
     <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
-        <translation>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</translation>
+        <translation>Prikazuj prosojnosti in prosojne predmete v dokumentu. To zahteva vsaj Ghostscript 7.07.</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</translation>
+        <translation>Pisave vrste True-Type in Open-Type, ter EPS, PDF in vektorske grafike izgledajo prijetneje
+na račun malce počasnejšega izrisovanja.</translation>
     </message>
     <message>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-        <translation>Gives a print preview using simulations of generic CMYK inks, instead of RGB colours</translation>
+        <translation>Prikaže predogled tiskanja s simulacijo splošnih CMYK barvil namesto RGB barv.</translation>
+    </message>
+    <message>
+        <source>Display TransparencyPPreview::Display CMYKPPreview::C</source>
+        <translation>C</translation>
     </message>
     <message>
         <source>Enable/disable the Y (Yellow) ink plate</source>
-        <translation>Enable/disable the Y (Yellow) ink plate</translation>
+        <translation>Vključi/izključi barvilo Y (Yellow)</translation>
     </message>
     <message>
-        <source>Display CMYK</source>
-        <translation>Prikaži CMYK</translation>
+        <source>Provides a more pleasant view of text items in the viewer, at the expense
+ of a slight slowdown in previewing. This only affects Type 1 fonts</source>
+        <translation>Besedila izgledajo bolj prijetno, na račun malce počasnejšega izrisovanja.
+ To deluje le za pisave vrste Type 1.</translation>
     </message>
 </context>
 <context>
@@ -4580,12 +4557,12 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation>Brez</translation>
     </message>
     <message>
-        <source>Group</source>
-        <translation>Združi</translation>
-    </message>
-    <message>
         <source>Update Picture</source>
         <translation>Posodobi sliko</translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation>Raven</translation>
     </message>
     <message>
         <source>Lower</source>
@@ -4628,6 +4605,10 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation>manjka!</translation>
     </message>
     <message>
+        <source>Insert Sample Text</source>
+        <translation>Vstavi naključno besedilo</translation>
+    </message>
+    <message>
         <source>Is PDF-Bookmark</source>
         <translation>Je zaznamek PDF</translation>
     </message>
@@ -4644,8 +4625,8 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation>Uredi sliko</translation>
     </message>
     <message>
-        <source>Insert LoremIpsum</source>
-        <translation>Vstavi LoremIpsum</translation>
+        <source>Unlock object size</source>
+        <translation>Odkleni velikost predmeta</translation>
     </message>
     <message>
         <source>Show Frames</source>
@@ -4654,14 +4635,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
         <source>Hide Frames</source>
         <translation>Skrij okvirje</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Prekliči</translation>
-    </message>
-    <message>
-        <source>Hide Guides</source>
-        <translation>Skrij vodila</translation>
     </message>
     <message>
         <source>Field Properties</source>
@@ -4712,6 +4685,10 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation>Slika</translation>
     </message>
     <message>
+        <source>Lock object size</source>
+        <translation>Zakleni velikost predmeta</translation>
+    </message>
+    <message>
         <source>Polygon</source>
         <translation>Poligon</translation>
     </message>
@@ -4729,11 +4706,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Get Picture...</source>
-        <translation>Išči sliko...</translation>
-    </message>
-    <message>
-        <source>Copy Here</source>
-        <translation>Prepiši sem</translation>
+        <translation>Dodaj sliko...</translation>
     </message>
     <message>
         <source>The Program</source>
@@ -4785,7 +4758,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Get Text...</source>
-        <translation>Najdi besedilo...</translation>
+        <translation>Dodaj besedilo...</translation>
     </message>
     <message>
         <source>Text on a Path</source>
@@ -4798,10 +4771,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
         <source>Enabled</source>
         <translation>Vključeno</translation>
-    </message>
-    <message>
-        <source>Move Here</source>
-        <translation>Prestavi sem</translation>
     </message>
     <message>
         <source>Outlines</source>
@@ -4842,6 +4811,33 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
         <source>Adjust Frame to Picture</source>
         <translation>Okvir prilagodi sliki</translation>
+    </message>
+</context>
+<context>
+    <name>PageItem</name>
+    <message>
+        <source>Line</source>
+        <translation>Črta</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Besedilo</translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation>Slika</translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation>Lomljena črta</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation>Poligon</translation>
+    </message>
+    <message>
+        <source>PathText</source>
+        <translation>Besedilo po poti</translation>
     </message>
 </context>
 <context>
@@ -4910,7 +4906,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Missing</source>
-        <translation>Manjkajoč</translation>
+        <translation>Manjkajoče</translation>
     </message>
     <message>
         <source>Search</source>
@@ -4957,7 +4953,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Factor:</source>
-        <translation>Količina:</translation>
+        <translation>Faktor:</translation>
     </message>
 </context>
 <context>
@@ -4968,11 +4964,15 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation> pik</translation>
     </message>
     <message>
         <source>OK</source>
         <translation>V redu</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation>Vključeno</translation>
     </message>
     <message>
         <source> in</source>
@@ -4984,7 +4984,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source> pt</source>
-        <translation> pik</translation>
+        <translation> točk</translation>
+    </message>
+    <message>
+        <source> px</source>
+        <translation> px</translation>
     </message>
     <message>
         <source>Big</source>
@@ -4995,12 +4999,16 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation>Grafični vmesnik</translation>
     </message>
     <message>
+        <source>Off</source>
+        <translation>Izključeno</translation>
+    </message>
+    <message>
         <source>min</source>
         <translation>min</translation>
     </message>
     <message>
         <source> pts</source>
-        <translation> pik</translation>
+        <translation> točk</translation>
     </message>
     <message>
         <source>Gap:</source>
@@ -5061,10 +5069,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
         <source>Small</source>
         <translation>Majhen</translation>
-    </message>
-    <message>
-        <source>Theme</source>
-        <translation>Tema</translation>
     </message>
     <message>
         <source>Tools</source>
@@ -5149,10 +5153,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Nasičenost barve črte</translation>
     </message>
     <message>
-        <source>Grab-Radius</source>
-        <translation>Doseg</translation>
-    </message>
-    <message>
         <source>Displacement:</source>
         <translation>Razpostavitev</translation>
     </message>
@@ -5183,10 +5183,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Fill color of picture frames</source>
         <translation>Barva polnila okvirjev s slikami</translation>
-    </message>
-    <message>
-        <source>Vertical Scaling</source>
-        <translation>Navpičen razteg</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
@@ -5269,18 +5265,18 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Srednje</translation>
     </message>
     <message>
-        <source>When enabled, Scribus saves a backup copy of your file with  the .bak extension
-each time the time period elapses</source>
-        <translation>Če izberete to, bo Scribus shranil varnostno kopijo
-vašega dokumenta (s končnico .bak), vsako enoto izbrano časa</translation>
-    </message>
-    <message>
         <source>Time period between saving automatically</source>
         <translation>Čas med samodejnimi shranjevanji</translation>
     </message>
     <message>
         <source>Grid Layout</source>
         <translation>Postavitev mreže</translation>
+    </message>
+    <message>
+        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
+each time the time period elapses</source>
+        <translation>Če izberete to, bo Scribus shranil varnostno kopijo
+vašega dokumenta (s končnico .bak), vsako izbrano enoto časa</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
@@ -5353,6 +5349,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Velikost pisave:</translation>
     </message>
     <message>
+        <source>Turns on the basegrid</source>
+        <translation>Vključi osnovno mrežo</translation>
+    </message>
+    <message>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
         <translation>Širina strani dokumenta; to lahko nastavite, če ste označili posebno velikost strani</translation>
     </message>
@@ -5362,7 +5362,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Portrait</source>
-        <translation>Pokončno</translation>
+        <translation>Navpično</translation>
     </message>
     <message>
         <source>Line Drawing Properties</source>
@@ -5494,7 +5494,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Picas (p)</source>
-        <translation>Točk (p)</translation>
+        <translation>Pike</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
@@ -5533,16 +5533,16 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Prikaži nenatisljiva področja v barvi robov</translation>
     </message>
     <message>
-        <source>Left Page First</source>
-        <translation>Najprej leva stran</translation>
-    </message>
-    <message>
         <source>Relative size of the small caps font compared to the normal font</source>
         <translation>Relativna velikost pomanjšanih vleikih črk v primerjav iz običajno velikostjo pisave</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
         <translation>Okvir s sliko lahko razpne sliko na kakršnokoli velikost</translation>
+    </message>
+    <message>
+        <source>Turns off the basegrid</source>
+        <translation>Izključi osnovno mrežo</translation>
     </message>
     <message>
         <source>Mouse-Settings</source>
@@ -5601,10 +5601,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Prikaz</translation>
     </message>
     <message>
-        <source>Horizontal Scaling</source>
-        <translation>Vodoraven razteg</translation>
-    </message>
-    <message>
         <source>Choose a Directory</source>
         <translation>Izberite mapo</translation>
     </message>
@@ -5625,16 +5621,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Nasičenost barve</translation>
     </message>
     <message>
-        <source>Wheel-Jump</source>
-        <translation>Preskok koleščka</translation>
-    </message>
-    <message>
         <source>Inches (in)</source>
         <translation>Palcev (in)</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
-        <translation>Enable single or spread based layout</translation>
+        <translation>Vključi enotno ali razpršeno postavitev</translation>
     </message>
     <message>
         <source>Change in magnification for each zoom operation</source>
@@ -5677,6 +5669,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Primer pisave</translation>
     </message>
     <message>
+        <source>Linestyle:</source>
+        <translation>Slog črte: </translation>
+    </message>
+    <message>
         <source>Autosave</source>
         <translation>Samodejno shranjevanje</translation>
     </message>
@@ -5699,6 +5695,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Minor Grid Spacing:</source>
         <translation>Razmik malih črt:</translation>
+    </message>
+    <message>
+        <source>Baseline Grid</source>
+        <translation>Osnovna črta mreže</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
@@ -5736,7 +5736,7 @@ Scribus inherits any available KDE or Qt themes</source>
     </message>
     <message>
         <source>General</source>
-        <translation>Splošno</translation>
+        <translation>Splošne</translation>
     </message>
     <message>
         <source>Enable transparency features within PDF 1.4 export</source>
@@ -5815,6 +5815,10 @@ Scribus inherits any available KDE or Qt themes</source>
         <translation>Osnovna črta mreže:</translation>
     </message>
     <message>
+        <source>Distance within which an object will snap to your placed guides</source>
+        <translation>Razdalja do vodila, na kateri bo predmet preskočil na vodilo</translation>
+    </message>
+    <message>
         <source>Orientation:</source>
         <translation>Usmerjenost:</translation>
     </message>
@@ -5832,10 +5836,6 @@ Scribus inherits any available KDE or Qt themes</source>
     <message>
         <source>OK</source>
         <translation>V redu</translation>
-    </message>
-    <message>
-        <source>&amp;Red:</source>
-        <translation>&amp;Rdeča:</translation>
     </message>
     <message>
         <source>&amp;Sat:</source>
@@ -5871,7 +5871,7 @@ Scribus inherits any available KDE or Qt themes</source>
     </message>
     <message>
         <source>&amp;Green:</source>
-        <translation>&amp;Zelena:</translation>
+        <translation>Zelena:</translation>
     </message>
     <message>
         <source>&amp;Basic colors</source>
@@ -5879,7 +5879,7 @@ Scribus inherits any available KDE or Qt themes</source>
     </message>
     <message>
         <source>&amp;Custom colors</source>
-        <translation>Barve po &amp;meri</translation>
+        <translation>Barve po meri</translation>
     </message>
     <message>
         <source>A&amp;lpha channel:</source>
@@ -5899,10 +5899,6 @@ Scribus inherits any available KDE or Qt themes</source>
     <message>
         <source>Dir</source>
         <translation>Mapa</translation>
-    </message>
-    <message>
-        <source>&amp;Yes</source>
-        <translation>&amp;Da</translation>
     </message>
     <message>
         <source>Back</source>
@@ -5965,10 +5961,6 @@ Scribus inherits any available KDE or Qt themes</source>
         <translation>Uredi po &amp;datumih</translation>
     </message>
     <message>
-        <source>Sort by &amp;Name</source>
-        <translation>Uredi po ime&amp;nih</translation>
-    </message>
-    <message>
         <source>New Folder 1</source>
         <translation>Nova mapa 1</translation>
     </message>
@@ -5985,12 +5977,16 @@ Scribus inherits any available KDE or Qt themes</source>
         <translation>Ime datoteke:</translation>
     </message>
     <message>
-        <source>Delete %1</source>
-        <translation>Izbriši %1</translation>
+        <source>Delete %1QFileDialog::&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;QFileDialog::&amp;Yes</source>
+        <translation>&lt;qt&gt;Ali ste prepričani, da želite izbrisati %1 &quot;%2&quot;?&lt;/qt&gt;QFileDialog::Da</translation>
     </message>
     <message>
         <source>Cancel</source>
         <translation>Prekliči</translation>
+    </message>
+    <message>
+        <source>&amp;UnsortedQFileDialog::Sort</source>
+        <translation>Razvrsti</translation>
     </message>
     <message>
         <source>R&amp;eload</source>
@@ -6006,7 +6002,7 @@ Scribus inherits any available KDE or Qt themes</source>
     </message>
     <message>
         <source>Look &amp;in:</source>
-        <translation>Poglej &amp;v:</translation>
+        <translation>Poglej v:</translation>
     </message>
     <message>
         <source>Preview File Contents</source>
@@ -6029,10 +6025,6 @@ Scribus inherits any available KDE or Qt themes</source>
         <translation>Prepiši ali premakni datoteko</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Ali zares želite izbrisati %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
-    </message>
-    <message>
         <source>Find Directory</source>
         <translation>Poišči mapo</translation>
     </message>
@@ -6051,6 +6043,14 @@ Scribus inherits any available KDE or Qt themes</source>
     <message>
         <source>Inaccessible</source>
         <translation>Nedostopno</translation>
+    </message>
+    <message>
+        <source>%1
+File not found.
+Check path and filename.</source>
+        <translation>%1
+Ne najdem datoteke.
+Preverite ime in pot do nje.</translation>
     </message>
     <message>
         <source>List View</source>
@@ -6136,14 +6136,6 @@ Scribus inherits any available KDE or Qt themes</source>
 <context>
     <name>QLineEdit</name>
     <message>
-        <source>Cu&amp;t</source>
-        <translation>&amp;Izreži</translation>
-    </message>
-    <message>
-        <source>&amp;Copy</source>
-        <translation>&amp;Kopiraj</translation>
-    </message>
-    <message>
         <source>&amp;Redo</source>
         <translation>&amp;Obnovi</translation>
     </message>
@@ -6163,6 +6155,10 @@ Scribus inherits any available KDE or Qt themes</source>
         <source>Select All</source>
         <translation>Izberi vse</translation>
     </message>
+    <message>
+        <source>Cu&amp;tQLineEdit::&amp;Copy</source>
+        <translation>&amp;Kopiraj</translation>
+    </message>
 </context>
 <context>
     <name>QMainWindow</name>
@@ -6178,19 +6174,19 @@ Scribus inherits any available KDE or Qt themes</source>
 <context>
     <name>QMessageBox</name>
     <message>
-        <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;</source>
-        <translation>&lt;H3&gt; O qt &lt;/h3&gt;&lt;p&gt; Ta program uporablja QT različice %1.&lt;/p&gt;&lt;p&gt; QT je zbirka orodij v C++ za večplatformno gradnjo grafičnih uporabniških vmesnikov.&lt;/p&gt;&lt;p&gt; QT ponuja prenosljivost med operacijskimi sistemi MS&amp;nbsp Windows, Mac&amp;nbsp OS&amp;nbsp X, Linux in vsemi glavnimi različicami komercialnih Unix-ov iz enega samega vira izvirne kode &lt;br&gt; QT je na voljo tudi za vgrajene naprave. &lt;/p&gt;&lt;p&gt; QT je produkt podjetja Trolltech za več podatkov obiščite &lt;tt&gt;http://www.trolltech.com/qt/&lt;/&gt;tt&lt;/p&gt;</translation>
+        <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;QObject::Initializing...</source>
+        <translation>&lt;h3&gt;O Qt&lt;/h3&gt;&lt;p&gt;Ta program uporablja QT različico %1.&lt;/p&gt;&lt;p&gt;Qt je C++ orodje za razvoj grafičnih vmesnikov in programov za več okolij. .&lt;/p&gt;&lt;p&gt;Qt omogoča prenos iste kode v okolja MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, in vse pomembnejše Unixe.&lt;br&gt;Qt obstaja tudi za vključene pripomočke.&lt;/p&gt;&lt;p&gt;Qt ije izdelek Trolltecha. Več na &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt;.&lt;/p&gt;QObject::Pripravljam...</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <source>p</source>
-        <translation>p</translation>
+        <translation>pik</translation>
     </message>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation> pik</translation>
     </message>
     <message>
         <source>No</source>
@@ -6206,7 +6202,7 @@ Scribus inherits any available KDE or Qt themes</source>
     </message>
     <message>
         <source>pt</source>
-        <translation>pik</translation>
+        <translation>točk</translation>
     </message>
     <message>
         <source> in</source>
@@ -6218,7 +6214,7 @@ Scribus inherits any available KDE or Qt themes</source>
     </message>
     <message>
         <source> pt</source>
-        <translation> pik</translation>
+        <translation> točk</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -6231,14 +6227,6 @@ Scribus inherits any available KDE or Qt themes</source>
     <message>
         <source>Print Preview</source>
         <translation>Predogled tiskanja</translation>
-    </message>
-    <message>
-        <source>Initializing...</source>
-        <translation>Pripravljam...</translation>
-    </message>
-    <message>
-        <source>Import SVG-Image</source>
-        <translation>Uvozi SVG Sliko</translation>
     </message>
     <message>
         <source>Scribus Scripts</source>
@@ -6274,7 +6262,7 @@ Scribus inherits any available KDE or Qt themes</source>
     </message>
     <message>
         <source>S&amp;cript</source>
-        <translation>S&amp;kripta</translation>
+        <translation>Skripta</translation>
     </message>
     <message>
         <source>Execute Script...</source>
@@ -6291,7 +6279,7 @@ Scribus inherits any available KDE or Qt themes</source>
     <message>
         <source>Do you really want to overwrite the File:
 %1 ?</source>
-        <translation>Zares želite prepisati datoteko:
+        <translation>Ali ste prepričani, da želite prepisati datoteko:
 %1 ?</translation>
     </message>
     <message>
@@ -6331,11 +6319,11 @@ Scribus inherits any available KDE or Qt themes</source>
     <name>QTextEdit</name>
     <message>
         <source>Cu&amp;t</source>
-        <translation>&amp;Izreži</translation>
+        <translation>Izreži</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>&amp;Kopiraj</translation>
+        <translation>Kopiraj</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
@@ -6370,7 +6358,7 @@ Scribus inherits any available KDE or Qt themes</source>
     </message>
     <message>
         <source>Shade</source>
-        <translation>Osenči</translation>
+        <translation>Senči</translation>
     </message>
     <message>
         <source>Maximize</source>
@@ -6421,7 +6409,7 @@ Scribus inherits any available KDE or Qt themes</source>
     </message>
     <message>
         <source>Sh&amp;ade</source>
-        <translation>&amp;Osenči</translation>
+        <translation>Senči</translation>
     </message>
     <message>
         <source>&amp;Restore</source>
@@ -6429,7 +6417,7 @@ Scribus inherits any available KDE or Qt themes</source>
     </message>
     <message>
         <source>&amp;Unshade</source>
-        <translation>O&amp;dsenči</translation>
+        <translation>Odsenči</translation>
     </message>
     <message>
         <source>Mi&amp;nimize</source>
@@ -6458,8 +6446,24 @@ Scribus inherits any available KDE or Qt themes</source>
 <context>
     <name>ReformDoc</name>
     <message>
+        <source> p</source>
+        <translation> pik</translation>
+    </message>
+    <message>
         <source>OK</source>
         <translation>V redu</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation> pal</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation> mm</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation> točk</translation>
     </message>
     <message>
         <source>Top:</source>
@@ -6548,8 +6552,40 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>ScribusApp</name>
     <message>
+        <source>p</source>
+        <translation>pik</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>pik</translation>
+    </message>
+    <message>
         <source>OK</source>
         <translation>V redu</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>pal</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>točk</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>pal</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>točk</translation>
     </message>
     <message>
         <source>50%</source>
@@ -6569,7 +6605,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>New</source>
-        <translation>Novo</translation>
+        <translation>Nova</translation>
     </message>
     <message>
         <source>200%</source>
@@ -6649,23 +6685,23 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Datoteka</translation>
+        <translation>Datoteka</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation>P&amp;omoč</translation>
+        <translation>Pomoč</translation>
     </message>
     <message>
         <source>&amp;Item</source>
-        <translation>Pr&amp;edmet</translation>
+        <translation>Predmet</translation>
     </message>
     <message>
         <source>&amp;Page</source>
-        <translation>&amp;Stran</translation>
+        <translation>Stran</translation>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation>&amp;Pogled</translation>
+        <translation>Pogled</translation>
     </message>
     <message>
         <source>Styles...</source>
@@ -6772,10 +6808,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Dokumenti (*.sla *.sla.gz *.scd *.scd.gz);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <source>The following Programs are missing:</source>
-        <translation>Manjkako sledeči programi:</translation>
-    </message>
-    <message>
         <source>Italian</source>
         <translation>Italijanščina</translation>
     </message>
@@ -6789,7 +6821,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Getting ICC-Profiles</source>
-        <translation>Najdi ICC profile</translation>
+        <translation>Iščem ICC profile</translation>
     </message>
     <message>
         <source>Initializing Plugins</source>
@@ -6842,6 +6874,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Show Page Palette</source>
         <translation>Prikaži paleto strani</translation>
+    </message>
+    <message>
+        <source>IrishScribusApp::All Supported Formats</source>
+        <translation>Vsi podprti formati</translation>
     </message>
     <message>
         <source>Colors...</source>
@@ -6988,10 +7024,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Slovaščina</translation>
     </message>
     <message>
-        <source>All Supported Formats</source>
-        <translation>Vsi podprti formati</translation>
-    </message>
-    <message>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
@@ -7009,7 +7041,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Tool&amp;bars</source>
-        <translation>Oro&amp;djarne</translation>
+        <translation>Orodjarne</translation>
     </message>
     <message>
         <source>Tool-Tips</source>
@@ -7028,10 +7060,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Uredi okvir</translation>
     </message>
     <message>
-        <source>Fonts...</source>
-        <translation>Pisave...</translation>
-    </message>
-    <message>
         <source>Open...</source>
         <translation>Odpri...</translation>
     </message>
@@ -7042,6 +7070,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Outline</source>
         <translation>Obroba</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation>Slovenščina</translation>
     </message>
     <message>
         <source>Properties</source>
@@ -7077,11 +7109,17 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Get Picture...</source>
-        <translation>Najdi slike...</translation>
+        <translation>Dodaj sliko...</translation>
+    </message>
+    <message>
+        <source>Can&apos;t write the File: 
+ %1</source>
+        <translation>Ne morem zapisati datoteke: 
+ %1</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>Dodat&amp;no</translation>
+        <translation>Dodatno</translation>
     </message>
     <message>
         <source>Attach Text to Path</source>
@@ -7089,7 +7127,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Some Objects are locked.</source>
-        <translation>Nekateri predmeti so zaklenjeni</translation>
+        <translation>Nekateri predmeti so zaklenjeni.</translation>
     </message>
     <message>
         <source>Insert Page Number</source>
@@ -7126,10 +7164,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Reading Scrapbook</source>
         <translation>Berem odložišče</translation>
-    </message>
-    <message>
-        <source>Ghostscript : You cannot use EPS-Images</source>
-        <translation>Ghostscript : Ne morete uporabljati slik EPS</translation>
     </message>
     <message>
         <source>Hyphenator...</source>
@@ -7237,7 +7271,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Get Text...</source>
-        <translation>Najdi besedilo...</translation>
+        <translation>Dodaj besedilo...</translation>
     </message>
     <message>
         <source>Color Management...</source>
@@ -7250,6 +7284,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Underline</source>
         <translation>Podčrtano</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation>Švedščina</translation>
     </message>
     <message>
         <source>All Files (*)</source>
@@ -7389,7 +7427,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Windows</source>
-        <translation>&amp;Okna</translation>
+        <translation>Okna</translation>
     </message>
     <message>
         <source>Select New Font</source>
@@ -7408,10 +7446,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Shrani besedilo...</translation>
     </message>
     <message>
-        <source>Can&apos;t write the File: 
-%1</source>
-        <translation>Ne morem zapisati datoteke: 
-%1</translation>
+        <source>Lithuanian</source>
+        <translation>Litvanščina</translation>
     </message>
     <message>
         <source>Scribus Manual</source>
@@ -7425,8 +7461,24 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>ScribusView</name>
     <message>
+        <source>p</source>
+        <translation>pik</translation>
+    </message>
+    <message>
         <source> %</source>
         <translation> %</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>pal</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>točk</translation>
     </message>
     <message>
         <source>All</source>
@@ -7490,7 +7542,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source> pt</source>
-        <translation> pik</translation>
+        <translation> točk</translation>
     </message>
     <message>
         <source>Font</source>
@@ -7596,8 +7648,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>SeitenPal</name>
     <message>
-        <source>Previews all the pages of your document.</source>
-        <translation>Tu vidite predogled vseh strani dokumenta.</translation>
+        <source>This previews all the pages of your Document.</source>
+        <translation>Tu vidite predogled vseh strani dokumenta. </translation>
     </message>
     <message>
         <source>Normal</source>
@@ -7773,6 +7825,10 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation>Novo</translation>
     </message>
     <message>
+        <source>Update Text FrameStoryEditor::Insert Special...</source>
+        <translation>Vstavi posebej...</translation>
+    </message>
+    <message>
         <source>Copy</source>
         <translation>Kopiraj</translation>
     </message>
@@ -7833,20 +7889,12 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation>Ali zares želite izgubiti vse spremembe?</translation>
     </message>
     <message>
-        <source>Insert Special...</source>
-        <translation>Vstavi posebej...</translation>
-    </message>
-    <message>
         <source>Story Editor</source>
         <translation>Urejevalnik zgodbe</translation>
     </message>
     <message>
         <source>Do you really want to clear all your Text?</source>
         <translation>Ali zares želite počistiti vso besedilo?</translation>
-    </message>
-    <message>
-        <source>Do you want save your changes?</source>
-        <translation>Ali želite shraniti spremembe?</translation>
     </message>
     <message>
         <source>Center</source>
@@ -7865,8 +7913,12 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation>Trenuten odstavek</translation>
     </message>
     <message>
+        <source>Do you want to save your changes?</source>
+        <translation>Ali želite shraniti spremembe?</translation>
+    </message>
+    <message>
         <source>Search/Replace...</source>
-        <translation>Poišči in zamenjaj...</translation>
+        <translation>PoiĹĄÄi in zamenjaj...</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -7893,10 +7945,6 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation>Skupno:</translation>
     </message>
     <message>
-        <source>Update Text Frame</source>
-        <translation>Osveži okvir z besedilom</translation>
-    </message>
-    <message>
         <source>Warning</source>
         <translation>Opozorilo</translation>
     </message>
@@ -7920,16 +7968,16 @@ povlecite predlogo na delovno področje spodaj.</translation>
 <context>
     <name>StyleSelect</name>
     <message>
-        <source>Strike Out</source>
-        <translation>Prečrtano</translation>
-    </message>
-    <message>
         <source>Outline Text</source>
         <translation>Besedilo orisa</translation>
     </message>
     <message>
         <source>Small Caps</source>
         <translation>Pomanjšane velike črke</translation>
+    </message>
+    <message>
+        <source>Strikeout</source>
+        <translation>Prečrtano </translation>
     </message>
     <message>
         <source>Subscript</source>
@@ -7951,40 +7999,8 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation>V redu</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pik</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>Dodaj</translation>
-    </message>
-    <message>
-        <source>Left</source>
-        <translation>Levo</translation>
-    </message>
-    <message>
-        <source>Comma</source>
-        <translation>Vejica</translation>
-    </message>
-    <message>
-        <source>Right</source>
-        <translation>Desno</translation>
-    </message>
-    <message>
-        <source>Full Stop</source>
-        <translation>Pika</translation>
-    </message>
-    <message>
         <source>Cancel</source>
         <translation>Prekliči</translation>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation>Sredina</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>Odstrani</translation>
     </message>
     <message>
         <source>Manage Tabulators</source>
@@ -8000,7 +8016,78 @@ povlecite predlogo na delovno področje spodaj.</translation>
     </message>
 </context>
 <context>
+    <name>Tabruler</name>
+    <message>
+        <source> p</source>
+        <translation> pik</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation> in</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation> mm</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation> točk</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Levo</translation>
+    </message>
+    <message>
+        <source>Comma</source>
+        <translation>Vejica</translation>
+    </message>
+    <message>
+        <source>Indent:</source>
+        <translation>Poravnava:</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Desno</translation>
+    </message>
+    <message>
+        <source>Full Stop</source>
+        <translation>Pika</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation>Sredina</translation>
+    </message>
+    <message>
+        <source>First Line:</source>
+        <translation>Prva vrstica:</translation>
+    </message>
+    <message>
+        <source>Position:</source>
+        <translation>Položaj:</translation>
+    </message>
+    <message>
+        <source>Indentation for first line of the paragraph</source>
+        <translation>Zamik prve vrstice odstavka</translation>
+    </message>
+    <message>
+        <source>Indentation from the left for the whole paragraph</source>
+        <translation>Zamik celotnega odstavka v levo</translation>
+    </message>
+    <message>
+        <source>Delete all Tabulators</source>
+        <translation>Pobriši tabulatorje</translation>
+    </message>
+    <message>
+        <source>Delete All</source>
+        <translation>Izbriši vse</translation>
+    </message>
+</context>
+<context>
     <name>Tree</name>
+    <message>
+        <source>OK</source>
+        <translation>V redu</translation>
+    </message>
     <message>
         <source>X:</source>
         <translation>X:</translation>
@@ -8034,6 +8121,12 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <translation>Slika</translation>
     </message>
     <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation>Ime &quot;%1&quot; ni edinstveno.
+Prosim, izberite drugo.</translation>
+    </message>
+    <message>
         <source>Polyline</source>
         <translation>Lomljena črta</translation>
     </message>
@@ -8057,6 +8150,10 @@ povlecite predlogo na delovno področje spodaj.</translation>
         <source>Element</source>
         <translation>Element</translation>
     </message>
+    <message>
+        <source>Warning</source>
+        <translation>Pozor</translation>
+    </message>
 </context>
 <context>
     <name>WerkToolB</name>
@@ -8070,7 +8167,7 @@ povlecite predlogo na delovno področje spodaj.</translation>
     </message>
     <message>
         <source>Zoom in or out</source>
-        <translation>Poveča ali pomanjša</translation>
+        <translation>Poveča ali pomanjša </translation>
     </message>
     <message>
         <source>Insert Lines</source>
@@ -8094,7 +8191,7 @@ povlecite predlogo na delovno področje spodaj.</translation>
     </message>
     <message>
         <source>Draw various Shapes</source>
-        <translation>Riše različne oblike</translation>
+        <translation>Riše različne oblike </translation>
     </message>
     <message>
         <source>Link Text Frames</source>

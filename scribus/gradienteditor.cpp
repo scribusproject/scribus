@@ -160,7 +160,7 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 {
 	QRect fpo;
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-	if ((!Mpressed) && (m->y() < height()) && (m->y() > 43) && (m->x() > 10) && (m->x() < width()-10))
+	if ((!Mpressed) && (m->y() < height()) && (m->y() > 43) && (m->x() > 9) && (m->x() < width()-9))
 	{
 		qApp->setOverrideCursor(QCursor(loadIcon("AddPoint.png"), 4, 3), true);
 		for (int yg = 0; yg < static_cast<int>(StopM.count()); ++yg)
@@ -173,7 +173,7 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 			}
 		}
 	}
-	if ((Mpressed) && (m->y() < height()) && (m->y() > 43) && (m->x() > 10) && (m->x() < width()-10) && (ActStop != -1))
+	if ((Mpressed) && (m->y() < height()) && (m->y() > 43) && (m->x() > 9) && (m->x() < width()-9) && (ActStop != -1))
 	{
 		qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
 		double newStop = static_cast<double>((m->x() - 10)) / (static_cast<double>(width())-20);

@@ -1021,8 +1021,8 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation>Die Bezeichnung %1 ist nicht eindeutig.
-Bitte wählen Sie eine anderen.</translation>
+        <translation>Der Name %1 ist nicht eindeutig.
+Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1178,7 +1178,7 @@ Bitte wählen Sie eine anderen.</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
-        <translation>Render-Methoden</translation>
+        <translation>Render-Prioritäten</translation>
     </message>
     <message>
         <source>Simulate Printer on the Screen</source>
@@ -1243,13 +1243,13 @@ Diese Option sollte aktiviert sein, wenn Sie Fotos im Dokument haben.</translati
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Standard Rendering-Methode für Ihren Monitor. Ohne einen Grund zur Veränderung
+        <translation>Standard-Rendering Methode für Ihren Monitor. Ohne einen Grund zur Veränderung
 sollte entweder relativ farbmetrisch oder Wahrnehmung aktiviert sein.</translation>
     </message>
     <message>
         <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Standard Rendering-Methode für den Drucker. Ohne einen Grund zur Veränderung
+        <translation>Standard-Rendering Methode für den Drucker. Ohne einen Grund zur Veränderung
 sollte entweder relativ farbmetrisch oder Wahrnehmung aktiviert sein.</translation>
     </message>
     <message>
@@ -1440,8 +1440,12 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
         <translation>Farbe des selektierten Objekts</translation>
     </message>
     <message>
+        <source>Special</source>
+        <translation type="obsolete">Spezialattribut</translation>
+    </message>
+    <message>
         <source>Free linear Gradient</source>
-        <translation>Freier linearer Verlauf</translation>
+        <translation>Benutzerdefinierter linearer Verlauf</translation>
     </message>
     <message>
         <source>X1:</source>
@@ -1453,7 +1457,7 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source>X2:</source>
@@ -1465,19 +1469,19 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation> mm</translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation> in</translation>
+        <translation>in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation>p</translation>
     </message>
     <message>
         <source>Free radial Gradient</source>
-        <translation>Freier kreisförmiger Verlauf</translation>
+        <translation>Benutzerdefinierter radialer Verlauf</translation>
     </message>
 </context>
 <context>
@@ -1833,21 +1837,6 @@ Wird in den Voreinstellungen eingestellt.</translation>
     <message>
         <source>Print</source>
         <translation>Drucken</translation>
-    </message>
-</context>
-<context>
-    <name>EPSPlug</name>
-    <message>
-        <source>Importing File:
-%1
-failed!</source>
-        <translation>Importieren von Datei:
-%1
-ist fehlgeschlagen!</translation>
-    </message>
-    <message>
-        <source>Fatal Error</source>
-        <translation>Fataler Fehler</translation>
     </message>
 </context>
 <context>
@@ -2508,7 +2497,7 @@ Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat<
     <name>FontPreview</name>
     <message>
         <source>Font Preview</source>
-        <translation>Schriftarten-Vorschau</translation>
+        <translation>Schriftartenvorschau</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2543,7 +2532,7 @@ Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat<
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Hier können Sie Farben hinzufügen, ändern oder löschen.</translation>
+        <translation>Hier können Sie Farben ändern, hinzufügen oder löschen.</translation>
     </message>
 </context>
 <context>
@@ -3357,7 +3346,7 @@ Corners:</source>
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation>Render-Methode:</translation>
+        <translation>Render Priorität:</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -3502,8 +3491,8 @@ Corners:</source>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation>Die Bezeichnung %1 ist nicht eindeutig.
-Bitte wählen Sie eine anderen.</translation>
+        <translation>Der Name %1 ist nicht eindeutig.
+Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -4592,7 +4581,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Rendering-Intent:</source>
-        <translation>Render-Methode:</translation>
+        <translation>Render Priorität:</translation>
     </message>
     <message>
         <source>Images:</source>
@@ -4608,7 +4597,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
-        <translation>PDF/X-3 Ausgabebe-Einstellungen</translation>
+        <translation>PDF/X-3 Ausgabebedingung</translation>
     </message>
     <message>
         <source>Info String:</source>
@@ -7084,18 +7073,6 @@ wirklich überschreiben?</translation>
         <source>Error writting the output file(s).</source>
         <translation>Fehler beim Schreiben der Datei(en).</translation>
     </message>
-    <message>
-        <source>Import EPS/PS...</source>
-        <translation>EPS-Bild importieren...</translation>
-    </message>
-    <message>
-        <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
-        <translation>Alle unterstützten Formate (*.eps *.EPS *.ps *.PS);;</translation>
-    </message>
-    <message>
-        <source>All Files (*)</source>
-        <translation>Alle Dateien (*)</translation>
-    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -8058,7 +8035,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Loading:</source>
-        <translation>Plugins werden geladen:</translation>
+        <translation>Lade:</translation>
     </message>
     <message>
         <source>Adjusting Colors</source>
@@ -8849,11 +8826,11 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation>Textrahmen auffrischen und verlassen</translation>
+        <translation>Änderungen übernehmen und beenden</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation>Verlassen ohne Textrahen auffrischen</translation>
+        <translation>Änderungen verwerfen und beenden</translation>
     </message>
     <message>
         <source>Save Document</source>
@@ -9078,8 +9055,8 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation>Die Bezeichnung %1 ist nicht eindeutig.
-Bitte wählen Sie eine anderen.</translation>
+        <translation>Der Name %1 ist nicht eindeutig.
+Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>OK</source>

@@ -136,6 +136,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	Form1Layout->addLayout(GradLayout);
 	ListBox1 = new QListBox(this, "ListBox1");
 	ListBox1->setMinimumSize( QSize( 150, 30 ) );
+	ListBox1->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	Form1Layout->addWidget(ListBox1);
 	Inhalt->setOn(true);
 	InnenButton();
@@ -164,23 +165,19 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 
 void Cpalette::InhaltButton()
 {
-	int h = 0;
 	if (Inhalt->isOn())
 	{
 		Mode = 1;
 		Innen->setOn(false);
-		h += GradCombo->height();
-		h += GradEdit->height();
-		if (GradCombo->currentItem() < 6)
-			h -= frame8->height();
 		frame8->hide();
-		h += TransGroup->height();
+		frame8->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		GradCombo->hide();
+		GradCombo->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		GradEdit->hide();
+		GradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		GradientMode = false;
-		ListBox1->resize(ListBox1->width(), ListBox1->height()+h);
+		layout()->activate();
 		updateCList();
-		updateGeometry();
 		repaint();
 	}
 	emit QueryItem();
@@ -188,28 +185,33 @@ void Cpalette::InhaltButton()
 
 void Cpalette::InnenButton()
 {
-	int h = 0;
 	if (Innen->isOn())
 	{
 		Mode = 2;
 		Inhalt->setOn(false);
 		GradCombo->show();
+		GradCombo->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 		GradientMode = GradCombo->currentItem() != 0 ? true : false;
-		h += GradCombo->height();
-		h += TransGroup->height();
 		if (GradientMode)
 		{
 			if (GradEdit->isHidden())
+			{
 				GradEdit->show();
+				GradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
+			}
 			if (GradCombo->currentItem() > 5)
+			{
 				frame8->show();
+				frame8->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+			}
 			else
+			{
 				frame8->hide();
-			h += GradEdit->height();
+				frame8->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+			}
 		}
-		ListBox1->resize(ListBox1->width(), ListBox1->height()-h);
+		layout()->activate();
 		updateCList();
-		updateGeometry();
 		repaint();
 	}
 	emit QueryItem();
@@ -346,25 +348,30 @@ void Cpalette::ChooseGrad(int nr)
 {
 	/* PFJ - 29.02.04 - Removed GradGroup and Gradient mode from switch */
 	bool test = nr == 0 ? false : true;
-	int h = 0;
-	bool test2 = GradEdit->isHidden();
 	GradientMode = test;
 	if (nr != 0)
 	{
 		GradEdit->show();
+		GradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
 		if (GradCombo->currentItem() > 5)
+		{
 			frame8->show();
+			frame8->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+		}
 		else
+		{
 			frame8->hide();
-		h += GradEdit->height();
-		if (test2)
-			ListBox1->resize(ListBox1->width(), ListBox1->height()-h);
+			frame8->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		}
 	}
 	else
 	{
 		frame8->hide();
 		GradEdit->hide();
+		frame8->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		GradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 	}
+	layout()->activate();
 	disconnect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 	switch (nr)
 	{
@@ -380,7 +387,6 @@ void Cpalette::ChooseGrad(int nr)
 		break;
 	}
 	setFocus();
-	updateGeometry();
 	repaint();
 	connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 }
@@ -421,19 +427,20 @@ void Cpalette::slotTrans(int val)
 
 void Cpalette::UseTrans(bool b)
 {
-	int h = 0;
 	if (b)
+	{
 		TransGroup->show();
+		TransGroup->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+	}
 	else
 	{
 		if (!TransGroup->isHidden())
 		{
-			h += TransGroup->height();
 			TransGroup->hide();
-			ListBox1->resize(ListBox1->width(), ListBox1->height()+h);
+			TransGroup->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		}
 	}
-	updateGeometry();
+	layout()->activate();
 	repaint();
 	UseTransFeature = b;
 }

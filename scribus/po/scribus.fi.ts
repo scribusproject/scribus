@@ -833,6 +833,10 @@ Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
         <source>Selection Change</source>
         <translation>Valinta muuttui</translation>
     </message>
+    <message>
+        <source></source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>Annota</name>
@@ -1002,6 +1006,24 @@ Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
         <source>New Entry</source>
         <translation>Uusi leike</translation>
     </message>
+    <message>
+        <source>Rename</source>
+        <translation>Nimeä uudelleen</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Varoitus</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation>Nimi &quot;%1&quot; on jo olemassa.
+Valitse toinen nimi.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
 </context>
 <context>
     <name>BookMView</name>
@@ -1115,6 +1137,10 @@ Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
         <source>Caption above Icon</source>
         <translation>Teksti kuvakkeen yläpuolella</translation>
     </message>
+    <message>
+        <source></source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>CMSPrefs</name>
@@ -1192,7 +1218,7 @@ Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
     </message>
     <message>
         <source>Default color profile for solid colors on the page</source>
-        <translation>Väriprofiili dokumentin tasaisille väreille</translation>
+        <translation>Väriprofiili asiakirjan tasaisille väreille</translation>
     </message>
     <message>
         <source>Color profile that you have generated or received from the manufacturer.
@@ -1210,7 +1236,7 @@ Profiilin tulee olla tulostimellesi tarkoitettu ei yleinen väriprofiili kuten s
         <source>Black Point Compensation is a method of improving contrast in photos.
 It is recommended that you enable this if you have photos in your document.</source>
         <translation>Black Point Compensation on keino parantaa kuvien kontrastia.
-On suositeltavaa että valitsen tämän, jos dokumenttisi sisältää kuvia.</translation>
+On suositeltavaa että valitsen tämän, jos asiakirjasi sisältää kuvia.</translation>
     </message>
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
@@ -1316,6 +1342,10 @@ Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan 
         <translation>Dynaamiset väripalkit</translation>
     </message>
     <message>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
         <source> %</source>
         <translation> %</translation>
     </message>
@@ -1328,8 +1358,8 @@ Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan 
         <translation>Värin nimi on jo käytössä</translation>
     </message>
     <message>
-        <source>HSB-Colormap</source>
-        <translation>HSB-värikartta</translation>
+        <source>HSV-Colormap</source>
+        <translation>HSV-värikartta</translation>
     </message>
 </context>
 <context>
@@ -1391,20 +1421,52 @@ Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan 
         <translation>Normaali täyttö tai väriliuku</translation>
     </message>
     <message>
-        <source>Edit the first color of object</source>
-        <translation>Muokka kohteen ensimmäistä väriä</translation>
-    </message>
-    <message>
-        <source>Edit the second color of object</source>
-        <translation>Muokkaa kohteen toista väriä</translation>
-    </message>
-    <message>
         <source>Set the transparency for the color selected</source>
         <translation>Aseta valitun värin läpinäkyvyys</translation>
     </message>
     <message>
         <source>Color of selected object</source>
         <translation>Valitun kohteen väri</translation>
+    </message>
+    <message>
+        <source>Free linear Gradient</source>
+        <translation>Vapaa lineaarinen väriliuku</translation>
+    </message>
+    <message>
+        <source>X1:</source>
+        <translation>X1:</translation>
+    </message>
+    <message>
+        <source>Y1:</source>
+        <translation>Y1:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation> pt</translation>
+    </message>
+    <message>
+        <source>X2:</source>
+        <translation>X2:</translation>
+    </message>
+    <message>
+        <source>Y2:</source>
+        <translation>Y2:</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation> mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation> in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation> p</translation>
+    </message>
+    <message>
+        <source>Free radial Gradient</source>
+        <translation>Vapaa säteittäinen väriliuku</translation>
     </message>
 </context>
 <context>
@@ -1499,7 +1561,7 @@ Puuttuva kirjasto on merkitty * -merkillä</translation>
     <message>
         <source>Moves to your Document Directory.
 This can be set in the Preferences.</source>
-        <translation>Siirry dokumenttihakemistoosi.
+        <translation>Siirry asiakirjahakemistoosi.
 Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
@@ -1612,19 +1674,19 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>Document Info</source>
-        <translation>Dokumentin tiedot</translation>
+        <translation>Asiakirjan tiedot</translation>
     </message>
     <message>
         <source>This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Kentän arvo voidaan upottaa Scribus dokumenttiin viitteeksi kuten myös PDF:ään metadataksi</translation>
+        <translation>Kentän arvo voidaan upottaa Scribus-asiakirjaan viitteeksi kuten myös PDF:ään metadataksi</translation>
     </message>
     <message>
         <source>This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>Tämä kenttä on lyhyttä dokumentin kuvausta varten. Se sisällytetään PDF:ään</translation>
+        <translation>Tämä kenttä on lyhyttä asiakirjan kuvausta varten. Se sisällytetään PDF:ään</translation>
     </message>
     <message>
         <source>This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>Tämä kenttä on dokumentin avainsanoja varten, 
+        <translation>Tämä kenttä on asiakirjan avainsanoja varten, 
 jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden hakuja</translation>
     </message>
 </context>
@@ -1735,6 +1797,10 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
         <translation>Sivulta:</translation>
     </message>
     <message>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
         <source>Cyan</source>
         <translation>Cyan</translation>
     </message>
@@ -1753,6 +1819,19 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
     <message>
         <source>Print</source>
         <translation>Tulosta</translation>
+    </message>
+</context>
+<context>
+    <name>EPSPlug</name>
+    <message>
+        <source>Importing File:
+%1
+failed!</source>
+        <translation>Tiedoston %1 tuonti epäonnistui!</translation>
+    </message>
+    <message>
+        <source>Fatal Error</source>
+        <translation>Vakava virhe</translation>
     </message>
 </context>
 <context>
@@ -1794,24 +1873,12 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
         <translation>Peruuta</translation>
     </message>
     <message>
-        <source>Indentation</source>
-        <translation type="obsolete">Sisennys</translation>
-    </message>
-    <message>
-        <source>First Line:</source>
-        <translation type="obsolete">Ensimmäinen rivi:</translation>
-    </message>
-    <message>
         <source>Edit Style</source>
         <translation>Muokkaa tyyliä</translation>
     </message>
     <message>
         <source>Character</source>
         <translation>Teksti</translation>
-    </message>
-    <message>
-        <source>Left Indent:</source>
-        <translation type="obsolete">Vasen sisennys:</translation>
     </message>
     <message>
         <source>Vertical Spaces</source>
@@ -1832,10 +1899,6 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
     <message>
         <source>Lines:</source>
         <translation>Rivejä:</translation>
-    </message>
-    <message>
-        <source>Tabulators...</source>
-        <translation type="obsolete">Sarkaimet...</translation>
     </message>
     <message>
         <source>Alignment:</source>
@@ -1912,18 +1975,6 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
     <message>
         <source>Spacing below the paragraph</source>
         <translation>Välistys kappaleen alapuolella</translation>
-    </message>
-    <message>
-        <source>Indentation for first line of the paragraph</source>
-        <translation type="obsolete">Kappaleen ensimmäisen rivin sisennys</translation>
-    </message>
-    <message>
-        <source>Indentation from the left for the whole paragraph</source>
-        <translation type="obsolete">Koko kappaleen sisennys vasemmalta</translation>
-    </message>
-    <message>
-        <source>Edit tab settings of text frame...</source>
-        <translation type="obsolete">Muokkaa tekstikehyksen sarkainasetuksia...</translation>
     </message>
     <message>
         <source>Tabulators and Indentation</source>
@@ -2004,10 +2055,6 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
 <context>
     <name>ExportForm</name>
     <message>
-        <source>Export Bitmap - Save As Image</source>
-        <translation type="obsolete">Vie bittikarttana - Tallenna kuvana</translation>
-    </message>
-    <message>
         <source>Export to directory:</source>
         <translation>Vie hakemistoon:</translation>
     </message>
@@ -2018,10 +2065,6 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
     <message>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
-    </message>
-    <message>
-        <source>Bitmap type:</source>
-        <translation type="obsolete">Bittikartan tyyppi:</translation>
     </message>
     <message>
         <source>Quality :</source>
@@ -2080,12 +2123,6 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
         <translation>Muuta kohdehakemistoa</translation>
     </message>
     <message>
-        <source>The output directory - the place to store your bitmaps.
-Name of the eport file will be &apos;documentname-pagenumber.filetype&apos;</source>
-        <translation type="obsolete">Kohdehakemisto, jonne kuvat sijoitetaan. Kuvan nimi on muotoa 
-&apos;dokumentin_nimi-sivunumero.tiedostotyyppi&apos;</translation>
-    </message>
-    <message>
         <source>Available export formats</source>
         <translation>Käytettävät tiedostotyypit</translation>
     </message>
@@ -2105,7 +2142,7 @@ Name of the eport file will be &apos;documentname-pagenumber.filetype&apos;</sou
         <source>The output directory - the place to store your images.
 Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
         <translation>Kohdehakemisto, jonne kuvat tallennetaan. Vietyjen tiedostojen 
-nimet ovat muotoa dokumentin_nimi-sivunumero.tiedostotyyppi</translation>
+nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Export only the current page</source>
@@ -2135,30 +2172,6 @@ nimet ovat muotoa dokumentin_nimi-sivunumero.tiedostotyyppi</translation>
         <source>The quality of your images - 100% is the best, 1% the highest compression</source>
         <translation>Kuvien laatu, 100 % on paras ja 1 % pakkaa parhaiten</translation>
     </message>
-    <message>
-        <source>Export all pages of your document</source>
-        <translation type="obsolete">Vie kaikki dokumenttisi sivut</translation>
-    </message>
-    <message>
-        <source>Export only specified pages</source>
-        <translation type="obsolete">Vie ainoastaan osa sivuista</translation>
-    </message>
-    <message>
-        <source>The beginning of the export</source>
-        <translation type="obsolete">Viennin alkukohta</translation>
-    </message>
-    <message>
-        <source>The end of the export</source>
-        <translation type="obsolete">Viennin loppukohta</translation>
-    </message>
-    <message>
-        <source>The height of the output bitmap in pixels</source>
-        <translation type="obsolete">Kuvan korkeus pikseleinä</translation>
-    </message>
-    <message>
-        <source>The quality of your bitmaps - 100% is the best, 1% the biggest compression</source>
-        <translation type="obsolete">Bittikartan laatu - 100 % on paras ja 1 % merkitsee suurinta pakkausta</translation>
-    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -2180,7 +2193,7 @@ nimet ovat muotoa dokumentin_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Scribus-Document</source>
-        <translation>Scribus-dokumentti</translation>
+        <translation>Scribus-asiakirja</translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -2203,7 +2216,7 @@ nimet ovat muotoa dokumentin_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Dokumentit (*.sla *.sla.gz *.scd *.scd.gz);;Kaikki tiedostot (*)</translation>
+        <translation>Asiakirjat (*.sla *.sla.gz *.scd *.scd.gz);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Append</source>
@@ -2223,7 +2236,7 @@ nimet ovat muotoa dokumentin_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumentit (*.sla *.scd);;Kaikki tiedostot (*)</translation>
+        <translation>Asiakirjat (*.sla *.scd);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Duplicate</source>
@@ -2271,7 +2284,7 @@ nimet ovat muotoa dokumentin_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Append colors to the current set from an existing document</source>
-        <translation>Lisää värit toisesta dokumentista nykyiseen värisarjaan</translation>
+        <translation>Lisää värit toisesta asiakirjasta nykyiseen värisarjaan</translation>
     </message>
     <message>
         <source>Create a new color within the current set</source>
@@ -2295,7 +2308,7 @@ nimet ovat muotoa dokumentin_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
     <message>
         <source>Remove unused colors from current document&apos;s color set</source>
-        <translation>Poista käyttämättömät värit dokumentin värisarjasta</translation>
+        <translation>Poista käyttämättömät värit asiakirjan värisarjasta</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2398,6 +2411,48 @@ nimet ovat muotoa dokumentin_nimi-sivunumero.tiedostotyyppi</translation>
     </message>
 </context>
 <context>
+    <name>FontPreview</name>
+    <message>
+        <source>Font Preview</source>
+        <translation>Kirjasinten esikatselu</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Peruuta</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Woven silk pyjamas exchanged for blue quartz</source>
+        <translation>Wowen silk pyjamas exchanged for blue quarz</translation>
+    </message>
+</context>
+<context>
+    <name>GradientEditor</name>
+    <message>
+        <source>Position:</source>
+        <translation>Sijainti:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
+    <message>
+        <source>Here you can add, change or remove Color-Stops.</source>
+        <translation>Lisää, muuta tai poista värien paikkoja.</translation>
+    </message>
+</context>
+<context>
     <name>GuideManager</name>
     <message>
         <source> p</source>
@@ -2458,6 +2513,10 @@ nimet ovat muotoa dokumentin_nimi-sivunumero.tiedostotyyppi</translation>
 </context>
 <context>
     <name>HelpBrowser</name>
+    <message>
+        <source></source>
+        <translation></translation>
+    </message>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
         <translation>Pahoittelen, ohjetta ei ole saatavilla. Päivitykset ja dokumentit löytyvät osoitteesta http://scribus.net.</translation>
@@ -2586,6 +2645,29 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Template (Right Page):</source>
         <translation>Sivumalli (oikea sivu):</translation>
+    </message>
+</context>
+<context>
+    <name>InsertTable</name>
+    <message>
+        <source>Insert Table</source>
+        <translation>Lisää taulukko</translation>
+    </message>
+    <message>
+        <source>Number of Rows:</source>
+        <translation>Rivien lukumäärä:</translation>
+    </message>
+    <message>
+        <source>Number of Columns:</source>
+        <translation>Sarakkeiden lukumäärä:</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Peruuta</translation>
     </message>
 </context>
 <context>
@@ -2737,6 +2819,10 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Uusi taso</translation>
     </message>
     <message>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
         <source>Do you want to delete all Objects on this Layer too?</source>
         <translation>Haluatko myös tuhota kaikki kohteet tasolla?</translation>
     </message>
@@ -2769,7 +2855,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Dokumentit (*.sla *.sla.gz *.scd *.scd.gz);;Kaikki tiedostot (*)</translation>
+        <translation>Asiakirjat (*.sla *.sla.gz *.scd *.scd.gz);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Edit Line Styles</source>
@@ -2793,7 +2879,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumentit (*.sla *.scd);;Kaikki tiedostot (*)</translation>
+        <translation>Asiakirjat (*.sla *.scd);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Duplicate</source>
@@ -2814,6 +2900,41 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>MSpinBox</name>
+    <message>
+        <source> pt</source>
+        <translation> pt</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation> mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation> in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation> p</translation>
     </message>
 </context>
 <context>
@@ -2844,6 +2965,61 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
 </context>
 <context>
+    <name>Measurements</name>
+    <message>
+        <source>Distances</source>
+        <translation>Etäisyydet</translation>
+    </message>
+    <message>
+        <source>X1:</source>
+        <translation>X1:</translation>
+    </message>
+    <message>
+        <source>Y1:</source>
+        <translation>Y1:</translation>
+    </message>
+    <message>
+        <source>X2:</source>
+        <translation>X2:</translation>
+    </message>
+    <message>
+        <source>Y2:</source>
+        <translation>Y2:</translation>
+    </message>
+    <message>
+        <source>DX:</source>
+        <translation>DX:</translation>
+    </message>
+    <message>
+        <source>DY:</source>
+        <translation>DY:</translation>
+    </message>
+    <message>
+        <source>Angle:</source>
+        <translation>Kulma:</translation>
+    </message>
+    <message>
+        <source>Length:</source>
+        <translation>Pituus:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation> pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation> mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation> in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation> p</translation>
+    </message>
+</context>
+<context>
     <name>MenuTest</name>
     <message>
         <source>Show Console</source>
@@ -2870,7 +3046,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Dokumentit (*.sla *.sla.gz *.scd *.scd.gz);;Kaikki tiedostot (*)</translation>
+        <translation>Asiakirjat (*.sla *.sla.gz *.scd *.scd.gz);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Import Page Nr:</source>
@@ -2878,7 +3054,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Document contains: %1 Page(s)</source>
-        <translation>Dokumentin sivujen lukumäärä on %1</translation>
+        <translation>Asiakirjan sivujen lukumäärä on %1</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -2890,15 +3066,15 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Document contains: 0 Page(s)</source>
-        <translation>Dokumentin sivujen lukumäärä on 0</translation>
+        <translation>Asiakirjan sivujen lukumäärä on 0</translation>
     </message>
     <message>
         <source>Document to load:</source>
-        <translation>Ladattava dokumentti:</translation>
+        <translation>Ladattava asiakirja:</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumentit (*.sla *.scd);;Kaikki tiedostot (*)</translation>
+        <translation>Asiakirjat (*.sla *.scd);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Import a Page</source>
@@ -3020,14 +3196,6 @@ Corners:</source>
         <translation>Kuvio</translation>
     </message>
     <message>
-        <source>Size:</source>
-        <translation type="obsolete">Koko:</translation>
-    </message>
-    <message>
-        <source>Path Text Properites</source>
-        <translation type="obsolete">Polulla olevan tekstin ominaisuudet</translation>
-    </message>
-    <message>
         <source>Absolute Colorimetric</source>
         <translation>Absolute Colorimetric</translation>
     </message>
@@ -3112,10 +3280,6 @@ Valitse toinen nimi.</translation>
     <message>
         <source>Width:</source>
         <translation>Leveys:</translation>
-    </message>
-    <message>
-        <source>Line Style:</source>
-        <translation>Viivatyyli:</translation>
     </message>
     <message>
         <source>Left Point</source>
@@ -3224,6 +3388,10 @@ Valitse toinen nimi.</translation>
     <message>
         <source>Basepoint:</source>
         <translation>Toimintapiste:</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <source>Columns:</source>
@@ -3518,14 +3686,6 @@ Valitse toinen nimi.</translation>
         <translation>Säilytä suhteet</translation>
     </message>
     <message>
-        <source>Make text in lower objects flow around this frame</source>
-        <translation type="obsolete">Pakota teksti alemmissa kohteissa kiertämään tämä kehys</translation>
-    </message>
-    <message>
-        <source>Use the imaginary square border around your object, rather than its actual shape</source>
-        <translation type="obsolete">Käytä kuvitteellista neliötä kohteen reunuksena todellisen muodon sijaan</translation>
-    </message>
-    <message>
         <source>Source profile of the image</source>
         <translation>Kuvan profiili</translation>
     </message>
@@ -3564,6 +3724,10 @@ Valitse toinen nimi.</translation>
     <message>
         <source>Font Size:</source>
         <translation>Kirjasimen koko:</translation>
+    </message>
+    <message>
+        <source>Type of Line:</source>
+        <translation>Viivan tyyli:</translation>
     </message>
 </context>
 <context>
@@ -3742,7 +3906,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>New Document</source>
-        <translation>Uusi dokumentti</translation>
+        <translation>Uusi asiakirja</translation>
     </message>
     <message>
         <source>First Page Number:</source>
@@ -3858,19 +4022,19 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Document page size, either a standard size or a custom size</source>
-        <translation>Dokumentin sivun koko. Standardi tai itse määrittämäsi koko</translation>
+        <translation>Asiakirjan sivun koko. Standardi tai itse määrittämäsi koko</translation>
     </message>
     <message>
         <source>Orientation of the document&apos;s pages</source>
-        <translation>Dokumentin sivujen suunta</translation>
+        <translation>Asiakirjan sivujen suunta</translation>
     </message>
     <message>
         <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
-        <translation>Dokumentin sivujen leveys. Muokattavissa, jos valitsit kooksi &quot;Oma&quot;</translation>
+        <translation>Asiakirjan sivujen leveys. Muokattavissa, jos valitsit kooksi &quot;Oma&quot;</translation>
     </message>
     <message>
         <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
-        <translation>Dokumentin sivujen korkeus. Muokattavissa jos valitsit kooksi &quot;Oma&quot;</translation>
+        <translation>Asiakirjan sivujen korkeus. Muokattavissa jos valitsit kooksi &quot;Oma&quot;</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
@@ -3878,7 +4042,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Make the first page the left page of the document</source>
-        <translation>Tee vasemmasta sivusta dokumentin ensimmäinen sivu</translation>
+        <translation>Tee vasemmasta sivusta asiakirjan ensimmäinen sivu</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
@@ -3902,11 +4066,11 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>First page number of the document</source>
-        <translation>Dokumentin ensimmäinen sivunumero</translation>
+        <translation>Asiakirjan ensimmäinen sivunumero</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
-        <translation>Dokumentin muokkauksessa käytettävä mittayksikkö</translation>
+        <translation>Asiakirjan muokkauksessa käytettävä mittayksikkö</translation>
     </message>
     <message>
         <source>Create text frames automatically when new pages are added</source>
@@ -4043,6 +4207,10 @@ muulloin suhteessa kohteeseen.</translation>
     <message>
         <source>Reset Control Points</source>
         <translation>Palauta hallintapisteet</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <source>Rotates the Path counter-clockwise</source>
@@ -4263,10 +4431,6 @@ muulloin suhteessa kohteeseen.</translation>
         <translation>Pakkaa teksti ja vektorigrafiikka</translation>
     </message>
     <message>
-        <source>Copying Text and Graphics is allowed</source>
-        <translation type="obsolete">Salli tekstin ja grafiikan kopiointi</translation>
-    </message>
-    <message>
         <source>Outside</source>
         <translation>Ulkopuoli</translation>
     </message>
@@ -4276,7 +4440,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Allow Changing the Document</source>
-        <translation>Salli dokumentin muuttaminen</translation>
+        <translation>Salli asiakirjan muuttaminen</translation>
     </message>
     <message>
         <source>Printer</source>
@@ -4347,10 +4511,6 @@ muulloin suhteessa kohteeseen.</translation>
         <translation>Käytä esitysefektejä</translation>
     </message>
     <message>
-        <source>Adding Annotations and Fields is allowed</source>
-        <translation type="obsolete">Salli huomautusten ja kenttien lisäys</translation>
-    </message>
-    <message>
         <source>Saturation</source>
         <translation>saturaatio</translation>
     </message>
@@ -4388,7 +4548,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Allow Printing the Document</source>
-        <translation>Salli dokumentin tulostaminen</translation>
+        <translation>Salli asiakirjan tulostaminen</translation>
     </message>
     <message>
         <source>Output intended for:</source>
@@ -4502,10 +4662,6 @@ security features in your exported PDF</source>
 turvallisuusominaisuudet tehdyssä PDF:ssa</translation>
     </message>
     <message>
-        <source>Choose a password for users to be able to read your PDF</source>
-        <translation type="obsolete">Valitse salasana, jolla käyttäjät voivat lukea PDF:n</translation>
-    </message>
-    <message>
         <source>Embed a color profile for solid colors</source>
         <translation>Upota väriprofiili tasaisille väreille</translation>
     </message>
@@ -4538,7 +4694,7 @@ turvallisuusominaisuudet tehdyssä PDF:ssa</translation>
 Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
 PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
         <translation>PDF-yhteensopivuus. Oletuksena on Acrobat 4.0, joka antaa laajimman yhteensopivuuden.
-Valitse Acrobat 5.0, jos dokumentti sisältää PDF 1.4:n ominaisuuksia kuten läpinäkyvyys tai jos tarvitset 128 bittistä salausta.
+Valitse Acrobat 5.0, jos asiakirjasi sisältää PDF 1.4:n ominaisuuksia kuten läpinäkyvyys tai jos tarvitset 128 bittistä salausta.
 PDF/X-3 on tarkoitettu ammattimaiseen tulostamiseen. Se voidaan valita, kun värien hallinta on aktivoitu.</translation>
     </message>
     <message>
@@ -4560,7 +4716,7 @@ Jotkin ohjelmat käyttävät kuvia navigointiin.</translation>
     <message>
         <source>Embed the bookmarks you created in your document.
 These are useful for navigating long PDF documents.</source>
-        <translation>Sisällytä dokumenttiin luomasi kirjanmerkit.
+        <translation>Sisällytä asiakirjaan luomasi kirjanmerkit.
 Ne helpottavat navigointia pitkässä PDF-dokumentissa.</translation>
     </message>
     <message>
@@ -4588,10 +4744,6 @@ JPEG on hyvä keino luoda pienempiä PDF-tiedostoja, joissa on paljon kuvia (kuv
 Valitse automaattinen ellet tarvitse mitään erityistä pakkausmenetelmää.</translation>
     </message>
     <message>
-        <source>Compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation type="obsolete">Pakkaustaso: Heikoin (25 %), Matala (50 %), Keskitaso (75 %), Korkea (85 %), Paras (95 %)</translation>
-    </message>
-    <message>
         <source>Downsample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.</source>
         <translation>Heikennä bitmap-kuvat halutulle DPI-arvolle (pistettä tuumalla).
@@ -4605,7 +4757,7 @@ Jos ominaisuutta ei valitse, kuvat säilyttävät resoluutionsa.</translation>
         <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
         <translation>Upota kirjasimet PDF:ään. Kirjasimien upotus 
-säilyttää dokumenttisi ulkonäön.</translation>
+säilyttää asiakirjasi ulkonäön.</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
@@ -4642,22 +4794,6 @@ Jos valitset Acrobat 5.0, PDF on suojattu 128 bittisellä salauksella.
 Varoitus: PDF-salaus ei ole yhtä luotettava kuin GPG tai PGP ja siinä on joitain rajoituksia.</translation>
     </message>
     <message>
-        <source>Allow printing of the PDF</source>
-        <translation type="obsolete">Salli PDF:n tulostaminen</translation>
-    </message>
-    <message>
-        <source>Allow modifying of the PDF</source>
-        <translation type="obsolete">Salli PDF:n muokkaaminen</translation>
-    </message>
-    <message>
-        <source>Allow copying of text or graphics from the PDF</source>
-        <translation type="obsolete">Salli tekstin ja kuvien kopioiminen PDF:sta</translation>
-    </message>
-    <message>
-        <source>Allow adding annotations and fields to the PDF</source>
-        <translation type="obsolete">Salli huomautusten ja kenttien lisääminen PDF:ään</translation>
-    </message>
-    <message>
         <source>Color model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 color CMYK printer.</source>
@@ -4689,7 +4825,7 @@ Valitse Tulostimelle, kun tulostetaan todellisella CMYK-neliväritulostimella.</
         <source>Mandatory string for PDF/X-3 or the PDF will fail
 PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation>Pakollinen teksti PDF/X-3:lle. Ilman tätä PDF ei ole validi.
-Suosittelemme käyttämään dokumentin otsikkoa/nimeä.</translation>
+Suosittelemme käyttämään asiakirjan otsikkoa/nimeä.</translation>
     </message>
     <message>
         <source>&amp;General</source>
@@ -4812,7 +4948,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
-        <translation>Mahdollistaa dokumentin läpinäkyvyyden näyttämisen. Vaatii Ghostscript 7.07:n tai uudemman version</translation>
+        <translation>Mahdollistaa asiakirjan läpinäkyvyyden näyttämisen. Vaatii Ghostscript 7.07:n tai uudemman version</translation>
     </message>
     <message>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
@@ -5133,6 +5269,10 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
         <source>Insert Sample Text</source>
         <translation>Lisää esimerkkiteksti</translation>
     </message>
+    <message>
+        <source>PDF-Options</source>
+        <translation>PDF-asetukset</translation>
+    </message>
 </context>
 <context>
     <name>PageItem</name>
@@ -5376,10 +5516,6 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
         <translation>Apuruudukon väri:</translation>
     </message>
     <message>
-        <source>Keyboard Shortcuts...</source>
-        <translation type="obsolete">Näppäinoikopolut...</translation>
-    </message>
-    <message>
         <source>Other Options</source>
         <translation>Muut asetukset</translation>
     </message>
@@ -5453,7 +5589,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Document</source>
-        <translation>Dokumentti</translation>
+        <translation>Asiakirja</translation>
     </message>
     <message>
         <source>In the Foreground</source>
@@ -5470,10 +5606,6 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     <message>
         <source>Typography</source>
         <translation>Typografia</translation>
-    </message>
-    <message>
-        <source>Line Style:</source>
-        <translation>Viivatyyli:</translation>
     </message>
     <message>
         <source>Font Size:</source>
@@ -5609,7 +5741,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Documents:</source>
-        <translation>Dokumentit:</translation>
+        <translation>Asiakirjat:</translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -5673,7 +5805,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source>Recent Documents:</source>
-        <translation>Viimeisimmät dokumentit:</translation>
+        <translation>Viimeisimmät asiakirjat:</translation>
     </message>
     <message>
         <source>In the Background</source>
@@ -5686,6 +5818,10 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     <message>
         <source>User Guides Color:</source>
         <translation>Apuviivojen väri:</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation></translation>
     </message>
     <message>
         <source>Columns:</source>
@@ -5755,7 +5891,7 @@ mahdollisten KDE- ja QT-teemojen käytön</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
-        <translation>Dokumentin muokkauksessa käytettävä mittayksikkö</translation>
+        <translation>Asiakirjan muokkauksessa käytettävä mittayksikkö</translation>
     </message>
     <message>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
@@ -5767,15 +5903,11 @@ mahdollisten KDE- ja QT-teemojen käytön</translation>
     </message>
     <message>
         <source>Number of recently edited documents to show in the File menu</source>
-        <translation>Viimeisten dokumenttien lukumäärä Tiedosto-valikossa</translation>
-    </message>
-    <message>
-        <source>Change the keyboard shortcuts to your preference</source>
-        <translation type="obsolete">Muuta näppäinoikopolut mieleisiksisi</translation>
+        <translation>Viimeisten asiakirjojen lukumäärä Tiedosto-valikossa</translation>
     </message>
     <message>
         <source>Default documents directory</source>
-        <translation>Oletushakemisto dokumenteille</translation>
+        <translation>Oletushakemisto asiakirjoille</translation>
     </message>
     <message>
         <source>Default ICC profiles directory</source>
@@ -5791,15 +5923,15 @@ mahdollisten KDE- ja QT-teemojen käytön</translation>
     </message>
     <message>
         <source>Default orientation of document pages</source>
-        <translation>Dokumentin sivujen suunta</translation>
+        <translation>Asiakirjan sivujen suunta</translation>
     </message>
     <message>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation>Dokumentin sivun leveys, muokattavissa jos valitset sivun kooksi &quot;Oma&quot;</translation>
+        <translation>Asiakirjan sivun leveys, muokattavissa jos valitset sivun kooksi &quot;Oma&quot;</translation>
     </message>
     <message>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation>Dokumentin sivun korkeus, muokattavissa jos valitset sivun kooksi &quot;Oma&quot;</translation>
+        <translation>Asiakirjan sivun korkeus, muokattavissa jos valitset sivun kooksi &quot;Oma&quot;</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
@@ -5807,7 +5939,7 @@ mahdollisten KDE- ja QT-teemojen käytön</translation>
     </message>
     <message>
         <source>Make the first page the left page of a document</source>
-        <translation>Tee vasemmasta sivusta dokumentin ensimmäinen sivu</translation>
+        <translation>Tee vasemmasta sivusta asiakirjan ensimmäinen sivu</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
@@ -5826,7 +5958,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
 each time the time period elapses</source>
-        <translation>Jos valittuna, niin Scribus tallentaa kopion dokumentistasi bak-päätteellä
+        <translation>Jos valittuna, niin Scribus tallentaa kopion asiakirjastasi bak-päätteellä
 aina valitun ajan kuluttua</translation>
     </message>
     <message>
@@ -6079,7 +6211,7 @@ aina valitun ajan kuluttua</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation>Älä vie tai tulosta kohteita, jotka ovat dokumentin marginaalin ulkopuolella</translation>
+        <translation>Älä vie tai tulosta kohteita, jotka ovat asiakirjan marginaalin ulkopuolella</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
@@ -6150,6 +6282,10 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source> px</source>
         <translation>px</translation>
+    </message>
+    <message>
+        <source>Type of Line:</source>
+        <translation>Viivan tyyli:</translation>
     </message>
 </context>
 <context>
@@ -6591,44 +6727,12 @@ Tarkasta polku ja tiedostonimi.</translation>
         <translation>Python skriptit (*.py);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation> mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation> in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation> p</translation>
-    </message>
-    <message>
         <source>Document</source>
-        <translation>Dokumentti</translation>
+        <translation>Asiakirja</translation>
     </message>
     <message>
         <source>Background</source>
         <translation>Tausta</translation>
-    </message>
-    <message>
-        <source>pt</source>
-        <translation>pt</translation>
-    </message>
-    <message>
-        <source>mm</source>
-        <translation>mm</translation>
-    </message>
-    <message>
-        <source>in</source>
-        <translation>in</translation>
-    </message>
-    <message>
-        <source>p</source>
-        <translation>p</translation>
     </message>
     <message>
         <source>Scribus Scripts</source>
@@ -6655,18 +6759,6 @@ Tarkasta polku ja tiedostonimi.</translation>
         <translation>Tuo SVG-kuva...</translation>
     </message>
     <message>
-        <source>Save As Image...</source>
-        <translation type="obsolete">Tallenna kuvana...</translation>
-    </message>
-    <message>
-        <source>Export to bitmap</source>
-        <translation type="obsolete">Vie bittikarttana</translation>
-    </message>
-    <message>
-        <source>Error writting the ouptut file(s).</source>
-        <translation type="obsolete">Virhe kirjoitettaessa tiedostoa.</translation>
-    </message>
-    <message>
         <source>File exists. Overwrite?</source>
         <translation>Tiedosto on jo olemassa. Ylikirjoitetaanko?</translation>
     </message>
@@ -6683,24 +6775,32 @@ Tarkasta polku ja tiedostonimi.</translation>
         <translation>Tallenna kuvana...</translation>
     </message>
     <message>
-        <source>Export to image</source>
-        <translation>Vie kuvana</translation>
-    </message>
-    <message>
         <source>Error writing the output file(s).</source>
         <translation>Virhe kirjoitettaessa kohdetiedostoa.</translation>
     </message>
     <message>
-        <source>Export to Image successful</source>
-        <translation>Kuvan vienti onnistui</translation>
+        <source>Save as Image</source>
+        <translation>Tallenna kuvana</translation>
     </message>
     <message>
-        <source>Error writing the ouptut file(s).</source>
-        <translation type="obsolete">Virhe kirjoitettaessa tiedostoa.</translation>
+        <source>Error writting the output file(s).</source>
+        <translation>Virhe kirjoitettaessa tiedostoa.</translation>
     </message>
     <message>
-        <source>Hooray! Export successfull.</source>
-        <translation type="obsolete">Hurraa! Vienti onnistui.</translation>
+        <source>Export successful.</source>
+        <translation>Vienti onnistui.</translation>
+    </message>
+    <message>
+        <source>Import EPS/PS...</source>
+        <translation>Tuo EPS/PS...</translation>
+    </message>
+    <message>
+        <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
+        <translation>Kaikki tuetut tiedostotyypit (*.eps *.EPS *.ps *.PS);;</translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation>Kaikki tiedostot (*)</translation>
     </message>
 </context>
 <context>
@@ -6851,7 +6951,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Document Setup</source>
-        <translation>Dokumentin asettelu</translation>
+        <translation>Asiakirjan asettelu</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -6887,7 +6987,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Make the first page the left page of the document</source>
-        <translation>Tee dokumentin vasemmasta sivusta ensimmäinen sivu</translation>
+        <translation>Tee asiakirjan vasemmasta sivusta ensimmäinen sivu</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
@@ -7125,7 +7225,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Dokumentit (*.sla *.sla.gz *.scd *.scd.gz);;Kaikki tiedostot (*)</translation>
+        <translation>Asiakirjat (*.sla *.sla.gz *.scd *.scd.gz);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>The following Programs are missing:</source>
@@ -7201,7 +7301,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Document Info...</source>
-        <translation>Dokumentin tiedot...</translation>
+        <translation>Asiakirjan tiedot...</translation>
     </message>
     <message>
         <source>Move...</source>
@@ -7301,7 +7401,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumentit (*.sla *.scd);;Kaikki tiedostot (*)</translation>
+        <translation>Asiakirjat (*.sla *.scd);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Slovak</source>
@@ -7309,7 +7409,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Document</source>
-        <translation>Dokumentti</translation>
+        <translation>Asiakirja</translation>
     </message>
     <message>
         <source>X-Pos:</source>
@@ -7361,7 +7461,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Recent Documents</source>
-        <translation>Viimeisimmät dokumentit</translation>
+        <translation>Viimeisimmät asiakirjat</translation>
     </message>
     <message>
         <source>Duplicate</source>
@@ -7433,7 +7533,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Document Setup...</source>
-        <translation>Dokumentin asettelu...</translation>
+        <translation>Asiakirjan asettelu...</translation>
     </message>
     <message>
         <source>Javascripts...</source>
@@ -7501,7 +7601,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation>Dokumentit (*.sla *.sla.gz *.scd *scd.gz);;Kaikki tiedostot (*)</translation>
+        <translation>Asiakirjat (*.sla *.sla.gz *.scd *scd.gz);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Spanish</source>
@@ -7584,16 +7684,8 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
         <translation>englanti</translation>
     </message>
     <message>
-        <source>General...</source>
-        <translation type="obsolete">Yleiset...</translation>
-    </message>
-    <message>
         <source>Outlined</source>
         <translation>Ääriviivoin rajattu</translation>
-    </message>
-    <message>
-        <source>Preferences</source>
-        <translation type="obsolete">Asetukset</translation>
     </message>
     <message>
         <source>Undo Delete Object</source>
@@ -7674,6 +7766,10 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
         <translation>Tasaus</translation>
     </message>
     <message>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
         <source>Search/Replace...</source>
         <translation>Etsi/Korvaa...</translation>
     </message>
@@ -7719,27 +7815,27 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Create a new Document</source>
-        <translation>Luo uusi dokumentti</translation>
+        <translation>Luo uusi asiakirja</translation>
     </message>
     <message>
         <source>Open a Document</source>
-        <translation>Avaa dokumentti</translation>
+        <translation>Avaa asiakirja</translation>
     </message>
     <message>
         <source>Save the current Document</source>
-        <translation>Tallenna dokumentti</translation>
+        <translation>Tallenna asiakirja</translation>
     </message>
     <message>
         <source>Close the current Document</source>
-        <translation>Sulje dokumentti</translation>
+        <translation>Sulje asiakirja</translation>
     </message>
     <message>
         <source>Print the current Document</source>
-        <translation>Tulosta dokumentti</translation>
+        <translation>Tulosta asiakirja</translation>
     </message>
     <message>
         <source>Save the current Document as PDF</source>
-        <translation>Tallenna dokumentti PDF:na</translation>
+        <translation>Tallenna asiakirja PDF:nä</translation>
     </message>
     <message>
         <source>Append Text...</source>
@@ -7808,10 +7904,6 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source>Hide Baseline Grid</source>
         <translation>Piilota peruslinja</translation>
-    </message>
-    <message>
-        <source>Tool&amp;bars</source>
-        <translation type="obsolete">Työkalu&amp;rivit</translation>
     </message>
     <message>
         <source> pt</source>
@@ -7921,7 +8013,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Document:</source>
-        <translation>Dokumentti:</translation>
+        <translation>Asiakirja:</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -8087,7 +8179,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Document Pages:</source>
-        <translation>Dokumentin sivut:</translation>
+        <translation>Asiakirjan sivut:</translation>
     </message>
     <message>
         <source>Arrange Pages</source>
@@ -8095,7 +8187,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Previews all the pages of your document.</source>
-        <translation>Esikatselu kaikista dokumenttisi sivuista.</translation>
+        <translation>Esikatselu kaikista asiakirjasi sivuista.</translation>
     </message>
 </context>
 <context>
@@ -8179,7 +8271,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Dokumentit (*.sla *.sla.gz *.scd *.scd.gz);;Kaikki tiedostot (*)</translation>
+        <translation>Asiakirjat (*.sla *.sla.gz *.scd *.scd.gz);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
@@ -8199,7 +8291,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumentit (*.sla *.scd);;Kaikki tiedostot (*)</translation>
+        <translation>Asiakirjat (*.sla *.scd);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Edit Styles</source>
@@ -8313,10 +8405,6 @@ raahaa malli sivualueelle.</translation>
         <translation>Nykyinen kappale:</translation>
     </message>
     <message>
-        <source>Exit without Saving</source>
-        <translation>Poistu tallentamatta</translation>
-    </message>
-    <message>
         <source>Chars: </source>
         <translation>Merkit: </translation>
     </message>
@@ -8327,10 +8415,6 @@ raahaa malli sivualueelle.</translation>
     <message>
         <source>Warning</source>
         <translation>Varoitus</translation>
-    </message>
-    <message>
-        <source>Save and Exit</source>
-        <translation>Tallenna ja poistu</translation>
     </message>
     <message>
         <source>Paragraphs: </source>
@@ -8365,14 +8449,6 @@ raahaa malli sivualueelle.</translation>
         <translation>Päivitä tekstikehys</translation>
     </message>
     <message>
-        <source>Search/Replace...</source>
-        <translation type="obsolete">Etsi/Korvaa...</translation>
-    </message>
-    <message>
-        <source>Do you want save your changes?</source>
-        <translation type="obsolete">Haluatko tallentaa muutokset?</translation>
-    </message>
-    <message>
         <source>Insert Special...</source>
         <translation>Lisää erikoismerkki...</translation>
     </message>
@@ -8383,6 +8459,18 @@ raahaa malli sivualueelle.</translation>
     <message>
         <source>Do you want to save your changes?</source>
         <translation>Haluatko tallentaa muutokset?</translation>
+    </message>
+    <message>
+        <source>Update Text Frame and Exit</source>
+        <translation>Päivitä tekstikehys ja poistu</translation>
+    </message>
+    <message>
+        <source>Exit Without Updating Text Frame</source>
+        <translation>Poistu päivittämättä tekstikehystä</translation>
+    </message>
+    <message>
+        <source>Save Document</source>
+        <translation>Tallenna asiakirja</translation>
     </message>
 </context>
 <context>
@@ -8419,64 +8507,12 @@ raahaa malli sivualueelle.</translation>
         <translation>Sarkainten hallinta</translation>
     </message>
     <message>
-        <source>Position:</source>
-        <translation type="obsolete">Sijainti:</translation>
-    </message>
-    <message>
-        <source>Alignment:</source>
-        <translation type="obsolete">Tasaus:</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete"> pt</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
         <source>Cancel</source>
         <translation>Peruuta</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="obsolete">Poista</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation type="obsolete">Lisää</translation>
-    </message>
-    <message>
-        <source>Left</source>
-        <translation type="obsolete">Vasen</translation>
-    </message>
-    <message>
-        <source>Right</source>
-        <translation type="obsolete">Oikea</translation>
-    </message>
-    <message>
-        <source>Full Stop</source>
-        <translation type="obsolete">Piste</translation>
-    </message>
-    <message>
-        <source>Comma</source>
-        <translation type="obsolete">Pilkku</translation>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation type="obsolete">Keskitä</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="obsolete"> mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="obsolete"> in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="obsolete"> p</translation>
     </message>
 </context>
 <context>
@@ -8617,6 +8653,10 @@ Ole hyvä ja valitse toinen nimi.</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>Group </source>
+        <translation>Ryhmä</translation>
     </message>
 </context>
 <context>

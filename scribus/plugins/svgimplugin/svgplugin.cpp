@@ -501,7 +501,15 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			ite->DashValues = gc->dashArray;
 			if (gc->Gradient != 0)
 			{
-				if (gc->CSpace)
+				ite->fill_gradient = gc->GradCo;
+				if (!gc->CSpace)
+				{
+					ite->GrStartX = gc->GX1 * ite->Width;
+					ite->GrStartY = gc->GY1 * ite->Height;
+					ite->GrEndX = gc->GX2 * ite->Width;
+					ite->GrEndY = gc->GY2 * ite->Height;
+				}
+				else
 				{
 					QWMatrix mm = gc->matrix;
 					FPointArray gra;
@@ -511,24 +519,11 @@ void SVGPlug::parseGroup(const QDomElement &e)
 					gc->GY1 = gra.point(0).y();
 					gc->GX2 = gra.point(1).x();
 					gc->GY2 = gra.point(1).y();
-				}
-				ite->fill_gradient = gc->GradCo;
-				if (!gc->CSpace)
-					ite->GrStartX = gc->GX1 * ite->Width;
-				else
 					ite->GrStartX = gc->GX1 - ite->Xpos;
-				if (!gc->CSpace)
-					ite->GrStartY = gc->GY1 * ite->Height;
-				else
 					ite->GrStartY = gc->GY1 - ite->Ypos;
-				if (!gc->CSpace)
-					ite->GrEndX = gc->GX2 * ite->Width;
-				else
 					ite->GrEndX = gc->GX2 - ite->Xpos;
-				if (!gc->CSpace)
-					ite->GrEndY = gc->GY2 * ite->Height;
-				else
 					ite->GrEndY = gc->GY2 - ite->Ypos;
+				}
 				ite->GrType = gc->Gradient;
 			}
 			GElements.append(ite);
@@ -1583,16 +1578,6 @@ void SVGPlug::parseGradient( const QDomElement &e )
 		y1 = e.attribute( "y1", "0" ).toDouble();
 		x2 = e.attribute( "x2", "1" ).toDouble();
 		y2 = e.attribute( "y2", "0" ).toDouble();
-		if ( !e.attribute( "gradientUnits" ).isEmpty() )
-		{
-			QString uni = e.attribute( "gradientUnits");
-			if (uni == "userSpaceOnUse")
-				gradhelper.CSpace = true;
-			else
-				gradhelper.CSpace = false;
-		}
-		else
-			gradhelper.CSpace = false;
 		gradhelper.X1 = x1;
 		gradhelper.Y1 = y1;
 		gradhelper.X2 = x2;
@@ -1605,22 +1590,22 @@ void SVGPlug::parseGradient( const QDomElement &e )
 		y1 = e.attribute( "cy", "0.5" ).toDouble();
 		x2 = e.attribute( "r", "0.5" ).toDouble();
 		y2 = y1;
-		if ( !e.attribute( "gradientUnits" ).isEmpty() )
-		{
-			QString uni = e.attribute( "gradientUnits");
-			if (uni == "userSpaceOnUse")
-				gradhelper.CSpace = true;
-			else
-				gradhelper.CSpace = false;
-		}
-		else
-			gradhelper.CSpace = false;
 		gradhelper.X1 = x1;
 		gradhelper.Y1 = y1;
 		gradhelper.X2 = x1 + x2;
 		gradhelper.Y2 = y1;
 		gradhelper.Type = 7;
 	}
+	if ( !e.attribute( "gradientUnits" ).isEmpty() )
+	{
+		QString uni = e.attribute( "gradientUnits");
+		if (uni == "userSpaceOnUse")
+			gradhelper.CSpace = true;
+		else
+			gradhelper.CSpace = false;
+	}
+	else
+		gradhelper.CSpace = false;
 	QString transf = e.attribute("gradientTransform");
 	if( !transf.isEmpty() )
 	{
