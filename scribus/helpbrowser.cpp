@@ -380,6 +380,6 @@ void HelpBrowser::itemSelected(QListViewItem *item)
 	QString pfad = PREL;
 	if ( !item )
 		return;
-	else if (item->text(1)!=QString::null)
+	else if ((item->text(1)!=QString::null) && (item->text(1)!=QString("")))
 		loadHelp(pfad + "/share/scribus/doc/en/"+item->text(1));
 }
