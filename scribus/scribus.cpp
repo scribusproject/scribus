@@ -8411,7 +8411,13 @@ void ScribusApp::LayerRemove(int l, bool dl)
 					view->MasterPages.at(a)->Items.at(b)->LayerNr = 0;
 			}
 			if (view->MasterPages.at(a)->SelItem.count() != 0)
+			{
+				for (uint c = 0; c < view->MasterPages.at(a)->Items.count(); ++c)
+				{
+					view->MasterPages.at(a)->Items.at(c)->Locked = false;
+				}
 				view->MasterPages.at(a)->DeleteItem();
+			}
 		}
 	}
 	for (uint a = 0; a < view->DocPages.count(); ++a)
@@ -8428,7 +8434,13 @@ void ScribusApp::LayerRemove(int l, bool dl)
 			}
 		}
 		if (view->DocPages.at(a)->SelItem.count() != 0)
+		{
+			for (uint c = 0; c < view->DocPages.at(a)->Items.count(); ++c)
+			{
+				view->DocPages.at(a)->Items.at(c)->Locked = false;
+			}
 			view->DocPages.at(a)->DeleteItem();
+		}
 	}
 	view->LaMenu();
 }
