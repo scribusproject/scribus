@@ -27,19 +27,22 @@
 
 class BookPalette : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
-public: 
+public:
 	BookPalette(QWidget* parent);
 	~BookPalette() {};
-  void closeEvent(QCloseEvent *ce);
+	void closeEvent(QCloseEvent *ce);
 	BookMView	*BView;
 
 signals:
 	void Schliessen();
 
 protected:
-  QVBoxLayout* PaletteLayout;
+	QVBoxLayout* PaletteLayout;
+
+protected slots:
+	virtual void reject();
 };
 
 #endif

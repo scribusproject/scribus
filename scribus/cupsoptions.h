@@ -41,9 +41,10 @@ public:
 	QPushButton* PushButton2;
 	QHeader *Header;
 	QTable* Table;
-	struct OpData { int Cnum;
-									QString KeyW;
-								};
+	struct OpData { 
+					int Cnum;
+					QString KeyW;
+				  };
 	QPtrList<QComboBox> FlagsOpt;
 	QMap<QString,OpData> KeyToText;
 	QMap<QString,QString> KeyToDefault;

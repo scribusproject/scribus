@@ -19,19 +19,17 @@
 #define VRULER_H
 
 #include <qwidget.h>
-#include <qfont.h>
 #include <qpainter.h>
-#include <qcolor.h>
-#include <qrect.h>
-#include <qpointarray.h>
 #include <qscrollview.h>
 #include "scribusdoc.h"
 /**Vertikales Lineal
   *@author Franz Schmid
   */
 
-class Vruler : public QWidget  {
-Q_OBJECT
+class Vruler : public QWidget  
+{
+	Q_OBJECT
+
 public: 
 	Vruler(QScrollView *pa, ScribusDoc *doc);
 	~Vruler() {};
@@ -45,11 +43,11 @@ public:
 	bool Mpressed;
 private: // Private attributes
   /** Zeichensatz des Lineals */
-  QFont rfont;
-  ScribusDoc *doku;
+	ScribusDoc *doku;
+
 public slots: // Public slots
   /** Zeichnet den Pfeil */
-  void Draw(int wo);
+	void Draw(int wo);
 };
 
 #endif

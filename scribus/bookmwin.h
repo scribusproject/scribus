@@ -34,14 +34,14 @@
 class BookMItem : public QListViewItem
 {
 public:
-		BookMItem(QListViewItem* parent, struct ScribusDoc::BookMa *Bm);
-		BookMItem(QListViewItem* parent, QListViewItem* after, struct ScribusDoc::BookMa *Bm);
-		BookMItem(QListView* parent, QListViewItem* after, struct ScribusDoc::BookMa *Bm);
-		BookMItem(QListView* parent, struct ScribusDoc::BookMa *Bm);
+	BookMItem(QListViewItem* parent, struct ScribusDoc::BookMa *Bm);
+	BookMItem(QListViewItem* parent, QListViewItem* after, struct ScribusDoc::BookMa *Bm);
+	BookMItem(QListView* parent, QListViewItem* after, struct ScribusDoc::BookMa *Bm);
+	BookMItem(QListView* parent, struct ScribusDoc::BookMa *Bm);
     BookMItem(QListView* parent, QListViewItem* after, int nr, int s, int el);
     BookMItem(QListView* parent, int nr, int s, int el);
     ~BookMItem() {};
-		void SetUp(struct ScribusDoc::BookMa *Bm);
+	void SetUp(struct ScribusDoc::BookMa *Bm);
     virtual QString key(int, bool) const;
     int ItemNr;
     int Seite;
@@ -49,11 +49,11 @@ public:
     int PdfObj;
     QString Action;
     QString Titel;
-		int First;
-		int Last;
-		int Prev;
-		int Next;
-		int Pare;
+	int First;
+	int Last;
+	int Prev;
+	int Next;
+	int Pare;
 };
 
 class BookMView : public QListView
@@ -74,13 +74,13 @@ public:
     int Last;
 
 public slots:
-		void AddPageItem(PageItem* ite);
-		void ChangeItem(int nr, int itnr);
-		void ChangeText(PageItem *b);
+	void AddPageItem(PageItem* ite);
+	void ChangeItem(int nr, int itnr);
+	void ChangeText(PageItem *b);
 
 signals:
-		void MarkMoved();
-		void ChangeBMNr(int, int, int);
+	void MarkMoved();
+	void ChangeBMNr(int, int, int);
 
 protected:
     void contentsMouseReleaseEvent(QMouseEvent *m);

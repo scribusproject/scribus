@@ -26,7 +26,8 @@
   * its API is based on the API of QColor
   */
 
-class CMYKColor {
+class CMYKColor 
+{
 public:
 /** Constructs a CMYKColor with 4 Components
  * in the range from 0 - 255 */

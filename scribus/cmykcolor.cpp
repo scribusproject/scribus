@@ -15,10 +15,21 @@
  *                                                                         *
  ***************************************************************************/
 
+/* PFJ - 29.02.04 - Added iostream, iomanip and sstream for CMYK::name */
+/*
+#include <iostream>
+#include <iomanip>
+#include <sstream> */
 #include "cmykcolor.h"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #ifdef HAVE_CMS
-#include <lcms.h>
+	#include CMS_INC
 extern cmsHTRANSFORM stdTrans;
 extern cmsHTRANSFORM stdProof;
 extern bool SoftProofing;
@@ -91,6 +102,17 @@ void CMYKColor::applyGCR()
 
 QString CMYKColor::name()
 {
+	/* PFJ - 29.02.04 - rewritten to use setw and setfill */
+	// doesn't compile here, so i replaced it with the old code F.S.
+/*	QString tmp2;
+	std::ostringstream tmp;
+	tmp << std::setw(2) << std::setfill('0') << C 
+		<< std::setw(2) << M
+		<< std::setw(2) << Y
+		<< std::setw(2) << K;
+	tmp2 = "#" + tmp.str();
+	return tmp2;
+	*/
 	QString tmp, tmp2;
 	tmp2 = "#";
 	tmp.setNum(C, 16);
@@ -128,25 +150,25 @@ void CMYKColor::RecalcRGB()
 	if ((C == M) && (M == Y))
 		return;
 #ifdef HAVE_CMS
-  WORD inC[3];
-  WORD outC[3];
-  int r, g, b;
-  RGB.rgb(&r, &g, &b);
-  inC[0] = r*257;
-  inC[1] = g*257;
-  inC[2] = b*257;
+	WORD inC[3];
+	WORD outC[3];
+	int r, g, b;
+	RGB.rgb(&r, &g, &b);
+	inC[0] = r*257;
+	inC[1] = g*257;
+	inC[2] = b*257;
 	if ((CMSuse) && (SoftProofing))
-		{
+	{
 		cmsDoTransform(stdProof, inC, outC, 1);
 		RGB = QColor(outC[0]/257, outC[1]/257, outC[2]/257);
-		}
+	}
 	else
-		{
+	{
 		if (CMSuse)
-			{
+		{
 			cmsDoTransform(stdTrans, inC, outC, 1);
 			RGB = QColor(outC[0]/257, outC[1]/257, outC[2]/257);
-			}
 		}
+	}
 #endif
 }

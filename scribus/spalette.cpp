@@ -18,14 +18,15 @@
 #include "spalette.h"
 #include "spalette.moc"
 
-Spalette::Spalette(QWidget* parent) : QListBox(parent, "Sfloat")
+Spalette::Spalette(QWidget* parent) : QComboBox(true, parent, "Sfloat")
 {
-  setMinimumSize(QSize(10,80));
-  setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
-	insertItem(tr("No Style"));
-  doc = 0;
-  connect(this, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
-  connect(this, SIGNAL(selected(int)), this, SIGNAL(EditSt()));
+	setMinimumSize(QSize(10,static_cast<int>(font().pointSize()*2.5)));
+	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, 0, 0,
+  										 sizePolicy().hasHeightForWidth() ) );
+	setEditable(false);
+	insertItem( tr("No Style"));
+	doc = 0;
+	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
 
 void Spalette::SetFormats(ScribusDoc *dd)
@@ -34,26 +35,45 @@ void Spalette::SetFormats(ScribusDoc *dd)
 	updateFList();
 }
 
-void Spalette::updateFList()
+void Spalette::setFormat(int e)
 {
-	clear();
-	if (doc != 0)
-		{
-		insertItem(tr("No Style"));
-		for (uint x = 5; x < doc->Vorlagen.count(); ++x)
-			{
-			insertItem(doc->Vorlagen[x].Vname);
-			}
-		setSelected(currentItem(), false);
-		}
+	if (e < 5)
+		setCurrentItem(0);
+	else
+		setCurrentText(doc->Vorlagen[e].Vname);
 }
 
-void Spalette::selFormat(QListBoxItem *c)
+void Spalette::updateFList()
 {
-	if (c == NULL)
-  	return;
-  if (c->listBox()->currentItem() > 0)
-  	emit NewStyle(c->listBox()->currentItem()+4);
-  else
-  	emit NewStyle(c->listBox()->currentItem());
+	disconnect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+	clear();
+	if (doc != 0)
+	{
+		QStringList st;
+		st.clear();
+		insertItem( tr("No Style"));
+		for (uint x = 5; x < doc->Vorlagen.count(); ++x)
+			st.append(doc->Vorlagen[x].Vname);
+		st.sort();
+		insertStringList(st);
+	}
+	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
+	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
+}
+
+void Spalette::selFormat(int e)
+{
+	if (e == 0)
+		{
+		emit NewStyle(0);
+		return;
+		}
+	for (uint x = 5; x < doc->Vorlagen.count(); ++x)
+		{
+		if (doc->Vorlagen[x].Vname == currentText())
+			{
+			emit NewStyle(x);
+			break;
+			}
+		}
 }

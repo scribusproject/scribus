@@ -19,11 +19,7 @@
 #define HRULER_H
 
 #include <qwidget.h>
-#include <qfont.h>
 #include <qpainter.h>
-#include <qcolor.h>
-#include <qrect.h>
-#include <qpointarray.h>
 #include <qscrollview.h>
 #include "scribusdoc.h"
 
@@ -31,26 +27,52 @@
   *@author Franz Schmid
   */
 
-class Hruler : public QWidget  {
-Q_OBJECT
+class Hruler : public QWidget  
+{
+	Q_OBJECT
+
 public:
 	Hruler(QScrollView *pa, ScribusDoc *doc);
 	~Hruler() {};
 	void paintEvent(QPaintEvent *);
-	void mousePressEvent(QMouseEvent *);
+	void mousePressEvent(QMouseEvent *m);
 	void mouseReleaseEvent(QMouseEvent *);
 	void mouseMoveEvent(QMouseEvent *m);
+	void UpdateTabList();
 	int offs;
 	int Markp;
 	bool repX;
 	bool Mpressed;
+	QValueList<double> TabValues;
+	double ItemPos;
+	double ItemEndPos;
+	int Cols;
+	int ActCol;
+	int ActTab;
+	double ColGap;
+	double RExtra;
+	double Extra;
+	double lineCorr;
+	double Indent;
+	double First;
+	double Offset;
+	double Scaling;
+	int RulerCode;
+	int MouseX;
+	bool Revers;
+	bool ItemPosValid;
+
 private: // Private attributes
   /** Zeichensatz des Lineals */
-  QFont rfont;
   ScribusDoc *doku;
+
 public slots: // Public slots
   /** Zeichnet den Pfeil */
   void Draw(int wo);
+  
+signals:
+	void DocChanged(bool);
+	void MarkerMoved(double, double);
 };
 
 #endif

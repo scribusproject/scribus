@@ -21,7 +21,7 @@ class Mdup : public QDialog
     Q_OBJECT
 
 public:
-    Mdup( QWidget* parent, float Dx, float Dy, int Ein );
+    Mdup( QWidget* parent, double Dx, double Dy, int Ein );
     ~Mdup() {};
 
     QLabel* TextLabel1_2;

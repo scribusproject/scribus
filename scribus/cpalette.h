@@ -25,81 +25,96 @@
 #include <qfont.h>
 #include <qlayout.h>
 #include <qtoolbutton.h>
-#include <qradiobutton.h>
 #include <qbuttongroup.h>
 #include <qcombobox.h>
 #include <qlabel.h>
 #include <qspinbox.h>
 #include "scribusdoc.h"
+#include "shadebutton.h"
+#include "mspinbox.h"
+#include "gradienteditor.h"
 
 /**
   *@author Franz Schmid
   */
 
-class Cpalette : public QWidget  {
-Q_OBJECT
+class Cpalette : public QWidget
+{
+	Q_OBJECT
 public:
 	Cpalette(QWidget* parent);
 	~Cpalette() {};
-	
+
 	QListBox *ListBox1;
 	QToolButton *Inhalt;
 	QToolButton *Innen;
-	QToolButton *PM1;
-	QPopupMenu *ShaMenu;
+	QSpinBox *PM1;
 	QComboBox* GradCombo;
-	QButtonGroup* GradGroup;
-	QRadioButton* GrColor1;
-	QRadioButton* GrColor2;
+	GradientEditor* GradEdit;
+	QFrame* frame8;
+	QLabel* GTextX1;
+	QLabel* GTextY1;
+	QLabel* GTextX2;
+	QLabel* GTextY2;
+	MSpinBox* gY1;
+	MSpinBox* gX2;
+	MSpinBox* gX1;
+	MSpinBox* gY2;
 	QButtonGroup* TransGroup;
 	QLabel* TransTxt;
+	QLabel* ShadeTxt;
 	QSpinBox* TransSpin;
 	int Mode;
 	QString sFarbe;
 	CListe Farbliste;
 	bool CSichtbar;
 	QString Color;
-	QString Color2;
 	int Shade;
-	int Shade2;
 	QString Color3;
 	int Shade3;
 	bool UseTransFeature;
-	
+	bool GradientMode;
+
 public slots:
 	void InhaltButton();
 	void InnenButton();
 	void SetColors(CListe farben);
 	void updateCList();
-	void updateShade(int sh);
 	void updateBoxS(QString Farbe);
 	void selFarbe(QListBoxItem *c);
+	QColor SetFarbe(QString farbe, int shad);
 	void slotGrad(int nr);
-	void slotColor();
+	void slotColor(QString n, int s);
 	void ChooseGrad(int nr);
 	void setActFarben(QString p, QString b, int shp, int shb);
-	void setActGradient(QString p, QString b, int shp, int shb, int typ);
-	int SetMen(int c);
-	void setActShade(int);
-	void setActTrans(float);
+	void setActGradient(int typ);
+	void setSpecialGradient(double x1, double y1, double x2, double y2, double w, double h);
+	void changeSpecial();
+	void setActShade();
+	void setActTrans(double, double);
+	void setGradTrans(double val);
 	void slotTrans(int val);
 	void UseTrans(bool b);
-	
+	void UnitChange(double old, double neww, int ein);
+
 signals:
 	void NewPen(QString);
 	void NewBrush(QString);
 	void NewPenShade(int);
 	void NewBrushShade(int);
-	void NewGradient(int, QString, int, QString, int);
-	void NewTrans(float);
+	void NewGradient(int);
+	void NewSpecial(double, double, double, double);
+	void NewTrans(double);
+	void NewTransS(double);
 	void QueryItem();
-	
+	void gradientChanged();
+
 protected:
-    QVBoxLayout* Form1Layout;
-    QHBoxLayout* Layout1;
-    QVBoxLayout* GradLayout;
-    QHBoxLayout* GradGroupLayout;
-    QHBoxLayout* TransGroupLayout;
+	QVBoxLayout* Form1Layout;
+	QGridLayout* Layout1;
+	QVBoxLayout* GradLayout;
+	QHBoxLayout* TransGroupLayout;
+	QGridLayout* frame8Layout;
 };
 
 #endif

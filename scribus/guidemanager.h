@@ -2,6 +2,7 @@
 #define GUIDEMANAGER_H
 
 #include <qdialog.h>
+#include <qvaluelist.h>
 #include <qgroupbox.h>
 #include <qlabel.h>
 #include <qlistbox.h>
@@ -12,61 +13,88 @@
 #include "mspinbox.h"
 #include "page.h"
 
+
 class GuideManager : public QDialog
 { 
     Q_OBJECT
 
 public:
-    GuideManager( QWidget* parent, Page* page, int Einh);
+    GuideManager(
+            QWidget* parent,
+            QValueList<double> XGuides,
+            QValueList<double> YGuides,
+            double PageB,
+            double PageH,
+            bool GuideLock,
+            int Einh
+        );
     ~GuideManager() {};
-		void UnitChange();
-		QString GetUnit();
-		void UpdateHList();
-		void UpdateVList();
 
-    QGroupBox* VerGroup;
-    QListBox* VerticalList;
-    QLabel* TextLabel1;
-    MSpinBox* VertSpin;
-    QPushButton* VertSet;
-    QPushButton* VertDel;
-    QGroupBox* HorGroup;
-    QListBox* HorList;
-    QLabel* TextLabel2;
-    MSpinBox* HoriSpin;
-    QPushButton* HoriSet;
-    QPushButton* HoriDel;
-    QCheckBox* Lock;
-    QPushButton* OK;
-    QPushButton* Cancel;
-		int Einheit;
-		Page* pag;
-		int curX;
-		int curY;
-		QValueList<float> XLocal;
-		QValueList<float> YLocal;
+	QValueList<double> LocHor;
+	QValueList<double> LocVer;
+	bool LocLocked;
+
+private:
+	double LocPageWidth;
+	double LocPageHeight;
+	int Einheit;
+    QString tp[4];
+
+	int selHor;
+	int selVer;
+
+	QGroupBox* VerGroup;
+	QListBox* VerList;
+	QLabel* TextLabel1;
+	MSpinBox* VerSpin;
+	QPushButton* VerSet;
+	QPushButton* VerDel;
+	
+	QGroupBox* HorGroup;
+	QListBox* HorList;
+	QLabel* TextLabel2;
+	MSpinBox* HorSpin;
+	QPushButton* HorSet;
+	QPushButton* HorDel;
+	
+	QCheckBox* Lock;
+	
+	QPushButton* OK;
+	QPushButton* Cancel;
+
+	QString GetUnit();
+	void UnitChange();
+
+	void UpdateHorList();
+	void UpdateVerList();
+
+	QVBoxLayout* GuideManagerLayout;
+	QHBoxLayout* Layout6;
+	QVBoxLayout* VerGroupLayout;
+	QHBoxLayout* Layout2;
+	QHBoxLayout* Layout1;
+	
+	QVBoxLayout* HorGroupLayout;
+	QHBoxLayout* Layout4;
+	QHBoxLayout* Layout3;
+	
+	QHBoxLayout* Layout5;
 
 private slots:
-		void HandleLock();
-		void GetHVal(int n);
-		void GetVVal(int n);
-		void SetHVal();
-		void SetVVal();
-		void DelHVal();
-		void DelVVal();
-		void valChange();
-		void ExitOK();
 
-protected:
-    QVBoxLayout* GuideManagerLayout;
-    QHBoxLayout* Layout6;
-    QVBoxLayout* VerGroupLayout;
-    QHBoxLayout* Layout2;
-    QHBoxLayout* Layout1;
-    QVBoxLayout* HorGroupLayout;
-    QHBoxLayout* Layout4;
-    QHBoxLayout* Layout3;
-    QHBoxLayout* Layout5;
+	void DelHorVal();
+	void DelVerVal();
+
+	void AddHorVal();
+	void AddVerVal();
+
+	void HandleLock();
+
+	void selHorIte(QListBoxItem *c);
+	void selVerIte(QListBoxItem *c);
+
+	void ChangeHorVal();
+	void ChangeVerVal();
 };
 
 #endif // GUIDEMANAGER_H

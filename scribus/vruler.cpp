@@ -19,12 +19,20 @@
 #include "vruler.moc"
 #include "page.h"
 #include <qcursor.h>
+#include <qcolor.h>
+#include <qrect.h>
+#include <qpointarray.h>
+
+#if QT_VERSION  > 0x030102
+	#define SPLITVC SplitHCursor
+#else
+	#define SPLITVC SplitVCursor
+#endif
+
 Vruler::Vruler(QScrollView *pa, ScribusDoc *doc) : QWidget(pa)
 {
 	setEraseColor(QColor(255,255,255));
 	doku = doc;
-	rfont = font();
-	rfont.setPointSize(9);
 	offs = -12;
 	Markp = 0;
 	oldMark = 0;
@@ -34,7 +42,7 @@ Vruler::Vruler(QScrollView *pa, ScribusDoc *doc) : QWidget(pa)
 void Vruler::mousePressEvent(QMouseEvent *)
 {
 	Mpressed = true;
-	qApp->setOverrideCursor(QCursor(SplitVCursor), true);
+	qApp->setOverrideCursor(QCursor(SPLITVC), true);
 }
 
 void Vruler::mouseReleaseEvent(QMouseEvent *m)
@@ -54,81 +62,125 @@ void Vruler::mouseMoveEvent(QMouseEvent *m)
 void Vruler::paintEvent(QPaintEvent *)
 {
 	int xx, pc;
-	float of, xl, iter, iter2;
-	float sc = doku->Scale;
+	double of, xl, iter, iter2;
+	double sc = doku->Scale;
+	int cor = 1;
 	switch (doku->Einheit)
-		{
+	{
 		case 0:
-			iter = 10.0;
-  		iter2 = iter * 10.0;
+			if (sc > 1)
+				cor = 2;
+			if (sc > 4)
+				cor = 10;
+			iter = 10.0 / cor;
+	  		iter2 = iter * 10.0;
 			break;
 		case 1:
-			iter = (10.0 / 25.4) * 72.0;
-  		iter2 = iter * 10.0;
+			if (sc > 1)
+				cor = 10;
+			iter = ((10.0 / 25.4) * 72.0) / cor;
+  			iter2 = iter * 10.0;
 			break;
 		case 2:
 			iter = 18.0;
 			iter2 = 72.0;
+			if (sc > 1)
+				{
+				cor = 2;
+				iter = 9.0;
+				iter2 = 36.0;
+				}
+			if (sc > 4)
+				{
+				iter = 9.0;
+				iter2 = 18.0;
+				cor = 4;
+				}
 			break;
 		case 3:
 			iter = 12.0;
 			iter2 = 120.0;
+			if (sc > 1)
+				{
+				cor = 1;
+				iter = 12.0;
+				iter2 = 60.0;
+				}
+			if (sc > 4)
+				{
+				cor = 2;
+				iter = 6.0;
+				iter2 = 12.0;
+				}
 			break;
-		}
+	}
 	QPainter p;
 	p.begin(this);
 	p.drawLine(24, 0, 24, height());
 	p.translate(0, -offs);
 	p.setBrush(black);
 	p.setPen(black);
-	p.setFont(rfont);
-	p.scale(1.0, sc);
+	p.setFont(font());
 	if ((doku->PageFP) && (doku->PagesSbS))
-		{
+	{
 		if (doku->FirstPageLeft)
-			{
+		{
 			if (doku->PageC % 2 == 0)
 				pc = doku->PageC / 2;
 			else
 				pc = (doku->PageC+1) / 2;
-			}
+		}
 		else
-			{
+		{
 			if (doku->PageC % 2 == 0)
 				pc = doku->PageC / 2 + 1;
 			else
 				pc = doku->PageC / 2 + 1;
-			}
 		}
+	}
 	else
 		pc = doku->PageC;
 	for (xx = 0; xx < pc; ++xx)
-		{
+	{
 		of = xx * (doku->PageH+30.0);
 		for (xl = 0; xl < doku->PageH; xl += iter)
-			{
-			p.drawLine(18, static_cast<int>(xl+of), 24, static_cast<int>(xl+of));
-			}
+		{
+			if ((qRound((xl+of)*sc) > offs) && (qRound((xl+of)*sc) < offs+height()))
+				p.drawLine(18, qRound((xl+of)*sc), 24, qRound((xl+of)*sc));
+		}
 		for (xl = 0; xl < doku->PageH+(iter2/2); xl += iter2)
+		{
+			if ((qRound((xl+of)*sc) > offs) && (qRound((xl+of)*sc) < offs+height()))
 			{
-			p.drawLine(11, static_cast<int>(xl+of), 24, static_cast<int>(xl+of));
-			p.save();
-			p.scale(1.0, 1.0 / sc);
-			switch (doku->Einheit)
+				p.drawLine(11, qRound((xl+of)*sc), 24, qRound((xl+of)*sc));
+				switch (doku->Einheit)
 				{
-				case 2:
-					p.drawText(9, static_cast<int>((xl+of+qRound(10/sc)) * sc), QString::number(xl / iter2));
-					break;
-				case 3:
-					p.drawText(9, static_cast<int>((xl+of+qRound(10/sc)) * sc), QString::number(xl / iter));
-					break;
-				default:
-					p.drawText(9, static_cast<int>((xl+of+qRound(10/sc)) * sc), QString::number(xl / iter * 10));
-					break;
+					case 2:
+					{
+						QString tx = "";
+						int num1 = static_cast<int>(xl / iter2 / cor);
+						if (num1 != 0)
+							tx = QString::number(num1);
+						double frac = (xl / iter2 / cor) - num1;
+						if ((frac > 0.24) && (frac < 0.26))
+							tx += QChar(0xBC);
+						if ((frac > 0.49) && (frac < 0.51))
+							tx += QChar(0xBD);
+						if ((frac > 0.74) && (frac < 0.76))
+							tx += QChar(0xBE);
+						p.drawText(9, qRound((xl+of+10/sc) * sc), tx);
+						break;
+					}
+					case 3:
+						p.drawText(9, qRound((xl+of+10/sc) * sc), QString::number(xl / iter / cor));
+						break;
+					default:
+						p.drawText(9, qRound((xl+of+10/sc) * sc), QString::number(xl / iter * 10 / cor));
+						break;
 				}
-			p.restore();
 			}
 		}
+	}
 	p.end();
 }
 /** Zeichnet den Pfeil */
@@ -149,4 +201,3 @@ void Vruler::Draw(int wo)
 	p.end();
 	oldMark = Markp;
 }
-

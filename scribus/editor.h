@@ -17,7 +17,6 @@ class Editor : public QDialog
 public:
     Editor( QWidget* parent, QString daten, ScribusView* vie = 0);
     ~Editor() {};
-
     QTextEdit* EditTex;
     QPopupMenu* fmenu;
     QPopupMenu* emenu;
@@ -25,9 +24,9 @@ public:
     ScribusView* view;
 
 private slots:
-		void LoadScript();
-		void SaveAs();
-		void GetFieldN();
+	void LoadScript();
+	void SaveAs();
+	void GetFieldN();
 
 protected:
     QVBoxLayout* EditorLayout;

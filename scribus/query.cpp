@@ -7,6 +7,7 @@
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
 #include "query.h"
+#include "query.moc"
 extern QPixmap loadIcon(QString nam);
 
 #include <qtooltip.h>
@@ -21,9 +22,9 @@ Query::Query( QWidget* parent,  const char* name, bool modal, WFlags fl, QString
     : QDialog( parent, name, modal, fl )
 {
     if ( !name )
-	setName( "Query" );
-    setCaption( tr( titel ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+		setName( "Query" );
+    setCaption( titel );
+  	setIcon(loadIcon("AppIcon.png"));
     QueryLayout = new QVBoxLayout( this );
     QueryLayout->setSpacing( 6 );
     QueryLayout->setMargin( 11 );
@@ -33,7 +34,7 @@ Query::Query( QWidget* parent,  const char* name, bool modal, WFlags fl, QString
     Frage = new QLabel( this, "Frage" );
     Frage->setFrameShape( QLabel::MShape );
     Frage->setFrameShadow( QLabel::MShadow );
-    Frage->setText( tr( text ) );
+    Frage->setText( text );
     Frage->adjustSize();
     Layout2->addWidget( Frage );
     Answer = new QLineEdit( this, "Answer" );
@@ -56,11 +57,19 @@ Query::Query( QWidget* parent,  const char* name, bool modal, WFlags fl, QString
     Answer->setFocus();
 
     // signals and slots connections
-    connect( PushButton1, SIGNAL( clicked() ), this, SLOT( accept() ) );
+    connect( PushButton1, SIGNAL( clicked() ), this, SLOT( Leave() ) );
     connect( PushButton2, SIGNAL( clicked() ), this, SLOT( reject() ) );
 
     // tab order
     setTabOrder( Answer, PushButton1 );
     setTabOrder( PushButton1, PushButton2 );
+}
+
+void Query::Leave()
+{
+	if (Answer->text() == "")
+		return;
+	else
+		accept();
 }
 

@@ -1,0 +1,2837 @@
+# This is a Qt message file in .po format.  Each msgid starts with
+# a scope.  This scope should *NOT* be translated - eg. "Foo::Bar"
+# would be translated to "Pub", not "Foo::Pub".
+msgid ""
+msgstr ""
+"Project-Id-Version: Scribus 1.0\n"
+"POT-Creation-Date: 2003-06-19 10:00+0200\n"
+"PO-Revision-Date: 2003-07-30 09:04+0700\n"
+"Last-Translator: Triyan W. Nugroho <iyan_kid@yahoo.com>\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: Bahasa Indonesia <id@li.org>\n"
+"X-Generator: KBabel 0.9.6\n"
+
+msgid "File"
+msgstr "Berkas"
+
+msgid "New"
+msgstr "Baru"
+
+msgid "Open..."
+msgstr "Buka..."
+
+msgid "Open"
+msgstr "Buka"
+
+msgid "Close"
+msgstr "Tutup"
+
+msgid "Save"
+msgstr "Simpan"
+
+msgid "Save as..."
+msgstr "Simpan sebagai..."
+
+msgid "Save as"
+msgstr "Simpan sebagai"
+
+msgid "Revert to Saved"
+msgstr "Kembalikan seperti semula"
+
+msgid "Save Text..."
+msgstr "Simpan Teks..."
+
+msgid "Save Page as EPS..."
+msgstr "Simpan Halaman sebagai EPS..."
+
+msgid "Save as PDF..."
+msgstr "Simpan sebagai PDF..."
+
+msgid "Document Setup..."
+msgstr "Pengaturan Dokumen..."
+
+msgid "Document Setup"
+msgstr "Pengaturan Dokumen"
+
+msgid "Document Info..."
+msgstr "Informasi Dokumen..."
+
+msgid "Print..."
+msgstr "Cetak..."
+
+msgid "Quit"
+msgstr "Keluar"
+
+msgid "View"
+msgstr "Tampilan"
+
+msgid "Fit in Window"
+msgstr "Pas di Window"
+
+msgid "Actual Size"
+msgstr "Ukuran Sesungguhnya"
+
+msgid "Thumbnails"
+msgstr "Thumbnail"
+
+msgid "Show Tools"
+msgstr "Tampilkan Alat bantu"
+
+msgid "Hide Tools"
+msgstr "Sembunyikan Alat bantu"
+
+msgid "Hide Margins"
+msgstr "Sembunyikan Garis Tepi"
+
+msgid "Show Margins"
+msgstr "Tampilkan Garis Tepi"
+
+msgid "Hide Guides"
+msgstr "Sembunyikan Pemandu"
+
+msgid "Hide Images"
+msgstr "Sembunyikan Gambar"
+
+msgid "Show Images"
+msgstr "Tampilkan Gambar"
+
+msgid "Show Guides"
+msgstr "Tampilkan Pemandu"
+
+msgid "Show Measurements"
+msgstr "Tampilkan Ukuran"
+
+msgid "Hide Measurements"
+msgstr "Sembunyikan Ukuran"
+
+msgid "Help"
+msgstr "Bantuan"
+
+msgid "About Scribus"
+msgstr "Tentang Scribus"
+
+msgid "About Qt"
+msgstr "Tentang Qt"
+
+msgid "Ready"
+msgstr "Siap"
+
+msgid "Scaled to "
+msgstr "Ubah Ukuran ke "
+
+msgid "Get Picture..."
+msgstr "Ambil Gambar..."
+
+msgid "Get Text/Picture..."
+msgstr "Ambil Teks/Gambar..."
+
+msgid "Get Text..."
+msgstr "Ambil Teks..."
+
+msgid "New Document"
+msgstr "Dokumen Baru"
+
+msgid "Page Size"
+msgstr "Ukuran Halaman"
+
+msgid "Margin Guides"
+msgstr "Pemandu Gari Tepi"
+
+msgid "Column Guides"
+msgstr "Pemandu Kolom"
+
+msgid "Columns:"
+msgstr "Kolom:"
+
+msgid "Gutter Width:"
+msgstr "Lebar Gutter:"
+
+msgid "Width:"
+msgstr "Lebar:"
+
+msgid "Height:"
+msgstr "Tinggi:"
+
+msgid "Top:"
+msgstr "Atas:"
+
+msgid "Left:"
+msgstr "Kiri:"
+
+msgid "Inside:"
+msgstr "Dalam:"
+
+msgid "Right:"
+msgstr "Kanan:"
+
+msgid "Outside:"
+msgstr "Luar:"
+
+msgid "Bottom:"
+msgstr "Bawah:"
+
+msgid "Other"
+msgstr "Lainnya"
+
+msgid "Facing Pages"
+msgstr "Halaman Berhadapan"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Cancel"
+msgstr "Batal"
+
+msgid "Autom. Textframes"
+msgstr "Frame Teks Otomatis"
+
+msgid "W:"
+msgstr "W:"
+
+msgid "Tabloid"
+msgstr "Tabloid"
+
+msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
+msgstr "Dokumen (*.sla *.sla.gz *.scd *scd.gz);; Semua File (*)"
+
+msgid "Documents (*.sla *.scd);; All Files (*)"
+msgstr "Dokumen (*.sla *.scd);; Semua File (*)"
+
+msgid "Document "
+msgstr "Dokumen"
+
+msgid "No Document"
+msgstr "Tidak Ada Dokumen"
+
+msgid "Warning"
+msgstr "Peringatan"
+
+msgid "Save Now"
+msgstr "Simpan Sekarang"
+
+msgid "Leave Anyway"
+msgstr "Tinggalkan"
+
+msgid "Textfiles (*.txt);;All Files (*)"
+msgstr "File Teks (*.txt);;Semua File (*)"
+
+msgid "Images"
+msgstr "Gambar"
+
+msgid ");;Vectorimages (*.eps *.pdf);;All Files (*)"
+msgstr ");;Gambar Vektor (*.eps *.pdf);;Semua File (*)"
+
+msgid "Look &in:"
+msgstr "L&ihat di: "
+
+msgid "File &type:"
+msgstr "&Tipe File:"
+
+msgid "File &name:"
+msgstr "&Nama File:"
+
+msgid "PDF-Options"
+msgstr "Pilihan PDF"
+
+msgid "Compatibility:"
+msgstr "Kompatibilitas:"
+
+msgid "Images:"
+msgstr "Gambar:"
+
+msgid "Resolution for EPS-Images:"
+msgstr "Resolusi untuk Gambar EPS:"
+
+msgid "Document Info"
+msgstr "Informasi Dokumen"
+
+msgid "Description:"
+msgstr "Uraian:"
+
+msgid "Author:"
+msgstr "Penulis:"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Cut"
+msgstr "Cut"
+
+msgid "Copy"
+msgstr "Salin"
+
+msgid "Paste"
+msgstr "Tempel"
+
+msgid "Clear"
+msgstr "Bersihkan"
+
+msgid "Select all"
+msgstr "Pilih semua"
+
+msgid "Deselect all"
+msgstr "Jangan Pilih semua"
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Other..."
+msgstr "Lainnya..."
+
+msgid "Item"
+msgstr "Item"
+
+msgid "Page"
+msgstr "Halaman"
+
+msgid "Insert..."
+msgstr "Masukkan..."
+
+msgid "Delete..."
+msgstr "Hapus..."
+
+msgid "Delete"
+msgstr "Hapus"
+
+msgid "Font"
+msgstr "Font"
+
+msgid "Size"
+msgstr "Ukuran"
+
+msgid "Font Size"
+msgstr "Ukuran Font"
+
+msgid "Font Size:"
+msgstr "Ukuran Font:"
+
+msgid "Shade:"
+msgstr "Tingkat Kegelapan:"
+
+msgid "Shade"
+msgstr "Tingkat Kegelapan"
+
+msgid "Color"
+msgstr "Warna"
+
+msgid "Colors..."
+msgstr "Warna..."
+
+msgid "Duplicate"
+msgstr "Salin"
+
+msgid "New Color:"
+msgstr "Warna Baru:"
+
+msgid "New Color"
+msgstr "Warna Baru"
+
+msgid "OK to delete Color:"
+msgstr "OK untuk menghapus Warna:"
+
+msgid "Replace it with:"
+msgstr "Gantikan dengan:"
+
+msgid "Delete Color"
+msgstr "Hapus Warna"
+
+msgid "Colors"
+msgstr "Warna"
+
+msgid "Edit Colors"
+msgstr "Edit Warna"
+
+msgid "Show Outline"
+msgstr "Tampilkan Outline"
+
+msgid "Hide Outline"
+msgstr "Sembunyikan Outline"
+
+msgid "Outline"
+msgstr "Outline"
+
+msgid "Rectangle"
+msgstr "Segiempat"
+
+msgid "Shape"
+msgstr "Bentuk"
+
+msgid "Edit Frame"
+msgstr "Edit Frame"
+
+msgid "Image"
+msgstr "Gambar"
+
+msgid "Type"
+msgstr "Tipe"
+
+msgid "Send to Back"
+msgstr "Bawa ke Belakang"
+
+msgid "Bring to Front"
+msgstr "Bawa ke Depan"
+
+msgid "Lower"
+msgstr "Turunkan"
+
+msgid "Raise"
+msgstr "Naikkan"
+
+msgid "Delete Page:"
+msgstr "Hapus Halaman:"
+
+msgid "Delete Page"
+msgstr "Hapus Halaman"
+
+msgid "Line"
+msgstr "Garis"
+
+msgid "Line Width"
+msgstr "Lebar Garis"
+
+msgid "Line Width:"
+msgstr "Lebar Garis:"
+
+msgid "Print destination"
+msgstr "Tujuan cetak"
+
+msgid "Print to printer:"
+msgstr "Cetak ke printer:"
+
+msgid "Printer"
+msgstr "Printer"
+
+msgid "Comment"
+msgstr "Komentar"
+
+msgid "Print to file:"
+msgstr "Cetak ke file:"
+
+msgid "Browse..."
+msgstr "Browse..."
+
+msgid "Printer settings"
+msgstr "Setting Printer"
+
+msgid "Print in color if available"
+msgstr "Cetak berwarna jika tersedia"
+
+msgid "Print in grayscale"
+msgstr "Cetak abu-abu"
+
+msgid "Paper format"
+msgstr "Format kertas"
+
+msgid "Portrait"
+msgstr "Tegak"
+
+msgid "Landscape"
+msgstr "Datar"
+
+msgid "Options"
+msgstr "Pilihan"
+
+msgid "Print all"
+msgstr "Cetak semua"
+
+msgid "Print range"
+msgstr "Cakupan cetak"
+
+msgid "From page:"
+msgstr "Dari halaman:"
+
+msgid "To page:"
+msgstr "Ke halaman:"
+
+msgid "Print first page first"
+msgstr "Cetak halaman pertama dahulu"
+
+msgid "Print last page first"
+msgstr "Cetak halaman terakhir dahulu"
+
+msgid "Number of copies:"
+msgstr "Jumlah salinan:"
+
+msgid "Select color"
+msgstr "Pilih warna"
+
+msgid "&Basic colors"
+msgstr "&Warna Dasar"
+
+msgid "&Custom colors"
+msgstr "Warna sendi&ri"
+
+msgid "&Add To Custom Colors"
+msgstr "T&ambahkan ke Warna Sendiri"
+
+msgid "&Define Custom Colors >>"
+msgstr "&Tentukan Warna Sendiri >>"
+
+msgid "&Red:"
+msgstr "Me&rah:"
+
+msgid "&Green:"
+msgstr "Hi&jau:"
+
+msgid "Bl&ue:"
+msgstr "Bir&u:"
+
+msgid "Select Font"
+msgstr "Pilih Font"
+
+msgid "&Font"
+msgstr "&Font"
+
+msgid "Font st&yle"
+msgstr "Ga&ya Font"
+
+msgid "&Size"
+msgstr "U&kuran"
+
+msgid "Effects"
+msgstr "Efek"
+
+msgid "Stri&keout"
+msgstr "Stri&keout"
+
+msgid "&Underline"
+msgstr "&Garis bawah"
+
+msgid "Sample"
+msgstr "Contoh"
+
+msgid "Scr&ipt"
+msgstr "Skr&ip"
+
+msgid "Preferences..."
+msgstr "Preferensi..."
+
+msgid "Preferences"
+msgstr "Preferensi"
+
+msgid "General"
+msgstr "Umum"
+
+msgid "Guides"
+msgstr "Pemandu"
+
+msgid "Major Grid Spacing:"
+msgstr "Spasi Grid Mayor:"
+
+msgid "Minor Grid Spacing:"
+msgstr "Spasi Grid Minor:"
+
+msgid "Major Grid Color:"
+msgstr "Warna Grid Mayor:"
+
+msgid "Minor Grid Color:"
+msgstr "Warna Grid Minor:"
+
+msgid "Grid Colors"
+msgstr "Warna Grid"
+
+msgid "Grid Layout"
+msgstr "Layout Grid"
+
+msgid "Image visible"
+msgstr "Perlihatkan Gambar"
+
+msgid "Is PDF-Bookmark"
+msgstr "adalah Bookmark PDF"
+
+msgid "Snap to Guides"
+msgstr "Dekatkan ke Pemandu"
+
+msgid "Apply"
+msgstr "Terapkan"
+
+msgid "Snap to Grid"
+msgstr "Dekatkan ke Grid"
+
+msgid "Mouse-Settings"
+msgstr "Pengaturan Mouse"
+
+msgid "Wheel-Jump"
+msgstr ""
+
+msgid "Grab-Radius"
+msgstr ""
+
+msgid "Printing-Error"
+msgstr "Kesalahan Cetak"
+
+msgid "Printing completed"
+msgstr "Pencetakan selesai"
+
+msgid "Printing aborted"
+msgstr "Pencetakan digagalkan"
+
+msgid "Printing..."
+msgstr "Mencetak..."
+
+msgid "Saving aborted"
+msgstr "Penyimpanan digagalkan"
+
+msgid "Loading aborted"
+msgstr "Pemuatan digagalkan"
+
+msgid "Global Fontsettings"
+msgstr "Setting Font Global"
+
+msgid "Path to Fontfile"
+msgstr "Lokasi File Font"
+
+msgid "Embed in:"
+msgstr "Masukkan ke dalam:"
+
+msgid "Default Size:"
+msgstr "Ukuran Default:"
+
+msgid "Default Font:"
+msgstr "Font Default:"
+
+msgid "Woven silk pyjamas exchanged for blue quartz"
+msgstr ""
+
+msgid "Fonts"
+msgstr "Font"
+
+msgid "Missing Font"
+msgstr "Font Hilang"
+
+msgid "Missing"
+msgstr "Hilang"
+
+msgid "The Font %1 is not installed."
+msgstr "Font %1 belum terinstal."
+
+msgid "Use"
+msgstr "Gunakan"
+
+msgid "instead"
+msgstr "sebagai pengganti"
+
+msgid "Fonts..."
+msgstr "Font..."
+
+msgid " loaded"
+msgstr " telah dimuat"
+
+msgid "Picture "
+msgstr "Gambar "
+
+msgid "File "
+msgstr "File "
+
+msgid " saved"
+msgstr " disimpan"
+
+msgid "Unable to create PDF-File."
+msgstr "Tidak dapat membuat file PDF."
+
+msgid "Error creating PDF-File.."
+msgstr "Terjadi kesalahan ketika membuat file PDF.."
+
+msgid "Error during EPS-Export"
+msgstr "Terjadi kesalahan ketika mengekspor ke EPS"
+
+msgid "The following Programs are missing:"
+msgstr "Program berikut ini tidak ditemukan:"
+
+msgid "Ghostscript : You cannot use EPS-Images"
+msgstr "Ghostscript : Anda tidak dapat menggunakan Gambar EPS"
+
+msgid "Multiple Duplicate"
+msgstr "Penyalinan Banyak"
+
+msgid "Number of Copies:"
+msgstr "Jumlah salinan:"
+
+msgid "Horizontal Shift:"
+msgstr "Pergeseran Horisontal:"
+
+msgid "Vertical Shift:"
+msgstr "Pergeseran Vertikal:"
+
+msgid "Distribute/Align"
+msgstr "Sebar/Bariskan"
+
+msgid "Distribute/Align..."
+msgstr "Sebar/Bariskan..."
+
+msgid "Don't change"
+msgstr "Jangan dirubah"
+
+msgid "Align"
+msgstr "Bariskan"
+
+msgid "Displacement"
+msgstr ""
+
+msgid "Distribute evenly"
+msgstr "Sebar mendatar"
+
+msgid "between:"
+msgstr "di antara:"
+
+msgid "Left Sides"
+msgstr "Sisi Kiri"
+
+msgid "Middles"
+msgstr "Tengah"
+
+msgid "Right Sides"
+msgstr "Sisi Kanan"
+
+msgid "Top Sides"
+msgstr "Sisi Atas"
+
+msgid "Bottom Sides"
+msgstr "Sisi Bawah"
+
+msgid "Vertical"
+msgstr "Vertikal"
+
+msgid "Horizontal"
+msgstr "Horisontal"
+
+msgid "Fatal Error"
+msgstr "Kesalahan Fatal"
+
+msgid "There are no Postscript-Fonts on your System"
+msgstr "Tidak ada Font Postscript pada Sistem anda"
+
+msgid "Exiting now"
+msgstr "Keluar sekarang"
+
+msgid "Insert Page"
+msgstr "Masukkan Halaman"
+
+msgid "Inserting"
+msgstr "Memasukkan"
+
+msgid "before Page"
+msgstr "sebelum Halaman"
+
+msgid "after Page"
+msgstr "sesudah Halaman"
+
+msgid "at End"
+msgstr "di Akhir"
+
+msgid "page(s)"
+msgstr "halaman"
+
+msgid "To End"
+msgstr "Ke Akhir"
+
+msgid "Delete Pages"
+msgstr "Hapus Halaman"
+
+msgid "Delete from:"
+msgstr "Hapus dari:"
+
+msgid "Move Page(s):"
+msgstr "Pindah Halaman:"
+
+msgid "Move Pages"
+msgstr "Pindah Halaman"
+
+msgid "Move..."
+msgstr "Pindah..."
+
+msgid "to:"
+msgstr "ke:"
+
+msgid "Select Items"
+msgstr "Pilih Item"
+
+msgid "Edit Contents of Frame"
+msgstr "Edit Isi Frame"
+
+msgid "Zooms in or out"
+msgstr "Perbesar/Perkecil"
+
+msgid "Insert Textbox"
+msgstr "Masukkan Kotak Teks"
+
+msgid "Insert Picture"
+msgstr "Masukkan Gambar"
+
+msgid "Insert Lines"
+msgstr "Masukkan Garis"
+
+msgid "Insert Ovals"
+msgstr "Masukkan Lingkaran"
+
+msgid "Insert Rectangles"
+msgstr "Masukkan Persegi"
+
+msgid "Rotate Item"
+msgstr "Putar Item"
+
+msgid "Modify..."
+msgstr "Modifikasi..."
+
+msgid "Modify Textframe"
+msgstr "Modifikasi Frame Teks"
+
+msgid "Modify Frame"
+msgstr "Modifikasi Frame"
+
+msgid "Other:"
+msgstr "Lainnya:"
+
+msgid "Don't print"
+msgstr "Jangan dicetak"
+
+msgid "Properties:"
+msgstr "Properti:"
+
+msgid "Ordinary Text"
+msgstr "Teks Biasa"
+
+msgid "Is PDF-Annotation"
+msgstr "adalah Anotasi PDF"
+
+msgid "Angle:"
+msgstr "Sudut:"
+
+msgid "Textdistance"
+msgstr "Jarak Teks"
+
+msgid "Face"
+msgstr "Muka"
+
+msgid "Superscript"
+msgstr ""
+
+msgid "Subscript"
+msgstr ""
+
+msgid "Flip horizontal"
+msgstr "Balik secara horisontal"
+
+msgid "Flip vertical"
+msgstr "Balik secara vertikal"
+
+msgid "Scaling:"
+msgstr "Skala:"
+
+msgid "Disp.:"
+msgstr ""
+
+msgid "Small Caps"
+msgstr ""
+
+msgid "Typographics"
+msgstr "Tipografi"
+
+msgid "Italic"
+msgstr "Miring"
+
+msgid "No Fill"
+msgstr "Tidak ada Isian"
+
+msgid "Underline"
+msgstr "Garis Bawah"
+
+msgid "Strikethru"
+msgstr "Coret"
+
+msgid "Strikeout"
+msgstr ""
+
+msgid "Append"
+msgstr "Tambahkan"
+
+msgid "Bold"
+msgstr "Tebal"
+
+msgid "Shading:"
+msgstr "Tingkat Kegelapan:"
+
+msgid "Background Color:"
+msgstr "Warna Latar Belakang:"
+
+msgid "Vertical flipped"
+msgstr "Lipat secara vertikal"
+
+msgid "Horizontal flipped"
+msgstr "Lipat secara horisontal"
+
+msgid "Text flows around Box"
+msgstr "Teks di seputar Kotak"
+
+msgid "Online-Help..."
+msgstr "Bantuan Online..."
+
+msgid "Scribus Manual"
+msgstr "Manual Scribus"
+
+msgid "Local X-Pos:"
+msgstr ""
+
+msgid "Local Y-Pos:"
+msgstr ""
+
+msgid "Horizontal Scaling"
+msgstr "Skala Horisontal"
+
+msgid "Vertical Scaling"
+msgstr "Skala Vertikal"
+
+msgid "Modify Pictureframe"
+msgstr "Modifikasi Frame Gambar"
+
+msgid "Line Color:"
+msgstr "Warna Garis:"
+
+msgid "Fill Color:"
+msgstr "Warna Isian:"
+
+msgid "Linestyle:"
+msgstr "Gaya Garis:"
+
+msgid "Linewidth:"
+msgstr "Lebar Garis:"
+
+msgid "Scaling X:"
+msgstr "Skala X:"
+
+msgid "Scaling Y:"
+msgstr "Skala Y:"
+
+msgid "Manual Kerning"
+msgstr "Penonjolan Manual"
+
+msgid "Linespacing"
+msgstr "Spasi Garis"
+
+msgid "Frame"
+msgstr "Frame"
+
+msgid "Contents"
+msgstr "Isi"
+
+msgid "Tools"
+msgstr "Alat bantu"
+
+msgid "Create Textchains"
+msgstr "Buat Rantai Teks"
+
+msgid "Break Textchains"
+msgstr "Putuskan Rantai Teks"
+
+msgid "Stepping:"
+msgstr "Langkah:"
+
+msgid "Placing"
+msgstr "Peletakan"
+
+msgid "In the Background"
+msgstr "Di Latar Belakang"
+
+msgid "In the Foreground"
+msgstr "Di Latar Depan"
+
+msgid "Text Color:"
+msgstr "Warna Teks:"
+
+msgid "Units"
+msgstr "Satuan"
+
+msgid "Points (pts)"
+msgstr "Point (pts)"
+
+msgid "Points (pt)"
+msgstr "Point (pt)"
+
+msgid "Millimeters (mm)"
+msgstr "Milimeter (mm)"
+
+msgid "Creates a new Document"
+msgstr "Buat Dokumen Baru"
+
+msgid "Opens a Document"
+msgstr "Buka Dokumen"
+
+msgid "Saves the current Document"
+msgstr "Simpan Dokumen"
+
+msgid "Prints the current Document"
+msgstr "Cetak Dokumen"
+
+msgid "Copy Here"
+msgstr "Salin ke Sini"
+
+msgid "Move Here"
+msgstr "Pindah ke Sini"
+
+msgid "About"
+msgstr "Tentang"
+
+msgid "Authors"
+msgstr "Penulis"
+
+msgid "Translations"
+msgstr "Penerjemahan"
+
+msgid "Programming:"
+msgstr "Pemrogram:"
+
+msgid "Contributions from:"
+msgstr "Kontribusi dari:"
+
+msgid "Documentation:"
+msgstr "Dokumentasi:"
+
+msgid "German:"
+msgstr "Jerman:"
+
+msgid "French:"
+msgstr "Perancis:"
+
+msgid "Spanish and Catalan:"
+msgstr "Spanyol dan Catalan:"
+
+msgid "Hungarian and Italian:"
+msgstr "Hongaria dan Italia:"
+
+msgid "Slovak:"
+msgstr "Slovakia:"
+
+msgid "Slovak"
+msgstr "Slovakia"
+
+msgid "Ukrainian:"
+msgstr "Ukrania:"
+
+msgid "None"
+msgstr "Kosong"
+
+msgid "Closes the current Document"
+msgstr "Tutup Dokumen"
+
+msgid "Range:"
+msgstr "Cakupan:"
+
+msgid "File:"
+msgstr "File:"
+
+msgid "Print Normal"
+msgstr "Cetak Normal"
+
+msgid "Print Separations"
+msgstr "Cetak Separasi"
+
+msgid "All"
+msgstr "Semua"
+
+msgid "Setup Printer"
+msgstr "Pengaturan Printer"
+
+msgid "Old"
+msgstr "Tua"
+
+msgid "Color Model"
+msgstr "Model Warna"
+
+msgid "Is Spot-Color"
+msgstr "Adalah Warna Spot"
+
+msgid "Edit Color"
+msgstr "Edit Warna"
+
+msgid "Alignment"
+msgstr "Peletakan"
+
+msgid "Left"
+msgstr "Kiri"
+
+msgid "Center"
+msgstr "Tengah"
+
+msgid "Right"
+msgstr "Kanan"
+
+msgid "Edit Styles"
+msgstr "Edit Gaya"
+
+msgid "Edit Style"
+msgstr "Edit Gaya"
+
+msgid "New Style"
+msgstr "Gaya Baru"
+
+msgid "New Style:"
+msgstr "Gaya Baru:"
+
+msgid "Show Styles"
+msgstr "Tampilkan Gaya"
+
+msgid "Hide Styles"
+msgstr "Sembunyikan Gaya"
+
+msgid "Styles..."
+msgstr "Gaya..."
+
+msgid "Styles"
+msgstr "Gaya"
+
+msgid "No Style"
+msgstr "Tanpa Gaya"
+
+msgid "Block"
+msgstr "Blok"
+
+msgid "Forced"
+msgstr "Paksakan"
+
+msgid "Indentation"
+msgstr "Indentasi"
+
+msgid "Page-Colors"
+msgstr "Warna Halaman"
+
+msgid "Background:"
+msgstr "Latar Belakang:"
+
+msgid "Left Indent:"
+msgstr "Indentasi Kiri:"
+
+msgid "First Line:"
+msgstr "Baris Pertama:"
+
+msgid "Character"
+msgstr "Karakter"
+
+msgid "Face:"
+msgstr "Bentuk:"
+
+msgid "Size:"
+msgstr "Ukuran:"
+
+msgid "Color:"
+msgstr "Warna:"
+
+msgid "Name of the Style is not unique"
+msgstr "Nama Gaya tidak unik"
+
+msgid "Do you really want do delete this Style?"
+msgstr "Apakah anda benar-benar ingin menghapus Gaya ini?"
+
+msgid "No"
+msgstr "Tidak"
+
+msgid "Yes"
+msgstr "Ya"
+
+msgid "Vertical Spaces"
+msgstr "Spasi Vertikal"
+
+msgid "Above:"
+msgstr "Atas:"
+
+msgid "Below:"
+msgstr "Bawah:"
+
+msgid "AFM-File available"
+msgstr "File AFM tersedia"
+
+msgid "Nodes"
+msgstr "Node"
+
+msgid "End Editing"
+msgstr "Selesai Mengedit"
+
+msgid "Add Nodes"
+msgstr "Tambahkan Node"
+
+msgid "Delete Nodes"
+msgstr "Hapus Node"
+
+msgid "Move Nodes"
+msgstr "Pindahkan Node"
+
+msgid "Move Control Points"
+msgstr "Pindahkan Titik Kontrol"
+
+msgid "Move Control Points independently"
+msgstr "Pindahkan Titik Kontrol secara independen"
+
+msgid "Move Control Points symmetrical"
+msgstr "Pindahkan Titik Kontrol secara simetris"
+
+msgid "Insert Bezier Curves"
+msgstr "Masukkan Kurva Bezier"
+
+msgid "New Entry"
+msgstr "Entri Baru"
+
+msgid "Scrapbooks (*.scs);; All Files (*)"
+msgstr "Scrapbook (*.scs);; Semua File (*)"
+
+msgid "Scrapbook"
+msgstr "Scrapbook"
+
+msgid "Load..."
+msgstr "Muatkan..."
+
+msgid "Object"
+msgstr "Obyek"
+
+msgid "Show Scrapbook"
+msgstr "Tampilkan Scrapbook"
+
+msgid "Hide Scrapbook"
+msgstr "Sembunyikan Scrapbook"
+
+msgid "Other Options"
+msgstr "Pilihan Lain"
+
+msgid "Save Contents on Exit"
+msgstr "Simpan saat Keluar"
+
+msgid "Preview"
+msgstr "Prapandang"
+
+msgid "Small"
+msgstr "Kecil"
+
+msgid "Medium"
+msgstr "Sedang"
+
+msgid "Big"
+msgstr "Besar"
+
+msgid "Edit Templates"
+msgstr "Edit Template"
+
+msgid "Apply Template..."
+msgstr "Terapkan Template..."
+
+msgid "Exit"
+msgstr "Keluar"
+
+msgid "Copy of "
+msgstr "Salinan dari"
+
+msgid "Name:"
+msgstr "Nama:"
+
+msgid "New Template"
+msgstr "Template Baru"
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "Templates..."
+msgstr "Template..."
+
+msgid "Template:"
+msgstr "Template:"
+
+msgid "Apply Template"
+msgstr "Terapkan Template"
+
+msgid "Template for this Page:"
+msgstr "Template untuk Halaman ini:"
+
+msgid "Do you really want do delete this Template?"
+msgstr "Apakah anda benar-benar ingin menghapus Template ini?"
+
+msgid "Left Page"
+msgstr "Halaman Kiri"
+
+msgid "Right Page"
+msgstr "Halaman Kanan"
+
+msgid "Display Frames"
+msgstr "Tampilkan Frame"
+
+msgid "Display Pages Side by Side"
+msgstr "Tampilkan Halaman Bersebelahan"
+
+msgid "Display"
+msgstr "Tampilan"
+
+msgid "Left Page first"
+msgstr "Halaman Kiri dahulu"
+
+msgid "Group"
+msgstr "Grup"
+
+msgid "Ungroup"
+msgstr "Lepaskan Grup"
+
+msgid "Do you really want to overwrite the File:\n%1 ?"
+msgstr "Apakah anda benar-benar ingin menimpa File:\n%1 ?"
+
+msgid "Show Frames"
+msgstr "Tampilkan Frame"
+
+msgid "Hide Frames"
+msgstr "Sembunyikan Frame"
+
+msgid "Template (Left Page):"
+msgstr "Template (Halaman Kiri):"
+
+msgid "Template (Right Page):"
+msgstr "Template (Halaman Kanan):"
+
+msgid "Manage Pictures"
+msgstr "Manajemen Gambar"
+
+msgid "Pictures"
+msgstr "Gambar"
+
+msgid "Goto"
+msgstr "Pergi ke"
+
+msgid "Search"
+msgstr "Cari"
+
+msgid "Path"
+msgstr "Lokasi"
+
+msgid "Print"
+msgstr "Cetak"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Margins:"
+msgstr "Garis Tepi:"
+
+msgid "Recent Documents:"
+msgstr "Dokumen Terbaru:"
+
+msgid "Recent Documents"
+msgstr "Dokumen Terbaru"
+
+msgid "Display unprintable Area in Margin Color"
+msgstr "Tampilkan Area yang tidak tercetak pada Warna Garis Tepi"
+
+msgid "Automatic Linespaceing:"
+msgstr "Spasi Baris Otomatis:"
+
+msgid "Distances"
+msgstr "Jarak"
+
+msgid "Menues"
+msgstr "Menu"
+
+msgid "Result"
+msgstr "Hasil"
+
+msgid "Search Results for: "
+msgstr "Hasil Pencarian untuk: "
+
+msgid "Select"
+msgstr "Pilih"
+
+msgid "Import..."
+msgstr "Impor..."
+
+msgid "Export..."
+msgstr "Ekspor..."
+
+msgid "Dynamic Color Bars"
+msgstr "Batang Warna Dinamis"
+
+msgid "Static Color Bars"
+msgstr "Batang Warna Statis"
+
+msgid "Color Management Settings"
+msgstr "Pengaturan Manajemen Warna"
+
+msgid "Activate Color Management"
+msgstr "Aktifkan Manajemen Warna"
+
+msgid "System Profiles"
+msgstr "Profil Sistem"
+
+msgid "Pictures:"
+msgstr "Gambar:"
+
+msgid "Solid Colors:"
+msgstr "Warna Solid:"
+
+msgid "Monitor:"
+msgstr "Monitor:"
+
+msgid "Printer:"
+msgstr "Printer:"
+
+msgid "Rendering Intents"
+msgstr "Intensitas Rendering"
+
+msgid "Rendering Intent:"
+msgstr "Intensitas Rendering"
+
+msgid "Perceptual"
+msgstr ""
+
+msgid "Relative Colorimetric"
+msgstr "Colorimetric Relatif"
+
+msgid "Saturation"
+msgstr "Saturasi"
+
+msgid "Absolute Colorimetric"
+msgstr "Colorimetric Absolut"
+
+msgid "Simulate Printer on the Screen"
+msgstr "Simulasikan Printer di Layar"
+
+msgid "Color Management..."
+msgstr "Manajemen Warna..."
+
+msgid "Input Profile:"
+msgstr "Profil Masukan:"
+
+msgid "No Title"
+msgstr "Tidak Berjudul"
+
+msgid "Unknown"
+msgstr "Tidak diketahui"
+
+msgid "Adjusting Colors"
+msgstr "Mengatur Warna"
+
+msgid "Scribus-Document"
+msgstr "Dokumen Scribus"
+
+msgid "Title:"
+msgstr "Judul:"
+
+msgid "Sorry, no Manual available!"
+msgstr "Maaf, tidak ada manual yang tersedia!"
+
+msgid "Embed all Fonts"
+msgstr "Masukkan semua Font"
+
+msgid "Embedding"
+msgstr "Memasukkan"
+
+msgid "Available Fonts:"
+msgstr "Font yang Tersedia:"
+
+msgid "Fonts to embed:"
+msgstr "Font yang dimasukkan:"
+
+msgid "Output to File:"
+msgstr "Output ke File:"
+
+msgid "Change..."
+msgstr "Ubah..."
+
+msgid "Compression"
+msgstr "Kompresi"
+
+msgid "Downsample Images to:"
+msgstr "Turunkan kualitas Gambar ke:"
+
+msgid "Compress Text and Vector Graphics"
+msgstr "Kompres Teks dan Grafik Vektor"
+
+msgid "File Options"
+msgstr "Pilihan File"
+
+msgid "Generate Thumbnails"
+msgstr "Buat Thumbnail"
+
+msgid "Resolution:"
+msgstr "Resolusi:"
+
+msgid "Create PDF-File"
+msgstr "Buat File PDF"
+
+msgid "X-Pos:"
+msgstr ""
+
+msgid "Y-Pos:"
+msgstr ""
+
+msgid "Page:"
+msgstr "Halaman:"
+
+msgid "Destination"
+msgstr "Tujuan"
+
+msgid "Type:"
+msgstr "Tipe:"
+
+msgid "Annotation Properties"
+msgstr "Properti Anotasi"
+
+msgid "Bookmarks"
+msgstr "Bookmark"
+
+msgid "Include Bookmarks"
+msgstr "Masukkan Bookmark"
+
+msgid "Manage Keyboard Shortcuts"
+msgstr "Atur Shortcut Keyboard"
+
+msgid "Action"
+msgstr "Aksi"
+
+msgid "Current Key"
+msgstr "Kunci saat ini"
+
+msgid "Select a Key for this Action"
+msgstr "Pilih Kunci untuk Aksi ini"
+
+msgid "No Key"
+msgstr "Tidak ada Kunci"
+
+msgid "User Defined Key"
+msgstr "Tentukan Kunci Sendiri"
+
+msgid "Set Key"
+msgstr "Set Kunci"
+
+msgid "This Key-Sequence is already in use"
+msgstr "Kunci ini telah digunakan"
+
+msgid "Keyboard Shortcuts..."
+msgstr "Shortcut Keyboard..."
+
+msgid "Smart Hyphen"
+msgstr ""
+
+msgid "Align Left"
+msgstr "Bariskan di Kiri"
+
+msgid "Align Right"
+msgstr "Bariskan di Kanan"
+
+msgid "Align Center"
+msgstr "Bariskan di Tengah"
+
+msgid "Insert Pagenumber"
+msgstr "Masukkan Nomor Halaman"
+
+msgid "Binding:"
+msgstr "Ikatan:"
+
+msgid "Left Margin"
+msgstr "Margin Kiri"
+
+msgid "Right Margin"
+msgstr "Margin Kanan"
+
+msgid "Corner Radius:"
+msgstr "Radius Sudut:"
+
+msgid "Save linked Text Frames as PDF-Articles"
+msgstr "Simpan Frame Teks terkait sebagai Artikel PDF"
+
+msgid "Enable Presentation Effects"
+msgstr "Bolehkan Efek Presentasi"
+
+msgid "Show Page Previews"
+msgstr "Tampilkan Prapandang Halaman"
+
+msgid "Display Duration:"
+msgstr "Durasi Tampilan:"
+
+msgid "Effect Duration:"
+msgstr "Durasi Efek:"
+
+msgid "Effect Type:"
+msgstr "Tipe Efek:"
+
+msgid "Moving Lines:"
+msgstr "Garis Bergerak:"
+
+msgid "from the:"
+msgstr "dari:"
+
+msgid "Direction:"
+msgstr "Arah:"
+
+msgid "No Effect"
+msgstr "Tidak ada Efek"
+
+msgid "Blinds"
+msgstr "Berkedip"
+
+msgid "Box"
+msgstr "Kotak"
+
+msgid "Dissolve"
+msgstr "Pecahkan"
+
+msgid "Glitter"
+msgstr ""
+
+msgid "Split"
+msgstr "Pisahkan"
+
+msgid "Wipe"
+msgstr "Seka"
+
+msgid "Inside"
+msgstr "Di Dalam"
+
+msgid "Outside"
+msgstr "Di Luar"
+
+msgid "Left to Right"
+msgstr "Kiri ke Kanan"
+
+msgid "Top to Bottom"
+msgstr "Atas ke Bawah"
+
+msgid "Bottom to Top"
+msgstr "Bawah ke Atas"
+
+msgid "Right to Left"
+msgstr "Kanan ke Kiri"
+
+msgid "Top-Left to Bottom-Right"
+msgstr "Atas-Kiri ke Bawah-Kanan"
+
+msgid "Extras"
+msgstr "Ekstra"
+
+msgid "Saves the current Document as PDF"
+msgstr "Simpan Dokumen sebagai PDF"
+
+msgid "Rounded Rectangle"
+msgstr "Segiempat  Tumpul"
+
+msgid "Align Text Left"
+msgstr "Bariskan Teks di Kiri"
+
+msgid "Align Text Right"
+msgstr "Bariskan Teks di Kanan"
+
+msgid "Align Text Center"
+msgstr "Bariskan Teks di Tengah"
+
+msgid "Align Text Block"
+msgstr "Bariskan Blok Teks"
+
+msgid "Endings:"
+msgstr "Akhir:"
+
+msgid "Edges:"
+msgstr "Tepi:"
+
+msgid "MiterJoin"
+msgstr ""
+
+msgid "BevelJoin"
+msgstr ""
+
+msgid "RoundJoin"
+msgstr ""
+
+msgid "FlatCap"
+msgstr ""
+
+msgid "SquareCap"
+msgstr ""
+
+msgid "RoundCap"
+msgstr ""
+
+msgid "Move Bookmark"
+msgstr "Pindahkan Bookmark"
+
+msgid "Insert Bookmark"
+msgstr "Masukkan Bookmark"
+
+msgid "Copy Page"
+msgstr "Salin Halaman"
+
+msgid "To the End"
+msgstr "Ke bagian Akhir"
+
+msgid "GUI"
+msgstr "GUI"
+
+msgid "Fontsize"
+msgstr "Ukuran Font"
+
+msgid "Apply Effect on all Pages"
+msgstr "Terapkan Efek ke seluruh Halaman"
+
+msgid "Print via other Command"
+msgstr "Cetak melalui Perintah lain"
+
+msgid "Command:"
+msgstr "Perintah:"
+
+msgid "Orientation:"
+msgstr "Orientasi:"
+
+msgid "First Pagenumber:"
+msgstr "Nomor Halaman Pertama:"
+
+msgid "Default Unit:"
+msgstr "Unit Default:"
+
+msgid "Send to Scrapbook"
+msgstr "Kirim ke Scrapbook"
+
+msgid "Left Point"
+msgstr "Titik Kiri"
+
+msgid "Endpoints"
+msgstr "Titik Akhir"
+
+msgid "Scaling"
+msgstr "Skala"
+
+msgid "Linespacing:"
+msgstr "Spasi Baris:"
+
+msgid "Character Settings"
+msgstr "Pengaturan Karakter"
+
+msgid "Length:"
+msgstr "Panjang:"
+
+msgid "Polygon Properties"
+msgstr "Properti Poligon"
+
+msgid "Corners:"
+msgstr "Sudut:"
+
+msgid "Convex Polygon"
+msgstr "Poligon Cembung"
+
+msgid "Factor:"
+msgstr "Faktor:"
+
+msgid "Edit Polygon"
+msgstr "Edit Poligon"
+
+msgid "Properties..."
+msgstr "Properti..."
+
+msgid "Lithuanian:"
+msgstr "Lithuania:"
+
+msgid "Measurements"
+msgstr "Pengukuran"
+
+msgid "Insert Polygons"
+msgstr "Masukkan Poligon"
+
+msgid "Rotation:"
+msgstr "Rotasi:"
+
+msgid "Loading..."
+msgstr "Memuat..."
+
+msgid "Convert to"
+msgstr "Konversikan ke"
+
+msgid "Text Frame"
+msgstr "Frame Teks"
+
+msgid "Picture Frame"
+msgstr "Frame Gambar"
+
+msgid "Polygon"
+msgstr "Poligon"
+
+msgid "Bezier Curve"
+msgstr "Kurva Bezier"
+
+msgid "Style"
+msgstr "Gaya"
+
+msgid "Modify Pathtext"
+msgstr "Modifikasi Teks Path"
+
+msgid "Show Curve"
+msgstr "Tampilkan Kurva"
+
+msgid "Startoffset:"
+msgstr "Offset awal:"
+
+msgid "Distance from Curve:"
+msgstr "Jarak dari Kurva:"
+
+msgid "Attach Text to Path"
+msgstr "Masukkan Teks ke Path"
+
+msgid "Layers"
+msgstr "Layer"
+
+msgid "Add a new Layer"
+msgstr "Tambahkan Layer Baru"
+
+msgid "Delete Layer"
+msgstr "Hapus Layer"
+
+msgid "Raise Layer"
+msgstr "Naikkan Layer"
+
+msgid "Lower Layer"
+msgstr "Turunkan Layer"
+
+msgid "Closes this Dialog"
+msgstr "Tutup Dialog ini"
+
+msgid "New Layer"
+msgstr "Layer Baru"
+
+msgid "Background"
+msgstr "Latar Belakang"
+
+msgid "Reset Control Points"
+msgstr "Reset Titik Kontrol"
+
+msgid "Reset this Control Points"
+msgstr "Reset Titik Kontrol ini"
+
+msgid "Opens a Polygon or cuts a Bezier Curve"
+msgstr "Buka Poligon atau cut Kurva Bezier"
+
+msgid "Closes this Bezier Curve"
+msgstr "Tutup Kurva Bezier ini"
+
+msgid "Show Layers"
+msgstr "Tampilkan Layer"
+
+msgid "Hide Layers"
+msgstr "Sembunyikan Layer"
+
+msgid "Sent to Layer"
+msgstr "Kirimkan ke Layer"
+
+msgid "Link"
+msgstr "Link"
+
+msgid "Text Field"
+msgstr "Field Teks"
+
+msgid "Button"
+msgstr "Tombol"
+
+msgid "Check Box"
+msgstr "Kotak Cek"
+
+msgid "Properties"
+msgstr "Properti"
+
+msgid "Tool-Tip:"
+msgstr "Tool-Tip:"
+
+msgid "Read Only"
+msgstr "Hanya-Baca"
+
+msgid "Visibility:"
+msgstr "Visibilitas:"
+
+msgid "Border"
+msgstr "Batas"
+
+msgid "Thin"
+msgstr "Tipis"
+
+msgid "Wide"
+msgstr "Lebar"
+
+msgid "Solid"
+msgstr "Solid"
+
+msgid "Dashed"
+msgstr "Putus-putus"
+
+msgid "Beveled"
+msgstr ""
+
+msgid "Inset"
+msgstr "Sisipan"
+
+msgid "Visible"
+msgstr "Tampak"
+
+msgid "Hidden"
+msgstr "Tersembunyi"
+
+msgid "No Print"
+msgstr "Tidak boleh Dicetak"
+
+msgid "No View"
+msgstr "Tidak boleh Dilihat"
+
+msgid "Appearance"
+msgstr "Penampilan"
+
+msgid "Text"
+msgstr "Teks"
+
+msgid "Text for Button Down"
+msgstr "Teks untuk Tombol Turun"
+
+msgid "Text for Roll Over"
+msgstr "Teks untuk Roll Over"
+
+msgid "Highlight"
+msgstr ""
+
+msgid "Invert"
+msgstr "Balik"
+
+msgid "Outlined"
+msgstr ""
+
+msgid "Push"
+msgstr "Tekan"
+
+msgid "Multi-Line"
+msgstr "Banyak-Garis"
+
+msgid "Password"
+msgstr "Kata kunci"
+
+msgid "Limit of"
+msgstr "Batas dari"
+
+msgid "Characters"
+msgstr "Karakter"
+
+msgid "Do Not Scroll"
+msgstr "Jangan Scroll"
+
+msgid "Do Not Spell Check"
+msgstr "Jangan Periksa Ejaan"
+
+msgid "Check Style:"
+msgstr "Periksa Gaya:"
+
+msgid "Check"
+msgstr "Periksa"
+
+msgid "Cross"
+msgstr "Silang"
+
+msgid "Diamond"
+msgstr "Berlian"
+
+msgid "Circle"
+msgstr "Lingkaran"
+
+msgid "Star"
+msgstr "Bintang"
+
+msgid "Square"
+msgstr "Persegi"
+
+msgid "Default is Checked"
+msgstr "Default Terpilih"
+
+msgid "Java Script"
+msgstr "Java Script"
+
+msgid "Go To"
+msgstr "Pergi Ke"
+
+msgid "Submit Form"
+msgstr "Kirim Formulir"
+
+msgid "Reset Form"
+msgstr "Reset Formulir"
+
+msgid "Flag is ignored for PDF-1.3"
+msgstr "Bendera diabaikan untuk PDF-1.3"
+
+msgid "Font for use with PDF-1.3:"
+msgstr "Font yang digunakan dengan PDF-1.3:"
+
+msgid "Required"
+msgstr "Dibutuhkan"
+
+msgid "Don't Export Value"
+msgstr "Jangan Mengekspor Nilai"
+
+msgid "Event:"
+msgstr "Kejadian:"
+
+msgid "Mouse Up"
+msgstr "Mouse Naik"
+
+msgid "Mouse Down"
+msgstr "Mouse Turun"
+
+msgid "Mouse Enter"
+msgstr "Mouse Enter"
+
+msgid "Mouse Exit"
+msgstr "Mouse Keluar"
+
+msgid "On Focus"
+msgstr "Saat Fokus"
+
+msgid "On Blur"
+msgstr "Saat Blur"
+
+msgid "Script:"
+msgstr "Skrip:"
+
+msgid "Field is formatted as:"
+msgstr "Field diformat sebagai:"
+
+msgid "Plain"
+msgstr "Biasa"
+
+msgid "Number"
+msgstr "Nomor"
+
+msgid "Percentage"
+msgstr "Persentasi"
+
+msgid "Date"
+msgstr "Tanggal"
+
+msgid "Time"
+msgstr "Waktu"
+
+msgid "Custom"
+msgstr "Atur Sendiri"
+
+msgid "Number Format"
+msgstr "Format Penomoran"
+
+msgid "Decimals:"
+msgstr "Desimal:"
+
+msgid "Use Currency Symbol"
+msgstr "Gunakan Simbol Mata Uang"
+
+msgid "Prepend Currency Symbol"
+msgstr ""
+
+msgid "Formatting"
+msgstr "Pengaturan"
+
+msgid "Percent Format"
+msgstr "Format Persen"
+
+msgid "Date Format"
+msgstr "Format Tanggal"
+
+msgid "Time Format"
+msgstr "Format Waktu"
+
+msgid "Custom Scripts"
+msgstr "Skrip Sendiri"
+
+msgid "Format:"
+msgstr "Format:"
+
+msgid "Edit..."
+msgstr "Edit..."
+
+msgid "Combo Box"
+msgstr "Kotak Combo"
+
+msgid "List Box"
+msgstr "Kotak Daftar"
+
+msgid "Keystroke:"
+msgstr "Kunci:"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Value is not validated"
+msgstr "Nilai tidak divalidasi"
+
+msgid "Value must be greater than or equal to:"
+msgstr "Nilai harus lebih besar atau sama dengan:"
+
+msgid "and less or equal to:"
+msgstr "dan kurang dari atau sama dengan:"
+
+msgid "Custom validate script:"
+msgstr "Skrip divalidasi sendiri:"
+
+msgid "Value is not calculated"
+msgstr "Nilai tidak dihitung"
+
+msgid "Value is the"
+msgstr "Nilainya adalah"
+
+msgid "sum"
+msgstr "jumlah"
+
+msgid "product"
+msgstr "perkalian"
+
+msgid "average"
+msgstr "rata-rata"
+
+msgid "minimum"
+msgstr "minimum"
+
+msgid "maximum"
+msgstr "maksimum"
+
+msgid "of the following fields:"
+msgstr "dari field berikut:"
+
+msgid "Custom calculation script:"
+msgstr "Skrip perhitungan sendiri:"
+
+msgid "Calculate"
+msgstr "Hitung"
+
+msgid "Validate"
+msgstr "Validasi"
+
+msgid "Enter a comma separated list of Fields here"
+msgstr "Masukkan Field yang dipisahkan koma disini"
+
+msgid "Example:"
+msgstr "Contoh:"
+
+msgid "Selection Change"
+msgstr "Perubahan Pilihan"
+
+msgid "Use Icons"
+msgstr "Gunakan Ikon"
+
+msgid "Remove"
+msgstr "Hapus"
+
+msgid "Pressed"
+msgstr "Ditekan"
+
+msgid "Roll Over"
+msgstr ""
+
+msgid "Icon Placement..."
+msgstr "Peletakan Ikon..."
+
+msgid "Editable"
+msgstr "Bisa diedit"
+
+msgid "Submit to URL:"
+msgstr "Kirim ke URL:"
+
+msgid "Submit Data as HTML"
+msgstr "Kirim Data sebagai HTML"
+
+msgid "Layout:"
+msgstr "Tataletak:"
+
+msgid "Caption only"
+msgstr "Hanya Caption"
+
+msgid "Icon only"
+msgstr "Hanya Ikon"
+
+msgid "Caption below Icon"
+msgstr "Caption di bawah Ikon"
+
+msgid "Caption above Icon"
+msgstr "Caption di atas Ikon"
+
+msgid "Caption right to Icon"
+msgstr "Caption di kanan Ikon"
+
+msgid "Caption left to Icon"
+msgstr "Caption di kiri Ikon"
+
+msgid "Caption overlays Icon"
+msgstr "Caption melapisi Ikon"
+
+msgid "Scale:"
+msgstr "Skala:"
+
+msgid "Always"
+msgstr "Selalu"
+
+msgid "When Icon is too small"
+msgstr "Jika Ikon terlalu kecil"
+
+msgid "When Icon is too big"
+msgstr "Jika Ikon terlalu besar"
+
+msgid "Never"
+msgstr "Tidak pernah"
+
+msgid "Scale How:"
+msgstr ""
+
+msgid "Proportional"
+msgstr "Proporsional"
+
+msgid "Non Proportional"
+msgstr "Tidak Proporsional"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "You need at least the Icon for Normal to use Icons for Buttons"
+msgstr "Anda membutuhkan setidaknya Ikon untuk Normal untuk menggunakan Ikon untuk Tombol "
+
+msgid "Save and Exit"
+msgstr "Simpan dan Keluar"
+
+msgid "Exit without Saving"
+msgstr "Keluar tanpa Simpan"
+
+msgid "Get Field Names"
+msgstr "Dapatkan Nama Field"
+
+msgid "JavaScripts (*.js);; All Files (*)"
+msgstr "JavaScripts (*.js);; Semua File (*)"
+
+msgid "Pick..."
+msgstr "Ambil..."
+
+msgid "Export Range"
+msgstr "Ekspor Cakupan"
+
+msgid "All Pages"
+msgstr "Semua Halaman"
+
+msgid "From:"
+msgstr "Dari:"
+
+msgid "Insert PDF-Fields"
+msgstr "Masukkan Field-PDF"
+
+msgid "Undo"
+msgstr "Batal"
+
+msgid "Redo"
+msgstr "Redo"
+
+msgid "Select Fields"
+msgstr "Pilih Field"
+
+msgid "Available Fields"
+msgstr "Field yang Tersedia"
+
+msgid "Selected Fields"
+msgstr "Field Terpilih"
+
+msgid "Field Properties"
+msgstr "Properti Field"
+
+msgid "Global JavaScripts"
+msgstr "JavaScript Global"
+
+msgid "Add..."
+msgstr "Tambahkan..."
+
+msgid "New Script:"
+msgstr "Skrip Baru:"
+
+msgid "New Script"
+msgstr "Skrip Baru"
+
+msgid "Insert PDF-Annotations"
+msgstr "Masukkan Anotasi PDF"
+
+msgid "Import Data"
+msgstr "Impor Data"
+
+msgid "Import Data from:"
+msgstr "Impor Data dari:"
+
+msgid "Undo Object Change"
+msgstr "Batalkan Perubahan Obyek"
+
+msgid "Undo Object Move"
+msgstr "Batalkan Perubahan Obyek"
+
+msgid "Undo Delete Object"
+msgstr "Batalkan Hapus obyek"
+
+msgid "Compress File"
+msgstr "Kompres File"
+
+msgid "Inches (in)"
+msgstr "Inci (in)"
+
+msgid "Picas (p)"
+msgstr "Picas (p)"
+
+msgid "Show Template Names"
+msgstr "Pilih Nama Template"
+
+msgid "Arrange Pages"
+msgstr "Susun Halaman"
+
+msgid "Available Templates:"
+msgstr "Template yang Tersedia:"
+
+msgid "Document Pages:"
+msgstr "Halaman Dokumen:"
+
+msgid "Hide Page Palette"
+msgstr "Sembunyikan Palet Halaman"
+
+msgid "Show Page Palette"
+msgstr "Tampilkan Palet Halaman"
+
+msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
+msgstr "Seret Halaman atau Template ke Tong Sampah untuk menghapusnya."
+
+msgid "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below."
+msgstr "Disini semua Template anda, untuk membuat Halaman baru\nGeser Template ke Tampilan Halaman di bawah ini."
+
+msgid "Here you can see all Pages of your Document."
+msgstr "Disini anda bisa melihat semua Halaman Dokumen anda."
+
+msgid "Free Scaling"
+msgstr "Skala Bebas"
+
+msgid "Scale to Frame Size"
+msgstr "Skala ke Ukuran Halaman"
+
+msgid "Hyphenate Text"
+msgstr ""
+
+msgid "Hyphenator..."
+msgstr ""
+
+msgid "General..."
+msgstr "Umum..."
+
+msgid "English"
+msgstr "Inggris"
+
+msgid "German"
+msgstr "Jerman"
+
+msgid "French"
+msgstr "Perancis"
+
+msgid "Italian"
+msgstr "Italia"
+
+msgid "Spanish"
+msgstr "Spanyol"
+
+msgid "Possible Hyphenation"
+msgstr ""
+
+msgid "Accept"
+msgstr "Terima"
+
+msgid "Skip"
+msgstr "Lewati"
+
+msgid "Hyphenator Settings"
+msgstr ""
+
+msgid "Check during Typing"
+msgstr "Periksa selama Mengetik"
+
+msgid "Enables automatic checking of your Text during Typing."
+msgstr "Bolehkan Pemeriksaan otomatis Teks anda selama Mengetik."
+
+msgid "Fully Automatic"
+msgstr "Benar-benar Otomatis"
+
+msgid "Language:"
+msgstr "Bahasa:"
+
+msgid "Smallest Word:"
+msgstr "Kata Terpendek:"
+
+msgid "This is the length of the smallest word to be hyphenated."
+msgstr ""
+
+msgid "If you uncheck this you will get an Dialog\neverytime a possible Hyphenation is found."
+msgstr ""
+
+msgid "Windows"
+msgstr "Window"
+
+msgid "Cascade"
+msgstr ""
+
+msgid "Tile"
+msgstr ""
+
+msgid "&Restore"
+msgstr "&Kembalikan"
+
+msgid "&Move"
+msgstr "&Pindahkan"
+
+msgid "Mi&nimize"
+msgstr "Mi&nimalkan"
+
+msgid "Minimize"
+msgstr "Minimalkan"
+
+msgid "Ma&ximize"
+msgstr "Maksi&malkan"
+
+msgid "Maximize"
+msgstr "Maksimalkan"
+
+msgid "System Menu"
+msgstr "Menu Sistem"
+
+msgid "&Close"
+msgstr "&Tutup"
+
+msgid "Line up"
+msgstr ""
+
+msgid "Restore Down"
+msgstr ""
+
+msgid "Document"
+msgstr "Dokumen"
+
+msgid "Name \"%1\" isn't unique.\nPlease choose another."
+msgstr "Nama \"%1\" tidak unik.\nSilakan pilih nama lain."
+
+msgid "Can't write the File: \n%1"
+msgstr "Tidak dapat menulis ke File: \n%1"
+
+msgid "Russian"
+msgstr "Rusia"
+
+msgid "Printing failed!"
+msgstr "Pencetakan gagal!"
+
+msgid "Lock"
+msgstr "Kunci"
+
+msgid "Unlock"
+msgstr "Buka Kunci"
+
+msgid "Moves to your Document Directory.\nThis can be set in the Preferences."
+msgstr "Pindah ke Direktori Dokumen anda.\nHal ini bisa diatur di Preferensi."
+
+msgid "Choose a Directory"
+msgstr "Pilih Direktori"
+
+msgid "Paths"
+msgstr ""
+
+msgid "Documents:"
+msgstr "Dokumen:"
+
+msgid "One directory up"
+msgstr "Naik satu direktori"
+
+msgid "Create New Folder"
+msgstr "Buat Folder Baru"
+
+msgid "List View"
+msgstr "Tampilan Daftar"
+
+msgid "Detail View"
+msgstr "Tampilan Detail"
+
+msgid "Preview File Contents"
+msgstr "Prapandang Isi File"
+
+msgid "Hide Grid"
+msgstr "Sembunyikan Grid"
+
+msgid "Show Grid"
+msgstr "Tampilkan Grid"
+
+msgid "Manage Guides..."
+msgstr "Atur Pemandu..."
+
+msgid "Manage Guides"
+msgstr "Atur Pemandu"
+
+msgid "Vertical Guides"
+msgstr "Pemandu Vertikal"
+
+msgid "Horizontal Guides"
+msgstr "Pemandu Horisontal"
+
+msgid "Add"
+msgstr "Tambahkan"
+
+msgid "Horizontal Gradient"
+msgstr "Gradien Horisontal"
+
+msgid "Vertical Gradient"
+msgstr "Gradien Vertikal"
+
+msgid "Diagonal Gradient"
+msgstr "Gradien Diagonal"
+
+msgid "CrossDiagonal Gradient"
+msgstr "Gradien Diagonal Silang"
+
+msgid "Radial Gradient"
+msgstr "Gradien Radial"
+
+msgid "Polish:"
+msgstr "Polandia:"
+
+msgid "User Guides Color:"
+msgstr "Warna Pemandu Pengguna"
+
+msgid "Guide Snap Distance:"
+msgstr "Jarak Kedekatan Pemandu:"
+
+msgid "Use PDF-1.4 Transparency Features"
+msgstr "Gunakan Fitur Transparansi PDF-1.4"
+
+msgid "Opacity:"
+msgstr ""
+
+msgid "Font Name"
+msgstr "Nama Font"
+
+msgid "Use Font"
+msgstr "Gunakan Font"
+
+msgid "Available Fonts"
+msgstr "Font yang tersedia"
+
+msgid "Replacement"
+msgstr "Penggantian"
+
+msgid "Font Substitutions"
+msgstr "Substitusi Font"
+
+msgid "Additional Paths"
+msgstr "Path Tambahan"
+
+msgid "Screen"
+msgstr "Layar"
+
+msgid "Output intended for:"
+msgstr "Keluaran dikhususkan untuk:"
+
+msgid "Use ICC-Profile"
+msgstr "Gunakan Profil ICC"
+
+msgid "Profiles"
+msgstr "Profil"
+
+msgid "Rendering-Intent:"
+msgstr "Intensitas Rendering"
+
+msgid "Don't use embedded Profiles"
+msgstr "Jangan gunakan Profil yang dimasukkan"
+
+msgid "Options..."
+msgstr "Pilihan..."
+
+msgid "Option"
+msgstr "Pilihan"
+
+msgid "Value"
+msgstr "Nilai"
+
+msgid "Printing Mode"
+msgstr "Mode Pencetakan"
+
+msgid "Page Set"
+msgstr "Ketetapan Halaman"
+
+msgid "Mirror"
+msgstr "Balik"
+
+msgid "N-Up Printing"
+msgstr ""
+
+msgid "Page per Sheet"
+msgstr "Halaman per Lembar"
+
+msgid "Pages per Sheet"
+msgstr "Halaman per Lembar"
+
+msgid "Even Pages only"
+msgstr "Halaman Genap saja"
+
+msgid "Odd Pages only"
+msgstr "Halaman Ganjil saja"
+
+msgid "PDF/X-3 Output Intent"
+msgstr ""
+
+msgid "Info String:"
+msgstr "Kalimat Informasi:"
+
+msgid "Output Profile:"
+msgstr "Profil Keluaran:"
+
+msgid "Use Encryption"
+msgstr "Gunakan Enkripsi"
+
+msgid "Passwords"
+msgstr "Katakunci"
+
+msgid "User:"
+msgstr "Pengguna:"
+
+msgid "Owner:"
+msgstr "Pemilik:"
+
+msgid "Settings"
+msgstr "Pengaturan"
+
+msgid "Allow Printing the Document"
+msgstr "Bolehkan Pencetakan Dokumen"
+
+msgid "Allow Changing the Document"
+msgstr "Bolehkan Perubahan Dokumen"
+
+msgid "Copying Text and Graphics is allowed"
+msgstr "Bolehkan Penyalinan Teks dan Grafik"
+
+msgid "Adding Annotations and Fields is allowed"
+msgstr "Bolehkan Penambahan Anotasi dan Field"
+
+msgid "Security"
+msgstr "Keamanan"
+
+msgid "Printer Options"
+msgstr "Pilihan Printer"
+
+msgid "Element"
+msgstr "Elemen"
+
+msgid "X-Pos+:"
+msgstr ""
+
+msgid "Y-Pos+:"
+msgstr ""
+
+msgid "Horiz. Scale:"
+msgstr "Skala Horisontal:"
+
+msgid "Vert. Scale:"
+msgstr "Skala Vertikal:"
+
+msgid "Show Bookmarks"
+msgstr "Tampilkan Bookmark"
+
+msgid "Hide Bookmarks"
+msgstr "Sembunyikan Bookmark"
+
+msgid "Collect for Output..."
+msgstr "Kumpulkan Keluaran..."
+
+msgid "Danish"
+msgstr ""
+
+msgid "Danish:"
+msgstr ""
+
+msgid "Lock Guides"
+msgstr "Kunci Pemandu"
+
+msgid "Mirror Page(s) horizontal"
+msgstr "Balik Halaman horisontal"
+
+msgid "Mirror Page(s) vertical"
+msgstr "Balik Halaman vertikal"
+
+msgid "Rotation"
+msgstr "Rotasi"
+
+msgid "by:"
+msgstr "oleh:"
+
+msgid "Edit Shape..."
+msgstr "Edit Bentuk..."
+
+msgid "Round\nCorners:"
+msgstr ""
+
+msgid "Distance of Text"
+msgstr "Jarak Teks"
+
+msgid "Custom Spacing"
+msgstr "Spasi Sendiri"
+
+msgid "Character:"
+msgstr "Karakter:"
+
+msgid "Line:"
+msgstr "Baris:"
+
+msgid "Level"
+msgstr "Level"
+
+msgid "Geometry"
+msgstr "Geometri"
+
+msgid "Document:"
+msgstr "Dokumen:"
+
+msgid "has been changed since the last save."
+msgstr "telah dirubah sejak terakhir disimpan."
+
+msgid "Insert Page..."
+msgstr "Masukkan Halaman..."
+
+msgid "Import a Page"
+msgstr "Impor Halaman"
+
+msgid "Document to load:"
+msgstr "Dokumen yang dimuat:"
+
+msgid "Document contains: 0 Page(s)"
+msgstr "Dokumen berisi: 0 Halaman"
+
+msgid "Import Page Nr:"
+msgstr "Impor Nomor Halaman:"
+
+msgid "Import"
+msgstr "Impor"
+
+msgid "Document contains: %1 Page(s)"
+msgstr "Dokumen berisi: %1 Halaman"
+
+msgid "Advanced Options..."
+msgstr "Pilihan Advanced"
+
+msgid "Advanced Options"
+msgstr "Pilihan Advanced"
+
+msgid "Apply ICC-Profiles"
+msgstr "Terapkan Profil ICC"
+
+msgid "Mark Colors out of Gamut"
+msgstr ""
+
+msgid "Scale Picture to Frame Size"
+msgstr "Ubah ukuran Gambar ke Ukuran Frame"
+
+msgid "Combine Polygons"
+msgstr "Kombinasikan Poligon"
+
+msgid "Split Polygon"
+msgstr "Pisah Poligon"
+
+msgid "Convert to Polygons"
+msgstr "Konversikan ke Poligon"
+
+msgid "Websave RGB"
+msgstr ""
+
+msgid "Adjust Display Size"
+msgstr "Sesuaikan Ukuran Display"
+
+msgid "To adjust the Display drag the Ruler below with the Slider."
+msgstr "Untuk menyesuaikan Display, seret Penggaris di bawah ini dengan Slider."
+
+msgid "Show PDF-Tools"
+msgstr "Tampilkan Alat PDF"
+
+msgid "Hide PDF-Tools"
+msgstr "Sembunyikan Alat PDF"
+
+msgid "Shears the Path horizotal to the right"
+msgstr ""
+
+msgid "Shears the Path horizotal to the left"
+msgstr ""
+
+msgid "Shears the Path vertical up"
+msgstr ""
+
+msgid "Shears the Path vertical down"
+msgstr ""
+
+msgid "Line Styles..."
+msgstr "Gaya Garis..."
+
+msgid "Initializing Plugins"
+msgstr "Inisialisasi Plugin"
+
+msgid "Reading Scrapbook"
+msgstr "Membaca Scrapbook"
+
+msgid "Setting up Shortcuts"
+msgstr "Mengatur Shortcut"
+
+msgid "Reading Preferences"
+msgstr "Membaca Preferensi"
+
+msgid "Init Hyphenator"
+msgstr ""
+
+msgid "Getting ICC-Profiles"
+msgstr "Dapatkan Profil ICC"
+
+msgid "Searching for Fonts"
+msgstr "Mencari Font"
+
+msgid "Print Preview"
+msgstr "Tampilan Prapandang"
+
+msgid "Antialias Text"
+msgstr "Antialias Teks"
+
+msgid "Antialias Graphics"
+msgstr "Antialias Grafik"
+
+msgid "Russian:"
+msgstr "Rusia:"
+
+msgid "Loading:"
+msgstr "Memuat:"
+
+msgid "Autosave"
+msgstr "Simpan otomatis"
+
+msgid "Enabled"
+msgstr "Bolehkan"
+
+msgid "use Bounding Box"
+msgstr "gunakan Kotak Bounding"
+
+msgid "Czech:"
+msgstr "Cechnya:"
+
+msgid "Norwegian:"
+msgstr "Norwegia:"
+
+msgid "Select new Font:"
+msgstr "Pilih Font baru:"
+
+msgid "Insert Special"
+msgstr "Masukkan Spesial"
+
+msgid "Select Character"
+msgstr "Pilih Karakter"
+
+msgid "Insert"
+msgstr "Masukkan"
+
+msgid "Save Page as SVG..."
+msgstr "Simpan Halaman sebagai SVG..."
+
+msgid "SVG-Images (*.svg);; All Files (*)"
+msgstr "Gambar SVG (*.svg);; Semua File (*)"
+
+msgid "Solid Line"
+msgstr "Garis Solid"
+
+msgid "Dashed Line"
+msgstr "Garis Putus-putus"
+
+msgid "Dotted Line"
+msgstr "Garis Titik-titik"
+
+msgid "Dash Dot Line"
+msgstr "Garis Putus Titik"
+
+msgid "Dash Dot Dot Line"
+msgstr "Garis Putus Titik Titik"
+

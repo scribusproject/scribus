@@ -1,0 +1,6 @@
+This folder contains some Example Scripts:
+
+Sample1.py	=	Very simple Example, creates a Docmument with some Objects, saves the Document and closes it.
+Calendar.py	=	Creates a Calendar of the current Month in the current Document as a Group
+
+Copy these Examples to any location you like and play with them.

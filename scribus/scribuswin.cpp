@@ -14,15 +14,21 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
+#include <qfileinfo.h>
+#include <qdir.h>
 #include "scribuswin.h"
 #include "scribuswin.moc"
+#include "scribusXml.h"
+#include "scribus.h"
+
 extern QPixmap loadIcon(QString nam);
+extern ScribusApp* ScApp;
+extern int moveFile(QString source, QString target);
 
 ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* ddoc)
-											: QMainWindow(parent, "", WDestructiveClose)
+		: QMainWindow(parent, "", WDestructiveClose)
 {
-  setIcon(loadIcon("AppIcon.xpm"));
+	setIcon(loadIcon("AppIcon2.png"));
 	doc = ddoc;
 	muster = NULL;
 	NrItems = 0;
@@ -35,36 +41,63 @@ void ScribusWin::setView(ScribusView* dview)
 	view = dview;
 }
 
+void ScribusWin::slotAutoSave()
+{
+	if ((doc->hasName) && (doc->isModified()))
+	{
+		moveFile(doc->DocName, doc->DocName+".bak");
+		QString fn = doc->DocName;
+		QFileInfo fi(fn);
+		QDir::setCurrent(fi.dirPath(true));
+		ScriXmlDoc *ss = new ScriXmlDoc();
+		if (ss->WriteDoc(fn, doc, view, 0))
+		{
+			doc->setUnModified();
+			setCaption(doc->DocName);
+			qApp->processEvents();
+			emit AutoSaved();
+		}
+		delete ss;
+	}
+}
+
 void ScribusWin::closeEvent(QCloseEvent *ce)
 {
 	if (doc->isModified())
-  	{
-  	int exit=QMessageBox::information(this,
-  																	tr("Warning"),
-                                    tr("Document:")+" "+doc->DocName+"\n"+tr("has been changed since the last save."),
-                                    tr("Save Now"),
-                                    tr("Cancel"),
-                                    tr("Leave Anyway"),
-                                    0, 1);
- 	 switch (exit)
-  		{
-  		case 0:
-  			emit SaveAndClose();
-				ce->accept();
-  			break;
-  		case 1:
-  			break;
-  		case 2:
-				emit Schliessen();
-				ce->accept();
-  			break;
-  		}
-		}
-	else
+	{
+		QString CloseTxt;
+		if (ScApp->singleClose)
+			CloseTxt = tr("Leave Anyway");
+		else
+			CloseTxt = tr("Close Anyway");
+		int exit=QMessageBox::information(this,
+		                                  tr("Warning"),
+		                                  tr("Document:")+" "+doc->DocName+"\n"+ tr("has been changed since the last save."),
+		                                  tr("Save Now"),
+		                                  tr("Cancel"),
+		                                  CloseTxt,
+		                                  0, 1);
+		switch (exit)
 		{
+		case 0:
+			if (ScApp->DoSaveClose())
+				ce->accept();
+			else
+				return;
+			break;
+		case 1:
+			break;
+		case 2:
+			emit Schliessen();
+			ce->accept();
+			break;
+		}
+	}
+	else
+	{
 		emit Schliessen();
 		ce->accept();
-		}
+	}
 }
 
 void ScribusWin::CloseCMSProfiles()
@@ -83,33 +116,44 @@ void ScribusWin::CloseCMSProfiles()
 void ScribusWin::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 {
 #ifdef HAVE_CMS
-	QString pfad = PREL;
-	pfad += "/lib/scribus/profiles/";
 	doc->DocInputProf = cmsOpenProfileFromFile(InPo[doc->CMSSettings.DefaultInputProfile2], "r");
-	doc->DocOutputProf = cmsOpenProfileFromFile(pfad + MoPo[doc->CMSSettings.DefaultMonitorProfile], "r");
-	doc->DocPrinterProf = cmsOpenProfileFromFile(pfad + PrPo[doc->CMSSettings.DefaultPrinterProfile], "r");
+	doc->DocOutputProf = cmsOpenProfileFromFile(MoPo[doc->CMSSettings.DefaultMonitorProfile], "r");
+	doc->DocPrinterProf = cmsOpenProfileFromFile(PrPo[doc->CMSSettings.DefaultPrinterProfile], "r");
+	if ((doc->DocInputProf == NULL) || (doc->DocOutputProf == NULL) || (doc->DocPrinterProf == NULL))
+	{
+		doc->CMSSettings.CMSinUse = false;
+		return;
+	}
 	int dcmsFlags = 0;
+	int dcmsFlags2 = cmsFLAGS_NOTPRECALC;
 	if (Gamut)
 		dcmsFlags |= cmsFLAGS_GAMUTCHECK;
 	else
 		dcmsFlags |= cmsFLAGS_SOFTPROOFING;
+#ifdef cmsFLAGS_BLACKPOINTCOMPENSATION
+	if (doc->CMSSettings.BlackPoint)
+	{
+		dcmsFlags2 |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+		dcmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+	}
+#endif
 	stdProof = cmsCreateProofingTransform(doc->DocInputProf, TYPE_RGB_16,
-														 				 		doc->DocOutputProf, TYPE_RGB_16,
-														 				 		doc->DocPrinterProf,
-														 				 		IntentPrinter,
-														 				 		IntentMonitor, dcmsFlags);
+	                                      doc->DocOutputProf, TYPE_RGB_16,
+	                                      doc->DocPrinterProf,
+	                                      IntentPrinter,
+	                                      IntentMonitor, dcmsFlags);
 	stdTrans = cmsCreateTransform(doc->DocInputProf, TYPE_RGB_16,
-														 	  doc->DocOutputProf, TYPE_RGB_16,
-														 	  IntentMonitor,
-														 	  cmsFLAGS_NOTPRECALC);
+	                              doc->DocOutputProf, TYPE_RGB_16,
+	                              IntentMonitor,
+	                              dcmsFlags2);
 	stdProofImg = cmsCreateProofingTransform(doc->DocInputProf, TYPE_RGBA_8,
-														 				 			 doc->DocOutputProf, TYPE_RGBA_8,
-														 				 			 doc->DocPrinterProf,
-														 				 			 IntentPrinter,
-														 				 			 IntentMonitor, dcmsFlags);
+	              doc->DocOutputProf, TYPE_RGBA_8,
+	              doc->DocPrinterProf,
+	              IntentPrinter,
+	              IntentMonitor, dcmsFlags);
 	stdTransImg = cmsCreateTransform(doc->DocInputProf, TYPE_RGBA_8,
-														 	  	 doc->DocOutputProf, TYPE_RGBA_8,
-														 	  	 IntentMonitor,
-														 	  	 cmsFLAGS_NOTPRECALC);
+	                                 doc->DocOutputProf, TYPE_RGBA_8,
+	                                 IntentMonitor,
+	                                 dcmsFlags2);
 #endif
 }

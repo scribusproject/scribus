@@ -2,7 +2,7 @@
 
 SUBDIRS = scribus 
 
-EXTRA_DIST = scribus.kdevprj AUTHORS COPYING ChangeLog INSTALL README TODO scribus.lsm scribus.desktop 
+EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL README TODO scribus.lsm scribus.desktop 
 
 ####### kdevelop will overwrite this part!!! (end)############
 # not a GNU package. You can remove this line, if 

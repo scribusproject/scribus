@@ -4,7 +4,6 @@ extern QPixmap loadIcon(QString nam);
 
 #include <qimage.h>
 #include <qpixmap.h>
-#include <qstringlist.h>
 
 static const char* const image100_data[] = {
 "48 48 4 1",
@@ -62,12 +61,12 @@ static const char* const image100_data[] = {
 "................................................"};
 
 
-DmF::DmF( QWidget* parent, QString fon, SCFonts &avail )
+DmF::DmF( QWidget* parent, QString fon, preV *Prefs )
     : QDialog( parent, "mfont", true, 0 )
 {
     QPixmap image0( ( const char** ) image100_data );
-    setCaption( tr( "Missing Font" ) );
- 		setIcon(loadIcon("AppIcon.xpm"));
+	setCaption( tr("Missing Font"));
+ 	setIcon(loadIcon("AppIcon.png"));
     MissingFontLayout = new QHBoxLayout( this );
     MissingFontLayout->setSpacing( 0 );
     MissingFontLayout->setMargin( 10 );
@@ -75,31 +74,19 @@ DmF::DmF( QWidget* parent, QString fon, SCFonts &avail )
     Layout1->setSpacing( 12 );
     Layout1->setMargin( 0 );
     TextLabel1 = new QLabel( this, "TextLabel1" );
-    TextLabel1->setText(tr("The Font %1 is not installed.").arg(fon));
+	TextLabel1->setText( tr("The Font %1 is not installed.").arg(fon) );
     Layout1->addMultiCellWidget( TextLabel1, 0, 0, 1, 2 );
-    PixmapLabel1 = new QLabel( this, "PixmapLabel1" );
-    PixmapLabel1->setMinimumSize( QSize( 50, 50 ) );
-    PixmapLabel1->setMaximumSize( QSize( 50, 50 ) );
-    PixmapLabel1->setPixmap( image0 );
-    PixmapLabel1->setScaledContents( true );
-    Layout1->addWidget( PixmapLabel1, 1, 0 );
-    TextLabel4 = new QLabel( this, "TextLabel4" );
-    TextLabel4->setText( tr( "Use" ) );
-    Layout1->addWidget( TextLabel4, 1, 1 );
-    Replace = new QComboBox( true, this, "Replace" );
-    Replace->setMinimumSize( QSize( 175, 24 ) );
-		Replace->setEditable(false);
-		QStringList rlist;
-		rlist.clear();
-    SCFontsIterator it(avail);
-    for ( ; it.current(); ++it)
-    	{
-			if (it.current()->UseFont)
-    		rlist.append(it.currentKey());
-    	}
-		rlist.sort();
-		Replace->insertStringList(rlist);
-		Ersatz = rlist[0];
+   	PixmapLabel1 = new QLabel( this, "PixmapLabel1" );
+   	PixmapLabel1->setMinimumSize( QSize( 50, 50 ) );
+   	PixmapLabel1->setMaximumSize( QSize( 50, 50 ) );
+   	PixmapLabel1->setPixmap( image0 );
+   	PixmapLabel1->setScaledContents( true );
+   	Layout1->addWidget( PixmapLabel1, 1, 0 );
+   	TextLabel4 = new QLabel( this, "TextLabel4" );
+   	TextLabel4->setText( tr( "Use" ) );
+   	Layout1->addWidget( TextLabel4, 1, 1 );
+    Replace = new FontCombo(this, Prefs);
+	Ersatz = Replace->text(0);
     Layout1->addWidget( Replace, 1, 2 );
     TextLabel6 = new QLabel( this, "TextLabel6" );
     TextLabel6->setText( tr( "instead" ) );
@@ -110,10 +97,9 @@ DmF::DmF( QWidget* parent, QString fon, SCFonts &avail )
     MissingFontLayout->addLayout( Layout1 );
 
     // signals and slots connections
-    connect( Replace, SIGNAL( activated(const QString&) ), this, SLOT( NeuerFont(const QString&) ) );
     connect( PushButton1, SIGNAL( clicked() ), this, SLOT( accept() ) );
+    connect( Replace, SIGNAL( activated(const QString&) ), this, SLOT( NeuerFont(const QString&) ) );
 }
-
 
 void DmF::NeuerFont(const QString& e)
 {

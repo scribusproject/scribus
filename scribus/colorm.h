@@ -13,44 +13,66 @@
 #include <qlayout.h>
 #include <qlistbox.h>
 #include <qpushbutton.h>
+#include <qgroupbox.h>
+#include <qtoolbutton.h>
+#include <qlabel.h>
+#include <qpopupmenu.h>
 #include <qcolor.h>
 #include "scribusdoc.h"
 #include "query.h"
 
 class Farbmanager : public QDialog
 { 
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    Farbmanager( QWidget* parent, CListe doco );
-    ~Farbmanager() {};
-  	CListe EditColors;
-  	QMap<QString,QString> Ersatzliste;
+	Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolSet, QStringList Cust );
+	~Farbmanager() {};
+	CListe EditColors;
+	CListe UsedC;
+	QMap<QString,QString> Ersatzliste;
+	QToolButton* LoadColSet;
+	QStringList CColSet;
+
 private:
-    QListBox* ListBox1;
-    QPushButton* LoadF;
-    QPushButton* NewF;
-    QPushButton* EditF;
-    QPushButton* DupF;
-    QPushButton* DelF;
-    QPushButton* SaveF;
-    QPushButton* CancF;
-    QString sFarbe;
-    QColor tmpFarbe;
-		QStringList DontChange;
+	QListBox* ListBox1;
+	QGroupBox* ColorsGroup;
+	QGroupBox* ColsSetGroup;
+	QPushButton* LoadF;
+	QPushButton* NewF;
+	QPushButton* EditF;
+	QPushButton* DupF;
+	QPushButton* DelF;
+	QPushButton* DelU;
+	QPushButton* SaveF;
+	QPushButton* CancF;
+	QLabel* textLabel1;
+	QPushButton* SaveColSet;
+	QPopupMenu* CSets;
+	QString sFarbe;
+	QColor tmpFarbe;
+	QStringList DontChange;
+	bool HaveDoc;
 
 private slots:
-		void loadFarben();
-    void delFarbe();
-    void duplFarbe();
-    void neueFarbe();
-    void editFarbe();
-    void selFarbe(QListBoxItem*);
-    void updateCList();
+	void saveDefaults();
+	void loadDefaults(int id);
+	void loadFarben();
+	void delFarbe();
+	void delUnused();
+	void duplFarbe();
+	void neueFarbe();
+	void editFarbe();
+	void selFarbe(QListBoxItem*);
+	void selEditFarbe(QListBoxItem*);
+	void updateCList();
 
 protected:
-    QHBoxLayout* Layout2;
-    QVBoxLayout* Layout1;
+	QVBoxLayout* Layout2;
+	QHBoxLayout* layout5;
+	QVBoxLayout* layout3;
+	QVBoxLayout* ColsSetGroupLayout;
+	QVBoxLayout* Layout1;
 };
 
 #endif // FARBMANAGER_H

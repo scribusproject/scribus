@@ -18,13 +18,21 @@
 #include "linecombo.h"
 #include "icons5.h"
 
+/*!
+ \fn LineCombo::LineCombo(QWidget* pa)
+ \author Franz Schmid
+ \date
+ \brief Creates Combobox and inserts line type variations
+ \param pa Parent Window
+ \retval None
+ */
 LineCombo::LineCombo(QWidget* pa) : QComboBox(true, pa)
 {
 	setEditable(false);
-  insertItem(QPixmap(solidL));
-  insertItem(QPixmap(dashL));
-  insertItem(QPixmap(dotL));
-  insertItem(QPixmap(dashdotL));
-  insertItem(QPixmap(dashdotdotL));
+	insertItem(QPixmap(solidL));
+	insertItem(QPixmap(dashL));
+	insertItem(QPixmap(dotL));
+	insertItem(QPixmap(dashdotL));
+	insertItem(QPixmap(dashdotdotL));
 }
 

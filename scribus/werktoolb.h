@@ -24,37 +24,67 @@
 #include <qtooltip.h>
 #include <qpopupmenu.h>
 
+class Autoforms;
 /**
   *@author Franz Schmid
   */
 
-class WerkToolB : public QToolBar  {
-
-Q_OBJECT
+class WerkToolB : public QToolBar  
+{
+	Q_OBJECT
 
 public: 
 	WerkToolB(QMainWindow* parent);
 	~WerkToolB() {};
 	QToolButton* Select;
-  QToolButton* Rotiere;
+	QToolButton* Rotiere;
 	QToolButton* Textedit;
-  QToolButton* Zoom;
-  QToolButton* Texte;
-  QToolButton* BildB;
-  QToolButton* Linien;
-  QToolButton* Kreis;
-  QToolButton* Rechteck;
+	QToolButton* Textedit2;
+	QToolButton* Zoom;
+	QToolButton* Texte;
+	QToolButton* BildB;
+	QToolButton* TableB;
+	QToolButton* Linien;
+	Autoforms* Rechteck;
 	QToolButton* Polygon;
 	QToolButton* PolyLin;
 	QPopupMenu* PolyM;
-  QToolButton* KetteEin;
-  QToolButton* KetteAus;
-  QToolButton* PDFTool;
+	QPopupMenu* LinM;
+	QToolButton* KetteEin;
+	QToolButton* KetteAus;
+	QToolButton* Measure;
+	bool Sichtbar;
+	int SubMode;
+	int ValCount;
+	int LMode;
+	double *ShapeVals;
+
+public slots:
+	void Docken(QDockWindow::Place p);
+	void Verbergen(bool vis);
+	void GetPolyProps();
+	void SelShape(int s, int c, double *vals);
+	void SelShape2();
+	void ModeFromTB();
+	void setLinMode(int id);
+		
+signals:
+	void Schliessen();
+	void NewMode(int);
+};
+
+class WerkToolBP : public QToolBar  
+{
+	Q_OBJECT
+
+public:
+	WerkToolBP(QMainWindow* parent);
+	~WerkToolBP() {};
+	QToolButton* PDFTool;
 	QPopupMenu* PDFM;
-  QToolButton* PDFaTool;
+	QToolButton* PDFaTool;
 	QPopupMenu* PDFA;
 	bool Sichtbar;
-	int EdPo;
 	int PDFwerkz;
 	int PDFnotiz;
 
@@ -63,9 +93,8 @@ public slots:
 	void setPDFtool(int id);
 	void Docken(QDockWindow::Place p);
 	void Verbergen(bool vis);
-	void GetPolyProps();
 	void ModeFromTB();
-		
+
 signals:
 	void Schliessen();
 	void NewMode(int);

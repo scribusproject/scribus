@@ -19,6 +19,7 @@
 
 class NewTm : public QDialog
 {
+    Q_OBJECT
 
 public:
     NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc );

@@ -56,29 +56,32 @@ public:
     MSpinBox* Hoehe;
     QPushButton* OKButton;
     QPushButton* CancelB;
-    float Umrech;
-		int Orient;
-		float Pagebr;
-		float Pageho;
-		float Top;
-		float Bottom;
-		float Left;
-		float Right;
-		float Dist;
+    double Umrech;
+	int Orient;
+	double Pagebr;
+	double Pageho;
+	double Top;
+	double Bottom;
+	double Left;
+	double Right;
+	double Dist;
     QString ein;
-		int einheit;
+	int einheit;
     void setSize(int gr);
+    void code_repeat(int);
 
 public slots:
-		void setTop(int v);
-		void setBottom(int v);
-		void setLeft(int v);
-		void setRight(int v);
-		void setDist(int v);
-		void setUnit(int u);
-		void ExitOK();
-		void setOrien(int ori);
-		void setPGsize();
+	void setHoehe(int v);
+	void setBreite(int v);
+	void setTop(int v);
+	void setBottom(int v);
+	void setLeft(int v);
+	void setRight(int v);
+	void setDist(int v);
+	void setUnit(int u);
+	void ExitOK();
+	void setOrien(int ori);
+	void setPGsize();
     void setDS();
     void setAT();
 
@@ -97,7 +100,6 @@ protected:
     QHBoxLayout* GroupBox4Layout;
     QGridLayout* Layout2;
     QHBoxLayout* Layout1;
-
 };
 
 #endif // NEWDOC_H

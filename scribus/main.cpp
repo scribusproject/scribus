@@ -4,6 +4,8 @@
     begin                : Fre Apr  6 21:47:55 CEST 2001
     copyright            : (C) 2001 by Franz Schmid
     email                : Franz.Schmid@altmuehlnet.de
+    copyright            : (C) 2004 by Alessandro Rimoldi
+    email                : http://ideale.ch/contact
  ***************************************************************************/
 
 /***************************************************************************
@@ -20,128 +22,326 @@
 #include <qstring.h>
 #include <qtranslator.h>
 #include <qfileinfo.h>
+#include <qfile.h>
 #include <qdir.h>
 #include <qtextcodec.h>
-#include "scribus.h"
-#include "config.h"
+#include <cstdlib>
+
 #include <iostream>
-using namespace std;
+
+#define SCRIBUS_LIB  PREL "/lib/scribus/"
+#define SCRIBUS_PLUGIN  PREL "/lib/scribus/plugins/"
+#define BASE_QM "scribus"
+
+#include "scribus.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
+// jjsa 28-03-2004 added define for choosing of option type
+// if USE_LONG_OPT is 1 old options will be compiled
+// else use option with single '-'
+#define USE_LONG_OPT 0
+
+QString lang = "";
+bool showSplash = true;
+bool useGui = true;
+QString file;
+
+void showUsage();
+int mainGui(int argc, char **argv);
+QStringList getLang(QString lang);
+void installTranslators(QApplication *app, QStringList langs);
+
 
 int main(int argc, char *argv[])
 {
-  QString pfad = PREL;
-  pfad += "/lib/scribus/";
-  QApplication a(argc, argv);
-	QString Arg1, lang;
-	lang = "";
-  if (argc > 1)
-		Arg1 = QString(argv[1]);
-  QTranslator tor( 0 );
-  if (argc > 1)
-  	{
-  	if (Arg1 == "--lang")
-  		{
-			if (QString(argv[2]) != "en")
-				{
-				lang = QString(argv[2]);
-  			tor.load( QString(pfad+"scribus.") + QString(argv[2]), "." );
-  			a.installTranslator( &tor );
-				}
-			}
-		else
-			{
-			if (QString(QTextCodec::locale()).left(5) == "en_GB")
-  			tor.load( QString(pfad+"scribus.") + "en_GB", "." );
-		  else
-  			tor.load( QString(pfad+"scribus.") + QString(QTextCodec::locale()).left(2), "." );
-			lang = QString(QTextCodec::locale()).left(2);
-  		a.installTranslator( &tor );
-			}
-		}
-	else
-		{
-		lang = QString(QTextCodec::locale()).left(2);
-		if (QString(QTextCodec::locale()).left(5) == "en_GB")
-  		tor.load( QString(pfad+"scribus.") + "en_GB", "." );
-		else
- 			tor.load( QString(pfad+"scribus.") + QString(QTextCodec::locale()).left(2), "." );
- 		a.installTranslator( &tor );
-		}
-  pfad = PREL;
-	pfad += "/lib/scribus/plugins/";
-	QDir d(pfad, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
-	if ((d.exists()) && (d.count() != 0))
-		{
-		for (uint dc = 0; dc < d.count(); dc++)
-			{
-			QFileInfo fi(pfad + d[dc]);
-			QString ext = fi.extension(false).lower();
-			if (ext == "qm")
-				{
-				QString ext2 = fi.extension(true).lower();
-				ext2 = ext2.left(2);
-				if (ext2 == lang)
-					{
-					QTranslator *tox = new QTranslator(0);
-					tox->load(QString(pfad+d[dc]), ".");
-					a.installTranslator(tox);
-					}
-				}
-			}
-		}
-  if (argc > 1)
-  	{
-  	if (Arg1 == "--version")
-  		{
-  		std::cout << "Scribus Version " << VERSION << endl;
-//			a.unlock();
-  		return 0;
-  		}
-  	if (Arg1 == "--help")
-  		{
-  		std::cout << endl;
-  		std::cout << "Scribus, a DTP-Program for Linux." << endl;
-  		std::cout << endl;
-  		std::cout << "Usage:" << endl;
-  		std::cout << "scribus --version  -> prints Version-Number and exits." << endl;
-  		std::cout << "scribus --help     -> prints this Info and exits." << endl;
-  		std::cout << "scribus --lang xx  -> uses xx as Shortcut for a Language." << endl;
-  		std::cout << "scribus \"String\"   -> Interprets \"String\" as Filename" << endl;
-  		std::cout << "                      for a Document and tries to open it." << endl;
-  		std::cout << endl;
-//			a.unlock();
-  		return 0;
-  		}
-  	if ((Arg1 != "--lang") && (Arg1 != "--help") && (Arg1 != "--version"))
-			{
-  		QFileInfo fi = QFileInfo(Arg1);
-  		if (!fi.exists())
-  			{
-  			std::cout << "File does not exist, aborting." << endl;
-  			std::cout << endl;
-  			std::cout << "Usage:" << endl;
-  			std::cout << "scribus --version  -> prints Version-Number and exits." << endl;
-  			std::cout << "scribus --help     -> prints this Info and exits." << endl;
-  			std::cout << "scribus --lang xx  -> uses xx as Shortcut for a Language." << endl;
-  			std::cout << "scribus \"String\"   -> Interprets \"String\" as Filename" << endl;
-  			std::cout << "                      for a Document and tries to open it." << endl;
-  			std::cout << endl;
-//				a.unlock();
-  			return 0;
-				}
-  		}
-  	}  
-  ScribusApp *scribus=new ScribusApp();
-  if (scribus->NoFonts)
-  	return 0;
-  a.setMainWidget(scribus);
-  a.connect(&a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()));
-  scribus->show();
-  scribus->ShowSubs();
-  if (argc > 1)
-  	{
-  	if ((Arg1 != "--lang") && (Arg1 != "--help") && (Arg1 != "--version"))
-  		scribus->LadeDoc(argv[1]);
-  	}
-  return a.exec();
+    QString arg = "";
+
+    arg = argv[1];
+#if USE_LONG_OPT // jjsa 28-03-2004 begin
+    if (arg == "--version") {
+        std::cout << "Scribus Version " << VERSION << std::endl;
+        return 0;
+    } else if (arg == "--help") {
+        std::cout << std::endl;
+        std::cout << "Scribus, a DTP-Program" << std::endl;
+        showUsage();
+        return 0;
+    }
+#else
+    if (arg == "-version") {
+        std::cout << "Scribus Version " << VERSION << std::endl;
+        return 0;
+    } else if (arg == "-help") {
+        std::cout << std::endl;
+        std::cout << "Scribus, a DTP-Program" << std::endl;
+        showUsage();
+        return 0;
+    }
+#endif // jjsa 28-03-2004end
+
+#if USE_LONG_OPT // jjsa 28-03-2004 begin
+    for(int i = 1; i < argc; i++) {
+        arg = argv[i];
+        if ((arg == "--lang") && (++i < argc)) {
+            lang = argv[i];
+        } else if (arg == "--no-splash") {
+            showSplash = false;
+        } else if (arg == "--no-gui") {
+            useGui = false;
+// jjsa 28-03-2004 begin
+        } else if (arg == "-display" && i < argc) {
+           // allow setting of display, QT expect the
+           // option -display <display_name>
+           i++;
+// jjsa 28-03-2004 end
+        } else {
+            file = QFile::decodeName(argv[i]);
+            if (!QFileInfo(file).exists()) {
+                std::cout << std::endl;
+                if (file.left(2) == "--") {
+                    std::cout << "Invalid argument: " << file << std::endl;
+                } else {
+                    std::cout << "File " << file << "does not exist, aborting." << std::endl;
+                }
+                showUsage();
+                return 0;
+            }
+        }
+    }
+#else
+    for(int i = 1; i < argc; i++) {
+        arg = argv[i];
+        if ((arg == "-lang") && (++i < argc)) {
+            lang = argv[i];
+        } else if (arg == "-no-splash") {
+            showSplash = false;
+        } else if (arg == "-no-gui") {
+            useGui = false;
+        } else if (arg.left(2) == "--" || arg == "-file" || arg.left(1) != "-") {
+            if ( arg.left(1) == "-" ) {
+               i++;
+            }
+            file = QFile::decodeName(argv[i]);
+            if (!QFileInfo(file).exists()) {
+                std::cout << std::endl;
+                std::cout << "File " << file << "does not exist, aborting." << std::endl;
+                showUsage();
+                return 0;
+            }
+        } else if (arg.left(1) == "-" && i+1 < argc ) {
+            i++;
+        }
+    }
+#endif
+
+/*    if (useGui)
+    {
+// Please Test this carefully and report problems.
+// if this works we can add it to the CVS
+// Currently disabled because of trouble with accented Filenames.
+      // jjsa added on 8-mar-2004
+      if ( lang == "" )
+        {
+        // if we have .UTF-8 we will have problems
+        // with compose key, at least for european
+        // languages
+        lang = getenv("LANG");
+        lang = lang.left(5);
+        QString nlang = "LANG="+lang.left(5);
+        putenv((char*)nlang.ascii());
+        }
+      else
+        {
+        // in order to install the language correctly
+        // we must put this to the environment
+        // sp the LC_... variabls will also be set
+        // correctly
+        QString nlang = "LANG="+lang;
+        putenv((char*)nlang.ascii());
+        }
+      // jjsa end off add
+      return mainGui(argc, argv);
+    } */
+
+    if (useGui)
+        return mainGui(argc, argv);
+}
+
+/*!
+ \fn void showUsage()
+ \author Franz Schmid
+ \author Alessandro Rimoldi
+ \date Mon Feb  9 14:07:46 CET 2004
+ \brief If no argument specified the lang, returns the one in the locales
+ \param lang QString a two letter string describing the lang environement
+ \retval QString A string describing the language environement
+ */
+#if USE_LONG_OPT // jjsa 28-03-2004 begin
+ 
+void showUsage()
+{
+    std::cout << std::endl;
+    std::cout << "Usage: scribus [option ... ] [file]" << std::endl;
+    std::cout << "Options:" << std::endl;
+    std::cout << "--lang xx    Uses xx as shortcut for a language" << std::endl;
+    std::cout << "--help       Print help (this message) and exit" << std::endl;
+    std::cout << "--version    Output version information and exit" << std::endl;
+    std::cout << std::endl;
+}
+#else
+void showUsage()
+{
+    std::cout << std::endl;
+    std::cout << "Usage: scribus [option ... ] [file]" << std::endl;
+    std::cout << "Options:" << std::endl;
+    std::cout << "-lang xx      Uses xx as shortcut for a language" << std::endl;
+    std::cout << "-help         Print help (this message) and exit" << std::endl;
+    std::cout << "-version      Output version information and exit" << std::endl;
+    std::cout << "-file|-- name Open file 'name'" << std::endl;
+    std::cout << "name          Open file 'name', the file name must not begin with '-'" << std::endl;
+    std::cout << "QT specific options as -display ..." << std::endl;
+    std::cout << std::endl;
+}
+#endif // jjsa 28-03-2004 end
+
+/*!
+ \fn int mainGui(int argc, char **argv)
+ \author Franz Schmid
+ \author Alessandro Rimoldi
+ \date Mon Feb  9 14:07:46 CET 2004
+ \brief Launches the Gui
+ \param int Number of arguments passed to Scribus
+ \param char *argv list of the arguments passed to Scribus
+ \retval int Error code from the execution of Scribus
+ */
+int mainGui(int argc, char **argv)
+{
+    QApplication app(argc, argv);
+
+    QStringList langs = getLang(QString(lang));
+
+    if (!langs.isEmpty())
+        installTranslators(&app, langs);
+
+    app.processEvents();
+
+    ScribusApp *scribus = new ScribusApp();
+    scribus->initGui();
+    if (scribus->NoFonts)
+        exit(EXIT_FAILURE);
+	scribus->GuiLanguage = lang;
+    app.setMainWidget(scribus);
+    app.connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
+
+    scribus->show();
+    scribus->ShowSubs();
+    if (file != "")
+        scribus->LadeDoc(file);
+
+    return app.exec();
+}
+
+/*!
+ \fn void getLang(QString lang)
+ \author Franz Schmid
+ \author Alessandro Rimoldi
+ \date Mon Feb  9 14:07:46 CET 2004
+ \brief If the lang argument is empty, returns the value in the locales
+ 
+ The lang is always a two character code, except for "en_GB" where
+ the whole string is returned. For all the other locales starting
+ with "en", no locale is returned.
+
+ (Inspired from Klocale.cpp)
+
+ \param lang QString a two letter string describing the lang environement
+ \retval QString A string describing the language environement
+ */
+QStringList getLang(QString lang)
+{
+    QStringList langs;
+
+    // read the locales
+    if (lang != "")
+        langs.push_back(lang);
+    #ifdef linux
+    if ((lang = ::getenv("LC_ALL")) != "")
+        langs.push_back(lang);
+    if ((lang = ::getenv("LC_MESSAGES")) != "")
+        langs.push_back(lang);
+    if ((lang = ::getenv("LANG")) != "")
+        langs.push_back(lang);
+    #endif
+    langs.push_back(QString(QTextCodec::locale()));
+
+    // remove duplicate entries... how can i remove the empty entries?
+    for (QStringList::Iterator it = langs.fromLast(); it != langs.begin(); --it)
+        // if (langs.contains(*it) > 1 || (*it == "") || (*it).isEmpty())
+        if (langs.contains(*it) > 1)
+            it = langs.remove(it);
+
+    // debugging code
+//    for (QStringList::Iterator it = langs.begin(); it != langs.end(); ++it)
+//        std::cout << "**" << *it << "**" << std::endl;
+
+    return langs;
+} 
+    
+
+/*!
+ \fn void installTranslators(QApplication *app, QStringList langs)
+ \author Franz Schmid
+ \author Alessandro Rimoldi
+ \date Mon Feb  9 14:07:46 CET 2004
+ \brief Loads the translations for Scribus and for the Plugins
+ \param app QApplication pointer to the application object
+ \param lang QString a two letter string describing the lang environement
+ \retval void
+ */
+void installTranslators(QApplication *app, QStringList langs)
+{
+    QTranslator *trans = new QTranslator(0);
+
+    QString path = SCRIBUS_LIB;
+    path += BASE_QM;
+
+ //   QString lang = "";
+
+    bool loaded = false;
+    for (QStringList::Iterator it = langs.begin(); it != langs.end() && !loaded; ++it) {
+        if ((*it).left(5) == "en_GB")
+            lang = "en_GB";
+        else
+            lang = (*it).left(2);
+
+        if (lang == "en")
+            break;
+        else if (loaded = trans->load(QString(path + '.' + lang), "."))
+            loaded = true;
+    }
+
+    if (loaded)
+        app->installTranslator(trans);
+
+
+    /* ! the en_GB localisations cannot be loaded... ! */
+    path = SCRIBUS_PLUGIN;
+    QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
+    if (dir.exists() && (dir.count() != 0)) {
+        for (uint i = 0; i < dir.count(); ++i) {
+            QFileInfo file(path + dir[i]);
+            if ((file.extension(false).lower() == "qm")
+            && (file.extension(true).lower().left(2) == lang)) {
+                trans = new QTranslator(0);
+                trans->load(QString(path + dir[i]), ".");
+                app->installTranslator(trans);
+            }
+
+        }
+    }
 }

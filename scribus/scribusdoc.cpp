@@ -20,39 +20,37 @@
 
 ScribusDoc::ScribusDoc()
 {
-  modified = false;
-  MasterP = false;
-  Marks = true;
-	Guides = true;
+	modified = false;
+	MasterP = false;
 	GuideLock = false;
 	SnapGuides = false;
-  ShowPic = true;
-  Raster = false;
-  useRaster = false;
-  EditClip = false;
-  EditClipMode = 0;
-  loading = false;
-  minorGrid = 20;
-  majorGrid = 100;
-  minorColor = QColor(green);
-  majorColor = QColor(green);
+	ShowPic = true;
+	useRaster = false;
+	EditClip = false;
+	EditClipMode = 0;
+	loading = false;
+	minorGrid = 20;
+	majorGrid = 100;
+	minorColor = QColor(green);
+	majorColor = QColor(green);
 	guideColor = QColor(darkBlue);
 	GuideRad = 10;
-  Scale = 1.0;
+	Scale = 1.0;
 	Dpen = "Black";
 	Dshade2 = 100;
 	Dbrush = "Black";
 	Dshade = 100;
 	Dwidth = 1;
 	DLineArt = SolidLine;
-	DocName = "Document-";
+	DocName = QObject::tr("Document")+"-";
 	UsedFonts.clear();
 	Dfont = "";
-	Dsize = 12;
+	Dsize = 120;
 	CurrentSel = -1;
 	DocTitel = "";
 	DocAutor = "";
 	DocComments = "";
+	DocKeyWords = "";
 	PageC = 0;
 	LastAuto = 0;
 	FirstAuto = 0;
@@ -69,6 +67,15 @@ ScribusDoc::ScribusDoc()
 	vg.Anach = 0;
 	vg.Font = "";
 	vg.FontSize = Dsize;
+	vg.TabValues.clear();
+	vg.Drop = false;
+	vg.DropLin = 2;
+	vg.FontEffect = 0;
+	vg.FColor = Dbrush;
+	vg.FShade = Dshade;
+	vg.SColor = Dpen;
+	vg.SShade = Dshade2;
+	vg.BaseAdj = false;
 	Vorlagen.append(vg);
 	vg.Vname = "Center Internal";
 	vg.Ausri = 1;
@@ -86,7 +93,7 @@ ScribusDoc::ScribusDoc()
 	struct Layer ll;
 	ll.LNr = 0;
 	ll.Level = 0;
-	ll.Name = tr("Background");
+	ll.Name = QObject::tr("Background");
 	ll.Sichtbar = true;
 	ll.Drucken = true;
 	Layers.append(ll);
@@ -94,24 +101,26 @@ ScribusDoc::ScribusDoc()
 	JavaScripts.clear();
 	UnDoValid = false;
 	UnData.UnCode = -1;
-  CurrentStyle = 0;
-  CurrentABStil = 0;
+	CurrentStyle = 0;
+	CurrentABStil = 0;
 	TotalItems = 0;
 	TemplateMode = false;
 	PDF_Optionen.Thumbnails = false;
 	PDF_Optionen.Articles = false;
 	PDF_Optionen.Compress = true;
+	PDF_Optionen.CompressMethod = 0;
+	PDF_Optionen.Quality = 0;
 	PDF_Optionen.RecalcPic = false;
 	PDF_Optionen.Bookmarks = false;
 	PDF_Optionen.PicRes = 300;
-	PDF_Optionen.Version = 13;
+	PDF_Optionen.Version = 14;
 	PDF_Optionen.Resolution = 300;
 	PDF_Optionen.Binding = 0;
 	PDF_Optionen.EmbedList.clear();
 	PDF_Optionen.PresentMode = false;
 	PDF_Optionen.Datei = "";
 	PDF_Optionen.PresentVals.clear();
-	PDF_Optionen.UseRGB = false;
+	PDF_Optionen.UseRGB = true;
 	PDF_Optionen.UseProfiles = false;
 	PDF_Optionen.UseProfiles2 = false;
 	PDF_Optionen.SolidProf = "";
@@ -134,18 +143,17 @@ ScribusDoc::ScribusDoc()
 	BookMarks.clear();
 	OldBM = false;
 	hasName = false;
+	DoDrawing = true;
 	RotMode = 0;
+	SubMode = -1;
 	ASaveTimer = new QTimer(this);
-#ifdef HAVE_FREETYPE
+	MLineStyles.clear();
 	FT_Init_FreeType( &library );
-#endif
 }
 
 ScribusDoc::~ScribusDoc()
 {
-#ifdef HAVE_FREETYPE
 	FT_Done_FreeType( library );
-#endif
 }
 
 void ScribusDoc::setModified()
@@ -163,7 +171,7 @@ bool ScribusDoc::isModified() const
   return modified;
 }
 /** Setzt die Seitenattribute */
-void ScribusDoc::setPage(float b, float h, float t, float l, float r, float bo, float sp, float ab, bool atf, bool fp)
+void ScribusDoc::setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, bool fp)
 {
 	PageB = b;
 	PageH = h;
@@ -177,7 +185,7 @@ void ScribusDoc::setPage(float b, float h, float t, float l, float r, float bo, 
 	PageAT = atf;
 }
 
-void ScribusDoc::resetPage(float t, float l, float r, float bo, bool fp)
+void ScribusDoc::resetPage(double t, double l, double r, double bo, bool fp)
 {
 	PageM.Top = t;
 	PageM.Left = l;
@@ -186,26 +194,34 @@ void ScribusDoc::resetPage(float t, float l, float r, float bo, bool fp)
 	PageFP = fp;
 }
 
-void ScribusDoc::AddFont(QString name, QFont fo)
+bool ScribusDoc::AddFont(QString name, QFont fo)
 {
-#ifdef HAVE_FREETYPE
+	bool ret = false;
+	bool error;
 	FT_Face      face;
-	FT_New_Face( library, (*AllFonts)[name]->Datei, 0, &face );
-	FFonts[name] = face;
-#endif
-	UsedFonts[name] = fo;
-	(*AllFonts)[name]->ReadMetrics();
-	(*AllFonts)[name]->CharWidth[13] = 0;
-#ifdef HAVE_FREETYPE
-	QString afnm = (*AllFonts)[name]->Datei.left((*AllFonts)[name]->Datei.length()-3);
-	QFile afm(afnm+"afm");
-	if(!(afm.exists()))
-		{
-		afm.setName(afnm+"Afm");
+	error = FT_New_Face( library, (*AllFonts)[name]->Datei, 0, &face );
+	if (error)
+		return ret;
+	if ((*AllFonts)[name]->ReadMetrics())
+	{
+		(*AllFonts)[name]->CharWidth[13] = 0;
+		(*AllFonts)[name]->CharWidth[28] = 0;
+		(*AllFonts)[name]->CharWidth[9] = 1;
+		QString afnm = (*AllFonts)[name]->Datei.left((*AllFonts)[name]->Datei.length()-3);
+		QFile afm(afnm+"afm");
 		if(!(afm.exists()))
-			afm.setName(afnm+"AFM");
+		{
+			afm.setName(afnm+"Afm");
+			if(!(afm.exists()))
+				afm.setName(afnm+"AFM");
 		}
-	if (afm.exists())
-		FT_Attach_File(face, afm.name());
-#endif
+		if (afm.exists())
+			FT_Attach_File(face, afm.name());
+		FFonts[name] = face;
+		UsedFonts[name] = fo;
+		ret = true;
+	}
+	else
+		FT_Done_Face( face );
+	return ret;
 }

@@ -38,7 +38,6 @@ protected:
 public slots:
     virtual void FromChanged(int nr);
     virtual void ToChanged(int nr);
-
 };
 
 #endif // DELPAGES_H

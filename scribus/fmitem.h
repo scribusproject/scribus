@@ -27,14 +27,17 @@
   *@author Franz Schmid
   */
 
-class FmItem : public QCustomMenuItem {
+class FmItem : public QCustomMenuItem 
+{
 public: 
 	FmItem(const QString& s, const QFont& f);
 	~FmItem() {};
 	void paint(QPainter *p, const QColorGroup& cg, bool act, bool enabled, int x, int y, int w, int h);
 	QSize sizeHint();
+	QString Ctext();
+
 private:
-	QString string;
+	QString stringy;
 	QFont font;
 };
 

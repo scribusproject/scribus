@@ -11,17 +11,23 @@
 #include "mergedoc.moc"
 #include "customfdialog.h"
 #include "scribusXml.h"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include <qcursor.h>
 
 extern QPixmap loadIcon(QString nam);
 
-MergeDoc::MergeDoc( QWidget* parent ) : QDialog( parent, "merge", true, 0 )
+MergeDoc::MergeDoc( QWidget* parent, bool Mpages ) : QDialog( parent, "merge", true, 0 )
 {
 	setCaption( tr( "Import a Page" ) );
-	setIcon(loadIcon("AppIcon.xpm"));
+	setIcon(loadIcon("AppIcon.png"));
 	Count = 0;
-
+	Mpa = Mpages;
 	MergeDocLayout = new QVBoxLayout( this, 11, 6, "MergeDocLayout"); 
 	textLabel1 = new QLabel( this, "textLabel1" );
 	textLabel1->setText( tr( "Document to load:" ) );
@@ -44,11 +50,23 @@ MergeDoc::MergeDoc( QWidget* parent ) : QDialog( parent, "merge", true, 0 )
 	textLabel3 = new QLabel( this, "textLabel3" );
 	textLabel3->setText( tr( "Import Page Nr:" ) );
 	layout2->addWidget( textLabel3 );
-	PageNr = new QSpinBox( this, "PageNr" );
-	PageNr->setMaxValue( 2000 );
-	PageNr->setValue( 1 );
-	PageNr->setEnabled(false);
-	layout2->addWidget( PageNr );
+	if (Mpa)
+	{
+    	PageNa = new QComboBox( true, this, "Templ" );
+    	PageNa->setMinimumSize( QSize( 120, 22 ) );
+		PageNa->setEditable(false);
+		PageNa->setEnabled(false);
+		layout2->addWidget( PageNa );
+	}
+	else
+	{
+		PageNr = new QSpinBox( this, "PageNr" );
+		PageNr->setMinValue( 1 );
+		PageNr->setMaxValue( 2000 );
+		PageNr->setValue( 1 );
+		PageNr->setEnabled(false);
+		layout2->addWidget( PageNr );
+	}
 	MergeDocLayout->addLayout( layout2 );
 
 	layout3 = new QHBoxLayout( 0, 0, 2, "layout3"); 
@@ -85,43 +103,66 @@ MergeDoc::~MergeDoc()
 void MergeDoc::ChangeFile()
 {
 	QString fn;
+	int dummy;
+	bool ret = false;
+	Count = 0;
 #ifdef HAVE_LIBZ
-	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);; All Files (*)"));
+	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
 #else
-	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.scd);; All Files (*)"));
+	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
 #endif
 	if (Filename->text() != "")
 		dia.setSelection(Filename->text());
 	if (dia.exec() == QDialog::Accepted)
-		{
+	{
 		fn = dia.selectedFile();
 		if (!fn.isEmpty())
-			{
+		{
 			qApp->setOverrideCursor(QCursor(waitCursor), true);
 			ScriXmlDoc *ss = new ScriXmlDoc();
-			Count = ss->ReadPageCount(fn);
+			if (Mpa)
+				ret = ss->ReadPageCount(fn, &dummy, &Count);
+			else
+				ret = ss->ReadPageCount(fn, &Count, &dummy);
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
-			if (Count != 0)
-				{
+			if ((ret) && (Count != 0))
+			{
 				Filename->setText(fn);
 				Import->setEnabled(true);
-				PageNr->setEnabled(true);
-				PageNr->setValue(1);
-				PageNr->setMaxValue(Count);
-				Inform->setText(tr("Document contains: %1 Page(s)").arg(Count));
+				if (Mpa)
+				{
+					PageNa->clear();
+					PageNa->setEnabled(true);
+					PageNa->insertStringList(ss->MNames);
 				}
-			delete ss;
+				else
+				{
+					PageNr->setEnabled(true);
+					PageNr->setValue(1);
+					PageNr->setMaxValue(Count);
+				}
+				Inform->setText( tr("Document contains: %1 Page(s)").arg(Count));
 			}
+			delete ss;
 		}
+	}
 	else
-		{
+	{
 		Filename->setText("");
 		Count = 0;
 		Import->setEnabled(false);
-		PageNr->setEnabled(false);
-		PageNr->setValue(0);
-		PageNr->setMaxValue(Count);
-		Inform->setText(tr("Document contains: %1 Page(s)").arg(Count));
+		if (Mpa)
+		{
+			PageNa->clear();
+			PageNa->setEnabled(false);
 		}
+		else
+		{
+			PageNr->setEnabled(false);
+			PageNr->setValue(1);
+			PageNr->setMaxValue(Count);
+		}
+		Inform->setText( tr("Document contains: %1 Page(s)").arg(Count));
+	}
 }
 
