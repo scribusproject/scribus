@@ -211,9 +211,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 
 	OtherCom = new QCheckBox(tr("A&lternative Printer Command"), Drucker, "Dc");
 	OtherCom->setChecked(false);
-	QToolTip::add( OtherCom, tr( "Can be used to call an alternative method from the default print command.\n"
-                                               "Examples: kprinter or gtklp, which can be used for additional printing options,\n"
-                                               "depending on your system setup.") );
+	QToolTip::add( OtherCom, tr( "Use an alternative print manager to utilize additional\nprinting options, such as kprinter or gtklp") );
 	DruckerLayout->addWidget( OtherCom, 2, 0, Qt::AlignLeft);
 	LayoutCC = new QHBoxLayout;
 	LayoutCC->setSpacing( 6 );

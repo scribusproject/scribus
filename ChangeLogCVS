@@ -1,5 +1,9 @@
 Changes since Version 1.1.7
 
+04.08.2004
+	* bug     #927: layer chooser on the bottom of scribus isnt updated after adding a new layer immediately
+	* bug     #930: different width of opacity and shade text fields on the property palette, colors
+
 03.08.2004
 	* bug     #926: with disabled guidelines the guide line cursor is shown when clicking onto a ruler
 	* bug     #929: alignment in story editor does not work with empty text frame for the first paragraph
@@ -12,10 +16,10 @@ Changes since Version 1.1.7
 	* bug     #921: importing SVG does not set save flag
 	* bug     #928: Ukrainian Translation Update
 	* feature # 25: Add Find & Replace option to Story Editor / Text Frames
+	* feature # 25: Add Find & Replace option to Story Editor / Text Frames
 	* feature #138: Add Clear Contents right click option for linked text frames
 	* feature #883: Way of Switching between edit and select mode
 	* feature #904: integrate font preview plugin to the story editor
-	* feature # 25: Add Find & Replace option to Story Editor / Text Frames 
 
 01.08.2004
 	* bug     #450: Dialog Tools>Layers needs <ESC> binding and loose the "X" button

@@ -46,10 +46,8 @@ public:
 
   /*! Exports only the actual page */
 	bool exportActual();
-  /*! Exports all pages calling interval method with 0 and pageCount */
-	bool exportAll();
   /*! Exports chosen interval of the pages */
-	bool exportInterval(uint from, uint to);
+	bool exportInterval(std::vector<int> &pageNs);
 private:
   /*! reference to the Scribus application object */
 	ScribusApp *carrier;

@@ -26,36 +26,33 @@ void Run(QWidget *d, ScribusApp *plug)
 	ExportForm *dia = new ExportForm(d, ex->pageSize, ex->quality, ex->bitmapType);
 
 	// interval widgets handling
-	dia->ToBox->setMinValue(1);
-	dia->ToBox->setMaxValue(plug->doc->PageC);
-	dia->ToBox->setValue(plug->doc->PageC);
-	dia->FromBox->setMinValue(1);
-	dia->FromBox->setMaxValue(plug->doc->PageC);
-	dia->FromBox->setValue(plug->doc->ActPage->PageNr+1);
+	QString tmp;
+	dia->RangeVal->setText(tmp.setNum(plug->doc->ActPage->PageNr+1));
 	// main "loop"
 	if (dia->exec()==QDialog::Accepted)
 	{
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+		std::vector<int> pageNs;
 		ex->pageSize = dia->SizeBox->value();
 		ex->quality = dia->QualityBox->value();
 		ex->exportDir = dia->OutputDirectory->text();
 		ex->bitmapType = dia->bitmapType;
 		plug->FProg->reset();
-		switch (dia->ButtonGroup1->id(dia->ButtonGroup1->selected()))
+		if (dia->OnePageRadio->isChecked())
+			res = ex->exportActual();
+		else
 		{
-			case 0: res = ex->exportActual();
-					break;
-			case 1: res = ex->exportAll();
-					break;
-			case 2: res = ex->exportInterval(dia->FromBox->value(), dia->ToBox->value());
-					break;
-		} // switch
+			if (dia->AllPagesRadio->isChecked())
+				plug->parsePagesString("*", &pageNs, plug->doc->PageC);
+			else
+				plug->parsePagesString(dia->RangeVal->text(), &pageNs, plug->doc->PageC);
+			res = ex->exportInterval(pageNs);
+		}
 		plug->FProg->reset();
 		QApplication::restoreOverrideCursor();
 		if (!res)
 		{
-			QMessageBox::warning(plug, QObject::tr("Save as Image"),
-				QObject::tr("Error writting the output file(s)."));
+			QMessageBox::warning(plug, QObject::tr("Save as Image"), QObject::tr("Error writting the output file(s)."));
 			plug->FMess->setText(QObject::tr("Error writing the output file(s)."));
 		}
 		else
@@ -72,13 +69,12 @@ void Run(QWidget *d, ScribusApp *plug)
 ExportBitmap::ExportBitmap(ScribusApp *plug)
 {
 	carrier = plug;
-	pageSize = static_cast<int>(carrier->doc->PageH);
+	pageSize = 72;
 	quality = 100;
 	exportDir = QDir::currentDirPath();
 	bitmapType = QString("PNG");
 	overwrite = FALSE;
 }
-
 
 QString ExportBitmap::getFileName(uint pageNr)
 {
@@ -89,11 +85,9 @@ QString ExportBitmap::getFileName(uint pageNr)
 	return QDir::convertSeparators(exportDir + "/" + name + "-"+ number + "." + bitmapType.lower());
 }
 
-
 ExportBitmap::~ExportBitmap()
 {
 }
-
 
 bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 {
@@ -103,7 +97,11 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 	if (!carrier->view->Pages.at(pageNr))
 		return FALSE;
 
-	QPixmap pixmap = carrier->view->PageToPixmap(pageNr, pageSize);
+	QPixmap pixmap = carrier->view->PageToPixmap(pageNr, qRound(carrier->doc->PageH * (pageSize / 72.0)));
+	QImage im = pixmap.convertToImage();
+	int dpi = qRound(100.0 / 2.54 * pageSize);
+	im.setDotsPerMeterY(dpi);
+	im.setDotsPerMeterX(dpi);
 	if (QFile::exists(fileName) && !overwrite)
 	{
 		QApplication::restoreOverrideCursor();
@@ -120,36 +118,26 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 				0, 0);
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 		if (over == 1)
-			return pixmap.save(fileName, bitmapType);
+			return im.save(fileName, bitmapType, quality);
 		if (over == 2)
 			overwrite = TRUE;
 	}
-
-	return pixmap.save(fileName, bitmapType);
+	return im.save(fileName, bitmapType, quality);
 }
-
 
 bool ExportBitmap::exportActual()
 {
 	return exportPage(carrier->doc->ActPage->PageNr, TRUE);
 }
 
-
-bool ExportBitmap::exportAll()
-{
-	return exportInterval(0, carrier->view->Pages.count());
-}
-
-
-bool ExportBitmap::exportInterval(uint from, uint to)
+bool ExportBitmap::exportInterval(std::vector<int> &pageNs)
 {
 	bool res;
-
-	carrier->FProg->setTotalSteps(to - from+1);
-	for (uint pageNo = from-1; pageNo < to; pageNo++)
+	carrier->FProg->setTotalSteps(pageNs.size());
+	for (uint a = 0; a < pageNs.size(); ++a)
 	{
-		carrier->FProg->setProgress(pageNo - from+1);
-		res = exportPage(pageNo, FALSE);
+		carrier->FProg->setProgress(a);
+		res = exportPage(pageNs[a]-1, FALSE);
 		if (!res)
 			return FALSE;
 	}

@@ -1,4 +1,3 @@
-
 #include "dialog.h"
 #include "dialog.moc"
 #include <qvariant.h>
@@ -8,13 +7,13 @@
 #include <qcombobox.h>
 #include <qspinbox.h>
 #include <qbuttongroup.h>
-#include <qradiobutton.h>
+#include <qgroupbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qimage.h>
 #include <qdir.h>
-#include "dialog.ui.h"
+#include <qfiledialog.h>
 
 /*
  *  Constructs a ExportForm as a child of 'parent', with the
@@ -26,139 +25,123 @@
 ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	: QDialog(parent, "ExportForm", true, 0)
 {
-	ExportFormLayout = new QGridLayout(this, 1, 1, 11, 6, "ExportFormLayout");
-
-	layout9 = new QHBoxLayout(0, 0, 6, "layout9");
-
-	TextLabel1 = new QLabel(this, "TextLabel1");
-	layout9->addWidget(TextLabel1);
-
-	OutputDirectory = new QLineEdit(this, "OutputDirectory");
+	ExportFormLayout = new QVBoxLayout( this, 10, 5, "ExportFormLayout"); 
+	layout1 = new QHBoxLayout( 0, 0, 5, "layout1"); 
+	TextLabel1 = new QLabel( this, "TextLabel1" );
+	layout1->addWidget( TextLabel1 );
+	OutputDirectory = new QLineEdit( this, "OutputDirectory" );
 	OutputDirectory->setText(QDir::currentDirPath());
-	layout9->addWidget(OutputDirectory);
+	layout1->addWidget( OutputDirectory );
+	OutputDirectoryButton = new QPushButton( this, "OutputDirectoryButton" );
+	OutputDirectoryButton->setDefault( TRUE );
+	layout1->addWidget( OutputDirectoryButton );
+	ExportFormLayout->addLayout( layout1 );
 
-	OutputDirectoryButton = new QPushButton(this, "OutputDirectoryButton");
-	layout9->addWidget(OutputDirectoryButton);
-
-	ExportFormLayout->addLayout(layout9, 0, 0);
-
-	layout11 = new QHBoxLayout(0, 0, 6, "layout11");
-
-	layout10 = new QHBoxLayout(0, 0, 6, "layout10");
-
-	TextLabel2 = new QLabel(this, "TextLabel2");
-	layout10->addWidget(TextLabel2);
-
-	BitmapType = new QComboBox(true, this, "BitmapType");
+	layout3 = new QHBoxLayout( 0, 0, 5, "layout3"); 
+	groupBox1 = new QGroupBox( this, "groupBox1" );
+	groupBox1->setColumnLayout(0, Qt::Vertical );
+	groupBox1->layout()->setSpacing( 5 );
+	groupBox1->layout()->setMargin( 10 );
+	groupBox1Layout = new QGridLayout( groupBox1->layout() );
+	groupBox1Layout->setAlignment( Qt::AlignTop );
+	TextLabel2 = new QLabel( groupBox1, "TextLabel2" );
+	groupBox1Layout->addWidget( TextLabel2, 0, 0 );
+	textLabel1 = new QLabel( groupBox1, "textLabel1" );
+	groupBox1Layout->addWidget( textLabel1, 1, 0 );
+	textLabel3 = new QLabel( groupBox1, "textLabel3" );
+	groupBox1Layout->addWidget( textLabel3, 2, 0 );
+	BitmapType = new QComboBox( FALSE, groupBox1, "BitmapType" );
+    BitmapType->clear();
 	BitmapType->insertStrList(QImageIO::outputFormats());
 	BitmapType->setCurrentText(type);
 	BitmapType->setEditable(false);
-	layout10->addWidget(BitmapType);
-	layout11->addLayout(layout10);
-	Spacer2 = new QSpacerItem(163, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-	layout11->addItem(Spacer2);
-
-	ExportFormLayout->addLayout(layout11, 1, 0);
-
-	layout14 = new QHBoxLayout(0, 0, 6, "layout14");
-
-	layout12 = new QHBoxLayout(0, 0, 6, "layout12");
-
-	textLabel1 = new QLabel(this, "textLabel1");
-	layout12->addWidget(textLabel1);
-
-	QualityBox = new QSpinBox(this, "QualityBox");
-	QualityBox->setMaxValue(100);
-	QualityBox->setMinValue(1);
+	groupBox1Layout->addMultiCellWidget( BitmapType, 0, 0, 1, 2 );
+	QualityBox = new QSpinBox( groupBox1, "QualityBox" );
+	QualityBox->setMaxValue( 100 );
+	QualityBox->setMinValue( 1 );
 	QualityBox->setValue(quality);
-	layout12->addWidget(QualityBox);
-
-	textLabel2 = new QLabel(this, "textLabel2");
-	layout12->addWidget(textLabel2);
-	layout14->addLayout(layout12);
-	spacer4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-	layout14->addItem(spacer4);
-
-	layout13 = new QHBoxLayout(0, 0, 6, "layout13");
-
-	textLabel3 = new QLabel(this, "textLabel3");
-	layout13->addWidget(textLabel3);
-
-	SizeBox = new QSpinBox(this, "SizeBox");
-	SizeBox->setMaxValue(9999);
-	SizeBox->setMinValue(1);
+	groupBox1Layout->addWidget( QualityBox, 1, 1 );
+	SizeBox = new QSpinBox( groupBox1, "SizeBox" );
+	SizeBox->setMaxValue( 2400 );
+	SizeBox->setMinValue( 1 );
 	SizeBox->setValue(size);
-	layout13->addWidget(SizeBox);
-	layout14->addLayout(layout13);
-	spacer5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-	layout14->addItem(spacer5);
+	groupBox1Layout->addWidget( SizeBox, 2, 1 );
+	layout3->addWidget( groupBox1 );
 
-	ExportFormLayout->addLayout(layout14, 2, 0);
+	ButtonGroup1 = new QButtonGroup( this, "ButtonGroup1" );
+	ButtonGroup1->setColumnLayout(0, Qt::Vertical );
+	ButtonGroup1->layout()->setSpacing( 5 );
+	ButtonGroup1->layout()->setMargin( 10 );
+	ButtonGroup1Layout = new QVBoxLayout( ButtonGroup1->layout() );
+	ButtonGroup1Layout->setAlignment( Qt::AlignTop );
+	OnePageRadio = new QRadioButton( ButtonGroup1, "OnePageRadio" );
+	OnePageRadio->setChecked( TRUE );
+	ButtonGroup1Layout->addWidget( OnePageRadio );
+	AllPagesRadio = new QRadioButton( ButtonGroup1, "AllPagesRadio" );
+	ButtonGroup1Layout->addWidget( AllPagesRadio );
+	layout2 = new QHBoxLayout( 0, 0, 5, "layout2"); 
+	IntervalPagesRadio = new QRadioButton( ButtonGroup1, "IntervalPagesRadio" );
+	layout2->addWidget( IntervalPagesRadio );
+	RangeVal = new QLineEdit( ButtonGroup1, "RangeVal" );
+	layout2->addWidget( RangeVal );
+	RangeVal->setEnabled(false);
+	ButtonGroup1Layout->addLayout( layout2 );
+	layout3->addWidget( ButtonGroup1 );
+	ExportFormLayout->addLayout( layout3 );
 
-	ButtonGroup1 = new QButtonGroup(this, "ButtonGroup1");
-	ButtonGroup1->setFrameShape(QButtonGroup::Box);
-
-	OnePageRadio = new QRadioButton(ButtonGroup1, "OnePageRadio");
-	OnePageRadio->setGeometry(QRect(31, 31, 269, 23));
-	OnePageRadio->setChecked(TRUE);
-
-	AllPagesRadio = new QRadioButton(ButtonGroup1, "AllPagesRadio");
-	AllPagesRadio->setGeometry(QRect(30, 60, 269, 23));
-
-	IntervalPagesRadio = new QRadioButton(ButtonGroup1, "IntervalPagesRadio");
-	IntervalPagesRadio->setGeometry(QRect(30, 90, 122, 23));
-
-	QWidget* privateLayoutWidget = new QWidget(ButtonGroup1, "layout13");
-	privateLayoutWidget->setGeometry(QRect(170, 75, 159, 40));
-	layout13_2 = new QHBoxLayout(privateLayoutWidget, 11, 6, "layout13_2");
-
-	FromBox = new QSpinBox(privateLayoutWidget, "FromBox");
-	FromBox->setEnabled(FALSE);
-	layout13_2->addWidget(FromBox);
-
-	layout16 = new QHBoxLayout(0, 0, 6, "layout16");
-
-	TextLabel4 = new QLabel(privateLayoutWidget, "TextLabel4");
-	layout16->addWidget(TextLabel4);
-
-	ToBox = new QSpinBox(privateLayoutWidget, "ToBox");
-	ToBox->setEnabled(FALSE);
-	layout16->addWidget(ToBox);
-	layout13_2->addLayout(layout16);
-
-	ToBox->setMinimumHeight(QualityBox->height());
-	FromBox->setMinimumHeight(QualityBox->height());
-	TextLabel4->setMinimumHeight(TextLabel1->height());
-
-	ExportFormLayout->addWidget(ButtonGroup1, 3, 0);
-
-	layout8 = new QHBoxLayout(0, 0, 6, "layout8");
-	Spacer1 = new QSpacerItem(260, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-	layout8->addItem(Spacer1);
-
-	OkButton = new QPushButton(this, "OkButton");
-	layout8->addWidget(OkButton);
-
-	CancelButton = new QPushButton(this, "CancelButton");
-	layout8->addWidget(CancelButton);
-
-	ExportFormLayout->addLayout(layout8, 4, 0);
+	layout4 = new QHBoxLayout( 0, 0, 5, "layout4"); 
+	QSpacerItem* spacer = new QSpacerItem( 111, 21, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout4->addItem( spacer );
+	OkButton = new QPushButton( this, "OkButton" );
+	layout4->addWidget( OkButton );
+	CancelButton = new QPushButton( this, "CancelButton" );
+	layout4->addWidget( CancelButton );
+	ExportFormLayout->addLayout( layout4 );
 	languageChange();
 	readConfig();
-	resize(QSize(437, 300).expandedTo(minimumSizeHint()));
-	clearWState(WState_Polished);
+	resize( QSize(447, 206).expandedTo(minimumSizeHint()) );
 
-	// signals and slots connections
+    // buddies
+	TextLabel1->setBuddy( OutputDirectory );
+	TextLabel2->setBuddy( BitmapType );
+	textLabel1->setBuddy( QualityBox );
+	textLabel3->setBuddy( SizeBox );
 	connect(OutputDirectoryButton, SIGNAL(clicked()), this, SLOT(OutputDirectoryButton_pressed()));
 	connect(OkButton, SIGNAL(clicked()), this, SLOT(OkButton_pressed()));
-	connect(CancelButton, SIGNAL(clicked()), this, SLOT(CancelButton_pressed()));
+	connect(CancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(IntervalPagesRadio, SIGNAL(stateChanged(int)), this, SLOT(IntervalPagesRadio_stateChanged(int)));
 	connect(AllPagesRadio, SIGNAL(stateChanged(int)), this, SLOT(AllPagesRadio_stateChanged(int)));
 	connect(OnePageRadio, SIGNAL(stateChanged(int)), this, SLOT(OnePageRadio_stateChanged(int)));
-	connect(ToBox, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
-	connect(FromBox, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
 }
 
+void ExportForm::OutputDirectoryButton_pressed()
+{
+	QString d = QFileDialog::getExistingDirectory(QDir::currentDirPath(), this, "d", tr("Choose a Export Directory"), true);
+	if (d.length()>0)
+		OutputDirectory->setText(d);
+}
+
+void ExportForm::OkButton_pressed()
+{
+	bitmapType = BitmapType->currentText();
+	writeConfig();
+	accept();
+}
+
+void ExportForm::IntervalPagesRadio_stateChanged(int)
+{
+	RangeVal->setEnabled(TRUE);
+}
+
+void ExportForm::AllPagesRadio_stateChanged(int)
+{
+	RangeVal->setEnabled(FALSE);
+}
+
+void ExportForm::OnePageRadio_stateChanged(int)
+{
+	RangeVal->setEnabled(FALSE);
+}
 
 /*
  *  Destroys the object and frees any allocated resources
@@ -174,53 +157,39 @@ ExportForm::~ExportForm()
  */
 void ExportForm::languageChange()
 {
-	setCaption(tr("Export as Image"));
-	OutputDirectoryButton->setText(tr("C&hange..."));
-	OutputDirectoryButton->setAccel(QKeySequence(tr("Alt+C")));
-	TextLabel1->setText(tr("&Export to Directory:"));
-	TextLabel2->setText(tr("Image &Type:"));
-	textLabel1->setText(tr("&Quality:"));
-	textLabel2->setText(tr("%"));
-	textLabel3->setText(tr("&Size:"));
-
-	TextLabel1->setBuddy(OutputDirectory);
-	TextLabel2->setBuddy(BitmapType);
-	textLabel1->setBuddy(QualityBox);
-	textLabel3->setBuddy(SizeBox);
-	
-	ButtonGroup1->setTitle(tr("Export "));
-	OnePageRadio->setText(tr("&One page"));
-	OnePageRadio->setAccel(QKeySequence(tr("Alt+O")));
-	AllPagesRadio->setText(tr("&All pages"));
-	AllPagesRadio->setAccel(QKeySequence(tr("Alt+A")));
-	IntervalPagesRadio->setText(tr("&Interval from:"));
-	IntervalPagesRadio->setAccel(QKeySequence(tr("Alt+I")));
-	TextLabel4->setText(tr("to:"));
-	OkButton->setText(tr("&OK"));
-	OkButton->setAccel(QKeySequence(tr("Alt+O")));
-	CancelButton->setText(tr("&Cancel"));
-	CancelButton->setAccel(QKeySequence(tr("Alt+C")));
-	// tooltips
-	QToolTip::add(OutputDirectoryButton, tr("Change the output directory"));
-	QToolTip::add(OutputDirectory, tr("The output directory - the place to store your images.\nName of the export file will be 'documentname-pagenumber.filetype'"));
-	QToolTip::add(OnePageRadio, tr("Export only the current page"));
-	QToolTip::add(AllPagesRadio, tr("Export all pages to images"));
-	QToolTip::add(IntervalPagesRadio, tr("Export a range of pages to images"));
-	QToolTip::add(FromBox, tr("First page to export when exporting a range"));
-	QToolTip::add(ToBox, tr("Last page to export when exporting a range"));
-	QToolTip::add(SizeBox, tr("The height of the output images in pixels"));
-	QToolTip::add(QualityBox, tr("The quality of your images - 100% is the best, 1% the highest compression"));
-	QToolTip::add(BitmapType, tr("Available export formats" ));
+	setCaption( tr( "Export as Image(s)" ) );
+	TextLabel1->setText( tr( "&Export to Directory:" ) );
+	OutputDirectoryButton->setText( tr( "C&hange..." ) );
+	groupBox1->setTitle( tr( "Options" ) );
+	TextLabel2->setText( tr( "Image &Type:" ) );
+	textLabel1->setText( tr( "&Quality:" ) );
+	textLabel3->setText( tr( "&Resolution:" ) );
+	QualityBox->setSuffix( tr( " %" ) );
+	SizeBox->setSuffix( tr( " dpi" ) );
+	ButtonGroup1->setTitle( tr( "Range" ) );
+	OnePageRadio->setText( tr( "&Current page" ) );
+	AllPagesRadio->setText( tr( "&All pages" ) );
+	IntervalPagesRadio->setText( tr( "&Range" ) );
+	OkButton->setText( tr( "&OK" ) );
+	CancelButton->setText( tr( "&Cancel" ) );
+	CancelButton->setAccel( QKeySequence( tr( "C" ) ) );
+	QToolTip::add( IntervalPagesRadio, tr( "Export a range of pages to images" ) );
+	QToolTip::add( RangeVal, tr( "Insert a comma separated list of tokens where\na token can be * for all the pages, 1-5 for\na range of pages or a single page number." ) );
+	QToolTip::add( AllPagesRadio, tr( "Export all pages to images" ) );
+	QToolTip::add( OnePageRadio, tr( "Export only the current page" ) );
+	QToolTip::add( SizeBox, tr( "Resolution of the Images\nUse 72 dpi for Images intended for the Screen" ) );
+	QToolTip::add( QualityBox, tr( "The quality of your images - 100% is the best, 1% the lowest quality" ) );
+	QToolTip::add( BitmapType, tr( "Available export formats" ) );
+	QToolTip::add( OutputDirectory, tr( "The output directory - the place to store your images.\nName of the export file will be 'documentname-pagenumber.filetype'" ) );
+	QToolTip::add( OutputDirectoryButton, tr( "Change the output directory" ) );
 }
 
 
 void ExportForm::readConfig()
 {
-	QString fname = QDir::convertSeparators(
-		QDir::homeDirPath()+"/.scribus/scribus-pixmap-export.rc");
+	QString fname = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/scribus-pixmap-export2.rc");
 	QString value;
 	QFile f(fname);
-
 	if (f.open(IO_ReadOnly))
 	{
 		// cfg exists
@@ -236,32 +205,26 @@ void ExportForm::readConfig()
 		{
 			ButtonGroup1->setButton(value.toInt());
 			if (value.toInt()==2)
-			{
-				ToBox->setEnabled(TRUE);
-				FromBox->setEnabled(TRUE);
-			}
+				RangeVal->setEnabled(TRUE);
+			else
+				RangeVal->setEnabled(false);
 		}
 		of >> value;
 		if (value && value.length()>0)
-			FromBox->setValue(value.toUInt());
-		of >> value;
-		if (value && value.length()>0)
-			ToBox->setValue(value.toUInt());
-		of >> value;
-		if (value && value.length()>0)
 			BitmapType->setCurrentItem(value.toUInt());
+		value = of.read().stripWhiteSpace();
+		if (value && value.length()>0)
+			RangeVal->setText(value);
 		f.close();
 	}
 }
 
-
 void ExportForm::writeConfig()
 {
 	QString fname = QDir::convertSeparators(
-		QDir::homeDirPath()+"/.scribus/scribus-pixmap-export.rc");
+		QDir::homeDirPath()+"/.scribus/scribus-pixmap-export2.rc");
 	QString value;
 	QFile f(fname);
-
 	if (f.open(IO_WriteOnly))
 	{
 		// cfg exists
@@ -269,9 +232,8 @@ void ExportForm::writeConfig()
 		of << SizeBox->value() << endl;
 		of << QualityBox->value() << endl;
 		of << ButtonGroup1->id(ButtonGroup1->selected()) << endl;
-		of << FromBox->value() << endl;
-		of << ToBox->value() << endl;
 		of << BitmapType->currentItem() << endl;
+		of << RangeVal->text() << endl;
 		f.close();
 	}
 }

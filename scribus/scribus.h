@@ -124,6 +124,7 @@ public:
 	void ToggleAllGuides();
 	static void defaultCrashHandler (int sig);
 	void emergencySave();
+	void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
 	struct CLBuf Buffer;
 	QString Buffer2;
 	QString Buffer3;
@@ -561,7 +562,6 @@ private:
 	QPopupMenu *toolbarMenu;
 	double mm2pts(int mm);
 	double pts2mm(double pts);
-	void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
 	void addNewPages(int wo, int where, int numPages, QString based1 = tr("Normal"), QString based2 = tr("Normal"));
 	QMap<int,QString> FontID;
 	int HaveGS;

@@ -22,9 +22,13 @@ public:
 	~LayerTable() {};
 	void keyPressEvent(QKeyEvent *k);
 
+protected:
+	virtual void endEdit ( int row, int col, bool accept, bool replace );
+
 signals:
 	void ToggleAllPalettes();
 	void Schliessen();
+	void updtName(int);
 };
 
 class LayerPalette : public QDialog
@@ -50,6 +54,7 @@ public:
 	int *Activ;
 
 public slots:
+	void updateName(int r);
 	void addLayer();
 	void removeLayer();
 	void upLayer();

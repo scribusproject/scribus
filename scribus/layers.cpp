@@ -27,6 +27,12 @@ void LayerTable::keyPressEvent(QKeyEvent *k)
 	QTable::keyPressEvent(k);
 }
 
+void LayerTable::endEdit ( int row, int col, bool accept, bool replace )
+{
+	QTable::endEdit(row, col, accept, replace);
+	emit updtName(row);
+}
+
 LayerPalette::LayerPalette(QWidget* parent)
 		: QDialog( parent, "Layers", false, 0 )
 {
@@ -95,6 +101,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 	connect(RaiseLayer, SIGNAL(clicked()), this, SLOT(upLayer()));
 	connect(LowerLayer, SIGNAL(clicked()), this, SLOT(downLayer()));
 	connect(Table, SIGNAL(valueChanged(int, int)), this, SLOT(changeName(int, int)));
+	connect(Table, SIGNAL(updtName(int)), this, SLOT(updateName(int)));
 }
 
 void LayerPalette::closeEvent(QCloseEvent *ce)
@@ -107,6 +114,12 @@ void LayerPalette::reject()
 {
 	emit Schliessen();
 	QDialog::reject();
+}
+
+void LayerPalette::updateName(int r)
+{
+	changeName(r, 0);
+	emit LayerActivated(*Activ);
 }
 
 void LayerPalette::windowActivationChange(bool oldActive)

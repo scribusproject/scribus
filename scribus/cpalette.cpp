@@ -56,26 +56,16 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	PM1->setSuffix( tr(" %"));
 	PM1->setValue(100);
 	Layout1->addWidget(PM1, 0, 3);
-	TransGroup = new QButtonGroup( this, "GradGroup" );
-	TransGroup->setFrameShape( QButtonGroup::NoFrame );
-	TransGroup->setFrameShadow( QButtonGroup::Plain );
-	TransGroup->setTitle("");
-	TransGroup->setColumnLayout(0, Qt::Vertical );
-	TransGroup->layout()->setSpacing( 4 );
-	TransGroup->layout()->setMargin( 0 );
-	TransGroupLayout = new QHBoxLayout( TransGroup->layout() );
-	TransGroupLayout->setAlignment( Qt::AlignTop );
-	TransTxt = new QLabel( TransGroup, "Transtxt" );
+	TransTxt = new QLabel( this, "Transtxt" );
 	TransTxt->setText( tr( "Opacity:" ) );
-	TransGroupLayout->addWidget( TransTxt );
-	TransSpin = new QSpinBox( TransGroup, "traspin" );
+	Layout1->addWidget( TransTxt, 1, 2 );
+	TransSpin = new QSpinBox( this, "traspin" );
 	TransSpin->setMinValue(0);
 	TransSpin->setMaxValue(100);
 	TransSpin->setLineStep(10);
 	TransSpin->setSuffix( tr(" %"));
 	TransSpin->setValue(100);
-	TransGroupLayout->addWidget( TransSpin );
-	Layout1->addMultiCellWidget( TransGroup, 1, 1, 2, 3 );
+	Layout1->addWidget(TransSpin, 1, 3);
 	Form1Layout->addLayout(Layout1);
 	GradLayout = new QVBoxLayout( 0, 0, 6, "GradLayout");
 	QFont fo = QFont(font());
@@ -429,15 +419,19 @@ void Cpalette::UseTrans(bool b)
 {
 	if (b)
 	{
-		TransGroup->show();
-		TransGroup->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+		TransTxt->show();
+		TransSpin->show();
+		TransTxt->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+		TransSpin->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	}
 	else
 	{
-		if (!TransGroup->isHidden())
+		if (!TransTxt->isHidden())
 		{
-			TransGroup->hide();
-			TransGroup->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+			TransTxt->hide();
+			TransSpin->hide();
+			TransTxt->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+			TransSpin->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		}
 	}
 	layout()->activate();

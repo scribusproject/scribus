@@ -2107,7 +2107,7 @@ void Annot::SetActScript(int it)
 void Annot::GetFile()
 {
 	QString fn;
-	CustomFDialog dia(this, tr("Open"), tr("PDF Documents (*.pdf);;All Files (*)"));
+	CustomFDialog dia(this, tr("Open"), tr("PDF Files (*.pdf);;All Files (*)"));
 	if (Destfile->text() != "")
 		dia.setSelection(Destfile->text());
 	if (dia.exec() == QDialog::Accepted)

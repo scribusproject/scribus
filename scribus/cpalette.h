@@ -60,7 +60,6 @@ public:
 	MSpinBox* gX2;
 	MSpinBox* gX1;
 	MSpinBox* gY2;
-	QButtonGroup* TransGroup;
 	QLabel* TransTxt;
 	QLabel* ShadeTxt;
 	QSpinBox* TransSpin;
@@ -113,7 +112,6 @@ protected:
 	QVBoxLayout* Form1Layout;
 	QGridLayout* Layout1;
 	QVBoxLayout* GradLayout;
-	QHBoxLayout* TransGroupLayout;
 	QGridLayout* frame8Layout;
 };
 
