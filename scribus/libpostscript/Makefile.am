@@ -24,7 +24,7 @@ if COMPILE_DEBUG
 else
  linkflag = -s
 endif
-AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS) 
+AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 
 
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus \

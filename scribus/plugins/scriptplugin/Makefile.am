@@ -12,7 +12,7 @@ if COMPILE_DEBUG
 else
  linkflag = -s
 endif
-AM_LDFLAGS =  $(linkflag) -Xlinker $(PYTHONLIB) $(LIBPYTHON)
+AM_LDFLAGS =  $(linkflag) -Xlinker $(PYTHONLIB) $(LIBPYTHON) $(MODULE_LINK_FLAGS)
 
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus $(PYTHONINC) \

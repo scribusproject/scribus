@@ -296,6 +296,13 @@ AC_ARG_ENABLE(bundle, [  --enable-bundle     Make an executable suitable for use
 fi])
 AM_CONDITIONAL(BUILD_MAC_BUNDLE, test "$build_mac_bundle" = "yes")
 
+dnl Some platforms require special libtool flags to build dynamically loadable
+dnl modules or plugins correctly. While libtool should take care of this with
+dnl a fixed set of arguments, in case we need to change it later this is being
+dnl made a configure-time substitution.
+MODULE_LINK_FLAGS=" -module "
+AC_SUBST(MODULE_LINK_FLAGS)
+
 all_libraries="$all_libraries $USER_LDFLAGS"
 all_includes="$all_includes $USER_INCLUDES"
 AC_SUBST(all_includes)

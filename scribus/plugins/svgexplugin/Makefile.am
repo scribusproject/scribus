@@ -6,7 +6,7 @@ if COMPILE_DEBUG
 else
  linkflag = -s
 endif
-AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS) 
+AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 
 libsvgexplugin_la_LDFLAGS = -version-info 0:0:0
 libsvgexplugin_la_METASOURCES = AUTO
 libsvgexplugin_la_SOURCES = svgexplugin.cpp 
