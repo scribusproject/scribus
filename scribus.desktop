@@ -1,4 +1,5 @@
 [Desktop Entry]
+Version=1.0
 Encoding=UTF-8
 Name=Scribus
 Name[fa]=اسکریباس
@@ -24,7 +25,7 @@ GenericName[it]=Pubblicazioni
 GenericName[ja]=デスクトップパブリッシング
 GenericName[lo]=ເດດທອບພັລບບີດຊິງ
 GenericName[lt]=Darbastalio leidykla
-GenericName[no]=Datatrykkeprogram
+GenericName[nb]=Datatrykkeprogram
 GenericName[nn]=Datatrykk
 GenericName[nso]=Kwalakwatso ya Desktop
 GenericName[pl]=Program do składu tekstu
@@ -44,14 +45,16 @@ GenericName[xh]=Upapasho lwe Desktop
 GenericName[zh_CN]=桌面出版
 GenericName[zh_TW]=桌面出版
 GenericName[zu]=Ukushicilelwa kwe-Desktop
+FilePattern=scribus
+TryExec=scribus
 Exec=scribus %f
-MimeType=scd,scd.gz,sla,sla.gz
+MimeType=application/x-scribus
 Terminal=false
 Icon=scribusicon.png
 Type=Application
 X-StandardInstall=false
-Categories=Office;X-Misc;
+Categories=Qt;Office;X-Misc;
 StartupWMClass=scribus
 X-KDE-SubstituteUID=false
 X-KDE-Username=
-# vi: encoding=utf-8
+
