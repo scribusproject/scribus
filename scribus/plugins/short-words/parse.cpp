@@ -57,7 +57,7 @@ void Parse::parseItem(PageItem *aFrame)
 
 	// get text from frame
 	for (uint i=0; i<aFrame->MaxChars; i++)
-		content += aFrame->Ptext.at(i)->ch;
+		content += aFrame->itemText.at(i)->ch;
 	changes = content.contains(UNBREAKABLE_SPACE);
 	for (QStringList::Iterator it = shorts.begin(); it != shorts.end(); ++it)
 	{
@@ -83,19 +83,19 @@ void Parse::parseItem(PageItem *aFrame)
 	}
 	// retrun text into frame
 	for (uint i=0; i<aFrame->MaxChars; i++)
-		aFrame->Ptext.at(i)->ch = content.at(i);
+		aFrame->itemText.at(i)->ch = content.at(i);
 	if (content.contains(UNBREAKABLE_SPACE) > changes)
 		++modify;
 } // end of method
 
 void Parse::parseSelection()
 {
-	uint cnt = ScApp->doc->ActPage->SelItem.count();
+	uint cnt = ScApp->doc->currentPage->SelItem.count();
 	ScApp->FProg->setTotalSteps(cnt);
 	for (uint i=0; i < cnt; i++)
 	{
 		ScApp->FProg->setProgress(i);
-		parseItem(ScApp->doc->ActPage->SelItem.at(i));
+		parseItem(ScApp->doc->currentPage->SelItem.at(i));
 	} // for items
 	ScApp->FProg->setProgress(cnt);
 }
@@ -103,7 +103,7 @@ void Parse::parseSelection()
 
 void Parse::parsePage()
 {
-	parsePage(ScApp->doc->ActPage);
+	parsePage(ScApp->doc->currentPage);
 }
 
 void Parse::parsePage(Page *page)
