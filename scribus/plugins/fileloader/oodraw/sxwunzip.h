@@ -21,10 +21,6 @@
 #ifndef SXWUNZIP_H
 #define SXWUNZIP_H
 
-#include "config.h"
-
-#ifdef HAVE_XML
-
 #include <zlib.h>
 #include <qstring.h>
 
@@ -37,7 +33,5 @@ public:
 	~SxwUnzip();
 	QString getFile(QString name);
 };
-
-#endif // HAVE_XML
 
 #endif

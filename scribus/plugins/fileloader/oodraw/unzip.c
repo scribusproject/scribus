@@ -34,9 +34,6 @@ woven in by Terry Thorsen 1/2003.
   version without encryption capabilities).
  */
 
-#include "config.h"
-#ifdef HAVE_XML
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -1585,5 +1582,4 @@ extern int ZEXPORT unzSetOffset (file, pos)
     return err;
 }
 
-#endif // HAVE_XML
 

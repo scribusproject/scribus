@@ -27,10 +27,6 @@
    Encryption is not supported.
 */
 
-#include "config.h"
-
-#ifdef HAVE_XML
-
 #define CRC32(c, b) ((*(pcrc_32_tab+(((int)(c) ^ (b)) & 0xff))) ^ ((c) >> 8))
 
 /***********************************************************************
@@ -135,4 +131,3 @@ static int crypthead(passwd, buf, bufSize, pkeys, pcrc_32_tab, crcForCrypting)
 
 #endif
 
-#endif // HAVE_XML

@@ -6,10 +6,6 @@
    Copyright (C) 1998-2004 Gilles Vollant
 */
 
-#include "config.h"
-
-#ifdef HAVE_XML
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -180,5 +176,4 @@ void fill_fopen_filefunc (pzlib_filefunc_def)
     pzlib_filefunc_def->opaque = NULL;
 }
 
-#endif // HAVE_XML
 

@@ -40,9 +40,6 @@
       ftp://ftp.pkware.com/probdesc.zip
 */
 
-#include "config.h"
-#ifdef HAVE_XML
-
 #ifndef _unz_H
 #define _unz_H
 
@@ -353,6 +350,4 @@ extern int ZEXPORT unzSetOffset (unzFile file, uLong pos);
 #endif
 
 #endif /* _unz_H */
-
-#endif // HAVE_XML
 
