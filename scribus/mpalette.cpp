@@ -427,7 +427,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Text20 = new QLabel( page_3, "Text20" );
     Text20->setText(tr("Size:"));
     layout41->addWidget( Text20, 1, 0 );
-    Size = new QSpinBox( page_3, "Fontsize:" );
+    Size = new MSpinBox( page_3, 1 );
     Size->setPrefix( tr( "" ) );
     Size->setSuffix( tr( " pt" ) );
     Size->setMaxValue( 3000 );
@@ -969,7 +969,7 @@ void Mpalette::SetDoc(ScribusDoc *d)
 	ScaleX->setMinValue( 1 );
 	LXpos->setMaxValue( 300000 );
 	LXpos->setMinValue( -300000 );
-	Size->setMaxValue( 1024 );
+	Size->setMaxValue( 10240 );
 	Size->setMinValue( 1 );
 	LineSp->setMaxValue( 3000 );
 	LineSp->setMinValue( 1 );
@@ -983,6 +983,7 @@ void Mpalette::SetDoc(ScribusDoc *d)
   Height->setDecimals(100);
   Rot->setDecimals(100);
   Extra->setDecimals(10);
+  Size->setDecimals(10);
   LineSp->setDecimals(10);
   LXpos->setDecimals(100);
   LYpos->setDecimals(100);

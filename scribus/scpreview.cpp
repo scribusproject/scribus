@@ -202,7 +202,7 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.BaseOffs = QStodouble(pg.attribute("BASEOF","0"));
 			OB.Ausrich = QStoInt(pg.attribute("ALIGN","0"));
 			OB.IFont = DoFonts[pg.attribute("IFONT")];
-			OB.ISize = QStoInt(pg.attribute("ISIZE","12"));
+			OB.ISize = qRound(QStodouble(pg.attribute("ISIZE","12")) * 10.0);
 			OB.Pfile = pg.attribute("PFILE");
 			OB.Pfile2 = pg.attribute("PFILE2","");
 			OB.Pfile3 = pg.attribute("PFILE3","");
@@ -311,7 +311,7 @@ QPixmap ScPreview::createPreview(QString data)
 					it++;
 					hg->cfont = *it;
 					it++;
-					hg->csize = (*it).toInt();
+					hg->csize = qRound((*it).toDouble() * 10.0);
 					it++;
 					hg->ccolor = *it;
 					it++;
@@ -645,7 +645,7 @@ QPixmap ScPreview::createPreview(QString data)
 							pS->setPen(tmpfa);
 							}
 						chs = hl->csize;
-						asce = Prefs->AvailFonts[hl->cfont]->numAscent * hl->csize;
+						asce = Prefs->AvailFonts[hl->cfont]->numAscent * (hl->csize / 10.0);
 						int chst = hl->cstyle & 127;
 						if (chst != 0)
 							{
@@ -668,7 +668,7 @@ QPixmap ScPreview::createPreview(QString data)
 									}
 								}
 							}
-						wide = Prefs->AvailFonts[hl->cfont]->CharWidth[chx[0].unicode()]*chs;
+						wide = Prefs->AvailFonts[hl->cfont]->CharWidth[chx[0].unicode()]*(chs / 10.0);
 						if ((CurX+(wide+hl->cextra)/2) >= wid)
 							{
 							if (zae < cl.size()-1)
@@ -772,11 +772,11 @@ void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, Q
 	if (ccx == QChar(29))
 		ccx = " ";
 	double wide;
-	double csi = static_cast<double>(Siz) / 10.0;
+	double csi = static_cast<double>(Siz) / 100.0;
 	uint chr = ccx[0].unicode();
 	if (Prefs->AvailFonts[ZFo]->CharWidth.contains(chr))
 		{
-		wide = Prefs->AvailFonts[ZFo]->CharWidth[chr]*Siz;
+		wide = Prefs->AvailFonts[ZFo]->CharWidth[chr]*(Siz / 10.0);
 		QWMatrix chma;
 		chma.scale(csi, csi);
 		FPointArray gly = Prefs->AvailFonts[ZFo]->GlyphArray[chr].Outlines.copy();
@@ -791,10 +791,10 @@ void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, Q
 			chma.translate(-wide, 0);
 			gly.map(chma);
 			chma = QWMatrix();
-			chma.translate(xco, yco-Siz);
+			chma.translate(xco, yco-(Siz / 10.0));
 			}
 		else
-			chma.translate(xco, yco-Siz);
+			chma.translate(xco, yco-(Siz / 10.0));
 		gly.map(chma);
 		p->setupPolygon(&gly);
 		p->setFillMode(1);
@@ -802,20 +802,20 @@ void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, Q
 			p->fillPath();
 		if ((Style & 4) && ((mod % 2) != 0))
 			{
-			p->setLineWidth(Prefs->AvailFonts[ZFo]->strokeWidth * Siz / 2);
+			p->setLineWidth(Prefs->AvailFonts[ZFo]->strokeWidth * Siz / 20);
 			p->strokePath();
 			}
 		if (Style & 16)
 			{
-			double st = Prefs->AvailFonts[ZFo]->strikeout_pos * Siz;
-			p->setLineWidth(QMAX(Prefs->AvailFonts[ZFo]->strokeWidth * Siz, 1));
+			double st = Prefs->AvailFonts[ZFo]->strikeout_pos * (Siz / 10.0);
+			p->setLineWidth(QMAX(Prefs->AvailFonts[ZFo]->strokeWidth * (Siz / 10.0), 1));
 			p->drawLine(FPoint(xco, yco-st), FPoint(xco+wide, yco-st));
 			}
 		if (Style & 8)
 			{
-			double st = Prefs->AvailFonts[ZFo]->underline_pos * Siz;
+			double st = Prefs->AvailFonts[ZFo]->underline_pos * (Siz / 10.0);
 			QString dummy;
-			p->setLineWidth(QMAX(Prefs->AvailFonts[ZFo]->strokeWidth * Siz, 1));
+			p->setLineWidth(QMAX(Prefs->AvailFonts[ZFo]->strokeWidth * (Siz / 10.0), 1));
 			if (gly.size() > 4)
 				p->drawUnderline(FPoint(xco, yco-st), FPoint(xco+wide, yco-st), false, &dummy);
 			else
@@ -827,7 +827,7 @@ void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, Q
 		p->setLineWidth(1);
 		p->setPen(Qt::black);
 		p->setFillMode(0);
-		p->drawRect(xco, yco-Siz, Siz, Siz);
+		p->drawRect(xco, yco-Siz, (Siz / 10.0), (Siz / 10.0));
 		}
 }
 

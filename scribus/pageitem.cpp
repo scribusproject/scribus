@@ -80,7 +80,7 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	FrameType = 0;
 	IFont = Doc->Dfont;
 	ISize = Doc->Dsize;
-	LineSp = (Doc->Dsize * static_cast<double>(Doc->AutoLine) / 100) + Doc->Dsize;
+	LineSp = ((Doc->Dsize / 10.0) * static_cast<double>(Doc->AutoLine) / 100) + (Doc->Dsize / 10.0);
 	Doc->Vorlagen[0].LineSpa = LineSp;
 	CurX = 0;
 	CurY = 0;
@@ -636,8 +636,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					else
 						wide = Cwidth(Doc, hl->cfont, chx2, chs);
 					wide = wide * (hl->cscale / 100.0);
-					desc = static_cast<int>(-(*Doc->AllFonts)[hl->cfont]->numDescender * chs);
-					asce = static_cast<int>((*Doc->AllFonts)[hl->cfont]->numAscent * chs);
+					desc = static_cast<int>(-(*Doc->AllFonts)[hl->cfont]->numDescender * (chs / 10.0));
+					asce = static_cast<int>((*Doc->AllFonts)[hl->cfont]->numAscent * (chs / 10.0));
 					if (LiList.isEmpty())
 						{
 						pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+desc+BExtra+lineCorr));
@@ -659,7 +659,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									}
 								}
 							}
-//							CurX += Extra;
 						}
 					hl->xp = CurX+hl->cextra;
 					hl->yp = CurY;
@@ -874,8 +873,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							if ((Zli2->Sele) && (Doc->AppMode == 7) && (Select))
 								{
 								wide = Zli2->wide;
-								desc = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numDescender * -Zli2->Siz);
-								asce = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numAscent * Zli2->Siz);
+								desc = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
+								asce = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0));
 								p->setFillMode(1);
            			p->setBrush(darkBlue);
 								if (!Doc->RePos)
@@ -961,8 +960,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					if ((Zli2->Sele) && (Doc->AppMode == 7) && (Select))
 						{
 						wide = Zli2->wide;
-						desc = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numDescender * -Zli2->Siz);
-						asce = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numAscent * Zli2->Siz);
+						desc = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
+						asce = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0));
 						p->setFillMode(1);
          		p->setBrush(darkBlue);
 						if (!Doc->RePos)
@@ -1361,7 +1360,7 @@ void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 
 void PageItem::SetZeichAttr(struct Pti *hl, int *chs, QString *chx)
 {
-	int	asce = static_cast<int>((*Doc->AllFonts)[hl->cfont]->numAscent * hl->csize);
+	int	asce = static_cast<int>((*Doc->AllFonts)[hl->cfont]->numAscent * (hl->csize / 10.0));
 	int chst = hl->cstyle & 127;
 	if (chst != 0)
 		{
@@ -1373,7 +1372,7 @@ void PageItem::SetZeichAttr(struct Pti *hl, int *chs, QString *chx)
 		if (chst & 2)
 			{
 			CurY += asce * Doc->VTief / 100;
-			*chs = QMAX(hl->csize * Doc->VTiefSc / 100, 1);
+			*chs = QMAX(static_cast<int>(hl->csize * Doc->VTiefSc / 100), 1);
 			}
 		if (chst & 64)
 			{
@@ -1393,7 +1392,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		ccx = " ";
 	if (ccx == QChar(13))
 		return;
-	double csi = static_cast<double>(hl->Siz) / 10.0;
+	double csi = static_cast<double>(hl->Siz) / 100.0;
 	uint chr = ccx[0].unicode();
 	if ((*Doc->AllFonts)[hl->ZFo]->CharWidth.contains(chr))
 		{
@@ -1413,10 +1412,10 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 				chma.translate(-hl->wide, 0);
 				gly.map(chma);
 				chma = QWMatrix();
-				chma.translate(hl->xco, hl->yco-hl->Siz);
+				chma.translate(hl->xco, hl->yco-(hl->Siz / 10.0));
 				}
 			else
-				chma.translate(hl->xco, hl->yco-hl->Siz);
+				chma.translate(hl->xco, hl->yco-(hl->Siz / 10.0));
 			gly.map(chma);
 			p->setFillMode(1);
 			p->setupPolygon(&gly);
@@ -1424,23 +1423,23 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 				p->fillPath();
 			if ((hl->Style & 4) && (hl->Farb2 != "None"))
 				{
-				p->setLineWidth((*Doc->AllFonts)[hl->ZFo]->strokeWidth * hl->Siz / 2);
+				p->setLineWidth((*Doc->AllFonts)[hl->ZFo]->strokeWidth * (hl->Siz / 10.0) / 2);
 				p->strokePath();
 				}
 			}
 		if (hl->Style & 16)
 			{
 			p->setPen(p->brush());
-			double st = (*Doc->AllFonts)[hl->ZFo]->strikeout_pos * hl->Siz;
-			p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * hl->Siz, 1));
+			double st = (*Doc->AllFonts)[hl->ZFo]->strikeout_pos * (hl->Siz / 10.0);
+			p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * (hl->Siz / 10.0), 1));
 			p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
 			}
 		if (hl->Style & 8)
 			{
-			double st = (*Doc->AllFonts)[hl->ZFo]->underline_pos * hl->Siz;
+			double st = (*Doc->AllFonts)[hl->ZFo]->underline_pos * (hl->Siz / 10.0);
 			QString dummy;
 			p->setPen(p->brush());
-			p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * hl->Siz, 1));
+			p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * (hl->Siz / 10.0), 1));
 			if ((gly.size() > 4) && (ccx != QChar(32)))
 				p->drawUnderline(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st), false, &dummy);
 			else
@@ -1452,7 +1451,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		p->setLineWidth(1);
 		p->setPen(black);
 		p->setFillMode(0);
-		p->drawRect(hl->xco, hl->yco-hl->Siz, hl->Siz*(hl->scale / 100.0), hl->Siz);
+		p->drawRect(hl->xco, hl->yco-(hl->Siz / 10.0), (hl->Siz / 10.0)*(hl->scale / 100.0), (hl->Siz / 10.0));
 		}
 }
 
@@ -1655,7 +1654,7 @@ void PageItem::CopyIt(struct CLBuf *Buffer)
 			else
 				Text += Ptext.at(a)->ch+"\t";
 			Text += Ptext.at(a)->cfont+"\t";
-			Text += QString::number(Ptext.at(a)->csize)+"\t";
+			Text += QString::number(Ptext.at(a)->csize / 10.0)+"\t";
 			Text += Ptext.at(a)->ccolor+"\t";
 			Text += QString::number(Ptext.at(a)->cextra)+"\t";
 			Text += QString::number(Ptext.at(a)->cshade)+'\t';

@@ -46,11 +46,12 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     	}
 
     GroupFontLayout->addWidget( FontC, 0, 1 );
-    SizeC = new QSpinBox( GroupFont, "SizeC" );
+    SizeC = new MSpinBox( GroupFont, 1 );
     SizeC->setMinimumSize( QSize( 70, 22 ) );
     SizeC->setSuffix( tr( " pt" ) );
 		SizeC->setMinValue(1);
-		SizeC->setMaxValue(512);
+		SizeC->setMaxValue(5120);
+    SizeC->setLineStep(10);
 		SizeC->setValue(vor->FontSize);
 
     GroupFontLayout->addWidget( SizeC, 1, 1 );
@@ -229,7 +230,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 
 void EditStyle::FontChange(int val)
 {
-	LineSpVal->setValue(static_cast<int>(((val * AutoVal / 100) + val) * 10));
+	LineSpVal->setValue(static_cast<int>((val * AutoVal / 100) + val));
 }
 
 void EditStyle::Verlassen()

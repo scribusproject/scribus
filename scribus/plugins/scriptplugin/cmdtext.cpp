@@ -9,7 +9,7 @@ PyObject *scribus_getfontsize(PyObject *self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "|s", &Name))
 		return NULL;
 	if (!Carrier->HaveDoc)
-		return PyInt_FromLong(0L);
+		return PyFloat_FromDouble(0.0);
 	int i = GetItem(QString(Name));
 	PageItem *it;
 	if (i != -1)
@@ -20,13 +20,13 @@ PyObject *scribus_getfontsize(PyObject *self, PyObject* args)
 			for (uint b = 0; b < it->Ptext.count(); b++)
 				{
 				if (it->Ptext.at(b)->cselect)
-					return PyInt_FromLong(static_cast<long>(it->Ptext.at(b)->csize));
+					return PyFloat_FromDouble(static_cast<double>(it->Ptext.at(b)->csize / 10.0));
 				}
 			}
 		else
-			return PyInt_FromLong(static_cast<long>(it->ISize));
+			return PyFloat_FromDouble(static_cast<long>(it->ISize / 10.0));
 		}
-	return PyInt_FromLong(0L);
+	return PyFloat_FromDouble(0.0);
 }
 
 PyObject *scribus_getfont(PyObject *self, PyObject* args)
@@ -299,8 +299,8 @@ PyObject *scribus_setalign(PyObject *self, PyObject* args)
 PyObject *scribus_setfontsize(PyObject *self, PyObject* args)
 {
 	char *Name = "";
-	int size;
-	if (!PyArg_ParseTuple(args, "i|s", &size, &Name))
+	double size;
+	if (!PyArg_ParseTuple(args, "d|s", &size, &Name))
 		return NULL;
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
@@ -315,7 +315,7 @@ PyObject *scribus_setfontsize(PyObject *self, PyObject* args)
 		doc->ActPage->SelItem.append(doc->ActPage->Items.at(i));
 		if (doc->ActPage->Items.at(i)->HasSel)
 			doc->AppMode = 7;
-		doc->ActPage->chFSize(size);
+		doc->ActPage->chFSize(qRound(size * 10.0));
 		doc->AppMode = Apm;
 		doc->ActPage->Deselect();
 		}

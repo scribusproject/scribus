@@ -268,9 +268,7 @@ void PSLib::PS_begin_doc(int Ori, double breite, double hoehe, int numpage)
 	PutDoc("%%BeginSetup\n");
 	PutDoc("/pdfmark where {pop} {userdict /pdfmark /cleartomark load put} ifelse\n");
 	if (FontDesc != "")
-		{
 		PutDoc(FontDesc);
-		}
 	PutDoc("Scribusdict begin\n");
 	PutDoc(Fonts);
 	if (GraySc)
@@ -465,9 +463,9 @@ void PSLib::PS_setdash(Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo)
 		}
 }
 
-void PSLib::PS_selectfont(QString f, int s)
+void PSLib::PS_selectfont(QString f, double s)
 {
-	PutSeite(UsedFonts[f] + " " + IToStr(s) + " se\n");
+	PutSeite(UsedFonts[f] + " " + ToStr(s) + " se\n");
 }
 
 void PSLib::PS_fill(bool mu)
@@ -535,9 +533,7 @@ void PSLib::PS_LinGradient(double w, double h, int item, int grad, bool mu)
 	PutSeite("/Domain [0 1]\n");
 	if (DoSep)
 		{
-		int pla = Plate - 1;
-		if (pla < 0)
-			pla = 3;
+		int pla = Plate - 1 < 0 ? 3 : Plate - 1;
 		QStringList cols1 = QStringList::split(" ", GrColor2);
 		QStringList cols2 = QStringList::split(" ", GrColor1);
 		PutSeite("/C1 ["+ToStr(1-cols1[pla].toDouble())+"]\n");
@@ -575,9 +571,7 @@ void PSLib::PS_RadGradient(double w, double h, int item, bool mu)
 	PutSeite("/Domain [0 1]\n");
 	if (DoSep)
 		{
-		int pla = Plate - 1;
-		if (pla < 0)
-			pla = 3;
+		int pla = Plate - 1 < 0 ? 3 : Plate - 1;
 		QStringList cols1 = QStringList::split(" ", GrColor2);
 		QStringList cols2 = QStringList::split(" ", GrColor1);
 		PutSeite("/C0 ["+ToStr(1-cols1[pla].toDouble())+"]\n");
@@ -623,7 +617,7 @@ void PSLib::PS_show(double x, double y)
 	PutSeite("/hyphen glyphshow\n");
 }
 
-void PSLib::PS_showSub(uint chr, QString font, int size, bool stroke)
+void PSLib::PS_showSub(uint chr, QString font, double size, bool stroke)
 {
 	PutSeite(FillColor + " cmyk (G"+IToStr(chr)+") "+font+" "+ToStr(size / 10.0)+" ");
 	PutSeite(stroke ? "shgs\n" : "shgf\n");
@@ -741,17 +735,10 @@ void PSLib::PS_image(bool inver, double x, double y, QString fn, double scalex, 
 #ifdef HAVE_CMS
 		QImage image2;
 		bool cmy = false;
-		if ((CMSuse) && (UseProf))
-			{
-			image = LoadPict(fn);
-			image = image.convertDepth(32);
+    image = LoadPict(fn);
+		image = image.convertDepth(32);
+    if ((CMSuse) && (UseProf))
 			image2 = LoadPictCol(fn, Prof, UseEmbedded, &cmy);
-			}
-		else
-			{
-			image = LoadPict(fn);
-			image = image.convertDepth(32);
-			}
 		if (inver)
 			{
 			image.invertPixels();

@@ -178,7 +178,7 @@ ScribusApp::ScribusApp(SplashScreen *splash)
   	BuildFontMenu();
 		SCFontsIterator it(Prefs.AvailFonts);
 		Prefs.DefFont = it.currentKey();
-  	Prefs.DefSize = 12;
+  	Prefs.DefSize = 120;
   	Prefs.AppFontSize = qApp->font().pointSize();
   	/** Default Farbenliste */
   	Prefs.DColors.clear();
@@ -3370,6 +3370,8 @@ void ScribusApp::slotNewPage(int w)
 	connect(doc->ActPage, SIGNAL(NewBMNr(int, int)), BookPal->BView, SLOT(ChangeItem(int, int)));
 	connect(doc->ActPage, SIGNAL(RasterPic(bool)), this, SLOT(HaveRaster(bool)));
 	connect(doc->ActPage, SIGNAL(EditText()), this, SLOT(slotStoryEditor()));
+	connect(doc->ActPage, SIGNAL(DoGroup()), this, SLOT(GroupObj()));
+	connect(doc->ActPage, SIGNAL(DoUnGroup()), this, SLOT(UnGroupObj()));
 	if (!doc->TemplateMode)
 		{
 		connect(doc->ActPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
@@ -3996,7 +3998,6 @@ void ScribusApp::DeletePage2(int pg)
 	AdjustBM();
 	if (!doc->TemplateMode)
 		connect(doc->ActPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
-//	Tpal->slotDelPage(pg);
 	view->reformPages();
 	doc->OpenNodes.clear();
 	Tpal->BuildTree(view);
@@ -4034,7 +4035,6 @@ void ScribusApp::DeletePage()
 			if (view->Pages.at(pg)->SelItem.count() != 0)
 				view->Pages.at(pg)->DeleteItem();
 			view->delPage(pg);
-//			Tpal->slotDelPage(pg);
 			AdjustBM();
 			}
 		if (!doc->TemplateMode)
@@ -4182,7 +4182,7 @@ void ScribusApp::setItemFSize(int id)
 	bool ok = false;
 	if (c > 0)
 		{
-		c = SizeTMenu->text(id).left(2).toInt();
+		c = SizeTMenu->text(id).left(2).toInt() * 10;
 		doc->ActPage->chFSize(c);
 		}
 	else
@@ -4190,8 +4190,8 @@ void ScribusApp::setItemFSize(int id)
     Query* dia = new Query(this, "New", 1, 0, "Size:", "Size");
     if (dia->exec())
     	{
-			c = dia->Answer->text().toInt(&ok);
-			if ((ok) && (c < 1025) && (c > 0))
+			c = qRound(dia->Answer->text().toDouble(&ok) * 10);
+			if ((ok) && (c < 10250) && (c > 0))
 				doc->ActPage->chFSize(c);
 			delete dia;
      	}
@@ -4206,7 +4206,7 @@ void ScribusApp::setFSizeMenu(int size)
 	for (a = 0; a < SizeTMenu->count(); ++a)
 		{
 		SizeTMenu->setItemChecked(SizeTMenu->idAt(a), false);
-		if (SizeTMenu->text(SizeTMenu->idAt(a)).left(2).toInt() == size)
+		if (SizeTMenu->text(SizeTMenu->idAt(a)).left(2).toInt() == size / 10)
 			{
 			SizeTMenu->setItemChecked(SizeTMenu->idAt(a), true);
 			}
@@ -4972,7 +4972,7 @@ void ScribusApp::slotPrefsOrg()
 			doc->GrabRad = dia->SpinBox3_2->value();
 			doc->GuideRad = dia->SpinBox2g->value() / UmReFaktor / 100;
 			doc->Dfont = dia->FontComb->currentText();
-			doc->Dsize = dia->SizeCombo->currentText().left(2).toInt();
+			doc->Dsize = dia->SizeCombo->currentText().left(2).toInt() * 10;
 			doc->minorGrid = dia->SpinBox1->value() / UmReFaktor / 100;
 			doc->majorGrid = dia->SpinBox2->value() / UmReFaktor / 100;
 			doc->minorColor = dia->Cmin;
@@ -5069,7 +5069,7 @@ void ScribusApp::slotPrefsOrg()
 			Prefs.GrabRad = dia->SpinBox3_2->value();
 			Prefs.GuideRad = dia->SpinBox2g->value() / UmReFaktor / 100;
 			Prefs.DefFont = dia->FontComb->currentText();
-			Prefs.DefSize = dia->SizeCombo->currentText().left(2).toInt();
+			Prefs.DefSize = dia->SizeCombo->currentText().left(2).toInt() * 10;
 			Prefs.DminGrid = dia->SpinBox1->value() / UmReFaktor / 100;
 			Prefs.DmajGrid = dia->SpinBox2->value() / UmReFaktor / 100;
 			Prefs.DminColor = dia->Cmin;
@@ -5708,7 +5708,10 @@ void ScribusApp::ManageTemp(QString temp)
 	MusterSeiten *dia = new MusterSeiten(this, doc, view, temp);
 	connect(dia, SIGNAL(CreateNew(int)), this, SLOT(slotNewPageT(int)));
 	connect(dia, SIGNAL(Fertig()), this, SLOT(ManTempEnd()));
-	menuBar()->setItemEnabled(pgmm, 0);
+	for (uint a=0; a<5; ++a)
+		{
+		pageMenu->setItemEnabled(pageMenu->idAt(a), 0);
+		}
 	editMenu->setItemEnabled(tman, 0);
 	ActWin->MenuStat[0] = DatSav->isEnabled();
 	ActWin->MenuStat[1] = fileMenu->isItemEnabled(fid1);
@@ -5730,8 +5733,10 @@ void ScribusApp::ManageTemp(QString temp)
 void ScribusApp::ManTempEnd()
 {
 	view->HideTemplate();
-	menuBar()->setItemEnabled(pgmm, 1);
 	editMenu->setItemEnabled(tman, 1);
+	pageMenu->setItemEnabled(pageMenu->idAt(0), 1);
+	pageMenu->setItemEnabled(pageMenu->idAt(2), 1);
+	pageMenu->setItemEnabled(pageMenu->idAt(4), 1);
 	DatNeu->setEnabled(true);
 	DatSav->setEnabled(ActWin->MenuStat[0]);
 	DatOpe->setEnabled(true);

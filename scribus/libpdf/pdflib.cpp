@@ -1654,7 +1654,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				{
 				if ((hl->cstroke != "None") && (hl->cstyle & 4))
 					{
-					tmp2 += FToStr((*doc->AllFonts)[hl->cfont]->strokeWidth * tsz / 20.0)+" w\n[] 0 d\n0 J\n0 j\n";
+					tmp2 += FToStr((*doc->AllFonts)[hl->cfont]->strokeWidth * tsz / 200.0)+" w\n[] 0 d\n0 J\n0 j\n";
 					tmp2 += StrokeColor;
 					}
 				if (hl->ccolor != "None")
@@ -1674,13 +1674,13 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				if (ite->Reverse)
 					{
 					double wid = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-					tmp2 += "1 0 0 1 "+FToStr(hl->xp)+" "+FToStr((hl->yp - tsz) * -1)+" cm\n";
+					tmp2 += "1 0 0 1 "+FToStr(hl->xp)+" "+FToStr((hl->yp - (tsz / 10.0)) * -1)+" cm\n";
 					tmp2 += "-1 0 0 1 0 0 cm\n";
 					tmp2 += "1 0 0 1 "+FToStr(-wid)+" 0 cm\n";
-					tmp2 += FToStr(tsz)+" 0 0 "+FToStr(tsz)+" 0 0 cm\n";
+					tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" 0 0 cm\n";
 					}
 				else
-					tmp2 += FToStr(tsz)+" 0 0 "+FToStr(tsz)+" "+FToStr(hl->xp)+" "+FToStr((hl->yp - tsz) * -1)+" cm\n";
+					tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" "+FToStr(hl->xp)+" "+FToStr((hl->yp - (tsz / 10.0)) * -1)+" cm\n";
 				tmp2 += FToStr(hl->cscale / 100.0)+" 0 0 1 0 0 cm\n";
 				tmp2 += "/"+(*doc->AllFonts)[hl->cfont]->RealName()+IToStr(chr)+" Do\n";
 				if (hl->cstyle & 4)
@@ -1721,7 +1721,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					{
 					int chs = hl->csize;
 					double wtr = Cwidth(doc, hl->cfont, chx, chs);
-					tmp2 += "1 0 0 1 "+FToStr(wtr / tsz)+" 0 cm\n";
+					tmp2 += "1 0 0 1 "+FToStr(wtr / (tsz / 10.0))+" 0 cm\n";
 					chx = "-";
 					chr = chx[0].unicode();
 					FPointArray gly = (*doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
@@ -1766,7 +1766,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			if (GlyphsIdxOfFont[hl->cfont].contains(cc))
 				idx = GlyphsIdxOfFont[hl->cfont][cc].Code;
 			idx1 = (idx >> 8) & 0xFF;
-			tmp += UsedFontsP[hl->cfont]+"S"+IToStr(idx1)+" "+IToStr(tsz)+" Tf\n";
+			tmp += UsedFontsP[hl->cfont]+"S"+IToStr(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 			if (hl->cstroke != "None")
 				{
 				tmp += StrokeColor;
@@ -1782,9 +1782,9 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			if (hl->cstyle & 4)
 				{
 				if (hl->ccolor != "None")
-					tmp += FToStr((*doc->AllFonts)[hl->cfont]->strokeWidth * tsz / 2.0)+" w 2 Tr\n";
+					tmp += FToStr((*doc->AllFonts)[hl->cfont]->strokeWidth * tsz / 20.0)+" w 2 Tr\n";
 				else
-					tmp += FToStr((*doc->AllFonts)[hl->cfont]->strokeWidth * tsz / 2.0)+" w 1 Tr\n";
+					tmp += FToStr((*doc->AllFonts)[hl->cfont]->strokeWidth * tsz / 20.0)+" w 1 Tr\n";
 				}
 			else
 				tmp += "0 Tr\n";
@@ -1829,11 +1829,11 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				{
 				double csi = tsz / 10.0;
 				double wid = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-				QPixmap pgPix(tsz, static_cast<int>(wid));
-				ScPainter *painter = new ScPainter(&pgPix, tsz, static_cast<int>(wid));
+				QPixmap pgPix(static_cast<int>(wid), static_cast<int>(csi));
+				ScPainter *painter = new ScPainter(&pgPix, static_cast<int>(wid), static_cast<int>(csi));
 				FPointArray gly = (*doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
-				double st = (*doc->AllFonts)[hl->cfont]->underline_pos * tsz;
-				double Uwid = QMAX((*doc->AllFonts)[hl->cfont]->strokeWidth * tsz, 1);
+				double st = (*doc->AllFonts)[hl->cfont]->underline_pos * csi;
+				double Uwid = QMAX((*doc->AllFonts)[hl->cfont]->strokeWidth * csi, 1);
 				painter->setLineWidth(Uwid);
 				if (gly.size() < 4)
 					{
@@ -1844,7 +1844,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					gly.addPoint(FPoint(1,0));
 					}
 				QWMatrix chma;
-				chma.scale(csi, csi);
+				chma.scale(csi / 10.0, csi / 10.0);
 				gly.map(chma);
 				chma = QWMatrix();
 				chma.scale(hl->cscale / 100.0, 1);
@@ -1863,7 +1863,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				else
 					tmp2 += "1 0 0 -1 "+FToStr(hl->xp)+" "+FToStr((hl->yp - st) * -1)+" cm\n";
 				painter->setupPolygon(&gly);
-				painter->drawUnderline(FPoint(0, tsz-st), FPoint(wid, tsz-st), true, &tmp2);
+				painter->drawUnderline(FPoint(0, tsz-st), FPoint(wid, csi-st), true, &tmp2);
 				tmp2 += "h f Q\n";
 				painter->end();
 				delete painter;
@@ -1872,8 +1872,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 		if (hl->cstyle & 16)
 			{
 			double Ulen = Cwidth(doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-			double Upos = (*doc->AllFonts)[hl->cfont]->strikeout_pos * tsz;
-			double Uwid = QMAX((*doc->AllFonts)[hl->cfont]->strokeWidth * tsz, 1);
+			double Upos = (*doc->AllFonts)[hl->cfont]->strikeout_pos * (tsz / 10.0);
+			double Uwid = QMAX((*doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0), 1);
 			if (hl->ccolor != "None")
 				{
 				if (Options->UseRGB)

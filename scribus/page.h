@@ -312,6 +312,8 @@ signals: // Signals
 	void MoveObj(uint, uint, uint);
 	void UpdtObj(uint, uint);
 	void AddObj(uint, uint);
+	void DoGroup();
+	void DoUnGroup();
 };
 
 #endif

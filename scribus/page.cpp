@@ -1767,7 +1767,7 @@ void Page::scaleGroup(double scx, double scy)
 				bb->ISize = QMAX(qRound(bb->ISize*((scx+scy)/2)), 1);
 				if (bb->Ptext.count() != 0)
 					{
-					bb->LineSp = (bb->ISize * static_cast<double>(doku->AutoLine) / 100) + bb->ISize;
+					bb->LineSp = ((bb->ISize / 10.0) * static_cast<double>(doku->AutoLine) / 100) + (bb->ISize / 10.0);
 					for (aa = 0; aa < bb->Ptext.count(); ++aa)
 						{
 						bb->Ptext.at(aa)->csize = QMAX(qRound(bb->Ptext.at(aa)->csize*((scx+scy)/2)), 1);
@@ -1952,6 +1952,10 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem(tr("Edit Text..."), this, SIGNAL(EditText()));
 			if (!b->Locked)
 				{
+				if (SelItem.count() > 1)
+					pmen->insertItem(tr("Group"), this, SIGNAL(DoGroup()));
+				if (b->Groups.count() != 0)
+					pmen->insertItem(tr("Un-group"), this, SIGNAL(DoUnGroup()));
 				pmen->insertItem(tr("Lock"), this, SLOT(ToggleLock()));
 				pmen->insertItem(tr("Send to Back"), this, SLOT(ToBack()));
 				pmen->insertItem(tr("Bring to Front"), this, SLOT(ToFront()));
@@ -2221,7 +2225,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 						if (b->Ptext.count() != 0)
 							{
 							b->ISize = QMAX(qRound(b->ISize * scy), 1);
-							b->LineSp = (b->ISize * static_cast<double>(doku->AutoLine) / 100) + b->ISize;
+							b->LineSp = ((b->ISize / 10.0)* static_cast<double>(doku->AutoLine) / 100) + (b->ISize / 10.0);
 							b->TxtScale = QMIN(QMAX(qRound(b->TxtScale * scx), 25), 400);
 							doku->CurrTextScale = b->TxtScale;
 							doku->CurrFontSize = b->ISize;
@@ -4407,8 +4411,8 @@ void Page::slotDoCurs(bool draw)
   		if (b->Ptext.at(b->CPos-1)->ch != QChar(13))
   			xp += qRound(Cwidth(doku, b->Ptext.at(b->CPos-1)->cfont, chx, chs)*(b->Ptext.at(b->CPos-1)->cscale / 100.0));
   		yp = static_cast<int>(b->Ptext.at(b->CPos-1)->yp);
-			int desc = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos-1)->cfont]->numDescender * -b->Ptext.at(b->CPos-1)->csize);
-			int asce = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos-1)->cfont]->numAscent * b->Ptext.at(b->CPos-1)->csize);
+			int desc = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos-1)->cfont]->numDescender * (-b->Ptext.at(b->CPos-1)->csize / 10.0));
+			int asce = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos-1)->cfont]->numAscent * (b->Ptext.at(b->CPos-1)->csize / 10.0));
 			yp1 = yp - asce;
 			yp += desc;
   		}
@@ -4419,8 +4423,8 @@ void Page::slotDoCurs(bool draw)
 			xp += static_cast<int>(doku->Vorlagen[b->Ptext.at(b->CPos)->cab].Indent);
 			yp = static_cast<int>(doku->Vorlagen[b->Ptext.at(b->CPos)->cab].LineSpa+b->Extra);
 			yp += static_cast<int>(doku->Vorlagen[b->Ptext.at(b->CPos)->cab].Avor);
-			int desc = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos)->cfont]->numDescender * -b->Ptext.at(b->CPos)->csize);
-			int asce = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos)->cfont]->numAscent * b->Ptext.at(b->CPos)->csize);
+			int desc = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos)->cfont]->numDescender * (-b->Ptext.at(b->CPos)->csize / 10.0));
+			int asce = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos)->cfont]->numAscent * (b->Ptext.at(b->CPos)->csize / 10.0));
 			yp1 = yp - asce;
 			yp += desc;
   		}
@@ -4638,8 +4642,8 @@ void Page::UpdatePolyClip(PageItem *b)
 	for (uint a = 0; a < b->Ptext.count(); ++a)
 		{
 		hl = b->Ptext.at(a);
-		int des = static_cast<int>((*doku->AllFonts)[hl->cfont]->numDescender * -hl->csize);
-		int asc = static_cast<int>((*doku->AllFonts)[hl->cfont]->numAscent * hl->csize);
+		int des = static_cast<int>((*doku->AllFonts)[hl->cfont]->numDescender * (-hl->csize / 10.0));
+		int asc = static_cast<int>((*doku->AllFonts)[hl->cfont]->numAscent * (hl->csize / 10.0));
 		if (asc > asce)
 			asce = asc;
 		if (des > desc)
@@ -4724,7 +4728,7 @@ void Page::TextToPath()
 		Deselect();
 		if (b->Ptext.count() == 0)
 			return;
-		doku->loading = true;
+//		doku->loading = true;
 		for (uint a = 0; a < b->MaxChars; ++a)
 			{
 			pts.resize(0);
@@ -4752,7 +4756,7 @@ void Page::TextToPath()
 					chx = chx.upper();
 					}
 				}
-			double csi = static_cast<double>(chs) / 10.0;
+			double csi = static_cast<double>(chs) / 100.0;
 			uint chr = chx[0].unicode();
 			QWMatrix chma;
 			chma.scale(csi, csi);
@@ -4816,7 +4820,7 @@ void Page::TextToPath()
 				}
 			}
 		doku->GroupCounter++;
-		doku->loading = false;
+//		doku->loading = false;
 		SelItem.clear();
 		SelItem.append(b);
 		DeleteItem();
@@ -5665,7 +5669,7 @@ void Page::chFSize(int size)
 			doku->CurrFontSize = size;
 			if (doku->AppMode != 7)
 				{
-				b->LineSp = (size * static_cast<double>(doku->AutoLine) / 100) + size;
+				b->LineSp = ((size / 10.0) * static_cast<double>(doku->AutoLine) / 100) + (size / 10.0);
 				doku->Vorlagen[0].LineSpa = b->LineSp;
 				emit ItemTextAttr(b->LineSp);
 				b->ISize = size;
@@ -6118,7 +6122,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 					it++;
 					hg->cfont = *it;
 					it++;
-					hg->csize = (*it).toInt();
+					hg->csize = qRound((*it).toDouble() * 10);
 					it++;
 					hg->ccolor = *it;
 					it++;

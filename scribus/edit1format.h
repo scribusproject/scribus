@@ -45,7 +45,7 @@ public:
     QGroupBox* GroupFont;
     QLabel* TextF1;
     FontCombo* FontC;
-    QSpinBox* SizeC;
+    MSpinBox* SizeC;
     QLabel* TextF2;
     QPushButton* Cancel;
     QPushButton* OkButton;

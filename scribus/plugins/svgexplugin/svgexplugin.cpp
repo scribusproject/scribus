@@ -542,11 +542,11 @@ void SVGExPlug::SetTextProps(QDomElement *tp, struct Pti *hl, ScribusApp *plug)
 	if ((hl->cstroke != "None") && (chst & 4))
 		{
 		tp->setAttribute("stroke", SetFarbe(hl->cstroke, hl->cshade2, plug));
-		tp->setAttribute("stroke-width", (*plug->doc->AllFonts)[hl->cfont]->strokeWidth * hl->csize);
+		tp->setAttribute("stroke-width", (*plug->doc->AllFonts)[hl->cfont]->strokeWidth * (hl->csize / 10.0));
 		}
 	else
 		tp->setAttribute("stroke", "none");
-	tp->setAttribute("font-size", hl->csize);
+	tp->setAttribute("font-size", (hl->csize / 10.0));
 	tp->setAttribute("font-family", (*plug->doc->AllFonts)[hl->cfont]->Family);
 	if (chst != 0)
 		{

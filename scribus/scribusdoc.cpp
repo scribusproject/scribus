@@ -48,7 +48,7 @@ ScribusDoc::ScribusDoc()
 	DocName = tr("Document")+"-";
 	UsedFonts.clear();
 	Dfont = "";
-	Dsize = 12;
+	Dsize = 120;
 	CurrentSel = -1;
 	DocTitel = "";
 	DocAutor = "";

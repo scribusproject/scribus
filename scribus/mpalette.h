@@ -132,7 +132,7 @@ public:
     MSpinBox* DRight;
     QCheckBox* NormText2;
 		FontCombo* Fonts;
-    QSpinBox* Size;
+    MSpinBox* Size;
     QToolButton* Revert;
     QToolButton* Underline;
     QButtonGroup* ButtonGroup1;

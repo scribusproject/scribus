@@ -100,7 +100,7 @@ void StilFormate::neuesFormat()
 {
    	struct StVorL sty;
    	sty.Vname = tr("New Style");
-   	sty.LineSpa = (Docu->Dsize * static_cast<double>(Docu->AutoLine) / 100) + Docu->Dsize;
+   	sty.LineSpa = ((Docu->Dsize / 10.0) * static_cast<double>(Docu->AutoLine) / 100) + (Docu->Dsize / 10.0);
    	sty.Ausri = 0;
    	sty.Indent = 0;
    	sty.First = 0;

@@ -16,7 +16,7 @@ void* Run(QWidget *d)
 About::About( QWidget* parent )
     : QDialog( parent, "About", true, 0 )
 {
-    setCaption( tr( "About Scribus")+" "+VERSION );
+    setCaption( tr("About Scribus%1%2").arg(" ").arg(VERSION) );
   	setIcon(loadIcon("AppIcon.png"));
     AboutLayout = new QVBoxLayout( this );
     AboutLayout->setSpacing( 6 );
@@ -32,7 +32,7 @@ About::About( QWidget* parent )
     tabLayout1->addWidget( PixmapLabel1 );
     BuildID = new QLabel( tab, "BB" );
     BuildID->setAlignment(Qt::AlignCenter);
-    QString bu = "20. November 2003 ";
+    QString bu = tr("%1. %2 %3 ").arg(22).arg("November").arg(2003);
 #ifdef HAVE_CMS
 		bu += "C";
 #else
@@ -51,7 +51,7 @@ About::About( QWidget* parent )
 		bu += "*";
 #endif
 
-    BuildID->setText("Scribus Version "+QString(VERSION)+"\nBuild-ID: "+bu);
+    BuildID->setText(tr("Scribus Version %1\n%2 %3").arg(VERSION).arg(tr("Build-ID:")).arg(bu));
     tabLayout1->addWidget( BuildID );
     TabWidget2->insertTab( tab, tr( "About" ) );
     tab_2 = new QWidget( TabWidget2, "tab_2" );
@@ -91,9 +91,13 @@ About::About( QWidget* parent )
                         "<tr><td><b>" + tr("Spanish and Catalan:") + "</b></td><td> </td></tr>" +
                         "<tr><td>Josep Febrer</td><td>josep@linuxmail.org</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
-                        "<tr><td><b>" + tr("Hungarian and Italian:") + "</b></td><td> </td></tr>" +
+                        "<tr><td><b>" + tr("Italian:") + "</b></td><td> </td></tr>" +
+                        "<tr><td>Giovanni Biczs</td><td>gbiczo@freestart.hu</td></tr>" +
+                        "<tr><td> </td><td> </td></tr>" +
+                        "<tr><td><b>" + tr("Hungarian:") + "</b></td><td> </td></tr>" +
                         "<tr><td>Giovanni Biczó</td><td>gbiczo@freestart.hu</td></tr>" +
                         "<tr><td>Bence Nagy</td><td>scribus@tipogral.hu</td></tr>" +
+                        "<tr><td>Zolt? Bszrm?yi</td><td>zboszor@freemail.hu</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
                         "<tr><td><b>" + tr("Ukrainian:") + "</b></td><td> </td></tr>" +
                         "<tr><td>Sergiy Kudryk</td><td>kudryk@yahoo.com</td></tr>" +

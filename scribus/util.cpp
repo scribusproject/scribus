@@ -696,18 +696,18 @@ double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2)
 	Foi* fo = (*doc->AllFonts)[name];
 	if (fo->CharWidth.contains(c1))
 		{
-		w = fo->CharWidth[c1]*Siz;
+		w = fo->CharWidth[c1]*(Siz / 10.0);
 		if (fo->HasKern)
 			{
 			uint cl = FT_Get_Char_Index(doc->FFonts[name], c1);
 			uint cr = FT_Get_Char_Index(doc->FFonts[name], c2);
 			FT_Get_Kerning(doc->FFonts[name], cl, cr, ft_kerning_unscaled, &delta);
-			w += delta.x / fo->uniEM * Siz;
+			w += delta.x / fo->uniEM * (Siz / 10.0);
 			}
 		return w;
 		}
 	else
-		return static_cast<double>(Siz);
+		return static_cast<double>(Siz / 10.0);
 }
 
 QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota)

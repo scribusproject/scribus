@@ -205,7 +205,7 @@ while(!DOC.isNull())
 					tmpf = view->Prefs->GFontSub[tmpf];
 				}
 			fo = avail[tmpf]->Font;
-			fo.setPointSize(doc->Dsize);
+			fo.setPointSize(qRound(doc->Dsize / 10.0));
 			doc->AddFont(tmpf, fo);
 			DoFonts[pg.attribute("NAME")] = tmpf;
 		}
@@ -230,7 +230,7 @@ while(!DOC.isNull())
 				vg.Font = DoFonts[pg.attribute("FONT")];
 			else
 				vg.Font = DoFonts[Defont];
-			vg.FontSize = QStoInt(pg.attribute("FONTSIZE","12"));
+			vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
 			doc->Vorlagen.append(vg);
 			}
 		if(pg.tagName()=="JAVA")
@@ -447,7 +447,7 @@ while(!DOC.isNull())
 				OB.BaseOffs = QStodouble(obj.attribute("BASEOF","0"));
 				OB.Ausrich = QStoInt(obj.attribute("ALIGN","0"));
 				OB.IFont = DoFonts[obj.attribute("IFONT", doc->Dfont)];
-				OB.ISize = QStoInt(obj.attribute("ISIZE","12"));
+				OB.ISize = qRound(QStodouble(obj.attribute("ISIZE","12")) * 10.0);
 				OB.Pfile=obj.attribute("PFILE");
 				OB.Pfile2=obj.attribute("PFILE2","");
 				OB.Pfile3=obj.attribute("PFILE3","");
@@ -648,7 +648,7 @@ while(!DOC.isNull())
 	doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
 	doc->Einheit = QStoInt(dc.attribute("UNITS","0"));
 	Defont=dc.attribute("DFONT");
-	doc->Dsize=QStoInt(dc.attribute("DSIZE"));
+	doc->Dsize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
 	doc->DocAutor=dc.attribute("AUTHOR");
 	doc->DocComments=dc.attribute("COMMENTS");
 	doc->DocKeyWords=dc.attribute("KEYWORDS","");
@@ -705,7 +705,7 @@ while(!DOC.isNull())
 					tmpf = view->Prefs->GFontSub[tmpf];
 				}
 			fo = avail[tmpf]->Font;
-			fo.setPointSize(doc->Dsize);
+			fo.setPointSize(qRound(doc->Dsize / 10.0));
 			doc->AddFont(tmpf, fo);
 			DoFonts[pg.attribute("NAME")] = tmpf;
 		}
@@ -730,7 +730,7 @@ while(!DOC.isNull())
 				vg.Font = DoFonts[pg.attribute("FONT")];
 			else
 				vg.Font = DoFonts[Defont];
-			vg.FontSize = QStoInt(pg.attribute("FONTSIZE","12"));
+			vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
 			doc->Vorlagen.append(vg);
 			}
 		if(pg.tagName()=="JAVA")
@@ -1018,7 +1018,7 @@ while(!DOC.isNull())
 				OB.BaseOffs = QStodouble(obj.attribute("BASEOF","0"));
 				OB.Ausrich = QStoInt(obj.attribute("ALIGN","0"));
 				OB.IFont = DoFonts[obj.attribute("IFONT", doc->Dfont)];
-				OB.ISize = QStoInt(obj.attribute("ISIZE","12"));
+				OB.ISize = qRound(QStodouble(obj.attribute("ISIZE","12")) * 10);
 				OB.Pfile=obj.attribute("PFILE");
 				OB.Pfile2=obj.attribute("PFILE2","");
 				OB.Pfile3=obj.attribute("PFILE3","");
@@ -1311,7 +1311,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 					tmpf = FontSub[tmpf];
 				}
 			fo = avail[tmpf]->Font;
-			fo.setPointSize(doc->Dsize);
+			fo.setPointSize(qRound(doc->Dsize / 10.0));
 			if(!doc->UsedFonts.contains(tmpf))
 				doc->AddFont(tmpf, fo);
 			DoFonts[pg.attribute("NAME")] = tmpf;
@@ -1493,7 +1493,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.BaseOffs = QStodouble(pg.attribute("BASEOF","0"));
 			OB.Ausrich = QStoInt(pg.attribute("ALIGN","0"));
 			OB.IFont = DoFonts[pg.attribute("IFONT")];
-			OB.ISize = QStoInt(pg.attribute("ISIZE","12"));
+			OB.ISize = qRound(QStodouble(pg.attribute("ISIZE","12")) * 10);
 			OB.Pfile = pg.attribute("PFILE");
 			OB.Pfile2 = pg.attribute("PFILE2","");
 			OB.Pfile3 = pg.attribute("PFILE3","");
@@ -1609,9 +1609,9 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 
 QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 {
-	int ts, ts2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tsc, tsc2;
+	int tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tsc, tsc2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
-	double te, te2, xf, yf;
+	double te, te2, xf, yf, ts, ts2;
 	PageItem *item;
 	QDomDocument docu("scribus");
 	QString st="<SCRIBUSELEMUTF8></SCRIBUSELEMUTF8>";
@@ -1789,7 +1789,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		ob.setAttribute("REXTRA",item->RExtra);
 		ob.setAttribute("ALIGN",item->Ausrich);
 		ob.setAttribute("IFONT",item->IFont);
-		ob.setAttribute("ISIZE",item->ISize);
+		ob.setAttribute("ISIZE",item->ISize / 10.0);
 		if (item->Pfile != "")
 			ob.setAttribute("PFILE",Path2Relative(item->Pfile));
 		else
@@ -1827,7 +1827,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		for(uint k=0;k<item->Ptext.count();++k)
 			{
 			QDomElement it=docu.createElement("ITEXT");
-			ts = item->Ptext.at(k)->csize;
+			ts = item->Ptext.at(k)->csize / 10.0;
 			tf = item->Ptext.at(k)->cfont;
 			tc = item->Ptext.at(k)->ccolor;
 			te = item->Ptext.at(k)->cextra;
@@ -1858,7 +1858,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 				ob.appendChild(it);
 				break;
 				}
-			ts2 = item->Ptext.at(k)->csize;
+			ts2 = item->Ptext.at(k)->csize / 10.0;
 			tf2 = item->Ptext.at(k)->cfont;
 			tc2 = item->Ptext.at(k)->ccolor;
 			te2 = item->Ptext.at(k)->cextra;
@@ -1886,7 +1886,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 				k++;
 				if (k == item->Ptext.count())
 					break;
-				ts2 = item->Ptext.at(k)->csize;
+				ts2 = item->Ptext.at(k)->csize / 10.0;
 				tf2 = item->Ptext.at(k)->cfont;
 				tc2 = item->Ptext.at(k)->ccolor;
 				te2 = item->Ptext.at(k)->cextra;
@@ -1970,7 +1970,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			fo.setAttribute("VOR",doc->Vorlagen[ff].Avor);
 			fo.setAttribute("NACH",doc->Vorlagen[ff].Anach);
 			fo.setAttribute("FONT",doc->Vorlagen[ff].Font);
-			fo.setAttribute("FONTSIZE",doc->Vorlagen[ff].FontSize);
+			fo.setAttribute("FONTSIZE",doc->Vorlagen[ff].FontSize / 10.0);
 			elem.appendChild(fo);
 			}
 		}
@@ -1999,9 +1999,9 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 
 void ScriXmlDoc::WritePages(ScribusView *view, QDomDocument docu, QDomElement dc, QProgressBar *dia2, uint maxC)
 {
-int ts, ts2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tsc, tsc2;
+int tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tsc, tsc2;
 QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
-double te, te2, xf, yf;
+double ts, ts2, te, te2, xf, yf;
 uint ObCount = maxC;
 Page *page;
 PageItem *item;
@@ -2090,7 +2090,7 @@ for(uint i=0;i<view->Pages.count();++i)
 		ob.setAttribute("BBOXH",item->BBoxH);
 		ob.setAttribute("ALIGN",item->Ausrich);
 		ob.setAttribute("IFONT",item->IFont);
-		ob.setAttribute("ISIZE",item->ISize);
+		ob.setAttribute("ISIZE",item->ISize / 10.0 );
 		if(item->ScaleType)
 			ob.setAttribute("SCALETYPE", 1);
 		else
@@ -2206,7 +2206,7 @@ for(uint i=0;i<view->Pages.count();++i)
 		for(uint k=0;k<item->Ptext.count();++k)
 			{
 			QDomElement it=docu.createElement("ITEXT");
-			ts = item->Ptext.at(k)->csize;
+			ts = item->Ptext.at(k)->csize / 10.0;
 			tf = item->Ptext.at(k)->cfont;
 			tc = item->Ptext.at(k)->ccolor;
 			te = item->Ptext.at(k)->cextra;
@@ -2237,7 +2237,7 @@ for(uint i=0;i<view->Pages.count();++i)
 				ob.appendChild(it);
 				break;
 				}
-			ts2 = item->Ptext.at(k)->csize;
+			ts2 = item->Ptext.at(k)->csize / 10.0;
 			tf2 = item->Ptext.at(k)->cfont;
 			tc2 = item->Ptext.at(k)->ccolor;
 			te2 = item->Ptext.at(k)->cextra;
@@ -2265,7 +2265,7 @@ for(uint i=0;i<view->Pages.count();++i)
 				k++;
 				if (k == item->Ptext.count())
 					break;
-				ts2 = item->Ptext.at(k)->csize;
+				ts2 = item->Ptext.at(k)->csize / 10.0;
 				tf2 = item->Ptext.at(k)->cfont;
 				tc2 = item->Ptext.at(k)->ccolor;
 				te2 = item->Ptext.at(k)->cextra;
@@ -2362,7 +2362,7 @@ dc.setAttribute("AUTOSPALTEN",doc->PageSp);
 dc.setAttribute("ABSTSPALTEN",doc->PageSpa);
 dc.setAttribute("UNITS",doc->Einheit);
 dc.setAttribute("DFONT",doc->Dfont);
-dc.setAttribute("DSIZE",doc->Dsize);
+dc.setAttribute("DSIZE",doc->Dsize / 10.0);
 dc.setAttribute("AUTHOR",doc->DocAutor);
 dc.setAttribute("COMMENTS",doc->DocComments);
 dc.setAttribute("KEYWORDS",doc->DocKeyWords);
@@ -2464,7 +2464,7 @@ if (doc->Vorlagen.count() > 5)
 		fo.setAttribute("VOR",doc->Vorlagen[ff].Avor);
 		fo.setAttribute("NACH",doc->Vorlagen[ff].Anach);
 		fo.setAttribute("FONT",doc->Vorlagen[ff].Font);
-		fo.setAttribute("FONTSIZE",doc->Vorlagen[ff].FontSize);
+		fo.setAttribute("FONTSIZE",doc->Vorlagen[ff].FontSize / 10.0);
 		dc.appendChild(fo);
 		}
 	}
@@ -2611,7 +2611,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	elem.appendChild(dc1a);
 	QDomElement dc2=docu.createElement("FONTS");
 	dc2.setAttribute("FACE",Vor->DefFont);
-	dc2.setAttribute("SIZE",Vor->DefSize);
+	dc2.setAttribute("SIZE",Vor->DefSize / 10.0);
 	elem.appendChild(dc2);
 	QDomElement dc3=docu.createElement("TYPO");
 	dc3.setAttribute("TIEF",Vor->DVTief);
@@ -2992,7 +2992,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 				}
 			else
 				Vorein->DefFont = dc.attribute("FACE");
-			Vorein->DefSize = QStoInt(dc.attribute("SIZE"));
+			Vorein->DefSize = qRound(QStodouble(dc.attribute("SIZE")) * 10.0);
 			}
 		if (dc.tagName()=="FONT")
 			{

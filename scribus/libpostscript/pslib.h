@@ -52,7 +52,7 @@ public:
 	virtual void PS_setcmykcolor_stroke(double c, double m, double y, double k);
 	virtual void PS_setlinewidth(double w);
 	virtual void PS_setdash(Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo);
-	virtual void PS_selectfont(QString f, int s);
+	virtual void PS_selectfont(QString f, double s);
 	virtual void PS_fill(bool mu);
 	virtual void PS_stroke();
 	virtual void PS_fill_stroke(bool mu);
@@ -62,7 +62,7 @@ public:
 	virtual void PS_LinGradient(double w, double h, int item, int grad, bool mu);
 	virtual void PS_RadGradient(double w, double h, int item, bool mu);
 	virtual void PS_show(double x, double y);
-	virtual void PS_showSub(uint chr, QString font, int size, bool stroke);
+	virtual void PS_showSub(uint chr, QString font, double size, bool stroke);
 	virtual void PS_show_xyG(QString font, QString ch, double x, double y);
 	virtual void PS_image(bool inver, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name = "");
 	virtual void PS_plate(int nr);

@@ -70,12 +70,29 @@ void STable::keyPressEvent(QKeyEvent *k)
 	if (c == 1)
 		{
 		tt = (SEditor*)cellWidget(r, 1);
-		if ((k->key() == Key_Left) || (k->key() == Key_Right) || (k->key() == Key_Down) || (k->key() == Key_Up))
+		if ((k->key() == Key_Prior) || (k->key() == Key_Next))
+			return;
+		if ((k->key() == Key_Left)
+				|| (k->key() == Key_Right)
+				|| (k->key() == Key_Down)
+				|| (k->key() == Key_Up)
+				|| (k->key() == Key_Home)
+				|| (k->key() == Key_End))
 			{
 			QTextEdit::CursorAction move;
 			tt->getCursorPosition(&p, &i);
 			switch (k->key())
 				{
+				case Key_Home:
+					tt = (SEditor*)cellWidget(0, 1);
+					setCurrentCell(0, 1);
+					move = QTextEdit::MoveLineStart;
+					break;
+				case Key_End:
+					tt = (SEditor*)cellWidget(n-1, 1);
+					setCurrentCell(n-1, 1);
+					move = QTextEdit::MoveEnd;
+					break;
 				case Key_Left:
 					if ((i == 0) && (r > 0))
 						{

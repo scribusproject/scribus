@@ -341,7 +341,7 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			double x = b.attribute( "x" ).isEmpty() ? 0.0 : parseUnit(b.attribute("x"));
 			double y = b.attribute( "y" ).isEmpty() ? 0.0 : parseUnit(b.attribute("y"));
 			parseStyle(gc, b);
-			z = Doku->ActPage->PaintText(x, y - gc->FontSize, 10, 10, gc->LWidth, gc->FillCol);
+			z = Doku->ActPage->PaintText(x, y - qRound(gc->FontSize / 10.0), 10, 10, gc->LWidth, gc->FillCol);
 			PageItem* ite = Doku->ActPage->Items.at(z);
 			ite->Extra = 0;
 			ite->TExtra = 0;
@@ -1208,7 +1208,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			obj->Family = Doku->Dfont;
 		}
 	else if( command == "font-size" )
-		obj->FontSize = static_cast<int>(parseUnit(params));
+		obj->FontSize = static_cast<int>(parseUnit(params) * 10.0);
 }
 
 void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
@@ -1360,12 +1360,12 @@ void SVGPlug::parseText(PageItem *ite, const QDomElement &e)
 	QPainter p;
 	p.begin(Doku->ActPage);
 	QFont ff(Doku->UsedFonts[m_gc.current()->Family]);
-	ff.setPointSize(QMAX(m_gc.current()->FontSize, 1));
+	ff.setPointSize(QMAX(qRound(m_gc.current()->FontSize / 10.0), 1));
 	p.setFont(ff);
 	int	desc = p.fontMetrics().descent();
 	QString Text = QString::fromUtf8(e.text());
 	QDomNode c = e.firstChild();
-	ite->LineSp = m_gc.current()->FontSize + 2;
+	ite->LineSp = m_gc.current()->FontSize / 10.0 + 2;
 	if ((!c.isNull()) && (c.toElement().tagName() == "tspan"))
 		{
 		ite->Height = ite->LineSp+desc+2;
@@ -1376,7 +1376,7 @@ void SVGPlug::parseText(PageItem *ite, const QDomElement &e)
 			addGraphicContext();
 			SvgStyle *gc = m_gc.current();
 			parseStyle(gc, tspan);
-			ite->LineSp = gc->FontSize + 2;
+			ite->LineSp = gc->FontSize / 10.0 + 2;
 			Prog->SetNewFont(gc->Family);
 			double x = parseUnit( tspan.attribute( "x", "1" ) );
 			double y = parseUnit( tspan.attribute( "y", "1" ) );
