@@ -1,4 +1,10 @@
 Changes since Version 0.9.10
+24.05.2003	scribus.cpp		Improved the Clipboard once more, works now with Nedit, OpenOffice
+					and Mozilla too.
+		customfdialog.cpp
+		serializer.cpp		Improved importing of Text, you can now choose an Encoding in
+					the Fileselect Dialog.
+
 22.05.2003	scribus.cpp
 		werktoolb.cpp		Splitted off the PDF-Tools from the main Toolbar.
 

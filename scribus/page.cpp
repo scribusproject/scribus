@@ -2575,7 +2575,8 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 		if (Mpressed && (doku->AppMode == 9))
 			{
 			float newW = xy2Deg(newX - qRound(RCenter.x()), newY - qRound(RCenter.y()));
-			RotateItem(qRound((b->Rot - (oldW - newW))*100.0)/100.0, b->ItemNr);
+//			RotateItem(qRound((b->Rot - (oldW - newW))*100.0)/100.0, b->ItemNr);
+			RotateItem(b->Rot - (oldW - newW), b->ItemNr);
 			oldW = newW;
 //			emit DocChanged();
 			}

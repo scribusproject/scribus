@@ -121,17 +121,15 @@ bool Serializer::Write()
 	return ret;
 }
 
-bool Serializer::Read()
+bool Serializer::Read(QString Cod)
 {
+	QTextCodec *codec;
 	bool tmp = loadText(Filename, &Objekt);
-	QTextCodec* codec = QTextCodec::codecForContent(Objekt, Objekt.length());
-	if (codec)
-		{
-		if (QString(codec->name()) == "UTF-8")
-			{
-			QString dec = QString::fromUtf8(Objekt);
-			Objekt = dec;
-			}
-		}	
+	if (Cod == "")
+		codec = QTextCodec::codecForLocale();
+	else
+		codec = QTextCodec::codecForName(Cod);
+  QString dec = codec->toUnicode( Objekt );
+	Objekt = dec;
 	return tmp;
 }

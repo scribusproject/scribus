@@ -27,6 +27,7 @@
 #include <qlayout.h>
 #include <qframe.h>
 #include <qtoolbutton.h>
+#include <qcombobox.h>
 /**
   *@author Franz Schmid
   */
@@ -61,17 +62,21 @@ class CustomFDialog : public QFileDialog
 {
     Q_OBJECT
 public: 
-	CustomFDialog(QWidget *pa, QString cap = "", QString filter = "", bool Pre = false, bool mod = true, bool comp = false);
+	CustomFDialog(QWidget *pa, QString cap = "", QString filter = "", bool Pre = false, bool mod = true, bool comp = false, bool cod = false);
 	~CustomFDialog();
 	QDir cDir;
 	QCheckBox* SaveZip;
 	QFrame* Layout;
 	QToolButton* HomeB;
+	QFrame* LayoutC;
+	QComboBox *TxCodeM;
+	QLabel *TxCodeT;
 private slots:
 	void slotHome();
 	void HandleComp();
 protected:
 	QHBoxLayout* Layout1;
+	QHBoxLayout* Layout1C;
 };
 
 #endif

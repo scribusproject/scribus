@@ -36,7 +36,7 @@ public:
 	void PutText(PageItem *Item);
 	void GetText(PageItem *Item, int Absatz, bool Append = false);
 	bool Write();
-	bool Read();
+	bool Read(QString Cod = "");
 };
 
 #endif

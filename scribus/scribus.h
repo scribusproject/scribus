@@ -104,7 +104,7 @@ class ScribusApp : public QMainWindow
     PDFlib* getPDFDriver();
     void closePDFDriver();
 		bool DoSaveAsEps(QString fn);
-    QString CFileDialog(QString caption = "", QString filter = "", QString defNa = "", bool Pre = false, bool mod = true, bool comp = false);
+    QString CFileDialog(QString caption = "", QString filter = "", QString defNa = "", bool Pre = false, bool mod = true, bool comp = false, bool cod = false);
     void GetCMSProfiles();
     void RecalcColors(QProgressBar *dia = 0);
 		void SwitchWin();
@@ -152,6 +152,7 @@ class ScribusApp : public QMainWindow
 		ScribusWin* ActWin;
 		QString PrefsPfad;
 		QClipboard *ClipB;
+		QString LoadEnc;
 
   public slots:
 		void Collect();

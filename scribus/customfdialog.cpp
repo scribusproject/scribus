@@ -23,6 +23,7 @@
 #include <qfileinfo.h>
 #include <qdir.h>
 #include <qdom.h>
+#include <qtextcodec.h>
 extern QImage LoadPict(QString fn);
 extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);
@@ -162,7 +163,7 @@ void FDialogPreview::previewUrl( const QUrl &url )
 		GenPreview(url.path());
 }
 
-CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre, bool mod, bool comp)
+CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre, bool mod, bool comp, bool cod)
 						 : QFileDialog(QString::null, filter, pa, 0, true)
 {
  	setIcon(loadIcon("AppIcon.xpm"));
@@ -192,6 +193,47 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre,
 		setMode(QFileDialog::AnyFile);
 		if (comp)
 			addWidgets(0, Layout, 0);
+		}
+	if (cod)
+		{
+		LayoutC = new QFrame(this);
+		Layout1C = new QHBoxLayout(LayoutC);
+		Layout1C->setSpacing( 0 );
+		Layout1C->setMargin( 4 );
+		TxCodeT = new QLabel(this);
+		TxCodeT->setText(tr("Encoding:"));
+		TxCodeM = new QComboBox(true, LayoutC, "Cod");
+		TxCodeM->setEditable(false);
+		TxCodeM->insertItem("ISO8859-1");
+		TxCodeM->insertItem("ISO8859-2");
+		TxCodeM->insertItem("ISO8859-3");
+		TxCodeM->insertItem("ISO8859-4");
+		TxCodeM->insertItem("ISO8859-5");
+		TxCodeM->insertItem("ISO8859-6");
+		TxCodeM->insertItem("ISO8859-7");
+		TxCodeM->insertItem("ISO8859-8");
+		TxCodeM->insertItem("ISO8859-9");
+		TxCodeM->insertItem("ISO8859-10");
+		TxCodeM->insertItem("ISO8859-13");
+		TxCodeM->insertItem("ISO8859-14");
+		TxCodeM->insertItem("ISO8859-15");
+		TxCodeM->insertItem("utf8");
+		TxCodeM->insertItem("KOI8-R");
+		TxCodeM->insertItem("KOI8-U");
+		QString localEn = QTextCodec::codecForLocale()->name();
+		for (int cc = 0; cc < TxCodeM->count(); cc++)
+			{
+			if (TxCodeM->text(cc) == localEn)
+				{
+				TxCodeM->setCurrentItem(cc);
+				break;
+				}
+			}
+		TxCodeM->setMinimumSize(QSize(200, 0));
+		Layout1C->addWidget(TxCodeM);
+		QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+  	Layout1C->addItem( spacer2 );
+		addWidgets(TxCodeT, LayoutC, 0);
 		}
 	if (Pre)
 		setPreviewMode( QFileDialog::Contents );
