@@ -47,10 +47,6 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     Layout1->setSpacing( 6 );
     Layout1->setMargin( 0 );
 
-    TextLabel1 = new QLabel( this, "TextLabel1" );
-    TextLabel1->setText( tr( "Type:" ) );
-    Layout1->addWidget( TextLabel1 );
-
     ComboBox1 = new QComboBox( true, this, "ComboBox1" );
 	/* PFJ - 28/02/04 - Changed to QString/size_t/for style */
 	QString combo[] = { tr("Text"), tr("Link"), tr("External Link"), 
@@ -59,6 +55,8 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
 	for (uint prop = 0; prop < comboArray; ++prop)
 		ComboBox1->insertItem(combo[prop]);
     ComboBox1->setEditable(false);
+    TextLabel1 = new QLabel( ComboBox1, tr("&Type:"), this, "TextLabel1" );
+    Layout1->addWidget( TextLabel1 );
     Layout1->addWidget( ComboBox1 );
     AnnotLayout->addLayout( Layout1 );
 	item->AnType < 2 ? ComboBox1->setCurrentItem(item->AnType):
@@ -83,7 +81,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
 	Destfile->setReadOnly(true);
     GroupBox1Layout->addMultiCellWidget( Destfile, 0, 0, 0, 1 );
 	ChFile = new QPushButton(GroupBox1, "Change");
-	ChFile->setText( tr("Change..."));
+	ChFile->setText( tr("C&hange..."));
     GroupBox1Layout->addWidget( ChFile, 0, 2 );
 	if ((item->AnActType != 7) && (item->AnActType != 8))
 	{
@@ -91,13 +89,12 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
 		ChFile->hide();
 	}
 
-    TextLabel3 = new QLabel( GroupBox1, "TextLabel3" );
-    TextLabel3->setText( tr( "Page:" ) );
-    GroupBox1Layout->addWidget( TextLabel3, 1, 0 );
     SpinBox1 = new QSpinBox( GroupBox1, "SpinBox1" );
     SpinBox1->setMinValue(1);
     SpinBox1->setMaxValue(item->AnActType == 7 ? 1000 : Seite);
     SpinBox1->setValue(item->AnZiel+1);
+    TextLabel3 = new QLabel( SpinBox1, tr("&Page:"), GroupBox1, "TextLabel3" );
+    GroupBox1Layout->addWidget( TextLabel3, 1, 0 );
     GroupBox1Layout->addWidget( SpinBox1, 1, 1 );
 	if ((Destfile->text() != "") && (item->AnActType == 7))
     	Pg = new Navigator( GroupBox1, 100, item->AnZiel+1, view, item->An_Extern);
@@ -106,21 +103,19 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     Pg->setMinimumSize(QSize(Pg->pmx.width(), Pg->pmx.height()));
     GroupBox1Layout->addMultiCellWidget(Pg, 1, 3, 2, 2);
 
-    TextLabel4 = new QLabel( GroupBox1, "TextLabel4" );
-    TextLabel4->setText( tr( "X-Pos:" ) );
-    GroupBox1Layout->addWidget( TextLabel4, 2, 0 );
     SpinBox2 = new QSpinBox( GroupBox1, "SpinBox2" );
     SpinBox2->setSuffix( tr( " pt" ) );
     SpinBox2->setMaxValue(Breite);
     SpinBox2->setValue(tl[0].toInt());
+    TextLabel4 = new QLabel( SpinBox2, tr("&X-Pos"), GroupBox1, "TextLabel4" );
+    GroupBox1Layout->addWidget( TextLabel4, 2, 0 );
     GroupBox1Layout->addWidget( SpinBox2, 2, 1 );
-    TextLabel5 = new QLabel( GroupBox1, "TextLabel5" );
-    TextLabel5->setText( tr( "Y-Pos:" ) );
-    GroupBox1Layout->addWidget( TextLabel5, 3, 0 );
     SpinBox3 = new QSpinBox( GroupBox1, "SpinBox3" );
     SpinBox3->setMaxValue(Hoehe);
     SpinBox3->setSuffix( tr( " pt" ) );
     SpinBox3->setValue(Hoehe-tl[1].toInt());
+    TextLabel5 = new QLabel( SpinBox3, tr("&Y-Pos:"), GroupBox1, "TextLabel5" );
+    GroupBox1Layout->addWidget( TextLabel5, 3, 0 );
     GroupBox1Layout->addWidget( SpinBox3, 3, 1 );
     Fram->addWidget(GroupBox1, 1);
 
@@ -133,18 +128,15 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     Layout1_2->setSpacing( 6 );
     Layout1_2->setMargin( 0 );
 
-    QSpacerItem* spacerr = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    Layout1_2->addItem( spacerr );
-    PushButton1 = new QPushButton( this, "PushButton1" );
-    PushButton1->setText( tr( "OK" ) );
-    PushButton1->setDefault( true );
-    Layout1_2->addWidget( PushButton1 );
-    PushButton2 = new QPushButton( this, "PushButton2" );
-    PushButton2->setText( tr( "Cancel" ) );
-    Layout1_2->addWidget( PushButton2 );
     QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout1_2->addItem( spacer );
+    PushButton1 = new QPushButton( "&OK", this, "PushButton1" );
+    PushButton1->setDefault( true );
+    Layout1_2->addWidget( PushButton1 );
+    PushButton2 = new QPushButton( "&Cancel", this, "PushButton2" );
+    Layout1_2->addWidget( PushButton2 );
     AnnotLayout->addLayout( Layout1_2 );
+
     connect(PushButton1, SIGNAL(clicked()), this, SLOT(SetVals()));
     connect(PushButton2, SIGNAL(clicked()), this, SLOT(reject()));
     connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetZiel(int)));
