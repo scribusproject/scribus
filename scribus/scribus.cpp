@@ -156,6 +156,10 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	setIcon(loadIcon("AppIcon.png"));
 	MenuItemsFile.clear();
 
+	PrefsPfad = getPreferencesLocation();
+	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs13.xml"));
+	convertToXMLPreferences(PrefsPfad);
+
 	initMenuBar();
 	initStatusBar();
 	initToolBars();
@@ -163,10 +167,6 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	qApp->processEvents();
 
 	BuFromApp = false;
-
-	PrefsPfad = getPreferencesLocation();
-	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs13.xml"));
-	convertToXMLPreferences(PrefsPfad);
 	
 	initFonts();
 

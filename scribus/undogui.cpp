@@ -166,7 +166,11 @@ void UndoWidget::updateRedo(int steps)
 
 void UndoWidget::popBack()
 {
-	undoItems.erase(undoItems.end() - 1);
+	if (undoItems.size() > 0)
+	{
+		undoItems.erase(undoItems.end() - 1);
+		updateUndoMenu();
+	}
 }
 
 UndoWidget::~UndoWidget()
@@ -288,8 +292,11 @@ void UndoPalette::updateRedo(int steps)
 
 void UndoPalette::popBack()
 {
-	undoList->removeItem(0);
-	currentSelection = undoList->numRows() - 1;
+	if (undoList->count() > 1)
+	{
+		undoList->removeItem(0);
+		currentSelection = undoList->numRows() - 1;
+	}
 }
 
 void UndoPalette::updateList()

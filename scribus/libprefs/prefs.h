@@ -134,6 +134,9 @@ public:
 	QCheckBox* ASon;
 	QLabel* ASText;
 	QSpinBox* ASTime;
+	QGroupBox* urGroup;
+	QLabel* urLabel;
+	QSpinBox* urSpinBox;
 	QGroupBox* CaliGroup;
 	QLabel* CaliText;
 	QLabel* CaliRuler;
@@ -220,6 +223,7 @@ protected:
 
 private slots:
 	void setSelectedGUILang( const QString &newLang );
+	void setActionHistoryLength();
 
 private:
 	LanguageManager langMgr;

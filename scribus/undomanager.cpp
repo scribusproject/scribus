@@ -22,8 +22,11 @@
 #include "undomanager.moc"
 #include "undogui.h"
 #include "config.h"
+#include "prefscontext.h"
+#include "prefsfile.h"
 #include <qvaluelist.h>
 
+extern PrefsFile *prefsFile;
 extern QPixmap loadIcon(QString nam);
 
 UndoManager* UndoManager::_instance    = 0;
@@ -54,9 +57,12 @@ bool UndoManager::undoEnabled()
 UndoManager::UndoManager()
 {
 	currentUndoObjectId = -1;
-	historyLength = 20;
 	if (!UndoManager::IGuides)
 		initIcons();
+	prefs = prefsFile->getContext("undo");
+	historyLength = prefs->getInt("historyLength", 10);
+	if (historyLength < 0)
+		historyLength = 10;
 }
 
 void UndoManager::registerGui(UndoGui* gui)
@@ -183,13 +189,8 @@ void UndoManager::action(UndoObject* target, UndoState* state)
 		stacks[currentDoc].second.erase(stacks[currentDoc].second.begin(), stacks[currentDoc].first);
 	}
 
-	if (stacks[currentDoc].second.size() == static_cast<uint>(historyLength))
-	{
-		ActionList::iterator it = stacks[currentDoc].second.end() - 1;
-		delete (*it).second;
-		stacks[currentDoc].second.erase(it);
-		emit popBack();
-	}
+	checkStackLength();
+
 	stacks[currentDoc].second.insert(stacks[currentDoc].second.begin(), ActionPair(target, state));
 	stacks[currentDoc].first = stacks[currentDoc].second.begin();
 }
@@ -273,13 +274,35 @@ void UndoManager::showObject(int uid)
 
 void UndoManager::setHistoryLength(int steps)
 {
-	if (steps > 0)
+	if (steps >= 0)
+	{
 		historyLength = steps;
+		prefs->set("historyLength", historyLength);
+		checkStackLength();
+	}
 }
 
 int UndoManager::getHistoryLength()
 {
+	if (stacks.size() > 0 && stacks[currentDoc].first != stacks[currentDoc].second.begin())
+		return -1;
 	return historyLength;
+}
+
+void UndoManager::checkStackLength()
+{
+	if ((stacks[currentDoc].second.size() >= static_cast<uint>(historyLength)) && (historyLength != 0))
+	{
+		while (stacks[currentDoc].second.size() >= static_cast<uint>(historyLength))
+		{
+			ActionList::iterator it = stacks[currentDoc].second.end() - 1;
+			if (stacks[currentDoc].first == it)
+				stacks[currentDoc].first = it - 1;
+			delete (*it).second;
+			stacks[currentDoc].second.erase(it);
+			emit popBack();
+		}
+	}
 }
 
 void UndoManager::deleteInstance()

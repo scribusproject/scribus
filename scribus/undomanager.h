@@ -30,6 +30,7 @@
 #include "undoobject.h"
 
 class UndoGui;
+class PrefsContext;
 
 typedef std::pair<UndoObject*, UndoState*> ActionPair;
 typedef std::vector<ActionPair> ActionList;
@@ -69,6 +70,8 @@ private:
 	/** @brief Should undo states be stored or ignored */
 	static bool _undoEnabled;
 
+	PrefsContext *prefs;
+
 	/** @brief Doc to which the currently active stack belongs */
 	QString currentDoc;
 
@@ -103,6 +106,7 @@ private:
 	void connectGuis();
 	void disconnectGuis();
 	void initIcons();
+	void checkStackLength();
 
 public:
 	/**
@@ -198,14 +202,6 @@ public:
 	void showObject(int uid);
 
 	/**
-	 * @brief Sets the length of the undo stack.
-	 *
-	 * Tells how many UndoStates are stored.
-	 * @param steps number of UndoStates to store in the undo stack
-	 */
-	void setHistoryLength(int steps);
-
-	/**
 	 * @brief Returns the maximum length of the undostack.
 	 * @return the maximum length of the undostack
 	 */
@@ -289,6 +285,14 @@ public slots:
 	 * @sa UndoManager::undo(int steps)
 	 */
 	void redo(int steps);
+
+	/**
+	 * @brief Sets the length of the undo stack.
+	 *
+	 * Tells how many UndoStates are stored.
+	 * @param steps number of UndoStates to store in the undo stack
+	 */
+	void setHistoryLength(int steps);
 
 signals:
 	/**

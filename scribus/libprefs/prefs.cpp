@@ -20,6 +20,7 @@
 #include "cmsprefs.h"
 #include "keymanager.h"
 #include "tabtools.h"
+#include "undomanager.h"
 
 using namespace std;
 
@@ -306,6 +307,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	GroupRandLayout->addWidget( GRText3, 0, 2 );
 
 	Layout21->addWidget( GroupRand );
+	QBoxLayout *asurLayout = new QHBoxLayout( 0, 0, 6, "asurLayout");
 
 	GroupAS = new QGroupBox( tr( "Autosave" ), tab_7, "GroupAS" );
 	GroupAS->setColumnLayout(0, Qt::Vertical );
@@ -324,7 +326,28 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	ASText = new QLabel( ASTime, tr( "&Interval:" ), GroupAS, "ASText" );
 	GroupASLayout->addWidget( ASText, 1, 0 );
 	GroupASLayout->addWidget( ASTime, 1, 1 );
-	Layout21->addWidget( GroupAS );
+	asurLayout->addWidget(GroupAS);
+
+	urGroup = new QGroupBox(tr("Undo/Redo"), tab_7, "urGroup");
+	urGroup->setColumnLayout(0, Qt::Vertical);
+	urGroup->layout()->setSpacing(5);
+	urGroup->layout()->setMargin(10);
+	QGridLayout *urGroupLayout = new QGridLayout(urGroup->layout());
+	urGroupLayout->setAlignment(Qt::AlignTop);
+	urSpinBox = new QSpinBox(urGroup, "urSpinBox");
+	urSpinBox->setMinValue(0);
+	urSpinBox->setMaxValue(1000);
+	int urSBValue = UndoManager::instance()->getHistoryLength();
+	if (urSBValue == -1)
+		urSpinBox->setEnabled(false);
+	else
+		urSpinBox->setValue(urSBValue);
+	urLabel = new QLabel(urSpinBox, tr("Action history length"), urGroup, "urLabel");
+	urGroupLayout->addWidget(urLabel, 0, 0);
+	urGroupLayout->addWidget(urSpinBox, 0, 1);
+	asurLayout->addWidget(urGroup);
+	Layout21->addLayout(asurLayout);
+
 	tabLayout_7->addLayout( Layout21 );
 	addItem( tr("Document"), loadIcon("page.png"), tab_7);
 
@@ -618,6 +641,8 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	QToolTip::add( ASon, tr( "When enabled, Scribus saves a backup copy of your file with the .bak extension\neach time the time period elapses" ) );
 	QToolTip::add( ASTime, tr( "Time period between saving automatically" ) );
 
+	QToolTip::add( urSpinBox, tr("Set the length of the action history in steps.\nIf set to 0 infinite amount of actions will be stored."));
+
 	QToolTip::add( PreviewSize, tr( "Choose the size of the preview in the scrapbook palette" ) );
 	QToolTip::add( SaveAtQuit, tr( "Save the scrapbook contents everytime after a change" ) );
 
@@ -656,6 +681,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	connect(FileC3, SIGNAL(clicked()), this, SLOT(changeScripts()));
 	connect(FileC4, SIGNAL(clicked()), this, SLOT(changeTemplates()));
 	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
+	connect(buttonOk, SIGNAL(clicked()), this, SLOT(setActionHistoryLength()));
 	setSize(prefsData->PageFormat);
 	setOrien(prefsData->Ausrichtung);
 	pageWidth->setValue(prefsData->PageBreite * Umrech);
@@ -1144,5 +1170,10 @@ QString Preferences::getSelectedGUILang( )
 void Preferences::setSelectedGUILang( const QString &newLang )
 {
 	selectedGUILang=langMgr.getAbbrevFromLang(newLang);
+}
+
+void Preferences::setActionHistoryLength()
+{
+  UndoManager::instance()->setHistoryLength(urSpinBox->value());
 }
 
