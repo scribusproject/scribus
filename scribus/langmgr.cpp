@@ -75,9 +75,11 @@ void LanguageManager::generateInstalledLangList()
 
     QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
     if (dir.exists() && (dir.count() != 0))
-        for (uint i = 0; i < dir.count(); ++i) {
+        for (uint i = 0; i < dir.count(); ++i) 
+		{
             QFileInfo file(path + dir[i]);
-            if (file.extension(false).lower() == "qm") {
+            if (file.extension(false).lower() == "qm") 
+			{
                 langAbbrev = file.extension().remove(".qm");
                 if ((it=langList.find(langAbbrev))!=langList.end())
 						installedLangList.insert(it.key(), it.data());
