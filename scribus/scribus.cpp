@@ -152,7 +152,6 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 
 	qApp->processEvents();
 
-
 	BuFromApp = false;
 
 	initFonts();
@@ -161,6 +160,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		retVal=1;
 	else
 	{
+		initDefaultValues();
 		buildFontMenu();
 		initDefaultPrefs();
 		initArrowStyles();
@@ -180,12 +180,16 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		qApp->processEvents();
 		ReadPrefs();
 
-		initDefaultValues();
+		HaveGS = system(Prefs.gs_exe+" -h > /dev/null 2>&1");
+		HavePngAlpha = system(Prefs.gs_exe+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
+		DocDir = Prefs.DocDir;
 
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Getting ICC Profiles"));
+		CMSavail = false;
 		GetCMSProfiles();
 		initCMS();
+
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Init Hyphenator"));
 		qApp->processEvents();
@@ -494,6 +498,10 @@ void ScribusApp::initDefaultPrefs()
 
 void ScribusApp::initDefaultValues()
 {
+	PrefsPfad = getPreferencesLocation();
+	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs.xml"));
+	dirs = prefsFile->getContext("dirs");
+
 	HaveDoc = 0;
 	singleClose = false;
 	ScriptRunning = false;
@@ -514,13 +522,9 @@ void ScribusApp::initDefaultValues()
 	PDef.Dname = "";
 	PDef.Command = "";
 	keyrep = false;
-	DocDir = Prefs.DocDir;
 	ClipB = QApplication::clipboard();
 	PalettesStat[0] = false;
 	GuidesStat[0] = false;
-	HaveGS = system(Prefs.gs_exe+" -h > /dev/null 2>&1");
-	HavePngAlpha = system(Prefs.gs_exe+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
-	CMSavail = false;
 
 	connect(ClipB, SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 }
