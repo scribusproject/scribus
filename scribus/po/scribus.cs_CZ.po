@@ -6,13 +6,13 @@
 # Petr Vanìk <subzero@py.cz>, 2003
 msgid ""
 msgstr ""
-"Project-Id-Version: scribus.cs_CZ\n"
-"POT-Creation-Date: 1999-02-23 15:38+0200\n"
-"PO-Revision-Date: 2003-06-15 17:35+0200\n"
-"Last-Translator: Petr Vanìk <subzero@py.cz>\n"
+"Project-Id-Version: scribus.cs_CZ.1\n"
+"POT-Creation-Date: 2003-06-19 10:00+0200\n"
+"PO-Revision-Date: 2003-06-27 13:46+0200\n"
+"Last-Translator: Petr Vanìk <subzero@py.cz>, Ondøej Rovòan <ondrej.rovnan@seznam.cz>\n"
+"Language-Team:  <cs@li.org>\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language-Team:  <cs@li.org>\n"
 "X-Generator: KBabel 1.0.1\n"
 
 msgid "File"
@@ -195,8 +195,11 @@ msgstr "©:"
 msgid "Tabloid"
 msgstr "Tabloid"
 
-msgid "Documents (*.scd *scd.gz);; All Files (*)"
-msgstr "Dokumenty (*.scd *scd.gz);;V¹echny soubory (*)"
+msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
+msgstr "Dokumenty (*.scd *scd.gz *.scd *scd.gz);;V¹echny soubory (*)"
+
+msgid "Documents (*.sla *.scd);; All Files (*)"
+msgstr "Dokumenty (*.sla *scd);;V¹echny soubory (*)"
 
 msgid "Document "
 msgstr "Dokument "
@@ -206,9 +209,6 @@ msgstr "Bez dokumentu"
 
 msgid "Warning"
 msgstr "Varování"
-
-msgid "The document has been changed since the last save."
-msgstr "Od posledního ulo¾ení byl dokument zmìnìný."
 
 msgid "Save Now"
 msgstr "Ulo¾it ihned"
@@ -222,8 +222,8 @@ msgstr "Textové soubory (*.txt);;V¹echny soubory (*)"
 msgid "Images"
 msgstr "Obrázky"
 
-msgid ");;Postscript (*.eps);;All Files (*)"
-msgstr ");;Postscript (*.eps);;V¹echny soubory (*)"
+msgid ");;Vectorimages (*.eps *.pdf);;All Files (*)"
+msgstr ");;Vektorová grafika (*.eps *.pdf);;V¹echny soubory (*)"
 
 msgid "Look &in:"
 msgstr "Nahlédnout &do:"
@@ -256,7 +256,7 @@ msgid "Author:"
 msgstr "Autor:"
 
 msgid "Edit"
-msgstr "Upravit"
+msgstr "Editovat"
 
 msgid "Cut"
 msgstr "Vyjmout"
@@ -345,12 +345,6 @@ msgstr "Barvy"
 msgid "Edit Colors"
 msgstr "Upravit"
 
-msgid "Hide Colors"
-msgstr "Skrýt barvy"
-
-msgid "Show Colors"
-msgstr "Zobrazit barvy"
-
 msgid "Show Outline"
 msgstr "Zobrazit obrysy"
 
@@ -410,9 +404,6 @@ msgstr "Tisk na tiskárnì:"
 
 msgid "Printer"
 msgstr "Tiskárna"
-
-msgid "locally connected"
-msgstr "lokálnì pøipojená"
 
 msgid "Comment"
 msgstr "Komentáø"
@@ -540,10 +531,10 @@ msgstr "Hlavní barva møí¾ky:"
 msgid "Minor Grid Color:"
 msgstr "Vedlej¹í barva møí¾ky:"
 
-msgid "Grid Colors:"
+msgid "Grid Colors"
 msgstr "Barvy møí¾ky"
 
-msgid "Grid Layout:"
+msgid "Grid Layout"
 msgstr "Rozlo¾ení møí¾ky:"
 
 msgid "Image visible"
@@ -553,13 +544,13 @@ msgid "Is PDF-Bookmark"
 msgstr "Je PDF zálo¾kou"
 
 msgid "Snap to Guides"
-msgstr "Chytat k øídícím èarám"
+msgstr "Ukotvit k øídícím èarám"
 
 msgid "Apply"
 msgstr "Pou¾ít"
 
 msgid "Snap to Grid"
-msgstr "Chytit k møí¾ce"
+msgstr "Ukotvit k møí¾ce"
 
 msgid "Mouse-Settings"
 msgstr "Nastavení my¹i"
@@ -577,16 +568,16 @@ msgid "Printing completed"
 msgstr "Tisk je dokonèen"
 
 msgid "Printing aborted"
-msgstr "Tisk je pøeru¹en"
+msgstr "Tisk je zru¹en"
 
 msgid "Printing..."
 msgstr "Tisknu..."
 
 msgid "Saving aborted"
-msgstr "Ukládání bylo pøeru¹ené"
+msgstr "Ukládání zru¹eno"
 
 msgid "Loading aborted"
-msgstr "Naèítání pøeru¹ené"
+msgstr "Naèítání zru¹eno"
 
 msgid "Global Fontsettings"
 msgstr "Globální nastavení písma"
@@ -603,8 +594,8 @@ msgstr "Standardní velikost"
 msgid "Default Font:"
 msgstr "Standardní písmo:"
 
-msgid "Sample Text"
-msgstr "Ukázka textu"
+msgid "Woven silk pyjamas exchanged for blue quartz"
+msgstr ""
 
 msgid "Fonts"
 msgstr "Písma"
@@ -628,7 +619,7 @@ msgid "Fonts..."
 msgstr "Písmo..."
 
 msgid " loaded"
-msgstr " naètené"
+msgstr " naèteno"
 
 msgid "Picture "
 msgstr "Obrázek"
@@ -637,7 +628,7 @@ msgid "File "
 msgstr "Soubor "
 
 msgid " saved"
-msgstr " ulo¾ené"
+msgstr " ulo¾eno"
 
 msgid "Unable to create PDF-File."
 msgstr "Nelze vytvoøit PDF soubor."
@@ -729,10 +720,10 @@ msgstr "pøed stranu"
 msgid "after Page"
 msgstr "za stranu"
 
-msgid "At End"
+msgid "at End"
 msgstr "na konec"
 
-msgid "Page(s)"
+msgid "page(s)"
 msgstr "stran"
 
 msgid "To End"
@@ -814,7 +805,7 @@ msgid "Textdistance"
 msgstr "Vzdálenost textu"
 
 msgid "Face"
-msgstr "Tváø"
+msgstr "Povrch"
 
 msgid "Superscript"
 msgstr "Horní index"
@@ -931,15 +922,15 @@ msgid "Tools"
 msgstr "Nástroje"
 
 msgid "Create Textchains"
-msgstr "Vytvoøit vázání textu"
+msgstr "Vytvoøit vazby textu"
 
 msgid "Break Textchains"
-msgstr "Pøeru¹it vázání textu"
+msgstr "Pøeru¹it vazby textu"
 
 msgid "Stepping:"
 msgstr "Krokování:"
 
-msgid "Placing:"
+msgid "Placing"
 msgstr "Umístìní:"
 
 msgid "In the Background"
@@ -953,6 +944,9 @@ msgstr "Barva textu:"
 
 msgid "Units"
 msgstr "Jednotky"
+
+msgid "Points (pts)"
+msgstr "Body (pt)"
 
 msgid "Points (pt)"
 msgstr "Body (pt)"
@@ -1009,6 +1003,9 @@ msgid "Hungarian and Italian:"
 msgstr "Maïarsky a Italsky:"
 
 msgid "Slovak:"
+msgstr "Slovensky"
+
+msgid "Slovak"
 msgstr "Slovensky"
 
 msgid "Ukrainian:"
@@ -1236,8 +1233,8 @@ msgstr "Normální"
 msgid "Templates..."
 msgstr "©ablony..."
 
-msgid "Based on:"
-msgstr "Zalo¾ená na:"
+msgid "Template:"
+msgstr "©ablona:"
 
 msgid "Apply Template"
 msgstr "Pou¾ít ¹ablonu"
@@ -1272,7 +1269,9 @@ msgstr "Seskupit"
 msgid "Ungroup"
 msgstr "Zru¹it seskupení"
 
-msgid "Do you really want to overwrite the File:\n%1 ?"
+msgid ""
+"Do you really want to overwrite the File:\n"
+"%1 ?"
 msgstr ""
 "Opravdu chcete pøepsat soubor:\n"
 "%1 ?"
@@ -1283,11 +1282,11 @@ msgstr "Zobrazit rámy"
 msgid "Hide Frames"
 msgstr "Skrýt rámy"
 
-msgid "Left Page based on:"
-msgstr "Levá strana zalo¾ená na:"
+msgid "Template (Left Page):"
+msgstr "©ablona (levá strana):"
 
-msgid "Right Page based on:"
-msgstr "Pravá strana zalo¾ená na:"
+msgid "Template (Right Page):"
+msgstr "©ablona (pravá strana):"
 
 msgid "Manage Pictures"
 msgstr "Správa obrázkù"
@@ -1457,11 +1456,11 @@ msgstr "Rozli¹ení:"
 msgid "Create PDF-File"
 msgstr "Vytvoøit PDF-soubor"
 
-msgid "X-Coor.:"
-msgstr "X-koor.:"
+msgid "X-Pos:"
+msgstr "X-Poz:"
 
-msgid "Y-Coor.:"
-msgstr "Y-koor.:"
+msgid "Y-Pos:"
+msgstr "Y-Poz:"
 
 msgid "Page:"
 msgstr "Strana:"
@@ -2156,8 +2155,8 @@ msgstr "Popisky vlevo od ikon"
 msgid "Caption overlays Icon"
 msgstr "Popisky pøekrývají ikony"
 
-msgid "Scale When:"
-msgstr "Zmìna velikosti, jestli¾e:"
+msgid "Scale:"
+msgstr "Mìøítko:"
 
 msgid "Always"
 msgstr "V¾dy"
@@ -2184,7 +2183,9 @@ msgid "Reset"
 msgstr "Vynulovat"
 
 msgid "You need at least the Icon for Normal to use Icons for Buttons"
-msgstr "Potøebujete minimálnì ikonu pro Normal, abyste mohl(a) pou¾ít ikony pro tlaèítka"
+msgstr ""
+"Potøebujete minimálnì ikonu pro Normal, abyste mohl(a) pou¾ít ikony pro "
+"tlaèítka"
 
 msgid "Save and Exit"
 msgstr "Ulo¾it a ukonèit"
@@ -2291,8 +2292,12 @@ msgstr "Zobrazit paletu strany"
 msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
 msgstr "Strany nebo ¹ablony sma¾ete pøetáhnutím do odpadkového ko¹e."
 
-msgid "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below."
-msgstr "Zde jsou v¹echny va¹e ¹ablony; na vytvoøení nové strany\npøetáhnìte ¹ablonu do náhledu strany."
+msgid ""
+"Here are all your Templates, to create a new Page\n"
+"drag a Template to the Pageview below."
+msgstr ""
+"Zde jsou v¹echny va¹e ¹ablony; na vytvoøení nové strany\n"
+"pøetáhnìte ¹ablonu do náhledu strany."
 
 msgid "Here you can see all Pages of your Document."
 msgstr "Zde mù¾ete vidìt v¹echny strany va¹eho dokumentu."
@@ -2300,11 +2305,8 @@ msgstr "Zde mù¾ete vidìt v¹echny strany va¹eho dokumentu."
 msgid "Free Scaling"
 msgstr "Volná mìrka"
 
-msgid "Scale Picture to Frame Size"
-msgstr "Zmìnit velikost obrázku na rozmìr rámu"
-
-msgid "Keep Aspect Ratio"
-msgstr "Dodr¾et oèekávaný pomìr"
+msgid "Scale to Frame Size"
+msgstr "Zmìnit velikost na rozmìr rámu"
 
 msgid "Hyphenate Text"
 msgstr "Dìlení slov v textu"
@@ -2360,8 +2362,12 @@ msgstr "Nejmen¹í slovo:"
 msgid "This is the length of the smallest word to be hyphenated."
 msgstr "Tohle je délka nejkrat¹ího slova, které se bude dìlit."
 
-msgid "If you uncheck this you will get an Dialog\neverytime a possible Hyphenation is found."
-msgstr "Jestli¾e toto odznaèíte a bude nalezené mo¾né dìlení slova, zobrazí se poka¾dé dialog."
+msgid ""
+"If you uncheck this you will get an Dialog\n"
+"everytime a possible Hyphenation is found."
+msgstr ""
+"Jestli¾e toto odznaèíte a bude nalezené mo¾né dìlení slova, zobrazí se "
+"poka¾dé dialog."
 
 msgid "Windows"
 msgstr "Okna"
@@ -2405,11 +2411,19 @@ msgstr "Obnovit dolù"
 msgid "Document"
 msgstr "Dokument"
 
-msgid "Name \"%1\" isn't unique.\nPlease choose another."
-msgstr "Název \"%1\" není jedineèný.\nVyberte, prosím, jiný."
+msgid ""
+"Name \"%1\" isn't unique.\n"
+"Please choose another."
+msgstr ""
+"Název \"%1\" není jedineèný.\n"
+"Vyberte, prosím, jiný."
 
-msgid "Can't write the File: \n%1"
-msgstr "Nelze zapsat soubor: \n%1"
+msgid ""
+"Can't write the File: \n"
+"%1"
+msgstr ""
+"Nelze zapsat soubor: \n"
+"%1"
 
 msgid "Russian"
 msgstr "Rusky"
@@ -2423,8 +2437,12 @@ msgstr "Zamknout"
 msgid "Unlock"
 msgstr "Odemknout"
 
-msgid "Moves to your Document Directory.\nThis can be set in the Preferences."
-msgstr "Pøesunutí do adresáøe dokumentù.\nLze uvést v Nastavení."
+msgid ""
+"Moves to your Document Directory.\n"
+"This can be set in the Preferences."
+msgstr ""
+"Pøesunutí do adresáøe dokumentù.\n"
+"Lze uvést v Nastavení."
 
 msgid "Choose a Directory"
 msgstr "Vybrat adresáø"
@@ -2467,9 +2485,6 @@ msgstr "Svislá vodítka"
 
 msgid "Horizontal Guides"
 msgstr "Vodorovná vodítka"
-
-msgid "Position:"
-msgstr "Pozice:"
 
 msgid "Add"
 msgstr "Pøidat"
@@ -2615,8 +2630,8 @@ msgstr "Bezpeènost"
 msgid "Printer Options"
 msgstr "Mo¾nosti tiskárny"
 
-msgid "Elements"
-msgstr "Prvky"
+msgid "Element"
+msgstr "Prvek"
 
 msgid "X-Pos+:"
 msgstr "X-Poz+:"
@@ -2638,4 +2653,255 @@ msgstr "Skrýt zálo¾ky"
 
 msgid "Collect for Output..."
 msgstr "Hromadit pro výstup..."
+
+msgid "Danish"
+msgstr "Dánsky"
+
+msgid "Danish:"
+msgstr "Dánsky:"
+
+msgid "Lock Guides"
+msgstr "Uzamknout øídící èáry"
+
+msgid "Mirror Page(s) horizontal"
+msgstr "Horizontální zrcadlení stran(y)"
+
+msgid "Mirror Page(s) vertical"
+msgstr "Vertikální zrcadlení stran(y)"
+
+
+msgid "Rotation"
+msgstr "Otoèení"
+
+msgid "by:"
+msgstr "o:"
+
+msgid "Edit Shape..."
+msgstr "Upravit obrys..."
+
+msgid ""
+"Round\n"
+"Corners:"
+msgstr ""
+"Zakulatit\n"
+"Rohy:"
+
+msgid "Distance of Text"
+msgstr "Vzdálenost textu"
+
+msgid "Custom Spacing"
+msgstr "Vlastní proklad"
+
+msgid "Character:"
+msgstr "Znak:"
+
+msgid "Line:"
+msgstr "Èára:"
+
+msgid "Level"
+msgstr "Hladina"
+
+msgid "Geometry"
+msgstr "Geometrie"
+
+msgid "Document:"
+msgstr "Dokument:"
+
+msgid "has been changed since the last save."
+msgstr "od posledního ulo¾ení byl dokument zmìnìný."
+
+msgid "Insert Page..."
+msgstr "Vlo¾it stranu..."
+
+msgid "Import a Page"
+msgstr "Importovat stranu"
+
+msgid "Document to load:"
+msgstr "Nahrát dokumentace:"
+
+msgid "Document contains: 0 Page(s)"
+msgstr "Dokument obsahuje: 0 Stran"
+
+msgid "Import Page Nr:"
+msgstr "Importovat stranu è.:"
+
+msgid "Import"
+msgstr "Import"
+
+msgid "Document contains: %1 Page(s)"
+msgstr "Dokument obsahuje: %1 Stran"
+
+msgid "Advanced Options..."
+msgstr "Pokroèilé mo¾nosti..."
+
+msgid "Advanced Options"
+msgstr "Pokroèilé mo¾nosti"
+
+msgid "Apply ICC-Profiles"
+msgstr "Pou¾ít ICC-profily"
+
+msgid "Mark Colors out of Gamut"
+msgstr "Oznaè barvy mimo ¹kálu"
+
+msgid "Scale Picture to Frame Size"
+msgstr "Zmìnit velikost obrázku na rozmìr rámu"
+
+msgid "Combine Polygons"
+msgstr "Kombinuj mnohoúhelníky"
+
+msgid "Split Polygon"
+msgstr "Rozpoj mnohoúhelníky"
+
+msgid "Convert to Polygons"
+msgstr "Pøevést na mnohoúhelníky"
+
+msgid "Websave RGB"
+msgstr "Ulo¾it pro web RGB"
+
+msgid "Adjust Display Size"
+msgstr "Pøizpùsobení velikosti displeje"
+
+msgid "To adjust the Display drag the Ruler below with the Slider."
+msgstr ""
+
+msgid "Show PDF-Tools"
+msgstr "Zobrazit PDF nástroje"
+
+msgid "Hide PDF-Tools"
+msgstr "Skrýt PDF nástroje"
+
+msgid "Shears the Path horizotal to the right"
+msgstr "Uvolnit horizontálu vpravo"
+
+msgid "Shears the Path horizotal to the left"
+msgstr "Uvolnit horizontálu vlevo"
+
+msgid "Shears the Path vertical up"
+msgstr "Uvolnit vertikálu nahoru"
+
+msgid "Shears the Path vertical down"
+msgstr "Uvolnit vertikálu dolù"
+
+msgid "Line Styles..."
+msgstr "Styly èar..."
+
+msgid "Initializing Plugins"
+msgstr "Inicializace zásuvných modulù"
+
+msgid "Reading Scrapbook"
+msgstr "Naèítám zápisník"
+
+msgid "Setting up Shortcuts"
+msgstr "Nastavení zkratek"
+
+msgid "Reading Preferences"
+msgstr "Naèítám nastavení"
+
+msgid "Init Hyphenator"
+msgstr "Inicializuji dìlení slov..."
+
+msgid "Getting ICC-Profiles"
+msgstr "Získávám ICC-profily"
+
+msgid "Searching for Fonts"
+msgstr "Hledání písem"
+
+msgid "Print Preview"
+msgstr "Ukázka tisku"
+
+msgid "Antialias Text"
+msgstr "Antialiasovaný text"
+
+msgid "Antialias Graphics"
+msgstr "Antialiasovaná grafika"
+
+msgid "Russian:"
+msgstr "Rusky:"
+
+msgid "Loading:"
+msgstr "Naèítám:"
+
+msgid "Autosave"
+msgstr "Automatické ulo¾ení"
+
+msgid "Enabled"
+msgstr "Povoleno"
+
+msgid "use Bounding Box"
+msgstr "pou¾ít vázaný box"
+
+msgid "Czech:"
+msgstr "Èesky:"
+
+msgid "Norwegian:"
+msgstr "Norsky:"
+
+msgid "Select new Font:"
+msgstr "Vybrat nové písmo"
+
+msgid "Insert Special"
+msgstr "Vlo¾it speciální"
+
+msgid "Select Character"
+msgstr "Vybrat znak"
+
+msgid "Insert"
+msgstr "Vlo¾it"
+
+msgid "Save Page as SVG..."
+msgstr "Ulo¾it stranu jako SVG..."
+
+msgid "SVG-Images (*.svg);; All Files (*)"
+msgstr "SVG grafika (*.svg);;V¹echny soubory (*)"
+
+msgid "Solid Line"
+msgstr "Plná èára"
+
+msgid "Dashed Line"
+msgstr "Èárkovaná èára"
+
+msgid "Dotted Line"
+msgstr "Teèkovaná èára"
+
+msgid "Dash Dot Line"
+msgstr "Èerchovaná èára"
+
+msgid "Dash Dot Dot Line"
+msgstr "Dvojitì èerchovaná èára"
+
+#~ msgid "Hide Colors"
+#~ msgstr "Skrýt barvy"
+
+#~ msgid "Show Colors"
+#~ msgstr "Zobrazit barvy"
+
+#~ msgid "locally connected"
+#~ msgstr "lokálnì pøipojená"
+
+#~ msgid "Sample Text"
+#~ msgstr "Ukázka textu"
+
+#~ msgid "Based on:"
+#~ msgstr "Zalo¾ená na:"
+
+#~ msgid "Left Page based on:"
+#~ msgstr "Levá strana zalo¾ená na:"
+
+#~ msgid "Right Page based on:"
+#~ msgstr "Pravá strana zalo¾ená na:"
+
+#~ msgid "X-Coor.:"
+#~ msgstr "X-koor.:"
+
+#~ msgid "Y-Coor.:"
+#~ msgstr "Y-koor.:"
+
+#~ msgid "Scale When:"
+#~ msgstr "Zmìna velikosti, jestli¾e:"
+
+#~ msgid "Keep Aspect Ratio"
+#~ msgstr "Dodr¾et oèekávaný pomìr"
+
+#~ msgid "Position:"
+#~ msgstr "Pozice:"
 
