@@ -9,6 +9,7 @@
 
 ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, name, 0)
 {
+	mousePressed = false;
 }
 
 ColorWheel::~ColorWheel()
@@ -26,16 +27,37 @@ QPixmap ColorWheel::sample(QColor c)
 	return pmap;
 }
 
-QRgb ColorWheel::getPointColor(QPoint p1)
+QRgb ColorWheel::getPointColor(QPoint p)
 {
 	QImage image;
 	const QPixmap *pm = pixmap();
 	image = pm->convertToImage();
-	return image.pixel(p1.x(), p1.y());
+	// ugly hack to be sure that it won't be out of bounds
+	if (p.x() > width() || p.x() < 0 || p.y() > height() || p.y() < 0)
+		return QColor().rgb();
+	return image.pixel(p.x(), p.y());
+}
+
+void ColorWheel::mousePressEvent(QMouseEvent *e)
+{
+	mousePressed = true;
+	actualPoint = e->pos();
+	actualRgb = getPointColor(actualPoint);
+	paintCenterSample();
+}
+
+void ColorWheel::mouseMoveEvent(QMouseEvent *e)
+{
+	if (!mousePressed)
+		return;
+	actualPoint = e->pos();
+	actualRgb = getPointColor(actualPoint);
+	paintCenterSample();
 }
 
 void ColorWheel::mouseReleaseEvent(QMouseEvent *e)
 {
+	mousePressed = false;
 	QValueVector<QPoint> points;
 	points.push_back(e->pos());
 	actualPoint = e->pos();
@@ -43,6 +65,17 @@ void ColorWheel::mouseReleaseEvent(QMouseEvent *e)
 	paintWheel(points);
 
 	emit clicked(e->button(), e->pos());
+}
+
+void ColorWheel::paintCenterSample()
+{
+	QPixmap *pm = pixmap();
+	QPainter *p = new QPainter(pm);
+	p->setPen(QPen(Qt::black, 2));
+	p->setBrush(QColor(actualRgb));
+	p->drawEllipse(width()/2 - 10, height()/2 - 10, 20, 20);
+	delete(p);
+	setPixmap(*pm);
 }
 
 void ColorWheel::paintWheel(QValueVector<QPoint> selectedPoints)
@@ -71,9 +104,6 @@ void ColorWheel::paintWheel(QValueVector<QPoint> selectedPoints)
 		p->setBrush(c.light());
 		p->drawLine(0, 0, 50, 0);
 	}
-	p->setPen(QPen(Qt::black, 2));
-	p->setBrush(QColor(actualRgb));
-	p->drawEllipse(-10, -10, 20, 20);
 
 	QWMatrix matrix;
 	matrix.translate(0, 0);
@@ -91,6 +121,7 @@ void ColorWheel::paintWheel(QValueVector<QPoint> selectedPoints)
 	delete(p);
 	clear();
 	setPixmap(pm);
+	paintCenterSample();
 }
 
 QString ColorWheel::getTypeDescription(MethodType aType)
@@ -200,7 +231,7 @@ void ColorWheel::makeTetradic()
 {
 	double baseangle = pointAngle(actualPoint);
 	baseColor();
-	sampleByAngle(baseangle + 90, "1st. Tetradic");
-	sampleByAngle(baseangle + 180, "2nd. Tetradic");
-	sampleByAngle(baseangle + 270, "3rd. Tetradic");
+	sampleByAngle(baseangle + 180, "1st. Tetradic (base opposit)");
+	sampleByAngle(baseangle + angle, "2nd. Tetradic (angle)");
+	sampleByAngle(baseangle + angle + 180, "3rd. Tetradic (angle opposit)");
 }

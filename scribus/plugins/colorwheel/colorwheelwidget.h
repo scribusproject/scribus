@@ -101,10 +101,16 @@ class ColorWheel : public QLabel
 		void clicked(int, const QPoint &);
 
 	protected:
+		bool mousePressed;
+
 		/** \brief An event for mouse actions handling.
 		See \see clicked() for more info.
 		\param QMouseEvent Mouse properties. */
 		void mouseReleaseEvent(QMouseEvent *);
+
+		void mousePressEvent(QMouseEvent *);
+		void mouseMoveEvent(QMouseEvent *);
+		void paintCenterSample();
 
 		/** \brief Appends a color into \see colorList.
 		\param double an angle for transformation counting.

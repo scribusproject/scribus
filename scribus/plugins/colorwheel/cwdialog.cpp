@@ -49,7 +49,7 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 
 	typeLabel = new QLabel(this, "typeLabel");
 	listLayout->addWidget(typeLabel);
-	typeCombo = new QComboBox(FALSE, this, "typeCombo");
+	typeCombo = new QComboBox(false, this, "typeCombo");
 	listLayout->addWidget(typeCombo);
 
 	angleLabel = new QLabel(this, "angleLabel");
@@ -59,7 +59,7 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	angleSpin = new QSpinBox(this, "angleSpin");
 	angleSpin->setValue(15);
 	angleSpin->setMinValue(0);
-	angleSpin->setMaxValue(365);
+	angleSpin->setMaxValue(90);
 	angleLayout->addWidget(angleSpin);
 	listLayout->addLayout(angleLayout);
 
@@ -146,7 +146,7 @@ void ColorWheelDialog::languageChange()
 	colorList->addColumn(tr("K"));
 	colorList->setSorting(1);
 	typeLabel->setText(tr("Select Method:"));
-	angleLabel->setText(tr("Angle (0 - 365 degrees):"));
+	angleLabel->setText(tr("Angle (0 - 90 degrees):"));
 	addButton->setText(tr("&Merge Colors"));
 	replaceButton->setText(tr("&Replace Colors"));
 	cancelButton->setText(tr("&Cancel"));
@@ -213,8 +213,8 @@ void ColorWheelDialog::typeCombo_activated(int index)
 	}
 	if (index == colorWheel->Tetradic)
 	{
-		angleSpin->setEnabled(false); //TODO
-		angleLabel->setEnabled(false);
+		angleSpin->setEnabled(true);
+		angleLabel->setEnabled(true);
 		colorWheel->makeTetradic();
 	}
 	fillColorList();
