@@ -206,6 +206,7 @@ public slots:
 	void ChLineEnd(PenCapStyle w);
 	void ChLocalXY(double x, double y);
 	void ChLocalSc(double x, double y);
+	void LoremIpsum();
 	void ToggleBookmark();
 	void ToggleAnnotation();
 	void ToggleLock();

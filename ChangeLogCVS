@@ -1,4 +1,9 @@
 Changes since Version 1.1.6
+18.04.2004	Fixed wrong Display with flipped Textframes.
+		Added "Insert LoremIpsum" Command for Textframes to the Context Menue.
+		Fixed display issues with Tables.
+		Updated the Czech and Russian Translation.
+
 17.04.2004	Fixed minor error in PDF-Export with Tables.
 		Transparent areas in EPS-Images are handled now correct in PDF-Export.
 

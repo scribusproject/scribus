@@ -140,7 +140,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Kette2->setMaximumSize( QSize( 15, 32767 ) );
 	GeoGroupLayout->addMultiCellWidget( Kette2, 2, 3, 2, 2 );
 	Rot = new MSpinBox( GeoGroup, 2);
-	Rot->setSuffix(" ");
+	Rot->setSuffix( QString::fromUtf8(" °"));
 	Rot->setWrapping( true );
 	GeoGroupLayout->addWidget( Rot, 4, 1 );
 	Text3r = new QLabel( GeoGroup, "Text3r" );

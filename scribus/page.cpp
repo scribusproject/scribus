@@ -642,28 +642,14 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 								if ((b->TopLine) || (b->RightLine) || (b->BottomLine) || (b->LeftLine))
 								{
 									painter->setPen(tmp, b->Pwidth, b->PLineArt, Qt::SquareCap, b->PLineJoin);
-									painter->newPath();
 									if (b->TopLine)
-									{
-										painter->moveTo(0.0, 0.0);
-										painter->lineTo(b->Width, 0.0);
-									}
+										painter->drawLine(FPoint(0.0, 0.0), FPoint(b->Width, 0.0));
 									if (b->RightLine)
-									{
-										painter->moveTo(b->Width, 0.0);
-										painter->lineTo(b->Width, b->Height);
-									}
+										painter->drawLine(FPoint(b->Width, 0.0), FPoint(b->Width, b->Height));
 									if (b->BottomLine)
-									{
-										painter->moveTo(0.0, b->Height);
-										painter->lineTo(b->Width, b->Height);
-									}
+										painter->drawLine(FPoint(b->Width, b->Height), FPoint(0.0, b->Height));
 									if (b->LeftLine)
-									{
-										painter->moveTo(0.0, 0.0);
-										painter->lineTo(0.0, b->Height);
-									}
-									painter->drawPolyLine();
+										painter->drawLine(FPoint(0.0, b->Height), FPoint(0.0, 0.0));
 								}
 							}
 							painter->restore();
@@ -693,13 +679,12 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 					p.begin(this);
 					Transform(b, &p);
 					QRegion apr = QRegion(p.xForm(b->Clip));
-					QRegion apr2 = QRegion(p.xForm(QRect(-1, -1, static_cast<int>(b->Width),
-					                                     static_cast<int>(b->Height))));
+					QRegion apr2 = QRegion(p.xForm(QRect(-1, -1, static_cast<int>(b->Width), static_cast<int>(b->Height))));
 					p.end();
 					if ((rd.intersects(apr.boundingRect())) || (rd.intersects(apr2.boundingRect())))
 					{
-		if (!((doku->EditClip) && (Mpressed)))
-						b->DrawObj(painter, rd);
+						if (!((doku->EditClip) && (Mpressed)))
+							b->DrawObj(painter, rd);
 						b->Redrawn = true;
 						if ((doku->AppMode == 7) && (b->Select))
 							slotDoCurs(true);
@@ -716,8 +701,7 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 					p.begin(this);
 					Transform(b, &p);
 					QRegion apr = QRegion(p.xForm(b->Clip));
-					QRegion apr2 = QRegion(p.xForm(QRect(-1, -1, static_cast<int>(b->Width),
-					                                     static_cast<int>(b->Height))));
+					QRegion apr2 = QRegion(p.xForm(QRect(-1, -1, static_cast<int>(b->Width), static_cast<int>(b->Height))));
 					p.end();
 					if ((rd.intersects(apr.boundingRect())) || (rd.intersects(apr2.boundingRect())))
 					{
@@ -733,28 +717,14 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 							if ((b->TopLine) || (b->RightLine) || (b->BottomLine) || (b->LeftLine))
 							{
 								painter->setPen(tmp, b->Pwidth, b->PLineArt, Qt::SquareCap, b->PLineJoin);
-								painter->newPath();
 								if (b->TopLine)
-								{
-									painter->moveTo(0.0, 0.0);
-									painter->lineTo(b->Width, 0.0);
-								}
+									painter->drawLine(FPoint(0.0, 0.0), FPoint(b->Width, 0.0));
 								if (b->RightLine)
-								{
-									painter->moveTo(b->Width, 0.0);
-									painter->lineTo(b->Width, b->Height);
-								}
+									painter->drawLine(FPoint(b->Width, 0.0), FPoint(b->Width, b->Height));
 								if (b->BottomLine)
-								{
-									painter->moveTo(0.0, b->Height);
-									painter->lineTo(b->Width, b->Height);
-								}
+									painter->drawLine(FPoint(b->Width, b->Height), FPoint(0.0, b->Height));
 								if (b->LeftLine)
-								{
-									painter->moveTo(0.0, 0.0);
-									painter->lineTo(0.0, b->Height);
-								}
-								painter->drawPolyLine();
+									painter->drawLine(FPoint(0.0, b->Height), FPoint(0.0, 0.0));
 							}
 						}
 						painter->restore();
@@ -2453,6 +2423,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			FPoint np = transformPointI(FPoint(nx, ny), b->Xpos, b->Ypos, b->Rot, 1, 1);
 			MoveClipPoint(b, np);
 		}
+		else
+			update();
 		Imoved = false;
 		return;
 	}
@@ -2462,8 +2434,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		SegP2 = -1;
 		b = SelItem.at(0);
 		Imoved = false;
-		b->paintObj();
-		MarkClip(b);
+		update();
 		return;
 	}
 	if ((!GetItem(&b)) && (m->button() == RightButton) && (!doku->DragP) && (doku->AppMode == 1))
@@ -2616,6 +2587,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem( tr("Get Text..."), this, SIGNAL(LoadPic()));
 				pmen->insertItem( tr("Append Text..."), this, SIGNAL(AppendText()));
 				pmen->insertItem( tr("Edit Text..."), this, SIGNAL(EditText()));
+				pmen->insertItem( tr("Insert LoremIpsum"), this, SLOT(LoremIpsum()));
 				if (PageNam == "")
 				{
 					int pxb = pmen->insertItem( tr("Is PDF-Bookmark"), this, SLOT(ToggleBookmark()));
@@ -7395,6 +7367,28 @@ void Page::QueryFarben()
 		emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
 		emit ItemGradient(b->GrColor2, b->GrColor, b->GrShade2, b->GrShade, b->GrType);
 		emit ItemTrans(b->Transparency, b->TranspStroke);
+	}
+}
+
+void Page::LoremIpsum()
+{
+	if (SelItem.count() != 0)
+	{
+		PageItem *b = SelItem.at(0);
+		QString pfad = PREL;
+		QString pfad2;
+		pfad2 = pfad + "/share/scribus/samples/LoremIpsum.txt";
+		Serializer *ss = new Serializer(pfad2);
+		if (ss->Read(""))
+		{
+			int st = doku->CurrentABStil;
+			ss->GetText(b, st, doku->Vorlagen[st].Font, doku->Vorlagen[st].FontSize);
+		}
+		delete ss;
+		if (doku->Trenner->AutoCheck)
+			doku->Trenner->slotHyphenate(b);
+		update();
+		emit DocChanged();
 	}
 }
 

@@ -3959,6 +3959,22 @@ přetáhněte šablonu do náhledu strany.</translation>
         <source>Close</source>
         <translation>Zavřít</translation>
     </message>
+    <message>
+        <source>Homepage and online reference</source>
+        <translation>Domovská stránka programu</translation>
+    </message>
+    <message>
+        <source>Mailing list</source>
+        <translation>E-mailová konference</translation>
+    </message>
+    <message>
+        <source>Bugs and feature requests</source>
+        <translation>Chyby a změny programu</translation>
+    </message>
+    <message>
+        <source>Online</source>
+        <translation>Na síti</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -5052,6 +5068,50 @@ přetáhněte šablonu do náhledu strany.</translation>
         <source>Cancel</source>
         <translation>Zrušit</translation>
     </message>
+    <message>
+        <source>Default color profile for imported images</source>
+        <translation>Implicitní barevný profil na importované obrázky</translation>
+    </message>
+    <message>
+        <source>Default color profile for solid colors on the page</source>
+        <translation>Implicitní barevný profil na plné barvy na straně</translation>
+    </message>
+    <message>
+        <source>Color profile that you have generated or received from the manufacturer.
+This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
+        <translation>Barevný profil, který máte vygenerován nebo dodán od výrobce zařízení.
+Tento profil by měl být nastavený na váš monitor = ne obecný (např. sRGB).</translation>
+    </message>
+    <message>
+        <source>Color profile for your printer model from the manufacturer.
+This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default rendering intent for your monitor. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default rendering intent for your printer. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
+based on the chosen printer profile.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of showing colors on the screen which may not print properly.
+This requires very accurate profiles and serves only as a warning.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Black Point Compensation is a method of improving contrast in photos.
+It is recommended that you enable this if you have photos in your document.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CMYKChoose</name>
@@ -5142,6 +5202,14 @@ přetáhněte šablonu do náhledu strany.</translation>
     <message>
         <source> %</source>
         <translation>%</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Varování</translation>
+    </message>
+    <message>
+        <source>Name of the Color is not unique</source>
+        <translation>Jméno barvy není unikátní</translation>
     </message>
 </context>
 <context>
@@ -5323,7 +5391,7 @@ Lze uvést v Nastavení.</translation>
     </message>
     <message>
         <source>OK to delete Color:</source>
-        <translation>OK pro smazání barvy:</translation>
+        <translation type="obsolete">OK pro smazání barvy:</translation>
     </message>
     <message>
         <source>?</source>
@@ -5340,6 +5408,10 @@ Lze uvést v Nastavení.</translation>
     <message>
         <source>Cancel</source>
         <translation>Zrušit</translation>
+    </message>
+    <message>
+        <source>Delete color:</source>
+        <translation>Smazat barvu:</translation>
     </message>
 </context>
 <context>
@@ -5429,6 +5501,18 @@ Lze uvést v Nastavení.</translation>
     <message>
         <source>Cancel</source>
         <translation>Zrušit</translation>
+    </message>
+    <message>
+        <source>This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation>Pole může být vloženo do Scibus dokumentu jako reference, a také jako metainformace PDF</translation>
+    </message>
+    <message>
+        <source>This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
+        <translation>Krátká popis nebo abstrakt dokumentu. Je vložen do PDF souboru při exportu</translation>
+    </message>
+    <message>
+        <source>This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
+        <translation>Klíčová slova dokumentu, která chcete vložit do PDF, aby se zjednodušilo prohledávání a zařazení PDF souborů </translation>
     </message>
 </context>
 <context>
@@ -5531,7 +5615,7 @@ Lze uvést v Nastavení.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -5560,6 +5644,10 @@ Lze uvést v Nastavení.</translation>
     <message>
         <source>Black</source>
         <translation>Černá (Black)</translation>
+    </message>
+    <message>
+        <source>Print</source>
+        <translation>Tisk</translation>
     </message>
 </context>
 <context>
@@ -5688,6 +5776,74 @@ Lze uvést v Nastavení.</translation>
         <source>Stroke Color:</source>
         <translation>Barva obrysu:</translation>
     </message>
+    <message>
+        <source>Adjust to Baseline Grid</source>
+        <translation>Zarovnat k pomocné mřížce</translation>
+    </message>
+    <message>
+        <source>Name of your paragraph style</source>
+        <translation>Jméno stylu odstavce</translation>
+    </message>
+    <message>
+        <source>Font of selected text or object</source>
+        <translation>Písmo vybraného textu nebo objektu</translation>
+    </message>
+    <message>
+        <source>Font Size</source>
+        <translation>Velikost písma</translation>
+    </message>
+    <message>
+        <source>Color of text fill</source>
+        <translation>Barva výplně písma</translation>
+    </message>
+    <message>
+        <source>Color of text stroke</source>
+        <translation>Barva obrysu písma</translation>
+    </message>
+    <message>
+        <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the overall height, in line numbers, of the Drop Caps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align text to baseline grid</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Spacing above the paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spacing below the paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indentation for first line of the paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indentation from the left for the whole paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit tab settings of text frame...</source>
+        <translation>Nastavení tabelátorů textového rámu...</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
 </context>
 <context>
     <name>Editor</name>
@@ -5811,7 +5967,7 @@ Lze uvést v Nastavení.</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Uložit</translation>
+        <translation type="obsolete">Uložit</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -5855,7 +6011,7 @@ Lze uvést v Nastavení.</translation>
     </message>
     <message>
         <source>New Color:</source>
-        <translation>Nová barva:</translation>
+        <translation type="obsolete">Nová barva:</translation>
     </message>
     <message>
         <source>New Color</source>
@@ -5864,6 +6020,46 @@ Lze uvést v Nastavení.</translation>
     <message>
         <source>Remove Unused</source>
         <translation>Ostranit nepoužité</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Choose a color set to load</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the current color set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove unused colors from current document&apos;s color set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Append colors to the current set from an existing document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a new color within the current set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit the currently selected color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make a copy of the currently selected color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete the currently selected color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make the current colorset the default color set</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5948,6 +6144,18 @@ Lze uvést v Nastavení.</translation>
         <source>Choose a Directory</source>
         <translation>Vybrat adresář</translation>
     </message>
+    <message>
+        <source>&amp;Available Fonts</source>
+        <translation>&amp;Dostupná písma</translation>
+    </message>
+    <message>
+        <source>Font &amp;Substitutions</source>
+        <translation>&amp;Substituce písem</translation>
+    </message>
+    <message>
+        <source>Additional &amp;Paths</source>
+        <translation>Dodatečné &amp;cesty</translation>
+    </message>
 </context>
 <context>
     <name>GuideManager</name>
@@ -5993,19 +6201,19 @@ Lze uvést v Nastavení.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="obsolete">pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation type="obsolete">mm</translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation type="obsolete">in</translation>
+        <translation>in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation type="obsolete">p</translation>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -6076,7 +6284,7 @@ kdykoliv bude nalezeno možné dělení slova.</translation>
     </message>
     <message>
         <source>This is the length of the smallest word to be hyphenated.</source>
-        <translation>Tohle je délka nejkratšího slova, které se bude dělit.</translation>
+        <translation type="obsolete">Tohle je délka nejkratšího slova, které se bude dělit.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -6085,6 +6293,20 @@ kdykoliv bude nalezeno možné dělení slova.</translation>
     <message>
         <source>Cancel</source>
         <translation>Zrušit</translation>
+    </message>
+    <message>
+        <source>Length of the smallest word to be hyphenated.</source>
+        <translation>Délka nejkratšího slova, které může být děleno.</translation>
+    </message>
+    <message>
+        <source>Number of Hypenations allowed:</source>
+        <translation>Počet povolených dělení slov:</translation>
+    </message>
+    <message>
+        <source>Maximum number of Hyphenations following each other.
+A value of 0 means unlimited hyphenations.</source>
+        <translation>Maximální počet po sobě následujících dělení slov.
+Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translation>
     </message>
 </context>
 <context>
@@ -6142,7 +6364,7 @@ kdykoliv bude nalezeno možné dělení slova.</translation>
     <name>JavaDocs</name>
     <message>
         <source>Global JavaScripts</source>
-        <translation>Globální Java skripty</translation>
+        <translation type="obsolete">Globální Java skripty</translation>
     </message>
     <message>
         <source>Edit...</source>
@@ -6167,6 +6389,26 @@ kdykoliv bude nalezeno možné dělení slova.</translation>
     <message>
         <source>New Script:</source>
         <translation>Nový skript:</translation>
+    </message>
+    <message>
+        <source>Edit JavaScripts</source>
+        <translation>Editace Java skriptů</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Varování</translation>
+    </message>
+    <message>
+        <source>Do you really want do delete this Script?</source>
+        <translation>Opravdu chcete smazat tento skript?</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Ne</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Ano</translation>
     </message>
 </context>
 <context>
@@ -6272,7 +6514,7 @@ kdykoliv bude nalezeno možné dělení slova.</translation>
     </message>
     <message>
         <source>Closes this Dialog</source>
-        <translation>Zavřít tento dialog</translation>
+        <translation type="obsolete">Zavřít tento dialog</translation>
     </message>
     <message>
         <source>New Layer</source>
@@ -6353,6 +6595,10 @@ kdykoliv bude nalezeno možné dělení slova.</translation>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Dokumenty (*.sla *.scd);;Všechny soubory (*)</translation>
     </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
 </context>
 <context>
     <name>MSpinBox</name>
@@ -6425,6 +6671,14 @@ kdykoliv bude nalezeno možné dělení slova.</translation>
     <message>
         <source>Hide Console</source>
         <translation>Skrýt konzoli</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation>Chyba ve skriptu</translation>
+    </message>
+    <message>
+        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
+        <translation>Jestliže běžel skript distribuovaný s programem, informujte nás o chybě na &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; - děkujeme vám.</translation>
     </message>
 </context>
 <context>
@@ -6683,7 +6937,7 @@ Rohy:</translation>
     </message>
     <message>
         <source>Styles</source>
-        <translation>Styly</translation>
+        <translation type="obsolete">Styly</translation>
     </message>
     <message>
         <source>Lang.:</source>
@@ -7034,11 +7288,11 @@ odvozeny vzdálenosti nebo úhly rotace</translation>
     </message>
     <message>
         <source>Enable this to make text in lower objects flow around this frame</source>
-        <translation>Tato volba povolí obtékání textu v nižších objektech kolem zvoleného rámce</translation>
+        <translation type="obsolete">Tato volba povolí obtékání textu v nižších objektech kolem zvoleného rámce</translation>
     </message>
     <message>
         <source>Enable this to use the imaginary square border around your object, rather than its actual shape</source>
-        <translation>Tato volba zapne imaginární obdélníkový rámec kolem objektu, který nahradí aktuální obrys</translation>
+        <translation type="obsolete">Tato volba zapne imaginární obdélníkový rámec kolem objektu, který nahradí aktuální obrys</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -7170,11 +7424,67 @@ odvozeny vzdálenosti nebo úhly rotace</translation>
     </message>
     <message>
         <source>Select the source profile of the image</source>
-        <translation>Výběr zdrojového profilu obrázku</translation>
+        <translation type="obsolete">Výběr zdrojového profilu obrázku</translation>
     </message>
     <message>
         <source>Select the rendering intent for the image</source>
-        <translation>Výběr účelu vykreslení obrázku</translation>
+        <translation type="obsolete">Výběr účelu vykreslení obrázku</translation>
+    </message>
+    <message>
+        <source>Style:</source>
+        <translation>Styl:</translation>
+    </message>
+    <message>
+        <source>Cell Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line at Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line at the Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line at the Right </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line at Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make text in lower objects flow around this frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the imaginary square border around your object, rather than its actual shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep the aspect ratio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source profile of the image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rendering intent for the image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -7286,7 +7596,7 @@ Vyberte, prosím, jiný.</translation>
     </message>
     <message>
         <source>Exit</source>
-        <translation>Konec</translation>
+        <translation type="obsolete">Konec</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -7323,6 +7633,10 @@ Vyberte, prosím, jiný.</translation>
     <message>
         <source>Name:</source>
         <translation>Název:</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Zavřít</translation>
     </message>
 </context>
 <context>
@@ -7421,7 +7735,7 @@ Vyberte, prosím, jiný.</translation>
     </message>
     <message>
         <source>Autom. Text Frames</source>
-        <translation>Autom. textové rámce</translation>
+        <translation type="obsolete">Autom. textové rámce</translation>
     </message>
     <message>
         <source>Column Guides</source>
@@ -7429,7 +7743,7 @@ Vyberte, prosím, jiný.</translation>
     </message>
     <message>
         <source>Gutter Width:</source>
-        <translation>Šířka mezery:</translation>
+        <translation type="obsolete">Šířka mezery:</translation>
     </message>
     <message>
         <source>Columns:</source>
@@ -7454,6 +7768,92 @@ Vyberte, prosím, jiný.</translation>
     <message>
         <source>Millimetres (mm)</source>
         <translation>Milimetry (mm)</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Automatic Text Frames</source>
+        <translation>Automatické textové rámce</translation>
+    </message>
+    <message>
+        <source>Gap:</source>
+        <translation>Odstup:</translation>
+    </message>
+    <message>
+        <source>Document page size, either a standard size or a custom size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Orientation of the document&apos;s pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable single or spread based layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the top margin guide and the edge of the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the bottom margin guide and the edge of the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First page number of the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default unit of measurement for document editing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create text frames automatically when new pages are added</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of columns to create in automatically created text frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between automatically created columns</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7723,7 +8123,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation>Písma</translation>
+        <translation type="obsolete">Písma</translation>
     </message>
     <message>
         <source>Enable Presentation Effects</source>
@@ -7759,7 +8159,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>from the:</source>
-        <translation>Z:</translation>
+        <translation type="obsolete">Z:</translation>
     </message>
     <message>
         <source>Direction:</source>
@@ -7839,7 +8239,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Extras</source>
-        <translation>Extra</translation>
+        <translation type="obsolete">Extra</translation>
     </message>
     <message>
         <source>Use Encryption</source>
@@ -7879,7 +8279,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Security</source>
-        <translation>Bezpečnost</translation>
+        <translation type="obsolete">Bezpečnost</translation>
     </message>
     <message>
         <source>Output intended for:</source>
@@ -7935,7 +8335,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Barva</translation>
+        <translation type="obsolete">Barva</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
@@ -7955,27 +8355,27 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="obsolete">pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation type="obsolete">mm</translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation type="obsolete">in</translation>
+        <translation>in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation type="obsolete">p</translation>
+        <translation>p</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -8045,6 +8445,243 @@ ke straně, v opačném případě k objektu.</translation>
         <source>Minimum</source>
         <translation>Minimální</translation>
     </message>
+    <message>
+        <source>&amp;General</source>
+        <translation>&amp;Všeobecné</translation>
+    </message>
+    <message>
+        <source>&amp;Fonts</source>
+        <translation>&amp;Písma</translation>
+    </message>
+    <message>
+        <source>From the:</source>
+        <translation>Od:</translation>
+    </message>
+    <message>
+        <source>E&amp;xtras</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Security</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;PDF/X-3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Uložit</translation>
+    </message>
+    <message>
+        <source>Export all pages to PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export a range of pages to PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First page to export when exporting a range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last page to export when exporting a range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
+Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
+PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the binding of pages in the PDF. Unless you know
+you need to change it leave the default choice - Left.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF.
+Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed the bookmarks you created in your document.
+These are useful for navigating long PDF documents.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export resolution of text and vector graphics.
+This does not affect the resolution of bitmap images like photos.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version of compression for images.
+Automatic allows Scribus to choose the best method.
+ZIP is good for images with solid colors.
+JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
+Leave it set to automatic, unless you have a need for special compression options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downsample your bitmap images to the selected DPI.
+Leaving this unchecked will render them at their native resolution.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DPI (Dots Per Inch) for image export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts
+will preserve the layout and appearance of your document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show page previews of each page listed above.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the effect runs.
+A shorter time will speed up the effect, a longer one will slow it down.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type of the display effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the selected effect to all pages.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable the security features in your exported PDF.
+If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
+If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
+Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a master password which enables or disables all the
+security features in your exported PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF.
+Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
+Choose Printer when printing to a true 4 color CMYK printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed a color profile for solid colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color profile for solid colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rendering intent for solid colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed a color profile for images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not use color profiles that are embedded in source images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color profile for images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rendering intent for images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mandatory string for PDF/X-3 or the PDF will fail
+PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -8091,6 +8728,40 @@ ke straně, v opačném případě k objektu.</translation>
     <message>
         <source>K</source>
         <translation>K</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of text items in the viewer, at the expense
+of a slight slowdown in previewing. This only affects Type 1 fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
+vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable/disable the C (Cyan) ink plate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable/disable the M (Magenta) ink plate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable/disable the Y (Yellow) ink plate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable/disable the K (Black) ink plate</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8346,6 +9017,38 @@ ke straně, v opačném případě k objektu.</translation>
     <message>
         <source>Edit Picture</source>
         <translation>Upravit obrázek</translation>
+    </message>
+    <message>
+        <source>Hide Baseline Grid</source>
+        <translation>Skrýt pomocnou mřížku</translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation>Zobrazit pomocnou mřížku</translation>
+    </message>
+    <message>
+        <source>Adjust Frame to Picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Append Text...</source>
+        <translation>Připojit text...</translation>
+    </message>
+    <message>
+        <source>The Program</source>
+        <translation>Program</translation>
+    </message>
+    <message>
+        <source>is missing!</source>
+        <translation>chybí!</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Varování</translation>
+    </message>
+    <message>
+        <source>Copy of</source>
+        <translation>Kopie</translation>
     </message>
 </context>
 <context>
@@ -8712,7 +9415,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Disp.:</source>
-        <translation>Posun:</translation>
+        <translation type="obsolete">Posun:</translation>
     </message>
     <message>
         <source> %</source>
@@ -8776,7 +9479,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Linestyle:</source>
-        <translation>Styl čáry:</translation>
+        <translation type="obsolete">Styl čáry:</translation>
     </message>
     <message>
         <source>Line Width:</source>
@@ -8844,7 +9547,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Save Contents on Exit</source>
-        <translation>Uložit obsah při ukončení</translation>
+        <translation type="obsolete">Uložit obsah při ukončení</translation>
     </message>
     <message>
         <source>Preview</source>
@@ -8864,7 +9567,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Display Frames</source>
-        <translation>Zobrazit rámy</translation>
+        <translation type="obsolete">Zobrazit rámy</translation>
     </message>
     <message>
         <source>Display Pages Side by Side</source>
@@ -8929,6 +9632,406 @@ ke straně, v opačném případě k objektu.</translation>
     <message>
         <source> p</source>
         <translation>p</translation>
+    </message>
+    <message>
+        <source>External Tools</source>
+        <translation>Externí nástroje</translation>
+    </message>
+    <message>
+        <source>Misc.</source>
+        <translation>Různé.</translation>
+    </message>
+    <message>
+        <source>Displacement:</source>
+        <translation>Posunutí:</translation>
+    </message>
+    <message>
+        <source>Baseline Grid:</source>
+        <translation>Pomocná mřížka:</translation>
+    </message>
+    <message>
+        <source>Baseline Offset:</source>
+        <translation>Odstup pomocné mřížky:</translation>
+    </message>
+    <message>
+        <source>Save Contents on Changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Postscript Interpreter</source>
+        <translation>Interpret postsriptu</translation>
+    </message>
+    <message>
+        <source>Name of executable:</source>
+        <translation>Jméno spustitelného souboru (programu):</translation>
+    </message>
+    <message>
+        <source>Antialias Text</source>
+        <translation>Vyhladit text</translation>
+    </message>
+    <message>
+        <source>Antialias Graphics</source>
+        <translation>Vyhladit grafiku</translation>
+    </message>
+    <message>
+        <source>Image Processing Tool</source>
+        <translation>Nástroj na úpravu obrázků</translation>
+    </message>
+    <message>
+        <source>Printing</source>
+        <translation>Tisk</translation>
+    </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the default window decoration and looks.
+Scribus inherits any available KDE or Qt themes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default font size for the menus and windows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default unit of measurement for document editing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of recently edited documents to show in the File menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change the keyboard shortcuts to your preference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default documents directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default Scripter scripts directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default page size, either a standard size or a custom size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default orientation of document pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Width of document pages, editable if you have chosen a custom page size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Height of document pages, editable if you have chosen a custom page size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable single or spread based layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of a document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the top margin guide and the edge of the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the bottom margin guide and the edge of the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
+each time the time period elapses</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Time period between saving automatically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the minor grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the major grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the minor grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the major grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the guide lines you insert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Place the grid behind your page objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Place the grid in front of your page objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Displacement above the baseline of the font on a line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relative size of the superscript compared to the normal font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Displacement below the baseline of the normal font on a line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relative size of the subscript compared to the normal font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relative size of the small caps font compared to the normal font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Percentage increase over the font size for the line spacing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Picture Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shape Drawing Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Magnification Level Defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Drawing Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polygon Drawing Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font for new text frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Size of font for new text frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of columns in a text frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gap between text frame columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample of your font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Picture frames allow pictures to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal scaling of images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vertical scaling of images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep horizontal and vertical scaling the same</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pictures in picture frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled pictures keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of picture frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturation of color of fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line color of shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturation of color of lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line style of shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line width of shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum magnification allowed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum magnification allowed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change in magnification for each zoom operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturation of color</source>
+        <translation>Sytost barvy</translation>
+    </message>
+    <message>
+        <source>Style of lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Width of lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of corners for polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Degrees of rotation for polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polygons will be convex rather than concave</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change the angles at which lines of the polygon join</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the size of the preview in the scrapbook palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the scrapbook contents everytime after a change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When using facing pages, show the two pages side by side</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color for paper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color for the margin lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mask the area outside the margins in the margin color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable transparency features within PDF 1.4 export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the default zoom level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filesystem location for the Ghostscript interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias text for EPS and PDF onscreen rendering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias graphics for EPS and PDF onscreen rendering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filesystem location for graphics editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins on the printed page or exported file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9360,7 +10463,7 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>Script</source>
-        <translation>Skript</translation>
+        <translation type="obsolete">Skript</translation>
     </message>
     <message>
         <source>Online Reference</source>
@@ -9417,6 +10520,26 @@ Zkontrolujte cestu a název souboru.</translation>
     <message>
         <source>p</source>
         <translation>p</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;cript</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9597,6 +10720,32 @@ Zkontrolujte cestu a název souboru.</translation>
         <source>Outside:</source>
         <translation>Vnější:</translation>
     </message>
+    <message>
+        <source>Enable single or spread based layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the top margin guide and the edge of the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the bottom margin guide and the edge of the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScriXmlDoc</name>
@@ -9617,27 +10766,27 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>Creates a new Document</source>
-        <translation>Vytvoří nový dokument</translation>
+        <translation type="obsolete">Vytvoří nový dokument</translation>
     </message>
     <message>
         <source>Opens a Document</source>
-        <translation>Otevře dokument</translation>
+        <translation type="obsolete">Otevře dokument</translation>
     </message>
     <message>
         <source>Saves the Current Document</source>
-        <translation>Uloží aktuální dokument</translation>
+        <translation type="obsolete">Uloží aktuální dokument</translation>
     </message>
     <message>
         <source>Closes the Current Document</source>
-        <translation>Zavře aktuální dokument</translation>
+        <translation type="obsolete">Zavře aktuální dokument</translation>
     </message>
     <message>
         <source>Prints the Current Document</source>
-        <translation>Vytiskne aktuální dokument</translation>
+        <translation type="obsolete">Vytiskne aktuální dokument</translation>
     </message>
     <message>
         <source>Saves the Current Document as PDF</source>
-        <translation>Uloží aktuální dokument jako PDF</translation>
+        <translation type="obsolete">Uloží aktuální dokument jako PDF</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
@@ -10077,7 +11226,7 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Úpravy</translation>
+        <translation type="obsolete">Úpravy</translation>
     </message>
     <message>
         <source>Style</source>
@@ -10085,27 +11234,27 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>Item</source>
-        <translation>Objekt</translation>
+        <translation type="obsolete">Objekt</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>Strana</translation>
+        <translation type="obsolete">Strana</translation>
     </message>
     <message>
         <source>View</source>
-        <translation>Náhled</translation>
+        <translation type="obsolete">Náhled</translation>
     </message>
     <message>
         <source>Extras</source>
-        <translation>Extra</translation>
+        <translation type="obsolete">Extra</translation>
     </message>
     <message>
         <source>Windows</source>
-        <translation>Okna</translation>
+        <translation type="obsolete">Okna</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Nápověda</translation>
+        <translation type="obsolete">Nápověda</translation>
     </message>
     <message>
         <source>Left</source>
@@ -10465,6 +11614,102 @@ Zkontrolujte cestu a název souboru.</translation>
         <source>All Supported Formats</source>
         <translation>Všechny podporované formáty</translation>
     </message>
+    <message>
+        <source>Create a new Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open a Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the current Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close the current Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print the current Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the current Document as PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Append Text...</source>
+        <translation>Připojit text...</translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation>Zobrazit pomocnou mřížku</translation>
+    </message>
+    <message>
+        <source>Tool&amp;bars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;xtras</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Windows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Baseline Grid</source>
+        <translation>Skrýt pomocnou mřížku</translation>
+    </message>
+    <message>
+        <source>Some Objects are locked.</source>
+        <translation>Některé objekty jsou zamčené.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Zrušit</translation>
+    </message>
+    <message>
+        <source>Lock all</source>
+        <translation>Zamknout vše</translation>
+    </message>
+    <message>
+        <source>Unlock all</source>
+        <translation>Odemknout vše</translation>
+    </message>
 </context>
 <context>
     <name>ScribusDoc</name>
@@ -10688,7 +11933,7 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>This previews all the pages of your Document.</source>
-        <translation>Náhledy všech stran dokumentu.</translation>
+        <translation type="obsolete">Náhledy všech stran dokumentu.</translation>
     </message>
     <message>
         <source>Here are all your Templates, to create a new Page
@@ -10699,6 +11944,10 @@ přetáhněte šablonu do náhledu strany.</translation>
     <message>
         <source>Normal</source>
         <translation>Normální</translation>
+    </message>
+    <message>
+        <source>Previews all the pages of your document.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10823,6 +12072,10 @@ přetáhněte šablonu do náhledu strany.</translation>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Dokumenty (*.sla *.scd);;Všechny soubory (*)</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -10974,6 +12227,14 @@ přetáhněte šablonu do náhledu strany.</translation>
     <message>
         <source>Do you want save your changes?</source>
         <translation>Přejete si uložit změny?</translation>
+    </message>
+    <message>
+        <source>Insert Special...</source>
+        <translation>Vložit speciální...</translation>
+    </message>
+    <message>
+        <source>Insert Special</source>
+        <translation>Vložit speciální</translation>
     </message>
 </context>
 <context>
@@ -11137,7 +12398,7 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Zooms in or out</source>
-        <translation>Zvětšit nebo zmenšit</translation>
+        <translation type="obsolete">Zvětšit nebo zmenšit</translation>
     </message>
     <message>
         <source>Insert Text Frame</source>
@@ -11149,7 +12410,7 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Edit the Text with the Story Editor</source>
-        <translation>Editace textu</translation>
+        <translation type="obsolete">Editace textu</translation>
     </message>
     <message>
         <source>Create Text Chains</source>
@@ -11181,7 +12442,7 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Draws various Shapes</source>
-        <translation>Kreslit různé tvary</translation>
+        <translation type="obsolete">Kreslit různé tvary</translation>
     </message>
     <message>
         <source>Insert Freehand Line</source>
@@ -11194,6 +12455,22 @@ přetáhněte šablonu do náhledu strany.</translation>
     <message>
         <source>Unlink Text Frames</source>
         <translation>Přerušit řetězení textu</translation>
+    </message>
+    <message>
+        <source>Insert Table</source>
+        <translation>Vložit tabulku</translation>
+    </message>
+    <message>
+        <source>Zoom in or out</source>
+        <translation>Zvětšit nebo zmenšit</translation>
+    </message>
+    <message>
+        <source>Edit the text with the Story Editor</source>
+        <translation>Editace textu</translation>
+    </message>
+    <message>
+        <source>Draw various Shapes</source>
+        <translation>Kreslit různé tvary</translation>
     </message>
 </context>
 <context>

@@ -642,11 +642,15 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					{
 					p->translate(Width * sc, 0);
 					p->scale(-1, 1);
+					pf2.translate(Width * sc, 0);
+					pf2.scale(-1, 1);
 					}
 				if (flippedV % 2 != 0)
 					{
 					p->translate(0, Height * sc);
 					p->scale(1, -1);
+					pf2.translate(0, Height * sc);
+					pf2.scale(1, -1);
 					}
 				if ((Doc->AppMode == 7) && (Dirty))
 					Dirty = false;

@@ -1312,6 +1312,14 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
         <source> %</source>
         <translation> %</translation>
     </message>
+    <message>
+        <source>Warning</source>
+        <translation>Warnung</translation>
+    </message>
+    <message>
+        <source>Name of the Color is not unique</source>
+        <translation>Der Name der Farbe ist nicht eindeutig</translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -2064,7 +2072,7 @@ Wird in den Voreinstellungen gesetzt.</translation>
     </message>
     <message>
         <source>New Color:</source>
-        <translation>Neue Farbe:</translation>
+        <translation type="obsolete">Neue Farbe:</translation>
     </message>
     <message>
         <source>New Color</source>
@@ -4982,6 +4990,10 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
         <source>Adjust Frame to Picture</source>
         <translation>Rahmen am Bild ausrichten</translation>
     </message>
+    <message>
+        <source>Insert LoremIpsum</source>
+        <translation>Blindtext einfügen</translation>
+    </message>
 </context>
 <context>
     <name>PageSelector</name>
@@ -5123,7 +5135,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Theme</source>
-        <translation>Thema</translation>
+        <translation type="obsolete">Thema</translation>
     </message>
     <message>
         <source>Font Size:</source>
@@ -5159,11 +5171,11 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Wheel-Jump</source>
-        <translation>Rad-Vorschub</translation>
+        <translation type="obsolete">Rad-Vorschub</translation>
     </message>
     <message>
         <source>Grab-Radius</source>
-        <translation>Fangradius</translation>
+        <translation type="obsolete">Fangradius</translation>
     </message>
     <message>
         <source>Menus</source>
@@ -5423,11 +5435,11 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Horizontal Scaling</source>
-        <translation>Horiz. Skalierung</translation>
+        <translation type="obsolete">Horiz. Skalierung</translation>
     </message>
     <message>
         <source>Vertical Scaling</source>
-        <translation>Vertik. Skalierung</translation>
+        <translation type="obsolete">Vertik. Skalierung</translation>
     </message>
     <message>
         <source>Scale Picture to Frame Size</source>
@@ -5965,6 +5977,26 @@ des Dokuments mit der Erweiterung .bak</translation>
         <source>Filesystem location for graphics editor</source>
         <translation>Pfad zum Bildbearbeitungsprogramm</translation>
     </message>
+    <message>
+        <source>Theme:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wheel-Jump:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grab-Radius:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal Scaling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vertical Scaling:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -6420,7 +6452,7 @@ Datei wurde nicht gefunden.
     </message>
     <message>
         <source>Import SVG-Image</source>
-        <translation>Importiere SVG-Bild</translation>
+        <translation type="obsolete">Importiere SVG-Bild</translation>
     </message>
     <message>
         <source> pt</source>
@@ -6473,6 +6505,10 @@ Datei wurde nicht gefunden.
     <message>
         <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
         <translation>Fehler! Sie versuchen, bei einem nicht existierenden Objekt die Textfluss-Eigenschaften zu ändern!</translation>
+    </message>
+    <message>
+        <source>Import SVG-Image...</source>
+        <translation>Importiere SVG-Bild...</translation>
     </message>
 </context>
 <context>
