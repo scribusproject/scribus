@@ -642,6 +642,7 @@ while(!DOC.isNull())
 				OB.TxtScale=QStoInt(obj.attribute("TXTSCALE", "100"));
 				OB.TxTStyle=QStoInt(obj.attribute("TXTSTYLE", "0"));
 				OB.Cols = QStoInt(obj.attribute("COLUMNS","1"));
+				OB.ColGap = QStodouble(obj.attribute("COLGAP","0.0"));
 				OB.GrColor = obj.attribute("GRCOLOR","");
 				OB.GrColor2 = obj.attribute("GRCOLOR2","");
 				OB.GrShade = QStoInt(obj.attribute("GRSHADE","100"));
@@ -1236,6 +1237,7 @@ while(!DOC.isNull())
 				OB.TxtScale=QStoInt(obj.attribute("TXTSCALE", "100"));
 				OB.TxTStyle=QStoInt(obj.attribute("TXTSTYLE", "0"));
 				OB.Cols = QStoInt(obj.attribute("COLUMNS","1"));
+				OB.ColGap = QStodouble(obj.attribute("COLGAP","0.0"));
 				OB.GrColor = obj.attribute("GRCOLOR","");
 				OB.GrColor2 = obj.attribute("GRCOLOR2","");
 				OB.GrShade = QStoInt(obj.attribute("GRSHADE","100"));
@@ -1741,6 +1743,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.TxtScale = QStoInt(pg.attribute("TXTSCALE", "100"));
 			OB.TxTStyle = QStoInt(pg.attribute("TXTSTYLE", "0"));
 			OB.Cols = QStoInt(pg.attribute("COLUMNS","1"));
+			OB.ColGap = QStodouble(pg.attribute("COLGAP","0.0"));
 			OB.GrColor = pg.attribute("GRCOLOR","");
 			OB.GrColor2 = pg.attribute("GRCOLOR2","");
 			OB.GrShade = QStoInt(pg.attribute("GRSHADE","100"));
@@ -2014,6 +2017,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		ob.setAttribute("TXTSCALE",item->TxtScale);
 		ob.setAttribute("TXTSTYLE",item->TxTStyle);
 		ob.setAttribute("COLUMNS", item->Cols);
+		ob.setAttribute("COLGAP", item->ColGap);
 		ob.setAttribute("NAMEDLST",item->NamedLStyle);
 		ob.setAttribute("SHADE",item->Shade);
 		ob.setAttribute("SHADE2",item->Shade2);
@@ -2390,6 +2394,7 @@ for(uint i=0;i<view->Pages.count();++i)
 		ob.setAttribute("TXTSCALE",item->TxtScale);
 		ob.setAttribute("TXTSTYLE",item->TxTStyle);
 		ob.setAttribute("COLUMNS", item->Cols);
+		ob.setAttribute("COLGAP", item->ColGap);
 		ob.setAttribute("NAMEDLST",item->NamedLStyle);
 		ob.setAttribute("SHADE",item->Shade);
 		ob.setAttribute("SHADE2",item->Shade2);

@@ -29,6 +29,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <dlfcn.h>
+#include <unistd.h>
 #include <iostream>
 #include <signal.h>
 #include <string>
@@ -187,6 +188,7 @@ ScribusApp::ScribusApp(SplashScreen *splash)
   else
   	{
   	HaveDoc = 0;
+		singleClose = false;
 		view = NULL;
 		doc = NULL;
   	BuildFontMenu();
@@ -1383,6 +1385,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 	ScribusWin* tw;
 	if (!windows.isEmpty())
 		{
+		singleClose = true;
 		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
 			{
 			newActWin(windows.at(i));
@@ -1391,6 +1394,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 			if (tw == ActWin)
 				{
 				ce->ignore();
+				singleClose = false;
 				return;
 				}
 			}
@@ -2749,6 +2753,7 @@ bool ScribusApp::DoFileSave(QString fn)
 bool ScribusApp::slotFileClose()
 {
 	ScribusWin* tw = ActWin;
+	singleClose = false;
 	ActWin->close();
 	if (tw == ActWin)
 		return false;
@@ -3433,7 +3438,7 @@ void ScribusApp::slotNewPage(int w)
 	connect(doc->ActPage, SIGNAL(SetAngle(double)), Mpal, SLOT(setR(double)));
 	connect(doc->ActPage, SIGNAL(ItemRadius(double)), Mpal, SLOT(setRR(double)));
 	connect(doc->ActPage, SIGNAL(ItemTextAttr(double)), Mpal, SLOT(setLsp(double)));
-	connect(doc->ActPage, SIGNAL(ItemTextCols(int)), Mpal, SLOT(setCols(int)));
+	connect(doc->ActPage, SIGNAL(ItemTextCols(int, double)), Mpal, SLOT(setCols(int, double)));
 	connect(doc->ActPage, SIGNAL(ItemTextSize(int)), Mpal, SLOT(setSize(int)));
 	connect(doc->ActPage, SIGNAL(ItemTextUSval(double)), Mpal, SLOT(setExtra(double)));
 	connect(doc->ActPage, SIGNAL(SetLocalValues(double, double, double, double)), Mpal, SLOT(setLvalue(double, double, double, double)));

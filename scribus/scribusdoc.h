@@ -176,6 +176,7 @@ struct CLBuf { int PType;
 							 QString NamedLStyle;
 							 QString Language;
 							 int Cols;
+							 double ColGap;
 							};
 
   /** Seitenraender */

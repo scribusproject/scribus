@@ -283,7 +283,7 @@ signals: // Signals
   void ItemTextSca(int);
   void ItemTextUSval(double);
   void ItemTextAbs(int);
-	void ItemTextCols(int);
+	void ItemTextCols(int, double);
   void ItemTextFarben(QString, QString, int, int);
   /** Text in Textbox selektiert */
   void HasTextSel();

@@ -156,6 +156,7 @@ class ScribusApp : public QMainWindow
 		QString PrefsPfad;
 		QClipboard *ClipB;
 		QString LoadEnc;
+		bool singleClose;
 
   public slots:
 		void slotStoryEditor();

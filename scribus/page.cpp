@@ -2289,7 +2289,10 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					getGroupRect(&gx, &gy, &gw, &gh);
 					scx = fabs(mx-gx) / gw;
 					scy = fabs(my-gy) / gh;
+					RotMode = doku->RotMode;
+					doku->RotMode = 0;
 					scaleGroup(scx, scy);
+					doku->RotMode = RotMode;
 					}
 				}
 			else
@@ -2447,7 +2450,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 							doku->CurrTextScale = b->TxtScale;
 							doku->CurrFontSize = b->ISize;
 							emit ItemTextAttr(b->LineSp);
-							emit ItemTextCols(b->Cols);
+							emit ItemTextCols(b->Cols, b->ColGap);
 							emit ItemTextSize(b->ISize);
 							emit ItemTextSca(b->TxtScale);
 							for (uint aa = 0; aa < b->Ptext.count(); ++aa)
@@ -2463,6 +2466,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 						AdjustPreview(b);
 						}
 					UpdateClip(b);
+					emit ItemTextCols(b->Cols, b->ColGap);
 					doku->SnapGuides = sav;
 					update();
 					emit DocChanged();
@@ -5931,7 +5935,7 @@ void Page::chFSize(int size)
 				emit ItemTextAttr(b->LineSp);
 				b->ISize = size;
 				emit ItemTextSize(b->ISize);
-				emit ItemTextCols(b->Cols);
+				emit ItemTextCols(b->Cols, b->ColGap);
 				}
 			if (b->Ptext.count() != 0)
 				{
@@ -6549,6 +6553,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	b->NamedLStyle = Buffer->NamedLStyle;
 	b->Language = Buffer->Language;
 	b->Cols = Buffer->Cols;
+	b->ColGap = Buffer->ColGap;
 	if (Buffer->LayerNr != -1)
 		b->LayerNr = Buffer->LayerNr;
 	b->PoLine = Buffer->PoLine.copy();
@@ -6665,7 +6670,7 @@ void Page::EmitValues(PageItem *b)
 	emit ItemTrans(b->Transparency, b->TranspStroke);
 	emit ItemTextAttr(b->LineSp);
 	emit ItemTextUSval(b->ExtraV);
-	emit ItemTextCols(b->Cols);
+	emit ItemTextCols(b->Cols, b->ColGap);
 	if (doku->AppMode != 7)
 		{
 		emit ItemTextAbs(b->Ausrich);

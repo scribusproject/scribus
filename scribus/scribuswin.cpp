@@ -19,7 +19,9 @@
 #include "scribuswin.h"
 #include "scribuswin.moc"
 #include "scribusXml.h"
+#include "scribus.h"
 extern QPixmap loadIcon(QString nam);
+extern ScribusApp* ScApp;
 
 ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* ddoc)
 											: QMainWindow(parent, "", WDestructiveClose)
@@ -61,12 +63,17 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 {
 	if (doc->isModified())
   	{
+		QString CloseTxt;
+		if (ScApp->singleClose)
+    	CloseTxt = tr("Leave Anyway");
+		else
+			CloseTxt = tr("Close Anyway");
   	int exit=QMessageBox::information(this,
   																	tr("Warning"),
                                     tr("Document:")+" "+doc->DocName+"\n"+ tr("has been changed since the last save."),
                                     tr("Save Now"),
                                     tr("Cancel"),
-                                    tr("Leave Anyway"),
+                                    CloseTxt,
                                     0, 1);
  	 switch (exit)
   		{

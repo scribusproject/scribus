@@ -199,45 +199,21 @@ Page* ScribusView::addPage(int nr)
 	reformPages();
 	if ((Doc->PageAT) && (!Doc->loading))
 		{
-		if (Doc->PageSp > 1)
-			{
-			int a;
-			double bsp = (Doc->PageB-fe->Margins.Right-fe->Margins.Left-(Doc->PageSp-1)*Doc->PageSpa)/Doc->PageSp;
-			double anf = fe->Margins.Left;
-			for (a = 0; a < Doc->PageSp; a++)
-				{
-				z = fe->PaintText(anf,
-											fe->Margins.Top,
-											bsp,
-											Doc->PageH-fe->Margins.Bottom-fe->Margins.Top,
-											1, Doc->Dpen);
-				anf += bsp + Doc->PageSpa;
-				fe->Items.at(z)->isAutoText = true;
-				fe->Items.at(z)->BackBox = Doc->LastAuto;
-				if (Doc->LastAuto != 0)
-					Doc->LastAuto->NextBox = fe->Items.at(z);
-				else
-					Doc->FirstAuto = fe->Items.at(z);
-				Doc->LastAuto = fe->Items.at(z);
-				fe->SetRectFrame(fe->Items.at(z));
-				}
-			}
-		else
-			{
-			z = fe->PaintText(fe->Margins.Left,
+		z = fe->PaintText(fe->Margins.Left,
 										fe->Margins.Top,
 										Doc->PageB-fe->Margins.Right-fe->Margins.Left,
 										Doc->PageH-fe->Margins.Bottom-fe->Margins.Top,
 										1, Doc->Dpen);
-			fe->Items.at(z)->isAutoText = true;
-			fe->Items.at(z)->BackBox = Doc->LastAuto;
-			if (Doc->LastAuto != 0)
-				Doc->LastAuto->NextBox = fe->Items.at(z);
-			else
-				Doc->FirstAuto = fe->Items.at(z);
-			Doc->LastAuto = fe->Items.at(z);
-			fe->SetRectFrame(fe->Items.at(z));
-			}
+		fe->Items.at(z)->isAutoText = true;
+		fe->Items.at(z)->BackBox = Doc->LastAuto;
+		fe->Items.at(z)->Cols = Doc->PageSp;
+		fe->Items.at(z)->ColGap = Doc->PageSpa;
+		if (Doc->LastAuto != 0)
+			Doc->LastAuto->NextBox = fe->Items.at(z);
+		else
+			Doc->FirstAuto = fe->Items.at(z);
+		Doc->LastAuto = fe->Items.at(z);
+		fe->SetRectFrame(fe->Items.at(z));
 		Doc->FirstAuto->Dirty = true;
 		}
 	LA->setText( tr("Page %1").arg(nr+1));

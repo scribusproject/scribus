@@ -337,42 +337,50 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Text14a = new QLabel( Distance, "Text14a" );
     Text14a->setText( tr( "Columns:" ) );
     DistanceLayout->addWidget( Text14a, 0, 0 );
+    Text14b = new QLabel( Distance, "Text14b" );
+    Text14b->setText( tr( "Gap:" ) );
+    DistanceLayout->addWidget( Text14b, 1, 0 );
     Text14 = new QLabel( Distance, "Text14" );
     Text14->setText( tr( "Top:" ) );
-    DistanceLayout->addWidget( Text14, 1, 0 );
+    DistanceLayout->addWidget( Text14, 2, 0 );
     Text15 = new QLabel( Distance, "Text15" );
     Text15->setText( tr( "Bottom:" ) );
-    DistanceLayout->addWidget( Text15, 2, 0 );
+    DistanceLayout->addWidget( Text15, 3, 0 );
     Text16 = new QLabel( Distance, "Text16" );
     Text16->setText( tr( "Left:" ) );
-    DistanceLayout->addWidget( Text16, 3, 0 );
+    DistanceLayout->addWidget( Text16, 4, 0 );
     Text17 = new QLabel( Distance, "Text17" );
     Text17->setText( tr( "Right:" ) );
-    DistanceLayout->addWidget( Text17, 4, 0 );
+    DistanceLayout->addWidget( Text17, 5, 0 );
     DCol = new QSpinBox( Distance, "Cols" );
     DCol->setMaxValue( 3000 );
     DCol->setMinValue( 1 );
     DistanceLayout->addWidget( DCol, 0, 1 );
+    DGap = new MSpinBox( Distance, 1 );
+    DGap->setSuffix( tr( " pt" ) );
+    DGap->setMaxValue( 3000 );
+    DGap->setMinValue( 0 );
+    DistanceLayout->addWidget( DGap, 1, 1 );
     DTop = new MSpinBox( Distance, 1 );
     DTop->setSuffix( tr( " pt" ) );
     DTop->setMaxValue( 3000 );
     DTop->setMinValue( 0 );
-    DistanceLayout->addWidget( DTop, 1, 1 );
+    DistanceLayout->addWidget( DTop, 2, 1 );
     DBottom = new MSpinBox( Distance, 1 );
     DBottom->setSuffix( tr( " pt" ) );
     DBottom->setMaxValue( 3000 );
     DBottom->setMinValue( 0 );
-    DistanceLayout->addWidget( DBottom, 2, 1 );
+    DistanceLayout->addWidget( DBottom, 3, 1 );
     DLeft = new MSpinBox( Distance, 1 );
     DLeft->setSuffix( tr( " pt" ) );
     DLeft->setMaxValue( 3000 );
     DLeft->setMinValue( 0 );
-    DistanceLayout->addWidget( DLeft, 3, 1 );
+    DistanceLayout->addWidget( DLeft, 4, 1 );
     DRight = new MSpinBox( Distance, 1 );
     DRight->setSuffix( tr( " pt" ) );
     DRight->setMaxValue( 3000 );
     DRight->setMinValue( 0 );
-    DistanceLayout->addWidget( DRight, 4, 1 );
+    DistanceLayout->addWidget( DRight, 5, 1 );
 		pageLayout_2a->addWidget(Distance);
     TabStack2->addWidget( page_2a, 0 );
 
@@ -893,6 +901,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
     connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeIrre(int, int, double *)));
     connect(EditShape, SIGNAL(clicked()), this, SLOT(EditSh()));
+    connect(DGap, SIGNAL(valueChanged(int)), this, SLOT(NewGap()));
     connect(DCol, SIGNAL(valueChanged(int)), this, SLOT(NewCols()));
     connect(DTop, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
     connect(DLeft, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
@@ -923,9 +932,9 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 		Height->setValue(0);
 		Rot->setValue(0);
 		RoundRect->setValue(0);
+		TabStack2->raiseWidget(0);
 		TabStack->raiseWidget(0);
 		TabStack->widget(0)->setEnabled(false);
-		TabStack2->raiseWidget(0);
 		SGeom->setEnabled(false);
 		SShape->setEnabled(false);
 		SText->setEnabled(false);
@@ -1000,6 +1009,7 @@ void Mpalette::SetDoc(ScribusDoc *d)
   LYpos->setDecimals(100);
   ScaleX->setDecimals(10);
   ScaleY->setDecimals(10);
+  DGap->setDecimals(10);
   DTop->setDecimals(10);
   DLeft->setDecimals(10);
   DBottom->setDecimals(10);
@@ -1027,11 +1037,15 @@ void Mpalette::SetCurItem(PageItem *i)
   NameEdit->setText(i->AnName);
 	RoundRect->setValue(qRound(i->RadRect));
 	DCol->setValue(i->Cols);
-	DCol->setMaxValue(qRound(i->Width / (i->Extra + i->RExtra)));
-  DLeft->setValue(static_cast<int>(i->Extra*10.0));
-  DTop->setValue(static_cast<int>(i->TExtra*10.0));
-  DBottom->setValue(static_cast<int>(i->BExtra*10.0));
-  DRight->setValue(static_cast<int>(i->RExtra*10.0));
+	DGap->setValue(qRound(i->ColGap*10.0));
+	DCol->setMaxValue(QMAX(qRound(i->Width / QMAX(i->ColGap, 10.0)), 1));
+	DGap->setMaxValue(QMAX(qRound((i->Width / i->Cols - i->Extra - i->RExtra)*10.0), 0.0));
+	DCol->setMinValue(1);
+	DGap->setMinValue(0);
+  DLeft->setValue(qRound(i->Extra*10.0));
+  DTop->setValue(qRound(i->TExtra*10.0));
+  DBottom->setValue(qRound(i->BExtra*10.0));
+  DRight->setValue(qRound(i->RExtra*10.0));
   Revert->setOn(i->Reverse);
 	Textflow->setChecked(i->Textflow);
 	Textflow2->setChecked(i->Textflow2);
@@ -1518,11 +1532,19 @@ void Mpalette::setRR(double r)
 	HaveItem = tmp;
 }
 
-void Mpalette::setCols(int r)
+void Mpalette::setCols(int r, double g)
 {
 	bool tmp = HaveItem;
 	HaveItem = false;
 	DCol->setValue(r);
+	DGap->setValue(qRound(g*10.0));
+	if (tmp)
+		{
+		DCol->setMaxValue(QMAX(qRound(CurItem->Width / QMAX(CurItem->ColGap, 10.0)), 1));
+		DGap->setMaxValue(QMAX(qRound((CurItem->Width / CurItem->Cols - CurItem->Extra - CurItem->RExtra)*10.0), 0.0));
+		}
+	DCol->setMinValue(1);
+	DGap->setMinValue(0);
 	HaveItem = tmp;
 }
 
@@ -1953,6 +1975,16 @@ void Mpalette::NewCols()
 	if ((HaveDoc) && (HaveItem))
 		{
 		CurItem->Cols = DCol->value();
+		doc->ActPage->RefreshItem(CurItem);
+		emit DocChanged();
+		}
+}
+
+void Mpalette::NewGap()
+{
+	if ((HaveDoc) && (HaveItem))
+		{
+		CurItem->ColGap = static_cast<double>(DGap->value()) / 10.0;
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
 		}
@@ -2398,10 +2430,10 @@ void Mpalette::NewTDist()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		CurItem->Extra = static_cast<double>(DLeft->value()) / 10;
-		CurItem->TExtra = static_cast<double>(DTop->value()) / 10;
-		CurItem->BExtra = static_cast<double>(DBottom->value()) / 10;
-		CurItem->RExtra = static_cast<double>(DRight->value()) / 10;
+		CurItem->Extra = static_cast<double>(DLeft->value()) / 10.0;
+		CurItem->TExtra = static_cast<double>(DTop->value()) / 10.0;
+		CurItem->BExtra = static_cast<double>(DBottom->value()) / 10.0;
+		CurItem->RExtra = static_cast<double>(DRight->value()) / 10.0;
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
 		}

@@ -3054,3 +3054,9 @@ msgstr "Rotiert Gruppe um 1∞ im Uhrzeigersinn"
 msgid "Rotates Group counter-clockwise by 1∞"
 msgstr "Rotiert Gruppe um 1∞ gegen den Uhrzeigersinn"
 
+msgid "Close Anyway"
+msgstr "Schlieﬂen"
+
+msgid "Gap:"
+msgstr "Abstand:"
+

@@ -203,6 +203,7 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	fill_gradient = VGradient(VGradient::linear);
 	Language = doc->Language;
 	Cols = 1;
+	ColGap = 0.0;
 }
 
 /** Zeichnet das Item */
@@ -227,6 +228,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	struct ZZ *Zli2;
 	QPtrList<ZZ> LiList;
 	bool outs = false;
+	bool fBorder = false;
 	if (!Doc->DoDrawing)
 		{
 		Redrawn = true;
@@ -565,8 +567,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				if ((Doc->AppMode == 7) && (Dirty))
 					Dirty = false;
 				CurrCol = 0;
-				ColWidth = Width / Cols;
-				ColBound = FPoint(ColWidth * CurrCol, ColWidth * (CurrCol+1));
+				ColWidth = (Width - (ColGap * (Cols - 1))) / Cols;
+				ColBound = FPoint((ColWidth + ColGap) * CurrCol, ColWidth * (CurrCol+1) + ColGap * CurrCol);
+				if (Cols > 1)
+					ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
 				CurX = Extra + lineCorr + ColBound.x();
 				CurY = Doc->Vorlagen[0].LineSpa+TExtra+lineCorr;
 				LiList.clear();
@@ -657,6 +661,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-asce));
 						while ((!cl.contains(pf.xForm(pt1))) || (!cl.contains(pf.xForm(pt2))))
 							{
+							fBorder = true;
 							CurX++;
 							if (CurX+RExtra+lineCorr > ColBound.y())
 								{
@@ -665,13 +670,16 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								CurX = ColBound.x();
 								if (CurY+BExtra+lineCorr > Height)
 									{
+									fBorder = false;
 									CurrCol++;
 									if (CurrCol < Cols)
 										{
-										ColWidth = Width / Cols;
-										ColBound = FPoint(ColWidth * CurrCol, ColWidth * (CurrCol+1));
+										ColWidth = (Width - (ColGap * (Cols - 1))) / Cols;
+										ColBound = FPoint((ColWidth + ColGap) * CurrCol, ColWidth * (CurrCol+1) + ColGap * CurrCol);
 										CurY = Doc->Vorlagen[0].LineSpa+TExtra+lineCorr;
-										CurX = ColBound.x()+Extra+lineCorr;
+										CurX = ColBound.x(); // +Extra+lineCorr;
+										if (CurrCol < (Cols-1))
+											ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
 										oldCurY = CurY;
 										if ((a > 0) && (Ptext.at(a-1)->ch == QChar(13)))
 											{
@@ -692,7 +700,9 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+desc));
 							pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-asce));
 							}
-						CurX += Extra+lineCorr;
+						if (fBorder)
+							CurX += Extra+lineCorr;
+						fBorder = false;
 						}
 					hl->xp = CurX+hl->cextra;
 					hl->yp = CurY;
@@ -878,7 +888,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						BuPos2++;
 						uint BuPos3 = BuPos;
 						CurY += Doc->Vorlagen[0].LineSpa;
-						CurX = Extra+lineCorr+ColBound.x();
+						if (CurrCol == 0)
+							CurX = Extra+lineCorr+ColBound.x();
+						else
+							CurX = ColBound.x();
 						if (hl->ch != QChar(13))
 							CurX += Doc->Vorlagen[hl->cab].Indent;
 						else

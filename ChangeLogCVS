@@ -1,4 +1,6 @@
 Changes since Version 1.1.4
+25.12.2003	Added a Gap Setting for multi-column Textframes.
+
 23.12.2003	Textframes can have now more than 1 Column.
 		Added an Clear Contents Entry to the Context Menu.
 

@@ -948,7 +948,11 @@ void ScPainter::drawUnderline(FPoint x0, FPoint x2, bool ps, QString *psst)
 	ArtPathStrokeJoinType joinStyle = ART_PATH_STROKE_JOIN_MITER;
 	QColor color = m_stroke;
 	as = qRound( 255 * stroke_trans );
+#ifdef WORDS_BIGENDIAN
+	strokeColor = ( color.red() << 24 ) | ( color.green() << 16 ) | ( color.blue() << 8 );
+#else
 	strokeColor = ( 0 << 24 ) | ( color.blue() << 16 ) | ( color.green() << 8 ) | color.red();
+#endif
 	double ratio = m_zoomFactor;
 	ArtSvpWriter *swr;
 	ArtSVP *temp;

@@ -101,6 +101,7 @@ public:
 	int TxtScale;
 	int TxTStyle;
 	int Cols;
+	double ColGap;
   /** Strichstaerke */
   double Pwidth;
   /** Linienart */
