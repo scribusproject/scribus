@@ -55,7 +55,7 @@
 
 #if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 #include <X11/Xlib.h>
-#include <gdk-pixbuf-xlibrgb.h>
+#include <pixbuf/gdk-pixbuf-xlibrgb.h>
 #endif
 
 #include <math.h>
