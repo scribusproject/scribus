@@ -99,25 +99,23 @@ GuideManager::GuideManager(
 	
 	Layout4 = new QHBoxLayout(0, 0, 6, "Layout4"); 
 	
-	TextLabel2 = new QLabel(HorGroup, "TextLabel2");
-	TextLabel2->setText( tr("Y-Pos:"));
+	TextLabel2 = new QLabel(tr("&Y-Pos:"), HorGroup, "TextLabel2");
 	Layout4->addWidget(TextLabel2);
 	
 	HorSpin = new MSpinBox(0, LocPageHeight, HorGroup, 4);
 	HorSpin->setDecimals(decimals);
+	TextLabel2->setBuddy(HorSpin);
 	Layout4->addWidget(HorSpin);
 	
 	HorGroupLayout->addLayout(Layout4);
 	
 	Layout3 = new QHBoxLayout(0, 0, 6, "Layout3"); 
 	
-	HorSet = new QPushButton(HorGroup, "HorSet");
-	HorSet->setText( tr("Add"));
+	HorSet = new QPushButton( tr( "&Add" ), HorGroup, "HorSet");
 	HorSet->setAutoDefault(false);
 	Layout3->addWidget(HorSet);
 	
-	HorDel = new QPushButton(HorGroup, "HorDel");
-	HorDel->setText(tr("Delete"));
+	HorDel = new QPushButton( tr( "D&elete" ), HorGroup, "HorDel");
 	HorDel->setAutoDefault(false);
 	Layout3->addWidget(HorDel);
 	
@@ -139,25 +137,23 @@ GuideManager::GuideManager(
 	
 	Layout2 = new QHBoxLayout(0, 0, 6, "Layout2"); 
 	
-	TextLabel1 = new QLabel(VerGroup, "TextLabel1");
-	TextLabel1->setText( tr("X-Pos:"));
+	TextLabel1 = new QLabel(tr("&X-Pos:"), VerGroup, "TextLabel1");
 	Layout2->addWidget(TextLabel1);
 	
 	VerSpin = new MSpinBox(0, LocPageWidth, VerGroup, 4);
 	VerSpin->setDecimals(decimals);
+	TextLabel1->setBuddy(VerSpin);
 	Layout2->addWidget(VerSpin);
 	
 	VerGroupLayout->addLayout(Layout2);
 	
 	Layout1 = new QHBoxLayout(0, 0, 6, "Layout1"); 
 	
-	VerSet = new QPushButton(VerGroup, "VerSet");
-	VerSet->setText( tr("Add"));
+	VerSet = new QPushButton( tr( "A&dd" ), VerGroup, "VerSet");
 	VerSet->setAutoDefault(false);
 	Layout1->addWidget(VerSet);
 	
-	VerDel = new QPushButton(VerGroup, "VerDel");
-	VerDel->setText( tr("Delete"));
+	VerDel = new QPushButton( tr( "De&lete" ), VerGroup, "VerDel");
 	VerDel->setAutoDefault(false);
 	Layout1->addWidget(VerDel);
 	
@@ -167,8 +163,7 @@ GuideManager::GuideManager(
 	
 	GuideManagerLayout->addLayout(Layout6);
 	
-	Lock = new QCheckBox(this, "Lock");
-	Lock->setText( tr("Lock Guides"));
+	Lock = new QCheckBox( tr( "&Lock Guides" ), this, "Lock");
 	Lock->setChecked(LocLocked);
 	GuideManagerLayout->addWidget(Lock);
 	
@@ -177,16 +172,14 @@ GuideManager::GuideManager(
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	Layout5->addItem(spacer);
 	
-	OK = new QPushButton(this, "OK");
-	OK->setText( tr("OK"));
+	OK = new QPushButton( tr( "&OK" ), this, "OK");
 	OK->setDefault(true);
 	Layout5->addWidget(OK );
 	
 	QSpacerItem* spacer_2 = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	Layout5->addItem(spacer_2);
 	
-	Cancel = new QPushButton(this, "Cancel");
-	Cancel->setText( tr("Cancel"));
+	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel");
 	Cancel->setAccel(QKeySequence("Esc"));
 	Layout5->addWidget(Cancel);
 	

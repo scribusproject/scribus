@@ -31,48 +31,51 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 	Layout4 = new QGridLayout;
 	Layout4->setSpacing( 6 );
 	Layout4->setMargin( 0 );
-	TextLabel5 = new QLabel( GroupBox7, "TextLabel5" );
-	TextLabel5->setText( tr( "Top:" ) );
-	Layout4->addWidget( TextLabel5, 0, 0 );
+	
 	TopR = new MSpinBox( GroupBox7, 4 );
 	TopR->setSuffix( ein );
 	TopR->setDecimals( decimals );
 	TopR->setMaxValue(Hoehe);
 	TopR->setValue(t * UmReFaktor);
 	Layout4->addWidget( TopR, 0, 1 );
-	Links = new QLabel( GroupBox7, "Links" );
-	Links->setText( tr( "Left:" ) );
-	Layout4->addWidget( Links, 0, 2 );
+	TextLabel5 = new QLabel( tr( "&Top:" ), GroupBox7, "TextLabel5" );
+	TextLabel5->setBuddy(TopR);
+	Layout4->addWidget( TextLabel5, 0, 0 );
+	
 	LeftR = new MSpinBox( GroupBox7, 4 );
 	LeftR->setSuffix( ein );
 	LeftR->setDecimals( decimals );
 	LeftR->setMaxValue(Breite);
 	LeftR->setValue(l * UmReFaktor);
 	Layout4->addWidget( LeftR, 0, 3 );
-	TextLabel7 = new QLabel( GroupBox7, "TextLabel7" );
-	TextLabel7->setText( tr( "Bottom:" ) );
-	Layout4->addWidget( TextLabel7, 1, 0 );
+	Links = new QLabel( tr( "&Left:" ), GroupBox7, "Links" );
+	Links->setBuddy(LeftR);
+	Layout4->addWidget( Links, 0, 2 );
+	
 	BottomR = new MSpinBox( GroupBox7, 4 );
 	BottomR->setSuffix( ein );
 	BottomR->setDecimals( decimals );
 	BottomR->setMaxValue(Hoehe);
 	BottomR->setValue(b * UmReFaktor);
 	Layout4->addWidget( BottomR, 1, 1 );
-	Rechts = new QLabel( GroupBox7, "Rechts" );
-	Rechts->setText( tr( "Right:" ) );
-	Layout4->addWidget( Rechts, 1, 2 );
+	TextLabel7 = new QLabel( tr( "&Bottom:" ), GroupBox7, "TextLabel7" );
+	TextLabel7->setBuddy(BottomR);
+	Layout4->addWidget( TextLabel7, 1, 0 );
+	
 	RightR = new MSpinBox( GroupBox7, 4 );
 	RightR->setSuffix( ein );
 	RightR->setDecimals( decimals );
 	RightR->setMaxValue(Breite);
 	RightR->setValue(r * UmReFaktor);
 	Layout4->addWidget( RightR, 1, 3 );
-	Doppelseiten = new QCheckBox( GroupBox7, "Doppelseiten" );
-	Doppelseiten->setText( tr( "Facing Pages" ) );
+	Rechts = new QLabel( tr( "&Right:" ), GroupBox7, "Rechts" );
+	Rechts->setBuddy(RightR);
+	Layout4->addWidget( Rechts, 1, 2 );
+	
+	Doppelseiten = new QCheckBox( tr( "&Facing Pages" ),GroupBox7, "Doppelseiten" );
 	Doppelseiten->setChecked( fp );
 	Layout4->addMultiCellWidget( Doppelseiten, 2, 2, 0, 1 );
-	ErsteSeite = new QCheckBox( GroupBox7, "n" );
-	ErsteSeite->setText( tr( "Left Page first" ) );
+	ErsteSeite = new QCheckBox( tr( "Left &Page First" ), GroupBox7, "n" );
 	ErsteSeite->setChecked( fpe );
 	Layout4->addMultiCellWidget( ErsteSeite, 2, 2, 2, 3 );
 	if (!fp)
@@ -83,14 +86,12 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 	Layout3 = new QHBoxLayout;
 	Layout3->setSpacing( 6 );
 	Layout3->setMargin( 0 );
-	OKButton = new QPushButton( this, "OKButton" );
-	OKButton->setText( tr( "OK" ) );
+	OKButton = new QPushButton(tr( "&OK" ), this, "OKButton" );
 	OKButton->setDefault( true );
 	Layout3->addWidget( OKButton );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout3->addItem( spacer );
-	CancelB = new QPushButton( this, "CancelB" );
-	CancelB->setText( tr( "Cancel" ) );
+	CancelB = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
 	CancelB->setAutoDefault( false );
 	Layout3->addWidget( CancelB );
 	ReformDocLayout->addLayout( Layout3 );
@@ -105,7 +106,6 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 	QToolTip::add( BottomR, tr( "Distance between the bottom margin guide and the edge of the page" ) );
 	QToolTip::add( LeftR, tr( "Distance between the left margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
 	QToolTip::add( RightR, tr( "Distance between the right margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
-
 
 	// signals and slots connections
 	connect( Doppelseiten, SIGNAL( clicked() ), this, SLOT( setDS() ) );
@@ -141,15 +141,14 @@ void ReformDoc::setDS()
 {
 	if (Doppelseiten->isChecked())
 	{
-		Links->setText( tr( "Inside:" ) );
-		Rechts->setText( tr( "Outside:" ) );
+		Links->setText( tr( "&Inside:" ) );
+		Rechts->setText( tr( "&Outside:" ) );
 		ErsteSeite->setEnabled(true);
 	}
 	else
 	{
-		Links->setText( tr( "Left:" ) );
-		Rechts->setText( tr( "Right:" ) );
+		Links->setText( tr( "&Left:" ) );
+		Rechts->setText( tr( "&Right:" ) );
 		ErsteSeite->setEnabled(false);
 	}
 }
-

@@ -165,10 +165,12 @@ struct CLBuf {
 				QString Ptext;
 				QPointArray Clip;
 				FPointArray PoLine;
+				FPointArray ContourLine;
 				bool PoShow;
 				double BaseOffs;
 				bool Textflow;
 				bool Textflow2;
+				bool UseContour;
 				int Ausrich;
 				QString IFont;
 				int ISize;

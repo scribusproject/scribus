@@ -168,8 +168,8 @@ DocInfos::DocInfos( QWidget* parent, ScribusDoc* doc )
 	QToolTip::add( coverageEdit, tr( "The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges" ) );
 	QToolTip::add( rightsEdit, tr( "Information about rights held in and over the document, eg. copyright, patent or trademark" ) );
 
-	setOKButton( tr("OK") );
-	setCancelButton( tr("Cancel") );
+	setOKButton( tr("&OK") );
+	setCancelButton( tr("&Cancel") );
 
 	// signals and slots connections
 	connect( this, SIGNAL( applyButtonPressed() ), this, SLOT( accept() ) );

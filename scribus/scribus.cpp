@@ -758,7 +758,7 @@ void ScribusApp::initMenuBar()
 	MenID = viewMenu->insertItem("&75%", this, SLOT(slotZoom75()));
 	SetKeyEntry(36, tr("75%"), MenID, 0);
 	MenID = viewMenu->insertItem( tr("&100%"), this, SLOT(slotZoom100()), CTRL+Key_1);
-	SetKeyEntry(37, tr("Actual Size"), MenID, CTRL+Key_1);
+	SetKeyEntry(37, tr("100%"), MenID, CTRL+Key_1);
 	MenID = viewMenu->insertItem("&200%", this, SLOT(slotZoom200()));
 	SetKeyEntry(38, tr("200%"), MenID, 0);
 	MenID = viewMenu->insertItem( tr("&Thumbnails"), this, SLOT(slotZoom20()));
@@ -776,12 +776,13 @@ void ScribusApp::initMenuBar()
 	Ras = viewMenu->insertItem( tr("Show &Grid"), this, SLOT(ToggleRaster()));
 	SetKeyEntry(43, tr("Show Grid"), Ras, 0);
 	viewMenu->setItemChecked(Ras, false);
-	uRas = viewMenu->insertItem( tr("Snap to &Grid"), this, SLOT(ToggleURaster()));
-	SetKeyEntry(44, tr("Snap to Grid"), uRas, 0);
 	Guide = viewMenu->insertItem( tr("Show G&uides"), this, SLOT(ToggleGuides()));
 	viewMenu->setItemChecked(Guide, true);
-	uGuide = viewMenu->insertItem( tr("Sna&p to Guides"), this, SLOT(ToggleUGuides()));
 	Base = viewMenu->insertItem( tr("Show &Baseline Grid"), this, SLOT(ToggleBase()));
+	viewMenu->insertSeparator();
+	uRas = viewMenu->insertItem( tr("Sn&ap to Grid"), this, SLOT(ToggleURaster()));
+	SetKeyEntry(44, tr("Snap to Grid"), uRas, 0);
+	uGuide = viewMenu->insertItem( tr("Sna&p to Guides"), this, SLOT(ToggleUGuides()));
 	toolMenu=new QPopupMenu();
 	viewMpal = toolMenu->insertItem( tr("&Properties"), this, SLOT(ToggleMpal()));
 	SetKeyEntry(46, tr("Properties"), viewMpal, 0);
@@ -2113,12 +2114,15 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->PDF_Optionen.Intent = doc->CMSSettings.DefaultIntentMonitor;
 	doc->PDF_Optionen.Intent2 = doc->CMSSettings.DefaultIntentMonitor2;
 	struct LPIset lpo;
-	lpo.Angle = 0;
 	lpo.Frequency = 75;
 	lpo.SpotFunc = 2;
+	lpo.Angle = 105;
 	doc->PDF_Optionen.LPISettings.insert("Cyan", lpo);
+	lpo.Angle = 75;
 	doc->PDF_Optionen.LPISettings.insert("Magenta", lpo);
+	lpo.Angle = 90;
 	doc->PDF_Optionen.LPISettings.insert("Yellow", lpo);
+	lpo.Angle = 45;
 	doc->PDF_Optionen.LPISettings.insert("Black", lpo);
 	doc->ActiveLayer = 0;
 	HaveDoc++;
@@ -3229,12 +3233,15 @@ bool ScribusApp::LadeDoc(QString fileName)
 		if (doc->PDF_Optionen.LPISettings.count() == 0)
 		{
 			struct LPIset lpo;
-			lpo.Angle = 0;
 			lpo.Frequency = 75;
 			lpo.SpotFunc = 2;
+			lpo.Angle = 105;
 			doc->PDF_Optionen.LPISettings.insert("Cyan", lpo);
+			lpo.Angle = 75;
 			doc->PDF_Optionen.LPISettings.insert("Magenta", lpo);
+			lpo.Angle = 90;
 			doc->PDF_Optionen.LPISettings.insert("Yellow", lpo);
+			lpo.Angle = 45;
 			doc->PDF_Optionen.LPISettings.insert("Black", lpo);
 		}
 		connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
@@ -4930,6 +4937,7 @@ void ScribusApp::ToggleFrameEdit()
 		{
 			doc->ActPage->MarkClip(doc->ActPage->SelItem.at(0));
 			Npal->PolyStatus(doc->ActPage->SelItem.at(0)->PType, doc->ActPage->SelItem.at(0)->PoLine.size());
+			Npal->EditCont->setChecked(false);
 		}
 	}
 	ShapeMenu->setItemChecked(ShapeEdit, doc->EditClip);

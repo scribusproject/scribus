@@ -150,7 +150,7 @@ void FDialogPreview::GenPreview(QString name)
 				if (au2 == "")
 					au2 = tr("Unknown");
 				Aut += au2;
-				setText( tr("Scribus-Document")+"\n\n"+Tit+Aut);
+				setText( tr("Scribus Document")+"\n\n"+Tit+Aut);
 			}
 			else
 				setText(Buffer.left(200));
@@ -179,8 +179,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre,
 		Layout1 = new QHBoxLayout(Layout);
 		Layout1->setSpacing( 0 );
 		Layout1->setMargin( 0 );
-		SaveZip = new QCheckBox(Layout, "test");
-		SaveZip->setText( tr("Compress File"));
+		SaveZip = new QCheckBox(tr( "&Compress File" ), Layout, "test");
 		Layout1->addWidget(SaveZip, Qt::AlignLeft);
 		QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout1->addItem( spacer );
@@ -189,8 +188,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre,
 		Layout1C = new QHBoxLayout(LayoutC);
 		Layout1C->setSpacing( 0 );
 		Layout1C->setMargin( 0 );
-		WFonts = new QCheckBox(LayoutC, "test");
-		WFonts->setText( tr("Include Fonts"));
+		WFonts = new QCheckBox(tr( "&Include Fonts" ), LayoutC, "test");
 		Layout1C->addWidget(WFonts, Qt::AlignLeft);
 		QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout1C->addItem( spacer2 );
@@ -208,8 +206,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre,
 			Layout1 = new QHBoxLayout(Layout);
 			Layout1->setSpacing( 6 );
 			Layout1->setMargin( 0 );
-			SaveZip = new QCheckBox(Layout, "test");
-			SaveZip->setText( tr("Compress File"));
+			SaveZip = new QCheckBox(tr( "&Compress File" ), Layout, "test");
 			Layout1->addWidget(SaveZip);
 			QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 			Layout1->addItem( spacer );

@@ -1,5 +1,14 @@
 Changes since Version 1.1.7
 
+18.07.2004
+	* bug     #874: Tab order in Multiple Duplicate
+	* bug     #875: Preset values for linescreen angles, per color
+	* feature # 98: Ability to have distance of text from outside edge of text or image frame
+	* feature #871: Corrupted PDF export issue
+
+17.07.2004
+	* bug     #860: Lots of crash saying that is due to signal 11
+
 16.07.2004
 	* bug     #860: Lots of crash saying that is due to signal 11
 	* bug     #868: Editing shapes of frames needs lock/unlock actions

@@ -507,8 +507,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	LPIgroupLayout->addWidget( textLPI2, 1, 1 );
 	LPIangle = new QSpinBox( LPIgroup, "LPIangle" );
 	LPIangle->setSuffix( QString::fromUtf8(" °"));
-	LPIangle->setMinValue(-90);
-	LPIangle->setMaxValue(90);
+	LPIangle->setMinValue(-180);
+	LPIangle->setMaxValue(180);
 	LPIangle->setValue(Optionen->LPISettings[LPIcolor->currentText()].Angle);
 	LPIgroupLayout->addWidget( LPIangle, 1, 2 );
 	textLPI3 = new QLabel( LPIgroup, "textLPI3" );

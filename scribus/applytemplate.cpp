@@ -10,11 +10,12 @@ ApplyT::ApplyT( QWidget* parent, ScribusView *view, QString Nam)
     ApplyTLayout = new QVBoxLayout( this, 10, 8, "ApplyTLayout");
     layout3 = new QHBoxLayout( 0, 0, 6, "layout3");
     TextLabel1 = new QLabel( this, "TextLabel1" );
-    TextLabel1->setText( tr( "Template:" ) );
+    TextLabel1->setText( tr( "&Template:" ) );
     layout3->addWidget( TextLabel1 );
     Templ = new QComboBox( true, this, "Templ" );
     Templ->setMinimumSize( QSize( 120, 22 ) );
 	Templ->setEditable(false);
+	TextLabel1->setBuddy(Templ);
 	QString na = Nam == "Normal" ? tr("Normal") : Nam, in;
 	int cc = 0;
 	QMap<QString,int>::Iterator it;
@@ -39,12 +40,12 @@ ApplyT::ApplyT( QWidget* parent, ScribusView *view, QString Nam)
     SinglePage = new QRadioButton( buttonGroup1, "radioButton1" );
 	/* PFJ - 28/02/04 - altered from TRUE to true */
     SinglePage->setChecked( true );
-    SinglePage->setText( tr( "Apply to Current Page" ) );
+    SinglePage->setText( tr( "Apply to &Current Page" ) );
     buttonGroup1Layout->addWidget( SinglePage );
 
     layout2 = new QHBoxLayout( 0, 0, 6, "layout2");
     PageRange = new QRadioButton( buttonGroup1, "radioButton2" );
-	PageRange->setText( tr( "Apply from Page:" ) );
+	PageRange->setText( tr( "Apply from &Page:" ) );
     layout2->addWidget( PageRange );
     FromPage = new QSpinBox( buttonGroup1, "FromPage" );
     FromPage->setMinValue( 1 );
@@ -52,7 +53,7 @@ ApplyT::ApplyT( QWidget* parent, ScribusView *view, QString Nam)
 	FromPage->setValue(view->Doc->ActPage->PageNr+1);
     layout2->addWidget( FromPage );
     TextLabel2 = new QLabel( buttonGroup1, "textLabel1" );
-    TextLabel2->setText( tr( "to:" ) );
+    TextLabel2->setText( tr( "To:" ) );
     layout2->addWidget( TextLabel2 );
     ToPage = new QSpinBox( buttonGroup1, "toPage" );
     ToPage->setMinValue( 1 );
@@ -69,14 +70,12 @@ ApplyT::ApplyT( QWidget* parent, ScribusView *view, QString Nam)
     Layout4->setMargin( 0 );
     QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout4->addItem( spacer );
-    OKButton = new QPushButton( this, "OKButton" );
-    OKButton->setText( tr( "OK" ) );
+    OKButton = new QPushButton( tr( "&OK" ), this, "OKButton" );
     OKButton->setDefault( true );
     Layout4->addWidget( OKButton );
     QSpacerItem* spacer_2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout4->addItem( spacer_2 );
-    CancelB = new QPushButton( this, "CancelB" );
-    CancelB->setText( tr( "Cancel" ) );
+    CancelB = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
     Layout4->addWidget( CancelB );
     QSpacerItem* spacer_3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout4->addItem( spacer_3 );

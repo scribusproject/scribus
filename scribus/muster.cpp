@@ -27,27 +27,22 @@ MusterSeiten::MusterSeiten( QWidget* parent, ScribusDoc *doc, ScribusView *view,
 	Layout2->setSpacing( 6 );
 	Layout2->setMargin( 0 );
 
-	LoadM = new QPushButton( this, "LoadF" );
-	LoadM->setText( tr( "Append" ) );
+	LoadM = new QPushButton( tr( "&Append" ), this, "LoadF" );
 	Layout2->addWidget( LoadM );
 
-	NewB = new QPushButton( this, "NewB" );
-	NewB->setText( tr( "New" ) );
+	NewB = new QPushButton( tr( "&New" ), this, "NewB" );
 	Layout2->addWidget( NewB );
 
-	DuplicateB = new QPushButton( this, "DublicateB" );
-	DuplicateB->setText( tr( "Duplicate" ) );
+	DuplicateB = new QPushButton( tr( "D&uplicate" ), this, "DublicateB" );
 	Layout2->addWidget( DuplicateB );
 
-	DeleteB = new QPushButton( this, "DeleteB" );
-	DeleteB->setText( tr( "Delete" ) );
+	DeleteB = new QPushButton( tr( "&Delete" ), this, "DeleteB" );
 	Layout2->addWidget( DeleteB );
 
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout2->addItem( spacer );
 
-	ExitB = new QPushButton( this, "ExitB" );
-	ExitB->setText( tr( "Close" ) );
+	ExitB = new QPushButton( tr( "&Close" ), this, "ExitB" );
 	Layout2->addWidget( ExitB );
 	MusterSeitenLayout->addLayout( Layout2 );
 	if (temp == "")

@@ -130,15 +130,15 @@ Biblio::Biblio( QWidget* parent, preV *prefs)
 	BiblioLayout->setSpacing( 0 );
 	BiblioLayout->setMargin( 0 );
 	fmenu = new QPopupMenu();
-	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("New"), this, SLOT(NewLib()), CTRL+Key_N);
-	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("Load..."), this, SLOT(Load()), CTRL+Key_O);
-	fSave = fmenu->insertItem(loadIcon("DateiSave16.png"), tr("Save"), this, SLOT(Save()), CTRL+Key_S);
-	fmenu->insertItem( tr("Save as..."), this, SLOT(SaveAs()));
-	fmenu->insertItem(loadIcon("DateiClos16.png"), tr("Close"), this, SLOT(CloseWin()));
+	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("&New"), this, SLOT(NewLib()), CTRL+Key_N);
+	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("&Load..."), this, SLOT(Load()), CTRL+Key_O);
+	fSave = fmenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save"), this, SLOT(Save()), CTRL+Key_S);
+	fmenu->insertItem( tr("Save &As..."), this, SLOT(SaveAs()));
+	fmenu->insertItem(loadIcon("DateiClos16.png"), tr("&Close"), this, SLOT(CloseWin()));
 	vmenu = new QPopupMenu();
-	vS = vmenu->insertItem( tr( "Small" ) );
-	vM = vmenu->insertItem( tr( "Medium" ) );
-	vB = vmenu->insertItem( tr( "Big" ) );
+	vS = vmenu->insertItem( tr( "&Small" ) );
+	vM = vmenu->insertItem( tr( "&Medium" ) );
+	vB = vmenu->insertItem( tr( "&Large" ) );
 	switch (prefs->PSize)
 	{
 	case 40:
@@ -152,8 +152,8 @@ Biblio::Biblio( QWidget* parent, preV *prefs)
 		break;
 	}
 	menuBar = new QMenuBar(this);
-	menuBar->insertItem( tr("File"), fmenu);
-	menuBar->insertItem( tr("Preview"), vmenu);
+	menuBar->insertItem( tr("&File"), fmenu);
+	menuBar->insertItem( tr("&Preview"), vmenu);
 	BiblioLayout->setMenuBar( menuBar );
 
 	Frame3 = new QFrame( this, "Frame3" );

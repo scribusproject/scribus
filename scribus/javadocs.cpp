@@ -24,22 +24,18 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
 
     Layout1 = new QVBoxLayout( 0, 0, 6, "Layout1"); 
 
-    EditScript = new QPushButton( this, "EditScript" );
-    EditScript->setText( tr( "Edit..." ) );
+    EditScript = new QPushButton( tr( "&Edit..." ), this, "EditScript" );
     Layout1->addWidget( EditScript );
 
-    AddScript = new QPushButton( this, "AddScript" );
-    AddScript->setText( tr( "Add..." ) );
+    AddScript = new QPushButton( tr( "&Add..." ), this, "AddScript" );
     Layout1->addWidget( AddScript );
 
-    DeleteScript = new QPushButton( this, "DeleteScript" );
-    DeleteScript->setText( tr( "Delete" ) );
+    DeleteScript = new QPushButton( tr( "&Delete" ), this, "DeleteScript" );
     Layout1->addWidget( DeleteScript );
     QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
     Layout1->addItem( spacer );
 
-    ExitDia = new QPushButton( this, "ExitDia" );
-    ExitDia->setText( tr( "Close" ) );
+    ExitDia = new QPushButton( tr( "&Close" ), this, "ExitDia" );
     ExitDia->setDefault( true );
     Layout1->addWidget( ExitDia );
 	if (Doc->JavaScripts.count() == 0)

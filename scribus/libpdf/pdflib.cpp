@@ -844,9 +844,9 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		HTName = ResNam+IToStr(ResCount);
 		Transpar[HTName] = ObjCounter;
 		PutDoc("<< /Type /ExtGState\n/HT "+IToStr(ObjCounter-1)+" 0 R\n>>\nendobj\n");
+		ResCount++;
+		ObjCounter++;
 	}
-	ResCount++;
-	ObjCounter++;
 #ifdef HAVE_CMS
 	if ((CMSuse) && (Options->UseProfiles))
 	{

@@ -182,8 +182,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
 
-	OkB = new QPushButton( this, "OkB" );
-	OkB->setText( tr( "OK" ) );
+	OkB = new QPushButton( tr( "&OK" ), this, "OkB" );
 	Layout2->addWidget( OkB );
 	PicStatusLayout->addLayout( Layout2 );
 

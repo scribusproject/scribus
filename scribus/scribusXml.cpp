@@ -184,7 +184,8 @@ void ScriXmlDoc::GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *O
 	if (QStoInt(obj->attribute("TRANSPARENT","0")) == 1)
 		OB->Pcolor = "None";
 	OB->Textflow=QStoInt(obj->attribute("TEXTFLOW"));
-	OB->Textflow2=QStoInt(obj->attribute("TEXTFLOW2","0"));
+	OB->Textflow2 =QStoInt(obj->attribute("TEXTFLOW2","0"));
+	OB->UseContour = QStoInt(obj->attribute("TEXTFLOW3","0"));
 	OB->Extra=QStodouble(obj->attribute("EXTRA"));
 	OB->TExtra=QStodouble(obj->attribute("TEXTRA", "1"));
 	OB->BExtra=QStodouble(obj->attribute("BEXTRA", "1"));
@@ -247,6 +248,21 @@ void ScriXmlDoc::GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *O
 	}
 	else
 		OB->PoLine.resize(0);
+	tmp = "";
+	if (obj->hasAttribute("NUMCO"))
+	{
+		OB->ContourLine.resize(obj->attribute("NUMCO").toUInt());
+		tmp = obj->attribute("COCOOR");
+		QTextStream fp(&tmp, IO_ReadOnly);
+		for (uint cx=0; cx<obj->attribute("NUMCO").toUInt(); ++cx)
+		{
+			fp >> xf;
+			fp >> yf;
+			OB->ContourLine.setPoint(cx, xf, yf);
+		}
+	}
+	else
+		OB->ContourLine.resize(0);
 	tmp = "";
 	if ((obj->hasAttribute("NUMTAB")) && (QStoInt(obj->attribute("NUMTAB","0")) != 0))
 	{
@@ -373,6 +389,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item)
 	ob->setAttribute("ANNAME", !item->AutoName ? item->AnName : QString(""));
 	ob->setAttribute("TEXTFLOW", item->Textflow ? 1 : 0);
 	ob->setAttribute("TEXTFLOW2", item->Textflow2 ? 1 : 0);
+	ob->setAttribute("TEXTFLOW3", item->UseContour ? 1 : 0);
 	ob->setAttribute("AUTOTEXT", item->isAutoText ? 1 : 0);
 	ob->setAttribute("EXTRA",item->Extra);
 	ob->setAttribute("TEXTRA",item->TExtra);
@@ -440,6 +457,14 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item)
 		polp += tmp.setNum(xf) + " " + tmpy.setNum(yf) + " ";
 	}
 	ob->setAttribute("POCOOR", polp);
+	ob->setAttribute("NUMCO",item->ContourLine.size());
+	QString colp = "";
+	for (uint nxx=0; nxx<item->ContourLine.size(); ++nxx)
+	{
+		item->ContourLine.point(nxx, &xf, &yf);
+		colp += tmp.setNum(xf) + " " + tmpy.setNum(yf) + " ";
+	}
+	ob->setAttribute("COCOOR", colp);
 	ob->setAttribute("NUMTAB", static_cast<int>(item->TabValues.count()));
 	QString tlp = "";
 	QValueList<double>::Iterator tax;

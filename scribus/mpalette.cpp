@@ -334,6 +334,9 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Textflow2 = new QCheckBox( page, "Textflow2" );
 	Textflow2->setText( tr( "Use Bounding Box" ) );
 	pageLayout->addWidget( Textflow2 );
+	Textflow3 = new QCheckBox( page, "Textflow3" );
+	Textflow3->setText( tr( "Use Contour Line" ) );
+	pageLayout->addWidget( Textflow3 );
 
 	QSpacerItem* spacer13 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	pageLayout->addItem( spacer13 );
@@ -851,6 +854,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	connect(RotationGroup, SIGNAL(clicked(int)), this, SLOT(NewRotMode(int)));
 	connect(Textflow, SIGNAL(clicked()), this, SLOT(DoFlow()));
 	connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
+	connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeIrre(int, int, double *)));
 	connect(EditShape, SIGNAL(clicked()), this, SLOT(EditSh()));
 	connect(DGap, SIGNAL(valueChanged(int)), this, SLOT(NewGap()));
@@ -1029,8 +1033,13 @@ void Mpalette::SetCurItem(PageItem *i)
 	DBottom->setValue(i->BExtra*UmReFaktor);
 	DRight->setValue(i->RExtra*UmReFaktor);
 	Revert->setOn(i->Reverse);
+	disconnect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
+	disconnect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 	Textflow->setChecked(i->Textflow);
 	Textflow2->setChecked(i->Textflow2);
+	Textflow3->setChecked(i->UseContour);
+	connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
+	connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 	ToggleFlow();
 	langCombo->setCurrentText(i->Language);
 	bool setter;
@@ -2597,9 +2606,39 @@ void Mpalette::DoFlow2()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
+		disconnect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
+		disconnect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 		CurItem->Textflow2 = Textflow2->isChecked();
+		if (CurItem->Textflow2)
+		{
+			Textflow3->setChecked(false);
+			CurItem->UseContour = false;
+		}
 		doc->ActPage->update();
 		emit DocChanged();
+		connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
+		connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
+	}
+}
+
+void Mpalette::DoFlow3()
+{
+	if (ScApp->ScriptRunning)
+		return;
+	if ((HaveDoc) && (HaveItem))
+	{
+		disconnect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
+		disconnect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
+		CurItem->UseContour = Textflow3->isChecked();
+		if (CurItem->UseContour)
+		{
+			Textflow2->setChecked(false);
+			CurItem->Textflow2 = false;
+		}
+		doc->ActPage->update();
+		emit DocChanged();
+		connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
+		connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
 	}
 }
 
@@ -3017,6 +3056,7 @@ void Mpalette::handleResize()
 void Mpalette::ToggleFlow()
 {
 	Textflow2->setEnabled(Textflow->isChecked());
+	Textflow3->setEnabled(Textflow->isChecked());
 }
 
 void Mpalette::handlePathLine()

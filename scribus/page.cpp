@@ -142,6 +142,7 @@ Page::Page(QWidget *pa, int x, int y, int b, int h, ScribusDoc *doc, QScrollView
 	GxM = 0;
 	MoveGX = false;
 	CursVis = false;
+	EditContour = false;
 }
 
 void Page::dragLeaveEvent(QDragLeaveEvent *e)
@@ -1452,6 +1453,7 @@ void Page::UpdateClip(PageItem* b)
 			}
 			b->OldB2 = b->Width;
 			b->OldH2 = b->Height;
+			b->ContourLine = b->PoLine.copy();
 		}
 		else
 		{
@@ -1471,6 +1473,7 @@ void Page::UpdateClip(PageItem* b)
 				}
 				b->OldB2 = b->Width;
 				b->OldH2 = b->Height;
+				b->ContourLine = b->PoLine.copy();
 			}
 			if ((b->OldB2 == 0) || (b->OldH2 == 0))
 				return;
@@ -1487,6 +1490,7 @@ void Page::UpdateClip(PageItem* b)
 			b->GrEndX = gr.point(1).x();
 			b->GrEndY = gr.point(0).y();
 			b->PoLine.map(ma);
+			b->ContourLine.map(ma);
 			if (b->PType == 8)
 				UpdatePolyClip(b);
 			else
@@ -1938,7 +1942,9 @@ void Page::MirrorPolyH()
 {
 	PageItem *b = SelItem.at(0);
 	QWMatrix ma;
-	ma.scale(-1, 1);
+	ma.scale(1, -1);
+	if (EditContour)
+		return;
 	b->PoLine.map(ma);
 	b->PoLine.translate(b->Width, 0);
 	if (b->PType == 8)
@@ -1954,6 +1960,8 @@ void Page::MirrorPolyV()
 	PageItem *b = SelItem.at(0);
 	QWMatrix ma;
 	ma.scale(1, -1);
+	if (EditContour)
+		return;
 	b->PoLine.map(ma);
 	b->PoLine.translate(0, b->Height);
 	if (b->PType == 8)
@@ -1966,6 +1974,8 @@ void Page::MirrorPolyV()
 
 void Page::TransformPoly(int mode)
 {
+	if (EditContour)
+		return;
 	PageItem *b = SelItem.at(0);
 	QWMatrix ma;
 	FPoint oldPos = FPoint(b->Xpos, b->Ypos);
@@ -2047,28 +2057,90 @@ void Page::TransformPoly(int mode)
 void Page::Reset1Control()
 {
 	PageItem *b = SelItem.at(0);
-	FPoint np = b->PoLine.point(ClRe-1);
+	FPoint np, tp, tp2;
+	QRect rd;
+	if (EditContour)
+	{
+		np = b->ContourLine.point(ClRe-1);
+		tp2 = GetMinClipF(b->ContourLine);
+		tp = GetMaxClipF(b->ContourLine);
+		rd = QRect(QPoint(qRound(tp2.x()-10), qRound(tp2.y()-10)), QPoint(qRound(tp.x()+20), qRound(tp.y()+20)));
+	}
+	else
+		np = b->PoLine.point(ClRe-1);
 	b->OldB2 = b->Width;
 	b->OldH2 = b->Height;
-	b->PoLine.setPoint(ClRe, np);
-	AdjustItemSize(b);
+	if (EditContour)
+	{
+		b->ContourLine.setPoint(ClRe, np);
+		QPainter p;
+		p.begin(this);
+		Transform(b, &p);
+		RepaintTextRegion(b, QRegion(p.xForm(rd)), true);
+		p.end();
+		b->FrameOnly = true;
+		b->Tinput = true;
+		b->paintObj();
+		b->FrameOnly = false;
+	}
+	else
+	{
+		b->PoLine.setPoint(ClRe, np);
+		AdjustItemSize(b);
+	}
 	MarkClip(b);
 }
 
 void Page::ResetControl()
 {
 	PageItem *b = SelItem.at(0);
-	FPoint np = b->PoLine.point(ClRe);
+	FPoint np, tp, tp2;
+	QRect rd;
+	if (EditContour)
+	{
+		np = b->ContourLine.point(ClRe);
+		tp2 = GetMinClipF(b->ContourLine);
+		tp = GetMaxClipF(b->ContourLine);
+		rd = QRect(QPoint(qRound(tp2.x()-10), qRound(tp2.y()-10)), QPoint(qRound(tp.x()+20), qRound(tp.y()+20)));
+	}
+	else
+		np = b->PoLine.point(ClRe);
 	b->OldB2 = b->Width;
 	b->OldH2 = b->Height;
 	if ((ClRe == 0) || (ClRe == static_cast<int>(b->PoLine.size()-2)))
-		b->PoLine.setPoint(ClRe+1, np);
+	{
+		if (EditContour)
+			b->ContourLine.setPoint(ClRe+1, np);
+		else
+			b->PoLine.setPoint(ClRe+1, np);
+	}
 	else
 	{
-		b->PoLine.setPoint(ClRe+1, np);
-		b->PoLine.setPoint((ClRe % 4 != 0 ? ClRe + 3 : ClRe - 1), np);
+		if (EditContour)
+		{
+			b->ContourLine.setPoint(ClRe+1, np);
+			b->ContourLine.setPoint((ClRe % 4 != 0 ? ClRe + 3 : ClRe - 1), np);
+		}
+		else
+		{
+			b->PoLine.setPoint(ClRe+1, np);
+			b->PoLine.setPoint((ClRe % 4 != 0 ? ClRe + 3 : ClRe - 1), np);
+		}
 	}
-	AdjustItemSize(b);
+	if (!EditContour)
+		AdjustItemSize(b);
+	else
+	{
+		QPainter p;
+		p.begin(this);
+		Transform(b, &p);
+		RepaintTextRegion(b, QRegion(p.xForm(rd)), true);
+		p.end();
+		b->FrameOnly = true;
+		b->Tinput = true;
+		b->paintObj();
+		b->FrameOnly = false;
+	}
 	MarkClip(b);
 }
 
@@ -2077,7 +2149,10 @@ void Page::MoveClipPoint(PageItem *b, FPoint ip)
 	if (((EdPoints) && (ClRe % 2 != 0)) || ((!EdPoints) && (ClRe % 2 == 0)))
 		return;
 	FPointArray Clip;
-	Clip = b->PoLine;
+	if (EditContour)
+		Clip = b->ContourLine;
+	else
+		Clip = b->PoLine;
 	b->FrameType = 3;
 	uint EndInd = Clip.size();
 	uint StartInd = 0;
@@ -2106,7 +2181,7 @@ void Page::MoveClipPoint(PageItem *b, FPoint ip)
 	FPoint np = ip;
 	if (ClRe != -1)
 	{
-		if (np.x() < 0)
+		if ((np.x() < 0) && (!EditContour))
 		{
 			SizeItem(b->Width - np.x(), b->Height, b->ItemNr, false, false);
 			if (b->Rot != 0)
@@ -2121,7 +2196,7 @@ void Page::MoveClipPoint(PageItem *b, FPoint ip)
 				MoveItemI(-np.x()/b->LocalScX, 0, b->ItemNr);
 			np.setX(0);
 		}
-		if (np.y() < 0)
+		if ((np.y() < 0) && (!EditContour))
 		{
 			SizeItem(b->Width, b->Height - np.y(), b->ItemNr, false, false);
 			if (b->Rot != 0)
@@ -2146,8 +2221,7 @@ void Page::MoveClipPoint(PageItem *b, FPoint ip)
 			Clip.setPoint(ClRe+1, ap2);
 		}
 		Clip.setPoint(ClRe, np);
-		if (((ClRe % 4 != 0) && (ClRe % 2 == 0)) && (ClRe+3 < static_cast<int>(EndInd)) &&
-		        (ClRe != static_cast<int>(StartInd)))
+		if (((ClRe % 4 != 0) && (ClRe % 2 == 0)) && (ClRe+3 < static_cast<int>(EndInd)) && (ClRe != static_cast<int>(StartInd)))
 		{
 			FPoint ap = Clip.point(ClRe+2);
 			FPoint ap2 = Clip.point(ClRe+3);
@@ -2219,10 +2293,30 @@ void Page::MoveClipPoint(PageItem *b, FPoint ip)
 			lk.setY(lk.y() + dy*2);
 			Clip.setPoint(kon, lk);
 		}
-		b->PoLine = Clip.copy();
+		if (EditContour)
+			b->ContourLine = Clip.copy();
+		else
+			b->PoLine = Clip.copy();
 		b->Clip = FlattenPath(b->PoLine, b->Segments);
-		AdjustItemSize(b);
-		//					emit DocChanged();
+		if (!EditContour)
+			AdjustItemSize(b);
+		else
+		{
+			FPoint tp2 = GetMinClipF(b->ContourLine);
+			FPoint tp = GetMaxClipF(b->ContourLine);
+			QPainter p;
+			p.begin(this);
+			Transform(b, &p);
+			QRect rd;
+			rd = QRect(QPoint(qRound(tp2.x()-10), qRound(tp2.y()-10)), QPoint(qRound(tp.x()+20), qRound(tp.y()+20)));
+			RepaintTextRegion(b, QRegion(p.xForm(rd)), true);
+			p.end();
+			b->FrameOnly = true;
+			b->Tinput = true;
+			b->paintObj();
+			b->FrameOnly = false;
+			MarkClip(b);
+		}
 	}
 }
 void Page::ConvertClip(PageItem *b)
@@ -2649,21 +2743,25 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		}
 		b = SelItem.at(0);
 		SelNode.clear();
-		QRect Sele = QRect(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc),
-		                   static_cast<int>(SeRx-(Mxp*sc)), static_cast<int>(SeRy-(Myp*sc)));
-		for (uint a = 0; a < b->PoLine.count(); ++a)
+		QRect Sele = QRect(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc), static_cast<int>(SeRx-(Mxp*sc)), static_cast<int>(SeRy-(Myp*sc)));
+		FPointArray Clip;
+		if (EditContour)
+			Clip = b->ContourLine;
+		else
+			Clip = b->PoLine;
+		for (uint a = 0; a < Clip.count(); ++a)
 		{
-			if (b->PoLine.point(a).x() > 900000)
+			if (Clip.point(a).x() > 900000)
 				continue;
 			p.begin(this);
 			Transform(b, &p);
-			QPoint npf = p.xForm(b->PoLine.pointQ(a));
+			QPoint npf = p.xForm(Clip.pointQ(a));
 			p.end();
 			if ((Sele.contains(npf)) && ((a == 0) || (((a-2) % 4) == 0)))
 			{
 				ClRe = a;
 				SelNode.append(a);
-				emit ClipPo(b->PoLine.point(a).x(), b->PoLine.point(a).y());
+				emit ClipPo(Clip.point(a).x(), Clip.point(a).y());
 			}
 		}
 		HaveSelRect = false;
@@ -2710,24 +2808,25 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		{
 			Mxp = m->x();
 			Myp = m->y();
-			pmen->insertItem( tr("Paste") , this, SLOT(PasteToPage()));
+			pmen->insertItem( tr("&Paste") , this, SLOT(PasteToPage()));
 			pmen->insertSeparator();
 		}
-		menid = pmen->insertItem(tr("Show Margins"), ScApp, SLOT(ToggleMarks()));
+		menid = pmen->insertItem(tr("Show &Margins"), ScApp, SLOT(ToggleMarks()));
 		pmen->setItemChecked(menid, ScApp->Prefs.MarginsShown);
-		menid = pmen->insertItem(tr("Show Frames"), ScApp, SLOT(ToggleFrames()));
+		menid = pmen->insertItem(tr("Show &Frames"), ScApp, SLOT(ToggleFrames()));
 		pmen->setItemChecked(menid, ScApp->Prefs.FramesShown);
-		menid = pmen->insertItem(tr("Show Images"), ScApp, SLOT(TogglePics()));
+		menid = pmen->insertItem(tr("Show &Images"), ScApp, SLOT(TogglePics()));
 		pmen->setItemChecked(menid, doku->ShowPic);
-		menid = pmen->insertItem(tr("Show Grid"), ScApp, SLOT(ToggleRaster()));
+		menid = pmen->insertItem(tr("Show &Grid"), ScApp, SLOT(ToggleRaster()));
 		pmen->setItemChecked(menid, ScApp->Prefs.GridShown);
-		menid = pmen->insertItem(tr("Show Guides"), ScApp, SLOT(ToggleGuides()));
+		menid = pmen->insertItem(tr("Show G&uides"), ScApp, SLOT(ToggleGuides()));
 		pmen->setItemChecked(menid, ScApp->Prefs.GuidesShown);
-		menid = pmen->insertItem(tr("Show Baseline Grid"), ScApp, SLOT(ToggleBase()));
+		menid = pmen->insertItem(tr("Show &Baseline Grid"), ScApp, SLOT(ToggleBase()));
 		pmen->setItemChecked(menid, ScApp->Prefs.BaseShown);
-		int uRas = pmen->insertItem( tr("Snap to Grid"), ScApp, SLOT(ToggleURaster()));
+		pmen->insertSeparator();
+		int uRas = pmen->insertItem( tr("Sn&ap to Grid"), ScApp, SLOT(ToggleURaster()));
 		pmen->setItemChecked(uRas, doku->useRaster);
-		int uGuide = pmen->insertItem( tr("Snap to Guides"), ScApp, SLOT(ToggleUGuides()));
+		int uGuide = pmen->insertItem( tr("Sna&p to Guides"), ScApp, SLOT(ToggleUGuides()));
 		pmen->setItemChecked(uGuide, doku->SnapGuides);
 		pmen->exec(QCursor::pos());
 		delete pmen;
@@ -2778,11 +2877,11 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					InfoGroupLayout->addWidget( ParCT, 1, 0, Qt::AlignRight );
 					ParC->setText(fi.fileName());
 					InfoGroupLayout->addWidget( ParC, 1, 1 );
-					WordCT->setText( tr("Original ppi: "));
+					WordCT->setText( tr("Original PPI: "));
 					InfoGroupLayout->addWidget( WordCT, 2, 0, Qt::AlignRight );
 					WordC->setText(txtC.setNum(qRound(b->dpiX))+" x "+txtC2.setNum(qRound(b->dpiY)));
 					InfoGroupLayout->addWidget( WordC, 2, 1 );
-					CharCT->setText( tr("Actual ppi: "));
+					CharCT->setText( tr("Actual PPI: "));
 					InfoGroupLayout->addWidget( CharCT, 3, 0, Qt::AlignRight );
 					CharC->setText(txtC.setNum(qRound(72.0 / b->LocalScX))+" x "+
 					               txtC2.setNum(qRound(72.0 / b->LocalScY)));
@@ -2842,55 +2941,55 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 
 				pmen4->insertItem(InfoGroup);
 
-				pmen->insertItem( tr("Info"), pmen4);
+				pmen->insertItem( tr("In&fo"), pmen4);
 			}
 			if (b->PType == 2)
 			{
-				pmen->insertItem( tr("Get Picture..."), this, SIGNAL(LoadPic()));
-				int px = pmen->insertItem( tr("Image Visible"), this, SLOT(TogglePic()));
+				pmen->insertItem( tr("&Get Picture..."), this, SIGNAL(LoadPic()));
+				int px = pmen->insertItem( tr("I&mage Visible"), this, SLOT(TogglePic()));
 				pmen->setItemChecked(px, b->PicArt);
 				if (b->PicAvail)
-					pmen->insertItem( tr("Update Picture"), this, SLOT(UpdatePic()));
+					pmen->insertItem( tr("&Update Picture"), this, SLOT(UpdatePic()));
 				if (b->PicAvail && b->isRaster)
-					pmen->insertItem( tr("Edit Picture"), this, SLOT(CallGimp()));
+					pmen->insertItem( tr("&Edit Picture"), this, SLOT(CallGimp()));
 				if ((b->PicAvail) && (!b->isTableItem))
-					pmen->insertItem( tr("Adjust Frame to Picture"), this, SLOT(FrameToPic()));
+					pmen->insertItem( tr("&Adjust Frame to Picture"), this, SLOT(FrameToPic()));
 			}
 			if (b->PType == 4)
 			{
-				pmen->insertItem( tr("Get Text..."), this, SIGNAL(LoadPic()));
-				pmen->insertItem( tr("Append Text..."), this, SIGNAL(AppendText()));
-				pmen->insertItem( tr("Edit Text..."), this, SIGNAL(EditText()));
-				pmen->insertItem( tr("Insert Sample Text"), this, SLOT(LoremIpsum()));
+				pmen->insertItem( tr("&Get Text..."), this, SIGNAL(LoadPic()));
+				pmen->insertItem( tr("&Append Text..."), this, SIGNAL(AppendText()));
+				pmen->insertItem( tr("&Edit Text..."), this, SIGNAL(EditText()));
+				pmen->insertItem( tr("&Insert Sample Text"), this, SLOT(LoremIpsum()));
 				if (PageNam == "")
 				{
-					int pxb = pmenPDF->insertItem( tr("Is PDF-Bookmark"), this, SLOT(ToggleBookmark()));
+					int pxb = pmenPDF->insertItem( tr("Is PDF &Bookmark"), this, SLOT(ToggleBookmark()));
 					pmenPDF->setItemChecked(pxb, b->isBookmark);
-					pxb = pmenPDF->insertItem( tr("Is PDF-Annotation"), this, SLOT(ToggleAnnotation()));
+					pxb = pmenPDF->insertItem( tr("Is PDF A&nnotation"), this, SLOT(ToggleAnnotation()));
 					pmenPDF->setItemChecked(pxb, b->isAnnotation);
 					if (b->isAnnotation)
 					{
 						if ((b->AnType == 0) || (b->AnType == 1) || (b->AnType > 9))
-							pmenPDF->insertItem( tr("Annotation Properties"), this, SIGNAL(AnnotProps()));
+							pmenPDF->insertItem( tr("Annotation P&roperties"), this, SIGNAL(AnnotProps()));
 						else
-							pmenPDF->insertItem( tr("Field Properties"), this, SIGNAL(AnnotProps()));
+							pmenPDF->insertItem( tr("Field P&roperties"), this, SIGNAL(AnnotProps()));
 					}
 				}
-				pmen->insertItem( tr("PDF-Options"), pmenPDF);
+				pmen->insertItem( tr("&PDF Options"), pmenPDF);
 			}
 			if (b->PType == 8)
 				pmen->insertItem( tr("Edit Text..."), this, SIGNAL(EditText()));
 			if (!b->Locked)
-				pmen->insertItem( tr("Lock"), this, SLOT(ToggleLock()));
+				pmen->insertItem( tr("&Lock"), this, SLOT(ToggleLock()));
 			else
-				pmen->insertItem( tr("Unlock"), this, SLOT(ToggleLock()));
+				pmen->insertItem( tr("Un&lock"), this, SLOT(ToggleLock()));
 			if (!b->LockRes)
-				pmen->insertItem( tr("Lock object size"), this, SLOT(ToggleResize()));
+				pmen->insertItem( tr("Lock Object &Size"), this, SLOT(ToggleResize()));
 			else
-				pmen->insertItem( tr("Unlock object size"), this, SLOT(ToggleResize()));
+				pmen->insertItem( tr("Unlock Object &Size"), this, SLOT(ToggleResize()));
 			if (!b->isSingleSel)
 			{
-				pmen->insertItem( tr("Send to Scrapbook"), this, SLOT(sentToScrap()));
+				pmen->insertItem( tr("Send to S&crapbook"), this, SLOT(sentToScrap()));
 				if (doku->Layers.count() > 1)
 				{
 					for (uint lam=0; lam < doku->Layers.count(); ++lam)
@@ -2899,7 +2998,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 						if (static_cast<int>(lam) == doku->ActiveLayer)
 							pmen3->setItemEnabled(lai, 0);
 					}
-					pmen->insertItem( tr("Send to Layer"), pmen3);
+					pmen->insertItem( tr("Send to La&yer"), pmen3);
 				}
 				connect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
 			}
@@ -2922,60 +3021,60 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 							isGroup = false;
 					}
 					if (!isGroup)
-						pmen->insertItem( tr("Group"), this, SIGNAL(DoGroup()));
+						pmen->insertItem( tr("&Group"), this, SIGNAL(DoGroup()));
 				}
 				if (b->Groups.count() != 0)
-					pmen->insertItem( tr("Un-group"), this, SIGNAL(DoUnGroup()));
+					pmen->insertItem( tr("Un&group"), this, SIGNAL(DoUnGroup()));
 				if ((!b->isTableItem) && (!b->isSingleSel))
 				{
-					pmen->insertItem( tr("Level"), pmenLevel);
-					pmenLevel->insertItem( tr("Send to Back"), this, SLOT(ToBack()));
-					pmenLevel->insertItem( tr("Bring to Front"), this, SLOT(ToFront()));
-					pmenLevel->insertItem( tr("Lower"), this, SLOT(LowerItem()));
-					pmenLevel->insertItem( tr("Raise"), this, SLOT(RaiseItem()));
+					pmen->insertItem( tr("Le&vel"), pmenLevel);
+					pmenLevel->insertItem( tr("Send to &Back"), this, SLOT(ToBack()));
+					pmenLevel->insertItem( tr("Bring to &Front"), this, SLOT(ToFront()));
+					pmenLevel->insertItem( tr("&Lower"), this, SLOT(LowerItem()));
+					pmenLevel->insertItem( tr("&Raise"), this, SLOT(RaiseItem()));
 				}
 			}
 			if (((b->PType == 4) || (b->PType == 2) || (b->PType == 6)) && (doku->AppMode != 7))
 			{
 				if (b->PType == 4)
 				{
-					pmen2->insertItem( tr("Picture Frame"), this, SLOT(ToPicFrame()));
+					pmen2->insertItem( tr("&Picture Frame"), this, SLOT(ToPicFrame()));
 					if (!b->isTableItem)
 					{
-						pmen2->insertItem( tr("Polygon"), this, SLOT(ToPolyFrame()));
-						pmen2->insertItem( tr("Outlines"), this, SLOT(TextToPath()));
+						pmen2->insertItem( tr("Pol&ygon"), this, SLOT(ToPolyFrame()));
+						pmen2->insertItem( tr("&Outlines"), this, SLOT(TextToPath()));
 					}
 				}
 				if (b->PType == 2)
 				{
-					pmen2->insertItem( tr("Text Frame"), this, SLOT(ToTextFrame()));
+					pmen2->insertItem( tr("&Text Frame"), this, SLOT(ToTextFrame()));
 					if (!b->isTableItem)
-						pmen2->insertItem( tr("Polygon"), this, SLOT(ToPolyFrame()));
+						pmen2->insertItem( tr("Pol&ygon"), this, SLOT(ToPolyFrame()));
 				}
 				if (b->PType == 6)
 				{
-					pmen2->insertItem( tr("Text Frame"), this, SLOT(ToTextFrame()));
-					pmen2->insertItem( tr("Picture Frame"), this, SLOT(ToPicFrame()));
-					pmen2->insertItem( tr("Bezier Curve"), this, SLOT(ToBezierFrame()));
+					pmen2->insertItem( tr("&Text Frame"), this, SLOT(ToTextFrame()));
+					pmen2->insertItem( tr("&Picture Frame"), this, SLOT(ToPicFrame()));
+					pmen2->insertItem( tr("&Bezier Curve"), this, SLOT(ToBezierFrame()));
 				}
-				pmen->insertItem( tr("Convert to"), pmen2);
+				pmen->insertItem( tr("Conve&rt to"), pmen2);
 			}
 			pmen->insertSeparator();
 			if ((!b->Locked) && (!((b->isTableItem) && (b->isSingleSel))))
-				pmen->insertItem( tr("Cut"), this, SIGNAL(CutItem()));
+				pmen->insertItem( tr("Cu&t"), this, SIGNAL(CutItem()));
 			if (!((b->isTableItem) && (b->isSingleSel)))
-				pmen->insertItem( tr("Copy"), this, SIGNAL(CopyItem()));
+				pmen->insertItem( tr("&Copy"), this, SIGNAL(CopyItem()));
 			if ((doku->AppMode == 7) && (ScApp->Buffer2.startsWith("<SCRIBUSTEXT")) && (b->PType == 4))
-				pmen->insertItem( tr("Paste"), ScApp, SLOT(slotEditPaste()));
+				pmen->insertItem( tr("&Paste"), ScApp, SLOT(slotEditPaste()));
 			if ((!b->Locked) && (doku->AppMode != 7) && (!((b->isTableItem) && (b->isSingleSel))))
-				pmen->insertItem( tr("Delete"), this, SLOT(DeleteItem()));
+				pmen->insertItem( tr("&Delete"), this, SLOT(DeleteItem()));
 			if ((b->PType == 2) || ((b->PType == 4) && (b->NextBox == 0) && (b->BackBox == 0)))
-				pmen->insertItem( tr("Clear Contents"), this, SLOT(ClearItem()));
+				pmen->insertItem( tr("C&lear Contents"), this, SLOT(ClearItem()));
 			pmen->insertSeparator();
 			if (!ScApp->Mpal->isVisible())
-				pmen->insertItem( tr("Show Properties..."), ScApp, SLOT(ToggleMpal()));
+				pmen->insertItem( tr("Show P&roperties..."), ScApp, SLOT(ToggleMpal()));
 			else
-				pmen->insertItem( tr("Hide Properties..."), ScApp, SLOT(ToggleMpal()));
+				pmen->insertItem( tr("Hide P&roperties..."), ScApp, SLOT(ToggleMpal()));
 			pmen->exec(QCursor::pos());
 			delete pmen;
 			delete pmen2;
@@ -3020,6 +3119,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			SizeItem(tp.x(), tp.y(), b->ItemNr, false, false);
 			b->Clip = FlattenPath(b->PoLine, b->Segments);
 			AdjustItemSize(b);
+			b->ContourLine = b->PoLine.copy();
 			update();
 		}
 		if (doku->AppMode == 8)
@@ -3820,6 +3920,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
 		AdjustItemSize(b);
 		RefreshItem(b);
+		b->ContourLine = b->PoLine.copy();
 		p.end();
 	}
 	if ((doku->AppMode == 13) && (m->button() == RightButton))
@@ -3829,6 +3930,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		SizeItem(b->PoLine.WidthHeight().x(), b->PoLine.WidthHeight().y(), b->ItemNr, false, false);
 		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
 		AdjustItemSize(b);
+		b->ContourLine = b->PoLine.copy();
 		doku->AppMode = 1;
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		emit PaintingDone();
@@ -4216,7 +4318,10 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 				if ((SegP1 != -1) && (SegP2 != -1))
 				{
 					FPointArray Clip;
-					Clip = b->PoLine;
+					if (EditContour)
+						Clip = b->ContourLine;
+					else
+						Clip = b->PoLine;
 					p.begin(this);
 					p.translate(static_cast<int>(b->Xpos*doku->Scale), static_cast<int>(b->Ypos*doku->Scale));
 					p.rotate(b->Rot);
@@ -4228,7 +4333,10 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 					MoveClipPoint(b, npf);
 					b->OldB2 = b->Width;
 					b->OldH2 = b->Height;
-					Clip = b->PoLine;
+					if (EditContour)
+						Clip = b->ContourLine;
+					else
+						Clip = b->PoLine;
 					ClRe = SegP1;
 					npf2.setX(Clip.point(SegP1).x() + (npfN.x()-npfM.x()));
 					npf2.setY(Clip.point(SegP1).y() + (npfN.y()-npfM.y()));
@@ -4242,17 +4350,21 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 					if ((SelNode.count() != 0) && (EdPoints))
 					{
 						int storedClRe = ClRe;
+						FPointArray Clip;
+						if (EditContour)
+							Clip = b->ContourLine;
+						else
+							Clip = b->PoLine;
 						for (uint itm = 0; itm < SelNode.count(); ++itm)
 						{
 							p.begin(this);
-							p.translate(static_cast<int>(b->Xpos*doku->Scale),
-							            static_cast<int>(b->Ypos*doku->Scale));
+							p.translate(static_cast<int>(b->Xpos*doku->Scale), static_cast<int>(b->Ypos*doku->Scale));
 							p.rotate(b->Rot);
 							FPoint npfN = FPoint(p.xFormDev(QPoint(newX, newY)));
 							FPoint npfM = FPoint(p.xFormDev(QPoint(Mxp, Myp)));
 							p.end();
-							npf.setX(b->PoLine.point(*SelNode.at(itm)).x() + (npfN.x()-npfM.x()));
-							npf.setY(b->PoLine.point(*SelNode.at(itm)).y() + (npfN.y()-npfM.y()));
+							npf.setX(Clip.point(*SelNode.at(itm)).x() + (npfN.x()-npfM.x()));
+							npf.setY(Clip.point(*SelNode.at(itm)).y() + (npfN.y()-npfM.y()));
 							ClRe = *SelNode.at(itm);
 							b->OldB2 = b->Width;
 							b->OldH2 = b->Height;
@@ -4336,202 +4448,151 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 					for (a = 0; a < SelItem.count(); ++a)
 					{
 						b = SelItem.at(0);
-						switch (HowTo)
+						if ((HowTo == 1) || (HowTo == 2))
 						{
-						case 0:
-							break;
-						case 1:
-							p.begin(this);
-							Transform(b, &p);
-							if ((m->state() & ShiftButton) && (!(m->state() & ControlButton)))
+							switch (HowTo)
 							{
-								mop = QPoint(m->x(), static_cast<int>((b->Ypos + (newX - b->Xpos)) * sc));
-								QCursor::setPos(mapToGlobal(mop));
-							}
-							else
-							{
-								if ((m->state() & ControlButton) && (!(m->state() & ShiftButton)))
+							case 1:
+								p.begin(this);
+								Transform(b, &p);
+								if ((m->state() & ShiftButton) && (!(m->state() & ControlButton)))
 								{
-									mop = QPoint(m->x(), static_cast<int>((b->Ypos + ((newX - b->Xpos) / b->OldB2 * b->OldH2)) * sc));
+									mop = QPoint(m->x(), static_cast<int>((b->Ypos + (newX - b->Xpos)) * sc));
 									QCursor::setPos(mapToGlobal(mop));
 								}
 								else
-									mop = QPoint(m->x(), m->y());
-							}
-							np = p.xFormDev(mop);
-							nx = np.x();
-							ny = np.y();
-							p.end();
-							if (b->PType != 5)
-							{
-								if (doku->useRaster)
 								{
-									dx = b->Xpos - int (b->Xpos / doku->minorGrid) * doku->minorGrid;
-									dy = b->Ypos - int (b->Ypos / doku->minorGrid) * doku->minorGrid;
-									nx = (qRound(np.x() / doku->minorGrid) * doku->minorGrid - dx);
-									ny = (qRound(np.y() / doku->minorGrid) * doku->minorGrid - dy);
+									if ((m->state() & ControlButton) && (!(m->state() & ShiftButton)))
+									{
+										mop = QPoint(m->x(), static_cast<int>((b->Ypos + ((newX - b->Xpos) / b->OldB2 * b->OldH2)) * sc));
+										QCursor::setPos(mapToGlobal(mop));
+									}
+									else
+										mop = QPoint(m->x(), m->y());
 								}
-								if (doku->SnapGuides)
-								{
-									nx += b->Xpos;
-									ny += b->Ypos;
-									ApplyGuides(&nx, &ny);
-									nx -= b->Xpos;
-									ny -= b->Ypos;
-								}
-								erf = SizeItem(nx, ny, b->ItemNr);
-							}
-							else
-							{
-								p.begin(this);
-								double rba = b->Rot;
-								b->Rot = 0;
-								Transform(b, &p);
-								np = p.xFormDev(QPoint(m->x(), m->y()));
-								p.end();
-								b->Rot = rba;
-								np = ApplyGrid(np);
-								erf = SizeItem(np.x(), np.y(), b->ItemNr);
-								if (doku->SnapGuides)
-								{
-									p.begin(this);
-									b->Sizing = true;
-									p.setRasterOp(XorROP);
-									p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-									p.drawLine(static_cast<int>(b->Xpos*sc), static_cast<int>(b->Ypos*sc),
-									           static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc));
-									p.drawLine(static_cast<int>(b->Xpos*sc), static_cast<int>(b->Ypos*sc),
-									           static_cast<int>(newX*sc), static_cast<int>(newY*sc));
-									p.end();
-								}
-							}
-							break;
-						case 2:
-							if (b->PType == 5)
-							{
-								p.begin(this);
-								Transform(b, &p);
-								mop = QPoint(m->x(), m->y());
-								npf = p.xFormDev(mop);
+								np = p.xFormDev(mop);
 								nx = np.x();
 								ny = np.y();
 								p.end();
-								double sav = doku->SnapGuides;
-								npf2 = FPoint(nx-Mxp, ny-Myp);
-								erf = MoveSizeItem(npf, npf, b->ItemNr);
-								doku->SnapGuides = sav;
-								if (sav)
-									b->Sizing = true;
-							}
-							else
-							{
-								p.begin(this);
-								np2 = QPoint(newX, newY);
-								np2 = ApplyGrid(np2);
-								int ox = qRound((b->Xpos+b->Width)*sc);
-								int oy = qRound((b->Ypos+b->Height)*sc);
-								double nx = np2.x();
-								double ny = np2.y();
-								ApplyGuides(&nx, &ny);
-								np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
-								PaintSizeRect(&p, QRect(np2, QPoint(ox,oy)));
-								p.end();
-							}
-							break;
-						case 3:
-							{
-								p.begin(this);
-								np2 = QPoint(newX, newY);
-								np2 = ApplyGrid(np2);
-								int ox = qRound(b->Xpos*sc);
-								int oy = qRound((b->Ypos+b->Height)*sc);
-								double nx = np2.x();
-								double ny = np2.y();
-								ApplyGuides(&nx, &ny);
-								np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
-								PaintSizeRect(&p, QRect(np2, QPoint(ox,oy)));
-								p.end();
+								if (b->PType != 5)
+								{
+									if (doku->useRaster)
+									{
+										dx = b->Xpos - int (b->Xpos / doku->minorGrid) * doku->minorGrid;
+										dy = b->Ypos - int (b->Ypos / doku->minorGrid) * doku->minorGrid;
+										nx = (qRound(np.x() / doku->minorGrid) * doku->minorGrid - dx);
+										ny = (qRound(np.y() / doku->minorGrid) * doku->minorGrid - dy);
+									}
+									if (doku->SnapGuides)
+									{
+										nx += b->Xpos;
+										ny += b->Ypos;
+										ApplyGuides(&nx, &ny);
+										nx -= b->Xpos;
+										ny -= b->Ypos;
+									}
+									erf = SizeItem(nx, ny, b->ItemNr);
+								}
+								else
+								{
+									p.begin(this);
+									double rba = b->Rot;
+									b->Rot = 0;
+									Transform(b, &p);
+									np = p.xFormDev(QPoint(m->x(), m->y()));
+									p.end();
+									b->Rot = rba;
+									np = ApplyGrid(np);
+									erf = SizeItem(np.x(), np.y(), b->ItemNr);
+									if (doku->SnapGuides)
+									{
+										p.begin(this);
+										b->Sizing = true;
+										p.setRasterOp(XorROP);
+										p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+										p.drawLine(static_cast<int>(b->Xpos*sc), static_cast<int>(b->Ypos*sc),
+												static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc));
+										p.drawLine(static_cast<int>(b->Xpos*sc), static_cast<int>(b->Ypos*sc),
+												static_cast<int>(newX*sc), static_cast<int>(newY*sc));
+										p.end();
+									}
+								}
+								break;
+							case 2:
+								if (b->PType == 5)
+								{
+									p.begin(this);
+									Transform(b, &p);
+									mop = QPoint(m->x(), m->y());
+									npf = p.xFormDev(mop);
+									nx = np.x();
+									ny = np.y();
+									p.end();
+									double sav = doku->SnapGuides;
+									npf2 = FPoint(nx-Mxp, ny-Myp);
+									erf = MoveSizeItem(npf, npf, b->ItemNr);
+									doku->SnapGuides = sav;
+									if (sav)
+										b->Sizing = true;
+								}
+								else
+								{
+									p.begin(this);
+									np2 = QPoint(newX, newY);
+									np2 = ApplyGrid(np2);
+									double nx = np2.x();
+									double ny = np2.y();
+									ApplyGuides(&nx, &ny);
+									p.translate(static_cast<int>(b->Xpos), static_cast<int>(b->Ypos));
+									p.rotate(b->Rot);
+									np2 = p.xFormDev(QPoint(qRound(nx), qRound(ny)));
+									p.end();
+									p.begin(this);
+									Transform(b, &p);
+									PaintSizeRect(&p, QRect(np2, QPoint(qRound(b->Width), qRound(b->Height))));
+									p.end();
+								}
 								break;
 							}
-						case 4:
+						}
+						else
+						{
+							p.begin(this);
+							np2 = QPoint(newX, newY);
+							np2 = ApplyGrid(np2);
+							double nx = np2.x();
+							double ny = np2.y();
+							ApplyGuides(&nx, &ny);
+							p.translate(static_cast<int>(b->Xpos), static_cast<int>(b->Ypos));
+							p.rotate(b->Rot);
+							np2 = p.xFormDev(QPoint(qRound(nx), qRound(ny)));
+							p.end();
+							p.begin(this);
+							Transform(b, &p);
+							switch (HowTo)
 							{
-								p.begin(this);
-								np2 = QPoint(newX, newY);
-								np2 = ApplyGrid(np2);
-								int ox = qRound((b->Xpos+b->Width)*sc);
-								int oy = qRound(b->Ypos*sc);
-								double nx = np2.x();
-								double ny = np2.y();
-								ApplyGuides(&nx, &ny);
-								np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
-								PaintSizeRect(&p, QRect(np2, QPoint(ox,oy)));
-								p.end();
+							case 0:
+								break;
+							case 3:
+								PaintSizeRect(&p, QRect(np2, QPoint(0, qRound(b->Height))));
+								break;
+							case 4:
+								PaintSizeRect(&p, QRect(np2, QPoint(qRound(b->Width), 0)));
+								break;
+							case 5:
+								PaintSizeRect(&p, QRect(QPoint(0, 0), QPoint(qRound(b->Width), np2.y())));
+								break;
+							case 6:
+								PaintSizeRect(&p, QRect(QPoint(0, 0), QPoint(np2.x(), qRound(b->Height))));
+								break;
+							case 7:
+								PaintSizeRect(&p, QRect(QPoint(np2.x(), 0), QPoint(qRound(b->Width), qRound(b->Height))));
+								break;
+							case 8:
+								PaintSizeRect(&p, QRect(QPoint(0, np2.y()), QPoint(qRound(b->Width), qRound(b->Height))));
 								break;
 							}
-						case 5:
-							{
-								p.begin(this);
-								np2 = QPoint(newX, newY);
-								np2 = ApplyGrid(np2);
-								int ow = qRound((b->Xpos+b->Width)*sc);
-								int ox = qRound(b->Xpos*sc);
-								int oy = qRound(b->Ypos*sc);
-								double nx = np2.x();
-								double ny = np2.y();
-								ApplyGuides(&nx, &ny);
-								np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
-								PaintSizeRect(&p, QRect(QPoint(ox,oy), QPoint(ow, qRound(np2.y()))));
-								p.end();
-								break;
-							}
-						case 6:
-							{
-								p.begin(this);
-								np2 = QPoint(newX, newY);
-								np2 = ApplyGrid(np2);
-								int ow = qRound((b->Ypos+b->Height)*sc);
-								int ox = qRound(b->Xpos*sc);
-								int oy = qRound(b->Ypos*sc);
-								double nx = np2.x();
-								double ny = np2.y();
-								ApplyGuides(&nx, &ny);
-								np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
-								PaintSizeRect(&p, QRect(QPoint(qRound(np2.x()), ow), QPoint(ox,oy)));
-								p.end();
-								break;
-							}
-						case 7:
-							{
-								p.begin(this);
-								np2 = QPoint(newX, newY);
-								np2 = ApplyGrid(np2);
-								int ow = qRound((b->Ypos+b->Height)*sc);
-								int ox = qRound((b->Xpos+b->Width)*sc);
-								int oy = qRound(b->Ypos*sc);
-								double nx = np2.x();
-								double ny = np2.y();
-								ApplyGuides(&nx, &ny);
-								np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
-								PaintSizeRect(&p, QRect(QPoint(qRound(np2.x()), ow), QPoint(ox,oy)));
-								p.end();
-								break;
-							}
-						case 8:
-							{
-								p.begin(this);
-								np2 = QPoint(newX, newY);
-								np2 = ApplyGrid(np2);
-								int ow = qRound((b->Xpos+b->Width)*sc);
-								int ox = qRound(b->Xpos*sc);
-								int oy = qRound((b->Ypos+b->Height)*sc);
-								double nx = np2.x();
-								double ny = np2.y();
-								ApplyGuides(&nx, &ny);
-								np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
-								PaintSizeRect(&p, QRect(QPoint(ow, qRound(np2.y())), QPoint(ox,oy)));
-								p.end();
-								break;
-							}
+							p.end();
 						}
 					}
 				}
@@ -4653,64 +4714,65 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 				Transform(b, &p);
 				QRegion ganz = ViewReg();
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-				if (ganz.intersect(QRegion(p.xForm(QPointArray(QRect(-3, -3, static_cast<int>(b->Width+6),
-				                                   static_cast<int>(b->Height+6)))))).contains(m->pos()))
+				if (doku->EditClip)
 				{
-					if (doku->EditClip)
-					{
-						QRect mpo = p.xFormDev(QRect(m->x()-doku->GrabRad, m->y()-doku->GrabRad,
-						                             doku->GrabRad*2, doku->GrabRad*2));
-						FPointArray Clip;
-						QPointArray cli;
-						ClRe2 = -1;
-						SegP1 = -1;
-						SegP2 = -1;
+					QRect mpo = p.xFormDev(QRect(m->x()-doku->GrabRad, m->y()-doku->GrabRad, doku->GrabRad*2, doku->GrabRad*2));
+					FPointArray Clip;
+					QPointArray cli;
+					ClRe2 = -1;
+					SegP1 = -1;
+					SegP2 = -1;
+					if (EditContour)
+						Clip = b->ContourLine;
+					else
 						Clip = b->PoLine;
-						if ((doku->EditClipMode == 2) || (doku->EditClipMode == 0) || (doku->EditClipMode == 3))
+					if ((doku->EditClipMode == 2) || (doku->EditClipMode == 0) || (doku->EditClipMode == 3))
+					{
+						np2 = p.xFormDev(m->pos());
+						for (a=0; a<Clip.size(); ++a)
 						{
-							np2 = p.xFormDev(m->pos());
-							for (a=0; a<Clip.size(); ++a)
+							if (((EdPoints) && (a % 2 != 0)) || ((!EdPoints) && (a % 2 == 0)))
+								continue;
+							np = p.xForm(Clip.pointQ(a));
+							tx = QRect(np.x()-3, np.y()-3, 6, 6);
+							if (tx.contains(m->pos()))
 							{
-								if (((EdPoints) && (a % 2 != 0)) || ((!EdPoints) && (a % 2 == 0)))
-									continue;
-								np = p.xForm(Clip.pointQ(a));
-								tx = QRect(np.x()-3, np.y()-3, 6, 6);
-								if (tx.contains(m->pos()))
+								if (doku->EditClipMode == 0)
+									qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
+								if (doku->EditClipMode == 2)
+									qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png"), 4, 3), true);
+								if (doku->EditClipMode == 3)
+									qApp->setOverrideCursor(QCursor(loadIcon("Split.png"), 4, 3), true);
+								p.end();
+								return;
+							}
+						}
+					}
+					if ((doku->EditClipMode == 1) || (doku->EditClipMode == 0) && (EdPoints))
+					{
+						for (uint poi=0; poi<Clip.size()-3; poi += 4)
+						{
+							BezierPoints(&Bez, Clip.pointQ(poi), Clip.pointQ(poi+1), Clip.pointQ(poi+3), Clip.pointQ(poi+2));
+							cli = Bez.cubicBezier();
+							for (uint clp = 0; clp < cli.size()-1; ++clp)
+							{
+								if (PointOnLine(cli.point(clp), cli.point(clp+1), mpo))
 								{
 									if (doku->EditClipMode == 0)
-										qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
-									if (doku->EditClipMode == 2)
-										qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png"), 4, 3), true);
-									if (doku->EditClipMode == 3)
-										qApp->setOverrideCursor(QCursor(loadIcon("Split.png"), 4, 3), true);
+										qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
+									if (doku->EditClipMode == 1)
+										qApp->setOverrideCursor(QCursor(loadIcon("AddPoint.png"), 4, 3), true);
+									ClRe2 = poi;
 									p.end();
 									return;
 								}
 							}
 						}
-						if ((doku->EditClipMode == 1) || (doku->EditClipMode == 0) && (EdPoints))
-						{
-							for (uint poi=0; poi<Clip.size()-3; poi += 4)
-							{
-								BezierPoints(&Bez, Clip.pointQ(poi), Clip.pointQ(poi+1), Clip.pointQ(poi+3),
-								             Clip.pointQ(poi+2));
-								cli = Bez.cubicBezier();
-								for (uint clp = 0; clp < cli.size()-1; ++clp)
-								{
-									if (PointOnLine(cli.point(clp), cli.point(clp+1), mpo))
-									{
-										if (doku->EditClipMode == 0)
-											qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
-										if (doku->EditClipMode == 1)
-											qApp->setOverrideCursor(QCursor(loadIcon("AddPoint.png"), 4, 3), true);
-										ClRe2 = poi;
-										p.end();
-										return;
-									}
-								}
-							}
-						}
 					}
+				}
+				if (ganz.intersect(QRegion(p.xForm(QPointArray(QRect(-3, -3, static_cast<int>(b->Width+6),
+				                                   static_cast<int>(b->Height+6)))))).contains(m->pos()))
+				{
 					QWMatrix ma;
 					ma.scale(doku->Scale, doku->Scale);
 					ma.translate(b->Xpos, b->Ypos);
@@ -4851,7 +4913,10 @@ void Page::mousePressEvent(QMouseEvent *m)
 			FPointArray Clip;
 			bool edited = false;
 			bool pfound = false;
-			Clip = b->PoLine;
+			if (EditContour)
+				Clip = b->ContourLine;
+			else
+				Clip = b->PoLine;
 			p.begin(this);
 			Transform(b, &p);
 			npf2 = FPoint(p.xFormDev(m->pos()));
@@ -4930,17 +4995,32 @@ void Page::mousePressEvent(QMouseEvent *m)
 							else
 							{
 								cli.putPoints(0, EndInd-StartInd, Clip, StartInd);
-								z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth,
-								              b->Pcolor, b->Pcolor2);
+								z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->Pcolor, b->Pcolor2);
 								bb = Items.at(z);
-								bb->PoLine.resize(0);
+								if (EditContour)
+									bb->ContourLine.resize(0);
+								else
+									bb->PoLine.resize(0);
 								if (StartInd != 0)
 								{
-									bb->PoLine.putPoints(0, StartInd - 4, Clip);
-									bb->PoLine.putPoints(bb->PoLine.size(), Clip.size()-EndInd, Clip, EndInd);
+									if (EditContour)
+									{
+										bb->ContourLine.putPoints(0, StartInd - 4, Clip);
+										bb->ContourLine.putPoints(bb->PoLine.size(), Clip.size()-EndInd, Clip, EndInd);
+									}
+									else
+									{
+										bb->PoLine.putPoints(0, StartInd - 4, Clip);
+										bb->PoLine.putPoints(bb->PoLine.size(), Clip.size()-EndInd, Clip, EndInd);
+									}
 								}
 								else
-									bb->PoLine.putPoints(0, Clip.size()-EndInd-4, Clip, EndInd+4);
+								{
+									if (EditContour)
+										bb->ContourLine.putPoints(0, Clip.size()-EndInd-4, Clip, EndInd+4);
+									else
+										bb->PoLine.putPoints(0, Clip.size()-EndInd-4, Clip, EndInd+4);
+								}
 								bb->Rot = b->Rot;
 								AdjustItemSize(bb);
 								bb->ClipEdited = true;
@@ -4970,10 +5050,12 @@ void Page::mousePressEvent(QMouseEvent *m)
 						{
 							if ((ClRe > 1) && (ClRe < static_cast<int>(Clip.size()-2)))
 							{
-								z = PaintPolyLine(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth,
-								                  b->Pcolor, b->Pcolor2);
+								z = PaintPolyLine(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->Pcolor, b->Pcolor2);
 								bb = Items.at(z);
-								bb->PoLine.putPoints(0, Clip.size()-(ClRe+2), Clip, ClRe+2);
+								if (EditContour)
+									bb->ContourLine.putPoints(0, Clip.size()-(ClRe+2), Clip, ClRe+2);
+								else
+									bb->PoLine.putPoints(0, Clip.size()-(ClRe+2), Clip, ClRe+2);
 								bb->Rot = b->Rot;
 								AdjustItemSize(bb);
 								bb->ClipEdited = true;
@@ -5038,7 +5120,10 @@ void Page::mousePressEvent(QMouseEvent *m)
 						cli.putPoints(cli.size(), Clip.size()-(ClRe + 4), Clip, ClRe+4);
 					}
 				}
-				b->PoLine = cli.copy();
+				if (EditContour)
+					b->ContourLine = cli.copy();
+				else
+					b->PoLine = cli.copy();
 				ClRe = -1;
 				b->ClipEdited = true;
 				edited = true;
@@ -5047,10 +5132,12 @@ void Page::mousePressEvent(QMouseEvent *m)
 			{
 				cli.putPoints(0, ClRe2+2, Clip);
 				cli.resize(cli.size()+4);
-				cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(),
-				              npf2.y(), npf2.x(), npf2.y());
+				cli.putPoints(cli.size()-4, 4, npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y(), npf2.x(), npf2.y());
 				cli.putPoints(cli.size(), Clip.size()-(ClRe2 + 2), Clip, ClRe2+2);
-				b->PoLine = cli.copy();
+				if (EditContour)
+					b->ContourLine = cli.copy();
+				else
+					b->PoLine = cli.copy();
 				ClRe2 = -1;
 				b->ClipEdited = true;
 				edited = true;
@@ -6506,7 +6593,10 @@ void Page::MarkClip(PageItem *b)
 	Transform(b, &p);
 	p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
 	p.setBrush(NoBrush);
-	cli = b->PoLine;
+	if (EditContour)
+		cli = b->ContourLine;
+	else
+		cli = b->PoLine;
 	if (cli.size() > 3)
 	{
 		for (uint poi=0; poi<cli.size()-3; poi += 4)
@@ -8616,6 +8706,11 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	if (Buffer->LayerNr != -1)
 		b->LayerNr = Buffer->LayerNr;
 	b->PoLine = Buffer->PoLine.copy();
+	b->UseContour = Buffer->UseContour;
+	if (Buffer->ContourLine.size() == 0)
+		b->ContourLine = b->PoLine.copy();
+	else
+		b->ContourLine = Buffer->ContourLine.copy();
 	if (b->PType != 5)
 	{
 		if ((b->PoLine.size() == 0) && (b->PType != 1))
@@ -9007,6 +9102,7 @@ int Page::PaintEllipse(double x, double y, double b, double h, double w, QString
 	ite->Shade2 = doku->Dshade2;
 	ite->ItemNr = Items.count()-1;
 	SetOvalFrame(ite);
+	ite->ContourLine = ite->PoLine.copy();
 	if (!doku->loading)
 	{
 		ite->paintObj();
@@ -9029,6 +9125,7 @@ int Page::PaintPict(double x, double y, double b, double h)
 	ite->IRender = doku->CMSSettings.DefaultIntentMonitor2;
 	ite->ItemNr = Items.count()-1;
 	SetRectFrame(ite);
+	ite->ContourLine = ite->PoLine.copy();
 	if (!doku->loading)
 	{
 		ite->paintObj();
@@ -9047,6 +9144,7 @@ int Page::PaintRect(double x, double y, double b, double h, double w, QString fi
 	ite->Shade2 = doku->Dshade2;
 	ite->ItemNr = Items.count()-1;
 	SetRectFrame(ite);
+	ite->ContourLine = ite->PoLine.copy();
 	if (!doku->loading)
 	{
 		ite->paintObj();
@@ -9099,6 +9197,7 @@ int Page::PaintText(double x, double y, double b, double h, double w, QString ou
 	Items.append(ite);
 	ite->ItemNr = Items.count()-1;
 	SetRectFrame(ite);
+	ite->ContourLine = ite->PoLine.copy();
 	if (!doku->loading)
 	{
 		ite->paintObj();
@@ -9112,7 +9211,6 @@ int Page::PaintLine(double x, double y, double b, double h, double w, QString ou
 {
 	if (w == 0)
 		w = 1;
-//	PageItem* ite = new PageItem(this, 5, x, y, b, h, w, "Black", outline, doku);
 	PageItem* ite = new PageItem(this, 5, x, y, b, h, w, "None", outline, doku);
 	Items.append(ite);
 	ite->PLineArt = doku->DLstyleLine;

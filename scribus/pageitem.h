@@ -119,6 +119,8 @@ public:
   /** Definiert die Clipping-Region des Elements; */
 	QPointArray Clip;
 	FPointArray PoLine;
+	bool UseContour;
+	FPointArray ContourLine;
 	QValueList<uint> Segments;
 	bool PoShow;
 	double BaseOffs;

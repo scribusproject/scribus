@@ -219,20 +219,17 @@ ZAuswahl::ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *pl)
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
 
-	Einf = new QPushButton( this, "Einf" );
-	Einf->setText( tr( "Insert" ) );
+	Einf = new QPushButton(tr( "&Insert" ), this, "Einf" );
 	Layout1->addWidget( Einf );
 	QSpacerItem* spacer_2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer_2 );
 
-	Delete = new QPushButton( this, "Delete" );
-	Delete->setText( tr( "Clear" ) );
+	Delete = new QPushButton(tr("C&lear"), this, "Delete" );
 	Layout1->addWidget( Delete );
 	QSpacerItem* spacer_3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer_3 );
 
-	Close = new QPushButton( this, "Close" );
-	Close->setText( tr( "Close" ) );
+	Close = new QPushButton(tr("&Close"), this, "Close" );
 	Layout1->addWidget( Close );
 	QSpacerItem* spacer_4 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer_4 );

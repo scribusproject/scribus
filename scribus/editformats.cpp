@@ -26,40 +26,32 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
 	Layout15->setSpacing( 6 );
 	Layout15->setMargin( 0 );
 
-	LoadS = new QPushButton( this, "LoadF" );
-	LoadS->setText( tr( "Append" ) );
+	LoadS = new QPushButton( tr( "&Append" ), this, "LoadF" );
 	Layout15->addWidget( LoadS );
 
-	NewB = new QPushButton( this, "NewB" );
-	NewB->setText( tr( "New" ) );
+	NewB = new QPushButton( tr( "&New" ), this, "NewB" );
 	Layout15->addWidget( NewB );
 
-	EditB = new QPushButton( this, "EditB" );
-	EditB->setText( tr( "Edit" ) );
+	EditB = new QPushButton( tr( "&Edit" ), this, "EditB" );
 	EditB->setDefault( true );
 	EditB->setEnabled(false);
 	Layout15->addWidget( EditB );
 
-	DublicateB = new QPushButton( this, "DublicateB" );
-	DublicateB->setText( tr( "Duplicate" ) );
+	DublicateB = new QPushButton( tr( "D&uplicate" ), this, "DublicateB" );
 	DublicateB->setEnabled(false);
 	Layout15->addWidget( DublicateB );
 
-	DeleteB = new QPushButton( this, "DeleteB" );
-	DeleteB->setText( tr( "Delete" ) );
+	DeleteB = new QPushButton( tr( "&Delete" ), this, "DeleteB" );
 	DeleteB->setEnabled(false);
 	Layout15->addWidget( DeleteB );
 
-	SaveB = new QPushButton( this, "SaveB" );
-	SaveB->setText( tr( "Save" ) );
+	SaveB = new QPushButton( tr( "&Save" ), this, "SaveB" );
 	Layout15->addWidget( SaveB );
 
-	ExitB = new QPushButton( this, "ExitB" );
-	ExitB->setText( tr( "OK" ) );
+	ExitB = new QPushButton( tr( "&OK" ), this, "ExitB" );
 	Layout15->addWidget( ExitB );
 
-	CancelB = new QPushButton( this, "CancelB" );
-	CancelB->setText( tr( "Cancel" ) );
+	CancelB = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
 	Layout15->addWidget( CancelB );
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout15->addItem( spacer );

@@ -1723,6 +1723,8 @@ void CopyPageItem(struct CLBuf *Buffer, PageItem *b)
 	Buffer->Ptext = Text;
 	Buffer->Clip = b->Clip.copy();
 	Buffer->PoLine = b->PoLine.copy();
+	Buffer->ContourLine = b->ContourLine.copy();
+	Buffer->UseContour = b->UseContour;
 	Buffer->TabValues = b->TabValues;
 	Buffer->DashValues = b->DashValues;
 	Buffer->DashOffset = b->DashOffset;

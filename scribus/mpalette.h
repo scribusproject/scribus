@@ -155,6 +155,7 @@ public:
 
 	QCheckBox* Textflow;
 	QCheckBox* Textflow2;
+	QCheckBox* Textflow3;
 	QCheckBox* Aspect;
 	QCheckBox* showcurveCheckBox;
 	QCheckBox* TopLine;
@@ -329,6 +330,7 @@ private slots:
 	void NewRotMode(int m);
 	void DoFlow();
 	void DoFlow2();
+	void DoFlow3();
 	void MakeIrre(int f, int c, double *vals);
 	void EditSh();
 	void NewTDist();

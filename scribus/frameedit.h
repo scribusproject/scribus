@@ -13,42 +13,43 @@
 #include "scribusdoc.h"
 
 class NodePalette : public QDialog
-{ 
-    Q_OBJECT
+{
+	Q_OBJECT
 
 public:
-    NodePalette( QWidget* parent);
-    ~NodePalette() {};
+	NodePalette( QWidget* parent);
+	~NodePalette() {};
 
-    QButtonGroup* ButtonGroup1;
-    QToolButton* MoveNode;
-    QToolButton* MoveControl;
-    QToolButton* AddNode;
-    QToolButton* DeleteNode;
-    QToolButton* AsymMove;
-    QToolButton* SymMove;
+	QButtonGroup* ButtonGroup1;
+	QToolButton* MoveNode;
+	QToolButton* MoveControl;
+	QToolButton* AddNode;
+	QToolButton* DeleteNode;
+	QToolButton* AsymMove;
+	QToolButton* SymMove;
 	QToolButton* ResNode;
 	QToolButton* Res1Node;
-    QToolButton* PolySplit;
-    QToolButton* BezierClose;
-    QToolButton* PolyMirrorH;
-    QToolButton* PolyMirrorV;
-    QToolButton* PolyShearL;
-    QToolButton* PolyShearR;
-    QToolButton* PolyShearU;
-    QToolButton* PolyShearD;
-    QToolButton* RotateCCW;
-    QToolButton* RotateCW;
-    QToolButton* Expand;
-    QToolButton* Crop;
+	QToolButton* PolySplit;
+	QToolButton* BezierClose;
+	QToolButton* PolyMirrorH;
+	QToolButton* PolyMirrorV;
+	QToolButton* PolyShearL;
+	QToolButton* PolyShearR;
+	QToolButton* PolyShearU;
+	QToolButton* PolyShearD;
+	QToolButton* RotateCCW;
+	QToolButton* RotateCW;
+	QToolButton* Expand;
+	QToolButton* Crop;
 	QCheckBox* AbsMode;
-    QLabel* TextLabel1;
-    MSpinBox* YSpin;
-    QLabel* TextLabel2;
-    MSpinBox* XSpin;
-    QPushButton* PushButton1;
-    void setDoc(ScribusDoc *dc);
-    ScribusDoc *doc;
+	QCheckBox* EditCont;
+	QLabel* TextLabel1;
+	MSpinBox* YSpin;
+	QLabel* TextLabel2;
+	MSpinBox* XSpin;
+	QPushButton* PushButton1;
+	void setDoc(ScribusDoc *dc);
+	ScribusDoc *doc;
 
 private slots:
 	void closeEvent(QCloseEvent *);
@@ -74,6 +75,7 @@ private slots:
 	void ShearU();
 	void ShearD();
 	void ToggleAbsMode();
+	void ToggleConMode();
 
 public slots:
 	void MoveN();
@@ -83,9 +85,9 @@ public slots:
 	void PolyStatus(int typ, uint size);
 
 protected:
-    QVBoxLayout* NodePaletteLayout;
-    QGridLayout* ButtonGroup1Layout;
-    QGridLayout* Layout2;
+	QVBoxLayout* NodePaletteLayout;
+	QGridLayout* ButtonGroup1Layout;
+	QGridLayout* Layout2;
 
 signals:
 	void Schliessen();

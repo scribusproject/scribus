@@ -26,12 +26,12 @@ Mdup::Mdup( QWidget* parent, double Dx, double Dy, int Ein )
 	Ncopies->setMinValue( 1 );
 	Ncopies->setValue(1);
 	Layout4->addWidget( Ncopies, 0, 1 );
-	ShiftV = new MSpinBox( -1000, 1000, this, 2 );
-	ShiftV->setValue(Dy);
-	Layout4->addWidget( ShiftV, 2, 1 );
 	ShiftH = new MSpinBox( -1000, 1000, this, 2 );
 	ShiftH->setValue(Dx);
 	Layout4->addWidget( ShiftH, 1, 1 );
+	ShiftV = new MSpinBox( -1000, 1000, this, 2 );
+	ShiftV->setValue(Dy);
+	Layout4->addWidget( ShiftV, 2, 1 );
 	QString Suffix[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
 	ShiftH->setSuffix(Suffix[Ein]);
 	ShiftV->setSuffix(Suffix[Ein]);
@@ -58,6 +58,12 @@ Mdup::Mdup( QWidget* parent, double Dx, double Dy, int Ein )
 	PushButton13->setText( tr( "Cancel" ) );
 	Layout3->addWidget( PushButton13 );
 	MdupLayout->addLayout( Layout3 );
+	QWidget::setTabOrder ( Ncopies, ShiftH );
+	QWidget::setTabOrder ( ShiftH, ShiftV );
+	QWidget::setTabOrder ( ShiftV, PushButton12 );
+	QWidget::setTabOrder ( PushButton12, PushButton13 );
+	QWidget::setTabOrder ( PushButton13, Ncopies );
+	Ncopies->setFocus();
 	setMaximumSize(sizeHint());
 
 	// signals and slots connections

@@ -161,6 +161,11 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
 	Layout2->addWidget( XSpin, 0, 1 );
 	NodePaletteLayout->addLayout( Layout2 );
 
+	EditCont = new QCheckBox( this, "EditCont" );
+	EditCont->setText( tr( "Edit Contour Line" ) );
+	EditCont->setChecked(false);
+	NodePaletteLayout->addWidget( EditCont );
+
 	PushButton1 = new QPushButton( this, "PushButton1" );
 	PushButton1->setText( tr( "End Editing" ) );
 	NodePaletteLayout->addWidget( PushButton1 );
@@ -211,6 +216,7 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
 	connect(Crop, SIGNAL(clicked()), this, SLOT(doCrop()));
 	connect(Expand, SIGNAL(clicked()), this, SLOT(doExpand()));
 	connect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
+	connect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 }
 
 void NodePalette::setDoc(ScribusDoc *dc)
@@ -236,6 +242,7 @@ void NodePalette::IsOpen()
 	PolySplit->setOn(false);
 	BezierClose->setEnabled(true);
 	PolySplit->setEnabled(true);
+	EditCont->setEnabled(false);
 }
 
 void NodePalette::PolyStatus(int typ, uint size)
@@ -268,6 +275,7 @@ void NodePalette::CloseBezier()
 	doc->ActPage->Bezier2Poly();
 	BezierClose->setEnabled(false);
 	PolySplit->setEnabled(true);
+	EditCont->setEnabled(true);
 }
 
 void NodePalette::doRotCCW()
@@ -391,6 +399,49 @@ void NodePalette::ToggleAbsMode()
 	connect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 }
 
+void NodePalette::ToggleConMode()
+{
+	if (doc != 0)
+	{
+		doc->ActPage->EditContour = EditCont->isChecked();
+		doc->ActPage->update();
+		if (EditCont->isChecked())
+		{
+			BezierClose->setEnabled(false);
+			PolySplit->setEnabled(false);
+			PolyMirrorH->setEnabled(false);
+			PolyMirrorV->setEnabled(false);
+			PolyShearR->setEnabled(false);
+			PolyShearL->setEnabled(false);
+			PolyShearU->setEnabled(false);
+			PolyShearD->setEnabled(false);
+			RotateCCW->setEnabled(false);
+			RotateCW->setEnabled(false);
+			Crop->setEnabled(false);
+			Expand->setEnabled(false);
+			XSpin->setMinValue(-3000);
+			YSpin->setMinValue(-3000);
+		}
+		else
+		{
+			BezierClose->setEnabled(false);
+			PolySplit->setEnabled(true);
+			PolyMirrorH->setEnabled(true);
+			PolyMirrorV->setEnabled(true);
+			PolyShearR->setEnabled(true);
+			PolyShearL->setEnabled(true);
+			PolyShearU->setEnabled(true);
+			PolyShearD->setEnabled(true);
+			RotateCCW->setEnabled(true);
+			RotateCW->setEnabled(true);
+			Crop->setEnabled(false);
+			Expand->setEnabled(false);
+			XSpin->setMinValue(0);
+			YSpin->setMinValue(0);
+		}
+	}
+}
+
 void NodePalette::HaveNode(bool have, bool mov)
 {
 	bool setter = have ? true : false;
@@ -479,8 +530,11 @@ void NodePalette::EndEdit()
 	{
 		MoveN();
 		doc->ActPage->ClRe = -1;
+		EditCont->setChecked(false);
+		doc->ActPage->EditContour = false;
 	}
 	PolySplit->setEnabled( false );
 	BezierClose->setEnabled( false );
+	EditCont->setChecked(false);
 	emit Schliessen();
 }

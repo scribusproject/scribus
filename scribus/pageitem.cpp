@@ -128,17 +128,16 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	switch (art)
 	{
 		case 6:
-			Clip.setPoints(4, static_cast<int>(w/2), 0, 
-								static_cast<int>(w), static_cast<int>(h/2),
-								static_cast<int>(w/2), static_cast<int>(h), 
-								0,static_cast<int>(h/2));
+			Clip.setPoints(4, static_cast<int>(w/2), 0, static_cast<int>(w), static_cast<int>(h/2),
+								static_cast<int>(w/2), static_cast<int>(h), 0,static_cast<int>(h/2));
 			break;
 		default:
-			Clip.setPoints(4, 0,0, static_cast<int>(w),0, static_cast<int>(w),
-							static_cast<int>(h), 0,static_cast<int>(h));
+			Clip.setPoints(4, 0,0, static_cast<int>(w),0, static_cast<int>(w), static_cast<int>(h), 0,static_cast<int>(h));
 			break;
 	}
 	PoLine.resize(0);
+	ContourLine.resize(0);
+	UseContour = false;
 	Segments.clear();
 	PoShow = false;
 	BaseOffs = 0;
@@ -313,8 +312,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 		Doc->Vorlagen[xxx].First = 0;
 		Doc->Vorlagen[xxx].Avor = 0;
 		Doc->Vorlagen[xxx].Anach = 0;
+		Doc->Vorlagen[xxx].Ausri = xxx;
 	}
-	Doc->Vorlagen[0].Ausri = Ausrich;
 	pf.begin(Parent);
 	pf.translate(Xpos*sc, Ypos*sc);
 	pf.rotate(Rot);
@@ -574,8 +573,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				QRegion cl = QRegion(pf2.xForm(Clip));
 				for (a=0; a<OwnPage->Items.count(); ++a)
 					{
-					if (((OwnPage->Items.at(a)->ItemNr > ItemNr)
- 								&& (OwnPage->Items.at(a)->LayerNr == LayerNr))
+					if (((OwnPage->Items.at(a)->ItemNr > ItemNr) && (OwnPage->Items.at(a)->LayerNr == LayerNr))
    							|| (Doc->Layers[OwnPage->Items.at(a)->LayerNr].Level > Doc->Layers[LayerNr].Level))
 						{
 						if (OwnPage->Items.at(a)->Textflow)
@@ -594,7 +592,16 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								cm = QRegion(pp.xForm(tcli));
 								}
 							else
-								cm = QRegion(pp.xForm(OwnPage->Items.at(a)->Clip));
+							{
+								if ((OwnPage->Items.at(a)->UseContour) && (OwnPage->Items.at(a)->ContourLine.size() != 0))
+								{
+									QValueList<uint> Segs;
+									QPointArray Clip2 = FlattenPath(OwnPage->Items.at(a)->ContourLine, Segs);
+									cm = QRegion(pp.xForm(Clip2));
+								}
+								else
+									cm = QRegion(pp.xForm(OwnPage->Items.at(a)->Clip));
+							}
 							pp.end();
 							cl = cl.subtract(cm);
 							}
@@ -1636,9 +1643,9 @@ NoRoom: pf2.end();
 	}
 	if ((!Tinput) && (!Doc->RePos))
 	{
+		double scp = QMAX(Doc->Scale, 1);
 		if ((Frame) && (ScApp->Prefs.FramesShown) && ((PType == 2) || (PType == 4)))
 		{
-			double scp = QMAX(Doc->Scale, 1);
 			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
 			if ((isBookmark) || (isAnnotation))
 				p->setPen(blue, 1 / scp, DotLine, FlatCap, MiterJoin);
@@ -1648,6 +1655,12 @@ NoRoom: pf2.end();
 				p->setPen(darkRed, 1 / scp, SolidLine, FlatCap, MiterJoin);
 			p->setFillMode(0);
 			p->setupPolygon(&PoLine);
+			p->drawPolyLine();
+		}
+		if ((ScApp->Prefs.FramesShown) && (UseContour) && (ContourLine.size() != 0))
+		{
+			p->setPen(lightGray, 1 / scp, DotLine, FlatCap, MiterJoin);
+			p->setupPolygon(&ContourLine);
 			p->drawPolyLine();
 		}
 	}

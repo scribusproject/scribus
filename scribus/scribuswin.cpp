@@ -67,14 +67,14 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 	{
 		QString CloseTxt;
 		if (ScApp->singleClose)
-			CloseTxt = tr("Leave Anyway");
+			CloseTxt = tr("&Leave Anyway");
 		else
-			CloseTxt = tr("Close Anyway");
+			CloseTxt = tr("C&lose Anyway");
 		int exit=QMessageBox::information(this,
 		                                  tr("Warning"),
 		                                  tr("Document:")+" "+doc->DocName+"\n"+ tr("has been changed since the last save."),
-		                                  tr("Save Now"),
-		                                  tr("Cancel"),
+		                                  tr("&Save Now"),
+		                                  tr("&Cancel"),
 		                                  CloseTxt,
 		                                  0, 1);
 		switch (exit)

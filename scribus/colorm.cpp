@@ -57,29 +57,23 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 	ColorsGroup->layout()->setMargin( 11 );
 	Layout1 = new QVBoxLayout( ColorsGroup->layout() );
 	Layout1->setAlignment( Qt::AlignTop );
-	LoadF = new QPushButton( ColorsGroup, "LoadF" );
-	LoadF->setText( tr( "Append" ) );
+	LoadF = new QPushButton( tr( "&Append" ), ColorsGroup, "LoadF" );
 	Layout1->addWidget( LoadF );
-	NewF = new QPushButton( ColorsGroup, "NewF" );
-	NewF->setText( tr( "New" ) );
+	NewF = new QPushButton( tr( "&New" ), ColorsGroup, "NewF" );
 	Layout1->addWidget( NewF );
-	EditF = new QPushButton( ColorsGroup, "EditF" );
+	EditF = new QPushButton( tr( "&Edit" ), ColorsGroup, "EditF" );
 	EditF->setEnabled( false );
-	EditF->setText( tr( "Edit" ) );
 	EditF->setDefault( true );
 	Layout1->addWidget( EditF );
-	DupF = new QPushButton( ColorsGroup, "DupF" );
+	DupF = new QPushButton( tr( "D&uplicate" ), ColorsGroup, "DupF" );
 	DupF->setEnabled( false );
-	DupF->setText( tr( "Duplicate" ) );
 	Layout1->addWidget( DupF );
-	DelF = new QPushButton( ColorsGroup, "DelF" );
+	DelF = new QPushButton( tr( "&Delete" ), ColorsGroup, "DelF" );
 	DelF->setEnabled( false );
-	DelF->setText( tr( "Delete" ) );
 	Layout1->addWidget( DelF );
 	if (HaveDoc)
 	{
-		DelU = new QPushButton( ColorsGroup, "DelU" );
-		DelU->setText( tr( "Remove Unused" ) );
+		DelU = new QPushButton( tr( "&Remove Unused" ), ColorsGroup, "DelU" );
 		Layout1->addWidget( DelU );
 	}
 	layout3->addWidget( ColorsGroup );
@@ -122,16 +116,13 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 		LoadColSet->setPopupDelay(0);
 		LoadColSet->setText(DcolSet);
 		ColsSetGroupLayout->addWidget( LoadColSet );
-		SaveColSet = new QPushButton( ColsSetGroup, "SaveColSet" );
-		SaveColSet->setText( tr( "Save Color Set" ) );
+		SaveColSet = new QPushButton( tr( "&Save Color Set" ), ColsSetGroup, "SaveColSet" );
 		ColsSetGroupLayout->addWidget( SaveColSet );
 		layout3->addWidget( ColsSetGroup );
 	}
-	SaveF = new QPushButton( this, "SaveF" );
-	SaveF->setText( tr( "OK" ) );
+	SaveF = new QPushButton( tr( "&OK" ), this, "SaveF" );
 	layout3->addWidget( SaveF );
-	CancF = new QPushButton( this, "CancF" );
-	CancF->setText( tr( "Cancel" ) );
+	CancF = new QPushButton( tr( "&Cancel" ), this, "CancF" );
 	CancF->setDefault( true );
 	layout3->addWidget( CancF );
 	layout5->addLayout( layout3 );
