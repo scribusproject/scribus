@@ -8,7 +8,7 @@
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
-class QListBox;
+class QListView;
 class QListBoxItem;
 class QPushButton;
 class QLabel;
@@ -18,19 +18,19 @@ class FontPreview : public QDialog
 	Q_OBJECT
 
 public:
-	FontPreview( ScribusApp *carrier, QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0 );
+	FontPreview(ScribusApp *carrier, QWidget* parent = 0, const char* name = 0, bool modal = FALSE, WFlags fl = 0);
 	~FontPreview();
 
 	/** Reference on the parent application object */
 	ScribusApp *carrier;
 	/** gui widgets */
-	QListBox* fontList;
+	QListView* fontList;
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	QLabel* fontPreview;
 
 public slots:
-	virtual void fontList_changed( QListBoxItem * );
+	virtual void fontList_changed(QListViewItem *);
 
 protected:
 	/** gui layout */
@@ -39,6 +39,13 @@ protected:
 	QHBoxLayout* layout5;
 	QVBoxLayout* layout2;
 	QVBoxLayout* layout1;
+	/** Configuration structure */
+	PrefsContext* prefs; 
+    /*! Column for sorting. */
+    uint sortColumn;
+    /*! window size */
+    uint xsize;
+    uint ysize;
 
 protected slots:
 	/** tr() */
@@ -47,3 +54,4 @@ protected slots:
 };
 
 #endif // FONTPREVIEW_H
+

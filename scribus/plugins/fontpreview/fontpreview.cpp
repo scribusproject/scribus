@@ -1,5 +1,6 @@
 #include "fontpreview.h"
 #include "ui.h"
+#include <qcursor.h>
 
 QString Name()
 {
@@ -43,17 +44,21 @@ bool actionEnabledOnStartup()
 }
 
 /**
-Create dialog and insert font into Style meny when user accepts.
+Create dialog and insert font into Style menu when user accepts.
 */
 void Run(QWidget *d, ScribusApp *plug)
 {
+	// I don't know how many fonts user has...
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	FontPreview *dlg = new FontPreview(plug, d, "dlg", TRUE, 0);
+	qApp->restoreOverrideCursor();
+	// run it and wait for user's reaction
 	if (dlg->exec() == QDialog::Accepted)
 	{
 		if  (plug->DLLinput == "")
-			plug->SetNewFont(dlg->fontList->currentText());
+			plug->SetNewFont(dlg->fontList->currentItem()->text(0));
 		else
-			plug->DLLReturn = dlg->fontList->currentText();
+			plug->DLLReturn = dlg->fontList->currentItem()->text(0);
 	}
 	delete dlg;
 }
