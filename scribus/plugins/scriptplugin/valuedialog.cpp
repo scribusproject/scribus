@@ -15,20 +15,20 @@ ValueDialog::ValueDialog( QWidget* parent, const char* name, bool modal, WFlags 
 	if ( !name )
 	setName( "ValueDialog" );
 	setModal( TRUE );
-	ScripterValueLayout = new QGridLayout( this, 1, 1, 11, 6, "ScripterValueLayout"); 
+	ScripterValueLayout = new QGridLayout( this, 1, 1, 11, 6, "ScripterValueLayout");
 
-	layout3 = new QVBoxLayout( 0, 0, 6, "layout3"); 
+	layout3 = new QVBoxLayout( 0, 0, 6, "layout3");
 
 	dialogLabel = new QLabel( this, "dialogLabel" );
 	dialogLabel->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)5, 0, 0, dialogLabel->sizePolicy().hasHeightForWidth() ) );
 	layout3->addWidget( dialogLabel );
 
-	layout2 = new QVBoxLayout( 0, 0, 6, "layout2"); 
+	layout2 = new QVBoxLayout( 0, 0, 6, "layout2");
 
 	valueEdit = new QLineEdit( this, "valueEdit" );
 	layout2->addWidget( valueEdit );
 
-	layout1 = new QHBoxLayout( 0, 0, 6, "layout1"); 
+	layout1 = new QHBoxLayout( 0, 0, 6, "layout1");
 	QSpacerItem* spacer = new QSpacerItem( 40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( spacer );
 
@@ -39,7 +39,7 @@ ValueDialog::ValueDialog( QWidget* parent, const char* name, bool modal, WFlags 
 
 	ScripterValueLayout->addLayout( layout3, 0, 0 );
 	languageChange();
-	resize( QSize(315, 101).expandedTo(minimumSizeHint()) );
+	//resize( QSize(315, 101).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
 
 	// signals and slots connections
