@@ -480,7 +480,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<double
 		IndentSpin->setMaxValue( ww );
 		IndentSpin->setMinValue( 0 );
 		IndentSpin->setValue(0);
-		Label3 = new QLabel( IndentSpin, tr( "Ind&ent:" ), this, "Label3" );
+		Label3 = new QLabel( IndentSpin, tr( "Left Ind&ent:" ), this, "Label3" );
 		layout1->addWidget( Label3 );
 		layout1->addWidget( IndentSpin );
 	}
