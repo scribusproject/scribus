@@ -33,11 +33,17 @@ public:
     void ReadContents(QString name);
     void RebuildView();
     QPixmap createPreview(QString data);
+		void SetFarbe(QColor *tmp, QString farbe, int shad);
+		void DrawPoly(QPainter *p, QPointArray pts, QColor BackF, struct CLBuf *OB);
+		void DrawPolyL(QPainter *p, QPointArray pts, struct CLBuf *OB, float sca);
 
     struct Elem {QString Data;
     						 QPixmap Preview;
     						};
     QMap<QString,Elem> Objekte;
+		QMap<QString,CMYKColor> Farben;
+		QMap<QString,multiLine> MLineStyles;
+		QValueList<uint> Segments;
     SCFonts EFonts;
   	preV *Prefs;
 
