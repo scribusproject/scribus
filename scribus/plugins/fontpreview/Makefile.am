@@ -12,5 +12,10 @@ libfontpreview_la_SOURCES = ui.cpp fontpreview.cpp
 EXTRA_DIST = ui.cpp fontpreview.cpp ui.h fontpreview.h
 
 KDE_OPTIONS = qtonly
-AM_LDFLAGS =    -s $(LIBFREETYPE_LIBS)
+if COMPILE_DEBUG
+ linkflag = 
+else
+ linkflag = -s
+endif
+AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS) 
 

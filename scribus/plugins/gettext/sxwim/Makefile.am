@@ -14,4 +14,9 @@ libsxwimplugin_la_SOURCES = sxwim.cpp sxwunzip.cpp sxwdia.cpp stylereader.cpp co
 EXTRA_DIST = sxwim.cpp sxwim.h sxwunzip.cpp sxwunzip.h sxwdia.cpp sxwdia.h stylereader.cpp stylereader.h contentreader.cpp contentreader.h unzip.c unzip.h ioapi.c ioapi.h
 
 KDE_OPTIONS = qtonly
-AM_LDFLAGS =	-s $(LIBFREETYPE_LIBS) -s $(XML_LIBS)
+if COMPILE_DEBUG
+ linkflag = 
+else
+ linkflag = -s
+endif
+AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS) $(XML_LIBS)

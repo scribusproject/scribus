@@ -200,7 +200,13 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/gradienteditor.h
 
 scribus_LDADD  = $(LIBJPEG) $(LIBART_LIBS) $(LIBFREETYPE_LIBS) $(LIBFONTCONFIG_LIBS) $(LIBCUPS) $(LIBLCMS) $(LIBDL) $(LIBDL2) $(LIBTIFF) -lm $(LIB_QT) -lXext -lX11 $(LIBSOCKET)
-AM_LDFLAGS = -export-dynamic -s
+
+if COMPILE_DEBUG
+ linkflag = -export-dynamic
+else
+ linkflag = -export-dynamic -s
+endif
+AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS) 
 # set the include path for X, qt and KDE
 INCLUDES= $(LIBART_CFLAGS) $(LIBFREETYPE_CFLAGS) $(LIBFONTCONFIG_CFLAGS) $(all_includes)
 

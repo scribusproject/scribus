@@ -21,4 +21,9 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/import.prolog
 
 KDE_OPTIONS = qtonly
-AM_LDFLAGS =	-s $(LIBFREETYPE_LIBS)
+if COMPILE_DEBUG
+ linkflag = 
+else
+ linkflag = -s
+endif
+AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS) 

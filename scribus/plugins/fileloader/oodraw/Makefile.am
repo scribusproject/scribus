@@ -14,4 +14,9 @@ liboodrawimp_la_SOURCES = oodrawimp.cpp stylestack.cpp sxwunzip.cpp unzip.c ioap
 EXTRA_DIST = oodrawimp.cpp oodrawimp.h stylestack.cpp stylestack.h color.h sxwunzip.cpp sxwunzip.h unzip.c unzip.h ioapi.c ioapi.h
 
 KDE_OPTIONS = qtonly
-AM_LDFLAGS = -s $(LIBFREETYPE_LIBS)
+if COMPILE_DEBUG
+ linkflag = 
+else
+ linkflag = -s
+endif
+AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS) 

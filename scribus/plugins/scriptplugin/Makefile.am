@@ -8,4 +8,9 @@ libscriptplugin_la_METASOURCES = AUTO
 libscriptplugin_la_SOURCES = valuedialog.cpp cmdutil.cpp cmddialog.cpp cmddoc.cpp cmdpage.cpp cmdobj.cpp cmdgetprop.cpp cmdsetprop.cpp cmdtext.cpp cmdmani.cpp cmdcolor.cpp cmdmisc.cpp objprinter.cpp objpdffile.cpp guiapp.cpp conswin.cpp pconsole.cpp scriptplugin.cpp 
 EXTRA_DIST = valuedialog.h cmdvar.h cmdutil.cpp cmdutil.h cmddialog.cpp cmddialog.h cmddoc.cpp cmddoc.h cmdpage.cpp cmdpage.h cmdobj.cpp cmdobj.h cmdgetprop.cpp cmdgetprop.h cmdsetprop.cpp cmdsetprop.h cmdtext.cpp cmdtext.h cmdmani.cpp cmdmani.h cmdcolor.cpp cmdcolor.h cmdmisc.cpp cmdmisc.h objprinter.cpp objprinter.h objpdffile.cpp objpdffile.h guiapp.cpp guiapp.h scriptplugin.cpp scriptplugin.h pconsole.cpp pconsole.h conswin.cpp conswin.h 
 KDE_OPTIONS = qtonly
-AM_LDFLAGS = -Xlinker -s $(PYTHONLIB) $(LIBPYTHON)
+if COMPILE_DEBUG
+ linkflag = 
+else
+ linkflag = -s
+endif
+AM_LDFLAGS =  $(linkflag) -Xlinker $(PYTHONLIB) $(LIBPYTHON)

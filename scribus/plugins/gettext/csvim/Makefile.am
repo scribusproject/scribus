@@ -14,5 +14,10 @@ libcsvim_la_SOURCES = csvdia.cpp csvim.cpp
 EXTRA_DIST = csvdia.cpp csvdia.h csvim.cpp csvim.h  
 
 KDE_OPTIONS = qtonly
-AM_LDFLAGS =	-s $(LIBFREETYPE_LIBS)
+if COMPILE_DEBUG
+ linkflag = 
+else
+ linkflag = -s
+endif
+AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS) 
 
