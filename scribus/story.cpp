@@ -1551,6 +1551,14 @@ void StoryEditor::updateTextFrame()
 		else
 			break;
 	}
+	PageItem* nb2 = nb;
+	while (nb2 != 0)
+	{
+		nb2->Ptext.clear();
+		nb2->CPos = 0;
+		nb2->Dirty = true;
+		nb2 = nb2->NextBox;
+	}
 	Editor->saveItemText(nb);
 	while (nb != 0)
 	{

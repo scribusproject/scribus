@@ -8524,7 +8524,7 @@ peut être défini à partir du menu Préférences.</translation>
     </message>
     <message>
         <source>&amp;Author:</source>
-        <translation>&amp;Auteur :</translation>
+        <translation>A&amp;uteur :</translation>
     </message>
     <message>
         <source>&amp;Keywords:</source>
@@ -8552,7 +8552,7 @@ peut être défini à partir du menu Préférences.</translation>
     </message>
     <message>
         <source>F&amp;ormat:</source>
-        <translation>F&amp;ormat :</translation>
+        <translation>For&amp;mat :</translation>
     </message>
     <message>
         <source>Identi&amp;fier:</source>
@@ -8568,15 +8568,15 @@ peut être défini à partir du menu Préférences.</translation>
     </message>
     <message>
         <source>&amp;Relation:</source>
-        <translation>&amp;Relation :</translation>
+        <translation>&amp;Voir aussi :</translation>
     </message>
     <message>
         <source>Co&amp;verage:</source>
-        <translation>Cou&amp;verture :</translation>
+        <translation>Ete&amp;ndue :</translation>
     </message>
     <message>
         <source>Ri&amp;ghts:</source>
-        <translation>Dr&amp;oits :</translation>
+        <translation>Droi&amp;ts :</translation>
     </message>
     <message>
         <source>&amp;Document</source>
@@ -8622,12 +8622,12 @@ les recherches et l&apos;indexation des fichiers PDF</translation>
     </message>
     <message>
         <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
-        <translation>Le genre de contenu de ce document, comme catégories, fonctions, genres, etc</translation>
+        <translation>La nature du contenu de ce document, comme catégories, fonctions, genres, etc</translation>
     </message>
     <message>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
 RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation>Les informations physiques ou numériques du document. Le type de media et ses dimensions peuvent être notées.
+        <translation>Les informations physiques ou numériques du document. Le type de media et ses dimensions peuvent être notés.
 Voir les RFC2045 et RFC2046 pour les types MIME</translation>
     </message>
     <message>
@@ -8646,7 +8646,7 @@ suivi éventuellement d&apos;un tiret et d&apos;un code de pays ISO-3166, comme 
     </message>
     <message>
         <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
-        <translation>Une référence formelle à un document. Par exemple ISBN ou URI</translation>
+        <translation>Une référence formelle à un document en rapport. Par exemple ISBN ou URI</translation>
     </message>
     <message>
         <source>The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges</source>
@@ -13821,7 +13821,7 @@ Vérifiez le chemin et le nom de fichier.</translation>
     <name>QMessageBox</name>
     <message>
         <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;A propos de Qt&lt;/h3&gt;&lt;p&gt;Ce programme utilise Qt version %1.&lt;/p&gt;&lt;p&gt;Qt est un toolkit C++ pour le développement multi-plateformes d&apos;interfaces graphiques et d&apos;applications.&lt;/p&gt;&lt;p&gt;Qt offre une compatibilité des sources entre les systèmes MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, ainsi que pour les principales variantes commerciales d&apos;Unix.&lt;br&gt;Qt est également disponible pour les systèmes embarqués.&lt;/p&gt;&lt;p&gt;Qt est un produit Trolltech.  Consultez &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; pour plus d&apos;information.&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;A propos de Qt&lt;/h3&gt;&lt;p&gt;Ce programme utilise Qt version %1.&lt;/p&gt;&lt;p&gt;Qt est un toolkit C++ pour le développement multi-plateformes d&apos;interfaces graphiques et d&apos;applications.&lt;/p&gt;&lt;p&gt;Qt fournit une compatibilité des sources entre les systèmes MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, ainsi que pour les principales variantes commercial d&apos;Unix.&lt;br&gt;Qt est également disponible pour les systèmes embarqués.&lt;/p&gt;&lt;p&gt;Qt est un produit Trolltech.  Consultez &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; pour plus d&apos;information.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -14332,18 +14332,22 @@ Si Pages en regard est sélectionné, cet espacement peut être utilisé pour di
     <name>SToolBAlign</name>
     <message>
         <source>St&amp;yle Settings</source>
-        <translation>Réglage du st&amp;yle</translation>
+        <translation type="obsolete">Réglage du st&amp;yle</translation>
     </message>
     <message>
         <source>Style of current paragraph</source>
         <translation>Style du paragraphe courant</translation>
+    </message>
+    <message>
+        <source>Style Settings</source>
+        <translation>Paramètres du paragraphe</translation>
     </message>
 </context>
 <context>
     <name>SToolBColorF</name>
     <message>
         <source>F&amp;ill Color Settings</source>
-        <translation>Réglage de la couleur de rempl&amp;issage</translation>
+        <translation type="obsolete">Réglage de la couleur de rempl&amp;issage</translation>
     </message>
     <message>
         <source>None</source>
@@ -14357,12 +14361,16 @@ Si Pages en regard est sélectionné, cet espacement peut être utilisé pour di
         <source>Saturation of color of text fill</source>
         <translation>Saturation de la couleur du texte</translation>
     </message>
+    <message>
+        <source>Fill Color Settings</source>
+        <translation>Paramètres de couleur du texte</translation>
+    </message>
 </context>
 <context>
     <name>SToolBColorS</name>
     <message>
         <source>&amp;Stroke Color Settings</source>
-        <translation>Réglage de la couleur des c&amp;ontours</translation>
+        <translation type="obsolete">Réglage de la couleur des c&amp;ontours</translation>
     </message>
     <message>
         <source>None</source>
@@ -14376,12 +14384,16 @@ Si Pages en regard est sélectionné, cet espacement peut être utilisé pour di
         <source>Saturation of color of text stroke</source>
         <translation>Saturation de la couleur des contours du texte</translation>
     </message>
+    <message>
+        <source>Stroke Color Settings</source>
+        <translation>Paramètres de couleur des contours</translation>
+    </message>
 </context>
 <context>
     <name>SToolBFont</name>
     <message>
         <source>&amp;Font Settings</source>
-        <translation>Réglages de la &amp;police</translation>
+        <translation type="obsolete">Réglages de la &amp;police</translation>
     </message>
     <message>
         <source> pt</source>
@@ -14403,12 +14415,16 @@ Si Pages en regard est sélectionné, cet espacement peut être utilisé pour di
         <source>Scaling width of characters</source>
         <translation>Mise à l&apos;échelle de la largeur des caractères</translation>
     </message>
+    <message>
+        <source>Font Settings</source>
+        <translation>Paramètres de la police</translation>
+    </message>
 </context>
 <context>
     <name>SToolBStyle</name>
     <message>
         <source>&amp;Character Settings</source>
-        <translation>Format des &amp;caractères</translation>
+        <translation type="obsolete">Format des &amp;caractères</translation>
     </message>
     <message>
         <source>Kerning:</source>
@@ -14421,6 +14437,10 @@ Si Pages en regard est sélectionné, cet espacement peut être utilisé pour di
     <message>
         <source>Manual Kerning</source>
         <translation>Espacement entre les lettres</translation>
+    </message>
+    <message>
+        <source>Character Settings</source>
+        <translation>Paramètres des caractères</translation>
     </message>
 </context>
 <context>
@@ -16007,11 +16027,11 @@ page, déposez une maquette dans la fenêtre ci-dessous.</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation type="obsolete">Actualiser le cadre de texte</translation>
+        <translation>Actualiser le cadre de texte</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation type="obsolete">Actualiser le cadre de texte</translation>
+        <translation>Quitter sans mettre à jour</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -16047,11 +16067,11 @@ page, déposez une maquette dans la fenêtre ci-dessous.</translation>
     </message>
     <message>
         <source>Update Text Frame</source>
-        <translation type="obsolete">Actualiser le cadre de texte</translation>
+        <translation>Actualiser le cadre de texte</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="obsolete">Fichier</translation>
+        <translation>Fichier</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -16176,6 +16196,26 @@ page, déposez une maquette dans la fenêtre ci-dessous.</translation>
     <message>
         <source>&amp;Edit</source>
         <translation>É&amp;dition</translation>
+    </message>
+    <message>
+        <source>Select &amp;All</source>
+        <translation>&amp;Tout sélectionner</translation>
+    </message>
+    <message>
+        <source>Clears all Text</source>
+        <translation>Efface l&apos;intégralité du texte</translation>
+    </message>
+    <message>
+        <source>Load Text from File</source>
+        <translation>Charger le texte depuis un fichier</translation>
+    </message>
+    <message>
+        <source>Save Text to File</source>
+        <translation>Enregistrer le texte dans un fichier</translation>
+    </message>
+    <message>
+        <source>Reload Text from Frame</source>
+        <translation>Recharger le texte depuis le cadre</translation>
     </message>
 </context>
 <context>
@@ -16533,11 +16573,11 @@ Choisissez-en un autre.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuler</translation>
+        <translation type="obsolete">Annuler</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
@@ -16578,6 +16618,58 @@ Choisissez-en un autre.</translation>
     <message>
         <source>Author</source>
         <translation>Auteur</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Annuler</translation>
+    </message>
+    <message>
+        <source>Downloading Templates</source>
+        <translation>Télécharger des modèles</translation>
+    </message>
+    <message>
+        <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
+        <translation>Des modèles sont disponibles sur le site http://www.scribus.net/ dans la rubrique &quot;Downloads&quot;.</translation>
+    </message>
+    <message>
+        <source>Installing Templates</source>
+        <translation>Installer des modèles</translation>
+    </message>
+    <message>
+        <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
+        <translation>Extraire l&apos;archive dans le dossier  ~/.scribus/templates pour l&apos;utilisateur courant ou dans le dossier PREFIX/share/scribus/templates pour que le modèle soit accessible à tous les utilisateurs du système.</translation>
+    </message>
+    <message>
+        <source>Preparing a template</source>
+        <translation>Préparation d&apos;un modèle</translation>
+    </message>
+    <message>
+        <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation>Assurez vous que les images contenues dans votre document peuvent être redistribuées. Il en va de même pour les polices. Si la licence des polices interdit leur distribution, ne les assemblez pas avec le modèle lors de l&apos;enregistrement.</translation>
+    </message>
+    <message>
+        <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation>Le créateur de modèles doit s&apos;assurer que les instructions d&apos;installation de modèles s&apos;appliquent aux siens également.  Ce qui signifie que tout un chacun doit être en mesure de télécharger l&apos;archive, de l&apos;extraire dans le dossier de modèles et d&apos;être capable d&apos;utiliser le modèle.</translation>
+    </message>
+    <message>
+        <source>Removing a template</source>
+        <translation>Supprimer un modèle</translation>
+    </message>
+    <message>
+        <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation>La suppression d&apos;un modèle de cette liste supprimera uniquement son entrée dans le fichier template.xml. Les fichiers ne seront pas détruits. Le menu de suppression n&apos;apparaîtra que si vous possédez les droits d&apos;écriture sur le fichier template.xml.</translation>
+    </message>
+    <message>
+        <source>Translating template.xml</source>
+        <translation>Traduction de template.xml</translation>
+    </message>
+    <message>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
+        <translation>Copiez un fichier template.xml existant vers un fichier template.lang_PAYS.xml (utilisez le même code &apos;lang&apos; que celui présent dans le fichier qm de votre langue), par exemple template.fi.xml pour un fichier en finlandais. Le nouveau fichier doit se trouver dans le même dossier que l&apos;original pour pouvoir être chargé.</translation>
     </message>
 </context>
 <context>

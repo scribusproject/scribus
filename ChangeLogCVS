@@ -1,9 +1,14 @@
 Changes since Version 1.1.7
 
+31.07.2004
+	* bug     #919: Text from story editor duplicates when two text frames are linked...
+	* feature #920: Updated French Translation
+
 30.07.2004
 	* bug     #905: first line typed in the story editor is invisible
 	* bug     #910: text alignment does not work after the first line
 	* bug     #911: selected text gets unselected after changing the alignment setting of the selected text
+	* bug     #912: improve stroke/fill color style
 	* bug     #913: pressing shift after changing values for kerning, size & widht reset that values
 	* feature #906: french translation updated
 	* feature #907: improve "update textframe"
