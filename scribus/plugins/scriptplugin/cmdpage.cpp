@@ -40,7 +40,6 @@ PyObject *scribus_savepageeps(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
 	bool ret = Carrier->DoSaveAsEps(QString(Name));
-	//	qApp->processEvents();
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
@@ -54,12 +53,18 @@ PyObject *scribus_deletepage(PyObject *self, PyObject* args)
 	}
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	e--;
 	if ((e < 0) || (e > static_cast<int>(Carrier->view->Pages.count())-1))
-		return Py_None;
+	{
+		PyErr_SetString(PyExc_IndexError, "Page number out of range");
+		return NULL;
+	}
 	Carrier->DeletePage2(e);
-	//	qApp->processEvents();
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -71,14 +76,19 @@ PyObject *scribus_gotopage(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("gotoPage(pagenumber)"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	e--;
 	if ((e < 0) || (e > static_cast<int>(Carrier->view->Pages.count())-1))
-		return Py_None;
+	{
+		PyErr_SetString(PyExc_IndexError, "Page number out of range");
+		return NULL;
+	}
 	Carrier->view->GotoPage(e);
-	//	qApp->processEvents();
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -91,19 +101,24 @@ PyObject *scribus_newpage(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("newPage(pagenumber [, pagename])"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	if (e < 0)
 		Carrier->slotNewPageP(Carrier->view->Pages.count(), QString(name));
 	else
 	{
 		e--;
 		if ((e < 0) || (e > static_cast<int>(Carrier->view->Pages.count())-1))
-			return Py_None;
+		{
+			PyErr_SetString(PyExc_IndexError, "Page number out of range");
+			return NULL;
+		}
 		Carrier->slotNewPageP(e, QString(name));
 	}
-	//	qApp->processEvents();
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -133,10 +148,10 @@ PyObject *scribus_pagedimension(PyObject *self, PyObject *args)
 	}
 	PyObject *t;
 	t = Py_BuildValue(
-	        "(dd)",
-	        PointToValue(Carrier->doc->PageB), // it's just view scale... * Carrier->doc->Scale),
-	        PointToValue(Carrier->doc->PageH)  // * Carrier->doc->Scale)
-	    );
+			"(dd)",
+			PointToValue(Carrier->doc->PageB), // it's just view scale... * Carrier->doc->Scale),
+			PointToValue(Carrier->doc->PageH)  // * Carrier->doc->Scale)
+		);
 	return t;
 }
 
@@ -202,9 +217,11 @@ PyObject *scribus_setHguides(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_TypeError, QString("argument is not list: must be list of float values"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	int i, n;
 	n = PyList_Size(l);
 	double guide;
@@ -218,6 +235,7 @@ PyObject *scribus_setHguides(PyObject *self, PyObject* args)
 		}
 		Carrier->doc->ActPage->YGuides += ValueToPoint(guide);
 	}
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -260,9 +278,11 @@ PyObject *scribus_setVguides(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_TypeError, QString("argument is not list: must be list of float values"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
+		{
+		Py_INCREF(Py_None);
 		return Py_None;
+		}
 	int i, n;
 	n = PyList_Size(l);
 	double guide;
@@ -276,6 +296,7 @@ PyObject *scribus_setVguides(PyObject *self, PyObject* args)
 		}
 		Carrier->doc->ActPage->XGuides += ValueToPoint(guide);
 	}
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
