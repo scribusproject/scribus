@@ -31,6 +31,7 @@
 #include "scribus.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
+#include "charselect.h"
 
 extern PrefsFile* prefsFile;
 extern QPixmap loadIcon(QString nam);
@@ -2026,9 +2027,11 @@ void StoryEditor::Do_insSp()
 {
 	ScApp->DLLinput = Editor->CurrFont;
 	ScApp->DLLReturn = "";
-	if (ScApp->DLLexists(1))
+	CharSelect *dia = new CharSelect(this, CurrItem, ScApp);
+	dia->exec();
+	delete dia;
+	if (ScApp->DLLReturn != "")
 	{
-		ScApp->CallDLL( 1 );
 		Editor->insChars(ScApp->DLLReturn);
 		Editor->insert(ScApp->DLLReturn);
 	}

@@ -204,6 +204,7 @@ public:
 public slots:
 	void ToggleAllPalettes();
 	void slotStoryEditor();
+	void slotCharSelect();
 	void InvertPict();
 	QString Collect(bool compress = false, bool withFonts = false);
 	void ChBookmarks(int s, int e, int n);
@@ -580,6 +581,7 @@ private:
 	int LockOb;
 	int exmn;
 	int hyph;
+	int cSelect;
 	int ORaise;
 	int OLower;
 	int OBack;

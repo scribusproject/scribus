@@ -78,6 +78,7 @@
 #include "tabtools.h"
 #include "undogui.h"
 #include "filewatcher.h"
+#include "charselect.h"
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
   #include "win-config.h"
@@ -1066,6 +1067,8 @@ void ScribusApp::initMenuBar()
 	hyph = extraMenu->insertItem( tr("&Hyphenate Text"), this, SLOT(doHyphenate()));
 	extraMenu->setItemEnabled(hyph, 0);
 	SetKeyEntry(50, tr("Hyphenate Text"), hyph, 0);
+	cSelect = extraMenu->insertItem( tr("Insert Special"), this, SLOT(slotCharSelect()));
+	extraMenu->setItemEnabled(cSelect, 0);
 
 	windowsMenu = new QPopupMenu();
 	windowsMenu->setCheckable( true );
@@ -3021,8 +3024,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	if (Nr != -1)
 		b = view->SelItem.at(0);
 	ObjMenu->setItemEnabled(PfadDT, 0);
-	if (PluginMap.contains(1))
-		extraMenu->setItemEnabled(PluginMap[1].MenuID, 0);
+	extraMenu->setItemEnabled(cSelect, 0);
 	view->HR->ItemPosValid = false;
 	view->HR->repX = false;
 	view->HR->repaint();
@@ -3126,8 +3128,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		{
 			setTBvals(b);
 			editMenu->setItemEnabled(edid5, 1);
-			if (PluginMap.contains(1))
-				extraMenu->setItemEnabled(PluginMap[1].MenuID, 1);
+			extraMenu->setItemEnabled(cSelect, 1);
 			view->HR->ItemPos = b->Xpos;
 			view->HR->ItemEndPos = b->Xpos+b->Width;
 			if (b->Pcolor2 != "None")
@@ -5610,8 +5611,7 @@ void ScribusApp::setAppMode(int mode)
 			delete doc->CurTimer;
 			doc->CurTimer = 0;
 			editMenu->setItemEnabled(edid4, 0);
-			if (PluginMap.contains(1))
-				extraMenu->setItemEnabled(PluginMap[1].MenuID, 0);
+			extraMenu->setItemEnabled(cSelect, 0);
 			view->slotDoCurs(false);
 			if (b != 0)
 			{
@@ -5638,8 +5638,7 @@ void ScribusApp::setAppMode(int mode)
 				setTBvals(b);
 			}
 			editMenu->setItemEnabled(edid3, 0);
-			if (PluginMap.contains(1))
-				extraMenu->setItemEnabled(PluginMap[1].MenuID, 1);
+			extraMenu->setItemEnabled(cSelect, 1);
 			if (!Buffer2.isNull())
 			{
 				if (!Buffer2.startsWith("<SCRIBUSELEM"))
@@ -8102,7 +8101,7 @@ QString ScribusApp::CFileDialog(QString wDir, QString caption, QString filter, Q
 
 void ScribusApp::RunPlug(int id)
 {
-	if (extraMenu->indexOf(id) > 2)
+	if (extraMenu->indexOf(id) > 3)
 		CallDLLbyMenu(id);
 }
 
@@ -9552,6 +9551,20 @@ void ScribusApp::CallGimp()
 				return;
 			}
 			connect(ExternalApp, SIGNAL(processExited()), this, SLOT(GimpExited()));
+		}
+	}
+}
+
+void ScribusApp::slotCharSelect()
+{
+	if ((HaveDoc) && (view->SelItem.count() != 0))
+	{
+		PageItem *b = view->SelItem.at(0);
+		if ((b->PType == 4) && (doc->appMode == EditMode))
+		{
+			CharSelect *dia = new CharSelect(this, b, this);
+			dia->exec();
+			delete dia;
 		}
 	}
 }

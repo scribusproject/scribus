@@ -32,35 +32,6 @@ extern QPixmap loadIcon(QString nam);
 extern QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force = false);
 extern int setBestEncoding(FT_Face face);
 
-QString Name()
-{
-	return QObject::tr("&Insert Special");
-}
-
-int Type()
-{
-	return 1;
-}
-
-int ID()
-{
-	return 1;
-}
-
-void Run(QWidget *d, ScribusApp *plug)
-{
-	if ((plug->HaveDoc) && (plug->view->SelItem.count() != 0))
-	{
-		PageItem *b = plug->view->SelItem.at(0);
-		if ((b->PType == 4) && ((plug->doc->appMode == EditMode) || (plug->DLLinput != "")))
-		{
-			CharSelect *dia = new CharSelect(d, b, plug);
-			dia->exec();
-			delete dia;
-		}
-	}
-}
-
 Zoom::Zoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorderEx)
 {
 	QString tmp;
@@ -92,10 +63,24 @@ ChTable::ChTable(CharSelect* parent, ScribusApp *pl) : QTable(parent)
 	alternate = false;
 	rowA = 0;
 	colA = 0;
-	setFocusPolicy(NoFocus);
 	ap = pl;
 	par = parent;
-	QToolTip::add(this, tr("You can see a thumbnail if you press\nand hold down the right mouse button"));
+	QToolTip::add(this, tr("You can see a thumbnail if you press\nand hold down the right mouse button\n\nThe Insert key inserts a Glyph into the Selection below\nand the Delete key removes the last inserted one"));
+}
+
+void ChTable::keyPressEvent(QKeyEvent *k)
+{
+	switch (k->key())
+	{
+		case Key_Backspace:
+		case Key_Delete:
+			emit delChar();
+			break;
+		case Key_Insert:
+			emit selectChar(currentRow(), currentColumn());
+			break;
+	}
+	QTable::keyPressEvent(k);
 }
 
 void ChTable::contentsMousePressEvent(QMouseEvent* e)
@@ -141,6 +126,7 @@ void ChTable::contentsMousePressEvent(QMouseEvent* e)
 		colA = columnAt(e->pos().x());
 		watchTimer->start(3000, true);
 	} */
+	QTable::contentsMousePressEvent(e);
 }
 
 void ChTable::contentsMouseReleaseEvent(QMouseEvent* e)
@@ -156,6 +142,7 @@ void ChTable::contentsMouseReleaseEvent(QMouseEvent* e)
 		emit selectChar(rowAt(e->pos().y()), columnAt(e->pos().x()));
 	mPressed = false;
 	alternate = false;
+	QTable::contentsMouseReleaseEvent(e);
 }
 
 void ChTable::showAlternate()
@@ -256,7 +243,6 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDial
 	sample->setMaximumSize(width(), 52);
 	sample->setMinimumSize(width(), 52);
 	delEdit();
-	zTabelle->setFocus();
 //tooltips
 	QToolTip::add( insertButton, tr( "Insert the characters at the cursor in the text" ) );
 	QToolTip::add( deleteButton, tr( "Delete the current selection(s)." ) );
@@ -268,6 +254,7 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDial
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(delEdit()));
 	connect(insertButton, SIGNAL(clicked()), this, SLOT(insChar()));
 	connect(zTabelle, SIGNAL(selectChar(uint, uint)), this, SLOT(newChar(uint, uint)));
+	connect(zTabelle, SIGNAL(delChar()), this, SLOT(delChar()));
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 	setupRangeCombo();
@@ -625,6 +612,7 @@ void CharSelect::generatePreview(int charClass)
 		zTabelle->adjustColumn(d);
 	for (int d = 0; d < zTabelle->numRows(); ++d)
 		zTabelle->adjustRow(d);
+	zTabelle->setCurrentCell(0, 0); 
 }
 
 void CharSelect::newCharClass(int c)
@@ -647,15 +635,26 @@ void CharSelect::newFont(int font)
 
 void CharSelect::newChar(uint r, uint c) // , int b, const QPoint &pp)
 {
-	QString font;
-	font = fontInUse;
 	if ((r*16+c) < maxCount)
 	{
 		chToIns += QChar(characters[r*16+c]);
-		QString da = (*ap->doc->AllFonts)[font]->Datei;
-		sample->setPixmap(FontSample(da, 28, chToIns, paletteBackgroundColor(), true));
+		sample->setPixmap(FontSample((*ap->doc->AllFonts)[fontInUse]->Datei, 28, chToIns, paletteBackgroundColor(), true));
 		insertButton->setEnabled(true);
 	}
+}
+
+void CharSelect::delChar()
+{
+	if (chToIns.length() == 0)
+		return;
+	if (chToIns.length() == 1)
+	{
+		delEdit();
+		return;
+	}
+	chToIns.truncate(chToIns.length() - 1);
+	sample->setPixmap(FontSample((*ap->doc->AllFonts)[fontInUse]->Datei, 28, chToIns, paletteBackgroundColor(), true));
+	insertButton->setEnabled(true);
 }
 
 void CharSelect::delEdit()
