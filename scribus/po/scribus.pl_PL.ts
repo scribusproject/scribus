@@ -10270,57 +10270,62 @@ Zewnętrzne dowiązania
         <translation>Dokumenty OpenOffice.org Writer</translation>
     </message>
     <message>
+        <source>Color not found - python error</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom (optional) configuration: </source>
+        <comment>short words plugin</comment>
+        <translation>Ustawienia własne (opcjonalne):</translation>
+    </message>
+    <message>
+        <source>Standard configuration: </source>
+        <comment>short words plugin</comment>
+        <translation>Ustawienia domyślne:</translation>
+    </message>
+    <message>
+        <source>Short &amp;Words...</source>
+        <comment>short words plugin</comment>
+        <translation>Short &amp;Words...</translation>
+    </message>
+    <message>
+        <source>Short Words processing. Wait please...</source>
+        <comment>short words plugin</comment>
+        <translation>Operacja w toku. Proszę czekać...</translation>
+    </message>
+    <message>
+        <source>Short Words processing. Done.</source>
+        <comment>short words plugin</comment>
+        <translation>Operacja zakończona.</translation>
+    </message>
+    <message>
         <source>Scribus Python interface module
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
-<byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
-<byte value="x9"/><byte value="x9"/>function is documented individually below.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
-<byte value="x9"/><byte value="x9"/>a string - they are not real Python objects. Many functions take an
-<byte value="x9"/><byte value="x9"/>optional (non-keyword) parameter, a frame name.
-<byte value="x9"/><byte value="x9"/>Many exceptions are also common across most functions. These are
-<byte value="x9"/><byte value="x9"/>not currently documented in the docstring for each function.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
-<byte value="x9"/><byte value="x9"/>      without a document to operate on.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
-<byte value="x9"/><byte value="x9"/>      the function will use the currently selected frame, if any, or
-<byte value="x9"/><byte value="x9"/>      raise a NoValidObjectError if it can&apos;t find anything to operate
-<byte value="x9"/><byte value="x9"/>      on.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
-<byte value="x9"/><byte value="x9"/>      on a frame type that they do not make sense with. For example, setting
-<byte value="x9"/><byte value="x9"/>      the text colour on a graphics frame doesn&apos;t make sense, and will result
-<byte value="x9"/><byte value="x9"/>      in this exception being raised.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
-<byte value="x9"/><byte value="x9"/>      passed through unaltered. As such, the list of exceptions thrown by
-<byte value="x9"/><byte value="x9"/>      any function as provided here and in its docstring is incomplete.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
-<byte value="x9"/><byte value="x9"/>function&apos;s documentation.
-<byte value="x9"/><byte value="x9"/></source>
-        <translation>
-<byte value="x9"/>
-<byte value="x9"/>Moduł interfejsu Pythona dla Scribusa
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Moduł niniejszy jest interfejsem Pythona dla Scribusa. Udostępnia on funkcje
-<byte value="x9"/><byte value="x9"/>umożliwiające kontrolę Scribusa i manipulowanie obiektami w obszarze roboczym. Każdej
-<byte value="x9"/><byte value="x9"/>funkcji poświęcono poniżej oddzielny opis.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Parę rzeczy jest wspólnych dla prawie całego interfejsu.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Większość funkcji operuje na ramkach. Ramki identyfikowane są na podstawie ich nazwy,
-<byte value="x9"/><byte value="x9"/>łańcucha tekstowego - nie są one prawdziwymi obiektami Pythona. Wiele funkcji wymaga opcjonalnego
-<byte value="x9"/><byte value="x9"/>(nie kluczowego) parametru, nazwy ramki.
-<byte value="x9"/><byte value="x9"/>Wiele wyjątków jest również wspólnych dla większości funkcji. Nie są one
-<byte value="x9"/><byte value="x9"/>na razie udokumentowane w opisach poszczególnych funkcji.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Wiele funkcji zwróci błąd NoDocOpenError, jeśli użyjesz ich
-<byte value="x9"/><byte value="x9"/>      bez podania dokumentu, którego dotyczy operacja.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Jeśli nie przekażesz nazwy ramki do funkcji, która jej wymaga,
-<byte value="x9"/><byte value="x9"/>      funkcja ta użyje aktualnie zaznaczonej ramki, jeśli taką znajdzie, albo
-<byte value="x9"/><byte value="x9"/>      zwróci błąd NoValidObjectError, jeśli nie znajdzie niczego, czego może dotyczyć operacja.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Wiele funkcji zwróci błąd WrongFrameTypeError, jeśli użyjesz ich do operacji
-<byte value="x9"/><byte value="x9"/>      na rodzaju ramki, dla którego funkce te nie są przeznaczone. Na przykład, przypisanie
-<byte value="x9"/><byte value="x9"/>      koloru tekstu do ramki graficznej nie ma żadnego sensu i zakończy się zwróceniem
-<byte value="x9"/><byte value="x9"/>      tego błędu.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Błędy zwracane przez API Pythona będą przekazywane
-<byte value="x9"/><byte value="x9"/>      bez zmian. Jako taka, lista wyjątków zwracanych przez poszczególne funkcje
-<byte value="x9"/><byte value="x9"/>      opisana tutaj oraz w opisach funkcji jest niekompletna.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Szczegóły na temat tego, jakie wyjątki zwraca każda funkcja dostępne są w dokumentacji funkcji.<byte value="x9"/></translation>
+
+This module is the Python interface for Scribus. It provides functions
+to control scribus and to manipulate objects on the canvas. Each
+function is documented individually below.
+
+A few things are common across most of the interface.
+
+Most functions operate on frames. Frames are identified by their name,
+a string - they are not real Python objects. Many functions take an
+optional (non-keyword) parameter, a frame name.
+Many exceptions are also common across most functions. These are
+not currently documented in the docstring for each function.
+- Many functions will raise a NoDocOpenError if you try to use themwithout a document to operate on.
+- If you do not pass a frame name to a function that requires one,the function will use the currently selected frame, if any, orraise a NoValidObjectError if it can&apos;t find anything to operateon.
+- Many functions will raise WrongFrameTypeError if you try to use them
+on a frame type that they do not make sense with. For example, setting
+the text colour on a graphics frame doesn&apos;t make sense, and will result
+in this exception being raised.
+- Errors resulting from calls to the underlying Python API will be
+passed through unaltered. As such, the list of exceptions thrown by
+any function as provided here and in its docstring is incomplete.
+
+Details of what exceptions each function may throw are provided on the
+function&apos;s documentation.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12513,6 +12518,17 @@ never ask your confirmation again</source>
 w trakcie importu dokumentów OpenOffice.org i
 nie pytać już więcej o potwierdzenie</translation>
     </message>
+    <message>
+        <source>Pack paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group paragraph styles by attributes.
+Less paragraph styles but controlling them may be hard.
+Should be used if it is known that text must not be edited
+after importing.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabManager</name>
@@ -12702,6 +12718,96 @@ Proszę wybrać inną.</translation>
     <message>
         <source>Send your value to the script</source>
         <translation>Wyślij wartość do skryptu</translation>
+    </message>
+</context>
+<context>
+    <name>VlnaDialog</name>
+    <message>
+        <source>Short Words</source>
+        <comment>short words plugin</comment>
+        <translation>Short Words</translation>
+    </message>
+    <message>
+        <source>Apply unbreakable space on:</source>
+        <comment>short words plugin</comment>
+        <translation>Zastosuj twarde spacje dla:</translation>
+    </message>
+    <message>
+        <source>&amp;Selected frames</source>
+        <comment>short words plugin</comment>
+        <translation>Zaznaczonych &amp;ramek</translation>
+    </message>
+    <message>
+        <source>Active &amp;page</source>
+        <comment>short words plugin</comment>
+        <translation>Aktualnej &amp;strony</translation>
+    </message>
+    <message>
+        <source>&amp;All items</source>
+        <comment>short words plugin</comment>
+        <translation>&amp;Całego dokumentu</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <comment>short words plugin</comment>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <comment>short words plugin</comment>
+        <translation>&amp;Anuluj</translation>
+    </message>
+    <message>
+        <source>&amp;Info and
+Languages</source>
+        <comment>short words plugin</comment>
+        <translation>&amp;Informacja i języki</translation>
+    </message>
+    <message>
+        <source>Replace defaults by user config</source>
+        <comment>short words plugin</comment>
+        <translation>Zastąp ustawienia domyślne własną konfiguracją</translation>
+    </message>
+    <message>
+        <source>When the user config file exists 
+(%1)
+you can choose if you want to append your config
+to the global configuration by unchecked button.
+
+You can replace predefined values by yours
+with checked button too.</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only selected frames processed.</source>
+        <comment>short words plugin</comment>
+        <translation>Operacja dotyczy tylko zaznaczonych ramek.</translation>
+    </message>
+    <message>
+        <source>Only actual page processed.</source>
+        <comment>short words plugin</comment>
+        <translation>Operacja dotyczy aktualnej strony.</translation>
+    </message>
+    <message>
+        <source>All items in document processed.</source>
+        <comment>short words plugin</comment>
+        <translation>Operacja dotyczy całego dokumentu.</translation>
+    </message>
+    <message>
+        <source>Short Words for Scribus</source>
+        <comment>short words plugin</comment>
+        <translation>Short Words dla Scribusa</translation>
+    </message>
+    <message>
+        <source>Available in the following languages</source>
+        <comment>short words plugin</comment>
+        <translation>Ustawienia dostępne dla następujących języków</translation>
+    </message>
+    <message>
+        <source>About Short Words</source>
+        <comment>short words plugin</comment>
+        <translation>O Short Words</translation>
     </message>
 </context>
 <context>
