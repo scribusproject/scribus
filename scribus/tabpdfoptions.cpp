@@ -164,7 +164,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	Resolution->setMinValue( 35 );
 	Resolution->setValue(Optionen->Resolution);
 	Resolution->setSuffix( tr( " dpi" ) );
-	TextLabel2 = new QLabel( Resolution, tr( "&Resolution for EPS-Graphics:" ), GroupBox1, "TextLabel2" );
+	TextLabel2 = new QLabel( Resolution, tr( "&Resolution for EPS Graphics:" ), GroupBox1, "TextLabel2" );
 	TextLabel2->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
 	GroupBox1Layout->addWidget( TextLabel2, 6, 0 );
 	GroupBox1Layout->addWidget( Resolution, 6, 1, AlignLeft );
