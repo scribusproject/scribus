@@ -1126,7 +1126,7 @@ void ScribusApp::initMenuBar()
 	viewLpal = toolMenu->insertItem( tr("&Layers"), this, SLOT(ToggleLpal()));
 	viewSepal = toolMenu->insertItem( tr("P&age Palette"), this, SLOT(ToggleSepal()));
 	viewBopal = toolMenu->insertItem( tr("&Bookmarks"), this, SLOT(ToggleBookpal()));
-	viewUndoPalette = toolMenu->insertItem(tr("&Undo History"), this, SLOT(ToggleUndoPalette()));
+	viewUndoPalette = toolMenu->insertItem(tr("Action &History"), this, SLOT(ToggleUndoPalette()));
 	toolbarMenuTools = toolMenu->insertItem( tr("&Tools"), this, SLOT(ToggleTools()));
 	toolbarMenuPDFTools = toolMenu->insertItem( tr("P&DF Tools"), this, SLOT(TogglePDFTools()));
 	SetKeyEntry(45, tr("Tools"), toolbarMenuTools, 0);

@@ -32,14 +32,29 @@ QString UndoState::getName()
 	return actionName;
 }
 
+void UndoState::setName(const QString &newName)
+{
+	actionName = newName;
+}
+
 QString UndoState::getDescription()
 {
 	return actionDescription;
 }
 
+void UndoState::setDescription(const QString &newDescription)
+{
+	actionDescription = newDescription;
+}
+
 QPixmap* UndoState::getPixmap()
 {
-	return actionPixmap;	
+	return actionPixmap;
+}
+
+void UndoState::setPixmap(QPixmap *pixmap)
+{
+	actionPixmap = pixmap;
 }
 
 UndoState::~UndoState()

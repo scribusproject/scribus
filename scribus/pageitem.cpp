@@ -2295,7 +2295,10 @@ void PageItem::moveUndoAction()
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::Move,
-           QString(Um::MoveFromTo).arg(oldXpos).arg(oldYpos).arg(oldOwnPage).arg(Xpos).arg(Ypos).arg(OwnPage),
+                                          QString(Um::MoveFromTo).arg(oldXpos).arg(oldYpos).
+                                                                  arg(ScApp->doc->FirstPnum + oldOwnPage).
+                                                                  arg(Xpos).arg(Ypos).
+                                                                  arg(ScApp->doc->FirstPnum + OwnPage),
                                           undoIconMove);
 		ss->set("OLD_XPOS", oldXpos);
 		ss->set("OLD_YPOS", oldYpos);

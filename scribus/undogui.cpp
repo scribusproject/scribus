@@ -185,7 +185,7 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 {
 	currentSelection = 0;
 	redoItems = 0;
-	setCaption(tr("Undo History"));
+	setCaption(tr("Action History"));
 	QVBoxLayout* layout = new QVBoxLayout(this, 5, 5, "layout");
 
 	QCheckBox* objectBox = new QCheckBox(tr("Show selected object only"), this, "objectBox");

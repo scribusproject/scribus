@@ -63,6 +63,67 @@ UndoManager::UndoManager()
 	historyLength = prefs->getInt("historyLength", 10);
 	if (historyLength < 0)
 		historyLength = 10;
+	transaction = NULL;
+	transactionTarget = NULL;
+}
+
+void UndoManager::beginTransaction(const QString &targetName,
+                                   const QString &name,
+                                   const QString &description,
+                                   QPixmap *pixmap)
+{
+	// what if there already is a transaction
+	if (transaction)
+		commit();
+	transaction = new TransactionState();
+	transactionTarget = new TransactionObject();
+	transactionTarget->setUName(targetName);
+	if (name.length() > 0)
+		transaction->setName(name);
+	if (description.length() > 0)
+		transaction->setDescription(description);
+	if (pixmap)
+		transaction->setPixmap(pixmap);
+}
+
+void UndoManager::cancelTransaction()
+{
+	delete transaction;
+	transaction = NULL;
+	delete transactionTarget;
+	transactionTarget = NULL;
+}
+
+void UndoManager::commit(const QString &targetName,
+                         const QString &name,
+                         const QString &description,
+                         QPixmap *pixmap)
+{
+	if (!transaction || !transactionTarget)
+	{
+		cancelTransaction();
+		return;
+	}
+	if (targetName.length() > 0)
+		transactionTarget->setUName(targetName);
+	if (name.length() > 0)
+		transaction->setName(name);
+	if (description.length() > 0)
+		transaction->setDescription(description);
+	if (pixmap)
+		transaction->setPixmap(pixmap);
+
+	UndoObject *tmpu = transactionTarget;
+	TransactionState *tmps = transaction;
+	transaction = NULL;
+	transactionTarget = NULL;
+	if (tmps->sizet() > 0)
+		action(tmpu, tmps);
+}
+
+bool UndoManager::isTransactionMode()
+{
+	return transaction ? true : false;
 }
 
 void UndoManager::registerGui(UndoGui* gui)
@@ -178,10 +239,11 @@ void UndoManager::remove(const QString& stackName)
 
 void UndoManager::action(UndoObject* target, UndoState* state)
 {
-	if (currentUndoObjectId == -1 || currentUndoObjectId == static_cast<long>(target->getUId()))
+	if ((!transaction) &&
+        (currentUndoObjectId == -1 || currentUndoObjectId == static_cast<long>(target->getUId())))
 		emit newAction(target, state);
 
-	if (stacks[currentDoc].second.size() > 1)
+	if (stacks[currentDoc].second.size() > 1) // delete redo states
 	{
 		ActionList::iterator it;
 		for (it = stacks[currentDoc].second.begin(); it != stacks[currentDoc].first; ++it)
@@ -190,9 +252,13 @@ void UndoManager::action(UndoObject* target, UndoState* state)
 	}
 
 	checkStackLength();
-
-	stacks[currentDoc].second.insert(stacks[currentDoc].second.begin(), ActionPair(target, state));
-	stacks[currentDoc].first = stacks[currentDoc].second.begin();
+	if (transaction)
+		transaction->pushBack(target, state);
+	else
+	{
+		stacks[currentDoc].second.insert(stacks[currentDoc].second.begin(), ActionPair(target, state));
+		stacks[currentDoc].first = stacks[currentDoc].second.begin();
+	}
 }
 
 void UndoManager::undo(int steps)
@@ -219,8 +285,11 @@ void UndoManager::doUndo(int steps)
 			ActionPair aPair = *stacks[currentDoc].first;
 			UndoObject* tmpUndoObject = aPair.first;
 			tmpUndoState = aPair.second;
-			if (tmpUndoState)
+			TransactionState *ts = dynamic_cast<TransactionState*>(tmpUndoState);
+			if (tmpUndoState && !ts)
 				tmpUndoObject->restore(tmpUndoState, true);
+			else if (ts)
+				doTransactionUndo(ts);
 			++stacks[currentDoc].first;
 		}
 		if (tmpUndoState)
@@ -229,6 +298,16 @@ void UndoManager::doUndo(int steps)
 			emit undoSignal(steps);
 			emit undoRedoDone();
 		}
+	}
+}
+
+void UndoManager::doTransactionUndo(TransactionState *tstate)
+{
+	for (int i = tstate->sizet() - 1; i > -1; --i)
+	{
+		ActionPair *pair = tstate->at(i);
+		if (pair && pair->first && pair->second)
+			pair->first->restore(pair->second, true);
 	}
 }
 
@@ -245,8 +324,11 @@ void UndoManager::doRedo(int steps)
 			ActionPair aPair = *stacks[currentDoc].first;
 			UndoObject* tmpUndoObject = aPair.first;
 			tmpUndoState = aPair.second;
-			if (tmpUndoState)
+			TransactionState *ts = dynamic_cast<TransactionState*>(tmpUndoState);
+			if (tmpUndoState && !ts)
 				tmpUndoObject->restore(tmpUndoState, false);
+			else if (ts)
+				doTransactionRedo(ts);
 		}
 		if (tmpUndoState)
 		{
@@ -254,6 +336,16 @@ void UndoManager::doRedo(int steps)
 			emit redoSignal(steps);
 			emit undoRedoDone();
 		}
+	}
+}
+
+void UndoManager::doTransactionRedo(TransactionState *tstate)
+{
+	ActionPair *pair = NULL;
+	for (uint i = 0; i < tstate->sizet(); ++i)
+	{
+		pair = tstate->at(i);
+		pair->first->restore(pair->second, false);
 	}
 }
 
@@ -325,6 +417,47 @@ UndoManager::~UndoManager()
 	}
 }
 
+/*** UndoManager::TransactionState *****************************************************/
+
+UndoManager::TransactionState::TransactionState() : UndoState("TAState")
+{
+	_size = 0;
+}
+
+ActionPair* UndoManager::TransactionState::at(int index)
+{
+	if (index >= 0 && static_cast<uint>(index) < sizet())
+		return states[index];
+	else
+		return NULL;
+}
+
+void UndoManager::TransactionState::pushBack(UndoObject *target, UndoState *state)
+{
+	if (target && state)
+	{
+		states.push_back(new ActionPair(target, state));
+		++_size;
+	}
+}
+
+uint UndoManager::TransactionState::sizet()
+{
+	return _size;
+}
+
+UndoManager::TransactionState::~TransactionState()
+{
+	for (uint i = 0; i < states.size(); ++i)
+	{
+		delete states[i]->second;
+		states[i]->second = NULL;
+		delete states[i];
+	}
+}
+
+/*************************************************************************************/
+
 void UndoManager::initIcons()
 {
 	QString iconDir = ICONDIR;
@@ -364,16 +497,6 @@ const QString UndoManager::Rotate       = tr("Rotate");
 const QString UndoManager::MoveFromTo   = tr("X1: %1, Y1: %2, Page %3\nX2: %4, Y2: %5, Page %6");
 const QString UndoManager::ResizeFromTo = tr("W1: %1, H1: %2\nW2: %3, H2: %4");
 const QString UndoManager::RotateFromTo = tr("From %1 to %2");
-const QString UndoManager::From         = tr("from");
-const QString UndoManager::To           = tr("to");
-const QString UndoManager::X            = tr("X");
-const QString UndoManager::Y            = tr("Y");
-const QString UndoManager::Text         = tr("Text");
-const QString UndoManager::Image        = tr("Image");
-const QString UndoManager::Line         = tr("Line");
-const QString UndoManager::Polygon      = tr("Polygon");
-const QString UndoManager::Polyline     = tr("Polyline");
-const QString UndoManager::PathText     = tr("PathText");
 
 QPixmap *UndoManager::IGuides         = NULL;
 QPixmap *UndoManager::ILockGuides     = NULL;

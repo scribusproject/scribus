@@ -68,16 +68,34 @@ public:
 	virtual QString getName();
 
 	/**
+	 * @brief Set the name for this UndoState.
+	 * @param newName name for this UndoState
+	 */
+	virtual void setName(const QString &newName);
+
+	/**
 	 * @brief Returns description of the state.
 	 * @return description of the state
 	 */
 	virtual QString getDescription();
 
 	/**
+	 * @brief Set the description for this UndoState
+	 * @param newDescription description for this UndoState
+	 */
+	virtual void setDescription(const QString &newDescription);
+
+	/**
 	 * @brief Returns a pointer to the icon attached to the state.
 	 * @return A pointer to the icon attached to the state
 	 */
 	virtual QPixmap* getPixmap();
+
+	/**
+	 * @brief Set the icon for this UndoState.
+	 * @param newPixmap icon for this UndoState
+	 */
+	virtual void setPixmap(QPixmap *newPixmap);
 };
 
 /*** SimpleState **************************************************************************/

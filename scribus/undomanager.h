@@ -59,6 +59,65 @@ class UndoManager : public QObject
 	Q_OBJECT
 
 private:
+
+/*** UndoManager::TransactionState ***************************************************/
+
+	/**
+	 * @brief TransactionState provides a container where multiple actions can be stored
+	 * @brief as a single action which then appears in the attached <code>UndoGui</code>s.
+	 * @author Riku Leino tsoots@gmail.com
+	 * @date January 2005
+	 */
+	class TransactionState : public UndoState
+	{
+	private:
+		/** @brief Number of undo states stored in this transaction */
+		uint _size;
+		/** @brief vector to keep the states in */
+		std::vector<ActionPair*> states;
+	public:
+		/** @brief Creates a new TransactionState instance */
+		TransactionState();
+		/** @brief Destroys the TransactionState instance */
+		~TransactionState();
+		/** 
+		 * @brief Add a new <code>UndoState</code> object to the transaction.
+		 * @param state state to be added to the transaction
+		 */
+		void pushBack(UndoObject *target, UndoState *state);
+		/**
+		 * @brief Returns the count of the <code>UndoState</code> objects in this transaction.
+		 * @return count of the <code>UndoState</code> objects in this transaction
+		 */
+		uint sizet();
+		/**
+		 * @brief Returns an <code>UndoState</code> object at <code>index</code>.
+		 * @param index index from where an <code>UndoState</code> object is returned.
+		 * If <code>index</code> is out of scope <code>NULL</code> will be rerturned.
+		 * @return <code>UndoState</code> object from <code>index</code> or <code>NULL</code> 
+		 * if <code>index</code> is out of scope.
+		 */
+		ActionPair* at(int index);
+	};
+
+/*** UndoManager::TransactionObject ***************************************************/
+
+	/**
+	 * @brief Dummy subclass of <code>UndoObject</code> which is used for holding the name
+	 * @brief for the transaction's target object(group) (f.e "Selection", "Group", "Script"...).
+	 * @author Riku Leino tsoots@gmail.com
+	 * @date January 2005
+	 */
+	class TransactionObject : public UndoObject
+	{
+	public:
+		TransactionObject() {};
+		~TransactionObject() {};
+		void restore(UndoState*, bool) {};
+	};
+
+/**************************************************************************************/
+
 	/** 
 	 * @brief The only instance of UndoManager available.
 	 *
@@ -80,6 +139,18 @@ private:
 	 * @brief or -1 if global undo is used.
 	 */
 	int currentUndoObjectId;
+
+	/**
+	 * @brief If in transaction mode this is the container for incoming <code>UndoState</code>
+	 * @brief objects.
+	 *
+	 * It is also used to detect if we are in the transaction mode. When it is <code>NULL</code>
+	 * normal mode is on.
+	 */
+	TransactionState *transaction;
+
+	/** @brief Dummy object for storing transaction target's name */
+	TransactionObject *transactionTarget;
 
 	/** 
 	 * @brief UndoGuis attached to this UndoManager
@@ -107,6 +178,8 @@ private:
 	void disconnectGuis();
 	void initIcons();
 	void checkStackLength();
+	void doTransactionUndo(TransactionState *tstate);
+	void doTransactionRedo(TransactionState *tstate);
 
 public:
 	/**
@@ -135,6 +208,57 @@ public:
 	 * @return true if undo actions are stored, if not will return false
 	 */
 	static bool undoEnabled();
+
+	/**
+	 * @brief Start a transaction. 
+	 *
+	 * After this method has been invoked <code>UndoManager</code> will switch to the
+     * transaction (silent) mode where it does not report actions to the attached 
+	 * <UndoGui> widgets but stores all incoming <code>UndoState</code> objects into
+	 * the transaction container which after call to the method commit() will be sent
+	 * to the guis as a single undo action. Transaction can be named when starting it or
+	 * naming can be done when commiting it.
+	 * @param targetName name for the target of this transaction (f.e. "Selection")
+	 * @param name name for the transaction (f.e. "Move" would make with the above
+	 * "Move Selection")
+	 * @param description description for the transaction
+	 * @param pixmap icon for the transaction
+	 * @sa commit()
+	 */
+	void beginTransaction(const QString &targetName = "",
+                          const QString &name = "",
+                          const QString &description = "",
+                          QPixmap *pixmap = 0);
+
+	/** 
+	 * @brief Cancels the current transaction and deletes groupped <code>UndoState</code>s.
+	 * @brief Nothing from canceled transaction will be sent to the undo gui widgets.
+	 */
+	void cancelTransaction();
+
+	/** 
+	 * @brief Commit the current transaction.
+	 *
+	 * Current transaction will be commited and <code>UndoManager</code> will be switched
+	 * to the normal mode. Commited transaction will be sent to the attached undo gui 
+	 * widgets and it will show up there as a single undo action. Details used as a parameter
+	 * will be details shown in the gui widgets.
+	 * @param targetName name for the target of this transaction (f.e. "Selection")
+	 * @param name name for the action
+	 * @param description description for the action
+	 * @param pixmap icon for the action
+	 * @sa beginTransaction()
+	 */
+	void commit(const QString &targetName = "",
+                const QString &name = "",
+                const QString &description = "",
+                QPixmap *pixmap = 0);
+
+	/**
+	 * @brief Returns true if in transaction mode if not will return false.
+	 * @return true if in transaction mode if not will return false
+	 */
+	bool isTransactionMode();
 
 	/**
 	 * @brief Register an UndoGui to the UndoManager.
@@ -226,16 +350,6 @@ public:
 	static const QString MoveFromTo;
 	static const QString ResizeFromTo;
 	static const QString RotateFromTo;
-	static const QString From;
-	static const QString To;
-	static const QString X;
-	static const QString Y;
-	static const QString Text;
-	static const QString Image;
-	static const QString Line;
-	static const QString Polygon;
-	static const QString Polyline;
-	static const QString PathText;
 	/*@}*/
 
 	/**
