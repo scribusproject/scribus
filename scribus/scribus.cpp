@@ -484,7 +484,7 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		connect(BookPal->BView, SIGNAL(ChangeBMNr(int, int, int)), this, SLOT(ChBookmarks(int, int, int)));
 		connect(BookPal, SIGNAL(Schliessen()), this, SLOT(ToggleBookpal()));
 		connect(recentMenu, SIGNAL(activated(int)), this, SLOT(LoadRecent(int)));
-		connect(ColorMenu, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
+		connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	  connect(ShadeMenu, SIGNAL(activated(int)), this, SLOT(setItemShade(int)));
 	  connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 	  connect(SizeTMenu, SIGNAL(activated(int)), this, SLOT(setItemFSize(int)));
@@ -776,6 +776,9 @@ void ScribusApp::initMenuBar()
 	AliMenu->insertItem( tr("Block"));
 	AliMenu->insertItem( tr("Forced"));
 	ColorMenu = new QPopupMenu();
+	ColorMenC = new QComboBox(false);
+	ColorMenC->setEditable(false);
+	ColorMenu->insertItem(ColorMenC);
 	SizeTMenu = new QPopupMenu();
 	SizeTMenu->insertItem( tr("Other..."));
 	SizeTMenu->insertItem(" 7 pt");
@@ -1841,16 +1844,14 @@ void ScribusApp::SwitchWin()
 	CListe::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
 	a = 0;
-	ColorMenu->clear();
-	ColorMenu->insertItem( tr("None"));
+	ColorMenC->clear();
+	ColorMenC->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		{
 		pm.fill(doc->PageColors[it.key()].getRGBColor());
-		ColorMenu->insertItem(QIconSet(pm), it.key());
+		ColorMenC->insertItem(pm, it.key());
 		if (it.key() == doc->Dbrush)
-			{
-			ColorMenu->setItemChecked(ColorMenu->idAt(a), true);
-			}
+			ColorMenC->setCurrentItem(a);
 		a++;
 		}
 	BuildFontMenu();
@@ -1992,16 +1993,14 @@ void ScribusApp::HaveNewDoc()
 	CListe::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
 	a = 0;
-	ColorMenu->clear();
-	ColorMenu->insertItem( tr("None"));
+	ColorMenC->clear();
+	ColorMenC->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		{
 		pm.fill(doc->PageColors[it.key()].getRGBColor());
-		ColorMenu->insertItem(QIconSet(pm), it.key());
+		ColorMenC->insertItem(pm, it.key());
 		if (it.key() == doc->Dbrush)
-			{
-			ColorMenu->setItemChecked(ColorMenu->idAt(a), true);
-			}
+			ColorMenC->setCurrentItem(a);
 		a++;
 		}
 	Mpal->Cpal->SetColors(doc->PageColors);
@@ -2908,7 +2907,7 @@ bool ScribusApp::DoFileClose()
 		menuBar()->setItemEnabled(Obm, 0);
 		WerkTools->setEnabled(false);
 		WerkToolsP->setEnabled(false);
-		ColorMenu->clear();
+		ColorMenC->clear();
 		Mpal->Cpal->SetColors(Prefs.DColors);
 		Mpal->Cpal->ChooseGrad(0);
 	  FMess->setText( tr("Ready"));
@@ -4447,19 +4446,19 @@ void ScribusApp::setFSizeMenu(int size)
 
 void ScribusApp::setItemFarbe(int id)
 {
-	uint a;
+/*	uint a;
 	for (a = 0; a < ColorMenu->count(); ++a)
 		{
 		ColorMenu->setItemChecked(ColorMenu->idAt(a), false);
 		}
-	ColorMenu->setItemChecked(id, true);
+	ColorMenu->setItemChecked(id, true);  */
  	if (doc->ActPage->SelItem.count() != 0)
 		{
  		PageItem *b = doc->ActPage->SelItem.at(0);
 		if ((b->PType == 4) || (b->PType == 8))
-			doc->ActPage->ItemTextBrush(ColorMenu->text(id));
+			doc->ActPage->ItemTextBrush(ColorMenC->text(id));
 		else
-			doc->ActPage->ItemBrush(ColorMenu->text(id));
+			doc->ActPage->ItemBrush(ColorMenC->text(id));
 		}
 	slotDocCh();
 }
@@ -4539,11 +4538,10 @@ void ScribusApp::setCSMenu(QString k, QString l, int lk , int ls)
 		}
 	if (la == "None")
 		la = tr("None");
-	for (a = 0; a < ColorMenu->count(); ++a)
+	for (a = 0; a < static_cast<uint>(ColorMenC->count()); ++a)
 		{
-		ColorMenu->setItemChecked(ColorMenu->idAt(a), false);
-		if (ColorMenu->text(ColorMenu->idAt(a)) == la)
-			ColorMenu->setItemChecked(ColorMenu->idAt(a), true);
+		if (ColorMenC->text(a) == la)
+			ColorMenC->setCurrentItem(a);
 		}
 	for (a = 0; a < ShadeMenu->count(); ++a)
 		{
@@ -4733,27 +4731,21 @@ void ScribusApp::slotEditColors()
 			Mpal->Cpal->SetColors(doc->PageColors);
 			Mpal->updateCList();
 			CListe::Iterator it;
-			ColorMenu->clear();
+			ColorMenC->clear();
 			QPixmap pm = QPixmap(15, 15);
 			a = 0;
-			ColorMenu->insertItem( tr("None"));
+			ColorMenC->insertItem( tr("None"));
 			for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 				{
 				pm.fill(doc->PageColors[it.key()].getRGBColor());
-				ColorMenu->insertItem(QIconSet(pm), it.key());
+				ColorMenC->insertItem(pm, it.key());
 				if (it.key() == doc->Dbrush)
-					{
-					ColorMenu->setItemChecked(ColorMenu->idAt(a), true);
-					}
+					ColorMenC->setCurrentItem(a);
 				a++;
 				}
 			ers = dia->Ersatzliste;
 			if (!ers.isEmpty())
 				{
-				for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-					{
-					ers.remove(it.key());
-					}
 				if (!ers.isEmpty())
 					{
 					QMap<QString,QString>::Iterator it;
@@ -6454,10 +6446,10 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 	CListe::Iterator it;
 	if (HaveDoc)
 		{
-		ColorMenu->clear();
+		ColorMenC->clear();
 		QPixmap pm = QPixmap(15, 15);
 		int a = 0;
-		ColorMenu->insertItem( tr("None"));
+		ColorMenC->insertItem( tr("None"));
 		CMYKColor tmp;
 		tmp.fromQColor(doc->papColor);
 		tmp.RecalcRGB();
@@ -6466,11 +6458,9 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 			{
 			doc->PageColors[it.key()].RecalcRGB();
 			pm.fill(doc->PageColors[it.key()].getRGBColor());
-			ColorMenu->insertItem(QIconSet(pm), it.key());
+			ColorMenC->insertItem(pm, it.key());
 			if (it.key() == doc->Dbrush)
-				{
-				ColorMenu->setItemChecked(ColorMenu->idAt(a), true);
-				}
+				ColorMenC->setCurrentItem(a);
 			a++;
 			if (dia != NULL)
 				dia->setProgress(a);

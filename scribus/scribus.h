@@ -414,6 +414,7 @@ private:
     QPopupMenu *viewMenu;
     /** ColorMenu enthaelt die Farben des Dokuments */
     QPopupMenu *ColorMenu;
+    QComboBox *ColorMenC;
     /** SizeTMenu enthaelt die Schriftgroessen */
     QPopupMenu *SizeTMenu;
     /** ShadeMenu enthaelt die Tonwerte */

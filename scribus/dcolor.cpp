@@ -38,21 +38,18 @@ DelColor::DelColor( QWidget* parent, CListe farben, QString Fnam, bool HDoc)
     	TextLabel4 = new QLabel( this, "TextLabel4" );
     	TextLabel4->setText( tr( "Replace it with:" ) );
     	Layout4->addWidget( TextLabel4, 1, 0 );
-    	Fausw = new QPopupMenu();
+    	Ersatz = new QComboBox(false, this);
+			Ersatz->setEditable(false);
 			CListe::Iterator it;
 			QPixmap pm = QPixmap(15, 15);
 			farben.remove(Fnam);
 			for (it = farben.begin(); it != farben.end(); ++it)
 				{
 				pm.fill(farben[it.key()].getRGBColor());
-				Fausw->insertItem(QIconSet(pm), it.key());
+				Ersatz->insertItem(pm, it.key());
 				}
-    	Ersatz = new QPushButton( this, "Ersatz" );
-    	Ersatz->setMinimumSize( QSize( 90, 24 ) );
-    	Ersatz->setPopup(Fausw);
-    	Ersatz->setText(Fausw->text(Fausw->idAt(0)));
     	Layout4->addWidget( Ersatz, 1, 1 );
-    	EFarbe = Fausw->text(Fausw->idAt(0));
+    	EFarbe = Ersatz->text(0);
 			}
     DLayout->addLayout( Layout4 );
     Layout3 = new QHBoxLayout;
@@ -72,12 +69,11 @@ DelColor::DelColor( QWidget* parent, CListe farben, QString Fnam, bool HDoc)
     connect( PushButton2, SIGNAL( clicked() ), this, SLOT( accept() ) );
     connect( PushButton3, SIGNAL( clicked() ), this, SLOT( reject() ) );
 		if (HDoc)
-    	connect( Fausw, SIGNAL(activated(int)), this, SLOT( ReplaceColor(int) ) );
+    	connect( Ersatz, SIGNAL(activated(int)), this, SLOT( ReplaceColor(int) ) );
 }
 
 void DelColor::ReplaceColor(int id)
 {
-    Ersatz->setText(Fausw->text(id));
-    EFarbe = Fausw->text(id);
+    EFarbe = Ersatz->text(id);
 }
 

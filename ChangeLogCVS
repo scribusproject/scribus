@@ -1,4 +1,6 @@
 Changes since Version 1.1.4
+08.01.2004	Replaced the Color Submenue in the Style Menue with a ComboBox.
+
 07.01.2004	Added the missing centered Tabulator.
 		Added the Colors of the XFree RGB Color Database as alternative
 		Default Colors.

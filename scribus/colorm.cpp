@@ -261,6 +261,7 @@ void Farbmanager::editFarbe()
 	tmpFarbe = dia->Farbe;
 	delete dia;
 	EditColors[sFarbe] = tmpFarbe;
+	Ersatzliste.insert(sFarbe, sFarbe);
 	updateCList();
 }
 
