@@ -19,6 +19,11 @@
 #include "menumanager.h"
 #include "scraction.h"
 #include "scpaths.h"
+#include "prefsfile.h"
+#include "prefscontext.h"
+#include "prefstable.h"
+
+extern PrefsFile* prefsFile;
 
 #include "scriptercore.moc"
 
@@ -59,6 +64,7 @@ ScripterCore::ScripterCore(QWidget* parent) :
 
 ScripterCore::~ScripterCore()
 {
+	SavePlugPrefs();
 }
 
 
@@ -346,49 +352,39 @@ void ScripterCore::slotExecute()
 
 void ScripterCore::ReadPlugPrefs()
 {
-	QDomDocument docu("scriptrc");
-	QString ho = QDir::homeDirPath();
-	QFile f(QDir::convertSeparators(ho+"/.scribus/scripter13.rc"));
-	if(!f.open(IO_ReadOnly))
-		return;
-	if(!docu.setContent(&f))
+	PrefsContext* prefs = prefsFile->getPluginContext("scriptplugin");
+	if (!prefs)
 	{
-		f.close();
+		qDebug("scriptplugin: Unable to load prefs");
 		return;
 	}
-	f.close();
-	QDomElement elem=docu.documentElement();
-	if (elem.tagName() != "SCRIPTRC")
-		return;
-	QDomNode DOC=elem.firstChild();
-	while(!DOC.isNull())
+	PrefsTable* prefRecentScripts = prefs->getTable("recentscripts");
+	if (!prefRecentScripts)
 	{
-		QDomElement dc=DOC.toElement();
-		if (dc.tagName()=="RECENT")
-			SavedRecentScripts.append(dc.attribute("NAME"));
-		DOC=DOC.nextSibling();
+		qDebug("scriptplugin: Unable to get recent scripts");
+		return;
 	}
+	// Load recent scripts from the prefs
+	for (int i = 0; i < prefRecentScripts->getRowCount(); i++)
+		SavedRecentScripts.append(prefRecentScripts->get(i,0));
 }
 
 void ScripterCore::SavePlugPrefs()
 {
-	QDomDocument docu("scriptrc");
-	QString st="<SCRIPTRC></SCRIPTRC>";
-	docu.setContent(st);
-	QDomElement elem=docu.documentElement();
-	for (uint rd=0; rd < RecentScripts.count(); ++rd)
+	PrefsContext* prefs = prefsFile->getPluginContext("scriptplugin");
+	if (!prefs)
 	{
-		QDomElement rde=docu.createElement("RECENT");
-		rde.setAttribute("NAME",RecentScripts[rd]);
-		elem.appendChild(rde);
-	}
-	QString ho = QDir::homeDirPath();
-	QFile f(QDir::convertSeparators(ho+"/.scribus/scripter13.rc"));
-	if(!f.open(IO_WriteOnly))
+		qDebug("scriptplugin: Unable to load prefs");
 		return;
-	QTextStream s(&f);
-	s<<docu.toCString();
-	f.close();
+	}
+	PrefsTable* prefRecentScripts = prefs->getTable("recentscripts");
+	if (!prefRecentScripts)
+	{
+		qDebug("scriptplugin: Unable to get recent scripts");
+		return;
+	}
+	for (uint i = 0; i < RecentScripts.count(); i++)
+		prefRecentScripts->set(i, 0, RecentScripts[i]);
 }
 
 /* 11/1/2004 pv - Show docstring of the script to the user.
