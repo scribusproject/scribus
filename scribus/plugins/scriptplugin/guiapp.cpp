@@ -2,13 +2,9 @@
 
 #include "guiapp.h"
 #include "cmdvar.h"
+#include "cmdutil.h"
 #include <qstring.h>
 #include <qcursor.h>
-
-/*
- 2004/09/15 pv - exceptions added - small fix into 1.2.1
-               - Py_None possible bugs fixed to be sure Scribus won't raise 11 SIG.
- */
 
 PyObject *scribus_messagebartext(PyObject *self, PyObject* args)
 {
@@ -93,13 +89,12 @@ PyObject *scribus_docchanged(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("docChanged(number)"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if (!Carrier->HaveDoc)
-		return Py_None;
+	HAVEDOC_OR_ERR
 	if (aValue>0)
 		Carrier->slotDocCh(true);
 	else
 		Carrier->slotDocCh(false);
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 

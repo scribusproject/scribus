@@ -11,8 +11,7 @@ PyObject *scribus_getfontsize(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getFontSize([objectname])"));
 		return NULL;
 	}
-	if (!Carrier->HaveDoc)
-		return PyFloat_FromDouble(0.0);
+	HAVEDOC_OR_ERR
 	PageItem *it = GetUniqueItem(QString(Name));
 	if (it != NULL)
 	{
@@ -36,8 +35,7 @@ PyObject *scribus_getfont(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getFont([objectname])"));
 		return NULL;
 	}
-	if (!Carrier->HaveDoc)
-		return PyString_FromString("");
+	HAVEDOC_OR_ERR
 	PageItem *it = GetUniqueItem(QString(Name));
 	if (it != NULL)
 	{
@@ -61,8 +59,7 @@ PyObject *scribus_gettextsize(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getTextLength([objectname])"));
 		return NULL;
 	}
-	if (!Carrier->HaveDoc)
-		return PyInt_FromLong(0L);
+	HAVEDOC_OR_ERR
 	PageItem *i = GetUniqueItem(QString(Name));
 	return i != NULL ? PyInt_FromLong(static_cast<long>(i->Ptext.count())) : PyInt_FromLong(0L);
 }
@@ -75,8 +72,7 @@ PyObject *scribus_getcolumns(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getColumns([objectname])"));
 		return NULL;
 	}
-	if (!Carrier->HaveDoc)
-		return PyInt_FromLong(0L);
+	HAVEDOC_OR_ERR
 	PageItem *i = GetUniqueItem(QString(Name));
 	return i != NULL ? PyInt_FromLong(static_cast<long>(i->Cols)) : PyInt_FromLong(0L);
 }
@@ -89,8 +85,7 @@ PyObject *scribus_getlinespace(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getLineSpacing([objectname])"));
 		return NULL;
 	}
-	if (!Carrier->HaveDoc)
-		return PyFloat_FromDouble(0.0);
+	HAVEDOC_OR_ERR
 	PageItem *i = GetUniqueItem(QString(Name));
 	return i != NULL ? PyFloat_FromDouble(static_cast<double>(i->LineSp)) : PyFloat_FromDouble(0.0);
 }
@@ -103,8 +98,7 @@ PyObject *scribus_getcolumngap(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getColumnGap([objectname])"));
 		return NULL;
 	}
-	if (!Carrier->HaveDoc)
-		return PyFloat_FromDouble(0.0);
+	HAVEDOC_OR_ERR
 	PageItem *i = GetUniqueItem(QString(Name));
 	return i != NULL ? PyFloat_FromDouble(static_cast<double>(i->ColGap)) : PyFloat_FromDouble(0.0);
 }
@@ -117,8 +111,7 @@ PyObject *scribus_getframetext(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getText([objectname])"));
 		return NULL;
 	}
-	if (!Carrier->HaveDoc)
-		return PyString_FromString("");
+	HAVEDOC_OR_ERR
 	QString text = "";
 	PageItem *it = GetUniqueItem(QString(Name));
 	if (it != NULL)
@@ -150,8 +143,7 @@ PyObject *scribus_gettext(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getAllText([objectname])"));
 		return NULL;
 	}
-	if (!Carrier->HaveDoc)
-		return PyString_FromString("");
+	HAVEDOC_OR_ERR
 	QString text = "";
 	PageItem *it = GetUniqueItem(QString(Name));
 	PageItem *is;
@@ -206,9 +198,7 @@ PyObject *scribus_setboxtext(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setText(unicodetext [, objectname])"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if (!Carrier->HaveDoc)
-		return Py_None;
+	HAVEDOC_OR_ERR
 	PageItem *it = GetUniqueItem(QString(Name));
 	QString Daten = QString::fromUtf8(Text);
 	PyMem_Free(Text);
@@ -251,6 +241,7 @@ PyObject *scribus_setboxtext(PyObject *self, PyObject* args)
 			it->Ptext.append(hg);
 		}
 	}
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -264,9 +255,7 @@ PyObject *scribus_inserttext(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("insertText(unicodetext, position [, objectname])"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if (!Carrier->HaveDoc)
-		return Py_None;
+	HAVEDOC_OR_ERR
 	PageItem *it = GetUniqueItem(QString(Name));
 	QString Daten = QString::fromUtf8(Text);
 	PyMem_Free(Text);
@@ -301,6 +290,7 @@ PyObject *scribus_inserttext(PyObject *self, PyObject* args)
 		it->CPos = pos + Daten.length();
 		it->paintObj();
 	}
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -313,11 +303,12 @@ PyObject *scribus_setalign(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setTextAlignment(type [, objectname])"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if (!Carrier->HaveDoc)
-		return Py_None;
+	HAVEDOC_OR_ERR
 	if ((size > 3) || (size < 0))
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	PageItem *i = GetUniqueItem(QString(Name));
 	if ((i != NULL) && (i->PType == 4))
 	{
@@ -330,6 +321,7 @@ PyObject *scribus_setalign(PyObject *self, PyObject* args)
 		Carrier->doc->AppMode = Apm;
 		i->OwnPage->Deselect();
 	}
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -342,11 +334,12 @@ PyObject *scribus_setfontsize(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setFontSize(size [, objectname])"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if (!Carrier->HaveDoc)
-		return Py_None;
+	HAVEDOC_OR_ERR
 	if ((size > 512) || (size < 1))
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	PageItem *i = GetUniqueItem(QString(Name));
 	if ((i != NULL) && (i->PType == 4))
 	{
@@ -359,6 +352,7 @@ PyObject *scribus_setfontsize(PyObject *self, PyObject* args)
 		Carrier->doc->AppMode = Apm;
 		i->OwnPage->Deselect();
 	}
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -371,9 +365,7 @@ PyObject *scribus_setfont(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setFont(font [, objectname])"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if (!Carrier->HaveDoc)
-		return Py_None;
+	HAVEDOC_OR_ERR
 	PageItem *i = GetUniqueItem(QString(Name));
 	if ((i != NULL) && (i->PType == 4) && (Carrier->Prefs.AvailFonts.find(QString(Font))))
 	{
@@ -386,6 +378,7 @@ PyObject *scribus_setfont(PyObject *self, PyObject* args)
 		Carrier->doc->AppMode = Apm;
 		i->OwnPage->Deselect();
 	}
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -398,12 +391,16 @@ PyObject *scribus_setlinespace(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLineSpacing(spacing [, objectname])"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if ((!Carrier->HaveDoc) || (w < 0.1))
+	HAVEDOC_OR_ERR
+	if (w < 0.1)
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	PageItem *i = GetUniqueItem(QString(Name));
 	if (i != NULL)
 		i->LineSp = w;
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -416,12 +413,16 @@ PyObject *scribus_setcolumngap(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setColumnGap(gap [, objectname])"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if ((!Carrier->HaveDoc) || (w < 0.0))
+	HAVEDOC_OR_ERR
+	if (w < 0.0)
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	PageItem *i = GetUniqueItem(QString(Name));
 	if (i != NULL)
 		i->ColGap = w;
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -434,12 +435,16 @@ PyObject *scribus_setcolumns(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setColumns(columns [, objectname])"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if ((!Carrier->HaveDoc) || (w < 1))
+	HAVEDOC_OR_ERR
+	if (w < 1)
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	PageItem *i = GetUniqueItem(QString(Name));
 	if (i != NULL)
 		i->Cols = w;
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -452,9 +457,7 @@ PyObject *scribus_selecttext(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("selectText(start, end [, objectname])"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if (!Carrier->HaveDoc)
-		return Py_None;
+	HAVEDOC_OR_ERR
 	PageItem *it = GetUniqueItem(QString(Name));
 	if (it != NULL)
 	{
@@ -470,10 +473,9 @@ PyObject *scribus_selecttext(PyObject *self, PyObject* args)
 		for (int aa = start; aa < (start + ende); ++aa)
 			it->Ptext.at(aa)->cselect = true;
 		it->HasSel = true;
-		return Py_None;
 	}
-	else
-		return Py_None;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 PyObject *scribus_deletetext(PyObject *self, PyObject* args)
@@ -484,9 +486,7 @@ PyObject *scribus_deletetext(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("deleteText([objectname])"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if (!Carrier->HaveDoc)
-		return Py_None;
+	HAVEDOC_OR_ERR
 	PageItem *it = GetUniqueItem(QString(Name));
 	if (it != NULL)
 	{
@@ -498,6 +498,7 @@ PyObject *scribus_deletetext(PyObject *self, PyObject* args)
 			it->CPos = 0;
 		}
 	}
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -510,9 +511,7 @@ PyObject *scribus_settextfill(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setTextColor(color [, objectname])"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if (!Carrier->HaveDoc)
-		return Py_None;
+	HAVEDOC_OR_ERR
 	PageItem *it = GetUniqueItem(QString(Name));
 	if ((it != NULL) && (it->PType == 4) || (it->PType == 8))
 	{
@@ -528,6 +527,7 @@ PyObject *scribus_settextfill(PyObject *self, PyObject* args)
 		}
 		it->TxtFill = QString(Color);
 	} // if
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -540,9 +540,7 @@ PyObject *scribus_settextstroke(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setTextStroke(color [, objectname])"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if (!Carrier->HaveDoc)
-		return Py_None;
+	HAVEDOC_OR_ERR
 	PageItem *it = GetUniqueItem(QString(Name));
 	if ((it != NULL) && (it->PType == 4) || (it->PType == 8))
 	{
@@ -558,6 +556,7 @@ PyObject *scribus_settextstroke(PyObject *self, PyObject* args)
 		}
 		it->TxtStroke = QString(Color);
 	} // if
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -570,9 +569,12 @@ PyObject *scribus_settextshade(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setTextShade(type [, objectname])"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if ((!Carrier->HaveDoc) || ((w < 0) || (w > 100)))
+	HAVEDOC_OR_ERR
+	if ((w < 0) || (w > 100))
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	PageItem *it = GetUniqueItem(QString(Name));
 	if ((it != NULL) && (it->PType == 4) || (it->PType == 8))
 	{
@@ -588,6 +590,7 @@ PyObject *scribus_settextshade(PyObject *self, PyObject* args)
 		}
 	it->ShTxtFill = w;
 	}
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -601,15 +604,19 @@ PyObject *scribus_linktextframes(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("linkTextFrames(objectname, objectname)"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if (!Carrier->HaveDoc)
-		return Py_None;
+	HAVEDOC_OR_ERR
 	PageItem *item1 = GetUniqueItem(QString(name1));
 	if (!item1)
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	PageItem *item2 = GetUniqueItem(QString(name2));
 	if (!item2)
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	/* only empty textframe, only not linked and selfhate :) */
 	if ((item2->Ptext.count() == 0) && (item2->NextBox == 0)
 	        && (item2->BackBox == 0) && (item1 != item2))
@@ -622,6 +629,7 @@ PyObject *scribus_linktextframes(PyObject *self, PyObject* args)
 		// enable 'save icon' stuff
 		Carrier->slotDocCh();
 	} // if empty
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -633,12 +641,13 @@ PyObject *scribus_unlinktextframes(PyObject * self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("unlinkTextFrames(objectname)"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if (!Carrier->HaveDoc)
-		return Py_None;
+	HAVEDOC_OR_ERR
 	PageItem *item = GetUniqueItem(name);
 	if (!item)
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	// only linked
 	if (item->BackBox != 0)
 	{
@@ -663,6 +672,7 @@ PyObject *scribus_unlinktextframes(PyObject * self, PyObject* args)
 	// enable 'save icon' stuff
 	Carrier->slotDocCh();
 	item->OwnPage->repaint();
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -681,9 +691,7 @@ PyObject *scribus_tracetext(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("traceText([objectName])"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if (!Carrier->HaveDoc)
-		return Py_None;
+	HAVEDOC_OR_ERR
 	PageItem *item = GetUniqueItem(QString(name));
 	if (item != NULL && item->PType == 4)
 	{
@@ -696,5 +704,6 @@ PyObject *scribus_tracetext(PyObject *self, PyObject* args)
 		item->OwnPage->SelectItemNr(item->ItemNr);
 		item->OwnPage->TextToPath(); */
 	}
+	Py_INCREF(Py_None);
 	return Py_None;
 }
