@@ -63,6 +63,14 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 void CleanUpPlug()
 {}
 
+void Run(QWidget *d, ScribusApp *plug)
+{
+	Carrier = plug;
+	par = d;
+	Sat = new MenuSAT(d);
+	Sat->RunSATPlug();
+}
+
 void MenuSAT::RunSATPlug()
 {
 	QDir templates(QDir::homeDirPath() + "/.scribus");

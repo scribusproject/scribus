@@ -32,6 +32,9 @@ extern "C" QString actionMenu();
 extern "C" QString actionMenuAfterName();
 extern "C" bool actionEnabledOnStartup();
 
+extern "C" void Run(QWidget *d, ScribusApp *plug);
+
+
 class MenuSAT : public QObject
 {
 	Q_OBJECT
@@ -65,5 +68,7 @@ public:
 	sat(ScribusApp* scribusApp, satdialog* satdia, QString fileName, QString tmplDir);
 	~sat();
 };
+
+static MenuSAT* Sat;
 
 #endif
