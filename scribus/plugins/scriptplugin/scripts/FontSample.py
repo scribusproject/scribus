@@ -36,7 +36,7 @@ to a value of 0. This will disable the new preview features.
 ******************************************************************************
 
 First release    : 30/12/2003
-This release     : v0.7.1tk (released 3rd Jan 2005)
+This release     : v0.7.2tk (released 4rd Jan 2005)
 Copyright        : (C) 2003 - 2005 Steve Callcott
 Latest releases
 and support      : www.firstwish.co.uk/sjc/scribus/index.php
@@ -45,6 +45,11 @@ Maintainer       : Steve Callcott 2003 - 2005
 For revision history see the ChangeLog file.
 Bugs and future plans are listed in the TODO file.
 See NEWS for new features since last version.
+
+WHATS NEW v0.7.2tk
+More cleanups in font preview code. If a font cannot be displayed
+then the preview panel is cleared. Removed many error messages returned
+to the console.
 
 WHATS NEW v0.7.1tk
 Removed discontinued email address.
@@ -83,17 +88,17 @@ except ImportError,err:
     sys.exit(1)
 
 
-WINDOWTITLE = "Font Sampler v0.7.1tk - Steve Callcott"
+WINDOWTITLE = "Font Sampler v0.7.2tk - Steve Callcott"
 TEMPPATH = os.path.join(os.path.expanduser("~"), ".scribus")
 
 showPreviewPanel = 1  # change to 0 to permanently hide the preview
 
-if showPreviewPanel: 
+if showPreviewPanel:
     if not os.path.exists(TEMPPATH):
         print ".scribus folder not found, disabling font preview panel"
         showPreviewPanel = 0
 
-if showPreviewPanel: 
+if showPreviewPanel:
     if not os.access(TEMPPATH, os.W_OK):   
         print "Unable to write to .scribus folder, disabling font preview panel"
         showPreviewPanel = 0
@@ -435,20 +440,24 @@ def fontPreview(fontName):
     Note app.previewPanel is the actual canvas.
     """
     global samplePic
-    scribus.renderFont(fontName, TEMPPATH+"temp079r.bmp","Woven silk pyjamas exchanged for blue quartz",28)    
-    tempPic = Image.open(TEMPPATH+"temp079r.bmp")
-    tempPic.save(TEMPPATH+"temp079r.jpeg",format="JPEG")
-    tempImage = Image.open(TEMPPATH+"temp079r.jpeg")
-    imgDimen = tempPic.getbbox()
-    samplePic = ImageTk.PhotoImage(tempImage)    
     global previewId
-    # To center the image use "Half display height minus half the image height"
-    # preview panel is allegedly 56 (60 less a 2 pixel border top and bottom)
-    # need to be lower than that to look correct visually... 
-    topEdge = (32 - (imgDimen[3] / 2))
-    previewId = app.previewPanel.create_image(5, topEdge, anchor=NW, image=samplePic)
-    os.remove(TEMPPATH+"temp079r.bmp")
-    os.remove(TEMPPATH+"temp079r.jpeg")
+    scribus.renderFont(fontName, os.path.join(TEMPPATH,"temp079r.bmp"),"Woven silk pyjamas exchanged for blue quartz",28)    
+    try:
+        tempPic = Image.open(os.path.join(TEMPPATH,"temp079r.bmp"))
+        tempPic.save(os.path.join(TEMPPATH,"temp079r.jpeg"),format="JPEG")
+        tempImage = Image.open(os.path.join(TEMPPATH,"temp079r.jpeg"))
+        imgDimen = tempPic.getbbox()
+        samplePic = ImageTk.PhotoImage(tempImage)
+        # To center the image use "Half display height minus half the image height"
+        # preview panel is allegedly 56 (60 less a 2 pixel border top and bottom)
+        # need to be lower than that to look correct visually... 
+        topEdge = (32 - (imgDimen[3] / 2))
+        previewId = app.previewPanel.create_image(5, topEdge, anchor=NW, image=samplePic)
+        os.remove(os.path.join(TEMPPATH,"temp079r.bmp"))
+        os.remove(os.path.join(TEMPPATH,"temp079r.jpeg"))
+    except IOError:
+        samplePic = None
+        previewId = app.previewPanel.create_image(0, 0, anchor=NW, image=samplePic)
     return
 
 

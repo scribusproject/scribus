@@ -1,3 +1,8 @@
+20050104 v0.7.2tk
+    More cleanups in font preview code. If a font cannot be displayed
+    then the preview panel is cleared. Removed many error messages returned
+    to the console.
+
 20050103 v0.7.1tk
     Removed discontinued email address
 
