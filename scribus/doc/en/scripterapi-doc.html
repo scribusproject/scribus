@@ -3,68 +3,99 @@
 <h2>Document related Commands</h2>
 
 <dl>
-	<dt>CloseDoc()</dt>
-	<dd>Closes the current Document. Returns true if successful.</dd>
 
-	<dt>GetUnit()</dt>
-	<dd>Returns the Measurement Unit of the Document. Possible Values for Unit are:
-		<blockquote>
-			0 = Typographic Points<br>
-			1 = Millimeters<br>
-			2 = Inches<br>
-			3 = Picas
-		</blockquote>
-	</dd>
-	
-	<dt>HaveDoc()</dt>
-	<dd>Returns true if there is a Document open.</dd>
-	
-	<dt>NewDoc(size,&nbsp;margins,&nbsp;orientation,&nbsp;firstPageNumber,&nbsp;unit,&nbsp;FacingPages,&nbsp;FirstSideLeft)</dt>
-	<dd>Creates a new Document. The Parameters have the following Meaning:
-		<blockquote>
-			size = A Tuple (width, height) describing the Size of the Document.<br>
-			margins = A Tuple (Left, Right, Top, Bottom) describing the Margins of the Document.<br>
-			orientation = the Page Orientation, 0 means Portrait, 1 is Landscape<br>
-			firstPageNumer is the Number of the first Page in the Document used for Pagenumbering<br>
-			unit: this Value sets the Measurement Unit of the Document
-			<blockquote>
-				0 = Typographic Points<br>
-				1 = Millimeters<br>
-				2 = Inches<br>
-				3 = Picas
-			</blockquote>
-			FacingPages: 1 means FacingPages turned on, 0 means FacingPages turned off<br>
-			FirstSideLeft: 1 means that the first Page in the Document is a left Page, 0 means a right Page as first Page<br>
-		</blockquote>
-		The values for Width, Height and the Margins are expressed in the given unit for the Document.
-		</blockquote>
-	</dd>
-	<dt>OpenDoc("name")</dt>
-	<dd>Opens the Document "name". Returns true if successful.</dd>
-	
-	<dt>SaveDoc()</dt>
-	<dd>Saves the Document under its actual Name, returns true if successful.</dd>
-	
-	<dt>SaveDocAs("name")</dt>
-	<dd>Saves the actual Document under the new Name "name". Returns true if successful.</dd>
+<dl><dt><a name="-closeDoc"><strong>closeDoc</strong></a>(...)</dt>
+<dd><tt><a href="#-closeDoc">closeDoc</a>()</tt>
+<p>Closes the current document without prompting to save.</p>
+<p>May throw <a href="#NoDocOpenError">NoDocOpenError</a> if there is no document to close</p></dd></dl>
 
-	<dt>SetInfo("Author",&nbsp;"Info",&nbsp;"Description")</dt>
-	<dd>Sets the Document Information.</dd>
-	
-	<dt>SetMargins(lr,&nbsp;rr,&nbsp;tr,&nbsp;br)</dt>
-	<dd>Sets the Print margins of the Document, Left(lr), Right(rr), Top(tr) and Bottom(br) Margins are given in the measurement unit of the Document.</dd>
+<dl><dt><a name="-docChanged"><strong>docChanged</strong></a>(...)</dt>
+<dd><tt><a href="#-docChanged">docChanged</a>(bool)</tt>
+<p>Enable/disable save icon in the Scribus icon bar and the Save menu item. It's
+useful to call this procedure when you're changing the document, because Scribus
+won't automatically notice when you change the document using a script.</p></dd></dl>
 
-	<dt class="unfinished">SetDocType(FacingPages,&nbsp;FirstSideLeft)</dt>
-	<dd>Sets the Type of the Documents, to get Facing Pages set the first Parameter to 1, to switch FacingPages off use 0 instead. If you want to be the first Page a left Side set the second Parameter to 1, for a right Page use 0.</dd>
+<dl><dt><a name="-getUnit"><strong>getUnit</strong></a>(...)</dt>
+<dd><tt><a href="#-getUnit">getUnit</a>() -&gt; integer (Scribus unit constant)</tt>
+<p>Returns the measurement units of the document. The returned value will be one
+of the UNIT_* constants:
+UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</p></dd></dl>
 	
-	<dt>SetUnit(unit)</dt>
-	<dd>Changes the Measurement Unit of the Document. Possible Values for Unit are:
-		<blockquote>
-			0 = Typographic Points<br>
-			1 = Millimeters<br>
-			2 = Inches<br>
-			3 = Picas
-		</blockquote>
-	</dd>
+<dl><dt><a name="-haveDoc"><strong>haveDoc</strong></a>(...)</dt>
+<dd><tt><a href="#-haveDoc">haveDoc</a>() -&gt; bool</tt>
+<p>Returns true if there is a document open.</p></dd></dl>
+
+<dl><dt><a name="-loadStylesFromFile"><strong>loadStylesFromFile</strong></a>(...)</dt>
+<dd><tt><a href="#-loadStylesFromFile">loadStylesFromFile</a>("filename")</tt>
+<p>Loads paragraph styles from the Scribus document at "filename" into the
+current document.</p></dd></dl>
+	
+<dl><dt><a name="-newDoc"><strong>newDoc</strong></a>(...)</dt>
+<dd><tt><a href="#-newDoc">newDoc</a>(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool</tt>
+<p>Creates a new document and returns true if successful. The parameters have the
+following meaning:</p>
+    <ul>
+    <li>size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.</li>
+    <li>margins = A tuple (left, right, top, bottom) describing the document
+    margins</li>
+    <li>orientation = the page orientation - constants PORTRAIT, LANDSCAPE</li>
+    <li>firstPageNumber = is the number of the first page in the document used for
+    pagenumbering. While you'll usually want 1, it's useful to have higher
+    numbers if you're creating a document in several parts.</li>
+    <li>unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.</li>
+    <li>facingPages = FACINGPAGES, NOFACINGPAGES</li>
+    <li>firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT</li>
+    </ul>
+<p>The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.</p>
+<p>example: <a href="#-newDoc">newDoc</a>(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)</p></dd></dl>
+
+<dl><dt><a name="-openDoc"><strong>openDoc</strong></a>(...)</dt>
+<dd><tt><a href="#-openDoc">openDoc</a>("name")</tt>
+<p>Opens the document "name".</p>
+<p>May raise ScribusError if the document could not be opened.</p></dd></dl>
+	
+<dl><dt><a name="-saveDoc"><strong>saveDoc</strong></a>(...)</dt>
+<dd><tt><a href="#-saveDoc">saveDoc</a>()</tt>
+<p>Saves the current document with its current name, returns true if successful.
+If the document has not already been saved, this may bring up an interactive
+save file dialog. If the save fails, there is currently no way to tell.</p></dd></dl>
+
+<dl><dt><a name="-saveDocAs"><strong>saveDocAs</strong></a>(...)</dt>
+<dd><tt><a href="#-saveDocAs">saveDocAs</a>("name")</tt>
+<p>Saves the current document under the new name "name" (which may be a full or
+relative path).</p>
+<p>May raise ScribusError if the save fails.</p></dd></dl>
+
+<dl><dt><a name="-setInfo"><strong>setInfo</strong></a>(...)</dt>
+<dd><tt><a href="#-saveDocAs">saveDocAs</a>("author", "info", "description") -&gt; bool</tt>
+<p>Sets the document information. "Author", "Info", "Description" are
+strings.</p></dd></dl>
+	
+<dl><dt><a name="-setMargins"><strong>setMargins</strong></a>(...)</dt>
+<dd><tt><a href="#-setMargins">setMargins</a>(lr, rr, tr, br)</tt>
+<p>Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
+margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
+constants.</p></dd></dl>
+
+<dl><dt><a name="-setDocType"><strong>setDocType</strong></a>(...)</dt>
+<dd><tt><a href="#-setDocType">setDocType</a>(facingPages, firstPageLeft)</tt>
+<p>Sets the document type. To get facing pages set the first parameter to
+FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
+to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
+a right page use FIRSTPAGERIGHT.</p></dd></dl>
+	
+<dl><dt><a name="-setUnit"><strong>setUnit</strong></a>(...)</dt>
+<dd><tt><a href="#-setUnit">setUnit</a>(type)</tt>
+<p>Changes the measurement unit of the document. Possible values for "unit" are
+defined as constants UNIT_&lt;type&gt;.</p>
+<p>May raise ValueError if an invalid unit is passed.</p></dd></dl>
+
 </dl>
 </qt>

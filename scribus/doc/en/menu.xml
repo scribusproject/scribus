@@ -91,6 +91,7 @@
 	<area text="For Developers" file="developers.html">
 		<submenuitem text="Scribus Document Format" file="scribusfileformat.html"/>
 		<submenuitem text="Scripter" file="scripter1.html"/>
+		<submenuitem text="Scripter FAQ" file="scripter-faq.html"/>
 		<submenuitem text="Scripter API" file="scripterapi.html">
 			<submenuitem text="Document Commands" file="scripterapi-doc.html"/>
 			<submenuitem text="Page Commands" file="scripterapi-page.html"/>
@@ -104,13 +105,16 @@
 			<submenuitem text="Font Commands" file="scripterapi-font.html"/>
 			<submenuitem text="Layer Commands" file="scripterapi-layer.html"/>
 			<submenuitem text="Using Dialogs" file="scripterapi-dialogs.html"/>
+			<submenuitem text="PDF Export" file="scripterapi-PDFfile.html"/>
+			<submenuitem text="Printing" file="scripterapi-Printer.html"/>
 			<submenuitem text="Predefined Constants" file="scripterapi-constants.html"/>
+			<submenuitem text="All Commands from PyDoc" file="scripterapi-pydoc.html"/>
 		</submenuitem>
 		<submenuitem text="Plugin Howto" file="plugin_howto.html"/>
 		<submenuitem text="GetText Howto" file="gettexthowto.html"/>
 		<submenuitem text="Coding Standards" file="codingstandards.html"/>
 		<submenuitem text="Translation Howto" file="translation_howto.html"/>
-	</area>	
+	</area>
 	<area text="Other Information" file="otherinfo.html">
 		<submenuitem text="Community" file="resources.html"/>
 		<submenuitem text="Contributions" file="contributions.html"/>

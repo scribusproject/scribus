@@ -3,53 +3,108 @@
 <h2>Setting Object Properties</h2>
 
 <dl>
-	<dt>LoadImage("picture",&nbsp;["name"])</dt>
-	<dd>Loads the Picture "picture" into the Image Frame "name". If "name" is not given the currently selected Item is used.</dd>
-	
-	<dt>ScaleImage(x-scaling,&nbsp;y-scaling,&nbsp;["name"])</dt>
-	<dd>Sets the Scaling Factors of the Picture in the Image Frame "name". If "name" is not given the currently selected Item is used. A Number of 1 means 100 %.</dd>
 
-	<dt>SetCornerRadius(radius,&nbsp;["name"])</dt>
-	<dd>Sets the Corner Radius of the Object "name" The Radius is expressed in Points. If "name" is not given the currently selected Item is used.</dd>
-	
-	<dt>SetFillColor("color",&nbsp;["name"])</dt>
-	<dd>Sets the Fill Color of the Object "name" to the Color "color". "color" is the Name of one of the defined Colors. If "name" is not given the currently selected Item is used.</dd>
+<dl><dt><a name="-linkTextFrames"><strong>linkTextFrames</strong></a>(...)</dt>
+<dd><tt><a href="#-linkTextFrames">linkTextFrames</a>("fromname", "toname")</tt>
+<p>Link two text frames. The frame named "fromname" is linked to the
+frame named "toname". The target frame must be an empty text frame
+and must not link to or be linked from any other frames already.</p>
+<p>May throw <a href="#ScribusException">ScribusException</a> if linking rules are violated.</p></dd></dl>
 
-	<dt>SetFillShade<a name="206"></a>(shade,&nbsp;["name"])</dt>
-	<dd>Sets the shading of the Fill Color of the Object "name" to "shade". "shade" must be an Integer Value in the range from 0 (lightest) to 100 (full Color intensity). If "name" is not given the currently selected Item is used.</dd>
+<dl><dt><a name="-loadImage"><strong>loadImage</strong></a>(...)</dt>
+<dd><tt><a href="#-loadImage">loadImage</a>("filename" [, "name"])</tt>
+<p>Loads the picture "picture" into the image frame "name". If "name" is
+not given the currently selected item is used.</p>
+<p>May raise <a href="#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd></dl>
+	
+<dl><dt><a name="-scaleImage"><strong>scaleImage</strong></a>(...)</dt>
+<dd><tt><a href="#-scaleImage">scaleImage</a>(x, y [, "name"])</tt>
+<p>Sets the scaling factors of the picture in the image frame "name".
+If "name" is not given the currently selected item is used. A number of 1
+means 100 %.</p>
+<p>May raise <a href="#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd></dl>
 
-	<dt>SetGradientFill(type,&nbsp;"color1",&nbsp;shade1,&nbsp;"color2",&nbsp;shade2,&nbsp;["name"])</dt>
-	<dd>Sets the Gradient Fill of the Object "name" to type. Color Descriptions are the same as for "SetFillColor" and "SetFillShade".</dd>
+<dl><dt><a name="-setCornerRadius"><strong>setCornerRadius</strong></a>(...)</dt>
+<dd><tt><a href="#-setCornerRadius">setCornerRadius</a>(radius, ["name"])</tt>
+<p>Sets the corner radius of the object "name". The radius is expressed
+in points. If "name" is not given the currently selected item is used.</p>
+<p>May raise ValueError if the corner radius is negative.</p></dd></dl>
 	
-	<dt>SetLineCap("cap",&nbsp;["name"])</dt>
-	<dd>Sets the Line Cap Style of the Object "name" to the Style "cap". If "name" is not given the currently selected Item is used. There are predefined Constants for "cap".</dd>
+<dl><dt><a name="-setFillColor"><strong>setFillColor</strong></a>(...)</dt>
+<dd><tt><a href="#-setFillColor">setFillColor</a>("color", ["name"])</tt>
+<p>Sets the fill color of the object "name" to the color "color". "color"
+is the name of one of the defined colors. If "name" is not given the
+currently selected item is used.</p></dd></dl>
 
-	<dt>SetLineColor("color",&nbsp;["name"])</dt>
-	<dd>Sets the Line Color of the Object "name" to the Color "color". If "name" is not given the currently selected Item is used.</dd>
-	
-	<dt>SetMultiLine("namedStyle",&nbsp;["name"])</dt>
-	<dd>Sets the Line Style of the Object "name" to the Named Style "namedStyle". If "name" is not given the currently selected Item is used.</dd>
-	
-	<dt>SetLineJoin("join",&nbsp;["name"])</dt>
-	<dd>Sets the Line Join Style of the Object "name" to the Style "join". If "name" is not given the currently selected Item is used. There are predefined Constants for "join".</dd>
-	
-	<dt>SetLineShade(shade,&nbsp;["name"])</dt>
-	<dd>Sets the shading of the Line Color of the Object "name" to "shade". "shade" must be an Integer Value in the range from 0 (lightest) to 100 (full Color intensity). If "name" is not given the currently selected Item is used.</dd>
-	
-	<dt>SetLineStyle("style",&nbsp;["name"])</dt>
-	<dd>Sets the Line Style of the Object "name" to the Style "style". If "name" is not given the currently selected Item is used. There are predefined Constants for "style".</dd>
-	
-	<dt>SetLineWidth(width,&nbsp;["name"])</dt>
-	<dd>Sets Line Width of the Object "name" to "width". "width" must be in the range from 0.0 to 12.0 inclusive. If "name" is not given the currently selected Item is used.</dd>
-	
-	<dt>TextFlowsAroundFrame(name [, number])</dt>
-	<dd>Enables/disables "Text Flows Around Frame" feature for object. Called with params string name and voluntary 1|0. When 1 set flowing to true (0 to false). When is second param empty flowing is reverted.</dd> 
-	
-	<dt>LinkTextFrames('name1', 'name2') </dt>
-	<dd>Create the linked text frames. Parameters are the object names. </dd>
+<dl><dt><a name="-setFillShade"><strong>setFillShade</strong></a>(...)</dt>
+<dd><tt><a href="#-setFillShade">setFillShade</a>(shade, ["name"])</tt>
+<p>Sets the shading of the fill color of the object "name" to "shade".
+"shade" must be an integer value in the range from 0 (lightest) to 100
+(full Color intensity). If "name" is not given the currently selected
+Item is used.<p>
+<p>May raise ValueError if the fill shade is out of bounds.</p></dd></dl>
 
-	<dt>UnlinkTextFrames('name') </dt>
-	<dd>Remove the specified (named) object from the text frame flows/linkage. </dd>
+<dl><dt><a name="-setGradientFill"><strong>setGradientFill</strong></a>(...)</dt>
+<dd><tt><a href="#-setGradientFill">setGradientFill</a>(type, "color1", shade1, "color2", shade2, ["name"])</tt>
+<p>Sets the gradient fill of the object "name" to type. Color descriptions are
+the same as for <a href="#-setFillColor">setFillColor</a>() and <a href="#-setFillShade">setFillShade</a>(). See the constants for
+available types (FILL_&lt;type&gt;).</p></dd></dl>
+
+<dl><dt><a name="-setLineCap"><strong>setLineCap</strong></a>(...)</dt>
+<dd><tt>setLineEnd(endtype, ["name"])</tt>
+<p>Sets the line cap style of the object "name" to the style "cap".
+If "name" is not given the currently selected item is used. There are
+predefined constants for "cap" - CAP_&lt;type&gt;.</p></dd></dl>
+
+<dl><dt><a name="-setLineColor"><strong>setLineColor</strong></a>(...)</dt>
+<dd><tt><a href="#-setLineColor">setLineColor</a>("color", ["name"])</tt>
+<p>Sets the line color of the object "name" to the color "color". If "name"
+is not given the currently selected item is used.</p></dd></dl>
+	
+<dl><dt><a name="-setMultiLine"><strong>setMultiLine</strong></a>(...)</dt>
+<dd><tt><a href="#-setMultiLine">setMultiLine</a>("namedStyle", ["name"])</tt>
+<p>Sets the line style of the object "name" to the named style "namedStyle".
+If "name" is not given the currently selected item is used.</p>
+<p>May raise <a href="#NotFoundError">NotFoundError</a> if the line style doesn't exist.</p></dd></dl>
+	
+<dl><dt><a name="-setLineJoin"><strong>setLineJoin</strong></a>(...)</dt>
+<dd><tt><a href="#-setLineJoin">setLineJoin</a>(join, ["name"])</tt>
+<p>Sets the line join style of the object "name" to the style "join".
+If "name" is not given the currently selected item is used. There are
+predefined constants for join - JOIN_&lt;type&gt;.</p></dd></dl>
+
+<dl><dt><a name="-setLineShade"><strong>setLineShade</strong></a>(...)</dt>
+<dd><tt><a href="#-setLineShade">setLineShade</a>(shade, ["name"])</tt>
+<p>Sets the shading of the line color of the object "name" to "shade".
+"shade" must be an integer value in the range from 0 (lightest) to 100
+(full color intensity). If "name" is not given the currently selected item
+is used.</p>
+<p>May raise ValueError if the line shade is out of bounds.</p></dd></dl>
+	
+<dl><dt><a name="-setLineStyle"><strong>setLineStyle</strong></a>(...)</dt>
+<dd><tt><a href="#-setLineStyle">setLineStyle</a>(style, ["name"])</tt>
+<p>Sets the line style of the object "name" to the style "style". If "name"
+is not given the currently selected item is used. There are predefined
+constants for "style" - LINE_&lt;style&gt;.</p></dd></dl>
+
+<dl><dt><a name="-setLineWidth"><strong>setLineWidth</strong></a>(...)</dt>
+<dd><tt><a href="#-setLineWidth">setLineWidth</a>(width, ["name"])</tt>
+<p>Sets line width of the object "name" to "width". "width" must be in the
+range from 0.0 to 12.0 inclusive, and is measured in points. If "name" is not
+given the currently selected item is used.</p>
+<p>May raise ValueError if the line width is out of bounds.</p></dd></dl>
+
+<dl><dt><a name="-traceText"><strong>traceText</strong></a>(...)</dt>
+<dd><tt><a href="#-traceText">traceText</a>(["name"])</tt>
+<p>Convert the text frame "name" to outlines. If "name" is not given the
+currently selected item is used.</p></dd></dl>
+	
+<dl><dt><a name="-unlinkTextFrames"><strong>unlinkTextFrames</strong></a>(...)</dt>
+<dd><tt><a href="#-unlinkTextFrames">unlinkTextFrames</a>("name")</tt>
+<p>Remove the specified (named) object from the text frame flow/linkage. If the
+frame was in the middle of a chain, the previous and next frames will be
+connected, eg 'a-&gt;b-&gt;c' becomes 'a-&gt;c' when you <a href="#-unlinkTextFrames">unlinkTextFrames</a>(b)'</p>
+<p>May throw <a href="#ScribusException">ScribusException</a> if linking rules are violated.</p></dd></dl>
 
 </dl>
 </qt>
