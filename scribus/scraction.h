@@ -23,7 +23,8 @@
 */
 class ScrAction : public QAction
 {
-	Q_OBJECT;
+	Q_OBJECT
+
 public:
 	enum MenuType {Normal, DataInt, DataDouble, DataQString, RecentFile, DLL, Window, RecentScript };
 	
