@@ -4936,6 +4936,10 @@ void ScribusApp::ToggleFrameEdit()
 		if (doc->ActPage->SelItem.count() != 0)
 		{
 			doc->ActPage->MarkClip(doc->ActPage->SelItem.at(0));
+			if (doc->ActPage->SelItem.at(0)->ContourLine.size() == 0)
+				Npal->EditCont->setEnabled(false);
+			else
+				Npal->EditCont->setEnabled(true);
 			Npal->PolyStatus(doc->ActPage->SelItem.at(0)->PType, doc->ActPage->SelItem.at(0)->PoLine.size());
 		}
 	}

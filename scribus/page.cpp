@@ -6677,7 +6677,7 @@ void Page::MarkClip(PageItem *b)
 	Transform(b, &p);
 	p.setPen(QPen(blue, 1, SolidLine, FlatCap, MiterJoin));
 	p.setBrush(NoBrush);
-	if (EditContour)
+	if ((EditContour) && (b->ContourLine.size() != 0))
 		cli = b->ContourLine;
 	else
 		cli = b->PoLine;
@@ -6771,6 +6771,7 @@ void Page::ToPolyFrame()
 	b->ClipEdited = true;
 	b->FrameType = 3;
 	b->Clip = FlattenPath(b->PoLine, b->Segments);
+	b->ContourLine = b->PoLine.copy();
 	RefreshItem(b);
 	emit HaveSel(b->PType);
 	if (!doku->loading)
@@ -6805,6 +6806,7 @@ void Page::Bezier2Poly()
 	b->PoLine.addPoint(b->PoLine.point(0));
 	b->PoLine.addPoint(b->PoLine.point(0));
 	b->Clip = FlattenPath(b->PoLine, b->Segments);
+	b->ContourLine = b->PoLine.copy();
 	RefreshItem(b);
 	emit HaveSel(b->PType);
 	if (!doku->loading)
@@ -6884,6 +6886,7 @@ void Page::SplitObj()
 			bb->PoLine.putPoints(0, EndInd - StartInd, b->PoLine, StartInd);
 			bb->Rot = b->Rot;
 			AdjustItemSize(bb);
+			bb->ContourLine = bb->PoLine.copy();
 			bb->ClipEdited = true;
 			a -= 3;
 			EndInd = StartInd - 4;
@@ -6891,6 +6894,7 @@ void Page::SplitObj()
 	}
 	b->PoLine.resize(StartInd-4);
 	AdjustItemSize(b);
+	b->ContourLine = b->PoLine.copy();
 	b->ClipEdited = true;
 	Deselect(true);
 	update();
@@ -6927,6 +6931,7 @@ void Page::UniteObj()
 		}
 		b->Clip = FlattenPath(b->PoLine, b->Segments);
 		AdjustItemSize(b);
+		b->ContourLine = b->PoLine.copy();
 		Deselect(true);
 		for (uint c = 0; c < toDel.count(); ++c)
 			SelectItemNr(*toDel.at(c));
@@ -7029,6 +7034,7 @@ void Page::TextToPath()
 				npo = transformPoint(FPoint(b->Ptext.at(a)->xp+x,b->Ptext.at(a)->yp-y), 0.0, 0.0, b->Rot, 1.0, 1.0);
 			bb->Xpos = b->Xpos+npo.x();
 			bb->Ypos = b->Ypos+npo.y();
+			bb->ContourLine = bb->PoLine.copy();
 			bb->ClipEdited = true;
 			SelItem.append(bb);
 		}
