@@ -466,12 +466,19 @@ void ScribusView::setMenTxt(int Seite)
 void ScribusView::setLayMenTxt(int l)
 {
 	QValueList<Layer>::iterator it;
+	QString lName;
 	for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
 	{
 		if ((*it).LNr == l)
 			break;
 	}
-	LY->setText((*it).Name);
+	lName=(*it).Name;
+	if (lName.length() > 20 )
+	{
+		lName.truncate(18);
+		lName=lName.leftJustify( 20, '.');
+	}
+	LY->setText(lName);
 }
 
 /** Fuehrt die Vergroesserung/Verkleinerung aus */
