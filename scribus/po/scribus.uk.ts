@@ -414,6 +414,10 @@ this can create huge files</source>
         <source>Distribute E&amp;venly</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Do Not Change</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AlignSelect</name>
@@ -9533,20 +9537,16 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>SToolBAlign</name>
     <message>
-        <source>St&amp;yle Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Style of current paragraph</source>
         <translation type="unfinished">Стиль активного абзацу</translation>
+    </message>
+    <message>
+        <source>Style Settings</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SToolBColorF</name>
-    <message>
-        <source>F&amp;ill Color Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>None</source>
         <translation type="unfinished"></translation>
@@ -9559,13 +9559,13 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>Saturation of color of text fill</source>
         <translation type="unfinished">Насиченість кольору заповнення знаків</translation>
     </message>
+    <message>
+        <source>Fill Color Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SToolBColorS</name>
-    <message>
-        <source>&amp;Stroke Color Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>None</source>
         <translation type="unfinished"></translation>
@@ -9578,13 +9578,13 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>Saturation of color of text stroke</source>
         <translation type="unfinished">Насиченість кольору знакових силуетів</translation>
     </message>
+    <message>
+        <source>Stroke Color Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SToolBFont</name>
-    <message>
-        <source>&amp;Font Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source> pt</source>
         <translation type="unfinished"></translation>
@@ -9605,13 +9605,13 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>Scaling width of characters</source>
         <translation type="unfinished">Масштабування ширини знаків</translation>
     </message>
+    <message>
+        <source>Font Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SToolBStyle</name>
-    <message>
-        <source>&amp;Character Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Kerning:</source>
         <translation type="unfinished">Кернінг:</translation>
@@ -9623,6 +9623,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Manual Kerning</source>
         <translation type="unfinished">Ручна обробка</translation>
+    </message>
+    <message>
+        <source>Character Settings</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11565,7 +11569,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>File</source>
-        <translation type="obsolete">Файл</translation>
+        <translation type="unfinished">Файл</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -11645,7 +11649,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Update Text Frame</source>
-        <translation type="obsolete">Обновити вміст текстової рамки</translation>
+        <translation type="unfinished">Обновити вміст текстової рамки</translation>
     </message>
     <message>
         <source>Insert Special...</source>
@@ -11665,11 +11669,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation type="obsolete">Поновити текстову рамку та вийти</translation>
+        <translation type="unfinished">Поновити текстову рамку та вийти</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation type="obsolete">Вийти без поновлення текстової рамки</translation>
+        <translation type="unfinished">Вийти без поновлення текстової рамки</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
@@ -11734,6 +11738,30 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Редагування</translation>
+    </message>
+    <message>
+        <source>Select &amp;All</source>
+        <translation type="unfinished">Виді&amp;лити все</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Styles...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clears all Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load Text from File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Text to File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload Text from Frame</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12123,11 +12151,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>Гаразд</translation>
+        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Вихід</translation>
+        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>All</source>
@@ -12168,6 +12196,58 @@ Please choose another.</source>
     <message>
         <source>&amp;Open</source>
         <translation>&amp;Відчинити</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
+    </message>
+    <message>
+        <source>Downloading Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installing Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preparing a template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Translating template.xml</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

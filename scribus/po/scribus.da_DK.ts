@@ -391,6 +391,10 @@ dette kan forårsage meget store filer</translation>
         <source>Distribute E&amp;venly</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Do Not Change</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AlignSelect</name>
@@ -8113,20 +8117,16 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
 <context>
     <name>SToolBAlign</name>
     <message>
-        <source>St&amp;yle Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Style of current paragraph</source>
         <translation type="unfinished">Typografi i nuværende afsnit</translation>
+    </message>
+    <message>
+        <source>Style Settings</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SToolBColorF</name>
-    <message>
-        <source>F&amp;ill Color Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>None</source>
         <translation type="unfinished">Ingen</translation>
@@ -8139,13 +8139,13 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
         <source>Saturation of color of text fill</source>
         <translation type="unfinished">Mætningsgrad af tekstens fyldfarve</translation>
     </message>
+    <message>
+        <source>Fill Color Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SToolBColorS</name>
-    <message>
-        <source>&amp;Stroke Color Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>None</source>
         <translation type="unfinished">Ingen</translation>
@@ -8158,13 +8158,13 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
         <source>Saturation of color of text stroke</source>
         <translation type="unfinished">Mætningsgrad af tekstens stregfarve</translation>
     </message>
+    <message>
+        <source>Stroke Color Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SToolBFont</name>
-    <message>
-        <source>&amp;Font Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source> pt</source>
         <translation type="unfinished">pt</translation>
@@ -8185,13 +8185,13 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
         <source>Scaling width of characters</source>
         <translation type="unfinished">Skalér skrifttegnenes bredde</translation>
     </message>
+    <message>
+        <source>Font Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SToolBStyle</name>
-    <message>
-        <source>&amp;Character Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Kerning:</source>
         <translation type="unfinished">Knibning:</translation>
@@ -8203,6 +8203,10 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     <message>
         <source>Manual Kerning</source>
         <translation type="unfinished">Manuel knibning</translation>
+    </message>
+    <message>
+        <source>Character Settings</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9809,7 +9813,7 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="obsolete">Fil</translation>
+        <translation type="unfinished">Fil</translation>
     </message>
     <message>
         <source>Left</source>
@@ -9905,7 +9909,7 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     </message>
     <message>
         <source>Update Text Frame</source>
-        <translation type="obsolete">Opdatér tekstramme</translation>
+        <translation type="unfinished">Opdatér tekstramme</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -9933,11 +9937,11 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation type="obsolete">Opdatér tekstramme og afslut</translation>
+        <translation type="unfinished">Opdatér tekstramme og afslut</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation type="obsolete">Afslut uden at opdatere tekstramme</translation>
+        <translation type="unfinished">Afslut uden at opdatere tekstramme</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
@@ -10002,6 +10006,30 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     <message>
         <source>&amp;Edit</source>
         <translation type="unfinished">&amp;Redigér</translation>
+    </message>
+    <message>
+        <source>Select &amp;All</source>
+        <translation type="unfinished">Markër &amp;alt</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Styles...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clears all Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load Text from File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Text to File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload Text from Frame</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10371,11 +10399,11 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annullér</translation>
+        <translation type="obsolete">Annullér</translation>
     </message>
     <message>
         <source>All</source>
@@ -10416,6 +10444,58 @@ Vælg venligst et andet.</translation>
     <message>
         <source>&amp;Open</source>
         <translation>&amp;Åbn</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Annullér</translation>
+    </message>
+    <message>
+        <source>Downloading Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installing Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preparing a template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Translating template.xml</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

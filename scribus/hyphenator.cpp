@@ -209,7 +209,26 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
  */
 void Hyphenator::slotHyphenate(PageItem* it)
 {
-	if ((!useAble) || (it->PType != 4) || (it ->Ptext.count() == 0))
+	PageItem *nb = it;
+	PageItem *nb1;
+	while (nb != 0)
+	{
+		if (nb->BackBox != 0)
+			nb = nb->BackBox;
+		else
+			break;
+	}
+	nb1 = nb;
+	while (nb != 0)
+	{
+		uint a = nb->Ptext.count();
+		for (uint s = 0; s < a; ++s)
+			nb1->Ptext.append(nb->Ptext.take(0));
+		nb->MaxChars = 0;
+		nb->CPos = 0;
+		nb = nb->NextBox;
+	}
+	if ((!useAble) || (nb1->PType != 4) || (nb1 ->Ptext.count() == 0))
 		return;
 	const char *word;
 	char *buffer;
@@ -217,22 +236,22 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	QString text = "";
 	QString buf;
 	QCString te;
-	for (uint a = 0; a < it->Ptext.count(); ++a)
+	for (uint a = 0; a < nb1->Ptext.count(); ++a)
 	{
-		if (it->HasSel)
+		if (nb1->HasSel)
 		{
-			if (it->Ptext.at(a)->cselect)
-				text += it->Ptext.at(a)->ch;
+			if (nb1->Ptext.at(a)->cselect)
+				text += nb1->Ptext.at(a)->ch;
 		}
 		else
-			text += it->Ptext.at(a)->ch;
+			text += nb1->Ptext.at(a)->ch;
 	}
 	int firstC = 0;
-	if (it->HasSel)
+	if (nb1->HasSel)
 	{
-		for (uint a = 0; a < it->Ptext.count(); ++a)
+		for (uint a = 0; a < nb1->Ptext.count(); ++a)
 		{
-			if (it->Ptext.at(a)->cselect)
+			if (nb1->Ptext.at(a)->cselect)
 			{
 				firstC = static_cast<int>(a);
 				break;
@@ -243,7 +262,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	int Ccount = 0;
 	QString found = "";
 	QString found2 = "";
-	uint maxC = it->Ptext.count() - 1;
+	uint maxC = nb1->Ptext.count() - 1;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	while ((firstC+Ccount < static_cast<int>(text.length())) && (firstC != -1) && 
 			(lastC < static_cast<int>(text.length())))
@@ -269,7 +288,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	  			uint i = 0;
   				buffer[strlen(word)] = '\0';
 				for (i = 1; i < found.length()-1; ++i)
-					it->Ptext.at(QMIN(maxC, i+firstC))->cstyle &= 127;		// Delete any old Hyphens
+					nb1->Ptext.at(QMIN(maxC, i+firstC))->cstyle &= 127;		// Delete any old Hyphens
 				bool hasHyphen = false;
 				for (i = 1; i < found.length()-1; ++i)
 				{
@@ -303,7 +322,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 							{
 								QChar cht = outs[i];
 								if (cht == "-")
-									it->Ptext.at(QMIN(maxC, ii+firstC))->cstyle |= 128;
+									nb1->Ptext.at(QMIN(maxC, ii+firstC))->cstyle |= 128;
 								else
 									ii++;
 							}
@@ -322,7 +341,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						for (i = 1; i < found.length()-1; ++i)
 						{
 							if(buffer[i] & 1)
-								it->Ptext.at(QMIN(maxC, i+firstC))->cstyle |= 128;
+								nb1->Ptext.at(QMIN(maxC, i+firstC))->cstyle |= 128;
 						}
 	  				}
 				}
@@ -333,7 +352,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 		if (Ccount == 0)
 			Ccount++;
 	}
-	it->Dirty = true;
+	nb1->Dirty = true;
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-	it->OwnPage->RefreshItem(it);
+	nb1->OwnPage->RefreshItem(nb1);
 }

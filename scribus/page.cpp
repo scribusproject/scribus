@@ -55,6 +55,7 @@
 #include <qeventloop.h>
 #include <qprocess.h>
 #include <qscrollbar.h>
+#include <qmessagebox.h>
 #include <unistd.h>
 #if QT_VERSION  > 0x030102
 	#define SPLITVC SplitHCursor
@@ -3057,7 +3058,6 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem( tr("&Get Text..."), this, SIGNAL(LoadPic()));
 				pmen->insertItem( tr("&Append Text..."), this, SIGNAL(AppendText()));
 				pmen->insertItem( tr("&Edit Text..."), this, SIGNAL(EditText()));
-				pmen->insertItem( tr("&Insert Sample Text"), this, SLOT(LoremIpsum()));
 				if (PageNam == "")
 				{
 					int pxb = pmenPDF->insertItem( tr("Is PDF &Bookmark"), this, SLOT(ToggleBookmark()));
@@ -3099,6 +3099,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				}
 				connect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
 			}
+			if (b->PType == 4)
+				pmen->insertItem( tr("&Insert Sample Text"), this, SLOT(LoremIpsum()));
 			if (!b->Locked)
 			{
 				if (SelItem.count() > 1)
@@ -8002,6 +8004,14 @@ void Page::LoremIpsum()
 	if (SelItem.count() != 0)
 	{
 		PageItem *b = SelItem.at(0);
+		if (b->Ptext.count() != 0)
+		{
+			int t = QMessageBox::warning(this, tr("Warning"),
+	                             tr("Do you really want to clear all your Text?"),
+	                             QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
+			if (t == QMessageBox::No)
+				return;
+		}
 		QString pfad = PREL;
 		QString pfad2;
 		pfad2 = pfad + "/share/scribus/samples/LoremIpsum.txt";

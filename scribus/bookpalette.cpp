@@ -47,6 +47,13 @@ BookPalette::BookPalette(QWidget* parent) : QDialog( parent, "Books", false, 0 )
  \retval None
  */
 
+void BookPalette::keyPressEvent(QKeyEvent *k)
+{
+	if (k->key() == Key_F10)
+		emit ToggleAllPalettes();
+	QDialog::keyPressEvent(k);
+}
+
 void BookPalette::closeEvent(QCloseEvent *ce)
 {
 	emit Schliessen();

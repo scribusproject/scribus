@@ -32,6 +32,7 @@ public:
 	struct Elem { QPtrList<QListViewItem> Elemente; };
 	QPtrList<Elem> PageObj;
 	ScribusView *vie;
+	void keyPressEvent(QKeyEvent *k);
 	void closeEvent(QCloseEvent *ce);
 	void resizeEvent(QResizeEvent *r);
 	void rebuildPageD();
@@ -52,6 +53,7 @@ public slots:
 	void BuildTree(ScribusView *view);
 
 signals:
+	void ToggleAllPalettes();
 	void Schliessen();
 	void SelectElement(int, int);
 	void SelectSeite(int);

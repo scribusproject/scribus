@@ -128,6 +128,7 @@ class SeitenPal : public QDialog
 public:
     SeitenPal(QWidget* parent);
     ~SeitenPal() {};
+	void keyPressEvent(QKeyEvent *k);
     void closeEvent(QCloseEvent *ce);
 
     QSplitter* Splitter1;
@@ -157,6 +158,7 @@ public slots:
 	QPixmap CreateIcon(int nr, QPixmap ret);
 
 signals:
+	void ToggleAllPalettes();
 	void EditTemp(QString);
 	void GotoSeite(int);
 	void Schliessen();

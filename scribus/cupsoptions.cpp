@@ -172,21 +172,17 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	CupsOptionsLayout->addWidget( Table );
 
 	Layout2 = new QHBoxLayout;
-	Layout2->setSpacing( 30 );
+	Layout2->setSpacing( 6 );
 	Layout2->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
 	PushButton1 = new QPushButton( tr("&OK"), this, "PushButton1" );
 	PushButton1->setDefault( true );
 	Layout2->addWidget( PushButton1 );
-	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout2->addItem( spacer2 );
 	PushButton2 = new QPushButton( tr("&Cancel"), this, "PushButton1_2" );
 	PushButton2->setDefault( false );
 	PushButton1->setFocus();
 	Layout2->addWidget( PushButton2 );
-	QSpacerItem* spacer3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout2->addItem( spacer3 );
 	CupsOptionsLayout->addLayout( Layout2 );
 	setMinimumSize( sizeHint() );
 	resize(minimumSizeHint());

@@ -121,7 +121,6 @@ public:
 	void AdjustBM();
 	void ReorgFonts();
 	void GetUsedFonts(QMap<QString,QFont> *Really);
-	void ToggleAllPalettes();
 	void ToggleAllGuides();
 	static void defaultCrashHandler (int sig);
 	void emergencySave();
@@ -186,6 +185,7 @@ public:
 	QValueList<int> MenuItemsFile;
 
 public slots:
+	void ToggleAllPalettes();
 	void slotStoryEditor();
 	void InvertPict();
 	QString Collect(bool compress = false, bool withFonts = false);

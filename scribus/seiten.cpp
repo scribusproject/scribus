@@ -554,6 +554,12 @@ SeitenPal::SeitenPal(QWidget* parent)
 		               tr( "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below." ) );
 }
 
+void SeitenPal::keyPressEvent(QKeyEvent *k)
+{
+	if (k->key() == Key_F10)
+		emit ToggleAllPalettes();
+	QDialog::keyPressEvent(k);
+}
 
 void SeitenPal::closeEvent(QCloseEvent *ce)
 {

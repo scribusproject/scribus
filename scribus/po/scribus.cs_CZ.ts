@@ -4239,6 +4239,10 @@ Mohou vzniknout velké soubory</translation>
         <source>Distribute E&amp;venly</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Do Not Change</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AlignSelect</name>
@@ -13793,20 +13797,16 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
 <context>
     <name>SToolBAlign</name>
     <message>
-        <source>St&amp;yle Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Style of current paragraph</source>
         <translation type="unfinished">Styl aktuálního odstavce</translation>
+    </message>
+    <message>
+        <source>Style Settings</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SToolBColorF</name>
-    <message>
-        <source>F&amp;ill Color Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>None</source>
         <translation type="unfinished">Žádné</translation>
@@ -13819,13 +13819,13 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
         <source>Saturation of color of text fill</source>
         <translation type="unfinished">Sytost barvy výplně písma</translation>
     </message>
+    <message>
+        <source>Fill Color Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SToolBColorS</name>
-    <message>
-        <source>&amp;Stroke Color Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>None</source>
         <translation type="unfinished">Žádné</translation>
@@ -13838,13 +13838,13 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
         <source>Saturation of color of text stroke</source>
         <translation type="unfinished">Sytost barvy obrysu písma</translation>
     </message>
+    <message>
+        <source>Stroke Color Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SToolBFont</name>
-    <message>
-        <source>&amp;Font Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source> pt</source>
         <translation type="unfinished"></translation>
@@ -13865,13 +13865,13 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
         <source>Scaling width of characters</source>
         <translation type="unfinished">Změna šířky znaků písma</translation>
     </message>
+    <message>
+        <source>Font Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SToolBStyle</name>
-    <message>
-        <source>&amp;Character Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Kerning:</source>
         <translation type="unfinished">Vyrovnání znaků (kerning):</translation>
@@ -13883,6 +13883,10 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     <message>
         <source>Manual Kerning</source>
         <translation type="unfinished">Ruční vyrovnání znaků (Kerning)</translation>
+    </message>
+    <message>
+        <source>Character Settings</source>
+        <translation type="unfinished">Nastavení znaků</translation>
     </message>
 </context>
 <context>
@@ -15944,7 +15948,7 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="obsolete">Soubor</translation>
+        <translation type="unfinished">Soubor</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -16000,7 +16004,7 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Update Text Frame</source>
-        <translation type="obsolete">Aktualizovat textový rám</translation>
+        <translation type="unfinished">Aktualizovat textový rám</translation>
     </message>
     <message>
         <source>Open</source>
@@ -16040,11 +16044,11 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation type="obsolete">Aktualizovat textový rám a skončit</translation>
+        <translation type="unfinished">Aktualizovat textový rám a skončit</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation type="obsolete">Skončit bez aktualizace textového rámu</translation>
+        <translation type="unfinished">Skončit bez aktualizace textového rámu</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
@@ -16109,6 +16113,30 @@ přetáhněte šablonu do náhledu strany.</translation>
     <message>
         <source>&amp;Edit</source>
         <translation type="unfinished">Ú&amp;pravy</translation>
+    </message>
+    <message>
+        <source>Select &amp;All</source>
+        <translation type="unfinished">Vybr&amp;at vše</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Styles...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clears all Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load Text from File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Text to File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload Text from Frame</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16574,11 +16602,11 @@ Vyberte, prosím, jiný.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Zrušit</translation>
+        <translation type="obsolete">Zrušit</translation>
     </message>
     <message>
         <source>All</source>
@@ -16623,6 +16651,58 @@ Vyberte, prosím, jiný.</translation>
     <message>
         <source>&amp;Open</source>
         <translation type="unfinished">&amp;Otevřít</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downloading Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installing Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preparing a template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Translating template.xml</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -47,6 +47,13 @@ Tree::Tree( QWidget* parent, WFlags fl )
 	connect(ListView1, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(slotRightClick(QListViewItem*, const QPoint &, int)));
 }
 
+void Tree::keyPressEvent(QKeyEvent *k)
+{
+	if (k->key() == Key_F10)
+		emit ToggleAllPalettes();
+	QDialog::keyPressEvent(k);
+}
+
 void Tree::slotRightClick(QListViewItem* ite, const QPoint &, int)
 {
 	if (ite == NULL)

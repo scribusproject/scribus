@@ -45,7 +45,7 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool 
 	MirrorV = new QCheckBox( tr("Mirror Page(s) &Vertical"), this, "MirrorV");
 	MirrorV->setChecked(Vm);
 	AdvOptionsLayout->addWidget( MirrorV );
-	GcR = new QCheckBox( tr("Appy Under Color &Removal"), this, "GCR");
+	GcR = new QCheckBox( tr("Apply Under Color &Removal"), this, "GCR");
 	GcR->setChecked(DoGcr);
 	AdvOptionsLayout->addWidget( GcR );
 #ifdef HAVE_CMS
@@ -80,20 +80,16 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool 
 	AdvOptionsLayout->addWidget( ButtonGroupP );
 
 	Layout2 = new QHBoxLayout;
-	Layout2->setSpacing( 30 );
+	Layout2->setSpacing( 6 );
 	Layout2->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
 	PushButton1 = new QPushButton( tr( "&OK" ), this, "PushButton1" );
 	Layout2->addWidget( PushButton1 );
-	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout2->addItem( spacer2 );
 	PushButton2 = new QPushButton( tr( "&Cancel" ), this, "PushButton1_2" );
 	PushButton2->setDefault( true );
 	PushButton2->setFocus();
 	Layout2->addWidget( PushButton2 );
-	QSpacerItem* spacer3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout2->addItem( spacer3 );
 	AdvOptionsLayout->addLayout( Layout2 );
 	setMinimumSize( sizeHint() );
 	QToolTip::add( PS3, tr( "Creates PostScript Level 3" ) );

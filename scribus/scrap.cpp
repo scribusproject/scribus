@@ -28,6 +28,13 @@ BibView::BibView(QWidget* parent, preV *prefs) : QIconView(parent)
 	Prefs = prefs;
 }
 
+void BibView::keyPressEvent(QKeyEvent *k)
+{
+	if (k->key() == Key_F10)
+		emit ToggleAllPalettes();
+	QIconView::keyPressEvent(k);
+}
+
 QDragObject *BibView::dragObject()
 {
 	QString dt = Objekte[currentItem()->text()].Data.utf8();

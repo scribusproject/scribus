@@ -37,7 +37,7 @@ Align::Align( QWidget* parent, int anz, int ein)
 	TextLabel1->setEnabled( true );
 	ButtonGroup1Layout->addWidget( TextLabel1, 0, 0 );
 	ButtonGroup1Layout->addMultiCellWidget( VartH, 0, 0, 1, 2 );
-	NichtsH = new QRadioButton( "&Do Not Change", ButtonGroup1, "NichtsH" );
+	NichtsH = new QRadioButton( tr("&Do Not Change"), ButtonGroup1, "NichtsH" );
 	NichtsH->setChecked(true);
 	ButtonGroup1Layout->addMultiCellWidget( NichtsH, 1, 1, 0, 2 );
 	CheckH = new QRadioButton( tr( "A&lign" ), ButtonGroup1, "CheckH" );
@@ -116,16 +116,10 @@ Align::Align( QWidget* parent, int anz, int ein)
 	OKbutton = new QPushButton( tr( "&OK" ), this, "OKbutton" );
 	OKbutton->setDefault( true );
 	Layout3->addWidget( OKbutton );
-	QSpacerItem* spacer_2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout3->addItem( spacer_2 );
 	ButtonApply = new QPushButton( tr( "&Apply" ), this, "ButtonApply" );
 	Layout3->addWidget( ButtonApply );
-	QSpacerItem* spacer_3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout3->addItem( spacer_3 );
 	CancelB = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
 	Layout3->addWidget( CancelB );
-	QSpacerItem* spacer_4 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout3->addItem( spacer_4 );
 	AlignLayout->addLayout( Layout3 );
 	setMinimumSize(sizeHint());
 

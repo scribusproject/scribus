@@ -534,23 +534,30 @@ void ScribusApp::initScribus()
 		connect(Tpal, SIGNAL(Schliessen()), this, SLOT(ToggleTpal()));
 		connect(Tpal, SIGNAL(SelectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
 		connect(Tpal, SIGNAL(SelectSeite(int)), this, SLOT(SelectFromOutlS(int)));
+		connect(Tpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 		connect(Mpal->Spal, SIGNAL(NewStyle(int)), this, SLOT(setNewAbStyle(int)));
 		connect(Mpal, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
+		connect(Mpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 		connect(Npal, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
 		connect(Lpal, SIGNAL(LayerActivated(int)), this, SLOT(changeLayer(int)));
 		connect(Lpal, SIGNAL(LayerRemoved(int, bool)), this, SLOT(LayerRemove(int, bool)));
 		connect(Lpal, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
 		connect(Lpal, SIGNAL(Schliessen()), this, SLOT(ToggleLpal()));
+		connect(Lpal->Table, SIGNAL(Schliessen()), this, SLOT(ToggleLpal()));
+		connect(Lpal->Table, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 		connect(Sepal, SIGNAL(Schliessen()), this, SLOT(ToggleSepal()));
 		connect(ScBook, SIGNAL(Schliessen()), this, SLOT(ToggleBpal()));
+		connect(ScBook->BibWin, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 		connect(Sepal, SIGNAL(EditTemp(QString)), this, SLOT(ManageTemp(QString)));
 		connect(Sepal->PageView, SIGNAL(UseTemp(QString, int)), this, SLOT(Apply_Temp(QString, int)));
 		connect(Sepal->PageView, SIGNAL(NewPage(int, QString)), this, SLOT(slotNewPageP(int, QString)));
 		connect(Sepal->Trash, SIGNAL(DelPage(int)), this, SLOT(DeletePage2(int)));
 		connect(Sepal, SIGNAL(GotoSeite(int)), this, SLOT(SelectFromOutlS(int)));
+		connect(Sepal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 		connect(BookPal->BView, SIGNAL(MarkMoved()), this, SLOT(StoreBookmarks()));
 		connect(BookPal->BView, SIGNAL(ChangeBMNr(int, int, int)), this, SLOT(ChBookmarks(int, int, int)));
 		connect(BookPal, SIGNAL(Schliessen()), this, SLOT(ToggleBookpal()));
+		connect(BookPal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 		connect(recentMenu, SIGNAL(activated(int)), this, SLOT(LoadRecent(int)));
 		connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 		connect(ShadeMenu, SIGNAL(activated(int)), this, SLOT(setItemShade(int)));
@@ -5449,6 +5456,7 @@ void ScribusApp::setItemFont2(int id)
 {
 	disconnect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 	SetNewFont(FontSub->text(id));
+	FontMenu->activateItemAt(0);
 	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 }
 
@@ -5554,6 +5562,7 @@ void ScribusApp::setItemFarbe(int id)
 		else
 			doc->ActPage->ItemBrush(ColorMenC->text(id));
 	}
+	ColorMenu->activateItemAt(0);
 	slotDocCh();
 }
 
@@ -8330,10 +8339,12 @@ void ScribusApp::doHyphenate()
 	{
 		if (doc->ActPage->SelItem.count() != 0)
 		{
+			doc->DoDrawing = false;
 			b = doc->ActPage->SelItem.at(0);
 			if (doc->Trenner->Language != b->Language)
 				doc->Trenner->slotNewDict(b->Language);
 			doc->Trenner->slotHyphenate(b);
+			doc->DoDrawing = true;
 		}
 	}
 }

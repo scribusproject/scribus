@@ -14,22 +14,35 @@
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;
 
-LayerPalette::LayerPalette(QWidget* parent)
-    : QDialog( parent, "Layers", false, 0 )
-{
-  	setIcon(loadIcon("AppIcon.png"));
-    setCaption( tr( "Layers" ) );
-    LayerPaletteLayout = new QVBoxLayout( this, 10, 5, "LayerPaletteLayout");
 
-    Table = new QTable( this, "Table" );
-    Table->setNumRows( 0 );
-    Table->setNumCols( 3 );
-    Table->setTopMargin(0);
-    Table->horizontalHeader()->hide();
+LayerTable::LayerTable(QWidget* parent) : QTable(parent)
+{}
+
+void LayerTable::keyPressEvent(QKeyEvent *k)
+{
+	if (k->key() == Key_F10)
+		emit ToggleAllPalettes();
+	if (k->key() == Key_Escape)
+		emit Schliessen();
+	QTable::keyPressEvent(k);
+}
+
+LayerPalette::LayerPalette(QWidget* parent)
+		: QDialog( parent, "Layers", false, 0 )
+{
+	setIcon(loadIcon("AppIcon.png"));
+	setCaption( tr( "Layers" ) );
+	LayerPaletteLayout = new QVBoxLayout( this, 10, 5, "LayerPaletteLayout");
+
+	Table = new LayerTable( this );
+	Table->setNumRows( 0 );
+	Table->setNumCols( 3 );
+	Table->setTopMargin(0);
+	Table->horizontalHeader()->hide();
 	Table->setRowMovingEnabled(false);
 	Table->setSorting(false);
-    Table->setSelectionMode( QTable::SingleRow );
-    Table->setFocusStyle( QTable::FollowStyle );
+	Table->setSelectionMode( QTable::SingleRow );
+	Table->setFocusStyle( QTable::FollowStyle );
 	Table->setColumnReadOnly(1, true);
 	Table->setColumnReadOnly(2, true);
 	Table->setColumnWidth(1, 55);
@@ -37,45 +50,45 @@ LayerPalette::LayerPalette(QWidget* parent)
 	Header = Table->verticalHeader();
 	Header->setMovingEnabled(false);
 	Header->setResizeEnabled(false);
-    LayerPaletteLayout->addWidget( Table );
+	LayerPaletteLayout->addWidget( Table );
 
-    Layout1 = new QHBoxLayout( 0, 0, 0, "Layout1"); 
+	Layout1 = new QHBoxLayout( 0, 0, 0, "Layout1");
+	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout1->addItem( spacer );
 
-    NewLayer = new QPushButton( this, "NewLayer" );
-    NewLayer->setMinimumSize( QSize( 50, 24 ) );
-    NewLayer->setMaximumSize( QSize( 50, 24 ) );
-    NewLayer->setText( "" );
-    NewLayer->setPixmap(loadIcon("Newlayer.png"));
-    QToolTip::add( NewLayer, tr( "Add a new Layer" ) );
-    Layout1->addWidget( NewLayer );
+	NewLayer = new QPushButton( this, "NewLayer" );
+	NewLayer->setMinimumSize( QSize( 50, 24 ) );
+	NewLayer->setMaximumSize( QSize( 50, 24 ) );
+	NewLayer->setText( "" );
+	NewLayer->setPixmap(loadIcon("Newlayer.png"));
+	QToolTip::add( NewLayer, tr( "Add a new Layer" ) );
+	Layout1->addWidget( NewLayer );
 
-    DeleteLayer = new QPushButton( this, "DeleteLayer" );
-    DeleteLayer->setMinimumSize( QSize( 50, 24 ) );
-    DeleteLayer->setMaximumSize( QSize( 50, 24 ) );
-    DeleteLayer->setText( "" );
-    DeleteLayer->setPixmap(loadIcon("Deletelayer.png"));
-    QToolTip::add( DeleteLayer, tr( "Delete Layer" ) );
-    Layout1->addWidget( DeleteLayer );
+	DeleteLayer = new QPushButton( this, "DeleteLayer" );
+	DeleteLayer->setMinimumSize( QSize( 50, 24 ) );
+	DeleteLayer->setMaximumSize( QSize( 50, 24 ) );
+	DeleteLayer->setText( "" );
+	DeleteLayer->setPixmap(loadIcon("Deletelayer.png"));
+	QToolTip::add( DeleteLayer, tr( "Delete Layer" ) );
+	Layout1->addWidget( DeleteLayer );
 
-    RaiseLayer = new QPushButton( this, "RaiseLayer" );
-    RaiseLayer->setMinimumSize( QSize( 50, 24 ) );
-    RaiseLayer->setMaximumSize( QSize( 50, 24 ) );
-    RaiseLayer->setText( "" );
-    RaiseLayer->setPixmap(loadIcon("Raiselayer.png"));
-    QToolTip::add( RaiseLayer, tr( "Raise Layer" ) );
-    Layout1->addWidget( RaiseLayer );
+	RaiseLayer = new QPushButton( this, "RaiseLayer" );
+	RaiseLayer->setMinimumSize( QSize( 50, 24 ) );
+	RaiseLayer->setMaximumSize( QSize( 50, 24 ) );
+	RaiseLayer->setText( "" );
+	RaiseLayer->setPixmap(loadIcon("Raiselayer.png"));
+	QToolTip::add( RaiseLayer, tr( "Raise Layer" ) );
+	Layout1->addWidget( RaiseLayer );
 
-    LowerLayer = new QPushButton( this, "LowerLayer" );
-    LowerLayer->setMinimumSize( QSize( 50, 24 ) );
-    LowerLayer->setMaximumSize( QSize( 50, 24 ) );
-    LowerLayer->setText( "" );
-    LowerLayer->setPixmap(loadIcon("Lowerlayer.png"));
-    QToolTip::add( LowerLayer, tr( "Lower Layer" ) );
-    Layout1->addWidget( LowerLayer );
+	LowerLayer = new QPushButton( this, "LowerLayer" );
+	LowerLayer->setMinimumSize( QSize( 50, 24 ) );
+	LowerLayer->setMaximumSize( QSize( 50, 24 ) );
+	LowerLayer->setText( "" );
+	LowerLayer->setPixmap(loadIcon("Lowerlayer.png"));
+	QToolTip::add( LowerLayer, tr( "Lower Layer" ) );
+	Layout1->addWidget( LowerLayer );
 
-    QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    Layout1->addItem( spacer );
-    LayerPaletteLayout->addLayout( Layout1 );
+	LayerPaletteLayout->addLayout( Layout1 );
 	ClearInhalt();
 	connect(NewLayer, SIGNAL(clicked()), this, SLOT(addLayer()));
 	connect(DeleteLayer, SIGNAL(clicked()), this, SLOT(removeLayer()));
@@ -85,7 +98,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 }
 
 void LayerPalette::closeEvent(QCloseEvent *ce)
-{	
+{
 	emit Schliessen();
 	ce->accept();
 }
@@ -136,17 +149,17 @@ void LayerPalette::rebuildList()
 	{
 		Table->setText(layers->count()-(*it).Level-1, 0, (*it).Name);
 		QCheckBox *cp = new QCheckBox(this, tmp.setNum((*it).Level));
-    	cp->setPixmap(loadIcon("DateiPrint16.png"));
-    	cp->setChecked((*it).Drucken);
-    	Table->setCellWidget(layers->count()-(*it).Level-1, 1, cp);
-    	FlagsPrint.append(cp);
-    	connect(cp, SIGNAL(clicked()), this, SLOT(printLayer()));
+		cp->setPixmap(loadIcon("DateiPrint16.png"));
+		cp->setChecked((*it).Drucken);
+		Table->setCellWidget(layers->count()-(*it).Level-1, 1, cp);
+		FlagsPrint.append(cp);
+		connect(cp, SIGNAL(clicked()), this, SLOT(printLayer()));
 		QCheckBox *cp2 = new QCheckBox(this, tmp.setNum((*it).Level));
-    	cp2->setPixmap(loadIcon("Layervisible.xpm"));
-    	cp2->setChecked((*it).Sichtbar);
-    	FlagsSicht.append(cp2);
-    	connect(cp2, SIGNAL(clicked()), this, SLOT(visibleLayer()));
-    	Table->setCellWidget(layers->count()-(*it).Level-1, 2, cp2);
+		cp2->setPixmap(loadIcon("Layervisible.xpm"));
+		cp2->setChecked((*it).Sichtbar);
+		FlagsSicht.append(cp2);
+		connect(cp2, SIGNAL(clicked()), this, SLOT(visibleLayer()));
+		Table->setCellWidget(layers->count()-(*it).Level-1, 2, cp2);
 		Header->setLabel(layers->count()-(*it).Level-1, tmp.setNum((*it).Level));
 	}
 	Table->setColumnStretchable(0, true);
@@ -158,9 +171,9 @@ void LayerPalette::addLayer()
 {
 	QString tmp;
 	struct Layer ll;
- 	ll.LNr = layers->last().LNr + 1;
+	ll.LNr = layers->last().LNr + 1;
 	ll.Level = layers->count();
- 	ll.Name = tr("New Layer")+" "+tmp.setNum(ll.LNr);
+	ll.Name = tr("New Layer")+" "+tmp.setNum(ll.LNr);
 	ll.Sichtbar = true;
 	ll.Drucken = true;
 	layers->append(ll);
@@ -177,10 +190,10 @@ void LayerPalette::removeLayer()
 		return;
 	bool delToo = false;
 	int t = QMessageBox::warning(this, tr("Delete Layer"),
-												tr("Do you want to delete all Objects on this Layer too?"),
-												QMessageBox::No | QMessageBox::Default | QMessageBox::Escape, 
-												QMessageBox::Yes, 
-												QMessageBox::NoButton);
+	                             tr("Do you want to delete all Objects on this Layer too?"),
+	                             QMessageBox::No | QMessageBox::Default | QMessageBox::Escape,
+	                             QMessageBox::Yes,
+	                             QMessageBox::NoButton);
 	if (t == QMessageBox::Yes)
 		delToo = true;
 	int num = layers->count()-1-Table->currentRow();
@@ -193,7 +206,8 @@ void LayerPalette::removeLayer()
 	int num2 = (*it2).LNr;
 	if (!num2)
 		return;
-	layers->remove(it2);
+	layers->remove
+	(it2);
 	QValueList<Layer>::iterator it;
 	for (it = layers->begin(); it != layers->end(); ++it)
 	{
@@ -235,7 +249,8 @@ void LayerPalette::upLayer()
 
 void LayerPalette::downLayer()
 {
-	if ((layers->count() < 2) || (Table->currentRow() == static_cast<int>(layers->count()) - 1))
+	if ((layers->count() < 2) || (Table->currentRow() == static_cast<int>(layers->count()) - 1)
+	   )
 		return;
 	int num = layers->count()-1-Table->currentRow();
 	QValueList<Layer>::iterator it;
@@ -322,7 +337,8 @@ void LayerPalette::setActiveLayer(int row)
 	QValueList<Layer>::iterator it;
 	for (it = layers->begin(); it != layers->end(); ++it)
 	{
-		if ((*it).Level == static_cast<int>(layers->count())-1-row)
+		if ((*it).Level == static_cast<int>(layers->count())
+		        -1-row)
 			break;
 	}
 	*Activ = (*it).LNr;

@@ -980,13 +980,12 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	Mpaste = emenu->insertItem(loadIcon("editpaste.png"), tr("&Paste"), this, SLOT(Do_paste()), CTRL+Key_V);
 	Mdel = emenu->insertItem(loadIcon("editdelete.png"), tr("C&lear"), this, SLOT(Do_del()), CTRL+Key_V);
 	emenu->insertSeparator();
-//	int sr = emenu->insertItem( tr("&Search/Replace..."), this, SLOT(SearchText()));
+	int sr = emenu->insertItem( tr("&Search/Replace..."), this, SLOT(SearchText()));
 	emenu->insertItem( tr("&Insert Special..."), this , SLOT(Do_insSp()));
 //	emenu->setItemEnabled(sr, 0);
 	emenu->insertSeparator();
 	emenu->insertItem( tr("&Edit Styles..."), this , SLOT(slotEditStyles()));
 	Mupdt = emenu->insertItem(loadIcon("compfile16.png"),  tr("&Update Text Frame"), this, SLOT(updateTextFrame()), CTRL+Key_U);
-//	menuBar = new QMenuBar(this);
 	menuBar()->insertItem( tr("&File"), fmenu);
 	menuBar()->insertItem( tr("&Edit"), emenu);
 
@@ -1565,14 +1564,14 @@ void StoryEditor::updateTextFrame()
 		nb2 = nb2->NextBox;
 	}
 	Editor->saveItemText(nb);
+	if (doc->Trenner->AutoCheck)
+	{
+		if (doc->Trenner->Language != nb->Language)
+			doc->Trenner->slotNewDict(nb->Language);
+		doc->Trenner->slotHyphenate(nb);
+	}
 	while (nb != 0)
 	{
-		if (doc->Trenner->AutoCheck)
-		{
-			if (doc->Trenner->Language != nb->Language)
-				doc->Trenner->slotNewDict(nb->Language);
-			doc->Trenner->slotHyphenate(nb);
-		}
 		bool savre = doc->RePos;
 		doc->RePos = true;
 		QPixmap pgPix(1, 1);
@@ -1595,9 +1594,9 @@ void StoryEditor::updateTextFrame()
 
 void StoryEditor::SearchText()
 {
-/*	SearchReplace* dia = new SearchReplace(this, doc, 0, CurrItem, false);
+	SearchReplace* dia = new SearchReplace(this, doc, &ScApp->Prefs, CurrItem, false);
 	dia->exec();
-	delete dia; */
+	delete dia;
 }
 
 void StoryEditor::slotEditStyles()

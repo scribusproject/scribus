@@ -83,6 +83,7 @@ class Mpalette : public QDialog
 public:
 	Mpalette(QWidget* parent, preV *Prefs);
 	~Mpalette() {};
+	void keyPressEvent(QKeyEvent *k);
 	void closeEvent(QCloseEvent *ce);
 	void ToggleFlow();
 	void updateCList();
@@ -352,6 +353,7 @@ protected slots:
 	virtual void reject();
 
 signals:
+	void ToggleAllPalettes();
 	void Schliessen();
 	void DocChanged();
 	void NewAbStyle(int);

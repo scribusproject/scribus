@@ -241,7 +241,7 @@ luoda erittäin suuria tiedostoja</translation>
     </message>
     <message>
         <source> pts</source>
-        <translation> pts</translation>
+        <translation type="obsolete"> pts</translation>
     </message>
     <message>
         <source>Align</source>
@@ -326,6 +326,14 @@ luoda erittäin suuria tiedostoja</translation>
     <message>
         <source>Distribute E&amp;venly</source>
         <translation>Jaa tasais&amp;esti</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>&amp;Do Not Change</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -735,7 +743,7 @@ luoda erittäin suuria tiedostoja</translation>
     </message>
     <message>
         <source>Font for use with PDF-1.3:</source>
-        <translation>PDF-1.3:n kanssa käytettävä kirjasin:</translation>
+        <translation type="obsolete">PDF-1.3:n kanssa käytettävä kirjasin:</translation>
     </message>
     <message>
         <source>Visibility:</source>
@@ -771,7 +779,7 @@ luoda erittäin suuria tiedostoja</translation>
     </message>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
-        <translation>PDF-tiedostot (*.pdf);;Kaikki tiedostot (*)</translation>
+        <translation type="obsolete">PDF-tiedostot (*.pdf);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Decimals:</source>
@@ -791,7 +799,7 @@ luoda erittäin suuria tiedostoja</translation>
     </message>
     <message>
         <source>Flag is ignored for PDF-1.3</source>
-        <translation>Merkintää ei huomioida PDF-1.3:ssa</translation>
+        <translation type="obsolete">Merkintää ei huomioida PDF-1.3:ssa</translation>
     </message>
     <message>
         <source>Keystroke:</source>
@@ -884,6 +892,18 @@ luoda erittäin suuria tiedostoja</translation>
     <message>
         <source>Selection Change</source>
         <translation>Valinta muuttui</translation>
+    </message>
+    <message>
+        <source>Font for use with PDF 1.3:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Flag is ignored for PDF 1.3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Documents (*.pdf);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4339,11 +4359,11 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <name>NodePalette</name>
     <message>
         <source>Shears the Path horizontal to the left</source>
-        <translation>Vie polkua vaakasuorasti vasempaan</translation>
+        <translation type="obsolete">Vie polkua vaakasuorasti vasempaan</translation>
     </message>
     <message>
         <source>Shears the Path vertical up</source>
-        <translation>Vie polkua pystysuorasti ylöspäin</translation>
+        <translation type="obsolete">Vie polkua pystysuorasti ylöspäin</translation>
     </message>
     <message>
         <source>Nodes</source>
@@ -4351,15 +4371,15 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Shears the Path horizontal to the right</source>
-        <translation>Vie polkua vaakasuorasti oikealle</translation>
+        <translation type="obsolete">Vie polkua vaakasuorasti oikealle</translation>
     </message>
     <message>
         <source>Closes this Bezier Curve</source>
-        <translation>Sulje tämä bezier-viiva</translation>
+        <translation type="obsolete">Sulje tämä bezier-viiva</translation>
     </message>
     <message>
         <source>Mirrors the Path Horizontally</source>
-        <translation>Peilaa kohde vaakatasossa</translation>
+        <translation type="obsolete">Peilaa kohde vaakatasossa</translation>
     </message>
     <message>
         <source>When checked use Coordinates relative to the Page,
@@ -4373,7 +4393,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Mirrors the Path Vertically</source>
-        <translation>Peilaa kohde pystytasossa</translation>
+        <translation type="obsolete">Peilaa kohde pystytasossa</translation>
     </message>
     <message>
         <source>Delete Nodes</source>
@@ -4385,11 +4405,11 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Move Control Points independently</source>
-        <translation>Siirrä hallintapisteitä yksitellen</translation>
+        <translation type="obsolete">Siirrä hallintapisteitä yksitellen</translation>
     </message>
     <message>
         <source>Shears the Path vertical down</source>
-        <translation>Vie polkua pystysuorasti alaspäin</translation>
+        <translation type="obsolete">Vie polkua pystysuorasti alaspäin</translation>
     </message>
     <message>
         <source>Move Nodes</source>
@@ -4401,11 +4421,11 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Opens a Polygon or cuts a Bezier Curve</source>
-        <translation>Avaa monikulmio tai katkaise bezier-viiva</translation>
+        <translation type="obsolete">Avaa monikulmio tai katkaise bezier-viiva</translation>
     </message>
     <message>
         <source>Move Control Points symmetrical</source>
-        <translation>Siirrä hallintapisteitä symmetrisesti</translation>
+        <translation type="obsolete">Siirrä hallintapisteitä symmetrisesti</translation>
     </message>
     <message>
         <source>Reset Control Points</source>
@@ -4413,19 +4433,19 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Rotates the Path counter-clockwise</source>
-        <translation>Kierrä polkua vastapäivään</translation>
+        <translation type="obsolete">Kierrä polkua vastapäivään</translation>
     </message>
     <message>
         <source>Rotates the Path clockwise</source>
-        <translation>Kierrä polkua myötäpäivään</translation>
+        <translation type="obsolete">Kierrä polkua myötäpäivään</translation>
     </message>
     <message>
         <source>Reduce the Size of the Path</source>
-        <translation>Pienennä polun kokoa</translation>
+        <translation type="obsolete">Pienennä polun kokoa</translation>
     </message>
     <message>
         <source>Enlarges the Size of the Path</source>
-        <translation>Suurenna polun kokoa</translation>
+        <translation type="obsolete">Suurenna polun kokoa</translation>
     </message>
     <message>
         <source>&amp;Absolute Coordinates</source>
@@ -4450,6 +4470,78 @@ muulloin suhteessa kohteeseen.</translation>
     <message>
         <source>&amp;End Editing</source>
         <translation>&amp;Lopeta muokkaus</translation>
+    </message>
+    <message>
+        <source>Move Control Points Independently</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move Control Points Symmetrical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open a Polygon or Cuts a Bezier Curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close this Bezier Curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror the Path Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror the Path Vertically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shear the Path Horizontally to the Rright</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shear the Path Horizontally to the Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shear the Path Vertically Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shear the Path Vertically Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rotate the Path Counter-Clockwise</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rotate the Path Clockwise</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reduce the Size of the Path by shown %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enlarge the Size of the Path by shown %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Angle of Rotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% to Enlarge or Reduce By</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate Contour Line Editing Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset the Contour Line to the Original Shape of the Frame</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5143,10 +5235,6 @@ Pelkän sivunumeron lisäksi voit käyttää
         <translation>&amp;Peruuta</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF-tiedostot (*.pdf);;Kaikki tiedostot (*)</translation>
     </message>
@@ -5708,7 +5796,7 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
     </message>
     <message>
         <source> pts</source>
-        <translation> pts</translation>
+        <translation type="obsolete"> pts</translation>
     </message>
     <message>
         <source>None</source>
@@ -7450,6 +7538,101 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
 </context>
 <context>
+    <name>SToolBAlign</name>
+    <message>
+        <source>Style Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Style of current paragraph</source>
+        <translation type="unfinished">Valitun kappaleen tyyli</translation>
+    </message>
+</context>
+<context>
+    <name>SToolBColorF</name>
+    <message>
+        <source>Fill Color Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text fill</source>
+        <translation type="unfinished">Tekstin täytön väri</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text fill</source>
+        <translation type="unfinished">Tekstin täytön värin kylläisyys</translation>
+    </message>
+</context>
+<context>
+    <name>SToolBColorS</name>
+    <message>
+        <source>Stroke Color Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text stroke</source>
+        <translation type="unfinished">Tekstin reunan väri</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text stroke</source>
+        <translation type="unfinished">Tekstin reunan värin kylläisyys</translation>
+    </message>
+</context>
+<context>
+    <name>SToolBFont</name>
+    <message>
+        <source>Font Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>Font of selected text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font Size</source>
+        <translation type="unfinished">Kirjasimen koko</translation>
+    </message>
+    <message>
+        <source>Scaling width of characters</source>
+        <translation type="unfinished">Merkkien leveyssuuntainen skaalaus</translation>
+    </message>
+</context>
+<context>
+    <name>SToolBStyle</name>
+    <message>
+        <source>Character Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Kerning:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Manual Kerning</source>
+        <translation type="unfinished">Manuaalinen kirjasinvälistys</translation>
+    </message>
+</context>
+<context>
     <name>ScriXmlDoc</name>
     <message>
         <source>Copy #%1 of </source>
@@ -8993,19 +9176,19 @@ raahaa malli sivualueelle.</translation>
     <name>StoryEditor</name>
     <message>
         <source>Cut</source>
-        <translation>Leikkaa</translation>
+        <translation type="obsolete">Leikkaa</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Uusi</translation>
+        <translation type="obsolete">Uusi</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopioi</translation>
+        <translation type="obsolete">Kopioi</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Muokkaa</translation>
+        <translation type="obsolete">Muokkaa</translation>
     </message>
     <message>
         <source>File</source>
@@ -9013,39 +9196,39 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation>Vasen</translation>
+        <translation type="obsolete">Vasen</translation>
     </message>
     <message>
         <source>Redo</source>
-        <translation>Tee uudelleen</translation>
+        <translation type="obsolete">Tee uudelleen</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Teksti</translation>
+        <translation type="obsolete">Teksti</translation>
     </message>
     <message>
         <source>Undo</source>
-        <translation>Kumoa</translation>
+        <translation type="obsolete">Kumoa</translation>
     </message>
     <message>
         <source>Block</source>
-        <translation>Molemmat reunat</translation>
+        <translation type="obsolete">Molemmat reunat</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation>Tyhjennä</translation>
+        <translation type="obsolete">Tyhjennä</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Liitä</translation>
+        <translation type="obsolete">Liitä</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation>Oikea</translation>
+        <translation type="obsolete">Oikea</translation>
     </message>
     <message>
         <source>Style</source>
-        <translation>Tyyli</translation>
+        <translation type="obsolete">Tyyli</translation>
     </message>
     <message>
         <source>Do you really want to lose all your Changes?</source>
@@ -9061,15 +9244,15 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation>Keskitetty</translation>
+        <translation type="obsolete">Keskitetty</translation>
     </message>
     <message>
         <source>Forced</source>
-        <translation>Pakotettu</translation>
+        <translation type="obsolete">Pakotettu</translation>
     </message>
     <message>
         <source>Edit Styles...</source>
-        <translation>Muokkaa tyylejä...</translation>
+        <translation type="obsolete">Muokkaa tyylejä...</translation>
     </message>
     <message>
         <source>Current Paragraph:</source>
@@ -9097,11 +9280,11 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Save to File...</source>
-        <translation>Tallenna tiedostoon...</translation>
+        <translation type="obsolete">Tallenna tiedostoon...</translation>
     </message>
     <message>
         <source>Load from File...</source>
-        <translation>Lataa tiedostosta...</translation>
+        <translation type="obsolete">Lataa tiedostosta...</translation>
     </message>
     <message>
         <source>Open</source>
@@ -9121,7 +9304,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Insert Special...</source>
-        <translation>Lisää erikoismerkki...</translation>
+        <translation type="obsolete">Lisää erikoismerkki...</translation>
     </message>
     <message>
         <source>Do you want to save your changes?</source>
@@ -9137,11 +9320,95 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Save Document</source>
-        <translation>Tallenna asiakirja</translation>
+        <translation type="obsolete">Tallenna asiakirja</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
         <translation>&amp;Lisää erikoismerkki</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">&amp;Uusi</translation>
+    </message>
+    <message>
+        <source>&amp;Reload Text from Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save to File...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Load from File...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save &amp;Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Update Text Frame and Exit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Exit Without Updating Text Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select &amp;All</source>
+        <translation type="unfinished">V&amp;alitse kaikki</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation type="unfinished">&amp;Leikkaa</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="unfinished">&amp;Kopioi</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation type="unfinished">L&amp;iitä</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">&amp;Tyhjennä</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Special...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit Styles...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Update Text Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation type="unfinished">&amp;Tiedosto</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Muokkaa</translation>
+    </message>
+    <message>
+        <source>Clears all Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load Text from File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Text to File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload Text from Frame</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9433,11 +9700,11 @@ Ole hyvä ja valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Insert PDF-Fields</source>
-        <translation>Lisää PDF-kenttä</translation>
+        <translation type="obsolete">Lisää PDF-kenttä</translation>
     </message>
     <message>
         <source>PDF-Tools</source>
-        <translation>PDF-työkalut</translation>
+        <translation type="obsolete">PDF-työkalut</translation>
     </message>
     <message>
         <source>Check Box</source>
@@ -9445,7 +9712,19 @@ Ole hyvä ja valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Insert PDF-Annotations</source>
-        <translation>Lisää PDF-huomautus</translation>
+        <translation type="obsolete">Lisää PDF-huomautus</translation>
+    </message>
+    <message>
+        <source>PDF Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Annotations</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9487,11 +9766,11 @@ Ole hyvä ja valitse toinen nimi.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>All</source>
@@ -9532,6 +9811,58 @@ Ole hyvä ja valitse toinen nimi.</translation>
     <message>
         <source>&amp;Open</source>
         <translation>&amp;Avaa</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
+    </message>
+    <message>
+        <source>Downloading Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installing Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preparing a template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Translating template.xml</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

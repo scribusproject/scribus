@@ -13,6 +13,20 @@
 #include <qvaluelist.h>
 #include <scribusdoc.h>
 
+class LayerTable : public QTable
+{
+	Q_OBJECT
+
+public:
+	LayerTable(QWidget* parent);
+	~LayerTable() {};
+	void keyPressEvent(QKeyEvent *k);
+
+signals:
+	void ToggleAllPalettes();
+	void Schliessen();
+};
+
 class LayerPalette : public QDialog
 { 
     Q_OBJECT

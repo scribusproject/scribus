@@ -32,10 +32,12 @@ class BookPalette : public QDialog
 public:
 	BookPalette(QWidget* parent);
 	~BookPalette() {};
+	void keyPressEvent(QKeyEvent *k);
 	void closeEvent(QCloseEvent *ce);
 	BookMView	*BView;
 
 signals:
+	void ToggleAllPalettes();
 	void Schliessen();
 
 protected:

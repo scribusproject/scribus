@@ -419,6 +419,10 @@ Uwaga: pliki mogą być bardzo duże</translation>
         <source> pt</source>
         <translation>pt</translation>
     </message>
+    <message>
+        <source>&amp;Do Not Change</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AlignSelect</name>
@@ -7092,10 +7096,6 @@ a pojedynczy numer oznacza numer strony.</translation>
         <translation>&amp;Anuluj</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>Pliki PDF (*.pdf);;Wszystkie pliki (*)</translation>
     </message>
@@ -10167,18 +10167,22 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <name>SToolBAlign</name>
     <message>
         <source>St&amp;yle Settings</source>
-        <translation>Ustawienia st&amp;yli</translation>
+        <translation type="obsolete">Ustawienia st&amp;yli</translation>
     </message>
     <message>
         <source>Style of current paragraph</source>
         <translation>Styl aktualnego akapitu</translation>
+    </message>
+    <message>
+        <source>Style Settings</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SToolBColorF</name>
     <message>
         <source>F&amp;ill Color Settings</source>
-        <translation>Usta&amp;wienia koloru wypełnienia</translation>
+        <translation type="obsolete">Usta&amp;wienia koloru wypełnienia</translation>
     </message>
     <message>
         <source>None</source>
@@ -10192,12 +10196,16 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <source>Saturation of color of text fill</source>
         <translation>Nasycenie koloru wypełnienia tekstu</translation>
     </message>
+    <message>
+        <source>Fill Color Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SToolBColorS</name>
     <message>
         <source>&amp;Stroke Color Settings</source>
-        <translation>&amp;Ustawienia koloru obrysu</translation>
+        <translation type="obsolete">&amp;Ustawienia koloru obrysu</translation>
     </message>
     <message>
         <source>None</source>
@@ -10211,12 +10219,16 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <source>Saturation of color of text stroke</source>
         <translation>Nasycenie koloru obrysu tekstu</translation>
     </message>
+    <message>
+        <source>Stroke Color Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SToolBFont</name>
     <message>
         <source>&amp;Font Settings</source>
-        <translation>&amp;Ustawienia czcionki</translation>
+        <translation type="obsolete">&amp;Ustawienia czcionki</translation>
     </message>
     <message>
         <source> pt</source>
@@ -10238,12 +10250,16 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <source>Scaling width of characters</source>
         <translation>Skalowanie szerokości znaków</translation>
     </message>
+    <message>
+        <source>Font Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SToolBStyle</name>
     <message>
         <source>&amp;Character Settings</source>
-        <translation>Ustaw&amp;ienia znaków</translation>
+        <translation type="obsolete">Ustaw&amp;ienia znaków</translation>
     </message>
     <message>
         <source>Kerning:</source>
@@ -10256,6 +10272,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Manual Kerning</source>
         <translation>Manualne podcinanie</translation>
+    </message>
+    <message>
+        <source>Character Settings</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12325,7 +12345,7 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="obsolete">Plik</translation>
+        <translation type="unfinished">Plik</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -12385,7 +12405,7 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Update Text Frame</source>
-        <translation type="obsolete">Aktualizuj ramkę tekstową</translation>
+        <translation type="unfinished">Aktualizuj ramkę tekstową</translation>
     </message>
     <message>
         <source>Search/Replace...</source>
@@ -12413,11 +12433,11 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation type="obsolete">Aktualizuj ramkę tekstową i zakończ</translation>
+        <translation type="unfinished">Aktualizuj ramkę tekstową i zakończ</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation type="obsolete">Zakończ bez aktualizowania ramki tekstowej</translation>
+        <translation type="unfinished">Zakończ bez aktualizowania ramki tekstowej</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
@@ -12482,6 +12502,30 @@ przeciągnij szablon na widok strony na dole.</translation>
     <message>
         <source>&amp;Edit</source>
         <translation>&amp;Edycja</translation>
+    </message>
+    <message>
+        <source>Select &amp;All</source>
+        <translation type="unfinished">&amp;Zaznacz wszystko</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Styles...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clears all Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load Text from File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Text to File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload Text from Frame</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12927,11 +12971,11 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation type="obsolete">Anuluj</translation>
     </message>
     <message>
         <source>All</source>
@@ -12976,6 +13020,58 @@ Proszę wybrać inną.</translation>
     <message>
         <source>&amp;Open</source>
         <translation>&amp;Otwórz</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Anuluj</translation>
+    </message>
+    <message>
+        <source>Downloading Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installing Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preparing a template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Translating template.xml</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

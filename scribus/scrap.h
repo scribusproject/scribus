@@ -27,6 +27,7 @@ class BibView : public QIconView
 public:
 	BibView( QWidget* parent, preV *prefs);
 	~BibView() {};
+	void keyPressEvent(QKeyEvent *k);
 	void AddObj(QString name, QString daten, QPixmap Bild);
 	void SaveContents(QString name);
 	void ReadContents(QString name);
@@ -38,6 +39,9 @@ public:
 	};
 	QMap<QString,Elem> Objekte;
 	preV *Prefs;
+
+signals:
+	void ToggleAllPalettes();
 
 protected:
 	virtual QDragObject *dragObject();

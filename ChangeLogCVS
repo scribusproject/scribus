@@ -1,8 +1,15 @@
 Changes since Version 1.1.7
 
+01.08.2004
+	* bug     #450: Dialog Tools>Layers needs <ESC> binding and loose the "X" button
+	* bug     #768: insert sample text
+	* bug     #794: Style>Colors: Color list doesn't disappear when cursor moves away
+	* bug     #858: Palettes do not hide with F10 when one is selected
+	* feature #902: hyphenate in linked text frames
+
 31.07.2004
 	* bug     #527: Wrong page shown in Properties Palette when reopened
-	* bug     #528:  Wrong page shown in Properties Palette - COLORS - when reopened
+	* bug     #528: Wrong page shown in Properties Palette - COLORS - when reopened
 	* bug     #919: Text from story editor duplicates when two text frames are linked...
 	* feature #909: add access possibility to text styles to the story editor
 	* feature #920: Updated French Translation

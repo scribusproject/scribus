@@ -258,8 +258,6 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	pageLayout->addWidget( GeoGroup );
 
 	layout60 = new QHBoxLayout( 0, 0, 5, "layout60");
-	QSpacerItem* spacer1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout60->addItem( spacer1 );
 
 	LayerGroup = new QGroupBox( tr( "Level" ), page, "LayerGroup" );
 	LayerGroup->setColumnLayout(0, Qt::Vertical );
@@ -323,9 +321,6 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Layout44->addWidget( NoResize, 0, 2 );
 	layout60->addLayout( Layout44 );
 
-	QSpacerItem* spacer5 = new QSpacerItem( 0, 0, QSizePolicy::Expanding,
-	                                        QSizePolicy::Minimum );
-	layout60->addItem( spacer5 );
 	pageLayout->addLayout( layout60 );
 
 	QSpacerItem* spacer13 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
@@ -787,7 +782,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	QToolTip::add( Extra, tr( "Manual Kerning" ) );
 	QToolTip::add( LineSp, tr( "Line Spacing" ) );
 	QToolTip::add( Spal, tr( "Style of current paragraph" ) );
-	QToolTip::add( langCombo, tr( "Language of object" ) );
+	QToolTip::add( langCombo, tr( "Hyphenation language of frame" ) );
 
 	QToolTip::add( LineMode, tr( "Change settings for left or end points" ) );
 	QToolTip::add( LStyle, tr( "Pattern of line" ) );
@@ -908,6 +903,13 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	StrokeIcon->setEnabled(false);
 	TxStroke->setEnabled(false);
 	PM1->setEnabled(false);
+}
+
+void Mpalette::keyPressEvent(QKeyEvent *k)
+{
+	if (k->key() == Key_F10)
+		emit ToggleAllPalettes();
+	QDialog::keyPressEvent(k);
 }
 
 void Mpalette::closeEvent(QCloseEvent *ce)
