@@ -25,8 +25,6 @@ PyObject *scribus_newdoc(PyObject *self, PyObject* args)
 	rr = ValToPts(rr, unit);
 	btr = ValToPts(btr, unit);
 	bool ret = Carrier->doFileNew(b, h, tpr, lr, rr, btr, 0, 1, false, ds, unit, fsl, ori, fNr);
-	if (ret)
-		doc = Carrier->doc;
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
@@ -42,10 +40,10 @@ PyObject *scribus_setmargins(PyObject *self, PyObject* args)
 	lr = ValueToPoint(lr);
 	rr = ValueToPoint(rr);
 	btr = ValueToPoint(btr);
-	doc->resetPage(tpr, lr, rr, btr, doc->PageFP);
+	Carrier->doc->resetPage(tpr, lr, rr, btr, Carrier->doc->PageFP);
 	Carrier->view->reformPages();
-	doc->setModified();
-	Carrier->view->GotoPage(doc->ActPage->PageNr);
+	Carrier->doc->setModified();
+	Carrier->view->GotoPage(Carrier->doc->ActPage->PageNr);
 	Carrier->view->DrawNew();
 	return Py_None;
 }
@@ -56,7 +54,7 @@ PyObject *scribus_closedoc(PyObject *self, PyObject* args)
 		return NULL;
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
-	doc->setUnModified();
+	Carrier->doc->setUnModified();
 	return PyInt_FromLong(static_cast<long>(Carrier->slotFileClose()));
 }
 
@@ -73,8 +71,6 @@ PyObject *scribus_opendoc(PyObject *self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "s", &Name))
 		return NULL;
 	bool ret = Carrier->LadeDoc(QString(Name));
-	if (ret)
-		doc = Carrier->doc;
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
@@ -108,9 +104,9 @@ PyObject *scribus_setinfo(PyObject *self, PyObject* args)
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
-	doc->DocAutor = QString(Author);
-	doc->DocTitel = QString(Title);
-	doc->DocComments = QString(Desc);
+	Carrier->doc->DocAutor = QString(Author);
+	Carrier->doc->DocTitel = QString(Title);
+	Carrier->doc->DocComments = QString(Desc);
 	Carrier->slotDocCh();
 	return Py_None;
 }

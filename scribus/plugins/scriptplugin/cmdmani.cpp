@@ -14,7 +14,7 @@ PyObject *scribus_loadimage(PyObject *self, PyObject* args)
 		return Py_None;
 	int i = GetItem(QString(Name));
 	if (i != -1)
-		doc->ActPage->LoadPict(QString(Image), i);
+		Carrier->doc->ActPage->LoadPict(QString(Image), i);
 	return Py_None;
 }
 
@@ -28,9 +28,9 @@ PyObject *scribus_scaleimage(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return Py_None;
 	int i = GetItem(QString(Name));
-	if ((i != -1) && (doc->ActPage->Items.at(i)->PType == 2))
+	if ((i != -1) && (Carrier->doc->ActPage->Items.at(i)->PType == 2))
 		{
-		PageItem *b = doc->ActPage->Items.at(i);
+		PageItem *b = Carrier->doc->ActPage->Items.at(i);
 		b->LocalScX = x;
 		b->LocalScY = y;
 		}
@@ -49,10 +49,10 @@ PyObject *scribus_moveobjrel(PyObject *self, PyObject* args)
 	int i = GetItem(QString(Name));
 	if (i != -1)
 		{
-		if (doc->ActPage->GroupSel)
-			doc->ActPage->moveGroup(ValueToPoint(x), ValueToPoint(y));
+		if (Carrier->doc->ActPage->GroupSel)
+			Carrier->doc->ActPage->moveGroup(ValueToPoint(x), ValueToPoint(y));
 		else
-			doc->ActPage->MoveItem(ValueToPoint(x), ValueToPoint(y), doc->ActPage->Items.at(i));
+			Carrier->doc->ActPage->MoveItem(ValueToPoint(x), ValueToPoint(y), Carrier->doc->ActPage->Items.at(i));
 		}
 	return Py_None;
 }
@@ -69,16 +69,16 @@ PyObject *scribus_moveobjabs(PyObject *self, PyObject* args)
 	int i = GetItem(QString(Name));
 	if (i != -1)
 		{
-		if (doc->ActPage->GroupSel)
+		if (Carrier->doc->ActPage->GroupSel)
 			{
 			double x2, y2, w, h;
-			doc->ActPage->getGroupRect(&x2, &y2, &w, &h);
-			doc->ActPage->moveGroup(ValueToPoint(x) - x2, ValueToPoint(y) - y2);
+			Carrier->doc->ActPage->getGroupRect(&x2, &y2, &w, &h);
+			Carrier->doc->ActPage->moveGroup(ValueToPoint(x) - x2, ValueToPoint(y) - y2);
 			}
 		else
 			{
-			PageItem *b = doc->ActPage->Items.at(i);
-			doc->ActPage->MoveItem(ValueToPoint(x) - b->Xpos, ValueToPoint(y) - b->Ypos, b);
+			PageItem *b = Carrier->doc->ActPage->Items.at(i);
+			Carrier->doc->ActPage->MoveItem(ValueToPoint(x) - b->Xpos, ValueToPoint(y) - b->Ypos, b);
 			}
 		}
 	return Py_None;
@@ -95,7 +95,7 @@ PyObject *scribus_rotobjrel(PyObject *self, PyObject* args)
 		return Py_None;
 	int i = GetItem(QString(Name));
 	if (i != -1)
-		doc->ActPage->RotateItem(doc->ActPage->Items.at(i)->Rot - x, i);
+		Carrier->doc->ActPage->RotateItem(Carrier->doc->ActPage->Items.at(i)->Rot - x, i);
 	return Py_None;
 }
 
@@ -110,7 +110,7 @@ PyObject *scribus_rotobjabs(PyObject *self, PyObject* args)
 		return Py_None;
 	int i = GetItem(QString(Name));
 	if (i != -1)
-		doc->ActPage->RotateItem(x * -1.0, i);
+		Carrier->doc->ActPage->RotateItem(x * -1.0, i);
 	return Py_None;
 }
 
@@ -126,8 +126,8 @@ PyObject *scribus_sizeobjabs(PyObject *self, PyObject* args)
 	int i = GetItem(QString(Name));
 	if (i != -1)
 		{
-		PageItem *b = doc->ActPage->Items.at(i);
-		doc->ActPage->SizeItem(ValueToPoint(x) - b->Xpos, ValueToPoint(y) - b->Ypos, i);
+		PageItem *b = Carrier->doc->ActPage->Items.at(i);
+		Carrier->doc->ActPage->SizeItem(ValueToPoint(x) - b->Xpos, ValueToPoint(y) - b->Ypos, i);
 		}
 	return Py_None;
 }
@@ -153,7 +153,7 @@ PyObject *scribus_groupobj(PyObject *self, PyObject* args)
 			Name = PyString_AsString(PyList_GetItem(il, i));
 			int ic = GetItem(QString(Name));
 			if (ic != -1)
-				doc->ActPage->SelectItemNr(ic);
+				Carrier->doc->ActPage->SelectItemNr(ic);
 			}
 		}
 	else
@@ -162,10 +162,10 @@ PyObject *scribus_groupobj(PyObject *self, PyObject* args)
 		if (!Carrier->HaveDoc)
 			return Py_None;
 		}
-	if (doc->ActPage->SelItem.count() != 0)
+	if (Carrier->doc->ActPage->SelItem.count() != 0)
 		{
 		Carrier->GroupObj();
-		doc->ActPage->Deselect();
+		Carrier->doc->ActPage->Deselect();
 		}
 	return Py_None;
 }
@@ -199,12 +199,12 @@ PyObject *scribus_scalegroup(PyObject *self, PyObject* args)
 	int i = GetItem(QString(Name));
 	if (i != -1)
 		{
-		doc->ActPage->Deselect();
-		doc->ActPage->SelectItemNr(i);
-		int h = doc->ActPage->HowTo;
-		doc->ActPage->HowTo = 1;
-		doc->ActPage->scaleGroup(sc, sc);
-		doc->ActPage->HowTo = h;
+		Carrier->doc->ActPage->Deselect();
+		Carrier->doc->ActPage->SelectItemNr(i);
+		int h = Carrier->doc->ActPage->HowTo;
+		Carrier->doc->ActPage->HowTo = 1;
+		Carrier->doc->ActPage->scaleGroup(sc, sc);
+		Carrier->doc->ActPage->HowTo = h;
 		}
 	return Py_None;
 }
@@ -216,8 +216,8 @@ PyObject *scribus_getselobjnam(PyObject *self, PyObject* args)
 		return NULL;
 	if (!Carrier->HaveDoc)
 		return PyString_FromString("");
-	if ((i < static_cast<int>(doc->ActPage->SelItem.count())) && (i > -1))
-		return PyString_FromString(doc->ActPage->SelItem.at(i)->AnName);
+	if ((i < static_cast<int>(Carrier->doc->ActPage->SelItem.count())) && (i > -1))
+		return PyString_FromString(Carrier->doc->ActPage->SelItem.at(i)->AnName);
 	else
 		return PyString_FromString("");
 }
@@ -228,7 +228,7 @@ PyObject *scribus_selcount(PyObject *self, PyObject* args)
 		return NULL;
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
-	return PyInt_FromLong(static_cast<long>(doc->ActPage->SelItem.count()));
+	return PyInt_FromLong(static_cast<long>(Carrier->doc->ActPage->SelItem.count()));
 }
 
 PyObject *scribus_selectobj(PyObject *self, PyObject* args)
@@ -243,7 +243,7 @@ PyObject *scribus_selectobj(PyObject *self, PyObject* args)
 		return Py_None;
 	int i = GetItem(QString(Name));
 	if (i != -1)
-		doc->ActPage->SelectItemNr(i);
+		Carrier->doc->ActPage->SelectItemNr(i);
 	return Py_None;
 }
 
@@ -253,7 +253,7 @@ PyObject *scribus_deselect(PyObject *self, PyObject* args)
 		return NULL;
 	Py_INCREF(Py_None);
 	if (Carrier->HaveDoc)
-		doc->ActPage->Deselect();
+		Carrier->doc->ActPage->Deselect();
 	return Py_None;
 }
 

@@ -699,22 +699,25 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
     layout43 = new QGridLayout( 0, 1, 1, 0, 5, "layout43");
     Text11 = new QLabel( page_4, "Text11" );
-    Text11->setText( tr( "Position:" ) );
+    Text11->setText( tr( "X-Pos.:" ) );
     layout43->addWidget( Text11, 0, 0 );
     LXpos = new MSpinBox( page_4, 2 );
     LXpos->setSuffix( tr( " pt" ) );
     layout43->addWidget( LXpos, 0, 1 );
+    Text11a = new QLabel( page_4, "Text11a" );
+    Text11a->setText( tr( "Y-Pos.:" ) );
+    layout43->addWidget( Text11a, 1, 0 );
     LYpos = new MSpinBox( page_4, 2 );
     LYpos->setSuffix( tr( " pt" ) );
     layout43->addWidget( LYpos, 1, 1 );
     Text12 = new QLabel( page_4, "Text12" );
-    Text12->setText( tr( "Horiz. Scale:" ) );
+    Text12->setText( tr( "X-Scale:" ) );
     layout43->addWidget( Text12, 2, 0 );
     ScaleX = new MSpinBox( page_4, 1 );
     ScaleX->setSuffix( tr( " %" ) );
     layout43->addWidget( ScaleX, 2, 1 );
     Text13 = new QLabel( page_4, "Text13" );
-    Text13->setText( tr( "Vert. Scale:" ) );
+    Text13->setText( tr( "Y-Scale:" ) );
     layout43->addWidget( Text13, 3, 0 );
     ScaleY = new MSpinBox( page_4, 1 );
     ScaleY->setSuffix( tr( " %" ) );

@@ -506,6 +506,5 @@ void initscribus(ScribusApp *pl)
 	PyDict_SetItemString(d, "Paper_Letter", 					Py_BuildValue("(ff)", 612.0, 792.0));
 	PyDict_SetItemString(d, "Paper_Tabloid", 					Py_BuildValue("(ff)", 792.0, 1224.0));
 	Carrier = pl;
-	doc = Carrier->doc;
 }
 

@@ -480,9 +480,9 @@ while(!DOC.isNull())
 							(vg.Avor == doc->Vorlagen[xx].Avor) &&
 							(vg.Anach == doc->Vorlagen[xx].Anach) &&
 							(vg.Font == doc->Vorlagen[xx].Font) &&
-							(vg.TabValues == Vorlagen[xx].TabValues) &&
-							(vg.Drop == Vorlagen[xx].Drop) &&
-							(vg.DropLin == Vorlagen[xx].DropLin) &&
+							(vg.TabValues == doc->Vorlagen[xx].TabValues) &&
+							(vg.Drop == doc->Vorlagen[xx].Drop) &&
+							(vg.DropLin == doc->Vorlagen[xx].DropLin) &&
 							(vg.FontSize == doc->Vorlagen[xx].FontSize))
 						{
 						DoVorl[VorlC] = tmV.setNum(xx);
@@ -1816,9 +1816,9 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 							(vg.Avor == doc->Vorlagen[xx].Avor) &&
 							(vg.Anach == doc->Vorlagen[xx].Anach) &&
 							(vg.Font == doc->Vorlagen[xx].Font) &&
-							(vg.TabValues == Vorlagen[xx].TabValues) &&
-							(vg.Drop == Vorlagen[xx].Drop) &&
-							(vg.DropLin == Vorlagen[xx].DropLin) &&
+							(vg.TabValues == doc->Vorlagen[xx].TabValues) &&
+							(vg.Drop == doc->Vorlagen[xx].Drop) &&
+							(vg.DropLin == doc->Vorlagen[xx].DropLin) &&
 							(vg.FontSize == doc->Vorlagen[xx].FontSize))
 						{
 						DoVorl[VorlC] = tmV.setNum(xx);

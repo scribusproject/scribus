@@ -81,6 +81,7 @@
 #include "story.h"
 #include "autoform.h"
 #include "tabmanager.h"
+#include "search.h"
 
 #include <unistd.h>
 
@@ -600,6 +601,8 @@ void ScribusApp::initMenuBar()
 	SetKeyEntry(12, tr("Clear"), edid4, 0);
 	SetKeyEntry(13, tr("Select all"), edid5, CTRL+Key_A);
 	editMenu->insertSeparator();
+	Sear = editMenu->insertItem( tr("Search/Replace..."), this, SLOT(SearchText()));
+	editMenu->insertSeparator();
 	MenID = editMenu->insertItem( tr("Colors..."), this , SLOT(slotEditColors()));
 	SetKeyEntry(14, tr("Colors..."), MenID, 0);
 	edid6 = editMenu->insertItem( tr("Paragraph Styles..."), this , SLOT(slotEditStyles()));
@@ -623,6 +626,7 @@ void ScribusApp::initMenuBar()
 	editMenu->setItemEnabled(edid5, 0);
 	editMenu->setItemEnabled(edid6, 0);
 	editMenu->setItemEnabled(edid6a, 0);
+	editMenu->setItemEnabled(Sear, 0);
 	editMenu->setItemEnabled(tman, 0);
 	editMenu->setItemEnabled(jman, 0);
 	StilMenu = new QPopupMenu();
@@ -2053,6 +2057,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			editMenu->setItemEnabled(edid2, 0);
 			editMenu->setItemEnabled(edid4, 0);
 			editMenu->setItemEnabled(edid5, 0);
+			editMenu->setItemEnabled(Sear, 0);
 			extraMenu->setItemEnabled(hyph, 0);
 			StilMenu->clear();
 			WerkTools->KetteAus->setEnabled(false);
@@ -2070,6 +2075,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			editMenu->setItemEnabled(edid2, 1);
 			editMenu->setItemEnabled(edid4, 0);
 			editMenu->setItemEnabled(edid5, 0);
+			editMenu->setItemEnabled(Sear, 0);
 			extraMenu->setItemEnabled(hyph, 0);
 			menuBar()->setItemEnabled(Obm, 1);
 			ObjMenu->setItemEnabled(ShapeM, 1);
@@ -2092,6 +2098,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			editMenu->setItemEnabled(edid2, 1);
 			editMenu->setItemEnabled(edid4, 0);
 			editMenu->setItemEnabled(edid5, 0);
+			editMenu->setItemEnabled(Sear, 1);
 			extraMenu->setItemEnabled(hyph, 1);
 			menuBar()->setItemEnabled(Obm, 1);
 			ObjMenu->setItemEnabled(ShapeM, 1);
@@ -2147,6 +2154,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			editMenu->setItemEnabled(edid2, 1);
 			editMenu->setItemEnabled(edid4, 0);
 			editMenu->setItemEnabled(edid5, 0);
+			editMenu->setItemEnabled(Sear, 0);
 			extraMenu->setItemEnabled(hyph, 0);
 			menuBar()->setItemEnabled(Obm, 1);
 			ObjMenu->setItemEnabled(ShapeM, 0);
@@ -2188,6 +2196,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			editMenu->setItemEnabled(edid2, 1);
 			editMenu->setItemEnabled(edid4, 0);
 			editMenu->setItemEnabled(edid5, 0);
+			editMenu->setItemEnabled(Sear, 0);
 			extraMenu->setItemEnabled(hyph, 0);
 			menuBar()->setItemEnabled(Obm, 1);
 			StilMenu->clear();
@@ -2902,6 +2911,7 @@ bool ScribusApp::DoFileClose()
 		editMenu->setItemEnabled(edid5, 0);
 		editMenu->setItemEnabled(edid6, 0);
 		editMenu->setItemEnabled(edid6a, 0);
+		editMenu->setItemEnabled(Sear, 0);
 		extraMenu->setItemEnabled(hyph, 0);
 		for (int a=0; a<6; ++a)
 			{
@@ -3130,6 +3140,7 @@ void ScribusApp::slotEditCut()
 			{
   		ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(&doc->ActPage->SelItem, doc);
+			Buffer2 = BufferI;
 			doc->ActPage->DeleteItem();
 			}
 		slotDocCh();
@@ -3200,6 +3211,7 @@ void ScribusApp::slotEditCopy()
 			{
   		ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(&doc->ActPage->SelItem, doc);
+			Buffer2 = BufferI;
 			delete ss;
 			}
 		BuFromApp = true;
@@ -3349,7 +3361,6 @@ void ScribusApp::ClipChange()
 		if (!BuFromApp)
 			Buffer2 = cc;
 		BuFromApp = false;
-//		Buffer2 = cc;
 		if (HaveDoc)
 			{
 			if (cc.startsWith("<SCRIBUSELEM"))
@@ -4103,18 +4114,9 @@ void ScribusApp::setAppMode(int mode)
 					return;
 					}
 				}
-/*			QString cc;
-#if QT_VERSION  >= 0x030100
-			cc = ClipB->text(QClipboard::Clipboard);
-			if (cc.isNull())
-				cc = ClipB->text(QClipboard::Selection);
-#else
-			cc = ClipB->text();
-#endif                               */
 			editMenu->setItemEnabled(edid3, 0);
 			if (!Buffer2.isNull())
 				{
-//				Buffer2 = cc;
 				if (!Buffer2.startsWith("<SCRIBUSELEM"))
 					{
 					BuFromApp = false;
@@ -4136,15 +4138,15 @@ void ScribusApp::setAppMode(int mode)
 					editMenu->setItemEnabled(edid1, 1);
 					editMenu->setItemEnabled(edid2, 1);
 					editMenu->setItemEnabled(edid4, 1);
-					editMenu->setItemEnabled(edid5, 1);
 					}
 				else
 					{
 					editMenu->setItemEnabled(edid1, 0);
 					editMenu->setItemEnabled(edid2, 0);
 					editMenu->setItemEnabled(edid4, 0);
-					editMenu->setItemEnabled(edid5, 1);
 					}
+				editMenu->setItemEnabled(edid5, 1);
+				editMenu->setItemEnabled(Sear, 1);
 				doc->ActPage->RefreshItem(b);
 				}
 			}
@@ -6706,8 +6708,6 @@ void ScribusApp::LayerRemove(int l)
 			{
 			if (view->MasterPages.at(a)->Items.at(b)->LayerNr == l)
 				view->MasterPages.at(a)->Items.at(b)->LayerNr = 0;
-//			if (view->MasterPages.at(a)->Items.at(b)->LayerNr > l)
-//				view->MasterPages.at(a)->Items.at(b)->LayerNr -= 1;
 			}
 		}
 	for (uint a = 0; a < view->DocPages.count(); ++a)
@@ -6716,8 +6716,6 @@ void ScribusApp::LayerRemove(int l)
 			{
 			if (view->DocPages.at(a)->Items.at(b)->LayerNr == l)
 				view->DocPages.at(a)->Items.at(b)->LayerNr = 0;
-//			if (view->DocPages.at(a)->Items.at(b)->LayerNr > l)
-//				view->DocPages.at(a)->Items.at(b)->LayerNr -= 1;
 			}
 		}
 	view->LaMenu();
@@ -7326,6 +7324,21 @@ void ScribusApp::EditTabs()
 			delete dia;
 			}
 		}
+}
+
+void ScribusApp::SearchText()
+{
+	PageItem *b = doc->ActPage->SelItem.at(0);
+	setAppMode(7);
+	b->CPos = 0;
+	SearchReplace* dia = new SearchReplace(this, doc, &Prefs, b);
+	connect(dia, SIGNAL(NewFont(QString)), this, SLOT(SetNewFont(QString)));
+	connect(dia, SIGNAL(NewAbs(int)), this, SLOT(setAbsValue(int)));
+	dia->exec();
+	disconnect(dia, SIGNAL(NewFont(QString)), this, SLOT(SetNewFont(QString)));
+	disconnect(dia, SIGNAL(NewAbs(int)), this, SLOT(setAbsValue(int)));
+	delete dia;
+	slotSelect();
 }
 
 void ScribusApp::slotTest()

@@ -12,13 +12,13 @@ PyObject *scribus_newrect(PyObject *self, PyObject* args)
 		return NULL;
 	if (!Carrier->HaveDoc)
 		return PyString_FromString("");
-	int i = doc->ActPage->PaintRect(ValueToPoint(x), ValueToPoint(y),
+	int i = Carrier->doc->ActPage->PaintRect(ValueToPoint(x), ValueToPoint(y),
 															ValueToPoint(b), ValueToPoint(h),
-															doc->Dwidth, doc->Dbrush, doc->Dpen);
-	doc->ActPage->SetRectFrame(doc->ActPage->Items.at(i));
+															Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
+	Carrier->doc->ActPage->SetRectFrame(Carrier->doc->ActPage->Items.at(i));
 	if (Name != "")
-		doc->ActPage->Items.at(i)->AnName = QString(Name);
-	return PyString_FromString(doc->ActPage->Items.at(i)->AnName);
+		Carrier->doc->ActPage->Items.at(i)->AnName = QString(Name);
+	return PyString_FromString(Carrier->doc->ActPage->Items.at(i)->AnName);
 }
 
 PyObject *scribus_newellipse(PyObject *self, PyObject* args)
@@ -29,13 +29,13 @@ PyObject *scribus_newellipse(PyObject *self, PyObject* args)
 		return NULL;
 	if (!Carrier->HaveDoc)
 		return PyString_FromString("");
-	int i = doc->ActPage->PaintEllipse(ValueToPoint(x), ValueToPoint(y),
+	int i = Carrier->doc->ActPage->PaintEllipse(ValueToPoint(x), ValueToPoint(y),
 																 ValueToPoint(b), ValueToPoint(h),
-																 doc->Dwidth, doc->Dbrush, doc->Dpen);
-	doc->ActPage->SetOvalFrame(doc->ActPage->Items.at(i));
+																 Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
+	Carrier->doc->ActPage->SetOvalFrame(Carrier->doc->ActPage->Items.at(i));
 	if (Name != "")
-		doc->ActPage->Items.at(i)->AnName = QString(Name);
-	return PyString_FromString(doc->ActPage->Items.at(i)->AnName);
+		Carrier->doc->ActPage->Items.at(i)->AnName = QString(Name);
+	return PyString_FromString(Carrier->doc->ActPage->Items.at(i)->AnName);
 }
 
 PyObject *scribus_newimage(PyObject *self, PyObject* args)
@@ -46,11 +46,11 @@ PyObject *scribus_newimage(PyObject *self, PyObject* args)
 		return NULL;
 	if (!Carrier->HaveDoc)
 		return PyString_FromString("");
-	int i = doc->ActPage->PaintPict(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h));
-	doc->ActPage->SetRectFrame(doc->ActPage->Items.at(i));
+	int i = Carrier->doc->ActPage->PaintPict(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h));
+	Carrier->doc->ActPage->SetRectFrame(Carrier->doc->ActPage->Items.at(i));
 	if (Name != "")
-		doc->ActPage->Items.at(i)->AnName = QString(Name);
-	return PyString_FromString(doc->ActPage->Items.at(i)->AnName);
+		Carrier->doc->ActPage->Items.at(i)->AnName = QString(Name);
+	return PyString_FromString(Carrier->doc->ActPage->Items.at(i)->AnName);
 }
 
 PyObject *scribus_newtext(PyObject *self, PyObject* args)
@@ -61,13 +61,13 @@ PyObject *scribus_newtext(PyObject *self, PyObject* args)
 		return NULL;
 	if (!Carrier->HaveDoc)
 		return PyString_FromString("");
-	int i = doc->ActPage->PaintText(ValueToPoint(x), ValueToPoint(y),
+	int i = Carrier->doc->ActPage->PaintText(ValueToPoint(x), ValueToPoint(y),
 															ValueToPoint(b), ValueToPoint(h),
-															doc->Dwidth, doc->DpenText);
-	doc->ActPage->SetRectFrame(doc->ActPage->Items.at(i));
+															Carrier->doc->Dwidth, Carrier->doc->DpenText);
+	Carrier->doc->ActPage->SetRectFrame(Carrier->doc->ActPage->Items.at(i));
 	if (Name != "")
-		doc->ActPage->Items.at(i)->AnName = QString(Name);
-	return PyString_FromString(doc->ActPage->Items.at(i)->AnName);
+		Carrier->doc->ActPage->Items.at(i)->AnName = QString(Name);
+	return PyString_FromString(Carrier->doc->ActPage->Items.at(i)->AnName);
 }
 
 PyObject *scribus_newline(PyObject *self, PyObject* args)
@@ -82,26 +82,26 @@ PyObject *scribus_newline(PyObject *self, PyObject* args)
 	y = ValueToPoint(y);
 	b = ValueToPoint(b);
 	h = ValueToPoint(h);
-	int i = doc->ActPage->PaintPolyLine(x, y, 1, 1,	doc->Dwidth, doc->Dbrush, doc->Dpen);
-	PageItem *it = doc->ActPage->Items.at(i);
+	int i = Carrier->doc->ActPage->PaintPolyLine(x, y, 1, 1,	Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
+	PageItem *it = Carrier->doc->ActPage->Items.at(i);
 	it->PoLine.resize(4);
 	it->PoLine.setPoint(0, 0, 0);
 	it->PoLine.setPoint(1, 0, 0);
 	it->PoLine.setPoint(2, b-x, h-y);
 	it->PoLine.setPoint(3, b-x, h-y);
-	FPoint np2 = doc->ActPage->GetMinClipF(it->PoLine);
+	FPoint np2 = Carrier->doc->ActPage->GetMinClipF(it->PoLine);
 	if (np2.x() < 0)
 		{
 		it->PoLine.translate(-np2.x(), 0);
-		doc->ActPage->MoveItem(np2.x(), 0, it);
+		Carrier->doc->ActPage->MoveItem(np2.x(), 0, it);
 		}
 	if (np2.y() < 0)
 		{
 		it->PoLine.translate(0, -np2.y());
-		doc->ActPage->MoveItem(0, np2.y(), it);
+		Carrier->doc->ActPage->MoveItem(0, np2.y(), it);
 		}
-	doc->ActPage->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), i, false, false);
-	doc->ActPage->AdjustItemSize(it);
+	Carrier->doc->ActPage->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), i, false, false);
+	Carrier->doc->ActPage->AdjustItemSize(it);
 	if (Name != "")
 		it->AnName = QString(Name);
 	return PyString_FromString(it->AnName);
@@ -124,8 +124,8 @@ PyObject *scribus_polyline(PyObject *self, PyObject* args)
 	i++;
 	y = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	int ic = doc->ActPage->PaintPolyLine(x, y, 1, 1,	doc->Dwidth, doc->Dbrush, doc->Dpen);
-	PageItem *it = doc->ActPage->Items.at(ic);
+	int ic = Carrier->doc->ActPage->PaintPolyLine(x, y, 1, 1,	Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
+	PageItem *it = Carrier->doc->ActPage->Items.at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
 	it->PoLine.setPoint(1, 0, 0);
@@ -147,19 +147,19 @@ PyObject *scribus_polyline(PyObject *self, PyObject* args)
 	it->PoLine.resize(pp);
 	it->PoLine.setPoint(pp-2, b-x, h-y);
 	it->PoLine.setPoint(pp-1, b-x, h-y);
-	FPoint np2 = doc->ActPage->GetMinClipF(it->PoLine);
+	FPoint np2 = Carrier->doc->ActPage->GetMinClipF(it->PoLine);
 	if (np2.x() < 0)
 		{
 		it->PoLine.translate(-np2.x(), 0);
-		doc->ActPage->MoveItem(np2.x(), 0, it);
+		Carrier->doc->ActPage->MoveItem(np2.x(), 0, it);
 		}
 	if (np2.y() < 0)
 		{
 		it->PoLine.translate(0, -np2.y());
-		doc->ActPage->MoveItem(0, np2.y(), it);
+		Carrier->doc->ActPage->MoveItem(0, np2.y(), it);
 		}
-	doc->ActPage->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
-	doc->ActPage->AdjustItemSize(it);
+	Carrier->doc->ActPage->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
+	Carrier->doc->ActPage->AdjustItemSize(it);
 	if (Name != "")
 		it->AnName = QString(Name);
 	return PyString_FromString(it->AnName);
@@ -182,8 +182,8 @@ PyObject *scribus_polygon(PyObject *self, PyObject* args)
 	i++;
 	y = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	int ic = doc->ActPage->PaintPoly(x, y, 1, 1,	doc->Dwidth, doc->Dbrush, doc->Dpen);
-	PageItem *it = doc->ActPage->Items.at(ic);
+	int ic = Carrier->doc->ActPage->PaintPoly(x, y, 1, 1,	Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
+	PageItem *it = Carrier->doc->ActPage->Items.at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
 	it->PoLine.setPoint(1, 0, 0);
@@ -210,19 +210,19 @@ PyObject *scribus_polygon(PyObject *self, PyObject* args)
 	it->PoLine.resize(pp);
 	it->PoLine.setPoint(pp-2, 0, 0);
 	it->PoLine.setPoint(pp-1, 0, 0);
-	FPoint np2 = doc->ActPage->GetMinClipF(it->PoLine);
+	FPoint np2 = Carrier->doc->ActPage->GetMinClipF(it->PoLine);
 	if (np2.x() < 0)
 		{
 		it->PoLine.translate(-np2.x(), 0);
-		doc->ActPage->MoveItem(np2.x(), 0, it);
+		Carrier->doc->ActPage->MoveItem(np2.x(), 0, it);
 		}
 	if (np2.y() < 0)
 		{
 		it->PoLine.translate(0, -np2.y());
-		doc->ActPage->MoveItem(0, np2.y(), it);
+		Carrier->doc->ActPage->MoveItem(0, np2.y(), it);
 		}
-	doc->ActPage->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
-	doc->ActPage->AdjustItemSize(it);
+	Carrier->doc->ActPage->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
+	Carrier->doc->ActPage->AdjustItemSize(it);
 	if (Name != "")
 		it->AnName = QString(Name);
 	return PyString_FromString(it->AnName);
@@ -253,8 +253,8 @@ PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 	i++;
 	ky2 = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	int ic = doc->ActPage->PaintPolyLine(x, y, 1, 1,	doc->Dwidth, doc->Dbrush, doc->Dpen);
-	PageItem *it = doc->ActPage->Items.at(ic);
+	int ic = Carrier->doc->ActPage->PaintPolyLine(x, y, 1, 1,	Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
+	PageItem *it = Carrier->doc->ActPage->Items.at(ic);
 	it->PoLine.resize(2);
 	it->PoLine.setPoint(0, 0, 0);
 	it->PoLine.setPoint(1, kx-x, ky-y);
@@ -282,19 +282,19 @@ PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 	it->PoLine.resize(pp);
 	it->PoLine.setPoint(pp-2, b-x, h-y);
 	it->PoLine.setPoint(pp-1, kx-x, ky-y);
-	FPoint np2 = doc->ActPage->GetMinClipF(it->PoLine);
+	FPoint np2 = Carrier->doc->ActPage->GetMinClipF(it->PoLine);
 	if (np2.x() < 0)
 		{
 		it->PoLine.translate(-np2.x(), 0);
-		doc->ActPage->MoveItem(np2.x(), 0, it);
+		Carrier->doc->ActPage->MoveItem(np2.x(), 0, it);
 		}
 	if (np2.y() < 0)
 		{
 		it->PoLine.translate(0, -np2.y());
-		doc->ActPage->MoveItem(0, np2.y(), it);
+		Carrier->doc->ActPage->MoveItem(0, np2.y(), it);
 		}
-	doc->ActPage->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
-	doc->ActPage->AdjustItemSize(it);
+	Carrier->doc->ActPage->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
+	Carrier->doc->ActPage->AdjustItemSize(it);
 	if (Name != "")
 		it->AnName = QString(Name);
 	return PyString_FromString(it->AnName);
@@ -314,12 +314,12 @@ PyObject *scribus_pathtext(PyObject *self, PyObject* args)
 	int ii = GetItem(QString(PolyB));
 	if ((i == -1) || (ii == -1))
 		return PyString_FromString("");
-	doc->ActPage->SelItem.clear();
-	doc->ActPage->SelItem.append(doc->ActPage->Items.at(i));
-	doc->ActPage->SelItem.append(doc->ActPage->Items.at(ii));
-	PageItem *it = doc->ActPage->Items.at(i);
-	doc->ActPage->ToPathText();
-	doc->ActPage->MoveItem(ValueToPoint(x) - it->Xpos, ValueToPoint(y) - it->Ypos, it);
+	Carrier->doc->ActPage->SelItem.clear();
+	Carrier->doc->ActPage->SelItem.append(Carrier->doc->ActPage->Items.at(i));
+	Carrier->doc->ActPage->SelItem.append(Carrier->doc->ActPage->Items.at(ii));
+	PageItem *it = Carrier->doc->ActPage->Items.at(i);
+	Carrier->doc->ActPage->ToPathText();
+	Carrier->doc->ActPage->MoveItem(ValueToPoint(x) - it->Xpos, ValueToPoint(y) - it->Ypos, it);
 	if (Name != "")
 		it->AnName = QString(Name);
 	return PyString_FromString(it->AnName);
@@ -335,12 +335,12 @@ PyObject *scribus_deleteobj(PyObject *self, PyObject* args)
 		return Py_None;
 	if (Name != "")
 		{
-		doc->ActPage->SelItem.clear();
+		Carrier->doc->ActPage->SelItem.clear();
 		int i = GetItem(QString(Name));
 		if (i != -1)
-			doc->ActPage->SelItem.append(doc->ActPage->Items.at(i));
+			Carrier->doc->ActPage->SelItem.append(Carrier->doc->ActPage->Items.at(i));
 		}
-	doc->ActPage->DeleteItem();
+	Carrier->doc->ActPage->DeleteItem();
 	return Py_None;
 }
 

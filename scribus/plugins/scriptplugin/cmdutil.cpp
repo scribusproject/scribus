@@ -6,7 +6,7 @@ ScribusDoc* doc;
 double PointToValue(double Val)
 {
 	double ret = 0.0;
-	switch (doc->Einheit)
+	switch (Carrier->doc->Einheit)
 		{
 		case 0:
 			ret = Val;
@@ -47,23 +47,23 @@ double ValToPts(double Val, int ein)
 
 double ValueToPoint(double Val)
 {
-	return ValToPts(Val, doc->Einheit);
+	return ValToPts(Val, Carrier->doc->Einheit);
 }
 
 int GetItem(QString Name)
 {
   if (Name != "")
 		{
-		for (uint a = 0; a < doc->ActPage->Items.count(); a++)
+		for (uint a = 0; a < Carrier->doc->ActPage->Items.count(); a++)
 			{
-			if (doc->ActPage->Items.at(a)->AnName == Name)
+			if (Carrier->doc->ActPage->Items.at(a)->AnName == Name)
 				return static_cast<int>(a);
 			}
 		}
 	else
 		{
-		if (doc->ActPage->SelItem.count() != 0)
-			return doc->ActPage->SelItem.at(0)->ItemNr;
+		if (Carrier->doc->ActPage->SelItem.count() != 0)
+			return Carrier->doc->ActPage->SelItem.at(0)->ItemNr;
 		}
 	return -1;
 }

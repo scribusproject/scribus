@@ -9,7 +9,6 @@
 
 /* Static global Variables */
 extern ScribusApp* Carrier;
-extern ScribusDoc* doc;
 
 #endif
 

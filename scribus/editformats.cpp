@@ -206,9 +206,10 @@ void StilFormate::loadStyles()
 
 void StilFormate::UpdateFList()
 {
-	ListBox1->clear();
+	
 	if (TempVorl.count() < 6)
 		return;
+	ListBox1->clear();
 	for (uint x = 5; x < TempVorl.count(); ++x)
 		ListBox1->insertItem(TempVorl[x].Vname);
 	if (ListBox1->currentItem() == -1)

@@ -388,6 +388,7 @@ public slots:
 	void ToggleUGuides();
 	void HaveRaster(bool art);
 	void EditTabs();
+	void SearchText();
 
 signals:
 	void TextISize(int);
@@ -490,6 +491,7 @@ private:
 	int edid5;
 	int edid6;
 	int edid6a;
+	int Sear;
 	int Loesch;
 	int tman;
 	int jman;

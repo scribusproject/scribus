@@ -14,7 +14,7 @@ PyObject *scribus_getfontsize(PyObject *self, PyObject* args)
 	PageItem *it;
 	if (i != -1)
 		{
-		it = doc->ActPage->Items.at(i);
+		it = Carrier->doc->ActPage->Items.at(i);
 		if (it->HasSel)
 			{
 			for (uint b = 0; b < it->Ptext.count(); b++)
@@ -40,7 +40,7 @@ PyObject *scribus_getfont(PyObject *self, PyObject* args)
 	PageItem *it;
 	if (i != -1)
 		{
-		it = doc->ActPage->Items.at(i);
+		it = Carrier->doc->ActPage->Items.at(i);
 		if (it->HasSel)
 			{
 			for (uint b = 0; b < it->Ptext.count(); b++)
@@ -64,7 +64,7 @@ PyObject *scribus_gettextsize(PyObject *self, PyObject* args)
 		return PyInt_FromLong(0L);
 	int i = GetItem(QString(Name));
 	return i != -1 ?
-		PyInt_FromLong(static_cast<long>(doc->ActPage->Items.at(i)->Ptext.count())) :
+		PyInt_FromLong(static_cast<long>(Carrier->doc->ActPage->Items.at(i)->Ptext.count())) :
 	  PyInt_FromLong(0L);
 }
 
@@ -77,7 +77,7 @@ PyObject *scribus_getcolumns(PyObject *self, PyObject* args)
 		return PyInt_FromLong(0L);
 	int i = GetItem(QString(Name));
 	return i != -1 ?
-		PyInt_FromLong(static_cast<long>(doc->ActPage->Items.at(i)->Cols)) :
+		PyInt_FromLong(static_cast<long>(Carrier->doc->ActPage->Items.at(i)->Cols)) :
 	  PyInt_FromLong(0L);
 }
 
@@ -90,7 +90,7 @@ PyObject *scribus_getlinespace(PyObject *self, PyObject* args)
 		return PyFloat_FromDouble(0.0);
 	int i = GetItem(QString(Name));
 	return i != -1 ?
-		PyFloat_FromDouble(static_cast<double>(doc->ActPage->Items.at(i)->LineSp)) :
+		PyFloat_FromDouble(static_cast<double>(Carrier->doc->ActPage->Items.at(i)->LineSp)) :
 		PyFloat_FromDouble(0.0);
 }
 
@@ -103,7 +103,7 @@ PyObject *scribus_getcolumngap(PyObject *self, PyObject* args)
 		return PyFloat_FromDouble(0.0);
 	int i = GetItem(QString(Name));
 	return i != -1 ?
-		PyFloat_FromDouble(static_cast<double>(doc->ActPage->Items.at(i)->ColGap)) :
+		PyFloat_FromDouble(static_cast<double>(Carrier->doc->ActPage->Items.at(i)->ColGap)) :
 		PyFloat_FromDouble(0.0);
 }
 
@@ -119,7 +119,7 @@ PyObject *scribus_getframetext(PyObject *self, PyObject* args)
 	PageItem *it;
 	if (i != -1)
 		{
-		it = doc->ActPage->Items.at(i);
+		it = Carrier->doc->ActPage->Items.at(i);
 		for (uint a = 0; a < it->Ptext.count(); a++)
 			{
 			if (it->HasSel)
@@ -149,10 +149,10 @@ PyObject *scribus_gettext(PyObject *self, PyObject* args)
 	PageItem *is;
 	if (i != -1)
 		{
-		it = doc->ActPage->Items.at(i);
+		it = Carrier->doc->ActPage->Items.at(i);
 		while (it->BackBox != 0)
 			{
-			is = doc->ActPage->Items.at(it->BackBox->ItemNr);
+			is = Carrier->doc->ActPage->Items.at(it->BackBox->ItemNr);
 			it = is;
 			}
 		for (uint a = 0; a < it->Ptext.count(); a++)
@@ -167,7 +167,7 @@ PyObject *scribus_gettext(PyObject *self, PyObject* args)
 			}
 		while (it->NextBox != 0)
 			{
-			is = doc->ActPage->Items.at(it->NextBox->ItemNr);
+			is = Carrier->doc->ActPage->Items.at(it->NextBox->ItemNr);
 			it = is;
 			for (uint a = 0; a < it->Ptext.count(); a++)
 				{
@@ -201,7 +201,7 @@ PyObject *scribus_setboxtext(PyObject *self, PyObject* args)
 	QString Daten = QString(Text);
 	if (i != -1)
 		{
-		it = doc->ActPage->Items.at(i);
+		it = Carrier->doc->ActPage->Items.at(i);
 		if (it->NextBox != 0)
 			{
 			PageItem *nb = it->NextBox;
@@ -233,7 +233,7 @@ PyObject *scribus_setboxtext(PyObject *self, PyObject* args)
 			hg->cextra = 0;
 			hg->cselect = false;
 			hg->cstyle = 0;
- 			hg->cab = doc->CurrentABStil;
+ 			hg->cab = Carrier->doc->CurrentABStil;
 			hg->xp = 0;
 			hg->yp = 0;
 			hg->PRot = 0;
@@ -260,7 +260,7 @@ PyObject *scribus_inserttext(PyObject *self, PyObject* args)
 	QString Daten = QString(Text);
 	if (i != -1)
 		{
-		it = doc->ActPage->Items.at(i);
+		it = Carrier->doc->ActPage->Items.at(i);
 		if ((pos < 0) && (pos > static_cast<int>(it->Ptext.count())))
 			return Py_None;
 		for (uint a = 0; a < Daten.length(); ++a)
@@ -281,7 +281,7 @@ PyObject *scribus_inserttext(PyObject *self, PyObject* args)
 			hg->cextra = 0;
 			hg->cselect = false;
 			hg->cstyle = 0;
- 			hg->cab = doc->CurrentABStil;
+ 			hg->cab = Carrier->doc->CurrentABStil;
 			hg->xp = 0;
 			hg->yp = 0;
 			hg->PRot = 0;
@@ -308,16 +308,16 @@ PyObject *scribus_setalign(PyObject *self, PyObject* args)
 	int i = GetItem(QString(Name));
 	if ((size > 3) || (size < 0))
 		return Py_None;
-	if ((i != -1) && (doc->ActPage->Items.at(i)->PType == 4))
+	if ((i != -1) && (Carrier->doc->ActPage->Items.at(i)->PType == 4))
 		{
-		int Apm = doc->AppMode;
-		doc->ActPage->SelItem.clear();
-		doc->ActPage->SelItem.append(doc->ActPage->Items.at(i));
-		if (doc->ActPage->Items.at(i)->HasSel)
-			doc->AppMode = 7;
+		int Apm = Carrier->doc->AppMode;
+		Carrier->doc->ActPage->SelItem.clear();
+		Carrier->doc->ActPage->SelItem.append(Carrier->doc->ActPage->Items.at(i));
+		if (Carrier->doc->ActPage->Items.at(i)->HasSel)
+			Carrier->doc->AppMode = 7;
 		Carrier->setNewAbStyle(size);
-		doc->AppMode = Apm;
-		doc->ActPage->Deselect();
+		Carrier->doc->AppMode = Apm;
+		Carrier->doc->ActPage->Deselect();
 		}
 	return Py_None;
 }
@@ -334,16 +334,16 @@ PyObject *scribus_setfontsize(PyObject *self, PyObject* args)
 	int i = GetItem(QString(Name));
 	if ((size > 512) || (size < 1))
 		return Py_None;
-	if ((i != -1) && (doc->ActPage->Items.at(i)->PType == 4))
+	if ((i != -1) && (Carrier->doc->ActPage->Items.at(i)->PType == 4))
 		{
-		int Apm = doc->AppMode;
-		doc->ActPage->SelItem.clear();
-		doc->ActPage->SelItem.append(doc->ActPage->Items.at(i));
-		if (doc->ActPage->Items.at(i)->HasSel)
-			doc->AppMode = 7;
-		doc->ActPage->chFSize(qRound(size * 10.0));
-		doc->AppMode = Apm;
-		doc->ActPage->Deselect();
+		int Apm = Carrier->doc->AppMode;
+		Carrier->doc->ActPage->SelItem.clear();
+		Carrier->doc->ActPage->SelItem.append(Carrier->doc->ActPage->Items.at(i));
+		if (Carrier->doc->ActPage->Items.at(i)->HasSel)
+			Carrier->doc->AppMode = 7;
+		Carrier->doc->ActPage->chFSize(qRound(size * 10.0));
+		Carrier->doc->AppMode = Apm;
+		Carrier->doc->ActPage->Deselect();
 		}
 	return Py_None;
 }
@@ -358,18 +358,18 @@ PyObject *scribus_setfont(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return Py_None;
 	int i = GetItem(QString(Name));
-	if ((i != -1) && (doc->ActPage->Items.at(i)->PType == 4))
+	if ((i != -1) && (Carrier->doc->ActPage->Items.at(i)->PType == 4))
 		{
 		if (Carrier->Prefs.AvailFonts.find(QString(Font)))
 			{
-			int Apm = doc->AppMode;
-			doc->ActPage->SelItem.clear();
-			doc->ActPage->SelItem.append(doc->ActPage->Items.at(i));
-			if (doc->ActPage->Items.at(i)->HasSel)
-				doc->AppMode = 7;
+			int Apm = Carrier->doc->AppMode;
+			Carrier->doc->ActPage->SelItem.clear();
+			Carrier->doc->ActPage->SelItem.append(Carrier->doc->ActPage->Items.at(i));
+			if (Carrier->doc->ActPage->Items.at(i)->HasSel)
+				Carrier->doc->AppMode = 7;
 			Carrier->SetNewFont(QString(Font));
-			doc->AppMode = Apm;
-			doc->ActPage->Deselect();
+			Carrier->doc->AppMode = Apm;
+			Carrier->doc->ActPage->Deselect();
 			}
 		}
 	return Py_None;
@@ -386,7 +386,7 @@ PyObject *scribus_setlinespace(PyObject *self, PyObject* args)
 		return Py_None;
 	int i = GetItem(QString(Name));
 	if (i != -1)
-		doc->ActPage->Items.at(i)->LineSp = w;
+		Carrier->doc->ActPage->Items.at(i)->LineSp = w;
 	return Py_None;
 }
 
@@ -401,7 +401,7 @@ PyObject *scribus_setcolumngap(PyObject *self, PyObject* args)
 		return Py_None;
 	int i = GetItem(QString(Name));
 	if (i != -1)
-		doc->ActPage->Items.at(i)->ColGap = w;
+		Carrier->doc->ActPage->Items.at(i)->ColGap = w;
 	return Py_None;
 }
 
@@ -416,7 +416,7 @@ PyObject *scribus_setcolumns(PyObject *self, PyObject* args)
 		return Py_None;
 	int i = GetItem(QString(Name));
 	if (i != -1)
-		doc->ActPage->Items.at(i)->Cols = w;
+		Carrier->doc->ActPage->Items.at(i)->Cols = w;
 	return Py_None;
 }
 
@@ -433,7 +433,7 @@ PyObject *scribus_selecttext(PyObject *self, PyObject* args)
 	PageItem *it;	
 	if (i != -1)
 		{
-		it = doc->ActPage->Items.at(i);
+		it = Carrier->doc->ActPage->Items.at(i);
 		if ((start < 0) || ((start + ende) > static_cast<int>(it->Ptext.count()-1)))
 			return Py_None;
 		for (uint a = 0; a < it->Ptext.count(); ++a)
@@ -464,7 +464,7 @@ PyObject *scribus_deletetext(PyObject *self, PyObject* args)
 	PageItem *it;
 	if (i != -1)
 		{
-		it = doc->ActPage->Items.at(i);
+		it = Carrier->doc->ActPage->Items.at(i);
 		if (it->HasSel)
 			Carrier->DeleteSel(it);
 		else
@@ -489,7 +489,7 @@ PyObject *scribus_settextfill(PyObject *self, PyObject* args)
 	PageItem *it;	
 	if (i != -1)
 		{
-		it = doc->ActPage->Items.at(i);
+		it = Carrier->doc->ActPage->Items.at(i);
 		if ((it->PType == 4) || (it->PType == 8))
 			{
 			for (uint b = 0; b < it->Ptext.count(); b++)
@@ -521,7 +521,7 @@ PyObject *scribus_settextstroke(PyObject *self, PyObject* args)
 	PageItem *it;	
 	if (i != -1)
 		{
-		it = doc->ActPage->Items.at(i);
+		it = Carrier->doc->ActPage->Items.at(i);
 		if ((it->PType == 4) || (it->PType == 8))
 			{
 			for (uint b = 0; b < it->Ptext.count(); b++)
@@ -553,7 +553,7 @@ PyObject *scribus_settextshade(PyObject *self, PyObject* args)
 	PageItem *it;	
 	if (i != -1)
 		{
-		it = doc->ActPage->Items.at(i);
+		it = Carrier->doc->ActPage->Items.at(i);
 		if ((it->PType == 4) || (it->PType == 8))
 			{
 			for (uint b = 0; b < it->Ptext.count(); ++b)

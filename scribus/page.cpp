@@ -4842,7 +4842,16 @@ void Page::slotDoCurs(bool draw)
 				if (b->Ptext.at(offs)->yp != b->Ptext.at(offs+1)->yp)
 					{
 					offs++;
-  				xp = static_cast<int>(b->Ptext.at(offs)->xp);
+					if (b->Ptext.at(offs)->ch == QChar(13))
+						{
+						offs--;
+  						xp = static_cast<int>(b->Ptext.at(offs)->xp);
+						chs = b->Ptext.at(offs)->csize;
+						chx = b->Ptext.at(offs)->ch;
+  						xp += qRound(Cwidth(doku, b->Ptext.at(offs)->cfont, chx, chs)*(b->Ptext.at(offs)->cscale / 100.0));
+						}
+					else
+  						xp = static_cast<int>(b->Ptext.at(offs)->xp);
 					}
 				}
   		yp = static_cast<int>(b->Ptext.at(offs)->yp);
@@ -5269,15 +5278,19 @@ void Page::FromPathText()
 	uint z;
 	if (GetItem(&b))
 		{
-		z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->Pcolor, b->Pcolor2);
+		z = PaintPolyLine(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, "None", b->Pcolor2);
 		bb = Items.at(z);
         bb->PoLine = b->PoLine.copy();
-		SetPolyClip(bb, 1, 1);
+		bb->ClipEdited = true;
+		SetPolyClip(bb, qRound(QMAX(bb->Pwidth / 2, 1)), qRound(QMAX(bb->Pwidth / 2, 1)));
+		AdjustItemSize(bb);
 		b->PType = 4;
 		b->Pcolor2 = "None";
 		b->Frame = true;
 		SetRectFrame(b);
-		RaiseItem();
+		SelectItemNr(b->ItemNr);
+		ToFront();
+		Deselect(true);
 		update();
 		}
 }

@@ -37,10 +37,10 @@ PyObject *scribus_getlayers(PyObject *self, PyObject* args)
 	PyObject *l;	
 	if (Carrier->HaveDoc)
 		{
-		l = PyList_New(doc->Layers.count());
-		for (uint lam=0; lam < doc->Layers.count(); lam++)
+		l = PyList_New(Carrier->doc->Layers.count());
+		for (uint lam=0; lam < Carrier->doc->Layers.count(); lam++)
 			{
-			PyList_SetItem(l, lam, PyString_FromString(doc->Layers[lam].Name));
+			PyList_SetItem(l, lam, PyString_FromString(Carrier->doc->Layers[lam].Name));
 			}
 		}
 	else
@@ -57,12 +57,12 @@ PyObject *scribus_setactlayer(PyObject *self, PyObject* args)
 	if ((!Carrier->HaveDoc) || (Name == ""))
 		return Py_None;
 	int i = -1;
-	for (uint lam=0; lam < doc->Layers.count(); ++lam)
+	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 		{
-		if (doc->Layers[lam].Name == QString(Name))
+		if (Carrier->doc->Layers[lam].Name == QString(Name))
 			{
 			i = static_cast<int>(lam);
-			doc->ActiveLayer = i;
+			Carrier->doc->ActiveLayer = i;
 			Carrier->changeLayer(i);
 			break;
 			}
@@ -76,7 +76,7 @@ PyObject *scribus_getactlayer(PyObject *self, PyObject* args)
 		return NULL;
 	if (!Carrier->HaveDoc)
 		return PyString_FromString("");
-	return PyString_FromString(doc->Layers[doc->ActiveLayer].Name);
+	return PyString_FromString(Carrier->doc->Layers[Carrier->doc->ActiveLayer].Name);
 }
 
 PyObject *scribus_senttolayer(PyObject *self, PyObject* args)
@@ -91,11 +91,11 @@ PyObject *scribus_senttolayer(PyObject *self, PyObject* args)
 	int i = GetItem(QString(Name));
 	if (i != -1)
 		{
-		PageItem *b = doc->ActPage->Items.at(i);
-		doc->ActPage->SelectItemNr(i);
-		for (uint lam=0; lam < doc->Layers.count(); ++lam)
+		PageItem *b = Carrier->doc->ActPage->Items.at(i);
+		Carrier->doc->ActPage->SelectItemNr(i);
+		for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 			{
-			if (doc->Layers[lam].Name == QString(Layer))
+			if (Carrier->doc->Layers[lam].Name == QString(Layer))
 				{
 				b->LayerNr = static_cast<int>(lam);
 				break;
@@ -114,11 +114,11 @@ PyObject *scribus_layervisible(PyObject *self, PyObject* args)
 	Py_INCREF(Py_None);
 	if ((!Carrier->HaveDoc) || (Name == ""))
 		return Py_None;
-	for (uint lam=0; lam < doc->Layers.count(); ++lam)
+	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 		{
-		if (doc->Layers[lam].Name == QString(Name))
+		if (Carrier->doc->Layers[lam].Name == QString(Name))
 			{
-			doc->Layers[lam].Sichtbar = vis;
+			Carrier->doc->Layers[lam].Sichtbar = vis;
 			break;
 			}
 		}
@@ -134,11 +134,11 @@ PyObject *scribus_layerprint(PyObject *self, PyObject* args)
 	Py_INCREF(Py_None);
 	if ((!Carrier->HaveDoc) || (Name == ""))
 		return Py_None;
-	for (uint lam=0; lam < doc->Layers.count(); ++lam)
+	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 		{
-		if (doc->Layers[lam].Name == QString(Name))
+		if (Carrier->doc->Layers[lam].Name == QString(Name))
 			{
-			doc->Layers[lam].Drucken = vis;
+			Carrier->doc->Layers[lam].Drucken = vis;
 			break;
 			}
 		}
@@ -153,11 +153,11 @@ PyObject *scribus_glayervisib(PyObject *self, PyObject* args)
 	if ((!Carrier->HaveDoc) || (Name == ""))
 		return PyInt_FromLong(0L);
 	int i = 0;
-	for (uint lam=0; lam < doc->Layers.count(); lam++)
+	for (uint lam=0; lam < Carrier->doc->Layers.count(); lam++)
 		{
-		if (doc->Layers[lam].Name == QString(Name))
+		if (Carrier->doc->Layers[lam].Name == QString(Name))
 			{
-			i = static_cast<int>(doc->Layers[lam].Sichtbar);
+			i = static_cast<int>(Carrier->doc->Layers[lam].Sichtbar);
 			break;
 			}
 		}
@@ -172,11 +172,11 @@ PyObject *scribus_glayerprint(PyObject *self, PyObject* args)
 	if ((!Carrier->HaveDoc) || (Name == ""))
 		return PyInt_FromLong(0L);
 	int i = 0;
-	for (uint lam=0; lam < doc->Layers.count(); ++lam)
+	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 		{
-		if (doc->Layers[lam].Name == QString(Name))
+		if (Carrier->doc->Layers[lam].Name == QString(Name))
 			{
-			i = static_cast<int>(doc->Layers[lam].Drucken);
+			i = static_cast<int>(Carrier->doc->Layers[lam].Drucken);
 			break;
 			}
 		}
@@ -189,27 +189,27 @@ PyObject *scribus_removelayer(PyObject *self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "s", &Name))
 		return NULL;
 	Py_INCREF(Py_None);
-	if ((!Carrier->HaveDoc) || (Name == "") || (doc->Layers.count() == 1))
+	if ((!Carrier->HaveDoc) || (Name == "") || (Carrier->doc->Layers.count() == 1))
 		return Py_None;
-	for (uint lam=0; lam < doc->Layers.count(); ++lam)
+	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 		{
-		if (doc->Layers[lam].Name == QString(Name))
+		if (Carrier->doc->Layers[lam].Name == QString(Name))
 			{
-			QValueList<Layer>::iterator it2 = doc->Layers.at(lam);
+			QValueList<Layer>::iterator it2 = Carrier->doc->Layers.at(lam);
 			int num2 = (*it2).LNr;
 			if (!num2)
 				return Py_None;
 			int num = (*it2).Level;
-			doc->Layers.remove(it2);
+			Carrier->doc->Layers.remove(it2);
 			QValueList<Layer>::iterator it;
-			for (uint l = 0; l < doc->Layers.count(); l++)
+			for (uint l = 0; l < Carrier->doc->Layers.count(); l++)
 				{
-				it = doc->Layers.at(l);
+				it = Carrier->doc->Layers.at(l);
 				if ((*it).Level > num)
 					(*it).Level -= 1;
 				}
 			Carrier->LayerRemove(num2);
-			doc->ActiveLayer = 0;
+			Carrier->doc->ActiveLayer = 0;
 			Carrier->changeLayer(0);
 			break;
 			}
@@ -227,13 +227,13 @@ PyObject *scribus_createlayer(PyObject *self, PyObject* args)
 		return Py_None;
 	QString tmp;
 	struct Layer ll;
-	ll.LNr = doc->Layers.last().LNr + 1;
-	ll.Level = doc->Layers.count();
+	ll.LNr = Carrier->doc->Layers.last().LNr + 1;
+	ll.Level = Carrier->doc->Layers.count();
 	ll.Name = QString(Name);
 	ll.Sichtbar = true;
 	ll.Drucken = true;
-	doc->Layers.append(ll);
-	doc->ActiveLayer = ll.LNr;
+	Carrier->doc->Layers.append(ll);
+	Carrier->doc->ActiveLayer = ll.LNr;
 	Carrier->changeLayer(ll.LNr);
 	return Py_None;
 }

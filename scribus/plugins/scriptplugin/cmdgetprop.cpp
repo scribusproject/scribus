@@ -12,7 +12,7 @@ PyObject *scribus_getfillcolor(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return PyString_FromString("");
 	i = GetItem(QString(Name));
-	return i != -1 ? PyString_FromString(doc->ActPage->Items.at(i)->Pcolor) : PyString_FromString("");
+	return i != -1 ? PyString_FromString(Carrier->doc->ActPage->Items.at(i)->Pcolor) : PyString_FromString("");
 }
 
 PyObject *scribus_getlinecolor(PyObject *self, PyObject* args)
@@ -27,7 +27,7 @@ PyObject *scribus_getlinecolor(PyObject *self, PyObject* args)
 	i = GetItem(QString(Name));
 	if (i != -1)
 		{
-		it = doc->ActPage->Items.at(i);
+		it = Carrier->doc->ActPage->Items.at(i);
 		if ((it->HasSel) && ((it->PType == 4) || (it->PType == 8)))
 			{
 			for (uint b = 0; b < it->Ptext.count(); ++b)
@@ -51,7 +51,7 @@ PyObject *scribus_getlinewidth(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return PyFloat_FromDouble(0.0);
 	i = GetItem(QString(Name));
-	return i != -1 ? PyFloat_FromDouble(static_cast<double>(doc->ActPage->Items.at(i)->Pwidth)) :
+	return i != -1 ? PyFloat_FromDouble(static_cast<double>(Carrier->doc->ActPage->Items.at(i)->Pwidth)) :
 									 PyFloat_FromDouble(0.0);
 }
 
@@ -67,7 +67,7 @@ PyObject *scribus_getlineshade(PyObject *self, PyObject* args)
 	i = GetItem(QString(Name));
 	if (i != -1)
 		{
-		it = doc->ActPage->Items.at(i);
+		it = Carrier->doc->ActPage->Items.at(i);
 		if ((it->HasSel) && ((it->PType == 4) || (it->PType == 8)))
 			{
 			for (uint b = 0; b < it->Ptext.count(); ++b)
@@ -91,7 +91,7 @@ PyObject *scribus_getlinejoin(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
 	i = GetItem(QString(Name));
-	return i != 1 ? PyInt_FromLong(static_cast<long>(doc->ActPage->Items.at(i)->PLineJoin)) :
+	return i != 1 ? PyInt_FromLong(static_cast<long>(Carrier->doc->ActPage->Items.at(i)->PLineJoin)) :
 									PyInt_FromLong(0L);
 }
 
@@ -104,7 +104,7 @@ PyObject *scribus_getlineend(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
 	i = GetItem(QString(Name));
-	return i != -1 ? PyInt_FromLong(static_cast<long>(doc->ActPage->Items.at(i)->PLineEnd)) :
+	return i != -1 ? PyInt_FromLong(static_cast<long>(Carrier->doc->ActPage->Items.at(i)->PLineEnd)) :
 									 PyInt_FromLong(0L);
 }
 
@@ -117,7 +117,7 @@ PyObject *scribus_getlinestyle(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
 	i = GetItem(QString(Name));
-	return i != -1 ? PyInt_FromLong(static_cast<long>(doc->ActPage->Items.at(i)->PLineArt)) :
+	return i != -1 ? PyInt_FromLong(static_cast<long>(Carrier->doc->ActPage->Items.at(i)->PLineArt)) :
 									 PyInt_FromLong(0L);
 }
 
@@ -130,7 +130,7 @@ PyObject *scribus_getfillshade(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
 	i = GetItem(QString(Name));
-	return i != -1 ? PyInt_FromLong(static_cast<long>(doc->ActPage->Items.at(i)->Shade)) :
+	return i != -1 ? PyInt_FromLong(static_cast<long>(Carrier->doc->ActPage->Items.at(i)->Shade)) :
 									 PyInt_FromLong(0L);
 }
 
@@ -143,7 +143,7 @@ PyObject *scribus_getcornerrad(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
 	i = GetItem(QString(Name));
-	return i != -1 ? PyInt_FromLong(static_cast<long>(doc->ActPage->Items.at(i)->RadRect)) :
+	return i != -1 ? PyInt_FromLong(static_cast<long>(Carrier->doc->ActPage->Items.at(i)->RadRect)) :
 									 PyInt_FromLong(0L);
 }
 
@@ -158,7 +158,7 @@ PyObject *scribus_getimgscale(PyObject *self, PyObject* args)
 	i = GetItem(QString(Name));
 	if (i != -1)
 		{
-		PageItem *b = doc->ActPage->Items.at(i);
+		PageItem *b = Carrier->doc->ActPage->Items.at(i);
 		return Py_BuildValue("(ff)", b->LocalScX, b->LocalScY);
 		}
 	else
@@ -174,7 +174,7 @@ PyObject *scribus_getimgname(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return PyString_FromString("");
 	i = GetItem(QString(Name));
-	return i != -1 ? PyString_FromString(doc->ActPage->Items.at(i)->Pfile) : PyString_FromString("");
+	return i != -1 ? PyString_FromString(Carrier->doc->ActPage->Items.at(i)->Pfile) : PyString_FromString("");
 }
 
 PyObject *scribus_getposi(PyObject *self, PyObject* args)
@@ -188,7 +188,7 @@ PyObject *scribus_getposi(PyObject *self, PyObject* args)
 	i = GetItem(QString(Name));
 	if (i != -1)
 		{
-		PageItem *it = doc->ActPage->Items.at(i);
+		PageItem *it = Carrier->doc->ActPage->Items.at(i);
 		return Py_BuildValue("(ff)", PointToValue(it->Xpos), PointToValue(it->Ypos));
 		}
 	else
@@ -206,7 +206,7 @@ PyObject *scribus_getsize(PyObject *self, PyObject* args)
 	i = GetItem(QString(Name));
 	if (i != -1)
 		{
-		PageItem *it = doc->ActPage->Items.at(i);
+		PageItem *it = Carrier->doc->ActPage->Items.at(i);
 		return Py_BuildValue("(ff)", PointToValue(it->Width), PointToValue(it->Height));
 		}
 	else
@@ -222,7 +222,7 @@ PyObject *scribus_getrotation(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return PyFloat_FromDouble(0.0);
 	i = GetItem(QString(Name));
-	return i != -1 ? PyFloat_FromDouble(static_cast<double>(doc->ActPage->Items.at(i)->Rot * -1)) :
+	return i != -1 ? PyFloat_FromDouble(static_cast<double>(Carrier->doc->ActPage->Items.at(i)->Rot * -1)) :
 									 PyFloat_FromDouble(0.0);
 }
 
@@ -233,10 +233,10 @@ PyObject *scribus_getallobj(PyObject *self, PyObject* args)
 		return NULL;
 	if (Carrier->HaveDoc)
 		{
-		l = PyList_New(doc->ActPage->Items.count());
-		for (uint lam=0; lam < doc->ActPage->Items.count(); lam++)
+		l = PyList_New(Carrier->doc->ActPage->Items.count());
+		for (uint lam=0; lam < Carrier->doc->ActPage->Items.count(); lam++)
 			{
-			PyList_SetItem(l, lam, PyString_FromString(doc->ActPage->Items.at(lam)->AnName));
+			PyList_SetItem(l, lam, PyString_FromString(Carrier->doc->ActPage->Items.at(lam)->AnName));
 			}
 		}
 	else

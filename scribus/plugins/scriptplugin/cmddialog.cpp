@@ -8,8 +8,6 @@ PyObject *scribus_newdocdia(PyObject *self, PyObject* args)
 	if (!PyArg_ParseTuple(args, ""))
 		return NULL;
 	bool ret = Carrier->slotFileNew();
-	if (ret)
-		doc = Carrier->doc;
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 

@@ -167,6 +167,7 @@ public:
     MSpinBox* LYpos;
     QLabel* Text12;
     QLabel* Text11;
+    QLabel* Text11a;
     MSpinBox* LXpos;
     LinkButton* Kette;
     MSpinBox* ScaleY;

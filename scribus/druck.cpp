@@ -137,10 +137,6 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
     		{
     			tmp = tmp.stripWhiteSpace();
 				tmp = tmp.left(tmp.length() - (tmp.right(2) == ":\\" ? 2 : 1));  
-				/*if (tmp.right(2) == ":\\")
-    				tmp = tmp.left(tmp.length()-2);
-				else
-    				tmp = tmp.left(tmp.length()-1);*/
 				wt = QStringList::split("|", tmp);
     			PrintDest->insertItem(wt[0]);
     			if (wt[0] == PDev)
@@ -561,7 +557,7 @@ void Druck::SelFile()
 	if (LineEdit1->text() != "")
 		dia.setSelection(LineEdit1->text());
 	if (dia.exec() == QDialog::Accepted)
-  	LineEdit1->setText(dia.selectedFile());
+  		LineEdit1->setText(dia.selectedFile());
 }
 
 void Druck::setMinMax(int min, int max)
