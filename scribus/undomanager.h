@@ -513,8 +513,8 @@ public:
 	static QPixmap *IArrow;
 	static QPixmap *ITable;
 	static QPixmap *IFont;
-	static QPixmap *IImportSVG;
-	static QPixmap *IImportEPS;
+	static QPixmap *ISVG;
+	static QPixmap *IEPS;
 	static QPixmap *IImportOOoDraw;
 	/*@}*/
 

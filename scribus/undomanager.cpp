@@ -624,6 +624,9 @@ void UndoManager::initIcons()
 	UndoManager::IArrow           = new QPixmap(iconDir + "u_arrow.png");
 	UndoManager::ITable           = new QPixmap(iconDir + "frame_table.png");
 	UndoManager::IFont            = new QPixmap(iconDir + "u_font.png");
+	UndoManager::IImportOOoDraw   = new QPixmap(iconDir + "ooo_draw.png");
+	UndoManager::ISVG             = new QPixmap(iconDir + "u_svg.png");
+	UndoManager::IEPS             = new QPixmap(iconDir + "u_eps.png");
 }
 
 const QString UndoManager::AddVGuide          = tr("Add vertical guide");
@@ -731,6 +734,6 @@ QPixmap *UndoManager::ITransparency    = NULL;
 QPixmap *UndoManager::ILineStyle       = NULL;
 QPixmap *UndoManager::IArrow           = NULL;
 QPixmap *UndoManager::IFont            = NULL;
-QPixmap *UndoManager::IImportSVG       = NULL;
-QPixmap *UndoManager::IImportEPS       = NULL;
+QPixmap *UndoManager::ISVG             = NULL;
+QPixmap *UndoManager::IEPS             = NULL;
 QPixmap *UndoManager::IImportOOoDraw   = NULL;
