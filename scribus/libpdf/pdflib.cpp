@@ -3921,6 +3921,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 				img = LoadPicture(fn, Profil, Embedded, Intent, true, 2, 72, &realCMYK);
 			else
 			{
+#ifdef CMSuse
 				if ((CMSuse) && (Options->UseProfiles2))
 					img = LoadPicture(fn, Profil, Embedded, Intent, true, 1, 72, &realCMYK);
 				else
@@ -3930,6 +3931,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 					else
 						img = LoadPicture(fn, Profil, Embedded, Intent, true, 0, 72, &realCMYK);
 				}
+#endif
 			}
 			if (Options->RecalcPic)
 			{
