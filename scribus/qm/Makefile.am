@@ -51,7 +51,7 @@ install-data-local:
 	$(mkinstalldirs) $(prefix)/lib/scribus/
 	$(INSTALL_DATA) $(srcdir)/scribus.cy.qm $(prefix)/lib/scribus/scribus.cy.qm
 	$(mkinstalldirs) $(prefix)/lib/scribus/
-	$(INSTALL_DATA) $(srcdir)/scribus.si.qm $(prefix)/lib/scribus/scribus.sl.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.sl.qm $(prefix)/lib/scribus/scribus.sl.qm
 	$(mkinstalldirs) $(prefix)/lib/scribus/
 	$(INSTALL_DATA) $(srcdir)/scribus.lt_LT.qm $(prefix)/lib/scribus/scribus.lt.qm
 
