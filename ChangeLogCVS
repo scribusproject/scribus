@@ -1,8 +1,11 @@
 Changes since Version 1.1.6
 
 06.05.2004
+	* bug     #596: strange behaviour of tab indicator in textfields
 	* feature #578: one-click/keyboard for toggling off and on all dialogboxes+guides etc
 	* feature #594: French translation update
+	* feature #597: Issue with ending lines of paragraphs not aligning correctly with distances and alignment
+	* feature #598: update for the german language
 
 05.05.2004
 	* bug     #590: Trying to copy frames from actual page to a just made page template crashes scribus with signal 11.

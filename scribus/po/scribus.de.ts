@@ -151,6 +151,14 @@
         <source>Online</source>
         <translation>Internet</translation>
     </message>
+    <message>
+        <source>Slovenian:</source>
+        <translation>SlSlovenisch:</translation>
+    </message>
+    <message>
+        <source>Basque:</source>
+        <translation>Baskisch:</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -2942,7 +2950,7 @@ Corners:</source>
     </message>
     <message>
         <source>Path Text Properites</source>
-        <translation>Eigenschaften des Text-Pfads</translation>
+        <translation type="obsolete">Eigenschaften des Text-Pfads</translation>
     </message>
     <message>
         <source>Show Curve</source>
@@ -3244,19 +3252,19 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Move one level up</source>
-        <translation>Eine Ebene nach oben</translation>
+        <translation>Weiter nach vorn verschieben</translation>
     </message>
     <message>
         <source>Move one level down</source>
-        <translation>Eine Ebene nach unten</translation>
+        <translation>Weiter nach hinten verschieben</translation>
     </message>
     <message>
         <source>Move to front</source>
-        <translation>In den Vordergrund</translation>
+        <translation>In den Vordergrund bringen</translation>
     </message>
     <message>
         <source>Move to back</source>
-        <translation>In den Hintergrund</translation>
+        <translation>In den Hintergrund bringen</translation>
     </message>
     <message>
         <source>Lock or unlock the object</source>
@@ -3444,11 +3452,11 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Make text in lower objects flow around this frame</source>
-        <translation>Lässt den Text in untergeordneten Objekten um diesen Rahmen fließen</translation>
+        <translation type="obsolete">Lässt den Text in untergeordneten Objekten um diesen Rahmen fließen</translation>
     </message>
     <message>
         <source>Use the imaginary square border around your object, rather than its actual shape</source>
-        <translation>Ein Rechteck an Stelle der wirklichen Form als Vorlage für umfließenden Text benutzen</translation>
+        <translation type="obsolete">Ein Rechteck an Stelle der wirklichen Form als Vorlage für umfließenden Text benutzen</translation>
     </message>
     <message>
         <source>Keep the aspect ratio</source>
@@ -3473,6 +3481,22 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>Column width</source>
         <translation>Spaltenbreite</translation>
+    </message>
+    <message>
+        <source>Path Text Properties</source>
+        <translation type="unfinished">Eigenschaften des Pfadtextes</translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the frame shape instead of the object one</source>
+        <translation>Form des Rahmens anstatt des Objektes benutzen</translation>
+    </message>
+    <message>
+        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -4563,7 +4587,7 @@ Braucht normalerweise nicht geändert werden.</translation>
     </message>
     <message>
         <source>Compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Kompressions-Stärke: Minimum (25%), Niedrig (50%), Mittel (75%), Hoch (85%), Maximum (95%)</translation>
+        <translation type="obsolete">Kompressions-Stärke: Minimum (25%), Niedrig (50%), Mittel (75%), Hoch (85%), Maximum (95%)</translation>
     </message>
     <message>
         <source>Downsample your bitmap images to the selected DPI.
@@ -4663,6 +4687,10 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben.</transl
         <source>Mandatory string for PDF/X-3 or the PDF will fail
 PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation>Erforderliche Eingabe für PDF/X-3, ohne die das Dokument nicht PDF/X-3-konform ist. Benutzen Sie z.B. den Titel des Dokuments.</translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation>Kompressionsstärke: Minimal (25%), Niedrig (50%), Mittel (75%), Hoch (80%), Maximal (95%)</translation>
     </message>
 </context>
 <context>
@@ -4924,11 +4952,11 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Lower</source>
-        <translation>Eine Ebene tiefer</translation>
+        <translation>Weiter nach hinten</translation>
     </message>
     <message>
         <source>Raise</source>
-        <translation>Eine Ebene höher</translation>
+        <translation>Weiter nach vorn</translation>
     </message>
     <message>
         <source>Unlock</source>
@@ -6104,6 +6132,10 @@ des Dokuments mit der Erweiterung .bak</translation>
         <source>Turns off the basegrid</source>
         <translation>Grundlinien-Raster nicht anzeigen</translation>
     </message>
+    <message>
+        <source> px</source>
+        <translation>px</translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -6824,6 +6856,22 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Abstand zwischen dem rechten Seitenrand und der Papierkante.
 Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetragen werden</translation>
     </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
 </context>
 <context>
     <name>ScriXmlDoc</name>
@@ -7136,11 +7184,11 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Lower</source>
-        <translation>Eine Ebene tiefer</translation>
+        <translation>Weiter nach unten</translation>
     </message>
     <message>
         <source>Raise</source>
-        <translation>Eine Ebene höher</translation>
+        <translation>Weiter nach oben</translation>
     </message>
     <message>
         <source>Distribute/Align...</source>
@@ -7769,6 +7817,50 @@ nicht speichern</translation>
         <source></source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>ptpt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mmmm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>inin</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>pp</translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation>Litauisch</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation>Schwedisch</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation>Slovenisch</translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -7791,6 +7883,22 @@ nicht speichern</translation>
     <message>
         <source>All</source>
         <translation>Alle</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -8270,7 +8378,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Do you want save your changes?</source>
-        <translation>Wollen Sie Ihre Änderungen sichern?</translation>
+        <translation type="obsolete">Wollen Sie Ihre Änderungen sichern?</translation>
     </message>
     <message>
         <source>Insert Special...</source>
@@ -8279,6 +8387,10 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     <message>
         <source>Insert Special</source>
         <translation>Sonderzeichen einfügen</translation>
+    </message>
+    <message>
+        <source>Do you want to save your changes?</source>
+        <translation>Wollen Sie die Änderungen speichern?</translation>
     </message>
 </context>
 <context>

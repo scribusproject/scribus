@@ -39,6 +39,7 @@ Hruler::Hruler(QScrollView *pa, ScribusDoc *doc) : QWidget(pa)
 	Mpressed = false;
 	ItemPosValid = false;
 	RulerCode = 0;
+	setMouseTracking(true);
 }
 
 void Hruler::mousePressEvent(QMouseEvent *m)
@@ -47,6 +48,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 	if (ItemPosValid)
 	{
 		RulerCode = 0;
+		Markp = -1;
 		double Pos = (ItemPos+Extra+lineCorr+Offset)*Scaling-offs;
 		if ((static_cast<int>(Pos) < (m->x()+doku->GrabRad)) && (static_cast<int>(Pos) > (m->x()-doku->GrabRad)))
 			RulerCode = 1;
@@ -107,6 +109,16 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 			default:
 				break;
 		}
+		if (RulerCode != 0)
+		{
+			QPainter p;
+			p.begin(doku->ActPage);
+			p.setRasterOp(XorROP);
+			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+			p.drawLine(Markp, 0, Markp, static_cast<int>(doku->PageH * Scaling));
+			p.end();
+		}
+		RulerCode = 0;
 		doku->ActPage->RefreshItem(doku->ActPage->SelItem.at(0),true);
 		doku->ActPage->EmitValues(doku->ActPage->SelItem.at(0));
 	}
@@ -122,77 +134,107 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 {
 	if (ItemPosValid)
 	{
-		if ((Mpressed) && (m->y() < height()) && (m->y() > 0))
+		double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
+		int ColEnd, ColStart;
+		double oldInd;
+		if (RulerCode > 2)
+		{
+			ColStart  = static_cast<int>((ItemPos+(ColWidth+ColGap)*(ActCol-1)+Extra+lineCorr+Offset)*Scaling-offs);
+			ColEnd = static_cast<int>((ItemPos+(ColWidth+ColGap)*(ActCol-1)+ColWidth+Extra+lineCorr+Offset)*Scaling-offs);
+		}
+		else
+		{
+			ColStart =static_cast<int>((ItemPos+lineCorr+Offset)*Scaling-offs);
+			ColEnd = static_cast<int>((ItemEndPos-lineCorr+Offset)*Scaling-offs);
+		}
+		if ((Mpressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart) && (m->x() < ColEnd))
 		{
 			double toplimit = ItemEndPos-ItemPos-2*lineCorr-Extra - (ColGap * (Cols - 1))-1;
 			double toplimit2 = ItemEndPos-ItemPos-2*lineCorr-RExtra - (ColGap * (Cols - 1))-1;
-			double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
 			switch (RulerCode)
 			{
 				case 1:
 					Extra -= (MouseX - m->x()) / Scaling;
 					if (Extra < 0)
-					{
 						Extra = 0;
-						QCursor::setPos(mapToGlobal(QPoint(static_cast<int>((ItemPos+Extra+lineCorr+Offset)*Scaling-offs), m->y())));
-					}
 					if (Extra > toplimit2)
-					{
 						Extra = toplimit2;
-						QCursor::setPos(mapToGlobal(QPoint(static_cast<int>((ItemEndPos-RExtra-lineCorr-(ColGap*(Cols-1))-1+Offset)*Scaling-offs), m->y())));
-					}
 					repaint();
 					break;
 				case 2:
 					RExtra += (MouseX - m->x()) / Scaling;
 					if (RExtra < 0)
-					{
 						RExtra = 0;
-						QCursor::setPos(mapToGlobal(QPoint(static_cast<int>((ItemEndPos-RExtra-lineCorr+Offset)*Scaling-offs), m->y())));
-					}
 					if (RExtra > toplimit)
-					{
 						RExtra = toplimit;
-						QCursor::setPos(mapToGlobal(QPoint(static_cast<int>((ItemPos+Extra+lineCorr+(ColGap*(Cols-1))-1+Offset)*Scaling-offs), m->y())));
-					}
 					repaint();
 					break;
 				case 3:
 					First -= (MouseX - m->x()) / Scaling;
 					if ((ItemPos+(ColWidth+ColGap)*ActCol+First+Indent+Offset)*Scaling-offs < (ItemPos+(ColWidth+ColGap)*ActCol+Offset)*Scaling-offs)
-					{
 						First += (MouseX - m->x()) / Scaling;
-						QCursor::setPos(mapToGlobal(QPoint(static_cast<int>((ItemPos+First+Indent+(ColWidth+ColGap)*(ActCol-1)+Offset)*Scaling-offs), m->y())));
-					}
 					if (First+Indent > ColWidth)
-					{
 						First  = ColWidth-Indent;
-						QCursor::setPos(mapToGlobal(QPoint(static_cast<int>((ItemPos+(ColWidth+ColGap)*(ActCol-1)+ColWidth+Extra+lineCorr+Offset)*Scaling-offs), m->y())));
-					}
 					repaint();
 					break;
 				case 4:
+					oldInd = Indent+First;
 					Indent -= (MouseX - m->x()) / Scaling;
 					if (Indent < 0)
-					{
 						Indent = 0;
-						QCursor::setPos(mapToGlobal(QPoint(static_cast<int>((ItemPos+Indent+(ColWidth+ColGap)*(ActCol-1)+Extra+lineCorr+Offset)*Scaling-offs), m->y())));
-					}
-					if (Indent + First < 0)
-						First = 0 - Indent;
-					if (Indent + First > ColWidth)
-						First = ColWidth - Indent;
 					if (Indent > ColWidth-1)
-					{
 						Indent  = ColWidth-1;
-						QCursor::setPos(mapToGlobal(QPoint(static_cast<int>((ItemPos+(ColWidth+ColGap)*(ActCol-1)+ColWidth+Extra+lineCorr+Offset)*Scaling-offs), m->y())));
-					}
+					First = oldInd - Indent;
 					repaint();
 					break;
 				default:
 					break;
 			}
 			MouseX = m->x();
+			if (RulerCode != 0)
+			{
+				QPoint py = doku->ActPage->mapFromGlobal(m->globalPos());
+				QPainter p;
+				p.begin(doku->ActPage);
+				p.setRasterOp(XorROP);
+				p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+				p.drawLine(Markp, 0, Markp, static_cast<int>(doku->PageH * Scaling));
+				p.drawLine(py.x(), 0, py.x(), static_cast<int>(doku->PageH * Scaling));
+				p.end();
+				Markp = py.x();
+			}
+		}
+		if ((!Mpressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart) && (m->x() < ColEnd))
+		{
+			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+			double Pos = (ItemPos+Extra+lineCorr+Offset)*Scaling-offs;
+			if ((static_cast<int>(Pos) < (m->x()+doku->GrabRad)) && (static_cast<int>(Pos) > (m->x()-doku->GrabRad)))
+				qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+			Pos = (ItemEndPos-RExtra-lineCorr+Offset)*Scaling-offs;
+			if ((static_cast<int>(Pos) < (m->x()+doku->GrabRad)) && (static_cast<int>(Pos) > (m->x()-doku->GrabRad)))
+				qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+			if (doku->CurrentABStil > 4)
+			{
+				QRect fpo;
+				double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
+				for (int CurrCol = 0; CurrCol < Cols; ++CurrCol)
+				{
+					Pos = (ItemPos+First+Indent+(ColWidth+ColGap)*CurrCol+Offset+Extra+lineCorr)*Scaling-offs;
+					fpo = QRect(static_cast<int>(Pos)-3, 11, 6, 6);
+					if (fpo.contains(m->pos()))
+					{
+						qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+						break;
+					}
+					Pos = (ItemPos+Indent+(ColWidth+ColGap)*CurrCol+Offset+Extra+lineCorr)*Scaling-offs;
+					fpo = QRect(static_cast<int>(Pos)-3, 17, 6, 6);
+					if (fpo.contains(m->pos()))
+					{
+						qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+						break;
+					}
+				}
+			}
 		}
 	}
 	else

@@ -1113,9 +1113,9 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									}
 								while ((cl.contains(pf2.xForm(pt1))) && (cl.contains(pf2.xForm(pt2))) && (EndX+RExtra+lineCorr < ColBound.y()));
 								if (Doc->Vorlagen[absa].Ausri == 2)
-									OFs = EndX - CurX - Extra - lineCorr;
+									OFs = EndX - CurX;
 								if (Doc->Vorlagen[absa].Ausri == 1)
-									OFs = (EndX - CurX - Extra - lineCorr) / 2;
+									OFs = (EndX - CurX) / 2;
 								if (Doc->Vorlagen[absa].Ausri == 3)
 									OFs = 0;
 								if (Doc->Vorlagen[absa].Ausri == 4)
@@ -1128,7 +1128,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										}
 									if (aSpa != 0)
 										{
-										OFs2 = (EndX - CurX - Extra - lineCorr) / aSpa;
+										OFs2 = (EndX - CurX) / aSpa;
 										}
 									else
 										OFs2 = 0;
@@ -1284,15 +1284,15 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					EndX = CurX;
 					do
 						{
-						pt1 = QPoint(qRound(EndX), static_cast<int>(CurY+desc));
-						pt2 = QPoint(qRound(EndX), static_cast<int>(ceil(CurY-asce)));
+						pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
+						pt2 = QPoint(qRound(EndX+RExtra), static_cast<int>(ceil(CurY-asce)));
 						EndX++;
 						}
 					while ((cl.contains(pf2.xForm(pt1))) && (cl.contains(pf2.xForm(pt2))) && (EndX+RExtra+lineCorr < ColBound.y()));
 					if (Doc->Vorlagen[absa].Ausri == 2)
-						OFs = EndX - CurX - Extra - lineCorr;
+						OFs = EndX - CurX;
 					if (Doc->Vorlagen[absa].Ausri == 1)
-						OFs = (EndX - CurX - Extra - lineCorr) / 2;
+						OFs = (EndX - CurX) / 2;
 					if (Doc->Vorlagen[absa].Ausri == 3)
 						OFs = 0;
 					if (Doc->Vorlagen[absa].Ausri == 4)
@@ -1305,7 +1305,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							}
 						if (aSpa != 0)
 							{
-							OFs2 = (EndX - CurX - Extra - lineCorr) / aSpa;
+							OFs2 = (EndX - CurX) / aSpa;
 							}
 						else
 							OFs2 = 0;
