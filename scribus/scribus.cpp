@@ -74,6 +74,7 @@
 #include "arrowchooser.h"
 #include "tabtypography.h"
 #include "tabguides.h"
+#include "undogui.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -96,6 +97,7 @@
 #include "search.h"
 #include "fontcombo.h"
 #include "prefsfile.h"
+#include "undomanager.h"
 #include "polygonwidget.h"
 #include "werktoolb.h"
 #include "units.h"
@@ -264,6 +266,11 @@ void ScribusApp::initToolBars()
 	DatPri->setEnabled(false);
 	DatPDF->setEnabled(false);
 	DatOpe->setPopup(recentMenu);
+
+	editToolBar = new QToolBar(tr("Edit"), this);
+	UndoWidget* uWidget = new UndoWidget(editToolBar, "uWidget");
+	UndoManager::instance()->registerGui(uWidget);
+	
 	WerkTools = new WerkToolB(this);
 	setDockEnabled(WerkTools, DockLeft, false);
 	setDockEnabled(WerkTools, DockRight, false);
@@ -538,7 +545,7 @@ void ScribusApp::initKeyboardShortcuts()
 	SetKeyEntry(58, tr("Align Right"), 0, CTRL+Key_R);
 	SetKeyEntry(59, tr("Align Center"), 0, CTRL+Key_E);
 	SetKeyEntry(60, tr("Insert Page Number"), 0, CTRL+Key_NumberSign);
-	SetKeyEntry(67, tr("Non Breaking Space"), 0, CTRL+Key_Space);
+	SetKeyEntry(68, tr("Non Breaking Space"), 0, CTRL+Key_Space);
 }
 
 void ScribusApp::initArrowStyles()
@@ -629,6 +636,9 @@ void ScribusApp::initPalettes()
 	BookPal = new BookPalette(this);
 	MaPal = new Measurements(this);
 	MaPal->hide();
+
+	undoPalette = new UndoPalette(this, "undoPalette");
+	UndoManager::instance()->registerGui(undoPalette);
 
 	connect(MaPal, SIGNAL(Schliessen(bool)), this, SLOT(setMapal(bool)));
 	connect(Mpal, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
@@ -835,6 +845,7 @@ void ScribusApp::initMenuBar()
 	SetKeyEntry(8, tr("Quit"), MenID, CTRL+Key_Q);
 	editMenu = new QPopupMenu();
 	edUndo = editMenu->insertItem( tr("&Undo"), this, SLOT(UnDoAction()), CTRL+Key_Z);
+	edRedo = editMenu->insertItem(tr("&Redo"), this, SLOT(RedoAction()), CTRL+SHIFT+Key_Z);
 	editMenu->insertSeparator();
 	edid1 = editMenu->insertItem(loadIcon("editcut.png"), tr("Cu&t"), this , SLOT(slotEditCut()), CTRL+Key_X);
 	edid2 = editMenu->insertItem(loadIcon("editcopy.png"), tr("&Copy"), this , SLOT(slotEditCopy()), CTRL+Key_C);
@@ -861,6 +872,7 @@ void ScribusApp::initMenuBar()
 	MenID = editMenu->insertItem( tr("&Fonts..."), this , SLOT(slotFontOrg()));
 	SetKeyEntry(17, tr("Fonts..."), MenID, 0);
 	editMenu->setItemEnabled(edUndo, 0);
+	editMenu->setItemEnabled(edRedo, 0);
 	editMenu->setItemEnabled(edid1, 0);
 	editMenu->setItemEnabled(edid2, 0);
 	editMenu->setItemEnabled(edid3, 0);
@@ -980,6 +992,7 @@ void ScribusApp::initMenuBar()
 	viewLpal = toolMenu->insertItem( tr("&Layers"), this, SLOT(ToggleLpal()));
 	viewSepal = toolMenu->insertItem( tr("P&age Palette"), this, SLOT(ToggleSepal()));
 	viewBopal = toolMenu->insertItem( tr("&Bookmarks"), this, SLOT(ToggleBookpal()));
+	viewUndoPalette = toolMenu->insertItem(tr("&Undo History"), this, SLOT(ToggleUndoPalette()));
 	toolbarMenuTools = toolMenu->insertItem( tr("&Tools"), this, SLOT(ToggleTools()));
 	toolbarMenuPDFTools = toolMenu->insertItem( tr("P&DF Tools"), this, SLOT(TogglePDFTools()));
 	SetKeyEntry(45, tr("Tools"), toolbarMenuTools, 0);
@@ -1074,9 +1087,15 @@ void ScribusApp::initMenuBar()
 	SetKeyEntry(62, tr("Show Layers"), viewLpal, 0);
 	SetKeyEntry(63, tr("Javascripts..."), jman, 0);
 	SetKeyEntry(64, tr("Undo"), edUndo, CTRL+Key_Z);
-	SetKeyEntry(65, tr("Show Page Palette"), viewSepal, 0);
-	SetKeyEntry(66, tr("Lock/Unlock"), LockOb, CTRL+Key_F);
+	SetKeyEntry(65, tr("Redo"), edRedo, CTRL+SHIFT+Key_Z);
+	SetKeyEntry(66, tr("Show Page Palette"), viewSepal, 0);
+	SetKeyEntry(67, tr("Lock/Unlock"), LockOb, CTRL+Key_F);
 
+	connect(editMenu, SIGNAL(aboutToShow()), this, SLOT(refreshUndoRedoItems()));
+	connect(UndoManager::instance(), SIGNAL(newAction(UndoObject*, UndoState*)),
+	        this, SLOT(refreshUndoRedoItems()));
+	connect(UndoManager::instance(), SIGNAL(undoRedoDone()), this, SLOT(refreshUndoRedoItems()));
+	connect(toolMenu, SIGNAL(aboutToShow()), this, SLOT(refreshUndoRedoItems()));
 	connect(recentMenu, SIGNAL(activated(int)), this, SLOT(LoadRecent(int)));
 	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	connect(ShadeMenu, SIGNAL(activated(int)), this, SLOT(setItemShade(int)));
@@ -1393,13 +1412,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						view->LowerItem();
 					break;
 				case Key_Left:
-					if (!k->isAutoRepeat())
-					{
-						view->storeUndoInf(b);
-						doc->UnData.UnCode = 1;
-						doc->UnDoValid = true;
-						CanUndo();
-					}
 					if (!b->Locked)
 					{
 						if ( buttonState & ShiftButton )
@@ -1411,13 +1423,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					}
 					break;
 				case Key_Right:
-					if (!k->isAutoRepeat())
-					{
-						view->storeUndoInf(b);
-						doc->UnData.UnCode = 1;
-						doc->UnDoValid = true;
-						CanUndo();
-					}
 					if (!b->Locked)
 					{
 						if ( buttonState & ShiftButton )
@@ -1429,13 +1434,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					}
 					break;
 				case Key_Up:
-					if (!k->isAutoRepeat())
-					{
-						view->storeUndoInf(b);
-						doc->UnData.UnCode = 1;
-						doc->UnDoValid = true;
-						CanUndo();
-					}
 					if (!b->Locked)
 					{
 						if ( buttonState & ShiftButton )
@@ -1447,13 +1445,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					}
 					break;
 				case Key_Down:
-					if (!k->isAutoRepeat())
-					{
-						view->storeUndoInf(b);
-						doc->UnData.UnCode = 1;
-						doc->UnDoValid = true;
-						CanUndo();
-					}
 					if (!b->Locked)
 					{
 						if ( buttonState & ShiftButton )
@@ -2116,6 +2107,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		}
 		SavePrefs();
 		delete prefsFile;
+		UndoManager::deleteInstance();
 		if ((Prefs.SaveAtQ) && (ScBook->Changed == true))
 		{
 			if (ScBook->ScFilename.isEmpty())
@@ -2132,6 +2124,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 	{
 		SavePrefs();
 		delete prefsFile;
+		UndoManager::deleteInstance();
 		if ((Prefs.SaveAtQ) && (ScBook->Changed == true))
 		{
 			if (ScBook->ScFilename.isEmpty())
@@ -2290,9 +2283,13 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	view = new ScribusView(w, doc, &Prefs);
 	view->Scale = 1.0*Prefs.DisScale;
 	w->setView(view);
+	QString oldDocName = "";
+	if (ActWin && ActWin->doc && ActWin->doc->DocName)
+		oldDocName = ActWin->doc->DocName;
 	ActWin = w;
 	doc->WinHan = w;
 	w->setCentralWidget(view);
+	connect(UndoManager::instance(), SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 	connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
 	if (CMSavail)
@@ -2371,6 +2368,8 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 		doc->ASaveTimer->start(Prefs.AutoSaveTime);
 	DatSav->setEnabled(false);
 	fileMenu->setItemEnabled(fid4, 0);
+	UndoManager::instance()->switchStack(doc->DocName);
+
 	return true;
 }
 
@@ -2406,12 +2405,22 @@ void ScribusApp::newActWin(QWidget *w)
 		ActWin = NULL;
 		return;
 	}
+	QString oldDocName = "";
+	if (ActWin && ActWin->doc)
+		oldDocName = ActWin->doc->DocName;
+
 	ActWin = (ScribusWin*)w;
 /*	if (doc != NULL)
 	{
 		if ((HaveDoc) && (doc != ActWin->doc))
 			doc->OpenNodes = Tpal->buildReopenVals();
 	} */
+	QString newDocName = "";
+	if (ActWin && ActWin->doc)
+		newDocName = ActWin->doc->DocName;
+	if (oldDocName != newDocName)
+		UndoManager::instance()->switchStack(newDocName);
+
 	doc = ActWin->doc;
 	view = ActWin->view;
 	Sepal->SetView(view);
@@ -2879,7 +2888,7 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(PStatus(int, uint)), Npal, SLOT(PolyStatus(int, uint)));
 	connect(view, SIGNAL(ItemPos(double, double)), Mpal, SLOT(setXY(double, double)));
 	connect(view, SIGNAL(ItemGeom(double, double)), Mpal, SLOT(setBH(double, double)));
-	connect(view, SIGNAL(UndoAvail()), this, SLOT(CanUndo()));
+// 	connect(view, SIGNAL(UndoAvail()), this, SLOT(CanUndo()));
 	connect(view, SIGNAL(ChBMText(PageItem *)), this, SLOT(BookMarkTxT(PageItem *)));
 	connect(view, SIGNAL(NewBMNr(int, int)), BookPal->BView, SLOT(ChangeItem(int, int)));
 	connect(view, SIGNAL(HaveSel(int)), this, SLOT(HaveNewSel(int)));
@@ -4098,6 +4107,7 @@ bool ScribusApp::slotFileClose()
 
 bool ScribusApp::DoFileClose()
 {
+	UndoManager::instance()->remove(doc->DocName);
 	if(doc->TemplateMode)
 	{
 		ActWin->muster->close();
@@ -4141,6 +4151,7 @@ bool ScribusApp::DoFileClose()
 		importMenu->setItemEnabled(fid2a, 0);
 		exportMenu->setItemEnabled(fid10, 0);
 		editMenu->setItemEnabled(edUndo, 0);
+		editMenu->setItemEnabled(edRedo, 0);
 		editMenu->setItemEnabled(edid1, 0);
 		editMenu->setItemEnabled(edid2, 0);
 		editMenu->setItemEnabled(edid3, 0);
@@ -4811,8 +4822,6 @@ void ScribusApp::applyNewMaster(QString name)
 	Apply_Temp(name, doc->currentPage->PageNr);
 	view->DrawNew();
 	slotDocCh();
-	doc->UnDoValid = false;
-	CanUndo();
 //	Sepal->Rebuild();
 }
 
@@ -4820,8 +4829,6 @@ void ScribusApp::slotNewPageP(int wo, QString templ)
 {
 	NoFrameEdit();
 	view->Deselect(true);
-	doc->UnDoValid = false;
-	CanUndo();
 	slotNewPage(wo);
 	applyNewMaster(templ);
 	if (doc->TemplateMode)
@@ -4852,8 +4859,6 @@ void ScribusApp::slotNewPageM()
 
 void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QString based2)
 {
-		doc->UnDoValid = false;
-		CanUndo();
 		int cc;
 		int wot = wo;
 		switch (where)
@@ -5013,6 +5018,7 @@ void ScribusApp::ToggleAllPalettes()
 		setSepal(PalettesStat[5]);
 		setBookpal(PalettesStat[6]);
 		setMapal(PalettesStat[7]);
+		setUndoPalette(PalettesStat[8]);
 	}
 	else
 	{
@@ -5023,6 +5029,7 @@ void ScribusApp::ToggleAllPalettes()
 		PalettesStat[5] = Sepal->isVisible();
 		PalettesStat[6] = BookPal->isVisible();
 		PalettesStat[7] = MaPal->isVisible();
+		PalettesStat[8] = undoPalette->isVisible();
 		setMapal(false);
 		setMpal(false);
 		setTpal(false);
@@ -5030,6 +5037,7 @@ void ScribusApp::ToggleAllPalettes()
 		setLpal(false);
 		setSepal(false);
 		setBookpal(false);
+		setUndoPalette(false);
 		PalettesStat[0] = true;
 	}
 }
@@ -5047,6 +5055,12 @@ void ScribusApp::setMapal(bool visible)
 		Prefs.measurePalSettings.yPosition = MaPal->pos().y();
 		MaPal->hide();
 	}
+}
+
+void ScribusApp::setUndoPalette(bool visible)
+{
+	visible ? undoPalette->show() : undoPalette->hide();
+	toolMenu->setItemChecked(viewUndoPalette, visible);
 }
 
 void ScribusApp::setMpal(bool visible)
@@ -5185,6 +5199,12 @@ void ScribusApp::setBookpal(bool visible)
 void ScribusApp::ToggleBookpal()
 {
 	setBookpal(!BookPal->isVisible());
+	PalettesStat[0] = false;
+}
+
+void ScribusApp::ToggleUndoPalette()
+{
+	setUndoPalette(!undoPalette->isVisible());
 	PalettesStat[0] = false;
 }
 
@@ -5738,8 +5758,6 @@ void ScribusApp::DeletePage2(int pg)
 		pageMenu->setItemEnabled(pgmv, 0);
 	}
 	slotDocCh();
-	doc->UnDoValid = false;
-	CanUndo();
 //	Sepal->RebuildPage();
 }
 
@@ -5785,8 +5803,6 @@ void ScribusApp::DeletePage()
 			pageMenu->setItemEnabled(pgmv, 0);
 		}
 		slotDocCh();
-		doc->UnDoValid = false;
-		CanUndo();
 //		Sepal->RebuildPage();
 	}
 	delete dia;
@@ -5807,8 +5823,6 @@ void ScribusApp::MovePage()
 			view->movePage(from-1, to, wo-1, wie);
 		slotDocCh();
 		view->DrawNew();
-		doc->UnDoValid = false;
-		CanUndo();
 /*		AdjustBM();
 		Sepal->RebuildPage();
 		Tpal->BuildTree(view);
@@ -5905,8 +5919,6 @@ void ScribusApp::CopyPage()
 		doc->loading = false;
 		view->DrawNew();
 		slotDocCh();
-		doc->UnDoValid = false;
-		CanUndo();
 //		Sepal->RebuildPage();
 //		Tpal->BuildTree(view);
 //		AdjustBM();
@@ -6648,8 +6660,6 @@ void ScribusApp::MakeFrame(int f, int c, double *vals)
 	Mpal->SetCurItem(b);
 	view->RefreshItem(b);
 	slotDocCh();
-	doc->UnDoValid = false;
-	CanUndo();
 }
 
 void ScribusApp::DeleteObjekt()
@@ -6689,8 +6699,6 @@ void ScribusApp::ObjektDup()
 		view->SelItem.at(b)->Locked = false;
 		view->MoveItem(DispX, DispY, view->SelItem.at(b));
 	}
-	doc->UnDoValid = false;
-	CanUndo();
 }
 
 void ScribusApp::ObjektDupM()
@@ -6724,8 +6732,6 @@ void ScribusApp::ObjektDupM()
 			DispX = dH;
 			DispY = dV;
 			slotDocCh();
-			doc->UnDoValid = false;
-			CanUndo();
 			view->Deselect(true);
 		}
 	}
@@ -6814,8 +6820,6 @@ void ScribusApp::ObjektAlign()
 		Vtv = dia->VerteilenV->isChecked();
 		view->AlignObj(xa, ya, Vth, Vtv, xdp, ydp, xart, yart);
 		slotDocCh();
-		doc->UnDoValid = false;
-		CanUndo();
 		HaveNewSel(view->SelItem.at(0)->PType);
 	}
 	delete dia;
@@ -6825,8 +6829,6 @@ void ScribusApp::DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, doubl
 {
 	view->AlignObj(xa, ya, Vth, Vtv, xdp, ydp, xart, yart);
 	slotDocCh();
-	doc->UnDoValid = false;
-	CanUndo();
 }
 
 void ScribusApp::buildFontMenu()
@@ -7685,7 +7687,6 @@ void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, S
 	if(ss->ReadElem(Name, Prefs.AvailFonts, docc, x, y, art, loca, Prefs.GFontSub, &Prefs, vie))
 	{
 		vie->DrawNew();
-		docc->UnDoValid = false;
 		if (doc == docc)
 		{
 			doc->OpenNodes = Tpal->buildReopenVals();
@@ -7697,7 +7698,6 @@ void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, S
 			Tpal->BuildTree(view);
 			Tpal->reopenTree(doc->OpenNodes);
 			slotDocCh();
-			CanUndo();
 		}
 	}
 	delete ss;
@@ -7749,8 +7749,6 @@ void ScribusApp::ManageTemp(QString temp)
 	fileMenu->setItemEnabled(M_Print, 0);
 	doc->TemplateMode = true;
 	Sepal->DisablePal();
-	doc->UnDoValid = false;
-	CanUndo();
 	dia->show();
 	ActWin->muster = dia;
 	doc->OpenNodes = Tpal->buildReopenVals();
@@ -7787,8 +7785,6 @@ void ScribusApp::ManTempEnd()
 //	Sepal->RebuildTemp();
 	ActWin->muster = NULL;
 	view->DrawNew();
-	doc->UnDoValid = false;
-	CanUndo();
 //	Sepal->Rebuild();
 //	Tpal->BuildTree(view);
 //	Tpal->reopenTree(doc->OpenNodes);
@@ -7830,8 +7826,6 @@ void ScribusApp::ApplyTemp()
 	}
 	view->DrawNew();
 	slotDocCh();
-	doc->UnDoValid = false;
-	CanUndo();
 //	Sepal->Rebuild();
 	delete dia;
 }
@@ -7882,8 +7876,6 @@ void ScribusApp::Apply_Temp(QString in, int Snr, bool reb)
 	{
 		view->DrawNew();
 		slotDocCh();
-		doc->UnDoValid = false;
-		CanUndo();
 //		Sepal->Rebuild();
 	}
 }
@@ -7931,8 +7923,6 @@ void ScribusApp::GroupObj()
 	view->getGroupRect(&x, &y, &w, &h);
 	view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
 	slotDocCh();
-	doc->UnDoValid = false;
-	CanUndo();
 	ObjMenu->setItemEnabled(PfadT, false);
 	ObjMenu->setItemEnabled(Gr, false);
 	ObjMenu->setItemEnabled(UnGr, true);
@@ -7953,8 +7943,6 @@ void ScribusApp::UnGroupObj()
 	}
 	slotDocCh();
 	view->Deselect(true);
-	doc->UnDoValid = false;
-	CanUndo();
 }
 
 void ScribusApp::StatusPic()
@@ -8452,9 +8440,10 @@ void ScribusApp::SetShortCut()
 	toolMenu->setAccel(Prefs.KeyActions[62].KeyID, Prefs.KeyActions[62].MenuID);
 	editMenu->setAccel(Prefs.KeyActions[63].KeyID, Prefs.KeyActions[63].MenuID);
 	editMenu->setAccel(Prefs.KeyActions[64].KeyID, Prefs.KeyActions[64].MenuID);
-	toolMenu->setAccel(Prefs.KeyActions[65].KeyID, Prefs.KeyActions[65].MenuID);
-	ObjMenu->setAccel(Prefs.KeyActions[66].KeyID, Prefs.KeyActions[66].MenuID);
+	editMenu->setAccel(Prefs.KeyActions[65].KeyID, Prefs.KeyActions[65].MenuID);
+	toolMenu->setAccel(Prefs.KeyActions[66].KeyID, Prefs.KeyActions[66].MenuID);
 	ObjMenu->setAccel(Prefs.KeyActions[67].KeyID, Prefs.KeyActions[67].MenuID);
+	ObjMenu->setAccel(Prefs.KeyActions[68].KeyID, Prefs.KeyActions[68].MenuID);
 	fileMenu->setAccel(Prefs.KeyActions[18].KeyID, Prefs.KeyActions[18].MenuID);
 }
 
@@ -8466,37 +8455,27 @@ void ScribusApp::PutScrap(QString t)
 void ScribusApp::UniteOb()
 {
 	view->UniteObj();
-	doc->UnDoValid = false;
-	CanUndo();
 }
 
 void ScribusApp::SplitUniteOb()
 {
 	view->SplitObj();
-	doc->UnDoValid = false;
-	CanUndo();
 }
 
 void ScribusApp::TraceText()
 {
 	NoFrameEdit();
 	view->TextToPath();
-	doc->UnDoValid = false;
-	CanUndo();
 }
 
 void ScribusApp::Pfadtext()
 {
 	view->ToPathText();
-	doc->UnDoValid = false;
-	CanUndo();
 }
 
 void ScribusApp::noPfadtext()
 {
 	view->FromPathText();
-	doc->UnDoValid = false;
-	CanUndo();
 }
 
 void ScribusApp::changeLayer(int l)
@@ -8555,80 +8534,19 @@ void ScribusApp::LayerRemove(int l, bool dl)
 
 void ScribusApp::UnDoAction()
 {
-	PageItem* b;
-	uint a;
-	bool mp = false;
-	if (doc->UnDoValid)
-	{
-		view->Deselect(true);
-		b = doc->UnData.Item;
-		b->Select = false;
-		switch (doc->UnData.UnCode)
-		{
-		case 0:
-			b->NextBox = 0;
-			b->BackBox = 0;
-			b->isAutoText = false;
-			doc->Items.insert(b->ItemNr, b);
-//			Tpal->slotAddElement(doc->UnData.PageNr, b->ItemNr);
-			for (a = 0; a < doc->Items.count(); ++a)
-			{
-				doc->Items.at(a)->ItemNr = a;
-			}
-//			Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
-			break;
-		case 1:
-			b->Xpos = doc->UnData.Xpos;
-			b->Ypos = doc->UnData.Ypos;
-//			Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
-			break;
-		case 2:
-			b->Xpos = doc->UnData.Xpos;
-			b->Ypos = doc->UnData.Ypos;
-			b->Rot = doc->UnData.Rot;
-			if (b->PType == 5)
-				mp = true;
-			view->SizeItem(doc->UnData.Width, doc->UnData.Height, b->ItemNr, mp);
-//			Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
-			break;
-		case 3:
-			b->Rot = doc->UnData.Rot;
-			break;
-		case 4:
-			doc->Items.take(b->ItemNr);
-			doc->Items.insert(doc->UnData.ItemNr, b);
-//			Tpal->slotMoveElement(doc->UnData.PageNr, b->ItemNr, doc->UnData.ItemNr);
-			for (a = 0; a < doc->Items.count(); ++a)
-			{
-				doc->Items.at(a)->ItemNr = a;
-			}
-			break;
-//			Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
-		}
-		view->DrawNew();
-		doc->UnDoValid = false;
-		editMenu->setItemEnabled(edUndo, 0);
-		slotDocCh();
-	}
+	UndoManager::instance()->undo(1);
 }
 
-void ScribusApp::CanUndo()
+void ScribusApp::RedoAction()
 {
-	switch (doc->UnData.UnCode)
-	{
-	case 0:
-		editMenu->changeItem(edUndo, tr("&Undo Delete Object"));
-		break;
-	case 1:
-	case 4:
-		editMenu->changeItem(edUndo, tr("&Undo Object Move"));
-		break;
-	case 2:
-	case 3:
-		editMenu->changeItem(edUndo, tr("&Undo Object Change"));
-		break;
-	}
-	editMenu->setItemEnabled(edUndo, doc->UnDoValid ? 1 : 0);
+	UndoManager::instance()->redo(1);
+}
+
+void ScribusApp::refreshUndoRedoItems()
+{
+	toolMenu->setItemChecked(viewUndoPalette, undoPalette->isVisible());
+	editMenu->setItemEnabled(edUndo, UndoManager::instance()->hasUndoActions());
+	editMenu->setItemEnabled(edRedo, UndoManager::instance()->hasRedoActions());
 }
 
 void ScribusApp::initHyphenator()
@@ -8933,8 +8851,8 @@ void ScribusApp::ManageGuides()
 		                    );
 		if (dia->exec())
 		{
-			doc->currentPage->XGuides = dia->LocVer;
-			doc->currentPage->YGuides = dia->LocHor;
+			doc->currentPage->addXGuides(dia->LocVer);
+			doc->currentPage->addYGuides(dia->LocHor);
 			doc->GuideLock = dia->LocLocked;
 			view->DrawNew();
 //			slotDocCh();

@@ -69,6 +69,7 @@ class StoryEditor;
 class PSLib;
 class WerkToolB;
 class WerkToolBP;
+class UndoPalette;
 
 /**
   * This Class is the base class for your application. It sets up the main
@@ -167,6 +168,7 @@ public:
 	SeitenPal *Sepal;
 	BookPalette *BookPal;
 	Measurements* MaPal;
+	UndoPalette* undoPalette;
 	StoryEditor* CurrStED;
 	QMap<QString,QString> Sprachen;
 	QWorkspace *wsp;
@@ -218,7 +220,8 @@ public slots:
 	void windowsMenuActivated(int id);
 	void ToggleObjLock();
 	void UnDoAction();
-	void CanUndo();
+	void RedoAction();
+	void refreshUndoRedoItems();
 	void doHyphenate();
 	void slotTest();
 	void slotTest2();
@@ -327,6 +330,8 @@ public slots:
 	void setSepal(bool visible);
 	void ToggleBookpal();
 	void setBookpal(bool visible);
+	void ToggleUndoPalette();
+	void setUndoPalette(bool visible);
 	/** Schaltet Bilder ein/aus */
 	void TogglePics();
 	/** Schaltet Raster ein/aus */
@@ -492,6 +497,7 @@ private:
 	QPopupMenu *AliMenu;
 	QPopupMenu *recentMenu;
 	QToolBar *WerkTools2;
+	QToolBar *editToolBar;
 	WerkToolBP* WerkToolsP;
 	QToolButton* DatOpe;
 	QToolButton* DatSav;
@@ -532,6 +538,7 @@ private:
 	int viewLpal;
 	int viewSepal;
 	int viewBopal;
+	int viewUndoPalette;
 	int fid1;
 	int fid2;
 	int fid2a;
@@ -548,6 +555,7 @@ private:
 	int fid13;
 	int fid14;
 	int edUndo;
+	int edRedo;
 	int edid1;
 	int edid2;
 	int edid3;
@@ -571,7 +579,7 @@ private:
 	int OFront;
 	int ODup;
 	int OMDup;
-	bool PalettesStat[8];
+	bool PalettesStat[9];
 	bool GuidesStat[7];
 	bool tipsOn;
 	bool keyrep;
