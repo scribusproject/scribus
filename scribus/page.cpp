@@ -8105,7 +8105,10 @@ void Page::LoremIpsum()
 		if (ss->Read(""))
 		{
 			int st = doku->CurrentABStil;
-			ss->GetText(b, st, doku->Vorlagen[st].Font, doku->Vorlagen[st].FontSize);
+			if (st > 5)
+				ss->GetText(b, st, doku->Vorlagen[st].Font, doku->Vorlagen[st].FontSize);
+			else
+				ss->GetText(b, st, b->IFont, b->ISize);
 		}
 		delete ss;
 		if (doku->Trenner->AutoCheck)
