@@ -30,11 +30,6 @@ public:
 	QLabel* fontPreview;
 
 public slots:
-	/** accept dialog */
-	virtual void okButton_clicked();
-	/** reject dialog */
-	virtual void cancelButton_clicked();
-	/** creates font sample */
 	virtual void fontList_changed( QListBoxItem * );
 
 protected:

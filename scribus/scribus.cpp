@@ -140,6 +140,7 @@ void ScribusApp::initGui()
 	initScribus();
 	splash->close();
 	delete splash;
+	splash = 0;
 }
 
 void ScribusApp::initScribus()

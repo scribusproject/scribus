@@ -391,6 +391,8 @@ void SEditor::insChars(QString t)
 		chars->setAutoDelete(true);
 		chars->clear();
 		p2 = static_cast<int>(StyledText.count());
+		StyledText.append(chars);
+		ParagStyles.append(CurrentABStil);
 	}
 	else
 		chars = StyledText.at(p);
@@ -462,6 +464,8 @@ void SEditor::insStyledText()
 		chars->setAutoDelete(true);
 		chars->clear();
 		p2 = static_cast<int>(StyledText.count());
+		StyledText.append(chars);
+		ParagStyles.append(CurrentABStil);
 	}
 	else
 		chars = StyledText.at(p);

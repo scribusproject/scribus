@@ -12,12 +12,14 @@
 #include <cmath>
 #include <cstdlib>
 #include "missing.h"
+#include "scribus.h"
 extern double QStodouble(QString in);
 extern int QStoInt(QString in);
 extern QString GetAttr(QDomElement *el, QString at, QString def="0");
 extern double xy2Deg(double x, double y);
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern QImage LoadPict(QString fn, bool *gray = 0);
+extern ScribusApp* ScApp;
 
 ScPreview::ScPreview(preV *prefs)
 {
@@ -83,10 +85,14 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 				if ((!Prefs->GFontSub.contains(tmpf)) || (!Prefs->AvailFonts[Prefs->GFontSub[tmpf]]->UseFont))
 				{
+					if (ScApp->splash != 0)
+						ScApp->splash->hide();
 					DmF *dia = new DmF(0, tmpf, Prefs);
 					dia->exec();
 					tmpf = dia->Ersatz;
 					delete dia;
+					if (ScApp->splash != 0)
+						ScApp->splash->show();
 					Prefs->GFontSub[pg.attribute("NAME")] = tmpf;
 				}
 				else

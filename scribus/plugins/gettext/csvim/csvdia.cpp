@@ -72,7 +72,7 @@ bool CsvDialog::hasHeader()
 
 bool CsvDialog::useVDelim()
 {
-	return vdelimCombo->currentItem() == 2;
+	return vdelimCombo->currentItem() != 2;
 }
 
 CsvDialog::~CsvDialog()

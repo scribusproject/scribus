@@ -149,6 +149,8 @@ public:
 	 * information such as filename and does the serialization of your files.
 	 */
 	ScribusDoc *doc;
+    /** the splash screen */
+	SplashScreen * splash;
 	QLabel* FMess;
 	QProgressBar* FProg;
 	QLabel* XMess;
@@ -437,8 +439,6 @@ signals:
 	void TextScale(int);
 
 private:
-    /** the splash screen */
-	SplashScreen * splash;
     /** init methods */
 	void initScribus();
 
