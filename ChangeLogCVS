@@ -1,5 +1,10 @@
 Changes since 1.2 
 
+26.10.2004
+	* bug     #1191: "None" Colour ends up in colour list
+	* bug     #1237: minor build fix: search for xml2-config on PATH
+	* bug     #1244: Implement patches for IRIX compatiblity
+
 25.10.2004
 	* bug     #1245: Rotated Objects not rotated in PDF-export
 	* bug     #1247: Serbian Translation Update

@@ -814,13 +814,17 @@ bool ScriXmlDoc::ReadColors(QString fileName)
 		while(!PAGE.isNull())
 		{
 			QDomElement pg=PAGE.toElement();
-			if(pg.tagName()=="COLOR")
+			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
+			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!="None")
 			{
-				if (pg.hasAttribute("CMYK"))
-					lf.setNamedColor(pg.attribute("CMYK"));
-				else
-					lf.fromQColor(QColor(pg.attribute("RGB")));
-			  	Farben[pg.attribute("NAME")] = lf;
+				if(pg.tagName()=="COLOR")
+				{
+					if (pg.hasAttribute("CMYK"))
+						lf.setNamedColor(pg.attribute("CMYK"));
+					else
+						lf.fromQColor(QColor(pg.attribute("RGB")));
+					Farben[pg.attribute("NAME")] = lf;
+				}
 			}
 			PAGE=PAGE.nextSibling();
 		}
@@ -922,7 +926,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 		while(!PAGE.isNull())
 		{
 			QDomElement pg=PAGE.toElement();
-			if(pg.tagName()=="COLOR")
+			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
+			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!="None")
 			{
 				if (pg.hasAttribute("CMYK"))
 					lf.setNamedColor(pg.attribute("CMYK"));
@@ -1327,7 +1332,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			ObCount++;
 			dia2->setProgress(ObCount);
 			QDomElement pg=PAGE.toElement();
-			if(pg.tagName()=="COLOR")
+			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
+			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!="None")
 			{
 				if (pg.hasAttribute("CMYK"))
 					lf.setNamedColor(pg.attribute("CMYK"));
@@ -1898,7 +1904,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 				doc->AddFont(tmpf, fo);
 			DoFonts[pg.attribute("NAME")] = tmpf;
 		}
-		if(pg.tagName()=="COLOR")
+		// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
+		if(pg.tagName()=="COLOR" && pg.attribute("Name")!="None")
 		{
 			if (pg.hasAttribute("CMYK"))
 				lf.setNamedColor(pg.attribute("CMYK"));

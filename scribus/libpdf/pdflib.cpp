@@ -1104,10 +1104,10 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						int y = static_cast<int>(pag->Yoffset);
 						int w = static_cast<int>(pag->Width);
 						int h1 = static_cast<int>(pag->Height);
-						int x2 = static_cast<int>(ite->BoundingX);
-						int y2 = static_cast<int>(ite->BoundingY);
-						int w2 = static_cast<int>(ite->BoundingW);
-						int h2 = static_cast<int>(ite->BoundingH);
+						int x2 = static_cast<int>(ite->BoundingX - ite->Pwidth / 2.0);
+						int y2 = static_cast<int>(ite->BoundingY - ite->Pwidth / 2.0);
+						int w2 = static_cast<int>(ite->BoundingW + ite->Pwidth);
+						int h2 = static_cast<int>(ite->BoundingH + ite->Pwidth);
 						if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
 							continue;
 						if (ite->ChangedMasterItem)
@@ -1234,10 +1234,10 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						int y = static_cast<int>(pag->Yoffset);
 						int w = static_cast<int>(pag->Width);
 						int h1 = static_cast<int>(pag->Height);
-						int x2 = static_cast<int>(ite->BoundingX);
-						int y2 = static_cast<int>(ite->BoundingY);
-						int w2 = static_cast<int>(ite->BoundingW);
-						int h2 = static_cast<int>(ite->BoundingH);
+						int x2 = static_cast<int>(ite->BoundingX - ite->Pwidth / 2.0);
+						int y2 = static_cast<int>(ite->BoundingY - ite->Pwidth / 2.0);
+						int w2 = static_cast<int>(ite->BoundingW + ite->Pwidth);
+						int h2 = static_cast<int>(ite->BoundingH + ite->Pwidth);
 						if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
 							continue;
 						if (ite->ChangedMasterItem)
@@ -1400,10 +1400,10 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 				int y = static_cast<int>(pag->Yoffset);
 				int w = static_cast<int>(pag->Width);
 				int h1 = static_cast<int>(pag->Height);
-				int x2 = static_cast<int>(ite->BoundingX);
-				int y2 = static_cast<int>(ite->BoundingY);
-				int w2 = static_cast<int>(ite->BoundingW);
-				int h2 = static_cast<int>(ite->BoundingH);
+				int x2 = static_cast<int>(ite->BoundingX - ite->Pwidth / 2.0);
+				int y2 = static_cast<int>(ite->BoundingY - ite->Pwidth / 2.0);
+				int w2 = static_cast<int>(ite->BoundingW + ite->Pwidth);
+				int h2 = static_cast<int>(ite->BoundingH + ite->Pwidth);
 				if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
 					continue;
 				if (ite->ChangedMasterItem)
@@ -1743,14 +1743,16 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					ite = PItems.at(a);
 					if (ite->LayerNr != ll.LNr)
 						continue;
+					if (!ite->isTableItem)
+						continue;
 					int x = static_cast<int>(pag->Xoffset);
 					int y = static_cast<int>(pag->Yoffset);
 					int w = static_cast<int>(pag->Width);
 					int h1 = static_cast<int>(pag->Height);
-					int x2 = static_cast<int>(ite->BoundingX);
-					int y2 = static_cast<int>(ite->BoundingY);
-					int w2 = static_cast<int>(ite->BoundingW);
-					int h2 = static_cast<int>(ite->BoundingH);
+					int x2 = static_cast<int>(ite->BoundingX - ite->Pwidth / 2.0);
+					int y2 = static_cast<int>(ite->BoundingY - ite->Pwidth / 2.0);
+					int w2 = static_cast<int>(ite->BoundingW + ite->Pwidth);
+					int h2 = static_cast<int>(ite->BoundingH + ite->Pwidth);
 					if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
 						continue;
 					if (ite->ChangedMasterItem)

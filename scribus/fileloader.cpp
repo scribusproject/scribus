@@ -21,10 +21,12 @@ extern bool loadText(QString nam, QString *Buffer);
  \param QString fileName
  \retval None
  */
-FileLoader::FileLoader(QString fileName)
+FileLoader::FileLoader(QString fileName, ScribusApp* app)
 {
 	FileName = fileName;
 	FileType = -1;
+	havePS = app->DLLexists(6);
+	haveSVG = app->DLLexists(10);
 }
 
 /*!
@@ -44,9 +46,9 @@ int FileLoader::TestFile()
 	QString ext = fi.extension(true).lower();
 	if ((ext == "sla.gz") || (ext == "sla") || (ext == "scd.gz") || (ext == "scd"))
 		ret = CheckScribus();
-	if ((ext == "ps") || (ext == "eps"))
+	if (((ext == "ps") || (ext == "eps")) && (havePS))
 		ret = 2;
-	if ((ext == "svg") || (ext == "svgz"))
+	if (((ext == "svg") || (ext == "svgz")) && (haveSVG))
 		ret = 3;
 /*	if (ext == "pdf")
 		ret = 4; */

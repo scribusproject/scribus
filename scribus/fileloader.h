@@ -6,7 +6,7 @@ class ScribusApp;
 class FileLoader
 {
 public:
-	FileLoader(QString fileName);
+	FileLoader(QString fileName, ScribusApp* app);
 	~FileLoader() {};
 	int TestFile();
 	int CheckScribus();
@@ -14,6 +14,8 @@ public:
 	bool LoadFile(ScribusApp* app);
 	QString FileName;
 	int FileType;
+	bool havePS;
+	bool haveSVG;
 };
 
 #endif

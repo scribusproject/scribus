@@ -3265,7 +3265,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 	{
 		QString FName = fi.absFilePath();
 		QDir::setCurrent(fi.dirPath(true));
-		FileLoader *fl = new FileLoader(FName);
+		FileLoader *fl = new FileLoader(FName, this);
 		if (fl->TestFile() == -1)
 		{
 			delete fl;
@@ -7903,6 +7903,11 @@ void ScribusApp::CallDLL(int ident)
 		dlclose(mo);
 	if (HaveDoc)
 		view->DrawNew();
+}
+
+bool ScribusApp::DLLexists(int ident)
+{
+	return PluginMap.contains(ident);
 }
 
 bool ScribusApp::DLLName(QString name, QString *PName, int *typ, void **Zeig, int *idNr)

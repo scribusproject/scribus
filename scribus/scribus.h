@@ -18,7 +18,7 @@
 #ifndef SCRIBUS_H
 #define SCRIBUS_H
 
-#define VERS09x
+#define VERS13x
 
 // include from stl
 #include <vector>
@@ -130,6 +130,7 @@ public:
 	bool DLLName(QString name, QString *PName, int *typ, void **Zeig, int *idNr);
 	void CallDLLbyMenu(int id);
 	void CallDLL(int ident);
+	bool DLLexists(int ident);
 	PSLib* getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe DocColors, bool pdf);
 	void closePSDriver();
 	bool getPDFDriver(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs);
