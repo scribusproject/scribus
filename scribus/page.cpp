@@ -1945,12 +1945,12 @@ void Page::AdjustItemSize(PageItem *b)
 	if (b->flippedV % 2 != 0)
 		MoveItemI(0, (b->Height - tp.y())/b->LocalScY, b->ItemNr);
 	SizeItem(tp.x(), tp.y(), b->ItemNr, true, false);
-	b->ClipEdited = true;
 	b->PoLine = Clip.copy();
 	if (b->PType == 7)
 		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
 	else
 		b->Clip = FlattenPath(b->PoLine, b->Segments);
+	b->ClipEdited = true;
 	b->Sizing = siz;
 }
 
@@ -2824,7 +2824,9 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			AdjustItemSize(b);
 			SelItem.clear();
 			SelItem.append(b);
+			b->ClipEdited = true;
 			b->Select = true;
+			b->FrameType = 3;
 			emit ItemPos(b->Xpos, b->Ypos);
 			emit SetSizeValue(b->Pwidth);
 			emit SetLineArt(b->PLineArt, b->PLineEnd, b->PLineJoin);
@@ -4051,6 +4053,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
 		AdjustItemSize(b);
 		b->ContourLine = b->PoLine.copy();
+		b->ClipEdited = true;
+		b->FrameType = 3;
 		doku->AppMode = 1;
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		emit PaintingDone();

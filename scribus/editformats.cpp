@@ -205,9 +205,17 @@ void StilFormate::loadStyles()
 	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
 #endif
 	if (dia.exec() == QDialog::Accepted)
-		fileName = dia.selectedFile();
+		loadStylesFromFile(dia.selectedFile());
 	else
 		return;
+}
+
+/*
+ * Taken from loadStyles so that styles can be imported
+ * non-interactively via plugin/script -- Craig Ringer, 2004-09-10
+ */
+void StilFormate::loadStylesFromFile(QString fileName)
+{
 	if (!fileName.isEmpty())
 	{
 		ScriXmlDoc *ss = new ScriXmlDoc();

@@ -1603,14 +1603,17 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 						}
 						break;
 					case 7:
-						if (ite->GrType != 0)
-							PDF_Gradient(ite);
-						else
+						if ((ite->PoLine.size() > 3) && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3))))
 						{
-							if (ite->Pcolor != "None")
+							if (ite->GrType != 0)
+								PDF_Gradient(ite);
+							else
 							{
-								PutPage(SetClipPath(ite));
-								PutPage("h\nf*\n");
+								if (ite->Pcolor != "None")
+								{
+									PutPage(SetClipPath(ite));
+									PutPage("h\nf*\n");
+								}
 							}
 						}
 						if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
