@@ -17,7 +17,9 @@ else
 fi
 if test $hastif = yes; then
 	echo "TiffLib installed:   Yes"
-else
+elif test $hastif = pre36; then
+	echo "TiffLib installed:   Too old; Version 3.6.0 or newer required"
+else 
 	echo "TiffLib installed:   No"
 fi
 if test $haxml = yes; then
