@@ -29,8 +29,8 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	: QDialog(parent, "ExportForm", true, 0)
 {
 	prefs = prefsFile->getPluginContext("pixmapexport");
-	ExportFormLayout = new QVBoxLayout( this, 10, 5, "ExportFormLayout"); 
-	layout1 = new QHBoxLayout( 0, 0, 5, "layout1"); 
+	ExportFormLayout = new QVBoxLayout( this, 10, 5, "ExportFormLayout");
+	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
 	TextLabel1 = new QLabel( this, "TextLabel1" );
 	layout1->addWidget( TextLabel1 );
 	OutputDirectory = new QLineEdit( this, "OutputDirectory" );
@@ -41,7 +41,7 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	layout1->addWidget( OutputDirectoryButton );
 	ExportFormLayout->addLayout( layout1 );
 
-	layout3 = new QHBoxLayout( 0, 0, 5, "layout3"); 
+	layout3 = new QHBoxLayout( 0, 0, 5, "layout3");
 	groupBox1 = new QGroupBox( this, "groupBox1" );
 	groupBox1->setColumnLayout(0, Qt::Vertical );
 	groupBox1->layout()->setSpacing( 5 );
@@ -54,6 +54,8 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	groupBox1Layout->addWidget( textLabel1, 1, 0 );
 	textLabel3 = new QLabel( groupBox1, "textLabel3" );
 	groupBox1Layout->addWidget( textLabel3, 2, 0 );
+	textLabel4 = new QLabel( groupBox1, "textLabel4" );
+	groupBox1Layout->addWidget( textLabel4, 3, 0 );
 	BitmapType = new QComboBox( FALSE, groupBox1, "BitmapType" );
     BitmapType->clear();
 	BitmapType->insertStrList(QImageIO::outputFormats());
@@ -65,11 +67,16 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	QualityBox->setMinValue( 1 );
 	QualityBox->setValue(quality);
 	groupBox1Layout->addWidget( QualityBox, 1, 1 );
-	SizeBox = new QSpinBox( groupBox1, "SizeBox" );
-	SizeBox->setMaxValue( 2400 );
-	SizeBox->setMinValue( 1 );
-	SizeBox->setValue(size);
-	groupBox1Layout->addWidget( SizeBox, 2, 1 );
+	DPIBox = new QSpinBox( groupBox1, "DPIBox" );
+	DPIBox->setMaxValue( 2400 );
+	DPIBox->setMinValue( 1 );
+	DPIBox->setValue(size);
+	groupBox1Layout->addWidget( DPIBox, 2, 1 );
+	EnlargementBox = new QSpinBox( groupBox1, "EnlargementBox" );
+	EnlargementBox->setMaxValue( 2400 );
+	EnlargementBox->setMinValue( 1 );
+	EnlargementBox->setValue(size);
+	groupBox1Layout->addWidget( EnlargementBox, 3, 1 );
 	layout3->addWidget( groupBox1 );
 
 	ButtonGroup1 = new QButtonGroup( this, "ButtonGroup1" );
@@ -83,7 +90,7 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	ButtonGroup1Layout->addWidget( OnePageRadio );
 	AllPagesRadio = new QRadioButton( ButtonGroup1, "AllPagesRadio" );
 	ButtonGroup1Layout->addWidget( AllPagesRadio );
-	layout2 = new QHBoxLayout( 0, 0, 5, "layout2"); 
+	layout2 = new QHBoxLayout( 0, 0, 5, "layout2");
 	IntervalPagesRadio = new QRadioButton( ButtonGroup1, "IntervalPagesRadio" );
 	layout2->addWidget( IntervalPagesRadio );
 	RangeVal = new QLineEdit( ButtonGroup1, "RangeVal" );
@@ -93,7 +100,7 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	layout3->addWidget( ButtonGroup1 );
 	ExportFormLayout->addLayout( layout3 );
 
-	layout4 = new QHBoxLayout( 0, 0, 5, "layout4"); 
+	layout4 = new QHBoxLayout( 0, 0, 5, "layout4");
 	QSpacerItem* spacer = new QSpacerItem( 111, 21, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout4->addItem( spacer );
 	OkButton = new QPushButton( this, "OkButton" );
@@ -109,7 +116,8 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	TextLabel1->setBuddy( OutputDirectory );
 	TextLabel2->setBuddy( BitmapType );
 	textLabel1->setBuddy( QualityBox );
-	textLabel3->setBuddy( SizeBox );
+	textLabel3->setBuddy( DPIBox );
+	textLabel4->setBuddy( EnlargementBox );
 	connect(OutputDirectoryButton, SIGNAL(clicked()), this, SLOT(OutputDirectoryButton_pressed()));
 	connect(OkButton, SIGNAL(clicked()), this, SLOT(OkButton_pressed()));
 	connect(CancelButton, SIGNAL(clicked()), this, SLOT(reject()));
@@ -172,8 +180,10 @@ void ExportForm::languageChange()
 	TextLabel2->setText( tr( "Image &Type:" ) );
 	textLabel1->setText( tr( "&Quality:" ) );
 	textLabel3->setText( tr( "&Resolution:" ) );
+	textLabel4->setText( tr( "&Size:" ) );
 	QualityBox->setSuffix( tr( " %" ) );
-	SizeBox->setSuffix( tr( " dpi" ) );
+	DPIBox->setSuffix( tr( " dpi" ) );
+	EnlargementBox->setSuffix( tr( " %" ) );
 	ButtonGroup1->setTitle( tr( "Range" ) );
 	OnePageRadio->setText( tr( "&Current page" ) );
 	AllPagesRadio->setText( tr( "&All pages" ) );
@@ -185,7 +195,8 @@ void ExportForm::languageChange()
 	QToolTip::add( RangeVal, tr( "Insert a comma separated list of tokens where\na token can be * for all the pages, 1-5 for\na range of pages or a single page number." ) );
 	QToolTip::add( AllPagesRadio, tr( "Export all pages" ) );
 	QToolTip::add( OnePageRadio, tr( "Export only the current page" ) );
-	QToolTip::add( SizeBox, tr( "Resolution of the Images\nUse 72 dpi for Images intended for the Screen" ) );
+	QToolTip::add( DPIBox, tr( "Resolution of the Images\nUse 72 dpi for Images intended for the Screen" ) );
+	QToolTip::add( EnlargementBox, tr( "Size of the images. 100% for no changes, 200% for two times larger etc." ));
 	QToolTip::add( QualityBox, tr( "The quality of your images - 100% is the best, 1% the lowest quality" ) );
 	QToolTip::add( BitmapType, tr( "Available export formats" ) );
 	QToolTip::add( OutputDirectory, tr( "The output directory - the place to store your images.\nName of the export file will be 'documentname-pagenumber.filetype'" ) );
@@ -195,7 +206,8 @@ void ExportForm::languageChange()
 
 void ExportForm::readConfig()
 {
-	SizeBox->setValue(prefs->getUInt("SizeBox", 72));
+	DPIBox->setValue(prefs->getUInt("DPIBox", 72));
+	EnlargementBox->setValue(prefs->getUInt("EnlargementBox", 100));
 	QualityBox->setValue(prefs->getUInt("QualityBox", 100));
 	ButtonGroup1->setButton(prefs->getUInt("ButtonGroup1", 0));
 	if (prefs->getInt("ButtonGroup1")==2)
@@ -208,7 +220,8 @@ void ExportForm::readConfig()
 
 void ExportForm::writeConfig()
 {
-	prefs->set("SizeBox", SizeBox->value());
+	prefs->set("DPIBox", DPIBox->value());
+	prefs->set("EnlargementBox", EnlargementBox->value());
 	prefs->set("QualityBox", QualityBox->value());
 	prefs->set("ButtonGroup1", ButtonGroup1->id(ButtonGroup1->selected()));
 	prefs->set("BitmapType",BitmapType->currentItem());

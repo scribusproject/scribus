@@ -33,7 +33,8 @@ void Run(QWidget *d, ScribusApp *plug)
 	{
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 		std::vector<int> pageNs;
-		ex->pageSize = dia->SizeBox->value();
+		ex->pageSize = dia->DPIBox->value();
+		ex->enlargement = dia->EnlargementBox->value();
 		ex->quality = dia->QualityBox->value();
 		ex->exportDir = dia->OutputDirectory->text();
 		ex->bitmapType = dia->bitmapType;
@@ -71,6 +72,7 @@ ExportBitmap::ExportBitmap(ScribusApp *plug)
 	carrier = plug;
 	pageSize = 72;
 	quality = 100;
+	enlargement = 100;
 	exportDir = QDir::currentDirPath();
 	bitmapType = QString("PNG");
 	overwrite = FALSE;
@@ -89,6 +91,7 @@ ExportBitmap::~ExportBitmap()
 {
 }
 
+#include <iostream.h>
 bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 {
 	uint over = 0;
@@ -97,7 +100,7 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 	if (!carrier->view->Pages.at(pageNr))
 		return FALSE;
 
-	QPixmap pixmap = carrier->view->PageToPixmap(pageNr, qRound(carrier->doc->PageH * (pageSize / 72.0)));
+	QPixmap pixmap = carrier->view->PageToPixmap(pageNr, qRound(carrier->doc->PageH * enlargement / 100));
 	QImage im = pixmap.convertToImage();
 	int dpi = qRound(100.0 / 2.54 * pageSize);
 	im.setDotsPerMeterY(dpi);
@@ -105,9 +108,9 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 	if (QFile::exists(fileName) && !overwrite)
 	{
 		QApplication::restoreOverrideCursor();
-/* Changed the following Code from the original QMessageBox::question to QMessageBox::warning
-	 to keep the Code compatible to Qt-3.1.x
-	 f.s 12.05.2004 */
+		/* Changed the following Code from the original QMessageBox::question to
+		 * QMessageBox::warning to keep the Code compatible to Qt-3.1.x
+	     * f.s 12.05.2004 */
 		over = QMessageBox::warning(carrier,
 				QObject::tr("File exists. Overwrite?"),
 				fileName +"\n"+ QObject::tr("exists already. Overwrite?"),
