@@ -22,6 +22,7 @@
 #include <qtextstream.h>
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern QString Path2Relative(QString Path);
+extern QImage LoadPict(QString fn);
 
 QString Name()
 {
@@ -267,19 +268,21 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							}
 						if ((Item->PicAvail) && (Item->Pfile != ""))
 							{
-/*							ob = docu->createElement("clipPath");
+							ob = docu->createElement("clipPath");
 							ob.setAttribute("id", Clipi+IToStr(ClipCount));
 							ob.setAttribute("clipPathUnits", "userSpaceOnUse");
 							QDomElement cl = docu->createElement("path");
 							cl.setAttribute("d", SetClipPath(Item)+"Z");
 							ob.appendChild(cl);
 							gr.appendChild(ob);
+							QImage img = LoadPict(Item->Pfile);
+							QFileInfo fi = QFileInfo(Item->Pfile);
+							img.save(fi.baseName()+".png", "PNG");
 							ob = docu->createElement("image");
 							ob.setAttribute("clip-path", "url(#"+Clipi+IToStr(ClipCount)+")");
-							ob.setAttribute("clip-rule", "evenodd");   */
-							ob = docu->createElement("image");
-							ob.setAttribute("transform", "translate("+FToStr(Item->LocalX)+", "+FToStr(Item->LocalY)+") scale("+FToStr(Item->LocalScX)+", "+FToStr(Item->LocalScY)+")");
-							ob.setAttribute("xlink:href", Path2Relative(Item->Pfile));
+							ob.setAttribute("clip-rule", "evenodd");
+							ob.setAttribute("transform", "scale("+FToStr(Item->LocalScX)+", "+FToStr(Item->LocalScY)+") translate("+FToStr(Item->LocalX)+", "+FToStr(Item->LocalY)+")");
+							ob.setAttribute("xlink:href", fi.baseName()+".png");
 							ClipCount++;
 							}
 						break;

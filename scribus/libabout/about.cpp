@@ -32,8 +32,7 @@ About::About( QWidget* parent )
     tabLayout1->addWidget( PixmapLabel1 );
     BuildID = new QLabel( tab, "BB" );
     BuildID->setAlignment(Qt::AlignCenter);
-    QString bu;
-    bu.sprintf("%s %s ", __TIME__, __DATE__);
+    QString bu = "02. June 2003 ";
 #ifdef HAVE_FREETYPE
 		bu += "F";
 #else

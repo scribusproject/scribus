@@ -1,4 +1,9 @@
 Changes since Version 0.9.10
+02.06.2003	svgexplugin.cpp		Improved Image Support, Images are now save as PNG-Images in the
+					same Folder as the SVG File.
+		preview.cpp		Added New Plugin for Print Preview.
+					Needs Ghostscript to work.
+
 01.06.2003	svgexplugin.cpp		Added Support for Images.
 		page.cpp		Fixed Crash when loading Documents with Images.
 
