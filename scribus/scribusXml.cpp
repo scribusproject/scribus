@@ -416,32 +416,6 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 		while(!PAGE.isNull())
 		{
 			QDomElement pg=PAGE.toElement();
-			if(pg.tagName()=="FONT")
-			{
-			/*
-			* Attribute von FONT auslesen
-			*/
-				tmpf = pg.attribute("NAME");
-				if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
-				{
-					if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
-					{
-  						qApp->setOverrideCursor(QCursor(arrowCursor), true);
-						DmF *dia = new DmF(view, tmpf, view->Prefs);
-						dia->exec();
-						tmpf = dia->Ersatz;
-						delete dia;
-  						qApp->setOverrideCursor(QCursor(waitCursor), true);
-						view->Prefs->GFontSub[pg.attribute("NAME")] = tmpf;
-					}
-					else
-						tmpf = view->Prefs->GFontSub[tmpf];
-				}
-				fo = avail[tmpf]->Font;
-				fo.setPointSize(qRound(doc->Dsize / 10.0));
-				doc->AddFont(tmpf, fo);
-				DoFonts[pg.attribute("NAME")] = tmpf;
-			}
 			if(pg.tagName()=="COLOR")
 			{
 				if (pg.hasAttribute("CMYK"))
@@ -461,10 +435,35 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				vg.Ausri = QStoInt(pg.attribute("ALIGN"));
 				vg.Avor = QStodouble(pg.attribute("VOR","0"));
 				vg.Anach = QStodouble(pg.attribute("NACH","0"));
-				if (pg.hasAttribute("FONT"))
-					vg.Font = DoFonts[pg.attribute("FONT")];
+				tmpf = pg.attribute("FONT", doc->Dfont);
+				if (tmpf == "")
+					tmpf = doc->Dfont;
+				tmf = tmpf;
+				if (!DoFonts.contains(tmpf))
+				{
+					if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+					{
+						if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
+						{
+							qApp->setOverrideCursor(QCursor(arrowCursor), true);
+							DmF *dia = new DmF(view, tmpf, view->Prefs);
+							dia->exec();
+							tmpf = dia->Ersatz;
+							delete dia;
+							qApp->setOverrideCursor(QCursor(waitCursor), true);
+							view->Prefs->GFontSub[tmf] = tmpf;
+						}
+						else
+							tmpf = view->Prefs->GFontSub[tmpf];
+					}
+					fo = avail[tmpf]->Font;
+					fo.setPointSize(qRound(doc->Dsize / 10.0));
+					doc->AddFont(tmpf, fo);
+					DoFonts[tmf] = tmpf;
+				}
 				else
-					vg.Font = DoFonts[Defont];
+					tmpf = DoFonts[tmf];
+				vg.Font = tmpf;
 				vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
 				vg.Drop = static_cast<bool>(QStoInt(pg.attribute("DROP","0")));
 				vg.DropLin = QStoInt(pg.attribute("DROPLIN","2"));
@@ -807,10 +806,35 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					OB.PoShow = QStoInt(obj.attribute("PTLSHOW","0"));
 					OB.BaseOffs = QStodouble(obj.attribute("BASEOF","0"));
 					OB.Ausrich = DoVorl[QStoInt(obj.attribute("ALIGN","0"))].toUInt();
-					tmf = obj.attribute("IFONT", doc->Dfont);
-					if (tmf == "")
-						tmf = doc->Dfont;
-					OB.IFont = DoFonts[tmf];
+					tmpf = obj.attribute("IFONT", doc->Dfont);
+					if (tmpf == "")
+						tmpf = doc->Dfont;
+					tmf = tmpf;
+					if (!DoFonts.contains(tmpf))
+					{
+						if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+						{
+							if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
+							{
+								qApp->setOverrideCursor(QCursor(arrowCursor), true);
+								DmF *dia = new DmF(view, tmpf, view->Prefs);
+								dia->exec();
+								tmpf = dia->Ersatz;
+								delete dia;
+								qApp->setOverrideCursor(QCursor(waitCursor), true);
+								view->Prefs->GFontSub[tmf] = tmpf;
+							}
+							else
+								tmpf = view->Prefs->GFontSub[tmf];
+						}
+						fo = avail[tmpf]->Font;
+						fo.setPointSize(qRound(doc->Dsize / 10.0));
+						doc->AddFont(tmpf, fo);
+						DoFonts[tmf] = tmpf;
+					}
+					else
+						tmpf = DoFonts[tmf];
+					OB.IFont = tmpf;
 					OB.ISize = qRound(QStodouble(obj.attribute("ISIZE","12")) * 10.0);
 					OB.Pfile=obj.attribute("PFILE");
 					OB.Pfile2=obj.attribute("PFILE2","");
@@ -929,10 +953,35 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						tmp2.replace(QRegExp("\r"), QChar(5));
 						tmp2.replace(QRegExp("\n"), QChar(5));
 						tmp2.replace(QRegExp("\t"), QChar(4));
-						tmf = it.attribute("CFONT", doc->Dfont);
-						if (tmf == "")
-							tmf = doc->Dfont;
-						tmp3 = "\t" + DoFonts[tmf] + "\t";
+						tmpf = it.attribute("CFONT", doc->Dfont);
+						if (tmpf == "")
+							tmpf = doc->Dfont;
+						tmf = tmpf;
+						if (!DoFonts.contains(tmpf))
+						{
+							if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+							{
+								if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
+								{
+									qApp->setOverrideCursor(QCursor(arrowCursor), true);
+									DmF *dia = new DmF(view, tmpf, view->Prefs);
+									dia->exec();
+									tmpf = dia->Ersatz;
+									delete dia;
+									qApp->setOverrideCursor(QCursor(waitCursor), true);
+									view->Prefs->GFontSub[tmf] = tmpf;
+								}
+								else
+									tmpf = view->Prefs->GFontSub[tmpf];
+							}
+							fo = avail[tmpf]->Font;
+							fo.setPointSize(qRound(doc->Dsize / 10.0));
+							doc->AddFont(tmpf, fo);
+							DoFonts[tmf] = tmpf;
+						}
+						else
+							tmpf = DoFonts[tmf];
+						tmp3 = "\t" + tmpf + "\t";
 						tmp3 += it.attribute("CSIZE") + "\t";
 						tmp3 += it.attribute("CCOLOR") + "\t";
 						tmp3 += it.attribute("CEXTRA") + "\t";
@@ -1151,32 +1200,6 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			ObCount++;
 			dia2->setProgress(ObCount);
 			QDomElement pg=PAGE.toElement();
-			if(pg.tagName()=="FONT")
-			{
-			/*
-			* Attribute von FONT auslesen
-			*/
-				tmpf = pg.attribute("NAME");
-				if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
-				{
-					if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
-					{
-  						qApp->setOverrideCursor(QCursor(arrowCursor), true);
-						DmF *dia = new DmF(view, tmpf, view->Prefs);
-						dia->exec();
-						tmpf = dia->Ersatz;
-						delete dia;
-  						qApp->setOverrideCursor(QCursor(waitCursor), true);
-						view->Prefs->GFontSub[pg.attribute("NAME")] = tmpf;
-					}
-					else
-						tmpf = view->Prefs->GFontSub[tmpf];
-				}
-				fo = avail[tmpf]->Font;
-				fo.setPointSize(qRound(doc->Dsize / 10.0));
-				doc->AddFont(tmpf, fo);
-				DoFonts[pg.attribute("NAME")] = tmpf;
-			}
 			if(pg.tagName()=="COLOR")
 			{
 				if (pg.hasAttribute("CMYK"))
@@ -1194,10 +1217,35 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				vg.Ausri = QStoInt(pg.attribute("ALIGN"));
 				vg.Avor = QStodouble(pg.attribute("VOR","0"));
 				vg.Anach = QStodouble(pg.attribute("NACH","0"));
-				if (pg.hasAttribute("FONT"))
-					vg.Font = DoFonts[pg.attribute("FONT")];
+				tmpf = pg.attribute("FONT", doc->Dfont);
+				if (tmpf == "")
+					tmpf = doc->Dfont;
+				tmf = tmpf;
+				if (!DoFonts.contains(tmpf))
+				{
+					if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+					{
+						if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
+						{
+							qApp->setOverrideCursor(QCursor(arrowCursor), true);
+							DmF *dia = new DmF(view, tmpf, view->Prefs);
+							dia->exec();
+							tmpf = dia->Ersatz;
+							delete dia;
+							qApp->setOverrideCursor(QCursor(waitCursor), true);
+							view->Prefs->GFontSub[tmf] = tmpf;
+						}
+						else
+							tmpf = view->Prefs->GFontSub[tmpf];
+					}
+					fo = avail[tmpf]->Font;
+					fo.setPointSize(qRound(doc->Dsize / 10.0));
+					doc->AddFont(tmpf, fo);
+					DoFonts[tmf] = tmpf;
+				}
 				else
-					vg.Font = DoFonts[Defont];
+					tmpf = DoFonts[tmf];
+				vg.Font = tmpf;
 				vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
 				vg.Drop = static_cast<bool>(QStoInt(pg.attribute("DROP","0")));
 				vg.DropLin = QStoInt(pg.attribute("DROPLIN","2"));
@@ -1524,11 +1572,35 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					OB.PoShow = QStoInt(obj.attribute("PTLSHOW","0"));
 					OB.BaseOffs = QStodouble(obj.attribute("BASEOF","0"));
 					OB.Ausrich = QStoInt(obj.attribute("ALIGN","0"));
-					OB.IFont = obj.attribute("IFONT", doc->Dfont);
-					if (tmf == "")
-						OB.IFont = doc->Dfont;
+					tmpf = obj.attribute("IFONT", doc->Dfont);
+					if (tmpf == "")
+						tmpf = doc->Dfont;
+					tmf = tmpf;
+					if (!DoFonts.contains(tmpf))
+					{
+						if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+						{
+							if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
+							{
+								qApp->setOverrideCursor(QCursor(arrowCursor), true);
+								DmF *dia = new DmF(view, tmpf, view->Prefs);
+								dia->exec();
+								tmpf = dia->Ersatz;
+								delete dia;
+								qApp->setOverrideCursor(QCursor(waitCursor), true);
+								view->Prefs->GFontSub[tmf] = tmpf;
+							}
+							else
+								tmpf = view->Prefs->GFontSub[tmf];
+						}
+						fo = avail[tmpf]->Font;
+						fo.setPointSize(qRound(doc->Dsize / 10.0));
+						doc->AddFont(tmpf, fo);
+						DoFonts[tmf] = tmpf;
+					}
 					else
-						OB.IFont = DoFonts[tmf];
+						tmpf = DoFonts[tmf];
+					OB.IFont = tmpf;
 					OB.ISize = qRound(QStodouble(obj.attribute("ISIZE","12")) * 10);
 					OB.Pfile=obj.attribute("PFILE");
 					OB.Pfile2=obj.attribute("PFILE2","");
@@ -1647,10 +1719,35 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 							tmp2.replace(QRegExp("\r"), QChar(5));
 							tmp2.replace(QRegExp("\n"), QChar(5));
 							tmp2.replace(QRegExp("\t"), QChar(4));
-							tmf = it.attribute("CFONT", doc->Dfont);
-							if (tmf == "")
-								tmf = doc->Dfont;
-							tmp3 = "\t" + DoFonts[tmf] + "\t";
+							tmpf = it.attribute("CFONT", doc->Dfont);
+							if (tmpf == "")
+								tmpf = doc->Dfont;
+							tmf = tmpf;
+							if (!DoFonts.contains(tmpf))
+							{
+								if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+								{
+									if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
+									{
+										qApp->setOverrideCursor(QCursor(arrowCursor), true);
+										DmF *dia = new DmF(view, tmpf, view->Prefs);
+										dia->exec();
+										tmpf = dia->Ersatz;
+										delete dia;
+										qApp->setOverrideCursor(QCursor(waitCursor), true);
+										view->Prefs->GFontSub[tmf] = tmpf;
+									}
+									else
+										tmpf = view->Prefs->GFontSub[tmpf];
+								}
+								fo = avail[tmpf]->Font;
+								fo.setPointSize(qRound(doc->Dsize / 10.0));
+								doc->AddFont(tmpf, fo);
+								DoFonts[tmf] = tmpf;
+							}
+							else
+								tmpf = DoFonts[tmf];
+							tmp3 = "\t" + tmpf + "\t";
 							tmp3 += it.attribute("CSIZE") + "\t";
 							tmp3 += it.attribute("CCOLOR") + "\t";
 							tmp3 += it.attribute("CEXTRA") + "\t";
@@ -1950,6 +2047,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 				vg.Font = DoFonts[pg.attribute("FONT")];
 			else
 				vg.Font = doc->Dfont;
+			if (vg.Font == "")
+				vg.Font = doc->Dfont;
 			vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10);
 			vg.Drop = static_cast<bool>(QStoInt(pg.attribute("DROP","0")));
 			vg.DropLin = QStoInt(pg.attribute("DROPLIN","2"));
@@ -2174,7 +2273,10 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			tmf = pg.attribute("IFONT", doc->Dfont);
 			if (tmf == "")
 				tmf = doc->Dfont;
-			OB.IFont = DoFonts[tmf];
+			if (DoFonts[tmf] == "")
+				OB.IFont = doc->Dfont;
+			else
+				OB.IFont = DoFonts[tmf];
 			OB.ISize = qRound(QStodouble(pg.attribute("ISIZE","12")) * 10);
 			OB.Pfile = pg.attribute("PFILE");
 			OB.Pfile2 = pg.attribute("PFILE2","");
@@ -2297,7 +2399,10 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 					tmf = it.attribute("CFONT", doc->Dfont);
 					if (tmf == "")
 						tmf = doc->Dfont;
-					tmp3 = "\t" + DoFonts[tmf] + "\t";
+					if (DoFonts[tmf] == "")
+						tmp3 = "\t" + doc->Dfont + "\t";
+					else
+						tmp3 = "\t" + DoFonts[tmf] + "\t";
 					tmp3 += it.attribute("CSIZE") + "\t";
 					tmp3 += it.attribute("CCOLOR") + "\t";
 					tmp3 += it.attribute("CEXTRA") + "\t";
@@ -3292,13 +3397,6 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 		jav.setAttribute("NAME",itja.key());
 		jav.setAttribute("SCRIPT",itja.data());
 		dc.appendChild(jav);
-	}
-	QMap<QString,QFont>::Iterator itf;	
-	for (itf = doc->UsedFonts.begin(); itf != doc->UsedFonts.end(); ++itf)
-	{
-		QDomElement fn=docu.createElement("FONT");
-		fn.setAttribute("NAME",itf.key());
-		dc.appendChild(fn);
 	}
 	QValueList<ScribusDoc::BookMa>::Iterator itbm;
 	for (itbm = doc->BookMarks.begin(); itbm != doc->BookMarks.end(); ++itbm)

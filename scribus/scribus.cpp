@@ -8537,7 +8537,6 @@ void ScribusApp::emergencySave()
 				std::cout << "Saving: " << doc->DocName+".emergency" << std::endl;
 				doc->ASaveTimer->stop();
 				disconnect(ActWin, SIGNAL(Schliessen()), ScApp, SLOT(DoFileClose()));
-				//				disconnect(ActWin, SIGNAL(SaveAndClose()), ScApp, SLOT(DoSaveClose()));
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				ss->WriteDoc(doc->DocName+".emergency", doc, view, 0);
 				delete ss;

@@ -1,5 +1,8 @@
 Changes since Version 1.1.7
 
+24.06.2004
+	* bug     #829: when emergency save it called - font tags are stripped from the top of file
+
 23.06.2004
 	* bug     #823: When dragging to and from the Scrapbook, unneeded styles are copied
 	* bug     #824: Modifying a paragraph style does not affect all text previously formatted with that style.
