@@ -4260,13 +4260,14 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	}
 	PutDoc(">>\nendobj\n");
 	XRef[5] = Dokument;
-	PutDoc("6 0 obj\n<< /Fields [ ");
+	PutDoc("6 0 obj\n<<\n");
 	if (Seite.FormObjects.count() != 0)
 	{
+		PutDoc("/Fields [ ");
 		for (uint fo = 0; fo < Seite.FormObjects.count(); ++fo)
 			PutDoc(IToStr(Seite.FormObjects[fo])+" 0 R ");
+		PutDoc(" ]\n");
 	}
-	PutDoc(" ]\n");
 	if (CalcFields.count() != 0)
 	{
 		PutDoc("/CO [ ");
@@ -4274,7 +4275,9 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 			PutDoc(IToStr(CalcFields[foc])+" 0 R ");
 		PutDoc(" ]\n");
 	}
-	PutDoc("/NeedAppearances true\n/DR "+IToStr(ResO)+" 0 R\n>>\nendobj\n");
+	if ((Seite.FormObjects.count() != 0) || (CalcFields.count() != 0))
+		PutDoc("/NeedAppearances true\n/DR "+IToStr(ResO)+" 0 R\n");
+	PutDoc(">>\nendobj\n");
 	if (doc->JavaScripts.count() != 0)
 	{
 		int Fjav0 = ObjCounter;
