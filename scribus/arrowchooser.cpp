@@ -1,7 +1,6 @@
 #include "arrowchooser.h"
 #include "arrowchooser.moc"
 #include "fpointarray.h"
-#include "scribusdoc.h"
 #include <qpixmap.h>
 #include <qlistbox.h>
 #include "scpainter.h"
@@ -18,13 +17,13 @@ ArrowChooser::ArrowChooser(QWidget* pa, bool direction)  : QComboBox(true, pa)
 	arrowDirection = direction;
 }
 
-void ArrowChooser::rebuildList(ScribusDoc *currentDoc)
+void ArrowChooser::rebuildList(QValueList<arrowDesc> *arrowStyles)
 {
 	clear();
 	FPointArray Path;
 	Path.resize(0);
 	insertItem( tr("None"));
-	for (uint a = 0; a < currentDoc->arrowStyles.count(); ++a)
+	for (uint a = 0; a < arrowStyles->count(); ++a)
 	{
 		QPixmap Ico(22, 22);
 		ScPainter *painter = new ScPainter(&Ico, 22, 22);
@@ -33,7 +32,7 @@ void ArrowChooser::rebuildList(ScribusDoc *currentDoc)
 		painter->setFillMode(1);
 		painter->translate(3.0, 3.0);
 		Path.resize(0);
-		Path = currentDoc->arrowStyles[a].points.copy();
+		Path = (*arrowStyles->at(a)).points.copy();
 		FPoint min = GetMinClipF(Path);
 		Path.translate(-min.x(), -min.y());
 		FPoint max = Path.WidthHeight();
@@ -69,7 +68,7 @@ void ArrowChooser::rebuildList(ScribusDoc *currentDoc)
 			}
     	}
 		Ico.convertFromImage(image);
-		insertItem(Ico, currentDoc->arrowStyles[a].name);
+		insertItem(Ico, (*arrowStyles->at(a)).name);
 	}
 	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 }

@@ -1107,22 +1107,10 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 				Lnr++;
 				if (ll.Drucken)
 				{
-					for (uint am = 0; am < doc->MasterItems.count(); ++am)
+					for (uint am = 0; am < pag->FromMaster.count(); ++am)
 					{
-						ite = doc->MasterItems.at(am);
+						ite = pag->FromMaster.at(am);
 						if ((ite->LayerNr != ll.LNr) || (!ite->isPrintable))
-							continue;
-						int x = static_cast<int>(pag->Xoffset);
-						int y = static_cast<int>(pag->Yoffset);
-						int w = static_cast<int>(pag->Width);
-						int h1 = static_cast<int>(pag->Height);
-						int x2 = static_cast<int>(ite->BoundingX - ite->Pwidth / 2.0);
-						int y2 = static_cast<int>(ite->BoundingY - ite->Pwidth / 2.0);
-						int w2 = static_cast<int>(ite->BoundingW + ite->Pwidth);
-						int h2 = static_cast<int>(ite->BoundingH + ite->Pwidth);
-						if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
-							continue;
-						if (ite->ChangedMasterItem)
 							continue;
 						if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 							continue;
@@ -1136,10 +1124,10 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							ite->OwnPage = pag->PageNr;
 							if (!ite->ChangedMasterItem)
 							{
-								ite->Xpos = OldX - mPage->Xoffset + pag->Xoffset;
-								ite->Ypos = OldY - mPage->Yoffset + pag->Yoffset;
-								ite->BoundingX = OldBX - mPage->Xoffset + pag->Xoffset;
-								ite->BoundingY = OldBY - mPage->Yoffset + pag->Yoffset;
+								ite->Xpos = OldX - mPage->Xoffset;
+								ite->Ypos = OldY - mPage->Yoffset;
+								ite->BoundingX = OldBX - mPage->Xoffset;
+								ite->BoundingY = OldBY - mPage->Yoffset;
 							}
 							double savScale = view->Scale;
 							view->Scale = 1.0;
@@ -1208,7 +1196,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 #ifdef HAVE_CMS
 							}
 #endif
-							PutPage("1 0 0 1 "+FToStr(ite->Xpos - mPage->Xoffset + pag->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - mPage->Yoffset + pag->Yoffset))+" cm\n");
+							PutPage("1 0 0 1 "+FToStr(ite->Xpos - mPage->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - mPage->Yoffset))+" cm\n");
 							if (ite->Rot != 0)
 							{
 								double sr = sin(-ite->Rot* 3.1415927 / 180.0);
@@ -1237,20 +1225,10 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							PutPage("Q\n");
 						}
 					}
-					for (uint am = 0; am < doc->MasterItems.count(); ++am)
+					for (uint am = 0; am < pag->FromMaster.count(); ++am)
 					{
-						ite = doc->MasterItems.at(am);
+						ite = pag->FromMaster.at(am);
 						if ((ite->LayerNr != ll.LNr) || (!ite->isPrintable))
-							continue;
-						int x = static_cast<int>(pag->Xoffset);
-						int y = static_cast<int>(pag->Yoffset);
-						int w = static_cast<int>(pag->Width);
-						int h1 = static_cast<int>(pag->Height);
-						int x2 = static_cast<int>(ite->BoundingX - ite->Pwidth / 2.0);
-						int y2 = static_cast<int>(ite->BoundingY - ite->Pwidth / 2.0);
-						int w2 = static_cast<int>(ite->BoundingW + ite->Pwidth);
-						int h2 = static_cast<int>(ite->BoundingH + ite->Pwidth);
-						if (!QRect(x, y, w, h1).intersects(QRect(x2, y2, w2, h2)))
 							continue;
 						if (ite->ChangedMasterItem)
 							continue;
@@ -1347,7 +1325,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								PutPage("0 j\n");
 								break;
 						}
-						PutPage("1 0 0 1 "+FToStr(ite->Xpos - mPage->Xoffset + pag->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - mPage->Yoffset + pag->Yoffset))+" cm\n");
+						PutPage("1 0 0 1 "+FToStr(ite->Xpos - mPage->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - mPage->Yoffset))+" cm\n");
 						if (ite->Rot != 0)
 						{
 							double sr = sin(-ite->Rot* 3.1415927 / 180.0);

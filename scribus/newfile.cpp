@@ -159,7 +159,7 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	TextLabel1_3 = new QLabel( tr( "F&irst Page Number:" ), GroupBox3, "TextLabel1_3" );
 	GroupBox3Layout->addMultiCellWidget( TextLabel1_3, 0, 0, 0, 1 );
 	PgNr = new QSpinBox( GroupBox3, "PgNr" );
-	PgNr->setMaxValue( 1000 );
+	PgNr->setMaxValue( 10000 );
 	PgNr->setMinValue( 1 );
 	TextLabel1_3->setBuddy(PgNr);
 	GroupBox3Layout->addWidget( PgNr, 0, 2, Qt::AlignRight );

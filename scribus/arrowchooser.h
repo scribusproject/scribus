@@ -2,7 +2,7 @@
 #define ARROWCHOOSER_H
 
 #include <qcombobox.h>
-class ScribusDoc;
+#include "scribusdoc.h"
 
 class ArrowChooser : public QComboBox
 {
@@ -11,7 +11,7 @@ class ArrowChooser : public QComboBox
 public:
 	ArrowChooser(QWidget* pa, bool direction);
 	~ArrowChooser() {};
-	void rebuildList(ScribusDoc *currentDoc);
+	void rebuildList(QValueList<arrowDesc> *arrowStyles);
 
 private:
 	bool arrowDirection;

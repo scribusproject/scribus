@@ -28,6 +28,7 @@
 #include "prefsdialogbase.h"
 class FontCombo;
 class PolygonWidget;
+class ArrowChooser;
 
 #include "langmgr.h"
 
@@ -44,7 +45,6 @@ public:
 	void DrawRuler();
 
 	QWidget* tab;
-	QGroupBox* Mouse;
 	QLabel* TextLabel1_2;
 	QSpinBox* SpinBox3;
 	QSpinBox* Recen;
@@ -56,7 +56,7 @@ public:
 	QComboBox* guiLangCombo;
 	QComboBox* GUICombo;
 	QComboBox* UnitCombo;
-	QGroupBox* GroupBox20;
+	QLabel* unitComboText;
 	QGroupBox* GroupBox200;
 	QLabel* PfadText;
 	QLineEdit* Docs;
@@ -70,7 +70,6 @@ public:
 	QLabel* PfadText4;
 	QLineEdit* TemplateDir;
 	QToolButton* FileC4;
-	QButtonGroup* ButtonGroup2;
 
 	QWidget* tabGuides;
 	QGroupBox* checkGrid;
@@ -102,15 +101,6 @@ public:
 	QCheckBox* checkPictures;
 	
 	QLabel* TextLabel4c;
-	QWidget* tab_3;
-	QWidgetStack* Fram;
-	QLabel* TextLabel2_2;
-	QLabel* TextLabel1_3;
-	FontCombo* FontComb;
-	QComboBox* SizeCombo;
-	QComboBox* ForegroundT;
-	QLabel* TextLabelT1;
-	QLabel* TextLabel1_4;
 
 	QWidget* tabTypo;
 	QGroupBox* groupBox1a;
@@ -152,60 +142,79 @@ public:
 	QRadioButton* inBackground;
 	QRadioButton* inForeground;
 
-	QToolButton* TextButton;
-	QToolButton* BildButton;
-	QToolButton* RectButton;
-	QToolButton* OvalButton;
-	QToolButton* LineButton;
-	QToolButton* ZoomButton;
-	QToolButton* PolyButton;
-	QFrame* ToolFrame;
-	QFrame* ToolFrame2;
-	QLabel* TextLabelT21;
-	QLabel* TextLabelT22;
-	QLabel* TextLabelT23;
-	QLabel* TextLabelT24;
-	QLabel* TextLabelT25;
-	QLabel* TextLabelT26;
-	QComboBox* Foreground;
-	QLabel* TextCol;
-	QLabel* TextGap;
-	QSpinBox* TextColVal;
-	MSpinBox* TextGapVal;
-	QSpinBox* Shade2;
-	QComboBox* Background;
-	QSpinBox* Shade;
-	LineCombo* Linestyle;
-	MSpinBox* LineW;
-	QFrame* ToolFrame3;
-	QLabel* TextLabelT31;
-	QLabel* TextLabelT32;
-	QLabel* TextLabelT35;
-	QLabel* TextLabelT36;
-	QComboBox* Foreground2;
-	QSpinBox* Shade22;
-	LineCombo* Linestyle2;
-	MSpinBox* LineW2;
-	QFrame* ToolFrame4;
-	QLabel* TextLabelT42;
-	QLabel* TextLabelT43;
-	QLabel* TextLabelT44;
-	QSpinBox* MinMag;
-	QSpinBox* MaxMag;
-	QSpinBox* StepMag;
-	QButtonGroup* ToolFrame5;
-	QLabel* TextLabelT51;
-	QLabel* TextLabelT52;
-	QLabel* TextLabelT53;
-	QLabel* TextLabelT54;
-	QRadioButton* FreeScale;
-	QRadioButton* FrameScale;
-	QCheckBox* Aspect;
-	QSpinBox* XScale;
-	QSpinBox* YScale;
-	LinkButton* Kette;
-	QComboBox* BackgroundP;
-	QSpinBox* ShadeP;
+	QWidget* tabTools;
+	QButtonGroup* buttonGroupTools;
+	QToolButton* toolShape;
+	QToolButton* toolPoly;
+	QToolButton* toolImage;
+	QToolButton* toolText;
+	QToolButton* toolLine;
+	QToolButton* toolZoom;
+	QWidgetStack* subStackTools;
+	QWidget* subTabText;
+	QLabel* textLabel3b;
+	QLabel* textLabel3b2;
+	QLabel* textLabel1b;
+	QLabel* textLabel2b;
+	QLabel* textLabel4b;
+	QSpinBox* columnsText;
+	QLabel* previewText;
+	FontCombo* fontComboText;
+	QComboBox* sizeComboText;
+	QComboBox* colorComboText;
+	QComboBox* colorComboStrokeText;
+	QLabel* textLabel5b;
+	MSpinBox* gapText;
+	QWidget* subTabShape;
+	QLabel* textLabel9b;
+	QLabel* textLabel10b;
+	MSpinBox* lineWidthShape;
+	QLabel* textLabel12b;
+	QLabel* textLabel11b;
+	LineCombo* comboStyleShape;
+	QSpinBox* shadingFillShape;
+	QComboBox* comboFillShape;
+	QSpinBox* shadingLineShape;
+	QLabel* textLabel7b;
+	QComboBox* colorComboLineShape;
+	QLabel* textLabel8b;
+	QWidget* subTabLine;
+	MSpinBox* lineWidthLine;
+	QSpinBox* shadingLine;
+	QComboBox* colorComboLine;
+	QLabel* textLabel13b;
+	QLabel* textLabel14b;
+	QLabel* textLabel15b;
+	QLabel* textLabel16b;
+	LineCombo* comboStyleLine;
+	QWidget* subTabImage;
+	QComboBox* comboFillImage;
+	QLabel* textLabel19b;
+	QSpinBox* shadingFillImage;
+	QLabel* textLabel20b;
+	QButtonGroup* buttonGroup3;
+	QLabel* textLabel17b;
+	QLabel* textLabel18b;
+	QSpinBox* scalingHorizontal;
+	QSpinBox* scalingVertical;
+	LinkButton* chainButton;
+	QButtonGroup* buttonGroup5;
+	QCheckBox* checkRatioImage;
+	QWidget* subTabPolygon;
+	PolygonWidget* polyWidget;
+	QWidget* subTabZoom;
+	QLabel* textLabel21b;
+	QSpinBox* minimumZoom;
+	QLabel* textLabel22b;
+	QLabel* textLabel23b;
+	QSpinBox* maximumZoom;
+	QSpinBox* zoomStep;
+	ArrowChooser* startArrow;
+	ArrowChooser* endArrow;
+	QLabel* startArrowText;
+	QLabel* endArrowText;
+	QLabel* arrowText;
+
 	QLabel* TextLabelP;
 	QWidget* tab_5;
 	QGroupBox* Saving;
@@ -213,8 +222,6 @@ public:
 	QGroupBox* Preview;
 	QComboBox* PreviewSize;
 	QFrame* Frame6;
-	QFrame* ToolFrame6;
-	PolygonWidget* polyWidget;
 	QWidget* tab_7;
 	QButtonGroup* GroupSize;
 	QLabel* GZText2;
@@ -223,9 +230,9 @@ public:
 	QLabel* GZText1;
 	QLabel* GZText3;
 	QLabel* GZText4;
-	MSpinBox* Breite;
-	MSpinBox* Hoehe;
-	QCheckBox* Doppelseiten;
+	MSpinBox* pageWidth;
+	MSpinBox* pageHeight;
+	QCheckBox* facingPages;
 	QCheckBox* Linkszuerst;
 	QGroupBox* GroupRand;
 	QLabel* GRText3;
@@ -286,6 +293,13 @@ public slots:
 	virtual void changeBaselineColor();
 	virtual void changeGuideColor();
 	virtual void changeMarginColor();
+	virtual void toggleChain();
+	virtual void hChange();
+	virtual void vChange();
+	virtual void changeImageScalingFree(int);
+	virtual void changeImageScalingRatio(int);
+	virtual void setSample();
+	virtual void setTool();
 	void ChangeDocs();
 	void ChangeProfs();
 	void ChangeScripts();
@@ -293,8 +307,8 @@ public slots:
 	void ChangeScaling();
 	void ChangeGrid();
 	void setDS();
-	void setBreite(int v);
-	void setHoehe(int v);
+	void setPageWidth(int v);
+	void setPageHeight(int v);
 	void setTop(int v);
 	void setBottom(int v);
 	void setLeft(int v);
@@ -302,42 +316,19 @@ public slots:
 	void setSize(int gr);
 	void setOrien(int ori);
 	void changePapColor();
-	void SetSample();
-	void SetTool();
-	void ToggleKette();
-	void HChange();
-	void VChange();
 	void UnitChange();
 	void SetDisScale();
 
 protected:
 	QGridLayout* tabLayout;
 	QGridLayout* ButtonGroup1Layout;
-	QHBoxLayout* GroupBox20Layout;
 	QGridLayout* GroupBox200Layout;
-	QHBoxLayout* MouseLayout;
-	QGridLayout* Layout5;
-	QHBoxLayout* tabLayout_4;
-	QHBoxLayout* ButtonGroup2Layout;
-	QGridLayout* Layout16;
-	QHBoxLayout* ToolFrameLayout;
-	QHBoxLayout* ToolFrame2Layout;
-	QHBoxLayout* ToolFrame3Layout;
-	QHBoxLayout* ToolFrame4Layout;
-	QHBoxLayout* ToolFrame5Layout;
-	QGridLayout* Layout15;
-	QGridLayout* Layout15a;
-	QGridLayout* Layout15b;
-	QGridLayout* Layout15c;
-	QGridLayout* Layout15d;
 	QGridLayout* tabLayout_5;
 	QHBoxLayout* SavingLayout;
 	QHBoxLayout* PreviewLayout;
 	QHBoxLayout* Layout3;
-	QHBoxLayout* PolygonPropsLayout;
 	QHBoxLayout* tabLayout_7;
 	QVBoxLayout* Layout21;
-	QVBoxLayout* Layout21b;
 	QVBoxLayout* GroupSizeLayout;
 	QGridLayout* Layout6;
 	QHBoxLayout* Layout5_2;
@@ -371,12 +362,22 @@ protected:
 	QHBoxLayout* groupScratchLayout;
 	QGridLayout* Layout4s;
 	QHBoxLayout* buttonGroup1Layout;
+	QHBoxLayout* tabToolsLayout;
+	QVBoxLayout* buttonGroupToolsLayout;
+	QGridLayout* subTabTextLayout;
+	QGridLayout* subTabShapeLayout;
+	QGridLayout* subTabLineLayout;
+	QGridLayout* subTabImageLayout;
+	QGridLayout* buttonGroup3Layout;
+	QHBoxLayout* buttonGroup5Layout;
+	QHBoxLayout* subTabPolygonLayout;
+	QGridLayout* subTabZoomLayout;
 
 private slots:
 	void setSelectedGUILang( const QString &newLang );
 
 private:
-	LanguageManager langMgr;	
+	LanguageManager langMgr;
 };
 
 #endif // PREFS_H

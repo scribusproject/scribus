@@ -255,7 +255,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	grabDistance->setValue( doc->GrabRad );
 	grabDistance->setSuffix( tr( " px" ) );
 	layout11->addWidget( grabDistance, 1, 1, Qt::AlignLeft );
-	
+
 	checkMargin = new QCheckBox( tabGuides, "checkMargin" );
 	checkMargin->setText( tr( "Show Margins" ) );
 	checkMargin->setChecked(doc->MarginsShown);
@@ -575,7 +575,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	subStackTools->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)5, 0, 0, subStackTools->sizePolicy().hasHeightForWidth() ) );
 	subStackTools->setFrameShape( QWidgetStack::GroupBoxPanel );
 	subStackTools->setFrameShadow( QWidgetStack::Sunken );
-	
+
 	subTabText = new QWidget( subStackTools, "subTabText" );
 	subTabTextLayout = new QGridLayout( subTabText, 1, 1, 11, 6, "subTabTextLayout");
 	fontComboText = new FontCombo(subTabText, prefsData);
@@ -796,8 +796,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	subTabLineLayout->addWidget( startArrow, 4, 1 );
 	endArrow = new ArrowChooser(subTabLine, false);
 	subTabLineLayout->addWidget( endArrow, 4, 2 );
-	startArrow->rebuildList(doc);
-	endArrow->rebuildList(doc);
+	startArrow->rebuildList(&doc->arrowStyles);
+	endArrow->rebuildList(&doc->arrowStyles);
 	startArrow->setCurrentItem(doc->DstartArrow);
 	endArrow->setCurrentItem(doc->DendArrow);
 	arrowText = new QLabel( tr( "Arrows:" ), subTabLine, "arrowText" );
@@ -970,6 +970,39 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	toolText->setOn(true);
 	setSample();
 	//tooltips
+	QToolTip::add( toolText, tr( "Text Frame Properties" ) );
+	QToolTip::add( toolImage, tr( "Picture Frame Properties" ) );
+	QToolTip::add( toolShape, tr( "Shape Drawing Properties" ) );
+	QToolTip::add( toolZoom, tr( "Magnification Level Defaults" ) );
+	QToolTip::add( toolLine, tr( "Line Drawing Properties" ) );
+	QToolTip::add( toolPoly, tr( "Polygon Drawing Properties" ) );
+	QToolTip::add( fontComboText, tr( "Font for new text frames" ) );
+	QToolTip::add( sizeComboText, tr( "Size of font for new text frames" ) );
+	QToolTip::add( colorComboText, tr( "Color of font" ) );
+	QToolTip::add( columnsText, tr( "Number of columns in a text frame" ) );
+	QToolTip::add( gapText, tr( "Gap between text frame columns" ) );
+	QToolTip::add( previewText, tr( "Sample of your font" ) );
+	QToolTip::add( buttonGroup3, tr( "Picture frames allow pictures to scale to any size" ) );
+	QToolTip::add( scalingHorizontal, tr( "Horizontal scaling of images" ) );
+	QToolTip::add( scalingVertical, tr( "Vertical scaling of images" ) );
+	QToolTip::add( chainButton, tr( "Keep horizontal and vertical scaling the same" ) );
+	QToolTip::add( buttonGroup5, tr( "Pictures in picture frames are scaled to the size of the frame" ) );
+	QToolTip::add( checkRatioImage, tr( "Automatically scaled pictures keep their original proportions" ) );
+	QToolTip::add( comboFillImage, tr( "Fill color of picture frames" ) );
+	QToolTip::add( shadingFillImage, tr( "Saturation of color of fill" ) );
+	QToolTip::add( colorComboLineShape, tr( "Line color of shapes" ) );
+	QToolTip::add( shadingLineShape, tr( "Saturation of color of lines" ) );
+	QToolTip::add( comboFillShape, tr( "Fill color of shapes" ) );
+	QToolTip::add( shadingFillShape, tr( "Saturation of color of fill" ) );
+	QToolTip::add( comboStyleShape, tr( "Line style of shapes" ) );
+	QToolTip::add( lineWidthShape, tr( "Line width of shapes" ) );
+	QToolTip::add( minimumZoom, tr( "Minimum magnification allowed" ) );
+	QToolTip::add( maximumZoom, tr( "Maximum magnification allowed" ) );
+	QToolTip::add( zoomStep, tr( "Change in magnification for each zoom operation" ) );
+	QToolTip::add( colorComboLine, tr( "Color of lines" ) );
+	QToolTip::add( shadingLine, tr( "Saturation of color" ) );
+	QToolTip::add( comboStyleLine, tr( "Style of lines" ) );
+	QToolTip::add( lineWidthLine, tr( "Width of lines" ) );
 	QToolTip::add( backColor, tr( "Color for paper" ) );
 	QToolTip::add( checkUnprintable, tr( "Mask the area outside the margins in the margin color" ) );
 	QToolTip::add( minorSpace, tr( "Distance between the minor grid lines" ) );
@@ -1063,24 +1096,24 @@ void ReformDoc::unitChange()
 		break;
 	}
 
-    widthMSpinBox->setSuffix(einh);
-    heightMSpinBox->setSuffix(einh);
-    topR->setSuffix(einh);
-    bottomR->setSuffix(einh);
-    leftR->setSuffix(einh);
-    rightR->setSuffix(einh);
-    minorSpace->setSuffix(einh);
-    majorSpace->setSuffix(einh);
-    snapDistance->setSuffix(einh);
-    baseGrid->setSuffix(einh);
-    baseOffset->setSuffix(einh);
-    gapText->setSuffix(einh);
-    topScratch->setSuffix(einh);
-    bottomScratch->setSuffix(einh);
-    leftScratch->setSuffix(einh);
-    rightScratch->setSuffix(einh);
+	widthMSpinBox->setSuffix(einh);
+	heightMSpinBox->setSuffix(einh);
+	topR->setSuffix(einh);
+	bottomR->setSuffix(einh);
+	leftR->setSuffix(einh);
+	rightR->setSuffix(einh);
+	minorSpace->setSuffix(einh);
+	majorSpace->setSuffix(einh);
+	snapDistance->setSuffix(einh);
+	baseGrid->setSuffix(einh);
+	baseOffset->setSuffix(einh);
+	gapText->setSuffix(einh);
+	topScratch->setSuffix(einh);
+	bottomScratch->setSuffix(einh);
+	leftScratch->setSuffix(einh);
+	rightScratch->setSuffix(einh);
 
-    double invUnitConversion = 1.0 / AltUmrech * Umrech;
+	double invUnitConversion = 1.0 / AltUmrech * Umrech;
 
 	widthMSpinBox->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	widthMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, docc->PageB * Umrech);

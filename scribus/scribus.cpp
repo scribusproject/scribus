@@ -2705,8 +2705,8 @@ void ScribusApp::SwitchWin()
 	Sepal->SetView(view);
 	Mpal->Spal->setFormats(doc);
 	Mpal->SetLineFormats(doc);
-	Mpal->startArrow->rebuildList(doc);
-	Mpal->endArrow->rebuildList(doc);
+	Mpal->startArrow->rebuildList(&doc->arrowStyles);
+	Mpal->endArrow->rebuildList(&doc->arrowStyles);
 	FontSub->RebuildList(&Prefs, doc);
 	Mpal->Fonts->RebuildList(&Prefs, doc);
 	Lpal->setLayers(&doc->Layers, &doc->ActiveLayer);
@@ -2837,8 +2837,8 @@ void ScribusApp::HaveNewDoc()
 	Sepal->SetView(view);
 	Mpal->Spal->setFormats(doc);
 	Mpal->SetLineFormats(doc);
-	Mpal->startArrow->rebuildList(doc);
-	Mpal->endArrow->rebuildList(doc);
+	Mpal->startArrow->rebuildList(&doc->arrowStyles);
+	Mpal->endArrow->rebuildList(&doc->arrowStyles);
 	Lpal->setLayers(&doc->Layers, &doc->ActiveLayer);
 	view->LaMenu();
 	view->setLayMenTxt(doc->ActiveLayer);
@@ -3511,8 +3511,8 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 		Mpal->updateCList();
 		Mpal->Spal->setFormats(doc);
 		Mpal->SetLineFormats(doc);
-		Mpal->startArrow->rebuildList(doc);
-		Mpal->endArrow->rebuildList(doc);
+		Mpal->startArrow->rebuildList(&doc->arrowStyles);
+		Mpal->endArrow->rebuildList(&doc->arrowStyles);
 		if (!Mpa)
 		{
 			Tpal->BuildTree(view);
@@ -6936,7 +6936,7 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.RandUnten = dia->RandB;
 		Prefs.RandLinks = dia->RandL;
 		Prefs.RandRechts = dia->RandR;
-		Prefs.DoppelSeiten = dia->Doppelseiten->isChecked();
+		Prefs.DoppelSeiten = dia->facingPages->isChecked();
 		Prefs.ErsteLinks = dia->Linkszuerst->isChecked();
 		Prefs.gimp_exe = dia->GimpName->text();
 		Prefs.gs_antiGraph = dia->GSantiGraph->isChecked();
@@ -6974,8 +6974,8 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.ScratchTop = dia->topScratch->value() / UmReFaktor;
 		Prefs.GrabRad = dia->grabDistance->value();
 		Prefs.GuideRad = dia->snapDistance->value() / UmReFaktor;
-		Prefs.DefFont = dia->FontComb->currentText();
-		Prefs.DefSize = dia->SizeCombo->currentText().left(2).toInt() * 10;
+		Prefs.DefFont = dia->fontComboText->currentText();
+		Prefs.DefSize = dia->sizeComboText->currentText().left(2).toInt() * 10;
 		Prefs.DminGrid = dia->minorSpace->value() / UmReFaktor;
 		Prefs.DmajGrid = dia->majorSpace->value() / UmReFaktor;
 		Prefs.DminColor = dia->colorMinorGrid;
@@ -6996,20 +6996,23 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.DVTief = dia->subDisplacement->value();
 		Prefs.DVTiefSc = dia->subScaling->value();
 		Prefs.DVKapit = dia->capsScaling->value();
-		Prefs.Dpen = dia->Foreground->currentText();
+		Prefs.Dpen = dia->colorComboLineShape->currentText();
 		if (Prefs.Dpen == tr("None"))
 			Prefs.Dpen = "None";
-		Prefs.DpenText = dia->ForegroundT->currentText();
+		Prefs.DpenText = dia->colorComboText->currentText();
 		if (Prefs.DpenText == tr("None"))
 			Prefs.DpenText = "None";
-		Prefs.DCols = dia->TextColVal->value();
-		Prefs.DGap = dia->TextGapVal->value() / UmReFaktor;
-		Prefs.Dbrush = dia->Background->currentText();
+		Prefs.DstrokeText = dia->colorComboStrokeText->currentText();
+		if (Prefs.DstrokeText == tr("None"))
+			Prefs.DstrokeText = "None";
+		Prefs.DCols = dia->columnsText->value();
+		Prefs.DGap = dia->gapText->value() / UmReFaktor;
+		Prefs.Dbrush = dia->comboFillShape->currentText();
 		if (Prefs.Dbrush == tr("None"))
 			Prefs.Dbrush = "None";
-		Prefs.Dshade = dia->Shade->value();
-		Prefs.Dshade2 = dia->Shade2->value();
-		switch (dia->Linestyle->currentItem())
+		Prefs.Dshade = dia->shadingFillShape->value();
+		Prefs.Dshade2 = dia->shadingLineShape->value();
+		switch (dia->comboStyleShape->currentItem())
 		{
 		case 0:
 			Prefs.DLineArt = SolidLine;
@@ -7027,12 +7030,12 @@ void ScribusApp::slotPrefsOrg()
 			Prefs.DLineArt = DashDotDotLine;
 			break;
 		}
-		Prefs.Dwidth = dia->LineW->value();
-		Prefs.DpenLine = dia->Foreground2->currentText();
+		Prefs.Dwidth = dia->lineWidthShape->value();
+		Prefs.DpenLine = dia->colorComboLine->currentText();
 		if (Prefs.DpenLine == tr("None"))
 			Prefs.DpenLine = "None";
-		Prefs.DshadeLine = dia->Shade22->value();
-		switch (dia->Linestyle2->currentItem())
+		Prefs.DshadeLine = dia->shadingLine->value();
+		switch (dia->comboStyleLine->currentItem())
 		{
 		case 0:
 			Prefs.DLstyleLine = SolidLine;
@@ -7050,18 +7053,20 @@ void ScribusApp::slotPrefsOrg()
 			Prefs.DLstyleLine = DashDotDotLine;
 			break;
 		}
-		Prefs.DwidthLine = dia->LineW2->value();
-		Prefs.MagMin = dia->MinMag->value();
-		Prefs.MagMax = dia->MaxMag->value();
-		Prefs.MagStep = dia->StepMag->value();
-		Prefs.DbrushPict = dia->BackgroundP->currentText();
+		Prefs.DwidthLine = dia->lineWidthLine->value();
+		Prefs.DstartArrow = dia->startArrow->currentItem();
+		Prefs.DendArrow = dia->endArrow->currentItem();
+		Prefs.MagMin = dia->minimumZoom->value();
+		Prefs.MagMax = dia->maximumZoom->value();
+		Prefs.MagStep = dia->zoomStep->value();
+		Prefs.DbrushPict = dia->comboFillImage->currentText();
 		if (Prefs.DbrushPict == tr("None"))
 			Prefs.DbrushPict = "None";
-		Prefs.ShadePict = dia->ShadeP->value();
-		Prefs.ScaleX = static_cast<double>(dia->XScale->value()) / 100.0;
-		Prefs.ScaleY = static_cast<double>(dia->YScale->value()) / 100.0;
-		Prefs.ScaleType = dia->FreeScale->isChecked();
-		Prefs.AspectRatio = dia->Aspect->isChecked();
+		Prefs.ShadePict = dia->shadingFillImage->value();
+		Prefs.ScaleX = static_cast<double>(dia->scalingHorizontal->value()) / 100.0;
+		Prefs.ScaleY = static_cast<double>(dia->scalingVertical->value()) / 100.0;
+		Prefs.ScaleType = dia->buttonGroup3->isChecked();
+		Prefs.AspectRatio = dia->checkRatioImage->isChecked();
 		Prefs.AutoLine = dia->autoLine->value();
 		Prefs.AutoSave = dia->ASon->isChecked();
 		Prefs.AutoSaveTime = dia->ASTime->value() * 60 * 1000;
@@ -7145,8 +7150,6 @@ void ScribusApp::SavePrefs()
 	Prefs.PrinterName = PDef.Pname;
 	Prefs.PrinterFile = PDef.Dname;
 	Prefs.PrinterCommand = PDef.Command;
-/* Only until Preferences Dialog get updated */
-	Prefs.DstrokeText = Prefs.DpenText;
 	ScriXmlDoc *ss = new ScriXmlDoc();
 	ss->WritePref(&Prefs, PrefsPfad+"/scribus.rc");
 	delete ss;
