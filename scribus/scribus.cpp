@@ -5301,8 +5301,8 @@ void ScribusApp::slotPrefsOrg()
 			if (doc->DbrushPict == tr("None"))
 				doc->DbrushPict = "None";
 			doc->ShadePict = dia->ShadeP->value();
-			doc->ScaleX = dia->XScale->value();
-			doc->ScaleY = dia->YScale->value();
+			doc->ScaleX = static_cast<double>(dia->XScale->value()) / 100.0;
+			doc->ScaleY = static_cast<double>(dia->YScale->value()) / 100.0;
 			doc->ScaleType = dia->FreeScale->isChecked();
 			doc->AspectRatio = dia->Aspect->isChecked();
 			doc->Before = dia->RadioButton6->isChecked();
@@ -5415,8 +5415,8 @@ void ScribusApp::slotPrefsOrg()
 			if (Prefs.DbrushPict == tr("None"))
 				Prefs.DbrushPict = "None";
 			Prefs.ShadePict = dia->ShadeP->value();
-			Prefs.ScaleX = dia->XScale->value();
-			Prefs.ScaleY = dia->YScale->value();
+			Prefs.ScaleX = static_cast<double>(dia->XScale->value()) / 100.0;
+			Prefs.ScaleY = static_cast<double>(dia->YScale->value()) / 100.0;
 			Prefs.ScaleType = dia->FreeScale->isChecked();
 			Prefs.AspectRatio = dia->Aspect->isChecked();
 			Prefs.Before = dia->RadioButton6->isChecked();
@@ -6597,20 +6597,14 @@ void ScribusApp::showLayer()
 
 void ScribusApp::LayerRemove(int l)
 {
-	for (uint a = 0; a < view->Pages.count(); ++a)
-		{
-		for (uint b = 0; b < view->Pages.at(a)->Items.count(); ++b)
-			{
-			if (view->Pages.at(a)->Items.at(b)->LayerNr == l)
-				view->Pages.at(a)->Items.at(b)->LayerNr = 0;
-			}
-		}
 	for (uint a = 0; a < view->MasterPages.count(); ++a)
 		{
 		for (uint b = 0; b < view->MasterPages.at(a)->Items.count(); ++b)
 			{
 			if (view->MasterPages.at(a)->Items.at(b)->LayerNr == l)
 				view->MasterPages.at(a)->Items.at(b)->LayerNr = 0;
+			if (view->MasterPages.at(a)->Items.at(b)->LayerNr > l)
+				view->MasterPages.at(a)->Items.at(b)->LayerNr -= 1;
 			}
 		}
 	for (uint a = 0; a < view->DocPages.count(); ++a)
@@ -6619,6 +6613,8 @@ void ScribusApp::LayerRemove(int l)
 			{
 			if (view->DocPages.at(a)->Items.at(b)->LayerNr == l)
 				view->DocPages.at(a)->Items.at(b)->LayerNr = 0;
+			if (view->DocPages.at(a)->Items.at(b)->LayerNr > l)
+				view->DocPages.at(a)->Items.at(b)->LayerNr -= 1;
 			}
 		}
 	view->LaMenu();

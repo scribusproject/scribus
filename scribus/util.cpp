@@ -578,7 +578,6 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 							cmsDoTransform(xform, ptr, ptr, Bild.width());
 							}
 						}
-					cmsCloseProfile(inputProf);
 					}
 				else
 					{
@@ -601,6 +600,7 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 						}
 					}
 				cmsDeleteTransform(xform);
+				cmsCloseProfile(inputProf);
 				}
 			TIFFClose(tif);
 			}
@@ -630,6 +630,7 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 			cmsDoTransform(xform, ptr, ptr, Bild.width());
 			}
 		cmsDeleteTransform(xform);
+		cmsCloseProfile(inputProf);
 		}
 	return Bild;
 }

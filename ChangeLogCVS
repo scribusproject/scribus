@@ -1,4 +1,7 @@
 Changes since Version 1.1.4
+09.01.2004	Fixed a problem when deleting a Layer.
+		Fixed memory leak in the Postscript Export.
+
 08.01.2004	Replaced the Color Submenue in the Style Menue with a ComboBox.
 
 07.01.2004	Added the missing centered Tabulator.

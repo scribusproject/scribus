@@ -1450,11 +1450,21 @@ void Mpalette::UnitChange()
 			break;
 		case 1:
     	ein = " mm";
+			Xpos->setDecimals(1000);
+			Ypos->setDecimals(1000);
+  		Width->setDecimals(1000);
+  		Height->setDecimals(1000);
+  		LXpos->setDecimals(1000);
+  		LYpos->setDecimals(1000);
+  		DGap->setDecimals(1000);
+  		DLeft->setDecimals(1000);
+  		DTop->setDecimals(1000);
+  		DBottom->setDecimals(1000);
+  		DRight->setDecimals(1000);
+			RoundRect->setDecimals(1000);
 			break;
 		case 2:
     	ein = " in";
-  		Width->setLineStep(10);
-  		Height->setLineStep(10);
 			Xpos->setDecimals(10000);
 			Ypos->setDecimals(10000);
   		Width->setDecimals(10000);
@@ -1557,8 +1567,8 @@ void Mpalette::setBH(double x, double y)
 	QPoint dp;
 	if ((LMode) && (CurItem->PType == 5))
 		{
-		ma.translate(static_cast<double>(Xpos->value()) / UmReFaktor / Xpos->Decimals, static_cast<double>(Ypos->value()) / UmReFaktor / Ypos->Decimals);
-		ma.rotate(static_cast<double>(Rot->value())/100.0*(-1));
+		ma.translate(static_cast<double>(Xpos->value()) / UmReFaktor, static_cast<double>(Ypos->value()) / UmReFaktor);
+		ma.rotate(static_cast<double>(Rot->value())*(-1));
 		dp = ma * QPoint(static_cast<int>(x), static_cast<int>(y));
 		Width->setValue(dp.x()*UmReFaktor);
 		Height->setValue(dp.y()*UmReFaktor);
