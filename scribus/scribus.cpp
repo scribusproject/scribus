@@ -7231,7 +7231,7 @@ void ScribusApp::SavePrefsXML()
 void ScribusApp::ReadPrefs()
 {
 	ScriXmlDoc *ss = new ScriXmlDoc();
-	bool erg = ss->ReadPref(&Prefs, PrefsPfad+"/scribus.rc");
+	bool erg = ss->ReadPref(&Prefs, PrefsPfad+"/scribus.rc", splashScreen);
 	delete ss;
 	if (!erg)
 		return;

@@ -21,6 +21,7 @@
 #include <cmath>
 #include "missing.h"
 #include "pageitem.h"
+#include "splash.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -3052,7 +3053,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	f.close();
 }
 
-bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho)
+bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScreen *splash)
 {
 	QDomDocument docu("scridoc");
 	QFile f(ho);
@@ -3306,6 +3307,8 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho)
 			QString newFont = "";
 			if (!Vorein->AvailFonts.find(tmpf))
 			{
+				if (splash)
+					splash->hide();
 				MissingFont *dia = new MissingFont(0, tmpf, Vorein);
 				dia->exec();
 				newFont = dia->getReplacementFont();
