@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "POT-Creation-Date: 2003-06-19 10:00+0200\n"
-"PO-Revision-Date: 2003-07-07 15:40+0400\n"
+"PO-Revision-Date: 2003-08-25 19:22+0400\n"
 "Last-Translator: Alexandre Prokoudine <avp@altlinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -556,7 +556,7 @@ msgid "Mouse-Settings"
 msgstr "Настройки мыши"
 
 msgid "Wheel-Jump"
-msgstr ""
+msgstr "Перемещение ролика мыши"
 
 msgid "Grab-Radius"
 msgstr "Радиус захвата"
@@ -658,7 +658,7 @@ msgid "Vertical Shift:"
 msgstr "Смещение по вертикали:"
 
 msgid "Distribute/Align"
-msgstr "Распределять/Выравнивать"
+msgstr "Распределить/Выровнять"
 
 msgid "Distribute/Align..."
 msgstr "Распределять/Выравнивать..."
@@ -679,19 +679,19 @@ msgid "between:"
 msgstr "между:"
 
 msgid "Left Sides"
-msgstr "Левые стороны"
+msgstr "левыми сторонами"
 
 msgid "Middles"
-msgstr "Середина"
+msgstr "серединой"
 
 msgid "Right Sides"
-msgstr "Правые стороны"
+msgstr "правыми сторонами"
 
 msgid "Top Sides"
-msgstr "Верхние стороны"
+msgstr "верхними сторонами"
 
 msgid "Bottom Sides"
-msgstr "Нижние стороны"
+msgstr "нижними сторонами"
 
 msgid "Vertical"
 msgstr "Вертикально"
@@ -820,10 +820,10 @@ msgid "Flip vertical"
 msgstr "Перевернуть по вертикали"
 
 msgid "Scaling:"
-msgstr "Масштабирование:"
+msgstr "Масштаб:"
 
 msgid "Disp.:"
-msgstr ""
+msgstr "Положение:"
 
 msgid "Small Caps"
 msgstr "Капитель"
@@ -927,9 +927,8 @@ msgstr "Создать текстовую цепь"
 msgid "Break Textchains"
 msgstr "Разбить текстовую цепь"
 
-#, fuzzy
 msgid "Stepping:"
-msgstr "Пошагово:"
+msgstr "Каждый шаг:"
 
 msgid "Placing"
 msgstr "Расположение"
@@ -1018,7 +1017,6 @@ msgstr "Ничего"
 msgid "Closes the current Document"
 msgstr "Закрывает текущий документ"
 
-#, fuzzy
 msgid "Range:"
 msgstr "Область:"
 
@@ -1043,7 +1041,6 @@ msgstr "Старый"
 msgid "Color Model"
 msgstr "Цветовая модель"
 
-#, fuzzy
 msgid "Is Spot-Color"
 msgstr "Является цветовой заливкой"
 
@@ -1117,7 +1114,7 @@ msgid "Face:"
 msgstr "Вид:"
 
 msgid "Size:"
-msgstr "Кегль:"
+msgstr "Размер:"
 
 msgid "Color:"
 msgstr "Цвет:"
@@ -1162,13 +1159,13 @@ msgid "Move Nodes"
 msgstr "Переместить узлы"
 
 msgid "Move Control Points"
-msgstr "Переместить контрольные точки"
+msgstr "Переместить узлы"
 
 msgid "Move Control Points independently"
-msgstr "Переместить контрольные точки независимо"
+msgstr "Переместить узлы независимо"
 
 msgid "Move Control Points symmetrical"
-msgstr "Переместить контрольные точки симметрично"
+msgstr "Переместить узлы симметрично"
 
 msgid "Insert Bezier Curves"
 msgstr "Вставить кривую Безье"
@@ -1325,7 +1322,7 @@ msgid "Display unprintable Area in Margin Color"
 msgstr "Показать непечатаемую область цветом полей"
 
 msgid "Automatic Linespaceing:"
-msgstr ""
+msgstr "Автоматический интерлиньяж:"
 
 msgid "Distances"
 msgstr "Расстояния"
@@ -1628,7 +1625,7 @@ msgid "Align Text Block"
 msgstr "Выровнять текст блочно"
 
 msgid "Endings:"
-msgstr ""
+msgstr "Окончания:"
 
 msgid "Edges:"
 msgstr "Края:"
@@ -1745,22 +1742,22 @@ msgid "Convert to"
 msgstr "Преобразовать в"
 
 msgid "Text Frame"
-msgstr "текстовую рамку"
+msgstr "Текстовую рамку"
 
 msgid "Picture Frame"
-msgstr "рамку с изображением"
+msgstr "Рамку с изображением"
 
 msgid "Polygon"
 msgstr "Многоугольник"
 
 msgid "Bezier Curve"
-msgstr "кривую Безье"
+msgstr "Кривую Безье"
 
 msgid "Style"
 msgstr "Стиль"
 
 msgid "Modify Pathtext"
-msgstr ""
+msgstr "Изменить текст контура"
 
 msgid "Show Curve"
 msgstr "Показать кривую"
@@ -1772,7 +1769,7 @@ msgid "Distance from Curve:"
 msgstr "Расстояние от кривой:"
 
 msgid "Attach Text to Path"
-msgstr ""
+msgstr "Присоединить текст к контуру"
 
 msgid "Layers"
 msgstr "Слои"
@@ -1799,10 +1796,10 @@ msgid "Background"
 msgstr "Задний план"
 
 msgid "Reset Control Points"
-msgstr "Перечитать контрольные точки"
+msgstr "Перечитать узлы"
 
 msgid "Reset this Control Points"
-msgstr "Перечитывает эти контрольные точки"
+msgstr "Перечитывает эти узлы"
 
 msgid "Opens a Polygon or cuts a Bezier Curve"
 msgstr "Открывает многоугольник или вырезает кривую Безье"
@@ -1828,7 +1825,6 @@ msgstr "Текстовое поле"
 msgid "Button"
 msgstr "Кнопка"
 
-#, fuzzy
 msgid "Check Box"
 msgstr "Чекбокс"
 
@@ -1865,11 +1861,9 @@ msgstr "Объёмно"
 msgid "Inset"
 msgstr "Вкладка"
 
-#, fuzzy
 msgid "Visible"
 msgstr "Видима"
 
-#, fuzzy
 msgid "Hidden"
 msgstr "Скрыта"
 
@@ -1892,7 +1886,7 @@ msgid "Text for Roll Over"
 msgstr "Текст для Roll Over"
 
 msgid "Highlight"
-msgstr ""
+msgstr "Подсветить"
 
 msgid "Invert"
 msgstr "Инвертировать"
@@ -2054,7 +2048,7 @@ msgid "List Box"
 msgstr "Список (list box)"
 
 msgid "Keystroke:"
-msgstr ""
+msgstr "Нажатие клавиши:"
 
 msgid "Format"
 msgstr "Формат"
@@ -2111,7 +2105,7 @@ msgid "Example:"
 msgstr "Пример:"
 
 msgid "Selection Change"
-msgstr ""
+msgstr "Изменение выделения"
 
 msgid "Use Icons"
 msgstr "Использовать пиктограммы"
@@ -2189,7 +2183,7 @@ msgid "Reset"
 msgstr "Перечитать"
 
 msgid "You need at least the Icon for Normal to use Icons for Buttons"
-msgstr ""
+msgstr "Вам необходима хотя бы одна пиктограмма для Normal, чтобы использовать пиктограммы на кнопках"
 
 msgid "Save and Exit"
 msgstr "Сохранить и выйти"
@@ -2294,7 +2288,7 @@ msgid "Show Page Palette"
 msgstr "Показать палитру страниц"
 
 msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
-msgstr ""
+msgstr "Перетащите страницы или шаблоны на пиктограмму с корзиной для их удаления."
 
 msgid ""
 "Here are all your Templates, to create a new Page\n"
@@ -2370,6 +2364,8 @@ msgid ""
 "If you uncheck this you will get an Dialog\n"
 "everytime a possible Hyphenation is found."
 msgstr ""
+"Если вы снимете флажок, то диалог будет\n"
+"появляться при каждой возможности переноса."
 
 msgid "Windows"
 msgstr "Окна"
@@ -2443,6 +2439,8 @@ msgid ""
 "Moves to your Document Directory.\n"
 "This can be set in the Preferences."
 msgstr ""
+"Перемещает в каталог с документами.\n"
+"Это можно настроить."
 
 msgid "Choose a Directory"
 msgstr "Выбрать каталог"
@@ -2514,7 +2512,7 @@ msgid "Guide Snap Distance:"
 msgstr "Привязываемая область:"
 
 msgid "Use PDF-1.4 Transparency Features"
-msgstr ""
+msgstr "Использовать возможности непрозрачности PDF-1.4"
 
 msgid "Opacity:"
 msgstr "Непрозрачность:"
@@ -2686,7 +2684,7 @@ msgstr ""
 "Углы:"
 
 msgid "Distance of Text"
-msgstr ""
+msgstr "Расстояние до текста"
 
 msgid "Custom Spacing"
 msgstr ""
@@ -2755,13 +2753,13 @@ msgid "Convert to Polygons"
 msgstr "Преобразовать в многоугольники"
 
 msgid "Websave RGB"
-msgstr ""
+msgstr "RGB для Web"
 
 msgid "Adjust Display Size"
-msgstr ""
+msgstr "Подстроить размер дисплея"
 
 msgid "To adjust the Display drag the Ruler below with the Slider."
-msgstr ""
+msgstr "Для подстройки отображения перетащите ползунок внизу линейки."
 
 msgid "Show PDF-Tools"
 msgstr "Показать PDF-инструменты"
@@ -2770,16 +2768,16 @@ msgid "Hide PDF-Tools"
 msgstr "Спрятать PDF-инструменты"
 
 msgid "Shears the Path horizotal to the right"
-msgstr ""
+msgstr "Срезает контур горизонтально вправо"
 
 msgid "Shears the Path horizotal to the left"
-msgstr ""
+msgstr "Срезает контур горизонтально влево"
 
 msgid "Shears the Path vertical up"
-msgstr ""
+msgstr "Срезает контур вертикально вверх"
 
 msgid "Shears the Path vertical down"
-msgstr ""
+msgstr "Срезает контур вертикально вниз"
 
 msgid "Line Styles..."
 msgstr "Стили линий..."
@@ -2827,7 +2825,7 @@ msgid "Enabled"
 msgstr "Разрешено"
 
 msgid "use Bounding Box"
-msgstr ""
+msgstr "использовать привязочную рамку"
 
 msgid "Czech:"
 msgstr "На чешский:"
@@ -2854,19 +2852,49 @@ msgid "SVG-Images (*.svg);; All Files (*)"
 msgstr "Изображения в формате SVG (*.svg);;Все файлы (*)"
 
 msgid "Solid Line"
-msgstr ""
+msgstr "Целая линия"
 
 msgid "Dashed Line"
-msgstr ""
+msgstr "Пунктирная линия"
 
 msgid "Dotted Line"
-msgstr ""
+msgstr "Точка-точка-точка"
 
 msgid "Dash Dot Line"
-msgstr ""
+msgstr "Тире-точка"
 
 msgid "Dash Dot Dot Line"
-msgstr ""
+msgstr "Тире-точка-точка"
+
+msgid "Bulgarian:"
+msgstr "На болгарский:"
+
+msgid "Galician:"
+msgstr "На галлийский:"
+
+msgid "English:"
+msgstr "На английский:"
+
+msgid "Oval"
+msgstr "Овал"
+
+msgid "Czech"
+msgstr "Чешский"
+
+msgid "Hungarian"
+msgstr "Венгерский"
+
+msgid "Position:"
+msgstr "Позиция:"
+
+msgid "Intervall"
+msgstr "Интервал"
+
+msgid "Minimum:"
+msgstr "Минимум:"
+
+msgid "Maximum:"
+msgstr "Максимум:"
 
 #~ msgid "Hide Colors"
 #~ msgstr "Спрятать цвета"
