@@ -2341,6 +2341,36 @@ void PageItem::flipImageV()
 	flippedV += 1;
 }
 
+void PageItem::toggleLock()
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss;
+		if (Locked)
+			ss = new SimpleState(Um::UnLock, 0, Um::IUnLock);
+		else
+			ss = new SimpleState(Um::Lock, 0, Um::ILock);
+		ss->set("LOCK", "lock");
+		undoManager->action(this, ss);
+	}
+	Locked = !Locked;
+}
+
+void PageItem::toggleSizeLock()
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss;
+		if (Locked)
+			ss = new SimpleState(Um::SizeUnLock, 0, Um::IUnLock);
+		else
+			ss = new SimpleState(Um::SizeLock, 0, Um::ILock);
+		ss->set("SIZE_LOCK", "size_lock");
+		undoManager->action(this, ss);
+	}
+	LockRes = !LockRes;
+}
+
 void PageItem::checkChanges(bool force)
 {
 	// has the item been resized
@@ -2468,9 +2498,25 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		else if (ss->contains("LINE_SHADE"))
 			restoreLineShade(ss, isUndo);
 		else if (ss->contains("IMAGEFLIPH"))
+		{
+			select();
 			ScApp->view->FlipImageH();
+		}
 		else if (ss->contains("IMAGEFLIPV"))
+		{
+			select();
 			ScApp->view->FlipImageV();
+		}
+		else if (ss->contains("LOCK"))
+		{
+			select();
+			ScApp->view->ToggleLock();
+		}
+		else if (ss->contains("SIZE_LOCK"))
+		{
+			select();
+			ScApp->view->ToggleResize();
+		}
 	}
 }
 
@@ -2590,8 +2636,7 @@ void PageItem::restoreLineColor(SimpleState *state, bool isUndo)
 	QString fill = state->get("OLD_COLOR");
 	if (!isUndo)
 		fill = state->get("NEW_COLOR");
-	ScApp->view->SelItem.clear();
-	ScApp->view->SelItem.append(this);
+	select();
 	ScApp->view->ItemPen(fill);
 }
 
@@ -2600,8 +2645,12 @@ void PageItem::restoreLineShade(SimpleState *state, bool isUndo)
 	int shade = state->getInt("OLD_SHADE");
 	if (!isUndo)
 		shade = state->getInt("NEW_SHADE");
-	ScApp->view->SelItem.clear();
-	ScApp->view->SelItem.append(this);
+	select();
 	ScApp->view->ItemPenShade(shade);
 }
 
+void PageItem::select()
+{
+	ScApp->view->SelItem.clear();
+	ScApp->view->SelItem.append(this);
+}

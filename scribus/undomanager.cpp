@@ -587,6 +587,8 @@ void UndoManager::initIcons()
 	UndoManager::IShade           = new QPixmap(iconDir + "u_shade.png");
 // 	UndoManager::IFlipH           = new QPixmap(iconDir + "u_fliph.png");
 // 	UndoManager::IFlipV           = new QPixmap(iconDir + "u_flipv.png");
+	UndoManager::ILock            = new QPixmap(iconDir + "u_lock.png");
+	UndoManager::IUnLock          = new QPixmap(iconDir + "u_unlock.png");
 }
 
 const QString UndoManager::AddVGuide         = tr("Add vertical guide");
@@ -618,6 +620,10 @@ const QString UndoManager::SetLineColor      = tr("Set line color");
 const QString UndoManager::SetLineShade      = tr("Set line color shade");
 const QString UndoManager::FlipH             = tr("Flip horizontally");
 const QString UndoManager::FlipV             = tr("Flip vertically");
+const QString UndoManager::Lock              = tr("Lock");
+const QString UndoManager::UnLock            = tr("Unlock");
+const QString UndoManager::SizeLock          = tr("Lock size");
+const QString UndoManager::SizeUnLock        = tr("Unlock size");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;
@@ -638,3 +644,5 @@ QPixmap *UndoManager::IFill            = NULL;
 QPixmap *UndoManager::IShade           = NULL;
 QPixmap *UndoManager::IFlipH           = NULL;
 QPixmap *UndoManager::IFlipV           = NULL;
+QPixmap *UndoManager::ILock            = NULL;
+QPixmap *UndoManager::IUnLock          = NULL;

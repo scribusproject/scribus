@@ -335,6 +335,10 @@ public:
 	void flipImageH();
 	/** @brief Flip an image vertically */
 	void flipImageV();
+	/** @brief Lock or unlock this pageitem. */
+	void toggleLock();
+	/** @brief Toggle lock for resizing */
+	void toggleSizeLock();
 	/** 
 	 * @brief Check the changes to the item and add undo actions for them.
 	 * @param force Force the check. Do not care if mouse button or arrow key is down
@@ -380,6 +384,8 @@ private:
 	 * state of arrow keys and mouse buttons else returns false.
 	 */
 	bool shouldCheck();
+	/** @brief Clears the current selection and selects this PageItem. */
+	void select();
 };
 
 #endif

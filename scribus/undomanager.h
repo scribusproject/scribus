@@ -420,6 +420,10 @@ public:
 	static const QString SetLineShade;
 	static const QString FlipH;
 	static const QString FlipV;
+	static const QString Lock;
+	static const QString UnLock;
+	static const QString SizeLock;
+	static const QString SizeUnLock;
 	/*@}*/
 
 	/**
@@ -446,6 +450,8 @@ public:
 	static QPixmap *IShade;
 	static QPixmap *IFlipH;
 	static QPixmap *IFlipV;
+	static QPixmap *ILock;
+	static QPixmap *IUnLock;
 	/*@}*/
 
 protected:

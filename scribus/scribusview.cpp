@@ -7458,13 +7458,24 @@ void ScribusView::ToggleLock()
 {
 	if (SelItem.count() != 0)
 	{
+		if (SelItem.count() > 1)
+		{
+			if (SelItem.at(0)->Locked)
+				undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+											  Um::IGroup, Um::UnLock, 0, Um::IUnLock);
+			else
+				undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+											  Um::IGroup, Um::Lock, 0, Um::ILock);
+		}
 		for ( uint a = 0; a < SelItem.count(); ++a)
 		{
-			SelItem.at(a)->Locked = !SelItem.at(a)->Locked;
+			SelItem.at(a)->toggleLock();
 			RefreshItem(SelItem.at(a));
 			emit HaveSel(SelItem.at(a)->PType);
 		}
 		emit DocChanged();
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 
@@ -7472,13 +7483,24 @@ void ScribusView::ToggleResize()
 {
 	if (SelItem.count() != 0)
 	{
+		if (SelItem.count() > 1)
+		{
+			if (SelItem.at(0)->LockRes)
+				undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+											  Um::IGroup, Um::SizeUnLock, 0, Um::IUnLock);
+			else
+				undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+											  Um::IGroup, Um::SizeLock, 0, Um::ILock);
+		}
 		for ( uint a = 0; a < SelItem.count(); ++a)
 		{
-			SelItem.at(a)->LockRes = !SelItem.at(a)->LockRes;
+			SelItem.at(a)->toggleSizeLock();
 			RefreshItem(SelItem.at(a));
 			emit HaveSel(SelItem.at(a)->PType);
 		}
 		emit DocChanged();
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 
