@@ -3778,20 +3778,25 @@ void Page::mousePressEvent(QMouseEvent *m)
 						}
 					else
 						{
-						if (!b->Locked)
+						if (m->state() == ControlButton)
+							SeleItem(m);
+						else
 							{
-							HandleSizer(&p, b, mpo);
-							if (HowTo != 0)
+							if (!b->Locked)
 								{
-								doku->UnData.UnCode = 2;
-								if (b->PType != 5)
-									b->Sizing = true;
-								mCG = true;
+								HandleSizer(&p, b, mpo);
+								if (HowTo != 0)
+									{
+									doku->UnData.UnCode = 2;
+									if (b->PType != 5)
+										b->Sizing = true;
+									mCG = true;
+									}
+								else
+									doku->UnData.UnCode = 1;
+								doku->UnDoValid = true;
+								emit UndoAvail();
 								}
-							else
-								doku->UnData.UnCode = 1;
-							doku->UnDoValid = true;
-							emit UndoAvail();
 							}
 						}
 					p.end();
@@ -4435,8 +4440,27 @@ bool Page::SeleItem(QMouseEvent *m)
 		doku->ActPage = this;
 		emit PgCh(PageNr);
 		}
+	if ((m->state() == ControlButton) && (SelItem.count() != 0))
+		{
+		for (a = 0; a < Items.count(); ++a)
+			{
+			if (b->Select)
+				{
+				if (b->ItemNr == 0)
+					{
+					b = Items.last();
+					break;
+					}
+				b = Items.prev();
+				break;
+				}
+			b = Items.prev();
+			}
+		}
 	for (a = 0; a < Items.count(); ++a)
 		{
+		if (b == NULL)
+			return false;
 		if (b->LayerNr == doku->ActiveLayer)
 			{
 			p.begin(this);

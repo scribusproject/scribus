@@ -3329,6 +3329,15 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 		fosu.setAttribute("Replace",itfsu.data());
 		elem.appendChild(fosu);
 		}
+	for (uint ccs=0; ccs<Vor->CustomColorSets.count(); ++ccs)
+		{
+		QDomElement cos=docu.createElement("COLORSET");
+		cos.setAttribute("NAME",Vor->CustomColorSets[ccs]);
+		elem.appendChild(cos);
+		}
+	QDomElement cosd=docu.createElement("DCOLORSET");
+	cosd.setAttribute("NAME",Vor->DColorSet);
+	elem.appendChild(cosd);
 	QFile f(ho);
 	if(!f.open(IO_WriteOnly))
 		return;
@@ -3571,6 +3580,10 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			}
 		if (dc.tagName()=="Substitute")
 		  Vorein->GFontSub[dc.attribute("Name")] = dc.attribute("Replace");
+		if (dc.tagName()=="COLORSET")
+			Vorein->CustomColorSets.append(dc.attribute("NAME"));
+		if (dc.tagName()=="DCOLORSET")
+			Vorein->DColorSet = dc.attribute("NAME");
 		DOC=DOC.nextSibling();
 		}
 	if (Vorein->GUI != "Default")

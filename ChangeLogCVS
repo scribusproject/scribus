@@ -1,4 +1,7 @@
 Changes since Version 1.1.4
+10.01.2004	Added Named Color Sets.
+		You can now select Objects beneath another with Control + Mouse Click.
+
 09.01.2004	Fixed a problem when deleting a Layer.
 		Fixed memory leak in the Postscript Export.
 

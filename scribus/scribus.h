@@ -48,7 +48,6 @@
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include "scribuswin.h"
-#include "colorm.h"
 #include "tree.h"
 #include "mpalette.h"
 #include "frameedit.h"

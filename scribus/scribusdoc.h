@@ -415,6 +415,8 @@ struct preV  { SCFonts AvailFonts;
 							 double DisScale;
 							 int DCols;
 							 double DGap;
+							 QString DColorSet;
+							 QStringList CustomColorSets;
 						 };
 /**
   * the Document Class

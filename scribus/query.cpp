@@ -7,6 +7,7 @@
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
 #include "query.h"
+#include "query.moc"
 extern QPixmap loadIcon(QString nam);
 
 #include <qtooltip.h>
@@ -56,11 +57,19 @@ Query::Query( QWidget* parent,  const char* name, bool modal, WFlags fl, QString
     Answer->setFocus();
 
     // signals and slots connections
-    connect( PushButton1, SIGNAL( clicked() ), this, SLOT( accept() ) );
+    connect( PushButton1, SIGNAL( clicked() ), this, SLOT( Leave() ) );
     connect( PushButton2, SIGNAL( clicked() ), this, SLOT( reject() ) );
 
     // tab order
     setTabOrder( Answer, PushButton1 );
     setTabOrder( PushButton1, PushButton2 );
+}
+
+void Query::Leave()
+{
+	if (Answer->text() == "")
+		return;
+	else
+		accept();
 }
 

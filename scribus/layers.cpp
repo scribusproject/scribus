@@ -175,7 +175,7 @@ void LayerPalette::addLayer()
 	struct Layer ll;
 	ll.LNr = layers->count();
 	ll.Level = layers->count();
-	ll.Name = tr("New Layer")+" "+tmp.setNum(ll.Level);
+	ll.Name = tr("New Layer")+" "+tmp.setNum(layers->last().LNr + 1);
 	ll.Sichtbar = true;
 	ll.Drucken = true;
 	layers->append(ll);

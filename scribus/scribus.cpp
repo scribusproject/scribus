@@ -63,6 +63,7 @@
 #include "annot.h"
 #include "annota.h"
 #include "javadocs.h"
+#include "colorm.h"
 
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
@@ -340,6 +341,8 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		Prefs.DocDir = QString(getenv("HOME"));
 		Prefs.ProfileDir = "";
 		Prefs.ScriptDir = "";
+		Prefs.DColorSet = "Scribus-Small";
+		Prefs.CustomColorSets.clear();
 		PDef.Pname = "";
 		PDef.Dname = "";
 		PDef.Command = "";
@@ -4721,7 +4724,7 @@ void ScribusApp::slotEditColors()
 		{
 		edc = Prefs.DColors;
 		}
-	Farbmanager* dia = new Farbmanager(this, edc, HaveDoc);
+	Farbmanager* dia = new Farbmanager(this, edc, HaveDoc, Prefs.DColorSet, Prefs.CustomColorSets);
 	if (dia->exec())
 		{
 		if (HaveDoc)
@@ -4818,6 +4821,8 @@ void ScribusApp::slotEditColors()
 		else
 			{
 			Prefs.DColors = dia->EditColors;
+			Prefs.DColorSet = dia->LoadColSet->text();
+			Prefs.CustomColorSets = dia->CColSet;
 			Mpal->Cpal->SetColors(Prefs.DColors);
 			}
 		}
