@@ -146,13 +146,13 @@ using namespace std;
 #ifdef HAVE_CMS
 cmsHPROFILE CMSoutputProf;
 cmsHPROFILE CMSprinterProf;
-cmsHTRANSFORM stdTrans;
-cmsHTRANSFORM stdProof;
-cmsHTRANSFORM stdTransImg;
-cmsHTRANSFORM stdProofImg;
-cmsHTRANSFORM stdTransCMYK;
-cmsHTRANSFORM stdProofCMYK;
-cmsHTRANSFORM stdTransRGB;
+cmsHTRANSFORM stdTransG;
+cmsHTRANSFORM stdProofG;
+cmsHTRANSFORM stdTransImgG;
+cmsHTRANSFORM stdProofImgG;
+cmsHTRANSFORM stdTransCMYKG;
+cmsHTRANSFORM stdProofCMYKG;
+cmsHTRANSFORM stdTransRGBG;
 bool BlackPoint;
 bool SoftProofing;
 bool Gamut;
@@ -3012,13 +3012,13 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 		IntentPrinter = Prefs.DCMSset.DefaultIntentPrinter;
 		IntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
 		doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
-		stdProof = doc->stdProof;
-		stdTrans = doc->stdTrans;
-		stdProofImg = doc->stdProofImg;
-		stdTransImg = doc->stdTransImg;
-		stdProofCMYK = doc->stdProofCMYK;
-		stdTransCMYK = doc->stdTransCMYK;
-		stdTransRGB = doc->stdTransRGB;
+		stdProofG = doc->stdProof;
+		stdTransG = doc->stdTrans;
+		stdProofImgG = doc->stdProofImg;
+		stdTransImgG = doc->stdTransImg;
+		stdProofCMYKG = doc->stdProofCMYK;
+		stdTransCMYKG = doc->stdTransCMYK;
+		stdTransRGBG = doc->stdTransRGB;
 		CMSoutputProf = doc->DocOutputProf;
 		CMSprinterProf = doc->DocPrinterProf;
 		if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
@@ -3365,10 +3365,9 @@ bool ScribusApp::SetupDoc()
 			dia->tabColorManagement->setValues();
 			if (dia->tabColorManagement->changed)
 			{
-				int cc = Prefs.DColors.count();
 				FMess->setText( tr("Adjusting Colors"));
 				FProg->reset();
-				cc = doc->PageColors.count() + view->CountElements();
+				int cc = doc->PageColors.count() + view->CountElements();
 				FProg->setTotalSteps(cc);
 #ifdef HAVE_CMS
 				doc->HasCMS = doc->CMSSettings.CMSinUse;
@@ -3385,13 +3384,13 @@ bool ScribusApp::SetupDoc()
 				qApp->setOverrideCursor(QCursor(waitCursor), true);
 				doc->CloseCMSProfiles();
 				doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
-				stdProof = doc->stdProof;
-				stdTrans = doc->stdTrans;
-				stdProofImg = doc->stdProofImg;
-				stdTransImg = doc->stdTransImg;
-				stdProofCMYK = doc->stdProofCMYK;
-				stdTransCMYK = doc->stdTransCMYK;
-				stdTransRGB = doc->stdTransRGB;
+				stdProofG = doc->stdProof;
+				stdTransG = doc->stdTrans;
+				stdProofImgG = doc->stdProofImg;
+				stdTransImgG = doc->stdTransImg;
+				stdProofCMYKG = doc->stdProofCMYK;
+				stdTransCMYKG = doc->stdTransCMYK;
+				stdTransRGBG = doc->stdTransRGB;
 				CMSoutputProf = doc->DocOutputProf;
 				CMSprinterProf = doc->DocPrinterProf;
 				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
@@ -3579,15 +3578,16 @@ void ScribusApp::SwitchWin()
 	Gamut = doc->Gamut;
 	IntentPrinter = doc->IntentPrinter;
 	IntentMonitor = doc->IntentMonitor;
-	stdProof = doc->stdProof;
-	stdTrans = doc->stdTrans;
-	stdProofImg = doc->stdProofImg;
-	stdTransImg = doc->stdTransImg;
-	stdProofCMYK = doc->stdProofCMYK;
-	stdTransCMYK = doc->stdTransCMYK;
-	stdTransRGB = doc->stdTransRGB;
+	stdProofG = doc->stdProof;
+	stdTransG = doc->stdTrans;
+	stdProofImgG = doc->stdProofImg;
+	stdTransImgG = doc->stdTransImg;
+	stdProofCMYKG = doc->stdProofCMYK;
+	stdTransCMYKG = doc->stdTransCMYK;
+	stdTransRGBG = doc->stdTransRGB;
 	CMSoutputProf = doc->DocOutputProf;
 	CMSprinterProf = doc->DocPrinterProf;
+	CMSuse = doc->CMSSettings.CMSinUse;
 #endif
 	propertiesPalette->Cpal->SetColors(doc->PageColors);
 	propertiesPalette->Cpal->ChooseGrad(0);
@@ -4662,13 +4662,13 @@ bool ScribusApp::LadeDoc(QString fileName)
 			IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
 			doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
 			CMSuse = doc->CMSSettings.CMSinUse;
-			stdProof = doc->stdProof;
-			stdTrans = doc->stdTrans;
-			stdProofImg = doc->stdProofImg;
-			stdTransImg = doc->stdTransImg;
-			stdProofCMYK = doc->stdProofCMYK;
-			stdTransCMYK = doc->stdTransCMYK;
-			stdTransRGB = doc->stdTransRGB;
+			stdProofG = doc->stdProof;
+			stdTransG = doc->stdTrans;
+			stdProofImgG = doc->stdProofImg;
+			stdTransImgG = doc->stdTransImg;
+			stdProofCMYKG = doc->stdProofCMYK;
+			stdTransCMYKG = doc->stdTransCMYK;
+			stdTransRGBG = doc->stdTransRGB;
 			CMSoutputProf = doc->DocOutputProf;
 			CMSprinterProf = doc->DocPrinterProf;
 			if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)

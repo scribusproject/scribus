@@ -30,11 +30,11 @@
 
 #ifdef HAVE_CMS
 	#include CMS_INC
-	extern cmsHTRANSFORM stdTrans;
-	extern cmsHTRANSFORM stdProof;
-	extern cmsHTRANSFORM stdTransCMYK;
-	extern cmsHTRANSFORM stdProofCMYK;
-	extern cmsHTRANSFORM stdTransRGB;
+	extern cmsHTRANSFORM stdTransG;
+	extern cmsHTRANSFORM stdProofG;
+	extern cmsHTRANSFORM stdTransCMYKG;
+	extern cmsHTRANSFORM stdProofCMYKG;
+	extern cmsHTRANSFORM stdTransRGBG;
 	extern bool SoftProofing;
 	extern bool CMSuse;
 #endif
@@ -292,7 +292,7 @@ void CMYKColor::RecalcRGB()
 				inC[0] = R * 257;
 				inC[1] = G * 257;
 				inC[2] = B * 257;
-				cmsDoTransform(stdTransCMYK, inC, outC, 1);
+				cmsDoTransform(stdTransCMYKG, inC, outC, 1);
 				C = outC[0] / 257;
 				M = outC[1] / 257;
 				Y = outC[2] / 257;
@@ -321,7 +321,7 @@ void CMYKColor::RecalcRGB()
 			inC[1] = M * 257;
 			inC[2] = Y * 257;
 			inC[3] = K * 257;
-			cmsDoTransform(stdTransRGB, inC, outC, 1);
+			cmsDoTransform(stdTransRGBG, inC, outC, 1);
 			R = outC[0] / 257;
 			G = outC[1] / 257;
 			B = outC[2] / 257;
@@ -343,7 +343,7 @@ void CMYKColor::RecalcRGB()
 			inC[0] = R*257;
 			inC[1] = G*257;
 			inC[2] = B*257;
-			xformProof = stdProof;
+			xformProof = stdProofG;
 		}
 		else
 		{
@@ -351,7 +351,7 @@ void CMYKColor::RecalcRGB()
 			inC[1] = M*257;
 			inC[2] = Y*257;
 			inC[3] = K*257;
-			xformProof = stdProofCMYK;
+			xformProof = stdProofCMYKG;
 		}
 		cmsDoTransform(xformProof, inC, outC, 1);
 		RGB = QColor(outC[0]/257, outC[1]/257, outC[2]/257);

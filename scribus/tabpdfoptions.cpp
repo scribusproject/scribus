@@ -962,6 +962,9 @@ void TabPDFOptions::EnablePDFX(int a)
 		{
 			CheckBox10->setEnabled(true);
 			EmbedFonts->setEnabled(true);
+			if (EmbedList->count() != 0)
+				FromEmbed->setEnabled(true);
+			ToEmbed->setEnabled(true);
 		}
 		return;
 	}
@@ -978,6 +981,8 @@ void TabPDFOptions::EnablePDFX(int a)
 		CheckBox10->setChecked(false);
 		CheckBox10->setEnabled(false);
 		EmbedFonts->setEnabled(false);
+		FromEmbed->setEnabled(false);
+		ToEmbed->setEnabled(false);
 	}
 	EnablePGI();
 	setTabEnabled(tabPDFX, true);
@@ -1358,7 +1363,8 @@ void TabPDFOptions::SelEFont(QListBoxItem *c)
 {
 	if ((c != NULL) && (!EmbedFonts->isChecked()))
 	{
-		FromEmbed->setEnabled(true);
+		if (!isTabEnabled(tabPDFX))
+			FromEmbed->setEnabled(true);
 		ToEmbed->setEnabled(false);
 		ToSubset->setEnabled(true);
 		FromSubset->setEnabled(false);

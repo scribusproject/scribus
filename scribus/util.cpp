@@ -76,10 +76,10 @@ extern "C"
 	#include CMS_INC
 extern cmsHPROFILE CMSoutputProf;
 extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTrans;
-extern cmsHTRANSFORM stdProof;
-extern cmsHTRANSFORM stdTransImg;
-extern cmsHTRANSFORM stdProofImg;
+extern cmsHTRANSFORM stdTransG;
+extern cmsHTRANSFORM stdProofG;
+extern cmsHTRANSFORM stdTransImgG;
+extern cmsHTRANSFORM stdProofImgG;
 extern bool BlackPoint;
 extern bool SoftProofing;
 extern bool Gamut;
@@ -2334,7 +2334,7 @@ QImage ProofImage(QImage *Image)
 		for (int i=0; i < out.height(); ++i)
 		{
 			LPBYTE ptr = out.scanLine(i);
-			cmsDoTransform(stdProofImg, ptr, ptr, out.width());
+			cmsDoTransform(stdProofImgG, ptr, ptr, out.width());
 		}
 	}
 	else
@@ -2344,7 +2344,7 @@ QImage ProofImage(QImage *Image)
 			for (int i=0; i < out.height(); ++i)
 			{
 				LPBYTE ptr = out.scanLine(i);
-				cmsDoTransform(stdTransImg, ptr, ptr, out.width());
+				cmsDoTransform(stdTransImgG, ptr, ptr, out.width());
 			}
 		}
 	}

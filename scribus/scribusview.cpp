@@ -593,6 +593,11 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						continue;
 					if ((Doc->MasterP) && ((b->OwnPage != -1) && (b->OwnPage != static_cast<int>(Doc->currentPage->PageNr))))
 						continue;
+					if ((!Doc->MasterP) && (b->OnMasterPage != ""))
+					{
+						if (b->OnMasterPage != Doc->currentPage->PageNam)
+							continue;
+					}
 					QRect oldR = getRedrawBounding(b);
 					if (clip.intersects(oldR))
 					{
@@ -723,9 +728,9 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
 		double endx = page->Width;
 		double sty = 0;
 		double endy = page->Height;
-/*		double stx = clip.x() / Scale;
+/*		double stx = QMAX((clip.x() - page->Xoffset) / Scale, 0);
 		double endx = QMIN(stx + clip.width() / Scale, page->Width);
-		double sty = clip.y() / Scale;
+		double sty = QMAX((clip.y() - page->Yoffset) / Scale, 0);
 		double endy = QMIN(sty + clip.height() / Scale, page->Height); */
 		if (Scale > 0.49)
 		{

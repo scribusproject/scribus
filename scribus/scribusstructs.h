@@ -24,17 +24,17 @@ struct ScText
 {
 	bool cselect;
 	int csize;
-	int cshade;
-	int cshade2;
-	int cstyle;
-	int cab;
-	int cscale;
-	double cextra;
-	double xp;
-	double yp;
-	double PtransX;
-	double PtransY;
-	double PRot;
+	short cshade;
+	short cshade2;
+	short cstyle;
+	short cab;
+	short cscale;
+	float cextra;
+	float xp;
+	float yp;
+	float PtransX;
+	float PtransY;
+	float PRot;
 	QString cfont;
 	QString ccolor;
 	QString cstroke;
