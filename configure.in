@@ -1,3 +1,7 @@
+dnl =======================================================
+dnl FILE: configure.in.in
+dnl =======================================================
+
 # Original Author was Kalle@kde.org
 # I lifted it in some mater. (Stephan Kulow)
 # I used much code from Janos Farkas
@@ -217,44 +221,45 @@ AC_SUBST(all_libraries)
 
 AC_PATH_QT
 
-AC_CONFIG_FILES([Makefile])
-AC_CONFIG_FILES([scribus/Makefile])
-AC_CONFIG_FILES([scribus/icons/Makefile])
-AC_CONFIG_FILES([scribus/libabout/Makefile])
-AC_CONFIG_FILES([scribus/libprefs/Makefile])
-AC_CONFIG_FILES([scribus/libpdf/Makefile])
-AC_CONFIG_FILES([scribus/libpostscript/Makefile])
-AC_CONFIG_FILES([scribus/plugins/fontpreview/Makefile])
-AC_CONFIG_FILES([scribus/plugins/libchar/Makefile])
-AC_CONFIG_FILES([scribus/plugins/newfromtemplateplugin/Makefile])
-AC_CONFIG_FILES([scribus/plugins/pixmapexport/Makefile])
-AC_CONFIG_FILES([scribus/plugins/printpreview/Makefile])
-AC_CONFIG_FILES([scribus/plugins/psimport/Makefile])
-AC_CONFIG_FILES([scribus/plugins/saveastemplateplugin/Makefile])
-AC_CONFIG_FILES([scribus/plugins/scriptplugin/Makefile])
-AC_CONFIG_FILES([scribus/plugins/scriptplugin/samples/Makefile])
-AC_CONFIG_FILES([scribus/plugins/scriptplugin/scripts/Makefile])
-AC_CONFIG_FILES([scribus/plugins/svgexplugin/Makefile])
-AC_CONFIG_FILES([scribus/plugins/svgimplugin/Makefile])
-AC_CONFIG_FILES([scribus/plugins/Makefile])
-AC_CONFIG_FILES([scribus/plugins/gettext/Makefile])
-AC_CONFIG_FILES([scribus/plugins/gettext/txtim/Makefile])
-AC_CONFIG_FILES([scribus/plugins/gettext/csvim/Makefile])
-AC_CONFIG_FILES([scribus/plugins/gettext/htmlim/Makefile])
-AC_CONFIG_FILES([scribus/plugins/gettext/sxwim/Makefile])
-AC_CONFIG_FILES([scribus/plugins/gettext/textfilter/Makefile])
-AC_CONFIG_FILES([scribus/plugins/fileloader/Makefile])
-AC_CONFIG_FILES([scribus/plugins/fileloader/oodraw/Makefile])
-AC_CONFIG_FILES([scribus/profiles/Makefile])
-AC_CONFIG_FILES([scribus/dicts/Makefile])
-#AC_CONFIG_FILES([scribus/po/Makefile])
-AC_CONFIG_FILES([scribus/qm/Makefile])
-AC_CONFIG_FILES([scribus/doc/Makefile])
-AC_CONFIG_FILES([scribus/doc/en/Makefile])
-AC_CONFIG_FILES([scribus/doc/en/images/Makefile])
-AC_CONFIG_FILES([scribus/doc/en/tutorials/Makefile])
-AC_CONFIG_FILES([scribus/doc/en/tutorials/freedomyug/Makefile])
-AC_CONFIG_FILES([scribus/templates/Makefile])
+KDE_CREATE_SUBDIRSLIST
+AC_CONFIG_FILES([ Makefile ])
+AC_CONFIG_FILES([ scribus/Makefile ])
+AC_CONFIG_FILES([ scribus/dicts/Makefile ])
+AC_CONFIG_FILES([ scribus/doc/Makefile ])
+AC_CONFIG_FILES([ scribus/doc/en/Makefile ])
+AC_CONFIG_FILES([ scribus/doc/en/images/Makefile ])
+AC_CONFIG_FILES([ scribus/doc/en/tutorials/Makefile ])
+AC_CONFIG_FILES([ scribus/doc/en/tutorials/freedomyug/Makefile ])
+AC_CONFIG_FILES([ scribus/icons/Makefile ])
+AC_CONFIG_FILES([ scribus/libabout/Makefile ])
+AC_CONFIG_FILES([ scribus/libpdf/Makefile ])
+AC_CONFIG_FILES([ scribus/libpostscript/Makefile ])
+AC_CONFIG_FILES([ scribus/libprefs/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/fileloader/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/fileloader/oodraw/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/fontpreview/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/gettext/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/gettext/csvim/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/gettext/htmlim/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/gettext/sxwim/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/gettext/textfilter/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/gettext/txtim/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/libchar/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/newfromtemplateplugin/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/pixmapexport/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/printpreview/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/psimport/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/saveastemplateplugin/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/scriptplugin/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/scriptplugin/samples/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/scriptplugin/scripts/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/svgexplugin/Makefile ])
+AC_CONFIG_FILES([ scribus/plugins/svgimplugin/Makefile ])
+AC_CONFIG_FILES([ scribus/po/Makefile ])
+AC_CONFIG_FILES([ scribus/profiles/Makefile ])
+AC_CONFIG_FILES([ scribus/qm/Makefile ])
+AC_CONFIG_FILES([ scribus/templates/Makefile ])
 AC_OUTPUT
 echo "Configuration Summary:"
 echo ""
@@ -293,4 +298,33 @@ else
 	fi
 fi
 echo ""
-echo "Start make now."
+# Check if KDE_SET_PREFIX was called, and --prefix was passed to configure
+if test -n "$kde_libs_prefix" -a -n "$given_prefix"; then
+  # And if so, warn when they don't match
+  if test "$kde_libs_prefix" != "$given_prefix"; then
+    # And if kde doesn't know about the prefix yet
+    echo ":"`kde-config --path exe`":" | grep ":$given_prefix/bin/:" 2>&1 >/dev/null
+    if test $? -ne 0; then
+      echo ""
+      echo "Warning: you chose to install this package in $given_prefix,"
+      echo "but KDE was found in $kde_libs_prefix."
+      echo "For this to work, you will need to tell KDE about the new prefix, by ensuring"
+      echo "that KDEDIRS contains it, e.g. export KDEDIRS=$given_prefix:$kde_libs_prefix"
+      echo "Then restart KDE."
+      echo ""
+    fi
+  fi
+fi
+
+if test "$all_tests" = "bad"; then
+  if test ! "$cache_file" = "/dev/null"; then
+    echo ""
+    echo "Please remove the file $cache_file after changing your setup"
+    echo "so that configure will find the changes next time."
+    echo ""
+  fi
+else
+  echo ""
+  echo "Good - your configure finished. Start make now"
+  echo ""
+fi
