@@ -206,7 +206,7 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 		toggleEffect(SUPERSCRIPT);
 	else if (name == "del")
 		toggleEffect(STRIKETHROUGH);
-	else if ((name == "ins") && (!inA))
+	else if ((name == "ins" || name == "u") && (!inA))
 		toggleEffect(UNDERLINE);
 	return true;
 }
@@ -424,7 +424,7 @@ bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 		toggleEffect(SUPERSCRIPT);
 	else if (name == "del")
 		toggleEffect(STRIKETHROUGH);
-	else if ((name == "ins") && (!inA))
+	else if ((name == "ins" || name == "ins") && (!inA))
 		toggleEffect(UNDERLINE);
 	return true;
 }
