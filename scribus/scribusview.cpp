@@ -1227,7 +1227,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 											{
 												SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 												p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-												p->PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName(), tsz / 10.0, false);
+												p->PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ), tsz / 10.0, false);
 											}
 											p->PS_restore();
 										}
@@ -1522,7 +1522,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 											{
 												SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 												p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-												p->PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName(), tsz / 10.0, false);
+												p->PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ), tsz / 10.0, false);
 											}
 											p->PS_restore();
 										}
@@ -2026,7 +2026,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									{
 										SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 										p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-										p->PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName(), tsz / 10.0, false);
+										p->PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ), tsz / 10.0, false);
 									}
 									p->PS_restore();
 								}
@@ -2385,7 +2385,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									{
 										SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 										p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-										p->PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName(), tsz / 10.0, false);
+										p->PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ), tsz / 10.0, false);
 									}
 									p->PS_restore();
 								}

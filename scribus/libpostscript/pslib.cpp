@@ -118,9 +118,9 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe
 
 		if ((fext == "ttf") || (AllFonts[it.key()]->isOTF) || (AllFonts[it.key()]->Subset))
 		{
-			FontDesc += "/"+AllFonts[it.key()]->RealName()+
+			FontDesc += "/"+AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" )+
 					" "+IToStr(AllFonts[it.key()]->RealGlyphs.count()+1)+" dict def\n";
-			FontDesc += AllFonts[it.key()]->RealName()+" begin\n";
+			FontDesc += AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" )+" begin\n";
 			QMap<uint,FPointArray>::Iterator ig;
 			for (ig = AllFonts[it.key()]->RealGlyphs.begin(); 
 				ig != AllFonts[it.key()]->RealGlyphs.end(); ++ig)
@@ -160,13 +160,13 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe
 		else
 		{
 			UsedFonts.insert(it.key(), "/Fo"+IToStr(a));
-			Fonts += "/Fo"+IToStr(a)+" /"+AllFonts[it.key()]->RealName()+" findfont definefont pop\n";
+			Fonts += "/Fo"+IToStr(a)+" /"+AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" )+" findfont definefont pop\n";
 			if (AllFonts[it.key()]->EmbedPS)
 			{
 				QString tmp;
 				if(AllFonts[it.key()]->EmbedFont(tmp))
 				{
-					FontDesc += "%%BeginFont: " + AllFonts[it.key()]->RealName() + "\n";
+					FontDesc += "%%BeginFont: " + AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ) + "\n";
 					FontDesc += tmp + "\n%%EndFont\n";
 				}
 			}
