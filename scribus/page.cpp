@@ -2331,6 +2331,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			FPoint tp = GetMaxClipF(b->PoLine);
 			SizeItem(tp.x(), tp.y(), b->ItemNr, false, false);
 			b->Clip = FlattenPath(b->PoLine, b->Segments);
+			AdjustItemSize(b);
 			update();
 			}
 		if (doku->AppMode == 8)
