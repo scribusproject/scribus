@@ -134,6 +134,7 @@ public:
     MSpinBox* DTop;
     MSpinBox* DBottom;
     MSpinBox* DLeft;
+    QPushButton* TabsButton;
     QLabel* Text17;
     MSpinBox* DRight;
     QCheckBox* NormText2;
@@ -238,6 +239,7 @@ public slots:
 		void newTxtStroke();
 		void setActShade(int id);
 		void setActFarben(QString p, QString b, int shp, int shb);
+		void ManageTabs();
 		
 private slots:
 		void SelTab(int t);
