@@ -594,7 +594,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 						PutDoc("\n/Filter /FlateDecode");
 					PutDoc(" >>\nstream\n"+EncStream(&fon,	
 								 ObjCounter-1)+"\nendstream\nendobj\n");
-					Seite.XObjects[AllFonts[it.key()]->RealName()+IToStr(ig.key())] =
+					Seite.XObjects[AllFonts[it.key()]->RealName().replace( QRegExp("\\s"), "" )+IToStr(ig.key())] =
 						 ObjCounter-1;
 					fon = "";
 				}
@@ -721,7 +721,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 			}
 			StartObj(ObjCounter);
 			PutDoc("<<\n/Type /FontDescriptor\n");
-			PutDoc("/FontName /"+AllFonts[it.key()]->RealName()+"\n");
+			PutDoc("/FontName /"+AllFonts[it.key()]->RealName().replace( QRegExp("\\s"), "" )+"\n");
 			PutDoc("/FontBBox [ "+AllFonts[it.key()]->FontBBox+" ]\n");
 			PutDoc("/Flags ");
 			QFontInfo fo = QFontInfo(it.data());
@@ -795,7 +795,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 				PutDoc("<<\n/Type /Font\n/Subtype ");
 				PutDoc(((fext == "ttf") || (fext == "otf")) ? "/TrueType\n" : "/Type1\n");
 				PutDoc("/Name /Fo"+IToStr(a)+"S"+IToStr(Fc)+"\n");
-				PutDoc("/BaseFont /"+AllFonts[it.key()]->RealName()+"\n");
+				PutDoc("/BaseFont /"+AllFonts[it.key()]->RealName().replace( QRegExp("\\s"), "" )+"\n");
 				PutDoc("/FirstChar 0\n");
 				PutDoc("/LastChar "+IToStr(chCount-1)+"\n");
 				PutDoc("/Widths "+IToStr(ObjCounter-2)+" 0 R\n");
@@ -2922,7 +2922,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 							FToStr(hl->xp)+" "+FToStr((hl->yp - (tsz / 10.0)) * -1)+
 								" cm\n";
 				tmp2 += FToStr(QMIN(QMAX(hl->cscale, 25), 400) / 100.0)+" 0 0 1 0 0 cm\n";
-				tmp2 += "/"+(*doc->AllFonts)[hl->cfont]->RealName()+IToStr(chr)+" Do\n";
+				tmp2 += "/"+(*doc->AllFonts)[hl->cfont]->RealName().replace( QRegExp("\\s"), "" )+IToStr(chr)+" Do\n";
 				if (hl->cstyle & 4)
 				{
 					FPointArray gly = (*doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
