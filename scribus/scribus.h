@@ -81,8 +81,6 @@ class ScrAction;
 class MenuManager;
 class CheckDocument;
 class Tree;
-class KoToolDockBase;
-class KoToolDockManager;
 
 /**
   * This Class is the base class for your application. It sets up the main
@@ -182,7 +180,6 @@ public:
 	ScribusDoc *doc;
     /** the splash screen */
 	SplashScreen *splashScreen;
-	KoToolDockManager* m_pToolDockManager;
 	QLabel* FMess;
 	QProgressBar* FProg;
 	QLabel* XMess;

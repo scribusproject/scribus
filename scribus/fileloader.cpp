@@ -153,6 +153,7 @@ QString FileLoader::ReadDatei(QString fileName)
 bool FileLoader::LoadFile(ScribusApp* app)
 {
 	bool ret = false;
+	newReplacement = false;
 	app->doc->guidesSettings.marginsShown = app->Prefs.guidesSettings.marginsShown;
 	app->doc->guidesSettings.framesShown = app->Prefs.guidesSettings.framesShown;
 	app->doc->guidesSettings.gridShown = app->Prefs.guidesSettings.gridShown;
@@ -174,9 +175,11 @@ bool FileLoader::LoadFile(ScribusApp* app)
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				QObject::connect(ss, SIGNAL(NewPage(int)), app, SLOT(slotNewPage(int)));
 				ss->ReplacedFonts.clear();
+				ss->newReplacement = false;
 				ret = ss->ReadDoc(FileName, app->Prefs.AvailFonts, app->doc, app->view, app->FProg);
 				QObject::disconnect(ss, SIGNAL(NewPage(int)), app, SLOT(slotNewPage(int)));
 				ReplacedFonts = ss->ReplacedFonts;
+				newReplacement = ss->newReplacement;
 				delete ss;
 			}
 			break;
@@ -202,7 +205,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			ret = false;
 			break;
 	}
-	if (ReplacedFonts.count() != 0)
+	if (((ReplacedFonts.count() != 0) && (app->Prefs.askBeforeSubstituite)) || ((ReplacedFonts.count() != 0) && (newReplacement)))
 	{
 		qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
 		FontReplaceDialog *dia = new FontReplaceDialog(0, &app->Prefs, &ReplacedFonts);
@@ -269,6 +272,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 				app->Prefs.GFontSub[itfsu.key()] = itfsu.data();
 		}
 		delete dia;
+		ReplacedFonts.clear();
 	}
 	app->DLLinput = "";
 	return ret;
@@ -508,7 +512,10 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
 				{
 					if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
+					{
+						newReplacement = true;
 						ReplacedFonts.insert(tmpf, view->Prefs->toolSettings.defFont);
+					}
 					else
 						ReplacedFonts.insert(tmpf, view->Prefs->GFontSub[tmpf]);
 				}
@@ -727,7 +734,10 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
 					{
 						if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
+						{
+							newReplacement = true;
 							ReplacedFonts.insert(tmpf, view->Prefs->toolSettings.defFont);
+						}
 						else
 							ReplacedFonts.insert(tmpf, view->Prefs->GFontSub[tmpf]);
 					}
@@ -991,7 +1001,10 @@ QString FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 	if ((!Prefs->AvailFonts.find(tmpf)) || (!Prefs->AvailFonts[tmpf]->UseFont))
 	{
 		if ((!Prefs->GFontSub.contains(tmpf)) || (!Prefs->AvailFonts[Prefs->GFontSub[tmpf]]->UseFont))
+		{
+			newReplacement = true;
 			ReplacedFonts.insert(tmpf, Prefs->toolSettings.defFont);
+		}
 		else
 			ReplacedFonts.insert(tmpf, Prefs->GFontSub[tmpf]);
 	}

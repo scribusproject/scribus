@@ -113,7 +113,10 @@ QString ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPre
 		if ((!Prefs->AvailFonts.find(tmpf)) || (!Prefs->AvailFonts[tmpf]->UseFont))
 		{
 			if ((!Prefs->GFontSub.contains(tmpf)) || (!Prefs->AvailFonts[Prefs->GFontSub[tmpf]]->UseFont))
+			{
+				newReplacement = true;
 				ReplacedFonts.insert(tmpf, Prefs->toolSettings.defFont);
+			}
 			else
 				ReplacedFonts.insert(tmpf, Prefs->GFontSub[tmpf]);
 		}
@@ -1191,7 +1194,10 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
 				{
 					if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
+					{
+						newReplacement = true;
 						ReplacedFonts.insert(tmpf, view->Prefs->toolSettings.defFont);
+					}
 					else
 						ReplacedFonts.insert(tmpf, view->Prefs->GFontSub[tmpf]);
 				}
@@ -1369,7 +1375,10 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
 					{
 						if ((!view->Prefs->GFontSub.contains(tmpf)) || (!avail[view->Prefs->GFontSub[tmpf]]->UseFont))
+						{
+							newReplacement = true;
 							ReplacedFonts.insert(tmpf, view->Prefs->toolSettings.defFont);
+						}
 						else
 							ReplacedFonts.insert(tmpf, view->Prefs->GFontSub[tmpf]);
 					}
@@ -2908,6 +2917,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	QDomElement dc2=docu.createElement("FONTS");
 	dc2.setAttribute("FACE",Vor->toolSettings.defFont);
 	dc2.setAttribute("SIZE",Vor->toolSettings.defSize / 10.0);
+	dc2.setAttribute("AutomaticSubst", static_cast<int>(Vor->askBeforeSubstituite));
 	elem.appendChild(dc2);
 	QDomElement dc3=docu.createElement("TYPO");
 	dc3.setAttribute("TIEF",Vor->typographicSetttings.valueSubScript);
@@ -3482,6 +3492,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			if (newFont!="")
 				Vorein->toolSettings.defFont = newFont;
 			Vorein->toolSettings.defSize = qRound(QStodouble(dc.attribute("SIZE")) * 10.0);
+			Vorein->askBeforeSubstituite = static_cast<bool>(QStoInt(dc.attribute("AutomaticSubst", "1")));
 		}
 		if (dc.tagName()=="FONT")
 		{

@@ -27,6 +27,7 @@ public:
 	bool havePS;
 	bool haveSVG;
 	bool haveSXD;
+	bool newReplacement;
 	QValueList<int> LFrames;
 	QMap<QString,QString> ReplacedFonts;
 	QMap<uint,QString> DoVorl;

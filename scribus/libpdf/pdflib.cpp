@@ -1199,6 +1199,8 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 					case 1:
 					case 3:
 					*/
+					case PageItem::FrameType1:
+					case PageItem::FrameType3:
 					case PageItem::Polygon:
 						if (ite->GrType != 0)
 							PDF_Gradient(ite);
@@ -2318,6 +2320,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					case 1:
 					case 3:
 					*/
+					case PageItem::FrameType1:
+					case PageItem::FrameType3:
 					case PageItem::Polygon:
 						if (ite->GrType != 0)
 							PDF_Gradient(ite);

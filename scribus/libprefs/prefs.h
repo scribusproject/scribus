@@ -161,6 +161,7 @@ public:
 	QGroupBox* groupPrint;
 	QCheckBox* ClipMarg;
 	QCheckBox* DoGCR;
+	QCheckBox* AskForSubs;
 	// plugin manager
 	QWidget* pluginManagerWidget;
 	QGroupBox* groupPluginManager;
@@ -235,9 +236,9 @@ protected:
 	QGridLayout* Layout4s;
 	// plugin manager
 	QSpacerItem* pluginSpacer;
+	QVBoxLayout* pluginManagerLayout;
 	QGridLayout* groupPluginManagerLayout;
 	QHBoxLayout* groupPluginLayout2;
-	QVBoxLayout* groupPluginLayout1;
 
 private slots:
 	void setSelectedGUILang( const QString &newLang );

@@ -398,7 +398,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 																0 );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 
-	tabKeys = new KeyManager(this, prefsData->KeyActions);
+	tabKeys = new KeyManager(prefsWidgets, prefsData->KeyActions);
 	addItem( tr("Keyboard Shortcuts"), loadIcon("key_bindings.png"), tabKeys);
 
 	tab_5 = new QWidget( prefsWidgets, "tab_5" );
@@ -600,7 +600,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	addItem(  tr("External Tools."), loadIcon("misc.png"), ExtTool);
 
 	Misc = new QWidget( prefsWidgets, "Misc" );
-	MiscLayout = new QVBoxLayout( Misc, 11, 6, "MiscLayout");
+	MiscLayout = new QVBoxLayout( Misc, 10, 5, "MiscLayout");
 	MiscLayout->setAlignment( Qt::AlignTop );
 	groupPrint = new QGroupBox( tr( "Printing" ), Misc, "groupPrint" );
 	groupPrint->setColumnLayout(0, Qt::Vertical );
@@ -615,19 +615,24 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	DoGCR->setChecked(prefsData->GCRMode);
 	groupPrintLayout->addWidget( DoGCR );
 	MiscLayout->addWidget( groupPrint );
+	AskForSubs = new QCheckBox( tr( "Always ask before Fonts are replaced when loading a Document" ), Misc, "askforSubs" );
+	AskForSubs->setChecked(prefsData->askBeforeSubstituite);
+	MiscLayout->addWidget( AskForSubs );
 	QSpacerItem* spacer_3m = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	MiscLayout->addItem( spacer_3m );
 	addItem(  tr("Misc."), loadIcon("misc.png"), Misc);
 
 	// plugin manager. pv.
 	pluginManagerWidget = new QWidget(prefsWidgets, "pluginManagerWidget");
+	pluginManagerLayout = new QVBoxLayout( pluginManagerWidget, 10, 5, "MiscLayout");
+	pluginManagerLayout->setAlignment( Qt::AlignTop );
 	groupPluginManager = new QGroupBox(tr("Plugin Manager"), pluginManagerWidget, "groupPluginManager");
 	groupPluginManager->setColumnLayout(0, Qt::Vertical );
-	groupPluginManager->layout()->setSpacing(10);
+	groupPluginManager->layout()->setSpacing(5);
 	groupPluginManager->layout()->setMargin(10);
 	groupPluginManagerLayout = new QGridLayout(groupPluginManager->layout());
 	groupPluginManagerLayout->setAlignment( Qt::AlignTop );
-	pluginsList = new QListView(pluginManagerWidget, "pluginsList");
+	pluginsList = new QListView(groupPluginManager, "pluginsList");
 	pluginsList->addColumn("plugin");
 	// TODO: plugin handlimg should be better done with some separate class...
 	for (QMap<int,PlugData>::Iterator it = ScApp->PluginMap.begin(); it != ScApp->PluginMap.end(); ++it)
@@ -644,18 +649,17 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	QString actMenuAfterName;
 		bool actEnabledOnStartup;*/
 	}
-	groupPluginLayout1 = new QVBoxLayout(pluginManagerWidget, 0, 6, "groupPluginLayout1");
-	groupPluginLayout1->addWidget(pluginsList);
-	groupPluginLayout2 = new QHBoxLayout(pluginManagerWidget, 0, 6, "groupPluginLayout2");
+	groupPluginManagerLayout->addWidget(pluginsList, 0, 0);
+	groupPluginLayout2 = new QHBoxLayout(0, 0, 5, "groupPluginLayout2");
 	pluginSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	groupPluginLayout2->addItem(pluginSpacer);
-	pluginRefreshButton = new QPushButton(tr("&Refresh"), pluginManagerWidget, "pluginRefreshButton");
+	pluginRefreshButton = new QPushButton(tr("&Refresh"), groupPluginManager, "pluginRefreshButton");
 	groupPluginLayout2->addWidget(pluginRefreshButton);
-	pluginUpdateButton = new QPushButton(tr("&Update"), pluginManagerWidget, "pluginUpdateButton");
+	pluginUpdateButton = new QPushButton(tr("&Update"), groupPluginManager, "pluginUpdateButton");
 	groupPluginLayout2->addWidget(pluginUpdateButton);
-	groupPluginLayout1->addLayout(groupPluginLayout2);
-	groupPluginManagerLayout->addLayout(groupPluginLayout1, 1, 1);
-	addItem(tr("Plugins"), loadIcon("misc.png"), pluginManagerWidget);
+	groupPluginManagerLayout->addLayout(groupPluginLayout2, 1, 0);
+	pluginManagerLayout->addWidget(groupPluginManager);
+	addItem(tr("Plugins"), loadIcon("plugins.png"), pluginManagerWidget);
 
 	setDS();
 	//tab order

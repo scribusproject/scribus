@@ -512,6 +512,7 @@ struct ApplicationPrefs
 	double ScratchRight;
 	double ScratchTop;
 	double ScratchBottom;
+	bool askBeforeSubstituite;
 };
 
 struct PrintOptions

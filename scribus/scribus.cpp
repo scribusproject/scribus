@@ -549,6 +549,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.ScratchRight = 100;
 	Prefs.ScratchTop = 20;
 	Prefs.ScratchBottom = 20;
+	Prefs.askBeforeSubstituite = true;
 	struct checkerPrefs checkerSettings;
 	checkerSettings.ignoreErrors = false;
 	checkerSettings.autoCheck = true;
@@ -4384,7 +4385,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 			doc->PDF_Optionen.LPISettings.insert("Black", lpo);
 		}
 		connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
-/*		if (fl->ReplacedFonts.count() != 0)
+		if (fl->ReplacedFonts.count() != 0)
 		{
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			QString mess = tr("Some Fonts used by this Document have been substituted:")+"\n\n";
@@ -4394,7 +4395,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 				mess += it.key() + tr(" was replaced by: ")+ it.data() +"\n";
 			}
 			QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
-		} */
+		}
 		if (!doc->HasCMS)
 		{
 			doc->CMSSettings.DefaultInputProfile = Prefs.DCMSset.DefaultInputProfile;
@@ -7743,6 +7744,7 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.GCRMode = dia->DoGCR->isChecked();
 		Prefs.guidesSettings.before = dia->tabGuides->inBackground->isChecked();
 		Prefs.marginColored = dia->checkUnprintable->isChecked();
+		Prefs.askBeforeSubstituite = dia->AskForSubs->isChecked();
 		if (Prefs.DisScale != dia->DisScale)
 		{
 			Prefs.DisScale = dia->DisScale;

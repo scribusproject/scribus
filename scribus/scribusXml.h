@@ -56,6 +56,7 @@ public:
 	QMap<QString,QString> ReplacedFonts;
 	QMap<uint,QString> DoVorl;
 	uint VorlC;
+	bool newReplacement;
 	
 signals:
 	void NewPage(int);
