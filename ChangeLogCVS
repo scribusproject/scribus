@@ -1,4 +1,8 @@
 Changes since Version 1.1.5
+12.03.2004	Updated the Polish Translation.
+		Fixed a Typo in the Brazilian Translation.
+		Fixed Bug #340.
+
 11.03.2004	Added ToolTips for the Preferences.
 		When dragging Linked Textframes between Pages with the Mouse the linkage is now keeped.
 		Updated the Scripter Commands for Linked Textframes too.

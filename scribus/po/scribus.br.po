@@ -4913,7 +4913,7 @@ msgstr "Texto"
 
 #: libabout/about.cpp:35
 msgid "About::%1. %2 %3 "
-msgstr "%1. %2 $3"
+msgstr "%1. %2 %3"
 
 #: libabout/about.cpp:19
 msgid "About::About Scribus%1%2"

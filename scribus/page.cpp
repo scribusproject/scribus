@@ -769,8 +769,7 @@ QRegion Page::ViewReg()
 
 void Page::Transform(PageItem *b, QPainter *p)
 {
-	p->translate(static_cast<int>(b->Xpos*doku->Scale),
-	             static_cast<int>(b->Ypos*doku->Scale));
+	p->translate(static_cast<int>(b->Xpos*doku->Scale), static_cast<int>(b->Ypos*doku->Scale));
 	p->scale(doku->Scale, doku->Scale);
 	p->rotate(b->Rot);
 }
@@ -1207,12 +1206,24 @@ bool Page::SizeItem(double newX, double newY, int ite, bool fromMP, bool DoUpdat
 	}
 	if (b->Sizing)
 	{
+		emit ItemGeom(b->Width, b->Height);
+		emit ItemRadius(b->RadRect);
 		b->FrameOnly = true;
 		b->Tinput = true;
 		if ((HowTo == 1) && (b->PType != 5))
 			b->paintObj();
-		emit ItemGeom(b->Width, b->Height);
-		emit ItemRadius(b->RadRect);
+		if ((b->FrameType == 0) ||  (b->PType == 5) || (HowTo != 1))
+			return true;
+		QPainter p;
+		p.begin(this);
+		Transform(b, &p);
+		p.setRasterOp(XorROP);
+		p.setBrush(NoBrush);
+		p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+		b->DrawPolyL(&p, b->Clip);
+		UpdateClip(b);
+		b->DrawPolyL(&p, b->Clip);
+		p.end();
 		return true;
 	}
 	if (DoUpdateClip)
@@ -4383,10 +4394,10 @@ void Page::mousePressEvent(QMouseEvent *m)
 
 void Page::HandleCurs(QPainter *p, PageItem *b, QRect mpo)
 {
-	QRect tx, tx2;
-	tx = p->xForm(QRect(static_cast<int>(b->Width)-6, 0, 6, 6));
-	tx2 = p->xForm(QRect(0, static_cast<int>(b->Height)-6, 6, 6));
-	if (tx.intersects(mpo) || tx2.intersects(mpo))
+	QPoint tx, tx2;
+	tx = p->xForm(QPoint(static_cast<int>(b->Width), 0));
+	tx2 = p->xForm(QPoint(0, static_cast<int>(b->Height)));
+	if (mpo.contains(tx) || mpo.contains(tx2))
 	{
 		if (doku->AppMode == 9)
 			qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
@@ -4399,9 +4410,9 @@ void Page::HandleCurs(QPainter *p, PageItem *b, QRect mpo)
 				qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
 		}
 	}
-	tx = p->xForm(QRect(static_cast<int>(b->Width)-6, static_cast<int>(b->Height)/2 - 3, 6, 6));
-	tx2 = p->xForm(QRect(0, static_cast<int>(b->Height)/2 - 3, 6, 6));
-	if (tx.intersects(mpo) || tx2.intersects(mpo))
+	tx = p->xForm(QPoint(static_cast<int>(b->Width), static_cast<int>(b->Height)/2));
+	tx2 = p->xForm(QPoint(0, static_cast<int>(b->Height)/2));
+	if (mpo.contains(tx) || mpo.contains(tx2))
 	{
 		double rr = fabs(b->Rot);
 		if (((rr >= 0.0) && (rr < 45.0)) || ((rr >= 135.0) && (rr < 225.0)) || ((rr >= 315.0) && (rr <= 360.0)))
@@ -4409,9 +4420,9 @@ void Page::HandleCurs(QPainter *p, PageItem *b, QRect mpo)
 		if (((rr >= 45.0) && (rr < 135.0)) || ((rr >= 225.0) && (rr < 315.0)))
 			qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
 	}
-	tx = p->xForm(QRect(static_cast<int>(b->Width)/2 - 3, 0, 6, 6));
-	tx2 = p->xForm(QRect(static_cast<int>(b->Width)/2 - 3, static_cast<int>(b->Height)-6, 6, 6));
-	if (tx.intersects(mpo) || tx2.intersects(mpo))
+	tx = p->xForm(QPoint(static_cast<int>(b->Width)/2, 0));
+	tx2 = p->xForm(QPoint(static_cast<int>(b->Width)/2, static_cast<int>(b->Height)));
+	if (mpo.contains(tx) || mpo.contains(tx2))
 	{
 		double rr = fabs(b->Rot);
 		if (((rr >= 0.0) && (rr < 45.0)) || ((rr >= 135.0) && (rr < 225.0)) || ((rr >= 315.0) && (rr <= 360.0)))
@@ -4419,9 +4430,9 @@ void Page::HandleCurs(QPainter *p, PageItem *b, QRect mpo)
 		if (((rr >= 45.0) && (rr < 135.0)) || ((rr >= 225.0) && (rr < 315.0)))
 			qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
 	}
-	tx = p->xForm(QRect(static_cast<int>(b->Width)-6, static_cast<int>(b->Height)-6, 6, 6));
-	tx2 = p->xForm(QRect(0, 0, 6, 6));
-	if (tx.intersects(mpo) || tx2.intersects(mpo))
+	tx = p->xForm(QPoint(static_cast<int>(b->Width), static_cast<int>(b->Height)));
+	tx2 = p->xForm(QPoint(0, 0));
+	if (mpo.contains(tx) || mpo.contains(tx2))
 	{
 		if (doku->AppMode == 9)
 			qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
@@ -4450,23 +4461,22 @@ void Page::HandleSizer(QPainter *p, PageItem *b, QRect mpo)
 		return;
 	if (b->PType != 5)
 	{
-		if (p->xForm(QRect(0, 0, 6, 6)).intersects(mpo))
+		if (mpo.contains(p->xForm(QPoint(0, 0))))
 			HowTo = 2;
-		if (p->xForm(QRect(static_cast<int>(b->Width/2) - 3, 0, 6, 6)).intersects(mpo))
+		if (mpo.contains(p->xForm(QPoint(static_cast<int>(b->Width/2), 0))))
 			HowTo = 8;
-		if (p->xForm(QRect(0, static_cast<int>(b->Height)/2 - 3, 6, 6)).intersects(mpo))
+		if (mpo.contains(p->xForm(QPoint(0, static_cast<int>(b->Height)/2))))
 			HowTo = 7;
-		if (p->xForm(QRect(static_cast<int>(b->Width) - 6, static_cast<int>(b->Height)/2 - 3,
-		                   6, 6)).intersects(mpo))
+		if (mpo.contains(p->xForm(QPoint(static_cast<int>(b->Width), static_cast<int>(b->Height)/2))))
 			HowTo = 6;
-		if (p->xForm(QRect(static_cast<int>(b->Width)/2 - 3, static_cast<int>(b->Height)-6, 6, 6)).intersects(mpo))
+		if (mpo.contains(p->xForm(QPoint(static_cast<int>(b->Width)/2, static_cast<int>(b->Height)))))
 			HowTo = 5;
-		if (p->xForm(QRect(0, static_cast<int>(b->Height)-6, 6, 6)).intersects(mpo))
+		if (mpo.contains(p->xForm(QPoint(0, static_cast<int>(b->Height)))))
 			HowTo = 4;
-		if (p->xForm(QRect(static_cast<int>(b->Width)-6, 0, 6, 6)).intersects(mpo))
+		if (mpo.contains(p->xForm(QPoint(static_cast<int>(b->Width), 0))))
 			HowTo = 3;
 	}
-	if (p->xForm(QRect(static_cast<int>(b->Width)-6, static_cast<int>(b->Height)-6, 6, 6)).intersects(mpo))
+	if (mpo.contains(p->xForm(QPoint(static_cast<int>(b->Width), static_cast<int>(b->Height)))))
 		HowTo = 1;
 	HandleCurs(p, b, mpo);
 	storeUndoInf(b);
