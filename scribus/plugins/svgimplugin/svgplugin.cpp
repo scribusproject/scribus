@@ -22,6 +22,7 @@
 #include <zlib.h>
 #endif
 #include "undomanager.h"
+#include "pluginmanager.h"
 
 using namespace std;
 
@@ -101,9 +102,9 @@ bool actionEnabledOnStartup()
 void Run(QWidget *d, ScribusApp *plug)
 {
 	QString fileName;
-	if (plug->DLLinput != "")
-		fileName = plug->DLLinput;
-		
+	if (plug->pluginManager->dllInput != "")
+		fileName = plug->pluginManager->dllInput;
+
 	else
 	{
 		PrefsContext* prefs = prefsFile->getPluginContext("SVGPlugin");
@@ -197,7 +198,7 @@ void SVGPlug::convert()
 	double width = !docElem.attribute("width").isEmpty() ? parseUnit(docElem.attribute( "width" )) : 550.0;
 	double height = !docElem.attribute("height").isEmpty() ? parseUnit(docElem.attribute( "height" )) : 841.0;
 	Conversion = 0.8;
-	if (Prog->DLLinput != "")
+	if (Prog->pluginManager->dllInput != "")
 	{
 		Prog->doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
 		Prog->view->addPage(0);
@@ -210,7 +211,7 @@ void SVGPlug::convert()
 			ret = true;
 		}
 	}
-	if ((ret) || (Prog->DLLinput != ""))
+	if ((ret) || (Prog->pluginManager->dllInput != ""))
 	{
 		if (width > height)
 			Prog->doc->PageOri = 1;
@@ -260,10 +261,10 @@ void SVGPlug::convert()
 	Doku->DoDrawing = true;
 	Prog->view->setUpdatesEnabled(true);
 	Prog->ScriptRunning = false;
-	if (Prog->DLLinput == "")
+	if (Prog->pluginManager->dllInput == "")
 		Doku->loading = false;
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
-	if ((Elements.count() > 0) && (!ret) && (Prog->DLLinput == ""))
+	if ((Elements.count() > 0) && (!ret) && (Prog->pluginManager->dllInput == ""))
 	{
 		Doku->DragP = true;
 		Doku->DraggedElem = 0;

@@ -124,6 +124,7 @@
 #include "undostate.h"
 #include "tree.h"
 #include "scrap.h"
+#include "pluginmanager.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
@@ -190,6 +191,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 
 	undoManager = UndoManager::instance();
 	objectSpecificUndo = false;
+	pluginManager = new PluginManager();
 
 	initFileMenuActions();
 	initEditMenuActions();
@@ -232,11 +234,6 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 
 		fileWatcher = new FileWatcher(this);
 
-		if (splashScreen != NULL)
-			splashScreen->setStatus( tr("Initializing Plugins"));
-		qApp->processEvents();
-		initPlugs();
-
 		initKeyboardShortcuts();
 
 		if (splashScreen != NULL)
@@ -262,6 +259,11 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Reading Scrapbook"));
 		initScrapbook();
+
+		if (splashScreen != NULL)
+			splashScreen->setStatus( tr("Initializing Plugins"));
+		qApp->processEvents();
+		pluginManager->initPlugs();
 
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Setting up Shortcuts"));
@@ -607,8 +609,6 @@ void ScribusApp::initDefaultValues()
 	HaveDoc = 0;
 	singleClose = false;
 	ScriptRunning = false;
-	DLLReturn = "";
-	DLLinput = "";
 	view = NULL;
 	doc = NULL;
 	Buffer2 = "";
@@ -735,7 +735,7 @@ void ScribusApp::initPalettes()
 	nodePalette = new NodePalette(this);
 	nodePalette->setPrefsContext("NodePalette");
 	nodePalette->installEventFilter(this);
-		
+
 	layerPalette = new LayerPalette(this);
 	connect( scrActions["toolsLayers"], SIGNAL(toggled(bool)) , layerPalette, SLOT(setPaletteShown(bool)) );
 	connect( layerPalette, SIGNAL(paletteShown(bool)), scrActions["toolsLayers"], SLOT(setOn(bool)));
@@ -1061,7 +1061,7 @@ void ScribusApp::initEditMenuActions()
 	scrActions.insert("editTemplates", new ScrAction(tr("&Templates..."), QKeySequence(), this, "editTemplates"));
 	scrActions.insert("editJavascripts", new ScrAction(tr("&Javascripts..."), QKeySequence(), this, "editJavascripts"));
 	scrActions.insert("editPreferences", new ScrAction(tr("P&references..."), QKeySequence(), this, "editPreferences"));
-	
+
 	connect( scrActions["editUndoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(undo(int)) );
 	connect( scrActions["editRedoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(redo(int)) );
 	connect( scrActions["editActionMode"], SIGNAL(toggled(bool)) , this, SLOT(setUndoMode(bool)) );
@@ -1301,7 +1301,7 @@ void ScribusApp::initToolsMenuActions()
 	scrActions["toolsPreflightVerifier"]->setToggleAction(true);
 	scrActions["toolsToolbarTools"]->setToggleAction(true);
 	scrActions["toolsToolbarPDF"]->setToggleAction(true);
-	
+
 	connect( scrActions["toolsActionHistory"], SIGNAL(toggled(bool)) , this, SLOT(setUndoPalette(bool)) );
 	connect( scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)) , this, SLOT(setTools(bool)) );
 	connect( scrActions["toolsToolbarPDF"], SIGNAL(toggled(bool)) , this, SLOT(setPDFTools(bool)) );
@@ -1350,7 +1350,7 @@ void ScribusApp::initSpecialActions()
 	scrActions.insert("specialSmartHyphen", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Smart Hyphen"), CTRL+Key_Minus, this, "specialSmartHyphen",0,0.0,"specialSmartHyphen"));
 	scrActions.insert("specialNonBreakingSpace", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Non Breaking Space"), CTRL+Key_Space, this, "specialNonBreakingSpace",0,0.0,"specialNonBreakingSpace"));
 	scrActions.insert("specialPageNumber", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Page Number"), CTRL+Key_NumberSign, this, "specialPageNumber",0,0.0,"specialPageNumber"));
-	
+
 	//GUI
 	scrActions.insert("specialToggleAllPalettes", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Palettes"), Key_F10, this, "specialToggleAllPalettes",0,0.0,"specialToggleAllPalettes"));
 	scrActions.insert("specialToggleAllGuides", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Guides"), Key_F11, this, "specialToggleAllGuides",0,0.0,"specialToggleAllGuides"));
@@ -1821,7 +1821,7 @@ bool ScribusApp::eventFilter( QObject */*o*/, QEvent *e )
 				keyMod = 0;
 				break;
 		}
-		
+
 		QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
 		retVal=true;
 		if (currKeySeq == scrActions["specialToggleAllPalettes"]->accel())
@@ -1852,7 +1852,7 @@ bool ScribusApp::eventFilter( QObject */*o*/, QEvent *e )
 			scrActions["toolsPreflightVerifier"]->toggle();
 		else
 			retVal=false;
-		
+
 	}
 	else
 		retVal=false;
@@ -2780,7 +2780,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		if (scrapbookPalette->BibWin->Objekte.count() == 0)
 			unlink(PrefsPfad+"/scrap13.scs");
 		Prefs.AvailFonts.~SCFonts();
-		FinalizePlugs();
+		pluginManager->finalizePlugs();
 		exit(0);
 	}
 	else
@@ -2806,7 +2806,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 			unlink(PrefsPfad+"/scrap13.scs");
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		Prefs.AvailFonts.~SCFonts();
-		FinalizePlugs();
+		pluginManager->finalizePlugs();
 		exit(0);
 	}
 }
@@ -3940,7 +3940,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrMenuMgr->setMenuEnabled("ItemShapes", false);
 		scrActions["itemDetachTextFromPath"]->setEnabled(true);
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
-		
+
 		scrMenuMgr->clearMenu("Style");
 		scrMenuMgr->setMenuEnabled("Style", true);
 		scrMenuMgr->addMenuToMenu("Font","Style");
@@ -3948,7 +3948,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrMenuMgr->addMenuToMenu("TypeEffects","Style");
 		scrMenuMgr->addMenuToMenu("Color","Style");
 		scrMenuMgr->addMenuToMenu("Shade","Style");
-		
+
 		WerkTools->Rotiere->setEnabled(true);
 		WerkTools->Textedit->setEnabled(false);
 		WerkTools->Textedit2->setEnabled(true);
@@ -4211,15 +4211,15 @@ bool ScribusApp::slotDocOpen()
 #else
 	formats += tr("Documents (*.sla *.scd);;");
 #endif
-	if (DLLexists(6))
+	if (pluginManager->DLLexists(6))
 		formats += tr("Postscript Files (*.eps *.EPS *.ps *.PS);;");
-	if (DLLexists(10))
+	if (pluginManager->DLLexists(10))
 #ifdef HAVE_LIBZ
 		formats += tr("SVG Images (*.svg *.svgz);;");
 #else
 		formats += tr("SVG Images (*.svg);;");
 #endif
-	if (DLLexists(12))
+	if (pluginManager->DLLexists(12))
 		formats += tr("OpenOffice.org Draw (*.sxd);;All Files (*)");
 	formats + tr("All Files (*)");
 	QString fileName = CFileDialog( docDir, tr("Open"), formats);
@@ -4390,7 +4390,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 	if (!warningVersion(this))
 		return false;
 	//
-	
+
 	undoManager->setUndoEnabled(false);
 	QFileInfo fi(fileName);
 	if (!fi.exists())
@@ -6030,7 +6030,7 @@ void ScribusApp::toggleLayerPalette()
 
 void ScribusApp::setPagePalette(bool visible)
 {
-	
+
 	if (!visible)
 	{
 		Prefs.SepalT = pagePalette->TemplList->Thumb;
@@ -8135,7 +8135,7 @@ void ScribusApp::ShowSubs()
 			mess += tr("Ghostscript : You cannot use EPS Images")+"\n\n";
 		QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
 	}
-	
+
 	propertiesPalette->startup();
 	outlinePalette->startup();
 	scrapbookPalette->startup();
@@ -8144,7 +8144,7 @@ void ScribusApp::ShowSubs()
 	layerPalette->startup();
 	measurementPalette->startup();
 	docCheckerPalette->startup();
-	
+
 	setTools(Prefs.mainToolBarSettings.visible);
 	setPDFTools(Prefs.pdfToolBarSettings.visible);
 	setActiveWindow();
@@ -8988,284 +8988,6 @@ QString ScribusApp::CFileDialog(QString wDir, QString caption, QString filter, Q
 	}
 	delete dia;
 	return retval;
-}
-
-void ScribusApp::FinalizePlugs()
-{
-	const char *error;
-	struct PlugData pda;
-	typedef void (*sdem2)();
-	sdem2 demo2;
-	for (QMap<int, PlugData>::Iterator it = PluginMap.begin(); it != PluginMap.end(); ++it)
-	{
-		if (it.data().Typ == 4 || it.data().Typ == 5)
-		{
-			dlerror();
-			demo2 = (sdem2)dlsym(it.data().Zeiger, "CleanUpPlug");
-			if ((error = dlerror()) != NULL)
-			{
-				dlclose(it.data().Zeiger);
-				continue;
-			}
-			else
-			{
-				(*demo2)();
-			}
-		}
-	}
-}
-
-void ScribusApp::initPlugs()
-{
-	QString pfad = PLUGINDIR;
-	QString nam = "";
-	int id = 0;
-	int ty = 0;
-	int menid = 0;
-	struct PlugData pda;
-#if defined(__hpux)
-	QDir d(pfad, "*.sl*", QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
-#else
-	QDir d(pfad, "*.so*", QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
-#endif
-	if ((d.exists()) && (d.count() != 0))
-	{
-		scrMenuMgr->addMenuSeparator("Extras");
-		for (uint dc = 0; dc < d.count(); ++dc)
-		{
-			pda.Zeiger = 0;
-			pda.Datei = "";
-			pda.Name = "";
-			pda.Typ = 0;
-			pda.MenuID = 0;
-			if (DLLName(d[dc], &nam, &ty, &pda.Zeiger, &id, &pda.actName, &pda.actKeySequence, &pda.actMenu, &pda.actMenuAfterName, &pda.actEnabledOnStartup))
-			{
-				if (ty == 1)
-				{
-					qDebug(QString("Type %1 plugins not supported anymore").arg(ty));
-					break;
-				}
-
-				pda.Name = nam;
-				pda.Datei = d[dc];
-				pda.Typ = ty;
-				if (ty < 5 && ty!=4)
-					pda.MenuID = menid;
-				if (ty==4 || ty==6 || ty==7)
-				{
-					//Add in ScrAction based plugin linkage
-					//Insert DLL Action into Dictionary with values from plugin interface
-
-					scrActions.insert(pda.actName, new ScrAction(ScrAction::DLL, QIconSet(), pda.Name, QKeySequence(pda.actKeySequence), this, pda.actName, id));
-
-					if (scrActions[pda.actName])
-					{
-						scrActions[pda.actName]->setEnabled(pda.actEnabledOnStartup);
-						//Connect DLL Action's activated signal with ID to Scribus DLL loader
-						connect( scrActions[pda.actName], SIGNAL(activatedData(int)) , this, SLOT(callDLLBySlot(int)) );
-						//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
-						if (QString(pda.actMenuAfterName).length()==0)
-							scrMenuMgr->addMenuItem(scrActions[pda.actName], pda.actMenu);
-						else
-							scrMenuMgr->addMenuItemAfter(scrActions[pda.actName], pda.actMenu, pda.actMenuAfterName);
-					}
-				}
-				PluginMap.insert(id, pda);
-				if (splashScreen != NULL)
-					splashScreen->setStatus( tr("Loading:")+" "+nam);
-			}
-		}
-	}
-}
-
-void ScribusApp::callDLLBySlot(int pluginID)
-{
-	//Run old type 2 Import pre call code
-	if (PluginMap[pluginID].Typ==7)
-	{
-		if (HaveDoc)
-			doc->OpenNodes = outlinePalette->buildReopenVals();
-	}
-
-	CallDLL(pluginID);
-
-	//Run old type 2 Import post call code
-	if (PluginMap[pluginID].Typ==7)
-	{
-		if (HaveDoc)
-		{
-			outlinePalette->BuildTree(doc);
-			outlinePalette->reopenTree(doc->OpenNodes);
-			propertiesPalette->updateCList();
-		}
-	}
-}
-
-void ScribusApp::CallDLLbyMenu(int id)
-{
-	QMap<int, PlugData>::Iterator it;
-	struct PlugData pda;
-	for (it = PluginMap.begin(); it != PluginMap.end(); ++it)
-	{
-		if (it.data().MenuID == id)
-		{
-			CallDLL(it.key());
-			break;
-		}
-	}
-}
-
-void ScribusApp::CallDLL(int ident)
-{
-	void *mo;
-	const char *error;
-	struct PlugData pda;
-	pda = PluginMap[ident];
-	typedef void (*sdem)(QWidget *d, ScribusApp *plug);
-	sdem demo;
-	QString pfad = PLUGINDIR;
-	if (pda.Typ != 4 && pda.Typ !=5)
-	{
-		pfad += pda.Datei;
-		mo = dlopen(pfad, RTLD_LAZY | RTLD_GLOBAL);
-		if (!mo)
-		{
-			std::cout << "Cannot find Plug-in" << endl;
-			return;
-		}
-	}
-	else
-		mo = pda.Zeiger;
-	dlerror();
-	demo = (sdem)dlsym(mo, "Run");
-	if ((error = dlerror()) != NULL)
-	{
-		std::cout << "Cannot find Symbol" << endl;
-		dlclose(mo);
-		return;
-	}
-	(*demo)(this, this);
-	if (pda.Typ != 4 && pda.Typ != 5)
-		dlclose(mo);
-	if (HaveDoc)
-		view->DrawNew();
-}
-
-bool ScribusApp::DLLexists(int ident)
-{
-	return PluginMap.contains(ident);
-}
-
-bool ScribusApp::DLLName(QString name, QString *PName, int *typ, void **Zeig, int *idNr, QString *actName, QString *actKeySequence, QString *actMenu, QString *actMenuAfterName, bool *actEnabledOnStartup)
-{
-	void *mo;
-	const char *error;
-	typedef QString (*sdem0)();
-	typedef int (*sdem1)();
-	typedef void (*sdem2)(QWidget *d, ScribusApp *plug);
-	typedef bool (*sdem3)();
-	sdem0 demo;
-	sdem1 demo1;
-	sdem2 demo2;
-	sdem3 demo3;
-	QString pfad = PLUGINDIR;
-	pfad += name;
-	mo = dlopen(pfad, RTLD_LAZY | RTLD_GLOBAL);
-	if (!mo)
-	{
-		std::cout << dlerror() << endl;
-		return false;
-	}
-	dlerror();
-	demo = (sdem0)dlsym(mo, "Name");
-	if ((error = dlerror()) != NULL)
-	{
-		dlclose(mo);
-		return false;
-	}
-	*PName = (*demo)();
-	dlerror();
-	demo1 = (sdem1)dlsym(mo, "Type");
-	if ((error = dlerror()) != NULL)
-	{
-		dlclose(mo);
-		return false;
-	}
-	*typ = (*demo1)();
-	*Zeig = mo;
-	demo1 = (sdem1)dlsym(mo, "ID");
-	if ((error = dlerror()) != NULL)
-	{
-		dlclose(mo);
-		return false;
-	}
-	*idNr = (*demo1)();
-	//ScrAction based plugins
-	if (*typ==4 || *typ==6 || *typ==7)
-	{
-		demo = (sdem0)dlsym(mo, "actionName");
-		if ((error = dlerror()) != NULL)
-		{
-			dlclose(mo);
-			return false;
-		}
-		*actName = (*demo)();
-		dlerror();
-		demo = (sdem0)dlsym(mo, "actionKeySequence");
-		if ((error = dlerror()) != NULL)
-		{
-			dlclose(mo);
-			return false;
-		}
-		*actKeySequence = (*demo)();
-		dlerror();
-		demo = (sdem0)dlsym(mo, "actionMenu");
-		if ((error = dlerror()) != NULL)
-		{
-			dlclose(mo);
-			return false;
-		}
-		*actMenu = (*demo)();
-		dlerror();
-		demo = (sdem0)dlsym(mo, "actionMenuAfterName");
-		if ((error = dlerror()) != NULL)
-		{
-			dlclose(mo);
-			return false;
-		}
-		*actMenuAfterName = (*demo)();
-		dlerror();
-		demo3 = (sdem3)dlsym(mo, "actionEnabledOnStartup");
-		if ((error = dlerror()) != NULL)
-		{
-			dlclose(mo);
-			return false;
-		}
-		*actEnabledOnStartup = (*demo3)();
-	}
-	else
-	{
-		*actName=QString::null;
-		*actKeySequence=QString::null;
-		*actMenu=QString::null;
-		*actMenuAfterName=QString::null;
-		*actEnabledOnStartup=false;
-	}
-	if (*typ != 4 && *typ!=5)
-		dlclose(mo);
-	else
-	{
-		dlerror();
-		demo2 = (sdem2)dlsym(mo, "InitPlug");
-		if ((error = dlerror()) != NULL)
-		{
-			dlclose(mo);
-			return false;
-		}
-		(*demo2)(this, this);
-	}
-
-	return true;
 }
 
 void ScribusApp::GetCMSProfiles()

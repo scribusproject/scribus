@@ -1,5 +1,6 @@
 #include "ui.h"
 #include "ui.moc"
+#include "pluginmanager.h"
 #include <qvariant.h>
 #include <qpushbutton.h>
 #include <qlistview.h>
@@ -128,8 +129,8 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 	fontList->setSorting(sortColumn);
 
 	QListViewItem *item;
-	if (carrier->DLLinput != "")
-		item = fontList->findItem(carrier->DLLinput, 0);
+	if (carrier->pluginManager->dllInput != "")
+		item = fontList->findItem(carrier->pluginManager->dllInput, 0);
 	else
 	{
 		if (carrier->view->SelItem.count() != 0)

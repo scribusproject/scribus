@@ -16,6 +16,7 @@
 #include "charselect.h"
 #include "charselect.moc"
 #include "scpainter.h"
+#include "pluginmanager.h"
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
   #include "win-config.h"
@@ -171,8 +172,8 @@ void ChTable::showAlternate()
 CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDialog( parent, "CharSelect", true, 0 )
 {
 	QString font;
-	if (pl->DLLinput != "")
-		font = pl->DLLinput;
+	if (pl->pluginManager->dllInput != "")
+		font = pl->pluginManager->dllInput;
 	else
 		font = pl->doc->CurrFont;
 	fontInUse = font;
@@ -194,7 +195,7 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDial
 	fontSelector->setMaximumSize(190, 30);
 	fontSelector->setCurrentText(fontInUse);
 	selectionsLayout->addWidget( fontSelector );
-	if ((ap->doc->currentParaStyle > 4) ||  (ap->DLLinput != ""))
+	if ((ap->doc->currentParaStyle > 4) ||  (ap->pluginManager->dllInput != ""))
 		fontSelector->setEnabled(false);
 	rangeLabel = new QLabel( this, "fontLabel" );
 	rangeLabel->setText( tr( "Character Class:" ) );
@@ -612,7 +613,7 @@ void CharSelect::generatePreview(int charClass)
 		zTabelle->adjustColumn(d);
 	for (int d = 0; d < zTabelle->numRows(); ++d)
 		zTabelle->adjustRow(d);
-	zTabelle->setCurrentCell(0, 0); 
+	zTabelle->setCurrentCell(0, 0);
 }
 
 void CharSelect::newCharClass(int c)
@@ -668,9 +669,9 @@ void CharSelect::delEdit()
 
 void CharSelect::insChar()
 {
-	if (ap->DLLinput != "")
+	if (ap->pluginManager->dllInput != "")
 	{
-		ap->DLLReturn += chToIns;
+		ap->pluginManager->dllReturn += chToIns;
 		delEdit();
 		return;
 	}

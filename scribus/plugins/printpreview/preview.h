@@ -43,7 +43,7 @@ class MenuPreview : public QObject
     Q_OBJECT
 
 public:
-    MenuPreview(QWidget* parent) {};
+	MenuPreview(QWidget* /*parent*/) {};
     ~MenuPreview() {};
 
 public slots:

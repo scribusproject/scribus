@@ -84,6 +84,7 @@ class MenuManager;
 class CheckDocument;
 class Tree;
 class Biblio;
+class PluginManager;
 
 /**
   * This Class is the base class for your application. It sets up the main
@@ -120,11 +121,6 @@ public:
 	void applyNewMaster(QString name);
 	void updateRecent(QString fn);
 	QString GetLang(QString inLang);
-	void FinalizePlugs();
-	bool DLLName(QString name, QString *PName, int *typ, void **Zeig, int *idNr, QString *actName, QString *actKeySequence, QString *actMenu, QString *actMenuAfterName, bool *actEnabledOnStartup);
-	void CallDLLbyMenu(int id);
-	void CallDLL(int ident);
-	bool DLLexists(int ident);
 	PSLib* getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);
 	void closePSDriver();
 	bool getPDFDriver(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs);
@@ -149,7 +145,7 @@ public:
 	 * @return true if an arrow key is pressed down otherwise returns false
 	 */
 	bool arrowKeyDown();
-	/** 
+	/**
 	 * @brief Returns true if application is in object specific undo mode, other wise returns false.
 	 * @return true if application is in object specific undo mode, other wise returns false
 	 */
@@ -210,13 +206,10 @@ public:
 	Autoforms* SCustom;
 	WerkToolB* WerkTools;
 	int HavePngAlpha;
-	QString DLLReturn;
-	QString DLLinput;
 	bool UniCinp;
 	int UniCinC;
 	QString UniCinS;
 
-	QMap<int, PlugData> PluginMap;
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
 	FileWatcher* fileWatcher;
@@ -228,11 +221,11 @@ public:
 
 	QDict<QActionGroup> scrActionGroups;
 	MenuManager* scrMenuMgr;
+	PluginManager* pluginManager;
 
 public slots:
 	void specialActionKeyEvent(QString actionName);
 	void newView();
-	void callDLLBySlot(int pluginID);
 	void ToggleAllGuides();
 	void ToggleAllPalettes();
 	void slotStoryEditor();
@@ -467,9 +460,9 @@ signals:
 	void TextStil(int);
 	void TextFarben(QString, QString, int, int);
 	void TextScale(int);
-	
+
 	void prefsChanged();
-	
+
 protected:
 	bool eventFilter( QObject *o, QEvent *e );
 
@@ -481,7 +474,6 @@ private:
 	void initStatusBar(); // setup the statusbar
 	void initToolBars(); // setup the toolbars
 	void initFonts(); // setup the toolbars
-	void initPlugs();
 	void initHyphenator();
 	void initDefaultPrefs();
 	void initDefaultValues();

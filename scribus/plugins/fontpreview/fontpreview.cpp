@@ -1,5 +1,6 @@
 #include "fontpreview.h"
 #include "ui.h"
+#include "pluginmanager.h"
 #include <qcursor.h>
 #include <qlistview.h>
 
@@ -56,11 +57,10 @@ void Run(QWidget *d, ScribusApp *plug)
 	// run it and wait for user's reaction
 	if (dlg->exec() == QDialog::Accepted)
 	{
-		if  (plug->DLLinput == "")
+		if  (plug->pluginManager->dllInput == "")
 			plug->SetNewFont(dlg->fontList->currentItem()->text(0));
 		else
-			plug->DLLReturn = dlg->fontList->currentItem()->text(0);
+			plug->pluginManager->dllReturn = dlg->fontList->currentItem()->text(0);
 	}
 	delete dlg;
 }
-

@@ -32,6 +32,7 @@
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "charselect.h"
+#include "pluginmanager.h"
 
 extern PrefsFile* prefsFile;
 extern QPixmap loadIcon(QString nam);
@@ -1463,7 +1464,7 @@ void SToolBFont::newSizeHandler()
 }
 
 /* Main Story Editor Class */
-StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) 
+StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 									: QMainWindow(parent, "StoryEditor", WShowModal | WType_Dialog)
 {
 	setCaption( tr( "Story Editor" ) );
@@ -1552,7 +1553,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 /* Editor Widget, subclass of QTextEdit */
 	Editor = new SEditor(EdSplit, docc);
 	StoryEd2Layout->addWidget( EdSplit );
-	
+
 /* Setting up Status Bar */
 	ButtonGroup1 = new QButtonGroup( statusBar(), "ButtonGroup1" );
 	ButtonGroup1->setFrameShape( QButtonGroup::NoFrame );
@@ -1657,7 +1658,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(StyleTools, SIGNAL(newStyle(int )), this, SLOT(newTxStyle(int )));
 	Editor->setFocus();
 }
- 
+
 /** 10/12/2004 - pv - #1203: wrong selection on double click
 Catch the double click signal - cut the wrong selection (with
 whitespaces on the tail) - select only one word - return
@@ -2027,35 +2028,35 @@ void StoryEditor::updateStatus()
 
 void StoryEditor::Do_insSp()
 {
-	ScApp->DLLinput = Editor->CurrFont;
-	ScApp->DLLReturn = "";
+	ScApp->pluginManager->dllInput = Editor->CurrFont;
+	ScApp->pluginManager->dllReturn = "";
 	CharSelect *dia = new CharSelect(this, CurrItem, ScApp);
 	dia->exec();
 	delete dia;
-	if (ScApp->DLLReturn != "")
+	if (ScApp->pluginManager->dllReturn != "")
 	{
-		Editor->insChars(ScApp->DLLReturn);
-		Editor->insert(ScApp->DLLReturn);
+		Editor->insChars(ScApp->pluginManager->dllReturn);
+		Editor->insert(ScApp->pluginManager->dllReturn);
 	}
-	ScApp->DLLinput = "";
-	ScApp->DLLReturn = "";
+	ScApp->pluginManager->dllInput = "";
+	ScApp->pluginManager->dllReturn = "";
 }
 
 void StoryEditor::Do_fontPrev()
 {
-	ScApp->DLLinput = Editor->CurrFont;
-	ScApp->DLLReturn = "";
-	if (ScApp->DLLexists(2))
+	ScApp->pluginManager->dllInput = Editor->CurrFont;
+	ScApp->pluginManager->dllReturn = "";
+	if (ScApp->pluginManager->DLLexists(2))
 	{
-		ScApp->CallDLL( 2 );
-		if (ScApp->DLLReturn != "")
+		ScApp->pluginManager->callDLL( 2 );
+		if (ScApp->pluginManager->dllReturn != "")
 		{
-			newTxFont(ScApp->DLLReturn);
-			FontTools->SetFont(ScApp->DLLReturn);
+			newTxFont(ScApp->pluginManager->dllReturn);
+			FontTools->SetFont(ScApp->pluginManager->dllReturn);
 		}
 	}
-	ScApp->DLLinput = "";
-	ScApp->DLLReturn = "";
+	ScApp->pluginManager->dllInput = "";
+	ScApp->pluginManager->dllReturn = "";
 }
 
 void StoryEditor::Do_leave2()
@@ -2079,7 +2080,7 @@ void StoryEditor::Do_leave()
 	hide();
 	qApp->exit_loop();
 }
- 
+
 /*! Saves the document with editation continued. Signal called from menu.
   05/28/04 petr vanek
   */

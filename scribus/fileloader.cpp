@@ -17,6 +17,7 @@
 #include "missing.h"
 #include "fontreplacedialog.h"
 #include "units.h"
+#include "pluginmanager.h"
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
   #include "win-config.h"
@@ -45,9 +46,9 @@ FileLoader::FileLoader(QString fileName, ScribusApp* app)
 {
 	FileName = fileName;
 	FileType = -1;
-	havePS = app->DLLexists(6);
-	haveSVG = app->DLLexists(10);
-	haveSXD = app->DLLexists(12);
+	havePS = app->pluginManager->DLLexists(6);
+	haveSVG = app->pluginManager->DLLexists(10);
+	haveSXD = app->pluginManager->DLLexists(12);
 }
 
 /*!
@@ -191,18 +192,18 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			ret = ReadDoc(app, FileName, app->Prefs.AvailFonts, app->doc, app->view, app->FProg);
 			break;
 		case 2:
-			app->DLLinput = FileName;
-			app->CallDLL( 6 );
+			app->pluginManager->dllInput = FileName;
+			app->pluginManager->callDLL( 6 );
 			ret = true;
 			break;
 		case 3:
-			app->DLLinput = FileName;
-			app->CallDLL( 10 );
+			app->pluginManager->dllInput = FileName;
+			app->pluginManager->callDLL( 10 );
 			ret = true;
 			break;
 		case 5:
-			app->DLLinput = FileName;
-			app->CallDLL( 12 );
+			app->pluginManager->dllInput = FileName;
+			app->pluginManager->callDLL( 12 );
 			ret = true;
 			break;
 		default:
@@ -278,7 +279,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 		delete dia;
 		ReplacedFonts.clear();
 	}
-	app->DLLinput = "";
+	app->pluginManager->dllInput = "";
 	return ret;
 }
 
@@ -307,7 +308,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 	FIXME: I've add test on containig tag PAGE but returning FALSE freezes S. in scribus.cpp need some hack too...  */
 	if (!docu.setContent(f))
 		return false;
-	doc->PageColors.clear();	
+	doc->PageColors.clear();
 	doc->Layers.clear();
 	CMYKColor lf = CMYKColor();
 	QDomElement elem=docu.documentElement();

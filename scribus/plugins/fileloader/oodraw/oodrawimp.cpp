@@ -32,6 +32,7 @@
 #include "sxwunzip.h"
 #include "serializer.h"
 #include "undomanager.h"
+#include "pluginmanager.h"
 
 using namespace std;
 
@@ -101,8 +102,8 @@ bool actionEnabledOnStartup()
 void Run(QWidget *d, ScribusApp *plug)
 {
 	QString fileName;
-	if (plug->DLLinput != "")
-		fileName = plug->DLLinput;
+	if (plug->pluginManager->dllInput != "")
+		fileName = plug->pluginManager->dllInput;
 	else
 	{
 		PrefsContext* prefs = prefsFile->getPluginContext("OODrawImport");
@@ -200,7 +201,7 @@ void OODPlug::convert()
 	QDomElement properties = style->namedItem( "style:properties" ).toElement();
 	double width = !properties.attribute( "fo:page-width" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-width" ) ) : 550.0;
 	double height = !properties.attribute( "fo:page-height" ).isEmpty() ? parseUnit(properties.attribute( "fo:page-height" ) ) : 841.0;
-	if (Prog->DLLinput != "")
+	if (Prog->pluginManager->dllInput != "")
 		Prog->doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
 	else
 	{
@@ -210,7 +211,7 @@ void OODPlug::convert()
 			ret = true;
 		}
 	}
-	if ((ret) || (Prog->DLLinput != ""))
+	if ((ret) || (Prog->pluginManager->dllInput != ""))
 	{
 		if (width > height)
 			Prog->doc->PageOri = 1;
@@ -263,14 +264,14 @@ void OODPlug::convert()
 	for( QDomNode drawPag = body.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
 	{
 		QDomElement dpg = drawPag.toElement();
-		if (Prog->DLLinput != "")
+		if (Prog->pluginManager->dllInput != "")
 			Prog->view->addPage(PageCounter);
 		PageCounter++;
 		m_styleStack.clear();
 		fillStyleStack( dpg );
 		parseGroup( dpg );
 	}
-	if ((Elements.count() > 1) && (Prog->DLLinput == ""))
+	if ((Elements.count() > 1) && (Prog->pluginManager->dllInput == ""))
 	{
 		Prog->view->SelItem.clear();
 		for (uint a = 0; a < Elements.count(); ++a)
@@ -284,10 +285,10 @@ void OODPlug::convert()
 	Doku->DoDrawing = true;
 	Prog->view->setUpdatesEnabled(true);
 	Prog->ScriptRunning = false;
-	if (Prog->DLLinput == "")
+	if (Prog->pluginManager->dllInput == "")
 		Doku->loading = false;
 	qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
-	if ((Elements.count() > 0) && (!ret) && (Prog->DLLinput == ""))
+	if ((Elements.count() > 0) && (!ret) && (Prog->pluginManager->dllInput == ""))
 	{
 		Doku->DragP = true;
 		Doku->DraggedElem = 0;
@@ -312,7 +313,7 @@ void OODPlug::convert()
 		Doku->setUnModified();
 		Prog->slotDocCh();
 	}
-	Prog->DLLinput = "";
+	Prog->pluginManager->dllInput = "";
 }
 
 QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
@@ -372,7 +373,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 						dashes << 14.4 << 14.4;
 					else if( style == "Fine Dotted")
 						dashes << 13 << 13;
-					else if( style == "Ultrafine 2 Dots 3 Dashes") 
+					else if( style == "Ultrafine 2 Dots 3 Dashes")
 						dashes << 1.45 << 3.6 << 1.45 << 3.6 << 7.2 << 3.6 << 7.2 << 3.6 << 7.2 << 3.6;
 					else if( style == "Line with Fine Dots")
 					{
@@ -507,7 +508,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 				Prog->view->AdjustItemSize(ite);
 			}
-		} 
+		}
 		else if ( STag == "draw:polygon" )
 		{
 			z = Prog->view->PaintPoly(BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor);

@@ -18,6 +18,7 @@
 #include <cmath>
 #include <cstdlib>
 #include "undomanager.h"
+#include "pluginmanager.h"
 
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern QPixmap loadIcon(QString nam);
@@ -93,9 +94,9 @@ bool actionEnabledOnStartup()
 void Run(QWidget *d, ScribusApp *plug)
 {
 	QString fileName;
-	if (plug->DLLinput != "")
+	if (plug->pluginManager->dllInput != "")
 	{
-		fileName = plug->DLLinput;
+		fileName = plug->pluginManager->dllInput;
 		UndoManager::instance()->setUndoEnabled(false);
 	}
 	else
@@ -232,7 +233,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 		}
 	}
 	Prog = plug;
-	if (plug->DLLinput != "")
+	if (plug->pluginManager->dllInput != "")
 	{
 		Prog->doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
 		Prog->view->addPage(0);
@@ -245,7 +246,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 			ret = true;
 		}
 	}
-	if ((ret) || (Prog->DLLinput != ""))
+	if ((ret) || (Prog->pluginManager->dllInput != ""))
 	{
 		if (b-x > h-y)
 			Prog->doc->PageOri = 1;
@@ -271,7 +272,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 	if (convert(fName, x, y, b, h))
 	{
 		QDir::setCurrent(CurDirP);
-		if ((Elements.count() > 0) && (plug->DLLinput == ""))
+		if ((Elements.count() > 0) && (plug->pluginManager->dllInput == ""))
 		{
 			Prog->view->SelItem.clear();
 			for (uint a = 0; a < Elements.count(); ++a)
@@ -287,7 +288,7 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 		Prog->ScriptRunning = false;
 		Doku->loading = false;
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
-		if ((Elements.count() > 0) && (!ret) && (plug->DLLinput == ""))
+		if ((Elements.count() > 0) && (!ret) && (plug->pluginManager->dllInput == ""))
 		{
 			Doku->DragP = true;
 			Doku->DraggedElem = 0;
@@ -322,9 +323,9 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 		Prog->ScriptRunning = false;
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
-	if (plug->DLLinput == "")
+	if (plug->pluginManager->dllInput == "")
 		Doku->loading = false;
-	plug->DLLinput = "";
+	plug->pluginManager->dllInput = "";
 }
 
 /*!
@@ -396,7 +397,7 @@ void EPSPlug::parseOutput(QString fn)
 			QTextStream Code(&tmp, IO_ReadOnly);
 			Code >> token;
 			params = Code.read();
-			if ((lasttoken == "sp") && (Prog->DLLinput != ""))
+			if ((lasttoken == "sp") && (Prog->pluginManager->dllInput != ""))
 			{
 				Prog->view->addPage(pagecount);
 				pagecount++;

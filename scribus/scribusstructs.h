@@ -561,18 +561,4 @@ enum AppMode
 	EditGradientVectors
 };
 
-/** Plugin informations/data */
-struct PlugData {
-	QString Datei;
-	QString Name;
-	void *Zeiger;
-	int Typ;
-	int MenuID;
-	QString actName;
-	QString actKeySequence;
-	QString actMenu;
-	QString actMenuAfterName;
-	bool actEnabledOnStartup;
-} ;
 #endif
-

@@ -28,6 +28,7 @@
 #include "tabpdfoptions.h"
 #include "fontprefs.h"
 #include "units.h"
+#include "pluginmanager.h"
 #include "pagesize.h"
 
 using namespace std;
@@ -70,7 +71,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	Umrech = 1.0;
 	docUnitIndex = prefsData->docUnitIndex;
 	decimals = unitGetPrecisionFromIndex(docUnitIndex);
-	
+
 	DisScale = prefsData->DisScale;
 	setCaption( tr( "Preferences" ) );
 
@@ -642,20 +643,10 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	groupPluginManagerLayout->setAlignment( Qt::AlignTop );
 	pluginsList = new QListView(groupPluginManager, "pluginsList");
 	pluginsList->addColumn("plugin");
-	// TODO: plugin handlimg should be better done with some separate class...
-	for (QMap<int,PlugData>::Iterator it = ScApp->PluginMap.begin(); it != ScApp->PluginMap.end(); ++it)
+	// TODO: plugin handling should be better done with some separate class... IN PROGRESS
+	for (QMap<int,PluginData>::Iterator it = ap->pluginManager->pluginMap.begin(); it != ap->pluginManager->pluginMap.end(); ++it)
 	{
 		QListViewItem *plugItem = new QListViewItem(pluginsList, (*it).Name);
-	/*QString Datei;
-	QString Name;
-	void *Zeiger;
-	int Typ;
-	int MenuID;
-	QString actName;
-	QString actKeySequence;
-	QString actMenu;
-	QString actMenuAfterName;
-		bool actEnabledOnStartup;*/
 	}
 	groupPluginManagerLayout->addWidget(pluginsList, 0, 0);
 	groupPluginLayout2 = new QHBoxLayout(0, 0, 5, "groupPluginLayout2");
@@ -1081,7 +1072,7 @@ void Preferences::unitChange()
 	Umrech = unitGetRatioFromIndex(docUnitIndex);
 	decimals = unitGetDecimalsFromIndex(docUnitIndex);
 	einh = unitGetSuffixFromIndex(docUnitIndex);
-	
+
 	pageWidth->setSuffix(einh);
 	pageHeight->setSuffix(einh);
 	TopR->setSuffix(einh);
@@ -1202,7 +1193,7 @@ void Preferences::drawRuler()
 		maxi = 200.0;
 		break;
 	}
-	
+
 	QPixmap pm(static_cast<int>(maxi*DisScale+30), 21);
 	pm.fill();
 	QPainter p;

@@ -27,6 +27,7 @@
 #include "scraction.h"
 #include "menumanager.h"
 #include "checkDocument.h"
+#include "pluginmanager.h"
 
 extern QPixmap loadIcon(QString nam);
 extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
@@ -114,7 +115,7 @@ void CleanUpPlug()
  \param plug ScribusApp *
  \retval None
  */
-		
+
 void Run(QWidget *d, ScribusApp *plug)
 {
 	Carrier = plug;
@@ -127,15 +128,15 @@ void MenuPreview::RunPreview()
 {
 	if (Carrier->HaveDoc)
 	{
-		Carrier->DLLReturn = "";
+		Carrier->pluginManager->dllReturn = "";
 		PPreview *dia = new PPreview(par, Carrier);
-		if (Carrier->DLLReturn != "")
+		if (Carrier->pluginManager->dllReturn != "")
 		{
 			delete dia;
 			return;
 		}
 		dia->exec();
-		Carrier->DLLReturn = "";
+		Carrier->pluginManager->dllReturn = "";
 		Carrier->Prefs.PrPr_Mode = dia->EnableCMYK->isChecked();
 		Carrier->Prefs.PrPr_AlphaText = dia->AliasText->isChecked();
 		Carrier->Prefs.PrPr_AlphaGraphics = dia->AliasGr->isChecked();
@@ -403,7 +404,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 												tr("Abort"), tr("Ignore"), 0, 0, 0);
 					if (t == 0)
 					{
-						app->DLLReturn = "Failed";
+						app->pluginManager->dllReturn = "Failed";
 						return ret;
 					}
 				}
@@ -412,7 +413,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 					app->docCheckerPalette->buildErrorList(app->doc);
 					app->docCheckerPalette->show();
 					app->scrActions["toolsPreflightVerifier"]->setOn(true);
-					app->DLLReturn = "Failed";
+					app->pluginManager->dllReturn = "Failed";
 					return ret;
 				}
 			}
