@@ -6,7 +6,7 @@
 extern QPixmap loadIcon(QString nam);
 extern float UmReFaktor;
 
-Mpalette::Mpalette( QWidget* parent, QPopupMenu* FontMenu)
+Mpalette::Mpalette( QWidget* parent, preV *Prefs) /*, QPopupMenu* FontMenu)   */
     : QDialog( parent, "Mfloat", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
 {
     setCaption( tr( "Measurements" ) );
@@ -329,13 +329,29 @@ Mpalette::Mpalette( QWidget* parent, QPopupMenu* FontMenu)
 
     layout41 = new QGridLayout( 0, 1, 1, 0, 5, "layout41");
 
-    Fonts = new QToolButton( page_3, "Fonts" );
+/*    Fonts = new QToolButton( page_3, "Fonts" );
     Fonts->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, 0, 0, Fonts->sizePolicy().hasHeightForWidth() ) );
     Fonts->setMinimumSize( QSize( 150, 0 ) );
     Fonts->setMaximumSize( QSize( 250, 32767 ) );
     Fonts->setPopup(FontMenu);
     Fonts->setPopupDelay(1);
-    Fonts->setText( tr( "Font" ) );
+    Fonts->setText( tr( "Font" ) );   */
+
+    Fonts = new QComboBox( true, page_3, "Replace" );
+//    Fonts->setMinimumSize( QSize( 175, 24 ) );
+		Fonts->setEditable(false);
+		QStringList rlist;
+		rlist.clear();
+    SCFontsIterator it(Prefs->AvailFonts);
+    for ( ; it.current(); ++it)
+    	{
+			if (it.current()->UseFont)
+    		rlist.append(it.currentKey());
+    	}
+		rlist.sort();
+		Fonts->insertStringList(rlist);
+
+
     layout41->addMultiCellWidget( Fonts, 0, 0, 0, 1 );
 
     Text20 = new QLabel( page_3, "Text20" );
@@ -686,6 +702,7 @@ Mpalette::Mpalette( QWidget* parent, QPopupMenu* FontMenu)
     connect(buttonGroup5, SIGNAL(clicked(int)), this, SLOT(SelTab(int)));
   	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
   	connect(StyledLine, SIGNAL(selected(int)), this, SIGNAL(EditLSt()));
+    connect(Fonts, SIGNAL(activated(int)), this, SLOT(NewTFont(int)));
 		HaveItem = false;
 		Xpos->setValue(0);
 		Ypos->setValue(0);
@@ -775,7 +792,8 @@ void Mpalette::SetCurItem(PageItem *i)
 	HaveItem = false;
 	CurItem = i;
 	if (i->IFont != "");
-		Fonts->setText(i->IFont);
+		Fonts->setCurrentText(i->IFont);
+//		Fonts->setText(i->IFont);
 	RoundRect->setValue(qRound(i->RadRect));
   DLeft->setValue(static_cast<int>(i->Extra*10));
   DTop->setValue(static_cast<int>(i->TExtra*10));
@@ -890,6 +908,8 @@ void Mpalette::NewSel(int nr)
 		Width->setEnabled(true);
 		Height->setEnabled(true);
 		Rot->setEnabled(true);
+		SGeom->setEnabled(true);
+		TabStack->widget(0)->setEnabled(true);
 		}
 	else
 		{
@@ -1874,6 +1894,14 @@ void Mpalette::NewTDist()
 		CurItem->RExtra = static_cast<float>(DRight->value()) / 10;
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
+		}
+}
+
+void Mpalette::NewTFont(int c)
+{
+	if ((HaveDoc) && (HaveItem))
+		{
+		emit NewTF(Fonts->text(c));
 		}
 }
 

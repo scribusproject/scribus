@@ -32,7 +32,7 @@
 class Mpalette : public QDialog  {
 Q_OBJECT
 public:
-    Mpalette(QWidget* parent, QPopupMenu* FontMenu);
+    Mpalette(QWidget* parent, preV *Prefs); // QPopupMenu* FontMenu);
     ~Mpalette() {};
     void closeEvent(QCloseEvent *ce);
 
@@ -95,7 +95,8 @@ public:
     MSpinBox* DLeft;
     QLabel* Text17;
     MSpinBox* DRight;
-    QToolButton* Fonts;
+//    QToolButton* Fonts;
+		QComboBox* Fonts;
     QSpinBox* Size;
     QToolButton* Revert;
     QToolButton* Underline;
@@ -170,6 +171,7 @@ public slots:
 		void setAli(int e);
 		void SetLineFormats(ScribusDoc *dd);
 		void SetSTline(QListBoxItem *c);
+		void NewTFont(int);
 		
 private slots:
 		void SelTab(int t);
@@ -217,6 +219,7 @@ signals:
 	void Stellung(int);
 	void EditCL();
 	void EditLSt();
+	void NewTF(QString);
 
 protected:
     QVBoxLayout* MpalLayout;

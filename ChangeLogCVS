@@ -1,4 +1,6 @@
-Changes since Version 0.9.11
+Changes since Version 0.9.11.1
+16.06.2003	mpalette.cpp		Replaced the Font Popup Menue with a ComboBox.
+
 15.06.2003	scpreview.cpp		Added a missing #include <cstdlib>
 		pdflib.cpp
 		pageitem.cpp

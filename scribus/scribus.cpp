@@ -282,7 +282,8 @@ ScribusApp::ScribusApp(SplashScreen *splash)
     setCentralWidget( vb );
 		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 		Tpal = new Tree(this, WStyle_Customize | WStyle_DialogBorder);
-		Mpal = new Mpalette(this, FontMenu);
+//		Mpal = new Mpalette(this, FontMenu);
+		Mpal = new Mpalette(this, &Prefs);
 		Mpal->Cpal->SetColors(Prefs.DColors);
 		Npal = new NodePalette(this);
 		Lpal = new LayerPalette(this);
@@ -377,6 +378,7 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		connect(Mpal, SIGNAL(Stellung(int)), this, SLOT(setItemHoch(int)));
 		connect(Mpal, SIGNAL(Schliessen()), this, SLOT(ToggleMpal()));
 		connect(Mpal, SIGNAL(EditCL()), this, SLOT(ToggleFrameEdit()));
+		connect(Mpal, SIGNAL(NewTF(QString)), this, SLOT(SetNewFont(QString)));
 		connect(Mpal->Cpal, SIGNAL(NewPen(QString)), this, SLOT(setPenFarbe(QString)));
 		connect(Mpal->Cpal, SIGNAL(NewBrush(QString)), this, SLOT(setBrushFarbe(QString)));
 		connect(Mpal->Cpal, SIGNAL(NewPenShade(int)), this, SLOT(setPenShade(int)));
@@ -3991,7 +3993,8 @@ void ScribusApp::AdjustFontMenu(QString nf)
 {
 	uint a;
 	QString df;
-	Mpal->Fonts->setText(nf);
+//	Mpal->Fonts->setText(nf);
+	Mpal->Fonts->setCurrentText(nf);
 	for (a = 2; a < FontMenu->count(); ++a)
 		{
 		df = *FontID[long(FontMenu->idAt(a))];
