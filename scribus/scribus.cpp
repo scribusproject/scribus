@@ -8809,6 +8809,15 @@ void ScribusApp::ApplyTemp()
 
 void ScribusApp::Apply_Temp(QString in, int Snr, bool reb)
 {
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::ApplyTemplate,
+						QString(Um::FromTo).arg(doc->Pages.at(Snr)->MPageNam).arg(in));
+		ss->set("PAGE_NUMBER", Snr);
+		ss->set("OLD_TEMPLATE", doc->Pages.at(Snr)->MPageNam);
+		ss->set("NEW_TEMPLATE", in);
+		undoManager->action(doc->Pages.at(Snr), ss);
+	}
 	PageItem* b;
 	QString mna = in;
 	if (mna == tr("Normal"))

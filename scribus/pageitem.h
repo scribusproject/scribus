@@ -376,6 +376,7 @@ private:
 	void restoreShade(SimpleState *state, bool isUndo);
 	void restoreLineColor(SimpleState *state, bool isUndo);
 	void restoreLineShade(SimpleState *state, bool isUndo);
+	void restoreName(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**

@@ -254,7 +254,7 @@ public:
 	 *
 	 * After this method has been invoked <code>UndoManager</code> will switch to the
      * transaction (silent) mode where it does not report actions to the attached 
-	 * <UndoGui> widgets but stores all incoming <code>UndoState</code> objects into
+	 * <code>UndoGui</code> widgets but stores all incoming <code>UndoState</code> objects into
 	 * the transaction container which after call to the method commit() will be sent
 	 * to the guis as a single undo action. Transaction can be named when starting it or
 	 * naming can be done when commiting it.
@@ -427,6 +427,9 @@ public:
 	static const QString SizeUnLock;
 	static const QString Ungroup;
 	static const QString Delete;
+	static const QString Rename;
+	static const QString FromTo;
+	static const QString ApplyTemplate;
 	/*@}*/
 
 	/**

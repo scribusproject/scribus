@@ -2255,6 +2255,13 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 
 void PageItem::setName(const QString& newName)
 {
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::Rename, QString(Um::FromTo).arg(AnName).arg(newName));
+		ss->set("OLD_NAME", AnName);
+		ss->set("NEW_NAME", newName);
+		undoManager->action(this, ss);
+	}
 	AnName = newName;
 	setUName(newName); // set the name for the UndoObject too
 }
@@ -2531,6 +2538,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			select();
 			ScApp->view->ToggleResize();
 		}
+		else if (ss->contains("NEW_NAME"))
+			restoreName(ss, isUndo);
 	}
 }
 
@@ -2659,6 +2668,16 @@ void PageItem::restoreLineShade(SimpleState *state, bool isUndo)
 		shade = state->getInt("NEW_SHADE");
 	select();
 	ScApp->view->ItemPenShade(shade);
+}
+
+void PageItem::restoreName(SimpleState *state, bool isUndo)
+{
+	QString oldName = state->get("OLD_NAME");
+	QString newName = state->get("NEW_NAME");
+	if (isUndo)
+		setName(oldName);
+	else
+		setName(newName);
 }
 
 void PageItem::select()
