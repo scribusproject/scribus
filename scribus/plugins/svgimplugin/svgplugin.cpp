@@ -161,7 +161,7 @@ void SVGPlug::convert()
 	else if (!docElem.attribute("height").isEmpty())
 		getDefaultUnit(docElem.attribute( "height" ));
 	else
-		Conversion = 1.0 / 1.25;
+		Conversion = 0.8;
 	if (Prog->DLLinput != "")
 	{
 		Prog->doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
@@ -656,10 +656,10 @@ void SVGPlug::getDefaultUnit(const QString &unit)
 	else if( un == "px" )
 	{
 		unitval.replace( "px", "" );
-		Conversion = 1.0 / 1.25;
+		Conversion = 0.8;
 	}
 	if (unitval == unit)
-		Conversion = 1.0 / 1.25;
+		Conversion = 0.8;
 }
 /*!
  \fn double SVGPlug::parseUnit(const QString &unit)
@@ -695,9 +695,9 @@ double SVGPlug::parseUnit(const QString &unit)
 	else if( unit.right( 2 ) == "in" )
 		value = value * 72;
 	else if( unit.right( 2 ) == "px" )
-		value = value / 1.25;
+		value = value * 0.8;
 	else if(noUnit)
-		value = value / 1.25;
+		value = value * 0.8;
 	return value;
 }
 

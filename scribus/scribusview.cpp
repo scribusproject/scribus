@@ -10845,6 +10845,7 @@ void ScribusView::ToPathText()
 		double dy = bb->Ypos - b->Ypos;
 		MoveItem(dx, dy, b);
 		b->Rot = bb->Rot;
+		b->FrameType = 3;
 		Deselect(true);
 		SelectItemNr(bb->ItemNr);
 		DeleteItem();

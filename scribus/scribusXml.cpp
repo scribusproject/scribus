@@ -3138,7 +3138,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->Dbrush = dc.attribute("BRUSH");
 			Vorein->DpenLine = dc.attribute("PENLINE");
 			Vorein->DpenText = dc.attribute("PENTEXT");
-			Vorein->DstrokeText = dc.attribute("StrokeText");
+			Vorein->DstrokeText = dc.attribute("StrokeText", Vorein->DpenText);
 			Vorein->DCols = QStoInt(dc.attribute("TEXTCOL", "1"));
 			Vorein->DGap = QStodouble(dc.attribute("TEXTGAP", "0.0"));
 			Vorein->DLineArt = QStoInt(dc.attribute("STIL"));
