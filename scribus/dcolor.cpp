@@ -25,7 +25,7 @@ DelColor::DelColor( QWidget* parent, CListe farben, QString Fnam, bool HDoc)
     Layout4->setSpacing( 6 );
     Layout4->setMargin( 5 );
     TextLabel1 = new QLabel( this, "TextLabel1" );
-    TextLabel1->setText( tr( "OK to delete Color:" ) );
+    TextLabel1->setText( tr( "Delete color:" ) );
     Layout4->addWidget( TextLabel1, 0, 0 );
     DColor = new QLabel( this, "DColor" );
     DColor->setText( Fnam );

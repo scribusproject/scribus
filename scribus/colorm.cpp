@@ -150,9 +150,20 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 	{
 		connect(CSets, SIGNAL(activated(int)), this, SLOT(loadDefaults(int)));
 		connect(SaveColSet, SIGNAL( clicked() ), this, SLOT( saveDefaults() ) );
+		QToolTip::add( LoadColSet, tr( "Choose a color set to load" ) );
+		QToolTip::add( SaveColSet, tr( "Save the current color set" ) );
 	}
 	else
+	{
 		connect(DelU, SIGNAL( clicked() ), this, SLOT( delUnused() ) );
+		QToolTip::add( DelU, tr( "Remove unused colors from current document" ) );
+	}
+	QToolTip::add( LoadF, tr( "Append colors to the current set from an existing document" ) );
+	QToolTip::add( NewF, tr( "Create a new color within the current set" ) );
+	QToolTip::add( EditF, tr( "Edit the currently selected color" ) );
+	QToolTip::add( DupF, tr( "Make a copy of the currently selected color" ) );
+	QToolTip::add( DelF, tr( "Delete the currently selected color" ) );
+	QToolTip::add( SaveF, tr( "Make the current colorset the default color set" ) );
 	connect( SaveF, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( CancF, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( NewF, SIGNAL( clicked() ), this, SLOT( neueFarbe() ) );
@@ -339,7 +350,8 @@ void Farbmanager::delUnused()
 			UsedC.insert(it.key(), it.data());
 			continue;
 		}
-		if ((it.key() == ScApp->doc->Dbrush) || (it.key() == ScApp->doc->Dpen) || (it.key() == ScApp->doc->DbrushPict)
+		if ((it.key() == ScApp->doc->Dbrush) || (it.key() == ScApp->doc->Dpen) || 
+			(it.key() == ScApp->doc->DbrushPict)
 			 || (it.key() == ScApp->doc->DpenLine) || (it.key() == ScApp->doc->DpenText))
 		{
 			UsedC.insert(it.key(), it.data());
@@ -362,13 +374,9 @@ void Farbmanager::delUnused()
 							break;
 					}
 				}
-				if (it.key() == ite->Pcolor)
-					found = true;
-				if (it.key() == ite->Pcolor2)
-					found = true;
-				if (it.key() == ite->GrColor)
-					found = true;
-				if (it.key() == ite->GrColor2)
+				/* PFJ - 29.02.04 - merged if's to one line */
+				if ((it.key() == ite->Pcolor) || (it.key() == ite->Pcolor2) ||
+					(it.key() == ite->GrColor) || (it.key() == ite->GrColor2))
 					found = true;
 				if (found)
 					break;
@@ -390,21 +398,17 @@ void Farbmanager::delUnused()
 				{
 					for (uint d=0; d<ite->Ptext.count(); ++d)
 					{
-						if (it.key() == ite->Ptext.at(d)->ccolor)
-							found = true;
-						if (it.key() == ite->Ptext.at(d)->cstroke)
+						/* PFJ - 29.02.04 - Merged if's */
+						if ((it.key() == ite->Ptext.at(d)->ccolor) ||
+							(it.key() == ite->Ptext.at(d)->cstroke))
 							found = true;
 						if (found)
 							break;
 					}
 				}
-				if (it.key() == ite->Pcolor)
-					found = true;
-				if (it.key() == ite->Pcolor2)
-					found = true;
-				if (it.key() == ite->GrColor)
-					found = true;
-				if (it.key() == ite->GrColor2)
+				/* PFJ - 29.02.04 - Merged if's */
+				if ((it.key() == ite->Pcolor) || (it.key() == ite->Pcolor2) ||
+					(it.key() == ite->GrColor) || (it.key() == ite->GrColor2))
 					found = true;
 				if (found)
 					break;
@@ -412,9 +416,9 @@ void Farbmanager::delUnused()
 			if (found)
 				break;
 		}
-		if (it.key() == ScApp->doc->CurrTextFill)
-			found = true;
-		if (it.key() == ScApp->doc->CurrTextStroke)
+		/* PFJ - 29.02.04 - Merged if's */
+		if ((it.key() == ScApp->doc->CurrTextFill) || 
+			(it.key() == ScApp->doc->CurrTextStroke))
 			found = true;
 		if (found)
 		{
@@ -424,10 +428,10 @@ void Farbmanager::delUnused()
 	}
 	EditColors = UsedC;
 	if (EditColors.count() == 0)
-		{
+	{
 		EditColors.insert("White", CMYKColor(0, 0, 0, 0));
   		EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
-		}
+	}
 	updateCList();
 }
 
