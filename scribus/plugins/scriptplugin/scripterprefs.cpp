@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Form implementation generated from reading ui file './scripterprefs.ui'
 **
-** Created: Pá úno 4 17:42:50 2005
+** Created: Mo Feb 14 21:50:46 2005
 **      by: The User Interface Compiler ($Id$)
 **
 ** WARNING! All changes made in this file will be lost!

@@ -62,7 +62,7 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe
 	QStringList wt;
 	Seiten = 0;
 	User = "";
-	Creator = "Scribus 1.2.1";
+	Creator = "Scribus 1.2.2cvs";
 	Titel = "";
 	FillColor = "0.0 0.0 0.0 0.0";
 	StrokeColor = "0.0 0.0 0.0 0.0";

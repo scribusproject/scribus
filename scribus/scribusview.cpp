@@ -1018,7 +1018,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 						struct Pti *hl;
 						QString tmps, chx;
 						PageItem *c = MasterPages.at(ap)->Items.at(api);
-						if (c->LayerNr != ll.LNr)
+						if ((c->LayerNr != ll.LNr) || (!c->isPrintable))
 							continue;
 						if ((c->PType == 2) && (c->PicAvail) && (c->Pfile != "") && (c->isPrintable) && (!sep) && (farb))
 							p->PS_ImageData(c->InvPict, c->Pfile, c->AnName, c->IProfile, c->UseEmbedded, Ic);
@@ -1253,6 +1253,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 						p->PS_TemplateEnd();
 					}
 				}
+				Lnr++;
 			}
 		}
 	}
