@@ -5,9 +5,12 @@
 #include <qstrlist.h>
 #include <qdict.h>
 #include <qfont.h>
+#include <qmap.h>
+// #include <qpixmap.h>
+#include "fpointarray.h"
 #include "config.h"
 
-#include "scfonts_encoding.h"
+// #include "scfonts_encoding.h"
 
 /*  Base Class Foi : This is subclassed by a class to handle Type1 fonts, a class
 		to handle TrueType fonts, and potentially any other type that becomes appropriate in
@@ -35,25 +38,29 @@
 class Foi
 {
 	public:
-		Foi(QString scname, QString path, bool embedps, SCFonts_Encoding &encoding);
+		Foi(QString scname, QString path, bool embedps);
 		virtual ~Foi() {};
 		virtual QString RealName();
 		virtual bool EmbedFont(QString &str);
 		virtual bool ReadMetrics();
 		virtual bool GlNames(QMap<uint, QString> *GList);
+//		virtual void FontBez();
 		QString SCName;
 		QString Datei;
+		QString cached_RealName;
+		QString Family;
 		QFont Font;
 		bool EmbedPS;
-		SCFonts_Encoding &Encoding;
-		static SCFonts_Encoding StdEncoding;
-		static SCFonts_Encoding TTFEncoding;
 		bool HasMetrics;
-#ifdef HAVE_FREETYPE
+		bool isOTF;
+		bool Subset;
+		struct GlyphR { FPointArray Outlines;
+					 					float x;
+					 					float y;
+				  				};
 		QMap<uint,float> CharWidth;
-#else
-		float CharWidth[256];
-#endif
+		QMap<uint,GlyphR> GlyphArray;
+		QMap<uint,FPointArray> RealGlyphs;
 		QString Ascent;
 		QString CapHeight;
 		QString Descender;
@@ -65,6 +72,12 @@ class Foi
 		bool UseFont;
 		bool HasKern;
 		float uniEM;
+		float numAscent;
+		float numDescender;
+		float underline_pos;
+		float strikeout_pos;
+		float strokeWidth;
+//		QPixmap Appearance;
 };
 
 
@@ -80,13 +93,12 @@ class Foi
 class SCFonts : public QDict<Foi>
 {
 	public:
-		SCFonts() : QDict<Foi>(), FontPath(true), Encoding("ISOenc.txt")
+		SCFonts() : QDict<Foi>(), FontPath(true)
 		{
 			setAutoDelete(true);
 		}
 		~SCFonts();
 		void GetFonts(QString pf);
-		void FreeExtraFonts();
 	private:
 		void AddPath(QString p);
 		void AddScalableFonts(const QString &path);
@@ -95,7 +107,6 @@ class SCFonts : public QDict<Foi>
 		void AddXFontPath();
 		QStrList FontPath;
 		QString ExtraPath;
-		SCFonts_Encoding Encoding;
 };
 
 typedef QDictIterator<Foi> SCFontsIterator;
