@@ -21,6 +21,8 @@
 #include <qdragobject.h>
 #include <qpopupmenu.h>
 #include <qcursor.h>
+#include <qheader.h>
+
 extern QPixmap loadIcon(QString nam);
 
 BookMItem::BookMItem(QListViewItem* parent, struct ScribusDoc::BookMa *Bm) : QListViewItem(parent)
@@ -133,8 +135,23 @@ void BookMView::AddPageItem(PageItem* ite)
 	Last = NrItems;
 }
 
-void BookMView::contentsMouseReleaseEvent(QMouseEvent *)
+void BookMView::contentsMouseReleaseEvent(QMouseEvent *e)
 {
+	if (Mpressed)
+	{
+		QListViewItem *i = itemAt(contentsToViewport(e->pos()));
+		QPoint p = contentsToViewport(e->pos());
+		if ( i ) 
+		{
+			if ( p.x() > header()->cellPos( header()->mapToActual( 0 ) ) + treeStepSize() * ( i->depth() + ( rootIsDecorated() ? 1 : 0) ) + itemMargin() ||
+					p.x() < header()->cellPos( header()->mapToActual( 0 ) ) ) 
+			{
+				BookMItem *ip;
+				ip = (BookMItem*)i;
+				emit SelectElement(ip->Seite, ip->Element);
+			}
+		}
+	}
 	Mpressed = false;
 }
 

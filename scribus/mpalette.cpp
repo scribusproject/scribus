@@ -908,8 +908,27 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
 void Mpalette::keyPressEvent(QKeyEvent *k)
 {
-	if (k->key() == Key_F10)
+	int KeyMod;
+	int kk = k->key();
+	switch (k->state())
+	{
+	case ShiftButton:
+		KeyMod = 0x00200000;
+		break;
+	case AltButton:
+		KeyMod = 0x00800000;
+		break;
+	case ControlButton:
+		KeyMod = 0x00400000;
+		break;
+	default:
+		KeyMod = 0;
+		break;
+	}
+	if (kk == Key_F10)
 		emit ToggleAllPalettes();
+	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[46].KeyID)
+		emit Schliessen();
 	QDialog::keyPressEvent(k);
 }
 

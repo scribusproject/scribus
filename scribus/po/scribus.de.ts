@@ -282,7 +282,7 @@ hierbei können sehr große Dateien entstehen</translation>
     </message>
     <message>
         <source>Apply Under Color &amp;Removal</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterfarben&amp;reduktion durchführen</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed
@@ -291,7 +291,13 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mit dieser Option werden ein paar Grautöne, die entstehen,
+wenn Black aus Cyan, Magenta und Yellow gemischt wird, durch Schwarz ersetzt.
+Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflusst,
+die Grau sehr nahe stehen. Diese Option kann zu besseren Bildern führen,
+allerdings müssen Sie von Fall zu Fall entscheiden, wie Sie bessere Ergebnisse
+bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
+</translation>
     </message>
 </context>
 <context>
@@ -382,7 +388,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>&amp;Apply</source>
-        <translation>&amp;Anwenden</translation>
+        <translation>An&amp;wenden</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -406,7 +412,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Bet&amp;ween:</source>
-        <translation>&amp;zwischen:</translation>
+        <translation>zwi&amp;schen:</translation>
     </message>
     <message>
         <source>Do &amp;Not Change</source>
@@ -414,15 +420,15 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Al&amp;ign</source>
-        <translation>&amp;Ausrichten</translation>
+        <translation>A&amp;usrichten</translation>
     </message>
     <message>
         <source>Dis&amp;placement</source>
-        <translation>&amp;Versatz</translation>
+        <translation>Ve&amp;rsatz</translation>
     </message>
     <message>
         <source>Distribute E&amp;venly</source>
-        <translation>&amp;Gleichmäßig verteilen</translation>
+        <translation>Gleich&amp;mäßig verteilen</translation>
     </message>
     <message>
         <source> pt</source>
@@ -1008,7 +1014,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation type="unfinished">PDF-Dateien (*.pdf);;Alle Dateien (*.*)</translation>
+        <translation>PDF-Dateien (*.pdf);;Alle Dateien (*.*)</translation>
     </message>
 </context>
 <context>
@@ -1138,11 +1144,11 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Apply to all &amp;even Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf alle &amp;geraden Seiten anwenden</translation>
     </message>
     <message>
         <source>Apply to all &amp;odd Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf alle &amp;ungeraden Seiten anwenden</translation>
     </message>
 </context>
 <context>
@@ -1423,7 +1429,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
-        <translation>Render-Prioritäten</translation>
+        <translation>Wiedergabemethoden</translation>
     </message>
     <message>
         <source>Simulate Printer on the Screen</source>
@@ -1488,13 +1494,13 @@ Diese Option sollte aktiviert sein, wenn Sie Fotos im Dokument haben.</translati
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Standard-Rendering Methode für Ihren Monitor. Ohne einen Grund zur Veränderung
+        <translation>Standard-Wiedergabemethode für Ihren Monitor. Ohne einen Grund zur Veränderung
 sollte entweder relativ farbmetrisch oder Wahrnehmung aktiviert sein.</translation>
     </message>
     <message>
         <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Standard-Rendering Methode für den Drucker. Ohne einen Grund zur Veränderung
+        <translation>Standard-Wiedergabemethode für den Drucker. Ohne einen Grund zur Veränderung
 sollte entweder relativ farbmetrisch oder Wahrnehmung aktiviert sein.</translation>
     </message>
     <message>
@@ -1512,7 +1518,7 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
     <message>
         <source>&amp;Activate Color Management</source>
-        <translation>Farb-Management &amp;aktivieren</translation>
+        <translation>Farb&amp;management aktivieren</translation>
     </message>
     <message>
         <source>&amp;Pictures:</source>
@@ -1532,11 +1538,11 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
     <message>
         <source>M&amp;onitor:</source>
-        <translation>Moni&amp;tor:</translation>
+        <translation>Monito&amp;r:</translation>
     </message>
     <message>
         <source>Pr&amp;inter:</source>
-        <translation>&amp;Drucker:</translation>
+        <translation>Dru&amp;cker:</translation>
     </message>
     <message>
         <source>Sim&amp;ulate Printer on the Screen</source>
@@ -2418,7 +2424,8 @@ Seiten importiert werden sollen, zum Beispiel
     <message>
         <source>Use an alternative print manager, such as kprinter or gtklp,
 to utilize additional printing options</source>
-        <translation type="unfinished"></translation>
+        <translation>Einen anderen Druckmanager benutzen, zum Beispiel kprinter oder gtklp,
+um zusätzliche Optionen einstellen zu können</translation>
     </message>
 </context>
 <context>
@@ -2842,7 +2849,7 @@ der Datei
     </message>
     <message>
         <source>&amp;All pages</source>
-        <translation>&amp;Alle Seiten</translation>
+        <translation>Alle &amp;Seiten</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -2978,64 +2985,66 @@ Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat<
     </message>
     <message>
         <source>Export as Image(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Als Bild speichern</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished">Optionen</translation>
+        <translation>Optionen</translation>
     </message>
     <message>
         <source>&amp;Resolution:</source>
-        <translation type="unfinished">Auf&amp;lösung:</translation>
+        <translation>Auf&amp;lösung:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation type="unfinished"> dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <source>Range</source>
-        <translation type="unfinished">Bereich</translation>
+        <translation>Bereich</translation>
     </message>
     <message>
         <source>&amp;Current page</source>
-        <translation type="unfinished"></translation>
+        <translation>A&amp;ktuelle Seite</translation>
     </message>
     <message>
         <source>&amp;Range</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bereich</translation>
     </message>
     <message>
         <source>C</source>
-        <translation type="unfinished">C</translation>
+        <translation>C</translation>
     </message>
     <message>
         <source>Export a range of pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Seitenbereich exportieren</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation type="unfinished">Geben sie durch Kommata getrennt ein, welche
+        <translation>Geben sie durch Kommata getrennt ein, welche
 Seiten importiert werden sollen, zum Beispiel
 1-5 oder 3,4. * steht  für alle Seiten.</translation>
     </message>
     <message>
         <source>Export all pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Seiten exportieren</translation>
     </message>
     <message>
         <source>Resolution of the Images
 Use 72 dpi for Images intended for the Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Gibt die Auflösung der Bilder an.
+72 dpi sind optimal, wenn Sie die Seiten nur auf dem 
+Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Gibt die Qualität der Bilder an - 100% beste Qualität...1% schlechteste Qualität</translation>
     </message>
 </context>
 <context>
@@ -3244,7 +3253,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Font Substitutions</source>
-        <translation>Schrift Ersetzungen</translation>
+        <translation>Schriftarten-Ersetzungen</translation>
     </message>
     <message>
         <source>Additional Paths</source>
@@ -3260,7 +3269,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Font Name</source>
-        <translation>Schrift Name</translation>
+        <translation>Name der Schriftart</translation>
     </message>
     <message>
         <source>Replacement</source>
@@ -3304,7 +3313,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Subset</source>
-        <translation>Unterteilen</translation>
+        <translation>Nur benutzte Zeichen einbetten</translation>
     </message>
     <message>
         <source>Type</source>
@@ -3312,7 +3321,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Path to Font File</source>
-        <translation>Pfad zur Schriftdatei</translation>
+        <translation>Pfad zur Schriftart</translation>
     </message>
     <message>
         <source>&amp;Available Fonts</source>
@@ -3340,7 +3349,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation>&amp;Entfernen</translation>
+        <translation>Ent&amp;fernen</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3355,7 +3364,7 @@ Use 72 dpi for Images intended for the Screen</source>
     <name>FontPreview</name>
     <message>
         <source>Font Preview</source>
-        <translation type="obsolete">Vorschau für Schriftarten</translation>
+        <translation>Vorschau für Schriftarten</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3376,10 +3385,6 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>The quick brown fox jumps over the lazy dog</translation>
-    </message>
-    <message>
-        <source>Fonts Preview</source>
-        <translation type="unfinished">Schriftartenvorschau</translation>
     </message>
 </context>
 <context>
@@ -3473,11 +3478,11 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>A&amp;dd</source>
-        <translation>&amp;Hinzufügen</translation>
+        <translation>Hin&amp;zufügen</translation>
     </message>
     <message>
         <source>De&amp;lete</source>
-        <translation>&amp;Löschen</translation>
+        <translation>Lö&amp;schen</translation>
     </message>
     <message>
         <source>&amp;Lock Guides</source>
@@ -4212,11 +4217,11 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation>Konsole &amp;zeigen</translation>
+        <translation>&amp;Konsole zeigen</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation>Konsole &amp;verbergen</translation>
+        <translation>&amp;Konsole verbergen</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
@@ -4570,7 +4575,7 @@ Corners:</source>
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation>Render Priorität:</translation>
+        <translation>Wiedergabemethode:</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -5008,7 +5013,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Rendering intent for the image</source>
-        <translation>Render-Methode für das Bild</translation>
+        <translation>Wiedergabemethode für das Bild</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
@@ -5068,7 +5073,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>&amp;Colors</source>
-        <translation>&amp;Farben</translation>
+        <translation>Fa&amp;rben</translation>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
@@ -5092,7 +5097,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Text &amp;Flows Around Frame</source>
-        <translation>Text &amp;umfließt Rahmen</translation>
+        <translation>Text umfließt Ra&amp;hmen</translation>
     </message>
     <message>
         <source>Use &amp;Bounding Box</source>
@@ -5218,15 +5223,15 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation type="unfinished"></translation>
+        <translation>Für den Textfluss wird das umgebende Rechteck an Stelle der Form genutzt</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation type="unfinished"></translation>
+        <translation>Für den Textfluss wird eine zweite Linie benutzt, die auf der originalen Form basiert</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Spracheinstellung für die Silbentrennung</translation>
     </message>
 </context>
 <context>
@@ -5653,7 +5658,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation>Aus&amp;richtung:</translation>
+        <translation>Au&amp;srichtung:</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
@@ -5673,7 +5678,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation>&amp;Links:</translation>
+        <translation>Lin&amp;ks:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
@@ -5701,11 +5706,11 @@ Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation>&amp;Abstand:</translation>
+        <translation>Ab&amp;stand:</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation>&amp;Spalten:</translation>
+        <translation>Spa&amp;lten:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -5901,75 +5906,79 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Move Control Points Independently</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollpunkte unabhängig verschieben</translation>
     </message>
     <message>
         <source>Move Control Points Symmetrical</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollpunkte symmetrisch verschieben</translation>
     </message>
     <message>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezierkurve oder Polygon öffnen</translation>
     </message>
     <message>
         <source>Close this Bezier Curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezierkurve schließen</translation>
     </message>
     <message>
         <source>Mirror the Path Horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfad horizontal spiegeln</translation>
     </message>
     <message>
         <source>Mirror the Path Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfad vertikal spiegeln</translation>
+    </message>
+    <message>
+        <source>Shear the Path Horizontally to the Rright</source>
+        <translation type="obsolete">Pfad horizontal nach rechts verschieben</translation>
     </message>
     <message>
         <source>Shear the Path Horizontally to the Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfad horizontal nach links verschieben</translation>
     </message>
     <message>
         <source>Shear the Path Vertically Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfad nach oben scheren</translation>
     </message>
     <message>
         <source>Shear the Path Vertically Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfad nach unten scheren</translation>
     </message>
     <message>
         <source>Rotate the Path Counter-Clockwise</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfad gegen den Uhrzeigersinn drehen</translation>
     </message>
     <message>
         <source>Rotate the Path Clockwise</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfad mit dem Uhrzeigersinn drehen</translation>
     </message>
     <message>
         <source>Reduce the Size of the Path by shown %</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfad verkleinern um x %</translation>
     </message>
     <message>
         <source>Enlarge the Size of the Path by shown %</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfad vergrößern um x %</translation>
     </message>
     <message>
         <source>Angle of Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Grad der Drehung</translation>
     </message>
     <message>
         <source>% to Enlarge or Reduce By</source>
-        <translation type="unfinished"></translation>
+        <translation>% vergrößern oder verkleinern</translation>
     </message>
     <message>
         <source>Activate Contour Line Editing Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Konturmodus aktivieren</translation>
     </message>
     <message>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontur auf die originale Form zurücksetzen</translation>
     </message>
     <message>
         <source>Shear the Path Horizontally to the Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfad horizontal nach rechts verschieben</translation>
     </message>
 </context>
 <context>
@@ -6643,7 +6652,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben.</transl
     </message>
     <message>
         <source>Rendering intent for solid colors</source>
-        <translation>Render-Methode für Farben</translation>
+        <translation>Wiedergabemethode für Farben festlegen</translation>
     </message>
     <message>
         <source>Color profile for images</source>
@@ -6651,7 +6660,7 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben.</transl
     </message>
     <message>
         <source>Rendering intent for images</source>
-        <translation>Render-Methode für Bilder</translation>
+        <translation>Wiedergabemethode für Bilder festlegen</translation>
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
@@ -6868,7 +6877,7 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>&amp;Angle:</source>
-        <translation>&amp;WInkel:</translation>
+        <translation>&amp;Winkel:</translation>
     </message>
     <message>
         <source>S&amp;pot Function:</source>
@@ -7056,7 +7065,13 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mit dieser Option werden ein paar Grautöne, die entstehen,
+wenn Black aus Cyan, Magenta und Yellow gemischt wird, durch Schwarz ersetzt.
+Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflusst,
+die Grau sehr nahe stehen. Diese Option kann zu besseren Bildern führen,
+allerdings müssen Sie von Fall zu Fall entscheiden, wie Sie bessere Ergebnisse
+bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
+</translation>
     </message>
 </context>
 <context>
@@ -7447,7 +7462,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>&amp;Insert Sample Text</source>
-        <translation>&amp;Beispieltext einfügen</translation>
+        <translation>Beispielte&amp;xt einfügen</translation>
     </message>
     <message>
         <source>Is PDF &amp;Bookmark</source>
@@ -7475,11 +7490,11 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Un&amp;lock</source>
-        <translation>Ent&amp;sperrenEnt&amp;sperren</translation>
+        <translation>Ent&amp;sperren</translation>
     </message>
     <message>
         <source>Lock Object &amp;Size</source>
-        <translation>&amp;Objektgröße sperren</translation>
+        <translation>Objekt&amp;größe sperren</translation>
     </message>
     <message>
         <source>Unlock Object &amp;Size</source>
@@ -7571,7 +7586,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Do you really want to clear all your Text?</source>
-        <translation type="unfinished">Wollen Sie wirklich den ganzen Text löschen?</translation>
+        <translation>Wollen Sie wirklich den ganzen Text löschen?</translation>
     </message>
 </context>
 <context>
@@ -7722,47 +7737,47 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Corn&amp;ers:</source>
-        <translation type="unfinished">Ec&amp;ken:</translation>
+        <translation>Ec&amp;ken:</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Drehung:</translation>
+        <translation>&amp;Drehung:</translation>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation type="unfinished">Konve&amp;xes Polygon</translation>
+        <translation>Konve&amp;xes Polygon</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
-        <translation type="unfinished">Fa&amp;ktor:</translation>
+        <translation>Fa&amp;ktor:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Abbrechen</translation>
+        <translation>&amp;Abbrechen</translation>
     </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation type="unfinished">Anzahl der Ecken in Polygonen</translation>
+        <translation>Anzahl der Ecken des Polygons</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation type="unfinished">Grad der Drehung des Polygons</translation>
+        <translation>Grad der Drehung des Polygons</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation type="unfinished">Zeichnet ein konvexes Polygon</translation>
+        <translation>Zeichnet ein konvexes Polygon</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
-        <translation type="unfinished">Vorschau der gewählten Eigenschaften</translation>
+        <translation>Vorschau der gewählten Eigenschaften</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation type="unfinished">Legt den Winkel fest, bei dem sich die Linien des Polygons verbinden</translation>
+        <translation>Legt den Winkel fest, bei dem sich die Linien des Polygons verbinden</translation>
     </message>
 </context>
 <context>
@@ -7801,7 +7816,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Units</source>
-        <translation>Einheiten</translation>
+        <translation>Vorgabe für Maßeinheit</translation>
     </message>
     <message>
         <source>Points (pt)</source>
@@ -7941,7 +7956,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Grid Layout</source>
-        <translation>Hilfslinien Einrichtung</translation>
+        <translation>Vorgaben für Hilfslinien</translation>
     </message>
     <message>
         <source>Minor Grid Spacing:</source>
@@ -7957,7 +7972,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Grid Colors</source>
-        <translation>Hilfslinienfarben</translation>
+        <translation>Farbeinstellungen für Hilfslinien</translation>
     </message>
     <message>
         <source>Minor Grid Color:</source>
@@ -8233,7 +8248,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Misc.</source>
-        <translation>Versch.</translation>
+        <translation>Verschiedenes.</translation>
     </message>
     <message>
         <source>Displacement:</source>
@@ -8697,7 +8712,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Grab Radius:</source>
-        <translation>Fang&amp;radius:</translation>
+        <translation>Fangradi&amp;us:</translation>
     </message>
     <message>
         <source>&amp;Recent Documents:</source>
@@ -8709,7 +8724,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Change...</source>
-        <translation>&amp;Wechseln...</translation>
+        <translation>&amp;Ändern...</translation>
     </message>
     <message>
         <source>&amp;ICC Profiles:</source>
@@ -8725,7 +8740,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Ch&amp;ange...</source>
-        <translation>Ä&amp;ndern...</translation>
+        <translation>Änd&amp;ern...</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -8733,7 +8748,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation>Aus&amp;richtung:</translation>
+        <translation>Ausrich&amp;tung:</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
@@ -8789,7 +8804,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Min&amp;or Grid Color:</source>
-        <translation>&amp;Farbe der Teillinien:</translation>
+        <translation>Farbe der &amp;Teillinien:</translation>
     </message>
     <message>
         <source>Majo&amp;r Grid Color:</source>
@@ -8797,11 +8812,11 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;User Guides Color:</source>
-        <translation>Farbe der &amp;Hilfslinien:</translation>
+        <translation>Farbe der Hilfs&amp;linien:</translation>
     </message>
     <message>
         <source>Base&amp;line Grid Color:</source>
-        <translation>&amp;Farbe des Grundlinienrasters:</translation>
+        <translation>Farbe des &amp;Grundlinienrasters:</translation>
     </message>
     <message>
         <source>In the &amp;Background</source>
@@ -8825,11 +8840,11 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Scaling:</source>
-        <translation>Ska&amp;lierung:</translation>
+        <translation>&amp;Skalierung:</translation>
     </message>
     <message>
         <source>D&amp;isplacement:</source>
-        <translation>&amp;Versatz:</translation>
+        <translation>Versat&amp;z:</translation>
     </message>
     <message>
         <source>S&amp;caling:</source>
@@ -8837,7 +8852,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Sc&amp;aling:</source>
-        <translation>Ska&amp;lierung:</translation>
+        <translation>Skalieru&amp;ng:</translation>
     </message>
     <message>
         <source>Baseline &amp;Grid:</source>
@@ -8845,11 +8860,11 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Baseline &amp;Offset:</source>
-        <translation>Grundlinien-&amp;Versatz:</translation>
+        <translation>&amp;Grundlinienversatz:</translation>
     </message>
     <message>
         <source>Automatic &amp;Line Spacing:</source>
-        <translation>Automatischer &amp;Zeilenabstand:</translation>
+        <translation>Au&amp;tomatischer Zeilenabstand:</translation>
     </message>
     <message>
         <source>Default &amp;Font:</source>
@@ -8865,15 +8880,15 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation>&amp;Spalten:</translation>
+        <translation>S&amp;palten:</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation>&amp;Abstand:</translation>
+        <translation>Abs&amp;tand:</translation>
     </message>
     <message>
         <source>&amp;Line Color:</source>
-        <translation>Linien&amp;farbe:</translation>
+        <translation>Linienfar&amp;be:</translation>
     </message>
     <message>
         <source>&amp;Shading:</source>
@@ -8885,11 +8900,11 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>S&amp;hading:</source>
-        <translation>&amp;Tonwert:</translation>
+        <translation>Ton&amp;wert:</translation>
     </message>
     <message>
         <source>&amp;Type of Line:</source>
-        <translation>Linien&amp;art:</translation>
+        <translation>Liniena&amp;rt:</translation>
     </message>
     <message>
         <source>Line &amp;Width:</source>
@@ -8909,7 +8924,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
-        <translation>&amp;Freie Skalierung</translation>
+        <translation>Freie &amp;Skalierung</translation>
     </message>
     <message>
         <source>&amp;Horizontal Scaling:</source>
@@ -8925,7 +8940,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
-        <translation>Seitenverhältnisse beibe&amp;halten</translation>
+        <translation>Seitenverhältnisse &amp;beibehalten</translation>
     </message>
     <message>
         <source>F&amp;ill Color:</source>
@@ -8945,7 +8960,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
-        <translation>Fa&amp;ktor:</translation>
+        <translation>Fak&amp;tor:</translation>
     </message>
     <message>
         <source>Sa&amp;ve Contents on Changes</source>
@@ -9418,7 +9433,7 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>Print Preview</source>
-        <translation type="unfinished">Druckvorschau</translation>
+        <translation>Druckvorschau</translation>
     </message>
     <message>
         <source>Scripter Manual...</source>
@@ -9734,11 +9749,11 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation>&amp;Schriftartenvorschau</translation>
+        <translation>Schriftarten&amp;vorschau</translation>
     </message>
     <message>
         <source>Print Previe&amp;w</source>
-        <translation>Druck&amp;vorschau</translation>
+        <translation>D&amp;ruckvorschau</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
@@ -9802,31 +9817,31 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>Importing text</source>
-        <translation type="unfinished"></translation>
+        <translation>Text importieren</translation>
     </message>
     <message>
         <source>Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Importfilter</translation>
     </message>
     <message>
         <source>Choose the importer to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen Sie den Importfilter aus</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Alle unterstützten Formate</translation>
+        <translation>Alle unterstützten Formate</translation>
     </message>
     <message>
         <source>HTML Files</source>
-        <translation type="unfinished"></translation>
+        <translation>HTML-Dateien</translation>
     </message>
     <message>
         <source>html</source>
-        <translation type="unfinished"></translation>
+        <translation>html</translation>
     </message>
     <message>
         <source>Text Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Textdateien</translation>
     </message>
 </context>
 <context>
@@ -10108,7 +10123,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Style Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Stil verändern</translation>
     </message>
 </context>
 <context>
@@ -10127,7 +10142,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Fill Color Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Füllfarbe verändern</translation>
     </message>
 </context>
 <context>
@@ -10146,7 +10161,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Stroke Color Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Umrissfarbe verändern</translation>
     </message>
 </context>
 <context>
@@ -10173,7 +10188,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Font Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Schriftart verändern</translation>
     </message>
 </context>
 <context>
@@ -10192,7 +10207,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Character Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeicheneinstellungen bearbeiten</translation>
     </message>
 </context>
 <context>
@@ -11045,11 +11060,11 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Open a Document</source>
-        <translation>Öffnet ein Dokument</translation>
+        <translation>Vorhandenes Dokument öffnen</translation>
     </message>
     <message>
         <source>Save the current Document</source>
-        <translation>Speichert das aktuelle Dokument</translation>
+        <translation>Aktives Dokument speichern</translation>
     </message>
     <message>
         <source>Close the current Document</source>
@@ -11209,7 +11224,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>Schl&amp;ießen</translation>
+        <translation>Sch&amp;ließen</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -11225,7 +11240,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Collect for O&amp;utput...</source>
-        <translation>Für &amp;Ausgabe sammeln...</translation>
+        <translation>&amp;Für Ausgabe sammeln...</translation>
     </message>
     <message>
         <source>&amp;Get Text/Picture...</source>
@@ -11265,7 +11280,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Document &amp;Setup...</source>
-        <translation>Dokument ein&amp;richten...</translation>
+        <translation>Dokument &amp;einrichten...</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
@@ -11289,7 +11304,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation>Einf&amp;ügen</translation>
+        <translation>&amp;Einfügen</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
@@ -11313,7 +11328,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
-        <translation>&amp;Linien-Stile...</translation>
+        <translation>&amp;Linienstile...</translation>
     </message>
     <message>
         <source>&amp;Templates...</source>
@@ -11369,7 +11384,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Edit Frame</source>
-        <translation>Frame &amp;bearbeiten</translation>
+        <translation>Form &amp;bearbeiten</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
@@ -11377,11 +11392,11 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Attach Text to Path</source>
-        <translation>Text an Pfad &amp;ausrichten</translation>
+        <translation>Text an Pfad aus&amp;richten</translation>
     </message>
     <message>
         <source>&amp;Detach Text from Path</source>
-        <translation>Text von Pfad &amp;lösen</translation>
+        <translation>Text von Pfad l&amp;ösen</translation>
     </message>
     <message>
         <source>&amp;Combine Polygons</source>
@@ -11397,7 +11412,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Insert...</source>
-        <translation>EIn&amp;fügen...</translation>
+        <translation>Ein&amp;fügen...</translation>
     </message>
     <message>
         <source>&amp;Delete...</source>
@@ -11469,11 +11484,11 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Scrapbook</source>
-        <translation>&amp;Bibliothek</translation>
+        <translation>Biblio&amp;thek</translation>
     </message>
     <message>
         <source>&amp;Layers</source>
-        <translation>&amp;Ebenen</translation>
+        <translation>E&amp;benen</translation>
     </message>
     <message>
         <source>P&amp;age Palette</source>
@@ -11517,7 +11532,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Keyboard Shortcuts...</source>
-        <translation>&amp;Tastenkürzel...</translation>
+        <translation>Tasten&amp;kürzel...</translation>
     </message>
     <message>
         <source>&amp;About Scribus</source>
@@ -11673,7 +11688,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Sn&amp;ap to Grid</source>
-        <translation>Magnetisches Ra&amp;ster</translation>
+        <translation>Ma&amp;gnetisches Raster</translation>
     </message>
     <message>
         <source>P&amp;references...</source>
@@ -11697,19 +11712,19 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Document &amp;Information...</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokument&amp;informationen...</translation>
     </message>
     <message>
         <source>&amp;Undo Delete Object</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Rückgängig: Objekt löschen</translation>
     </message>
     <message>
         <source>&amp;Undo Object Move</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Rückgängig: Objekt verschieben</translation>
     </message>
     <message>
         <source>&amp;Undo Object Change</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Rückgängig: Objekt ändern</translation>
     </message>
 </context>
 <context>
@@ -12232,7 +12247,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished">Datei</translation>
+        <translation>Datei</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -12312,7 +12327,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Update Text Frame</source>
-        <translation type="unfinished">Textrahmen auffrischen</translation>
+        <translation>Textrahmen auffrischen</translation>
     </message>
     <message>
         <source>Search/Replace...</source>
@@ -12336,11 +12351,11 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation type="unfinished">Änderungen übernehmen</translation>
+        <translation>Änderungen übernehmen</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation type="unfinished">Änderungen ignorieren</translation>
+        <translation>Änderungen ignorieren</translation>
     </message>
     <message>
         <source>Save Document</source>
@@ -12348,7 +12363,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation>&amp;Sonderzeichen einfügen</translation>
+        <translation>Sonder&amp;zeichen einfügen</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -12412,55 +12427,59 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
-        <translation type="unfinished">Alles aus&amp;wählen</translation>
+        <translation>Alles aus&amp;wählen</translation>
     </message>
     <message>
-        <source>&amp;Edit Styles...</source>
-        <translation type="unfinished"></translation>
+        <source>Clears all Text</source>
+        <translation type="obsolete">Text löschen</translation>
     </message>
     <message>
         <source>Load Text from File</source>
-        <translation type="unfinished"></translation>
+        <translation>Text von Datei laden</translation>
     </message>
     <message>
         <source>Save Text to File</source>
-        <translation type="unfinished"></translation>
+        <translation>Text in Datei speichern</translation>
     </message>
     <message>
         <source>Reload Text from Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Text aus Textrahmen neu laden</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
-        <translation type="unfinished">&amp;Suchen &amp;&amp; Ersetzen...</translation>
+        <translation>&amp;Suchen &amp;&amp; Ersetzen...</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Styles...</source>
+        <translation>Stil&amp;vorlagen bearbeiten...</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview...</source>
-        <translation type="unfinished"></translation>
+        <translation>Schriftarten&amp;vorschau...</translation>
     </message>
     <message>
         <source>&amp;Background...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hintergrund...</translation>
     </message>
     <message>
         <source>&amp;Display Font...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Schriftart des Textes...</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation type="unfinished">&amp;Einstellungen</translation>
-    </message>
-    <message>
-        <source>Search/Replace</source>
-        <translation type="unfinished">Suchen/Ersetzen</translation>
-    </message>
-    <message>
-        <source>&amp;Fonts Preview</source>
-        <translation type="unfinished">&amp;Schriftartenvorschau</translation>
+        <translation>&amp;Einstellungen</translation>
     </message>
     <message>
         <source>Clear all Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Kompletten Text löschen</translation>
+    </message>
+    <message>
+        <source>Search/Replace</source>
+        <translation>Suchen &amp;&amp; Ersetzen</translation>
+    </message>
+    <message>
+        <source>&amp;Fonts Preview</source>
+        <translation>Schriftarten&amp;vorschau</translation>
     </message>
 </context>
 <context>
@@ -12902,27 +12921,27 @@ Bitte wählen Sie einen anderen.</translation>
     <name>gtFileDialog</name>
     <message>
         <source>Choose the importer to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen Sie den Importfilter aus</translation>
     </message>
     <message>
         <source>Automatic</source>
-        <translation type="unfinished">Automatisch</translation>
+        <translation>Automatisch</translation>
     </message>
     <message>
         <source>Get text only</source>
-        <translation type="unfinished"></translation>
+        <translation>Nur Text importieren</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>Text ohne Formatierung importieren</translation>
     </message>
     <message>
         <source>Importer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Importfilter:</translation>
     </message>
     <message>
         <source>Encoding:</source>
-        <translation type="unfinished">Kodierung:</translation>
+        <translation>Kodierung:</translation>
     </message>
 </context>
 <context>
@@ -12985,55 +13004,55 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Abbrechen</translation>
+        <translation>&amp;Abbrechen</translation>
     </message>
     <message>
         <source>Downloading Templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorlagen herunterladen</translation>
+    </message>
+    <message>
+        <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
+        <translation>Sie finden weitere Vorlagen im Downloadbereich von http://www.scribus.net.</translation>
     </message>
     <message>
         <source>Installing Templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorlagen installieren</translation>
     </message>
     <message>
         <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte entpacken Sie die Vorlage nach ~/.scribus/templates für den aktuellen Benutzer oder nach PREFIX/share/scribus/templates für alle Benutzer.</translation>
     </message>
     <message>
         <source>Preparing a template</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorlage vorbereiten</translation>
+    </message>
+    <message>
+        <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
+        <translation>Die von Ihnen verwendeten Bilder müssen überall benutzt werden können. Auch Fonts müssen ausgewählt sein. Wenn Sie Schriftarten nicht mit verbreiten können, dann lassen Sie sie beim Speichern aus.</translation>
+    </message>
+    <message>
+        <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
+        <translation>Wenn Sie selber Vorlagen bereitstellen, sollten Sie vorher ausprobieren, ob sie auch korrekt funktionieren. Das heißt, wenn Sie die Vorlage ins angegebene Verzeichnis kopieren, sollte sie sofort einsatzbereit sein.</translation>
     </message>
     <message>
         <source>Removing a template</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorlage entfernen</translation>
+    </message>
+    <message>
+        <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
+        <translation>Wenn Sie eine Vorlage hier entfernen, wird nur der Eintrag in template.xml gelöscht, die Vorlagendateien an sich bleiben erhalten. Außerdem erscheint das Popup-Menü mit Entfernen nur, wenn sie Schreibrechte auf template.xml besitzen.</translation>
     </message>
     <message>
         <source>Translating template.xml</source>
-        <translation type="unfinished"></translation>
+        <translation>template.xml übersetzen</translation>
     </message>
     <message>
-        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
-        <translation type="unfinished"></translation>
+        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
+        <translation>Kopieren Sie eine bestehende template.xml nach template.lang_COUNTRY.xml, wobei Sie denselben Ländercode benutzen sollten wie die qm-Datei für Ihre Sprache auch hat. Außerdem muss die Kopie im selben Verzeichnis wie das Original liegen.</translation>
     </message>
 </context>
 <context>

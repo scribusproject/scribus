@@ -30,8 +30,27 @@ BibView::BibView(QWidget* parent, preV *prefs) : QIconView(parent)
 
 void BibView::keyPressEvent(QKeyEvent *k)
 {
-	if (k->key() == Key_F10)
+	int KeyMod;
+	int kk = k->key();
+	switch (k->state())
+	{
+	case ShiftButton:
+		KeyMod = 0x00200000;
+		break;
+	case AltButton:
+		KeyMod = 0x00800000;
+		break;
+	case ControlButton:
+		KeyMod = 0x00400000;
+		break;
+	default:
+		KeyMod = 0;
+		break;
+	}
+	if (kk == Key_F10)
 		emit ToggleAllPalettes();
+	if ((kk + KeyMod) == Prefs->KeyActions[48].KeyID)
+		emit Schliessen();
 	QIconView::keyPressEvent(k);
 }
 

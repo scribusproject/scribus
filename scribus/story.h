@@ -66,6 +66,7 @@ public:
 	void saveItemText(PageItem* b);
 	void loadItemText(PageItem* b);
 	void loadText(QString tx, PageItem* b);
+	void updateAll();
 	void updateFromChars(int p);
 	void updateSel(int code, struct PtiSmall *hg);
 	void deleteSel();

@@ -1455,6 +1455,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	MiscLayout->addItem( spacer_3m );
 	TabWidget3->addWidget( Misc, 8 );
 
+	TabListe->setCurrentItem(0);
+	TabListe->setSelected(0, true);
 	Fram->raiseWidget(1);
 
 	PrefsLayout2->addWidget( TabWidget3 );

@@ -42,6 +42,7 @@ public:
 
 signals:
 	void ToggleAllPalettes();
+	void Schliessen();
 
 protected:
 	virtual QDragObject *dragObject();

@@ -551,6 +551,7 @@ void ScribusApp::initScribus()
 		connect(Sepal, SIGNAL(Schliessen()), this, SLOT(ToggleSepal()));
 		connect(ScBook, SIGNAL(Schliessen()), this, SLOT(ToggleBpal()));
 		connect(ScBook->BibWin, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+		connect(ScBook->BibWin, SIGNAL(Schliessen()), this, SLOT(ToggleBpal()));
 		connect(Sepal, SIGNAL(EditTemp(QString)), this, SLOT(ManageTemp(QString)));
 		connect(Sepal->PageView, SIGNAL(UseTemp(QString, int)), this, SLOT(Apply_Temp(QString, int)));
 		connect(Sepal->PageView, SIGNAL(NewPage(int, QString)), this, SLOT(slotNewPageP(int, QString)));
@@ -559,6 +560,7 @@ void ScribusApp::initScribus()
 		connect(Sepal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 		connect(BookPal->BView, SIGNAL(MarkMoved()), this, SLOT(StoreBookmarks()));
 		connect(BookPal->BView, SIGNAL(ChangeBMNr(int, int, int)), this, SLOT(ChBookmarks(int, int, int)));
+		connect(BookPal->BView, SIGNAL(SelectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
 		connect(BookPal, SIGNAL(Schliessen()), this, SLOT(ToggleBookpal()));
 		connect(BookPal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 		connect(recentMenu, SIGNAL(activated(int)), this, SLOT(LoadRecent(int)));
@@ -5959,12 +5961,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 	if (CurrStED != NULL)
 	{
 		if (CurrStED->Editor->StyledText.count() != 0)
-		{
-			for (uint pa = 0; pa < CurrStED->Editor->StyledText.count(); ++pa)
-			{
-				CurrStED->Editor->updateFromChars(pa);
-			}
-		}
+			CurrStED->Editor->updateAll();
 	}
 	for (uint a=0; a<doc->Vorlagen.count(); ++a)
 	{
@@ -8901,10 +8898,14 @@ void ScribusApp::SearchText()
  */
 void ScribusApp::DefKB()
 {
-    KeyManager *dia = new KeyManager(this, Prefs.KeyActions);
-    if (dia->exec())
-        Prefs.KeyActions = dia->KK;
-    delete dia;
+	KeyManager *dia = new KeyManager(this, Prefs.KeyActions);
+	if (dia->exec())
+	{
+		Prefs.KeyActions = dia->KK;
+		SetShortCut();
+		SavePrefs();
+	}
+	delete dia;
 }
 
 

@@ -665,6 +665,86 @@ void SEditor::loadText(QString tx, PageItem* b)
 	setCursorPosition(0, 0);
 }
 
+void SEditor::updateAll()
+{
+	if (StyledText.count() == 0)
+		return;
+	int p, i;
+	getCursorPosition(&p, &i);
+	clear();
+	struct PtiSmall *hg;
+	QString Text = "";
+	QString Ccol = "";
+	int Csha;
+	int Csty;
+	int Ali = 0;
+	ChList *chars = StyledText.at(0);
+	if (chars->count() != 0)
+	{
+		Ccol = chars->at(0)->ccolor;
+		Csha = chars->at(0)->cshade;
+		Csty = chars->at(0)->cstyle;
+		Ali = chars->at(0)->cab;
+	}
+	else
+	{
+		Ccol = CurrTextFill;
+		Csha = CurrTextFillSh;
+		Csty = CurrentStyle;
+		Ali = CurrentABStil;
+	}
+	setAlign(Ali);
+	setFarbe(Ccol, Csha);
+	setStyle(Csty);
+	for (uint pa = 0; pa < StyledText.count(); ++pa)
+	{
+		chars = StyledText.at(pa);
+		if ((chars->count() == 0) && (pa < StyledText.count()-1))
+		{
+			Text += "\n";
+			continue;
+		}
+		for (uint a = 0; a < chars->count(); ++a)
+		{
+			hg = chars->at(a);
+			if ((Ccol == hg->ccolor) && (Ali == hg->cab) && (Csha == hg->cshade) && (Csty == hg->cstyle))
+			{
+				if (hg->ch == QChar(30))
+				{
+					setFarbe(Ccol, Csha);
+					setAlign(Ali);
+					setStyle(Csty);
+					insert(Text);
+					insert("#");
+					Text = "";
+					continue;
+				}
+				else
+					Text += hg->ch;
+			}
+			else
+			{
+				setFarbe(Ccol, Csha);
+				setAlign(Ali);
+				setStyle(Csty);
+				insert(Text);
+				Text = hg->ch;
+				Ccol = hg->ccolor;
+				Csha = hg->cshade;
+				Csty = hg->cstyle;
+				Ali = hg->cab;
+			}
+		}
+		if (pa < StyledText.count()-1)
+			Text += "\n";
+	}
+	setAlign(Ali);
+	setFarbe(Ccol, Csha);
+	setStyle(Csty);
+	insert(Text);
+	setCursorPosition(p, i);
+}
+
 void SEditor::updateFromChars(int pa)
 {
 	ChList *chars = StyledText.at(pa);
