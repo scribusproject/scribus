@@ -49,6 +49,10 @@ void BibView::keyPressEvent(QKeyEvent *k)
 	}
 	if (kk == Key_F10)
 		emit ToggleAllPalettes();
+	if ((kk + KeyMod) == Prefs->KeyActions[46].KeyID)
+		emit CloseMpal();
+	if ((kk + KeyMod) == Prefs->KeyActions[47].KeyID)
+		emit CloseTpal();
 	if ((kk + KeyMod) == Prefs->KeyActions[48].KeyID)
 		emit Schliessen();
 	QIconView::keyPressEvent(k);

@@ -929,6 +929,10 @@ void Mpalette::keyPressEvent(QKeyEvent *k)
 		emit ToggleAllPalettes();
 	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[46].KeyID)
 		emit Schliessen();
+	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[47].KeyID)
+		emit CloseTpal();
+	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[48].KeyID)
+		emit CloseBpal();
 	QDialog::keyPressEvent(k);
 }
 

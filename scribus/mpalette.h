@@ -355,6 +355,8 @@ protected slots:
 signals:
 	void ToggleAllPalettes();
 	void Schliessen();
+	void CloseBpal();
+	void CloseTpal();
 	void DocChanged();
 	void NewAbStyle(int);
 	void BackHome();

@@ -68,8 +68,12 @@ void Tree::keyPressEvent(QKeyEvent *k)
 	}
 	if (kk == Key_F10)
 		emit ToggleAllPalettes();
+	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[46].KeyID)
+		emit CloseMpal();
 	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[47].KeyID)
 		emit Schliessen();
+	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[48].KeyID)
+		emit CloseSpal();
 	QDialog::keyPressEvent(k);
 }
 

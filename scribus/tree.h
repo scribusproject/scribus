@@ -55,6 +55,8 @@ public slots:
 signals:
 	void ToggleAllPalettes();
 	void Schliessen();
+	void CloseMpal();
+	void CloseSpal();
 	void SelectElement(int, int);
 	void SelectSeite(int);
 

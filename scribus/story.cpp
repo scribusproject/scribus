@@ -861,7 +861,11 @@ void SEditor::deleteSel()
 	{
 		for (int pa = PStart; pa < PEnd+1; ++pa)
 		{
-			chars = StyledText.at(pa);
+			bool noChar = false;
+			if (pa >= static_cast<int>(StyledText.count()))
+				noChar = true;
+			else
+				chars = StyledText.at(pa);
 			if (pa == PStart)
 				start = SelStart;
 			else
@@ -869,38 +873,50 @@ void SEditor::deleteSel()
 			if (pa == PEnd)
 				end = SelEnd;
 			else
-				end = chars->count();
-			for (int ca = 0; ca < end-start; ++ca)
 			{
-				chars->remove(start);
+				if (noChar)
+					end = 0;
+				else
+					end = chars->count();
+			}
+			if (!noChar)
+			{
+				for (int ca = 0; ca < end-start; ++ca)
+				{
+					chars->remove(start);
+				}
 			}
 		}
 		if (PEnd-PStart > 1)
 		{
 			for (int pa2 = 0; pa2 < PEnd - PStart - 1; ++pa2)
 			{
-				StyledText.remove(PStart+1);
+				if (PStart+1 < static_cast<int>(StyledText.count()))
+					StyledText.remove(PStart+1);
 			}
 		}
-		struct PtiSmall *hg;
-		ChList *chars2 = StyledText.at(PStart+1);
-		chars = StyledText.at(PStart);
-		int a = static_cast<int>(chars2->count());
-		if (a > 0)
+		if (PStart+1 < static_cast<int>(StyledText.count()))
 		{
-			int ca;
-			if (chars->count() > 0)
-				ca = chars->at(0)->cab;
-			else
-				ca = CurrentABStil;
-			for (int s = 0; s < a; ++s)
+			struct PtiSmall *hg;
+			ChList *chars2 = StyledText.at(PStart+1);
+			chars = StyledText.at(PStart);
+			int a = static_cast<int>(chars2->count());
+			if (a > 0)
 			{
-				hg = chars2->take(0);
-				hg->cab = ca;
-				chars->append(hg);
+				int ca;
+				if (chars->count() > 0)
+					ca = chars->at(0)->cab;
+				else
+					ca = CurrentABStil;
+				for (int s = 0; s < a; ++s)
+				{
+					hg = chars2->take(0);
+					hg->cab = ca;
+					chars->append(hg);
+				}
 			}
+			StyledText.remove(PStart+1);
 		}
-		StyledText.remove(PStart+1);
 	}
 	setCursorPosition(PStart, SelStart);
 }

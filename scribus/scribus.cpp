@@ -535,12 +535,16 @@ void ScribusApp::initScribus()
 		connect(Mpal->Cpal, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 		connect(Mpal->Cpal, SIGNAL(QueryItem()), this, SLOT(GetBrushPen()));
 		connect(Tpal, SIGNAL(Schliessen()), this, SLOT(ToggleTpal()));
+		connect(Tpal, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
+		connect(Tpal, SIGNAL(CloseSpal()), this, SLOT(ToggleBpal()));
 		connect(Tpal, SIGNAL(SelectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
 		connect(Tpal, SIGNAL(SelectSeite(int)), this, SLOT(SelectFromOutlS(int)));
 		connect(Tpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 		connect(Mpal->Spal, SIGNAL(NewStyle(int)), this, SLOT(setNewAbStyle(int)));
 		connect(Mpal, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
 		connect(Mpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+		connect(Mpal, SIGNAL(CloseTpal()), this, SLOT(ToggleTpal()));
+		connect(Mpal, SIGNAL(CloseBpal()), this, SLOT(ToggleBpal()));
 		connect(Npal, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
 		connect(Lpal, SIGNAL(LayerActivated(int)), this, SLOT(changeLayer(int)));
 		connect(Lpal, SIGNAL(LayerRemoved(int, bool)), this, SLOT(LayerRemove(int, bool)));
@@ -552,6 +556,8 @@ void ScribusApp::initScribus()
 		connect(ScBook, SIGNAL(Schliessen()), this, SLOT(ToggleBpal()));
 		connect(ScBook->BibWin, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 		connect(ScBook->BibWin, SIGNAL(Schliessen()), this, SLOT(ToggleBpal()));
+		connect(ScBook->BibWin, SIGNAL(CloseTpal()), this, SLOT(ToggleTpal()));
+		connect(ScBook->BibWin, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
 		connect(Sepal, SIGNAL(EditTemp(QString)), this, SLOT(ManageTemp(QString)));
 		connect(Sepal->PageView, SIGNAL(UseTemp(QString, int)), this, SLOT(Apply_Temp(QString, int)));
 		connect(Sepal->PageView, SIGNAL(NewPage(int, QString)), this, SLOT(slotNewPageP(int, QString)));
