@@ -18,11 +18,16 @@
 #include "polygonwidget.h"
 #include "arrowchooser.h"
 #include "tabtypography.h"
+#include "hysettings.h"
+#include "cmsprefs.h"
+#include "keymanager.h"
 
 using namespace std;
 
 extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
 extern QPixmap loadIcon(QString nam);
+extern bool CMSavail;
+extern ProfilesL InputProfiles;
 
 extern "C" void* Run(QWidget *d, preV *prefsData);
 
@@ -897,6 +902,23 @@ Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( p
 	subStackTools->addWidget( subTabZoom, 5 );
 	tabToolsLayout->addWidget( subStackTools );
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
+
+	tabHyphenator = new HySettings(prefsWidgets, &ap->LangTransl);
+	tabHyphenator->verbose->setChecked(!prefsData->Automatic);
+	tabHyphenator->input->setChecked(prefsData->AutoCheck);
+	tabHyphenator->language->setCurrentText(ap->LangTransl[prefsData->Language]);
+	tabHyphenator->wordLen->setValue(prefsData->MinWordLen);
+	tabHyphenator->maxCount->setValue(prefsData->HyCount);
+	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
+
+	if (CMSavail)
+	{
+		tabColorManagement = new CMSPrefs(prefsWidgets, &prefsData->DCMSset, &InputProfiles, &ap->PrinterProfiles, &ap->MonitorProfiles);
+		addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
+	}
+
+	tabKeys = new KeyManager(this, prefsData->KeyActions);
+	addItem( tr("Keyboard Shortcuts"), loadIcon("key_bindings.png"), tabKeys);
 
 	tab_5 = new QWidget( prefsWidgets, "tab_5" );
 	tabLayout_5 = new QGridLayout( tab_5 );

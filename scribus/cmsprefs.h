@@ -1,66 +1,53 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'CMSpref.ui'
-**
-** Created: Tue Jan 1 10:37:11 2002
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #ifndef CMSPREFS_H
 #define CMSPREFS_H
 
-#include <qdialog.h>
+#include <qwidget.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qgroupbox.h>
 #include <qlabel.h>
-#include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include "scribusdoc.h"
 
-class CMSPrefs : public QDialog
+class CMSPrefs : public QWidget
 { 
     Q_OBJECT
 
 public:
-    CMSPrefs( QWidget* parent, CMSset *Vor,
-				ProfilesL *InputProfiles, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles);
+    CMSPrefs( QWidget* parent, CMSset *Vor, ProfilesL *InputProfiles, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles);
     ~CMSPrefs() {};
 
-    QCheckBox* CheckBox1;
-    QGroupBox* SysProfiles;
-    QLabel* Text2;
-    QLabel* Text1;
-    QLabel* Text3;
-    QLabel* Text4;
-    QComboBox* InputP;
-    QComboBox* InputP2;
-    QComboBox* MonitorP;
-    QComboBox* PrinterP;
-    QGroupBox* Render;
-    QLabel* Text22;
-    QComboBox* MonitorI;
-    QComboBox* PrinterI;
-    QLabel* Text21;
-    QCheckBox* Simulate;
-	QCheckBox* GamutC;
-	QCheckBox* BlackP;
-    QPushButton* Cancel;
-    QPushButton* OK;
-  	CMSset *Prefs;
-  	bool Changed;
+    QCheckBox* checkBox1;
+    QGroupBox* sysProfiles;
+    QLabel* text2;
+    QLabel* text1;
+    QLabel* text3;
+    QLabel* text4;
+    QComboBox* inputP;
+    QComboBox* inputP2;
+    QComboBox* monitorP;
+    QComboBox* printerP;
+    QGroupBox* render;
+    QLabel* text22;
+    QComboBox* monitorI;
+    QComboBox* printerI;
+    QLabel* text21;
+    QCheckBox* simulate;
+	QCheckBox* gamutC;
+	QCheckBox* blackP;
+  	CMSset *prefs;
+  	bool changed;
 
 public slots:
     virtual void slotCMSon();
-    virtual void SetValues();
+    virtual void setValues();
 	virtual void slotSimula();
 
 protected:
-    QVBoxLayout* CMSPrefsLayout;
-    QGridLayout* SysProfilesLayout;
-    QGridLayout* RenderLayout;
-    QHBoxLayout* Layout1;
+    QVBoxLayout* cmsPrefsLayout;
+    QGridLayout* sysProfilesLayout;
+    QGridLayout* renderLayout;
 };
 
 #endif // CMSPREFS_H

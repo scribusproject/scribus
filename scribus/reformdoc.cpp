@@ -6,15 +6,20 @@
 #include "polygonwidget.h"
 #include "arrowchooser.h"
 #include "tabtypography.h"
+#include "hysettings.h"
+#include "cmsprefs.h"
 
 extern QPixmap loadIcon(QString nam);
 extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
 extern double UmReFaktor;
+extern bool CMSavail;
+extern ProfilesL InputProfiles;
 
 ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : PrefsDialogBase( parent )
 {
 	einheit = doc->Einheit;
 	docc = doc;
+	ap = (ScribusApp*)parent;
 	fon = &prefsData->AvailFonts;
 	Umrech = UmReFaktor;
 	QString units[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
@@ -843,6 +848,20 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	subStackTools->addWidget( subTabZoom, 5 );
 	tabToolsLayout->addWidget( subStackTools );
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
+
+	tabHyphenator = new HySettings(prefsWidgets, &ap->LangTransl);
+	tabHyphenator->verbose->setChecked(!doc->Trenner->Automatic);
+	tabHyphenator->input->setChecked(doc->Trenner->AutoCheck);
+	tabHyphenator->language->setCurrentText(ap->LangTransl[doc->Trenner->Language]);
+	tabHyphenator->wordLen->setValue(doc->Trenner->MinWordLen);
+	tabHyphenator->maxCount->setValue(doc->Trenner->HyCount);
+	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
+
+	if (CMSavail)
+	{
+		tabColorManagement = new CMSPrefs(prefsWidgets, &doc->CMSSettings, &InputProfiles, &ap->PrinterProfiles, &ap->MonitorProfiles);
+		addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
+	}
 
 	tabMisc = new QWidget( prefsWidgets, "tabMisc" );
 	tabMiscLayout = new QVBoxLayout( tabMisc, 11, 6, "tabMiscLayout");

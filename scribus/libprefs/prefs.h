@@ -30,6 +30,9 @@ class FontCombo;
 class PolygonWidget;
 class ArrowChooser;
 class TabTypograpy;
+class HySettings;
+class CMSPrefs;
+class KeyManager;
 
 #include "langmgr.h"
 
@@ -195,6 +198,10 @@ public:
 	QLabel* startArrowText;
 	QLabel* endArrowText;
 	QLabel* arrowText;
+
+	HySettings* tabHyphenator;
+	CMSPrefs* tabColorManagement;
+	KeyManager* tabKeys;
 
 	QLabel* textLabelP;
 	QWidget* tab_5;

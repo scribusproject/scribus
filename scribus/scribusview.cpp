@@ -3248,22 +3248,56 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				if (QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
 				{
 					qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
-					if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy)-6, 6, 6).intersects(mpo))
-						qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
-					if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
-						qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
-					if (QRect(static_cast<int>(gx+gw/2)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
-						qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
-					if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy+gh/2)-6, 6, 6).intersects(mpo))
-						qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
-					if (QRect(static_cast<int>(gx+gw/2)-6, static_cast<int>(gy)-6, 6, 6).intersects(mpo))
-						qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
-					if (QRect(static_cast<int>(gx)-6, static_cast<int>(gy)-6, 6, 6).intersects(mpo))
-						qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
-					if (QRect(static_cast<int>(gx)-6, static_cast<int>(gy+gh/2)-6, 6, 6).intersects(mpo))
-						qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
-					if (QRect(static_cast<int>(gx)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
-						qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
+					int how = 0;
+					QMap<double,int> distance;
+					double d1 = sqrt(pow(((gx+gw) * Scale) - m->x(),2)+pow(((gy+gh) * Scale) - m->y(),2));
+					if (d1 < Doc->GrabRad)
+						distance.insert(d1, 1);
+					double d2 = sqrt(pow((gx * Scale) - m->x(),2)+pow((gy * Scale) - m->y(),2));
+					if (d2 < Doc->GrabRad)
+						distance.insert(d2, 2);
+					double d3 = sqrt(pow(((gx+gw) * Scale) - m->x(),2)+pow((gy * Scale) - m->y(),2));
+					if (d3 < Doc->GrabRad)
+						distance.insert(d3, 3);
+					double d4 = sqrt(pow((gx * Scale) - m->x(),2)+pow(((gy+gh) * Scale) - m->y(),2));
+					if (d4 < Doc->GrabRad)
+						distance.insert(d4, 4);
+					double d5 = sqrt(pow(((gx+gw/2) * Scale) - m->x(),2)+pow(((gy+gh) * Scale) - m->y(),2));
+					if (d5 < Doc->GrabRad)
+						distance.insert(d5, 5);
+					double d6 = sqrt(pow(((gx+gw) * Scale) - m->x(),2)+pow(((gy+gh/2) * Scale) - m->y(),2));
+					if (d6 < Doc->GrabRad)
+						distance.insert(d6, 6);
+					double d7 = sqrt(pow((gx * Scale) - m->x(),2)+pow(((gy+gh/2) * Scale) - m->y(),2));
+					if (d7 < Doc->GrabRad)
+						distance.insert(d7, 7);
+					double d8 = sqrt(pow(((gx+gw/2) * Scale) - m->x(),2)+pow((gy * Scale) - m->y(),2));
+					if (d8 < Doc->GrabRad)
+						distance.insert(d8, 8);
+					QValueList<int> result = distance.values();
+					if (result.count() != 0)
+					{
+						how = result[0];
+						switch (how)
+						{
+							case 1:
+							case 2:
+								qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+								break;
+							case 3:
+							case 4:
+								qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
+								break;
+							case 5:
+							case 8:
+								qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
+								break;
+							case 6:
+							case 7:
+								qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+								break;
+						}
+					}
 					if (Doc->AppMode == 9)
 						qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
 				}
@@ -3726,45 +3760,54 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					      && (m->state() != (ControlButton | AltButton)) && (m->state() != ShiftButton))
 					{
 						HowTo = 0;
-						if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
+						QMap<double,int> distance;
+						double d1 = sqrt(pow(((gx+gw) * Scale) - m->x(),2)+pow(((gy+gh) * Scale) - m->y(),2));
+						if (d1 < Doc->GrabRad)
+							distance.insert(d1, 1);
+						double d2 = sqrt(pow((gx * Scale) - m->x(),2)+pow((gy * Scale) - m->y(),2));
+						if (d2 < Doc->GrabRad)
+							distance.insert(d2, 2);
+						double d3 = sqrt(pow(((gx+gw) * Scale) - m->x(),2)+pow((gy * Scale) - m->y(),2));
+						if (d3 < Doc->GrabRad)
+							distance.insert(d3, 3);
+						double d4 = sqrt(pow((gx * Scale) - m->x(),2)+pow(((gy+gh) * Scale) - m->y(),2));
+						if (d4 < Doc->GrabRad)
+							distance.insert(d4, 4);
+						double d5 = sqrt(pow(((gx+gw/2) * Scale) - m->x(),2)+pow(((gy+gh) * Scale) - m->y(),2));
+						if (d5 < Doc->GrabRad)
+							distance.insert(d5, 5);
+						double d6 = sqrt(pow(((gx+gw) * Scale) - m->x(),2)+pow(((gy+gh/2) * Scale) - m->y(),2));
+						if (d6 < Doc->GrabRad)
+							distance.insert(d6, 6);
+						double d7 = sqrt(pow((gx * Scale) - m->x(),2)+pow(((gy+gh/2) * Scale) - m->y(),2));
+						if (d7 < Doc->GrabRad)
+							distance.insert(d7, 7);
+						double d8 = sqrt(pow(((gx+gw/2) * Scale) - m->x(),2)+pow((gy * Scale) - m->y(),2));
+						if (d8 < Doc->GrabRad)
+							distance.insert(d8, 8);
+						QValueList<int> result = distance.values();
+						if (result.count() != 0)
 						{
-							HowTo = 1;
-							qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
-						}
-						if (QRect(static_cast<int>(gx)-6, static_cast<int>(gy)-6, 6, 6).intersects(mpo))
-						{
-							HowTo = 2;
-							qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
-						}
-						if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy)-6, 6, 6).intersects(mpo))
-						{
-							HowTo = 3;
-							qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
-						}
-						if (QRect(static_cast<int>(gx)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
-						{
-							HowTo = 4;
-							qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
-						}
-						if (QRect(static_cast<int>(gx+gw/2)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
-						{
-							HowTo = 5;
-							qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
-						}
-						if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy+gh/2)-6, 6, 6).intersects(mpo))
-						{
-							HowTo = 6;
-							qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
-						}
-						if (QRect(static_cast<int>(gx)-6, static_cast<int>(gy+gh/2)-6, 6, 6).intersects(mpo))
-						{
-							HowTo = 7;
-							qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
-						}
-						if (QRect(static_cast<int>(gx+gw/2)-6, static_cast<int>(gy)-6, 6, 6).intersects(mpo))
-						{
-							HowTo = 8;
-							qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
+							HowTo = result[0];
+							switch (HowTo)
+							{
+								case 1:
+								case 2:
+									qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+									break;
+								case 3:
+								case 4:
+									qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
+									break;
+								case 5:
+								case 8:
+									qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
+									break;
+								case 6:
+								case 7:
+									qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+									break;
+							}
 						}
 						if (b->LockRes)
 						{
@@ -3792,7 +3835,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						SeleItem(m);
 						if (!b->Locked)
 						{
-							HandleSizer(&p, b, mpo);
+							HandleSizer(&p, b, mpo, m);
 							if (HowTo != 0)
 							{
 								Doc->UnData.UnCode = 2;
@@ -3837,8 +3880,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			break;
 		case 2:
-			SeleItem(m);
-			Deselect(false);
+			selectPage(m);
 			switch (Doc->SubMode)
 			{
 			case 0:
@@ -3859,15 +3901,13 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			emit HaveSel(6);
 			break;
 		case 4:
-			SeleItem(m);
-			Deselect(false);
+			selectPage(m);
 			z = PaintPict(Rxp, Ryp, 1+Rxpd, 1+Rypd);
 			SetupDraw(z);
 			emit HaveSel(2);
 			break;
 		case 5:
-			SeleItem(m);
-			Deselect(false);
+			selectPage(m);
 			z = PaintText(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->Dwidth, Doc->DpenText);
 			SetupDraw(z);
 			emit HaveSel(4);
@@ -3889,7 +3929,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				{
 					p.begin(viewport());
 					Transform(b, &p);
-					HandleSizer(&p, b, mpo);
+					HandleSizer(&p, b, mpo, m);
 					p.end();
 					if (HowTo != 0)
 					{
@@ -3962,8 +4002,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			break;
 		case 8:
-			SeleItem(m);
-			Deselect(false);
+			selectPage(m);
 			z = PaintLine(Rxp, Ryp, 1+Rxpd, Rypd, Doc->DwidthLine, Doc->DpenLine);
 			b = Doc->Items.at(z);
 			b->Select = true;
@@ -4099,8 +4138,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			break;
 		case 12:
 			{
-				SeleItem(m);
-				Deselect(false);
+				selectPage(m);
 				z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->Dwidth, Doc->Dbrush, Doc->Dpen);
 				b = Doc->Items.at(z);
 				FPointArray cli = RegularPolygonF(b->Width, b->Height, Doc->PolyC, Doc->PolyS, Doc->PolyF, Doc->PolyR);
@@ -4136,8 +4174,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				break;
 			if (FirstPoly)
 			{
-				SeleItem(m);
-				Deselect(false);
+				selectPage(m);
 				z = PaintPolyLine(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->Dwidth, "None", Doc->DpenLine);
 				b = Doc->Items.at(z);
 				SelItem.clear();
@@ -4166,7 +4203,6 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			SizeItem(b->PoLine.WidthHeight().x(), b->PoLine.WidthHeight().y(), b->ItemNr, false, false, false);
 			SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 			b->paintObj();
-//			FirstPoly = false;
 			emit ItemPos(b->Xpos, b->Ypos);
 			emit SetSizeValue(b->Pwidth);
 			emit SetLineArt(b->PLineArt, b->PLineEnd, b->PLineJoin);
@@ -4182,8 +4218,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 		case 18:
 		case 19:
 		case 20:
-			SeleItem(m);
-			Deselect(false);
+			selectPage(m);
 			z = PaintText(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->Dwidth, Doc->DpenText);
 			b = Doc->Items.at(z);
 			b->isAnnotation = true;
@@ -6137,6 +6172,23 @@ bool ScribusView::slotSetCurs(int x, int y)
 				p.end();
 				return true;
 			}
+			else
+			{
+				Doc->CurrFont = b->IFont;
+				Doc->CurrFontSize = b->ISize;
+				Doc->CurrTextFill = b->TxtFill;
+				Doc->CurrTextFillSh = b->ShTxtFill;
+				Doc->CurrTextStroke = b->TxtStroke;
+				Doc->CurrTextStrokeSh = b->ShTxtStroke;
+				Doc->CurrTextScale = b->TxtScale;
+				emit ItemTextSca(b->TxtScale);
+				emit ItemTextFarben(b->TxtStroke, b->TxtFill, b->ShTxtStroke, b->ShTxtFill);
+				emit ItemTextFont(b->IFont);
+				emit ItemTextSize(b->ISize);
+				emit ItemTextUSval(b->ExtraV);
+				emit ItemTextStil(b->TxTStyle);
+				emit ItemTextAbs(b->Ausrich);
+			}
 			p.end();
 		}
 	}
@@ -6473,6 +6525,37 @@ void ScribusView::SelectItemNr(int nr, bool draw)
 		else
 			EmitValues(b);
 		emit HaveSel(b->PType);
+	}
+}
+
+void ScribusView::selectPage(QMouseEvent *m)
+{
+	QRect mpo;
+	Mpressed = true;
+	Mxp = static_cast<int>(m->x()/Scale);
+	Myp = static_cast<int>(m->y()/Scale);
+	mpo = QRect(m->x()-Doc->GrabRad, m->y()-Doc->GrabRad, Doc->GrabRad*2, Doc->GrabRad*2);
+	ClRe = -1;
+	Deselect(false);
+	if (!Doc->MasterP)
+	{
+		for (uint a = 0; a < Doc->Pages.count(); ++a)
+		{
+			int x = static_cast<int>(Doc->Pages.at(a)->Xoffset * Scale);
+			int y = static_cast<int>(Doc->Pages.at(a)->Yoffset * Scale);
+			int w = static_cast<int>(Doc->Pages.at(a)->Width * Scale);
+			int h = static_cast<int>(Doc->Pages.at(a)->Height * Scale);
+			if (QRect(x, y, w, h).intersects(mpo))
+			{
+				if (Doc->ActPage->PageNr != a)
+				{
+					Doc->ActPage = Doc->Pages.at(a);
+					setMenTxt(a);
+					DrawNew();
+				}
+				break;
+			}
+		}
 	}
 }
 
@@ -6821,7 +6904,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 	return false;
 }
 
-void ScribusView::HandleSizer(QPainter *p, PageItem *b, QRect mpo)
+void ScribusView::HandleSizer(QPainter *p, PageItem *b, QRect mpo, QMouseEvent *m)
 {
 	QWMatrix ma = p->worldMatrix();
 	ma.setTransformationMode ( QWMatrix::Areas );
@@ -6833,10 +6916,38 @@ void ScribusView::HandleSizer(QPainter *p, PageItem *b, QRect mpo)
 	HowTo = 0;
 	if (b->LockRes)
 		return;
-	if (mpo.contains(p->xForm(QPoint(static_cast<int>(b->Width), static_cast<int>(b->Height)))))
-		HowTo = 1;
 	QRect ne = QRect();
 	PaintSizeRect(p, ne);
+	QMap<double,int> distance;
+	double d1 = sqrt(pow(((b->Xpos+b->Width) * Scale) - m->x(),2)+pow(((b->Ypos+b->Height) * Scale) - m->y(),2));
+	if (d1 < Doc->GrabRad)
+		distance.insert(d1, 1);
+	double d2 = sqrt(pow((b->Xpos * Scale) - m->x(),2)+pow((b->Ypos * Scale) - m->y(),2));
+	if (d2 < Doc->GrabRad)
+		distance.insert(d2, 2);
+	double d3 = sqrt(pow(((b->Xpos+b->Width) * Scale) - m->x(),2)+pow((b->Ypos * Scale) - m->y(),2));
+	if (d3 < Doc->GrabRad)
+		distance.insert(d3, 3);
+	double d4 = sqrt(pow((b->Xpos * Scale) - m->x(),2)+pow(((b->Ypos+b->Height) * Scale) - m->y(),2));
+	if (d4 < Doc->GrabRad)
+		distance.insert(d4, 4);
+	double d5 = sqrt(pow(((b->Xpos+b->Width/2) * Scale) - m->x(),2)+pow(((b->Ypos+b->Height) * Scale) - m->y(),2));
+	if (d5 < Doc->GrabRad)
+		distance.insert(d5, 5);
+	double d6 = sqrt(pow(((b->Xpos+b->Width) * Scale) - m->x(),2)+pow(((b->Ypos+b->Height/2) * Scale) - m->y(),2));
+	if (d6 < Doc->GrabRad)
+		distance.insert(d6, 6);
+	double d7 = sqrt(pow((b->Xpos * Scale) - m->x(),2)+pow(((b->Ypos+b->Height/2) * Scale) - m->y(),2));
+	if (d7 < Doc->GrabRad)
+		distance.insert(d7, 7);
+	double d8 = sqrt(pow(((b->Xpos+b->Width/2) * Scale) - m->x(),2)+pow((b->Ypos * Scale) - m->y(),2));
+	if (d8 < Doc->GrabRad)
+		distance.insert(d8, 8);
+	QValueList<int> result = distance.values();
+	if (result.count() != 0)
+		HowTo = result[0];
+/*	if (mpo.contains(p->xForm(QPoint(static_cast<int>(b->Width), static_cast<int>(b->Height)))))
+		HowTo = 1;
 	if (b->PType != 5)
 	{
 		if (mpo.contains(p->xForm(QPoint(0, 0))))
@@ -6853,7 +6964,7 @@ void ScribusView::HandleSizer(QPainter *p, PageItem *b, QRect mpo)
 			HowTo = 4;
 		if (mpo.contains(p->xForm(QPoint(static_cast<int>(b->Width), 0))))
 			HowTo = 3;
-	}
+	} */
 	HandleCurs(p, b, mpo);
 	storeUndoInf(b);
 	if (HowTo != 0)

@@ -173,7 +173,7 @@ public:
 	bool slotSetCurs(int x, int y);
 	void slotDoCurs(bool draw);
 	void HandleCurs(QPainter *p, PageItem *b, QRect mpo);
-	void HandleSizer(QPainter *p, PageItem *b, QRect mpo);
+	void HandleSizer(QPainter *p, PageItem *b, QRect mpo, QMouseEvent *m);
 	void storeUndoInf(PageItem* b);
 	bool GetItem(PageItem **b, int nr = -1);
 	void Deselect(bool prop = true);
@@ -181,6 +181,7 @@ public:
 	int OnPage(PageItem *b);
 	void GroupOnPage(PageItem* b);
 	void SelectItemNr(int nr, bool draw = true);
+	void selectPage(QMouseEvent *m);
 	bool SeleItem(QMouseEvent *m);
 	void SetupDraw(int Nr);
 	void updateGradientVectors(PageItem *b);

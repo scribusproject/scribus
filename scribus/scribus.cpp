@@ -311,7 +311,6 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		SetShortCut();
 		if (CMSavail)
 		{
-			settingsMenu->insertItem( tr("&Color Management..."), this , SLOT(SetCMSPrefs()));
 			ProfilesL::Iterator ip;
 			if ((Prefs.DCMSset.DefaultInputProfile == "") || (!InputProfiles.contains(Prefs.DCMSset.DefaultInputProfile)))
 			{
@@ -990,8 +989,6 @@ void ScribusApp::initMenuBar()
 	MenID = settingsMenu->insertItem( tr("P&references..."), this , SLOT(slotPrefsOrg()));
 	MenID = settingsMenu->insertItem( tr("&Fonts..."), this , SLOT(slotFontOrg()));
 	SetKeyEntry(17, tr("Fonts..."), MenID, 0);
-	settingsMenu->insertItem( tr("&Hyphenator..."), this, SLOT(configHyphenator()));
-	settingsMenu->insertItem( tr("&Keyboard Shortcuts..."), this, SLOT(DefKB()));
 
 	windowsMenu = new QPopupMenu();
 	windowsMenu->setCheckable( true );
@@ -2641,6 +2638,67 @@ bool ScribusApp::SetupDoc()
 			doc->ASaveTimer->stop();
 			doc->ASaveTimer->start(doc->AutoSaveTime);
 		}
+		doc->Trenner->slotNewDict(dia->tabHyphenator->language->currentText());
+		doc->Trenner->slotNewSettings(dia->tabHyphenator->wordLen->value(), 
+																	!dia->tabHyphenator->verbose->isChecked(), 
+																	dia->tabHyphenator->input->isChecked(),
+																	dia->tabHyphenator->maxCount->value());
+		if (CMSavail)
+		{
+			dia->tabColorManagement->setValues();
+			if (dia->tabColorManagement->changed)
+			{
+				int cc = Prefs.DColors.count();
+				FMess->setText( tr("Adjusting Colors"));
+				FProg->reset();
+				cc = doc->PageColors.count() + view->CountElements();
+				FProg->setTotalSteps(cc);
+#ifdef HAVE_CMS
+				doc->HasCMS = doc->CMSSettings.CMSinUse;
+				ActWin->SoftProofing = doc->CMSSettings.SoftProofOn;
+				ActWin->Gamut = doc->CMSSettings.GamutCheck;
+				CMSuse = doc->CMSSettings.CMSinUse;
+				ActWin->IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
+				ActWin->IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
+				SoftProofing = doc->CMSSettings.SoftProofOn;
+				Gamut = doc->CMSSettings.GamutCheck;
+				IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
+				IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
+				qApp->setOverrideCursor(QCursor(waitCursor), true);
+				ActWin->CloseCMSProfiles();
+				ActWin->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
+				stdProof = ActWin->stdProof;
+				stdTrans = ActWin->stdTrans;
+				stdProofImg = ActWin->stdProofImg;
+				stdTransImg = ActWin->stdTransImg;
+				CMSoutputProf = doc->DocOutputProf;
+				CMSprinterProf = doc->DocPrinterProf;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
+					doc->CMSSettings.ComponentsInput2 = 3;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmykData)
+					doc->CMSSettings.ComponentsInput2 = 4;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmyData)
+					doc->CMSSettings.ComponentsInput2 = 3;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigRgbData)
+					doc->CMSSettings.ComponentsPrinter = 3;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmykData)
+					doc->CMSSettings.ComponentsPrinter = 4;
+				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmyData)
+					doc->CMSSettings.ComponentsPrinter = 3;
+				doc->PDF_Optionen.SComp = doc->CMSSettings.ComponentsInput2;
+				doc->PDF_Optionen.SolidProf = doc->CMSSettings.DefaultInputProfile2;
+				doc->PDF_Optionen.ImageProf = doc->CMSSettings.DefaultInputProfile;
+				doc->PDF_Optionen.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
+				doc->PDF_Optionen.Intent = doc->CMSSettings.DefaultIntentMonitor;
+				RecalcColors(FProg);
+				view->RecalcPictures(&InputProfiles, FProg);
+#endif
+				FProg->setProgress(cc);
+				qApp->setOverrideCursor(QCursor(arrowCursor), true);
+				FMess->setText("");
+				FProg->reset();
+			}
+		}
 		viewMenu->setItemChecked(Markers, doc->MarginsShown);
 		viewMenu->setItemChecked(FrameDr, doc->FramesShown);
 		viewMenu->setItemChecked(Ras, doc->GridShown);
@@ -2656,6 +2714,7 @@ bool ScribusApp::SetupDoc()
 		view->reformPages();
 		view->GotoPage(doc->ActPage->PageNr);
 		view->DrawNew();
+		Mpal->ShowCMS();
 //		Sepal->RebuildPage();
 		slotDocCh();
 		ret = true;
@@ -3695,20 +3754,68 @@ bool ScribusApp::LadeDoc(QString fileName)
 		}
 		if (CMSavail)
 		{
+			bool cmsWarning = false;
+			QStringList missing;
+			QStringList replacement;
 			if (!InputProfiles.contains(doc->CMSSettings.DefaultInputProfile))
+			{
+				cmsWarning = true;
+				missing.append(doc->CMSSettings.DefaultInputProfile);
+				replacement.append(Prefs.DCMSset.DefaultInputProfile);
 				doc->CMSSettings.DefaultInputProfile = Prefs.DCMSset.DefaultInputProfile;
+			}
 			if (!InputProfiles.contains(doc->CMSSettings.DefaultInputProfile2))
+			{
+				cmsWarning = true;
+				missing.append(doc->CMSSettings.DefaultInputProfile2);
+				replacement.append(Prefs.DCMSset.DefaultInputProfile2);
 				doc->CMSSettings.DefaultInputProfile2 = Prefs.DCMSset.DefaultInputProfile2;
+			}
 			if (!MonitorProfiles.contains(doc->CMSSettings.DefaultMonitorProfile))
+			{
+				cmsWarning = true;
+				missing.append(doc->CMSSettings.DefaultMonitorProfile);
+				replacement.append(Prefs.DCMSset.DefaultMonitorProfile);
 				doc->CMSSettings.DefaultMonitorProfile = Prefs.DCMSset.DefaultMonitorProfile;
+			}
 			if (!PrinterProfiles.contains(doc->CMSSettings.DefaultPrinterProfile))
+			{
+				cmsWarning = true;
+				missing.append(doc->CMSSettings.DefaultPrinterProfile);
+				replacement.append(Prefs.DCMSset.DefaultPrinterProfile);
 				doc->CMSSettings.DefaultPrinterProfile = Prefs.DCMSset.DefaultPrinterProfile;
+			}
 			if (!PrinterProfiles.contains(doc->PDF_Optionen.PrintProf))
+			{
+				cmsWarning = true;
+				missing.append(doc->PDF_Optionen.PrintProf);
+				replacement.append(Prefs.DCMSset.DefaultPrinterProfile);
 				doc->PDF_Optionen.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
+			}
 			if (!InputProfiles.contains(doc->PDF_Optionen.ImageProf))
+			{
+				cmsWarning = true;
+				missing.append(doc->PDF_Optionen.ImageProf);
+				replacement.append(Prefs.DCMSset.DefaultInputProfile);
 				doc->PDF_Optionen.ImageProf = doc->CMSSettings.DefaultInputProfile;
+			}
 			if (!InputProfiles.contains(doc->PDF_Optionen.SolidProf))
+			{
+				cmsWarning = true;
+				missing.append(doc->PDF_Optionen.SolidProf);
+				replacement.append(Prefs.DCMSset.DefaultInputProfile2);
 				doc->PDF_Optionen.SolidProf = doc->CMSSettings.DefaultInputProfile2;
+			}
+			if (cmsWarning)
+			{
+				qApp->setOverrideCursor(QCursor(arrowCursor), true);
+				QString mess = tr("Some ICC-Profiles used by this Document are not installed:")+"\n\n";
+				for (uint m = 0; m < missing.count(); ++m)
+				{
+					mess += missing[m] + tr(" was replaced by: ")+replacement[m]+"\n";
+				}
+				QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
+			}
 #ifdef HAVE_CMS
 			w->SoftProofing = doc->CMSSettings.SoftProofOn;
 			w->Gamut = doc->CMSSettings.GamutCheck;
@@ -6894,7 +7001,6 @@ void ScribusApp::slotPrefsOrg()
 	Preferences *dia = (*demo)(this, &Prefs);
 	if (dia->exec())
 	{
-		SetShortCut();
 		Prefs.AppFontSize = dia->GFsize->value();
 		Prefs.Wheelval = dia->SpinBox3->value();
 		Prefs.RecentDCount = dia->Recen->value();
@@ -6903,7 +7009,6 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.ProfileDir = dia->ProPfad->text();
 		Prefs.ScriptDir = dia->ScriptPfad->text();
 		Prefs.TemplateDir = dia->TemplateDir->text();
-		GetCMSProfiles();
 		switch (dia->PreviewSize->currentItem())
 		{
 		case 0:
@@ -7073,6 +7178,16 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.AutoSaveTime = dia->ASTime->value() * 60 * 1000;
 		Prefs.BaseGrid = dia->tabTypo->baseGrid->value() / UmReFaktor;
 		Prefs.BaseOffs = dia->tabTypo->baseOffset->value() / UmReFaktor;
+		Prefs.MinWordLen = dia->tabHyphenator->wordLen->value();
+		Prefs.Language = GetLang(dia->tabHyphenator->language->currentText());
+		Prefs.Automatic = !dia->tabHyphenator->verbose->isChecked();
+		Prefs.AutoCheck = dia->tabHyphenator->input->isChecked();
+		Prefs.HyCount = dia->tabHyphenator->maxCount->value();
+		if (CMSavail)
+			dia->tabColorManagement->setValues();
+		GetCMSProfiles();
+		Prefs.KeyActions = dia->tabKeys->getNewKeyMap();
+		SetShortCut();
 		SavePrefs();
 		QWidgetList windows = wsp->windowList();
 		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
@@ -8248,81 +8363,6 @@ void ScribusApp::GetCMSProfilesDir(QString pfad)
 #endif
 }
 
-void ScribusApp::SetCMSPrefs()
-{
-	struct CMSset *CM;
-	if (CMSavail)
-	{
-		if (HaveDoc)
-			CM = &doc->CMSSettings;
-		else
-			CM = &Prefs.DCMSset;
-		CMSPrefs *dia = new CMSPrefs(this, CM, &InputProfiles, &PrinterProfiles, &MonitorProfiles);
-		if(dia->exec())
-		{
-			int cc = Prefs.DColors.count();
-			FMess->setText( tr("Adjusting Colors"));
-			FProg->reset();
-			if (HaveDoc)
-			{
-				if (dia->Changed)
-				{
-					cc = doc->PageColors.count() + view->CountElements();
-					FProg->setTotalSteps(cc);
-					slotDocCh();
-#ifdef HAVE_CMS
-					doc->HasCMS = doc->CMSSettings.CMSinUse;
-					ActWin->SoftProofing = doc->CMSSettings.SoftProofOn;
-					ActWin->Gamut = doc->CMSSettings.GamutCheck;
-					CMSuse = doc->CMSSettings.CMSinUse;
-					ActWin->IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
-					ActWin->IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
-					SoftProofing = doc->CMSSettings.SoftProofOn;
-					Gamut = doc->CMSSettings.GamutCheck;
-					IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
-					IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
-					qApp->setOverrideCursor(QCursor(waitCursor), true);
-					ActWin->CloseCMSProfiles();
-					ActWin->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
-					stdProof = ActWin->stdProof;
-					stdTrans = ActWin->stdTrans;
-					stdProofImg = ActWin->stdProofImg;
-					stdTransImg = ActWin->stdTransImg;
-					CMSoutputProf = doc->DocOutputProf;
-					CMSprinterProf = doc->DocPrinterProf;
-					if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
-						doc->CMSSettings.ComponentsInput2 = 3;
-					if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmykData)
-						doc->CMSSettings.ComponentsInput2 = 4;
-					if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigCmyData)
-						doc->CMSSettings.ComponentsInput2 = 3;
-					if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigRgbData)
-						doc->CMSSettings.ComponentsPrinter = 3;
-					if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmykData)
-						doc->CMSSettings.ComponentsPrinter = 4;
-					if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmyData)
-						doc->CMSSettings.ComponentsPrinter = 3;
-					doc->PDF_Optionen.SComp = doc->CMSSettings.ComponentsInput2;
-					doc->PDF_Optionen.SolidProf = doc->CMSSettings.DefaultInputProfile2;
-					doc->PDF_Optionen.ImageProf = doc->CMSSettings.DefaultInputProfile;
-					doc->PDF_Optionen.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
-					doc->PDF_Optionen.Intent = doc->CMSSettings.DefaultIntentMonitor;
-					RecalcColors(FProg);
-					view->RecalcPictures(&InputProfiles, FProg);
-#endif
-					view->DrawNew();
-					Mpal->ShowCMS();
-					FProg->setProgress(cc);
-					qApp->setOverrideCursor(QCursor(arrowCursor), true);
-				}
-			}
-			FMess->setText("");
-			FProg->reset();
-		}
-		delete dia;
-	}
-}
-
 void ScribusApp::RecalcColors(QProgressBar *dia)
 {
 	CListe::Iterator it;
@@ -8882,44 +8922,6 @@ QString ScribusApp::GetLang(QString inLang)
 	return inLang;
 }
 
-void ScribusApp::configHyphenator()
-{
-	HySettings *dia = new HySettings(this, &LangTransl);
-	if (HaveDoc)
-	{
-		dia->Verbose->setChecked(!doc->Trenner->Automatic);
-		dia->Input->setChecked(doc->Trenner->AutoCheck);
-		dia->Language->setCurrentText(LangTransl[doc->Trenner->Language]);
-		dia->WordLen->setValue(doc->Trenner->MinWordLen);
-		dia->MaxCount->setValue(doc->Trenner->HyCount);
-	}
-	else
-	{
-		dia->Verbose->setChecked(!Prefs.Automatic);
-		dia->Input->setChecked(Prefs.AutoCheck);
-		dia->Language->setCurrentText(LangTransl[Prefs.Language]);
-		dia->WordLen->setValue(Prefs.MinWordLen);
-		dia->MaxCount->setValue(Prefs.HyCount);
-	}
-	if (dia->exec())
-	{
-		if (HaveDoc)
-		{
-			doc->Trenner->slotNewDict(dia->Language->currentText());
-			doc->Trenner->slotNewSettings(dia->WordLen->value(), !dia->Verbose->isChecked(), dia->Input->isChecked(),dia->MaxCount->value());
-		}
-		else
-		{
-			Prefs.MinWordLen = dia->WordLen->value();
-			Prefs.Language = GetLang(dia->Language->currentText());
-			Prefs.Automatic = !dia->Verbose->isChecked();
-			Prefs.AutoCheck = dia->Input->isChecked();
-			Prefs.HyCount = dia->MaxCount->value();
-		}
-	}
-	delete dia;
-}
-
 void ScribusApp::doHyphenate()
 {
 	PageItem *b;
@@ -9422,26 +9424,6 @@ void ScribusApp::SearchText()
 	disconnect(dia, SIGNAL(NewAbs(int)), this, SLOT(setAbsValue(int)));
 	delete dia;
 	slotSelect();
-}
-
-/*!
- \fn void ScribusApp::DefKB()
- \author Franz Schmid
- \date
- \brief Preferences (General / Menus), Creates and opens KeyManager dialog for shortcut key preferences.
- \param None
- \retval None
- */
-void ScribusApp::DefKB()
-{
-	KeyManager *dia = new KeyManager(this, Prefs.KeyActions);
-	if (dia->exec())
-	{
-		Prefs.KeyActions = dia->getNewKeyMap();
-		SetShortCut();
-		SavePrefs();
-	}
-	delete dia;
 }
 
 void ScribusApp::slotTest()

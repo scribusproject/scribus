@@ -128,7 +128,7 @@ void SideBar::paintEvent(QPaintEvent *e)
 	inRep = false;
 }
 
-void SideBar::doMove(int x, int y)
+void SideBar::doMove(int, int y)
 {
 	offs = y;
 	if (!inRep)
@@ -700,8 +700,8 @@ void SEditor::loadItemText(PageItem* b)
 	struct PtiSmall *hg;
 	QString Text = "";
 	QString Ccol = "";
-	int Csha;
-	int Csty;
+	int Csha = 100;
+	int Csty = 0;
 	int Ali = 0;
 	PageItem *nb = b;
 	StyledText.clear();
@@ -1689,7 +1689,7 @@ int StoryEditor::exec()
 	return result;
 }
 
-void StoryEditor::closeEvent(QCloseEvent *event)
+void StoryEditor::closeEvent(QCloseEvent *)
 {
 	if (TextChanged)
 	{
@@ -2349,7 +2349,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 	Editor->setFocus();
 }
 
-void StoryEditor::changeAlign(int align)
+void StoryEditor::changeAlign(int )
 {
 	int p, i;
 	bool sel = false;

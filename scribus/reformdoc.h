@@ -18,10 +18,13 @@
 #include "prefsdialogbase.h"
 #include "scfonts.h"
 #include "scribusdoc.h"
+#include "scribus.h"
 class FontCombo;
 class PolygonWidget;
 class ArrowChooser;
 class TabTypograpy;
+class HySettings;
+class CMSPrefs;
 
 class ReformDoc : public PrefsDialogBase
 {
@@ -68,6 +71,8 @@ public:
 	QWidget* tabView;
 	TabTypograpy* tabTypo;
 	QWidget* tabTools;
+	HySettings* tabHyphenator;
+	CMSPrefs* tabColorManagement;
 	QWidget* tabMisc;
 	QLabel* textLabel1;
 	QLabel* textLabel2;
@@ -181,6 +186,7 @@ public:
 	QLabel* endArrowText;
 	QLabel* arrowText;
 
+	ScribusApp *ap;
 	ScribusDoc* docc;
 	SCFonts *fon;
 	int einheit;

@@ -4,19 +4,16 @@
 #include <qstringlist.h>
 #include <qmessagebox.h>
 #include <qkeysequence.h>
-extern QPixmap loadIcon(QString nam);
 
-KeyManager::KeyManager(QWidget* parent, QMap<int,Keys> oldKeyMap)
-	: QDialog( parent, "key", true, 0 )
+KeyManager::KeyManager(QWidget* parent, QMap<int,Keys> oldKeyMap): QWidget( parent, "key" )
 {
-	setCaption( tr( "Manage Keyboard Shortcuts" ) );
-	setIcon(loadIcon("AppIcon.png"));
 	keyMap = oldKeyMap;
 	Part1 = "";
 	Part2 = "";
 	Part3 = "";
 	keyCode = 0;
 	keyManagerLayout = new QVBoxLayout( this, 11, 6); 
+	keyManagerLayout->setAlignment( Qt::AlignTop );
 
 	keyTable = new QTable( oldKeyMap.count(), 2, this, "keyTable" );
 	keyTable->setMaximumSize(QSize(500,200));
@@ -70,24 +67,9 @@ KeyManager::KeyManager(QWidget* parent, QMap<int,Keys> oldKeyMap)
 	keyGroupLayout->addMultiCellWidget( setKeyButton, 0, 2, 1, 1, Qt::AlignCenter );
 	keyManagerLayout->addWidget( keyGroup );
 
-	okCancelLayout = new QHBoxLayout; 
-	okCancelLayout->setSpacing( 6 );
-	okCancelLayout->setMargin( 0 );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	okCancelLayout->addItem( spacer );
-
-	okButton = new QPushButton( tr( "&OK" ), this, "okButton" );
-	okButton->setDefault( true );
-	okCancelLayout->addWidget( okButton );
-	cancelButton = new QPushButton( tr( "&Cancel" ), this, "cancelButton" );
-	okCancelLayout->addWidget( cancelButton );
-	keyManagerLayout->addLayout( okCancelLayout );
-
 	dispKey(0);
 
 	// signals and slots connections
-	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( keyTable, SIGNAL(pressed(int, int, int, const QPoint&)), this, SLOT(dispKey(int)));
 	connect( noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
 	connect( setKeyButton, SIGNAL(clicked()), this, SLOT(setKeyText()));
@@ -95,7 +77,7 @@ KeyManager::KeyManager(QWidget* parent, QMap<int,Keys> oldKeyMap)
 
 bool KeyManager::event( QEvent* ev )
 {
-	bool ret = QDialog::event( ev );
+	bool ret = QWidget::event( ev );
 	if ( ev->type() == QEvent::KeyPress )
 		keyPressEvent((QKeyEvent*)ev);
 	if ( ev->type() == QEvent::KeyRelease )

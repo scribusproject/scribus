@@ -285,7 +285,9 @@ void OODPlug::parseGroup(const QDomElement &e)
 	FPointArray ImgClip;
 	ImgClip.resize(0);
 	VGradient gradient;
-	double GradientAngle, xGoff, yGoff;
+	double GradientAngle = 0;
+	double xGoff = 0;
+	double yGoff= 0;
 	bool HaveGradient = false;
 	int GradientType = 0;
 	double BaseX = Doku->ActPage->Xoffset;
@@ -554,7 +556,7 @@ void OODPlug::parseGroup(const QDomElement &e)
 		}
 		else
 		{
-			qDebug("Not supported yet: "+STag);
+			qDebug(QString("Not supported yet: "+STag));
 			continue;
 		}
 		if (z != -1)

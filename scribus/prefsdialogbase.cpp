@@ -57,7 +57,6 @@ void PrefsDialogBase::arrangeIcons()
 {
 	int maxWidth = 0;
 	QIconViewItem* ic = prefsSelection->firstItem();
-	int deltaHeight = ic->height()+5;
 	int startY = 5;
 	for (uint cc = 0; cc < prefsSelection->count(); ++cc)
 	{
@@ -73,7 +72,7 @@ void PrefsDialogBase::arrangeIcons()
 		int w = ic->width();
 		int moveW = (maxWidth - w) / 2;
 		ic->move(moveW, startY);
-		startY += deltaHeight;
+		startY += ic->height()+5;
 		ic = ic->nextItem();
 	}
 }

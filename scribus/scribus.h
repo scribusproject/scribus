@@ -237,7 +237,6 @@ public slots:
 	void ToggleObjLock();
 	void UnDoAction();
 	void CanUndo();
-	void configHyphenator();
 	void doHyphenate();
 	void slotTest();
 	void slotTest2();
@@ -250,7 +249,6 @@ public slots:
 	void changeLayer(int l);
 	void showLayer();
 	void LayerRemove(int l, bool dl = false);
-	void SetCMSPrefs();
 	void ManageJava();
 	void ManageTemp(QString temp = "");
 	void ManTempEnd();
@@ -454,7 +452,6 @@ public slots:
 	void HaveRaster(bool art);
 	void EditTabs();
 	void SearchText();
-	void DefKB();
 
 signals:
 	void TextISize(int);

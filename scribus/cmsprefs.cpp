@@ -1,231 +1,204 @@
-/****************************************************************************
-** Form implementation generated from reading ui file 'CMSpref.ui'
-**
-** Created: Tue Jan 1 10:37:25 2002
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #include "cmsprefs.h"
 #include "cmsprefs.moc"
-extern QPixmap loadIcon(QString nam);
 
-CMSPrefs::CMSPrefs( QWidget* parent, CMSset *Vor,
-										ProfilesL *InputProfiles, ProfilesL *PrinterProfiles, 
-										ProfilesL *MonitorProfiles)
-	: QDialog( parent, "CMS", true, 0 )
+CMSPrefs::CMSPrefs( QWidget* parent, CMSset *Vor, ProfilesL *InputProfiles, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles)
+	: QWidget( parent, "CMS" )
 {
-	setCaption( tr( "Color Management Settings" ) );
-	setIcon(loadIcon("AppIcon.png"));
-	Prefs = Vor;
-	Changed = false;
-	CMSPrefsLayout = new QVBoxLayout( this ); 
-	CMSPrefsLayout->setSpacing( 6 );
-	CMSPrefsLayout->setMargin( 11 );
+	prefs = Vor;
+	changed = false;
+	cmsPrefsLayout = new QVBoxLayout( this ); 
+	cmsPrefsLayout->setAlignment( Qt::AlignTop );
+	cmsPrefsLayout->setSpacing( 5 );
+	cmsPrefsLayout->setMargin( 10 );
 
-	CheckBox1 = new QCheckBox( tr( "&Activate Color Management" ), this, "CheckBox1" );
-	CheckBox1->setChecked(Vor->CMSinUse);
-	CMSPrefsLayout->addWidget( CheckBox1 );
+	checkBox1 = new QCheckBox( tr( "&Activate Color Management" ), this, "CheckBox1" );
+	checkBox1->setChecked(Vor->CMSinUse);
+	cmsPrefsLayout->addWidget( checkBox1 );
 
-	SysProfiles = new QGroupBox( tr( "System Profiles" ), this, "SysProfiles" );
-	if (!CheckBox1->isChecked())
-		SysProfiles->setEnabled( false );
-	SysProfiles->setColumnLayout(0, Qt::Vertical );
-	SysProfiles->layout()->setSpacing( 0 );
-	SysProfiles->layout()->setMargin( 0 );
-	SysProfilesLayout = new QGridLayout( SysProfiles->layout() );
-	SysProfilesLayout->setAlignment( Qt::AlignTop );
-	SysProfilesLayout->setSpacing( 6 );
-	SysProfilesLayout->setMargin( 11 );
+	sysProfiles = new QGroupBox( tr( "System Profiles" ), this, "SysProfiles" );
+	if (!checkBox1->isChecked())
+		sysProfiles->setEnabled( false );
+	sysProfiles->setColumnLayout(0, Qt::Vertical );
+	sysProfiles->layout()->setSpacing( 0 );
+	sysProfiles->layout()->setMargin( 0 );
+	sysProfilesLayout = new QGridLayout( sysProfiles->layout() );
+	sysProfilesLayout->setAlignment( Qt::AlignTop );
+	sysProfilesLayout->setSpacing( 5 );
+	sysProfilesLayout->setMargin( 10 );
 
 	ProfilesL::Iterator it;
 
-	InputP = new QComboBox( true, SysProfiles, "InputP" );
-	InputP->setMinimumSize( QSize( 190, 22 ) );
-	InputP->setEditable(false);
+	inputP = new QComboBox( true, sysProfiles, "InputP" );
+	inputP->setMinimumSize( QSize( 190, 22 ) );
+	inputP->setEditable(false);
 	for (it = InputProfiles->begin(); it != InputProfiles->end(); ++it)
 	{
-		InputP->insertItem(it.key());
+		inputP->insertItem(it.key());
 		if (it.key() == Vor->DefaultInputProfile)
-			InputP->setCurrentItem(InputP->count()-1);
+			inputP->setCurrentItem(inputP->count()-1);
 	}
-	Text1 = new QLabel( InputP, tr( "&Pictures:" ), SysProfiles, "Text1" );
-	SysProfilesLayout->addWidget( Text1, 0, 0 );
-	SysProfilesLayout->addWidget( InputP, 0, 1 );
+	text1 = new QLabel( inputP, tr( "&Pictures:" ), sysProfiles, "Text1" );
+	sysProfilesLayout->addWidget( text1, 0, 0 );
+	sysProfilesLayout->addWidget( inputP, 0, 1 );
 
-	InputP2 = new QComboBox( true, SysProfiles, "InputP2" );
-	InputP2->setMinimumSize( QSize( 190, 22 ) );
-	InputP2->setEditable(false);
+	inputP2 = new QComboBox( true, sysProfiles, "InputP2" );
+	inputP2->setMinimumSize( QSize( 190, 22 ) );
+	inputP2->setEditable(false);
 	for (it = InputProfiles->begin(); it != InputProfiles->end(); ++it)
 	{
-		InputP2->insertItem(it.key());
+		inputP2->insertItem(it.key());
 		if (it.key() == Vor->DefaultInputProfile2)
-			InputP2->setCurrentItem(InputP2->count()-1);
+			inputP2->setCurrentItem(inputP2->count()-1);
 	}
-	Text4 = new QLabel( InputP2, tr( "&Solid Colors:" ), SysProfiles, "Text4" );
-	SysProfilesLayout->addWidget( Text4, 1, 0 );
-	SysProfilesLayout->addWidget( InputP2, 1, 1 );
+	text4 = new QLabel( inputP2, tr( "&Solid Colors:" ), sysProfiles, "Text4" );
+	sysProfilesLayout->addWidget( text4, 1, 0 );
+	sysProfilesLayout->addWidget( inputP2, 1, 1 );
 
-	MonitorP = new QComboBox( true, SysProfiles, "MonitorP" );
-	MonitorP->setMinimumSize( QSize( 190, 22 ) );
-	MonitorP->setEditable(false);
+	monitorP = new QComboBox( true, sysProfiles, "MonitorP" );
+	monitorP->setMinimumSize( QSize( 190, 22 ) );
+	monitorP->setEditable(false);
 	for (it = MonitorProfiles->begin(); it != MonitorProfiles->end(); ++it)
 	{
-		MonitorP->insertItem(it.key());
+		monitorP->insertItem(it.key());
 		if (it.key() == Vor->DefaultMonitorProfile)
-			MonitorP->setCurrentItem(MonitorP->count()-1);
+			monitorP->setCurrentItem(monitorP->count()-1);
 	}
-	Text2 = new QLabel( MonitorP, tr( "&Monitor:" ), SysProfiles, "Text2" );
-	SysProfilesLayout->addWidget( Text2, 2, 0 );
-	SysProfilesLayout->addWidget( MonitorP, 2, 1 );
+	text2 = new QLabel( monitorP, tr( "&Monitor:" ), sysProfiles, "Text2" );
+	sysProfilesLayout->addWidget( text2, 2, 0 );
+	sysProfilesLayout->addWidget( monitorP, 2, 1 );
 
-	PrinterP = new QComboBox( true, SysProfiles, "PrinterP" );
-	PrinterP->setMinimumSize( QSize( 190, 22 ) );
-	PrinterP->setEditable(false);
+	printerP = new QComboBox( true, sysProfiles, "PrinterP" );
+	printerP->setMinimumSize( QSize( 190, 22 ) );
+	printerP->setEditable(false);
 	for (it = PrinterProfiles->begin(); it != PrinterProfiles->end(); ++it)
 	{
-		PrinterP->insertItem(it.key());
+		printerP->insertItem(it.key());
 		if (it.key() == Vor->DefaultPrinterProfile)
-			PrinterP->setCurrentItem(PrinterP->count()-1);
+			printerP->setCurrentItem(printerP->count()-1);
 	}
-	Text3 = new QLabel( PrinterP, tr( "P&rinter:" ), SysProfiles, "Text3" );
-	SysProfilesLayout->addWidget( Text3, 3, 0 );
-	SysProfilesLayout->addWidget( PrinterP, 3, 1 );
-	CMSPrefsLayout->addWidget( SysProfiles );
+	text3 = new QLabel( printerP, tr( "P&rinter:" ), sysProfiles, "Text3" );
+	sysProfilesLayout->addWidget( text3, 3, 0 );
+	sysProfilesLayout->addWidget( printerP, 3, 1 );
+	cmsPrefsLayout->addWidget( sysProfiles );
 
-	Render = new QGroupBox( tr( "Rendering Intents" ), this, "Render" );
-	if (!CheckBox1->isChecked())
-		Render->setEnabled( false );
-	Render->setColumnLayout(0, Qt::Vertical );
-	Render->layout()->setSpacing( 0 );
-	Render->layout()->setMargin( 0 );
-	RenderLayout = new QGridLayout( Render->layout() );
-	RenderLayout->setAlignment( Qt::AlignTop );
-	RenderLayout->setSpacing( 6 );
-	RenderLayout->setMargin( 11 );
+	render = new QGroupBox( tr( "Rendering Intents" ), this, "Render" );
+	if (!checkBox1->isChecked())
+		render->setEnabled( false );
+	render->setColumnLayout(0, Qt::Vertical );
+	render->layout()->setSpacing( 0 );
+	render->layout()->setMargin( 0 );
+	renderLayout = new QGridLayout( render->layout() );
+	renderLayout->setAlignment( Qt::AlignTop );
+	renderLayout->setSpacing( 5 );
+	renderLayout->setMargin( 10 );
 
-	MonitorI = new QComboBox( true, Render, "MonitorI" );
+	monitorI = new QComboBox( true, render, "MonitorI" );
 	QString tmp_mp[] = { tr("Perceptual"), tr("Relative Colorimetric"), 
 						tr("Saturation"), tr("Absolute Colorimetric")};
 	size_t array = sizeof(tmp_mp) / sizeof(*tmp_mp);
 	/* PFJ - 29.02.04 - Changed from uint to int and var name */
 	for (uint prop = 0; prop < array; ++prop)
-		MonitorI->insertItem(tmp_mp[prop]);
-	MonitorI->setMinimumSize( QSize( 190, 22 ) );
-	MonitorI->setEditable(false);
-	MonitorI->setCurrentItem(Vor->DefaultIntentMonitor);
-	Text21 = new QLabel( MonitorI, tr( "M&onitor:" ), Render, "Text21" );
-	RenderLayout->addWidget( Text21, 0, 0 );
-	RenderLayout->addWidget( MonitorI, 0, 1 );
+		monitorI->insertItem(tmp_mp[prop]);
+	monitorI->setMinimumSize( QSize( 190, 22 ) );
+	monitorI->setEditable(false);
+	monitorI->setCurrentItem(Vor->DefaultIntentMonitor);
+	text21 = new QLabel( monitorI, tr( "M&onitor:" ), render, "Text21" );
+	renderLayout->addWidget( text21, 0, 0 );
+	renderLayout->addWidget( monitorI, 0, 1 );
 
-	PrinterI = new QComboBox( true, Render, "PrinterI" );
+	printerI = new QComboBox( true, render, "PrinterI" );
 	for (uint prop = 0; prop < array; ++prop)
-		PrinterI->insertItem(tmp_mp[prop]);
-	PrinterI->setMinimumSize( QSize( 190, 22 ) );
-	PrinterI->setEditable(false);
-	PrinterI->setCurrentItem(Vor->DefaultIntentPrinter);
-	Text22 = new QLabel( PrinterI, tr( "Pr&inter:" ), Render, "Text22" );
-	RenderLayout->addWidget( Text22, 1, 0 );
-	RenderLayout->addWidget( PrinterI, 1, 1 );
+		printerI->insertItem(tmp_mp[prop]);
+	printerI->setMinimumSize( QSize( 190, 22 ) );
+	printerI->setEditable(false);
+	printerI->setCurrentItem(Vor->DefaultIntentPrinter);
+	text22 = new QLabel( printerI, tr( "Pr&inter:" ), render, "Text22" );
+	renderLayout->addWidget( text22, 1, 0 );
+	renderLayout->addWidget( printerI, 1, 1 );
 
-	CMSPrefsLayout->addWidget( Render );
+	cmsPrefsLayout->addWidget( render );
 
-	Simulate = new QCheckBox( tr( "Sim&ulate Printer on the Screen" ), this, "Simulate" );
-	Simulate->setChecked(Vor->SoftProofOn);
-	CMSPrefsLayout->addWidget( Simulate );
+	simulate = new QCheckBox( tr( "Sim&ulate Printer on the Screen" ), this, "Simulate" );
+	simulate->setChecked(Vor->SoftProofOn);
+	cmsPrefsLayout->addWidget( simulate );
 
-	GamutC = new QCheckBox( tr( "Mark Colors out of &Gamut" ), this, "Gamut" );
-	GamutC->setChecked(Vor->GamutCheck);
-	CMSPrefsLayout->addWidget( GamutC );
+	gamutC = new QCheckBox( tr( "Mark Colors out of &Gamut" ), this, "Gamut" );
+	gamutC->setChecked(Vor->GamutCheck);
+	cmsPrefsLayout->addWidget( gamutC );
 
-	BlackP = new QCheckBox( tr( "Use &Blackpoint Compensation" ), this, "Black" );
+	blackP = new QCheckBox( tr( "Use &Blackpoint Compensation" ), this, "Black" );
 #ifdef cmsFLAGS_BLACKPOINTCOMPENSATION
-	BlackP->setChecked(Vor->BlackPoint);
+	blackP->setChecked(Vor->BlackPoint);
 #else
-	BlackP->setChecked(false);
-	BlackP->hide();
+	blackP->setChecked(false);
+	blackP->hide();
 #endif
-	CMSPrefsLayout->addWidget( BlackP );
+	cmsPrefsLayout->addWidget( blackP );
 
-	if (!CheckBox1->isChecked())
+	if (!checkBox1->isChecked())
 	{
-		Simulate->setEnabled( false );
-		GamutC->setEnabled( false );
-		BlackP->setEnabled( false );
+		simulate->setEnabled( false );
+		gamutC->setEnabled( false );
+		blackP->setEnabled( false );
 	}
 
-	Layout1 = new QHBoxLayout; 
-	Layout1->setSpacing( 6 );
-	Layout1->setMargin( 0 );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem( spacer );
-	OK = new QPushButton( tr( "&OK" ), this, "OK" );
-	OK->setDefault( true );
-	Layout1->addWidget( OK );
-	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
-	Layout1->addWidget( Cancel );
-	CMSPrefsLayout->addLayout( Layout1 );
-
-	QToolTip::add( InputP, tr( "Default color profile for imported images" ) );
-	QToolTip::add( InputP2, tr( "Default color profile for solid colors on the page" ) );
-	QToolTip::add( MonitorP, tr( "Color profile that you have generated or received from the manufacturer.\nThis profile should be specific to your monitor and not a generic profile (i.e. sRGB)." ) );
-	QToolTip::add( PrinterP, tr( "Color profile for your printer model from the manufacturer.\nThis profile should be specific to your printer and not a generic profile (i.e. sRGB)." ) );
-	QToolTip::add( MonitorI, tr( "Default rendering intent for your monitor. Unless you know why to change it,\nRelative Colorimetric or Perceptual should be chosen." ) );
-	QToolTip::add( PrinterI, tr( "Default rendering intent for your printer. Unless you know why to change it,\nRelative Colorimetric or Perceptual should be chosen." ) );
-	QToolTip::add( Simulate, tr( "Enable 'soft proofing' of how your document colors will print,\nbased on the chosen printer profile." ) );
-	QToolTip::add( GamutC, tr( "Method of showing colors on the screen which may not print properly.\nThis requires very accurate profiles and serves only as a warning." ) );
-	QToolTip::add( BlackP, tr( "Black Point Compensation is a method of improving contrast in photos.\nIt is recommended that you enable this if you have photos in your document." ) );
+	QToolTip::add( inputP, tr( "Default color profile for imported images" ) );
+	QToolTip::add( inputP2, tr( "Default color profile for solid colors on the page" ) );
+	QToolTip::add( monitorP, tr( "Color profile that you have generated or received from the manufacturer.\nThis profile should be specific to your monitor and not a generic profile (i.e. sRGB)." ) );
+	QToolTip::add( printerP, tr( "Color profile for your printer model from the manufacturer.\nThis profile should be specific to your printer and not a generic profile (i.e. sRGB)." ) );
+	QToolTip::add( monitorI, tr( "Default rendering intent for your monitor. Unless you know why to change it,\nRelative Colorimetric or Perceptual should be chosen." ) );
+	QToolTip::add( printerI, tr( "Default rendering intent for your printer. Unless you know why to change it,\nRelative Colorimetric or Perceptual should be chosen." ) );
+	QToolTip::add( simulate, tr( "Enable 'soft proofing' of how your document colors will print,\nbased on the chosen printer profile." ) );
+	QToolTip::add( gamutC, tr( "Method of showing colors on the screen which may not print properly.\nThis requires very accurate profiles and serves only as a warning." ) );
+	QToolTip::add( blackP, tr( "Black Point Compensation is a method of improving contrast in photos.\nIt is recommended that you enable this if you have photos in your document." ) );
 
 	// signals and slots connections
-	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( OK, SIGNAL( clicked() ), this, SLOT( SetValues() ) );
-	connect( CheckBox1, SIGNAL( clicked() ), this, SLOT( slotCMSon() ) );
-	connect( Simulate, SIGNAL( clicked() ), this, SLOT( slotSimula() ) );
+	connect( checkBox1, SIGNAL( clicked() ), this, SLOT( slotCMSon() ) );
+	connect( simulate, SIGNAL( clicked() ), this, SLOT( slotSimula() ) );
 }
 
-void CMSPrefs::SetValues()
+void CMSPrefs::setValues()
 {
-	if ((Prefs->DefaultInputProfile != InputP->currentText()) ||
-		(Prefs->DefaultInputProfile2 != InputP2->currentText()) ||
-		(Prefs->DefaultMonitorProfile != MonitorP->currentText()) ||
-		(Prefs->DefaultPrinterProfile != PrinterP->currentText()) ||
-		(Prefs->DefaultIntentPrinter != PrinterI->currentItem()) ||
-		(Prefs->DefaultIntentMonitor != MonitorI->currentItem()) ||
-		(Prefs->SoftProofOn != Simulate->isChecked()) ||
-		(Prefs->GamutCheck != GamutC->isChecked()) ||
-		(Prefs->BlackPoint != BlackP->isChecked()) ||
-		(Prefs->CMSinUse != CheckBox1->isChecked()))
-			Changed = true;
-	Prefs->DefaultInputProfile = InputP->currentText();
-	Prefs->DefaultInputProfile2 = InputP2->currentText();
-	Prefs->DefaultMonitorProfile = MonitorP->currentText();
-	Prefs->DefaultPrinterProfile = PrinterP->currentText();
-	Prefs->DefaultIntentPrinter = PrinterI->currentItem();
-	Prefs->DefaultIntentMonitor = MonitorI->currentItem();
-	Prefs->DefaultIntentMonitor2 = MonitorI->currentItem();
-	Prefs->SoftProofOn = Simulate->isChecked();
-	Prefs->GamutCheck = GamutC->isChecked();
-	Prefs->CMSinUse = CheckBox1->isChecked();
-	Prefs->BlackPoint = BlackP->isChecked();
-	accept();
+	if ((prefs->DefaultInputProfile != inputP->currentText()) ||
+		(prefs->DefaultInputProfile2 != inputP2->currentText()) ||
+		(prefs->DefaultMonitorProfile != monitorP->currentText()) ||
+		(prefs->DefaultPrinterProfile != printerP->currentText()) ||
+		(prefs->DefaultIntentPrinter != printerI->currentItem()) ||
+		(prefs->DefaultIntentMonitor != monitorI->currentItem()) ||
+		(prefs->SoftProofOn != simulate->isChecked()) ||
+		(prefs->GamutCheck != gamutC->isChecked()) ||
+		(prefs->BlackPoint != blackP->isChecked()) ||
+		(prefs->CMSinUse != checkBox1->isChecked()))
+			changed = true;
+	prefs->DefaultInputProfile = inputP->currentText();
+	prefs->DefaultInputProfile2 = inputP2->currentText();
+	prefs->DefaultMonitorProfile = monitorP->currentText();
+	prefs->DefaultPrinterProfile = printerP->currentText();
+	prefs->DefaultIntentPrinter = printerI->currentItem();
+	prefs->DefaultIntentMonitor = monitorI->currentItem();
+	prefs->DefaultIntentMonitor2 = monitorI->currentItem();
+	prefs->SoftProofOn = simulate->isChecked();
+	prefs->GamutCheck = gamutC->isChecked();
+	prefs->CMSinUse = checkBox1->isChecked();
+	prefs->BlackPoint = blackP->isChecked();
 }
 
 void CMSPrefs::slotSimula()
 {
-	bool setter = Simulate->isChecked() ? true : false;
-	GamutC->setEnabled(setter);
+	bool setter = simulate->isChecked() ? true : false;
+	gamutC->setEnabled(setter);
 }
 
 void CMSPrefs::slotCMSon()
 {
-	bool setter = CheckBox1->isChecked() ? true : false;
-	SysProfiles->setEnabled(setter);
-	Render->setEnabled(setter);
-	Simulate->setEnabled(setter);
-	BlackP->setEnabled(setter);
+	bool setter = checkBox1->isChecked() ? true : false;
+	sysProfiles->setEnabled(setter);
+	render->setEnabled(setter);
+	simulate->setEnabled(setter);
+	blackP->setEnabled(setter);
 	if (setter == true)
 		slotSimula();
 	else
-		GamutC->setEnabled(setter);
+		gamutC->setEnabled(setter);
 }
 
