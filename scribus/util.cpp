@@ -1344,6 +1344,11 @@ void setBestEncoding(FT_Face face)
 			chmapCustom = u;
 			foundEncoding = true;
 		}
+		else if (face->charmaps[u]->encoding == FT_ENCODING_MS_SYMBOL)
+		{
+			chmapCustom = u;
+			foundEncoding = true;
+		}
 	}
 	if (countUniCode > 255)
 		FT_Set_Charmap(face, face->charmaps[chmapUniCode]);

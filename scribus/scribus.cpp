@@ -5084,6 +5084,7 @@ void ScribusApp::ToggleFrameEdit()
 	}
 	else
 	{
+		slotSelect();
 		Npal->setDoc(doc);
 		Npal->MoveN();
 		Npal->HaveNode(false, false);

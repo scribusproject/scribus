@@ -886,7 +886,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						{
 							CurY = asce+TExtra+lineCorr+1;
 							if (((a > 0) && (Ptext.at(a-1)->ch == QChar(13))) || (a == 0))
+							{
 								CurY += Doc->Vorlagen[hl->cab].Avor;
+								CurX += Doc->Vorlagen[hl->cab].First;
+								CurX += Doc->Vorlagen[hl->cab].Indent;
+							}
 						}
 						if (Doc->Vorlagen[hl->cab].BaseAdj)
 						{
@@ -906,16 +910,29 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								{
 								fBorder = false;
 								if (StartOfCol)
+								{
+									if (((a > 0) && (Ptext.at(a-1)->ch == QChar(13))) || (a == 0))
+									{
+										CurX = ColBound.x();
+										CurX += Doc->Vorlagen[hl->cab].First;
+										CurX += Doc->Vorlagen[hl->cab].Indent;
+									}
+									else
+										CurX = ColBound.x();
 									CurY++;
+								}
 								else
+								{
 									CurY += Doc->Vorlagen[hl->cab].LineSpa;
+									CurX = ColBound.x();
+								}
 								if (Doc->Vorlagen[hl->cab].BaseAdj)
 								{
 									int ol1 = qRound((Ypos + CurY - Doc->BaseOffs) * 10000.0);
 									int ol2 = static_cast<int>(ol1 / Doc->BaseGrid);
 									CurY = ceil(  ol2 / 10000.0 ) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
 								}
-								CurX = ColBound.x();
+//								CurX = ColBound.x();
 								if (CurY+BExtra+lineCorr > Height)
 									{
 									StartOfCol = true;
@@ -1042,8 +1059,19 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						hl->xp = CurX;
 					if ((TabCode == 4) && (RTab))
 						CurX += (wide+kernVal) / 2;
-					pt1 = QPoint(static_cast<int>(ceil(CurX+RExtra)), static_cast<int>(CurY+desc));
-					pt2 = QPoint(static_cast<int>(ceil(CurX+RExtra)), static_cast<int>(ceil(CurY-asce)));
+					if ((hl->cstyle & 128) || (hl->ch == "-"))
+					{
+						if ((HyphenCount < Doc->HyCount) || (Doc->HyCount == 0))
+						{
+							pt1 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(Doc, hl->cfont, "-", hl->csize))), qRound(CurY+desc));
+							pt2 = QPoint(qRound(ceil(CurX+RExtra+Cwidth(Doc, hl->cfont, "-", hl->csize))), qRound(ceil(CurY-asce)));
+						}
+					}
+					else
+					{
+						pt1 = QPoint(qRound(ceil(CurX+RExtra)), qRound(CurY+desc));
+						pt2 = QPoint(qRound(ceil(CurX+RExtra)), qRound(ceil(CurY-asce)));
+					}
 					if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))) || (CurX+RExtra+lineCorr > ColBound.y()))
 						outs = true;
 					if (CurY > (Height - BExtra - lineCorr))
@@ -1083,16 +1111,16 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					}
 					if (((hl->cstyle & 128) || (hl->ch == "-")) && (!outs))
-						{
+					{
 						if ((HyphenCount < Doc->HyCount) || (Doc->HyCount == 0))
-							{
+						{
 							if (hl->ch == "-")
 								LastXp = CurX;
 							else
 								LastXp = CurX + Cwidth(Doc, hl->cfont, "-", hl->csize);
 							LastSP = BuPos;
-							}
 						}
+					}
 					LiList.append(Zli);
 					if (RTab)
 						{

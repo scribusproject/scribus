@@ -1027,8 +1027,6 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 	PushButton2 = new QPushButton( this, "PushButton2" );
 	PushButton2->setText( tr( "Cancel" ) );
 	Layout1_2->addWidget( PushButton2 );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1_2->addItem( spacer );
 	AnnotLayout->addLayout( Layout1_2 );
 	connect(PushButton1, SIGNAL(clicked()), this, SLOT(SetVals()));
 	connect(PushButton2, SIGNAL(clicked()), this, SLOT(reject()));

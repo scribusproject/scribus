@@ -530,14 +530,6 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 						mv.translate(viewTransformX, viewTransformY);
 						mv.scale(viewScaleX, viewScaleY);
 						ite->PoLine.map(mv);
-						QWMatrix mv1;
-						FPoint tp, tp2;
-						tp2 = Doku->ActPage->GetMinClipF(ite->PoLine);
-						tp = GetMaxClipF(ite->PoLine);
-						ite->PoLine.translate(-(tp.x() + tp2.x()) / 2.0, -(tp.y() + tp2.y()) / 2.0);
-						mv1.scale(0.8, 0.8);
-						ite->PoLine.map(mv1);
-						ite->PoLine.translate((tp.x() + tp2.x()) / 2.0, (tp.y() + tp2.y()) / 2.0);
 					}
 					ite->Pwidth = ite->Pwidth * ((mm.m11() + mm.m22()) / 2.0);
 					FPoint wh = GetMaxClipF(ite->PoLine);
