@@ -154,6 +154,11 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
     ButtonGroup4Layout->addItem( spacer_2 );  */
     NodePaletteLayout->addWidget( ButtonGroup4 );
 
+    AbsMode = new QCheckBox( this, "Textflow" );
+    AbsMode->setText( tr( "Absolute Coordinates" ) );
+		AbsMode->setChecked(false);
+    NodePaletteLayout->addWidget( AbsMode );
+
     Layout2 = new QGridLayout( 0, 1, 1, 0, 5, "Layout2");
     TextLabel1 = new QLabel( this, "TextLabel1" );
     TextLabel1->setText( tr( "X-Pos:" ) );
@@ -192,6 +197,7 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
     QToolTip::add(  PolyShearL, tr( "Shears the Path horizontal to the left" ) );
     QToolTip::add(  PolyShearU, tr( "Shears the Path vertical up" ) );
     QToolTip::add(  PolyShearD, tr( "Shears the Path vertical down" ) );
+    QToolTip::add(  AbsMode, tr( "When checked use Coordinates relative to the Page,\notherwise Coordinates are relative to the Object." ) );
 
     // signals and slots connections
     connect(PushButton1, SIGNAL(clicked()), this, SLOT(EndEdit()));
@@ -213,11 +219,14 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
     connect(PolyShearL, SIGNAL(clicked()), this, SLOT(ShearL()));
     connect(PolyShearU, SIGNAL(clicked()), this, SLOT(ShearU()));
     connect(PolyShearD, SIGNAL(clicked()), this, SLOT(ShearD()));
+		connect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 }
 
 void NodePalette::setDoc(ScribusDoc *dc)
 {
 	doc = dc;
+	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
+	AbsMode->setChecked(false);
 	switch (doc->Einheit)
 		{
 		case 0:
@@ -237,6 +246,7 @@ void NodePalette::setDoc(ScribusDoc *dc)
    		XSpin->setSuffix( tr( " p" ) );
 			break;
 		}
+	connect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 }
 
 void NodePalette::SplitPoly()
@@ -334,7 +344,13 @@ void NodePalette::Reset1Control()
 void NodePalette::MovePoint()
 {
 	if (doc->EditClipMode == 0)
-		doc->ActPage->MoveClipPoint(doc->ActPage->SelItem.at(0), FPoint(XSpin->value()/UmReFaktor/100.0, YSpin->value()/UmReFaktor/100.0));
+		{
+		FPoint np = FPoint(XSpin->value()/UmReFaktor/100.0, YSpin->value()/UmReFaktor/100.0);
+		FPoint zp = FPoint(doc->ActPage->SelItem.at(0)->Xpos, doc->ActPage->SelItem.at(0)->Ypos);
+		if (AbsMode->isChecked())
+			np -= zp;
+		doc->ActPage->MoveClipPoint(doc->ActPage->SelItem.at(0), np);
+		}
 }
 
 void NodePalette::SetSym()
@@ -349,10 +365,29 @@ void NodePalette::SetAsym()
 
 void NodePalette::SetXY(double x, double y)
 {
+	FPoint zp = FPoint(0.0, 0.0);
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
-	XSpin->setValue(qRound(x*UmReFaktor*100));
-	YSpin->setValue(qRound(y*UmReFaktor*100));
+	if (AbsMode->isChecked())
+		zp = FPoint(doc->ActPage->SelItem.at(0)->Xpos, doc->ActPage->SelItem.at(0)->Ypos);
+	XSpin->setValue(qRound((x + zp.x())*UmReFaktor*100));
+	YSpin->setValue(qRound((y + zp.y())*UmReFaktor*100));
+	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
+	connect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
+}
+
+void NodePalette::ToggleAbsMode()
+{
+	FPoint zp = FPoint(doc->ActPage->SelItem.at(0)->Xpos, doc->ActPage->SelItem.at(0)->Ypos);
+	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
+	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
+	FPoint np = FPoint(XSpin->value()/UmReFaktor/100.0, YSpin->value()/UmReFaktor/100.0);
+	if (AbsMode->isChecked())
+		np += zp;
+	else
+		np -= zp;
+	XSpin->setValue(qRound(np.x()*UmReFaktor*100));
+	YSpin->setValue(qRound(np.y()*UmReFaktor*100));
 	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	connect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 }

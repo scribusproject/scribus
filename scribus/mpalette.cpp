@@ -202,6 +202,13 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     layout60->addItem( spacer5 );
     pageLayout->addLayout( layout60 );
 
+    Textflow = new QCheckBox( page, "Textflow" );
+    Textflow->setText( tr( "Text flows around Box" ) );
+    pageLayout->addWidget( Textflow );
+    Textflow2 = new QCheckBox( page, "Textflow2" );
+    Textflow2->setText( tr( "Use Bounding Box" ) );
+    pageLayout->addWidget( Textflow2 );
+
     layout60a = new QHBoxLayout( 0, 0, 5, "layout60a");
     RotationGroup = new QButtonGroup( page, "RotationGroup" );
     RotationGroup->setTitle( tr( "Rotation" ) );
@@ -317,14 +324,6 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     RoundRect->setSuffix( tr( " pt" ) );
     Layout13->addWidget( RoundRect );
     pageLayout_2->addLayout( Layout13 );
-
-    Textflow = new QCheckBox( page_2, "Textflow" );
-    Textflow->setText( tr( "Text flows around Box" ) );
-    pageLayout_2->addWidget( Textflow );
-
-    Textflow2 = new QCheckBox( page_2, "Textflow2" );
-    Textflow2->setText( tr( "Use Bounding Box" ) );
-    pageLayout_2->addWidget( Textflow2 );
 
 
     TabStack2 = new QWidgetStack( page_2, "TabStack2" );
@@ -839,6 +838,8 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     QToolTip::add( ZDown, tr( "Move one Level down" ) );
     QToolTip::add( ZTop, tr( "Move to Front" ) );
     QToolTip::add( ZBottom, tr( "Move to Back" ) );
+    QToolTip::add( Locked, tr( "Locks or unlocks the Object" ) );
+    QToolTip::add( NoPrint, tr( "Enables or disables printing of the Object" ) );
     connect(Xpos, SIGNAL(valueChanged(int)), this, SLOT(NewX()));
     connect(Ypos, SIGNAL(valueChanged(int)), this, SLOT(NewY()));
     connect(Width, SIGNAL(valueChanged(int)), this, SLOT(NewW()));

@@ -218,6 +218,20 @@ void Page::dropEvent(QDropEvent *e)
 		if (ext == "JPG")
 			ext = "JPEG";
 		img = ((imfo.contains(ext))||(ext=="PS")||(ext=="EPS")||(ext=="TIF"));
+		if ((fi.exists()) && (img) && (!SeleItemPos(e->pos())))
+			{
+			int z = PaintPict(qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), 1, 1);
+			b = Items.at(z);
+    	LoadPict(ur.path(), b->ItemNr);
+			b->Width = static_cast<double>(b->pixm.width());
+			b->Height = static_cast<double>(b->pixm.height());
+			b->OldB2 = b->Width;
+			b->OldH2 = b->Height;
+			UpdateClip(b);
+			emit DocChanged();
+			update();
+			return;
+			}
 		if ((SeleItemPos(e->pos())) && (!text.startsWith("<SCRIBUSELEM")))
 			{
 			b = SelItem.at(0);
@@ -4819,6 +4833,7 @@ void Page::ToPathText()
 		b->PType = 8;
 		b->PoLine = bb->PoLine.copy();
 		b->Pwidth = bb->Pwidth;
+		b->Pcolor2 = bb->Pcolor2;
 		b->PLineArt = bb->PLineArt;
 		b->PLineEnd = bb->PLineEnd;
 		b->PLineJoin = bb->PLineJoin;

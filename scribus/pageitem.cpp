@@ -1038,7 +1038,7 @@ NoRoom: if (NextBox != 0)
 			while (wid < 1)
 				{
 				zae++;
-				if (zae == cl.size()-1)
+				if (zae > cl.size()-2)
 				{
 					MaxChars = Ptext.count();
 					break;
@@ -1082,26 +1082,33 @@ NoRoom: if (NextBox != 0)
 							do
 								{
 								zae++;
-								if (zae == cl.size()-1)
-								{
-									MaxChars = Ptext.count();
+								if (zae > cl.size()-2)
+									{
+									MaxChars = a+1;
 									break;
-								}
+									}
 								wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
 								rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
 								}
 							while (wid == 0);
 							EndX -= wid;
+							if (zae > cl.size()-2)
+								{
+								MaxChars = a+1;
+								break;
+								}
 							}
 						while (wid < EndX);
 						CurX = EndX + wid;
 						}
 					else
-					{
-						MaxChars = Ptext.count();
+						{
+						MaxChars = a+1;
 						break;
+						}
 					}
-					}
+				if (zae > cl.size()-2)
+					break;
 				p->save();
 				p->translate(cl.point(zae).x()*sc, cl.point(zae).y()*sc);
 				p->rotate(rota);
@@ -1140,6 +1147,7 @@ NoRoom: if (NextBox != 0)
 				delete Zli;
 				p->restore();
 				p->setZoomFactor(sc);
+				MaxChars = a+1;
 				CurX += wide+hl->cextra;
 				}
 		default:

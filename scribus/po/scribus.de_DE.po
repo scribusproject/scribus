@@ -2956,3 +2956,25 @@ msgstr "Letzte Scripte"
 
 msgid "Outline Text"
 msgstr "Text mit Umrandung"
+
+msgid "&No"
+msgstr "Nein"
+
+msgid "&Yes"
+msgstr "Ja"
+
+msgid "When checked use Coordinates relative to the Page,\notherwise Coordinates are relative to the Object."
+msgstr "Angekreuzt bedeutet Koordinaten sind relativ zur Seite,\nandernfalls relativ zum Objekt."
+
+msgid "Locks or unlocks the Object"
+msgstr "Sperrt oder entsperrt das Objekt"
+
+msgid "Enables or disables printing of the Object"
+msgstr "Ermöglicht ein Objekt nicht druckbar zu setzen."
+
+msgid "Path Text Properites"
+msgstr "Pfadtext Eigenschaften"
+
+msgid "Absolute Coordinates"
+msgstr "Absolute Koordinaten"
+

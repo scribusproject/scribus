@@ -68,6 +68,8 @@ void Tree::slotRemoveElement(uint SNr, uint Nr)
 void Tree::slotUpdateElement(uint SNr, uint Nr)
 {
 	QString cc, xp, yp, fon;
+	if (vie->Doc->TemplateMode)
+		return;
 	if (SNr > Seiten.count()-1)
 		return;
 	if ( Nr > PageObj.at(SNr)->Elemente.count()-1)
@@ -107,12 +109,16 @@ void Tree::slotUpdateElement(uint SNr, uint Nr)
 
 void Tree::slotAddElement(uint SNr, uint Nr)
 {
+	if (vie->Doc->TemplateMode)
+		return;
 	PageObj.at(SNr)->Elemente.insert(Nr, new QListViewItem(Seiten.at(SNr), "Items"));
 	slotUpdateElement(SNr, Nr);
 }
 
 void Tree::slotMoveElement(uint SNr, uint NrOld, uint NrNew)
 {
+	if (vie->Doc->TemplateMode)
+		return;
 	QListViewItem* tmp = PageObj.at(SNr)->Elemente.take(NrOld);
 	PageObj.at(SNr)->Elemente.insert(NrNew, tmp);
 }
@@ -130,6 +136,8 @@ void Tree::slotAddPage(uint Nr)
 
 void Tree::slotDelPage(uint Nr)
 {
+	if (vie->Doc->TemplateMode)
+		return;
 	if (Seiten.count() != 0)
 		{
 		delete Seiten.at(Nr);
@@ -181,6 +189,8 @@ QValueList<int> Tree::buildReopenVals()
 void Tree::slotSelect(QListViewItem* ite)
 {
 	int sref, oref;
+	if (vie->Doc->TemplateMode)
+		return;
 	if (Seiten.containsRef(ite))
 		{
 		sref = Seiten.findRef(ite);

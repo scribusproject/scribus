@@ -8,6 +8,7 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+#include <qcheckbox.h>
 #include "mspinbox.h"
 #include "scribusdoc.h"
 
@@ -39,6 +40,7 @@ public:
     QToolButton* PolyShearR;
     QToolButton* PolyShearU;
     QToolButton* PolyShearD;
+		QCheckBox* AbsMode;
     QLabel* TextLabel1;
     MSpinBox* YSpin;
     QLabel* TextLabel2;
@@ -66,6 +68,7 @@ private slots:
 		void ShearL();
 		void ShearU();
 		void ShearD();
+		void ToggleAbsMode();
 
 public slots:
 		void MoveN();

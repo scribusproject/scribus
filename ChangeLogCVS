@@ -1,4 +1,9 @@
 Changes since Version 1.1.2
+08.11.2003	You can now insert Pictures by simply dragging them to a Page.
+		Setting the Textflow works again for Lines.
+		Added an absolute coordinate Mode to the Node-Palette.
+		Fixed Bug with Pathtexts.
+
 06.11.2003	Added a --without-python option to ./configure for
 		those who don't have a use for the Scripter-Plugin.
 
