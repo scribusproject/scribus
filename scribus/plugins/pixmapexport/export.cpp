@@ -91,7 +91,6 @@ ExportBitmap::~ExportBitmap()
 {
 }
 
-#include <iostream.h>
 bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 {
 	uint over = 0;
