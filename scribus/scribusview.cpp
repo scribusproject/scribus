@@ -7909,7 +7909,7 @@ void ScribusView::RaiseItem()
 
 void ScribusView::ToPicFrame()
 {
-	emit Amode(1);
+	//emit Amode(1);
 	PageItem *b = SelItem.at(0);
 	b->convertTo(PageItem::ImageFrame);
 	b->Frame = true;
@@ -7923,7 +7923,7 @@ void ScribusView::ToPicFrame()
 
 void ScribusView::ToPolyFrame()
 {
-	emit Amode(1);
+	//emit Amode(1);
 	PageItem *b = SelItem.at(0);
 	b->convertTo(PageItem::Polygon);
 	b->Frame = false;
@@ -7941,7 +7941,7 @@ void ScribusView::ToPolyFrame()
 
 void ScribusView::ToTextFrame()
 {
-	emit Amode(1);
+	//emit Amode(1);
 	PageItem *b = SelItem.at(0);
 	b->convertTo(PageItem::TextFrame);
 	b->Frame = true;
@@ -7955,7 +7955,7 @@ void ScribusView::ToTextFrame()
 
 void ScribusView::ToBezierFrame()
 {
-	emit Amode(1);
+	//emit Amode(1);
 	PageItem *b = SelItem.at(0);
 	b->convertTo(PageItem::PolyLine);
 	b->ClipEdited = true;
