@@ -5,6 +5,7 @@
 #include <qwmatrix.h>
 #include <qmessagebox.h>
 #include <qradiobutton.h>
+#include <qobjectlist.h>
 #include "scribusview.h"
 #include "autoform.h"
 #include "tabmanager.h"
@@ -95,6 +96,11 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent,
 	setIcon( loadIcon("AppIcon.png") );
 	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
 
+	_userActionOn = false;
+	userActionSniffer = new UserActionSniffer();
+	connect(userActionSniffer, SIGNAL(actionStart()), this, SLOT(mspinboxStartUserAction()));
+	connect(userActionSniffer, SIGNAL(actionEnd()), this, SLOT(mspinboxFinishUserAction()));
+
 	MpalLayout = new QVBoxLayout( this, 5, 1, "MpalLayout");
 	setOrientation(Qt::Vertical);
 	QFont f(font());
@@ -174,15 +180,19 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent,
 
 	Xpos = new MSpinBox( -3000, 3000, GeoGroup, 2 );
 	Xpos->setSuffix( ptSuffix );
+	installSniffer(Xpos);
 	GeoGroupLayout->addWidget( Xpos, 0, 1 );
 	Ypos = new MSpinBox( -3000, 3000, GeoGroup, 2 );
 	Ypos->setSuffix( ptSuffix );
+	installSniffer(Ypos);
 	GeoGroupLayout->addWidget( Ypos, 1, 1 );
 	Width = new MSpinBox( GeoGroup, 2 );
 	Width->setSuffix( ptSuffix );
+	installSniffer(Width);
 	GeoGroupLayout->addWidget( Width, 2, 1 );
 	Height = new MSpinBox( GeoGroup, 2 );
 	Height->setSuffix( ptSuffix );
+	installSniffer(Height);
 	GeoGroupLayout->addWidget( Height, 3, 1 );
 
 	xposLabel = new QLabel( Xpos, tr( "&X-Pos:" ), GeoGroup, "xposLabel" );
@@ -202,6 +212,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent,
 	Rot = new MSpinBox( GeoGroup, 2);
 	Rot->setSuffix( QString::fromUtf8(" °"));
 	Rot->setWrapping( true );
+	installSniffer(Rot);
 	rotationLabel = new QLabel( Rot, tr( "&Rotation:" ), GeoGroup, "rotationLabel" );
 	GeoGroupLayout->addWidget( rotationLabel, 4, 0 );
 	GeoGroupLayout->addWidget( Rot, 4, 1 );
@@ -3314,8 +3325,66 @@ void Mpalette::HandleTLines()
 	}
 }
 
+void Mpalette::installSniffer(MSpinBox *spinBox)
+{
+	const QObjectList* list = spinBox->children();
+	if (list)
+	{
+		QObjectListIterator it(*list);
+		QObject *obj;
+		while ((obj = it.current()) != 0)
+		{
+			++it;
+			obj->installEventFilter(userActionSniffer);
+		}
+	}
+}
+
 bool Mpalette::userActionOn()
 {
-	// make this work!!! return true if a user is pressing a mouse button or an arrow on a mspinbox
+	return _userActionOn;
+}
+
+void Mpalette::mspinboxStartUserAction()
+{
+	_userActionOn = true;
+}
+
+void Mpalette::mspinboxFinishUserAction()
+{
+	_userActionOn = false;
+
+	for (uint i = 0; i < ScApp->view->SelItem.count(); ++i)
+		ScApp->view->SelItem.at(i)->checkChanges(true);
+	if (ScApp->view->groupTransactionStarted())
+	{
+		UndoManager::instance()->commit();
+		ScApp->view->setGroupTransactionStarted(false);
+	}
+}
+
+UserActionSniffer::UserActionSniffer() : QObject (this)
+{
+
+}
+
+bool UserActionSniffer::eventFilter(QObject*, QEvent *e)
+{
+	if (e->type() == QEvent::MouseButtonPress)
+		emit actionStart();
+	else if (e->type() == QEvent::MouseButtonRelease)
+		emit actionEnd();
+	else if (e->type() == QEvent::KeyPress)
+	{
+		QKeyEvent *k = dynamic_cast<QKeyEvent*>(e);
+		if (k && !k->isAutoRepeat() && (k->key() == Key_Up || k->key() == Key_Down))
+			emit actionStart();
+	}
+	else if (e->type() == QEvent::KeyRelease)
+	{
+		QKeyEvent *k = dynamic_cast<QKeyEvent*>(e);
+		if (k && !k->isAutoRepeat() && (k->key() == Key_Up || k->key() == Key_Down))
+			emit actionEnd();
+	}
 	return false;
 }

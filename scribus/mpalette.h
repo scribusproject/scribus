@@ -35,6 +35,7 @@ class StyleSelect;
 #include "cpalette.h"
 class Autoforms;
 class ArrowChooser;
+class UserActionSniffer;
 extern bool CMSavail;
 
 class LabelButton : public QLabel
@@ -364,6 +365,8 @@ private slots:
 
 protected slots:
 	virtual void reject();
+	void mspinboxStartUserAction();
+	void mspinboxFinishUserAction();
 
 signals:
 	void ToggleAllPalettes();
@@ -418,6 +421,22 @@ protected:
 	QHBoxLayout* layout22;
 	QHBoxLayout* layout23;
 	QHBoxLayout* layout24;
+	bool _userActionOn;
+	UserActionSniffer *userActionSniffer;
+	void installSniffer(MSpinBox *spinBox);
+};
+
+class UserActionSniffer : public QObject
+{
+	Q_OBJECT
+
+public:
+	UserActionSniffer();
+protected:
+	bool eventFilter( QObject *o, QEvent *e );
+signals:
+	void actionStart();
+	void actionEnd();
 };
 
 #endif
