@@ -57,10 +57,23 @@ PyObject *scribus_moveobjrel(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item==NULL)
 		return NULL;
-	if (Carrier->view->GroupSel)
+	// Grab the old selection
+	QPtrList<PageItem> oldSelection = Carrier->view->SelItem;
+	// Clear the selection
+	Carrier->view->Deselect();
+	// Select the item, which will also select its group if
+	// there is one.
+	Carrier->view->SelectItemNr(item->ItemNr);
+	// Move the item, or items
+	if (Carrier->view->SelItem.count() > 1)
 		Carrier->view->moveGroup(ValueToPoint(x), ValueToPoint(y));
 	else
 		Carrier->view->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
+	// Now restore the selection. We just have to go through and select
+	// each and every item, unfortunately.
+	Carrier->view->Deselect();
+	for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
+		Carrier->view->SelectItemNr(oldSelection.current()->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -76,19 +89,27 @@ PyObject *scribus_moveobjabs(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	if (Carrier->view->GroupSel)
+	// Grab the old selection
+	QPtrList<PageItem> oldSelection = Carrier->view->SelItem;
+	// Clear the selection
+	Carrier->view->Deselect();
+	// Select the item, which will also select its group if
+	// there is one.
+	Carrier->view->SelectItemNr(item->ItemNr);
+	// Move the item, or items
+	if (Carrier->view->SelItem.count() > 1)
 	{
-		if (Carrier->view->GroupSel)
-		{
-			double x2, y2, w, h;
-			Carrier->view->getGroupRect(&x2, &y2, &w, &h);
-			Carrier->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
-		}
-		else
-			Carrier->view->MoveItem(pageUnitXToDocX(x) - item->Xpos, pageUnitYToDocY(y) - item->Ypos, item);
+		double x2, y2, w, h;
+		Carrier->view->getGroupRect(&x2, &y2, &w, &h);
+		Carrier->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
 	}
 	else
 		Carrier->view->MoveItem(pageUnitXToDocX(x) - item->Xpos, pageUnitYToDocY(y) - item->Ypos, item);
+	// Now restore the selection. We just have to go through and select
+	// each and every item, unfortunately.
+	Carrier->view->Deselect();
+	for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
+		Carrier->view->SelectItemNr(oldSelection.current()->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
