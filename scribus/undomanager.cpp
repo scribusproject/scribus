@@ -295,10 +295,19 @@ void UndoManager::renameStack(const QString& newName)
 {
 	if (currentDoc == newName)
 		return;
-	StackPair tmp = stacks[currentDoc];
+
+	ActionPair pair = *(stacks[currentDoc].first);
+	StackPair tmp(stacks[currentDoc].first, stacks[currentDoc].second);
 	stacks.erase(currentDoc);
 	stacks[newName] = tmp;
 	currentDoc = newName;
+	ActionList::iterator it;
+	for (it = stacks[currentDoc].second.begin(); it != stacks[currentDoc].second.end(); ++it)
+	{
+		if ((*it) == pair)
+			break;
+	}
+	stacks[currentDoc].first = it;
 }
 
 void UndoManager::removeStack(const QString& stackName)
