@@ -2883,42 +2883,42 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc9.setAttribute("EndArrow", Vor->DendArrow);
 	elem.appendChild(dc9);
 	QDomElement dc4=docu.createElement("MAINWINDOW");
-	dc4.setAttribute("XPOS",Vor->MainX);
-	dc4.setAttribute("YPOS",Vor->MainY);
-	dc4.setAttribute("WIDTH",Vor->MainW);
-	dc4.setAttribute("HEIGHT",Vor->MainH);
+	dc4.setAttribute("XPOS",Vor->mainWinSettings.xPosition);
+	dc4.setAttribute("YPOS",Vor->mainWinSettings.yPosition);
+	dc4.setAttribute("WIDTH",Vor->mainWinSettings.width);
+	dc4.setAttribute("HEIGHT",Vor->mainWinSettings.height);
 	elem.appendChild(dc4);
 	QDomElement dc5=docu.createElement("TOOLPALETTE");
-	dc5.setAttribute("VISIBLE", static_cast<int>(Vor->Werkv));
-	dc5.setAttribute("PDFVISIBLE", static_cast<int>(Vor->WerkvP));
+	dc5.setAttribute("VISIBLE", static_cast<int>(Vor->mainToolBarSettings.visible));
+	dc5.setAttribute("PDFVISIBLE", static_cast<int>(Vor->pdfToolBarSettings.visible));
 	elem.appendChild(dc5);
 	QDomElement dc7=docu.createElement("TREEPALETTE");
-	dc7.setAttribute("VISIBLE", static_cast<int>(Vor->Tpalv));
-	dc7.setAttribute("XPOS",Vor->Tpalx);
-	dc7.setAttribute("YPOS",Vor->Tpaly);
+	dc7.setAttribute("VISIBLE", static_cast<int>(Vor->treePalSettings.visible));
+	dc7.setAttribute("XPOS",Vor->treePalSettings.xPosition);
+	dc7.setAttribute("YPOS",Vor->treePalSettings.yPosition);
 	elem.appendChild(dc7);
 	QDomElement dc72=docu.createElement("NODEPALETTE");
-	dc72.setAttribute("XPOS",Vor->Npalx);
-	dc72.setAttribute("YPOS",Vor->Npaly);
+	dc72.setAttribute("XPOS",Vor->nodePalSettings.xPosition);
+	dc72.setAttribute("YPOS",Vor->nodePalSettings.yPosition);
 	elem.appendChild(dc72);
 	QDomElement dc73=docu.createElement("SCRAPBOOK");
-	dc73.setAttribute("VISIBLE", static_cast<int>(Vor->SCpalv));
-	dc73.setAttribute("XPOS",Vor->SCpalx);
-	dc73.setAttribute("YPOS",Vor->SCpaly);
-	dc73.setAttribute("WIDTH",Vor->SCpalw);
-	dc73.setAttribute("HEIGHT",Vor->SCpalh);
+	dc73.setAttribute("VISIBLE", static_cast<int>(Vor->scrapPalSettings.visible));
+	dc73.setAttribute("XPOS",Vor->scrapPalSettings.xPosition);
+	dc73.setAttribute("YPOS",Vor->scrapPalSettings.yPosition);
+	dc73.setAttribute("WIDTH",Vor->scrapPalSettings.width);
+	dc73.setAttribute("HEIGHT",Vor->scrapPalSettings.height);
 	dc73.setAttribute("PREVIEW",Vor->PSize);
 	dc73.setAttribute("SAVE", static_cast<int>(Vor->SaveAtQ));
 	elem.appendChild(dc73);
 	QDomElement dc74=docu.createElement("LAYERPALETTE");
-	dc74.setAttribute("VISIBLE", static_cast<int>(Vor->Lpalv));
-	dc74.setAttribute("XPOS",Vor->Lpalx);
-	dc74.setAttribute("YPOS",Vor->Lpaly);
+	dc74.setAttribute("VISIBLE", static_cast<int>(Vor->layerPalSettings.visible));
+	dc74.setAttribute("XPOS",Vor->layerPalSettings.xPosition);
+	dc74.setAttribute("YPOS",Vor->layerPalSettings.yPosition);
 	elem.appendChild(dc74);
 	QDomElement dc75=docu.createElement("PAGEPALETTE");
-	dc75.setAttribute("VISIBLE", static_cast<int>(Vor->Sepalv));
-	dc75.setAttribute("XPOS",Vor->Sepalx);
-	dc75.setAttribute("YPOS",Vor->Sepaly);
+	dc75.setAttribute("VISIBLE", static_cast<int>(Vor->pagePalSettings.visible));
+	dc75.setAttribute("XPOS",Vor->pagePalSettings.xPosition);
+	dc75.setAttribute("YPOS",Vor->pagePalSettings.yPosition);
 	dc75.setAttribute("THUMBS", static_cast<int>(Vor->SepalT));
 	dc75.setAttribute("NAMES", static_cast<int>(Vor->SepalN));
 	elem.appendChild(dc75);
@@ -2937,19 +2937,19 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc76.setAttribute("AutoSaveTime", Vor->AutoSaveTime);
 	elem.appendChild(dc76);
 	QDomElement dc77=docu.createElement("BOOKPALETTE");
-	dc77.setAttribute("VISIBLE", static_cast<int>(Vor->Bopalv));
-	dc77.setAttribute("XPOS",Vor->Bopalx);
-	dc77.setAttribute("YPOS",Vor->Bopaly);
+	dc77.setAttribute("VISIBLE", static_cast<int>(Vor->bookmPalSettings.visible));
+	dc77.setAttribute("XPOS",Vor->bookmPalSettings.xPosition);
+	dc77.setAttribute("YPOS",Vor->bookmPalSettings.yPosition);
 	elem.appendChild(dc77);
 	QDomElement dc78=docu.createElement("DISTS");
-	dc78.setAttribute("VISIBLE", static_cast<int>(Vor->Mapalv));
-	dc78.setAttribute("XPOS",Vor->Mapalx);
-	dc78.setAttribute("YPOS",Vor->Mapaly);
+	dc78.setAttribute("VISIBLE", static_cast<int>(Vor->measurePalSettings.visible));
+	dc78.setAttribute("XPOS",Vor->measurePalSettings.xPosition);
+	dc78.setAttribute("YPOS",Vor->measurePalSettings.yPosition);
 	elem.appendChild(dc78);
 	QDomElement dc8=docu.createElement("MEASUREMENTS");
-	dc8.setAttribute("VISIBLE", static_cast<int>(Vor->Mpalv));
-	dc8.setAttribute("XPOS",Vor->Mpalx);
-	dc8.setAttribute("YPOS",Vor->Mpaly);
+	dc8.setAttribute("VISIBLE", static_cast<int>(Vor->mPaletteSettings.visible));
+	dc8.setAttribute("XPOS",Vor->mPaletteSettings.xPosition);
+	dc8.setAttribute("YPOS",Vor->mPaletteSettings.yPosition);
 	elem.appendChild(dc8);
 	QDomElement dc81=docu.createElement("CMS");
 	dc81.setAttribute("DPSo", static_cast<int>(Vor->DCMSset.SoftProofOn));
@@ -3167,49 +3167,49 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 		}
 		if (dc.tagName()=="MAINWINDOW")
 		{
-			Vorein->MainX = QStoInt(dc.attribute("XPOS"));
-			Vorein->MainY = QStoInt(dc.attribute("YPOS"));
-			Vorein->MainW = QStoInt(dc.attribute("WIDTH"));
-			Vorein->MainH = QStoInt(dc.attribute("HEIGHT"));
+			Vorein->mainWinSettings.xPosition = QStoInt(dc.attribute("XPOS"));
+			Vorein->mainWinSettings.yPosition = QStoInt(dc.attribute("YPOS"));
+			Vorein->mainWinSettings.width = QStoInt(dc.attribute("WIDTH"));
+			Vorein->mainWinSettings.height = QStoInt(dc.attribute("HEIGHT"));
 		}
 		if (dc.tagName()=="TOOLPALETTE")
 		{
-			Vorein->Werkv = static_cast<bool>(QStoInt(dc.attribute("VISIBLE","1")));
-			Vorein->WerkvP = static_cast<bool>(QStoInt(dc.attribute("PDFVISIBLE","1")));
+			Vorein->mainToolBarSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE","1")));
+			Vorein->pdfToolBarSettings.visible = static_cast<bool>(QStoInt(dc.attribute("PDFVISIBLE","1")));
 		}
 		if (dc.tagName()=="TREEPALETTE")
 		{
-			Vorein->Tpalv = static_cast<bool>(QStoInt(dc.attribute("VISIBLE")));
-			Vorein->Tpalx = QStoInt(dc.attribute("XPOS"));
-			Vorein->Tpaly = QStoInt(dc.attribute("YPOS"));
+			Vorein->treePalSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE")));
+			Vorein->treePalSettings.xPosition = QStoInt(dc.attribute("XPOS"));
+			Vorein->treePalSettings.yPosition = QStoInt(dc.attribute("YPOS"));
 		}
 		if (dc.tagName()=="LAYERPALETTE")
 		{
-			Vorein->Lpalv = static_cast<bool>(QStoInt(dc.attribute("VISIBLE")));
-			Vorein->Lpalx = QStoInt(dc.attribute("XPOS"));
-			Vorein->Lpaly = QStoInt(dc.attribute("YPOS"));
+			Vorein->layerPalSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE")));
+			Vorein->layerPalSettings.xPosition = QStoInt(dc.attribute("XPOS"));
+			Vorein->layerPalSettings.yPosition = QStoInt(dc.attribute("YPOS"));
 		}
 		if (dc.tagName()=="BOOKPALETTE")
 		{
-			Vorein->Bopalv = static_cast<bool>(QStoInt(dc.attribute("VISIBLE")));
-			Vorein->Bopalx = QStoInt(dc.attribute("XPOS"));
-			Vorein->Bopaly = QStoInt(dc.attribute("YPOS"));
+			Vorein->bookmPalSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE")));
+			Vorein->bookmPalSettings.xPosition = QStoInt(dc.attribute("XPOS"));
+			Vorein->bookmPalSettings.yPosition = QStoInt(dc.attribute("YPOS"));
 		}
 		if (dc.tagName()=="PAGEPALETTE")
 		{
-			Vorein->Sepalv = static_cast<bool>(QStoInt(dc.attribute("VISIBLE")));
-			Vorein->Sepalx = QStoInt(dc.attribute("XPOS"));
-			Vorein->Sepaly = QStoInt(dc.attribute("YPOS"));
+			Vorein->pagePalSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE")));
+			Vorein->pagePalSettings.xPosition = QStoInt(dc.attribute("XPOS"));
+			Vorein->pagePalSettings.yPosition = QStoInt(dc.attribute("YPOS"));
 			Vorein->SepalT = static_cast<bool>(QStoInt(dc.attribute("THUMBS")));
 			Vorein->SepalN = static_cast<bool>(QStoInt(dc.attribute("NAMES")));
 		}
 		if (dc.tagName()=="SCRAPBOOK")
 		{
-			Vorein->SCpalv = static_cast<bool>(QStoInt(dc.attribute("VISIBLE")));
-			Vorein->SCpalx = QStoInt(dc.attribute("XPOS"));
-			Vorein->SCpaly = QStoInt(dc.attribute("YPOS"));
-			Vorein->SCpalw = QStoInt(dc.attribute("WIDTH"));
-			Vorein->SCpalh = QStoInt(dc.attribute("HEIGHT"));
+			Vorein->scrapPalSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE")));
+			Vorein->scrapPalSettings.xPosition = QStoInt(dc.attribute("XPOS"));
+			Vorein->scrapPalSettings.yPosition = QStoInt(dc.attribute("YPOS"));
+			Vorein->scrapPalSettings.width = QStoInt(dc.attribute("WIDTH"));
+			Vorein->scrapPalSettings.height = QStoInt(dc.attribute("HEIGHT"));
 			Vorein->PSize = QStoInt(dc.attribute("PREVIEW"));
 			Vorein->SaveAtQ = static_cast<bool>(QStoInt(dc.attribute("SAVE")));
 		}
@@ -3244,8 +3244,8 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 		}
 		if (dc.tagName()=="NODEPALETTE")
 		{
-			Vorein->Npalx = QStoInt(dc.attribute("XPOS"));
-			Vorein->Npaly = QStoInt(dc.attribute("YPOS"));
+			Vorein->nodePalSettings.xPosition = QStoInt(dc.attribute("XPOS"));
+			Vorein->nodePalSettings.yPosition = QStoInt(dc.attribute("YPOS"));
 		}
 		if (dc.tagName()=="SHORTCUT")
 			Vorein->KeyActions[QStoInt(dc.attribute("NR"))].KeyID = QStoInt(dc.attribute("CODE"));
@@ -3253,15 +3253,15 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->RecentDocs.append(dc.attribute("NAME"));
 		if (dc.tagName()=="DISTS")
 		{
-			Vorein->Mapalv = static_cast<bool>(QStoInt(dc.attribute("VISIBLE", "1")));
-			Vorein->Mapalx = QStoInt(dc.attribute("XPOS", "0"));
-			Vorein->Mapaly = QStoInt(dc.attribute("YPOS", "0"));
+			Vorein->measurePalSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE", "1")));
+			Vorein->measurePalSettings.xPosition = QStoInt(dc.attribute("XPOS", "0"));
+			Vorein->measurePalSettings.yPosition = QStoInt(dc.attribute("YPOS", "0"));
 		}
 		if (dc.tagName()=="MEASUREMENTS")
 		{
-			Vorein->Mpalv = static_cast<bool>(QStoInt(dc.attribute("VISIBLE", "1")));
-			Vorein->Mpalx = QStoInt(dc.attribute("XPOS"));
-			Vorein->Mpaly = QStoInt(dc.attribute("YPOS"));
+			Vorein->mPaletteSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE", "1")));
+			Vorein->mPaletteSettings.xPosition = QStoInt(dc.attribute("XPOS"));
+			Vorein->mPaletteSettings.yPosition = QStoInt(dc.attribute("YPOS"));
 		}
 		if (dc.tagName()=="PRINTER")
 		{

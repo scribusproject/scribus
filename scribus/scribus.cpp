@@ -401,30 +401,29 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.PolyS = false;
 	Prefs.PolyFd = 0;
 	Prefs.PolyR = 0;
-	Prefs.Werkv = true;
-	Prefs.WerkvP = true;
-	Prefs.Mpalv = false;
-	Prefs.Mapalv = false;
-	Prefs.Tpalv = false;
-	Prefs.SCpalv = false;
-	Prefs.Lpalv = false;
-	Prefs.Bopalv = false;
-	Prefs.Mpalx = 0;
-	Prefs.Mpaly = 0;
-	Prefs.Mapalx = 0;
-	Prefs.Mapaly = 0;
-	Prefs.Tpalx = 0;
-	Prefs.Tpaly = 0;
-	Prefs.SCpalx = 0;
-	Prefs.SCpaly = 0;
-	Prefs.SCpalw = 100;
-	Prefs.SCpalh = 200;
-	Prefs.Sepalx = 0;
-	Prefs.Sepaly = 0;
-	Prefs.Bopalx = 0;
-	Prefs.Bopaly = 0;
-	Prefs.Lpalx = 0;
-	Prefs.Lpaly = 0;
+	Prefs.mainToolBarSettings.visible = true;
+	Prefs.pdfToolBarSettings.visible = true;
+	Prefs.mPaletteSettings.visible = false;
+	Prefs.measurePalSettings.visible = false;
+	Prefs.treePalSettings.visible = false;
+	Prefs.scrapPalSettings.visible = false;
+	Prefs.layerPalSettings.visible = false;
+	Prefs.bookmPalSettings.visible = false;
+	Prefs.pagePalSettings.visible = false;
+	Prefs.measurePalSettings.xPosition = 0;
+	Prefs.measurePalSettings.yPosition = 0;
+	Prefs.treePalSettings.xPosition = 0;
+	Prefs.treePalSettings.yPosition = 0;
+	Prefs.scrapPalSettings.xPosition = 0;
+	Prefs.scrapPalSettings.yPosition = 0;
+	Prefs.scrapPalSettings.width = 100;
+	Prefs.scrapPalSettings.height = 200;
+	Prefs.pagePalSettings.xPosition = 0;
+	Prefs.pagePalSettings.yPosition = 0;
+	Prefs.bookmPalSettings.xPosition = 0;
+	Prefs.bookmPalSettings.yPosition = 0;
+	Prefs.layerPalSettings.xPosition = 0;
+	Prefs.layerPalSettings.yPosition = 0;
 	Prefs.PSize = 40;
 	Prefs.SaveAtQ = true;
 	Prefs.FramesShown = true;
@@ -4985,12 +4984,12 @@ void ScribusApp::setMapal(bool visible)
 	if (visible)
 	{
 		MaPal->show();
-		MaPal->move(Prefs.Mapalx, Prefs.Mapaly);
+		MaPal->move(Prefs.measurePalSettings.xPosition, Prefs.measurePalSettings.yPosition);
 	}
 	else
 	{
-		Prefs.Mapalx = MaPal->pos().x();
-		Prefs.Mapaly = MaPal->pos().y();
+		Prefs.measurePalSettings.xPosition = MaPal->pos().x();
+		Prefs.measurePalSettings.yPosition = MaPal->pos().y();
 		MaPal->hide();
 	}
 }
@@ -5000,13 +4999,12 @@ void ScribusApp::setMpal(bool visible)
 	if (visible)
 	{
 		Mpal->show();
-//		Mpal->TabStack->raiseWidget(0);
-		Mpal->move(Prefs.Mpalx, Prefs.Mpaly);
+		Mpal->move(Prefs.mPaletteSettings.xPosition, Prefs.mPaletteSettings.yPosition);
 	}
 	else
 	{
-		Prefs.Mpalx = Mpal->pos().x();
-		Prefs.Mpaly = Mpal->pos().y();
+		Prefs.mPaletteSettings.xPosition = Mpal->pos().x();
+		Prefs.mPaletteSettings.yPosition = Mpal->pos().y();
 		Mpal->hide();
 	}
 	toolMenu->setItemChecked(viewMpal, visible);
@@ -5023,12 +5021,12 @@ void ScribusApp::setTpal(bool visible)
 	if (visible)
 	{
 		Tpal->show();
-		Tpal->move(Prefs.Tpalx, Prefs.Tpaly);
+		Tpal->move(Prefs.treePalSettings.xPosition, Prefs.treePalSettings.yPosition);
 	}
 	else
 	{
-		Prefs.Tpalx = Tpal->pos().x();
-		Prefs.Tpaly = Tpal->pos().y();
+		Prefs.treePalSettings.xPosition = Tpal->pos().x();
+		Prefs.treePalSettings.yPosition = Tpal->pos().y();
 		Tpal->hide();
 	}
 	toolMenu->setItemChecked(viewTpal, visible);
@@ -5045,15 +5043,15 @@ void ScribusApp::setBpal(bool visible)
 	if (visible)
 	{
 		ScBook->show();
-		ScBook->move(Prefs.SCpalx, Prefs.SCpaly);
-		ScBook->resize(Prefs.SCpalw, Prefs.SCpalh);
+		ScBook->move(Prefs.scrapPalSettings.xPosition, Prefs.scrapPalSettings.yPosition);
+		ScBook->resize(Prefs.scrapPalSettings.width, Prefs.scrapPalSettings.height);
 	}
 	else
 	{
-		Prefs.SCpalx = ScBook->pos().x();
-		Prefs.SCpaly = ScBook->pos().y();
-		Prefs.SCpalw = ScBook->size().width();
-		Prefs.SCpalh = ScBook->size().height();
+		Prefs.scrapPalSettings.xPosition = ScBook->pos().x();
+		Prefs.scrapPalSettings.yPosition = ScBook->pos().y();
+		Prefs.scrapPalSettings.width = ScBook->size().width();
+		Prefs.scrapPalSettings.height = ScBook->size().height();
 		ScBook->hide();
 	}
 	toolMenu->setItemChecked(viewBpal, visible);
@@ -5072,12 +5070,12 @@ void ScribusApp::setLpal(bool visible)
 		if (HaveDoc)
 			Lpal->setLayers(&doc->Layers, &doc->ActiveLayer);
 		Lpal->show();
-		Lpal->move(Prefs.Lpalx, Prefs.Lpaly);
+		Lpal->move(Prefs.layerPalSettings.xPosition, Prefs.layerPalSettings.yPosition);
 	}
 	else
 	{
-		Prefs.Lpalx = Lpal->pos().x();
-		Prefs.Lpaly = Lpal->pos().y();
+		Prefs.layerPalSettings.xPosition = Lpal->pos().x();
+		Prefs.layerPalSettings.yPosition = Lpal->pos().y();
 		Lpal->hide();
 	}
 	toolMenu->setItemChecked(viewLpal, visible);
@@ -5094,12 +5092,12 @@ void ScribusApp::setSepal(bool visible)
 	if (visible)
 	{
 		Sepal->show();
-		Sepal->move(Prefs.Sepalx, Prefs.Sepaly);
+		Sepal->move(Prefs.pagePalSettings.xPosition, Prefs.pagePalSettings.yPosition);
 	}
 	else
 	{
-		Prefs.Sepalx = Sepal->pos().x();
-		Prefs.Sepaly = Sepal->pos().y();
+		Prefs.pagePalSettings.xPosition = Sepal->pos().x();
+		Prefs.pagePalSettings.yPosition = Sepal->pos().y();
 		Prefs.SepalT = Sepal->TemplList->Thumb;
 		Prefs.SepalN = Sepal->PageView->Namen;
 		Sepal->hide();
@@ -5118,12 +5116,12 @@ void ScribusApp::setBookpal(bool visible)
 	if (visible)
 	{
 		BookPal->show();
-		BookPal->move(Prefs.Bopalx, Prefs.Bopaly);
+		BookPal->move(Prefs.bookmPalSettings.xPosition, Prefs.bookmPalSettings.yPosition);
 	}
 	else
 	{
-		Prefs.Bopalx = BookPal->pos().x();
-		Prefs.Bopaly = BookPal->pos().y();
+		Prefs.bookmPalSettings.xPosition = BookPal->pos().x();
+		Prefs.bookmPalSettings.yPosition = BookPal->pos().y();
 		BookPal->hide();
 	}
 	toolMenu->setItemChecked(viewBopal, visible);
@@ -5303,7 +5301,7 @@ void ScribusApp::ToggleFrameEdit()
 		Npal->HaveNode(false, false);
 		Npal->MoveNode->setOn(true);
 		Npal->show();
-		Npal->move(Prefs.Npalx, Prefs.Npaly);
+		Npal->move(Prefs.nodePalSettings.xPosition, Prefs.nodePalSettings.yPosition);
 		doc->EditClipMode = 0;
 		doc->EditClip = true;
 		WerkTools->Select->setEnabled(false);
@@ -5340,8 +5338,8 @@ void ScribusApp::ToggleFrameEdit()
 
 void ScribusApp::NoFrameEdit()
 {
-	Prefs.Npalx = Npal->pos().x();
-	Prefs.Npaly = Npal->pos().y();
+	Prefs.nodePalSettings.xPosition = Npal->pos().x();
+	Prefs.nodePalSettings.yPosition = Npal->pos().y();
 	Npal->hide();
 	WerkTools->Select->setEnabled(true);
 	WerkTools->Select->setOn(true);
@@ -7069,58 +7067,58 @@ void ScribusApp::slotPrefsOrg()
 
 void ScribusApp::SavePrefs()
 {
-	Prefs.MainX = abs(pos().x());
-	Prefs.MainY = abs(pos().y());
-	Prefs.MainW = size().width();
-	Prefs.MainH = size().height();
-	Prefs.Werkv = WerkTools->isVisible();
-	Prefs.WerkvP = WerkToolsP->isVisible();
-	Prefs.Mpalv = Mpal->isVisible();
-	Prefs.Tpalv = Tpal->isVisible();
-	Prefs.SCpalv = ScBook->isVisible();
-	Prefs.Lpalv = Lpal->isVisible();
-	Prefs.Sepalv = Sepal->isVisible();
-	Prefs.Bopalv = BookPal->isVisible();
-	if ((Prefs.Npalx > QApplication::desktop()->width()-100) || (Prefs.Npalx < 0))
-		Prefs.Npalx = 0;
-	if ((Prefs.Npaly > QApplication::desktop()->height()-100) || (Prefs.Npaly < 0))
-		Prefs.Npaly = 0;
+	Prefs.mainWinSettings.xPosition = abs(pos().x());
+	Prefs.mainWinSettings.yPosition = abs(pos().y());
+	Prefs.mainWinSettings.width = size().width();
+	Prefs.mainWinSettings.height = size().height();
+	Prefs.mainToolBarSettings.visible = WerkTools->isVisible();
+	Prefs.pdfToolBarSettings.visible = WerkToolsP->isVisible();
+	Prefs.mPaletteSettings.visible = Mpal->isVisible();
+	Prefs.treePalSettings.visible = Tpal->isVisible();
+	Prefs.scrapPalSettings.visible = ScBook->isVisible();
+	Prefs.layerPalSettings.visible = Lpal->isVisible();
+	Prefs.pagePalSettings.visible = Sepal->isVisible();
+	Prefs.bookmPalSettings.visible = BookPal->isVisible();
+	if ((Prefs.nodePalSettings.xPosition > QApplication::desktop()->width()-100) || (Prefs.nodePalSettings.xPosition < 0))
+		Prefs.nodePalSettings.xPosition = 0;
+	if ((Prefs.nodePalSettings.yPosition > QApplication::desktop()->height()-100) || (Prefs.nodePalSettings.yPosition < 0))
+		Prefs.nodePalSettings.yPosition = 0;
 	if (MaPal->isVisible())
 	{
-		Prefs.Mapalx = abs(MaPal->pos().x());
-		Prefs.Mapaly = abs(MaPal->pos().y());
+		Prefs.measurePalSettings.xPosition = abs(MaPal->pos().x());
+		Prefs.measurePalSettings.yPosition = abs(MaPal->pos().y());
 	}
 	if (Mpal->isVisible())
 	{
-		Prefs.Mpalx = abs(Mpal->pos().x());
-		Prefs.Mpaly = abs(Mpal->pos().y());
+		Prefs.mPaletteSettings.xPosition = abs(Mpal->pos().x());
+		Prefs.mPaletteSettings.yPosition = abs(Mpal->pos().y());
 	}
 	if (Tpal->isVisible())
 	{
-		Prefs.Tpalx = abs(Tpal->pos().x());
-		Prefs.Tpaly = abs(Tpal->pos().y());
+		Prefs.treePalSettings.xPosition = abs(Tpal->pos().x());
+		Prefs.treePalSettings.yPosition = abs(Tpal->pos().y());
 	}
 	if (ScBook->isVisible())
 	{
-		Prefs.SCpalx = abs(ScBook->pos().x());
-		Prefs.SCpaly = abs(ScBook->pos().y());
-		Prefs.SCpalw = abs(ScBook->size().width());
-		Prefs.SCpalh = abs(ScBook->size().height());
+		Prefs.scrapPalSettings.xPosition = abs(ScBook->pos().x());
+		Prefs.scrapPalSettings.yPosition = abs(ScBook->pos().y());
+		Prefs.scrapPalSettings.width = abs(ScBook->size().width());
+		Prefs.scrapPalSettings.height = abs(ScBook->size().height());
 	}
 	if (Sepal->isVisible())
 	{
-		Prefs.Sepalx = abs(Sepal->pos().x());
-		Prefs.Sepaly = abs(Sepal->pos().y());
+		Prefs.pagePalSettings.xPosition = abs(Sepal->pos().x());
+		Prefs.pagePalSettings.yPosition = abs(Sepal->pos().y());
 	}
 	if (BookPal->isVisible())
 	{
-		Prefs.Bopalx = abs(BookPal->pos().x());
-		Prefs.Bopaly = abs(BookPal->pos().y());
+		Prefs.bookmPalSettings.xPosition = abs(BookPal->pos().x());
+		Prefs.bookmPalSettings.yPosition = abs(BookPal->pos().y());
 	}
 	if (Lpal->isVisible())
 	{
-		Prefs.Lpalx = abs(Lpal->pos().x());
-		Prefs.Lpaly = abs(Lpal->pos().y());
+		Prefs.layerPalSettings.xPosition = abs(Lpal->pos().x());
+		Prefs.layerPalSettings.yPosition = abs(Lpal->pos().y());
 	}
 	Prefs.RecentDocs.clear();
 	uint max = QMIN(Prefs.RecentDCount, RecentDocs.count());
@@ -7173,17 +7171,17 @@ void ScribusApp::ReadPrefs()
 			recentMenu->insertItem(QString::fromUtf8(Prefs.RecentDocs[m]));
 		}
 	}
-	MaPal->move(Prefs.Mapalx, Prefs.Mapaly);
-	Mpal->move(Prefs.Mpalx, Prefs.Mpaly);
-	Tpal->move(Prefs.Tpalx, Prefs.Tpaly);
-	Lpal->move(Prefs.Lpalx, Prefs.Lpaly);
-	Sepal->move(Prefs.Sepalx, Prefs.Sepaly);
-	BookPal->move(Prefs.Bopalx, Prefs.Bopaly);
-	ScBook->move(Prefs.SCpalx, Prefs.SCpaly);
-	ScBook->resize(Prefs.SCpalw, Prefs.SCpalh);
-	Npal->move(Prefs.Npalx, Prefs.Npaly);
-	move(Prefs.MainX, Prefs.MainY);
-	resize(Prefs.MainW, Prefs.MainH);
+	MaPal->move(Prefs.measurePalSettings.xPosition, Prefs.measurePalSettings.yPosition);
+	Mpal->move(Prefs.mPaletteSettings.xPosition, Prefs.mPaletteSettings.yPosition);
+	Tpal->move(Prefs.treePalSettings.xPosition, Prefs.treePalSettings.yPosition);
+	Lpal->move(Prefs.layerPalSettings.xPosition, Prefs.layerPalSettings.yPosition);
+	Sepal->move(Prefs.pagePalSettings.xPosition, Prefs.pagePalSettings.yPosition);
+	BookPal->move(Prefs.bookmPalSettings.xPosition, Prefs.bookmPalSettings.yPosition);
+	ScBook->move(Prefs.scrapPalSettings.xPosition, Prefs.scrapPalSettings.yPosition);
+	ScBook->resize(Prefs.scrapPalSettings.width, Prefs.scrapPalSettings.height);
+	Npal->move(Prefs.nodePalSettings.xPosition, Prefs.nodePalSettings.yPosition);
+	move(Prefs.mainWinSettings.xPosition, Prefs.mainWinSettings.yPosition);
+	resize(Prefs.mainWinSettings.width, Prefs.mainWinSettings.height);
 	ReadPrefsXML();
 }
 
@@ -7210,15 +7208,15 @@ void ScribusApp::ShowSubs()
 			mess += tr("Ghostscript : You cannot use EPS Images")+"\n\n";
 		QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
 	}
-	setTools(Prefs.Werkv);
-	setPDFTools(Prefs.WerkvP);
-	setMapal(Prefs.Mapalv);
-	setMpal(Prefs.Mpalv);
-	setTpal(Prefs.Tpalv);
-	setBpal(Prefs.SCpalv);
-	setLpal(Prefs.Lpalv);
-	setSepal(Prefs.Sepalv);
-	setBookpal(Prefs.Bopalv);
+	setTools(Prefs.mainToolBarSettings.visible);
+	setPDFTools(Prefs.pdfToolBarSettings.visible);
+	setMapal(Prefs.measurePalSettings.visible);
+	setMpal(Prefs.mPaletteSettings.visible);
+	setTpal(Prefs.treePalSettings.visible);
+	setBpal(Prefs.scrapPalSettings.visible);
+	setLpal(Prefs.layerPalSettings.visible);
+	setSepal(Prefs.pagePalSettings.visible);
+	setBookpal(Prefs.bookmPalSettings.visible);
 	setActiveWindow();
 	raise();
 }
@@ -9180,6 +9178,18 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 					if (chx.upper() != it->Ptext.at(e)->ch)
 						chx = chx.upper();
 					chr = chx[0].unicode();
+				}
+				if (chr == 30)
+				{
+					for (uint numco = 0x30; numco < 0x39; ++numco)
+					{
+						if ((*doc->AllFonts)[it->Ptext.at(e)->cfont]->CharWidth.contains(numco))
+						{
+							gly = (*doc->AllFonts)[it->Ptext.at(e)->cfont]->GlyphArray[numco].Outlines.copy();
+							(*doc->AllFonts)[it->Ptext.at(e)->cfont]->RealGlyphs.insert(numco, gly);
+						}
+					}
+					continue;
 				}
 				if ((*doc->AllFonts)[it->Ptext.at(e)->cfont]->CharWidth.contains(chr))
 				{

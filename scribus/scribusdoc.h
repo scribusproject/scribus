@@ -24,7 +24,6 @@
 #include <qdict.h>
 #include <qcolor.h>
 #include <qvaluelist.h>
-//#include <qvaluestack.h>
 #include <qvaluevector.h>
 #include <qptrlist.h>
 #include <qfont.h>
@@ -34,19 +33,13 @@
 #include <qtimer.h>
 
 #include "scribusstructs.h"
-
-//#include "cmykcolor.h"
-//#include "scfonts.h"
-//#include "fpointarray.h"
 #include "hyphenator.h"
-//#include "vgradient.h"
 #ifdef HAVE_CMS
 	#include CMS_INC
 #endif
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
-//#include "pageitem.h"
 class Page;
 
 

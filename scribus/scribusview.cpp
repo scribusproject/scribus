@@ -2603,10 +2603,20 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	{
 		b = SelItem.at(0);
 		b->PoLine.resize(b->PoLine.size()-2);
-		SizeItem(b->PoLine.WidthHeight().x(), b->PoLine.WidthHeight().y(), b->ItemNr, false, false);
-		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
-		AdjustItemSize(b);
-		b->ContourLine = b->PoLine.copy();
+		if (b->PoLine.size() < 4)
+		{
+//			emit DelObj(Doc->ActPage->PageNr, b->ItemNr);
+			Doc->Items.remove(b->ItemNr);
+			SelItem.removeFirst();
+			emit HaveSel(-1);
+		}
+		else
+		{
+			SizeItem(b->PoLine.WidthHeight().x(), b->PoLine.WidthHeight().y(), b->ItemNr, false, false);
+			SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
+			AdjustItemSize(b);
+			b->ContourLine = b->PoLine.copy();
+		}
 		Doc->AppMode = 1;
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		emit PaintingDone();
@@ -6781,9 +6791,9 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 					else
 					{
 						EmitValues(b);
-						emit HaveSel(b->PType);
 						if (b->PType == 5)
 							emit ItemGeom(b->Width, b->Height);
+						emit HaveSel(b->PType);
 					}
 					p.end();
 					if (!b->ChangedMasterItem)
@@ -6917,9 +6927,9 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 				else
 				{
 					EmitValues(b);
-					emit HaveSel(b->PType);
 					if (b->PType == 5)
 						emit ItemGeom(b->Width, b->Height);
+					emit HaveSel(b->PType);
 				}
 				tx = p.xForm(QRect(static_cast<int>(b->Width-6), static_cast<int>(b->Height-6), 6, 6));
 				if (tx.contains(mpo))
@@ -10542,6 +10552,7 @@ void ScribusView::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 		updateGradientVectors(b);
 	}
 	setRedrawBounding(b);
+	b->OwnPage = OnPage(b);
 	if (!loading)
 	{
 		b->Select = true;
