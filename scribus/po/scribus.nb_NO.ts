@@ -8,7 +8,9 @@
 Returns a list containing the names of all defined colors in the document.
 If no document is open, returns a list of the default document colors.
 </source>
-      <translation type="unfinished" />
+      <translation>getColorNames() -> list 
+
+Returnerer en liste med navn på alle definerte farger i dokumentet. Hvis ikke et dokument er åpnet, så vil en liste med standard dokumentfarger bli returnert. </translation>
     </message>
     <message>
       <source>newDocDialog() -> bool
@@ -17,7 +19,11 @@ Displays the &quot;New Document&quot; dialog box. Creates a new document if the 
 accepts the settings. Does not create a document if the user presses cancel.
 Returns true if a new document was created.
 </source>
-      <translation type="unfinished" />
+      <translation>newDocDialog() -> bool 
+
+Viser dialogboksen &quot;New Document&quot;. Lager et nytt dokument hvis brukeren aksepterer 
+innstillingene. Lager ikke et nytt dokument hvis brukeren trykker Avbryt. Returnerer 
+true hvis et nytt dokument lages.</translation>
     </message>
     <message>
       <source>getFillColor([&quot;name&quot;]) -> string
@@ -25,7 +31,10 @@ Returns true if a new document was created.
 Returns the name of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-      <translation type="unfinished" />
+      <translation>getFillColor([&quot;name&quot;]) -> string 
+
+Returnerer navnet på fyllfargen til objektet med navn &quot;name&quot;. 
+Hvis &quot;name&quot;.ikke er oppgitt, så vil det objektet som er valgt bli brukt.</translation>
     </message>
     <message>
       <source>moveObject(dx, dy [, &quot;name&quot;])
@@ -35,7 +44,12 @@ distances are expressed in the current measurement unit of the document (see
 UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
 If the object &quot;name&quot; belongs to a group, the whole group is moved.
 </source>
-      <translation type="unfinished" />
+      <translation>moveObject(dx, dy [, &quot;name&quot;]) 
+
+Flytter objektet &quot;name&quot; en avstand dy og dx relativt til dets nåværende posisjon. 
+Enhetene som brukes er den enhet som er valgt for dokumentet. Hvis &quot;name&quot; ikke er 
+oppgitt, så vil det objektet som er valgt bli brukt. Hvis objektet &quot;name&quot; tilhører en 
+gruppe, så vil hele gruppen bli flyttet.</translation>
     </message>
     <message>
       <source>setRedraw(bool)
@@ -6757,7 +6771,7 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
     <message>
       <source>Provides a more pleasant view of text items in the viewer, at the expense
 of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-      <translation>Gir en pener visning av tekst i viseren, men forhåndsvisning blir
+      <translation>Gir en penere visning av tekst i viseren, men forhåndsvisning blir
 litt langsommere. Har kun effekt på Type 1 skrifttyper</translation>
     </message>
     <message>
@@ -7057,7 +7071,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
       <source>&amp;Group</source>
-      <translation>&amp;Gruper</translation>
+      <translation>&amp;Grupèr</translation>
     </message>
     <message>
       <source>Un&amp;group</source>
@@ -8371,7 +8385,7 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
       <source>Attributes</source>
-      <translation>Attributer</translation>
+      <translation>Attributter</translation>
     </message>
     <message>
       <source>OK</source>
@@ -8679,7 +8693,7 @@ Sjekk sti og filnavn.</translation>
     <name>QMessageBox</name>
     <message>
       <source>&lt;h3>About Qt&lt;/h3>&lt;p>This program uses Qt version %1.&lt;/p>&lt;p>Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p>&lt;p>Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br>Qt is also available for embedded devices.&lt;/p>&lt;p>Qt is a Trolltech product. See &lt;tt>http://www.trolltech.com/qt/&lt;/tt> for more information.&lt;/p></source>
-      <translation>&lt;h3>Om Qt&lt;/h3>&lt;p>dette program bruker Qt versjon %1.&lt;/p>&lt;p>Qt er et C++ toolkit for multiplatform GUI &amp;amp; program utvikling&lt;/p>&lt;p>Qt gir single-source portabilitet mellom MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, og alle større kommersielle Unix varianter.&lt;br>Qt er også tilgjengelig for embedded deviced.&lt;/p>&lt;p>Qt er et Trolltech produkt. Se &lt;tt>http://www.trolltech.com/qt/&lt;/tt> former informasjon.&lt;/p></translation>
+      <translation>&lt;h3>Om Qt&lt;/h3>&lt;p>dette program bruker Qt versjon %1.&lt;/p>&lt;p>Qt er et C++ toolkit for multiplattform GUI &amp;amp; program utvikling&lt;/p>&lt;p>Qt gir single-source portabilitet mellom MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, og alle større kommersielle Unix varianter.&lt;br>Qt er også tilgjengelig for embedded deviced.&lt;/p>&lt;p>Qt er et Trolltech produkt. Se &lt;tt>http://www.trolltech.com/qt/&lt;/tt> former informasjon.&lt;/p></translation>
     </message>
   </context>
   <context>
@@ -9330,7 +9344,7 @@ Eksterne lenker</translation>
     <message>
       <source>Cannot insert text into non-text frame.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke sette inn tekst i en ikke-tekstramme</translation>
     </message>
     <message>
       <source>Insert index out of bounds</source>
@@ -9355,7 +9369,7 @@ Eksterne lenker</translation>
     <message>
       <source>Can't set font size on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke sette størrelsen på skrifttypen på en ikke-tekstramme</translation>
     </message>
     <message>
       <source>Can't set font on a non-text frame</source>
@@ -9385,12 +9399,12 @@ Eksterne lenker</translation>
     <message>
       <source>Column count out of bounds, must be > 1</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Spaltenummerering ute av system, må være > 1</translation>
     </message>
     <message>
       <source>Can't number of columns on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan kun nummerer spalter i tekstrammer</translation>
     </message>
     <message>
       <source>Selection index out of bounds</source>
@@ -9400,32 +9414,32 @@ Eksterne lenker</translation>
     <message>
       <source>Can't select text in a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke velge tekst i en ikke-tekstramme</translation>
     </message>
     <message>
       <source>Can't delete text from a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke slette tekst fra en ikke-tekstramme</translation>
     </message>
     <message>
       <source>Can't set text fill on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke bruke tekstfyll på en ikke-tekstramme</translation>
     </message>
     <message>
       <source>Can't set text stroke on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke bruke tekststrek på en ikke-tekstramme</translation>
     </message>
     <message>
       <source>Can't set text shade on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan ikke bruke tekstskygge på en ikke-tekstramme</translation>
     </message>
     <message>
       <source>Can only link text frames</source>
       <comment>python error</comment>
-      <translation>Kan kun linke sammen tekstrammer</translation>
+      <translation>Kan kun blinke sammen tekstrammer</translation>
     </message>
     <message>
       <source>Target frame must be empty</source>

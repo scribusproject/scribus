@@ -2,22 +2,16 @@
 <context>
     <name></name>
     <message>
-        <source>getFontSize([&quot;name&quot;]) -&gt; float
-
-Returns the font size in points for the text frame &quot;name&quot;. If this text
-frame has some text selected the value assigned to the first character of
-the selection is returned.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>getColorNames() -&gt; list
 
 Returns a list containing the names of all defined colors in the document.
 If no document is open, returns a list of the default document colors.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColorNames() -&gt; liste
+
+Returnerer en liste, som indeholder navnene på alle definerede farver i dokumentet.
+Hvis ikke et dokument er åbnet, så returneres en liste over standard dokument farver.
+</translation>
     </message>
     <message>
         <source>newDocDialog() -&gt; bool
@@ -26,77 +20,12 @@ Displays the &quot;New Document&quot; dialog box. Creates a new document if the 
 accepts the settings. Does not create a document if the user presses cancel.
 Returns true if a new document was created.
 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getFillColor([&quot;name&quot;]) -&gt; string
+        <translation>newDocDialog() -&gt; bool
 
-Returns the name of the fill color of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>moveObject(dx, dy [, &quot;name&quot;])
-
-Moves the object &quot;name&quot; by dx and dy relative to its current position. The
-distances are expressed in the current measurement unit of the document (see
-UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
-If the object &quot;name&quot; belongs to a group, the whole group is moved.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setRedraw(bool)
-
-Disables page redraw when bool = False, otherwise redrawing is enabled.
-This change will persist even after the script exits, so make sure to call
-setRedraw(True) in a finally: clause at the top level of your script.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new rectangle on the current page and returns its name. The
-coordinates are given in the current measurement units of the document
-(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
-because you need this name to reference that object in future. If &quot;name&quot;
-is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>newPage(where [,&quot;template&quot;])
-
-Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
-document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
-counted from 1 upwards, no matter what the displayed first page number of your
-document is. The optional parameter &quot;template&quot; specifies the name of the
-template page for the new page.
-
-May raise IndexError if the page number is out of range
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
-
-Sets the gradient fill of the object &quot;name&quot; to type. Color descriptions are
-the same as for setFillColor() and setFillShade(). See the constants for
-available types (FILL_&lt;type&gt;).
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>messagebarText(&quot;string&quot;)
-
-Writes the &quot;string&quot; into the Scribus message bar (status line). The text
-must be UTF8 encoded or &apos;unicode&apos; string(recommended).
-</source>
-        <translation type="unfinished"></translation>
+Viser &quot;Ny dokument&quot; dialog boks. Laver et nyt dokument, hvis brugeren
+accepterer indstillingerne. Laver ikke et dokument, hvis brugeren trykker på annullér.
+Returnerer &quot;true&quot; hvis der blev lavet et nyt dokument.
+</translation>
     </message>
     <message>
         <source>newDoc(size, margins, orientation, firstPageNumber,
@@ -132,238 +61,170 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDoc(størrelse, marginer, retning, førsteSideNummer,
+                   måle-enhed, modståendeSider, førsteSideVenstre) -&gt; bool
+
+Laver et Nyt dokument og returnerer &quot;true&quot; hvis det lykkedes. Parametrene har 
+følgende betydning:
+
+    størrelse = A tuple (bredde, højde) beskriver størrelsen af dokumentet. du kan
+    bruge predefinerede constanter med navnet PAPER_&lt;paper_type&gt; f.eks. PAPER_A4 etc.
+
+    marginer = En tuple (venstre, højre, top, bund) beskriver documentets marginer
+
+    retning = sidens retning - constanter PORTRAIT, LANDSCAPE
+
+    førsteSideNummer = er nummeret på den første side i dokumentet brugt for
+    side-nummerering. Selvom værdien oftest er 1, så er der nogen gange brug for 
+    et højere nummer, når et dokument består af flere dele.
+
+    enhed: denne værdi sætter måle-enheden, som bruges i dokumentet. Brug en
+    predefineret constant for dette, en af: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    modståendeSider = FACINGPAGES, NOFACINGPAGES
+
+    førsteSideVenstre = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+Værdierne for bredde, højde og marginer er udtrykt i den givne måle-enhed
+for dokumentet. PAPER_* constanter er udtrykt i punkter. Hvis dit dokument
+ikke er i punkter, så sørg for at tage højde for dette.
+
+eksempel: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</translation>
+    </message>
+    <message>
+        <source>getFillColor([&quot;name&quot;]) -&gt; string
+
+Returns the name of the fill color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getFillColor([&quot;navn&quot;]) -&gt; streng
+
+Returnerer navnet på fyld-farven i objektet &quot;navn&quot;.
+Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
+</translation>
+    </message>
+    <message>
+        <source>moveObject(dx, dy [, &quot;name&quot;])
+
+Moves the object &quot;name&quot; by dx and dy relative to its current position. The
+distances are expressed in the current measurement unit of the document (see
+UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
+If the object &quot;name&quot; belongs to a group, the whole group is moved.
+</source>
+        <translation>moveObject(dx, dy [, &quot;navn&quot;])
+
+Flytter objektet &quot;navn&quot; med dx og dy relativt til dets nuværende position. 
+Afstanden er udtrykt i dokumentets nuværende måle-enhed (se UNIT 
+konstanter). Hvis &quot;navn&quot; ikke angives, så bruges det aktive element.
+Hvis &quot;navn&quot; hører til en gruppe, så flyttes hele gruppen.
+</translation>
+    </message>
+    <message>
+        <source>setRedraw(bool)
+
+Disables page redraw when bool = False, otherwise redrawing is enabled.
+This change will persist even after the script exits, so make sure to call
+setRedraw(True) in a finally: clause at the top level of your script.
+</source>
+        <translation>setRedraw(bool)
+
+Forhindrer gentegning af siden når bool=&quot;false&quot;, ellers er gentegning aktiveret.
+Denne ændring vil holde selv efter scriptet afslutter, så vær sikker på at
+kalde setredraw(True) i slutningen: Forbeholdt topniveau af dit script.
+</translation>
+    </message>
+    <message>
+        <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new rectangle on the current page and returns its name. The
+coordinates are given in the current measurement units of the document
+(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
+because you need this name to reference that object in future. If &quot;name&quot;
+is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation>createRect(x, y, bredde, højde, [&quot;navn&quot;]) -&gt; streng
+
+Laver en ny rectangle på den aktive side og returnerer dets navn. 
+Koordinaterne er givet i dokumentets nuværende måle-enhed (se 
+UNIT konstanter). &quot;navn&quot; skal være et unikt navn, fordi du behøver 
+dette navn for at kunne referere til dette objekt senere. Hvis &quot;navn&quot;
+ikke angives, så vil Scribus lave et for dig.
+
+Kan rejse NameExistsError hvis du angiver et navn, som allerede findes.
+</translation>
+    </message>
+    <message>
+        <source>newPage(where [,&quot;template&quot;])
+
+Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
+document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
+counted from 1 upwards, no matter what the displayed first page number of your
+document is. The optional parameter &quot;template&quot; specifies the name of the
+template page for the new page.
+
+May raise IndexError if the page number is out of range
+</source>
+        <translation>newPage(hvor [,&quot;skabelon&quot;])
+
+Laver en ny side. Hvis &quot;hvor&quot; er -1, så tilføjes den nye side i slutningen
+af dokumentet, ellers er den ny side indsat før &quot;hvor&quot;. Side-numre er
+talt fra 1 og opefter, lige meget hvad nummer den første side har fået.
+Den valgfri parameter &quot;skabelon&quot; angiver navnet på den skabelon, der
+skal bruges til den nye side.
+
+Kan rejse IndexError hvis side-nummer er uden for tilladte værdi
+</translation>
+    </message>
+    <message>
+        <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
+
+Sets the gradient fill of the object &quot;name&quot; to type. Color descriptions are
+the same as for setFillColor() and setFillShade(). See the constants for
+available types (FILL_&lt;type&gt;).
+</source>
+        <translation>setGradientFill(type, &quot;farve1&quot;, mætning1, &quot;farve2&quot;, mætning2, [&quot;navn&quot;])
+
+Sætter gradient-fyld af objektet &quot;navn&quot; til type. Farvebeskrivelsen er
+den samme, som for setFillColor() og setFillShade(). Se konstanterne
+for mulige typer (FILL_&lt;type&gt;).
+</translation>
+    </message>
+    <message>
+        <source>getFontSize([&quot;name&quot;]) -&gt; float
+
+Returns the font size in points for the text frame &quot;name&quot;. If this text
+frame has some text selected the value assigned to the first character of
+the selection is returned.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getFontSize([&quot;navn&quot;]) -&gt; komma-tal
+
+Returnerer font-størrelsen i punkter for tekst-ramme &quot;navn&quot;. Hvis denne
+tekst-ramme har noget tekst markeret, så returneres værdien for første
+karakter i den markerede tekst.
+Hvis &quot;navn&quot; ikke angives, så bruges det aktive element.
+</translation>
+    </message>
+    <message>
+        <source>messagebarText(&quot;string&quot;)
+
+Writes the &quot;string&quot; into the Scribus message bar (status line). The text
+must be UTF8 encoded or &apos;unicode&apos; string(recommended).
+</source>
+        <translation>messagebarText(&quot;streng&quot;)
+
+Skriver &quot;streng&quot; til Scribus beskedfelt (status linie). Teksten
+skal være UTF8 kodet eller &apos;unicode&apos; streng (anbefalet).
+</translation>
     </message>
 </context>
 <context>
     <name>@default</name>
-    <message>
-        <source>getFont([&quot;name&quot;]) -&gt; string
-
-Returns the font name for the text frame &quot;name&quot;. If this text frame
-has some text selected the value assigned to the first character
-of the selection is returned. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getTextLength([&quot;name&quot;]) -&gt; integer
-
-Returns the length of the text in the text frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getText([&quot;name&quot;]) -&gt; string
-
-Returns the text of the text frame &quot;name&quot;. If this text frame has some text
-selected, the selected text is returned. All text in the frame, not just
-currently visible text, is returned. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getAllText([&quot;name&quot;]) -&gt; string
-
-Returns the text of the text frame &quot;name&quot; and of all text frames which are
-linked with this frame. If this textframe has some text selected, the selected
-text is returned. If &quot;name&quot; is not given the currently selected item is
-used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getLineSpacing([&quot;name&quot;]) -&gt; float
-
-Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
-points. If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getColumnGap([&quot;name&quot;]) -&gt; float
-
-Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
-&quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getColumns([&quot;name&quot;]) -&gt; integer
-
-Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
-given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setText(&quot;text&quot;, [&quot;name&quot;])
-
-Sets the text of the text frame &quot;name&quot; to the text of the string &quot;text&quot;.
-Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See the FAQ
-for more details. If &quot;name&quot; is not given the currently selected item is
-used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
-must be UTF encoded (see setText() as reference) The first character has an
-index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is
-used.
-
-May throw IndexError for an insertion out of bounds.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setFont(&quot;font&quot;, [&quot;name&quot;])
-
-Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
-selected only the selected text is changed.  If &quot;name&quot; is not given the
-currently selected item is used.
-
-May throw ValueError if the font cannot be found.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setFontSize(size, [&quot;name&quot;])
-
-Sets the font size of the text frame &quot;name&quot; to &quot;size&quot;. &quot;size&quot; is treated
-as a value in points. If there is some text selected only the selected text is
-changed. &quot;size&quot; must be in the range 1 to 512. If &quot;name&quot; is not given the
-currently selected item is used.
-
-May throw ValueError for a font size that&apos;s out of bounds.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLineSpacing(size, [&quot;name&quot;])
-
-Sets the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; to &quot;size&quot;.
-&quot;size&quot; is a value in points. If &quot;name&quot; is not given the currently selected
-item is used.
-
-May throw ValueError if the line spacing is out of bounds.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setColumnGap(size, [&quot;name&quot;])
-
-Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&quot;. If
-&quot;name&quot; is not given the currently selected item is used.
-
-May throw ValueError if the column gap is out of bounds (must be positive).
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setColumns(nr, [&quot;name&quot;])
-
-Sets the number of columns of the text frame &quot;name&quot; to the integer &quot;nr&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May throw ValueError if number of columns is not at least one.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setTextAlignment(align, [&quot;name&quot;])
-
-Sets the text alignment of the text frame &quot;name&quot; to the specified alignment.
-If &quot;name&quot; is not given the currently selected item is used. &quot;align&quot; should
-be one of the ALIGN_ constants defined in this module - see dir(scribus).
-
-May throw ValueError for an invalid alignment constant.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared.  If &quot;name&quot; is not given the currently
-selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>deleteText([&quot;name&quot;])
-
-Deletes any text in the text frame &quot;name&quot;. If there is some text selected,
-only the selected text will be deleted. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setTextColor(&quot;color&quot;, [&quot;name&quot;])
-
-Sets the text color of the text frame &quot;name&quot; to the color &quot;color&quot;. If there
-is some text selected only the selected text is changed. If &quot;name&quot; is not
-given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
-
-Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setTextShade(shade, [&quot;name&quot;])
-
-Sets the shading of the text color of the object &quot;name&quot; to &quot;shade&quot;. If
-there is some text selected only the selected text is changed. &quot;shade&quot; must
-be an integer value in the range from 0 (lightest) to 100 (full color
-intensity). If &quot;name&quot; is not given the currently selected item is
-used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
-
-Link two text frames. The frame named &quot;fromname&quot; is linked to the
-frame named &quot;toname&quot;. The target frame must be an empty text frame
-and must not link to or be linked from any other frames already.
-
-May throw ScribusException if linking rules are violated.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>unlinkTextFrames(&quot;name&quot;)
-
-Remove the specified (named) object from the text frame flow/linkage. If the
-frame was in the middle of a chain, the previous and next frames will be
-connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unlinkTextFrames(b)&apos;
-
-May throw ScribusException if linking rules are violated.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>traceText([&quot;name&quot;])
-
-Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
-currently selected item is used.</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>getColor(&quot;name&quot;) -&gt; tuple
 
@@ -374,7 +235,15 @@ the value of the named color from the default document colors.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColor(&quot;navn&quot;) -&gt; tuple
+
+Returnerer en tople  (C, M, Y, K), som indeholder de fire farvekomponenter af
+farven &quot;navn&quot; fra det aktive dokument. Hvis ingen dokumenter er åben, så
+returneres værdien af den navngivne farve fra standard dokument farver.
+
+Kan rejse NotFoundError hvis den navngivne farve ikke findes.
+Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
+</translation>
     </message>
     <message>
         <source>changeColor(&quot;name&quot;, c, m, y, k)
@@ -386,7 +255,33 @@ Color components should be in the range from 0 to 255.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>changeColor(&quot;navn&quot;, c, m, y, k)
+
+Ændrer farven &quot;navn &quot; til den angivne C, M, Y, K værdi. Farveværdien er
+defineret via fire komponenter c = Cyan, m = Magenta, y = Gul og k = sort.
+Farve-komponenterne skal være i området fra 0 til 255.
+
+Kan rejse NotFoundError hvis den navngivne farve ikke findes.
+Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
+</translation>
+    </message>
+    <message>
+        <source>defineColor(&quot;name&quot;, c, m, y, k)
+
+Defines a new color &quot;name&quot;. The color Value is defined via four components:
+c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
+the range from 0 to 255.
+
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>defineColor(&quot;navn&quot;, c, m, y, k)
+
+Definerer en ny farve &quot;navn &quot;. Farveværdien er defineret via fire komponenter:
+ c = Cyan, m = Magenta, y = Gul og k = sort. Farve-komponenterne skal være 
+i området fra 0 til 255.
+
+Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
+</translation>
     </message>
     <message>
         <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
@@ -401,7 +296,15 @@ In that case, &quot;replace&quot;, if specified, has no effect.
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteColor(&quot;navn&quot;, &quot;erstat&quot;)
+
+Sletter farven &quot;navn &quot;. Enhver forekomst af denne farve er erstattet 
+af farven &quot;erstat&quot;. Hvis &quot;erstat&quot; ikke er angivet, så sættes farven til 
+&quot;NONE&quot;  - transparent.
+
+Kan rejse NotFoundError hvis den navngivne farve ikke findes.
+Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
+</translation>
     </message>
     <message>
         <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
@@ -411,7 +314,13 @@ Every occurence of the color &quot;name&quot; is replaced by the color &quot;rep
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>replaceColor(&quot;navn&quot;, &quot;erstat&quot;)
+
+Enhver forekomst af farven &quot;navn&quot; bliver erstattet af farven &quot;erstat&quot;.
+
+Kan rejse NotFoundError hvis den navngivne farve ikke findes.
+Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
+</translation>
     </message>
     <message>
         <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; string with filename
@@ -432,7 +341,24 @@ Refer to the Qt-Documentation for QFileDialog for details on filters.
 Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
 Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>fileDialog(&quot;overskrift&quot;, [&quot;filter&quot;, &quot;standardnavn&quot; ,har-previsning, er-gem]) -&gt; streng med fil-navn
+
+Viser en &quot;Fil-åbn&quot; dialog-boks med overskriften &quot;overskrift&quot;. Filer er filtreret
+med filter-strengen &quot;filter&quot;. Et standard fil-navn eller fil-sti kan også
+angives, lad denne streng være tom, når du ikke ønsker at bruge den.
+&quot;True&quot; for har-previsning aktiverer et lille visningsvindue i fil-valg-boksen.  Når
+er-gem værdien er sat til &quot;True&quot;, så fungerer dialogboksen som en &quot;Gem som&quot; dialog,
+ellers fungerer den som en &quot;Fil åbn&quot; dialog. Standardværdien for begge de to valgfri
+parametre er &quot;False.&quot;
+
+Filteret, hvis specificeret, har formen &apos;kommentar (*.type *.type2 ...)&apos;.
+For eksempel &apos;billeder&apos; (*.png *.xpm *.jpg)&apos;.
+
+Se Qt-dokumentationen over QFileDialog for detaljer om filtre.
+
+Eksempel: fileDialog(&apos;Åbn input&apos;, &apos;CSV filer (*.csv)&apos;)
+Eksempel: fileDialog(&apos;Gem report&apos;, standardnavn=&apos;report.txt&apos;, er-gem=True)
+</translation>
     </message>
     <message>
         <source>messageBox(&quot;caption&quot;, &quot;message&quot;,
@@ -468,7 +394,39 @@ BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
 BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
 ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>messageBox(&quot;titel&quot;, &quot;besked&quot;,
+    ikon=ICON_NONE, knap1=BUTTON_OK|BUTTONOPT_DEFAULT,
+    knap2=BUTTON_NONE, knap3=BUTTON_NONE) -&gt; integer
+
+Viser en besked-boks med titlen &quot;titel&quot;, meddelelsen &quot;besked&quot;, og
+et ikon &quot;ikon&quot; og op til 3 knapper. Som standard bruges ingen ikoner og 
+en enkel knap, OK, er vist. Kun titel og besked argumenterne er påkrævet,
+selvom det  anbefales meget, at sætte et ikon og passende knap(per). 
+Besked-teksten kan indeholde simple HTML-lignende formatering.
+
+Returnerer  nummeret på den knap brugeren trykkede på. Knap-numre 
+starter ved 1.
+
+For ikon og knap-parametre er der predefinerede konstanter tilgængelige
+med de samme navne som i Qt Dokumentationen. Disse er BUTTON_* og
+ICON_* konstanterne defineret i modulet. Der er også to ekstra konstanter der
+kan binær-ORes med knap konstanter:
+    BUTTONOPT_DEFAULT   Tryk enter trykker denne knap.
+    BUTTONOPT_ESCAPE    Tryk escape trykker denne knap.
+
+Eksempler på brug:
+resultat = messageBox(&apos;Script fejlede&apos;,
+                    &apos;Denne script fungerer kun, når der er markeret en tekst-ramme.&apos;,
+                    ICON_ERROR)
+resultat = messageBox(&apos;Abekatte!&apos;, &apos;Noget gik agurk! &lt;i&gt;Hvad er en abekat?&lt;/i&gt;&apos;,
+                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
+                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
+
+Definerede knap og ikon konstanter:
+BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
+BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
+ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
+</translation>
     </message>
     <message>
         <source>valueDialog(caption, message [,defaultvalue]) -&gt; string
@@ -478,7 +436,13 @@ Parameters: window title, text in the window and optional &apos;default&apos; va
 
 Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>valueDialog(titel, besked [,standardværdi]) -&gt; streng
+
+Viser den almindelige &apos;spørg efter streng&apos; dialog og returnerer dens værdi som en streng
+Parametre: vindue-titel, tekst i vinduet og en valgfri &apos;standard&apos; værdi.
+
+Eksempel: valueDialog(&apos;titel&apos;, &apos;tekst i vinduet&apos;, &apos;valgfri&apos;)
+</translation>
     </message>
     <message>
         <source>closeDoc()
@@ -487,14 +451,22 @@ Closes the current document without prompting to save.
 
 May throw NoDocOpenError if there is no document to close
 </source>
-        <translation type="unfinished"></translation>
+        <translation>closeDoc()
+
+Lukker det aktive dokument uden at spørge om det skal gemmes.
+
+Kan rejse NoDocOpenError hvis der ikke er noget dokument at lukke
+</translation>
     </message>
     <message>
         <source>haveDoc() -&gt; bool
 
 Returns true if there is a document open.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>haveDoc() -&gt; bool
+
+Returnerer &quot;true&quot; hvis der er et åbent dokument.
+</translation>
     </message>
     <message>
         <source>openDoc(&quot;name&quot;)
@@ -503,7 +475,12 @@ Opens the document &quot;name&quot;.
 
 May raise ScribusError if the document could not be opened.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>openDoc(&quot;navn&quot;)
+
+Åbner dokumentet &quot;navn&quot;
+
+Kan rejse ScribusError hvis dokumentet ikke kunne åbnes.
+</translation>
     </message>
     <message>
         <source>saveDoc()
@@ -514,7 +491,14 @@ save file dialog.
 
 If the save fails, there is currently no way to tell.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>saveDoc(&quot;navn&quot;)
+
+Gemmer det aktive dokument med dets nuværende navn, returnerer &quot;true&quot; hvis 
+det lykkedes. Hvis dokumentet ikke allerede har været gemt, så vil der komme 
+en interaktiv &quot;gem fil&quot; dialog.
+
+Hvis &quot;gem fil&quot; fejler, er der ikke nogen måde at fortælle det på.
+</translation>
     </message>
     <message>
         <source>saveDocAs(&quot;name&quot;)
@@ -524,7 +508,13 @@ relative path).
 
 May raise ScribusError if the save fails.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>saveDocAs(&quot;navn&quot;)
+
+Gemmer det aktive dokument med det nye navn &quot;navn&quot; (som kan være en 
+fuld eller relativ sti).
+
+Kan rejse ScribusError hvis gemningen fejler.
+</translation>
     </message>
     <message>
         <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
@@ -532,7 +522,11 @@ May raise ScribusError if the save fails.
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>saveDocAs(&quot;forfatter&quot;, &quot;info&quot;, &quot;beskrivelse&quot;) -&gt; bool
+
+Sætter dokumentets information. &quot;forfatter&quot;, &quot;Info&quot;, &quot;Beskrivelse&quot; 
+er strenge.
+</translation>
     </message>
     <message>
         <source>setMargins(lr, rr, tr, br)
@@ -541,7 +535,11 @@ Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
 margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
 constants.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setMargins(lr, rr, tr, br)
+
+Sætter dokumentets marginer, Venstre(lr), Højre(rr), Top(tr) og Bund(br)
+marginer er angivet i dokumentets måle-enhed - se UNIT_&lt;type&gt; konstanter.
+ </translation>
     </message>
     <message>
         <source>setUnit(type)
@@ -551,7 +549,13 @@ defined as constants UNIT_&lt;type&gt;.
 
 May raise ValueError if an invalid unit is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setUnit(type)
+
+Ændrer dokumentets måle-enhed. Mulige værdier for &quot;enhed&quot; er
+defineret som konstanter UNIT_&lt;type&gt;.
+
+Kan rejse ValueError hvis en ugyldig type er angivet.
+</translation>
     </message>
     <message>
         <source>getUnit() -&gt; integer (Scribus unit constant)
@@ -560,7 +564,12 @@ Returns the measurement units of the document. The returned value will be one
 of the UNIT_* constants:
 UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getUnit() -&gt; integer (Scribus enheds  konstant)
+
+Returnerer dokumentets måle-enhed. Den returnerede værdi vil være en
+af UNIT_* konstanterne:
+UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+</translation>
     </message>
     <message>
         <source>loadStylesFromFile(&quot;filename&quot;)
@@ -568,7 +577,11 @@ UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
 Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
 current document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>loadStylesFromFile(&quot;filnavn&quot;)
+
+Læser afsnits-typografierne fra Scribus dokumentet &quot;filnavn&quot; 
+ind i det aktive dokument.
+</translation>
     </message>
     <message>
         <source>setDocType(facingPages, firstPageLeft)
@@ -578,7 +591,13 @@ FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
 to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
 a right page use FIRSTPAGERIGHT.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setDocType(modståendeSider, førsteSideVenstre)
+
+Sætter dokumentets type. For at få modstående sider, så sæt den første værdi 
+til FACINGPAGES, for at deaktivere dette brug istedet NOFACINGPAGES.  Hvis du ønsker
+at have den første side som venstre side, sæt da den anden værdi til FIRSTPAGELEFT, for
+en højre side som den første brug FIRSTPAGERIGHT.
+</translation>
     </message>
     <message>
         <source>getLineColor([&quot;name&quot;]) -&gt; string
@@ -586,7 +605,11 @@ a right page use FIRSTPAGERIGHT.
 Returns the name of the line color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineColor([&quot;navn&quot;]) -&gt; streng
+
+Returnerer navnet på linie-farven på objektet &quot;navn&quot;.
+Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
+</translation>
     </message>
     <message>
         <source>getLineWidth([&quot;name&quot;]) -&gt; integer
@@ -594,7 +617,11 @@ If &quot;name&quot; is not given the currently selected item is used.
 Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineWidth([&quot;navn&quot;]) -&gt; integer
+
+Returnerer linie-bredde på på objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
+ikke angives, så bruges det markerede element.
+</translation>
     </message>
     <message>
         <source>getLineShade([&quot;name&quot;]) -&gt; integer
@@ -602,7 +629,11 @@ is not given the currently selected Item is used.
 Returns the shading value of the line color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineShade([&quot;navn&quot;]) -&gt; integer
+
+Returnerer værdien for liniens farvemætning  på objektet &quot;navn&quot;. 
+Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
+</translation>
     </message>
     <message>
         <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see contants)
@@ -611,7 +642,12 @@ Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; 
 the currently selected item is used.  The join types are:
 JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineJoin([&quot;navn&quot;]) -&gt; integer (se kontanter)
+
+Returnerer typen af liniesamlingen på objektet &quot;navn&quot;. Hvis &quot;navn&quot; 
+ikke angives, så bruges det markerede element. Samlingstyperne er
+JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
+</translation>
     </message>
     <message>
         <source>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
@@ -620,7 +656,12 @@ Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; i
 currently selected item is used. The cap types are:
 CAP_FLAT, CAP_ROUND, CAP_SQUARE
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineEnd([&quot;navn&quot;]) -&gt; integer (se kontanter)
+
+Returnerer typen af linieenden på objektet &quot;navn&quot; Hvis &quot;navn&quot; 
+ikke angives, så bruges det markerede element. Endetyperne er
+CAP_FLAT, CAP_ROUND, CAP_SQUARE
+</translation>
     </message>
     <message>
         <source>getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
@@ -629,7 +670,12 @@ Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is no
 currently selected item is used. Line style constants are:
 LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineStyle([&quot;navn&quot;]) -&gt; integer (se kontanter)
+
+Returnerer liniestilen på objektet &quot;navn&quot; Hvis &quot;navn&quot; ikke 
+angives, så bruges det markerede element. Liniestilene er
+LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
+</translation>
     </message>
     <message>
         <source>getFillShade([&quot;name&quot;]) -&gt; integer
@@ -637,7 +683,25 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 Returns the shading value of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFillShade([&quot;navn&quot;]) -&gt; integer
+
+Returnerer farvemætningen på fyld-farven på objektet &quot;navn&quot;.
+Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
+</translation>
+    </message>
+    <message>
+        <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
+
+Returns the corner radius of the object &quot;name&quot;. The radius is
+expressed in points. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>getCornerRadius([&quot;navn&quot;]) -&gt; integer
+
+Returnerer radius på hjørnerne på objektet &quot;navn&quot;. Radius 
+er udtrykt i punkter. Hvis &quot;navn&quot; ikke angives, så bruges 
+det markerede element.
+</translation>
     </message>
     <message>
         <source>getImageScale([&quot;name&quot;]) -&gt; (x,y)
@@ -645,7 +709,11 @@ If &quot;name&quot; is not given the currently selected item is used.
 Returns a (x, y) tuple containing the scaling values of the image frame
 &quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getImageScale([&quot;navn&quot;]) -&gt; (x,y) 
+
+Returnerer en (x, y) tuple, som indeholder skaleringsværdierne for billedrammen
+&quot;navn&quot;.  Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
+</translation>
     </message>
     <message>
         <source>getImageName([&quot;name&quot;]) -&gt; string
@@ -653,7 +721,27 @@ Returns a (x, y) tuple containing the scaling values of the image frame
 Returns the filename for the image in the image frame. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getImageName([&quot;navn&quot;]) -&gt; streng
+
+Returnerer filnavnet for billedet i billed-rammen &quot;navn&quot;. Hvis 
+&quot;navn&quot; ikke angives, så bruges det markerede element.
+</translation>
+    </message>
+    <message>
+        <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
+
+Returns a (x, y) tuple with the position of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+The position is expressed in the actual measurement unit of the document
+- see UNIT_&lt;type&gt; for reference.
+</source>
+        <translation>getPosition([&quot;navn&quot;]) -&gt; (x,y) 
+
+Returnerer en (x, y) tuple med positionen på objektet &quot;navn&quot;.  
+Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
+Positionen er udtrykt i den aktuelle måle-enhed for dokumentet
+- se  UNIT_&lt;type&gt; for reference.
+</translation>
     </message>
     <message>
         <source>getSize([&quot;name&quot;]) -&gt; (width,height)
@@ -663,7 +751,13 @@ If &quot;name&quot; is not given the currently selected item is used. The size i
 expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
 for reference.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getSize([&quot;navn&quot;]) -&gt; (bredde,højde) 
+
+Returnerer en (bredde, højde) tuple med størrelsen på objektet &quot;navn&quot;.  
+Hvis &quot;navn&quot; ikke angives, så bruges det markerede element. Størrelsen 
+er udtrykt i den aktuelle måle-enhed for dokumentet - se  UNIT_&lt;type&gt; 
+for reference.
+</translation>
     </message>
     <message>
         <source>getRotation([&quot;name&quot;]) -&gt; integer
@@ -672,14 +766,22 @@ Returns the rotation of the object &quot;name&quot;. The value is expressed in d
 and clockwise is positive. If &quot;name&quot; is not given the currently selected item
 is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getRotation([&quot;navn&quot;]) -&gt; integer
+
+Returnerer rotationen på objektet &quot;navn&quot;. Værdien er udtrykt i grader,
+og med uret giver en positiv værdi. Hvis &quot;navn&quot; ikke angives, så bruges 
+det markerede element.
+</translation>
     </message>
     <message>
         <source>getAllObjects() -&gt; list
 
 Returns a list containing the names of all objects on the current page.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getAllObjects() -&gt; liste
+
+Returnerer en liste, som indeholder navnene på alle objekter på den aktive side.
+</translation>
     </message>
     <message>
         <source>moveObjectAbs(x, y [, &quot;name&quot;])
@@ -689,7 +791,13 @@ the current measurement unit of the document (see UNIT constants).  If &quot;nam
 is not given the currently selected item is used.  If the object &quot;name&quot;
 belongs to a group, the whole group is moved.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>moveObjectAbs(x, y [,&quot;navn&quot;]) 
+
+Flytter objektet &quot;navn&quot; til en ny placering. Koordinaterne er udtrykt i den 
+aktuelle måle-enhed for dokumentet - (se  UNIT konstanter).  Hvis &quot;navn&quot; 
+ikke angives, så bruges det markerede element.  Hvis objektet &quot;navn&quot;
+hører til en gruppe, så flyttes hele gruppen.
+</translation>
     </message>
     <message>
         <source>rotateObject(rot [, &quot;name&quot;])
@@ -700,7 +808,28 @@ default, the top left vertext at zero rotation. Positive values mean counter
 clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>rotateObject(rot [, &quot;navn&quot;])
+
+Roterer objektet &quot;navn&quot; med &quot;rot&quot; grader relativt. Objektet er roteret 
+omkring den spids, som er valgt som omdrejningspunkt - standard er 
+det øverste venstre ved nul rotation. Positive værdier angiver drejning 
+mod uret, når standard omdrejnings-punktet bruges. Hvis &quot;navn&quot; ikke 
+angives, så bruges det markerede element. 
+ </translation>
+    </message>
+    <message>
+        <source>rotateObjectAbs(rot [, &quot;name&quot;])
+
+Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
+mean counter clockwise rotation. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>rotateObjectAbs(rot [, &quot;navn&quot;])
+
+Sætter rotationen af objektet &quot;navn&quot; til &quot;rot&quot;. Positive værdier 
+angiver drejning mod uret. Hvis &quot;navn&quot; ikke angives, så bruges 
+det markerede element. 
+ </translation>
     </message>
     <message>
         <source>sizeObject(width, height [, &quot;name&quot;])
@@ -708,7 +837,11 @@ given the currently selected item is used.
 Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>sizeObject(bredde, højde [, &quot;navn&quot;])
+
+Ændrer størrelsen på objektet &quot;navn&quot; til den givne bredde og højde.
+Hvis &quot;navn&quot; ikke angives, så bruges det markerede element. 
+</translation>
     </message>
     <message>
         <source>getSelectedObject([nr]) -&gt; string
@@ -717,28 +850,42 @@ Returns the name of the selected object. &quot;nr&quot; if given indicates the n
 of the selected object, e.g. 0 means the first selected object, 1 means the
 second selected Object and so on.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getSelectedObject([nr]) -&gt; streng
+
+Returnerer navnet på det markerede objekt. Hvis &quot;nr&quot; angives, så indikerer 
+det nummeret på det markerede objekt, f.eks. betyder 0 det første markerede 
+objekt, 1 betyder det andet markerede objekt o.s.v. 
+</translation>
     </message>
     <message>
         <source>selectionCount() -&gt; integer
 
 Returns the number of selected objects.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>selectionCount() -&gt; integer
+
+Returneret antallet af markerede objekter.
+</translation>
     </message>
     <message>
         <source>selectObject(&quot;name&quot;)
 
 Selects the object with the given &quot;name&quot;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>selectObject(&quot;navn&quot;)
+
+Marker objekt med det givne &quot;navn&quot;.
+</translation>
     </message>
     <message>
         <source>deselectAll()
 
 Deselects all objects in the whole document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deselectAll()
+
+Fjerner alle markeringer i hele dokumentet.
+</translation>
     </message>
     <message>
         <source>groupObjects(list)
@@ -747,13 +894,22 @@ Groups the objects named in &quot;list&quot; together. &quot;list&quot; must con
 of the objects to be grouped. If &quot;list&quot; is not given the currently selected
 items are used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>groupObjects(liste)
+
+Laver en gruppe af alle objekter der er nævnt i &quot;liste&quot;. &quot;liste&quot; skal indeholde 
+navnene på de objekter, som skal laves til en gruppe. Hvis &quot;liste&quot; ikke angives, 
+så bruges de markerede elementer.
+</translation>
     </message>
     <message>
         <source>unGroupObjects(&quot;name&quot;)
 
 Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</source>
-        <translation type="unfinished"></translation>
+        <translation>unGroupObjects(&quot;navn&quot;)
+
+Adskiller gruppen, som objektet &quot;navn&quot; hører til. Hvis &quot;navn&quot; ikke angives, 
+så bruges det markerede element.
+</translation>
     </message>
     <message>
         <source>scaleGroup(factor [,&quot;name&quot;])
@@ -766,7 +922,16 @@ to 150 % of its original size.  The value for &quot;factor&quot; must be greater
 
 May raise ValueError if an invalid scale factor is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>scaleGroup(faktor [,&quot;navn&quot;])
+
+Skalerer gruppen, som objekter &quot;navn&quot; hører til. Værdier større en 1 forstørrer
+gruppen, værdier mindre end 1 laver gruppen mindre, f.eks. en værdi på 0.5
+skalerer gruppen til 50 % af dens originale størrelse, en værdi på 1.5 skalerer
+gruppen til 150 % af dens originale størrelse.  Værdien for &quot;faktor&quot; skal være
+større end 0. Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
+
+kan rejse ValueError, hvis en ugyldig skalerings-faktor er angivet.
+</translation>
     </message>
     <message>
         <source>loadImage(&quot;filename&quot; [, &quot;name&quot;])
@@ -776,7 +941,13 @@ not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>loadImage(&quot;filnavn&quot;, &quot;navn&quot;)
+
+Læser billedet &quot;filnavn&quot; ind i billed-rammen &quot;navn&quot;.  Hvis &quot;navn&quot; 
+ikke angives, så bruges det markerede element.
+
+Kan rejse WrongFrameTypeError, hvis målrammen ikke er en billed-ramme
+</translation>
     </message>
     <message>
         <source>scaleImage(x, y [, &quot;name&quot;])
@@ -787,7 +958,14 @@ means 100 %.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>scaleImage(x, y [, &quot;navn&quot;])
+
+Sætter Skalerings-faktorerne for billedet i billed-rammen &quot;navn&quot;. 
+Hvis &quot;navn&quot; ikke angives, så bruges det markerede element. 
+Værdien 1 betyder 100 %.
+
+kan rejse WrongFrameTypeError, hvis mål-rammen ikke er en billedramme
+</translation>
     </message>
     <message>
         <source>lockObject([&quot;name&quot;]) -&gt; bool
@@ -796,7 +974,12 @@ Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;
 If &quot;name&quot; is not given the currently selected item is used. Returns true
 if locked.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>lockObject([&quot;navn&quot;]) -&gt; bool
+
+Låser objektet &quot;navn&quot; hvis det er ulåst og låser det op hvis det er låst.
+Hvis &quot;navn&quot; ikke angives, så bruges det markerede element. 
+Returnerer &quot;true&quot; hvis objektet er låst.
+</translation>
     </message>
     <message>
         <source>isLocked([&quot;name&quot;]) -&gt; bool
@@ -804,14 +987,21 @@ if locked.
 Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLocked([&quot;navn&quot;]) -&gt; bool
+
+Returnerer &quot;true&quot; hvis objektet &quot;navn&quot; er låst. Hvis &quot;navn&quot; ikke angives, 
+så bruges det markerede element.
+</translation>
     </message>
     <message>
         <source>getFontNames() -&gt; list
 
 Returns a list with the names of all available fonts.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getFontNames() -&gt; liste
+
+Returnerer en liste med navnene på alle tilgængelige fonte.
+</translation>
     </message>
     <message>
         <source>getXFontNames() -&gt; list of tuples
@@ -819,7 +1009,11 @@ Returns a list with the names of all available fonts.
 Returns a larger font info. It&apos;s a list of the tuples with:
 [ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getXFontNames() -&gt; liste af tupler
+
+Returner større mængde font-info. Det er en liste af tuplerne med:
+[ (Scribus navn, Familie, Rigtige navn, substituere (1|0), indlejr PS (1|0), font-fil), (...), ... ]
+</translation>
     </message>
     <message>
         <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
@@ -830,14 +1024,24 @@ Image is saved into &quot;filename&quot;. Returns true when success.
 May raise NotFoundError if the specified font can&apos;t be found.
 May raise ValueError if an empty sample or filename is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>rendeFont(&quot;navn&quot;, &quot;filenavn&quot;, &quot;eksempel&quot;, størrelse) -&gt; bool
+
+Laver en billed-visning af fonten &quot;navn&quot; med teksten &quot;eksempel&quot; og størrelse.
+Billedet er gemt i &quot;filnavn&quot;. Returnerer &quot;true&quot; når det lykkedes.
+
+Kan rejse NotFoundError hvis den angivne font ikke findes.
+Kan rejse  ValueError hvis &quot;eksempel&quot; eller &quot;filnavn&quot; er tomt.
+</translation>
     </message>
     <message>
         <source>getLayers() -&gt; list
 
 Returns a list with the names of all defined layers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLayers() -&gt; liste
+
+Returnerer en liste med navnene på alle definerede lag.
+</translation>
     </message>
     <message>
         <source>setActiveLayer(&quot;name&quot;)
@@ -847,14 +1051,23 @@ Sets the active layer to the layer named &quot;name&quot;.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setActiveLayer(&quot;navn&quot;)
+
+Sætter laget &quot;navn&quot; som det aktive lag.
+
+Kan rejse NotFoundError hvis laget ikke findes.
+Kan rejse ValueError hvis lagets navn ikke kan accepteres.
+</translation>
     </message>
     <message>
         <source>getActiveLayer() -&gt; string
 
 Returns the name of the current active layer.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getActiveLayer() -&gt; streng
+
+Returnerer navnet på det aktive lag.
+</translation>
     </message>
     <message>
         <source>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
@@ -865,7 +1078,14 @@ If &quot;name&quot; is not given the currently selected item is used.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>sentToLayer(&quot;lag&quot; [, &quot;navn&quot;])
+
+Sender objektet &quot;navn&quot; til laget &quot;lag&quot;. Laget skal eksistere.
+Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
+
+Kan rejse NotFoundError hvis laget ikke findes.
+Kan rejse ValueError hvis lagets navn ikke kan accepteres.
+</translation>
     </message>
     <message>
         <source>setLayerVisible(&quot;layer&quot;, visible)
@@ -876,7 +1096,14 @@ the layer is invisible.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLayerVisible(&quot;lag&quot;, synlig)
+
+Sætter laget &quot;lag&quot; til at være synligt eller usynligt. Hvis &quot;synlig&quot; sættes til 
+&quot;false&quot;, så er laget usynligt.
+
+Kan rejse NotFoundError hvis laget ikke findes.
+Kan rejse ValueError hvis lagets navn ikke kan accepteres.
+</translation>
     </message>
     <message>
         <source>setLayerPrintable(&quot;layer&quot;, printable)
@@ -887,7 +1114,14 @@ false the layer won&apos;t be printed.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLayerPrintable(&quot;lag&quot;, printbar)
+
+Sætter laget &quot;lag&quot; til at kunne udskrives eller ej. Hvis &quot;printbar&quot; sættes til 
+&quot;false&quot;, så bliver laget ikke udskrivet.
+
+Kan rejse NotFoundError hvis laget ikke findes.
+Kan rejse ValueError hvis lagets navn ikke kan accepteres.
+</translation>
     </message>
     <message>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
@@ -899,7 +1133,15 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerPrintable(&quot;lag&quot;) -&gt; bool
+
+Returnerer hvorvidt laget &quot;lag&quot; er synligt eller ej, værdien &quot;true&quot; 
+betyder, at laget &quot;lag&quot; er synligt, værdien &quot;false&quot; betyder, at laget 
+&quot;lag&quot; er usynligt.
+
+Kan rejse NotFoundError hvis laget ikke findes.
+Kan rejse ValueError hvis lagets navn ikke kan accepteres.
+</translation>
     </message>
     <message>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
@@ -911,7 +1153,15 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerPrintable(&quot;lag&quot;) -&gt; bool
+
+Returnerer hvorvidt laget &quot;lag&quot; kan udskrives eller ej, værdien &quot;true&quot; 
+betyder, at laget &quot;lag&quot; kan udskrives, værdien &quot;false&quot; betyder, at laget 
+&quot;lag&quot; ikke kan udskrives.
+
+Kan rejse NotFoundError hvis laget ikke findes.
+Kan rejse ValueError hvis lagets navn ikke kan accepteres.
+</translation>
     </message>
     <message>
         <source>deleteLayer(&quot;layer&quot;)
@@ -922,7 +1172,14 @@ exists or if it&apos;s the only layer in the document.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteLayer(&quot;lag&quot;)
+
+Sletter laget med navnet &quot;lag&quot;. Der sker ingen ting hvis laget ikke
+eksisterer eller hvis det er det eneste lag i dokumentet.
+
+Kan rejse NotFoundError hvis laget ikke findes.
+Kan rejse ValueError hvis lagets navn ikke kan accepteres.
+</translation>
     </message>
     <message>
         <source>createLayer(layer)
@@ -931,14 +1188,22 @@ Creates a new layer with the name &quot;name&quot;.
 
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createLayer(&quot;lag&quot;)
+
+Laver et nyt lag med navnet &quot;lag&quot;.
+
+Kan rejse ValueError hvis lagets navn ikke kan accepteres.
+</translation>
     </message>
     <message>
         <source>getGuiLanguage() -&gt; string
 
 Returns a string with the -lang value.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getGuiLanguage() -&gt; streng
+
+Returnerer en streng med -lang værdien.
+</translation>
     </message>
     <message>
         <source>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -951,7 +1216,16 @@ is not given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createEllipse(x, y, bredde, højde, [&quot;navn&quot;]) -&gt; streng
+
+Laver en ny ellipse på den aktive side og returnerer dets navn. 
+Koordinaterne er givet i dokumentets nuværende måle-enhed (se 
+UNIT konstanter). &quot;navn&quot; skal være et unikt navn, fordi du behøver 
+dette navn for at kunne referere til dette objekt senere. Hvis &quot;navn&quot;
+ikke er givet, så vil Scribus lave et for dig.
+
+Kan rejse NameExistsError hvis du angiver et navn, som allerede er brugt.
+</translation>
     </message>
     <message>
         <source>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -964,7 +1238,16 @@ create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createImage(x, y, bredde, højde, [&quot;navn&quot;]) -&gt; streng
+
+Laver en ny billed-ramme på den aktive side og returnerer dets navn. 
+Koordinaterne er givet i dokumentets nuværende måle-enhed (se 
+UNIT konstanter). &quot;navn&quot; skal være et unikt navn, fordi du behøver 
+dette navn for at kunne referere til dette objekt senere. Hvis &quot;navn&quot;
+ikke er givet, så vil Scribus lave et for dig.
+
+Kan rejse NameExistsError hvis du angiver et navn, som allerede er brugt.
+</translation>
     </message>
     <message>
         <source>createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -977,7 +1260,16 @@ given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createText(x, y, bredde, højde, [&quot;navn&quot;]) -&gt; streng
+
+Laver en ny tekst-ramme på den aktive side og returnerer dets navn. 
+Koordinaterne er givet i dokumentets nuværende måle-enhed (se 
+UNIT konstanter). &quot;navn&quot; skal være et unikt navn, fordi du behøver 
+dette navn for at kunne referere til dette objekt senere. Hvis &quot;navn&quot;
+ikke er givet, så vil Scribus lave et for dig.
+
+Kan rejse NameExistsError hvis du angiver et navn, som allerede er brugt.
+</translation>
     </message>
     <message>
         <source>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
@@ -990,7 +1282,16 @@ object because you need this name for further access to that object. If
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createLine(x1, y1, x2, y2, [&quot;navn&quot;]) -&gt; streng
+
+Laver en ny linie fra punktet(x1, y1) til punktet(x2, y2) og returnerer 
+dens navn. Koordinaterne er givet i dokumentets nuværende måle-enhed 
+(se UNIT konstanter). &quot;navn&quot; skal være et unikt navn for objektet, fordi 
+du behøver dette navn for yderligere adgang til dette objekt. Hvis &quot;navn&quot;
+ikke er givet, så vil Scribus lave et for dig.
+
+Kan rejse NameExistsError hvis du angiver et navn, som allerede er brugt.
+</translation>
     </message>
     <message>
         <source>createPolyLine(list, [&quot;name&quot;]) -&gt; string
@@ -1006,7 +1307,19 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createPolyLine(liste, [&quot;navn&quot;]) -&gt; streng
+
+Laver en ny poly-linie og returnerer dens navn. Poly-liniens punkter 
+er placeret i listen &quot;liste&quot; i følgende orden: [x1, y1, x2, y2...xn, yn].
+Koordinaterne er givet i dokumentets nuværende måle-enhed 
+(se UNIT konstanter). &quot;navn&quot; skal være et unikt navn for objektet, fordi 
+du behøver dette navn for yderligere adgang til dette objekt. Hvis &quot;navn&quot;
+ikke er givet, så vil Scribus lave et for dig.
+
+Kan rejse NameExistsError hvis du angiver et navn, som allerede er brugt.
+Kan rejse ValueError hvis et utilstrækkeligt antal punkter er angivet eller hvis
+antallet af værdier ikke kan danne talpar uden noget tilovers.
+</translation>
     </message>
     <message>
         <source>createPolygon(list, [&quot;name&quot;]) -&gt; string
@@ -1024,7 +1337,21 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createPolygon(liste, [&quot;navn&quot;]) -&gt; streng
+
+Laver et nyt polygon og returnerer dets navn. Polygonets punkter 
+er placeret i listen &quot;liste&quot; i følgende orden: [x1, y1, x2, y2...xn, yn].
+Mindst tre punkter er påkrævet. Det er ikke nødvendigt at gentage det 
+første punkt for at lukke polygonet. Polygonet er automatisk lukket ved at 
+forbinde det første og det sidste punkt.  Koordinaterne er givet i dokumentets 
+nuværende måle-enhed (se UNIT konstanter).  &quot;navn&quot; skal være et unikt navn 
+for objektet, fordi du behøver dette navn for yderligere adgang til dette objekt. 
+Hvis &quot;navn&quot; ikke er givet, så vil Scribus lave et for dig.
+
+Kan rejse NameExistsError hvis du angiver et navn, som allerede er brugt.
+Kan rejse ValueError hvis et utilstrækkeligt antal punkter er angivet eller hvis
+antallet af værdier ikke kan danne talpar uden noget tilovers.
+</translation>
     </message>
     <message>
         <source>createBezierLine(list, [&quot;name&quot;]) -&gt; string
@@ -1043,7 +1370,21 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createBezierLine(liste, [&quot;navn&quot;]) -&gt; streng
+
+Laver en ny bezier kurve og returnerer dens navn. Bezier kurvens 
+punkter er placeret i listen &quot;liste&quot; i følgende orden: 
+[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn, yn, kxn, kyn].
+I listen med punkter betyder x og y koordinaterne for punktet og kx og ky er 
+kontrolpunktet for kurven.  Koordinaterne er givet i dokumentets nuværende 
+måle-enhed (se UNIT konstanter).  &quot;navn&quot; skal være et unikt navn for objektet, 
+fordi du behøver dette navn for yderligere adgang til dette objekt. Hvis &quot;navn&quot; 
+ikke er givet, så vil Scribus lave et for dig.
+
+Kan rejse NameExistsError hvis du angiver et navn, som allerede er brugt.
+Kan rejse ValueError hvis et utilstrækkeligt antal punkter er angivet eller 
+hvis der er nogen tal tilovers.
+</translation>
     </message>
     <message>
         <source>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
@@ -1057,7 +1398,17 @@ to that object. If &quot;name&quot; is not given Scribus will create one for you
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 May raise NotFoundError if one or both of the named base object don&apos;t exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>createPathText(x, y, &quot;tekstboks&quot;, &quot;bezierkurve&quot;, [&quot;navn&quot;]) -&gt; streng
+
+Laver en ny sti-tekst ved at forene de to objekter &quot;tekstboks&quot; og
+&quot;bezierkurve&quot; og returnerer dens navn. Koordinaterne er givet i dokumentets 
+nuværende måle-enhed (se UNIT konstanter). &quot;navn&quot; skal være et unikt navn 
+for objektet, fordi du behøver dette navn for yderligere adgang til dette objekt. 
+Hvis &quot;navn&quot; ikke er givet, så vil Scribus lave et for dig.
+
+Kan rejse NameExistsError hvis du angiver et navn, som allerede er brugt.
+Kan rejse  NotFoundError hvis en eller begge navngive basis-objekter ikke eksisterer.
+</translation>
     </message>
     <message>
         <source>deleteObject([&quot;name&quot;])
@@ -1065,7 +1416,11 @@ May raise NotFoundError if one or both of the named base object don&apos;t exist
 Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
 selected item is deleted.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteObject([&quot;navn&quot;])
+
+Sletter elementet med navnet &quot;navn&quot;. Hvis &quot;navn&quot; ikke angives, 
+så slettes det markerede element.
+</translation>
     </message>
     <message>
         <source>textFlowsAroundFrame(&quot;name&quot; [, state])
@@ -1074,7 +1429,12 @@ Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;na
 Called with parameters string name and optional boolean &quot;state&quot;. If &quot;state&quot;
 is not passed, text flow is toggled.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>textFlowsAroundFrame(&quot;navn&quot; [, tilstand]
+
+Aktiverer/deaktiverer &quot;Tekst flyder uden om ramme&quot; egenskab for objektet &quot;navn&quot;
+Kaldes med navn og valgfri boolean  &quot;tilstand&quot;. Hvis &quot;tilstand&quot; ikke angives, så
+bliver &quot;tekst flyder uden om&quot; tilstanden sat til det modsatte af det, det var.
+ </translation>
     </message>
     <message>
         <source>objectExists([&quot;name&quot;]) -&gt; bool
@@ -1083,7 +1443,12 @@ Test if an object with specified name really exists in the document.
 The optional parameter is the object name. When no object name is given,
 returns True if there is something selected.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>objectExists([&quot;navn&quot;]) -&gt; bool
+
+Undersøger om et objekt med navnet &quot;navn&quot; virkelig eksisterer i dokumentet.
+Den valgfri paramater er objekt navnet. Hvis &quot;navn&quot; ikke angives, så returneres
+&quot;True&quot; hvis et eller andet er markeret.
+</translation>
     </message>
     <message>
         <source>setStyle(&quot;style&quot; [, &quot;name&quot;])
@@ -1091,14 +1456,21 @@ returns True if there is something selected.
 Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
 given, it&apos;s applied on the selected object.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setStyle(&quot;stil&quot; [, &quot;navn&quot;])
+
+Anvender stil på objektet &quot;navn&quot;. Hvis &quot;navn&quot; ikke angives, så 
+anvendes stilen på det markerede objekt.
+</translation>
     </message>
     <message>
         <source>getAllStyles() -&gt; list
 
 Return a list of the names of all paragraph styles in the current document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getAllStyles() -&gt; liste
+
+Returnerer en liste af navne på alle afsnits-typografier i det aktive dokument.
+</translation>
     </message>
     <message>
         <source>currentPage() -&gt; integer
@@ -1106,14 +1478,21 @@ Return a list of the names of all paragraph styles in the current document.
 Returns the number of the current working page. Page numbers are counted from 1
 upwards, no matter what the displayed first page number of your document is.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>currentPage() -&gt; integer
+
+Returnerer nummeret på den aktive side. Sidenummeret er talt fra 1 og
+opefter, uanset hvilket sidenummer den første side har fået.
+</translation>
     </message>
     <message>
         <source>redrawAll()
 
 Redraws all pages.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>redrawAll()
+
+Gentegner alle sider.
+</translation>
     </message>
     <message>
         <source>savePageAsEPS(&quot;name&quot;)
@@ -1122,7 +1501,12 @@ Saves the current page as an EPS to the file &quot;name&quot;.
 
 May raise ScribusError if the save failed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>savePageAsEPS(&quot;navn&quot;)
+
+Gemmer den aktive side som en EPS til filen &quot;navn&quot;
+
+Kan rejse ScribusError hvis &quot;gem&quot; fejlede.
+</translation>
     </message>
     <message>
         <source>deletePage(nr)
@@ -1133,7 +1517,13 @@ page number is.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deletePage(nr)
+
+Sletter den angivne side. Ingen ting slettes, hvis dokumentet kun indeholder en side.
+Sidenummeret er talt fra 1 og opefter, uanset hvilket sidenummer den første side har fået.
+
+Kan rejse IndexError hvis sidenummeret er uden for område
+</translation>
     </message>
     <message>
         <source>gotoPage(nr)
@@ -1144,14 +1534,24 @@ just sets the page that script commands will operates on.
 
 May raise IndexError if the page number is out of range.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>gotoPage(nr)
+
+Flytter til siden &quot;nr&quot; (d.v.s. laver siden &quot;nr&quot; til den aktive). bemærk at
+gotoPage ændrer ikke (lige nu) den side som brugeren ser, den vælger
+kun den side, som script-kommandoer opererer på.
+
+Kan rejse  IndexError hvis sidenummeret er uden for område.
+</translation>
     </message>
     <message>
         <source>pageCount() -&gt; integer
 
 Returns the number of pages in the document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>pageCount() -&gt; integer
+
+Returnerer antal sider i dokumentet.
+</translation>
     </message>
     <message>
         <source>getHGuides() -&gt; list
@@ -1159,7 +1559,11 @@ Returns the number of pages in the document.
 Returns a list containing positions of the horizontal guides. Values are in the
 document&apos;s current units - see UNIT_&lt;type&gt; constants.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getHGuides() -&gt; liste
+
+Returnerer en liste med positionerne for de horisontale hjælpelinier. Værdierne er 
+angivet i den aktuelle måle-enhed for dokumentet - se  UNIT_&lt;type&gt; konstanter.
+</translation>
     </message>
     <message>
         <source>setHGuides(list)
@@ -1170,21 +1574,34 @@ measured in the current document units - see UNIT_&lt;type&gt; constants.
 Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
          setHGuides([90,250]) # replace current guides entirely
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setHGuides(liste)
+
+Sætter horisontale hjælpelinier. Input-parameter skal være en liste med hlælpeliniernes
+placeringer angivet i den aktuelle måle-enhed for dokumentet - se  UNIT_&lt;type&gt; konstanter.
+
+Eksempel: setHGuides(getHGuides() + [200.0, 210.0] # tilføjer ny hjælpelinie uden nogen mistet
+          setHGuides([90,250]) # Erstatter nuværende hjælpelinier fuldstændigt
+</translation>
     </message>
     <message>
         <source>getVGuides()
 
 See getHGuides.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getVGuides()
+
+Se getHGuides.
+</translation>
     </message>
     <message>
         <source>setVGuides()
 
 See setHGuides.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setVGuides()
+
+Se setHGuides.
+</translation>
     </message>
     <message>
         <source>getPageSize() -&gt; tuple
@@ -1192,7 +1609,11 @@ See setHGuides.
 Returns a tuple with page dimensions measured in the document&apos;s current units.
 See UNIT_&lt;type&gt; constants and getPageMargins()
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageSize() -&gt; tuple
+
+Returnerer en tuple med side-dimensioner målt i dokumentets aktuelle måle-enhed.
+Se  UNIT_&lt;type&gt; konstanter og getPageMargins()
+</translation>
     </message>
     <message>
         <source>getPageItems() -&gt; list
@@ -1202,7 +1623,13 @@ Returns a list of tuples with items on the current page. The tuple is:
 means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at
 the page...
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageItems() -&gt; liste
+
+Returnerer en liste af tupler med elementer på den aktive side. Tuplen er:
+(navn, objekt-type, orden) F.eks. [(&apos;Tekst1&apos;, 4, 0), (&apos;Billed1&apos;, 2, 1)].
+Det betyder objektet &apos;Tekst1&apos; er en tekst-ramme (type 4) og er den 
+første på siden...
+</translation>
     </message>
     <message>
         <source>getPageMargins()
@@ -1210,7 +1637,11 @@ the page...
 Returns the page margins as a (left, right, top, bottom) tuple in the current
 units. See UNIT_&lt;type&gt; constants and getPageSize().
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getPageMargins()
+
+Returnerer side marginer som en (venstre, højre, top, bund) tuple i dokumentets 
+aktuelle måle-enhed. Se  UNIT_&lt;type&gt; konstanter og getPageSize().
+</translation>
     </message>
     <message>
         <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
@@ -1219,7 +1650,12 @@ Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot
 is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFillColor(&quot;farve&quot;, [&quot;navn&quot;])
+
+Sætter fyld-farven på objektet &quot;navn&quot; til farven &quot;farve&quot;. &quot;farve&quot;
+er navnet på en af de definerede farver. Hvis &quot;navn&quot; ikke angives, så 
+bruges det markerede element.
+</translation>
     </message>
     <message>
         <source>setLineColor(&quot;color&quot;, [&quot;name&quot;])
@@ -1227,7 +1663,12 @@ currently selected item is used.
 Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineColor(&quot;farve&quot;, [&quot;navn&quot;])
+
+Sætter linie-farven på objektet &quot;navn&quot; til farven &quot;farve&quot;. &quot;farve&quot;
+er navnet på en af de definerede farver. Hvis &quot;navn&quot; ikke angives, så 
+bruges det markerede element.
+</translation>
     </message>
     <message>
         <source>setLineWidth(width, [&quot;name&quot;])
@@ -1238,7 +1679,12 @@ given the currently selected item is used.
 
 May raise ValueError if the line width is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineWidth(bredde, [&quot;navn&quot;])
+
+Sætter linie-bredden på objektet &quot;navn&quot; til &quot;bredde&quot;. &quot;bredde&quot; skal være i 
+området fra 0.0 til 12.0 inklusivt, og er angivet i punkter. Hvis &quot;navn&quot; ikke 
+angives, så bruges det markerede element.
+</translation>
     </message>
     <message>
         <source>setLineShade(shade, [&quot;name&quot;])
@@ -1250,7 +1696,14 @@ is used.
 
 May raise ValueError if the line shade is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineShade(farvemætning, [&quot;navn&quot;]) -&gt; integer
+
+Sætter farvemætningen på linie-farven på objektet &quot;navn&quot; til &quot;farvemætning&quot;.
+&quot;farvemætning&quot; skal være en integer værdi i området fra 0 (lysest) til 100
+(fuld farvemætning). Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
+
+Kan rejse ValueError hvis farvemætningen er uden for tilladte område.
+</translation>
     </message>
     <message>
         <source>setLineJoin(join, [&quot;name&quot;])
@@ -1259,7 +1712,12 @@ Sets the line join style of the object &quot;name&quot; to the style &quot;join&
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for join - JOIN_&lt;type&gt;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineJoin(samling, [&quot;navn&quot;])
+
+Sætter typen af liniesamling på objektet &quot;navn&quot; til typen &quot;samling&quot;. 
+Hvis &quot;navn&quot; ikke angives, så bruges det markerede element. Der er
+predefinerede konstanter for samlingen - JOIN_&lt;type&gt;.
+</translation>
     </message>
     <message>
         <source>setLineEnd(endtype, [&quot;name&quot;])
@@ -1268,7 +1726,12 @@ Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&qu
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineEnd(endetype, [&quot;navn&quot;])
+
+Sætter typen af linieende på objektet &quot;navn&quot; til typen &quot;endetype&quot; .
+Hvis &quot;navn&quot; ikke angives, så bruges det markerede element. Der er
+predefinerede konstanter for endetyperne - CAP_&lt;type&gt;.
+</translation>
     </message>
     <message>
         <source>setLineStyle(style, [&quot;name&quot;])
@@ -1277,7 +1740,12 @@ Sets the line style of the object &quot;name&quot; to the style &quot;style&quot
 is not given the currently selected item is used. There are predefined
 constants for &quot;style&quot; - LINE_&lt;style&gt;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setLineStyle(stil, [&quot;navn&quot;])
+
+Sætter linie-stil for objektet &quot;navn&quot; til stilen &quot;stil&quot;. Hvis &quot;navn&quot; ikke 
+angives, så bruges det markerede element. Der er predefinerede 
+konstanter for &quot;stil&quot; - LINE_&lt;type&gt;.
+</translation>
     </message>
     <message>
         <source>setFillShade(shade, [&quot;name&quot;])
@@ -1289,7 +1757,14 @@ Item is used.
 
 May raise ValueError if the fill shade is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setFillShade(farvemætning, [&quot;navn&quot;])
+
+Sætter farvemætningen på fyld-farven på objektet &quot;navn&quot; til &quot;farvemætning&quot;.
+&quot;farvemætning&quot; skal være en integer værdi i området fra 0 (lysest) til 100
+(fuld farvemætning). Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
+
+Kan rejse ValueError hvis farvemætningen er uden for tilladte område.
+</translation>
     </message>
     <message>
         <source>setCornerRadius(radius, [&quot;name&quot;])
@@ -1299,7 +1774,13 @@ in points. If &quot;name&quot; is not given the currently selected item is used.
 
 May raise ValueError if the corner radius is negative.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setCornerRadius(radius, [&quot;navn&quot;])
+
+Sætter radius på hjørnerne på objektet &quot;navn&quot;. Radius  er udtrykt 
+i punkter. Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
+
+Kan rejse ValueError hvis hjørne-radius er negativ.
+</translation>
     </message>
     <message>
         <source>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
@@ -1309,7 +1790,369 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise NotFoundError if the line style doesn&apos;t exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setMultiLine(&quot;navngivetStil&quot;, [&quot;navn&quot;])
+
+sætter linie-stil på objektet &quot;navn&quot; til navngivet stil &quot;navngivetStil&quot;.
+Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
+
+Kan rejse NotFoundError hvis linie-stilen ikke eksisterer.
+</translation>
+    </message>
+    <message>
+        <source>getFont([&quot;name&quot;]) -&gt; string
+
+Returns the font name for the text frame &quot;name&quot;. If this text frame
+has some text selected the value assigned to the first character
+of the selection is returned. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>getFont([&quot;navn&quot;]) -&gt; streng
+
+Returnerer font-navnet for tekst-rammen &quot;navn&quot;. Hvis denne tekst-ramme
+har noget tekst markeret, så returneres værdien for første karakter i den 
+markerede tekst. Hvis &quot;navn&quot; ikke er givet, så bruges det markerede element.
+</translation>
+    </message>
+    <message>
+        <source>getTextLength([&quot;name&quot;]) -&gt; integer
+
+Returns the length of the text in the text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getTextLength([&quot;navn&quot;]) -&gt; integer
+
+Returnerer længden på teksten i tekst-rammen &quot;navn&quot;.
+Hvis &quot;navn&quot; ikke er givet, så bruges det markerede element.
+</translation>
+    </message>
+    <message>
+        <source>getText([&quot;name&quot;]) -&gt; string
+
+Returns the text of the text frame &quot;name&quot;. If this text frame has some text
+selected, the selected text is returned. All text in the frame, not just
+currently visible text, is returned. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>getText([&quot;navn&quot;]) -&gt; streng
+
+Returnerer teksten fra tekst-rammen &quot;navn&quot;. Hvis denne tekst-ramme har 
+noget tekst markeret, så returneres den markerede tekst. Al tekst i rammen, 
+ikke kun det der lige nu ses, returneres. Hvis &quot;navn&quot; ikke er givet, så bruges 
+det markerede element.
+</translation>
+    </message>
+    <message>
+        <source>getAllText([&quot;name&quot;]) -&gt; string
+
+Returns the text of the text frame &quot;name&quot; and of all text frames which are
+linked with this frame. If this textframe has some text selected, the selected
+text is returned. If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation>getAllText([&quot;navn&quot;]) -&gt; streng
+
+Returnerer teksten fra tekst-rammen &quot;navn&quot; og alle tekst-rammer, som er lænket 
+med denne ramme. Hvis denne tekst-ramme har noget tekst markeret, så returneres 
+den markerede tekst. Hvis &quot;navn&quot; ikke er givet, så bruges det markerede element.
+</translation>
+    </message>
+    <message>
+        <source>getLineSpacing([&quot;name&quot;]) -&gt; float
+
+Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
+points. If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getLineSpacing([&quot;navn&quot;]) -&gt; komma-tal
+
+Returnerer linie-afstanden (&quot;leading&quot;) i tekst-rammen &quot;navn&quot; udtrykt i punkter.
+Hvis &quot;navn&quot; ikke er givet, så bruges det markerede element.
+</translation>
+    </message>
+    <message>
+        <source>getColumnGap([&quot;name&quot;]) -&gt; float
+
+Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
+&quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getColumnGap([&quot;navn&quot;]) -&gt; komma-tal
+
+Returnerer kolonne-afstanden i tekst-rammen &quot;navn&quot; udtrykt i punkter.
+Hvis &quot;navn&quot; ikke er givet, så bruges det markerede element.
+</translation>
+    </message>
+    <message>
+        <source>getColumns([&quot;name&quot;]) -&gt; integer
+
+Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation>getColumns([&quot;navn&quot;]) -&gt; integer
+
+Henter antallet af kolonner i tekst-rammen &quot;navn&quot;. Hvis &quot;navn&quot; 
+ikke er givet, så bruges det markerede element.
+</translation>
+    </message>
+    <message>
+        <source>setText(&quot;text&quot;, [&quot;name&quot;])
+
+Sets the text of the text frame &quot;name&quot; to the text of the string &quot;text&quot;.
+Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See the FAQ
+for more details. If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation>setText(&quot;tekst&quot;, [&quot;navn&quot;])
+
+Sætter teksten i tekst-rammen &quot;navn&quot;  til teksten fra strengen &quot;tekst&quot;.
+Teksten skal være UTF8 kodet - brug f.eks. unicode(tekst, &apos;iso-8859-2&apos;). se FAQ&apos;en
+for flere detaljer. Hvis &quot;navn&quot; ikke er givet, så bruges det markerede element.
+</translation>
+    </message>
+    <message>
+        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
+must be UTF encoded (see setText() as reference) The first character has an
+index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is
+used.
+
+May throw IndexError for an insertion out of bounds.
+</source>
+        <translation>insertText(&quot;tekst&quot;, pos, [&quot;navn&quot;])
+
+Indsætter teksten &quot;tekst&quot; ved position &quot;pos&quot; i tekst-rammen. 
+Teksten skal være UTF8 kodet (se  setText() som reference). Første karakter
+har et index på 0. Hvis &quot;navn&quot; ikke er givet, så bruges det markerede element.
+
+Kan rejse IndexError for en indsætning uden for et gyldigt område.
+</translation>
+    </message>
+    <message>
+        <source>setFont(&quot;font&quot;, [&quot;name&quot;])
+
+Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
+selected only the selected text is changed.  If &quot;name&quot; is not given the
+currently selected item is used.
+
+May throw ValueError if the font cannot be found.
+</source>
+        <translation>setFont(&quot;font&quot;, [&quot;navn&quot;])
+
+Sætter fonten i tekst-rammen &quot;navn&quot; til &quot;font&quot;. Hvis der er markeret nogen 
+tekst, vil kun den markerede tekst blive ændret.  Hvis &quot;navn&quot; ikke er givet, 
+så bruges det markerede element.
+
+Kan rejse ValueError hvis fonten ikke findes.
+</translation>
+    </message>
+    <message>
+        <source>setFontSize(size, [&quot;name&quot;])
+
+Sets the font size of the text frame &quot;name&quot; to &quot;size&quot;. &quot;size&quot; is treated
+as a value in points. If there is some text selected only the selected text is
+changed. &quot;size&quot; must be in the range 1 to 512. If &quot;name&quot; is not given the
+currently selected item is used.
+
+May throw ValueError for a font size that&apos;s out of bounds.
+</source>
+        <translation>setFontSize(størrelse, [&quot;navn&quot;])
+
+Sætter font-størrelsen i tekst-rammen &quot;navn&quot; til &quot;størrelse&quot;. &quot;størrelse&quot;
+angives i punkter. Hvis der er markeret nogen tekst, vil kun den markerede 
+tekst blive ændret. &quot;størrelse&quot; skal være indenfor området 1 til 512. Hvis &quot;navn&quot; 
+ikke er givet, så bruges det markerede element.
+
+Kan rejse ValueError for en fontstørrelse der er uden for gyldigt område.
+</translation>
+    </message>
+    <message>
+        <source>setLineSpacing(size, [&quot;name&quot;])
+
+Sets the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; to &quot;size&quot;.
+&quot;size&quot; is a value in points. If &quot;name&quot; is not given the currently selected
+item is used.
+
+May throw ValueError if the line spacing is out of bounds.
+</source>
+        <translation>setLineSpacing(størrelse, [&quot;navn&quot;])
+
+Sætter linie-afstanden (&quot;leading&quot;) i tekst-rammen &quot;navn&quot; til &quot;størrelse&quot;. 
+&quot;størrelse&quot; er angivet i punkter. Hvis &quot;navn&quot; ikke er givet, så bruges 
+det markerede element.
+
+Kan rejse ValueError hvis linie-afstanden er uden for gyldigt område.
+</translation>
+    </message>
+    <message>
+        <source>setColumnGap(size, [&quot;name&quot;])
+
+Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&quot;. If
+&quot;name&quot; is not given the currently selected item is used.
+
+May throw ValueError if the column gap is out of bounds (must be positive).
+</source>
+        <translation>setColumnGap(størrelse, [&quot;navn&quot;])
+
+Sætter kolonne-afstanden i tekst-rammen &quot;navn&quot; til værdien &quot;størrelse&quot;. 
+Hvis &quot;navn&quot; ikke er givet, så bruges det markerede element.
+
+Kan rejse ValueError hvis kolonne-afstanden er uden for gyldigt område (skal være positiv).
+</translation>
+    </message>
+    <message>
+        <source>setColumns(nr, [&quot;name&quot;])
+
+Sets the number of columns of the text frame &quot;name&quot; to the integer &quot;nr&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May throw ValueError if number of columns is not at least one.
+</source>
+        <translation>setColumns(nr, [&quot;navn&quot;])
+
+Sætter antal kolonner i tekst-rammen &quot;navn&quot; til heltallet &quot;nr&quot;. 
+Hvis &quot;navn&quot; ikke er givet, så bruges det markerede element.
+
+Kan rejse ValueError hvis antal kolonner ikke er mindst 1.
+</translation>
+    </message>
+    <message>
+        <source>setTextAlignment(align, [&quot;name&quot;])
+
+Sets the text alignment of the text frame &quot;name&quot; to the specified alignment.
+If &quot;name&quot; is not given the currently selected item is used. &quot;align&quot; should
+be one of the ALIGN_ constants defined in this module - see dir(scribus).
+
+May throw ValueError for an invalid alignment constant.
+</source>
+        <translation>setTextAlignment(justering, [&quot;navn&quot;])
+
+Sætter tekst-justering i tekst-rammen &quot;navn&quot; til angivet justering.
+Hvis &quot;navn&quot; ikke er givet, så bruges det markerede element. &quot;justering&quot;
+skal være en af ALIGN_konstanterne defineret i dette modul - se dir(scribus).
+
+Kan rejse ValueError for en ugyldig ALIGN_konstant.
+</translation>
+    </message>
+    <message>
+        <source>selectText(start, count, [&quot;name&quot;])
+
+Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
+character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
+text selection will be cleared.  If &quot;name&quot; is not given the currently
+selected item is used.
+
+May throw IndexError if the selection is outside the bounds of the text.
+</source>
+        <translation>selectText(start, antal, [&quot;navn&quot;])
+
+Markerer &quot;antal&quot; karakterer af teksten i tekst-rammen &quot;navn&quot; startende fra
+karakter &quot;start&quot;. Karakter tælling starter ved 0. Hvis &quot;antal&quot; er nul, vil enhver 
+tekstmarkering blive nulstillet.  Hvis &quot;navn&quot; ikke er givet, så bruges det 
+markerede element.
+
+Kan rejse IndexError hvis hvis markeringen er sat udenfor teksten.
+</translation>
+    </message>
+    <message>
+        <source>deleteText([&quot;name&quot;])
+
+Deletes any text in the text frame &quot;name&quot;. If there is some text selected,
+only the selected text will be deleted. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>deleteText([&quot;navn&quot;])
+
+Sletter al tekst i tekst-rammen &quot;navn&quot;. Hvis der er markeret noget tekst, så
+slettes kun den markerede tekst. Hvis &quot;navn&quot; ikke er givet, så bruges 
+det markerede element.
+</translation>
+    </message>
+    <message>
+        <source>setTextColor(&quot;color&quot;, [&quot;name&quot;])
+
+Sets the text color of the text frame &quot;name&quot; to the color &quot;color&quot;. If there
+is some text selected only the selected text is changed. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation>setTextColor(&quot;farve&quot;, [&quot;navn&quot;])
+
+Sætter tekst-farven i tekst-rammen &quot;navn&quot; til farven &quot;farve&quot;. Hvis der 
+er markeret nogen tekst, så vil kun den markerede tekst blive ændret. 
+Hvis &quot;navn&quot; ikke er givet, så bruges det markerede element.
+</translation>
+    </message>
+    <message>
+        <source>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
+
+Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>setTextStroke(&quot;farve&quot;, [&quot;navn&quot;])
+
+Sætter tekstens streg-farve. Hvis &quot;navn&quot; ikke er givet, 
+så bruges det markerede element.
+</translation>
+    </message>
+    <message>
+        <source>setTextShade(shade, [&quot;name&quot;])
+
+Sets the shading of the text color of the object &quot;name&quot; to &quot;shade&quot;. If
+there is some text selected only the selected text is changed. &quot;shade&quot; must
+be an integer value in the range from 0 (lightest) to 100 (full color
+intensity). If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation>setTextShade(farvemætning, [&quot;navn&quot;])
+
+Sætter farvemætningen på tekst-farven på objektet &quot;navn&quot; til &quot;farvemætning&quot;.
+Hvis der er markeret nogen tekst, så vil kun den markerede tekst blive ændret. 
+&quot;farvemætning&quot; skal være en integer værdi i området fra 0 (lysest) til 100
+(fuld farvemætning). Hvis &quot;navn&quot; ikke angives, så bruges det markerede element.
+</translation>
+    </message>
+    <message>
+        <source>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
+
+Link two text frames. The frame named &quot;fromname&quot; is linked to the
+frame named &quot;toname&quot;. The target frame must be an empty text frame
+and must not link to or be linked from any other frames already.
+
+May throw ScribusException if linking rules are violated.
+</source>
+        <translation>linkTextFrames(&quot;franavn&quot;, &quot;tilnavn&quot;)
+
+Sammenkæder to tekst-rammer. Rammen &quot;franavn&quot; bliver sammenkædet
+med rammen &quot;tilnavn&quot;. Mål-rammen skal være en tom tekst-ramme og må
+ikke være sammenkædet med nogen anden ramme.
+</translation>
+    </message>
+    <message>
+        <source>unlinkTextFrames(&quot;name&quot;)
+
+Remove the specified (named) object from the text frame flow/linkage. If the
+frame was in the middle of a chain, the previous and next frames will be
+connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unlinkTextFrames(b)&apos;
+
+May throw ScribusException if linking rules are violated.
+</source>
+        <translation>unlinkTextFrames(&quot;navn&quot;)
+
+Fjerner objektet &quot;navn&quot; fra  sammenkædede tekstrammer. Hvis rammen
+var i midten af en kæde, så vil den foregående og den efterfølgende ramme
+blive forbundet, f.eks. &apos;a-&gt;b-&gt;c&apos; bliver &apos;a-&gt;c&apos; når du kalder unlinkTextFrames(b).
+
+Kan rejse ScribusException hvis sammenkædnings-regler bliver overtrådt.
+</translation>
+    </message>
+    <message>
+        <source>traceText([&quot;name&quot;])
+
+Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
+currently selected item is used.</source>
+        <translation>traceText([&quot;navn&quot;])
+
+Konverterer tekst-rammen &quot;navn&quot; til omrids. Hvis &quot;navn&quot; ikke angives, 
+så bruges det markerede element.
+</translation>
     </message>
     <message>
         <source>progressReset()
@@ -1317,7 +2160,11 @@ May raise NotFoundError if the line style doesn&apos;t exist.
 Cleans up the Scribus progress bar previous settings. It is called before the
 new progress bar use. See progressSet.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>progressReset()
+
+Rydder op i Scrbus fremgangs-målererens tidligere indstillinger. Den kaldes før næste 
+brug af fremgangs-måleren. Se progressSet.
+</translation>
     </message>
     <message>
         <source>progressTotal(max)
@@ -1325,7 +2172,11 @@ new progress bar use. See progressSet.
 Sets the progress bar&apos;s maximum steps value to the specified number.
 See progressSet.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>progressTotal(max)
+
+Sætter fremgangs-målerens maksimale trin-værdi til det angivne tal.
+Se progressSet.
+</translation>
     </message>
     <message>
         <source>progressSet(nr)
@@ -1338,14 +2189,26 @@ total number of steps with progressTotal(). The current number of steps is set
 with progressSet(). The progress bar can be rewound to the beginning with
 progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
 </source>
-        <translation type="unfinished"></translation>
+        <translation>progressSet(nr)
+
+Sætter fremgangs-måler positionen til &quot;nr&quot;, en værdi relativ til det tidligere kald af 
+progressTotal. Fremgangs-måleren bruger konceptet om trin; du giver den det totale 
+antal trin og antal trin nået indtil nu, og den vil så vise den procentvise værdi af de trin 
+der er gjort færdige. Du kan angive det totale antal trin med progressTotal(). De 
+nuværende antal trin er angivet med progressSet(). Fremgangs-måleren kan spoles 
+tilbage til begyndelsen med progressReset(). [Baseret på info fra Trolltech&apos;s Qt docs]
+</translation>
     </message>
     <message>
         <source>setCursor()
 
 [UNSUPPORTED!] This might break things, so steer clear for now.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setCursor()
+
+[IKKE UNDERSTØTTET!] Denne kan få tingene til at bryde sammen, så
+undgå at bruge den lige nu.
+</translation>
     </message>
     <message>
         <source>docChanged(bool)
@@ -1354,46 +2217,12 @@ Enable/disable save icon in the Scribus icon bar and the Save menu item. It&apos
 useful to call this procedure when you&apos;re changing the document, because Scribus
 won&apos;t automatically notice when you change the document using a script.
 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>defineColor(&quot;name&quot;, c, m, y, k)
+        <translation>docChanged(bool)
 
-Defines a new color &quot;name&quot;. The color Value is defined via four components:
-c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
-
-Returns the corner radius of the object &quot;name&quot;. The radius is
-expressed in points. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
-
-Returns a (x, y) tuple with the position of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-The position is expressed in the actual measurement unit of the document
-- see UNIT_&lt;type&gt; for reference.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>rotateObjectAbs(rot [, &quot;name&quot;])
-
-Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
-mean counter clockwise rotation. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="unfinished"></translation>
+Aktiverer/deaktiverer &quot;gem-ikonet&quot; i Scribus værktøjslinie og  &quot;Gem&quot; i fil-menuen. 
+Det er brugbart at kalde denne procedure, når du ændrer dokumentet, fordi Scribus 
+ikke automatisk opdager, når du har ændret dokumentet ved at bruge en script.
+</translation>
     </message>
 </context>
 <context>
@@ -1479,10 +2308,6 @@ selected item is used.
         <translation>Tysk:</translation>
     </message>
     <message>
-        <source>About Scribus%1%2</source>
-        <translation type="obsolete">Om Scribus%1%2</translation>
-    </message>
-    <message>
         <source>%1. %2 %3 </source>
         <translation>%1. %2 %3 </translation>
     </message>
@@ -1503,16 +2328,6 @@ selected item is used.
     <message>
         <source>Basque:</source>
         <translation>Baskisk:</translation>
-    </message>
-    <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation>Dette panel viser versionsnummer, dato for kompilering 
-og den indbyggede biblioteksunderstøttelse i Scribus
-C-C-T står for C=CUPS C=littlecms T=TIFF understøttelse.
-Manglende biblioteksunderstøttelse er vist ved en *</translation>
     </message>
     <message>
         <source>&amp;About</source>
@@ -1600,7 +2415,17 @@ Manglende biblioteksunderstøttelse er vist ved en *</translation>
     </message>
     <message>
         <source>About Scribus %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Om Scribus %1</translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Dette panel viser versionsnummer, dato for kompilering 
+og den indbyggede biblioteksunderstøttelse i Scribus
+C-C-T står for C=littlecms C=CUPS T=TIFF understøttelse.
+Manglende biblioteksunderstøttelse er vist ved en *</translation>
     </message>
 </context>
 <context>
@@ -2405,11 +3230,11 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Annullér</translation>
+        <translation>&amp;Annullér</translation>
     </message>
 </context>
 <context>
@@ -3160,16 +3985,8 @@ Dette kan indstilles i Præferencer.</translation>
         <translation>Erstat den med:</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Annullér</translation>
-    </message>
-    <message>
         <source>?</source>
         <translation>?</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Delete color:</source>
@@ -3181,11 +3998,11 @@ Dette kan indstilles i Præferencer.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Annullér</translation>
+        <translation>&amp;Annullér</translation>
     </message>
 </context>
 <context>
@@ -3858,7 +4675,7 @@ en række sider eller et enkelt sidenummer.</translation>
     <message>
         <source>Resolution of the Images
 Use 72 dpi for Images intended for the Screen</source>
-        <translation>Billedernes Opløsning
+        <translation>Billedernes opløsning
 Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
@@ -3875,11 +4692,11 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Størrelse:</translation>
+        <translation>&amp;Størrelse:</translation>
     </message>
     <message>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Billedernes størrelse. 100% for ingen ændringer. 200% for to gange større etc.</translation>
     </message>
 </context>
 <context>
@@ -4151,11 +4968,11 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilføj den markerede font til typografi, Font menu</translation>
     </message>
     <message>
         <source>Leave preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Afslut visning</translation>
     </message>
 </context>
 <context>
@@ -4254,15 +5071,15 @@ og www.scribus.net for at hente scribus ect.</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Indhold</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished">Lænke</translation>
+        <translation>Lænke</translation>
     </message>
     <message>
         <source>Scribus Online Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus hjælp</translation>
     </message>
 </context>
 <context>
@@ -5696,7 +6513,7 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Bruger</translation>
+        <translation>Brugerdefineret</translation>
     </message>
     <message>
         <source>Landscape</source>
@@ -5904,15 +6721,15 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source>Executive</source>
-        <translation type="unfinished"></translation>
+        <translation>Executive</translation>
     </message>
     <message>
         <source>Folio</source>
-        <translation type="unfinished"></translation>
+        <translation>Folio</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation type="unfinished"></translation>
+        <translation>Ledger</translation>
     </message>
 </context>
 <context>
@@ -6817,12 +7634,6 @@ of a slight slowdown in previewing. This only affects Type 1 fonts</source>
 går lidt længere tid med at vise siden. Det gælder kun type 1 fonte</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="obsolete">Giver en mere behagelig forhåndsvisning af &apos;True Type&apos; og &apos;Open Type&apos; fonte, 
-EPS, PDF og vektorgrafik, men der går lidt længere tid med at vise siden</translation>
-    </message>
-    <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
         <translation>Viser transparens og gennemsigtige objekter i dit dokument. Ghostscript 7.07 eller nyere skal være installeret</translation>
     </message>
@@ -6883,13 +7694,13 @@ EPS, PDF og vektorgrafik, men der går lidt længere tid med at vise siden</tran
         <translation>Reduktion af &amp;underliggende farve</translation>
     </message>
     <message>
-        <source>A way of switching some of the gray shades which are composed
+        <source>A way of switching off some of the gray shades which are composed
 of cyan, yellow and magenta and using black instead.
 UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">En måde at ændre nogle af gråtonerne, som er sammensat
+        <translation>En måde at ændre nogle af gråtonerne, som er sammensat
 af cyan, gul og magenta, så der i stedet for disse farver bruges sort.
 UCR påvirker mest de dele af billedet, som er neutrale og/eller mørke i farven, det, 
 som er tættets på gråt. Brug af denne metode kan forbedre udskrivningen af nogle 
@@ -6897,18 +7708,10 @@ billeder og nogen eksperimenteren og testning er nødvendigt fra billede til bil
 UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
+        <translation>Giver en mere behagelig forhåndsvisning af &apos;TrueType&apos; og &apos;OpenType&apos; fonte, 
+EPS, PDF og vektorgrafik, på bekostning af lidt længere tid med at vise siden</translation>
     </message>
 </context>
 <context>
@@ -7411,7 +8214,7 @@ en positiv værdi vil lave den convex</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Bruger</translation>
+        <translation>Brugerdefineret</translation>
     </message>
     <message>
         <source>Landscape</source>
@@ -8307,27 +9110,27 @@ UCR formindsker muligheden for overmætning af CMY farverne.</translation>
     </message>
     <message>
         <source>Executive</source>
-        <translation type="unfinished"></translation>
+        <translation>Executive</translation>
     </message>
     <message>
         <source>Folio</source>
-        <translation type="unfinished"></translation>
+        <translation>Folio</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation type="unfinished"></translation>
+        <translation>Ledger</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation type="unfinished">Legal</translation>
+        <translation>Legal</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation type="unfinished">Tabloid</translation>
+        <translation>Tabloid</translation>
     </message>
 </context>
 <context>
@@ -8813,18 +9616,6 @@ Kontrollér sti og filnavn.</translation>
         <translation>S&amp;cript</translation>
     </message>
     <message>
-        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Ups! Du kalder et objekt, som ikke eksisterer!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Ups! Du forsøger at slette et objekt, som ikke eksisterer!</translation>
-    </message>
-    <message>
-        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation type="obsolete">Ups! Et objekt, som du forsøger at flyde tekst igennem eksisterer ikke!</translation>
-    </message>
-    <message>
         <source>File exists. Overwrite?</source>
         <translation>Filen eksisterer. Overskriv?</translation>
     </message>
@@ -9005,22 +9796,6 @@ Kontrollér sti og filnavn.</translation>
         <translation>Importér &amp;SVG...</translation>
     </message>
     <message>
-        <source>Oook! Wrong arguments! Call: </source>
-        <translation type="obsolete">Ups!  Forkerte argumenter! Kald:</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation type="obsolete">Ups! Du forsøger at indlæse et billede ind i et objekt, som ikke eksisterer eller ikke er markeret!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Ups! Du forsøger at (op)låse et objekt, som ikke eksisterer! Der er heller ingen markeret.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Ups! Du forsøger at lede efter et objekt, som ikke eksisterer! Der er heller ingen markeret.</translation>
-    </message>
-    <message>
         <source>Importing text</source>
         <translation>Importerer tekst</translation>
     </message>
@@ -9072,10 +9847,6 @@ Ekstern Lænker</translation>
         <translation>Font %1 indeholder fejl, kan ikke bruges</translation>
     </message>
     <message>
-        <source>OO.o Writer Documents</source>
-        <translation type="obsolete">OO.o Tekst dokumenter</translation>
-    </message>
-    <message>
         <source>Text Filters</source>
         <translation>Tekst filtre</translation>
     </message>
@@ -9084,518 +9855,530 @@ Ekstern Lænker</translation>
         <translation>Medie bokse</translation>
     </message>
     <message>
-        <source>Albanian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Basque</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Brazilian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Catalan</source>
-        <translation type="unfinished">Catalansk</translation>
-    </message>
-    <message>
-        <source>Chinese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Czech</source>
-        <translation type="unfinished">Tjekkisk</translation>
-    </message>
-    <message>
-        <source>Danish</source>
-        <translation type="unfinished">Dansk</translation>
-    </message>
-    <message>
-        <source>Dutch</source>
-        <translation type="unfinished">Hollandsk</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="unfinished">Engelsk</translation>
-    </message>
-    <message>
-        <source>English (British)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Esperanto</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>German</source>
-        <translation type="unfinished">Tysk</translation>
-    </message>
-    <message>
-        <source>Finnish</source>
-        <translation type="unfinished">Finsk</translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation type="unfinished">Fransk</translation>
-    </message>
-    <message>
-        <source>Galician</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Greek</source>
-        <translation type="unfinished">Græsk</translation>
-    </message>
-    <message>
-        <source>Hungarian</source>
-        <translation type="unfinished">Ungarsk</translation>
-    </message>
-    <message>
-        <source>Indonesian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Italian</source>
-        <translation type="unfinished">Italiensk</translation>
-    </message>
-    <message>
-        <source>Korean</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Lithuanian</source>
-        <translation type="unfinished">Litaurisk</translation>
-    </message>
-    <message>
-        <source>Norwegian (Bokmaal)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Norwegian (Nnyorsk)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Norwegian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation type="unfinished">Polsk</translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation type="unfinished">Russisk</translation>
-    </message>
-    <message>
-        <source>Swedish</source>
-        <translation type="unfinished">Svensk</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation type="unfinished">Spansk</translation>
-    </message>
-    <message>
-        <source>Spanish (Latin)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation type="unfinished">Slovakisk</translation>
-    </message>
-    <message>
-        <source>Slovenian</source>
-        <translation type="unfinished">Slovensk</translation>
-    </message>
-    <message>
-        <source>Serbian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tried to set progress &gt; maximum progress</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;About Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Om Script...</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Om Script</translation>
     </message>
     <message>
-        <source>Cannot get font size of non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Albanian</source>
+        <translation>Albansk</translation>
     </message>
     <message>
-        <source>Cannot get font of non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Basque</source>
+        <translation>Baskisk</translation>
     </message>
     <message>
-        <source>Cannot get text size of non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Bulgarian</source>
+        <translation>Bulgarsk</translation>
     </message>
     <message>
-        <source>Cannot get column count of non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Brazilian</source>
+        <translation>Brasiliansk</translation>
     </message>
     <message>
-        <source>Cannot get line space of non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Catalan</source>
+        <translation>Catalansk</translation>
     </message>
     <message>
-        <source>Cannot get column gap of non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Chinese</source>
+        <translation>Kinesisk</translation>
     </message>
     <message>
-        <source>Cannot get text of non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Czech</source>
+        <translation>Tjekkisk</translation>
     </message>
     <message>
-        <source>Cannot set text of non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Danish</source>
+        <translation>Dansk</translation>
     </message>
     <message>
-        <source>Cannot insert text into non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Dutch</source>
+        <translation>Hollandsk</translation>
     </message>
     <message>
-        <source>Insert index out of bounds</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>English</source>
+        <translation>Engelsk</translation>
     </message>
     <message>
-        <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>English (British)</source>
+        <translation>Engelsk (Britisk)</translation>
     </message>
     <message>
-        <source>Can&apos;t set text alignment on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Esperanto</source>
+        <translation>Esperanto</translation>
     </message>
     <message>
-        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>German</source>
+        <translation>Tysk</translation>
     </message>
     <message>
-        <source>Can&apos;t set font size on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Finnish</source>
+        <translation>Finsk</translation>
     </message>
     <message>
-        <source>Can&apos;t set font on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>French</source>
+        <translation>Fransk</translation>
     </message>
     <message>
-        <source>Font not found</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Galician</source>
+        <translation>Galicisk</translation>
     </message>
     <message>
-        <source>Line space out of bounds, must be &gt;= 0.1</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Greek</source>
+        <translation>Græsk</translation>
     </message>
     <message>
-        <source>Can&apos;t line spacing on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Hungarian</source>
+        <translation>Ungarsk</translation>
     </message>
     <message>
-        <source>Column gap out of bounds, must be positive</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Indonesian</source>
+        <translation>Indonesisk</translation>
     </message>
     <message>
-        <source>Can&apos;t column gap on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Italian</source>
+        <translation>Italiensk</translation>
     </message>
     <message>
-        <source>Column count out of bounds, must be &gt; 1</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Korean</source>
+        <translation>Koreansk</translation>
     </message>
     <message>
-        <source>Can&apos;t number of columns on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Lithuanian</source>
+        <translation>Litaurisk</translation>
     </message>
     <message>
-        <source>Selection index out of bounds</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Norwegian (Bokmaal)</source>
+        <translation>Norsk (Bokmaal)</translation>
     </message>
     <message>
-        <source>Can&apos;t select text in a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Norwegian (Nnyorsk)</source>
+        <translation>Norsk (Nynorsk)</translation>
     </message>
     <message>
-        <source>Can&apos;t delete text from a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Norwegian</source>
+        <translation>Norsk</translation>
     </message>
     <message>
-        <source>Can&apos;t set text fill on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Polish</source>
+        <translation>Polsk</translation>
     </message>
     <message>
-        <source>Can&apos;t set text stroke on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Russian</source>
+        <translation>Russisk</translation>
     </message>
     <message>
-        <source>Can&apos;t set text shade on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Swedish</source>
+        <translation>Svensk</translation>
     </message>
     <message>
-        <source>Can only link text frames</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Spanish</source>
+        <translation>Spansk</translation>
     </message>
     <message>
-        <source>Target frame must be empty</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Spanish (Latin)</source>
+        <translation>Spansk (Latin)</translation>
     </message>
     <message>
-        <source>Target frame links to another frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Slovak</source>
+        <translation>Slovakisk</translation>
     </message>
     <message>
-        <source>Target frame is linked to by another frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Slovenian</source>
+        <translation>Slovensk</translation>
     </message>
     <message>
-        <source>Source and target are the same object</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Serbian</source>
+        <translation>Serbisk</translation>
     </message>
     <message>
-        <source>Can&apos;t unlink a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Object is not a linked text frame, can&apos;t unlink.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t convert a non-text frame to outlines</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to open document</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to save document</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Target is not an image frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t scale by 0%</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t render an empty sample</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t save to a blank filename</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t have an empty layer name</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Layer not found</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t remove the last layer</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t create layer without a name</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>An object with the requested name already exists</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Point list must contain at least two points (four values)</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Point list must contain an even number of values</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Point list must contain at least three points (six values)</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Point list must contain at least four points (eight values)</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Point list must have a multiple of six values</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Object not found</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Style not found</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t set style on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to save EPS</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Page number out of range</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>argument is not list: must be list of float values</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>argument contains non-numeric values: must be list of float values</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Corner radius must be a positive number.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line style not found</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Tried to set progress &gt; maximum progress</source>
+        <translation>Prøvede at sætte fremgang &gt; maksimal fremgang</translation>
     </message>
     <message>
         <source>Cannot get a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke hente en farve med et tomt navn.</translation>
     </message>
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Farve ikke fundet</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke ændre en farve med et tomt navn.</translation>
     </message>
     <message>
         <source>Color not found in document</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Farve ikke fundet i dokument</translation>
     </message>
     <message>
         <source>Color not found in default colors</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Farve ikke fundet i standard farver</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke oprette en farve med et tomt navn.</translation>
     </message>
     <message>
         <source>Cannot delete a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke slette en farve med et tomt navn.</translation>
     </message>
     <message>
         <source>Cannot replace a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke erstatte en farve med et tomt navn.</translation>
+    </message>
+    <message>
+        <source>Failed to open document</source>
+        <comment>python error</comment>
+        <translation>Åbn dokument fejlede</translation>
+    </message>
+    <message>
+        <source>Failed to save document</source>
+        <comment>python error</comment>
+        <translation>Gem dokument fejlede</translation>
+    </message>
+    <message>
+        <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
+        <comment>python error</comment>
+        <translation>Måle-enhed er uden for tilladt område. Brug en af scribus.UNIT_* konstanter.</translation>
+    </message>
+    <message>
+        <source>Target is not an image frame.</source>
+        <comment>python error</comment>
+        <translation>Målet er ikke en billedramme.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t scale by 0%</source>
+        <comment>python error</comment>
+        <translation>Kan ikke skalere med 0%</translation>
+    </message>
+    <message>
+        <source>Font not found</source>
+        <comment>python error</comment>
+        <translation>Font ikke fundet</translation>
+    </message>
+    <message>
+        <source>Can&apos;t render an empty sample</source>
+        <comment>python error</comment>
+        <translation>Kan ikke gengive et tomt indhold</translation>
+    </message>
+    <message>
+        <source>Can&apos;t save to a blank filename</source>
+        <comment>python error</comment>
+        <translation>Kan ikke gemme uden filnavn</translation>
+    </message>
+    <message>
+        <source>Can&apos;t have an empty layer name</source>
+        <comment>python error</comment>
+        <translation>Kan ikke have et lag uden navn</translation>
+    </message>
+    <message>
+        <source>Layer not found</source>
+        <comment>python error</comment>
+        <translation>Lag ikke fundet</translation>
+    </message>
+    <message>
+        <source>Can&apos;t remove the last layer</source>
+        <comment>python error</comment>
+        <translation>Kan ikke fjerne det sidste lag</translation>
+    </message>
+    <message>
+        <source>Can&apos;t create layer without a name</source>
+        <comment>python error</comment>
+        <translation>Kan ikke oprette et lag uden navn</translation>
+    </message>
+    <message>
+        <source>An object with the requested name already exists</source>
+        <comment>python error</comment>
+        <translation>Der findes allerede et objekt med samme navn</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least two points (four values)</source>
+        <comment>python error</comment>
+        <translation>Punkt liste skal indeholde mindst to punkter (fire værdier)</translation>
+    </message>
+    <message>
+        <source>Point list must contain an even number of values</source>
+        <comment>python error</comment>
+        <translation>Punkt liste skal indeholde et lige antal værdier</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least three points (six values)</source>
+        <comment>python error</comment>
+        <translation>Punkt liste skal indeholde mindst tre punkter (seks værdier)</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least four points (eight values)</source>
+        <comment>python error</comment>
+        <translation>Punkt liste skal indeholde mindst fire punkter (otte værdier)</translation>
+    </message>
+    <message>
+        <source>Point list must have a multiple of six values</source>
+        <comment>python error</comment>
+        <translation>Punkt liste skal indeholde et multible af seks værdier</translation>
+    </message>
+    <message>
+        <source>Object not found</source>
+        <comment>python error</comment>
+        <translation>Objekt ikke fundet</translation>
+    </message>
+    <message>
+        <source>Style not found</source>
+        <comment>python error</comment>
+        <translation>Typografi ikke fundet</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set style on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kan ikke sætte typografi på andet end tekst-ramme</translation>
+    </message>
+    <message>
+        <source>Failed to save EPS</source>
+        <comment>python error</comment>
+        <translation>Gem EPS fejlede</translation>
+    </message>
+    <message>
+        <source>Page number out of range</source>
+        <comment>python error</comment>
+        <translation>Sidenummer er uden for tilladt område</translation>
+    </message>
+    <message>
+        <source>argument is not list: must be list of float values</source>
+        <comment>python error</comment>
+        <translation>Argument er ikke en liste: skal være en liste af komma-tal</translation>
+    </message>
+    <message>
+        <source>argument contains non-numeric values: must be list of float values</source>
+        <comment>python error</comment>
+        <translation>Argument indeholder andet end numeriske værdier: skal være en liste af komma-tal</translation>
+    </message>
+    <message>
+        <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
+        <comment>python error</comment>
+        <translation>Linie-bredde uden for tilladt område, skal være 0 &lt;= linie_bredde &lt;= 12</translation>
+    </message>
+    <message>
+        <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
+        <comment>python error</comment>
+        <translation>Linie-farvemætning uden for tilladt område, skal være 0 &lt;= farvemætning &lt;= 100</translation>
+    </message>
+    <message>
+        <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
+        <comment>python error</comment>
+        <translation>Fyld-farvemætning uden for tilladt område, skal være 0 &lt;= farvemætning &lt;= 100</translation>
+    </message>
+    <message>
+        <source>Corner radius must be a positive number.</source>
+        <comment>python error</comment>
+        <translation>Hjørne-radius skal være et positivt number.</translation>
+    </message>
+    <message>
+        <source>Line style not found</source>
+        <comment>python error</comment>
+        <translation>Linie-stil ikke fundet</translation>
+    </message>
+    <message>
+        <source>Cannot get font size of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan ikke hente font-størrelse fra andet end tekst-ramme.</translation>
+    </message>
+    <message>
+        <source>Cannot get font of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan ikke hente font fra andet end tekst-ramme.</translation>
+    </message>
+    <message>
+        <source>Cannot get text size of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan ikke hente tekst-størrelse fra andet end tekst-ramme.</translation>
+    </message>
+    <message>
+        <source>Cannot get column count of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan ikke hente antal kolonner fra andet end tekst-ramme.</translation>
+    </message>
+    <message>
+        <source>Cannot get line space of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan ikke hente linie-afstand fra andet end tekst-ramme.</translation>
+    </message>
+    <message>
+        <source>Cannot get column gap of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan ikke hente kolonne-afstand fra andet end tekst-ramme.</translation>
+    </message>
+    <message>
+        <source>Cannot get text of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan ikke hente tekst fra andet end tekst-ramme.</translation>
+    </message>
+    <message>
+        <source>Cannot set text of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan ikke placere tekst i andet end tekst-ramme.</translation>
+    </message>
+    <message>
+        <source>Cannot insert text into non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan ikke indsætte tekst i andet end tekst-ramme.</translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds</source>
+        <comment>python error</comment>
+        <translation>Indsæt index - uden for tilladte værdier</translation>
+    </message>
+    <message>
+        <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
+        <comment>python error</comment>
+        <translation>Justering uden for tilladt område. Brug en af scribus.ALIGN* konstanter.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text alignment on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kan ikke sætte tekst-justering i andet end tekst-ramme</translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
+        <comment>python error</comment>
+        <translation>Font-størrelse uden for tilladt område - skal være 1 &lt;= størrelse &lt;= 512</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set font size on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kan ikke sætte font-størrelse i andet end tekst-ramme</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set font on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kan ikke sætte font i andet end tekst-ramme</translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1</source>
+        <comment>python error</comment>
+        <translation>Linie-afstand uden for tilladt område - skal være &gt;= 0.1</translation>
+    </message>
+    <message>
+        <source>Can&apos;t line spacing on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kan ikke sætte linie-afstand i andet end tekst-ramme</translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive</source>
+        <comment>python error</comment>
+        <translation>Kolonne-afstand uden for tilladt område - skal være positiv</translation>
+    </message>
+    <message>
+        <source>Can&apos;t column gap on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kan ikke sætte kolonne-afstand i andet end tekst-ramme</translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1</source>
+        <comment>python error</comment>
+        <translation>Kolonne-antal uden for tilladt område - skal være &gt; 1</translation>
+    </message>
+    <message>
+        <source>Can&apos;t number of columns on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kan ikke sætte kolonne-antal i andet end tekst-ramme</translation>
+    </message>
+    <message>
+        <source>Selection index out of bounds</source>
+        <comment>python error</comment>
+        <translation>Markerings-index uden for tilladt område</translation>
+    </message>
+    <message>
+        <source>Can&apos;t select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kan ikke markere tekst i andet end tekst-ramme</translation>
+    </message>
+    <message>
+        <source>Can&apos;t delete text from a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kan ikke slette tekst i andet end tekst-ramme</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text fill on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kan ikke sætte tekst-fyld i andet end tekst-ramme</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text stroke on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kan ikke sætte tekst-streg i andet end tekst-ramme</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text shade on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kan ikke sætte tekst-farvemætning i andet end tekst-ramme</translation>
+    </message>
+    <message>
+        <source>Can only link text frames</source>
+        <comment>python error</comment>
+        <translation>Kan kun sammenkæde tekst-rammer</translation>
+    </message>
+    <message>
+        <source>Target frame must be empty</source>
+        <comment>python error</comment>
+        <translation>Mål-rammen skal være tom</translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame</source>
+        <comment>python error</comment>
+        <translation>Mål-rammen har lænke til en anden ramme</translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame</source>
+        <comment>python error</comment>
+        <translation>Mål-rammen har lænke fra en anden ramme</translation>
+    </message>
+    <message>
+        <source>Source and target are the same object</source>
+        <comment>python error</comment>
+        <translation>Kilde og mål er det samme objekt</translation>
+    </message>
+    <message>
+        <source>Can&apos;t unlink a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kan ikke bryde lænke for andet end tekst-ramme</translation>
+    </message>
+    <message>
+        <source>Object is not a linked text frame, can&apos;t unlink.</source>
+        <comment>python error</comment>
+        <translation>Objekt er ikke en sammkædet tekst-ramme, kan ikke bryde lænke.</translation>
+    </message>
+    <message>
+        <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
+        <comment>python error</comment>
+        <translation>Objektet er den sidste i en serie. Bryd i stedet for lænken i den foregående ramme.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t convert a non-text frame to outlines</source>
+        <comment>python error</comment>
+        <translation>Kan ikke konvertere til omrids i andet end tekst-ramme</translation>
+    </message>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation>Importér &amp;OpenOffice.org Tegning...</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation>OpenOffice.org Tegning (*.sxd);;All Files (*)</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Documents</source>
+        <translation>OpenOffice.org Tekst dokumenter</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -9632,19 +10415,39 @@ Ekstern Lænker</translation>
 <byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
 <byte value="x9"/><byte value="x9"/>function&apos;s documentation.
 <byte value="x9"/><byte value="x9"/></source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Writer Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus Python grænseflade modul
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>Dette modul er Python grænseflade for Scribus. Det indeholder funktioner
+<byte value="x9"/><byte value="x9"/>til at kontrollere scribus og til at manipulere objekter på canvas. Hver
+<byte value="x9"/><byte value="x9"/>funktion er dokumenteret individuelt herunder.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>Nogle få ting er fælles for det meste i grænsefladen.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>De fleste funktioner opererer på rammer. Rammer indentificeres ved deres navn,
+<byte value="x9"/><byte value="x9"/>en streng - de er ikke virkelige Python objekter. Mange funktioner tager en
+<byte value="x9"/><byte value="x9"/>valgfri (non-keyword) parameter, et ramme-navn.
+<byte value="x9"/><byte value="x9"/>Mange indsigelser er også fælles for de fleste functioner. Disse er
+<byte value="x9"/><byte value="x9"/>endnu ikke dokumenteret i docstrengen for hver function.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>    - Mange funktioner vil rejse en NoDocOpenError hvis du prøver at bruge dem
+<byte value="x9"/><byte value="x9"/>      uden at der er et dokument at operere på.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>    - Hvis du ikke giver et ramme-navn til en funktion, der behøver det,
+<byte value="x9"/><byte value="x9"/>      så vil funktionen bruge den aktive ramme, hvis der er nogen, eller
+<byte value="x9"/><byte value="x9"/>      rejse en NoValidObjectError hvis den ikke kan finde noget at operere på.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>    - Mange funktioner vil rejse en WrongFrameTypeError hvis du prøver at bruge dem
+<byte value="x9"/><byte value="x9"/>      på en rammetype, hvor det ikke giver mening at bruge dem. For eksempel, sætte
+<byte value="x9"/><byte value="x9"/>      tekstfarve på en billedramme giver ikke mening, og vil resultere
+<byte value="x9"/><byte value="x9"/>      i at denne indsigelse rejses.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>    - Fejl der kommer fra kald til de underliggende Python API vil blive
+<byte value="x9"/><byte value="x9"/>      sendt videre uændret. Som sådan, er listen af indsigelser, der rejses af
+<byte value="x9"/><byte value="x9"/>      en funktion som nævnt her og i dens docstreng, ikke komplet.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>Detaljer om hvilke indsigelser hver funktion kan rejse er givet i 
+<byte value="x9"/><byte value="x9"/>funktionens dokumentation.
+<byte value="x9"/><byte value="x9"/></translation>
     </message>
 </context>
 <context>
@@ -9871,39 +10674,39 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">Sidestørrelse</translation>
+        <translation>Sidestørrelse</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation type="unfinished">Størrelse:</translation>
+        <translation>Størrelse:</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Bruger</translation>
+        <translation>Brugerdefineret</translation>
     </message>
     <message>
         <source>Orientation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Retning:</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished">Portræt</translation>
+        <translation>Portræt</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished">Landskab</translation>
+        <translation>Landskab</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation type="unfinished">Bredde:</translation>
+        <translation>Bredde:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation type="unfinished"></translation>
+        <translation>Højde:</translation>
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
-        <translation type="unfinished">Første side&amp;nummer:</translation>
+        <translation>&amp;Første sidenummer:</translation>
     </message>
 </context>
 <context>
@@ -11198,7 +12001,7 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation type="unfinished"></translation>
+        <translation>Font-system initialiseret</translation>
     </message>
 </context>
 <context>
@@ -11389,7 +12192,7 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">S&amp;let</translation>
+        <translation>S&amp;let</translation>
     </message>
 </context>
 <context>
@@ -11639,10 +12442,6 @@ til vinduet nedenunder, for at lave en ny side.</translation>
         <translation>Afslut uden at opdatere tekstramme</translation>
     </message>
     <message>
-        <source>&amp;Insert Special</source>
-        <translation type="obsolete">&amp;Indsæt specialtegn</translation>
-    </message>
-    <message>
         <source>&amp;New</source>
         <translation>&amp;Ny</translation>
     </message>
@@ -11743,10 +12542,6 @@ til vinduet nedenunder, for at lave en ny side.</translation>
         <translation>Søg/erstat</translation>
     </message>
     <message>
-        <source>&amp;Fonts Preview</source>
-        <translation type="obsolete">&amp;Fontvisning</translation>
-    </message>
-    <message>
         <source>&amp;Fonts Preview...</source>
         <translation>&amp;Fontvisning...</translation>
     </message>
@@ -11789,10 +12584,6 @@ til vinduet nedenunder, for at lave en ny side.</translation>
 <context>
     <name>SxwDialog</name>
     <message>
-        <source>OO.o Writer Importer Options</source>
-        <translation type="obsolete">OO.o Tekst import indstillinger</translation>
-    </message>
-    <message>
         <source>Update paragraph styles</source>
         <translation>Opdatër afsnits typografier</translation>
     </message>
@@ -11803,14 +12594,6 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     <message>
         <source>Do not ask again</source>
         <translation>Spørg ikke igen</translation>
-    </message>
-    <message>
-        <source>Should the importer always use currently
-set value when importing OO.o document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Skal importfiltret altid bruge det nuværende
-sæt værdier, når der importeres OO.o dokumenter
-og aldrig spørge dig om, at bekræfte det igen</translation>
     </message>
     <message>
         <source>OK</source>
@@ -11832,13 +12615,15 @@ er i overensstemmelse med det importerede eller skal det forblive urørt</transl
     </message>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenOffice.org Tekst import indstillinger</translation>
     </message>
     <message>
         <source>Should the importer always use currently
 set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
-        <translation type="unfinished"></translation>
+        <translation>Skal importfiltret altid bruge det nuværende
+sæt værdier, når der importeres OpenOffice.org dokumenter
+og aldrig spørge dig om, at bekræfte det igen</translation>
     </message>
 </context>
 <context>
@@ -11919,12 +12704,8 @@ never ask your confirmation again</source>
         <translation>Første &amp;linie:</translation>
     </message>
     <message>
-        <source>Ind&amp;ent:</source>
-        <translation type="obsolete">Indr&amp;ykning:</translation>
-    </message>
-    <message>
         <source>Left Ind&amp;ent:</source>
-        <translation type="unfinished"></translation>
+        <translation>Venstre indr&amp;ykning:</translation>
     </message>
 </context>
 <context>
@@ -12409,7 +13190,7 @@ for denne filtype.</translation>
     </message>
     <message>
         <source>custom</source>
-        <translation>bruger</translation>
+        <translation>brugerdefineret</translation>
     </message>
 </context>
 <context>
