@@ -15,7 +15,7 @@ Recommended:
 	CUPS
 	libtiff >= 3.6.0
 	Fontconfig >= 2.0
-	LittleCMS = 1.09 (1.14+ recommended)
+	LittleCMS = 1.12 (1.14+ recommended)
 	LibXML2 >= 2.6.0
 	GhostScript >= 8.0 (8.15 or greater preferred)
 	Python >= 2.3
@@ -170,6 +170,7 @@ Recommended packages for compiling from source on FC3:
 	libtiff-devel
 	libxml2-devel
 	python-devel
+	lcms-devel
 
 You can install these packages with 'yum install packagename' as root. You may need to run up2date first to set up your yum configuration. Be patient - the first time you run yum it will take a long time to download the headers for all the security updates that have been released.
 
@@ -185,7 +186,7 @@ There is a lively on-line community, both on IRC @ #scribus on irc.freenode.net
 and the mailing list. Mailing list info can be found at:
  http://nashi.altmuehlnet.de/mailman/listinfo/scribus
 
-Thanks to the many testers, packagers and contributors who make the Scribus
+Thanks to the many translators, testers, packagers and contributors who make the Scribus
 community so special.
 
 For the Scribus Team,
