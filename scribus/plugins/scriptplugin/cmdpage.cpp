@@ -20,11 +20,11 @@ PyObject *scribus_redraw(PyObject *self)
 PyObject *scribus_savepageeps(PyObject *self, PyObject* args)
 {
 	char *Name;
-	if (!PyArg_ParseTuple(args, "s", &Name))
+	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	bool ret = Carrier->DoSaveAsEps(QString(Name));
+	bool ret = Carrier->DoSaveAsEps(QString::fromUtf8(Name));
 	if (!ret)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to save EPS","python error"));
@@ -74,12 +74,12 @@ PyObject *scribus_newpage(PyObject *self, PyObject* args)
 {
 	int e;
 	char *name = "Normal";
-	if (!PyArg_ParseTuple(args, "i|s", &e, &name))
+	if (!PyArg_ParseTuple(args, "i|es", &e, "utf-8", &name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
 	if (e < 0)
-		Carrier->slotNewPageP(Carrier->doc->Pages.count(), QString(name));
+		Carrier->slotNewPageP(Carrier->doc->Pages.count(), QString::fromUtf8(name));
 	else
 	{
 		e--;
@@ -88,7 +88,7 @@ PyObject *scribus_newpage(PyObject *self, PyObject* args)
 			PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range","python error"));
 			return NULL;
 		}
-		Carrier->slotNewPageP(e, QString(name));
+		Carrier->slotNewPageP(e, QString::fromUtf8(name));
 	}
 	Py_INCREF(Py_None);
 	return Py_None;

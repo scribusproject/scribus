@@ -659,7 +659,7 @@ PyMethodDef scribus_methods[] = {
 	{"openDoc", scribus_opendoc, METH_VARARGS, tr(scribus_opendoc__doc__)},
 	{"pageCount", (PyCFunction)scribus_pagecount, METH_NOARGS, tr(scribus_pagecount__doc__)},
 	{"pageDimension", (PyCFunction)scribus_pagedimension, METH_NOARGS, tr(scribus_pagedimension__doc__)},
-	{"progressReset", scribus_progressreset, METH_VARARGS, tr(scribus_progressreset__doc__)},
+	{"progressReset", (PyCFunction)scribus_progressreset, METH_NOARGS, tr(scribus_progressreset__doc__)},
 	{"progressSet", scribus_progresssetprogress, METH_VARARGS, tr(scribus_progresssetprogress__doc__)},
 	{"progressTotal", scribus_progresssettotalsteps, METH_VARARGS, tr(scribus_progresssettotalsteps__doc__)},
 	{"redrawAll", (PyCFunction)scribus_redraw, METH_NOARGS, tr(scribus_redraw__doc__)},

@@ -5,11 +5,11 @@ PyObject *scribus_loadimage(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	char *Image;
-	if (!PyArg_ParseTuple(args, "s|s", &Image, &Name))
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Image, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	PageItem *item = GetUniqueItem(QString(Name));
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
 	if (item->PType != FRAME_IMAGE)
@@ -17,20 +17,21 @@ PyObject *scribus_loadimage(PyObject *self, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Target is not an image frame.","python error"));
 		return NULL;
 	}
-	Carrier->view->LoadPict(QString(Image), item->ItemNr);
+	Carrier->view->LoadPict(QString::fromUtf8(Image), item->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
 
 PyObject *scribus_scaleimage(PyObject *self, PyObject* args)
 {
+	// FIXME: This function doesn't seem to work...
 	char *Name = "";
 	double x, y;
-	if (!PyArg_ParseTuple(args, "dd|s", &x, &y, &Name))
+	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	PageItem *item = GetUniqueItem(Name);
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
 	if (item->PType != FRAME_IMAGE)
@@ -48,11 +49,11 @@ PyObject *scribus_moveobjrel(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	double x, y;
-	if (!PyArg_ParseTuple(args, "dd|s", &x, &y, &Name))
+	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	PageItem *item = GetUniqueItem(QString(Name));
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item==NULL)
 		return NULL;
 	if (Carrier->view->GroupSel)
@@ -67,11 +68,11 @@ PyObject *scribus_moveobjabs(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	double x, y;
-	if (!PyArg_ParseTuple(args, "dd|s", &x, &y, &Name))
+	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	PageItem *item = GetUniqueItem(QString(Name));
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
 	if (Carrier->view->GroupSel)
@@ -95,11 +96,11 @@ PyObject *scribus_rotobjrel(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	double x;
-	if (!PyArg_ParseTuple(args, "d|s", &x, &Name))
+	if (!PyArg_ParseTuple(args, "d|es", &x, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	PageItem *item = GetUniqueItem(QString(Name));
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
 	Carrier->view->RotateItem(item->Rot - x, item->ItemNr);
@@ -111,11 +112,11 @@ PyObject *scribus_rotobjabs(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	double x;
-	if (!PyArg_ParseTuple(args, "d|s", &x, &Name))
+	if (!PyArg_ParseTuple(args, "d|es", &x, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	PageItem *item = GetUniqueItem(QString(Name));
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
 	Carrier->view->RotateItem(x * -1.0, item->ItemNr);
@@ -127,11 +128,11 @@ PyObject *scribus_sizeobjabs(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	double x, y;
-	if (!PyArg_ParseTuple(args, "dd|s", &x, &y, &Name))
+	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	PageItem *item = GetUniqueItem(QString(Name));
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
 	Carrier->view->SizeItem(ValueToPoint(x) - item->Xpos, ValueToPoint(y) - item->Ypos, item->ItemNr);
@@ -158,8 +159,11 @@ PyObject *scribus_groupobj(PyObject *self, PyObject* args)
 		}
 		for (int i = 0; i < len; i++)
 		{
+			// FIXME: We might need to explicitly get this string as utf8
+			// but as sysdefaultencoding is utf8 it should be a no-op to do
+			// so anyway.
 			Name = PyString_AsString(PyList_GetItem(il, i));
-			PageItem *ic = GetUniqueItem(QString(Name));
+			PageItem *ic = GetUniqueItem(QString::fromUtf8(Name));
 			if (ic == NULL)
 				return NULL;
 			Carrier->view->SelectItemNr(ic->ItemNr);
@@ -178,11 +182,11 @@ PyObject *scribus_groupobj(PyObject *self, PyObject* args)
 PyObject *scribus_ungroupobj(PyObject *self, PyObject* args)
 {
 	char *Name = "";;
-	if (!PyArg_ParseTuple(args, "|s", &Name))
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	PageItem *i = GetUniqueItem(QString(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
 	Carrier->UnGroupObj();
@@ -194,7 +198,7 @@ PyObject *scribus_scalegroup(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	double sc;
-	if (!PyArg_ParseTuple(args, "d|s", &sc, &Name))
+	if (!PyArg_ParseTuple(args, "d|es", &sc, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
@@ -203,7 +207,7 @@ PyObject *scribus_scalegroup(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Can't scale by 0%","python error"));
 		return NULL;
 	}
-	PageItem *i = GetUniqueItem(QString(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
 	Carrier->view->Deselect();
@@ -224,8 +228,9 @@ PyObject *scribus_getselobjnam(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	if ((i < static_cast<int>(Carrier->view->SelItem.count())) && (i > -1))
-		return PyString_FromString(Carrier->view->SelItem.at(i)->AnName);
+		return PyString_FromString(Carrier->view->SelItem.at(i)->AnName.utf8());
 	else
+		// FIXME: Should probably return None if no selection?
 		return PyString_FromString("");
 }
 
@@ -239,11 +244,11 @@ PyObject *scribus_selcount(PyObject *self)
 PyObject *scribus_selectobj(PyObject *self, PyObject* args)
 {
 	char *Name = "";
-	if (!PyArg_ParseTuple(args, "s", &Name))
+	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	PageItem *i = GetUniqueItem(QString(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
 	Carrier->view->SelectItemNr(i->ItemNr);
@@ -263,11 +268,11 @@ PyObject *scribus_deselect(PyObject *self)
 PyObject *scribus_lockobject(PyObject *self, PyObject* args)
 {
 	char *name = "";
-	if (!PyArg_ParseTuple(args, "|s", &name))
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	PageItem *item = GetUniqueItem(QString(name));
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == NULL)
 		return NULL;
 	item->Locked = !item->Locked;
@@ -279,13 +284,13 @@ PyObject *scribus_lockobject(PyObject *self, PyObject* args)
 PyObject *scribus_islocked(PyObject *self, PyObject* args)
 {
 	char *name = "";
-	if (!PyArg_ParseTuple(args, "|s", &name))
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
 		return NULL;
 	// FIXME: Rather than toggling the lock, we should probably let the user set the lock state
 	// and instead provide a different function like toggleLock()
 	if(!checkHaveDocument())
 		return NULL;
-	PageItem *item = GetUniqueItem(name);
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == NULL)
 		return NULL;
 	if (item->Locked)

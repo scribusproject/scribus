@@ -6,12 +6,12 @@ extern FPoint GetMinClipF(FPointArray Clip);
 PyObject *scribus_newrect(PyObject *self, PyObject* args)
 {
 	double x, y, b, h;
-	char *Name = "";
-	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
+	char *Name = NULL;
+	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &b, &h, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (ItemExists(QString(Name)))
+	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
@@ -21,8 +21,8 @@ PyObject *scribus_newrect(PyObject *self, PyObject* args)
 															Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
 	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
 	if (Name != "")
-		Carrier->doc->Items.at(i)->AnName = QString(Name);
-	return PyString_FromString(Carrier->doc->Items.at(i)->AnName);
+		Carrier->doc->Items.at(i)->AnName = QString::fromUtf8(Name);
+	return PyString_FromString(Carrier->doc->Items.at(i)->AnName.utf8());
 }
 
 
@@ -30,20 +30,20 @@ PyObject *scribus_newellipse(PyObject *self, PyObject* args)
 {
 	double x, y, b, h;
 	char *Name = "";
-	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
+	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &b, &h, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
 	int i = Carrier->view->PaintEllipse(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h), Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
-	if (ItemExists(QString(Name)))
+	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
 	}
 	Carrier->view->SetOvalFrame(Carrier->doc->Items.at(i));
 	if (Name != "")
-		Carrier->doc->Items.at(i)->AnName = QString(Name);
-	return PyString_FromString(Carrier->doc->Items.at(i)->AnName);
+		Carrier->doc->Items.at(i)->AnName = QString::fromUtf8(Name);
+	return PyString_FromString(Carrier->doc->Items.at(i)->AnName.utf8());
 }
 
 
@@ -51,20 +51,20 @@ PyObject *scribus_newimage(PyObject *self, PyObject* args)
 {
 	double x, y, b, h;
 	char *Name = "";
-	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
+	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &b, &h, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
 	int i = Carrier->view->PaintPict(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h));
-	if (ItemExists(QString(Name)))
+	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
 	}
 	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
 	if (Name != "")
-		Carrier->doc->Items.at(i)->AnName = QString(Name);
-	return PyString_FromString(Carrier->doc->Items.at(i)->AnName);
+		Carrier->doc->Items.at(i)->AnName = QString::fromUtf8(Name);
+	return PyString_FromString(Carrier->doc->Items.at(i)->AnName.utf8());
 }
 
 
@@ -72,20 +72,20 @@ PyObject *scribus_newtext(PyObject *self, PyObject* args)
 {
 	double x, y, b, h;
 	char *Name = "";
-	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
+	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &b, &h, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
 	int i = Carrier->view->PaintText(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h), Carrier->doc->Dwidth, Carrier->doc->DpenText);
-	if (ItemExists(QString(Name)))
+	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
 	}
 	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
 	if (Name != "")
-		Carrier->doc->Items.at(i)->AnName = QString(Name);
-	return PyString_FromString(Carrier->doc->Items.at(i)->AnName);
+		Carrier->doc->Items.at(i)->AnName = QString::fromUtf8(Name);
+	return PyString_FromString(Carrier->doc->Items.at(i)->AnName.utf8());
 }
 
 
@@ -93,14 +93,14 @@ PyObject *scribus_newline(PyObject *self, PyObject* args)
 {
 	double x, y, b, h;
 	char *Name = "";
-	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
+	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &b, &h, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
 	x =	ValueToPoint(x);
 	y = ValueToPoint(y);
 	b = ValueToPoint(b);
-	if (ItemExists(QString(Name)))
+	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
@@ -127,8 +127,8 @@ PyObject *scribus_newline(PyObject *self, PyObject* args)
 	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), i, false, false);
 	Carrier->view->AdjustItemSize(it);
 	if (Name != "")
-		it->AnName = QString(Name);
-	return PyString_FromString(it->AnName);
+		it->AnName = QString::fromUtf8(Name);
+	return PyString_FromString(it->AnName.utf8());
 }
 
 
@@ -136,7 +136,8 @@ PyObject *scribus_polyline(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	PyObject *il;
-	if ((!PyArg_ParseTuple(args, "O|s", &il, &Name)) || (!PyList_Check(il)))
+	// FIXME: PyList_Check failing will cause the function to return NULL w/o an exception. Separarate out the check.
+	if ((!PyArg_ParseTuple(args, "O|es", &il, "utf-8", &Name)) || (!PyList_Check(il)))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
@@ -151,7 +152,7 @@ PyObject *scribus_polyline(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain an even number of values","python error"));
 		return NULL;
 	}
-	if (ItemExists(QString(Name)))
+	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
@@ -200,9 +201,9 @@ PyObject *scribus_polyline(PyObject *self, PyObject* args)
 	Carrier->view->AdjustItemSize(it);
 	if (Name != "")
 	{
-		it->AnName = QString(Name);
+		it->AnName = QString::fromUtf8(Name);
 	}
-	return PyString_FromString(it->AnName);
+	return PyString_FromString(it->AnName.utf8());
 }
 
 
@@ -210,7 +211,8 @@ PyObject *scribus_polygon(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	PyObject *il;
-	if ((!PyArg_ParseTuple(args, "O|s", &il, &Name)) || (!PyList_Check(il)))
+	// FIXME: PyList_Check failing will cause the function to return NULL w/o an exception. Separarate out the check.
+	if ((!PyArg_ParseTuple(args, "O|es", &il, "utf-8", &Name)) || (!PyList_Check(il)))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
@@ -225,7 +227,7 @@ PyObject *scribus_polygon(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain an even number of values","python error"));
 		return NULL;
 	}
-	if (ItemExists(QString(Name)))
+	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
@@ -278,15 +280,16 @@ PyObject *scribus_polygon(PyObject *self, PyObject* args)
 	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
 	Carrier->view->AdjustItemSize(it);
 	if (Name != "")
-		it->AnName = QString(Name);
-	return PyString_FromString(it->AnName);
+		it->AnName = QString::fromUtf8(Name);
+	return PyString_FromString(it->AnName.utf8());
 }
 
 PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	PyObject *il;
-	if ((!PyArg_ParseTuple(args, "O|s", &il, &Name)) || (!PyList_Check(il)))
+	// FIXME: PyList_Check failing will cause the function to return NULL w/o an exception. Separarate out the check.
+	if ((!PyArg_ParseTuple(args, "O|es", &il, "utf-8", &Name)) || (!PyList_Check(il)))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
@@ -301,7 +304,7 @@ PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must have a multiple of six values","python error"));
 		return NULL;
 	}
-	if (ItemExists(QString(Name)))
+	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
@@ -363,8 +366,8 @@ PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
 	Carrier->view->AdjustItemSize(it);
 	if (Name != "")
-		it->AnName = QString(Name);
-	return PyString_FromString(it->AnName);
+		it->AnName = QString::fromUtf8(Name);
+	return PyString_FromString(it->AnName.utf8());
 }
 
 
@@ -376,19 +379,19 @@ PyObject *scribus_pathtext(PyObject *self, PyObject* args)
 	char *Name = "";
 	char *TextB = "";
 	char *PolyB = "";
-	if (!PyArg_ParseTuple(args, "ddss|s", &x, &y, &TextB, &PolyB, &Name))
+	if (!PyArg_ParseTuple(args, "ddeses|es", &x, &y, "utf-8", &TextB, "utf-8", &PolyB, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (ItemExists(QString(Name)))
+	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
 	}
 	//FIXME: Why use GetItem not GetUniqueItem? Maybe use GetUniqueItem and use the exceptions
 	// its sets for us?
-	int i = GetItem(QString(TextB));
-	int ii = GetItem(QString(PolyB));
+	int i = GetItem(QString::fromUtf8(TextB));
+	int ii = GetItem(QString::fromUtf8(PolyB));
 	if ((i == -1) || (ii == -1))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Object not found","python error"));
@@ -401,8 +404,8 @@ PyObject *scribus_pathtext(PyObject *self, PyObject* args)
 	Carrier->view->ToPathText();
 	Carrier->view->MoveItem(ValueToPoint(x) - it->Xpos, ValueToPoint(y) - it->Ypos, it);
 	if (Name != "")
-		it->AnName = QString(Name);
-	return PyString_FromString(it->AnName);
+		it->AnName = QString::fromUtf8(Name);
+	return PyString_FromString(it->AnName.utf8());
 }
 
 
@@ -411,11 +414,11 @@ PyObject *scribus_pathtext(PyObject *self, PyObject* args)
 PyObject *scribus_deleteobj(PyObject *self, PyObject* args)
 {
 	char *Name = "";
-	if (!PyArg_ParseTuple(args, "|s", &Name))
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	PageItem *i = GetUniqueItem(QString(Name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
 	Carrier->view->SelItem.clear();
@@ -433,11 +436,11 @@ PyObject *scribus_textflow(PyObject *self, PyObject* args)
 	char *name = "";
 	int state = -1;
 
-	if (!PyArg_ParseTuple(args, "s|i", &name, &state))
+	if (!PyArg_ParseTuple(args, "es|i", "utf-8", &name, &state))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	PageItem *i = GetUniqueItem(QString(name));
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
 	if (i == NULL)
 		return NULL;
 	if (state == -1)
@@ -454,11 +457,11 @@ PyObject *scribus_textflow(PyObject *self, PyObject* args)
 PyObject *scribus_objectexists(PyObject *self, PyObject* args)
 {
 	char* name = "";
-	if (!PyArg_ParseTuple(args, "|s", &name))
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (ItemExists(QString(name)))
+	if (ItemExists(QString::fromUtf8(name)))
 		return PyBool_FromLong(static_cast<long>(true));
 	return PyBool_FromLong(static_cast<long>(false));
 }
@@ -470,16 +473,16 @@ PyObject *scribus_objectexists(PyObject *self, PyObject* args)
  */
 PyObject *scribus_setstyle(PyObject *self, PyObject* args)
 {
-	char *Style = "";
+	char *style = "";
 	char *name = "";
-	if (!PyArg_ParseTuple(args, "s|s", &Style, &name))
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &style, "utf-8", &name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	PageItem *item = GetUniqueItem(QString(name));
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == NULL)
 		return NULL;
-	if (item->PType == FRAME_TEXT)
+	if ((item->PType == FRAME_TEXT) || (item->PType == FRAME_PATHTEXT))
 	{
 		/*
 		 * First, find the style number associated with the requested style
@@ -492,7 +495,7 @@ PyObject *scribus_setstyle(PyObject *self, PyObject* args)
 		// We start at zero here because it's OK to match an internal name
 		for (uint i=0; i < Carrier->doc->Vorlagen.count(); ++i)
 		{
-			if (Carrier->doc->Vorlagen[i].Vname == Style) {
+			if (Carrier->doc->Vorlagen[i].Vname == QString::fromUtf8(style)) {
 				found = true;
 				styleid = i;
 				break;
@@ -535,7 +538,7 @@ PyObject *scribus_getstylenames(PyObject *self)
 	*/
 	for (uint i=0; i < Carrier->doc->Vorlagen.count(); ++i)
 	{
-		if (PyList_Append(styleList, PyString_FromString(Carrier->doc->Vorlagen[i].Vname)))
+		if (PyList_Append(styleList, PyString_FromString(Carrier->doc->Vorlagen[i].Vname.utf8())))
 		{
 			// An exception will have already been set by PyList_Append apparently.
 			return NULL;

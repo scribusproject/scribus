@@ -32,7 +32,7 @@ Progressbar handling
 TODO: check total vs. set values.
 (Petr Vanek 02/19/04)
 */
-PyObject *scribus_progressreset(PyObject *self, PyObject* args);
+PyObject *scribus_progressreset(PyObject *self);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_progresssettotalsteps__doc__,

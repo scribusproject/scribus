@@ -65,9 +65,9 @@ PyObject *scribus_havedoc(PyObject *self)
 PyObject *scribus_opendoc(PyObject *self, PyObject* args)
 {
 	char *Name;
-	if (!PyArg_ParseTuple(args, "s", &Name))
+	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return NULL;
-	bool ret = Carrier->LadeDoc(QString(Name));
+	bool ret = Carrier->LadeDoc(QString::fromUtf8(Name));
 	if (!ret)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to open document","python error"));
@@ -89,11 +89,11 @@ PyObject *scribus_savedoc(PyObject *self)
 PyObject *scribus_savedocas(PyObject *self, PyObject* args)
 {
 	char *Name;
-	if (!PyArg_ParseTuple(args, "s", &Name))
+	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	bool ret = Carrier->DoFileSave(QString(Name));
+	bool ret = Carrier->DoFileSave(QString::fromUtf8(Name));
 	if (!ret)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Failed to save document","python error"));
@@ -108,13 +108,15 @@ PyObject *scribus_setinfo(PyObject *self, PyObject* args)
 	char *Author;
 	char *Title;
 	char *Desc;
+	// z means string, but None becomes a NULL value. QString()
+	// will correctly handle NULL.
 	if (!PyArg_ParseTuple(args, "zzz", &Author, &Title, &Desc))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	Carrier->doc->DocAutor = QString(Author);
-	Carrier->doc->DocTitel = QString(Title);
-	Carrier->doc->DocComments = QString(Desc);
+	Carrier->doc->DocAutor = QString::fromUtf8(Author);
+	Carrier->doc->DocTitel = QString::fromUtf8(Title);
+	Carrier->doc->DocComments = QString::fromUtf8(Desc);
 	Carrier->slotDocCh();
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -147,11 +149,11 @@ PyObject *scribus_getunit(PyObject *self)
 PyObject *scribus_loadstylesfromfile(PyObject *self, PyObject *args)
 {
 	char *fileName;
-	if (!PyArg_ParseTuple(args, "s", &fileName))
+	if (!PyArg_ParseTuple(args, "es", "utf-8", &fileName))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	Carrier->doc->loadStylesFromFile(QString(fileName));
+	Carrier->doc->loadStylesFromFile(QString::fromUtf8(fileName));
 	Py_INCREF(Py_None);
 	return Py_None;
 }

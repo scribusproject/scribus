@@ -10,10 +10,10 @@ PyObject *scribus_colornames(PyObject *self)
 	CListe::Iterator it;
 	l = PyList_New(edc.count());
 	for (it = edc.begin(); it != edc.end(); ++it)
-		{
+	{
 		PyList_SetItem(l, cc, PyString_FromString(it.key().utf8()));
 		cc++;
-		}
+	}
 	return l;
 }
 
