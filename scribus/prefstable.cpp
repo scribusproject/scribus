@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2004 by Riku Leino                                      *
- *   tsoots@welho.com                                                      *
+ *   riku.leino@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -88,6 +88,11 @@ int PrefsTable::getInt(int row, int col, int defValue)
 }
 
 void PrefsTable::set(int row, int col, int value)
+{
+	set(row, col, QString("%1").arg(value));
+}
+
+void PrefsTable::set(int row, int col, uint value)
 {
 	set(row, col, QString("%1").arg(value));
 }

@@ -48,6 +48,7 @@
 #include "fmitem.h"
 #include "fontprefs.h"
 #include "libprefs/prefs.h"
+#include "prefstable.h"
 #include "pdfopts.h"
 #include "inspage.h"
 #include "delpages.h"
@@ -163,6 +164,9 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	BuFromApp = false;
 
 	PrefsPfad = getPreferencesLocation();
+	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs13.xml"));
+	convertToXMLPreferences(PrefsPfad);
+	
 	initFonts();
 
 	if (NoFonts)
@@ -512,9 +516,7 @@ void ScribusApp::initDefaultPrefs()
 
 void ScribusApp::initDefaultValues()
 {
-	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs13.xml"));
 	dirs = prefsFile->getContext("dirs");
-
 	HaveDoc = 0;
 	singleClose = false;
 	ScriptRunning = false;
@@ -821,14 +823,10 @@ QString ScribusApp::getPreferencesLocation()
 				copyFile(oldPR3, newPR3);
 			if (existsOldPR4 && !existsNewPR4)
 				copyFile(oldPR4, newPR4);
-				
-			//Now convert them to XML based preferences files
-			convertToXMLPreferences(PrefsPfad);
 		}
 		if (splashScreen)
 			splashScreen->show();
 	}
-
 	return PrefsPfad;
 }
 
