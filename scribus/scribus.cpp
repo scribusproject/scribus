@@ -93,6 +93,7 @@
 #include "tabcheckdoc.h"
 #include "tabpdfoptions.h"
 #include "docitemattrprefs.h"
+#include "pageitemattributes.h"
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
   #include "win-config.h"
@@ -1168,6 +1169,7 @@ void ScribusApp::initItemMenuActions()
 	scrActions.insert("itemRaise", new ScrAction(tr("&Raise"), QKeySequence(), this, "itemRaise"));
 	scrActions.insert("itemAlignDist", new ScrAction(tr("Distribute/&Align..."), QKeySequence(), this, "itemAlignDist"));
 
+	scrActions.insert("itemAttributes", new ScrAction(tr("&Attributes..."), QKeySequence(), this, "itemAttributes"));
 	scrActions.insert("itemShapeEdit", new ScrAction(tr("&Edit Shape..."), QKeySequence(), this, "itemShapeEdit"));
 	scrActions["itemShapeEdit"]->setToggleAction(true);
 	scrActions.insert("itemAttachTextToPath", new ScrAction(tr("&Attach Text to Path"), QKeySequence(), this, "itemAttachTextToPath"));
@@ -1187,6 +1189,7 @@ void ScribusApp::initItemMenuActions()
 	connect( scrActions["itemLower"], SIGNAL(activated()) , this, SLOT(ObjektLower()) );
 	connect( scrActions["itemRaise"], SIGNAL(activated()) , this, SLOT(ObjektRaise()) );
 	connect( scrActions["itemAlignDist"], SIGNAL(activated()) , this, SLOT(ObjektAlign()) );
+	connect( scrActions["itemAttributes"], SIGNAL(activated()) , this, SLOT(objectAttributes()) );
 	connect( scrActions["itemShapeEdit"], SIGNAL(activated()) , this, SLOT(ToggleFrameEdit()) );
 	connect( scrActions["itemAttachTextToPath"], SIGNAL(activated()) , this, SLOT(Pfadtext()) );
 	connect( scrActions["itemDetachTextFromPath"], SIGNAL(activated()) , this, SLOT(noPfadtext()) );
@@ -1482,6 +1485,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemRaise"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemAlignDist"], "Item");
 	scrMenuMgr->addMenuSeparator("Item");
+	scrMenuMgr->addMenuItem(scrActions["itemAttributes"], "Item");
 	scrMenuMgr->createMenu("ItemShapes", tr("&Shape"), "Item");
 	// CB TODO
 	//Shape menu
@@ -10250,3 +10254,19 @@ void ScribusApp::slotTest2()
 {
 }
 
+void ScribusApp::objectAttributes()
+{
+	if ((HaveDoc) && (view->SelItem.count() == 1))
+	{
+		PageItem *pageItem = view->SelItem.at(0);
+		if (pageItem!=NULL)
+		{
+			PageItemAttributes *pageItemAttrs = new PageItemAttributes( this );
+			pageItemAttrs->setup(pageItem->getObjectAttributes());
+			//CB TODO Probably want this non modal in the future
+			if (pageItemAttrs->exec()==QDialog::Accepted)
+				pageItem->setObjectAttributes(pageItemAttrs->getNewAttributes());
+			delete pageItemAttrs;
+		}
+	}
+}

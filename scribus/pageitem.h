@@ -28,6 +28,7 @@
 #include <qvaluelist.h>
 #include "scpainter.h"
 #include "undoobject.h"
+#include "pagestructs.h"
 class ScribusDoc;
 class UndoManager;
 class UndoState;
@@ -157,6 +158,8 @@ public:
 				QString ZFo;
 			  };
 
+	ObjAttrMap* getObjectAttributes();
+	void setObjectAttributes(ObjAttrMap);
   /** Zeichnet das Item */
 	void paintObj(QRect e=QRect(), QPixmap *ppX = 0);
 	void DrawObj(ScPainter *p, QRect e);
@@ -838,6 +841,11 @@ protected:
 	 * @sa PageItem::sizeLocked(), PageItem::setSizeLocked(), PageItem::toggleSizeLock()
 	 */
 	bool LockRes;
+	/**
+	 * @brief Stores the attributes of the pageitem (NOT properties, the user defined ATTRIBUTES)
+	 * @sa 
+	 */		  
+	ObjAttrMap pageItemAttributes;
 };
 
 #endif

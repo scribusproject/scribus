@@ -41,13 +41,6 @@ struct ScText
 	QString ch;
 };
 
-struct ObjectAttribute {
-	QString name;
-	QString type;
-	QString value;
-	QString parameter;
-};
-
 struct CopyPasteBuffer
 {
 	PageItem::ItemType PType;
@@ -453,7 +446,7 @@ struct ApplicationPrefs
 	windowPrefs mainWinSettings;
 	
 	PDFOptions PDF_Options;
-	QMap<int, ObjectAttribute> defaultItemAttributes;
+	ObjAttrMap defaultItemAttributes;
 	bool SepalT;
 	bool SepalN;
 	int PSize;

@@ -1607,6 +1607,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			ScApp->scrActions["editUndoAction"]->addTo(pmen);
 			ScApp->scrActions["editRedoAction"]->addTo(pmen);
 			pmen->insertSeparator();
+			ScApp->scrActions["itemAttributes"]->addTo(pmen);
 			if (b->itemType() == PageItem::ImageFrame)
 			{
 				ScApp->scrActions["fileImportImage"]->addTo(pmen);

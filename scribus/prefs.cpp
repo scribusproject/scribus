@@ -391,11 +391,11 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 								prefsData->PageWidth,
 								0 );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
-	
+
 	tabDefaultItemAttributes = new DocumentItemAttributes( prefsWidgets);
 	tabDefaultItemAttributes->setup(&prefsData->defaultItemAttributes);
 	addItem( tr("Document Item Attributes"), loadIcon("docattributes.png"), tabDefaultItemAttributes);
-
+	
 	tabKeys = new KeyManager(prefsWidgets, prefsData->KeyActions);
 	addItem( tr("Keyboard Shortcuts"), loadIcon("key_bindings.png"), tabKeys);
 

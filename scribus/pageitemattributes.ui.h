@@ -10,18 +10,19 @@
 ** destructor.
 *****************************************************************************/
 
-void DocumentItemAttributes::init()
+//Basically the same as Document Item Attributes for now... will get comboboxes later etc
+void PageItemAttributes::init()
 {
 	//blah
 }
 
-void DocumentItemAttributes::destroy()
+void PageItemAttributes::destroy()
 {
 	//blah2
 }
 
 
-void DocumentItemAttributes::setup(ObjAttrMap *docItemAttrs)
+void PageItemAttributes::setup(ObjAttrMap *docItemAttrs)
 {
 	localAttributes=*docItemAttrs;
 	attributesTable->setNumRows(docItemAttrs->count());
@@ -42,13 +43,13 @@ void DocumentItemAttributes::setup(ObjAttrMap *docItemAttrs)
 }
 
 
-QMap<int, ObjectAttribute> DocumentItemAttributes::getNewAttributes()
+QMap<int, ObjectAttribute> PageItemAttributes::getNewAttributes()
 {
 	return localAttributes;
 }
 
 
-void DocumentItemAttributes::tableItemChanged( int row, int col )
+void PageItemAttributes::tableItemChanged( int row, int col )
 {
 	if (localAttributes.contains(row))
 	{

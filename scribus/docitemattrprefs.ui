@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>481</width>
-            <height>174</height>
+            <width>461</width>
+            <height>190</height>
         </rect>
     </property>
     <property name="caption">
@@ -35,7 +35,7 @@
                 </property>
                 <widget class="QLayoutWidget">
                     <property name="name">
-                        <cstring>attrGroupLayout</cstring>
+                        <cstring>layout21</cstring>
                     </property>
                     <vbox>
                         <property name="name">
@@ -79,7 +79,7 @@
                         </widget>
                         <widget class="QLayoutWidget">
                             <property name="name">
-                                <cstring>attrGrpMainLayout</cstring>
+                                <cstring>layout20</cstring>
                             </property>
                             <hbox>
                                 <property name="name">
@@ -97,11 +97,44 @@
                                     </property>
                                     <property name="sizeHint">
                                         <size>
-                                            <width>290</width>
+                                            <width>192</width>
                                             <height>21</height>
                                         </size>
                                     </property>
                                 </spacer>
+                                <widget class="QPushButton">
+                                    <property name="name">
+                                        <cstring>addButton</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>&amp;Add</string>
+                                    </property>
+                                    <property name="accel">
+                                        <string>Alt+A</string>
+                                    </property>
+                                </widget>
+                                <widget class="QPushButton">
+                                    <property name="name">
+                                        <cstring>pushButton10</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>&amp;Copy</string>
+                                    </property>
+                                    <property name="accel">
+                                        <string>Alt+C</string>
+                                    </property>
+                                </widget>
+                                <widget class="QPushButton">
+                                    <property name="name">
+                                        <cstring>pushButton9</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>&amp;Delete</string>
+                                    </property>
+                                    <property name="accel">
+                                        <string>Alt+D</string>
+                                    </property>
+                                </widget>
                                 <widget class="QPushButton">
                                     <property name="name">
                                         <cstring>clearButton</cstring>
@@ -130,21 +163,21 @@
     </connection>
 </connections>
 <includes>
-    <include location="local" impldecl="in declaration">scribusstructs.h</include>
     <include location="global" impldecl="in implementation">qtable.h</include>
     <include location="global" impldecl="in implementation">qheader.h</include>
+    <include location="local" impldecl="in declaration">pagestructs.h</include>
     <include location="local" impldecl="in implementation">docitemattrprefs.ui.h</include>
 </includes>
 <variables>
-    <variable access="public">QMap&lt;int, ObjectAttribute&gt; localAttributes;</variable>
+    <variable access="public">ObjAttrMap localAttributes;</variable>
 </variables>
 <slots>
+    <slot>setup( ObjAttrMap * docItemAttrs )</slot>
     <slot access="protected">tableItemChanged( int row, int col )</slot>
 </slots>
 <functions>
     <function access="private">init()</function>
     <function access="private" specifier="non virtual">destroy()</function>
-    <function>setup( QMap&lt;int, ObjectAttribute&gt; * docItemAttrs )</function>
     <function returnType="QMap&lt;int,ObjectAttribute&gt;">getNewAttributes()</function>
 </functions>
 <layoutdefaults spacing="6" margin="11"/>
