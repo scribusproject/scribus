@@ -1031,6 +1031,14 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <source>&amp;Y-Pos:</source>
         <translation type="unfinished">Posició &amp;Y:</translation>
     </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">D&apos;ac&amp;ord</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Cancel.la</translation>
+    </message>
 </context>
 <context>
     <name>ApplyT</name>
@@ -1500,6 +1508,15 @@ Es recomana activar-lo si tens colors en el teu document.</translation>
         <source>OK</source>
         <translation>D&apos;acord</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Cap</translation>
+    </message>
+    <message>
+        <source>You cannot create a color named &quot;%1&quot;.
+It&apos;s a reserved name for transparent color</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -1776,6 +1793,10 @@ Això es pot posar en les Preferències.</translation>
     <message>
         <source>Cancel</source>
         <translation>Cancel.la</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Cap</translation>
     </message>
 </context>
 <context>
@@ -2602,6 +2623,10 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     <message>
         <source>New Color</source>
         <translation>Nou Color</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Cap</translation>
     </message>
 </context>
 <context>
@@ -4690,7 +4715,7 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation type="obsolete">Com&amp;primir Text i Gràfics Vectorials</translation>
+        <translation type="unfinished">Com&amp;primir Text i Gràfics Vectorials</translation>
     </message>
     <message>
         <source>Image Settings</source>
@@ -4778,7 +4803,7 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation type="obsolete">Activa Efectes de &amp;Presentació</translation>
+        <translation type="unfinished">Activa Efectes de &amp;Presentació</translation>
     </message>
     <message>
         <source>Page</source>
@@ -4890,7 +4915,7 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation type="obsolete">E&amp;xtres</translation>
+        <translation type="unfinished">E&amp;xtres</translation>
     </message>
     <message>
         <source>&amp;Use Encryption</source>
@@ -5320,27 +5345,23 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
         <translation>Fitxers PDF (*.pdf);;Tots els fitxers (*)</translation>
     </message>
     <message>
-        <source>Compress Text and &amp;Vector Graphics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>En&amp;able Presentation Effects</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Presentation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) &amp;Horizontally</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Rotation:</source>
         <translation type="unfinished">&amp;Rotació:</translation>
     </message>
     <message>
-        <source>&amp;Options</source>
+        <source>&amp;Subset all Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to subset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) vertically</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5445,291 +5466,291 @@ UCR redueix la possibilitat de sobresaturació amb tintes CMY.</translation>
     <name>Page</name>
     <message>
         <source>Copy Here</source>
-        <translation>Copia Aquí</translation>
+        <translation type="obsolete">Copia Aquí</translation>
     </message>
     <message>
         <source>Move Here</source>
-        <translation>Mou Aquí</translation>
+        <translation type="obsolete">Mou Aquí</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancel.la</translation>
+        <translation type="obsolete">Cancel.la</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation>&amp;Enganxa</translation>
+        <translation type="obsolete">&amp;Enganxa</translation>
     </message>
     <message>
         <source>Show &amp;Margins</source>
-        <translation>Mostra &amp;Marges</translation>
+        <translation type="obsolete">Mostra &amp;Marges</translation>
     </message>
     <message>
         <source>Show &amp;Frames</source>
-        <translation>Mostra &amp;Marcs</translation>
+        <translation type="obsolete">Mostra &amp;Marcs</translation>
     </message>
     <message>
         <source>Show &amp;Images</source>
-        <translation>Mostra &amp;Imatges</translation>
+        <translation type="obsolete">Mostra &amp;Imatges</translation>
     </message>
     <message>
         <source>Show &amp;Grid</source>
-        <translation>Mostra &amp;Reixa</translation>
+        <translation type="obsolete">Mostra &amp;Reixa</translation>
     </message>
     <message>
         <source>Show G&amp;uides</source>
-        <translation>Mostra G&amp;uies</translation>
+        <translation type="obsolete">Mostra G&amp;uies</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation>Mostra Reixa &amp;Base</translation>
+        <translation type="obsolete">Mostra Reixa &amp;Base</translation>
     </message>
     <message>
         <source>Sn&amp;ap to Grid</source>
-        <translation>Desplaça &amp;a la Reixa</translation>
+        <translation type="obsolete">Desplaça &amp;a la Reixa</translation>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
-        <translation>Des&amp;plaça a les Guies</translation>
+        <translation type="obsolete">Des&amp;plaça a les Guies</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation>Imatge</translation>
+        <translation type="obsolete">Imatge</translation>
     </message>
     <message>
         <source>File: </source>
-        <translation>Fitxer:</translation>
+        <translation type="obsolete">Fitxer:</translation>
     </message>
     <message>
         <source>Original PPI: </source>
-        <translation>Original PPI:</translation>
+        <translation type="obsolete">Original PPI:</translation>
     </message>
     <message>
         <source>Actual PPI: </source>
-        <translation>Actual PPI:</translation>
+        <translation type="obsolete">Actual PPI:</translation>
     </message>
     <message>
         <source>Linked Text</source>
-        <translation>Text enllaçat</translation>
+        <translation type="obsolete">Text enllaçat</translation>
     </message>
     <message>
         <source>Text Frame</source>
-        <translation>Marc de Text</translation>
+        <translation type="obsolete">Marc de Text</translation>
     </message>
     <message>
         <source>Text on a Path</source>
-        <translation>Text en un Camí</translation>
+        <translation type="obsolete">Text en un Camí</translation>
     </message>
     <message>
         <source>Paragraphs: </source>
-        <translation>Paràgrafs:</translation>
+        <translation type="obsolete">Paràgrafs:</translation>
     </message>
     <message>
         <source>Words: </source>
-        <translation>Paraules:</translation>
+        <translation type="obsolete">Paraules:</translation>
     </message>
     <message>
         <source>Chars: </source>
-        <translation>Lletres:</translation>
+        <translation type="obsolete">Lletres:</translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation>Impressió:</translation>
+        <translation type="obsolete">Impressió:</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Activat</translation>
+        <translation type="obsolete">Activat</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation>Desactivat</translation>
+        <translation type="obsolete">Desactivat</translation>
     </message>
     <message>
         <source>In&amp;fo</source>
-        <translation>In&amp;formació</translation>
+        <translation type="obsolete">In&amp;formació</translation>
     </message>
     <message>
         <source>&amp;Get Picture...</source>
-        <translation>&amp;Obtenir Imatge...</translation>
+        <translation type="obsolete">&amp;Obtenir Imatge...</translation>
     </message>
     <message>
         <source>I&amp;mage Visible</source>
-        <translation>I&amp;matge Visible</translation>
+        <translation type="obsolete">I&amp;matge Visible</translation>
     </message>
     <message>
         <source>&amp;Update Picture</source>
-        <translation>&amp;Actualitza Imatge</translation>
+        <translation type="obsolete">&amp;Actualitza Imatge</translation>
     </message>
     <message>
         <source>&amp;Edit Picture</source>
-        <translation>&amp;Edita Imatge</translation>
+        <translation type="obsolete">&amp;Edita Imatge</translation>
     </message>
     <message>
         <source>&amp;Adjust Frame to Picture</source>
-        <translation>&amp;Ajusta Marc a la Imatge</translation>
+        <translation type="obsolete">&amp;Ajusta Marc a la Imatge</translation>
     </message>
     <message>
         <source>&amp;Get Text...</source>
-        <translation>&amp;Obtenir Text...</translation>
+        <translation type="obsolete">&amp;Obtenir Text...</translation>
     </message>
     <message>
         <source>&amp;Append Text...</source>
-        <translation>&amp;Afegeix Text...</translation>
+        <translation type="obsolete">&amp;Afegeix Text...</translation>
     </message>
     <message>
         <source>&amp;Edit Text...</source>
-        <translation>&amp;Editar Text...</translation>
+        <translation type="obsolete">&amp;Editar Text...</translation>
     </message>
     <message>
         <source>Is PDF &amp;Bookmark</source>
-        <translation>Es un P&amp;unt de PDF</translation>
+        <translation type="obsolete">Es un P&amp;unt de PDF</translation>
     </message>
     <message>
         <source>Is PDF A&amp;nnotation</source>
-        <translation>És una A&amp;notació de PDF</translation>
+        <translation type="obsolete">És una A&amp;notació de PDF</translation>
     </message>
     <message>
         <source>Annotation P&amp;roperties</source>
-        <translation>P&amp;ropietats Anotació</translation>
+        <translation type="obsolete">P&amp;ropietats Anotació</translation>
     </message>
     <message>
         <source>Field P&amp;roperties</source>
-        <translation>P&amp;ropietats de Camp</translation>
+        <translation type="obsolete">P&amp;ropietats de Camp</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation>Opcions &amp;PDF</translation>
+        <translation type="obsolete">Opcions &amp;PDF</translation>
     </message>
     <message>
         <source>Edit Text...</source>
-        <translation>Edita Text...</translation>
+        <translation type="obsolete">Edita Text...</translation>
     </message>
     <message>
         <source>&amp;Lock</source>
-        <translation>&amp;Bloqueja</translation>
+        <translation type="obsolete">&amp;Bloqueja</translation>
     </message>
     <message>
         <source>Un&amp;lock</source>
-        <translation>DesB&amp;loqueja</translation>
+        <translation type="obsolete">DesB&amp;loqueja</translation>
     </message>
     <message>
         <source>Lock Object &amp;Size</source>
-        <translation>Bloqueja &amp;Mida</translation>
+        <translation type="obsolete">Bloqueja &amp;Mida</translation>
     </message>
     <message>
         <source>Unlock Object &amp;Size</source>
-        <translation>Desbloqueja M&amp;ida</translation>
+        <translation type="obsolete">Desbloqueja M&amp;ida</translation>
     </message>
     <message>
         <source>Send to S&amp;crapbook</source>
-        <translation>Envia a l&apos;àlbum de &amp;retalls</translation>
+        <translation type="obsolete">Envia a l&apos;àlbum de &amp;retalls</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
-        <translation>Envia a la Ca&amp;pa</translation>
+        <translation type="obsolete">Envia a la Ca&amp;pa</translation>
     </message>
     <message>
         <source>&amp;Insert Sample Text</source>
-        <translation>&amp;Inserir Text de Mostra</translation>
+        <translation type="obsolete">&amp;Inserir Text de Mostra</translation>
     </message>
     <message>
         <source>&amp;Group</source>
-        <translation>A&amp;grupa</translation>
+        <translation type="obsolete">A&amp;grupa</translation>
     </message>
     <message>
         <source>Un&amp;group</source>
-        <translation>Desa&amp;grupa</translation>
+        <translation type="obsolete">Desa&amp;grupa</translation>
     </message>
     <message>
         <source>Le&amp;vel</source>
-        <translation>Ni&amp;vell</translation>
+        <translation type="obsolete">Ni&amp;vell</translation>
     </message>
     <message>
         <source>Send to &amp;Back</source>
-        <translation>Envia al &amp;fons</translation>
+        <translation type="obsolete">Envia al &amp;fons</translation>
     </message>
     <message>
         <source>Bring to &amp;Front</source>
-        <translation>Envia a &amp;Davant</translation>
+        <translation type="obsolete">Envia a &amp;Davant</translation>
     </message>
     <message>
         <source>&amp;Lower</source>
-        <translation>&amp;Abaixa</translation>
+        <translation type="obsolete">&amp;Abaixa</translation>
     </message>
     <message>
         <source>&amp;Raise</source>
-        <translation>A&amp;puja</translation>
+        <translation type="obsolete">A&amp;puja</translation>
     </message>
     <message>
         <source>&amp;Picture Frame</source>
-        <translation>&amp;Marc d&apos;Imatge</translation>
+        <translation type="obsolete">&amp;Marc d&apos;Imatge</translation>
     </message>
     <message>
         <source>Pol&amp;ygon</source>
-        <translation>Polí&amp;gon</translation>
+        <translation type="obsolete">Polí&amp;gon</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
-        <translation>&amp;Esquemes</translation>
+        <translation type="obsolete">&amp;Esquemes</translation>
     </message>
     <message>
         <source>&amp;Text Frame</source>
-        <translation>Marc de &amp;Text</translation>
+        <translation type="obsolete">Marc de &amp;Text</translation>
     </message>
     <message>
         <source>&amp;Bezier Curve</source>
-        <translation>Corba &amp;Bezier</translation>
+        <translation type="obsolete">Corba &amp;Bezier</translation>
     </message>
     <message>
         <source>Conve&amp;rt to</source>
-        <translation>Conve&amp;rteix a</translation>
+        <translation type="obsolete">Conve&amp;rteix a</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation>T&amp;alla</translation>
+        <translation type="obsolete">T&amp;alla</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>&amp;Copia</translation>
+        <translation type="obsolete">&amp;Copia</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>Es&amp;borra</translation>
+        <translation type="obsolete">Es&amp;borra</translation>
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation>Neteja C&amp;ontingut</translation>
+        <translation type="obsolete">Neteja C&amp;ontingut</translation>
     </message>
     <message>
         <source>Show P&amp;roperties...</source>
-        <translation>Mostra P&amp;ropietats...</translation>
+        <translation type="obsolete">Mostra P&amp;ropietats...</translation>
     </message>
     <message>
         <source>Hide P&amp;roperties...</source>
-        <translation>Amaga P&amp;ropietats...</translation>
+        <translation type="obsolete">Amaga P&amp;ropietats...</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Cap</translation>
+        <translation type="obsolete">Cap</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
         <source>Do you really want to clear all your Text?</source>
-        <translation>Realment vols esborrar tot el Text?</translation>
+        <translation type="obsolete">Realment vols esborrar tot el Text?</translation>
     </message>
     <message>
         <source>The Program</source>
-        <translation>El Programa</translation>
+        <translation type="obsolete">El Programa</translation>
     </message>
     <message>
         <source>is missing!</source>
-        <translation>està perdut!</translation>
+        <translation type="obsolete">està perdut!</translation>
     </message>
     <message>
         <source>Copy of</source>
-        <translation>Còpia de</translation>
+        <translation type="obsolete">Còpia de</translation>
     </message>
 </context>
 <context>
@@ -7312,7 +7333,7 @@ Comprova el nom i el camí.</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Nou</translation>
+        <translation type="obsolete">&amp;Nou</translation>
     </message>
     <message>
         <source>Template: </source>
@@ -7452,7 +7473,7 @@ Comprova el nom i el camí.</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation>Im&amp;primir...</translation>
+        <translation type="obsolete">Im&amp;primir...</translation>
     </message>
     <message>
         <source>Print Previe&amp;w</source>
@@ -7476,7 +7497,7 @@ Comprova el nom i el camí.</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation>&amp;Anomena i Desa...</translation>
+        <translation type="obsolete">&amp;Anomena i Desa...</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
@@ -7598,6 +7619,18 @@ Enllaços Externs
     <message>
         <source>Text Filters</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation type="unfinished">Tot</translation>
     </message>
 </context>
 <context>
@@ -7821,6 +7854,50 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>&amp;Outside:</source>
         <translation>&amp;Fora:</translation>
+    </message>
+    <message>
+        <source>Page Size</source>
+        <translation type="unfinished">Mida de Pàgina</translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished">&amp;Mida:</translation>
+    </message>
+    <message>
+        <source>Legal</source>
+        <translation type="unfinished">Legal</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation type="unfinished">Carta</translation>
+    </message>
+    <message>
+        <source>Tabloid</source>
+        <translation type="unfinished">Tabloide</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished">Personalitzat</translation>
+    </message>
+    <message>
+        <source>Orie&amp;ntation:</source>
+        <translation type="unfinished">Orie&amp;ntació:</translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation type="unfinished">Vertical</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation type="unfinished">Apaisat</translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation type="unfinished">&amp;Amplada:</translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation type="unfinished">A&amp;lçada:</translation>
     </message>
 </context>
 <context>
@@ -8817,7 +8894,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Tots els fitxers (*)</translation>
+        <translation type="obsolete">Documents (*.sla *.sla.gz *.scd *.scd.gz);;Tots els fitxers (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
@@ -8857,7 +8934,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>File %1 is not in Scribus format</source>
-        <translation>El Fitxer %1 no està en format Scribus</translation>
+        <translation type="obsolete">El Fitxer %1 no està en format Scribus</translation>
     </message>
     <message>
         <source>OK</source>
@@ -9109,6 +9186,31 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
         <source>Scribus crashes due to Signal #%1</source>
         <translation>Scribus ha petat amb el Signal #%1</translation>
     </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Postscript-Files (*.eps *.EPS *.ps *.PS);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG-Images (*.svg *.svgz);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG-Images (*.svg);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File %1 
+is not in an acceptable format</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -9138,7 +9240,295 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>All</source>
-        <translation>Tot</translation>
+        <translation type="obsolete">Tot</translation>
+    </message>
+    <message>
+        <source>Copy Here</source>
+        <translation type="unfinished">Copia Aquí</translation>
+    </message>
+    <message>
+        <source>Move Here</source>
+        <translation type="unfinished">Mou Aquí</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancel.la</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation type="unfinished">&amp;Enganxa</translation>
+    </message>
+    <message>
+        <source>Show &amp;Margins</source>
+        <translation type="unfinished">Mostra &amp;Marges</translation>
+    </message>
+    <message>
+        <source>Show &amp;Frames</source>
+        <translation type="unfinished">Mostra &amp;Marcs</translation>
+    </message>
+    <message>
+        <source>Show &amp;Images</source>
+        <translation type="unfinished">Mostra &amp;Imatges</translation>
+    </message>
+    <message>
+        <source>Show &amp;Grid</source>
+        <translation type="unfinished">Mostra &amp;Reixa</translation>
+    </message>
+    <message>
+        <source>Show G&amp;uides</source>
+        <translation type="unfinished">Mostra G&amp;uies</translation>
+    </message>
+    <message>
+        <source>Show &amp;Baseline Grid</source>
+        <translation type="unfinished">Mostra Reixa &amp;Base</translation>
+    </message>
+    <message>
+        <source>Sn&amp;ap to Grid</source>
+        <translation type="unfinished">Desplaça &amp;a la Reixa</translation>
+    </message>
+    <message>
+        <source>Sna&amp;p to Guides</source>
+        <translation type="unfinished">Des&amp;plaça a les Guies</translation>
+    </message>
+    <message>
+        <source>Picture</source>
+        <translation type="unfinished">Imatge</translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation type="unfinished">Fitxer:</translation>
+    </message>
+    <message>
+        <source>Original PPI: </source>
+        <translation type="unfinished">Original PPI:</translation>
+    </message>
+    <message>
+        <source>Actual PPI: </source>
+        <translation type="unfinished">Actual PPI:</translation>
+    </message>
+    <message>
+        <source>Linked Text</source>
+        <translation type="unfinished">Text enllaçat</translation>
+    </message>
+    <message>
+        <source>Text Frame</source>
+        <translation type="unfinished">Marc de Text</translation>
+    </message>
+    <message>
+        <source>Text on a Path</source>
+        <translation type="unfinished">Text en un Camí</translation>
+    </message>
+    <message>
+        <source>Paragraphs: </source>
+        <translation type="unfinished">Paràgrafs:</translation>
+    </message>
+    <message>
+        <source>Words: </source>
+        <translation type="unfinished">Paraules:</translation>
+    </message>
+    <message>
+        <source>Chars: </source>
+        <translation type="unfinished">Lletres:</translation>
+    </message>
+    <message>
+        <source>Print: </source>
+        <translation type="unfinished">Impressió:</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation type="unfinished">Activat</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished">Desactivat</translation>
+    </message>
+    <message>
+        <source>In&amp;fo</source>
+        <translation type="unfinished">In&amp;formació</translation>
+    </message>
+    <message>
+        <source>&amp;Get Picture...</source>
+        <translation type="unfinished">&amp;Obtenir Imatge...</translation>
+    </message>
+    <message>
+        <source>I&amp;mage Visible</source>
+        <translation type="unfinished">I&amp;matge Visible</translation>
+    </message>
+    <message>
+        <source>&amp;Update Picture</source>
+        <translation type="unfinished">&amp;Actualitza Imatge</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Picture</source>
+        <translation type="unfinished">&amp;Edita Imatge</translation>
+    </message>
+    <message>
+        <source>&amp;Adjust Frame to Picture</source>
+        <translation type="unfinished">&amp;Ajusta Marc a la Imatge</translation>
+    </message>
+    <message>
+        <source>&amp;Get Text...</source>
+        <translation type="unfinished">&amp;Obtenir Text...</translation>
+    </message>
+    <message>
+        <source>&amp;Append Text...</source>
+        <translation type="unfinished">&amp;Afegeix Text...</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Text...</source>
+        <translation type="unfinished">&amp;Editar Text...</translation>
+    </message>
+    <message>
+        <source>Is PDF &amp;Bookmark</source>
+        <translation type="unfinished">Es un P&amp;unt de PDF</translation>
+    </message>
+    <message>
+        <source>Is PDF A&amp;nnotation</source>
+        <translation type="unfinished">És una A&amp;notació de PDF</translation>
+    </message>
+    <message>
+        <source>Annotation P&amp;roperties</source>
+        <translation type="unfinished">P&amp;ropietats Anotació</translation>
+    </message>
+    <message>
+        <source>Field P&amp;roperties</source>
+        <translation type="unfinished">P&amp;ropietats de Camp</translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation type="unfinished">Opcions &amp;PDF</translation>
+    </message>
+    <message>
+        <source>Edit Text...</source>
+        <translation type="unfinished">Edita Text...</translation>
+    </message>
+    <message>
+        <source>&amp;Lock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Un&amp;lock</source>
+        <translation type="unfinished">DesB&amp;loqueja</translation>
+    </message>
+    <message>
+        <source>Lock Object &amp;Size</source>
+        <translation type="unfinished">Bloqueja &amp;Mida</translation>
+    </message>
+    <message>
+        <source>Unlock Object &amp;Size</source>
+        <translation type="unfinished">Desbloqueja M&amp;ida</translation>
+    </message>
+    <message>
+        <source>Send to S&amp;crapbook</source>
+        <translation type="unfinished">Envia a l&apos;àlbum de &amp;retalls</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation type="unfinished">Envia a la Ca&amp;pa</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Sample Text</source>
+        <translation type="unfinished">&amp;Inserir Text de Mostra</translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation type="unfinished">A&amp;grupa</translation>
+    </message>
+    <message>
+        <source>Un&amp;group</source>
+        <translation type="unfinished">Desa&amp;grupa</translation>
+    </message>
+    <message>
+        <source>Le&amp;vel</source>
+        <translation type="unfinished">Ni&amp;vell</translation>
+    </message>
+    <message>
+        <source>Send to &amp;Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bring to &amp;Front</source>
+        <translation type="unfinished">Envia a &amp;Davant</translation>
+    </message>
+    <message>
+        <source>&amp;Lower</source>
+        <translation type="unfinished">&amp;Abaixa</translation>
+    </message>
+    <message>
+        <source>&amp;Raise</source>
+        <translation type="unfinished">A&amp;puja</translation>
+    </message>
+    <message>
+        <source>&amp;Picture Frame</source>
+        <translation type="unfinished">&amp;Marc d&apos;Imatge</translation>
+    </message>
+    <message>
+        <source>Pol&amp;ygon</source>
+        <translation type="unfinished">Polí&amp;gon</translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <translation type="unfinished">&amp;Esquemes</translation>
+    </message>
+    <message>
+        <source>&amp;Text Frame</source>
+        <translation type="unfinished">Marc de &amp;Text</translation>
+    </message>
+    <message>
+        <source>&amp;Bezier Curve</source>
+        <translation type="unfinished">Corba &amp;Bezier</translation>
+    </message>
+    <message>
+        <source>Conve&amp;rt to</source>
+        <translation type="unfinished">Conve&amp;rteix a</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation type="unfinished">T&amp;alla</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="unfinished">&amp;Copia</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear Contents</source>
+        <translation type="unfinished">Neteja C&amp;ontingut</translation>
+    </message>
+    <message>
+        <source>Show P&amp;roperties...</source>
+        <translation type="unfinished">Mostra P&amp;ropietats...</translation>
+    </message>
+    <message>
+        <source>Hide P&amp;roperties...</source>
+        <translation type="unfinished">Amaga P&amp;ropietats...</translation>
+    </message>
+    <message>
+        <source>The Program</source>
+        <translation type="unfinished">El Programa</translation>
+    </message>
+    <message>
+        <source>is missing!</source>
+        <translation type="unfinished">està perdut!</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished">Avís</translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your Text?</source>
+        <translation type="unfinished">Realment vols esborrar tot el Text?</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Cap</translation>
+    </message>
+    <message>
+        <source>Copy of</source>
+        <translation type="unfinished">Còpia de</translation>
     </message>
 </context>
 <context>
@@ -9633,11 +10023,11 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation>&amp;Inserir Especial</translation>
+        <translation type="obsolete">&amp;Inserir Especial</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation>Vista Prèvia de &amp;Fonts</translation>
+        <translation type="obsolete">Vista Prèvia de &amp;Fonts</translation>
     </message>
     <message>
         <source>Do you really want to lose all your Changes?</source>
@@ -9658,6 +10048,10 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     <message>
         <source>Save as</source>
         <translation>Anomena i desa</translation>
+    </message>
+    <message>
+        <source>&amp;Smart text selection</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9702,7 +10096,7 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
 name than current OO.o document&apos;s paragraph should the style
 in Scribus be edited to match the one being imported
 or left untouched</source>
-        <translation>Si ja existeix un estil de paràgraf amb el mateix
+        <translation type="obsolete">Si ja existeix un estil de paràgraf amb el mateix
 nom que els paràgrafs del document OO.o l&apos;estil de 
 Scribus s&apos;haurà d&apos;editar per fer-lo quadrar amb l&apos;importat
 o deixar-ho com està</translation>
@@ -9736,6 +10130,12 @@ mai tornarà a demanar confirmació</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If a paragraph style already exists with the same name as the current
+OpenOffice.org document&apos;s paragraph, should the style in Scribus be
+edited to match the one being imported, or left untouched</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9841,57 +10241,57 @@ on front of the paragraph style name in Scribus</source>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Avís</translation>
+        <translation type="obsolete">Avís</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation>El Nom &quot;%1&quot; no és únic
+        <translation type="obsolete">El Nom &quot;%1&quot; no és únic
 Si us plau tria&apos;n un altre.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>D&apos;acord</translation>
+        <translation type="obsolete">D&apos;acord</translation>
     </message>
     <message>
         <source>X:</source>
-        <translation>X:</translation>
+        <translation type="obsolete">X:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation>Y:</translation>
+        <translation type="obsolete">Y:</translation>
     </message>
     <message>
         <source>Font:</source>
-        <translation>Font:</translation>
+        <translation type="obsolete">Font:</translation>
     </message>
     <message>
         <source>Group </source>
-        <translation>Grup</translation>
+        <translation type="obsolete">Grup</translation>
     </message>
     <message>
         <source>Image</source>
-        <translation>Imatge</translation>
+        <translation type="obsolete">Imatge</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Text</translation>
+        <translation type="obsolete">Text</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation>Línia</translation>
+        <translation type="obsolete">Línia</translation>
     </message>
     <message>
         <source>Polygon</source>
-        <translation>Polígon</translation>
+        <translation type="obsolete">Polígon</translation>
     </message>
     <message>
         <source>Polyline</source>
-        <translation>Polilínia</translation>
+        <translation type="obsolete">Polilínia</translation>
     </message>
     <message>
         <source>PathText</source>
-        <translation>Camí de Text</translation>
+        <translation type="obsolete">Camí de Text</translation>
     </message>
     <message>
         <source>Page</source>

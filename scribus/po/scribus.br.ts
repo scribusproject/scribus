@@ -1196,6 +1196,14 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <source>&amp;Y-Pos:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ApplyT</name>
@@ -1816,6 +1824,15 @@ This requires very accurate profiles and serves only as a warning.</source>
         <source>&amp;Cancel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot create a color named &quot;%1&quot;.
+It&apos;s a reserved name for transparent color</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -2122,6 +2139,10 @@ Isto pode ser definido nas Preferencias.</translation>
     <message>
         <source>Delete color:</source>
         <translation>Deletar Côr:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3270,6 +3291,10 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>&amp;Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6907,7 +6932,7 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation type="obsolete">E&amp;xtras</translation>
+        <translation type="unfinished">E&amp;xtras</translation>
     </message>
     <message>
         <source>&amp;Use Encryption</source>
@@ -7171,27 +7196,31 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Compress Text and &amp;Vector Graphics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>En&amp;able Presentation Effects</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Presentation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) &amp;Horizontally</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Rotation:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Options</source>
+        <source>Com&amp;press Text and Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Subset all Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to subset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable &amp;Presentation Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) vertically</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7337,7 +7366,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>None</source>
-        <translation>Nenhum</translation>
+        <translation type="obsolete">Nenhum</translation>
     </message>
     <message>
         <source>Group</source>
@@ -7377,7 +7406,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancelar</translation>
+        <translation type="obsolete">Cancelar</translation>
     </message>
     <message>
         <source>Field Properties</source>
@@ -7393,7 +7422,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Text Frame</source>
-        <translation>Text Frame</translation>
+        <translation type="obsolete">Text Frame</translation>
     </message>
     <message>
         <source>Polygon</source>
@@ -7409,7 +7438,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Copy Here</source>
-        <translation>Copiar Aqui</translation>
+        <translation type="obsolete">Copiar Aqui</translation>
     </message>
     <message>
         <source>Bring to Front</source>
@@ -7425,7 +7454,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Move Here</source>
-        <translation>Mover Aqui</translation>
+        <translation type="obsolete">Mover Aqui</translation>
     </message>
     <message>
         <source>Convert to</source>
@@ -7441,7 +7470,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Edit Text...</source>
-        <translation>Editar Texto...</translation>
+        <translation type="obsolete">Editar Texto...</translation>
     </message>
     <message>
         <source>Paste</source>
@@ -7497,11 +7526,11 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Picture</source>
-        <translation>Imagem</translation>
+        <translation type="obsolete">Imagem</translation>
     </message>
     <message>
         <source>File: </source>
-        <translation>Arquivo:</translation>
+        <translation type="obsolete">Arquivo:</translation>
     </message>
     <message>
         <source>Original ppi: </source>
@@ -7513,35 +7542,35 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Linked Text</source>
-        <translation>Texto linkado</translation>
+        <translation type="obsolete">Texto linkado</translation>
     </message>
     <message>
         <source>Text on a Path</source>
-        <translation>Texto ao Caminho</translation>
+        <translation type="obsolete">Texto ao Caminho</translation>
     </message>
     <message>
         <source>Paragraphs: </source>
-        <translation>Parágrafos:</translation>
+        <translation type="obsolete">Parágrafos:</translation>
     </message>
     <message>
         <source>Words: </source>
-        <translation>Palavras:</translation>
+        <translation type="obsolete">Palavras:</translation>
     </message>
     <message>
         <source>Chars: </source>
-        <translation>Carácteres:</translation>
+        <translation type="obsolete">Carácteres:</translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation>Imprimir:</translation>
+        <translation type="obsolete">Imprimir:</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Habilitado</translation>
+        <translation type="obsolete">Habilitado</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation>Desabilitado</translation>
+        <translation type="obsolete">Desabilitado</translation>
     </message>
     <message>
         <source>Info</source>
@@ -7577,227 +7606,35 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>The Program</source>
-        <translation>O Programa</translation>
+        <translation type="obsolete">O Programa</translation>
     </message>
     <message>
         <source>is missing!</source>
-        <translation>está faltando!!!</translation>
+        <translation type="obsolete">está faltando!!!</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Aviso</translation>
+        <translation type="obsolete">Aviso</translation>
     </message>
     <message>
         <source>Copy of</source>
-        <translation>Copia de</translation>
-    </message>
-    <message>
-        <source>&amp;Paste</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show &amp;Margins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show &amp;Frames</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show &amp;Images</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show &amp;Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show G&amp;uides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show &amp;Baseline Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sn&amp;ap to Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sna&amp;p to Guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Original PPI: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Actual PPI: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In&amp;fo</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Get Picture...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>I&amp;mage Visible</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Update Picture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Edit Picture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Adjust Frame to Picture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Get Text...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Append Text...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Edit Text...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Insert Sample Text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Is PDF &amp;Bookmark</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Is PDF A&amp;nnotation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Annotation P&amp;roperties</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Field P&amp;roperties</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;PDF Options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Lock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Un&amp;lock</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Lock Object &amp;Size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unlock Object &amp;Size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Send to S&amp;crapbook</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Send to La&amp;yer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Group</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Un&amp;group</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Le&amp;vel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Send to &amp;Back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bring to &amp;Front</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Lower</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Raise</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Picture Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Pol&amp;ygon</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Outlines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Text Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Bezier Curve</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Conve&amp;rt to</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Copia de</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation type="unfinished">Corta&amp;r</translation>
+        <translation type="obsolete">Corta&amp;r</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Copiar</translation>
+        <translation type="obsolete">&amp;Copiar</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Deletar</translation>
-    </message>
-    <message>
-        <source>C&amp;lear Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show P&amp;roperties...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hide P&amp;roperties...</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Deletar</translation>
     </message>
     <message>
         <source>Do you really want to clear all your Text?</source>
-        <translation type="unfinished">Você quer realmente apagar todo o seu texto?</translation>
+        <translation type="obsolete">Você quer realmente apagar todo o seu texto?</translation>
     </message>
 </context>
 <context>
@@ -9827,10 +9664,6 @@ Cheque o caminho e o nome do arquivo.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;New</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Newsletters</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9955,10 +9788,6 @@ Cheque o caminho e o nome do arquivo.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Print...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Import &amp;EPS/PS...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9972,10 +9801,6 @@ Cheque o caminho e o nome do arquivo.</translation>
     </message>
     <message>
         <source>Save as &amp;Template...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save &amp;As...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10086,6 +9911,18 @@ External Links
     </message>
     <message>
         <source>Media Cases</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10363,6 +10200,50 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Outside:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Size</source>
+        <translation type="unfinished">Tamanho da Página</translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Legal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tabloid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Orie&amp;ntation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation type="unfinished">Paisagem</translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11418,7 +11299,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Documentos (*.sla *.sla.gz *.scd *.scd.gz);;Todos Arquivos (*)</translation>
+        <translation type="obsolete">Documentos (*.sla *.sla.gz *.scd *.scd.gz);;Todos Arquivos (*)</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -12005,11 +11886,32 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>File %1 is not in Scribus format</source>
+        <source>Afrikaans</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Afrikaans</source>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Postscript-Files (*.eps *.EPS *.ps *.PS);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG-Images (*.svg *.svgz);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG-Images (*.svg);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File %1 
+is not in an acceptable format</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12032,7 +11934,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>All</source>
-        <translation>Todo</translation>
+        <translation type="obsolete">Todo</translation>
     </message>
     <message>
         <source>Page</source>
@@ -12057,6 +11959,294 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>p</source>
         <translation type="unfinished">p</translation>
+    </message>
+    <message>
+        <source>Copy Here</source>
+        <translation type="unfinished">Copiar Aqui</translation>
+    </message>
+    <message>
+        <source>Move Here</source>
+        <translation type="unfinished">Mover Aqui</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancelar</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show G&amp;uides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Baseline Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sn&amp;ap to Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sna&amp;p to Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Picture</source>
+        <translation type="unfinished">Imagem</translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation type="unfinished">Arquivo:</translation>
+    </message>
+    <message>
+        <source>Original PPI: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Actual PPI: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Linked Text</source>
+        <translation type="unfinished">Texto linkado</translation>
+    </message>
+    <message>
+        <source>Text Frame</source>
+        <translation type="unfinished">Text Frame</translation>
+    </message>
+    <message>
+        <source>Text on a Path</source>
+        <translation type="unfinished">Texto ao Caminho</translation>
+    </message>
+    <message>
+        <source>Paragraphs: </source>
+        <translation type="unfinished">Parágrafos:</translation>
+    </message>
+    <message>
+        <source>Words: </source>
+        <translation type="unfinished">Palavras:</translation>
+    </message>
+    <message>
+        <source>Chars: </source>
+        <translation type="unfinished">Carácteres:</translation>
+    </message>
+    <message>
+        <source>Print: </source>
+        <translation type="unfinished">Imprimir:</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation type="unfinished">Habilitado</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished">Desabilitado</translation>
+    </message>
+    <message>
+        <source>In&amp;fo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Get Picture...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I&amp;mage Visible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Update Picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit Picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Adjust Frame to Picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Get Text...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Append Text...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit Text...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Is PDF &amp;Bookmark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Is PDF A&amp;nnotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Annotation P&amp;roperties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Field P&amp;roperties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit Text...</source>
+        <translation type="unfinished">Editar Texto...</translation>
+    </message>
+    <message>
+        <source>&amp;Lock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Un&amp;lock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lock Object &amp;Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unlock Object &amp;Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to S&amp;crapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Insert Sample Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Un&amp;group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Le&amp;vel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to &amp;Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bring to &amp;Front</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lower</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Raise</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Picture Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pol&amp;ygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Text Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bezier Curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Conve&amp;rt to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation type="unfinished">Corta&amp;r</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="unfinished">&amp;Copiar</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Deletar</translation>
+    </message>
+    <message>
+        <source>C&amp;lear Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show P&amp;roperties...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide P&amp;roperties...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Program</source>
+        <translation type="unfinished">O Programa</translation>
+    </message>
+    <message>
+        <source>is missing!</source>
+        <translation type="unfinished">está faltando!!!</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your Text?</source>
+        <translation type="unfinished">Você quer realmente apagar todo o seu texto?</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy of</source>
+        <translation type="unfinished">Copia de</translation>
     </message>
 </context>
 <context>
@@ -12668,10 +12858,6 @@ arraste o Template para a Pageview abaixo.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Insert Special</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;New</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12784,11 +12970,11 @@ arraste o Template para a Pageview abaixo.</translation>
         <translation type="unfinished">Pesquisar/Substituir</translation>
     </message>
     <message>
-        <source>&amp;Fonts Preview</source>
+        <source>Clear all Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Clear all Text</source>
+        <source>&amp;Smart text selection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12830,13 +13016,6 @@ arraste o Template para a Pageview abaixo.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If there already exists a paragraph style with the same
-name than current OO.o document&apos;s paragraph should the style
-in Scribus be edited to match the one being imported
-or left untouched</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12857,6 +13036,12 @@ never ask your confirmation again</source>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If a paragraph style already exists with the same name as the current
+OpenOffice.org document&apos;s paragraph, should the style in Scribus be
+edited to match the one being imported, or left untouched</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12998,15 +13183,15 @@ on front of the paragraph style name in Scribus</source>
     <name>Tree</name>
     <message>
         <source>X:</source>
-        <translation>X:</translation>
+        <translation type="obsolete">X:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation>Y:</translation>
+        <translation type="obsolete">Y:</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation>Linha</translation>
+        <translation type="obsolete">Linha</translation>
     </message>
     <message>
         <source>Page</source>
@@ -13014,7 +13199,7 @@ on front of the paragraph style name in Scribus</source>
     </message>
     <message>
         <source>Text</source>
-        <translation>Texto</translation>
+        <translation type="obsolete">Texto</translation>
     </message>
     <message>
         <source>Type</source>
@@ -13022,15 +13207,15 @@ on front of the paragraph style name in Scribus</source>
     </message>
     <message>
         <source>Font:</source>
-        <translation>Fonte:</translation>
+        <translation type="obsolete">Fonte:</translation>
     </message>
     <message>
         <source>Image</source>
-        <translation>Imagem</translation>
+        <translation type="obsolete">Imagem</translation>
     </message>
     <message>
         <source>Polyline</source>
-        <translation>Polyline</translation>
+        <translation type="obsolete">Polyline</translation>
     </message>
     <message>
         <source>Outline</source>
@@ -13038,11 +13223,11 @@ on front of the paragraph style name in Scribus</source>
     </message>
     <message>
         <source>Polygon</source>
-        <translation>Polígono</translation>
+        <translation type="obsolete">Polígono</translation>
     </message>
     <message>
         <source>PathText</source>
-        <translation>Caminho de Texto</translation>
+        <translation type="obsolete">Caminho de Texto</translation>
     </message>
     <message>
         <source>Information</source>
@@ -13053,21 +13238,8 @@ on front of the paragraph style name in Scribus</source>
         <translation>Elemento</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
-    </message>
-    <message>
-        <source>Group </source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">OK</translation>
     </message>
 </context>
 <context>

@@ -1167,6 +1167,14 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
         <source>&amp;Y-Pos:</source>
         <translation type="unfinished">&amp;Y-Position:</translation>
     </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Abbrechen</translation>
+    </message>
 </context>
 <context>
     <name>ApplyT</name>
@@ -1763,6 +1771,15 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
         <source>&amp;Cancel</source>
         <translation>&amp;Abbrechen</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot create a color named &quot;%1&quot;.
+It&apos;s a reserved name for transparent color</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -2071,6 +2088,10 @@ Wird in den Voreinstellungen eingestellt.</translation>
     <message>
         <source>Delete color:</source>
         <translation>Farbe löschen:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3358,6 +3379,10 @@ Bildschirm betrachten wollen</translation>
     <message>
         <source>&amp;Name:</source>
         <translation>&amp;Name:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6647,7 +6672,7 @@ in der exportierten Datei aktiviert</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation type="obsolete">E&amp;xtras</translation>
+        <translation type="unfinished">E&amp;xtras</translation>
     </message>
     <message>
         <source>&amp;Security</source>
@@ -6933,7 +6958,7 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation type="obsolete">&amp;Text und Vektorbilder komprimieren</translation>
+        <translation type="unfinished">&amp;Text und Vektorbilder komprimieren</translation>
     </message>
     <message>
         <source>&amp;Method:</source>
@@ -6961,7 +6986,7 @@ Seiten importiert werden sollen, zum Beispiel
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation type="obsolete">&amp;Präsentationseffekte aktivieren</translation>
+        <translation type="unfinished">&amp;Präsentationseffekte aktivieren</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
@@ -7112,27 +7137,23 @@ Andernfalls könnte ihre PDF-Datei fehlerhaft gedruckt werden und sie kann nicht
         <translation type="obsolete">Seiten &amp;horizontal spiegeln</translation>
     </message>
     <message>
-        <source>Compress Text and &amp;Vector Graphics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>En&amp;able Presentation Effects</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Presentation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) &amp;Horizontally</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Rotation:</source>
         <translation type="unfinished">&amp;Drehung:</translation>
     </message>
     <message>
-        <source>&amp;Options</source>
+        <source>&amp;Subset all Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to subset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) vertically</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7274,15 +7295,15 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     <name>Page</name>
     <message>
         <source>Copy Here</source>
-        <translation>An diese Stelle kopieren</translation>
+        <translation type="obsolete">An diese Stelle kopieren</translation>
     </message>
     <message>
         <source>Move Here</source>
-        <translation>An diese Stelle verschieben</translation>
+        <translation type="obsolete">An diese Stelle verschieben</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
     <message>
         <source>Paste</source>
@@ -7338,11 +7359,11 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Picture</source>
-        <translation>Bild</translation>
+        <translation type="obsolete">Bild</translation>
     </message>
     <message>
         <source>File: </source>
-        <translation>Datei:</translation>
+        <translation type="obsolete">Datei:</translation>
     </message>
     <message>
         <source>Original ppi: </source>
@@ -7354,39 +7375,39 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Linked Text</source>
-        <translation>Textkette</translation>
+        <translation type="obsolete">Textkette</translation>
     </message>
     <message>
         <source>Text Frame</source>
-        <translation>Textrahmen</translation>
+        <translation type="obsolete">Textrahmen</translation>
     </message>
     <message>
         <source>Text on a Path</source>
-        <translation>Text auf einem Pfad</translation>
+        <translation type="obsolete">Text auf einem Pfad</translation>
     </message>
     <message>
         <source>Paragraphs: </source>
-        <translation>Absätze:</translation>
+        <translation type="obsolete">Absätze:</translation>
     </message>
     <message>
         <source>Words: </source>
-        <translation>Wörter:</translation>
+        <translation type="obsolete">Wörter:</translation>
     </message>
     <message>
         <source>Chars: </source>
-        <translation>Zeichen:</translation>
+        <translation type="obsolete">Zeichen:</translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation>Drucken:</translation>
+        <translation type="obsolete">Drucken:</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Ein</translation>
+        <translation type="obsolete">Ein</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation>Aus</translation>
+        <translation type="obsolete">Aus</translation>
     </message>
     <message>
         <source>Info</source>
@@ -7406,7 +7427,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Edit Text...</source>
-        <translation>Text bearbeiten...</translation>
+        <translation type="obsolete">Text bearbeiten...</translation>
     </message>
     <message>
         <source>Is PDF-Bookmark</source>
@@ -7510,7 +7531,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>None</source>
-        <translation>Keine</translation>
+        <translation type="obsolete">Keine</translation>
     </message>
     <message>
         <source>Update Picture</source>
@@ -7526,19 +7547,19 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>The Program</source>
-        <translation>Das Programm</translation>
+        <translation type="obsolete">Das Programm</translation>
     </message>
     <message>
         <source>is missing!</source>
-        <translation>fehlt!</translation>
+        <translation type="obsolete">fehlt!</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Warnung</translation>
+        <translation type="obsolete">Warnung</translation>
     </message>
     <message>
         <source>Copy of</source>
-        <translation>Kopie von</translation>
+        <translation type="obsolete">Kopie von</translation>
     </message>
     <message>
         <source>Hide Baseline Grid</source>
@@ -7578,211 +7599,211 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation>Einf&amp;ügen</translation>
+        <translation type="obsolete">Einf&amp;ügen</translation>
     </message>
     <message>
         <source>Show &amp;Margins</source>
-        <translation>&amp;Ränder zeigen</translation>
+        <translation type="obsolete">&amp;Ränder zeigen</translation>
     </message>
     <message>
         <source>Show &amp;Frames</source>
-        <translation>Ra&amp;hmen zeigen</translation>
+        <translation type="obsolete">Ra&amp;hmen zeigen</translation>
     </message>
     <message>
         <source>Show &amp;Images</source>
-        <translation>&amp;Bilder zeigen</translation>
+        <translation type="obsolete">&amp;Bilder zeigen</translation>
     </message>
     <message>
         <source>Show &amp;Grid</source>
-        <translation>Ra&amp;ster zeigen</translation>
+        <translation type="obsolete">Ra&amp;ster zeigen</translation>
     </message>
     <message>
         <source>Show G&amp;uides</source>
-        <translation>&amp;Hilfslinien zeigen</translation>
+        <translation type="obsolete">&amp;Hilfslinien zeigen</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation>&amp;Grundlinien-Raster anzeigen</translation>
+        <translation type="obsolete">&amp;Grundlinien-Raster anzeigen</translation>
     </message>
     <message>
         <source>Sn&amp;ap to Grid</source>
-        <translation>Magnetisches Ra&amp;ster</translation>
+        <translation type="obsolete">Magnetisches Ra&amp;ster</translation>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
-        <translation>Magnetische Hilfs&amp;linien</translation>
+        <translation type="obsolete">Magnetische Hilfs&amp;linien</translation>
     </message>
     <message>
         <source>Original PPI: </source>
-        <translation>Original-PPI:</translation>
+        <translation type="obsolete">Original-PPI:</translation>
     </message>
     <message>
         <source>Actual PPI: </source>
-        <translation>Aktuelle PPI:</translation>
+        <translation type="obsolete">Aktuelle PPI:</translation>
     </message>
     <message>
         <source>In&amp;fo</source>
-        <translation>&amp;Information</translation>
+        <translation type="obsolete">&amp;Information</translation>
     </message>
     <message>
         <source>&amp;Get Picture...</source>
-        <translation>Bild &amp;laden...</translation>
+        <translation type="obsolete">Bild &amp;laden...</translation>
     </message>
     <message>
         <source>I&amp;mage Visible</source>
-        <translation>Bild &amp;sichtbar</translation>
+        <translation type="obsolete">Bild &amp;sichtbar</translation>
     </message>
     <message>
         <source>&amp;Update Picture</source>
-        <translation>Bilder ak&amp;tualisieren</translation>
+        <translation type="obsolete">Bilder ak&amp;tualisieren</translation>
     </message>
     <message>
         <source>&amp;Edit Picture</source>
-        <translation>Bild &amp;bearbeiten</translation>
+        <translation type="obsolete">Bild &amp;bearbeiten</translation>
     </message>
     <message>
         <source>&amp;Adjust Frame to Picture</source>
-        <translation>Rahmen am Bild aus&amp;richten</translation>
+        <translation type="obsolete">Rahmen am Bild aus&amp;richten</translation>
     </message>
     <message>
         <source>&amp;Get Text...</source>
-        <translation>Text &amp;laden...</translation>
+        <translation type="obsolete">Text &amp;laden...</translation>
     </message>
     <message>
         <source>&amp;Append Text...</source>
-        <translation>&amp;Text anfügen...</translation>
+        <translation type="obsolete">&amp;Text anfügen...</translation>
     </message>
     <message>
         <source>&amp;Edit Text...</source>
-        <translation>Text &amp;bearbeiten...</translation>
+        <translation type="obsolete">Text &amp;bearbeiten...</translation>
     </message>
     <message>
         <source>&amp;Insert Sample Text</source>
-        <translation>Beispielte&amp;xt einfügen</translation>
+        <translation type="obsolete">Beispielte&amp;xt einfügen</translation>
     </message>
     <message>
         <source>Is PDF &amp;Bookmark</source>
-        <translation>Ist ein PDF-&amp;Lesezeichen</translation>
+        <translation type="obsolete">Ist ein PDF-&amp;Lesezeichen</translation>
     </message>
     <message>
         <source>Is PDF A&amp;nnotation</source>
-        <translation>Ist eine PDF-&amp;Anmerkung</translation>
+        <translation type="obsolete">Ist eine PDF-&amp;Anmerkung</translation>
     </message>
     <message>
         <source>Annotation P&amp;roperties</source>
-        <translation>Eigenschaften der An&amp;merkung</translation>
+        <translation type="obsolete">Eigenschaften der An&amp;merkung</translation>
     </message>
     <message>
         <source>Field P&amp;roperties</source>
-        <translation>Feld&amp;eigenschaften</translation>
+        <translation type="obsolete">Feld&amp;eigenschaften</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation>&amp;PDF-Optionen</translation>
+        <translation type="obsolete">&amp;PDF-Optionen</translation>
     </message>
     <message>
         <source>&amp;Lock</source>
-        <translation>&amp;Sperren</translation>
+        <translation type="obsolete">&amp;Sperren</translation>
     </message>
     <message>
         <source>Un&amp;lock</source>
-        <translation>Ent&amp;sperren</translation>
+        <translation type="obsolete">Ent&amp;sperren</translation>
     </message>
     <message>
         <source>Lock Object &amp;Size</source>
-        <translation>Objekt&amp;größe sperren</translation>
+        <translation type="obsolete">Objekt&amp;größe sperren</translation>
     </message>
     <message>
         <source>Unlock Object &amp;Size</source>
-        <translation>Objektgröße &amp;freigeben</translation>
+        <translation type="obsolete">Objektgröße &amp;freigeben</translation>
     </message>
     <message>
         <source>Send to S&amp;crapbook</source>
-        <translation>In &amp;Bibliothek speichern</translation>
+        <translation type="obsolete">In &amp;Bibliothek speichern</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
-        <translation>Auf andere &amp;Ebene verschieben</translation>
+        <translation type="obsolete">Auf andere &amp;Ebene verschieben</translation>
     </message>
     <message>
         <source>&amp;Group</source>
-        <translation>&amp;Gruppieren</translation>
+        <translation type="obsolete">&amp;Gruppieren</translation>
     </message>
     <message>
         <source>Un&amp;group</source>
-        <translation>Gruppe auf&amp;lösen</translation>
+        <translation type="obsolete">Gruppe auf&amp;lösen</translation>
     </message>
     <message>
         <source>Le&amp;vel</source>
-        <translation>An&amp;ordnung</translation>
+        <translation type="obsolete">An&amp;ordnung</translation>
     </message>
     <message>
         <source>Send to &amp;Back</source>
-        <translation>In den &amp;Hintergrund</translation>
+        <translation type="obsolete">In den &amp;Hintergrund</translation>
     </message>
     <message>
         <source>Bring to &amp;Front</source>
-        <translation>In den &amp;Vordergrund</translation>
+        <translation type="obsolete">In den &amp;Vordergrund</translation>
     </message>
     <message>
         <source>&amp;Lower</source>
-        <translation>Weiter nach hin&amp;ten</translation>
+        <translation type="obsolete">Weiter nach hin&amp;ten</translation>
     </message>
     <message>
         <source>&amp;Raise</source>
-        <translation>Weiter nach vor&amp;n</translation>
+        <translation type="obsolete">Weiter nach vor&amp;n</translation>
     </message>
     <message>
         <source>&amp;Picture Frame</source>
-        <translation>&amp;Bildrahmen</translation>
+        <translation type="obsolete">&amp;Bildrahmen</translation>
     </message>
     <message>
         <source>Pol&amp;ygon</source>
-        <translation>Poly&amp;gon</translation>
+        <translation type="obsolete">Poly&amp;gon</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
-        <translation>&amp;Umrisse</translation>
+        <translation type="obsolete">&amp;Umrisse</translation>
     </message>
     <message>
         <source>&amp;Text Frame</source>
-        <translation>&amp;Textrahmen</translation>
+        <translation type="obsolete">&amp;Textrahmen</translation>
     </message>
     <message>
         <source>&amp;Bezier Curve</source>
-        <translation>&amp;Bezierkurve</translation>
+        <translation type="obsolete">&amp;Bezierkurve</translation>
     </message>
     <message>
         <source>Conve&amp;rt to</source>
-        <translation>&amp;Umwandeln in</translation>
+        <translation type="obsolete">&amp;Umwandeln in</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation>&amp;Ausschneiden</translation>
+        <translation type="obsolete">&amp;Ausschneiden</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>&amp;Kopieren</translation>
+        <translation type="obsolete">&amp;Kopieren</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Löschen</translation>
+        <translation type="obsolete">&amp;Löschen</translation>
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation>Inhalt lösc&amp;hen</translation>
+        <translation type="obsolete">Inhalt lösc&amp;hen</translation>
     </message>
     <message>
         <source>Show P&amp;roperties...</source>
-        <translation>Eigenschaften an&amp;zeigen...</translation>
+        <translation type="obsolete">Eigenschaften an&amp;zeigen...</translation>
     </message>
     <message>
         <source>Hide P&amp;roperties...</source>
-        <translation>Eigenschaften &amp;verbergen...</translation>
+        <translation type="obsolete">Eigenschaften &amp;verbergen...</translation>
     </message>
     <message>
         <source>Do you really want to clear all your Text?</source>
-        <translation>Wollen Sie wirklich den ganzen Text löschen?</translation>
+        <translation type="obsolete">Wollen Sie wirklich den ganzen Text löschen?</translation>
     </message>
 </context>
 <context>
@@ -10034,7 +10055,7 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Neu</translation>
+        <translation type="obsolete">&amp;Neu</translation>
     </message>
     <message>
         <source>PDF Presentations</source>
@@ -10046,7 +10067,7 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation>Speichern &amp;unter...</translation>
+        <translation type="obsolete">Speichern &amp;unter...</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
@@ -10066,7 +10087,7 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation>&amp;Drucken...</translation>
+        <translation type="obsolete">&amp;Drucken...</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
@@ -10190,6 +10211,18 @@ externe Links</translation>
     <message>
         <source>Media Cases</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation type="unfinished">Alle</translation>
     </message>
 </context>
 <context>
@@ -10461,6 +10494,50 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     <message>
         <source>&amp;Outside:</source>
         <translation>A&amp;ußen:</translation>
+    </message>
+    <message>
+        <source>Page Size</source>
+        <translation type="unfinished">Seitenformat</translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished">&amp;Größe:</translation>
+    </message>
+    <message>
+        <source>Legal</source>
+        <translation type="unfinished">Legal</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation type="unfinished">US-Letter</translation>
+    </message>
+    <message>
+        <source>Tabloid</source>
+        <translation type="unfinished">Tabloid</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished">Benutzerdefiniert</translation>
+    </message>
+    <message>
+        <source>Orie&amp;ntation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation type="unfinished">Hochformat</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation type="unfinished">Querformat</translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation type="unfinished">&amp;Breite:</translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation type="unfinished">&amp;Höhe:</translation>
     </message>
 </context>
 <context>
@@ -11193,7 +11270,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
+        <translation type="obsolete">Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
@@ -12080,11 +12157,36 @@ nicht speichern</translation>
     </message>
     <message>
         <source>File %1 is not in Scribus format</source>
-        <translation>Die Datei %1 wurde nicht mit Scribus erstellt</translation>
+        <translation type="obsolete">Die Datei %1 wurde nicht mit Scribus erstellt</translation>
     </message>
     <message>
         <source>Afrikaans</source>
         <translation>Afrikaans</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Postscript-Files (*.eps *.EPS *.ps *.PS);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG-Images (*.svg *.svgz);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVG-Images (*.svg);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File %1 
+is not in an acceptable format</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12107,7 +12209,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>All</source>
-        <translation>Alle</translation>
+        <translation type="obsolete">Alle</translation>
     </message>
     <message>
         <source>pt</source>
@@ -12124,6 +12226,294 @@ nicht speichern</translation>
     <message>
         <source>p</source>
         <translation>p</translation>
+    </message>
+    <message>
+        <source>Copy Here</source>
+        <translation type="unfinished">An diese Stelle kopieren</translation>
+    </message>
+    <message>
+        <source>Move Here</source>
+        <translation type="unfinished">An diese Stelle verschieben</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Margins</source>
+        <translation type="unfinished">&amp;Ränder zeigen</translation>
+    </message>
+    <message>
+        <source>Show &amp;Frames</source>
+        <translation type="unfinished">Ra&amp;hmen zeigen</translation>
+    </message>
+    <message>
+        <source>Show &amp;Images</source>
+        <translation type="unfinished">&amp;Bilder zeigen</translation>
+    </message>
+    <message>
+        <source>Show &amp;Grid</source>
+        <translation type="unfinished">Ra&amp;ster zeigen</translation>
+    </message>
+    <message>
+        <source>Show G&amp;uides</source>
+        <translation type="unfinished">&amp;Hilfslinien zeigen</translation>
+    </message>
+    <message>
+        <source>Show &amp;Baseline Grid</source>
+        <translation type="unfinished">&amp;Grundlinien-Raster anzeigen</translation>
+    </message>
+    <message>
+        <source>Sn&amp;ap to Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sna&amp;p to Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Picture</source>
+        <translation type="unfinished">Bild</translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation type="unfinished">Datei:</translation>
+    </message>
+    <message>
+        <source>Original PPI: </source>
+        <translation type="unfinished">Original-PPI:</translation>
+    </message>
+    <message>
+        <source>Actual PPI: </source>
+        <translation type="unfinished">Aktuelle PPI:</translation>
+    </message>
+    <message>
+        <source>Linked Text</source>
+        <translation type="unfinished">Textkette</translation>
+    </message>
+    <message>
+        <source>Text Frame</source>
+        <translation type="unfinished">Textrahmen</translation>
+    </message>
+    <message>
+        <source>Text on a Path</source>
+        <translation type="unfinished">Text auf einem Pfad</translation>
+    </message>
+    <message>
+        <source>Paragraphs: </source>
+        <translation type="unfinished">Absätze:</translation>
+    </message>
+    <message>
+        <source>Words: </source>
+        <translation type="unfinished">Wörter:</translation>
+    </message>
+    <message>
+        <source>Chars: </source>
+        <translation type="unfinished">Zeichen:</translation>
+    </message>
+    <message>
+        <source>Print: </source>
+        <translation type="unfinished">Drucken:</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished">Aus</translation>
+    </message>
+    <message>
+        <source>In&amp;fo</source>
+        <translation type="unfinished">&amp;Information</translation>
+    </message>
+    <message>
+        <source>&amp;Get Picture...</source>
+        <translation type="unfinished">Bild &amp;laden...</translation>
+    </message>
+    <message>
+        <source>I&amp;mage Visible</source>
+        <translation type="unfinished">Bild &amp;sichtbar</translation>
+    </message>
+    <message>
+        <source>&amp;Update Picture</source>
+        <translation type="unfinished">Bilder ak&amp;tualisieren</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Picture</source>
+        <translation type="unfinished">Bild &amp;bearbeiten</translation>
+    </message>
+    <message>
+        <source>&amp;Adjust Frame to Picture</source>
+        <translation type="unfinished">Rahmen am Bild aus&amp;richten</translation>
+    </message>
+    <message>
+        <source>&amp;Get Text...</source>
+        <translation type="unfinished">Text &amp;laden...</translation>
+    </message>
+    <message>
+        <source>&amp;Append Text...</source>
+        <translation type="unfinished">&amp;Text anfügen...</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Text...</source>
+        <translation type="unfinished">Text &amp;bearbeiten...</translation>
+    </message>
+    <message>
+        <source>Is PDF &amp;Bookmark</source>
+        <translation type="unfinished">Ist ein PDF-&amp;Lesezeichen</translation>
+    </message>
+    <message>
+        <source>Is PDF A&amp;nnotation</source>
+        <translation type="unfinished">Ist eine PDF-&amp;Anmerkung</translation>
+    </message>
+    <message>
+        <source>Annotation P&amp;roperties</source>
+        <translation type="unfinished">Eigenschaften der An&amp;merkung</translation>
+    </message>
+    <message>
+        <source>Field P&amp;roperties</source>
+        <translation type="unfinished">Feld&amp;eigenschaften</translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation type="unfinished">&amp;PDF-Optionen</translation>
+    </message>
+    <message>
+        <source>Edit Text...</source>
+        <translation type="unfinished">Text bearbeiten...</translation>
+    </message>
+    <message>
+        <source>&amp;Lock</source>
+        <translation type="unfinished">&amp;Sperren</translation>
+    </message>
+    <message>
+        <source>Un&amp;lock</source>
+        <translation type="unfinished">Ent&amp;sperren</translation>
+    </message>
+    <message>
+        <source>Lock Object &amp;Size</source>
+        <translation type="unfinished">Objekt&amp;größe sperren</translation>
+    </message>
+    <message>
+        <source>Unlock Object &amp;Size</source>
+        <translation type="unfinished">Objektgröße &amp;freigeben</translation>
+    </message>
+    <message>
+        <source>Send to S&amp;crapbook</source>
+        <translation type="unfinished">In &amp;Bibliothek speichern</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation type="unfinished">Auf andere &amp;Ebene verschieben</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Sample Text</source>
+        <translation type="unfinished">Beispielte&amp;xt einfügen</translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation type="unfinished">&amp;Gruppieren</translation>
+    </message>
+    <message>
+        <source>Un&amp;group</source>
+        <translation type="unfinished">Gruppe auf&amp;lösen</translation>
+    </message>
+    <message>
+        <source>Le&amp;vel</source>
+        <translation type="unfinished">An&amp;ordnung</translation>
+    </message>
+    <message>
+        <source>Send to &amp;Back</source>
+        <translation type="unfinished">In den &amp;Hintergrund</translation>
+    </message>
+    <message>
+        <source>Bring to &amp;Front</source>
+        <translation type="unfinished">In den &amp;Vordergrund</translation>
+    </message>
+    <message>
+        <source>&amp;Lower</source>
+        <translation type="unfinished">Weiter nach hin&amp;ten</translation>
+    </message>
+    <message>
+        <source>&amp;Raise</source>
+        <translation type="unfinished">Weiter nach vor&amp;n</translation>
+    </message>
+    <message>
+        <source>&amp;Picture Frame</source>
+        <translation type="unfinished">&amp;Bildrahmen</translation>
+    </message>
+    <message>
+        <source>Pol&amp;ygon</source>
+        <translation type="unfinished">Poly&amp;gon</translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <translation type="unfinished">&amp;Umrisse</translation>
+    </message>
+    <message>
+        <source>&amp;Text Frame</source>
+        <translation type="unfinished">&amp;Textrahmen</translation>
+    </message>
+    <message>
+        <source>&amp;Bezier Curve</source>
+        <translation type="unfinished">&amp;Bezierkurve</translation>
+    </message>
+    <message>
+        <source>Conve&amp;rt to</source>
+        <translation type="unfinished">&amp;Umwandeln in</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation type="unfinished">&amp;Ausschneiden</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="unfinished">&amp;Kopieren</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Löschen</translation>
+    </message>
+    <message>
+        <source>C&amp;lear Contents</source>
+        <translation type="unfinished">Inhalt lösc&amp;hen</translation>
+    </message>
+    <message>
+        <source>Show P&amp;roperties...</source>
+        <translation type="unfinished">Eigenschaften an&amp;zeigen...</translation>
+    </message>
+    <message>
+        <source>Hide P&amp;roperties...</source>
+        <translation type="unfinished">Eigenschaften &amp;verbergen...</translation>
+    </message>
+    <message>
+        <source>The Program</source>
+        <translation type="unfinished">Das Programm</translation>
+    </message>
+    <message>
+        <source>is missing!</source>
+        <translation type="unfinished">fehlt!</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished">Warnung</translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your Text?</source>
+        <translation type="unfinished">Wollen Sie wirklich den ganzen Text löschen?</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy of</source>
+        <translation type="unfinished">Kopie von</translation>
     </message>
 </context>
 <context>
@@ -12734,7 +13124,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation>Sonder&amp;zeichen einfügen</translation>
+        <translation type="obsolete">Sonder&amp;zeichen einfügen</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -12850,7 +13240,11 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation>Schriftarten&amp;vorschau</translation>
+        <translation type="obsolete">Schriftarten&amp;vorschau</translation>
+    </message>
+    <message>
+        <source>&amp;Smart text selection</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12899,7 +13293,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
 name than current OO.o document&apos;s paragraph should the style
 in Scribus be edited to match the one being imported
 or left untouched</source>
-        <translation>Wenn in Ihrem Dokument bereits ein Absatzstil mit gleichem Namen existiert
+        <translation type="obsolete">Wenn in Ihrem Dokument bereits ein Absatzstil mit gleichem Namen existiert
 wie in dem OO.o-Dokument, können Sie hier einstellen ob der Stil in Scribus mit dem von OO.o
 aktualisiert wird oder unverändert bleibt</translation>
     </message>
@@ -12930,6 +13324,12 @@ never ask your confirmation again</source>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If a paragraph style already exists with the same name as the current
+OpenOffice.org document&apos;s paragraph, should the style in Scribus be
+edited to match the one being imported, or left untouched</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13095,39 +13495,39 @@ on front of the paragraph style name in Scribus</source>
     </message>
     <message>
         <source>X:</source>
-        <translation>X:</translation>
+        <translation type="obsolete">X:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation>Y:</translation>
+        <translation type="obsolete">Y:</translation>
     </message>
     <message>
         <source>Font:</source>
-        <translation>Schrift:</translation>
+        <translation type="obsolete">Schrift:</translation>
     </message>
     <message>
         <source>Image</source>
-        <translation>Bild</translation>
+        <translation type="obsolete">Bild</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Text</translation>
+        <translation type="obsolete">Text</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation>Linie</translation>
+        <translation type="obsolete">Linie</translation>
     </message>
     <message>
         <source>Polygon</source>
-        <translation>Polygon</translation>
+        <translation type="obsolete">Polygon</translation>
     </message>
     <message>
         <source>Polyline</source>
-        <translation>Polyline</translation>
+        <translation type="obsolete">Polyline</translation>
     </message>
     <message>
         <source>PathText</source>
-        <translation>Pfadtext</translation>
+        <translation type="obsolete">Pfadtext</translation>
     </message>
     <message>
         <source>Page</source>
@@ -13135,21 +13535,21 @@ on front of the paragraph style name in Scribus</source>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Warnung</translation>
+        <translation type="obsolete">Warnung</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation>Der Name %1 ist nicht eindeutig.
+        <translation type="obsolete">Der Name %1 ist nicht eindeutig.
 Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Group </source>
-        <translation>Gruppe</translation>
+        <translation type="obsolete">Gruppe</translation>
     </message>
 </context>
 <context>
