@@ -26,6 +26,7 @@
 #include "libpostscript/pslib.h"
 #include "scraction.h"
 #include "menumanager.h"
+#include "checkDocument.h"
 
 extern QPixmap loadIcon(QString nam);
 extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
@@ -382,6 +383,33 @@ int PPreview::RenderPreview(int Seite, int Res)
 	// Recreate Postscript-File only when the actual Page has changed
 	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode))
 	{
+		if (app->doc->checkerProfiles[app->doc->curCheckProfile].autoCheck)
+		{
+			app->scanDocument();
+			if ((app->doc->docItemErrors.count() != 0) || (app->doc->masterItemErrors.count() != 0))
+			{
+				if (app->doc->checkerProfiles[app->doc->curCheckProfile].ignoreErrors)
+				{
+					qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+					int t = QMessageBox::warning(this, tr("Warning"),
+												tr("Detected some Errors.\nConsider using the Preflight Checker to correct them"),
+												tr("Abort"), tr("Ignore"), 0, 0, 0);
+					if (t == 0)
+					{
+						reject();
+						return ret;
+					}
+				}
+				else
+				{
+					app->docChecker->buildErrorList(app->doc);
+					app->docChecker->show();
+					app->scrActions["toolsPreflightVerifier"]->setOn(true);
+					reject();
+					return ret;
+				}
+			}
+		}
 		ReallyUsed.clear();
 		app->GetUsedFonts(&ReallyUsed);
 		PSLib *dd = app->getPSDriver(true, app->Prefs.AvailFonts, ReallyUsed, app->doc->PageColors, false);

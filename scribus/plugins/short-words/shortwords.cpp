@@ -10,6 +10,7 @@ or documentation
 */
 
 #include "shortwords.h"
+#include "shortwords.moc"
 #include "version.h"
 #include "vlnadialog.h"
 
@@ -92,7 +93,7 @@ ShortWords::ShortWords()
 				parse->parseSelection();
 				break;
 			case 1:
-				parse->parsePage(ScApp->doc->currentPage);
+				parse->parsePage(ScApp->doc->currentPage->PageNr);
 				break;
 			case 2:
 				parse->parseAll();

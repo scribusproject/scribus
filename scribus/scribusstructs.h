@@ -336,6 +336,8 @@ struct checkerPrefs
 	bool checkResolution;
 	double minResolution;
 	bool checkTransparency;
+	bool checkAnnotations;
+	bool checkRasterPDF;
 };
 
 struct typoPrefs

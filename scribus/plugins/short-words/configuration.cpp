@@ -14,6 +14,7 @@ or documentation
 
 #include "config.h"
 #include "configuration.h"
+#include "configuration.moc"
 #include "version.h"
 #include "shortwords.h"
 

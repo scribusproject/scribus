@@ -219,6 +219,8 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	QString missingImg = tr("Missing Image");
 	QString lowDPI = tr("Image has a DPI-Value less than %1 DPI").arg(qRound(doc->checkerProfiles[doc->curCheckProfile].minResolution));
 	QString transpar = tr("Object has transparency");
+	QString annot = tr("Object is a PDF-Annotation or Field");
+	QString rasterPDF = tr("Object is a placed PDF");
 	reportDisplay->clear();
 	reportDisplay->setSorting(-1);
 	itemMap.clear();
@@ -286,6 +288,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							pageGraveError = true;
 							itemError = true;
 							break;
+						case 7:
+							object->setText(1, annot);
+							break;
+						case 8:
+							object->setText(1, rasterPDF);
+							break;
 						}
 					}
 					else
@@ -327,6 +335,14 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								hasGraveError = true;
 								pageGraveError = true;
 								itemError = true;
+								break;
+							case 7:
+								errorText->setText(1, annot);
+								errorText->setPixmap( 0, onlyWarning );
+								break;
+							case 8:
+								errorText->setText(1, rasterPDF);
+								errorText->setPixmap( 0, onlyWarning );
 								break;
 							}
 						}
@@ -401,6 +417,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							pageGraveError = true;
 							itemError = true;
 							break;
+						case 7:
+							object->setText(1, annot);
+							break;
+						case 8:
+							object->setText(1, rasterPDF);
+							break;
 						}
 					}
 					else
@@ -442,6 +464,14 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								hasGraveError = true;
 								pageGraveError = true;
 								itemError = true;
+								break;
+							case 7:
+								errorText->setText(1, annot);
+								errorText->setPixmap( 0, onlyWarning );
+								break;
+							case 8:
+								errorText->setText(1, rasterPDF);
+								errorText->setPixmap( 0, onlyWarning );
 								break;
 							}
 						}
@@ -519,6 +549,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							hasGraveError = true;
 							pageGraveError = true;
 							break;
+						case 7:
+							object->setText(1, annot);
+							break;
+						case 8:
+							object->setText(1, rasterPDF);
+							break;
 						}
 					}
 					else
@@ -557,6 +593,14 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								errorText->setPixmap( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
+								break;
+							case 7:
+								errorText->setText(1, annot);
+								errorText->setPixmap( 0, onlyWarning );
+								break;
+							case 8:
+								errorText->setText(1, rasterPDF);
+								errorText->setPixmap( 0, onlyWarning );
 								break;
 							}
 						}

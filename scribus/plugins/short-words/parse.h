@@ -38,7 +38,7 @@ public:
 	/** one page - using actual page */
 	void parsePage();
 	/** one page */
-	void parsePage(Page *page);
+	void parsePage(int page);
 	/** all pages in the document */
 	void parseAll();
 };

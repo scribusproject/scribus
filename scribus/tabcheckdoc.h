@@ -12,6 +12,7 @@ class QCheckBox;
 class QGroupBox;
 class QLabel;
 class QSpinBox;
+class QPushButton;
 
 class TabCheckDoc : public QWidget
 {
@@ -29,19 +30,27 @@ public:
 	QCheckBox* textOverflow;
 	QCheckBox* tranparentObjects;
 	QCheckBox* missingPictures;
+	QCheckBox* useAnnotations;
+	QCheckBox* rasterPDF;
 	QGroupBox* pictResolution;
 	QLabel* textLabel1;
 	QSpinBox* resolutionValue;
+	QPushButton* addProfile;
+	QPushButton* removeProfile;
 	QMap<QString, checkerPrefs> checkerProfile;
 	QString currentProfile;
+	void updateProfile(const QString& name);
 
 public slots:
 	void putProfile();
 	void setProfile(const QString& name);
+	void addProf();
+	void delProf();
 
 protected:
 	QVBoxLayout* TabCheckDocLayout;
 	QHBoxLayout* pictResolutionLayout;
+	QHBoxLayout* layout1;
 };
 
 #endif // TABCHECKDOC_H

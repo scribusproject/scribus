@@ -32,11 +32,12 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout4->addItem( spacer );
 	buttonOk = new QPushButton( this, "buttonOk" );
-	buttonOk->setAutoDefault( true );
-	buttonOk->setDefault( true );
+	buttonOk->setAutoDefault( false );
+	buttonOk->setDefault( false );
 	layout4->addWidget( buttonOk );
 	buttonCancel = new QPushButton( this, "buttonCancel" );
-	buttonCancel->setAutoDefault( true );
+	buttonCancel->setAutoDefault( false );
+	buttonCancel->setDefault( false );
 	layout4->addWidget( buttonCancel );
 	prefsLayout->addLayout( layout4 );
 	languageChange();

@@ -11,6 +11,7 @@ or documentation
 
 #include "version.h"
 #include "vlnadialog.h"
+#include "vlnadialog.moc"
 #include "scribus.h"
 #include "config.h"
 #include "configuration.h"

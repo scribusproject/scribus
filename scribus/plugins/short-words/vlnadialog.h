@@ -67,7 +67,6 @@ protected:
 
 protected slots:
 	virtual void languageChange();
-
 };
 
 #endif // VLNADIALOG_H

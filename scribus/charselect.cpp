@@ -233,11 +233,11 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDial
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( spacer );
 
-	insertButton = new QPushButton(tr( "&Insert" ), this, "insertButton" );
+	insertButton = new QPushButton( tr( "&Insert" ), this, "insertButton" );
 	layout1->addWidget( insertButton );
-	deleteButton = new QPushButton(tr("C&lear"), this, "deleteButton" );
+	deleteButton = new QPushButton( tr("C&lear"), this, "deleteButton" );
 	layout1->addWidget( deleteButton );
-	closeButton = new QPushButton(tr("&Close"), this, "closeButton" );
+	closeButton = new QPushButton( tr("&Close"), this, "closeButton" );
 	layout1->addWidget( closeButton );
 	zAuswahlLayout->addLayout( layout1 );
 	sample->setMaximumSize(width(), 52);

@@ -394,7 +394,10 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->guidesSettings.guideRad = QStoInt(dc.attribute("GuideRad","10"));
 		doc->guidesSettings.grabRad = QStoInt(dc.attribute("GRAB","4"));
 		if (dc.hasAttribute("currentProfile"))
+		{
+			doc->checkerProfiles.clear();
 			doc->curCheckProfile = dc.attribute("currentProfile");
+		}
 		doc->LastAuto = 0;
 		QDomNode PAGE=DOC.firstChild();
 		counter = 0;
@@ -415,6 +418,8 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				checkerSettings.checkResolution = static_cast<bool>(QStoInt(pg.attribute("checkResolution", "1")));
 				checkerSettings.checkTransparency = static_cast<bool>(QStoInt(pg.attribute("checkTransparency", "1")));
 				checkerSettings.minResolution = QStodouble(pg.attribute("minResolution","72"));
+				checkerSettings.checkAnnotations = static_cast<bool>(QStoInt(pg.attribute("checkAnnotations", "0")));
+				checkerSettings.checkRasterPDF = static_cast<bool>(QStoInt(pg.attribute("checkRasterPDF", "1")));
 				doc->checkerProfiles[pg.attribute("Name")] = checkerSettings;
 			}
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...

@@ -11,6 +11,7 @@ or documentation
 */
 
 #include "shortwords.h"
+#include "parse.moc"
 #include "version.h"
 
 #include <scribus.h>
@@ -32,7 +33,7 @@ void Parse::parseItem(PageItem *aFrame)
 {
 	// the content of the frame - text itself
 	QString content = QString();
-	uint changes = 0;
+	int changes = 0;
 	// language of the frame
 	QString lang;
 	// list of the short words
@@ -103,28 +104,36 @@ void Parse::parseSelection()
 
 void Parse::parsePage()
 {
-	parsePage(ScApp->doc->currentPage);
+	parsePage(ScApp->doc->currentPage->PageNr);
 }
 
-void Parse::parsePage(Page *page)
+void Parse::parsePage(int page)
 {
-	/* FIXME: following line isn't page related!
-	The page-items relation isn't finished yet.
-	 it's for compilation.
-	SEARCH SCRIPTER FOR IT TOO! */
-	uint cnt = ScApp->doc->Items.count();//page->Items.count();
-	ScApp->FProg->setTotalSteps(cnt);
-	ScApp->view->GotoPage(page->PageNr);
-	for (uint i=0; i<cnt; i++)
+	uint cnt = 0;
+	for (uint a = 0; a < ScApp->doc->Items.count(); ++a)
 	{
-		ScApp->FProg->setProgress(i);
-		parseItem(ScApp->doc->Items.at(i));//page->Items.at(i));
-	} // for items
+		PageItem* b = ScApp->doc->Items.at(a);
+		if (b->OwnPage == page)
+			cnt++;
+	}
+	ScApp->FProg->setTotalSteps(cnt);
+	ScApp->view->GotoPage(page);
+	uint i = 0;
+	for (uint a = 0; a < ScApp->doc->Items.count(); ++a)
+	{
+		PageItem* b = ScApp->doc->Items.at(a);
+		if (b->OwnPage == page)
+		{
+			i++;
+			ScApp->FProg->setProgress(i);
+			parseItem(b);
+		}
+	}
 	ScApp->FProg->setProgress(cnt);
 }
 
 void Parse::parseAll()
 {
 	for (uint i=0; i < ScApp->doc->Pages.count(); i++)
-		parsePage(ScApp->doc->Pages.at(i));
+		parsePage(i);
 }

@@ -2593,6 +2593,8 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		dc79a.setAttribute("checkResolution", static_cast<int>(itcp.data().checkResolution));
 		dc79a.setAttribute("checkTransparency", static_cast<int>(itcp.data().checkTransparency));
 		dc79a.setAttribute("minResolution",itcp.data().minResolution);
+		dc79a.setAttribute("checkAnnotations", static_cast<int>(itcp.data().checkAnnotations));
+		dc79a.setAttribute("checkRasterPDF", static_cast<int>(itcp.data().checkRasterPDF));
 		dc.appendChild(dc79a);
 	}
 	QMap<QString,multiLine>::Iterator itMU;
@@ -3004,6 +3006,8 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 		dc79a.setAttribute("checkPictures", static_cast<int>(itcp.data().checkPictures));
 		dc79a.setAttribute("checkResolution", static_cast<int>(itcp.data().checkResolution));
 		dc79a.setAttribute("checkTransparency", static_cast<int>(itcp.data().checkTransparency));
+		dc79a.setAttribute("checkAnnotations", static_cast<int>(itcp.data().checkAnnotations));
+		dc79a.setAttribute("checkRasterPDF", static_cast<int>(itcp.data().checkRasterPDF));
 		dc79a.setAttribute("minResolution",itcp.data().minResolution);
 		elem.appendChild(dc79a);
 	}
@@ -3130,6 +3134,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 		return false;
 	Vorein->DColors.clear();
 	CMYKColor lf = CMYKColor();
+	Vorein->checkerProfiles.clear();
 	QDomNode DOC=elem.firstChild();
 	while(!DOC.isNull())
 	{
@@ -3347,6 +3352,8 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			checkerSettings.checkResolution = static_cast<bool>(QStoInt(dc.attribute("checkResolution", "1")));
 			checkerSettings.checkTransparency = static_cast<bool>(QStoInt(dc.attribute("checkTransparency", "1")));
 			checkerSettings.minResolution = QStodouble(dc.attribute("minResolution","72"));
+			checkerSettings.checkAnnotations = static_cast<bool>(QStoInt(dc.attribute("checkAnnotations", "0")));
+			checkerSettings.checkRasterPDF = static_cast<bool>(QStoInt(dc.attribute("checkRasterPDF", "1")));
 			Vorein->checkerProfiles[dc.attribute("Name")] = checkerSettings;
 		}
 		if (dc.tagName()=="PRINTER")

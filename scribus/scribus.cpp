@@ -534,12 +534,15 @@ void ScribusApp::initDefaultPrefs()
 	checkerSettings.checkPictures = true;
 	checkerSettings.checkResolution = true;
 	checkerSettings.checkTransparency = true;
+	checkerSettings.checkAnnotations = false;
+	checkerSettings.checkRasterPDF = true;
 	checkerSettings.minResolution = 72.0;
 	Prefs.checkerProfiles.insert( tr("Postscript"), checkerSettings);
 	Prefs.checkerProfiles.insert( tr("PDF-1.3"), checkerSettings);
 	checkerSettings.checkTransparency = false;
 	Prefs.checkerProfiles.insert( tr("PDF-1.4"), checkerSettings);
 	checkerSettings.checkTransparency = true;
+	checkerSettings.checkAnnotations = true;
 	checkerSettings.minResolution = 144.0;
 	Prefs.checkerProfiles.insert( tr("PDF/X-3"), checkerSettings);
 	Prefs.curCheckProfile = tr("Postscript");
@@ -4187,6 +4190,30 @@ bool ScribusApp::LadeDoc(QString fileName)
 		CMSuse = cmsu;
 #endif
 		HaveDoc++;
+		if (doc->checkerProfiles.count() == 0)
+		{
+			struct checkerPrefs checkerSettings;
+			checkerSettings.ignoreErrors = false;
+			checkerSettings.autoCheck = true;
+			checkerSettings.checkGlyphs = true;
+			checkerSettings.checkOrphans = true;
+			checkerSettings.checkOverflow = true;
+			checkerSettings.checkPictures = true;
+			checkerSettings.checkResolution = true;
+			checkerSettings.checkTransparency = true;
+			checkerSettings.checkAnnotations = false;
+			checkerSettings.checkRasterPDF = true;
+			checkerSettings.minResolution = 72.0;
+			doc->checkerProfiles.insert( tr("Postscript"), checkerSettings);
+			doc->checkerProfiles.insert( tr("PDF-1.3"), checkerSettings);
+			checkerSettings.checkTransparency = false;
+			doc->checkerProfiles.insert( tr("PDF-1.4"), checkerSettings);
+			checkerSettings.checkTransparency = true;
+			checkerSettings.checkAnnotations = true;
+			checkerSettings.minResolution = 144.0;
+			doc->checkerProfiles.insert( tr("PDF/X-3"), checkerSettings);
+			doc->curCheckProfile = tr("Postscript");
+		}
 		if (doc->PDF_Optionen.LPISettings.count() == 0)
 		{
 			struct LPIData lpo;
@@ -4784,15 +4811,26 @@ void ScribusApp::slotFilePrint()
 	//int Nr;
 	//bool fil, sep, farbe, PSfile, mirrorH, mirrorV, useICC, DoGCR;
 	//PSfile = false;
-	if ((doc->checkerProfiles[doc->curCheckProfile].autoCheck) && (!doc->checkerProfiles[doc->curCheckProfile].ignoreErrors))
+	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
 	{
 		scanDocument();
 		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0))
 		{
-			docChecker->buildErrorList(doc);
-			docChecker->show();
-			scrActions["toolsPreflightVerifier"]->setOn(true);
-			return;
+			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
+			{
+				int t = QMessageBox::warning(this, tr("Warning"),
+											tr("Detected some Errors.\nConsider using the Preflight Checker to correct them"),
+											tr("Abort"), tr("Ignore"), 0, 0, 0);
+				if (t == 0)
+					return;
+			}
+			else
+			{
+				docChecker->buildErrorList(doc);
+				docChecker->show();
+				scrActions["toolsPreflightVerifier"]->setOn(true);
+				return;
+			}
 		}
 	}
 	PrintOptions options;
@@ -7903,6 +7941,30 @@ void ScribusApp::ReadPrefs()
 	move(Prefs.mainWinSettings.xPosition, Prefs.mainWinSettings.yPosition);
 	resize(Prefs.mainWinSettings.width, Prefs.mainWinSettings.height);
 	ReadPrefsXML();
+	if (Prefs.checkerProfiles.count() == 0)
+	{
+		struct checkerPrefs checkerSettings;
+		checkerSettings.ignoreErrors = false;
+		checkerSettings.autoCheck = true;
+		checkerSettings.checkGlyphs = true;
+		checkerSettings.checkOrphans = true;
+		checkerSettings.checkOverflow = true;
+		checkerSettings.checkPictures = true;
+		checkerSettings.checkResolution = true;
+		checkerSettings.checkTransparency = true;
+		checkerSettings.checkAnnotations = false;
+		checkerSettings.checkRasterPDF = true;
+		checkerSettings.minResolution = 72.0;
+		Prefs.checkerProfiles.insert( tr("Postscript"), checkerSettings);
+		Prefs.checkerProfiles.insert( tr("PDF-1.3"), checkerSettings);
+		checkerSettings.checkTransparency = false;
+		Prefs.checkerProfiles.insert( tr("PDF-1.4"), checkerSettings);
+		checkerSettings.checkTransparency = true;
+		checkerSettings.checkAnnotations = true;
+		checkerSettings.minResolution = 144.0;
+		Prefs.checkerProfiles.insert( tr("PDF/X-3"), checkerSettings);
+		Prefs.curCheckProfile = tr("Postscript");
+	}
 }
 
 void ScribusApp::ReadPrefsXML()
@@ -8005,15 +8067,26 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 void ScribusApp::SaveAsEps()
 {
 	QString fna;
-	if ((doc->checkerProfiles[doc->curCheckProfile].autoCheck) && (!doc->checkerProfiles[doc->curCheckProfile].ignoreErrors))
+	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
 	{
 		scanDocument();
 		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0))
 		{
-			docChecker->buildErrorList(doc);
-			docChecker->show();
-			scrActions["toolsPreflightVerifier"]->setOn(true);
-			return;
+			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
+			{
+				int t = QMessageBox::warning(this, tr("Warning"),
+											tr("Detected some Errors.\nConsider using the Preflight Checker to correct them"),
+											tr("Abort"), tr("Ignore"), 0, 0, 0);
+				if (t == 0)
+					return;
+			}
+			else
+			{
+				docChecker->buildErrorList(doc);
+				docChecker->show();
+				scrActions["toolsPreflightVerifier"]->setOn(true);
+				return;
+			}
 		}
 	}
 	if (!doc->DocName.startsWith( tr("Document")))
@@ -8081,15 +8154,26 @@ bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, std::vect
 void ScribusApp::SaveAsPDF()
 {
 	QString fn;
-	if ((doc->checkerProfiles[doc->curCheckProfile].autoCheck) && (!doc->checkerProfiles[doc->curCheckProfile].ignoreErrors))
+	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
 	{
 		scanDocument();
 		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0))
 		{
-			docChecker->buildErrorList(doc);
-			docChecker->show();
-			scrActions["toolsPreflightVerifier"]->setOn(true);
-			return;
+			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
+			{
+				int t = QMessageBox::warning(this, tr("Warning"),
+											tr("Detected some Errors.\nConsider using the Preflight Checker to correct them"),
+											tr("Abort"), tr("Ignore"), 0, 0, 0);
+				if (t == 0)
+					return;
+			}
+			else
+			{
+				docChecker->buildErrorList(doc);
+				docChecker->show();
+				scrActions["toolsPreflightVerifier"]->setOn(true);
+				return;
+			}
 		}
 	}
 	int Components = 3;
@@ -9993,6 +10077,8 @@ void ScribusApp::scanDocument()
 	checkerSettings.checkResolution = doc->checkerProfiles[doc->curCheckProfile].checkResolution;
 	checkerSettings.checkTransparency = doc->checkerProfiles[doc->curCheckProfile].checkTransparency;
 	checkerSettings.minResolution = doc->checkerProfiles[doc->curCheckProfile].minResolution;
+	checkerSettings.checkAnnotations = doc->checkerProfiles[doc->curCheckProfile].checkAnnotations;
+	checkerSettings.checkRasterPDF = doc->checkerProfiles[doc->curCheckProfile].checkRasterPDF;
 	doc->docItemErrors.clear();
 	doc->masterItemErrors.clear();
 	errorCodes itemError;
@@ -10000,6 +10086,8 @@ void ScribusApp::scanDocument()
 	{
 		it = doc->MasterItems.at(d);
 		itemError.clear();
+		if (((it->isAnnotation) || (it->isBookmark)) && (checkerSettings.checkAnnotations))
+			itemError.insert(7, 0);
 		if (((it->TranspStroke != 0.0) || (it->TranspStroke != 0.0)) && (checkerSettings.checkTransparency))
 			itemError.insert(6, 0);
 		if ((it->OwnPage == -1) && (checkerSettings.checkOrphans))
@@ -10013,6 +10101,10 @@ void ScribusApp::scanDocument()
 				if  ((((72.0 / it->LocalScX) < checkerSettings.minResolution) || ((72.0 / it->LocalScY) < checkerSettings.minResolution))
 				          && (it->isRaster) && (checkerSettings.checkResolution))
 					itemError.insert(5, 0);
+				QFileInfo fi = QFileInfo(it->Pfile);
+				QString ext = fi.extension(false).lower();
+				if ((ext == "pdf") && (checkerSettings.checkRasterPDF))
+					itemError.insert(8, 0);
 			}
 		}
 		if ((it->PType == 4) || (it->PType == 8))
@@ -10053,6 +10145,8 @@ void ScribusApp::scanDocument()
 		itemError.clear();
 		if (((it->Transparency != 0.0) || (it->TranspStroke != 0.0)) && (checkerSettings.checkTransparency))
 			itemError.insert(6, 0);
+		if (((it->isAnnotation) || (it->isBookmark)) && (checkerSettings.checkAnnotations))
+			itemError.insert(7, 0);
 		if ((it->OwnPage == -1) && (checkerSettings.checkOrphans))
 			itemError.insert(3, 0);
 		if (it->PType == 2)
@@ -10064,6 +10158,10 @@ void ScribusApp::scanDocument()
 				if  ((((72.0 / it->LocalScX) < checkerSettings.minResolution) || ((72.0 / it->LocalScY) < checkerSettings.minResolution)) 
 				           && (it->isRaster) && (checkerSettings.checkResolution))
 					itemError.insert(5, 0);
+				QFileInfo fi = QFileInfo(it->Pfile);
+				QString ext = fi.extension(false).lower();
+				if ((ext == "pdf") && (checkerSettings.checkRasterPDF))
+					itemError.insert(8, 0);
 			}
 		}
 		if ((it->PType == 4) || (it->PType == 8))
