@@ -41,6 +41,11 @@ const QString ScrPopupMenu::getMenuText()
 	return menuText;
 }
 
+const QString ScrPopupMenu::getMenuName()
+{
+	return menuName;
+}
+
 void ScrPopupMenu::setMenuBarID(int id)
 {
 	menuBarID=id;
@@ -56,6 +61,11 @@ QPopupMenu *ScrPopupMenu::getLocalPopupMenu()
 	return localPopupMenu;
 }
 
+bool ScrPopupMenu::hasSubMenu(ScrPopupMenu* subMenu)
+{
+	return menuItemList.contains(QGuardedPtr<QObject>(subMenu));
+}
+
 bool ScrPopupMenu::insertSubMenu(ScrPopupMenu* newSubMenu)
 {
 	if (newSubMenu)
@@ -66,11 +76,6 @@ bool ScrPopupMenu::insertSubMenu(ScrPopupMenu* newSubMenu)
 	}
 	else
 		return false;
-}
-
-bool ScrPopupMenu::hasSubMenu(const ScrPopupMenu* subMenu)
-{
-	return menuItemList.containsRef(subMenu);
 }
 
 bool ScrPopupMenu::removeSubMenu(ScrPopupMenu* subMenu)
@@ -114,13 +119,17 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, ScrAction *afte
 	//if (menuItemList.findRef(newMenuAction)!=-1)
 	//	return false;
 	
-	int index=menuItemList.findRef(afterMenuAction);
+	QValueList< QGuardedPtr<QObject> >::Iterator it=menuItemList.find(QGuardedPtr<QObject>(afterMenuAction));
+	menuItemList.insert(++it, QGuardedPtr<QObject>(newMenuAction));
+	/*
 	if (index==-1)
 		return false;
 	int newIndex=++index;
 	bool insSuccess=menuItemList.insert(newIndex, newMenuAction);
+
 	if (!insSuccess)
 		return false;
+	*/
 	return repopulateLocalMenu();
 }
 
@@ -180,56 +189,74 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, const QString a
 bool ScrPopupMenu::repopulateLocalMenu()
 {
 	localPopupMenu->clear();
-	QPtrListIterator<QObject> menuItemListIt(menuItemList);
-	QObject *object;
-	while ( (object = menuItemListIt.current()) != 0  ) 
+	
+	for ( QValueList< QGuardedPtr<QObject> >::Iterator menuItemListIt = menuItemList.begin();
+			 menuItemListIt!=menuItemList.end(); ++menuItemListIt ) 
 	{
-		QString menuItemListClassName=object->className();
+		//CB TODO make safer
+		QObject *listObj=(*menuItemListIt);
+		if (listObj==NULL)
+		{
+			menuItemList.remove(listObj);
+			continue;
+		}
+		
+		QString menuItemListClassName=listObj->className();
 		if (menuItemListClassName=="ScrAction")
 		{
 			//qDebug("ScrAction found");
-			if(QString(object->name())==QString("separator_action"))
+			if(QString(listObj->name())==QString("separator_action"))
 				localPopupMenu->insertSeparator();
 			else
-				dynamic_cast<ScrAction *>(object)->addTo(localPopupMenu);
+				dynamic_cast<ScrAction *>(listObj)->addTo(localPopupMenu);
 		}
-		else if (menuItemListClassName=="ScrPopupMenu")
+		else 
+		{
+			if (menuItemListClassName=="ScrPopupMenu")
 			{
-				//qDebug("ScrPopupMenu found");
-				localPopupMenu->insertItem(dynamic_cast<ScrPopupMenu *>(object)->getMenuText(), dynamic_cast<ScrPopupMenu *>(object)->getLocalPopupMenu());
+				localPopupMenu->insertItem(dynamic_cast<ScrPopupMenu *>(listObj)->getMenuText(), dynamic_cast<ScrPopupMenu *>(listObj)->getLocalPopupMenu());
 			}
 			else
-				qDebug(QString("Alien found: %1").arg(object->className()));
-		++menuItemListIt;
+				qDebug(QString("Alien found: %1").arg((*menuItemListIt)->className()));
+		}
 	}
 	return true;
 }
 
 bool ScrPopupMenu::generateEntryList(QStringList *actNames)
 {
-	QPtrListIterator<QObject> menuItemListIt(menuItemList);
-	QObject *object;
-	while ( (object = menuItemListIt.current()) != 0  ) 
+	for ( QValueList< QGuardedPtr<QObject> >::Iterator menuItemListIt = menuItemList.begin();
+			 menuItemListIt!=menuItemList.end(); ++menuItemListIt ) 
 	{
-		QString menuItemListClassName=object->className();
+		//CB TODO make safer
+		QObject *listObj=(*menuItemListIt);
+		if (listObj==NULL)
+		{
+			menuItemList.remove(listObj);
+			continue;
+		}
+			
+		//qDebug(QString("%1").arg(listObj->name()));
+		
+		QString menuItemListClassName=listObj->className();
 		if (menuItemListClassName=="ScrAction")
 		{
-			if(QString(object->name())==QString("separator_action"))
+			if(QString(listObj->name())==QString("separator_action"))
 				;
 			else
 			{
-				ScrAction *sca=dynamic_cast<ScrAction *>(object);
+				ScrAction *sca=dynamic_cast<ScrAction *>(listObj);
 				if (sca)
 					actNames->append(sca->name());
 			}
 		}
-		else if (menuItemListClassName=="ScrPopupMenu")
+		else 
+		if (menuItemListClassName=="ScrPopupMenu")
 		{
-			ScrPopupMenu *scp=dynamic_cast<ScrPopupMenu *>(object);
+			ScrPopupMenu *scp=dynamic_cast<ScrPopupMenu *>(listObj);
 			if (scp)
 				scp->generateEntryList(actNames);
 		}
-		++menuItemListIt;
 	}
 	return true;
 	

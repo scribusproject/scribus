@@ -16,6 +16,7 @@
 #define MENUMANAGER_H
 
 #include <qaction.h>
+#include <qobject.h>
 #include <qptrlist.h>
 #include <qpoint.h>
 
@@ -27,8 +28,9 @@ class ScrPopupMenu;
 /**
 @author Craig Bradney
 */
-class MenuManager
+class MenuManager : public QObject
 {
+	Q_OBJECT
 public:
 	MenuManager(QMenuBar *scrMenuBar, QObject *parent = 0, const char *name = 0);
 	~MenuManager();
@@ -57,7 +59,7 @@ public:
 	void runMenuAtPos(const QString &, const QPoint);
 	
 	void generateKeyManList(QStringList *actionNames);
-
+	
 private:
 	QMenuBar *scribusMenuBar;
 	QMap<QString, ScrPopupMenu *> menuList;

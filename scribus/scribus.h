@@ -39,6 +39,7 @@
 #include <qpainter.h>
 #include <qmap.h>
 #include <qdict.h>
+#include <qguardedptr.h>
 #include <qfont.h>
 #include <qtimer.h>
 #include <qintdict.h>
@@ -219,9 +220,11 @@ public:
 	QMap<QString,QString> LangTransl;
 	FileWatcher* fileWatcher;
 	QProcess *ExternalApp;
-	QDict<ScrAction> scrActions;
-	QDict<ScrAction> scrRecentFileActions;
-	QDict<ScrAction> scrWindowsActions;
+
+	QMap<QString, QGuardedPtr<ScrAction> > scrActions;
+	QMap<QString, QGuardedPtr<ScrAction> > scrRecentFileActions;
+	QMap<QString, QGuardedPtr<ScrAction> > scrWindowsActions;
+
 	QDict<QActionGroup> scrActionGroups;
 	MenuManager* scrMenuMgr;
 

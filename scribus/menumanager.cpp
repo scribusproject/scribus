@@ -12,17 +12,18 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include <qmenubar.h>
 #include <qdict.h>
+#include <qmenubar.h>
 #include <qpopupmenu.h>
 #include "scribus.h"
 #include "menumanager.h"
+#include "menumanager.moc"
 #include "scmenu.h"
 #include "scraction.h"
 
 extern ScribusApp* ScApp;
 
-MenuManager::MenuManager(QMenuBar *scrMenuBar, QObject */*parent*/, const char */*name*/)
+MenuManager::MenuManager(QMenuBar *scrMenuBar, QObject *parent, const char *name) : QObject(parent, name)
 {
 	scribusMenuBar=scrMenuBar;
 	menuList.clear();

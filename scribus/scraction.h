@@ -158,7 +158,7 @@ signals:
 	void toggledData(bool, double);
 	void toggledData(bool, QString);
 	
-	protected:
+protected:
 	int menuIndex;
 	int pluginID;
 	int windowID;
@@ -169,6 +169,7 @@ signals:
 	QWidget *widgetAddedTo;
 	QWidget *containerWidgetAddedTo;
 	QPopupMenu *popupMenuAddedTo;
+	
 	/*!
 		\fn ScrAction::addedTo ( int index, QPopupMenu * menu )
 		\author Craig Bradney

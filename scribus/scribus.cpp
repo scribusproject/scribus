@@ -169,11 +169,8 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	scrActionGroups.clear();
 	scrActionGroups.setAutoDelete(true);
 	scrActions.clear();
-	scrActions.setAutoDelete(true);
 	scrRecentFileActions.clear();
-	scrRecentFileActions.setAutoDelete(true);
 	scrWindowsActions.clear();
-	scrWindowsActions.setAutoDelete(true);
 	scrMenuMgr = new MenuManager(this->menuBar());
 
 	PrefsPfad = getPreferencesLocation();
@@ -648,9 +645,8 @@ void ScribusApp::initDefaultValues()
 
 void ScribusApp::initKeyboardShortcuts()
 {
-	QDictIterator<ScrAction> it( scrActions );
-	for( ; it.current(); ++it )
-		SetKeyEntry(it.currentKey(), it.current()->cleanMenuText(), QString(it.current()->accel()),0);
+	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrActions.begin(); it!=scrActions.end(); ++it )
+		SetKeyEntry(it.key(), it.data()->cleanMenuText(), QString(it.data()->accel()),0);
 }
 
 void ScribusApp::initArrowStyles()
@@ -1043,7 +1039,7 @@ void ScribusApp::initEditMenuActions()
 	scrActions.insert("editTemplates", new ScrAction(tr("&Templates..."), QKeySequence(), this, "editTemplates"));
 	scrActions.insert("editJavascripts", new ScrAction(tr("&Javascripts..."), QKeySequence(), this, "editJavascripts"));
 	scrActions.insert("editPreferences", new ScrAction(tr("P&references..."), QKeySequence(), this, "editPreferences"));
-		
+	
 	connect( scrActions["editUndoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(undo(int)) );
 	connect( scrActions["editRedoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(redo(int)) );
 	connect( scrActions["editActionMode"], SIGNAL(toggled(bool)) , this, SLOT(setUndoMode(bool)) );
@@ -2979,6 +2975,9 @@ bool ScribusApp::DoSaveClose()
 
 void ScribusApp::windowsMenuAboutToShow()
 {
+	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrWindowsActions.begin(); it!=scrWindowsActions.end(); ++it )
+		scrMenuMgr->removeMenuItem((*it), "Windows");
+	
 	scrWindowsActions.clear();
 	scrMenuMgr->clearMenu("Windows");
 	
@@ -2996,7 +2995,7 @@ void ScribusApp::windowsMenuAboutToShow()
 		scrWindowsActions["windowsCascade"]->setEnabled(false);
 		scrWindowsActions["windowsTile"]->setEnabled(false);
 	}
-
+	
 	QWidgetList windows = wsp->windowList();
 	for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
 	{
@@ -4075,6 +4074,9 @@ void ScribusApp::loadRecent(QString fn)
 
 void ScribusApp::rebuildRecentFileMenu()
 {
+	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrRecentFileActions.begin(); it!=scrRecentFileActions.end(); ++it )
+		scrMenuMgr->removeMenuItem((*it), recentFileMenuName);
+	
 	scrRecentFileActions.clear();
 	uint max = QMIN(Prefs.RecentDCount, RecentDocs.count());
 	for (uint m = 0; m < max; ++m)

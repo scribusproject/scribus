@@ -28,6 +28,7 @@ class ScrPopupMenu : public QObject
 		ScrPopupMenu ( QWidget * parent = 0, const char * name = 0, const QString pMenuName = QString::null, const QString pMenuText = QString::null, const QString parentName = QString::null);
 		~ScrPopupMenu ();
 		
+		const QString getMenuName();
 		const QString getMenuText();
 		void setMenuBarID(int id);
 		int getMenuBarID();
@@ -43,7 +44,7 @@ class ScrPopupMenu : public QObject
 		//bool insertMenuItemAfter(ScrAction *newMenuAction, const QString afterMenuName);
 		bool insertMenuSeparator();
 		
-		bool hasSubMenu(const ScrPopupMenu *subMenu);
+		bool hasSubMenu(ScrPopupMenu *subMenu);
 		bool removeSubMenu(ScrPopupMenu *subMenu);
 		bool removeMenuItem(ScrAction *menuAction);
 		
@@ -51,7 +52,7 @@ class ScrPopupMenu : public QObject
 		
 	protected:
 		QPopupMenu *localPopupMenu;
-		QPtrList<QObject> menuItemList;
+		QValueList< QGuardedPtr<QObject> > menuItemList;
 		QString menuName;
 		QString parentMenuName;
 		QString menuText;
