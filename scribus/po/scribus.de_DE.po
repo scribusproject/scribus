@@ -3,9 +3,9 @@
 # would be translated to "Pub", not "Foo::Pub".
 msgid ""
 msgstr ""
-"Project-Id-Version: Scribus 0.9.8\n"
-"POT-Creation-Date: 1999-02-23 15:38+0200\n"
-"PO-Revision-Date: 1999-02-23 15:38+0200\n"
+"Project-Id-Version: Scribus 1.0\n"
+"POT-Creation-Date: 2003-06-19 10:00+0200\n"
+"PO-Revision-Date: 2003-06-19 10:00+0200\n"
 "Last-Translator: Franz Schmid <Franz.Schmid@altmuehlnet.de>\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2787,7 +2787,7 @@ msgid "Antialias Graphics"
 msgstr "Graphiken weichzeichnen"
 
 msgid "Russian:"
-msgstr ""
+msgstr "Russisch:"
 
 msgid "Loading:"
 msgstr "Lade:"
@@ -2806,4 +2806,37 @@ msgstr "Tschechisch:"
 
 msgid "Norwegian:"
 msgstr "Norwegisch:"
+
+msgid "Select new Font:"
+msgstr "Neue Schriftart auswählen:"
+
+msgid "Insert Special"
+msgstr "Sonderzeichen einfügen"
+
+msgid "Select Character"
+msgstr "Zeichen auswählen"
+
+msgid "Insert"
+msgstr "Einfügen"
+
+msgid "Save Page as SVG..."
+msgstr "Seite als SVG sichern..."
+
+msgid "SVG-Images (*.svg);; All Files (*)"
+msgstr "SVG Grafiken (*.svg);; Alle Dateien (*)"
+
+msgid "Solid Line"
+msgstr "Durchgehend"
+
+msgid "Dashed Line"
+msgstr "Gestrichelt"
+
+msgid "Dotted Line"
+msgstr "Gepunktet"
+
+msgid "Dash Dot Line"
+msgstr "Strich-Punkt"
+
+msgid "Dash Dot Dot Line"
+msgstr "Strich-Punkt-Punkt"
 

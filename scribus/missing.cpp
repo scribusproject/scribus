@@ -61,7 +61,7 @@ static const char* const image100_data[] = {
 "................................................"};
 
 
-DmF::DmF( QWidget* parent, QString fon, preV *Prefs, bool miss = true )
+DmF::DmF( QWidget* parent, QString fon, preV *Prefs, bool miss )
     : QDialog( parent, "mfont", true, 0 )
 {
     QPixmap image0( ( const char** ) image100_data );

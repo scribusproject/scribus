@@ -95,11 +95,11 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cfloat")
 	GradGroupLayout = new QHBoxLayout( GradGroup->layout() );
 	GradGroupLayout->setAlignment( Qt::AlignTop );
 	GrColor1 = new QRadioButton( GradGroup, "GrColor1" );
-	GrColor1->setText( tr( "#1" ) );
+	GrColor1->setText("#1");
 	GrColor1->setChecked( true );
 	GradGroupLayout->addWidget( GrColor1 );
 	GrColor2 = new QRadioButton( GradGroup, "GrColor2" );
-	GrColor2->setText( tr( "#2" ) );
+	GrColor2->setText("#2");
 	GradGroupLayout->addWidget( GrColor2 );
 	GradLayout->addWidget( GradGroup );
 
@@ -131,6 +131,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cfloat")
   ListBox1->setMinimumSize( QSize( 150, 210 ) );
 	Form1Layout->addWidget(ListBox1);
 	setActGradient("", "", 100, 100, 0);
+	GradientMode = false;
   connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
   connect(Innen, SIGNAL(clicked()), this, SLOT(InnenButton()));
   connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
@@ -154,7 +155,9 @@ void Cpalette::InhaltButton()
 		GradCombo->hide();
 		GradGroup->hide();
 		TransGroup->hide();
+		GradientMode = false;
 		ListBox1->resize(ListBox1->width(), ListBox1->height()+h);
+		updateCList();
 		updateGeometry();
 		repaint();
 		}
@@ -169,8 +172,13 @@ void Cpalette::InnenButton()
 		Inhalt->setOn(false);
 		GradCombo->show();
 		GradGroup->show();
+		if (GradCombo->currentItem() != 0)
+			GradientMode = true;
+		else
+			GradientMode = false;
 		if (UseTransFeature)
 			TransGroup->show();
+		updateCList();
 		updateGeometry();
 		repaint();
 		}
@@ -189,7 +197,8 @@ void Cpalette::updateCList()
 	ListBox1->clear();
 	CListe::Iterator it;
 	QPixmap pm = QPixmap(30, 15);
-	ListBox1->insertItem(tr("None"));
+	if (!GradientMode)
+		ListBox1->insertItem(tr("None"));
 	for (it = Farbliste.begin(); it != Farbliste.end(); ++it)
 		{
 		pm.fill(Farbliste[it.key()].getRGBColor());
@@ -301,6 +310,8 @@ void Cpalette::ChooseGrad(int nr)
 				h += GradGroup->height();
 				GradGroup->hide();
 				ListBox1->resize(ListBox1->width(), ListBox1->height()+h);
+				GradientMode = false;
+				updateCList();
 				updateGeometry();
 				repaint();
 				}
@@ -320,6 +331,8 @@ void Cpalette::ChooseGrad(int nr)
 				updateShade(Shade2);
 				updateBoxS(Color2);
 				}
+			GradientMode = true;
+			updateCList();
 			break;
 		}
 	setFocus();

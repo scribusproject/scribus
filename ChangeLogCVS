@@ -1,4 +1,6 @@
 Changes since Version 0.9.11.1
+19.06.2003	cpalette.cpp		Disabled Color "None" for Gradients.
+
 18.06.2003	scribus.cpp		Implemented a new Fontselection Dialog.
 					Fixed Compiling Bugs.
 

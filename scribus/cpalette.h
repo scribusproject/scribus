@@ -65,6 +65,7 @@ public:
 	QString Color3;
 	int Shade3;
 	bool UseTransFeature;
+	bool GradientMode;
 	
 public slots:
 	void InhaltButton();
