@@ -23,6 +23,7 @@ ScrAction::ScrAction( QObject * parent, const char * name ) : QAction( parent, n
 	menuType=ScrAction::Normal;
 	menuIndex=-1;
 	widgetAddedTo=NULL;
+	containerWidgetAddedTo=NULL;
 }
 
 ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * parent, const char * name ) : QAction( menuText, accel, parent, name )
@@ -30,6 +31,7 @@ ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * pa
 	menuType=ScrAction::Normal;
 	menuIndex=-1;
 	widgetAddedTo=NULL;
+	containerWidgetAddedTo=NULL;
 }
 
 ScrAction::ScrAction( MenuType mType, const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraInt, double extraDouble, QString extraQString ) : QAction( icon, menuText, accel, parent, name )
@@ -37,6 +39,7 @@ ScrAction::ScrAction( MenuType mType, const QIconSet & icon, const QString & men
 	setIconSizes();
 	menuIndex=-1;
 	widgetAddedTo=NULL;
+	containerWidgetAddedTo=NULL;
 	menuType=mType;
 	if (menuType!=Normal)
 		connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
@@ -73,6 +76,7 @@ ScrAction::ScrAction( const QIconSet & icon, const QString & menuText, QKeySeque
 	setIconSizes();
 	menuIndex=-1;
 	widgetAddedTo=NULL;
+	containerWidgetAddedTo=NULL;
 }
 
 ScrAction::~ScrAction()
