@@ -22,7 +22,9 @@ public:
     QComboBox* Language;
     QLabel* Text1;
     QLabel* Text2;
+    QLabel* Text3;
     QSpinBox* WordLen;
+    QSpinBox* MaxCount;
     QPushButton* OK;
     QPushButton* Cancel;
 

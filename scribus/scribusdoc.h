@@ -432,6 +432,7 @@ struct preV  {
 				bool ScaleType;
 				bool AspectRatio;
 				int MinWordLen;
+				int HyCount;
 				QString Language;
 				bool Automatic;
 				bool AutoCheck;
@@ -622,6 +623,7 @@ public: // Public attributes
 	int TotalItems;
 	Hyphenator *Trenner;
 	int MinWordLen;
+	int HyCount;
 	QString Language;
 	bool Automatic;
 	bool AutoCheck;

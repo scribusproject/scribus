@@ -1152,7 +1152,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 								for (uint d = 0; d < ite->MaxChars; ++d)
 									{
 									hl = ite->Ptext.at(d);
-									if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)))
+									if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 										continue;
 									if (hl->yp == 0)
 										break;
@@ -1639,7 +1639,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								QString cc;
 								for (d = 0; d < c->Ptext.count(); ++d)
 									{
-									if ((c->Ptext.at(d)->ch == QChar(13)) || (c->Ptext.at(d)->ch == QChar(10)))
+									if ((c->Ptext.at(d)->ch == QChar(13)) || (c->Ptext.at(d)->ch == QChar(10)) || (c->Ptext.at(d)->ch == QChar(28)))
 										break;
 									bm += "\\"+cc.setNum(QMAX(c->Ptext.at(d)->ch.at(0).unicode(), 32), 8);
 									}
@@ -1697,7 +1697,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							for (d = 0; d < c->MaxChars; ++d)
 								{
 								hl = c->Ptext.at(d);
-								if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)))
+								if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 									continue;
 								if (hl->yp == 0)
 									break;
@@ -2098,7 +2098,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							for (d = 0; d < c->MaxChars; ++d)
 								{
 								hl = c->Ptext.at(d);
-								if ((hl->ch == QChar(13)) || (hl->ch == QChar(30)) || (hl->ch == QChar(9)))
+								if ((hl->ch == QChar(13)) || (hl->ch == QChar(30)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 									continue;
 								tsz = hl->csize;
 								chx = hl->ch;

@@ -2250,6 +2250,10 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			return;
 		}
 	}
+	if (doku->AppMode == 23)
+	{
+		return;
+	}
 	if (doku->AppMode == 22)
 	{
 		if ((SelItem.count() == 0) && (HaveSelRect) && (!MidButt))
@@ -3640,9 +3644,8 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 	else
 		BlockLeave = false;
 	}
-	if (Mpressed && (m->state() & ControlButton) && (SelItem.count() == 0))
+	if (Mpressed && (doku->AppMode == 23))
 	{
-		qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
 		int scroX = m->x() - qRound((Mxp * sc));
 		int scroY = m->y() - qRound((Myp * sc));
 		Anz->scrollBy(-scroX, -scroY);
@@ -5145,6 +5148,9 @@ void Page::mousePressEvent(QMouseEvent *m)
 	case 22:
 		Deselect(false);
 		break;
+	case 23:
+		qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
+		break;
 	}
 }
 
@@ -5974,7 +5980,7 @@ void Page::slotDoCurs(bool draw)
 		if (b->CPos > 0)
 		{
 			offs = QMIN(b->CPos-1, static_cast<int>(b->Ptext.count()-1));
-			if (b->Ptext.at(offs)->cstyle & 256)
+			if (b->Ptext.at(offs+1)->cstyle & 256)
 			{
 				b->CPos++;
 				return;

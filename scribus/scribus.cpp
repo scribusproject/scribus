@@ -220,6 +220,7 @@ void ScribusApp::initScribus()
 		ScriptRunning = false;
 		view = NULL;
 		doc = NULL;
+		Buffer2 = "";
   	BuildFontMenu();
 		SCFontsIterator it(Prefs.AvailFonts);
 		Prefs.DefFont = it.currentKey();
@@ -365,6 +366,7 @@ void ScribusApp::initScribus()
 		Prefs.ScaleType = true;
 		Prefs.AspectRatio = true;
 		Prefs.MinWordLen = 3;
+		Prefs.HyCount = 2;
 		Prefs.Language = "";
 		Prefs.Automatic = true;
 		Prefs.AutoCheck = false;
@@ -1075,6 +1077,14 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 			{
 	 		switch (kk)
 	 			{
+	 			case Key_Space:
+					keyrep = false;
+					if (doc->AppMode == 23)
+						setAppMode(1);
+					else
+						setAppMode(23);
+	 				return;
+	 				break;
 	 			case Key_Prior:
 	 				view->scrollBy(0, -Prefs.Wheelval);
 					keyrep = false;
@@ -1495,6 +1505,12 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  											}
  										}
 									}
+									while (b->Ptext.at(b->CPos)->cstyle & 256)
+									{
+										b->CPos--;
+										if (b->CPos == 0)
+											break;
+									}
 									if ( b->HasSel )
 										doc->ActPage->RefreshItem(b);
 								setTBvals(b);
@@ -1597,11 +1613,16 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  									b->Dirty = true;
 									doc->ActPage->RefreshItem(b);
  									}
- 								if ((kk == Key_Tab) || ((kk + KeyMod) == Prefs.KeyActions[60].KeyID) || ((kk + KeyMod) == Prefs.KeyActions[67].KeyID))
+ 								if ((kk == Key_Tab)
+								|| ((kk == Key_Return) && (buttonState & ShiftButton))
+								|| ((kk + KeyMod) == Prefs.KeyActions[60].KeyID) 
+								|| ((kk + KeyMod) == Prefs.KeyActions[67].KeyID))
  									{
  									hg = new Pti;
 									if ((kk + KeyMod) == Prefs.KeyActions[60].KeyID)
  										hg->ch = QString(QChar(30));
+									else if (kk == Key_Return)
+										hg->ch = QString(QChar(28));
 									else if (kk == Key_Tab)
 										hg->ch = QString(QChar(9));
 									else
@@ -1915,6 +1936,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->AppMode = 1;
 	doc->Language = Prefs.Language;
 	doc->MinWordLen = Prefs.MinWordLen;
+	doc->HyCount = Prefs.HyCount;
 	doc->Automatic = Prefs.Automatic;
 	doc->AutoCheck = Prefs.AutoCheck;
 	doc->PageColors = Prefs.DColors;
@@ -2190,7 +2212,6 @@ void ScribusApp::SwitchWin()
 		{
 			pageMenu->setItemEnabled(pageMenu->idAt(a), 0);
 		}
-//		menuBar()->setItemEnabled(pgmm, 0);
 		editMenu->setItemEnabled(tman, 0);
 		DatNeu->setEnabled(false);
 		DatSav->setEnabled(false);
@@ -2260,7 +2281,10 @@ void ScribusApp::HaveNewDoc()
 	fileMenu->setItemEnabled(fid11, 1);
 	editMenu->setItemEnabled(edid1, 0);
 	editMenu->setItemEnabled(edid2, 0);
-	editMenu->setItemEnabled(edid3, 0);
+	if (Buffer2 != "")
+		editMenu->setItemEnabled(edid3, 1);
+	else
+		editMenu->setItemEnabled(edid3, 0);
 	editMenu->setItemEnabled(edid6, 1);
 	editMenu->setItemEnabled(edid6a, 1);
 	for (a=0; a<6; ++a)
@@ -2303,7 +2327,6 @@ void ScribusApp::HaveNewDoc()
 		}
 	Mpal->Cpal->SetColors(doc->PageColors);
 	Mpal->Cpal->ChooseGrad(0);
-//	ActWin->setCaption( QString::fromLocal8Bit(doc->DocName) );
 	ActWin->setCaption(doc->DocName);
 	ShadeMenu->setItemChecked(ShadeMenu->idAt(11), true);
 	Mpal->SetDoc(doc);
@@ -2827,6 +2850,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		doc->ActiveLayer = 0;
 		doc->Language = Prefs.Language;
 		doc->MinWordLen = Prefs.MinWordLen;
+		doc->HyCount = Prefs.HyCount;
 		doc->Automatic = Prefs.Automatic;
 		doc->AutoCheck = Prefs.AutoCheck;
 		doc->BaseGrid = Prefs.BaseGrid;
@@ -2983,7 +3007,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 			for (uint azz=0; azz<view->MasterPages.at(az)->Items.count(); ++azz)
 				{
 				PageItem *ite = view->MasterPages.at(az)->Items.at(azz);
-				if (ite->PType == 4)
+				if ((ite->PType == 4) || (ite->PType == 8))
 					ite->DrawObj(painter, rd);
 				}
 			}
@@ -2993,7 +3017,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 			for (uint azz=0; azz<view->Pages.at(az)->Items.count(); ++azz)
 				{
 				PageItem *ite = view->Pages.at(az)->Items.at(azz);
-				if (ite->PType == 4)
+				if ((ite->PType == 4) || (ite->PType == 8))
 					ite->DrawObj(painter, rd);
 				if (doc->OldBM)
 					{
@@ -6533,21 +6557,26 @@ void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, S
 {
 	if (doc == docc)
 		NoFrameEdit();
-  ScriXmlDoc *ss = new ScriXmlDoc();
-  if(ss->ReadElem(Name, Prefs.AvailFonts, docc, x, y, art, loca, Prefs.GFontSub, &Prefs))
-  	{
-  	docc->ActPage->update();
+	ScriXmlDoc *ss = new ScriXmlDoc();
+	if(ss->ReadElem(Name, Prefs.AvailFonts, docc, x, y, art, loca, Prefs.GFontSub, &Prefs))
+	{
+		docc->ActPage->update();
 		docc->UnDoValid = false;
 		if (doc == docc)
-			{
-  		BuildFontMenu();
+		{
+			doc->OpenNodes = Tpal->buildReopenVals();
+			BuildFontMenu();
+			Mpal->Cpal->SetColors(docc->PageColors);
+			Mpal->updateCList();
 			Mpal->Spal->updateFList();
 			Mpal->SetLineFormats(docc);
-  		slotDocCh();
+			Tpal->BuildTree(view);
+			Tpal->reopenTree(doc->OpenNodes);
+			slotDocCh();
 			CanUndo();
-			}
+		}
   	}
-  delete ss;
+	delete ss;
 }
 
 void ScribusApp::slotChangeUnit(int art, bool draw)
@@ -7479,6 +7508,7 @@ void ScribusApp::configHyphenator()
 		dia->Input->setChecked(doc->Trenner->AutoCheck);
 		dia->Language->setCurrentText(doc->Trenner->Language);
 		dia->WordLen->setValue(doc->Trenner->MinWordLen);
+		dia->MaxCount->setValue(doc->Trenner->HyCount);
 		}
 	else
 		{
@@ -7486,13 +7516,14 @@ void ScribusApp::configHyphenator()
 		dia->Input->setChecked(Prefs.AutoCheck);
 		dia->Language->setCurrentText(Prefs.Language);
 		dia->WordLen->setValue(Prefs.MinWordLen);
+		dia->MaxCount->setValue(Prefs.HyCount);
 		}
 	if (dia->exec())
 		{
 		if (HaveDoc)
 			{
 			doc->Trenner->slotNewDict(dia->Language->currentText());
-			doc->Trenner->slotNewSettings(dia->WordLen->value(), dia->Verbose->isChecked(), dia->Input->isChecked());
+			doc->Trenner->slotNewSettings(dia->WordLen->value(), dia->Verbose->isChecked(), dia->Input->isChecked(),dia->MaxCount->value());
 			}
 		else
 			{
@@ -7500,6 +7531,7 @@ void ScribusApp::configHyphenator()
 			Prefs.Language = dia->Language->currentText();
 			Prefs.Automatic = dia->Verbose->isChecked();
 			Prefs.AutoCheck = dia->Input->isChecked();
+			Prefs.HyCount = dia->MaxCount->value();
 			}
 		}
 	delete dia;
@@ -7729,6 +7761,12 @@ void ScribusApp::Collect()
 					fn = s + doc->DocName+".sla";
 				if (!DoFileSave(fn))
 					QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
+				QMap<QString,QFont>::Iterator it3;
+				for (it3 = doc->UsedFonts.begin(); it3 != doc->UsedFonts.end(); ++it3)
+					{
+					QFileInfo itf = QFileInfo(Prefs.AvailFonts[it3.key()]->Datei);
+					copyFile(Prefs.AvailFonts[it3.key()]->Datei, s + itf.fileName());
+					}
 				}
 			}
 		}

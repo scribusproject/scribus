@@ -21,6 +21,7 @@
 #include <qcursor.h>
 #include <qpainter.h>
 #include <qcolor.h>
+#include <qtooltip.h>
 
 extern QPixmap loadIcon(QString nam);
 extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
@@ -174,6 +175,17 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	PLayout->addWidget(Anzeige);
 	int w = Anz->width() + 20;
 	resize(QMIN(QApplication::desktop()->width(),w), 500);
+	//tooltips
+	QToolTip::add( AliasText, tr( "Provides a more pleasant view of text items in the viewer, at the expense\nof a slight slowdown in previewing. This only affects Type 1 fonts" ) );
+	QToolTip::add( AliasGr, tr( "Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and\nvector graphics in the preview, at the expense of a slight slowdown in previewing" ) );
+	QToolTip::add( AliasTr, tr( "Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later" ) );
+	QToolTip::add( EnableCMYK, tr( "Gives a print preview using simulations of generic CMYK inks, instead of RGB colors" ) );
+	QToolTip::add( EnableCMYK_C, tr( "Enable/disable the C (Cyan) ink plate" ) );
+	QToolTip::add( EnableCMYK_M, tr( "Enable/disable the M (Magenta) ink plate" ) );
+	QToolTip::add( EnableCMYK_Y, tr( "Enable/disable the Y (Yellow) ink plate" ) );
+	QToolTip::add( EnableCMYK_K, tr( "Enable/disable the K (Black) ink plate" ) );
+
+	//signals and slots
 	connect(AliasText, SIGNAL(clicked()), this, SLOT(ToggleTextAA()));
 	connect(AliasGr, SIGNAL(clicked()), this, SLOT(ToggleGr()));
 	connect(AliasTr, SIGNAL(clicked()), this, SLOT(ToggleTr()));

@@ -421,6 +421,7 @@ void SCFonts::AddScalableFonts(const QString &path)
 					t->EmbedPS = true;
 					t->UseFont = true;
 					t->CharWidth[13] = 0;
+					t->CharWidth[28] = 0;
 					t->CharWidth[9] = 1;
 					t->Family = QString(face->family_name);
 					}

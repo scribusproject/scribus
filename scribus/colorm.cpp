@@ -85,7 +85,7 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 
 	layout3 = new QVBoxLayout( 0, 0, 6, "layout3");
 	SaveF = new QPushButton( this, "SaveF" );
-	SaveF->setText( tr( "Save" ) );
+	SaveF->setText( tr( "OK" ) );
 	layout3->addWidget( SaveF );
 	CancF = new QPushButton( this, "CancF" );
 	CancF->setText( tr( "Cancel" ) );

@@ -1,5 +1,6 @@
 #include "newfile.h"
 #include "newfile.moc"
+#include <qtooltip.h>
 extern QPixmap loadIcon(QString nam);
 
 NewDoc::NewDoc( QWidget* parent, preV *Vor )
@@ -217,7 +218,7 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	Layout2->setSpacing( 6 );
 	Layout2->setMargin( 5 );
 	TextLabel4 = new QLabel( GroupBox4, "TextLabel4" );
-	TextLabel4->setText( tr( "Gutter Width:" ) );
+	TextLabel4->setText( tr( "Gap:" ) );
 	Layout2->addWidget( TextLabel4, 1, 0 );
 	TextLabel3 = new QLabel( GroupBox4, "TextLabel3" );
 	TextLabel3->setText( tr( "Columns:" ) );
@@ -258,6 +259,22 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	//tab order
 	QWidget::setTabOrder ( AutoFrame, SpinBox10 );
 	QWidget::setTabOrder ( SpinBox10, Distance );
+	//tooltips
+	QToolTip::add( ComboBox1, tr( "Document page size, either a standard size or a custom size" ) );
+	QToolTip::add( ComboBox2, tr( "Orientation of the document's pages" ) );
+	QToolTip::add( Breite, tr( "Width of the document's pages, editable if you have chosen a custom page size" ) );
+	QToolTip::add( Hoehe, tr( "Height of the document's pages, editable if you have chosen a custom page size" ) );
+	QToolTip::add( Doppelseiten, tr( "Enable single or spread based layout" ) );
+	QToolTip::add( ErsteSeite, tr( "Make the first page the left page of the document" ) );
+	QToolTip::add( TopR, tr( "Distance between the top margin guide and the edge of the page" ) );
+	QToolTip::add( BottomR, tr( "Distance between the bottom margin guide and the edge of the page" ) );
+	QToolTip::add( LeftR, tr( "Distance between the left margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
+	QToolTip::add( RightR, tr( "Distance between the right margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
+	QToolTip::add( PgNr, tr( "First page number of the document" ) );
+	QToolTip::add( ComboBox3, tr( "Default unit of measurement for document editing" ) );
+	QToolTip::add( AutoFrame, tr( "Create text frames automatically when new pages are added" ) );
+	QToolTip::add( SpinBox10, tr( "Number of columns to create in text frames\non automatically created pages" ) );
+	QToolTip::add( Distance, tr( "Distance between automatically created columns" ) );
 
 	// signals and slots connections
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( ExitOK() ) );

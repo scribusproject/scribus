@@ -22,6 +22,8 @@ public:
     /*! There are languages having rule not to hyphen word shorter than
     MinWordLen */
 	int MinWordLen;
+	/*! Maximum number of hyphenations allowed following each other */
+	int HyCount;
     /*! Language in use */
 	QString Language;
     /*! Flag - if user set auto hyphen processing.*/
@@ -42,7 +44,7 @@ public:
 
 public slots:
 	void slotNewDict(QString name);
-	void slotNewSettings(int Wordlen, bool Autom, bool ACheck);
+	void slotNewSettings(int Wordlen, bool Autom, bool ACheck, int Num);
 	void slotHyphenateWord(PageItem* it, QString text, int firstC);
 	void slotHyphenate(PageItem *it);
 };

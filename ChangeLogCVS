@@ -1,4 +1,9 @@
 Changes since Version 1.1.6
+10.04.2004	Panning Mode is now toggled by pressing Space. Works only when not editing a Textframe.
+		Pressing Shift+Return inserts now a new line into a paragraph, does not count as a paragraph seperator.
+		Improved behaviour of the hyphenation, you can set now the number of hyphenations allowed to follow each other.
+		Added more Tooltips.
+
 09.04.2004	Made various adjustments to Dialog Buttons.
 		Improved Panning.
 

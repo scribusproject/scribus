@@ -1773,7 +1773,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 	for (uint d = 0; d < ite->MaxChars; ++d)
 	{
 		hl = ite->Ptext.at(d);
-		if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)))
+		if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 			continue;
 		if (ite->PType == 8)
 		{

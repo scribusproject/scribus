@@ -1661,7 +1661,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QToolTip::add( GSName, tr( "Filesystem location for the Ghostscript interpreter" ) );
 	QToolTip::add( GSantiText, tr( "Antialias text for EPS and PDF onscreen rendering" ) );
 	QToolTip::add( GSantiGraph, tr( "Antialias graphics for EPS and PDF onscreen rendering" ) );
-	QToolTip::add( GimpName, tr( "Filesystem location for editing graphics" ) );
+	QToolTip::add( GimpName, tr( "Filesystem location for graphics editor" ) );
 
 	QToolTip::add( ClipMarg, tr( "Do not show objects outside the margins on the printed page or exported file" ) );
 

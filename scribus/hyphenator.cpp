@@ -49,6 +49,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app) : QObj
 	MinWordLen = doc->MinWordLen;
 	Automatic = doc->Automatic;
 	AutoCheck = doc->AutoCheck;
+	HyCount = doc->HyCount;
  	QString pfad = PREL;
 	if (Sap->Sprachen.contains(doc->Language))
 		Language = doc->Language;
@@ -142,14 +143,16 @@ void Hyphenator::slotNewDict(QString name)
  \param ACheck AutoCheck flag.
  \retval None
  */
-void Hyphenator::slotNewSettings(int Wordlen, bool Autom, bool ACheck)
+void Hyphenator::slotNewSettings(int Wordlen, bool Autom, bool ACheck, int Num)
 {
 	MinWordLen = Wordlen;
 	Automatic = Autom;
 	AutoCheck = ACheck;
+	HyCount = Num;
 	doc->MinWordLen = Wordlen;
 	doc->Automatic = Autom;
 	doc->AutoCheck = AutoCheck;
+	doc->HyCount = Num;
 }
 
 /*! 

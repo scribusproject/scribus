@@ -1105,6 +1105,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->ActiveLayer = QStoInt(dc.attribute("ALAYER","0"));
 		doc->Language = dc.attribute("LANGUAGE", "");
 		doc->MinWordLen = QStoInt(dc.attribute("MINWORDLEN", "3"));
+		doc->HyCount = QStoInt(dc.attribute("HYCOUNT", "2"));
 		doc->Automatic = static_cast<bool>(QStoInt(dc.attribute("AUTOMATIC", "1")));
 		doc->AutoCheck = static_cast<bool>(QStoInt(dc.attribute("AUTOCHECK", "0")));
 		doc->GuideLock = static_cast<bool>(QStoInt(dc.attribute("GUIDELOCK", "0")));
@@ -2313,7 +2314,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		}
 	}
 	elem.setAttribute("COUNT", Selitems->count());
-	elem.setAttribute("Version", "1.1.5");
+	elem.setAttribute("Version", "1.2cvs");
 	for (uint co=0; co<Selitems->count(); ++co)
 	{
 		QString CurDirP = QDir::currentDirPath();
@@ -3003,7 +3004,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 	QString st="<SCRIBUSUTF8></SCRIBUSUTF8>";
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
-	elem.setAttribute("Version", "1.1.5");
+	elem.setAttribute("Version", "1.2cvs");
 	QDomElement dc=docu.createElement("DOCUMENT");
 	dc.setAttribute("ANZPAGES",doc->PageC);
 	dc.setAttribute("PAGEWITH",doc->PageB);
@@ -3052,6 +3053,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 	dc.setAttribute("ALAYER", doc->ActiveLayer);
 	dc.setAttribute("LANGUAGE", doc->Language);
 	dc.setAttribute("MINWORDLEN", doc->MinWordLen);
+	dc.setAttribute("HYCOUNT", doc->HyCount);
 	dc.setAttribute("AUTOMATIC", static_cast<int>(doc->Automatic));
 	dc.setAttribute("AUTOCHECK", static_cast<int>(doc->AutoCheck));
 	dc.setAttribute("GUIDELOCK", static_cast<int>(doc->GuideLock));
@@ -3442,6 +3444,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	QDomElement rde=docu.createElement("HYPHEN");
 	rde.setAttribute("LANG", Vor->Language);
 	rde.setAttribute("WORDLEN", Vor->MinWordLen);
+	rde.setAttribute("HYCOUNT", Vor->HyCount);
 	rde.setAttribute("MODE", static_cast<int>(Vor->Automatic));
 	rde.setAttribute("INMODE", static_cast<int>(Vor->AutoCheck));
 	elem.appendChild(rde);
@@ -3723,6 +3726,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			if (dc.attribute("LANG", "") != "")
 				Vorein->Language = dc.attribute("LANG");
 			Vorein->MinWordLen = QStoInt(dc.attribute("WORDLEN", "3"));
+			Vorein->HyCount = QStoInt(dc.attribute("HYCOUNT", "2"));
 			Vorein->Automatic = static_cast<bool>(QStoInt(dc.attribute("MODE", "1")));
 			Vorein->AutoCheck = static_cast<bool>(QStoInt(dc.attribute("INMODE", "1")));
 		}

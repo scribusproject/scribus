@@ -253,6 +253,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	bool RTab = false;
 	uint StartRT, StartRT2;
 	int TabCode = 0;
+	int HyphenCount = 0;
 	QValueList<double> tTabValues;
 	bool DropCmode = false;
 	bool AbsHasDrop = false;
@@ -993,15 +994,16 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							LastSP = BuPos;
 						}
 					}
-					if ((hl->ch == "-") && (!outs))
+					if (((hl->cstyle & 128) || (hl->ch == "-")) && (!outs))
 						{
-						LastXp = CurX;
-						LastSP = BuPos;
-						}
-					if ((hl->cstyle & 128) && (!outs))
-						{
-						LastXp = CurX + Cwidth(Doc, hl->cfont, "-", hl->csize);
-						LastSP = BuPos;
+						if ((HyphenCount < Doc->HyCount) || (Doc->HyCount == 0))
+							{
+							if (hl->ch == "-")
+								LastXp = CurX;
+							else
+								LastXp = CurX + Cwidth(Doc, hl->cfont, "-", hl->csize);
+							LastSP = BuPos;
+							}
 						}
 					LiList.append(Zli);
 					if (RTab)
@@ -1046,7 +1048,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						cm = QRegion(pf2.xForm(tcli));
 						cl = cl.subtract(cm);
 						}
-					if ((hl->ch == QChar(13)) || (outs))
+					if ((hl->ch == QChar(13)) || (hl->ch == QChar(28)) || (outs))
 						{
 						RTab = false;
 						TabCode = 0;
@@ -1058,6 +1060,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								a++;
 								if (Ptext.at(a)->cstyle & 128)
 									{
+									HyphenCount++;
 									Zli = new ZZ;
 									Zli->Zeich = "-";
 									Zli->Farb = Ptext.at(a)->ccolor;
@@ -1076,6 +1079,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									LiList.insert(LastSP+1, Zli);
 									LastSP += 1;
 									}
+								else
+									HyphenCount = 0;
 								BuPos = LastSP+1;
 								if (Doc->Vorlagen[absa].Ausri != 0)
 									{
@@ -1191,11 +1196,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						BuPos2 = a;
 						BuPos2++;
 						uint BuPos3 = BuPos;
-						if ((outs) || (hl->ch == QChar(13)))
+						if ((outs) || (hl->ch == QChar(13)) || (hl->ch == QChar(28)))
 							{
 							if ((outs) && (CurX+RExtra+lineCorr < ColBound.y()))
 								{
-								if ((hl->ch == QChar(13)) && (AbsHasDrop))
+								if (((hl->ch == QChar(13)) || (hl->ch == QChar(28))) && (AbsHasDrop))
 									{
 									AbsHasDrop = false;
 									if (CurY < maxDY)
@@ -1247,7 +1252,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								}
 							else
 								{
-								if ((hl->ch == QChar(13)) && (AbsHasDrop))
+								if (((hl->ch == QChar(13)) || (hl->ch == QChar(28))) && (AbsHasDrop))
 									{
 									AbsHasDrop = false;
 									if (CurY < maxDY)
@@ -1507,7 +1512,7 @@ NoRoom: pf2.end();
 				CurY = 0;
 				hl = Ptext.at(a);
 				chx = hl->ch;
-				if ((chx == QChar(30)) || (chx == QChar(13)) || (chx == QChar(9)))
+				if ((chx == QChar(30)) || (chx == QChar(13)) || (chx == QChar(9)) || (chx == QChar(28)))
 					continue;
 				chs = hl->csize;
 				SetZeichAttr(hl, &chs, &chx);
@@ -1876,7 +1881,7 @@ double PageItem::SetZeichAttr(struct Pti *hl, int *chs, QString *chx)
 void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 {
 	QString ccx = hl->Zeich;
-	if ((ccx == QChar(13)) || (ccx == QChar(9)))
+	if ((ccx == QChar(13)) || (ccx == QChar(9)) || (ccx == QChar(28)))
 		return;
 	if (ccx == QChar(29))
 		ccx = " ";
