@@ -23,9 +23,9 @@ extern "C" void* Run(QWidget *d, preV *Vor);
  \author Franz Schmid
  \date  
  \brief Creates Preferences dialog and returns pointer to it
- \param d QWidget pointer to Preferences dialog widget
- \param Vor preV struct pointer 
- \retval dia returned widget pointer
+ \param d QWidget * to Preferences dialog widget
+ \param Vor preV * struct
+ \retval dia * widget pointer
  */
 void* Run(QWidget *d, preV *Vor)
 {
@@ -39,6 +39,7 @@ void* Run(QWidget *d, preV *Vor)
  \date  
  \brief Constructor for Preferences dialog box
  \param parent QWidget pointer to parent window
+ \param Vor preV * struct
  \retval Preferences dialog
  */
 Preferences::Preferences( QWidget* parent, preV *Vor)

@@ -1,4 +1,7 @@
 Changes since Version 1.1.5
+19.02.2004	Improved the PDF-Export settings, the Compression method for
+	Images can now be set. Zip and JPEG Compression is available.
+
 18.02.2004	Improved the PDF-Export, Images are now written as jpg into the PDF.
 	Fixed a problem with freetype > 2.1.4
 

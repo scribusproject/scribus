@@ -98,7 +98,7 @@ QString CompressStr(QString *in);
 QString ImageToTxt(QImage *im);
 QString ImageToCMYK(QImage *im);
 QString ImageToCMYK_PS(QImage *im, int pl, bool pre);
-void Convert2JPG(QString fn, QImage *image, bool isCMYK);
+void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK);
 QString MaskToTxt(QImage *im, bool PDF = true);
 void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
@@ -388,7 +388,7 @@ QImage LoadPict(QString fn, bool *gray)
 		Bild.load(fn);
 		if (gray != 0)
 		{
-			if (Bild.depth() == 8)
+			if ((Bild.depth() == 8) && (Bild.isGrayscale()))
 				*gray = true;
 			else
 				*gray = false;
@@ -963,7 +963,7 @@ static void my_error_exit (j_common_ptr cinfo)
   longjmp (myerr->setjmp_buffer, 1);
 }
 
-void Convert2JPG(QString fn, QImage *image, bool isCMYK)
+void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK)
 {
 	struct jpeg_compress_struct cinfo;
 	struct my_error_mgr         jerr;
@@ -997,7 +997,8 @@ void Convert2JPG(QString fn, QImage *image, bool isCMYK)
 		cinfo.input_components = 3;
 	}
 	jpeg_set_defaults (&cinfo);
-	jpeg_set_quality (&cinfo, 75, true);
+	int qual[] = { 95, 85, 75, 50, 25 };  // These are the JPEG Quality settings 100 means best, 0 .. don't discuss
+	jpeg_set_quality (&cinfo, qual[Quality], true);
 	jpeg_start_compress (&cinfo, TRUE);
 	row_pointer[0] = new uchar[cinfo.image_width*cinfo.input_components];
 	int w = cinfo.image_width;

@@ -280,6 +280,8 @@ struct PDFOpt {
 				bool Thumbnails;
 				bool Articles;
 				bool Compress;
+				int CompressMethod;
+				int Quality;
 				bool RecalcPic;
 				bool Bookmarks;
 				int PicRes;

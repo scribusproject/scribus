@@ -5878,6 +5878,8 @@ void ScribusApp::SaveAsPDF()
 		doc->PDF_Optionen.Datei = fn;
 		doc->PDF_Optionen.Thumbnails = dia->CheckBox1->isChecked();
 		doc->PDF_Optionen.Compress = dia->Compression->isChecked();
+		doc->PDF_Optionen.CompressMethod = dia->CMethod->currentItem();
+		doc->PDF_Optionen.Quality = dia->CQualtity->currentItem();
 		doc->PDF_Optionen.Resolution = dia->Resolution->value();
 		doc->PDF_Optionen.EmbedList = dia->FontsToEmbed;
 		doc->PDF_Optionen.RecalcPic = dia->DSColor->isChecked();

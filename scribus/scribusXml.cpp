@@ -743,7 +743,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						QFileInfo efp(OB.An_Extern);
 						OB.An_Extern = efp.absFilePath();
 					}
-				OB.AnZiel = QStoInt(obj.attribute("ANZIEL","0"));
+					OB.AnZiel = QStoInt(obj.attribute("ANZIEL","0"));
 					OB.AnName = obj.attribute("ANNAME","");
 					OB.AnToolTip = obj.attribute("ANTOOLTIP","");
 					OB.AnRollOver = obj.attribute("ANROLL","");
@@ -1163,6 +1163,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				doc->PDF_Optionen.Articles = static_cast<bool>(QStoInt(pg.attribute("Articles")));
 				doc->PDF_Optionen.Thumbnails = static_cast<bool>(QStoInt(pg.attribute("Thumbnails")));
 				doc->PDF_Optionen.Compress = static_cast<bool>(QStoInt(pg.attribute("Compress")));
+				doc->PDF_Optionen.CompressMethod = QStoInt(pg.attribute("CMethod","0"));
+				doc->PDF_Optionen.Quality = QStoInt(pg.attribute("Quality","0"));
 				doc->PDF_Optionen.RecalcPic = static_cast<bool>(QStoInt(pg.attribute("RecalcPic")));
 				doc->PDF_Optionen.Bookmarks = static_cast<bool>(QStoInt(pg.attribute("Bookmarks")));
 				doc->PDF_Optionen.PresentMode = static_cast<bool>(QStoInt(pg.attribute("PresentMode")));
@@ -2966,6 +2968,8 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 	pdf.setAttribute("Articles", static_cast<int>(doc->PDF_Optionen.Articles));
 	pdf.setAttribute("Bookmarks", static_cast<int>(doc->PDF_Optionen.Bookmarks));
 	pdf.setAttribute("Compress", static_cast<int>(doc->PDF_Optionen.Compress));
+	pdf.setAttribute("CMethod", doc->PDF_Optionen.CompressMethod);
+	pdf.setAttribute("Quality", doc->PDF_Optionen.Quality);
 	pdf.setAttribute("PresentMode", static_cast<int>(doc->PDF_Optionen.PresentMode));
 	pdf.setAttribute("RecalcPic", static_cast<int>(doc->PDF_Optionen.RecalcPic));
 	pdf.setAttribute("RGBMode", static_cast<int>(doc->PDF_Optionen.UseRGB));

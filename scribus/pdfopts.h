@@ -43,18 +43,22 @@ public:
     QLabel* TextLabel1;
     QTabWidget* Options;
     QWidget* tab;
-    QSpinBox* ValC;
     QSpinBox* Resolution;
-    QCheckBox* DSColor;
     QCheckBox* Article;
     QCheckBox* Compression;
+    QCheckBox* DSColor;
+    QSpinBox* ValC;
+    QGroupBox* CBox;
+    QLabel* TextCom1;
+    QLabel* TextCom2;
+    QComboBox* CQualtity;
+    QComboBox* CMethod;
     QToolButton* FileC;
     QPushButton* OK;
     QPushButton* Cancel;
     QLineEdit* Datei;
 	BookMView *BView;
     QGroupBox* GroupBox1;
-    QGroupBox* GroupBox2;
     QLabel* TextLabel2;
     QComboBox* ComboBox1;
     QLabel* TextLabel1x;
@@ -168,6 +172,7 @@ public slots:
 	void EnablePGI2();
 
 protected:
+    QGridLayout* CBoxLayout;
     QVBoxLayout* PDFOptsLayout;
     QHBoxLayout* Layout5;
     QVBoxLayout* tabLayout;

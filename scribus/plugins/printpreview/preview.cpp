@@ -21,16 +21,41 @@
 
 extern QPixmap loadIcon(QString nam);
  
+/*!
+ \fn QString Name()
+ \author Franz Schmid
+ \date
+ \brief Returns name of plugin
+ \param None
+ \retval QString containing name of plugin: Print Preview
+ */
 QString Name()
 {
   return QObject::tr("Print Preview");
 }
 
+/*!
+ \fn int Type()
+ \author Franz Schmid
+ \date
+ \brief Returns type of plugin
+ \param None
+ \retval int containing type of plugin (1: Extra, 2: Import, 3: Export, 4: )
+ */
 int Type()
 {
 	return 1;
 }
 
+/*!
+ \fn void Run(QWidget *d, ScribusApp *plug)
+ \author Franz Schmid
+ \date
+ \brief Run the print preview
+ \param d QWidget *
+ \param plug ScribusApp *
+ \retval None
+ */
 void Run(QWidget *d, ScribusApp *plug)
 {
 	if (plug->HaveDoc)
@@ -41,6 +66,15 @@ void Run(QWidget *d, ScribusApp *plug)
   	}
 }
 
+/*!
+ \fn PPreview::PPreview( QWidget* parent, ScribusApp *pl)
+ \author Franz Schmid
+ \date
+ \brief Create the Print Preview window
+ \param parent QWidget *
+ \param pl ScribusApp *
+ \retval PPreview window
+ */
 PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview", true, 0 )
 {
 	QString tmp;
@@ -130,6 +164,14 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	connect(PGSel, SIGNAL(GotoPage(int)), this, SLOT(ToSeite(int)));
 }
 
+/*!
+ \fn void PPreview::ToSeite(int num)
+ \author Franz Schmid
+ \date
+ \brief Jump to newly selected page and create the new preview
+ \param num int Page Number
+ \retval None
+ */
 void PPreview::ToSeite(int num)
 {
 	int n = num-1;
@@ -139,21 +181,53 @@ void PPreview::ToSeite(int num)
 	Anz->setPixmap(CreatePreview(n, 72));
 }
 
+/*!
+ \fn void PPreview::ToggleTextAA()
+ \author Franz Schmid
+ \date
+ \brief Toggle Text anti-aliasing and create the new preview
+ \param None
+ \retval None
+ */
 void PPreview::ToggleTextAA()
 {
 	Anz->setPixmap(CreatePreview(APage, 72));
 }
 
+/*!
+ \fn void PPreview::ToggleGr()
+ \author Franz Schmid
+ \date
+ \brief Toggle Graphics anti-aliasing and create the new preview
+ \param None
+ \retval None
+ */
 void PPreview::ToggleGr()
 {
 	Anz->setPixmap(CreatePreview(APage, 72));
 }
 
+/*!
+ \fn void PPreview::ToggleTr()
+ \author Franz Schmid
+ \date
+ \brief Toggle transparency and create the new preview
+ \param None
+ \retval None
+ */
 void PPreview::ToggleTr()
 {
 	Anz->setPixmap(CreatePreview(APage, 72));
 }
 
+/*!
+ \fn void PPreview::ToggleCMYK()
+ \author Craig Bradney
+ \date
+ \brief When CMYK preview is toggled, (dis)enable the CMYK controls and create the new preview
+ \param None
+ \retval None
+ */
 void PPreview::ToggleCMYK()
 {
 	bool c = EnableCMYK->isChecked() ? true : false;
@@ -165,12 +239,29 @@ void PPreview::ToggleCMYK()
 	Anz->setPixmap(CreatePreview(APage, 72));
 }
 
+/*!
+ \fn void PPreview::ToggleCMYK_Colour()
+ \author Craig Bradney
+ \date
+ \brief If CMYK preview is enabled, create a new preview with the new CMYK plate settings
+ \param None
+ \retval None
+ */
 void PPreview::ToggleCMYK_Colour()
 {
 	if (EnableCMYK->isChecked())
 		Anz->setPixmap(CreatePreview(APage, 72));
 }
 
+/*!
+ \fn QPixmap PPreview::CreatePreview(int Seite, int Res)
+ \author Franz Schmid
+ \date
+ \brief
+ \param Seite int page number
+ \param Res int
+ \retval Bild QPixmap print preview
+ */
 QPixmap PPreview::CreatePreview(int Seite, int Res)
 {
 	int ret = -1;

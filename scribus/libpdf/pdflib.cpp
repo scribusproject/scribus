@@ -41,7 +41,7 @@ extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern QString CompressStr(QString *in);
 extern QString ImageToTxt(QImage *im);
 extern QString ImageToCMYK(QImage *im);
-extern void Convert2JPG(QString fn, QImage *image, bool isCMYK);
+extern void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK);
 extern QString MaskToTxt(QImage *im, bool PDF = true);
 extern char *toHex( uchar u );
 extern QString String2Hex(QString *in, bool lang = true);
@@ -2777,6 +2777,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 	QChar tc;
 	bool found = false;
 	bool gray = false;
+	bool alphaM = false;
 	int ret = -1;
 	int afl;
 	double x2, y2, b, h, ax, ay, a2, a1, sxn, syn;
@@ -2823,7 +2824,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
         			loadText((Embedded ? InputProfiles[Options->ImageProf] : InputProfiles[Profil]),
 						 &dataP);
 			PutDoc("<<\n");
-			if ((Options->Compress) && (CompAvail))
+			if ((Options->CompressMethod != 3) && (CompAvail))
 			{
 				PutDoc("/Filter /FlateDecode\n");
 				dataP = CompressStr(&dataP);
@@ -2940,8 +2941,34 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 		}
 		aufl = 1;
 	}
+  	if (img.hasAlphaBuffer())
+		alphaM = true;
 	if (inver)
 		img.invertPixels();
+	if (!Options->RecalcPic)
+	{
+		sxn = sx * (1.0 / aufl);
+		syn = sy * (1.0 / aufl);
+	}
+  	if (alphaM)
+ 	{
+		QImage iMask = img.createAlphaMask();
+		QString im2 = MaskToTxt(&iMask);
+		StartObj(ObjCounter);
+		ObjCounter++;
+		if ((Options->CompressMethod != 3) && (CompAvail))
+			im2 = CompressStr(&im2);
+		PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
+		PutDoc("/Width "+IToStr(iMask.width())+"\n");
+		PutDoc("/Height "+IToStr(iMask.height())+"\n");
+		PutDoc("/ImageMask true\n/BitsPerComponent 1\n");
+		PutDoc("/Length "+IToStr(im2.length())+"\n");
+		if ((Options->CompressMethod != 3) && (CompAvail))
+			PutDoc("/Filter /FlateDecode\n");
+		PutDoc(">>\nstream\n"+EncStream(&im2, ObjCounter-1)+"\nendstream\nendobj\n");
+		Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
+		ResCount++;
+	}
 	if (Options->UseRGB)
 		im = ImageToTxt(&img);
 	else
@@ -2953,33 +2980,9 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 #endif
 			im = ImageToCMYK(&img);
 	}
-	if (!Options->RecalcPic)
-	{
-		sxn = sx * (1.0 / aufl);
-		syn = sy * (1.0 / aufl);
-	}
-  	if (img.hasAlphaBuffer())
- 	{
-		QImage iMask = img.createAlphaMask();
-		QString im2 = MaskToTxt(&iMask);
-		StartObj(ObjCounter);
-		ObjCounter++;
-		if ((Options->Compress) && (CompAvail))
-			im2 = CompressStr(&im2);
-		PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
-		PutDoc("/Width "+IToStr(iMask.width())+"\n");
-		PutDoc("/Height "+IToStr(iMask.height())+"\n");
-		PutDoc("/ImageMask true\n/BitsPerComponent 1\n");
-		PutDoc("/Length "+IToStr(im2.length())+"\n");
-		if ((Options->Compress) && (CompAvail))
-			PutDoc("/Filter /FlateDecode\n");
-		PutDoc(">>\nstream\n"+EncStream(&im2, ObjCounter-1)+"\nendstream\nendobj\n");
-		Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;
-		ResCount++;
-	}
 	StartObj(ObjCounter);
 	ObjCounter++;
-	if ((Options->Compress) && (CompAvail))
+	if (((Options->CompressMethod == 2) || (Options->CompressMethod == 0)) && (CompAvail))
 		im = CompressStr(&im);
 	PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
 	PutDoc("/Width "+IToStr(img.width())+"\n");
@@ -2999,7 +3002,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 	else
 	{
 #endif
-		if ((gray) && (Options->UseRGB))
+		if ((gray) && (Options->UseRGB) && (ext == "jpg") && (!Options->RecalcPic))
 			PutDoc("/ColorSpace /DeviceGray\n");
 		else
 			PutDoc(Options->UseRGB ? "/ColorSpace /DeviceRGB\n" : "/ColorSpace /DeviceCMYK\n");
@@ -3016,21 +3019,45 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 	}
 	else
 	{
-  		QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.jpg";
-		if ((Options->UseRGB) || (Options->UseProfiles2)) 
-			Convert2JPG(tmpFile, &img, false);
-		else
-			Convert2JPG(tmpFile, &img, true);
-		im = "";
-		loadText(tmpFile, &im);
-		system("rm -f "+tmpFile);
+		int cm = Options->CompressMethod;
+		if ((Options->CompressMethod == 1) || (Options->CompressMethod == 0))
+		{
+  			QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.jpg";
+			if ((Options->UseRGB) || (Options->UseProfiles2)) 
+				Convert2JPG(tmpFile, &img, Options->Quality, false);
+			else
+				Convert2JPG(tmpFile, &img, Options->Quality, true);
+			if (Options->CompressMethod == 0)
+			{
+				QFileInfo fi(tmpFile);
+				if (fi.size() < im.length())
+				{
+					im = "";
+					loadText(tmpFile, &im);
+					cm = 1;
+				}
+				else
+					cm = 2;
+			}
+			else
+			{
+				im = "";
+				loadText(tmpFile, &im);
+				cm = 1;
+			}
+			system("rm -f "+tmpFile);
+		}
 		PutDoc("/BitsPerComponent 8\n");
 		PutDoc("/Length "+IToStr(im.length())+"\n");
-	  	if (img.hasAlphaBuffer())
+	  	if (alphaM)
 			PutDoc("/Mask "+IToStr(ObjCounter-2)+" 0 R\n");
-		if ((Options->Compress) && (CompAvail))
-			PutDoc("/Filter /DCTDecode\n");
-//			PutDoc("/Filter /FlateDecode\n");
+		if (CompAvail)
+		{
+			if (cm == 1)
+				PutDoc("/Filter /DCTDecode\n");
+			else
+				PutDoc("/Filter /FlateDecode\n");
+		}
 	}
 	PutDoc(">>\nstream\n"+EncStream(&im, ObjCounter-1)+"\nendstream\nendobj\n");
 	Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;

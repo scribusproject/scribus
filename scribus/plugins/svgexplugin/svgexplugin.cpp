@@ -33,16 +33,41 @@ extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern QString Path2Relative(QString Path);
 extern QImage LoadPict(QString fn, bool *gray = 0);
 
+/*!
+ \fn QString Name()
+ \author Franz Schmid
+ \date
+ \brief Returns name of plugin
+ \param None
+ \retval QString containing name of plugin: Save Page as SVG...
+ */
 QString Name()
 {
   return QObject::tr("Save Page as SVG...");
 }
 
+/*!
+ \fn int Type()
+ \author Franz Schmid
+ \date
+ \brief Returns type of plugin
+ \param None
+ \retval int containing type of plugin (1: Extra, 2: Import, 3: Export, 4: )
+ */
 int Type()
 {
 	return 3;
 }
 
+/*!
+ \fn void Run(QWidget *d, ScribusApp *plug)
+ \author Franz Schmid
+ \date
+ \brief Run the SVG export
+ \param d QWidget *
+ \param plug ScribusApp *
+ \retval None
+ */
 void Run(QWidget *d, ScribusApp *plug)
 {
 	if (plug->HaveDoc)
@@ -73,6 +98,16 @@ void Run(QWidget *d, ScribusApp *plug)
   	}
 }
 
+/*!
+ \fn SVGExPlug::SVGExPlug( QWidget* parent, ScribusApp *plug, QString fName )
+ \author Franz Schmid
+ \date
+ \brief Create the SVG exporter window
+ \param parent QWidget *
+ \param plug ScribusApp *
+ \param fName QString
+ \retval SVGExPlug plugin
+ */
 SVGExPlug::SVGExPlug( QWidget* parent, ScribusApp *plug, QString fName )
 {
 	QDomDocument docu("svgdoc");
@@ -125,7 +160,17 @@ SVGExPlug::SVGExPlug( QWidget* parent, ScribusApp *plug, QString fName )
 #endif
 }
 
-
+/*!
+ \fn void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, QDomElement *elem)
+ \author Franz Schmid
+ \date
+ \brief Process a page to export to SVG format
+ \param plug ScribusApp
+ \param Seite Page *
+ \param docu QDomDocument * 
+ \param elem QDomElement *
+ \retval None
+ */
 void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, QDomElement *elem)
 {
 	QString tmp, trans, fill, stroke, strokeW, strokeLC, strokeLJ, strokeDA, gradi, Clipi, chx;
@@ -494,6 +539,14 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 		} 
 }
 
+/*!
+ \fn QString SVGExPlug::SetClipPath(PageItem *ite)
+ \author Franz Schmid
+ \date
+ \brief
+ \param ite PageItem *
+ \retval QString Clipping Path
+ */
 QString SVGExPlug::SetClipPath(PageItem *ite)
 {
 	QString tmp = "";
@@ -526,18 +579,44 @@ QString SVGExPlug::SetClipPath(PageItem *ite)
 	return tmp;
 }       
 
+/*!
+ \fn QString SVGExPlug::FToStr(double c)
+ \author Franz Schmid
+ \date
+ \brief Converts double to string
+ \param c double
+ \retval QString
+ */
 QString SVGExPlug::FToStr(double c)
 {
 	QString cc;
 	return cc.setNum(c);
 }
 
+/*!
+ \fn QString SVGExPlug::IToStr(int c)
+ \author Franz Schmid
+ \date
+ \brief Converts integer to QString
+ \param c int
+ \retval QString representation of value
+ */
 QString SVGExPlug::IToStr(int c)
 {
 	QString cc;
 	return cc.setNum(c);
 }
 
+/*!
+ \fn void SVGExPlug::SetTextProps(QDomElement *tp, struct Pti *hl, ScribusApp *plug)
+ \author Franz Schmid
+ \date
+ \brief Set text properties
+ \param tp QDomElement *
+ \param hl struct Pti *
+ \param plug ScribusApp *
+ \retval None
+ */
 void SVGExPlug::SetTextProps(QDomElement *tp, struct Pti *hl, ScribusApp *plug)
 {
 	int chst = hl->cstyle & 127;
@@ -567,6 +646,16 @@ void SVGExPlug::SetTextProps(QDomElement *tp, struct Pti *hl, ScribusApp *plug)
 		}
 }
 
+/*!
+ \fn QString SVGExPlug::SetFarbe(QString farbe, int shad, ScribusApp *plug)
+ \author Franz Schmid
+ \date
+ \brief
+ \param farbe QString
+ \param shad int
+ \param plug ScribusApp *
+ \retval QString Colour settings
+ */
 QString SVGExPlug::SetFarbe(QString farbe, int shad, ScribusApp *plug)
 {
 	int h, s, v, sneu;
@@ -587,6 +676,16 @@ QString SVGExPlug::SetFarbe(QString farbe, int shad, ScribusApp *plug)
 	return tmp.name();
 }
 
+/*!
+ \fn QString SVGExPlug::GetMultiStroke(ScribusApp *plug, struct singleLine *sl, PageItem *Item)
+ \author Franz Schmid
+ \date
+ \brief
+ \param plug ScribusApp *
+ \param sl struct singleLine *
+ \param Item PageItem *
+ \retval QString Stroke settings
+ */
 QString SVGExPlug::GetMultiStroke(ScribusApp *plug, struct singleLine *sl, PageItem *Item)
 {
 	QString tmp = "fill:none; ";
@@ -653,6 +752,14 @@ QString SVGExPlug::GetMultiStroke(ScribusApp *plug, struct singleLine *sl, PageI
 	return tmp;
 }
 
+/*!
+ \fn SVGExPlug::~SVGExPlug()
+ \author Franz Schmid
+ \date
+ \brief Destructore
+ \param None
+ \retval None
+ */
 SVGExPlug::~SVGExPlug()
 {
 }

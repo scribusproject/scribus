@@ -110,6 +110,8 @@ ScribusDoc::ScribusDoc()
 	PDF_Optionen.Thumbnails = false;
 	PDF_Optionen.Articles = false;
 	PDF_Optionen.Compress = true;
+	PDF_Optionen.CompressMethod = 0;
+	PDF_Optionen.Quality = 0;
 	PDF_Optionen.RecalcPic = false;
 	PDF_Optionen.Bookmarks = false;
 	PDF_Optionen.PicRes = 300;
