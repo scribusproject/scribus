@@ -36,27 +36,27 @@ static double minmaxd(double val, double min, double max)
         else return val;
 }
 
-typedef struct 
+typedef struct
 {
         PyObject_HEAD
         PyObject *file; // string - file to save into
         PyObject *fonts; // list of string - fonts to  embed
         PyObject *pages; // list of int - pages to print
         int thumbnails; // bool -
-        int compress; // bool - 
+        int compress; // bool -
         int compressmtd; // int - 0=automatic 1=jpeg 2=zip 3=none
         int quality; // int - 0=Maximum 4=minimum
         PyObject *resolution; // int - 35 - 4000 default=300 dpi
         PyObject *downsample; // int - 35 - 4000 default=0 do not downsample ; other downsample to this resolution
-        int bookmarks; // bool - 
-        int binding; // bool - 0 -left margin 1 -right margin 
-        int presentation; // bool - 
+        int bookmarks; // bool -
+        int binding; // bool - 0 -left margin 1 -right margin
+        int presentation; // bool -
         PyObject *effval; // list of list of 5 int - effect to apply to each page during presentation
-        int article; // bool - 
-        int encrypt; // bool - 
+        int article; // bool -
+        int encrypt; // bool -
         int uselpi; // bool -
         PyObject *lpival; // list of elements which has structure [siii]
-        PyObject *owner; // string - owner's password 
+        PyObject *owner; // string - owner's password
         PyObject *user; // string - user's password
         int aprint; // bool -  allow printing
         int achange; // bool - allow changing
@@ -74,11 +74,11 @@ typedef struct
         PyObject *imagepr; // string
         PyObject *printprofc; // string
         PyObject *info; // string
-        double bleedt; // double - 0 to hight of page 
+        double bleedt; // double - 0 to hight of page
         double bleedl; // double - 0 to width of page
         double bleedr; // double - 0 to width of page
         double bleedb; // double - 0 to hight of page
-    
+
 } PDFfile;
 
 static void PDFfile_dealloc(PDFfile *self)
@@ -106,9 +106,9 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject *args, PyObject *kwds
                 PyErr_SetString(PyExc_SystemError, "Need to open document first");
                 return NULL;
         }
-    
+
         PDFfile *self;
-    
+
         self = (PDFfile *)type->tp_alloc(type, 0);
         if (self) {
 // set file attribute
@@ -224,10 +224,10 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject *args, PyObject *kwds
                         Py_DECREF(self);
                         return NULL;
                 }
-                self->bleedt = 0; // double - 
-                self->bleedl = 0; // double - 
-                self->bleedr = 0; // double - 
-                self->bleedb = 0; // double - 
+                self->bleedt = 0; // double -
+                self->bleedl = 0; // double -
+                self->bleedr = 0; // double -
+                self->bleedb = 0; // double -
         }
         return (PyObject *) self;
 }
@@ -263,7 +263,7 @@ static int PDFfile_init(PDFfile *self, PyObject *args, PyObject *kwds)
                 PyErr_SetString(PyExc_SystemError, "Can not initialize 'fonts' attribute");
                 return -1;
         }
-        // get all used fonts 
+        // get all used fonts
         QMap<QString,QFont> ReallyUsed;
         ReallyUsed.clear();
         Carrier->GetUsedFonts(&ReallyUsed);
@@ -371,7 +371,7 @@ static int PDFfile_init(PDFfile *self, PyObject *args, PyObject *kwds)
                 }
                 for (; i<num; ++i) {
                         PyObject *tmp;
-                        tmp = Py_BuildValue("[iiiiii]", 1, 1, 0, 0, 0, 0); 
+                        tmp = Py_BuildValue("[iiiiii]", 1, 1, 0, 0, 0, 0);
                         if (tmp)
                                 PyList_SetItem(effval, i, tmp);
                         else {
@@ -494,10 +494,10 @@ static int PDFfile_init(PDFfile *self, PyObject *args, PyObject *kwds)
                 PyErr_SetString(PyExc_SystemError, "Can not initialize 'info' attribute");
                 return -1;
         }
-        self->bleedt = Carrier->doc->PDF_Optionen.BleedTop*UmReFaktor; // double - 
-        self->bleedl = Carrier->doc->PDF_Optionen.BleedLeft*UmReFaktor; // double - 
-        self->bleedr = Carrier->doc->PDF_Optionen.BleedRight*UmReFaktor; // double - 
-        self->bleedb = Carrier->doc->PDF_Optionen.BleedBottom*UmReFaktor; // double - 
+        self->bleedt = Carrier->doc->PDF_Optionen.BleedTop*UmReFaktor; // double -
+        self->bleedl = Carrier->doc->PDF_Optionen.BleedLeft*UmReFaktor; // double -
+        self->bleedr = Carrier->doc->PDF_Optionen.BleedRight*UmReFaktor; // double -
+        self->bleedb = Carrier->doc->PDF_Optionen.BleedBottom*UmReFaktor; // double -
 
         return 0;
 }
@@ -618,7 +618,7 @@ static int PDFfile_setpages(PDFfile *self, PyObject *value, void *closure)
                 if (PyInt_AsLong(tmp) > Carrier->doc->PageC || PyInt_AsLong(tmp) < 1) {
                         PyErr_SetString(PyExc_ValueError, "'pages' value out of range.");
                         return -1;
-                }       
+                }
         }
         Py_DECREF(self->pages);
         Py_INCREF(value);
@@ -944,14 +944,14 @@ static PyObject *PDFfile_save(PDFfile *self)
                 PyErr_SetString(PyExc_SystemError, "Need to open document first");
                 return NULL;
         };
-        
+
 // copied from file scribus.cpp
 //void ScribusApp::SaveAsPDF()
         int Components = 3;
         QString nam = "";
         if (Carrier->BookPal->BView->childCount() == 0)
                 Carrier->doc->PDF_Optionen.Bookmarks = false;
-        
+
 // apply fonts attribute
         Carrier->doc->PDF_Optionen.EmbedList.clear();
         int n = PyList_Size(self->fonts);
@@ -993,7 +993,7 @@ static PyObject *PDFfile_save(PDFfile *self)
         Carrier->doc->PDF_Optionen.Binding = self->binding;
 // apply presentation attribute
         Carrier->doc->PDF_Optionen.PresentMode = self->presentation;
- 
+
         QValueList<PreSet> PresentVals;
         PresentVals.clear();
         int tmpnum;
@@ -1046,7 +1046,7 @@ static PyObject *PDFfile_save(PDFfile *self)
                 lpi.SpotFunc = PyInt_AsLong(PyList_GetItem(t, 3));
                 Carrier->doc->PDF_Optionen.LPISettings[st]=lpi;
         }
-        
+
         Carrier->doc->PDF_Optionen.Articles = self->article;
         Carrier->doc->PDF_Optionen.Encrypt = self->encrypt;
         Carrier->doc->PDF_Optionen.UseLPI = self->uselpi;
@@ -1149,14 +1149,14 @@ static PyObject *PDFfile_save(PDFfile *self)
 }
 
 static PyMethodDef PDFfile_methods[] = {
-        {"Save", (PyCFunction)PDFfile_save, METH_NOARGS, "Save selected pages to pdf file"},
+	{"Save", (PyCFunction)PDFfile_save, METH_NOARGS, "This method is deprecated - use save() instead."},
         {"save", (PyCFunction)PDFfile_save, METH_NOARGS, "Save selected pages to pdf file"},
         {NULL} // sentinel
 };
 
 PyTypeObject PDFfile_Type = {
-        PyObject_HEAD_INIT(NULL) // PyObject_VAR_HEAD 
-        0,                      // 
+        PyObject_HEAD_INIT(NULL) // PyObject_VAR_HEAD
+        0,                      //
         "PDFfile", // char *tp_name; /* For printing, in format "<module>.<name>" */
         sizeof(PDFfile),     // int tp_basicsize, /* For allocation */
         0,                    // int tp_itemsize; /* For allocation */
@@ -1191,7 +1191,7 @@ PyTypeObject PDFfile_Type = {
         Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,    // long tp_flags;
 
         "PDFfile Object",      // char *tp_doc; /* Documentation string */
-    
+
 	/* Assigned meaning in release 2.0 */
 	/* call function for all accessible objects */
         0, //     traverseproc tp_traverse;
