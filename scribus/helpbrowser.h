@@ -60,6 +60,7 @@ protected:
 	QListView* listView;
 	QTextBrowser* textBrowser;
 	QSplitter* splitter;
+	QString language;
 
 	QPopupMenu* histMenu;
 	struct histd {
@@ -73,9 +74,9 @@ protected slots:
 	void itemSelected( QListViewItem *);
 	void sourceChanged(const QString& url);
 	void histChosen(int i);
-	void jumpToHelpSection(const QString newGuiLanguage, QString jumpToSection, QString jumpToFile="");
+	void jumpToHelpSection(QString jumpToSection, QString jumpToFile="");
 	void loadHelp(QString filename);
-	void loadMenu(const QString newGuiLanguage);
+	void loadMenu();
 };
 
 #endif // HELPBROWSER_H

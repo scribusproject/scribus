@@ -58,7 +58,8 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString caption, QString guiLanguage,
 	QString fileName;
 	mHistory.clear();
 	struct histd his;
-
+	language = guiLanguage=="" ? "en" : guiLanguage.left(2);
+	qDebug(language);
 	helpBrowsermainLayout = new QVBoxLayout( this); 
 	buttonLayout = new QHBoxLayout;
 	buttonLayout->setSpacing( 6 );
@@ -100,9 +101,10 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString caption, QString guiLanguage,
 
 	listView = new QListView( tabContents, "listView" );
 	listView->addColumn( tr( "Contents" ) );
-	listView->addColumn( tr( "Link" ) , 0 );
-	listView->setColumnWidthMode( 0, QListView::Maximum );
-	listView->setColumnWidthMode( 1, QListView::Manual );
+//	listView->addColumn( tr( "Link" ) , 0 );
+	listView->addColumn( tr( "Link" ) );
+//	listView->setColumnWidthMode( 0, QListView::Maximum );
+//	listView->setColumnWidthMode( 1, QListView::Manual );
 	listView->setSorting(-1,-1);
 	listView->setRootIsDecorated( true );
 	listView->setSelectionMode(QListView::Single);
@@ -124,9 +126,9 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString caption, QString guiLanguage,
 	languageChange();
 	resize( QSize(602, 491).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
-	loadMenu( guiLanguage );
+	loadMenu();
 	listView->header()->hide();
-	jumpToHelpSection( guiLanguage, jumpToSection, jumpToFile );
+	jumpToHelpSection(jumpToSection, jumpToFile );
 
 	connect( homeButton, SIGNAL( clicked() ), textBrowser, SLOT( home() ) );
 	connect( forwButton, SIGNAL( clicked() ), textBrowser, SLOT( forward() ) );
@@ -183,15 +185,14 @@ void HelpBrowser::histChosen(int i)
 		textBrowser->setSource(mHistory[i].Url);
 }
 
-void HelpBrowser::jumpToHelpSection(const QString newGuiLanguage, QString jumpToSection, QString jumpToFile)
+void HelpBrowser::jumpToHelpSection(QString jumpToSection, QString jumpToFile)
 {
 	QString toLoad;
-	QString guiLanguage = newGuiLanguage=="" ? "en" : newGuiLanguage.left(2);
 
 	if (jumpToFile=="") 
 	{
 		QString pfad = DOCDIR;
-		toLoad = pfad + guiLanguage + "/"; //clean this later to handle 5 char locales
+		toLoad = pfad + language + "/"; //clean this later to handle 5 char locales
 		if (jumpToSection=="") 
 		{
 			toLoad+="index.html";
@@ -229,7 +230,9 @@ void HelpBrowser::loadHelp(QString filename)
 	else 
 	{
 		QString pfad = DOCDIR;
+
 		toLoad = pfad + "en/index.html";
+		language="en";
 		fi = QFileInfo(toLoad);
 		if (!fi.exists())
 		{
@@ -248,14 +251,12 @@ void HelpBrowser::loadHelp(QString filename)
 	}
 }
 
-void HelpBrowser::loadMenu(const QString newGuiLanguage)
+void HelpBrowser::loadMenu()
 {
 	QString pfad = DOCDIR;
 	QString toLoad;
-	QString guiLanguage = newGuiLanguage=="" ? "en" : newGuiLanguage.left(2);
-
-	QString pfad2 = pfad + guiLanguage + "/menu.xml";
-
+	QString pfad2 = pfad + language + "/menu.xml";
+	qDebug (pfad2);
 	QFileInfo fi = QFileInfo(pfad2);
 
 	if (fi.exists())
@@ -263,7 +264,7 @@ void HelpBrowser::loadMenu(const QString newGuiLanguage)
 	else
 	{
 		toLoad = pfad + "en/menu.xml";
-		guiLanguage="en";
+		language="en";
 		fi = QFileInfo(toLoad);
 		qDebug("Scribus help in your selected language does not exist, trying English. Otherwise, please visit http://docs.scribus.net.");
 	}
@@ -374,7 +375,7 @@ void HelpBrowser::loadMenu(const QString newGuiLanguage)
 		if (haveTutorials) 
 		{
 			QString path = DOCDIR;
-			path += guiLanguage + "/tutorials/";
+			path += language + "/tutorials/";
 			QDir dir(path, "*", QDir::Name, QDir::Dirs | QDir::NoSymLinks);
 
 			if (dir.exists() && (dir.count() != 0)) 
@@ -383,6 +384,7 @@ void HelpBrowser::loadMenu(const QString newGuiLanguage)
 				{
 					if (dir[i]!="." && dir[i]!="..")
 					{
+						QString tutorialdir = "tutorials/" + dir[i] + "/";
 						QFileInfo file(path + dir[i] + "/menu.xml");
 						if (file.exists())  // menu.xml exists for tutorial
 						{
@@ -410,13 +412,13 @@ void HelpBrowser::loadMenu(const QString newGuiLanguage)
 									{
 										QDomAttr textAttr = eTutorial.attributeNode( "text" );
 										QDomAttr fileAttr = eTutorial.attributeNode( "file" );
-										tutorialQLVI=new QListViewItem(tutorialsMenuItem, textAttr.value(), fileAttr.value());
+										tutorialQLVI=new QListViewItem(tutorialsMenuItem, textAttr.value(), tutorialdir + fileAttr.value());
 									}
 									QDomNodeList nl=nTutorial.childNodes();
 									QListViewItem *tutorialSubMenuItem, *tutorialSubMenuItemLast=NULL;
-									for(uint i=0 ; i<= nl.count() ; i++)
+									for(uint j=0 ; j<= nl.count() ; j++)
 									{
-										QDomNode child=nl.item(i);
+										QDomNode child=nl.item(j);
 										if (child.isElement())
 										{
 											QDomElement ec = child.toElement();
@@ -427,9 +429,9 @@ void HelpBrowser::loadMenu(const QString newGuiLanguage)
 													QDomAttr textAttr = ec.attributeNode( "text" );
 													QDomAttr fileAttr = ec.attributeNode( "file" );
 													if (tutorialSubMenuItemLast==NULL)
-														tutorialSubMenuItem=new QListViewItem(tutorialQLVI, textAttr.value(), fileAttr.value());
+														tutorialSubMenuItem=new QListViewItem(tutorialQLVI, textAttr.value(), tutorialdir + fileAttr.value());
 													else 
-														tutorialSubMenuItem=new QListViewItem(tutorialQLVI, tutorialSubMenuItemLast, textAttr.value(), fileAttr.value());
+														tutorialSubMenuItem=new QListViewItem(tutorialQLVI, tutorialSubMenuItemLast, textAttr.value(), tutorialdir + fileAttr.value());
 													if (tutorialSubMenuItem!=NULL)
 														tutorialSubMenuItemLast=tutorialSubMenuItem;
 												}
@@ -455,6 +457,6 @@ void HelpBrowser::itemSelected(QListViewItem *item)
 	if (item->text(1)!=QString::null)
 	{
 		QString pfad = DOCDIR;
-		loadHelp(pfad + "en/"+item->text(1));
+		loadHelp(pfad + language + "/" + item->text(1));
 	}
 }
