@@ -1,5 +1,9 @@
 Changes since Version 1.1.7
 
+23.06.2004
+	* bug     #823: When dragging to and from the Scrapbook, unneeded styles are copied
+	* bug     #824: Modifying a paragraph style does not affect all text previously formatted with that style.
+
 22.06.2004
 	* bug     #568: Copying items creates copies of paragraph styles
 	* bug     #821: Detaching a text from a path doesn't keep the rotation for the path.

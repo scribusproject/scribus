@@ -5474,6 +5474,10 @@ void ScribusApp::slotEditLineStyles()
 
 void ScribusApp::saveLStyles(LineFormate *dia)
 {
+	if (doc->TemplateMode)
+		view->MasterPages = view->Pages;
+	else
+		view->DocPages = view->Pages;
 	PageItem* ite;
 	doc->MLineStyles = dia->TempStyles;
 	for (uint c = 0; c < view->DocPages.count(); ++c)
@@ -5530,6 +5534,10 @@ void ScribusApp::saveStyles(StilFormate *dia)
 	ers.append(2);
 	ers.append(3);
 	ers.append(4);
+	if (doc->TemplateMode)
+		view->MasterPages = view->Pages;
+	else
+		view->DocPages = view->Pages;
 	for (uint a=5; a<doc->Vorlagen.count(); ++a)
 	{
 		ff = false;
@@ -7653,6 +7661,10 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 	CListe::Iterator it;
 	if (HaveDoc)
 	{
+		if (doc->TemplateMode)
+			view->MasterPages = view->Pages;
+		else
+			view->DocPages = view->Pages;
 		ColorMenC->clear();
 		QPixmap pm = QPixmap(15, 15);
 		int a = 0;
@@ -7839,6 +7851,10 @@ void ScribusApp::showLayer()
 
 void ScribusApp::LayerRemove(int l, bool dl)
 {
+	if (doc->TemplateMode)
+		view->MasterPages = view->Pages;
+	else
+		view->DocPages = view->Pages;
 	for (uint a = 0; a < view->MasterPages.count(); ++a)
 	{
 		for (uint b = 0; b < view->MasterPages.at(a)->Items.count(); ++b)
@@ -8157,6 +8173,10 @@ void ScribusApp::InvertPict()
 
 QString ScribusApp::Collect(bool compress, bool withFonts)
 {
+	if (doc->TemplateMode)
+		view->MasterPages = view->Pages;
+	else
+		view->DocPages = view->Pages;
 	QString retVal = "";
 	QString CurDirP = QDir::currentDirPath();
 	bool compressR = compress;
