@@ -15,7 +15,7 @@ class About : public QDialog
 
 public:
     About( QWidget* parent );
-    ~About();
+    ~About() {};
 
     QLabel* PixmapLabel1;
     QLabel* BuildID;
