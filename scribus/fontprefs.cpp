@@ -91,10 +91,10 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
     Table1->setLeftMargin(0);
     Table1->verticalHeader()->hide();
     Header = Table1->horizontalHeader();
-	char *tmp_head[] = {"Font Name", "Use Font", "Embed in:", "Subset", "Type", "Path to Font File"};
+	QString tmp_head[] = { tr("Font Name"), tr("Use Font"), tr("Embed in:"), tr("Subset"), tr("Type"), tr("Path to Font File")};
 	size_t array_head = sizeof(tmp_head) / sizeof(*tmp_head);
 	for (uint a = 0; a < array_head; ++a)
-		Header->setLabel(a, tr(tmp_head[a]));
+		Header->setLabel(a, tmp_head[a]);
     Table1->adjustColumn(0);
     Table1->adjustColumn(1);
     Table1->setColumnWidth(2, 110);

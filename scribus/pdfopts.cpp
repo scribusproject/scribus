@@ -348,10 +348,10 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     EffectTime->setValue(EffVal[0].EffektLen);
     EffectsLayout->addWidget( EffectTime, 1, 1 );
     EffectType = new QComboBox( true, Effects, "EffectType" );
-	char *tmpc[] = {"No Effect", "Blinds", "Box", "Dissolve", "Glitter", "Split", "Wipe"};
+	QString tmpc[] = { tr("No Effect"), tr("Blinds"), tr("Box"), tr("Dissolve"), tr("Glitter"), tr("Split"), tr("Wipe")};
 	size_t ar = sizeof(tmpc) / sizeof(*tmpc);
 	for (uint a = 0; a < ar; ++a)
-		EffectType->insertItem(tr(tmpc[a]));
+		EffectType->insertItem(tmpc[a]);
     EffectType->setEditable(false);
     EffectsLayout->addWidget( EffectType, 2, 1 );
     EDirection = new QComboBox( true, Effects, "EDirection" );
@@ -365,11 +365,11 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     EDirection_2->setEditable(false);
     EffectsLayout->addWidget( EDirection_2, 4, 1 );
     EDirection_2_2 = new QComboBox( true, Effects, "EDirection_2_2" );
-	char *tmp_ed[] = {"Left to Right", "Top to Bottom", "Bottom to Top", "Right to Left", 
-						"Top-left to Bottom-Right"};
+	QString tmp_ed[] = { tr("Left to Right"), tr("Top to Bottom"), tr("Bottom to Top"), tr("Right to Left"), 
+						tr("Top-left to Bottom-Right")};
 	size_t ar_ed = sizeof(tmp_ed) / sizeof(*tmp_ed);
 	for (uint a = 0; a < ar_ed; ++a)
-		EDirection_2_2->insertItem(tr(tmp_ed[a]));
+		EDirection_2_2->insertItem(tmp_ed[a]);
     EDirection_2_2->setEditable(false);
 	EffectsLayout->addWidget( EDirection_2_2, 5, 1 );
 	EonAllPg = new QPushButton( Effects, "Eon" );
@@ -483,10 +483,10 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	SolidPr->setEditable(false);
     GroupBox9Layout->addWidget( SolidPr, 2, 0 );
     IntendS = new QComboBox( true, GroupBox9, "IntendS" );
-	char *tmp_ip[] = {"Perceptual", "Relative Colorimetric", "Saturation", "Absolute Colorimetric"};
+	QString tmp_ip[] = { tr("Perceptual"), tr("Relative Colorimetric"), tr("Saturation"), tr("Absolute Colorimetric")};
 	size_t ar_ip = sizeof(tmp_ip) / sizeof(*tmp_ip);
 	for (uint a = 0; a < ar_ip; ++a)
-		IntendS->insertItem(tr(tmp_ip[a]));
+		IntendS->insertItem(tmp_ip[a]);
 	IntendS->setEditable(false);
     GroupBox9Layout->addWidget( IntendS, 2, 1 );
     tabcolorLayout->addWidget( GroupBox9 );
@@ -516,7 +516,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     ProfsGroupLayout->addWidget( ImageP, 3, 0 );
     IntendI = new QComboBox( true, ProfsGroup, "IntendS" );
 	for (uint a = 0; a < ar_ip; ++a)
-		IntendI->insertItem(tr(tmp_ip[a]));
+		IntendI->insertItem(tmp_ip[a]);
 	IntendI->setEditable(false);
     ProfsGroupLayout->addWidget( IntendI, 3, 1 );
     tabcolorLayout->addWidget( ProfsGroup );

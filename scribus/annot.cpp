@@ -57,10 +57,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     Layout1->addWidget( TextLabel1 );
 
     ComboBox1 = new QComboBox( true, this, "ComboBox1" );
-	char *tmp[] = {"Button", "Text Field", "Check Box", "Combo Box", "List Box"};
+	QString tmp[] = { tr("Button"), tr("Text Field"), tr("Check Box"), tr("Combo Box"), tr("List Box")};
 	size_t array = sizeof(tmp) / sizeof(*tmp);
 	for (uint a = 0; a < array; ++a)
-		ComboBox1->insertItem(tr(tmp[a])); 
+		ComboBox1->insertItem(tmp[a]); 
     ComboBox1->setEditable(false);
     Layout1->addWidget( ComboBox1 );
     AnnotLayout->addLayout( Layout1 );
@@ -429,10 +429,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     CText1->setText( tr( "Check Style:" ) );
     ChkLayout->addWidget( CText1 );
     ChkStil = new QComboBox( true, OptCheck, "ChkStil" );
-	char *tmp_chkstil2[]={"Check", "Cross", "Diamond", "Circle", "Star", "Square"};
+	QString tmp_chkstil2[]={ tr("Check"), tr("Cross"), tr("Diamond"), tr("Circle"), tr("Star"), tr("Square")};
 	size_t array_chk2 = sizeof(tmp_chkstil2) / sizeof(*tmp_chkstil2);
 	for (uint a = 0; a < array_chk2; ++a)
-		ChkStil->insertItem(tr(tmp_chkstil2[a]));
+		ChkStil->insertItem(tmp_chkstil2[a]);
 
 	ChkStil->setEditable(false);
 	ChkStil->setCurrentItem(item->AnChkStil);
@@ -474,10 +474,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     Layout20->addWidget( TextLabel70 );
 
     ActionCombo = new QComboBox( true, tab_2, "ActTyp" );
-	char *tmp_actcom[] = {"None", "Java Script", "Go To", "Submit Form", "Reset Form", "Import Data"};
+	QString tmp_actcom[] = { tr("None"), tr("Java Script"), tr("Go To"), tr("Submit Form"), tr("Reset Form"), tr("Import Data")};
 	size_t array_act = sizeof(tmp_actcom) / sizeof(*tmp_actcom);
 	for (uint a = 0; a < array_act; ++a)
-		ActionCombo->insertItem(tr(tmp_actcom[a]));
+		ActionCombo->insertItem(tmp_actcom[a]);
     ActionCombo->setEditable(false);
 	int tmpac = item->AnActType;
 	if (item->AnActType < 0)
@@ -504,10 +504,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     AcText1->setText( tr( "Event:" ) );
     Layout7->addWidget( AcText1 );
     SelAction = new QComboBox( true, Frame3, "AcCombo" );
-	char *tmp_selact[]={"Mouse Up", "Mouse Down", "Mouse Enter", "Mouse Exit", "On Focus", "On Blur"};
+	QString tmp_selact[]={ tr("Mouse Up"), tr("Mouse Down"), tr("Mouse Enter"), tr("Mouse Exit"), tr("On Focus"), tr("On Blur")};
 	size_t array_sel = sizeof(tmp_selact) / sizeof(*tmp_selact);
 	for (uint a = 0; a < array_sel; ++a)
-		SelAction->insertItem(tr(tmp_selact[a]));
+		SelAction->insertItem(tmp_selact[a]);
 	SelAction->setEditable(false);
     Layout7->addWidget( SelAction );
     QSpacerItem* spacerac = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -640,10 +640,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     TextForm1->setText( tr( "Field is formatted as:" ) );
     FLayout->addWidget( TextForm1 );
     TxFormat = new QComboBox( true, tab4, "TxFormat" );
-	char *tmp_txf[]={"Plain", "Number", "Percentage", "Date", "Time", "Custom"};
+	QString tmp_txf[]={ tr("Plain"), tr("Number"), tr("Percentage"), tr("Date"), tr("Time"), tr("Custom")};
 	size_t array_txf = sizeof(tmp_txf) / sizeof(*tmp_txf);
 	for (uint a = 0; a < array_txf; ++a)
-		TxFormat->insertItem(tr(tmp_txf[a]));
+		TxFormat->insertItem(tmp_txf[a]);
 	TxFormat->setEditable(false);
 	TxFormat->setCurrentItem(item->AnFormat);
     FLayout->addWidget( TxFormat );
@@ -1827,10 +1827,10 @@ void Annot::SetZiel(int it)
 	EditFormat->setEnabled( false );
 	EditKeystr->setEnabled( false );
 	SelAction->clear();
-	char *tmp_selact[]={"Mouse Up", "Mouse Down", "Mouse Enter", "Mouse Exit", "On Focus", "On Blur"};
+	QString tmp_selact[]={ tr("Mouse Up"), tr("Mouse Down"), tr("Mouse Enter"), tr("Mouse Exit"), tr("On Focus"), tr("On Blur")};
 	size_t array_sel = sizeof(tmp_selact) / sizeof(*tmp_selact);
 	for (uint a = 0; a < array_sel; ++a)
-		SelAction->insertItem(tr(tmp_selact[a]));	
+		SelAction->insertItem(tmp_selact[a]);	
 	bool setter;
 	switch (sela)
 	{
@@ -1845,10 +1845,10 @@ void Annot::SetZiel(int it)
 			NoExport->setEnabled(false);
 			NoExport->setChecked(false);
 			ActionCombo->clear();
-			char *tmp_actcom[] = {"None", "Java Script", "Go To", "Submit Form", "Reset Form", "Import Data"};
+			QString tmp_actcom[] = { tr("None"), tr("Java Script"), tr("Go To"), tr("Submit Form"), tr("Reset Form"), tr("Import Data")};
 			size_t array_act = sizeof(tmp_actcom) / sizeof(*tmp_actcom);
 			for (uint a = 0; a < array_act; ++a)
-				ActionCombo->insertItem(tr(tmp_actcom[a]));
+				ActionCombo->insertItem(tmp_actcom[a]);
 			ActionCombo->setCurrentItem(QMIN(tmpac,5));
 			setter = item->AnActType != 7 ? true : false;
 			Destfile->setEnabled(setter);

@@ -86,10 +86,10 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 
     SStyleVal = new QComboBox( true, Search, "SStyleVal" );
 	SStyleVal->setEditable(false);
-	char *tmp_sty[] = {"Left", "Center", "Right", "Block", "Forced"};
+	QString tmp_sty[] = { tr("Left"), tr("Center"), tr("Right"), tr("Block"), tr("Forced")};
 	size_t ar_sty = sizeof(tmp_sty) / sizeof(*tmp_sty);
 	for (uint a = 0; a < ar_sty; ++a)
-		SStyleVal->insertItem(tr(tmp_sty[a]));
+		SStyleVal->insertItem(tmp_sty[a]);
 	if (doc->Vorlagen.count() > 5)
 	{
 		for (uint x = 5; x < doc->Vorlagen.count(); ++x)
@@ -203,7 +203,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
     RStyleVal = new QComboBox( true, Replace, "RStyleVal" );
 	RStyleVal->setEditable(false);
 	for (uint a = 0; a < ar_sty; ++a)
-		RStyleVal->insertItem(tr(tmp_sty[a]));
+		RStyleVal->insertItem(tmp_sty[a]);
 	if (doc->Vorlagen.count() > 5)
 	{
 		for (uint x = 5; x < doc->Vorlagen.count(); ++x)

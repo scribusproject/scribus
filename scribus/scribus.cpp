@@ -5595,6 +5595,10 @@ void ScribusApp::SavePrefs()
   Prefs.Lpalv = Lpal->isVisible();
   Prefs.Sepalv = Sepal->isVisible();
 	Prefs.Bopalv = BookPal->isVisible();
+	if ((Prefs.Npalx > QApplication::desktop()->width()-100) || (Prefs.Npalx < 0))
+		Prefs.Npalx = 0;
+	if ((Prefs.Npaly > QApplication::desktop()->height()-100) || (Prefs.Npaly < 0))
+		Prefs.Npaly = 0;
   if (Mpal->isVisible())
   	{
 	  Prefs.Mpalx = abs(Mpal->pos().x());
@@ -6969,10 +6973,24 @@ void ScribusApp::ManageGuides()
 {
 	if (HaveDoc)
 		{
-		GuideManager *dia = new GuideManager(this, doc->ActPage, doc->Einheit);
-		dia->exec();
-		delete dia;
-		}
+		GuideManager *dia = new GuideManager(
+            this,
+            doc->ActPage->XGuides,
+            doc->ActPage->YGuides,
+            doc->PageB,
+            doc->PageH,
+            doc->GuideLock,
+            doc->Einheit
+        );
+		if (dia->exec())
+        {
+            doc->ActPage->XGuides = dia->LocVer;
+            doc->ActPage->YGuides = dia->LocHor;
+            doc->GuideLock = dia->LocLocked;
+            doc->ActPage->update();
+        }
+        delete dia;
+    }
 }
 
 void ScribusApp::SetTranspar(double t)

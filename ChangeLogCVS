@@ -1,4 +1,7 @@
 Changes since Version 1.1.4
+31.01.2004	Added a new Guide Manager from Allessandro Rimoldini.
+		More speedups for the Scripter.
+
 30.01.2004	Fixed Problems with accented Filenames.
 		Fixed some more translation Problems.
 		Updated Czech Translation.

@@ -261,10 +261,10 @@ WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar( tr("PDF-Tools"), parent)
 {
 	PDFM = new QPopupMenu();
 	char *tmp_icn[] = {"pushbutton.png", "textview.png", "checkbox.png", "combobox.png", "listbox.png"};
-	char *tmp_txt[] = {"Button", "Text Field", "Check Box", "Combo Box", "List Box"};
+	QString tmp_txt[] = { tr("Button"), tr("Text Field"), tr("Check Box"), tr("Combo Box"), tr("List Box")};
 	size_t ar_tmp = sizeof(tmp_icn) / sizeof(*tmp_icn);
 	for (uint a = 0; a < ar_tmp; ++a)
-		PDFM->insertItem(loadIcon(tmp_icn[a]), tr(tmp_txt[a]));
+		PDFM->insertItem(loadIcon(tmp_icn[a]), tmp_txt[a]);
 	PDFTool = new QToolButton(loadIcon("pushbutton.png"), tr("Insert PDF-Fields"), QString::null, this,
 								 SLOT(ModeFromTB()), this);
 	PDFTool->setToggleButton(true);

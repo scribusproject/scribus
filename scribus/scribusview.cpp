@@ -34,9 +34,11 @@
 #include <qimage.h>
 #include <qcstring.h>
 #include <qfileinfo.h>
+#include "scribus.h"
 
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
+extern ScribusApp* ScApp;
 
 ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, preV *prefs)
  						: QScrollView(parent, "s", WRepaintNoErase | WNorthWestGravity)
@@ -167,6 +169,8 @@ void ScribusView::setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 
 void ScribusView::setRulerPos(int x, int y)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	HR->offs = x-static_cast<int>(10*Doc->Scale)-2;
 	HR->repX = false;
 	HR->repaint();
@@ -217,9 +221,12 @@ Page* ScribusView::addPage(int nr)
 		Doc->FirstAuto->Dirty = true;
 		}
 	PGS->setMaxValue(Doc->PageC);
-	PGS->setPrefix( tr("Page "));
-	PGS->setSuffix( tr( " of %1").arg(Doc->PageC) );
-	PGS->setValue(nr+1);
+	if (!ScApp->ScriptRunning)
+		{
+		PGS->setPrefix( tr("Page "));
+		PGS->setSuffix( tr( " of %1").arg(Doc->PageC) );
+		PGS->setValue(nr+1);
+		}
 	fe->setMouseTracking(true);
 	connect(fe, SIGNAL(Hrule(int)), HR, SLOT(Draw(int)));
 	connect(fe, SIGNAL(Vrule(int)), VR, SLOT(Draw(int)));
@@ -391,13 +398,15 @@ void ScribusView::reformPages()
 		else
 			resizeContents(static_cast<int>(PSeite->width()*2+60*Doc->Scale),
 										 static_cast<int>((Doc->PageC/2 + 1) * (PSeite->height()+25*Doc->Scale)+30));
-		setContentsPos(childX(Doc->ActPage->parentWidget())-static_cast<int>(10*Doc->Scale),
+		if (!ScApp->ScriptRunning)
+			setContentsPos(childX(Doc->ActPage->parentWidget())-static_cast<int>(10*Doc->Scale),
 									 childY(Doc->ActPage->parentWidget())-static_cast<int>(10*Doc->Scale));
 		}
 	else
 		{
 		resizeContents(static_cast<int>(PSeite->width()+30*Doc->Scale), static_cast<int>(Doc->PageC * (PSeite->height()+25*Doc->Scale)+30));
-		setContentsPos(0, childY(Doc->ActPage->parentWidget())-static_cast<int>(10*Doc->Scale));
+		if (!ScApp->ScriptRunning)
+			setContentsPos(0, childY(Doc->ActPage->parentWidget())-static_cast<int>(10*Doc->Scale));
 		}
 	setRulerPos(contentsX(), contentsY());
 	setMenTxt(Doc->ActPage->PageNr);
@@ -405,6 +414,8 @@ void ScribusView::reformPages()
 
 void ScribusView::setMenTxt(int Seite)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	disconnect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 	PGS->setPrefix( tr("Page "));
 	PGS->setSuffix( tr( " of %1").arg(Doc->PageC) );
@@ -499,12 +510,16 @@ void ScribusView::slotDoZoom()
 
 void ScribusView::SetCCPo(int x, int y)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	center(static_cast<int>(childX(Doc->ActPage->parentWidget())+x*Doc->Scale), static_cast<int>(childY(Doc->ActPage->parentWidget())+y*Doc->Scale));
 	setRulerPos(contentsX(), contentsY());
 }
 
 void ScribusView::SetCPo(int x, int y)
 {
+	if (ScApp->ScriptRunning)
+		return;
 	setContentsPos(static_cast<int>(childX(Doc->ActPage->parentWidget())+x*Doc->Scale), static_cast<int>(childY(Doc->ActPage->parentWidget())+y*Doc->Scale));
 	setRulerPos(contentsX(), contentsY());
 }
@@ -545,6 +560,8 @@ void ScribusView::ChgUnit(int art)
 void ScribusView::GotoPage(int Seite)
 {
 	Doc->ActPage = Pages.at(Seite);
+	if (ScApp->ScriptRunning)
+		return;
 	setContentsPos(static_cast<int>(childX(Doc->ActPage->parentWidget())-10*Doc->Scale), static_cast<int>(childY(Doc->ActPage->parentWidget())-10*Doc->Scale));
 	PGS->setMaxValue(Doc->PageC);
 	PGS->setValue(Seite+1);
@@ -586,6 +603,8 @@ void ScribusView::slotZoomOut2()
 
 void ScribusView::DrawNew()
 {
+	if (ScApp->ScriptRunning)
+		return;
 	uint a;
 	Page *b = Doc->ActPage;
 	if (Pages.count() != 0)
@@ -601,6 +620,7 @@ void ScribusView::DrawNew()
 	HR->repaint();
 	VR->repaint();
 	Doc->ActPage = b;
+	setMenTxt(Doc->ActPage->PageNr);
 	disconnect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
 	LE->setValue(Doc->Scale/Prefs->DisScale*100);
 	connect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));

@@ -226,10 +226,10 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	Form1Layout = new QVBoxLayout( this, 5, 5, "Form1Layout"); 
 	edList.clear();
 	stList.clear();
-	char *tmp[] = {"Left", "Center", "Right", "Block", "Forced"};
+	QString tmp[] = { tr("Left"), tr("Center"), tr("Right"), tr("Block"), tr("Forced")};
 	size_t ar = sizeof(tmp) / sizeof(*tmp);
 	for (uint a = 0; a < ar; ++a)
-		style.append(tr(tmp[a]));
+		style.append(tmp[a]);
 	if (doc->Vorlagen.count() > 5)
 		{
 		for (uint a = 5; a < doc->Vorlagen.count(); ++a)
@@ -574,10 +574,10 @@ void StoryEditor::slotEditStyles()
 	QComboBox *ct;
 	emit EditSt();
 	style.clear();
-	char *tmp[] = {"Left", "Center", "Right", "Block", "Forced"};
+	QString tmp[] = { tr("Left"), tr("Center"), tr("Right"), tr("Block"), tr("Forced")};
 	size_t ar = sizeof(tmp) / sizeof(*tmp);
 	for (uint a = 0; a < ar; ++a)
-		style.append(tr(tmp[a]));
+		style.append(tmp[a]);
 	if (doc->Vorlagen.count() > 5)
 	{
 		for (uint a = 5; a < doc->Vorlagen.count(); ++a)

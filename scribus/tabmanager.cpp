@@ -45,10 +45,10 @@ TabManager::TabManager( QWidget* parent, int dEin, QValueList<double> inTab) : Q
 
 	Align = new QComboBox( true, this, "Align" );
 	Align->clear();
-	char *tmp_ali[] = {"Left", "Right", "Full Stop", "Comma", "Center"};
+	QString tmp_ali[] = { tr("Left"), tr("Right"), tr("Full Stop"), tr("Comma"), tr("Center")};
 	size_t ar_ali = sizeof(tmp_ali) / sizeof(*tmp_ali);
 	for (uint a = 0; a < ar_ali; ++a)
-		Align->insertItem(tr(tmp_ali[a]));
+		Align->insertItem(tmp_ali[a]);
 	Align->setEditable(false);
 	Align->setEnabled(false);
 	layout7->addWidget( Align, 1, 1 );

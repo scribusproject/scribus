@@ -111,7 +111,7 @@ int MSpinBox::mapTextToValue(bool *)
 	QString ts = text();
 	QString su = suffix();
 	ts.replace(",", ".");
-	if (su == tr( " pt" ))
+	if (su == QObject::tr( " pt" ))
 	{
 		ts.replace("pt", "");
 		ts.replace("mm", "/25.4*72");
@@ -119,7 +119,7 @@ int MSpinBox::mapTextToValue(bool *)
 		ts.replace("p", "*12");
 	}
 	else 
-		if (su == tr( " mm" ))
+		if (su == QObject::tr( " mm" ))
 		{
 			ts.replace("pt", "/72*25.4");
 			ts.replace("mm", "");
@@ -127,7 +127,7 @@ int MSpinBox::mapTextToValue(bool *)
 			ts.replace("p", "/12*25.4");
 		}
 		else 
-			if (su == tr( " in" ))
+			if (su == QObject::tr( " in" ))
 			{
 				ts.replace("pt", "/72");
 				ts.replace("mm", "/25.4");
@@ -135,7 +135,7 @@ int MSpinBox::mapTextToValue(bool *)
 				ts.replace("p", "/6");
 			}
 			else 
-				if (su == tr( " p" ))
+				if (su == QObject::tr( " p" ))
 				{
 					ts.replace("pt", "/12");
 					ts.replace("mm", "/25.4*6");

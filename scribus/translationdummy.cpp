@@ -1,0 +1,112 @@
+QMessageBox::QMessageBox()
+{
+tr("<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ toolkit for multiplatform GUI &amp; application development.</p><p>Qt provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;X, Linux, and all major commercial Unix variants.<br>Qt is also available for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www.trolltech.com/qt/</tt> for more information.</p>");
+}
+
+QFileDialog::QFileDialog()
+{
+tr("Copy or Move a File");
+tr("Read: %1");
+tr("Write: %1");
+tr("File &name:");
+tr("File &type:");
+tr("One directory up");
+tr("Cancel");
+tr("All Files (*)");
+tr("Name");
+tr("Size");
+tr("Type");
+tr("Date");
+tr("Attributes");
+tr("OK");
+tr("Look &in:");
+tr("Back");
+tr("Create New Folder");
+tr("List View");
+tr("Detail View");
+tr("Preview File Info");
+tr("Preview File Contents");
+tr("Read-write");
+tr("Read-only");
+tr("Write-only");
+tr("Inaccessible");
+tr("Symlink to File");
+tr("Symlink to Directory");
+tr("Symlink to Special");
+tr("File");
+tr("Dir");
+tr("Special");
+tr("Open");
+tr("Save As");
+tr("&Open");
+tr("&Save");
+tr("&Rename");
+tr("&Delete");
+tr("R&eload");
+tr("Sort by &Name");
+tr("Sort by &Size");
+tr("Sort by &Date");
+tr("&Unsorted");
+tr("Sort");
+tr("Show &hidden files");
+tr("the file");
+tr("the directory");
+tr("the symlink");
+tr("Delete %1");
+tr("<qt>Are you sure you wish to delete %1 \"%2\"?</qt>");
+tr("&Yes");
+tr("&No");
+tr("New Folder 1");
+tr("New Folder");
+tr("New Folder %1");
+tr("Find Directory");
+tr("Directories");
+tr("Save");
+tr("Error");
+tr("%1\nFile not found.\nCheck path and filename.");
+tr("All Files (*.*)");
+tr("Select a Directory");
+tr("Directory:");
+}
+QLineEdit::QLineEdit()
+{
+tr("Clear");
+tr("Select All");
+tr("&Undo");
+tr("&Redo");
+tr("Cu&t");
+tr("&Copy");
+tr("&Paste");
+}
+QTextEdit::QTextEdit()
+{
+tr("Clear");
+tr("Select All");
+tr("&Undo");
+tr("&Redo");
+tr("Cu&t");
+tr("&Copy");
+tr("&Paste");
+}
+QMainWindow::QMainWindow()
+{
+tr("Line up");
+tr("Customize...");
+}
+QWorkspace::QWorkspace()
+{
+tr("&Restore");
+tr("&Move");
+tr("&Size");
+tr("Mi&nimize");
+tr("Ma&ximize");
+tr("&Close");
+tr("Stay on &Top");
+tr("Minimize");
+tr("Restore Down");
+tr("Close");
+tr("Sh&ade");
+tr("%1 - [%2]");
+tr("&Unshade");
+}
+

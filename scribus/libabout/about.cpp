@@ -87,6 +87,7 @@ About::About( QWidget* parent )
                         "<tr><td><b>" + tr("Contributions from:") + "</b></td><td></td></tr>" +
                         "<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
                         "<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
+                        "<tr><td>Alessandro Rimoldi</td><td>a.l.e@ideale.ch</td></tr>" +
                         "<tr><td>Christian Töpp</td><td>mr-ct@gmx.de</td></tr>" +
                         "<tr><td>Alastair Robinson</td><td>blackfive@fakenhamweb.co.uk</td></tr>" +
                         "<tr><td></td><td> </td></tr>" +
