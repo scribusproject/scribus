@@ -1603,7 +1603,7 @@ selected item is used.
     </message>
     <message>
         <source>&amp;Translations</source>
-        <translation>&amp;�versättningar</translation>
+        <translation>&amp;�ersättningar</translation>
     </message>
     <message>
         <source>&amp;Online</source>
@@ -1618,7 +1618,7 @@ selected item is used.
  compiled in library support in Scribus
 The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation>Detta fönster visar versionsnummer, byggdatum och
+        <translation type="obsolete">Detta fönster visar versionsnummer, byggdatum och
  kompilerade stödbibliotek för Scribus. 
 Beteckningen C-C-T betyder stöd för C=CUPS, C=littlecms och T=Tiff. 
 Avsaknad av stöd är markerat med *</translation>
@@ -1633,7 +1633,7 @@ Avsaknad av stöd är markerat med *</translation>
     </message>
     <message>
         <source>Other Documentation:</source>
-        <translation>�vrig dokumentation:</translation>
+        <translation>�rig dokumentation:</translation>
     </message>
     <message>
         <source>English (British):</source>
@@ -1690,6 +1690,13 @@ Avsaknad av stöd är markerat med *</translation>
     <message>
         <source>About Scribus %1</source>
         <translation>Om Scribus %1</translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1797,7 +1804,7 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
     </message>
     <message>
         <source>&amp;Do Not Change</source>
-        <translation>�&amp;ndra inte</translation>
+        <translation>�amp;ndra inte</translation>
     </message>
     <message>
         <source>A&amp;lign</source>
@@ -1817,7 +1824,7 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
     </message>
     <message>
         <source>Top Sides</source>
-        <translation>�verkant</translation>
+        <translation>�erkant</translation>
     </message>
     <message>
         <source>Bottom Sides</source>
@@ -1829,7 +1836,7 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
     </message>
     <message>
         <source>Do &amp;Not Change</source>
-        <translation>�&amp;ndra inte</translation>
+        <translation>�amp;ndra inte</translation>
     </message>
     <message>
         <source>Al&amp;ign</source>
@@ -2164,7 +2171,7 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
     </message>
     <message>
         <source>Reset Form</source>
-        <translation>�terställ</translation>
+        <translation>�erställ</translation>
     </message>
     <message>
         <source>Import Data</source>
@@ -2228,7 +2235,7 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>�ndra...</translation>
+        <translation>�dra...</translation>
     </message>
     <message>
         <source>Page:</source>
@@ -2248,7 +2255,7 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
     </message>
     <message>
         <source>Action</source>
-        <translation>�tgärd</translation>
+        <translation>�gärd</translation>
     </message>
     <message>
         <source>Field is formatted as:</source>
@@ -2412,7 +2419,7 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>�ppna</translation>
+        <translation>�pna</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
@@ -2424,7 +2431,7 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
     </message>
     <message>
         <source>Selection Change</source>
-        <translation>�ndring av markering</translation>
+        <translation>�dring av markering</translation>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
@@ -2463,7 +2470,7 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>�ppna</translation>
+        <translation>�pna</translation>
     </message>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
@@ -2475,7 +2482,7 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation>�&amp;ndra...</translation>
+        <translation>�amp;ndra...</translation>
     </message>
     <message>
         <source>&amp;Page:</source>
@@ -2736,7 +2743,7 @@ Vänligen välj ett annat.</translation>
     </message>
     <message>
         <source>Reset</source>
-        <translation>�terställ</translation>
+        <translation>�erställ</translation>
     </message>
 </context>
 <context>
@@ -2771,7 +2778,7 @@ Vänligen välj ett annat.</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
-        <translation>�tergivningsavsikt</translation>
+        <translation>�ergivningsavsikt</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -3491,7 +3498,7 @@ alternativt med en förkortning och en ISO-3166 landskod tillagt i slutet, t ex 
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation>�&amp;ndra...</translation>
+        <translation>�amp;ndra...</translation>
     </message>
     <message>
         <source>A&amp;lternative Printer Command</source>
@@ -3779,7 +3786,7 @@ Används för att styra läsaren till rätt stycke efter en ingress.</translatio
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation>�&amp;ppna...</translation>
+        <translation>�amp;ppna...</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
@@ -3795,7 +3802,7 @@ Används för att styra läsaren till rätt stycke efter en ingress.</translatio
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation>�n&amp;gra</translation>
+        <translation>�&amp;gra</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
@@ -3850,7 +3857,7 @@ Används för att styra läsaren till rätt stycke efter en ingress.</translatio
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation>�&amp;ndra...</translation>
+        <translation>�amp;ndra...</translation>
     </message>
     <message>
         <source>Options</source>
@@ -3946,7 +3953,7 @@ Namnet på den exporterade filen blir &apos;dokumentnamn-sidnummer.filtyp&apos;<
     </message>
     <message>
         <source>Change the output directory</source>
-        <translation>�ndra utmatningskatalog</translation>
+        <translation>�dra utmatningskatalog</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -4080,7 +4087,7 @@ Namnet på den exporterade filen blir &apos;dokumentnamn-sidnummer.filtyp&apos;<
     </message>
     <message>
         <source>Open</source>
-        <translation>�ppna</translation>
+        <translation>�pna</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
@@ -4171,7 +4178,7 @@ Namnet på den exporterade filen blir &apos;dokumentnamn-sidnummer.filtyp&apos;<
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation>�&amp;ndra...</translation>
+        <translation>�amp;ndra...</translation>
     </message>
     <message>
         <source>A&amp;dd...</source>
@@ -4700,7 +4707,7 @@ Värdet 0 innebär obegränsat med avstavningar.</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>�ppna</translation>
+        <translation>�pna</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
@@ -4887,7 +4894,7 @@ Värdet 0 innebär obegränsat med avstavningar.</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>�ndra...</translation>
+        <translation>�dra...</translation>
     </message>
     <message>
         <source>Import Page(s):</source>
@@ -4931,7 +4938,7 @@ av sidor eller en enskild sida.</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>�ppna</translation>
+        <translation>�pna</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
@@ -5187,7 +5194,7 @@ hörn:</translation>
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation>�tergivningsavsikt:</translation>
+        <translation>�ergivningsavsikt:</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -5427,7 +5434,7 @@ hörn:</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
-        <translation>�ndra inställningar för vänsterpunkt eller slutpunkt</translation>
+        <translation>�dra inställningar för vänsterpunkt eller slutpunkt</translation>
     </message>
     <message>
         <source>Pattern of line</source>
@@ -5836,7 +5843,7 @@ Vänligen välj ett annat.</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation>�&amp;verst:</translation>
+        <translation>�amp;verst:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
@@ -6022,7 +6029,7 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>&amp;Reset Contour Line</source>
-        <translation>�te&amp;rställ konturlinje</translation>
+        <translation>�e&amp;rställ konturlinje</translation>
     </message>
     <message>
         <source>&amp;End Editing</source>
@@ -6054,15 +6061,15 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>Reset Control Points</source>
-        <translation>�terställ kontrollpunkter</translation>
+        <translation>�erställ kontrollpunkter</translation>
     </message>
     <message>
         <source>Reset this Control Point</source>
-        <translation>�terställ denna kontrollpunkt</translation>
+        <translation>�erställ denna kontrollpunkt</translation>
     </message>
     <message>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
-        <translation>�ppnar en polygon eller skär upp en Bezierkurva</translation>
+        <translation>�pnar en polygon eller skär upp en Bezierkurva</translation>
     </message>
     <message>
         <source>Close this Bezier Curve</source>
@@ -6106,7 +6113,7 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>Enlarge the Size of the Path by shown %</source>
-        <translation>�ka storleken på kurvbanan med visad %</translation>
+        <translation>�a storleken på kurvbanan med visad %</translation>
     </message>
     <message>
         <source>Angle of Rotation</source>
@@ -6122,7 +6129,7 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
-        <translation>�terställ konturlinje till ursprunglig ramform</translation>
+        <translation>�erställ konturlinje till ursprunglig ramform</translation>
     </message>
     <message>
         <source>When checked use Coordinates relative to the Page,
@@ -6150,7 +6157,7 @@ annars används koordinater relativt objektet.</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation>�&amp;ndra...</translation>
+        <translation>�amp;ndra...</translation>
     </message>
     <message>
         <source>Export Range</source>
@@ -6410,7 +6417,7 @@ annars används koordinater relativt objektet.</translation>
     </message>
     <message>
         <source>&amp;Owner:</source>
-        <translation>�&amp;gare:</translation>
+        <translation>�amp;gare:</translation>
     </message>
     <message>
         <source>Settings</source>
@@ -6502,7 +6509,7 @@ annars används koordinater relativt objektet.</translation>
     </message>
     <message>
         <source>Rendering-Intent:</source>
-        <translation>�tergivningsavsikt:</translation>
+        <translation>�ergivningsavsikt:</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -6770,7 +6777,7 @@ Annars riskerar din exporterade PDF-fil att inte tryckas korrekt och portabilite
     </message>
     <message>
         <source>Rendering intent for solid colors</source>
-        <translation>�tergivningsavsikt för tonplattor</translation>
+        <translation>�ergivningsavsikt för tonplattor</translation>
     </message>
     <message>
         <source>Embed a color profile for images</source>
@@ -6786,7 +6793,7 @@ Annars riskerar din exporterade PDF-fil att inte tryckas korrekt och portabilite
     </message>
     <message>
         <source>Rendering intent for images</source>
-        <translation>�tergivningsavsikt för bilder</translation>
+        <translation>�ergivningsavsikt för bilder</translation>
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
@@ -7113,11 +7120,11 @@ vektorgrafik vid förhandsvisning på bekostnad av långsammare visning</transla
     </message>
     <message>
         <source>Is PDF &amp;Bookmark</source>
-        <translation>�r ett PDF-&amp;bokmärke</translation>
+        <translation>� ett PDF-&amp;bokmärke</translation>
     </message>
     <message>
         <source>Is PDF A&amp;nnotation</source>
-        <translation>�r en PDF-a&amp;nteckning</translation>
+        <translation>� en PDF-a&amp;nteckning</translation>
     </message>
     <message>
         <source>Annotation P&amp;roperties</source>
@@ -7473,7 +7480,7 @@ ett positivt värde gör den konvex</translation>
     </message>
     <message>
         <source>Misc.</source>
-        <translation>�vrigt</translation>
+        <translation>�rigt</translation>
     </message>
     <message>
         <source>GUI</source>
@@ -7545,7 +7552,7 @@ ett positivt värde gör den konvex</translation>
     </message>
     <message>
         <source>&amp;Change...</source>
-        <translation>�&amp;ndra...</translation>
+        <translation>�amp;ndra...</translation>
     </message>
     <message>
         <source>&amp;ICC Profiles:</source>
@@ -7553,7 +7560,7 @@ ett positivt värde gör den konvex</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation>�&amp;ndra...</translation>
+        <translation>�amp;ndra...</translation>
     </message>
     <message>
         <source>&amp;Scripts:</source>
@@ -7561,7 +7568,7 @@ ett positivt värde gör den konvex</translation>
     </message>
     <message>
         <source>Ch&amp;ange...</source>
-        <translation>�&amp;ndra...</translation>
+        <translation>�amp;ndra...</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -7613,7 +7620,7 @@ ett positivt värde gör den konvex</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation>�&amp;verst:</translation>
+        <translation>�amp;verst:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
@@ -8217,7 +8224,7 @@ efter varje tidsperiod</translation>
     </message>
     <message>
         <source>Change in magnification for each zoom operation</source>
-        <translation>�ndring av förstoringsgrad vid varje zoomning</translation>
+        <translation>�dring av förstoringsgrad vid varje zoomning</translation>
     </message>
     <message>
         <source>Color of lines</source>
@@ -8329,7 +8336,7 @@ efter varje tidsperiod</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation>�&amp;ndra...</translation>
+        <translation>�amp;ndra...</translation>
     </message>
     <message>
         <source>Apply &amp;Factor</source>
@@ -8575,7 +8582,7 @@ UCR förhindrar risken för övermättnad med CMG färger.</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>�ppna</translation>
+        <translation>�pna</translation>
     </message>
     <message>
         <source>Save As</source>
@@ -8583,7 +8590,7 @@ UCR förhindrar risken för övermättnad med CMG färger.</translation>
     </message>
     <message>
         <source>&amp;Open</source>
-        <translation>�&amp;ppna</translation>
+        <translation>�amp;ppna</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -8599,7 +8606,7 @@ UCR förhindrar risken för övermättnad med CMG färger.</translation>
     </message>
     <message>
         <source>R&amp;eload</source>
-        <translation>�t&amp;erskapa</translation>
+        <translation>�&amp;erskapa</translation>
     </message>
     <message>
         <source>Sort by &amp;Name</source>
@@ -8722,7 +8729,7 @@ Kontrollera sökväg och filnamn.</translation>
     </message>
     <message>
         <source>Stri&amp;keout</source>
-        <translation>�versty&amp;kning</translation>
+        <translation>�ersty&amp;kning</translation>
     </message>
     <message>
         <source>&amp;Underline</source>
@@ -8773,7 +8780,7 @@ Kontrollera sökväg och filnamn.</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation>�n&amp;gra</translation>
+        <translation>�&amp;gra</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
@@ -9004,7 +9011,7 @@ Kontrollera sökväg och filnamn.</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>�ppna</translation>
+        <translation>�pna</translation>
     </message>
     <message>
         <source>Save as &amp;Template...</source>
@@ -9649,35 +9656,6 @@ Externa länkar
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Scribus Python interface module
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
-<byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
-<byte value="x9"/><byte value="x9"/>function is documented individually below.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
-<byte value="x9"/><byte value="x9"/>a string - they are not real Python objects. Many functions take an
-<byte value="x9"/><byte value="x9"/>optional (non-keyword) parameter, a frame name.
-<byte value="x9"/><byte value="x9"/>Many exceptions are also common across most functions. These are
-<byte value="x9"/><byte value="x9"/>not currently documented in the docstring for each function.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
-<byte value="x9"/><byte value="x9"/>      without a document to operate on.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
-<byte value="x9"/><byte value="x9"/>      the function will use the currently selected frame, if any, or
-<byte value="x9"/><byte value="x9"/>      raise a NoValidObjectError if it can&apos;t find anything to operate
-<byte value="x9"/><byte value="x9"/>      on.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
-<byte value="x9"/><byte value="x9"/>      on a frame type that they do not make sense with. For example, setting
-<byte value="x9"/><byte value="x9"/>      the text colour on a graphics frame doesn&apos;t make sense, and will result
-<byte value="x9"/><byte value="x9"/>      in this exception being raised.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
-<byte value="x9"/><byte value="x9"/>      passed through unaltered. As such, the list of exceptions thrown by
-<byte value="x9"/><byte value="x9"/>      any function as provided here and in its docstring is incomplete.
-<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
-<byte value="x9"/><byte value="x9"/>function&apos;s documentation.
-<byte value="x9"/><byte value="x9"/></source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9687,6 +9665,64 @@ Externa länkar
     </message>
     <message>
         <source>OpenOffice.org Writer Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color not found - python error</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus Python interface module
+
+This module is the Python interface for Scribus. It provides functions
+to control scribus and to manipulate objects on the canvas. Each
+function is documented individually below.
+
+A few things are common across most of the interface.
+
+Most functions operate on frames. Frames are identified by their name,
+a string - they are not real Python objects. Many functions take an
+optional (non-keyword) parameter, a frame name.
+Many exceptions are also common across most functions. These are
+not currently documented in the docstring for each function.
+- Many functions will raise a NoDocOpenError if you try to use themwithout a document to operate on.
+- If you do not pass a frame name to a function that requires one,the function will use the currently selected frame, if any, orraise a NoValidObjectError if it can&apos;t find anything to operateon.
+- Many functions will raise WrongFrameTypeError if you try to use them
+on a frame type that they do not make sense with. For example, setting
+the text colour on a graphics frame doesn&apos;t make sense, and will result
+in this exception being raised.
+- Errors resulting from calls to the underlying Python API will be
+passed through unaltered. As such, the list of exceptions thrown by
+any function as provided here and in its docstring is incomplete.
+
+Details of what exceptions each function may throw are provided on the
+function&apos;s documentation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom (optional) configuration: </source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Standard configuration: </source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Short &amp;Words...</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Short Words processing. Wait please...</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Short Words processing. Done.</source>
+        <comment>short words plugin</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9702,7 +9738,7 @@ Externa länkar
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation>�n&amp;gra</translation>
+        <translation>�&amp;gra</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
@@ -9737,7 +9773,7 @@ Externa länkar
     </message>
     <message>
         <source>Normalize</source>
-        <translation>�terställ</translation>
+        <translation>�erställ</translation>
     </message>
     <message>
         <source>Minimize</source>
@@ -9756,7 +9792,7 @@ Externa länkar
     <name>QWorkspace</name>
     <message>
         <source>&amp;Restore</source>
-        <translation>�te&amp;rställ</translation>
+        <translation>�e&amp;rställ</translation>
     </message>
     <message>
         <source>&amp;Move</source>
@@ -9788,7 +9824,7 @@ Externa länkar
     </message>
     <message>
         <source>Restore Down</source>
-        <translation>�terställ nedåt</translation>
+        <translation>�erställ nedåt</translation>
     </message>
     <message>
         <source>Close</source>
@@ -9846,7 +9882,7 @@ Externa länkar
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation>�vers&amp;t:</translation>
+        <translation>�ers&amp;t:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
@@ -10071,7 +10107,7 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>Open a Document</source>
-        <translation>�ppna ett dokument</translation>
+        <translation>�pna ett dokument</translation>
     </message>
     <message>
         <source>Save the current Document</source>
@@ -10139,7 +10175,7 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>Undo</source>
-        <translation>�ngra</translation>
+        <translation>�gra</translation>
     </message>
     <message>
         <source>Show Page Palette</source>
@@ -10187,11 +10223,11 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation>�&amp;ppna...</translation>
+        <translation>�amp;ppna...</translation>
     </message>
     <message>
         <source>Open &amp;Recent</source>
-        <translation>�ppna s&amp;enaste</translation>
+        <translation>�pna s&amp;enaste</translation>
     </message>
     <message>
         <source>New</source>
@@ -10199,7 +10235,7 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>Open...</source>
-        <translation>�ppna...</translation>
+        <translation>�pna...</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -10227,7 +10263,7 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>Re&amp;vert to Saved</source>
-        <translation>�ter&amp;gå till senast sparad</translation>
+        <translation>�er&amp;gå till senast sparad</translation>
     </message>
     <message>
         <source>Collect for O&amp;utput...</source>
@@ -10299,7 +10335,7 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation>�n&amp;gra</translation>
+        <translation>�&amp;gra</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
@@ -10631,11 +10667,11 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation>�&amp;versikt</translation>
+        <translation>�amp;versikt</translation>
     </message>
     <message>
         <source>Outline</source>
-        <translation>�versikt</translation>
+        <translation>�ersikt</translation>
     </message>
     <message>
         <source>&amp;Scrapbook</source>
@@ -10811,7 +10847,7 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>Strikethru</source>
-        <translation>�verstruken</translation>
+        <translation>�erstruken</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -10939,7 +10975,7 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>Open</source>
-        <translation>�ppna</translation>
+        <translation>�pna</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
@@ -11119,15 +11155,15 @@ Välj något av följande:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Skapa&lt;/b&gt;
     </message>
     <message>
         <source>&amp;Undo Delete Object</source>
-        <translation>�n&amp;gra Ta bort objekt</translation>
+        <translation>�&amp;gra Ta bort objekt</translation>
     </message>
     <message>
         <source>&amp;Undo Object Move</source>
-        <translation>�n&amp;gra Flytta objekt</translation>
+        <translation>�&amp;gra Flytta objekt</translation>
     </message>
     <message>
         <source>&amp;Undo Object Change</source>
-        <translation>�n&amp;gra �ndra objekt</translation>
+        <translation>�&amp;gra �dra objekt</translation>
     </message>
     <message>
         <source>German</source>
@@ -11509,7 +11545,7 @@ drar du en mall till Sidvisaren nedan.</translation>
     <name>ShadeButton</name>
     <message>
         <source>Other...</source>
-        <translation>�vrigt...</translation>
+        <translation>�rigt...</translation>
     </message>
     <message>
         <source>&amp;Shade:</source>
@@ -11594,7 +11630,7 @@ drar du en mall till Sidvisaren nedan.</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>�ppna</translation>
+        <translation>�pna</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
@@ -11785,7 +11821,7 @@ drar du en mall till Sidvisaren nedan.</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>�ppna</translation>
+        <translation>�pna</translation>
     </message>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
@@ -11820,7 +11856,7 @@ drar du en mall till Sidvisaren nedan.</translation>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>�verstruken</translation>
+        <translation>�erstruken</translation>
     </message>
     <message>
         <source>Outline Text</source>
@@ -11869,6 +11905,17 @@ set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
         <translation>Ska importhanteraren alltid använda aktuellt värde vid import av 
 dokument från OpenOffice.org och aldrig mer fråga igen</translation>
+    </message>
+    <message>
+        <source>Pack paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group paragraph styles by attributes.
+Less paragraph styles but controlling them may be hard.
+Should be used if it is known that text must not be edited
+after importing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11961,7 +12008,7 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     <name>Tree</name>
     <message>
         <source>Outline</source>
-        <translation>�versikt</translation>
+        <translation>�ersikt</translation>
     </message>
     <message>
         <source>Element</source>
@@ -12059,6 +12106,96 @@ Vänligen välj ett annat.</translation>
     <message>
         <source>Send your value to the script</source>
         <translation>Skicka dit värde till skriptet</translation>
+    </message>
+</context>
+<context>
+    <name>VlnaDialog</name>
+    <message>
+        <source>Short Words</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply unbreakable space on:</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Selected frames</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Active &amp;page</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;All items</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished">&amp;Avbryt</translation>
+    </message>
+    <message>
+        <source>&amp;Info and
+Languages</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace defaults by user config</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When the user config file exists 
+(%1)
+you can choose if you want to append your config
+to the global configuration by unchecked button.
+
+You can replace predefined values by yours
+with checked button too.</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only selected frames processed.</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only actual page processed.</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All items in document processed.</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Short Words for Scribus</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available in the following languages</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Short Words</source>
+        <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12284,7 +12421,7 @@ för denna filtyp.</translation>
     </message>
     <message>
         <source>&amp;Open</source>
-        <translation>�&amp;ppna</translation>
+        <translation>�amp;ppna</translation>
     </message>
     <message>
         <source>All</source>
@@ -12360,7 +12497,7 @@ för denna filtyp.</translation>
     </message>
     <message>
         <source>Translating template.xml</source>
-        <translation>�versätter template.xml</translation>
+        <translation>�ersätter template.xml</translation>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.es_LA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-12-22 14:28+0100\n"
+"POT-Creation-Date: 2005-02-01 20:39+0100\n"
 "Last-Translator: Gonzalo Huerta C.\n"
 "Language-Team:  <gonzalo@huerta.cl>\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -6230,6 +6230,78 @@ msgid "Template: "
 msgstr "Nueva Plantilla"
 
 #, fuzzy
+msgid "Short &Words..."
+msgstr "Propiedades..."
+
+msgid "Short Words processing. Wait please..."
+msgstr ""
+
+msgid "Short Words processing. Done."
+msgstr ""
+
+msgid "Custom (optional) configuration: "
+msgstr ""
+
+msgid "Standard configuration: "
+msgstr ""
+
+#, fuzzy
+msgid "Short Words"
+msgstr "Mostrar Guías"
+
+msgid "Apply unbreakable space on:"
+msgstr ""
+
+#, fuzzy
+msgid "&Selected frames"
+msgstr "Seleccionar Campos"
+
+msgid "Active &page"
+msgstr ""
+
+#, fuzzy
+msgid "&All items"
+msgstr "Todas las Páginas"
+
+#, fuzzy
+msgid ""
+"&Info and\n"
+"Languages"
+msgstr "Intervalo:"
+
+msgid "Replace defaults by user config"
+msgstr ""
+
+msgid ""
+"When the user config file exists \n"
+"(%1)\n"
+"you can choose if you want to append your config\n"
+"to the global configuration by unchecked button.\n"
+"\n"
+"You can replace predefined values by yours\n"
+"with checked button too."
+msgstr ""
+
+msgid "Only selected frames processed."
+msgstr ""
+
+msgid "Only actual page processed."
+msgstr ""
+
+msgid "All items in document processed."
+msgstr ""
+
+msgid "Short Words for Scribus"
+msgstr ""
+
+msgid "Available in the following languages"
+msgstr ""
+
+#, fuzzy
+msgid "About Short Words"
+msgstr "Sobre Scribus"
+
+#, fuzzy
 msgid "&Insert Special"
 msgstr "Insertar Rectángulos"
 
@@ -6431,6 +6503,17 @@ msgid ""
 "edited to match the one being imported, or left untouched"
 msgstr ""
 
+#, fuzzy
+msgid "Pack paragraph styles"
+msgstr "Estilos..."
+
+msgid ""
+"Group paragraph styles by attributes.\n"
+"Less paragraph styles but controlling them may be hard.\n"
+"Should be used if it is known that text must not be edited\n"
+"after importing."
+msgstr ""
+
 msgid "Use document name as a prefix for paragraph styles"
 msgstr ""
 
@@ -6602,43 +6685,33 @@ msgstr "Sobre Scribus"
 
 msgid ""
 "Scribus Python interface module\n"
-"\t\t\n"
-"\t\tThis module is the Python interface for Scribus. It provides functions\n"
-"\t\tto control scribus and to manipulate objects on the canvas. Each\n"
-"\t\tfunction is documented individually below.\n"
-"\t\t\n"
-"\t\tA few things are common across most of the interface.\n"
-"\t\t\n"
-"\t\tMost functions operate on frames. Frames are identified by their name,\n"
-"\t\ta string - they are not real Python objects. Many functions take an\n"
-"\t\toptional (non-keyword) parameter, a frame name.\n"
-"\t\tMany exceptions are also common across most functions. These are\n"
-"\t\tnot currently documented in the docstring for each function.\n"
-"\t\t\n"
-"\t\t    - Many functions will raise a NoDocOpenError if you try to use them\n"
-"\t\t      without a document to operate on.\n"
-"\t\t\n"
-"\t\t    - If you do not pass a frame name to a function that requires one,\n"
-"\t\t      the function will use the currently selected frame, if any, or\n"
-"\t\t      raise a NoValidObjectError if it can't find anything to operate\n"
-"\t\t      on.\n"
-"\t\t\n"
-"\t\t    - Many functions will raise WrongFrameTypeError if you try to use "
-"them\n"
-"\t\t      on a frame type that they do not make sense with. For example, "
-"setting\n"
-"\t\t      the text colour on a graphics frame doesn't make sense, and will "
-"result\n"
-"\t\t      in this exception being raised.\n"
-"\t\t\n"
-"\t\t    - Errors resulting from calls to the underlying Python API will be\n"
-"\t\t      passed through unaltered. As such, the list of exceptions thrown "
-"by\n"
-"\t\t      any function as provided here and in its docstring is incomplete.\n"
-"\t\t\n"
-"\t\tDetails of what exceptions each function may throw are provided on the\n"
-"\t\tfunction's documentation.\n"
-"\t\t"
+"\n"
+"This module is the Python interface for Scribus. It provides functions\n"
+"to control scribus and to manipulate objects on the canvas. Each\n"
+"function is documented individually below.\n"
+"\n"
+"A few things are common across most of the interface.\n"
+"\n"
+"Most functions operate on frames. Frames are identified by their name,\n"
+"a string - they are not real Python objects. Many functions take an\n"
+"optional (non-keyword) parameter, a frame name.\n"
+"Many exceptions are also common across most functions. These are\n"
+"not currently documented in the docstring for each function.\n"
+"- Many functions will raise a NoDocOpenError if you try to use themwithout a "
+"document to operate on.\n"
+"- If you do not pass a frame name to a function that requires one,the "
+"function will use the currently selected frame, if any, orraise a "
+"NoValidObjectError if it can't find anything to operateon.\n"
+"- Many functions will raise WrongFrameTypeError if you try to use them\n"
+"on a frame type that they do not make sense with. For example, setting\n"
+"the text colour on a graphics frame doesn't make sense, and will result\n"
+"in this exception being raised.\n"
+"- Errors resulting from calls to the underlying Python API will be\n"
+"passed through unaltered. As such, the list of exceptions thrown by\n"
+"any function as provided here and in its docstring is incomplete.\n"
+"\n"
+"Details of what exceptions each function may throw are provided on the\n"
+"function's documentation."
 msgstr ""
 
 msgid "Script Console"
@@ -6858,6 +6931,10 @@ msgstr ""
 
 msgid "Can't create layer without a name"
 msgstr ""
+
+#, fuzzy
+msgid "Color not found - python error"
+msgstr "Cierra el Documento Actual"
 
 #, fuzzy
 msgid "Cannot get a color with an empty name."
