@@ -236,7 +236,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	QValueList<double> tTabValues;
 	bool DropCmode = false;
 	bool AbsHasDrop = false;
-	double tmpCurY, maxDY, firstDes, desc2, maxDX;
+	double maxDY, firstDes, desc2, maxDX;
 	int DropLines;
 	tTabValues.clear();
 	if (!Doc->DoDrawing)
@@ -645,7 +645,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										if (DropCmode)
 											{
 											DropLines = Doc->Vorlagen[absa].DropLin;
-											tmpCurY = CurY;
 											CurY += Doc->Vorlagen[absa].LineSpa * (DropLines-1);
 											}
 										break;
@@ -669,7 +668,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							if (DropCmode)
 								{
 								DropLines = Doc->Vorlagen[absa].DropLin;
-								tmpCurY = CurY;
 								CurY += Doc->Vorlagen[absa].LineSpa * (DropLines-1);
 								}
 							}
@@ -680,22 +678,21 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						{
 						if ((a > 0) && (Ptext.at(a-1)->ch == QChar(13)))
 							{
-							CurX += Doc->Vorlagen[hl->cab].First;
-							CurX += Doc->Vorlagen[hl->cab].Indent;
-							CurY += Doc->Vorlagen[hl->cab].Avor;
+							CurX += Doc->Vorlagen[absa].First;
+							CurX += Doc->Vorlagen[absa].Indent;
+							CurY += Doc->Vorlagen[absa].Avor;
 							if (chx != QChar(13))
 								DropCmode = Doc->Vorlagen[absa].Drop;
 							if (DropCmode)
 								{
 								DropLines = Doc->Vorlagen[absa].DropLin;
-								tmpCurY = CurY;
 								CurY += Doc->Vorlagen[absa].LineSpa * (DropLines-1);
 								}
 							}
 						}
 					if (DropCmode)
 						{
-						chs = qRound(Doc->Vorlagen[absa].LineSpa * DropLines * 10);
+						chs = qRound(10 * ((Doc->Vorlagen[absa].LineSpa * DropLines) / (*Doc->AllFonts)[hl->cfont]->numAscent));
 						hl->csize = chs;
 						}
 					else
@@ -722,12 +719,15 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					fBorder = false;
 					if (LiList.isEmpty())
 						{
+						double TopOffset;
+						double BotOffset = desc2+BExtra+lineCorr;
 						bool StartOfCol = false;
-						pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+desc+BExtra+lineCorr));
 						if ((a==0) || (StartOfCol))
-							pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-asce-TExtra-lineCorr));
+							TopOffset = asce+TExtra+lineCorr;
 						else
-							pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-asce));
+							TopOffset = asce;
+						pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+BotOffset));
+						pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-TopOffset));
 						while ((!cl.contains(pf.xForm(pt1))) || (!cl.contains(pf.xForm(pt2))))
 							{
 							fBorder = true;
@@ -752,7 +752,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										if ((a > 0) && (Ptext.at(a-1)->ch == QChar(13)))
 											{
 											if (chx != QChar(13))
-												DropCmode = Doc->Vorlagen[absa].Drop;
+												DropCmode = Doc->Vorlagen[hl->cab].Drop;
 											CurX += Doc->Vorlagen[hl->cab].First;
 											CurX += Doc->Vorlagen[hl->cab].Indent;
 											if (DropCmode)
@@ -761,13 +761,12 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 											CurY += Doc->Vorlagen[hl->cab].Avor;
 											if (DropCmode)
 												{
-												DropLines = Doc->Vorlagen[absa].DropLin;
-												tmpCurY = CurY;
-												CurY += Doc->Vorlagen[absa].LineSpa * (DropLines-1);
+												DropLines = Doc->Vorlagen[hl->cab].DropLin;
+												CurY += Doc->Vorlagen[hl->cab].LineSpa * (DropLines-1);
 												}
 											}
 										else
-											CurX += Doc->Vorlagen[absa].Indent;
+											CurX += Doc->Vorlagen[hl->cab].Indent;
 										}
 									else
 										{
@@ -776,11 +775,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										}
 									}
 								}
-							pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+desc+BExtra+lineCorr));
-							if ((a==0) || (StartOfCol))
-								pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-asce-TExtra-lineCorr));
-							else
-								pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-asce));
+							pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+BotOffset));
+							pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-TopOffset));
 							}
 						if ((fBorder) && (a == 0))
 							CurY += TExtra;
@@ -788,20 +784,15 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							CurX += Extra;
 						fBorder = false;
 						}
-					if ((hl->ch == ".") && (TabCode == 2) && (RTab))
+					if (RTab)
 						{
-						RTab = false;
-						TabCode = 0;
-						}
-					if ((hl->ch == ",") && (TabCode == 3) && (RTab))
-						{
-						RTab = false;
-						TabCode = 0;
-						}
-					if ((hl->ch == QChar(9)) && (TabCode == 4) && (RTab))
-						{
-						RTab = false;
-						TabCode = 0;
+						if (((hl->ch == ".") && (TabCode == 2)) ||
+							((hl->ch == ",") && (TabCode == 3)) ||
+							((hl->ch == QChar(9)) && (TabCode == 4)))
+							{
+							RTab = false;
+							TabCode = 0;
+							}
 						}
 					if (hl->ch == QChar(9))
 						{
@@ -866,12 +857,12 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					Zli->Farb2 = hl->cstroke;
 					Zli->shade2 = hl->cshade2;
 					Zli->xco = hl->xp;
-					if (DropCmode)
+/*					if (DropCmode)
 						{
 						Zli->yco = hl->yp - desc/2;
 						hl->yp = Zli->yco;
 						}
-					else
+					else      */
 						Zli->yco = hl->yp;
 					Zli->Sele = hl->cselect;
 					Zli->Siz = chs;
@@ -1076,7 +1067,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										CurY = maxDY;
 									}
 								bool fromOut = true;
-								pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+desc+BExtra+lineCorr));
+								double BotOffset = desc+BExtra+lineCorr;
+								pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+BotOffset));
 								pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-asce));
 								while ((!cl.contains(pf.xForm(pt1))) || (!cl.contains(pf.xForm(pt2))))
 									{
@@ -1107,7 +1099,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 											}
 										break;
 										}
-									pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+desc+BExtra+lineCorr));
+									pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+BotOffset));
 									pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-asce));
 									}
 								if (fromOut)
@@ -1167,9 +1159,9 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								desc = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
 								asce = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0));
 								p->setFillMode(1);
-           			p->setBrush(darkBlue);
+								p->setBrush(darkBlue);
 								if (!Doc->RePos)
-           				p->drawRect(Zli2->xco, Zli2->yco-asce, wide+1, asce+desc);
+									p->drawRect(Zli2->xco, Zli2->yco-asce, wide+1, asce+desc);
 								p->setBrush(white);
 								}
 							if (!Doc->RePos)

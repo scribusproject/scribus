@@ -214,10 +214,10 @@ Page* ScribusView::addPage(int nr)
 		fe->SetRectFrame(fe->Items.at(z));
 		Doc->FirstAuto->Dirty = true;
 		}
-	disconnect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
+//	disconnect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 	PGS->setMaxValue(Doc->PageC);
 	PGS->setValue(nr+1);
-	connect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
+//	connect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 	fe->setMouseTracking(true);
 	connect(fe, SIGNAL(Hrule(int)), HR, SLOT(Draw(int)));
 	connect(fe, SIGNAL(Vrule(int)), VR, SLOT(Draw(int)));
@@ -243,10 +243,10 @@ void ScribusView::delPage(int Nr)
 	Doc->UnDoValid = false;
 	Doc->PageC -= 1;
 	Doc->ActPage = Pages.at(0);
-	disconnect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
+//	disconnect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 	PGS->setMaxValue(Doc->PageC);
 	PGS->setValue(1);
-	connect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
+//	connect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 }
 
 void ScribusView::movePage(int from, int to, int ziel, int art)
@@ -403,10 +403,10 @@ void ScribusView::reformPages()
 
 void ScribusView::setMenTxt(int Seite)
 {
-	disconnect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
+//	disconnect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 	PGS->setMaxValue(Doc->PageC);
 	PGS->setValue(Seite+1);
-	connect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
+//	connect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 }
 
 void ScribusView::setLayMenTxt(int l)
@@ -541,10 +541,10 @@ void ScribusView::GotoPage(int Seite)
 {
 	Doc->ActPage = Pages.at(Seite);
 	setContentsPos(static_cast<int>(childX(Doc->ActPage->parentWidget())-10*Doc->Scale), static_cast<int>(childY(Doc->ActPage->parentWidget())-10*Doc->Scale));
-	disconnect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
+//	disconnect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 	PGS->setMaxValue(Doc->PageC);
 	PGS->setValue(Seite+1);
-	connect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
+//	connect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
 }
 
 /** Vergrößert die Ansicht */
