@@ -31,6 +31,7 @@ public:
 	bool isDeleted;
 	void remove();
 	bool canWrite();
+	bool isValid();
 };
 
 #endif // NFTTEMPLATE_H

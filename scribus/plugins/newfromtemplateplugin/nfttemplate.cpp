@@ -2,6 +2,7 @@
  *   Riku Leino, tsoots@welho.com                                          *
  ***************************************************************************/
 #include "nfttemplate.h"
+#include <qfileinfo.h>
 
 nfttemplate::nfttemplate(QFile* tmplXmlFile, const QString &tmplCategory) 
 {
@@ -73,6 +74,28 @@ void nfttemplate::remove()
 bool nfttemplate::canWrite()
 {
 	return isWritable;
+}
+
+bool nfttemplate::isValid()
+{
+	bool ret = true;
+	
+	QFileInfo *fi = new QFileInfo(file);
+	if (!fi->exists())
+		ret = false;
+	delete fi;
+	
+	fi = new QFileInfo(tnail);
+	if (!fi->exists())
+		ret = false;
+	delete fi;
+	
+	fi = new QFileInfo(img);
+	if (!fi->exists())
+		ret = false;
+	delete fi;
+	
+	return ret;	
 }
 
 nfttemplate::~nfttemplate() 

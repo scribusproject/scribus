@@ -130,7 +130,8 @@ bool nftrcreader::endElement(const QString&, const QString&, const QString &name
 	{ // new template starts here
 		inTemplate = false;
 		if (tmpTemplate != NULL) // If we have a template already created push
-			templates->push_back(tmpTemplate); // it to the templates vector and start a new one
+			if (tmpTemplate->isValid())
+				templates->push_back(tmpTemplate); // it to the templates vector and start a new one
 	}
 	if (inTemplate) {
 		if (inName && name == "name")
