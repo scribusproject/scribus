@@ -1457,7 +1457,7 @@ void SToolBFont::newSizeHandler()
 }
 
 /* Main Story Editor Class */
-StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) 
+StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 									: QMainWindow(parent, "StoryEditor", WShowModal | WType_Dialog)
 {
 	setCaption( tr( "Story Editor" ) );
@@ -1494,6 +1494,8 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	settingsMenu = new QPopupMenu();
 	settingsMenu->insertItem( tr("&Background..."), this , SLOT(setBackPref()));
 	settingsMenu->insertItem( tr("&Display Font..."), this , SLOT(setFontPref()));
+	smartSelection = new QCheckBox(tr("&Smart text selection"), this);
+	settingsMenu->insertItem(smartSelection);
 	menuBar()->insertItem( tr("&File"), fmenu);
 	menuBar()->insertItem( tr("&Edit"), emenu);
 	menuBar()->insertItem( tr("&Settings"), settingsMenu );
@@ -1543,7 +1545,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 /* Editor Widget, subclass of QTextEdit */
 	Editor = new SEditor(EdSplit, docc);
 	StoryEd2Layout->addWidget( EdSplit );
-	
+
 /* Setting up Status Bar */
 	ButtonGroup1 = new QButtonGroup( statusBar(), "ButtonGroup1" );
 	ButtonGroup1->setFrameShape( QButtonGroup::NoFrame );
@@ -1657,7 +1659,8 @@ void StoryEditor::doubleClick(int para, int position)
 {
 	int paraFrom, indexFrom, paraTo, indexTo;
 	QString selText = Editor->selectedText();
-	if (selText.length() == 0)
+
+	if (selText.length() == 0 || !smartSelection->isChecked())
 	{
 		updateProps(para, position);
 		return;
@@ -2056,7 +2059,7 @@ void StoryEditor::Do_leave()
 	hide();
 	qApp->exit_loop();
 }
- 
+
 /*! Saves the document with editation continued. Signal called from menu.
   05/28/04 petr vanek
   */
