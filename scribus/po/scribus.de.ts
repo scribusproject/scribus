@@ -2169,7 +2169,7 @@ Modus nicht automatisch erkennt, wann ein Dokument verändert wurde.</translatio
  compiled in library support in Scribus
 The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation>Dieser Dialog zeigt die Version, das Kompilierungsdatum und
+        <translation type="obsolete">Dieser Dialog zeigt die Version, das Kompilierungsdatum und
 die unterstützten Bibliotheken in Scribus an
 Die Zeichen stehen für C=CUPS, C=LittleCMS und T=TIFF.
 Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
@@ -2261,6 +2261,13 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
     <message>
         <source>About Scribus %1</source>
         <translation>Über Scribus %1</translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10195,7 +10202,7 @@ not currently documented in the docstring for each function.
 Details of what exceptions each function may throw are provided on the
 function&apos;s documentation.
 </source>
-        <translation>Python-Interface für Scribus
+        <translation type="obsolete">Python-Interface für Scribus
 
 Dieses Modul stellt das Python-Interface bereit - sie können
 Scribus damit steuern und Objekte auf dem Arbeitsbereich
@@ -10232,6 +10239,43 @@ können, finden Sie in der Funktionsreferenz.</translation>
     <message>
         <source>OpenOffice.org Writer Documents</source>
         <translation>Dokumente von OpenOffice Textverarbeitung </translation>
+    </message>
+    <message>
+        <source>Scribus Python interface module
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
+<byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
+<byte value="x9"/><byte value="x9"/>function is documented individually below.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
+<byte value="x9"/><byte value="x9"/>a string - they are not real Python objects. Many functions take an
+<byte value="x9"/><byte value="x9"/>optional (non-keyword) parameter, a frame name.
+<byte value="x9"/><byte value="x9"/>Many exceptions are also common across most functions. These are
+<byte value="x9"/><byte value="x9"/>not currently documented in the docstring for each function.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
+<byte value="x9"/><byte value="x9"/>      without a document to operate on.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
+<byte value="x9"/><byte value="x9"/>      the function will use the currently selected frame, if any, or
+<byte value="x9"/><byte value="x9"/>      raise a NoValidObjectError if it can&apos;t find anything to operate
+<byte value="x9"/><byte value="x9"/>      on.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
+<byte value="x9"/><byte value="x9"/>      on a frame type that they do not make sense with. For example, setting
+<byte value="x9"/><byte value="x9"/>      the text colour on a graphics frame doesn&apos;t make sense, and will result
+<byte value="x9"/><byte value="x9"/>      in this exception being raised.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
+<byte value="x9"/><byte value="x9"/>      passed through unaltered. As such, the list of exceptions thrown by
+<byte value="x9"/><byte value="x9"/>      any function as provided here and in its docstring is incomplete.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
+<byte value="x9"/><byte value="x9"/>function&apos;s documentation.
+<byte value="x9"/><byte value="x9"/></source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -1526,13 +1526,6 @@ selected item is used.
         <translation type="unfinished">&amp;Fechar</translation>
     </message>
     <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Swedish:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1598,6 +1591,13 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>About Scribus %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
+Missing library support is indicated by a *</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9428,6 +9428,18 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Scribus Python interface module
 <byte value="x9"/><byte value="x9"/>
 <byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
@@ -9462,18 +9474,6 @@ External Links
 <byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
 <byte value="x9"/><byte value="x9"/>function&apos;s documentation.
 <byte value="x9"/><byte value="x9"/></source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Writer Documents</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

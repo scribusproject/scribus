@@ -10382,6 +10382,59 @@ Ekstern Lænker</translation>
     </message>
     <message>
         <source>Scribus Python interface module
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
+<byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
+<byte value="x9"/><byte value="x9"/>function is documented individually below.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
+<byte value="x9"/><byte value="x9"/>a string - they are not real Python objects. Many functions take an
+<byte value="x9"/><byte value="x9"/>optional (non-keyword) parameter, a frame name.
+<byte value="x9"/><byte value="x9"/>Many exceptions are also common across most functions. These are
+<byte value="x9"/><byte value="x9"/>not currently documented in the docstring for each function.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
+<byte value="x9"/><byte value="x9"/>      without a document to operate on.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
+<byte value="x9"/><byte value="x9"/>      the function will use the currently selected frame, if any, or
+<byte value="x9"/><byte value="x9"/>      raise a NoValidObjectError if it can&apos;t find anything to operate
+<byte value="x9"/><byte value="x9"/>      on.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
+<byte value="x9"/><byte value="x9"/>      on a frame type that they do not make sense with. For example, setting
+<byte value="x9"/><byte value="x9"/>      the text colour on a graphics frame doesn&apos;t make sense, and will result
+<byte value="x9"/><byte value="x9"/>      in this exception being raised.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
+<byte value="x9"/><byte value="x9"/>      passed through unaltered. As such, the list of exceptions thrown by
+<byte value="x9"/><byte value="x9"/>      any function as provided here and in its docstring is incomplete.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
+<byte value="x9"/><byte value="x9"/>function&apos;s documentation.
+<byte value="x9"/><byte value="x9"/></source>
+        <translation type="obsolete">Scribus Python grænseflade modul
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Dette modul er Python grænseflade for Scribus. Det indeholder funktioner
+<byte value="x9"/><byte value="x9"/>til at kontrollere scribus og til at manipulere objekter på canvas. Hver
+<byte value="x9"/><byte value="x9"/>funktion er dokumenteret individuelt herunder.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Nogle få ting er fælles for det meste i grænsefladen.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>De fleste funktioner opererer på rammer. Rammer indentificeres ved deres navn,
+<byte value="x9"/><byte value="x9"/>en streng - de er ikke virkelige Python objekter. Mange funktioner tager en
+<byte value="x9"/><byte value="x9"/>valgfri (non-keyword) parameter, et ramme-navn.
+<byte value="x9"/><byte value="x9"/>Mange indsigelser er også fælles for de fleste functioner. Disse er
+<byte value="x9"/><byte value="x9"/>endnu ikke dokumenteret i docstrengen for hver function.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Mange funktioner vil rejse en NoDocOpenError hvis du prøver at bruge dem
+<byte value="x9"/><byte value="x9"/>      uden at der er et dokument at operere på.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Hvis du ikke giver et ramme-navn til en funktion, der behøver det,
+<byte value="x9"/><byte value="x9"/>      så vil funktionen bruge den aktive ramme, hvis der er nogen, eller
+<byte value="x9"/><byte value="x9"/>      rejse en NoValidObjectError hvis den ikke kan finde noget at operere på.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Mange funktioner vil rejse en WrongFrameTypeError hvis du prøver at bruge dem
+<byte value="x9"/><byte value="x9"/>      på en rammetype, hvor det ikke giver mening at bruge dem. For eksempel, sætte
+<byte value="x9"/><byte value="x9"/>      tekstfarve på en billedramme giver ikke mening, og vil resultere
+<byte value="x9"/><byte value="x9"/>      i at denne indsigelse rejses.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Fejl der kommer fra kald til de underliggende Python API vil blive
+<byte value="x9"/><byte value="x9"/>      sendt videre uændret. Som sådan, er listen af indsigelser, der rejses af
+<byte value="x9"/><byte value="x9"/>      en funktion som nævnt her og i dens docstreng, ikke komplet.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Detaljer om hvilke indsigelser hver funktion kan rejse er givet i 
+<byte value="x9"/><byte value="x9"/>funktionens dokumentation.
+<byte value="x9"/><byte value="x9"/></translation>
+    </message>
+    <message>
+        <source>Scribus Python interface module
 <byte value="x9"/><byte value="x9"/>
 <byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
 <byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
@@ -10415,39 +10468,7 @@ Ekstern Lænker</translation>
 <byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
 <byte value="x9"/><byte value="x9"/>function&apos;s documentation.
 <byte value="x9"/><byte value="x9"/></source>
-        <translation>Scribus Python grænseflade modul
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>Dette modul er Python grænseflade for Scribus. Det indeholder funktioner
-<byte value="x9"/><byte value="x9"/>til at kontrollere scribus og til at manipulere objekter på canvas. Hver
-<byte value="x9"/><byte value="x9"/>funktion er dokumenteret individuelt herunder.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>Nogle få ting er fælles for det meste i grænsefladen.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>De fleste funktioner opererer på rammer. Rammer indentificeres ved deres navn,
-<byte value="x9"/><byte value="x9"/>en streng - de er ikke virkelige Python objekter. Mange funktioner tager en
-<byte value="x9"/><byte value="x9"/>valgfri (non-keyword) parameter, et ramme-navn.
-<byte value="x9"/><byte value="x9"/>Mange indsigelser er også fælles for de fleste functioner. Disse er
-<byte value="x9"/><byte value="x9"/>endnu ikke dokumenteret i docstrengen for hver function.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Mange funktioner vil rejse en NoDocOpenError hvis du prøver at bruge dem
-<byte value="x9"/><byte value="x9"/>      uden at der er et dokument at operere på.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Hvis du ikke giver et ramme-navn til en funktion, der behøver det,
-<byte value="x9"/><byte value="x9"/>      så vil funktionen bruge den aktive ramme, hvis der er nogen, eller
-<byte value="x9"/><byte value="x9"/>      rejse en NoValidObjectError hvis den ikke kan finde noget at operere på.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Mange funktioner vil rejse en WrongFrameTypeError hvis du prøver at bruge dem
-<byte value="x9"/><byte value="x9"/>      på en rammetype, hvor det ikke giver mening at bruge dem. For eksempel, sætte
-<byte value="x9"/><byte value="x9"/>      tekstfarve på en billedramme giver ikke mening, og vil resultere
-<byte value="x9"/><byte value="x9"/>      i at denne indsigelse rejses.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Fejl der kommer fra kald til de underliggende Python API vil blive
-<byte value="x9"/><byte value="x9"/>      sendt videre uændret. Som sådan, er listen af indsigelser, der rejses af
-<byte value="x9"/><byte value="x9"/>      en funktion som nævnt her og i dens docstreng, ikke komplet.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>Detaljer om hvilke indsigelser hver funktion kan rejse er givet i 
-<byte value="x9"/><byte value="x9"/>funktionens dokumentation.
-<byte value="x9"/><byte value="x9"/></translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
