@@ -196,6 +196,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		emit SideBarUp(true);
 		return;
 	}
+	QString uc = k->text();
 	switch (k->state())
 	{
 		case ControlButton:
@@ -372,8 +373,14 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				case Key_End:
 					break;
 				default:
-					if (k->text() != "")
+					if ((k->text() != "") && ((*doc->AllFonts)[CurrFont]->CharWidth.contains(uc[0].unicode())))
+					{
 						insChars(k->text());
+						QTextEdit::keyPressEvent(k);
+						emit SideBarUp(true);
+						emit SideBarUpdate();
+					}
+					return;
 					break;
 			}
 			break;

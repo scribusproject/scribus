@@ -74,7 +74,7 @@ public:
 	void Deselect(bool prop = true);
 	void SelectItemNr(int nr, bool draw = true);
 	void SetupDraw(int Nr);
-	void MoveItemI(double newX, double newY, int ite);
+	void MoveItemI(double newX, double newY, int ite, bool redraw = true);
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
 	void UpdateClip(PageItem* b);
 	FPoint GetMinClipF(FPointArray Clip);

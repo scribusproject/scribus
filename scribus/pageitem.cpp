@@ -1145,7 +1145,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						TabCode = 0;
 						if (outs)
 							{
-							if (LastSP != 0)            // Hier koenen auch andere Trennungen eingebaut werden
+							if (LastSP != 0)  // Hier koenen auch andere Trennungen eingebaut werden
 								{
 								a -= BuPos - LastSP;
 								a++;
