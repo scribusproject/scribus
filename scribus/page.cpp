@@ -20,7 +20,6 @@
 #include "pageitem.h"
 #include "serializer.h"
 #include "scribusXml.h"
-#include "kimageeffect.h"
 #include <qapplication.h>
 #include <qcolor.h>
 #include <qrect.h>
@@ -54,7 +53,7 @@ extern bool PolyS;
 extern float PolyR;
 extern ProfilesL InputProfiles;
 extern QPixmap loadIcon(QString nam);
-extern float Cwidth(ScribusDoc *doc, QPainter *p, QString name, QString ch, int Siz, QString ch2 = " ");
+extern float Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 #ifdef HAVE_CMS
 QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr=0);
 #else
@@ -65,12 +64,9 @@ extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern float xy2Deg(float x, float y);
 extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
-#ifdef HAVE_FREETYPE
-extern FPointArray traceCharacter(PageItem *b, QString chx, uint ind, float *x, float *y);
-#endif
 
 Page::Page(QWidget *pa, int x, int y, int b, int h, ScribusDoc *doc, QScrollView *view)
-				 : QWidget(pa)
+				 : QWidget(pa, "ps", WRepaintNoErase)
 {
 	resize(b, h);
 	move(x, y);
@@ -258,24 +254,21 @@ void Page::dropEvent(QDropEvent *e)
 						{
 						hg = new Pti;
 						hg->ch = text.at(a);
-						if (hg->ch == QChar(10)) 
-						  { 
-						    hg->ch = QChar(13);
-						  }
-						if (hg->ch == QChar(9)) 
-						  {
-						    hg->ch = " ";
-						  }
+						if (hg->ch == QChar(10))
+						  hg->ch = QChar(13);
+						if (hg->ch == QChar(9))
+						  hg->ch = " ";
 						if (hg->ch == QChar(5))
-						  {
-						    hg->ch = QChar(13);
-						  }
+							hg->ch = QChar(13);
 						hg->cfont = b->IFont;
 						hg->csize = b->ISize;
-						hg->ccolor = b->Pcolor2;
-						hg->cextra = 0;
-						hg->cshade = b->Shade2;
+						hg->ccolor = b->TxtFill;
+						hg->cshade = b->ShTxtFill;
+						hg->cstroke = b->TxtStroke;
+						hg->cshade2 = b->ShTxtStroke;
 						hg->cselect = false;
+						hg->cscale = b->TxtScale;
+						hg->cextra = 0;
 						hg->cstyle = 0;
 						hg->cab = 0;
 						hg->xp = 0;
@@ -331,89 +324,129 @@ void Page::dropEvent(QDropEvent *e)
 		}
 }
 
-void Page::DrawPageMarks(QPaintEvent *e)
+/** No descriptions */
+void Page::paintEvent(QPaintEvent *e)
 {
+	QRect vr = ViewReg().boundingRect().intersect(e->rect());
+	if ((vr.width() < 1) || (vr.height() < 1))
+		return;
+	QPixmap pgPix(vr.width(), vr.height());
+	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
+	painter->translate(0.5, 0.5);
+	if (doku->Before)
+		DrawPageMarks(e, painter, vr);
+//	QTime tim;
+//	tim.start();
+	DrawPageItems(e, painter, vr);
+//	qDebug( "Time elapsed: %d ms", tim.elapsed() );
+	if (!doku->Before)
+		DrawPageMarks(e, painter, vr);
+	painter->end();
+	bitBlt( this, vr.x(), vr.y(), &pgPix, 0, 0, pgPix.width(), pgPix.height() );
 	QPainter p;
-	float b;
 	p.begin(this);
+	p.setPen(QColor(0, 0, 0));
+	p.setBrush(NoBrush);
+	p.drawRect(0, 0, width(), height());
+ 	p.end();
+  if (SelItem.count() != 0)
+  	{
+		PageItem *b = SelItem.at(0);
+		b->paintObj(e->rect());
+		if ((doku->EditClip) && (b->Select))
+			MarkClip(b);
+		if (GroupSel)
+			{
+			setGroupRect();
+			paintGroupRect();
+			}
+		}
+	delete painter;
+}
+
+void Page::DrawPageMarks(QPaintEvent *e, ScPainter *p, QRect rd)
+{
+	float b;
+	if ((rd.width() == 0) || (rd.height() == 0))
+		return;
+	float lw = 1.0 / doku->Scale;
+	p->setZoomFactor(doku->Scale);
+	QWMatrix ma = p->worldMatrix();
+	QWMatrix ma2 = p->worldMatrix();
+	ma.translate(-rd.x(), -rd.y());
+	p->setWorldMatrix(ma);
+	p->setLineWidth(lw);
 	if (doku->Marks)
 		{
-		p.setPen(doku->margColor);
+		p->setPen(doku->margColor);
 		if (doku->RandFarbig)
 			{
-			p.setBrush(doku->margColor);
-			p.drawRect(0, 0, width(), static_cast<int>(Margins.Top*doku->Scale));
-			p.drawRect(0, static_cast<int>(Margins.Top*doku->Scale), static_cast<int>(Margins.Left*doku->Scale), static_cast<int>(height()-Margins.Top*doku->Scale));
-			p.drawRect(static_cast<int>(Margins.Left*doku->Scale), static_cast<int>(height()-Margins.Bottom*doku->Scale),
-							 	static_cast<int>(width()-Margins.Right*doku->Scale-Margins.Left*doku->Scale),
-							 	static_cast<int>(Margins.Bottom*doku->Scale));
-			p.drawRect(static_cast<int>(width()-Margins.Right*doku->Scale), static_cast<int>(Margins.Top*doku->Scale),
-								static_cast<int>(Margins.Right*doku->Scale), height());
+			p->setBrush(doku->margColor);
+			p->drawRect(0, 0, width()/doku->Scale, Margins.Top);
+			p->drawRect(0, Margins.Top, Margins.Left, height()/doku->Scale-Margins.Top);
+			p->drawRect(Margins.Left, height()/doku->Scale-Margins.Bottom, width()/doku->Scale-Margins.Right-Margins.Left, Margins.Bottom);
+			p->drawRect(width()/doku->Scale-Margins.Right, Margins.Top, Margins.Right, height()/doku->Scale);
 			}
-		p.setPen(doku->margColor);
-		p.drawLine(0, static_cast<int>(Margins.Top*doku->Scale), width(), static_cast<int>(Margins.Top*doku->Scale));
-		p.drawLine(0, height()-static_cast<int>(Margins.Bottom*doku->Scale), width(), height()-static_cast<int>(Margins.Bottom*doku->Scale));
-		p.drawLine(static_cast<int>(Margins.Left*doku->Scale), 0, static_cast<int>(Margins.Left*doku->Scale), height());
-		p.drawLine(width()-static_cast<int>(Margins.Right*doku->Scale), 0, width()-static_cast<int>(Margins.Right*doku->Scale), height());
+		p->setPen(doku->margColor);
+		p->drawLine(FPoint(0, Margins.Top), FPoint(width()/doku->Scale, Margins.Top));
+		p->drawLine(FPoint(0, height()/doku->Scale-Margins.Bottom), FPoint(width()/doku->Scale, height()/doku->Scale-Margins.Bottom));
+		p->drawLine(FPoint(Margins.Left, 0), FPoint(Margins.Left, height()/doku->Scale));
+		p->drawLine(FPoint(width()/doku->Scale-Margins.Right, 0), FPoint(width()/doku->Scale-Margins.Right, height()/doku->Scale));
 		}
 	if (doku->Raster)
 		{
-		p.setClipRect(e->rect());
-		int stx = e->rect().x();
-		int endx = e->rect().x()+e->rect().width();
-		int sty = e->rect().y();
-		int endy = e->rect().y()+e->rect().height();
+		float stx = rd.x()/doku->Scale;
+		float endx = rd.x()/doku->Scale+e->rect().width()/doku->Scale;
+		float sty = rd.y()/doku->Scale;
+		float endy = rd.y()/doku->Scale+e->rect().height()/doku->Scale;
 		if (doku->Scale > 0.49)
 			{
 			float i,start;
 			i=doku->majorGrid*doku->Scale;
-			p.setPen(QPen(doku->majorColor, 1, SolidLine, FlatCap, MiterJoin));
+			p->setPen(doku->majorColor, lw, SolidLine, FlatCap, MiterJoin);
 			start=floor(sty/i);
 			start*=i;
 			for (b = start; b < endy; b+=i)
- 					p.drawLine(0, static_cast<int>(b), width(), static_cast<int>(b));
+ 					p->drawLine(FPoint(0, b), FPoint(width()/doku->Scale, b));
 			start=floor(stx/i);
 			start*=i;
 			for (b = start; b <= endx; b+=i)
-					p.drawLine(static_cast<int>(b), 0, static_cast<int>(b), height());
+					p->drawLine(FPoint(b, 0), FPoint(b, height()/doku->Scale));
 			i=doku->minorGrid*doku->Scale;
-			p.setPen(QPen(doku->minorColor, 1, DotLine, FlatCap, MiterJoin));
+			p->setPen(doku->minorColor, lw, DotLine, FlatCap, MiterJoin);
 			start=floor(sty/i);
 			start*=i;
 			for (b = start; b < endy; b+=i)
-					p.drawLine(0, static_cast<int>(b), width(), static_cast<int>(b));
+					p->drawLine(FPoint(0, b), FPoint(width()/doku->Scale, b));
 			start=floor(stx/i);
 			start*=i;
 			for (b = start; b <= endx; b+=i)
- 					p.drawLine(static_cast<int>(b), 0, static_cast<int>(b), height());
+ 					p->drawLine(FPoint(b, 0), FPoint(b, height()/doku->Scale));
  			}
  		}
 	if (doku->Guides)
 		{
 		if (XGuides.count() != 0)
 			{
-			p.setPen(QPen(doku->guideColor, 1, SolidLine, FlatCap, MiterJoin));
+			p->setPen(doku->guideColor, lw, SolidLine, FlatCap, MiterJoin);
 			for (uint xg = 0; xg < XGuides.count(); ++xg)
 				{
-				p.drawLine(static_cast<int>(XGuides[xg]*doku->Scale), 0, static_cast<int>(XGuides[xg]*doku->Scale), static_cast<int>(doku->PageH*doku->Scale));
+				p->drawLine(FPoint(XGuides[xg], 0), FPoint(XGuides[xg], doku->PageH));
 				}
 			}
 		if (YGuides.count() != 0)
 			{
-			p.setPen(QPen(doku->guideColor, 1, SolidLine, FlatCap, MiterJoin));
+			p->setPen(doku->guideColor, lw, SolidLine, FlatCap, MiterJoin);
 			for (uint yg = 0; yg < YGuides.count(); ++yg)
 				{
-				p.drawLine(0, static_cast<int>(YGuides[yg]*doku->Scale), static_cast<int>(doku->PageB*doku->Scale), static_cast<int>(YGuides[yg]*doku->Scale));
+				p->drawLine(FPoint(0, YGuides[yg]), FPoint(doku->PageB, YGuides[yg]));
 				}
 			}
 		}
-	p.setPen(QColor(0, 0, 0));
-	p.setBrush(NoBrush);
-	p.drawRect(0, 0, width(), height());
- 	p.end();
+	p->setWorldMatrix(ma2);
 }
 
-void Page::DrawPageItems(QPaintEvent *e)
+void Page::DrawPageItems(QPaintEvent *e, ScPainter *painter, QRect rd)
 {
 	QPainter p;
 	uint a;
@@ -423,6 +456,8 @@ void Page::DrawPageItems(QPaintEvent *e)
 	ll.Sichtbar = false;
 	ll.LNr = 0;
 	ScribusView* vi = (ScribusView*)Anz;
+	if ((rd.width() == 0) || (rd.height() == 0))
+		return;
 	if (MPageNam != "")
 		{
 		Page* Mp = vi->MasterPages.at(vi->MasterNames[MPageNam]);
@@ -445,10 +480,7 @@ void Page::DrawPageItems(QPaintEvent *e)
 						Opa2 = b->OwnPage;
 						b->Parent = this;
 						b->OwnPage = this;
-						if ((b->Transparency != 0) && (vi->Prefs->PDFTransparency))
-							DrawTransparent(b);
-						else
-							b->paintObj(e->rect());
+						b->DrawObj(painter, rd);
 						b->Parent = Opa;
 						b->OwnPage = Opa2;
 						}
@@ -480,28 +512,13 @@ void Page::DrawPageItems(QPaintEvent *e)
 					QRegion apr = QRegion(p.xForm(b->Clip));
 					QRegion apr2 = QRegion(p.xForm(QRect(-1, -1, static_cast<int>(b->Width), static_cast<int>(b->Height))));
 					p.end();
-					if ((e->rect().intersects(apr.boundingRect())) || (e->rect().intersects(apr2.boundingRect())))
+					if ((rd.intersects(apr.boundingRect())) || (rd.intersects(apr2.boundingRect())))
 						{
-						bool rd = false;
-						if (b->BackBox != 0)
+						if (!b->Redrawn)
 							{
-							if (b->BackBox->OwnPage == this)
-								rd = false;
-							else
-								rd = true;
-							}
-						else
-							rd = true;
-						if ((!b->Redrawn) && (rd))
-							{
-							if ((b->Transparency != 0) && (vi->Prefs->PDFTransparency))
-								DrawTransparent(b);
-							else
-								b->paintObj(e->rect());
+							b->DrawObj(painter, rd);
 							b->Redrawn = true;
 							}
-						if ((doku->EditClip) && (b->Select))
-							MarkClip(b);
 						if ((doku->AppMode == 7) && (b->Select))
 							slotDoCurs(true);
 						}
@@ -513,69 +530,7 @@ void Page::DrawPageItems(QPaintEvent *e)
 			{
 			Items.at(a)->Redrawn = false;
 			}
-		if (GroupSel)
-			{
-			setGroupRect();
-			paintGroupRect();
-			}
 		}
-}
-
-void Page::DrawTransparent(PageItem *b)
-{
-	PageItem *bb;
-	PageItem *nb;
-	QPainter p;
-	p.begin(this);
-	Transform(b, &p);
-	if (b->PType == 7)
-		SetPolyClip(b, static_cast<int>(QMAX(1, b->Pwidth / 2)), static_cast<int>(QMAX(1, b->Pwidth / 2)));
-	QRegion apr = QRegion(p.xForm(b->Clip));
-	p.end();
-	int xde = mapToGlobal(QPoint(apr.boundingRect().x(), apr.boundingRect().y())).x();
-	int yde = mapToGlobal(QPoint(apr.boundingRect().x(), apr.boundingRect().y())).y();
-	int dw = apr.boundingRect().width();
-	int dh = apr.boundingRect().height();
-	if ( xde + dw+1 > QApplication::desktop()->width() )
-		dw = QApplication::desktop()->width()-xde;
-	if ( yde + dh+1 > QApplication::desktop()->height() )
-		dh = QApplication::desktop()->height()-yde;
-	QPixmap pxx = QPixmap::grabWindow( QApplication::desktop()->winId(),  xde, yde, dw+1, dh+1 );
-	if (pxx.isNull())
-		return;
-	QImage image = pxx.convertToImage();
-	QPixmap pm = QPixmap(static_cast<int>(doku->PageB*doku->Scale), static_cast<int>(doku->PageH*doku->Scale));
-	pm.fill();
-	b->toPixmap = true;
-	nb = b->NextBox;
-	bb = b->BackBox;
-	b->NextBox = 0;
-	b->BackBox = 0;
-	b->paintObj(QRect(0, 0, static_cast<int>(doku->PageB*doku->Scale), static_cast<int>(doku->PageH*doku->Scale)), &pm);
-	b->toPixmap = false;
-	b->NextBox = nb;
-	b->BackBox = bb;
-	if (b->PType == 4)
-		{
-		QBitmap bm;
-		bm = pm;
-		pm.setMask(bm);
-		}
-	else
-		pm.setMask(pm.createHeuristicMask());
-	QImage image2 = pm.convertToImage();
-	QImage image3 = image2.copy(QRect(apr.boundingRect().x(), apr.boundingRect().y(), dw+1, dh+1));
-	QImage image4 = KImageEffect::blend(image, image3, b->Transparency);
-	p.begin(this);
-	p.setClipRect(ViewReg().boundingRect());
-	QRegion gesClip = p.clipRegion();
-//	if ((b->PType == 1) || (b->PType == 5) || (b->PType == 6) || (b->PType == 7))
-//		p.setClipRegion(apr.intersect(gesClip));
-	p.drawImage(apr.boundingRect().x(), apr.boundingRect().y(), image3);
-	p.end();
-	b->FrameOnly = true;
-	b->paintObj();
-	b->FrameOnly = false;
 }
 
 void Page::setGroupRect()
@@ -687,20 +642,10 @@ void Page::storeUndoInf(PageItem* b)
 	doku->UnData.ItemNr = b->ItemNr;
 }
 
-/** No descriptions */
-void Page::paintEvent(QPaintEvent *e)
-{
-	if (doku->Before)
-		DrawPageMarks(e);
-	DrawPageItems(e);
-	if (!doku->Before)
-		DrawPageMarks(e);
-}
-
 QRegion Page::ViewReg()
 {
-	int cx = Anz->contentsX() - Anz->childX(doku->ActPage->parentWidget());
-	int cy = Anz->contentsY() - Anz->childY(doku->ActPage->parentWidget());
+	int cx = Anz->contentsX() - Anz->childX(parentWidget());
+	int cy = Anz->contentsY() - Anz->childY(parentWidget());
 	int cw = Anz->visibleWidth();
 	int ch = Anz->visibleHeight();
 	return QRegion(QRect(cx, cy, cw, ch));
@@ -1022,7 +967,10 @@ bool Page::SizeItem(float newX, float newY, int ite, bool fromMP, bool DoUpdateC
 	if (b->Locked)
 		return false;
 	if (b->PType != 5)
-		if ((newX < 1) || (newY < 1)) { return false; }
+		{
+		newX = QMAX(newX, 1);
+		newY = QMAX(newY, 1);
+		}
 	int ph = static_cast<int>(QMAX(1.0, b->Pwidth / 2.0));
 	p.begin(this);
 	Transform(b, &p);
@@ -1075,8 +1023,6 @@ bool Page::SizeItem(float newX, float newY, int ite, bool fromMP, bool DoUpdateC
 			}
 		UpdateClip(b);
 		}
-	if (b->GrType != 0)
-		UpdateGradient(b);
 	RepaintTextRegion(b, alt);
 	if (!fromMP)
 		{
@@ -1715,11 +1661,6 @@ void Page::mouseDoubleClickEvent(QMouseEvent *m)
 				else
 					emit Amode(7);
 				}
-			else
-				{
-				if (!b->Locked)
-					emit ModifyIt();
-				}
 			}
 		}
 }
@@ -1965,7 +1906,6 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 						}
 					}
 				}
-			pmen->insertItem(tr("Modify..."), this, SIGNAL(ModifyIt()));
 			if (!b->Locked)
 				{
 				pmen->insertItem(tr("Lock"), this, SLOT(ToggleLock()));
@@ -2231,12 +2171,9 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 						AdjustPictScale(b);
 						AdjustPreview(b);
 						}
-					if (b->GrType != 0)
-						UpdateGradient(b);
 					UpdateClip(b);
 					doku->SnapGuides = sav;
 					update();
-					b->paintObj();
 					emit DocChanged();
 					}
 				}
@@ -2366,7 +2303,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				b->HasSel = false;
 				emit HasNoTextSel();
 				b->Dirty = true;
-				b->paintObj();
+				RefreshItem(b);
 				}
 			}
 		}
@@ -2379,8 +2316,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		Transform(b, &p);
 		FPoint npf = FPoint(p.xFormDev(m->pos()));
 		npf = ApplyGridF(npf);
-		b->PoLine.resize(b->PoLine.size()+1);
-		b->PoLine.setPoint(b->PoLine.size()-1, npf);
+		b->PoLine.addPoint(npf);
 		if ((b->PoLine.size() % 4 == 0) && (b->PoLine.size() > 3))
 			{
 			FPoint lxy = b->PoLine.point(b->PoLine.size()-2);
@@ -2389,10 +2325,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			float dy = lxy.y() - lk.y();
 			lk.setX(lk.x() + dx*2);
 			lk.setY(lk.y() + dy*2);
-			b->PoLine.resize(b->PoLine.size()+1);
-			b->PoLine.setPoint(b->PoLine.size()-1, lxy);
-			b->PoLine.resize(b->PoLine.size()+1);
-			b->PoLine.setPoint(b->PoLine.size()-1, lk);
+			b->PoLine.addPoint(lxy);
+			b->PoLine.addPoint(lk);
 			}
 		FPoint np2 = GetMinClipF(b->PoLine);
 		if (np2.x() < 0)
@@ -2408,7 +2342,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		SizeItem(b->PoLine.WidthHeight().x(), b->PoLine.WidthHeight().y(), b->ItemNr, false, false);
 		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
 		AdjustItemSize(b);
-		b->paintObj();
+		RefreshItem(b);
 		p.end();
 		}
 	if ((doku->AppMode == 13) && (m->button() == RightButton))
@@ -2700,7 +2634,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 						b->HasSel = true;
 						}
 					}
-				b->paintObj();
+				RefreshItem(b);
 				if (b->HasSel)
 					emit HasTextSel();
 				else
@@ -3644,7 +3578,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 			emit SetLineArt(b->PLineArt, b->PLineEnd, b->PLineJoin);
 			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
 			emit ItemGradient(b->GrColor2, b->GrColor, b->GrShade2, b->GrShade, b->GrType);
-			emit ItemTrans(b->Transparency);
+			emit ItemTrans(b->Transparency, b->TranspStroke);
 			emit HaveSel(5);
 			break;
 		case 9:
@@ -3730,7 +3664,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 			emit SetLineArt(b->PLineArt, b->PLineEnd, b->PLineJoin);
 			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
 			emit ItemGradient(b->GrColor2, b->GrColor, b->GrShade2, b->GrShade, b->GrType);
-			emit ItemTrans(b->Transparency);
+			emit ItemTrans(b->Transparency, b->TranspStroke);
 			emit HaveSel(6);
 			break;
 		case 13:
@@ -3740,7 +3674,8 @@ void Page::mousePressEvent(QMouseEvent *m)
 				{
 				SeleItem(m);
 				Deselect(false);
-				z = PaintPolyLine(Rxp, Ryp, 1+Rxpd, 1+Rypd, doku->Dwidth, doku->Dbrush, doku->Dpen);
+//				z = PaintPolyLine(Rxp, Ryp, 1+Rxpd, 1+Rypd, doku->Dwidth, doku->Dbrush, doku->Dpen);
+				z = PaintPolyLine(Rxp, Ryp, 1+Rxpd, 1+Rypd, doku->Dwidth, "None", doku->Dpen);
 				b = Items.at(z);
 				SelItem.clear();
 				SelItem.append(b);
@@ -3754,8 +3689,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 			npf = FPoint(p.xFormDev(m->pos()));
 			p.end();
 			npf = ApplyGridF(npf);
-			b->PoLine.resize(b->PoLine.size()+1);
-			b->PoLine.setPoint(b->PoLine.size()-1, npf);
+			b->PoLine.addPoint(npf);
 			npf2 = GetMinClipF(b->PoLine);
 			if (npf2.x() < 0)
 				{
@@ -3785,7 +3719,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 			emit SetLineArt(b->PLineArt, b->PLineEnd, b->PLineJoin);
 			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
 			emit ItemGradient(b->GrColor2, b->GrColor, b->GrShade2, b->GrShade, b->GrType);
-			emit ItemTrans(b->Transparency);
+			emit ItemTrans(b->Transparency, b->TranspStroke);
 			emit HaveSel(7);
 			break;
 		case 14:
@@ -3847,13 +3781,13 @@ void Page::HandleSizer(QPainter *p, PageItem *b, QRect mpo)
 		HowTo = 1;
 		qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
 		}
-	if (p->xForm(QRect(0, 0, 6, 6)).intersects(mpo))
-		{
-		HowTo = 2;
-		qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
-		}
 	if (b->PType != 5)
 		{
+		if (p->xForm(QRect(0, 0, 6, 6)).intersects(mpo))
+			{
+			HowTo = 2;
+			qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+			}
 		if (p->xForm(QRect(static_cast<int>(b->Width/2) - 3, 0, 6, 6)).intersects(mpo))
 			{
 			HowTo = 8;
@@ -4260,7 +4194,6 @@ bool Page::slotSetCurs(int x, int y)
   	if (!((b->PType == 4) || (b->PType == 2)))
   		return false;
   	QPainter p;
-  	QFont ffo;
   	QString chx;
   	p.begin(this);
   	Transform(b, &p);
@@ -4271,7 +4204,7 @@ bool Page::slotSetCurs(int x, int y)
 			if (b->PType == 2)
 				return true;
 			TransformM(b, &p);
-  		uint a;
+  		uint a, i;
   		int xp, yp, w, h, chs;
   		for (a=0; a<b->Ptext.count(); ++a)
   			{
@@ -4282,23 +4215,28 @@ bool Page::slotSetCurs(int x, int y)
 					chx = b->ExpandToken(a);
 				if (chx == QChar(29))
 					chx = " ";
-				b->SetZeichAttr(&p, &ffo, b->Ptext.at(a), &chs, &chx);
-  			w = qRound(Cwidth(doku, &p, b->Ptext.at(a)->cfont, chx, p.font().pointSize()));
+				chs = b->Ptext.at(a)->csize;
+				b->SetZeichAttr(b->Ptext.at(a), &chs, &chx);
+  			w = qRound(Cwidth(doku, b->Ptext.at(a)->cfont, chx, chs)*(b->Ptext.at(a)->cscale / 100.0));
   			h = static_cast<int>(doku->Vorlagen[b->Ptext.at(a)->cab].LineSpa);
   			if (QRegion(p.xForm(QRect(xp-1, yp-h, w+1, h))).contains(QPoint(x, y)))
   				{
   				b->CPos = a;
   				p.end();
-					b->IFont = b->Ptext.at(a)->cfont;
-					b->ISize = b->Ptext.at(a)->csize;
-					b->Pcolor2 = b->Ptext.at(a)->ccolor;
-					b->Shade2 = b->Ptext.at(a)->cshade;
+					doku->CurrFont = b->Ptext.at(a)->cfont;
+					doku->CurrFontSize = b->Ptext.at(a)->csize;
+					doku->CurrTextFill = b->Ptext.at(a)->ccolor;
+					doku->CurrTextFillSh = b->Ptext.at(a)->cshade;
+					doku->CurrTextStroke = b->Ptext.at(a)->cstroke;
+					doku->CurrTextStrokeSh = b->Ptext.at(a)->cshade2;
+					doku->CurrTextScale = b->Ptext.at(a)->cscale;
+					emit ItemTextSca(b->Ptext.at(a)->cscale);
 					emit ItemTextFont(b->Ptext.at(a)->cfont);
 					emit ItemTextSize(b->Ptext.at(a)->csize);
 					emit ItemTextUSval(b->Ptext.at(a)->cextra);
 					emit ItemTextStil(b->Ptext.at(a)->cstyle);
 					emit ItemTextAbs(b->Ptext.at(a)->cab);
-					emit ItemFarben(b->Ptext.at(a)->ccolor, b->Pcolor, b->Ptext.at(a)->cshade, b->Shade);
+					emit ItemTextFarben(b->Ptext.at(a)->cstroke, b->Ptext.at(a)->ccolor, b->Ptext.at(a)->cshade2, b->Ptext.at(a)->cshade);
   				return true;
   				}
   			}
@@ -4312,27 +4250,39 @@ bool Page::slotSetCurs(int x, int y)
   				{
   				b->CPos = a;
   				p.end();
-					b->IFont = b->Ptext.at(a)->cfont;
-					b->ISize = b->Ptext.at(a)->csize;
-					b->Pcolor2 = b->Ptext.at(a)->ccolor;
-					b->Shade2 = b->Ptext.at(a)->cshade;
-					emit ItemFarben(b->Ptext.at(a)->ccolor, b->Pcolor, b->Ptext.at(a)->cshade, b->Shade);
-					emit ItemTextFont(b->Ptext.at(a)->cfont);
-					emit ItemTextSize(b->Ptext.at(a)->csize);
-					emit ItemTextUSval(b->Ptext.at(a)->cextra);
-					emit ItemTextStil(b->Ptext.at(a)->cstyle);
-					emit ItemTextAbs(b->Ptext.at(a)->cab);
+					if (a > 0)
+						i = a - 1;
+					else
+						i = a;
+					doku->CurrFont = b->Ptext.at(i)->cfont;
+					doku->CurrFontSize = b->Ptext.at(i)->csize;
+					doku->CurrTextFill = b->Ptext.at(i)->ccolor;
+					doku->CurrTextFillSh = b->Ptext.at(i)->cshade;
+					doku->CurrTextStroke = b->Ptext.at(i)->cstroke;
+					doku->CurrTextStrokeSh = b->Ptext.at(i)->cshade2;
+					doku->CurrTextScale = b->Ptext.at(i)->cscale;
+					emit ItemTextSca(b->Ptext.at(i)->cscale);
+					emit ItemTextFarben(b->Ptext.at(i)->cstroke, b->Ptext.at(i)->ccolor, b->Ptext.at(i)->cshade2, b->Ptext.at(i)->cshade);
+					emit ItemTextFont(b->Ptext.at(i)->cfont);
+					emit ItemTextSize(b->Ptext.at(i)->csize);
+					emit ItemTextUSval(b->Ptext.at(i)->cextra);
+					emit ItemTextStil(b->Ptext.at(i)->cstyle);
+					emit ItemTextAbs(b->Ptext.at(i)->cab);
   				return true;
   				}
   			}
 	  	b->CPos = b->Ptext.count();
   		if (b->Ptext.count() != 0)
   			{
-				b->IFont = b->Ptext.at(b->CPos-1)->cfont;
-				b->ISize = b->Ptext.at(b->CPos-1)->csize;
-				b->Pcolor2 = b->Ptext.at(b->CPos-1)->ccolor;
-				b->Shade2 = b->Ptext.at(b->CPos-1)->cshade;
-				emit ItemFarben(b->Ptext.at(b->CPos-1)->ccolor, b->Pcolor, b->Ptext.at(b->CPos-1)->cshade, b->Shade);
+				doku->CurrFont = b->Ptext.at(b->CPos-1)->cfont;
+				doku->CurrFontSize = b->Ptext.at(b->CPos-1)->csize;
+				doku->CurrTextFill = b->Ptext.at(b->CPos-1)->ccolor;
+				doku->CurrTextFillSh = b->Ptext.at(b->CPos-1)->cshade;
+				doku->CurrTextStroke = b->Ptext.at(b->CPos-1)->cstroke;
+				doku->CurrTextStrokeSh = b->Ptext.at(b->CPos-1)->cshade2;
+				doku->CurrTextScale = b->Ptext.at(b->CPos-1)->cscale;
+				emit ItemTextSca(b->Ptext.at(b->CPos-1)->cscale);
+				emit ItemTextFarben(b->Ptext.at(b->CPos-1)->cstroke, b->Ptext.at(b->CPos-1)->ccolor, b->Ptext.at(b->CPos-1)->cshade2, b->Ptext.at(b->CPos-1)->cshade);
 				emit ItemTextFont(b->Ptext.at(b->CPos-1)->cfont);
 				emit ItemTextSize(b->Ptext.at(b->CPos-1)->csize);
 				emit ItemTextUSval(b->Ptext.at(b->CPos-1)->cextra);
@@ -4356,7 +4306,6 @@ void Page::slotDoCurs(bool draw)
   	{
   	if ((b->PType != 4) || (b->Ptext.count() == 0)) { return; }
   	QPainter p;
-  	QFont ffo;
   	QString chx;
   	int xp, yp, yp1;
   	p.begin(this);
@@ -4372,12 +4321,16 @@ void Page::slotDoCurs(bool draw)
 				chx = b->ExpandToken(b->CPos-1);
 			if (chx == QChar(29))
 				chx = " ";
-			b->SetZeichAttr(&p, &ffo, b->Ptext.at(b->CPos-1), &chs, &chx);
+			chs = b->Ptext.at(b->CPos-1)->csize;
+			b->SetZeichAttr(b->Ptext.at(b->CPos-1), &chs, &chx);
   		xp = static_cast<int>(b->Ptext.at(b->CPos-1)->xp);
   		if (b->Ptext.at(b->CPos-1)->ch != QChar(13))
-  			xp += qRound(Cwidth(doku, &p, b->Ptext.at(b->CPos-1)->cfont, chx, p.font().pointSize()));
+  			xp += qRound(Cwidth(doku, b->Ptext.at(b->CPos-1)->cfont, chx, chs)*(b->Ptext.at(b->CPos-1)->cscale / 100.0));
   		yp = static_cast<int>(b->Ptext.at(b->CPos-1)->yp);
-  		yp1 = yp - b->Ptext.at(b->CPos-1)->csize;
+			int desc = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos-1)->cfont]->numDescender * -b->Ptext.at(b->CPos-1)->csize);
+			int asce = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos-1)->cfont]->numAscent * b->Ptext.at(b->CPos-1)->csize);
+			yp1 = yp - asce;
+			yp += desc;
   		}
   	else
 			{
@@ -4386,7 +4339,10 @@ void Page::slotDoCurs(bool draw)
 			xp += static_cast<int>(doku->Vorlagen[b->Ptext.at(b->CPos)->cab].Indent);
 			yp = static_cast<int>(doku->Vorlagen[b->Ptext.at(b->CPos)->cab].LineSpa+b->Extra);
 			yp += static_cast<int>(doku->Vorlagen[b->Ptext.at(b->CPos)->cab].Avor);
-  		yp1 = yp - static_cast<int>(b->Ptext.at(b->CPos)->csize);
+			int desc = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos)->cfont]->numDescender * -b->Ptext.at(b->CPos)->csize);
+			int asce = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos)->cfont]->numAscent * b->Ptext.at(b->CPos)->csize);
+			yp1 = yp - asce;
+			yp += desc;
   		}
   	if (draw)
   		{
@@ -4401,61 +4357,12 @@ void Page::slotDoCurs(bool draw)
 				p.setPen(tmp);
   			}
   		else
-  			{
   			p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
-  			}
   		CursVis = true;
   		}
-  	if (yp1 < static_cast<int>(b->Height))
-  		{
-  		p.drawLine(xp, yp1, xp, yp);
-  		if ((!draw) && (b->CPos > 1) && (b->CPos != static_cast<int>(b->Ptext.count())))
-  			{
-  			DrawCursChar(b, &p, 1);
-  			DrawCursChar(b, &p, 0);
-  			}
-  		}
+		p.drawLine(xp, QMIN(QMAX(yp1,0),static_cast<int>(b->Height)), xp, QMIN(QMAX(yp,0),static_cast<int>(b->Height)));
   	p.end();
   	}
-}
-
-void Page::DrawCursChar(PageItem *b, QPainter *p, int po)
-{
-	QColor tmp;
-	int chs;
-  QFont ffo;
-  QString chx;
-	struct PageItem::ZZ *Zli;
-	struct Pti *hl;
-	hl = b->Ptext.at(b->CPos-po);
-	chx = hl->ch;
-	chs = hl->csize;
-	if (chx == QChar(13))
-		return;
-	if (chx == QChar(30))
-		chx = b->ExpandToken(b->CPos-po);
-	if (chx == QChar(29))
-		chx = " ";
-	b->SetZeichAttr(p, &ffo, hl, &chs, &chx);
-	if (hl->ccolor != "None")
-		{
-		b->SetFarbe(&tmp, hl->ccolor, hl->cshade);
-		}
-	if (hl->cselect)
-		p->setPen(white);
-	else
-		p->setPen(tmp);
-	Zli = new PageItem::ZZ;
-	Zli->Zeich = chx;
-	Zli->Farb = tmp;
-	Zli->xco = hl->xp;
-	Zli->yco = hl->yp;
-	Zli->Sele = hl->cselect;
-	Zli->Siz = chs;
-	Zli->ZFo = hl->cfont;
-	Zli->wide = Cwidth(doku, p, hl->cfont, chx, chs);
-	b->DrawZeichen(p, Zli);
-	delete Zli;
 }
 
 void Page::BlinkCurs()
@@ -4587,14 +4494,10 @@ void Page::Bezier2Poly()
 	b->Frame = false;
 	b->ClipEdited = true;
 	b->FrameType = 3;
-	b->PoLine.resize(b->PoLine.size()+1);
-	b->PoLine.setPoint(b->PoLine.size()-1, b->PoLine.point(b->PoLine.size()-3));
-	b->PoLine.resize(b->PoLine.size()+1);
-	b->PoLine.setPoint(b->PoLine.size()-1, b->PoLine.point(b->PoLine.size()-4));
-	b->PoLine.resize(b->PoLine.size()+1);
-	b->PoLine.setPoint(b->PoLine.size()-1, b->PoLine.point(0));
-	b->PoLine.resize(b->PoLine.size()+1);
-	b->PoLine.setPoint(b->PoLine.size()-1, b->PoLine.point(0));
+	b->PoLine.addPoint(b->PoLine.point(b->PoLine.size()-3));
+	b->PoLine.addPoint(b->PoLine.point(b->PoLine.size()-4));
+	b->PoLine.addPoint(b->PoLine.point(0));
+	b->PoLine.addPoint(b->PoLine.point(0));
 	b->Clip = FlattenPath(b->PoLine, b->Segments);
 	RefreshItem(b);
 	emit HaveSel(b->PType);
@@ -4620,7 +4523,6 @@ void Page::SetPolyClip(PageItem *b, int up, int down)
 		cl1.setPoint(cl1.size()-1, np+cl.point(a));
 		cl1.resize(cl1.size()+1);
 		cl1.setPoint(cl1.size()-1, np+cl.point(a+1));
-		np2 = ma*QPoint(0, down);
 		cl2.resize(cl2.size()+1);
 		cl2.setPoint(cl2.size()-1, np2+cl.point(a));
 		cl2.resize(cl2.size()+1);
@@ -4643,17 +4545,15 @@ void Page::UpdatePolyClip(PageItem *b)
 	struct Pti *hl;
 	int asce = 1;
 	int desc = 1;
-	QFont ffo;
 	for (uint a = 0; a < b->Ptext.count(); ++a)
 		{
 		hl = b->Ptext.at(a);
-		ffo = doku->UsedFonts[hl->cfont];
-		ffo.setPointSize(hl->csize);
-		QFontMetrics fm(ffo);
-		if (fm.ascent() > asce)
-			asce = fm.ascent();
-		if (fm.descent() > desc)
-			desc = fm.descent();
+		int des = static_cast<int>((*doku->AllFonts)[hl->cfont]->numDescender * -hl->csize);
+		int asc = static_cast<int>((*doku->AllFonts)[hl->cfont]->numAscent * hl->csize);
+		if (asc > asce)
+			asce = asc;
+		if (des > desc)
+			desc = des;
 		}
 	SetPolyClip(b, static_cast<int>(asce+b->BaseOffs), static_cast<int>(desc+b->BaseOffs));
 }
@@ -4706,14 +4606,7 @@ void Page::UniteObj()
 			float dx = b->Xpos - bb->Xpos;
 			float dy = b->Ypos - bb->Ypos;
 			bb->PoLine.translate(-dx, -dy);
-			b->PoLine.resize(b->PoLine.size()+1);
-			b->PoLine.setPoint(b->PoLine.size()-1, 999999, 999999);
-			b->PoLine.resize(b->PoLine.size()+1);
-			b->PoLine.setPoint(b->PoLine.size()-1, 999999, 999999);
-			b->PoLine.resize(b->PoLine.size()+1);
-			b->PoLine.setPoint(b->PoLine.size()-1, 999999, 999999);
-			b->PoLine.resize(b->PoLine.size()+1);
-			b->PoLine.setPoint(b->PoLine.size()-1, 999999, 999999);
+			b->PoLine.setMarker();
 			b->PoLine.putPoints(b->PoLine.size(), bb->PoLine.size(), bb->PoLine);
 			}
 		b->Clip = FlattenPath(b->PoLine, b->Segments);
@@ -4730,7 +4623,6 @@ void Page::UniteObj()
 
 void Page::TextToPath()
 {
-#ifdef HAVE_FREETYPE
 	PageItem *b;
 	PageItem *bb;
 	FPointArray pts;
@@ -4761,13 +4653,34 @@ void Page::TextToPath()
 				if (chx == QChar(32))
 					continue;
 				}
-			pts = traceCharacter(b, chx, a, &x, &y);
+			int chs = b->Ptext.at(a)->csize;
+			if (b->Ptext.at(a)->cstyle & 64)
+				{
+				if (chx.upper() != chx)
+					{
+					chs = QMAX(static_cast<int>(b->Ptext.at(a)->csize * b->OwnPage->doku->VKapit / 100), 1);
+					chx = chx.upper();
+					}
+				}
+			float csi = static_cast<double>(chs) / 10.0;
+			uint chr = chx[0].unicode();
+			QWMatrix chma;
+			chma.scale(csi, csi);
+			pts = (*doku->AllFonts)[b->Ptext.at(a)->cfont]->GlyphArray[chr].Outlines.copy();
+			x = (*doku->AllFonts)[b->Ptext.at(a)->cfont]->GlyphArray[chr].x * csi;
+			y = (*doku->AllFonts)[b->Ptext.at(a)->cfont]->GlyphArray[chr].y * csi;
+			pts.map(chma);
 			if (pts.size() == 0)
 				continue;
 			uint z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->Pcolor2, b->Pcolor);
 			bb = Items.at(z);
 			bb->PoLine = pts;
 			bb->Rot = b->Rot;
+			bb->Pcolor = b->Ptext.at(a)->ccolor;
+			bb->Shade = b->Ptext.at(a)->cshade;
+			bb->Pcolor2 = b->Ptext.at(a)->cstroke;
+			bb->Shade2 = b->Ptext.at(a)->cshade2;
+			bb->Pwidth = (*doku->AllFonts)[b->Ptext.at(a)->cfont]->strokeWidth * chs / 2.0;
 			FPoint tp2 = GetMinClipF(bb->PoLine);
 			bb->PoLine.translate(-tp2.x(), -tp2.y());
 			FPoint tp = GetMaxClipF(bb->PoLine);
@@ -4776,14 +4689,11 @@ void Page::TextToPath()
 			bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
 			if (b->Reverse)
 				{
-				QPainter p;
 				float wide;
-				p.begin(this);
 				if (a < b->Ptext.count()-1)
-					wide = Cwidth(doku, &p, b->Ptext.at(a)->cfont, chx, b->Ptext.at(a)->csize, b->Ptext.at(a+1)->ch);
+					wide = Cwidth(doku, b->Ptext.at(a)->cfont, chx, b->Ptext.at(a)->csize, b->Ptext.at(a+1)->ch);
 				else
-					wide = Cwidth(doku, &p, b->Ptext.at(a)->cfont, chx, b->Ptext.at(a)->csize);
-				p.end();
+					wide = Cwidth(doku, b->Ptext.at(a)->cfont, chx, b->Ptext.at(a)->csize);
 				bb->Xpos = b->Xpos+b->Width-b->Ptext.at(a)->xp-wide+x;
 				bb->Ypos = b->Ypos+b->Ptext.at(a)->yp-y;
 				}
@@ -4809,7 +4719,6 @@ void Page::TextToPath()
 		SelItem.append(b);
 		DeleteItem();
 		}
-#endif
 }
 
 void Page::ToPathText()
@@ -4894,77 +4803,77 @@ void Page::SetFrameRounded()
 void Page::SetFrameRound(PageItem* b)
 {
  	b->RadRect = QMIN(b->RadRect, QMIN(b->Width,b->Height)/2);
-	b->PoLine.resize(32);
+	b->PoLine.resize(0);
 	float rr = fabs(b->RadRect);
 	if (b->RadRect > 0)
 		{
-		b->PoLine.setPoint(0, rr, 0);
-		b->PoLine.setPoint(1, rr, 0);
-		b->PoLine.setPoint(2, b->Width-rr, 0);
-		b->PoLine.setPoint(3, b->Width-rr, 0);
-		b->PoLine.setPoint(4, b->Width-rr, 0);
-		b->PoLine.setPoint(5, b->Width-rr+rr*0.552284749, 0);
-		b->PoLine.setPoint(6, b->Width, rr);
-		b->PoLine.setPoint(7, b->Width, rr*0.552284749);
-		b->PoLine.setPoint(8, b->Width, rr);
-		b->PoLine.setPoint(9, b->Width, rr);
-		b->PoLine.setPoint(10, b->Width, b->Height-rr);
-		b->PoLine.setPoint(11, b->Width, b->Height-rr);
-		b->PoLine.setPoint(12, b->Width, b->Height-rr);
-		b->PoLine.setPoint(13, b->Width, b->Height-rr+rr*0.552284749);
-		b->PoLine.setPoint(14, b->Width-rr, b->Height);
-		b->PoLine.setPoint(15, b->Width-rr+rr*0.552284749, b->Height);
-		b->PoLine.setPoint(16, b->Width-rr, b->Height);
-		b->PoLine.setPoint(17, b->Width-rr, b->Height);
-		b->PoLine.setPoint(18, rr, b->Height);
-		b->PoLine.setPoint(19, rr, b->Height);
-		b->PoLine.setPoint(20, rr, b->Height);
-		b->PoLine.setPoint(21, rr*0.552284749, b->Height);
-		b->PoLine.setPoint(22, 0, b->Height-rr);
-		b->PoLine.setPoint(23, 0, b->Height-rr+rr*0.552284749);
-		b->PoLine.setPoint(24, 0, b->Height-rr);
-		b->PoLine.setPoint(25, 0, b->Height-rr);
-		b->PoLine.setPoint(26, 0, rr);
-		b->PoLine.setPoint(27, 0, rr);
-		b->PoLine.setPoint(28, 0, rr);
-		b->PoLine.setPoint(29, 0, rr*0.552284749);
-		b->PoLine.setPoint(30, rr, 0);
-		b->PoLine.setPoint(31, rr*0.552284749, 0);
+		b->PoLine.addPoint(rr, 0);
+		b->PoLine.addPoint(rr, 0);
+		b->PoLine.addPoint(b->Width-rr, 0);
+		b->PoLine.addPoint(b->Width-rr, 0);
+		b->PoLine.addPoint(b->Width-rr, 0);
+		b->PoLine.addPoint(b->Width-rr+rr*0.552284749, 0);
+		b->PoLine.addPoint(b->Width, rr);
+		b->PoLine.addPoint(b->Width, rr*0.552284749);
+		b->PoLine.addPoint(b->Width, rr);
+		b->PoLine.addPoint(b->Width, rr);
+		b->PoLine.addPoint(b->Width, b->Height-rr);
+		b->PoLine.addPoint(b->Width, b->Height-rr);
+		b->PoLine.addPoint(b->Width, b->Height-rr);
+		b->PoLine.addPoint(b->Width, b->Height-rr+rr*0.552284749);
+		b->PoLine.addPoint(b->Width-rr, b->Height);
+		b->PoLine.addPoint(b->Width-rr+rr*0.552284749, b->Height);
+		b->PoLine.addPoint(b->Width-rr, b->Height);
+		b->PoLine.addPoint(b->Width-rr, b->Height);
+		b->PoLine.addPoint(rr, b->Height);
+		b->PoLine.addPoint(rr, b->Height);
+		b->PoLine.addPoint(rr, b->Height);
+		b->PoLine.addPoint(rr*0.552284749, b->Height);
+		b->PoLine.addPoint(0, b->Height-rr);
+		b->PoLine.addPoint(0, b->Height-rr+rr*0.552284749);
+		b->PoLine.addPoint(0, b->Height-rr);
+		b->PoLine.addPoint(0, b->Height-rr);
+		b->PoLine.addPoint(0, rr);
+		b->PoLine.addPoint(0, rr);
+		b->PoLine.addPoint(0, rr);
+		b->PoLine.addPoint(0, rr*0.552284749);
+		b->PoLine.addPoint(rr, 0);
+		b->PoLine.addPoint(rr*0.552284749, 0);
 		}
 	else
 		{
-		b->PoLine.setPoint(0, rr, 0);
-		b->PoLine.setPoint(1, rr, 0);
-		b->PoLine.setPoint(2, b->Width-rr, 0);
-		b->PoLine.setPoint(3, b->Width-rr, 0);
-		b->PoLine.setPoint(4, b->Width-rr, 0);
-		b->PoLine.setPoint(5, b->Width-rr, rr*0.552284749);
-		b->PoLine.setPoint(6, b->Width, rr);
-		b->PoLine.setPoint(7, b->Width-rr*0.552284749, rr);
-		b->PoLine.setPoint(8, b->Width, rr);
-		b->PoLine.setPoint(9, b->Width, rr);
-		b->PoLine.setPoint(10, b->Width, b->Height-rr);
-		b->PoLine.setPoint(11, b->Width, b->Height-rr);
-		b->PoLine.setPoint(12, b->Width, b->Height-rr);
-		b->PoLine.setPoint(13, b->Width-rr*0.552284749, b->Height-rr);
-		b->PoLine.setPoint(14, b->Width-rr, b->Height);
-		b->PoLine.setPoint(15, b->Width-rr, b->Height-rr*0.552284749);
-		b->PoLine.setPoint(16, b->Width-rr, b->Height);
-		b->PoLine.setPoint(17, b->Width-rr, b->Height);
-		b->PoLine.setPoint(18, rr, b->Height);
-		b->PoLine.setPoint(19, rr, b->Height);
-		b->PoLine.setPoint(20, rr, b->Height);
-		b->PoLine.setPoint(21, rr, b->Height-rr*0.552284749);
-		b->PoLine.setPoint(22, 0, b->Height-rr);
-		b->PoLine.setPoint(23, rr*0.552284749, b->Height-rr);
-		b->PoLine.setPoint(24, 0, b->Height-rr);
-		b->PoLine.setPoint(25, 0, b->Height-rr);
-		b->PoLine.setPoint(26, 0, rr);
-		b->PoLine.setPoint(27, 0, rr);
-		b->PoLine.setPoint(28, 0, rr);
-		b->PoLine.setPoint(29, rr*0.552284749, rr);
-		b->PoLine.setPoint(30, rr, 0);
-		b->PoLine.setPoint(31, rr, rr*0.552284749);
+		b->PoLine.addPoint(rr, 0);
+		b->PoLine.addPoint(rr, 0);
+		b->PoLine.addPoint(b->Width-rr, 0);
+		b->PoLine.addPoint(b->Width-rr, 0);
+		b->PoLine.addPoint(b->Width-rr, 0);
+		b->PoLine.addPoint(b->Width-rr, rr*0.552284749);
+		b->PoLine.addPoint(b->Width, rr);
+		b->PoLine.addPoint(b->Width-rr*0.552284749, rr);
+		b->PoLine.addPoint(b->Width, rr);
+		b->PoLine.addPoint(b->Width, rr);
+		b->PoLine.addPoint(b->Width, b->Height-rr);
+		b->PoLine.addPoint(b->Width, b->Height-rr);
+		b->PoLine.addPoint(b->Width, b->Height-rr);
+		b->PoLine.addPoint(b->Width-rr*0.552284749, b->Height-rr);
+		b->PoLine.addPoint(b->Width-rr, b->Height);
+		b->PoLine.addPoint(b->Width-rr, b->Height-rr*0.552284749);
+		b->PoLine.addPoint(b->Width-rr, b->Height);
+		b->PoLine.addPoint(b->Width-rr, b->Height);
+		b->PoLine.addPoint(rr, b->Height);
+		b->PoLine.addPoint(rr, b->Height);
+		b->PoLine.addPoint(rr, b->Height);
+		b->PoLine.addPoint(rr, b->Height-rr*0.552284749);
+		b->PoLine.addPoint(0, b->Height-rr);
+		b->PoLine.addPoint(rr*0.552284749, b->Height-rr);
+		b->PoLine.addPoint(0, b->Height-rr);
+		b->PoLine.addPoint(0, b->Height-rr);
+		b->PoLine.addPoint(0, rr);
+		b->PoLine.addPoint(0, rr);
+		b->PoLine.addPoint(0, rr);
+		b->PoLine.addPoint(rr*0.552284749, rr);
+		b->PoLine.addPoint(rr, 0);
+		b->PoLine.addPoint(rr, rr*0.552284749);
 		}
   b->Clip = FlattenPath(b->PoLine, b->Segments);
 	b->ClipEdited = false;
@@ -4985,23 +4894,23 @@ void Page::SetFrameOval()
 void Page::SetOvalFrame(PageItem *b)
 {
 	ClRe = -1;
-	b->PoLine.resize(16);
-	b->PoLine.setPoint(0, b->Width, b->Height/2);
-	b->PoLine.setPoint(1, b->Width, b->Height/2+b->Height/2*0.552284749);
-	b->PoLine.setPoint(2, b->Width/2, b->Height);
-	b->PoLine.setPoint(3, b->Width/2+b->Width/2*0.552284749, b->Height);
-	b->PoLine.setPoint(4, b->Width/2, b->Height);
-	b->PoLine.setPoint(5, b->Width/2-b->Width/2*0.552284749, b->Height);
-	b->PoLine.setPoint(6, 0, b->Height/2);
-	b->PoLine.setPoint(7, 0, b->Height/2+b->Height/2*0.552284749);
-	b->PoLine.setPoint(8, 0, b->Height/2);
-	b->PoLine.setPoint(9, 0, b->Height/2-b->Height/2*0.552284749);
-	b->PoLine.setPoint(10, b->Width/2, 0);
-	b->PoLine.setPoint(11, b->Width/2-b->Width/2*0.552284749, 0);
-	b->PoLine.setPoint(12, b->Width/2, 0);
-	b->PoLine.setPoint(13, b->Width/2+b->Width/2*0.552284749, 0);
-	b->PoLine.setPoint(14, b->Width, b->Height/2);
-	b->PoLine.setPoint(15, b->Width, b->Height/2-b->Height/2*0.552284749);
+	b->PoLine.resize(0);
+	b->PoLine.addPoint(b->Width, b->Height/2);
+	b->PoLine.addPoint(b->Width, b->Height/2+b->Height/2*0.552284749);
+	b->PoLine.addPoint(b->Width/2, b->Height);
+	b->PoLine.addPoint(b->Width/2+b->Width/2*0.552284749, b->Height);
+	b->PoLine.addPoint(b->Width/2, b->Height);
+	b->PoLine.addPoint(b->Width/2-b->Width/2*0.552284749, b->Height);
+	b->PoLine.addPoint(0, b->Height/2);
+	b->PoLine.addPoint(0, b->Height/2+b->Height/2*0.552284749);
+	b->PoLine.addPoint(0, b->Height/2);
+	b->PoLine.addPoint(0, b->Height/2-b->Height/2*0.552284749);
+	b->PoLine.addPoint(b->Width/2, 0);
+	b->PoLine.addPoint(b->Width/2-b->Width/2*0.552284749, 0);
+	b->PoLine.addPoint(b->Width/2, 0);
+	b->PoLine.addPoint(b->Width/2+b->Width/2*0.552284749, 0);
+	b->PoLine.addPoint(b->Width, b->Height/2);
+	b->PoLine.addPoint(b->Width, b->Height/2-b->Height/2*0.552284749);
 	b->ClipEdited = false;
   b->Clip = FlattenPath(b->PoLine, b->Segments);
 	b->FrameType = 1;
@@ -5128,9 +5037,9 @@ void Page::ItemFont(QString fon)
   	for (aa = 0; aa < SelItem.count(); ++aa)
   		{
 			PageItem *b = SelItem.at(aa);
-			b->IFont = fon;
 			if (doku->AppMode == 1)
 				{
+				b->IFont = fon;
 				if (b->Ptext.count() != 0)
 					{
 					for (a = 0; a < b->Ptext.count(); ++a)
@@ -5156,7 +5065,7 @@ void Page::ItemFont(QString fon)
 							b->Ptext.at(a)->cfont = fon;
 						}
 					b->Dirty = true;
-					b->paintObj();
+					RefreshItem(b);
 					}
 				}
 			}
@@ -5165,7 +5074,7 @@ void Page::ItemFont(QString fon)
 
 void Page::ItemPen(QString farbe)
 {
-	uint a, b;
+	uint a;
 	PageItem *i;
 	if (farbe == tr("None"))
 		farbe = "None";
@@ -5174,21 +5083,8 @@ void Page::ItemPen(QString farbe)
   	for (a = 0; a < SelItem.count(); ++a)
   		{
   		i = SelItem.at(a);
-  		if ((i->PType == 4) || (i->PType == 8))
-  			{
-				for (b=0; b<i->Ptext.count(); ++b)
-					{
-					if (doku->AppMode == 7)
-						{
-						if (i->Ptext.at(b)->cselect)
-							i->Ptext.at(b)->ccolor = farbe;
-						}
-					else
-						i->Ptext.at(b)->ccolor = farbe;
-					}
-				}
 			if ((i->PType == 5) && (farbe == "None"))
-				break;
+				continue;
 			i->Pcolor2 = farbe;
 			RefreshItem(i);
 			emit ItemFarben(i->Pcolor2, i->Pcolor, i->Shade2, i->Shade);
@@ -5196,7 +5092,161 @@ void Page::ItemPen(QString farbe)
 		}
 }
 
-void Page::ItemBrush(QString farbe, bool vCPal)
+void Page::ItemTextBrush(QString farbe)
+{
+	uint a, i;
+	PageItem *b;
+	if (farbe == tr("None"))
+		farbe = "None";
+  if (SelItem.count() != 0)
+  	{
+  	for (a = 0; a < SelItem.count(); ++a)
+  		{
+  		b = SelItem.at(a);
+			if ((b->PType == 4) || (b->PType == 8))
+				{
+				for (i=0; i<b->Ptext.count(); ++i)
+					{
+					if (doku->AppMode == 7)
+						{
+						if (b->Ptext.at(i)->cselect)
+							b->Ptext.at(i)->ccolor = farbe;
+						}
+					else
+						{
+						b->Ptext.at(i)->ccolor = farbe;
+						b->TxtFill = farbe;
+						}
+					}
+				}
+			RefreshItem(b);
+			}
+		}
+}
+
+void Page::ItemTextBrushS(int sha)
+{
+	uint a, i;
+	PageItem *b;
+  if (SelItem.count() != 0)
+  	{
+  	for (a = 0; a < SelItem.count(); ++a)
+  		{
+  		b = SelItem.at(a);
+  		if (b->PType == 4)
+  			{
+				for (i=0; i<b->Ptext.count(); ++i)
+					{
+					if (doku->AppMode == 7)
+						{
+						if (b->Ptext.at(i)->cselect)
+							b->Ptext.at(i)->cshade = sha;
+						}
+					else
+						{
+						b->Ptext.at(i)->cshade = sha;
+						b->ShTxtFill = sha;
+						}
+					}
+				}
+			RefreshItem(b);
+			}
+		}
+}
+
+void Page::ItemTextPen(QString farbe)
+{
+	uint a, i;
+	PageItem *b;
+	if (farbe == tr("None"))
+		farbe = "None";
+  if (SelItem.count() != 0)
+  	{
+  	for (a = 0; a < SelItem.count(); ++a)
+  		{
+  		b = SelItem.at(a);
+			if ((b->PType == 4) || (b->PType == 8))
+				{
+				for (i=0; i<b->Ptext.count(); ++i)
+					{
+					if (doku->AppMode == 7)
+						{
+						if (b->Ptext.at(i)->cselect)
+							b->Ptext.at(i)->cstroke = farbe;
+						}
+					else
+						{
+						b->Ptext.at(i)->cstroke = farbe;
+						b->TxtStroke = farbe;
+						}
+					}
+				}
+			RefreshItem(b);
+			}
+		}
+}
+
+void Page::ItemTextPenS(int sha)
+{
+	uint a, i;
+	PageItem *b;
+  if (SelItem.count() != 0)
+  	{
+  	for (a = 0; a < SelItem.count(); ++a)
+  		{
+  		b = SelItem.at(a);
+  		if (b->PType == 4)
+  			{
+				for (i=0; i<b->Ptext.count(); ++i)
+					{
+					if (doku->AppMode == 7)
+						{
+						if (b->Ptext.at(i)->cselect)
+							b->Ptext.at(i)->cshade2 = sha;
+						}
+					else
+						{
+						b->Ptext.at(i)->cshade2 = sha;
+						b->ShTxtStroke = sha;
+						}
+					}
+				}
+			RefreshItem(b);
+			}
+		}
+}
+
+void Page::ItemTextScale(int sha)
+{
+	uint a, i;
+	PageItem *b;
+  if (SelItem.count() != 0)
+  	{
+  	for (a = 0; a < SelItem.count(); ++a)
+  		{
+  		b = SelItem.at(a);
+  		if (b->PType == 4)
+  			{
+				for (i=0; i<b->Ptext.count(); ++i)
+					{
+					if (doku->AppMode == 7)
+						{
+						if (b->Ptext.at(i)->cselect)
+							b->Ptext.at(i)->cscale = sha;
+						}
+					else
+						{
+						b->Ptext.at(i)->cscale = sha;
+						b->TxtScale = sha;
+						}
+					}
+				}
+			RefreshItem(b);
+			}
+		}
+}
+
+void Page::ItemBrush(QString farbe)
 {
 	uint a;
 	PageItem *b;
@@ -5207,20 +5257,14 @@ void Page::ItemBrush(QString farbe, bool vCPal)
   	for (a = 0; a < SelItem.count(); ++a)
   		{
   		b = SelItem.at(a);
-			if (((b->PType == 4) || (b->PType == 8)) && (vCPal))
-				{
-				ItemPen(farbe);
-				return;
-				}
-			else
-				b->Pcolor = farbe;
+			b->Pcolor = farbe;
 			RefreshItem(b);
 			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
 			}
 		}
 }
 
-void Page::ItemBrushShade(int sha, bool vCPal)
+void Page::ItemBrushShade(int sha)
 {
 	uint a;
 	PageItem *b;
@@ -5228,11 +5272,8 @@ void Page::ItemBrushShade(int sha, bool vCPal)
   	{
   	for (a = 0; a < SelItem.count(); ++a)
   		{
-  		b = SelItem.at(a);
-			if (((b->PType == 4) || (b->PType == 8)) && (vCPal))
-  			ItemPenShade(sha);
-  		else              
-				b->Shade = sha;
+  		b = SelItem.at(a);              
+			b->Shade = sha;
 			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
 			RefreshItem(b);
 			}
@@ -5241,84 +5282,52 @@ void Page::ItemBrushShade(int sha, bool vCPal)
 
 void Page::ItemPenShade(int sha)
 {
-	uint a, b;
 	PageItem *i;
   if (SelItem.count() != 0)
   	{
-  	for (a = 0; a < SelItem.count(); ++a)
+  	for (uint a = 0; a < SelItem.count(); ++a)
   		{
   		i = SelItem.at(a);
-  		if (i->PType == 4)
-  			{
-				for (b=0; b<i->Ptext.count(); ++b)
-					{
-					if (doku->AppMode == 7)
-						{
-						if (i->Ptext.at(b)->cselect)
-							i->Ptext.at(b)->cshade = sha;
-						}
-					else
-						i->Ptext.at(b)->cshade = sha;
-					}
-				}
 			i->Shade2 = sha;
 			RefreshItem(i);
 			}
 		}
 }
 
-void Page::UpdateGradient(PageItem *i)
-{
-	KImageEffect::GradientType tt = KImageEffect::HorizontalGradient;
-	QColor co1 = QColor(black);
-	QColor co2 = QColor(black);
-	QString col1 = i->GrColor2;
-	QString col2 = i->GrColor;
-	int sh1 = i->GrShade2;
-	int sh2 = i->GrShade;
-	int typ = i->GrType;
-	if ((col1 != "None") && (col1 != ""))
-		i->SetFarbe(&co1, col1, sh1);
-	if ((col2 != "None") && (col2 != ""))
-		i->SetFarbe(&co2, col2, sh2);
-	switch (typ)
-		{
-		case 1:
-			tt = KImageEffect::HorizontalGradient;
-			break;
-		case 2:
-			tt = KImageEffect::VerticalGradient;
-			break;
-		case 3:
-			tt = KImageEffect::DiagonalGradient;
-			break;
-		case 4:
-			tt = KImageEffect::CrossDiagonalGradient;
-			break;
-		case 5:
-			tt = KImageEffect::EllipticGradient;
-			break;
-		default:
-			break;
-		}
-	i->Gpixm = KImageEffect::gradient(QSize(static_cast<int>(i->Width),static_cast<int>(i->Height)), co1, co2, tt, 0);
-}
-
 void Page::ItemGradFill(int typ, QString col1, int sh1, QString col2, int sh2)
 {
 	uint a;
 	PageItem *i;
+	QColor tmp;
   if (SelItem.count() != 0)
   	{
   	for (a = 0; a < SelItem.count(); ++a)
   		{
   		i = SelItem.at(a);
+			i->fill_gradient.clearStops();
+			if (typ == 5)
+				{
+				if ((col2 != "None") && (col2 != ""))
+					i->SetFarbe(&tmp, col2, sh2);
+				i->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
+				if ((col1 != "None") && (col1 != ""))
+					i->SetFarbe(&tmp, col1, sh1);
+				i->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
+				}
+			else
+				{
+				if ((col1 != "None") && (col1 != ""))
+					i->SetFarbe(&tmp, col1, sh1);
+				i->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
+				if ((col2 != "None") && (col2 != ""))
+					i->SetFarbe(&tmp, col2, sh2);
+				i->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
+				}
 			i->GrColor2 = col1;
 			i->GrShade2 = sh1;
 			i->GrColor = col2;
 			i->GrShade = sh2;
 			i->GrType = typ;
-			UpdateGradient(i);
 			RefreshItem(i);
 			}
 		}
@@ -5362,7 +5371,10 @@ void Page::chTyStyle(int s)
 					for (a = 0; a < b->Ptext.count(); ++a)
 						{
 						if (s == 0)
+							{
 							b->Ptext.at(a)->cstyle &= ~127;
+							b->TxTStyle = s;
+							}
 						else
 							{
 							old = b->Ptext.at(a)->cstyle;
@@ -5372,6 +5384,7 @@ void Page::chTyStyle(int s)
 							if ((s == 2) && (old & 1))
 								old = old & ~1;
 							b->Ptext.at(a)->cstyle = old;
+							b->TxTStyle = old;
 							}
 						}
 					}
@@ -5415,21 +5428,16 @@ void Page::chAbStyle(PageItem *b, int s)
 			ax = a;
 			for (int xx=0; xx<ax+1; ++xx)
 				{
-				if (nb->Ptext.at(a)->ch == QChar(13))
-					{
-					cr = false;
-					break;
-					}
 				nb->Ptext.at(a)->cab = s;
 				if (doku->Vorlagen[s].Font != "")
 					{
 					nb->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
 					nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
 					}
-				else
+				if (nb->Ptext.at(a)->ch == QChar(13))
 					{
-					nb->Ptext.at(a)->cfont = nb->IFont;
-					nb->Ptext.at(a)->csize = nb->ISize;
+					cr = false;
+					break;
 					}
 				a--;
 				}
@@ -5454,11 +5462,6 @@ void Page::chAbStyle(PageItem *b, int s)
 					{
 					nb->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
 					nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
-					}
-				else
-					{
-					nb->Ptext.at(a)->cfont = nb->IFont;
-					nb->Ptext.at(a)->csize = nb->ISize;
 					}
 				if (nb->Ptext.at(a)->ch == QChar(13))
 					{
@@ -5486,11 +5489,6 @@ void Page::chAbStyle(PageItem *b, int s)
 					{
 					b->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
 					b->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
-					}
-				else
-					{
-					b->Ptext.at(a)->cfont = b->IFont;
-					b->Ptext.at(a)->csize = b->ISize;
 					}
 				}
 			}
@@ -5550,12 +5548,14 @@ void Page::chFSize(int size)
   	for (aa = 0; aa < SelItem.count(); ++aa)
   		{
 			PageItem *b = SelItem.at(0);
-			b->ISize = size;
+			doku->CurrFontSize = size;
 			if (doku->AppMode != 7)
 				{
 				b->LineSp = (size * float(doku->AutoLine) / 100) + size;
 				doku->Vorlagen[0].LineSpa = b->LineSp;
 				emit ItemTextAttr(b->LineSp);
+				b->ISize = size;
+				emit ItemTextSize(b->ISize);
 				}
 			if (b->Ptext.count() != 0)
 				{
@@ -5583,7 +5583,6 @@ void Page::chFSize(int size)
 				b->Dirty = true;
 				RefreshItem(b);
 				}
-			emit ItemTextSize(b->ISize);
 			}
 		}
 }
@@ -5595,7 +5594,7 @@ void Page::QueryFarben()
 		{
   	emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
 		emit ItemGradient(b->GrColor2, b->GrColor, b->GrShade2, b->GrShade, b->GrType);
-		emit ItemTrans(b->Transparency);
+		emit ItemTrans(b->Transparency, b->TranspStroke);
 		}
 }
 
@@ -5914,6 +5913,7 @@ void Page::Deselect(bool prop)
 
 void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 {
+	QColor tmp;
 	if (!loading)
 		Deselect(true);
 	float x = Buffer->Xpos;
@@ -6013,6 +6013,21 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 						hg->cab = 0;
 					else
 						hg->cab = (*it).toInt();
+					it++;
+					if (it == NULL)
+						hg->cstroke = "None";
+					else
+						hg->cstroke = *it;
+					it++;
+					if (it == NULL)
+						hg->cshade2 = 100;
+					else
+						hg->cshade2 = (*it).toInt();
+					it++;
+					if (it == NULL)
+						hg->cscale = 100;
+					else
+						hg->cscale = (*it).toInt();
 					hg->xp = 0;
 					hg->yp = 0;
 					hg->PRot = 0;
@@ -6044,11 +6059,12 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	b->Pcolor2 = Buffer->Pcolor2;
 	b->Shade = Buffer->Shade;
 	b->Shade2 = Buffer->Shade2;
-	b->GrColor = Buffer->GrColor;
-	b->GrColor2 = Buffer->GrColor2;
-	b->GrShade = Buffer->GrShade;
-	b->GrShade2 = Buffer->GrShade2;
-	b->GrType = Buffer->GrType;
+	b->TxtStroke = Buffer->TxtStroke;
+	b->TxtFill = Buffer->TxtFill;
+	b->ShTxtStroke = Buffer->ShTxtStroke;
+	b->ShTxtFill = Buffer->ShTxtFill;
+	b->TxtScale = Buffer->TxtScale;
+	b->TxTStyle = Buffer->TxTStyle;
 	b->Rot = Buffer->Rot;
 	b->Extra = Buffer->Extra;
 	b->TExtra = Buffer->TExtra;
@@ -6109,9 +6125,11 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	b->Groups = Buffer->Groups;
 	b->Locked = Buffer->Locked;
 	b->Transparency = Buffer->Transparency;
+	b->TranspStroke = Buffer->TranspStroke;
 	b->Reverse = Buffer->Reverse;
 	b->InvPict = Buffer->InvPict;
 	b->NamedLStyle = Buffer->NamedLStyle;
+	b->Language = Buffer->Language;
 	if (Buffer->LayerNr != -1)
 		b->LayerNr = Buffer->LayerNr;
 	if (b->PType != 5)
@@ -6124,6 +6142,8 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	else
 		{
 		int ph = static_cast<int>(QMAX(1.0, b->Pwidth / 2.0));
+		b->Segments.clear();
+		b->PoLine.resize(0);
 		b->Clip.setPoints(4, -ph,-ph, static_cast<int>(b->Width+ph),-ph, static_cast<int>(b->Width+ph),static_cast<int>(b->Height+ph), -ph,static_cast<int>(b->Height+ph));
 		}
 	if (b->PType == 1)
@@ -6147,14 +6167,38 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 		}
 	if ((b->PType != 4) && (b->PType != 8))
 		b->IFont = doku->Dfont;
-	if (b->GrType != 0)
-		UpdateGradient(b);
+	if (Buffer->GrType != 0)
+		{
+		b->fill_gradient.clearStops();
+		if (Buffer->GrType == 5)
+			{
+			if ((Buffer->GrColor != "None") && (Buffer->GrColor != ""))
+				b->SetFarbe(&tmp, Buffer->GrColor, Buffer->GrShade);
+			b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
+			if ((Buffer->GrColor2 != "None") && (Buffer->GrColor2 != ""))
+				b->SetFarbe(&tmp, Buffer->GrColor2, Buffer->GrShade2);
+			b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
+			}
+		else
+			{
+			if ((Buffer->GrColor2 != "None") && (Buffer->GrColor2 != ""))
+				b->SetFarbe(&tmp, Buffer->GrColor2, Buffer->GrShade2);
+			b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
+			if ((Buffer->GrColor != "None") && (Buffer->GrColor != ""))
+				b->SetFarbe(&tmp, Buffer->GrColor, Buffer->GrShade);
+			b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
+			}
+		b->GrColor2 = Buffer->GrColor2;
+		b->GrShade2 = Buffer->GrShade2;
+		b->GrColor = Buffer->GrColor;
+		b->GrShade = Buffer->GrShade;
+		b->GrType = Buffer->GrType;
+		}
 	if (!loading)
 		{	
 		b->Select = true;
 		b->Dirty = true;
 		SelItem.append(b);
-		b->paintObj();
 		emit HaveSel(b->PType);
 		EmitValues(b);
 		emit DocChanged();
@@ -6163,7 +6207,6 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	if ((b->PType == 4) && (loading))
 		{
 		b->Dirty = true;
-//		b->paintObj();
 		}
 	if ((b->isBookmark) && (!loading))
 		emit NewBMNr(b->BMnr, z);
@@ -6199,18 +6242,15 @@ void Page::EmitValues(PageItem *b)
 	emit SetLocalValues(b->LocalScX, b->LocalScY, b->LocalX, b->LocalY );
 	emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
 	emit ItemGradient(b->GrColor2, b->GrColor, b->GrShade2, b->GrShade, b->GrType);
-	emit ItemTrans(b->Transparency);
+	emit ItemTrans(b->Transparency, b->TranspStroke);
 	emit ItemTextAttr(b->LineSp);
-	emit ItemTextFont(b->IFont);
-	emit ItemTextSize(b->ISize);
 	emit ItemTextUSval(b->ExtraV);
-	if (doku->AppMode == 7)
+	if (doku->AppMode != 7)
 		{
-		if ((b->Ptext.count() != 0) && (b->CPos != static_cast<int>(b->Ptext.count())))
-			emit ItemTextAbs(b->Ptext.at(b->CPos)->cab);
-		}
-	else
 		emit ItemTextAbs(b->Ausrich);
+		emit ItemTextFont(b->IFont);
+		emit ItemTextSize(b->ISize);
+		}
 }
 
 void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, float xdisp, float ydisp, int xart, int yart)
@@ -6439,11 +6479,9 @@ int Page::PaintEllipse(float x, float y, float b, float h, float w, QString fill
 	ite->Shade = doku->Dshade;
 	ite->Shade2 = doku->Dshade2;
 	ite->ItemNr = Items.count()-1;
+	SetOvalFrame(ite);
 	if (!doku->loading)
-		{
-		SetOvalFrame(ite);
 		ite->paintObj();
-		}
 	return ite->ItemNr;
 }
 
@@ -6460,11 +6498,9 @@ int Page::PaintPict(float x, float y, float b, float h)
 	ite->IProfile = doku->CMSSettings.DefaultInputProfile;
 	ite->IRender = doku->CMSSettings.DefaultIntentMonitor2;
 	ite->ItemNr = Items.count()-1;
+	SetRectFrame(ite);
 	if (!doku->loading)
-		{
-		SetRectFrame(ite);
 		ite->paintObj();
-		}
 	return ite->ItemNr;
 }
 
@@ -6477,11 +6513,9 @@ int Page::PaintRect(float x, float y, float b, float h, float w, QString fill, Q
 	ite->Shade = doku->Dshade;
 	ite->Shade2 = doku->Dshade2;
 	ite->ItemNr = Items.count()-1;
+	SetRectFrame(ite);
 	if (!doku->loading)
-		{
-		SetRectFrame(ite);
 		ite->paintObj();
-		}
 	return ite->ItemNr;
 }
 
@@ -6523,11 +6557,9 @@ int Page::PaintText(float x, float y, float b, float h, float w, QString outline
 	PageItem* ite = new PageItem(this, 4, x, y, b, h, w, "None", outline, doku);
 	Items.append(ite);
 	ite->ItemNr = Items.count()-1;
+	SetRectFrame(ite);
 	if (!doku->loading)
-		{
-		SetRectFrame(ite);
 		ite->paintObj();
-		}
 	return ite->ItemNr;
 }
 

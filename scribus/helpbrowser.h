@@ -10,11 +10,12 @@
 #define HELPBROWSER_H
 
 #include <qdialog.h>
-class QVBoxLayout; 
-class QHBoxLayout; 
-class QGridLayout; 
-class QTextBrowser;
-class QToolButton;
+#include <qpushbutton.h>
+#include <qtextbrowser.h>
+#include <qtoolbutton.h>
+#include <qlayout.h>
+#include <qpopupmenu.h>
+#include <qmap.h>
 
 class HelpBrowser : public QWidget
 { 
@@ -28,6 +29,12 @@ public:
     QToolButton* BackB;
     QToolButton* ForwB;
     QTextBrowser* Anzeige;
+		QPopupMenu* hist;
+    QMap<int, QString> mHistory;
+
+public slots:
+		void sourceChanged(const QString& url);
+		void histChosen(int i);
 
 protected:
     QVBoxLayout* HelpBrowserLayout;

@@ -20,7 +20,7 @@ class DocInfos : public QDialog
 {
 
 public:
-    DocInfos( QWidget* parent, QString Autor, QString Titel, QString Des );
+    DocInfos( QWidget* parent, QString Autor, QString Titel, QString Des, QString keyW );
     ~DocInfos() {};
 
     QLabel* TextLabel3;
@@ -29,6 +29,8 @@ public:
     QLineEdit* TitelInfo;
     QMultiLineEdit* MultiLineEdit1;
     QLabel* TextLabel2;
+    QLabel* TextLabel3a;
+    QMultiLineEdit* MultiLineEdit2;
     QPushButton* Cancel;
     QPushButton* OK;
 protected:

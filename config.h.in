@@ -21,6 +21,9 @@
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
+/* Defines if your system has the libart library */
+#undef HAVE_LIBART
+
 /* Define if you have libjpeg */
 #undef HAVE_LIBJPEG
 

@@ -89,9 +89,9 @@ void Tree::BuildTree(ScribusView *view)
   			{
   			Elemente.append(new QListViewItem(Seiten.current(), "Items"));
   			Elemente.current()->setText(0, tr("Item")+" "+cc.setNum(b+1));
-  			xp = "X: "+cc.setNum(view->Pages.at(a)->Items.at(b)->Xpos);
-  			yp = "Y: "+cc.setNum(view->Pages.at(a)->Items.at(b)->Ypos);
-  			fon = "Font: "+view->Pages.at(a)->Items.at(b)->IFont;
+  			xp = tr("X:")+" "+cc.setNum(view->Pages.at(a)->Items.at(b)->Xpos);
+  			yp = tr("Y:")+" "+cc.setNum(view->Pages.at(a)->Items.at(b)->Ypos);
+  			fon = tr("Font:")+" "+view->Pages.at(a)->Items.at(b)->IFont;
   			switch (view->Pages.at(a)->Items.at(b)->PType)
   				{
   				case 1:

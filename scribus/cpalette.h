@@ -82,7 +82,7 @@ public slots:
 	void setActGradient(QString p, QString b, int shp, int shb, int typ);
 	int SetMen(int c);
 	void setActShade(int);
-	void setActTrans(float);
+	void setActTrans(float, float);
 	void slotTrans(int val);
 	void UseTrans(bool b);
 	
@@ -93,6 +93,7 @@ signals:
 	void NewBrushShade(int);
 	void NewGradient(int, QString, int, QString, int);
 	void NewTrans(float);
+	void NewTransS(float);
 	void QueryItem();
 	
 protected:

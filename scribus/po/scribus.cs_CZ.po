@@ -4,6 +4,8 @@
 # translation of scribus.cs_CZ.po to
 # translation of scribus.cs_CZ.po to
 # translation of scribus.cs_CZ.po to
+# translation of scribus.cs_CZ.po to
+# translation of scribus.cs_CZ.po to
 # This is a Qt message file in .po format.  Each msgid starts with
 # a scope.  This scope should *NOT* be translated - eg. "Foo::Bar"
 # would be translated to "Pub", not "Foo::Pub".
@@ -12,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.cs_CZ\n"
 "POT-Creation-Date: 2003-06-19 10:00+0200\n"
-"PO-Revision-Date: 2003-07-04 13:21+0200\n"
+"PO-Revision-Date: 2003-07-20 19:54+0200\n"
 "Last-Translator: Petr Vanìk <subzero@py.cz>\n"
 "Language-Team:  <cs@li.org>\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
@@ -116,7 +118,7 @@ msgid "Help"
 msgstr "Nápovìda"
 
 msgid "About Scribus"
-msgstr "O Scibusu"
+msgstr "O Scribusu"
 
 msgid "About Qt"
 msgstr "O Qt"
@@ -182,7 +184,7 @@ msgid "Other"
 msgstr "Jiné"
 
 msgid "Facing Pages"
-msgstr "Dvoustrany"
+msgstr "Protilehlé stránky (Dvoustrany)"
 
 msgid "OK"
 msgstr "OK"
@@ -200,7 +202,7 @@ msgid "Tabloid"
 msgstr "Tabloid"
 
 msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
-msgstr "Dokumenty (*.scd *scd.gz *.scd *scd.gz);; V¹echny soubory (*)"
+msgstr "Dokumenty (*.sla *sla.gz *.scd *scd.gz);; V¹echny soubory (*)"
 
 msgid "Documents (*.sla *.scd);; All Files (*)"
 msgstr "Dokumenty (*.sla *scd);; V¹echny soubory (*)"
@@ -374,16 +376,16 @@ msgid "Type"
 msgstr "Typ"
 
 msgid "Send to Back"
-msgstr "Dát dozadu"
+msgstr "Dát zcela dospodu"
 
 msgid "Bring to Front"
-msgstr "Dát dopøedu"
+msgstr "Dát zcela navrch"
 
 msgid "Lower"
-msgstr "Dozadu"
+msgstr "Dát o vrstvu ní¾"
 
 msgid "Raise"
-msgstr "Dopøedu"
+msgstr "Dát o vrstvu vý¹"
 
 msgid "Delete Page:"
 msgstr "Smazat stranu:"
@@ -524,16 +526,16 @@ msgid "Guides"
 msgstr "Vodítka"
 
 msgid "Major Grid Spacing:"
-msgstr "Hlavní vzdálenost møí¾ky:"
+msgstr "Mezery hlavní møí¾ky:"
 
 msgid "Minor Grid Spacing:"
-msgstr "Vedlej¹í vzdálenost møí¾ky:"
+msgstr "Mezery vedlej¹í møí¾ky:"
 
 msgid "Major Grid Color:"
-msgstr "Hlavní barva møí¾ky:"
+msgstr "Barva hlavní møí¾ky:"
 
 msgid "Minor Grid Color:"
-msgstr "Vedlej¹í barva møí¾ky:"
+msgstr "Barva vedlej¹í møí¾ky:"
 
 msgid "Grid Colors"
 msgstr "Barvy møí¾ky"
@@ -626,7 +628,7 @@ msgid " loaded"
 msgstr " naèteno"
 
 msgid "Picture "
-msgstr "Obrázek"
+msgstr "Obrázek "
 
 msgid "File "
 msgstr "Soubor "
@@ -677,7 +679,7 @@ msgid "Displacement"
 msgstr "Posunutí"
 
 msgid "Distribute evenly"
-msgstr "Umístit stejnì"
+msgstr "Umístit rovnomìrnì"
 
 msgid "between:"
 msgstr "mezi:"
@@ -1377,25 +1379,25 @@ msgid "Printer:"
 msgstr "Tiskárna:"
 
 msgid "Rendering Intents"
-msgstr "Úèel generování"
+msgstr "Úèel reprodukce (rendering)"
 
 msgid "Rendering Intent:"
-msgstr "Úèel generování:"
+msgstr "Úèel reprodukce:"
 
 msgid "Perceptual"
-msgstr "Vnímatelný (Perceptual)"
+msgstr "Perceptuální (fotografická) transformace"
 
 msgid "Relative Colorimetric"
-msgstr "Relative Colorimetric"
+msgstr "Relativní kolorimetrická transformace"
 
 msgid "Saturation"
 msgstr "Sytost"
 
 msgid "Absolute Colorimetric"
-msgstr "Absolute Colorimetric"
+msgstr "Absolutní kolorimetrická transformace"
 
 msgid "Simulate Printer on the Screen"
-msgstr "Simulace tiskárny na obrazovce"
+msgstr "Simulace tisku na obrazovce"
 
 msgid "Color Management..."
 msgstr "Správa barev..."
@@ -1443,7 +1445,7 @@ msgid "Compression"
 msgstr "Komprese"
 
 msgid "Downsample Images to:"
-msgstr "Sní¾ení kvality obrázkù na:"
+msgstr "Pøevzorkovat obrázky na:"
 
 msgid "Compress Text and Vector Graphics"
 msgstr "Komprimovat text a vektorovou grafiku"
@@ -1971,10 +1973,10 @@ msgid "Event:"
 msgstr "Událost:"
 
 msgid "Mouse Up"
-msgstr "Stisk tlaèítka my¹i"
+msgstr "Uvolnìní my¹i"
 
 msgid "Mouse Down"
-msgstr "Uvolnìní tlaèítka my¹i"
+msgstr "Stisk tlaèítka my¹i"
 
 msgid "Mouse Enter"
 msgstr "Najetí my¹i"
@@ -2136,7 +2138,7 @@ msgid "Submit Data as HTML"
 msgstr "Odeslat údaje jako HTML"
 
 msgid "Layout:"
-msgstr "Rozlo¾ení:"
+msgstr "Návrh úpravy sazby:"
 
 msgid "Caption only"
 msgstr "Jen popisky"
@@ -2521,7 +2523,7 @@ msgid "Use PDF-1.4 Transparency Features"
 msgstr "Pou¾ít vlastnosti prùsvitnosti PDF-1.4"
 
 msgid "Opacity:"
-msgstr "Krytí:"
+msgstr "Neprùsvitnost:"
 
 msgid "Font Name"
 msgstr "Název písma"
@@ -2581,10 +2583,10 @@ msgid "N-Up Printing"
 msgstr "N-Up tisk"
 
 msgid "Page per Sheet"
-msgstr "Strana na list"
+msgstr "Strana na arch"
 
 msgid "Pages per Sheet"
-msgstr "Stránek na list"
+msgstr "Stran na arch"
 
 msgid "Even Pages only"
 msgstr "Pouze sudé strany"

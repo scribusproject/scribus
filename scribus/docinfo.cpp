@@ -18,7 +18,7 @@ extern QPixmap loadIcon(QString nam);
  *  The dialog will by default be modeless, unless you set 'modal' to
  *  TRUE to construct a modal dialog.
  */
-DocInfos::DocInfos( QWidget* parent, QString Autor, QString Titel, QString Des )
+DocInfos::DocInfos( QWidget* parent, QString Autor, QString Titel, QString Des, QString keyW )
     : QDialog( parent, "i", true, 0 )
 {
     setMaximumSize( QSize( 32767, 32767 ) );
@@ -52,9 +52,18 @@ DocInfos::DocInfos( QWidget* parent, QString Autor, QString Titel, QString Des )
     TextLabel3->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
     Layout1->addWidget( TextLabel3, 2, 0 );
     MultiLineEdit1 = new QMultiLineEdit( this, "MultiLineEdit1" );
-    MultiLineEdit1->setMinimumSize(QSize(200, 210));
+    MultiLineEdit1->setMinimumSize(QSize(200, 105));
     MultiLineEdit1->setText(Des);
     Layout1->addWidget( MultiLineEdit1, 2, 1 );
+    TextLabel3a = new QLabel( this, "TextLabel3" );
+    TextLabel3a->setMinimumSize(QSize(80, 20));
+    TextLabel3a->setText( tr( "Keywords:" ) );
+    TextLabel3a->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
+    Layout1->addWidget( TextLabel3a, 3, 0 );
+    MultiLineEdit2 = new QMultiLineEdit( this, "MultiLineEdit1" );
+    MultiLineEdit2->setMinimumSize(QSize(200, 105));
+    MultiLineEdit2->setText(keyW);
+    Layout1->addWidget( MultiLineEdit2, 3, 1 );
     DocInfosLayout->addLayout( Layout1 );
     Layout3 = new QHBoxLayout;
     Layout3->setSpacing( 6 );

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "POT-Creation-Date: 2003-06-19 10:00+0200\n"
-"PO-Revision-Date: 2003-08-25 19:22+0400\n"
+"PO-Revision-Date: 2003-08-07 19:16+0400\n"
 "Last-Translator: Alexandre Prokoudine <avp@altlinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -82,19 +82,19 @@ msgid "Show Tools"
 msgstr "Показать инструменты"
 
 msgid "Hide Tools"
-msgstr "Спрятать инструменты"
+msgstr "Скрыть инструменты"
 
 msgid "Hide Margins"
-msgstr "Спрятать поля"
+msgstr "Скрыть поля"
 
 msgid "Show Margins"
 msgstr "Показать поля"
 
 msgid "Hide Guides"
-msgstr "Спрятать направляющие"
+msgstr "Скрыть направляющие"
 
 msgid "Hide Images"
-msgstr "Спрятать изображения"
+msgstr "Скрыть изображения"
 
 msgid "Show Images"
 msgstr "Показать изображения"
@@ -103,10 +103,10 @@ msgid "Show Guides"
 msgstr "Показать направляющие"
 
 msgid "Show Measurements"
-msgstr "Показать измерения"
+msgstr "Показать панель единиц измерения"
 
 msgid "Hide Measurements"
-msgstr "Спрятать измерения"
+msgstr "Скрыть панель единиц измерения"
 
 msgid "Help"
 msgstr "Помощь"
@@ -148,7 +148,7 @@ msgid "Columns:"
 msgstr "Столбцы:"
 
 msgid "Gutter Width:"
-msgstr ""
+msgstr "Ширина канавки:"
 
 msgid "Width:"
 msgstr "Ширина:"
@@ -226,7 +226,7 @@ msgid ");;Vectorimages (*.eps *.pdf);;All Files (*)"
 msgstr ");;Векторные изображения (*.eps *.pdf);;Все файлы (*)"
 
 msgid "Look &in:"
-msgstr ""
+msgstr "Смотреть &в:"
 
 msgid "File &type:"
 msgstr "&Тип файла:"
@@ -283,7 +283,7 @@ msgid "Other..."
 msgstr "Другое..."
 
 msgid "Item"
-msgstr "Предмет"
+msgstr "Объект"
 
 msgid "Page"
 msgstr "Страница"
@@ -349,7 +349,7 @@ msgid "Show Outline"
 msgstr "Показать контур"
 
 msgid "Hide Outline"
-msgstr "Спрятать контур"
+msgstr "Скрыть контур"
 
 msgid "Outline"
 msgstr "Контур"
@@ -370,16 +370,16 @@ msgid "Type"
 msgstr "Тип"
 
 msgid "Send to Back"
-msgstr "Переместить вниз"
+msgstr "Поместить в самый низ"
 
 msgid "Bring to Front"
-msgstr "Переместить наверх"
+msgstr "Поместить на самый верх"
 
 msgid "Lower"
-msgstr "Ниже"
+msgstr "Поместить ниже"
 
 msgid "Raise"
-msgstr "Выше"
+msgstr "Поместить выше"
 
 msgid "Delete Page:"
 msgstr "Удалить страницу:"
@@ -430,7 +430,7 @@ msgid "Portrait"
 msgstr "Портрет"
 
 msgid "Landscape"
-msgstr "Ландшафт"
+msgstr "Альбом"
 
 msgid "Options"
 msgstr "Параметры"
@@ -442,10 +442,10 @@ msgid "Print range"
 msgstr "Напечатать в диапазоне"
 
 msgid "From page:"
-msgstr "От стр.:"
+msgstr "От страницы:"
 
 msgid "To page:"
-msgstr "До стр.:"
+msgstr "До страницы:"
 
 msgid "Print first page first"
 msgstr "Печатать первую страницу первой"
@@ -556,7 +556,7 @@ msgid "Mouse-Settings"
 msgstr "Настройки мыши"
 
 msgid "Wheel-Jump"
-msgstr "Перемещение ролика мыши"
+msgstr ""
 
 msgid "Grab-Radius"
 msgstr "Радиус захвата"
@@ -658,7 +658,7 @@ msgid "Vertical Shift:"
 msgstr "Смещение по вертикали:"
 
 msgid "Distribute/Align"
-msgstr "Распределить/Выровнять"
+msgstr "Распределять/Выравнивать"
 
 msgid "Distribute/Align..."
 msgstr "Распределять/Выравнивать..."
@@ -679,19 +679,19 @@ msgid "between:"
 msgstr "между:"
 
 msgid "Left Sides"
-msgstr "левыми сторонами"
+msgstr "Левые стороны"
 
 msgid "Middles"
-msgstr "серединой"
+msgstr "Середина"
 
 msgid "Right Sides"
-msgstr "правыми сторонами"
+msgstr "Правые стороны"
 
 msgid "Top Sides"
-msgstr "верхними сторонами"
+msgstr "Верхние стороны"
 
 msgid "Bottom Sides"
-msgstr "нижними сторонами"
+msgstr "Нижние стороны"
 
 msgid "Vertical"
 msgstr "Вертикально"
@@ -805,7 +805,7 @@ msgid "Textdistance"
 msgstr "Расстояние до текста"
 
 msgid "Face"
-msgstr ""
+msgstr "Тип"
 
 msgid "Superscript"
 msgstr "Верхний индекс"
@@ -820,10 +820,10 @@ msgid "Flip vertical"
 msgstr "Перевернуть по вертикали"
 
 msgid "Scaling:"
-msgstr "Масштаб:"
+msgstr "Масштабирование:"
 
 msgid "Disp.:"
-msgstr "Положение:"
+msgstr ""
 
 msgid "Small Caps"
 msgstr "Капитель"
@@ -874,10 +874,10 @@ msgid "Scribus Manual"
 msgstr "Руководство по Scribus"
 
 msgid "Local X-Pos:"
-msgstr ""
+msgstr "Местн. X-Поз."
 
 msgid "Local Y-Pos:"
-msgstr ""
+msgstr "Местн. Y-Поз."
 
 msgid "Horizontal Scaling"
 msgstr "Горизонт. масштабирование"
@@ -928,7 +928,7 @@ msgid "Break Textchains"
 msgstr "Разбить текстовую цепь"
 
 msgid "Stepping:"
-msgstr "Каждый шаг:"
+msgstr "Пошагово:"
 
 msgid "Placing"
 msgstr "Расположение"
@@ -1027,7 +1027,7 @@ msgid "Print Normal"
 msgstr "Напечатать обычным способом"
 
 msgid "Print Separations"
-msgstr "Напечатать разделения"
+msgstr "Напечатать цветоделения"
 
 msgid "All"
 msgstr "Все"
@@ -1075,7 +1075,7 @@ msgid "Show Styles"
 msgstr "Показать стили"
 
 msgid "Hide Styles"
-msgstr "Спрятать стили"
+msgstr "Скрыть стили"
 
 msgid "Styles..."
 msgstr "Стили..."
@@ -1114,7 +1114,7 @@ msgid "Face:"
 msgstr "Вид:"
 
 msgid "Size:"
-msgstr "Размер:"
+msgstr "Кегль:"
 
 msgid "Color:"
 msgstr "Цвет:"
@@ -1159,13 +1159,13 @@ msgid "Move Nodes"
 msgstr "Переместить узлы"
 
 msgid "Move Control Points"
-msgstr "Переместить узлы"
+msgstr "Переместить контрольные точки"
 
 msgid "Move Control Points independently"
-msgstr "Переместить узлы независимо"
+msgstr "Переместить контрольные точки независимо"
 
 msgid "Move Control Points symmetrical"
-msgstr "Переместить узлы симметрично"
+msgstr "Переместить контрольные точки симметрично"
 
 msgid "Insert Bezier Curves"
 msgstr "Вставить кривую Безье"
@@ -1189,7 +1189,7 @@ msgid "Show Scrapbook"
 msgstr "Показать запасник"
 
 msgid "Hide Scrapbook"
-msgstr "Спрятать запасник"
+msgstr "Скрыть запасник"
 
 msgid "Other Options"
 msgstr "Другие параметры"
@@ -1228,7 +1228,7 @@ msgid "New Template"
 msgstr "Новый шаблон"
 
 msgid "Normal"
-msgstr "Обычный"
+msgstr "Фон без градиента"
 
 msgid "Templates..."
 msgstr "Шаблоны..."
@@ -1258,7 +1258,7 @@ msgid "Display Pages Side by Side"
 msgstr "Показать страницы по сторонам"
 
 msgid "Display"
-msgstr "Показать"
+msgstr "Отображение"
 
 msgid "Left Page first"
 msgstr "Сначала левая страница"
@@ -1280,7 +1280,7 @@ msgid "Show Frames"
 msgstr "Показать рамки"
 
 msgid "Hide Frames"
-msgstr "Спрятать рамки"
+msgstr "Скрыть рамки"
 
 msgid "Template (Left Page):"
 msgstr "Шаблон (левая страница):"
@@ -1322,7 +1322,7 @@ msgid "Display unprintable Area in Margin Color"
 msgstr "Показать непечатаемую область цветом полей"
 
 msgid "Automatic Linespaceing:"
-msgstr "Автоматический интерлиньяж:"
+msgstr "Автоматический интерлиньяж"
 
 msgid "Distances"
 msgstr "Расстояния"
@@ -1457,10 +1457,10 @@ msgid "Create PDF-File"
 msgstr "Создавать PDF-файл"
 
 msgid "X-Pos:"
-msgstr "X-Поз:"
+msgstr "Позиция по X:"
 
 msgid "Y-Pos:"
-msgstr "Y-Поз:"
+msgstr "Позиция по Y:"
 
 msgid "Page:"
 msgstr "Стр.:"
@@ -1541,7 +1541,7 @@ msgid "Enable Presentation Effects"
 msgstr "Разрешить презентационные эффекты"
 
 msgid "Show Page Previews"
-msgstr "Предпоказ страницы"
+msgstr "Просмотр страниц"
 
 msgid "Display Duration:"
 msgstr "Продолжительность отображения:"
@@ -1556,7 +1556,7 @@ msgid "Moving Lines:"
 msgstr "Движущиеся линии:"
 
 msgid "from the:"
-msgstr "откуда:"
+msgstr "Откуда:"
 
 msgid "Direction:"
 msgstr "Направление:"
@@ -1625,7 +1625,7 @@ msgid "Align Text Block"
 msgstr "Выровнять текст блочно"
 
 msgid "Endings:"
-msgstr "Окончания:"
+msgstr "Окончание:"
 
 msgid "Edges:"
 msgstr "Края:"
@@ -1742,7 +1742,7 @@ msgid "Convert to"
 msgstr "Преобразовать в"
 
 msgid "Text Frame"
-msgstr "Текстовую рамку"
+msgstr "текстовую рамку"
 
 msgid "Picture Frame"
 msgstr "Рамку с изображением"
@@ -1751,13 +1751,13 @@ msgid "Polygon"
 msgstr "Многоугольник"
 
 msgid "Bezier Curve"
-msgstr "Кривую Безье"
+msgstr "кривую Безье"
 
 msgid "Style"
 msgstr "Стиль"
 
 msgid "Modify Pathtext"
-msgstr "Изменить текст контура"
+msgstr "Изменить текст пути"
 
 msgid "Show Curve"
 msgstr "Показать кривую"
@@ -1769,7 +1769,7 @@ msgid "Distance from Curve:"
 msgstr "Расстояние от кривой:"
 
 msgid "Attach Text to Path"
-msgstr "Присоединить текст к контуру"
+msgstr "Присоединить текст к пути"
 
 msgid "Layers"
 msgstr "Слои"
@@ -1796,10 +1796,10 @@ msgid "Background"
 msgstr "Задний план"
 
 msgid "Reset Control Points"
-msgstr "Перечитать узлы"
+msgstr "Перечитать контрольные точки"
 
 msgid "Reset this Control Points"
-msgstr "Перечитывает эти узлы"
+msgstr "Перечитывает эти контрольные точки"
 
 msgid "Opens a Polygon or cuts a Bezier Curve"
 msgstr "Открывает многоугольник или вырезает кривую Безье"
@@ -1808,13 +1808,13 @@ msgid "Closes this Bezier Curve"
 msgstr "Закрывает эту кривую Безье"
 
 msgid "Show Layers"
-msgstr "Показать Слои"
+msgstr "Показать слои"
 
 msgid "Hide Layers"
-msgstr "Скрыть Слои"
+msgstr "Скрыть слои"
 
 msgid "Sent to Layer"
-msgstr "Послать в Слои"
+msgstr "Послать в слои"
 
 msgid "Link"
 msgstr "Ссылка"
@@ -1886,7 +1886,7 @@ msgid "Text for Roll Over"
 msgstr "Текст для Roll Over"
 
 msgid "Highlight"
-msgstr "Подсветить"
+msgstr "Подсветка"
 
 msgid "Invert"
 msgstr "Инвертировать"
@@ -2048,7 +2048,7 @@ msgid "List Box"
 msgstr "Список (list box)"
 
 msgid "Keystroke:"
-msgstr "Нажатие клавиши:"
+msgstr "Нажатие клавишы:"
 
 msgid "Format"
 msgstr "Формат"
@@ -2156,7 +2156,7 @@ msgid "Caption overlays Icon"
 msgstr "Заголовок поверх пиктограммы"
 
 msgid "Scale:"
-msgstr "Масштаб:"
+msgstr "Масштабировать:"
 
 msgid "Always"
 msgstr "Всегда"
@@ -2183,7 +2183,7 @@ msgid "Reset"
 msgstr "Перечитать"
 
 msgid "You need at least the Icon for Normal to use Icons for Buttons"
-msgstr "Вам необходима хотя бы одна пиктограмма для Normal, чтобы использовать пиктограммы на кнопках"
+msgstr "Вам нужна хотя бы одна пиктограмма для Normal, чтобы использовать пиктограммы"
 
 msgid "Save and Exit"
 msgstr "Сохранить и выйти"
@@ -2207,7 +2207,7 @@ msgid "All Pages"
 msgstr "Все страницы"
 
 msgid "From:"
-msgstr "Из:"
+msgstr "От:"
 
 msgid "Insert PDF-Fields"
 msgstr "Вставить PDF-Поля"
@@ -2282,13 +2282,15 @@ msgid "Document Pages:"
 msgstr "Страницы документа:"
 
 msgid "Hide Page Palette"
-msgstr "Спрятать палитру страниц"
+msgstr "Скрыть палитру страниц"
 
 msgid "Show Page Palette"
 msgstr "Показать палитру страниц"
 
 msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
-msgstr "Перетащите страницы или шаблоны на пиктограмму с корзиной для их удаления."
+msgstr ""
+"Для удаления перетащите страницы или шаблоны \n"
+"на эту пиктограмму с корзиной."
 
 msgid ""
 "Here are all your Templates, to create a new Page\n"
@@ -2364,8 +2366,8 @@ msgid ""
 "If you uncheck this you will get an Dialog\n"
 "everytime a possible Hyphenation is found."
 msgstr ""
-"Если вы снимете флажок, то диалог будет\n"
-"появляться при каждой возможности переноса."
+"При отключении это параметра при каждом \n"
+"найденном переносе будет выскакивать диалог."
 
 msgid "Windows"
 msgstr "Окна"
@@ -2439,7 +2441,7 @@ msgid ""
 "Moves to your Document Directory.\n"
 "This can be set in the Preferences."
 msgstr ""
-"Перемещает в каталог с документами.\n"
+"Перемещается в каталог документа.\n"
 "Это можно настроить."
 
 msgid "Choose a Directory"
@@ -2467,13 +2469,13 @@ msgid "Preview File Contents"
 msgstr "Просмотр содержимого файла"
 
 msgid "Hide Grid"
-msgstr "Спрятать сетку"
+msgstr "Скрыть сетку"
 
 msgid "Show Grid"
 msgstr "Показать сетку"
 
 msgid "Manage Guides..."
-msgstr "Настроить управляющие..."
+msgstr "Настроить направляющие..."
 
 msgid "Manage Guides"
 msgstr "Настроить управляющие"
@@ -2572,7 +2574,7 @@ msgid "Mirror"
 msgstr "Зеркалирование"
 
 msgid "N-Up Printing"
-msgstr ""
+msgstr "Страниц на лист"
 
 msgid "Page per Sheet"
 msgstr "страница на лист"
@@ -2587,7 +2589,7 @@ msgid "Odd Pages only"
 msgstr "Только нечётные страницы"
 
 msgid "PDF/X-3 Output Intent"
-msgstr ""
+msgstr "Цель вывода PDF/X-3"
 
 msgid "Info String:"
 msgstr "Инфострока:"
@@ -2647,7 +2649,7 @@ msgid "Show Bookmarks"
 msgstr "Показать закладки"
 
 msgid "Hide Bookmarks"
-msgstr "Спрятать закладки"
+msgstr "Скрыть закладки"
 
 msgid "Collect for Output..."
 msgstr "Собрать для вывода..."
@@ -2687,7 +2689,7 @@ msgid "Distance of Text"
 msgstr "Расстояние до текста"
 
 msgid "Custom Spacing"
-msgstr ""
+msgstr "Назначаемое расстояние"
 
 msgid "Character:"
 msgstr "Символ:"
@@ -2705,7 +2707,7 @@ msgid "Document:"
 msgstr "Документ:"
 
 msgid "has been changed since the last save."
-msgstr "изменился с последнего сохранения."
+msgstr "изменился с момента последнего сохранения."
 
 msgid "Insert Page..."
 msgstr "Вставить страницу..."
@@ -2729,7 +2731,7 @@ msgid "Document contains: %1 Page(s)"
 msgstr "Страниц в документе: %1"
 
 msgid "Advanced Options..."
-msgstr "Расширенные параметры..."
+msgstr "Дополнительные параметры..."
 
 msgid "Advanced Options"
 msgstr "Расширенные параметры"
@@ -2746,38 +2748,38 @@ msgstr "Перемасштабировать до размера рамки"
 msgid "Combine Polygons"
 msgstr "Объединить многоугольники"
 
-msgid "Split Polygon"
+msgid "Split Polygons"
 msgstr "Разделить многоугольник"
 
 msgid "Convert to Polygons"
 msgstr "Преобразовать в многоугольники"
 
 msgid "Websave RGB"
-msgstr "RGB для Web"
+msgstr "RGB для веба"
 
 msgid "Adjust Display Size"
-msgstr "Подстроить размер дисплея"
+msgstr "Подстрока масштаба отображения"
 
 msgid "To adjust the Display drag the Ruler below with the Slider."
-msgstr "Для подстройки отображения перетащите ползунок внизу линейки."
+msgstr "Для подстройки масштаба отображения перетащите ползунок в нужную сторону"
 
 msgid "Show PDF-Tools"
 msgstr "Показать PDF-инструменты"
 
 msgid "Hide PDF-Tools"
-msgstr "Спрятать PDF-инструменты"
+msgstr "Скрыть PDF-инструменты"
 
 msgid "Shears the Path horizotal to the right"
-msgstr "Срезает контур горизонтально вправо"
+msgstr ""
 
 msgid "Shears the Path horizotal to the left"
-msgstr "Срезает контур горизонтально влево"
+msgstr ""
 
 msgid "Shears the Path vertical up"
-msgstr "Срезает контур вертикально вверх"
+msgstr ""
 
 msgid "Shears the Path vertical down"
-msgstr "Срезает контур вертикально вниз"
+msgstr ""
 
 msgid "Line Styles..."
 msgstr "Стили линий..."
@@ -2825,7 +2827,7 @@ msgid "Enabled"
 msgstr "Разрешено"
 
 msgid "use Bounding Box"
-msgstr "использовать привязочную рамку"
+msgstr "использовать привязывающую рамку"
 
 msgid "Czech:"
 msgstr "На чешский:"
@@ -2852,49 +2854,19 @@ msgid "SVG-Images (*.svg);; All Files (*)"
 msgstr "Изображения в формате SVG (*.svg);;Все файлы (*)"
 
 msgid "Solid Line"
-msgstr "Целая линия"
+msgstr "Полная линия"
 
 msgid "Dashed Line"
-msgstr "Пунктирная линия"
+msgstr "Пунктир"
 
 msgid "Dotted Line"
-msgstr "Точка-точка-точка"
+msgstr "Точка-точка"
 
 msgid "Dash Dot Line"
 msgstr "Тире-точка"
 
 msgid "Dash Dot Dot Line"
 msgstr "Тире-точка-точка"
-
-msgid "Bulgarian:"
-msgstr "На болгарский:"
-
-msgid "Galician:"
-msgstr "На галлийский:"
-
-msgid "English:"
-msgstr "На английский:"
-
-msgid "Oval"
-msgstr "Овал"
-
-msgid "Czech"
-msgstr "Чешский"
-
-msgid "Hungarian"
-msgstr "Венгерский"
-
-msgid "Position:"
-msgstr "Позиция:"
-
-msgid "Intervall"
-msgstr "Интервал"
-
-msgid "Minimum:"
-msgstr "Минимум:"
-
-msgid "Maximum:"
-msgstr "Максимум:"
 
 #~ msgid "Hide Colors"
 #~ msgstr "Спрятать цвета"

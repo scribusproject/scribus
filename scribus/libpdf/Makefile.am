@@ -1,6 +1,6 @@
-libdir = $(prefix)/lib/scribus/libs
 AM_CPPFLAGS = -I$(top_builddir)/scribus
-lib_LTLIBRARIES = libpdf.la
+pluginsdir = $(prefix)/lib/scribus/libs
+plugins_LTLIBRARIES = libpdf.la
 
 INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
 

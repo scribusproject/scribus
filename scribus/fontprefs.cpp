@@ -29,11 +29,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
 		Table1 = new QTable( tab1, "Table1" );
 		Table1->setNumRows( flist.count() );
 		Table1->setMaximumSize(32000, 300);
-#ifdef HAVE_FREETYPE
-    Table1->setNumCols( 5 );
-#else
     Table1->setNumCols( 6 );
-#endif
 		SCFontsIterator it(flist);
     int a = 0;
     for ( ; it.current(); ++it)
@@ -58,17 +54,28 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
     	Table1->setCellWidget(a, 2, cp2);
 			QFileInfo fi = QFileInfo(it.current()->Datei);
 			QString ext = fi.extension(false).lower();
-			if ((ext == "pfa") || (ext == "pfb"))
-    		Table1->setText(a, 3, "PostScript");
+			QCheckBox *cp3 = new QCheckBox(this, "su");
+    	cp3->setText(tr("Yes"));
+			if (ext == "otf")
+				{
+    		cp3->setChecked(true); 			// Open Type Fonts are always Subsetted
+				cp3->setEnabled(false);
+				}
 			else
-	    	Table1->setText(a, 3, "TrueType");
-    	Table1->setText(a, 4, it.current()->Datei);
-#ifndef HAVE_FREETYPE
-    	if (it.current()->HasMetrics)
-    		Table1->setText(a, 5, tr("Yes"));
-    	else
-    		Table1->setText(a, 5, tr("No"));
-#endif
+    		cp3->setChecked(it.current()->Subset);
+    	cp3->setEraseColor(white);
+    	FlagsSub.append(cp3);
+    	Table1->setCellWidget(a, 3, cp3);
+			if ((ext == "pfa") || (ext == "pfb"))
+    		Table1->setText(a, 4, "PostScript");
+			else
+				{
+				if (ext == "ttf")
+	    		Table1->setText(a, 4, "TrueType");
+				if (ext == "otf")
+	    		Table1->setText(a, 4, "OpenType");
+				}
+    	Table1->setText(a, 5, it.current()->Datei);
     	a++;
     	}
 		UsedFonts.sort();
@@ -80,22 +87,21 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
     Header->setLabel(0, tr("Font Name"));
     Header->setLabel(1, tr("Use Font"));
     Header->setLabel(2, tr("Embed in:"));
-    Header->setLabel(3, tr("Type"));
-    Header->setLabel(4, tr("Path to Fontfile"));
-#ifndef HAVE_FREETYPE
-    Header->setLabel(5, tr("AFM-File available"));
-		Table1->setColumnWidth(5, Header->sectionSize(5));
-#endif
+    Header->setLabel(3, tr("Subset"));
+    Header->setLabel(4, tr("Type"));
+    Header->setLabel(5, tr("Path to Fontfile"));
     Table1->adjustColumn(0);
     Table1->adjustColumn(1);
     Table1->setColumnWidth(2, 110);
     Table1->adjustColumn(3);
     Table1->adjustColumn(4);
+    Table1->adjustColumn(5);
     Table1->sortColumn(0, 1, 1);
     Table1->setColumnMovingEnabled(false);
     Table1->setRowMovingEnabled(false);
 		Table1->setColumnReadOnly(1, true);
 		Table1->setColumnReadOnly(2, true);
+		Table1->setColumnReadOnly(3, true);
     Header->setMovingEnabled(false);
     tab1Layout->addWidget( Table1 );
     TabWidget->insertTab( tab1, tr( "Available Fonts" ) );
@@ -360,15 +366,16 @@ void FontPrefs::DelPath()
 
 void FontPrefs::RebuildDialog()
 {
-		Prefs->AvailFonts.FreeExtraFonts();
+//		Prefs->AvailFonts.FreeExtraFonts();
 		Prefs->AvailFonts.clear();
 		Prefs->AvailFonts.GetFonts(HomeP);
 		UsedFonts.clear();
 		FlagsUse.clear();
 		FlagsPS.clear();
+		FlagsSub.clear();
 		emit ReReadPrefs();
 		Table1->setNumRows( Prefs->AvailFonts.count() );
-    Table1->setNumCols( 5 );
+    Table1->setNumCols( 6 );
     Table1->setSorting(true);
 		SCFontsIterator it(Prefs->AvailFonts);
     int a = 0;
@@ -394,16 +401,28 @@ void FontPrefs::RebuildDialog()
     	Table1->setCellWidget(a, 2, cp2);
 			QFileInfo fi = QFileInfo(it.current()->Datei);
 			QString ext = fi.extension(false).lower();
-			if ((ext == "pfa") || (ext == "pfb"))
-    		Table1->setText(a, 3, "PostScript");
+			QCheckBox *cp3 = new QCheckBox(this, "su");
+    	cp3->setText(tr("Yes"));
+			if (ext == "otf")
+				{
+    		cp3->setChecked(true); 			// Open Type Fonts are always Subsetted
+				cp3->setEnabled(false);
+				}
 			else
-	    	Table1->setText(a, 3, "TrueType");
-#ifndef HAVE_FREETYPE
-    	if (it.current()->HasMetrics)
-    		Table1->setText(a, 4, tr("Yes"));
-    	else
-    		Table1->setText(a, 4, tr("No"));
-#endif
+    		cp3->setChecked(it.current()->Subset);
+    	cp3->setEraseColor(white);
+    	FlagsSub.append(cp3);
+    	Table1->setCellWidget(a, 3, cp3);
+			if ((ext == "pfa") || (ext == "pfb"))
+    		Table1->setText(a, 4, "PostScript");
+			else
+				{
+				if (ext == "ttf")
+	    		Table1->setText(a, 4, "TrueType");
+				if (ext == "otf")
+	    		Table1->setText(a, 4, "OpenType");
+				}
+    	Table1->setText(a, 5, it.current()->Datei);
     	a++;
     	}
 		Table1->sortColumn(0, true, true);

@@ -32,6 +32,19 @@ extern "C" QString Name();
   * 3 = the Plugins is a export Plugin, which appears in the Export Menue */
 extern "C" int Type();
 
+class Zoom : public QDialog
+{
+Q_OBJECT
+
+public:
+	Zoom( QWidget* parent, QPixmap pix);
+	~Zoom();
+	void paintEvent(QPaintEvent *);
+	QPixmap pixm;
+};
+
+class ChTable;
+
 class ZAuswahl : public QDialog
 {
     Q_OBJECT
@@ -39,7 +52,7 @@ class ZAuswahl : public QDialog
 public:
     ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *plug );
     ~ZAuswahl();
-    QTable* ZTabelle;
+    ChTable* ZTabelle;
     QLineEdit* Zeichen;
     QPushButton* Einf;
     QPushButton* Delete;
@@ -48,8 +61,6 @@ public:
     ScribusApp *ap;
     QValueList<uint> Zeich;
     int MaxCount;
-    int DevResX;
-    int DevResY;
 
 public slots:
     void NeuesZeichen(int r, int c);
@@ -59,5 +70,25 @@ public slots:
 protected:
     QVBoxLayout* ZAuswahlLayout;
     QHBoxLayout* Layout1;
+};
+
+class ChTable : public QTable
+{
+    Q_OBJECT
+
+public:
+    ChTable(ZAuswahl* parent, ScribusApp *pl);
+    ~ChTable() {};
+    bool Mpressed;
+		Zoom* dia;
+    ScribusApp *ap;
+		ZAuswahl* par;
+
+signals:
+		void SelectChar(int, int);
+
+protected:
+		virtual void contentsMouseReleaseEvent(QMouseEvent *m);
+		virtual void contentsMousePressEvent(QMouseEvent* e);
 };
 #endif // QUERY_H

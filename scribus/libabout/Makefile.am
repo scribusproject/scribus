@@ -1,5 +1,5 @@
-libdir = $(prefix)/lib/scribus/libs
-lib_LTLIBRARIES = libabout.la
+pluginsdir = $(prefix)/lib/scribus/libs
+plugins_LTLIBRARIES = libabout.la
 
 INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
 

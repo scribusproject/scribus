@@ -32,13 +32,7 @@ About::About( QWidget* parent )
     tabLayout1->addWidget( PixmapLabel1 );
     BuildID = new QLabel( tab, "BB" );
     BuildID->setAlignment(Qt::AlignCenter);
-    QString bu = "9. July 2003 ";
-#ifdef HAVE_FREETYPE
-		bu += "F";
-#else
-		bu += "*";
-#endif
-		bu += "-";
+    QString bu = "30. September 2003 ";
 #ifdef HAVE_CMS
 		bu += "C";
 #else
@@ -71,7 +65,7 @@ About::About( QWidget* parent )
                         "<tr><td><b>" + tr("Contributions from:") + "</b></td><td></td></tr>" +
                         "<tr><td>Christian Töpp</td><td>mr-ct@gmx.de</td></tr>" +
                         "<tr><td>Alastair Robinson</td><td>blackfive@fakenhamweb.co.uk</td></tr>" +
-                        "<tr><td>Paul Johnson</td><td>paulf.johnson@ukonline.co.uk</td></tr>" +
+                        "<tr><td>Paul Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
                         "<tr><td></td><td> </td></tr>" +
                         "<tr><td><b>" + tr("Documentation:") + "</b></td><td></td></tr>" +
                         "<tr><td>Peter Linnell</td><td>scribusdocs@atlantictechsolutions.com</td></tr>" +
@@ -98,6 +92,7 @@ About::About( QWidget* parent )
                         "<tr><td> </td><td> </td></tr>" +
                         "<tr><td><b>" + tr("Hungarian and Italian:") + "</b></td><td> </td></tr>" +
                         "<tr><td>Giovanni Biczó</td><td>gbiczo@freestart.hu</td></tr>" +
+                        "<tr><td>Bence Nagy</td><td>scribus@tipogral.hu</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
                         "<tr><td><b>" + tr("Ukrainian:") + "</b></td><td> </td></tr>" +
                         "<tr><td>Sergiy Kudryk</td><td>kudryk@yahoo.com</td></tr>" +
@@ -131,7 +126,11 @@ About::About( QWidget* parent )
                         "<tr><td>Johannes Wilm</td><td>j@indymedia.no</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
                         "<tr><td><b>" + tr("English:") + "</b></td><td></td></tr>" +
-                        "<tr><td>Paul F. Johnson</td><td>paulf.johnson@ukonline.co.uk</td></tr></table>");
+                        "<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
+                        "<tr><td><b>" + tr("Welsh:") + "</b></td><td></td></tr>" +
+                        "<tr><td>Kevin Donnelly</td><td>kevin@dotmon.com</td></tr>" +
+                        "<tr><td> </td><td> </td></tr>" +
+                        "</table>");
     TextView2->setTextFormat( QTextView::RichText );
     tabLayout_2->addWidget( TextView2 );
     TabWidget2->insertTab( tab_3, tr( "Translations" ) );

@@ -40,10 +40,8 @@
 	#include CMS_INC
 #endif
 
-#ifdef HAVE_FREETYPE
-	#include <ft2build.h>
-	#include FT_FREETYPE_H
-#endif
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 class PageItem;
 class Page;
@@ -55,13 +53,16 @@ struct Pti { QString ch;
 				     int csize;
 				     QString cfont;
 				     QString ccolor;
+						 QString cstroke;
 				     bool cselect;
 				     float cextra;
 				     int cshade;
+				     int cshade2;
 				     int cstyle;
 				     int cab;
 						 int PtransX;
 						 int PtransY;
+						 int cscale;
 						 float PRot;
 				    };
 
@@ -83,6 +84,12 @@ struct CLBuf { int PType;
 							 int GrShade;
 							 int GrShade2;
 							 int GrType;
+							 QString TxtStroke;
+							 QString TxtFill;
+							 int ShTxtStroke;
+							 int ShTxtFill;
+							 int TxtScale;
+							 int TxTStyle;
 							 float Rot;
 							 int PLineArt;
 							 int PLineJoin;
@@ -163,9 +170,11 @@ struct CLBuf { int PType;
 							 bool AspectRatio;
 							 bool Locked;
 							 float Transparency;
+							 float TranspStroke;
 							 bool Reverse;
 							 bool InvPict;
 							 QString NamedLStyle;
+							 QString Language;
 							};
 
   /** Seitenraender */
@@ -390,6 +399,7 @@ struct preV  { SCFonts AvailFonts;
 							 bool Automatic;
 							 bool AutoCheck;
 							 QString DocDir;
+							 QString ProfileDir;
 							 QMap<QString,QString> GFontSub;
 							 bool PDFTransparency;
 							 bool AutoSave;
@@ -457,6 +467,7 @@ public:
   QString DocAutor;
   QString DocTitel;
   QString DocComments;
+	QString DocKeyWords;
   int AppMode;
   QString Dpen;
   QString Dbrush;
@@ -484,6 +495,13 @@ public:
   int CurrentSel;
   int CurrentStyle;
   int CurrentABStil;
+	QString CurrFont;
+	int CurrFontSize;
+	QString CurrTextFill;
+	int CurrTextFillSh;
+	QString CurrTextStroke;
+	int CurrTextStrokeSh;
+	int CurrTextScale;
   bool EditClip;
   int EditClipMode;
   /** um wieviel Prozent wird hochgestellt */
@@ -563,10 +581,8 @@ public:
 	int RotMode;
 	bool AutoSave;
 	QTimer *ASaveTimer;
-#ifdef HAVE_FREETYPE
 	FT_Library   library;
   QMap<QString,FT_Face> FFonts;
-#endif
 	QMap<QString,multiLine> MLineStyles;
 	QWidget* WinHan;
 	bool DoDrawing;

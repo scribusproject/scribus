@@ -20,7 +20,7 @@
 
 Spalette::Spalette(QWidget* parent) : QListBox(parent, "Sfloat")
 {
-  setMinimumSize(QSize(10,80));
+  setMinimumSize(QSize(10,static_cast<int>(font().pointSize()*2.5)));
   setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
 	insertItem(tr("No Style"));
   doc = 0;

@@ -62,6 +62,9 @@ public:
     QLabel* PfadText;
 		QLineEdit* Docs;
 		QToolButton* FileC;
+    QLabel* PfadText2;
+		QLineEdit* ProPfad;
+		QToolButton* FileC2;
     QButtonGroup* ButtonGroup2;
     QButtonGroup* ButtonGroup5;
     QRadioButton* RadioButton6;
@@ -242,6 +245,7 @@ public slots:
     virtual void changeMaColor();
     virtual void changeMicolor();
 		void ChangeDocs();
+		void ChangeProfs();
 		void ChangeScaling();
 		void setDS();
 		void setBreite(int v);
@@ -276,7 +280,7 @@ protected:
     QHBoxLayout* GroupBox20Layout;
     QHBoxLayout* GroupBox20aLayout;
     QGridLayout* GroupBox20bLayout;
-    QHBoxLayout* GroupBox200Layout;
+    QGridLayout* GroupBox200Layout;
     QHBoxLayout* MouseLayout;
     QGridLayout* Layout5;
     QGridLayout* tabLayout_2;

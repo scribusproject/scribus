@@ -40,13 +40,14 @@ protected:
     virtual void paint(QPainter *p);
 
 private:
-    QString fontName;
     QFont Ifont;
+    QString fontName;
 };
 
 class FontCombo : public QComboBox  {
 public:
 	FontCombo(QWidget* pa, preV *Prefs);
+	void RebuildList(preV *Prefs);
 	~FontCombo() {};
 };
 

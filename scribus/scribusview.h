@@ -28,13 +28,13 @@
 #include <qlabel.h>
 #include <qtoolbutton.h>
 #include <qprogressdialog.h>
-//#include <iostream.h>
 // application specific includes
 #include "scribusdoc.h"
 #include "page.h"
 #include "hruler.h"
 #include "vruler.h"
 #include "libpostscript/pslib.h"
+#include "mspinbox.h"
 extern QPixmap loadIcon(QString nam);
 
 /**
@@ -48,7 +48,7 @@ class ScribusView : public QScrollView
     ScribusView(QWidget *parent=0, ScribusDoc *doc=0, preV *prefs=0);
     ~ScribusView() {};
   /** Vergroesserungseingabefeld */
-  QLineEdit *LE;
+	MSpinBox* LE;
   QToolButton *UN;
   Hruler *HR;
   Vruler *VR;
@@ -77,7 +77,7 @@ class ScribusView : public QScrollView
   void RecalcPictures(ProfilesL *Pr, QProgressBar *dia = 0);
   void CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic);
   void ProcessPage(PSLib *p, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false);
-	void SetClipPath(PSLib *p, PageItem *c);
+	void SetClipPath(PSLib *p, FPointArray *c);
 	void SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k);
   /** Dokument zu dem die Seite gehört */
   ScribusDoc *Doc;

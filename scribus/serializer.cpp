@@ -69,10 +69,10 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 		}
 	for (a=0; a<Objekt.length(); ++a)
 		{
+		if (Objekt.at(a) == QChar(0)) { continue; }
+		if (Objekt.at(a) == QChar(13)) { continue; }
 		hg = new Pti;
 		hg->ch = Objekt.at(a);
-		if (hg->ch == QChar(0)) { continue; }
-		if (hg->ch == QChar(13)) { continue; }
 		if (hg->ch == QChar(10)) { hg->ch = QChar(13); }
 		if (hg->ch == QChar(5)) { hg->ch = QChar(13); }
 		if (hg->ch == QChar(9)) { hg->ch = " "; }
@@ -86,9 +86,12 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 			hg->cfont = Item->IFont;
 			hg->csize = Item->ISize;
 			}
-		hg->ccolor = Item->Pcolor2;
+		hg->ccolor = Item->TxtFill;
+		hg->cshade = Item->ShTxtFill;
+		hg->cstroke = Item->TxtStroke;
+		hg->cshade2 = Item->ShTxtStroke;
+		hg->cscale = Item->TxtScale;
 		hg->cextra = 0;
-		hg->cshade = Item->Shade2;
 		hg->cselect = false;
 		hg->cstyle = 0;
  		hg->cab = Absatz;

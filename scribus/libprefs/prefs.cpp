@@ -181,21 +181,32 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GroupBox200->setColumnLayout(0, Qt::Horizontal );
     GroupBox200->layout()->setSpacing( 0 );
     GroupBox200->layout()->setMargin( 0 );
-    GroupBox200Layout = new QHBoxLayout( GroupBox200->layout() );
+    GroupBox200Layout = new QGridLayout( GroupBox200->layout() );
     GroupBox200Layout->setAlignment( Qt::AlignTop );
     GroupBox200Layout->setSpacing( 0 );
     GroupBox200Layout->setMargin( 5 );
 		PfadText = new QLabel( GroupBox200, "Pfadtext" );
 		PfadText->setText(tr("Documents:"));
-    GroupBox200Layout->addWidget( PfadText );
+    GroupBox200Layout->addWidget( PfadText, 0, 0 );
     Docs = new QLineEdit( GroupBox200, "Datei" );
     Docs->setMinimumSize( QSize( 268, 22 ) );
 		Docs->setText(Vor->DocDir);
-    GroupBox200Layout->addWidget( Docs );
+    GroupBox200Layout->addWidget( Docs, 0, 1 );
     FileC = new QToolButton( GroupBox200, "FileC" );
     FileC->setMinimumSize( QSize( 88, 24 ) );
     FileC->setText( tr( "Change..." ) );
-    GroupBox200Layout->addWidget( FileC );
+    GroupBox200Layout->addWidget( FileC, 0, 2 );
+		PfadText2 = new QLabel( GroupBox200, "Pfadtext1" );
+		PfadText2->setText(tr("ICC-Profiles:"));
+    GroupBox200Layout->addWidget( PfadText2, 1, 0 );
+    ProPfad = new QLineEdit( GroupBox200, "Datei1" );
+    ProPfad->setMinimumSize( QSize( 268, 22 ) );
+		ProPfad->setText(Vor->ProfileDir);
+    GroupBox200Layout->addWidget( ProPfad, 1, 1 );
+    FileC2 = new QToolButton( GroupBox200, "FileC1" );
+    FileC2->setMinimumSize( QSize( 88, 24 ) );
+    FileC2->setText( tr( "Change..." ) );
+    GroupBox200Layout->addWidget( FileC2, 1, 2 );
     tabLayout->addMultiCellWidget( GroupBox200, 2, 2, 0, 1 );
 
     TabWidget3->addWidget( tab, 0 );
@@ -389,7 +400,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     ASTime = new QSpinBox( GroupAS, "Time" );
     ASTime->setMaxValue( 60 );
     ASTime->setMinValue( 1 );
-    ASTime->setSuffix( " min" );
+    ASTime->setSuffix( " "+tr("min") );
 		ASTime->setValue(Vor->AutoSaveTime / 1000 / 60);
     GroupASLayout->addWidget( ASTime, 1, 1 );
     Layout21b->addWidget( GroupAS );
@@ -1611,6 +1622,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     connect(FreeScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
     connect(FrameScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 		connect(FileC, SIGNAL(clicked()), this, SLOT(ChangeDocs()));
+		connect(FileC2, SIGNAL(clicked()), this, SLOT(ChangeProfs()));
     connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(SetDisScale()));
 		connect(TabListe, SIGNAL(highlighted(int)), TabWidget3, SLOT(raiseWidget(int)));
 		setSize(Vor->PageFormat);
@@ -1631,6 +1643,13 @@ void Preferences::ChangeDocs()
 	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
 	if (s != "")
 		Docs->setText(s);
+}
+
+void Preferences::ChangeProfs()
+{
+	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
+	if (s != "")
+		ProPfad->setText(s);
 }
 
 void Preferences::ChangeScaling()

@@ -1,6 +1,6 @@
-libdir = $(prefix)/lib/scribus/libs
+pluginsdir = $(prefix)/lib/scribus/libs
 AM_CPPFLAGS = -I$(top_builddir)/scribus
-lib_LTLIBRARIES = libpostscript.la
+plugins_LTLIBRARIES = libpostscript.la
 
 INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
 

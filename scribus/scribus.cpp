@@ -271,6 +271,7 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		Prefs.AutoSaveTime = 600000;
 		Prefs.DisScale = 1.0;
 		Prefs.DocDir = QString(getenv("HOME"));
+		Prefs.ProfileDir = "";
 		PDef.Pname = "";
 		PDef.Dname = "";
 		PDef.Command = "";
@@ -313,13 +314,15 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		SetKeyEntry(65, tr("Show Page Palette"), viewSepal, 0);
 		SetKeyEntry(66, tr("Lock/Unlock"), LockOb, CTRL+Key_H);
 		SetKeyEntry(67, tr("Nonbreaking Space"), 0, CTRL+Key_Space);
+		splash->setStatus(tr("Reading Preferences"));
+		ReadPrefs();
 		splash->setStatus(tr("Getting ICC-Profiles"));
 		GetCMSProfiles();
 		splash->setStatus(tr("Init Hyphenator"));
 		InitHyphenator();
-		splash->setStatus(tr("Reading Preferences"));
-		ReadPrefs();
 		Mpal->Cpal->UseTrans(Prefs.PDFTransparency);
+		Mpal->Fonts->RebuildList(&Prefs);
+		Mpal->fillLangCombo(Sprachen);
 		DocDir = Prefs.DocDir;
 		splash->setStatus(tr(""));
 		splash->setStatus(tr("Setting up Shortcuts"));
@@ -384,6 +387,7 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		connect(Mpal->Cpal, SIGNAL(NewPenShade(int)), this, SLOT(setPenShade(int)));
 		connect(Mpal->Cpal, SIGNAL(NewBrushShade(int)), this, SLOT(setBrushShade(int)));
 		connect(Mpal->Cpal, SIGNAL(NewTrans(float)), this, SLOT(SetTranspar(float)));
+		connect(Mpal->Cpal, SIGNAL(NewTransS(float)), this, SLOT(SetTransparS(float)));
 		connect(Mpal->Cpal, SIGNAL(NewGradient(int, QString, int, QString, int)), this, SLOT(setGradFill(int, QString, int, QString, int)));
 		connect(Mpal->Cpal, SIGNAL(QueryItem()), this, SLOT(GetBrushPen()));
 		connect(Tpal, SIGNAL(Schliessen()), this, SLOT(ToggleTpal()));
@@ -419,7 +423,8 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		connect(this, SIGNAL(TextISize(int)), Mpal, SLOT(setSize(int)));
 		connect(this, SIGNAL(TextUSval(float)), Mpal, SLOT(setExtra(float)));
 		connect(this, SIGNAL(TextStil(int)), Mpal, SLOT(setStil(int)));
-		connect(this, SIGNAL(TextFarben(QString, QString, int, int)), Mpal->Cpal, SLOT(setActFarben(QString, QString, int, int)));
+		connect(this, SIGNAL(TextScale(int)), Mpal, SLOT(setTScale(int)));
+		connect(this, SIGNAL(TextFarben(QString, QString, int, int)), Mpal, SLOT(setActFarben(QString, QString, int, int)));
 		connect(ClipB, SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 	}
 }
@@ -519,8 +524,7 @@ void ScribusApp::initMenuBar()
 	editMenu->setItemEnabled(jman, 0);
 	StilMenu = new QPopupMenu();
 	ObjMenu = new QPopupMenu();
-	MenID = ObjMenu->insertItem(tr("Modify..."), this, SLOT(ModifyObject()), CTRL+Key_M);
-	SetKeyEntry(19, tr("Modify..."), MenID, CTRL+Key_M);
+	SetKeyEntry(19, tr("Select New Font"), 0, 0);
 	MenID = ObjMenu->insertItem(tr("Duplicate"), this, SLOT(ObjektDup()), CTRL+Key_D);
 	SetKeyEntry(20, tr("Duplicate"), MenID, CTRL+Key_D);
 	MenID = ObjMenu->insertItem(tr("Multiple Duplicate"), this, SLOT(ObjektDupM()));
@@ -554,9 +558,7 @@ void ScribusApp::initMenuBar()
 	PfadT = ObjMenu->insertItem(tr("Attach Text to Path"), this, SLOT(Pfadtext()));
 	PfadV = ObjMenu->insertItem(tr("Combine Polygons"), this, SLOT(UniteOb()));
 	PfadS = ObjMenu->insertItem(tr("Split Polygons"), this, SLOT(SplitUniteOb()));
-#ifdef HAVE_FREETYPE
-	PfadTP = ObjMenu->insertItem(tr("Convert to Polygons"), this, SLOT(TraceText()));
-#endif
+	PfadTP = ObjMenu->insertItem(tr("Convert to Outlines"), this, SLOT(TraceText()));
 	ObjMenu->setItemEnabled(ShapeM, 0);
 	ObjMenu->setItemEnabled(DistM, 0);
 	ObjMenu->setItemEnabled(Gr, 0);
@@ -565,9 +567,7 @@ void ScribusApp::initMenuBar()
 	ObjMenu->setItemEnabled(PfadV, 0);
 	ObjMenu->setItemEnabled(PfadS, 0);
 	ObjMenu->setItemEnabled(LockOb, 0);
-#ifdef HAVE_FREETYPE
 	ObjMenu->setItemEnabled(PfadTP, 0);
-#endif
 	pageMenu = new QPopupMenu();
 	MenID = pageMenu->insertItem(tr("Insert..."), this, SLOT(slotNewPageM()));
 	SetKeyEntry(30, tr("Insert..."), MenID, 0);
@@ -624,8 +624,8 @@ void ScribusApp::initMenuBar()
 	viewTools = toolMenu->insertItem(tr("Hide Tools"), this, SLOT(ToggleTools()));
 	SetKeyEntry(45, tr("Hide Tools"), viewTools, 0);
 	viewToolsP = toolMenu->insertItem(tr("Hide PDF-Tools"), this, SLOT(TogglePDFTools()));
-	viewMpal = toolMenu->insertItem(tr("Show Measurements"), this, SLOT(ToggleMpal()));
-	SetKeyEntry(46, tr("Show Measurements"), viewMpal, 0);
+	viewMpal = toolMenu->insertItem(tr("Show Properties"), this, SLOT(ToggleMpal()));
+	SetKeyEntry(46, tr("Show Properties"), viewMpal, 0);
 	viewTpal = toolMenu->insertItem(tr("Show Outline"), this, SLOT(ToggleTpal()));
 	SetKeyEntry(47, tr("Show Outline"), viewTpal, 0);
 	viewBpal = toolMenu->insertItem(tr("Show Scrapbook"), this, SLOT(ToggleBpal()));
@@ -654,7 +654,7 @@ void ScribusApp::initMenuBar()
 	SetKeyEntry(55, tr("Tool-Tips"), tip, 0);
   tipsOn = true;
   helpMenu->setItemChecked(tip, tipsOn);
-//	helpMenu->insertItem(tr("Test"), this, SLOT(slotTest()));
+//	ObjMenu->insertItem(tr("Test"), this, SLOT(slotTest()));
 //	helpMenu->insertItem(tr("Test2"), this, SLOT(slotTest2()));
 	menuBar()->insertItem(tr("File"), fileMenu);
 	menuBar()->insertItem(tr("Edit"), editMenu);
@@ -716,6 +716,7 @@ void ScribusApp::initMenuBar()
 	TypeStyleMenu->insertItem(tr("Small Caps"));
 	TypeStyleMenu->insertItem(tr("Superscript"));
 	TypeStyleMenu->insertItem(tr("Subscript"));
+	TypeStyleMenu->insertItem(tr("Outlined"));
 }
 
 void ScribusApp::initStatusBar()
@@ -808,22 +809,23 @@ void ScribusApp::setTBvals(PageItem *b)
 {
 	if (b->Ptext.count() != 0)
 		{
-		emit TextIFont(b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->cfont);
- 		emit TextISize(b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->csize);
- 		emit TextUSval(b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->cextra);
- 		emit TextStil(b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->cstyle & 127);
  		doc->CurrentStyle = b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->cstyle & 127;
  		doc->CurrentABStil = b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->cab;
  		setAbsValue(doc->CurrentABStil);
  		Mpal->setAli(doc->CurrentABStil);
- 		b->IFont = b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->cfont;
- 		b->ISize = b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->csize;
-		emit TextFarben(b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->ccolor,
-										b->Pcolor,
-										b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->cshade,
-										b->Shade);
-		b->Pcolor2 = b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->ccolor;
-		b->Shade2 = b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->cshade;
+ 		doc->CurrFont = b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->cfont;
+ 		doc->CurrFontSize = b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->csize;
+		doc->CurrTextFill = b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->ccolor;
+		doc->CurrTextFillSh = b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->cshade;
+		doc->CurrTextStroke = b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->cstroke;
+		doc->CurrTextStrokeSh = b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->cshade2;
+		doc->CurrTextScale = b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->cscale;
+		emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
+		emit TextIFont(doc->CurrFont);
+ 		emit TextISize(doc->CurrFontSize);
+ 		emit TextUSval(b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->cextra);
+ 		emit TextStil(doc->CurrentStyle);
+		emit TextScale(doc->CurrTextScale);
  		}
 }
 
@@ -941,21 +943,21 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 									setNewAbStyle(1);
  									b->Dirty = true;
  									b->Tinput = true;
- 									b->paintObj();
+									doc->ActPage->RefreshItem(b);
  									}
  								if ((kk + KeyMod) == Prefs.KeyActions[58].KeyID)
  									{
 									setNewAbStyle(2);
  									b->Dirty = true;
  									b->Tinput = true;
- 									b->paintObj();
+									doc->ActPage->RefreshItem(b);
  									}
  								if ((kk + KeyMod) == Prefs.KeyActions[57].KeyID)
  									{
 									setNewAbStyle(0);
  									b->Dirty = true;
  									b->Tinput = true;
- 									b->paintObj();
+									doc->ActPage->RefreshItem(b);
  									}
  								}
  							break;
@@ -1110,13 +1112,9 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  								if (b->Ptext.count() == 0) { return; }
  								cr = b->Ptext.at(b->CPos)->ch;
  								if (b->HasSel)
- 									{
  									DeleteSel(b);
- 									}
  								else
- 									{
  									b->Ptext.remove(b->CPos);
- 									}
  								b->Tinput = false;
  								if ((cr == QChar(13)) && (b->Ptext.count() != 0))
  									{
@@ -1125,7 +1123,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  									}
  								setTBvals(b);
  								b->Dirty = true;
- 								b->paintObj();
+								doc->ActPage->RefreshItem(b);
  								break;
  							case Key_Backspace:
  								if (b->CPos == 0)
@@ -1133,14 +1131,10 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  								if (b->Ptext.count() == 0) { return; }
  								cr = b->Ptext.at(QMAX(b->CPos-1,0))->ch;
  								if (b->HasSel)
- 									{
  									DeleteSel(b);
- 									}
  								else
- 									{
  									b->CPos -= 1;
  									b->Ptext.remove(b->CPos);
- 									}
  								b->Tinput = false;
  								if ((cr == QChar(13)) && (b->Ptext.count() != 0))
  									{
@@ -1149,14 +1143,14 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  									}
  								setTBvals(b);
  								b->Dirty = true;
- 								b->paintObj();
+								doc->ActPage->RefreshItem(b);
  								break;
  							default:
  								if ((b->HasSel) && (kk < 0x1000))
  									{
  									DeleteSel(b);
  									b->Dirty = true;
- 									b->paintObj();
+									doc->ActPage->RefreshItem(b);
  									}
  								if (((kk + KeyMod) == Prefs.KeyActions[60].KeyID) || ((kk + KeyMod) == Prefs.KeyActions[67].KeyID))
  									{
@@ -1165,11 +1159,13 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  										hg->ch = QString(QChar(30));
 									else
  										hg->ch = QString(QChar(29));
- 									hg->cfont = b->IFont;
- 									hg->csize = b->ISize;
- 									hg->ccolor = b->Pcolor2;
- 									hg->cextra = 0;
- 									hg->cshade = b->Shade2;
+ 									hg->cfont = doc->CurrFont;
+ 									hg->csize = doc->CurrFontSize;
+									hg->ccolor = doc->CurrTextFill;
+									hg->cshade = doc->CurrTextFillSh;
+									hg->cstroke = doc->CurrTextStroke;
+									hg->cshade2 = doc->CurrTextStrokeSh;
+									hg->cscale = doc->CurrTextScale;
  									hg->cselect = false;
  									hg->cstyle = doc->CurrentStyle;
  									hg->cab = doc->CurrentABStil;
@@ -1178,6 +1174,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 										hg->cfont = doc->Vorlagen[doc->CurrentABStil].Font;
 										hg->csize = doc->Vorlagen[doc->CurrentABStil].FontSize;
 										}
+ 									hg->cextra = 0;
  									hg->xp = 0;
  									hg->yp = 0;
 									hg->PRot = 0;
@@ -1187,7 +1184,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  									b->CPos += 1;
  									b->Dirty = true;
  									b->Tinput = true;
- 									b->paintObj();
+									doc->ActPage->RefreshItem(b);
  									break;
  									}
  								if ((kk + KeyMod) == Prefs.KeyActions[56].KeyID)
@@ -1195,7 +1192,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  									b->Ptext.at(QMAX(b->CPos-1,0))->cstyle ^= 128;
  									b->Dirty = true;
  									b->Tinput = true;
- 									b->paintObj();
+									doc->ActPage->RefreshItem(b);
  									break;
  									}
  								if ((kk + KeyMod) == Prefs.KeyActions[59].KeyID)
@@ -1203,7 +1200,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 									setNewAbStyle(1);
  									b->Dirty = true;
  									b->Tinput = true;
- 									b->paintObj();
+									doc->ActPage->RefreshItem(b);
  									break;
  									}
  								if ((kk + KeyMod) == Prefs.KeyActions[57].KeyID)
@@ -1211,7 +1208,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 									setNewAbStyle(0);
  									b->Dirty = true;
  									b->Tinput = true;
- 									b->paintObj();
+									doc->ActPage->RefreshItem(b);
  									break;
  									}
  								if ((kk + KeyMod) == Prefs.KeyActions[58].KeyID)
@@ -1219,22 +1216,21 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 									setNewAbStyle(2);
  									b->Dirty = true;
  									b->Tinput = true;
- 									b->paintObj();
+									doc->ActPage->RefreshItem(b);
  									break;
  									}
-#ifdef HAVE_FREETYPE
-								if (((uc[0] > QChar(31)) || (as == 13) || (as == 30)) && ((*doc->AllFonts)[b->IFont]->CharWidth.contains(uc[0].unicode())))
-#else
- 								if ((uc[0] > QChar(31)) || (as == 13) || (as == 30))
-#endif
+								if (((uc[0] > QChar(31)) || (as == 13) || (as == 30)) && ((*doc->AllFonts)[doc->CurrFont]->CharWidth.contains(uc[0].unicode())))
  									{
  									hg = new Pti;
  									hg->ch = uc;
- 									hg->cfont = b->IFont;
- 									hg->csize = b->ISize;
- 									hg->ccolor = b->Pcolor2;
+ 									hg->cfont = doc->CurrFont;
+									hg->ccolor = doc->CurrTextFill;
+									hg->cshade = doc->CurrTextFillSh;
+									hg->cstroke = doc->CurrTextStroke;
+									hg->cshade2 = doc->CurrTextStrokeSh;
+									hg->cscale = doc->CurrTextScale;
+ 									hg->csize = doc->CurrFontSize;
  									hg->cextra = 0;
- 									hg->cshade = b->Shade2;
  									hg->cselect = false;
  									hg->cstyle = doc->CurrentStyle;
  									hg->cab = doc->CurrentABStil;
@@ -1266,6 +1262,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 											}
 										if (Twort != "")
 											{
+											if (doc->Trenner->Language != b->Language)
+												doc->Trenner->slotNewDict(b->Language);
 											doc->Trenner->slotHyphenateWord(b, Twort, Tcoun);
  											b->Dirty = true;
 											}
@@ -1273,7 +1271,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  									if ((b->CPos < static_cast<int>(b->Ptext.count())) || (as == 30))
  										b->Dirty = true;
  									b->Tinput = true;
- 									b->paintObj();
+									doc->ActPage->RefreshItem(b);
  									}
  								break;
  							}
@@ -1308,7 +1306,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 				}
 			}
 		SavePrefs();
-		if (Prefs.SaveAtQ)
+		if ((Prefs.SaveAtQ) && (ScBook->Changed == true))
 			{
 			if (ScBook->ScFilename.isEmpty())
 				ScBook->ScFilename = PrefsPfad+"/scrap.scs";
@@ -1323,7 +1321,7 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 	else
 		{
 		SavePrefs();
-		if (Prefs.SaveAtQ)
+		if ((Prefs.SaveAtQ) && (ScBook->Changed == true))
 			{
 			if (ScBook->ScFilename.isEmpty())
 				ScBook->ScFilename = PrefsPfad+"/scrap.scs";
@@ -1542,6 +1540,8 @@ bool ScribusApp::doFileNew(float b, float h, float tpr, float lr, float rr, floa
 	doc->AutoSave = Prefs.AutoSave;
 	if (doc->AutoSave)
 		doc->ASaveTimer->start(Prefs.AutoSaveTime);
+	DatSav->setEnabled(false);
+	fileMenu->setItemEnabled(fid4, 0);
 	return true;
 }
 
@@ -1690,6 +1690,7 @@ void ScribusApp::SwitchWin()
 	ActWin->setCaption(tr(doc->DocName));
 	ShadeMenu->setItemChecked(ShadeMenu->idAt(11), true);
 	Mpal->SetDoc(doc);
+	Mpal->updateCList();
 	Sepal->SetView(view);
 	Mpal->Spal->SetFormats(doc);
 	Mpal->SetLineFormats(doc);
@@ -1751,11 +1752,6 @@ void ScribusApp::SwitchWin()
 			}
 		if (doc->isModified())
 			slotDocCh();
-		else
-			{
-			fileMenu->setItemEnabled(fid4, 0);
-			DatSav->setEnabled(false);
-			}
 		fileMenu->setItemEnabled(fid5, 1);
 		fileMenu->setItemEnabled(fid51, 1);
 		Sepal->EnablePal();
@@ -1767,6 +1763,7 @@ void ScribusApp::HaveNewDoc()
 	int a;
 	DatPri->setEnabled(true);
 	DatPDF->setEnabled(true);
+	DatSav->setEnabled(false);
 	fileMenu->setItemEnabled(fid1, 1);
 	fileMenu->setItemEnabled(fid4, 0);
 	fileMenu->setItemEnabled(fid5, 1);
@@ -1832,6 +1829,7 @@ void ScribusApp::HaveNewDoc()
 	ActWin->setCaption(tr(doc->DocName));
 	ShadeMenu->setItemChecked(ShadeMenu->idAt(11), true);
 	Mpal->SetDoc(doc);
+	Mpal->updateCList();
 	Sepal->SetView(view);
 	Mpal->Spal->SetFormats(doc);
 	Mpal->SetLineFormats(doc);
@@ -1853,6 +1851,8 @@ void ScribusApp::HaveNewDoc()
 void ScribusApp::HaveNewSel(int Nr)
 {
 	PageItem *b;
+	if (Nr != -1)
+		b = doc->ActPage->SelItem.at(0);
 	switch (Nr)
 		{
 		case -1:
@@ -1861,9 +1861,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			exportMenu->setItemEnabled(fid3, 0);
 			menuBar()->setItemEnabled(Obm, 0);
 			ObjMenu->setItemEnabled(ShapeM, 0);
-#ifdef HAVE_FREETYPE
 			ObjMenu->setItemEnabled(PfadTP, 0);
-#endif
 			ObjMenu->setItemEnabled(LockOb, 0);
 			editMenu->setItemEnabled(edid1, 0);
 			editMenu->setItemEnabled(edid2, 0);
@@ -1887,18 +1885,15 @@ void ScribusApp::HaveNewSel(int Nr)
 			extraMenu->setItemEnabled(hyph, 0);
 			menuBar()->setItemEnabled(Obm, 1);
 			ObjMenu->setItemEnabled(ShapeM, 1);
-#ifdef HAVE_FREETYPE
 			ObjMenu->setItemEnabled(PfadTP, 0);
-#endif
 			StilMenu->clear();
 			StilMenu->insertItem(tr("Color"), ColorMenu);
-			if (doc->ActPage->SelItem.at(0)->isRaster)
+			if (b->isRaster)
 				StilMenu->insertItem(tr("Invert"), this, SLOT(InvertPict()));
 			WerkTools->KetteAus->setEnabled(false);
 			WerkTools->KetteEin->setEnabled(false);
 			WerkTools->Textedit->setEnabled(true);
 			WerkTools->Rotiere->setEnabled(true);
- 			Mpal->SetCurItem(doc->ActPage->SelItem.at(0));
 			break;
 		case 4:
 			importMenu->changeItem(fid2, tr("Get Text..."));
@@ -1911,9 +1906,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			extraMenu->setItemEnabled(hyph, 1);
 			menuBar()->setItemEnabled(Obm, 1);
 			ObjMenu->setItemEnabled(ShapeM, 1);
-#ifdef HAVE_FREETYPE
 			ObjMenu->setItemEnabled(PfadTP, 1);
-#endif
 			StilMenu->clear();
 			StilMenu->insertItem(tr("Font"), FontMenu);
 			StilMenu->insertItem(tr("Size"), SizeTMenu);
@@ -1922,7 +1915,6 @@ void ScribusApp::HaveNewSel(int Nr)
 			StilMenu->insertItem(tr("Color"), ColorMenu);
 			StilMenu->insertItem(tr("Shade"), ShadeMenu);
 			WerkTools->Rotiere->setEnabled(true);
-			b = doc->ActPage->SelItem.at(0);
 			if ((b->NextBox != 0) || (b->BackBox != 0))
 				{
 				WerkTools->KetteAus->setEnabled(true);
@@ -1937,8 +1929,22 @@ void ScribusApp::HaveNewSel(int Nr)
 				WerkTools->KetteEin->setEnabled(true);
 			if (doc->MasterP)
 				WerkTools->KetteEin->setEnabled(false);
- 			Mpal->SetCurItem(b);
-			doc->CurrentStyle = 0;
+//			if (doc->AppMode == 7)
+//				setTBvals(b);
+			else
+				{
+				doc->CurrFont = b->IFont;
+				doc->CurrFontSize = b->ISize;
+				doc->CurrTextFill = b->TxtFill;
+				doc->CurrTextStroke = b->TxtStroke;
+				doc->CurrTextStrokeSh = b->ShTxtStroke;
+				doc->CurrTextFillSh = b->ShTxtFill;
+				doc->CurrTextScale = b->TxtScale;
+				emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
+				doc->CurrentStyle = b->TxTStyle;
+ 				emit TextStil(doc->CurrentStyle);
+				emit TextScale(doc->CurrTextScale);
+				}
 			doc->Vorlagen[0].LineSpa = b->LineSp;
 			doc->Vorlagen[0].Ausri = b->Ausrich;
 			break;
@@ -1953,9 +1959,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			extraMenu->setItemEnabled(hyph, 0);
 			menuBar()->setItemEnabled(Obm, 1);
 			ObjMenu->setItemEnabled(ShapeM, 0);
-#ifdef HAVE_FREETYPE
 			ObjMenu->setItemEnabled(PfadTP, 0);
-#endif
 			StilMenu->clear();
 			StilMenu->insertItem(tr("Font"), FontMenu);
 			StilMenu->insertItem(tr("Size"), SizeTMenu);
@@ -1966,8 +1970,22 @@ void ScribusApp::HaveNewSel(int Nr)
 			WerkTools->Textedit->setEnabled(false);
 			WerkTools->KetteEin->setEnabled(false);
 			WerkTools->KetteAus->setEnabled(false);
- 			Mpal->SetCurItem(doc->ActPage->SelItem.at(0));
-			doc->CurrentStyle = 0;
+			if (doc->AppMode == 7)
+				setTBvals(b);
+			else
+				{
+				doc->CurrFont = b->IFont;
+				doc->CurrFontSize = b->ISize;
+				doc->CurrTextFill = b->TxtFill;
+				doc->CurrTextStroke = b->TxtStroke;
+				doc->CurrTextStrokeSh = b->ShTxtStroke;
+				doc->CurrTextFillSh = b->ShTxtFill;
+				doc->CurrTextScale = b->TxtScale;
+				emit TextFarben(doc->CurrTextStroke, doc->CurrTextFill, doc->CurrTextStrokeSh, doc->CurrTextFillSh);
+				doc->CurrentStyle = b->TxTStyle;
+ 				emit TextStil(doc->CurrentStyle);
+				emit TextScale(doc->CurrTextScale);
+				}
 			break;
 		default:
 			importMenu->changeItem(fid2, tr("Get Text/Picture..."));
@@ -1988,7 +2006,6 @@ void ScribusApp::HaveNewSel(int Nr)
 				WerkTools->Rotiere->setEnabled(true);
 			else
 				WerkTools->Rotiere->setEnabled(false);
- 			Mpal->SetCurItem(doc->ActPage->SelItem.at(0));
 			break;
 		}
 	doc->CurrentSel = Nr;
@@ -1997,21 +2014,19 @@ void ScribusApp::HaveNewSel(int Nr)
 		{
 		ObjMenu->setItemEnabled(DistM, 1);
 		ObjMenu->setItemEnabled(Gr, 1);
-#ifdef HAVE_FREETYPE
 		ObjMenu->setItemEnabled(PfadTP, 0);
-#endif
 		bool hPoly = false;
-		if (doc->ActPage->SelItem.at(0)->Groups.count() == 0)
+		if (b->Groups.count() == 0)
 			hPoly = true;
-		for (uint b=0; b<doc->ActPage->SelItem.count(); ++b)
+		for (uint bx=0; bx<doc->ActPage->SelItem.count(); ++bx)
 			{
-			if (doc->ActPage->SelItem.at(b)->PType != 6)
+			if (doc->ActPage->SelItem.at(bx)->PType != 6)
 				hPoly = false;
 			}
 		ObjMenu->setItemEnabled(PfadV, hPoly);
 		if (doc->ActPage->SelItem.count() == 2)
 			{
-			if (((doc->ActPage->SelItem.at(0)->PType == 4) || (doc->ActPage->SelItem.at(1)->PType == 4)) && ((doc->ActPage->SelItem.at(0)->PType == 7) || (doc->ActPage->SelItem.at(1)->PType == 7)))
+			if (((b->PType == 4) || (doc->ActPage->SelItem.at(1)->PType == 4)) && ((b->PType == 7) || (doc->ActPage->SelItem.at(1)->PType == 7)))
 				ObjMenu->setItemEnabled(PfadT, 1);
 			}
 		}
@@ -2024,25 +2039,23 @@ void ScribusApp::HaveNewSel(int Nr)
 		}
 	if (doc->ActPage->SelItem.count() != 0)
 		{
-		Mpal->Textflow->setChecked(doc->ActPage->SelItem.at(0)->Textflow);
+		Mpal->Textflow->setChecked(b->Textflow);
 		ObjMenu->setItemEnabled(LockOb, 1);
-		if (doc->ActPage->SelItem.at(0)->Groups.count() != 0)
+		if (b->Groups.count() != 0)
 			ObjMenu->setItemEnabled(UnGr, 1);
 		else
 			{
 			ObjMenu->setItemEnabled(UnGr, 0);
-			if ((doc->ActPage->SelItem.at(0)->PType == 6) && (doc->ActPage->SelItem.at(0)->Segments.count() != 0))
+			if ((b->PType == 6) && (b->Segments.count() != 0))
 				ObjMenu->setItemEnabled(PfadS, 1);
 			else
 				ObjMenu->setItemEnabled(PfadS, 0);
 			}
-		if (doc->ActPage->SelItem.at(0)->Locked)
+		if (b->Locked)
 			{
 			ObjMenu->setItemEnabled(DistM, 0);
 			ObjMenu->setItemEnabled(ShapeM, 0);
-#ifdef HAVE_FREETYPE
 			ObjMenu->setItemEnabled(PfadTP, 0);
-#endif
 			ObjMenu->setItemEnabled(PfadS, 0);
 			ObjMenu->setItemEnabled(PfadT, 0);
 			ObjMenu->setItemEnabled(PfadV, 0);
@@ -2066,6 +2079,8 @@ void ScribusApp::HaveNewSel(int Nr)
 			}
 		}
 	Mpal->NewSel(Nr);
+	if (Nr != -1)
+ 		Mpal->SetCurItem(b);
 }
 
 void ScribusApp::slotDocCh(bool reb)
@@ -2075,19 +2090,11 @@ void ScribusApp::slotDocCh(bool reb)
 	if (!doc->isModified())
 		doc->setModified();
 	ActWin->setCaption(tr(doc->DocName) + "*");
-	if ((!doc->DocName.startsWith("Document")) && (!doc->TemplateMode))
+	if (!doc->TemplateMode)
 		{
 		fileMenu->setItemEnabled(fid4, 1);
 		DatSav->setEnabled(true);
 		DatClo->setEnabled(true);
-		}
-	else
-		{
-		fileMenu->setItemEnabled(fid4, 0);
-		DatSav->setEnabled(false);
-		}
-	if (!doc->TemplateMode)
-		{		
 		fileMenu->setItemEnabled(fid5, 1);
 		fileMenu->setItemEnabled(fid51, 1);
 		}
@@ -2138,9 +2145,9 @@ bool ScribusApp::slotDocOpen()
 {
 	bool ret = false;
 #ifdef HAVE_LIBZ
-	QString fileName = CFileDialog(tr("Open"),tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
+	QString fileName = CFileDialog(tr("Open"),tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);; All Files (*)"));
 #else
-	QString fileName = CFileDialog(tr("Open"),tr("Documents (*.sla *.scd);;All Files (*)"));
+	QString fileName = CFileDialog(tr("Open"),tr("Documents (*.sla *.scd);; All Files (*)"));
 #endif
   qApp->setOverrideCursor(QCursor(waitCursor), true);
 	ret = LadeDoc(fileName);
@@ -2192,6 +2199,7 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr)
 				BookPal->BView->AddPageItem(ite);
 			}
 		Mpal->Cpal->SetColors(doc->PageColors);
+		Mpal->updateCList();
 		slotDocCh();
 		doc->loading = false;
 		ret = true;
@@ -2365,6 +2373,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		doc->DocName = fileName;
 		doc->MasterP = false;
 		HaveNewDoc();
+		Mpal->updateCList();
 		doc->hasName = true;
 		if (view->MasterPages.count() == 0)
 			{
@@ -2395,13 +2404,16 @@ bool ScribusApp::LadeDoc(QString fileName)
 		doc->loading = false;
 		view->GotoPage(0);
 		doc->RePos = true;
+		QPixmap pgPix(10, 10);
+		QRect rd = QRect(0,0,9,9);
+		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 		for (uint az=0; az<view->MasterPages.count(); az++)
 			{
 			for (uint azz=0; azz<view->MasterPages.at(az)->Items.count(); ++azz)
 				{
 				PageItem *ite = view->MasterPages.at(az)->Items.at(azz);
 				if (ite->PType == 4)
-					ite->paintObj();
+					ite->DrawObj(painter, rd);
 				}
 			}
 		RestoreBookMarks();
@@ -2411,7 +2423,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 				{
 				PageItem *ite = view->Pages.at(az)->Items.at(azz);
 				if (ite->PType == 4)
-					ite->paintObj();
+					ite->DrawObj(painter, rd);
 				if (doc->OldBM)
 					{
 					if ((ite->PType == 4) && (ite->isBookmark))
@@ -2424,6 +2436,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 					}
 				}
 			}
+		delete painter;
 		if (doc->OldBM)
 			StoreBookmarks();
 		ActWin->NrItems = BookPal->BView->NrItems;
@@ -2481,6 +2494,7 @@ void ScribusApp::slotFileOpen()
     		doc->ActPage->AdjustPreview(b);
     		doc->ActPage->update();
 				Mpal->Cpal->SetColors(doc->PageColors);
+				Mpal->updateCList();
 				slotDocCh();
   			}
   		}
@@ -2508,18 +2522,24 @@ void ScribusApp::slotFileOpen()
 
 void ScribusApp::slotAutoSave()
 {
+/* Disabled temporary because of some Problems
   if ((doc->hasName) && (doc->isModified()) && (!doc->TemplateMode))
   	{
 		system("mv -f " + doc->DocName + " " + doc->DocName+".bak");
 		DoFileSave(doc->DocName);
-  	}
+  	}        */
 }
 
 void ScribusApp::slotFileSave()
 {
-  QString fn = doc->DocName;
-	if (!DoFileSave(fn))
-		QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
+	if (doc->hasName)
+		{
+  	QString fn = doc->DocName;
+		if (!DoFileSave(fn))
+			QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
+		}
+	else
+		slotFileSaveAs();
 }
 
 void ScribusApp::slotFileSaveAs()
@@ -2536,9 +2556,9 @@ void ScribusApp::slotFileSaveAs()
   	fna = di.currentDirPath()+"/"+doc->DocName+".sla";
   	}
 #ifdef HAVE_LIBZ
-  QString fn = CFileDialog(tr("Save as"), tr("Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"), fna, false, false, true);
+  QString fn = CFileDialog(tr("Save as"), tr("Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"), fna, false, false, true);
 #else
-  QString fn = CFileDialog(tr("Save as"), tr("Documents (*.sla *.scd);;All Files (*)"), fna, false, false, false);
+  QString fn = CFileDialog(tr("Save as"), tr("Documents (*.sla *.scd);; All Files (*)"), fna, false, false, false);
 #endif
   if (!fn.isEmpty())
   	{
@@ -2711,7 +2731,7 @@ void ScribusApp::slotFilePrint()
   else
   	{
   	prn = "";
-  	if (!doc->DocName.startsWith("Document"))
+  	if (!doc->DocName.startsWith(tr("Document")))
   		{
   		QFileInfo fi(doc->DocName);
   		fna = fi.dirPath()+"/"+fi.baseName()+".ps";
@@ -2809,8 +2829,10 @@ void ScribusApp::slotEditCut()
 		{
 		Buffer2 = "<SCRIBUSTEXT>";
 		PageItem *b = doc->ActPage->SelItem.at(0);
-		if ((doc->AppMode == 7) && (b->HasSel))
+		if (doc->AppMode == 7)
 			{
+			if ((b->Ptext.count() == 0) || (!b->HasSel))
+				return;
 			for (a = 0; a < b->Ptext.count(); ++a)
 				{
 				if (b->Ptext.at(a)->cselect)
@@ -2837,7 +2859,7 @@ void ScribusApp::slotEditCut()
 				}
 			DeleteSel(b);
 			b->Dirty = true;
-			b->paintObj();
+			doc->ActPage->RefreshItem(b);
 			}
 		else
 			{
@@ -2943,6 +2965,21 @@ void ScribusApp::slotEditPaste()
 					hg->cstyle = (*it).toInt();
 					it++;
 					hg->cab = (*it).toInt();
+					it++;
+					if (it == NULL)
+						hg->cstroke = "None";
+					else
+						hg->cstroke = *it;
+					it++;
+					if (it == NULL)
+						hg->cshade2 = 100;
+					else
+						hg->cshade = (*it).toInt();
+					it++;
+					if (it == NULL)
+						hg->cscale = 100;
+					else
+						hg->cscale = (*it).toInt();
 					b->Ptext.insert(b->CPos, hg);
 					b->CPos += 1;
 					hg->PRot = 0;
@@ -2961,7 +2998,7 @@ void ScribusApp::slotEditPaste()
 					doc->Trenner->slotHyphenate(b);
 				}
  			if (b->CPos < static_cast<int>(b->Ptext.count())) { b->Dirty = true; }
- 			b->paintObj();
+			doc->ActPage->RefreshItem(b);
 			}
 		else
 			{
@@ -2990,7 +3027,7 @@ void ScribusApp::SelectAll()
 		}
 	b->HasSel = true;
 	b->Dirty = true;
-	b->paintObj();
+	doc->ActPage->RefreshItem(b);
 	EnableTxEdit();
 }
 
@@ -3030,7 +3067,7 @@ void ScribusApp::DeleteText()
 	PageItem *b = doc->ActPage->SelItem.at(0);
 	DeleteSel(b);
 	b->Dirty = true;
-	b->paintObj();
+	doc->ActPage->RefreshItem(b);
 	slotDocCh();
 }
 
@@ -3114,6 +3151,11 @@ void ScribusApp::SaveText()
 void ScribusApp::applyNewMaster(QString name)
 {
 	Apply_Temp(name, doc->ActPage->PageNr);
+	view->DrawNew();
+	slotDocCh();
+	doc->UnDoValid = false;
+	CanUndo();
+	Sepal->Rebuild();
 }
 
 void ScribusApp::slotNewPageP(int wo, QString templ)
@@ -3242,23 +3284,24 @@ void ScribusApp::slotNewPage(int w)
 	connect(doc->ActPage, SIGNAL(SetLocalValues(float, float, float, float)), Mpal, SLOT(setLvalue(float, float, float, float)));
 	connect(doc->ActPage, SIGNAL(SetSizeValue(float)), Mpal, SLOT(setSvalue(float)));
 	connect(doc->ActPage, SIGNAL(ItemTextStil(int)), Mpal, SLOT(setStil(int)));
+	connect(doc->ActPage, SIGNAL(ItemTextSca(int)), Mpal, SLOT(setTScale(int)));
 	connect(doc->ActPage, SIGNAL(ItemTextAbs(int)), Mpal, SLOT(setAli(int)));
 	connect(doc->ActPage, SIGNAL(RotMode(int)), Mpal, SLOT(setRM(int)));
 	connect(doc->ActPage, SIGNAL(SetLineArt(PenStyle, PenCapStyle, PenJoinStyle)), Mpal, SLOT( setLIvalue(PenStyle, PenCapStyle, PenJoinStyle)));
 	connect(doc->ActPage, SIGNAL(ItemFarben(QString, QString, int, int)), this, SLOT(setCSMenu(QString, QString, int, int)));
 	connect(doc->ActPage, SIGNAL(ItemFarben(QString, QString, int, int)), Mpal->Cpal, SLOT(setActFarben(QString, QString, int, int)));
 	connect(doc->ActPage, SIGNAL(ItemGradient(QString, QString, int, int, int)), Mpal->Cpal, SLOT(setActGradient(QString, QString, int, int, int)));
-	connect(doc->ActPage, SIGNAL(ItemTrans(float)), Mpal->Cpal, SLOT(setActTrans(float)));
+	connect(doc->ActPage, SIGNAL(ItemTrans(float, float)), Mpal->Cpal, SLOT(setActTrans(float, float)));
 	connect(doc->ActPage, SIGNAL(ItemTextFont(QString)), this, SLOT(AdjustFontMenu(QString)));
 	connect(doc->ActPage, SIGNAL(ItemTextSize(int)), this, SLOT(setFSizeMenu(int)));
 	connect(doc->ActPage, SIGNAL(ItemTextStil(int)), this, SLOT(setStilvalue(int)));
 	connect(doc->ActPage, SIGNAL(ItemTextAbs(int)), this, SLOT(setAbsValue(int)));
+	connect(doc->ActPage, SIGNAL(ItemTextFarben(QString, QString, int, int)), Mpal, SLOT(setActFarben(QString, QString, int, int)));
 	connect(doc->ActPage, SIGNAL(HasTextSel()), this, SLOT(EnableTxEdit()));
 	connect(doc->ActPage, SIGNAL(HasNoTextSel()), this, SLOT(DisableTxEdit()));
 	connect(doc->ActPage, SIGNAL(CopyItem()), this, SLOT(slotEditCopy()));
 	connect(doc->ActPage, SIGNAL(CutItem()), this, SLOT(slotEditCut()));
 	connect(doc->ActPage, SIGNAL(LoadPic()), this, SLOT(slotFileOpen()));
-	connect(doc->ActPage, SIGNAL(ModifyIt()), this, SLOT(ModifyObject()));
 	connect(doc->ActPage, SIGNAL(AnnotProps()), this, SLOT(ModifyAnnot()));
 	connect(doc->ActPage, SIGNAL(ToScrap(QString)), this, SLOT(PutScrap(QString)));
 	connect(doc->ActPage, SIGNAL(UndoAvail()), this, SLOT(CanUndo()));
@@ -3356,13 +3399,13 @@ void ScribusApp::ToggleMpal()
   	Prefs.Mpalx = Mpal->pos().x();
   	Prefs.Mpaly = Mpal->pos().y();
 		Mpal->hide();
-		toolMenu->changeItem(viewMpal, tr("Show Measurements"));
+		toolMenu->changeItem(viewMpal, tr("Show Properties"));
 	}
 	else
 	{
 		Mpal->show();
 		Mpal->TabStack->raiseWidget(0);
-		toolMenu->changeItem(viewMpal, tr("Hide Measurements"));
+		toolMenu->changeItem(viewMpal, tr("Hide Properties"));
 	}
 }
 
@@ -3768,7 +3811,7 @@ void ScribusApp::setItemTypeStyle(int id)
 	switch (a)
 		{
 		case 0:
-			b = 4;
+			b = 0;
 			break;
 		case 1:
 			b = 8;
@@ -3785,6 +3828,9 @@ void ScribusApp::setItemTypeStyle(int id)
 		case 5:
 			b = 2;
 			break;
+		case 6:
+			b = 4;
+			break;
 		}
 	setItemHoch(b);
 }
@@ -3793,22 +3839,25 @@ void ScribusApp::setStilvalue(int s)
 {
 	uint a;
 	doc->CurrentStyle = s;
+	int c = s & 127;
 	for (a = 0; a < TypeStyleMenu->count(); ++a)
 		{
 		TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(a), false);
 		}
-	if (s & 4)
+	if (c == 0)
 		TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(0), true);
-	if (s & 8)
+	if (c & 8)
 		TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(1), true);
-	if (s & 16)
+	if (c & 16)
 		TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(2), true);
-	if (s & 64)
+	if (c & 64)
 		TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(3), true);
-	if (s & 1)
+	if (c & 1)
 		TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(4), true);
-	if (s & 2)
+	if (c & 2)
 		TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(5), true);
+	if (c & 4)
+		TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(6), true);
 	emit TextStil(s);
 }
 
@@ -3893,11 +3942,16 @@ void ScribusApp::DeletePage()
 		pg = dia->FromPage->value()-1;
 		for (a = pg; a < dia->ToPage->value(); ++a)
 			{
+			view->Pages.at(pg)->SelItem.clear();
 			for (uint d = 0; d < view->Pages.at(pg)->Items.count(); ++d)
 				{
 				if (view->Pages.at(pg)->Items.at(d)->isBookmark)
 					DelBookMark(view->Pages.at(pg)->Items.at(d));
+				if (view->Pages.at(pg)->Items.at(d)->PType == 4)
+					view->Pages.at(pg)->SelItem.append(view->Pages.at(pg)->Items.at(d));
 				}
+			if (view->Pages.at(pg)->SelItem.count() != 0)
+				view->Pages.at(pg)->DeleteItem();
 			view->delPage(pg);
 			AdjustBM();
 			}
@@ -3997,7 +4051,7 @@ void ScribusApp::setItemFont(int id)
 		delete dia;
 		}
 	else
-		nf = *FontID[long(id)];
+		nf = FontID[id];
 	SetNewFont(nf);
 	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 }
@@ -4010,10 +4064,11 @@ void ScribusApp::SetNewFont(QString nf)
 		{
 		doc->AddFont(nf, Prefs.AvailFonts[nf]->Font);
 		a = FontMenu->insertItem(new FmItem(nf, Prefs.AvailFonts[nf]->Font));
-		FontID.insert(static_cast<long>(a), &Prefs.AvailFonts[nf]->SCName);
+		FontID.insert(a, Prefs.AvailFonts[nf]->SCName);
 		}
 	AdjustFontMenu(nf);
 	doc->ActPage->ItemFont(nf);
+	doc->CurrFont = nf;
 	slotDocCh();
 }
 
@@ -4024,7 +4079,7 @@ void ScribusApp::AdjustFontMenu(QString nf)
 	Mpal->Fonts->setCurrentText(nf);
 	for (a = 2; a < FontMenu->count(); ++a)
 		{
-		df = *FontID[long(FontMenu->idAt(a))];
+		df = FontID[FontMenu->idAt(a)];
 		if (df == nf)
 			FontMenu->setItemChecked(FontMenu->idAt(a), true);
 		else
@@ -4037,18 +4092,22 @@ void ScribusApp::setItemFSize(int id)
 	int c = SizeTMenu->indexOf(id);
 	bool ok = false;
 	if (c > 0)
-		doc->ActPage->chFSize(SizeTMenu->text(id).left(2).toInt());
+		{
+		c = SizeTMenu->text(id).left(2).toInt();
+		doc->ActPage->chFSize(c);
+		}
 	else
 		{
     Query* dia = new Query(this, "New", 1, 0, "Size:", "Size");
     if (dia->exec())
     	{
 			c = dia->Answer->text().toInt(&ok);
-			if ((ok) && (c < 513) && (c > 0))
+			if ((ok) && (c < 1025) && (c > 0))
 				doc->ActPage->chFSize(c);
 			delete dia;
      	}
 		}
+	Mpal->setSize(c);
 	slotDocCh();
 }
 
@@ -4073,7 +4132,7 @@ void ScribusApp::setItemFarbe(int id)
 		ColorMenu->setItemChecked(ColorMenu->idAt(a), false);
 		}
 	ColorMenu->setItemChecked(id, true);
-	doc->ActPage->ItemBrush(ColorMenu->text(id), true);
+	doc->ActPage->ItemBrush(ColorMenu->text(id));
 	slotDocCh();
 }
 
@@ -4089,11 +4148,11 @@ void ScribusApp::setItemShade(int id)
 	ShadeMenu->setItemChecked(id, true);
 	if (c > 0)
 		{		
-		doc->ActPage->ItemBrushShade((c-1) * 10, true);
+		doc->ActPage->ItemBrushShade((c-1) * 10);
 		}
 	else
 		{
-    Query* dia = new Query(this, tr("New"), 1, 0, tr("Shade:"), tr("Shade"));
+    Query* dia = new Query(this, "New", 1, 0, "Shade:", "Shade");
     if (dia->exec())
     	{
 			c = dia->Answer->text().toInt(&ok);
@@ -4315,6 +4374,7 @@ void ScribusApp::slotEditColors()
 			slotDocCh();
 			doc->PageColors = dia->EditColors;
 			Mpal->Cpal->SetColors(doc->PageColors);
+			Mpal->updateCList();
 			CListe::Iterator it;
 			ColorMenu->clear();
 			QPixmap pm = QPixmap(15, 15);
@@ -4576,12 +4636,13 @@ void ScribusApp::SelectFromOutlS(int Page)
 
 void ScribusApp::InfoDoc()
 {
-	DocInfos *dia = new DocInfos(this, doc->DocAutor, doc->DocTitel, doc->DocComments);
+	DocInfos *dia = new DocInfos(this, doc->DocAutor, doc->DocTitel, doc->DocComments, doc->DocKeyWords);
 	if (dia->exec())
 		{
 		doc->DocAutor = dia->AutorInfo->text();
 		doc->DocTitel = dia->TitelInfo->text();
 		doc->DocComments = dia->MultiLineEdit1->text();
+		doc->DocKeyWords = dia->MultiLineEdit2->text();
 		slotDocCh();
 		}
 	delete dia;
@@ -4640,7 +4701,7 @@ void ScribusApp::BuildFontMenu()
 		it.toFirst();
 		a = FontMenu->insertItem(new FmItem(it.currentKey(), it.current()->Font));
 		FontMenu->setItemChecked(a, true);
-		FontID.insert(static_cast<long>(a), &it.current()->SCName);
+		FontID.insert(a, it.current()->SCName);
 		}
 	else
 		{
@@ -4650,7 +4711,7 @@ void ScribusApp::BuildFontMenu()
 			a = FontMenu->insertItem(new FmItem(it3.key(), it3.data()));
 			if (it3.key() == doc->Dfont)
 				FontMenu->setItemChecked(a, true);
-			FontID.insert(static_cast<long>(a), &it3.key());
+			FontID.insert(a, it3.key());
 			}
 		}
 	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
@@ -4676,6 +4737,7 @@ void ScribusApp::slotFontOrg()
 			{
 			it.current()->EmbedPS = dia->FlagsPS.at(a)->isChecked();
 			it.current()->UseFont = dia->FlagsUse.at(a)->isChecked();
+			it.current()->Subset = dia->FlagsSub.at(a)->isChecked();
 			a++;
 			}
 		a = 0;
@@ -4687,6 +4749,7 @@ void ScribusApp::slotFontOrg()
 			a++;
 			}
 		}
+	Mpal->Fonts->RebuildList(&Prefs);
 	disconnect(dia, SIGNAL(ReReadPrefs()), this, SLOT(ReadPrefs()));
 	delete dia;
 }
@@ -4728,6 +4791,8 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.RecentDCount = dia->Recen->value();
 		Prefs.DocDir = dia->Docs->text();
 		DocDir = Prefs.DocDir;
+		Prefs.ProfileDir = dia->ProPfad->text();
+		GetCMSProfiles();
 		switch (dia->PreviewSize->currentItem())
 			{
 			case 0:
@@ -5096,7 +5161,7 @@ void ScribusApp::ReadPrefs()
   if (!Prefs.WerkvP)
 		toolMenu->changeItem(viewToolsP, tr("Show PDF-Tools"));
 	if (Prefs.Mpalv)
-		toolMenu->changeItem(viewMpal, tr("Hide Measurements"));
+		toolMenu->changeItem(viewMpal, tr("Hide Properties"));
 	if (Prefs.Tpalv)
 		toolMenu->changeItem(viewTpal, tr("Hide Outline"));
 	if (Prefs.SCpalv)
@@ -5250,7 +5315,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 void ScribusApp::SaveAsEps()
 {
 	QString fna;
-  if (!doc->DocName.startsWith("Document"))
+  if (!doc->DocName.startsWith(tr("Document")))
   	{
   	QFileInfo fi(doc->DocName);
   	fna = fi.dirPath()+"/"+fi.baseName()+".eps";
@@ -5260,7 +5325,7 @@ void ScribusApp::SaveAsEps()
   	QDir di = QDir();
   	fna = di.currentDirPath()+"/"+doc->DocName+".eps";
   	}
-  QString fn = CFileDialog(tr("Save as"), tr("EPS-Files (*.eps);;All Files (*)"), "", false, false);
+  QString fn = CFileDialog(tr("Save as"), tr("EPS-Files (*.eps);; All Files (*)"), "", false, false);
   if (!fn.isEmpty())
   	{
 		if (!DoSaveAsEps(fn))
@@ -5488,19 +5553,6 @@ void ScribusApp::StoreBookmarks()
 	ActWin->Last = BookPal->BView->Last;
 }
 
-void ScribusApp::ModifyObject()
-{
-	NoFrameEdit();
-	PageItem* b = doc->ActPage->SelItem.at(0);
-  ModObj *dia = new ModObj(this, b, doc->PageColors, doc, view, &InputProfiles);
-	connect(dia, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
-  dia->exec();
-	delete dia;
-	doc->UnDoValid = false;
-	CanUndo();
-	Mpal->setLvalue(b->LocalScX, b->LocalScY, b->LocalX, b->LocalY );
-}
-
 void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, ScribusDoc* docc)
 {
 	NoFrameEdit();
@@ -5599,9 +5651,18 @@ void ScribusApp::ManTempEnd()
 		}
 	if (doc->isModified())
 		slotDocCh();
+	for (uint c=0; c<view->Pages.count(); ++c)
+		{
+		Apply_Temp(view->Pages.at(c)->MPageNam, c, false);
+		}
 	Sepal->EnablePal();
 	Sepal->RebuildTemp();
 	ActWin->muster = NULL;
+	view->DrawNew();
+	slotDocCh();
+	doc->UnDoValid = false;
+	CanUndo();
+	Sepal->Rebuild();
 }
 
 void ScribusApp::ApplyTemp()
@@ -5611,12 +5672,27 @@ void ScribusApp::ApplyTemp()
 	if (dia->exec())
 		{
 		mna = dia->Templ->currentText();
-		Apply_Temp(mna, doc->ActPage->PageNr);
+		if (dia->SinglePage->isChecked())
+			Apply_Temp(mna, doc->ActPage->PageNr, false);
+		else
+			{
+			int from = dia->FromPage->value()-1;
+			int to = dia->ToPage->value();
+			for (int a = from; a < to; ++a)
+				{
+				Apply_Temp(mna, a, false);
+				}
+			}
 		}
+	view->DrawNew();
+	slotDocCh();
+	doc->UnDoValid = false;
+	CanUndo();
+	Sepal->Rebuild();
 	delete dia;
 }
 
-void ScribusApp::Apply_Temp(QString in, int Snr)
+void ScribusApp::Apply_Temp(QString in, int Snr, bool reb)
 {
 	QString mna = in;
 	if (mna == tr("Normal"))
@@ -5641,11 +5717,14 @@ void ScribusApp::Apply_Temp(QString in, int Snr)
 			}
 		qHeapSort(view->Pages.at(Snr)->XGuides);
 		}
-	view->DrawNew();
-	slotDocCh();
-	doc->UnDoValid = false;
-	CanUndo();
-	Sepal->Rebuild();
+	if (reb)
+		{
+		view->DrawNew();
+		slotDocCh();
+		doc->UnDoValid = false;
+		CanUndo();
+		Sepal->Rebuild();
+		}
 }
 
 void ScribusApp::GroupObj()
@@ -5837,6 +5916,8 @@ void ScribusApp::CallDLL(QString name)
 	(*demo)(this, this);
 	if (pda.Typ != 4)
 		dlclose(mo);
+	if (HaveDoc)
+  	doc->ActPage->update();
 }
 
 bool ScribusApp::DLLName(QString name, QString *PName, int *typ, void **Zeig)
@@ -5892,12 +5973,23 @@ void ScribusApp::GetCMSProfiles()
 	MonitorProfiles.clear();
 	PrinterProfiles.clear();
 	InputProfiles.clear();
-#ifdef HAVE_CMS
 	QString pfad = PREL;
+	pfad += "/lib/scribus/profiles/";
+	GetCMSProfilesDir(pfad);
+	if (Prefs.ProfileDir != "")
+		GetCMSProfilesDir(Prefs.ProfileDir);
+	if ((!PrinterProfiles.isEmpty()) && (!InputProfiles.isEmpty()) && (!MonitorProfiles.isEmpty()))
+		CMSavail = true;
+	else
+		CMSavail = false;
+}
+
+void ScribusApp::GetCMSProfilesDir(QString pfad)
+{
+#ifdef HAVE_CMS
 	QString nam = "";
 	const char *Descriptor;
 	cmsHPROFILE hIn;
-	pfad += "/lib/scribus/profiles/";
 	QDir d(pfad, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
 		{
@@ -5933,13 +6025,7 @@ void ScribusApp::GetCMSProfiles()
 				cmsCloseProfile(hIn);
 				}
 			}
-		if ((!PrinterProfiles.isEmpty()) && (!InputProfiles.isEmpty()) && (!MonitorProfiles.isEmpty()))
-			CMSavail = true;
 		}
-	else
-		CMSavail = false;
-#else
-	CMSavail = false;
 #endif
 }
 
@@ -6006,6 +6092,7 @@ void ScribusApp::SetCMSPrefs()
 					view->RecalcPictures(&InputProfiles, FProg);
 #endif
 					view->DrawNew();
+					Mpal->ShowCMS();
 					FProg->setProgress(cc);
  					qApp->setOverrideCursor(QCursor(arrowCursor), true);
  					}
@@ -6044,6 +6131,7 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 				dia->setProgress(a);
 			}
 		Mpal->Cpal->SetColors(doc->PageColors);
+		Mpal->updateCList();
 		}
 }
 
@@ -6081,7 +6169,7 @@ void ScribusApp::SetShortCut()
 		{
 		editMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
 		}
-	for (a = 19; a < 30; ++a)
+	for (a = 20; a < 30; ++a)
 		{
 		ObjMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
 		}
@@ -6111,6 +6199,7 @@ void ScribusApp::SetShortCut()
 	editMenu->setAccel(Prefs.KeyActions[64].KeyID, Prefs.KeyActions[64].MenuID);
 	toolMenu->setAccel(Prefs.KeyActions[65].KeyID, Prefs.KeyActions[65].MenuID);
 	ObjMenu->setAccel(Prefs.KeyActions[66].KeyID, Prefs.KeyActions[66].MenuID);
+	ObjMenu->setAccel(Prefs.KeyActions[67].KeyID, Prefs.KeyActions[67].MenuID);
 }
 
 void ScribusApp::PutScrap(QString t)
@@ -6134,12 +6223,10 @@ void ScribusApp::SplitUniteOb()
 
 void ScribusApp::TraceText()
 {
-#ifdef HAVE_FREETYPE
 	NoFrameEdit();
 	doc->ActPage->TextToPath();
 	doc->UnDoValid = false;
 	CanUndo();
-#endif
 }
 
 void ScribusApp::Pfadtext()
@@ -6302,6 +6389,12 @@ void ScribusApp::InitHyphenator()
 				datein = tr("Portuguese");
 			if (d[dc] == "hyph_uk.dic")
 				datein = tr("Ukrainian");
+			if (d[dc] == "hyph_pl.dic")
+				datein = tr("Polish");
+			if (d[dc] == "hyph_el.dic")
+				datein = tr("Greek");
+			if (d[dc] == "hyph_ca.dic")
+				datein = tr("Catalan");
 			Sprachen.insert(datein, d[dc]);
 			if (d[dc] == "hyph_"+lang+".dic")
 				Prefs.Language = datein;
@@ -6354,6 +6447,8 @@ void ScribusApp::doHyphenate()
   	if (doc->ActPage->SelItem.count() != 0)
   		{
   		b = doc->ActPage->SelItem.at(0);
+			if (doc->Trenner->Language != b->Language)
+				doc->Trenner->slotNewDict(b->Language);
 			doc->Trenner->slotHyphenate(b);
 			}
 		}
@@ -6361,15 +6456,10 @@ void ScribusApp::doHyphenate()
 
 void ScribusApp::ToggleObjLock()
 {
-	PageItem *b;
 	if (HaveDoc)
 		{
   	if (doc->ActPage->SelItem.count() != 0)
-			{
-  		b = doc->ActPage->SelItem.at(0);
   		doc->ActPage->ToggleLock();
-			HaveNewSel(b->PType);
-			}
 		}
 }
 
@@ -6392,6 +6482,21 @@ void ScribusApp::SetTranspar(float t)
 			{
   		b = doc->ActPage->SelItem.at(0);
 			b->Transparency = t;
+			view->DrawNew();
+			slotDocCh();
+			}
+		}
+}
+
+void ScribusApp::SetTransparS(float t)
+{
+	PageItem *b;
+	if (HaveDoc)
+		{
+  	if (doc->ActPage->SelItem.count() != 0)
+			{
+  		b = doc->ActPage->SelItem.at(0);
+			b->TranspStroke = t;
 			view->DrawNew();
 			slotDocCh();
 			}
@@ -6552,28 +6657,66 @@ void ScribusApp::Collect()
 
 void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 {
-	for (uint c=0; c<view->MasterPages.count(); ++c)
+	Page* pg;
+	PageItem* it;
+	FPointArray gly;
+	QString chx;
+	for (uint c = 0; c < view->MasterPages.count(); ++c)
 		{
-		for (uint d=0; d<view->MasterPages.at(c)->Items.count(); ++d)
+		pg = view->MasterPages.at(c);
+		for (uint d = 0; d < pg->Items.count(); ++d)
 			{
-			if ((view->MasterPages.at(c)->Items.at(d)->PType == 4) || (view->MasterPages.at(c)->Items.at(d)->PType == 8))
+			it = pg->Items.at(d);
+			if ((it->PType == 4) || (it->PType == 8))
 				{
-				for (uint e=0; e<view->MasterPages.at(c)->Items.at(d)->Ptext.count(); ++e)
+				for (uint e = 0; e < it->Ptext.count(); ++e)
 					{
-					Really->insert(view->MasterPages.at(c)->Items.at(d)->Ptext.at(e)->cfont, doc->UsedFonts[view->MasterPages.at(c)->Items.at(d)->Ptext.at(e)->cfont]);
+					Really->insert(it->Ptext.at(e)->cfont, doc->UsedFonts[it->Ptext.at(e)->cfont]);
+					uint chr = it->Ptext.at(e)->ch[0].unicode();
+					if ((chr == 13) || (chr == 32))
+						continue;
+					if (it->Ptext.at(e)->cstyle & 64)
+						{
+						chx = it->Ptext.at(e)->ch;
+						if (chx.upper() != it->Ptext.at(e)->ch)
+							chx = chx.upper();
+						chr = chx[0].unicode();
+						}
+					if ((*doc->AllFonts)[it->Ptext.at(e)->cfont]->CharWidth.contains(chr))
+						{
+						gly = (*doc->AllFonts)[it->Ptext.at(e)->cfont]->GlyphArray[chr].Outlines.copy();
+						(*doc->AllFonts)[it->Ptext.at(e)->cfont]->RealGlyphs.insert(chr, gly);
+						}
 					}
 				}
 			}
 		}
-	for (uint c=0; c<view->Pages.count(); ++c)
+	for (uint c = 0; c < view->Pages.count(); ++c)
 		{
-		for (uint d=0; d<view->Pages.at(c)->Items.count(); ++d)
+		pg = view->Pages.at(c);
+		for (uint d = 0; d < pg->Items.count(); ++d)
 			{
-			if ((view->Pages.at(c)->Items.at(d)->PType == 4) || (view->Pages.at(c)->Items.at(d)->PType == 8))
+			it = pg->Items.at(d);
+			if ((it->PType == 4) || (it->PType == 8))
 				{
-				for (uint e=0; e<view->Pages.at(c)->Items.at(d)->Ptext.count(); ++e)
+				for (uint e = 0; e < it->Ptext.count(); ++e)
 					{
-					Really->insert(view->Pages.at(c)->Items.at(d)->Ptext.at(e)->cfont, doc->UsedFonts[view->Pages.at(c)->Items.at(d)->Ptext.at(e)->cfont]);
+					Really->insert(it->Ptext.at(e)->cfont, doc->UsedFonts[it->Ptext.at(e)->cfont]);
+					uint chr = it->Ptext.at(e)->ch[0].unicode();
+					if ((chr == 13) || (chr == 32))
+						continue;
+					if (it->Ptext.at(e)->cstyle & 64)
+						{
+						chx = it->Ptext.at(e)->ch;
+						if (chx.upper() != it->Ptext.at(e)->ch)
+							chx = chx.upper();
+						chr = chx[0].unicode();
+						}
+					if ((*doc->AllFonts)[it->Ptext.at(e)->cfont]->CharWidth.contains(chr))
+						{
+						gly = (*doc->AllFonts)[it->Ptext.at(e)->cfont]->GlyphArray[chr].Outlines.copy();
+						(*doc->AllFonts)[it->Ptext.at(e)->cfont]->RealGlyphs.insert(chr, gly);
+						}
 					}
 				}
 			}

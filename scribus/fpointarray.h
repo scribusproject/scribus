@@ -47,6 +47,9 @@ public:
 	{ return (FPointArray&)assign( a ); }
 	FPointArray copy() const
 	{ FPointArray tmp; return *((FPointArray*)&tmp.duplicate(*this)); }
+	void setMarker();
+	void addPoint(float x, float y);
+	void addPoint(FPoint p);
 	~FPointArray() {};
 };
 

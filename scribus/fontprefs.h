@@ -41,6 +41,7 @@ public:
     QPushButton* RemoveB;
     QPtrList<QCheckBox> FlagsPS;
     QPtrList<QCheckBox> FlagsUse;
+    QPtrList<QCheckBox> FlagsSub;
     QPtrList<QComboBox> FlagsRepl;
   	preV *Prefs;
 		QMap<QString,QString> RList;

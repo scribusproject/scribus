@@ -34,6 +34,8 @@ public:
 	float y();
 	void setX(float x);
 	void setY(float y);
+	bool operator==(const FPoint &rhs);
+	bool operator!=(const FPoint &rhs);
 	FPoint &operator+=( const FPoint &p );
 	FPoint &operator-=( const FPoint &p );
 private:

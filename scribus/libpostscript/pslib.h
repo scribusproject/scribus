@@ -61,10 +61,8 @@ public:
 	virtual void PS_GradientCol2(float c, float m, float y, float k);
 	virtual void PS_LinGradient(float w, float h, int item, int grad, bool mu);
 	virtual void PS_RadGradient(float w, float h, int item, bool mu);
-	virtual void PS_underline(QCString ch, float x, float y);
-	virtual void PS_strikeout(QCString ch, float x, float y);
-	virtual void PS_show_xy(QCString ch, float x, float y);
 	virtual void PS_show(float x, float y);
+	virtual void PS_showSub(uint chr, QString font, int size, bool stroke);
 	virtual void PS_show_xyG(QString font, QString ch, float x, float y);
 	virtual void PS_image(bool inver, float x, float y, QString fn, float scalex, float scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name = "");
 	virtual void PS_plate(int nr);
@@ -72,6 +70,7 @@ public:
 	virtual void PDF_Bookmark(QString text, uint Seite);
 	virtual void PDF_Annotation(QString text, float x, float y, float b, float h);
 	virtual void PS_close();
+	virtual void PS_insert(QString i);
 	virtual void PS_TemplateStart(QString Name, float breite, float hoehe);
 	virtual void PS_TemplateEnd();
 	virtual void PS_UseTemplate(QString Name);

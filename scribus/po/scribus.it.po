@@ -1,18 +1,21 @@
-# This is a Qt message file in .po format. Each msgid starts with
-# a scope. This scope should *NOT* be translated - eg. "Foo::Bar"
+# translation of scribus.it.po to italiano
+# translation of nuovomodello.po to italiano
+# translation of scribus.po to italiano
+# This is a Qt message file in .po format.  Each msgid starts with
+# a scope.  This scope should *NOT* be translated - eg. "Foo::Bar"
 # would be translated to "Pub", not "Foo::Pub".
+# Pier Luigi Cinquantini <petrolinux@infinito.it>, 2003
 msgid ""
 msgstr ""
-"Project-Id-Version: Scribus 0.3\n"
-"POT-Creation-Date: 1999-02-23 15:38+0200\n"
-"PO-Revision-Date: 2001-12-18 17:57GMT\n"
-"Last-Translator: Giovanni BiczÃ³ <gbiczo@freestart.hu>\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: scribus.it\n"
+"POT-Creation-Date: 2003-06-19 10:00+0200\n"
+"PO-Revision-Date: 2003-08-03 23:31+0200\n"
+"Last-Translator: Pier Luigi Cinquantini <petrolinux@infinito.it>\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language-Team: Italian <kde-i18n-it@kde.org>\n"
-"X-Generator: KBabel 0.9.5\n"
+"Language-Team: italiano <it@li.org>\n"
+"X-Generator: KBabel 1.0.1\n"
 
-#: mywidget.cpp:30
 msgid "File"
 msgstr "File"
 
@@ -47,7 +50,7 @@ msgid "Save Page as EPS..."
 msgstr "Salva pagina in EPS..."
 
 msgid "Save as PDF..."
-msgstr "Salva PDF..."
+msgstr "Salva in PDF..."
 
 msgid "Document Setup..."
 msgstr "Impostazioni documento..."
@@ -56,7 +59,7 @@ msgid "Document Setup"
 msgstr "Impostazioni documento"
 
 msgid "Document Info..."
-msgstr "Informazioni..."
+msgstr "Informazioni documento..."
 
 msgid "Print..."
 msgstr "Stampa..."
@@ -140,7 +143,7 @@ msgid "Margin Guides"
 msgstr "Guide margini"
 
 msgid "Column Guides"
-msgstr "Guide delle colonne"
+msgstr "Guide colonne"
 
 msgid "Columns:"
 msgstr "Colonne:"
@@ -155,7 +158,7 @@ msgid "Height:"
 msgstr "Altezza:"
 
 msgid "Top:"
-msgstr "Alto:"
+msgstr "Superiore:"
 
 msgid "Left:"
 msgstr "Sinistra:"
@@ -170,13 +173,13 @@ msgid "Outside:"
 msgstr "Esterno:"
 
 msgid "Bottom:"
-msgstr "Basso:"
+msgstr "Inferiore:"
 
 msgid "Other"
 msgstr "Altro"
 
 msgid "Facing Pages"
-msgstr "Pagine doppie"
+msgstr "Pagine affiancate"
 
 msgid "OK"
 msgstr "OK"
@@ -184,8 +187,8 @@ msgstr "OK"
 msgid "Cancel"
 msgstr "Annulla"
 
-msgid "Automatic Text Box"
-msgstr "Casella testo automatica"
+msgid "Autom. Textframes"
+msgstr "Colonne automatiche"
 
 msgid "W:"
 msgstr "L:"
@@ -193,8 +196,11 @@ msgstr "L:"
 msgid "Tabloid"
 msgstr "Tabloid"
 
-msgid "Documents (*.scd);; All Files (*)"
-msgstr "Documenti (*.scd);; tutti i file (*)"
+msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
+msgstr "Documenti (*.sla *.sla.gz *.scd *scd.gz);; Tutti i file (*)"
+
+msgid "Documents (*.sla *.scd);; All Files (*)"
+msgstr "Documenti (*.sla *.scd);; Tutti i file (*)"
 
 msgid "Document "
 msgstr "Documento "
@@ -205,9 +211,6 @@ msgstr "Nessun documento"
 msgid "Warning"
 msgstr "Avviso"
 
-msgid "The document has been changed since the last save."
-msgstr "Il documento Ã¨ stato modificato dall'ultimo salvataggio."
-
 msgid "Save Now"
 msgstr "Salva ora"
 
@@ -215,16 +218,19 @@ msgid "Leave Anyway"
 msgstr "Abbandona"
 
 msgid "Textfiles (*.txt);;All Files (*)"
-msgstr "Textfiles (*.txt);;Tutti i file (*)"
+msgstr "File di testo (*.txt);;Tutti i file (*)"
 
-msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
-msgstr "Immagini (*.tif *.png *.jpg *.xpm);; Postscript (*.eps);;Tutti i file (*)"
+msgid "Images"
+msgstr "Immagini"
+
+msgid ");;Vectorimages (*.eps *.pdf);;All Files (*)"
+msgstr ");;Immagini vettoriali (*.eps *.pdf);;Tutti i file (*)"
 
 msgid "Look &in:"
 msgstr "Cerca &in:"
 
 msgid "File &type:"
-msgstr "&Tipo di file:"
+msgstr "Tipo di &file:"
 
 msgid "File &name:"
 msgstr "&Nome del file:"
@@ -233,7 +239,7 @@ msgid "PDF-Options"
 msgstr "Opzioni PDF"
 
 msgid "Compatibility:"
-msgstr "CompatibilitÃ :"
+msgstr "Compatibilità:"
 
 msgid "Images:"
 msgstr "Immagini:"
@@ -242,7 +248,7 @@ msgid "Resolution for EPS-Images:"
 msgstr "Risoluzione per immagini EPS:"
 
 msgid "Document Info"
-msgstr "Informazioni"
+msgstr "Informazioni documento"
 
 msgid "Description:"
 msgstr "Descrizione:"
@@ -271,8 +277,8 @@ msgstr "Seleziona tutto"
 msgid "Deselect all"
 msgstr "Deseleziona tutto"
 
-msgid "Style"
-msgstr "Stile"
+msgid "Theme"
+msgstr "Tema"
 
 msgid "Other..."
 msgstr "Altro..."
@@ -293,22 +299,22 @@ msgid "Delete"
 msgstr "Elimina"
 
 msgid "Font"
-msgstr "Carattere"
+msgstr "Tipo di carattere"
 
 msgid "Size"
 msgstr "Dimensione"
 
 msgid "Font Size"
-msgstr "Dimensione carattere"
+msgstr "Dimensione caratteri"
 
 msgid "Font Size:"
-msgstr "Dimensione carattere:"
+msgstr "Dimensione caratteri:"
 
 msgid "Shade:"
-msgstr "TonalitÃ :"
+msgstr "Tonalità:"
 
 msgid "Shade"
-msgstr "TonalitÃ "
+msgstr "Tonalità"
 
 msgid "Color"
 msgstr "Colore"
@@ -339,12 +345,6 @@ msgstr "Colori"
 
 msgid "Edit Colors"
 msgstr "Modifica colori"
-
-msgid "Hide Colors"
-msgstr "Nascondi colori"
-
-msgid "Show Colors"
-msgstr "Mostra colori"
 
 msgid "Show Outline"
 msgstr "Mostra contorno"
@@ -383,7 +383,7 @@ msgid "Raise"
 msgstr "Alza"
 
 msgid "Delete Page:"
-msgstr "Elimina Pagina:"
+msgstr "Elimina pagina:"
 
 msgid "Delete Page"
 msgstr "Elimina pagina"
@@ -406,9 +406,6 @@ msgstr "Stampa sulla stampante:"
 msgid "Printer"
 msgstr "Stampante"
 
-msgid "locally connected"
-msgstr "connessa localmente"
-
 msgid "Comment"
 msgstr "Commento"
 
@@ -428,7 +425,7 @@ msgid "Print in grayscale"
 msgstr "Stampa in scala di grigi"
 
 msgid "Paper format"
-msgstr "Formato della carta"
+msgstr "Formato carta"
 
 msgid "Portrait"
 msgstr "Verticale"
@@ -520,21 +517,6 @@ msgstr "Preferenze"
 msgid "General"
 msgstr "Generale"
 
-msgid "Platinum-Style"
-msgstr "Platinum"
-
-msgid "Windows-Style"
-msgstr "Windows"
-
-msgid "Motif-Style"
-msgstr "Motif"
-
-msgid "Motif-Plus-Style"
-msgstr "Motif-Plus"
-
-msgid "CDE-Style"
-msgstr "CDE"
-
 msgid "Guides"
 msgstr "Guide"
 
@@ -550,10 +532,10 @@ msgstr "Colore griglia principale:"
 msgid "Minor Grid Color:"
 msgstr "Colore griglia minore:"
 
-msgid "Grid Colors:"
-msgstr "Colori griglia:"
+msgid "Grid Colors"
+msgstr "Colore griglie"
 
-msgid "Grid Layout:"
+msgid "Grid Layout"
 msgstr "Aspetto griglia:"
 
 msgid "Image visible"
@@ -563,19 +545,19 @@ msgid "Is PDF-Bookmark"
 msgstr "Segnalibro PDF"
 
 msgid "Snap to Guides"
-msgstr "Guide magnetiche"
+msgstr "Aggancia alle guide"
 
 msgid "Apply"
 msgstr "Applica"
 
 msgid "Snap to Grid"
-msgstr "Atacca alla griglia"
+msgstr "Aggancia alla griglia"
 
 msgid "Mouse-Settings"
 msgstr "Impostazioni mouse"
 
 msgid "Wheel-Jump"
-msgstr "SensibilitÃ  della rotella"
+msgstr "Sensibilità rotella"
 
 msgid "Grab-Radius"
 msgstr "Raggio della selezione"
@@ -602,10 +584,10 @@ msgid "Global Fontsettings"
 msgstr "Impostazioni globali dei fonts"
 
 msgid "Path to Fontfile"
-msgstr "Percorso del fontfile"
+msgstr "Percorso del file dei font"
 
 msgid "Embed in:"
-msgstr "Integra in:"
+msgstr "Incorpora in:"
 
 msgid "Default Size:"
 msgstr "Dimensione predefinita:"
@@ -613,32 +595,32 @@ msgstr "Dimensione predefinita:"
 msgid "Default Font:"
 msgstr "Carattere predefinito:"
 
-msgid "Sample Text"
-msgstr "Testo di esempio"
+msgid "Woven silk pyjamas exchanged for blue quartz"
+msgstr "Ma la volpe col suo balzo ha raggiunto il quieto Fido"
 
 msgid "Fonts"
 msgstr "Caratteri"
 
 msgid "Missing Font"
-msgstr "Carattere mancante"
+msgstr "Font mancante"
 
 msgid "Missing"
 msgstr "Mancante"
 
 msgid "The Font %1 is not installed."
-msgstr "Il carattere %1 non Ã¨ installato."
+msgstr "Il font %1 non è installato."
 
 msgid "Use"
-msgstr "Utilizza"
+msgstr "Usa"
 
 msgid "instead"
 msgstr "al suo posto"
 
 msgid "Fonts..."
-msgstr "Caratteri..."
+msgstr "Font..."
 
 msgid " loaded"
-msgstr " caricato"
+msgstr "caricato"
 
 msgid "Picture "
 msgstr "Immagine "
@@ -650,25 +632,25 @@ msgid " saved"
 msgstr " salvato"
 
 msgid "Unable to create PDF-File."
-msgstr "Impossibile creare il file PDF."
+msgstr "Impossibile creare file PDF."
 
 msgid "Error creating PDF-File.."
-msgstr "Errore durante la creazione del file PDF."
+msgstr "Errore durante creazione file PDF..."
 
 msgid "Error during EPS-Export"
-msgstr "Errore durante l'esportazione in EPS"
+msgstr "Errore durante esportazione in EPS"
 
 msgid "The following Programs are missing:"
 msgstr "Mancano i seguenti programmi:"
 
 msgid "Ghostscript : You cannot use EPS-Images"
-msgstr "Ghostscript: non puoi usare immagini EPS"
+msgstr "Ghostscript: Non puoi usare immagini EPS"
 
 msgid "Multiple Duplicate"
 msgstr "Duplicazione multipla"
 
 msgid "Number of Copies:"
-msgstr "Numero di Copie:"
+msgstr "Numero di copie:"
 
 msgid "Horizontal Shift:"
 msgstr "Spostamento orizzontale:"
@@ -707,10 +689,10 @@ msgid "Right Sides"
 msgstr "Lati destri"
 
 msgid "Top Sides"
-msgstr "Lati alti"
+msgstr "Lati superiori"
 
 msgid "Bottom Sides"
-msgstr "Lati bassi"
+msgstr "Lati inferiori"
 
 msgid "Vertical"
 msgstr "Verticale"
@@ -718,47 +700,14 @@ msgstr "Verticale"
 msgid "Horizontal"
 msgstr "Orizzontale"
 
-msgid "Output to File:"
-msgstr "Spedisci l'output su File:"
-
-msgid "Change..."
-msgstr "Cambia..."
-
-msgid "Compression"
-msgstr "Compressione"
-
-msgid "Downsample Color-Images to:"
-msgstr "Campionamento immagini a colori:"
-
-msgid "Downsample Grayscale-Images to:"
-msgstr "Campionamento immagini in scala di grigi:"
-
-msgid "Downsample Mono-Images to:"
-msgstr "Campionamento immagini mono:"
-
-msgid "Compress Text and Vectorgraphics"
-msgstr "Compressione testo e grafica vettoriale"
-
-msgid "Compatibility"
-msgstr "CompatibilitÃ "
-
-msgid "Device Settings"
-msgstr "Impostazioni dispositivo"
-
-msgid "Resolution:"
-msgstr "Risoluzione:"
-
-msgid "Create PDF-File"
-msgstr "Crea file PDF"
-
 msgid "Fatal Error"
-msgstr "Errore Fatale"
+msgstr "Errore irreversibile"
 
 msgid "There are no Postscript-Fonts on your System"
-msgstr "Non ci sono caratteri Postscript sul tuo sistema"
+msgstr "Non ci sono font Postscript sul tuo sistema"
 
 msgid "Exiting now"
-msgstr "Uscita"
+msgstr "Esci ora"
 
 msgid "Insert Page"
 msgstr "Inserisci pagina"
@@ -772,11 +721,11 @@ msgstr "prima di pagina"
 msgid "after Page"
 msgstr "dopo pagina"
 
-msgid "At End"
-msgstr "a fine documento"
+msgid "at End"
+msgstr "a fine pagina"
 
-msgid "Page(s)"
-msgstr "Pagina/e"
+msgid "page(s)"
+msgstr "pagina/e"
 
 msgid "To End"
 msgstr "Alla fine"
@@ -803,7 +752,7 @@ msgid "Select Items"
 msgstr "Seleziona elementi"
 
 msgid "Edit Contents of Frame"
-msgstr "Modifica contenuto della cornice"
+msgstr "Modifica contenuto cornice"
 
 msgid "Zooms in or out"
 msgstr "Zoom avanti o indietro"
@@ -842,10 +791,10 @@ msgid "Don't print"
 msgstr "Non stampare"
 
 msgid "Properties:"
-msgstr "ProprietÃ :"
+msgstr "Proprietà:"
 
 msgid "Ordinary Text"
-msgstr "Testo ordinario"
+msgstr "Testo normale"
 
 msgid "Is PDF-Annotation"
 msgstr "Annotazione PDF"
@@ -854,22 +803,22 @@ msgid "Angle:"
 msgstr "Angolo:"
 
 msgid "Textdistance"
-msgstr "Distanza del testo"
+msgstr "Distanza testo"
 
 msgid "Face"
 msgstr "Carattere"
 
 msgid "Superscript"
-msgstr "Indice superiore"
+msgstr "Apice"
 
 msgid "Subscript"
-msgstr "Indice inferiore"
+msgstr "Pedice"
 
 msgid "Flip horizontal"
-msgstr "Ribalta orizzontalmente"
+msgstr "Rifletti orizzontalmente"
 
 msgid "Flip vertical"
-msgstr "Ribalta verticalmente"
+msgstr "Ribalta"
 
 msgid "Scaling:"
 msgstr "Riscala:"
@@ -884,10 +833,7 @@ msgid "Typographics"
 msgstr "Tipografico"
 
 msgid "Italic"
-msgstr "Italico"
-
-msgid "Shift+Click to add Point; Ctrl+Click to delete Point"
-msgstr "Shift+click per aggiungere punto; Ctrl+click per cancellare punto"
+msgstr "Corsivo"
 
 msgid "No Fill"
 msgstr "Nessun riempimento"
@@ -908,16 +854,16 @@ msgid "Bold"
 msgstr "Grassetto"
 
 msgid "Shading:"
-msgstr "TonalitÃ :"
+msgstr "Tonalità:"
 
 msgid "Background Color:"
 msgstr "Colore sfondo:"
 
 msgid "Vertical flipped"
-msgstr "Ribaltato verticalmente"
+msgstr "Ribaltato"
 
 msgid "Horizontal flipped"
-msgstr "Ribaltato orizzontalmente"
+msgstr "Riflesso"
 
 msgid "Text flows around Box"
 msgstr "Il testo fluisce intorno alla casella"
@@ -926,7 +872,7 @@ msgid "Online-Help..."
 msgstr "Aiuto online..."
 
 msgid "Scribus Manual"
-msgstr "Manuale Scribus"
+msgstr "Manuale di Scribus"
 
 msgid "Local X-Pos:"
 msgstr "Posizione orizzontale:"
@@ -941,7 +887,7 @@ msgid "Vertical Scaling"
 msgstr "Riscala verticalmente"
 
 msgid "Modify Pictureframe"
-msgstr "Modifica cornice dell'immagine"
+msgstr "Modifica cornice immagine"
 
 msgid "Line Color:"
 msgstr "Colore linea:"
@@ -962,7 +908,7 @@ msgid "Scaling Y:"
 msgstr "Riscala Y:"
 
 msgid "Manual Kerning"
-msgstr "Kerning manuale"
+msgstr "Crenatura manuale"
 
 msgid "Linespacing"
 msgstr "Spaziatura delle righe"
@@ -971,22 +917,22 @@ msgid "Frame"
 msgstr "Cornice"
 
 msgid "Contents"
-msgstr "Contenuto"
+msgstr "Contenuti"
 
 msgid "Tools"
 msgstr "Strumenti"
 
 msgid "Create Textchains"
-msgstr "Crea catene di testo"
+msgstr "Crea catene testo"
 
 msgid "Break Textchains"
-msgstr "Interrompi catene di testo"
+msgstr "Interrompi catene testo"
 
 msgid "Stepping:"
-msgstr "Stepping:"
+msgstr "Progressione:"
 
-msgid "Placing:"
-msgstr "Sistemazione:"
+msgid "Placing"
+msgstr "Disposizione"
 
 msgid "In the Background"
 msgstr "Nello sfondo"
@@ -998,7 +944,10 @@ msgid "Text Color:"
 msgstr "Colore testo:"
 
 msgid "Units"
-msgstr "UnitÃ "
+msgstr "Unità"
+
+msgid "Points (pts)"
+msgstr "Punti (pts)"
 
 msgid "Points (pt)"
 msgstr "Punti (pt)"
@@ -1007,16 +956,16 @@ msgid "Millimeters (mm)"
 msgstr "Millimetri (mm)"
 
 msgid "Creates a new Document"
-msgstr "Crea un nouvo documento"
+msgstr "Crea nuovo documento"
 
 msgid "Opens a Document"
-msgstr "Apre un documento"
+msgstr "Apri un documento"
 
 msgid "Saves the current Document"
-msgstr "Salva l'attuale documento"
+msgstr "Salva questo documento"
 
 msgid "Prints the current Document"
-msgstr "Stampa l'attuale documento"
+msgstr "Stampa questo documento"
 
 msgid "Copy Here"
 msgstr "Copia qui"
@@ -1034,7 +983,7 @@ msgid "Translations"
 msgstr "Traduzioni"
 
 msgid "Programming:"
-msgstr "Programma:"
+msgstr "Programmazione:"
 
 msgid "Contributions from:"
 msgstr "Hanno contribuito:"
@@ -1049,13 +998,16 @@ msgid "French:"
 msgstr "Francese:"
 
 msgid "Spanish and Catalan:"
-msgstr "Spagnolo e Catalano:"
+msgstr "Spagnolo e catalano:"
 
 msgid "Hungarian and Italian:"
-msgstr "Ungherese e Italiano:"
+msgstr "Ungherese e italiano:"
 
 msgid "Slovak:"
 msgstr "Slovacco:"
+
+msgid "Slovak"
+msgstr "Slovacco"
 
 msgid "Ukrainian:"
 msgstr "Ucraino:"
@@ -1064,7 +1016,7 @@ msgid "None"
 msgstr "Nessuno"
 
 msgid "Closes the current Document"
-msgstr "Chiude il documento attuale"
+msgstr "Chiudi questo documento"
 
 msgid "Range:"
 msgstr "Intervallo:"
@@ -1082,13 +1034,13 @@ msgid "All"
 msgstr "Tutti"
 
 msgid "Setup Printer"
-msgstr "Imposta la stampante"
+msgstr "Imposta stampante"
 
 msgid "Old"
 msgstr "Vecchio"
 
-msgid "Colormodel"
-msgstr "Modello colori"
+msgid "Color Model"
+msgstr "Modello colore:"
 
 msgid "Is Spot-Color"
 msgstr "Spot-Color"
@@ -1136,13 +1088,13 @@ msgid "No Style"
 msgstr "Nessuno stile"
 
 msgid "Block"
-msgstr "Blocco"
+msgstr "Giustificato"
 
 msgid "Forced"
-msgstr "Blocco forzato"
+msgstr "Forzato"
 
 msgid "Indentation"
-msgstr "Indentazione"
+msgstr "Rientro"
 
 msgid "Page-Colors"
 msgstr "Colori pagina"
@@ -1151,10 +1103,10 @@ msgid "Background:"
 msgstr "Sfondo:"
 
 msgid "Left Indent:"
-msgstr "Sinistra:"
+msgstr "Rientro a sinistra:"
 
 msgid "First Line:"
-msgstr "Prima linea:"
+msgstr "Prima riga:"
 
 msgid "Character"
 msgstr "Carattere"
@@ -1169,7 +1121,7 @@ msgid "Color:"
 msgstr "Colore:"
 
 msgid "Name of the Style is not unique"
-msgstr "Il nome dello stile non Ã© unico"
+msgstr "Il nome dello stile non è univoco"
 
 msgid "Do you really want do delete this Style?"
 msgstr "Vuoi veramente eliminare questo stile?"
@@ -1178,7 +1130,7 @@ msgid "No"
 msgstr "No"
 
 msgid "Yes"
-msgstr "SÃ­"
+msgstr "Sì"
 
 msgid "Vertical Spaces"
 msgstr "Spazi verticali"
@@ -1195,17 +1147,29 @@ msgstr "File AFM disponibile"
 msgid "Nodes"
 msgstr "Nodi"
 
-msgid "End Editing Frame"
-msgstr "Finisci modifica della cornice"
+msgid "End Editing"
+msgstr "Fine"
 
-msgid "Add Node"
-msgstr "Aggiungi nodo"
+msgid "Add Nodes"
+msgstr "Aggiungi nodi"
 
-msgid "Delete Node"
-msgstr "Elimina nodo"
+msgid "Delete Nodes"
+msgstr "Togli nodi"
 
-msgid "Move Node"
-msgstr "Muovi nodo"
+msgid "Move Nodes"
+msgstr "Sposta nodi"
+
+msgid "Move Control Points"
+msgstr "Sposta punti di controllo"
+
+msgid "Move Control Points independently"
+msgstr "Sposta punti di controllo singolarmente"
+
+msgid "Move Control Points symmetrical"
+msgstr "Sposta punti di controllo simmetricamente"
+
+msgid "Insert Bezier Curves"
+msgstr "Inserisci curve di Bezier"
 
 msgid "New Entry"
 msgstr "Nuova voce"
@@ -1223,16 +1187,16 @@ msgid "Object"
 msgstr "Oggetto"
 
 msgid "Show Scrapbook"
-msgstr "Mostra biblioteche"
+msgstr "Mostra biblioteca"
 
 msgid "Hide Scrapbook"
-msgstr "Nascondi biblioteche"
+msgstr "Nascondi biblioteca"
 
 msgid "Other Options"
 msgstr "Altre opzioni"
 
 msgid "Save Contents on Exit"
-msgstr "Salva contenuto all'uscita"
+msgstr "Salva contenuti all'uscita"
 
 msgid "Preview"
 msgstr "Anteprima"
@@ -1247,10 +1211,10 @@ msgid "Big"
 msgstr "Grande"
 
 msgid "Edit Templates"
-msgstr "Modifica pagine maestre"
+msgstr "Modifica modelli"
 
 msgid "Apply Template..."
-msgstr "Applica pagina maestra."
+msgstr "Applica modello..."
 
 msgid "Exit"
 msgstr "Esci"
@@ -1262,25 +1226,25 @@ msgid "Name:"
 msgstr "Nome:"
 
 msgid "New Template"
-msgstr "Nuova pagina maestra"
+msgstr "Nuovo modello"
 
 msgid "Normal"
 msgstr "Normale"
 
 msgid "Templates..."
-msgstr "Pagine maestre..."
+msgstr "Modelli..."
 
-msgid "Based on:"
-msgstr "Basata su:"
+msgid "Template:"
+msgstr "Modello:"
 
 msgid "Apply Template"
-msgstr "Applica pagina maestra"
+msgstr "Applica modello"
 
 msgid "Template for this Page:"
-msgstr "Pagina maestra per questa pagina:"
+msgstr "Modello per questa pagina:"
 
-msgid "Remove Items from previous Template"
-msgstr "Elimina elementi dalla pagina maestra precedente"
+msgid "Do you really want do delete this Template?"
+msgstr "Vuoi veramente cancellare questo modello?"
 
 msgid "Left Page"
 msgstr "Pagina sinistra"
@@ -1292,13 +1256,13 @@ msgid "Display Frames"
 msgstr "Mostra cornici"
 
 msgid "Display Pages Side by Side"
-msgstr "Mostra pagine lato a lato"
+msgstr "Mostra pagine affiancate"
 
 msgid "Display"
 msgstr "Mostra"
 
 msgid "Left Page first"
-msgstr "Prima pagina sulla sinistra"
+msgstr "Prima pagina a sinistra"
 
 msgid "Group"
 msgstr "Raggruppa"
@@ -1315,11 +1279,11 @@ msgstr "Mostra cornici"
 msgid "Hide Frames"
 msgstr "Nascondi cornici"
 
-msgid "Left Page based on:"
-msgstr "Pagina sinistra basata su:"
+msgid "Template (Left Page):"
+msgstr "Modello (Pagina sinistra)"
 
-msgid "Right Page based on:"
-msgstr "Pagina destra basata su:"
+msgid "Template (Right Page):"
+msgstr "Modello (Pagina destra)"
 
 msgid "Manage Pictures"
 msgstr "Gestione immagini"
@@ -1331,7 +1295,7 @@ msgid "Goto"
 msgstr "Vai a"
 
 msgid "Search"
-msgstr "Ricerca"
+msgstr "Cerca"
 
 msgid "Path"
 msgstr "Percorso"
@@ -1349,13 +1313,13 @@ msgid "Recent Documents:"
 msgstr "Documenti recenti:"
 
 msgid "Recent Documents"
-msgstr "Documenti recenti"
+msgstr "7Documenti recenti"
 
 msgid "Display unprintable Area in Margin Color"
-msgstr "Mostra area non stampabile con colore di margine"
+msgstr "Mostra area non stampabile con il colore di margine"
 
 msgid "Automatic Linespaceing:"
-msgstr "Spaziatura delle righe automatica:"
+msgstr "Interlinea automatica"
 
 msgid "Distances"
 msgstr "Distanze"
@@ -1373,976 +1337,1511 @@ msgid "Select"
 msgstr "Seleziona"
 
 msgid "Import..."
-msgstr ""
+msgstr "Importa..."
 
 msgid "Export..."
-msgstr ""
+msgstr "Esporta..."
 
 msgid "Dynamic Color Bars"
-msgstr ""
+msgstr "Barre di colore dinamiche"
 
 msgid "Static Color Bars"
-msgstr ""
+msgstr "Barre di colore statiche"
 
-msgid "Colormanagement Settings"
-msgstr ""
+msgid "Color Management Settings"
+msgstr "Configurazione della gestione del colore"
 
-msgid "Activate Colormanagement"
-msgstr ""
+msgid "Activate Color Management"
+msgstr "Attiva la gestione dei colori"
 
 msgid "System Profiles"
-msgstr ""
+msgstr "Profili del sistema"
 
 msgid "Pictures:"
-msgstr ""
+msgstr "Immagini:"
 
 msgid "Solid Colors:"
-msgstr ""
+msgstr "Colori omogenei:"
 
 msgid "Monitor:"
-msgstr ""
+msgstr "Schermo:"
 
 msgid "Printer:"
-msgstr ""
+msgstr "Stampante:"
 
 msgid "Rendering Intents"
-msgstr ""
+msgstr "Effetti rendering"
 
 msgid "Rendering Intent:"
-msgstr ""
+msgstr "Effetto rendering:"
 
 msgid "Perceptual"
-msgstr ""
+msgstr "Percettibile"
 
 msgid "Relative Colorimetric"
-msgstr ""
+msgstr "Grado di colore relativo"
 
 msgid "Saturation"
-msgstr ""
+msgstr "Saturazione"
 
 msgid "Absolute Colorimetric"
-msgstr ""
+msgstr "Grado di colore assoluto"
 
 msgid "Simulate Printer on the Screen"
-msgstr ""
+msgstr "Simulazione di stampa su schermo"
 
-msgid "Colormanagement..."
-msgstr ""
+msgid "Color Management..."
+msgstr "Gestione dei colori..."
 
-msgid "Inputprofil:"
-msgstr ""
+msgid "Input Profile:"
+msgstr "Profilo di output:"
 
 msgid "No Title"
-msgstr ""
+msgstr "Senza títolo"
 
 msgid "Unknown"
-msgstr ""
+msgstr "Sconosciuto"
 
 msgid "Adjusting Colors"
-msgstr ""
+msgstr "Aggiustamento colori"
 
 msgid "Scribus-Document"
-msgstr ""
+msgstr "Documento di Scribus"
 
 msgid "Title:"
-msgstr ""
+msgstr "Títolo:"
 
 msgid "Sorry, no Manual available!"
-msgstr ""
+msgstr "Mi spiace, il manuale non è disponibile!"
 
 msgid "Embed all Fonts"
-msgstr ""
+msgstr "Includi tutti i font"
 
 msgid "Embedding"
-msgstr ""
+msgstr "Inclusione"
 
 msgid "Available Fonts:"
-msgstr ""
+msgstr "Font disponibili:"
 
 msgid "Fonts to embed:"
-msgstr ""
+msgstr "Font da includere:"
 
 msgid "Output to File:"
-msgstr ""
+msgstr "Spedisci l'output sul file:"
 
 msgid "Change..."
-msgstr ""
+msgstr "Cambia..."
 
 msgid "Compression"
-msgstr ""
+msgstr "Compressione"
 
 msgid "Downsample Images to:"
-msgstr ""
+msgstr "Riduci immagini a:"
 
-msgid "Compress Text and Vectorgraphics"
-msgstr ""
+msgid "Compress Text and Vector Graphics"
+msgstr "Comprimi testo e grafiche vettoriali"
 
 msgid "File Options"
-msgstr ""
+msgstr "Opzioni del file"
 
 msgid "Generate Thumbnails"
-msgstr ""
+msgstr "Crea miniature"
 
 msgid "Resolution:"
-msgstr ""
+msgstr "Risoluzione:"
 
 msgid "Create PDF-File"
-msgstr ""
+msgstr "Crea file PDF"
 
-msgid "X-Coor.:"
-msgstr ""
+msgid "X-Pos:"
+msgstr "Pos. X:"
 
-msgid "Y-Coor.:"
-msgstr ""
+msgid "Y-Pos:"
+msgstr "Pos. Y:"
 
 msgid "Page:"
-msgstr ""
+msgstr "Pagina:"
 
 msgid "Destination"
-msgstr ""
+msgstr "Destinazione"
 
 msgid "Type:"
-msgstr ""
+msgstr "Tipo:"
 
 msgid "Annotation Properties"
-msgstr ""
+msgstr "Proprietà annotazioni"
 
 msgid "Bookmarks"
-msgstr ""
+msgstr "Segnalibri"
 
 msgid "Include Bookmarks"
-msgstr ""
+msgstr "Includi segnalibri"
 
 msgid "Manage Keyboard Shortcuts"
-msgstr ""
+msgstr "Configura tasti di scelta rapida"
 
 msgid "Action"
-msgstr ""
+msgstr "Azione"
 
 msgid "Current Key"
-msgstr ""
+msgstr "Tasto attivo"
 
 msgid "Select a Key for this Action"
-msgstr ""
+msgstr "Seleziona un tasto per questa azione"
 
 msgid "No Key"
-msgstr ""
+msgstr "Nessun tasto"
 
 msgid "User Defined Key"
-msgstr ""
+msgstr "Tasto personalizzato"
 
 msgid "Set Key"
-msgstr ""
+msgstr "Imposta tasto"
 
 msgid "This Key-Sequence is already in use"
-msgstr ""
+msgstr "Questa sequenza di tasti è già in uso"
 
 msgid "Keyboard Shortcuts..."
-msgstr ""
+msgstr "Tasti per accesso rapido..."
 
 msgid "Smart Hyphen"
-msgstr ""
+msgstr "Trattino di sillabazione"
 
 msgid "Align Left"
-msgstr ""
+msgstr "Allinea a sinistra"
 
 msgid "Align Right"
-msgstr ""
+msgstr "Allinea a destra"
 
 msgid "Align Center"
-msgstr ""
+msgstr "Centra"
 
 msgid "Insert Pagenumber"
-msgstr ""
+msgstr "Inserisci numero di pagina"
 
 msgid "Binding:"
-msgstr ""
+msgstr "Rilegatura:"
 
 msgid "Left Margin"
-msgstr ""
+msgstr "Margine sinistro"
 
 msgid "Right Margin"
-msgstr ""
+msgstr "Margine destro"
 
 msgid "Corner Radius:"
-msgstr ""
+msgstr "Raggio dell'angolo"
 
-msgid "Save linked Textframes as PDF-Articles"
-msgstr ""
+msgid "Save linked Text Frames as PDF-Articles"
+msgstr "Salva cornici di testo collegate come articoli PDF"
 
 msgid "Enable Presentation Effects"
-msgstr ""
+msgstr "Abilita effetti di presentazione"
 
 msgid "Show Page Previews"
-msgstr ""
+msgstr "Mostra anteprima pagina"
 
 msgid "Display Duration:"
-msgstr ""
+msgstr "Durata proiezione:"
 
 msgid "Effect Duration:"
-msgstr ""
+msgstr "Durata effetto:"
 
 msgid "Effect Type:"
-msgstr ""
+msgstr "Tipo di effetto:"
 
 msgid "Moving Lines:"
-msgstr ""
+msgstr "Linee mobili:"
 
 msgid "from the:"
-msgstr ""
+msgstr "da:"
 
 msgid "Direction:"
-msgstr ""
+msgstr "Direzione:"
 
 msgid "No Effect"
-msgstr ""
+msgstr "Nessun effetto"
 
 msgid "Blinds"
-msgstr ""
+msgstr "Offusca"
 
 msgid "Box"
-msgstr ""
+msgstr "Casella"
 
 msgid "Dissolve"
-msgstr ""
+msgstr "Dissolvi"
 
 msgid "Glitter"
-msgstr ""
+msgstr "Scintillio"
 
 msgid "Split"
-msgstr ""
+msgstr "Dividi"
 
 msgid "Wipe"
-msgstr ""
+msgstr "Pulisci"
 
 msgid "Inside"
-msgstr ""
+msgstr "Interno"
 
 msgid "Outside"
-msgstr ""
+msgstr "Esterno"
 
 msgid "Left to Right"
-msgstr ""
+msgstr "Da sinistra a destra"
 
 msgid "Top to Bottom"
-msgstr ""
+msgstr "Dall'alto in basso"
 
 msgid "Bottom to Top"
-msgstr ""
+msgstr "Dal basso in alto"
 
 msgid "Right to Left"
-msgstr ""
+msgstr "Da destra a sinistra"
 
 msgid "Top-Left to Bottom-Right"
-msgstr ""
+msgstr "Da sx in alto a dx in basso"
 
 msgid "Extras"
-msgstr ""
+msgstr "Extra"
 
 msgid "Saves the current Document as PDF"
-msgstr ""
+msgstr "Salva documento in PDF"
 
 msgid "Rounded Rectangle"
-msgstr ""
+msgstr "Rettangolo arrotondato"
 
 msgid "Align Text Left"
-msgstr ""
+msgstr "Testo allineato a sinistra"
 
 msgid "Align Text Right"
-msgstr ""
+msgstr "Testo allineato a destra"
 
 msgid "Align Text Center"
-msgstr ""
+msgstr "Testo centrato"
 
 msgid "Align Text Block"
-msgstr ""
+msgstr "Testo giustificato"
 
 msgid "Endings:"
-msgstr ""
+msgstr "Estremità:"
 
 msgid "Edges:"
-msgstr ""
+msgstr "Bordi:"
 
 msgid "MiterJoin"
-msgstr ""
+msgstr "Angolo a punta"
 
 msgid "BevelJoin"
-msgstr ""
+msgstr "Angolo squadrato"
 
 msgid "RoundJoin"
-msgstr ""
+msgstr "Angolo arrotondato"
 
 msgid "FlatCap"
-msgstr ""
+msgstr "Normale"
 
 msgid "SquareCap"
-msgstr ""
+msgstr "Squadrata"
 
 msgid "RoundCap"
-msgstr ""
+msgstr "Arrotondata"
 
 msgid "Move Bookmark"
-msgstr ""
+msgstr "Sposta segnalibro"
 
 msgid "Insert Bookmark"
-msgstr ""
+msgstr "Inserisci segnalibro"
 
 msgid "Copy Page"
-msgstr ""
+msgstr "Copia pagina"
 
 msgid "To the End"
-msgstr ""
+msgstr "Vai alla fine"
 
 msgid "GUI"
-msgstr ""
+msgstr "Interfaccia grafica"
 
 msgid "Fontsize"
-msgstr ""
+msgstr "Dimensione font"
 
-# New in Version 0.8
 msgid "Apply Effect on all Pages"
-msgstr ""
+msgstr "Applica effetto a tutte le pagine"
 
 msgid "Print via other Command"
-msgstr ""
+msgstr "Stampa con un comando esterno"
 
 msgid "Command:"
-msgstr ""
+msgstr "Comando:"
 
 msgid "Orientation:"
-msgstr ""
+msgstr "Orientamento:"
 
 msgid "First Pagenumber:"
-msgstr ""
+msgstr "Prima pagina:"
 
 msgid "Default Unit:"
-msgstr ""
+msgstr "Unità predefinita:"
 
 msgid "Send to Scrapbook"
-msgstr ""
+msgstr "Aggiungi alla biblioteca"
 
 msgid "Left Point"
-msgstr ""
+msgstr "Punto sinistro"
 
 msgid "Endpoints"
-msgstr ""
+msgstr "Punti estremi"
 
 msgid "Scaling"
-msgstr ""
-
-msgid "X-Dir:"
-msgstr ""
-
-msgid "Y-Dir:"
-msgstr ""
+msgstr "Riscala"
 
 msgid "Linespacing:"
-msgstr ""
+msgstr "Interlinea:"
 
 msgid "Character Settings"
-msgstr ""
+msgstr "Configurazione carattere"
 
 msgid "Length:"
-msgstr ""
+msgstr "Lunghezza:"
 
 msgid "Polygon Properties"
-msgstr ""
+msgstr "Proprietà poligono"
 
 msgid "Corners:"
-msgstr ""
+msgstr "Angoli:"
 
 msgid "Convex Polygon"
-msgstr ""
+msgstr "Poligono convesso"
 
 msgid "Factor:"
-msgstr ""
+msgstr "Intensità:"
 
 msgid "Edit Polygon"
-msgstr ""
+msgstr "Modifica poligono"
 
 msgid "Properties..."
-msgstr ""
+msgstr "Proprietà..."
 
 msgid "Lithuanian:"
-msgstr ""
+msgstr "Lituano:"
 
 msgid "Measurements"
-msgstr ""
+msgstr "Dimensioni"
 
 msgid "Insert Polygons"
-msgstr ""
+msgstr "Inserisci poligono"
 
 msgid "Rotation:"
-msgstr ""
+msgstr "Rotazione:"
 
 msgid "Loading..."
-msgstr ""
+msgstr "Caricamento... "
 
 msgid "Convert to"
-msgstr ""
+msgstr "Converti in"
 
 msgid "Text Frame"
-msgstr ""
+msgstr "Cornice testo"
 
 msgid "Picture Frame"
-msgstr ""
+msgstr "Cornice immagine"
 
 msgid "Polygon"
-msgstr ""
+msgstr "Poligono"
 
 msgid "Bezier Curve"
-msgstr ""
+msgstr "Curva di Bezier"
 
 msgid "Style"
-msgstr ""
+msgstr "Stile"
 
 msgid "Modify Pathtext"
-msgstr ""
+msgstr "Modifica testo percorso"
 
 msgid "Show Curve"
-msgstr ""
+msgstr "Mostra curva"
 
 msgid "Startoffset:"
-msgstr ""
+msgstr "Offset iniziale:"
 
 msgid "Distance from Curve:"
-msgstr ""
+msgstr "Distanza dalla curva"
 
 msgid "Attach Text to Path"
-msgstr ""
+msgstr "Unisci testo a percorso"
 
 msgid "Layers"
-msgstr ""
+msgstr "Livelli"
 
 msgid "Add a new Layer"
-msgstr ""
+msgstr "Aggiungi nuovo livello"
 
 msgid "Delete Layer"
-msgstr ""
+msgstr "Elimina livello"
 
 msgid "Raise Layer"
-msgstr ""
+msgstr "Alza livello"
 
 msgid "Lower Layer"
-msgstr ""
+msgstr "Livello inferiore"
 
 msgid "Closes this Dialog"
-msgstr ""
+msgstr "Chiudi casella dialogo"
 
 msgid "New Layer"
-msgstr ""
+msgstr "Nuovo livello"
 
 msgid "Background"
-msgstr ""
+msgstr "Sfondo"
 
 msgid "Reset Control Points"
-msgstr ""
+msgstr "Azzera punti di controllo"
 
 msgid "Reset this Control Points"
-msgstr ""
+msgstr "Azzera questo punto di controllo"
 
 msgid "Opens a Polygon or cuts a Bezier Curve"
-msgstr ""
+msgstr "Apre poligono o interrompe curva di Bezier"
 
 msgid "Closes this Bezier Curve"
-msgstr ""
+msgstr "Chiude questa curva di Bezier"
 
 msgid "Show Layers"
-msgstr ""
+msgstr "Mostra livelli"
 
 msgid "Hide Layers"
-msgstr ""
+msgstr "Nascondi livelli"
 
 msgid "Sent to Layer"
-msgstr ""
+msgstr "Invia al livello"
 
 msgid "Link"
-msgstr ""
+msgstr "Collegamento"
 
 msgid "Text Field"
-msgstr ""
+msgstr "Campo di testo"
 
 msgid "Button"
-msgstr ""
+msgstr "Bottone"
 
 msgid "Check Box"
-msgstr ""
+msgstr "Casella di controllo"
 
 msgid "Properties"
-msgstr ""
+msgstr "Proprietà"
 
 msgid "Tool-Tip:"
-msgstr ""
+msgstr "Suggerimento:"
 
 msgid "Read Only"
-msgstr ""
+msgstr "Solo lettura"
 
 msgid "Visibility:"
-msgstr ""
+msgstr "Visibilità:"
 
 msgid "Border"
-msgstr ""
+msgstr "Bordo"
 
 msgid "Thin"
-msgstr ""
+msgstr "Sottile"
 
 msgid "Wide"
-msgstr ""
+msgstr "Largo"
 
 msgid "Solid"
-msgstr ""
+msgstr "Pieno"
 
 msgid "Dashed"
-msgstr ""
+msgstr "A trattini"
 
 msgid "Beveled"
-msgstr ""
+msgstr "Smussato"
 
 msgid "Inset"
-msgstr ""
+msgstr "Incavato"
 
 msgid "Visible"
-msgstr ""
+msgstr "Visibile"
 
 msgid "Hidden"
-msgstr ""
+msgstr "Nascosto"
 
 msgid "No Print"
-msgstr ""
+msgstr "Senza stampa"
 
 msgid "No View"
-msgstr ""
+msgstr "Non mostrare"
 
 msgid "Appearance"
-msgstr ""
+msgstr "Aspetto"
 
 msgid "Text"
-msgstr ""
+msgstr "Testo"
 
 msgid "Text for Button Down"
-msgstr ""
+msgstr "Testo per bottone inferiore"
 
 msgid "Text for Roll Over"
-msgstr ""
+msgstr "Testo per scorrimento"
 
 msgid "Highlight"
-msgstr ""
+msgstr "Evidenziato"
 
 msgid "Invert"
-msgstr ""
+msgstr "Inverti"
 
 msgid "Outlined"
-msgstr ""
+msgstr "Sottolineato"
 
 msgid "Push"
-msgstr ""
+msgstr "Premi"
 
 msgid "Multi-Line"
-msgstr ""
+msgstr "Multilinea"
 
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 msgid "Limit of"
-msgstr ""
+msgstr "Limite di"
 
 msgid "Characters"
-msgstr ""
+msgstr "Caratteri"
 
 msgid "Do Not Scroll"
-msgstr ""
+msgstr "Non scorrere"
 
 msgid "Do Not Spell Check"
-msgstr ""
+msgstr "Non verificare ortografia"
 
 msgid "Check Style:"
-msgstr ""
+msgstr "Controlla stile:"
 
 msgid "Check"
-msgstr ""
+msgstr "Controlla"
 
 msgid "Cross"
-msgstr ""
+msgstr "Croce"
 
 msgid "Diamond"
-msgstr ""
+msgstr "Diamante"
 
 msgid "Circle"
-msgstr ""
+msgstr "Cerchio"
 
 msgid "Star"
-msgstr ""
+msgstr "Stella"
 
 msgid "Square"
-msgstr ""
+msgstr "Quadrato"
 
 msgid "Default is Checked"
-msgstr ""
+msgstr "Predefinito quando selezionato"
 
 msgid "Java Script"
-msgstr ""
+msgstr "Java Script"
 
 msgid "Go To"
-msgstr ""
+msgstr "Vai a"
 
 msgid "Submit Form"
-msgstr ""
+msgstr "Invia formulario"
 
 msgid "Reset Form"
-msgstr ""
+msgstr "Azzera formulario"
 
 msgid "Flag is ignored for PDF-1.3"
-msgstr ""
+msgstr "Flag ignorato per PDF-1.3"
 
 msgid "Font for use with PDF-1.3:"
-msgstr ""
+msgstr "Font da usare con PDF-1.3:"
 
 msgid "Required"
-msgstr ""
+msgstr "Necessario"
 
 msgid "Don't Export Value"
-msgstr ""
+msgstr "Non esportare valore"
 
 msgid "Event:"
-msgstr ""
+msgstr "Evento:"
 
 msgid "Mouse Up"
-msgstr ""
+msgstr "Bottone mouse non premuto"
 
 msgid "Mouse Down"
-msgstr ""
+msgstr "Bottone mouse premuto"
 
 msgid "Mouse Enter"
-msgstr ""
+msgstr "Entrata mouse"
 
 msgid "Mouse Exit"
-msgstr ""
+msgstr "Uscita mouse"
 
 msgid "On Focus"
-msgstr ""
+msgstr "Al centro"
 
 msgid "On Blur"
-msgstr ""
+msgstr "Intorno"
 
 msgid "Script:"
-msgstr ""
+msgstr "Script:"
 
 msgid "Field is formatted as:"
-msgstr ""
+msgstr "Campo formattato come:"
 
 msgid "Plain"
-msgstr ""
+msgstr "Normale"
 
 msgid "Number"
-msgstr ""
+msgstr "Numero"
 
 msgid "Percentage"
-msgstr ""
+msgstr "Percentuale"
 
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 msgid "Time"
-msgstr ""
+msgstr "Ora"
 
 msgid "Custom"
-msgstr ""
+msgstr "Personalizzato"
 
 msgid "Number Format"
-msgstr ""
+msgstr "Formato numero"
 
 msgid "Decimals:"
-msgstr ""
+msgstr "Decimali:"
 
 msgid "Use Currency Symbol"
-msgstr ""
+msgstr "Usa simbolo valuta"
 
 msgid "Prepend Currency Symbol"
-msgstr ""
+msgstr "Simbolo valuta"
 
 msgid "Formatting"
-msgstr ""
+msgstr "Formattazione"
 
 msgid "Percent Format"
-msgstr ""
+msgstr "Formato percentuale"
 
 msgid "Date Format"
-msgstr ""
+msgstr "Formato data"
 
 msgid "Time Format"
-msgstr ""
+msgstr "Formato ora"
 
 msgid "Custom Scripts"
-msgstr ""
+msgstr "Script personalizzati"
 
 msgid "Format:"
-msgstr ""
+msgstr "Formato:"
 
 msgid "Edit..."
-msgstr ""
+msgstr "Modifica..."
 
 msgid "Combo Box"
-msgstr ""
+msgstr "Casella combinazione"
 
 msgid "List Box"
-msgstr ""
+msgstr "Lista"
 
 msgid "Keystroke:"
-msgstr ""
+msgstr "Tasti da usare:"
 
 msgid "Format"
-msgstr ""
+msgstr "Formato"
 
 msgid "Value is not validated"
-msgstr ""
+msgstr "Valore non valido"
 
 msgid "Value must be greater than or equal to:"
-msgstr ""
+msgstr "Il valore deve essere maggiore o uguale a:"
 
 msgid "and less or equal to:"
-msgstr ""
+msgstr "e minore o uguale a:"
 
 msgid "Custom validate script:"
-msgstr ""
+msgstr "Script di convalida personalizzato:"
 
 msgid "Value is not calculated"
-msgstr ""
+msgstr "Valore non calcolato"
 
 msgid "Value is the"
-msgstr ""
+msgstr "Il valore è"
 
 msgid "sum"
-msgstr ""
+msgstr "somma"
 
 msgid "product"
-msgstr ""
+msgstr "prodotto"
 
 msgid "average"
-msgstr ""
+msgstr "media"
 
 msgid "minimum"
-msgstr ""
+msgstr "minimo"
 
 msgid "maximum"
-msgstr ""
+msgstr "massimo"
 
 msgid "of the following fields:"
-msgstr ""
+msgstr "dei seguenti campi:"
 
 msgid "Custom calculation script:"
-msgstr ""
+msgstr "Script di calcolo personalizzato:"
 
 msgid "Calculate"
-msgstr ""
+msgstr "Calcola"
 
 msgid "Validate"
-msgstr ""
+msgstr "Convalida"
 
 msgid "Enter a comma separated list of Fields here"
-msgstr ""
+msgstr "Inserisci qui una lista di campi separati da virgola"
 
 msgid "Example:"
-msgstr ""
+msgstr "Esempio:"
 
 msgid "Selection Change"
-msgstr ""
+msgstr "Modifica selezione"
 
 msgid "Use Icons"
-msgstr ""
+msgstr "Usa icone"
 
 msgid "Remove"
-msgstr ""
+msgstr "Cancella"
 
 msgid "Pressed"
-msgstr ""
+msgstr "Premuto"
 
 msgid "Roll Over"
-msgstr ""
+msgstr "Scorrimento"
 
 msgid "Icon Placement..."
-msgstr ""
+msgstr "Disposizione icone..."
 
 msgid "Editable"
-msgstr ""
+msgstr "Modificabile"
 
 msgid "Submit to URL:"
-msgstr ""
+msgstr "URL:"
 
 msgid "Submit Data as HTML"
-msgstr ""
+msgstr "Invia dati in HTML"
 
 msgid "Layout:"
-msgstr ""
+msgstr "Disposizione:"
 
 msgid "Caption only"
-msgstr ""
+msgstr "Solo didascalia"
 
 msgid "Icon only"
-msgstr ""
+msgstr "Solo icona"
 
 msgid "Caption below Icon"
-msgstr ""
+msgstr "Intestazione sotto icona"
 
 msgid "Caption above Icon"
-msgstr ""
+msgstr "Intestazione sopra icona"
 
 msgid "Caption right to Icon"
-msgstr ""
+msgstr "Intestazione a destra dell'icona"
 
 msgid "Caption left to Icon"
-msgstr ""
+msgstr "Intestazione a sinistra dell'icona"
 
 msgid "Caption overlays Icon"
-msgstr ""
+msgstr "Intestazione attraverso l'icona"
 
-msgid "Scale When:"
-msgstr ""
+msgid "Scale:"
+msgstr "Riscala:"
 
 msgid "Always"
-msgstr ""
+msgstr "Sempre"
 
 msgid "When Icon is too small"
-msgstr ""
+msgstr "Quando l'icona è troppo piccola"
 
 msgid "When Icon is too big"
-msgstr ""
+msgstr "Quando l'icona è troppo grande"
 
 msgid "Never"
-msgstr ""
+msgstr "Mai"
 
 msgid "Scale How:"
-msgstr ""
+msgstr "Riscala come:"
 
 msgid "Proportional"
-msgstr ""
+msgstr "Proporzionale"
 
 msgid "Non Proportional"
-msgstr ""
+msgstr "Non proporzionale"
 
 msgid "Reset"
-msgstr ""
+msgstr "Azzera"
 
 msgid "You need at least the Icon for Normal to use Icons for Buttons"
-msgstr ""
+msgstr "È necessaria almeno l'icona normale per usare un icona come bottone"
 
 msgid "Save and Exit"
-msgstr ""
+msgstr "Salva ed esci"
 
 msgid "Exit without Saving"
-msgstr ""
+msgstr "Abbandona"
 
 msgid "Get Field Names"
-msgstr ""
+msgstr "Acquisisci nomi campi"
 
 msgid "JavaScripts (*.js);; All Files (*)"
-msgstr ""
+msgstr "JavaScripts (*.js);; Tutti i file (*)"
 
 msgid "Pick..."
-msgstr ""
+msgstr "Scegli..."
 
 msgid "Export Range"
-msgstr ""
+msgstr "Intervallo di esportazione"
 
 msgid "All Pages"
-msgstr ""
+msgstr "Tutte le pagine"
 
 msgid "From:"
-msgstr ""
+msgstr "Da:"
 
 msgid "Insert PDF-Fields"
-msgstr ""
+msgstr "Inserisci campi PDF"
 
 msgid "Undo"
-msgstr ""
+msgstr "Annulla"
 
 msgid "Redo"
-msgstr ""
+msgstr "Ripristina"
 
 msgid "Select Fields"
-msgstr ""
+msgstr "Seleziona campi"
 
 msgid "Available Fields"
-msgstr ""
+msgstr "Campi disponibili"
 
 msgid "Selected Fields"
-msgstr ""
+msgstr "Campi selezionati"
 
 msgid "Field Properties"
-msgstr ""
+msgstr "Proprietà campi"
 
 msgid "Global JavaScripts"
-msgstr ""
+msgstr "JavaScript"
 
 msgid "Add..."
-msgstr ""
+msgstr "Aggiungi..."
 
 msgid "New Script:"
-msgstr ""
+msgstr "Nuovo script:"
 
 msgid "New Script"
-msgstr ""
+msgstr "Nuovo script"
 
 msgid "Insert PDF-Annotations"
-msgstr ""
+msgstr "Inserisci annotazioni PDF"
 
 msgid "Import Data"
-msgstr ""
+msgstr "Importa dati"
 
 msgid "Import Data from:"
-msgstr ""
+msgstr "Importa dati da:"
 
 msgid "Undo Object Change"
-msgstr ""
+msgstr "Annulla modifica oggetto"
 
 msgid "Undo Object Move"
-msgstr ""
+msgstr "Annulla spostamento oggetto"
 
 msgid "Undo Delete Object"
-msgstr ""
+msgstr "Annulla eliminazione oggetto"
 
 msgid "Compress File"
-msgstr ""
+msgstr "Comprimi file"
 
 msgid "Inches (in)"
-msgstr ""
+msgstr "Pollici (in)"
 
 msgid "Picas (p)"
-msgstr ""
+msgstr "Punti (p)"
 
 msgid "Show Template Names"
-msgstr ""
+msgstr "Mostra nomi modelli"
 
 msgid "Arrange Pages"
-msgstr ""
+msgstr "Ordina pagine"
 
 msgid "Available Templates:"
-msgstr ""
+msgstr "Modelli disponibili"
 
 msgid "Document Pages:"
-msgstr ""
+msgstr "Pagine del documento:"
 
 msgid "Hide Page Palette"
-msgstr ""
+msgstr "Nascondi tavolozza pagina"
 
 msgid "Show Page Palette"
-msgstr ""
+msgstr "Mostra tavolozza pagina"
 
 msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
-msgstr ""
+msgstr "Trascina pagine o modelli di pagina nel cestino per eliminarli."
 
 msgid "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below."
-msgstr ""
+msgstr "Qui ci sono tutti i tuoi modelli, per creare una nuova pagina\ntrascina un modello nella finestra qui sotto."
 
 msgid "Here you can see all Pages of your Document."
-msgstr ""
+msgstr "Qui puoi vedere tutte le pagine del documento."
 
 msgid "Free Scaling"
+msgstr "Scala libera"
+
+msgid "Scale to Frame Size"
+msgstr "Adatta alla cornice"
+
+msgid "Hyphenate Text"
+msgstr "Testo sillabato"
+
+msgid "Hyphenator..."
+msgstr "Sillabazione..."
+
+msgid "General..."
+msgstr "Generale..."
+
+msgid "English"
+msgstr "Inglese"
+
+msgid "German"
+msgstr "Tedesco"
+
+msgid "French"
+msgstr "Francese"
+
+msgid "Italian"
+msgstr "Italiano"
+
+msgid "Spanish"
+msgstr "Spagnolo"
+
+msgid "Possible Hyphenation"
+msgstr "Sillabazione possibile"
+
+msgid "Accept"
+msgstr "Approva"
+
+msgid "Skip"
+msgstr "Salta"
+
+msgid "Hyphenator Settings"
+msgstr "Configurazione sillabazione"
+
+msgid "Check during Typing"
+msgstr "Controlla durante scrittura"
+
+msgid "Enables automatic checking of your Text during Typing."
+msgstr "Consente controllo automatico del testo durante la scrittura"
+
+msgid "Fully Automatic"
+msgstr "Automatica"
+
+msgid "Language:"
+msgstr "Lingua:"
+
+msgid "Smallest Word:"
+msgstr "Parola più breve"
+
+msgid "This is the length of the smallest word to be hyphenated."
+msgstr "Questa è la lunghezza della parola più breve da sillabare"
+
+msgid "If you uncheck this you will get an Dialog\neverytime a possible Hyphenation is found."
+msgstr "Se deselezioni la casella apparirà una finestra di dialogo\nogni volta che sarà trovata una sillabazione possibile."
+
+msgid "Windows"
+msgstr "Finestre"
+
+msgid "Cascade"
+msgstr "A cascata"
+
+msgid "Tile"
+msgstr "Affiancate"
+
+msgid "&Restore"
+msgstr "&Ripristina"
+
+msgid "&Move"
+msgstr "&Sposta"
+
+msgid "Mi&nimize"
+msgstr "Mi&nimizza"
+
+msgid "Minimize"
+msgstr "Minimizza"
+
+msgid "Ma&ximize"
+msgstr "Massi&mizza"
+
+msgid "Maximize"
+msgstr "Massimizza"
+
+msgid "System Menu"
+msgstr "Menù di sistema"
+
+msgid "&Close"
+msgstr "&Chiudi"
+
+msgid "Line up"
+msgstr "Allinea"
+
+msgid "Restore Down"
+msgstr "Srotola giù"
+
+msgid "Document"
+msgstr "Documento"
+
+msgid "Name \"%1\" isn't unique.\nPlease choose another."
 msgstr ""
+"Il nome « %1 » già esiste.\n"
+"Scegline un altro."
+
+msgid "Can't write the File: \n%1"
+msgstr "Impossibile scrivere il file: \n%1"
+
+msgid "Russian"
+msgstr "Russo"
+
+msgid "Printing failed!"
+msgstr "Impossibile stampare!"
+
+msgid "Lock"
+msgstr "Blocca"
+
+msgid "Unlock"
+msgstr "Sblocca"
+
+msgid "Moves to your Document Directory.\nThis can be set in the Preferences."
+msgstr ""
+"Ritorna alla directory del documento.\n"
+"La directory può essere definita con Preferenze."
+
+msgid "Choose a Directory"
+msgstr "Scegli una directory"
+
+msgid "Paths"
+msgstr "Percorsi"
+
+msgid "Documents:"
+msgstr "Documenti:"
+
+msgid "One directory up"
+msgstr "Directory superiore"
+
+msgid "Create New Folder"
+msgstr "Crea nuova directory"
+
+msgid "List View"
+msgstr "Vista elenco"
+
+msgid "Detail View"
+msgstr "Vista dettagliata"
+
+msgid "Preview File Contents"
+msgstr "Anteprima contenuto file"
+
+msgid "Hide Grid"
+msgstr "Nascondi griglia"
+
+msgid "Show Grid"
+msgstr "Mostra griglia"
+
+msgid "Manage Guides..."
+msgstr "Gestione linee guida..."
+
+msgid "Manage Guides"
+msgstr "Gestione guide"
+
+msgid "Vertical Guides"
+msgstr "Guide verticali"
+
+msgid "Horizontal Guides"
+msgstr "Guide orizzontali"
+
+msgid "Add"
+msgstr "Aggiungi"
+
+msgid "Horizontal Gradient"
+msgstr "Sfumatura orizzontale"
+
+msgid "Vertical Gradient"
+msgstr "Sfumatura verticale"
+
+msgid "Diagonal Gradient"
+msgstr "Sfumatura diagonale"
+
+msgid "CrossDiagonal Gradient"
+msgstr "Sfumatura diagonale incrociata"
+
+msgid "Radial Gradient"
+msgstr "Sfumatura radiale"
+
+msgid "Polish:"
+msgstr "Polacco:"
+
+msgid "User Guides Color:"
+msgstr "Colore guide:"
+
+msgid "Guide Snap Distance:"
+msgstr "Distanza aggancio guide:"
+
+msgid "Use PDF-1.4 Transparency Features"
+msgstr "Utilizza opzioni di trasparenza PDF-1.4"
+
+msgid "Opacity:"
+msgstr "Opacità:"
+
+msgid "Font Name"
+msgstr "Nome font"
+
+msgid "Use Font"
+msgstr "Usa font"
+
+msgid "Available Fonts"
+msgstr "Font disponibili"
+
+#, fuzzy
+msgid "Replacement"
+msgstr "Sostituzione"
+
+msgid "Font Substitutions"
+msgstr "Sostituisci font"
+
+msgid "Additional Paths"
+msgstr "Percorsi aggiuntivi"
+
+msgid "Screen"
+msgstr "Schermo"
+
+msgid "Output intended for:"
+msgstr "Output su:"
+
+msgid "Use ICC-Profile"
+msgstr "Utilizza un profilo ICC"
+
+msgid "Profiles"
+msgstr "Profili"
+
+msgid "Rendering-Intent:"
+msgstr "Rendering:"
+
+msgid "Don't use embedded Profiles"
+msgstr "Non usare profili incorporati"
+
+msgid "Options..."
+msgstr "Opzioni..."
+
+msgid "Option"
+msgstr "Opzione"
+
+msgid "Value"
+msgstr "Valore"
+
+msgid "Printing Mode"
+msgstr "Modo stampa"
+
+msgid "Page Set"
+msgstr "Imposta pagina"
+
+msgid "Mirror"
+msgstr "Rifletti"
+
+msgid "N-Up Printing"
+msgstr "Fascicola"
+
+msgid "Page per Sheet"
+msgstr "Pagina per foglio"
+
+msgid "Pages per Sheet"
+msgstr "Pagine per foglio"
+
+msgid "Even Pages only"
+msgstr "Solo pagine pari"
+
+msgid "Odd Pages only"
+msgstr "Solo pagine dispari"
+
+msgid "PDF/X-3 Output Intent"
+msgstr "Output PDF/X-3"
+
+msgid "Info String:"
+msgstr "Stringa informativa:"
+
+msgid "Output Profile:"
+msgstr "Profilo di output:"
+
+msgid "Use Encryption"
+msgstr "Usa cifratura"
+
+msgid "Passwords"
+msgstr "Password"
+
+msgid "User:"
+msgstr "Utente:"
+
+msgid "Owner:"
+msgstr "Proprietario:"
+
+msgid "Settings"
+msgstr "Impostazioni"
+
+msgid "Allow Printing the Document"
+msgstr "Permetti la stampa del documento"
+
+msgid "Allow Changing the Document"
+msgstr "Permetti la modifica del documento"
+
+msgid "Copying Text and Graphics is allowed"
+msgstr "E' permessa la copia dei testi e degli elementi grafici"
+
+msgid "Adding Annotations and Fields is allowed"
+msgstr "E' permessa l'aggiunta di annotazioni e di campi"
+
+msgid "Security"
+msgstr "Sicurezza"
+
+msgid "Printer Options"
+msgstr "Opzioni di stampa"
+
+msgid "Element"
+msgstr "Elemento"
+
+msgid "X-Pos+:"
+msgstr "X-Pos+:"
+
+msgid "Y-Pos+:"
+msgstr "Y-Pos+:"
+
+msgid "Horiz. Scale:"
+msgstr "Scala orizzontale"
+
+msgid "Vert. Scale:"
+msgstr "Scala verticale"
+
+msgid "Show Bookmarks"
+msgstr "Mostra segnalibri"
+
+msgid "Hide Bookmarks"
+msgstr "Nascondi segnalibri"
+
+msgid "Collect for Output..."
+msgstr "Raggruppa per l'output..."
+
+msgid "Danish"
+msgstr "Danese"
+
+msgid "Danish:"
+msgstr "Danese:"
+
+msgid "Lock Guides"
+msgstr "Blocca guide"
+
+msgid "Mirror Page(s) horizontal"
+msgstr "Rifletti pagina/e"
+
+msgid "Mirror Page(s) vertical"
+msgstr "Ribalta pagina/e"
+
+msgid "Rotation"
+msgstr "Rotazione"
+
+msgid "by:"
+msgstr "da:"
+
+msgid "Edit Shape..."
+msgstr "Modifica forma..."
+
+msgid "Round\nCorners:"
+msgstr "Arrotonda\nangoli :"
+
+msgid "Distance of Text"
+msgstr "Distanza del testo"
+
+msgid "Custom Spacing"
+msgstr "Spaziatura personalizzata"
+
+msgid "Character:"
+msgstr "Carattere:"
+
+msgid "Line:"
+msgstr "Linea:"
+
+msgid "Level"
+msgstr "Livello"
+
+msgid "Geometry"
+msgstr "Geometria"
+
+msgid "Document:"
+msgstr "Documento:"
+
+msgid "has been changed since the last save."
+msgstr "è stato modificato dall'ultimo salvataggio."
+
+msgid "Insert Page..."
+msgstr "Inserisci pagina..."
+
+msgid "Import a Page"
+msgstr "Importa pagina"
+
+msgid "Document to load:"
+msgstr "Documento da caricare:"
+
+msgid "Document contains: 0 Page(s)"
+msgstr "Il documento contiene: 0 Pagina/e"
+
+msgid "Import Page Nr:"
+msgstr "Importa pagina nr:"
+
+msgid "Import"
+msgstr "Importa"
+
+msgid "Document contains: %1 Page(s)"
+msgstr "Il documento contiene: %1 Pagina/e"
+
+msgid "Advanced Options..."
+msgstr "Opzioni avanzate..."
+
+msgid "Advanced Options"
+msgstr "Opzioni avanzate"
+
+msgid "Apply ICC-Profiles"
+msgstr "Applica profili ICC"
+
+msgid "Mark Colors out of Gamut"
+msgstr "Segna colori fuori gamma"
 
 msgid "Scale Picture to Frame Size"
-msgstr ""
+msgstr "Adatta immagine alla cornice"
 
-msgid "Keep Aspect Ratio"
-msgstr ""
+msgid "Combine Polygons"
+msgstr "Combina poligoni"
 
+msgid "Split Polygon"
+msgstr "Dividi poligono"
+
+msgid "Convert to Polygons"
+msgstr "Converti in poligoni"
+
+msgid "Websave RGB"
+msgstr "Websave RGB"
+
+msgid "Adjust Display Size"
+msgstr "Modificaa misura pagina visualizzata"
+
+msgid "To adjust the Display drag the Ruler below with the Slider."
+msgstr "Per modificare la pagina visualizzata trascina la maniglia sotto il righello"
+
+msgid "Show PDF-Tools"
+msgstr "Mostra strumenti PDF"
+
+msgid "Hide PDF-Tools"
+msgstr "Nascondi strumenti PDF"
+
+msgid "Shears the Path horizotal to the right"
+msgstr "Distorci il percorso orizzontalmente verso destra"
+
+msgid "Shears the Path horizotal to the left"
+msgstr "Distorci il percorso orizzontalmente verso sinistra"
+
+msgid "Shears the Path vertical up"
+msgstr "Distorci il percorso verticalmente verso l'alto"
+
+msgid "Shears the Path vertical down"
+msgstr "Distorci il percorso verticalmente verso il basso"
+
+msgid "Line Styles..."
+msgstr "Stile linee..."
+
+msgid "Initializing Plugins"
+msgstr "Inizializzazione plugins"
+
+msgid "Reading Scrapbook"
+msgstr "Lettura biblioteca"
+
+msgid "Setting up Shortcuts"
+msgstr "Impostazione scorciatoie"
+
+msgid "Reading Preferences"
+msgstr "Lettura preferenze"
+
+msgid "Init Hyphenator"
+msgstr "Avvia sillabazione"
+
+#, fuzzy
+msgid "Getting ICC-Profiles"
+msgstr "Profili ICC in caricamento"
+
+msgid "Searching for Fonts"
+msgstr "Ricerca dei font"
+
+msgid "Print Preview"
+msgstr "Anteprima di stampa"
+
+msgid "Antialias Text"
+msgstr "Testo modalità antialias"
+
+msgid "Antialias Graphics"
+msgstr "Elementi grafici in modalità antialias"
+
+msgid "Russian:"
+msgstr "Russo:"
+
+msgid "Loading:"
+msgstr "Caricamento:"
+
+msgid "Autosave"
+msgstr "Salvataggio automatico"
+
+msgid "Enabled"
+msgstr "Abilita"
+
+msgid "use Bounding Box"
+msgstr "usa Bounding Box"
+
+msgid "Czech:"
+msgstr "Ceco:"
+
+msgid "Norwegian:"
+msgstr "Norvegese:"
+
+msgid "Select new Font:"
+msgstr "Seleziona nuovo font:"
+
+msgid "Insert Special"
+msgstr "Inserisci speciale"
+
+msgid "Select Character"
+msgstr "Seleziona carattere"
+
+msgid "Insert"
+msgstr "Inserisci"
+
+msgid "Save Page as SVG..."
+msgstr "Salva pagina in SVG..."
+
+msgid "SVG-Images (*.svg);; All Files (*)"
+msgstr "Immagini SVG (*svg);; Tutti i file (*)"
+
+msgid "Solid Line"
+msgstr "Continua"
+
+msgid "Dashed Line"
+msgstr "A trattini"
+
+msgid "Dotted Line"
+msgstr "A puntini"
+
+msgid "Dash Dot Line"
+msgstr "A punti e trattini"
+
+msgid "Dash Dot Dot Line"
+msgstr "Trattino punto punto"
 

@@ -1,0 +1,2836 @@
+# This is a Qt message file in .po format.  Each msgid starts with
+# a scope.  This scope should *NOT* be translated - eg. "Foo::Bar"
+# would be translated to "Pub", not "Foo::Pub".
+msgid ""
+msgstr ""
+"Project-Id-Version: Scribus 1.0\n"
+"POT-Creation-Date: 2003-07-20 10:00+0200\n"
+"PO-Revision-Date: 2003-07-20 10:00+0200\n"
+"Last-Translator: Jasja Glasbeek <jasja@benik.nl>\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "File"
+msgstr "Bestand"
+
+msgid "New"
+msgstr "Nieuw"
+
+msgid "Open..."
+msgstr "Openen..."
+
+msgid "Open"
+msgstr "Openen"
+
+msgid "Close"
+msgstr "Sluiten"
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Save as..."
+msgstr "Opslaan als..."
+
+msgid "Save as"
+msgstr "Opslaan als"
+
+msgid "Revert to Saved"
+msgstr "Opgeslagen versie laden"
+
+msgid "Save Text..."
+msgstr "Opslaan als Tekst..."
+
+msgid "Save Page as EPS..."
+msgstr "Sla pagina op als EPS..."
+
+msgid "Save as PDF..."
+msgstr "Opslaan als PDF..."
+
+msgid "Document Setup..."
+msgstr "Document Opzetten..."
+
+msgid "Document Setup"
+msgstr "Document Opzet"
+
+msgid "Document Info..."
+msgstr "Document Informatie..."
+
+msgid "Print..."
+msgstr "Afdrukken..."
+
+msgid "Quit"
+msgstr "Afsluiten"
+
+msgid "View"
+msgstr "Bekijken"
+
+msgid "Fit in Window"
+msgstr "Inpassen in Venster"
+
+msgid "Actual Size"
+msgstr "Actuele Afmeting"
+
+msgid "Thumbnails"
+msgstr "Miniweergaven"
+
+msgid "Show Tools"
+msgstr "Toon Gereedschappen"
+
+msgid "Hide Tools"
+msgstr "Verberg Gereedschappen"
+
+msgid "Hide Margins"
+msgstr "Verberg Randen"
+
+msgid "Show Margins"
+msgstr "Toon Randen"
+
+msgid "Hide Guides"
+msgstr "Verberg Richtlijnen"
+
+msgid "Hide Images"
+msgstr "Verberg Afbeeldingen"
+
+msgid "Show Images"
+msgstr "Toon Afbeeldingen"
+
+msgid "Show Guides"
+msgstr "Toon Richtlijnen"
+
+msgid "Show Measurements"
+msgstr "Toon Metingen"
+
+msgid "Hide Measurements"
+msgstr "Verberg Metingen"
+
+msgid "Help"
+msgstr "Help"
+
+msgid "About Scribus"
+msgstr "Over Scribus"
+
+msgid "About Qt"
+msgstr "Over Qt"
+
+msgid "Ready"
+msgstr "Gereed"
+
+msgid "Scaled to "
+msgstr "Schalen naar "
+
+msgid "Get Picture..."
+msgstr "Haal Afbeelding..."
+
+msgid "Get Text/Picture..."
+msgstr "Haal Tekst/Afbeeldingen..."
+
+msgid "Get Text..."
+msgstr "Haal Tekst..."
+
+msgid "New Document"
+msgstr "Nieuw Document"
+
+msgid "Page Size"
+msgstr "Pagina afmeting"
+
+msgid "Margin Guides"
+msgstr "Marge Richtlijnen"
+
+msgid "Column Guides"
+msgstr "Kolom Richtlijnen"
+
+msgid "Columns:"
+msgstr "Kolommen:"
+
+msgid "Gutter Width:"
+msgstr "Gutter Breedte:"
+
+msgid "Width:"
+msgstr "Breedte:"
+
+msgid "Height:"
+msgstr "Hoogte:"
+
+msgid "Top:"
+msgstr "Boven:"
+
+msgid "Left:"
+msgstr "Links:"
+
+msgid "Inside:"
+msgstr "Binnen:"
+
+msgid "Right:"
+msgstr "Rechts:"
+
+msgid "Outside:"
+msgstr "Buiten:"
+
+msgid "Bottom:"
+msgstr "Onder:"
+
+msgid "Other"
+msgstr "Anders"
+
+msgid "Facing Pages"
+msgstr "Zichtbare Pagina's"
+
+msgid "OK"
+msgstr "Oke"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "Autom. Textframes"
+msgstr "Autom. Tekstkaders"
+
+msgid "W:"
+msgstr "W:"
+
+msgid "Tabloid"
+msgstr "Tabloid"
+
+msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
+msgstr "Documenten (*.sla *.sla.gz *.scd *scd.gz);; Alle Bestanden (*)"
+
+msgid "Documents (*.sla *.scd);; All Files (*)"
+msgstr "Documenten (*.sla *.scd);; Alle Bestanden (*)"
+
+
+msgid "Document "
+msgstr "Document "
+
+msgid "No Document"
+msgstr "Geen Document"
+
+msgid "Warning"
+msgstr "Waarschuwing"
+
+msgid "Save Now"
+msgstr "Nu Opslaan"
+
+msgid "Leave Anyway"
+msgstr "Ga Alsnog"
+
+msgid "Textfiles (*.txt);;All Files (*)"
+msgstr "TekstBestanden (*.txt);;Alle Bestanden (*)"
+
+msgid "Images"
+msgstr "Afbeeldingen"
+
+msgid ");;Vectorimages (*.eps *.pdf);;All Files (*)"
+msgstr ");;Vectorafbeeldingen (*.eps *.pdf);;Alle Bestanden (*)"
+
+msgid "Look &in:"
+msgstr "Kijk &in:"
+
+msgid "File &type:"
+msgstr "Bestands &type:"
+
+msgid "File &name:"
+msgstr "Bestands &naam:"
+
+msgid "PDF-Options"
+msgstr "PDF-Opties"
+
+msgid "Compatibility:"
+msgstr "Compatibiliteit:"
+
+msgid "Images:"
+msgstr "Afbeeldingen:"
+
+msgid "Resolution for EPS-Images:"
+msgstr "Resolutie voor EPS-Afbeeldingen:"
+
+msgid "Document Info"
+msgstr "Document Informatie"
+
+msgid "Description:"
+msgstr "Omschrijving:"
+
+msgid "Author:"
+msgstr "Auteur:"
+
+msgid "Edit"
+msgstr "Bewerken"
+
+msgid "Cut"
+msgstr "Knippen"
+
+msgid "Copy"
+msgstr "Kopieëren"
+
+msgid "Paste"
+msgstr "Invoegen"
+
+msgid "Clear"
+msgstr "Leeg Maken"
+
+msgid "Select all"
+msgstr "Alles Selecteren"
+
+msgid "Deselect all"
+msgstr "Alles deSelecteren"
+
+msgid "Theme"
+msgstr "Thema"
+
+msgid "Other..."
+msgstr "Anders..."
+
+msgid "Item"
+msgstr "Item"
+
+msgid "Page"
+msgstr "Pagina"
+
+msgid "Insert..."
+msgstr "Invoegen..."
+
+msgid "Delete..."
+msgstr "Verwijderen..."
+
+msgid "Delete"
+msgstr "Verwijderen"
+
+msgid "Font"
+msgstr "Lettertype"
+
+msgid "Size"
+msgstr "Afmeting"
+
+msgid "Font Size"
+msgstr "Afmeting Lettertype"
+
+msgid "Font Size:"
+msgstr "Afmeting Lettertype:"
+
+msgid "Shade:"
+msgstr "Schaduw:"
+
+msgid "Shade"
+msgstr "Schaduw"
+
+msgid "Color"
+msgstr "Kleur"
+
+msgid "Colors..."
+msgstr "Kleuren..."
+
+msgid "Duplicate"
+msgstr "Dupliceren"
+
+msgid "New Color:"
+msgstr "Nieuwe Kleur:"
+
+msgid "New Color"
+msgstr "Nieuwe Kleur"
+
+msgid "OK to delete Color:"
+msgstr "Oke om kleur te verwijderen:"
+
+msgid "Replace it with:"
+msgstr "Vervangen met:"
+
+msgid "Delete Color"
+msgstr "Verwijder Kleur"
+
+msgid "Colors"
+msgstr "Kleuren"
+
+msgid "Edit Colors"
+msgstr "Bewerk Kleuren"
+
+msgid "Show Outline"
+msgstr "Toon Omtrek"
+
+msgid "Hide Outline"
+msgstr "Verberg Omtrek"
+
+msgid "Outline"
+msgstr "Omtrek"
+
+msgid "Rectangle"
+msgstr "Vierkant"
+
+msgid "Shape"
+msgstr "Vorm"
+
+msgid "Edit Frame"
+msgstr "Bewerkt Kader"
+
+msgid "Image"
+msgstr "Afbeelding"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Send to Back"
+msgstr "Plaats naar achter"
+
+msgid "Bring to Front"
+msgstr "Haal naar voren"
+
+msgid "Lower"
+msgstr "Lager"
+
+msgid "Raise"
+msgstr "Hoger"
+
+msgid "Delete Page:"
+msgstr "Verwijder Pagina:"
+
+msgid "Delete Page"
+msgstr "Verwijder Pagina"
+
+msgid "Line"
+msgstr "Lijn"
+
+msgid "Line Width"
+msgstr "Lijn Breedte"
+
+msgid "Line Width:"
+msgstr "Lijn Breedte:"
+
+msgid "Print destination"
+msgstr "Afdruk richting"
+
+msgid "Print to printer:"
+msgstr "Afdrukken naar printer:"
+
+msgid "Printer"
+msgstr "Printer"
+
+msgid "Comment"
+msgstr "Comentaar"
+
+msgid "Print to file:"
+msgstr "Afdrukken naar bestand:"
+
+msgid "Browse..."
+msgstr "Browse..."
+
+msgid "Printer settings"
+msgstr "Printer instellingen"
+
+msgid "Print in color if available"
+msgstr "Druk af in kleur als mogelijk"
+
+msgid "Print in grayscale"
+msgstr "Druk af in grijstonen"
+
+msgid "Paper format"
+msgstr "Papier formaat"
+
+msgid "Portrait"
+msgstr "Portret"
+
+msgid "Landscape"
+msgstr "Landschap"
+
+msgid "Options"
+msgstr "Opties"
+
+msgid "Print all"
+msgstr "Alles Afdrukken"
+
+msgid "Print range"
+msgstr "Afdruk bereik"
+
+msgid "From page:"
+msgstr "Vanaf pagina:"
+
+msgid "To page:"
+msgstr "Tot Pagina:"
+
+msgid "Print first page first"
+msgstr "Druk 1e pagina eerst"
+
+msgid "Print last page first"
+msgstr "Druk laatste pagina eerst"
+
+msgid "Number of copies:"
+msgstr "Aantal Kopieën"
+
+msgid "Select color"
+msgstr "Kies Kleur"
+
+msgid "&Basic colors"
+msgstr "&Basis Kleuren"
+
+msgid "&Custom colors"
+msgstr "&Aangepaste Kleuren"
+
+msgid "&Add To Custom Colors"
+msgstr "&Voegtoe aan Aangepaste Kleuren"
+
+msgid "&Define Custom Colors >>"
+msgstr "&Bepaal Aangepaste Kleuren >>"
+
+msgid "&Red:"
+msgstr "&Rood:"
+
+msgid "&Green:"
+msgstr "&Groen:"
+
+msgid "Bl&ue:"
+msgstr "Bla&uw:"
+
+msgid "Select Font"
+msgstr "Selecteer Lettertype"
+
+msgid "&Font"
+msgstr "&Lettertype"
+
+msgid "Font st&yle"
+msgstr "Lettertype St&yle"
+
+msgid "&Size"
+msgstr "&Grootte"
+
+msgid "Effects"
+msgstr "Effecten"
+
+msgid "Stri&keout"
+msgstr "Door&halen"
+
+msgid "&Underline"
+msgstr "&Onderlijnen"
+
+msgid "Sample"
+msgstr "Voorbeeld"
+
+msgid "Scr&ipt"
+msgstr "Scr&ipt"
+
+msgid "Preferences..."
+msgstr "Voorkeuren..."
+
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+msgid "General"
+msgstr "Algemeen"
+
+msgid "Guides"
+msgstr "Richtlijnen"
+
+msgid "Major Grid Spacing:"
+msgstr "Hoofdgrid Afmeting:"
+
+msgid "Minor Grid Spacing:"
+msgstr "Subgrid Afmeting:"
+
+msgid "Major Grid Color:"
+msgstr "Hoofdgrid kleur:"
+
+msgid "Minor Grid Color:"
+msgstr "Subgrid Kleur:"
+
+msgid "Grid Colors"
+msgstr "Grid Kleuren"
+
+msgid "Grid Layout"
+msgstr "Grid Layout"
+
+msgid "Image visible"
+msgstr "Afmeting zichtbaar"
+
+msgid "Is PDF-Bookmark"
+msgstr "Is PDF-bladwijzer"
+
+msgid "Snap to Guides"
+msgstr "Snap tot Richtlijnen"
+
+msgid "Apply"
+msgstr "Toepassen"
+
+msgid "Snap to Grid"
+msgstr "Snap tot Grid"
+
+msgid "Mouse-Settings"
+msgstr "Muis-Instellingen"
+
+msgid "Wheel-Jump"
+msgstr "Wiel-Sprong"
+
+msgid "Grab-Radius"
+msgstr "Grijp-Radius"
+
+msgid "Printing-Error"
+msgstr "Afdruk-Fouten"
+
+msgid "Printing completed"
+msgstr "Afdrukken voltooid"
+
+msgid "Printing aborted"
+msgstr "Afdrukken afgebroken"
+
+msgid "Printing..."
+msgstr "Bezig met Afdrukken..."
+
+msgid "Saving aborted"
+msgstr "Opslaan afgebroken"
+
+msgid "Loading aborted"
+msgstr "Laden afgebroken"
+
+msgid "Global Fontsettings"
+msgstr "Globale Lettertype Instellingen"
+
+msgid "Path to Fontfile"
+msgstr "Lettertype Lokatie"
+
+msgid "Embed in:"
+msgstr "Invoegen in:"
+
+msgid "Default Size:"
+msgstr "Normale Grootte:"
+
+msgid "Default Font:"
+msgstr "Normale lettertype:"
+
+msgid "Woven silk pyjamas exchanged for blue quartz"
+msgstr "Gewoven zijden pyjama vervangen voor blauwe quartz"
+
+msgid "Fonts"
+msgstr "Lettertypes"
+
+msgid "Missing Font"
+msgstr "Ontbrekend Lettertype"
+
+msgid "Missing"
+msgstr "Ontbrekend"
+
+msgid "The Font %1 is not installed."
+msgstr "Lettertype %1 is niet geinstalleerd"
+
+msgid "Use"
+msgstr "Gebruik"
+
+msgid "instead"
+msgstr "Als"
+
+msgid "Fonts..."
+msgstr "Lettertypes..."
+
+msgid " loaded"
+msgstr " Geladen"
+
+msgid "Picture "
+msgstr "Afbeelding "
+
+msgid "File "
+msgstr "Bestand "
+
+msgid " saved"
+msgstr " opgeslagen"
+
+msgid "Unable to create PDF-File."
+msgstr "Kon niet als PDF-Bestand opslaan."
+
+msgid "Error creating PDF-File.."
+msgstr "Fout bij aanmaken PDF-Bestand..."
+
+msgid "Error during EPS-Export"
+msgstr "Fout tijdens EPS-Omzetting"
+
+msgid "The following Programs are missing:"
+msgstr "De volgende Programma's missen:"
+
+msgid "Ghostscript : You cannot use EPS-Images"
+msgstr "Ghostscript : Je kan geen EPS-Afbeeldingen gebruiken"
+
+msgid "Multiple Duplicate"
+msgstr "Meerdere Duplicaten"
+
+msgid "Number of Copies:"
+msgstr "Aantal kopieen"
+
+msgid "Horizontal Shift:"
+msgstr "Horizontale Verschuiving:"
+
+msgid "Vertical Shift:"
+msgstr "Verticale Verschuiving:"
+
+msgid "Distribute/Align"
+msgstr "Distribueer/Align"
+
+msgid "Distribute/Align..."
+msgstr "Distribueer/Align..."
+
+msgid "Don't change"
+msgstr "Niet veranderen"
+
+msgid "Align"
+msgstr "Align"
+
+msgid "Displacement"
+msgstr "Verplaatsing"
+
+msgid "Distribute evenly"
+msgstr "Distribueer evenredig"
+
+msgid "between:"
+msgstr "Tussen:"
+
+msgid "Left Sides"
+msgstr "Linker Kant"
+
+msgid "Middles"
+msgstr "Midden"
+
+msgid "Right Sides"
+msgstr "Rechter Kant"
+
+msgid "Top Sides"
+msgstr "Boven Kant"
+
+msgid "Bottom Sides"
+msgstr "Bodem"
+
+msgid "Vertical"
+msgstr "Verticaal"
+
+msgid "Horizontal"
+msgstr "Horizontaal"
+
+msgid "Fatal Error"
+msgstr "Fatale Fout"
+
+msgid "There are no Postscript-Fonts on your System"
+msgstr "Er zijn geen Postscript-lettertypes aanwezig"
+
+msgid "Exiting now"
+msgstr "Er wordt nu afgesloten"
+
+msgid "Insert Page"
+msgstr "Voeg Pagina in"
+
+msgid "Inserting"
+msgstr "Invoegen"
+
+msgid "before Page"
+msgstr "Voor Pagina"
+
+msgid "after Page"
+msgstr "Na Pagina"
+
+msgid "at End"
+msgstr "aan het eind"
+
+msgid "page(s)"
+msgstr "Pagina(s)"
+
+msgid "To End"
+msgstr "Tot Einde"
+
+msgid "Delete Pages"
+msgstr "Verwijder pagina's"
+
+msgid "Delete from:"
+msgstr "Verwijderen van:"
+
+msgid "Move Page(s):"
+msgstr "Verplaats Pagina(s):"
+
+msgid "Move Pages"
+msgstr "Verplaats Pagina's"
+
+msgid "Move..."
+msgstr "Verplaatsen..."
+
+msgid "to:"
+msgstr "naar:"
+
+msgid "Select Items"
+msgstr "Selecteer Items"
+
+msgid "Edit Contents of Frame"
+msgstr "Bewerkt Inhoud van Kader"
+
+msgid "Zooms in or out"
+msgstr "In of Uitzoomen"
+
+msgid "Insert Textbox"
+msgstr "Voeg Tekstbox in"
+
+msgid "Insert Picture"
+msgstr "Voeg Afbeelding in"
+
+msgid "Insert Lines"
+msgstr "Voeg Lijn in"
+
+msgid "Insert Ovals"
+msgstr "Voeg Ovaal in"
+
+msgid "Insert Rectangles"
+msgstr "Voeg Vierkant in"
+
+msgid "Rotate Item"
+msgstr "Roteer Item"
+
+msgid "Modify..."
+msgstr "Aanpassen..."
+
+msgid "Modify Textframe"
+msgstr "Pas Tekstkader aan"
+
+msgid "Modify Frame"
+msgstr "Pas Kader aan"
+
+msgid "Other:"
+msgstr "Anders:"
+
+msgid "Don't print"
+msgstr "Niet afdrukken"
+
+msgid "Properties:"
+msgstr "Eigenschappen:"
+
+msgid "Ordinary Text"
+msgstr "Normale Tekst"
+
+msgid "Is PDF-Annotation"
+msgstr "Is een PDF-Aantekening"
+
+msgid "Angle:"
+msgstr "Hoek:"
+
+msgid "Textdistance"
+msgstr "Tekstafstand"
+
+msgid "Face"
+msgstr "Aangezicht"
+
+msgid "Superscript"
+msgstr "Superscript"
+
+msgid "Subscript"
+msgstr "Subscript"
+
+msgid "Flip horizontal"
+msgstr "Flip horizontaal"
+
+msgid "Flip vertical"
+msgstr "Flip verticaal"
+
+msgid "Scaling:"
+msgstr "Schalen:"
+
+msgid "Disp.:"
+msgstr "Verschuiving:"
+
+msgid "Small Caps"
+msgstr "Kleine Koppen"
+
+msgid "Typographics"
+msgstr "Typograficus"
+
+msgid "Italic"
+msgstr "Italic"
+
+msgid "No Fill"
+msgstr "Niet vullen"
+
+msgid "Underline"
+msgstr "Onderlijnen"
+
+msgid "Strikethru"
+msgstr "Doorhalen"
+
+msgid "Strikeout"
+msgstr "Strikeout"
+
+msgid "Append"
+msgstr "Doorgaan"
+
+msgid "Bold"
+msgstr "Vet"
+
+msgid "Shading:"
+msgstr "Schaduw:"
+
+msgid "Background Color:"
+msgstr "Achtergrond Kleur:"
+
+msgid "Vertical flipped"
+msgstr "Verticaal gedraait"
+
+msgid "Horizontal flipped"
+msgstr "Horizontaal gedraait"
+
+msgid "Text flows around Box"
+msgstr "Tekst volgt Kader"
+
+msgid "Online-Help..."
+msgstr "Online-Hulp..."
+
+msgid "Scribus Manual"
+msgstr "Scribus Handboek"
+
+msgid "Local X-Pos:"
+msgstr "Lokale X-Pos:"
+
+msgid "Local Y-Pos:"
+msgstr "Lokale Y-Pos:"
+
+msgid "Horizontal Scaling"
+msgstr "Horizontale Scaling"
+
+msgid "Vertical Scaling"
+msgstr "Verticale Schaling"
+
+msgid "Modify Pictureframe"
+msgstr "Pas Afbeeldingskader aan"
+
+msgid "Line Color:"
+msgstr "LijnKleur:"
+
+msgid "Fill Color:"
+msgstr "VulKleur:"
+
+msgid "Linestyle:"
+msgstr "LijnStyle:"
+
+msgid "Linewidth:"
+msgstr "LijnBreedte:"
+
+msgid "Scaling X:"
+msgstr "X Schaling:"
+
+msgid "Scaling Y:"
+msgstr "Y Schaling"
+
+msgid "Manual Kerning"
+msgstr "Handmatige Kerning"
+
+msgid "Linespacing"
+msgstr "Linespacing"
+
+msgid "Frame"
+msgstr "Kader"
+
+msgid "Contents"
+msgstr "Inhoud"
+
+msgid "Tools"
+msgstr "Gereedschappen"
+
+msgid "Create Textchains"
+msgstr "Maak TekstKoppelingen"
+
+msgid "Break Textchains"
+msgstr "Verbreek TekstKoppelingen"
+
+msgid "Stepping:"
+msgstr "Stappen:"
+
+msgid "Placing"
+msgstr "Plaatsing"
+
+msgid "In the Background"
+msgstr "In de achtergrond"
+
+msgid "In the Foreground"
+msgstr "Op de voorgrond"
+
+msgid "Text Color:"
+msgstr "TekstKleur:"
+
+msgid "Units"
+msgstr "Eenheden"
+
+msgid "Points (pts)"
+msgstr "Punten (pts)"
+
+msgid "Points (pt)"
+msgstr "Punten (pt)"
+
+msgid "Millimeters (mm)"
+msgstr "Millimeters (mm)"
+
+msgid "Creates a new Document"
+msgstr "Maak een nieuw Document"
+
+msgid "Opens a Document"
+msgstr "Opent een Document"
+
+msgid "Saves the current Document"
+msgstr "Slaat het huidige Document op"
+
+msgid "Prints the current Document"
+msgstr "Drukt het huidige Document af"
+
+msgid "Copy Here"
+msgstr "Kopieer hier"
+
+msgid "Move Here"
+msgstr "Verplaats hier"
+
+msgid "About"
+msgstr "Over"
+
+msgid "Authors"
+msgstr "Auteurs"
+
+msgid "Translations"
+msgstr "Vertalers"
+
+msgid "Programming:"
+msgstr "Programmering:"
+
+msgid "Contributions from:"
+msgstr "Contributies van:"
+
+msgid "Documentation:"
+msgstr "Documentatie:"
+
+msgid "German:"
+msgstr "Duits:"
+
+msgid "French:"
+msgstr "Frans:"
+
+msgid "Spanish and Catalan:"
+msgstr "Spaans en Katalaans:"
+
+msgid "Hungarian and Italian:"
+msgstr "Hongaars en Italiaans:"
+
+msgid "Slovak:"
+msgstr "Slovaaks:"
+
+msgid "Slovak"
+msgstr "Slovaaks"
+
+msgid "Ukrainian:"
+msgstr "Ukraieens:"
+
+msgid "None"
+msgstr "Geen"
+
+msgid "Closes the current Document"
+msgstr "Sluit het huidige Document"
+
+msgid "Range:"
+msgstr "Bereik:"
+
+msgid "File:"
+msgstr "Bestand:"
+
+msgid "Print Normal"
+msgstr "Druk Normaal af"
+
+msgid "Print Separations"
+msgstr "Druk Separaties"
+
+msgid "All"
+msgstr "Alles"
+
+msgid "Setup Printer"
+msgstr "Printer Instellen"
+
+msgid "Old"
+msgstr "Oud"
+
+msgid "Color Model"
+msgstr "Kleur Model"
+
+msgid "Is Spot-Color"
+msgstr "Is een Spot-Kleur"
+
+msgid "Edit Color"
+msgstr "Bewerkt Kleur"
+
+msgid "Alignment"
+msgstr "Alignment"
+
+msgid "Left"
+msgstr "Links"
+
+msgid "Center"
+msgstr "Centreer"
+
+msgid "Right"
+msgstr "Rechts"
+
+msgid "Edit Styles"
+msgstr "Bewerk Stijlen"
+
+msgid "Edit Style"
+msgstr "Bewerk Stijl"
+
+msgid "New Style"
+msgstr "Nieuwe Stijl"
+
+msgid "New Style:"
+msgstr "Nieuwe Stijl:"
+
+msgid "Show Styles"
+msgstr "Toon Stijlen"
+
+msgid "Hide Styles"
+msgstr "Verberg Stijlen"
+
+msgid "Styles..."
+msgstr "Stijlen..."
+
+msgid "Styles"
+msgstr "Stijlen"
+
+msgid "No Style"
+msgstr "Geen Stijl"
+
+msgid "Block"
+msgstr "Blok"
+
+msgid "Forced"
+msgstr "Gedwongen"
+
+msgid "Indentation"
+msgstr "Inspringen"
+
+msgid "Page-Colors"
+msgstr "Pagina-Kleuren"
+
+msgid "Background:"
+msgstr "Achtergrond:"
+
+msgid "Left Indent:"
+msgstr "Links Inspringen:"
+
+msgid "First Line:"
+msgstr "Eerste Regel:"
+
+msgid "Character"
+msgstr "Teken"
+
+msgid "Face:"
+msgstr "Aangezicht:"
+
+msgid "Size:"
+msgstr "Afmeting:"
+
+msgid "Color:"
+msgstr "Kleur:"
+
+msgid "Name of the Style is not unique"
+msgstr "De Stijlnaam is niet uniek"
+
+msgid "Do you really want do delete this Style?"
+msgstr "Wil je echt deze stijl verwijderen?"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "Vertical Spaces"
+msgstr "Verticale Spaties"
+
+msgid "Above:"
+msgstr "Boven:"
+
+msgid "Below:"
+msgstr "Onder:"
+
+msgid "AFM-File available"
+msgstr "AFM-Bestand beschikbaar"
+
+msgid "Nodes"
+msgstr "Nodes"
+
+msgid "End Editing"
+msgstr "Eind Bewerking"
+
+msgid "Add Nodes"
+msgstr "Voeg Nodes toe"
+
+msgid "Delete Nodes"
+msgstr "Verwijder Nodes"
+
+msgid "Move Nodes"
+msgstr "Verplaats Nodes"
+
+msgid "Move Control Points"
+msgstr "Verplaats Controle Punten"
+
+msgid "Move Control Points independently"
+msgstr "Verplaats Controle Punten onafhankelijk"
+
+msgid "Move Control Points symmetrical"
+msgstr "Verplaats Controle Punten Symmetrisch"
+
+msgid "Insert Bezier Curves"
+msgstr "Voeg Bezier Curve in"
+
+msgid "New Entry"
+msgstr "Nieuwe aanmelding"
+
+msgid "Scrapbooks (*.scs);; All Files (*)"
+msgstr "Kladblok  (*.scs);; Alle Bestanden (*)"
+
+msgid "Scrapbook"
+msgstr "Kladblok"
+
+msgid "Load..."
+msgstr "Laad..."
+
+msgid "Object"
+msgstr "Object"
+
+msgid "Show Scrapbook"
+msgstr "Toon Kladblok"
+
+msgid "Hide Scrapbook"
+msgstr "Verberg Kladblok"
+
+msgid "Other Options"
+msgstr "Andere Opties"
+
+msgid "Save Contents on Exit"
+msgstr "Sla Inhoud op bij afsluiten"
+
+msgid "Preview"
+msgstr "Voorbeeld"
+
+msgid "Small"
+msgstr "Klein"
+
+msgid "Medium"
+msgstr "Middel"
+
+msgid "Big"
+msgstr "Groot"
+
+msgid "Edit Templates"
+msgstr "Bewerkt Templates"
+
+msgid "Apply Template..."
+msgstr "Gebruik Template..."
+
+msgid "Exit"
+msgstr "Afsluiten"
+
+msgid "Copy of "
+msgstr "Kopie van "
+
+msgid "Name:"
+msgstr "Naam:"
+
+msgid "New Template"
+msgstr "Nieuwe Template"
+
+msgid "Normal"
+msgstr "Normaal"
+
+msgid "Templates..."
+msgstr "Templates..."
+
+msgid "Template:"
+msgstr "Template:"
+
+msgid "Apply Template"
+msgstr "Gebruik Template"
+
+msgid "Template for this Page:"
+msgstr "Template voor deze Pagina:"
+
+msgid "Do you really want do delete this Template?"
+msgstr "Wil je echt deze Template verwijderen?"
+
+msgid "Left Page"
+msgstr "Linker Pagina"
+
+msgid "Right Page"
+msgstr "Rechter Pagina"
+
+msgid "Display Frames"
+msgstr "Toon Kaders"
+
+msgid "Display Pages Side by Side"
+msgstr "Toon Kaders naast elkaar"
+
+msgid "Display"
+msgstr "Tonen"
+
+msgid "Left Page first"
+msgstr "Linker Pagina eerst"
+
+msgid "Group"
+msgstr "Groeperen"
+
+msgid "Ungroup"
+msgstr "Degroeperen"
+
+msgid "Do you really want to overwrite the File:\n%1 ?"
+msgstr "Wil je echt het bestand %1 overschrijven:\n?"
+
+msgid "Show Frames"
+msgstr "Toon Kaders"
+
+msgid "Hide Frames"
+msgstr "Verberg Kaders"
+
+msgid "Template (Left Page):"
+msgstr "Template (linker Pagina):"
+
+msgid "Template (Right Page):"
+msgstr "Template (Rechter Pagina):"
+
+msgid "Manage Pictures"
+msgstr "Afbeeldingen Beheren"
+
+msgid "Pictures"
+msgstr "Afbeeldingen"
+
+msgid "Goto"
+msgstr "Ga Naar"
+
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "Path"
+msgstr "Lokatie"
+
+msgid "Print"
+msgstr "Afdrukken"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Margins:"
+msgstr "Marges:"
+
+msgid "Recent Documents:"
+msgstr "Recente Documenten:"
+
+msgid "Recent Documents"
+msgstr "Recente Documenten"
+
+msgid "Display unprintable Area in Margin Color"
+msgstr "Toon niet afdrukbare gebieden in Margekleur"
+
+msgid "Automatic Linespaceing:"
+msgstr "Automatische Lijnspatiëring"
+
+msgid "Distances"
+msgstr "Afstanden"
+
+msgid "Menues"
+msgstr "Menuus"
+
+msgid "Result"
+msgstr "Resultaat"
+
+msgid "Search Results for: "
+msgstr "Zoekresultaten voor: "
+
+msgid "Select"
+msgstr "Selecteer"
+
+msgid "Import..."
+msgstr "Importeren..."
+
+msgid "Export..."
+msgstr "Exporteren..."
+
+msgid "Dynamic Color Bars"
+msgstr "Dynamische Kleurenbar"
+
+msgid "Static Color Bars"
+msgstr "Statische Kleurenbar"
+
+msgid "Color Management Settings"
+msgstr "KleurManagement Instellingen"
+
+msgid "Activate Color Management"
+msgstr "Activeer Kleur Management"
+
+msgid "System Profiles"
+msgstr "Systeem Profielen"
+
+msgid "Pictures:"
+msgstr "Afbeeldingen:"
+
+msgid "Solid Colors:"
+msgstr "Vaste Kleuren:"
+
+msgid "Monitor:"
+msgstr "Beeldscherm:"
+
+msgid "Printer:"
+msgstr "Printer:"
+
+msgid "Rendering Intents"
+msgstr "Rendering Intents"
+
+msgid "Rendering Intent:"
+msgstr "Rendering Intent:"
+
+msgid "Perceptual"
+msgstr "Perceptueel"
+
+msgid "Relative Colorimetric"
+msgstr "Relatieve Kleurmetric"
+
+msgid "Saturation"
+msgstr "Saturnatie"
+
+msgid "Absolute Colorimetric"
+msgstr "Absolute Kleurmetric"
+
+msgid "Simulate Printer on the Screen"
+msgstr "Simuleer Afdruk op het scherm"
+
+msgid "Color Management..."
+msgstr "Kleur Management..."
+
+msgid "Input Profile:"
+msgstr "Invoer Profiel:"
+
+msgid "No Title"
+msgstr "Geen Titel"
+
+msgid "Unknown"
+msgstr "Onbekend"
+
+msgid "Adjusting Colors"
+msgstr "Kleuren Aanpassen"
+
+msgid "Scribus-Document"
+msgstr "Scribus-Document"
+
+msgid "Title:"
+msgstr "Titel:"
+
+msgid "Sorry, no Manual available!"
+msgstr "Sorry, geen Handleiding beschikbaar"
+
+msgid "Embed all Fonts"
+msgstr "Alle Lettertypes inbedden"
+
+msgid "Embedding"
+msgstr "Inbedden"
+
+msgid "Available Fonts:"
+msgstr "Beschikbare Lettertypes:"
+
+msgid "Fonts to embed:"
+msgstr "In te bedden Lettertypes:"
+
+msgid "Output to File:"
+msgstr "Uitvoer naar Bestand:"
+
+msgid "Change..."
+msgstr "Verander..."
+
+msgid "Compression"
+msgstr "Compressie"
+
+msgid "Downsample Images to:"
+msgstr "Afbeeldingen terugbrengen tot:"
+
+msgid "Compress Text and Vector Graphics"
+msgstr "Comprimeer Tekst en Vector Afbeeldingen"
+
+msgid "File Options"
+msgstr "Bestands Instellingen"
+
+msgid "Generate Thumbnails"
+msgstr "Maak Miniweergaven"
+
+msgid "Resolution:"
+msgstr "Resolutie:"
+
+msgid "Create PDF-File"
+msgstr "Maak PDF-Bestand"
+
+msgid "X-Pos:"
+msgstr "X-Pos:"
+
+msgid "Y-Pos:"
+msgstr "Y-Pos:"
+
+msgid "Page:"
+msgstr "Pagina:"
+
+msgid "Destination"
+msgstr "Doel"
+
+msgid "Type:"
+msgstr "Type:"
+
+msgid "Annotation Properties"
+msgstr "Annotatie Eigenschappen"
+
+msgid "Bookmarks"
+msgstr "Bladwijzers"
+
+msgid "Include Bookmarks"
+msgstr "Invoegen Bladwijzers"
+
+msgid "Manage Keyboard Shortcuts"
+msgstr "Beheer Toets-Snelkoppelingen"
+
+msgid "Action"
+msgstr "Actie"
+
+msgid "Current Key"
+msgstr "Huidige Toets"
+
+msgid "Select a Key for this Action"
+msgstr "Selecteer een Toets voor deze Actie"
+
+msgid "No Key"
+msgstr "Geen Toets"
+
+msgid "User Defined Key"
+msgstr "Gebruiker Gedefinieerde Toetsen"
+
+msgid "Set Key"
+msgstr "Zet Toets"
+
+msgid "This Key-Sequence is already in use"
+msgstr "Deze Toets-Snelkoppeling is al in gebruik"
+
+msgid "Keyboard Shortcuts..."
+msgstr "Toets-Snelkoppelingen..."
+
+msgid "Smart Hyphen"
+msgstr "Slim Hyphen"
+
+msgid "Align Left"
+msgstr "Align Links"
+
+msgid "Align Right"
+msgstr "Align Rechts"
+
+msgid "Align Center"
+msgstr "Align Gecentreerd"
+
+msgid "Insert Pagenumber"
+msgstr "Voeg Paginanummer in"
+
+msgid "Binding:"
+msgstr "Binding:"
+
+msgid "Left Margin"
+msgstr "Linker Rand"
+
+msgid "Right Margin"
+msgstr "Rechter Rand"
+
+msgid "Corner Radius:"
+msgstr "Hoek Radius:"
+
+msgid "Save linked Text Frames as PDF-Articles"
+msgstr "Sla gekoppelde TekstKaders op als PDF-Artikel"
+
+msgid "Enable Presentation Effects"
+msgstr "Activeer Presentatie Effecten"
+
+msgid "Show Page Previews"
+msgstr "Toon Pagina Voorbeeld"
+
+msgid "Display Duration:"
+msgstr "Weergave Tijdsduur:"
+
+msgid "Effect Duration:"
+msgstr "Effect Tijdsduur"
+
+msgid "Effect Type:"
+msgstr "Effect Type:"
+
+msgid "Moving Lines:"
+msgstr "Verplaatste Lijnen:"
+
+msgid "from the:"
+msgstr "Van de:"
+
+msgid "Direction:"
+msgstr "Richting:"
+
+msgid "No Effect"
+msgstr "Geen Effect"
+
+msgid "Blinds"
+msgstr "Luiken"
+
+msgid "Box"
+msgstr "Box"
+
+msgid "Dissolve"
+msgstr "Oplossen"
+
+msgid "Glitter"
+msgstr "Glitter"
+
+msgid "Split"
+msgstr "Splitsen"
+
+msgid "Wipe"
+msgstr "Wegvegen"
+
+msgid "Inside"
+msgstr "Binnen"
+
+msgid "Outside"
+msgstr "Buiten"
+
+msgid "Left to Right"
+msgstr "Links naar Rechts"
+
+msgid "Top to Bottom"
+msgstr "Boven naar Beneden"
+
+msgid "Bottom to Top"
+msgstr "Beneden naar Boven"
+
+msgid "Right to Left"
+msgstr "Rechts naar Links"
+
+msgid "Top-Left to Bottom-Right"
+msgstr "Links-boven naar Rechts-onder"
+
+msgid "Extras"
+msgstr "Extra's"
+
+msgid "Saves the current Document as PDF"
+msgstr "Sla het huidige Document op als PDF"
+
+msgid "Rounded Rectangle"
+msgstr "Afgerond Vierkant"
+
+msgid "Align Text Left"
+msgstr "Align Tekst Links"
+
+msgid "Align Text Right"
+msgstr "Align Tekst Rechts"
+
+msgid "Align Text Center"
+msgstr "Align Tekst geCentreerd"
+
+msgid "Align Text Block"
+msgstr "Align Tekst Blok"
+
+msgid "Endings:"
+msgstr "Afsluitingen:"
+
+msgid "Edges:"
+msgstr "Randen:"
+
+msgid "MiterJoin"
+msgstr "MiterJoin"
+
+msgid "BevelJoin"
+msgstr "BevelJoin"
+
+msgid "RoundJoin"
+msgstr "RoundJoin"
+
+msgid "FlatCap"
+msgstr "FlatCap"
+
+msgid "SquareCap"
+msgstr "SquareCap"
+
+msgid "RoundCap"
+msgstr "RoundCap"
+
+msgid "Move Bookmark"
+msgstr "Verplaats Bladwijzer"
+
+msgid "Insert Bookmark"
+msgstr "Voeg Bladwijzer toe"
+
+msgid "Copy Page"
+msgstr "Kopieer Pagina"
+
+msgid "To the End"
+msgstr "Tot het Einde"
+
+msgid "GUI"
+msgstr "GUI"
+
+msgid "Fontsize"
+msgstr "LetterGrootte"
+
+msgid "Apply Effect on all Pages"
+msgstr "Pas Effect toe op alle Pagina's"
+
+msgid "Print via other Command"
+msgstr "Druk af via ander Commando"
+
+msgid "Command:"
+msgstr "Commando:"
+
+msgid "Orientation:"
+msgstr "Orientatie:"
+
+msgid "First Pagenumber:"
+msgstr "Eerste Paginanummer:"
+
+msgid "Default Unit:"
+msgstr "Normale Eenheid:"
+
+msgid "Send to Scrapbook"
+msgstr "Stuur naar Kladblok"
+
+msgid "Left Point"
+msgstr "Linker Punt"
+
+msgid "Endpoints"
+msgstr "Eindpunt"
+
+msgid "Scaling"
+msgstr "Schaling"
+
+msgid "Linespacing:"
+msgstr "Lijnspatiëring"
+
+msgid "Character Settings"
+msgstr "Teken Instellingen"
+
+msgid "Length:"
+msgstr "Lengte:"
+
+msgid "Polygon Properties"
+msgstr "Polygoon Eigenschappen"
+
+msgid "Corners:"
+msgstr "Hoeken:"
+
+msgid "Convex Polygon"
+msgstr "Convexe Polygoon"
+
+msgid "Factor:"
+msgstr "Factor:"
+
+msgid "Edit Polygon"
+msgstr "Bewerk Polygoon"
+
+msgid "Properties..."
+msgstr "Eigenschappen..."
+
+msgid "Lithuanian:"
+msgstr "Lithuaans:"
+
+msgid "Measurements"
+msgstr "Metingen"
+
+msgid "Insert Polygons"
+msgstr "Voeg Polygoon in"
+
+msgid "Rotation:"
+msgstr "Rotatie:"
+
+msgid "Loading..."
+msgstr "Laden..."
+
+msgid "Convert to"
+msgstr "Converteer naar"
+
+msgid "Text Frame"
+msgstr "Tekst Kader"
+
+msgid "Picture Frame"
+msgstr "Afbeeldings Kader"
+
+msgid "Polygon"
+msgstr "Polygoon"
+
+msgid "Bezier Curve"
+msgstr "Bezier Curve"
+
+msgid "Style"
+msgstr "Stijl"
+
+msgid "Modify Pathtext"
+msgstr "Pas Lokatietekst aan"
+
+msgid "Show Curve"
+msgstr "Toon Curve"
+
+msgid "Startoffset:"
+msgstr "Startoffset"
+
+msgid "Distance from Curve:"
+msgstr "Afstand van Curve:"
+
+msgid "Attach Text to Path"
+msgstr "Koppel Tekst aan Lokatie"
+
+msgid "Layers"
+msgstr "Lagen"
+
+msgid "Add a new Layer"
+msgstr "Nieuwe Laag toevoegen"
+
+msgid "Delete Layer"
+msgstr "Laag Verwijderen"
+
+msgid "Raise Layer"
+msgstr "Verhoog Laag"
+
+msgid "Lower Layer"
+msgstr "Verlaag Laag"
+
+msgid "Closes this Dialog"
+msgstr "Sluit dit Venster"
+
+msgid "New Layer"
+msgstr "Nieuwe Laag"
+
+msgid "Background"
+msgstr "Achtergrond"
+
+msgid "Reset Control Points"
+msgstr "Reset Controle Punten"
+
+msgid "Reset this Control Points"
+msgstr "Reset dit Controle Punt"
+
+msgid "Opens a Polygon or cuts a Bezier Curve"
+msgstr "Opent een Polygoon of knipt een Bezier Curve"
+
+msgid "Closes this Bezier Curve"
+msgstr "Sluit deze Bezier Curve"
+
+msgid "Show Layers"
+msgstr "Toon Lagen"
+
+msgid "Hide Layers"
+msgstr "Verberg Lagen"
+
+msgid "Sent to Layer"
+msgstr "Stuur naar Laag"
+
+msgid "Link"
+msgstr "Koppeling"
+
+msgid "Text Field"
+msgstr "Tekst Veld"
+
+msgid "Button"
+msgstr "Knop"
+
+msgid "Check Box"
+msgstr "CheckBox"
+
+msgid "Properties"
+msgstr "Eigenschappen"
+
+msgid "Tool-Tip:"
+msgstr "Tool-Tip:"
+
+msgid "Read Only"
+msgstr "Alleen Lezen"
+
+msgid "Visibility:"
+msgstr "Zichtbaarheid:"
+
+msgid "Border"
+msgstr "Rand"
+
+msgid "Thin"
+msgstr "Dun"
+
+msgid "Wide"
+msgstr "Wijd"
+
+msgid "Solid"
+msgstr "Vast"
+
+msgid "Dashed"
+msgstr "Gestreept"
+
+msgid "Beveled"
+msgstr "Gebeveld"
+
+msgid "Inset"
+msgstr "Inset"
+
+msgid "Visible"
+msgstr "Zichtbaar"
+
+msgid "Hidden"
+msgstr "Onzichtbaar"
+
+msgid "No Print"
+msgstr "Geen Afdruk"
+
+msgid "No View"
+msgstr "Geen Weergave"
+
+msgid "Appearance"
+msgstr "Verschijning"
+
+msgid "Text"
+msgstr "Tekst"
+
+msgid "Text for Button Down"
+msgstr "Tekst voor Ingedrukte Knop"
+
+msgid "Text for Roll Over"
+msgstr "Tekst voor Roll Over"
+
+msgid "Highlight"
+msgstr "HighLight"
+
+msgid "Invert"
+msgstr "Andersom"
+
+msgid "Outlined"
+msgstr "Outlined"
+
+msgid "Push"
+msgstr "Druk"
+
+msgid "Multi-Line"
+msgstr "MeerLijnig"
+
+msgid "Password"
+msgstr "Wachtwoord"
+
+msgid "Limit of"
+msgstr "Limiet van"
+
+msgid "Characters"
+msgstr "Tekens"
+
+msgid "Do Not Scroll"
+msgstr "Niet Scrollen"
+
+msgid "Do Not Spell Check"
+msgstr "Geen Spellings Controle"
+
+msgid "Check Style:"
+msgstr "Controle Style:"
+
+msgid "Check"
+msgstr "Controle"
+
+msgid "Cross"
+msgstr "Kruis"
+
+msgid "Diamond"
+msgstr "Diamand"
+
+msgid "Circle"
+msgstr "Cirkel"
+
+msgid "Star"
+msgstr "Ster"
+
+msgid "Square"
+msgstr "Vierkant"
+
+msgid "Default is Checked"
+msgstr "Normaal is geslecteerd"
+
+msgid "Java Script"
+msgstr "Java Script"
+
+msgid "Go To"
+msgstr "Ga Naar"
+
+msgid "Submit Form"
+msgstr "Verstuur Form"
+
+msgid "Reset Form"
+msgstr "Reset Form"
+
+msgid "Flag is ignored for PDF-1.3"
+msgstr "Vlag is genegeerd bij PDF-1.3"
+
+msgid "Font for use with PDF-1.3:"
+msgstr "Te gebruiken Lettertype voor PDF-1.3:"
+
+msgid "Required"
+msgstr "Vereist"
+
+msgid "Don't Export Value"
+msgstr "Waarde Niet Exporteren"
+
+msgid "Event:"
+msgstr "Gebeurtenis:"
+
+msgid "Mouse Up"
+msgstr "Muis Omhoog"
+
+msgid "Mouse Down"
+msgstr "Muis Omlaag"
+
+msgid "Mouse Enter"
+msgstr "Mouse Aankomst"
+
+msgid "Mouse Exit"
+msgstr "Muis Aftocht"
+
+msgid "On Focus"
+msgstr "Bij Focus"
+
+msgid "On Blur"
+msgstr "Bij Blur"
+
+msgid "Script:"
+msgstr "Script:"
+
+msgid "Field is formatted as:"
+msgstr "Veld is gevormd als:"
+
+msgid "Plain"
+msgstr "Vlak"
+
+msgid "Number"
+msgstr "Nummer"
+
+msgid "Percentage"
+msgstr "Percentage"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Time"
+msgstr "Tijd"
+
+msgid "Custom"
+msgstr "Aangepast"
+
+msgid "Number Format"
+msgstr "Nummer Formaat"
+
+msgid "Decimals:"
+msgstr "Decimalen:"
+
+msgid "Use Currency Symbol"
+msgstr "Gebruik Waarde Symbool"
+
+msgid "Prepend Currency Symbol"
+msgstr "Prepend Waarde Symbool"
+
+msgid "Formatting"
+msgstr "Formatering"
+
+msgid "Percent Format"
+msgstr "Percentage Formaat"
+
+msgid "Date Format"
+msgstr "Datum Formaat"
+
+msgid "Time Format"
+msgstr "Tijds Formaat"
+
+msgid "Custom Scripts"
+msgstr "Eigen Scripts"
+
+msgid "Format:"
+msgstr "Formaat:"
+
+msgid "Edit..."
+msgstr "Bewerk..."
+
+msgid "Combo Box"
+msgstr "Combo Box"
+
+msgid "List Box"
+msgstr "List Box"
+
+msgid "Keystroke:"
+msgstr "TekenAanslag:"
+
+msgid "Format"
+msgstr "Formaat"
+
+msgid "Value is not validated"
+msgstr "Waarde is niet gevalideerd"
+
+msgid "Value must be greater than or equal to:"
+msgstr "Waarde moet groter of gelijk zijn aan:"
+
+msgid "and less or equal to:"
+msgstr "en kleiner of gelijk aan:"
+
+msgid "Custom validate script:"
+msgstr "Eigen validatie script:"
+
+msgid "Value is not calculated"
+msgstr "Waarde is niet berekend"
+
+msgid "Value is the"
+msgstr "Waarde is de"
+
+msgid "sum"
+msgstr "som"
+
+msgid "product"
+msgstr "produkt"
+
+msgid "average"
+msgstr "gemiddelde"
+
+msgid "minimum"
+msgstr "minimum"
+
+msgid "maximum"
+msgstr "maximum"
+
+msgid "of the following fields:"
+msgstr "van de volgende velden:"
+
+msgid "Custom calculation script:"
+msgstr "Eigen calculatie script:"
+
+msgid "Calculate"
+msgstr "Bereken"
+
+msgid "Validate"
+msgstr "Valideer"
+
+msgid "Enter a comma separated list of Fields here"
+msgstr "Voeg een komma gescheiden lijst van velden hier in"
+
+msgid "Example:"
+msgstr "Voorbeeld:"
+
+msgid "Selection Change"
+msgstr "Selectie Wissel"
+
+msgid "Use Icons"
+msgstr "Gebruik Iconen"
+
+msgid "Remove"
+msgstr "Verwijder"
+
+msgid "Pressed"
+msgstr "Gedrukt"
+
+msgid "Roll Over"
+msgstr "Roll Over"
+
+msgid "Icon Placement..."
+msgstr "Icoon Plaatsing..."
+
+msgid "Editable"
+msgstr "Bewerktbaar"
+
+msgid "Submit to URL:"
+msgstr "Stuur naar URL:"
+
+msgid "Submit Data as HTML"
+msgstr "Stuur Gegevens als HTML"
+
+msgid "Layout:"
+msgstr "Layout:"
+
+msgid "Caption only"
+msgstr "Alleen Kapitaal"
+
+msgid "Icon only"
+msgstr "Alleen Icoon"
+
+msgid "Caption below Icon"
+msgstr "Kapitaal beneden Icoon"
+
+msgid "Caption above Icon"
+msgstr "Kapitaal boven Icoon"
+
+msgid "Caption right to Icon"
+msgstr "Kapitaal rechts van Icoon"
+
+msgid "Caption left to Icon"
+msgstr "Kapitaal links van Icoon"
+
+msgid "Caption overlays Icon"
+msgstr "Kapitaal over Icoon"
+
+msgid "Scale:"
+msgstr "Schaal:"
+
+msgid "Always"
+msgstr "Altijd"
+
+msgid "When Icon is too small"
+msgstr "Als Icoon te klein is"
+
+msgid "When Icon is too big"
+msgstr "Als Icoon te groot is"
+
+msgid "Never"
+msgstr "Nooit"
+
+msgid "Scale How:"
+msgstr "Schaal Hoe:"
+
+msgid "Proportional"
+msgstr "Proportioneel"
+
+msgid "Non Proportional"
+msgstr "Niet Proportioneel"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "You need at least the Icon for Normal to use Icons for Buttons"
+msgstr "Je hebt minstens een 'Normaal' Icoon nodig wil je Iconen voor Knoppen gebruiken"
+
+msgid "Save and Exit"
+msgstr "Opslaan en Afsluiten"
+
+msgid "Exit without Saving"
+msgstr "Afsluiten zonder Opslaan"
+
+msgid "Get Field Names"
+msgstr "Haal Veldnamen"
+
+msgid "JavaScripts (*.js);; All Files (*)"
+msgstr "JavaScripts (*.js);; Alle Bestanden (*)"
+
+msgid "Pick..."
+msgstr "Selecteer..."
+
+msgid "Export Range"
+msgstr "Exporteer Bereik"
+
+msgid "All Pages"
+msgstr "Alle Pagina's"
+
+msgid "From:"
+msgstr "Van:"
+
+msgid "Insert PDF-Fields"
+msgstr "Voeg PDF-Velden in"
+
+msgid "Undo"
+msgstr "Ongedaan maken"
+
+msgid "Redo"
+msgstr "Opnieuw doen"
+
+msgid "Select Fields"
+msgstr "Selecteer Velden"
+
+msgid "Available Fields"
+msgstr "Beschikbare Velden"
+
+msgid "Selected Fields"
+msgstr "Geselecteerde Velden"
+
+msgid "Field Properties"
+msgstr "Veld Eigenschappen"
+
+msgid "Global JavaScripts"
+msgstr "Globale JavaScripts"
+
+msgid "Add..."
+msgstr "Toevoegen..."
+
+msgid "New Script:"
+msgstr "Nieuw Script:"
+
+msgid "New Script"
+msgstr "Nieuw Script"
+
+msgid "Insert PDF-Annotations"
+msgstr "Voeg PDF-Annotaties in"
+
+msgid "Import Data"
+msgstr "Importeer Data"
+
+msgid "Import Data from:"
+msgstr "Importeer Data van:"
+
+msgid "Undo Object Change"
+msgstr "Maak Object verandering ongedaan"
+
+msgid "Undo Object Move"
+msgstr "Maak Object Verplaatsing ongedaan"
+
+msgid "Undo Delete Object"
+msgstr "Maak Object Verwijdering ongedaan"
+
+msgid "Compress File"
+msgstr "Comprimeer Bestand"
+
+msgid "Inches (in)"
+msgstr "Inches (in)"
+
+msgid "Picas (p)"
+msgstr "Pica's (p)"
+
+msgid "Show Template Names"
+msgstr "Toon Template Namen"
+
+msgid "Arrange Pages"
+msgstr "Herschik Pagina's"
+
+msgid "Available Templates:"
+msgstr "Beschikbare Templates:"
+
+msgid "Document Pages:"
+msgstr "Document Pagina's:"
+
+msgid "Hide Page Palette"
+msgstr "Verberg Pagina Pallet"
+
+msgid "Show Page Palette"
+msgstr "Toon Pagina Pallet"
+
+msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
+msgstr "Sleep Pagina's of Template Pagina's naar de vuilnisbak om ze te verwijderen"
+
+msgid "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below."
+msgstr "Hier zijn al je Templages, om een nieuwe Pagina\nte maken sleep een Template naar de Weergave beneden."
+
+msgid "Here you can see all Pages of your Document."
+msgstr "Hier kun je alle Pagina's van je Document zien"
+
+msgid "Free Scaling"
+msgstr "Vrije Schaling"
+
+msgid "Scale to Frame Size"
+msgstr "Schaal naar Kader Afmeting"
+
+msgid "Hyphenate Text"
+msgstr "Hyphenate Tekst"
+
+msgid "Hyphenator..."
+msgstr "Hyphenator..."
+
+msgid "General..."
+msgstr "Algemeen..."
+
+msgid "English"
+msgstr "Engels"
+
+msgid "German"
+msgstr "Duits"
+
+msgid "French"
+msgstr "Frans"
+
+msgid "Italian"
+msgstr "Italiaans"
+
+msgid "Spanish"
+msgstr "Spaans"
+
+msgid "Possible Hyphenation"
+msgstr "Mogelijke Hyphenatie"
+
+msgid "Accept"
+msgstr "Accepteer"
+
+msgid "Skip"
+msgstr "Overslaan"
+
+msgid "Hyphenator Settings"
+msgstr "Hyphenatie Instellingen"
+
+msgid "Check during Typing"
+msgstr "Controle tijdens Typen"
+
+msgid "Enables automatic checking of your Text during Typing."
+msgstr "Aanzetten van automatische Tekst controle tijdens Typen."
+
+msgid "Fully Automatic"
+msgstr "Volledig Automatisch"
+
+msgid "Language:"
+msgstr "Taal:"
+
+msgid "Smallest Word:"
+msgstr "Kleinste Woord:"
+
+msgid "This is the length of the smallest word to be hyphenated."
+msgstr "Dit is de lengte van het kleinste te hyphenaten woord"
+
+msgid "If you uncheck this you will get an Dialog\neverytime a possible Hyphenation is found."
+msgstr "Als je dit uitzet dan krijg je een waarschuwing\nelke keer als een hyphenatie is gevonden."
+
+msgid "Windows"
+msgstr "Schermen"
+
+msgid "Cascade"
+msgstr "Trapsgewijs"
+
+msgid "Tile"
+msgstr "Naast Elkaar"
+
+msgid "&Restore"
+msgstr "&Terugzetten"
+
+msgid "&Move"
+msgstr "&Verplaatsen"
+
+msgid "Mi&nimize"
+msgstr "Mi&nimaliseren"
+
+msgid "Minimize"
+msgstr "Minimaliseer"
+
+msgid "Ma&ximize"
+msgstr "Ma&ximaliseer"
+
+msgid "Maximize"
+msgstr "Maximaliseer"
+
+msgid "System Menu"
+msgstr "Systeem Menu"
+
+msgid "&Close"
+msgstr "&Sluiten"
+
+msgid "Line up"
+msgstr "Naast Elkaar"
+
+msgid "Restore Down"
+msgstr "Terugbrengen Tot"
+
+msgid "Document"
+msgstr "Document"
+
+msgid "Name \"%1\" isn't unique.\nPlease choose another."
+msgstr "Naam \"%1" is niet uniek.\nKies aub. een andere."
+
+msgid "Can't write the File: \n%1"
+msgstr "Kan niet naar bestand schrijven: \n%1'"
+
+msgid "Russian"
+msgstr "Russisch"
+
+msgid "Printing failed!"
+msgstr "Afdrukken mislukt!"
+
+msgid "Lock"
+msgstr "Sluit"
+
+msgid "Unlock"
+msgstr "Ontsluit"
+
+msgid "Moves to your Document Directory.\nThis can be set in the Preferences."
+msgstr "Verplaats naar Document Directory.\nKan bij voorkeuren worden ingesteld."
+
+msgid "Choose a Directory"
+msgstr "Kies een Directory"
+
+msgid "Paths"
+msgstr "Lokaties"
+
+msgid "Documents:"
+msgstr "Documenten:"
+
+msgid "One directory up"
+msgstr "Directory Omhoog"
+
+msgid "Create New Folder"
+msgstr "Maak een Directory"
+
+msgid "List View"
+msgstr "Lijst Weergave"
+
+msgid "Detail View"
+msgstr "Detail Weergave"
+
+msgid "Preview File Contents"
+msgstr "Toon Bestands Inhoud"
+
+msgid "Hide Grid"
+msgstr "Verberg Grid"
+
+msgid "Show Grid"
+msgstr "Toon Grid"
+
+msgid "Manage Guides..."
+msgstr "Beheer Richtlijnen..."
+
+msgid "Manage Guides"
+msgstr "Beheer Richtlijnen"
+
+msgid "Vertical Guides"
+msgstr "Verticale Richtlijnen"
+
+msgid "Horizontal Guides"
+msgstr "Horizontal Richtlijnen"
+
+msgid "Add"
+msgstr "Toevoegen"
+
+msgid "Horizontal Gradient"
+msgstr "Horizontale Gradient"
+
+msgid "Vertical Gradient"
+msgstr "Verticale Gradient"
+
+msgid "Diagonal Gradient"
+msgstr "Diagonale Gradient"
+
+msgid "CrossDiagonal Gradient"
+msgstr "CrossDiagonale Gradient"
+
+msgid "Radial Gradient"
+msgstr "Radiale Gradient"
+
+msgid "Polish:"
+msgstr "Pools:"
+
+msgid "User Guides Color:"
+msgstr "Gebruikers Richtlijn Kleur:"
+
+msgid "Guide Snap Distance:"
+msgstr "Richtlijn Snap Richting:"
+
+msgid "Use PDF-1.4 Transparency Features"
+msgstr "Gebruik PDF-1.4 Transparantie Kenmerken"
+
+msgid "Opacity:"
+msgstr "Opacity:"
+
+msgid "Font Name"
+msgstr "Lettertype Naam"
+
+msgid "Use Font"
+msgstr "Gebruik Lettertype"
+
+msgid "Available Fonts"
+msgstr "Beschikbare Lettertypes"
+
+msgid "Replacement"
+msgstr "Vervanging"
+
+msgid "Font Substitutions"
+msgstr "Lettertype Vervangingen"
+
+msgid "Additional Paths"
+msgstr "Additionele Lokaties"
+
+msgid "Screen"
+msgstr "Scherm"
+
+msgid "Output intended for:"
+msgstr "Uitvoer bestemd voor:"
+
+msgid "Use ICC-Profile"
+msgstr "Gebruik ICC-Profiel"
+
+msgid "Profiles"
+msgstr "Profielen"
+
+msgid "Rendering-Intent:"
+msgstr "Rendering-Intentie:"
+
+msgid "Don't use embedded Profiles"
+msgstr "Gebruik geen ingebedde profielen"
+
+msgid "Options..."
+msgstr "Opties..."
+
+msgid "Option"
+msgstr "Optie"
+
+msgid "Value"
+msgstr "Waarde"
+
+msgid "Printing Mode"
+msgstr "Afdruk Mode"
+
+msgid "Page Set"
+msgstr "Pagina Setting"
+
+msgid "Mirror"
+msgstr "Spiegelen"
+
+msgid "N-Up Printing"
+msgstr "N-Omhoog Afdrukken"
+
+msgid "Page per Sheet"
+msgstr "Pagina per Sheet"
+
+msgid "Pages per Sheet"
+msgstr "Paginas per Sheet"
+
+msgid "Even Pages only"
+msgstr "Alleen Even Pagina's"
+
+msgid "Odd Pages only"
+msgstr "Alleen Oneven Pagina's"
+
+msgid "PDF/X-3 Output Intent"
+msgstr "PDF/X-3 Uitvoer Intentie"
+
+msgid "Info String:"
+msgstr "Info Regel:"
+
+msgid "Output Profile:"
+msgstr "Uitvoer Profiel"
+
+msgid "Use Encryption"
+msgstr "Gebruik Encryptie"
+
+msgid "Passwords"
+msgstr "Wachtwoorden"
+
+msgid "User:"
+msgstr "Gebruiker:"
+
+msgid "Owner:"
+msgstr "Eigenaar:"
+
+msgid "Settings"
+msgstr "Instellingen"
+
+msgid "Allow Printing the Document"
+msgstr "Afdrukken van het Document toestaan"
+
+msgid "Allow Changing the Document"
+msgstr "Verandering van het Document toestaan"
+
+msgid "Copying Text and Graphics is allowed"
+msgstr "Kopieëren van Tekst en Afbeeldingen is toegestaan"
+
+msgid "Adding Annotations and Fields is allowed"
+msgstr "Toevoegen van Annotaties en Velden is toegestaan"
+
+msgid "Security"
+msgstr "Beveiliging"
+
+msgid "Printer Options"
+msgstr "Printer Opties"
+
+msgid "Element"
+msgstr "Element"
+
+msgid "X-Pos+:"
+msgstr "X-Pos+:"
+
+msgid "Y-Pos+:"
+msgstr "Y-Pos+:"
+
+msgid "Horiz. Scale:"
+msgstr "Horiz. Schaling:"
+
+msgid "Vert. Scale:"
+msgstr "Vert. Schaling:"
+
+msgid "Show Bookmarks"
+msgstr "Toon Bladwijzers"
+
+msgid "Hide Bookmarks"
+msgstr "Verberg Bladwijzers"
+
+msgid "Collect for Output..."
+msgstr "Collect voor Uitvoer..."
+
+msgid "Danish"
+msgstr "Deens"
+
+msgid "Danish:"
+msgstr "Deens:"
+
+msgid "Lock Guides"
+msgstr "Zet Richtlijnen vast"
+
+msgid "Mirror Page(s) horizontal"
+msgstr "Spiegel Pagina's horizontaal"
+
+msgid "Mirror Page(s) vertical"
+msgstr "Spiegel Pagina's verticaal"
+
+msgid "Rotation"
+msgstr "Rotatie"
+
+msgid "by:"
+msgstr "Door:"
+
+msgid "Edit Shape..."
+msgstr "Bewerkt Vorm..."
+
+msgid "Round\nCorners:"
+msgstr "Ronde\nHoeken:"
+
+msgid "Distance of Text"
+msgstr "Afstand tot Tekst"
+
+msgid "Custom Spacing"
+msgstr "Aangepaste Spatieëring"
+
+msgid "Character:"
+msgstr "Teken:"
+
+msgid "Line:"
+msgstr "Lijn:"
+
+msgid "Level"
+msgstr "Level"
+
+msgid "Geometry"
+msgstr "Geometrie"
+
+msgid "Document:"
+msgstr "Document:"
+
+msgid "has been changed since the last save."
+msgstr "Is aangepast na laatste opslag."
+
+msgid "Insert Page..."
+msgstr "Voeg Pagina in..."
+
+msgid "Import a Page"
+msgstr "Importeer een Pagina"
+
+msgid "Document to load:"
+msgstr "Te laden Document:"
+
+msgid "Document contains: 0 Page(s)"
+msgstr "Document bevat: 0 Pagina(s)"
+
+msgid "Import Page Nr:"
+msgstr "Importeer Pagina Nr:"
+
+msgid "Import"
+msgstr "Importeer"
+
+msgid "Document contains: %1 Page(s)"
+msgstr "Document bevat: %1 Pagina(s)"
+
+msgid "Advanced Options..."
+msgstr "Geavanceerde Opties..."
+
+msgid "Advanced Options"
+msgstr "Geavanceerde Opties"
+
+msgid "Apply ICC-Profiles"
+msgstr "Pas ICC-Profielen toe"
+
+msgid "Mark Colors out of Gamut"
+msgstr "Markeer Kleuren vanuit Gamut"
+
+msgid "Scale Picture to Frame Size"
+msgstr "Schaal Afbeelding naar Frame Grootte"
+
+msgid "Combine Polygons"
+msgstr "Kombineer Polygonen"
+
+msgid "Split Polygon"
+msgstr "Deel Polygoon"
+
+msgid "Convert to Polygons"
+msgstr "Converter naar Polygonen"
+
+msgid "Websave RGB"
+msgstr "Webopslag RGB"
+
+msgid "Adjust Display Size"
+msgstr "Pas Beeldgrootte aan"
+
+msgid "To adjust the Display drag the Ruler below with the Slider."
+msgstr "Om het Beeld aan te passen sleep de liniaal omlaag met de Slider."
+
+msgid "Show PDF-Tools"
+msgstr "Toon PDF-Gereedschappen"
+
+msgid "Hide PDF-Tools"
+msgstr "Verberg PDF-Gereedschappen"
+
+msgid "Shears the Path horizotal to the right"
+msgstr "Schaart de richting horizontaal naar rechts"
+
+msgid "Shears the Path horizotal to the left"
+msgstr "Schaart de richting horizontaal naar links"
+
+msgid "Shears the Path vertical up"
+msgstr "Schaart de richting verticaal omhoog"
+
+msgid "Shears the Path vertical down"
+msgstr "Schaart de richting verticaal omlaag"
+
+msgid "Line Styles..."
+msgstr "Lijn Stijlen..."
+
+msgid "Initializing Plugins"
+msgstr "Plugins worden geinitialiseerd"
+
+msgid "Reading Scrapbook"
+msgstr "Kladblok wordt Gelezen"
+
+msgid "Setting up Shortcuts"
+msgstr "Opzetten van snelkoppelingen"
+
+msgid "Reading Preferences"
+msgstr "Lezen van Instellingen"
+
+msgid "Init Hyphenator"
+msgstr "Opzetten van Hyphenator"
+
+msgid "Getting ICC-Profiles"
+msgstr "Ophalen ICC-Profielen"
+
+msgid "Searching for Fonts"
+msgstr "Zoeken naar Lettertypen"
+
+msgid "Print Preview"
+msgstr "Afdruk voorbeeld"
+
+msgid "Antialias Text"
+msgstr "Zachtomrande Tekst"
+
+msgid "Antialias Graphics"
+msgstr "Zachtomrande Afbeeldingen"
+
+msgid "Russian:"
+msgstr "Russisch:"
+
+msgid "Loading:"
+msgstr "Laden:"
+
+msgid "Autosave"
+msgstr "Autoopslag"
+
+msgid "Enabled"
+msgstr "Aangezet"
+
+msgid "use Bounding Box"
+msgstr "Gebruik Bounding Box"
+
+msgid "Czech:"
+msgstr "Tzjechs:"
+
+msgid "Norwegian:"
+msgstr "Noors:"
+
+msgid "Select new Font:"
+msgstr "Selecteer nieuw Font:"
+
+msgid "Insert Special"
+msgstr "Speciaal Invoegen"
+
+msgid "Select Character"
+msgstr "Selecteer Teken"
+
+msgid "Insert"
+msgstr "Invoegen"
+
+msgid "Save Page as SVG..."
+msgstr "Pagina Opslaan als SVG..."
+
+msgid "SVG-Images (*.svg);; All Files (*)"
+msgstr "SVG-Afbeeldingen (*.svg);; Alle Bestanden (*)"
+
+msgid "Solid Line"
+msgstr "Harde Lijn"
+
+msgid "Dashed Line"
+msgstr "Gestreepte Lijn"
+
+msgid "Dotted Line"
+msgstr "Onderbroken lijn"
+
+msgid "Dash Dot Line"
+msgstr "Gestreepte Onderbroken Lijn"
+
+msgid "Dash Dot Dot Line"
+msgstr "Gestreepte Dubbel Onderbroken Lijn"
+

@@ -51,11 +51,10 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe
 {
 	QString tmp, tmp2, tmp3, tmp4, CHset;
 	QStringList wt;
-	int IsoInUse = 0;
   QString Epfad = PREL;
 	Seiten = 0;
 	User = "";
-	Creator = "PSlib-0.3";
+	Creator = "Scribus 1.0";
 	Titel = "";
 	FillColor = "0.0 0.0 0.0 0.0";
 	StrokeColor = "0.0 0.0 0.0 0.0";
@@ -110,70 +109,61 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe
 	int a = 0;
 	for (it = DocFonts.begin(); it != DocFonts.end(); ++it)
 		{
-		UsedFonts.insert(it.key(), "/Fo"+IToStr(a));
-		CHset = AllFonts[it.key()]->FontEnc;
-		if ((CHset == "iso8859-1") || (CHset == "ascii-0") || (CHset == "iso8859-15"))
-			Fonts += "/"+AllFonts[it.key()]->RealName()+" /Fo"+IToStr(a)+" cf ef\n";
-		if (CHset == "iso8859-2")
+		if ((AllFonts[it.key()]->isOTF) || (AllFonts[it.key()]->Subset))
 			{
-			Fonts += "/"+AllFonts[it.key()]->RealName()+" /Fo"+IToStr(a)+" iso2f ef\n";
-			IsoInUse = 2;
-			}
-		if (CHset == "iso8859-3")
-			{
-			Fonts += "/"+AllFonts[it.key()]->RealName()+" /Fo"+IToStr(a)+" iso3f ef\n";
-			IsoInUse = 3;
-			}
-		if (CHset == "iso8859-4")
-			{
-			Fonts += "/"+AllFonts[it.key()]->RealName()+" /Fo"+IToStr(a)+" iso4f ef\n";
-			IsoInUse = 4;
-			}
-		if (CHset == "iso8859-5")
-			{
-			Fonts += "/"+AllFonts[it.key()]->RealName()+" /Fo"+IToStr(a)+" iso5f ef\n";
-			IsoInUse = 5;
-			}
-		if (CHset == "iso8859-7")
-			{
-			Fonts += "/"+AllFonts[it.key()]->RealName()+" /Fo"+IToStr(a)+" iso7f ef\n";
-			IsoInUse = 7;
-			}
-		if (CHset == "iso8859-9")
-			{
-			Fonts += "/"+AllFonts[it.key()]->RealName()+" /Fo"+IToStr(a)+" iso9f ef\n";
-			IsoInUse = 9;
-			}
-		if (CHset == "iso8859-10")
-			{
-			Fonts += "/"+AllFonts[it.key()]->RealName()+" /Fo"+IToStr(a)+" iso10f ef\n";
-			IsoInUse = 10;
-			}
-		if (CHset == "iso8859-13")
-			{
-			Fonts += "/"+AllFonts[it.key()]->RealName()+" /Fo"+IToStr(a)+" iso13f ef\n";
-			IsoInUse = 13;
-			}
-		if (CHset.startsWith("koi8"))
-			{
-			Fonts += "/"+AllFonts[it.key()]->RealName()+" /Fo"+IToStr(a)+" koi8f ef\n";
-			IsoInUse = 99;
-			}
-		if (CHset == "adobe-fontspecific")
-			Fonts += "/Fo"+IToStr(a)+" /"+AllFonts[it.key()]->RealName()+" findfont definefont pop\n";
-		if (AllFonts[it.key()]->EmbedPS)
-			{
-			QString tmp;
-			if(AllFonts[it.key()]->EmbedFont(tmp))
+			FontDesc += "/"+AllFonts[it.key()]->RealName()+" "+IToStr(AllFonts[it.key()]->RealGlyphs.count()+1)+" dict def\n";
+			FontDesc += AllFonts[it.key()]->RealName()+" begin\n";
+			QMap<uint,FPointArray>::Iterator ig;
+			for (ig = AllFonts[it.key()]->RealGlyphs.begin(); ig != AllFonts[it.key()]->RealGlyphs.end(); ++ig)
 				{
-				GListe gl;
-				AllFonts[it.key()]->GlNames(&gl);
-				GlyphsOfFont.insert(it.key(), gl);
-				FontDesc += "%%BeginFont: " + AllFonts[it.key()]->RealName() + "\n";
-				FontDesc += tmp + "\n%%EndFont\n";
+				FontDesc += "/G"+IToStr(ig.key())+" { newpath\n";
+				FPoint np, np1, np2;
+				bool nPath = true;
+				if (ig.data().size() > 3)
+					{
+					for (uint poi = 0; poi < ig.data().size()-3; poi += 4)
+						{
+						if (ig.data().point(poi).x() > 900000)
+							{
+							FontDesc += "cl\n";
+							nPath = true;
+							continue;
+							}
+						if (nPath)
+							{
+							np = ig.data().point(poi);
+							FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " m\n";
+							nPath = false;
+							}
+						np = ig.data().point(poi+1);
+						np1 = ig.data().point(poi+3);
+						np2 = ig.data().point(poi+2);
+						FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " " + ToStr(np1.x()) + " " + ToStr(-np1.y()) + " " + ToStr(np2.x()) + " " + ToStr(-np2.y()) + " cu\n";
+						}
+					}
+				FontDesc += "cl\n} bind def\n";
 				}
+			FontDesc += "end\n";
+			AllFonts[it.key()]->RealGlyphs.clear();
 			}
-		a++;
+		else
+			{
+			UsedFonts.insert(it.key(), "/Fo"+IToStr(a));
+			Fonts += "/Fo"+IToStr(a)+" /"+AllFonts[it.key()]->RealName()+" findfont definefont pop\n";
+			if (AllFonts[it.key()]->EmbedPS)
+				{
+				QString tmp;
+				if(AllFonts[it.key()]->EmbedFont(tmp))
+					{
+					FontDesc += "%%BeginFont: " + AllFonts[it.key()]->RealName() + "\n";
+					FontDesc += tmp + "\n%%EndFont\n";
+					}
+				}
+			GListe gl;
+			AllFonts[it.key()]->GlNames(&gl);
+			GlyphsOfFont.insert(it.key(), gl);
+			a++;
+			}
 		}
 	Prolog = "%%BeginProlog\n";
 	Prolog += "/Scribusdict 100 dict def\n";
@@ -182,171 +172,26 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe
 	Prolog += "/oldsetgray /setgray load def\n";
 	Prolog += "/cmyk {setcmykcolor} def\n";
 	Prolog += "/m {moveto} bind def\n";
+	Prolog += "/l {lineto} bind def\n";
 	Prolog += "/li {lineto} bind def\n";
+	Prolog += "/cu {curveto} bind def\n";
 	Prolog += "/cl {closepath} bind def\n";
 	Prolog += "/gs {gsave} bind def\n";
 	Prolog += "/gr {grestore} bind def\n";
 	Prolog += "/tr {translate} bind def\n";
 	Prolog += "/ro {rotate} bind def\n";
 	Prolog += "/sh {show} bind def\n";
-	Prolog += "/ftt {currentfont /FontType get 42 eq { 1000 } { 1 } ifelse div} bind def\n";
 	Prolog += "/shg {setcmykcolor moveto glyphshow} def\n";
-	Prolog += "/shm {setcmykcolor moveto\n";
-	Prolog += "      dup (\\55) eq\n";
-	Prolog += "        {pop /hyphen glyphshow}\n";
-	Prolog += "        {show}\n";
-	Prolog += "      ifelse} def\n";
 	Prolog += "/sc {scale} bind def\n";
 	Prolog += "/se {selectfont} bind def\n";
 	Prolog += "/sf {setfont} bind def\n";
 	Prolog += "/sw {setlinewidth} bind def\n";
-	Prolog += "/srt {2 setlinecap currentfont dup /FontMatrix get\n";
-	Prolog += "      exch /FontInfo get dup /UnderlinePosition get ftt exch\n";
-	Prolog += "      /UnderlineThickness get ftt 3 -1 roll dtransform\n";
-	Prolog += "      setlinewidth 0 exch rmoveto stringwidth rlineto stroke} bind def\n";
-	Prolog += "/srd {2 setlinecap currentfont dup /FontMatrix get\n";
-	Prolog += "      exch /FontInfo get dup /UnderlinePosition get ftt exch\n";
-	Prolog += "      /UnderlineThickness get ftt 3 -1 roll dtransform\n";
-	Prolog += "      setlinewidth pop stringwidth rlineto stroke} bind def\n";
 	Prolog += "/f  {findfont} bind def\n";
-	Prolog += "/mf {makefont} bind def\n";
-	Prolog += "/ss {scalefont setfont} bind def\n";
-	Prolog += "/ci {newpath 0 0 1 0 360 arc} bind def\n";
 	Prolog += "/fi {fill} bind def\n";
 	Prolog += "/st {stroke} bind def\n";
-	QString isoenc;
-	if (IsoInUse != 0)
-		{
-		switch (IsoInUse)
-			{
-			case 2:
-				Prolog += "/iso2f [\n";
-				loadText(Epfad+"/lib/scribus/iso8859-2ps.enc", &isoenc);
-				Prolog += isoenc;
-				Prolog += "] def\n";
-				break;
-			case 3:
-				Prolog += "/iso3f [\n";
-				loadText(Epfad+"/lib/scribus/iso8859-3ps.enc", &isoenc);
-				Prolog += isoenc;
-				Prolog += "] def\n";
-				break;
-			case 4:
-				Prolog += "/iso4f [\n";
-				loadText(Epfad+"/lib/scribus/iso8859-4ps.enc", &isoenc);
-				Prolog += isoenc;
-				Prolog += "] def\n";
-				break;
-			case 5:
-				Prolog += "/iso5f [\n";
-				loadText(Epfad+"/lib/scribus/iso8859-5ps.enc", &isoenc);
-				Prolog += isoenc;
-				Prolog += "] def\n";
-				break;
-			case 7:
-				Prolog += "/iso7f [\n";
-				loadText(Epfad+"/lib/scribus/iso8859-7ps.enc", &isoenc);
-				Prolog += isoenc;
-				Prolog += "] def\n";
-				break;
-			case 9:
-				Prolog += "/iso9f [\n";
-				loadText(Epfad+"/lib/scribus/iso8859-9ps.enc", &isoenc);
-				Prolog += isoenc;
-				Prolog += "] def\n";
-				break;
-			case 10:
-				Prolog += "/iso10f [\n";
-				loadText(Epfad+"/lib/scribus/iso8859-10ps.enc", &isoenc);
-				Prolog += isoenc;
-				Prolog += "] def\n";
-				break;
-			case 13:
-				Prolog += "/iso13f [\n";
-				loadText(Epfad+"/lib/scribus/iso8859-13ps.enc", &isoenc);
-				Prolog += isoenc;
-				Prolog += "] def\n";
-				break;
-			case 99:
-				Prolog += "/koi8f [\n";
-				loadText(Epfad+"/lib/scribus/koi8ps.enc", &isoenc);
-				Prolog += isoenc;
-				Prolog += "] def\n";
-				break;
-			}
-		}
-	Prolog += "/cf [\n";
-	Prolog += "    16#2d /hyphen\n";
-	Prolog += "    16#80 /Euro\n";
-	Prolog += "    16#82 /quotesinglbase\n";
-	Prolog += "    16#83 /florin\n";
-	Prolog += "    16#84 /quotedblbase\n";
-	Prolog += "    16#85 /ellipsis\n";
-	Prolog += "    16#86 /dagger\n";
-	Prolog += "    16#87 /daggerdbl\n";
-	Prolog += "    16#88 /circumflex\n";
-	Prolog += "    16#89 /perthousand\n";
-	Prolog += "    16#8a /Scaron\n";
-	Prolog += "    16#8b /guilsinglleft\n";
-	Prolog += "    16#8c /OE\n";
-	Prolog += "    16#8e /zcaron\n";
-	Prolog += "    16#91 /quoteleft\n";
-	Prolog += "    16#92 /quoteright\n";
-	Prolog += "    16#93 /quotedblleft\n";
-	Prolog += "    16#94 /quotedblright\n";
-	Prolog += "    16#95 /bullet\n";
-	Prolog += "    16#96 /endash\n";
-	Prolog += "    16#97 /emdash\n";
-	Prolog += "    16#98 /tilde\n";
-	Prolog += "    16#99 /trademark\n";
-	Prolog += "    16#9a /scaron\n";
-	Prolog += "    16#9b /guilsinglright\n";
-	Prolog += "    16#9c /oe\n";
-	Prolog += "    16#9e /zcaron\n";
-	Prolog += "    16#9f /Ydieresis\n";
-	Prolog += "] def\n";
-	Prolog += "/ski /ISOLatin1Encoding where{pop true}{false}ifelse def\n";
-	Prolog += "/reencodesmalldict 12 dict def\n";
-	Prolog += "/ef {\n";
-	Prolog += "    reencodesmalldict begin\n";
-	Prolog += "    /newcodesandnames exch def\n";
-	Prolog += "    /newfontname exch def\n";
-	Prolog += "    /basefontname exch def\n";
-	Prolog += "    /basefontdict basefontname findfont def\n";
-	Prolog += "    /newfont basefontdict maxlength dict def\n";
-	Prolog += "    basefontdict\n";
-	Prolog += "    {\n";
-	Prolog += "        exch dup /FID ne\n";
-	Prolog += "        {\n";
-	Prolog += "            dup /Encoding eq\n";
-	Prolog += "            {\n";
-	Prolog += "                ski\n";
-	Prolog += "                {\n";
-	Prolog += "                    exch pop\n";
-	Prolog += "                    ISOLatin1Encoding dup length array copy\n";
-	Prolog += "                }{\n";
-	Prolog += "                exch dup length array copy\n";
-	Prolog += "            }\n";
-	Prolog += "            ifelse\n";
-	Prolog += "            newfont 3 1 roll put\n";
-	Prolog += "            }{\n";
-	Prolog += "                exch newfont 3 1 roll put\n";
-	Prolog += "            }\n";
-	Prolog += "            ifelse\n";
-	Prolog += "        }{\n";
-	Prolog += "        pop pop\n";
-	Prolog += "    }\n";
-	Prolog += "    ifelse\n";
-	Prolog += "    } forall\n";
-	Prolog += "    newfont /FontName newfontname put\n";
-	Prolog += "    newcodesandnames aload pop\n";
-	Prolog += "    newcodesandnames length 2 idiv\n";
-	Prolog += "    {\n";
-	Prolog += "        newfont /Encoding get 3 1 roll put\n";
-	Prolog += "    } repeat\n";
-	Prolog += "    newfontname newfont definefont pop\n";
-	Prolog += "    end\n";
-	Prolog += "    } def\n";
+	Prolog += "/shgf {gs dup scale begin cvx exec eofill end gr} bind def\n";
+	Prolog += "/shgs {gs dup 1 exch div currentlinewidth mul sw dup scale\n";
+	Prolog += "       begin cvx exec st end gr} bind def\n";
 	Prolog += "/bEPS {\n";
 	Prolog += "    /b4_Inc_state save def\n";
 	Prolog += "    /dict_count countdictstack def\n";
@@ -802,23 +647,6 @@ void PSLib::PS_RadGradient(float w, float h, int item, bool mu)
 	PutSeite("cmtx setmatrix\n");
 }
 
-void PSLib::PS_underline(QCString ch, float x, float y)
-{
-	PS_moveto(x, y);
-	PutSeite("("+QString(ch)+") srt\n");
-}
-
-void PSLib::PS_strikeout(QCString ch, float x, float y)
-{
-	PS_moveto(x, y);
-	PutSeite("("+QString(ch)+") srd\n");
-}
-
-void PSLib::PS_show_xy(QCString ch, float x, float y)
-{
-	PutSeite("("+QString(ch)+") "+ToStr(x)+" "+ToStr(y)+" "+StrokeColor+" shm\n");
-}
-
 void PSLib::PS_show_xyG(QString font, QString ch, float x, float y)
 {
 	QString Name;
@@ -834,6 +662,15 @@ void PSLib::PS_show(float x, float y)
 {
 	PS_moveto(x, y);
 	PutSeite("/hyphen glyphshow\n");
+}
+
+void PSLib::PS_showSub(uint chr, QString font, int size, bool stroke)
+{
+	PutSeite(FillColor + " cmyk (G"+IToStr(chr)+") "+font+" "+ToStr(size / 10.0)+" ");
+	if (stroke)
+		PutSeite("shgs\n");
+	else
+		PutSeite("shgf\n");
 }
 
 void PSLib::PS_ImageData(bool inver, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf)
@@ -1224,4 +1061,10 @@ void PSLib::PS_close()
 	PutDoc("end\n");
 	PutDoc("%%EOF\n");
 	Spool.close();
+}
+
+
+void PSLib::PS_insert(QString i)
+{
+	PutDoc(i);
 }

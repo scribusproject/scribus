@@ -1,3 +1,43 @@
+Changes since Version 1.0.1
+06.09.2003	Unterlining doesn't cut the decents of the Glyphs anymore.
+
+04.09.2003	Added new Type Style Outlined.
+
+02.09.2003	Fixed Segfault when cutting Text when there is no Text.
+
+31.08.2003	Added a Zoom for Characters, if you click the Right Mouse Button
+		over a Character a Zoom Window pops up.
+		Added the possibility to have different Transparencys for Strokes
+		and Fills.
+
+22.08.2003	Made first Steps to replace the old rendering Engine
+		with libart.
+
+13.08.2003	Added Greek Hyphenation. 
+
+12.08.2003	Changed behaviour of the Save-Button in the Toolbar.
+
+11.08.2003	Added an SVG-Import Plugin.
+
+10.08.2003	Added PDF-Keywords.
+		Enabled the Black Point Compensation in the Color-
+		Management when lcms-1.11 is used.
+		
+09.08.2003	Added a History Function to the Help Viewer.
+
+08.08.2003	Templates are now reapplied to the Pages when 
+		they where changed.
+		Templates can now applied to more than one Page.
+		
+Changes since Version 1.0
+07.08.2003	Added Indonesian Translation.
+
+25.07.2003	Fixed Bug with the Picture Preview.
+		Added Dutch, Ukrainian and Portuguese Hyphenation.
+
+18.07.2003	Fixed Bug which caused Pictures to disappear when the actual
+		Application Directory isn't the users Home Directory.
+
 Changes since Version 0.9.11.1
 21.06.2003	Fixed the Radial Gradients in the SVG-Export.
 		Fixed Bug with rounded Rectangles.

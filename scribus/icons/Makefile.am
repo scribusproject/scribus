@@ -1,7 +1,7 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
 
-EXTRA_DIST = Kreuz.xpm Bild.xpm Editm.xpm Kreise.xpm Lock.xpm Lupe.xpm Rechtecke.xpm Rotieren.xpm Stift.xpm Text.xpm Unlock.xpm DateiClos.xpm DateiNeu.xpm DateiOpen.xpm DateiPrint.xpm DateiSave.xpm AppIcon.xpm LupeZ.xpm Gross.xpm Klein.xpm DragPix.xpm Rotieren2.xpm HandC.xpm scribus_logo.jpg DateiClos16.png DateiNeu16.png DateiOpen16.png DateiPrint16.png DateiSave16.png editcopy.png editcut.png editdelete.png editpaste.png exit.png doc.png image.png pdf.png postscript.png txt.png Zeichen.xpm Hoch.xpm Kapital.xpm Strike.xpm Tief.xpm Unter.xpm Kern.xpm Spacing.xpm Corner.xpm FlipH.xpm FlipV.xpm Winkel.xpm acrobat.png scribusicon.png text_block.png text_center.png text_left.png text_right.png Text2.xpm spline.png triangle.png Stiftalt.xpm beziertool.png AddNode.png DeleteNode.png MoveAsym.png MoveKontrol.png MoveNode.png MoveSym.png BevelJoin.png ButtCap.png MiterJoin.png RoundJoin.png SquareCap.png ResetNode.png RoundCap.png Reset1Node.png BezierClose.png PolyCut.png AddPoint.png DelPoint.png Split.png Deletelayer.png Layervisible.xpm Lowerlayer.png Newlayer.png Raiselayer.png checkbox.png combobox.png listbox.png pushbutton.png textview.png charset.png goto.png document2.png trashcan.png trashcan2.png gohome.png bottom.png down.png top.png up.png irreg.png oval.png rect.png text_force.png ok.png Revers.png hmirror.png vmirror.png shear_right.png shear_left.png shear_up.png shear_down.png Splash.png back.png start.png forward.png finish.png penciladd.png pencilsub.png 
+EXTRA_DIST = Kreuz.xpm Bild.xpm Editm.xpm Kreise.xpm Lock.xpm Lupe.xpm Rechtecke.xpm Rotieren.xpm Stift.xpm Text.xpm Unlock.xpm DateiClos.xpm DateiNeu.xpm DateiOpen.xpm DateiPrint.xpm DateiSave.xpm AppIcon.xpm LupeZ.xpm Gross.xpm Klein.xpm DragPix.xpm Rotieren2.xpm HandC.xpm scribus_logo.jpg DateiClos16.png DateiNeu16.png DateiOpen16.png DateiPrint16.png DateiSave16.png editcopy.png editcut.png editdelete.png editpaste.png exit.png doc.png image.png pdf.png postscript.png txt.png Zeichen.xpm Hoch.xpm Kapital.xpm Strike.xpm Tief.xpm Unter.xpm Kern.xpm Spacing.xpm Corner.xpm FlipH.xpm FlipV.xpm Winkel.xpm acrobat.png scribusicon.png text_block.png text_center.png text_left.png text_right.png Text2.xpm spline.png triangle.png Stiftalt.xpm beziertool.png AddNode.png DeleteNode.png MoveAsym.png MoveKontrol.png MoveNode.png MoveSym.png BevelJoin.png ButtCap.png MiterJoin.png RoundJoin.png SquareCap.png ResetNode.png RoundCap.png Reset1Node.png BezierClose.png PolyCut.png AddPoint.png DelPoint.png Split.png Deletelayer.png Layervisible.xpm Lowerlayer.png Newlayer.png Raiselayer.png checkbox.png combobox.png listbox.png pushbutton.png textview.png charset.png goto.png document2.png trashcan.png trashcan2.png gohome.png bottom.png down.png top.png up.png irreg.png oval.png rect.png text_force.png ok.png Revers.png hmirror.png vmirror.png shear_right.png shear_left.png shear_up.png shear_down.png Splash.png back.png start.png forward.png finish.png penciladd.png pencilsub.png outlined.png fill.png NoPrint.png unlock.png locked.png 
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/lib/scribus/icons/
@@ -244,6 +244,16 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/penciladd.png $(prefix)/lib/scribus/icons/penciladd.png
 	$(mkinstalldirs) $(prefix)/lib/scribus/icons/
 	$(INSTALL_DATA) $(srcdir)/pencilsub.png $(prefix)/lib/scribus/icons/pencilsub.png
+	$(mkinstalldirs) $(prefix)/lib/scribus/icons/
+	$(INSTALL_DATA) $(srcdir)/outlined.png $(prefix)/lib/scribus/icons/outlined.png
+	$(mkinstalldirs) $(prefix)/lib/scribus/icons/
+	$(INSTALL_DATA) $(srcdir)/fill.png $(prefix)/lib/scribus/icons/fill.png
+	$(mkinstalldirs) $(prefix)/lib/scribus/icons/
+	$(INSTALL_DATA) $(srcdir)/locked.png $(prefix)/lib/scribus/icons/locked.png
+	$(mkinstalldirs) $(prefix)/lib/scribus/icons/
+	$(INSTALL_DATA) $(srcdir)/unlock.png $(prefix)/lib/scribus/icons/unlock.png
+	$(mkinstalldirs) $(prefix)/lib/scribus/icons/
+	$(INSTALL_DATA) $(srcdir)/NoPrint.png $(prefix)/lib/scribus/icons/NoPrint.png
 
 
 uninstall-local:
@@ -367,6 +377,11 @@ uninstall-local:
 	-rm -f $(prefix)/lib/scribus/icons/start.png
 	-rm -f $(prefix)/lib/scribus/icons/penciladd.png
 	-rm -f $(prefix)/lib/scribus/icons/pencilsub.png
+	-rm -f $(prefix)/lib/scribus/icons/outlined.png
+	-rm -f $(prefix)/lib/scribus/icons/fill.png
+	-rm -f $(prefix)/lib/scribus/icons/unlock.png
+	-rm -f $(prefix)/lib/scribus/icons/locked.png
+	-rm -f $(prefix)/lib/scribus/icons/NoPrint.png
 
 
 ####### kdevelop will overwrite this part!!! (end)############

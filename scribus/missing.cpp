@@ -117,12 +117,11 @@ DmF::DmF( QWidget* parent, QString fon, preV *Prefs, bool miss )
     MissingFontLayout->addLayout( Layout1 );
 
     // signals and slots connections
-    connect( Replace, SIGNAL( activated(const QString&) ), this, SLOT( NeuerFont(const QString&) ) );
     connect( PushButton1, SIGNAL( clicked() ), this, SLOT( accept() ) );
+    connect( Replace, SIGNAL( activated(const QString&) ), this, SLOT( NeuerFont(const QString&) ) );
 		if (!miss)
     	connect( PushButton2, SIGNAL( clicked() ), this, SLOT( reject() ) );
 }
-
 
 void DmF::NeuerFont(const QString& e)
 {

@@ -8,10 +8,6 @@
 ****************************************************************************/
 #include "helpbrowser.h"
 #include "helpbrowser.moc"
-#include <qpushbutton.h>
-#include <qtextbrowser.h>
-#include <qtoolbutton.h>
-#include <qlayout.h>
 #include <qvariant.h>
 #include <qtooltip.h>
 #include <qimage.h>
@@ -33,6 +29,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString Capt, QString Datei )
 {
     resize( 547, 450 ); 
     setCaption( Capt );
+		mHistory.clear();
   	setIcon(loadIcon("AppIcon.xpm"));
     HelpBrowserLayout = new QVBoxLayout( this ); 
     HelpBrowserLayout->setSpacing( 2 );
@@ -50,11 +47,14 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString Capt, QString Datei )
     HomeB->setPixmap(loadIcon("gohome.png"));
     Layout13->addWidget( HomeB );
 
+    hist = new QPopupMenu( this );
     BackB = new QToolButton( this, "BackB" );
     BackB->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, BackB->sizePolicy().hasHeightForWidth() ) );
     BackB->setMinimumSize( QSize( 0, 0 ) );
     BackB->setMaximumSize( QSize( 32767, 32767 ) );
     BackB->setPixmap(loadIcon("back.png"));
+		BackB->setPopup(hist);
+		BackB->setPopupDelay(0);
     Layout13->addWidget( BackB );
 
     ForwB = new QToolButton( this, "ForwB" );
@@ -89,12 +89,36 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString Capt, QString Datei )
   			}
   		}
   	if (Avail)
+			{
     	Anzeige->setSource(pfad2);
+			mHistory[hist->insertItem(pfad2)] = pfad2;
+			}
     HelpBrowserLayout->addWidget( Anzeige );
 
     // signals and slots connections
     connect( HomeB, SIGNAL( clicked() ), Anzeige, SLOT( home() ) );
     connect( ForwB, SIGNAL( clicked() ), Anzeige, SLOT( forward() ) );
     connect( BackB, SIGNAL( clicked() ), Anzeige, SLOT( backward() ) );
+    connect(hist, SIGNAL(activated(int)), this, SLOT(histChosen(int)));
+    connect(Anzeige, SIGNAL(sourceChanged(const QString&)),this, SLOT(sourceChanged(const QString&)));
+}
+
+void HelpBrowser::sourceChanged(const QString& url)
+{
+	bool inList = false;
+	QMap<int, QString>::Iterator it;
+	for (it = mHistory.begin(); it != mHistory.end(); ++it)
+		{
+		if (it.data() == url)
+			inList = true;
+		}
+	if (!inList)
+		mHistory[hist->insertItem(url)] = url;
+}
+
+void HelpBrowser::histChosen(int i)
+{
+	if (mHistory.contains(i))
+		Anzeige->setSource(mHistory[i]);
 }
 

@@ -214,7 +214,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     Layout17->addItem( spacer );
     Cancel = new QPushButton( this, "Cancel" );
     Cancel->setText( tr( "Cancel" ) );
-    Cancel->setDefault( true );
+    OkButton->setDefault( true );
     Layout17->addWidget( Cancel );
     QSpacerItem* spacer_3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout17->addItem( spacer_3 );

@@ -34,13 +34,10 @@
 #include "config.h"
 #include "scribusdoc.h"
 #include "libpdf/pdflib.h"
-#ifdef HAVE_FREETYPE
-	#include <ft2build.h>
-	#include FT_FREETYPE_H
-	#include FT_OUTLINE_H
-	#include FT_GLYPH_H
-	FPointArray traceCharacter(PageItem *b, QString chx, uint ind, float *x, float *y);
-#endif
+#include <ft2build.h>
+#include FT_FREETYPE_H
+#include FT_OUTLINE_H
+#include FT_GLYPH_H
 #ifdef HAVE_LIBZ
 	#include <zlib.h>
 #endif
@@ -63,6 +60,7 @@ extern int IntentPrinter;
 #endif
 extern ProfilesL InputProfiles;
 
+FPointArray traceChar(FT_Face face, uint chr, int chs, float *x, float *y);
 QString Path2Relative(QString Path);
 QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h);
 bool GlyNames(QMap<uint, QString> *GList, QString Dat);
@@ -83,7 +81,7 @@ QPointArray RegularPolygon(float w, float h, uint c, bool star, float factor, fl
 FPointArray RegularPolygonF(float w, float h, uint c, bool star, float factor, float rota);
 QPixmap loadIcon(QString nam);
 bool loadText(QString nam, QString *Buffer);
-float Cwidth(ScribusDoc *doc, QPainter *p, QString name, QString ch, int Siz, QString ch2 = " ");
+float Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 float QStoFloat(QString in);
 int QStoInt(QString in);
 QString GetAttr(QDomElement *el, QString at, QString def="0");
@@ -685,9 +683,8 @@ bool loadText(QString nam, QString *Buffer)
 	return ret;
 }
 
-float Cwidth(ScribusDoc *doc, QPainter *p, QString name, QString ch, int Siz, QString ch2)
+float Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2)
 {
-#ifdef HAVE_FREETYPE
 	float w;
 	FT_Vector  delta;
 	uint c1 = ch.at(0).unicode();
@@ -707,12 +704,6 @@ float Cwidth(ScribusDoc *doc, QPainter *p, QString name, QString ch, int Siz, QS
 		}
 	else
 		return static_cast<float>(Siz);
-#else
-	if ((*doc->AllFonts)[name]->HasMetrics)
-		return (*doc->AllFonts)[name]->CharWidth[QMIN(ch.at(0).unicode(),255)]*Siz;
-	else
-		return p->fontMetrics().width(ch);
-#endif
 }
 
 QPointArray RegularPolygon(float w, float h, uint c, bool star, float factor, float rota)
@@ -807,8 +798,6 @@ QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs)
 			if (ina.point(poi).x() > 900000)
 				{
 				outa.resize(outa.size()+1);
-//				if (poi < 4)
-//					outa.setPoint(outa.size()-1, QPoint(0,0));
 				outa.setPoint(outa.size()-1, cli.point(cli.size()-1));
 				Segs.append(outa.size());		
 				continue;
@@ -1096,7 +1085,6 @@ QString Path2Relative(QString Path)
 
 bool GlyNames(QMap<uint, QString> *GList, QString Dat)
 {
-#ifdef HAVE_FREETYPE
 	bool error;
 	char *buf[50];
 	FT_Library library;
@@ -1113,13 +1101,11 @@ bool GlyNames(QMap<uint, QString> *GList, QString Dat)
     charcode = FT_Get_Next_Char(face, charcode, &gindex );
 		}
 	FT_Done_FreeType( library );
-#endif
 	return true;
 }
 
 bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat)
 {
-#ifdef HAVE_FREETYPE
 	struct PDFlib::GlNamInd gln;
 	bool error;
 	char *buf[50];
@@ -1147,11 +1133,9 @@ bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat)
 			}
 		}
 	FT_Done_FreeType( library );
-#endif
 	return true;
 }
 
-#ifdef HAVE_FREETYPE
 FPoint firstP;
 bool FirstM;
 
@@ -1161,25 +1145,14 @@ int traceMoveto( FT_Vector *to, FPointArray *composite )
 	double toy = ( to->y / 64.0 );
 	if (!FirstM)
 		{
-		composite->resize(composite->size()+1);
-		composite->setPoint(composite->size()-1, firstP);
-		composite->resize(composite->size()+1);
-		composite->setPoint(composite->size()-1, firstP);
-		composite->resize(composite->size()+1);
-		composite->setPoint(composite->size()-1, FPoint(999999, 999999));
-		composite->resize(composite->size()+1);
-		composite->setPoint(composite->size()-1, FPoint(999999, 999999));
-		composite->resize(composite->size()+1);
-		composite->setPoint(composite->size()-1, FPoint(999999, 999999));
-		composite->resize(composite->size()+1);
-		composite->setPoint(composite->size()-1, FPoint(999999, 999999));
+		composite->addPoint(firstP);
+		composite->addPoint(firstP);
+		composite->setMarker();
 		}
 	else
 		FirstM = false;
-	composite->resize(composite->size()+1);
-	composite->setPoint(composite->size()-1, FPoint(tox, toy));
-	composite->resize(composite->size()+1);
-	composite->setPoint(composite->size()-1, FPoint(tox, toy));
+	composite->addPoint(FPoint(tox, toy));
+	composite->addPoint(FPoint(tox, toy));
 	firstP = FPoint(tox, toy);
 	return 0;
 }
@@ -1188,14 +1161,10 @@ int traceLineto( FT_Vector *to, FPointArray *composite )
 {
 	double tox = ( to->x / 64.0 );
 	double toy = ( to->y / 64.0 );
-	composite->resize(composite->size()+1);
-	composite->setPoint(composite->size()-1, FPoint(tox, toy));
-	composite->resize(composite->size()+1);
-	composite->setPoint(composite->size()-1, FPoint(tox, toy));
-	composite->resize(composite->size()+1);
-	composite->setPoint(composite->size()-1, FPoint(tox, toy));
-	composite->resize(composite->size()+1);
-	composite->setPoint(composite->size()-1, FPoint(tox, toy));
+	composite->addPoint(FPoint(tox, toy));
+	composite->addPoint(FPoint(tox, toy));
+	composite->addPoint(FPoint(tox, toy));
+	composite->addPoint(FPoint(tox, toy));
 	return 0;
 }
 
@@ -1205,14 +1174,10 @@ int traceQuadraticBezier( FT_Vector *control, FT_Vector *to, FPointArray *compos
 	double y1 = ( control->y / 64.0 );
 	double x2 = ( to->x / 64.0 );
 	double y2 = ( to->y / 64.0 );
-	composite->resize(composite->size()+1);
-	composite->setPoint(composite->size()-1, FPoint(x2, y2));
-	composite->resize(composite->size()+1);
-	composite->setPoint(composite->size()-1, FPoint(x1, y1));
-	composite->resize(composite->size()+1);
-	composite->setPoint(composite->size()-1, FPoint(x2, y2));
-	composite->resize(composite->size()+1);
-	composite->setPoint(composite->size()-1, FPoint(x2, y2));
+	composite->addPoint(FPoint(x2, y2));
+	composite->addPoint(FPoint(x1, y1));
+	composite->addPoint(FPoint(x2, y2));
+	composite->addPoint(FPoint(x2, y2));
 	return 0;
 };
 
@@ -1225,14 +1190,10 @@ int traceCubicBezier( FT_Vector *p, FT_Vector *q, FT_Vector *to, FPointArray *co
 	double x3 = ( to->x / 64.0 );
 	double y3 = ( to->y / 64.0 );
 	composite->setPoint(composite->size()-1, FPoint(x1, y1));
-	composite->resize(composite->size()+1);
-	composite->setPoint(composite->size()-1, FPoint(x3, y3));
-	composite->resize(composite->size()+1);
-	composite->setPoint(composite->size()-1, FPoint(x2, y2));
-	composite->resize(composite->size()+1);
-	composite->setPoint(composite->size()-1, FPoint(x3, y3));
-	composite->resize(composite->size()+1);
-	composite->setPoint(composite->size()-1, FPoint(x3, y3));
+	composite->addPoint(FPoint(x3, y3));
+	composite->addPoint(FPoint(x2, y2));
+	composite->addPoint(FPoint(x3, y3));
+	composite->addPoint(FPoint(x3, y3));
 	return 0;
 }
 
@@ -1246,26 +1207,13 @@ FT_Outline_Funcs OutlineMethods =
 	0
 };
 
-FPointArray traceCharacter(PageItem *b, QString chx, uint ind, float *x, float *y)
+FPointArray traceChar(FT_Face face, uint chr, int chs, float *x, float *y)
 {
-	FT_Face face;    /* handle to face object */
 	FT_UInt glyphIndex;
 	FPointArray pts, pts2;
 	pts.resize(0);
 	firstP = FPoint(0,0);
 	FirstM = true;
-	QString ch = chx;
-	int chs = b->Ptext.at(ind)->csize;
-	if (b->Ptext.at(ind)->cstyle & 64)
-		{
-		if (ch.upper() != ch)
-			{
-			chs = QMAX(static_cast<int>(b->Ptext.at(ind)->csize * b->OwnPage->doku->VKapit / 100), 1);
-			ch = ch.upper();
-			}
-		}
-	uint chr = ch[0].unicode();
-	face = b->OwnPage->doku->FFonts[b->Ptext.at(ind)->cfont];
 	FT_Set_Char_Size(	face, 0, chs*64, 72, 72 );
 	glyphIndex = FT_Get_Char_Index(face, chr);
 	FT_Load_Glyph( face, glyphIndex, FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP );
@@ -1280,4 +1228,3 @@ FPointArray traceCharacter(PageItem *b, QString chx, uint ind, float *x, float *
 	*y = face->glyph->metrics.horiBearingY / 64.0;
 	return pts2;
 }
-#endif

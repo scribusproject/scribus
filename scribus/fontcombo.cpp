@@ -64,3 +64,21 @@ FontCombo::FontCombo(QWidget* pa, preV *Prefs) : QComboBox(true, pa)
 		new FontListItem(this, *it2, Prefs->AvailFonts[*it2]->Font);
 		}
 }
+
+void FontCombo::RebuildList(preV *Prefs)
+{
+	QStringList rlist;
+	clear();
+	rlist.clear();
+	SCFontsIterator it(Prefs->AvailFonts);
+	for ( ; it.current(); ++it)
+		{
+		if (it.current()->UseFont)
+			rlist.append(it.currentKey());
+		}
+	rlist.sort();
+	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
+		{
+		new FontListItem(this, *it2, Prefs->AvailFonts[*it2]->Font);
+		}
+}

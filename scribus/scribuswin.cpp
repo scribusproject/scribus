@@ -89,10 +89,15 @@ void ScribusWin::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 	doc->DocOutputProf = cmsOpenProfileFromFile(pfad + MoPo[doc->CMSSettings.DefaultMonitorProfile], "r");
 	doc->DocPrinterProf = cmsOpenProfileFromFile(pfad + PrPo[doc->CMSSettings.DefaultPrinterProfile], "r");
 	int dcmsFlags = 0;
+	int dcmsFlags2 = cmsFLAGS_NOTPRECALC;
 	if (Gamut)
 		dcmsFlags |= cmsFLAGS_GAMUTCHECK;
 	else
 		dcmsFlags |= cmsFLAGS_SOFTPROOFING;
+#ifdef cmsFLAGS_BLACKPOINTCOMPENSATION
+	dcmsFlags2 |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+	dcmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+#endif
 	stdProof = cmsCreateProofingTransform(doc->DocInputProf, TYPE_RGB_16,
 														 				 		doc->DocOutputProf, TYPE_RGB_16,
 														 				 		doc->DocPrinterProf,
@@ -101,7 +106,7 @@ void ScribusWin::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 	stdTrans = cmsCreateTransform(doc->DocInputProf, TYPE_RGB_16,
 														 	  doc->DocOutputProf, TYPE_RGB_16,
 														 	  IntentMonitor,
-														 	  cmsFLAGS_NOTPRECALC);
+														 	  dcmsFlags2);
 	stdProofImg = cmsCreateProofingTransform(doc->DocInputProf, TYPE_RGBA_8,
 														 				 			 doc->DocOutputProf, TYPE_RGBA_8,
 														 				 			 doc->DocPrinterProf,
@@ -110,6 +115,6 @@ void ScribusWin::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 	stdTransImg = cmsCreateTransform(doc->DocInputProf, TYPE_RGBA_8,
 														 	  	 doc->DocOutputProf, TYPE_RGBA_8,
 														 	  	 IntentMonitor,
-														 	  	 cmsFLAGS_NOTPRECALC);
+														 	  	 dcmsFlags2);
 #endif
 }

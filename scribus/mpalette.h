@@ -19,6 +19,7 @@
 #include <qimage.h>
 #include <qpixmap.h>
 #include <qlistbox.h>
+#include <qlineedit.h>
 #include "mspinbox.h"
 #include "pageitem.h"
 #include "page.h"
@@ -28,6 +29,22 @@
 #include "cpalette.h"
 #include "spalette.h"
 #include "fontcombo.h"
+extern bool CMSavail;
+
+class NameWidget : public QLineEdit
+{
+    Q_OBJECT
+
+public:
+		NameWidget(QWidget* parent);
+		~NameWidget() {};
+
+signals:
+		void Leaved();
+
+protected:
+    virtual void focusOutEvent(QFocusEvent *);
+};
 
 class Mpalette : public QDialog  {
 Q_OBJECT
@@ -35,6 +52,11 @@ public:
     Mpalette(QWidget* parent, preV *Prefs);
     ~Mpalette() {};
     void closeEvent(QCloseEvent *ce);
+		void ToggleFlow();
+		void updateCList();
+		void updateCmsList();
+		void ShowCMS();
+		void fillLangCombo(QMap<QString,QString> Sprachen);
 
     QButtonGroup* buttonGroup5;
     QToolButton* SShape;
@@ -44,12 +66,17 @@ public:
     QToolButton* SGeom;
     QToolButton* SColor;
     QWidgetStack* TabStack;
+    QWidgetStack* TabStack2;
     QWidget* page;
     QWidget* page_2;
+    QWidget* page_2a;
+    QWidget* page_2b;
     QWidget* page_3;
     QWidget* page_4;
     QWidget* page_5;
     Cpalette *Cpal;
+    QGroupBox* NameGroup;
+		NameWidget* NameEdit;
     QGroupBox* GeoGroup;
     QLabel* Text1;
     QLabel* Text2;
@@ -78,6 +105,8 @@ public:
     MSpinBox* Rot;
     QToolButton* FlipH;
     QToolButton* FlipV;
+    QToolButton* Locked;
+    QToolButton* NoPrint;
     QButtonGroup* ShapeGroup;
     QToolButton* SRect;
     QToolButton* SOval;
@@ -85,8 +114,14 @@ public:
     QLabel* Text4;
     QSpinBox* RoundRect;
     QCheckBox* Textflow;
+    QCheckBox* Textflow2;
     QToolButton* EditShape;
     QGroupBox* Distance;
+    QGroupBox* Distance2;
+    QLabel* TextLabel3;
+    QLabel* TextLabel2;
+    MSpinBox* Dist;
+    MSpinBox* LineW;
     QLabel* Text14;
     QLabel* Text15;
     QLabel* Text16;
@@ -95,6 +130,7 @@ public:
     MSpinBox* DLeft;
     QLabel* Text17;
     MSpinBox* DRight;
+    QCheckBox* NormText2;
 		FontCombo* Fonts;
     QSpinBox* Size;
     QToolButton* Revert;
@@ -104,6 +140,7 @@ public:
     QToolButton* Supers;
     QToolButton* Kapital;
     QToolButton* Strike;
+    QToolButton* Outlined;
     QButtonGroup* GroupAlign;
     QToolButton* TextL;
     QToolButton* TextR;
@@ -131,6 +168,10 @@ public:
     QRadioButton* FrameScale;
     QFrame* Frame4;
     QCheckBox* Aspect;
+    QLabel* TextCms1;
+    QLabel* TextCms2;
+    QComboBox* InputP;
+    QComboBox* MonitorI;
     QComboBox* LineMode;
     QLabel* Text9;
     MSpinBox* LSize;
@@ -141,6 +182,18 @@ public:
     QLabel* Text8;
     LineCombo* LStyle;
 		QListBox* StyledLine;
+    QLabel* ScaleTxt;
+    QSpinBox* ChScale;
+    QLabel* StrokeIcon;
+    QComboBox* TxStroke;
+		QToolButton *PM1;
+		QPopupMenu *TxStrokeSh;
+    QLabel* FillIcon;
+    QComboBox* TxFill;
+		QToolButton *PM2;
+		QPopupMenu *TxFillSh;
+    QLabel* SprachT;
+    QComboBox* LangCombo;
     PageItem *CurItem;
     bool HaveDoc;
     bool HaveItem;
@@ -168,9 +221,15 @@ public slots:
 		void setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj);
 		void setStil(int s);
 		void setAli(int e);
+		void setTScale(int e);
+		void NewTScale();
 		void SetLineFormats(ScribusDoc *dd);
 		void SetSTline(QListBoxItem *c);
 		void NewTFont(int);
+		void newTxtFill();
+		void newTxtStroke();
+		void setActShade(int id);
+		void setActFarben(QString p, QString b, int shp, int shb);
 		
 private slots:
 		void SelTab(int t);
@@ -203,12 +262,22 @@ private slots:
 		void DoBack();
 		void NewRotMode(int m);
 		void DoFlow();
+		void DoFlow2();
 		void MakeRect();
 		void MakeOval();
 		void MakeIrre();
 		void EditSh();
 		void NewTDist();
 		void DoRevert();
+		void handleLock();
+		void handlePrint();
+		void handlePathLine();
+		void handlePathDist();
+		void handlePathOffs();
+		void ChProf(const QString& prn);
+		void ChIntent();
+		void NewName();
+		void NewLanguage();
 	
 signals:
 	void Schliessen();
@@ -225,12 +294,15 @@ protected:
     QGridLayout* buttonGroup5Layout;
     QVBoxLayout* pageLayout;
     QVBoxLayout* pageLayout_2;
+    QVBoxLayout* pageLayout_2a;
+    QVBoxLayout* pageLayout_2b;
     QVBoxLayout* pageLayout_3;
     QVBoxLayout* pageLayout_4;
     QVBoxLayout* pageLayout_5;
     QHBoxLayout* layout60;
     QHBoxLayout* layout60a;
     QVBoxLayout* Layout44;
+    QVBoxLayout* Layout44a;
     QGridLayout* Layout12;
     QVBoxLayout* Layout15_2;
     QHBoxLayout* Layout13;
@@ -243,15 +315,21 @@ protected:
     QHBoxLayout* Layout18;
     QHBoxLayout* Layout13_2;
     QGridLayout* Layout12_2;
+    QHBoxLayout* NameGroupLayout;
     QGridLayout* GeoGroupLayout;
     QGridLayout* LayerGroupLayout;
     QHBoxLayout* RotationGroupLayout;
     QHBoxLayout* ShapeGroupLayout;
     QGridLayout* DistanceLayout;
+    QGridLayout* DistanceLayout2;
     QHBoxLayout* ButtonGroup1Layout;
     QGridLayout* GroupAlignLayout;
     QGridLayout* GroupBox3Layout;
     QVBoxLayout* GroupBox3aLayout;
+    QHBoxLayout* layout22;
+    QHBoxLayout* layout23;
+    QHBoxLayout* layout24;
+    QHBoxLayout* layoutLang;
 };
 
 #endif

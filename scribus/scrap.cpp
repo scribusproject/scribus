@@ -123,7 +123,8 @@ Biblio::Biblio( QWidget* parent, preV *prefs)
     setCaption( tr( "Scrapbook" ) );
   	setIcon(loadIcon("AppIcon.xpm"));
   	ScFilename = "";
-  	Prefs = prefs;	
+  	Prefs = prefs;
+		Changed = false;	
     BiblioLayout = new QVBoxLayout( this );
     BiblioLayout->setSpacing( 0 );
     BiblioLayout->setMargin( 0 );
@@ -188,29 +189,35 @@ void Biblio::CloseWin()
 void Biblio::Save()
 {
 	if ((!ScFilename.isEmpty()) && (BibWin->Objekte.count() != 0))
+		{
 		BibWin->SaveContents(ScFilename);
+		Changed = false;
+		}
 }
 
 void Biblio::SaveAs()
 {
-  QString fn = QFileDialog::getSaveFileName(0, tr("Scrapbooks (*.scs);;All Files (*)"), this);
+  QString fn = QFileDialog::getSaveFileName(0, tr("Scrapbooks (*.scs);; All Files (*)"), this);
   if (!fn.isEmpty())
   	{
   	BibWin->SaveContents(fn);
   	ScFilename = fn;
   	setCaption(fn);
   	fmenu->setItemEnabled(fSave, 1);
+		Changed = false;
   	}
 }
 
 void Biblio::Load()
 {
-	QString fileName = QFileDialog::getOpenFileName(0,tr("Scrapbooks (*.scs);;All Files (*)"),this);
+	Save();
+	QString fileName = QFileDialog::getOpenFileName(0,tr("Scrapbooks (*.scs);; All Files (*)"),this);
 	if (!fileName.isEmpty())
 		{
 		BibWin->ReadContents(fileName);
 		ScFilename = fileName;
 		setCaption(fileName);
+		Changed = false;
 		}
 }
 
@@ -269,6 +276,7 @@ void Biblio::HandleMouse(QIconViewItem *ite)
 
 void Biblio::NewLib()
 {
+	Save();
 	BibWin->Objekte.clear();
 	BibWin->clear();
 	ScFilename = "";
@@ -281,6 +289,7 @@ void Biblio::DeleteObj(QString name, QIconViewItem *ite)
 	BibWin->Objekte.remove(name);
 	delete ite;
 	BibWin->arrangeItemsInGrid(true);
+	Changed = true;
 }
 
 void Biblio::DropOn(QDropEvent *e)
@@ -353,5 +362,6 @@ void Biblio::ObjFromMenu(QString text)
 	QPixmap pm = pre->createPreview(ff);
   BibWin->AddObj(nam, ff, pm);
   (void) new QIconViewItem(BibWin, nam, pm);
+	Changed = true;
 	delete pre;
 }

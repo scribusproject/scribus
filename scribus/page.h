@@ -54,10 +54,9 @@ public:
   /** Laedt ein Bild */
   void LoadPict(QString fn, int ItNr);
   void insertColor(QString nam, float c, float m, float y, float k);
-  void DrawPageMarks(QPaintEvent *e);
-  void DrawPageItems(QPaintEvent *e);
+  void DrawPageMarks(QPaintEvent *e, ScPainter *p, QRect rd);
+  void DrawPageItems(QPaintEvent *e, ScPainter *painter, QRect rd);
 	void paintEvent(QPaintEvent *e);
-	void DrawTransparent(PageItem *b);
 	void setGroupRect();
 	void getGroupRect(float *x, float *y, float *w, float *h);
 	void getGroupRectScreen(float *x, float *y, float *w, float *h);
@@ -118,10 +117,8 @@ public:
 	FPoint ApplyGridF(FPoint in);
 	void RefreshItem(PageItem *b);
 	void RepaintTextRegion(PageItem *b, QRegion alt);
-	void DrawCursChar(PageItem *b, QPainter *p, int po);
 	void EmitValues(PageItem *b);
 	void AdjustPreview(PageItem *b);
-	void UpdateGradient(PageItem *i);
 	void FromHRuler(QMouseEvent *m);
 	void FromVRuler(QMouseEvent *m);
 	void SetYGuide(QMouseEvent *m);
@@ -132,6 +129,11 @@ public:
 	void UniteObj();
 	void SplitObj();
 	void PasteItem(struct CLBuf *Buffer, bool loading, bool drag = false);
+	void ItemTextBrush(QString farbe);
+	void ItemTextBrushS(int sha);
+	void ItemTextPen(QString farbe);
+	void ItemTextPenS(int sha);
+	void ItemTextScale(int sha);
 	QRegion ViewReg();
   /** Liste der Elemente */
   QPtrList<PageItem> Items;
@@ -204,9 +206,9 @@ public slots:
 	void ItemFont(QString fon);
 	void chFSize(int size);
 	void ItemPen(QString farbe);
-	void ItemBrush(QString farbe, bool vCPal = false);
+	void ItemBrush(QString farbe);
 	void ItemPenShade(int sha);
-	void ItemBrushShade(int sha, bool vCPal = false);
+	void ItemBrushShade(int sha);
 	void ItemGradFill(int typ, QString col1, int sh1, QString col2, int sh2);
 	void QueryFarben();
 	void SetFrameRect();
@@ -277,8 +279,10 @@ signals: // Signals
   void ItemTextFont(QString);
   /** Sendet die Schriftgroesse */
   void ItemTextSize(int);
+  void ItemTextSca(int);
   void ItemTextUSval(float);
   void ItemTextAbs(int);
+  void ItemTextFarben(QString, QString, int, int);
   /** Text in Textbox selektiert */
   void HasTextSel();
   void HasNoTextSel();
@@ -286,7 +290,6 @@ signals: // Signals
   void CopyItem();
   void ItemTextStil(int);
   void LoadPic();
-  void ModifyIt();
   void LoadElem(QString, int, int, bool, bool, ScribusDoc *);
   void Amode(int);
 	void AnnotProps();
@@ -298,7 +301,7 @@ signals: // Signals
 	void PStatus(int, uint);
 	void UndoAvail();
 	void EditGuides();
-	void ItemTrans(float);
+	void ItemTrans(float, float);
 	void AddBM(PageItem *);
 	void DelBM(PageItem *);
 	void NewBMNr(int, int);

@@ -1,28 +1,22 @@
-This is Scribus Version 1.0RC1, the first Release Candiate for Scribus 1.0.
+This is Scribus Version 1.1.1, the second Developers Relase after Scribus 1.0.1
 
-This Version adds complete Support for Unicode. In order to use it, you
-must have Freetype2 installed (of course the Devel Package too).
+This Version introduces a complete rewrite of the rendering Engine. All rendering
+is now done via libart and freetype2. This requires that libart and freetype2 are
+present.
 
-There is also a new Build-ID String in the About Box. This is mainly for
-me to see which libs where used when Scribus was compiled. Please include
-this String to any Bugreports you are submitting. His will help a lot.
+Additionally Scribus uses now a different way to find Fonts, sadly this gives
+some changes in the Fontnames Scribus uses. To convert old Documents follow the
+procedure below:
+
+1) Create a Document with the old Version of Scribus containing all your Fonts.
+2) Open the new Scribus and go to the Font Substitution List.
+3) Clear out all current Substitutions.
+4) Open the Document created in 1) and substitute all the Fonts with the correct
+   new Fonts.
+   
+When you open now old Documents Scribus will convert all Font Names automatically.
 
 For Changes please see the ChangeLog.
-
-If Scribus won't start complaining about No Fonts do the following:
-
-1) Make sure that your XF86Config contains a line Load Type1 in the Section Modules
-2) Make sure that you have Postscript-Fonts.
-3) Make sure that the Path to your Postscript-Fonts contains a Type1 or type1.
-4) Make sure that all Fonts listed in fonts.dir and fonts.scale are present.
-5) Verify that the Fonts have an encoding that matches your local encoding.
-
-If this is all true, but Scribus won't start do the following:
-1) Create a Textfile containing your Fontpaths.
-   e.g:
-   /usr/share/fonts/Type1,
-   /usr/X11/lib/X11/fonts/Type1
-2) Save this file as scribusfont.rc in the .scribus Folder in your Home Directory.
 
 To use Scribus in your native language be sure that the
 environment variable LANG is set correctly.
@@ -32,4 +26,4 @@ xdevel.rpm, qtdevel.rpm and tiffdevel.rpm. In the Standard-Install they
 were not installed.
 
 Franz Schmid
-in June 2003
+in September 2003

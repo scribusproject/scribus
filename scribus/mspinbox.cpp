@@ -67,13 +67,22 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 
 QString MSpinBox::mapValueToText(int value)
 {
-	return QString::number(static_cast<double>(value) / Decimals, 
-			       'f', Width);
+	int dez;
+	if (Width == 1)
+		dez = 10;
+	else
+		dez = 100;
+	return QString::number(static_cast<double>(value) / dez, 'f', Width);
 }
 
 int MSpinBox::mapTextToValue(bool *)
 {
-	return int(qRound(text().toFloat()*Decimals));
+	int dez;
+	if (Width == 1)
+		dez = 10;
+	else
+		dez = 100;
+	return int(qRound(text().toFloat()*dez));
 }
 
 void MSpinBox::setDecimals(int deci)

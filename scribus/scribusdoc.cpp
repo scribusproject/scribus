@@ -45,7 +45,7 @@ ScribusDoc::ScribusDoc()
 	Dshade = 100;
 	Dwidth = 1;
 	DLineArt = SolidLine;
-	DocName = "Document-";
+	DocName = tr("Document")+"-";
 	UsedFonts.clear();
 	Dfont = "";
 	Dsize = 12;
@@ -53,6 +53,7 @@ ScribusDoc::ScribusDoc()
 	DocTitel = "";
 	DocAutor = "";
 	DocComments = "";
+	DocKeyWords = "";
 	PageC = 0;
 	LastAuto = 0;
 	FirstAuto = 0;
@@ -138,16 +139,12 @@ ScribusDoc::ScribusDoc()
 	RotMode = 0;
 	ASaveTimer = new QTimer(this);
 	MLineStyles.clear();
-#ifdef HAVE_FREETYPE
 	FT_Init_FreeType( &library );
-#endif
 }
 
 ScribusDoc::~ScribusDoc()
 {
-#ifdef HAVE_FREETYPE
 	FT_Done_FreeType( library );
-#endif
 }
 
 void ScribusDoc::setModified()
@@ -190,15 +187,12 @@ void ScribusDoc::resetPage(float t, float l, float r, float bo, bool fp)
 
 void ScribusDoc::AddFont(QString name, QFont fo)
 {
-#ifdef HAVE_FREETYPE
 	FT_Face      face;
 	FT_New_Face( library, (*AllFonts)[name]->Datei, 0, &face );
 	FFonts[name] = face;
-#endif
 	UsedFonts[name] = fo;
 	(*AllFonts)[name]->ReadMetrics();
 	(*AllFonts)[name]->CharWidth[13] = 0;
-#ifdef HAVE_FREETYPE
 	QString afnm = (*AllFonts)[name]->Datei.left((*AllFonts)[name]->Datei.length()-3);
 	QFile afm(afnm+"afm");
 	if(!(afm.exists()))
@@ -209,5 +203,4 @@ void ScribusDoc::AddFont(QString name, QFont fo)
 		}
 	if (afm.exists())
 		FT_Attach_File(face, afm.name());
-#endif
 }

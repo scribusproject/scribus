@@ -50,7 +50,6 @@
 #include "scribuswin.h"
 #include "colorm.h"
 #include "tree.h"
-#include "modify.h"
 #include "mpalette.h"
 #include "frameedit.h"
 #include "scrap.h"
@@ -105,6 +104,7 @@ class ScribusApp : public QMainWindow
 		bool DoSaveAsEps(QString fn);
     QString CFileDialog(QString caption = "", QString filter = "", QString defNa = "", bool Pre = false, bool mod = true, bool comp = false, bool cod = false);
     void GetCMSProfiles();
+		void GetCMSProfilesDir(QString pfad);
     void RecalcColors(QProgressBar *dia = 0);
 		void SwitchWin();
 		void RestoreBookMarks();
@@ -165,6 +165,7 @@ class ScribusApp : public QMainWindow
     void ReadPrefs();
 		void ManageGuides();
 		void SetTranspar(float t);
+		void SetTransparS(float t);
 		void ReportMP(float xp, float yp);
 		bool DoFileClose();
 		void DoSaveClose();
@@ -352,7 +353,6 @@ class ScribusApp : public QMainWindow
 	void SelectFromOutlS(int Page);
 	void SaveAsEps();
 	void SaveAsPDF();
-	void ModifyObject();
 	void Aktiv();
 	void setItemHoch(int h);
 	void setStilvalue(int s);
@@ -362,7 +362,7 @@ class ScribusApp : public QMainWindow
 	void NoFrameEdit();
 	void setItemTextAli(int id);
 	void ApplyTemp();
-	void Apply_Temp(QString in, int Snr);
+	void Apply_Temp(QString in, int Snr, bool reb = true);
 	void GroupObj();
 	void UnGroupObj();
 	void StatusPic();
@@ -381,6 +381,7 @@ signals:
 	void TextUSval(float);
 	void TextStil(int);
 	void TextFarben(QString, QString, int, int);
+	void TextScale(int);
 	
 private:
 
@@ -493,7 +494,7 @@ private:
     QPopupMenu *exportMenu;
     float mm2pts(int mm);
     float pts2mm(float pts);
-    QIntDict<QString> FontID;
+		QMap<int,QString> FontID;
     int HaveGS;
     void *PSDriver;
     int DocNr;

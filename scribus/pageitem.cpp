@@ -18,21 +18,18 @@
 #include "pageitem.h"
 #include <qpainter.h>
 #include <qpen.h>
-#include <qfontmetrics.h>
+#include <qfont.h>
 #include <qregion.h>
 #include <qpoint.h>
 #include <qfileinfo.h>
-#include <qpaintdevicemetrics.h>
 #include <qdrawutil.h>
 #include <qbitmap.h>
 #include <cmath>
 #include "page.h"
 #include "config.h"
-#ifdef HAVE_FREETYPE
-	#include <ft2build.h>
-	#include FT_GLYPH_H
-#endif
-extern float Cwidth(ScribusDoc *doc, QPainter *p, QString name, QString ch, int Siz, QString ch2 = " ");
+#include <ft2build.h>
+#include FT_GLYPH_H
+extern float Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern float xy2Deg(float x, float y);
 extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
@@ -56,7 +53,16 @@ PageItem::PageItem(Page *pa, int art, float x, float y, float w, float h, float 
 	Parent = pa;
 	Doc = doc;
 	Pcolor = fill;
-	Pcolor2 = outline;
+	if (PType == 4)
+		Pcolor2 = fill;
+	else
+		Pcolor2 = outline;
+	TxtFill = Doc->DpenText;
+	TxtStroke = TxtFill;
+	ShTxtStroke = 100;
+	ShTxtFill = 100;
+	TxtScale = 100;
+	TxTStyle = 0;
 	Shade = 100;
 	Shade2 = 100;
 	GrColor = "";
@@ -72,21 +78,10 @@ PageItem::PageItem(Page *pa, int art, float x, float y, float w, float h, float 
 	FrameOnly = false;
 	ClipEdited = false;
 	FrameType = 0;
-	QFont ffo;
-	QPainter p;
-	p.begin(Parent);
-	QPaintDeviceMetrics pm(Parent);
-	DevRes = 75.0 / static_cast<float>(pm.logicalDpiX());
-	ffo = Doc->UsedFonts[Doc->Dfont];
-	ffo.setPointSize(static_cast<int>(Doc->Dsize * DevRes));
-	DevResX = pm.logicalDpiX();
-	DevResY = pm.logicalDpiY();
-	p.setFont(ffo);
 	IFont = Doc->Dfont;
 	ISize = Doc->Dsize;
 	LineSp = (Doc->Dsize * static_cast<float>(Doc->AutoLine) / 100) + Doc->Dsize;
 	Doc->Vorlagen[0].LineSpa = LineSp;
-	p.end();
 	CurX = 0;
 	CurY = 0;
 	CPos = 0;
@@ -99,7 +94,6 @@ PageItem::PageItem(Page *pa, int art, float x, float y, float w, float h, float 
 	Ptext.setAutoDelete(true);
 	Pfile = "";
 	pixm = QImage();
-	Gpixm = QImage();
 	Pfile2 = "";
 	Pfile3 = "";
 	LocalScX = 1;
@@ -191,37 +185,38 @@ PageItem::PageItem(Page *pa, int art, float x, float y, float w, float h, float 
 	ScaleType = true;
 	AspectRatio = true;
 	Transparency = 0.0;
+	TranspStroke = 0.0;
 	Reverse = false;
 	InvPict = false;
 	NamedLStyle = "";
+	DashValues.clear();
+	DashOffset = 0;
+	fill_gradient = VGradient(VGradient::linear);
+	Language = doc->Language;
 }
 
 /** Zeichnet das Item */
-void PageItem::paintObj(QRect e, QPixmap *ppX)
+void PageItem::DrawObj(ScPainter *p, QRect e)
 {
-	QPainter p, pp;
-	QPoint pt1, pt2;
-	QRegion cm;
-	QFont ffo = Doc->UsedFonts[IFont];
-	QPointArray Bez(4);
+	QColor tmp;
+	FPointArray CL;
 	QPointArray cl;
+	QPainter pf, pp;
+	PageItem *nb;
+	QPoint pt1, pt2;
+	FPoint gv;
+	QRegion cm;
 	uint a, nrc, nrc2, zae;
-	int desc, asce, xp, yp, leng, absa, aSpa, chs;
+	int desc, asce, absa, aSpa, chs;
 	uint BuPos, LastSP, BuPos2;
 	float oldCurY, LastXp, EndX, OFs, OFs2, wide, rota, wid;
-	bool outs = false;
-	PageItem *nb;
-	QColor tmp;
+	float sc = Doc->Scale;
 	QString chx, chx2, chx3;
 	struct Pti *hl;
 	struct ZZ *Zli;
 	struct ZZ *Zli2;
 	QPtrList<ZZ> LiList;
-#if QT_VERSION  >= 0x030100
-	QBitmap bmd;
-	QPixmap pmd;
-	QPainter pb, pd;
-#endif
+	bool outs = false;
 	if (!Doc->DoDrawing)
 		{
 		Redrawn = true;
@@ -240,62 +235,243 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 		Doc->Vorlagen[xxx].Anach = 0;
 		}
 	Doc->Vorlagen[0].Ausri = Ausrich;
-	if (toPixmap)
-		p.begin(ppX);
-	else
-		p.begin(Parent);
-	QPaintDeviceMetrics pm(Parent);
-	DevRes = 75.0 / static_cast<float>(pm.logicalDpiX());
-	if ((!toPixmap) && (!Doc->RePos))
+	pf.begin(Parent);
+	pf.translate(static_cast<int>(Xpos*sc), static_cast<int>(Ypos*sc));
+	pf.scale(static_cast<double>(sc), static_cast<double>(sc));
+	pf.rotate(static_cast<double>(Rot));
+	if (!Doc->RePos)
 		{
 		if (!e.isEmpty())
-			p.setClipRect(e);
+			pf.setClipRect(e);
 		else
-			p.setClipRect(OwnPage->ViewReg().boundingRect());
+			pf.setClipRect(OwnPage->ViewReg().boundingRect());
 		}
-	QRegion gesClip = p.clipRegion();
-	p.translate(static_cast<int>(Xpos*Doc->Scale), static_cast<int>(Ypos*Doc->Scale));
-	p.scale(static_cast<double>(Doc->Scale), static_cast<double>(Doc->Scale));
-	p.rotate(static_cast<double>(Rot));
+	bool doStroke = true;
+	p->setZoomFactor(sc);
+	p->save();
+	p->translate(-e.x(), -e.y());
+	p->translate(Xpos*sc, Ypos*sc);
+	p->rotate(static_cast<double>(Rot));
+	p->setLineWidth(Pwidth);
 	if (Pcolor != "None")
 		{
 		SetFarbe(&tmp, Pcolor, Shade);
-		p.setBrush(tmp);
-		p.setBackgroundColor(tmp);
+		p->setBrush(tmp);
+		p->setFillMode(1);
 		}
 	else
-		p.setBrush(NoBrush);
+		p->setFillMode(0);
+	if (GrType != 0)
+		{
+		p->setFillMode(2);
+		p->fill_gradient = fill_gradient;
+		QWMatrix grm;
+		grm.rotate(Rot);
+		FPointArray gra;
+		switch (GrType)
+			{
+			case 1:
+				gra.setPoints(2, 0, 0, Width, 0);
+				gra.map(grm);
+				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+				break;
+			case 2:
+				gra.setPoints(2, 0, 0, Height, 0);
+				grm.rotate(90);
+				gra.map(grm);
+				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+				break;
+			case 3:
+				gra.setPoints(2, 0, 0, Width, Height);
+				gra.map(grm);
+				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+				break;
+			case 4:
+				gra.setPoints(2, 0, Height, Width, 0);
+				gra.map(grm);
+				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+				break;
+			case 5:
+				if (Width > Height)
+					gv = FPoint(Width, Height / 2.0);
+				else
+					gv = FPoint(Width / 2.0, Height);
+				p->setGradient(VGradient::radial, FPoint(Width / 2.0,Height / 2.0), gv, FPoint(Width / 2.0,Height / 2.0));
+				break;
+			}
+		}
 	if (Pcolor2 != "None")
 		{
 		SetFarbe(&tmp, Pcolor2, Shade2);
 		if ((Pwidth == 0) && (PType != 5))
-			p.setPen(NoPen);
+			p->setLineWidth(0);
 		else
-			p.setPen(QPen(tmp, QMAX(static_cast<int>(Pwidth*Doc->Scale), 1), PLineArt, PLineEnd, PLineJoin));
+			{
+			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			if (DashValues.count() != 0)
+				p->setDash(DashValues, DashOffset);
+			}
 		}
 	else
-		p.setPen(NoPen);
-	if (!FrameOnly)
-	{
-	if (!((Doc->ActPage->Imoved) && (Select)))
+		p->setLineWidth(0);
+	p->setBrushOpacity(1.0 - Transparency);
+	p->setPenOpacity(1.0 - TranspStroke);
+	switch (PType)
 		{
-		switch (PType)
-			{
-			case 2:
-#if QT_VERSION  >= 0x030100
-				if (toPixmap)
-					p.setClipRegion(QRegion(p.xForm(QRect(0, 0, static_cast<int>(Width), static_cast<int>(Height)))));
-				else
-					p.setClipRegion(QRegion(p.xForm(QRect(0, 0, static_cast<int>(Width), static_cast<int>(Height)))).intersect(gesClip));
-				bmd = QBitmap(static_cast<int>(Width), static_cast<int>(Height));
+		case 2:
+			if (Doc->RePos)
+				break;
+			if ((Pcolor != "None") || (GrType != 0))
+				{
+				p->setupPolygon(&PoLine);
+				p->drawPolygon();
+				}
+			if (Pfile == "")
+				{
+				p->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+				p->drawLine(FPoint(0, 0), FPoint(Width, Height));
+				p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+				}
+			else
+				{
+				QBitmap bmd = QBitmap(static_cast<int>(Width), static_cast<int>(Height));
 				bmd.fill(Qt::color0);
+				QPainter pb;
 				pb.begin(&bmd);
 				pb.setBrush(Qt::color1);
 				pb.setPen(QPen(Qt::color1, 1, DotLine, FlatCap, MiterJoin));
 				DrawPoly(&pb, Clip, pb.brush().color(), true);
 				pb.end();
-				pmd = QPixmap(static_cast<int>(Width), static_cast<int>(Height));
+				QPixmap pmd = QPixmap(static_cast<int>(Width), static_cast<int>(Height));
 				pmd.fill();
+				QPainter pd;
+				pd.begin(&pmd);
+				if ((!PicArt) || (!PicAvail))
+					{
+					pd.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
+					pd.drawLine(0, 0, static_cast<int>(Width), static_cast<int>(Height));
+					pd.drawLine(0, static_cast<int>(Height), static_cast<int>(Width), 0);
+					if (PicAvail)
+						pd.setPen(blue);
+					else
+						pd.setPen(red);
+					pd.setBackgroundMode(OpaqueMode);
+					pd.setFont(QFont("Helvetica", 18));
+					QFileInfo fi = QFileInfo(Pfile);
+					int leng = pd.fontMetrics().width(fi.fileName());
+					int xp = static_cast<int>(Width / 2 - leng / 2);
+					int yp = static_cast<int>(Height / 2 + pd.fontMetrics().height() / 2);
+					pd.drawText(xp, yp, fi.fileName());
+					}
+				else
+					{
+					if ((Pcolor != "None") || (GrType != 0))
+						{
+						pd.setPen(NoPen);
+						SetFarbe(&tmp, Pcolor, Shade);
+						pd.setBrush(tmp);
+						if (!Doc->RePos)
+							{
+							if (GrType == 0)
+								DrawPoly(&pd, Clip, pd.brush().color());
+							}
+						}
+					if (flippedH % 2 != 0)
+						{
+						pd.translate(Width, 0);
+						pd.scale(-1, 1);
+						}
+					if (flippedV % 2 != 0)
+						{
+						pd.translate(0, static_cast<int>(Height));
+						pd.scale(1, -1);
+						}
+					if ((LocalViewX != 1) || (LocalViewY != 1))
+						pd.scale(LocalViewX, LocalViewY);
+					if (InvPict)
+						{
+						QImage ip = pixm.copy();
+						ip.invertPixels();
+						pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), ip);
+						}
+					else
+						pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), pixm);
+					pmd.setMask(bmd);
+					QImage ip2 = pmd.convertToImage();
+					p->drawImage(ip2);
+					}
+				pd.end();
+				}
+			break;
+		case 5:
+			if (Doc->RePos)
+				break;
+			if (NamedLStyle == "")
+				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+			else
+				{
+				multiLine ml = Doc->MLineStyles[NamedLStyle];
+				for (int it = ml.size()-1; it > -1; it--)
+					{
+					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(tmp, ml[it].Width,
+									 static_cast<PenStyle>(ml[it].Dash),
+									 static_cast<PenCapStyle>(ml[it].LineEnd),
+									 static_cast<PenJoinStyle>(ml[it].LineJoin));
+					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+					}
+				doStroke = false;
+				}
+			break;
+		case 1:
+		case 3:
+		case 6:
+			if (Doc->RePos)
+				break;
+			p->setupPolygon(&PoLine);
+			p->drawPolygon();
+			break;
+		case 7:
+			if (Doc->RePos)
+				break;
+			p->setupPolygon(&PoLine);
+			if (NamedLStyle == "")
+				p->drawPolyLine();
+			else
+				{
+				multiLine ml = Doc->MLineStyles[NamedLStyle];
+				for (int it = ml.size()-1; it > -1; it--)
+					{
+					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(tmp, ml[it].Width,
+									 static_cast<PenStyle>(ml[it].Dash),
+									 static_cast<PenCapStyle>(ml[it].LineEnd),
+									 static_cast<PenJoinStyle>(ml[it].LineJoin));
+					p->drawPolyLine();
+					}
+				}
+			doStroke = false;
+			break;
+		case 4:
+			p->save();
+			if ((Pcolor != "None") || (GrType != 0))
+				{
+				p->setupPolygon(&PoLine);
+				p->drawPolygon();
+				}
+			if ((isAnnotation) && (AnType == 2) && (Pfile != "") && (PicAvail) && (PicArt) && (AnUseIcons))
+				{
+				QBitmap bmd = QBitmap(static_cast<int>(Width), static_cast<int>(Height));
+				bmd.fill(Qt::color0);
+				QPainter pb;
+				pb.begin(&bmd);
+				pb.setBrush(Qt::color1);
+				pb.setPen(QPen(Qt::color1, 1, DotLine, FlatCap, MiterJoin));
+				DrawPoly(&pb, Clip, pb.brush().color(), true);
+				pb.end();
+				QPixmap pmd = QPixmap(static_cast<int>(Width), static_cast<int>(Height));
+				pmd.fill();
+				QPainter pd;
 				pd.begin(&pmd);
 				if ((Pcolor != "None") || (GrType != 0))
 					{
@@ -306,636 +482,279 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 						{
 						if (GrType == 0)
 							DrawPoly(&pd, Clip, pd.brush().color());
-						else
-							{
-							if (!Gpixm.isNull())
-								pd.drawImage(0, 0, Gpixm);
-							}
 						}
 					}
-				if (Pfile == "")
-					{
-					pd.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
-					if (!Doc->RePos)
-						{
-						pd.drawLine(0, 0, static_cast<int>(Width), static_cast<int>(Height));
-						pd.drawLine(0, static_cast<int>(Height), static_cast<int>(Width), 0);
-						}
-					pd.end();						
-					}
-				else
-					{
-					if (!Doc->RePos)
-						{
-						if ((!PicArt) || (!PicAvail))
-							{
-							pd.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
-							pd.drawLine(0, 0, static_cast<int>(Width), static_cast<int>(Height));
-							pd.drawLine(0, static_cast<int>(Height), static_cast<int>(Width), 0);
-							if (PicAvail)
-								pd.setPen(blue);
-							else
-								pd.setPen(red);
-							pd.save();
-							pd.setBackgroundMode(OpaqueMode);
-							pd.setFont(QFont("Helvetica", 18));
-							QFileInfo fi = QFileInfo(Pfile);
-							leng = p.fontMetrics().width(fi.fileName());
-							xp = static_cast<int>(Width / 2 - leng / 2);
-							yp = static_cast<int>(Height / 2 + p.fontMetrics().height() / 2);
-							pd.drawText(xp, yp, fi.fileName());
-							pd.restore();
-							pd.end();
-							}
-						else
-							{
-							pd.save();
-							if (flippedH % 2 != 0)
-								{
-								pd.translate(Width, 0);
-								pd.scale(-1, 1);
-								}
-							if (flippedV % 2 != 0)
-								{
-								pd.translate(0, static_cast<int>(Height));
-								pd.scale(1, -1);
-								}
-
-							if ((LocalViewX != 1) || (LocalViewY != 1))
-								pd.scale(LocalViewX, LocalViewY);
-							if (InvPict)
-								{
-								QImage ip = pixm.copy();
-								ip.invertPixels();
-								pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), ip);
-								}
-							else
-								pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), pixm);
-							pd.restore();
-							pd.end();
-							}
-						}
-					}
+				pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), pixm);
 				pmd.setMask(bmd);
-				p.drawPixmap(0, 0, pmd);
-#else
-				if (toPixmap)
-					p.setClipRegion(QRegion(p.xForm(Clip)));
-				else
-					p.setClipRegion(QRegion(p.xForm(Clip)).intersect(gesClip));
-				if ((Pcolor != "None") || (GrType != 0))
+				QImage ip2 = pmd.convertToImage();
+				p->drawImage(ip2);
+				}
+			if ((Ptext.count() != 0) || (Dirty) || (NextBox != 0))
+				{
+				if (NextBox != 0)
 					{
-					p.setPen(NoPen);
-					if (!Doc->RePos)
+					nb = NextBox;
+					while (nb != 0)
 						{
-						if (GrType == 0)
-							DrawPoly(&p, Clip, p.brush().color());
-						else
+						a = nb->Ptext.count();
+						for (uint s=0; s<a; ++s)
 							{
-							if (!Gpixm.isNull())
-								p.drawImage(0, 0, Gpixm);
+							Ptext.append(nb->Ptext.take(0));
 							}
+						nb->Dirty = true;
+						nb = nb->NextBox;
 						}
+					nb = NextBox;
 					}
-				if (Pfile == "")
+				Doc->Vorlagen[0].LineSpa = LineSp;
+				QRegion cl = QRegion(pf.xForm(Clip));
+				for (a=0; a<OwnPage->Items.count(); ++a)
 					{
-					p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
-					if (!Doc->RePos)
+					if (((OwnPage->Items.at(a)->ItemNr > ItemNr)
+ 								&& (OwnPage->Items.at(a)->LayerNr == LayerNr))
+   							|| (Doc->Layers[OwnPage->Items.at(a)->LayerNr].Level > Doc->Layers[LayerNr].Level))
 						{
-						p.drawLine(0, 0, static_cast<int>(Width), static_cast<int>(Height));
-						p.drawLine(0, static_cast<int>(Height), static_cast<int>(Width), 0);
-						}
-					}
-				else
-					{
-					if (!Doc->RePos)
-						{
-						if ((!PicArt) || (!PicAvail))
+						if (OwnPage->Items.at(a)->Textflow)
 							{
-							p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
-							p.drawLine(0, 0, static_cast<int>(Width), static_cast<int>(Height));
-							p.drawLine(0, static_cast<int>(Height), static_cast<int>(Width), 0);
-							if (PicAvail)
-								p.setPen(blue);
-							else
-								p.setPen(red);
-							p.save();
-							p.setBackgroundMode(OpaqueMode);
-							p.setFont(QFont("Helvetica", 18));
-							QFileInfo fi = QFileInfo(Pfile);
-							leng = p.fontMetrics().width(fi.fileName());
-							xp = static_cast<int>(Width / 2 - leng / 2);
-							yp = static_cast<int>(Height / 2 + p.fontMetrics().height() / 2);
-							p.drawText(xp, yp, fi.fileName());
-							p.restore();
-							}
-						else
-							{
-							p.save();
-							if (flippedH % 2 != 0)
+							pp.begin(Parent);
+							pp.translate(OwnPage->Items.at(a)->Xpos*sc, OwnPage->Items.at(a)->Ypos*sc);
+							pp.scale(sc, sc);
+							pp.rotate(OwnPage->Items.at(a)->Rot);
+							if (OwnPage->Items.at(a)->Textflow2)
 								{
-								p.translate(Width, 0);
-								p.scale(-1, 1);
-								}
-							if (flippedV % 2 != 0)
-								{
-								p.translate(0, static_cast<int>(Height));
-								p.scale(1, -1);
-								}
-							if ((LocalViewX != 1) || (LocalViewY != 1))
-								p.scale(LocalViewX, LocalViewY);
-							if (InvPict)
-								{
-								QImage ip = pixm.copy();
-								ip.invertPixels();
-								p.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), ip);
+								QPointArray tcli;
+								tcli.resize(4);
+								tcli.setPoint(0, QPoint(0,0));
+								tcli.setPoint(1, QPoint(qRound(OwnPage->Items.at(a)->Width), 0));
+								tcli.setPoint(2, QPoint(qRound(OwnPage->Items.at(a)->Width), qRound(OwnPage->Items.at(a)->Height)));
+								tcli.setPoint(3, QPoint(0, qRound(OwnPage->Items.at(a)->Height)));
+								cm = QRegion(pp.xForm(tcli));
 								}
 							else
-							p.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), pixm);
-							p.restore();
+								cm = QRegion(pp.xForm(OwnPage->Items.at(a)->Clip));
+							pp.end();
+							cl = cl.subtract(cm);
 							}
 						}
 					}
-#endif
-				if (Pcolor2 != "None")
+				if (flippedH % 2 != 0)
 					{
-					p.setBrush(NoBrush);
-					DrawPolyL(&p, Clip);
+					p->translate(Width * sc, 0);
+					p->scale(-1, 1);
 					}
-				break;
-			case 4:
-				p.save();
-#if QT_VERSION  >= 0x030100
-				if (toPixmap)
-					p.setClipRegion(QRegion(p.xForm(QRect(0, 0, static_cast<int>(Width), static_cast<int>(Height)))));
-				else
-					p.setClipRegion(QRegion(p.xForm(QRect(0, 0, static_cast<int>(Width), static_cast<int>(Height)))).intersect(gesClip));
-				if (PoLine.size() > 16)
+				if (flippedV % 2 != 0)
 					{
-					bmd = QBitmap(static_cast<int>(Width), static_cast<int>(Height));
-					bmd.fill(Qt::color0);
-					pb.begin(&bmd);
-					pb.setBrush(Qt::color1);
-					pb.setPen(QPen(Qt::color1, 1, DotLine, FlatCap, MiterJoin));
-					DrawPoly(&pb, Clip, pb.brush().color(), true);
-					pb.end();
-					pmd = QPixmap(static_cast<int>(Width), static_cast<int>(Height));
-					pmd.fill();
-					pd.begin(&pmd);
-					if (!Doc->RePos)
+					p->translate(0, Height * sc);
+					p->scale(1, -1);
+					}
+				if ((Doc->AppMode == 7) && (Dirty))
+					Dirty = false;
+				CurX = Extra;
+				CurY = Doc->Vorlagen[0].LineSpa+TExtra;
+				LiList.clear();
+				BuPos = 0;
+				BuPos2 = 0;
+				LastSP = 0;
+				LastXp = 0;
+				outs = false;
+				OFs = 0;
+				OFs2 = 0;
+				aSpa = 0;
+				absa = 0;
+				for (a = 0; a < Ptext.count(); ++a)
+					{
+					hl = Ptext.at(a);
+					chx = hl->ch;
+					if (hl->ch == QChar(30))
+						chx = ExpandToken(a);
+					absa = hl->cab;
+					if (a == 0)
 						{
-						if (GrType == 0)
+						if (BackBox != 0)
 							{
-							if (Pcolor != "None")
+							nb = BackBox;
+							while (nb != 0)
 								{
-								pd.setPen(NoPen);
-								SetFarbe(&tmp, Pcolor, Shade);
-								pd.setBrush(tmp);
-								DrawPoly(&pd, Clip, pd.brush().color());
-								}
-							}
-						else
-							{
-							if (!Gpixm.isNull())
-								pd.drawImage(0, 0, Gpixm);
-							}
-						}
-					pd.end();
-					pmd.setMask(bmd);
-					p.drawPixmap(0, 0, pmd);
-					}
-				else
-					{
-					if ((toPixmap) || (Doc->RePos))
-						p.setClipRegion(QRegion(p.xForm(QRect(0, 0, static_cast<int>(Width), static_cast<int>(Height)))));
-//						p.setClipRegion(QRegion(p.xForm(Clip)));
-					else
-						p.setClipRegion(QRegion(p.xForm(Clip)).intersect(gesClip));
-					if (!Doc->RePos)
-						{
-						if (GrType == 0)
-							{
-							if (Pcolor != "None")
-								{
-								p.setPen(NoPen);
-								DrawPoly(&p, Clip, p.brush().color());
-								}
-							}
-						else
-							{
-							if (!Gpixm.isNull())
-								p.drawImage(0, 0, Gpixm);
-							}
-						}
-					}
-#else
-				if ((toPixmap) || (Doc->RePos))
-					p.setClipRegion(QRegion(p.xForm(Clip)));
-				else
-					p.setClipRegion(QRegion(p.xForm(Clip)).intersect(gesClip));
-				if (!Doc->RePos)
-					{
-					if (GrType == 0)
-						{
-						if (Pcolor != "None")
-							{
-							p.setPen(NoPen);
-							DrawPoly(&p, Clip, p.brush().color());
-							}
-						}
-					else
-						{
-						if (!Gpixm.isNull())
-							p.drawImage(0, 0, Gpixm);
-						}
-					}
-#endif
-				if ((isAnnotation) && (AnType == 2))
-					{
-					p.save();
-    			QColorGroup cg;
-    			cg.setColor( QColorGroup::Foreground, black );
-    			cg.setColor( QColorGroup::Button, QColor( 211, 211, 211) );
-    			cg.setColor( QColorGroup::Light, white );
-    			cg.setColor( QColorGroup::Midlight, QColor( 233, 233, 233) );
-    			cg.setColor( QColorGroup::Dark, QColor( 105, 105, 105) );
-    			cg.setColor( QColorGroup::Mid, QColor( 140, 140, 140) );
-    			cg.setColor( QColorGroup::Text, black );
-    			cg.setColor( QColorGroup::BrightText, QColor( 236, 236, 236) );
-    			cg.setColor( QColorGroup::ButtonText, black );
-    			cg.setColor( QColorGroup::Base, white );
-    			cg.setColor( QColorGroup::Background, white );
-    			cg.setColor( QColorGroup::Shadow, black );
-    			cg.setColor( QColorGroup::Highlight, QColor( 0, 0, 128) );
-    			cg.setColor( QColorGroup::HighlightedText, white );
-					bool bsun = false;
-					if (AnBsty == 4)
-						bsun = true;
-					QBrush qb = p.brush();
-					if (!Doc->RePos)
-						qDrawWinButton(&p, 1, 1, static_cast<int>(Width), static_cast<int>(Height), cg, bsun, &qb);
-					p.restore();
-					}
-				if ((isAnnotation) && (AnType == 2) && (Pfile != "") && (PicAvail) && (PicArt) && (AnUseIcons))
-					{
-					p.save();
-					p.scale(LocalScX, LocalScY);
-					if (!Doc->RePos)
-						p.drawImage(static_cast<int>(LocalX), static_cast<int>(LocalY), pixm);
-					p.restore();
-					}
-				if ((Ptext.count() != 0) || (Dirty) || (NextBox != 0))
-					{
-					if (NextBox != 0)
-						{
-						nb = NextBox;
-						while (nb != 0)
-							{
-							a = nb->Ptext.count();
-							for (uint s=0; s<a; ++s)
-								{
-								Ptext.append(nb->Ptext.take(0));
-								}
-							nb->CPos = 0;
-							nb->Dirty = true;
-							nb = nb->NextBox;
-							}
-						nb = NextBox;
-						}
-					Doc->Vorlagen[0].LineSpa = LineSp;
-					QRegion cl = QRegion(p.xForm(Clip));
-//					if ((OwnPage->Items.count()-1) > ItemNr)
-//						{
-						for (a=0; a<OwnPage->Items.count(); ++a)
-							{
- 							if (((OwnPage->Items.at(a)->ItemNr > ItemNr)
-     								&& (OwnPage->Items.at(a)->LayerNr == LayerNr))
-      							|| (Doc->Layers[OwnPage->Items.at(a)->LayerNr].Level > Doc->Layers[LayerNr].Level))
-								{
-								if (OwnPage->Items.at(a)->Textflow)
+								if (nb->Ptext.count() != 0)
 									{
-									pp.begin(Parent);
-									pp.translate(OwnPage->Items.at(a)->Xpos*Doc->Scale, OwnPage->Items.at(a)->Ypos*Doc->Scale);
-									pp.scale(Doc->Scale, Doc->Scale);
-									pp.rotate(OwnPage->Items.at(a)->Rot);
-									if (OwnPage->Items.at(a)->Textflow2)
+									if (nb->Ptext.at(nb->Ptext.count()-1)->ch == QChar(13))
 										{
-										QPointArray tcli;
-										tcli.resize(4);
-										tcli.setPoint(0, QPoint(0,0));
-										tcli.setPoint(1, QPoint(qRound(OwnPage->Items.at(a)->Width), 0));
-										tcli.setPoint(2, QPoint(qRound(OwnPage->Items.at(a)->Width), qRound(OwnPage->Items.at(a)->Height)));
-										tcli.setPoint(3, QPoint(0, qRound(OwnPage->Items.at(a)->Height)));
-										cm = QRegion(pp.xForm(tcli));
+										CurX += Doc->Vorlagen[absa].First;
+										CurX += Doc->Vorlagen[absa].Indent;
+										CurY += Doc->Vorlagen[absa].Avor;
+										break;
 										}
 									else
-										cm = QRegion(pp.xForm(OwnPage->Items.at(a)->Clip));
-									pp.end();
-									cl = cl.subtract(cm);
+										{
+										CurX += Doc->Vorlagen[absa].Indent;
+										break;
+										}
+									nb = nb->BackBox;
 									}
 								}
-							}
-					if (flippedH % 2 != 0)
-						{
-						p.translate(static_cast<int>(Width), 0);
-						p.scale(-1, 1);
-						}
-					if (flippedV % 2 != 0)
-						{
-						p.translate(0, static_cast<int>(Height));
-						p.scale(1, -1);
-						}
-					if ((Doc->AppMode == 7) && (Dirty))
-						{
-						if ((CPos < static_cast<int>(Ptext.count())) && (CPos > 2) && (Tinput))
-							{
-							hl = Ptext.at(CPos-2);
-							if (!Doc->RePos)
-								p.eraseRect(0, static_cast<int>(hl->yp-LineSp), static_cast<int>(Width), static_cast<int>(Height-hl->yp));
 							}
 						else
 							{
-							if (!Doc->RePos)
-								p.eraseRect(0, 0, static_cast<int>(Width), static_cast<int>(Height));
-							}
-						Dirty = false;
-						}
-					CurX = Extra;
-					CurY = Doc->Vorlagen[0].LineSpa+TExtra;
-					LiList.clear();
-					BuPos = 0;
-					BuPos2 = 0;
-					LastSP = 0;
-					LastXp = 0;
-					outs = false;
-					OFs = 0;
-					OFs2 = 0;
-					aSpa = 0;
-					absa = 0;
-					for (a = 0; a < Ptext.count(); ++a)
-						{
-						hl = Ptext.at(a);
-						chx = hl->ch;
-						if (hl->ch == QChar(30))
-							chx = ExpandToken(a);
-						absa = hl->cab;
-						if (a == 0)
-							{
-							if (BackBox != 0)
-								{
-								nb = BackBox;
-								while (nb != 0)
-									{
-									if (nb->Ptext.count() != 0)
-										{
-										if (nb->Ptext.at(nb->Ptext.count()-1)->ch == QChar(13))
-											{
-											CurX += Doc->Vorlagen[absa].First;
-											CurX += Doc->Vorlagen[absa].Indent;
-											CurY += Doc->Vorlagen[absa].Avor;
-											break;
-											}
-										else
-											{
-											CurX += Doc->Vorlagen[absa].Indent;
-											break;
-											}
-										nb = nb->BackBox;
-										}
-									}
-								}
-							else
-								{
-								CurX += Doc->Vorlagen[absa].First;
-								CurX += Doc->Vorlagen[absa].Indent;
-								CurY += Doc->Vorlagen[absa].Avor;
-								}
-							}
-						if ((Doc->Vorlagen[0].LineSpa != Doc->Vorlagen[absa].LineSpa) && (a == 0))
-							{
-//							CurY += Doc->Vorlagen[absa].LineSpa - Doc->Vorlagen[0].LineSpa;
+							CurX += Doc->Vorlagen[absa].First;
+							CurX += Doc->Vorlagen[absa].Indent;
 							CurY += Doc->Vorlagen[absa].Avor;
 							}
-						if (hl->ccolor != "None")
+						}
+					if ((Doc->Vorlagen[0].LineSpa != Doc->Vorlagen[absa].LineSpa) && (a == 0))
+						CurY += Doc->Vorlagen[absa].Avor;
+					if (LiList.count() == 0)
+						{
+						CurY += Doc->Vorlagen[absa].LineSpa - Doc->Vorlagen[0].LineSpa;
+						if ((a > 0) && (Ptext.at(a-1)->ch == QChar(13)))
 							{
-							SetFarbe(&tmp, hl->ccolor, hl->cshade);
-							p.setPen(tmp);
+							CurX += Doc->Vorlagen[hl->cab].First;
+							CurX += Doc->Vorlagen[hl->cab].Indent;
+							CurY += Doc->Vorlagen[hl->cab].Avor;
 							}
+						}
+					oldCurY = CurY;
+					chs = hl->csize;
+					SetZeichAttr(hl, &chs, &chx);
+					if (chx == QChar(29))
+						chx2 = " ";
+					else
+						chx2 = chx;
+					if (a < Ptext.count()-1)
+						{
+						if (Ptext.at(a+1)->ch == QChar(29))
+							chx3 = " ";
 						else
-							p.setPen(NoPen);
-						if (LiList.count() == 0)
+							chx3 = Ptext.at(a+1)->ch;
+						wide = Cwidth(Doc, hl->cfont, chx2, chs, chx3);
+						}
+					else
+						wide = Cwidth(Doc, hl->cfont, chx2, chs);
+					wide = wide * (hl->cscale / 100.0);
+					desc = static_cast<int>(-(*Doc->AllFonts)[hl->cfont]->numDescender * chs);
+					asce = static_cast<int>((*Doc->AllFonts)[hl->cfont]->numAscent * chs);
+					if (LiList.isEmpty())
+						{
+						pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+desc+BExtra));
+						pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-asce));
+						while ((!cl.contains(pf.xForm(pt1))) || (!cl.contains(pf.xForm(pt2))))
 							{
-							CurY += Doc->Vorlagen[absa].LineSpa - Doc->Vorlagen[0].LineSpa;
-							if ((a > 0) && (Ptext.at(a-1)->ch == QChar(13)))
-								{
-								CurX += Doc->Vorlagen[hl->cab].First;
-								CurX += Doc->Vorlagen[hl->cab].Indent;
-								CurY += Doc->Vorlagen[hl->cab].Avor;
-								}
-							}
-						oldCurY = CurY;
-						chs = hl->csize;
-						SetZeichAttr(&p, &ffo, hl, &chs, &chx);
-						if (chx == QChar(29))
-							chx2 = " ";
-						else
-							chx2 = chx;
-						if (a < Ptext.count()-1)
-							{
-							if (Ptext.at(a+1)->ch == QChar(29))
-								chx3 = " ";
-							else
-								chx3 = Ptext.at(a+1)->ch;
-							wide = Cwidth(Doc, &p, hl->cfont, chx2, chs, chx3);
-							}
-						else
-							wide = Cwidth(Doc, &p, hl->cfont, chx2, chs);
-						desc = p.fontMetrics().descent();
-						asce = p.fontMetrics().ascent();
-						if (LiList.isEmpty())
-							{
-							pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+desc+BExtra));
+							CurX++;
+							pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+desc));
 							pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-asce));
-							while ((!cl.contains(p.xForm(pt1))) || (!cl.contains(p.xForm(pt2))))
+							if (CurX+RExtra > Width)
 								{
-								CurX++;
-								pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+desc));
-								pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-asce));
-								if (CurX+RExtra > Width)
+								CurY += Doc->Vorlagen[hl->cab].LineSpa;
+								CurY += Doc->Vorlagen[hl->cab].Anach;
+								CurX = Extra;
+								if (CurY+BExtra > Height)
 									{
-									CurY += Doc->Vorlagen[hl->cab].LineSpa;
-									CurY += Doc->Vorlagen[hl->cab].Anach;
-									CurX = Extra;
-									if (CurY+BExtra > Height)
-										{
-										nrc = a;
-										goto NoRoom;
-										}
+									nrc = a;
+									goto NoRoom;
 									}
 								}
-								CurX += Extra;
 							}
-						hl->xp = CurX+hl->cextra;
-						hl->yp = CurY;
-						CurY = oldCurY;
-						CurX += wide+hl->cextra;
-						pt1 = QPoint(static_cast<int>(CurX+RExtra), static_cast<int>(CurY+desc+BExtra));
-						pt2 = QPoint(static_cast<int>(CurX+RExtra), static_cast<int>(CurY-asce));
-						if ((!cl.contains(p.xForm(pt1))) || (!cl.contains(p.xForm(pt2))))
-							outs = true;
-						Zli = new ZZ;
-						Zli->Zeich = chx;
-						Zli->Farb = tmp;
-						Zli->Zsatz = p.font();
-						Zli->xco = hl->xp;
-						Zli->yco = hl->yp;
-						Zli->Sele = hl->cselect;
-						Zli->Siz = chs;
-						Zli->ZFo = hl->cfont;
-						Zli->wide = wide;
-						if ((hl->ch == " ") && (!outs))
+							CurX += Extra;
+						}
+					hl->xp = CurX+hl->cextra;
+					hl->yp = CurY;
+					CurY = oldCurY;
+					CurX += wide+hl->cextra;
+					pt1 = QPoint(static_cast<int>(CurX+RExtra), static_cast<int>(CurY+desc+BExtra));
+					pt2 = QPoint(static_cast<int>(CurX+RExtra), static_cast<int>(CurY-asce));
+					if ((!cl.contains(pf.xForm(pt1))) || (!cl.contains(pf.xForm(pt2))))
+						outs = true;
+					Zli = new ZZ;
+					Zli->Zeich = chx;
+					Zli->Farb = hl->ccolor;
+					Zli->shade = hl->cshade;
+					Zli->Farb2 = hl->cstroke;
+					Zli->shade2 = hl->cshade2;
+					Zli->xco = hl->xp;
+					Zli->yco = hl->yp;
+					Zli->Sele = hl->cselect;
+					Zli->Siz = chs;
+					Zli->Style = hl->cstyle;
+					Zli->ZFo = hl->cfont;
+					Zli->wide = wide;
+					Zli->kern = hl->cextra;
+					Zli->scale = hl->cscale;
+					if ((hl->ch == " ") && (!outs))
+						{
+						LastXp = hl->xp;
+						LastSP = BuPos;
+						}
+					if ((hl->ch == "-") && (!outs))
+						{
+						LastXp = CurX;
+						LastSP = BuPos;
+						}
+					if ((hl->cstyle & 128) && (!outs))
+						{
+						LastXp = CurX + Cwidth(Doc, hl->cfont, "-", hl->csize);
+						LastSP = BuPos;
+						}
+					LiList.append(Zli);
+					BuPos++;
+					if ((hl->ch == QChar(13)) || (outs))
+						{
+						if (outs)
 							{
-							LastXp = hl->xp;
-							LastSP = BuPos;
-							}
-						if ((hl->ch == "-") && (!outs))
-							{
-							LastXp = CurX;
-							LastSP = BuPos;
-							}
-						if ((hl->cstyle & 128) && (!outs))
-							{
-							LastXp = CurX + Cwidth(Doc, &p, hl->cfont, "-", hl->csize);
-							LastSP = BuPos;
-							}
-						LiList.append(Zli);
-						BuPos++;
-						if ((hl->ch == QChar(13)) || (outs))
-							{
-							if (outs)
+							if (LastSP != 0)            // Hier können auch andere Trennungen eingebaut werden
 								{
-								if (LastSP != 0)            // Hier können auch andere Trennungen eingebaut werden
+								a -= BuPos - LastSP;
+								a++;
+								if (Ptext.at(a)->cstyle & 128)
 									{
-									a -= BuPos - LastSP;
-									a++;
-									if (Ptext.at(a)->cstyle & 128)
-										{
-										Zli = new ZZ;
-										Zli->Zeich = "-";
-										Zli->Farb = tmp;
-										Zli->Zsatz = p.font();
-										Zli->xco = LastXp - Cwidth(Doc, &p, Ptext.at(a)->cfont, "-", Ptext.at(a)->csize);
-										Zli->yco = Ptext.at(a)->yp;
-										Zli->Sele = Ptext.at(a)->cselect;
-										Zli->Siz = Ptext.at(a)->csize;
-										Zli->ZFo = Ptext.at(a)->cfont;
-										Zli->wide = Cwidth(Doc, &p, Ptext.at(a)->cfont, "-", Ptext.at(a)->csize);
-										LiList.insert(LastSP+1, Zli);
-										LastSP += 1;
-										}
-									BuPos = LastSP+1;
-									if (Tinput)
-										{
-										if (!Doc->RePos)
-											{
-											if (Doc->Vorlagen[absa].Ausri == 0)
-												p.eraseRect(static_cast<int>(LastXp), static_cast<int>(CurY-asce), static_cast<int>(Width-LastXp), asce+desc+1);
-											else
-												p.eraseRect(0, static_cast<int>(CurY-asce), static_cast<int>(Width), asce+desc+1);
-											}
-										}
-									if (Doc->Vorlagen[absa].Ausri != 0)
-										{
-										EndX = LastXp;
-										do
-										{
-											pt1 = QPoint(static_cast<int>(EndX+RExtra), static_cast<int>(CurY+desc));
-											pt2 = QPoint(static_cast<int>(EndX+RExtra), static_cast<int>(CurY-asce));
-											EndX++;
-										}
-										while ((cl.contains(p.xForm(pt1))) && (cl.contains(p.xForm(pt2))));
-										if (Doc->Vorlagen[absa].Ausri == 2)
-											OFs = EndX - LastXp;
-										if (Doc->Vorlagen[absa].Ausri == 1)
-											OFs = (EndX - LastXp) / 2;
-										if ((Doc->Vorlagen[absa].Ausri == 3) || (Doc->Vorlagen[absa].Ausri == 4))
-											{
-											aSpa = 0;
-											for (uint sof = 0; sof<BuPos-1; ++sof)
-												{
-												if (LiList.at(sof)->Zeich == QChar(32))
-													aSpa++;
-												}
-											if (aSpa > 1)
-												{
-												OFs2 = (EndX - LastXp) / aSpa;
-												}
-											else
-												{
-												if (aSpa == 0)
-													OFs2 = 0;
-												else
-													OFs2 = (EndX - LastXp);
-												}
-											OFs = 0;
-											for (uint yof = 0; yof < LiList.count(); ++yof)
-												{
-												LiList.at(yof)->xco += OFs;
-												Ptext.at(BuPos2)->xp += OFs;
-												BuPos2++;
-												if (LiList.at(yof)->Zeich == QChar(32))
-													OFs += OFs2;										
-												}
-											}
-										else
-											{
-											for (uint xof = 0; xof<LiList.count(); ++xof)
-												{
-												LiList.at(xof)->xco += OFs;
-												Ptext.at(BuPos2)->xp += OFs;
-												BuPos2++;
-												}
-											}
-										}
+									Zli = new ZZ;
+									Zli->Zeich = "-";
+									Zli->Farb = Ptext.at(a)->ccolor;
+									Zli->Farb2 = Ptext.at(a)->cstroke;
+									Zli->shade = Ptext.at(a)->cshade;
+									Zli->shade2 = Ptext.at(a)->cshade2;
+									Zli->xco = LastXp - Cwidth(Doc, Ptext.at(a)->cfont, "-", Ptext.at(a)->csize);
+									Zli->yco = Ptext.at(a)->yp;
+									Zli->Sele = Ptext.at(a)->cselect;
+									Zli->Siz = Ptext.at(a)->csize;
+									Zli->Style = Ptext.at(a)->cstyle;
+									Zli->ZFo = Ptext.at(a)->cfont;
+									Zli->wide = Cwidth(Doc, Ptext.at(a)->cfont, "-", Ptext.at(a)->csize);
+									Zli->kern = Ptext.at(a)->cextra;
+									Zli->scale = Ptext.at(a)->cscale;
+									LiList.insert(LastSP+1, Zli);
+									LastSP += 1;
 									}
-								else
-									{
-									a--;
-									BuPos--;
-									}
-								}
-							else
-								{
+								BuPos = LastSP+1;
 								if (Doc->Vorlagen[absa].Ausri != 0)
 									{
-									EndX = CurX;
+									EndX = LastXp;
 									do
-									{
+										{
 										pt1 = QPoint(static_cast<int>(EndX+RExtra), static_cast<int>(CurY+desc));
 										pt2 = QPoint(static_cast<int>(EndX+RExtra), static_cast<int>(CurY-asce));
 										EndX++;
-									}
-									while ((cl.contains(p.xForm(pt1))) && (cl.contains(p.xForm(pt2))));
+										}
+									while ((cl.contains(pf.xForm(pt1))) && (cl.contains(pf.xForm(pt2))));
 									if (Doc->Vorlagen[absa].Ausri == 2)
-										OFs = EndX - CurX - Extra;
+										OFs = EndX - LastXp;
 									if (Doc->Vorlagen[absa].Ausri == 1)
-										OFs = (EndX - CurX - Extra) / 2;
-									if (Doc->Vorlagen[absa].Ausri == 3)
-										OFs = 0;
-									if (Doc->Vorlagen[absa].Ausri == 4)
+										OFs = (EndX - LastXp) / 2;
+									if ((Doc->Vorlagen[absa].Ausri == 3) || (Doc->Vorlagen[absa].Ausri == 4))
 										{
 										aSpa = 0;
-										for (uint sof = 0; sof<LiList.count(); ++sof)
+										for (uint sof = 0; sof<BuPos-1; ++sof)
 											{
 											if (LiList.at(sof)->Zeich == QChar(32))
 												aSpa++;
 											}
-										if (aSpa != 0)
-											{
-											OFs2 = (EndX - CurX - Extra) / aSpa;
-											}
+										if (aSpa > 1)
+											OFs2 = (EndX - LastXp) / aSpa;
 										else
-											OFs2 = 0;
+											{
+											if (aSpa == 0)
+												OFs2 = 0;
+											else
+												OFs2 = (EndX - LastXp);
+											}
 										OFs = 0;
 										for (uint yof = 0; yof < LiList.count(); ++yof)
 											{
@@ -943,7 +762,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 											Ptext.at(BuPos2)->xp += OFs;
 											BuPos2++;
 											if (LiList.at(yof)->Zeich == QChar(32))
-												OFs += OFs2;										
+												OFs += OFs2;
 											}
 										}
 									else
@@ -955,432 +774,435 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 											BuPos2++;
 											}
 										}
-									}							
+									}
 								}
-							BuPos2 = a;
-							BuPos2++;
-							uint BuPos3 = BuPos;
-							CurY += Doc->Vorlagen[0].LineSpa;
-							CurX = Extra;
-							if (hl->ch != QChar(13))
-								CurX += Doc->Vorlagen[hl->cab].Indent;
 							else
 								{
-								CurY += Doc->Vorlagen[hl->cab].Anach;
-								if (BuPos3 > 0)
-									BuPos3 -= 1;
+								a--;
+								BuPos--;
 								}
-							hl->xp = CurX;
-							hl->yp = CurY;
-							LiList.at(LiList.count()-1)->xco = hl->xp;
-							LiList.at(LiList.count()-1)->yco = hl->yp;
-							for (uint zc = 0; zc<BuPos3; ++zc)
+							}
+						else
+							{
+							if (Doc->Vorlagen[absa].Ausri != 0)
 								{
-								Zli2 = LiList.at(zc);
-								p.setFont(Zli2->Zsatz);
-								p.setPen(Zli2->Farb);
-								if ((Zli2->Sele) && (Doc->AppMode == 7) && (Select))
+								EndX = CurX;
+								do
 									{
-									p.save();
-									wide = Zli2->wide;
-									desc = p.fontMetrics().descent();
-									asce = p.fontMetrics().ascent();
-									p.setPen(NoPen);
-            			p.setBrush(darkBlue);
-									if (!Doc->RePos)
-            				p.drawRect(static_cast<int>(Zli2->xco), static_cast<int>(Zli2->yco-asce), static_cast<int>(wide+1), asce+desc);
-									p.restore();
-									p.setPen(white);
+									pt1 = QPoint(static_cast<int>(EndX+RExtra), static_cast<int>(CurY+desc));
+									pt2 = QPoint(static_cast<int>(EndX+RExtra), static_cast<int>(CurY-asce));
+									EndX++;
 									}
-								else
+								while ((cl.contains(pf.xForm(pt1))) && (cl.contains(pf.xForm(pt2))));
+								if (Doc->Vorlagen[absa].Ausri == 2)
+									OFs = EndX - CurX - Extra;
+								if (Doc->Vorlagen[absa].Ausri == 1)
+									OFs = (EndX - CurX - Extra) / 2;
+								if (Doc->Vorlagen[absa].Ausri == 3)
+									OFs = 0;
+								if (Doc->Vorlagen[absa].Ausri == 4)
 									{
-									if (Doc->AppMode == 7)
+									aSpa = 0;
+									for (uint sof = 0; sof<LiList.count(); ++sof)
 										{
-										p.save();
-										wide = Zli2->wide;
-										desc = p.fontMetrics().descent();
-										asce = p.fontMetrics().ascent();
-										if (!Doc->RePos)
-            					p.eraseRect(static_cast<int>(Zli2->xco), static_cast<int>(Zli2->yco-asce), static_cast<int>(wide+1), asce+desc);
-										p.restore();
+										if (LiList.at(sof)->Zeich == QChar(32))
+											aSpa++;
+										}
+									if (aSpa != 0)
+										{
+										OFs2 = (EndX - CurX - Extra) / aSpa;
+										}
+									else
+										OFs2 = 0;
+									OFs = 0;
+									for (uint yof = 0; yof < LiList.count(); ++yof)
+										{
+										LiList.at(yof)->xco += OFs;
+										Ptext.at(BuPos2)->xp += OFs;
+										BuPos2++;
+										if (LiList.at(yof)->Zeich == QChar(32))
+											OFs += OFs2;
 										}
 									}
-								if (!Doc->RePos)
-									DrawZeichen(&p, Zli2);
-								}
-							LiList.clear();
-							BuPos = 0;
-							LastSP = 0;
-							LastXp = 0;
-							outs = false;
-							}
-						}
-						if (Doc->Vorlagen[absa].Ausri != 0)
-							{
-							EndX = CurX;
-							desc = p.fontMetrics().descent();
-							asce = p.fontMetrics().ascent();
-							if (Tinput)
-								p.eraseRect(0, static_cast<int>(CurY-asce), static_cast<int>(Width), asce+desc+1);
-							do
-							{
-								pt1 = QPoint(static_cast<int>(EndX+RExtra), static_cast<int>(CurY+desc));
-								pt2 = QPoint(static_cast<int>(EndX+RExtra), static_cast<int>(CurY-asce));
-								EndX++;
-							}
-							while ((cl.contains(p.xForm(pt1))) && (cl.contains(p.xForm(pt2))));
-							if (Doc->Vorlagen[absa].Ausri == 2)
-								OFs = EndX - CurX - Extra;
-							if (Doc->Vorlagen[absa].Ausri == 1)
-								OFs = (EndX - CurX - Extra) / 2;
-							if (Doc->Vorlagen[absa].Ausri == 3)
-								OFs = 0;
-							if (Doc->Vorlagen[absa].Ausri == 4)
-								{
-								aSpa = 0;
-								for (uint sof = 0; sof<LiList.count(); ++sof)
-									{
-									if (LiList.at(sof)->Zeich == QChar(32))
-										aSpa++;
-									}
-								if (aSpa != 0)
-									{
-									OFs2 = (EndX - CurX - Extra) / aSpa;
-									}
 								else
-									OFs2 = 0;
-								OFs = 0;
-								for (uint yof = 0; yof < LiList.count(); ++yof)
 									{
-									LiList.at(yof)->xco += OFs;
-									Ptext.at(BuPos2)->xp += OFs;
-									BuPos2++;
-									if (LiList.at(yof)->Zeich == QChar(32))
-										OFs += OFs2;										
-									}
-								}
-							else
-								{
-								for (uint xof = 0; xof<LiList.count(); ++xof)
-									{
+									for (uint xof = 0; xof<LiList.count(); ++xof)
+										{
 										LiList.at(xof)->xco += OFs;
 										Ptext.at(BuPos2)->xp += OFs;
 										BuPos2++;
+										}
 									}
 								}
 							}
-						for (uint zc = 0; zc<LiList.count(); ++zc)
+						BuPos2 = a;
+						BuPos2++;
+						uint BuPos3 = BuPos;
+						CurY += Doc->Vorlagen[0].LineSpa;
+						CurX = Extra;
+						if (hl->ch != QChar(13))
+							CurX += Doc->Vorlagen[hl->cab].Indent;
+						else
+							{
+							CurY += Doc->Vorlagen[hl->cab].Anach;
+							if (BuPos3 > 0)
+								BuPos3 -= 1;
+							}
+						hl->xp = CurX;
+						hl->yp = CurY;
+						LiList.at(LiList.count()-1)->xco = hl->xp;
+						LiList.at(LiList.count()-1)->yco = hl->yp;
+						for (uint zc = 0; zc<BuPos3; ++zc)
 							{
 							Zli2 = LiList.at(zc);
-							p.setFont(Zli2->Zsatz);
-							p.setPen(Zli2->Farb);
+							if (Zli2->Farb != "None")
+								{
+								SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
+								p->setBrush(tmp);
+								}
+							if (Zli2->Farb2 != "None")
+								{
+								SetFarbe(&tmp, Zli2->Farb2, Zli2->shade2);
+								p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+								}
 							if ((Zli2->Sele) && (Doc->AppMode == 7) && (Select))
 								{
-								p.save();
 								wide = Zli2->wide;
-								desc = p.fontMetrics().descent();
-								asce = p.fontMetrics().ascent();
-								p.setPen(NoPen);
-            		p.setBrush(darkBlue);
+								desc = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numDescender * -Zli2->Siz);
+								asce = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numAscent * Zli2->Siz);
+								p->setFillMode(1);
+           			p->setBrush(darkBlue);
 								if (!Doc->RePos)
-            			p.drawRect(static_cast<int>(Zli2->xco), static_cast<int>(Zli2->yco-asce), static_cast<int>(wide+1), asce+desc);
-								p.restore();
-								p.setPen(white);
-								}
-							else
-								{
-								if (Doc->AppMode == 7)
-									{
-									p.save();
-									wide = Zli2->wide;
-									desc = p.fontMetrics().descent();
-									asce = p.fontMetrics().ascent();
-									if (!Doc->RePos)
-           					p.eraseRect(static_cast<int>(Zli2->xco), static_cast<int>(Zli2->yco-asce), static_cast<int>(wide+1), asce+desc);
-									p.restore();
-									}
+           				p->drawRect(Zli2->xco, Zli2->yco-asce, wide+1, asce+desc);
+								p->setBrush(white);
 								}
 							if (!Doc->RePos)
-								DrawZeichen(&p, Zli2);
+								{
+								if (e.intersects(pf.xForm(QRect(Zli2->xco,Zli2->yco-LineSp, Zli2->wide, LineSp))))
+									DrawZeichenS(p, Zli2);
+								}
 							}
 						LiList.clear();
 						BuPos = 0;
 						LastSP = 0;
+						LastXp = 0;
 						outs = false;
-					} 
-					MaxChars = Ptext.count();
-					Redrawn = true;
-					p.restore();
-					break;
-NoRoom:	 if (NextBox != 0)
-						{
-						nrc2 = Ptext.count();
-						for (uint ss=nrc; ss<nrc2; ++ss)
-							{
-							NextBox->Ptext.append(Ptext.take(nrc));
-							}
-						NextBox->Dirty = true;
-						if (uint(CPos) > nrc)
-							{
-							CPos = nrc;
-							if ((Doc->AppMode == 7) && (Tinput))
-								{
-								OwnPage->Deselect(true);
-								NextBox->CPos = 1;
-								Doc->ActPage = NextBox->OwnPage;
-								NextBox->OwnPage->SelectItemNr(NextBox->ItemNr);
-								break;
-								}
-							}
-						if (NextBox->OwnPage != OwnPage)
-							{
-							QPainter px;
-							px.begin(NextBox->Parent);
-							px.translate(static_cast<int>(NextBox->Xpos*Doc->Scale), static_cast<int>(NextBox->Ypos*Doc->Scale));
-							px.scale(static_cast<double>(Doc->Scale), static_cast<double>(Doc->Scale));
-							px.rotate(static_cast<double>(NextBox->Rot));
-							px.eraseRect(0, 0, static_cast<int>(NextBox->Width), static_cast<int>(NextBox->Height));
-							px.end();
-							}
-						NextBox->paintObj(QRect(0, 0, NextBox->OwnPage->width(), NextBox->OwnPage->height()));
 						}
-					else
-						{
-						if (!Doc->RePos)
-							{
-							p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
-							p.setBrush(white);
-							p.drawRect(static_cast<int>(Width-16), static_cast<int>(Height-16), 14, 14);
-							p.drawLine(static_cast<int>(Width-16), static_cast<int>(Height-16), static_cast<int>(Width-3), static_cast<int>(Height-3));
-							p.drawLine(static_cast<int>(Width-16), static_cast<int>(Height-3), static_cast<int>(Width-3), static_cast<int>(Height-16));
-							}
-						}
-					MaxChars = nrc;
-					Redrawn = true;
-					p.restore();
-					break;
-			case 5:
-				if (!Doc->RePos)
+					}
+				if (Doc->Vorlagen[absa].Ausri != 0)
 					{
-					if (NamedLStyle == "")
-						p.drawLine(0, 0, qRound(Width), 0);
+					EndX = CurX;
+					do
+						{
+						pt1 = QPoint(static_cast<int>(EndX+RExtra), static_cast<int>(CurY+desc));
+						pt2 = QPoint(static_cast<int>(EndX+RExtra), static_cast<int>(CurY-asce));
+						EndX++;
+						}
+					while ((cl.contains(pf.xForm(pt1))) && (cl.contains(pf.xForm(pt2))));
+					if (Doc->Vorlagen[absa].Ausri == 2)
+						OFs = EndX - CurX - Extra;
+					if (Doc->Vorlagen[absa].Ausri == 1)
+						OFs = (EndX - CurX - Extra) / 2;
+					if (Doc->Vorlagen[absa].Ausri == 3)
+						OFs = 0;
+					if (Doc->Vorlagen[absa].Ausri == 4)
+						{
+						aSpa = 0;
+						for (uint sof = 0; sof<LiList.count(); ++sof)
+							{
+							if (LiList.at(sof)->Zeich == QChar(32))
+								aSpa++;
+							}
+						if (aSpa != 0)
+							{
+							OFs2 = (EndX - CurX - Extra) / aSpa;
+							}
+						else
+							OFs2 = 0;
+						OFs = 0;
+						for (uint yof = 0; yof < LiList.count(); ++yof)
+							{
+							LiList.at(yof)->xco += OFs;
+							Ptext.at(BuPos2)->xp += OFs;
+							BuPos2++;
+							if (LiList.at(yof)->Zeich == QChar(32))
+								OFs += OFs2;
+							}
+						}
 					else
 						{
-						multiLine ml = Doc->MLineStyles[NamedLStyle];
-						for (int it = ml.size()-1; it > -1; it--)
+						for (uint xof = 0; xof<LiList.count(); ++xof)
 							{
-							SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-							p.setPen(QPen(tmp,
-											 QMAX(static_cast<int>(ml[it].Width*Doc->Scale), 1),
-											 static_cast<PenStyle>(ml[it].Dash),
-											 static_cast<PenCapStyle>(ml[it].LineEnd),
-											 static_cast<PenJoinStyle>(ml[it].LineJoin)));
-							p.drawLine(0, 0, qRound(Width), 0);
+							LiList.at(xof)->xco += OFs;
+							Ptext.at(BuPos2)->xp += OFs;
+							BuPos2++;
 							}
 						}
 					}
-				break;
-			case 1:
-			case 3:
-			case 6:
-				if (GrType == 0)
+				for (uint zc = 0; zc<LiList.count(); ++zc)
 					{
+					Zli2 = LiList.at(zc);
+					if (Zli2->Farb != "None")
+						{
+						SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
+						p->setBrush(tmp);
+						}
+					if (Zli2->Farb2 != "None")
+						{
+						SetFarbe(&tmp, Zli2->Farb2, Zli2->shade2);
+						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+						}
+					if ((Zli2->Sele) && (Doc->AppMode == 7) && (Select))
+						{
+						wide = Zli2->wide;
+						desc = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numDescender * -Zli2->Siz);
+						asce = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numAscent * Zli2->Siz);
+						p->setFillMode(1);
+         		p->setBrush(darkBlue);
+						if (!Doc->RePos)
+         			p->drawRect(Zli2->xco, Zli2->yco-asce, wide+1, asce+desc);
+						p->setBrush(white);
+						}
 					if (!Doc->RePos)
 						{
-						DrawPoly(&p, Clip, p.brush().color());
-						p.setBrush(NoBrush);
-						DrawPolyL(&p, Clip);
+						if (e.intersects(pf.xForm(QRect(Zli2->xco,Zli2->yco-LineSp, Zli2->wide, LineSp))))
+							DrawZeichenS(p, Zli2);
 						}
+					}
+				LiList.clear();
+				BuPos = 0;
+				LastSP = 0;
+				outs = false;
+				}
+			MaxChars = Ptext.count();
+			Redrawn = true;
+			p->restore();
+			break;
+NoRoom: if (NextBox != 0)
+					{
+					nrc2 = Ptext.count();
+					for (uint ss=nrc; ss<nrc2; ++ss)
+						{
+						NextBox->Ptext.append(Ptext.take(nrc));
+						}
+					NextBox->Dirty = true;
+					if (uint(CPos) > nrc)
+						{
+						CPos = nrc;
+						if ((Doc->AppMode == 7) && (Tinput))
+							{
+							OwnPage->Deselect(true);
+							NextBox->CPos = 1;
+							Doc->ActPage = NextBox->OwnPage;
+							NextBox->OwnPage->SelectItemNr(NextBox->ItemNr);
+							break;
+							}
+						}
+					NextBox->OwnPage->RefreshItem(NextBox);
 					}
 				else
 					{
 					if (!Doc->RePos)
 						{
-#if QT_VERSION  >= 0x030100
-						if (toPixmap)
-							p.setClipRegion(QRegion(p.xForm(QRect(0, 0, static_cast<int>(Width), static_cast<int>(Height)))));
-						else
-							p.setClipRegion(QRegion(p.xForm(QRect(0, 0, static_cast<int>(Width), static_cast<int>(Height)))).intersect(gesClip));
-						bmd = QBitmap(static_cast<int>(Width), static_cast<int>(Height));
-						bmd.fill(Qt::color0);
-						pb.begin(&bmd);
-						pb.setBrush(Qt::color1);
-						pb.setPen(QPen(Qt::color1, 1, DotLine, FlatCap, MiterJoin));
-						DrawPoly(&pb, Clip, pb.brush().color(), true);
-						pb.end();
-						pmd = QPixmap(static_cast<int>(Width), static_cast<int>(Height));
-						pmd.fill();
-						pd.begin(&pmd);
-						if ((!Doc->RePos) && (!Gpixm.isNull()))
-							pd.drawImage(0, 0, Gpixm);
-						pd.end();
-						pmd.setMask(bmd);
-						p.drawPixmap(0, 0, pmd);
-#else
-						if (toPixmap)
-							p.setClipRegion(QRegion(p.xForm(Clip)));
-						else
-							p.setClipRegion(QRegion(p.xForm(Clip)).intersect(gesClip));
-						if (!Gpixm.isNull())
-							p.drawImage(0, 0, Gpixm);
-#endif
-						p.setBrush(NoBrush);
-						DrawPolyL(&p, Clip);
+						p->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+						p->setBrush(white);
+						p->drawRect(Width-16, Height-16, 14, 14);
+						p->drawLine(FPoint(Width-16, Height-16), FPoint(Width-3, Height-3));
+						p->drawLine(FPoint(Width-16, Height-3), FPoint(Width-3, Height-16));
 						}
 					}
+				MaxChars = nrc;
+				Redrawn = true;
+				p->restore();
 				break;
-			case 7:
-				if (PoLine.size() > 3)
-					{
-					for (uint poi=0; poi<PoLine.size()-3; poi += 4)
-						{
-						if (PoLine.point(poi).x() > 900000)
-							continue;
-						BezierPoints(&Bez, PoLine.pointQ(poi), PoLine.pointQ(poi+1), PoLine.pointQ(poi+3), PoLine.pointQ(poi+2));
-						if (!Doc->RePos)
-							{
-							if (NamedLStyle == "")
-								p.drawCubicBezier(Bez);
-							else
-								{
-								multiLine ml = Doc->MLineStyles[NamedLStyle];
-								for (int it = ml.size()-1; it > -1; it--)
-									{
-									SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-									p.setPen(QPen(tmp,
-													 QMAX(static_cast<int>(ml[it].Width*Doc->Scale), 1),
-													 static_cast<PenStyle>(ml[it].Dash),
-													 static_cast<PenCapStyle>(ml[it].LineEnd),
-											 		 static_cast<PenJoinStyle>(ml[it].LineJoin)));
-									p.drawCubicBezier(Bez);
-									}
-								}
-							}
-						}
-					}
-				break;
-			case 8:
-				if (PoLine.size() > 3)
-					{
-					if (PoShow)
-						{
-						for (uint poi=0; poi<PoLine.size()-3; poi += 4)
-							{
-							if (PoLine.point(poi).x() > 900000)
-								continue;
-							BezierPoints(&Bez, PoLine.pointQ(poi), PoLine.pointQ(poi+1), PoLine.pointQ(poi+3), PoLine.pointQ(poi+2));
-							if (!Doc->RePos)
-								{
-								if (NamedLStyle == "")
-									p.drawCubicBezier(Bez);
-								else
-									{
-									multiLine ml = Doc->MLineStyles[NamedLStyle];
-									for (int it = ml.size()-1; it > -1; it--)
-										{
-										SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-										p.setPen(QPen(tmp,
-														 QMAX(static_cast<int>(ml[it].Width*Doc->Scale), 1),
-														 static_cast<PenStyle>(ml[it].Dash),
-														 static_cast<PenCapStyle>(ml[it].LineEnd),
-												 		 static_cast<PenJoinStyle>(ml[it].LineJoin)));
-										p.drawCubicBezier(Bez);
-										}
-									}
-								}
-							}
-						}
-					}
-				cl = FlattenPath(PoLine, Segments);
-				CurX = Extra;
-				if (Ptext.count() != 0)
-					CurX += Ptext.at(0)->cextra;
-				zae = 0;
+		case 8:
+			if (!PoShow)
+				doStroke = false;
+			cl = FlattenPath(PoLine, Segments);
+			CurX = Extra;
+			if (Ptext.count() != 0)
+				CurX += Ptext.at(0)->cextra;
+			zae = 0;
+			wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
+			while (wid < 1)
+				{
+				zae++;
+				if (zae == cl.size()-1)
+					goto PfadEnd;
 				wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
-				while (wid < 1)
+				}
+			rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
+			for (a = 0; a < Ptext.count(); ++a)
+				{
+				CurY = 0;
+				hl = Ptext.at(a);
+				chx = hl->ch;
+				if ((chx == QChar(30)) || (chx == QChar(13)))
+					continue;
+				chs = hl->csize;
+				SetZeichAttr(hl, &chs, &chx);
+				if (chx == QChar(29))
+					chx2 = " ";
+				else
+					chx2 = chx;
+				if (a < Ptext.count()-1)
 					{
-					zae++;
-					if (zae == cl.size()-1)
-						goto PfadEnd;
-					wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
+					if (Ptext.at(a+1)->ch == QChar(29))
+						chx3 = " ";
+					else
+						chx3 = Ptext.at(a+1)->ch;
+					wide = Cwidth(Doc, hl->cfont, chx2, chs, chx3);
 					}
-				rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
-				for (a = 0; a < Ptext.count(); ++a)
+				else
+					wide = Cwidth(Doc, hl->cfont, chx2, chs);
+				wide = wide * (hl->cscale / 100.0);
+				if ((CurX+(wide+hl->cextra)/2) >= wid)
 					{
-					CurY = 0;
-					hl = Ptext.at(a);
-					chx = hl->ch;
-					if ((chx == QChar(30)) || (chx == QChar(13)))
-						continue;
-					if (hl->ccolor != "None")
+					if (zae < cl.size()-1)
 						{
-						SetFarbe(&tmp, hl->ccolor, hl->cshade);
-						p.setPen(tmp);
-						}
-					else
-						p.setPen(NoPen);
-					chs = hl->csize;
-					SetZeichAttr(&p, &ffo, hl, &chs, &chx);
-					if (chx == QChar(29))
-						chx2 = " ";
-					else
-						chx2 = chx;
-					if (a < Ptext.count()-1)
-						{
-						if (Ptext.at(a+1)->ch == QChar(29))
-							chx3 = " ";
-						else
-							chx3 = Ptext.at(a+1)->ch;
-						wide = Cwidth(Doc, &p, hl->cfont, chx2, chs, chx3);
-						}
-					else
-						wide = Cwidth(Doc, &p, hl->cfont, chx2, chs);
-					if ((CurX+(wide+hl->cextra)/2) >= wid)
-						{
-						if (zae < cl.size()-1)
+						CurX = CurX - wid;
+						wid = 0;
+						EndX = CurX;
+						do
 							{
-							CurX = CurX - wid;
-							wid = 0;
-							EndX = CurX;
 							do
 								{
-								do
-									{
-									zae++;
-									if (zae == cl.size()-1)
-										goto PfadEnd;
-									wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
-									rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
-									}
-								while (wid == 0);
-								EndX -= wid;
+								zae++;
+								if (zae == cl.size()-1)
+									goto PfadEnd;
+								wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
+								rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
 								}
-							while (wid < EndX);
-							CurX = EndX + wid;
+							while (wid == 0);
+							EndX -= wid;
 							}
-						else
-							goto PfadEnd;
+						while (wid < EndX);
+						CurX = EndX + wid;
 						}
-					p.save();
-					p.translate(cl.point(zae).x(), cl.point(zae).y());
-					p.rotate(rota);
-					hl->xp = CurX+hl->cextra;
-					hl->yp = CurY+BaseOffs;
-					hl->PtransX = cl.point(zae).x();
-					hl->PtransY = cl.point(zae).y();
-					hl->PRot = rota;
-					if (!Doc->RePos)
-						DrawZeichen(&p, hl);
-					p.restore();
-					CurX += wide+hl->cextra;
+					else
+						goto PfadEnd;
 					}
+				p->save();
+				p->translate(cl.point(zae).x()*sc, cl.point(zae).y()*sc);
+				p->rotate(rota);
+				hl->xp = CurX+hl->cextra;
+				hl->yp = CurY+BaseOffs;
+				hl->PtransX = cl.point(zae).x();
+				hl->PtransY = cl.point(zae).y();
+				hl->PRot = rota;
+				Zli = new ZZ;
+				Zli->Zeich = chx;
+				if (hl->ccolor != "None")
+					{
+					SetFarbe(&tmp, hl->ccolor, hl->cshade);
+					p->setBrush(tmp);
+					}
+				if (hl->cstroke != "None")
+					{
+					SetFarbe(&tmp, hl->cstroke, hl->cshade2);
+					p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
+					}
+				Zli->Farb = hl->ccolor;
+				Zli->Farb2 = hl->cstroke;
+				Zli->shade = hl->cshade;
+				Zli->shade2 = hl->cshade2;
+				Zli->xco = hl->xp;
+				Zli->yco = hl->yp;
+				Zli->Sele = hl->cselect;
+				Zli->Siz = chs;
+				Zli->Style = hl->cstyle;
+				Zli->ZFo = hl->cfont;
+				Zli->wide = wide;
+				Zli->kern = hl->cextra;
+				Zli->scale = hl->cscale;
+				if (!Doc->RePos)
+					DrawZeichenS(p, Zli);
+				delete Zli;
+				p->restore();
+				p->setZoomFactor(sc);
+				CurX += wide+hl->cextra;
+				}
 PfadEnd:	MaxChars = Ptext.count();
-				break;
+			break;
+		default:
+			break;
+		}
+	if ((doStroke) && (!Doc->RePos))
+		{
+		if (Pcolor2 != "None")
+			{
+			SetFarbe(&tmp, Pcolor2, Shade2);
+			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			if (DashValues.count() != 0)
+				p->setDash(DashValues, DashOffset);
+			}
+		else
+			p->setLineWidth(0);
+		p->setupPolygon(&PoLine);
+		if (NamedLStyle == "")
+			p->drawPolyLine();
+		else
+			{
+			multiLine ml = Doc->MLineStyles[NamedLStyle];
+			for (int it = ml.size()-1; it > -1; it--)
+				{
+				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+				p->setPen(tmp, ml[it].Width,
+								 static_cast<PenStyle>(ml[it].Dash),
+								 static_cast<PenCapStyle>(ml[it].LineEnd),
+								 static_cast<PenJoinStyle>(ml[it].LineJoin));
+				p->drawPolyLine();
+				}
 			}
 		}
-	}
-	p.setClipping(false);
-	p.setClipRegion(gesClip);
+	if ((!Tinput) && (!Doc->RePos))
+		{
+		if ((Frame) && (Doc->ShFrames) && ((PType == 2) || (PType == 4)))
+			{
+			p->setPen(black, 1, DotLine, FlatCap, MiterJoin);
+			if ((isBookmark) || (isAnnotation))
+				p->setPen(blue, 1, DotLine, FlatCap, MiterJoin);
+			if ((BackBox != 0) || (NextBox != 0))
+				p->setPen(red, 1, SolidLine, FlatCap, MiterJoin);
+			if (Locked)
+				p->setPen(darkRed, 1, SolidLine, FlatCap, MiterJoin);
+			p->setFillMode(0);
+			p->setupPolygon(&PoLine);
+			p->drawPolyLine();
+			}
+		}
+	Tinput = false;
+	FrameOnly = false;
+	Dirty = false;
+	p->restore();
+	pf.end();
+}
+
+void PageItem::paintObj(QRect e, QPixmap *ppX)
+{
+	QPainter p;
+	if (!Doc->DoDrawing)
+		{
+		Redrawn = true;
+		Tinput = false;
+		FrameOnly = false;
+		Dirty = false;
+		return;
+		}
+	if (toPixmap)
+		p.begin(ppX);
+	else
+		p.begin(Parent);
+	if ((!toPixmap) && (!Doc->RePos))
+		{
+		if (!e.isEmpty())
+			p.setClipRect(e);
+		else
+			p.setClipRect(OwnPage->ViewReg().boundingRect());
+		}
+	p.translate(static_cast<int>(Xpos*Doc->Scale), static_cast<int>(Ypos*Doc->Scale));
+	p.scale(static_cast<double>(Doc->Scale), static_cast<double>(Doc->Scale));
+	p.rotate(static_cast<double>(Rot));
 	if (Sizing)
 		{
 		p.setRasterOp(XorROP);
@@ -1506,169 +1328,101 @@ void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 		}
 }
 
-void PageItem::SetZeichAttr(QPainter *p, QFont *ffo, struct Pti *hl, int *chs, QString *chx)
+void PageItem::SetZeichAttr(struct Pti *hl, int *chs, QString *chx)
 {
-	QFont ff(Doc->UsedFonts[hl->cfont]);
-	ff.setPointSize(QMAX(static_cast<int>(hl->csize*DevRes), 1));
-	p->setFont(ff);
-	int asce = p->fontMetrics().ascent();
+	int	asce = static_cast<int>((*Doc->AllFonts)[hl->cfont]->numAscent * hl->csize);
 	int chst = hl->cstyle & 127;
 	if (chst != 0)
 		{
-		if (chst & 16)
-			ff.setStrikeOut(true);
-		if (chst & 8)
-			ff.setUnderline(true);
 		if (chst & 1)
 			{
 			CurY -= asce * Doc->VHoch / 100;
-			ff.setPointSize(QMAX(static_cast<int>(hl->csize * DevRes * Doc->VHochSc / 100), 1));
 			*chs = QMAX(static_cast<int>(hl->csize * Doc->VHochSc / 100), 1);
 			}
 		if (chst & 2)
 			{
 			CurY += asce * Doc->VTief / 100;
-			ff.setPointSize(QMAX(static_cast<int>(hl->csize * DevRes * Doc->VTiefSc / 100) ,1));
 			*chs = QMAX(hl->csize * Doc->VTiefSc / 100, 1);
 			}
 		if (chst & 64)
 			{
 			if (chx->upper() != *chx)
 				{
-				ff.setPointSize(QMAX(static_cast<int>(hl->csize * DevRes * Doc->VKapit / 100), 1));
 				*chs = QMAX(static_cast<int>(hl->csize * Doc->VKapit / 100), 1);
 				*chx = chx->upper();
 				}
 			}
 		}
-	p->setFont(ff);
 }
 
-void PageItem::DrawZeichen(QPainter *p, struct Pti *hl)
+void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 {
-	struct ZZ *Zli;
-	Zli = new ZZ;
-	Zli->Zeich = hl->ch;
-	Zli->xco = hl->xp;
-	Zli->yco = hl->yp;
-	Zli->Sele = hl->cselect;
-	Zli->Siz = hl->csize;
-	Zli->ZFo = hl->cfont;
-	if (hl->ch == QChar(29))
-		Zli->wide = Cwidth(Doc, p, hl->cfont, " ", hl->csize);
-	else
-		Zli->wide = Cwidth(Doc, p, hl->cfont, hl->ch, hl->csize);
-	DrawZeichen(p, Zli);
-	delete Zli;
-}
-
-void PageItem::DrawZeichen(QPainter *p, struct ZZ *hl)
-{
-	QRegion cr = p->clipRegion();
-	QRect rr = QRect(static_cast<int>(hl->xco), static_cast<int>(hl->yco - LineSp), static_cast<int>(hl->wide), static_cast<int>(LineSp));
-	if (!cr.contains(p->xForm(rr)))
-		return;
 	QString ccx = hl->Zeich;
 	if (ccx == QChar(29))
 		ccx = " ";
-#ifdef HAVE_FREETYPE
-	FT_Face face;
+	if (ccx == QChar(13))
+		return;
+	float csi = static_cast<double>(hl->Siz) / 10.0;
 	uint chr = ccx[0].unicode();
-	if ((chr > 128) || (Doc->Scale > 1))
+	if ((*Doc->AllFonts)[hl->ZFo]->CharWidth.contains(chr))
 		{
-		if ((*Doc->AllFonts)[hl->ZFo]->CharWidth.contains(chr))
+		QWMatrix chma;
+		chma.scale(csi, csi);
+		FPointArray gly = (*Doc->AllFonts)[hl->ZFo]->GlyphArray[chr].Outlines.copy();
+		if (gly.size() > 4)
 			{
-			face = Doc->FFonts[hl->ZFo];
-			FT_Set_Char_Size(Doc->FFonts[hl->ZFo], 0, QMAX(hl->Siz*64, 1), qRound(QMAX(1, DevResX * Doc->Scale)), qRound(QMAX(1, DevResY * Doc->Scale)));
-			FT_Load_Char(face, chr, FT_LOAD_RENDER | FT_LOAD_NO_BITMAP | FT_LOAD_MONOCHROME);
-			QByteArray bd(face->glyph->bitmap.rows * face->glyph->bitmap.pitch);
-			uint yy = 0;
-			uint adv;
-			if ((face->glyph->bitmap.width % 8) == 0)
-				adv = face->glyph->bitmap.width / 8;
+			gly.map(chma);
+			chma = QWMatrix();
+			chma.scale(hl->scale / 100.0, 1);
+			gly.map(chma);
+			chma = QWMatrix();
+			if (Reverse)
+				{
+				chma.scale(-1, 1);
+				chma.translate(-hl->wide, 0);
+				gly.map(chma);
+				chma = QWMatrix();
+				chma.translate(hl->xco, hl->yco-hl->Siz);
+				}
 			else
-				adv = face->glyph->bitmap.width / 8 + 1;
-			for (int y = 0; y < face->glyph->bitmap.rows; ++y)
+				chma.translate(hl->xco, hl->yco-hl->Siz);
+			gly.map(chma);
+			p->setupPolygon(&gly);
+			p->setFillMode(1);
+			if (hl->Farb != "None")
+				p->fillPath();
+			if ((hl->Style & 4) && (hl->Farb2 != "None"))
 				{
-				memcpy(bd.data()+yy, face->glyph->bitmap.buffer+(y * face->glyph->bitmap.pitch), adv);
-				yy += adv;
-				}
-			QBitmap bb(face->glyph->bitmap.width, face->glyph->bitmap.rows, (uchar*)bd.data(), false);
-			QPixmap pixm(face->glyph->bitmap.width, face->glyph->bitmap.rows);
-			if (!pixm.isNull())
-				{
-				pixm.fill(p->pen().color());
-				pixm.setMask(bb);
-				p->save();
-				if (Reverse)
-					{
-					p->translate(static_cast<int>(hl->xco), static_cast<int>(hl->yco));
-					p->scale(-1, 1);
-					p->scale(static_cast<double>(1.0 / Doc->Scale), static_cast<double>(1.0 / Doc->Scale));
-					p->translate(-pixm.width(), 0);
-					p->drawPixmap(-face->glyph->bitmap_left, -face->glyph->bitmap_top, pixm);
-					}
-				else
-					{
-					p->translate(static_cast<int>(hl->xco), static_cast<int>(hl->yco));
-					p->scale(static_cast<double>(1.0 / Doc->Scale), static_cast<double>(1.0 / Doc->Scale));
-					p->drawPixmap(face->glyph->bitmap_left, -face->glyph->bitmap_top, pixm);
-					}
-				p->restore();
-				}
-			if (p->font().strikeOut())
-				{
-				int st = -p->fontMetrics().strikeOutPos();
-				QPen px = p->pen();
-				px.setWidth(QMAX(p->fontMetrics().lineWidth(), 1));
-				p->setPen(px);
-				p->drawLine(static_cast<int>(hl->xco), static_cast<int>(hl->yco)+st, static_cast<int>(hl->xco)+static_cast<int>(hl->wide), static_cast<int>(hl->yco)+st);
-				}
-			if (p->font().underline())
-				{
-				int st = p->fontMetrics().underlinePos();
-				QPen px = p->pen();
-				px.setWidth(QMAX(p->fontMetrics().lineWidth(), 1));
-				p->setPen(px);
-				p->drawLine(static_cast<int>(hl->xco), static_cast<int>(hl->yco)+st, static_cast<int>(hl->xco)+static_cast<int>(hl->wide), static_cast<int>(hl->yco)+st);
+				p->setLineWidth((*Doc->AllFonts)[hl->ZFo]->strokeWidth * hl->Siz / 2);
+				p->strokePath();
 				}
 			}
-		else
+		if (hl->Style & 16)
 			{
-			QPen px = p->pen();
-			px.setWidth(1);
-			p->setPen(px);
-			p->setBrush(NoBrush);
-			p->drawRect(QRect(static_cast<int>(hl->xco), static_cast<int>(hl->yco)-hl->Siz, hl->Siz, hl->Siz));
+			p->setPen(p->brush());
+			float st = (*Doc->AllFonts)[hl->ZFo]->strikeout_pos * hl->Siz;
+			p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * hl->Siz, 1));
+			p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
+			}
+		if (hl->Style & 8)
+			{
+			float st = (*Doc->AllFonts)[hl->ZFo]->underline_pos * hl->Siz;
+			QString dummy;
+			p->setPen(p->brush());
+			p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * hl->Siz, 1));
+			if (gly.size() > 4)
+				p->drawUnderline(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st), false, &dummy);
+			else
+				p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
 			}
 		}
 	else
 		{
-		if (Reverse)
-			{
-			p->save();
-			p->translate(static_cast<int>(hl->xco), static_cast<int>(hl->yco));
-			p->scale(-1, 1);
-			p->translate(-hl->wide, 0);
-			p->drawText(0, 0, ccx);
-			p->restore();
-			}
-		else
-			p->drawText(static_cast<int>(hl->xco), static_cast<int>(hl->yco), ccx);
+		p->setLineWidth(1);
+		p->setPen(black);
+		p->setFillMode(0);
+		p->drawRect(hl->xco, hl->yco-hl->Siz, hl->Siz*(hl->scale / 100.0), hl->Siz);
 		}
-#else
-	if (Reverse)
-		{
-		p->save();
-		p->translate(static_cast<int>(hl->xco), static_cast<int>(hl->yco));
-		p->scale(-1, 1);
-		p->translate(-hl->wide, 0);
-		p->drawText(0, 0, ccx);
-		p->restore();
-		}
-	else
-		p->drawText(static_cast<int>(hl->xco), static_cast<int>(hl->yco), ccx);
-#endif
 }
 
 void PageItem::DrawPoly(QPainter *p, QPointArray pts, QColor BackF, bool bitm)
@@ -1795,6 +1549,12 @@ void PageItem::CopyIt(struct CLBuf *Buffer)
 	Buffer->GrShade = GrShade;
 	Buffer->GrShade2 = GrShade2;
 	Buffer->GrType = GrType;
+	Buffer->TxtStroke = TxtStroke;
+	Buffer->TxtFill = TxtFill;
+	Buffer->ShTxtStroke = ShTxtStroke;
+	Buffer->ShTxtFill = ShTxtFill;
+	Buffer->TxtScale = TxtScale;
+	Buffer->TxTStyle = TxTStyle;
 	Buffer->Rot = Rot;
 	Buffer->PLineArt = PLineArt;
 	Buffer->PLineEnd = PLineEnd;
@@ -1869,7 +1629,10 @@ void PageItem::CopyIt(struct CLBuf *Buffer)
 			Text += QString::number(Ptext.at(a)->cextra)+"\t";
 			Text += QString::number(Ptext.at(a)->cshade)+'\t';
 			Text += QString::number(Ptext.at(a)->cstyle)+'\t';
-			Text += QString::number(Ptext.at(a)->cab)+'\n';
+			Text += QString::number(Ptext.at(a)->cab)+'\t';
+			Text += Ptext.at(a)->cstroke+"\t";
+			Text += QString::number(Ptext.at(a)->cshade2)+'\t';
+			Text += QString::number(Ptext.at(a)->cscale)+'\n';
 			}
 		}
 	Buffer->Ptext = Text;
@@ -1893,7 +1656,9 @@ void PageItem::CopyIt(struct CLBuf *Buffer)
 	Buffer->AspectRatio = AspectRatio;
 	Buffer->Locked = Locked;
 	Buffer->Transparency = Transparency;
+	Buffer->TranspStroke = TranspStroke;
 	Buffer->Reverse = Reverse;
 	Buffer->InvPict = InvPict;
 	Buffer->NamedLStyle = NamedLStyle;
+	Buffer->Language = Language;
 }

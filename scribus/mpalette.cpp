@@ -3,14 +3,27 @@
 #include <cmath>
 #include <qpoint.h>
 #include <qwmatrix.h>
+#include <qmessagebox.h>
+#include "query.h"
+#include "scribusview.h"
 extern QPixmap loadIcon(QString nam);
 extern float UmReFaktor;
+extern ProfilesL InputProfiles;
+
+NameWidget::NameWidget(QWidget* parent) : QLineEdit(parent)
+{
+}
+
+void NameWidget::focusOutEvent(QFocusEvent *)
+{
+	emit Leaved();
+}
 
 Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     : QDialog( parent, "Mfloat", false, 0)
 //    : QDialog( parent, "Mfloat", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
 {
-    setCaption( tr( "Measurements" ) );
+    setCaption( tr( "Properties" ) );
     HaveDoc = false;
     HaveItem = false;
 		Umrech = UmReFaktor;
@@ -69,6 +82,17 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
 
     page = new QWidget( TabStack, "page" );
     pageLayout = new QVBoxLayout( page, 0, 5, "pageLayout");
+
+    NameGroup = new QGroupBox( page, "NameGroup" );
+    NameGroup->setTitle( tr( "Name" ) );
+    NameGroup->setColumnLayout(0, Qt::Vertical );
+    NameGroup->layout()->setSpacing( 4 );
+    NameGroup->layout()->setMargin( 5 );
+    NameGroupLayout = new QHBoxLayout( NameGroup->layout() );
+    NameGroupLayout->setAlignment( Qt::AlignTop );
+		NameEdit = new NameWidget(NameGroup);
+    NameGroupLayout->addWidget( NameEdit );
+    pageLayout->addWidget( NameGroup );
 
     GeoGroup = new QGroupBox( page, "GeoGroup" );
     GeoGroup->setTitle( tr( "Geometry" ) );
@@ -153,6 +177,29 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     QSpacerItem* spacer4 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
     Layout44->addItem( spacer4 );
     layout60->addLayout( Layout44 );
+
+    Layout44a = new QVBoxLayout( 0, 0, 4, "Layout44");
+    QSpacerItem* spacer3a = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
+    Layout44a->addItem( spacer3a );
+    Locked = new QToolButton( page, "Lock" );
+    Locked->setToggleButton( true );
+		QIconSet a = QIconSet();
+		a.setPixmap(loadIcon("locked.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
+		a.setPixmap(loadIcon("unlock.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
+		Locked->setIconSet(a);
+    Layout44a->addWidget( Locked );
+    NoPrint = new QToolButton( page, "NoPrint" );
+    NoPrint->setToggleButton( true );
+		QIconSet a2 = QIconSet();
+		a2.setPixmap(loadIcon("NoPrint.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
+		a2.setPixmap(loadIcon("DateiPrint16.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
+		NoPrint->setIconSet(a2);
+    Layout44a->addWidget( NoPrint );
+    QSpacerItem* spacer4a = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
+    Layout44a->addItem( spacer4a );
+    layout60->addLayout( Layout44a );
+
+
     QSpacerItem* spacer5 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     layout60->addItem( spacer5 );
     pageLayout->addLayout( layout60 );
@@ -277,7 +324,50 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     Textflow->setText( tr( "Text flows around Box" ) );
     pageLayout_2->addWidget( Textflow );
 
-    Distance = new QGroupBox( page_2, "Distance" );
+    Textflow2 = new QCheckBox( page_2, "Textflow2" );
+    Textflow2->setText( tr( "Use Bounding Box" ) );
+    pageLayout_2->addWidget( Textflow2 );
+
+
+    TabStack2 = new QWidgetStack( page_2, "TabStack2" );
+    TabStack2->setFrameShape( QWidgetStack::NoFrame );
+
+    page_2b = new QWidget( TabStack2, "page" );
+    pageLayout_2b = new QVBoxLayout( page_2b, 0, 5, "pageLayout_2");
+    Distance2 = new QGroupBox( page_2b, "Distance" );
+    Distance2->setTitle( tr( "Pathtext Properites" ) );
+    Distance2->setColumnLayout(0, Qt::Vertical );
+    Distance2->layout()->setSpacing( 2 );
+    Distance2->layout()->setMargin( 5 );
+    DistanceLayout2 = new QGridLayout( Distance2->layout() );
+    DistanceLayout2->setAlignment( Qt::AlignTop );
+ 		NormText2 = new QCheckBox( Distance2, "NormText" );
+ 		NormText2->setText( tr( "Show Curve" ) );
+ 		DistanceLayout2->addMultiCellWidget( NormText2, 0, 0, 0, 1 );
+ 		TextLabel3 = new QLabel( Distance2, "TextLabel3" );
+ 		TextLabel3->setText( tr( "Startoffset:" ) );
+ 		DistanceLayout2->addWidget( TextLabel3, 1, 0);
+ 		Dist = new MSpinBox( Distance2, 1 );
+ 		Dist->setSuffix( tr( " pts" ) );
+ 		Dist->setMaxValue( 3000 );
+ 		Dist->setMinValue( 0 );
+ 		Dist->setLineStep(10);
+ 		DistanceLayout2->addWidget( Dist, 1, 1);
+ 		TextLabel2 = new QLabel( Distance2, "TextLabel2" );
+ 		TextLabel2->setText( tr( "Distance from Curve:" ) );
+ 		DistanceLayout2->addWidget( TextLabel2, 2, 0);
+ 		LineW = new MSpinBox( Distance2, 1 );
+ 		LineW->setSuffix( tr( " pts" ) );
+ 		LineW->setMaxValue( 3000 );
+ 		LineW->setMinValue( -3000 );
+		LineW->setLineStep(10);
+ 		DistanceLayout2->addWidget( LineW, 2, 1);
+		pageLayout_2b->addWidget(Distance2);
+    TabStack2->addWidget( page_2b, 1 );
+
+    page_2a = new QWidget( TabStack2, "page" );
+    pageLayout_2a = new QVBoxLayout( page_2a, 0, 5, "pageLayout_2");
+    Distance = new QGroupBox( page_2a, "Distance" );
     Distance->setTitle( tr( "Distance of Text" ) );
     Distance->setColumnLayout(0, Qt::Vertical );
     Distance->layout()->setSpacing( 2 );
@@ -316,7 +406,10 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     DRight->setMaxValue( 3000 );
     DRight->setMinValue( 0 );
     DistanceLayout->addWidget( DRight, 3, 1 );
-    pageLayout_2->addWidget( Distance );
+		pageLayout_2a->addWidget(Distance);
+    TabStack2->addWidget( page_2a, 0 );
+
+    pageLayout_2->addWidget( TabStack2 );
     QSpacerItem* spacer6 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
     pageLayout_2->addItem( spacer6 );
     TabStack->addWidget( page_2, 1 );
@@ -334,7 +427,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     layout41->addMultiCellWidget( Fonts, 0, 0, 0, 1 );
 
     Text20 = new QLabel( page_3, "Text20" );
-    Text20->setText(tr("Fontsize:"));
+    Text20->setText(tr("Size:"));
     layout41->addWidget( Text20, 1, 0 );
     Size = new QSpinBox( page_3, "Fontsize:" );
     Size->setPrefix( tr( "" ) );
@@ -343,6 +436,83 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     Size->setMinValue( -3000 );
     layout41->addWidget( Size, 1, 1 );
     layout46->addLayout( layout41 );
+
+    layout22 = new QHBoxLayout( 0, 0, 5, "layout22");
+    ScaleTxt = new QLabel( page_3, "ScaleTxt" );
+		ScaleTxt->setText(tr("Width:"));
+    layout22->addWidget( ScaleTxt );
+    ChScale = new QSpinBox( page_3, "ChScale" );
+    ChScale->setMaxValue( 400 );
+    ChScale->setMinValue( 25 );
+    ChScale->setValue( 100 );
+    ChScale->setSuffix( tr( " %" ) );
+    layout22->addWidget( ChScale );
+    layout46->addLayout( layout22 );
+
+    layout23 = new QHBoxLayout( 0, 0, 5, "layout23");
+    StrokeIcon = new QLabel( page_3, "StrokeIcon" );
+    StrokeIcon->setText( tr( "" ) );
+    StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
+    StrokeIcon->setScaledContents( FALSE );
+    layout23->addWidget( StrokeIcon );
+    TxStroke = new QComboBox( true, page_3, "TxStroke" );
+		TxStroke->setEditable(false);
+    layout23->addWidget( TxStroke );
+  	TxStrokeSh = new QPopupMenu();
+		TxStrokeSh->insertItem(tr("Other..."));
+		TxStrokeSh->insertItem("0 %");
+		TxStrokeSh->insertItem("10 %");
+		TxStrokeSh->insertItem("20 %");
+		TxStrokeSh->insertItem("30 %");
+		TxStrokeSh->insertItem("40 %");
+		TxStrokeSh->insertItem("50 %");
+		TxStrokeSh->insertItem("60 %");
+		TxStrokeSh->insertItem("70 %");
+		TxStrokeSh->insertItem("80 %");
+		TxStrokeSh->insertItem("90 %");
+		TxStrokeSh->insertItem("100 %");
+    QSpacerItem* spacer2S = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+    layout23->addItem( spacer2S );
+		PM1 = new QToolButton(page_3, "Colors");
+		PM1->setBackgroundMode(PaletteBackground);
+		PM1->setPopup(TxStrokeSh);
+		PM1->setPopupDelay(1);
+		PM1->setText("100 %");
+		PM1->setAutoRaise(true);
+    layout23->addWidget( PM1 );
+    layout46->addLayout( layout23 );
+    layout24 = new QHBoxLayout( 0, 0, 5, "layout24");
+    FillIcon = new QLabel( page_3, "FillIcon" );
+		FillIcon->setText(tr(""));
+    FillIcon->setPixmap(loadIcon("fill.png"));
+    FillIcon->setScaledContents( FALSE );
+    layout24->addWidget( FillIcon );
+    TxFill = new QComboBox( true, page_3, "TxFill" );
+		TxFill->setEditable(false);
+    layout24->addWidget( TxFill );
+  	TxFillSh = new QPopupMenu();
+		TxFillSh->insertItem(tr("Other..."));
+		TxFillSh->insertItem("0 %");
+		TxFillSh->insertItem("10 %");
+		TxFillSh->insertItem("20 %");
+		TxFillSh->insertItem("30 %");
+		TxFillSh->insertItem("40 %");
+		TxFillSh->insertItem("50 %");
+		TxFillSh->insertItem("60 %");
+		TxFillSh->insertItem("70 %");
+		TxFillSh->insertItem("80 %");
+		TxFillSh->insertItem("90 %");
+		TxFillSh->insertItem("100 %");
+    QSpacerItem* spacer2Sf = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+    layout24->addItem( spacer2Sf );
+		PM2 = new QToolButton(page_3, "Colors");
+		PM2->setBackgroundMode(PaletteBackground);
+		PM2->setPopup(TxFillSh);
+		PM2->setPopupDelay(1);
+		PM2->setText("100 %");
+		PM2->setAutoRaise(true);
+    layout24->addWidget( PM2 );
+    layout46->addLayout( layout24 );
 
     Layout1 = new QHBoxLayout( 0, 0, 0, "Layout1");
 
@@ -392,6 +562,14 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     Strike->setPixmap(loadIcon("Strike.xpm"));
     Strike->setToggleButton( true );
     Layout1->addWidget( Strike );
+
+    Outlined = new QToolButton( page_3, "Outlined" );
+    Outlined->setMaximumSize( QSize( 22, 22 ) );
+    Outlined->setText( tr( "" ) );
+    Outlined->setPixmap(loadIcon("outlined.png"));
+    Outlined->setToggleButton( true );
+    Layout1->addWidget( Outlined );
+
     Revert = new QToolButton( page_3, "Bold" );
     Revert->setMaximumSize( QSize( 22, 22 ) );
     Revert->setText( tr( "" ) );
@@ -483,6 +661,17 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     GroupBox3aLayout->addWidget( Spal );
     pageLayout_3->addWidget( GroupBox3a );
 
+    layoutLang = new QHBoxLayout( 0, 0, 5, "layout24");
+    SprachT = new QLabel( page_3, "Sprache" );
+		SprachT->setText(tr("Sprache:"));
+    layoutLang->addWidget( SprachT );
+    LangCombo = new QComboBox( true, page_3, "Lang" );
+		LangCombo->setEditable(false);
+    layoutLang->addWidget( LangCombo );
+//    QSpacerItem* spacer2L = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+ //   layoutLang->addItem( spacer2L );
+		pageLayout_3->addLayout(layoutLang);
+
     QSpacerItem* spacer8 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
     pageLayout_3->addItem( spacer8 );
     TabStack->addWidget( page_3, 2 );
@@ -552,6 +741,23 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     Layout18->addWidget( Aspect );
     Layout24->addLayout( Layout18 );
     pageLayout_4->addLayout( Layout24 );
+ 		TextCms1 = new QLabel( page_4, "Text1" );
+    TextCms1->setText( tr( "Input Profile:" ) );
+		pageLayout_4->addWidget( TextCms1 );
+    InputP = new QComboBox( true, page_4, "InputP" );
+    InputP->setEditable(false);
+   	pageLayout_4->addWidget(InputP);
+    TextCms2 = new QLabel( page_4, "Text2" );
+    TextCms2->setText( tr( "Rendering Intent:" ) );
+		pageLayout_4->addWidget(TextCms2);
+    MonitorI = new QComboBox( true, page_4, "MonitorI" );
+    MonitorI->insertItem( tr( "Perceptual" ) );
+    MonitorI->insertItem( tr( "Relative Colorimetric" ) );
+    MonitorI->insertItem( tr( "Saturation" ) );
+    MonitorI->insertItem( tr( "Absolute Colorimetric" ) );
+    MonitorI->setEditable(false);
+   	pageLayout_4->addWidget(MonitorI);
+
     QSpacerItem* spacer9 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
     pageLayout_4->addItem( spacer9 );
     TabStack->addWidget( page_4, 3 );
@@ -658,9 +864,10 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     connect(Kapital, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
     connect(Revert, SIGNAL(clicked()), this, SLOT(DoRevert()));
     connect(Underline, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
+    connect(Subs, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
     connect(Strike, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
     connect(Supers, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
-    connect(Subs, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
+    connect(Outlined, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
     connect(FreeScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
     connect(FrameScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
     connect(Aspect, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
@@ -670,6 +877,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     connect(ZBottom, SIGNAL(clicked()), this, SLOT(DoBack()));
     connect(RotationGroup, SIGNAL(clicked(int)), this, SLOT(NewRotMode(int)));
     connect(Textflow, SIGNAL(clicked()), this, SLOT(DoFlow()));
+    connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
     connect(SRect, SIGNAL(clicked()), this, SLOT(MakeRect()));
     connect(SOval, SIGNAL(clicked()), this, SLOT(MakeOval()));
     connect(SCustom, SIGNAL(clicked()), this, SLOT(MakeIrre()));
@@ -682,6 +890,20 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
   	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
   	connect(StyledLine, SIGNAL(selected(int)), this, SIGNAL(EditLSt()));
     connect(Fonts, SIGNAL(activated(int)), this, SLOT(NewTFont(int)));
+    connect(TxFill, SIGNAL(activated(int)), this, SLOT(newTxtFill()));
+    connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newTxtStroke()));
+  	connect(TxFillSh, SIGNAL(activated(int)), this, SLOT(setActShade(int)));
+  	connect(TxStrokeSh, SIGNAL(activated(int)), this, SLOT(setActShade(int)));
+    connect(ChScale, SIGNAL(valueChanged(int)), this, SLOT(NewTScale()));
+    connect(Locked, SIGNAL(clicked()), this, SLOT(handleLock()));
+    connect(NoPrint, SIGNAL(clicked()), this, SLOT(handlePrint()));
+    connect(NormText2, SIGNAL(clicked()), this, SLOT(handlePathLine()));
+    connect(Dist, SIGNAL(valueChanged(int)), this, SLOT(handlePathDist()));
+    connect(LineW, SIGNAL(valueChanged(int)), this, SLOT(handlePathOffs()));
+   	connect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
+    connect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChIntent()));
+		connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
+    connect(LangCombo, SIGNAL(activated(int)), this, SLOT(NewLanguage()));
 		HaveItem = false;
 		Xpos->setValue(0);
 		Ypos->setValue(0);
@@ -691,12 +913,16 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
 		RoundRect->setValue(0);
 		TabStack->raiseWidget(0);
 		TabStack->widget(0)->setEnabled(false);
+		TabStack2->raiseWidget(0);
 		SGeom->setEnabled(false);
 		SShape->setEnabled(false);
 		SText->setEnabled(false);
 		SImage->setEnabled(false);
 		SLine->setEnabled(false);
 		SColor->setEnabled(false);
+		StrokeIcon->setEnabled(false);
+		TxStroke->setEnabled(false);
+		PM1->setEnabled(false);
 }
 
 
@@ -742,7 +968,7 @@ void Mpalette::SetDoc(ScribusDoc *d)
 	ScaleX->setMinValue( 1 );
 	LXpos->setMaxValue( 300000 );
 	LXpos->setMinValue( -300000 );
-	Size->setMaxValue( 512 );
+	Size->setMaxValue( 1024 );
 	Size->setMinValue( 1 );
 	LineSp->setMaxValue( 3000 );
 	LineSp->setMinValue( 1 );
@@ -765,6 +991,13 @@ void Mpalette::SetDoc(ScribusDoc *d)
   DLeft->setDecimals(10);
   DBottom->setDecimals(10);
   DRight->setDecimals(10);
+	Dist->setMaxValue( 3000 );
+	Dist->setMinValue( 0 );
+	Dist->setLineStep(10);
+	LineW->setMaxValue( 3000 );
+	LineW->setMinValue( -3000 );
+	LineW->setLineStep(10);
+	updateCList();
 }
 
 void Mpalette::UnsetDoc()
@@ -775,16 +1008,20 @@ void Mpalette::UnsetDoc()
 void Mpalette::SetCurItem(PageItem *i)
 {
  	disconnect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	disconnect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	HaveItem = false;
 	CurItem = i;
-	if (i->IFont != "");
-		Fonts->setCurrentText(i->IFont);
+  NameEdit->setText(i->AnName);
 	RoundRect->setValue(qRound(i->RadRect));
   DLeft->setValue(static_cast<int>(i->Extra*10));
   DTop->setValue(static_cast<int>(i->TExtra*10));
   DBottom->setValue(static_cast<int>(i->BExtra*10));
   DRight->setValue(static_cast<int>(i->RExtra*10));
   Revert->setOn(i->Reverse);
+	Textflow->setChecked(i->Textflow);
+	Textflow2->setChecked(i->Textflow2);
+	ToggleFlow();
+	LangCombo->setCurrentText(i->Language);
 	if (i->NamedLStyle == "")
 		{
 		StyledLine->setCurrentItem(0);
@@ -802,6 +1039,11 @@ void Mpalette::SetCurItem(PageItem *i)
 		LEndStyle->setEnabled(false);
 		}
   connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
+	if (i->isPrintable)
+		NoPrint->setOn(false);
+	else
+		NoPrint->setOn(true);
 	if (i->Locked)
 		{
 		Xpos->setEnabled(false);
@@ -810,6 +1052,11 @@ void Mpalette::SetCurItem(PageItem *i)
 		Height->setEnabled(false);
 		Rot->setEnabled(false);
 		RoundRect->setEnabled(false);
+		EditShape->setEnabled(false);
+		ShapeGroup->setEnabled(false);
+		LayerGroup->setEnabled(false);
+		Locked->setOn(true);
+		HaveItem = true;
 		return;
 		}
 	else
@@ -820,7 +1067,20 @@ void Mpalette::SetCurItem(PageItem *i)
 		Height->setEnabled(true);
 		Rot->setEnabled(true);
 		RoundRect->setEnabled(true);
+		EditShape->setEnabled(true);
+		ShapeGroup->setEnabled(true);
+		LayerGroup->setEnabled(true);
+		Locked->setOn(false);
 		}
+	if (i->PType == 8)
+		{
+		TabStack2->raiseWidget(1);
+		NormText2->setChecked(i->PoShow);
+ 		LineW->setValue( qRound(i->BaseOffs * -10) );
+ 		Dist->setValue(static_cast<int>(i->Extra*10));
+		}
+	else
+		TabStack2->raiseWidget(0);
 	if (((i->PType == 4) || (i->PType == 2) || (i->PType == 3)) &&  (!i->ClipEdited))
 		RoundRect->setEnabled(true);
 	else
@@ -857,6 +1117,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		{
 		if (i->PType == 2)
 			{
+			updateCmsList();
 			if (i->ScaleType)
 				{
 				FreeScale->setChecked(true);
@@ -900,9 +1161,11 @@ void Mpalette::NewSel(int nr)
 		Rot->setEnabled(true);
 		SGeom->setEnabled(true);
 		TabStack->widget(0)->setEnabled(true);
+		NameEdit->setEnabled(false);
 		}
 	else
 		{
+		NameEdit->setEnabled(true);
 		FlipH->setEnabled(false);
 		FlipV->setEnabled(false);
 		ShapeGroup->setEnabled(false);
@@ -997,7 +1260,7 @@ void Mpalette::NewSel(int nr)
 				SShape->setEnabled(true);
 				SText->setEnabled(true);
 				SImage->setEnabled(false);
-				SLine->setEnabled(false);
+				SLine->setEnabled(true);
 				TabStack->widget(1)->setEnabled(true);
 				TabStack->widget(2)->setEnabled(true);
 				FlipH->setEnabled(true);
@@ -1054,7 +1317,7 @@ void Mpalette::NewSel(int nr)
 				SShape->setEnabled(true);
 				SText->setEnabled(true);
 				SImage->setEnabled(false);
-				SLine->setEnabled(false);
+				SLine->setEnabled(true);
 				TabStack->widget(1)->setEnabled(true);
 				TabStack->widget(2)->setEnabled(true);
 				TabStack->widget(4)->setEnabled(true);
@@ -1304,10 +1567,21 @@ void Mpalette::setStil(int s)
 	Strike->setOn(false);
 	Underline->setOn(false);
 	Kapital->setOn(false);
+	Outlined->setOn(false);
+	StrokeIcon->setEnabled(false);
+	TxStroke->setEnabled(false);
+	PM1->setEnabled(false);
 	if (s & 1)
 		Supers->setOn(true);
 	if (s & 2)
 		Subs->setOn(true);
+	if (s & 4)
+		{
+		Outlined->setOn(true);
+		StrokeIcon->setEnabled(true);
+		TxStroke->setEnabled(true);
+		PM1->setEnabled(true);
+		}
 	if (s & 8)
 		Underline->setOn(true);
 	if (s & 16)
@@ -1346,6 +1620,24 @@ void Mpalette::setAli(int e)
 			break;
 		}
 	HaveItem = tmp;
+}
+
+void Mpalette::setTScale(int e)
+{
+	bool tmp = HaveItem;
+	HaveItem = false;
+  ChScale->setValue(e);
+	HaveItem = tmp;
+}
+
+void Mpalette::NewTScale()
+{
+	if ((HaveDoc) && (HaveItem))
+		{
+		doc->ActPage->ItemTextScale(ChScale->value());
+		doc->CurrTextScale = ChScale->value();
+		emit DocChanged();
+		}
 }
 
 void Mpalette::NewX()
@@ -1538,7 +1830,7 @@ void Mpalette::NewExtra()
 				{
 				CurItem->Ptext.at(CurItem->CPos)->cextra = static_cast<float>(Extra->value())/10;
 				CurItem->Dirty = true;
-				CurItem->paintObj();
+				doc->ActPage->RefreshItem(CurItem);
 				emit DocChanged();
 				}
 			}
@@ -1750,6 +2042,12 @@ void Mpalette::setTypeStyle()
 		emit BackHome();
 		return;
 		}
+	if (Outlined == sender())
+		{
+		emit Stellung(4);
+		emit BackHome();
+		return;
+		}
 	if (Underline == sender())
 		{
 		emit Stellung(8);
@@ -1818,6 +2116,17 @@ void Mpalette::DoFlow()
 	if ((HaveDoc) && (HaveItem))
 		{
 		CurItem->Textflow = Textflow->isChecked();
+		doc->ActPage->update();
+		emit DocChanged();
+		ToggleFlow();
+		}
+}
+
+void Mpalette::DoFlow2()
+{
+	if ((HaveDoc) && (HaveItem))
+		{
+		CurItem->Textflow2 = Textflow2->isChecked();
 		doc->ActPage->update();
 		emit DocChanged();
 		}
@@ -1898,9 +2207,7 @@ void Mpalette::NewTDist()
 void Mpalette::NewTFont(int c)
 {
 	if ((HaveDoc) && (HaveItem))
-		{
 		emit NewTF(Fonts->text(c));
-		}
 }
 
 void Mpalette::DoRevert()
@@ -1961,4 +2268,351 @@ void Mpalette::SetSTline(QListBoxItem *c)
 		}
 	doc->ActPage->RefreshItem(CurItem);
 	emit DocChanged();
+}
+
+void Mpalette::updateCList()
+{
+	if (!HaveDoc)
+		return;
+	TxFill->clear();
+	TxStroke->clear();
+	CListe::Iterator it;
+	QPixmap pm = QPixmap(15, 15);
+	TxFill->insertItem(tr("None"));
+	TxStroke->insertItem(tr("None"));
+	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+		{
+		pm.fill(doc->PageColors[it.key()].getRGBColor());
+		TxFill->insertItem(pm, it.key());
+		TxStroke->insertItem(pm, it.key());
+		}
+}
+
+void Mpalette::updateCmsList()
+{
+	if (HaveDoc)
+		{
+		if ((CMSavail) && (doc->CMSSettings.CMSinUse))
+			{
+			TextCms1->show();
+			InputP->show();
+			TextCms2->show();
+			MonitorI->show();
+			}
+		else
+			{
+			TextCms1->hide();
+			TextCms2->hide();
+			InputP->hide();
+			MonitorI->hide();
+			return;
+			}
+		InputP->clear();
+		ProfilesL::Iterator itP;
+		for (itP = InputProfiles.begin(); itP != InputProfiles.end(); ++itP)
+			{
+			InputP->insertItem(itP.key());
+  		if (itP.key() == CurItem->IProfile)
+  			{
+  			InputP->setCurrentItem(InputP->count()-1);
+  			}
+			}
+		if (!InputProfiles.contains(CurItem->IProfile))
+			{
+			InputP->insertItem(CurItem->IProfile);
+  		InputP->setCurrentItem(InputP->count()-1);
+			}
+		else
+			{
+			if (CurItem->EmProfile != "")
+				InputP->insertItem(CurItem->EmProfile);
+			}
+    MonitorI->setCurrentItem(CurItem->IRender);
+		}
+}
+
+void Mpalette::ChProf(const QString& prn)
+{
+	bool EmbedP;
+	if ((HaveDoc) && (HaveItem))
+		{
+		CurItem->IProfile = InputP->currentText();
+		if (prn.startsWith("Embedded"))
+    	EmbedP = true;
+		else
+    	EmbedP = false;
+		CurItem->UseEmbedded = EmbedP;
+		doc->ActPage->LoadPict(CurItem->Pfile, CurItem->ItemNr);
+		doc->ActPage->RefreshItem(CurItem);
+		}
+}
+
+void Mpalette::ChIntent()
+{
+	if ((HaveDoc) && (HaveItem))
+		{
+		CurItem->IRender = MonitorI->currentItem();
+		doc->ActPage->LoadPict(CurItem->Pfile, CurItem->ItemNr);
+		doc->ActPage->RefreshItem(CurItem);
+		}
+}
+
+void Mpalette::ShowCMS()
+{
+	if (HaveItem)
+		{
+		HaveItem = false;
+		updateCmsList();
+		HaveItem = true;
+		}
+	else
+		{
+		if ((CMSavail) && (doc->CMSSettings.CMSinUse))
+			{
+			TextCms1->show();
+			InputP->show();
+			TextCms2->show();
+			MonitorI->show();
+			}
+		else
+			{
+			TextCms1->hide();
+			TextCms2->hide();
+			InputP->hide();
+			MonitorI->hide();
+			}
+		}
+}
+
+void Mpalette::newTxtFill()
+{
+	if ((HaveDoc) && (HaveItem))
+		{
+		doc->ActPage->ItemTextBrush(TxFill->currentText());
+		doc->CurrTextFill = TxFill->currentText();
+		emit DocChanged();
+		}
+}
+
+void Mpalette::newTxtStroke()
+{
+	if ((HaveDoc) && (HaveItem))
+		{
+		doc->ActPage->ItemTextPen(TxStroke->currentText());
+		doc->CurrTextStroke = TxStroke->currentText();
+		emit DocChanged();
+		}
+}
+
+void Mpalette::setActShade(int id)
+{
+	bool ok = false;
+	uint a;
+	int c, b;
+	for (a = 0; a < TxFillSh->count(); ++a)
+		{
+		TxFillSh->setItemChecked(TxFillSh->idAt(a), false);
+		}
+	for (a = 0; a < TxFillSh->count(); ++a)
+		{
+		TxStrokeSh->setItemChecked(TxStrokeSh->idAt(a), false);
+		}
+	if (TxFillSh == sender())
+		{
+		c = TxFillSh->indexOf(id);
+		TxFillSh->setItemChecked(id, true);
+		}
+	else
+		{
+		c = TxStrokeSh->indexOf(id);
+		TxStrokeSh->setItemChecked(id, true);
+		}
+	if (c > 0)
+		b = (c-1) * 10;
+	if (c == 0)
+		{
+    Query* dia = new Query(this, "New", 1, 0, "Shade:", "Shade");
+    if (dia->exec())
+    	{
+			c = dia->Answer->text().toInt(&ok);
+			if (ok)
+				{
+				b = c;
+				if (TxFillSh == sender())
+					PM2->setText(dia->Answer->text()+" %");
+				else
+					PM1->setText(dia->Answer->text()+" %");
+				}
+			delete dia;
+      }
+     else
+     	{
+     	delete dia;
+     	return;
+     	}
+		}
+	if (TxFillSh == sender())
+		{
+		PM2->setText(QString::number(b)+" %");
+		doc->ActPage->ItemTextBrushS(b);
+		doc->CurrTextFillSh = b;
+		}
+	else
+		{
+		PM1->setText(QString::number(b)+" %");
+		doc->ActPage->ItemTextPenS(b);
+		doc->CurrTextStrokeSh = b;
+		}
+	emit DocChanged();
+}
+
+void Mpalette::setActFarben(QString p, QString b, int shp, int shb)
+{
+	uint a;
+	CListe::Iterator it;
+	int c = 1;
+	for (a = 0; a < TxFillSh->count(); ++a)
+		{
+		TxFillSh->setItemChecked(TxFillSh->idAt(a), false);
+		}
+	for (a = 0; a < TxFillSh->count(); ++a)
+		{
+		TxStrokeSh->setItemChecked(TxStrokeSh->idAt(a), false);
+		}
+	if ((shb % 10) == 0)
+		TxFillSh->setItemChecked(TxFillSh->idAt(shb/10+1), true);
+	else
+		TxFillSh->setItemChecked(TxFillSh->idAt(0), true);
+	PM2->setText(QString::number(shb)+" %");
+	if ((shp % 10) == 0)
+		TxStrokeSh->setItemChecked(TxStrokeSh->idAt(shp/10+1), true);
+	else
+		TxStrokeSh->setItemChecked(TxStrokeSh->idAt(0), true);
+	PM1->setText(QString::number(shp)+" %");
+	if ((b != "None") && (b != ""))
+		{
+		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+			{
+			if (it.key() == b)
+				break;
+			c++;
+			}
+		}
+	TxFill->setCurrentItem(c);
+	c = 1;
+	if ((p != "None") && (p != ""))
+		{
+		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+			{
+			if (it.key() == p)
+				break;
+			c++;
+			}
+		}
+	TxStroke->setCurrentItem(c);
+}
+
+void Mpalette::handleLock()
+{
+	if ((HaveDoc) && (HaveItem))
+  	doc->ActPage->ToggleLock();
+}
+
+void Mpalette::handlePrint()
+{
+	if ((HaveDoc) && (HaveItem))
+		{
+		CurItem->isPrintable = !NoPrint->isOn();
+		emit DocChanged();
+		}
+}
+
+void Mpalette::ToggleFlow()
+{
+	if (Textflow->isChecked())
+		Textflow2->setEnabled(true);
+	else
+		Textflow2->setEnabled(false);
+}
+
+void Mpalette::handlePathLine()
+{
+	if ((HaveDoc) && (HaveItem))
+		{
+		CurItem->PoShow = NormText2->isChecked();
+		doc->ActPage->RefreshItem(CurItem);
+		emit DocChanged();
+		}
+}
+
+void Mpalette::handlePathDist()
+{
+	if ((HaveDoc) && (HaveItem))
+		{
+		CurItem->Extra = static_cast<float>(Dist->value()) / 10;
+		doc->ActPage->UpdatePolyClip(CurItem);
+		doc->ActPage->AdjustItemSize(CurItem);
+		doc->ActPage->RefreshItem(CurItem);
+		emit DocChanged();
+		}
+}
+
+void Mpalette::handlePathOffs()
+{
+	if ((HaveDoc) && (HaveItem))
+		{
+		CurItem->BaseOffs = static_cast<float>(-LineW->value()) / 10;
+		doc->ActPage->UpdatePolyClip(CurItem);
+		doc->ActPage->AdjustItemSize(CurItem);
+		doc->ActPage->RefreshItem(CurItem);
+		emit DocChanged();
+		}
+}
+
+void Mpalette::NewName()
+{
+	QString NameOld = CurItem->AnName;
+	QString NameNew = NameEdit->text();
+	bool found = false;
+	ScribusView* view = (ScribusView*)doc->ActPage->Anz;
+	for (uint a = 0; a < view->Pages.count(); ++a)
+		{
+		for (uint b = 0; b < view->Pages.at(a)->Items.count(); ++b)
+			{
+			if ((NameNew == view->Pages.at(a)->Items.at(b)->AnName) && (view->Pages.at(a)->Items.at(b) != CurItem))
+				{
+				found = true;
+				break;
+				}
+			}
+		if (found)
+			break;
+		}
+	if (found)
+		{
+		QMessageBox::warning(this, tr("Warning"), tr("Name \"%1\" isn't unique.\nPlease choose another.").arg(NameNew), tr("OK"));
+		NameEdit->setText(NameOld);
+		NameEdit->setFocus();
+		}
+	else
+		CurItem->AnName = NameEdit->text();
+}
+
+void Mpalette::fillLangCombo(QMap<QString,QString> Sprachen)
+{
+	LangCombo->clear();
+	QMap<QString,QString>::Iterator it;
+	for (it = Sprachen.begin(); it != Sprachen.end(); ++it)
+		{
+		LangCombo->insertItem(it.key());
+		}
+}
+
+void Mpalette::NewLanguage()
+{
+	if ((HaveDoc) && (HaveItem))
+		{
+		CurItem->Language = LangCombo->currentText();
+		emit DocChanged();
+		}
 }

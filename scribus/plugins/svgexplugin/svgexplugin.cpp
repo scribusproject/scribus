@@ -20,6 +20,9 @@
 #include "customfdialog.h"
 #include <qfile.h>
 #include <qtextstream.h>
+#ifdef HAVE_LIBZ
+#include <zlib.h>
+#endif
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern QString Path2Relative(QString Path);
 extern QImage LoadPict(QString fn);
@@ -38,7 +41,11 @@ void Run(QWidget *d, ScribusApp *plug)
 {
 	if (plug->HaveDoc)
 		{
-		QString fileName = plug->CFileDialog(QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"),"", false, false);
+#ifdef HAVE_LIBZ
+		QString fileName = plug->CFileDialog(QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);; All Files (*)"),"", false, false, true);
+#else
+		QString fileName = plug->CFileDialog(QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);; All Files (*)"),"", false, false);
+#endif
 		if (!fileName.isEmpty())
 			{
   		QFile f(fileName);
@@ -63,12 +70,14 @@ void Run(QWidget *d, ScribusApp *plug)
 SVGExPlug::SVGExPlug( QWidget* parent, ScribusApp *plug, QString fName )
 {
 	QDomDocument docu("svgdoc");
-	QString vo = "<?xml version=\"1.0\" standalone=\"yes\"?>\n";
+	QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	QString st = "<svg></svg>";
 	docu.setContent(st);
 	QDomElement elem = docu.documentElement();
 	elem.setAttribute("width", plug->doc->PageB);
 	elem.setAttribute("height", plug->doc->PageH);
+	elem.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+	elem.setAttribute("xmlns:xlink","http://www.w3.org/1999/xlink"); 
 	Page *Seite;
 	GradCount = 0;
 	ClipCount = 0;
@@ -76,14 +85,38 @@ SVGExPlug::SVGExPlug( QWidget* parent, ScribusApp *plug, QString fName )
 	ProcessPage(plug, Seite, &docu, &elem);
 	Seite = plug->doc->ActPage;
 	ProcessPage(plug, Seite, &docu, &elem);
+#ifdef HAVE_LIBZ
+	if(fName.right(2) == "gz")
+		{
+// zipped saving
+		gzFile gzDoc = gzopen(fName.latin1(),"wb");
+		if(gzDoc == NULL)
+			return;
+		gzputs(gzDoc, vo);
+		gzputs(gzDoc, docu.toString().utf8());
+		gzclose(gzDoc);
+		}
+	else
+		{
+		QFile f(fName);
+		if(!f.open(IO_WriteOnly))
+			return;
+		QTextStream s(&f);
+		QString wr = vo;
+		wr += docu.toString().utf8();
+		s.writeRawBytes(wr, wr.length());
+		f.close();
+		}
+#else
 	QFile f(fName);
 	if(!f.open(IO_WriteOnly))
 		return;
 	QTextStream s(&f);
-	s.setEncoding( QTextStream::UnicodeUTF8 );
-	s<<vo;
-	s<<docu.toString();
+	QString wr = vo;
+	wr += docu.toString().utf8();
+	s.writeRawBytes(wr, wr.length());
 	f.close();
+#endif
 }
 
 
@@ -182,8 +215,8 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 				if (Item->Pcolor2 != "None")
 					{
 					stroke = "stroke:"+SetFarbe(Item->Pcolor2, Item->Shade2, plug)+";";
-					if (Item->Transparency != 0)
-						stroke += " stroke-opacity:"+FToStr(1.0 - Item->Transparency)+";";
+					if (Item->TranspStroke != 0)
+						stroke += " stroke-opacity:"+FToStr(1.0 - Item->TranspStroke)+";";
 					} 
 				else
 					stroke = "stroke:none;";
@@ -308,15 +341,19 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							img.save(fi.baseName()+".png", "PNG");
 							ob = docu->createElement("image");
 							ob.setAttribute("clip-path", "url(#"+Clipi+IToStr(ClipCount)+")");
-							ob.setAttribute("transform", "scale("+FToStr(Item->LocalScX)+", "+FToStr(Item->LocalScY)+") translate("+FToStr(Item->LocalX)+", "+FToStr(Item->LocalY)+")");
 							ob.setAttribute("xlink:href", fi.baseName()+".png");
+							ob.setAttribute("x", "0");
+							ob.setAttribute("y", "0");
+							ob.setAttribute("width", FToStr(Item->Width));
+							ob.setAttribute("height", FToStr(Item->Height));
 							ClipCount++;
 							gr.appendChild(ob);
 							}
 						if (Item->NamedLStyle == "")
 							{
 							ob = docu->createElement("path");
-							ob.setAttribute("d", SetClipPath(Item));
+							ob.setAttribute("d", SetClipPath(Item)+"Z");
+							ob.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
 							}
 						else
 							{
@@ -324,8 +361,8 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							for (int it = ml.size()-1; it > -1; it--)
 								{
 								ob = docu->createElement("path");
-								ob.setAttribute("d", SetClipPath(Item));
-								ob.setAttribute("style", GetMultiStroke(plug, &ml[it], Item));
+								ob.setAttribute("d", SetClipPath(Item)+"Z");
+								ob.setAttribute("style", "fill:none; "+GetMultiStroke(plug, &ml[it], Item));
 								gr.appendChild(ob);
 								}
 							}
@@ -497,16 +534,20 @@ QString SVGExPlug::IToStr(int c)
 
 void SVGExPlug::SetTextProps(QDomElement *tp, struct Pti *hl, ScribusApp *plug)
 {
-	int chst;
+	int chst = hl->cstyle & 127;
 	if (hl->ccolor != "None")
 		tp->setAttribute("fill", SetFarbe(hl->ccolor, hl->cshade, plug));
 	else
 		tp->setAttribute("fill", "none");
+	if ((hl->cstroke != "None") && (chst & 4))
+		{
+		tp->setAttribute("stroke", SetFarbe(hl->cstroke, hl->cshade2, plug));
+		tp->setAttribute("stroke-width", (*plug->doc->AllFonts)[hl->cfont]->strokeWidth * hl->csize);
+		}
+	else
+		tp->setAttribute("stroke", "none");
 	tp->setAttribute("font-size", hl->csize);
-	QStringList wt = QStringList::split(" ",hl->cfont);
-	tp->setAttribute("font-family", wt[0]);
-//	tp->setAttribute("font-family", plug->doc->UsedFonts[hl->cfont].family());
-	chst = hl->cstyle & 127;
+	tp->setAttribute("font-family", (*plug->doc->AllFonts)[hl->cfont]->Family);
 	if (chst != 0)
 		{
 		if (chst & 64)
@@ -517,8 +558,6 @@ void SVGExPlug::SetTextProps(QDomElement *tp, struct Pti *hl, ScribusApp *plug)
 			tp->setAttribute("text-decoration", "line-through");
 		if (chst & 8)
 			tp->setAttribute("text-decoration", "underline");
-		if (chst & 4)
-			tp->setAttribute("font-style", "italic");
 		}
 }
 

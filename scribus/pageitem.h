@@ -24,10 +24,10 @@
 #include <qptrlist.h>
 #include <qimage.h>
 #include <qpixmap.h>
-#include <qfont.h>
 #include <qvaluestack.h>
 #include <qvaluelist.h>
 #include "scribusdoc.h"
+#include "scpainter.h"
 /**
   *@author Franz Schmid
   */
@@ -38,22 +38,27 @@ public:
 	PageItem(Page* pa, int art, float x, float y, float w, float h, float w2, QString fill, QString outline, ScribusDoc *doc);
 	~PageItem() {};
 	struct ZZ { QString Zeich;
-					 QColor Farb;
-					 QFont Zsatz;
+					 QString Farb;
+					 QString Farb2;
+					 int shade;
+					 int shade2;
 					 QString ZFo;
 					 float xco;
 					 float yco;
 					 bool Sele;
 					 int Siz;
+				   int Style;
 					 float wide;
+					 float kern;
+					 int scale;
 				  };
   /** Zeichnet das Item */
   void paintObj(QRect e=QRect(), QPixmap *ppX = 0);
+  void DrawObj(ScPainter *p, QRect e);
   void CopyIt(struct CLBuf *Buffer);
-	void SetZeichAttr(QPainter *p, QFont *ffo, struct Pti *hl, int *chs, QString *chx);
+	void SetZeichAttr(struct Pti *hl, int *chs, QString *chx);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
-	void DrawZeichen(QPainter *p, struct Pti *hl);
-	void DrawZeichen(QPainter *p, struct ZZ *hl);
+	void DrawZeichenS(ScPainter *p, struct ZZ *hl);
 	void DrawPoly(QPainter *p, QPointArray pts, QColor BackF, bool bitm = false);
 	void DrawPolyL(QPainter *p, QPointArray pts);
 	QString ExpandToken(uint base);
@@ -90,6 +95,12 @@ public:
   QString Pcolor2;
   /** Abstufung fuer Zeichenfarbe */
   int Shade2;
+	QString TxtStroke;
+	QString TxtFill;
+	int ShTxtStroke;
+	int ShTxtFill;
+	int TxtScale;
+	int TxTStyle;
   /** Strichstaerke */
   float Pwidth;
   /** Linienart */
@@ -115,7 +126,6 @@ public:
   Page *OwnPage;
   /** Darzustellendes Bild */
   QImage pixm;
-  QImage Gpixm;
   /** Dateiname des Bildes */
   QString Pfile;
   QString Pfile2;
@@ -233,15 +243,17 @@ public:
   float OldH2;
   bool Sizing;
   bool toPixmap;
-  float DevRes;
-  int DevResX;
-  int DevResY;
 	int LayerNr;
 	bool ScaleType;
 	bool AspectRatio;
 	float Transparency;
+	float TranspStroke;
   QValueStack<int> Groups;
 	bool InvPict;
+	QValueList<float> DashValues;
+	float DashOffset;
+	VGradient fill_gradient;
+	QString Language;
 };
 
 #endif

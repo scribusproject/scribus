@@ -12,7 +12,6 @@
 #include <cmath>
 #include <cstdlib>
 #include "missing.h"
-#include "kimageeffect.h"
 extern float QStoFloat(QString in);
 extern int QStoInt(QString in);
 extern QString GetAttr(QDomElement *el, QString at, QString def="0");
@@ -40,18 +39,18 @@ QPixmap ScPreview::createPreview(QString data)
 	QMap<QString,QFont> DoFonts2;
 	QString tmpf, tmpx, tmp2, tmp3;
 	int x, y;
-	float xf, yf;
+	float xf, yf, asce;
 	QPainter pm;
 	QPainter pb;
 	QPainter pd;
 	QBitmap bmd;
 	QPixmap pmd;
-	QPointArray Bez(4);
-	int desc, asce, chs;
+	QImage ip2;
+	FPoint gv;
+	int chs;
 	QPointArray cl;
 	QColor tmpfa;
 	QString chx;
-	QFont ffo;
 	uint a, zae;
 	float CurY, EndX, CurX, wide, rota, wid;
 	QDomDocument docu("scridoc");
@@ -68,11 +67,11 @@ QPixmap ScPreview::createPreview(QString data)
 	float GrH = QStoFloat(elem.attribute("H"));
 	float pmmax = Prefs->PSize / QMAX(GrW+30, GrH+30);
 	QPixmap tmp = QPixmap(static_cast<int>(GrW)+30, static_cast<int>(GrH)+30);
-	tmp.fill(Qt::white);
-	pm.begin(&tmp);
-	pm.translate(15,15);
+	ScPainter *pS = new ScPainter(&tmp, tmp.width(), tmp.height());
+	pS->translate(15,15);
 	QDomNode DOC=elem.firstChild();
 	DoFonts.clear();
+	FT_Init_FreeType( &library );
 	while(!DOC.isNull())
 		{
 		QDomElement pg=DOC.toElement();
@@ -94,6 +93,13 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 			fo = Prefs->AvailFonts[tmpf]->Font;
 			fo.setPointSize(12);
+			if (!DoFonts2.contains(tmpf))
+				{
+				FT_Face      face;
+				FT_New_Face( library, Prefs->AvailFonts[tmpf]->Datei, 0, &face );
+				Prefs->AvailFonts[tmpf]->ReadMetrics();
+				Prefs->AvailFonts[tmpf]->CharWidth[13] = 0;
+				}
 			DoFonts[GetAttr(&pg, "NAME")] = tmpf;
 			DoFonts2[GetAttr(&pg, "NAME")] = fo;
 			}
@@ -152,6 +158,12 @@ QPixmap ScPreview::createPreview(QString data)
 				OB.NamedLStyle = "";
 			OB.Shade = QStoInt(pg.attribute("SHADE"));
 			OB.Shade2 = QStoInt(pg.attribute("SHADE2"));
+			OB.TxtFill = pg.attribute("TXTFILL", "Black");
+			OB.TxtStroke = pg.attribute("TXTSTROKE", "None");
+			OB.ShTxtFill = QStoInt(pg.attribute("TXTFILLSH", "100"));
+			OB.ShTxtStroke = QStoInt(pg.attribute("TXTSTRSH", "100"));
+			OB.TxtScale = QStoInt(pg.attribute("TXTSCALE", "100"));
+			OB.TxTStyle = QStoInt(pg.attribute("TXTSTYLE", "0"));
 			OB.GrColor = pg.attribute("GRCOLOR","");
 			OB.GrColor2 = pg.attribute("GRCOLOR2","");
 			OB.GrShade = QStoInt(pg.attribute("GRSHADE","100"));
@@ -202,6 +214,10 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.Reverse = static_cast<bool>(QStoInt(pg.attribute("REVERS","0")));
 			OB.InvPict = static_cast<bool>(QStoInt(pg.attribute("INVERS","0")));
 			OB.Transparency = QStoFloat(pg.attribute("TransValue","0.0"));
+			if (pg.hasAttribute("TransValueS"))
+				OB.TranspStroke = QStoFloat(pg.attribute("TransValueS","0.0"));
+			else
+				OB.TranspStroke = OB.Transparency;
 			if (pg.hasAttribute("NUMCLIP"))
 				{
 				OB.Clip.resize(pg.attribute("NUMCLIP").toUInt());
@@ -249,7 +265,10 @@ QPixmap ScPreview::createPreview(QString data)
 						tmp3 += it.attribute("CEXTRA") + "\t";
 						tmp3 += it.attribute("CSHADE") + "\t";
 						tmp3 += it.attribute("CSTYLE") + "\t";
-						tmp3 += "0\n";
+						tmp3 += "0\t";
+						tmp3 += it.attribute("CSTROKE","None") + "\t";
+						tmp3 += it.attribute("CSHADE2","100") + "\t";
+						tmp3 += it.attribute("CSCALE","100") + "\n";
 						for (uint cxx=0; cxx<tmp2.length(); cxx++)
 							{
 							tmpx += tmp2.at(cxx)+tmp3;
@@ -264,7 +283,10 @@ QPixmap ScPreview::createPreview(QString data)
 						tmpx += it.attribute("CEXTRA") + "\t";
 						tmpx += it.attribute("CSHADE") + "\t";
 						tmpx += it.attribute("CSTYLE") + "\t";
-						tmpx += "0\n";
+						tmpx += "0\t";
+						tmpx += it.attribute("CSTROKE","None") + "\t";
+						tmpx += it.attribute("CSHADE2","100") + "\t";
+						tmpx += it.attribute("CSCALE","100") + "\n";
 						}
 					IT=IT.nextSibling();
 				}
@@ -307,6 +329,21 @@ QPixmap ScPreview::createPreview(QString data)
 						hg->cab = 0;
 					else
 						hg->cab = (*it).toInt();
+					it++;
+					if (it == NULL)
+						hg->cstroke = "None";
+					else
+						hg->cstroke = *it;
+					it++;
+					if (it == NULL)
+						hg->cshade2 = 100;
+					else
+						hg->cshade2 = (*it).toInt();
+					it++;
+					if (it == NULL)
+						hg->cscale = 100;
+					else
+						hg->cscale = (*it).toInt();
 					hg->xp = 0;
 					hg->yp = 0;
 					hg->PRot = 0;
@@ -331,29 +368,92 @@ QPixmap ScPreview::createPreview(QString data)
 				OB.Clip.setPoints(4, -1,-1, static_cast<int>(OB.Width+1),-1, static_cast<int>(OB.Width+1), static_cast<int>(OB.Height+1), -1, static_cast<int>(OB.Height+1));
 				}
 			OB.LayerNr = -1;
-			pm.save();
-			pm.translate(static_cast<int>(OB.Xpos), static_cast<int>(OB.Ypos));
-			pm.rotate(static_cast<double>(OB.Rot));
+			pS->save();
+			pS->translate(OB.Xpos, OB.Ypos);
+			pS->rotate(static_cast<double>(OB.Rot));
 			if (OB.Pcolor != "None")
 				{
 				SetFarbe(&tmpfa, OB.Pcolor, OB.Shade);
-				pm.setBrush(tmpfa);
-				pm.setBackgroundColor(tmpfa);
+				pS->setBrush(tmpfa);
+				pS->setFillMode(1);
 				}
 			else
-				pm.setBrush(Qt::NoBrush);
+				pS->setFillMode(0);
+			if (OB.GrType != 0)
+				{
+				pS->setFillMode(2);
+				pS->fill_gradient.clearStops();
+				if (OB.GrType == 5)
+					{
+					if ((OB.GrColor != "None") && (OB.GrColor != ""))
+						SetFarbe(&tmpfa, OB.GrColor, OB.GrShade);
+					pS->fill_gradient.addStop(tmpfa, 0.0, 0.5, 1.0);
+					if ((OB.GrColor2 != "None") && (OB.GrColor2 != ""))
+						SetFarbe(&tmpfa, OB.GrColor2, OB.GrShade2);
+					pS->fill_gradient.addStop(tmpfa, 1.0, 0.5, 1.0);
+					}
+				else
+					{
+					if ((OB.GrColor2 != "None") && (OB.GrColor2 != ""))
+						SetFarbe(&tmpfa, OB.GrColor2, OB.GrShade2);
+					pS->fill_gradient.addStop(tmpfa, 0.0, 0.5, 1.0);
+					if ((OB.GrColor != "None") && (OB.GrColor != ""))
+						SetFarbe(&tmpfa, OB.GrColor, OB.GrShade);
+					pS->fill_gradient.addStop(tmpfa, 1.0, 0.5, 1.0);
+					}
+				QWMatrix grm;
+				grm.rotate(OB.Rot);
+				FPointArray gra;
+				switch (OB.GrType)
+					{
+					case 1:
+						gra.setPoints(2, 0, 0, OB.Width, 0);
+						gra.map(grm);
+						pS->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+						break;
+					case 2:
+						gra.setPoints(2, 0, 0, OB.Height, 0);
+						grm.rotate(90);
+						gra.map(grm);
+						pS->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+						break;
+					case 3:
+						gra.setPoints(2, 0, 0, OB.Width, OB.Height);
+						gra.map(grm);
+						pS->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+						break;
+					case 4:
+						gra.setPoints(2, 0, OB.Height, OB.Width, 0);
+						gra.map(grm);
+						pS->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+						break;
+					case 5:
+						if (OB.Width > OB.Height)
+							gv = FPoint(OB.Width, OB.Height / 2.0);
+						else
+							gv = FPoint(OB.Width / 2.0, OB.Height);
+						pS->setGradient(VGradient::radial, FPoint(OB.Width / 2.0,OB.Height / 2.0), gv, FPoint(OB.Width / 2.0,OB.Height / 2.0));
+						break;
+					}
+				}
 			if (OB.Pcolor2 != "None")
 				{
 				SetFarbe(&tmpfa, OB.Pcolor2, OB.Shade2);
-				pm.setPen(QPen(tmpfa, static_cast<int>(OB.Pwidth), Qt::PenStyle(OB.PLineArt), Qt::PenCapStyle(OB.PLineEnd), Qt::PenJoinStyle(OB.PLineJoin)));
+				if ((OB.Pwidth == 0) && (OB.PType != 5))
+					pS->setLineWidth(0);
+				else
+					pS->setPen(tmpfa, OB.Pwidth, Qt::PenStyle(OB.PLineArt), Qt::PenCapStyle(OB.PLineEnd), Qt::PenJoinStyle(OB.PLineJoin));
 				}
 			else
-				pm.setPen(Qt::NoPen);
+				pS->setLineWidth(0);
+			pS->setBrushOpacity(1.0 - OB.Transparency);
+			pS->setPenOpacity(1.0 - OB.TranspStroke);
+			bool doStroke;
+			int mode;
+			doStroke = true;
 			switch (OB.PType)
 				{
 				case 2:
-//					pm.setClipRegion(QRegion(pm.xForm(OB.Clip)));
-					pm.setClipRegion(QRegion(pm.xForm(QRect(0, 0, static_cast<int>(OB.Width), static_cast<int>(OB.Height)))));
 					bmd = QBitmap(static_cast<int>(OB.Width), static_cast<int>(OB.Height));
 					bmd.fill(Qt::color0);
 					pb.begin(&bmd);
@@ -375,6 +475,14 @@ QPixmap ScPreview::createPreview(QString data)
 						if (fi.exists())
 							{
 							pd.save();
+							if ((OB.Pcolor != "None") || (OB.GrType != 0))
+								{
+								pd.setPen(Qt::NoPen);
+								SetFarbe(&tmpfa, OB.Pcolor, OB.Shade);
+								pd.setBrush(tmpfa);
+								if (OB.GrType == 0)
+									DrawPoly(&pd, OB.Clip, pd.brush().color(), &OB);
+								}
 							if (OB.flippedH % 2 != 0)
 								{
 								pd.translate(static_cast<int>(OB.Width), 0);
@@ -401,222 +509,115 @@ QPixmap ScPreview::createPreview(QString data)
 							}
 						}
 					pmd.setMask(bmd);
-					pm.drawPixmap(0, 0, pmd);
-					if ((OB.Pcolor2 != "None") || (OB.NamedLStyle != ""))
-						{
-						pm.setBrush(Qt::NoBrush);
-						DrawPolyL(&pm, OB.Clip, &OB);
-						}
+					ip2 = pmd.convertToImage();
+					pS->drawImage(ip2);
 					break;
 				case 4:
 					if (Ptexti.count() != 0)
 						{
-//						pm.setClipRegion(QRegion(pm.xForm(OB.Clip)));
-						pm.setClipRegion(QRegion(pm.xForm(QRect(0, 0, static_cast<int>(OB.Width), static_cast<int>(OB.Height)))));
+						pS->save();
 						if (OB.Pcolor != "None")
 							{
-							pm.setPen(Qt::NoPen);
-							DrawPoly(&pm, OB.Clip, pm.brush().color(), &OB);
+							pS->setupPolygon(&OB.PoLine);
+							pS->drawPolygon();
 							}
 						if (OB.flippedH % 2 != 0)
 							{
-							pm.translate(static_cast<int>(OB.Width), 0);
-							pm.scale(-1, 1);
+							pS->translate(OB.Width, 0);
+							pS->scale(-1, 1);
 							}
 						if (OB.flippedV % 2 != 0)
 							{
-							pm.translate(0, static_cast<int>(OB.Height));
-							pm.scale(1, -1);
+							pS->translate(0, OB.Height);
+							pS->scale(1, -1);
 							}
 						for (uint a = 0; a < Ptexti.count(); a++)
 							{
 							hl = Ptexti.at(a);
 							if (hl->ch == QChar(13))
 								continue;
-							ffo = DoFonts2[hl->cfont];
-							if (hl->ccolor != "None")
-								{
-								SetFarbe(&tmpfa, hl->ccolor, hl->cshade);
-								pm.setPen(tmpfa);
-								}
-							pm.setFont(ffo);
 							chx = hl->ch;
-							ffo.setPointSize(hl->csize);
+							chs = hl->csize;
 							if (hl->cstyle != 0)
 								{
-								if (hl->cstyle & 32)
-									ffo.setBold(true);
-								if (hl->cstyle & 16)
-									ffo.setStrikeOut(true);
-								if (hl->cstyle & 8)
-									ffo.setUnderline(true);
-								if (hl->cstyle & 4)
-									ffo.setItalic(true);
 								if (hl->cstyle & 1)
-									ffo.setPointSize(static_cast<int>(hl->csize * Prefs->DVHochSc / 100));
+									chs = static_cast<int>(hl->csize * Prefs->DVHochSc / 100);
 								if (hl->cstyle & 2)
-									ffo.setPointSize(static_cast<int>(hl->csize * Prefs->DVTiefSc / 100));
+									chs = static_cast<int>(hl->csize * Prefs->DVTiefSc / 100);
 								if (hl->cstyle & 64)
 									{
 									if (chx.upper() != chx)
-										ffo.setPointSize(static_cast<int>(hl->csize * Prefs->DVKapit / 100));
+										{
+										chs = static_cast<int>(hl->csize * Prefs->DVKapit / 100);
+										chx = chx.upper();
+										}
 									}
-								pm.setFont(ffo);
 								}
-							else
+							mode = 0;
+							if (hl->ccolor != "None")
 								{
-								ffo.setPointSize(hl->csize);
-								pm.setFont(ffo);
+								SetFarbe(&tmpfa, hl->ccolor, hl->cshade);
+								pS->setBrush(tmpfa);
+								mode = 2;
 								}
-							pm.drawText(qRound(hl->xp), qRound(hl->yp), hl->ch);
+							if (hl->cstroke != "None")
+								{
+								SetFarbe(&tmpfa, hl->cstroke, hl->cshade2);
+								pS->setPen(tmpfa, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+								mode += 1;
+								}
+							DrawZeichenS(pS, hl->xp, hl->yp, chx, hl->cfont, OB.Reverse, hl->cstyle, mode, chs);
 							}
+						pS->restore();
 						}
 					break;
 				case 5:
 					if (OB.NamedLStyle == "")
-						pm.drawLine(0, 0, qRound(OB.Width), 0);
+						pS->drawLine(FPoint(0, 0), FPoint(OB.Width, 0));
 					else
 						{
 						multiLine ml = MLineStyles[OB.NamedLStyle];
 						for (int it = ml.size()-1; it > -1; it--)
 							{
 							SetFarbe(&tmpfa, ml[it].Color, ml[it].Shade);
-							pm.setPen(QPen(tmpfa,
+							pS->setPen(tmpfa,
 											 QMAX(static_cast<int>(ml[it].Width), 1),
 											 static_cast<Qt::PenStyle>(ml[it].Dash),
 											 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
-											 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
-							pm.drawLine(0, 0, qRound(OB.Width), 0);
+											 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+							pS->drawLine(FPoint(0, 0), FPoint(OB.Width, 0));
 							}
 						}
+						doStroke = false;
 					break;
 				case 1:
 				case 3:
 				case 6:
-					if (OB.GrType == 0)
-						{
-						DrawPoly(&pm, OB.Clip, pm.brush().color(), &OB);
-						pm.setBrush(Qt::NoBrush);
-						DrawPolyL(&pm, OB.Clip, &OB);
-						}
-					else
-						{ // Insert Code for Gradients here
-						KImageEffect::GradientType tt = KImageEffect::HorizontalGradient;
-						QColor co1 = QColor(Qt::black);
-						QColor co2 = QColor(Qt::black);
-						QString col1 = OB.GrColor2;
-						QString col2 = OB.GrColor;
-						int sh1 = OB.GrShade2;
-						int sh2 = OB.GrShade;
-						int typ = OB.GrType;
-						if ((col1 != "None") && (col1 != ""))
-							SetFarbe(&co1, col1, sh1);
-						if ((col2 != "None") && (col2 != ""))
-							SetFarbe(&co2, col2, sh2);
-						switch (typ)
-							{
-							case 1:
-								tt = KImageEffect::HorizontalGradient;
-								break;
-							case 2:
-								tt = KImageEffect::VerticalGradient;
-								break;
-							case 3:
-								tt = KImageEffect::DiagonalGradient;
-								break;
-							case 4:
-								tt = KImageEffect::CrossDiagonalGradient;
-								break;
-							case 5:
-								tt = KImageEffect::EllipticGradient;
-								break;
-							default:
-								break;
-							}
-						QImage pixm = KImageEffect::gradient(QSize(static_cast<int>(OB.Width),static_cast<int>(OB.Height)), co1, co2, tt, 0);
-						QBitmap bmd = QBitmap(static_cast<int>(OB.Width), static_cast<int>(OB.Height));
-						bmd.fill(Qt::color0);
-						QPainter pb;
-						pb.begin(&bmd);
-						pb.setBrush(Qt::color1);
-						pb.setPen(QPen(Qt::color1, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-						DrawPoly(&pb, OB.Clip, pb.brush().color(), &OB, true);
-						pb.end();
-						QPixmap pmd = QPixmap(static_cast<int>(OB.Width), static_cast<int>(OB.Height));
-						pmd.fill();
-						QPainter pd;
-						pd.begin(&pmd);
-						if (!pixm.isNull())
-							pd.drawImage(0, 0, pixm);
-						pd.end();
-						pmd.setMask(bmd);
-						pm.drawPixmap(0, 0, pmd);
-						pm.setBrush(Qt::NoBrush);
-						DrawPolyL(&pm, OB.Clip, &OB);
-						}
+					pS->setupPolygon(&OB.PoLine);
+					pS->drawPolygon();
 					break;
 				case 7:
-					if (OB.PoLine.size() > 3)
+					pS->setupPolygon(&OB.PoLine);
+					if (OB.NamedLStyle == "")
+						pS->drawPolyLine();
+					else
 						{
-						for (uint poi=0; poi<OB.PoLine.size()-3; poi += 4)
+						multiLine ml = MLineStyles[OB.NamedLStyle];
+						for (int it = ml.size()-1; it > -1; it--)
 							{
-							if (OB.PoLine.point(poi).x() > 900000)
-								continue;
-							Bez.setPoint(0, OB.PoLine.pointQ(poi));
-							Bez.setPoint(1, OB.PoLine.pointQ(poi+1));
-							Bez.setPoint(2, OB.PoLine.pointQ(poi+3));
-							Bez.setPoint(3, OB.PoLine.pointQ(poi+2));
-							if (OB.NamedLStyle == "")
-								pm.drawCubicBezier(Bez);
-							else
-								{
-								multiLine ml = MLineStyles[OB.NamedLStyle];
-								for (int it = ml.size()-1; it > -1; it--)
-									{
-									SetFarbe(&tmpfa, ml[it].Color, ml[it].Shade);
-									pm.setPen(QPen(tmpfa,
-													 QMAX(static_cast<int>(ml[it].Width), 1),
-													 static_cast<Qt::PenStyle>(ml[it].Dash),
-													 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
-											 		 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
-									pm.drawCubicBezier(Bez);
-									}
-								}
+							SetFarbe(&tmpfa, ml[it].Color, ml[it].Shade);
+							pS->setPen(tmpfa, ml[it].Width,
+									 			static_cast<Qt::PenStyle>(ml[it].Dash),
+									 			static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
+									 			static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+							pS->drawPolyLine();
 							}
 						}
+					doStroke = false;
 					break;
 				case 8:
-					if (OB.PoLine.size() > 3)
-						{
-						if (OB.PoShow)
-							{
-							for (uint poi=0; poi<OB.PoLine.size()-3; poi += 4)
-								{
-								if (OB.PoLine.point(poi).x() > 900000)
-									continue;
-								Bez.setPoint(0, OB.PoLine.pointQ(poi));
-								Bez.setPoint(1, OB.PoLine.pointQ(poi+1));
-								Bez.setPoint(2, OB.PoLine.pointQ(poi+3));
-								Bez.setPoint(3, OB.PoLine.pointQ(poi+2));
-								if (OB.NamedLStyle == "")
-									pm.drawCubicBezier(Bez);
-								else
-									{
-									multiLine ml = MLineStyles[OB.NamedLStyle];
-									for (int it = ml.size()-1; it > -1; it--)
-										{
-										SetFarbe(&tmpfa, ml[it].Color, ml[it].Shade);
-										pm.setPen(QPen(tmpfa,
-													 	QMAX(static_cast<int>(ml[it].Width), 1),
-													 	static_cast<Qt::PenStyle>(ml[it].Dash),
-													 	static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
-											 		 	static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
-										pm.drawCubicBezier(Bez);
-										}
-									}
-								}
-							}
-						}
+					if (!OB.PoShow)
+						doStroke = false;
 					cl = FlattenPath(OB.PoLine, Segments);
 					CurX = OB.Extra;
 					if (Ptexti.count() != 0)
@@ -638,50 +639,36 @@ QPixmap ScPreview::createPreview(QString data)
 						chx = hl->ch;
 						if ((chx == QChar(30)) || (chx == QChar(13)))
 							continue;
-						ffo = DoFonts2[hl->cfont];
 						if (hl->ccolor != "None")
 							{
 							SetFarbe(&tmpfa, hl->ccolor, hl->cshade);
-							pm.setPen(tmpfa);
+							pS->setPen(tmpfa);
 							}
-						else
-							pm.setPen(Qt::NoPen);
 						chs = hl->csize;
-						ffo.setPointSize(hl->csize);
-						pm.setFont(ffo);
-						desc = pm.fontMetrics().descent();
-						asce = pm.fontMetrics().ascent();
+						asce = Prefs->AvailFonts[hl->cfont]->numAscent * hl->csize;
 						int chst = hl->cstyle & 127;
 						if (chst != 0)
 							{
-							if (chst & 16)
-								ffo.setStrikeOut(true);
-							if (chst & 8)
-								ffo.setUnderline(true);
 							if (chst & 1)
 								{
 								CurY -= asce * Prefs->DVHoch / 100;
-								ffo.setPointSize(static_cast<int>(hl->csize * Prefs->DVHochSc / 100));
 								chs = static_cast<int>(hl->csize * Prefs->DVHochSc / 100);
 								}
 							if (chst & 2)
 								{
 								CurY += asce * Prefs->DVTief / 100;
-								ffo.setPointSize(static_cast<int>(hl->csize * Prefs->DVTiefSc / 100));
 								chs = static_cast<int>(hl->csize * Prefs->DVTiefSc / 100);
 								}
 							if (chst & 64)
 								{
 								if (chx.upper() != chx)
 									{
-									ffo.setPointSize(static_cast<int>(hl->csize * Prefs->DVKapit / 100));
 									chs = static_cast<int>(hl->csize * Prefs->DVKapit / 100);
 									chx = chx.upper();
 									}
 								}
 							}
-						pm.setFont(ffo);
-						wide = pm.fontMetrics().width(chx);
+						wide = Prefs->AvailFonts[hl->cfont]->CharWidth[chx[0].unicode()]*chs;
 						if ((CurX+(wide+hl->cextra)/2) >= wid)
 							{
 							if (zae < cl.size()-1)
@@ -708,24 +695,54 @@ QPixmap ScPreview::createPreview(QString data)
 							else
 								goto PfadEnd;
 							}
-						pm.save();
-						pm.translate(cl.point(zae).x(), cl.point(zae).y());
-						pm.rotate(rota);
-						pm.drawText(static_cast<int>(CurX+hl->cextra), static_cast<int>(CurY+OB.BaseOffs), hl->ch);
-						pm.restore();
+						pS->save();
+						pS->translate(cl.point(zae).x(), cl.point(zae).y());
+						pS->rotate(rota);
+						DrawZeichenS(pS, CurX+hl->cextra, CurY+OB.BaseOffs, chx, hl->cfont, OB.Reverse, hl->cstyle, 2, chs);
+						pS->restore();
 						CurX += wide+hl->cextra;
 						}
 PfadEnd:	break;
 				}
-			pm.restore();
+			if (doStroke)
+				{
+				if (OB.Pcolor2 != "None")
+					{
+					SetFarbe(&tmpfa, OB.Pcolor2, OB.Shade2);
+					pS->setPen(tmpfa, OB.Pwidth, Qt::PenStyle(OB.PLineArt), Qt::PenCapStyle(OB.PLineEnd), Qt::PenJoinStyle(OB.PLineJoin));
+//					if (DashValues.count() != 0)
+//						pS->setDash(DashValues, DashOffset);
+					}
+				else
+					pS->setLineWidth(0);
+				pS->setupPolygon(&OB.PoLine);
+				if (OB.NamedLStyle == "")
+					pS->drawPolyLine();
+				else
+					{
+					multiLine ml = MLineStyles[OB.NamedLStyle];
+					for (int it = ml.size()-1; it > -1; it--)
+						{
+						SetFarbe(&tmpfa, ml[it].Color, ml[it].Shade);
+						pS->setPen(tmpfa, ml[it].Width,
+								 			static_cast<Qt::PenStyle>(ml[it].Dash),
+								 			static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
+								 			static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+						pS->drawPolyLine();
+						}
+					}
+				}
+			pS->restore();
 			QDir::setCurrent(CurDirP);
 			}
 		DOC=DOC.nextSibling();
 		}
-	pm.end();
+	pS->end();
 	QImage tmpi1 = tmp.convertToImage();
 	QImage tmpi = tmpi1.smoothScale(static_cast<int>(tmp.width()*pmmax), static_cast<int>(tmp.height()*pmmax));
 	tmp.convertFromImage(tmpi);
+	delete pS;
+	FT_Done_FreeType( library );
 	return tmp;
 }
 
@@ -744,6 +761,73 @@ void ScPreview::SetFarbe(QColor *tmp, QString farbe, int shad)
 		Farben[farbe].getRGBColor().hsv(&h, &s, &v);
 		sneu = s * shad / 100;
 		tmp->setHsv(h, sneu, v);
+		}
+}
+
+void ScPreview::DrawZeichenS(ScPainter *p, float xco, float yco, QString ch, QString ZFo, bool Reverse, int Style, int mod, int Siz)
+{
+	if (mod == 0)
+		return;
+	QString ccx = ch;
+	if (ccx == QChar(29))
+		ccx = " ";
+	float wide;
+	float csi = static_cast<double>(Siz) / 10.0;
+	uint chr = ccx[0].unicode();
+	if (Prefs->AvailFonts[ZFo]->CharWidth.contains(chr))
+		{
+		wide = Prefs->AvailFonts[ZFo]->CharWidth[chr]*Siz;
+		QWMatrix chma;
+		chma.scale(csi, csi);
+		FPointArray gly = Prefs->AvailFonts[ZFo]->GlyphArray[chr].Outlines.copy();
+		if (gly.size() < 4)
+			return;
+		gly.map(chma);
+		chma = QWMatrix();
+		p->setFillMode(1);
+		if (Reverse)
+			{
+			chma.scale(-1, 1);
+			chma.translate(-wide, 0);
+			gly.map(chma);
+			chma = QWMatrix();
+			chma.translate(xco, yco-Siz);
+			}
+		else
+			chma.translate(xco, yco-Siz);
+		gly.map(chma);
+		p->setupPolygon(&gly);
+		p->setFillMode(1);
+		if (mod > 1)
+			p->fillPath();
+		if ((Style & 4) && ((mod % 2) != 0))
+			{
+			p->setLineWidth(Prefs->AvailFonts[ZFo]->strokeWidth * Siz / 2);
+			p->strokePath();
+			}
+		if (Style & 16)
+			{
+			float st = Prefs->AvailFonts[ZFo]->strikeout_pos * Siz;
+			p->setLineWidth(QMAX(Prefs->AvailFonts[ZFo]->strokeWidth * Siz, 1));
+			p->drawLine(FPoint(xco, yco-st), FPoint(xco+wide, yco-st));
+			}
+		if (Style & 8)
+			{
+			float st = Prefs->AvailFonts[ZFo]->underline_pos * Siz;
+			QString dummy;
+			p->setLineWidth(QMAX(Prefs->AvailFonts[ZFo]->strokeWidth * Siz, 1));
+			if (gly.size() > 4)
+				p->drawUnderline(FPoint(xco, yco-st), FPoint(xco+wide, yco-st), false, &dummy);
+			else
+				p->drawLine(FPoint(xco, yco-st), FPoint(xco+wide, yco-st));
+			}
+		}
+	else
+		{
+		p->setLineWidth(1);
+		p->setPen(Qt::black);
+		p->setFillMode(0);
+		p->drawRect(xco, yco-Siz, Siz, Siz);
 		}
 }
 
@@ -780,69 +864,3 @@ void ScPreview::DrawPoly(QPainter *p, QPointArray pts, QColor BackF, struct CLBu
 		p->drawPixmap(0, 0, ppm);
 		}
 }
-
-void ScPreview::DrawPolyL(QPainter *p, QPointArray pts, struct CLBuf *OB)
-{
-	QColor tmp;
-	if (Segments.count() != 0)
-		{
-		QValueList<uint>::Iterator it2;
-		uint FirstVal = 0;
-		for (it2 = Segments.begin(); it2 != Segments.end(); ++it2)
-			{
-			if (OB->NamedLStyle == "")
-				p->drawPolyline(pts, FirstVal, (*it2)-FirstVal);
-			else
-				{
-				multiLine ml = MLineStyles[OB->NamedLStyle];
-				for (int it = ml.size()-1; it > -1; it--)
-					{
-					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-					p->setPen(QPen(tmp,
-									 QMAX(static_cast<int>(ml[it].Width), 1),
-									 static_cast<Qt::PenStyle>(ml[it].Dash),
-									 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
-									 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
-					p->drawPolyline(pts, FirstVal, (*it2)-FirstVal);
-					}
-				}
-			FirstVal = (*it2);
-			}
-		if (OB->NamedLStyle == "")
-			p->drawPolyline(pts, FirstVal);
-		else
-			{
-			multiLine ml = MLineStyles[OB->NamedLStyle];
-			for (int it = ml.size()-1; it > -1; it--)
-				{
-				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-				p->setPen(QPen(tmp,
-								 QMAX(static_cast<int>(ml[it].Width), 1),
-								 static_cast<Qt::PenStyle>(ml[it].Dash),
-								 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
-								 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
-				p->drawPolyline(pts, FirstVal);
-				}
-			}
-		}
-	else
-		{
-		if (OB->NamedLStyle == "")
-			p->drawPolyline(pts);
-		else
-			{
-			multiLine ml = MLineStyles[OB->NamedLStyle];
-			for (int it = ml.size()-1; it > -1; it--)
-				{
-				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-				p->setPen(QPen(tmp,
-								 QMAX(static_cast<int>(ml[it].Width), 1),
-								 static_cast<Qt::PenStyle>(ml[it].Dash),
-								 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
-								 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
-				p->drawPolyline(pts);
-				}
-			}
-		}
-}
-

@@ -103,7 +103,8 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	Anz->setPixmap(CreatePreview(0, 72));
 	Anzeige->addChild(Anz, 0, 0);
   PLayout->addWidget(Anzeige);
-	resize(500, 500);
+	int w = Anz->width() + 20;
+	resize(QMIN(QApplication::desktop()->width(),w), 500);
 	connect(First, SIGNAL(clicked()), this, SLOT(ToStart()));
 	connect(Back, SIGNAL(clicked()), this, SLOT(BackW()));
 	connect(Forward, SIGNAL(clicked()), this, SLOT(ForW()));
@@ -228,8 +229,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
  		image = image.convertDepth(32);
 		Bild.convertFromImage(image);
 		system("rm -f "+app->PrefsPfad+"/sc.png");
-		system("rm -f "+app->PrefsPfad+"/tmp.ps");
 		}
+	system("rm -f "+app->PrefsPfad+"/tmp.ps");
 	return Bild;
 }
 

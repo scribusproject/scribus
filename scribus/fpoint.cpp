@@ -49,6 +49,16 @@ void FPoint::setY(float y)
 	yp = y;
 }
 
+bool FPoint::operator==(const FPoint &rhs)
+{
+	return QABS(xp-rhs.xp) < 1E-10 && QABS(yp-rhs.yp) < 1E-10;
+}
+
+bool FPoint::operator!=(const FPoint &rhs)
+{
+	return QABS(xp-rhs.xp) > 1E-10 || QABS(yp-rhs.yp) > 1E-10;
+}
+
 FPoint &FPoint::operator+=( const FPoint &p )
 {
 	xp += p.xp;
@@ -62,4 +72,3 @@ FPoint &FPoint::operator-=( const FPoint &p )
 	yp -= p.yp;
 	return *this;
 }
-

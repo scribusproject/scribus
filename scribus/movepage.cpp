@@ -36,7 +36,7 @@ MovePages::MovePages( QWidget* parent, int act, int max, bool art )
     if (art)
     	TextLabel1->setText( tr( "Move Page(s):" ) );
     else
-    	TextLabel1->setText( tr( "Copy Page:" ) );
+    	TextLabel1->setText( tr("Copy Page")+":" );
     Layout4->addWidget( TextLabel1, 0, 0);
     FromPage = new QSpinBox( this, "FromPage" );
     FromPage->setMinValue( 1 );

@@ -156,6 +156,7 @@ QFont fo;
 QMap<QString,QString> DoFonts;
 int x, y, a, counter;
 float xf, yf;
+bool newVersion = false;
 QDomDocument docu("scridoc");
 f = "";
 f = ReadDatei(fileName);
@@ -167,6 +168,8 @@ CMYKColor lf = CMYKColor();
 QDomElement elem=docu.documentElement();
 if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
 	return false;
+if (elem.hasAttribute("Version"))
+	newVersion = true;
 QDomNode DOC=elem.firstChild();
 while(!DOC.isNull())
 {
@@ -344,12 +347,26 @@ while(!DOC.isNull())
 				OB.FrameType = QStoInt(obj.attribute("FRTYPE", "0"));
 				OB.Pwidth=QStoFloat(obj.attribute("PWIDTH"));
 				OB.Pcolor=obj.attribute("PCOLOR");
-				OB.Pcolor2=obj.attribute("PCOLOR2");
+				if ((!newVersion) && (OB.PType == 4))
+					{
+					OB.TxtFill = obj.attribute("PCOLOR2");
+					OB.Pcolor2 = "None";
+					}
+				else
+					{
+					OB.Pcolor2 = obj.attribute("PCOLOR2");
+					OB.TxtFill = obj.attribute("TXTFILL", "Black");
+					}
 				OB.NamedLStyle = obj.attribute("NAMEDLST", "");
 				if (!doc->MLineStyles.contains(OB.NamedLStyle))
 					OB.NamedLStyle = "";
 				OB.Shade=QStoInt(obj.attribute("SHADE"));
 				OB.Shade2=QStoInt(obj.attribute("SHADE2"));
+				OB.TxtStroke=obj.attribute("TXTSTROKE", "None");
+				OB.ShTxtFill=QStoInt(obj.attribute("TXTFILLSH", "100"));
+				OB.ShTxtStroke=QStoInt(obj.attribute("TXTSTRSH", "100"));
+				OB.TxtScale=QStoInt(obj.attribute("TXTSCALE", "100"));
+				OB.TxTStyle=QStoInt(obj.attribute("TXTSTYLE", "0"));
 				OB.GrColor = obj.attribute("GRCOLOR","");
 				OB.GrColor2 = obj.attribute("GRCOLOR2","");
 				OB.GrShade = QStoInt(obj.attribute("GRSHADE","100"));
@@ -441,7 +458,12 @@ while(!DOC.isNull())
 				OB.Reverse = static_cast<bool>(QStoInt(obj.attribute("REVERS","0")));
 				OB.InvPict = static_cast<bool>(QStoInt(obj.attribute("INVERS","0")));
 				OB.LayerNr = QStoInt(obj.attribute("LAYER","0"));
+				OB.Language = obj.attribute("LANGUAGE", doc->Language);
 				OB.Transparency = QStoFloat(obj.attribute("TransValue","0.0"));
+				if (obj.hasAttribute("TransValueS"))
+					OB.TranspStroke = QStoFloat(obj.attribute("TransValueS","0.0"));
+				else
+					OB.TranspStroke = OB.Transparency;
 				if (obj.hasAttribute("NUMCLIP"))
 					{
 					OB.Clip.resize(obj.attribute("NUMCLIP").toUInt());
@@ -500,7 +522,10 @@ while(!DOC.isNull())
 						tmp3 += it.attribute("CEXTRA") + "\t";
 						tmp3 += it.attribute("CSHADE") + "\t";
 						tmp3 += it.attribute("CSTYLE") + "\t";
-						tmp3 += it.attribute("CAB","0") + "\n";
+						tmp3 += it.attribute("CAB","0") + "\t";
+						tmp3 += it.attribute("CSTROKE","None") + "\t";
+						tmp3 += it.attribute("CSHADE2","100") + "\t";
+						tmp3 += it.attribute("CSCALE","100") + "\n";
 						for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 							{
 							tmp += tmp2.at(cxx)+tmp3;
@@ -515,7 +540,12 @@ while(!DOC.isNull())
 						tmp += it.attribute("CEXTRA") + "\t";
 						tmp += it.attribute("CSHADE") + "\t";
 						tmp += it.attribute("CSTYLE") + "\t";
-						tmp += it.attribute("CAB","0") + "\n";
+						tmp += it.attribute("CAB","0") + "\t";
+						tmp += it.attribute("CCOLOR") + "\t";
+						tmp += it.attribute("CSHADE") + "\t";
+						tmp += it.attribute("CSTROKE","None") + "\t";
+						tmp += it.attribute("CSHADE2","100") + "\t";
+						tmp += it.attribute("CSCALE","100") + "\n";
 						}
 					IT=IT.nextSibling();
 				}
@@ -582,6 +612,7 @@ struct Layer la;
 struct ScribusDoc::BookMa bok;
 int counter, Pgc;
 bool AtFl;
+bool newVersion = false;
 struct Linked Link;
 QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont;
 QFont fo;
@@ -605,6 +636,8 @@ CMYKColor lf = CMYKColor();
 QDomElement elem=docu.documentElement();
 if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
 	return false;
+if (elem.hasAttribute("Version"))
+	newVersion = true;
 QDomNode DOC=elem.firstChild();
 dia2->setTotalSteps(DOC.childNodes().count());
 dia2->setProgress(0);
@@ -633,6 +666,7 @@ while(!DOC.isNull())
 	doc->Dsize=QStoInt(dc.attribute("DSIZE"));
 	doc->DocAutor=dc.attribute("AUTHOR");
 	doc->DocComments=dc.attribute("COMMENTS");
+	doc->DocKeyWords=dc.attribute("KEYWORDS","");
 	doc->DocTitel=dc.attribute("TITLE");
 	doc->VHoch=QStoInt(dc.attribute("VHOCH"));
 	doc->VHochSc=QStoInt(dc.attribute("VHOCHSC"));
@@ -902,10 +936,24 @@ while(!DOC.isNull())
 				OB.FrameType = QStoInt(obj.attribute("FRTYPE", "0"));
 				OB.Pwidth=QStoFloat(obj.attribute("PWIDTH"));
 				OB.Pcolor=obj.attribute("PCOLOR");
-				OB.Pcolor2=obj.attribute("PCOLOR2");
+				if ((!newVersion) && (OB.PType == 4))
+					{
+					OB.TxtFill = obj.attribute("PCOLOR2");
+					OB.Pcolor2 = "None";
+					}
+				else
+					{
+					OB.Pcolor2 = obj.attribute("PCOLOR2");
+					OB.TxtFill = obj.attribute("TXTFILL", "Black");
+					}
 				OB.NamedLStyle = obj.attribute("NAMEDLST", "");
 				OB.Shade=QStoInt(obj.attribute("SHADE"));
 				OB.Shade2=QStoInt(obj.attribute("SHADE2"));
+				OB.TxtStroke=obj.attribute("TXTSTROKE", "None");
+				OB.ShTxtFill=QStoInt(obj.attribute("TXTFILLSH", "100"));
+				OB.ShTxtStroke=QStoInt(obj.attribute("TXTSTRSH", "100"));
+				OB.TxtScale=QStoInt(obj.attribute("TXTSCALE", "100"));
+				OB.TxTStyle=QStoInt(obj.attribute("TXTSTYLE", "0"));
 				OB.GrColor = obj.attribute("GRCOLOR","");
 				OB.GrColor2 = obj.attribute("GRCOLOR2","");
 				OB.GrShade = QStoInt(obj.attribute("GRSHADE","100"));
@@ -997,7 +1045,12 @@ while(!DOC.isNull())
 				OB.Reverse = static_cast<bool>(QStoInt(obj.attribute("REVERS","0")));
 				OB.InvPict = static_cast<bool>(QStoInt(obj.attribute("INVERS","0")));
 				OB.LayerNr = QStoInt(obj.attribute("LAYER","0"));
+				OB.Language = obj.attribute("LANGUAGE", doc->Language);
 				OB.Transparency = QStoFloat(obj.attribute("TransValue","0.0"));
+				if (obj.hasAttribute("TransValueS"))
+					OB.TranspStroke = QStoFloat(obj.attribute("TransValueS","0.0"));
+				else
+					OB.TranspStroke = OB.Transparency;
 				if (obj.hasAttribute("NUMCLIP"))
 					{
 					OB.Clip.resize(obj.attribute("NUMCLIP").toUInt());
@@ -1056,7 +1109,10 @@ while(!DOC.isNull())
 						tmp3 += it.attribute("CEXTRA") + "\t";
 						tmp3 += it.attribute("CSHADE") + "\t";
 						tmp3 += it.attribute("CSTYLE") + "\t";
-						tmp3 += it.attribute("CAB","0") + "\n";
+						tmp3 += it.attribute("CAB","0") + "\t";
+						tmp3 += it.attribute("CSTROKE","None") + "\t";
+						tmp3 += it.attribute("CSHADE2","100") + "\t";
+						tmp3 += it.attribute("CSCALE","100") + "\n";
 						for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 							{
 							tmp += tmp2.at(cxx)+tmp3;
@@ -1071,7 +1127,10 @@ while(!DOC.isNull())
 						tmp += it.attribute("CEXTRA") + "\t";
 						tmp += it.attribute("CSHADE") + "\t";
 						tmp += it.attribute("CSTYLE") + "\t";
-						tmp += it.attribute("CAB","0") + "\n";
+						tmp += it.attribute("CAB","0") + "\t";
+						tmp += it.attribute("CSTROKE","None") + "\t";
+						tmp += it.attribute("CSHADE2","100") + "\t";
+						tmp += it.attribute("CSCALE","100") + "\n";
 						}
 					IT=IT.nextSibling();
 				}
@@ -1212,6 +1271,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 	uint VorlC;
 	bool fou;
 	bool VorLFound = false;
+	bool newVersion = false;
 	int x, y;
 	float GrX, GrY, xf, yf;
 	int GrMax = doc->GroupCounter;
@@ -1252,6 +1312,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 		GrX = QStoFloat(elem.attribute("XP"));
 		GrY = QStoFloat(elem.attribute("YP"));
 		}
+	if (elem.hasAttribute("Version"))
+		newVersion = true;
 	QDomNode DOC=elem.firstChild();
 	DoFonts.clear();
 	DoVorl.clear();
@@ -1363,12 +1425,26 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.FrameType = QStoInt(pg.attribute("FRTYPE", "0"));
 			OB.Pwidth = QStoFloat(pg.attribute("PWIDTH"));
 			OB.Pcolor = pg.attribute("PCOLOR");
-			OB.Pcolor2 = pg.attribute("PCOLOR2");
+			if ((!newVersion) && (OB.PType == 4))
+				{
+				OB.TxtFill = pg.attribute("PCOLOR2");
+				OB.Pcolor2 = "None";
+				}
+			else
+				{
+				OB.Pcolor2 = pg.attribute("PCOLOR2");
+				OB.TxtFill = pg.attribute("TXTFILL", "Black");
+				}
 			OB.NamedLStyle = pg.attribute("NAMEDLST", "");
 			if (!doc->MLineStyles.contains(OB.NamedLStyle))
 				OB.NamedLStyle = "";
 			OB.Shade = QStoInt(pg.attribute("SHADE"));
 			OB.Shade2 = QStoInt(pg.attribute("SHADE2"));
+			OB.TxtStroke = pg.attribute("TXTSTROKE", "None");
+			OB.ShTxtFill = QStoInt(pg.attribute("TXTFILLSH", "100"));
+			OB.ShTxtStroke = QStoInt(pg.attribute("TXTSTRSH", "100"));
+			OB.TxtScale = QStoInt(pg.attribute("TXTSCALE", "100"));
+			OB.TxTStyle = QStoInt(pg.attribute("TXTSTYLE", "0"));
 			OB.GrColor = pg.attribute("GRCOLOR","");
 			OB.GrColor2 = pg.attribute("GRCOLOR2","");
 			OB.GrShade = QStoInt(pg.attribute("GRSHADE","100"));
@@ -1458,6 +1534,10 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.Reverse = static_cast<bool>(QStoInt(pg.attribute("REVERS","0")));
 			OB.InvPict = static_cast<bool>(QStoInt(pg.attribute("INVERS","0")));
 			OB.Transparency = QStoFloat(pg.attribute("TransValue","0.0"));
+			if (pg.hasAttribute("TransValueS"))
+				OB.TranspStroke = QStoFloat(pg.attribute("TransValueS","0.0"));
+			else
+				OB.TranspStroke = OB.Transparency;
 			if (pg.hasAttribute("NUMCLIP"))
 				{
 				OB.Clip.resize(pg.attribute("NUMCLIP").toUInt());
@@ -1519,14 +1599,17 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 						tmp3 += it.attribute("CSHADE") + "\t";
 						tmp3 += it.attribute("CSTYLE") + "\t";
 						if (VorLFound)
-							tmp3 += DoVorl[it.attribute("CAB","0").toUInt()] + "\n";
+							tmp3 += DoVorl[it.attribute("CAB","0").toUInt()] + "\t";
 						else
 							{
 							if (it.attribute("CAB","0").toUInt() < 5)
-								tmp3 += it.attribute("CAB","0")+"\n";
+								tmp3 += it.attribute("CAB","0")+"\t";
 							else
-								tmp3 += "0\n";
+								tmp3 += "0\t";
 								}
+						tmp3 += it.attribute("CSTROKE","None") + "\t";
+						tmp3 += it.attribute("CSHADE2","100") + "\t";
+						tmp3 += it.attribute("CSCALE","100") + "\n";
 						for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 							{
 							tmp += tmp2.at(cxx)+tmp3;
@@ -1542,14 +1625,17 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 						tmp += it.attribute("CSHADE") + "\t";
 						tmp += it.attribute("CSTYLE") + "\t";
 						if ((VorLFound) || (it.attribute("CAB","0").toUInt() < 5))
-							tmp3 += DoVorl[it.attribute("CAB","0").toUInt()] + "\n";
+							tmp += DoVorl[it.attribute("CAB","0").toUInt()] + "\t";
 						else
 							{
 							if (it.attribute("CAB","0").toUInt() < 5)
-								tmp3 += it.attribute("CAB","0")+"\n";
+								tmp += it.attribute("CAB","0")+"\t";
 							else
-								tmp3 += "0\n";
+								tmp += "0\t";
 							}
+						tmp += it.attribute("CSTROKE","None") + "\t";
+						tmp += it.attribute("CSHADE2","100") + "\t";
+						tmp += it.attribute("CSCALE","100") + "\n";
 						}
 					IT=IT.nextSibling();
 				}
@@ -1573,8 +1659,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 
 QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 {
-	int ts, ts2, tsh, tsh2, tst, tst2, tsb, tsb2;
-	QString text, tf, tf2, tc, tc2, tmp;
+	int ts, ts2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tsc, tsc2;
+	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp;
 	float te, te2, xf, yf;
 	PageItem *item;
 	QDomDocument docu("scribus");
@@ -1618,7 +1704,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			elem.setAttribute("H", apr.height());
 			}
 		}
-	elem.setAttribute("COUNT", Selitems->count());	
+	elem.setAttribute("COUNT", Selitems->count());
+	elem.setAttribute("Version", "1.1.1");	
 	for (uint co=0; co<Selitems->count(); ++co)
 		{
 		QString CurDirP = QDir::currentDirPath();
@@ -1639,6 +1726,12 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		ob.setAttribute("PWIDTH",item->Pwidth);
 		ob.setAttribute("PCOLOR",item->Pcolor);
 		ob.setAttribute("PCOLOR2",item->Pcolor2);
+		ob.setAttribute("TXTFILL",item->TxtFill);
+		ob.setAttribute("TXTSTROKE",item->TxtStroke);
+		ob.setAttribute("TXTSTRSH",item->ShTxtStroke);
+		ob.setAttribute("TXTFILLSH",item->ShTxtFill);
+		ob.setAttribute("TXTSCALE",item->TxtScale);
+		ob.setAttribute("TXTSTYLE",item->TxTStyle);
 		ob.setAttribute("NAMEDLST",item->NamedLStyle);
 		ob.setAttribute("SHADE",item->Shade);
 		ob.setAttribute("SHADE2",item->Shade2);
@@ -1774,6 +1867,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		else
 			ob.setAttribute("INVERS", 0);
 		ob.setAttribute("TransValue", item->Transparency);
+		ob.setAttribute("TransValueS", item->TranspStroke);
 		for(uint k=0;k<item->Ptext.count();++k)
 			{
 			QDomElement it=docu.createElement("ITEXT");
@@ -1784,6 +1878,9 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			tsh = item->Ptext.at(k)->cshade;
 			tst = item->Ptext.at(k)->cstyle;
 			tsb = item->Ptext.at(k)->cab;
+			tcs = item->Ptext.at(k)->cstroke;
+			tshs = item->Ptext.at(k)->cshade2;
+			tsc = item->Ptext.at(k)->cscale;
 			if (item->Ptext.at(k)->ch == QChar(13))
 				text = QChar(5);
 			else
@@ -1799,6 +1896,9 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 				it.setAttribute("CSHADE",tsh);
 				it.setAttribute("CSTYLE",tst);
 				it.setAttribute("CAB",tsb);
+				it.setAttribute("CSTROKE",tcs);
+				it.setAttribute("CSHADE2",tshs);
+				it.setAttribute("CSCALE",tsc);
 				ob.appendChild(it);
 				break;
 				}
@@ -1809,7 +1909,19 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			tsh2 = item->Ptext.at(k)->cshade;
 			tst2 = item->Ptext.at(k)->cstyle;
 			tsb2 = item->Ptext.at(k)->cab;
-			while ((ts2 == ts) && (tsb2 == tsb) && (tf2 == tf) && (tc2 == tc) && (te2 == te) && (tsh2 == tsh) && (tst2 == tst))
+			tcs2 = item->Ptext.at(k)->cstroke;
+			tshs2 = item->Ptext.at(k)->cshade2;
+			tsc2 = item->Ptext.at(k)->cscale;
+			while ((ts2 == ts)
+							&& (tsb2 == tsb)
+							&& (tf2 == tf)
+							&& (tc2 == tc)
+							&& (te2 == te)
+							&& (tsh2 == tsh)
+							&& (tshs2 == tshs)
+							&& (tsc2 == tsc)
+							&& (tcs2 == tcs)
+							&& (tst2 == tst))
 				{
 				if (item->Ptext.at(k)->ch == QChar(13))
 					text += QChar(5);
@@ -1825,6 +1937,9 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 				tsh2 = item->Ptext.at(k)->cshade;
 				tst2 = item->Ptext.at(k)->cstyle;
 				tsb2 = item->Ptext.at(k)->cab;
+				tcs2 = item->Ptext.at(k)->cstroke;
+				tshs2 = item->Ptext.at(k)->cshade2;
+				tsc2 = item->Ptext.at(k)->cscale;
 				}
 			it.setAttribute("CH",text);
 			it.setAttribute("CSIZE",ts);
@@ -1834,6 +1949,9 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			it.setAttribute("CSHADE",tsh);
 			it.setAttribute("CSTYLE",tst);
 			it.setAttribute("CAB",tsb);
+			it.setAttribute("CSTROKE",tcs);
+			it.setAttribute("CSHADE2",tshs);
+			it.setAttribute("CSCALE",tsc);
 			k--;
 			ob.appendChild(it);
 			}
@@ -1864,6 +1982,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		ob.setAttribute("BACKPAGE", -1);
 		ob.setAttribute("NEXTITEM", -1);
 		ob.setAttribute("NEXTPAGE", -1);
+		ob.setAttribute("LANGUAGE", item->Language);
 		elem.appendChild(ob);
 		}
 	QMap<QString,QFont>::Iterator itf;
@@ -1924,8 +2043,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 
 void ScriXmlDoc::WritePages(ScribusView *view, QDomDocument docu, QDomElement dc, QProgressBar *dia2, uint maxC)
 {
-int ts, ts2, tsh, tsh2, tst, tst2, tsb, tsb2;
-QString text, tf, tf2, tc, tc2, tmp, Ndir;
+int ts, ts2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tsc, tsc2;
+QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, Ndir;
 float te, te2, xf, yf;
 uint ObCount = maxC;
 Page *page;
@@ -1975,6 +2094,12 @@ for(uint i=0;i<view->Pages.count();++i)
 		ob.setAttribute("PWIDTH",item->Pwidth);
 		ob.setAttribute("PCOLOR",item->Pcolor);
 		ob.setAttribute("PCOLOR2",item->Pcolor2);
+		ob.setAttribute("TXTFILL",item->TxtFill);
+		ob.setAttribute("TXTSTROKE",item->TxtStroke);
+		ob.setAttribute("TXTSTRSH",item->ShTxtStroke);
+		ob.setAttribute("TXTFILLSH",item->ShTxtFill);
+		ob.setAttribute("TXTSCALE",item->TxtScale);
+		ob.setAttribute("TXTSTYLE",item->TxTStyle);
 		ob.setAttribute("NAMEDLST",item->NamedLStyle);
 		ob.setAttribute("SHADE",item->Shade);
 		ob.setAttribute("SHADE2",item->Shade2);
@@ -2114,6 +2239,7 @@ for(uint i=0;i<view->Pages.count();++i)
 		else
 			ob.setAttribute("INVERS", 0);
 		ob.setAttribute("TransValue", item->Transparency);
+		ob.setAttribute("TransValueS", item->TranspStroke);
 		for(uint k=0;k<item->Ptext.count();++k)
 			{
 			QDomElement it=docu.createElement("ITEXT");
@@ -2124,6 +2250,9 @@ for(uint i=0;i<view->Pages.count();++i)
 			tsh = item->Ptext.at(k)->cshade;
 			tst = item->Ptext.at(k)->cstyle;
 			tsb = item->Ptext.at(k)->cab;
+			tcs = item->Ptext.at(k)->cstroke;
+			tshs = item->Ptext.at(k)->cshade2;
+			tsc = item->Ptext.at(k)->cscale;
 			if (item->Ptext.at(k)->ch == QChar(13))
 				text = QChar(5);
 			else
@@ -2139,6 +2268,9 @@ for(uint i=0;i<view->Pages.count();++i)
 				it.setAttribute("CSHADE",tsh);
 				it.setAttribute("CSTYLE",tst);
 				it.setAttribute("CAB",tsb);
+				it.setAttribute("CSTROKE",tcs);
+				it.setAttribute("CSHADE2",tshs);
+				it.setAttribute("CSCALE",tsc);
 				ob.appendChild(it);
 				break;
 				}
@@ -2149,7 +2281,19 @@ for(uint i=0;i<view->Pages.count();++i)
 			tsh2 = item->Ptext.at(k)->cshade;
 			tst2 = item->Ptext.at(k)->cstyle;
 			tsb2 = item->Ptext.at(k)->cab;
-			while ((ts2 == ts) && (tsb2 == tsb) && (tf2 == tf) && (tc2 == tc) && (te2 == te) && (tsh2 == tsh) && (tst2 == tst))
+			tcs2 = item->Ptext.at(k)->cstroke;
+			tshs2 = item->Ptext.at(k)->cshade2;
+			tsc2 = item->Ptext.at(k)->cscale;
+			while ((ts2 == ts)
+							&& (tsb2 == tsb)
+							&& (tf2 == tf)
+							&& (tc2 == tc)
+							&& (te2 == te)
+							&& (tsh2 == tsh)
+							&& (tshs2 == tshs)
+							&& (tsc2 == tsc)
+							&& (tcs2 == tcs)
+							&& (tst2 == tst))
 				{
 				if (item->Ptext.at(k)->ch == QChar(13))
 					text += QChar(5);
@@ -2165,6 +2309,9 @@ for(uint i=0;i<view->Pages.count();++i)
 				tsh2 = item->Ptext.at(k)->cshade;
 				tst2 = item->Ptext.at(k)->cstyle;
 				tsb2 = item->Ptext.at(k)->cab;
+				tcs2 = item->Ptext.at(k)->cstroke;
+				tshs2 = item->Ptext.at(k)->cshade2;
+				tsc2 = item->Ptext.at(k)->cscale;
 				}
 			it.setAttribute("CH",text);
 			it.setAttribute("CSIZE",ts);
@@ -2174,6 +2321,9 @@ for(uint i=0;i<view->Pages.count();++i)
 			it.setAttribute("CSHADE",tsh);
 			it.setAttribute("CSTYLE",tst);
 			it.setAttribute("CAB",tsb);
+			it.setAttribute("CSTROKE",tcs);
+			it.setAttribute("CSHADE2",tshs);
+			it.setAttribute("CSCALE",tsc);
 			k--;
 			ob.appendChild(it);
 			}
@@ -2214,6 +2364,7 @@ for(uint i=0;i<view->Pages.count();++i)
 			ob.setAttribute("NEXTPAGE", -1);
 			}
 		ob.setAttribute("LAYER", item->LayerNr);
+		ob.setAttribute("LANGUAGE", item->Language);
 		pg.appendChild(ob);
 	}
 	dc.appendChild(pg);
@@ -2227,6 +2378,7 @@ QDomDocument docu("scribus");
 QString st="<SCRIBUSUTF8></SCRIBUSUTF8>";
 docu.setContent(st);
 QDomElement elem=docu.documentElement();
+elem.setAttribute("Version", "1.1.1");
 QDomElement dc=docu.createElement("DOCUMENT");
 dc.setAttribute("ANZPAGES",doc->PageC);
 dc.setAttribute("PAGEWITH",doc->PageB);
@@ -2250,6 +2402,7 @@ dc.setAttribute("DFONT",doc->Dfont);
 dc.setAttribute("DSIZE",doc->Dsize);
 dc.setAttribute("AUTHOR",doc->DocAutor);
 dc.setAttribute("COMMENTS",doc->DocComments);
+dc.setAttribute("KEYWORDS",doc->DocKeyWords);
 dc.setAttribute("TITLE",doc->DocTitel);
 dc.setAttribute("VHOCH",doc->VHoch);
 dc.setAttribute("VHOCHSC",doc->VHochSc);
@@ -2471,6 +2624,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc.setAttribute("FRV", Vor->ShFrames);
 	dc.setAttribute("RCD", Vor->RecentDCount);
 	dc.setAttribute("DOC", Vor->DocDir);
+	dc.setAttribute("PROFILES", Vor->ProfileDir);
 	elem.appendChild(dc);
 	QDomElement dc1=docu.createElement("GRID");
 	dc1.setAttribute("MINOR",Vor->DminGrid);
@@ -2629,6 +2783,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 		fn.setAttribute("NAME",itf.currentKey());
 		fn.setAttribute("EMBED",static_cast<int>(itf.current()->EmbedPS));
 		fn.setAttribute("USE", static_cast<int>(itf.current()->UseFont));
+		fn.setAttribute("SUBSET", static_cast<int>(itf.current()->Subset));
 		elem.appendChild(fn);
 		}
 	for (uint rd=0; rd<Vor->RecentDocs.count(); ++rd)
@@ -2691,8 +2846,9 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->ShFrames = QStoInt(dc.attribute("FRV","1"));
 			Vorein->AppFontSize = QStoInt(dc.attribute("APF","12"));
 			Vorein->RecentDCount = dc.attribute("RCD","5").toUInt();
-			if (dc.hasAttribute("DOC"))
-				Vorein->DocDir = dc.attribute("DOC");
+			Vorein->DocDir = dc.attribute("DOC","");
+			Vorein->ProfileDir = dc.attribute("PROFILES","");
+
 			}
 		if (dc.tagName()=="GRID")
 			{
@@ -2876,6 +3032,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 				{
 				Vorein->AvailFonts[dc.attribute("NAME")]->EmbedPS = static_cast<bool>(QStoInt(dc.attribute("EMBED")));
 				Vorein->AvailFonts[dc.attribute("NAME")]->UseFont &= static_cast<bool>(QStoInt(dc.attribute("USE","1")));
+				Vorein->AvailFonts[dc.attribute("NAME")]->Subset = static_cast<bool>(QStoInt(dc.attribute("SUBSET","0")));
 				}
 			}
 		if (dc.tagName()=="COLOR")

@@ -172,3 +172,23 @@ void FPointArray::map( QWMatrix m )
 		p++;
 		}
 }
+
+void FPointArray::setMarker()
+{
+	addPoint(999999.0, 999999.0);
+	addPoint(999999.0, 999999.0);
+	addPoint(999999.0, 999999.0);
+	addPoint(999999.0, 999999.0);
+}
+
+void FPointArray::addPoint(float x, float y)
+{
+	resize(size()+1);
+	setPoint(size()-1, FPoint(x, y));
+}
+
+void FPointArray::addPoint(FPoint p)
+{
+	resize(size()+1);
+	setPoint(size()-1, p.x(), p.y());
+}

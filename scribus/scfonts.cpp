@@ -18,6 +18,7 @@
 #include <qfont.h>
 #include <qdict.h>
 #include <qmap.h>
+#include <qdir.h>
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #include <qtextcodec.h>
@@ -26,22 +27,20 @@
 #include <cstdlib>
 #include "scfonts.h"
 #include "scfonts_ttf.h"
-#ifdef HAVE_FREETYPE
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
-#endif
+extern FPointArray traceChar(FT_Face face, uint chr, int chs, float *x, float *y);
 
 extern bool loadText(QString nam, QString *Buffer);
 extern bool GlyNames(QMap<uint, QString> *GList, QString Dat);
 
-SCFonts_Encoding Foi::StdEncoding("Stdenc.txt");
-SCFonts_Encoding Foi::TTFEncoding("TTFenc.txt");
-
-Foi::Foi(QString scname, QString path, bool embedps, SCFonts_Encoding &encoding) :
-	SCName(scname), Datei(path), EmbedPS(embedps), Encoding(encoding)
+Foi::Foi(QString scname, QString path, bool embedps) :
+	SCName(scname), Datei(path), EmbedPS(embedps)
 {
+	isOTF = false;
+	Subset = false;
 }
 
 QString Foi::RealName()
@@ -68,6 +67,59 @@ bool Foi::GlNames(QMap<uint, QString> *GList)
 {
 	return GlyNames(GList, Datei);
 }
+/*
+void Foi::FontBez()
+{
+	FT_Face face;
+	FT_Library library;
+	QString ts;
+	QPixmap pm(200, 100);
+	bool error;
+	int  pen_x;
+	int YPos = qApp->font().pointSize();
+	uint n;
+	error = FT_Init_FreeType( &library );
+	error = FT_New_Face( library, Datei, 0, &face );
+	ts = QString(face->family_name) + " " + QString(face->style_name);
+	pm.fill();
+	pen_x = 0;
+	for (n = 0; n < ts.length(); n++)
+		{
+		uint dv = ts[n].unicode();
+		error = FT_Set_Char_Size(	face, 0, qApp->font().pointSize()*64, 72, 72 );
+		FT_Load_Char(face, dv, FT_LOAD_RENDER | FT_LOAD_NO_BITMAP | FT_LOAD_MONOCHROME);
+		QByteArray bd(face->glyph->bitmap.rows * face->glyph->bitmap.pitch);
+		uint yy = 0;
+		uint adv;
+		if ((face->glyph->bitmap.width % 8) == 0)
+			adv = face->glyph->bitmap.width / 8;
+		else
+			adv = face->glyph->bitmap.width / 8 + 1;
+		for (int y = 0; y < face->glyph->bitmap.rows; ++y)
+			{
+			memcpy(bd.data()+yy, face->glyph->bitmap.buffer+(y * face->glyph->bitmap.pitch), adv);
+			yy += adv;
+			}
+		QBitmap bb(face->glyph->bitmap.width, face->glyph->bitmap.rows, (uchar*)bd.data(), false);
+		QPixmap pixm(face->glyph->bitmap.width, face->glyph->bitmap.rows);
+		if (!pixm.isNull())
+			{
+			pixm.fill(Qt::black);
+			pixm.setMask(bb);
+			QPainter p;
+			p.begin(&pm);
+			p.drawPixmap(pen_x+face->glyph->bitmap_left, YPos-face->glyph->bitmap_top, pixm);
+			p.end();
+			}
+		pen_x += face->glyph->advance.x >> 6;
+		}
+	int high = qApp->fontMetrics().height();
+	QPixmap pm2(pen_x, high);
+	bitBlt(&pm2, 0, 0, &pm, 0, 0, pen_x, high);
+	Appearance = pm2;
+	FT_Done_FreeType( library );
+	return;
+}    */
 
 /*
 	Class Foi_postscript
@@ -78,8 +130,8 @@ bool Foi::GlNames(QMap<uint, QString> *GList)
 class Foi_postscript : public Foi
 {
 	public:
-		Foi_postscript(QString scname, QString path, bool embedps, SCFonts_Encoding &encoding) :
-		Foi(scname,path,embedps,encoding), metricsread(false)
+		Foi_postscript(QString scname, QString path, bool embedps) :
+		Foi(scname,path,embedps), metricsread(false)
 		{
 			HasMetrics=false;
 			HasKern = false;
@@ -90,40 +142,11 @@ class Foi_postscript : public Foi
 			StdVW = "1";
 			FontBBox = "0 0 0 0";
 			IsFixedPitch = false;
-#ifdef HAVE_FREETYPE
 			HasMetrics=true;
-#else	
-			QString afm=Datei.left(Datei.length()-3);
-			QFile f(afm+"afm");
-			if(f.exists())
-				HasMetrics=true;
-			else
-			{
-				f.setName(afm+"AFM");
-				if(f.exists())
-					HasMetrics=true;
-				else
-				{
-					f.setName(afm+"Afm");
-					if(f.exists())
-						HasMetrics=true;
-				}
-			}
-#endif
 		}
 
 		virtual QString RealName()
 		{
-			if(cached_RealName)
-				return(cached_RealName);
-			QString tmp = "a /NoName";
-			QString tmp2 = "";
-			loadText(Datei, &tmp2);
-			int bd = tmp2.find("/FontName");
-			tmp = tmp2.mid(bd, 80);
-			QString rn,dummy;
-			QTextIStream (&tmp) >> dummy >> rn;
-			cached_RealName=rn.remove(0,1);
 			return(cached_RealName);
 		}
 
@@ -131,9 +154,12 @@ class Foi_postscript : public Foi
 		{
 			if(metricsread)
 				return(HasMetrics);
-#ifdef HAVE_FREETYPE
 			CharWidth.clear();
+			GlyphArray.clear();
 			QString tmp;
+			float x, y;
+			FPointArray outlines;
+			struct GlyphR GRec;
 			bool			error;
 			FT_Library library;
 			FT_ULong  charcode;
@@ -165,6 +191,11 @@ class Foi_postscript : public Foi
 			HasKern = FT_HAS_KERNING(face);
 			Ascent = tmp.setNum(face->ascender);
 			Descender = tmp.setNum(face->descender);
+			numDescender = face->descender / uniEM;
+			numAscent = face->ascender / uniEM;
+			underline_pos = face->underline_position / uniEM;
+			strikeout_pos = numAscent / 3;
+			strokeWidth = face->underline_thickness / uniEM;
 			CapHeight = Ascent;
 			ItalicAngle = "0";
 			StdVW = "1";
@@ -176,137 +207,19 @@ class Foi_postscript : public Foi
 				{
 				FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 				CharWidth.insert(charcode, face->glyph->metrics.horiAdvance / uniEM);
+				outlines = traceChar(face, charcode, 10, &x, &y);
+				GRec.Outlines = outlines.copy();
+				GRec.x = x;
+				GRec.y = y;
+				GlyphArray.insert(charcode, GRec);
 				charcode = FT_Get_Next_Char( face, charcode, &gindex );
 				}
 			FT_Done_FreeType( library );
 			HasMetrics=true;
 			metricsread=true;
-#else
-			QString afnm,tmpaf, afmz, AFMName, Enco;
-			QStringList wt3, wt4, wtiso;
-			int AFMIndex, AFMWidth;
-			float afmwid;
-			bool stdEnc = true;
-			AFMIndex = 0;
-			AFMWidth = 0;
-
-			for (int am = 0; am < 256; ++am)
-				CharWidth[am] = 0;
-
-			afnm=Datei.left(Datei.length()-3);
-			QFile afm(afnm+"afm");
-			if(!(afm.exists()))
-			{
-				afm.setName(afnm+"Afm");
-				if(!(afm.exists()))
-				{
-					afm.setName(afnm+"AFM");
-				}
-			}
-			if (afm.exists())
-			{
-				if (afm.open(IO_ReadOnly))
-				{
-					QTextStream ts7(&afm);
-					tmpaf = ts7.read();
-					afm.close();
-					QTextStream ts8(&tmpaf, IO_ReadOnly);
-					while (!ts8.atEnd())
-					{
-						afmz = ts8.readLine();
-						afmz = afmz.simplifyWhiteSpace();
-						if (afmz.startsWith("Ascender"))
-							Ascent = afmz.remove(0, 9);
-						if (afmz.startsWith("CapHeight"))
-							CapHeight = afmz.remove(0, 10);
-						if (afmz.startsWith("Descender"))
-							Descender = afmz.remove(0, 10);
-						if (afmz.startsWith("ItalicAngle"))
-							ItalicAngle = afmz.remove(0, 12);
-						if (afmz.startsWith("StdVW"))
-							StdVW = afmz.remove(0, 6);
-						if (afmz.startsWith("IsFixedPitch"))
-							{
-							Enco = afmz.remove(0, 13);
-							if (Enco == "false")
-								IsFixedPitch = false;
-							else
-								IsFixedPitch = true;
-							}
-						if (afmz.startsWith("FontBBox"))
-							FontBBox = afmz.remove(0, 9);
-						if (afmz.startsWith("StartCharMetrics"))
-							break;
-						if (afmz.startsWith("EncodingScheme"))
-						{
-							Enco = afmz.stripWhiteSpace();
-							Enco = Enco.remove(0, 15);
-							if (Enco == "FontSpecific")
-								stdEnc = false;
-							else
-								stdEnc = true;
-						}
-					}
-					while (!afmz.startsWith("EndCharMetrics"))
-					{
-						afmz = ts8.readLine();
-						wt3 = QStringList::split(";", afmz);
-						AFMIndex=0;
-						AFMName="";
-						for (uint wtc = 0; wtc < wt3.count(); ++wtc)
-						{
-							wt4 = QStringList::split(" ", wt3[wtc]);
-							if (wt4[0] == "C")
-								AFMIndex = wt4[1].toInt();
-							if (wt4[0] == "WX")
-								AFMWidth = wt4[1].toInt();
-							if (wt4[0] == "N")
-								AFMName = wt4[1];
-						}
-						afmwid = float(AFMWidth) / 1000.0;
-						if (AFMIndex > 0)		// Whatever the encoding of the font, we need
-							{									// to extract metrics for ISO-latin1.
-																// Either we can map from the font's encoding
-																// to latin 1 by name (if the font has standard
-																// glyph names), or we can map by code, assuming
-																// the codes correspond to standard encoding.
-							if(Encoding.present(AFMName))
-								{
-								CharWidth[Encoding[AFMName]] = afmwid;
-								}
-							else
-								{
-/*								if(StdEncoding.present(AFMIndex))
-									{
-									QString &glyph=StdEncoding[AFMIndex];
-									if(Encoding.present(glyph))
-										CharWidth[Encoding[glyph]] = afmwid;
-									else
-										CharWidth[AFMIndex] = afmwid;
-									}
-								else    */
-									CharWidth[AFMIndex] = afmwid;
-								}
-							}
-						else
-							{
-							if(Encoding.present(AFMName))
-								CharWidth[Encoding[AFMName]] = afmwid;
-							}
-						}
-					HasMetrics=true;
-					metricsread=true;
-				}
-				else
-				{
-					HasMetrics=false;
-				}
-			}
-#endif
 			return(HasMetrics);
 		}
 	private:
-		QString cached_RealName;
 		bool metricsread;
 };
 
@@ -319,8 +232,8 @@ class Foi_postscript : public Foi
 class Foi_pfb : public Foi_postscript
 {
 	public:
-		Foi_pfb(QString scname, QString path, bool embedps, SCFonts_Encoding &encoding) :
-		Foi_postscript(scname,path,embedps,encoding)
+		Foi_pfb(QString scname, QString path, bool embedps) :
+		Foi_postscript(scname,path,embedps)
 		{
 		}
 
@@ -404,8 +317,8 @@ class Foi_pfb : public Foi_postscript
 class Foi_pfa : public Foi_postscript
 {
 	public:
-		Foi_pfa(QString scname, QString path, bool embedps, SCFonts_Encoding &encoding) :
-		Foi_postscript(scname,path,embedps,encoding)
+		Foi_pfa(QString scname, QString path, bool embedps) :
+		Foi_postscript(scname,path,embedps)
 		{
 		}
 		virtual bool EmbedFont(QString &str)
@@ -419,11 +332,6 @@ class Foi_pfa : public Foi_postscript
 
 SCFonts::~SCFonts()
 {
-	if(ExtraPath.length())
-	{
-		system("xset fp- "+ExtraPath);
-		system("xset fp rehash");
-	}
 }
 
 /* Add a path to the list of fontpaths, ensuring that
@@ -441,76 +349,54 @@ void SCFonts::AddPath(QString p)
 
 void SCFonts::AddScalableFonts(const QString &path)
 {
-  QFile fp(QString(path)+"fonts.scale");
-	if(!(fp.exists()))
-		fp.setName(QString(path)+"fonts.dir");
-	if(fp.open(IO_ReadOnly))
-	{
-		int entries;
-		QString tmp;
-		QTextStream ts(&fp);
-		entries = ts.readLine().toInt();
-		while(tmp = ts.readLine())
+	FT_Face face;
+	FT_Library library;
+	QString ts;
+	bool error;
+	error = FT_Init_FreeType( &library );
+	QDir d(path, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
+	if ((d.exists()) && (d.count() != 0))
 		{
-			int pos=tmp.find(" ");
-			QString filename=tmp.left(pos);
-			QFileInfo fo(QString(path)+filename);
-			if (!fo.exists())
-				continue;
-			tmp=tmp.right(tmp.length()-(pos+1)).stripWhiteSpace();
-
-			QStringList wt = QStringList::split("-",tmp);
-			if(wt.count()>4)
+		for (uint dc = 0; dc < d.count(); ++dc)
 			{
-				QString FoEnc = wt[wt.count()-2].lower()+"-"+wt[wt.count()-1].lower();
-				QString LoEnc = QString(QTextCodec::codecForLocale()->name()).lower().replace(QRegExp(" "), "");
-				QString FName=wt[1];
-				QString Style=wt[2];
-				Style[0] = Style[0].upper();
-				FName[0] = FName[0].upper();
-				QString SCName = FName + " " + Style;
-//				QString SCName = FName[0].upper() + FName.remove(0,1) + " ";
-//				SCName += Style[0].upper() + Style.remove(0,1);
-				if (wt[3] == "i") SCName += " Italic";
-				if (wt[3] == "o") SCName += " Oblique";
-#if 0
-				if (wt[4] != "normal")  // sadly, QT seems to ignore this field
+			QFileInfo fi(path + d[dc]);
+			QString ext = fi.extension(false).lower();
+			if ((ext == "pfa") || (ext == "pfb") || (ext == "ttf") || (ext == "otf"))
+				FT_New_Face( library, path + d[dc], 0, &face );
+			else
+				continue;
+			ts = QString(face->family_name) + " " + QString(face->style_name);
+			if (!find(ts))
 				{
-					QString scn_wid=wt[4][0].upper() + wt[4].remove(0,1);
-					SCName+=" " + scn_wid;
-				}
-#endif
-				if ((!(find(SCName)))
-						&& ((FoEnc == LoEnc)
-						|| ((FoEnc == "iso8859-1") && (LoEnc == "iso8859-15"))
-						|| ((FoEnc == "iso8859-1") && (LoEnc == "utf-8"))
-						|| (FoEnc == "adobe-fontspecific")))
-				{
-					Foi *t=0;
-					if(filename.contains(".pfa",false))
-						t=new Foi_pfa(SCName,path+filename,true,Encoding);
-					else if(filename.contains(".pfb",false))
-						t=new Foi_pfb(SCName,path+filename,true,Encoding);
-					else if(filename.contains(".ttf",false))
-						t=new Foi_ttf(SCName,path+filename,true,Encoding);
-					if(t)
+				Foi *t=0;
+				if(ext == "pfa")
+					t = new Foi_pfa(ts, path + d[dc], true);
+				else if(ext == "pfb")
+					t = new Foi_pfb(ts, path + d[dc], true);
+				else if(ext == "ttf")
+					t = new Foi_ttf(ts, path + d[dc], true);
+				else if(ext == "otf")
+					t = new Foi_ttf(ts, path + d[dc], true);
+				if(t)
 					{
-						t->Font.setPointSize(12);
-						t->Font.setRawName(tmp);
-						t->Font.setPointSize(12);
-						t->FontEnc = FoEnc;
-						insert(SCName,t);
-						t->EmbedPS = true;
-						t->UseFont = true;
-//						if(t->HasMetrics)
-//							t->ReadMetrics();
-						t->CharWidth[13] = 0;
+					t->cached_RealName = QString(FT_Get_Postscript_Name(face));
+					t->Font.setPointSize(12);
+					if (ext == "otf")
+						{
+						t->isOTF = true;
+						t->Subset = true;
+						}
+					insert(ts,t);
+					t->EmbedPS = true;
+					t->UseFont = true;
+					t->CharWidth[13] = 0;
+					t->Family = QString(face->family_name);
 					}
 				}
+			FT_Done_Face( face );
 			}
 		}
-		fp.close();
-	}
+	FT_Done_FreeType( library );
 }
 
 void SCFonts::AddXFontPath()
@@ -592,14 +478,11 @@ void SCFonts::AddUserPath(QString pf)
 			QTextStream tsx(&fx);
 			while (!tsx.atEnd())
 				{
-				ExtraPath += tsx.readLine();
-				ExtraPath += ",";
+				ExtraPath = tsx.readLine();
+				AddPath(ExtraPath);
 				}
 			fx.close();
 		}
-		ExtraPath = ExtraPath.left(ExtraPath.length()-1);
-		system("xset fp+ "+ExtraPath);
-		system("xset fp rehash");
 	}
 }
 
@@ -611,14 +494,4 @@ void SCFonts::GetFonts(QString pf)
 	AddXFontServerPath();
 	for(QStrListIterator fpi(FontPath) ; fpi.current() ; ++fpi)
 		AddScalableFonts(fpi.current());
-}
-
-void SCFonts::FreeExtraFonts()
-{
-	if(ExtraPath.length())
-		{
-		system("xset fp- "+ExtraPath);
-		system("xset fp rehash");
-		ExtraPath = "";
-		}
 }

@@ -34,13 +34,13 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cfloat")
 	Layout1->setSpacing( 4 );
 	Layout1->setMargin( 0 );
   Inhalt = new QToolButton(this, "t1");
-  Inhalt->setPixmap(loadIcon("Text2.xpm"));
+  Inhalt->setPixmap(loadIcon("Stiftalt.xpm"));
 	Inhalt->setToggleButton(true);
 	Inhalt->setAutoRaise(true);
 	Inhalt->setBackgroundMode(PaletteBackground);
 	Layout1->addWidget(Inhalt);
   Innen = new QToolButton(this, "t2");
-  Innen->setPixmap(loadIcon("Rechtecke.xpm"));
+  Innen->setPixmap(loadIcon("fill.png"));
   Innen->setToggleButton(true);
 	Innen->setAutoRaise(true);
 	Innen->setBackgroundMode(PaletteBackground);
@@ -123,8 +123,8 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cfloat")
 	TransSpin->setValue(100);
 	TransGroupLayout->addWidget( TransSpin );
 	GradLayout->addWidget( TransGroup );
-	if (!UseTransFeature)
-		TransGroup->hide();
+//	if (!UseTransFeature)
+//		TransGroup->hide();
 	Form1Layout->addLayout(GradLayout);
 
 	ListBox1 = new QListBox(this, "ListBox1");
@@ -154,7 +154,7 @@ void Cpalette::InhaltButton()
 		h += TransGroup->height();
 		GradCombo->hide();
 		GradGroup->hide();
-		TransGroup->hide();
+//		TransGroup->hide();
 		GradientMode = false;
 		ListBox1->resize(ListBox1->width(), ListBox1->height()+h);
 		updateCList();
@@ -176,8 +176,8 @@ void Cpalette::InnenButton()
 			GradientMode = true;
 		else
 			GradientMode = false;
-		if (UseTransFeature)
-			TransGroup->show();
+//		if (UseTransFeature)
+//			TransGroup->show();
 		updateCList();
 		updateGeometry();
 		repaint();
@@ -332,16 +332,22 @@ void Cpalette::ChooseGrad(int nr)
 	setFocus();
 }
 
-void Cpalette::setActTrans(float val)
+void Cpalette::setActTrans(float val, float val2)
 {
 	disconnect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
-	TransSpin->setValue(qRound(100 - val * 100));
+	if (Mode == 1)
+		TransSpin->setValue(qRound(100 - val2 * 100));
+	else
+		TransSpin->setValue(qRound(100 - val * 100));
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
 }
 
 void Cpalette::slotTrans(int val)
 {
-	emit NewTrans(static_cast<float>(100 - val) / 100.0);
+	if (Mode == 1)
+		emit NewTransS(static_cast<float>(100 - val) / 100.0);
+	else
+		emit NewTrans(static_cast<float>(100 - val) / 100.0);
 	setFocus();
 }
 
@@ -404,7 +410,7 @@ void Cpalette::setActShade(int id)
 	int b = SetMen(c);
 	if (c == 0)
 		{
-    Query* dia = new Query(this, tr("New"), 1, 0, tr("Shade:"), tr("Shade"));
+    Query* dia = new Query(this, "New", 1, 0, "Shade:", "Shade");
     if (dia->exec())
     	{
 			c = dia->Answer->text().toInt(&ok);

@@ -64,6 +64,7 @@ public:
     int vS;
     int vM;
     int vB;
+		bool Changed;
 
 public slots:
     void Save();
