@@ -2086,7 +2086,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					ite = ActPageP->Items.at(a);
 					if (ite->LayerNr != ll.LNr)
 						continue;
-					if (ite->isTableItem)
+					if (!ite->isTableItem)
 						continue;
 					PutPage("q\n");
 					if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && 
