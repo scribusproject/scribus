@@ -7,6 +7,7 @@
 # 2004/07/28 French by fredd
 # 2004/08/25 Slovak by Zdenko Podobny
 # 2004/09/13 more polish by Mikolaj Machowski <mikmach@wp.pl>  (vim-LaTeX-Suite)
+# 2005/02/07 Brazilian Portguese by Ludi Maciel & Frederico Guimarães
 #
 # Use UTF8 as coding of this file!
 # Character "#" begins a comment line, empty lines ignored too.
@@ -74,6 +75,16 @@ sk= § , & , $, Sk, *, €,
 ## academic titles
 sk=ing. ,Ing. ,Dr. ,dr. ,mudr. ,Mudr. ,mgr. ,Mgr. ,Phd. ,PhDr. ,
 #  Slovak short words - THE END
+
+
+# Português do Brasil começa AQUI
+## pronomes de tratamento
+pt_BR=Sr. ,Sra. ,Srª. ,Dr. ,Dra. ,Drª. ,Prof. ,Profa. ,Profª ,
+## unidades de medida
+pt_BR= µm, nm, mm, cm, dm, m, dam, hm, km, mg, cg, dg, g, dag, hg, kg, pt, pol, V, Kv, W, Kb, Mb, Gb, Tb, seg, min, h, C, F, N, J, W, V, Ω, pol., pol, pts., pts, bps, BPS, dpi, DPI,
+## outros
+pt_BR=R$ ,€ ,$ ,US$ ,£ , %, ltda., LTDA., S.A., s.a.,nº ,Nº ,apto. ,APTO. ,
+# Brazilian Portguese - FIM
 
 
 # end of the config file
