@@ -1,5 +1,13 @@
 Changes since Version 1.1.6
 
+08.05.2004
+	* feature #614: Polish translation update
+	* feature #615: Icon Set Number Two
+	* feature #617: Ability to set, move and delete Tabs in the Ruler
+
+07.05.2004
+	* bug     #596: strange behaviour of tab indicator in textfields
+
 06.05.2004
 	* bug     #596: strange behaviour of tab indicator in textfields
 	* feature #578: one-click/keyboard for toggling off and on all dialogboxes+guides etc

@@ -27,13 +27,13 @@ TabManager::TabManager( QWidget* parent, int dEin, QValueList<double> inTab) : Q
 	setIcon(loadIcon("AppIcon.png"));
 	tmpTab = inTab;
 	selTab = -1;
-	TabManagerLayout = new QVBoxLayout( this, 5, 5, "TabManagerLayout"); 
-	layout9 = new QHBoxLayout( 0, 0, 5, "layout9"); 
+	TabManagerLayout = new QVBoxLayout( this, 5, 5, "TabManagerLayout");
+	layout9 = new QHBoxLayout( 0, 0, 5, "layout9");
 
 	TabList = new QListBox( this, "TabList" );
 	layout9->addWidget( TabList );
-	layout8 = new QVBoxLayout( 0, 0, 5, "layout8"); 
-	layout7 = new QGridLayout( 0, 1, 1, 0, 5, "layout7"); 
+	layout8 = new QVBoxLayout( 0, 0, 5, "layout8");
+	layout7 = new QGridLayout( 0, 1, 1, 0, 5, "layout7");
 
 	Text1 = new QLabel( this, "Text1" );
 	Text1->setText( tr( "Position:" ) );
@@ -67,7 +67,7 @@ TabManager::TabManager( QWidget* parent, int dEin, QValueList<double> inTab) : Q
 	layout9->addLayout( layout8 );
 	TabManagerLayout->addLayout( layout9 );
 
-	layout10 = new QGridLayout( 0, 1, 1, 0, 5, "layout10"); 
+	layout10 = new QGridLayout( 0, 1, 1, 0, 5, "layout10");
 	OKButton = new QPushButton( this, "OKButton" );
 	OKButton->setText( tr( "OK" ) );
 	OKButton->setDefault( TRUE );
@@ -105,8 +105,8 @@ void TabManager::DelTab()
 	it = tmpTab.remove(it);
 	tmpTab.remove(it);
 	selTab = tmpTab.isEmpty() ? -1 : static_cast<int>(tmpTab.count() - 2);
-  if (selTab == -1)
-    DelButton->setEnabled(false);
+	if (selTab == -1)
+		DelButton->setEnabled(false);
 	UpdateTabL();
 }
 
@@ -115,10 +115,10 @@ void TabManager::AddTab()
 	tmpTab.prepend(0);
 	tmpTab.prepend(0);
 	selTab = 0;
-  DelButton->setEnabled(true);
+	DelButton->setEnabled(true);
 	UpdateTabL();
-  Position->setFocus();
-  Position->selectAll();
+	Position->setFocus();
+	Position->selectAll();
 }
 
 void TabManager::ChangeType()
@@ -174,13 +174,13 @@ void TabManager::PValChange()
 void TabManager::UnitChange(int dEin)
 {
 	Position->setDecimals(10);
-	char *tmp[] = {" pt", " mm", " in", " p"};
+	QString tmp[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
 	Einheit = dEin;
-	QString ein = tr(tmp[dEin]);
+	QString ein = tmp[dEin];
 	if (dEin == 2)
 		Position->setDecimals(10000);
 	Position->setSuffix(ein);
-  if (!tmpTab.isEmpty() || (selTab != -1))
+	if (!tmpTab.isEmpty() || (selTab != -1))
 		Position->setValue(tmpTab[selTab+1] * UmReFaktor);
 	else
 		Position->setValue(0);
@@ -192,11 +192,10 @@ void TabManager::UpdateTabL()
 	disconnect(Position, SIGNAL(valueChanged(int)), this, SLOT(PValChange()));
 	disconnect(Align, SIGNAL(activated(int)), this, SLOT(ChangeType()));
 	TabList->clear();
-	char *tp[] = {" pt", " mm", " in", " p"};
-	QString ein = tr(tp[Einheit]), tmp;
+	QString tp[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
+	QString ein = tp[Einheit], tmp;
 	for (uint a = 0; a < tmpTab.count(); a += 2)
-		TabList->insertItem(tmp.setNum(qRound(tmpTab[a+1]*UmReFaktor*Position->Decimals)/
-							static_cast<double>(Position->Decimals))+ein);
+		TabList->insertItem(tmp.setNum(qRound(tmpTab[a+1]*UmReFaktor*Position->Decimals)/static_cast<double>(Position->Decimals))+ein);
 	if (tmpTab.isEmpty())
 		selTab = -1;
 	if (selTab != -1)

@@ -38,6 +38,7 @@ public:
 	void mousePressEvent(QMouseEvent *m);
 	void mouseReleaseEvent(QMouseEvent *);
 	void mouseMoveEvent(QMouseEvent *m);
+	void UpdateTabList();
 	int offs;
 	int Markp;
 	bool repX;
@@ -47,6 +48,7 @@ public:
 	double ItemEndPos;
 	int Cols;
 	int ActCol;
+	int ActTab;
 	double ColGap;
 	double RExtra;
 	double Extra;

@@ -831,10 +831,6 @@
         <source>Custom</source>
         <translation>Benutzerdefiniert</translation>
     </message>
-    <message>
-        <source></source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>Annota</name>
@@ -1121,10 +1117,6 @@
         <source>When Icon it too small</source>
         <translation type="obsolete">bei zu kleinem Icon</translation>
     </message>
-    <message>
-        <source></source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>CMSPrefs</name>
@@ -1335,10 +1327,6 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     <message>
         <source>Name of the Color is not unique</source>
         <translation>Der Name der Farbe ist nicht eindeutig</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1757,10 +1745,6 @@ Wird in den Voreinstellungen eingestellt.</translation>
     <message>
         <source>Print</source>
         <translation>Drucken</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2315,10 +2299,6 @@ Wird in den Voreinstellungen eingestellt.</translation>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
         <translation>Leider kein Handbuch verfügbar! Bitte besuchen Sie: http://scribus.net für Updates.</translation>
     </message>
-    <message>
-        <source></source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>HyAsk</name>
@@ -2608,10 +2588,6 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <source>Do you want to delete all Objects on this Layer too?</source>
         <translation>Wollen Sie auch alle Objekte dieser Ebene löschen?</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3471,10 +3447,6 @@ Bitte wählen Sie einen anderen.</translation>
         <translation>Render-Methode für das Bild</translation>
     </message>
     <message>
-        <source></source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Switches between Gap or Column width</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3992,10 +3964,6 @@ Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine
 otherwise Coordinates are relative to the Object.</source>
         <translation>Aktiviert bedeutet Koordinaten relativ zur Seite,
 andernfalls relativ zum Objekt.</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6109,10 +6077,6 @@ des Dokuments mit der Erweiterung .bak</translation>
         <translation type="unfinished">Vertikale Größe</translation>
     </message>
     <message>
-        <source></source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Baseline Grid</source>
         <translation>Grundlinien-Raster</translation>
     </message>
@@ -7814,10 +7778,6 @@ nicht speichern</translation>
         <translation>Alle entsperren</translation>
     </message>
     <message>
-        <source></source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>pt</translation>
     </message>
@@ -7835,19 +7795,19 @@ nicht speichern</translation>
     </message>
     <message>
         <source>pt</source>
-        <translation>ptpt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source>mm</source>
-        <translation>mmmm</translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source>in</source>
-        <translation>inin</translation>
+        <translation>in</translation>
     </message>
     <message>
         <source>p</source>
-        <translation>pp</translation>
+        <translation>p</translation>
     </message>
     <message>
         <source>Lithuanian</source>

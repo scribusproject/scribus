@@ -340,7 +340,9 @@ void Page::dropEvent(QDropEvent *e)
 		{
 			if ((!img) && (doku->DraggedElem == 0))
 				emit LoadElem(QString(text), qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), false, false, doku);
-			else
+			update();
+/* The following code is disabled due to a bug in Qt-3.3.x which crashes here. In Qt-3.1.x it works fine */
+/*			else
 			{
 				if (doku->DraggedElem != 0)
 				{
@@ -416,7 +418,7 @@ void Page::dropEvent(QDropEvent *e)
 				doku->DraggedElem = 0;
 				doku->DragElements.clear();
 				update();
-			}
+			} */
 		}
 	}
 }

@@ -17,7 +17,7 @@
     </message>
     <message>
         <source>Build-ID:</source>
-        <translation>Build-ID:</translation>
+        <translation>Identyfikator kompilacji:</translation>
     </message>
     <message>
         <source>About</source>
@@ -133,7 +133,7 @@
     </message>
     <message>
         <source>March</source>
-        <translation >Marzec</translation>
+        <translation type="obsolete">Marzec</translation>
     </message>
     <message>
         <source>Homepage and online reference</source>
@@ -150,6 +150,14 @@
     <message>
         <source>Online</source>
         <translation>Online</translation>
+    </message>
+    <message>
+        <source>Slovenian:</source>
+        <translation>Słoweński:</translation>
+    </message>
+    <message>
+        <source>Basque:</source>
+        <translation>Baskijski:</translation>
     </message>
 </context>
 <context>
@@ -274,7 +282,7 @@
     </message>
     <message>
         <source>Align Text Block</source>
-        <translation >Justuj tekst</translation>
+        <translation type="obsolete">Justuj tekst</translation>
     </message>
     <message>
         <source>Align Text Center</source>
@@ -1107,7 +1115,7 @@
     </message>
     <message>
         <source>When Icon it too small</source>
-        <translation >kiedy ikona jest za mała</translation>
+        <translation type="obsolete">kiedy ikona jest za mała</translation>
     </message>
 </context>
 <context>
@@ -1203,25 +1211,25 @@ Profil ten powinien być specyficzny dla twojej drukarki, a nie generyczny (jak 
     <message>
         <source>Choose the default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation >Wybierz domyślną metodę konwersji dla twojego monitora. Jeśli nie wiesz na pewno,
+        <translation type="obsolete">Wybierz domyślną metodę konwersji dla twojego monitora. Jeśli nie wiesz na pewno,
 dlaczego chcesz to zmienić, wybierz metodę względnie kolorometryczną lub percepcję. </translation>
     </message>
     <message>
         <source>Choose the default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation >Wybierz domyślną metodę konwersji dla twojej drukarki. Jeśli nie wiesz na pewno,
+        <translation type="obsolete">Wybierz domyślną metodę konwersji dla twojej drukarki. Jeśli nie wiesz na pewno,
 dlaczego chcesz to zmienić, wybierz metodę względnie kolorometryczną lub percepcję. </translation>
     </message>
     <message>
         <source>This enables &apos;soft proofing&apos; of how your document colors will print,
 based on the chosen printer profile.</source>
-        <translation >Włącza tzw. &apos;soft proofing&apos; wydruku kolorów,
+        <translation type="obsolete">Włącza tzw. &apos;soft proofing&apos; wydruku kolorów,
 bazującego na wybranym profilu drukarki.</translation>
     </message>
     <message>
         <source>This is a method of showing colors on the screen which may not print properly.
 This requires very accurate profiles and serves only as a warning.</source>
-        <translation >Metoda ta umożliwia pokazanie na monitorze kolorów, które nie zostaną prawidłowo wydrukowane.
+        <translation type="obsolete">Metoda ta umożliwia pokazanie na monitorze kolorów, które nie zostaną prawidłowo wydrukowane.
 Wymaga ona bardzo dokładnych profili i służy jedynie jako ostrzeżenie.</translation>
     </message>
     <message>
@@ -1335,7 +1343,7 @@ Wymaga ona bardzo dokładnie dopasowanych profili i służy jedynie jako ostrze�
     </message>
     <message>
         <source>Websave RGB</source>
-        <translation >RGB dla internetu</translation>
+        <translation type="obsolete">RGB dla internetu</translation>
     </message>
     <message>
         <source> %</source>
@@ -1354,7 +1362,7 @@ Wymaga ona bardzo dokładnie dopasowanych profili i służy jedynie jako ostrze�
     <name>Cpalette</name>
     <message>
         <source>Other...</source>
-        <translation >Inne...</translation>
+        <translation type="obsolete">Inne...</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -1529,7 +1537,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>OK to delete Color:</source>
-        <translation >Potwierdź usunięcie koloru:</translation>
+        <translation type="obsolete">Potwierdź usunięcie koloru:</translation>
     </message>
     <message>
         <source>?</source>
@@ -1583,7 +1591,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Select Font</source>
-        <translation >Wybierz czcionkę</translation>
+        <translation type="obsolete">Wybierz czcionkę</translation>
     </message>
     <message>
         <source>The Font %1 is not installed.</source>
@@ -1591,7 +1599,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Select New Font:</source>
-        <translation >Wybierz nową czcionkę:</translation>
+        <translation type="obsolete">Wybierz nową czcionkę:</translation>
     </message>
     <message>
         <source>Use</source>
@@ -1603,7 +1611,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation >Anuluj</translation>
+        <translation type="obsolete">Anuluj</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1749,7 +1757,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation >OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -1836,27 +1844,27 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Alignment</source>
-        <translation >Wyrównanie</translation>
+        <translation type="obsolete">Wyrównanie</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation >Do lewej</translation>
+        <translation type="obsolete">Do lewej</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation >Do prawej</translation>
+        <translation type="obsolete">Do prawej</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation >Wyśrodkowane</translation>
+        <translation type="obsolete">Wyśrodkowane</translation>
     </message>
     <message>
         <source>Block</source>
-        <translation >Justowany</translation>
+        <translation type="obsolete">Justowany</translation>
     </message>
     <message>
         <source>Forced</source>
-        <translation >Justowany (z ostatnią linią)</translation>
+        <translation type="obsolete">Justowany (z ostatnią linią)</translation>
     </message>
     <message>
         <source>Vertical Spaces</source>
@@ -2101,7 +2109,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Save</source>
-        <translation >Zapisz</translation>
+        <translation type="obsolete">Zapisz</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -2145,7 +2153,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>New Color:</source>
-        <translation >Nowy kolor:</translation>
+        <translation type="obsolete">Nowy kolor:</translation>
     </message>
     <message>
         <source>New Color</source>
@@ -2354,7 +2362,7 @@ This can be set in the Preferences.</source>
     <name>HelpBrowser</name>
     <message>
         <source>Sorry, no manual available!</source>
-        <translation >Niestety brak podręcznika!</translation>
+        <translation type="obsolete">Niestety brak podręcznika!</translation>
     </message>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
@@ -2413,7 +2421,7 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>This is the length of the smallest word to be hyphenated.</source>
-        <translation >To jest długość najkrótszego słowa podlegającego podziałowi.</translation>
+        <translation type="obsolete">To jest długość najkrótszego słowa podlegającego podziałowi.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2516,7 +2524,7 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     <name>JavaDocs</name>
     <message>
         <source>Global JavaScripts</source>
-        <translation >Globalne skrypty JavaScript</translation>
+        <translation type="obsolete">Globalne skrypty JavaScript</translation>
     </message>
     <message>
         <source>Edit...</source>
@@ -2662,7 +2670,7 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
     <message>
         <source>Closes this Dialog</source>
-        <translation >Zamyka to okienko dialogowe</translation>
+        <translation type="obsolete">Zamyka to okienko dialogowe</translation>
     </message>
     <message>
         <source>New Layer</source>
@@ -2745,7 +2753,7 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation >Zamknij</translation>
+        <translation type="obsolete">Zamknij</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2952,11 +2960,11 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation>Warstwa</translation>
+        <translation>Poziom</translation>
     </message>
     <message>
         <source>Text flows around Box</source>
-        <translation >Tekst opływa ramkę</translation>
+        <translation type="obsolete">Tekst opływa ramkę</translation>
     </message>
     <message>
         <source>Use Bounding Box</source>
@@ -3010,7 +3018,7 @@ rogi:</translation>
     </message>
     <message>
         <source>Path Text Properites</source>
-        <translation>Właściwości tekstu na ścieżce</translation>
+        <translation type="obsolete">Właściwości tekstu na ścieżce</translation>
     </message>
     <message>
         <source>Show Curve</source>
@@ -3034,7 +3042,7 @@ rogi:</translation>
     </message>
     <message>
         <source>Other...</source>
-        <translation >Inne...</translation>
+        <translation type="obsolete">Inne...</translation>
     </message>
     <message>
         <source>Custom Spacing</source>
@@ -3050,11 +3058,11 @@ rogi:</translation>
     </message>
     <message>
         <source>Styles</source>
-        <translation >Style</translation>
+        <translation type="obsolete">Style</translation>
     </message>
     <message>
         <source>Lang.:</source>
-        <translation >Język:</translation>
+        <translation type="obsolete">Język:</translation>
     </message>
     <message>
         <source>Free Scaling</source>
@@ -3062,15 +3070,15 @@ rogi:</translation>
     </message>
     <message>
         <source>Position:</source>
-        <translation >Pozycja:</translation>
+        <translation type="obsolete">Pozycja:</translation>
     </message>
     <message>
         <source>Horiz. Scale:</source>
-        <translation >Poziomo:</translation>
+        <translation type="obsolete">Poziomo:</translation>
     </message>
     <message>
         <source>Vert. Scale:</source>
-        <translation >Pionowo:</translation>
+        <translation type="obsolete">Pionowo:</translation>
     </message>
     <message>
         <source>Scale to Frame Size</source>
@@ -3078,7 +3086,7 @@ rogi:</translation>
     </message>
     <message>
         <source>Keep Aspect Ratio</source>
-        <translation >Zachowaj proporcje</translation>
+        <translation type="obsolete">Zachowaj proporcje</translation>
     </message>
     <message>
         <source>Proportional</source>
@@ -3178,75 +3186,75 @@ rogi:</translation>
     </message>
     <message>
         <source>Underline</source>
-        <translation >Podkreślenie</translation>
+        <translation type="obsolete">Podkreślenie</translation>
     </message>
     <message>
         <source>Small Caps</source>
-        <translation >Kapitaliki</translation>
+        <translation type="obsolete">Kapitaliki</translation>
     </message>
     <message>
         <source>Subscript</source>
-        <translation >Indeks dolny</translation>
+        <translation type="obsolete">Indeks dolny</translation>
     </message>
     <message>
         <source>Superscript</source>
-        <translation >Indeks górny</translation>
+        <translation type="obsolete">Indeks górny</translation>
     </message>
     <message>
         <source>Strikeout</source>
-        <translation >Przekreślenie</translation>
+        <translation type="obsolete">Przekreślenie</translation>
     </message>
     <message>
         <source>Outline Text</source>
-        <translation >Obramowanie tekstu</translation>
+        <translation type="obsolete">Obramowanie tekstu</translation>
     </message>
     <message>
         <source>Align Text Left</source>
-        <translation >Wyrównaj tekst do lewej</translation>
+        <translation type="obsolete">Wyrównaj tekst do lewej</translation>
     </message>
     <message>
         <source>Align Text Right</source>
-        <translation >Wyrównaj tekst do prawej</translation>
+        <translation type="obsolete">Wyrównaj tekst do prawej</translation>
     </message>
     <message>
         <source>Align Text Block</source>
-        <translation >Justuj tekst</translation>
+        <translation type="obsolete">Justuj tekst</translation>
     </message>
     <message>
         <source>Align Text Center</source>
-        <translation >Wyśrodkuj tekst</translation>
+        <translation type="obsolete">Wyśrodkuj tekst</translation>
     </message>
     <message>
         <source>Flip horizontal</source>
-        <translation >Odbicie lustrzane w poziomie</translation>
+        <translation type="obsolete">Odbicie lustrzane w poziomie</translation>
     </message>
     <message>
         <source>Flip vertical</source>
-        <translation >Odbicie lustrzane w pionie</translation>
+        <translation type="obsolete">Odbicie lustrzane w pionie</translation>
     </message>
     <message>
         <source>Move one Level up</source>
-        <translation >Przesuń o warstwę wyżej</translation>
+        <translation type="obsolete">Przesuń o warstwę wyżej</translation>
     </message>
     <message>
         <source>Move one Level down</source>
-        <translation >Przesuń o warstwę niżej</translation>
+        <translation type="obsolete">Przesuń o warstwę niżej</translation>
     </message>
     <message>
         <source>Move to Front</source>
-        <translation >Przesuń na wierzch</translation>
+        <translation type="obsolete">Przesuń na wierzch</translation>
     </message>
     <message>
         <source>Move to Back</source>
-        <translation >Przesuń na spód</translation>
+        <translation type="obsolete">Przesuń na spód</translation>
     </message>
     <message>
         <source>Locks or unlocks the Object</source>
-        <translation >Zabezpiecza lub odbezpiecza obiekt</translation>
+        <translation type="obsolete">Zabezpiecza lub odbezpiecza obiekt</translation>
     </message>
     <message>
         <source>Enables or disables printing of the Object</source>
-        <translation >Włącza lub wyłącza drukowanie obiektu</translation>
+        <translation type="obsolete">Włącza lub wyłącza drukowanie obiektu</translation>
     </message>
     <message>
         <source>X1:</source>
@@ -3368,11 +3376,11 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Move one level up</source>
-        <translation>Przesuń o warstwę wyżej</translation>
+        <translation>Przesuń o poziom wyżej</translation>
     </message>
     <message>
         <source>Move one level down</source>
-        <translation>Przesuń o warstwę niżej</translation>
+        <translation>Przesuń o poziom niżej</translation>
     </message>
     <message>
         <source>Move to front</source>
@@ -3396,11 +3404,11 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Enable this to make text in lower objects flow around this frame</source>
-        <translation >Włącz to, aby tekst w niższych obiektach opływał tę ramkę</translation>
+        <translation type="obsolete">Włącz to, aby tekst w niższych obiektach opływał tę ramkę</translation>
     </message>
     <message>
         <source>Enable this to use the imaginary square border around your object, rather than its actual shape</source>
-        <translation >Włącz to, aby używać niewidocznej prostokątnej ramki wokół obiektu zamiast jego rzeczywistej formy</translation>
+        <translation type="obsolete">Włącz to, aby używać niewidocznej prostokątnej ramki wokół obiektu zamiast jego rzeczywistej formy</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -3524,19 +3532,19 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Make the image fit within the size of the frame</source>
-        <translation>Dopasu obrazek do rozmiarów ramki</translation>
+        <translation>Dopasuj obrazek do rozmiarów ramki</translation>
     </message>
     <message>
         <source>Use image proportions rather than those of the frame</source>
-        <translation>Użyj proporcji obrazka, a nie proporcji ramki</translation>
+        <translation>Użyj proporcji obrazka zamiast proporcji ramki</translation>
     </message>
     <message>
         <source>Select the source profile of the image</source>
-        <translation >Wybierz profil źródła obrazka</translation>
+        <translation type="obsolete">Wybierz profil źródła obrazka</translation>
     </message>
     <message>
         <source>Select the rendering intent for the image</source>
-        <translation >Wybierz metodę konwersji dla obrazka</translation>
+        <translation type="obsolete">Wybierz metodę konwersji dla obrazka</translation>
     </message>
     <message>
         <source>Cell Lines</source>
@@ -3572,11 +3580,11 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Make text in lower objects flow around this frame</source>
-        <translation>Tekst w obiektach leżacych pod spodem będzie opływał tę ramkę</translation>
+        <translation type="obsolete">Tekst w obiektach leżacych pod spodem będzie opływał tę ramkę</translation>
     </message>
     <message>
         <source>Use the imaginary square border around your object, rather than its actual shape</source>
-        <translation>Użyj niewidocznej kwadratowej ramki ograniczającej dookoła obiektu zamiast jego rzeczywistego kształtu</translation>
+        <translation type="obsolete">Użyj niewidocznej kwadratowej ramki ograniczającej dookoła obiektu zamiast jego rzeczywistego kształtu</translation>
     </message>
     <message>
         <source>Keep the aspect ratio</source>
@@ -3601,6 +3609,22 @@ Proszę wybrać inną.</translation>
     <message>
         <source>Column width</source>
         <translation>Szerokość szpalty</translation>
+    </message>
+    <message>
+        <source>Path Text Properties</source>
+        <translation>Właściwości ścieżki tekstowej</translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object shape</source>
+        <translation>Tekst w ramkach znajdujących się pod spodem będzie opływał ten obiekt</translation>
+    </message>
+    <message>
+        <source>Use the frame shape instead of the object one</source>
+        <translation>Zastosuj kształt ramki zamiast kształtu obiektu</translation>
+    </message>
+    <message>
+        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
+        <translation>Pokazuje poziom, na którym znajduje się obiekt. 0 oznacza, że obiekt jest na spodzie</translation>
     </message>
 </context>
 <context>
@@ -3712,7 +3736,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Exit</source>
-        <translation >Zakończ</translation>
+        <translation type="obsolete">Zakończ</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -3839,7 +3863,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Millimeters (mm)</source>
-        <translation >Milimetry (mm)</translation>
+        <translation type="obsolete">Milimetry (mm)</translation>
     </message>
     <message>
         <source>Inches (in)</source>
@@ -3851,7 +3875,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Autom. Text Frames</source>
-        <translation >Autom. obramowanie tekstu</translation>
+        <translation type="obsolete">Autom. obramowanie tekstu</translation>
     </message>
     <message>
         <source>Column Guides</source>
@@ -3859,7 +3883,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Gutter Width:</source>
-        <translation >Odstęp szpalt:</translation>
+        <translation type="obsolete">Odstęp szpalt:</translation>
     </message>
     <message>
         <source>Columns:</source>
@@ -3968,7 +3992,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Number of columns to create in text frames
 on automatically created pages</source>
-        <translation >Ilość szpalt w ramkach tekstowych na automatycznie tworzonych stronach</translation>
+        <translation type="obsolete">Ilość szpalt w ramkach tekstowych na automatycznie tworzonych stronach</translation>
     </message>
     <message>
         <source>Distance between automatically created columns</source>
@@ -4186,7 +4210,7 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Compression</source>
-        <translation >Kompresja</translation>
+        <translation type="obsolete">Kompresja</translation>
     </message>
     <message>
         <source>Downsample Images to:</source>
@@ -4226,7 +4250,7 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation >Czcionki</translation>
+        <translation type="obsolete">Czcionki</translation>
     </message>
     <message>
         <source>Enable Presentation Effects</source>
@@ -4262,7 +4286,7 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>from the:</source>
-        <translation >Od:</translation>
+        <translation type="obsolete">Od:</translation>
     </message>
     <message>
         <source>Direction:</source>
@@ -4334,7 +4358,7 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Top-Left to Bottom-Right</source>
-        <translation >Od góry po lewej do dołu po prawej</translation>
+        <translation type="obsolete">Od góry po lewej do dołu po prawej</translation>
     </message>
     <message>
         <source>Apply Effect on all Pages</source>
@@ -4342,7 +4366,7 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Extras</source>
-        <translation >Dodatki</translation>
+        <translation type="obsolete">Dodatki</translation>
     </message>
     <message>
         <source>Use Encryption</source>
@@ -4382,7 +4406,7 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Security</source>
-        <translation >Bezpieczeństwo</translation>
+        <translation type="obsolete">Bezpieczeństwo</translation>
     </message>
     <message>
         <source>Output intended for:</source>
@@ -4438,7 +4462,7 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation >Kolor</translation>
+        <translation type="obsolete">Kolor</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
@@ -4458,7 +4482,7 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation >OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -4549,44 +4573,44 @@ w innym przypadku do obiektu.</translation>
 The default is Acrobat 4.0 which gives the widest compatibility.
 Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
 PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation >Określa kompatybilność pliku PDF.
+        <translation type="obsolete">Określa kompatybilność pliku PDF.
 Domyślne ustawienie to Acrobat 4.0, którego wynikiem jest największa kompatybilność.
 Wybierz Acrobata 5.0, jeśli twój plik korzysta z takich właściwości PDF 1.4 jak przezroczystość, lub jeśli wymagane jest kodowanie 128 bitowe.</translation>
     </message>
     <message>
         <source>This determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
-        <translation >Określa odstęp do zszycia stron w pliku PDF. Najlepiej zostawić
+        <translation type="obsolete">Określa odstęp do zszycia stron w pliku PDF. Najlepiej zostawić
 domyślne ustawienie (z lewej strony), chyba że wiesz na pewno, że zmiana jest potrzebna.</translation>
     </message>
     <message>
         <source>Enabling this generates thumbnails of each page in the PDF.
 Some viewers can use the thumbnails for navigation.</source>
-        <translation >Włącza generowanie miniatur każdej strony w pliku PDF.
+        <translation type="obsolete">Włącza generowanie miniatur każdej strony w pliku PDF.
 Niektóre przegląrki używają miniatur do nawigacji.</translation>
     </message>
     <message>
         <source>Enable this for generating PDF Articles, which is useful
 for navigating linked articles in a PDF.</source>
-        <translation >Włącza generowanie artykułów PDF, które przydają się
+        <translation type="obsolete">Włącza generowanie artykułów PDF, które przydają się
 w nawigowaniu pomiędzy powiązanymi ze sobą artykułami w PDF.</translation>
     </message>
     <message>
         <source>Enabling this will embed the bookmarks you created in your document.
 These are useful for navigating long PDF documents.</source>
-        <translation >Włącza osadzanie utworzonych przez ciebie zakładek w dokumencie.
+        <translation type="obsolete">Włącza osadzanie utworzonych przez ciebie zakładek w dokumencie.
 Jest to przydatne przy poruszaniu się w długich dokumentach PDF.</translation>
     </message>
     <message>
         <source>Choose the export resolution of text and vector graphics.
 This does not affect the resolution of bitmap images like photos.</source>
-        <translation >Wybór rozdzielczości dla tekstu i grafiki wektorowej.
+        <translation type="obsolete">Wybór rozdzielczości dla tekstu i grafiki wektorowej.
 Nie ma wpływu na rozdzielczość grafiki bitmapowej, np. zdjęć.</translation>
     </message>
     <message>
         <source>Enable compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation >Włącza kompresję tekstu i grafiki. Najlepiej zostawić zakreślone, 
+        <translation type="obsolete">Włącza kompresję tekstu i grafiki. Najlepiej zostawić zakreślone, 
 chyba że ma się powody, aby to zmieniać. Redukuje to rozmiar pliku PDF.</translation>
     </message>
     <message>
@@ -4595,38 +4619,38 @@ Automatic allows Scribus to choose the best method.
 ZIP is good for images with solid colors.
 JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
 Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation >Wybór wersji kompresji obrazków.
+        <translation type="obsolete">Wybór wersji kompresji obrazków.
 Automatyczna pozwala Scribusowi na wybór najlepszej metody.
 ZIP jest dobry dla obrazków o jednolitych kolorach.
 JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo zdjęć (przy najmniejszej z możliwych utracie informacji obrazka).</translation>
     </message>
     <message>
         <source>Choose the compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation >Wybierz stopień kompresji: minimalny (25%), niski (50%), średni (75%), wysoki (85%), maksymalny (95%)</translation>
+        <translation type="obsolete">Wybierz stopień kompresji: minimalny (25%), niski (50%), średni (75%), wysoki (85%), maksymalny (95%)</translation>
     </message>
     <message>
         <source>This choice will enable downsampling of your bitmap images to the selected DPI.</source>
-        <translation >Ten wybór umożliwi redukcję grafiki bitmapowej do wybranej rozdzielczości DPI.</translation>
+        <translation type="obsolete">Ten wybór umożliwi redukcję grafiki bitmapowej do wybranej rozdzielczości DPI.</translation>
     </message>
     <message>
         <source>Choose the DPI (Dots Per Inch) for image export.
 Leaving this unchecked will render them at their native resolution.</source>
-        <translation >Wybór rozdzielczości DPI (Dots Per Inch) dla eksportu obrazków.
+        <translation type="obsolete">Wybór rozdzielczości DPI (Dots Per Inch) dla eksportu obrazków.
 Jeśli nie zakreślisz tej opcji, obrazji będą interpretowane w oryginalnej rozdzielczości.</translation>
     </message>
     <message>
         <source>Check this to embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
-        <translation >Zaznacz tę opcję, aby zagnieździć czcionki w dokumencie PDF. Zagnieżdżenie czcionek
+        <translation type="obsolete">Zaznacz tę opcję, aby zagnieździć czcionki w dokumencie PDF. Zagnieżdżenie czcionek
 pozwoli na zachowanie układu graficznego i wyglądu dokumentu.</translation>
     </message>
     <message>
         <source>Checking this enables presentation effects when using Acrobat Reader in full screen mode.</source>
-        <translation >Zakreślenie tej opcji włączy efekty prezentacyjne, które Acrobat Reader pokazuje w trybie pełnoekranowym.</translation>
+        <translation type="obsolete">Zakreślenie tej opcji włączy efekty prezentacyjne, które Acrobat Reader pokazuje w trybie pełnoekranowym.</translation>
     </message>
     <message>
         <source>Checking this will show page previews of each page listed above.</source>
-        <translation >Zakreślenie tej opcji pozwoli na pokazanie podglądu każdej strony wymienionej powyżej.</translation>
+        <translation type="obsolete">Zakreślenie tej opcji pozwoli na pokazanie podglądu każdej strony wymienionej powyżej.</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
@@ -4640,19 +4664,19 @@ Krótszy czas spowoduje przyspieszenie efektu, dłuższy czas jego spowolnienie.
     </message>
     <message>
         <source>Choose type of the display effect.</source>
-        <translation >Wybierz typ efektu prezentacyjnego.</translation>
+        <translation type="obsolete">Wybierz typ efektu prezentacyjnego.</translation>
     </message>
     <message>
         <source>Choose the direction of the effect of moving lines for the split and blind effects.</source>
-        <translation >Wybierz kierunek przemieszczania się linii dla efektu dzielenia i żaluzji.</translation>
+        <translation type="obsolete">Wybierz kierunek przemieszczania się linii dla efektu dzielenia i żaluzji.</translation>
     </message>
     <message>
         <source>Choose the starting position for the box and split effects.</source>
-        <translation >Wybierz pozycję początkową dla efektu ramki i dzielenia.</translation>
+        <translation type="obsolete">Wybierz pozycję początkową dla efektu ramki i dzielenia.</translation>
     </message>
     <message>
         <source>Choose the direction of the glitter or wipe effects.</source>
-        <translation >Wybierz kierunek efektu szachownicy lub zacierania.</translation>
+        <translation type="obsolete">Wybierz kierunek efektu szachownicy lub zacierania.</translation>
     </message>
     <message>
         <source>Apply the selected effect to all pages.</source>
@@ -4663,7 +4687,7 @@ Krótszy czas spowoduje przyspieszenie efektu, dłuższy czas jego spowolnienie.
 If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
 If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
 Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation >Zakreślenie tej opcji włączy zabezpieczenia w eksportowanym dokumencie PDF.
+        <translation type="obsolete">Zakreślenie tej opcji włączy zabezpieczenia w eksportowanym dokumencie PDF.
 Jeśli wybrałeś eksport do formatu Acrobat 4.0, to plik PDF zostanie zabezpieczony szyfrowaniem 40 bitowym.
 Jeśli wybrałeś eksport do formatu Acrobat 5.0, to  plik PDF zostanie zabezpieczony szyfrowaniem 128 bitowym.
 Zastrzeżenie: szyfrowanie w PDF nie jest tak godne zaufania jak GPG lub PGP i ma pewne ograniczenia.</translation>
@@ -4680,25 +4704,25 @@ zabezpieczenia w wyeksportowanym pliku PDF</translation>
     </message>
     <message>
         <source>Unchecking this will disallow printing of the PDF</source>
-        <translation >Jeśli usuniesz zakreślenie tej opcji, zabronisz tym samym drukowanie dokumentu PDF</translation>
+        <translation type="obsolete">Jeśli usuniesz zakreślenie tej opcji, zabronisz tym samym drukowanie dokumentu PDF</translation>
     </message>
     <message>
         <source>Unchecking this will disallow modifying of the PDF</source>
-        <translation >Usunięcie zakreślenia tej opcji uniemożliwi edycję dokumentu PDF</translation>
+        <translation type="obsolete">Usunięcie zakreślenia tej opcji uniemożliwi edycję dokumentu PDF</translation>
     </message>
     <message>
         <source>Unchecking this will disallow copying of text or graphics from the PDF</source>
-        <translation >Usunięcie zakreślenia tej opcji spowoduje, że nie będzie można kopiować tekstu i grafiki z dokumentu PDF</translation>
+        <translation type="obsolete">Usunięcie zakreślenia tej opcji spowoduje, że nie będzie można kopiować tekstu i grafiki z dokumentu PDF</translation>
     </message>
     <message>
         <source>Unchecking this will disallow adding annotations and fields to the PDF</source>
-        <translation >Usunięcie zakreślenia tej opcji uniemożliwi dodawanie adnotacji i pól do dokumentu PDF</translation>
+        <translation type="obsolete">Usunięcie zakreślenia tej opcji uniemożliwi dodawanie adnotacji i pól do dokumentu PDF</translation>
     </message>
     <message>
         <source>This chooses the color model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation >Tutaj wybiera się model barw dla wyjściowego dokumentu PDF.
+        <translation type="obsolete">Tutaj wybiera się model barw dla wyjściowego dokumentu PDF.
 Wybierz &quot;Monitor/Internet&quot; dla plików PDF, które przeznaczone są do oglądania na monitorze lub do druku an typowych drukarkach atramentowych.
 Wybierz opcję &quot;Drukarka&quot;, jeśli będziesz drukował na drukarce obsługującej CMYK.</translation>
     </message>
@@ -4708,11 +4732,11 @@ Wybierz opcję &quot;Drukarka&quot;, jeśli będziesz drukował na drukarce obs�
     </message>
     <message>
         <source>Select the color profile for solid colors</source>
-        <translation >Wybierz profil barw dla jednolitych kolorów</translation>
+        <translation type="obsolete">Wybierz profil barw dla jednolitych kolorów</translation>
     </message>
     <message>
         <source>Select the rendering intent for solid colors</source>
-        <translation >Wybierz metodę konwersji dla jednolitych kolorów</translation>
+        <translation type="obsolete">Wybierz metodę konwersji dla jednolitych kolorów</translation>
     </message>
     <message>
         <source>Embed a color profile for images</source>
@@ -4724,20 +4748,20 @@ Wybierz opcję &quot;Drukarka&quot;, jeśli będziesz drukował na drukarce obs�
     </message>
     <message>
         <source>Select the color profile for images</source>
-        <translation >Wybierz profil barw dla obrazków</translation>
+        <translation type="obsolete">Wybierz profil barw dla obrazków</translation>
     </message>
     <message>
         <source>Select the rendering intent for images</source>
-        <translation >Wybierz metody konwersji dla obrazków</translation>
+        <translation type="obsolete">Wybierz metody konwersji dla obrazków</translation>
     </message>
     <message>
         <source>Select the output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation >Wybierz profil wyjściowy dla druku. Jeśli to możliwe, poproś drukarnię o poradę w sprawie wyboru właściwego profilu.</translation>
+        <translation type="obsolete">Wybierz profil wyjściowy dla druku. Jeśli to możliwe, poproś drukarnię o poradę w sprawie wyboru właściwego profilu.</translation>
     </message>
     <message>
         <source>This is a mandatory string for PDF/X-3 or the PDF will fail
 PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation >Ten komentrarz musi zostać podany dla zgodności ze standardem PDF/X-3.
+        <translation type="obsolete">Ten komentrarz musi zostać podany dla zgodności ze standardem PDF/X-3.
 Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
     </message>
     <message>
@@ -4750,7 +4774,7 @@ Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
     </message>
     <message>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation>Ostęp spadu od górnej krawędzi fizycznej strony</translation>
+        <translation>Ostęp spadu od lewej krawędzi fizycznej strony</translation>
     </message>
     <message>
         <source>Distance for bleed from the right of the physical page</source>
@@ -4813,7 +4837,7 @@ Wybierz kompresję automatyczną, chyba że potrzebujesz specjalnych opcji przy 
     </message>
     <message>
         <source>Compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Wybierz stopień kompresji: minimalny (25%), niski (50%), średni (75%), wysoki (85%), maksymalny (95%)</translation>
+        <translation type="obsolete">Wybierz stopień kompresji: minimalny (25%), niski (50%), średni (75%), wysoki (85%), maksymalny (95%)</translation>
     </message>
     <message>
         <source>Downsample your bitmap images to the selected DPI.
@@ -4959,6 +4983,10 @@ Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
         <source>Save</source>
         <translation>Zapisz</translation>
     </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation>Stopnie kompresji: minimalny (25%), niski (50%), średni (75%), wysoki (85%), maksymalny (95%)</translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -4968,7 +4996,7 @@ Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation >Strona:</translation>
+        <translation type="obsolete">Strona:</translation>
     </message>
     <message>
         <source>Anti-alias Text</source>
@@ -5207,11 +5235,11 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Lower</source>
-        <translation>O warstwę niżej</translation>
+        <translation>O poziom niżej</translation>
     </message>
     <message>
         <source>Raise</source>
-        <translation>O warstwę wyżej</translation>
+        <translation>O poziom wyżej</translation>
     </message>
     <message>
         <source>Unlock</source>
@@ -5327,15 +5355,15 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Insert LoremIpsum</source>
-        <translation>Wstaw LoremIpsum</translation>
+        <translation type="obsolete">Wstaw LoremIpsum</translation>
     </message>
     <message>
         <source>Disable resizing</source>
-        <translation >Wyłącz zmienianie rozmiarów</translation>
+        <translation type="obsolete">Wyłącz zmienianie rozmiarów</translation>
     </message>
     <message>
         <source>Enable resizing</source>
-        <translation >Włącz zmienianie rozmiarów</translation>
+        <translation type="obsolete">Włącz zmienianie rozmiarów</translation>
     </message>
     <message>
         <source>Lock object size</source>
@@ -5347,7 +5375,38 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Level</source>
-        <translation>Warstwa</translation>
+        <translation>Poziom</translation>
+    </message>
+    <message>
+        <source>Insert Sample Text</source>
+        <translation>Wstaw przykładowy tekst</translation>
+    </message>
+</context>
+<context>
+    <name>PageItem</name>
+    <message>
+        <source>Image</source>
+        <translation>Obrazek</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Tekst</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation>Linia</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation>Wielokąt</translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation>Linia łamana</translation>
+    </message>
+    <message>
+        <source>PathText</source>
+        <translation>Tekst na ścieżce</translation>
     </message>
 </context>
 <context>
@@ -5506,7 +5565,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Theme</source>
-        <translation >Styl</translation>
+        <translation type="obsolete">Styl</translation>
     </message>
     <message>
         <source>Font Size:</source>
@@ -5542,11 +5601,11 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Wheel-Jump</source>
-        <translation >Skok kółka</translation>
+        <translation type="obsolete">Skok kółka</translation>
     </message>
     <message>
         <source>Grab-Radius</source>
-        <translation >Zasięg chwytania</translation>
+        <translation type="obsolete">Zasięg chwytania</translation>
     </message>
     <message>
         <source>Menus</source>
@@ -5710,7 +5769,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Disp.:</source>
-        <translation >Przesunięcie:</translation>
+        <translation type="obsolete">Przesunięcie:</translation>
     </message>
     <message>
         <source> %</source>
@@ -5774,7 +5833,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Linestyle:</source>
-        <translation >Styl linii:</translation>
+        <translation type="obsolete">Styl linii:</translation>
     </message>
     <message>
         <source>Line Width:</source>
@@ -5806,11 +5865,11 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Horizontal Scaling</source>
-        <translation >Skalowanie w poziomie</translation>
+        <translation type="obsolete">Skalowanie w poziomie</translation>
     </message>
     <message>
         <source>Vertical Scaling</source>
-        <translation >Skalowanie w pionie</translation>
+        <translation type="obsolete">Skalowanie w pionie</translation>
     </message>
     <message>
         <source>Scale Picture to Frame Size</source>
@@ -5842,7 +5901,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Save Contents on Exit</source>
-        <translation >Zapisz zawartość przed zakończeniem programu</translation>
+        <translation type="obsolete">Zapisz zawartość przed zakończeniem programu</translation>
     </message>
     <message>
         <source>Preview</source>
@@ -5862,7 +5921,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Display Frames</source>
-        <translation >Wyświetlaj ramki</translation>
+        <translation type="obsolete">Wyświetlaj ramki</translation>
     </message>
     <message>
         <source>Display Pages Side by Side</source>
@@ -6268,7 +6327,7 @@ w zdefiniowanym odstępie czasowym.</translation>
     </message>
     <message>
         <source>Keep the scrapbook contents after closing Scribus</source>
-        <translation >Zachowaj zawartość biblioteki po zamknięciu Scribusa</translation>
+        <translation type="obsolete">Zachowaj zawartość biblioteki po zamknięciu Scribusa</translation>
     </message>
     <message>
         <source>When using facing pages, show the two pages side by side</source>
@@ -6308,7 +6367,7 @@ w zdefiniowanym odstępie czasowym.</translation>
     </message>
     <message>
         <source>Filesystem location for editing graphics</source>
-        <translation >Lokalizacja w systemie plików programu do edycji grafiki</translation>
+        <translation type="obsolete">Lokalizacja w systemie plików programu do edycji grafiki</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
@@ -6379,6 +6438,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Turns off the basegrid</source>
         <translation>Wyłącza siatkę linii podstawowych</translation>
+    </message>
+    <message>
+        <source> px</source>
+        <translation>px</translation>
     </message>
 </context>
 <context>
@@ -6774,7 +6837,7 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>Script</source>
-        <translation >Skrypt</translation>
+        <translation type="obsolete">Skrypt</translation>
     </message>
     <message>
         <source>Online Reference</source>
@@ -6822,7 +6885,7 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>Import SVG-Image</source>
-        <translation >Importuj grafikę SVG</translation>
+        <translation type="obsolete">Importuj grafikę SVG</translation>
     </message>
     <message>
         <source>Initializing...</source>
@@ -7099,6 +7162,22 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Ostęp pomiędzy linią pomocniczą prawego marginesu i krawędzią strony.
 Jeśli zostały wybrane strony widzące się, to margines ten może zostać użyty dla osiągnięcia prawidłowego marginesu dla zszycia</translation>
     </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
 </context>
 <context>
     <name>ScriXmlDoc</name>
@@ -7119,27 +7198,27 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Creates a new Document</source>
-        <translation >Tworzy nowy dokument</translation>
+        <translation type="obsolete">Tworzy nowy dokument</translation>
     </message>
     <message>
         <source>Opens a Document</source>
-        <translation >Otwiera dokument</translation>
+        <translation type="obsolete">Otwiera dokument</translation>
     </message>
     <message>
         <source>Saves the Current Document</source>
-        <translation >Zapisuje aktualny dokument</translation>
+        <translation type="obsolete">Zapisuje aktualny dokument</translation>
     </message>
     <message>
         <source>Closes the Current Document</source>
-        <translation >Zamyka aktualny dokument</translation>
+        <translation type="obsolete">Zamyka aktualny dokument</translation>
     </message>
     <message>
         <source>Prints the Current Document</source>
-        <translation >Drukuje aktualny dokument</translation>
+        <translation type="obsolete">Drukuje aktualny dokument</translation>
     </message>
     <message>
         <source>Saves the Current Document as PDF</source>
-        <translation >Zapisuje aktualny dokument jako PDF</translation>
+        <translation type="obsolete">Zapisuje aktualny dokument jako PDF</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
@@ -7407,11 +7486,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Lower</source>
-        <translation>O warstwę niżej</translation>
+        <translation>O poziom niżej</translation>
     </message>
     <message>
         <source>Raise</source>
-        <translation>O warstwę wyżej</translation>
+        <translation>O poziom wyżej</translation>
     </message>
     <message>
         <source>Distribute/Align...</source>
@@ -7419,15 +7498,15 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Rectangle</source>
-        <translation >Prostokąt</translation>
+        <translation type="obsolete">Prostokąt</translation>
     </message>
     <message>
         <source>Rounded Rectangle</source>
-        <translation >Zaokrąglony prostokąt</translation>
+        <translation type="obsolete">Zaokrąglony prostokąt</translation>
     </message>
     <message>
         <source>Oval</source>
-        <translation >Elipsa</translation>
+        <translation type="obsolete">Elipsa</translation>
     </message>
     <message>
         <source>Edit Frame</source>
@@ -7583,7 +7662,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Edit</source>
-        <translation >Edycja</translation>
+        <translation type="obsolete">Edycja</translation>
     </message>
     <message>
         <source>Style</source>
@@ -7591,27 +7670,27 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Item</source>
-        <translation >Obiekt</translation>
+        <translation type="obsolete">Obiekt</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation >Strona</translation>
+        <translation type="obsolete">Strona</translation>
     </message>
     <message>
         <source>View</source>
-        <translation >Widok</translation>
+        <translation type="obsolete">Widok</translation>
     </message>
     <message>
         <source>Extras</source>
-        <translation >Dodatki</translation>
+        <translation type="obsolete">Dodatki</translation>
     </message>
     <message>
         <source>Windows</source>
-        <translation >Okna</translation>
+        <translation type="obsolete">Okna</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation >Pomoc</translation>
+        <translation type="obsolete">Pomoc</translation>
     </message>
     <message>
         <source>Left</source>
@@ -8051,16 +8130,60 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <source>Tool&amp;bars</source>
         <translation>&amp;Listwy narzędziowe</translation>
     </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation>Litewski</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation>Szwedzki</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation>Słoweński</translation>
+    </message>
 </context>
 <context>
     <name>ScribusDoc</name>
     <message>
         <source>Document</source>
-        <translation >Dokument</translation>
+        <translation type="obsolete">Dokument</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation >Tło</translation>
+        <translation type="obsolete">Tło</translation>
     </message>
 </context>
 <context>
@@ -8071,7 +8194,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Page </source>
-        <translation >Strona </translation>
+        <translation type="obsolete">Strona </translation>
     </message>
     <message>
         <source>Layer</source>
@@ -8083,7 +8206,23 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source> of %1</source>
-        <translation > z %1</translation>
+        <translation type="obsolete"> z %1</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -8270,7 +8409,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>This previews all the pages of your Document.</source>
-        <translation >Podgląd wszystkich stron dokumentu.</translation>
+        <translation type="obsolete">Podgląd wszystkich stron dokumentu.</translation>
     </message>
     <message>
         <source>Here are all your Templates, to create a new Page
@@ -8412,7 +8551,7 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation >Zamknij</translation>
+        <translation type="obsolete">Zamknij</translation>
     </message>
     <message>
         <source>OK</source>
@@ -8495,7 +8634,7 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Update Textframe</source>
-        <translation >Aktualizuj ramkę tekstową</translation>
+        <translation type="obsolete">Aktualizuj ramkę tekstową</translation>
     </message>
     <message>
         <source>File</source>
@@ -8563,11 +8702,11 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Search/Replace...</source>
-        <translation>Znajdź/Zastąp...</translation>
+        <translation type="obsolete">Znajdź/Zastąp...</translation>
     </message>
     <message>
         <source>Do you want save your changes?</source>
-        <translation>Czy chcesz zachować zmiany?</translation>
+        <translation type="obsolete">Czy chcesz zachować zmiany?</translation>
     </message>
     <message>
         <source>Insert Special...</source>
@@ -8576,6 +8715,10 @@ przeciągnij szablon na widok strony na dole.</translation>
     <message>
         <source>Insert Special</source>
         <translation>Dodaj znak specjalny</translation>
+    </message>
+    <message>
+        <source>Do you want to save your changes?</source>
+        <translation>Czy chcesz zachować zmiany?</translation>
     </message>
 </context>
 <context>
@@ -8598,7 +8741,7 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Strikeout</source>
-        <translation >Przekreślenie</translation>
+        <translation type="obsolete">Przekreślenie</translation>
     </message>
     <message>
         <source>Outline Text</source>
@@ -8781,7 +8924,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Zooms in or out</source>
-        <translation >Powiększ/Pomniejsz widok</translation>
+        <translation type="obsolete">Powiększ/Pomniejsz widok</translation>
     </message>
     <message>
         <source>Edit Contents of Frame</source>
@@ -8789,7 +8932,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Edit the Text with the Story Editor</source>
-        <translation >Edytuj tekst w edytorze artykułów</translation>
+        <translation type="obsolete">Edytuj tekst w edytorze artykułów</translation>
     </message>
     <message>
         <source>Link Text Frames</source>
@@ -8801,7 +8944,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Draws various Shapes</source>
-        <translation >Utwórz figurę geometryczną</translation>
+        <translation type="obsolete">Utwórz figurę geometryczną</translation>
     </message>
     <message>
         <source>Zoom in or out</source>
