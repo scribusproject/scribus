@@ -325,21 +325,25 @@ void MenuTest::slotRunScriptFile(QString fileName)
 		PyObject* globals = PyModule_GetDict(m);
 		// Build the Python code to run the script
 		QString cm = QString("import sys,StringIO,traceback\n");
-		cm        += QString("sys.path[0] = \"%1\"\n").arg(fi.dirPath(true));
-		cm        += QString("try:\n");
-		cm        += QString("    execfile(\"%1\")\n").arg(fileName);
-		cm        += QString("except SystemExit:\n");
-		cm        += QString("    pass\n");
+		/* Implementation of the help() in pydoc.py reads some OS variables
+		 * for output settings. I use ugly hack to stop freezing calling help()
+		 * in script. pv. */
+		cm += QString("import os\nos.environ['PAGER'] = '/bin/false'\n"); // HACK
+		cm += QString("sys.path[0] = \"%1\"\n").arg(fi.dirPath(true));
+		cm += QString("try:\n");
+		cm += QString("    execfile(\"%1\")\n").arg(fileName);
+		cm += QString("except SystemExit:\n");
+		cm += QString("    pass\n");
 		// Capture the text of any other exception that's raised by the interpreter
 		// into a StringIO buffer for later extraction.
-		cm        += QString("except Exception, err:\n");
-		cm        += QString("    f=StringIO.StringIO()\n");
-		cm        += QString("    traceback.print_exc(file=f)\n");
-		cm        += QString("    errorMsg = f.getvalue()\n");
-		cm        += QString("    del(f)\n");
+		cm += QString("except Exception, err:\n");
+		cm += QString("    f=StringIO.StringIO()\n");
+		cm += QString("    traceback.print_exc(file=f)\n");
+		cm += QString("    errorMsg = f.getvalue()\n");
+		cm += QString("    del(f)\n");
 		// We re-raise the exception so the return value of PyRun_String reflects
 		// the fact that an exception has ocurred.
-		cm        += QString("    raise\n");
+		cm += QString("    raise\n");
 		// FIXME: if cmd contains chars outside 7bit ascii, might be problems
 		QCString cmd = cm.latin1();
 		// Now run the script in the interpreter's global scope
