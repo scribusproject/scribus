@@ -1285,7 +1285,7 @@ void ScribusApp::initToolsMenuActions()
 	scrActions.insert("toolsInsertTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Text.xpm"), loadIcon("Text.xpm")), tr("Insert Text Frame"), QKeySequence(Key_T), this, "toolsInsertTextFrame", DrawText));
 	scrActions.insert("toolsInsertImageFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Bild.xpm"), loadIcon("Bild.xpm")), tr("Insert Image Frame"), QKeySequence(Key_I), this, "toolsInsertImageFrame", DrawPicture));
 	scrActions.insert("toolsInsertTableFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("frame_table.png"), loadIcon("frame_table.png")), tr("Insert Table"), QKeySequence(Key_A), this, "toolsInsertTableFrame", DrawTable));
-	scrActions.insert("toolsInsertShape", new ScrAction(ScrAction::DataInt,QIconSet(), tr("Insert Shape"), QKeySequence(Key_P), this, "toolsInsertShape", DrawShapes));
+	scrActions.insert("toolsInsertShape", new ScrAction(ScrAction::DataInt,QIconSet(), tr("Insert Shape"), QKeySequence(Key_S), this, "toolsInsertShape", DrawShapes));
 	scrActions.insert("toolsInsertPolygon", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("spline.png"), loadIcon("spline.png")), tr("Insert Polygon"), QKeySequence(Key_P), this, "toolsInsertPolygon", DrawRegularPolygon));
 	scrActions.insert("toolsInsertLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stift.xpm"), loadIcon("Stift.xpm")), tr("Insert Line"), QKeySequence(Key_L), this, "toolsInsertLine", DrawLine));
 	scrActions.insert("toolsInsertBezier", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("beziertool.png"), loadIcon("beziertool.png")), tr("Insert Bezier Curve"), QKeySequence(Key_B), this, "toolsInsertBezier", DrawBezierLine));

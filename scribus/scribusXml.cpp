@@ -3420,9 +3420,12 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->DCMSset.DefaultIntentMonitor2 = QStoInt(dc.attribute("DIMo2","3"));
 		}
 		if (!import12 && dc.tagName()=="SHORTCUT")
-		{			
+		{		
+			if (Vorein->KeyActions.contains(dc.attribute("ACTION")))
+			{
 				Vorein->KeyActions[dc.attribute("ACTION")].actionName = dc.attribute("ACTION");
 				Vorein->KeyActions[dc.attribute("ACTION")].keySequence = dc.attribute("SEQUENCE");
+			}
 		}
 		if (dc.tagName()=="RECENT")
 			Vorein->RecentDocs.append(dc.attribute("NAME"));
