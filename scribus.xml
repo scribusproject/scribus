@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
     <mime-type type="application/x-scribus">
-        <comment xml:lang="en">Scribus Document</comment>
+   <comment xml:lang="en">Scribus Document</comment>
 	<comment xml:lang="pl">Dokument Scribusa</comment>
 	<comment xml:lang="de">Scribus Dokument</comment>
 	<comment xml:lang="cy">Dogfen Scribus</comment>
 	<comment xml:lang="nb">Scribus-dokument</comment>
 	<comment xml:lang="nn">Scribus-dokument</comment>
+   <comment xml:lang="fi">Scribus-asiakirja</comment>
+   <comment xml:lang="cz">Scribus Dokument</comment>
+   <comment xml:lang="sl">Scribus Dokument</comment>
+   <comment xml:lang="fr">Scribus Document</comment>
+   <comment xml:lang="es">Documento de Scribus</comment>
+   <comment xml:lang="it">Documento Scribus</comment>
+   <comment xml:lang="nb">Scribus dokument</comment>
+   <comment xml:lang="da">Scribus Dokument</comment>
         <glob pattern="*.sla" />
         <glob pattern="*.sla.gz" />
         <glob pattern="*.scd" />
