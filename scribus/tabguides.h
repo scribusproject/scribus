@@ -23,6 +23,7 @@ class TabGuides : public QWidget
 public:
 	TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex);
 	~TabGuides() {};
+	void restoreDefaults();
 
 	MSpinBox* majorSpace;
 	MSpinBox* minorSpace;

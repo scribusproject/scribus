@@ -255,6 +255,10 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	QToolTip::add( autoLine, tr( "Percentage increase over the font size for the line spacing" ) );
 }
 
+void TabGuides::restoreDefaults()
+{
+}
+
 void TabGuides::changeMajorColor()
 {
 	QColor neu = QColor();

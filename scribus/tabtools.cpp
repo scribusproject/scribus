@@ -553,6 +553,10 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	connect(scalingVertical, SIGNAL(valueChanged(int)), this, SLOT(vChange()));
 }
 
+void TabTools::restoreDefaults()
+{
+}
+
 /*!
  \fn void TabTools::ToggleKette()
  \author Franz Schmid 

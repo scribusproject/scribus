@@ -1056,7 +1056,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 	doc->PageC = doc->Pages.count();
 	doc->Items = doc->DocItems;
 	doc->MasterP = false;
-	view->reformPages();
+//	view->reformPages();
 	if (doc->Layers.count() == 0)
 	{
 		la.LNr = 0;

@@ -24,6 +24,7 @@ public:
 	~FontPrefs() {};
 	void ReadPath();
 	void RebuildDialog();
+	void restoreDefaults();
 	QWidget* tab1;
 	QWidget* tab;
 	QWidget* tab3;

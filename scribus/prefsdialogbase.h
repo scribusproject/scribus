@@ -24,6 +24,7 @@ public:
 	int addItem(QString name, QPixmap icon, QWidget *tab);
 	void arrangeIcons();
 	QWidgetStack* prefsWidgets;
+	QPushButton* backToDefaults;
 	QPushButton* buttonOk;
 	QPushButton* buttonCancel;
 

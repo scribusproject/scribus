@@ -126,6 +126,7 @@ protected:
 	QStringList docAttributesList;
 
 protected slots:
+	virtual void restoreDefaults();
 	virtual void unitChange();
 	virtual void changePaperColor();
 	virtual void setDS();

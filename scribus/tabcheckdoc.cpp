@@ -112,6 +112,10 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, QMap<QString, checkerPrefs> prefsData
 	clearWState( WState_Polished );
 }
 
+void TabCheckDoc::restoreDefaults()
+{
+}
+
 void TabCheckDoc::putProfile()
 {
 	if (checkerProfile.contains(currentProfile))

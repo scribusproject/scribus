@@ -27,6 +27,7 @@ class TabTools : public QWidget
 public:
 	TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex, ScribusDoc* doc);
 	~TabTools() {};
+	void restoreDefaults();
 
 	QButtonGroup* buttonGroupTools;
 	QToolButton* toolShape;

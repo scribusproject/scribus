@@ -157,6 +157,10 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	connect( simulate, SIGNAL( clicked() ), this, SLOT( slotSimula() ) );
 }
 
+void CMSPrefs::restoreDefaults()
+{
+}
+
 void CMSPrefs::setValues()
 {
 	if ((prefs->DefaultInputProfile != inputP->currentText()) ||

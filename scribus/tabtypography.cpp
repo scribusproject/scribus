@@ -80,3 +80,11 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	QToolTip::add( subScaling, tr( "Relative size of the subscript compared to the normal font" ) );
 	QToolTip::add( capsScaling, tr( "Relative size of the small caps font compared to the normal font" ) );
 }
+
+void TabTypograpy::restoreDefaults(struct typoPrefs *prefsData)
+{
+	subDisplacement->setValue( prefsData->valueSubScript );
+	capsScaling->setValue( prefsData->valueSmallCaps );
+	superScaling->setValue( prefsData->scalingSuperScript );
+	subScaling->setValue( prefsData->scalingSubScript );
+}

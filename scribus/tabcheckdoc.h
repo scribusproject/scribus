@@ -21,6 +21,7 @@ class TabCheckDoc : public QWidget
 public:
 	TabCheckDoc( QWidget* parent, QMap<QString, checkerPrefs> prefsData, QString prefProfile );
 	~TabCheckDoc() {};
+	void restoreDefaults();
 
 	QComboBox* curCheckProfile;
 	QCheckBox* ignoreErrors;

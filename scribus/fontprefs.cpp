@@ -177,6 +177,10 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPr
 	connect(fontList, SIGNAL(clicked(QListViewItem *, const QPoint &, int)), this, SLOT(slotClick(QListViewItem*, const QPoint &, int)));
 }
 
+void FontPrefs::restoreDefaults()
+{
+}
+
 void FontPrefs::slotClick(QListViewItem* ite, const QPoint &, int col)
 {
 	if (ite == NULL)

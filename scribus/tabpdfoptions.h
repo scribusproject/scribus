@@ -32,6 +32,7 @@ public:
 					QValueList<PDFPresentationData> Eff, int unitIndex,
 					double PageH, double PageB, ScribusView *vie = 0 );
 	~TabPDFOptions() {};
+	void restoreDefaults();
 
 	QWidget* tabGeneral;
 	QWidget* tabFonts;

@@ -771,6 +771,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	prefsWidgets->raiseWidget(0);
 	resize( minimumSizeHint() );
 	arrangeIcons();
+	backToDefaults->hide();
 	clearWState( WState_Polished );
 }
 

@@ -17,6 +17,7 @@ class CMSPrefs : public QWidget
 public:
 	CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles);
 	~CMSPrefs() {};
+	void restoreDefaults();
 
 	QCheckBox* checkBox1;
 	QGroupBox* sysProfiles;

@@ -31,6 +31,10 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	layout4 = new QHBoxLayout( 0, 0, 6, "layout4");
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout4->addItem( spacer );
+	backToDefaults = new QPushButton( this, "backToDefaults" );
+	backToDefaults->setAutoDefault( false );
+	backToDefaults->setDefault( false );
+	layout4->addWidget( backToDefaults );
 	buttonOk = new QPushButton( this, "buttonOk" );
 	buttonOk->setAutoDefault( false );
 	buttonOk->setDefault( false );
@@ -95,5 +99,6 @@ void PrefsDialogBase::languageChange()
 {
     buttonOk->setText( tr( "&OK" ) );
     buttonCancel->setText( tr( "&Cancel" ) );
+    backToDefaults->setText( tr( "&Defaults" ) );
 }
 

@@ -889,6 +889,10 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions *Optionen, SCFonts &
 	QToolTip::add( MirrorV, tr( "Mirror Page(s) vertically" ) );
 }
 
+void TabPDFOptions::restoreDefaults()
+{
+}
+
 void TabPDFOptions::ToggleEncr()
 {
 	bool setter = Encry->isChecked() ? true : false;

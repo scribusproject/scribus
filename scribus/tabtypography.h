@@ -16,6 +16,7 @@ class TabTypograpy : public QWidget
 public:
 	TabTypograpy( QWidget* parent, struct typoPrefs *prefsData);
 	~TabTypograpy() {};
+	void restoreDefaults(struct typoPrefs *prefsData);
 
 	QGroupBox* groupBox1a;
 	QLabel* textLabel1a;

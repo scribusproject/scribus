@@ -367,6 +367,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	connect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 	connect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
 	connect(unitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
+	connect(backToDefaults, SIGNAL(clicked()), this, SLOT(restoreDefaults()));
 
 	if (CMSavail)
 	{
@@ -377,6 +378,62 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	resize( minimumSizeHint() );
 	clearWState( WState_Polished );
 	prefsWidgets->raiseWidget(0);
+}
+
+void ReformDoc::restoreDefaults()
+{
+	QWidget* current = prefsWidgets->visibleWidget();
+	if (current == tabPage)
+	{
+		unitCombo->setCurrentItem(currDoc->docUnitIndex);
+		unitChange();
+		autoSaveTime->setValue(currDoc->AutoSaveTime / 1000 / 60);
+		groupAutoSave->setChecked( currDoc->AutoSave );
+		pageNumber->setValue(currDoc->FirstPnum);
+		firstPage->setChecked( currDoc->FirstPageLeft );
+		facingPages->setChecked( currDoc->PageFP );
+		rightR->setValue(currDoc->PageM.Right * unitRatio);
+		bottomR->setValue(currDoc->PageM.Bottom * unitRatio);
+		leftR->setValue(currDoc->PageM.Left * unitRatio);
+		topR->setValue(currDoc->PageM.Top * unitRatio);
+	}
+	else if (current == tabView)
+	{
+		QPixmap pm = QPixmap(54, 14);
+		pm.fill(currDoc->papColor);
+		colorPaper = currDoc->papColor;
+		backColor->setPixmap(pm);
+		checkUnprintable->setChecked( currDoc->marginColored );
+		checkPictures->setChecked(currDoc->guidesSettings.showPic);
+		checkLink->setChecked(currDoc->guidesSettings.linkShown);
+		checkFrame->setChecked(currDoc->guidesSettings.framesShown);
+		topScratch->setValue(currDoc->ScratchTop * unitRatio);
+		leftScratch->setValue(currDoc->ScratchLeft * unitRatio);
+		bottomScratch->setValue(currDoc->ScratchBottom * unitRatio);
+		rightScratch->setValue(currDoc->ScratchRight * unitRatio);
+	}
+	else if (current == tabHyphenator)
+	{
+		tabHyphenator->verbose->setChecked(!currDoc->docHyphenator->Automatic);
+		tabHyphenator->input->setChecked(currDoc->docHyphenator->AutoCheck);
+		tabHyphenator->language->setCurrentText(ap->LangTransl[currDoc->docHyphenator->Language]);
+		tabHyphenator->wordLen->setValue(currDoc->docHyphenator->MinWordLen);
+		tabHyphenator->maxCount->setValue(currDoc->docHyphenator->HyCount);
+	}
+	else if (current == tabGuides)
+		tabGuides->restoreDefaults();
+	else if (current == tabTypo)
+		tabTypo->restoreDefaults(&currDoc->typographicSetttings);
+	else if (current == tabTools)
+		tabTools->restoreDefaults();
+	else if (current == tabFonts)
+		tabFonts->restoreDefaults();
+	else if (current == tabDocChecker)
+		tabDocChecker->restoreDefaults();
+	else if (current == tabPDF)
+		tabPDF->restoreDefaults();
+	else if (current == tabColorManagement)
+		tabColorManagement->restoreDefaults();
 }
 
 void ReformDoc::unitChange()
