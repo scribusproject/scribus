@@ -34,7 +34,7 @@
 #include "shadebutton.h"
 #include "mspinbox.h"
 #include "gradienteditor.h"
-#include "gtmeasure.h"
+#include "units.h"
 
 
 extern QPixmap loadIcon(QString nam);
@@ -542,8 +542,8 @@ void Cpalette::UnitChange(double oldUnitRatio, double newUnitRatio, int unitInde
 	double oldH = gY2->value() / oldUnitRatio;
 	double oldHM = gY2->maxValue() / oldUnitRatio;
 
-	QString unitSuffix = gtMeasure::getSuffixFromIndex(unitIndex);
-	int unitDecimals = gtMeasure::getDecimalsFromIndex(unitIndex);
+	QString unitSuffix = unitGetSuffixFromIndex(unitIndex);
+	int unitDecimals = unitGetDecimalsFromIndex(unitIndex);
 	gX1->setDecimals( unitDecimals );
 	gY1->setDecimals( unitDecimals );
 	gX2->setDecimals( unitDecimals );

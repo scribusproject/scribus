@@ -8,7 +8,7 @@
 #include <qwhatsthis.h>
 #include <qpixmap.h>
 #include <cmath>
-#include "gtmeasure.h"
+#include "units.h"
 
 using namespace std;
 
@@ -88,10 +88,10 @@ void Measurements::closeEvent(QCloseEvent *ce)
 void Measurements::setValues(double x1, double y1, double x2, double y2, double angle, double len, int unitIndex)
 {
 	QString tmp;
-	QString unitSuffix = gtMeasure::getSuffixFromIndex(unitIndex);
-	int multiplier = gtMeasure::getDecimalsFromIndex(unitIndex);
+	QString unitSuffix = unitGetSuffixFromIndex(unitIndex);
+	int multiplier = unitGetDecimalsFromIndex(unitIndex);
 	double divisor = static_cast<double>(multiplier);
-	int precision = gtMeasure::getPrecisionFromIndex(unitIndex);
+	int precision = unitGetPrecisionFromIndex(unitIndex);
 
 	double rr = angle;
 	if (angle < 0)
