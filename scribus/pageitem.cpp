@@ -57,9 +57,9 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	// Initialize superclasses
 	: QObject(pa),
 	// Initialize member variables - 2005-03-10 CR. Initializer lists can be faster and safer.
+	lineShadeVal(100),
 	fillShadeVal(100),
 	fillTransparencyVal(0.0),
-	lineShadeVal(100),
 	lineTransparencyVal(0.0),
 	imageIsFlippedH(0),
 	imageIsFlippedV(0),
@@ -417,7 +417,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, QRect &e, QPainter &pf, double &sc)
 	p->setPenOpacity(1.0 - lineTransparency());
 }
 
-void PageItem::DrawObj_Post(ScPainter *p, QRect &e)
+void PageItem::DrawObj_Post(ScPainter *p, QRect& /*e*/)
 {
 	if (Doc->RePos)
 		return;

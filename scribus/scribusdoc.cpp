@@ -564,3 +564,4 @@ QStringList ScribusDoc::getItemAttributeNames()
 		nameList.append((*it).name);
 	return nameList;
 }
+
