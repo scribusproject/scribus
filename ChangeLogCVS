@@ -1,5 +1,13 @@
 Changes since Version 1.1.6
 
+24.05.2004
+	* bug     #623: Selecting Compress file deletes existing file name in dialog
+	* bug     #647: Export as image plugin numbers images as "pagenumber - firstpagenumber".
+	* feature #706: Image placement in a frame if not at 0,0 in frame, changes based on zoom level
+	* feature #710: Updated Czech Translation
+	* feature #711: Updated Brazilian Translation
+	* feature #712: Updated Welsh Translation
+
 23.05.2004
 	* bug     #394: SVG: vertical gradient imported as horizontal gradient
 	* feature #688: improve the zoom-icon function

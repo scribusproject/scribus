@@ -155,8 +155,8 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	connect(IntervalPagesRadio, SIGNAL(stateChanged(int)), this, SLOT(IntervalPagesRadio_stateChanged(int)));
 	connect(AllPagesRadio, SIGNAL(stateChanged(int)), this, SLOT(AllPagesRadio_stateChanged(int)));
 	connect(OnePageRadio, SIGNAL(stateChanged(int)), this, SLOT(OnePageRadio_stateChanged(int)));
-	connect(FromBox, SIGNAL(valueChanged(int)), this, SLOT(ToBox_valueChanged(int)));
-	connect(ToBox, SIGNAL(valueChanged(int)), this, SLOT(ToBox_valueChanged(int)));
+	connect(ToBox, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
+	connect(FromBox, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
 }
 
 

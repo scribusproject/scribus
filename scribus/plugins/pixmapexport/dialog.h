@@ -53,7 +53,8 @@ public slots:
 	virtual void IntervalPagesRadio_stateChanged( int );
 	virtual void AllPagesRadio_stateChanged( int );
 	virtual void OnePageRadio_stateChanged( int );
-	virtual void ToBox_valueChanged(int);
+	virtual void ChFrom();
+	virtual void ChTo();
 
 protected:
 	QGridLayout* ExportFormLayout;

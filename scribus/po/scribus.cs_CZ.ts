@@ -3983,6 +3983,16 @@ přetáhněte šablonu do náhledu strany.</translation>
         <source>Slovenian:</source>
         <translation>Slovinsky:</translation>
     </message>
+    <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Okno ukazuje verzi programu, datum kompilace
+a knihovny v něm použité.
+Symboly C-C-T znamenají C-CUPS C-littlecms T-TIFF podporu.
+Chybějící knihovny jsou zobrazeny jako *</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -4884,6 +4894,24 @@ přetáhněte šablonu do náhledu strany.</translation>
         <source>New Entry</source>
         <translation>Nová položka</translation>
     </message>
+    <message>
+        <source>Rename</source>
+        <translation>Přejmenovat</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Varování</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation>Název &quot;%1&quot; není jedinečný.
+Vyberte, prosím, jiný.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
 </context>
 <context>
     <name>BookMView</name>
@@ -5214,7 +5242,11 @@ jakým lze zlepšit kontrast fotografií. Doporučeno, jestliže je máte v doku
     </message>
     <message>
         <source>HSB-Colormap</source>
-        <translation>HSB-barevná mapa</translation>
+        <translation type="obsolete">HSB-barevná mapa</translation>
+    </message>
+    <message>
+        <source>HSV-Colormap</source>
+        <translation>HSV-barevná mapa</translation>
     </message>
 </context>
 <context>
@@ -5295,6 +5327,10 @@ jakým lze zlepšit kontrast fotografií. Doporučeno, jestliže je máte v doku
         <source>Color of selected object</source>
         <translation>Barva vybraného objektu</translation>
     </message>
+    <message>
+        <source>Special</source>
+        <translation>Speciální</translation>
+    </message>
 </context>
 <context>
     <name>CupsOptions</name>
@@ -5369,6 +5405,18 @@ jakým lze zlepšit kontrast fotografií. Doporučeno, jestliže je máte v doku
     <message>
         <source>Cancel</source>
         <translation>Zrušit</translation>
+    </message>
+    <message>
+        <source>This panel displays various CUPS options when printing. 
+The exact parameters available will depend on your printer driver.
+You can confirm CUPS support by selecting Help &gt; About.
+Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Okno zobrazuje různá nastavení CUPS během tisku.
+Dostupnost vlastních parametrů závisí na ovladači vaší tiskárny.
+Podporu CUPS zjistíte v menu Nápověda &gt; O Scribusu.
+Text: C-C-T znamená podporu C-CUPS, C-littlecms a T-TIFF.
+Chybějící knihovny jsou zobrazeny jako *</translation>
     </message>
 </context>
 <context>
@@ -5679,15 +5727,15 @@ Lze uvést v Nastavení.</translation>
     </message>
     <message>
         <source>Indentation</source>
-        <translation>Odsazení</translation>
+        <translation type="obsolete">Odsazení</translation>
     </message>
     <message>
         <source>Left Indent:</source>
-        <translation>Levé odsazení:</translation>
+        <translation type="obsolete">Levé odsazení:</translation>
     </message>
     <message>
         <source>First Line:</source>
-        <translation>První řádek:</translation>
+        <translation type="obsolete">První řádek:</translation>
     </message>
     <message>
         <source>Alignment</source>
@@ -5747,7 +5795,7 @@ Lze uvést v Nastavení.</translation>
     </message>
     <message>
         <source>Tabulators...</source>
-        <translation>Tabelátory...</translation>
+        <translation type="obsolete">Tabelátory...</translation>
     </message>
     <message>
         <source>Effect:</source>
@@ -5823,15 +5871,15 @@ Lze uvést v Nastavení.</translation>
     </message>
     <message>
         <source>Indentation for first line of the paragraph</source>
-        <translation>Odsazení první řádky odstavce</translation>
+        <translation type="obsolete">Odsazení první řádky odstavce</translation>
     </message>
     <message>
         <source>Indentation from the left for the whole paragraph</source>
-        <translation>Odsazení celého odstavce zleva</translation>
+        <translation type="obsolete">Odsazení celého odstavce zleva</translation>
     </message>
     <message>
         <source>Edit tab settings of text frame...</source>
-        <translation>Nastavení tabelátorů textového rámu...</translation>
+        <translation type="obsolete">Nastavení tabelátorů textového rámu...</translation>
     </message>
     <message>
         <source> mm</source>
@@ -5844,6 +5892,14 @@ Lze uvést v Nastavení.</translation>
     <message>
         <source> p</source>
         <translation>p</translation>
+    </message>
+    <message>
+        <source>Line Spacing:</source>
+        <translation>Řádkování:</translation>
+    </message>
+    <message>
+        <source>Tabulators and Indentation</source>
+        <translation>Tabelátory a odsazení</translation>
     </message>
 </context>
 <context>
@@ -5911,6 +5967,127 @@ Lze uvést v Nastavení.</translation>
     <message>
         <source>Javascripts (*.js);;All Files (*)</source>
         <translation>Java skripty (*.js);;Všechny soubory (*)</translation>
+    </message>
+</context>
+<context>
+    <name>ExportForm</name>
+    <message>
+        <source>Export as Image</source>
+        <translation>Uložit jako obrázek</translation>
+    </message>
+    <message>
+        <source>Export to directory:</source>
+        <translation>Export do adresáře:</translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation>&amp;Změnit...</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+Z</translation>
+    </message>
+    <message>
+        <source>Image type:</source>
+        <translation>Typ obrázku:</translation>
+    </message>
+    <message>
+        <source>Quality :</source>
+        <translation>Kvalita:</translation>
+    </message>
+    <message>
+        <source>%</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation>Velikost:</translation>
+    </message>
+    <message>
+        <source>Export </source>
+        <translation>Exportovat</translation>
+    </message>
+    <message>
+        <source>&amp;One page</source>
+        <translation>&amp;Jednu stranu</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation>Alt+J</translation>
+    </message>
+    <message>
+        <source>&amp;All pages</source>
+        <translation>Všechny str&amp;any</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Interval from:</source>
+        <translation>&amp;Interval od:</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation>Alt+I</translation>
+    </message>
+    <message>
+        <source>to:</source>
+        <translation>po:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>Z&amp;rušit</translation>
+    </message>
+    <message>
+        <source>Change the output directory</source>
+        <translation>Změnit výstupní adresář</translation>
+    </message>
+    <message>
+        <source>The output directory - the place to store your images.
+Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
+        <translation>Výstupní adresář - místo, kde budou uloženy vaše obrázky.
+Jména exportovaných souborů budou ve tvaru &apos;jmenodokumentu-cislostrany.typ&apos;</translation>
+    </message>
+    <message>
+        <source>Export only the current page</source>
+        <translation>Export pouze aktuální strany</translation>
+    </message>
+    <message>
+        <source>Export all pages to images</source>
+        <translation>Export všech stran</translation>
+    </message>
+    <message>
+        <source>Export a range of pages to images</source>
+        <translation>Export zvoleného rozsahu stran</translation>
+    </message>
+    <message>
+        <source>First page to export when exporting a range</source>
+        <translation>První strana rozsahu exportu</translation>
+    </message>
+    <message>
+        <source>Last page to export when exporting a range</source>
+        <translation>Poslední strana rozsahu exportu</translation>
+    </message>
+    <message>
+        <source>The height of the output images in pixels</source>
+        <translation>Výška výsledného obrázku v pixelech</translation>
+    </message>
+    <message>
+        <source>The quality of your images - 100% is the best, 1% the highest compression</source>
+        <translation>Kvalita výstupu - 100% je nejvyšší kvalita, 1% nejvyšší komprese</translation>
+    </message>
+    <message>
+        <source>Available export formats</source>
+        <translation>Dostupné exportní formáty</translation>
+    </message>
+    <message>
+        <source>Choose a Export Directory</source>
+        <translation>Vyberte adresář</translation>
     </message>
 </context>
 <context>
@@ -6156,6 +6333,33 @@ Lze uvést v Nastavení.</translation>
     <message>
         <source>Additional &amp;Paths</source>
         <translation>Dodatečné &amp;cesty</translation>
+    </message>
+</context>
+<context>
+    <name>FontPreview</name>
+    <message>
+        <source>Font Preview</source>
+        <translation>Náhled písem</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Zrušit</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+Z</translation>
+    </message>
+    <message>
+        <source>Woven silk pyjamas exchanged for blue quartz</source>
+        <translation>Příliš žluťoučký kůň úpěl ďábelské Ódy</translation>
     </message>
 </context>
 <context>
@@ -6597,19 +6801,35 @@ Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translati
     <name>MSpinBox</name>
     <message>
         <source> pt</source>
-        <translation type="obsolete">pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation type="obsolete">mm</translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation type="obsolete">in</translation>
+        <translation>in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation type="obsolete">p</translation>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -6902,7 +7122,7 @@ Rohy:</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation>Velikost:</translation>
+        <translation type="obsolete">Velikost:</translation>
     </message>
     <message>
         <source> %</source>
@@ -7499,6 +7719,10 @@ odvozeny vzdálenosti nebo úhly rotace</translation>
         <source>Column width</source>
         <translation>Šířka sloupce</translation>
     </message>
+    <message>
+        <source>Font Size:</source>
+        <translation>Velikost písma:</translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -7869,6 +8093,18 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     <message>
         <source>Distance between automatically created columns</source>
         <translation>Vzdálenost mezi automaticky vytvořenými textovými rámci</translation>
+    </message>
+    <message>
+        <source>Legal</source>
+        <translation>Legal</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation>Letter</translation>
+    </message>
+    <message>
+        <source>Tabloid</source>
+        <translation>Tabloid</translation>
     </message>
 </context>
 <context>
@@ -8282,11 +8518,11 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Copying Text and Graphics is allowed</source>
-        <translation>Kopírování textu a grafiky je povolené</translation>
+        <translation type="obsolete">Kopírování textu a grafiky je povolené</translation>
     </message>
     <message>
         <source>Adding Annotations and Fields is allowed</source>
-        <translation>Přidávání polí a anotací je povolené</translation>
+        <translation type="obsolete">Přidávání polí a anotací je povolené</translation>
     </message>
     <message>
         <source>Security</source>
@@ -8635,23 +8871,23 @@ bezpečnostní vlastnosti exportovaného PDF</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation>Zvolte heslo uživatele, který bude schopen přečíst PDF</translation>
+        <translation type="obsolete">Zvolte heslo uživatele, který bude schopen přečíst PDF</translation>
     </message>
     <message>
         <source>Allow printing of the PDF</source>
-        <translation>Povolit tisk PDF</translation>
+        <translation type="obsolete">Povolit tisk PDF</translation>
     </message>
     <message>
         <source>Allow modifying of the PDF</source>
-        <translation>Povolit úpravy PDF</translation>
+        <translation type="obsolete">Povolit úpravy PDF</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF</source>
-        <translation>Povolit kopírování textu a grafiky z PDF</translation>
+        <translation type="obsolete">Povolit kopírování textu a grafiky z PDF</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF</source>
-        <translation>Povolit přidávání anotací a polí formulářů do PDF</translation>
+        <translation type="obsolete">Povolit přidávání anotací a polí formulářů do PDF</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF.
@@ -8718,6 +8954,38 @@ specifikaci. Doporučujeme použít titul dokumentu.</translation>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
         <translation>Úrovňe komprese: Minimální (25%), Nízká (50%), Střední (75%), Vysoká (85%), Maximální (95%)</translation>
+    </message>
+    <message>
+        <source>Allow Copying Text and Graphics</source>
+        <translation>Povolit kopírování textu a grafiky</translation>
+    </message>
+    <message>
+        <source>Allow Adding Annotations and Fields</source>
+        <translation>Povolit přidávání poznámek a polí formulářů</translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF.</source>
+        <translation>Zvolit heslo, které musí použít čtenář PDF.</translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
+        <translation>Povolit tisk PDF. Jestliže není zatrženo, tisk není povolen.</translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
+        <translation>Povolit modifikaci PDF. Jestliže není zatrženo, modifikace jsou zakázány.</translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF. 
+If un-checked, text and graphics cannot be copied.</source>
+        <translation>Povolit kopírování textu a grafiky z PDF.
+Jestliže není zatrženo, text a grafika nelze kopírovat.</translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF. 
+If un-checked, editing annotations and fileds is prevented.</source>
+        <translation>Povolit přidávání poznámek a polí formulářů do PDF.
+Jestliže není zatrženo, přidávání je zakázáno.</translation>
     </message>
 </context>
 <context>
@@ -8807,15 +9075,15 @@ a vektorové grafiky náhledu, ale zpomalí jeho vytváření</translation>
     <name>Page</name>
     <message>
         <source>Copy Here</source>
-        <translation type="obsolete">Kopírovat sem</translation>
+        <translation>Kopírovat sem</translation>
     </message>
     <message>
         <source>Move Here</source>
-        <translation type="obsolete">Přesunout sem</translation>
+        <translation>Přesunout sem</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="obsolete">Zrušit</translation>
+        <translation>Zrušit</translation>
     </message>
     <message>
         <source>Paste</source>
@@ -9109,6 +9377,10 @@ a vektorové grafiky náhledu, ale zpomalí jeho vytváření</translation>
         <source>Level</source>
         <translation>Hladina</translation>
     </message>
+    <message>
+        <source>PDF-Options</source>
+        <translation>Nastavení PDF</translation>
+    </message>
 </context>
 <context>
     <name>PageItem</name>
@@ -9345,7 +9617,7 @@ a vektorové grafiky náhledu, ale zpomalí jeho vytváření</translation>
     </message>
     <message>
         <source>Keyboard Shortcuts...</source>
-        <translation>Klávesové zkratky...</translation>
+        <translation type="obsolete">Klávesové zkratky...</translation>
     </message>
     <message>
         <source>Paths</source>
@@ -9795,7 +10067,7 @@ Scribus používá jakékoli téma z Qt nemo KDE</translation>
     </message>
     <message>
         <source>Change the keyboard shortcuts to your preference</source>
-        <translation>Změna nastavení klávesových zkratek</translation>
+        <translation type="obsolete">Změna nastavení klávesových zkratek</translation>
     </message>
     <message>
         <source>Default documents directory</source>
@@ -10545,19 +10817,19 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>in</translation>
+        <translation type="obsolete">in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>Document</source>
@@ -10637,19 +10909,19 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source>mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source>in</source>
-        <translation>in</translation>
+        <translation type="obsolete">in</translation>
     </message>
     <message>
         <source>p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
@@ -10674,6 +10946,38 @@ Zkontrolujte cestu a název souboru.</translation>
     <message>
         <source>Import SVG-Image...</source>
         <translation>Import SVG obrázku...</translation>
+    </message>
+    <message>
+        <source>Save as Image...</source>
+        <translation>Uložit jako obrázek...</translation>
+    </message>
+    <message>
+        <source>Save as Image</source>
+        <translation>Uložit jako obrázek</translation>
+    </message>
+    <message>
+        <source>Error writting the output file(s).</source>
+        <translation>Chyba při zápisu souboru.</translation>
+    </message>
+    <message>
+        <source>Error writing the output file(s).</source>
+        <translation>Chyba při zápisu souboru.</translation>
+    </message>
+    <message>
+        <source>Export successful.</source>
+        <translation>Úspěšný export.</translation>
+    </message>
+    <message>
+        <source>File exists. Overwrite?</source>
+        <translation>Soubor existuje. Přepsat?</translation>
+    </message>
+    <message>
+        <source>exists already. Overwrite?</source>
+        <translation>už existuje. Přepsat?</translation>
+    </message>
+    <message>
+        <source>Yes all</source>
+        <translation>Ano všem</translation>
     </message>
 </context>
 <context>
@@ -11146,7 +11450,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>General...</source>
-        <translation>Všeobecné...</translation>
+        <translation type="obsolete">Všeobecné...</translation>
     </message>
     <message>
         <source>Preferences...</source>
@@ -11162,7 +11466,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>Preferences</source>
-        <translation>Nastavení</translation>
+        <translation type="obsolete">Nastavení</translation>
     </message>
     <message>
         <source>Select New Font</source>
@@ -11796,7 +12100,7 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     </message>
     <message>
         <source>Tool&amp;bars</source>
-        <translation>&amp;Panely nástrojů</translation>
+        <translation type="obsolete">&amp;Panely nástrojů</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -11901,6 +12205,18 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     <message>
         <source>Slovenian</source>
         <translation>Slovinsky</translation>
+    </message>
+    <message>
+        <source>Keyboard Shortcuts...</source>
+        <translation>Klávesové zkratky...</translation>
+    </message>
+    <message>
+        <source>Scribus Manual...</source>
+        <translation>manuál Scribusu...</translation>
+    </message>
+    <message>
+        <source>&amp;Settings</source>
+        <translation>&amp;Nastavení</translation>
     </message>
 </context>
 <context>
@@ -12488,12 +12804,67 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Position:</source>
-        <translation>Pozice:</translation>
+        <translation type="obsolete">Pozice:</translation>
     </message>
     <message>
         <source>Alignment:</source>
-        <translation>Zarovnání:</translation>
+        <translation type="obsolete">Zarovnání:</translation>
     </message>
+    <message>
+        <source>Left</source>
+        <translation type="obsolete">Vlevo</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="obsolete">Vpravo</translation>
+    </message>
+    <message>
+        <source>Full Stop</source>
+        <translation type="obsolete">Tečka</translation>
+    </message>
+    <message>
+        <source>Comma</source>
+        <translation type="obsolete">Čárka</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="obsolete">pt</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Zrušit</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="obsolete">Odstranit</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation type="obsolete">Přidat</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation type="obsolete">Na střed</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation type="obsolete">mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation type="obsolete">in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation type="obsolete">p</translation>
+    </message>
+</context>
+<context>
+    <name>Tabruler</name>
     <message>
         <source>Left</source>
         <translation>Vlevo</translation>
@@ -12511,28 +12882,40 @@ přetáhněte šablonu do náhledu strany.</translation>
         <translation>Čárka</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation>pt</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Zrušit</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>Odstranit</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>Přidat</translation>
-    </message>
-    <message>
         <source>Center</source>
         <translation>Na střed</translation>
+    </message>
+    <message>
+        <source>Position:</source>
+        <translation>Pozice:</translation>
+    </message>
+    <message>
+        <source>First Line:</source>
+        <translation>První řádek:</translation>
+    </message>
+    <message>
+        <source>Indent:</source>
+        <translation>Odsazení:</translation>
+    </message>
+    <message>
+        <source>Delete All</source>
+        <translation>Smazat vše</translation>
+    </message>
+    <message>
+        <source>Indentation for first line of the paragraph</source>
+        <translation>Odsazení první řádky odstavce</translation>
+    </message>
+    <message>
+        <source>Indentation from the left for the whole paragraph</source>
+        <translation>Odsazení celého odstavce zleva</translation>
+    </message>
+    <message>
+        <source>Delete all Tabulators</source>
+        <translation>Smazat všechny tabelátory</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
     </message>
     <message>
         <source> mm</source>
@@ -12618,6 +13001,10 @@ Vyberte, prosím, jiný.</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>Group </source>
+        <translation>Seskupit</translation>
     </message>
 </context>
 <context>
@@ -12710,6 +13097,10 @@ Vyberte, prosím, jiný.</translation>
         <source>Draw various Shapes</source>
         <translation>Kreslit různé tvary</translation>
     </message>
+    <message>
+        <source>Do measurements</source>
+        <translation>Měřit</translation>
+    </message>
 </context>
 <context>
     <name>WerkToolBP</name>
@@ -12771,6 +13162,18 @@ Vyberte, prosím, jiný.</translation>
     <message>
         <source>Close</source>
         <translation>Zavřít</translation>
+    </message>
+    <message>
+        <source>Insert the characters at the cursor in the text</source>
+        <translation>Vložit znak na pozici kurzoru v textu</translation>
+    </message>
+    <message>
+        <source>Delete the current selection(s).</source>
+        <translation>Smazat aktuální výběr(y).</translation>
+    </message>
+    <message>
+        <source>Close this dialog and return to text editing.</source>
+        <translation>Zavřete dialog a vraťte se k editaci textu.</translation>
     </message>
 </context>
 </TS>

@@ -437,7 +437,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					if ((LocalViewX != 1) || (LocalViewY != 1))
 						p->scale(LocalViewX, LocalViewY);
-					p->translate(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY));
+					p->translate(LocalX*LocalScX*sc, LocalY*LocalScY*sc);
 					if (InvPict)
 					{
 						QImage ip = pixm.copy();

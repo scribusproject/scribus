@@ -26,9 +26,12 @@ void Run(QWidget *d, ScribusApp *plug)
 	ExportForm *dia = new ExportForm(d, ex->pageSize, ex->quality, ex->bitmapType);
 
 	// interval widgets handling
+	dia->ToBox->setMinValue(1);
 	dia->ToBox->setMaxValue(plug->doc->PageC);
-	dia->FromBox->setMaxValue(plug->doc->PageC - 1);
 	dia->ToBox->setValue(plug->doc->PageC);
+	dia->FromBox->setMinValue(1);
+	dia->FromBox->setMaxValue(plug->doc->PageC);
+	dia->FromBox->setValue(plug->doc->ActPage->PageNr+1);
 	// main "loop"
 	if (dia->exec()==QDialog::Accepted)
 	{
@@ -44,10 +47,7 @@ void Run(QWidget *d, ScribusApp *plug)
 					break;
 			case 1: res = ex->exportAll();
 					break;
-			case 2: res = ex->exportInterval(
-						dia->FromBox->value(),
-						dia->ToBox->value()
-					);
+			case 2: res = ex->exportInterval(dia->FromBox->value(), dia->ToBox->value());
 					break;
 		} // switch
 		plug->FProg->reset();
@@ -85,16 +85,8 @@ QString ExportBitmap::getFileName(uint pageNr)
 	QFileInfo path(carrier->doc->DocName);
 	QString name = path.baseName(); // needed tp fix the "/home/user/blah.sla"
 	QString number;
-	uint turn;
-	// create the 00x counter
-	number = number.setNum(carrier->view->Pages.count());
-	turn = number.length();
-	// number of the page
-	number = number.setNum(pageNr);
-	number = number.rightJustify(turn, '0');
-	return QDir::convertSeparators(
-		exportDir+ "/" + name + "-"+ number + "." + bitmapType.lower()
-		);
+	number = number.setNum(pageNr + carrier->doc->FirstPnum);
+	return QDir::convertSeparators(exportDir + "/" + name + "-"+ number + "." + bitmapType.lower());
 }
 
 
@@ -153,10 +145,10 @@ bool ExportBitmap::exportInterval(uint from, uint to)
 {
 	bool res;
 
-	carrier->FProg->setTotalSteps(to - from);
-	for (uint pageNo = from; pageNo < to; pageNo++)
+	carrier->FProg->setTotalSteps(to - from+1);
+	for (uint pageNo = from-1; pageNo < to; pageNo++)
 	{
-		carrier->FProg->setProgress(pageNo - from);
+		carrier->FProg->setProgress(pageNo - from+1);
 		res = exportPage(pageNo, FALSE);
 		if (!res)
 			return FALSE;

@@ -3398,11 +3398,10 @@ bool ScribusApp::slotFileSaveAs()
 #endif
 	if (!fn.isEmpty())
 	{
-		QFileInfo fi(fn);
-		if ((fi.extension(false).lower() != "sla") || (fi.extension(false).lower() != "gz"))
-			fna = fi.dirPath()+"/"+fi.baseName()+".sla";
-		else
+		if ((fn.endsWith(".sla")) || (fn.endsWith(".sla.gz")))
 			fna = fn;
+		else
+			fna = fn+".sla";
 		if (overwrite(this, fna))
 		{
 			ret = DoFileSave(fna);

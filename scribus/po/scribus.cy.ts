@@ -3952,6 +3952,30 @@ drag a Template to the Pageview below.</source>
         <source>Close</source>
         <translation>Cau</translation>
     </message>
+    <message>
+        <source>Slovenian:</source>
+        <translation>Slofeneg: </translation>
+    </message>
+    <message>
+        <source>Basque:</source>
+        <translation>Basg:</translation>
+    </message>
+    <message>
+        <source>Homepage and online reference</source>
+        <translation>Tudalen gartref a cyfeirlyfr ar-lein</translation>
+    </message>
+    <message>
+        <source>Mailing list</source>
+        <translation>Rhestr ebost</translation>
+    </message>
+    <message>
+        <source>Bugs and feature requests</source>
+        <translation>Namau a cheisiadau nodweddion</translation>
+    </message>
+    <message>
+        <source>Online</source>
+        <translation>Ar-lein</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -4075,11 +4099,19 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Align Text Block</source>
-        <translation>Alinio Bloc o Destun</translation>
+        <translation type="obsolete">Alinio Bloc o Destun</translation>
     </message>
     <message>
         <source>Align Text Center</source>
         <translation>Alinio Testun yn y Canol</translation>
+    </message>
+    <message>
+        <source>Align Text Justified</source>
+        <translation>Alinio Testun Unioni</translation>
+    </message>
+    <message>
+        <source>Align Text Forced Justified</source>
+        <translation>Alinio Testun Gorfod Unioni</translation>
     </message>
 </context>
 <context>
@@ -4969,6 +5001,56 @@ drag a Template to the Pageview below.</source>
         <source>Cancel</source>
         <translation>Diddymu</translation>
     </message>
+    <message>
+        <source>Default color profile for imported images</source>
+        <translation>Proffil rhagosod lliwiau ar gyfer delweddau a fewnforir</translation>
+    </message>
+    <message>
+        <source>Default color profile for solid colors on the page</source>
+        <translation>Proffil rhagosod lliwiau ar gyfer lliwiau solet ar y dudalen</translation>
+    </message>
+    <message>
+        <source>Color profile that you have generated or received from the manufacturer.
+This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
+        <translation>Proffil lliw a greuwyd gennych, neu a dderbynnir gan y gwneuthurwr.
+Dylai&apos;r proffil yma fod yn benodol i&apos;ch monitr, a dim yn broffil cyffredinol (h.y. sRGB).</translation>
+    </message>
+    <message>
+        <source>Color profile for your printer model from the manufacturer.
+This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
+        <translation>Proffil lliw ar gyfer eich argraffydd, a ddarperir gan y gwneuthurwr.
+Dylai&apos;r proffil yma fod yn benodol i&apos;ch monitr, a dim yn broffil cyffredinol (h.y. sRGB).</translation>
+    </message>
+    <message>
+        <source>Default rendering intent for your monitor. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation>Bwriad llunio rhagosodod ar gyfer eich monitr.  Onibai i chi wybod sut i&apos;w newid,
+dyler dewis Lliwfesurol Perthnasol neu Ganfyddiadol.</translation>
+    </message>
+    <message>
+        <source>Default rendering intent for your printer. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation>Bwriad llunio rhagosodod ar gyfer eich argraffydd.  Onibai i chi wybod sut i&apos;w newid,
+dyler dewis Lliwfesurol Perthnasol neu Ganfyddiadol.</translation>
+    </message>
+    <message>
+        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
+based on the chosen printer profile.</source>
+        <translation>Alluogi &apos;profi meddal&apos; o sut bydd lliwiau eich dogfen yn argraffu,
+wedi&apos;i seilio ar y proffil argraffydd a ddewisir.</translation>
+    </message>
+    <message>
+        <source>Method of showing colors on the screen which may not print properly.
+This requires very accurate profiles and serves only as a warning.</source>
+        <translation>Dull o ddangos lliwiau ar y sgrîn, er gall fod na fyddant yn argraffu yn gywir.
+Mae proffilau manwl iawn yn hanfodol, a dylai hyn fod yn rybudd yn unig.</translation>
+    </message>
+    <message>
+        <source>Black Point Compensation is a method of improving contrast in photos.
+It is recommended that you enable this if you have photos in your document.</source>
+        <translation>Mae Cyfadferiad Pwynt-du yn ddull o wella&apos;r gyferbyniad mewn ffotos.
+Argymhellir alluogi hyn os oes gennych ffotos yn eich dogfen.</translation>
+    </message>
 </context>
 <context>
     <name>CMYKChoose</name>
@@ -5048,6 +5130,18 @@ drag a Template to the Pageview below.</source>
         <source>B:</source>
         <translation>B:</translation>
     </message>
+    <message>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Rhybudd</translation>
+    </message>
+    <message>
+        <source>Name of the Color is not unique</source>
+        <translation>Ni yw enw&apos;r Lliw yn unigryw</translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -5086,6 +5180,42 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>None</source>
         <translation>Dim</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation>Arlliw:</translation>
+    </message>
+    <message>
+        <source>Edit Line Color Properties</source>
+        <translation>Golygu Priodweddau&apos;r Lliw Llinell</translation>
+    </message>
+    <message>
+        <source>Edit Fill Color Properties</source>
+        <translation>Golygu Priodweddau&apos;r Lliw Llenwad</translation>
+    </message>
+    <message>
+        <source>Saturation of color</source>
+        <translation>Dirlawnder lliw</translation>
+    </message>
+    <message>
+        <source>Normal or gradient fill method</source>
+        <translation>Dull arferol neu lenwad graddfa</translation>
+    </message>
+    <message>
+        <source>Edit the first color of object</source>
+        <translation>Golygu lliw cyntaf y gwrthrych</translation>
+    </message>
+    <message>
+        <source>Edit the second color of object</source>
+        <translation>Golygu ail liw y gwrthrych</translation>
+    </message>
+    <message>
+        <source>Set the transparency for the color selected</source>
+        <translation>Gosod tryloywder y lliw penodol</translation>
+    </message>
+    <message>
+        <source>Color of selected object</source>
+        <translation>Lliw y gwrthrych penodol</translation>
     </message>
 </context>
 <context>
@@ -5188,7 +5318,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>OK to delete Color:</source>
-        <translation>Iawn i ddileu Lliw:</translation>
+        <translation type="obsolete">Iawn i ddileu Lliw:</translation>
     </message>
     <message>
         <source>?</source>
@@ -5205,6 +5335,10 @@ This can be set in the Preferences.</source>
     <message>
         <source>Cancel</source>
         <translation>Diddymu</translation>
+    </message>
+    <message>
+        <source>Delete color:</source>
+        <translation>Dileu lliw:</translation>
     </message>
 </context>
 <context>
@@ -5282,6 +5416,18 @@ This can be set in the Preferences.</source>
     <message>
         <source>Cancel</source>
         <translation>Diddymu</translation>
+    </message>
+    <message>
+        <source>This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation>Gellir mewnadeiladu y maes yma yn y ddogfen Scribus fel cyfeirnod, ac hefyd ym metadata PDF</translation>
+    </message>
+    <message>
+        <source>This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
+        <translation>Mae&apos;r maes yma ar gyfer disgrifiad byr neu grynodeb y ddogfen.  Mewnadeiladir yn y PDF wrth allforio</translation>
+    </message>
+    <message>
+        <source>This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
+        <translation>Mae&apos;r maes yma ar gyfer allweddeiriau y ddogfen yr hoffech mewnadeiladu mewn PDF, er mwyn cynorthwyo chwilio a mynegeio ffeiliau PDF</translation>
     </message>
 </context>
 <context>
@@ -5380,7 +5526,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -5393,6 +5539,26 @@ This can be set in the Preferences.</source>
     <message>
         <source>Postscript-Files (*.ps);;All Files (*)</source>
         <translation>Ffeiliau Postscript (*.ps);;Pob Ffeil (*)</translation>
+    </message>
+    <message>
+        <source>Cyan</source>
+        <translation>Gwyrddlas</translation>
+    </message>
+    <message>
+        <source>Magenta</source>
+        <translation>Magenta</translation>
+    </message>
+    <message>
+        <source>Yellow</source>
+        <translation>Melyn</translation>
+    </message>
+    <message>
+        <source>Black</source>
+        <translation>Du</translation>
+    </message>
+    <message>
+        <source>Print</source>
+        <translation>Argraffu</translation>
     </message>
 </context>
 <context>
@@ -5492,6 +5658,78 @@ This can be set in the Preferences.</source>
     <message>
         <source>Name of the Style is not unique</source>
         <translation>Nid yw enw&apos;r Ardull yn unigryw</translation>
+    </message>
+    <message>
+        <source>Stroke Color:</source>
+        <translation>Lliw Trawiad:</translation>
+    </message>
+    <message>
+        <source>Adjust to Baseline Grid</source>
+        <translation>Addasu i Grid Gwaelodlin</translation>
+    </message>
+    <message>
+        <source>Name of your paragraph style</source>
+        <translation>Enw eich arddull paragraff</translation>
+    </message>
+    <message>
+        <source>Font of selected text or object</source>
+        <translation>Wynebfath y testun neu wrthrych penodol</translation>
+    </message>
+    <message>
+        <source>Font Size</source>
+        <translation>Maint y Wynebfath</translation>
+    </message>
+    <message>
+        <source>Color of text fill</source>
+        <translation>Lliw llenwad y testun</translation>
+    </message>
+    <message>
+        <source>Color of text stroke</source>
+        <translation>Lliw trawiad y testun</translation>
+    </message>
+    <message>
+        <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
+        <translation>Darparu llythyren gyntaf orfaint ar gyfer paragraff.  Defnyddir ar gyfer effaith arddulliol</translation>
+    </message>
+    <message>
+        <source>Determines the overall height, in line numbers, of the Drop Caps</source>
+        <translation>Penodi&apos;r uchder cyffredinol, mewn rhifau llinellau, o&apos;r Priflythrennau Cwymp</translation>
+    </message>
+    <message>
+        <source>Align text to baseline grid</source>
+        <translation>Alinio testun i grid gwaelodlin</translation>
+    </message>
+    <message>
+        <source>Spacing above the paragraph</source>
+        <translation>Bylchu cyn y paragraff</translation>
+    </message>
+    <message>
+        <source>Spacing below the paragraph</source>
+        <translation>Bylchu ar ôl y paragraff</translation>
+    </message>
+    <message>
+        <source>Indentation for first line of the paragraph</source>
+        <translation>Mewnoliad ar gyfer llinell cyntaf y paragraff</translation>
+    </message>
+    <message>
+        <source>Indentation from the left for the whole paragraph</source>
+        <translation>Mewnoliad o&apos;r chwith ar gyfer yr holl paragraff</translation>
+    </message>
+    <message>
+        <source>Edit tab settings of text frame...</source>
+        <translation>Golygu gosodiadau tab y ffrâm testun...</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -5616,7 +5854,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Save</source>
-        <translation>Cadw</translation>
+        <translation type="obsolete">Cadw</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -5660,7 +5898,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>New Color:</source>
-        <translation>Lliw Newydd:</translation>
+        <translation type="obsolete">Lliw Newydd:</translation>
     </message>
     <message>
         <source>New Color</source>
@@ -5669,6 +5907,46 @@ This can be set in the Preferences.</source>
     <message>
         <source>Copy of %1</source>
         <translation>Copi o %1</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>Iawn</translation>
+    </message>
+    <message>
+        <source>Choose a color set to load</source>
+        <translation>Dewis casgliad o liwiau i&apos;w llwytho</translation>
+    </message>
+    <message>
+        <source>Save the current color set</source>
+        <translation>Cadw&apos;r casgliad cyfredol o liwiau</translation>
+    </message>
+    <message>
+        <source>Remove unused colors from current document&apos;s color set</source>
+        <translation>Gwaredu lliwiau heb eu defnyddio o gasgliad y lliwiau yn y  ddogfen cyfredol</translation>
+    </message>
+    <message>
+        <source>Append colors to the current set from an existing document</source>
+        <translation>Atodi lliwiau i&apos;r casgliad cyfredol o ddogfen sydd yn bodoli</translation>
+    </message>
+    <message>
+        <source>Create a new color within the current set</source>
+        <translation>Creu lliw newydd tu fewn y casgliad cyfredol</translation>
+    </message>
+    <message>
+        <source>Edit the currently selected color</source>
+        <translation>Golygu&apos;r lliw a ddewisir ar hyn o bryd</translation>
+    </message>
+    <message>
+        <source>Make a copy of the currently selected color</source>
+        <translation>Gwneud copi o&apos;r lliw a ddewisir ar hyn o bryd</translation>
+    </message>
+    <message>
+        <source>Delete the currently selected color</source>
+        <translation>Dileu&apos;r lliw a ddewisir ar hyn o bryd</translation>
+    </message>
+    <message>
+        <source>Make the current colorset the default color set</source>
+        <translation>Gwneud i&apos;r casgliad cyfredol o liwiau fod yn gasgliad rhagosod</translation>
     </message>
 </context>
 <context>
@@ -5753,6 +6031,18 @@ This can be set in the Preferences.</source>
         <source>Choose a Directory</source>
         <translation>Dewis Cyfeiriadur</translation>
     </message>
+    <message>
+        <source>&amp;Available Fonts</source>
+        <translation>Wynebfathau ar &amp;Gael</translation>
+    </message>
+    <message>
+        <source>Font &amp;Substitutions</source>
+        <translation>Amnewidiadau &amp;Wynebfath</translation>
+    </message>
+    <message>
+        <source>Additional &amp;Paths</source>
+        <translation>Llwybrau &amp;Ychwanegol</translation>
+    </message>
 </context>
 <context>
     <name>GuideManager</name>
@@ -5796,12 +6086,32 @@ This can be set in the Preferences.</source>
         <source>Cancel</source>
         <translation>Diddymu</translation>
     </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
 </context>
 <context>
     <name>HelpBrowser</name>
     <message>
         <source>Sorry, no manual available!</source>
-        <translation>Dim llawlyfr ar gael!</translation>
+        <translation type="obsolete">Dim llawlyfr ar gael!</translation>
+    </message>
+    <message>
+        <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
+        <translation>Sori, dim llawlyfr ar gael!  Gweler http://scribus.net am y ddogfennaeth ddiweddaraf a lawrlwythiadau.</translation>
     </message>
 </context>
 <context>
@@ -5857,7 +6167,7 @@ bob tro canfyddir Cysylltnodi posibl.</translation>
     </message>
     <message>
         <source>This is the length of the smallest word to be hyphenated.</source>
-        <translation>Dyma hyd y gair lleiaf i&apos;w gysylltnodi.</translation>
+        <translation type="obsolete">Dyma hyd y gair lleiaf i&apos;w gysylltnodi.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -5866,6 +6176,20 @@ bob tro canfyddir Cysylltnodi posibl.</translation>
     <message>
         <source>Cancel</source>
         <translation>Diddymu</translation>
+    </message>
+    <message>
+        <source>Length of the smallest word to be hyphenated.</source>
+        <translation>Hyd y gair lleiaf i&apos;w gysylltnodi.</translation>
+    </message>
+    <message>
+        <source>Number of Hypenations allowed:</source>
+        <translation>Nifer o Gysylltnodiadau a chaniateir:</translation>
+    </message>
+    <message>
+        <source>Maximum number of Hyphenations following each other.
+A value of 0 means unlimited hyphenations.</source>
+        <translation>Y nifer mwyaf o Gysylltnodiadau sy&apos;n dilyn eu gilydd.
+Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     </message>
 </context>
 <context>
@@ -5920,10 +6244,33 @@ bob tro canfyddir Cysylltnodi posibl.</translation>
     </message>
 </context>
 <context>
+    <name>InsertTable</name>
+    <message>
+        <source>Insert Table</source>
+        <translation>Mewnosod Tabl</translation>
+    </message>
+    <message>
+        <source>Number of Rows:</source>
+        <translation>Nifer o Resi:</translation>
+    </message>
+    <message>
+        <source>Number of Columns:</source>
+        <translation>Nifer o Golognau:</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>Iawn</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Diddymu</translation>
+    </message>
+</context>
+<context>
     <name>JavaDocs</name>
     <message>
         <source>Global JavaScripts</source>
-        <translation>JavaSgriptiau Eang</translation>
+        <translation type="obsolete">JavaSgriptiau Eang</translation>
     </message>
     <message>
         <source>Edit...</source>
@@ -5948,6 +6295,26 @@ bob tro canfyddir Cysylltnodi posibl.</translation>
     <message>
         <source>New Script</source>
         <translation>Sgript Newydd</translation>
+    </message>
+    <message>
+        <source>Edit JavaScripts</source>
+        <translation>Golygu Sgriptiau Java</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Rhybudd</translation>
+    </message>
+    <message>
+        <source>Do you really want do delete this Script?</source>
+        <translation>Ydych wir eisiau dileu&apos;r Sgript yma?</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Nac ydw</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Ydw</translation>
     </message>
 </context>
 <context>
@@ -6049,11 +6416,15 @@ bob tro canfyddir Cysylltnodi posibl.</translation>
     </message>
     <message>
         <source>Closes this Dialog</source>
-        <translation>Cau&apos;r Ymgom yma</translation>
+        <translation type="obsolete">Cau&apos;r Ymgom yma</translation>
     </message>
     <message>
         <source>New Layer</source>
         <translation>Haen Newydd</translation>
+    </message>
+    <message>
+        <source>Do you want to delete all Objects on this Layer too?</source>
+        <translation>Ydych eisiau dileu&apos;r Gwrthrychau i gyd ar yr Haen yma hefyd?</translation>
     </message>
 </context>
 <context>
@@ -6126,6 +6497,10 @@ bob tro canfyddir Cysylltnodi posibl.</translation>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Dogfennau (*.sla *.scd);;Pob Ffeil (*)</translation>
     </message>
+    <message>
+        <source>OK</source>
+        <translation>Iawn</translation>
+    </message>
 </context>
 <context>
     <name>Mdup</name>
@@ -6163,6 +6538,14 @@ bob tro canfyddir Cysylltnodi posibl.</translation>
     <message>
         <source>Hide Console</source>
         <translation>Cuddio Terfynell</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation>Gwall Sgript</translation>
+    </message>
+    <message>
+        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
+        <translation>Os ydych yn rhedeg sgript swyddogol, rhowch adrodd wrth &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>
@@ -6323,7 +6706,7 @@ bob tro canfyddir Cysylltnodi posibl.</translation>
     </message>
     <message>
         <source>Text flows around Box</source>
-        <translation>Testun yn llifo o gwmpas y Blwch</translation>
+        <translation type="obsolete">Testun yn llifo o gwmpas y Blwch</translation>
     </message>
     <message>
         <source>Use Bounding Box</source>
@@ -6377,7 +6760,7 @@ Corneli:</translation>
     </message>
     <message>
         <source>Path Text Properites</source>
-        <translation>Priodweddau Testun Llwybr</translation>
+        <translation type="obsolete">Priodweddau Testun Llwybr</translation>
     </message>
     <message>
         <source>Show Curve</source>
@@ -6413,11 +6796,11 @@ Corneli:</translation>
     </message>
     <message>
         <source>Styles</source>
-        <translation>Ardulliau</translation>
+        <translation type="obsolete">Ardulliau</translation>
     </message>
     <message>
         <source>Lang.:</source>
-        <translation>Iaith:</translation>
+        <translation type="obsolete">Iaith:</translation>
     </message>
     <message>
         <source>Free Scaling</source>
@@ -6445,7 +6828,7 @@ Corneli:</translation>
     </message>
     <message>
         <source>Keep Aspect Ratio</source>
-        <translation>Cadw Cymhareb Agwedd</translation>
+        <translation type="obsolete">Cadw Cymhareb Agwedd</translation>
     </message>
     <message>
         <source>Proportional</source>
@@ -6545,35 +6928,35 @@ Corneli:</translation>
     </message>
     <message>
         <source>Flip horizontal</source>
-        <translation>Troi drosodd yn llorweddol</translation>
+        <translation type="obsolete">Troi drosodd yn llorweddol</translation>
     </message>
     <message>
         <source>Flip vertical</source>
-        <translation>Troi drosodd yn fertigol</translation>
+        <translation type="obsolete">Troi drosodd yn fertigol</translation>
     </message>
     <message>
         <source>Move one Level up</source>
-        <translation>Symud un Lefel i fyny</translation>
+        <translation type="obsolete">Symud un Lefel i fyny</translation>
     </message>
     <message>
         <source>Move one Level down</source>
-        <translation>Symud un Lefel i lawr</translation>
+        <translation type="obsolete">Symud un Lefel i lawr</translation>
     </message>
     <message>
         <source>Move to Front</source>
-        <translation>Symud i&apos;r Blaen</translation>
+        <translation type="obsolete">Symud i&apos;r Blaen</translation>
     </message>
     <message>
         <source>Move to Back</source>
-        <translation>Symud i&apos;r Cefn</translation>
+        <translation type="obsolete">Symud i&apos;r Cefn</translation>
     </message>
     <message>
         <source>Locks or unlocks the Object</source>
-        <translation>Cloi/Datgloi&apos;r Gwrthrych</translation>
+        <translation type="obsolete">Cloi/Datgloi&apos;r Gwrthrych</translation>
     </message>
     <message>
         <source>Enables or disables printing of the Object</source>
-        <translation>Alluogi/Analluogi argraffu&apos;r Gwrthrych</translation>
+        <translation type="obsolete">Alluogi/Analluogi argraffu&apos;r Gwrthrych</translation>
     </message>
     <message>
         <source>X1:</source>
@@ -6608,6 +6991,302 @@ Please choose another.</source>
     <message>
         <source>OK</source>
         <translation>Iawn</translation>
+    </message>
+    <message>
+        <source>Text flows around frame</source>
+        <translation>Testun yn llifo o gwmpas y ffrâm</translation>
+    </message>
+    <message>
+        <source>Path Text Properties</source>
+        <translation>Priodweddau Testun Llwybr</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation>Arlliw:</translation>
+    </message>
+    <message>
+        <source>Style:</source>
+        <translation>Arddull:</translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation>Iaith:</translation>
+    </message>
+    <message>
+        <source>Cell Lines</source>
+        <translation>Llinellau Cell</translation>
+    </message>
+    <message>
+        <source>Line at Top</source>
+        <translation>Llinell wrth y Pen</translation>
+    </message>
+    <message>
+        <source>Line at the Left</source>
+        <translation>Llinell wrth y Chwith</translation>
+    </message>
+    <message>
+        <source>Line at the Right </source>
+        <translation>Llinell wrth y De</translation>
+    </message>
+    <message>
+        <source>Line at Bottom</source>
+        <translation>Llinell wrth y Gwaelod</translation>
+    </message>
+    <message>
+        <source>Name of selected object</source>
+        <translation>Enw&apos;r gwrthrych penodol</translation>
+    </message>
+    <message>
+        <source>Horizontal position of current basepoint</source>
+        <translation>Lleoliad llorweddol y gwaelodbwynt cyfredol</translation>
+    </message>
+    <message>
+        <source>Vertical position of current basepoint</source>
+        <translation>Lleoliad fertigol y gwaelodbwynt cyfredol</translation>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation>Lled</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation>Taldra</translation>
+    </message>
+    <message>
+        <source>Rotation of object at current basepoint</source>
+        <translation>Cylchdroi y gwrthrych wrth y gwaelodbwynt cyfredol</translation>
+    </message>
+    <message>
+        <source>Point from which measurements or rotation angles are referenced</source>
+        <translation>Pwynt y cyfeirir mesuriadau neu onglau cylchdroi ohono</translation>
+    </message>
+    <message>
+        <source>Select top left for basepoint</source>
+        <translation>Dewis pen chwith y gwaelodbwynt</translation>
+    </message>
+    <message>
+        <source>Select top right for basepoint</source>
+        <translation>Dewis pen de y gwaelodbwynt</translation>
+    </message>
+    <message>
+        <source>Select bottom left for basepoint</source>
+        <translation>Dewis gwaelod chwith y gwaelodbwynt</translation>
+    </message>
+    <message>
+        <source>Select bottom right for basepoint</source>
+        <translation>Dewis gwaelod de y gwaelodbwynt</translation>
+    </message>
+    <message>
+        <source>Select center for basepoint</source>
+        <translation>Dewis canolbwynt y gwaelodbwynt</translation>
+    </message>
+    <message>
+        <source>Flip Horizontal</source>
+        <translation>Troi drosodd yn Llorweddol</translation>
+    </message>
+    <message>
+        <source>Flip Vertical</source>
+        <translation>Troi drosodd yn Fertigol</translation>
+    </message>
+    <message>
+        <source>Move one level up</source>
+        <translation>Symud un lefel i fyny</translation>
+    </message>
+    <message>
+        <source>Move one level down</source>
+        <translation>Symud un lefel i lawr</translation>
+    </message>
+    <message>
+        <source>Move to front</source>
+        <translation>Symud i&apos;r blaen</translation>
+    </message>
+    <message>
+        <source>Move to back</source>
+        <translation>Symud i&apos;r cefn</translation>
+    </message>
+    <message>
+        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
+        <translation>Dynodi&apos;r lefel y mae&apos;r gwrthrych arno, efo 0 yn golygu bod y gwrthrych wrth y gwaelod</translation>
+    </message>
+    <message>
+        <source>Lock or unlock the object</source>
+        <translation>(Dad)gloi&apos;r gwrthrych</translation>
+    </message>
+    <message>
+        <source>Lock or unlock the size of the object</source>
+        <translation>(Dad)gloi maint y gwrthrych</translation>
+    </message>
+    <message>
+        <source>Enable or disable printing of the object</source>
+        <translation>(An)alluogi argraffu&apos;r gwrthrych</translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object shape</source>
+        <translation>Gwneud i&apos;r testun mewn fframau is lifo o gwmpas siâp y gwrthrych</translation>
+    </message>
+    <message>
+        <source>Use the frame shape instead of the object one</source>
+        <translation>Defnyddio&apos;r siâp ffram yn lle yr un gwrthrych</translation>
+    </message>
+    <message>
+        <source>Font of selected text or object</source>
+        <translation>Wynebfath y testun neu wrthrych penodol</translation>
+    </message>
+    <message>
+        <source>Scaling width of characters</source>
+        <translation>Lled graddio nodau</translation>
+    </message>
+    <message>
+        <source>Color of text stroke</source>
+        <translation>Lliw trawiad y testun</translation>
+    </message>
+    <message>
+        <source>Color of text fill</source>
+        <translation>Lliw llenwad y testun</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text stroke</source>
+        <translation>Dirlawnder lliw trawiad y testun</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text fill</source>
+        <translation>Dirlawnder lliw llenwad y testun</translation>
+    </message>
+    <message>
+        <source>Style of current paragraph</source>
+        <translation>Arddull y paragraff cyfredol</translation>
+    </message>
+    <message>
+        <source>Language of object</source>
+        <translation>Iaith y gwrthrych</translation>
+    </message>
+    <message>
+        <source>Change settings for left or end points</source>
+        <translation>Newid gosodiadau ar gyfer pwyntiau chith neu derfyn</translation>
+    </message>
+    <message>
+        <source>Pattern of line</source>
+        <translation>Patrwm y llinell</translation>
+    </message>
+    <message>
+        <source>Thickness of line</source>
+        <translation>Trwch y llinell</translation>
+    </message>
+    <message>
+        <source>Type of line joins</source>
+        <translation>Math uniadau&apos;r llinellau</translation>
+    </message>
+    <message>
+        <source>Type of line end</source>
+        <translation>Math terfyn y llinellau</translation>
+    </message>
+    <message>
+        <source>Line style of current object</source>
+        <translation>Arddull llinell y gwrthrych cyfredol</translation>
+    </message>
+    <message>
+        <source>Choose the shape of frame...</source>
+        <translation>Dewis siâp y ffrâm...</translation>
+    </message>
+    <message>
+        <source>Edit shape of the frame...</source>
+        <translation>Golygu siâp y ffrâm...</translation>
+    </message>
+    <message>
+        <source>Set radius of corner rounding</source>
+        <translation>Gosod radiws y crynder corneli</translation>
+    </message>
+    <message>
+        <source>Number of columns in text frame</source>
+        <translation>Nifer o golofnau yn y ffrâm testun</translation>
+    </message>
+    <message>
+        <source>Switches between Gap or Column width</source>
+        <translation>Newid rhwng Bwlch neu led Colofn</translation>
+    </message>
+    <message>
+        <source>Distance between columns</source>
+        <translation>Pellter rhwng colofnau</translation>
+    </message>
+    <message>
+        <source>Distance of text from top of frame</source>
+        <translation>Pellter y testun o ben y ffrâm</translation>
+    </message>
+    <message>
+        <source>Distance of text from bottom of frame</source>
+        <translation>Pellter y testun o waelod y ffrâm</translation>
+    </message>
+    <message>
+        <source>Distance of text from left of frame</source>
+        <translation>Pellter y testun o chwith y ffrâm</translation>
+    </message>
+    <message>
+        <source>Distance of text from right of frame</source>
+        <translation>Pellter y testun o dde y ffrâm</translation>
+    </message>
+    <message>
+        <source>Edit tab settings of text frame...</source>
+        <translation>Golygu gosodiadau tab y ffrâm testun...</translation>
+    </message>
+    <message>
+        <source>Allow the image to be a different size to the frame</source>
+        <translation>Caniatáu i&apos;r ddelwedd fod yn faint gwahanol i&apos;r ffrâm</translation>
+    </message>
+    <message>
+        <source>Horizontal offset of image within frame</source>
+        <translation>Atred llorweddol y ddelwedd tu mewn y ffrâm</translation>
+    </message>
+    <message>
+        <source>Vertical offset of image within frame</source>
+        <translation>Atred fertigol y ddelwedd tu mewn y ffrâm</translation>
+    </message>
+    <message>
+        <source>Resize the image horizontally</source>
+        <translation>Newid maint y ddelwedd yn llorweddol</translation>
+    </message>
+    <message>
+        <source>Resize the image vertically</source>
+        <translation>Newid maint y ddelwedd yn fertigol</translation>
+    </message>
+    <message>
+        <source>Keep the X and Y scaling the same</source>
+        <translation>Cadw&apos;r graddio X a Y yn hafal</translation>
+    </message>
+    <message>
+        <source>Keep the aspect ratio</source>
+        <translation>Cadw&apos;r gymhareb agwedd</translation>
+    </message>
+    <message>
+        <source>Make the image fit within the size of the frame</source>
+        <translation>Gwneud i&apos;r ddelwedd ffitio tu mewn maint y ffrâm</translation>
+    </message>
+    <message>
+        <source>Use image proportions rather than those of the frame</source>
+        <translation>Defnyddio cyfraneddau&apos;r ddelwedd yn lle rhai y ffrâm</translation>
+    </message>
+    <message>
+        <source>Source profile of the image</source>
+        <translation>Proffil tarddiad y ddelwedd</translation>
+    </message>
+    <message>
+        <source>Rendering intent for the image</source>
+        <translation>Bwriad llunio ar gyfer y ddelwedd</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Column width</source>
+        <translation>Lled y colofn</translation>
     </message>
 </context>
 <context>
@@ -6719,7 +7398,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Exit</source>
-        <translation>Terfynu</translation>
+        <translation type="obsolete">Terfynu</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -6756,6 +7435,10 @@ Please choose another.</source>
     <message>
         <source>Normal</source>
         <translation>Arferol</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Cau</translation>
     </message>
 </context>
 <context>
@@ -6854,7 +7537,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Autom. Text Frames</source>
-        <translation>Fframiau Testun Ymysgogol</translation>
+        <translation type="obsolete">Fframiau Testun Ymysgogol</translation>
     </message>
     <message>
         <source>Column Guides</source>
@@ -6862,7 +7545,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Gutter Width:</source>
-        <translation>Lled y Ffos:</translation>
+        <translation type="obsolete">Lled y Ffos:</translation>
     </message>
     <message>
         <source>Columns:</source>
@@ -6883,6 +7566,94 @@ Please choose another.</source>
     <message>
         <source>Outside:</source>
         <translation>Tu Allan:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Automatic Text Frames</source>
+        <translation>Fframiau Testun Ymysgogol</translation>
+    </message>
+    <message>
+        <source>Gap:</source>
+        <translation>Bwlch:</translation>
+    </message>
+    <message>
+        <source>Document page size, either a standard size or a custom size</source>
+        <translation>Maint tudalennau&apos;r ddogfen, un ai maint arferol neu faint addasiedig</translation>
+    </message>
+    <message>
+        <source>Orientation of the document&apos;s pages</source>
+        <translation>Cyfeiriadaeth tudalennau&apos;r ddogfen</translation>
+    </message>
+    <message>
+        <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
+        <translation>Lled tudalennau&apos;r ddogfen, a ellir ei olygu os ydych wed dewis maint dudalen addasiedig</translation>
+    </message>
+    <message>
+        <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
+        <translation>Uchder tudalennau&apos;r ddogfen, a ellir ei olygu os ydych wed dewis maint dudalen addasiedig</translation>
+    </message>
+    <message>
+        <source>Enable single or spread based layout</source>
+        <translation>Alluogi haenlun sengl neu seiliedig ar daeniad</translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of the document</source>
+        <translation>Gwneud y dudalen gyntaf yn dudalen chwith y ddogfen</translation>
+    </message>
+    <message>
+        <source>Distance between the top margin guide and the edge of the page</source>
+        <translation>Pellter rhwng y cyfeirydd ymyl pen ac ochr y dudalen</translation>
+    </message>
+    <message>
+        <source>Distance between the bottom margin guide and the edge of the page</source>
+        <translation>Pellter rhwng y cyfeirydd ymyl gwaelod ac ochr y dudalen</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Pellter rhwng y cyfeirydd ymyl chwith ac ochr y dudalen.
+Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr ymylon cywir ar gyfer rhwymo</translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Pellter rhwng y cyfeirydd ymyl de ac ochr y dudalen.
+Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr ymylon cywir ar gyfer rhwymo</translation>
+    </message>
+    <message>
+        <source>First page number of the document</source>
+        <translation>Rhif tudalen gyntaf y ddogfen</translation>
+    </message>
+    <message>
+        <source>Default unit of measurement for document editing</source>
+        <translation>Uned mesur rhagosod ar gyfer golygu dogfennau</translation>
+    </message>
+    <message>
+        <source>Create text frames automatically when new pages are added</source>
+        <translation>Creu fframiau testun yn ymysgogol pan ychwanegir tudalennau newydd</translation>
+    </message>
+    <message>
+        <source>Number of columns to create in automatically created text frames</source>
+        <translation>Nifer colofnau i&apos;w creu mewn fframiau testun a greir yn ymysgogol</translation>
+    </message>
+    <message>
+        <source>Distance between automatically created columns</source>
+        <translation>Pellter rhwng colofnau a greir yn ymysgogol</translation>
     </message>
 </context>
 <context>
@@ -7092,7 +7863,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Compression</source>
-        <translation>Cywasgiad</translation>
+        <translation type="obsolete">Cywasgiad</translation>
     </message>
     <message>
         <source>Downsample Images to:</source>
@@ -7132,7 +7903,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation>Wynebfathau</translation>
+        <translation type="obsolete">Wynebfathau</translation>
     </message>
     <message>
         <source>Enable Presentation Effects</source>
@@ -7168,7 +7939,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>from the:</source>
-        <translation>o&apos;r:</translation>
+        <translation type="obsolete">o&apos;r:</translation>
     </message>
     <message>
         <source>Direction:</source>
@@ -7248,7 +8019,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Extras</source>
-        <translation>Ychwanegol</translation>
+        <translation type="obsolete">Ychwanegol</translation>
     </message>
     <message>
         <source>Use Encryption</source>
@@ -7288,7 +8059,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Security</source>
-        <translation>Diogelwch</translation>
+        <translation type="obsolete">Diogelwch</translation>
     </message>
     <message>
         <source>Output intended for:</source>
@@ -7344,7 +8115,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Lliw</translation>
+        <translation type="obsolete">Lliw</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
@@ -7364,11 +8135,11 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="obsolete">Iawn</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -7382,6 +8153,329 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
         <source>PDF-Files (*.pdf);;All Files (*)</source>
         <translation>Ffeiliau-PDF (*.pdf);;Pob Ffeil (*)</translation>
     </message>
+    <message>
+        <source>Image Settings</source>
+        <translation>Gosodiadau Delwedd</translation>
+    </message>
+    <message>
+        <source>Method:</source>
+        <translation>Dull:</translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation>Ymysgogol</translation>
+    </message>
+    <message>
+        <source>JPEG</source>
+        <translation>JPEG</translation>
+    </message>
+    <message>
+        <source>Zip</source>
+        <translation>Zip</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Dim</translation>
+    </message>
+    <message>
+        <source>Quality:</source>
+        <translation>Ansawdd:</translation>
+    </message>
+    <message>
+        <source>Maximum</source>
+        <translation>Uchafswm</translation>
+    </message>
+    <message>
+        <source>High</source>
+        <translation>Uchwl</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation>Canolig</translation>
+    </message>
+    <message>
+        <source>Low</source>
+        <translation>Isel</translation>
+    </message>
+    <message>
+        <source>Minimum</source>
+        <translation>Lleiafswm</translation>
+    </message>
+    <message>
+        <source>&amp;General</source>
+        <translation>&amp;Cyffredinol</translation>
+    </message>
+    <message>
+        <source>&amp;Fonts</source>
+        <translation>&amp;Wynebfathau</translation>
+    </message>
+    <message>
+        <source>From the:</source>
+        <translation>O&apos;r:</translation>
+    </message>
+    <message>
+        <source>E&amp;xtras</source>
+        <translation>&amp;Ychwanegol</translation>
+    </message>
+    <message>
+        <source>&amp;Security</source>
+        <translation>&amp;Diogelwch</translation>
+    </message>
+    <message>
+        <source>&amp;Color</source>
+        <translation>&amp;Lliw</translation>
+    </message>
+    <message>
+        <source>&amp;PDF/X-3</source>
+        <translation>&amp;PDF/X-3</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Cadw</translation>
+    </message>
+    <message>
+        <source>Export all pages to PDF</source>
+        <translation>Allforio pob tudalen i PDF</translation>
+    </message>
+    <message>
+        <source>Export a range of pages to PDF</source>
+        <translation>Allforio amrediad o dudalennau i PDF</translation>
+    </message>
+    <message>
+        <source>First page to export when exporting a range</source>
+        <translation>Tudalen gyntaf i&apos;w hallforio wrth allforio amrediad</translation>
+    </message>
+    <message>
+        <source>Last page to export when exporting a range</source>
+        <translation>Tudalen olaf i&apos;w hallforio wrth allforio amrediad</translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
+Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
+PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
+        <translation>Penodi&apos;r cytunedd PDF.  Y rhagososiad yw Acrobat 4.0, sy&apos;n rhoi&apos;r cytunedd lletaf.  Dewiswch Acrobat 
+5.0 os oes gan eich ffeil nodweddion PDF 1.4 fel tryloywder, neu os oes angen cêl-ysgrifaeth 128-did.
+Mae PDF/X-3 ar gyfer allforio&apos;r PDF ar gyfer argraffu masnachol, a gellir ei ddewis os weithredir rheoli lliwiau.</translation>
+    </message>
+    <message>
+        <source>Determines the binding of pages in the PDF. Unless you know
+you need to change it leave the default choice - Left.</source>
+        <translation>Penodi rhwymo&apos;r tudalennau yn y PDF.  Onibai i chi wybod
+bod angen ei newid, gadewch y dewisiad rhagosod - Chwith.</translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF.
+Some viewers can use the thumbnails for navigation.</source>
+        <translation>Creu rhagolygon cryno o bob tudalen yn y PDF.
+Gall rhai gwelyddion ddefnyddio&apos;r rhagolygon cryno i lywio.</translation>
+    </message>
+    <message>
+        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
+        <translation>Creu Erthyglau PDF, sydd o ddefnydd ar gyfer llywio drwy erthyglau cysylltiedig mewn PDF.</translation>
+    </message>
+    <message>
+        <source>Embed the bookmarks you created in your document.
+These are useful for navigating long PDF documents.</source>
+        <translation>Mewnadeiladu y tudnodau a greuwyd yn eich dogfen.
+Maent o ddefnydd ar gyfer llywio drwy ddogfennau PDF hir.</translation>
+    </message>
+    <message>
+        <source>Export resolution of text and vector graphics.
+This does not affect the resolution of bitmap images like photos.</source>
+        <translation>Allforio cydraniad o destun a graffeg fector.
+Nid yw hyn yn effeithio ar gydraniad delweddau didfap fel ffotos.</translation>
+    </message>
+    <message>
+        <source>Compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</source>
+        <translation>Cywasgiad testun a graffeg.
+Onibai i chi fod efo rheswm da, gadewch hwn wedi&apos;i fritho.  Mae&apos;n lleihau maint y PDF.</translation>
+    </message>
+    <message>
+        <source>Version of compression for images.
+Automatic allows Scribus to choose the best method.
+ZIP is good for images with solid colors.
+JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
+Leave it set to automatic, unless you have a need for special compression options.</source>
+        <translation>Fersiwn cywasgiad ar gyfer delweddau.
+Mae Ymysgogol yn gadael i Scribus ddewis y dull gorau.
+Mae XIP yn dda ar gyfer delweddau efo lliwiau solet.
+Mae JPEG yn well wrth greu ffeiliau PDF llai sydd efo llawer o ffotos (mae tipyn o golled ddelwedd yn bosibl).
+Gadewch y gosodiad wrth Ymysgogol, onibai bod angen dewisiadau cywasgu arbennig.</translation>
+    </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation>Lefelau cywasgiad: Lleiaf (25%), Isel (50%), Canolig (75%), Uchel (85%), Uchaf (95%)</translation>
+    </message>
+    <message>
+        <source>Downsample your bitmap images to the selected DPI.
+Leaving this unchecked will render them at their native resolution.</source>
+        <translation>Lawrsamplu eich delweddau didfap i&apos;r DPI penodol.
+Bydd gadael hwn heb ei fritho yn eu llunio wrth eu cydraniad gwreiddiol.</translation>
+    </message>
+    <message>
+        <source>DPI (Dots Per Inch) for image export.</source>
+        <translation>DPI (Dotiau/Modfedd) ar gyfer allforio delwedd.</translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts
+will preserve the layout and appearance of your document.</source>
+        <translation>Mewnadeiladu wynebfathau yn y PDF.  Bydd hyn yn 
+amddiffyn haenlun a golwg eich dogfen.</translation>
+    </message>
+    <message>
+        <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
+        <translation>Alluogi effeithiau cyflwyniad wrth ddefnyddion Acrobat Reader mewn modd sgrîn lawn.</translation>
+    </message>
+    <message>
+        <source>Show page previews of each page listed above.</source>
+        <translation>Dangos rhagolygon tudalen ar gyfer pob tudalen a restrir uchod.</translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page.</source>
+        <translation>Y maint o amser y dangosir y dudalen cyn i&apos;r cyflwyniad ddechrau ar y dudalen benodol.</translation>
+    </message>
+    <message>
+        <source>Length of time the effect runs.
+A shorter time will speed up the effect, a longer one will slow it down.</source>
+        <translation>Y maint o amser y bydd yr effaith yn rhedeg.
+Bydd amser byrrach yn cyflymu&apos;r effaith, ac amser hirach yn ei arafu.</translation>
+    </message>
+    <message>
+        <source>Type of the display effect.</source>
+        <translation>Math yr effaith arddangos.</translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects.</source>
+        <translation>Cyfeiriad y  llinellau symudol ar gyfer yr effeithiau hollti a cysgodlenni.</translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects.</source>
+        <translation>Lleoliad dechrau ar gyfer yr effeithiau blwch a hollti.</translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects.</source>
+        <translation>Cyfeiriad yr effeithiau disgleirio neu sychu.</translation>
+    </message>
+    <message>
+        <source>Apply the selected effect to all pages.</source>
+        <translation>Gweithredu&apos;r effaith penodol i bob tudalen.</translation>
+    </message>
+    <message>
+        <source>Enable the security features in your exported PDF.
+If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
+If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
+Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
+        <translation>Alluogi&apos;r nodweddion diogelwch yn eich PDF allforedig.
+Os dewiswyd Acrobat 4.0, amddifynnir y PDF gan gêl-ysgrifaeth 40-did.
+Os dewiswyd Acrobat 5.0, amddifynnir y PDF gan gêl-ysgrifaeth 128-did.
+Ymwadiad: Nid yw cêl-ysgrifaeth PDF mor ddibynadwy â chêl-ysgrifaeth GPG neu PGP, ac mae ganddo rhai cyfyngiadau.
+</translation>
+    </message>
+    <message>
+        <source>Choose a master password which enables or disables all the
+security features in your exported PDF</source>
+        <translation>Dewis prif gyfrinair sy&apos;n alluogi neu analluogi yr holl
+nodweddion diogelwch yn eich PDF allforedig</translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF</source>
+        <translation>Dewis cyfrinair i ddefnyddwyr allu darllen eich PDF</translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF</source>
+        <translation>Caniatáu argraffu&apos;r PDF</translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF</source>
+        <translation>Caniatáu assasu&apos;r PDF</translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF</source>
+        <translation>Caniatáu copïo testun neu graffeg o&apos;r PDF</translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF</source>
+        <translation>Caniatáu ychwanegu anodiadau a meysydd i&apos;r PDF</translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF.
+Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
+Choose Printer when printing to a true 4 color CMYK printer.</source>
+        <translation>Model lliw ar gyfer allbwn eich PDF.
+Dewiswch Sgrîn/Gwê ar gyfer PDF a ddangosir ar sgrîn, neu a argraffir ar argraffyddion inkjet cyffredinol.
+Dewiswch Argraffydd wrth argraffu i argraffydd CMYK 4-lliw go iawn.</translation>
+    </message>
+    <message>
+        <source>Embed a color profile for solid colors</source>
+        <translation>Mewnadeiladu proffil lliw ar gyfer lliwiau solet</translation>
+    </message>
+    <message>
+        <source>Color profile for solid colors</source>
+        <translation>Proffil lliw ar gyfer lliwiau solet</translation>
+    </message>
+    <message>
+        <source>Rendering intent for solid colors</source>
+        <translation>Bwriad llunio ar gyfer lliwiau solet</translation>
+    </message>
+    <message>
+        <source>Embed a color profile for images</source>
+        <translation>Mewnadeiladu proffil lliw ar gyfer delweddau</translation>
+    </message>
+    <message>
+        <source>Do not use color profiles that are embedded in source images</source>
+        <translation>Peidiwch â defnyddio proffilau lliw a fewnadeiladir yn nelweddau tarddiad</translation>
+    </message>
+    <message>
+        <source>Color profile for images</source>
+        <translation>Proffil lliw ar gyfer delweddau</translation>
+    </message>
+    <message>
+        <source>Rendering intent for images</source>
+        <translation>Bwriad llunio ar gyfer delweddau</translation>
+    </message>
+    <message>
+        <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
+        <translation>Proffil allbwn ar gyfer argraffu.  Os bosibl, gofynnwch i&apos;ch argraffydd am ei gyngor ynglyn â dewis proffil.</translation>
+    </message>
+    <message>
+        <source>Mandatory string for PDF/X-3 or the PDF will fail
+PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation>Llinyn gorfodol ar gyfer PDF/X-3, neu fydd y PDF yn methu
+cydymffurfiad PDF/X-3.  Argymhellir defnyddio teitl y ddogfen.</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation>Pellter ar gyfer ymdoddi o ben y dudalen gorfforol</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation>Pellter ar gyfer ymdoddi o waelod y dudalen gorfforol</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation>Pellter ar gyfer ymdoddi o chwith y dudalen gorfforol</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation>Pellter ar gyfer ymdoddi o dde y dudalen gorfforol</translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -7391,7 +8485,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Tudalen:</translation>
+        <translation type="obsolete">Tudalen:</translation>
     </message>
     <message>
         <source>Anti-alias Text</source>
@@ -7428,6 +8522,42 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     <message>
         <source>All</source>
         <translation>Popeth</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of text items in the viewer, at the expense
+of a slight slowdown in previewing. This only affects Type 1 fonts</source>
+        <translation>Rhoi golwg ddeliach o eitemau testun yn y gwelydd, ar draul
+arafu&apos;r rhagolygu rywfaint.  Mae hyn yn effeithio ar wynebfathau Type 1 yn unig</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
+vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation>Rhoi golwg ddeliach o wynebfathau True Type ac Open Type, EPS, PDF a 
+graffeg fector yn y rhagolwg, ar draul arafu&apos;r rhagolygu rywfaint</translation>
+    </message>
+    <message>
+        <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
+        <translation>Dangos tryloywder ac eitemau tryloyw yn eich dogfen.  Angen Ghostscript 7.07 neu hwyrach</translation>
+    </message>
+    <message>
+        <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
+        <translation>Dangos rhagolwg argraffu gan ddefnyddio efelychiadau o inciau CMYK cyffredinol, yn lle lliwiau RGB</translation>
+    </message>
+    <message>
+        <source>Enable/disable the C (Cyan) ink plate</source>
+        <translation>(An)alluogi y plât inc C (Gwyrddlas)</translation>
+    </message>
+    <message>
+        <source>Enable/disable the M (Magenta) ink plate</source>
+        <translation>(An)alluogi y plât inc M (Magenta)</translation>
+    </message>
+    <message>
+        <source>Enable/disable the Y (Yellow) ink plate</source>
+        <translation>(An)alluogi y plât inc Y (Melyn)</translation>
+    </message>
+    <message>
+        <source>Enable/disable the K (Black) ink plate</source>
+        <translation>(An)alluogi y plât inc K (Du)</translation>
     </message>
 </context>
 <context>
@@ -7672,6 +8802,100 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
         <source>None</source>
         <translation>Dim</translation>
     </message>
+    <message>
+        <source>Hide Baseline Grid</source>
+        <translation>Cuddio Grid Gwaelodlin</translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation>Dangos Grid Gwaelodlin</translation>
+    </message>
+    <message>
+        <source>Update Picture</source>
+        <translation>Diweddaru Llun</translation>
+    </message>
+    <message>
+        <source>Edit Picture</source>
+        <translation>Golygu Llun</translation>
+    </message>
+    <message>
+        <source>Adjust Frame to Picture</source>
+        <translation>Addasu Ffrâm i Lun</translation>
+    </message>
+    <message>
+        <source>Append Text...</source>
+        <translation>Atodi Testun...</translation>
+    </message>
+    <message>
+        <source>Insert Sample Text</source>
+        <translation>Mewnosod Testun Enghreifftiol</translation>
+    </message>
+    <message>
+        <source>Lock object size</source>
+        <translation>Cloi maint y gwrthrych</translation>
+    </message>
+    <message>
+        <source>Unlock object size</source>
+        <translation>Dadgloi maint y gwrthrych</translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation>Lefel</translation>
+    </message>
+    <message>
+        <source>The Program</source>
+        <translation>Mae&apos;r rhaglen</translation>
+    </message>
+    <message>
+        <source>is missing!</source>
+        <translation>ar goll!</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Rhybudd</translation>
+    </message>
+    <message>
+        <source>Copy of</source>
+        <translation>Copi o</translation>
+    </message>
+</context>
+<context>
+    <name>PageItem</name>
+    <message>
+        <source>Image</source>
+        <translation>Delwedd</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Testun</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation>Llinell</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation>Polygon</translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation>Polylinell</translation>
+    </message>
+    <message>
+        <source>PathText</source>
+        <translation>Testun Llwybr</translation>
+    </message>
+</context>
+<context>
+    <name>PageSelector</name>
+    <message>
+        <source>Page </source>
+        <translation>Tudalen</translation>
+    </message>
+    <message>
+        <source> of %1</source>
+        <translation>o %1</translation>
+    </message>
 </context>
 <context>
     <name>PicSearch</name>
@@ -7721,6 +8945,26 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     <message>
         <source>Search</source>
         <translation>Chwilio</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Enw</translation>
+    </message>
+    <message>
+        <source>Path</source>
+        <translation>Llwybr</translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation>Tudalen</translation>
+    </message>
+    <message>
+        <source>Print</source>
+        <translation>Argraffu</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Cyflwr</translation>
     </message>
 </context>
 <context>
@@ -7798,7 +9042,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Theme</source>
-        <translation>Thema</translation>
+        <translation type="obsolete">Thema</translation>
     </message>
     <message>
         <source>Font Size:</source>
@@ -7834,11 +9078,11 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Wheel-Jump</source>
-        <translation>Naid Olwyn</translation>
+        <translation type="obsolete">Naid Olwyn</translation>
     </message>
     <message>
         <source>Grab-Radius</source>
-        <translation>Cwmpas Cydio</translation>
+        <translation type="obsolete">Cwmpas Cydio</translation>
     </message>
     <message>
         <source>Menus</source>
@@ -8002,7 +9246,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Disp.:</source>
-        <translation>Dangos:</translation>
+        <translation type="obsolete">Dangos:</translation>
     </message>
     <message>
         <source> %</source>
@@ -8066,7 +9310,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Linestyle:</source>
-        <translation>Arddull y Llinell:</translation>
+        <translation type="obsolete">Arddull y Llinell:</translation>
     </message>
     <message>
         <source>Line Width:</source>
@@ -8098,11 +9342,11 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Horizontal Scaling</source>
-        <translation>Graddfa Llorweddol</translation>
+        <translation type="obsolete">Graddfa Llorweddol</translation>
     </message>
     <message>
         <source>Vertical Scaling</source>
-        <translation>Graddfa Fertigol</translation>
+        <translation type="obsolete">Graddfa Fertigol</translation>
     </message>
     <message>
         <source>Scale Picture to Frame Size</source>
@@ -8134,7 +9378,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Save Contents on Exit</source>
-        <translation>Cadw Cynnwys wrth Terfynu</translation>
+        <translation type="obsolete">Cadw Cynnwys wrth Terfynu</translation>
     </message>
     <message>
         <source>Preview</source>
@@ -8154,7 +9398,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <source>Display Frames</source>
-        <translation>Dangos Fframiau</translation>
+        <translation type="obsolete">Dangos Fframiau</translation>
     </message>
     <message>
         <source>Display Pages Side by Side</source>
@@ -8219,6 +9463,454 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     <message>
         <source> p</source>
         <translation>p</translation>
+    </message>
+    <message>
+        <source>External Tools</source>
+        <translation>Offer allanol</translation>
+    </message>
+    <message>
+        <source>Misc.</source>
+        <translation>Amrywiol.</translation>
+    </message>
+    <message>
+        <source>Theme:</source>
+        <translation>Thema:</translation>
+    </message>
+    <message>
+        <source>Wheel-Jump:</source>
+        <translation>Naid yr Olwyn:</translation>
+    </message>
+    <message>
+        <source>Grab-Radius:</source>
+        <translation>Radiws Cipio:</translation>
+    </message>
+    <message>
+        <source> px</source>
+        <translation>px</translation>
+    </message>
+    <message>
+        <source>Baseline Grid</source>
+        <translation>Grid Gwaelodlin</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation>Arnodd</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>I ffwrdd</translation>
+    </message>
+    <message>
+        <source>Displacement:</source>
+        <translation>Dadleoliad:</translation>
+    </message>
+    <message>
+        <source>Baseline Grid:</source>
+        <translation>Grid Gwaelodlin:</translation>
+    </message>
+    <message>
+        <source>Baseline Offset:</source>
+        <translation>Atred Gwaelodlin:</translation>
+    </message>
+    <message>
+        <source>Horizontal Scaling:</source>
+        <translation>Graddio Llorweddol:</translation>
+    </message>
+    <message>
+        <source>Vertical Scaling:</source>
+        <translation>Graddio Fertigol:</translation>
+    </message>
+    <message>
+        <source>Save Contents on Changes</source>
+        <translation>Cadw Cynnwys ar ôl Newidiadau</translation>
+    </message>
+    <message>
+        <source>Postscript Interpreter</source>
+        <translation>Dehonglydd Postscript</translation>
+    </message>
+    <message>
+        <source>Name of executable:</source>
+        <translation>Enw&apos;r gweithredeadwyn:</translation>
+    </message>
+    <message>
+        <source>Antialias Text</source>
+        <translation>Gwrthamgenu Testun</translation>
+    </message>
+    <message>
+        <source>Antialias Graphics</source>
+        <translation>Gwrthamgenu Graffeg</translation>
+    </message>
+    <message>
+        <source>Image Processing Tool</source>
+        <translation>Erfyn Prosesu Delwedd</translation>
+    </message>
+    <message>
+        <source>Printing</source>
+        <translation>Argraffu</translation>
+    </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation>Tocio i Ochrau&apos;r Dudalen</translation>
+    </message>
+    <message>
+        <source>Choose the default window decoration and looks.
+Scribus inherits any available KDE or Qt themes</source>
+        <translation>Dewis yr addurniad ffenestri a golwg rhagosod.
+Mae Scribus yn etifeddu unrhyw themau KDE neu Qt sydd ar gael</translation>
+    </message>
+    <message>
+        <source>Default font size for the menus and windows</source>
+        <translation>Maint y wynebfathau rhagosod ar gyfer y dewislenni a&apos;r ffenestri</translation>
+    </message>
+    <message>
+        <source>Default unit of measurement for document editing</source>
+        <translation>Uned mesur rhagosod ar gyfer golygu dogfennau</translation>
+    </message>
+    <message>
+        <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
+        <translation>Y nifer o linellau y bydd Scribus yn sgrolio am bob symudiad o&apos;r olwyn lygoden</translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
+        <translation>Radiws y cylch lle bydd Scribus yn gadael i chi gipio ar dolenni gwrthrych</translation>
+    </message>
+    <message>
+        <source>Number of recently edited documents to show in the File menu</source>
+        <translation>Y nifer o ddogfenni a olygwyd yn ddiweddar i ddangos yn y ddewislen Ffeil</translation>
+    </message>
+    <message>
+        <source>Change the keyboard shortcuts to your preference</source>
+        <translation>Newid y byrlwybrau bysellfwrdd i&apos;ch hoffterau</translation>
+    </message>
+    <message>
+        <source>Default documents directory</source>
+        <translation>Cyfeiriadur rhagosod dogfenni</translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory</source>
+        <translation>Cyfeiriad rhagosod proffilau ICC</translation>
+    </message>
+    <message>
+        <source>Default Scripter scripts directory</source>
+        <translation>Cyfeiriad rhagosod sgriptiau Scripter</translation>
+    </message>
+    <message>
+        <source>Default page size, either a standard size or a custom size</source>
+        <translation>Maint rhagosod y dudalen, un ai maint arferol neu faint addasiedig</translation>
+    </message>
+    <message>
+        <source>Default orientation of document pages</source>
+        <translation>Cyfeiriadaeth rhagosod tudalennau&apos;r ddogfen</translation>
+    </message>
+    <message>
+        <source>Width of document pages, editable if you have chosen a custom page size</source>
+        <translation>Lled tudalennau&apos;r ddogfen, a ellir ei olygu os ydych wedi dewis maint dudalen addasiedig</translation>
+    </message>
+    <message>
+        <source>Height of document pages, editable if you have chosen a custom page size</source>
+        <translation>Uchder tudalennau&apos;r ddogfen, a ellir ei olygu os ydych wedi dewis maint dudalen addasiedig</translation>
+    </message>
+    <message>
+        <source>Enable single or spread based layout</source>
+        <translation>Alluogi haenlun sengl neu seiliedig ar daeniad</translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of a document</source>
+        <translation>Gwneud y dudalen gyntaf yn dudalen chwith y ddogfen</translation>
+    </message>
+    <message>
+        <source>Distance between the top margin guide and the edge of the page</source>
+        <translation>Pellter rhwng y cyfeirydd ymyl pen ac ochr y dudalen</translation>
+    </message>
+    <message>
+        <source>Distance between the bottom margin guide and the edge of the page</source>
+        <translation>Pellter rhwng y cyfeirydd ymyl gwaelod ac ochr y dudalen</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Pellter rhwng y cyfeirydd ymyl chwith ac ochr y dudalen.
+Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr ymylon cywir ar gyfer rhwymo</translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Pellter rhwng y cyfeirydd ymyl de ac ochr y dudalen.
+Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr ymylon cywir ar gyfer rhwymo</translation>
+    </message>
+    <message>
+        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
+each time the time period elapses</source>
+        <translation>Pan alluogir, mae Scribus yn cadw copi wrth gefn o&apos;ch ffeil efo&apos;r estyniad .bak
+bob tro mae&apos;r cyfnod yn gorffen</translation>
+    </message>
+    <message>
+        <source>Time period between saving automatically</source>
+        <translation>Cyfnod rhwng cadw yn ymysgogol</translation>
+    </message>
+    <message>
+        <source>Distance between the minor grid lines</source>
+        <translation>Pellter rhwng llinellau lleiaf y grid</translation>
+    </message>
+    <message>
+        <source>Distance between the major grid lines</source>
+        <translation>Pellter rhwng llinellau mwyaf y grid</translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides</source>
+        <translation>Pellter y bydd gwrthrcyh yn neidio i&apos;ch cyfeiryddion tu mewn iddo</translation>
+    </message>
+    <message>
+        <source>Color of the minor grid lines</source>
+        <translation>Lliw llinellau lleiaf y grid</translation>
+    </message>
+    <message>
+        <source>Color of the major grid lines</source>
+        <translation>Lliw llinellau mwyaf y grid</translation>
+    </message>
+    <message>
+        <source>Color of the guide lines you insert</source>
+        <translation>Lliw y llinellau cyfeirydd a fewnosodir</translation>
+    </message>
+    <message>
+        <source>Place the grid behind your page objects</source>
+        <translation>Gosod y grid tu ôl eich gwrthrychau tudalen</translation>
+    </message>
+    <message>
+        <source>Place the grid in front of your page objects</source>
+        <translation>Gosod y grid o flaen eich gwrthrychau tudalen</translation>
+    </message>
+    <message>
+        <source>Turns on the basegrid</source>
+        <translation>Dangos y grid gwaelod</translation>
+    </message>
+    <message>
+        <source>Turns off the basegrid</source>
+        <translation>Cuddio&apos;r grid gwaelod</translation>
+    </message>
+    <message>
+        <source>Displacement above the baseline of the font on a line</source>
+        <translation>Afleoliad dros waelodlin y wynebfath ar linell</translation>
+    </message>
+    <message>
+        <source>Relative size of the superscript compared to the normal font</source>
+        <translation>Maint perthynol yr uwchysgrif wrth gymharu â&apos;r wynebfath arferol</translation>
+    </message>
+    <message>
+        <source>Displacement below the baseline of the normal font on a line</source>
+        <translation>Afleoliad dan waelodlin y wynebfath arferol ar linell</translation>
+    </message>
+    <message>
+        <source>Relative size of the subscript compared to the normal font</source>
+        <translation>Maint perthynol yr isysgrif wrth gymharu â&apos;r wynebfath arferol</translation>
+    </message>
+    <message>
+        <source>Relative size of the small caps font compared to the normal font</source>
+        <translation>Maint perthynol wynebfath y priflythrennau bach wrth gymharu â&apos;r wynebfath arferol</translation>
+    </message>
+    <message>
+        <source>Percentage increase over the font size for the line spacing</source>
+        <translation>Cynydd canrannol dros faint y wynebfath ar gyfer y bylchu llinell</translation>
+    </message>
+    <message>
+        <source>Text Frame Properties</source>
+        <translation>Priodweddau Ffrâm Testun</translation>
+    </message>
+    <message>
+        <source>Picture Frame Properties</source>
+        <translation>Priodweddau Ffrâm Llun</translation>
+    </message>
+    <message>
+        <source>Shape Drawing Properties</source>
+        <translation>Priodweddau Lluniadu Siapau</translation>
+    </message>
+    <message>
+        <source>Magnification Level Defaults</source>
+        <translation>Rhagosodiadau Lefel Chwyddo</translation>
+    </message>
+    <message>
+        <source>Line Drawing Properties</source>
+        <translation>Priodweddau Lluniadu Llinellau</translation>
+    </message>
+    <message>
+        <source>Polygon Drawing Properties</source>
+        <translation>Priodweddau Lluniadu Polygonau</translation>
+    </message>
+    <message>
+        <source>Font for new text frames</source>
+        <translation>Wynebfath ar gyfer fframiau testun newydd</translation>
+    </message>
+    <message>
+        <source>Size of font for new text frames</source>
+        <translation>Maint y wynebfath ar gyfer fframiau testun newydd</translation>
+    </message>
+    <message>
+        <source>Color of font</source>
+        <translation>Lliw&apos;r wynebfath</translation>
+    </message>
+    <message>
+        <source>Number of columns in a text frame</source>
+        <translation>Nifer o golofnau mewn ffrâm testun</translation>
+    </message>
+    <message>
+        <source>Gap between text frame columns</source>
+        <translation>Bwlch rhwng colofnau ffrâm testun</translation>
+    </message>
+    <message>
+        <source>Sample of your font</source>
+        <translation>Enghraifft o&apos;ch wynebfath</translation>
+    </message>
+    <message>
+        <source>Picture frames allow pictures to scale to any size</source>
+        <translation>Mae fframiau llun yn caniatáu graddio lluniau i unrhyw faint</translation>
+    </message>
+    <message>
+        <source>Horizontal scaling of images</source>
+        <translation>Graddio llorweddol o ddelweddau</translation>
+    </message>
+    <message>
+        <source>Vertical scaling of images</source>
+        <translation>Graddio fertigol o ddelweddau</translation>
+    </message>
+    <message>
+        <source>Keep horizontal and vertical scaling the same</source>
+        <translation>Cadw graddio llorweddol a fertigol yn hafal</translation>
+    </message>
+    <message>
+        <source>Pictures in picture frames are scaled to the size of the frame</source>
+        <translation>Graddir lluniau mewn fframiau llun i faint y ffrâm</translation>
+    </message>
+    <message>
+        <source>Automatically scaled pictures keep their original proportions</source>
+        <translation>Mae lluniau a raddir yn ymysgogol yn cadw eu cyfrannedd wreiddiol</translation>
+    </message>
+    <message>
+        <source>Fill color of picture frames</source>
+        <translation>Lliw llenwad fframiau llun</translation>
+    </message>
+    <message>
+        <source>Saturation of color of fill</source>
+        <translation>Dirlawnder y lliw llenwad</translation>
+    </message>
+    <message>
+        <source>Line color of shapes</source>
+        <translation>Lliw llinell siapau</translation>
+    </message>
+    <message>
+        <source>Saturation of color of lines</source>
+        <translation>Dirlawnder y lliw llinellau</translation>
+    </message>
+    <message>
+        <source>Fill color of shapes</source>
+        <translation>Lliw llenwad siapau</translation>
+    </message>
+    <message>
+        <source>Line style of shapes</source>
+        <translation>Arddull llinell siapau</translation>
+    </message>
+    <message>
+        <source>Line width of shapes</source>
+        <translation>Lled llinell siapau</translation>
+    </message>
+    <message>
+        <source>Minimum magnification allowed</source>
+        <translation>Chwyddo lleiaf a ganiateir</translation>
+    </message>
+    <message>
+        <source>Maximum magnification allowed</source>
+        <translation>Chwyddo mwyaf a ganiateir</translation>
+    </message>
+    <message>
+        <source>Change in magnification for each zoom operation</source>
+        <translation>Newid y chwyddo ar gyfer pob gweithrediad chwyddo</translation>
+    </message>
+    <message>
+        <source>Color of lines</source>
+        <translation>Lliw llinellau</translation>
+    </message>
+    <message>
+        <source>Saturation of color</source>
+        <translation>Dirlawnder lliw</translation>
+    </message>
+    <message>
+        <source>Style of lines</source>
+        <translation>Arddull llinellau</translation>
+    </message>
+    <message>
+        <source>Width of lines</source>
+        <translation>Lled Llinellau</translation>
+    </message>
+    <message>
+        <source>Number of corners for polygons</source>
+        <translation>Rhif corneli ar gyfer polygonau</translation>
+    </message>
+    <message>
+        <source>Degrees of rotation for polygons</source>
+        <translation>Graddau cylchdroi ar gyfer polygonau</translation>
+    </message>
+    <message>
+        <source>Polygons will be convex rather than concave</source>
+        <translation>Bydd polygonau yn amgrwm yn lle ceugrwm</translation>
+    </message>
+    <message>
+        <source>Sample Polygon</source>
+        <translation>Polygon enghreifftiol</translation>
+    </message>
+    <message>
+        <source>Change the angles at which lines of the polygon join</source>
+        <translation>Newid yr onglau y mae llinellau polygon yn uno â nhw</translation>
+    </message>
+    <message>
+        <source>Choose the size of the preview in the scrapbook palette</source>
+        <translation>Dewis maint y rhagolwg yn y palet llyfr lloffion</translation>
+    </message>
+    <message>
+        <source>Save the scrapbook contents everytime after a change</source>
+        <translation>Cadw cynnwys y llyfr lloffion bob amser ar ôl newid</translation>
+    </message>
+    <message>
+        <source>When using facing pages, show the two pages side by side</source>
+        <translation>Pan ddefyddio tudalennau wynebu, dangos y ddwy dudalen ochr wrth ochr</translation>
+    </message>
+    <message>
+        <source>Color for paper</source>
+        <translation>Lliw y papur</translation>
+    </message>
+    <message>
+        <source>Color for the margin lines</source>
+        <translation>Lliw y llinellau ymyl</translation>
+    </message>
+    <message>
+        <source>Mask the area outside the margins in the margin color</source>
+        <translation>Mygydu&apos;r lle tu allan yr ymylon efo lliw yr ymylon</translation>
+    </message>
+    <message>
+        <source>Enable transparency features within PDF 1.4 export</source>
+        <translation>Alluogi nodweddion tryloywder wrth allforio i PDF 1.4</translation>
+    </message>
+    <message>
+        <source>Set the default zoom level</source>
+        <translation>Gosod y lefel chwyddo rhagosodiadol</translation>
+    </message>
+    <message>
+        <source>Filesystem location for the Ghostscript interpreter</source>
+        <translation>Lleoliad y dehonglydd Ghostscript yn y cysawd ffeiliau</translation>
+    </message>
+    <message>
+        <source>Antialias text for EPS and PDF onscreen rendering</source>
+        <translation>Gwrthamgenu testun ar gyfer llunio ar-sgrin EPS a PDF</translation>
+    </message>
+    <message>
+        <source>Antialias graphics for EPS and PDF onscreen rendering</source>
+        <translation>Gwrthamgenu graffeg ar gyfer llunio ar-sgrin EPS a PDF</translation>
+    </message>
+    <message>
+        <source>Filesystem location for graphics editor</source>
+        <translation>Lleoliad y golygydd graffegau yn y cysawd ffeiliau</translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins on the printed page or exported file</source>
+        <translation>Peidio â dangos gwrthrychau tu allan yr ymylon ar y dudalen argraffedig neu yn y ffeil a allforir</translation>
     </message>
 </context>
 <context>
@@ -8650,7 +10342,7 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
     </message>
     <message>
         <source>Script</source>
-        <translation>Sgript</translation>
+        <translation type="obsolete">Sgript</translation>
     </message>
     <message>
         <source>Online Reference</source>
@@ -8690,7 +10382,47 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
     </message>
     <message>
         <source>Import SVG-Image</source>
-        <translation>Mewnforio Delwedd SVG</translation>
+        <translation type="obsolete">Mewnforio Delwedd SVG</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>mod</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
+        <translation>Ew!  Rydych yn galw gwrthrych sy ddim yn bodoli!</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
+        <translation>Ew!  Rydych yn ceisio dileu gwrthrych sy ddim yn bodoli!</translation>
+    </message>
+    <message>
+        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
+        <translation>Ew!  Nid yw&apos;r gwrthrych yr ydych yn ceisio llifo i mewn i&apos;r testun yn bodoli!</translation>
+    </message>
+    <message>
+        <source>Scribus Scripts</source>
+        <translation>Sgriptiau Scribus</translation>
+    </message>
+    <message>
+        <source>S&amp;cript</source>
+        <translation>S&amp;gript</translation>
+    </message>
+    <message>
+        <source>Import SVG-Image...</source>
+        <translation>Mewnforio Delwedd SVG...</translation>
     </message>
 </context>
 <context>
@@ -8722,6 +10454,37 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
     <message>
         <source>&amp;Paste</source>
         <translation>&amp;Gludo</translation>
+    </message>
+</context>
+<context>
+    <name>QTitleBar</name>
+    <message>
+        <source>System Menu</source>
+        <translation>Dewislen Cysawd</translation>
+    </message>
+    <message>
+        <source>Shade</source>
+        <translation>Rholio</translation>
+    </message>
+    <message>
+        <source>Unshade</source>
+        <translation>Dadrolio</translation>
+    </message>
+    <message>
+        <source>Normalize</source>
+        <translation>Normaleiddio</translation>
+    </message>
+    <message>
+        <source>Minimize</source>
+        <translation>Lleihau</translation>
+    </message>
+    <message>
+        <source>Maximize</source>
+        <translation>Ehangu</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Cau</translation>
     </message>
 </context>
 <context>
@@ -8840,6 +10603,50 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
         <source>Outside:</source>
         <translation>Tu Allan:</translation>
     </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>mod</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Enable single or spread based layout</source>
+        <translation>Alluogi haenlun sengl neu seiliedig ar daeniad</translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of the document</source>
+        <translation>Gwneud y dudalen gyntaf yn dudalen chwith y ddogfen</translation>
+    </message>
+    <message>
+        <source>Distance between the top margin guide and the edge of the page</source>
+        <translation>Pellter rhwng y cyfeirydd ymyl pen ac ochr y dudalen</translation>
+    </message>
+    <message>
+        <source>Distance between the bottom margin guide and the edge of the page</source>
+        <translation>Pellter rhwng y cyfeirydd ymyl gwaelod ac ochr y dudalen</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Pellter rhwng y cyfeirydd ymyl chwith ac ochr y dudalen.
+Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr ymylon cywir ar gyfer rhwymo</translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Pellter rhwng y cyfeirydd ymyl de ac ochr y dudalen.
+Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr ymylon cywir ar gyfer rhwymo</translation>
+    </message>
 </context>
 <context>
     <name>ScriXmlDoc</name>
@@ -8860,27 +10667,27 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
     </message>
     <message>
         <source>Creates a new Document</source>
-        <translation>Creu Dogfen Newydd</translation>
+        <translation type="obsolete">Creu Dogfen Newydd</translation>
     </message>
     <message>
         <source>Opens a Document</source>
-        <translation>Agor Dogfen Newydd</translation>
+        <translation type="obsolete">Agor Dogfen Newydd</translation>
     </message>
     <message>
         <source>Saves the Current Document</source>
-        <translation>Cadw&apos;r Ddogfen Gyfredol</translation>
+        <translation type="obsolete">Cadw&apos;r Ddogfen Gyfredol</translation>
     </message>
     <message>
         <source>Closes the Current Document</source>
-        <translation>Cau&apos;r Ddogfen Gyfredol</translation>
+        <translation type="obsolete">Cau&apos;r Ddogfen Gyfredol</translation>
     </message>
     <message>
         <source>Prints the Current Document</source>
-        <translation>Argraffu&apos;r Ddogfen Gyfredol</translation>
+        <translation type="obsolete">Argraffu&apos;r Ddogfen Gyfredol</translation>
     </message>
     <message>
         <source>Saves the Current Document as PDF</source>
-        <translation>Cadw&apos;r Ddogfen Gyfredol fel PDF</translation>
+        <translation type="obsolete">Cadw&apos;r Ddogfen Gyfredol fel PDF</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
@@ -9316,7 +11123,7 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Golygu</translation>
+        <translation type="obsolete">Golygu</translation>
     </message>
     <message>
         <source>Style</source>
@@ -9324,27 +11131,27 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
     </message>
     <message>
         <source>Item</source>
-        <translation>Eitem</translation>
+        <translation type="obsolete">Eitem</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>Tudalen</translation>
+        <translation type="obsolete">Tudalen</translation>
     </message>
     <message>
         <source>View</source>
-        <translation>Gweld</translation>
+        <translation type="obsolete">Gweld</translation>
     </message>
     <message>
         <source>Extras</source>
-        <translation>Ychwanegol</translation>
+        <translation type="obsolete">Ychwanegol</translation>
     </message>
     <message>
         <source>Windows</source>
-        <translation>Ffenestri</translation>
+        <translation type="obsolete">Ffenestri</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Cymorth</translation>
+        <translation type="obsolete">Cymorth</translation>
     </message>
     <message>
         <source>Left</source>
@@ -9684,6 +11491,146 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
         <source>Scribus crashes due to Signal #%1</source>
         <translation>Chwalodd Scribus o achos Arwydd #%1</translation>
     </message>
+    <message>
+        <source>Create a new Document</source>
+        <translation>Creu Dogfen newydd</translation>
+    </message>
+    <message>
+        <source>Open a Document</source>
+        <translation>Agor Dogfen</translation>
+    </message>
+    <message>
+        <source>Save the current Document</source>
+        <translation>Cadw&apos;r Ddogfen gyfredol</translation>
+    </message>
+    <message>
+        <source>Close the current Document</source>
+        <translation>Cau&apos;r Ddogfen gyfredol</translation>
+    </message>
+    <message>
+        <source>Print the current Document</source>
+        <translation>Argraffu&apos;r Ddogfen gyfredol</translation>
+    </message>
+    <message>
+        <source>Save the current Document as PDF</source>
+        <translation>Cadw&apos;r Ddogfen gyfredol fel PDF</translation>
+    </message>
+    <message>
+        <source>Append Text...</source>
+        <translation>Atodi Testun...</translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation>Dangos Grid Gwaelodlin</translation>
+    </message>
+    <message>
+        <source>Tool&amp;bars</source>
+        <translation>Bariau &amp;Offer</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Ffeil</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Golygu</translation>
+    </message>
+    <message>
+        <source>&amp;Style</source>
+        <translation>&amp;Arddull</translation>
+    </message>
+    <message>
+        <source>&amp;Item</source>
+        <translation>&amp;Eitem</translation>
+    </message>
+    <message>
+        <source>&amp;Page</source>
+        <translation>&amp;Tudalen</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation>&amp;Golwg</translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation>&amp;Offer</translation>
+    </message>
+    <message>
+        <source>E&amp;xtras</source>
+        <translation>&amp;Ychwanegol</translation>
+    </message>
+    <message>
+        <source>&amp;Windows</source>
+        <translation>&amp;Ffenestri</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation>&amp;Cymorth</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>mod</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Hide Baseline Grid</source>
+        <translation>Cuddio Grid Gwaelodlin</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>mod</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Some Objects are locked.</source>
+        <translation>Cloir rhai Gwrthrychau.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Diddymu</translation>
+    </message>
+    <message>
+        <source>Lock all</source>
+        <translation>Cloi popeth</translation>
+    </message>
+    <message>
+        <source>Unlock all</source>
+        <translation>Dadgloi popeth</translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation>Lithwaneg</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation>Swedeg</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation>Slofeneg</translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -9693,11 +11640,11 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
     </message>
     <message>
         <source>Page </source>
-        <translation>Tudalen</translation>
+        <translation type="obsolete">Tudalen</translation>
     </message>
     <message>
         <source> of %1</source>
-        <translation>o %1</translation>
+        <translation type="obsolete">o %1</translation>
     </message>
     <message>
         <source>Layer</source>
@@ -9706,6 +11653,22 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
     <message>
         <source>All</source>
         <translation>Popeth</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>mod</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -9892,7 +11855,7 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
     </message>
     <message>
         <source>This previews all the pages of your Document.</source>
-        <translation>Rhagolyga hyn pob tudalen eich Dogfen.</translation>
+        <translation type="obsolete">Rhagolyga hyn pob tudalen eich Dogfen.</translation>
     </message>
     <message>
         <source>Here are all your Templates, to create a new Page
@@ -9903,6 +11866,10 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Normal</source>
         <translation>Arferol</translation>
+    </message>
+    <message>
+        <source>Previews all the pages of your document.</source>
+        <translation>Rhagolygu pob tudalen eich dogfen.</translation>
     </message>
 </context>
 <context>
@@ -10028,6 +11995,10 @@ drag a Template to the Pageview below.</source>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Dogfennau (*.sla *.scd);;Pob Ffeil (*)</translation>
     </message>
+    <message>
+        <source>OK</source>
+        <translation>Iawn</translation>
+    </message>
 </context>
 <context>
     <name>StoryEditor</name>
@@ -10101,7 +12072,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Search/Replace...</source>
-        <translation>Chwilio/Amnewid...</translation>
+        <translation type="obsolete">Chwilio/Amnewid...</translation>
     </message>
     <message>
         <source>Edit Styles...</source>
@@ -10171,6 +12142,18 @@ drag a Template to the Pageview below.</source>
         <source>Save as</source>
         <translation>Cadw fel</translation>
     </message>
+    <message>
+        <source>Insert Special...</source>
+        <translation>Mewnosod Arbennig...</translation>
+    </message>
+    <message>
+        <source>Do you want to save your changes?</source>
+        <translation>Ydych eisiau cadw eich newidiadau?</translation>
+    </message>
+    <message>
+        <source>Insert Special</source>
+        <translation>Mewnosod Arbennig</translation>
+    </message>
 </context>
 <context>
     <name>StyleSelect</name>
@@ -10192,11 +12175,15 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Strikeout</source>
-        <translation>All-linellu</translation>
+        <translation type="obsolete">All-linellu</translation>
     </message>
     <message>
         <source>Outline Text</source>
         <translation>Amlinellu Testun</translation>
+    </message>
+    <message>
+        <source>Strike Out</source>
+        <translation>Trwylinellu</translation>
     </message>
 </context>
 <context>
@@ -10312,6 +12299,20 @@ drag a Template to the Pageview below.</source>
         <source>Page</source>
         <translation>Tudalen</translation>
     </message>
+    <message>
+        <source>Warning</source>
+        <translation>Rhybudd</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation>Nid yw&apos;r enw &quot;%1&quot; yn unigryw.
+ Dewiswch un arall.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>Iawn</translation>
+    </message>
 </context>
 <context>
     <name>WerkToolB</name>
@@ -10357,7 +12358,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Zooms in or out</source>
-        <translation>Nesáu/Pellháu</translation>
+        <translation type="obsolete">Nesáu/Pellháu</translation>
     </message>
     <message>
         <source>Edit Contents of Frame</source>
@@ -10365,7 +12366,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Edit the Text with the Story Editor</source>
-        <translation>Golygu&apos;r Testun efo&apos;r Golygydd Stori</translation>
+        <translation type="obsolete">Golygu&apos;r Testun efo&apos;r Golygydd Stori</translation>
     </message>
     <message>
         <source>Link Text Frames</source>
@@ -10377,7 +12378,23 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Draws various Shapes</source>
-        <translation>Darlunio Siapau amrywiol</translation>
+        <translation type="obsolete">Darlunio Siapau amrywiol</translation>
+    </message>
+    <message>
+        <source>Insert Table</source>
+        <translation>Mewnosod Tabl</translation>
+    </message>
+    <message>
+        <source>Zoom in or out</source>
+        <translation>Chwyddo neu bellhau</translation>
+    </message>
+    <message>
+        <source>Edit the text with the Story Editor</source>
+        <translation>Golygu&apos;r testun efo&apos;r Golygydd Stori</translation>
+    </message>
+    <message>
+        <source>Draw various Shapes</source>
+        <translation>Lluniadu amrywiol Siapau</translation>
     </message>
 </context>
 <context>

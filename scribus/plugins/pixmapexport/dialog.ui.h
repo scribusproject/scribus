@@ -12,7 +12,6 @@
 
 #include <qfiledialog.h>
 
-
 void ExportForm::OutputDirectoryButton_pressed()
 {
 	QString d = QFileDialog::getExistingDirectory(
@@ -25,7 +24,6 @@ void ExportForm::OutputDirectoryButton_pressed()
 		OutputDirectory->setText(d);
 }
 
-
 void ExportForm::OkButton_pressed()
 {
 	bitmapType = BitmapType->currentText();
@@ -33,12 +31,10 @@ void ExportForm::OkButton_pressed()
 	accept();
 }
 
-
 void ExportForm::CancelButton_pressed()
 {
 	reject();
 }
-
 
 void ExportForm::IntervalPagesRadio_stateChanged(int)
 {
@@ -46,13 +42,11 @@ void ExportForm::IntervalPagesRadio_stateChanged(int)
 	ToBox->setEnabled(TRUE);
 }
 
-
 void ExportForm::AllPagesRadio_stateChanged(int)
 {
 	FromBox->setEnabled(FALSE);
 	ToBox->setEnabled(FALSE);
 }
-
 
 void ExportForm::OnePageRadio_stateChanged(int)
 {
@@ -60,9 +54,18 @@ void ExportForm::OnePageRadio_stateChanged(int)
 	ToBox->setEnabled(FALSE);
 }
 
-
-void ExportForm::ToBox_valueChanged(int)
+void ExportForm::ChFrom()
 {
-	if (ToBox->value()<FromBox->value())
-		FromBox->setValue(ToBox->value()-1);
+	disconnect(ToBox, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
+	if (FromBox->value() > ToBox->value())
+		ToBox->setValue(FromBox->value());
+	connect(ToBox, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
+}
+
+void ExportForm::ChTo()
+{
+	disconnect(FromBox, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
+	if (ToBox->value() < FromBox->value())
+		FromBox->setValue(ToBox->value());
+	connect(FromBox, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
 }
