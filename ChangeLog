@@ -1,3 +1,56 @@
+Changes since 1.2RC1 
+
+26.08.2004
+	* bug     # 583: if I try to change the level of a group, only the level of one object is changed
+	* bug     #1004: PDF Export with annotations sometimes creates errors
+
+25.08.2004
+	* bug     # 842: New file > landscape has width and height reversed.
+	* bug     #1000: Layer selector does not align layer name properly
+
+24.08.2004
+	* bug     # 263: distribute items shuffles the order of the items
+	* bug     # 991: layer selector doesnt reflect the order of the layers
+	* bug     # 996: Changing paragraph style in story editor then exit and text frame does not redraw, then goes blank
+	* bug     # 998: Story Editor adds lines after paragraphs
+	* bug     # 999: PDF Elements lose names on save
+	* feature # 993: New french translators
+	* feature # 995: Update of russian translation
+
+23.08.2004
+	* bug     # 804: Color tab for fill/line color doesn't jump to the specific color when entering the beginning character
+	* bug     # 960: Python scripting only accepts text in Latin1
+	* bug     # 985: Dingbat font did not work
+	* bug     # 991: layer selector doesnt reflect the order of the layers
+	* bug     # 992: French translation for Scribus 1.2
+	* feature # 988: Italian Translation Update for 1.2
+	* feature # 989: Russian Translation Update for 1.2
+
+22.08.2004
+	* bug     # 728: "Hanging Conjunctions"
+	* feature # 953: small improvement to the layer selector at the bottom
+	* feature # 983: German ts-file for 1.2
+
+21.08.2004
+	* feature # 980: Finnish translation update
+	* feature # 981: czech translation
+	* feature # 982: scribus 1.2rc1slovene translation file
+
+20.08.2004
+	* bug     # 977: Font spacing problem
+	* bug     # 978: Selecting text font size box deselects text inside the Story Editor
+	* bug     # 979: Some characters need to be presented as entity references when saving as template
+
+19.08.2004
+	* bug     # 547: multi-frame text disappears from later frames
+
+18.08.2004
+	* bug     # 962: Scribus crashes when opening a document not in .sla format
+	* bug     # 976: settings-->hyphenator: wrong window title in German
+	* feature # 973: Ukrainian Translation Update
+	* feature # 974: Czech translation for 1.2rc
+	* feature # 975: Updated Polish translation
+
 Changes since Version 1.1.7
 
 15.08.2004
