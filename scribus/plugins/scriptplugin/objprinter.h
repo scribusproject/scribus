@@ -11,5 +11,12 @@ PyAPI_DATA(PyTypeObject) Printer_Type;
 
 #define Printer_Check(op) ((op)->ob_type == &Printer_Type)
 
+PyDoc_STRVAR(printer__doc__,"Printing\n\
+\n\
+Class Printer() provides printing for Python scripting.\n\
+\n\
+Example:\n\
+p = Printer()\n\
+p.print()");
 
 #endif /* OBJPRINTER_H */
