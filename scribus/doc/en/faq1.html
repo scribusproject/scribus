@@ -51,7 +51,7 @@
 	</li>
 	<li><a name="4"></a>
 		<p class="faqquestion">Help! My palettes have disappeared!</p>
-		<p>Close Scribus. Then open .scribus.rc, a hidden file in your home directory in a text editor. Then look down in the file for the section beginning about 10 lines from the top. ex: MEASUREMENTS YPOS=&quot;-264&quot; XPOS=&quot;-692&quot; VISIBLE=&quot;1&quot;</p>
+		<p>Close Scribus. Then open ~/.scribus/scribus.rc, a hidden file in your home directory in a text editor. Then look down in the file for the section beginning about 10 lines from the top. ex: MEASUREMENTS YPOS=&quot;-264&quot; XPOS=&quot;-692&quot; VISIBLE=&quot;1&quot;</p>
 		<p>Notice the negative numbers in front of the YPOS and XPOS statements. Remove the minus, set the visible setting to 0 and save. You might find the coordinates too large: (YPOS=&quot;3046&quot; XPOS=&quot;7690&quot;) Either way, these coordinates are screen positions in pixels. They should be within 1024x768 or whatever screen resolution you are running. Restart Scribus and go Tools &gt; and select show for the missing palette. It will reappear like normal.</p>
 		<p>**This has been corrected in the most recent versions of Scribus and should not be a problem in the future.</p>
 		<a href="#top">Back to top</a><hr>

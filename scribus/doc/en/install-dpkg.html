@@ -1,0 +1,49 @@
+<h2>How to use the Scribus Debian Repository</h2>
+<p><em>These notes are kindly provided by our Debian package maintainer, Alex Moskalenko.</em>  malex at tagancha.org. Please direct questions related to Scribus on Debian to the above email.</p>
+
+<p>Note: Use apt. It is the proper way to install debian packages both binary
+and source. Make sure you have dpkg-dev installed if you intend to build
+your own package from source.</p>
+
+<p>Add the following lines to your <code>/etc/apt/sources.list</code> :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>
+deb http://www.scribus.org.uk/downloads/deb binary/
+deb-src http://www.scribus.org.uk/downloads/deb source/
+</pre>
+</small></td></tr></table></blockquote>
+<p>Update the apt database.</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre> apt-get update</pre>
+</small></td></tr></table></blockquote>
+
+<p>You are now ready to either:<br>
+Install the binary package.</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre> apt-get install scribus</pre>
+</small></td></tr></table></blockquote>
+OR<br>
+<p>You can also build your own package from the source, in case your CPU
+architecture is different or for any other reason. Get the source package:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>
+apt-get source scribus
+cd scribus-1.2.0.rc1
+</pre>
+</small></td></tr></table></blockquote>
+<p>Build the package.</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td
+border="0"><small>
+<pre>dpkg-buildpackage -rfakeroot -b</pre>
+</small></td></tr></table></blockquote>
+<p>Install the package you built.</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>dpkg -i ../scribus_1.2.0.rc1-1_i386.deb</pre>
+</small></td></tr></table></blockquote>
+<p><em>This is the name for x86 arch. Change it to whatever the name is on your system.</em>
+</p>
+
+<p>Note: these instructions are also partially available at:</p>
+<a href="http://www.debian.org/doc/FAQ/ch-pkg_basics.en.html">http://www.debian.org/doc/FAQ/ch-pkg_basics.en.html</a>
+<p>See section 6.13 "How do I install a source package?" and section 6.14 "How do I build binary packages from a source package?"</p>
+<p>Enjoy Scribus!</p>
