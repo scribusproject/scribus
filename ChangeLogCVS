@@ -1,5 +1,16 @@
 Changes since 1.2 
 
+09.12.2004
+	* bug     # 984: Can Search/Replace dialog remember from last time?
+	* bug     #1135: Page number in TTF font doesn't print
+	* bug     #1344: crash when drawing bezier curves
+	* bug     #1349: Auto Number-Page Bug
+
+08.12.2004
+	* bug     #1227: translatable man page
+	* bug     #1287: calendier.py doesn't work
+	* feature #1367: Polish man page (first version)
+
 07.12.2004
 	* bug     #1073: make-dist removes the "po" dir and breaks the build. po removal must not be done
 	* bug     #1258: Missing translation strings

@@ -9144,6 +9144,18 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 							chx = chx.upper();
 						chr = chx[0].unicode();
 					}
+					if (chr == 30)
+					{
+						for (uint numco = 0x30; numco < 0x39; ++numco)
+						{
+							if ((*doc->AllFonts)[it->Ptext.at(e)->cfont]->CharWidth.contains(numco))
+							{
+								gly = (*doc->AllFonts)[it->Ptext.at(e)->cfont]->GlyphArray[numco].Outlines.copy();
+								(*doc->AllFonts)[it->Ptext.at(e)->cfont]->RealGlyphs.insert(numco, gly);
+							}
+						}
+						continue;
+					}
 					if ((*doc->AllFonts)[it->Ptext.at(e)->cfont]->CharWidth.contains(chr))
 					{
 						gly = (*doc->AllFonts)[it->Ptext.at(e)->cfont]->GlyphArray[chr].Outlines.copy();

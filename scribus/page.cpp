@@ -1462,7 +1462,7 @@ void Page::UpdateClip(PageItem* b)
 				b->GrStartX = gr.point(0).x();
 				b->GrStartY = gr.point(0).y();
 				b->GrEndX = gr.point(1).x();
-				b->GrEndY = gr.point(0).y();
+				b->GrEndY = gr.point(1).y();
 				if (b->FrameType > 2)
 				{
 					b->PoLine.map(ma);
@@ -1511,7 +1511,7 @@ void Page::UpdateClip(PageItem* b)
 			b->GrStartX = gr.point(0).x();
 			b->GrStartY = gr.point(0).y();
 			b->GrEndX = gr.point(1).x();
-			b->GrEndY = gr.point(0).y();
+			b->GrEndY = gr.point(1).y();
 			b->PoLine.map(ma);
 			b->ContourLine.map(ma);
 			if (b->PType == 8)
@@ -4057,12 +4057,22 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 	{
 		b = SelItem.at(0);
 		b->PoLine.resize(b->PoLine.size()-2);
-		SizeItem(b->PoLine.WidthHeight().x(), b->PoLine.WidthHeight().y(), b->ItemNr, false, false);
-		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
-		AdjustItemSize(b);
-		b->ContourLine = b->PoLine.copy();
-		b->ClipEdited = true;
-		b->FrameType = 3;
+		if (b->PoLine.size() < 4)
+		{
+			emit DelObj(doku->ActPage->PageNr, b->ItemNr);
+			Items.remove(b->ItemNr);
+			SelItem.removeFirst();
+			emit HaveSel(-1);
+		}
+		else
+		{
+			SizeItem(b->PoLine.WidthHeight().x(), b->PoLine.WidthHeight().y(), b->ItemNr, false, false);
+			SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
+			AdjustItemSize(b);
+			b->ContourLine = b->PoLine.copy();
+			b->ClipEdited = true;
+			b->FrameType = 3;
+		}
 		doku->AppMode = 1;
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		emit PaintingDone();
