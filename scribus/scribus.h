@@ -101,7 +101,7 @@ public:
 	ScribusApp();
 	/** destructor */
 	~ScribusApp() {};
-	int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage);
+	int initScribus(bool showSplash, const QString newGuiLanguage);
 	const QString getGuiLanguage();
 	bool warningVersion(QWidget *parent);
 	void SetShortCut();
