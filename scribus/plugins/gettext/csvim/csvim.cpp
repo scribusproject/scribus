@@ -122,14 +122,7 @@ void CsvIm::loadFile()
 
 void CsvIm::parseLine(const QString& line, bool isHeader)
 {
-	if (line == NULL)
-		return;
-	int start = 0, end = line.length();
-	int fdindex = line.find(fieldDelimiter);
-	int vdindex = -1;
-	if (useVDelim)
-		vdindex = line.find(valueDelimiter);
-	if ((vdindex == -1) && (fdindex != -1))
+	if ((line.find(valueDelimiter) < 0) || (!useVDelim))
 	{
 		QStringList l = QStringList::split(fieldDelimiter, line);
 		for (uint i = 0; i < l.size(); ++i)
@@ -141,59 +134,66 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 			else
 				data += "\t" + tmp;
 		}
+		return; // line done
 	}
-	else if (fdindex == -1)
+	
+	int vdIndexStart = line.find(valueDelimiter);
+	int vdIndexEnd   = line.find(valueDelimiter, vdIndexStart + 1);
+	if (vdIndexEnd < 0)
 	{
-		++colIndex;
 		if (isHeader)
-			header += line;
+			header += "\t" + line;
 		else
-			data += line;
+			data += "\t" + line;
+		return; // error in line, no closing valuedelimiter could be found	
 	}
-	else if (vdindex < fdindex)
+	
+	int fdIndex = line.find(fieldDelimiter, vdIndexEnd + 1);
+	QString tmpCol = "";
+	
+	if (fdIndex < 0)
 	{
-		start = vdindex + 1;
-		end = line.find(valueDelimiter, start);
-		if (end == -1)
+		if (vdIndexEnd < 0)
 		{
-			QString tmp = line.right(line.length() - start - 1);
-			data += "\t" + tmp.stripWhiteSpace();
-			++colIndex;
-		}
-		else if (end == static_cast<int>(line.length()) - 1)
-		{
-			QString tmp = line.mid(start, end - 1);
 			if (isHeader)
-				header += "\t" + tmp;
+				header += "\t" + line;
 			else
-				data += "\t" + tmp;
-			++colIndex;
+				data += "\t" + line;
 		}
-		else
+		else 
 		{
-			QString tmp = line.mid(start, end - start);
+			tmpCol = line.mid(vdIndexStart + 1, (vdIndexEnd - 1) - vdIndexStart);
 			if (isHeader)
-				header += "\t" + tmp;
+				header += "\t" + tmpCol;
 			else
-				data += "\t" + tmp;
-			++colIndex;
-			QString next = line;
-			next = next.right(next.length() - end);
-			parseLine(next, isHeader);
+				data += "\t" + tmpCol;
 		}
-	}
-	else
-	{
-		QString tmp = line.left(fdindex);
-		tmp = tmp.stripWhiteSpace();
-		if (isHeader)
-			header += "\t" + tmp;
-		else
-			data += "\t" + tmp;
 		++colIndex;
-		parseLine(line.mid(fdindex + 1), isHeader);
+		return; // no more field delimiters left
+	}
+	
+	if (fdIndex < vdIndexStart)
+	{
+		tmpCol = line.mid(0, fdIndex);
+		if (isHeader)
+			header += "\t" + tmpCol;
+		else
+			data += "\t" + tmpCol;
+		++colIndex;
+		parseLine(line.mid(fdIndex + 1, line.length() - (fdIndex + 1)), isHeader);
+	}
+	else if (fdIndex > vdIndexEnd)
+	{
+		tmpCol = line.mid(vdIndexStart + 1, (vdIndexEnd - 1) - vdIndexStart);
+		if (isHeader)
+			header += "\t" + tmpCol;
+		else
+			data += "\t" + tmpCol;
+		++colIndex;
+		parseLine(line.mid(vdIndexEnd + 1, line.length() - (vdIndexEnd + 1)), isHeader);
 	}
 }
+
 
 void CsvIm::setupTabulators()
 {
