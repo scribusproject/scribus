@@ -283,8 +283,6 @@ public slots: // Public slots
 	void TogglePic();
 	void UpdatePic();
 	void FrameToPic();
-	void GimpExited();
-	void CallGimp();
 	void ToggleBookmark();
 	void ToggleAnnotation();
 	void ToggleLock();
@@ -306,7 +304,8 @@ public slots: // Public slots
 	void PasteToPage();
 	void TextToPath();
 	void BlinkCurs();
-	void UpdatePict(QString name);
+	void updatePict(QString name);
+	void removePict(QString name);
 
 private: // Private attributes
 	QPushButton *SB1;
@@ -395,5 +394,6 @@ signals:
 	void Vrule(int);
 	void EditGuides();
 	void MousePos(double, double);
+	void callGimp();
 };
 #endif

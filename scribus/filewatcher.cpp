@@ -45,6 +45,11 @@ QValueList<QString> FileWatcher::files()
 	return watchedFiles.keys();
 }
 
+bool FileWatcher::isActive()
+{
+	return blockAddRemove;
+}
+
 void FileWatcher::checkFiles()
 {
 	blockAddRemove = true;
@@ -54,9 +59,26 @@ void FileWatcher::checkFiles()
 	for ( it = watchedFiles.begin(); it != watchedFiles.end(); ++it )
 	{
 		it.data().info.refresh();
+		if (!it.data().info.exists())
+		{
+			emit fileDeleted(it.key());
+			watchedFiles.remove(it);
+			continue;
+		}
 		time = it.data().info.lastModified();
 		if (time != it.data().timeInfo)
 		{
+			uint sizeo = it.data().info.size();
+			usleep(100);
+			it.data().info.refresh();
+			uint sizen = it.data().info.size();
+			while (sizen != sizeo)
+			{
+				sizeo = sizen;
+				usleep(100);
+				it.data().info.refresh();
+				sizen = it.data().info.size();
+			}
 			it.data().timeInfo = time;
 			emit fileChanged(it.key());
 		}

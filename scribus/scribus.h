@@ -46,6 +46,7 @@
 #include <qworkspace.h>
 #include <qptrlist.h>
 #include <qclipboard.h>
+#include <qprocess.h>
 
 // application specific includes
 #include "scribusview.h"
@@ -198,6 +199,7 @@ public:
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
 	FileWatcher* fileWatcher;
+	QProcess *ExternalApp;
 
 public slots:
 	void ToggleAllPalettes();
@@ -441,6 +443,8 @@ public slots:
 	void HaveRaster(bool art);
 	void EditTabs();
 	void SearchText();
+	void GimpExited();
+	void CallGimp();
 
 signals:
 	void TextISize(int);

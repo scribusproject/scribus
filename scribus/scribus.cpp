@@ -133,6 +133,7 @@ QString DocDir;
 ScribusApp* ScApp;
 PrefsFile* prefsFile;
 
+
 ScribusApp::ScribusApp()
 {} // ScribusApp::ScribusApp()
 
@@ -142,6 +143,7 @@ ScribusApp::ScribusApp()
 int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 {
 	int retVal=0;
+	ExternalApp = 0;
 	guiLanguage = newGuiLanguage;
 	initSplash(showSplash);
 
@@ -182,6 +184,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 
 		initPalettes();
 
+		fileWatcher = new FileWatcher(this);
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Reading Preferences"));
 		qApp->processEvents();
@@ -216,7 +219,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 			splashScreen->setStatus( tr("Initializing Plugins"));
 		qApp->processEvents();
 		initPlugs();
-		fileWatcher = new FileWatcher(this);
+		connect(fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(RemoveRecent(QString)));
 		connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
 		connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
 		connect(this, SIGNAL(TextISize(int)), Mpal, SLOT(setSize(int)));
@@ -2420,7 +2423,8 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	view->show();
 	connect(doc->ASaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
 	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
-	connect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(UpdatePict(QString)));
+	connect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
+	connect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
 	doc->AutoSave = Prefs.AutoSave;
 	doc->AutoSaveTime = Prefs.AutoSaveTime;
 	if (doc->AutoSave)
@@ -2997,6 +3001,7 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(DoUnGroup()), this, SLOT(UnGroupObj()));
 	connect(view, SIGNAL(EndNodeEdit()), this, SLOT(ToggleFrameEdit()));
 	connect(view, SIGNAL(LevelChanged(uint )), Mpal, SLOT(setLevel(uint)));
+	connect(view, SIGNAL(callGimp()), this, SLOT(CallGimp()));
 /*	if (!doc->TemplateMode)
 	{
 		connect(doc->currentPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
@@ -3389,7 +3394,10 @@ void ScribusApp::UpdateRecent(QString fn)
 {
 	recentMenu->clear();
 	if (RecentDocs.findIndex(fn) == -1)
+	{
 		RecentDocs.prepend(fn);
+		fileWatcher->addFile(fn);
+	}
 	else
 	{
 		RecentDocs.remove(fn);
@@ -3406,7 +3414,11 @@ void ScribusApp::RemoveRecent(QString fn)
 {
 	recentMenu->clear();
 	if (RecentDocs.findIndex(fn) != -1)
+	{
 		RecentDocs.remove(fn);
+		if (!fileWatcher->isActive())
+			fileWatcher->removeFile(fn);
+	}
 	uint max = QMIN(Prefs.RecentDCount, RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
 	{
@@ -3421,6 +3433,7 @@ void ScribusApp::LoadRecent(int id)
 	if (!fd.exists())
 	{
 		RecentDocs.remove(fn);
+		fileWatcher->removeFile(fn);
 		recentMenu->clear();
 		uint max = QMIN(Prefs.RecentDCount, RecentDocs.count());
 		for (uint m = 0; m < max; ++m)
@@ -3929,7 +3942,8 @@ bool ScribusApp::LadeDoc(QString fileName)
 		newActWin(w);
 		connect(doc->ASaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
-		connect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(UpdatePict(QString)));
+		connect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
+		connect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
 		connect(UndoManager::instance(), SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 		if (doc->AutoSave)
 			doc->ASaveTimer->start(doc->AutoSaveTime);
@@ -4180,7 +4194,8 @@ bool ScribusApp::DoFileClose()
 	doc->ASaveTimer->stop();
 	disconnect(doc->ASaveTimer, SIGNAL(timeout()), doc->WinHan, SLOT(slotAutoSave()));
 	disconnect(doc->WinHan, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
-	disconnect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(UpdatePict(QString)));
+	disconnect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
+	disconnect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
 	for (uint a = 0; a < doc->Items.count(); ++a)
 	{
 		PageItem *b = doc->Items.at(a);
@@ -7320,6 +7335,7 @@ void ScribusApp::ReadPrefs()
 		if (fd.exists())
 		{
 			RecentDocs.append(QString::fromUtf8(Prefs.RecentDocs[m]));
+			fileWatcher->addFile(QString::fromUtf8(Prefs.RecentDocs[m]));
 			recentMenu->insertItem(QString::fromUtf8(Prefs.RecentDocs[m]));
 		}
 	}
@@ -9389,6 +9405,52 @@ void ScribusApp::SearchText()
 	disconnect(dia, SIGNAL(NewAbs(int)), this, SLOT(setAbsValue(int)));
 	delete dia;
 	slotSelect();
+}
+
+void ScribusApp::GimpExited()
+{
+	int ex = 0;
+	if ( ExternalApp != 0 )
+	{
+		ex = ExternalApp->exitStatus();
+		delete ExternalApp;
+	}
+	ExternalApp = 0;
+}
+
+/* call gimp and wait uppon completion */
+void ScribusApp::CallGimp()
+{
+	QStringList cmd;
+	if (view->SelItem.count() != 0)
+	{
+		if (ExternalApp != 0)
+		{
+			QString mess = tr("The Program")+" "+Prefs.gimp_exe;
+			mess += "\n" + tr("is already running!");
+			QMessageBox::information(this, tr("Information"), mess, 1, 0, 0);
+			return;
+		}
+		PageItem *b = view->SelItem.at(0);
+		if (b->PicAvail)
+		{
+			b->pixmOrg = QImage();
+			ExternalApp = new QProcess(NULL);
+            cmd = QStringList::split(" ", Prefs.gimp_exe);
+			cmd.append(b->Pfile);
+			ExternalApp->setArguments(cmd);
+			if ( !ExternalApp->start() )
+			{
+				delete ExternalApp;
+				ExternalApp = 0;
+				QString mess = tr("The Program")+" "+Prefs.gimp_exe;
+				mess += "\n" + tr("is missing!");
+				QMessageBox::critical(this, tr("Warning"), mess, 1, 0, 0);
+				return;
+			}
+			connect(ExternalApp, SIGNAL(processExited()), this, SLOT(GimpExited()));
+		}
+	}
 }
 
 void ScribusApp::slotTest()

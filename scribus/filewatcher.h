@@ -17,6 +17,7 @@ public:
 	~FileWatcher();
 	void addFile(QString fileName);
 	void removeFile(QString fileName);
+	bool isActive();
 	QValueList<QString> files();
 
 private:
@@ -34,6 +35,7 @@ private slots:
 
 signals:
 	void fileChanged(QString);
+	void fileDeleted(QString);
 
 };
 

@@ -44,8 +44,6 @@
 #include <qurl.h>
 #include <qdir.h>
 #include <qevent.h>
-#include <qeventloop.h>
-#include <qprocess.h>
 #if QT_VERSION  > 0x030102
 	#define SPLITVC SplitHCursor
 	#define SPLITHC SplitVCursor
@@ -1606,7 +1604,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if (b->PicAvail)
 					pmen->insertItem( tr("&Update Picture"), this, SLOT(UpdatePic()));
 				if (b->PicAvail && b->isRaster)
-					pmen->insertItem( tr("&Edit Picture"), this, SLOT(CallGimp()));
+					pmen->insertItem( tr("&Edit Picture"), this, SIGNAL(callGimp()));
 				if ((b->PicAvail) && (!b->isTableItem))
 					pmen->insertItem( tr("&Adjust Frame to Picture"), this, SLOT(FrameToPic()));
 			}
@@ -7279,7 +7277,7 @@ void ScribusView::TogglePic()
 	}
 }
 
-void ScribusView::UpdatePict(QString name)
+void ScribusView::updatePict(QString name)
 {
 	for (uint a = 0; a < Doc->Items.count(); ++a)
 	{
@@ -7294,9 +7292,55 @@ void ScribusView::UpdatePict(QString name)
 			b->flippedV = fvo;
 			AdjustPictScale(b);
 			AdjustPreview(b, false);
-			updateContents();
 		}
 	}
+	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
+	{
+		PageItem *b = Doc->MasterItems.at(a);
+		if ((b->PicAvail) && (b->Pfile == name))
+		{
+			int fho = b->flippedH;
+			int fvo = b->flippedV;
+			b->pixmOrg = QImage();
+			LoadPict(b->Pfile, b->ItemNr, true);
+			b->flippedH = fho;
+			b->flippedV = fvo;
+			AdjustPictScale(b);
+			AdjustPreview(b, false);
+		}
+	}
+	updateContents();
+	emit DocChanged();
+}
+
+void ScribusView::removePict(QString name)
+{
+	for (uint a = 0; a < Doc->DocItems.count(); ++a)
+	{
+		PageItem *b = Doc->DocItems.at(a);
+		if ((b->PicAvail) && (b->Pfile == name))
+		{
+			b->Pfile = "";
+			b->PicAvail = false;
+			b->pixm = QImage();
+			b->pixmOrg = QImage();
+			if (b->PType == 2)
+				emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr);
+		}
+	}
+	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
+	{
+		PageItem *b = Doc->MasterItems.at(a);
+		if ((b->PicAvail) && (b->Pfile == name))
+		{
+			b->Pfile = "";
+			b->PicAvail = false;
+			b->pixm = QImage();
+			b->pixmOrg = QImage();
+		}
+	}
+	updateContents();
+	emit DocChanged();
 }
 
 void ScribusView::UpdatePic()
@@ -7344,117 +7388,6 @@ void ScribusView::FrameToPic()
 			}
 			updateContents();
 			emit DocChanged();
-		}
-	}
-}
-
-// jjsa, added the following object for waiting on external process
-// and refreshing the main application
-
-class AppUserFilter : public QObject
-{
-public:
-	AppUserFilter(QObject *o){};
-protected:
-	bool eventFilter(QObject *o, QEvent *e );
-};
-
-static QProcess *proc = 0;
-static AppUserFilter *filter = 0;
-
-bool AppUserFilter::eventFilter(QObject *, QEvent *e )
-{
-	switch(e->type())
-	{
-	case QEvent::KeyPress:
-	case QEvent::KeyRelease:
-	case QEvent::MouseButtonPress:
-	case QEvent::MouseButtonRelease:
-	case QEvent::MouseButtonDblClick:
-	case QEvent::MouseMove:
-	case QEvent::TabletPress:
-	case QEvent::TabletRelease:
-	case QEvent::TabletMove:
-	case QEvent::Enter:
-	case QEvent::Leave:
-	case QEvent::Close:
-	case QEvent::Quit:
-		return TRUE;
-		break;
-	default:
-		return false;
-		break;
-	}
-	return FALSE;
-}
-
-/* on exit of external programm, remove our event filter and */
-/* do the rest of the job */
-void ScribusView::GimpExited()
-{
-	int ex = 0;
-	if ( proc != 0 )
-		ex = proc->exitStatus();
-	if ( filter != 0 )
-	{
-		qApp->removeEventFilter(filter);
-		delete filter;
-		filter = 0;
-	}
-	if ( proc != 0 )
-	{
-		ex = proc->exitStatus();
-		delete proc;
-		proc = 0;
-	}
-	if (SelItem.count() != 0)
-	{
-		PageItem *b = SelItem.at(0);
-		if (b->PicAvail)
-		{
-			if ( ex == 0 )
-			{
-				int fho = b->flippedH;
-				int fvo = b->flippedV;
-				LoadPict(b->Pfile, b->ItemNr);
-				b->flippedH = fho;
-				b->flippedV = fvo;
-				AdjustPictScale(b);
-				AdjustPreview(b, false);
-				updateContents();
-			}
-		}
-	}
-	qApp->mainWidget()->setEnabled(true);
-}
-
-/* call gimp and wait uppon completion */
-void ScribusView::CallGimp()
-{
-	QStringList cmd;
-	if (SelItem.count() != 0)
-	{
-		PageItem *b = SelItem.at(0);
-		if (b->PicAvail)
-		{
-			b->pixmOrg = QImage();
-			proc = new QProcess(NULL);
-            cmd = QStringList::split(" ", Prefs->gimp_exe);
-			cmd.append(b->Pfile);
-			proc->setArguments(cmd);
-			if ( !proc->start() )
-			{
-				delete proc;
-				proc = 0;
-				QString mess = tr("The Program")+" "+Prefs->gimp_exe;
-				mess += "\n" + tr("is missing!");
-				QMessageBox::critical(this, tr("Warning"), mess, 1, 0, 0);
-				return;
-			}
-			qApp->mainWidget()->setEnabled(false);
-			connect(proc, SIGNAL(processExited()), this, SLOT(GimpExited()));
-			filter = new AppUserFilter(this);
-			qApp->installEventFilter(filter);
 		}
 	}
 }
