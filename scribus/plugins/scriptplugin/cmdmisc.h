@@ -5,6 +5,7 @@
 /** Other Commands */
 PyObject *scribus_setredraw(PyObject *self, PyObject* args);
 PyObject *scribus_fontnames(PyObject *self, PyObject* args);
+PyObject *scribus_renderfont(PyObject *self, PyObject* args);
 PyObject *scribus_getlayers(PyObject *self, PyObject* args);
 PyObject *scribus_setactlayer(PyObject *self, PyObject* args);
 PyObject *scribus_getactlayer(PyObject *self, PyObject* args);

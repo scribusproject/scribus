@@ -204,6 +204,7 @@ public slots:
 	void ToggleAnnotation();
 	void ToggleLock();
 	void TogglePic();
+	void UpdatePic();
 	void FlipImageH();
 	void FlipImageV();
 	void ItemFont(QString fon);

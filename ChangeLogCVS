@@ -1,4 +1,13 @@
 Changes since Version 1.1.5
+23.02.2004	Added the Option to protect an Object against resizing.
+		Fixed Issues with Rounded Corners.
+		Added a Context Menueitem for updating Picture frames.
+		Updated the Finnish Translation.
+		Changed the behaviour of Mouse Clicks:
+			Ctrl+Click selects the Object beneath another.
+			Shift+Click adds an Object to the Selection.
+			Ctrl+Alt+Click selects a single Object out of a Group.
+
 22.02.2004	Included Patches from Jean-Jacques Sarton.
 		Fixed Bug #278
 		Updated the Ukrainian Translation.

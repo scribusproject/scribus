@@ -83,6 +83,8 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h )
 	mf_strikeout = false;
 	mf_shadow = false;
 	mf_outlined = false;
+	PLineEnd = Qt::SquareCap;
+	PLineJoin = Qt::RoundJoin;
 	fill_gradient = VGradient(VGradient::linear);
 	stroke_gradient = VGradient(VGradient::linear);
 	xlib_rgb_init_with_depth( target->x11Display(), XScreenOfDisplay( target->x11Display(),

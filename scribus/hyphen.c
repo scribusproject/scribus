@@ -327,7 +327,8 @@ hnj_hyphen_load (const char *fn)
   for (i = 0; i < HASH_SIZE; i++)
     for (e = hashtab->entries[i]; e; e = e->next)
       {
-	for (j = 1; 1; j++)
+//	for (j = 1; 1; j++)
+	for (j = 1; *(e->key); j++)
 	  {
 	    state_num = hnj_hash_lookup (hashtab, e->key + j);
 	    if (state_num >= 0)

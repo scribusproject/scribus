@@ -475,6 +475,7 @@ static PyMethodDef scribus_methods[] = {
 	{"DeleteColor",				scribus_delcolor,				METH_VARARGS},
 	{"ReplaceColor",			scribus_replcolor,			METH_VARARGS},
 	{"GetFontNames",			scribus_fontnames,			METH_VARARGS},
+	{"RenderFont",			scribus_renderfont,			METH_VARARGS},
 	{"GetLayers",					scribus_getlayers,			METH_VARARGS},
 	{"SetActiveLayer",		scribus_setactlayer,		METH_VARARGS},
 	{"GetActiveLayer",		scribus_getactlayer,		METH_VARARGS},

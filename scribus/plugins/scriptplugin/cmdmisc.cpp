@@ -3,6 +3,8 @@
 #include "cmdutil.h"
 #include "cmdvar.h"
 
+extern QPixmap FontSample(QString da, int s, QString ts, QColor back);
+
 PyObject *scribus_setredraw(PyObject *self, PyObject* args)
 {
 	int e;
@@ -19,22 +21,52 @@ PyObject *scribus_fontnames(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 		return NULL;
-	PyObject *l = PyList_New(Carrier->Prefs.AvailFonts.count());
+	int cc2 = 0;
+	SCFontsIterator it2(Carrier->Prefs.AvailFonts);
+	for ( ; it2.current() ; ++it2)
+	{
+		if (it2.current()->UseFont)
+			cc2++;
+	}
+	PyObject *l = PyList_New(cc2);
 	SCFontsIterator it(Carrier->Prefs.AvailFonts);
 	int cc = 0;
 	for ( ; it.current() ; ++it)
+	{
+		if (it.current()->UseFont)
 		{
-		PyList_SetItem(l, cc, PyString_FromString(it.currentKey()));
-		cc++;
+			PyList_SetItem(l, cc, PyString_FromString(it.currentKey()));
+			cc++;
 		}
+	}
 	return l;
+}
+
+PyObject *scribus_renderfont(PyObject *self, PyObject* args)
+{
+	char *Name = "";
+	char *FileName = "";
+	char *Sample = "";
+	int Size;
+	bool ret = false;
+	if (!PyArg_ParseTuple(args, "sssi", &Name, &FileName, &Sample, &Size))
+		return NULL;
+	if (!Carrier->Prefs.AvailFonts.find(QString(Name)))
+		return PyInt_FromLong(static_cast<long>(ret));
+	QString ts = QString(Sample);
+	if ((ts == "") || (QString(FileName) == ""))
+		return PyInt_FromLong(static_cast<long>(ret));
+    QString da = Carrier->Prefs.AvailFonts[QString(Name)]->Datei;
+	QPixmap pm = FontSample(da, Size, ts, Qt::white);
+	ret = pm.save(QString(FileName), "PPM");
+	return PyInt_FromLong(static_cast<long>(ret));
 }
 
 PyObject *scribus_getlayers(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
 		return NULL;
-	PyObject *l;	
+	PyObject *l;
 	if (Carrier->HaveDoc)
 		{
 		l = PyList_New(Carrier->doc->Layers.count());

@@ -171,6 +171,7 @@ struct CLBuf {
 				bool ScaleType;
 				bool AspectRatio;
 				bool Locked;
+				bool LockRes;
 				double Transparency;
 				double TranspStroke;
 				bool Reverse;

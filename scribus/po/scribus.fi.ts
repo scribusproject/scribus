@@ -1350,6 +1350,10 @@
         <source>Diagonal Gradient</source>
         <translation>Lävistäjän (vasemmalta oikealle) suuntainen väriliuku</translation>
     </message>
+    <message>
+        <source>Shade:</source>
+        <translation>Sävy:</translation>
+    </message>
 </context>
 <context>
     <name>CupsOptions</name>
@@ -1673,6 +1677,22 @@ Voit määrittää sen asetuksissa.</translation>
         <source></source>
         <translation></translation>
     </message>
+    <message>
+        <source>Cyan</source>
+        <translation>Cyan</translation>
+    </message>
+    <message>
+        <source>Magenta</source>
+        <translation>Magenta</translation>
+    </message>
+    <message>
+        <source>Yellow</source>
+        <translation>Keltainen</translation>
+    </message>
+    <message>
+        <source>Black</source>
+        <translation>Musta</translation>
+    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -1795,6 +1815,10 @@ Voit määrittää sen asetuksissa.</translation>
     <message>
         <source>Effect:</source>
         <translation>Tehosteet:</translation>
+    </message>
+    <message>
+        <source>Stroke Color:</source>
+        <translation>Viivan väri:</translation>
     </message>
 </context>
 <context>
@@ -3729,7 +3753,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Compression</source>
-        <translation>Pakkaus</translation>
+        <translation type="obsolete">Pakkaus</translation>
     </message>
     <message>
         <source>Apply Effect on all Pages</source>
@@ -3863,6 +3887,54 @@ muulloin suhteessa kohteeseen.</translation>
         <source>Top-left to Bottom-Right</source>
         <translation>Ylävasemmalta alaoikealle</translation>
     </message>
+    <message>
+        <source>Image Settings</source>
+        <translation>Kuvien asetukset</translation>
+    </message>
+    <message>
+        <source>Method:</source>
+        <translation>Menetelmä:</translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation>Automaattinen</translation>
+    </message>
+    <message>
+        <source>JPEG</source>
+        <translation>JPEG</translation>
+    </message>
+    <message>
+        <source>Zip</source>
+        <translation>Zip</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Ei mitään</translation>
+    </message>
+    <message>
+        <source>Quality:</source>
+        <translation>Laatu:</translation>
+    </message>
+    <message>
+        <source>Maximum</source>
+        <translation>Paras</translation>
+    </message>
+    <message>
+        <source>High</source>
+        <translation>Korkea</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation>Keskitaso</translation>
+    </message>
+    <message>
+        <source>Low</source>
+        <translation>Matala</translation>
+    </message>
+    <message>
+        <source>Minimum</source>
+        <translation>Heikoin</translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -3876,7 +3948,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Sivu:</translation>
+        <translation type="obsolete">Sivu:</translation>
     </message>
     <message>
         <source>Anti-alias Graphics</source>
@@ -4159,6 +4231,17 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
 </context>
 <context>
+    <name>PageSelector</name>
+    <message>
+        <source>Page </source>
+        <translation>Sivu</translation>
+    </message>
+    <message>
+        <source> of %1</source>
+        <translation> / %1</translation>
+    </message>
+</context>
+<context>
     <name>PicSearch</name>
     <message>
         <source>Cancel</source>
@@ -4197,19 +4280,19 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="obsolete">Nimi</translation>
+        <translation>Nimi</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="obsolete">Sivu</translation>
+        <translation>Sivu</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation type="obsolete">Polku</translation>
+        <translation>Polku</translation>
     </message>
     <message>
         <source>Print</source>
-        <translation type="obsolete">Tulosta</translation>
+        <translation>Tulosta</translation>
     </message>
     <message>
         <source>Missing</source>
@@ -4221,7 +4304,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation type="obsolete">Tila</translation>
+        <translation>Tila</translation>
     </message>
     <message>
         <source>Pictures</source>
@@ -5240,6 +5323,22 @@ Tarkasta polku ja tiedostonimi.</translation>
         <source>Background</source>
         <translation>Tausta</translation>
     </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -5270,6 +5369,37 @@ Tarkasta polku ja tiedostonimi.</translation>
     <message>
         <source>&amp;Paste</source>
         <translation>L&amp;iitä</translation>
+    </message>
+</context>
+<context>
+    <name>QTitleBar</name>
+    <message>
+        <source>System Menu</source>
+        <translation>Järjestelmän valikko</translation>
+    </message>
+    <message>
+        <source>Shade</source>
+        <translation>Varjosta</translation>
+    </message>
+    <message>
+        <source>Unshade</source>
+        <translation>Paljasta</translation>
+    </message>
+    <message>
+        <source>Normalize</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Minimize</source>
+        <translation>Pienennä</translation>
+    </message>
+    <message>
+        <source>Maximize</source>
+        <translation>Suurenna</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Sulje</translation>
     </message>
 </context>
 <context>
@@ -6288,11 +6418,11 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Page </source>
-        <translation>Sivu</translation>
+        <translation type="obsolete">Sivu</translation>
     </message>
     <message>
         <source> of %1</source>
-        <translation> / %1</translation>
+        <translation type="obsolete"> / %1</translation>
     </message>
 </context>
 <context>

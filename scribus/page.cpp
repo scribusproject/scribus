@@ -2231,6 +2231,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem( tr("Get Picture..."), this, SIGNAL(LoadPic()));
 				int px = pmen->insertItem( tr("Image Visible"), this, SLOT(TogglePic()));
 				pmen->setItemChecked(px, b->PicArt);
+				pmen->insertItem( tr("Update Picture"), this, SLOT(UpdatePic()));
 			}
 			if (b->PType == 4)
 			{
@@ -3826,8 +3827,8 @@ void Page::mousePressEvent(QMouseEvent *m)
 				{
 					double gx, gy, gh, gw;
 					getGroupRectScreen(&gx, &gy, &gw, &gh);
-					if (QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw),
-								 static_cast<int>(gh)).intersects(mpo))
+					if ((QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw),
+								 static_cast<int>(gh)).intersects(mpo)) && (m->state() != (ControlButton | AltButton)))
 					{
 						HowTo = 0;
 						if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
@@ -4334,6 +4335,8 @@ void Page::HandleSizer(QPainter *p, PageItem *b, QRect mpo)
 	b->OldB2 = b->Width;
 	b->OldH2 = b->Height;
 	HowTo = 0;
+	if (b->LockRes)
+		return;
 	if (b->PType != 5)
 	{
 		if (p->xForm(QRect(0, 0, 6, 6)).intersects(mpo))
@@ -4491,6 +4494,8 @@ bool Page::SeleItem(QMouseEvent *m)
 		doku->ActPage = this;
 		emit PgCh(PageNr);
 	}
+	if (m->state() == (ControlButton | AltButton))
+		Deselect(false);
 	if ((m->state() == (ControlButton | ShiftButton)) && (SelItem.count() != 0))
 	{
 		for (a = 0; a < Items.count(); ++a)
@@ -4533,22 +4538,31 @@ bool Page::SeleItem(QMouseEvent *m)
 						}
 						else
 							SelItem.append(b);
-						for (uint ga=0; ga<Items.count(); ++ga)
+						if (m->state() != (ControlButton | AltButton))
 						{
-							if (Items.at(ga)->Groups.count() != 0)
+							for (uint ga=0; ga<Items.count(); ++ga)
 							{
-								if (Items.at(ga)->Groups.top() == b->Groups.top())
+								if (Items.at(ga)->Groups.count() != 0)
 								{
-									if (Items.at(ga)->ItemNr != b->ItemNr)
+									if (Items.at(ga)->Groups.top() == b->Groups.top())
 									{
-										if (SelItem.find(Items.at(ga)) == -1)
-											SelItem.append(Items.at(ga));
+										if (Items.at(ga)->ItemNr != b->ItemNr)
+										{
+											if (SelItem.find(Items.at(ga)) == -1)
+												SelItem.append(Items.at(ga));
+										}
+										Items.at(ga)->Select = true;
+										Items.at(ga)->FrameOnly = true;
+										Items.at(ga)->paintObj();
 									}
-									Items.at(ga)->Select = true;
-									Items.at(ga)->FrameOnly = true;
-									Items.at(ga)->paintObj();
 								}
 							}
+						}
+						else
+						{
+							b->Select = true;
+							b->FrameOnly = true;
+							b->paintObj();
 						}
 					}
 					else
@@ -6308,6 +6322,22 @@ void Page::TogglePic()
 		}
 }
 
+void Page::UpdatePic()
+{
+	if (SelItem.count() != 0)
+	{
+		PageItem *b = SelItem.at(0);
+		if (b->PicAvail)
+		{
+			b->pixmOrg = QImage();
+			LoadPict(b->Pfile, b->ItemNr);
+			AdjustPictScale(b);
+			AdjustPreview(b);
+			update();
+		}
+	}
+}
+
 void Page::FlipImageH()
 {
   if (SelItem.count() != 0)
@@ -6795,6 +6825,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	b->DashValues = Buffer->DashValues;
 	b->DashOffset = Buffer->DashOffset;
 	b->Locked = Buffer->Locked;
+	b->LockRes = Buffer->LockRes;
 	b->Transparency = Buffer->Transparency;
 	b->TranspStroke = Buffer->TranspStroke;
 	b->Reverse = Buffer->Reverse;
@@ -7286,9 +7317,6 @@ void Page::LoadPict(QString fn, int ItNr)
 	QString ext = fi.extension(false).lower();
 	if (ext == "pdf")
 		{
-/*		cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile="+tmpFile+" -dFirstPage=1 -dLastPage=1 ";
-		cmd2 = " -c showpage -c quit";
-		ret = system(cmd1 + "\"" + fn + "\"" + cmd2); */
 		QStringList args;
 		args.append("-r72");
 		args.append("-sOutputFile="+tmpFile);
@@ -7301,7 +7329,7 @@ void Page::LoadPict(QString fn, int ItNr)
 			QImage im4;
 			QImage image;
 			image.load(tmpFile);
-  		image = image.convertDepth(32);
+			image = image.convertDepth(32);
 			im4 = ProofPict(&image, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
 			Items.at(ItNr)->pixm = im4;
 			Items.at(ItNr)->pixmOrg = im4.copy();

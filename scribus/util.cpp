@@ -1665,6 +1665,7 @@ void CopyPageItem(struct CLBuf *Buffer, PageItem *b)
 	Buffer->ScaleType = b->ScaleType;
 	Buffer->AspectRatio = b->AspectRatio;
 	Buffer->Locked = b->Locked;
+	Buffer->LockRes = b->LockRes;
 	Buffer->Transparency = b->Transparency;
 	Buffer->TranspStroke = b->TranspStroke;
 	Buffer->Reverse = b->Reverse;

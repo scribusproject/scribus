@@ -236,41 +236,37 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     QSpacerItem* spacer2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     layout60->addItem( spacer2 );
 
-    Layout44 = new QVBoxLayout( 0, 0, 4, "Layout44");
-    QSpacerItem* spacer3 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-    Layout44->addItem( spacer3 );
+    Layout44 = new QGridLayout( 0, 1, 1, 8, 4, "Layout44");
     FlipH = new QToolButton( page, "MirrorH" );
     FlipH->setPixmap(loadIcon("FlipH.xpm"));
     FlipH->setToggleButton( true );
-    Layout44->addWidget( FlipH );
+    Layout44->addWidget( FlipH, 0, 0 );
     FlipV = new QToolButton( page, "MirrorV" );
     FlipV->setPixmap(loadIcon("FlipV.xpm"));
     FlipV->setToggleButton( true );
-    Layout44->addWidget( FlipV );
-    QSpacerItem* spacer4 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-    Layout44->addItem( spacer4 );
-    layout60->addLayout( Layout44 );
-
-    Layout44a = new QVBoxLayout( 0, 0, 4, "Layout44");
-    QSpacerItem* spacer3a = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-    Layout44a->addItem( spacer3a );
+    Layout44->addWidget( FlipV, 1, 0 );
     Locked = new QToolButton( page, "Lock" );
     Locked->setToggleButton( true );
 		QIconSet a = QIconSet();
 		a.setPixmap(loadIcon("locked.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
 		a.setPixmap(loadIcon("unlock.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
 		Locked->setIconSet(a);
-    Layout44a->addWidget( Locked );
+    Layout44->addWidget( Locked, 0, 1 );
     NoPrint = new QToolButton( page, "NoPrint" );
     NoPrint->setToggleButton( true );
 		QIconSet a2 = QIconSet();
 		a2.setPixmap(loadIcon("NoPrint.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
 		a2.setPixmap(loadIcon("DateiPrint16.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
 		NoPrint->setIconSet(a2);
-    Layout44a->addWidget( NoPrint );
-    QSpacerItem* spacer4a = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-    Layout44a->addItem( spacer4a );
-    layout60->addLayout( Layout44a );
+    Layout44->addWidget( NoPrint, 1, 1 );
+    NoResize = new QToolButton( page, "NoResize" );
+    NoResize->setToggleButton( true );
+		QIconSet a3 = QIconSet();
+		a3.setPixmap(loadIcon("framenoresize.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
+		a3.setPixmap(loadIcon("frameresize.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
+		NoResize->setIconSet(a3);
+    Layout44->addWidget( NoResize, 0, 2 );
+    layout60->addLayout( Layout44 );
 
 
     QSpacerItem* spacer5 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -729,7 +725,8 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     QToolTip::add( ZTop, tr( "Move to Front" ) );
     QToolTip::add( ZBottom, tr( "Move to Back" ) );
     QToolTip::add( Locked, tr( "Locks or unlocks the Object" ) );
-    QToolTip::add( NoPrint, tr( "Enables or disables printing of the Object" ) );;
+    QToolTip::add( NoPrint, tr( "Enables or disables printing of the Object" ) );
+    QToolTip::add( NoResize, tr( "Enables or disables resizing of the Object" ) );
     connect(Xpos, SIGNAL(valueChanged(int)), this, SLOT(NewX()));
     connect(Ypos, SIGNAL(valueChanged(int)), this, SLOT(NewY()));
     connect(Width, SIGNAL(valueChanged(int)), this, SLOT(NewW()));
@@ -783,6 +780,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     connect(ChScale, SIGNAL(valueChanged(int)), this, SLOT(NewTScale()));
     connect(Locked, SIGNAL(clicked()), this, SLOT(handleLock()));
     connect(NoPrint, SIGNAL(clicked()), this, SLOT(handlePrint()));
+    connect(NoResize, SIGNAL(clicked()), this, SLOT(handleResize()));
     connect(NormText2, SIGNAL(clicked()), this, SLOT(handlePathLine()));
     connect(Dist, SIGNAL(valueChanged(int)), this, SLOT(handlePathDist()));
     connect(LineW, SIGNAL(valueChanged(int)), this, SLOT(handlePathOffs()));
@@ -946,10 +944,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	LEndStyle->setEnabled(setter);
   connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
-	if (i->isPrintable)
-		NoPrint->setOn(false);
-	else
-		NoPrint->setOn(true);
+	NoPrint->setOn(!i->isPrintable);
 	if (i->Locked)
 		setter = false;
 	else
@@ -964,6 +959,13 @@ void Mpalette::SetCurItem(PageItem *i)
 	ShapeGroup->setEnabled(setter);
 	LayerGroup->setEnabled(setter);
 	Locked->setOn(!setter);
+	setter = i->LockRes;
+	NoResize->setOn(setter);
+	if (!i->Locked)
+	{
+		Width->setEnabled(!setter);
+		Height->setEnabled(!setter);
+	}
 	if (i->Locked)
 		{
 		HaveItem = true;
@@ -982,7 +984,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		RoundRect->setEnabled(true);
 	else
 		{
-		if ((i->PType == 6) && (i->FrameType == 0))
+		if ((i->PType == 6) && ((i->FrameType == 0) || (i->FrameType == 2)))
 			RoundRect->setEnabled(true);
 		else
 			RoundRect->setEnabled(false);
@@ -2672,6 +2674,17 @@ void Mpalette::handlePrint()
 	if ((HaveDoc) && (HaveItem))
 		{
 		CurItem->isPrintable = !NoPrint->isOn();
+		emit DocChanged();
+		}
+}
+
+void Mpalette::handleResize()
+{
+	if ((HaveDoc) && (HaveItem))
+		{
+		CurItem->LockRes = NoResize->isOn();
+		Width->setEnabled(!CurItem->LockRes);
+		Height->setEnabled(!CurItem->LockRes);
 		emit DocChanged();
 		}
 }

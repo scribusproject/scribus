@@ -114,6 +114,7 @@ public:
     QToolButton* FlipV;
     QToolButton* Locked;
     QToolButton* NoPrint;
+    QToolButton* NoResize;
     QButtonGroup* ShapeGroup;
     QLabel* SRect;
     Autoforms* SCustom;
@@ -274,6 +275,7 @@ private slots:
 	void DoRevert();
 	void handleLock();
 	void handlePrint();
+	void handleResize();
 	void handlePathLine();
 	void handlePathDist();
 	void handlePathOffs();
@@ -304,8 +306,7 @@ protected:
     QVBoxLayout* pageLayout_4;
     QVBoxLayout* pageLayout_5;
     QHBoxLayout* layout60;
-    QVBoxLayout* Layout44;
-    QVBoxLayout* Layout44a;
+    QGridLayout* Layout44;
     QHBoxLayout* Layout13;
     QGridLayout* Layout12;
     QHBoxLayout* layout47;

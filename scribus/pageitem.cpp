@@ -46,6 +46,7 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	BackBox = 0;
 	NextBox = 0;
 	Locked = false;
+	LockRes = false;
 	Xpos = x;
 	Ypos = y;
 	Width = w;
@@ -768,7 +769,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 						else
 							TopOffset = asce;
-						pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY+BotOffset)));
+						pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(CurY+BotOffset));
 						pt2 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY-TopOffset)));
 						while ((!cl.contains(pf.xForm(pt1))) || (!cl.contains(pf.xForm(pt2))))
 							{
@@ -821,7 +822,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										}
 									}
 								}
-							pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY+BotOffset)));
+							pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(CurY+BotOffset));
 							pt2 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY-TopOffset)));
 							}
 						if ((fBorder) && (!AbsHasDrop))
@@ -890,7 +891,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						hl->xp = CurX;
 					if ((TabCode == 4) && (RTab))
 						CurX += (wide+hl->cextra) / 2;
-					pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY+desc+BExtra+lineCorr)));
+					pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(CurY+desc+BExtra+lineCorr));
 					pt2 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY-asce)));
 					if ((!cl.contains(pf.xForm(pt1))) || (!cl.contains(pf.xForm(pt2))) || (CurX+RExtra+lineCorr > ColBound.y()))
 						outs = true;
@@ -992,7 +993,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									EndX = LastXp;
 									do
 										{
-										pt1 = QPoint(qRound(EndX), static_cast<int>(ceil(CurY+desc)));
+										pt1 = QPoint(qRound(EndX), static_cast<int>(CurY+desc));
 										pt2 = QPoint(qRound(EndX), static_cast<int>(ceil(CurY-asce)));
 										EndX++;
 										}
@@ -1052,7 +1053,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								EndX = CurX;
 								do
 									{
-									pt1 = QPoint(qRound(EndX), static_cast<int>(ceil(CurY+desc)));
+									pt1 = QPoint(qRound(EndX), static_cast<int>(CurY+desc));
 									pt2 = QPoint(qRound(EndX), static_cast<int>(ceil(CurY-asce)));
 									EndX++;
 									}
@@ -1113,7 +1114,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									}
 								bool fromOut = true;
 								double BotOffset = desc+BExtra+lineCorr;
-								pt1 = QPoint(qRound(CurX), static_cast<int>(ceil(CurY+BotOffset)));
+								pt1 = QPoint(qRound(CurX), static_cast<int>(CurY+BotOffset));
 								pt2 = QPoint(qRound(CurX), static_cast<int>(ceil(CurY-asce)));
 								while ((!cl.contains(pf.xForm(pt1))) || (!cl.contains(pf.xForm(pt2))))
 									{
@@ -1122,6 +1123,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										{
 										fromOut = false;
 										CurY += Doc->Vorlagen[hl->cab].LineSpa;
+										if ((CurY+BExtra+lineCorr > Height) && (CurrCol+1 == Cols))
+										{
+											nrc = a;
+											goto NoRoom;
+										}
 										if (AbsHasDrop)
 											{
 											if (CurY > maxDY)
@@ -1144,7 +1150,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 											}
 										break;
 										}
-									pt1 = QPoint(qRound(CurX), static_cast<int>(ceil(CurY+BotOffset)));
+									pt1 = QPoint(qRound(CurX), static_cast<int>(CurY+BotOffset));
 									pt2 = QPoint(qRound(CurX), static_cast<int>(ceil(CurY-asce)));
 									}
 								if (fromOut)
@@ -1228,7 +1234,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					EndX = CurX;
 					do
 						{
-						pt1 = QPoint(qRound(EndX), static_cast<int>(ceil(CurY+desc)));
+						pt1 = QPoint(qRound(EndX), static_cast<int>(CurY+desc));
 						pt2 = QPoint(qRound(EndX), static_cast<int>(ceil(CurY-asce)));
 						EndX++;
 						}

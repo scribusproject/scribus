@@ -788,6 +788,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					OB.IRender = QStoInt(obj.attribute("IRENDER","1"));
 					OB.UseEmbedded = QStoInt(obj.attribute("EMBEDDED","1"));
 					OB.Locked = static_cast<bool>(QStoInt(obj.attribute("LOCK","0")));
+					OB.LockRes = static_cast<bool>(QStoInt(obj.attribute("LOCKR","0")));
 					OB.Reverse = static_cast<bool>(QStoInt(obj.attribute("REVERS","0")));
 					OB.InvPict = static_cast<bool>(QStoInt(obj.attribute("INVERS","0")));
 					OB.LayerNr = QStoInt(obj.attribute("LAYER","0"));
@@ -1439,6 +1440,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					OB.IRender = QStoInt(obj.attribute("IRENDER","1"));
 					OB.UseEmbedded = QStoInt(obj.attribute("EMBEDDED","1"));
 					OB.Locked = static_cast<bool>(QStoInt(obj.attribute("LOCK","0")));
+					OB.LockRes = static_cast<bool>(QStoInt(obj.attribute("LOCKR","0")));
 					OB.Reverse = static_cast<bool>(QStoInt(obj.attribute("REVERS","0")));
 					OB.InvPict = static_cast<bool>(QStoInt(obj.attribute("INVERS","0")));
 					OB.LayerNr = QStoInt(obj.attribute("LAYER","0"));
@@ -1993,6 +1995,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.IRender = QStoInt(pg.attribute("IRENDER","1"));
 			OB.UseEmbedded = QStoInt(pg.attribute("EMBEDDED","1"));
 			OB.Locked = static_cast<bool>(QStoInt(pg.attribute("LOCK","0")));
+			OB.LockRes = static_cast<bool>(QStoInt(pg.attribute("LOCKR","0")));
 			OB.Reverse = static_cast<bool>(QStoInt(pg.attribute("REVERS","0")));
 			OB.InvPict = static_cast<bool>(QStoInt(pg.attribute("INVERS","0")));
 			OB.Language = pg.attribute("LANGUAGE", doc->Language);
@@ -2302,6 +2305,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		ob.setAttribute("IRENDER",item->IRender);
 		ob.setAttribute("EMBEDDED", item->UseEmbedded ? 1 : 0);
 		ob.setAttribute("LOCK", item->Locked ? 1 : 0);
+		ob.setAttribute("LOCKR", item->LockRes ? 1 : 0);
 		ob.setAttribute("REVERS", item->Reverse ? 1 : 0);
 		ob.setAttribute("INVERS", item->InvPict ? 1 : 0);
 		ob.setAttribute("TransValue", item->Transparency);
@@ -2657,6 +2661,7 @@ void ScriXmlDoc::WritePages(ScribusView *view, QDomDocument docu, QDomElement dc
 			ob.setAttribute("IRENDER",item->IRender);
 			ob.setAttribute("EMBEDDED", item->UseEmbedded ? 1 : 0);
 			ob.setAttribute("LOCK", item->Locked ? 1 : 0);
+			ob.setAttribute("LOCKR", item->LockRes ? 1 : 0);
 			ob.setAttribute("REVERS", item->Reverse ? 1 : 0);
 			ob.setAttribute("INVERS", item->InvPict ? 1 : 0);
 			ob.setAttribute("TransValue", item->Transparency);

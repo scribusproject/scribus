@@ -64,6 +64,7 @@ public:
 	void DrawPolyL(QPainter *p, QPointArray pts);
 	QString ExpandToken(uint base);
 	bool Locked;
+	bool LockRes;
 	bool Reverse;
   /** X-Position auf der Seite */
 	double Xpos;
