@@ -50,18 +50,19 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     Layout1->addWidget( TextLabel1 );
 
     ComboBox1 = new QComboBox( true, this, "ComboBox1" );
-    ComboBox1->insertItem( tr( "Text" ) );
-    ComboBox1->insertItem( tr( "Link" ) );
-    ComboBox1->insertItem( tr( "External Link" ) );
-    ComboBox1->insertItem( tr( "External Web-Link" ) );
+	/* PFJ - 28/02/04 - Changed to QString/size_t/for style */
+	QString combo[] = { tr("Text"), tr("Link"), tr("External Link"), 
+					   tr("External Web-Link")};
+	size_t comboArray = sizeof(combo)/sizeof(*combo);
+	for (uint prop = 0; prop < comboArray; ++prop)
+		ComboBox1->insertItem(combo[prop]);
     ComboBox1->setEditable(false);
     Layout1->addWidget( ComboBox1 );
     AnnotLayout->addLayout( Layout1 );
-		item->AnType < 2 ? ComboBox1->setCurrentItem(item->AnType) : ComboBox1->setCurrentItem(item->AnType-10);
-    if (item->AnActType == 7)
-			ComboBox1->setCurrentItem(2);
-    if (item->AnActType == 8)
-			ComboBox1->setCurrentItem(3);
+	item->AnType < 2 ? ComboBox1->setCurrentItem(item->AnType):
+			ComboBox1->setCurrentItem(item->AnType-10);
+    if ((item->AnActType == 7) || (item->AnActType == 8))
+			ComboBox1->setCurrentItem(item->AnActType - 5);
     Fram = new QWidgetStack(this);
     AnnotLayout->addWidget( Fram );
 
@@ -200,33 +201,36 @@ void Annota::SetVals()
 	QString tmp, tmp2;
 	item->AnZiel = SpinBox1->value()-1;
 	item->AnType = ComboBox1->currentItem()+10;
-	if (item->AnType == 10)
-		item->AnActType = 0;
-	if (item->AnType == 11)
+	switch (item->AnType)
 	{
-		item->AnAction = tmp.setNum(SpinBox2->value())+" "+tmp2.setNum(Hoehe-SpinBox3->value())+" 0";
-		item->An_Extern = "";
-		item->AnActType = 2;
-	}
-	if (item->AnType == 12)
-	{
-		item->AnAction = tmp.setNum(SpinBox2->value())+" "+tmp2.setNum(Hoehe-SpinBox3->value())+" 0";
-		if (Destfile->text() != "")
-		{
-			item->An_Extern = Destfile->text();
-			item->AnActType = 7;
-		}
-		item->AnType = 11;
-	}
-	if (item->AnType == 13)
-	{
-		item->AnAction = "";
-		if (Destfile->text() != "")
-		{
-			item->An_Extern = Destfile->text();
-			item->AnActType = 8;
-		}
-		item->AnType = 11;
+		case 10:
+			item->AnActType = 0;
+			break;
+		case 11:
+			item->AnAction = tmp.setNum(SpinBox2->value())+" "+
+								tmp2.setNum(Hoehe-SpinBox3->value())+" 0";
+			item->An_Extern = "";
+			item->AnActType = 2;
+			break;
+		case 12:
+			item->AnAction = tmp.setNum(SpinBox2->value())+" "+
+								tmp2.setNum(Hoehe-SpinBox3->value())+" 0";
+			if (Destfile->text() != "")
+			{
+				item->An_Extern = Destfile->text();
+				item->AnActType = 7;
+			}
+			item->AnType = 11;
+			break;
+		case 13:
+			item->AnAction = "";
+			if (Destfile->text() != "")
+			{
+				item->An_Extern = Destfile->text();
+				item->AnActType = 8;
+			}
+			item->AnType = 11;
+			break;
 	}
 	accept();
 }

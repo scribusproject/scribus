@@ -338,11 +338,12 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
     ToSeparation = false;
 
     SepArt = new QComboBox( true, ButtonGroup3, "SepArt" );
-    SepArt->insertItem( tr( "All" ) );
-    SepArt->insertItem( tr("Cyan"));
-    SepArt->insertItem( tr("Magenta"));
-    SepArt->insertItem( tr("Yellow"));
-    SepArt->insertItem( tr("Black"));
+	/* PFJ - 29.02.04 - Altered to QString, size_t, for */
+	QString sep[] = {tr("All"), tr("Cyan"), tr("Magenta"), tr("Yellow"),
+					 tr("Black")};
+	size_t sepArray = sizeof(sep) / sizeof(*sep);
+	for (uint prop = 0; prop < sepArray; ++prop)
+		SepArt->insertItem(sep[prop]);
     SepArt->setEnabled( false );
     SepArt->setEditable( false );
     ButtonGroup3Layout->addWidget( SepArt );
@@ -498,14 +499,16 @@ void Druck::SetOptions()
 
 void Druck::SelComm()
 {
+	/* PFJ - 29.02.04 - removed OthText, Command and PrintDest from switch */
+	bool test = OtherCom->isChecked() ? true : false;
+	OthText->setEnabled(test);
+	Command->setEnabled(test);
+	PrintDest->setEnabled(!test);
 	if (OtherCom->isChecked())
 	{
-		OthText->setEnabled(true);
-		Command->setEnabled(true);
     	DateiT->setEnabled(false);
     	LineEdit1->setEnabled(false);
     	ToolButton1->setEnabled(false);
-		PrintDest->setEnabled(false);
     	ToFile = false;
 #ifdef HAVE_CUPS
 		OptButton->setEnabled(false);
@@ -513,9 +516,6 @@ void Druck::SelComm()
   	}
 	else
 	{
-		OthText->setEnabled(false);
-		Command->setEnabled(false);
-		PrintDest->setEnabled(true);
 		SelPrinter(PrintDest->currentText());
 #ifdef HAVE_CUPS
 		if (Geraet != tr("File"))

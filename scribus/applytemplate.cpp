@@ -37,7 +37,8 @@ ApplyT::ApplyT( QWidget* parent, ScribusView *view, QString Nam)
     buttonGroup1Layout->setAlignment( Qt::AlignTop );
 
     SinglePage = new QRadioButton( buttonGroup1, "radioButton1" );
-    SinglePage->setChecked( TRUE );
+	/* PFJ - 28/02/04 - altered from TRUE to true */
+    SinglePage->setChecked( true );
     SinglePage->setText( tr( "Apply to Current Page" ) );
     buttonGroup1Layout->addWidget( SinglePage );
 

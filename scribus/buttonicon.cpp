@@ -17,18 +17,22 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 	QString tmp_pla[] = { tr("Caption only"), tr("Icon only"), tr("Caption below Icon"), tr("Caption above Icon"), 
 						tr("Caption right to Icon"), tr("Caption left to Icon"), tr("Caption overlays Icon")};
 	size_t array_pla = sizeof(tmp_pla) / sizeof(*tmp_pla);
-	for (uint a = 0; a < array_pla; ++a)
-		Place->insertItem(tmp_pla[a]);
+	/* PFJ - 29/02/04 - Changed from uint to int and var name */
+	for (uint prop = 0; prop < array_pla; ++prop)
+		Place->insertItem(tmp_pla[prop]);
 	Place->setEditable(false);
     Layout1->addWidget( Place, 0, 1 );
     TextLabel1 = new QLabel( this, "TextLabel1" );
     TextLabel1->setText( tr( "Scale:" ) );
     Layout1->addWidget( TextLabel1, 1, 0 );
     ScaleW = new QComboBox( true, this, "ScaleW" );
-    ScaleW->insertItem( tr( "Always" ) );
-    ScaleW->insertItem( tr( "When Icon is too small" ) );
-    ScaleW->insertItem( tr( "When Icon is too big" ) );
-    ScaleW->insertItem( tr( "Never" ) );
+	/* PFJ - 29/02/04 - Changed to QString/size_t/for style. It saves a small
+						of time during the setup */
+	QString scalew[] = {tr("Always"), tr("When Icon it too small"), 
+						tr("When Icon is too big"), tr("Never")};
+	size_t scalewArray = sizeof(scalew) / sizeof(*scalew);
+	for (uint prop = 0; prop < scalewArray; ++prop)
+		ScaleW->insertItem(scalew[prop]);
 	ScaleW->setEditable(false);
     Layout1->addWidget( ScaleW, 1, 1 );
     TextLabel2 = new QLabel( this, "TextLabel2" );

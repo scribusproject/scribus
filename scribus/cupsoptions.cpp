@@ -79,7 +79,8 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 			Marked = "";
 			struct OpData Daten;
 			opts.clear();
-			for (j = option->num_choices, choice = option->choices; j > 0; j --, ++choice)
+			for (j = option->num_choices, choice = option->choices; 
+					j > 0; j --, ++choice)
 			{
 				opts.append(QString(choice->choice));
 				if (choice->marked)

@@ -16,94 +16,112 @@
 Autoforms::Autoforms( QWidget* parent ) : QToolButton( parent, "auto" )
 {
 	buttonGroup1 = new QButtonGroup();
-	buttonGroup1->setExclusive( TRUE );
+	/* PFJ - 28/02/04 - altered from true to true */
+	buttonGroup1->setExclusive( true );
 	buttonGroup1->setColumnLayout(0, Qt::Vertical );
 	buttonGroup1->layout()->setSpacing( 0 );
 	buttonGroup1->layout()->setMargin( 0 );
 	buttonGroup1Layout = new QGridLayout( buttonGroup1->layout() );
 	buttonGroup1Layout->setAlignment( Qt::AlignTop );
 	toolButton1 = new QToolButton( buttonGroup1, "toolButton1" );
-	toolButton1->setToggleButton( TRUE );
-  toolButton1->setPixmap(getIconPixmap(0));
+	/* PFJ - 28/02/04 - altered from true to true */
+	toolButton1->setToggleButton( true );
+	toolButton1->setPixmap(getIconPixmap(0));
 	buttonGroup1Layout->addWidget( toolButton1, 0, 0 );
 	toolButton2 = new QToolButton( buttonGroup1, "toolButton2" );
-	toolButton2->setToggleButton( TRUE );
-  toolButton2->setPixmap(getIconPixmap(1));
+	/* PFJ - 28/02/04 - altered from true to true */	
+	toolButton2->setToggleButton( true );
+	toolButton2->setPixmap(getIconPixmap(1));
 	buttonGroup1Layout->addWidget( toolButton2, 0, 1 );
 	toolButton3 = new QToolButton( buttonGroup1, "toolButton3" );
-	toolButton3->setToggleButton( TRUE );
-  toolButton3->setPixmap(getIconPixmap(2));
+	/* PFJ - 28/02/04 - altered from true to true */
+	toolButton3->setToggleButton( true );
+	toolButton3->setPixmap(getIconPixmap(2));
 	buttonGroup1Layout->addWidget( toolButton3, 0, 2 );
 	toolButton4 = new QToolButton( buttonGroup1, "toolButton4" );
-	toolButton4->setToggleButton( TRUE );
-  toolButton4->setPixmap(getIconPixmap(3));
+	toolButton4->setToggleButton( true );
+	toolButton4->setPixmap(getIconPixmap(3));
 	buttonGroup1Layout->addWidget( toolButton4, 0, 3 );
 
 	toolButton5 = new QToolButton( buttonGroup1, "toolButton3" );
-	toolButton5->setToggleButton( TRUE );
-  toolButton5->setPixmap(getIconPixmap(4));
+	/* PFJ - 28/02/04 - altered from true to true */
+	toolButton5->setToggleButton( true );
+	toolButton5->setPixmap(getIconPixmap(4));
 	buttonGroup1Layout->addWidget( toolButton5, 1, 0 );
 	toolButton6 = new QToolButton( buttonGroup1, "toolButton4" );
-	toolButton6->setToggleButton( TRUE );
-  toolButton6->setPixmap(getIconPixmap(5));
+	/* PFJ - 28/02/04 - altered from true to true */
+	toolButton6->setToggleButton( true );
+	toolButton6->setPixmap(getIconPixmap(5));
 	buttonGroup1Layout->addWidget( toolButton6, 1, 1 );
 	toolButton7 = new QToolButton( buttonGroup1, "toolButton3" );
-	toolButton7->setToggleButton( TRUE );
-  toolButton7->setPixmap(getIconPixmap(6));
+	/* PFJ - 28/02/04 - altered from true to true */
+	toolButton7->setToggleButton( true );
+	toolButton7->setPixmap(getIconPixmap(6));
 	buttonGroup1Layout->addWidget( toolButton7, 1, 2 );
 	toolButton8 = new QToolButton( buttonGroup1, "toolButton4" );
-	toolButton8->setToggleButton( TRUE );
-  toolButton8->setPixmap(getIconPixmap(7));
+	/* PFJ - 28/02/04 - altered from true to true */
+	toolButton8->setToggleButton( true );
+	toolButton8->setPixmap(getIconPixmap(7));
 	buttonGroup1Layout->addWidget( toolButton8, 1, 3 );
 
 	toolButton9 = new QToolButton( buttonGroup1, "toolButton4" );
-	toolButton9->setToggleButton( TRUE );
-  toolButton9->setPixmap(getIconPixmap(8));
+	/* PFJ - 28/02/04 - altered from true to true */	
+	toolButton9->setToggleButton( true );
+	toolButton9->setPixmap(getIconPixmap(8));
 	buttonGroup1Layout->addWidget( toolButton9, 2, 0 );
 	toolButton10 = new QToolButton( buttonGroup1, "toolButton4" );
-	toolButton10->setToggleButton( TRUE );
-  toolButton10->setPixmap(getIconPixmap(9));
+	/* PFJ - 28/02/04 - altered from true to true */
+	toolButton10->setToggleButton( true );
+	toolButton10->setPixmap(getIconPixmap(9));
 	buttonGroup1Layout->addWidget( toolButton10, 2, 1 );
 	toolButton11 = new QToolButton( buttonGroup1, "toolButton4" );
-	toolButton11->setToggleButton( TRUE );
-  toolButton11->setPixmap(getIconPixmap(10));
+	/* PFJ - 28/02/04 - altered from true to true */
+	toolButton11->setToggleButton( true );
+	toolButton11->setPixmap(getIconPixmap(10));
 	buttonGroup1Layout->addWidget( toolButton11, 2, 2 );
 	toolButton12 = new QToolButton( buttonGroup1, "toolButton4" );
-	toolButton12->setToggleButton( TRUE );
-  toolButton12->setPixmap(getIconPixmap(11));
+	/* PFJ - 28/02/04 - altered from true to true */
+	toolButton12->setToggleButton( true );
+	toolButton12->setPixmap(getIconPixmap(11));
 	buttonGroup1Layout->addWidget( toolButton12, 2, 3 );
 
 	toolButton13 = new QToolButton( buttonGroup1, "toolButton4" );
-	toolButton13->setToggleButton( TRUE );
-  toolButton13->setPixmap(getIconPixmap(12));
+	/* PFJ - 28/02/04 - altered from true to true */
+	toolButton13->setToggleButton( true );
+	toolButton13->setPixmap(getIconPixmap(12));
 	buttonGroup1Layout->addWidget( toolButton13, 3, 0 );
 	toolButton14 = new QToolButton( buttonGroup1, "toolButton4" );
-	toolButton14->setToggleButton( TRUE );
-  toolButton14->setPixmap(getIconPixmap(13));
+	/* PFJ - 28/02/04 - altered from true to true */
+	toolButton14->setToggleButton( true );
+	toolButton14->setPixmap(getIconPixmap(13));
 	buttonGroup1Layout->addWidget( toolButton14, 3, 1 );
+	/* PFJ - 28/02/04 - altered from true to true */
 	toolButton15 = new QToolButton( buttonGroup1, "toolButton4" );
-	toolButton15->setToggleButton( TRUE );
-  toolButton15->setPixmap(getIconPixmap(14));
+	toolButton15->setToggleButton( true );
+	toolButton15->setPixmap(getIconPixmap(14));
 	buttonGroup1Layout->addWidget( toolButton15, 3, 2 );
 	toolButton16 = new QToolButton( buttonGroup1, "toolButton4" );
-	toolButton16->setToggleButton( TRUE );
-  toolButton16->setPixmap(getIconPixmap(15));
+	/* PFJ - 28/02/04 - altered from true to true */
+	toolButton16->setToggleButton( true );
+	toolButton16->setPixmap(getIconPixmap(15));
 	buttonGroup1Layout->addWidget( toolButton16, 3, 3 );
 
 	toolButton17 = new QToolButton( buttonGroup1, "toolButton4" );
-	toolButton17->setToggleButton( TRUE );
-  toolButton17->setPixmap(getIconPixmap(16));
+	/* PFJ - 28/02/04 - altered from true to true */
+	toolButton17->setToggleButton( true );
+	toolButton17->setPixmap(getIconPixmap(16));
 	buttonGroup1Layout->addWidget( toolButton17, 4, 0 );
 	toolButton18 = new QToolButton( buttonGroup1, "toolButton4" );
-	toolButton18->setToggleButton( TRUE );
-  toolButton18->setPixmap(getIconPixmap(17));
+	/* PFJ - 28/02/04 - altered from true to true */
+	toolButton18->setToggleButton( true );
+	toolButton18->setPixmap(getIconPixmap(17));
 	buttonGroup1Layout->addWidget( toolButton18, 4, 1 );
 
 	Men = new QPopupMenu();
 	Men->insertItem(buttonGroup1);
 	setPopup(Men);
 	setPopupDelay(10);
-  setPixmap(getIconPixmap(0));
+	setPixmap(getIconPixmap(0));
 	connect(buttonGroup1, SIGNAL(clicked(int)), this, SLOT(selForm(int)));
 }
 
@@ -113,8 +131,11 @@ double* Autoforms::getShapeData(int a, int *n)
 	static double AutoShapes0[] = {0.0, 0.0, 0.0, 0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0,
 									100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 0.0, 100.0, 0.0, 100.0,
 									0.0, 100.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0};
-	static double AutoShapes1[] = {100.0, 50.0, 100.0, 77.615235, 50.0, 100.0, 77.615235, 100.0, 50.0, 100.0, 22.385765, 100.0,
-									0.0, 50.0, 0.0, 77.615235, 0.0, 50.0, 0.0, 22.385765, 50.0, 0.0, 22.385765, 0.0,
+	static double AutoShapes1[] = {100.0, 50.0, 100.0, 77.615235, 50.0, 100.0,
+									77.615235, 100.0, 50.0, 100.0,
+		 							22.385765, 100.0,
+									0.0, 50.0, 0.0, 77.615235, 0.0, 50.0, 0.0, 22.385765, 50.0, 0.0,
+									22.385765, 0.0,
 									50.0, 0.0, 77.615235, 0.0, 100.0, 50.0, 100.0, 22.385765};
 	static double AutoShapes2[] = {0.0, 0.0, 0.0, 0.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0,
 								 	0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0};
@@ -147,11 +168,15 @@ double* Autoforms::getShapeData(int a, int *n)
 									100.0, 50.0, 100.0, 50.0,	100.0, 50.0, 100.0, 50.0, 50.0, 100.0, 50.0, 100.0,
 									50.0, 100.0, 50.0, 100.0,	0.0, 50.0, 0.0, 50.0};
 	static double AutoShapes8[] = {0.0, 50.0, 0.0, 22.385765, 100.0, 0.0, 44.77716, 0.0,	100.0, 0.0, 100.0, 0.0,
-									100.0, 100.0, 100.0, 100.0,	100.0, 100.0, 44.77716, 100.0, 0.0, 50.0, 0.0, 77.615235};
-	static double AutoShapes9[] = {100.0, 50.0, 100.0, 77.615235, 0.0, 100.0, 55.22284, 100.0, 0.0, 100.0, 0.0, 100.0,
+									100.0, 100.0, 100.0, 100.0,	100.0, 100.0, 44.77716, 100.0, 0.0, 50.0,
+									0.0, 77.615235};
+	static double AutoShapes9[] = {100.0, 50.0, 100.0, 77.615235, 0.0, 100.0,
+55.22284, 100.0, 0.0, 100.0, 0.0, 100.0,
 									0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 55.22281, 0.0, 100.0, 50.0, 100.0, 22.385765};
-	static double AutoShapes10[] = {100.0, 100.0, 100.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0, 44.7715,
-									 50.0, 0.0, 22.3858, 0.0, 50.0, 0.0, 77.6152, 0.0, 100.0, 100.0, 100.0, 44.7715};
+	static double AutoShapes10[] = {100.0, 100.0, 100.0, 100.0, 0.0, 100.0, 0.0,
+									100.0, 0.0, 100.0, 0.0, 44.7715,
+									 50.0, 0.0, 22.3858, 0.0, 50.0, 0.0, 77.6152, 0.0, 100.0, 100.0, 100.0,
+44.7715};
 	static double AutoShapes11[] = {100.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 55.2285, 50.0, 100.0,
 									 22.3858, 100.0, 50.0, 100.0, 77.6152, 100.0, 100.0, 0.0, 100.0, 55.2285};
 	static double AutoShapes12[] = {0.0, 50.0, 0.0, 50.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0, 100.0, 0.0,
@@ -272,19 +297,19 @@ QPixmap Autoforms::getIconPixmap(int nr)
 	Path.resize(0);
 	AutoShapes = getShapeData(nr, &count);
 	for (int a = 0; a < count-3; a += 4)
-		{
+	{
 		if (AutoShapes[a] < 0)
-			{
+		{
 			Path.setMarker();
 			continue;
-			}
+		}
 		double x1 = 16 * AutoShapes[a] / 100.0;
 		double y1 = 16 * AutoShapes[a+1] / 100.0;
 		double x2 = 16 * AutoShapes[a+2] / 100.0;
 		double y2 = 16 * AutoShapes[a+3] / 100.0;
 		Path.addPoint(x1, y1);
 		Path.addPoint(x2, y2);
-		}
+	}
 	ScPainter *painter = new ScPainter(&Ico, 22, 22);
 	painter->setBrush(qRgb(230, 230, 230));
 	painter->setPen(qRgb(0, 0, 0));
@@ -303,15 +328,15 @@ QPixmap Autoforms::getIconPixmap(int nr)
 	int wi = image.width();
 	int hi = image.height();
     for( int yi=0; yi < hi; ++yi )
-		{
+	{
 		QRgb *s = (QRgb*)(image.scanLine( yi ));
 		for(int xi=0; xi < wi; ++xi )
-			{
+		{
 			if((*s) == 0xffffffff)
 				(*s) &= 0x00ffffff;
 			s++;
-			}
-    	}
+		}
+    }
 	Ico.convertFromImage(image);
 //	Ico.setMask( Ico.createHeuristicMask() );
 	return Ico;

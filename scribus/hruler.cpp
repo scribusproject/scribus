@@ -62,7 +62,8 @@ void Hruler::paintEvent(QPaintEvent *)
 	switch (doku->Einheit)
 	{
 		case 0:
-			if (sc > 1)
+			/* PFJ - 29.02.04 - Altered so the if isn't executed twice. Repeated */
+			if (sc > 1 && sc <= 4)
 				cor = 2;
 			if (sc > 4)
 				cor = 10;
@@ -78,34 +79,34 @@ void Hruler::paintEvent(QPaintEvent *)
 		case 2:
 			iter = 18.0;
 			iter2 = 72.0;
-			if (sc > 1)
-				{
+			if (sc > 1 && sc <= 4)
+			{
 				cor = 2;
 				iter = 9.0;
 				iter2 = 36.0;
-				}
+			}
 			if (sc > 4)
-				{
+			{
 				iter = 9.0;
 				iter2 = 18.0;
 				cor = 4;
-				}
+			}
 			break;
 		case 3:
 			iter = 12.0;
 			iter2 = 120.0;
-			if (sc > 1)
-				{
+			if (sc > 1 && sc <= 4)
+			{
 				cor = 1;
 				iter = 12.0;
 				iter2 = 60.0;
-				}
+			}
 			if (sc > 4)
-				{
+			{
 				cor = 2;
 				iter = 6.0;
 				iter2 = 12.0;
-				}
+			}
 			break;
 	}
 	QPainter p;

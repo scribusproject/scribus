@@ -97,11 +97,11 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	TxFill->insertItem( tr("None"));
 	TxStroke->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		{
+	{
 		pm.fill(doc->PageColors[it.key()].getRGBColor());
 		TxFill->insertItem(pm, it.key());
 		TxStroke->insertItem(pm, it.key());
-		}
+	}
 	StrokeIcon->setEnabled(false);
 	TxStroke->setEnabled(false);
 	TxFill->setCurrentText(vor->FColor);
@@ -243,25 +243,15 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	FirstLin->setDecimals(10);
 	AboveV->setDecimals(10);
 	BelowV->setDecimals(10);
-	QString ein;
-	switch (dEin)
+	/* PFJ - 29.02.04 - Altered switch so only case 2 is tested */
+	QString ein, measure[] = {" pt", " mm", " in", " p"};
+	ein = measure[dEin];
+	if (dEin == 2)
 	{
-		case 0:
-			ein = " pt";
-			break;
-		case 1:
-		   	ein = " mm";
-			break;
-		case 2:
-	    	ein = " in";
-			LeftInd->setDecimals(10000);
-			FirstLin->setDecimals(10000);
-	  		AboveV->setDecimals(10000);
-	  		BelowV->setDecimals(10000);
-			break;
-		case 3:
-	    	ein = " p";
-			break;
+		LeftInd->setDecimals(10000);
+		FirstLin->setDecimals(10000);
+	  	AboveV->setDecimals(10000);
+	  	BelowV->setDecimals(10000);
 	}
     LeftInd->setSuffix(ein);
     FirstLin->setSuffix(ein);

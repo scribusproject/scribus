@@ -31,9 +31,12 @@ Align::Align( QWidget* parent, int anz, int ein)
     VartH = new QComboBox( true, ButtonGroup1, "VartH" );
     VartH->setEnabled( true );
     VartH->setMinimumSize( QSize( 100, 22 ) );
-    VartH->insertItem( tr("Left Sides"));
-    VartH->insertItem( tr("Middles"));
-    VartH->insertItem( tr("Right Sides"));
+	/* PFJ - 28/2/04 - altered the single line inserts for the faster way I've
+	                   used before. sides is used later on in this method */
+	QString sides[] = { tr("Left Sides"), tr("Middles"), tr("Right Sides")};
+	size_t tempSides = sizeof(sides) / sizeof(*sides);
+	for (uint propogate = 0; propogate < tempSides; ++propogate)
+		VartH->insertItem(sides[propogate]);
     VartH->setEditable(false);
 	ButtonGroup1Layout->addMultiCellWidget( VartH, 0, 0, 1, 2 );
     NichtsH = new QRadioButton( ButtonGroup1, "NichtsH" );
@@ -79,10 +82,10 @@ Align::Align( QWidget* parent, int anz, int ein)
     VartV = new QComboBox( true, ButtonGroup1_2, "VartH" );
     VartV->setEnabled( true );
     VartV->setMinimumSize( QSize( 100, 22 ) );
-    VartV->insertItem( tr("Top Sides"));
-    VartV->insertItem( tr("Middles"));
-    VartV->insertItem( tr("Bottom Sides"));
     VartV->setEditable(false);
+    VartV->insertItem(tr("Top Sides"));
+    VartV->insertItem(tr("Middles"));
+    VartV->insertItem(tr("Bottom Sides"));
 		ButtonGroup1_2Layout->addMultiCellWidget( VartV, 0, 0, 1, 2 );
     NichtsV = new QRadioButton( ButtonGroup1_2, "NichtsH" );
     NichtsV->setText( tr( "Don't change" ) );

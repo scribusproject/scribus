@@ -15,6 +15,11 @@
  *                                                                         *
  ***************************************************************************/
 
+/* PFJ - 29.02.04 - Added iostream, iomanip and sstream for CMYK::name */
+/*
+#include <iostream>
+#include <iomanip>
+#include <sstream> */
 #include "cmykcolor.h"
 
 #if (_MSC_VER >= 1200)
@@ -97,6 +102,17 @@ void CMYKColor::applyGCR()
 
 QString CMYKColor::name()
 {
+	/* PFJ - 29.02.04 - rewritten to use setw and setfill */
+	// doesn't compile here, so i replaced it with the old code F.S.
+/*	QString tmp2;
+	std::ostringstream tmp;
+	tmp << std::setw(2) << std::setfill('0') << C 
+		<< std::setw(2) << M
+		<< std::setw(2) << Y
+		<< std::setw(2) << K;
+	tmp2 = "#" + tmp.str();
+	return tmp2;
+	*/
 	QString tmp, tmp2;
 	tmp2 = "#";
 	tmp.setNum(C, 16);

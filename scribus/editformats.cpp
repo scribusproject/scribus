@@ -87,13 +87,13 @@ void StilFormate::saveIt()
 void StilFormate::selFormat(QListBoxItem *c)
 {
 	for (uint x = 5; x < TempVorl.count(); ++x)
-		{
+	{
 		if (TempVorl[x].Vname == c->text())
-			{
+		{
 			sFnumber = x;
 			break;
-			}
 		}
+	}
     EditB->setEnabled(true);
     DublicateB->setEnabled(true);
     DeleteB->setEnabled(true);
@@ -176,7 +176,8 @@ void StilFormate::deleteFormat()
                                 tr("No"),
                                 tr("Yes"),
                                 0, QMessageBox::No, QMessageBox::Yes);
-	if (exit == 1)
+	/* PFJ - 29.02.04 - Altered to use the correct QMessageBox value. It was 1 */
+	if (exit == QMessageBox::Yes)
 	{
 		ListBox1->removeItem(sFnumber);
 		TempVorl.remove(TempVorl.at(sFnumber));
@@ -250,6 +251,7 @@ void StilFormate::UpdateFList()
    		EditB->setEnabled(false);
 		DeleteB->setEnabled(false);
    	}
-	ListBox1->sort( TRUE );
+	/* PFJ - 29.02.04 - Altered from TRUE to true */
+	ListBox1->sort( true );
 	ListBox1->setSelected(ListBox1->currentItem(), false);
 }
