@@ -3828,7 +3828,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 					double gx, gy, gh, gw;
 					getGroupRectScreen(&gx, &gy, &gw, &gh);
 					if ((QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw),
-								 static_cast<int>(gh)).intersects(mpo)) && (m->state() != (ControlButton | AltButton)))
+								 static_cast<int>(gh)).intersects(mpo)) && (m->state() != (ControlButton | AltButton)) && (m->state() != ShiftButton))
 					{
 						HowTo = 0;
 						if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
@@ -6879,20 +6879,20 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 		b->fill_gradient.clearStops();
 		if (Buffer->GrType == 5)
 		{
-			if ((Buffer->GrColor != "None") && (Buffer->GrColor != ""))
-				b->SetFarbe(&tmp, Buffer->GrColor, Buffer->GrShade);
-			b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
 			if ((Buffer->GrColor2 != "None") && (Buffer->GrColor2 != ""))
 				b->SetFarbe(&tmp, Buffer->GrColor2, Buffer->GrShade2);
+			b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
+			if ((Buffer->GrColor != "None") && (Buffer->GrColor != ""))
+				b->SetFarbe(&tmp, Buffer->GrColor, Buffer->GrShade);
 			b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
 		}
 		else
 		{
-			if ((Buffer->GrColor2 != "None") && (Buffer->GrColor2 != ""))
-				b->SetFarbe(&tmp, Buffer->GrColor2, Buffer->GrShade2);
-			b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
 			if ((Buffer->GrColor != "None") && (Buffer->GrColor != ""))
 				b->SetFarbe(&tmp, Buffer->GrColor, Buffer->GrShade);
+			b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
+			if ((Buffer->GrColor2 != "None") && (Buffer->GrColor2 != ""))
+				b->SetFarbe(&tmp, Buffer->GrColor2, Buffer->GrShade2);
 			b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
 		}
 		b->GrColor2 = Buffer->GrColor2;

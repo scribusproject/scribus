@@ -1089,6 +1089,7 @@ void Mpalette::NewSel(int nr)
 		BottomLeft->setEnabled(true);
 		BottomRight->setEnabled(true);
 		Center->setEnabled(true);
+		visID = TabStack->id(TabStack->visibleWidget());
 		TabStack->widget(0)->setEnabled(true);
 		TabStack->widget(1)->setEnabled(false);
 		TabStack->widget(2)->setEnabled(false);
@@ -1096,7 +1097,6 @@ void Mpalette::NewSel(int nr)
 		TabStack->widget(4)->setEnabled(false);
 		TabStack->widget(5)->setEnabled(true);
 		SColor->setEnabled(true);
-		visID = TabStack->id(TabStack->visibleWidget());
 		switch (nr)
 			{
 			case -1:
@@ -1123,7 +1123,7 @@ void Mpalette::NewSel(int nr)
 				SImage->setEnabled(false);
 				SLine->setEnabled(false);
 				SColor->setEnabled(false);
-				SGeom->setOn(true);
+//				SGeom->setOn(true);
 				break;
 			case 1:
 				SGeom->setEnabled(true);
@@ -2666,7 +2666,14 @@ void Mpalette::handleLock()
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		doc->ActPage->ToggleLock();
+	{
+		for ( uint a = 0; a < doc->ActPage->SelItem.count(); ++a)
+  		{
+			doc->ActPage->SelItem.at(a)->Locked = Locked->isOn();
+			doc->ActPage->RefreshItem(doc->ActPage->SelItem.at(a));
+		}
+		emit DocChanged();
+	}
 }
 
 void Mpalette::handlePrint()
