@@ -36,8 +36,8 @@ QString EditMacroDialog::getSource()
 void EditMacroDialog::saveSourceClicked()
 {
 	QString path = QFileDialog::getSaveFileName(
-			QDir::homeDirPath(), "Python source files (.py)", this,
-			"Save File Dialog", "Save macro source");
+			QDir::homeDirPath(), tr("Python source files (.py)"), this,
+			tr("Save File Dialog"), tr("Save macro source"));
 	if (path != "")
 	{
 		if (QFile::exists(path))
@@ -67,8 +67,8 @@ void EditMacroDialog::saveSourceClicked()
 void EditMacroDialog::loadSourceClicked()
 {
 	QString path = QFileDialog::getOpenFileName(
-			QDir::homeDirPath(), "Python source files (.py)", this,
-			"Open File Dialog", "Select the source file to load");
+			QDir::homeDirPath(), tr("Python source files (.py)"), this,
+			tr("Open File Dialog"), tr("Select the source file to load"));
 	if (path != "")
 	{
 		if ((this->getSource() != "") && (this->sourceCodeEdit->isModified()) )

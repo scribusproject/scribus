@@ -58,8 +58,8 @@ void ManageMacrosDialog::deleteAllClicked()
 void ManageMacrosDialog::importClicked()
 {
 	QString path = QFileDialog::getOpenFileName(
-			QDir::homeDirPath(), "Scribus Macro Files (*.pymacro)", this,
-			"Open File Dialog", "Select the macro file to load.");
+			QDir::homeDirPath(), tr("Scribus Macro Files (*.pymacro)"), this,
+			tr("Open File Dialog"), tr("Select the macro file to load."));
 	if (path != "")
 		emit importMacros(path);
 }
@@ -68,8 +68,8 @@ void ManageMacrosDialog::importClicked()
 void ManageMacrosDialog::exportClicked()
 {
 	QString path = QFileDialog::getSaveFileName(
-			QDir::homeDirPath(), "Scribus Macro Files (*.pymacro)", this,
-			"Save File Dialog", "Save all macros");
+			QDir::homeDirPath(), tr("Scribus Macro Files (*.pymacro)"), this,
+			tr("Save File Dialog"), tr("Save all macros"));
 	if (path != "")
 		emit exportMacros(path);
 }
@@ -81,7 +81,7 @@ void ManageMacrosDialog::renameClicked()
 	QString macroName = this->getNameOfSelection();
 	bool ok = false;
 	QString newName = QInputDialog::getText(
-			"Scribus - Rename Macro", "Enter new name: ",
+			tr("Scribus - Rename Macro"), tr("Enter new name: "),
 			QLineEdit::Normal, macroName, &ok, this);
 	if (ok)
 		emit(renameMacro(macroName, newName));
@@ -97,7 +97,7 @@ void ManageMacrosDialog::setAccelClicked()
 	QString macroAccel = this->getAccelOfSelection();
 	bool ok = false;
 	QString newAccel = QInputDialog::getText(
-			"Scribus - Set Macro Shortcut", "Enter new shortcut: ",
+			tr("Scribus - Set Macro Shortcut"), tr("Enter new shortcut: "),
 			QLineEdit::Normal, macroAccel, &ok, this);
 	if (ok)
 		emit(changeMacroAccel(macroName, newAccel));
@@ -148,7 +148,7 @@ void ManageMacrosDialog::appendRow(QString macroName, QString description,
 	int numRows = this->macroTable->numRows();
 	this->macroTable->insertRows(numRows);
 	this->macroTable->setText(numRows, 0, macroName);
-	this->macroTable->setText(numRows, 1, edit ? "Yes" : "No");
+	this->macroTable->setText(numRows, 1, edit ? tr("Yes") : tr("No"));
 	this->macroTable->setText(numRows, 2, accel);
 	this->macroTable->setText(numRows, 3, desc);
 	// re-sort the table by name
@@ -181,7 +181,7 @@ QString ManageMacrosDialog::getAccelOfSelection()
 bool ManageMacrosDialog::selectionEditable()
 {
 	int selectedRow = this->macroTable->selection(0).topRow();
-	return this->macroTable->text(selectedRow, 1) == "Yes" ? true : false;
+	return this->macroTable->text(selectedRow, 1) == tr("Yes") ? true : false;
 }
 
 
@@ -239,7 +239,7 @@ void ManageMacrosDialog::updateDescription( QString macroName,
 void ManageMacrosDialog::updateEditable( QString macroName, QString newSource )
 {
 	int rowId = getRowNumByName(macroName);
-	this->macroTable->setText(rowId, 1, newSource == QString::null ? "No" : "Yes");
+	this->macroTable->setText(rowId, 1, newSource == QString::null ? tr("No") : tr("Yes"));
 }
 
 

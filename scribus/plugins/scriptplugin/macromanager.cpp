@@ -480,7 +480,7 @@ bool MacroManager::newMacroDialog()
 	{
 		nameOk = false;
 		macroName = QInputDialog::getText(
-				"Scribus - New Macro", "Enter name for new macro: ",
+				tr("Scribus - New Macro"), tr("Enter name for new macro: "),
 				QLineEdit::Normal, macroName, &dialogAccepted, Carrier);
 		if (dialogAccepted)
 		{
