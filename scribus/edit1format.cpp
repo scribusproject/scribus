@@ -175,10 +175,10 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	GroupBox10Layout->setSpacing( 5 );
 	GroupBox10Layout->setMargin( 10 );
 	TabList = new Tabruler(GroupBox10, true, DocsEin, vor->TabValues, -1);
-	TabList->setIndentSpin(vor->Indent);
-	TabList->setIndent();
-	TabList->setFirstSpin(vor->First);
-	TabList->setFirst();
+	TabList->setLeftIndentData(vor->Indent);
+	TabList->setLeftIndent();
+	TabList->setFirstLineData(vor->First);
+	TabList->setFirstLine();
 	GroupBox10Layout->addWidget( TabList );
 
 	EditStyleLayout->addMultiCellWidget( GroupBox10, 3, 3, 0, 1 );
@@ -289,8 +289,8 @@ void EditStyle::Verlassen()
 	werte->FontEffect = EffeS->getStyle();
 	werte->Ausri = AligS->getStyle();
 	werte->LineSpa = LineSpVal->value();
-	werte->Indent = TabList->getIndent();
-	werte->First = TabList->getFirst();
+	werte->Indent = TabList->getLeftIndent();
+	werte->First = TabList->getFirstLine();
 	werte->Avor = AboveV->value() / UmReFaktor;
 	werte->Anach = BelowV->value() / UmReFaktor;
 	werte->Vname = Name->text();

@@ -20,34 +20,34 @@ class RulerT : public QWidget
 public:
 	RulerT(QWidget* parent, int ein, QValueList<double> Tabs, bool ind, double wid);
 	~RulerT() {};
-	void UpdateTabList();
-	bool Mpressed;
-	QValueList<double> TabValues;
+	void updateTabList();
+	bool mousePressed;
+	QValueList<double> tabValues;
 	bool haveInd;
-	int Einheit;
-	int Offset;
-	int ActTab;
-	double Indent;
-	double First;
+	int unitIndex;
+	int offset;
+	int actTab;
+	double leftIndent;
+	double firstLine;
 	double Width;
-	int RulerCode;
-	int MouseX;
+	int rulerCode;
+	int mouseX;
 
 public slots:
 	void decreaseOffset();
 	void increaseOffset();
 	void changeTab(int t);
 	void moveTab(double t);
-	void moveFirst(double t);
-	void moveIndent(double t);
+	void moveFirstLine(double t);
+	void moveLeftIndent(double t);
 
 signals:
-	void TabMoved(double);
-	void TypeChanged(int);
-	void IndentMoved(double);
-	void FirstMoved(double);
-	void NoTabs();
-	void NewTab();
+	void tabMoved(double);
+	void typeChanged(int);
+	void leftIndentMoved(double);
+	void firstLineMoved(double);
+	void noTabs();
+	void newTab();
 
 protected:
 	virtual void paintEvent(QPaintEvent *);
@@ -66,20 +66,8 @@ public:
 	~Tabruler() {};
 	QValueList<double> getTabVals();
 	bool haveF;
-	double getFirst();
-	double getIndent();
-
-	QComboBox* TypeCombo;
-	QToolButton* RulerScrollL;
-	RulerT* Ruler;
-	QToolButton* RulerScrollR;
-	QLabel* Label1;
-	MSpinBox* TabSpin;
-	QLabel* Label2;
-	MSpinBox* FirstSpin;
-	QLabel* Label3;
-	MSpinBox* IndentSpin;
-	QPushButton* ClearButton;
+	double getFirstLine();
+	double getLeftIndent();
 
 public slots:
 	void clearAll();
@@ -87,18 +75,28 @@ public slots:
 	void lastTabRemoved();
 	void setTabType(int t);
 	void setType();
-	void setTabSpin(double t);
+	void setTabData(double t);
 	void setTab();
-	void setFirstSpin(double t);
-	void setFirst();
-	void setIndentSpin(double t);
-	void setIndent();
+	void setFirstLineData(double t);
+	void setFirstLine();
+	void setLeftIndentData(double t);
+	void setLeftIndent();
 
 protected:
 	QVBoxLayout* tabrulerLayout;
 	QHBoxLayout* layout2;
 	QHBoxLayout* layout1;
-
+	QComboBox* TypeCombo;
+	RulerT* ruler;
+	QToolButton* rulerScrollL;
+	QToolButton* rulerScrollR;
+	QLabel* positionLabel;
+	QLabel* firstLineLabel;
+	QLabel* leftIndentLabel;
+	MSpinBox* tabData;
+	MSpinBox* firstLineData;
+	MSpinBox* leftIndentData;
+	QPushButton* clearButton;
 };
 
 #endif // TABRULER_H

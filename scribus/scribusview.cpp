@@ -37,7 +37,6 @@
 #include <qfileinfo.h>
 #include <qfile.h>
 #include <cmath>
-#include <iostream>
 #include <cstdio>
 #include <cstdlib>
 #include <unistd.h>
