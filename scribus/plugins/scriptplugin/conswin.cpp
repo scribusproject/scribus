@@ -30,7 +30,8 @@ ConsWin::ConsWin(QWidget* parent) : QTextEdit(parent)
 	TODO: get user defined font by (future) KDE integration
 	TODO: is there any component with more user friendly pythonic interface? readline etc?
 	*/
-	QFont font = QFont("nonexisting:)");
+	QFont font = QFont("Fixed");
+	//QFont font = QFont("nonexisting:)");
 	font.setStyleHint(QFont::TypeWriter);
 	font.setPointSize(ScApp->Prefs.AppFontSize);
 	setFont(font);
