@@ -6966,6 +6966,7 @@ void ScribusApp::SaveAsPDF()
 		doc->PDF_Optionen.PresentVals = dia->EffVal;
 		doc->PDF_Optionen.Articles = dia->Article->isChecked();
 		doc->PDF_Optionen.Encrypt = dia->Encry->isChecked();
+		doc->PDF_Optionen.UseLPI = dia->UseLPI->isChecked();
 		if (dia->Encry->isChecked())
 		{
 			int Perm = -64;

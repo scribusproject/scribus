@@ -1563,6 +1563,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			}
 			PAGE=PAGE.nextSibling();
 		}
+		PAGE=DOC.firstChild();
 		while(!PAGE.isNull())
 		{
 			QDomElement pg=PAGE.toElement();
@@ -1599,10 +1600,19 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				doc->PDF_Optionen.PassUser = pg.attribute("PassUser", "");
 				doc->PDF_Optionen.Permissions = QStoInt(pg.attribute("Permissions","-4"));
 				doc->PDF_Optionen.Encrypt = static_cast<bool>(QStoInt(pg.attribute("Encrypt","0")));
+				doc->PDF_Optionen.UseLPI = static_cast<bool>(QStoInt(pg.attribute("UseLpi","0")));
 				QDomNode PFO = PAGE.firstChild();
 				while(!PFO.isNull())
 				{
 					QDomElement pdfF = PFO.toElement();
+					if(pdfF.tagName() == "LPI")
+					{
+						struct LPIset lpo;
+						lpo.Angle = QStoInt(pdfF.attribute("Angle"));
+						lpo.Frequency = QStoInt(pdfF.attribute("Frequency"));
+						lpo.SpotFunc = QStoInt(pdfF.attribute("SpotFunction"));
+						doc->PDF_Optionen.LPISettings[pdfF.attribute("Color")] = lpo;
+					}
 					if(pdfF.tagName() == "Fonts")
 					{
 						if (!doc->PDF_Optionen.EmbedList.contains(DoFonts[pdfF.attribute("Name")]))
@@ -1622,6 +1632,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					PFO = PFO.nextSibling();
 				}
 			}
+			PAGE=PAGE.nextSibling();
 		}
 		DOC=DOC.nextSibling();
 	}
@@ -2634,6 +2645,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 	pdf.setAttribute("PassUser", doc->PDF_Optionen.PassUser);
 	pdf.setAttribute("Permissions", doc->PDF_Optionen.Permissions);
 	pdf.setAttribute("Encrypt", static_cast<int>(doc->PDF_Optionen.Encrypt));
+	pdf.setAttribute("UseLpi", static_cast<int>(doc->PDF_Optionen.UseLPI));
 	for (uint pdoF = 0; pdoF < doc->PDF_Optionen.EmbedList.count(); ++pdoF)
 	{
 		QDomElement pdf2 = docu.createElement("Fonts");
@@ -2650,6 +2662,16 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 		pdf3.setAttribute("M", doc->PDF_Optionen.PresentVals[pdoE].M);
 		pdf3.setAttribute("Di", doc->PDF_Optionen.PresentVals[pdoE].Di);
 		pdf.appendChild(pdf3);
+	}
+	QMap<QString,LPIset>::Iterator itlp;
+	for (itlp = doc->PDF_Optionen.LPISettings.begin(); itlp != doc->PDF_Optionen.LPISettings.end(); ++itlp)
+	{
+		QDomElement pdf4 = docu.createElement("LPI");
+		pdf4.setAttribute("Color", itlp.key());
+		pdf4.setAttribute("Frequency", itlp.data().Frequency);
+		pdf4.setAttribute("Angle", itlp.data().Angle);
+		pdf4.setAttribute("SpotFunction", itlp.data().SpotFunc);
+		pdf.appendChild(pdf4);
 	}
 	if (dia2 != 0)
 	{

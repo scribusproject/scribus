@@ -293,6 +293,12 @@ struct PreSet {
 				int Di;
 				};
 
+struct LPIset { 
+				int Frequency;
+				int Angle;
+				int SpotFunc;
+				};
+
 struct PDFOpt { 
 				bool Thumbnails;
 				bool Articles;
@@ -312,6 +318,8 @@ struct PDFOpt {
 				bool UseRGB;
 				bool UseProfiles;
 				bool UseProfiles2;
+				bool UseLPI;
+				QMap<QString,LPIset> LPISettings;
 				QString SolidProf;
 				int SComp;
 				QString ImageProf;

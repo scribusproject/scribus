@@ -1,5 +1,12 @@
 Changes since Version 1.1.7
 
+16.07.2004
+	* feature #855: Setting Linescreen in PDF export
+	* feature #864: Ukrainian Translation Update
+
+15.07.2004
+	* bug     #863: Issue with background gradients overwriting images
+
 14.07.2004
 	* bug     #399: unable to copy from Properties/Geometry if object is locked
 	* bug     #861: Cut / Copy / Paste broken on Paste

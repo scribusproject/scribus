@@ -1693,23 +1693,23 @@ This can be set in the Preferences.</source>
     <name>DocInfos</name>
     <message>
         <source>Document Info</source>
-        <translation>Інформація про документ</translation>
+        <translation type="obsolete">Інформація про документ</translation>
     </message>
     <message>
         <source>Author:</source>
-        <translation>Автор:</translation>
+        <translation type="obsolete">Автор:</translation>
     </message>
     <message>
         <source>Title:</source>
-        <translation>Заголовок:</translation>
+        <translation type="obsolete">Заголовок:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation>Опис:</translation>
+        <translation type="obsolete">Опис:</translation>
     </message>
     <message>
         <source>Keywords:</source>
-        <translation>Ключові слова:</translation>
+        <translation type="obsolete">Ключові слова:</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1721,15 +1721,160 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Це поле може бути вбудоване в документ Scribus  чи як метадата в PDF, як довідка</translation>
+        <translation type="obsolete">Це поле може бути вбудоване в документ Scribus  чи як метадата в PDF, як довідка</translation>
     </message>
     <message>
         <source>This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>Це поле служить, як короткий опис або абстракт документу. Воно вбудовується в PDF при експорті</translation>
+        <translation type="obsolete">Це поле служить, як короткий опис або абстракт документу. Воно вбудовується в PDF при експорті</translation>
     </message>
     <message>
         <source>This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>Це поле для ключових слів, які Ви бажаєте вбудувати в PDF, для полегшення пошуку чи індексування PDF файлів</translation>
+        <translation type="obsolete">Це поле для ключових слів, які Ви бажаєте вбудувати в PDF, для полегшення пошуку чи індексування PDF файлів</translation>
+    </message>
+    <message>
+        <source>Document Information</source>
+        <translation>Інформація про документ</translation>
+    </message>
+    <message>
+        <source>&amp;Title:</source>
+        <translation>&amp;Заголовок:</translation>
+    </message>
+    <message>
+        <source>&amp;Author:</source>
+        <translation>&amp;Автор:</translation>
+    </message>
+    <message>
+        <source>&amp;Keywords:</source>
+        <translation>&amp;Ключові слова:</translation>
+    </message>
+    <message>
+        <source>Descri&amp;ption:</source>
+        <translation>&amp;Опис:</translation>
+    </message>
+    <message>
+        <source>P&amp;ublisher:</source>
+        <translation>&amp;Видавник:</translation>
+    </message>
+    <message>
+        <source>&amp;Contributors:</source>
+        <translation>&amp;Співробітники:</translation>
+    </message>
+    <message>
+        <source>Dat&amp;e:</source>
+        <translation>&amp;Дата:</translation>
+    </message>
+    <message>
+        <source>T&amp;ype:</source>
+        <translation>&amp;Тип:</translation>
+    </message>
+    <message>
+        <source>F&amp;ormat:</source>
+        <translation>&amp;Формат:</translation>
+    </message>
+    <message>
+        <source>Identi&amp;fier:</source>
+        <translation>В&amp;изначник:</translation>
+    </message>
+    <message>
+        <source>&amp;Source:</source>
+        <translation>Д&amp;жерело:</translation>
+    </message>
+    <message>
+        <source>&amp;Language:</source>
+        <translation>&amp;Мова:</translation>
+    </message>
+    <message>
+        <source>&amp;Relation:</source>
+        <translation>В&amp;ідношення:</translation>
+    </message>
+    <message>
+        <source>Co&amp;verage:</source>
+        <translation>&amp;Покриття:</translation>
+    </message>
+    <message>
+        <source>Ri&amp;ghts:</source>
+        <translation>П&amp;рава:</translation>
+    </message>
+    <message>
+        <source>&amp;Document</source>
+        <translation>Док&amp;умент</translation>
+    </message>
+    <message>
+        <source>Further &amp;Information</source>
+        <translation>Д&amp;одаткова інформація</translation>
+    </message>
+    <message>
+        <source>The person or organisation primarily responsible for making the content of the document.
+This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation>Людина чи організація, відповідальна за створення документа,
+Це поле може бути вміщене в документ Scribus для довідки а також в
+метадані PDF</translation>
+    </message>
+    <message>
+        <source>A name given to the document.
+This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation>Ім&apos;я дане документу.
+Це поле може бути вміщене в документ Scribus, а також в метадані PDF</translation>
+    </message>
+    <message>
+        <source>An account of the content of the document.
+This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
+        <translation>Огляд змісту документа. Це поле призначається для короткого пояснення або абстракту документа.
+Воно вміщується в PDF при експорті</translation>
+    </message>
+    <message>
+        <source>The topic of the content of the document.
+This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
+        <translation>Це заголовок змісту документа. Це поле призначається для ключових слів документа, які ви бажаєте 
+вмістити в PDF для полегшення пошуків та індексування файлів PDF</translation>
+    </message>
+    <message>
+        <source>A person or organisation responsible for making the document available</source>
+        <translation>Людина чи організаця відповідальна за випуск документа в загальний доступ</translation>
+    </message>
+    <message>
+        <source>A person or organisation responsible for making contributions to the content of the document</source>
+        <translation>Людина чи організація відповідальна за вклад в зміст документа</translation>
+    </message>
+    <message>
+        <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
+        <translation>Дата зв&apos;язана з подією в життєвому  циклі документа в форматі РРРР-ММ-ДД, як вказано в ISO 8601</translation>
+    </message>
+    <message>
+        <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
+        <translation>Жанр змісту документа - наприклад категорії, функції, жанри і так далі</translation>
+    </message>
+    <message>
+        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
+RFC2045,RFC2046 for MIME types are also useful here</source>
+        <translation>Фізичне чи цифрове відображення документа. Тип паперу та розміри можуть бути цікавими.
+Тут можить придатися RFC2045 і RFC2046 для типів MIME</translation>
+    </message>
+    <message>
+        <source>An unambiguous reference to the document within a given context such as ISBN or URI</source>
+        <translation>Безумовна ссилка на документ у даному контексті, такому як ISBN чи URI</translation>
+    </message>
+    <message>
+        <source>A reference to a document from which the present document is derived, eg. ISDN or URI</source>
+        <translation>Ссилка на документ нащадком якого є активний документ. Наприклад ISDN чи URI</translation>
+    </message>
+    <message>
+        <source>The language in which the content of the document is written, usually a ISO-639 language code
+optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
+        <translation>Мова, на якій написано документ, зазвичай мовний код з ISO-639 інколи з додатковим суфіксом через
+тире і код країни з ISO-3166. Наприклад en-GB, fr-CH</translation>
+    </message>
+    <message>
+        <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
+        <translation>Ссилка на споріднений документ, можливо використовуючи ідентифікатор формату, такий як ISBN чи URI</translation>
+    </message>
+    <message>
+        <source>The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges</source>
+        <translation>Масштаб чи протяжність документа, можливо включаючи розміщення, час та діапазони юрисдикції</translation>
+    </message>
+    <message>
+        <source>Information about rights held in and over the document, eg. copyright, patent or trademark</source>
+        <translation>Інформація про права на документ. Наприклад копірайт, патент, чи торгова марка</translation>
     </message>
 </context>
 <context>
@@ -1772,11 +1917,11 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>To page:</source>
-        <translation>До сторінки номер:</translation>
+        <translation type="obsolete">До сторінки номер:</translation>
     </message>
     <message>
         <source>From page:</source>
-        <translation>З сторінки номер:</translation>
+        <translation type="obsolete">З сторінки номер:</translation>
     </message>
     <message>
         <source>Print range</source>
@@ -1788,11 +1933,11 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Print last page first</source>
-        <translation>Почати друк з останньої сторінки</translation>
+        <translation type="obsolete">Почати друк з останньої сторінки</translation>
     </message>
     <message>
         <source>Print first page first</source>
-        <translation>Почати друк з першої сторінки</translation>
+        <translation type="obsolete">Почати друк з першої сторінки</translation>
     </message>
     <message>
         <source>Number of copies:</source>
@@ -1861,6 +2006,14 @@ This can be set in the Preferences.</source>
     <message>
         <source>Print current page</source>
         <translation>Друк активної сторінки</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation>Вмістити список елементів, розділений комами де елемент
+може &quot;бути для всіх сторінок, 1-5 для діапазона сторінок, або
+номер окремої сторінки.</translation>
     </message>
 </context>
 <context>
@@ -3002,6 +3155,22 @@ A value of 0 means unlimited hyphenations.</source>
         <source>Cancel</source>
         <translation>Вихід</translation>
     </message>
+    <message>
+        <source> pt</source>
+        <translation>пт</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>мм</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>д</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>п</translation>
+    </message>
 </context>
 <context>
     <name>Measurements</name>
@@ -3084,16 +3253,21 @@ A value of 0 means unlimited hyphenations.</source>
         <source>Hide &amp;Console</source>
         <translation>Сховати &amp;Консоль</translation>
     </message>
+    <message>
+        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
+        <translation>Це повідомлення також розміщене в блоці копіювання. Використайте 
+Ctrl-V для вставки його в систему обробітку програмних помилок.</translation>
+    </message>
 </context>
 <context>
     <name>MergeDoc</name>
     <message>
         <source>Import a Page</source>
-        <translation>Імпортувати сторінку</translation>
+        <translation type="obsolete">Імпортувати сторінку</translation>
     </message>
     <message>
         <source>Document to load:</source>
-        <translation>Документ для завантаження:</translation>
+        <translation type="obsolete">Документ для завантаження:</translation>
     </message>
     <message>
         <source>Change...</source>
@@ -3101,11 +3275,11 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Document contains: 0 Page(s)</source>
-        <translation>В документі: 0 сторінка(ок)</translation>
+        <translation type="obsolete">В документі: 0 сторінка(ок)</translation>
     </message>
     <message>
         <source>Import Page Nr:</source>
-        <translation>Імпортувати сторінку номер:</translation>
+        <translation type="obsolete">Імпортувати сторінку номер:</translation>
     </message>
     <message>
         <source>Import</source>
@@ -3129,7 +3303,55 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Document contains: %1 Page(s)</source>
-        <translation>В документі: %1 сторінка(ок)</translation>
+        <translation type="obsolete">В документі: %1 сторінка(ок)</translation>
+    </message>
+    <message>
+        <source>Import Template</source>
+        <translation>Шаблон імпортування</translation>
+    </message>
+    <message>
+        <source>Import Page(s)</source>
+        <translation>Імпортувати сторінку(и)</translation>
+    </message>
+    <message>
+        <source>From Document:</source>
+        <translation>З документа:</translation>
+    </message>
+    <message>
+        <source>Import Page(s):</source>
+        <translation>Імпортувати сторінку(и):</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation>Вмістити список елементів, розділений комами де елемент
+може *бути для всіх сторінок, 1-5 для діапазона сторінок, або
+номер окремої сторінки.</translation>
+    </message>
+    <message>
+        <source> from 0</source>
+        <translation>від 0</translation>
+    </message>
+    <message>
+        <source>Create Page(s)</source>
+        <translation>Створити Сторінку(и)</translation>
+    </message>
+    <message>
+        <source>before Page</source>
+        <translation>перед сторінкою</translation>
+    </message>
+    <message>
+        <source>after Page</source>
+        <translation>після сторінки</translation>
+    </message>
+    <message>
+        <source>at End</source>
+        <translation>в кінці</translation>
+    </message>
+    <message>
+        <source> from %1</source>
+        <translation>з %1</translation>
     </message>
 </context>
 <context>
@@ -4306,11 +4528,11 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>From:</source>
-        <translation>Від:</translation>
+        <translation type="obsolete">Від:</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>до:</translation>
+        <translation type="obsolete">до:</translation>
     </message>
     <message>
         <source>File Options</source>
@@ -4666,11 +4888,11 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>First page to export when exporting a range</source>
-        <translation>Номер першої сторінки при експорті діапазону сторінок</translation>
+        <translation type="obsolete">Номер першої сторінки при експорті діапазону сторінок</translation>
     </message>
     <message>
         <source>Last page to export when exporting a range</source>
-        <translation>Номер останньої сторінки при експорті діапазону сторінок</translation>
+        <translation type="obsolete">Номер останньої сторінки при експорті діапазону сторінок</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
@@ -4948,6 +5170,18 @@ If un-checked, editing annotations and fileds is prevented.</source>
         <source>Allow Adding Annotations and Fields</source>
         <translation>Дозволити вставку анотацій та полів</translation>
     </message>
+    <message>
+        <source>Choose Pages</source>
+        <translation>Виберіть сторінки</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation>Вмістити список елементів, розділений комами де елемент
+може *бути для всіх сторінок, 1-5 для діапазона сторінок, або
+номер окремої сторінки.</translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -5037,7 +5271,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Hide Margins</source>
-        <translation>Сховати розмітку полів</translation>
+        <translation type="obsolete">Сховати розмітку полів</translation>
     </message>
     <message>
         <source>Show Margins</source>
@@ -5045,7 +5279,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Hide Frames</source>
-        <translation>Сховати рамки</translation>
+        <translation type="obsolete">Сховати рамки</translation>
     </message>
     <message>
         <source>Show Frames</source>
@@ -5053,7 +5287,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Hide Images</source>
-        <translation>Сховати зображення</translation>
+        <translation type="obsolete">Сховати зображення</translation>
     </message>
     <message>
         <source>Show Images</source>
@@ -5061,7 +5295,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Hide Grid</source>
-        <translation>Сховати сітку</translation>
+        <translation type="obsolete">Сховати сітку</translation>
     </message>
     <message>
         <source>Show Grid</source>
@@ -5069,7 +5303,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Hide Guides</source>
-        <translation>Сховати розмітку</translation>
+        <translation type="obsolete">Сховати розмітку</translation>
     </message>
     <message>
         <source>Show Guides</source>
@@ -5289,7 +5523,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Hide Baseline Grid</source>
-        <translation>Сховати базову сітку</translation>
+        <translation type="obsolete">Сховати базову сітку</translation>
     </message>
     <message>
         <source>Show Baseline Grid</source>
@@ -7043,6 +7277,22 @@ Check path and filename.</source>
         <source>Import &amp;SVG...</source>
         <translation>Імпортувати  SVG зображ&amp;ення...</translation>
     </message>
+    <message>
+        <source>Oook! Wrong arguments! Call: </source>
+        <translation>Ойойой! Неправильні аргументи! Виклик: </translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
+        <translation>Ойойой! Ви намагаєтеся завантажити зображення в об&apos;єкт який не існує, або не вибраний!</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
+        <translation>Ойойой! Ви намагаєтеся замкнути/відімкнути неіснуючий об&apos;єкт! До того ж жодного з об&apos;єктів не вибрано.</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
+        <translation>Ойойой! Ви намагаєтеся звернутися до неіснуючого об&apos;єкта! До того ж жодного об&apos;єкта не вибрано.</translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -8246,7 +8496,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Insert &amp;Page...</source>
-        <translation>Вставити &amp;сторінку...</translation>
+        <translation type="obsolete">Вставити &amp;сторінку...</translation>
     </message>
     <message>
         <source>&amp;Import</source>
@@ -8438,15 +8688,15 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Hide &amp;Margins</source>
-        <translation>Сховати &amp;поля</translation>
+        <translation type="obsolete">Сховати &amp;поля</translation>
     </message>
     <message>
         <source>Hide &amp;Frames</source>
-        <translation>Сховати &amp;рамки</translation>
+        <translation type="obsolete">Сховати &amp;рамки</translation>
     </message>
     <message>
         <source>Hide &amp;Images</source>
-        <translation>Сховати зобра&amp;ження</translation>
+        <translation type="obsolete">Сховати зобра&amp;ження</translation>
     </message>
     <message>
         <source>Show &amp;Grid</source>
@@ -8458,7 +8708,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Hide G&amp;uides</source>
-        <translation>Сховати розмі&amp;тку</translation>
+        <translation type="obsolete">Сховати розмі&amp;тку</translation>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
@@ -8634,15 +8884,47 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Hide &amp;Grid</source>
-        <translation>С&amp;ховати сітку</translation>
+        <translation type="obsolete">С&amp;ховати сітку</translation>
     </message>
     <message>
         <source>Hide &amp;Baseline Grid</source>
-        <translation>Сховати &amp;базову сітку</translation>
+        <translation type="obsolete">Сховати &amp;базову сітку</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS Images</source>
         <translation>Ghostscript : ви не можете використовувати EPS зображення</translation>
+    </message>
+    <message>
+        <source>Import &amp;Page(s)...</source>
+        <translation>Імпортувати &amp;Сторінку(и)...</translation>
+    </message>
+    <message>
+        <source>Importing Pages...</source>
+        <translation>Імпорт Сторінок...</translation>
+    </message>
+    <message>
+        <source>Import Page(s)</source>
+        <translation>Імпортувати сторінку(и)</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</source>
+        <translation>&lt;p&gt;Ви намагаєтеся імпортувати більше число сторінок, ніж є у цьому документі, рахуючи з активної сторінки.&lt;/p&gt;Виберіть з:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Створити&lt;/b&gt; недостаючі сторінки&lt;/li&gt;&lt;li&gt;&lt;b&gt;Імпортувати&lt;/b&gt; сторінки до останньої сторінки&lt;/li&gt;&lt;li&gt;&lt;b&gt;Відмінити&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation>Створити</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Імпортувати</translation>
+    </message>
+    <message>
+        <source>Import done</source>
+        <translation>Імпортування закінчено</translation>
+    </message>
+    <message>
+        <source>Found nothing to import</source>
+        <translation>Не знаходжу, що імпортувати</translation>
     </message>
 </context>
 <context>
@@ -9548,6 +9830,14 @@ Please choose another.</source>
     <message>
         <source>Created with</source>
         <translation>Створено</translation>
+    </message>
+    <message>
+        <source>&amp;Remove</source>
+        <translation>Ви&amp;далити</translation>
+    </message>
+    <message>
+        <source>&amp;Open</source>
+        <translation>&amp;Відчинити</translation>
     </message>
 </context>
 <context>

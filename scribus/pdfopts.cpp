@@ -25,6 +25,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	FontsToEmbed.clear();
 	view = vie;
 	EffVal = Eff;
+	Opts = Optionen;
 	Einheit = view->Doc->Einheit;
 	PDFOptsLayout = new QVBoxLayout( this );
 	PDFOptsLayout->setSpacing( 5 );
@@ -76,9 +77,10 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	Layout11->addWidget( OnlySome, 0, 0 );
 	PageNr = new QLineEdit( RangeGroup, "PageNr" );
 	PageNr->setEnabled(false);
-	QToolTip::add( PageNr, tr( "Insert a comma separated list of tokens where\n"
-		                           "a token can be * for all the pages, 1-5 for\n"
-		                           "a range of pages or a single page number.") );
+	QToolTip::add
+		( PageNr, tr( "Insert a comma separated list of tokens where\n"
+		              "a token can be * for all the pages, 1-5 for\n"
+		              "a range of pages or a single page number.") );
 	Layout11->addWidget( PageNr, 1, 0 );
 	RangeGroupLayout->addLayout( Layout11 );
 	Layout13->addWidget( RangeGroup );
@@ -100,11 +102,14 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	ComboBox1->insertItem("Acrobat 4.0");
 	ComboBox1->insertItem("Acrobat 5.0");
 #ifdef HAVE_CMS
+
 	if ((CMSuse) && (CMSavail) && (!PDFXProfiles->isEmpty()))
 		ComboBox1->insertItem("PDF/X-3");
 #endif
+
 	ComboBox1->setEditable(false);
 #ifdef HAVE_CMS
+
 	if ((CMSuse) && (CMSavail))
 	{
 		if (Optionen->Version == 12)
@@ -113,6 +118,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	else
 		ComboBox1->setCurrentItem(0);
 #endif
+
 	if (Optionen->Version == 13)
 		ComboBox1->setCurrentItem(0);
 	if (Optionen->Version == 14)
@@ -468,6 +474,57 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	ColorGroupLayout->addWidget( OutCombo );
 	tabcolorLayout->addWidget( ColorGroup );
 
+	UseLPI = new QCheckBox( tabcolor, "UseLPI" );
+	UseLPI->setText( tr( "Use Custom Rendering Settings" ) );
+	UseLPI->setChecked(Optionen->UseLPI);
+	tabcolorLayout->addWidget( UseLPI );
+	LPIgroup = new QGroupBox( tabcolor, "LPIgroup" );
+	LPIgroup->setTitle( tr( "Rendering Settings" ) );
+	LPIgroup->setColumnLayout(0, Qt::Vertical );
+	LPIgroup->layout()->setSpacing( 5 );
+	LPIgroup->layout()->setMargin( 11 );
+	LPIgroupLayout = new QGridLayout( LPIgroup->layout() );
+	LPIgroupLayout->setAlignment( Qt::AlignTop );
+	LPIcolor = new QComboBox( true, LPIgroup, "LPIcolor" );
+	LPIcolor->setEditable(false);
+	QMap<QString,LPIset>::Iterator itlp;
+	for (itlp = Optionen->LPISettings.begin(); itlp != Optionen->LPISettings.end(); ++itlp)
+	{
+		LPIcolor->insertItem( itlp.key() );
+	}
+	LPIcolor->setCurrentItem(0);
+	LPIgroupLayout->addWidget( LPIcolor, 0, 0 );
+	textLPI1 = new QLabel( LPIgroup, "textLPI1" );
+	textLPI1->setText( tr( "Frequency:" ) );
+	LPIgroupLayout->addWidget( textLPI1, 0, 1 );
+	LPIfreq = new QSpinBox( LPIgroup, "LPIfreq" );
+	LPIfreq->setMinValue(10);
+	LPIfreq->setMaxValue(1000);
+	LPIfreq->setValue(Optionen->LPISettings[LPIcolor->currentText()].Frequency);
+	LPIgroupLayout->addWidget( LPIfreq, 0, 2 );
+	textLPI2 = new QLabel( LPIgroup, "textLPI2" );
+	textLPI2->setText( tr( "Angle:" ) );
+	LPIgroupLayout->addWidget( textLPI2, 1, 1 );
+	LPIangle = new QSpinBox( LPIgroup, "LPIangle" );
+	LPIangle->setSuffix( QString::fromUtf8(" °"));
+	LPIangle->setMinValue(-90);
+	LPIangle->setMaxValue(90);
+	LPIangle->setValue(Optionen->LPISettings[LPIcolor->currentText()].Angle);
+	LPIgroupLayout->addWidget( LPIangle, 1, 2 );
+	textLPI3 = new QLabel( LPIgroup, "textLPI3" );
+	textLPI3->setText( tr( "Spot Function:" ) );
+	LPIgroupLayout->addWidget( textLPI3, 2, 1 );
+	LPIfunc = new QComboBox( true, LPIgroup, "LPIfunc" );
+	LPIfunc->setEditable(false);
+	LPIfunc->insertItem( tr( "Simple Dot" ) );
+	LPIfunc->insertItem( tr( "Line" ) );
+	LPIfunc->insertItem( tr( "Round" ) );
+	LPIfunc->insertItem( tr( "Ellipse" ) );
+	LPIfunc->setCurrentItem(Optionen->LPISettings[LPIcolor->currentText()].SpotFunc);
+	LPIgroupLayout->addWidget( LPIfunc, 2, 2 );
+	tabcolorLayout->addWidget( LPIgroup );
+	SelLPIcolor = LPIcolor->currentText();
+
 	GroupBox9 = new QGroupBox( tabcolor, "GroupBox9" );
 	GroupBox9->setTitle( tr( "Solid Colors:" ) );
 	GroupBox9->setColumnLayout(0, Qt::Vertical );
@@ -531,9 +588,11 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 		ProfsGroup->setEnabled(false);
 		GroupBox9->setEnabled(false);
 	}
+	EnableLPI(OutCombo->currentItem());
 	EnablePG();
 	EnablePGI();
 #ifdef HAVE_CMS
+
 	QString tp = Optionen->SolidProf;
 	if (!InputProfiles.contains(tp))
 		tp = vie->Doc->CMSSettings.DefaultInputProfile2;
@@ -573,6 +632,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	GroupBox9->hide();
 	ProfsGroup->hide();
 #endif
+
 	QSpacerItem* spacerCG = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	tabcolorLayout->addItem( spacerCG );
 	Options->insertTab( tabcolor, tr( "&Color" ) );
@@ -589,6 +649,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	PrintProfC = new QComboBox( true, X3Group, "PrintProfC" );
 	PrintProfC->setEditable(false);
 #ifdef HAVE_CMS
+
 	ProfilesL::Iterator itp3;
 	QString tp3 = Optionen->PrintProf;
 	if (!PDFXProfiles->contains(tp3))
@@ -660,6 +721,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	BleedLeft->setMaxValue(view->Doc->PageB*UmReFaktor);
 	BleedLeft->setValue(Optionen->BleedLeft*UmReFaktor);
 #ifdef HAVE_CMS
+
 	if ((!CMSuse) || (!CMSavail))
 		Options->setTabEnabled(tabpdfx, false);
 	if ((CMSuse) && (CMSavail) && (Optionen->Version == 12) && (!PDFXProfiles->isEmpty()))
@@ -667,8 +729,10 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	else
 		Options->setTabEnabled(tabpdfx, false);
 #else
+
 	Options->setTabEnabled(tabpdfx, false);
 #endif
+
 	BleedChanged();
 	PgSel = 0;
 	Pages->setCurrentItem(0);
@@ -742,9 +806,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	QToolTip::add( CQuality, tr( "Compression levels: Minimum (25\%), Low (50\%), Medium (75\%), High (85\%), Maximum (95\%)" ) );
 	QToolTip::add( DSColor, tr( "Downsample your bitmap images to the selected DPI.\nLeaving this unchecked will render them at their native resolution." ) );
 	QToolTip::add( ValC, tr( "DPI (Dots Per Inch) for image export.") );
-
 	QToolTip::add( EmbedFonts, tr( "Embed fonts into the PDF. Embedding the fonts\nwill preserve the layout and appearance of your document." ) );
-
 	QToolTip::add( CheckBox10, tr( "Enables presentation effects when using Acrobat Reader in full screen mode." ) );
 	QToolTip::add( PagePrev, tr( "Show page previews of each page listed above." ) );
 	QToolTip::add( PageTime, tr( "Length of time the page is shown before the presentation starts on the selected page." ) );
@@ -754,7 +816,6 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	QToolTip::add( EDirection_2, tr( "Starting position for the box and split effects." ) );
 	QToolTip::add( EDirection_2_2, tr( "Direction of the glitter or wipe effects." ) );
 	QToolTip::add( EonAllPg, tr( "Apply the selected effect to all pages." ) );
-
 	QToolTip::add( Encry, tr( "Enable the security features in your exported PDF.\nIf you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.\nIf you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.\nDisclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations." ) );
 	QToolTip::add( PassOwner, tr( "Choose a master password which enables or disables all the\nsecurity features in your exported PDF" ) );
 	QToolTip::add( PassUser, tr( "Choose a password for users to be able to read your PDF." ) );
@@ -762,7 +823,6 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	QToolTip::add( ModifySec, tr( "Allow modifying of the PDF. If un-checked, modifying the PDF is prevented." ) );
 	QToolTip::add( CopySec, tr( "Allow copying of text or graphics from the PDF. \nIf un-checked, text and graphics cannot be copied." ) );
 	QToolTip::add( AddSec, tr( "Allow adding annotations and fields to the PDF. \nIf un-checked, editing annotations and fileds is prevented." ) );
-
 	QToolTip::add( OutCombo, tr( "Color model for the output of your PDF.\nChoose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.\nChoose Printer when printing to a true 4 color CMYK printer." ) );
 	QToolTip::add( EmbedProfs, tr( "Embed a color profile for solid colors" ) );
 	QToolTip::add( SolidPr, tr( "Color profile for solid colors" ) );
@@ -771,7 +831,6 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	QToolTip::add( NoEmbedded, tr( "Do not use color profiles that are embedded in source images" ) );
 	QToolTip::add( ImageP, tr( "Color profile for images" ) );
 	QToolTip::add( IntendI, tr( "Rendering intent for images" ) );
-
 	QToolTip::add( PrintProfC, tr( "Output profile for printing. If possible, get some guidance from your printer on profile selection." ) );
 	QToolTip::add( InfoString, tr( "Mandatory string for PDF/X-3 or the PDF will fail\nPDF/X-3 conformance. We recommend you use the title of the document." ) );
 	QToolTip::add( BleedTop, tr( "Distance for bleed from the top of the physical page" ) );
@@ -806,6 +865,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BleedChanged()));
 	connect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BleedChanged()));
 	connect(Encry, SIGNAL(clicked()), this, SLOT(ToggleEncr()));
+	connect(UseLPI, SIGNAL(clicked()), this, SLOT(EnableLPI2()));
+	connect(LPIcolor, SIGNAL(activated(int)), this, SLOT(SelLPIcol(int)));
 }
 
 /*
@@ -820,7 +881,18 @@ void PDF_Opts::DoExport()
 {
 	QString fn = Datei->text();
 	if (overwrite(this, fn))
+	{
+		EffVal[PgSel].AnzeigeLen = PageTime->value();
+		EffVal[PgSel].EffektLen = EffectTime->value();
+		EffVal[PgSel].Effekt = EffectType->currentItem();
+		EffVal[PgSel].Dm = EDirection->currentItem();
+		EffVal[PgSel].M = EDirection_2->currentItem();
+		EffVal[PgSel].Di = EDirection_2_2->currentItem();
+		Opts->LPISettings[SelLPIcolor].Frequency = LPIfreq->value();
+		Opts->LPISettings[SelLPIcolor].Angle = LPIangle->value();
+		Opts->LPISettings[SelLPIcolor].SpotFunc = LPIfunc->currentItem();
 		accept();
+	}
 	else
 		return;
 }
@@ -872,6 +944,7 @@ void PDF_Opts::EnablePDFX(int a)
 	EmbedFonts->setChecked(true);
 	EmbedAll();
 	CheckBox10->setChecked(false);
+	disconnect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
 	OutCombo->setCurrentItem(1);
 	OutCombo->setEnabled(false);
 	EnablePr(1);
@@ -882,6 +955,7 @@ void PDF_Opts::EnablePDFX(int a)
 	EnablePGI();
 	Options->setTabEnabled(tabpdfx, true);
 	Options->setTabEnabled(tabsec, false);
+	connect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
 }
 
 void PDF_Opts::EnablePGI()
@@ -925,9 +999,46 @@ void PDF_Opts::EnablePG()
 
 void PDF_Opts::EnablePr(int a)
 {
+	EnableLPI(a);
 	bool setter = a == 1 ? true : false;
 	GroupBox9->setEnabled(setter);
 	ProfsGroup->setEnabled(setter);
+}
+
+void PDF_Opts::EnableLPI(int a)
+{
+	if (a == 1)
+	{
+		UseLPI->show();
+		if (UseLPI->isChecked())
+			LPIgroup->show();
+	}
+	else
+	{
+		UseLPI->hide();
+		LPIgroup->hide();
+	}
+	adjustSize();
+}
+
+void PDF_Opts::EnableLPI2()
+{
+	if (UseLPI->isChecked())
+		LPIgroup->show();
+	else
+		LPIgroup->hide();
+	adjustSize();
+}
+
+void PDF_Opts::SelLPIcol(int c)
+{
+	Opts->LPISettings[SelLPIcolor].Frequency = LPIfreq->value();
+	Opts->LPISettings[SelLPIcolor].Angle = LPIangle->value();
+	Opts->LPISettings[SelLPIcolor].SpotFunc = LPIfunc->currentItem();
+	LPIfreq->setValue(Opts->LPISettings[LPIcolor->text(c)].Frequency);
+	LPIangle->setValue(Opts->LPISettings[LPIcolor->text(c)].Angle);
+	LPIfunc->setCurrentItem(Opts->LPISettings[LPIcolor->text(c)].SpotFunc);
+	SelLPIcolor = LPIcolor->text(c);
 }
 
 void PDF_Opts::SelRange(bool e)

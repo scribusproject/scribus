@@ -150,6 +150,16 @@ ScribusDoc::ScribusDoc()
 	PDF_Optionen.PassOwner = "";
 	PDF_Optionen.PassUser = "";
 	PDF_Optionen.Permissions = -4;
+	PDF_Optionen.UseLPI = false;
+	struct LPIset lpo;
+	lpo.Angle = 0;
+	lpo.Frequency = 75;
+	lpo.SpotFunc = 2;
+	PDF_Optionen.LPISettings.clear();
+	PDF_Optionen.LPISettings.insert("Cyan", lpo);
+	PDF_Optionen.LPISettings.insert("Magenta", lpo);
+	PDF_Optionen.LPISettings.insert("Yellow", lpo);
+	PDF_Optionen.LPISettings.insert("Black", lpo);
 	RePos = false;
 	BookMarks.clear();
 	OldBM = false;

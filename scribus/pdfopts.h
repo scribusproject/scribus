@@ -138,11 +138,22 @@ public:
 	QCheckBox* CopySec;
 	QCheckBox* AddSec;
 	QCheckBox* Encry;
+	QGroupBox* LPIgroup;
+	QCheckBox* UseLPI;
+	QSpinBox* LPIfreq;
+	QSpinBox* LPIangle;
+	QLabel* textLPI1;
+	QLabel* textLPI2;
+	QLabel* textLPI3;
+	QComboBox* LPIcolor;
+	QComboBox* LPIfunc;
 	QValueList<QString> FontsToEmbed;
 	ScribusView *view;
 	QValueList<PreSet> EffVal;
 	int PgSel;
 	int Einheit;
+	QString SelLPIcolor;
+	PDFOpt *Opts;
 
 public slots:
 	void DoExport();
@@ -167,6 +178,9 @@ public slots:
 	void EnablePG();
 	void EnablePGI();
 	void EnablePGI2();
+	void EnableLPI(int a);
+	void EnableLPI2();
+	void SelLPIcol(int);
 
 protected:
 	QGridLayout* CBoxLayout;
@@ -198,6 +212,7 @@ protected:
 	QVBoxLayout* tabsecLayout;
 	QGridLayout* GroupPassLayout;
 	QVBoxLayout* GroupSecSetLayout;
+	QGridLayout* LPIgroupLayout;
 };
 
 #endif // PDF_OPTS_H

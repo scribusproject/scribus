@@ -201,7 +201,6 @@ PyObject *scribus_setboxtext(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	char *Text;
-	int i;
 	if (!PyArg_ParseTuple(args, "s|s", &Text, &Name))
 	{
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetTExt(text [, objectname])"));

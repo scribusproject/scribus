@@ -91,8 +91,7 @@ bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<
 			dia2->setProgress(progresscount);
 		}
 		if (plug->doc->PDF_Optionen.Version == 12)
-			dia->PDF_End_Doc(plug->PrinterProfiles[plug->doc->PDF_Optionen.PrintProf], nam,
-					 Components);
+			dia->PDF_End_Doc(plug->PrinterProfiles[plug->doc->PDF_Optionen.PrintProf], nam, Components);
 		else
 			dia->PDF_End_Doc();
 		ret = true;
@@ -226,8 +225,7 @@ QString PDFlib::EncStream(QString *in, int ObjNum)
 		QByteArray step1(16);
 		step1 = ComputeMD5Sum(&data);
  		rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), QMIN(KeyLen+5, 16));
- 		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), 
-					reinterpret_cast<uchar*>(ou.data()), tmp.length());
+ 		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
 		QString uk = "";
 		for (uint cl = 0; cl < tmp.length(); ++cl)
 			uk += ou[cl];
@@ -379,15 +377,13 @@ void PDFlib::CalcUserKey(QString User, int Permission)
 		  	for (int j = 0; j < 16; j ++)
 	    			enk[j] = EncryKey[j] ^ rl;
 			rc4_init(&rc4, reinterpret_cast<uchar*>(enk.data()), 16);
-  			rc4_encrypt(&rc4, reinterpret_cast<uchar*>(UserKey.data()),
-						 reinterpret_cast<uchar*>(UserKey.data()), 16);
+  			rc4_encrypt(&rc4, reinterpret_cast<uchar*>(UserKey.data()), reinterpret_cast<uchar*>(UserKey.data()), 16);
 		}
 	}
 	else
 	{
 		rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), 5);
-  		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(KeyGen.data()),
-				 reinterpret_cast<uchar*>(UserKey.data()), 32);
+  		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(KeyGen.data()), reinterpret_cast<uchar*>(UserKey.data()), 32);
 	}
 }
 
@@ -807,21 +803,50 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		}
 		a++;
 	}
-/*	StartObj(ObjCounter);
-	PutDoc("<<\n/Type /Halftone\n/HalftoneType 5\n");
-	PutDoc("/Cyan\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
-	PutDoc("/Magenta\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
-	PutDoc("/Yellow\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
-	PutDoc("/Black\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
-	PutDoc("/Default\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
-	PutDoc(">>\nendobj\n");
-	ObjCounter++;
-	StartObj(ObjCounter);
-	HTName = ResNam+IToStr(ResCount);
-	Transpar[HTName] = ObjCounter;
-	PutDoc("<< /Type /ExtGState\n/HT "+IToStr(ObjCounter-1)+" 0 R\n>>\nendobj\n");
+	if (Options->UseLPI)
+	{
+		StartObj(ObjCounter);
+		PutDoc("<<\n/Type /Halftone\n/HalftoneType 5\n");
+		QMap<QString,LPIset>::Iterator itlp;
+		for (itlp = Options->LPISettings.begin(); itlp != Options->LPISettings.end(); ++itlp)
+		{
+			PutDoc("/"+itlp.key()+"\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency ");
+			PutDoc(IToStr(itlp.data().Frequency)+"\n/Angle "+IToStr(itlp.data().Angle)+"\n/SpotFunction ");
+			QString func = "";
+			switch (itlp.data().SpotFunc)
+			{
+				case 0:
+					func = "/SimpleDot";
+					break;
+				case 1:
+					func = "/Line";
+					break;
+				case 2:
+					func = "/Round";
+					break;
+				case 3:
+					func = "/Ellipse";
+					break;
+				default:
+					func = "/SimpleDot";
+					break;
+			}
+			PutDoc(func+"\n>>\n");
+		}
+/*		PutDoc("/Cyan\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
+		PutDoc("/Magenta\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
+		PutDoc("/Yellow\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
+		PutDoc("/Black\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n"); */
+		PutDoc("/Default\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
+		PutDoc(">>\nendobj\n");
+		ObjCounter++;
+		StartObj(ObjCounter);
+		HTName = ResNam+IToStr(ResCount);
+		Transpar[HTName] = ObjCounter;
+		PutDoc("<< /Type /ExtGState\n/HT "+IToStr(ObjCounter-1)+" 0 R\n>>\nendobj\n");
+	}
 	ResCount++;
-	ObjCounter++; */
+	ObjCounter++;
 #ifdef HAVE_CMS
 	if ((CMSuse) && (Options->UseProfiles))
 	{
@@ -1048,7 +1073,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 	struct Layer ll;
 	ll.Drucken = false;
 	ll.LNr = 0;
-//	PutPage("/"+HTName+" gs\n");
+	if (Options->UseLPI)
+		PutPage("/"+HTName+" gs\n");
 	QString name = "/"+pag->MPageNam.simplifyWhiteSpace().replace( QRegExp("\\s"), "" );
 	if (pag->MPageNam != "")
 	{

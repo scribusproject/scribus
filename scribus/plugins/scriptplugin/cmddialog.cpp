@@ -28,7 +28,7 @@ PyObject *scribus_filedia(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("FileDialog(caption, filter, defaultname, pre, mode)"));
 		return NULL;
 	}
-	PyString_FromString(Carrier->CFileDialog(caption, filter, defName, static_cast<bool>(pre), static_cast<bool>(mode), 0, 0));
+	return PyString_FromString(Carrier->CFileDialog(caption, filter, defName, static_cast<bool>(pre), static_cast<bool>(mode), 0, 0));
 }
 
 PyObject *scribus_mess(PyObject *self, PyObject* args)
