@@ -1573,6 +1573,22 @@ Wird in den Voreinstellungen gesetzt.</translation>
         <source>Postscript-Files (*.ps);;All Files (*)</source>
         <translation>Postscript-Dateien (*.ps);;Alle Dateien (*)</translation>
     </message>
+    <message>
+        <source>Cyan</source>
+        <translation>Cyan</translation>
+    </message>
+    <message>
+        <source>Magenta</source>
+        <translation>Magenta</translation>
+    </message>
+    <message>
+        <source>Yellow</source>
+        <translation>Gelb</translation>
+    </message>
+    <message>
+        <source>Black</source>
+        <translation>Schwarz</translation>
+    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -1671,6 +1687,10 @@ Wird in den Voreinstellungen gesetzt.</translation>
     <message>
         <source>Name of the Style is not unique</source>
         <translation>Der Name der Stilvorlage ist nicht eindeutig</translation>
+    </message>
+    <message>
+        <source>Stroke Color:</source>
+        <translation>Randfarbe:</translation>
     </message>
 </context>
 <context>
@@ -3900,6 +3920,26 @@ andernfalls relativ zum Objekt.</translation>
         <source>Search</source>
         <translation>Suche</translation>
     </message>
+    <message>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <source>Path</source>
+        <translation>Pfad</translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation>Seite</translation>
+    </message>
+    <message>
+        <source>Print</source>
+        <translation>Drucken</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Status</translation>
+    </message>
 </context>
 <context>
     <name>PolygonProps</name>
@@ -4901,6 +4941,37 @@ Datei wurde nicht gefunden.
     <message>
         <source>&amp;Paste</source>
         <translation>Einf&amp;ügen</translation>
+    </message>
+</context>
+<context>
+    <name>QTitleBar</name>
+    <message>
+        <source>System Menu</source>
+        <translation>System-Menü</translation>
+    </message>
+    <message>
+        <source>Shade</source>
+        <translation>Aufrollen</translation>
+    </message>
+    <message>
+        <source>Unshade</source>
+        <translation>Herabrollen</translation>
+    </message>
+    <message>
+        <source>Normalize</source>
+        <translation>Wiederherstellen</translation>
+    </message>
+    <message>
+        <source>Minimize</source>
+        <translation>Minimieren</translation>
+    </message>
+    <message>
+        <source>Maximize</source>
+        <translation>Maximieren</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>

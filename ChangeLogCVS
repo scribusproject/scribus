@@ -1,4 +1,7 @@
 Changes since Version 1.1.4
+13.02.2004	Fixed Crash when editing Linestyles.
+		Found last missing Strings for Translations.
+
 12.02.2004	Updated the Finnish and the German Translation.
 		Fixed Problems in the Story Editor.
 

@@ -170,7 +170,7 @@ void LineFormate::UpdateFList()
 	if (ListBox1->count() > 0)
 		ListBox1->setSelected(ListBox1->findItem(sFnumber), true);
 	bool setter = ListBox1->count() == 0 ? true : false;
-	if (setter == false)
+	if (setter == true)
 		sFnumber = "";
 	DublicateB->setEnabled(!setter);
 	EditB->setEnabled(!setter);

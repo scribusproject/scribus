@@ -282,7 +282,7 @@ void MultiLine::RebuildList()
 	for (multiLine::iterator it = TempVorl.begin(); it != TempVorl.end(); ++it)
 		{
 		pm2.fill(calcFarbe((*it).Color, (*it).Shade));
-		tmp2 = " "+tmp.setNum((*it).Width)+ tr(" pt ");
+		tmp2 = " "+tmp.setNum((*it).Width)+ tr(" pt")+" ";
 		switch (static_cast<PenStyle>((*it).Dash))
 			{
 			case SolidLine:

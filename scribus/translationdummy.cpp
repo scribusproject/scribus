@@ -93,6 +93,16 @@ QMainWindow::QMainWindow()
 tr("Line up");
 tr("Customize...");
 }
+QTitleBar::QTitleBar()
+{
+tr("System Menu");
+tr("Shade");
+tr("Unshade");
+tr("Normalize");
+tr("Minimize");
+tr("Maximize");
+tr("Close");
+}
 QWorkspace::QWorkspace()
 {
 tr("&Restore");

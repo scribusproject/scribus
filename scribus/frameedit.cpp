@@ -182,7 +182,7 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
     QToolTip::add(  PolyShearU, tr( "Shears the Path vertical up" ) );
     QToolTip::add(  PolyShearD, tr( "Shears the Path vertical down" ) );
     QToolTip::add(  RotateCCW, tr( "Rotates the Path counter-clockwise" ) );
-    QToolTip::add(  RotateCCW, tr( "Rotates the Path clockwise" ) );
+    QToolTip::add(  RotateCW, tr( "Rotates the Path clockwise" ) );
     QToolTip::add(  Crop, tr( "Reduce the Size of the Path by 10%" ) );
     QToolTip::add(  Expand, tr( "Enlarges the Size of the Path by 10%" ) );
     QToolTip::add(  AbsMode, 

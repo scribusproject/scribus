@@ -339,10 +339,10 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 
     SepArt = new QComboBox( true, ButtonGroup3, "SepArt" );
     SepArt->insertItem( tr( "All" ) );
-    SepArt->insertItem("Cyan");
-    SepArt->insertItem("Magenta");
-    SepArt->insertItem("Yellow");
-    SepArt->insertItem("Black");
+    SepArt->insertItem( tr("Cyan"));
+    SepArt->insertItem( tr("Magenta"));
+    SepArt->insertItem( tr("Yellow"));
+    SepArt->insertItem( tr("Black"));
     SepArt->setEnabled( false );
     SepArt->setEditable( false );
     ButtonGroup3Layout->addWidget( SepArt );

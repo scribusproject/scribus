@@ -82,7 +82,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     GroupFontLayout->addWidget( PM2, 4, 2, Qt::AlignLeft );
 
     StrokeIcon = new QLabel( GroupFont, "StrokeIcon" );
-    StrokeIcon->setText("Stroke Color:");
+    StrokeIcon->setText( tr("Stroke Color:"));
     GroupFontLayout->addWidget( StrokeIcon, 5, 0 );
     TxStroke = new QComboBox( true, GroupFont, "TxStroke" );
 	TxStroke->setEditable(false);
@@ -195,13 +195,13 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 
     TextLabel3 = new QLabel( AbstandV, "TextLabel3" );
     TextLabel3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-												TextLabel3->sizePolicy().hasHeightForWidth() ) );
+											TextLabel3->sizePolicy().hasHeightForWidth() ) );
     TextLabel3->setMinimumSize( QSize( 90, 22 ) );
     TextLabel3->setText( tr( "Line Spacing" ) );
     AbstandVLayout->addWidget( TextLabel3, 2, 0 );
     TextLabel1_2_2 = new QLabel( AbstandV, "TextLabel1_2_2" );
     TextLabel1_2_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
-												TextLabel1_2_2->sizePolicy().hasHeightForWidth() ) );
+													TextLabel1_2_2->sizePolicy().hasHeightForWidth() ) );
     TextLabel1_2_2->setMinimumSize( QSize( 90, 22 ) );
     TextLabel1_2_2->setText( tr( "Above:" ) );
     AbstandVLayout->addWidget( TextLabel1_2_2, 0, 0 );
