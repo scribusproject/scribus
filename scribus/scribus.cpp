@@ -8267,14 +8267,14 @@ void ScribusApp::SaveAsEps()
 		wdir = dirs->get("eps", Prefs.DocDir);
 	else
 		wdir = dirs->get("eps", ".");
-	QString fn = CFileDialog( wdir, tr("Save as"), tr("EPS-Files (*.eps);;All Files (*)"), "", false, false);
+	QString fn = CFileDialog( wdir, tr("Save as"), tr("EPS Files (*.eps);;All Files (*)"), "", false, false);
 	if (!fn.isEmpty())
 	{
 		dirs->set("eps", fn.left(fn.findRev("/")));
 		if (overwrite(this, fn))
 		{
 			if (!DoSaveAsEps(fn))
-				QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
+				QMessageBox::warning(this, tr("Warning"), tr("Can't write the file: \n%1").arg(fn), tr("OK"));
 		}
 	}
 }
@@ -8325,7 +8325,7 @@ void ScribusApp::SaveAsPDF()
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
 				int t = QMessageBox::warning(this, tr("Warning"),
-											tr("Detected some Errors.\nConsider using the Preflight Checker to correct them"),
+											tr("Detected some Errors.\nConsider using the Preflight Verifier to correct them"),
 											tr("Abort"), tr("Ignore"), 0, 0, 0);
 				if (t == 0)
 					return;
@@ -9462,29 +9462,12 @@ void ScribusApp::ModifyAnnot()
 
 void ScribusApp::SetShortCut()
 {
-	uint a;
-	/* CB TODO */
 	for (QMap<QString,Keys>::Iterator it = Prefs.KeyActions.begin(); it != Prefs.KeyActions.end(); ++it )
 	{
 		if (it.data().actionName!="")
 			if (scrActions[it.data().actionName])
 				scrActions[it.data().actionName]->setAccel(it.data().keySequence);
 	}
-	
-	//CB TODO editMenu->setAccel(Prefs.KeyActions[19].KeyID, Prefs.KeyActions[19].MenuID);
-	//pageMenu->setAccel(Prefs.KeyActions[61].KeyID, Prefs.KeyActions[61].MenuID);
-	//pageMenu->setAccel(Prefs.KeyActions[49].KeyID, Prefs.KeyActions[49].MenuID);
-	
-	/*
-	extraMenu->setAccel(Prefs.KeyActions[50].KeyID, Prefs.KeyActions[50].MenuID);
-	extraMenu->setAccel(Prefs.KeyActions[51].KeyID, Prefs.KeyActions[51].MenuID);
-	*/
-	//CB itemMenu->setAccel(Prefs.KeyActions[61].KeyID, Prefs.KeyActions[61].MenuID);
-	//CB toolMenu->setAccel(Prefs.KeyActions[62].KeyID, Prefs.KeyActions[62].MenuID);
-	//CB toolMenu->setAccel(Prefs.KeyActions[66].KeyID, Prefs.KeyActions[66].MenuID);
-	//CBitemMenu->setAccel(Prefs.KeyActions[67].KeyID, Prefs.KeyActions[67].MenuID);
-	//CBitemMenu->setAccel(Prefs.KeyActions[68].KeyID, Prefs.KeyActions[68].MenuID);
-//CB TODO	fileMenu->setAccel(Prefs.KeyActions[18].KeyID, Prefs.KeyActions[18].MenuID);
 }
 
 void ScribusApp::PutScrap(QString t)
@@ -9598,6 +9581,7 @@ void ScribusApp::initHyphenator()
 	QStringList L_Czech;
 	QStringList L_Dutch;
 	QStringList L_Portuguese;
+	QStringList L_Portuguese_BR;
 	QStringList L_Ukrainian;
 	QStringList L_Greek;
 	QStringList L_Catalan;
@@ -9621,6 +9605,7 @@ void ScribusApp::initHyphenator()
 	L_Czech.clear();
 	L_Dutch.clear();
 	L_Portuguese.clear();
+	L_Portuguese_BR.clear();
 	L_Ukrainian.clear();
 	L_Greek.clear();
 	L_Catalan.clear();
@@ -9696,6 +9681,10 @@ void ScribusApp::initHyphenator()
 				if (translatedLang != "")
 					L_Portuguese.append(translatedLang);
 				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Portuguese (BR)", "").translation();
+				if (translatedLang != "")
+					L_Portuguese_BR.append(translatedLang);
+				translatedLang = "";				
 				translatedLang = trans->findMessage("ScribusApp", "Ukrainian", "").translation();
 				if (translatedLang != "")
 					L_Ukrainian.append(translatedLang);
@@ -9752,6 +9741,7 @@ void ScribusApp::initHyphenator()
 	InstLang.insert("Czech", L_Czech);
 	InstLang.insert("Dutch", L_Dutch);
 	InstLang.insert("Portuguese", L_Portuguese);
+	InstLang.insert("Portuguese (BR)", L_Portuguese_BR);
 	InstLang.insert("Ukrainian", L_Ukrainian);
 	InstLang.insert("Greek", L_Greek);
 	InstLang.insert("Catalan", L_Catalan);
