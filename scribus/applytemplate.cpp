@@ -45,7 +45,7 @@ ApplyT::ApplyT( QWidget* parent, ScribusView *view, QString Nam)
 
     SinglePage = new QRadioButton( buttonGroup1, "radioButton1" );
     SinglePage->setChecked( TRUE );
-    SinglePage->setText( tr( "Apply to Actual Page" ) );
+    SinglePage->setText( tr( "Apply to Current Page" ) );
     buttonGroup1Layout->addWidget( SinglePage );
 
     layout2 = new QHBoxLayout( 0, 0, 6, "layout2");
