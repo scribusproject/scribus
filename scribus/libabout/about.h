@@ -24,14 +24,17 @@ public:
 	QWidget* tab;
 	QWidget* tab_2;
 	QWidget* tab_3;
+	QWidget* tab_4;
 	QTextView* TextView1;
 	QTextView* TextView2;
+	QTextView* TextView4;
 
 protected:
 	QVBoxLayout* AboutLayout;
 	QHBoxLayout* tabLayout;
 	QVBoxLayout* tabLayout1;
 	QHBoxLayout* tabLayout_2;
+	QHBoxLayout* tabLayout_4;
 	QHBoxLayout* Layout2;
 
 };

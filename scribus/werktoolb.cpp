@@ -73,14 +73,13 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 								 SLOT(ModeFromTB()), this);
 	Rotiere->setToggleButton( true );
 	Rotiere->setEnabled(false);
-	Zoom = new QToolButton(loadIcon("Lupe.xpm"), tr("Zooms in or out"), QString::null, this, SLOT(ModeFromTB()),
-							 this);
+	Zoom = new QToolButton(loadIcon("Lupe.xpm"), tr("Zoom in or out"), QString::null, this, SLOT(ModeFromTB()), this);
 	Zoom->setToggleButton( true );
 	Textedit = new QToolButton(loadIcon("Editm.xpm"), tr("Edit Contents of Frame"), QString::null, this,
 								 SLOT(ModeFromTB()), this);
 	Textedit->setToggleButton( true );
 	Textedit->setEnabled( false );
-	Textedit2 = new QToolButton(loadIcon("signature.png"), tr("Edit the Text with the Story Editor"),
+	Textedit2 = new QToolButton(loadIcon("signature.png"), tr("Edit the text with the Story Editor"),
 								 QString::null, this, SLOT(ModeFromTB()), this);
 	Textedit2->setToggleButton( true );
 	Textedit2->setEnabled( false );
@@ -98,7 +97,7 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	connect(Rechteck, SIGNAL(FormSel(int, int, double *)), this, SLOT(SelShape(int, int, double *)));
 	connect(Rechteck, SIGNAL(clicked()), this, SLOT(SelShape2()));
 	connect(LinM, SIGNAL(activated(int)), this, SLOT(setLinMode(int)));
-	QToolTip::add( Rechteck, tr( "Draws various Shapes" ) );
+	QToolTip::add( Rechteck, tr( "Draw various Shapes" ) );
 }
 
 void WerkToolB::Docken(QDockWindow::Place p)

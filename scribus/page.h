@@ -299,6 +299,7 @@ signals: // Signals
 	void CopyItem();
 	void ItemTextStil(int);
 	void LoadPic();
+	void AppendText();
 	void EditText();
 	void LoadElem(QString, int, int, bool, bool, ScribusDoc *);
 	void Amode(int);

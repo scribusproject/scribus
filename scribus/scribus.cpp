@@ -141,12 +141,12 @@ void ScribusApp::initScribus()
   initMenuBar();
   initStatusBar();
   WerkTools2 = new QToolBar( tr("File"), this);
-  DatNeu = new QToolButton(loadIcon("DateiNeu.xpm"), tr("Creates a new Document"), QString::null, this, SLOT(slotFileNew()), WerkTools2);
-  DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), tr("Opens a Document"), QString::null, this, SLOT(slotDocOpen()), WerkTools2);
-  DatSav = new QToolButton(loadIcon("DateiSave.xpm"), tr("Saves the Current Document"), QString::null, this, SLOT(slotFileSave()), WerkTools2);
-  DatClo = new QToolButton(loadIcon("DateiClos.xpm"), tr("Closes the Current Document"), QString::null, this, SLOT(slotFileClose()), WerkTools2);
-  DatPri = new QToolButton(loadIcon("DateiPrint.xpm"), tr("Prints the Current Document"), QString::null, this, SLOT(slotFilePrint()), WerkTools2);
-  DatPDF = new QToolButton(loadIcon("acrobat.png"), tr("Saves the Current Document as PDF"), QString::null, this, SLOT(SaveAsPDF()), WerkTools2);
+  DatNeu = new QToolButton(loadIcon("DateiNeu.xpm"), tr("Create a new Document"), QString::null, this, SLOT(slotFileNew()), WerkTools2);
+  DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), tr("Open a Document"), QString::null, this, SLOT(slotDocOpen()), WerkTools2);
+  DatSav = new QToolButton(loadIcon("DateiSave.xpm"), tr("Save the current Document"), QString::null, this, SLOT(slotFileSave()), WerkTools2);
+  DatClo = new QToolButton(loadIcon("DateiClos.xpm"), tr("Close the current Document"), QString::null, this, SLOT(slotFileClose()), WerkTools2);
+  DatPri = new QToolButton(loadIcon("DateiPrint.xpm"), tr("Print the current Document"), QString::null, this, SLOT(slotFilePrint()), WerkTools2);
+  DatPDF = new QToolButton(loadIcon("acrobat.png"), tr("Save the current Document as PDF"), QString::null, this, SLOT(SaveAsPDF()), WerkTools2);
   DatSav->setEnabled(false);
   DatClo->setEnabled(false);
   DatPri->setEnabled(false);
@@ -589,6 +589,8 @@ void ScribusApp::initMenuBar()
 	importMenu = new QPopupMenu();
 	fid2 = importMenu->insertItem( tr("Get Text/Picture..."), this, SLOT(slotFileOpen()));
 	importMenu->setItemEnabled(fid2, 0);
+	fid2aa = importMenu->insertItem( tr("Append Text..."), this, SLOT(slotFileAppend()));
+	importMenu->setItemEnabled(fid2aa, 0);
 	fid2a = importMenu->insertItem( tr("Insert Page..."), this, SLOT(slotDocMerge()));
 	importMenu->setItemEnabled(fid2a, 0);
 	fileMenu->insertItem( tr("Import..."), importMenu);
@@ -2091,6 +2093,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		case -1:
 			importMenu->changeItem(fid2, tr("Get Text/Picture..."));
 			importMenu->setItemEnabled(fid2, 0);
+			importMenu->setItemEnabled(fid2aa, 0);
 			exportMenu->setItemEnabled(fid3, 0);
 			menuBar()->setItemEnabled(Stm, 0);
 			menuBar()->setItemEnabled(Obm, 0);
@@ -2114,6 +2117,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			break;
 		case 2:
 			importMenu->changeItem(fid2, tr("Get Picture..."));
+			importMenu->setItemEnabled(fid2aa, 0);
 			importMenu->setItemEnabled(fid2, 1);
 			editMenu->setItemEnabled(edid1, 1);
 			editMenu->setItemEnabled(edid2, 1);
@@ -2138,6 +2142,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		case 4:
 			importMenu->changeItem(fid2, tr("Get Text..."));
 			importMenu->setItemEnabled(fid2, 1);
+			importMenu->setItemEnabled(fid2aa, 1);
 			exportMenu->setItemEnabled(fid3, 1);
 			editMenu->setItemEnabled(edid1, 1);
 			editMenu->setItemEnabled(edid2, 1);
@@ -2196,6 +2201,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		case 8:
 			importMenu->changeItem(fid2, tr("Get Text..."));
 			importMenu->setItemEnabled(fid2, 1);
+			importMenu->setItemEnabled(fid2aa, 1);
 			exportMenu->setItemEnabled(fid3, 1);
 			editMenu->setItemEnabled(edid1, 1);
 			editMenu->setItemEnabled(edid2, 1);
@@ -2240,6 +2246,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		default:
 			importMenu->changeItem(fid2, tr("Get Text/Picture..."));
 			importMenu->setItemEnabled(fid2, 0);
+			importMenu->setItemEnabled(fid2aa, 0);
 			exportMenu->setItemEnabled(fid3, 0);
 			editMenu->setItemEnabled(edid1, 1);
 			editMenu->setItemEnabled(edid2, 1);
@@ -2753,30 +2760,30 @@ bool ScribusApp::LadeDoc(QString fileName)
 
 void ScribusApp::slotFileOpen()
 {
-  if (doc->ActPage->SelItem.count() != 0)
-  	{
- 		PageItem *b = doc->ActPage->SelItem.at(0);
-  	if (b->PType == 2)
-  		{
+	if (doc->ActPage->SelItem.count() != 0)
+	{
+		PageItem *b = doc->ActPage->SelItem.at(0);
+		if (b->PType == 2)
+		{
 			QString formats = "";
 			QString formatD = tr("All Supported Formats")+" (";
 			QString form1 = "";
 			QString form2 = "";
 			for ( uint i = 0; i < QImageIO::inputFormats().count(); ++i )
-				{
+			{
 				form1 = QString(QImageIO::inputFormats().at(i)).lower();
 				form2 = QString(QImageIO::inputFormats().at(i)).upper();
 				if (form1 == "jpeg")
-					{
+				{
 					form1 = "jpg";
 					form2 = "JPG";
-					}
+				}
 				if ((form1 == "jpg") || (form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
-					{
+				{
         			formats += form2 + " (*."+form1+" *."+form2+");;";
 					formatD += "*."+form1+" *."+form2+" ";
-					}
 				}
+			}
 #ifdef HAVE_TIFF
 			formats += "TIFF (*.tif *.TIF);;";
 			formatD += "*.tif *.TIF";
@@ -2784,47 +2791,79 @@ void ScribusApp::slotFileOpen()
 			formats += "EPS (*.eps *.EPS);;PDF (*.pdf *.PDF);;" + tr("All Files (*)");
 			formatD += " *.eps *.EPS *.pdf *.PDF";
 			formatD += ");;"+formats;
-  		QString fileName = CFileDialog( tr("Open"), formatD, "", true);
-    	if (!fileName.isEmpty())
-    		{
-     		b->EmProfile = "";
-      	b->UseEmbedded = true;
-  			b->IProfile = doc->CMSSettings.DefaultInputProfile;
+			QString fileName = CFileDialog( tr("Open"), formatD, "", true);
+			if (!fileName.isEmpty())
+			{
+				b->EmProfile = "";
+				b->UseEmbedded = true;
+				b->IProfile = doc->CMSSettings.DefaultInputProfile;
 				b->IRender = doc->CMSSettings.DefaultIntentMonitor2;
 				qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
-    		doc->ActPage->LoadPict(fileName, b->ItemNr);
-    		doc->ActPage->AdjustPictScale(b);
-    		doc->ActPage->AdjustPreview(b);
+				doc->ActPage->LoadPict(fileName, b->ItemNr);
+				doc->ActPage->AdjustPictScale(b);
+				doc->ActPage->AdjustPreview(b);
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
-     		qApp->restoreOverrideCursor();
-    		doc->ActPage->update();
+				qApp->restoreOverrideCursor();
+				doc->ActPage->update();
 				Mpal->Cpal->SetColors(doc->PageColors);
 				Mpal->updateCList();
 				Mpal->ShowCMS();
 				slotDocCh();
-  			}
-  		}
-  	if (b->PType == 4)
-  		{
+			}
+		}
+		if (b->PType == 4)
+		{
 			LoadEnc = "";
-  		QString fileName = CFileDialog( tr("Open"), tr("Text Files (*.txt);;All Files(*)"), "", false, true, false, true);
-    if (!fileName.isEmpty())
-  			{
-  			Serializer *ss = new Serializer(fileName);
-  			if (ss->Read(LoadEnc))
-  				{
+			QString fileName = CFileDialog( tr("Open"), tr("Text Files (*.txt);;All Files(*)"), "", false, true, false, true);
+			if (!fileName.isEmpty())
+			{
+				Serializer *ss = new Serializer(fileName);
+				if (ss->Read(LoadEnc))
+				{
 					int st = doc->CurrentABStil;
-  				ss->GetText(b, st, doc->Vorlagen[st].Font, doc->Vorlagen[st].FontSize);
-  				}
-  			delete ss;
+					ss->GetText(b, st, doc->Vorlagen[st].Font, doc->Vorlagen[st].FontSize);
+				}
+				delete ss;
 				if (doc->Trenner->AutoCheck)
 					doc->Trenner->slotHyphenate(b);
-    		doc->ActPage->update();
+				doc->ActPage->update();
 				slotDocCh();
-  			}
-  		}
-  	}
+			}
+		}
+	}
+}
+
+/*!
+ \fn void slotFileAppend()
+ \author Franz Schmid
+ \date  
+ \brief Appends a Textfile to the Text in the selected Textframe at the Cursorposition
+ \param None
+ \retval None
+ */
+void ScribusApp::slotFileAppend()
+{
+	if (doc->ActPage->SelItem.count() != 0)
+	{
+		PageItem *b = doc->ActPage->SelItem.at(0);
+		LoadEnc = "";
+		QString fileName = CFileDialog( tr("Open"), tr("Text Files (*.txt);;All Files(*)"), "", false, true, false, true);
+		if (!fileName.isEmpty())
+		{
+			Serializer *ss = new Serializer(fileName);
+			if (ss->Read(LoadEnc))
+			{
+				int st = doc->CurrentABStil;
+				ss->GetText(b, st, doc->Vorlagen[st].Font, doc->Vorlagen[st].FontSize, true);
+			}
+			delete ss;
+			if (doc->Trenner->AutoCheck)
+				doc->Trenner->slotHyphenate(b);
+			doc->ActPage->update();
+			slotDocCh();
+		}
+	}
 }
 
 void ScribusApp::slotFileRevert()
@@ -2966,6 +3005,7 @@ bool ScribusApp::DoFileClose()
 		{
 		fileMenu->setItemEnabled(fid1, 0);
 		importMenu->setItemEnabled(fid2, 0);
+		importMenu->setItemEnabled(fid2aa, 0);
 		exportMenu->setItemEnabled(fid3, 0);
 		fileMenu->setItemEnabled(fid4, 0);
 		fileMenu->setItemEnabled(fid5, 0);
@@ -3715,6 +3755,7 @@ void ScribusApp::slotNewPage(int w)
 	connect(doc->ActPage, SIGNAL(CopyItem()), this, SLOT(slotEditCopy()));
 	connect(doc->ActPage, SIGNAL(CutItem()), this, SLOT(slotEditCut()));
 	connect(doc->ActPage, SIGNAL(LoadPic()), this, SLOT(slotFileOpen()));
+	connect(doc->ActPage, SIGNAL(AppendText()), this, SLOT(slotFileAppend()));
 	connect(doc->ActPage, SIGNAL(AnnotProps()), this, SLOT(ModifyAnnot()));
 	connect(doc->ActPage, SIGNAL(ToScrap(QString)), this, SLOT(PutScrap(QString)));
 	connect(doc->ActPage, SIGNAL(UndoAvail()), this, SLOT(CanUndo()));

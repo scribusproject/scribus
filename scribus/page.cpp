@@ -2243,6 +2243,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			if (b->PType == 4)
 			{
 				pmen->insertItem( tr("Get Text..."), this, SIGNAL(LoadPic()));
+				pmen->insertItem( tr("Append Text..."), this, SIGNAL(AppendText()));
 				pmen->insertItem( tr("Edit Text..."), this, SIGNAL(EditText()));
 				if (PageNam == "")
 				{

@@ -4082,11 +4082,19 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Align Text Block</source>
-        <translation>Zarovnat text do bloku</translation>
+        <translation type="obsolete">Zarovnat text do bloku</translation>
     </message>
     <message>
         <source>Align Text Center</source>
         <translation>Zarovnat text na střed</translation>
+    </message>
+    <message>
+        <source>Align Text Justified</source>
+        <translation>Zarovnat text vyrovnaně</translation>
+    </message>
+    <message>
+        <source>Align Text Forced Justified</source>
+        <translation>Zarovnat text vynuceně vyrovnaně</translation>
     </message>
 </context>
 <context>
@@ -5131,6 +5139,10 @@ přetáhněte šablonu do náhledu strany.</translation>
         <source>Websave RGB</source>
         <translation type="obsolete">Uložit pro web RGB</translation>
     </message>
+    <message>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -5173,6 +5185,42 @@ přetáhněte šablonu do náhledu strany.</translation>
     <message>
         <source>None</source>
         <translation>Žádné</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation>Stín:</translation>
+    </message>
+    <message>
+        <source>Edit Line Color Properties</source>
+        <translation>Barva obrysu</translation>
+    </message>
+    <message>
+        <source>Edit Fill Color Properties</source>
+        <translation>Barva výplně</translation>
+    </message>
+    <message>
+        <source>Saturation of color</source>
+        <translation>Sytost barvy</translation>
+    </message>
+    <message>
+        <source>Normal or gradient fill method</source>
+        <translation>Normální výplň nebo přechody</translation>
+    </message>
+    <message>
+        <source>Edit the first color of object</source>
+        <translation>Výběr první barvy</translation>
+    </message>
+    <message>
+        <source>Edit the second color of object</source>
+        <translation>Výběr druhé barvy</translation>
+    </message>
+    <message>
+        <source>Set the transparency for the color selected</source>
+        <translation>Nastavení průhlednosti vybrané barvy</translation>
+    </message>
+    <message>
+        <source>Color of selected object</source>
+        <translation>Barva vybraného objektu</translation>
     </message>
 </context>
 <context>
@@ -5968,7 +6016,11 @@ Lze uvést v Nastavení.</translation>
     </message>
     <message>
         <source>Sorry, no manual available!</source>
-        <translation>Lituji, není dostupný žádný manuál!</translation>
+        <translation type="obsolete">Lituji, není dostupný žádný manuál!</translation>
+    </message>
+    <message>
+        <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
+        <translation>Lituji, ale není dostupný žádný manuál! Konzultujte http://scribus.net.</translation>
     </message>
 </context>
 <context>
@@ -6225,6 +6277,10 @@ kdykoliv bude nalezeno možné dělení slova.</translation>
     <message>
         <source>New Layer</source>
         <translation>Nová vrstva</translation>
+    </message>
+    <message>
+        <source>Do you want to delete all Objects on this Layer too?</source>
+        <translation>Opravdu chcete také smazat všechny objekty z této hladiny?</translation>
     </message>
 </context>
 <context>
@@ -6533,7 +6589,7 @@ kdykoliv bude nalezeno možné dělení slova.</translation>
     </message>
     <message>
         <source>Text flows around Box</source>
-        <translation>Text obtéká okolo</translation>
+        <translation type="obsolete">Text obtéká okolo</translation>
     </message>
     <message>
         <source>Use Bounding Box</source>
@@ -6631,7 +6687,7 @@ Rohy:</translation>
     </message>
     <message>
         <source>Lang.:</source>
-        <translation>Jazyk:</translation>
+        <translation type="obsolete">Jazyk:</translation>
     </message>
     <message>
         <source>Free Scaling</source>
@@ -6655,7 +6711,7 @@ Rohy:</translation>
     </message>
     <message>
         <source>Keep Aspect Ratio</source>
-        <translation>Dodržet poměr stran</translation>
+        <translation type="obsolete">Dodržet poměr stran</translation>
     </message>
     <message>
         <source>Proportional</source>
@@ -6795,35 +6851,35 @@ Rohy:</translation>
     </message>
     <message>
         <source>Flip horizontal</source>
-        <translation>Překlopit vodorovně</translation>
+        <translation type="obsolete">Překlopit vodorovně</translation>
     </message>
     <message>
         <source>Flip vertical</source>
-        <translation>Překlopit svisle</translation>
+        <translation type="obsolete">Překlopit svisle</translation>
     </message>
     <message>
         <source>Move one Level up</source>
-        <translation>O hladinu výš</translation>
+        <translation type="obsolete">O hladinu výš</translation>
     </message>
     <message>
         <source>Move one Level down</source>
-        <translation>O hladinu níž</translation>
+        <translation type="obsolete">O hladinu níž</translation>
     </message>
     <message>
         <source>Move to Front</source>
-        <translation>Do nejvyšší hladiny</translation>
+        <translation type="obsolete">Do nejvyšší hladiny</translation>
     </message>
     <message>
         <source>Move to Back</source>
-        <translation>Do nejnižší hladiny</translation>
+        <translation type="obsolete">Do nejnižší hladiny</translation>
     </message>
     <message>
         <source>Locks or unlocks the Object</source>
-        <translation>Zamknout nebo odemknout objekt</translation>
+        <translation type="obsolete">Zamknout nebo odemknout objekt</translation>
     </message>
     <message>
         <source>Enables or disables printing of the Object</source>
-        <translation>Povolit nebo zakázat tisk objektu</translation>
+        <translation type="obsolete">Povolit nebo zakázat tisk objektu</translation>
     </message>
     <message>
         <source>X1:</source>
@@ -6878,6 +6934,247 @@ Vyberte, prosím, jiný.</translation>
     <message>
         <source>Y-Scale:</source>
         <translation>Y-Měřítko:</translation>
+    </message>
+    <message>
+        <source>Text flows around frame</source>
+        <translation>Text obtéká okolo rámu</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation>Stín:</translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation>Jazyk:</translation>
+    </message>
+    <message>
+        <source>Name of selected object</source>
+        <translation>Jméno vybraného objektu</translation>
+    </message>
+    <message>
+        <source>Horizontal position of current basepoint</source>
+        <translation>Horizontální umístění středu otáčení</translation>
+    </message>
+    <message>
+        <source>Vertical position of current basepoint</source>
+        <translation>Vertikální umístění středu otáčení</translation>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation>Šířka</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation>Výška</translation>
+    </message>
+    <message>
+        <source>Rotation of object at current basepoint</source>
+        <translation>Rotace objektu podle aktuálního středu otáčení</translation>
+    </message>
+    <message>
+        <source>Point from which measurements or rotation angles are referenced</source>
+        <translation>Bod (počátek souřadnic), od kterého jsou 
+odvozeny vzdálenosti nebo úhly rotace</translation>
+    </message>
+    <message>
+        <source>Select top left for basepoint</source>
+        <translation>Střed otáčení vlevo nahoře</translation>
+    </message>
+    <message>
+        <source>Select top right for basepoint</source>
+        <translation>Střed otáčení vpravo nahoře</translation>
+    </message>
+    <message>
+        <source>Select bottom left for basepoint</source>
+        <translation>Střed otáčení vlevo dole</translation>
+    </message>
+    <message>
+        <source>Select bottom right for basepoint</source>
+        <translation>Střed otáčení vpravo dole</translation>
+    </message>
+    <message>
+        <source>Select center for basepoint</source>
+        <translation>Střed otáčení uprostřed</translation>
+    </message>
+    <message>
+        <source>Flip Horizontal</source>
+        <translation>Překlopit vodorovně</translation>
+    </message>
+    <message>
+        <source>Flip Vertical</source>
+        <translation>Překlopit svisle</translation>
+    </message>
+    <message>
+        <source>Move one level up</source>
+        <translation>O hladinu výš</translation>
+    </message>
+    <message>
+        <source>Move one level down</source>
+        <translation>O hladinu níž</translation>
+    </message>
+    <message>
+        <source>Move to front</source>
+        <translation>Přesunout navrch</translation>
+    </message>
+    <message>
+        <source>Move to back</source>
+        <translation>Přesunout dospodu</translation>
+    </message>
+    <message>
+        <source>Lock or unlock the object</source>
+        <translation>Zamknout nebo odemknout objekt</translation>
+    </message>
+    <message>
+        <source>Lock or unlock the size of the object</source>
+        <translation>Zamknout nebo odemknout rozměry objektu</translation>
+    </message>
+    <message>
+        <source>Enable or disable printing of the object</source>
+        <translation>Povolit nebo zakázat tisk objektu</translation>
+    </message>
+    <message>
+        <source>Enable this to make text in lower objects flow around this frame</source>
+        <translation>Tato volba povolí obtékání textu v nižších objektech kolem zvoleného rámce</translation>
+    </message>
+    <message>
+        <source>Enable this to use the imaginary square border around your object, rather than its actual shape</source>
+        <translation>Tato volba zapne imaginární obdélníkový rámec kolem objektu, který nahradí aktuální obrys</translation>
+    </message>
+    <message>
+        <source>Font of selected text or object</source>
+        <translation>Písmo vybraného textu nebo objektu</translation>
+    </message>
+    <message>
+        <source>Scaling width of characters</source>
+        <translation>Změna šířky znaků písma</translation>
+    </message>
+    <message>
+        <source>Color of text stroke</source>
+        <translation>Barva obrysu písma</translation>
+    </message>
+    <message>
+        <source>Color of text fill</source>
+        <translation>Barva výplně písma</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text stroke</source>
+        <translation>Sytost barvy obrysu písma</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text fill</source>
+        <translation>Sytost barvy výplně písma</translation>
+    </message>
+    <message>
+        <source>Style of current paragraph</source>
+        <translation>Styl aktuálního odstavce</translation>
+    </message>
+    <message>
+        <source>Language of object</source>
+        <translation>Jazyk použitý v objektu</translation>
+    </message>
+    <message>
+        <source>Change settings for left or end points</source>
+        <translation>Změna nastavení bodů čáry</translation>
+    </message>
+    <message>
+        <source>Pattern of line</source>
+        <translation>Styl čáry</translation>
+    </message>
+    <message>
+        <source>Thickness of line</source>
+        <translation>Šířka (tloušťka) čáry</translation>
+    </message>
+    <message>
+        <source>Type of line joins</source>
+        <translation>Typy spojení čar</translation>
+    </message>
+    <message>
+        <source>Type of line end</source>
+        <translation>Typy ukončení čáry</translation>
+    </message>
+    <message>
+        <source>Line style of current object</source>
+        <translation>Styl čáry aktuálního objektu</translation>
+    </message>
+    <message>
+        <source>Choose the shape of frame...</source>
+        <translation>Výběr obrys rámu...</translation>
+    </message>
+    <message>
+        <source>Edit shape of the frame...</source>
+        <translation>Úprava obrysu rámu...</translation>
+    </message>
+    <message>
+        <source>Set radius of corner rounding</source>
+        <translation>Nastavní poloměru zakulacení rohů</translation>
+    </message>
+    <message>
+        <source>Number of columns in text frame</source>
+        <translation>Počet sloupců v textovém rámu</translation>
+    </message>
+    <message>
+        <source>Distance between columns</source>
+        <translation>Vzdálenost mezi sloupci</translation>
+    </message>
+    <message>
+        <source>Distance of text from top of frame</source>
+        <translation>Vzdálenost textu od horního obrysu rámu</translation>
+    </message>
+    <message>
+        <source>Distance of text from bottom of frame</source>
+        <translation>Vzdálenost textu od spodního obrysu rámu</translation>
+    </message>
+    <message>
+        <source>Distance of text from left of frame</source>
+        <translation>Vzdálenost textu od levého obrysu rámu</translation>
+    </message>
+    <message>
+        <source>Distance of text from right of frame</source>
+        <translation>Vzdálenost textu od pravého obrysu rámu</translation>
+    </message>
+    <message>
+        <source>Edit tab settings of text frame...</source>
+        <translation>Nastavení tabelátorů textového rámu...</translation>
+    </message>
+    <message>
+        <source>Allow the image to be a different size to the frame</source>
+        <translation>Možnost nastavit jiné rozměry obrázku než rámce</translation>
+    </message>
+    <message>
+        <source>Horizontal offset of image within frame</source>
+        <translation>Vodorovné posunutí obrázku vůči rámu</translation>
+    </message>
+    <message>
+        <source>Vertical offset of image within frame</source>
+        <translation>Svislé posunutí obrázku vůči rámu</translation>
+    </message>
+    <message>
+        <source>Resize the image horizontally</source>
+        <translation>Změnit šířku obrázku</translation>
+    </message>
+    <message>
+        <source>Resize the image vertically</source>
+        <translation>Změnit výšku obrázku</translation>
+    </message>
+    <message>
+        <source>Keep the X and Y scaling the same</source>
+        <translation>Použít stejnou změnu velikosti pro oba rozměry (X a Y)</translation>
+    </message>
+    <message>
+        <source>Make the image fit within the size of the frame</source>
+        <translation>Obrázek změní velikost podle rozměru rámu</translation>
+    </message>
+    <message>
+        <source>Use image proportions rather than those of the frame</source>
+        <translation>Obrázek si zachová své proporce</translation>
+    </message>
+    <message>
+        <source>Select the source profile of the image</source>
+        <translation>Výběr zdrojového profilu obrázku</translation>
+    </message>
+    <message>
+        <source>Select the rendering intent for the image</source>
+        <translation>Výběr účelu vykreslení obrázku</translation>
     </message>
 </context>
 <context>
@@ -7386,7 +7683,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Compression</source>
-        <translation>Komprese</translation>
+        <translation type="obsolete">Komprese</translation>
     </message>
     <message>
         <source>Downsample Images to:</source>
@@ -7700,6 +7997,54 @@ ke straně, v opačném případě k objektu.</translation>
         <source>Top-left to Bottom-Right</source>
         <translation>Zleva nahoře doprava dolů</translation>
     </message>
+    <message>
+        <source>Image Settings</source>
+        <translation>Nastavení obrázků</translation>
+    </message>
+    <message>
+        <source>Method:</source>
+        <translation>Způsob:</translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation>Automaticky</translation>
+    </message>
+    <message>
+        <source>JPEG</source>
+        <translation>JPEG</translation>
+    </message>
+    <message>
+        <source>Zip</source>
+        <translation>Zip</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Žádné</translation>
+    </message>
+    <message>
+        <source>Quality:</source>
+        <translation>Kvalita:</translation>
+    </message>
+    <message>
+        <source>Maximum</source>
+        <translation>Maximální</translation>
+    </message>
+    <message>
+        <source>High</source>
+        <translation>Vysoká</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation>Střední</translation>
+    </message>
+    <message>
+        <source>Low</source>
+        <translation>Nízká</translation>
+    </message>
+    <message>
+        <source>Minimum</source>
+        <translation>Minimální</translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -7709,7 +8054,7 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Strana:</translation>
+        <translation type="obsolete">Strana:</translation>
     </message>
     <message>
         <source>Anti-alias Text</source>
@@ -7993,6 +8338,25 @@ ke straně, v opačném případě k objektu.</translation>
     <message>
         <source>Disabled</source>
         <translation>Zakázáno</translation>
+    </message>
+    <message>
+        <source>Update Picture</source>
+        <translation>Aktualizovat obrázek</translation>
+    </message>
+    <message>
+        <source>Edit Picture</source>
+        <translation>Upravit obrázek</translation>
+    </message>
+</context>
+<context>
+    <name>PageSelector</name>
+    <message>
+        <source>Page </source>
+        <translation>Strana</translation>
+    </message>
+    <message>
+        <source> of %1</source>
+        <translation>z %1</translation>
     </message>
 </context>
 <context>
@@ -9037,6 +9401,22 @@ Zkontrolujte cestu a název souboru.</translation>
     <message>
         <source>Import SVG-Image</source>
         <translation>Import SVG obrázku</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -10117,11 +10497,11 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>Page </source>
-        <translation>Strana</translation>
+        <translation type="obsolete">Strana</translation>
     </message>
     <message>
         <source> of %1</source>
-        <translation>z %1</translation>
+        <translation type="obsolete">z %1</translation>
     </message>
 </context>
 <context>
@@ -10591,6 +10971,10 @@ přetáhněte šablonu do náhledu strany.</translation>
         <source>Search/Replace...</source>
         <translation>Hledat/Nahradit...</translation>
     </message>
+    <message>
+        <source>Do you want save your changes?</source>
+        <translation>Přejete si uložit změny?</translation>
+    </message>
 </context>
 <context>
     <name>StyleSelect</name>
@@ -10612,11 +10996,15 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Strikeout</source>
-        <translation>Přeškrtnuté</translation>
+        <translation type="obsolete">Přeškrtnuté</translation>
     </message>
     <message>
         <source>Outline Text</source>
         <translation>Obrys textu</translation>
+    </message>
+    <message>
+        <source>Strike Out</source>
+        <translation>Přeškrtnuté</translation>
     </message>
 </context>
 <context>

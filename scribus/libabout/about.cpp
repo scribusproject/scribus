@@ -54,7 +54,7 @@ About::About( QWidget* parent )
 	tabLayout1->addWidget( PixmapLabel1 );
 	BuildID = new QLabel( tab, "BB" );
 	BuildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1. %2 %3 ").arg(03).arg("March").arg(2004);
+	QString bu = tr("%1. %2 %3 ").arg(04).arg(tr("March")).arg(2004);
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -85,7 +85,7 @@ About::About( QWidget* parent )
 	                                     "<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
 	                                     "<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
 	                                     "<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
-	                                     "<tr><td>Petr Vaněk</td><td>subzero@py.cz</td></tr>" +
+	                                     "<tr><td>Petr Vaněk</td><td>petr@yarpen.cz</td></tr>" +
 	                                     "<tr><td> </td><td> </td></tr>" +
 	                                     "<tr><td><b>" + tr("Contributions from:").utf8()  + "</b></td><td></td></tr>" +
 	                                     "<tr><td>Alessandro Rimoldi</td><td>http://ideale.ch/contact</td></tr>" +
@@ -131,6 +131,7 @@ About::About( QWidget* parent )
 	                                      "<tr><td>Zoltán Böszörményi</td><td>zboszor@freemail.hu</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Ukrainian:").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Oleksandr Moskalenko</td><td>malex@tagancha.org</td></tr>" +
 	                                      "<tr><td>Sergiy Kudryk</td><td>kudryk@yahoo.com</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Bulgarian:").utf8()  + "</b></td><td> </td></tr>" +
@@ -143,14 +144,13 @@ About::About( QWidget* parent )
 	                                      "<tr><td>Erkan Kaplan</td><td>Selamsana@uni.de</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Lithuanian:").utf8()  + "</b></td><td> </td></tr>" +
-	                                      "<tr><td>Oleksandr Moskalenko</td><td>malex@purdue.edu</td></tr>" +
 	                                      "<tr><td>Aivaras Kirejevas</td><td>kiras@mail.lt</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Polish:").utf8()  + "</b></td><td> </td></tr>" +
 	                                      "<tr><td>Maciej Hański</td><td>m.hanski@gmx.at</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Czech:").utf8()  + "</b></td><td></td></tr>" +
-	                                      "<tr><td>Petr Vaněk</td><td>subzero@py.cz</td></tr>" +
+	                                     "<tr><td>Petr Vaněk</td><td>petr@yarpen.cz</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Slovak:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Zdenko Podobn&yacute;ý</td><td>zdpo@mailbox.sk</td></tr>" +
@@ -181,6 +181,25 @@ About::About( QWidget* parent )
 	TextView2->setTextFormat( QTextView::RichText );
 	tabLayout_2->addWidget( TextView2 );
 	TabWidget2->insertTab( tab_3, tr( "Translations" ) );
+
+	// online tab (03/04/2004 petr vanek)
+	tab_4 = new QWidget( TabWidget2, "tab_4" );
+	TextView4 = new QTextView( tab_4, "TextView4" );
+	TextView4->setText(QString::fromUtf8(
+		"<table><tr><td><b>" + tr("Homepage and online reference").utf8() + "</b></td><td></td></tr>" +
+		"<tr><td colspan=\"2\"><p><a href=\"http://scribus.net\">http://scribus.net</a></p></td></tr>" +
+		"<tr><td><b>" + tr("Mailing list").utf8() + "</b></td><td></td></tr>" +
+		"<tr><td colspan=\"2\"><p><a href=\"http://nashi.altmuehlnet.de/mailman/listinfo/scribus\">http://nashi.altmuehlnet.de/mailman/listinfo/scribus</a></p></td></tr>" +
+		"<tr><td><b>" + tr("Bugs and feature requests").utf8() + "</b></td><td></td></tr>" +
+		"<tr><td colspan=\"2\"><p><a href=\"http://bugs.scribus.net\">http://bugs.scribus.net</a></p></td></tr>" +
+		"</table>"
+		));
+	TextView4->setTextFormat( QTextView::RichText );
+	tabLayout_4 = new QHBoxLayout( tab_4 );
+	tabLayout_4->setSpacing( 6 );
+	tabLayout_4->setMargin( 10 );
+	tabLayout_4->addWidget( TextView4 );
+	TabWidget2->insertTab( tab_4, tr( "Online" ).utf8() );
 	AboutLayout->addWidget( TabWidget2 );
 	Layout2 = new QHBoxLayout;
 	Layout2->setSpacing( 6 );

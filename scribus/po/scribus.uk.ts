@@ -235,7 +235,7 @@
     </message>
     <message>
         <source>Snap to Guides</source>
-        <translation>Прив&apos;язка до розмітки</translation>
+        <translation>Притягування до розмітки</translation>
     </message>
     <message>
         <source>Modify Textframe</source>
@@ -271,7 +271,7 @@
     </message>
     <message>
         <source>Snap to Grid</source>
-        <translation>Прив&apos;язка до сітки</translation>
+        <translation>Притягування до сітки</translation>
     </message>
     <message>
         <source>Unable to create PDF-File.</source>
@@ -603,7 +603,7 @@
     </message>
     <message>
         <source>Guides</source>
-        <translation>Розмітки</translation>
+        <translation>Розмітка</translation>
     </message>
     <message>
         <source>Hide Colors</source>
@@ -799,7 +799,7 @@
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Розмітка зон документу</translation>
+        <translation>Розмітка полів</translation>
     </message>
     <message>
         <source>Hide Margins</source>
@@ -1654,6 +1654,14 @@
     <message>
         <source>Align Text Center</source>
         <translation>Вирівняти текст по центру</translation>
+    </message>
+    <message>
+        <source>Align Text Justified</source>
+        <translation>Вирівняти текст з обох сторін</translation>
+    </message>
+    <message>
+        <source>Align Text Forced Justified</source>
+        <translation>Змусити вирівняти текст з обох сторін</translation>
     </message>
 </context>
 <context>
@@ -2642,6 +2650,10 @@
         <source>Websafe RGB</source>
         <translation>RGB кольори безпечні для провідників інтернету</translation>
     </message>
+    <message>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -2680,6 +2692,42 @@
     <message>
         <source>None</source>
         <translation>Немає</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation>Тінь:</translation>
+    </message>
+    <message>
+        <source>Edit Line Color Properties</source>
+        <translation>Редагувати установки кольору лінії</translation>
+    </message>
+    <message>
+        <source>Edit Fill Color Properties</source>
+        <translation>Редагувати установки кольору заливки</translation>
+    </message>
+    <message>
+        <source>Saturation of color</source>
+        <translation>Насичення кольору</translation>
+    </message>
+    <message>
+        <source>Normal or gradient fill method</source>
+        <translation>Нормальний або градієнтний метод заливки</translation>
+    </message>
+    <message>
+        <source>Edit the first color of object</source>
+        <translation>Редагувати перший колір об&apos;єкта</translation>
+    </message>
+    <message>
+        <source>Edit the second color of object</source>
+        <translation>Редагувати другий колір об&apos;єкта</translation>
+    </message>
+    <message>
+        <source>Set the transparency for the color selected</source>
+        <translation>Зробити вибраний колір прозорим</translation>
+    </message>
+    <message>
+        <source>Color of selected object</source>
+        <translation>Колір вибраного об&apos;єкта</translation>
     </message>
 </context>
 <context>
@@ -3301,11 +3349,11 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Font Substitutions</source>
-        <translation>Підміни шрифтів</translation>
+        <translation>Підміна шрифтів</translation>
     </message>
     <message>
         <source>Additional Paths</source>
-        <translation>Додаткові місця розміщення шрифтів</translation>
+        <translation>Додаткові шляхи</translation>
     </message>
     <message>
         <source>Postscript</source>
@@ -3321,7 +3369,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Replacement</source>
-        <translation>Заміна</translation>
+        <translation>Підміна</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -3353,7 +3401,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Use Font</source>
-        <translation>Використати шрифт</translation>
+        <translation>Використовувати</translation>
     </message>
     <message>
         <source>Embed in:</source>
@@ -3369,7 +3417,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Path to Font File</source>
-        <translation>Шлях до файла з шрифтом</translation>
+        <translation>Шлях до файла шрифта</translation>
     </message>
 </context>
 <context>
@@ -3440,6 +3488,10 @@ This can be set in the Preferences.</source>
     <message>
         <source>Sorry, no manual available!</source>
         <translation>Вибачте, довідка ще не готова!</translation>
+    </message>
+    <message>
+        <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
+        <translation>Вибачте - довідка відсутня! Будь-ласка зверніться до http://scribus.net за поновленою документацією та матеріалами доступними для зкачування.</translation>
     </message>
 </context>
 <context>
@@ -3697,6 +3749,10 @@ everytime a possible Hyphenation is found.</source>
     <message>
         <source>New Layer</source>
         <translation>Новий план</translation>
+    </message>
+    <message>
+        <source>Do you want to delete all Objects on this Layer too?</source>
+        <translation>Ви бажаєте видалити всі об&apos;екти разом з цим планом?</translation>
     </message>
 </context>
 <context>
@@ -4111,7 +4167,7 @@ Corners:</source>
     </message>
     <message>
         <source>Keep Aspect Ratio</source>
-        <translation>Зберегти співвідношення сторін</translation>
+        <translation>Зберегти відношення сторін</translation>
     </message>
     <message>
         <source>Proportional</source>
@@ -4274,6 +4330,254 @@ Please choose another.</source>
     <message>
         <source>OK</source>
         <translation>Гаразд</translation>
+    </message>
+    <message>
+        <source>Enables or disables resizing of the Object</source>
+        <translation>Дозволяє або забороняє зміну розмірів об&apos;єкту</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation>Тінь:</translation>
+    </message>
+    <message>
+        <source>Text flows around frame</source>
+        <translation>Текст огинає рамку</translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation>Мова:</translation>
+    </message>
+    <message>
+        <source>Name of selected object</source>
+        <translation>Назва вибраного об&apos;єкту</translation>
+    </message>
+    <message>
+        <source>Horizontal position of current basepoint</source>
+        <translation>Горизонтальна позиція активної точки відліку</translation>
+    </message>
+    <message>
+        <source>Vertical position of current basepoint</source>
+        <translation>Вертикальна позиція активної точки відліку</translation>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation>Ширина</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation>Висота</translation>
+    </message>
+    <message>
+        <source>Rotation of object at current basepoint</source>
+        <translation>Кут повороту об&apos;єкту від активної точки відліку</translation>
+    </message>
+    <message>
+        <source>Point from which measurements or rotation angles are referenced</source>
+        <translation>Точка, відносно якої вимірюються відстані та кути обертання</translation>
+    </message>
+    <message>
+        <source>Select top left for basepoint</source>
+        <translation>Вибрати верхній лівий кут, як точку відліку</translation>
+    </message>
+    <message>
+        <source>Select top right for basepoint</source>
+        <translation>Вибрати верхній правий кут, як точку відліку</translation>
+    </message>
+    <message>
+        <source>Select bottom left for basepoint</source>
+        <translation>Вибрати нижній лівий кут, як точку відліку</translation>
+    </message>
+    <message>
+        <source>Select bottom right for basepoint</source>
+        <translation>Вибрати нижній правий кут, як точку відліку</translation>
+    </message>
+    <message>
+        <source>Select center for basepoint</source>
+        <translation>Вибрати центр, як точку відліку</translation>
+    </message>
+    <message>
+        <source>Flip Horizontal</source>
+        <translation>Перевернути по горизонталі</translation>
+    </message>
+    <message>
+        <source>Flip Vertical</source>
+        <translation>Перевернути по вертикалі</translation>
+    </message>
+    <message>
+        <source>Move one level up</source>
+        <translation>Перемістити на один план вгору</translation>
+    </message>
+    <message>
+        <source>Move one level down</source>
+        <translation>Перемістити на один план вниз</translation>
+    </message>
+    <message>
+        <source>Move to front</source>
+        <translation>Перемістити на передній план</translation>
+    </message>
+    <message>
+        <source>Move to back</source>
+        <translation>Перемістити на задній план</translation>
+    </message>
+    <message>
+        <source>Lock or unlock the object</source>
+        <translation>Замкнути або відімкнути об&apos;єкт</translation>
+    </message>
+    <message>
+        <source>Lock or unlock the size of the object</source>
+        <translation>Закнути або відімкнути розмір об&apos;єкта</translation>
+    </message>
+    <message>
+        <source>Enable or disable printing of the object</source>
+        <translation>Дозволити або заборонити друкування об&apos;екта</translation>
+    </message>
+    <message>
+        <source>Enable this to make text flow around overlapping objects</source>
+        <translation>Ввімкніть цю опцію, щоб змусити текст огинати об&apos;єкти, що накладаються один на одного</translation>
+    </message>
+    <message>
+        <source>Enable this to use the imaginary square border around your object, rather than its actual shape</source>
+        <translation>Ввімкніть цю опцію, щоб використовувати уявну прямокутну обмежуючу рамку навколо вашого об&apos;єкта замість його справжньої форми</translation>
+    </message>
+    <message>
+        <source>Font of selected text or object</source>
+        <translation>Шрифт вибраного тексту чи об&apos;єкта</translation>
+    </message>
+    <message>
+        <source>Scaling width of characters</source>
+        <translation>Масштабування ширини знаків</translation>
+    </message>
+    <message>
+        <source>Color of text stroke</source>
+        <translation>Колір знакових силуетів</translation>
+    </message>
+    <message>
+        <source>Color of text fill</source>
+        <translation>Колір заповнення знаків</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text stroke</source>
+        <translation>Насиченість кольору знакових силуетів</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text fill</source>
+        <translation>Насиченість кольору заповнення знаків</translation>
+    </message>
+    <message>
+        <source>Style of current paragraph</source>
+        <translation>Стиль активного абзацу</translation>
+    </message>
+    <message>
+        <source>Language of object</source>
+        <translation>Мова об&apos;єкта</translation>
+    </message>
+    <message>
+        <source>Change settings for left or end points</source>
+        <translation>Змінити установки для лівих та правих закінчень</translation>
+    </message>
+    <message>
+        <source>Pattern of line</source>
+        <translation>Вид лінії</translation>
+    </message>
+    <message>
+        <source>Thickness of line</source>
+        <translation>Товщина лінії</translation>
+    </message>
+    <message>
+        <source>Type of line joins</source>
+        <translation>Тип з&apos;єднань ліній</translation>
+    </message>
+    <message>
+        <source>Type of line end</source>
+        <translation>Тип закінчення лінії</translation>
+    </message>
+    <message>
+        <source>Line style of current object</source>
+        <translation>Стиль ліній активного об&apos;єкту</translation>
+    </message>
+    <message>
+        <source>Choose the shape of frame...</source>
+        <translation>Вибрати форму рамки...</translation>
+    </message>
+    <message>
+        <source>Edit shape of the frame...</source>
+        <translation>Редагувати форму рамки...</translation>
+    </message>
+    <message>
+        <source>Set radius of corner rounding</source>
+        <translation>Установити радіус заокруглення кутів</translation>
+    </message>
+    <message>
+        <source>Number of columns in text frame</source>
+        <translation>Число стовпців в текстовій рамці</translation>
+    </message>
+    <message>
+        <source>Distance between columns</source>
+        <translation>Інтервал між стовпцями</translation>
+    </message>
+    <message>
+        <source>Distance of text from top of frame</source>
+        <translation>Відстань від верхівки рамки до тексту </translation>
+    </message>
+    <message>
+        <source>Distance of text from bottom of frame</source>
+        <translation>Відстань від тексту до низу рамки</translation>
+    </message>
+    <message>
+        <source>Distance of text from left of frame</source>
+        <translation>Відстань від лівої сторони рамки до тексту</translation>
+    </message>
+    <message>
+        <source>Distance of text from right of frame</source>
+        <translation>Відстань від тексту до правої сторони рамки</translation>
+    </message>
+    <message>
+        <source>Edit tab settings of text frame...</source>
+        <translation>Редагувати установки відступів текстової рамки...</translation>
+    </message>
+    <message>
+        <source>Allow the image to be a different size to the frame</source>
+        <translation>Дозволити неспівпадання розмірів зображення та рамки</translation>
+    </message>
+    <message>
+        <source>Horizontal offset of image within frame</source>
+        <translation>Горизонтальне зміщення зображення в рамці</translation>
+    </message>
+    <message>
+        <source>Vertical offset of image within frame</source>
+        <translation>Вертикальне зміщення зображення в рамці</translation>
+    </message>
+    <message>
+        <source>Resize the image horizontally</source>
+        <translation>Змінити розмір зображення по горизонталі</translation>
+    </message>
+    <message>
+        <source>Resize the image vertically</source>
+        <translation>Змінити розмір зображення по вертикалі</translation>
+    </message>
+    <message>
+        <source>Keep the X and Y scaling the same</source>
+        <translation>Утримувати масштаб по вісях X та Y однаковим</translation>
+    </message>
+    <message>
+        <source>Make the image fit within the size of the frame</source>
+        <translation>Змусити зображення вміститися в рамку</translation>
+    </message>
+    <message>
+        <source>Use image proportions rather than those of the frame</source>
+        <translation>Використовувати відношення сторін зображення, а не рамки</translation>
+    </message>
+    <message>
+        <source>Select the source profile of the image</source>
+        <translation>Вибрати вихідний профіль зображення</translation>
+    </message>
+    <message>
+        <source>Select the rendering intent for the image</source>
+        <translation>Вибрати призначення вихідного зображення</translation>
+    </message>
+    <message>
+        <source>Enable this to make text in lower objects flow around this frame</source>
+        <translation>Ввімкніть опцію для того, щоб змусити текст в об&apos;єктах на задніх планах огинати цю рамку</translation>
     </message>
 </context>
 <context>
@@ -4472,27 +4776,27 @@ Please choose another.</source>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Розмітка зон документу</translation>
+        <translation>Розмітка полів</translation>
     </message>
     <message>
         <source>Left:</source>
-        <translation>Зліва:</translation>
+        <translation>Ліве:</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation>Зправа:</translation>
+        <translation>Праве:</translation>
     </message>
     <message>
         <source>Top:</source>
-        <translation>Верх:</translation>
+        <translation>Верхнє:</translation>
     </message>
     <message>
         <source>Bottom:</source>
-        <translation>Низ:</translation>
+        <translation>Нижнє:</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation>Опції</translation>
+        <translation>Установки</translation>
     </message>
     <message>
         <source>First Page Number:</source>
@@ -4532,7 +4836,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Columns:</source>
-        <translation>Стовпці:</translation>
+        <translation>Кількість стовпців:</translation>
     </message>
     <message>
         <source>OK</source>
@@ -4691,7 +4995,7 @@ otherwise Coordinates are relative to the Object.</source>
     <name>PConsole</name>
     <message>
         <source>Script Console</source>
-        <translation>Консоль для сценаріїв</translation>
+        <translation>Консоль сценарія</translation>
     </message>
 </context>
 <context>
@@ -5213,11 +5517,11 @@ C</translation>
     </message>
     <message>
         <source>Snap to Grid</source>
-        <translation>Прив&apos;язка до сітки</translation>
+        <translation>Притягування до сітки</translation>
     </message>
     <message>
         <source>Snap to Guides</source>
-        <translation>Прив&apos;язка до розмітки</translation>
+        <translation>Притягування до розмітки</translation>
     </message>
     <message>
         <source>Picture</source>
@@ -5395,6 +5699,14 @@ C</translation>
         <source>Disabled</source>
         <translation>Вимкнено</translation>
     </message>
+    <message>
+        <source>Update Picture</source>
+        <translation>Поновити зображення</translation>
+    </message>
+    <message>
+        <source>Edit Picture</source>
+        <translation>Редагувати зображення</translation>
+    </message>
 </context>
 <context>
     <name>PageSelector</name>
@@ -5528,7 +5840,7 @@ C</translation>
     </message>
     <message>
         <source>Guides</source>
-        <translation>Розмітки</translation>
+        <translation>Розмітка</translation>
     </message>
     <message>
         <source>Typography</source>
@@ -5668,7 +5980,7 @@ C</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Розмітка полів документу</translation>
+        <translation>Розмітка полів</translation>
     </message>
     <message>
         <source>Bottom:</source>
@@ -5736,7 +6048,7 @@ C</translation>
     </message>
     <message>
         <source>User Guides Color:</source>
-        <translation>Колір власної розмітки користувача:</translation>
+        <translation>Колір розмітки користувача:</translation>
     </message>
     <message>
         <source>Placing</source>
@@ -5772,11 +6084,11 @@ C</translation>
     </message>
     <message>
         <source>Small Caps</source>
-        <translation>Малі великі літери</translation>
+        <translation>Капітель</translation>
     </message>
     <message>
         <source>Other</source>
-        <translation>Інші</translation>
+        <translation>Інше</translation>
     </message>
     <message>
         <source>Automatic Line Spacing:</source>
@@ -5796,7 +6108,7 @@ C</translation>
     </message>
     <message>
         <source>Columns:</source>
-        <translation>Стовпців:</translation>
+        <translation>Кількість стовпців:</translation>
     </message>
     <message>
         <source>Gap:</source>
@@ -5808,7 +6120,7 @@ C</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation>Реве та стогне, Дніпр широкий</translation>
+        <translation>Реве та стогне Дніпр широкий, сердитий вітер завіва</translation>
     </message>
     <message>
         <source>Line Color:</source>
@@ -5868,7 +6180,7 @@ C</translation>
     </message>
     <message>
         <source>Keep Aspect Ratio</source>
-        <translation>Зберегти співвідношення сторін</translation>
+        <translation>Зберегти відношення сторін</translation>
     </message>
     <message>
         <source>Corners:</source>
@@ -5876,7 +6188,7 @@ C</translation>
     </message>
     <message>
         <source>Rotation:</source>
-        <translation>Поворот:</translation>
+        <translation>Кут обертання:</translation>
     </message>
     <message>
         <source>Convex Polygon</source>
@@ -6635,27 +6947,27 @@ Check path and filename.</source>
     <name>ReformDoc</name>
     <message>
         <source>Document Setup</source>
-        <translation>Установка опцій документу</translation>
+        <translation>Установка опцій документа</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Розмітка полів документу</translation>
+        <translation>Розмітка полів</translation>
     </message>
     <message>
         <source>Top:</source>
-        <translation>Верх:</translation>
+        <translation>Верхнє:</translation>
     </message>
     <message>
         <source>Left:</source>
-        <translation>Зліва:</translation>
+        <translation>Ліве:</translation>
     </message>
     <message>
         <source>Bottom:</source>
-        <translation>Низ:</translation>
+        <translation>Нижнє:</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation>Зправа:</translation>
+        <translation>Праве:</translation>
     </message>
     <message>
         <source>Facing Pages</source>
@@ -7093,7 +7405,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Snap to Grid</source>
-        <translation>Прив&apos;язка до сітки</translation>
+        <translation>Притягування до сітки</translation>
     </message>
     <message>
         <source>Hide Guides</source>
@@ -7101,7 +7413,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Snap to Guides</source>
-        <translation>Прив&apos;язка до розмітки</translation>
+        <translation>Притягування до розмітки</translation>
     </message>
     <message>
         <source>Tools</source>
@@ -7229,7 +7541,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Small Caps</source>
-        <translation>Малі великі літери</translation>
+        <translation>Капітель</translation>
     </message>
     <message>
         <source>Superscript</source>
@@ -7528,6 +7840,12 @@ Check path and filename.</source>
     <message>
         <source>All Supported Formats</source>
         <translation>Всі формати, що підтримуються</translation>
+    </message>
+    <message>
+        <source>Can&apos;t write the File: 
+%1</source>
+        <translation>Неможливо записати до Файла:
+%1</translation>
     </message>
 </context>
 <context>
@@ -8020,6 +8338,10 @@ drag a Template to the Pageview below.</source>
         <source>Search/Replace...</source>
         <translation>Пошук/Заміна...</translation>
     </message>
+    <message>
+        <source>Do you want save your changes?</source>
+        <translation>Зберегти зміни?</translation>
+    </message>
 </context>
 <context>
     <name>StyleSelect</name>
@@ -8029,7 +8351,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Small Caps</source>
-        <translation>Малі великі літери</translation>
+        <translation>Капітель</translation>
     </message>
     <message>
         <source>Subscript</source>
@@ -8045,7 +8367,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Outline Text</source>
-        <translation>Силует тексту</translation>
+        <translation>Силуетний текст</translation>
+    </message>
+    <message>
+        <source>Strike Out</source>
+        <translation>Перекреслений текст</translation>
     </message>
 </context>
 <context>

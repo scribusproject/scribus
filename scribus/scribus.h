@@ -210,6 +210,7 @@ public slots:
 	bool LadeSeite(QString fileName, int Nr, bool Mpa);
 	/** open a document */
 	void slotFileOpen();
+	void slotFileAppend();
 	/** open a document */
 	void LoadRecent(int id);
 	bool slotDocOpen();
@@ -479,6 +480,7 @@ private:
 	int fid1;
 	int fid2;
 	int fid2a;
+	int fid2aa;
 	int fid3;
 	int fid4;
 	int fid5;

@@ -1186,6 +1186,8 @@ void Mpalette::NewSel(int nr)
 			TabStack->widget(1)->setEnabled(true);
 			TabStack->widget(4)->setEnabled(true);
 			ShapeGroup->setEnabled(true);
+			FlipH->setEnabled(true);
+			FlipV->setEnabled(true);
 			EditShape->setEnabled(true);
 			if ((visID == 2) || (visID == 3))
 			{
@@ -1227,6 +1229,8 @@ void Mpalette::NewSel(int nr)
 			ShapeGroup->setEnabled(true);
 			RoundRect->setEnabled(true);
 			EditShape->setEnabled(true);
+			FlipH->setEnabled(true);
+			FlipV->setEnabled(true);
 			if ((visID == 2) || (visID == 3))
 			{
 				TabStack->raiseWidget(0);
@@ -1287,6 +1291,8 @@ void Mpalette::NewSel(int nr)
 			TabStack->widget(4)->setEnabled(true);
 			ShapeGroup->setEnabled(true);
 			EditShape->setEnabled(true);
+			FlipH->setEnabled(true);
+			FlipV->setEnabled(true);
 			if ((doc->ActPage->SelItem.at(0)->FrameType == 0) || (doc->ActPage->SelItem.at(0)->FrameType == 2))
 				RoundRect->setEnabled(true);
 			if ((visID == 2) || (visID == 3))
@@ -1302,6 +1308,8 @@ void Mpalette::NewSel(int nr)
 			SText->setEnabled(false);
 			SImage->setEnabled(false);
 			SLine->setEnabled(true);
+			FlipH->setEnabled(true);
+			FlipV->setEnabled(true);
 			TabStack->widget(1)->setEnabled(true);
 			TabStack->widget(4)->setEnabled(true);
 			EditShape->setEnabled(true);
@@ -2209,7 +2217,10 @@ void Mpalette::DoFlipH()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ActPage->FlipImageH();
+		if ((CurItem->PType == 2) || (CurItem->PType == 4))
+			doc->ActPage->FlipImageH();
+		else
+			doc->ActPage->MirrorPolyH();
 		emit DocChanged();
 	}
 }
@@ -2220,7 +2231,10 @@ void Mpalette::DoFlipV()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ActPage->FlipImageV();
+		if ((CurItem->PType == 2) || (CurItem->PType == 4))
+			doc->ActPage->FlipImageV();
+		else
+			doc->ActPage->MirrorPolyV();
 		emit DocChanged();
 	}
 }
