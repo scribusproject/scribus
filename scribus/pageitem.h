@@ -331,6 +331,10 @@ public:
 	 * @param newColor shade for the line color
 	 */
 	void setLineShade(int newShade);
+	/** @brief Flip an image horizontally. */
+	void flipImageH();
+	/** @brief Flip an image vertically */
+	void flipImageV();
 	/** 
 	 * @brief Check the changes to the item and add undo actions for them.
 	 * @param force Force the check. Do not care if mouse button or arrow key is down

@@ -9858,12 +9858,17 @@ void ScribusView::FlipImageH()
 {
 	if (SelItem.count() != 0)
 	{
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::Selection + "/" + Um::Group, Um::IGroup,
+										  Um::FlipH, 0, Um::IFlipH);
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
-			SelItem.at(a)->flippedH += 1;
+			SelItem.at(a)->flipImageH();
 			RefreshItem(SelItem.at(a));
 		}
 		emit DocChanged();
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 
@@ -9871,12 +9876,17 @@ void ScribusView::FlipImageV()
 {
 	if (SelItem.count() != 0)
 	{
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::Selection + "/" + Um::Group, Um::IGroup,
+										  Um::FlipV, 0, Um::IFlipV);
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
-			SelItem.at(a)->flippedV += 1;
+			SelItem.at(a)->flipImageV();
 			RefreshItem(SelItem.at(a));
 		}
 		emit DocChanged();
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 

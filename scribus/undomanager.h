@@ -418,6 +418,8 @@ public:
 	static const QString ShadeFromTo;
 	static const QString SetLineColor;
 	static const QString SetLineShade;
+	static const QString FlipH;
+	static const QString FlipV;
 	/*@}*/
 
 	/**
@@ -442,6 +444,8 @@ public:
 	static QPixmap *IAlignDistribute;
 	static QPixmap *IFill;
 	static QPixmap *IShade;
+	static QPixmap *IFlipH;
+	static QPixmap *IFlipV;
 	/*@}*/
 
 protected:

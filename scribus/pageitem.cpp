@@ -2319,6 +2319,28 @@ void PageItem::setLineShade(int newShade)
 	Shade2 = newShade;
 }
 
+void PageItem::flipImageH()
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::FlipH, 0, Um::IFlipH);
+		ss->set("IMAGEFLIPH", "imagefliph");
+		undoManager->action(this, ss);
+	}
+	flippedH += 1;
+}
+
+void PageItem::flipImageV()
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::FlipV, 0, Um::IFlipV);
+		ss->set("IMAGEFLIPV", "imageflipv");
+		undoManager->action(this, ss);
+	}
+	flippedV += 1;
+}
+
 void PageItem::checkChanges(bool force)
 {
 	// has the item been resized
@@ -2445,6 +2467,10 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreLineColor(ss, isUndo);
 		else if (ss->contains("LINE_SHADE"))
 			restoreLineShade(ss, isUndo);
+		else if (ss->contains("IMAGEFLIPH"))
+			ScApp->view->FlipImageH();
+		else if (ss->contains("IMAGEFLIPV"))
+			ScApp->view->FlipImageV();
 	}
 }
 
@@ -2578,3 +2604,4 @@ void PageItem::restoreLineShade(SimpleState *state, bool isUndo)
 	ScApp->view->SelItem.append(this);
 	ScApp->view->ItemPenShade(shade);
 }
+
