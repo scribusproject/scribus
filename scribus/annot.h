@@ -234,7 +234,7 @@ public slots:
 		void HandleCalc();
 		void SetCalc();
 		void SetFoScript(int it);
-		void SetCo(float x, float y);
+		void SetCo(double x, double y);
 		void SetPg(int v);
 		void SetCross();
 		void SetVals();

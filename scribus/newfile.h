@@ -56,18 +56,19 @@ public:
     MSpinBox* Hoehe;
     QPushButton* OKButton;
     QPushButton* CancelB;
-    float Umrech;
+    double Umrech;
 		int Orient;
-		float Pagebr;
-		float Pageho;
-		float Top;
-		float Bottom;
-		float Left;
-		float Right;
-		float Dist;
+		double Pagebr;
+		double Pageho;
+		double Top;
+		double Bottom;
+		double Left;
+		double Right;
+		double Dist;
     QString ein;
 		int einheit;
     void setSize(int gr);
+    void code_repeat(int);
 
 public slots:
 		void setHoehe(int v);

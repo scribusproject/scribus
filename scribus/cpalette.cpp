@@ -20,7 +20,7 @@
 #include "query.h"
 extern QPixmap loadIcon(QString nam);
 
-Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cfloat")
+Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 {
 	Color = "";
 	Color2 = "";
@@ -169,10 +169,7 @@ void Cpalette::InnenButton()
 		Inhalt->setOn(false);
 		GradCombo->show();
 		GradGroup->show();
-		if (GradCombo->currentItem() != 0)
-			GradientMode = true;
-		else
-			GradientMode = false;
+		GradientMode = GradCombo->currentItem() != 0 ? true : false;
 		updateCList();
 		updateGeometry();
 		repaint();
@@ -185,7 +182,7 @@ void Cpalette::SetColors(CListe farben)
 	Farbliste.clear();
 	Farbliste = farben;
 	updateCList();
-}	
+}
 
 void Cpalette::updateCList()
 {
@@ -227,7 +224,7 @@ void Cpalette::selFarbe(QListBoxItem *c)
 					}
     		break;
     	}
-}	
+}
 
 void Cpalette::updateBoxS(QString Farbe)
 {
@@ -327,7 +324,7 @@ void Cpalette::ChooseGrad(int nr)
 	setFocus();
 }
 
-void Cpalette::setActTrans(float val, float val2)
+void Cpalette::setActTrans(double val, double val2)
 {
 	disconnect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
 	if (Mode == 1)
@@ -340,9 +337,9 @@ void Cpalette::setActTrans(float val, float val2)
 void Cpalette::slotTrans(int val)
 {
 	if (Mode == 1)
-		emit NewTransS(static_cast<float>(100 - val) / 100.0);
+		emit NewTransS(static_cast<double>(100 - val) / 100.0);
 	else
-		emit NewTrans(static_cast<float>(100 - val) / 100.0);
+		emit NewTrans(static_cast<double>(100 - val) / 100.0);
 	setFocus();
 }
 

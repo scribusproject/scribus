@@ -163,16 +163,11 @@ void SeView::contentsMouseReleaseEvent(QMouseEvent* e)
 void SeView::ToggleNam()
 {
 	Namen = !Namen;
+	int val = 35;
 	if (Namen)
-		{
-		setColumnWidth(1, 100);
-		setColumnWidth(3, 100);
-		}
-	else
-		{
-		setColumnWidth(1, 35);
-		setColumnWidth(3, 35);
-		}
+		val = 100;
+	setColumnWidth(1, val);
+	setColumnWidth(3, val);
 	hide();
 	show();
 }
@@ -678,10 +673,10 @@ void SeitenPal::EnablePal()
 
 void SeitenPal::HandleDS()
 {
-	float tpr = Vie->Doc->PageM.Top;
-	float lr = Vie->Doc->PageM.Left;
-	float rr = Vie->Doc->PageM.Right;
-	float br = Vie->Doc->PageM.Bottom;
+	double tpr = Vie->Doc->PageM.Top;
+	double lr = Vie->Doc->PageM.Left;
+	double rr = Vie->Doc->PageM.Right;
+	double br = Vie->Doc->PageM.Bottom;
 	bool fp = DS->isChecked();
 	Vie->Doc->resetPage(tpr, lr, rr, br, fp);
 	Vie->reformPages();
@@ -697,10 +692,10 @@ void SeitenPal::HandleDS()
 
 void SeitenPal::HandleLP()
 {
-	float tpr = Vie->Doc->PageM.Top;
-	float lr = Vie->Doc->PageM.Left;
-	float rr = Vie->Doc->PageM.Right;
-	float br = Vie->Doc->PageM.Bottom;
+	double tpr = Vie->Doc->PageM.Top;
+	double lr = Vie->Doc->PageM.Left;
+	double rr = Vie->Doc->PageM.Right;
+	double br = Vie->Doc->PageM.Bottom;
 	bool fp2 = Vie->Doc->PageFP;
 	if (fp2)
 		Vie->Doc->FirstPageLeft = LP->isChecked();
@@ -768,16 +763,11 @@ void SeitenPal::RebuildPage()
 		PageView->setNumCols(4);
 		PageView->setColumnWidth(0, 5);
 		PageView->setColumnWidth(2, 5);
+		int val = 35;
 		if (PageView->Namen)
-			{
-			PageView->setColumnWidth(1, 100);
-			PageView->setColumnWidth(3, 100);
-			}
-		else
-			{
-			PageView->setColumnWidth(1, 35);
-			PageView->setColumnWidth(3, 35);
-			}
+			val = 100;
+		PageView->setColumnWidth(1, val);
+		PageView->setColumnWidth(3, val);
 		cc = 1;
 		if (Vie->Doc->FirstPageLeft)
 			{

@@ -24,7 +24,7 @@
 #ifdef HAVE_LIBZ
 #include <zlib.h>
 #endif
-extern float QStoFloat(QString in);
+extern double QStodouble(QString in);
 extern int QStoInt(QString in);
 extern bool loadText(QString nam, QString *Buffer);
 extern QString Path2Relative(QString Path);
@@ -156,7 +156,7 @@ QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, f, Defont;
 QFont fo;
 QMap<QString,QString> DoFonts;
 int x, y, a, counter;
-float xf, yf;
+double xf, yf;
 bool newVersion = false;
 QDomDocument docu("scridoc");
 f = "";
@@ -220,12 +220,12 @@ while(!DOC.isNull())
 		if(pg.tagName()=="STYLE")
 			{
 			vg.Vname = pg.attribute("NAME");
-			vg.LineSpa = QStoFloat(pg.attribute("LINESP"));
-			vg.Indent = QStoFloat(pg.attribute("INDENT","0"));
-			vg.First = QStoFloat(pg.attribute("FIRST","0"));
+			vg.LineSpa = QStodouble(pg.attribute("LINESP"));
+			vg.Indent = QStodouble(pg.attribute("INDENT","0"));
+			vg.First = QStodouble(pg.attribute("FIRST","0"));
 			vg.Ausri = QStoInt(pg.attribute("ALIGN"));
-			vg.Avor = QStoFloat(pg.attribute("VOR","0"));
-			vg.Anach = QStoFloat(pg.attribute("NACH","0"));
+			vg.Avor = QStodouble(pg.attribute("VOR","0"));
+			vg.Anach = QStodouble(pg.attribute("NACH","0"));
 			if (pg.hasAttribute("FONT"))
 				vg.Font = DoFonts[pg.attribute("FONT")];
 			else
@@ -279,7 +279,7 @@ while(!DOC.isNull())
 				sl.LineEnd = QStoInt(MuL.attribute("LineEnd"));
 				sl.LineJoin = QStoInt(MuL.attribute("LineJoin"));
 				sl.Shade = QStoInt(MuL.attribute("Shade"));
-				sl.Width = QStoFloat(MuL.attribute("Width"));
+				sl.Width = QStodouble(MuL.attribute("Width"));
 				ml.push_back(sl);
 				MuLn = MuLn.nextSibling();
 				}
@@ -339,14 +339,14 @@ while(!DOC.isNull())
 						}
 					}
 				OB.PType = QStoInt(obj.attribute("PTYPE"));
-				OB.Xpos = QStoFloat(obj.attribute("XPOS"));
-				OB.Ypos=QStoFloat(obj.attribute("YPOS"));
-				OB.Width=QStoFloat(obj.attribute("WIDTH"));
-				OB.Height=QStoFloat(obj.attribute("HEIGHT"));
-				OB.RadRect = QStoFloat(obj.attribute("RADRECT","0"));
+				OB.Xpos = QStodouble(obj.attribute("XPOS"));
+				OB.Ypos=QStodouble(obj.attribute("YPOS"));
+				OB.Width=QStodouble(obj.attribute("WIDTH"));
+				OB.Height=QStodouble(obj.attribute("HEIGHT"));
+				OB.RadRect = QStodouble(obj.attribute("RADRECT","0"));
 				OB.ClipEdited = QStoInt(obj.attribute("CLIPEDIT", "0"));
 				OB.FrameType = QStoInt(obj.attribute("FRTYPE", "0"));
-				OB.Pwidth=QStoFloat(obj.attribute("PWIDTH"));
+				OB.Pwidth=QStodouble(obj.attribute("PWIDTH"));
 				OB.Pcolor=obj.attribute("PCOLOR");
 				if ((!newVersion) && (OB.PType == 4))
 					{
@@ -373,21 +373,21 @@ while(!DOC.isNull())
 				OB.GrShade = QStoInt(obj.attribute("GRSHADE","100"));
 				OB.GrShade2 = QStoInt(obj.attribute("GRSHADE2","100"));
 				OB.GrType = QStoInt(obj.attribute("GRTYP","0"));
-				OB.Rot=QStoFloat(obj.attribute("ROT"));
+				OB.Rot=QStodouble(obj.attribute("ROT"));
 				OB.PLineArt=Qt::PenStyle(QStoInt(obj.attribute("PLINEART")));
 				OB.PLineEnd=Qt::PenCapStyle(QStoInt(obj.attribute("PLINEEND","0")));
 				OB.PLineJoin=Qt::PenJoinStyle(QStoInt(obj.attribute("PLINEJOIN","0")));
-				OB.LineSp=QStoFloat(obj.attribute("LINESP"));
-				OB.ExtraV=QStoFloat(obj.attribute("EXTRAV","0"));
-				OB.LocalScX=QStoFloat(obj.attribute("LOCALSCX"));
-				OB.LocalScY=QStoFloat(obj.attribute("LOCALSCY"));
-				OB.LocalX=QStoFloat(obj.attribute("LOCALX"));
-				OB.LocalY=QStoFloat(obj.attribute("LOCALY"));
+				OB.LineSp=QStodouble(obj.attribute("LINESP"));
+				OB.ExtraV=QStodouble(obj.attribute("EXTRAV","0"));
+				OB.LocalScX=QStodouble(obj.attribute("LOCALSCX"));
+				OB.LocalScY=QStodouble(obj.attribute("LOCALSCY"));
+				OB.LocalX=QStodouble(obj.attribute("LOCALX"));
+				OB.LocalY=QStodouble(obj.attribute("LOCALY"));
 				OB.PicArt=QStoInt(obj.attribute("PICART"));
 				OB.flippedH=QStoInt(obj.attribute("FLIPPEDH"));
 				OB.flippedV=QStoInt(obj.attribute("FLIPPEDV"));
-				OB.BBoxX=QStoFloat(obj.attribute("BBOXX"));
-				OB.BBoxH=QStoFloat(obj.attribute("BBOXH"));
+				OB.BBoxX=QStodouble(obj.attribute("BBOXX"));
+				OB.BBoxH=QStodouble(obj.attribute("BBOXH"));
 				OB.ScaleType = QStoInt(obj.attribute("SCALETYPE","1"));
 				OB.AspectRatio = QStoInt(obj.attribute("RATIO","0"));
 				OB.isPrintable=QStoInt(obj.attribute("PRINTABLE"));
@@ -426,10 +426,10 @@ while(!DOC.isNull())
 				OB.AnFont = QStoInt(obj.attribute("ANFONT","4"));
 				OB.AnFormat = QStoInt(obj.attribute("ANFORMAT","0"));
 				OB.AnVis = QStoInt(obj.attribute("ANVIS","0"));
-				OB.AnIsChk = bool(QStoInt(obj.attribute("ANCHK","0")));
-				OB.AnAAact = bool(QStoInt(obj.attribute("ANAA","0")));
-				OB.AnHTML = bool(QStoInt(obj.attribute("ANHTML","0")));
-				OB.AnUseIcons = bool(QStoInt(obj.attribute("ANICON","0")));
+				OB.AnIsChk = static_cast<bool>(QStoInt(obj.attribute("ANCHK","0")));
+				OB.AnAAact = static_cast<bool>(QStoInt(obj.attribute("ANAA","0")));
+				OB.AnHTML = static_cast<bool>(QStoInt(obj.attribute("ANHTML","0")));
+				OB.AnUseIcons = static_cast<bool>(QStoInt(obj.attribute("ANICON","0")));
 				OB.AnChkStil = QStoInt(obj.attribute("ANCHKS","0"));
 				OB.AnMaxChar = QStoInt(obj.attribute("ANMC","-1"));
 				OB.AnBColor = obj.attribute("ANBCOL","None");
@@ -439,12 +439,12 @@ while(!DOC.isNull())
 					OB.Pcolor = "None";
 				OB.Textflow=QStoInt(obj.attribute("TEXTFLOW"));
 				OB.Textflow2=QStoInt(obj.attribute("TEXTFLOW2","0"));
-				OB.Extra=QStoFloat(obj.attribute("EXTRA"));
-				OB.TExtra=QStoFloat(obj.attribute("TEXTRA", "1"));
-				OB.BExtra=QStoFloat(obj.attribute("BEXTRA", "1"));
-				OB.RExtra=QStoFloat(obj.attribute("REXTRA", "1"));
+				OB.Extra=QStodouble(obj.attribute("EXTRA"));
+				OB.TExtra=QStodouble(obj.attribute("TEXTRA", "1"));
+				OB.BExtra=QStodouble(obj.attribute("BEXTRA", "1"));
+				OB.RExtra=QStodouble(obj.attribute("REXTRA", "1"));
 				OB.PoShow = QStoInt(obj.attribute("PTLSHOW","0"));
-				OB.BaseOffs = QStoFloat(obj.attribute("BASEOF","0"));
+				OB.BaseOffs = QStodouble(obj.attribute("BASEOF","0"));
 				OB.Ausrich = QStoInt(obj.attribute("ALIGN","0"));
 				OB.IFont = DoFonts[obj.attribute("IFONT", doc->Dfont)];
 				OB.ISize = QStoInt(obj.attribute("ISIZE","12"));
@@ -460,9 +460,9 @@ while(!DOC.isNull())
 				OB.InvPict = static_cast<bool>(QStoInt(obj.attribute("INVERS","0")));
 				OB.LayerNr = QStoInt(obj.attribute("LAYER","0"));
 				OB.Language = obj.attribute("LANGUAGE", doc->Language);
-				OB.Transparency = QStoFloat(obj.attribute("TransValue","0.0"));
+				OB.Transparency = QStodouble(obj.attribute("TransValue","0.0"));
 				if (obj.hasAttribute("TransValueS"))
-					OB.TranspStroke = QStoFloat(obj.attribute("TransValueS","0.0"));
+					OB.TranspStroke = QStodouble(obj.attribute("TransValueS","0.0"));
 				else
 					OB.TranspStroke = OB.Transparency;
 				if (obj.hasAttribute("NUMCLIP"))
@@ -619,7 +619,7 @@ QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont;
 QFont fo;
 QMap<QString,QString> DoFonts;
 int x, y, a;
-float xf, yf;
+double xf, yf;
 PageItem *Neu;
 LFrames.clear();
 QDomDocument docu("scridoc");
@@ -649,19 +649,19 @@ while(!DOC.isNull())
 	/*
 	* Attribute von DOCUMENT auslesen
 	*/
-	doc->PageB=QStoFloat(dc.attribute("PAGEWITH"));
-	doc->PageH=QStoFloat(dc.attribute("PAGEHEIGHT"));
-	doc->PageM.Left=QStoFloat(dc.attribute("BORDERLEFT"));
-	doc->PageM.Right=QStoFloat(dc.attribute("BORDERRIGHT"));
-	doc->PageM.Top=QStoFloat(dc.attribute("BORDERTOP"));
-	doc->PageM.Bottom=QStoFloat(dc.attribute("BORDERBOTTOM"));
+	doc->PageB=QStodouble(dc.attribute("PAGEWITH"));
+	doc->PageH=QStodouble(dc.attribute("PAGEHEIGHT"));
+	doc->PageM.Left=QStodouble(dc.attribute("BORDERLEFT"));
+	doc->PageM.Right=QStodouble(dc.attribute("BORDERRIGHT"));
+	doc->PageM.Top=QStodouble(dc.attribute("BORDERTOP"));
+	doc->PageM.Bottom=QStodouble(dc.attribute("BORDERBOTTOM"));
 	doc->PageOri = QStoInt(dc.attribute("ORIENTATION","0"));
 	doc->FirstPnum = QStoInt(dc.attribute("FIRSTNUM","1"));
 	doc->PageFP=QStoInt(dc.attribute("BOOK"));
 	doc->FirstPageLeft=QStoInt(dc.attribute("FIRSTLEFT"));
 	doc->PageAT=QStoInt(dc.attribute("AUTOTEXT"));
 	doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
-	doc->PageSpa=QStoFloat(dc.attribute("ABSTSPALTEN"));
+	doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
 	doc->Einheit = QStoInt(dc.attribute("UNITS","0"));
 	Defont=dc.attribute("DFONT");
 	doc->Dsize=QStoInt(dc.attribute("DSIZE"));
@@ -736,17 +736,17 @@ while(!DOC.isNull())
 		if(pg.tagName()=="STYLE")
 			{
 			vg.Vname = pg.attribute("NAME");
-			vg.LineSpa = QStoFloat(pg.attribute("LINESP"));
-			vg.Indent = QStoFloat(pg.attribute("INDENT","0"));
-			vg.First = QStoFloat(pg.attribute("FIRST","0"));
+			vg.LineSpa = QStodouble(pg.attribute("LINESP"));
+			vg.Indent = QStodouble(pg.attribute("INDENT","0"));
+			vg.First = QStodouble(pg.attribute("FIRST","0"));
 			vg.Ausri = QStoInt(pg.attribute("ALIGN"));
-			vg.Avor = QStoFloat(pg.attribute("VOR","0"));
-			vg.Anach = QStoFloat(pg.attribute("NACH","0"));
+			vg.Avor = QStodouble(pg.attribute("VOR","0"));
+			vg.Anach = QStodouble(pg.attribute("NACH","0"));
 			if (pg.hasAttribute("FONT"))
 				vg.Font = DoFonts[pg.attribute("FONT")];
 			else
 				vg.Font = DoFonts[Defont];
-			vg.FontSize = QStoInt(pg.attribute("FONTSIZE","12"));			
+			vg.FontSize = QStoInt(pg.attribute("FONTSIZE","12"));
 			doc->Vorlagen.append(vg);
 			}
 		if(pg.tagName()=="JAVA")
@@ -757,7 +757,7 @@ while(!DOC.isNull())
 			la.Level = QStoInt(pg.attribute("LEVEL"));
 			la.Name = pg.attribute("NAME");
 			la.Sichtbar = QStoInt(pg.attribute("SICHTBAR"));
-			la.Drucken = QStoInt(pg.attribute("DRUCKEN"));			
+			la.Drucken = QStoInt(pg.attribute("DRUCKEN"));
 			doc->Layers.append(la);
 			}
 		if(pg.tagName()=="Bookmark")
@@ -797,10 +797,10 @@ while(!DOC.isNull())
 			doc->PDF_Optionen.ImageProf = pg.attribute("ImageP", "");
 			doc->PDF_Optionen.PrintProf = pg.attribute("PrintP", "");
 			doc->PDF_Optionen.Info = pg.attribute("InfoString", "");
-			doc->PDF_Optionen.BleedTop = QStoFloat(pg.attribute("BTop","0"));
-			doc->PDF_Optionen.BleedLeft = QStoFloat(pg.attribute("BLeft","0"));
-			doc->PDF_Optionen.BleedRight = QStoFloat(pg.attribute("BRight","0"));
-			doc->PDF_Optionen.BleedBottom = QStoFloat(pg.attribute("BBottom","0"));
+			doc->PDF_Optionen.BleedTop = QStodouble(pg.attribute("BTop","0"));
+			doc->PDF_Optionen.BleedLeft = QStodouble(pg.attribute("BLeft","0"));
+			doc->PDF_Optionen.BleedRight = QStodouble(pg.attribute("BRight","0"));
+			doc->PDF_Optionen.BleedBottom = QStodouble(pg.attribute("BBottom","0"));
 			doc->PDF_Optionen.EmbeddedI = static_cast<bool>(QStoInt(pg.attribute("ImagePr","0")));
 			doc->PDF_Optionen.PassOwner = pg.attribute("PassOwner", "");
 			doc->PDF_Optionen.PassUser = pg.attribute("PassUser", "");
@@ -842,7 +842,7 @@ while(!DOC.isNull())
 				sl.LineEnd = QStoInt(MuL.attribute("LineEnd"));
 				sl.LineJoin = QStoInt(MuL.attribute("LineJoin"));
 				sl.Shade = QStoInt(MuL.attribute("Shade"));
-				sl.Width = QStoFloat(MuL.attribute("Width"));
+				sl.Width = QStodouble(MuL.attribute("Width"));
 				ml.push_back(sl);
 				MuLn = MuLn.nextSibling();
 				}
@@ -928,14 +928,14 @@ while(!DOC.isNull())
 						}
 					}
 				OB.PType = QStoInt(obj.attribute("PTYPE"));
-				OB.Xpos = QStoFloat(obj.attribute("XPOS"));
-				OB.Ypos=QStoFloat(obj.attribute("YPOS"));
-				OB.Width=QStoFloat(obj.attribute("WIDTH"));
-				OB.Height=QStoFloat(obj.attribute("HEIGHT"));
-				OB.RadRect = QStoFloat(obj.attribute("RADRECT","0"));
+				OB.Xpos = QStodouble(obj.attribute("XPOS"));
+				OB.Ypos=QStodouble(obj.attribute("YPOS"));
+				OB.Width=QStodouble(obj.attribute("WIDTH"));
+				OB.Height=QStodouble(obj.attribute("HEIGHT"));
+				OB.RadRect = QStodouble(obj.attribute("RADRECT","0"));
 				OB.ClipEdited = QStoInt(obj.attribute("CLIPEDIT", "0"));
 				OB.FrameType = QStoInt(obj.attribute("FRTYPE", "0"));
-				OB.Pwidth=QStoFloat(obj.attribute("PWIDTH"));
+				OB.Pwidth=QStodouble(obj.attribute("PWIDTH"));
 				OB.Pcolor=obj.attribute("PCOLOR");
 				if ((!newVersion) && (OB.PType == 4))
 					{
@@ -960,21 +960,21 @@ while(!DOC.isNull())
 				OB.GrShade = QStoInt(obj.attribute("GRSHADE","100"));
 				OB.GrShade2 = QStoInt(obj.attribute("GRSHADE2","100"));
 				OB.GrType = QStoInt(obj.attribute("GRTYP","0"));
-				OB.Rot=QStoFloat(obj.attribute("ROT"));
+				OB.Rot=QStodouble(obj.attribute("ROT"));
 				OB.PLineArt=Qt::PenStyle(QStoInt(obj.attribute("PLINEART")));
 				OB.PLineEnd=Qt::PenCapStyle(QStoInt(obj.attribute("PLINEEND","0")));
 				OB.PLineJoin=Qt::PenJoinStyle(QStoInt(obj.attribute("PLINEJOIN","0")));
-				OB.LineSp=QStoFloat(obj.attribute("LINESP"));
-				OB.ExtraV=QStoFloat(obj.attribute("EXTRAV","0"));
-				OB.LocalScX=QStoFloat(obj.attribute("LOCALSCX"));
-				OB.LocalScY=QStoFloat(obj.attribute("LOCALSCY"));
-				OB.LocalX=QStoFloat(obj.attribute("LOCALX"));
-				OB.LocalY=QStoFloat(obj.attribute("LOCALY"));
+				OB.LineSp=QStodouble(obj.attribute("LINESP"));
+				OB.ExtraV=QStodouble(obj.attribute("EXTRAV","0"));
+				OB.LocalScX=QStodouble(obj.attribute("LOCALSCX"));
+				OB.LocalScY=QStodouble(obj.attribute("LOCALSCY"));
+				OB.LocalX=QStodouble(obj.attribute("LOCALX"));
+				OB.LocalY=QStodouble(obj.attribute("LOCALY"));
 				OB.PicArt=QStoInt(obj.attribute("PICART"));
 				OB.flippedH=QStoInt(obj.attribute("FLIPPEDH"));
 				OB.flippedV=QStoInt(obj.attribute("FLIPPEDV"));
-				OB.BBoxX=QStoFloat(obj.attribute("BBOXX"));
-				OB.BBoxH=QStoFloat(obj.attribute("BBOXH"));
+				OB.BBoxX=QStodouble(obj.attribute("BBOXX"));
+				OB.BBoxH=QStodouble(obj.attribute("BBOXH"));
 				OB.ScaleType = QStoInt(obj.attribute("SCALETYPE","1"));
 				OB.AspectRatio = QStoInt(obj.attribute("RATIO","0"));
 				OB.isPrintable=QStoInt(obj.attribute("PRINTABLE"));
@@ -1013,10 +1013,10 @@ while(!DOC.isNull())
 				OB.AnFont = QStoInt(obj.attribute("ANFONT","4"));
 				OB.AnFormat = QStoInt(obj.attribute("ANFORMAT","0"));
 				OB.AnVis = QStoInt(obj.attribute("ANVIS","0"));
-				OB.AnIsChk = bool(QStoInt(obj.attribute("ANCHK","0")));
-				OB.AnAAact = bool(QStoInt(obj.attribute("ANAA","0")));
-				OB.AnHTML = bool(QStoInt(obj.attribute("ANHTML","0")));
-				OB.AnUseIcons = bool(QStoInt(obj.attribute("ANICON","0")));
+				OB.AnIsChk = static_cast<bool>(QStoInt(obj.attribute("ANCHK","0")));
+				OB.AnAAact = static_cast<bool>(QStoInt(obj.attribute("ANAA","0")));
+				OB.AnHTML = static_cast<bool>(QStoInt(obj.attribute("ANHTML","0")));
+				OB.AnUseIcons = static_cast<bool>(QStoInt(obj.attribute("ANICON","0")));
 				OB.AnChkStil = QStoInt(obj.attribute("ANCHKS","0"));
 				OB.AnMaxChar = QStoInt(obj.attribute("ANMC","-1"));
 				OB.AnBColor = obj.attribute("ANBCOL","None");
@@ -1026,12 +1026,12 @@ while(!DOC.isNull())
 					OB.Pcolor = "None";
 				OB.Textflow=QStoInt(obj.attribute("TEXTFLOW"));
 				OB.Textflow2=QStoInt(obj.attribute("TEXTFLOW2","0"));
-				OB.Extra=QStoFloat(obj.attribute("EXTRA"));
-				OB.TExtra=QStoFloat(obj.attribute("TEXTRA", "1"));
-				OB.BExtra=QStoFloat(obj.attribute("BEXTRA", "1"));
-				OB.RExtra=QStoFloat(obj.attribute("REXTRA", "1"));
+				OB.Extra=QStodouble(obj.attribute("EXTRA"));
+				OB.TExtra=QStodouble(obj.attribute("TEXTRA", "1"));
+				OB.BExtra=QStodouble(obj.attribute("BEXTRA", "1"));
+				OB.RExtra=QStodouble(obj.attribute("REXTRA", "1"));
 				OB.PoShow = QStoInt(obj.attribute("PTLSHOW","0"));
-				OB.BaseOffs = QStoFloat(obj.attribute("BASEOF","0"));
+				OB.BaseOffs = QStodouble(obj.attribute("BASEOF","0"));
 				OB.Ausrich = QStoInt(obj.attribute("ALIGN","0"));
 				OB.IFont = DoFonts[obj.attribute("IFONT", doc->Dfont)];
 				OB.ISize = QStoInt(obj.attribute("ISIZE","12"));
@@ -1047,9 +1047,9 @@ while(!DOC.isNull())
 				OB.InvPict = static_cast<bool>(QStoInt(obj.attribute("INVERS","0")));
 				OB.LayerNr = QStoInt(obj.attribute("LAYER","0"));
 				OB.Language = obj.attribute("LANGUAGE", doc->Language);
-				OB.Transparency = QStoFloat(obj.attribute("TransValue","0.0"));
+				OB.Transparency = QStodouble(obj.attribute("TransValue","0.0"));
 				if (obj.hasAttribute("TransValueS"))
-					OB.TranspStroke = QStoFloat(obj.attribute("TransValueS","0.0"));
+					OB.TranspStroke = QStodouble(obj.attribute("TransValueS","0.0"));
 				else
 					OB.TranspStroke = OB.Transparency;
 				if (obj.hasAttribute("NUMCLIP"))
@@ -1183,12 +1183,12 @@ view->Pages = view->DocPages;
 doc->PageC = view->Pages.count();
 view->reformPages();
 if (doc->Layers.count() == 0)
-	{	
+	{
 	la.LNr = 0;
 	la.Level = 0;
 	la.Name = tr("Background");
 	la.Sichtbar = true;
-	la.Drucken = true;			
+	la.Drucken = true;
 	doc->Layers.append(la);
 	}
 if (LFrames.count() != 0)
@@ -1224,7 +1224,7 @@ dia2->setProgress(DOC.childNodes().count());
 return true;
 }
 
-bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, float *x, float *y, float *w, float *h)
+bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h)
 {
 	QString f;
 	QDomDocument docu("scridoc");
@@ -1253,10 +1253,10 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, float *x, float *y, f
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUSELEM") && (elem.tagName() != "SCRIBUSELEMUTF8"))
 		return false;
-	*x = QStoFloat(elem.attribute("XP"));
-	*y = QStoFloat(elem.attribute("YP"));
-	*w = QStoFloat(elem.attribute("W","0"));
-	*h = QStoFloat(elem.attribute("H","0"));
+	*x = QStodouble(elem.attribute("XP"));
+	*y = QStodouble(elem.attribute("YP"));
+	*w = QStodouble(elem.attribute("W","0"));
+	*h = QStodouble(elem.attribute("H","0"));
 	return true;
 }
 
@@ -1274,7 +1274,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 	bool VorLFound = false;
 	bool newVersion = false;
 	int x, y;
-	float GrX, GrY, xf, yf;
+	double GrX, GrY, xf, yf;
 	int GrMax = doc->GroupCounter;
 	CMYKColor lf = CMYKColor();
 	QDomDocument docu("scridoc");
@@ -1310,8 +1310,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 		}
 	else
 		{
-		GrX = QStoFloat(elem.attribute("XP"));
-		GrY = QStoFloat(elem.attribute("YP"));
+		GrX = QStodouble(elem.attribute("XP"));
+		GrY = QStodouble(elem.attribute("YP"));
 		}
 	if (elem.hasAttribute("Version"))
 		newVersion = true;
@@ -1368,7 +1368,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 				sl.LineEnd = QStoInt(MuL.attribute("LineEnd"));
 				sl.LineJoin = QStoInt(MuL.attribute("LineJoin"));
 				sl.Shade = QStoInt(MuL.attribute("Shade"));
-				sl.Width = QStoFloat(MuL.attribute("Width"));
+				sl.Width = QStodouble(MuL.attribute("Width"));
 				ml.push_back(sl);
 				MuLn = MuLn.nextSibling();
 				}
@@ -1380,17 +1380,17 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			fou = false;
 			VorLFound = true;
 			vg.Vname = pg.attribute("NAME");
-			vg.LineSpa = QStoFloat(pg.attribute("LINESP"));
-			vg.Indent = QStoFloat(pg.attribute("INDENT","0"));
-			vg.First = QStoFloat(pg.attribute("FIRST","0"));
+			vg.LineSpa = QStodouble(pg.attribute("LINESP"));
+			vg.Indent = QStodouble(pg.attribute("INDENT","0"));
+			vg.First = QStodouble(pg.attribute("FIRST","0"));
 			vg.Ausri = QStoInt(pg.attribute("ALIGN"));
-			vg.Avor = QStoFloat(pg.attribute("VOR","0"));
-			vg.Anach = QStoFloat(pg.attribute("NACH","0"));
+			vg.Avor = QStodouble(pg.attribute("VOR","0"));
+			vg.Anach = QStodouble(pg.attribute("NACH","0"));
 			if (pg.hasAttribute("FONT"))
 				vg.Font = DoFonts[pg.attribute("FONT")];
 			else
 				vg.Font = doc->Dfont;
-			vg.FontSize = QStoInt(pg.attribute("FONTSIZE","12"));	
+			vg.FontSize = QStoInt(pg.attribute("FONTSIZE","12"));
 			for (uint xx=0; xx<doc->Vorlagen.count(); ++xx)
 				{
 				if (vg.Vname == doc->Vorlagen[xx].Vname)
@@ -1417,14 +1417,14 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 		if(pg.tagName()=="ITEM")
 			{
 			OB.PType = QStoInt(pg.attribute("PTYPE"));
-			OB.Xpos = static_cast<float>(Xp) + QStoFloat(pg.attribute("XPOS")) - GrX;
-			OB.Ypos = static_cast<float>(Yp) + QStoFloat(pg.attribute("YPOS")) - GrY;
-			OB.Width = QStoFloat(pg.attribute("WIDTH"));
-			OB.Height = QStoFloat(pg.attribute("HEIGHT"));
-			OB.RadRect = QStoFloat(pg.attribute("RADRECT","0"));
+			OB.Xpos = static_cast<double>(Xp) + QStodouble(pg.attribute("XPOS")) - GrX;
+			OB.Ypos = static_cast<double>(Yp) + QStodouble(pg.attribute("YPOS")) - GrY;
+			OB.Width = QStodouble(pg.attribute("WIDTH"));
+			OB.Height = QStodouble(pg.attribute("HEIGHT"));
+			OB.RadRect = QStodouble(pg.attribute("RADRECT","0"));
 			OB.ClipEdited = QStoInt(pg.attribute("CLIPEDIT", "0"));
 			OB.FrameType = QStoInt(pg.attribute("FRTYPE", "0"));
-			OB.Pwidth = QStoFloat(pg.attribute("PWIDTH"));
+			OB.Pwidth = QStodouble(pg.attribute("PWIDTH"));
 			OB.Pcolor = pg.attribute("PCOLOR");
 			if ((!newVersion) && (OB.PType == 4))
 				{
@@ -1451,23 +1451,23 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.GrShade = QStoInt(pg.attribute("GRSHADE","100"));
 			OB.GrShade2 = QStoInt(pg.attribute("GRSHADE2","100"));
 			OB.GrType = QStoInt(pg.attribute("GRTYP","0"));
-			OB.Rot = QStoFloat(pg.attribute("ROT"));
+			OB.Rot = QStodouble(pg.attribute("ROT"));
 			OB.PLineArt = Qt::PenStyle(QStoInt(pg.attribute("PLINEART")));
 			OB.PLineEnd = Qt::PenCapStyle(QStoInt(pg.attribute("PLINEEND","0")));
 			OB.PLineJoin = Qt::PenJoinStyle(QStoInt(pg.attribute("PLINEJOIN","0")));
-			OB.LineSp = QStoFloat(pg.attribute("LINESP"));
-			OB.ExtraV = QStoFloat(pg.attribute("EXTRAV","0"));
-			OB.LocalScX = QStoFloat(pg.attribute("LOCALSCX"));
-			OB.LocalScY = QStoFloat(pg.attribute("LOCALSCY"));
-			OB.LocalX = QStoFloat(pg.attribute("LOCALX"));
-			OB.LocalY = QStoFloat(pg.attribute("LOCALY"));
+			OB.LineSp = QStodouble(pg.attribute("LINESP"));
+			OB.ExtraV = QStodouble(pg.attribute("EXTRAV","0"));
+			OB.LocalScX = QStodouble(pg.attribute("LOCALSCX"));
+			OB.LocalScY = QStodouble(pg.attribute("LOCALSCY"));
+			OB.LocalX = QStodouble(pg.attribute("LOCALX"));
+			OB.LocalY = QStodouble(pg.attribute("LOCALY"));
 			OB.PicArt = QStoInt(pg.attribute("PICART"));
 			OB.flippedH = QStoInt(pg.attribute("FLIPPEDH"));
 			OB.flippedV = QStoInt(pg.attribute("FLIPPEDV"));
 			OB.ScaleType = QStoInt(pg.attribute("SCALETYPE","1"));
 			OB.AspectRatio = QStoInt(pg.attribute("RATIO","0"));
-			OB.BBoxX = QStoFloat(pg.attribute("BBOXX"));
-			OB.BBoxH = QStoFloat(pg.attribute("BBOXH"));
+			OB.BBoxX = QStodouble(pg.attribute("BBOXX"));
+			OB.BBoxH = QStodouble(pg.attribute("BBOXH"));
 			OB.isPrintable = QStoInt(pg.attribute("PRINTABLE"));
 			OB.isBookmark = false;
 			OB.BMnr = 0;
@@ -1515,12 +1515,12 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 				OB.Pcolor = "None";
 			OB.Textflow = QStoInt(pg.attribute("TEXTFLOW"));
 			OB.Textflow2 = QStoInt(pg.attribute("TEXTFLOW2","0"));
-			OB.Extra = QStoFloat(pg.attribute("EXTRA"));
-			OB.TExtra = QStoFloat(pg.attribute("TEXTRA", "1"));
-			OB.BExtra = QStoFloat(pg.attribute("BEXTRA", "1"));
-			OB.RExtra = QStoFloat(pg.attribute("REXTRA", "1"));
+			OB.Extra = QStodouble(pg.attribute("EXTRA"));
+			OB.TExtra = QStodouble(pg.attribute("TEXTRA", "1"));
+			OB.BExtra = QStodouble(pg.attribute("BEXTRA", "1"));
+			OB.RExtra = QStodouble(pg.attribute("REXTRA", "1"));
 			OB.PoShow = QStoInt(pg.attribute("PTLSHOW","0"));
-			OB.BaseOffs = QStoFloat(pg.attribute("BASEOF","0"));
+			OB.BaseOffs = QStodouble(pg.attribute("BASEOF","0"));
 			OB.Ausrich = QStoInt(pg.attribute("ALIGN","0"));
 			OB.IFont = DoFonts[pg.attribute("IFONT")];
 			OB.ISize = QStoInt(pg.attribute("ISIZE","12"));
@@ -1535,9 +1535,9 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.Reverse = static_cast<bool>(QStoInt(pg.attribute("REVERS","0")));
 			OB.InvPict = static_cast<bool>(QStoInt(pg.attribute("INVERS","0")));
 			OB.Language = pg.attribute("LANGUAGE", doc->Language);
-			OB.Transparency = QStoFloat(pg.attribute("TransValue","0.0"));
+			OB.Transparency = QStodouble(pg.attribute("TransValue","0.0"));
 			if (pg.hasAttribute("TransValueS"))
-				OB.TranspStroke = QStoFloat(pg.attribute("TransValueS","0.0"));
+				OB.TranspStroke = QStodouble(pg.attribute("TransValueS","0.0"));
 			else
 				OB.TranspStroke = OB.Transparency;
 			if (pg.hasAttribute("NUMCLIP"))
@@ -1663,7 +1663,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 {
 	int ts, ts2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tsc, tsc2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp;
-	float te, te2, xf, yf;
+	double te, te2, xf, yf;
 	PageItem *item;
 	QDomDocument docu("scribus");
 	QString st="<SCRIBUSELEMUTF8></SCRIBUSELEMUTF8>";
@@ -1707,7 +1707,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			}
 		}
 	elem.setAttribute("COUNT", Selitems->count());
-	elem.setAttribute("Version", "1.1.1");	
+	elem.setAttribute("Version", "1.1.1");
 	for (uint co=0; co<Selitems->count(); ++co)
 		{
 		QString CurDirP = QDir::currentDirPath();
@@ -2047,7 +2047,7 @@ void ScriXmlDoc::WritePages(ScribusView *view, QDomDocument docu, QDomElement dc
 {
 int ts, ts2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tsc, tsc2;
 QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, Ndir;
-float te, te2, xf, yf;
+double te, te2, xf, yf;
 uint ObCount = maxC;
 Page *page;
 PageItem *item;
@@ -2854,15 +2854,15 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			}
 		if (dc.tagName()=="GRID")
 			{
-			Vorein->DminGrid = QStoFloat(dc.attribute("MINOR"));
-			Vorein->DmajGrid = QStoFloat(dc.attribute("MAJOR"));
+			Vorein->DminGrid = QStodouble(dc.attribute("MINOR"));
+			Vorein->DmajGrid = QStodouble(dc.attribute("MAJOR"));
 			Vorein->DminColor = QColor(dc.attribute("MINORC"));
 			Vorein->DmajColor = QColor(dc.attribute("MAJORC"));
 			Vorein->Before = static_cast<bool>(QStoInt(dc.attribute("BACKG","1")));
 			if (dc.hasAttribute("GuideC"))
 				Vorein->guideColor = QColor(dc.attribute("GuideC"));
 			if (dc.hasAttribute("GuideZ"))
-				Vorein->GuideRad = QStoFloat(dc.attribute("GuideZ"));
+				Vorein->GuideRad = QStodouble(dc.attribute("GuideZ"));
 			}
 		if (dc.tagName()=="PAGE")
 			{
@@ -2870,7 +2870,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->DmargColor = QColor(dc.attribute("MARGC","#0000ff"));
 			Vorein->RandFarbig = static_cast<bool>(QStoInt(dc.attribute("RANDF","0")));
 			Vorein->PDFTransparency = static_cast<bool>(QStoInt(dc.attribute("TRANS","0")));
-			Vorein->DisScale = QStoFloat(dc.attribute("DScale","1"));
+			Vorein->DisScale = QStodouble(dc.attribute("DScale","1"));
 			}
 		if (dc.tagName()=="TYPO")
 			{
@@ -2889,8 +2889,8 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->DpenText = dc.attribute("PENTEXT");
 			Vorein->DLineArt = QStoInt(dc.attribute("STIL"));
 			Vorein->DLstyleLine = QStoInt(dc.attribute("STILLINE"));
-			Vorein->Dwidth = QStoFloat(dc.attribute("WIDTH"));
-			Vorein->DwidthLine = QStoFloat(dc.attribute("WIDTHLINE"));
+			Vorein->Dwidth = QStodouble(dc.attribute("WIDTH"));
+			Vorein->DwidthLine = QStodouble(dc.attribute("WIDTHLINE"));
 			Vorein->Dshade2 = QStoInt(dc.attribute("PENSHADE"));
 			Vorein->DshadeLine = QStoInt(dc.attribute("LINESHADE"));
 			Vorein->Dshade = QStoInt(dc.attribute("BRUSHSHADE"));
@@ -2899,13 +2899,13 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->MagStep = QStoInt(dc.attribute("MAGSTEP","25"));
 			Vorein->DbrushPict = dc.attribute("CPICT");
 			Vorein->ShadePict = QStoInt(dc.attribute("PICTSHADE","100"));
-			Vorein->ScaleX = QStoFloat(dc.attribute("PICTSCX","1"));
-			Vorein->ScaleY = QStoFloat(dc.attribute("PICTSCY","1"));
+			Vorein->ScaleX = QStodouble(dc.attribute("PICTSCX","1"));
+			Vorein->ScaleY = QStodouble(dc.attribute("PICTSCY","1"));
 			Vorein->ScaleType = static_cast<bool>(QStoInt(dc.attribute("PSCALE", "1")));
 			Vorein->AspectRatio = static_cast<bool>(QStoInt(dc.attribute("PASPECT", "0")));
 			Vorein->PolyC = QStoInt(dc.attribute("POLYC", "4"));
-			Vorein->PolyF = QStoFloat(dc.attribute("POLYF", "0.5"));
-			Vorein->PolyR = QStoFloat(dc.attribute("POLYR", "0"));
+			Vorein->PolyF = QStodouble(dc.attribute("POLYF", "0.5"));
+			Vorein->PolyR = QStodouble(dc.attribute("POLYR", "0"));
 			Vorein->PolyFd = QStoInt(dc.attribute("POLYFD", "0"));
 			Vorein->PolyS = static_cast<bool>(QStoInt(dc.attribute("POLYS", "0")));
 			}
@@ -2961,12 +2961,12 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			{
 			Vorein->PageFormat = QStoInt(dc.attribute("FORMATCODE","4"));
 			Vorein->Ausrichtung = QStoInt(dc.attribute("AUSRICHTUNG","0"));
-			Vorein->PageBreite = QStoFloat(dc.attribute("BREITE","595"));
-			Vorein->PageHoehe = QStoFloat(dc.attribute("HOEHE","842"));
-			Vorein->RandOben = QStoFloat(dc.attribute("RANDO","9"));
-			Vorein->RandUnten = QStoFloat(dc.attribute("RANDU","40"));
-			Vorein->RandLinks = QStoFloat(dc.attribute("RANDL","9"));
-			Vorein->RandRechts = QStoFloat(dc.attribute("RANDR","9"));
+			Vorein->PageBreite = QStodouble(dc.attribute("BREITE","595"));
+			Vorein->PageHoehe = QStodouble(dc.attribute("HOEHE","842"));
+			Vorein->RandOben = QStodouble(dc.attribute("RANDO","9"));
+			Vorein->RandUnten = QStodouble(dc.attribute("RANDU","40"));
+			Vorein->RandLinks = QStodouble(dc.attribute("RANDL","9"));
+			Vorein->RandRechts = QStodouble(dc.attribute("RANDR","9"));
 			Vorein->DoppelSeiten = static_cast<bool>(QStoInt(dc.attribute("DOPPEL","0")));
 			Vorein->ErsteLinks = static_cast<bool>(QStoInt(dc.attribute("LINKS","0")));
 			Vorein->AutoSave = static_cast<bool>(QStoInt(dc.attribute("AutoSave","0")));

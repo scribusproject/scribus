@@ -30,6 +30,7 @@
 #include <cstdlib>
 #include <dlfcn.h>
 #include <iostream>
+#include <string>
 #include "scribus.h"
 #include "scribus.moc"
 #include "newfile.h"
@@ -89,10 +90,10 @@ bool CMSavail;
 ProfilesL InputProfiles;
 int PolyC;
 int PolyFd;
-float PolyF;
+double PolyF;
 bool PolyS;
-float PolyR;
-float UmReFaktor;
+double PolyR;
+double UmReFaktor;
 QString DocDir;
 
 ScribusApp::ScribusApp(SplashScreen *splash)
@@ -108,26 +109,26 @@ ScribusApp::ScribusApp(SplashScreen *splash)
   DatClo = new QToolButton(loadIcon("DateiClos.xpm"), tr("Closes the Current Document"), QString::null, this, SLOT(slotFileClose()), WerkTools2);
   DatPri = new QToolButton(loadIcon("DateiPrint.xpm"), tr("Prints the Current Document"), QString::null, this, SLOT(slotFilePrint()), WerkTools2);
   DatPDF = new QToolButton(loadIcon("acrobat.png"), tr("Saves the Current Document as PDF"), QString::null, this, SLOT(SaveAsPDF()), WerkTools2);
-  DatSav->setEnabled(false);	
+  DatSav->setEnabled(false);
   DatClo->setEnabled(false);
   DatPri->setEnabled(false);
-  DatPDF->setEnabled(false);	
+  DatPDF->setEnabled(false);
   DatOpe->setPopup(recentMenu);
-  WerkTools = new WerkToolB(this);	
+  WerkTools = new WerkToolB(this);
   setDockEnabled(WerkTools, DockLeft, false);
   setDockEnabled(WerkTools, DockRight, false);
   WerkTools->Sichtbar = true;
   WerkTools->setEnabled(false);
   WerkToolsP = new WerkToolBP(this);
-  setDockEnabled(WerkToolsP, DockLeft, false);	
+  setDockEnabled(WerkToolsP, DockLeft, false);
   setDockEnabled(WerkToolsP, DockRight, false);
-  WerkToolsP->setEnabled(false);	
+  WerkToolsP->setEnabled(false);
   WerkToolsP->Sichtbar = true;
-  QString Pff = QString(getenv("HOME"))+"/.scribus";	
+  QString Pff = QString(getenv("HOME"))+"/.scribus";
   QFileInfo Pffi = QFileInfo(Pff);
   if (Pffi.exists())
   	{
-    if (Pffi.isDir())			
+    if (Pffi.isDir())
       PrefsPfad = Pff;
         else
       PrefsPfad = QString(getenv("HOME"));
@@ -350,7 +351,7 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 				{
 				ip = PrinterProfiles.begin();
 				Prefs.DCMSset.DefaultPrinterProfile = ip.key();
-				} 
+				}
 #ifdef HAVE_CMS
 			SoftProofing = Prefs.DCMSset.SoftProofOn;
 			CMSuse = false;
@@ -386,8 +387,8 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		connect(Mpal->Cpal, SIGNAL(NewBrush(QString)), this, SLOT(setBrushFarbe(QString)));
 		connect(Mpal->Cpal, SIGNAL(NewPenShade(int)), this, SLOT(setPenShade(int)));
 		connect(Mpal->Cpal, SIGNAL(NewBrushShade(int)), this, SLOT(setBrushShade(int)));
-		connect(Mpal->Cpal, SIGNAL(NewTrans(float)), this, SLOT(SetTranspar(float)));
-		connect(Mpal->Cpal, SIGNAL(NewTransS(float)), this, SLOT(SetTransparS(float)));
+		connect(Mpal->Cpal, SIGNAL(NewTrans(double)), this, SLOT(SetTranspar(double)));
+		connect(Mpal->Cpal, SIGNAL(NewTransS(double)), this, SLOT(SetTransparS(double)));
 		connect(Mpal->Cpal, SIGNAL(NewGradient(int, QString, int, QString, int)), this, SLOT(setGradFill(int, QString, int, QString, int)));
 		connect(Mpal->Cpal, SIGNAL(QueryItem()), this, SLOT(GetBrushPen()));
 		connect(Tpal, SIGNAL(Schliessen()), this, SLOT(ToggleTpal()));
@@ -421,7 +422,7 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
 		connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
 		connect(this, SIGNAL(TextISize(int)), Mpal, SLOT(setSize(int)));
-		connect(this, SIGNAL(TextUSval(float)), Mpal, SLOT(setExtra(float)));
+		connect(this, SIGNAL(TextUSval(double)), Mpal, SLOT(setExtra(double)));
 		connect(this, SIGNAL(TextStil(int)), Mpal, SLOT(setStil(int)));
 		connect(this, SIGNAL(TextScale(int)), Mpal, SLOT(setTScale(int)));
 		connect(this, SIGNAL(TextFarben(QString, QString, int, int)), Mpal, SLOT(setActFarben(QString, QString, int, int)));
@@ -740,10 +741,10 @@ void ScribusApp::initStatusBar()
 	statusBar()->addWidget(YMess, 0, true);
 	YDat = new QLabel(statusBar(), "ydt");
 	statusBar()->addWidget(YDat, 1, true);
-	YDat->setText("         ");	
+	YDat->setText("         ");
 }
 
-void ScribusApp::ReportMP(float xp, float yp)
+void ScribusApp::ReportMP(double xp, double yp)
 {
 	QString tmp, tmp2;
 	switch (doc->Einheit)
@@ -846,7 +847,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 	struct Pti *hg;
 	int kk = k->key();
 	int as = k->ascii();
-	float altx, alty;
+	double altx, alty;
 	QString uc = k->text();
 	QString cr, Tcha, Twort;
 	uint Tcoun;
@@ -998,7 +999,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 												b->NextBox->OwnPage->SelectItemNr(b->NextBox->ItemNr);
 												b = b->NextBox;
 												}
- 											} 									
+ 											}
  									}
  								else
  									{
@@ -1339,19 +1340,19 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 /////////////////////////////////////////////////////////////////////
 // SLOT IMPLEMENTATION
 /////////////////////////////////////////////////////////////////////
-float ScribusApp::mm2pts(int mm)
+double ScribusApp::mm2pts(int mm)
 {
 	return mm / 25.4 * 72;
 }
 
-float ScribusApp::pts2mm(float pts)
+double ScribusApp::pts2mm(double pts)
 {
 	return pts / 72 * 25.4;
 }
 
 bool ScribusApp::slotFileNew()
 {
-	float b, h, tpr, lr, rr, br, sp, ab;
+	double b, h, tpr, lr, rr, br, sp, ab;
 	bool fp, atf, ret;
 	NewDoc* dia = new NewDoc(this, &Prefs);
 	if (dia->exec())
@@ -1381,7 +1382,7 @@ bool ScribusApp::slotFileNew()
 	return ret;
 }
 
-bool ScribusApp::doFileNew(float b, float h, float tpr, float lr, float rr, float br, float ab, float sp,
+bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr, double br, double ab, double sp,
 													 bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr)
 {
 	QString cc;
@@ -1501,7 +1502,7 @@ bool ScribusApp::doFileNew(float b, float h, float tpr, float lr, float rr, floa
 		if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmyData)
 			doc->CMSSettings.ComponentsPrinter = 3;
 		doc->PDF_Optionen.SComp = doc->CMSSettings.ComponentsInput2;
-#endif               
+#endif
 		if (Prefs.DCMSset.CMSinUse)
 			RecalcColors();
 		}
@@ -1620,13 +1621,13 @@ void ScribusApp::windowsMenuActivated( int id )
 
 bool ScribusApp::SetupDoc()
 {
-	float tpr = doc->PageM.Top;
-	float lr = doc->PageM.Left;
-	float rr = doc->PageM.Right;
-	float br = doc->PageM.Bottom;	
+	double tpr = doc->PageM.Top;
+	double lr = doc->PageM.Left;
+	double rr = doc->PageM.Right;
+	double br = doc->PageM.Bottom;
 	bool fp = doc->PageFP;
 	bool fpe = doc->FirstPageLeft;
-	float tpr2, lr2, rr2, br2;
+	double tpr2, lr2, rr2, br2;
 	bool ret = false;
 	ReformDoc* dia = new ReformDoc(this, tpr, lr, rr, br, doc->PageB, doc->PageH, fp, fpe, doc->Einheit);
 	if (dia->exec())
@@ -1684,7 +1685,7 @@ void ScribusApp::SwitchWin()
 	stdTransImg = ActWin->stdTransImg;
 	CMSoutputProf = doc->DocOutputProf;
 	CMSprinterProf = doc->DocPrinterProf;
-#endif 
+#endif
 	Mpal->Cpal->SetColors(doc->PageColors);
 	Mpal->Cpal->ChooseGrad(0);
 	ActWin->setCaption(tr(doc->DocName));
@@ -1797,16 +1798,11 @@ void ScribusApp::HaveNewDoc()
 	menuBar()->setItemEnabled(exmn, 1);
 	WerkTools->setEnabled(true);
 	WerkToolsP->setEnabled(true);
+	int setter = 0;
 	if (view->Pages.count() > 1)
-		{
-		pageMenu->setItemEnabled(pgmd, 1);
-		pageMenu->setItemEnabled(pgmv, 1);
-		}
-	else
-		{
-		pageMenu->setItemEnabled(pgmd, 0);
-		pageMenu->setItemEnabled(pgmv, 0);
-		}
+		setter = 1;
+	pageMenu->setItemEnabled(pgmd, setter);
+	pageMenu->setItemEnabled(pgmv, setter);
 	editMenu->setItemEnabled(tman, 1);
 	editMenu->setItemEnabled(jman, 1);
 	CListe::Iterator it;
@@ -2208,7 +2204,7 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr)
   doc->ActPage->update();
 	return ret;
 }
-	
+
 bool ScribusApp::LadeDoc(QString fileName)
 {
 	bool ret = false;
@@ -2523,7 +2519,7 @@ void ScribusApp::slotFileOpen()
 
 void ScribusApp::slotAutoSave()
 {
-/* Disabled temporary because of some Problems
+/* Disabled temporary because of some Problems, RaceCondition
   if ((doc->hasName) && (doc->isModified()) && (!doc->TemplateMode))
   	{
 		system("mv -f " + doc->DocName + " " + doc->DocName+".bak");
@@ -3060,7 +3056,7 @@ void ScribusApp::ClipChange()
 				if (doc->AppMode == 7)
 					editMenu->setItemEnabled(edid3, 1);
 				}
-			}		
+			}
 		}
 }
 
@@ -3271,20 +3267,20 @@ void ScribusApp::slotNewPage(int w)
 	connect(doc->ActPage, SIGNAL(PaintingDone()), this, SLOT(slotSelect()));
 	connect(doc->ActPage, SIGNAL(HaveSel(int)), this, SLOT(HaveNewSel(int)));
 	connect(doc->ActPage, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
-	connect(doc->ActPage, SIGNAL(ClipPo(float, float)), Npal, SLOT(SetXY(float, float)));
+	connect(doc->ActPage, SIGNAL(ClipPo(double, double)), Npal, SLOT(SetXY(double, double)));
 	connect(doc->ActPage, SIGNAL(HavePoint(bool, bool)), Npal, SLOT(HaveNode(bool, bool)));
 	connect(doc->ActPage, SIGNAL(PolyOpen()), Npal, SLOT(IsOpen()));
 	connect(doc->ActPage, SIGNAL(PStatus(int, uint)), Npal, SLOT(PolyStatus(int, uint)));
-	connect(doc->ActPage, SIGNAL(MousePos(float, float)), this, SLOT(ReportMP(float, float)));
-	connect(doc->ActPage, SIGNAL(ItemPos(float, float)), Mpal, SLOT(setXY(float, float)));
-	connect(doc->ActPage, SIGNAL(ItemGeom(float, float)), Mpal, SLOT(setBH(float, float)));
-	connect(doc->ActPage, SIGNAL(SetAngle(float)), Mpal, SLOT(setR(float)));
-	connect(doc->ActPage, SIGNAL(ItemRadius(float)), Mpal, SLOT(setRR(float)));
-	connect(doc->ActPage, SIGNAL(ItemTextAttr(float)), Mpal, SLOT(setLsp(float)));
+	connect(doc->ActPage, SIGNAL(MousePos(double, double)), this, SLOT(ReportMP(double, double)));
+	connect(doc->ActPage, SIGNAL(ItemPos(double, double)), Mpal, SLOT(setXY(double, double)));
+	connect(doc->ActPage, SIGNAL(ItemGeom(double, double)), Mpal, SLOT(setBH(double, double)));
+	connect(doc->ActPage, SIGNAL(SetAngle(double)), Mpal, SLOT(setR(double)));
+	connect(doc->ActPage, SIGNAL(ItemRadius(double)), Mpal, SLOT(setRR(double)));
+	connect(doc->ActPage, SIGNAL(ItemTextAttr(double)), Mpal, SLOT(setLsp(double)));
 	connect(doc->ActPage, SIGNAL(ItemTextSize(int)), Mpal, SLOT(setSize(int)));
-	connect(doc->ActPage, SIGNAL(ItemTextUSval(float)), Mpal, SLOT(setExtra(float)));
-	connect(doc->ActPage, SIGNAL(SetLocalValues(float, float, float, float)), Mpal, SLOT(setLvalue(float, float, float, float)));
-	connect(doc->ActPage, SIGNAL(SetSizeValue(float)), Mpal, SLOT(setSvalue(float)));
+	connect(doc->ActPage, SIGNAL(ItemTextUSval(double)), Mpal, SLOT(setExtra(double)));
+	connect(doc->ActPage, SIGNAL(SetLocalValues(double, double, double, double)), Mpal, SLOT(setLvalue(double, double, double, double)));
+	connect(doc->ActPage, SIGNAL(SetSizeValue(double)), Mpal, SLOT(setSvalue(double)));
 	connect(doc->ActPage, SIGNAL(ItemTextStil(int)), Mpal, SLOT(setStil(int)));
 	connect(doc->ActPage, SIGNAL(ItemTextSca(int)), Mpal, SLOT(setTScale(int)));
 	connect(doc->ActPage, SIGNAL(ItemTextAbs(int)), Mpal, SLOT(setAli(int)));
@@ -3293,7 +3289,7 @@ void ScribusApp::slotNewPage(int w)
 	connect(doc->ActPage, SIGNAL(ItemFarben(QString, QString, int, int)), this, SLOT(setCSMenu(QString, QString, int, int)));
 	connect(doc->ActPage, SIGNAL(ItemFarben(QString, QString, int, int)), Mpal->Cpal, SLOT(setActFarben(QString, QString, int, int)));
 	connect(doc->ActPage, SIGNAL(ItemGradient(QString, QString, int, int, int)), Mpal->Cpal, SLOT(setActGradient(QString, QString, int, int, int)));
-	connect(doc->ActPage, SIGNAL(ItemTrans(float, float)), Mpal->Cpal, SLOT(setActTrans(float, float)));
+	connect(doc->ActPage, SIGNAL(ItemTrans(double, double)), Mpal->Cpal, SLOT(setActTrans(double, double)));
 	connect(doc->ActPage, SIGNAL(ItemTextFont(QString)), this, SLOT(AdjustFontMenu(QString)));
 	connect(doc->ActPage, SIGNAL(ItemTextSize(int)), this, SLOT(setFSizeMenu(int)));
 	connect(doc->ActPage, SIGNAL(ItemTextStil(int)), this, SLOT(setStilvalue(int)));
@@ -3318,7 +3314,7 @@ void ScribusApp::slotNewPage(int w)
 }
 
 /** Ansicht absolut zoomen */
-void ScribusApp::slotZoomAbs(float z)
+void ScribusApp::slotZoomAbs(double z)
 {
 	doc->Scale = z;
 	view->slotDoZoom();
@@ -3326,8 +3322,8 @@ void ScribusApp::slotZoomAbs(float z)
 
 void ScribusApp::slotZoomFit()
 {
-	float dx = (view->width()-50) / (doc->PageB+30);
-	float dy = (view->height()-70) / (doc->PageH+30);
+	double dx = (view->width()-50) / (doc->PageB+30);
+	double dy = (view->height()-70) / (doc->PageH+30);
 	if (dx > dy)
 		slotZoomAbs(dy);
 	else
@@ -4213,13 +4209,13 @@ void ScribusApp::setCSMenu(QString k, QString l, int lk , int ls)
 			{
 			la = l;
 			lb = ls;
-			}	
+			}
 		}
 	else
 		{
 		la = l;
 		lb = ls;
-		}	
+		}
 	if (la == "None")
 		la = tr("None");
 	for (a = 0; a < ColorMenu->count(); ++a)
@@ -4617,10 +4613,10 @@ void ScribusApp::ObjektDupM()
 	if (dia->exec())
 		{
 		int anz = dia->Ncopies->value();
-		float dH = static_cast<float>(dia->ShiftH->value()) / UmReFaktor / 100.0;
-		float dV = static_cast<float>(dia->ShiftV->value()) / UmReFaktor / 100.0;
-		float dH2 = dH;
-		float dV2 = dV;
+		double dH = static_cast<double>(dia->ShiftH->value()) / UmReFaktor / 100.0;
+		double dV = static_cast<double>(dia->ShiftV->value()) / UmReFaktor / 100.0;
+		double dH2 = dH;
+		double dV2 = dV;
 		int a;
 		if (anz>0)
 			{
@@ -4681,7 +4677,7 @@ void ScribusApp::InfoDoc()
 
 void ScribusApp::ObjektAlign()
 {
-	float xdp, ydp;
+	double xdp, ydp;
 	bool xa, ya, Vth, Vtv;
 	int xart, yart, ein;
 	if (HaveDoc)
@@ -4690,13 +4686,13 @@ void ScribusApp::ObjektAlign()
 		ein = Prefs.Einheit;
 	NoFrameEdit();
 	Align *dia = new Align(this, doc->ActPage->SelItem.count(), ein);
-	connect(dia, SIGNAL(ApplyDist(bool, bool, bool, bool, float, float, int, int)),
-	        this, SLOT(DoAlign(bool, bool, bool, bool, float, float, int, int)));
+	connect(dia, SIGNAL(ApplyDist(bool, bool, bool, bool, double, double, int, int)),
+	        this, SLOT(DoAlign(bool, bool, bool, bool, double, double, int, int)));
 	if (dia->exec())
 		{
-		xdp = float(dia->AHor->value()) / UmReFaktor / 100.0;
+		xdp = static_cast<double>(dia->AHor->value()) / UmReFaktor / 100.0;
 		xa = (dia->CheckH->isChecked() || dia->VerteilenH->isChecked());
-		ydp = static_cast<float>(dia->AVert->value()) / UmReFaktor/ 100.0;
+		ydp = static_cast<double>(dia->AVert->value()) / UmReFaktor/ 100.0;
 		ya = (dia->CheckV->isChecked() || dia->VerteilenV->isChecked());
 		xart = dia->VartH->currentItem();
 		yart = dia->VartV->currentItem();
@@ -4710,7 +4706,7 @@ void ScribusApp::ObjektAlign()
 	delete dia;
 }
 
-void ScribusApp::DoAlign(bool xa, bool ya, bool Vth, bool Vtv, float xdp, float ydp, int xart, int yart)
+void ScribusApp::DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, double ydp, int xart, int yart)
 {
 	doc->ActPage->AlignObj(xa, ya, Vth, Vtv, xdp, ydp, xart, yart);
 	slotDocCh();
@@ -4954,27 +4950,12 @@ void ScribusApp::slotPrefsOrg()
 			if (doc->DbrushPict == tr("None"))
 				doc->DbrushPict = "None";
 			doc->ShadePict = dia->ShadeP->value();
-			doc->ScaleX = static_cast<float>(dia->XScale->value()) / 100;
-			doc->ScaleY = static_cast<float>(dia->YScale->value()) / 100;
+			doc->ScaleX = static_cast<double>(dia->XScale->value()) / 100;
+			doc->ScaleY = static_cast<double>(dia->YScale->value()) / 100;
 			doc->ScaleType = dia->FreeScale->isChecked();
 			doc->AspectRatio = dia->Aspect->isChecked();
 			doc->Before = dia->RadioButton6->isChecked();
-			doc->Einheit = dia->UnitCombo->currentItem();
-			switch (doc->Einheit)
-				{
-				case 0:
-					view->UN->setText("pt");
-					break;
-				case 1:
-					view->UN->setText("mm");
-					break;
-				case 2:
-					view->UN->setText("in");
-					break;
-				case 3:
-					view->UN->setText("p");
-					break;
-				}
+			slotChangeUnit(dia->UnitCombo->currentItem(), false);
 			doc->PagesSbS = dia->SidebySide->isChecked();
 			doc->ShFrames = dia->FramesVisible->isChecked();
 			doc->RandFarbig = dia->RandFarb->isChecked();
@@ -4985,7 +4966,6 @@ void ScribusApp::slotPrefsOrg()
 				doc->ASaveTimer->stop();
 				doc->ASaveTimer->start(dia->ASTime->value() * 60 * 1000);
 				}
-			Mpal->UnitChange();
 			view->reformPages();
 			view->DrawNew();
 			}
@@ -5067,8 +5047,8 @@ void ScribusApp::slotPrefsOrg()
 			if (Prefs.DbrushPict == tr("None"))
 				Prefs.DbrushPict = "None";
 			Prefs.ShadePict = dia->ShadeP->value();
-			Prefs.ScaleX = static_cast<float>(dia->XScale->value()) / 100;
-			Prefs.ScaleY = static_cast<float>(dia->YScale->value()) / 100;
+			Prefs.ScaleX = static_cast<double>(dia->XScale->value()) / 100;
+			Prefs.ScaleY = static_cast<double>(dia->YScale->value()) / 100;
 			Prefs.ScaleType = dia->FreeScale->isChecked();
 			Prefs.AspectRatio = dia->Aspect->isChecked();
 			Prefs.Before = dia->RadioButton6->isChecked();
@@ -5448,10 +5428,10 @@ void ScribusApp::SaveAsPDF()
 					Components = 3;
 				cmsCloseProfile(hIn);
 				doc->PDF_Optionen.Info = dia->InfoString->text();
-				doc->PDF_Optionen.BleedTop = static_cast<float>(dia->BleedTop->value())/UmReFaktor/100.0;
-				doc->PDF_Optionen.BleedLeft = static_cast<float>(dia->BleedLeft->value())/UmReFaktor/100.0;
-				doc->PDF_Optionen.BleedRight = static_cast<float>(dia->BleedRight->value())/UmReFaktor/100.0;
-				doc->PDF_Optionen.BleedBottom = static_cast<float>(dia->BleedBottom->value())/UmReFaktor/100.0;
+				doc->PDF_Optionen.BleedTop = static_cast<double>(dia->BleedTop->value())/UmReFaktor/100.0;
+				doc->PDF_Optionen.BleedLeft = static_cast<double>(dia->BleedLeft->value())/UmReFaktor/100.0;
+				doc->PDF_Optionen.BleedRight = static_cast<double>(dia->BleedRight->value())/UmReFaktor/100.0;
+				doc->PDF_Optionen.BleedBottom = static_cast<double>(dia->BleedBottom->value())/UmReFaktor/100.0;
 				doc->PDF_Optionen.Encrypt = false;
 				doc->PDF_Optionen.PresentMode = false;
 				doc->PDF_Optionen.Encrypt = false;
@@ -5674,16 +5654,11 @@ void ScribusApp::ManTempEnd()
 	DatOpe->setEnabled(true);
 	DatClo->setEnabled(true);
 	fileMenu->setEnabled(true);
+	int setter = 0;
 	if (view->Pages.count() > 1)
-		{
-		pageMenu->setItemEnabled(pgmd, 1);
-		pageMenu->setItemEnabled(pgmv, 1);
-		}
-	else
-		{
-		pageMenu->setItemEnabled(pgmd, 0);
-		pageMenu->setItemEnabled(pgmv, 0);
-		}
+		setter = 1;
+	pageMenu->setItemEnabled(pgmd, setter);
+	pageMenu->setItemEnabled(pgmv, setter);
 	if (doc->isModified())
 		slotDocCh();
 	for (uint c=0; c<view->Pages.count(); ++c)
@@ -5765,7 +5740,7 @@ void ScribusApp::Apply_Temp(QString in, int Snr, bool reb)
 void ScribusApp::GroupObj()
 {
 	PageItem* b;
-	float x, y, w, h;
+	double x, y, w, h;
 	for (uint a=0; a<doc->ActPage->SelItem.count(); ++a)
 		{
 		b = doc->ActPage->SelItem.at(a);
@@ -6381,7 +6356,7 @@ void ScribusApp::CanUndo()
 			editMenu->changeItem(edUndo, tr("Undo Object Change"));
 			break;
 		}
-	if (doc->UnDoValid)	
+	if (doc->UnDoValid)
 		editMenu->setItemEnabled(edUndo, 1);
 	else
 		editMenu->setItemEnabled(edUndo, 0);
@@ -6508,7 +6483,7 @@ void ScribusApp::ManageGuides()
 		}
 }
 
-void ScribusApp::SetTranspar(float t)
+void ScribusApp::SetTranspar(double t)
 {
 	PageItem *b;
 	if (HaveDoc)
@@ -6523,7 +6498,7 @@ void ScribusApp::SetTranspar(float t)
 		}
 }
 
-void ScribusApp::SetTransparS(float t)
+void ScribusApp::SetTransparS(double t)
 {
 	PageItem *b;
 	if (HaveDoc)

@@ -292,15 +292,15 @@ void ScPainter::setPen( const QColor &c )
 	m_stroke = c;
 }
 
-void ScPainter::setPen( const QColor &c, float w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo )
+void ScPainter::setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo )
 {
 	m_stroke = c;
 	LineWidth = w;
 	PLineEnd = ca;
 	PLineJoin = jo;
-	float Dt = QMAX(2*w, 1);
-	float Da = QMAX(6*w, 1);
-	QValueList<float> tmp;
+	double Dt = QMAX(2*w, 1);
+	double Da = QMAX(6*w, 1);
+	QValueList<double> tmp;
 	m_array.clear();
 	m_offset = 0;
 	switch (st)
@@ -333,18 +333,18 @@ void ScPainter::setPen( const QColor &c, float w, Qt::PenStyle st, Qt::PenCapSty
 		}
 }
 
-void ScPainter::setLineWidth( float w )
+void ScPainter::setLineWidth( double w )
 {
 	LineWidth = w;
 }
 
-void ScPainter::setPenOpacity( float op )
+void ScPainter::setPenOpacity( double op )
 {
 	stroke_trans = op;
 }
 
 
-void ScPainter::setDash(const QValueList<float>& array, float ofs)
+void ScPainter::setDash(const QValueList<double>& array, double ofs)
 {
 	m_array = array;
 	m_offset = ofs;
@@ -355,12 +355,12 @@ void ScPainter::setBrush( const QColor &c )
 	m_fill = c;
 }
 
-void ScPainter::setBrushOpacity( float op )
+void ScPainter::setBrushOpacity( double op )
 {
 	fill_trans = op;
 }
 
-void ScPainter::setOpacity( float op )
+void ScPainter::setOpacity( double op )
 {
 	fill_trans = op;
 	stroke_trans = op;
@@ -394,13 +394,13 @@ void ScPainter::clampToViewport( int &x0, int &y0, int &x1, int &y1 )
 {
 	// clamp to viewport
 	x0 = QMAX( x0, 0 );
-	x0 = QMIN( x0, int( m_width ) );
+	x0 = QMIN( x0, static_cast<int>( m_width ) );
 	y0 = QMAX( y0, 0 );
-	y0 = QMIN( y0, int ( m_height ) );
+	y0 = QMIN( y0, static_cast<int>( m_height ) );
 	x1 = QMAX( x1, 0 );
-	x1 = QMIN( x1, int( m_width ) );
+	x1 = QMIN( x1, static_cast<int>( m_width ) );
 	y1 = QMAX( y1, 0 );
-	y1 = QMIN( y1, int( m_height ) );
+	y1 = QMIN( y1, static_cast<int>( m_height ) );
 }
 
 void ScPainter::clampToViewport( const ArtSVP &svp, int &x0, int &y0, int &x1, int &y1 )
@@ -412,18 +412,18 @@ void ScPainter::clampToViewport( const ArtSVP &svp, int &x0, int &y0, int &x1, i
 	//m_bbox = KoRect( bbox.x0, bbox.y0, bbox.x1 - bbox.x0, bbox.y1 - bbox.y0 );
 
 	// clamp to viewport
-	x0 = int( bbox.x0 );
+	x0 = static_cast<int>( bbox.x0 );
 	x0 = QMAX( x0, 0 );
-	x0 = QMIN( x0, int( m_width ) );
-	y0 = int( bbox.y0 );
+	x0 = QMIN( x0, static_cast<int>( m_width ) );
+	y0 = static_cast<int>( bbox.y0 );
 	y0 = QMAX( y0, 0 );
-	y0 = QMIN( y0, int ( m_height ) );
-	x1 = int( bbox.x1 ) + 1;
+	y0 = QMIN( y0, static_cast<int>( m_height ) );
+	x1 = static_cast<int>( bbox.x1 ) + 1;
 	x1 = QMAX( x1, 0 );
-	x1 = QMIN( x1, int( m_width ) );
-	y1 = int( bbox.y1 ) + 1;
+	x1 = QMIN( x1, static_cast<int>( m_width ) );
+	y1 = static_cast<int>( bbox.y1 ) + 1;
 	y1 = QMAX( y1, 0 );
-	y1 = QMIN( y1, int( m_height ) );
+	y1 = QMIN( y1, static_cast<int>( m_height ) );
 }
 
 void ScPainter::drawVPath( ArtVpath *vec, int mode )
@@ -581,7 +581,7 @@ void ScPainter::applyGradient( ArtSVP *svp, bool fill )
 	ArtRender *render = 0L;
 
 	VGradient gradient = fill ? fill_gradient : stroke_gradient;
-	float opa = fill ? fill_trans : stroke_trans;
+	double opa = fill ? fill_trans : stroke_trans;
 
 	if (gradient.type() == VGradient::linear)
 		{
@@ -623,8 +623,8 @@ void ScPainter::applyGradient( ArtSVP *svp, bool fill )
 
 		if( x0 != x1 && y0 != y1 )
 		{
-			render = art_render_new( x0, y0, x1, y1, m_buffer + 4 * int(x0) + m_width * 4 * int(y0), m_width * 4, 3, 8, ART_ALPHA_PREMUL, 0 );
-			int opacity = int( opa * 255.0 );
+			render = art_render_new( x0, y0, x1, y1, m_buffer + 4 * static_cast<int>(x0) + m_width * 4 * static_cast<int>(y0), m_width * 4, 3, 8, ART_ALPHA_PREMUL, 0 );
+			int opacity = static_cast<int>( opa * 255.0 );
 			art_render_svp( render, svp );
 			art_render_mask_solid (render, (opacity << 8) + opacity + (opacity >> 7));
 			art_karbon_render_gradient_linear( render, linear, ART_FILTER_NEAREST );
@@ -679,7 +679,7 @@ void ScPainter::applyGradient( ArtSVP *svp, bool fill )
 		if( x0 != x1 && y0 != y1 )
 		{
 			render = art_render_new( x0, y0, x1, y1, m_buffer + 4 * x0 + m_width * 4 * y0, m_width * 4, 3, 8, ART_ALPHA_PREMUL, 0 );
-			int opacity = int( opa * 255.0 );
+			int opacity = static_cast<int>( opa * 255.0 );
 			art_render_svp( render, svp );
 			art_render_mask_solid (render, (opacity << 8) + opacity + (opacity >> 7));
 			art_karbon_render_gradient_radial( render, radial, ART_FILTER_NEAREST );
@@ -720,7 +720,7 @@ void ScPainter::applyGradient( ArtSVP *svp, bool fill )
 		if( x0 != x1 && y0 != y1 )
 		{
 			render = art_render_new( x0, y0, x1, y1, m_buffer + 4 * x0 + m_width * 4 * y0, m_width * 4, 3, 8, ART_ALPHA_PREMUL, 0 );
-			int opacity = int( opa * 255.0 );
+			int opacity = static_cast<int>( opa * 255.0 );
 			art_render_svp( render, svp );
 			art_render_mask_solid (render, (opacity << 8) + opacity + (opacity >> 7));
 			art_karbon_render_gradient_conical( render, conical, ART_FILTER_NEAREST );
@@ -751,7 +751,7 @@ ArtGradientStop * ScPainter::buildStopArray( VGradient &gradient, int &offsets )
 		int g = qGreen( qStopColor.rgb() );
 		int b = qBlue( qStopColor.rgb() );
 		art_u32 rgba = (r << 24) | (g << 16) | (b << 8) | qAlpha(qStopColor.rgb());
-		int a = int( colorStops[offset]->opacity * 255.0 );
+		int a = static_cast<int>( colorStops[offset]->opacity * 255.0 );
 //		int a = int( fill_trans * 255.0 );
 		r = (rgba >> 24) * a + 0x80;
 		r = (r + (r >> 8)) >> 8;
@@ -769,11 +769,11 @@ ArtGradientStop * ScPainter::buildStopArray( VGradient &gradient, int &offsets )
 			stopArray[ offset * 2 + 1 ].offset = ramp + ( colorStops[ offset + 1 ]->rampPoint - ramp ) * colorStops[ offset ]->midPoint;
 
 			QColor qStopColor2 = colorStops[ offset + 1 ]->color;
-			rgba = int(r + ((qRed(qStopColor2.rgb()) - r)) * 0.5) << 24 |
-						int(g + ((qGreen(qStopColor2.rgb()) - g)) * 0.5) << 16 |
-						int(b + ((qBlue(qStopColor2.rgb()) - b)) * 0.5) << 8 |
+			rgba = static_cast<int>(r + ((qRed(qStopColor2.rgb()) - r)) * 0.5) << 24 |
+						 static_cast<int>(g + ((qGreen(qStopColor2.rgb()) - g)) * 0.5) << 16 |
+						 static_cast<int>(b + ((qBlue(qStopColor2.rgb()) - b)) * 0.5) << 8 |
 						qAlpha(qStopColor2.rgb());
-			int a = int( colorStops[offset]->opacity * 255.0 );
+			int a = static_cast<int>( colorStops[offset]->opacity * 255.0 );
 //			int a = int( fill_trans * 255.0 );
 			r = (rgba >> 24) * a + 0x80;
 			r = (r + (r >> 8)) >> 8;

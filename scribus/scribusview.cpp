@@ -29,7 +29,7 @@
 #include <qcstring.h>
 
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
-extern float Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
+extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 
 ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, preV *prefs)
  						: QScrollView(parent, "s", WRepaintNoErase | WNorthWestGravity)
@@ -168,7 +168,7 @@ void ScribusView::setRulerPos(int x, int y)
 
 void ScribusView::Zval()
 {
-	Doc->Scale = static_cast<float>(LE->value()) / 10000.0 * Prefs->DisScale;
+	Doc->Scale = static_cast<double>(LE->value()) / 10000.0 * Prefs->DisScale;
 	slotDoZoom();
 	setFocus();
 }
@@ -177,7 +177,7 @@ void ScribusView::Zval()
 Page* ScribusView::addPage(int nr)
 {
 	int z;
-	float s = Doc->Scale;
+	double s = Doc->Scale;
 	QWidget* feh = new PageBack(viewport());
 	feh->resize(static_cast<int>((Doc->PageB+5)*s), static_cast<int>((Doc->PageH+5)*s));
 	Page* fe = new Page(feh, 0, 0, static_cast<int>(Doc->PageB*s), static_cast<int>(Doc->PageH*s), Doc, this);
@@ -194,8 +194,8 @@ Page* ScribusView::addPage(int nr)
 		if (Doc->PageSp > 1)
 			{
 			int a;
-			float bsp = (Doc->PageB-fe->Margins.Right-fe->Margins.Left-(Doc->PageSp-1)*Doc->PageSpa)/Doc->PageSp;
-			float anf = fe->Margins.Left;
+			double bsp = (Doc->PageB-fe->Margins.Right-fe->Margins.Left-(Doc->PageSp-1)*Doc->PageSpa)/Doc->PageSp;
+			double anf = fe->Margins.Left;
 			for (a = 0; a < Doc->PageSp; a++)
 				{
 				z = fe->PaintText(anf,
@@ -242,7 +242,7 @@ Page* ScribusView::addPage(int nr)
 	connect(fe, SIGNAL(ZoomAbs()), this, SLOT(slotDoZoom()));
 	connect(fe, SIGNAL(AbsPosi(int, int)), this, SLOT(SetCPo(int, int)));
 	connect(fe, SIGNAL(AbsPosi2(int, int)), this, SLOT(SetCCPo(int, int)));
-	return fe;	
+	return fe;
 }
 
 /** Löscht eine Seite */
@@ -272,7 +272,7 @@ void ScribusView::movePage(int from, int to, int ziel, int art)
 		Buf.append(Pages.at(from));
 		Pages.remove(from);
 		if (a <= zz)
-			zz--;			
+			zz--;
 		}
 	switch (art)
 		{
@@ -301,7 +301,7 @@ void ScribusView::movePage(int from, int to, int ziel, int art)
 }
 
 void ScribusView::reformPages()
-{	
+{
 	uint a;
 	Page* Seite;
 	QWidget* PSeite = Doc->ActPage->parentWidget();
@@ -326,7 +326,7 @@ void ScribusView::reformPages()
  					}
 				}
 			else
-				{	
+				{
  				if (a % 2 == 0)
  					{
  					if (Doc->FirstPageLeft)
@@ -411,7 +411,7 @@ void ScribusView::reformPages()
 	setRulerPos(contentsX(), contentsY());
  	PaMenu();
 	setMenTxt(Doc->ActPage->PageNr);
-}	
+}
 
 void ScribusView::setMenTxt(int Seite)
 {
@@ -425,7 +425,7 @@ void ScribusView::setLayMenTxt(int l)
 
 /** Fuehrt die Vergroesserung/Verkleinerung aus */
 void ScribusView::slotDoZoom()
-{ 	
+{
 	uint a;
 	Page* Seite;
 	QWidget* PSeite = Doc->ActPage->parentWidget();
@@ -499,13 +499,13 @@ void ScribusView::slotDoZoom()
 void ScribusView::SetCCPo(int x, int y)
 {
 	center(static_cast<int>(childX(Doc->ActPage->parentWidget())+x*Doc->Scale), static_cast<int>(childY(Doc->ActPage->parentWidget())+y*Doc->Scale));
-	setRulerPos(contentsX(), contentsY());	
+	setRulerPos(contentsX(), contentsY());
 }
 
 void ScribusView::SetCPo(int x, int y)
 {
 	setContentsPos(static_cast<int>(childX(Doc->ActPage->parentWidget())+x*Doc->Scale), static_cast<int>(childY(Doc->ActPage->parentWidget())+y*Doc->Scale));
-	setRulerPos(contentsX(), contentsY());	
+	setRulerPos(contentsX(), contentsY());
 }
 
 void ScribusView::PaMenu()
@@ -580,23 +580,23 @@ void ScribusView::slotZoomOut()
 /** Vergrößert die Ansicht */
 void ScribusView::slotZoomIn2()
 {
-	Doc->Scale += static_cast<float>(Doc->MagStep)/100;
-	if (Doc->Scale > static_cast<float>(Doc->MagMax)/100)
-		Doc->Scale = static_cast<float>(Doc->MagMax)/100;
+	Doc->Scale += static_cast<double>(Doc->MagStep)/100;
+	if (Doc->Scale > static_cast<double>(Doc->MagMax)/100)
+		Doc->Scale = static_cast<double>(Doc->MagMax)/100;
 	slotDoZoom();
 }
 
 /** Verkleinert die Ansicht */
 void ScribusView::slotZoomOut2()
 {
-	Doc->Scale -= static_cast<float>(Doc->MagStep)/100;
-	if (Doc->Scale < static_cast<float>(Doc->MagMin)/100)
-		Doc->Scale = static_cast<float>(Doc->MagMin)/100;
+	Doc->Scale -= static_cast<double>(Doc->MagStep)/100;
+	if (Doc->Scale < static_cast<double>(Doc->MagMin)/100)
+		Doc->Scale = static_cast<double>(Doc->MagMin)/100;
 	slotDoZoom();
 }
 
 void ScribusView::DrawNew()
-{ 	
+{
 	uint a;
 	Page *b = Doc->ActPage;
 	if (Pages.count() != 0)
@@ -626,7 +626,7 @@ int ScribusView::CountElements()
 }
 
 void ScribusView::RecalcPictures(ProfilesL *Pr, QProgressBar *dia)
-{ 	
+{
 	uint a, i;
 	Page *b = Doc->ActPage;
 	PageItem* it;
@@ -713,7 +713,7 @@ QPixmap ScribusView::MPageToPixmap(QString name, int maxGr)
 {
 	QPixmap pm = QPixmap(static_cast<int>(Doc->PageB), static_cast<int>(Doc->PageH));
 	ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height());
-	float sca = Doc->Scale;
+	double sca = Doc->Scale;
 	bool frs = Doc->ShFrames;
 	int Lnr;
 	struct Layer ll;
@@ -764,8 +764,8 @@ QPixmap ScribusView::MPageToPixmap(QString name, int maxGr)
 	Doc->Scale = sca;
 	QImage im2;
 	QImage im = pm.convertToImage();
-	float sx = im.width() / static_cast<float>(maxGr);
-	float sy = im.height() / static_cast<float>(maxGr);
+	double sx = im.width() / static_cast<double>(maxGr);
+	double sy = im.height() / static_cast<double>(maxGr);
 	if (sy < sx)
 		im2 = im.smoothScale(static_cast<int>(im.width() / sx), static_cast<int>(im.height() / sx));
 	else
@@ -786,7 +786,7 @@ QPixmap ScribusView::PageToPixmap(int Nr, int maxGr)
 {
 	QPixmap pm = QPixmap(static_cast<int>(Doc->PageB), static_cast<int>(Doc->PageH));
 	ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height());
-	float sca = Doc->Scale;
+	double sca = Doc->Scale;
 	bool frs = Doc->ShFrames;
 	int Lnr;
 	struct Layer ll;
@@ -869,8 +869,8 @@ QPixmap ScribusView::PageToPixmap(int Nr, int maxGr)
 	Doc->Scale = sca;
 	QImage im2;
 	QImage im = pm.convertToImage();
-	float sx = im.width() / static_cast<float>(maxGr);
-	float sy = im.height() / static_cast<float>(maxGr);
+	double sx = im.width() / static_cast<double>(maxGr);
+	double sy = im.height() / static_cast<double>(maxGr);
 	if (sy < sx)
 		im2 = im.smoothScale(static_cast<int>(im.width() / sx), static_cast<int>(im.height() / sx));
 	else
@@ -891,7 +891,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 {
 	uint a;
 	int sepac;
-	float wideR;
+	double wideR;
 	bool multiPath = false;
 	p->PS_set_Info("Author", Doc->DocAutor);
 	p->PS_set_Info("Title", Doc->DocTitel);
@@ -912,7 +912,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 					if ((it->PType == 2) && (it->PicAvail) && (it->Pfile != "") && (it->isPrintable))
 						p->PS_ImageData(it->InvPict, it->Pfile, it->AnName, it->IProfile, it->UseEmbedded, Ic);
 					}
-				} 
+				}
 			p->PS_TemplateStart(MasterPages.at(ap)->PageNam, Doc->PageB, Doc->PageH);
 			ProcessPage(p, MasterPages.at(ap), ap+1, sep, farb, Ic);
 			p->PS_TemplateEnd();
@@ -1042,7 +1042,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 									p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 									}
 								p->PS_translate(ite->Xpos, Doc->PageH - ite->Ypos);
-								if (ite->Rot != 0) 
+								if (ite->Rot != 0)
 									p->PS_rotate(-ite->Rot);
 								if ((ite->Pcolor != "None") || (ite->GrType != 0))
 									{
@@ -1211,8 +1211,8 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 										}
 									if (hl->cstyle & 16)
 										{
-										float Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-										float Upos = (*Doc->AllFonts)[hl->cfont]->strikeout_pos * tsz;
+										double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
+										double Upos = (*Doc->AllFonts)[hl->cfont]->strikeout_pos * tsz;
 										if (hl->ccolor != "None")
 											{
 											p->PS_setdash(SolidLine, FlatCap, MiterJoin);
@@ -1228,7 +1228,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 										{
 										int chs = hl->csize;
 										ite->SetZeichAttr(hl, &chs, &chx);
-										float wide = Cwidth(Doc, hl->cfont, chx, chs);
+										double wide = Cwidth(Doc, hl->cfont, chx, chs);
 										chx = "-";
 										uint chr = chx[0].unicode();
 										if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))
@@ -1257,8 +1257,8 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 										{
 										int chs = hl->csize;
 										ite->SetZeichAttr(hl, &chs, &chx);
-										float csi = chs / 10.0;
-										float wid = Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
+										double csi = chs / 10.0;
+										double wid = Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
 										QPixmap pgPix(static_cast<int>(wid), hl->csize);
 										ScPainter *painter = new ScPainter(&pgPix, static_cast<int>(wid), hl->csize);
 										QString psSt = "1 -1 scale\n";
@@ -1266,7 +1266,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 										if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))
 											{
 											FPointArray gly = (*Doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
-											float st = (*Doc->AllFonts)[hl->cfont]->underline_pos * chs;
+											double st = (*Doc->AllFonts)[hl->cfont]->underline_pos * chs;
 											painter->setLineWidth(QMAX((*Doc->AllFonts)[hl->cfont]->strokeWidth * chs, 1));
 											if (gly.size() < 4)
 												{
@@ -1368,7 +1368,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 {
 	uint b, d;
 	int h, s, v, k, tsz;
-	float wideR;
+	double wideR;
 	QCString chxc;
 	QString chx, chglyph, tmp;
 	PageItem *c;
@@ -1490,7 +1490,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 										p->PS_stroke();
 										}
 									}
-								}						
+								}
 							break;
 						case 4:
 							if (c->isBookmark)
@@ -1707,8 +1707,8 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									{
 									int chs = hl->csize;
 									c->SetZeichAttr(hl, &chs, &chx);
-									float csi = chs / 10.0;
-									float wid = Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
+									double csi = chs / 10.0;
+									double wid = Cwidth(Doc, hl->cfont, chx, chs) * (hl->cscale / 100.0);
 									QPixmap pgPix(hl->csize, static_cast<int>(wid));
 									ScPainter *painter = new ScPainter(&pgPix, hl->csize, static_cast<int>(wid));
 									QString psSt = "1 -1 scale\n";
@@ -1716,7 +1716,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))
 										{
 										FPointArray gly = (*Doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
-										float st = (*Doc->AllFonts)[hl->cfont]->underline_pos * chs;
+										double st = (*Doc->AllFonts)[hl->cfont]->underline_pos * chs;
 										painter->setLineWidth(QMAX((*Doc->AllFonts)[hl->cfont]->strokeWidth * chs, 1));
 										if (gly.size() < 4)
 											{
@@ -1757,8 +1757,8 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									}
 								if (hl->cstyle & 16)
 									{
-									float Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-									float Upos = (*Doc->AllFonts)[hl->cfont]->strikeout_pos * tsz;
+									double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
+									double Upos = (*Doc->AllFonts)[hl->cfont]->strikeout_pos * tsz;
 									if (hl->ccolor != "None")
 										{
 										p->PS_setdash(SolidLine, FlatCap, MiterJoin);
@@ -1774,7 +1774,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									{
 									int chs = hl->csize;
 									c->SetZeichAttr(hl, &chs, &chx);
-									float wide = Cwidth(Doc, hl->cfont, chx, chs);
+									double wide = Cwidth(Doc, hl->cfont, chx, chs);
 									chx = "-";
 									uint chr = chx[0].unicode();
 									if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))

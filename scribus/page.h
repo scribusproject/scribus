@@ -39,32 +39,32 @@ public:
 	Page(QWidget *pa, int x, int y, int b, int h, ScribusDoc *doc, QScrollView *view);
 	~Page() {};
   /** Zeichnet eine Ellipse */
-  int PaintEllipse(float x, float y, float b, float h, float w, QString fill, QString outline);
+  int PaintEllipse(double x, double y, double b, double h, double w, QString fill, QString outline);
   /** Zeichnet eine Bildbox */
-  int PaintPict(float x, float y, float b, float h);
+  int PaintPict(double x, double y, double b, double h);
   /** Zeichnet ein Rechteck */
-  int PaintRect(float x, float y, float b, float h, float w, QString fill, QString outline);
+  int PaintRect(double x, double y, double b, double h, double w, QString fill, QString outline);
   /** Zeichnet eine Linie */
-  int PaintLine(float x, float y, float b, float h, float w, QString outline);
+  int PaintLine(double x, double y, double b, double h, double w, QString outline);
   /** Zeichnet eine Textbox */
-  int PaintText(float x, float y, float b, float h, float w, QString outline);
+  int PaintText(double x, double y, double b, double h, double w, QString outline);
 	/** Zeichnet ein Polygon */
-	int PaintPoly(float x, float y, float b, float h, float w, QString fill, QString outline);
-	int PaintPolyLine(float x, float y, float b, float h, float w, QString fill, QString outline);
+	int PaintPoly(double x, double y, double b, double h, double w, QString fill, QString outline);
+	int PaintPolyLine(double x, double y, double b, double h, double w, QString fill, QString outline);
   /** Laedt ein Bild */
   void LoadPict(QString fn, int ItNr);
-  void insertColor(QString nam, float c, float m, float y, float k);
+  void insertColor(QString nam, double c, double m, double y, double k);
   void DrawPageMarks(QPaintEvent *e, ScPainter *p, QRect rd);
   void DrawPageItems(QPaintEvent *e, ScPainter *painter, QRect rd);
 	void paintEvent(QPaintEvent *e);
 	void setGroupRect();
-	void getGroupRect(float *x, float *y, float *w, float *h);
-	void getGroupRectScreen(float *x, float *y, float *w, float *h);
+	void getGroupRect(double *x, double *y, double *w, double *h);
+	void getGroupRectScreen(double *x, double *y, double *w, double *h);
 	void paintGroupRect(bool norm = true);
-	void moveGroup(float x, float y, bool fromMP = false);
-	FPoint transformPointI(FPoint in, float dx, float dy, float rot, float sx, float sy);
-	FPoint transformPoint(FPoint in, float dx, float dy, float rot, float sx, float sy);
-	void scaleGroup(float scx, float scy);
+	void moveGroup(double x, double y, bool fromMP = false);
+	FPoint transformPointI(FPoint in, double dx, double dy, double rot, double sx, double sy);
+	FPoint transformPoint(FPoint in, double dx, double dy, double rot, double sx, double sy);
+	void scaleGroup(double scx, double scy);
 	void storeUndoInf(PageItem* b);
 	void mouseDoubleClickEvent(QMouseEvent *);
 	void mouseReleaseEvent(QMouseEvent *m);
@@ -80,8 +80,8 @@ public:
 	void Deselect(bool prop = true);
 	void SelectItemNr(int nr);
 	void SetupDraw(int Nr);
-	void MoveItemI(float newX, float newY, int ite);
-	bool MoveItem(float newX, float newY, PageItem* ite, bool fromMP = false);
+	void MoveItemI(double newX, double newY, int ite);
+	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
 	void UpdateClip(PageItem* b);
 	FPoint GetMaxClipF(FPointArray Clip);
 	FPoint GetMinClipF(FPointArray Clip);
@@ -106,9 +106,9 @@ public:
 	bool GetItem(PageItem **b, int nr = -1);
 	void MoveRotated(PageItem *b, FPoint npv);
 	void AdjustPictScale(PageItem *b);
-	bool SizeItem(float newX, float newY, int ite, bool fromMP = false, bool DoUpdateClip = true);
+	bool SizeItem(double newX, double newY, int ite, bool fromMP = false, bool DoUpdateClip = true);
 	bool MoveSizeItem(FPoint newX, FPoint newY, int ite);
-	void RotateItem(float win, int ite);
+	void RotateItem(double win, int ite);
 	void MarkClip(PageItem *b);
 	void Transform(PageItem *b, QPainter *p);
 	void TransformM(PageItem *b, QPainter *p);
@@ -124,7 +124,7 @@ public:
 	void SetYGuide(QMouseEvent *m);
 	void SetXGuide(QMouseEvent *m);
 	void SnapToGuides(PageItem* b);
-	void ApplyGuides(float *x, float *y);
+	void ApplyGuides(double *x, double *y);
 	void TextToPath();
 	void UniteObj();
 	void SplitObj();
@@ -151,7 +151,7 @@ public:
   int Myp;
   bool Mpressed;
   bool mCG;
-  float oldW;
+  double oldW;
   QPtrList<PageItem> SelItem;
 	QValueList<int> SelNode;
   int HowTo;
@@ -174,15 +174,15 @@ public:
 	bool MoveSym;
 	bool GroupSel;
 	bool DraggedGroup;
-	float GroupX;
-	float GroupY;
-	float GroupW;
-	float GroupH;
+	double GroupX;
+	double GroupY;
+	double GroupW;
+	double GroupH;
 	bool HanMove;
 	int DrHY;
 	int DrVX;
-	QValueList<float> XGuides;
-	QValueList<float> YGuides;
+	QValueList<double> XGuides;
+	QValueList<double> YGuides;
 	uint GyM;
 	bool MoveGY;
 	uint GxM;
@@ -191,12 +191,12 @@ public:
 	bool MidButt;
 
 public slots:
-	void ChLineWidth(float w);
+	void ChLineWidth(double w);
 	void ChLineArt(PenStyle w);
 	void ChLineJoin(PenJoinStyle w);
 	void ChLineEnd(PenCapStyle w);
-	void ChLocalXY(float x, float y);
-	void ChLocalSc(float x, float y);
+	void ChLocalXY(double x, double y);
+	void ChLocalSc(double x, double y);
 	void ToggleBookmark();
 	void ToggleAnnotation();
 	void ToggleLock();
@@ -222,12 +222,12 @@ public slots:
 	bool slotSetCurs(int x, int y);
 	void slotDoCurs(bool draw);
 	void BlinkCurs();
-	void ChLineSpa(float w);
-	void chKerning(float us);
+	void ChLineSpa(double w);
+	void chKerning(double us);
 	void chTyStyle(int s);
 	void SetAbStyle(int s);
 	void chAbStyle(PageItem *b, int s);
-	void AlignObj(bool xa, bool ya, bool Vth, bool Vtv, float xdisp, float ydisp, int xart, int yart);
+	void AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double ydisp, int xart, int yart);
 	void sentToScrap();
 	void sentToLayer(int id);
 	void ToTextFrame();
@@ -252,12 +252,12 @@ signals: // Signals
   /** Seite veraendert */
   void DocChanged();
   /** Position eines Elementes */
-  void ItemPos(float, float);
+  void ItemPos(double, double);
   /** Breite und Hoehe eines Elementes */
-  void ItemGeom(float, float);
-  void ItemRadius(float);
+  void ItemGeom(double, double);
+  void ItemRadius(double);
   /** Setzt den Drehungswinkel des Elementes */
-  void SetAngle(float);
+  void SetAngle(double);
   /** Zoomfunktionen */
   void ZoomIn();
   void ZoomOut();
@@ -265,22 +265,22 @@ signals: // Signals
   void AbsPosi(int, int);
   void AbsPosi2(int, int);
   /** Sendet die Linienstaerke an die Masspalette */
-  void SetSizeValue(float);
+  void SetSizeValue(double);
   /** Sendet die Linienart an die Masspalette */
   void SetLineArt(PenStyle, PenCapStyle, PenJoinStyle);
   /** Sendet die lokalen Bildeigenschaften an die Masspalette */
-  void SetLocalValues(float, float, float, float);
+  void SetLocalValues(double, double, double, double);
   /** Sendet die Stiftfarbe an die Farbpalette */
   void ItemFarben(QString, QString, int, int);
   void ItemGradient(QString, QString, int, int, int);
   /** Sendet die Textattribute an die Masspalette */
-  void ItemTextAttr(float);
+  void ItemTextAttr(double);
   /** Sendet die Schriftart */
   void ItemTextFont(QString);
   /** Sendet die Schriftgroesse */
   void ItemTextSize(int);
   void ItemTextSca(int);
-  void ItemTextUSval(float);
+  void ItemTextUSval(double);
   void ItemTextAbs(int);
   void ItemTextFarben(QString, QString, int, int);
   /** Text in Textbox selektiert */
@@ -294,14 +294,14 @@ signals: // Signals
   void Amode(int);
 	void AnnotProps();
 	void ToScrap(QString);
-  void MousePos(float, float);
-	void ClipPo(float, float);
+  void MousePos(double, double);
+	void ClipPo(double, double);
 	void HavePoint(bool, bool);
 	void PolyOpen();
 	void PStatus(int, uint);
 	void UndoAvail();
 	void EditGuides();
-	void ItemTrans(float, float);
+	void ItemTrans(double, double);
 	void AddBM(PageItem *);
 	void DelBM(PageItem *);
 	void NewBMNr(int, int);

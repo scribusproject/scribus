@@ -48,20 +48,20 @@
 #endif
 extern int PolyC;
 extern int PolyFd;
-extern float PolyF;
+extern double PolyF;
 extern bool PolyS;
-extern float PolyR;
+extern double PolyR;
 extern ProfilesL InputProfiles;
 extern QPixmap loadIcon(QString nam);
-extern float Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
+extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 #ifdef HAVE_CMS
 QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr=0);
 #else
 QImage ProofPict(QImage *Im, QString Prof, int Rend);
 #endif
-extern FPointArray RegularPolygonF(float w, float h, uint c, bool star, float factor, float rota);
+extern FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota);
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
-extern float xy2Deg(float x, float y);
+extern double xy2Deg(double x, double y);
 extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 
@@ -115,7 +115,7 @@ void Page::dragLeaveEvent(QDragLeaveEvent *e)
 {
 	if (DraggedGroup)
 		{
-		float gx, gy, gw, gh;
+		double gx, gy, gw, gh;
 		getGroupRectScreen(&gx, &gy, &gw, &gh);
 		repaint(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh));
 		DraggedGroup = false;
@@ -128,7 +128,7 @@ void Page::dragEnterEvent(QDragEnterEvent *e)
 	e->accept(QTextDrag::canDecode(e));
 	if (QTextDrag::decode(e, text))
 		{
-		float gx, gy, gw, gh;
+		double gx, gy, gw, gh;
 		QUrl ur(text);
 		QFileInfo fi = QFileInfo(ur.path());
   	ScriXmlDoc *ss = new ScriXmlDoc();
@@ -160,7 +160,7 @@ void Page::dragMoveEvent(QDragMoveEvent *e)
 		{
 		if (DraggedGroup)
 			{
-			float gx, gy, gw, gh;
+			double gx, gy, gw, gh;
 			getGroupRectScreen(&gx, &gy, &gw, &gh);
 			repaint(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh));
 			GroupX = e->pos().x() / doku->Scale;
@@ -294,7 +294,7 @@ void Page::dropEvent(QDropEvent *e)
 			else
 				{
 				if (doku->DraggedElem != 0)
-					{			
+					{
 					QPopupMenu *pmen = new QPopupMenu();
 					qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 					pmen->insertItem(tr("Copy Here"));
@@ -366,10 +366,10 @@ void Page::paintEvent(QPaintEvent *e)
 
 void Page::DrawPageMarks(QPaintEvent *e, ScPainter *p, QRect rd)
 {
-	float b;
+	double b;
 	if ((rd.width() == 0) || (rd.height() == 0))
 		return;
-	float lw = 1.0 / doku->Scale;
+	double lw = 1.0 / doku->Scale;
 	p->setZoomFactor(doku->Scale);
 	QWMatrix ma = p->worldMatrix();
 	QWMatrix ma2 = p->worldMatrix();
@@ -395,13 +395,13 @@ void Page::DrawPageMarks(QPaintEvent *e, ScPainter *p, QRect rd)
 		}
 	if (doku->Raster)
 		{
-		float stx = rd.x()/doku->Scale;
-		float endx = rd.x()/doku->Scale+e->rect().width()/doku->Scale;
-		float sty = rd.y()/doku->Scale;
-		float endy = rd.y()/doku->Scale+e->rect().height()/doku->Scale;
+		double stx = rd.x()/doku->Scale;
+		double endx = rd.x()/doku->Scale+e->rect().width()/doku->Scale;
+		double sty = rd.y()/doku->Scale;
+		double endy = rd.y()/doku->Scale+e->rect().height()/doku->Scale;
 		if (doku->Scale > 0.49)
 			{
-			float i,start;
+			double i,start;
 			i=doku->majorGrid*doku->Scale;
 			p->setPen(doku->majorColor, lw, SolidLine, FlatCap, MiterJoin);
 			start=floor(sty/i);
@@ -525,10 +525,10 @@ void Page::DrawPageItems(QPaintEvent *e, ScPainter *painter, QRect rd)
 void Page::setGroupRect()
 {
 	PageItem* b;
-	float minx = 99999.9;
-	float miny = 99999.9;
-	float maxx = -99999.9;
-	float maxy = -99999.9;
+	double minx = 99999.9;
+	double miny = 99999.9;
+	double maxx = -99999.9;
+	double maxy = -99999.9;
 	for (uint gc = 0; gc < SelItem.count(); ++gc)
 		{
 		b = SelItem.at(gc);
@@ -560,10 +560,10 @@ void Page::setGroupRect()
 	GroupSel = true;
 }
 
-void Page::moveGroup(float x, float y, bool fromMP)
+void Page::moveGroup(double x, double y, bool fromMP)
 {
 	PageItem* b;
-	float gx, gy, gw, gh;
+	double gx, gy, gw, gh;
 	if (GroupSel)
 		getGroupRectScreen(&gx, &gy, &gw, &gh);
 	for (uint a = 0; a < SelItem.count(); ++a)
@@ -575,7 +575,7 @@ void Page::moveGroup(float x, float y, bool fromMP)
 		repaint(QRect(static_cast<int>(gx-5), static_cast<int>(gy-5), static_cast<int>(gw+10), static_cast<int>(gh+10)));
 }
 
-void Page::getGroupRect(float *x, float *y, float *w, float *h)
+void Page::getGroupRect(double *x, double *y, double *w, double *h)
 {
 	*x = GroupX;
 	*y = GroupY;
@@ -583,9 +583,9 @@ void Page::getGroupRect(float *x, float *y, float *w, float *h)
 	*h = GroupH;
 }
 
-void Page::getGroupRectScreen(float *x, float *y, float *w, float *h)
+void Page::getGroupRectScreen(double *x, double *y, double *w, double *h)
 {
-	float sc = doku->Scale;
+	double sc = doku->Scale;
 	*x = GroupX*sc;
 	*y = GroupY*sc;
 	*w = GroupW*sc;
@@ -594,7 +594,7 @@ void Page::getGroupRectScreen(float *x, float *y, float *w, float *h)
 
 void Page::paintGroupRect(bool norm)
 {
-	float x, y, w, h;
+	double x, y, w, h;
 	getGroupRectScreen(&x, &y, &w, &h);
 	QPainter pgc;
 	pgc.begin(this);
@@ -711,7 +711,7 @@ QPoint Page::ApplyGrid(QPoint in)
 	return np;
 }
 
-void Page::ApplyGuides(float *x, float *y)
+void Page::ApplyGuides(double *x, double *y)
 {
 	if (doku->SnapGuides)
 		{
@@ -852,8 +852,8 @@ void Page::AdjustPictScale(PageItem *b)
 	b->LocalY = 0;
 	if ((b->OrigW == 0) || (b->OrigH == 0))
 		return;
-	float xs = b->Width / static_cast<float>(b->OrigW);
-	float ys = b->Height / static_cast<float>(b->OrigH);
+	double xs = b->Width / static_cast<double>(b->OrigW);
+	double ys = b->Height / static_cast<double>(b->OrigH);
 	if (!b->Sizing)
 		{
 		fho = b->flippedH;
@@ -895,8 +895,8 @@ bool Page::MoveSizeItem(FPoint newX, FPoint newY, int ite)
 		QWMatrix ma;
 		ma.translate(b->Xpos, b->Ypos);
 		ma.rotate(b->Rot);
-		float mx = ma.m11() * b->Width + ma.m21() * b->Height + ma.dx();
-		float my = ma.m22() * b->Height + ma.m12() * b->Width + ma.dy();
+		double mx = ma.m11() * b->Width + ma.m21() * b->Height + ma.dx();
+		double my = ma.m22() * b->Height + ma.m12() * b->Width + ma.dy();
 		MoveItem(newX.x(), newX.y(), b);
 		b->Rot = xy2Deg(mx - b->Xpos, my - b->Ypos);
 		b->Width = sqrt(pow(mx - b->Xpos,2)+pow(my - b->Ypos,2));
@@ -915,8 +915,8 @@ bool Page::MoveSizeItem(FPoint newX, FPoint newY, int ite)
 			QWMatrix ma3;
 			ma3.translate(b->Xpos, b->Ypos);
 			ma3.rotate(b->Rot);
-			float mxc3 = b->Xpos - (ma3.m11() * npv.x() + ma3.m21() * npv.y() + ma3.dx());
-			float myc3 = b->Ypos - (ma3.m22() * npv.y() + ma3.m12() * npv.x() + ma3.dy());
+			double mxc3 = b->Xpos - (ma3.m11() * npv.x() + ma3.m21() * npv.y() + ma3.dx());
+			double myc3 = b->Ypos - (ma3.m22() * npv.y() + ma3.m12() * npv.x() + ma3.dy());
 			SizeItem(b->Width - newY.x(), b->Height - newY.y(), ite);
 			MoveItem(-mxc3, -myc3, b);
 			}
@@ -956,11 +956,11 @@ void Page::UpdateClip(PageItem* b)
 				b->OldH2 = b->Height;
 				}
 			else
-				{  
+				{
 				if ((b->OldB2 == 0) || (b->OldH2 == 0))
 					return;
-				float scx = b->Width / b->OldB2;
-				float scy = b->Height / b->OldH2;
+				double scx = b->Width / b->OldB2;
+				double scy = b->Height / b->OldH2;
 				QWMatrix ma;
 				ma.scale(scx, scy);
 				b->PoLine.map(ma);
@@ -975,7 +975,7 @@ void Page::UpdateClip(PageItem* b)
 		}
 }
 
-bool Page::SizeItem(float newX, float newY, int ite, bool fromMP, bool DoUpdateClip)
+bool Page::SizeItem(double newX, double newY, int ite, bool fromMP, bool DoUpdateClip)
 {
 	QRegion alt, neu;
 	QPainter p;
@@ -1044,7 +1044,7 @@ bool Page::SizeItem(float newX, float newY, int ite, bool fromMP, bool DoUpdateC
 		{
 		if (GroupSel)
 			{
-			float gx, gy, gh, gw;
+			double gx, gy, gh, gw;
 			setGroupRect();
 			getGroupRect(&gx, &gy, &gw, &gh);
 			emit ItemGeom(gw, gh);
@@ -1053,10 +1053,10 @@ bool Page::SizeItem(float newX, float newY, int ite, bool fromMP, bool DoUpdateC
 			emit ItemGeom(b->Width, b->Height);
 		}
 	emit ItemRadius(b->RadRect);
-	return true;	
+	return true;
 }
 
-void Page::MoveItemI(float newX, float newY, int ite)
+void Page::MoveItemI(double newX, double newY, int ite)
 {
 	QPainter p;
 	PageItem *b = Items.at(ite);
@@ -1078,17 +1078,17 @@ void Page::MoveItemI(float newX, float newY, int ite)
 	else
 		b->LocalY += newY;
 	repaint(alt);
-	emit SetLocalValues(b->LocalScX, b->LocalScY, b->LocalX, b->LocalY);	
+	emit SetLocalValues(b->LocalScX, b->LocalScY, b->LocalX, b->LocalY);
 }
 
-bool Page::MoveItem(float newX, float newY, PageItem* b, bool fromMP)
+bool Page::MoveItem(double newX, double newY, PageItem* b, bool fromMP)
 {
 	QRegion alt;
 	bool retw = false;
 	if (b->Locked)
 		return false;
-	float oldx = b->Xpos;
-	float oldy = b->Ypos;
+	double oldx = b->Xpos;
+	double oldy = b->Ypos;
 	if (!Imoved)
 		{
 		QPainter p;
@@ -1114,7 +1114,7 @@ bool Page::MoveItem(float newX, float newY, PageItem* b, bool fromMP)
 		{
 		if (GroupSel)
 			{
-			float gx, gy, gh, gw;
+			double gx, gy, gh, gw;
 			setGroupRect();
 			getGroupRect(&gx, &gy, &gw, &gh);
 			emit ItemPos(gx, gy);
@@ -1122,10 +1122,10 @@ bool Page::MoveItem(float newX, float newY, PageItem* b, bool fromMP)
 		else
 			emit ItemPos(b->Xpos, b->Ypos);
 		}
-	return retw;	
+	return retw;
 }
 
-void Page::RotateItem(float win, int ite)
+void Page::RotateItem(double win, int ite)
 {
 	QRegion alt, neu;
 	QPainter p;
@@ -1144,7 +1144,7 @@ void Page::RotateItem(float win, int ite)
 		ma.translate(b->Xpos, b->Ypos);
 		ma.scale(1, 1);
 		ma.rotate(b->Rot);
-		float ro = win-b->Rot;
+		double ro = win-b->Rot;
 		b->Rot = win;
 		switch (doku->RotMode)
 			{
@@ -1166,8 +1166,8 @@ void Page::RotateItem(float win, int ite)
 				break;
 			}
 		ma.rotate(ro);
-		float x = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
-		float y = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+		double x = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
+		double y = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 		MoveItem(x-b->Xpos, y-b->Ypos, b);
 		}
 	else
@@ -1192,7 +1192,7 @@ void Page::SnapToGuides(PageItem* b)
 				QWMatrix ma;
 				ma.translate(b->Xpos, b->Ypos);
 				ma.rotate(b->Rot);
-				float my = ma.m22() * b->Height + ma.m12() * b->Width + ma.dy();
+				double my = ma.m22() * b->Height + ma.m12() * b->Width + ma.dy();
 				if ((YGuides[yg] < (my+doku->GuideRad)) && (YGuides[yg] > (my-doku->GuideRad)))
 					{
 					b->Ypos = b->Ypos + YGuides[yg] - my;
@@ -1223,7 +1223,7 @@ void Page::SnapToGuides(PageItem* b)
 				QWMatrix ma;
 				ma.translate(b->Xpos, b->Ypos);
 				ma.rotate(b->Rot);
-				float mx = ma.m11() * b->Width + ma.m21() * b->Height + ma.dx();
+				double mx = ma.m11() * b->Width + ma.m21() * b->Height + ma.dx();
 				if ((XGuides[xg] < (mx+doku->GuideRad)) && (XGuides[xg] > (mx-doku->GuideRad)))
 					{
 					b->Xpos = b->Xpos + XGuides[xg] - mx;
@@ -1250,7 +1250,7 @@ void Page::sentToScrap()
 }
 
 void Page::sentToLayer(int id)
-{	
+{
 	int d = pmen3->indexOf(id);
 	PageItem *b = SelItem.at(0);
 	b->LayerNr = d;
@@ -1307,7 +1307,7 @@ bool Page::PointOnLine(QPoint Start, QPoint Ende, QRect MArea)
 		en = Ende;
 		an = Start;
 		}
-	float stg = (en.y() - an.y()) / static_cast<float>((en.x() - an.x()));
+	double stg = (en.y() - an.y()) / static_cast<double>((en.x() - an.x()));
 	for (int a = an.x(); a < en.x(); ++a)
 		{
 		if (MArea.contains(QPoint(a, an.y()+qRound((a-an.x())*stg))))
@@ -1321,8 +1321,8 @@ void Page::MoveRotated(PageItem *b, FPoint npv)
 	QWMatrix ma;
 	ma.translate(b->Xpos, b->Ypos);
 	ma.rotate(b->Rot);
-	float mxc = b->Xpos - (ma.m11() * npv.x() + ma.m21() * npv.y() + ma.dx());
-	float myc = b->Ypos - (ma.m22() * npv.y() + ma.m12() * npv.x() + ma.dy());
+	double mxc = b->Xpos - (ma.m11() * npv.x() + ma.m21() * npv.y() + ma.dx());
+	double myc = b->Ypos - (ma.m22() * npv.y() + ma.m12() * npv.x() + ma.dy());
 	MoveItem(-mxc, -myc, b);
 }
 
@@ -1599,8 +1599,8 @@ void Page::MoveClipPoint(PageItem *b, FPoint ip)
 				kon = StartInd + 1;
 			FPoint lxy = Clip.point(ClRe-1);
 			FPoint lk = Clip.point(ClRe);
-			float dx = lxy.x() - lk.x();
-			float dy = lxy.y() - lk.y();
+			double dx = lxy.x() - lk.x();
+			double dy = lxy.y() - lk.y();
 			lk.setX(lk.x() + dx*2);
 			lk.setY(lk.y() + dy*2);
 			Clip.setPoint(kon, lk);
@@ -1614,8 +1614,8 @@ void Page::MoveClipPoint(PageItem *b, FPoint ip)
 				kon = ClRe - 2;
 			FPoint lxy = Clip.point(ClRe-1);
 			FPoint lk = Clip.point(ClRe);
-			float dx = lxy.x() - lk.x();
-			float dy = lxy.y() - lk.y();
+			double dx = lxy.x() - lk.x();
+			double dy = lxy.y() - lk.y();
 			lk.setX(lk.x() + dx*2);
 			lk.setY(lk.y() + dy*2);
 			Clip.setPoint(kon, lk);
@@ -1681,33 +1681,33 @@ void Page::mouseDoubleClickEvent(QMouseEvent *m)
 		}
 }
 
-FPoint Page::transformPointI(FPoint in, float dx, float dy, float rot, float sx, float sy)
+FPoint Page::transformPointI(FPoint in, double dx, double dy, double rot, double sx, double sy)
 {
 	QWMatrix ma;
 	ma.translate(dx, dy);
 	ma.scale(sx, sy);
 	ma.rotate(rot);
 	ma = ma.invert();
-	float x = ma.m11() * in.x() + ma.m21() * in.y() + ma.dx();
-	float y = ma.m22() * in.y() + ma.m12() * in.x() + ma.dy();
+	double x = ma.m11() * in.x() + ma.m21() * in.y() + ma.dx();
+	double y = ma.m22() * in.y() + ma.m12() * in.x() + ma.dy();
 	return FPoint(x, y);
 }
 
-FPoint Page::transformPoint(FPoint in, float dx, float dy, float rot, float sx, float sy)
+FPoint Page::transformPoint(FPoint in, double dx, double dy, double rot, double sx, double sy)
 {
 	QWMatrix ma;
 	ma.translate(dx, dy);
 	ma.scale(sx, sy);
 	ma.rotate(rot);
-	float x = ma.m11() * in.x() + ma.m21() * in.y() + ma.dx();
-	float y = ma.m22() * in.y() + ma.m12() * in.x() + ma.dy();
+	double x = ma.m11() * in.x() + ma.m21() * in.y() + ma.dx();
+	double y = ma.m22() * in.y() + ma.m12() * in.x() + ma.dy();
 	return FPoint(x, y);
 }
 
-void Page::scaleGroup(float scx, float scy)
+void Page::scaleGroup(double scx, double scy)
 {
 	PageItem *bb;
-	float gx, gy, gh, gw;
+	double gx, gy, gh, gw;
 	uint aa;
 	getGroupRect(&gx, &gy, &gw, &gh);
 	for (uint a = 0; a < SelItem.count(); ++a)
@@ -1719,7 +1719,7 @@ void Page::scaleGroup(float scx, float scy)
 		bb->OldH2 = bb->Height;
 		bb->Sizing = false;
 		FPoint b, b1, t, t1, h, h1, g, tes, tes2;
-		float oldRot;
+		double oldRot;
 		switch (HowTo)
 			{
 			case 1:
@@ -1742,7 +1742,7 @@ void Page::scaleGroup(float scx, float scy)
 				bb->ISize = QMAX(qRound(bb->ISize*((scx+scy)/2)), 1);
 				if (bb->Ptext.count() != 0)
 					{
-					bb->LineSp = (bb->ISize * static_cast<float>(doku->AutoLine) / 100) + bb->ISize;
+					bb->LineSp = (bb->ISize * static_cast<double>(doku->AutoLine) / 100) + bb->ISize;
 					for (aa = 0; aa < bb->Ptext.count(); ++aa)
 						{
 						bb->Ptext.at(aa)->csize = QMAX(qRound(bb->Ptext.at(aa)->csize*((scx+scy)/2)), 1);
@@ -1767,8 +1767,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 	if (doku->Guides)
 		{
 		bool fg = false;
-		float nx = m->x()/doku->Scale;
-		float ny = m->y()/doku->Scale;
+		double nx = m->x()/doku->Scale;
+		double ny = m->y()/doku->Scale;
 		if (YGuides.count() != 0)
 			{
 			for (uint yg = 0; yg < YGuides.count(); ++yg)
@@ -1820,7 +1820,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		}
 	if ((doku->EditClip) && (ClRe == -1) && (HaveSelRect))
 		{
-		float sc = doku->Scale;
+		double sc = doku->Scale;
 		QPainter p;
 		p.begin(this);
 		p.setRasterOp(XorROP);
@@ -1829,13 +1829,13 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		p.end();
   	if((Mxp*sc) > SeRx)
   		{
-    	float tmp=SeRx;
+    	double tmp=SeRx;
     	SeRx=static_cast<int>(Mxp*sc);
     	Mxp=static_cast<int>(tmp/sc);
   		}
   	if((Myp*sc) > SeRy)
   		{
-    	float tmp=SeRy;
+    	double tmp=SeRy;
     	SeRy=static_cast<int>(Myp*sc);
     	Myp=static_cast<int>(tmp/sc);
   		}
@@ -1868,8 +1868,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			b = SelItem.at(0);
 			b->OldB2 = b->Width;
 			b->OldH2 = b->Height;
-			float nx = m->x()/doku->Scale;
-			float ny = m->y()/doku->Scale;
+			double nx = m->x()/doku->Scale;
+			double ny = m->y()/doku->Scale;
 			FPoint npg = ApplyGridF(FPoint(nx, ny));
 			nx = npg.x();
 			ny = npg.y();
@@ -2034,7 +2034,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				{
 				if (mCG)
 					{
-					float gx, gy, gh, gw, mx, my, scx, scy;
+					double gx, gy, gh, gw, mx, my, scx, scy;
 					mx = Mxp;
 					my = Myp;
 					getGroupRect(&gx, &gy, &gw, &gh);
@@ -2048,8 +2048,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				if (b->Sizing)
 					{
 					FPoint npx;
-					float nx = m->pos().x()/doku->Scale;
-					float ny = m->pos().y()/doku->Scale;
+					double nx = m->pos().x()/doku->Scale;
+					double ny = m->pos().y()/doku->Scale;
 					if (doku->SnapGuides)
 						{
 						ApplyGuides(&nx, &ny);
@@ -2079,8 +2079,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 								{
 								if (sav)
 									{
-									float nx = m->pos().x()/doku->Scale;
-									float ny = m->pos().y()/doku->Scale;
+									double nx = m->pos().x()/doku->Scale;
+									double ny = m->pos().y()/doku->Scale;
 									if (doku->useRaster)
 										{
 										FPoint ra = ApplyGridF(FPoint(nx, ny));
@@ -2090,9 +2090,9 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 									doku->SnapGuides = sav;
 									ApplyGuides(&nx, &ny);
 									doku->SnapGuides = false;
-									float r = atan2(ny - b->Ypos, nx - b->Xpos)*(180.0/3.1415927);
+									double r = atan2(ny - b->Ypos, nx - b->Xpos)*(180.0/3.1415927);
 									RotateItem(r, b->ItemNr);
-									float w = sqrt(pow(nx - b->Xpos, 2) + pow(ny - b->Ypos,2));
+									double w = sqrt(pow(nx - b->Xpos, 2) + pow(ny - b->Ypos,2));
 									SizeItem(w, b->Height, b->ItemNr, true);
 									}
 								}
@@ -2112,8 +2112,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 								{
 								if (sav)
 									{
-									float nx = m->pos().x()/doku->Scale;
-									float ny = m->pos().y()/doku->Scale;
+									double nx = m->pos().x()/doku->Scale;
+									double ny = m->pos().y()/doku->Scale;
 									if (doku->useRaster)
 										{
 										FPoint ra = ApplyGridF(FPoint(nx, ny));
@@ -2126,10 +2126,10 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 									QWMatrix ma;
 									ma.translate(b->Xpos, b->Ypos);
 									ma.rotate(b->Rot);
-									float mx = ma.m11() * b->Width + ma.m21() * b->Height + ma.dx();
-									float my = ma.m22() * b->Height + ma.m12() * b->Width + ma.dy();
-									float r = atan2(my-ny,mx-nx)*(180.0/3.1415927);
-									float w = sqrt(pow(mx-nx,2)+pow(my-ny,2));
+									double mx = ma.m11() * b->Width + ma.m21() * b->Height + ma.dx();
+									double my = ma.m22() * b->Height + ma.m12() * b->Width + ma.dy();
+									double r = atan2(my-ny,mx-nx)*(180.0/3.1415927);
+									double w = sqrt(pow(mx-nx,2)+pow(my-ny,2));
 									MoveItem(nx - b->Xpos, ny - b->Ypos, b, true);
 									SizeItem(w, b->Height, b->ItemNr, true);
 									RotateItem(r, b->ItemNr);
@@ -2211,7 +2211,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			}
 		if ((SelItem.count() == 0) && (HaveSelRect) && (!MidButt))
 			{
-			float sc = doku->Scale;
+			double sc = doku->Scale;
 			QPainter p;
 			p.begin(this);
 			p.setRasterOp(XorROP);
@@ -2220,13 +2220,13 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			p.end();
   		if((Mxp*sc) > SeRx)
   			{
-    		float tmp=SeRx;
+    		double tmp=SeRx;
     		SeRx=static_cast<int>(Mxp*sc);
     		Mxp=static_cast<int>(tmp/sc);
   			}
   		if((Myp*sc) > SeRy)
   			{
-    		float tmp=SeRy;
+    		double tmp=SeRy;
     		SeRy=static_cast<int>(Myp*sc);
     		Myp=static_cast<int>(tmp/sc);
   			}
@@ -2234,7 +2234,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			if (Items.count() != 0)
 				{
 				for (uint a = 0; a < Items.count(); ++a)
-					{	
+					{
 					p.begin(this);
 					Transform(Items.at(a), &p);
 					QRegion apr = QRegion(p.xForm(Items.at(a)->Clip));
@@ -2257,7 +2257,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				{
 				setGroupRect();
 				paintGroupRect();
-				float x, y, w, h;
+				double x, y, w, h;
 				getGroupRect(&x, &y, &w, &h);
 				emit ItemPos(x, y);
 				emit ItemGeom(w, h);
@@ -2270,21 +2270,21 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		{
 		if (HaveSelRect)
 			{
-			float sc = doku->Scale;
+			double sc = doku->Scale;
   		if((Mxp*sc) > SeRx)
   			{
-    		float tmp=SeRx;
+    		double tmp=SeRx;
     		SeRx=static_cast<int>(Mxp*sc);
     		Mxp=static_cast<int>(tmp/sc);
   			}
   		if((Myp*sc) > SeRy)
   			{
-    		float tmp=SeRy;
+    		double tmp=SeRy;
     		SeRy=static_cast<int>(Myp*sc);
     		Myp=static_cast<int>(tmp/sc);
   			}
-			float yf = height() / (SeRy/sc-Myp);
-			float xf = width() / (SeRx/sc-Mxp);
+			double yf = height() / (SeRy/sc-Myp);
+			double xf = width() / (SeRx/sc-Mxp);
 			doku->Scale = QMIN(yf, xf);
 			emit ZoomAbs();
 			emit AbsPosi(Mxp, Myp);
@@ -2337,8 +2337,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			{
 			FPoint lxy = b->PoLine.point(b->PoLine.size()-2);
 			FPoint lk = b->PoLine.point(b->PoLine.size()-1);
-			float dx = lxy.x() - lk.x();
-			float dy = lxy.y() - lk.y();
+			double dx = lxy.x() - lk.x();
+			double dy = lxy.y() - lk.y();
 			lk.setX(lk.x() + dx*2);
 			lk.setY(lk.y() + dy*2);
 			b->PoLine.addPoint(lxy);
@@ -2384,7 +2384,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 void Page::SetYGuide(QMouseEvent *m)
 {
 	QPoint py = mapFromGlobal(m->globalPos());
-	float newY = py.y() / doku->Scale;
+	double newY = py.y() / doku->Scale;
 	if ((newY > 0) && (newY < doku->PageH) && (doku->Guides))
 		{
 		YGuides.append(newY);
@@ -2397,7 +2397,7 @@ void Page::SetYGuide(QMouseEvent *m)
 void Page::SetXGuide(QMouseEvent *m)
 {
 	QPoint py = mapFromGlobal(m->globalPos());
-	float newY = py.x() / doku->Scale;
+	double newY = py.x() / doku->Scale;
 	if ((newY > 0) && (newY < doku->PageB) && (doku->Guides))
 		{
 		XGuides.append(newY);
@@ -2409,7 +2409,7 @@ void Page::SetXGuide(QMouseEvent *m)
 
 void Page::FromHRuler(QMouseEvent *m)
 {
-	float sc = doku->Scale;
+	double sc = doku->Scale;
 	int newY;
 	if (doku->Guides)
 		{
@@ -2431,7 +2431,7 @@ void Page::FromHRuler(QMouseEvent *m)
 
 void Page::FromVRuler(QMouseEvent *m)
 {
-	float sc = doku->Scale;
+	double sc = doku->Scale;
 	int newY;
 	if (doku->Guides)
 		{
@@ -2454,7 +2454,7 @@ void Page::FromVRuler(QMouseEvent *m)
 void Page::mouseMoveEvent(QMouseEvent *m)
 {
 	int newX, newY, c;
-	float nx, ny, dx, dy;
+	double nx, ny, dx, dy;
 	uint a;
 	PageItem *b;
 	QPoint np, np2, mop;
@@ -2463,7 +2463,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 	QRect tx;
 	QPointArray Bez(4);
 	bool erf = false;
-	float sc = doku->Scale;
+	double sc = doku->Scale;
 	emit MousePos(m->x()/sc, m->y()/sc);
 	emit Hrule(m->x()+Anz->childX(parentWidget()));
 	emit Vrule(m->y()+Anz->childY(parentWidget()));
@@ -2534,7 +2534,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 			return;
 		if (Mpressed && (doku->AppMode == 9))
 			{
-			float newW = xy2Deg(newX - qRound(RCenter.x()), newY - qRound(RCenter.y()));
+			double newW = xy2Deg(newX - qRound(RCenter.x()), newY - qRound(RCenter.y()));
 			RotateItem(b->Rot - (oldW - newW), b->ItemNr);
 			oldW = newW;
 //			emit DocChanged();
@@ -2732,7 +2732,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 				Imoved = false;
 				if (GroupSel)
 					{
-					float gx, gy, gh, gw;
+					double gx, gy, gh, gw;
 					getGroupRect(&gx, &gy, &gw, &gh);
 					p.begin(this);
 					switch (HowTo)
@@ -2800,7 +2800,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 								else
 									{
 									p.begin(this);
-									float rba = b->Rot;
+									double rba = b->Rot;
 									b->Rot = 0;
 									Transform(b, &p);
 									np = p.xFormDev(QPoint(m->x(), m->y()));
@@ -2830,7 +2830,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 									nx = np.x();
 									ny = np.y();
 									p.end();
-									float sav = doku->SnapGuides;
+									double sav = doku->SnapGuides;
 									npf2 = FPoint(nx-Mxp, ny-Myp);
 									erf = MoveSizeItem(npf, npf, b->ItemNr);
 									doku->SnapGuides = sav;
@@ -2949,7 +2949,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 			if (GroupSel)
 				{
 				QRect mpo = QRect(m->x()-doku->GrabRad, m->y()-doku->GrabRad, doku->GrabRad*2, doku->GrabRad*2);
-				float gx, gy, gh, gw;
+				double gx, gy, gh, gw;
 				getGroupRectScreen(&gx, &gy, &gw, &gh);
 				if (QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
 					{
@@ -3092,7 +3092,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 					}
   			p.end();
 				}
-			}			
+			}
 		}
 	else
 		{
@@ -3151,14 +3151,14 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 
 void Page::mousePressEvent(QMouseEvent *m)
 {
-	float sc;
+	double sc;
 	bool inText;
 	uint a;
 	int z;
-	float Rxp = 0;
-	float Ryp = 0;
-	float Rxpd = 0;
-	float Rypd = 0;
+	double Rxp = 0;
+	double Ryp = 0;
+	double Rxpd = 0;
+	double Rypd = 0;
 	PageItem *b;
 	PageItem *bb;
 	QPainter p;
@@ -3422,7 +3422,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 				{
 				if (GroupSel)
 					{
-					float gx, gy, gh, gw;
+					double gx, gy, gh, gw;
 					getGroupRectScreen(&gx, &gy, &gw, &gh);
 					if (QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
 						{
@@ -3436,7 +3436,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 							mCG = true;
 						}
 					else
-						SeleItem(m);					
+						SeleItem(m);
 					}
 				else
 					{
@@ -3487,7 +3487,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 				Mpressed = true;
 				Dxp = Mxp;
 				Dyp = Mxp;
-				}	
+				}
 			break;
 		case 2:
 			SeleItem(m);
@@ -3880,8 +3880,8 @@ void Page::HandleSizer(QPainter *p, PageItem *b, QRect mpo)
 FPoint Page::GetMinClipF(FPointArray Clip)
 {
 	FPoint np, rp;
-	float mx = 99999;
-	float my = 99999;
+	double mx = 99999;
+	double my = 99999;
 	for (uint c = 0; c < Clip.size(); ++c)
 		{
 		np = Clip.point(c);
@@ -3899,8 +3899,8 @@ FPoint Page::GetMinClipF(FPointArray Clip)
 FPoint Page::GetMaxClipF(FPointArray Clip)
 {
 	FPoint np, rp;
-	float mx = 0;
-	float my = 0;
+	double mx = 0;
+	double my = 0;
 	for (uint c = 0; c < Clip.size(); ++c)
 		{
 		np = Clip.point(c);
@@ -3952,7 +3952,7 @@ QPoint Page::GetMaxClip(QPointArray Clip)
 bool Page::SeleItemPos(QPoint m)
 {
 	uint a;
-	float sc = doku->Scale;
+	double sc = doku->Scale;
 	QPainter p;
 	PageItem* b = Items.last();
 	Mxp = static_cast<int>(m.x()/sc);
@@ -4004,7 +4004,7 @@ bool Page::SeleItemPos(QPoint m)
 bool Page::SeleItem(QMouseEvent *m)
 {
 	uint a;
-	float sc = doku->Scale;
+	double sc = doku->Scale;
 	QPainter p;
 	QRect tx, mpo;
 	PageItem* b = Items.last();
@@ -4086,7 +4086,7 @@ bool Page::SeleItem(QMouseEvent *m)
 					{
 					setGroupRect();
 					paintGroupRect();
-					float x, y, w, h;
+					double x, y, w, h;
 					getGroupRect(&x, &y, &w, &h);
 					emit ItemPos(x, y);
 					emit ItemGeom(w, h);
@@ -4220,7 +4220,7 @@ void Page::SelectItemNr(int nr)
 		{
 		setGroupRect();
 		paintGroupRect();
-		float x, y, w, h;
+		double x, y, w, h;
 		getGroupRect(&x, &y, &w, &h);
 		emit ItemPos(x, y);
 		emit ItemGeom(w, h);
@@ -4418,7 +4418,7 @@ void Page::BlinkCurs()
 
 void Page::MarkClip(PageItem *b)
 {
-	float x, y;
+	double x, y;
 	QPainter p;
 	FPointArray cli;
 	QPointArray Bez(4);
@@ -4474,7 +4474,7 @@ void Page::MarkClip(PageItem *b)
 		QValueList<int>::Iterator itm;
 		for (itm = SelNode.begin(); itm != SelNode.end(); ++itm)
 			{
-			cli.point((*itm), &x, &y);                               
+			cli.point((*itm), &x, &y);
 			p.drawLine(static_cast<int>(x), static_cast<int>(y), static_cast<int>(x), static_cast<int>(y));
 			}
 		emit HavePoint(true, MoveSym);
@@ -4554,7 +4554,7 @@ void Page::SetPolyClip(PageItem *b, int up, int down)
 {
 	QPoint np, np2;
 	QPointArray cl, cl1, cl2;
-	float rot;
+	double rot;
 	b->Clip.resize(0);
 	if (b->PoLine.size() < 4)
 		return;
@@ -4649,8 +4649,8 @@ void Page::UniteObj()
   		{
   		bb = SelItem.at(a);
 			toDel.append(bb->ItemNr);
-			float dx = b->Xpos - bb->Xpos;
-			float dy = b->Ypos - bb->Ypos;
+			double dx = b->Xpos - bb->Xpos;
+			double dy = b->Ypos - bb->Ypos;
 			bb->PoLine.translate(-dx, -dy);
 			b->PoLine.setMarker();
 			b->PoLine.putPoints(b->PoLine.size(), bb->PoLine.size(), bb->PoLine);
@@ -4672,7 +4672,7 @@ void Page::TextToPath()
 	PageItem *b;
 	PageItem *bb;
 	FPointArray pts;
-	float x, y;
+	double x, y;
 	QString chx;
   if (SelItem.count() > 0)
   	{
@@ -4708,7 +4708,7 @@ void Page::TextToPath()
 					chx = chx.upper();
 					}
 				}
-			float csi = static_cast<double>(chs) / 10.0;
+			double csi = static_cast<double>(chs) / 10.0;
 			uint chr = chx[0].unicode();
 			QWMatrix chma;
 			chma.scale(csi, csi);
@@ -4746,7 +4746,7 @@ void Page::TextToPath()
 			bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
 			if (b->Reverse)
 				{
-				float wide;
+				double wide;
 				if (a < b->Ptext.count()-1)
 					wide = Cwidth(doku, b->Ptext.at(a)->cfont, chx, b->Ptext.at(a)->csize, b->Ptext.at(a+1)->ch);
 				else
@@ -4804,8 +4804,8 @@ void Page::ToPathText()
 		b->PLineJoin = bb->PLineJoin;
 		UpdatePolyClip(b);
 		AdjustItemSize(b);
-		float dx = bb->Xpos - b->Xpos;
-		float dy = bb->Ypos - b->Ypos;
+		double dx = bb->Xpos - b->Xpos;
+		double dy = bb->Ypos - b->Ypos;
 		MoveItem(dx, dy, b);
 		Deselect(true);
 		SelectItemNr(bb->ItemNr);
@@ -4861,7 +4861,7 @@ void Page::SetFrameRound(PageItem* b)
 {
  	b->RadRect = QMIN(b->RadRect, QMIN(b->Width,b->Height)/2);
 	b->PoLine.resize(0);
-	float rr = fabs(b->RadRect);
+	double rr = fabs(b->RadRect);
 	if (b->RadRect > 0)
 		{
 		b->PoLine.addPoint(rr, 0);
@@ -4973,7 +4973,7 @@ void Page::SetOvalFrame(PageItem *b)
 	b->FrameType = 1;
 }
 
-void Page::ChLineWidth(float w)
+void Page::ChLineWidth(double w)
 {
 	uint a;
   if (SelItem.count() != 0)
@@ -5033,7 +5033,7 @@ void Page::ChLineEnd(PenCapStyle w)
 		}
 }
 
-void Page::ChLineSpa(float w)
+void Page::ChLineSpa(double w)
 {
 	uint a;
   if (SelItem.count() != 0)
@@ -5048,7 +5048,7 @@ void Page::ChLineSpa(float w)
 }
 
 
-void Page::ChLocalXY(float x, float y)
+void Page::ChLocalXY(double x, double y)
 {
 	uint a;
 	PageItem *b;
@@ -5064,10 +5064,10 @@ void Page::ChLocalXY(float x, float y)
 		}
 }
 
-void Page::ChLocalSc(float x, float y)
+void Page::ChLocalSc(double x, double y)
 {
 	uint a;
-	float oldx, oldy;
+	double oldx, oldy;
 	PageItem *b;
   if (SelItem.count() != 0)
   	{
@@ -5331,7 +5331,7 @@ void Page::ItemBrushShade(int sha)
   	{
   	for (a = 0; a < SelItem.count(); ++a)
   		{
-  		b = SelItem.at(a);              
+  		b = SelItem.at(a);
 			b->Shade = sha;
 			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
 			RefreshItem(b);
@@ -5559,7 +5559,7 @@ void Page::chAbStyle(PageItem *b, int s)
 		}
 }
 
-void Page::chKerning(float us)
+void Page::chKerning(double us)
 {
 	uint a;
 	uint aa;
@@ -5610,7 +5610,7 @@ void Page::chFSize(int size)
 			doku->CurrFontSize = size;
 			if (doku->AppMode != 7)
 				{
-				b->LineSp = (size * float(doku->AutoLine) / 100) + size;
+				b->LineSp = (size * static_cast<double>(doku->AutoLine) / 100) + size;
 				doku->Vorlagen[0].LineSpa = b->LineSp;
 				emit ItemTextAttr(b->LineSp);
 				b->ISize = size;
@@ -5922,10 +5922,10 @@ void Page::DeleteItem()
 			}
 		if (GroupSel)
 			{
-			float x, y, w, h;
+			double x, y, w, h;
 			getGroupRectScreen(&x, &y, &w, &h);
 			SelItem.clear();
-			GroupSel = false;	
+			GroupSel = false;
 			repaint(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
 			}
 		else
@@ -5941,7 +5941,7 @@ void Page::DeleteItem()
 
 void Page::Deselect(bool prop)
 {
-	float x, y, w, h;
+	double x, y, w, h;
 	PageItem* b;
 	if (doku->ActPage->SelItem.count() != 0)
 		{
@@ -5975,11 +5975,11 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	QColor tmp;
 	if (!loading)
 		Deselect(true);
-	float x = Buffer->Xpos;
-	float y = Buffer->Ypos;
-	float w = Buffer->Width;
-	float h = Buffer->Height;
-	float pw = Buffer->Pwidth;
+	double x = Buffer->Xpos;
+	double y = Buffer->Ypos;
+	double w = Buffer->Width;
+	double h = Buffer->Height;
+	double pw = Buffer->Pwidth;
 	int z = 0;
 	struct Pti *hg;
 	switch (Buffer->PType)
@@ -6058,7 +6058,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 					it++;
 					hg->ccolor = *it;
 					it++;
-					hg->cextra = (*it).toFloat();
+					hg->cextra = (*it).toDouble();
 					it++;
 					hg->cshade = (*it).toInt();
 					hg->cselect = false;
@@ -6254,7 +6254,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 		b->GrType = Buffer->GrType;
 		}
 	if (!loading)
-		{	
+		{
 		b->Select = true;
 		b->Dirty = true;
 		SelItem.append(b);
@@ -6312,14 +6312,14 @@ void Page::EmitValues(PageItem *b)
 		}
 }
 
-void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, float xdisp, float ydisp, int xart, int yart)
+void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double ydisp, int xart, int yart)
 {
 	uint a;
-	float xp = 999999;
-	float yp = 999999;
-	float xm = 0;
-	float xd, xo;
-	QPtrList<float> ml;
+	double xp = 999999;
+	double yp = 999999;
+	double xm = 0;
+	double xd, xo;
+	QPtrList<double> ml;
 	QPainter p;
 	PageItem *b;
 	ml.setAutoDelete(true);
@@ -6336,13 +6336,13 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, float xdisp, float ydi
 				switch (xart)
 					{
 					case 0:
-						ml.append(new float(QRegion(p.xForm(b->Clip)).boundingRect().x()));
+						ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().x()));
 						break;
 					case 1:
-						ml.append(new float(QRegion(p.xForm(b->Clip)).boundingRect().x()+QRegion(p.xForm(b->Clip)).boundingRect().width() / 2));
+						ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().x()+QRegion(p.xForm(b->Clip)).boundingRect().width() / 2));
 						break;
 					case 2:
-						ml.append(new float(QRegion(p.xForm(b->Clip)).boundingRect().right()));
+						ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().right()));
 						break;
 					}
 				p.end();
@@ -6372,7 +6372,7 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, float xdisp, float ydi
 						b = SelItem.at(a);
 						p.begin(this);
 						Transform(b, &p);
-						ml.append(new float(QRegion(p.xForm(b->Clip)).boundingRect().x()));
+						ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().x()));
 						p.end();
 						}
 					xp = 99999;
@@ -6392,7 +6392,7 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, float xdisp, float ydi
 						b = SelItem.at(a);
 						p.begin(this);
 						Transform(b, &p);
-						ml.append(new float(QRegion(p.xForm(b->Clip)).boundingRect().x()+QRegion(p.xForm(b->Clip)).boundingRect().width() / 2));
+						ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().x()+QRegion(p.xForm(b->Clip)).boundingRect().width() / 2));
 						p.end();
 						}
 					xp = *ml.at(0);
@@ -6409,7 +6409,7 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, float xdisp, float ydi
 						b = SelItem.at(a);
 						p.begin(this);
 						Transform(b, &p);
-						ml.append(new float(QRegion(p.xForm(b->Clip)).boundingRect().right()));
+						ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().right()));
 						p.end();
 						}
 					for (a=0; a<SelItem.count(); ++a)
@@ -6437,13 +6437,13 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, float xdisp, float ydi
 				switch (yart)
 					{
 					case 0:
-						ml.append(new float(QRegion(p.xForm(b->Clip)).boundingRect().y()));
+						ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().y()));
 						break;
 					case 1:
-						ml.append(new float(QRegion(p.xForm(b->Clip)).boundingRect().y()+QRegion(p.xForm(b->Clip)).boundingRect().height() / 2));
+						ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().y()+QRegion(p.xForm(b->Clip)).boundingRect().height() / 2));
 						break;
 					case 2:
-						ml.append(new float(QRegion(p.xForm(b->Clip)).boundingRect().bottom()));
+						ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().bottom()));
 						break;
 					}
 				p.end();
@@ -6473,7 +6473,7 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, float xdisp, float ydi
 						b = SelItem.at(a);
 						p.begin(this);
 						Transform(b, &p);
-						ml.append(new float(QRegion(p.xForm(b->Clip)).boundingRect().y()));
+						ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().y()));
 						p.end();
 						}
 					yp = 99999;
@@ -6493,7 +6493,7 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, float xdisp, float ydi
 						b = SelItem.at(a);
 						p.begin(this);
 						Transform(b, &p);
-						ml.append(new float(QRegion(p.xForm(b->Clip)).boundingRect().y()+QRegion(p.xForm(b->Clip)).boundingRect().height() / 2));
+						ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().y()+QRegion(p.xForm(b->Clip)).boundingRect().height() / 2));
 						p.end();
 						}
 					xp = *ml.at(0);
@@ -6510,7 +6510,7 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, float xdisp, float ydi
 						b = SelItem.at(a);
 						p.begin(this);
 						Transform(b, &p);
-						ml.append(new float(QRegion(p.xForm(b->Clip)).boundingRect().bottom()));
+						ml.append(new double(QRegion(p.xForm(b->Clip)).boundingRect().bottom()));
 						p.end();
 						}
 					for (a=0; a<SelItem.count(); ++a)
@@ -6530,7 +6530,7 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, float xdisp, float ydi
 }
 
 /** Zeichnet eine Ellipse */
-int Page::PaintEllipse(float x, float y, float b, float h, float w, QString fill, QString outline)
+int Page::PaintEllipse(double x, double y, double b, double h, double w, QString fill, QString outline)
 {
 	PageItem* ite = new PageItem(this, 6, x, y, b, h, w, fill, outline, doku);
 	Items.append(ite);
@@ -6545,7 +6545,7 @@ int Page::PaintEllipse(float x, float y, float b, float h, float w, QString fill
 }
 
 /** Zeichnet einen Bildrahmen */
-int Page::PaintPict(float x, float y, float b, float h)
+int Page::PaintPict(double x, double y, double b, double h)
 {
 	PageItem* ite = new PageItem(this, 2, x, y, b, h, 1, doku->DbrushPict, "None", doku);
 	Items.append(ite);
@@ -6564,7 +6564,7 @@ int Page::PaintPict(float x, float y, float b, float h)
 }
 
 /** Zeichnet ein Rechteck */
-int Page::PaintRect(float x, float y, float b, float h, float w, QString fill, QString outline)
+int Page::PaintRect(double x, double y, double b, double h, double w, QString fill, QString outline)
 {
 	PageItem* ite = new PageItem(this, 6, x, y, b, h, w, fill, outline, doku);
 	Items.append(ite);
@@ -6579,7 +6579,7 @@ int Page::PaintRect(float x, float y, float b, float h, float w, QString fill, Q
 }
 
 /** Zeichnet ein Polygon */
-int Page::PaintPoly(float x, float y, float b, float h, float w, QString fill, QString outline)
+int Page::PaintPoly(double x, double y, double b, double h, double w, QString fill, QString outline)
 {
 	PageItem* ite = new PageItem(this, 6, x, y, b, h, w, fill, outline, doku);
 	Items.append(ite);
@@ -6595,7 +6595,7 @@ int Page::PaintPoly(float x, float y, float b, float h, float w, QString fill, Q
 }
 
 /** Zeichnet eine Polyline */
-int Page::PaintPolyLine(float x, float y, float b, float h, float w, QString fill, QString outline)
+int Page::PaintPolyLine(double x, double y, double b, double h, double w, QString fill, QString outline)
 {
 	PageItem* ite = new PageItem(this, 7, x, y, b, h, w, fill, outline, doku);
 	Items.append(ite);
@@ -6610,7 +6610,7 @@ int Page::PaintPolyLine(float x, float y, float b, float h, float w, QString fil
 }
 
 /** Zeichnet einen Textrahmen */
-int Page::PaintText(float x, float y, float b, float h, float w, QString outline)
+int Page::PaintText(double x, double y, double b, double h, double w, QString outline)
 {
 	if (w == 0) { w = 1; }
 	PageItem* ite = new PageItem(this, 4, x, y, b, h, w, "None", outline, doku);
@@ -6623,7 +6623,7 @@ int Page::PaintText(float x, float y, float b, float h, float w, QString outline
 }
 
 /** Zeichnet eine Linie */
-int Page::PaintLine(float x, float y, float b, float h, float w, QString outline)
+int Page::PaintLine(double x, double y, double b, double h, double w, QString outline)
 {
 	if (w == 0) { w = 1; }
 	PageItem* ite = new PageItem(this, 5, x, y, b, h, w, "Black", outline, doku);
@@ -6636,7 +6636,7 @@ int Page::PaintLine(float x, float y, float b, float h, float w, QString outline
 	return ite->ItemNr;
 }
 
-void Page::insertColor(QString nam, float c, float m, float y, float k)
+void Page::insertColor(QString nam, double c, double m, double y, double k)
 {
 	if (!doku->PageColors.contains(nam))
 		{
@@ -6650,7 +6650,7 @@ void Page::LoadPict(QString fn, int ItNr)
 	QString tmp, dummy, cmd1, cmd2, BBox, FarNam;
 	QChar tc;
 	QString oldPr = doku->CMSSettings.DefaultInputProfile;
-	float x, y, b, h, c, m, k;
+	double x, y, b, h, c, m, k;
 	bool found = false;
 	int ret = -1;
 	QFileInfo fi = QFileInfo(fn);
@@ -6738,12 +6738,12 @@ void Page::LoadPict(QString fn, int ItNr)
 						FarNam = FarNam.stripWhiteSpace();
 						FarNam = FarNam.remove(0,1);
 						FarNam = FarNam.remove(FarNam.length()-1,1);
-						insertColor(FarNam, c, m, y, k);						
+						insertColor(FarNam, c, m, y, k);
 						}
 					}
 				if (tmp.startsWith("%%EndComments"))
 					break;
-				}	
+				}
 			f.close();
 			if (found)
 				{
@@ -6844,7 +6844,7 @@ void Page::LoadPict(QString fn, int ItNr)
 		if(tif)
 			{
 			unsigned width, height,size;
-			float xres, yres;
+			double xres, yres;
 			TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &width);
 			TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &height);
 			TIFFGetField(tif, TIFFTAG_XRESOLUTION, &xres);

@@ -407,18 +407,16 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     MaxChars = new QSpinBox( OptTextFeld, "MaxChars" );
 		MaxChars->setMinValue(0);
 		MaxChars->setMaxValue(32768);
+		bool setter = false;
 		if (item->AnMaxChar != -1)
-			{
+		{
+			setter = true;
 			MaxChars->setValue(item->AnMaxChar);
-			Limit->setChecked(true);
-			MaxChars->setEnabled(true);
-			}
+		}
 		else
-			{
 			MaxChars->setValue(0);
-			Limit->setChecked(false);
-			MaxChars->setEnabled(false);
-			}
+		Limit->setChecked(setter);
+		MaxChars->setEnabled(setter);
     Layout8->addWidget( MaxChars );
     TextLabel2_2 = new QLabel( OptTextFeld, "TextLabel2_2" );
     TextLabel2_2->setText( tr( "Characters" ) );
@@ -504,10 +502,8 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 		int tmpac = item->AnActType;
 		if (item->AnActType < 0)
 			tmpac = 1;
-		if (tmpac == 7)
-			ActionCombo->setCurrentItem(2);
-		else
-			ActionCombo->setCurrentItem(tmpac);
+		ActionCombo->setCurrentItem(tmpac == 7 ? 2 : tmpac);
+
     Layout20->addWidget( ActionCombo );
     tabLayout_2->addLayout( Layout20 );
 
@@ -616,10 +612,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     GroupBox11Layout->addWidget( TextLabel31, 1, 0 );
     SpinBox11 = new QSpinBox( GroupBox11, "SpinBox1" );
     SpinBox11->setMinValue(1);
-		if (item->AnActType == 7)
-    	SpinBox11->setMaxValue(1000);
-		else
-    	SpinBox11->setMaxValue(Seite);
+    SpinBox11->setMaxValue(item->AnActType == 7 ? 1000 : Seite);
     SpinBox11->setValue(item->AnZiel+1);
     GroupBox11Layout->addWidget( SpinBox11, 1, 1 );
 		if (item->AnActType == 7)
@@ -1060,7 +1053,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetZiel(int)));
     connect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActTyp(int)));
     connect(SelAction, SIGNAL(activated(int)), this, SLOT(SetActScript(int)));
-    connect(Pg1, SIGNAL(Coords(float, float)), this, SLOT(SetCo(float, float)));
+    connect(Pg1, SIGNAL(Coords(double, double)), this, SLOT(SetCo(double, double)));
     connect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
     connect(SpinBox21, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
     connect(SpinBox31, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
@@ -1096,7 +1089,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 		connect(LExtern, SIGNAL(clicked()), this, SLOT(SetExternL()));
     QToolTip::add(NoSpell, tr( "Flag is ignored for PDF-1.3" ) );
     QToolTip::add(NoScroll, tr( "Flag is ignored for PDF-1.3" ) );
-    QToolTip::add(CalcFields, tr( "Enter a comma separated list of Fields here" ) );
+    QToolTip::add(CalcFields, tr( "Enter a comma separated list of fields here" ) );
 		QToolTip::add(IconNR, tr("You need at least the Icon for Normal to use Icons for Buttons"));
 		SetPg(QMIN(SpinBox11->value(), MaxSeite));
     SetCross();
@@ -1113,9 +1106,9 @@ void Annot::IPlace()
 		{
 		int w = item->pixm.width();
 		int h = item->pixm.height();
-		float sw = item->Width / w;
-		float sh = item->Height / h;
-		float sc = QMIN(sw,sh);
+		double sw = item->Width / w;
+		double sh = item->Height / h;
+		double sc = QMIN(sw,sh);
 		if (dia->IcScaleH == 0)
 			{
 			item->LocalScX = sc;
@@ -1160,35 +1153,32 @@ void Annot::RemoveRIcon()
 
 void Annot::IconsEin()
 {
+	bool setter = true;
 	if (!UseIcons->isChecked())
-		{
-		IconN->setEnabled(false);
-		IconP->setEnabled(false);
-		IconR->setEnabled(false);
-		IconNR->setEnabled(false);
-		IconPR->setEnabled(false);
-		IconRR->setEnabled(false);
-		NiconPrev->setEnabled(false);
-		PiconPrev->setEnabled(false);
-		RiconPrev->setEnabled(false);
-		PlaceIcon->setEnabled(false);
-		}
-	else
-		{
-		IconN->setEnabled(true);
-		IconP->setEnabled(true);
-		IconR->setEnabled(true);
+		setter = false;
+	IconN->setEnabled(setter);
+	IconP->setEnabled(setter);
+	IconR->setEnabled(setter);
+
+	NiconPrev->setEnabled(setter);
+	PiconPrev->setEnabled(setter);
+	RiconPrev->setEnabled(setter);
+	PlaceIcon->setEnabled(setter);
+	if (setter == true)
+	{
 		if (item->Pfile != "")
 			IconNR->setEnabled(true);
 		if (item->Pfile2 != "")
 			IconPR->setEnabled(true);
 		if (item->Pfile3 != "")
 			IconRR->setEnabled(true);
-		NiconPrev->setEnabled(true);
-		PiconPrev->setEnabled(true);
-		RiconPrev->setEnabled(true);
-		PlaceIcon->setEnabled(true);
-		}
+	}
+	else
+	{
+		IconNR->setEnabled(false);
+		IconPR->setEnabled(false);
+		IconRR->setEnabled(false);
+	}
 	item->AnUseIcons = UseIcons->isChecked();
 }
 
@@ -1212,9 +1202,9 @@ void Annot::GetNIcon()
 		item->pixm = im.copy();
 		int w = im.width();
 		int h = im.height();
-		float sw = item->Width / w;
-		float sh = item->Height / h;
-		float sc = QMIN(sw,sh);
+		double sw = item->Width / w;
+		double sh = item->Height / h;
+		double sc = QMIN(sw,sh);
 		item->LocalScX = sc;
 		item->LocalScY = sc;
 		item->LocalX = ((item->Width - (w * sc)) / 2) / sc;
@@ -1412,29 +1402,24 @@ void Annot::DecodeNum()
 	if (item->AnFormat == 1)
 		{
 		Decim->setValue(pfol[0].toInt());
+		if (pfol[1].toInt() < 4)
+			FormNum = pfol[1].toInt();
 		switch (pfol[1].toInt())
 			{
 			case 0:
 				Format0->setChecked(true);
-				FormNum = 0;
 				break;
 			case 1:
-				Format1->setChecked(true);
-				FormNum = 1;
+				Format1->setChecked(true);;
 				break;
 			case 2:
 				Format2->setChecked(true);
-				FormNum = 2;
 				break;
 			case 3:
 				Format3->setChecked(true);
-				FormNum = 3;
 				break;
 			}
-		if (pfol[5] == " true")
-			PreCurr->setChecked(true);
-		else
-			PreCurr->setChecked(false);
+		PreCurr->setChecked(pfol[5] == " true" ? true : false);
 		if (pfol[4].length() > 2)
 			{
 			if (PreCurr->isChecked())
@@ -1455,23 +1440,21 @@ void Annot::DecodeNum()
 	if (item->AnFormat == 2)
 		{
 		Decim2->setValue(pfol[0].toInt());
+		if (pfol[1].toInt() < 4)
+			FormNum = pfol[1].toInt();
 		switch (pfol[1].toInt())
 			{
 			case 0:
 				Format0a->setChecked(true);
-				FormNum = 0;
 				break;
 			case 1:
 				Format1a->setChecked(true);
-				FormNum = 1;
 				break;
 			case 2:
 				Format2a->setChecked(true);
-				FormNum = 2;
 				break;
 			case 3:
 				Format3a->setChecked(true);
-				FormNum = 3;
 				break;
 			}
 		}
@@ -1482,23 +1465,21 @@ void Annot::DecodeNum()
 		}
 	if (item->AnFormat == 4)
 		{
+		if (pfol[0].toInt() < 4)
+			FormNum = pfol[0].toInt();
 		switch (pfol[0].toInt())
 			{
 			case 0:
 				Format0b->setChecked(true);
-				FormNum = 0;
 				break;
 			case 1:
 				Format1b->setChecked(true);
-				FormNum = 1;
 				break;
 			case 2:
 				Format2b->setChecked(true);
-				FormNum = 2;
 				break;
 			case 3:
 				Format3b->setChecked(true);
-				FormNum = 3;
 				break;
 			}
 		}
@@ -1543,14 +1524,12 @@ void Annot::SetFormNum()
 
 void Annot::HandleVali()
 {
-	MaxValid->setEnabled(false);
-	MinValid->setEnabled(false);
-	EditValScript->setEnabled(false);
+	bool setter = false;
 	if (SimpleValid->isChecked())
-		{
-		MaxValid->setEnabled(true);
-		MinValid->setEnabled(true);
-		}
+		setter = true;
+	MaxValid->setEnabled(setter);
+	MinValid->setEnabled(setter);
+	EditValScript->setEnabled(false);
 	if (CustomValid->isChecked())
 		EditValScript->setEnabled(true);
 }
@@ -1583,16 +1562,11 @@ void Annot::SetVali()
 
 void Annot::HandleCalc()
 {
-	CalcFields->setEnabled(false);
-	CalcArt->setEnabled(false);
+	bool setter = SimpleCalc->isChecked() ? true : false;
+	CalcFields->setEnabled(setter);
+	CalcArt->setEnabled(setter);
 	EditCalc->setEnabled(false);
-	SeField->setEnabled(false);
-	if (SimpleCalc->isChecked())
-		{
-		CalcFields->setEnabled(true);
-		CalcArt->setEnabled(true);
-		SeField->setEnabled(true);
-		}
+	SeField->setEnabled(setter);
 	if (CustomCalc->isChecked())
 		EditCalc->setEnabled(true);
 }
@@ -1626,16 +1600,9 @@ void Annot::SetCalc()
 
 void Annot::SetCurr()
 {
-	if (UseCurr->isChecked())
-		{
-		CurSym->setEnabled(true);
-		PreCurr->setEnabled(true);
-		}
-	else
-		{
-		CurSym->setEnabled(false);
-		PreCurr->setEnabled(false);
-		}
+	bool setter = UseCurr->isChecked() ? true : false;
+	CurSym->setEnabled(setter);
+	PreCurr->setEnabled(setter);
 }
 
 void Annot::SetFoScript(int it)
@@ -1669,7 +1636,7 @@ void Annot::SetFoScript(int it)
 	item->AnFormat = it;
 }
 
-void Annot::SetCo(float x, float y)
+void Annot::SetCo(double x, double y)
 {
 	SpinBox21->setValue(static_cast<int>(x*Breite));
 	SpinBox31->setValue(static_cast<int>(y*Hoehe));
@@ -1705,11 +1672,11 @@ void Annot::SetPg(int v)
 void Annot::SetCross()
 {
 	int x,y;
-  disconnect(Pg1, SIGNAL(Coords(float, float)), this, SLOT(SetCo(float, float)));
-	x = static_cast<int>(static_cast<float>(SpinBox21->value())/static_cast<float>(Breite)*Pg1->pmx.width());
-	y = static_cast<int>(static_cast<float>(SpinBox31->value())/static_cast<float>(Hoehe)*Pg1->pmx.height());
+  disconnect(Pg1, SIGNAL(Coords(double, double)), this, SLOT(SetCo(double, double)));
+	x = static_cast<int>(static_cast<double>(SpinBox21->value())/static_cast<double>(Breite)*Pg1->pmx.width());
+	y = static_cast<int>(static_cast<double>(SpinBox31->value())/static_cast<double>(Hoehe)*Pg1->pmx.height());
 	Pg1->drawMark(x, y);
-  connect(Pg1, SIGNAL(Coords(float, float)), this, SLOT(SetCo(float, float)));
+  connect(Pg1, SIGNAL(Coords(double, double)), this, SLOT(SetCo(double, double)));
 }
 
 void Annot::SetVals()
@@ -1917,23 +1884,9 @@ void Annot::SetVals()
 			item->AnAction = SubURLa->text().stripWhiteSpace();
 			break;
 		}
-	if (item->An_E_act != "")
-		AAct = true;
-	if (item->An_X_act != "")
-		AAct = true;
-	if (item->An_D_act != "")
-		AAct = true;
-	if (item->An_Fo_act != "")
-		AAct = true;
-	if (item->An_Bl_act != "")
-		AAct = true;
-	if (item->An_K_act != "")
-		AAct = true;
-	if (item->An_F_act != "")
-		AAct = true;
-	if (item->An_V_act != "")
-		AAct = true;
-	if (item->An_C_act != "")
+	if (item->An_E_act != "" || item->An_X_act != "" || item->An_D_act != "" ||
+			item->An_Fo_act != "" || item->An_Bl_act != "" || item->An_K_act != "" ||
+			item->An_F_act != "" || item->An_V_act != "" || item->An_C_act != "")
 		AAct = true;
 	if (AAct)
 		item->AnAAact = true;
@@ -1962,6 +1915,7 @@ void Annot::SetZiel(int it)
   SelAction->insertItem( tr( "Mouse Exit" ) );
   SelAction->insertItem( tr( "On Focus" ) );
   SelAction->insertItem( tr( "On Blur" ) );
+  bool setter;
 	switch (sela)
 		{
 		case 2:
@@ -1981,16 +1935,9 @@ void Annot::SetZiel(int it)
     	ActionCombo->insertItem( tr( "Reset Form" ) );
     	ActionCombo->insertItem( tr( "Import Data" ) );
 			ActionCombo->setCurrentItem(QMIN(tmpac,5));
-			if (item->AnActType != 7)
-				{
-				Destfile->setEnabled(false);
-				ChFile->setEnabled(false);
-				}
-			else
-				{
-				Destfile->setEnabled(true);
-				ChFile->setEnabled(true);
-				}
+			setter = item->AnActType != 7 ? true : false;
+			Destfile->setEnabled(setter);
+			ChFile->setEnabled(setter);
 			SetActTyp(tmpac);			
 			break;
 		case 3:
@@ -2033,18 +1980,10 @@ void Annot::SetZiel(int it)
 	NoScroll->setChecked(item->AnFlag & 8388608);
 	ChkStil->setCurrentItem(item->AnChkStil);
 	isChkd->setChecked(item->AnIsChk);
-	if (item->AnMaxChar != -1)
-		{
-		MaxChars->setValue(item->AnMaxChar);
-		Limit->setChecked(true);
-		MaxChars->setEnabled(true);
-		}
-	else
-		{
-		MaxChars->setValue(0);
-		Limit->setChecked(false);
-		MaxChars->setEnabled(false);
-		}
+	setter = item->AnMaxChar != -1 ? true : false;
+	MaxChars->setValue(setter == true ? item->AnMaxChar : 0);
+	Limit->setChecked(setter);
+	MaxChars->setEnabled(setter);
 	connect(ActionCombo, SIGNAL(activated(int)), this, SLOT(SetActTyp(int)));
   connect(TxFormat, SIGNAL(activated(int)), this, SLOT(SetFoScript(int)));
 }
@@ -2070,9 +2009,8 @@ void Annot::SetExternL()
 		Destfile->setEnabled(true);
 		ChFile->setEnabled(true);
 		if (Destfile->text() == "")
-			GetFile();
-		if (Destfile->text() == "")
 			{
+			GetFile();
 			item->AnActType = 2;
 			Destfile->setEnabled(false);
 			ChFile->setEnabled(false);
@@ -2085,6 +2023,7 @@ void Annot::SetExternL()
 
 void Annot::SetActTyp(int it)
 {
+	bool setter;
 	switch (it)
 		{
 		case 5:
@@ -2098,16 +2037,9 @@ void Annot::SetActTyp(int it)
 			break;
 		case 2:
 			Fram2->raiseWidget(3);
-			if (item->AnActType != 7)
-				{
-				Destfile->setEnabled(false);
-				ChFile->setEnabled(false);
-				}
-			else
-				{
-				Destfile->setEnabled(true);
-				ChFile->setEnabled(true);
-				}
+			setter = item->AnActType != 7 ? true : false;
+			Destfile->setEnabled(setter);
+			ChFile->setEnabled(setter);
 			SetPg(QMIN(SpinBox11->value(), MaxSeite));
 			break;
 		case 1:

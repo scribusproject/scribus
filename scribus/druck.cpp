@@ -523,59 +523,31 @@ void Druck::SelComm()
 
 void Druck::SelPrinter(const QString& prn)
 {
-	if (prn == tr("File"))
-		{
-    DateiT->setEnabled(true);
-    LineEdit1->setEnabled(true);
-    ToolButton1->setEnabled(true);
-    ToFile = true;
+	bool setter = prn == tr("File") ? true : false;
+  DateiT->setEnabled(setter);
+  LineEdit1->setEnabled(setter);
+  ToolButton1->setEnabled(setter);
+  ToFile = setter;
 #ifdef HAVE_CUPS
-		OptButton->setEnabled(false);
+	OptButton->setEnabled(setter);
 #endif
-		}
-	else
-		{
-    DateiT->setEnabled(false);
-    LineEdit1->setEnabled(false);
-    ToolButton1->setEnabled(false);
-    ToFile = false;
-#ifdef HAVE_CUPS
-		OptButton->setEnabled(true);
-#endif
-		}
 	Geraet = prn;
 }
 
 void Druck::SelRange(bool e)
 {
-	if (e)
-		{
-    TextLabel2_2->setEnabled( false );
-    TextLabel2->setEnabled( false );
-    To->setEnabled( false );
-   	From->setEnabled( false );
-		}
-	else
-		{
-    TextLabel2_2->setEnabled( true );
-    TextLabel2->setEnabled( true );
-    To->setEnabled( true );
-   	From->setEnabled( true );
-		}
+	bool setter = e ? false : true;
+  TextLabel2_2->setEnabled( setter );
+  TextLabel2->setEnabled( setter );
+  To->setEnabled( setter );
+  From->setEnabled( setter );
 }
 
 void Druck::SelMode(bool e)
 {
-	if (e)
-		{
-    SepArt->setEnabled( false );
-    ToSeparation = false;
-    }
-	else
-		{
-    SepArt->setEnabled( true );
-    ToSeparation = true;
-    }
+	bool setter = e ? false : true;
+	SepArt->setEnabled( setter );
+  ToSeparation = setter;
 }
 
 void Druck::SelFile()
@@ -633,10 +605,7 @@ int Druck::numCopies()
 
 int Druck::pageOrder()
 {
-	if (FirstPfirst->isChecked())
-		return 0;
-	else
-		return 1;
+	return FirstPfirst->isChecked() ? 0 : 1;
 }
 
 bool Druck::outputSeparations()

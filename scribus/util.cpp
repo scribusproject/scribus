@@ -60,7 +60,7 @@ extern int IntentPrinter;
 #endif
 extern ProfilesL InputProfiles;
 
-FPointArray traceChar(FT_Face face, uint chr, int chs, float *x, float *y);
+FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y);
 QString Path2Relative(QString Path);
 QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h);
 bool GlyNames(QMap<uint, QString> *GList, QString Dat);
@@ -75,14 +75,14 @@ QString ImageToCMYK_PS(QImage *im, int pl, bool pre);
 QString MaskToTxt(QImage *im, bool PDF = true);
 void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
-float xy2Deg(float x, float y);
+double xy2Deg(double x, double y);
 QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
-QPointArray RegularPolygon(float w, float h, uint c, bool star, float factor, float rota);
-FPointArray RegularPolygonF(float w, float h, uint c, bool star, float factor, float rota);
+QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
+FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota);
 QPixmap loadIcon(QString nam);
 bool loadText(QString nam, QString *Buffer);
-float Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
-float QStoFloat(QString in);
+double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
+double QStodouble(QString in);
 int QStoInt(QString in);
 QString GetAttr(QDomElement *el, QString at, QString def="0");
 QImage LoadPict(QString fn);
@@ -214,8 +214,8 @@ QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h)
   	QImage im2;
 		*h = image.height();
 		*w = image.width();
-		float sx = image.width() / static_cast<float>(Size);
-		float sy = image.height() / static_cast<float>(Size);
+		double sx = image.width() / static_cast<double>(Size);
+		double sy = image.height() / static_cast<double>(Size);
 		if (sy < sx)
 			im2 = image.smoothScale(static_cast<int>(image.width() / sx), static_cast<int>(image.height() / sx));
 		else
@@ -237,7 +237,7 @@ QImage LoadPict(QString fn)
 	QString tmp, dummy, cmd1, cmd2, BBox;
 	QChar tc;
 	QImage Bild;
-	float x, y, b, h;
+	double x, y, b, h;
 	bool found = false;
 	int ret = -1;
 	QFileInfo fi = QFileInfo(fn);
@@ -278,7 +278,7 @@ QImage LoadPict(QString fn)
 					}
 				if (tmp.startsWith("%%EndComments"))
 					break;
-				}	
+				}
 			f.close();
 			if (found)
 				{
@@ -397,7 +397,7 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 	QString tmp, dummy, cmd1, cmd2, BBox;
 	QChar tc;
 	QImage Bild;
-	float x, y, b, h;
+	double x, y, b, h;
 	bool found = false;
 	int ret = -1;
 	QFileInfo fi = QFileInfo(fn);
@@ -638,10 +638,10 @@ int QStoInt(QString in)
 		return 0;
 }
 
-float QStoFloat(QString in)
+double QStodouble(QString in)
 {
 	bool ok = false;
-	float c = in.toFloat(&ok);
+	double c = in.toDouble(&ok);
 	if (ok)
 		return c;
 	else
@@ -683,9 +683,9 @@ bool loadText(QString nam, QString *Buffer)
 	return ret;
 }
 
-float Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2)
+double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2)
 {
-	float w;
+	double w;
 	FT_Vector  delta;
 	uint c1 = ch.at(0).unicode();
 	uint c2 = ch2.at(0).unicode();
@@ -703,19 +703,19 @@ float Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2)
 		return w;
 		}
 	else
-		return static_cast<float>(Siz);
+		return static_cast<double>(Siz);
 }
 
-QPointArray RegularPolygon(float w, float h, uint c, bool star, float factor, float rota)
+QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota)
 {
 	uint cx;
 	if (star)
 		cx = c * 2;
 	else
 		cx = c;
-	float seg = 360.0 / cx;
-	float sc = rota + 180.0;
-	float di = factor;
+	double seg = 360.0 / cx;
+	double sc = rota + 180.0;
+	double di = factor;
 	int mx = 0;
 	int my = 0;
 	QPointArray pts = QPointArray();
@@ -746,18 +746,18 @@ QPointArray RegularPolygon(float w, float h, uint c, bool star, float factor, fl
 	return pts;
 }
 
-FPointArray RegularPolygonF(float w, float h, uint c, bool star, float factor, float rota)
+FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota)
 {
 	uint cx;
 	if (star)
 		cx = c * 2;
 	else
 		cx = c;
-	float seg = 360.0 / cx;
-	float sc = rota + 180.0;
-	float di = factor;
-	float mx = 0;
-	float my = 0;
+	double seg = 360.0 / cx;
+	double sc = rota + 180.0;
+	double di = factor;
+	double mx = 0;
+	double my = 0;
 	FPointArray pts = FPointArray();
 	for (uint x = 0; x < cx; ++x)
 		{
@@ -799,7 +799,7 @@ QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs)
 				{
 				outa.resize(outa.size()+1);
 				outa.setPoint(outa.size()-1, cli.point(cli.size()-1));
-				Segs.append(outa.size());		
+				Segs.append(outa.size());
 				continue;
 				}
 			BezierPoints(&Bez, ina.pointQ(poi), ina.pointQ(poi+1), ina.pointQ(poi+3), ina.pointQ(poi+2));
@@ -812,7 +812,7 @@ QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs)
 	return outa;
 }
 
-float xy2Deg(float x, float y)
+double xy2Deg(double x, double y)
 {
 	return (atan2(y,x)*(180.0/M_PI));
 }
@@ -1209,7 +1209,7 @@ FT_Outline_Funcs OutlineMethods =
 	0
 };
 
-FPointArray traceChar(FT_Face face, uint chr, int chs, float *x, float *y)
+FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y)
 {
 	FT_UInt glyphIndex;
 	FPointArray pts, pts2;

@@ -59,7 +59,7 @@ public:
 		dashArray.clear();
 		}
 	QWMatrix	matrix;
-	float LWidth;
+	double LWidth;
 	Qt::PenStyle PLineArt;
 	Qt::PenJoinStyle PLineJoin;
 	Qt::PenCapStyle PLineEnd;
@@ -72,11 +72,11 @@ public:
 	VGradient	GradCo;
 	int FontSize;
 	QString Family;
-	float Transparency;
-	float TranspStroke;
+	double Transparency;
+	double TranspStroke;
 	bool InherCol;
-	float dashOffset;
-	QValueList<float> dashArray;
+	double dashOffset;
+	QValueList<double> dashArray;
 };
 
 class SVGPlug : public QObject

@@ -1,9 +1,9 @@
 #include "reformdoc.h"
 #include "reformdoc.moc"
 extern QPixmap loadIcon(QString nam);
-extern float UmReFaktor;
+extern double UmReFaktor;
 
-ReformDoc::ReformDoc( QWidget* parent, float t, float l, float r, float b, float Pagebr, float Pageho, bool fp, bool fpe, int Einh)
+ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, double Pagebr, double Pageho, bool fp, bool fpe, int Einh)
     : QDialog( parent, "r", true, 0 )
 {
     QString ein;

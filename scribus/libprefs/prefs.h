@@ -34,8 +34,8 @@ class Preferences : public QDialog
 public:
     Preferences( QWidget* parent, preV *Vor);
     ~Preferences();
-    float GetZeroFaktor();
-    float GetMaxFaktor();
+    double GetZeroFaktor();
+    double GetMaxFaktor();
 		void DrawRuler();
 
     QPushButton* buttonOK;
@@ -222,23 +222,23 @@ public:
     QLabel* CaliAnz;
 
     SCFonts *fon; // can't use a reference, and can't copy whole structure...
-    float Umrech;
+    double Umrech;
 		QPixmap* Pre;
-		float PFactor;
+		double PFactor;
     QMap<int,Keys> KKC;
 		QColor Cmin;
 		QColor Cmax;
 		QColor Crand;
 		QColor Cpaper;
 		QColor Cgui;
-		float Pagebr;
-		float Pageho;
-		float RandT;
-		float RandB;
-		float RandL;
-		float RandR;
+		double Pagebr;
+		double Pageho;
+		double RandT;
+		double RandB;
+		double RandL;
+		double RandR;
 		int Einheit;
-		float DisScale;
+		double DisScale;
     ScribusApp *ap;
 
 public slots:
@@ -267,7 +267,7 @@ public slots:
     void VChange();
     void UnitChange();
 		void UpdatePreView();
-		float GetFaktor();
+		double GetFaktor();
 		void ValFromSpin(int a);
 		void ValFromSpin2(int a);
 		void SetDisScale();

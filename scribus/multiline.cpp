@@ -185,13 +185,11 @@ QColor MultiLine::calcFarbe(QString name, int shade)
 	Docu->PageColors[name].getRGBColor().rgb(&h, &s, &v);
 	if ((h == s) && (s == v))
 		{
-		Docu->PageColors[name].getRGBColor().hsv(&h, &s, &v);
 		sneu = 255 - ((255 - v) * shade / 100);
 		tmpf.setHsv(h, s, sneu);
 		}
 	else
 		{
-		Docu->PageColors[name].getRGBColor().hsv(&h, &s, &v);
 		sneu = s * shade / 100;
 		tmpf.setHsv(h, sneu, v);
 		}
@@ -446,7 +444,7 @@ void MultiLine::NewLColor()
 
 void MultiLine::NewLWidth()
 {
-	TempVorl[CurLin].Width = static_cast<float>(LWidth->value()) / 10.0;
+	TempVorl[CurLin].Width = static_cast<double>(LWidth->value()) / 10.0;
 	reSort();
 	updatePreview();
 }

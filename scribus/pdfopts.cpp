@@ -3,7 +3,7 @@
 #include "customfdialog.h"
 #include "config.h"
 extern QPixmap loadIcon(QString nam);
-extern float UmReFaktor;
+extern double UmReFaktor;
 extern ProfilesL InputProfiles;
 #ifdef HAVE_CMS
 extern bool CMSuse;
@@ -504,7 +504,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 		EmbedProfs2->setChecked(Optionen->UseProfiles2);
     ProfsGroupLayout->addMultiCellWidget( EmbedProfs2, 0, 0, 0, 1 );
     NoEmbedded = new QCheckBox( ProfsGroup, "NoEmbedded" );
-    NoEmbedded->setText( tr( "Don't use embedded Profiles" ) );
+    NoEmbedded->setText( tr( "Don't use embedded ICC profiles" ) );
 		NoEmbedded->setChecked(Optionen->EmbeddedI);
     ProfsGroupLayout->addMultiCellWidget( NoEmbedded, 1, 1, 0, 1 );
     ProfsTxt3 = new QLabel( ProfsGroup, "ProfsTxt3" );
@@ -766,16 +766,11 @@ PDF_Opts::~PDF_Opts()
 
 void PDF_Opts::ToggleEncr()
 {
+	bool setter = false;
 	if (Encry->isChecked())
-		{
-		GroupSecSet->setEnabled(true);
-		GroupPass->setEnabled(true);
-		}
-	else
-		{
-		GroupSecSet->setEnabled(false);
-		GroupPass->setEnabled(false);
-		}
+		setter = true;
+	GroupSecSet->setEnabled(setter);
+	GroupPass->setEnabled(setter);
 }
 
 void PDF_Opts::BleedChanged()
@@ -833,20 +828,13 @@ void PDF_Opts::EnablePGI()
 	if (EmbedProfs2->isChecked())
 		{
 		NoEmbedded->setEnabled(true);
+		bool setter = false;
 		if (NoEmbedded->isChecked())
-			{
-			ProfsTxt3->setEnabled(true);
-			ProfsTxt4->setEnabled(true);
-			ImageP->setEnabled(true);
-			IntendI->setEnabled(true);
-			}
-		else
-			{
-			ProfsTxt3->setEnabled(false);
-			ProfsTxt4->setEnabled(false);
-			ImageP->setEnabled(false);
-			IntendI->setEnabled(false);
-			}
+			setter = true;
+		ProfsTxt3->setEnabled(setter);
+		ProfsTxt4->setEnabled(setter);
+		ImageP->setEnabled(setter);
+		IntendI->setEnabled(setter);
 		}
 	else
 		{
@@ -860,52 +848,31 @@ void PDF_Opts::EnablePGI()
 
 void PDF_Opts::EnablePGI2()
 {
+	bool setter = false;
 	if (NoEmbedded->isChecked())
-		{
-		ProfsTxt3->setEnabled(true);
-		ProfsTxt4->setEnabled(true);
-		ImageP->setEnabled(true);
-		IntendI->setEnabled(true);
-		}
-	else
-		{
-		ProfsTxt3->setEnabled(false);
-		ProfsTxt4->setEnabled(false);
-		ImageP->setEnabled(false);
-		IntendI->setEnabled(false);
-		}
+		setter = true;
+	ProfsTxt3->setEnabled(setter);
+	ProfsTxt4->setEnabled(setter);
+	ImageP->setEnabled(setter);
+	IntendI->setEnabled(setter);
 }
 
 void PDF_Opts::EnablePG()
 {
+	bool setter = false;
 	if (EmbedProfs->isChecked())
-		{
-		ProfsTxt1->setEnabled(true);
-		ProfsTxt2->setEnabled(true);
-		SolidPr->setEnabled(true);
-		IntendS->setEnabled(true);
-		}
-	else
-		{
-		ProfsTxt1->setEnabled(false);
-		ProfsTxt2->setEnabled(false);
-		SolidPr->setEnabled(false);
-		IntendS->setEnabled(false);
-		}
+		setter = true;
+	ProfsTxt1->setEnabled(setter);
+	ProfsTxt2->setEnabled(setter);
+	SolidPr->setEnabled(setter);
+	IntendS->setEnabled(setter);
 }
 
 void PDF_Opts::EnablePr(int a)
 {
-	if (a == 1)
-		{
-		GroupBox9->setEnabled(true);
-		ProfsGroup->setEnabled(true);
-		}
-	else
-		{
-		GroupBox9->setEnabled(false);
-		ProfsGroup->setEnabled(false);
-		}
+	bool setter = a == 1 ? true : false;
+	GroupBox9->setEnabled(setter);
+	ProfsGroup->setEnabled(setter);
 }
 
 void PDF_Opts::ChFrom()
@@ -926,19 +893,14 @@ void PDF_Opts::ChTo()
 
 void PDF_Opts::SelRange(bool e)
 {
+	bool setter = true;
 	if (e)
-		{
-    RText->setEnabled( false );
-    FirstPage->setEnabled( false );
-   	LastPage->setEnabled( false );
-		}
-	else
-		{
-    RText->setEnabled( true );
-    FirstPage->setEnabled( true );
-   	LastPage->setEnabled( true );
+		setter = false;
+  RText->setEnabled( setter );
+  FirstPage->setEnabled( setter );
+  LastPage->setEnabled( setter );
+	if (setter == false)
 		CheckBM->setChecked(false);
-		}
 }
 
 void PDF_Opts::EffectOnAll()
@@ -956,18 +918,12 @@ void PDF_Opts::EffectOnAll()
 
 void PDF_Opts::DoEffects()
 {
+	bool setter = false;
 	if (CheckBox10->isChecked())
-		{
-		Pages->setEnabled(true);
-		Effects->setEnabled(true);
-		PagePrev->setEnabled(true);
-		}
-	else
-		{
-		Pages->setEnabled(false);
-		Effects->setEnabled(false);
-		PagePrev->setEnabled(false);
-		}
+		setter = true;
+	Pages->setEnabled(setter);
+	Effects->setEnabled(setter);
+	PagePrev->setEnabled(setter);
 }
 
 void PDF_Opts::ValidDI(int nr)

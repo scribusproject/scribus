@@ -198,7 +198,7 @@ public:
     bool HaveDoc;
     bool HaveItem;
     ScribusDoc *doc;
-    float Umrech;
+    double Umrech;
     bool LMode;
 
 public slots:
@@ -207,17 +207,17 @@ public slots:
 		void NewSel(int nr);
 		void SetCurItem(PageItem *i);
 		void UnitChange();
-    void setXY(float x, float y);
-    void setBH(float x, float y);
-		void setR(float r);
-		void setRR(float r);
+    void setXY(double x, double y);
+    void setBH(double x, double y);
+		void setR(double r);
+		void setRR(double r);
 		void setRM(int r);
-		void setLsp(float r);
+		void setLsp(double r);
 		void setSize(int s);
-		void setExtra(float e);
+		void setExtra(double e);
 		void ChangeScaling();
-		void setLvalue(float scx, float scy, float x, float y);
-		void setSvalue(float s);
+		void setLvalue(double scx, double scy, double x, double y);
+		void setSvalue(double s);
 		void setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj);
 		void setStil(int s);
 		void setAli(int e);

@@ -171,26 +171,16 @@ void PPreview::setPageCombo(int num)
 {
 	disconnect(SeitenAusw, SIGNAL(activated(int)), this, SLOT(ToSeite(int)));
 	SeitenAusw->setCurrentItem(num);
+	bool setter = true;
 	if (num == 0)
-		{
-		First->setEnabled(false);
-		Back->setEnabled(false);
-		}
-	else
-		{
-		First->setEnabled(true);
-		Back->setEnabled(true);
-		}
+		setter = false;
+	First->setEnabled(setter);
+	Back->setEnabled(setter);
+	setter = true;
 	if (num == MPage-1)
-		{
-		Forward->setEnabled(false);
-		Last->setEnabled(false);
-		}
-	else
-		{
-		Forward->setEnabled(true);
-		Last->setEnabled(true);
-		}
+		setter = false;
+	Forward->setEnabled(setter);
+	Last->setEnabled(setter);
 	connect(SeitenAusw, SIGNAL(activated(int)), this, SLOT(ToSeite(int)));
 }
 
@@ -212,8 +202,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		}
 	else
 		return Bild;
-	float b = app->doc->PageB * Res / 72;
-	float h = app->doc->PageH * Res / 72;
+	double b = app->doc->PageB * Res / 72;
+	double h = app->doc->PageH * Res / 72;
 	cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r"+tmp.setNum(Res)+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
 	if (AliasText->isChecked())
 		cmd1 += " -dTextAlphaBits=4";

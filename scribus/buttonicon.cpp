@@ -118,10 +118,7 @@ void ButtonIcon::SetAllVals()
 {
 	Place->setCurrentItem(Item->AnIPlace);
 	ScaleW->setCurrentItem(Item->AnScaleW);
-	if (Item->LocalScX != Item->LocalScY)
-		ScaleH->setCurrentItem(1);
-	else
-		ScaleH->setCurrentItem(0);
+	ScaleH->setCurrentItem(Item->LocalScX != Item->LocalScY ? 1 : 0);
 	SetScaleHow(ScaleH->currentItem());
 	if ((Item->Width/Item->LocalScX - Item->pixm.width()) != 0)
 		SliderX->setValue(static_cast<int>(Item->LocalX / (Item->Width/Item->LocalScX - Item->pixm.width()) * 1000));
@@ -136,19 +133,10 @@ void ButtonIcon::SetAllVals()
 
 void ButtonIcon::SetScaleHow(int s)
 {
-	if (s == 1)
-		{
-		GroupButton->setEnabled(false);
-		TextLabel3->setEnabled(false);
-		SliderX->setEnabled(false);
-		SliderY->setEnabled(false);
-		}
-	else
-		{
-		GroupButton->setEnabled(true);
-		TextLabel3->setEnabled(true);
-		SliderX->setEnabled(true);
-		SliderY->setEnabled(true);
-		}
+	bool setter = (s == 1) ? false : true;
+	GroupButton->setEnabled(setter);
+	TextLabel3->setEnabled(setter);
+	SliderX->setEnabled(setter);
+	SliderY->setEnabled(setter);
 	IcScaleH = s;
 }

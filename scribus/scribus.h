@@ -81,7 +81,7 @@ class ScribusApp : public QMainWindow
     void initStatusBar();
     void SetShortCut();
     void SetKeyEntry(int Nr, QString text, int Men, int KeyC);
-		bool doFileNew(float b, float h, float tpr, float lr, float rr, float br, float ab, float sp,
+		bool doFileNew(double b, double h, double tpr, double lr, double rr, double br, double ab, double sp,
 									 bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr);
 		bool DoFileSave(QString fn);
     void closeEvent(QCloseEvent *ce);
@@ -117,8 +117,8 @@ class ScribusApp : public QMainWindow
     ProfilesL MonitorProfiles;
     ProfilesL PrinterProfiles;
     ProfilesL PDFXProfiles;
-    float DispX;
-    float DispY;
+    double DispX;
+    double DispY;
     QTimer *CurTimer;
     bool NoFonts;
     int HaveDoc;
@@ -164,9 +164,9 @@ class ScribusApp : public QMainWindow
 		void StoreBookmarks();
     void ReadPrefs();
 		void ManageGuides();
-		void SetTranspar(float t);
-		void SetTransparS(float t);
-		void ReportMP(float xp, float yp);
+		void SetTranspar(double t);
+		void SetTransparS(double t);
+		void ReportMP(double xp, double yp);
 		bool DoFileClose();
 		void DoSaveClose();
 		void windowsMenuAboutToShow();
@@ -244,7 +244,7 @@ class ScribusApp : public QMainWindow
   void MovePage();
   void CopyPage();
   /** Ansicht absolut zoomen */
-	void slotZoomAbs(float z);
+	void slotZoomAbs(double z);
 	/** Ansicht ganzes Blatt) */
 	void slotZoomFit();
   /** Ansicht 20 % */
@@ -340,7 +340,7 @@ class ScribusApp : public QMainWindow
 	bool SetupDoc();
 	/** Richtet Objekte aus */
 	void ObjektAlign();
-	void DoAlign(bool xa, bool ya, bool Vth, bool Vtv, float xdp, float ydp, int xart, int yart);
+	void DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, double ydp, int xart, int yart);
 	void GetAllFonts();
 	void BuildFontMenu();
 	void slotFontOrg();
@@ -378,11 +378,11 @@ class ScribusApp : public QMainWindow
 signals:
 	void TextISize(int);
 	void TextIFont(QString);
-	void TextUSval(float);
+	void TextUSval(double);
 	void TextStil(int);
 	void TextFarben(QString, QString, int, int);
 	void TextScale(int);
-	
+
 private:
 
     /** file_menu contains all items of the menubar entry "File" */
@@ -492,8 +492,8 @@ private:
     QPopupMenu *extraMenu;
     QPopupMenu *importMenu;
     QPopupMenu *exportMenu;
-    float mm2pts(int mm);
-    float pts2mm(float pts);
+    double mm2pts(int mm);
+    double pts2mm(double pts);
 		QMap<int,QString> FontID;
     int HaveGS;
     void *PSDriver;

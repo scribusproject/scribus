@@ -54,8 +54,8 @@ void Vruler::mouseMoveEvent(QMouseEvent *m)
 void Vruler::paintEvent(QPaintEvent *)
 {
 	int xx, pc;
-	float of, xl, iter, iter2;
-	float sc = doku->Scale;
+	double of, xl, iter, iter2;
+	double sc = doku->Scale;
 	switch (doku->Einheit)
 		{
 		case 0:

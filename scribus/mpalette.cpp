@@ -7,7 +7,7 @@
 #include "query.h"
 #include "scribusview.h"
 extern QPixmap loadIcon(QString nam);
-extern float UmReFaktor;
+extern double UmReFaktor;
 extern ProfilesL InputProfiles;
 
 NameWidget::NameWidget(QWidget* parent) : QLineEdit(parent)
@@ -20,8 +20,8 @@ void NameWidget::focusOutEvent(QFocusEvent *)
 }
 
 Mpalette::Mpalette( QWidget* parent, preV *Prefs)
-    : QDialog( parent, "Mfloat", false, 0)
-//    : QDialog( parent, "Mfloat", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
+    : QDialog( parent, "Mdouble", false, 0)
+//    : QDialog( parent, "Mdouble", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
 {
     setCaption( tr( "Properties" ) );
     HaveDoc = false;
@@ -38,7 +38,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     buttonGroup5 = new QButtonGroup( this, "buttonGroup5" );
     buttonGroup5->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5, 0, 0, buttonGroup5->sizePolicy().hasHeightForWidth() ) );
     buttonGroup5->setFrameShape( QButtonGroup::NoFrame );
-    buttonGroup5->setExclusive( TRUE );
+    buttonGroup5->setExclusive( true );
     buttonGroup5->setColumnLayout(0, Qt::Vertical );
     buttonGroup5->setTitle( QString::null );
     buttonGroup5->layout()->setSpacing( 0 );
@@ -212,7 +212,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     RotationGroup->layout()->setMargin( 5 );
     RotationGroupLayout = new QHBoxLayout( RotationGroup->layout() );
     RotationGroupLayout->setAlignment( Qt::AlignTop );
-    Layout12 = new QGridLayout( 0, 1, 1, 0, 0, "Layout12"); 
+    Layout12 = new QGridLayout( 0, 1, 1, 0, 0, "Layout12");
     TopLeft = new QRadioButton( RotationGroup, "TopLeft" );
     TopLeft->setText( tr( "" ) );
     TopLeft->setChecked( true );
@@ -262,7 +262,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     BottomRight->setText( tr( "" ) );
     Layout12->addWidget( BottomRight, 2, 2 );
     RotationGroupLayout->addLayout( Layout12 );
-    Layout15_2 = new QVBoxLayout( 0, 3, 0, "Layout15_2"); 
+    Layout15_2 = new QVBoxLayout( 0, 3, 0, "Layout15_2");
     Text3 = new QLabel( RotationGroup, "Text3" );
     Text3->setText( tr( "by:" ) );
     Layout15_2->addWidget( Text3 );
@@ -309,7 +309,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     EditShape->setText( tr( "Edit Shape..." ) );
     pageLayout_2->addWidget( EditShape );
 
-    Layout13 = new QHBoxLayout( 0, 0, 2, "Layout13"); 
+    Layout13 = new QHBoxLayout( 0, 0, 2, "Layout13");
 
     Text4 = new QLabel( page_2, "Text4" );
     Text4->setText( tr( "Round\nCorners:" ) );
@@ -335,7 +335,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     page_2b = new QWidget( TabStack2, "page" );
     pageLayout_2b = new QVBoxLayout( page_2b, 0, 5, "pageLayout_2");
     Distance2 = new QGroupBox( page_2b, "Distance" );
-    Distance2->setTitle( tr( "Pathtext Properites" ) );
+    Distance2->setTitle( tr( "Path Text Properites" ) );
     Distance2->setColumnLayout(0, Qt::Vertical );
     Distance2->layout()->setSpacing( 2 );
     Distance2->layout()->setMargin( 5 );
@@ -345,7 +345,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
  		NormText2->setText( tr( "Show Curve" ) );
  		DistanceLayout2->addMultiCellWidget( NormText2, 0, 0, 0, 1 );
  		TextLabel3 = new QLabel( Distance2, "TextLabel3" );
- 		TextLabel3->setText( tr( "Startoffset:" ) );
+ 		TextLabel3->setText( tr( "Start Offset:" ) );
  		DistanceLayout2->addWidget( TextLabel3, 1, 0);
  		Dist = new MSpinBox( Distance2, 1 );
  		Dist->setSuffix( tr( " pts" ) );
@@ -600,19 +600,19 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     GroupAlignLayout->addWidget( TextL, 0, 0 );
 
     TextR = new QToolButton( GroupAlign, "TextR" );
-    TextR->setMaximumSize( QSize( 22, 22 ) ); 
+    TextR->setMaximumSize( QSize( 22, 22 ) );
     TextR->setPixmap(loadIcon("text_right.png"));
     TextR->setToggleButton( true );
     GroupAlignLayout->addWidget( TextR, 0, 1 );
 
     TextC = new QToolButton( GroupAlign, "TextC" );
-    TextC->setMaximumSize( QSize( 22, 22 ) ); 
+    TextC->setMaximumSize( QSize( 22, 22 ) );
     TextC->setPixmap(loadIcon("text_center.png"));
     TextC->setToggleButton( true );
     GroupAlignLayout->addWidget( TextC, 0, 2 );
 
     TextB = new QToolButton( GroupAlign, "TextB" );
-    TextB->setMaximumSize( QSize( 22, 22 ) ); 
+    TextB->setMaximumSize( QSize( 22, 22 ) );
     TextB->setPixmap(loadIcon("text_block.png"));
     TextB->setToggleButton( true );
     GroupAlignLayout->addWidget( TextB, 0, 3 );
@@ -645,7 +645,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     GroupBox3Layout->addWidget( Text5, 0, 0 );
 
     Text6 = new QLabel( GroupBox3, "Text6" );
-    Text6->setText( tr( "Linespacing:" ) );
+    Text6->setText( tr( "Line Spacing:" ) );
 
     GroupBox3Layout->addWidget( Text6, 1, 0 );
     pageLayout_3->addWidget( GroupBox3 );
@@ -663,7 +663,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
 
     layoutLang = new QHBoxLayout( 0, 0, 5, "layout24");
     SprachT = new QLabel( page_3, "Sprache" );
-		SprachT->setText(tr("Sprache:"));
+		SprachT->setText(tr("Lang.:"));
     layoutLang->addWidget( SprachT );
     LangCombo = new QComboBox( true, page_3, "Lang" );
 		LangCombo->setEditable(false);
@@ -699,7 +699,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     layout43->addWidget( Text12, 2, 0 );
     ScaleX = new MSpinBox( page_4, 1 );
     ScaleX->setSuffix( tr( " %" ) );
-    layout43->addWidget( ScaleX, 2, 1 ); 
+    layout43->addWidget( ScaleX, 2, 1 );
     Text13 = new QLabel( page_4, "Text13" );
     Text13->setText( tr( "Vert. Scale:" ) );
     layout43->addWidget( Text13, 3, 0 );
@@ -713,13 +713,13 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     layout43->addMultiCellWidget( Kette, 2, 3, 2, 2 );
     pageLayout_4->addLayout( layout43 );
 
-    Layout24 = new QVBoxLayout( 0, 0, 3, "Layout24"); 
+    Layout24 = new QVBoxLayout( 0, 0, 3, "Layout24");
 
     FrameScale = new QRadioButton( page_4, "FixedScale" );
     FrameScale->setText( tr( "Scale to Frame Size" ) );
     Layout24->addWidget( FrameScale );
 
-    Layout18 = new QHBoxLayout( 0, 0, 6, "Layout18"); 
+    Layout18 = new QHBoxLayout( 0, 0, 6, "Layout18");
 
     Frame4 = new QFrame( page_4, "Frame4" );
     Frame4->setMinimumSize( QSize( 15, 2 ) );
@@ -765,26 +765,26 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     page_5 = new QWidget( TabStack, "page_5" );
     pageLayout_5 = new QVBoxLayout( page_5, 0, 5, "pageLayout_5");
 
-    Layout13_2 = new QHBoxLayout( 0, 0, 4, "Layout13_2"); 
+    Layout13_2 = new QHBoxLayout( 0, 0, 4, "Layout13_2");
 
     LineMode = new QComboBox( true, page_5, "LMode" );
 		LineMode->setEditable(false);
     LineMode->insertItem( tr( "Left Point" ) );
-    LineMode->insertItem( tr( "Endpoints" ) );
+    LineMode->insertItem( tr( "End Points" ) );
     Layout13_2->addWidget( LineMode );
 		LMode = false;
     QSpacerItem* spacer10 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout13_2->addItem( spacer10 );
     pageLayout_5->addLayout( Layout13_2 );
 
-    Layout12_2 = new QGridLayout( 0, 1, 1, 0, 3, "Layout12_2"); 
+    Layout12_2 = new QGridLayout( 0, 1, 1, 0, 3, "Layout12_2");
     Text8 = new QLabel( page_5, "Text8" );
-    Text8->setText( tr( "Linestyle:" ) );
+    Text8->setText( tr( "Line Style:" ) );
     Layout12_2->addWidget( Text8, 0, 0 );
     LStyle = new LineCombo(page_5);
     Layout12_2->addWidget( LStyle, 1, 0 );
     TextLabel1 = new QLabel( page_5, "TextLabel1" );
-    TextLabel1->setText( tr( "Linewidth:" ) );
+    TextLabel1->setText( tr( "Line Width:" ) );
     Layout12_2->addWidget( TextLabel1, 2, 0 );
     LSize = new MSpinBox( page_5, 1 );
     LSize->setSuffix( tr( " pt" ) );
@@ -821,7 +821,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     TabStack->addWidget(Cpal, 5);
     MpalLayout->addWidget( TabStack );
     QToolTip::add( Size, tr( "Font Size" ) );
-    QToolTip::add( LineSp, tr( "Linespacing" ) );
+    QToolTip::add( LineSp, tr( "Line Spacing" ) );
     QToolTip::add( Extra, tr( "Manual Kerning" ) );
     QToolTip::add( Revert, tr( "Reverse Writing" ) );
     QToolTip::add( Underline, tr( "Underline" ) );
@@ -1022,22 +1022,21 @@ void Mpalette::SetCurItem(PageItem *i)
 	Textflow2->setChecked(i->Textflow2);
 	ToggleFlow();
 	LangCombo->setCurrentText(i->Language);
+	bool setter;
 	if (i->NamedLStyle == "")
 		{
-		StyledLine->setCurrentItem(0);
-		LStyle->setEnabled(true);
-		LSize->setEnabled(true);
-		LJoinStyle->setEnabled(true);
-		LEndStyle->setEnabled(true);
+			StyledLine->setCurrentItem(0);
+			setter = true;
 		}
 	else
 		{
-		StyledLine->setSelected(StyledLine->findItem(i->NamedLStyle), true);
-		LStyle->setEnabled(false);
-		LSize->setEnabled(false);
-		LJoinStyle->setEnabled(false);
-		LEndStyle->setEnabled(false);
+			StyledLine->setSelected(StyledLine->findItem(i->NamedLStyle), true);
+			setter = false;
 		}
+	LStyle->setEnabled(setter);
+	LSize->setEnabled(setter);
+	LJoinStyle->setEnabled(setter);
+	LEndStyle->setEnabled(setter);
   connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	if (i->isPrintable)
@@ -1045,32 +1044,23 @@ void Mpalette::SetCurItem(PageItem *i)
 	else
 		NoPrint->setOn(true);
 	if (i->Locked)
+		setter = false;
+	else
+		setter = true;
+	Xpos->setEnabled(setter);
+	Ypos->setEnabled(setter);
+	Width->setEnabled(setter);
+	Height->setEnabled(setter);
+	Rot->setEnabled(setter);
+	RoundRect->setEnabled(setter);
+	EditShape->setEnabled(setter);
+	ShapeGroup->setEnabled(setter);
+	LayerGroup->setEnabled(setter);
+	Locked->setOn(setter);
+	if (i->Locked)
 		{
-		Xpos->setEnabled(false);
-		Ypos->setEnabled(false);
-		Width->setEnabled(false);
-		Height->setEnabled(false);
-		Rot->setEnabled(false);
-		RoundRect->setEnabled(false);
-		EditShape->setEnabled(false);
-		ShapeGroup->setEnabled(false);
-		LayerGroup->setEnabled(false);
-		Locked->setOn(true);
 		HaveItem = true;
 		return;
-		}
-	else
-		{
-		Xpos->setEnabled(true);
-		Ypos->setEnabled(true);
-		Width->setEnabled(true);
-		Height->setEnabled(true);
-		Rot->setEnabled(true);
-		RoundRect->setEnabled(true);
-		EditShape->setEnabled(true);
-		ShapeGroup->setEnabled(true);
-		LayerGroup->setEnabled(true);
-		Locked->setOn(false);
 		}
 	if (i->PType == 8)
 		{
@@ -1119,20 +1109,15 @@ void Mpalette::SetCurItem(PageItem *i)
 			{
 			updateCmsList();
 			if (i->ScaleType)
-				{
-				FreeScale->setChecked(true);
-				FrameScale->setChecked(false);
-				Aspect->setEnabled(false);
-				Aspect->setChecked(i->AspectRatio);
-				}
+				setter = true;
 			else
-				{
-				FreeScale->setChecked(false);
-				FrameScale->setChecked(true);
-				Kette->setOn(false);
-				Aspect->setEnabled(true);
+				setter = false;
+			FreeScale->setChecked(setter);
+			FrameScale->setChecked(!setter);
+				if (setter == false)
+					Kette->setOn(setter);
+				Aspect->setEnabled(!setter);
 				Aspect->setChecked(i->AspectRatio);
-				}
 			}
 		}
 	HaveItem = true;
@@ -1334,7 +1319,7 @@ void Mpalette::NewSel(int nr)
 
 void Mpalette::UnitChange()
 {
-	float old = Umrech;
+	double old = Umrech;
 	bool tmp = HaveItem;
 	HaveItem = false;
 	QString ein;
@@ -1364,16 +1349,16 @@ void Mpalette::UnitChange()
 	Height->setSuffix( ein );
 	LXpos->setSuffix( ein );
 	LYpos->setSuffix( ein );
-	Xpos->setValue(qRound(static_cast<float>(Xpos->value()) / old * UmReFaktor));
-	Ypos->setValue(qRound(static_cast<float>(Ypos->value()) / old * UmReFaktor));
-	Width->setValue(qRound(static_cast<float>(Width->value()) / old * UmReFaktor));
-	Height->setValue(qRound(static_cast<float>(Height->value()) / old * UmReFaktor));
-	LXpos->setValue(qRound(static_cast<float>(LXpos->value()) / old * UmReFaktor));
-	LYpos->setValue(qRound(static_cast<float>(LYpos->value()) / old * UmReFaktor));
+	Xpos->setValue(qRound(static_cast<double>(Xpos->value()) / old * UmReFaktor));
+	Ypos->setValue(qRound(static_cast<double>(Ypos->value()) / old * UmReFaktor));
+	Width->setValue(qRound(static_cast<double>(Width->value()) / old * UmReFaktor));
+	Height->setValue(qRound(static_cast<double>(Height->value()) / old * UmReFaktor));
+	LXpos->setValue(qRound(static_cast<double>(LXpos->value()) / old * UmReFaktor));
+	LYpos->setValue(qRound(static_cast<double>(LYpos->value()) / old * UmReFaktor));
 	HaveItem = tmp;
 }
 
-void Mpalette::setXY(float x, float y)
+void Mpalette::setXY(double x, double y)
 {
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -1384,7 +1369,7 @@ void Mpalette::setXY(float x, float y)
 	HaveItem = tmp;
 }
 
-void Mpalette::setBH(float x, float y)
+void Mpalette::setBH(double x, double y)
 {
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -1392,8 +1377,8 @@ void Mpalette::setBH(float x, float y)
 	QPoint dp;
 	if ((LMode) && (CurItem->PType == 5))
 		{
-		ma.translate(static_cast<float>(Xpos->value()) / UmReFaktor / 100.0, static_cast<float>(Ypos->value()) / UmReFaktor / 100.0);
-		ma.rotate(static_cast<float>(Rot->value())/100.0*(-1));
+		ma.translate(static_cast<double>(Xpos->value()) / UmReFaktor / 100.0, static_cast<double>(Ypos->value()) / UmReFaktor / 100.0);
+		ma.rotate(static_cast<double>(Rot->value())/100.0*(-1));
 		dp = ma * QPoint(static_cast<int>(x), static_cast<int>(y));
 		Width->setValue(qRound(dp.x()*UmReFaktor*100.0));
 		Height->setValue(qRound(dp.y()*UmReFaktor*100.0));
@@ -1407,10 +1392,10 @@ void Mpalette::setBH(float x, float y)
 	HaveItem = tmp;
 }
 
-void Mpalette::setR(float r)
+void Mpalette::setR(double r)
 {
 	bool tmp = HaveItem;
-	float rr = r;
+	double rr = r;
 	if (r > 0)
 		rr = 360 - rr;
 	HaveItem = false;
@@ -1418,7 +1403,7 @@ void Mpalette::setR(float r)
 	HaveItem = tmp;
 }
 
-void Mpalette::setRR(float r)
+void Mpalette::setRR(double r)
 {
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -1434,7 +1419,7 @@ void Mpalette::setRM(int r)
 	HaveItem = tmp;
 }
 
-void Mpalette::setLsp(float r)
+void Mpalette::setLsp(double r)
 {
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -1450,7 +1435,7 @@ void Mpalette::setSize(int s)
 	HaveItem = tmp;
 }
 
-void Mpalette::setExtra(float e)
+void Mpalette::setExtra(double e)
 {
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -1484,7 +1469,7 @@ void Mpalette::ChangeScaling()
 		}
 }
 
-void Mpalette::setLvalue(float scx, float scy, float x, float y)
+void Mpalette::setLvalue(double scx, double scy, double x, double y)
 {
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -1495,7 +1480,7 @@ void Mpalette::setLvalue(float scx, float scy, float x, float y)
 	HaveItem = tmp;
 }
 
-void Mpalette::setSvalue(float s)
+void Mpalette::setSvalue(double s)
 {
 	bool tmp = HaveItem;
 	HaveItem = false;
@@ -1643,11 +1628,11 @@ void Mpalette::NewTScale()
 
 void Mpalette::NewX()
 {
-	float x,y,w,h, gx, gy, gh, gw;
-	x = static_cast<float>(Xpos->value()) / UmReFaktor / 100.0;
-	y = static_cast<float>(Ypos->value()) / UmReFaktor / 100.0;
-	w = static_cast<float>(Width->value()) / UmReFaktor / 100.0;
-	h = static_cast<float>(Height->value()) / UmReFaktor / 100.0;
+	double x,y,w,h, gx, gy, gh, gw;
+	x = static_cast<double>(Xpos->value()) / UmReFaktor / 100.0;
+	y = static_cast<double>(Ypos->value()) / UmReFaktor / 100.0;
+	w = static_cast<double>(Width->value()) / UmReFaktor / 100.0;
+	h = static_cast<double>(Height->value()) / UmReFaktor / 100.0;
 	if ((HaveDoc) && (HaveItem))
 		{
 		if (doc->ActPage->GroupSel)
@@ -1659,7 +1644,7 @@ void Mpalette::NewX()
 			{
 			if ((CurItem->PType == 5) && (LMode))
 				{
-				float r = atan2(h-y,w-x)*(180.0/3.1415927);
+				double r = atan2(h-y,w-x)*(180.0/3.1415927);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
 				doc->ActPage->MoveItem(x - CurItem->Xpos, 0, CurItem, true);
 				doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
@@ -1674,11 +1659,11 @@ void Mpalette::NewX()
 
 void Mpalette::NewY()
 {
-	float x,y,w,h, gx, gy, gh, gw;
-	x = static_cast<float>(Xpos->value()) / UmReFaktor / 100.0;
-	y = static_cast<float>(Ypos->value()) / UmReFaktor / 100.0;
-	w = static_cast<float>(Width->value()) / UmReFaktor / 100.0;
-	h = static_cast<float>(Height->value()) / UmReFaktor / 100.0;
+	double x,y,w,h, gx, gy, gh, gw;
+	x = static_cast<double>(Xpos->value()) / UmReFaktor / 100.0;
+	y = static_cast<double>(Ypos->value()) / UmReFaktor / 100.0;
+	w = static_cast<double>(Width->value()) / UmReFaktor / 100.0;
+	h = static_cast<double>(Height->value()) / UmReFaktor / 100.0;
 	if ((HaveDoc) && (HaveItem))
 		{
 		if (doc->ActPage->GroupSel)
@@ -1690,7 +1675,7 @@ void Mpalette::NewY()
 			{
 			if ((CurItem->PType == 5) && (LMode))
 				{
-				float r = atan2(h-y,w-x)*(180.0/3.1415927);
+				double r = atan2(h-y,w-x)*(180.0/3.1415927);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
 				doc->ActPage->MoveItem(0, y - CurItem->Ypos, CurItem, true);
 				doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
@@ -1705,11 +1690,11 @@ void Mpalette::NewY()
 
 void Mpalette::NewW()
 {
-	float x,y,w,h, gx, gy, gh, gw;
-	x = static_cast<float>(Xpos->value()) / UmReFaktor / 100.0;
-	y = static_cast<float>(Ypos->value()) / UmReFaktor / 100.0;
-	w = static_cast<float>(Width->value()) / UmReFaktor / 100.0;
-	h = static_cast<float>(Height->value()) / UmReFaktor / 100.0;
+	double x,y,w,h, gx, gy, gh, gw;
+	x = static_cast<double>(Xpos->value()) / UmReFaktor / 100.0;
+	y = static_cast<double>(Ypos->value()) / UmReFaktor / 100.0;
+	w = static_cast<double>(Width->value()) / UmReFaktor / 100.0;
+	h = static_cast<double>(Height->value()) / UmReFaktor / 100.0;
 	if ((HaveDoc) && (HaveItem))
 		{
 		if (doc->ActPage->GroupSel)
@@ -1727,7 +1712,7 @@ void Mpalette::NewW()
 				{
 				if (LMode)
 					{
-					float r = atan2(h-y,w-x)*(180.0/3.1415927);
+					double r = atan2(h-y,w-x)*(180.0/3.1415927);
 					doc->ActPage->RotateItem(r, CurItem->ItemNr);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
 					}
@@ -1742,11 +1727,11 @@ void Mpalette::NewW()
 
 void Mpalette::NewH()
 {
-	float x,y,w,h, gx, gy, gh, gw;
-	x = static_cast<float>(Xpos->value()) / UmReFaktor / 100.0;
-	y = static_cast<float>(Ypos->value()) / UmReFaktor / 100.0;
-	w = static_cast<float>(Width->value()) / UmReFaktor / 100.0;
-	h = static_cast<float>(Height->value()) / UmReFaktor / 100.0;
+	double x,y,w,h, gx, gy, gh, gw;
+	x = static_cast<double>(Xpos->value()) / UmReFaktor / 100.0;
+	y = static_cast<double>(Ypos->value()) / UmReFaktor / 100.0;
+	w = static_cast<double>(Width->value()) / UmReFaktor / 100.0;
+	h = static_cast<double>(Height->value()) / UmReFaktor / 100.0;
 	if ((HaveDoc) && (HaveItem))
 		{
 		if (doc->ActPage->GroupSel)
@@ -1764,7 +1749,7 @@ void Mpalette::NewH()
 				{
 				if (LMode)
 					{
-					float r = atan2(h-y,w-x)*(180.0/3.1415927);
+					double r = atan2(h-y,w-x)*(180.0/3.1415927);
 					doc->ActPage->RotateItem(r, CurItem->ItemNr);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
 					}
@@ -1783,7 +1768,7 @@ void Mpalette::NewR()
 		{
 		if (doc->ActPage->GroupSel)
 			return;
-		doc->ActPage->RotateItem(static_cast<float>(Rot->value())/100.0*(-1), CurItem->ItemNr);
+		doc->ActPage->RotateItem(static_cast<double>(Rot->value())/100.0*(-1), CurItem->ItemNr);
 		emit DocChanged();
 		}
 }
@@ -1802,7 +1787,7 @@ void Mpalette::NewLsp()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		doc->ActPage->ChLineSpa(static_cast<float>(LineSp->value())/10.0);
+		doc->ActPage->ChLineSpa(static_cast<double>(LineSp->value())/10.0);
 		emit DocChanged();
 		}
 }
@@ -1822,14 +1807,14 @@ void Mpalette::NewExtra()
 		{
 		if ((CurItem->HasSel) || (doc->AppMode == 1))
 			{
-			doc->ActPage->chKerning(static_cast<float>(Extra->value())/10);
+			doc->ActPage->chKerning(static_cast<double>(Extra->value())/10);
 			emit DocChanged();
 			}
 		else
 			{
 			if (uint(CurItem->CPos) != CurItem->Ptext.count())
 				{
-				CurItem->Ptext.at(CurItem->CPos)->cextra = static_cast<float>(Extra->value())/10;
+				CurItem->Ptext.at(CurItem->CPos)->cextra = static_cast<double>(Extra->value())/10;
 				CurItem->Dirty = true;
 				doc->ActPage->RefreshItem(CurItem);
 				emit DocChanged();
@@ -1842,7 +1827,7 @@ void Mpalette::NewLocalXY()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		doc->ActPage->ChLocalXY(static_cast<float>(LXpos->value()) / UmReFaktor / 100.0, static_cast<float>(LYpos->value()) / UmReFaktor / 100.0);
+		doc->ActPage->ChLocalXY(static_cast<double>(LXpos->value()) / UmReFaktor / 100.0, static_cast<double>(LYpos->value()) / UmReFaktor / 100.0);
 		emit DocChanged();
 		}
 }
@@ -1851,7 +1836,7 @@ void Mpalette::NewLocalSC()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		doc->ActPage->ChLocalSc(static_cast<float>(ScaleX->value()) / 1000.0, static_cast<float>(ScaleY->value()) / 1000.0);
+		doc->ActPage->ChLocalSc(static_cast<double>(ScaleX->value()) / 1000.0, static_cast<double>(ScaleY->value()) / 1000.0);
 		emit DocChanged();
 		}
 }
@@ -1860,7 +1845,7 @@ void Mpalette::NewLS()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		doc->ActPage->ChLineWidth(static_cast<float>(LSize->value())/10.0);
+		doc->ActPage->ChLineWidth(static_cast<double>(LSize->value())/10.0);
 		emit DocChanged();
 		}
 }
@@ -1971,7 +1956,7 @@ void Mpalette::ToggleKette()
 		{
 		ScaleY->setValue(ScaleX->value());
 		NewLocalSC();
-		}	
+		}
 }
 
 void Mpalette::HChange()
@@ -2196,10 +2181,10 @@ void Mpalette::NewTDist()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		CurItem->Extra = static_cast<float>(DLeft->value()) / 10;
-		CurItem->TExtra = static_cast<float>(DTop->value()) / 10;
-		CurItem->BExtra = static_cast<float>(DBottom->value()) / 10;
-		CurItem->RExtra = static_cast<float>(DRight->value()) / 10;
+		CurItem->Extra = static_cast<double>(DLeft->value()) / 10;
+		CurItem->TExtra = static_cast<double>(DTop->value()) / 10;
+		CurItem->BExtra = static_cast<double>(DBottom->value()) / 10;
+		CurItem->RExtra = static_cast<double>(DRight->value()) / 10;
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
 		}
@@ -2251,22 +2236,15 @@ void Mpalette::SetSTline(QListBoxItem *c)
 {
 	if (c == NULL)
   	return;
-  if (c->listBox()->currentItem() == 0)
-		{
+  bool setter = c->listBox()->currentItem() == 0 ? false : true;
+  if (setter == true)
 		CurItem->NamedLStyle = "";
-		LStyle->setEnabled(true);
-		LSize->setEnabled(true);
-		LJoinStyle->setEnabled(true);
-		LEndStyle->setEnabled(true);
-		}
 	else
-		{
 		CurItem->NamedLStyle = c->text();
-		LStyle->setEnabled(false);
-		LSize->setEnabled(false);
-		LJoinStyle->setEnabled(false);
-		LEndStyle->setEnabled(false);
-		}
+	LStyle->setEnabled(setter);
+	LSize->setEnabled(setter);
+	LJoinStyle->setEnabled(setter);
+	LEndStyle->setEnabled(setter);
 	doc->ActPage->RefreshItem(CurItem);
 	emit DocChanged();
 }
@@ -2314,9 +2292,7 @@ void Mpalette::updateCmsList()
 			{
 			InputP->insertItem(itP.key());
   		if (itP.key() == CurItem->IProfile)
-  			{
   			InputP->setCurrentItem(InputP->count()-1);
-  			}
 			}
 		if (!InputProfiles.contains(CurItem->IProfile))
 			{
@@ -2550,7 +2526,7 @@ void Mpalette::handlePathDist()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		CurItem->Extra = static_cast<float>(Dist->value()) / 10;
+		CurItem->Extra = static_cast<double>(Dist->value()) / 10;
 		doc->ActPage->UpdatePolyClip(CurItem);
 		doc->ActPage->AdjustItemSize(CurItem);
 		doc->ActPage->RefreshItem(CurItem);
@@ -2562,7 +2538,7 @@ void Mpalette::handlePathOffs()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		CurItem->BaseOffs = static_cast<float>(-LineW->value()) / 10;
+		CurItem->BaseOffs = static_cast<double>(-LineW->value()) / 10;
 		doc->ActPage->UpdatePolyClip(CurItem);
 		doc->ActPage->AdjustItemSize(CurItem);
 		doc->ActPage->RefreshItem(CurItem);

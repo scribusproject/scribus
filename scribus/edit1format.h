@@ -19,7 +19,7 @@ class EditStyle : public QDialog
     Q_OBJECT
 
 public:
-    EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs, float au);
+    EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs, double au);
     ~EditStyle() {};
 
     QLabel* TextLabel1;
@@ -53,7 +53,7 @@ public:
     QValueList<StVorL> allV;
     QString OldName;
     bool IsNew;
-		float AutoVal;
+		double AutoVal;
 
 private slots:
 		void Verlassen();

@@ -22,7 +22,7 @@ class ReformDoc : public QDialog
     Q_OBJECT
 
 public:
-    ReformDoc( QWidget* parent, float t, float l, float r, float b, float Pagebr, float Pageho, bool fp, bool fpe, int Einh );
+    ReformDoc( QWidget* parent, double t, double l, double r, double b, double Pagebr, double Pageho, bool fp, bool fpe, int Einh );
     ~ReformDoc() {};
 
     QGroupBox* GroupBox7;

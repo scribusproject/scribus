@@ -69,7 +69,7 @@ private slots:
 
 public slots:
 		void MoveN();
-		void SetXY(float x, float y);
+		void SetXY(double x, double y);
 		void HaveNode(bool have, bool mov);
 		void IsOpen();
 		void PolyStatus(int typ, uint size);

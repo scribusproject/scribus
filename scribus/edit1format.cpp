@@ -3,7 +3,7 @@
 extern QPixmap loadIcon(QString nam);
 #include <qmessagebox.h>
 
-EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs, float au)
+EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs, double au)
     : QDialog( parent, "EditST", true, 0)
 {
     setCaption( tr( "Edit Style" ) );
@@ -183,7 +183,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     LineSpVal->setLineStep(10);
     LineSpVal->setValue(qRound(vor->LineSpa * 10));
     AbstandVLayout->addWidget( LineSpVal, 2, 1 );
-	
+
     TextLabel3 = new QLabel( AbstandV, "TextLabel3" );
     TextLabel3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, TextLabel3->sizePolicy().hasHeightForWidth() ) );
     TextLabel3->setMinimumSize( QSize( 90, 22 ) );
@@ -271,11 +271,11 @@ void EditStyle::Verlassen()
 		werte->Ausri = 3;
 	if (Forced->isChecked())
 		werte->Ausri = 4;
-	werte->LineSpa = static_cast<float>(LineSpVal->value()) / 10;
-	werte->Indent = static_cast<float>(LeftInd->value() / 10);
-	werte->First = static_cast<float>(FirstLin->value() / 10);
-	werte->Avor = static_cast<float>(AboveV->value() / 10);
-	werte->Anach = static_cast<float>(BelowV->value() / 10);
+	werte->LineSpa = static_cast<double>(LineSpVal->value()) / 10;
+	werte->Indent = static_cast<double>(LeftInd->value() / 10);
+	werte->First = static_cast<double>(FirstLin->value() / 10);
+	werte->Avor = static_cast<double>(AboveV->value() / 10);
+	werte->Anach = static_cast<double>(BelowV->value() / 10);
 	werte->Vname = Name->text();
 	werte->Font = FontC->currentText();
 	werte->FontSize = SizeC->value();

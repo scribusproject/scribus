@@ -35,7 +35,7 @@
 class PageItem : public QObject  {
 
 public: 
-	PageItem(Page* pa, int art, float x, float y, float w, float h, float w2, QString fill, QString outline, ScribusDoc *doc);
+	PageItem(Page* pa, int art, double x, double y, double w, double h, double w2, QString fill, QString outline, ScribusDoc *doc);
 	~PageItem() {};
 	struct ZZ { QString Zeich;
 					 QString Farb;
@@ -43,13 +43,13 @@ public:
 					 int shade;
 					 int shade2;
 					 QString ZFo;
-					 float xco;
-					 float yco;
+					 double xco;
+					 double yco;
 					 bool Sele;
 					 int Siz;
 				   int Style;
-					 float wide;
-					 float kern;
+					 double wide;
+					 double kern;
 					 int scale;
 				  };
   /** Zeichnet das Item */
@@ -65,19 +65,19 @@ public:
 	bool Locked;
 	bool Reverse;
   /** X-Position auf der Seite */
-  float Xpos;
+  double Xpos;
   /** Y-Position auf der Seite */
-  float Ypos;
+  double Ypos;
   /** Breite des Elements */
-  float Width;
+  double Width;
   /** Hoehe des Elements */
-  float Height;
+  double Height;
   /** Eckrundung von Rechtecken */
-  float RadRect;
+  double RadRect;
   /** Art des Items */
   int PType;
   /** Winkel um den das Item gedreht wird */
-  float Rot;
+  double Rot;
   /** Enthaelt das uebergeordnete Objekt */
   QWidget *Parent;
   /** Enthaelt das Dokument */
@@ -102,7 +102,7 @@ public:
 	int TxtScale;
 	int TxTStyle;
   /** Strichstaerke */
-  float Pwidth;
+  double Pwidth;
   /** Linienart */
   PenStyle PLineArt;
   PenCapStyle PLineEnd;
@@ -115,7 +115,7 @@ public:
 	FPointArray PoLine;
 	QValueList<uint> Segments;
 	bool PoShow;
-	float BaseOffs;
+	double BaseOffs;
   bool ClipEdited;
   int FrameType;
   /** Interne Item-Nummer */
@@ -139,15 +139,15 @@ public:
   /** Bild verfuegbar */
   bool PicAvail;
   /** Lokales Scaling x*/
-  float LocalScX;
-	float LocalViewX;
+  double LocalScX;
+	double LocalViewX;
   /** Lokales Scaling y*/
-  float LocalScY;
-	float LocalViewY;
+  double LocalScY;
+	double LocalViewY;
   /** Lokales X */
-  float LocalX;
+  double LocalX;
   /** Lokales Y */
-  float LocalY;
+  double LocalY;
 	int OrigW;
 	int OrigH;
   /** Anzahl horizontaler Spiegelungen */
@@ -155,20 +155,20 @@ public:
   /** Anzahl vertikaler Spiegelungen */
   int flippedV;
   /** BoundigBox-X */
-  float BBoxX;
+  double BBoxX;
   /** BoundingBox-H */
-  float BBoxH;
+  double BBoxH;
   /** Extra Abstand vom Rand */
-  float Extra;
-  float TExtra;
-  float BExtra;
-  float RExtra;
+  double Extra;
+  double TExtra;
+  double BExtra;
+  double RExtra;
   /** Linespacing */
-  float LineSp;
+  double LineSp;
   /** Zeichen X-Position */
-  float CurX;
+  double CurX;
   /** Zeichen Y-Position */
-  float CurY;
+  double CurY;
   /** Cursorposition */
   int CPos;
   /** Text des Elements */
@@ -235,23 +235,23 @@ public:
   int Ausrich;
   uint MaxChars;
   bool Redrawn;
-  float ExtraV;
+  double ExtraV;
   bool isRaster;
-  float OldB;
-  float OldH;
-  float OldB2;
-  float OldH2;
+  double OldB;
+  double OldH;
+  double OldB2;
+  double OldH2;
   bool Sizing;
   bool toPixmap;
 	int LayerNr;
 	bool ScaleType;
 	bool AspectRatio;
-	float Transparency;
-	float TranspStroke;
+	double Transparency;
+	double TranspStroke;
   QValueStack<int> Groups;
 	bool InvPict;
-	QValueList<float> DashValues;
-	float DashOffset;
+	QValueList<double> DashValues;
+	double DashOffset;
 	VGradient fill_gradient;
 	QString Language;
 };

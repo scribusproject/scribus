@@ -27,20 +27,20 @@ class FPoint
 {
 public: 
 	FPoint() {};
-	FPoint(float x, float y);
+	FPoint(double x, double y);
 	FPoint(QPoint p);
 	~FPoint() {};
-	float x();
-	float y();
-	void setX(float x);
-	void setY(float y);
+	double x();
+	double y();
+	void setX(double x);
+	void setY(double y);
 	bool operator==(const FPoint &rhs);
 	bool operator!=(const FPoint &rhs);
 	FPoint &operator+=( const FPoint &p );
 	FPoint &operator-=( const FPoint &p );
 private:
-	float xp;
-	float yp;
+	double xp;
+	double yp;
 };
 
 #endif

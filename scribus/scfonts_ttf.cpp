@@ -10,7 +10,7 @@
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
-extern FPointArray traceChar(FT_Face face, uint chr, int chs, float *x, float *y);
+extern FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y);
 
 QString Foi_ttf::RealName()
 {
@@ -25,7 +25,7 @@ bool Foi_ttf::ReadMetrics()
 	ItalicAngle = "0";
 	StdVW = "1";
 	FontBBox = "0 0 0 0";
-	IsFixedPitch = false;	
+	IsFixedPitch = false;
 	if(metricsread)
 		return(true);
 	CharWidth.clear();
@@ -37,11 +37,11 @@ bool Foi_ttf::ReadMetrics()
 	FT_UInt   gindex;
 	FT_Face   face;
 	FPointArray outlines;
-	float x, y;
+	double x, y;
 	struct GlyphR GRec;
 	error = FT_Init_FreeType( &library );
 	error = FT_New_Face( library, Datei, 0, &face );
-	uniEM = static_cast<float>(face->units_per_EM);
+	uniEM = static_cast<double>(face->units_per_EM);
 	HasKern = FT_HAS_KERNING(face);
 	Ascent = tmp.setNum(face->ascender * 1000 / uniEM);
 	Descender = tmp.setNum(face->descender * 1000 / uniEM);

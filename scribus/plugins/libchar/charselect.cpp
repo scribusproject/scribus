@@ -82,7 +82,7 @@ void ChTable::contentsMousePressEvent(QMouseEvent* e)
 		QWMatrix chma;
 		chma.scale(4.8, 4.8);
 		FPointArray gly = (*ap->doc->AllFonts)[ap->doc->CurrFont]->GlyphArray[par->Zeich[r*32+c]].Outlines.copy();
-		float ww = bh - (*ap->doc->AllFonts)[ap->doc->CurrFont]->CharWidth[par->Zeich[r*32+c]]*48;
+		double ww = bh - (*ap->doc->AllFonts)[ap->doc->CurrFont]->CharWidth[par->Zeich[r*32+c]]*48;
 		if (gly.size() > 4)
 			{
 			gly.map(chma);

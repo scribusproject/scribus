@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
   	if (Arg1 == "--help")
   		{
   		std::cout << endl;
-  		std::cout << "Scribus, a DTP-Program for Linux." << endl;
+  		std::cout << "Scribus, a DTP-Program" << endl;
   		std::cout << endl;
   		std::cout << "Usage:" << endl;
   		std::cout << "scribus --version  -> prints Version-Number and exits." << endl;

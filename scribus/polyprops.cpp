@@ -16,11 +16,11 @@
 
 extern int PolyC;
 extern int PolyFd;
-extern float PolyF;
+extern double PolyF;
 extern bool PolyS;
-extern float PolyR;
+extern double PolyR;
 extern QPixmap loadIcon(QString nam);
-extern QPointArray RegularPolygon(float w, float h, uint c, bool star, float factor, float rota);
+extern QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
 
 PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
 {
@@ -28,7 +28,7 @@ PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
   	setIcon(loadIcon("AppIcon.xpm"));
 		Pre = new QPixmap(101, 101);
 		Pre->fill(white);
-    PolygonPropsLayout = new QVBoxLayout( this, 10, 5, "PolygonPropsLayout"); 
+    PolygonPropsLayout = new QVBoxLayout( this, 10, 5, "PolygonPropsLayout");
     Layout11 = new QHBoxLayout( 0, 0, 5, "Layout11");
     Layout10 = new QVBoxLayout( 0, 0, 5, "Layout10");
     Layout2 = new QHBoxLayout( 0, 0, 5, "Layout2");
@@ -106,7 +106,7 @@ PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
     Layout11->addWidget( Preview );
     PolygonPropsLayout->addLayout( Layout11 );
 
-    Layout1_2 = new QHBoxLayout( 0, 0, 6, "Layout1_2"); 
+    Layout1_2 = new QHBoxLayout( 0, 0, 6, "Layout1_2");
     PushButton1 = new QPushButton( this, "PushButton1" );
     PushButton1->setMinimumSize( QSize( 90, 0 ) );
     PushButton1->setText( tr( "OK" ) );
@@ -164,7 +164,7 @@ void PolygonProps::UpdatePreView()
 	if ((br.height() > 100) || (br.width() > 100))
 		{
 		QWMatrix ma;
-		float sca = 100.0 / static_cast<float>(QMAX(br.width(), br.height()));
+		double sca = 100.0 / static_cast<double>(QMAX(br.width(), br.height()));
 		ma.scale(sca, sca);
 		pp = ma * pp;
 		}
@@ -173,15 +173,15 @@ void PolygonProps::UpdatePreView()
 	Preview->setPixmap(*Pre);
 }
 
-float PolygonProps::GetZeroFaktor()
+double PolygonProps::GetZeroFaktor()
 {
 	return sqrt(pow(1,2)-pow(((sin((360.0/(Ecken->value()*2))/180*M_PI)* 2.0)/2.0),2));
 }
 
-float PolygonProps::GetMaxFaktor()
+double PolygonProps::GetMaxFaktor()
 {
-	float win = (360.0/(Ecken->value()*2)) / 180.0 * M_PI;
-	float ret;
+	double win = (360.0/(Ecken->value()*2)) / 180.0 * M_PI;
+	double ret;
 	if ((360.0/(Ecken->value()*2)) > 45)
 		ret = 1/sin(win);
 	else
@@ -189,7 +189,7 @@ float PolygonProps::GetMaxFaktor()
 	return ret;
 }
 
-float PolygonProps::GetFaktor()
+double PolygonProps::GetFaktor()
 {
 	int val = Slider1->value();
 	if (val < 0)
@@ -198,8 +198,8 @@ float PolygonProps::GetFaktor()
 		}
 	else
 		{
-		float ma = GetMaxFaktor();
-		float mi = GetZeroFaktor();
+		double ma = GetMaxFaktor();
+		double mi = GetZeroFaktor();
 		PFactor = ((ma - mi) * val / 100.0) + mi;
 		}
 	return PFactor;

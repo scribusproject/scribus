@@ -146,18 +146,11 @@ void LineFormate::UpdateFList()
 		}
 	if (ListBox1->count() > 0)
 		ListBox1->setSelected(ListBox1->findItem(sFnumber), true);
-	if (ListBox1->count() == 0)
-		{
+	bool setter = ListBox1->count() == 0 ? true : false;
+	if (setter == false)
 		sFnumber = "";
-   	DublicateB->setEnabled(false);
-   	EditB->setEnabled(false);
-    DeleteB->setEnabled(false);
-		}
-	else
-		{
-		EditB->setEnabled(true);
-		DublicateB->setEnabled(true);
-		DeleteB->setEnabled(true);
-		}
+  DublicateB->setEnabled(setter);
+  EditB->setEnabled(setter);
+  DeleteB->setEnabled(setter);
 	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
 }

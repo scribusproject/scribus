@@ -30,7 +30,7 @@
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
-extern FPointArray traceChar(FT_Face face, uint chr, int chs, float *x, float *y);
+extern FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y);
 
 extern bool loadText(QString nam, QString *Buffer);
 extern bool GlyNames(QMap<uint, QString> *GList, QString Dat);
@@ -156,7 +156,7 @@ class Foi_postscript : public Foi
 			CharWidth.clear();
 			GlyphArray.clear();
 			QString tmp;
-			float x, y;
+			double x, y;
 			FPointArray outlines;
 			struct GlyphR GRec;
 			bool			error;
@@ -176,7 +176,7 @@ class Foi_postscript : public Foi
 				UseFont = false;
 				return false;
 				}
-			uniEM = static_cast<float>(face->units_per_EM);
+			uniEM = static_cast<double>(face->units_per_EM);
 			QString afnm = Datei.left(Datei.length()-3);
 			QFile afm(afnm+"afm");
 			if(!(afm.exists()))
@@ -289,7 +289,7 @@ class Foi_pfb : public Foi_postscript
 					posi += 6;
 					for (uint j = posi; j < bb.size(); ++j)
 					{
-						if ((bb[j] == char(0x80)) && (static_cast<int>(bb[j+1]) == 3))
+						if ((bb[j] == static_cast<char>(0x80)) && (static_cast<int>(bb[j+1]) == 3))
 							break;
 						if(bb[j]=='\r')
 							str+="\n";

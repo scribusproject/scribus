@@ -17,7 +17,7 @@
 
 #include "fpoint.h"
 
-FPoint::FPoint(float x, float y)
+FPoint::FPoint(double x, double y)
 {
 	xp = x;
 	yp = y;
@@ -29,22 +29,22 @@ FPoint::FPoint(QPoint p)
 	yp = p.y();
 }
 
-float FPoint::x()
+double FPoint::x()
 {
 	return xp;
 }
 
-float FPoint::y()
+double FPoint::y()
 {
 	return yp;
 }
 
-void FPoint::setX(float x)
+void FPoint::setX(double x)
 {
 	xp = x;
 }
 
-void FPoint::setY(float y)
+void FPoint::setY(double y)
 {
 	yp = y;
 }

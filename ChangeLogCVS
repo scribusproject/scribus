@@ -1,4 +1,7 @@
 Changes since Version 1.1.1
+16.10.2003	Included Paul patches with only one small correction.
+		Updated the German translation.
+
 15.10.2003	Made some improvements to linked Textframes.
 
 13.10.2003	Fixed crash when doubleclicking an empty Textframe.

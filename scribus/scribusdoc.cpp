@@ -162,7 +162,7 @@ bool ScribusDoc::isModified() const
   return modified;
 }
 /** Setzt die Seitenattribute */
-void ScribusDoc::setPage(float b, float h, float t, float l, float r, float bo, float sp, float ab, bool atf, bool fp)
+void ScribusDoc::setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, bool fp)
 {
 	PageB = b;
 	PageH = h;
@@ -176,7 +176,7 @@ void ScribusDoc::setPage(float b, float h, float t, float l, float r, float bo, 
 	PageAT = atf;
 }
 
-void ScribusDoc::resetPage(float t, float l, float r, float bo, bool fp)
+void ScribusDoc::resetPage(double t, double l, double r, double bo, bool fp)
 {
 	PageM.Top = t;
 	PageM.Left = l;

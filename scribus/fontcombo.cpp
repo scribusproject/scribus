@@ -24,10 +24,6 @@ FontListItem::FontListItem(QComboBox* parent, QString f, QFont fo) : QListBoxIte
 	setText(fontName);
 }
 
-FontListItem::~FontListItem()
-{
-}
-
 int FontListItem::width(const QListBox *lb) const
 {
 	return lb->fontMetrics().width(text()) + 2;

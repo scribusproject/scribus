@@ -18,7 +18,7 @@
 #include "fpointarray.h"
 #include <cstdarg>
 
-void FPointArray::setPoint(uint i, float x, float y)
+void FPointArray::setPoint(uint i, double x, double y)
 {
 	QMemArray<FPoint>::at( i ) = FPoint( x, y );
 }
@@ -35,13 +35,13 @@ bool FPointArray::setPoints( int nPoints, double firstx, double firsty, ... )
 		return false;
 	setPoint( 0, firstx, firsty );
 	int i = 1;
-	float x, y;
+	double x, y;
 	nPoints--;
 	va_start( ap, firsty );
 	while ( nPoints-- )
 		{
-		x = static_cast<float>(va_arg( ap, double ));
-		y = static_cast<float>(va_arg( ap, double ));
+		x = static_cast<double>(va_arg( ap, double ));
+		y = static_cast<double>(va_arg( ap, double ));
 		setPoint( i++, x, y );
     }
 	va_end( ap );
@@ -60,13 +60,13 @@ bool FPointArray::putPoints( int index, int nPoints, double firstx, double first
 		return true;
 	setPoint( index, firstx, firsty );		// set first point
 	int i = index + 1;
-	float x, y;
+	double x, y;
 	nPoints--;
 	va_start( ap, firsty );
 	while ( nPoints-- )
 		{
-		x = static_cast<float>(va_arg(ap, double));
-		y = static_cast<float>(va_arg(ap, double));
+		x = static_cast<double>(va_arg(ap, double));
+		y = static_cast<double>(va_arg(ap, double));
 		setPoint( i++, x, y );
 		}
 	va_end( ap );
@@ -91,7 +91,7 @@ bool FPointArray::putPoints( int index, int nPoints, const FPointArray & from, i
 	return true;
 }
 
-void FPointArray::point(uint i, float *x, float *y)
+void FPointArray::point(uint i, double *x, double *y)
 {
 	FPoint p = QMemArray<FPoint>::at(i);
 	if (x)
@@ -112,7 +112,7 @@ QPoint FPointArray::pointQ(uint i)
 	return r;
 }
 
-void FPointArray::translate( float dx, float dy )
+void FPointArray::translate( double dx, double dy )
 {
   FPoint *p = data();
   int i = size();
@@ -130,7 +130,7 @@ FPoint FPointArray::WidthHeight()
 	if ( isEmpty() )
 		return FPoint( 0.0, 0.0 );		// null rectangle
 	FPoint *pd = data();
-	float minx, maxx, miny, maxy;
+	double minx, maxx, miny, maxy;
 	minx = maxx = pd->x();
 	miny = maxy = pd->y();
 	pd++;
@@ -154,7 +154,7 @@ FPoint FPointArray::WidthHeight()
 void FPointArray::map( QWMatrix m )
 {
 	FPoint *p = data();
-	float mx, my;
+	double mx, my;
 	int i = size();
 	while ( i-- )
 		{
@@ -181,7 +181,7 @@ void FPointArray::setMarker()
 	addPoint(999999.0, 999999.0);
 }
 
-void FPointArray::addPoint(float x, float y)
+void FPointArray::addPoint(double x, double y)
 {
 	resize(size()+1);
 	setPoint(size()-1, FPoint(x, y));

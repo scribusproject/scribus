@@ -47,7 +47,7 @@ public:
 	QPixmap pmx;
 	
 signals:
-	void Coords(float x, float y);
+	void Coords(double x, double y);
 };
 
 #endif

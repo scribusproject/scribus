@@ -43,8 +43,8 @@ public:
 		Page* pag;
 		int curX;
 		int curY;
-		QValueList<float> XLocal;
-		QValueList<float> YLocal;
+		QValueList<double> XLocal;
+		QValueList<double> YLocal;
 
 private slots:
 		void HandleLock();

@@ -181,7 +181,7 @@ msgstr "OK"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-msgid "Autom. Textframes"
+msgid "Autom. Text Frames"
 msgstr "Autom. Textrahmen"
 
 msgid "W:"
@@ -833,7 +833,7 @@ msgstr "Versatz:"
 msgid "Small Caps"
 msgstr "Kapitälchen"
 
-msgid "Typographics"
+msgid "Typography"
 msgstr "Typografie"
 
 msgid "Italic"
@@ -1679,7 +1679,7 @@ msgstr "Befehl:"
 msgid "Orientation:"
 msgstr "Ausrichtung:"
 
-msgid "First Pagenumber:"
+msgid "First Page Number:"
 msgstr "Erste Seitennummer:"
 
 msgid "Default Unit:"
@@ -2894,6 +2894,9 @@ msgstr "Grafiken glätten"
 msgid "Keywords:"
 msgstr "Suchbegriffe:"
 
+msgid "Line Spacing:"
+msgstr "Zeilenabstand:"
+
 msgid "Line Spacing"
 msgstr "Zeilenabstand"
 
@@ -2920,4 +2923,7 @@ msgstr "Linienstil:"
 
 msgid "Display Unprintable Area in Margin Color"
 msgstr "Nichtdruckbaren Bereich mit Randfarbe einfärben"
+
+msgid "Lang.:"
+msgstr "Sprache:"
 

@@ -1,7 +1,7 @@
 #include "guidemanager.h"
 #include "guidemanager.moc"
 extern QPixmap loadIcon(QString nam);
-extern float UmReFaktor;
+extern double UmReFaktor;
  
 GuideManager::GuideManager( QWidget* parent, Page* page, int Einh)
     : QDialog( parent, "GuideManager", true, 0 )

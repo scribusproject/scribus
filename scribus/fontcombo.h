@@ -31,7 +31,7 @@ class FontListItem : public QListBoxItem
 {
 public:
     FontListItem(QComboBox* parent, QString f, QFont fo);
-    virtual ~FontListItem();
+    virtual ~FontListItem() {};
 
     virtual int width(const QListBox *) const;
     virtual int height(const QListBox *) const;

@@ -29,12 +29,12 @@
 #include "config.h"
 #include <ft2build.h>
 #include FT_GLYPH_H
-extern float Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
+extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
-extern float xy2Deg(float x, float y);
+extern double xy2Deg(double x, double y);
 extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 
-PageItem::PageItem(Page *pa, int art, float x, float y, float w, float h, float w2, QString fill, QString outline, ScribusDoc *doc) : QObject(pa)
+PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, double w2, QString fill, QString outline, ScribusDoc *doc) : QObject(pa)
 {
 	QString tmp;
 	BackBox = 0;
@@ -80,7 +80,7 @@ PageItem::PageItem(Page *pa, int art, float x, float y, float w, float h, float 
 	FrameType = 0;
 	IFont = Doc->Dfont;
 	ISize = Doc->Dsize;
-	LineSp = (Doc->Dsize * static_cast<float>(Doc->AutoLine) / 100) + Doc->Dsize;
+	LineSp = (Doc->Dsize * static_cast<double>(Doc->AutoLine) / 100) + Doc->Dsize;
 	Doc->Vorlagen[0].LineSpa = LineSp;
 	CurX = 0;
 	CurY = 0;
@@ -209,8 +209,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	uint a, nrc, nrc2, zae;
 	int desc, asce, absa, aSpa, chs;
 	uint BuPos, LastSP, BuPos2;
-	float oldCurY, LastXp, EndX, OFs, OFs2, wide, rota, wid;
-	float sc = Doc->Scale;
+	double oldCurY, LastXp, EndX, OFs, OFs2, wide, rota, wid;
+	double sc = Doc->Scale;
 	QString chx, chx2, chx3;
 	struct Pti *hl;
 	struct ZZ *Zli;
@@ -396,10 +396,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					else
 						pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), pixm);
-					pmd.setMask(bmd);
-					QImage ip2 = pmd.convertToImage();
-					p->drawImage(ip2);
 					}
+				pmd.setMask(bmd);
+				QImage ip2 = pmd.convertToImage();
+				p->drawImage(ip2);
 				pd.end();
 				}
 			break;
@@ -1038,7 +1038,10 @@ NoRoom: if (NextBox != 0)
 				{
 				zae++;
 				if (zae == cl.size()-1)
-					goto PfadEnd;
+				{
+					MaxChars = Ptext.count();
+					break;
+				}
 				wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
 				}
 			rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
@@ -1079,7 +1082,10 @@ NoRoom: if (NextBox != 0)
 								{
 								zae++;
 								if (zae == cl.size()-1)
-									goto PfadEnd;
+								{
+									MaxChars = Ptext.count();
+									break;
+								}
 								wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
 								rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
 								}
@@ -1090,7 +1096,10 @@ NoRoom: if (NextBox != 0)
 						CurX = EndX + wid;
 						}
 					else
-						goto PfadEnd;
+					{
+						MaxChars = Ptext.count();
+						break;
+					}
 					}
 				p->save();
 				p->translate(cl.point(zae).x()*sc, cl.point(zae).y()*sc);
@@ -1132,8 +1141,6 @@ NoRoom: if (NextBox != 0)
 				p->setZoomFactor(sc);
 				CurX += wide+hl->cextra;
 				}
-PfadEnd:	MaxChars = Ptext.count();
-			break;
 		default:
 			break;
 		}
@@ -1264,7 +1271,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 						pr.setBrush(red);
 						}
 					if (PType != 5)
-						{				
+						{
 						pr.drawRect(-1, -1, 6, 6);
 						pr.drawRect(static_cast<int>(Width*Doc->Scale), static_cast<int>(Height*Doc->Scale), -6, -6);
 						pr.drawRect(static_cast<int>(Width*Doc->Scale), -1, -6, 6);
@@ -1328,7 +1335,7 @@ void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 		{
 		Doc->PageColors[farbe].getRGBColor().hsv(&h, &s, &v);
 		sneu = 255 - ((255 - v) * shad / 100);
-		tmp->setHsv(h, s, sneu);			
+		tmp->setHsv(h, s, sneu);
 		}
 	else
 		{
@@ -1372,7 +1379,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		ccx = " ";
 	if (ccx == QChar(13))
 		return;
-	float csi = static_cast<double>(hl->Siz) / 10.0;
+	double csi = static_cast<double>(hl->Siz) / 10.0;
 	uint chr = ccx[0].unicode();
 	if ((*Doc->AllFonts)[hl->ZFo]->CharWidth.contains(chr))
 		{
@@ -1410,13 +1417,13 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 		if (hl->Style & 16)
 			{
 			p->setPen(p->brush());
-			float st = (*Doc->AllFonts)[hl->ZFo]->strikeout_pos * hl->Siz;
+			double st = (*Doc->AllFonts)[hl->ZFo]->strikeout_pos * hl->Siz;
 			p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * hl->Siz, 1));
 			p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
 			}
 		if (hl->Style & 8)
 			{
-			float st = (*Doc->AllFonts)[hl->ZFo]->underline_pos * hl->Siz;
+			double st = (*Doc->AllFonts)[hl->ZFo]->underline_pos * hl->Siz;
 			QString dummy;
 			p->setPen(p->brush());
 			p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * hl->Siz, 1));

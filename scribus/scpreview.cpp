@@ -12,10 +12,10 @@
 #include <cmath>
 #include <cstdlib>
 #include "missing.h"
-extern float QStoFloat(QString in);
+extern double QStodouble(QString in);
 extern int QStoInt(QString in);
 extern QString GetAttr(QDomElement *el, QString at, QString def="0");
-extern float xy2Deg(float x, float y);
+extern double xy2Deg(double x, double y);
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern QImage LoadPict(QString fn);
 
@@ -39,7 +39,7 @@ QPixmap ScPreview::createPreview(QString data)
 	QMap<QString,QFont> DoFonts2;
 	QString tmpf, tmpx, tmp2, tmp3;
 	int x, y;
-	float xf, yf, asce;
+	double xf, yf, asce;
 	QPainter pm;
 	QPainter pb;
 	QPainter pd;
@@ -52,7 +52,7 @@ QPixmap ScPreview::createPreview(QString data)
 	QColor tmpfa;
 	QString chx;
 	uint a, zae;
-	float CurY, EndX, CurX, wide, rota, wid;
+	double CurY, EndX, CurX, wide, rota, wid;
 	QDomDocument docu("scridoc");
 	docu.setContent(data);
 	QDomElement elem=docu.documentElement();
@@ -61,11 +61,11 @@ QPixmap ScPreview::createPreview(QString data)
 		QPixmap tmp = QPixmap(0, 0);
 		return tmp;
 		}
-	float GrX = QStoFloat(elem.attribute("XP"));
-	float GrY = QStoFloat(elem.attribute("YP"));
-	float GrW = QStoFloat(elem.attribute("W"));
-	float GrH = QStoFloat(elem.attribute("H"));
-	float pmmax = Prefs->PSize / QMAX(GrW+30, GrH+30);
+	double GrX = QStodouble(elem.attribute("XP"));
+	double GrY = QStodouble(elem.attribute("YP"));
+	double GrW = QStodouble(elem.attribute("W"));
+	double GrH = QStodouble(elem.attribute("H"));
+	double pmmax = Prefs->PSize / QMAX(GrW+30, GrH+30);
 	QPixmap tmp = QPixmap(static_cast<int>(GrW)+30, static_cast<int>(GrH)+30);
 	ScPainter *pS = new ScPainter(&tmp, tmp.width(), tmp.height());
 	pS->translate(15,15);
@@ -124,7 +124,7 @@ QPixmap ScPreview::createPreview(QString data)
 				sl.LineEnd = QStoInt(MuL.attribute("LineEnd"));
 				sl.LineJoin = QStoInt(MuL.attribute("LineJoin"));
 				sl.Shade = QStoInt(MuL.attribute("Shade"));
-				sl.Width = QStoFloat(MuL.attribute("Width"));
+				sl.Width = QStodouble(MuL.attribute("Width"));
 				ml.push_back(sl);
 				MuLn = MuLn.nextSibling();
 				}
@@ -143,14 +143,14 @@ QPixmap ScPreview::createPreview(QString data)
 			QDir::setCurrent(QString(getenv("HOME")));
 			Segments.clear();
 			OB.PType = QStoInt(pg.attribute("PTYPE"));
-			OB.Xpos = QStoFloat(pg.attribute("XPOS")) - GrX;
-			OB.Ypos = QStoFloat(pg.attribute("YPOS")) - GrY;
-			OB.Width = QStoFloat(pg.attribute("WIDTH"));
-			OB.Height = QStoFloat(pg.attribute("HEIGHT"));
-			OB.RadRect = QStoFloat(pg.attribute("RADRECT","0"));
+			OB.Xpos = QStodouble(pg.attribute("XPOS")) - GrX;
+			OB.Ypos = QStodouble(pg.attribute("YPOS")) - GrY;
+			OB.Width = QStodouble(pg.attribute("WIDTH"));
+			OB.Height = QStodouble(pg.attribute("HEIGHT"));
+			OB.RadRect = QStodouble(pg.attribute("RADRECT","0"));
 			OB.ClipEdited = QStoInt(pg.attribute("CLIPEDIT", "0"));
 			OB.FrameType = QStoInt(pg.attribute("FRTYPE", "0"));
-			OB.Pwidth = QStoFloat(pg.attribute("PWIDTH"));
+			OB.Pwidth = QStodouble(pg.attribute("PWIDTH"));
 			OB.Pcolor = pg.attribute("PCOLOR");
 			OB.Pcolor2 = pg.attribute("PCOLOR2");
 			OB.NamedLStyle = pg.attribute("NAMEDLST", "");
@@ -169,23 +169,23 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.GrShade = QStoInt(pg.attribute("GRSHADE","100"));
 			OB.GrShade2 = QStoInt(pg.attribute("GRSHADE2","100"));
 			OB.GrType = QStoInt(pg.attribute("GRTYP","0"));
-			OB.Rot = QStoFloat(pg.attribute("ROT"));
+			OB.Rot = QStodouble(pg.attribute("ROT"));
 			OB.PLineArt = Qt::PenStyle(QStoInt(pg.attribute("PLINEART")));
 			OB.PLineEnd = Qt::PenCapStyle(QStoInt(pg.attribute("PLINEEND","0")));
 			OB.PLineJoin = Qt::PenJoinStyle(QStoInt(pg.attribute("PLINEJOIN","0")));
-			OB.LineSp = QStoFloat(pg.attribute("LINESP"));
-			OB.ExtraV = QStoFloat(pg.attribute("EXTRAV","0"));
-			OB.LocalScX = QStoFloat(pg.attribute("LOCALSCX"));
-			OB.LocalScY = QStoFloat(pg.attribute("LOCALSCY"));
-			OB.LocalX = QStoFloat(pg.attribute("LOCALX"));
-			OB.LocalY = QStoFloat(pg.attribute("LOCALY"));
+			OB.LineSp = QStodouble(pg.attribute("LINESP"));
+			OB.ExtraV = QStodouble(pg.attribute("EXTRAV","0"));
+			OB.LocalScX = QStodouble(pg.attribute("LOCALSCX"));
+			OB.LocalScY = QStodouble(pg.attribute("LOCALSCY"));
+			OB.LocalX = QStodouble(pg.attribute("LOCALX"));
+			OB.LocalY = QStodouble(pg.attribute("LOCALY"));
 			OB.PicArt = QStoInt(pg.attribute("PICART"));
 			OB.flippedH = QStoInt(pg.attribute("FLIPPEDH"));
 			OB.flippedV = QStoInt(pg.attribute("FLIPPEDV"));
 			OB.ScaleType = QStoInt(pg.attribute("SCALETYPE","1"));
 			OB.AspectRatio = QStoInt(pg.attribute("RATIO","0"));
-			OB.BBoxX = QStoFloat(pg.attribute("BBOXX"));
-			OB.BBoxH = QStoFloat(pg.attribute("BBOXH"));
+			OB.BBoxX = QStodouble(pg.attribute("BBOXX"));
+			OB.BBoxH = QStodouble(pg.attribute("BBOXH"));
 			OB.isPrintable = QStoInt(pg.attribute("PRINTABLE"));
 			OB.isBookmark = false;
 			OB.BMnr = 0;
@@ -194,12 +194,12 @@ QPixmap ScPreview::createPreview(QString data)
 				OB.Pcolor = "None";
 			OB.Textflow = QStoInt(pg.attribute("TEXTFLOW"));
 			OB.Textflow2 = QStoInt(pg.attribute("TEXTFLOW2","0"));
-			OB.Extra = QStoFloat(pg.attribute("EXTRA"));
-			OB.TExtra = QStoFloat(pg.attribute("TEXTRA", "1"));
-			OB.BExtra = QStoFloat(pg.attribute("BEXTRA", "1"));
-			OB.RExtra = QStoFloat(pg.attribute("REXTRA", "1"));
+			OB.Extra = QStodouble(pg.attribute("EXTRA"));
+			OB.TExtra = QStodouble(pg.attribute("TEXTRA", "1"));
+			OB.BExtra = QStodouble(pg.attribute("BEXTRA", "1"));
+			OB.RExtra = QStodouble(pg.attribute("REXTRA", "1"));
 			OB.PoShow = QStoInt(pg.attribute("PTLSHOW","0"));
-			OB.BaseOffs = QStoFloat(pg.attribute("BASEOF","0"));
+			OB.BaseOffs = QStodouble(pg.attribute("BASEOF","0"));
 			OB.Ausrich = QStoInt(pg.attribute("ALIGN","0"));
 			OB.IFont = DoFonts[pg.attribute("IFONT")];
 			OB.ISize = QStoInt(pg.attribute("ISIZE","12"));
@@ -213,9 +213,9 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.Locked = static_cast<bool>(QStoInt(pg.attribute("LOCK","0")));
 			OB.Reverse = static_cast<bool>(QStoInt(pg.attribute("REVERS","0")));
 			OB.InvPict = static_cast<bool>(QStoInt(pg.attribute("INVERS","0")));
-			OB.Transparency = QStoFloat(pg.attribute("TransValue","0.0"));
+			OB.Transparency = QStodouble(pg.attribute("TransValue","0.0"));
 			if (pg.hasAttribute("TransValueS"))
-				OB.TranspStroke = QStoFloat(pg.attribute("TransValueS","0.0"));
+				OB.TranspStroke = QStodouble(pg.attribute("TransValueS","0.0"));
 			else
 				OB.TranspStroke = OB.Transparency;
 			if (pg.hasAttribute("NUMCLIP"))
@@ -764,15 +764,15 @@ void ScPreview::SetFarbe(QColor *tmp, QString farbe, int shad)
 		}
 }
 
-void ScPreview::DrawZeichenS(ScPainter *p, float xco, float yco, QString ch, QString ZFo, bool Reverse, int Style, int mod, int Siz)
+void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, QString ZFo, bool Reverse, int Style, int mod, int Siz)
 {
 	if (mod == 0)
 		return;
 	QString ccx = ch;
 	if (ccx == QChar(29))
 		ccx = " ";
-	float wide;
-	float csi = static_cast<double>(Siz) / 10.0;
+	double wide;
+	double csi = static_cast<double>(Siz) / 10.0;
 	uint chr = ccx[0].unicode();
 	if (Prefs->AvailFonts[ZFo]->CharWidth.contains(chr))
 		{
@@ -807,13 +807,13 @@ void ScPreview::DrawZeichenS(ScPainter *p, float xco, float yco, QString ch, QSt
 			}
 		if (Style & 16)
 			{
-			float st = Prefs->AvailFonts[ZFo]->strikeout_pos * Siz;
+			double st = Prefs->AvailFonts[ZFo]->strikeout_pos * Siz;
 			p->setLineWidth(QMAX(Prefs->AvailFonts[ZFo]->strokeWidth * Siz, 1));
 			p->drawLine(FPoint(xco, yco-st), FPoint(xco+wide, yco-st));
 			}
 		if (Style & 8)
 			{
-			float st = Prefs->AvailFonts[ZFo]->underline_pos * Siz;
+			double st = Prefs->AvailFonts[ZFo]->underline_pos * Siz;
 			QString dummy;
 			p->setLineWidth(QMAX(Prefs->AvailFonts[ZFo]->strokeWidth * Siz, 1));
 			if (gly.size() > 4)

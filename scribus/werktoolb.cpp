@@ -21,9 +21,9 @@
 
 extern int PolyC;
 extern int PolyFd;
-extern float PolyF;
+extern double PolyF;
 extern bool PolyS;
-extern float PolyR;
+extern double PolyR;
 extern QPixmap loadIcon(QString nam);
 
 WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar(tr("Tools"), parent)
@@ -39,7 +39,7 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar(tr("Tools"), parent)
 	Textedit->setEnabled( FALSE );
 	Zoom = new QToolButton(loadIcon("Lupe.xpm"),tr("Zooms in or out"), QString::null, this, SLOT(ModeFromTB()), this);
 	Zoom->setToggleButton( true );
-	Texte = new QToolButton(loadIcon("Text.xpm"),tr("Insert Textbox"), QString::null, this, SLOT(ModeFromTB()), this);
+	Texte = new QToolButton(loadIcon("Text.xpm"),tr("Insert Text Frame"), QString::null, this, SLOT(ModeFromTB()), this);
 	Texte->setToggleButton( true );
 	BildB = new QToolButton(loadIcon("Bild.xpm"),tr("Insert Picture"), QString::null, this, SLOT(ModeFromTB()), this);
 	BildB->setToggleButton( true );
@@ -57,10 +57,10 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar(tr("Tools"), parent)
 	Linien->setToggleButton( true );
 	PolyLin = new QToolButton(loadIcon("beziertool.png"),tr("Insert Bezier Curves"), QString::null, this, SLOT(ModeFromTB()), this);
 	PolyLin->setToggleButton( true );
-	KetteEin = new QToolButton(loadIcon("Lock.xpm"),tr("Create Textchains"), QString::null, this, SLOT(ModeFromTB()), this);
+	KetteEin = new QToolButton(loadIcon("Lock.xpm"),tr("Create Text Chains"), QString::null, this, SLOT(ModeFromTB()), this);
 	KetteEin->setToggleButton( true );
 	KetteEin->setEnabled(false);
-	KetteAus = new QToolButton(loadIcon("Unlock.xpm"),tr("Break Textchains"), QString::null, this, SLOT(ModeFromTB()), this);
+	KetteAus = new QToolButton(loadIcon("Unlock.xpm"),tr("Break Text Chains"), QString::null, this, SLOT(ModeFromTB()), this);
 	KetteAus->setToggleButton( true );
 	KetteAus->setEnabled(false);
 	setCloseMode(QDockWindow::Undocked);

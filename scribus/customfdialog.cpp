@@ -107,10 +107,8 @@ void FDialogPreview::GenPreview(QString name)
 			if ((im.width() > width()-5) || (im.height() > height()-20))
 				{
 				QImage im2;
-				float sx = im.width() / 
-				  static_cast<float>(width()-5);
-				float sy = im.height() / 
-				  static_cast<float>(height()-20);
+				double sx = im.width() / static_cast<double>(width()-5);
+				double sy = im.height() / static_cast<double>(height()-20);
 				im2 = sy < sx ?  im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) : im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
 				im = im2;
 				im2.detach();
@@ -250,10 +248,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre,
   	Layout1C->addItem( spacer2 );
 		addWidgets(TxCodeT, LayoutC, 0);
 		}
-	if (Pre)
-		setPreviewMode( QFileDialog::Contents );
-	else
-		setPreviewMode( QFileDialog::NoPreview );
+	setPreviewMode(Pre ? QFileDialog::Contents : QFileDialog::NoPreview );
 	setViewMode( QFileDialog::List );
 	if (comp)
 		connect(SaveZip, SIGNAL(clicked()), this, SLOT(HandleComp()));

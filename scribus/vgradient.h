@@ -39,12 +39,12 @@ class VColorStop
 		QColor color;
 
 		// relative position of color point (0.0-1.0):
-		float rampPoint;
+		double rampPoint;
 
 		// relative position of midpoint (0.0-1.0)
 		// between two ramp points. ignored for last VColorStop.
-		float midPoint;
-    float opacity;
+		double midPoint;
+    double opacity;
 		friend inline bool operator== ( VColorStop& s1, VColorStop& s2 )
 				{ return s1.rampPoint == s2.rampPoint; };
 }; // VColorStop
@@ -87,7 +87,7 @@ public:
 
 	const QPtrVector<VColorStop> colorStops() const;
 	void addStop( const VColorStop& colorStop );
-	void addStop( const QColor &color, float rampPoint, float midPoint, float opa );
+	void addStop( const QColor &color, double rampPoint, double midPoint, double opa );
 	void removeStop( const VColorStop& colorStop );
 	void clearStops();
 	uint Stops() { return m_colorStops.count(); }

@@ -90,11 +90,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     GroupBox1Layout->addWidget( TextLabel3, 1, 0 );
     SpinBox1 = new QSpinBox( GroupBox1, "SpinBox1" );
     SpinBox1->setMinValue(1);
-		if (item->AnActType == 7)
-//		if (Destfile->text() != "")
-    	SpinBox1->setMaxValue(1000);
-		else
-    	SpinBox1->setMaxValue(Seite);
+    SpinBox1->setMaxValue(item->AnActType == 7 ? 1000 : Seite);
     SpinBox1->setValue(item->AnZiel+1);
     GroupBox1Layout->addWidget( SpinBox1, 1, 1 );
 		if ((Destfile->text() != "") && (item->AnActType == 7))
@@ -147,7 +143,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     connect(PushButton2, SIGNAL(clicked()), this, SLOT(reject()));
     connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetZiel(int)));
     connect(SpinBox1, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
-    connect(Pg, SIGNAL(Coords(float, float)), this, SLOT(SetCo(float, float)));
+    connect(Pg, SIGNAL(Coords(double, double)), this, SLOT(SetCo(double, double)));
     connect(SpinBox2, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
     connect(SpinBox3, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
 		connect(ChFile, SIGNAL(clicked()), this, SLOT(GetFile()));
@@ -156,7 +152,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
 }
 
 
-void Annota::SetCo(float x, float y)
+void Annota::SetCo(double x, double y)
 {
 	SpinBox2->setValue(static_cast<int>(x*Breite));
 	SpinBox3->setValue(static_cast<int>(y*Hoehe));
@@ -190,11 +186,11 @@ void Annota::SetPg(int v)
 void Annota::SetCross()
 {
 	int x,y;
-  disconnect(Pg, SIGNAL(Coords(float, float)), this, SLOT(SetCo(float, float)));
-	x = static_cast<int>(static_cast<float>(SpinBox2->value())/static_cast<float>(Breite)*Pg->pmx.width());
-	y = static_cast<int>(static_cast<float>(SpinBox3->value())/static_cast<float>(Hoehe)*Pg->pmx.height());
+  disconnect(Pg, SIGNAL(Coords(double, double)), this, SLOT(SetCo(double, double)));
+	x = static_cast<int>(static_cast<double>(SpinBox2->value())/static_cast<double>(Breite)*Pg->pmx.width());
+	y = static_cast<int>(static_cast<double>(SpinBox3->value())/static_cast<double>(Hoehe)*Pg->pmx.height());
 	Pg->drawMark(x, y);
-  connect(Pg, SIGNAL(Coords(float, float)), this, SLOT(SetCo(float, float)));
+  connect(Pg, SIGNAL(Coords(double, double)), this, SLOT(SetCo(double, double)));
 }
 
 void Annota::SetVals()

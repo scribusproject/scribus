@@ -224,27 +224,19 @@ void CMSPrefs::SetValues()
 
 void CMSPrefs::slotSimula()
 {
-	if (Simulate->isChecked())
-    GamutC->setEnabled(true);
-	else
-    GamutC->setEnabled(false);
+	bool setter = Simulate->isChecked() ? true : false;
+	GamutC->setEnabled(setter);
 }
 
 void CMSPrefs::slotCMSon()
 {
-	if (CheckBox1->isChecked())
-		{
-    SysProfiles->setEnabled( true );
-    Render->setEnabled( true );
-    Simulate->setEnabled(true);
-    slotSimula();
-		}
-	else
-		{
-    SysProfiles->setEnabled( false );
-    Render->setEnabled( false );
-    Simulate->setEnabled(false);
-    GamutC->setEnabled(false);
-		}
+	bool setter = CheckBox1->isChecked() ? true : false;
+  SysProfiles->setEnabled(setter);
+  Render->setEnabled(setter);
+  Simulate->setEnabled(setter);
+  if (setter == true)
+  	slotSimula();
+  else
+    GamutC->setEnabled(setter);
 }
 

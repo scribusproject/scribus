@@ -15,7 +15,7 @@
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);
-extern float Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
+extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 
 QString Name()
 {
@@ -582,7 +582,7 @@ const char * SVGPlug::getCoord( const char *ptr, double &number )
 		}
     }
 	number = integer + decimal;
-	number *= sign * pow( (double)10, double( expsign * exponent ) );
+	number *= sign * pow( static_cast<double>(10), static_cast<double>( expsign * exponent ) );
 
 	// skip the following space
 	if(*ptr == ' ')
@@ -879,7 +879,7 @@ void SVGPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double
 		th_arc += 2 * M_PI;
 	else if(th_arc > 0 && !sweepFlag)
 		th_arc -= 2 * M_PI;
-	n_segs = (int) (int) ceil(fabs(th_arc / (M_PI * 0.5 + 0.001)));
+	n_segs = static_cast<int>(ceil(fabs(th_arc / (M_PI * 0.5 + 0.001))));
 	for(i = 0; i < n_segs; i++)
 	{
 		{
@@ -938,10 +938,10 @@ void SVGPlug::svgLineTo(FPointArray *i, double x1, double y1)
 		}
 	FirstM = false;
 	WasM = false;
-	i->addPoint(FPoint(static_cast<float>(CurrX), static_cast<float>(CurrY)));
-	i->addPoint(FPoint(static_cast<float>(CurrX), static_cast<float>(CurrY)));
-	i->addPoint(FPoint(static_cast<float>(x1), static_cast<float>(y1)));
-	i->addPoint(FPoint(static_cast<float>(x1), static_cast<float>(y1)));
+	i->addPoint(FPoint(static_cast<double>(CurrX), static_cast<double>(CurrY)));
+	i->addPoint(FPoint(static_cast<double>(CurrX), static_cast<double>(CurrY)));
+	i->addPoint(FPoint(static_cast<double>(x1), static_cast<double>(y1)));
+	i->addPoint(FPoint(static_cast<double>(x1), static_cast<double>(y1)));
 	CurrX = x1;
 	CurrY = y1;
 	PathLen += 4;
@@ -956,10 +956,10 @@ void SVGPlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, d
 		}
 	FirstM = false;
 	WasM = false;
-	i->addPoint(FPoint(static_cast<float>(CurrX), static_cast<float>(CurrY)));
-	i->addPoint(FPoint(static_cast<float>(x1), static_cast<float>(y1)));
-	i->addPoint(FPoint(static_cast<float>(x3), static_cast<float>(y3)));
-	i->addPoint(FPoint(static_cast<float>(x2), static_cast<float>(y2)));
+	i->addPoint(FPoint(static_cast<double>(CurrX), static_cast<double>(CurrY)));
+	i->addPoint(FPoint(static_cast<double>(x1), static_cast<double>(y1)));
+	i->addPoint(FPoint(static_cast<double>(x3), static_cast<double>(y3)));
+	i->addPoint(FPoint(static_cast<double>(x2), static_cast<double>(y2)));
 	CurrX = x3;
 	CurrY = y3;
 	PathLen += 4;
@@ -967,12 +967,12 @@ void SVGPlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, d
 
 void SVGPlug::svgClosePath(FPointArray *i)
 {
-	if ((PathLen == 4) || (i->point(i->size()-2).x() != static_cast<float>(StartX)) || (i->point(i->size()-2).y() != static_cast<float>(StartY)))
+	if ((PathLen == 4) || (i->point(i->size()-2).x() != static_cast<double>(StartX)) || (i->point(i->size()-2).y() != static_cast<double>(StartY)))
 		{
 		i->addPoint(i->point(i->size()-2));
 		i->addPoint(i->point(i->size()-3));
-		i->addPoint(FPoint(static_cast<float>(StartX), static_cast<float>(StartY)));
-		i->addPoint(FPoint(static_cast<float>(StartX), static_cast<float>(StartY)));
+		i->addPoint(FPoint(static_cast<double>(StartX), static_cast<double>(StartY)));
+		i->addPoint(FPoint(static_cast<double>(StartX), static_cast<double>(StartY)));
 		}
 }
 
@@ -997,17 +997,17 @@ QString SVGPlug::parseColor( const QString &s )
 		if( r.contains( "%" ) )
 			{
 			r = r.left( r.length() - 1 );
-			r = QString::number( int( ( double( 255 * r.toDouble() ) / 100.0 ) ) );
+			r = QString::number( static_cast<int>( ( static_cast<double>( 255 * r.toDouble() ) / 100.0 ) ) );
 			}
 		if( g.contains( "%" ) )
 			{
 			g = g.left( g.length() - 1 );
-			g = QString::number( int( ( double( 255 * g.toDouble() ) / 100.0 ) ) );
+			g = QString::number( static_cast<int>( ( static_cast<double>( 255 * g.toDouble() ) / 100.0 ) ) );
 			}
 		if( b.contains( "%" ) )
 			{
 			b = b.left( b.length() - 1 );
-			b = QString::number( int( ( double( 255 * b.toDouble() ) / 100.0 ) ) );
+			b = QString::number( static_cast<int>( ( static_cast<double>( 255 * b.toDouble() ) / 100.0 ) ) );
 			}
 		c = QColor(r.toInt(), g.toInt(), b.toInt());
 		}
@@ -1130,20 +1130,20 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			obj->PLineEnd = Qt::SquareCap;
 		}
 //	else if( command == "stroke-miterlimit" )
-//		gc->stroke.setMiterLimit( params.toFloat() );
+//		gc->stroke.setMiterLimit( params.todouble() );
 	else if( command == "stroke-dasharray" )
 		{
-		QValueList<float> array;
+		QValueList<double> array;
 		if(params != "none")
 			{
 			QStringList dashes = QStringList::split( ' ', params );
 		  for( QStringList::Iterator it = dashes.begin(); it != dashes.end(); ++it )
-				array.append( (*it).toFloat() );
+				array.append( (*it).toDouble() );
 			}
 		obj->dashArray = array;
 		}
 	else if( command == "stroke-dashoffset" )
-		obj->dashOffset = params.toFloat();
+		obj->dashOffset = params.toDouble();
 	else if( command == "stroke-opacity" )
 		obj->TranspStroke = 1.0 - fromPercentage(params);
 	else if( command == "fill-opacity" )
@@ -1236,7 +1236,7 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 {
 	QString Col = "Black";
 	bool first = false;
-	float offset;
+	double offset;
 	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 		{
 		QDomElement stop = n.toElement();
@@ -1246,10 +1246,10 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 			if( temp.contains( '%' ) )
 				{
 				temp = temp.left( temp.length() - 1 );
-				offset = temp.toFloat() / 100.0;
+				offset = temp.toDouble() / 100.0;
 				}
 			else
-				offset = temp.toFloat();
+				offset = temp.toDouble();
 			if( !stop.attribute( "stop-color" ).isEmpty() )
 				Col = parseColor(stop.attribute("stop-color"));
 			else
@@ -1340,7 +1340,7 @@ void SVGPlug::parseText(PageItem *ite, const QDomElement &e)
 	if ((!c.isNull()) && (c.toElement().tagName() == "tspan"))
 		{
 		ite->Height = ite->LineSp+desc+2;
-		float tempW = 0;
+		double tempW = 0;
 		for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 			{
 			QDomElement tspan = n.toElement();

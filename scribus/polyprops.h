@@ -26,8 +26,8 @@ class PolygonProps : public QDialog
 public:
     PolygonProps(QWidget* parent = 0);
     ~PolygonProps() {};
-    float GetZeroFaktor();
-    float GetMaxFaktor();
+    double GetZeroFaktor();
+    double GetMaxFaktor();
 
     QLabel* Text1;
     QSpinBox* Ecken;
@@ -42,11 +42,11 @@ public:
     QPushButton* PushButton1;
     QPushButton* PushButton2;
 		QPixmap* Pre;
-		float PFactor;
+		double PFactor;
 
 public slots:
 		void UpdatePreView();
-		float GetFaktor();
+		double GetFaktor();
 		void ValFromSpin(int a);
 		void ValFromSpin2(int a);
 

@@ -89,7 +89,7 @@ void StilFormate::dupFormat()
    	sty.FontSize = TempVorl[sFnumber].FontSize;
    	TempVorl.append(sty);
    	sFnumber = TempVorl.count()-1;
-		EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon, static_cast<float>(Docu->AutoLine));
+		EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon, static_cast<double>(Docu->AutoLine));
 		if (!dia2->exec())
 			TempVorl.remove(TempVorl.fromLast());
    	delete dia2;
@@ -100,7 +100,7 @@ void StilFormate::neuesFormat()
 {
    	struct StVorL sty;
    	sty.Vname = tr("New Style");
-   	sty.LineSpa = (Docu->Dsize * static_cast<float>(Docu->AutoLine) / 100) + Docu->Dsize;
+   	sty.LineSpa = (Docu->Dsize * static_cast<double>(Docu->AutoLine) / 100) + Docu->Dsize;
    	sty.Ausri = 0;
    	sty.Indent = 0;
    	sty.First = 0;
@@ -110,7 +110,7 @@ void StilFormate::neuesFormat()
 		sty.FontSize = Docu->Dsize;
    	TempVorl.append(sty);
    	sFnumber = TempVorl.count()-1;
-		EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon, static_cast<float>(Docu->AutoLine));
+		EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon, static_cast<double>(Docu->AutoLine));
 		if (!dia2->exec())
 			TempVorl.remove(TempVorl.fromLast());
    	delete dia2;
@@ -119,7 +119,7 @@ void StilFormate::neuesFormat()
 
 void StilFormate::editFormat()
 {
-	EditStyle* dia = new EditStyle(this, &TempVorl[sFnumber], TempVorl, false, fon, static_cast<float>(Docu->AutoLine));
+	EditStyle* dia = new EditStyle(this, &TempVorl[sFnumber], TempVorl, false, fon, static_cast<double>(Docu->AutoLine));
 	dia->exec();
 	delete dia;
 	UpdateFList();

@@ -43,21 +43,21 @@ Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QSt
 void Navigator::mouseMoveEvent(QMouseEvent *m)
 {
 	drawMark(m->x(), m->y());
-	emit Coords(static_cast<float>(m->x())/static_cast<float>(pmx.width()),
-		    static_cast<float>(m->y())/static_cast<float>(pmx.height()));
+	emit Coords(static_cast<double>(m->x())/static_cast<double>(pmx.width()),
+		    static_cast<double>(m->y())/static_cast<double>(pmx.height()));
 }
 
 void Navigator::mousePressEvent(QMouseEvent *m)
 {
 	drawMark(m->x(), m->y());
-	emit Coords(static_cast<float>(m->x())/static_cast<float>(pmx.width()),
-		    static_cast<float>(m->y())/static_cast<float>(pmx.height()));
+	emit Coords(static_cast<double>(m->x())/static_cast<double>(pmx.width()),
+		    static_cast<double>(m->y())/static_cast<double>(pmx.height()));
 }
 
 void Navigator::mouseReleaseEvent(QMouseEvent *m)
 {
-	emit Coords(static_cast<float>(m->x())/static_cast<float>(pmx.width()),
-		    static_cast<float>(m->y())/static_cast<float>(pmx.height()));
+	emit Coords(static_cast<double>(m->x())/static_cast<double>(pmx.width()),
+		    static_cast<double>(m->y())/static_cast<double>(pmx.height()));
 }
 
 void Navigator::paintEvent(QPaintEvent *e)

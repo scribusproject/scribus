@@ -53,11 +53,8 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	ppd_group_t	*group;			/* Current group */
 	num_dests = cupsGetDests(&dests);
 	dest = cupsGetDest(Geraet, NULL, num_dests, dests);
-	if (dest == NULL)
-		return;
-	if ((filename = cupsGetPPD(dest->name)) == NULL)
-		return;
-	if ((ppd = ppdOpenFile(filename)) == NULL)
+	if (dest == NULL || (filename = cupsGetPPD(dest->name)) == NULL || 
+		  (ppd = ppdOpenFile(filename)) == NULL)
 		return;
 	ppdMarkDefaults(ppd);
 	cupsMarkOptions(ppd, dest->num_options, dest->options);

@@ -37,7 +37,7 @@ class PDFlib : public QObject
 
 public:
 	PDFlib();
-	~PDFlib();
+	~PDFlib() {};
 	bool PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOpt *opts, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, BookMView* vi);
 	void PDF_Begin_Page(Page* pag, QPixmap pm = 0);
 	void PDF_End_Page();
@@ -56,7 +56,7 @@ private:
 	void CalcOwnerKey(QString Owner, QString User);
 	void CalcUserKey(QString User, int Permission);
 	QString FitKey(QString pass);
-	QString FToStr(float c);
+	QString FToStr(double c);
 	QString IToStr(int c);
 	QString setStrokeMulti(struct singleLine *sl);
 	QString SetClipPath(PageItem *ite);
@@ -68,13 +68,13 @@ private:
 	void WritePDFStream(QString *cc);
 	QString PDFEncode(QString in);
 	QByteArray ComputeMD5(QString in);
-	void PDF_Bookmark(int nr, float ypos);
+	void PDF_Bookmark(int nr, double ypos);
 	void PDF_Gradient(PageItem *b);
 	void PDF_Transparenz(PageItem *b);
 	void PDF_Annotation(PageItem *ite, uint PNr);
 	void PDF_Form(QString im);
-  void PDF_xForm(float w, float h, QString im);
-	void PDF_Image(bool inver, QString fn, float sx, float sy, float x, float y, bool fromAN = false, QString Profil = "", bool Embedded = false, int Intent = 1);
+  void PDF_xForm(double w, double h, QString im);
+	void PDF_Image(bool inver, QString fn, double sx, double sy, double x, double y, bool fromAN = false, QString Profil = "", bool Embedded = false, int Intent = 1);
 	QString Inhalt;
   ScribusDoc* doc;
   ScribusView* view;

@@ -203,7 +203,7 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
     GroupBox3Layout = new QGridLayout( GroupBox3->layout() );
     GroupBox3Layout->setAlignment( Qt::AlignTop );
     TextLabel1_3 = new QLabel( GroupBox3, "TextLabel1_3" );
-    TextLabel1_3->setText( tr( "First Pagenumber:" ) );
+    TextLabel1_3->setText( tr( "First Page Number:" ) );
     GroupBox3Layout->addMultiCellWidget( TextLabel1_3, 0, 0, 0, 1 );
     PgNr = new QSpinBox( GroupBox3, "PgNr" );
     PgNr->setMaxValue( 1000 );
@@ -223,7 +223,7 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
     Layout10->addWidget( GroupBox3 );
 
     AutoFrame = new QCheckBox( this, "AutoFrame" );
-    AutoFrame->setText( tr( "Autom. Textframes" ) );
+    AutoFrame->setText( tr( "Autom. Text Frames" ) );
     Layout10->addWidget( AutoFrame );
 
     GroupBox4 = new QGroupBox( this, "GroupBox4" );
@@ -292,46 +292,63 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 		connect(Distance, SIGNAL(valueChanged(int)), this, SLOT(setDist(int)));
 }
 
+void NewDoc::code_repeat(int m)
+{
+	switch (m)
+	{
+		case 0 :
+		case 3 :
+			RightR->setMaxValue(Breite->value() - LeftR->value());
+			if (m == 3)
+				break;
+		case 4 :
+			LeftR->setMaxValue(Breite->value() - RightR->value());
+			if (m == 4)
+				break;
+		case 2 :
+			TopR->setMaxValue(Hoehe->value() - BottomR->value());
+			if (m == 2)
+				break;
+		case 1 :
+			BottomR->setMaxValue(Hoehe->value() - TopR->value());
+			break;
+	}
+}
+		
 void NewDoc::setBreite(int v)
 {
 	Pagebr = v / Umrech / 100.0;
-	RightR->setMaxValue(Breite->value() - LeftR->value());
-	LeftR->setMaxValue(Breite->value() - RightR->value());
-	TopR->setMaxValue(Hoehe->value() - BottomR->value());
-	BottomR->setMaxValue(Hoehe->value() - TopR->value());
+	code_repeat(0);
 }
 
 void NewDoc::setHoehe(int v)
 {
 	Pageho = v / Umrech / 100.0;
-	RightR->setMaxValue(Breite->value() - LeftR->value());
-	LeftR->setMaxValue(Breite->value() - RightR->value());
-	TopR->setMaxValue(Hoehe->value() - BottomR->value());
-	BottomR->setMaxValue(Hoehe->value() - TopR->value());
+	code_repeat(0);
 }
 
 void NewDoc::setTop(int v)
 {
 	Top = v / Umrech / 100.0;
-	BottomR->setMaxValue(Hoehe->value() - TopR->value());
+	code_repeat(1);
 }
 
 void NewDoc::setBottom(int v)
 {
 	Bottom = v / Umrech / 100.0;
-	TopR->setMaxValue(Hoehe->value() - BottomR->value());
+	code_repeat(2);
 }
 
 void NewDoc::setLeft(int v)
 {
 	Left = v / Umrech / 100.0;
-	RightR->setMaxValue(Breite->value() - LeftR->value());
+	code_repeat(3);
 }
 
 void NewDoc::setRight(int v)
 {
 	Right = v / Umrech / 100.0;
-	LeftR->setMaxValue(Breite->value() - RightR->value());
+	code_repeat(4);
 }
 
 void NewDoc::setDist(int v)
@@ -403,7 +420,7 @@ void NewDoc::ExitOK()
 		}
 	if (Orient == 1)
 		{
-		float br = Pagebr;
+		double br = Pagebr;
 		Pagebr = Pageho;
 		Pageho = br;
 		}

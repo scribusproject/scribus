@@ -27,7 +27,7 @@ public:
 private:
 		void ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, QDomElement *elem);
 		QString SetClipPath(PageItem *ite);
-		QString FToStr(float c);
+		QString FToStr(double c);
 		QString IToStr(int c);
 		void SetTextProps(QDomElement *tp, struct Pti *hl, ScribusApp *plug);
 		QString SetFarbe(QString farbe, int shad, ScribusApp *plug);

@@ -1,7 +1,7 @@
 #include "align.h"
 #include "align.moc"
 extern QPixmap loadIcon(QString nam);
-extern float UmReFaktor;
+extern double UmReFaktor;
 
 Align::Align( QWidget* parent, int anz, int ein)
     : QDialog( parent, "al", true, 0 )
@@ -164,7 +164,7 @@ Align::Align( QWidget* parent, int anz, int ein)
     connect( ButtonGroup1_2, SIGNAL( clicked(int) ), this, SLOT( DistVert() ) );
 }
 
-/*  
+/*
  *  Destroys the object and frees any allocated resources
  */
 Align::~Align()
@@ -174,37 +174,28 @@ Align::~Align()
 
 void Align::DistHoriz()
 {
-    if (CheckH->isChecked())
-    	{
-    	AHor->setEnabled( true );
-    	TextLabelD->setEnabled(true);
-    	}
-    else
-    	{
-    	AHor->setEnabled( false );
-    	TextLabelD->setEnabled(false);
-    	}
+	bool setter = false;
+  if (CheckH->isChecked())
+  	setter = true;
+	AHor->setEnabled( setter );
+  TextLabelD->setEnabled( setter );
+
 }
 
 void Align::DistVert()
 {
-    if (CheckV->isChecked())
-    	{
-    	AVert->setEnabled( true );
-    	TextLabelD2->setEnabled(true);
-    	}
-    else
-    	{
-    	AVert->setEnabled( false );
-    	TextLabelD2->setEnabled(false);
-    	}
+	bool setter = false;
+  if (CheckV->isChecked())
+  	setter = true;
+	AVert->setEnabled( setter );
+  TextLabelD2->setEnabled( setter );
 }
 
 void Align::slotApplyDiag()
 {
-	float xdp = static_cast<float>(AHor->value()) / UmReFaktor / 100.0;
+	double xdp = static_cast<double>(AHor->value()) / UmReFaktor / 100.0;
 	bool xa = (CheckH->isChecked() || VerteilenH->isChecked());
-	float ydp = static_cast<float>(AVert->value()) / UmReFaktor / 100.0;
+	double ydp = static_cast<double>(AVert->value()) / UmReFaktor / 100.0;
 	bool ya = (CheckV->isChecked() || VerteilenV->isChecked());
 	int xart = VartH->currentItem();
 	int yart = VartV->currentItem();

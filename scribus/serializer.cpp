@@ -69,12 +69,12 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 		}
 	for (a=0; a<Objekt.length(); ++a)
 		{
-		if (Objekt.at(a) == QChar(0)) { continue; }
-		if (Objekt.at(a) == QChar(13)) { continue; }
-		hg = new Pti;
-		hg->ch = Objekt.at(a);
-		if (hg->ch == QChar(10)) { hg->ch = QChar(13); }
-		if (hg->ch == QChar(5)) { hg->ch = QChar(13); }
+			if ((Objekt.at(a) == QChar(0)) || (Objekt.at(a) == QChar(13)))
+				continue;
+			hg = new Pti;
+			hg->ch = Objekt.at(a);
+			if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
+				hg->ch = QChar(13);
 		if (hg->ch == QChar(9)) { hg->ch = " "; }
 		if (font != "")
 			{

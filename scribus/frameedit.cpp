@@ -3,7 +3,7 @@
 #include "page.h"
 
 extern QPixmap loadIcon(QString nam);
-extern float UmReFaktor;
+extern double UmReFaktor;
 
 NodePalette::NodePalette( QWidget* parent)
     : QDialog( parent, "Npal", false, WStyle_Customize | WStyle_DialogBorder)
@@ -11,7 +11,7 @@ NodePalette::NodePalette( QWidget* parent)
 //    resize( 155, 165 );
     setCaption( tr( "Nodes" ) );
   	setIcon(loadIcon("AppIcon.xpm"));
-    NodePaletteLayout = new QVBoxLayout( this ); 
+    NodePaletteLayout = new QVBoxLayout( this );
     NodePaletteLayout->setSpacing( 2 );
     NodePaletteLayout->setMargin( 5 );
 
@@ -256,6 +256,7 @@ void NodePalette::IsOpen()
 
 void NodePalette::PolyStatus(int typ, uint size)
 {
+	bool setter;
 	switch (typ)
 		{
 		case 6:
@@ -263,16 +264,9 @@ void NodePalette::PolyStatus(int typ, uint size)
 			BezierClose->setEnabled(false);
 			break;
 		case 7:
-			if (size > 7)
-				{
-				BezierClose->setEnabled(true);
-				PolySplit->setEnabled(true);
-				}
-			else
-				{
-				BezierClose->setEnabled(false);
-				PolySplit->setEnabled(false);
-				}
+			setter = size > 7 ? true : false;
+			BezierClose->setEnabled(setter);
+			PolySplit->setEnabled(setter);
 			break;
 		default:
 			BezierClose->setEnabled(false);
@@ -354,7 +348,7 @@ void NodePalette::SetAsym()
 	doc->ActPage->MoveSym = false;
 }
 
-void NodePalette::SetXY(float x, float y)
+void NodePalette::SetXY(double x, double y)
 {
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
@@ -366,22 +360,21 @@ void NodePalette::SetXY(float x, float y)
 
 void NodePalette::HaveNode(bool have, bool mov)
 {
-	if (have)
-		{
-		XSpin->setEnabled(true);
-		YSpin->setEnabled(true);
+	bool setter = have ? true : false;
+	XSpin->setEnabled(setter);
+	YSpin->setEnabled(setter);
+	if (setter == true)
+	{
 		if (doc->ActPage->EdPoints)
-  		ResNode->setEnabled(true);
+  		ResNode->setEnabled(setter);
 		else
-  		Res1Node->setEnabled(true);
-		}
+  		Res1Node->setEnabled(setter);
+	}
 	else
-		{
-		XSpin->setEnabled(false);
-		YSpin->setEnabled(false);
-  	ResNode->setEnabled(false);
-  	Res1Node->setEnabled(false);
-		}
+	{
+  	ResNode->setEnabled(setter);
+  	Res1Node->setEnabled(setter);
+	}
   disconnect(AsymMove, SIGNAL(clicked()), this, SLOT(SetAsym()));
   disconnect(SymMove, SIGNAL(clicked()), this, SLOT(SetSym()));
 	if (mov)

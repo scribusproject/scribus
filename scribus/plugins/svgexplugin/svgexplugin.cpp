@@ -520,7 +520,7 @@ QString SVGExPlug::SetClipPath(PageItem *ite)
 	return tmp;
 }       
 
-QString SVGExPlug::FToStr(float c)
+QString SVGExPlug::FToStr(double c)
 {
 	QString cc;
 	return cc.setNum(c);

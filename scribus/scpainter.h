@@ -82,15 +82,15 @@ public:
 	virtual QColor pen();
 	virtual QColor brush();
 	virtual void setPen( const QColor & );
-	virtual void setPen( const QColor &c, float w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo );
-	virtual void setPenOpacity( float op );
-	virtual void setLineWidth( float w);
-	virtual void setDash(const QValueList<float>& array, float ofs);
+	virtual void setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo );
+	virtual void setPenOpacity( double op );
+	virtual void setLineWidth( double w);
+	virtual void setDash(const QValueList<double>& array, double ofs);
 	virtual void setBrush( const QColor & );
-	virtual void setBrushOpacity( float op );
-	virtual void setOpacity( float op );
+	virtual void setBrushOpacity( double op );
+	virtual void setOpacity( double op );
 	virtual void setFont( const QFont &f );
-	virtual QFont font();	
+	virtual QFont font();
 
 
 	// stack management
@@ -100,7 +100,7 @@ public:
 	//
 	virtual void setRasterOp( Qt::RasterOp );
 
-	virtual QPaintDevice *device() { return m_target; } 
+	virtual QPaintDevice *device() { return m_target; }
 	unsigned char *buffer() { return m_buffer; }
 	VGradient fill_gradient;
 	VGradient stroke_gradient;
@@ -131,22 +131,22 @@ private:
 	bool mf_outlined;
 /* Filling */
 	QColor m_fill;
-	float fill_trans;
+	double fill_trans;
 	bool m_fillRule;
 	int fillMode;				// 0 = none, 1 = solid, 2 = gradient
 	int gradientMode;		// 1 = linear, 2 = radial
 /* Stroking */
 	QColor m_stroke;
-	float stroke_trans;
-	float LineWidth;
-	
+	double stroke_trans;
+	double LineWidth;
+
 /* Line End Style */
   Qt::PenCapStyle PLineEnd;
 /* Line Join Style */
   Qt::PenJoinStyle PLineJoin;
 /* The Dash Array */
-	QValueList<float> m_array;
-	float m_offset;
+	QValueList<double> m_array;
+	double m_offset;
 /* Transformation Stack */
 	QValueStack<QWMatrix> MStack;
 /* Zoom Factor of the Painter */

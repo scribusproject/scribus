@@ -13,7 +13,7 @@
 #include <cmath>
 
 extern QPixmap loadIcon(QString nam);
-extern QPointArray RegularPolygon(float w, float h, uint c, bool star, float factor, float rota);
+extern QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
 
 extern "C" void* Run(QWidget *d, preV *Vor);
 
@@ -29,10 +29,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     fon = &Vor->AvailFonts;
 		ap = (ScribusApp*)parent;
     Umrech = 1.0;
-		if (ap->HaveDoc)
-			Einheit = ap->doc->Einheit;
-		else
-			Einheit = Vor->Einheit;
+    Einheit = ap->HaveDoc ? ap->doc->Einheit : Vor->Einheit;
 		DisScale = Vor->DisScale;
     KKC = Vor->KeyActions;
     setCaption( tr( "Preferences" ) );
@@ -109,10 +106,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     UnitCombo->insertItem( tr( "Inches (in)" ) );
     UnitCombo->insertItem( tr( "Picas (p)" ) );
     UnitCombo->setEditable(false);
-		if (ap->HaveDoc)
-    	UnitCombo->setCurrentItem(ap->doc->Einheit);
-		else
-    	UnitCombo->setCurrentItem(Vor->Einheit);
+    UnitCombo->setCurrentItem(ap->HaveDoc ? ap->doc->Einheit : Vor->Einheit);
     GroupBox20Layout->addWidget( UnitCombo );
     tabLayout->addWidget( GroupBox20, 1, 0 );
     Mouse = new QGroupBox( tab, "Mouse" );
@@ -145,10 +139,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     SpinBox3_2->setMaxValue( 1000 );
     SpinBox3_2->setMinValue( 1 );
     SpinBox3_2->setLineStep( 1 );
-		if (ap->HaveDoc)
-    	SpinBox3_2->setValue( ap->doc->GrabRad );
-		else
-    	SpinBox3_2->setValue( Vor->GrabRad );
+    SpinBox3_2->setValue(ap->HaveDoc ? ap->doc->GrabRad : Vor->GrabRad );
     Layout5->addWidget( SpinBox3_2, 1, 1 );
     MouseLayout->addLayout( Layout5 );
     tabLayout->addWidget( Mouse, 0, 1 );
@@ -389,10 +380,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GroupASLayout->setAlignment( Qt::AlignTop );
     ASon = new QCheckBox( GroupAS, "Enable Autosave" );
     ASon->setText( tr( "Enabled" ) );
-		if (ap->HaveDoc)
-			ASon->setChecked(ap->doc->AutoSave);
-		else
-			ASon->setChecked(Vor->AutoSave);
+    ASon->setChecked(ap->HaveDoc ? ap->doc->AutoSave : Vor->AutoSave);
     GroupASLayout->addMultiCellWidget( ASon, 0, 0, 0, 1 );
     ASText = new QLabel( GroupAS, "ASText" );
     ASText->setText( tr( "Interval:" ) );
@@ -555,17 +543,11 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Layout7->setMargin( 0 );
     RadioButton6 = new QRadioButton( ButtonGroup5, "RadioButton6" );
     RadioButton6->setText( tr( "In the Background" ) );
-		if (ap->HaveDoc)
-    	RadioButton6->setChecked( ap->doc->Before );
-		else
-    	RadioButton6->setChecked( Vor->Before );
+    RadioButton6->setChecked(ap->HaveDoc ? ap->doc->Before : Vor->Before );
     Layout7->addWidget( RadioButton6 );
     RadioButton7 = new QRadioButton( ButtonGroup5, "RadioButton6_2" );
     RadioButton7->setText( tr( "In the Foreground" ) );
-		if (ap->HaveDoc)
-    	RadioButton7->setChecked( !ap->doc->Before );
-		else
-    	RadioButton7->setChecked( !Vor->Before );
+    RadioButton7->setChecked(ap->HaveDoc ? !ap->doc->Before : !Vor->Before );
     Layout7->addWidget( RadioButton7 );
     ButtonGroup5Layout->addLayout( Layout7 );
     tabLayout_2->addWidget( ButtonGroup5, 0, 1 );
@@ -600,19 +582,13 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     VTiefW->setSuffix( tr( " %" ) );
     VTiefW->setMaxValue( 100 );
     VTiefW->setMinValue( 1 );
-		if (ap->HaveDoc)
-    	VTiefW->setValue( ap->doc->VTief );
-		else
-    	VTiefW->setValue( Vor->DVTief );
+    VTiefW->setValue(ap->HaveDoc ? ap->doc->VTief : Vor->DVTief );
     Layout12->addWidget( VTiefW, 0, 1 );
     VTiefWSc = new QSpinBox( GroupBox4_2, "VTiefWSc" );
     VTiefWSc->setSuffix( tr( " %" ) );
     VTiefWSc->setMaxValue( 100 );
     VTiefWSc->setMinValue( 1 );
-		if (ap->HaveDoc)
-    	VTiefWSc->setValue( ap->doc->VTiefSc );
-		else
-    	VTiefWSc->setValue( Vor->DVTiefSc );
+    VTiefWSc->setValue(ap->HaveDoc ? ap->doc->VTiefSc : Vor->DVTiefSc );
     Layout12->addWidget( VTiefWSc, 1, 1 );
     GroupBox4_2Layout->addLayout( Layout12 );
     tabLayout_3->addWidget( GroupBox4_2, 1, 0 );
@@ -640,19 +616,13 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     VHochW->setSuffix( tr( " %" ) );
     VHochW->setMaxValue( 100 );
     VHochW->setMinValue( 1 );
-		if (ap->HaveDoc)
-    	VHochW->setValue( ap->doc->VHoch );
-		else
-    	VHochW->setValue( Vor->DVHoch );
+    VHochW->setValue(ap->HaveDoc ? ap->doc->VHoch : Vor->DVHoch );
     Layout13->addWidget( VHochW, 0, 1 );
     VHochWSc = new QSpinBox( GroupBox4, "VHochWSc" );
     VHochWSc->setSuffix( tr( " %" ) );
     VHochWSc->setMaxValue( 100 );
     VHochWSc->setMinValue( 1 );
-		if (ap->HaveDoc)
-    	VHochWSc->setValue( ap->doc->VHochSc );
-		else
-    	VHochWSc->setValue( Vor->DVHochSc );
+    VHochWSc->setValue(ap->HaveDoc ? ap->doc->VHochSc : Vor->DVHochSc );
     Layout13->addWidget( VHochWSc, 1, 1 );
     GroupBox4Layout->addLayout( Layout13 );
     tabLayout_3->addWidget( GroupBox4, 0, 0 );
@@ -676,10 +646,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     SmallCaps->setSuffix( tr( " %" ) );
     SmallCaps->setMaxValue( 100 );
     SmallCaps->setMinValue( 1 );
-		if (ap->HaveDoc)
-    	SmallCaps->setValue( ap->doc->VKapit );
-		else
-    	SmallCaps->setValue( Vor->DVKapit );
+    SmallCaps->setValue(ap->HaveDoc ? ap->doc->VKapit : Vor->DVKapit );
     Layout14->addWidget( SmallCaps );
     GroupBox4_3Layout->addLayout( Layout14 );
     tabLayout_3->addWidget( GroupBox4_3, 0, 1 );
@@ -704,10 +671,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     AutoLineV->setSuffix( tr( " %" ) );
     AutoLineV->setMaxValue( 100 );
     AutoLineV->setMinValue( 1 );
-		if (ap->HaveDoc)
-    	AutoLineV->setValue( ap->doc->AutoLine );
-		else
-    	AutoLineV->setValue( Vor->AutoLine );
+    AutoLineV->setValue(ap->HaveDoc ? ap->doc->AutoLine : Vor->AutoLine );
     Layout14a->addWidget( AutoLineV );
     GroupBox4_3aLayout->addLayout( Layout14a );
     tabLayout_3->addWidget( GroupBox4_3a, 1, 1 );
@@ -937,10 +901,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Shade2->setSuffix( tr( " %" ) );
     Shade2->setMaxValue( 100 );
     Shade2->setMinValue( 0 );
-		if (ap->HaveDoc)
-    	Shade2->setValue( ap->doc->Dshade2 );
-		else
-    	Shade2->setValue( Vor->Dshade2 );
+    Shade2->setValue(ap->HaveDoc ? ap->doc->Dshade2 : Vor->Dshade2 );
     Layout15b->addWidget(Shade2, 1, 1);
     Background = new QComboBox( true, ToolFrame2, "Background" );
     Background->setEditable(false);
@@ -961,18 +922,12 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Shade->setSuffix( tr( " %" ) );
     Shade->setMaxValue( 100 );
     Shade->setMinValue( 0 );
-		if (ap->HaveDoc)
-    	Shade->setValue( ap->doc->Dshade );
-		else
-    	Shade->setValue( Vor->Dshade );
+    Shade->setValue(ap->HaveDoc ? ap->doc->Dshade : Vor->Dshade );
     Layout15b->addWidget(Shade, 3, 1);
     Linestyle = new LineCombo(ToolFrame2);
     Linestyle->setEditable(false);
 		int dla;
-		if (ap->HaveDoc)
-			dla = ap->doc->DLineArt;
-		else
-			dla = Vor->DLineArt;
+		dla = ap->HaveDoc ? ap->doc->DLineArt : Vor->DLineArt;
 		switch (dla)
 			{
 			case SolidLine:
@@ -1000,10 +955,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     LineW->setMaxValue( 200 );
     LineW->setMinValue( 0 );
 		LineW->setLineStep(10);
-		if (ap->HaveDoc)
-    	LineW->setValue(static_cast<int>(ap->doc->Dwidth*10));
-		else
-    	LineW->setValue(static_cast<int>(Vor->Dwidth*10));
+		LineW->setValue(ap->HaveDoc ? static_cast<int>(ap->doc->Dwidth*10) : static_cast<int>(Vor->Dwidth*10));
     Layout15b->addWidget(LineW, 5, 1);
     QSpacerItem* sp07 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     ToolFrame2Layout->addItem( sp07 );
@@ -1011,7 +963,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     QSpacerItem* sp08 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     ToolFrame2Layout->addItem( sp08 );
     Fram->addWidget(ToolFrame2, 2);
-		
+
     ToolFrame3 = new QFrame( this, "ToolFrame" );
     ToolFrame3->setFrameShape( QFrame::Box );
     ToolFrame3->setFrameShadow( QFrame::Sunken );
@@ -1056,17 +1008,11 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Shade22->setSuffix( tr( " %" ) );
     Shade22->setMaxValue( 100 );
     Shade22->setMinValue( 0 );
-		if (ap->HaveDoc)
-    	Shade22->setValue( ap->doc->DshadeLine );
-		else
-    	Shade22->setValue( Vor->DshadeLine );
+    Shade22->setValue(ap->HaveDoc ? ap->doc->DshadeLine : Vor->DshadeLine );
     Layout15c->addWidget(Shade22, 1, 1);
     Linestyle2 = new LineCombo(ToolFrame3);
     Linestyle2->setEditable(false);
-		if (ap->HaveDoc)
-			dla = ap->doc->DLstyleLine;
-		else
-			dla = Vor->DLstyleLine;
+    dla = ap->HaveDoc ? ap->doc->DLstyleLine : Vor->DLstyleLine;
 		switch (dla)
 			{
 			case SolidLine:
@@ -1094,10 +1040,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     LineW2->setMaxValue( 200 );
     LineW2->setMinValue( 1 );
 		LineW2->setLineStep(10);
-		if (ap->HaveDoc)
-    	LineW2->setValue( static_cast<int>(ap->doc->DwidthLine*10) );
-		else
-    	LineW2->setValue( static_cast<int>(Vor->DwidthLine*10) );
+		LineW2->setValue(ap->HaveDoc ? static_cast<int>(ap->doc->DwidthLine*10) : static_cast<int>(Vor->DwidthLine*10) );
     Layout15c->addWidget(LineW2, 3, 1);
     QSpacerItem* sp05 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     ToolFrame3Layout->addItem( sp05 );
@@ -1105,7 +1048,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     QSpacerItem* sp06 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     ToolFrame3Layout->addItem( sp06 );
     Fram->addWidget(ToolFrame3, 3);
-		
+
     ToolFrame4 = new QFrame( this, "ToolFrame" );
     ToolFrame4->setFrameShape( QFrame::Box );
     ToolFrame4->setFrameShadow( QFrame::Sunken );
@@ -1132,30 +1075,21 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     MinMag->setMaxValue( 800 );
     MinMag->setMinValue( 10 );
     MinMag->setLineStep( 10 );
-		if (ap->HaveDoc)
-    	MinMag->setValue( ap->doc->MagMin );
-		else
-    	MinMag->setValue( Vor->MagMin );
+    MinMag->setValue(ap->HaveDoc ? ap->doc->MagMin : Vor->MagMin );
     Layout15d->addWidget(MinMag, 0, 1);
     MaxMag = new QSpinBox( ToolFrame4, "Shade" );
     MaxMag->setSuffix( tr( " %" ) );
     MaxMag->setMaxValue( 800 );
     MaxMag->setMinValue( 10 );
     MaxMag->setLineStep( 10 );
-		if (ap->HaveDoc)
-    	MaxMag->setValue( ap->doc->MagMax );
-		else
-    	MaxMag->setValue( Vor->MagMax );
+    MaxMag->setValue(ap->HaveDoc ? ap->doc->MagMax : Vor->MagMax );
     Layout15d->addWidget(MaxMag, 1, 1);
     StepMag = new QSpinBox( ToolFrame4, "LineW" );
     StepMag->setSuffix( tr( " %" ) );
     StepMag->setMaxValue( 200 );
     StepMag->setMinValue( 1 );
     StepMag->setLineStep( 25 );
-		if (ap->HaveDoc)
-    	StepMag->setValue( ap->doc->MagStep );
-		else
-    	StepMag->setValue( Vor->MagStep );
+    StepMag->setValue(ap->HaveDoc ? ap->doc->MagStep : Vor->MagStep );
     Layout15d->addWidget(StepMag, 2, 1);
     QSpacerItem* sp03 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     ToolFrame4Layout->addItem( sp03 );
@@ -1198,19 +1132,13 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     XScale->setSuffix( tr( " %" ) );
     XScale->setMaxValue( 1000 );
     XScale->setMinValue( 1 );
-		if (ap->HaveDoc)
-    	XScale->setValue( qRound(ap->doc->ScaleX * 100) );
-		else
-    	XScale->setValue( qRound(Vor->ScaleX * 100) );
+    XScale->setValue(ap->HaveDoc ? qRound(ap->doc->ScaleX * 100) : qRound(Vor->ScaleX * 100) );
     Layout15->addWidget( XScale, 1, 2 );
     YScale = new QSpinBox( ToolFrame5, "YScale" );
     YScale->setSuffix( tr( " %" ) );
     YScale->setMaxValue( 1000 );
     YScale->setMinValue( 1 );
-		if (ap->HaveDoc)
-    	YScale->setValue( qRound(ap->doc->ScaleY * 100) );
-		else
-    	YScale->setValue( qRound(Vor->ScaleY * 100) );
+    YScale->setValue(ap->HaveDoc ? qRound(ap->doc->ScaleY * 100) : qRound(Vor->ScaleY * 100) );
     Layout15->addWidget( YScale, 2, 2 );
     Kette = new LinkButton( ToolFrame5 );
     Kette->setToggleButton( true );
@@ -1226,10 +1154,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     ShadeP->setSuffix( tr( " %" ) );
     ShadeP->setMaxValue( 100 );
     ShadeP->setMinValue( 0 );
-		if (ap->HaveDoc)
-    	ShadeP->setValue( ap->doc->ShadePict );
-		else
-    	ShadeP->setValue( Vor->ShadePict );
+    ShadeP->setValue(ap->HaveDoc ? ap->doc->ShadePict : Vor->ShadePict );
     Layout15->addWidget( ShadeP, 6, 1 );
     BackgroundP = new QComboBox( true, ToolFrame5, "BackgroundP" );
     BackgroundP->setEditable(false);
@@ -1251,15 +1176,9 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     ToolFrame5Layout->addLayout( Layout15 );
     QSpacerItem* sp02 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     ToolFrame5Layout->addItem( sp02 );
-		if (ap->HaveDoc)
-			Aspect->setChecked(ap->doc->AspectRatio);
-		else
-			Aspect->setChecked(Vor->AspectRatio);
+    Aspect->setChecked(ap->HaveDoc ? ap->doc->AspectRatio : Vor->AspectRatio);
 		bool sct;
-		if (ap->HaveDoc)
-			sct = ap->doc->ScaleType;
-		else
-			sct = Vor->ScaleType;
+		sct = ap->HaveDoc ? ap->doc->ScaleType : Vor->ScaleType;
 		if (sct)
 			{
 			FreeScale->setChecked(true);
@@ -1441,17 +1360,11 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GroupBox10Layout->setMargin( 11 );
     FramesVisible = new QCheckBox( GroupBox10, "FramesVisible" );
     FramesVisible->setText( tr( "Display Frames" ) );
-		if (ap->HaveDoc)
-    	FramesVisible->setChecked(ap->doc->ShFrames);
-		else
-    	FramesVisible->setChecked(Vor->ShFrames);
+    FramesVisible->setChecked(ap->HaveDoc ? ap->doc->ShFrames : Vor->ShFrames);
     GroupBox10Layout->addWidget( FramesVisible );
     SidebySide = new QCheckBox( GroupBox10, "SidebySide" );
     SidebySide->setText( tr( "Display Pages Side by Side" ) );
-		if (ap->HaveDoc)
-    	SidebySide->setChecked(ap->doc->PagesSbS);
-		else
-    	SidebySide->setChecked(Vor->PagesSbS);
+    SidebySide->setChecked(ap->HaveDoc ? ap->doc->PagesSbS : Vor->PagesSbS);
     GroupBox10Layout->addWidget( SidebySide );
 
     Layout_6b = new QHBoxLayout();
@@ -1511,10 +1424,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GroupBox10Layout->addLayout(Layout_6b);
     RandFarb = new QCheckBox( GroupBox10, "Ran" );
     RandFarb->setText( tr( "Display Unprintable Area in Margin Color" ) );
-		if (ap->HaveDoc)
-    	RandFarb->setChecked(ap->doc->RandFarbig);
-		else
-    	RandFarb->setChecked(Vor->RandFarbig);
+    RandFarb->setChecked(ap->HaveDoc ? ap->doc->RandFarbig : Vor->RandFarbig);
     GroupBox10Layout->addWidget( RandFarb );
     UsePDFTrans = new QCheckBox( GroupBox10, "Ran2" );
     UsePDFTrans->setText( tr( "Use PDF-1.4 Transparency Features" ) );
@@ -1654,24 +1564,15 @@ void Preferences::ChangeProfs()
 
 void Preferences::ChangeScaling()
 {
+	bool setter = false;
 	if (FreeScale->isChecked())
-		{
-		TextLabelT51->setEnabled(true);
-		TextLabelT52->setEnabled(true);
-		XScale->setEnabled(true);
-		YScale->setEnabled(true);
-		Kette->setEnabled(true);
-		Aspect->setEnabled(false);
-		}
-	else
-		{
-		TextLabelT51->setEnabled(false);
-		TextLabelT52->setEnabled(false);
-		XScale->setEnabled(false);
-		YScale->setEnabled(false);
-		Kette->setEnabled(false);
-		Aspect->setEnabled(true);
-		}
+		setter = true;
+	TextLabelT51->setEnabled(setter);
+	TextLabelT52->setEnabled(setter);
+	XScale->setEnabled(setter);
+	YScale->setEnabled(setter);
+	Kette->setEnabled(setter);
+	Aspect->setEnabled(!setter);
 }
 
 void Preferences::setDS()
@@ -1941,7 +1842,7 @@ void Preferences::changeMicolor()
     QPixmap pm = QPixmap(40, 20);
     pm.fill(neu);
 		Cmin = neu;
-    minColor->setPixmap(pm);	
+    minColor->setPixmap(pm);
 		}
 }
 
@@ -1954,7 +1855,7 @@ void Preferences::changePapColor()
     QPixmap pm = QPixmap(40, 20);
     pm.fill(neu);
 		Cpaper = neu;
-    PapColor->setPixmap(pm);	
+    PapColor->setPixmap(pm);
 		}
 }
 
@@ -1967,7 +1868,7 @@ void Preferences::changeRandColor()
     QPixmap pm = QPixmap(40, 20);
     pm.fill(neu);
 		Crand = neu;
-    RandColor->setPixmap(pm);	
+    RandColor->setPixmap(pm);
 		}
 }
 
@@ -2022,7 +1923,7 @@ void Preferences::VChange()
 
 void Preferences::UnitChange()
 {
-	float AltUmrech = Umrech;
+	double AltUmrech = Umrech;
 	Einheit = UnitCombo->currentItem();
 	switch (UnitCombo->currentItem())
 		{
@@ -2148,7 +2049,7 @@ void Preferences::UpdatePreView()
 	if ((br.height() > 100) || (br.width() > 100))
 		{
 		QWMatrix ma;
-		float sca = 100.0 / float(QMAX(br.width(), br.height()));
+		double sca = 100.0 / static_cast<double>(QMAX(br.width(), br.height()));
 		ma.scale(sca, sca);
 		pp = ma * pp;
 		}
@@ -2157,15 +2058,15 @@ void Preferences::UpdatePreView()
 	T6_Preview->setPixmap(*Pre);
 }
 
-float Preferences::GetZeroFaktor()
+double Preferences::GetZeroFaktor()
 {
 	return sqrt(pow(1,2)-pow(((sin((360.0/(T6_Ecken->value()*2))/180*M_PI)* 2.0)/2.0),2));
 }
 
-float Preferences::GetMaxFaktor()
+double Preferences::GetMaxFaktor()
 {
-	float win = (360.0/(T6_Ecken->value()*2)) / 180.0 * M_PI;
-	float ret;
+	double win = (360.0/(T6_Ecken->value()*2)) / 180.0 * M_PI;
+	double ret;
 	if ((360.0/(T6_Ecken->value()*2)) > 45)
 		ret = 1/sin(win);
 	else
@@ -2173,7 +2074,7 @@ float Preferences::GetMaxFaktor()
 	return ret;
 }
 
-float Preferences::GetFaktor()
+double Preferences::GetFaktor()
 {
 	int val = T6_Slider1->value();
 	if (val < 0)
@@ -2182,8 +2083,8 @@ float Preferences::GetFaktor()
 		}
 	else
 		{
-		float ma = GetMaxFaktor();
-		float mi = GetZeroFaktor();
+		double ma = GetMaxFaktor();
+		double mi = GetZeroFaktor();
 		PFactor = ((ma - mi) * val / 100.0) + mi;
 		}
 	return PFactor;
@@ -2198,7 +2099,7 @@ void Preferences::SetDisScale()
 
 void Preferences::DrawRuler()
 {
-	float xl, iter, iter2, maxi;
+	double xl, iter, iter2, maxi;
 	switch (Einheit)
 		{
 		case 0:

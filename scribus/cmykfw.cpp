@@ -58,7 +58,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
     ComboBox1->setEditable(false);
     ComboBox1->insertItem( tr( "CMYK" ) );
     ComboBox1->insertItem( tr( "RGB" ) );
-    ComboBox1->insertItem( tr( "Websave RGB" ) );
+    ComboBox1->insertItem( tr( "Web Safe RGB" ) );
     ComboBox1->setMinimumSize( QSize( 200, 22 ) );
     Layout23->addWidget( ComboBox1 );
     QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding );
@@ -314,10 +314,11 @@ void CMYKChoose::mouseReleaseEvent(QMouseEvent *m)
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		int px = pmen->insertItem(tr("Dynamic Color Bars"), this, SLOT(ToggleSL()));
 		int py = pmen->insertItem(tr("Static Color Bars"), this, SLOT(ToggleSL()));
-		if (dynamic)
+		pmen->setItemChecked((dynamic ? px : py) , true);
+		/*if (dynamic)
 			pmen->setItemChecked(px, true);
 		else
-			pmen->setItemChecked(py, true);
+			pmen->setItemChecked(py, true);*/
 		pmen->exec(QCursor::pos());
 		delete pmen;
 		}

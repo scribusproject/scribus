@@ -46,7 +46,7 @@ public slots:
     virtual void slotApplyDiag();
 
 signals:
-		void ApplyDist(bool, bool, bool, bool, float, float, int, int);
+		void ApplyDist(bool, bool, bool, bool, double, double, int, int);
 
 protected:
     QVBoxLayout* AlignLayout;

@@ -55,10 +55,10 @@ class Foi
 		bool isOTF;
 		bool Subset;
 		struct GlyphR { FPointArray Outlines;
-					 					float x;
-					 					float y;
+					 					double x;
+					 					double y;
 				  				};
-		QMap<uint,float> CharWidth;
+		QMap<uint,double> CharWidth;
 		QMap<uint,GlyphR> GlyphArray;
 		QMap<uint,FPointArray> RealGlyphs;
 		QString Ascent;
@@ -71,12 +71,12 @@ class Foi
 		QString FontBBox;
 		bool UseFont;
 		bool HasKern;
-		float uniEM;
-		float numAscent;
-		float numDescender;
-		float underline_pos;
-		float strikeout_pos;
-		float strokeWidth;
+		double uniEM;
+		double numAscent;
+		double numDescender;
+		double underline_pos;
+		double strikeout_pos;
+		double strokeWidth;
 //		QPixmap Appearance;
 };
 

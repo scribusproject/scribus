@@ -35,7 +35,7 @@ public:
 	QSize sizeHint();
 	QString Ctext();
 private:
-	QString string;
+	QString stringy;
 	QFont font;
 };
 

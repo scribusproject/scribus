@@ -20,8 +20,8 @@
 
 int VGradient::VColorStopList::compareItems( QPtrCollection::Item item1, QPtrCollection::Item item2 )
 {
-	float r1 = ( (VColorStop*)item1 )->rampPoint;
-	float r2 = ( (VColorStop*)item2 )->rampPoint;
+	double r1 = ( (VColorStop*)item1 )->rampPoint;
+	double r2 = ( (VColorStop*)item2 )->rampPoint;
 
 	return ( r1 == r2 ? 0 : r1 < r2 ? -1 : 1 );
 } // VGradient::VColorStopList::compareItems
@@ -81,15 +81,15 @@ VGradient& VGradient::operator=( const VGradient& gradient )
 		m_colorStops.append( new VColorStop( *cs[i] ) );
 	m_colorStops.sort();
 
-	return *this;	
+	return *this;
 } // VGradient::operator=
 
 const QPtrVector<VColorStop> VGradient::colorStops() const
-{ 
+{
 	QPtrVector<VColorStop> v;
 	m_colorStops.toVector( &v );
 	v.setAutoDelete( false );
-	return v; 
+	return v;
 } // VGradient::colorStops()
 
 void
@@ -105,7 +105,7 @@ VGradient::addStop( const VColorStop& colorStop )
 } // VGradient::addStop
 
 void
-VGradient::addStop( const QColor &color, float rampPoint, float midPoint, float opa )
+VGradient::addStop( const QColor &color, double rampPoint, double midPoint, double opa )
 {
 	// Clamping between 0.0 and 1.0
 	rampPoint = QMAX( 0.0f, rampPoint );

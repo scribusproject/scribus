@@ -136,8 +136,8 @@ void Farbmanager::delFarbe()
 void Farbmanager::duplFarbe()
 {
     QString nam;
-    Query *dia = new Query(this, "tt", 1, 0, tr("New Color:"), tr("New Color"));
-    dia->Answer->setText(tr("Copy of")+" "+sFarbe);
+    Query *dia = new Query(this, "tt", 1, 0, "New Color:", "New Color");
+    dia->Answer->setText(tr("Copy of ")+sFarbe);
     if (dia->exec())
     	{
     	nam = dia->Answer->text();
@@ -159,7 +159,7 @@ void Farbmanager::duplFarbe()
 void Farbmanager::neueFarbe()
 {
     QString nam;
-    Query *dia = new Query(this, "tt", 1, 0, tr("New Color:"), tr("New Color"));
+    Query *dia = new Query(this, "tt", 1, 0, "New Color:", "New Color");
     dia->Answer->setText(sFarbe);
     if (dia->exec())
     	{
@@ -211,10 +211,7 @@ void Farbmanager::selFarbe(QListBoxItem *c)
 	sFarbe = c->text();
 	EditF->setEnabled(true);
 	DupF->setEnabled(true);
-	if (EditColors.count() == 1)
-   	DelF->setEnabled(false);
-	else
-   	DelF->setEnabled(true);
+  DelF->setEnabled(EditColors.count() == 1 ? false : true);
 	if (DontChange.contains(sFarbe))
 		{
    	EditF->setEnabled(false);
@@ -232,14 +229,7 @@ void Farbmanager::updateCList()
 		pm.fill(EditColors[it.key()].getRGBColor());
 		ListBox1->insertItem(pm, it.key());
 		}
-	if (EditColors.count() == 1)
-		{
-    DelF->setEnabled(false);
-		}
-	else
-		{
-    DelF->setEnabled(true);
-		}
+	DelF->setEnabled(EditColors.count() == 1 ? false : true);
 	if (ListBox1->currentItem() == -1)
    	{
    	DupF->setEnabled(false);

@@ -89,7 +89,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
     Header->setLabel(2, tr("Embed in:"));
     Header->setLabel(3, tr("Subset"));
     Header->setLabel(4, tr("Type"));
-    Header->setLabel(5, tr("Path to Fontfile"));
+    Header->setLabel(5, tr("Path to Font File"));
     Table1->adjustColumn(0);
     Table1->adjustColumn(1);
     Table1->setColumnWidth(2, 110);
@@ -272,9 +272,10 @@ void FontPrefs::AddPath()
 		{
   	QFile fp(s+"fonts.scale");
 		if(!(fp.exists()))
+		{
 			fp.setName(s+"fonts.dir");
-		if(!(fp.exists()))
 			return;
+		}
 		s = s.left(s.length()-1);
 		if (PathList->findItem(s))
 			return;
@@ -306,9 +307,10 @@ void FontPrefs::ChangePath()
 		{
   	QFile fp(s+"fonts.scale");
 		if(!(fp.exists()))
+		{
 			fp.setName(s+"fonts.dir");
-		if(!(fp.exists()))
 			return;
+		}
 		s = s.left(s.length()-1);
 		if (PathList->findItem(s))
 			return;
@@ -352,16 +354,9 @@ void FontPrefs::DelPath()
 		return;
 	CurrentPath = "";
 	RebuildDialog();
-	if (PathList->count() > 0)
-		{
-		ChangeB->setEnabled(true);
-		RemoveB->setEnabled(true);
-		}
-	else
-		{
-		ChangeB->setEnabled(false);
-		RemoveB->setEnabled(false);
-		}
+	bool setter = PathList->count() > 0 ? true : false;
+	ChangeB->setEnabled(setter);
+	RemoveB->setEnabled(setter);
 }
 
 void FontPrefs::RebuildDialog()

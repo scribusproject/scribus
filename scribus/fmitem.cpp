@@ -15,13 +15,16 @@
  *                                                                         *
  ***************************************************************************/
 
+/* IMPORTANT! The variable string has been renamed stringy to avoid clashes with the STL
+   string class */
+ 
 #include "fmitem.h"
 #include <qfontmetrics.h>
 #include <qapplication.h>
 
 FmItem::FmItem(const QString& s, const QFont& f)
 {
-	string = s;
+	stringy = s;
 	font = f;
 	font.setPointSize(qApp->font().pointSize());
 }
@@ -29,15 +32,15 @@ FmItem::FmItem(const QString& s, const QFont& f)
 void FmItem::paint(QPainter *p, const QColorGroup&, bool, bool, int x, int y, int w, int h)
 {
 	p->setFont(font);
-	p->drawText(x, y, w, h, AlignLeft | AlignVCenter | ShowPrefix | DontClip, string);
+	p->drawText(x, y, w, h, AlignLeft | AlignVCenter | ShowPrefix | DontClip, stringy);
 }
 
 QSize FmItem::sizeHint()
 {
-	return QFontMetrics(font).size(AlignLeft | AlignVCenter | ShowPrefix | DontClip, string);
+	return QFontMetrics(font).size(AlignLeft | AlignVCenter | ShowPrefix | DontClip, stringy);
 }
 
 QString FmItem::Ctext()
 {
-	return string;
+	return stringy;
 }

@@ -22,11 +22,12 @@
 #include <qcursor.h>
 #include <qdir.h>
 #include <cstdlib>
+#include <string>
 #include "scribus.h"
 
 Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app) : QObject( parent, "bu")
 {
-  char *filename = NULL;
+  std::string filename;
 	doc = dok;
 	Sap = app;
 	MinWordLen = doc->MinWordLen;
@@ -43,7 +44,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app) : QObj
 	pfad += "/lib/scribus/dicts/" + Sap->Sprachen[Language];
 	QCString fn = pfad.latin1();
 	filename = fn.data();
-	hdict = hnj_hyphen_load(filename);
+	hdict = hnj_hyphen_load(filename.c_str());
 }
 
 Hyphenator::~Hyphenator()
@@ -53,7 +54,7 @@ Hyphenator::~Hyphenator()
 
 void Hyphenator::slotNewDict(QString name)
 {
-  char *filename = NULL;
+  std::string filename;
 	if (!Sap->Sprachen.contains(name))
 		return;
 	if (hdict != NULL)
@@ -64,7 +65,7 @@ void Hyphenator::slotNewDict(QString name)
 	pfad += "/lib/scribus/dicts/" + Sap->Sprachen[Language];
 	QCString fn = pfad.latin1();
 	filename = fn.data();
-	hdict = hnj_hyphen_load(filename);
+	hdict = hnj_hyphen_load(filename.c_str());
 }
 
 void Hyphenator::slotNewSettings(int Wordlen, bool Autom, bool ACheck)
