@@ -643,8 +643,13 @@ char* tr(const char* docstringConstant)
 	 * a text string in a particular text encoding.
 	 */
 	//QCString utfTranslated = translated.utf8();
-	const char* trch = translated.utf8().data();
-	return strndup(trch, strlen(trch));
+	QCString trch = translated.utf8();
+	char* utfstr = strdup(trch.data());
+	if (!utfstr)
+		// Complain, but then return NULL anyway. Python will treat NULL as
+		// "no value" so that's fine.
+		qDebug("scriptplugin.cpp:tr() - strdup() failure");
+	return utfstr;
 }
 
 /* Now we're using the more pythonic convention for names:
@@ -1004,11 +1009,11 @@ a string - they are not real Python objects. Many functions take an\n\
 optional (non-keyword) parameter, a frame name.\n\
 Many exceptions are also common across most functions. These are\n\
 not currently documented in the docstring for each function.\n\
-- Many functions will raise a NoDocOpenError if you try to use them\
+- Many functions will raise a NoDocOpenError if you try to use them\n\
 without a document to operate on.\n\
-- If you do not pass a frame name to a function that requires one,\
-the function will use the currently selected frame, if any, or\
-raise a NoValidObjectError if it can't find anything to operate\
+- If you do not pass a frame name to a function that requires one,\n\
+the function will use the currently selected frame, if any, or\n\
+raise a NoValidObjectError if it can't find anything to operate\n\
 on.\n\
 - Many functions will raise WrongFrameTypeError if you try to use them\n\
 on a frame type that they do not make sense with. For example, setting\n\
@@ -1019,15 +1024,25 @@ passed through unaltered. As such, the list of exceptions thrown by\n\
 any function as provided here and in its docstring is incomplete.\n\
 \n\
 Details of what exceptions each function may throw are provided on the\n\
-function's documentation.");
+function's documentation, though as with most Python code this list\n\
+is not exhaustive due to exceptions from called functions.\n\
+");
 
-	// Py_UNICODE is a typedef for unsigned short
-	PyObject* uniDocStr = Py_BuildValue(const_cast<char*>("u"), (Py_UNICODE*)(docstring.ucs2()));
-	if (uniDocStr == NULL)
-		qDebug("Failed to create module-level docstring object!");
+	PyObject* docStr = PyString_FromString(docstring.utf8().data());
+	if (!docStr)
+		qDebug("Failed to create module-level docstring (couldn't make str)");
 	else
-		PyDict_SetItemString(d, const_cast<char*>("__doc__"), uniDocStr);
-	Py_DECREF(uniDocStr);
+	{
+		PyObject* uniDocStr = PyUnicode_FromEncodedObject(docStr, "utf-8", NULL);
+		Py_DECREF(docStr);
+		docStr = NULL;
+		if (!uniDocStr)
+			qDebug("Failed to create module-level docstring object (couldn't make unicode)");
+		else
+			PyDict_SetItemString(d, const_cast<char*>("__doc__"), uniDocStr);
+		Py_DECREF(uniDocStr);
+		uniDocStr = NULL;
+	}
 
 	// Wrap up pointers to the the QApp and main window and push them out
 	// to Python.
