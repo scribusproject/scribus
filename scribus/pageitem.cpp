@@ -3218,6 +3218,22 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restorePoly(ss, isUndo, false);
 		else if (ss->contains("RESET_CONTOUR"))
 			restoreContourLine(ss, isUndo);
+		else if (ss->contains("MIRROR_PATH_H"))
+		{
+			bool editContour = ScApp->view->EditContour;
+			ScApp->view->EditContour = ss->getBool("IS_CONTOUR");
+			select();
+			ScApp->view->MirrorPolyH();
+			ScApp->view->EditContour = editContour;
+		}
+		else if (ss->contains("MIRROR_PATH_V"))
+		{
+			bool editContour = ScApp->view->EditContour;
+			ScApp->view->EditContour = ss->getBool("IS_CONTOUR");
+			select();
+			ScApp->view->MirrorPolyV();
+			ScApp->view->EditContour = editContour;
+		}
 	}
 }
 

@@ -5154,6 +5154,13 @@ void ScribusView::MirrorPolyH()
 	QWMatrix ma;
 	if (EditContour)
 	{
+		if (UndoManager::undoEnabled())
+		{
+			SimpleState *ss = new SimpleState(Um::FlipH, "", Um::IFlipH);
+			ss->set("MIRROR_PATH_H", "mirror_path_h");
+			ss->set("IS_CONTOUR", true);
+			undoManager->action(b, ss, Um::IBorder);
+		}
 		FPoint tp, tp2;
 		tp2 = getMinClipF(&b->ContourLine);
 		tp = getMaxClipF(&b->ContourLine);
@@ -5178,6 +5185,13 @@ void ScribusView::MirrorPolyH()
 	setRedrawBounding(b);
 	RefreshItem(b);
 	MarkClip(b);
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::FlipH, "", Um::IFlipH);
+		ss->set("MIRROR_PATH_H", "mirror_path_h");
+		ss->set("IS_CONTOUR", false);
+		undoManager->action(b, ss, Um::IBorder);
+	}
 }
 
 void ScribusView::MirrorPolyV()
@@ -5187,6 +5201,13 @@ void ScribusView::MirrorPolyV()
 	QWMatrix ma;
 	if (EditContour)
 	{
+		if (UndoManager::undoEnabled())
+		{
+			SimpleState *ss = new SimpleState(Um::FlipV, "", Um::IFlipV);
+			ss->set("MIRROR_PATH_V", "mirror_path_v");
+			ss->set("IS_CONTOUR", true);
+			undoManager->action(b, ss, Um::IBorder);
+		}
 		FPoint tp, tp2;
 		tp2 = getMinClipF(&b->ContourLine);
 		tp = getMaxClipF(&b->ContourLine);
@@ -5211,6 +5232,13 @@ void ScribusView::MirrorPolyV()
 	setRedrawBounding(b);
 	RefreshItem(b);
 	MarkClip(b);
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::FlipV, "", Um::IFlipV);
+		ss->set("MIRROR_PATH_V", "mirror_path_v");
+		ss->set("IS_CONTOUR", false);
+		undoManager->action(b, ss, Um::IBorder);
+	}
 }
 
 void ScribusView::TransformPoly(int mode, int rot, double scaling)
