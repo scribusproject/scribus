@@ -1423,7 +1423,7 @@ void Page::UpdateClip(PageItem* b)
 		                  -ph,static_cast<int>(b->Height+ph));
 		break;
 	default:
-		if (!b->ClipEdited)
+		if ((!b->ClipEdited) || (b->FrameType < 3))
 		{
 			switch (b->FrameType)
 			{
@@ -1435,6 +1435,8 @@ void Page::UpdateClip(PageItem* b)
 				break;
 			case 2:
 				SetFrameRound(b);
+				break;
+			default:
 				break;
 			}
 			if ((b->OldB2 != 0) && (b->OldH2 != 0))
@@ -1451,10 +1453,20 @@ void Page::UpdateClip(PageItem* b)
 				b->GrStartY = gr.point(0).y();
 				b->GrEndX = gr.point(1).x();
 				b->GrEndY = gr.point(0).y();
+				if (b->FrameType > 2)
+				{
+					b->PoLine.map(ma);
+					b->ContourLine.map(ma);
+					if (b->PType == 8)
+						UpdatePolyClip(b);
+					else
+						b->Clip = FlattenPath(b->PoLine, b->Segments);
+				}
 			}
 			b->OldB2 = b->Width;
 			b->OldH2 = b->Height;
-			b->ContourLine = b->PoLine.copy();
+			if (b->FrameType < 3)
+				b->ContourLine = b->PoLine.copy();
 		}
 		else
 		{
@@ -8883,6 +8895,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 			SetFrameRound(b);
 		else
 			SetRectFrame(b);
+		b->ClipEdited = true;
 	}
 	if (b->PType == 2)
 	{

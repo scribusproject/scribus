@@ -156,6 +156,8 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc) : QTextEdit(parent)
 	setUndoDepth(0);
 	setTextFormat(Qt::PlainText);
 	viewport()->setAcceptDrops(false);
+	ClipData = 0;
+	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 }
 
 void SEditor::keyPressEvent(QKeyEvent *k)
@@ -377,38 +379,70 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 
 void SEditor::insChars(QString t)
 {
-	int p, i;
+	int p, i, p2, ccab;
 	if (hasSelectedText())
 		deleteSel();
 	getCursorPosition(&p, &i);
 	ChList *chars;
+	p2 = p;
 	if ((p >= static_cast<int>(StyledText.count())) || (StyledText.count() == 0))
 	{
 		chars = new ChList;
 		chars->setAutoDelete(true);
 		chars->clear();
-		StyledText.append(chars);
-		ParagStyles.append(CurrentABStil);
+		p2 = static_cast<int>(StyledText.count());
 	}
 	else
 		chars = StyledText.at(p);
+	if (chars->count() != 0)
+		ccab = chars->at(0)->cab;
+	else
+		ccab = CurrentABStil;
 	for (uint a = 0; a < t.length(); ++a)
 	{
-		struct PtiSmall *hg;
-		hg = new PtiSmall;
-		hg->ch = t[a];
-		hg->ccolor = CurrTextFill;
-		hg->cshade = CurrTextFillSh;
-		hg->cstroke = CurrTextStroke;
-		hg->cshade2 = CurrTextStrokeSh;
-		hg->cfont = CurrFont;
-		hg->csize = CurrFontSize;
-		hg->cstyle = CurrentStyle;
-		hg->cab = CurrentABStil;
-		hg->cextra = CurrTextKern;
-		hg->cscale = CurrTextScale;
-		chars->insert(i, hg);
-		i++;
+		if (t[a] == QChar(13))
+		{
+			ChList *chars2;
+			chars2 = new ChList;
+			chars2->setAutoDelete(true);
+			chars2->clear();
+			if (p2 >= static_cast<int>(StyledText.count()))
+			{
+				StyledText.append(chars2);
+				ParagStyles.append(ccab);
+			}
+			else
+			{
+				int a = static_cast<int>(chars->count());
+				for (int s = i; s < a; ++s)
+				{
+					chars2->append(chars->take(i));
+				}
+				StyledText.insert(p2+1, chars2);
+				ParagStyles.insert(ParagStyles.at(p2+1), ccab);
+			}
+			p2++;
+			chars = StyledText.at(p2);
+			i = 0;
+		}
+		else
+		{
+			struct PtiSmall *hg;
+			hg = new PtiSmall;
+			hg->ch = t[a];
+			hg->ccolor = CurrTextFill;
+			hg->cshade = CurrTextFillSh;
+			hg->cstroke = CurrTextStroke;
+			hg->cshade2 = CurrTextStrokeSh;
+			hg->cfont = CurrFont;
+			hg->csize = CurrFontSize;
+			hg->cstyle = CurrentStyle;
+			hg->cab = ccab;
+			hg->cextra = CurrTextKern;
+			hg->cscale = CurrTextScale;
+			chars->insert(i, hg);
+			i++;
+		}
 	}
 }
 
@@ -1114,8 +1148,13 @@ void SEditor::copy()
 	emit SideBarUp(false);
 	if ((hasSelectedText()) && (selectedText() != ""))
 	{
+		disconnect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 		tBuffer = selectedText();
 		copyStyledText();
+		QApplication::clipboard()->setText(tBuffer, QClipboard::Clipboard);
+		ClipData = 1;
+		connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
+		emit PasteAvail();
 	}
 	emit SideBarUp(true);
 }
@@ -1138,7 +1177,18 @@ void SEditor::paste()
 	emit SideBarUp(false);
 	int p, i;
 	getCursorPosition(&p, &i);
-	insStyledText();
+	if (ClipData == 2)
+	{
+		QString data = QApplication::clipboard()->text(QClipboard::Clipboard);
+		if (!data.isNull())
+		{
+			data.replace(QRegExp("\r"), "");
+			data.replace(QRegExp("\n"), QChar(13));
+			insChars(data);
+		}
+	}
+	else
+		insStyledText();
 	updateAll();
 	emit SideBarUp(true);
 	emit SideBarUpdate();
@@ -1152,6 +1202,12 @@ QPopupMenu* SEditor::createPopupMenu(const QPoint & pos)
 	p->removeItemAt(0);
 	p->removeItemAt(3);
 	return p;
+}
+
+void SEditor::ClipChange()
+{
+	ClipData = 2;
+	emit PasteAvail();
 }
 
 /* Toolbar for Fill Colour */
@@ -1530,6 +1586,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(Editor, SIGNAL(setProps(int, int)), this, SLOT(updateProps(int, int)));
 	connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
 	connect(Editor, SIGNAL(copyAvailable(bool)), this, SLOT(CopyAvail(bool )));
+	connect(Editor, SIGNAL(PasteAvail()), this, SLOT(PasteAvail()));
 	connect(Editor, SIGNAL(contentsMoving(int, int)), EditorBar, SLOT(doMove(int, int )));
 	connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 	connect(Editor, SIGNAL(SideBarUp(bool )), EditorBar, SLOT(setRepaint(bool )));
@@ -2028,6 +2085,11 @@ void StoryEditor::CopyAvail(bool u)
 		emenu->setItemEnabled(Mpaste, 0);
 }
 
+void StoryEditor::PasteAvail()
+{
+	emenu->setItemEnabled(Mpaste, 1);
+}
+
 void StoryEditor::updateTextFrame()
 {
 	PageItem *nb = CurrItem;
@@ -2339,7 +2401,6 @@ void StoryEditor::LoadTextFile()
 			if (ss->Read(LoadEnc))
 			{
 				QString data = ss->GetObjekt();
-				QString Dat = "";
 				data.replace(QRegExp("\r"), "");
 				data.replace(QRegExp("\n"), QChar(13));
 				Editor->loadText(data, CurrItem);

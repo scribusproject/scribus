@@ -904,7 +904,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								tTabValues = Doc->Vorlagen[hl->cab].TabValues;
 							if (tTabValues.isEmpty())
 								{
-								CurX = ColBound.x() + ceil((CurX-ColBound.x()) / 36.0) * 36.0;
+								if ((CurX - ColBound.x()) != 0)
+									CurX = ColBound.x() + ceil((CurX-ColBound.x()) / 36.0) * 36.0;
+								else
+									CurX = ColBound.x() + 36.0;
 								TabCode = 0;
 								RTab = false;
 								}

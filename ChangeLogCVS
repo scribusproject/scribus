@@ -1,5 +1,8 @@
 Changes since Version 1.1.7
 
+14.08.2004
+	* feature #828: Group members should be hidden for aligning and other operations
+
 13.08.2004
 	* bug     #263: distribute items shuffles the order of the items
 	* feature #966: Scribus 1.2 Slovene translation file

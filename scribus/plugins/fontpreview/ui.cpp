@@ -106,7 +106,7 @@ FontPreview::~FontPreview()
  */
 void FontPreview::languageChange()
 {
-	setCaption( tr( "Font Preview" ) );
+	setCaption( tr( "Fonts Preview" ) );
 	okButton->setText( tr( "&OK" ) );
 	okButton->setAccel( QKeySequence( tr( "Alt+O" ) ) );
 	cancelButton->setText( tr( "&Cancel" ) );

@@ -97,6 +97,7 @@ public:
 	QString UniCinS;
 	QString tBuffer;
 	ChList cBuffer;
+	int ClipData;
 
 protected:
 	void keyPressEvent(QKeyEvent *k);
@@ -106,11 +107,13 @@ public slots:
 	void cut();
 	void copy();
 	void paste();
+	void ClipChange();
 
 signals:
 	void setProps(int, int);
 	void SideBarUp(bool);
 	void SideBarUpdate();
+	void PasteAvail();
 };
 
 class SideBar : public QLabel  
@@ -330,6 +333,7 @@ public slots:
 	void Do_insSp();
 	void Do_fontPrev();
 	void CopyAvail(bool u);
+	void PasteAvail();
 	void updateTextFrame();
 	void SearchText();
 	void slotEditStyles();
