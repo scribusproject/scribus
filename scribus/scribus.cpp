@@ -130,14 +130,24 @@ PrefsFile* prefsFile;
 ScribusApp::ScribusApp()
 {} // ScribusApp::ScribusApp()
 
-void ScribusApp::initGui()
+void ScribusApp::initGui(bool showSplash)
 {
-	splash = new SplashScreen();
-	splash->setStatus(QObject::tr("Initializing..."));
+	if (showSplash)
+	{
+		splashScreen = new SplashScreen();
+		splashScreen->setStatus(QObject::tr("Initializing..."));
+	}
+	else
+		splashScreen = NULL;
+
 	initScribus();
-	splash->close();
-	delete splash;
-	splash = 0;
+
+	if (splashScreen!=NULL)
+	{
+		splashScreen->close();
+		delete splashScreen;
+		splashScreen = NULL;
+	}
 }
 
 void ScribusApp::initScribus()
@@ -205,12 +215,14 @@ void ScribusApp::initScribus()
 	/** Erstelle Fontliste */
 	NoFonts = false;
 	BuFromApp = false;
-	splash->setStatus( tr("Searching for Fonts"));
+	if (splashScreen!=NULL)
+		splashScreen->setStatus( tr("Searching for Fonts"));
 	qApp->processEvents();
 	GetAllFonts();
 	if (NoFonts)
 	{
-		splash->close(); // 10/10/2004 pv fix #1200
+		if (splashScreen!=NULL)
+			splashScreen->close(); // 10/10/2004 pv fix #1200
 		QString mess = tr("There are no Postscript-Fonts on your System");
 		mess += "\n" + tr("Exiting now");
 		QMessageBox::critical(this, tr("Fatal Error"), mess, 1, 0, 0);
@@ -454,21 +466,24 @@ void ScribusApp::initScribus()
 		SetKeyEntry(65, tr("Show Page Palette"), viewSepal, 0);
 		SetKeyEntry(66, tr("Lock/Unlock"), LockOb, CTRL+Key_F);
 		SetKeyEntry(67, tr("Non Breaking Space"), 0, CTRL+Key_Space);
-		splash->setStatus( tr("Reading Preferences"));
+		if (splashScreen != NULL)
+			splashScreen->setStatus( tr("Reading Preferences"));
 		qApp->processEvents();
 		ReadPrefs();
 		if (Prefs.DefFont == "")
 			Prefs.DefFont = it.currentKey();
-		splash->setStatus( tr("Getting ICC Profiles"));
+		if (splashScreen != NULL)
+			splashScreen->setStatus( tr("Getting ICC Profiles"));
 		GetCMSProfiles();
-		splash->setStatus( tr("Init Hyphenator"));
+		if (splashScreen != NULL)
+			splashScreen->setStatus( tr("Init Hyphenator"));
 		qApp->processEvents();
 		InitHyphenator();
 		Mpal->Cpal->UseTrans(Prefs.PDFTransparency);
 		Mpal->Fonts->RebuildList(&Prefs, 0);
 		DocDir = Prefs.DocDir;
-		splash->setStatus("");
-		splash->setStatus( tr("Setting up Shortcuts"));
+		if (splashScreen != NULL)
+			splashScreen->setStatus( tr("Setting up Shortcuts"));
 		qApp->processEvents();
 		SetShortCut();
 		if (CMSavail)
@@ -503,7 +518,8 @@ void ScribusApp::initScribus()
 #endif
 
 		}
-		splash->setStatus( tr("Reading Scrapbook"));
+		if (splashScreen != NULL)
+			splashScreen->setStatus( tr("Reading Scrapbook"));
 		QString SCf = PrefsPfad+"/scrap.scs";
 		QFileInfo SCfi = QFileInfo(SCf);
 		if (SCfi.exists())
@@ -512,9 +528,10 @@ void ScribusApp::initScribus()
 		ScBook->AdjustMenu();
 		HaveGS = system(Prefs.gs_exe+" -h > /dev/null 2>&1");
 		HavePngAlpha = system(Prefs.gs_exe+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
-		splash->setStatus( tr("Initializing Plugins"));
+		if (splashScreen != NULL)
+			splashScreen->setStatus( tr("Initializing Plugins"));
 		qApp->processEvents();
-		InitPlugs(splash);
+		InitPlugs();
 		ClipB = QApplication::clipboard();
 		PalettesStat[0] = false;
 		GuidesStat[0] = false;
@@ -7826,7 +7843,7 @@ void ScribusApp::FinalizePlugs()
 	}
 }
 
-void ScribusApp::InitPlugs(SplashScreen *spl)
+void ScribusApp::InitPlugs()
 {
 	QString pfad = PREL;
 	QString nam = "";
@@ -7866,7 +7883,8 @@ void ScribusApp::InitPlugs(SplashScreen *spl)
 				if (ty < 5)
 					pda.MenuID = menid;
 				PluginMap.insert(id, pda);
-				spl->setStatus( tr("Loading:")+" "+nam);
+				if (splashScreen != NULL)
+					splashScreen->setStatus( tr("Loading:")+" "+nam);
 			}
 		}
 		connect(extraMenu, SIGNAL(activated(int)), this, SLOT(RunPlug(int)));

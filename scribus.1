@@ -2,7 +2,7 @@
 .SH NAME
 scribus - open source X11-based WYSIWYG desktop publishing app
 .SH SYNOPSIS
-scribus [-h|--help] [-v|--version] [-l|--lang language] [-la|--langs-available] [-f|--file|--] [filename]
+scribus [-h|--help] [-v|--version] [-l|--lang language] [-la|--langs-available] [-ns|--no-splash] [-f|--file|--] [filename]
 .SH DESCRIPTION
 Scribus is an open source desktop publishing program. It provides true WYSIWYG editing, excellent PDF export facilities, and a wide range of other input and output options.
 
@@ -25,6 +25,9 @@ Print a list of languages for which user interface translations are available. T
 .TP
 .B -v, --version
 Prints the Scribus version number and exits.
+.TP
+.B -ns, --no-splash
+Do not show the splashscreen on startup.
 .TP
 .B -f, --file
 Open the specified file. It's possible to simply pass the file name as an unqualified argument instead of using this, though if the name begins with a - you will need to use --, eg 'scribus -- -myfile.sla'.

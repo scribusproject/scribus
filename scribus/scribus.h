@@ -103,7 +103,7 @@ public:
 	/** destructor */
 	~ScribusApp() {};
     /** init methods */
-	void initGui();
+	void initGui(bool showSplash);
 	/** initMenuBar creates the menu_bar and inserts the menuitems */
 	void initMenuBar();
 	/** setup the statusbar */
@@ -123,7 +123,7 @@ public:
 	void ShowSubs();
 	void applyNewMaster(QString name);
 	void UpdateRecent(QString fn);
-	void InitPlugs(SplashScreen *spl);
+	void InitPlugs();
 	void InitHyphenator();
 	QString GetLang(QString inLang);
 	void FinalizePlugs();
@@ -175,7 +175,7 @@ public:
 	 */
 	ScribusDoc *doc;
     /** the splash screen */
-	SplashScreen * splash;
+	SplashScreen *splashScreen;
 	QLabel* FMess;
 	QProgressBar* FProg;
 	QLabel* XMess;

@@ -59,7 +59,7 @@
 #define ARG_HELP_SHORT "-h"
 #define ARG_LANG_SHORT "-l"
 #define ARG_AVAILLANG_SHORT "-la"
-#define ARG_NOSPLASH_SHORT "-s"
+#define ARG_NOSPLASH_SHORT "-ns"
 #define ARG_NOGUI_SHORT "-g"
 #define ARG_DISPLAY_SHORT "-d"
 
@@ -138,15 +138,33 @@ int main(int argc, char *argv[])
 \retval QString A string describing the language environement
 */
 
+#define ARG_VERSION "--version"
+#define ARG_HELP "--help"
+#define ARG_LANG "--lang"
+#define ARG_AVAILLANG "--langs-available"
+#define ARG_NOSPLASH "--no-splash"
+#define ARG_NOGUI "--no-gui"
+#define ARG_DISPLAY "--display"
+
+#define ARG_VERSION_SHORT "-v"
+#define ARG_HELP_SHORT "-h"
+#define ARG_LANG_SHORT "-l"
+#define ARG_AVAILLANG_SHORT "-la"
+#define ARG_NOSPLASH_SHORT "-ns"
+#define ARG_NOGUI_SHORT "-g"
+#define ARG_DISPLAY_SHORT "-d"
+
+
 void showUsage()
 {
 	std::cout << std::endl;
 	std::cout << "Usage: scribus [option ... ] [file]" << std::endl;
 	std::cout << "Options:" << std::endl;
-	std::cout << "-l,  --lang xx          Uses xx as shortcut for a language" << std::endl;
-	std::cout << "-la, --langs-available  Lists the currently installed interface languages" << std::endl;
-	std::cout << "-h,  --help             Print help (this message) and exit" << std::endl;
-	std::cout << "-v,  --version          Output version information and exit" << std::endl;
+	std::cout << "  " << ARG_HELP_SHORT      << ",  " << ARG_HELP      << "             Print help (this message) and exit"     << std::endl;
+	std::cout << "  " << ARG_LANG_SHORT      << ",  " << ARG_LANG      << "             Uses xx as shortcut for a language"     << std::endl;
+	std::cout << "  " << ARG_AVAILLANG_SHORT << ", "  << ARG_AVAILLANG << "  Lists the currently installed interface languages" << std::endl;
+	std::cout << "  " << ARG_NOSPLASH_SHORT  << ", "  << ARG_NOSPLASH  << "        Do not show the splashscreen on startup"     << std::endl;
+	std::cout << "  " << ARG_VERSION_SHORT   << ",  " << ARG_VERSION   << "          Output version information and exit"       << std::endl;
 /*
 	std::cout << "-file|-- name Open file 'name'" << std::endl;
 	std::cout << "name          Open file 'name', the file name must not begin with '-'" << std::endl;
@@ -155,13 +173,20 @@ void showUsage()
 	std::cout << std::endl;
 }
 
+/*!
+\fn void showAvailLangs()
+\author Craig Bradney
+\date Wed Nov 18 2004
+\brief Instantiates the Language Manager and prints installed languages with brief instructions around
+\param None
+\retval None
+*/
+
 void showAvailLangs()
 {
 	std::cout << "Installed Interface Languages for Scribus are as follows:" << std::endl;
 	std::cout << std::endl;
 
-	QString path = SCRIBUS_LIB;
-	QString langAbbrev;
 	LanguageManager langMgr;
 	langMgr.init();
 	langMgr.printInstalledList();
@@ -193,7 +218,7 @@ int mainGui(int argc, char **argv)
 	app.processEvents();
 
 	
-	scribus->initGui();
+	scribus->initGui(showSplash);
 	if (scribus->NoFonts)
 		exit(EXIT_FAILURE);
 	scribus->GuiLanguage = lang;

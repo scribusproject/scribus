@@ -88,14 +88,14 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 				if ((!Prefs->GFontSub.contains(tmpf)) || (!Prefs->AvailFonts[Prefs->GFontSub[tmpf]]->UseFont))
 				{
-					if (ScApp->splash != 0)
-						ScApp->splash->hide();
+					if (ScApp->splashScreen != NULL)
+						ScApp->splashScreen->hide();
 					DmF *dia = new DmF(0, tmpf, Prefs);
 					dia->exec();
 					tmpf = dia->Ersatz;
 					delete dia;
-					if (ScApp->splash != 0)
-						ScApp->splash->show();
+					if (ScApp->splashScreen != NULL)
+						ScApp->splashScreen->show();
 					Prefs->GFontSub[pg.attribute("NAME")] = tmpf;
 				}
 				else
