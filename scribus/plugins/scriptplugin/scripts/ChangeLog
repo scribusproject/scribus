@@ -1,0 +1,103 @@
+20041230 v0.7tk
+    Added a preview panel so user can see a sample of what a font may look like
+    before selecting it to use.
+    Detects failure of Python Imaging Library module to load and tests for the ability to 
+    write to .scribus folder then disables preview if necessary.
+    Incorporated Craig Ringers boilerplate and Scribus function case changes.
+    Put labels on the left and right listboxes describing what they do.
+    Listboxes now get focus when selected with the mouse. This allows Up Down
+    keys to be used to scroll through font names.
+    When selecting a single item in a listbox, the font highlighted will be
+    displayed in a panel.
+    Some function names have changed and some docstrings added.
+    The main window should no longer be expandable.
+
+20040224 v0.6.1
+    A bug fix was introduced to Scribus CVS on 20040223 that affected the text
+    frames. This version has an adjusted height and position of some text frames
+    to make the samples correctly fit inside them again.
+
+20040212 v0.6 final
+    Fixed bug that stopped multiple selection move from working properly.
+    More code cleanups.
+    Adjusted the button positions.
+    Added logic to gray out "item up" and "item down" buttons when not appropriate.
+    Enhanced the "move left" and "move right" button gray out code.
+    Fixed a problem when double clicking on a multiple selection of rows.
+    Small adjustments and fixes to the layouts.
+
+20030130 v0.6 preview 5
+    Now contains a list of acceptable proportional and fixed width fonts that are needed for
+    the TOC and font sample labels. If a match is not found with the installed font list available to Scribus
+    then an error message is dumped to the console with a list of the required fonts for the user to get. The
+    script will continue to run with whatever font happens be be set as default in Scribus.
+    Fixed broken horizontal line drawing code.
+    Various size adjustments to text frames that were drawing outside of margin area.
+
+20030129 v0.6 preview 4
+    Rewritten useSelection function. Now measures the available space left on page before placing the
+    sample block. It is now possible to select the sample lines to print by commenting out rows in
+    the drawSampleBlock() function and if there is space then more samples will be placed on the page.
+    Renamed some functions.
+    Made some small adjustments to the text frame dimensions.
+
+20040126 v0.6 preview 3
+    Added double sided paper handling.
+    Added binding offsets.
+    Left hand pane allows multiple selection again. Shift and mouse drag will select a block,
+    hold Control plus click to highlight single items. Press '>' button to move the seelcted group to the 
+    right hand pane.
+    More code cleanups.
+    removed pound sign from sample string. It was causing errors with Python V2.3 thanks MrB
+    Changed default sans font to "Nimbus Sans L Regular" instead of "Arial"
+
+20040123 v0.6 preview 2
+    fixed the extra page bug introduced in v0.6 preview 1
+    Changed the 36 point font to 32 point. this improves the layout of the samples.
+
+20040120 v0.6 preview 1
+    Start adding optional page numbers.
+    Start adding optional table of contents.
+    Improve paper size variables format.
+    More code cleanups.
+    If a second (or more) font list was created with the script then it would be impossible to
+    view anything other than the most recent document in Scribus - fixed
+
+20040121 v0.5a
+    Small change to fix non display of earlier font sample documents still open in Scribus
+    if the script is run again.
+
+20040112 v0.5
+    Added SetRedraw to speed up page generation.
+    Added status bar to display the quantity of fonts available, how many are selected
+    and how many pages will be needed.
+    Added a paper size selector.
+
+20040107 v0.4
+    More cleanups in the main page generator loop
+    Added 6 point sample
+    Left list box now sorts correctly when moving individual items back to it
+    More adjustments to text layouts
+
+20040106 v0.3a
+    fixed page creep bug
+
+20040106 v0.3
+    Put each text string into its own text frame and put in separator lines
+    Prints the font size as part of the test string
+    Can crudely set A4 or US Letter size paper by uncommenting the appropriate 
+    2 lines in useselection()
+    changing this just adjusts the position of the samples on the page for the change 
+    in paper length.
+    Some code clean ups.
+
+20040105 v0.2
+    Rearranged the buttons. Put in Franz's fix. Thanks Franz.
+    Put in some more sample lines including the standard alphabet characters.
+
+20040105 v0.1a
+    Added a double click to select font in font selector.
+    Fixes to some button logic. Gray out as required.
+
+20040104 v0.1
+    First release
