@@ -44,7 +44,7 @@ extern PrefsFile* prefsFile;
  */
 QString Name()
 {
-	return QObject::tr("Import &Open Office Draw...");
+	return QObject::tr("Import &OpenOffice.org Draw...");
 }
 
 /*!
@@ -70,7 +70,7 @@ void Run(QWidget *d, ScribusApp *plug)
 	QString fileName;
 	PrefsContext* prefs = prefsFile->getPluginContext("OODrawImport");
 	QString wdir = prefs->get("wdir", ".");
-	CustomFDialog diaf(d, wdir, QObject::tr("Open"), QObject::tr("Open Office Draw (*.sxd);;All Files (*)"));
+	CustomFDialog diaf(d, wdir, QObject::tr("Open"), QObject::tr("OpenOffice.org Draw (*.sxd);;All Files (*)"));
 	if (diaf.exec())
 	{
 		fileName = diaf.selectedFile();

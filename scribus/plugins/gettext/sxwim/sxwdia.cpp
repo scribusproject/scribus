@@ -9,7 +9,7 @@ extern QPixmap loadIcon(QString nam);
 
 SxwDialog::SxwDialog(bool update, bool prefix) : QDialog(0, "sxwdia", true, 0)
 {
-	setCaption(tr("OO.o Writer Importer Options"));
+	setCaption(tr("OpenOffice.org Writer Importer Options"));
 	setIcon(loadIcon("AppIcon.png"));
 
 	QBoxLayout* layout = new QVBoxLayout(this);
@@ -35,7 +35,7 @@ SxwDialog::SxwDialog(bool update, bool prefix) : QDialog(0, "sxwdia", true, 0)
 	doNotAskCheck = new QCheckBox(tr("Do not ask again"), this, "doNotAskCheck");
 	doNotAskCheck->setChecked(false);
 	QToolTip::add(doNotAskCheck, tr("Should the importer always use currently\n"
-	                                "set value when importing OO.o document and\n"
+	                                "set value when importing OpenOffice.org document and\n"
 	                                "never ask your confirmation again"));
 	dlayout->addStretch(10);
 	dlayout->addWidget(doNotAskCheck);
