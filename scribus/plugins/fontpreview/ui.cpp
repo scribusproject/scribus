@@ -41,12 +41,16 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 	layout5 = new QHBoxLayout(0, 0, 5, "layout5");
 	fontList = new QListView(this, "fontList" );
 	fontList->setAllColumnsShowFocus(true);
+	fontList->setShowSortIndicator(true);
 	layout5->addWidget(fontList);
 	// columns
-	fontList->addColumn(tr("Font Name"));
-	fontList->addColumn(tr("Doc"));
-	fontList->addColumn(tr("Type"));
-	fontList->addColumn(tr("Subset"));
+	fontList->addColumn(tr("Font Name", "font preview"));
+	fontList->addColumn(tr("Doc", "font preview"));
+	fontList->setColumnAlignment(1, Qt::AlignCenter);
+	fontList->addColumn(tr("Type", "font preview"));
+	fontList->addColumn(tr("Subset", "font preview"));
+	fontList->setColumnAlignment(3, Qt::AlignCenter);
+	fontList->addColumn(tr("Access", "font preview"));
 
 	layout2 = new QVBoxLayout(0, 0, 5, "layout2");
 	layout1 = new QVBoxLayout(0, 0, 5, "layout1");
@@ -79,24 +83,45 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 	QPixmap otfFont = loadIcon("font_otf.png");
 	QPixmap psFont = loadIcon("font_type1.png");
 	QPixmap okIcon = loadIcon("ok.png");
+
 	for (SCFontsIterator fontIter(carrier->Prefs.AvailFonts); fontIter.current(); ++fontIter)
 	{
 		if (fontIter.current()->UseFont)
 		{
+			QListViewItem *row = new QListViewItem(fontList);
 			QFileInfo fi = QFileInfo(fontIter.current()->Datei);
 			QString ext = fi.extension(false).lower();
-			QListViewItem *row = new QListViewItem(fontList);
+
 			row->setText(0, fontIter.current()->SCName);
 			if (reallyUsedFonts.contains(fontIter.current()->SCName))
 				row->setPixmap(1, okIcon);
-			if ((ext == "pfa") || (ext == "pfb")) // type1
-				row->setPixmap(2, psFont);
-			if (ext == "ttf")
-				row->setPixmap(2, ttfFont);
+
 			if (ext == "otf")
+			{
 				row->setPixmap(2, otfFont);
-			if (fontIter.current()->Subset)
-				row->setPixmap(3, okIcon);
+				row->setText(2, "OpenType");
+			}
+			else
+				if (fontIter.current()->Subset)
+					row->setPixmap(3, okIcon);
+
+			if ((ext == "pfa") || (ext == "pfb")) // type1
+			{
+				row->setPixmap(2, psFont);
+				row->setText(2, "Type1");
+			}
+
+			if (ext == "ttf")
+			{
+				row->setPixmap(2, ttfFont);
+				row->setText(2, "TrueType");
+			}
+
+			fi.absFilePath().contains(QDir::homeDirPath()) ?
+					row->setText(4, tr("User", "font preview")):
+					row->setText(4, tr("System", "font preview"));
+
+			fontList->insertItem(row);
 		}
 	} // for fontIter
 
@@ -130,8 +155,8 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 FontPreview::~FontPreview()
 {
    prefs->set("sortColumn", fontList->sortColumn());
-   prefs->set("xsize", xsize);
-   prefs->set("ysize", ysize);
+   prefs->set("xsize", width());
+   prefs->set("ysize", height());
 }
 
 /**
@@ -140,13 +165,13 @@ FontPreview::~FontPreview()
  */
 void FontPreview::languageChange()
 {
-	setCaption( tr( "Fonts Preview" ) );
-	okButton->setText( tr( "&OK" ) );
-	okButton->setAccel( QKeySequence( tr( "Alt+O" ) ) );
-	cancelButton->setText( tr( "&Cancel" ) );
-	cancelButton->setAccel( QKeySequence( tr( "Alt+C" ) ) );
-	QToolTip::add(okButton, tr("Append selected font into Style, Font menu"));
-	QToolTip::add(cancelButton,tr("Leave preview"));
+	setCaption(tr("Fonts Preview", "font preview"));
+	okButton->setText(tr("&OK", "font preview"));
+	okButton->setAccel(QKeySequence(tr("Alt+O", "font preview")));
+	cancelButton->setText(tr("&Cancel", "font preview"));
+	cancelButton->setAccel(QKeySequence(tr("Alt+C", "font preview")));
+	QToolTip::add(okButton, tr("Append selected font into Style, Font menu", "font preview"));
+	QToolTip::add(cancelButton,tr("Leave preview", "font preview"));
 }
 
 /**
@@ -155,7 +180,7 @@ void FontPreview::languageChange()
 void FontPreview::fontList_changed(QListViewItem *item)
 {
 	uint size = 16;
-	QString t = tr("Woven silk pyjamas exchanged for blue quartz");
+	QString t = tr("Woven silk pyjamas exchanged for blue quartz", "font preview");
 	if (carrier->doc->toolSettings.defSize && carrier->doc->toolSettings.defSize < 28 && carrier->doc->toolSettings.defSize > 10)
 		size = carrier->doc->toolSettings.defSize;
 	t.replace('\n', " "); // remove French <NL> from translation...
