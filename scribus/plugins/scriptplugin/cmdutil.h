@@ -8,5 +8,12 @@ double ValToPts(double Val, int ein);
 double ValueToPoint(double Val);
 int GetItem(QString Name);
 void ReplaceColor(QString col, QString rep);
+/*!
+ * Returns PageItem itself by its unique name - page
+ * independent.
+ * 03/10/2004 petr vanek
+ */
+PageItem* GetUniqueItem(QString name);
+
 #endif
 

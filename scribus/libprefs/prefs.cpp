@@ -561,7 +561,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabel1_5_2 = new QLabel( GroupBox4_2, "TextLabel1_5_2" );
 	TextLabel1_5_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                               TextLabel1_5_2->sizePolicy().hasHeightForWidth() ) );
-	TextLabel1_5_2->setText( tr( "Disp.:" ) );
+	TextLabel1_5_2->setText( tr( "Displacement:" ) );
 	Layout12->addWidget( TextLabel1_5_2, 0, 0 );
 	VTiefW = new QSpinBox( GroupBox4_2, "VTiefW" );
 	VTiefW->setSuffix( tr( " %" ) );
@@ -597,7 +597,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabel1_5 = new QLabel( GroupBox4, "TextLabel1_5" );
 	TextLabel1_5->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                             TextLabel1_5->sizePolicy().hasHeightForWidth() ) );
-	TextLabel1_5->setText( tr( "Disp.:" ) );
+	TextLabel1_5->setText( tr( "Displacement:" ) );
 	Layout13->addWidget( TextLabel1_5, 0, 0 );
 	VHochW = new QSpinBox( GroupBox4, "VHochW" );
 	VHochW->setSuffix( tr( " %" ) );
@@ -883,7 +883,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabelT25 = new QLabel( ToolFrame2, "TextLabel1_3_3" );
 	TextLabelT25->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT25->sizePolicy().hasHeightForWidth() ) );
-	TextLabelT25->setText( tr( "Linestyle:" ) );
+	TextLabelT25->setText( tr( "Line Style:" ) );
 	Layout15b->addWidget(TextLabelT25, 4, 0);
 	TextLabelT26 = new QLabel( ToolFrame2, "TextLabel2_3_4" );
 	TextLabelT26->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
@@ -1450,7 +1450,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	groupGSLayout->setAlignment( Qt::AlignTop );
 	GSlayout = new QHBoxLayout( 0, 0, 6, "GSlayout"); 
 	GSText = new QLabel( groupGS, "GSText" );
-	GSText->setText( tr( "Name of executeable:" ) );
+	GSText->setText( tr( "Name of executable:" ) );
 	GSlayout->addWidget( GSText );
 	GSName = new QLineEdit( groupGS, "GSName" );
 	GSName->setText(Vor->gs_exe);
@@ -1473,7 +1473,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	groupGimpLayout = new QHBoxLayout( groupGimp->layout() );
 	groupGimpLayout->setAlignment( Qt::AlignTop );
 	GimpText = new QLabel( groupGimp, "GimpText" );
-	GimpText->setText( tr( "Name of executeable:" ) );
+	GimpText->setText( tr( "Name of executable:" ) );
 	groupGimpLayout->addWidget( GimpText );
 	GimpName = new QLineEdit( groupGimp, "GimpName" );
 	GimpName->setText(Vor->gimp_exe);
@@ -1525,6 +1525,115 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout3->addItem( spacer_3 );
 	PrefsLayout->addLayout( Layout3 );
 	setDS();
+	
+
+	//cab
+	QToolTip::add( GUICombo, tr( "Choose the default window decoration and looks.\nScribus inherits any available KDE or Qt themes" ) );
+	QToolTip::add( GFsize, tr( "Default font size for the menus and windows" ) );
+	QToolTip::add( UnitCombo, tr( "Default unit of measurement for document editing" ) );
+	QToolTip::add( SpinBox3, tr( "Number of lines Scribus will scroll for each move of the mouse wheel" ) );
+	QToolTip::add( SpinBox3_2, tr( "Radius of the area where Scribus will allow you to grab an objects handles" ) );
+	QToolTip::add( Recen, tr( "Number of recently edited documents to show in the File menu" ) );
+	QToolTip::add( Shorty, tr( "Change the keyboard shortcuts to your preference" ) );
+	QToolTip::add( Docs, tr( "Default documents directory" ) );
+	QToolTip::add( ProPfad, tr( "Default ICC profiles directory" ) );
+	QToolTip::add( ScriptPfad, tr( "Default Scripter scripts directory" ) );
+
+	QToolTip::add( GZComboF, tr( "Default page size, either a standard size or a custom size" ) );
+	QToolTip::add( GZComboO, tr( "Default orientation of document pages" ) );
+	QToolTip::add( Breite, tr( "Width of document pages, editable if you have chosen a custom page size" ) );
+	QToolTip::add( Hoehe, tr( "Height of document pages, editable if you have chosen a custom page size" ) );
+	QToolTip::add( Doppelseiten, tr( "Enable single or spread based layout" ) );
+	QToolTip::add( Linkszuerst, tr( "Make the first page the left page of a document" ) );
+	QToolTip::add( TopR, tr( "Distance between the top margin guide and the edge of the page" ) );
+	QToolTip::add( BottomR, tr( "Distance between the bottom margin guide and the edge of the page" ) );
+	QToolTip::add( LeftR, tr( "Distance between the left margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
+	QToolTip::add( RightR, tr( "Distance between the left margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
+	QToolTip::add( ASon, tr( "When enabled, Scribus saves a backup copy of your file with the .bak extension\neach time the time period elapses" ) );
+	QToolTip::add( ASTime, tr( "Time period between saving automatically" ) );
+
+	QToolTip::add( SpinBox1, tr( "Distance between the minor grid lines" ) );
+	QToolTip::add( SpinBox2, tr( "Distance between the major grid lines" ) );
+	QToolTip::add( SpinBox2g, tr( "Distance within which an object will snap to your placed guides" ) );
+	QToolTip::add( minColor, tr( "Color of the minor grid lines" ) );
+	QToolTip::add( MaxColor, tr( "Color of the major grid lines" ) );
+	QToolTip::add( GuideColor, tr( "Color of the guide lines you insert" ) );
+	QToolTip::add( RadioButton6, tr( "Place the grid behind your page objects" ) );
+	QToolTip::add( RadioButton7, tr( "Place the grid in front of your page objects" ) );
+
+	QToolTip::add( VHochW, tr( "Displacement above the baseline of the font on a line" ) );
+	QToolTip::add( VHochWSc, tr( "Relative size of the superscript compared to the normal font" ) );
+	QToolTip::add( VTiefW, tr( "Displacement below the baseline of the normal font on a line" ) );
+	QToolTip::add( VTiefWSc, tr( "Relative size of the subscript compared to the normal font" ) );
+	QToolTip::add( SmallCaps, tr( "Relative size of the small caps font compared to the normal font" ) );
+	QToolTip::add( AutoLineV, tr( "Percentage increase over the font size for the line spacing" ) );
+
+	QToolTip::add( TextButton, tr( "Text Frame Properties" ) );
+	QToolTip::add( BildButton, tr( "Picture Frame Properties" ) );
+	QToolTip::add( RectButton, tr( "Shape Drawing Properties" ) );
+	QToolTip::add( OvalButton, tr( "Shape Drawing Properties" ) );
+	QToolTip::add( ZoomButton, tr( "Magnification Level Defaults" ) );
+	QToolTip::add( LineButton, tr( "Line Drawing Properties" ) );
+	QToolTip::add( PolyButton, tr( "Polygon Drawing Properties" ) );
+
+	QToolTip::add( FontComb, tr( "Font for new text frames" ) );
+	QToolTip::add( SizeCombo, tr( "Size of font for new text frames" ) );
+	QToolTip::add( ForegroundT, tr( "Color of font" ) );
+	QToolTip::add( TextColVal, tr( "Number of columns in a text frame" ) );
+	QToolTip::add( TextGapVal, tr( "Gap between text frame columns" ) );
+	QToolTip::add( TextLabel1_4, tr( "Sample of your font" ) );
+
+
+	QToolTip::add( FreeScale, tr( "Picture frames allow pictures to scale to any size" ) );
+	QToolTip::add( XScale, tr( "Horizontal scaling of images" ) );
+	QToolTip::add( YScale, tr( "Vertical scaling of images" ) );
+	QToolTip::add( Kette, tr( "Keep horizontal and vertical scaling the same" ) );
+	QToolTip::add( FrameScale, tr( "Pictures in picture frames are scaled to the size of the frame" ) );
+	QToolTip::add( Aspect, tr( "Automatically scaled pictures keep their original proportions" ) );
+	QToolTip::add( BackgroundP, tr( "Fill color of picture frames" ) );
+	QToolTip::add( ShadeP, tr( "Saturation of color of fill" ) );
+
+	QToolTip::add( Foreground, tr( "Line color of shapes" ) );
+	QToolTip::add( Shade2, tr( "Saturation of color of lines" ) );
+	QToolTip::add( Background, tr( "Fill color of shapes" ) );
+	QToolTip::add( Shade, tr( "Saturation of color of fill" ) );
+	QToolTip::add( Linestyle, tr( "Line style of shapes" ) );
+	QToolTip::add( LineW, tr( "Line width of shapes" ) );
+
+	QToolTip::add( MinMag, tr( "Minimum magnification allowed" ) );
+	QToolTip::add( MaxMag, tr( "Maximum magnification allowed" ) );
+	QToolTip::add( StepMag, tr( "Change in magnification for each zoom operation" ) );
+
+	QToolTip::add( Foreground2, tr( "Color of lines" ) );
+	QToolTip::add( Shade22, tr( "Saturation of color" ) );
+	QToolTip::add( Linestyle2, tr( "Style of lines" ) );
+	QToolTip::add( LineW2, tr( "Width of lines" ) );
+
+	QToolTip::add( T6_Ecken, tr( "Number of corners for polygons" ) );
+	QToolTip::add( T6_Faktor2, tr( "Degrees of rotation for polygons" ) );
+	QToolTip::add( T6_Slider2, tr( "Degrees of rotation for polygons" ) );
+	QToolTip::add( T6_Konvex, tr( "Polygons will be convex rather than concave" ) );
+	QToolTip::add( T6_Preview, tr( "Sample Polygon" ) );
+	QToolTip::add( T6_Faktor, tr( "Change the angles at which lines of the polygon join" ) );
+	QToolTip::add( T6_Slider1, tr( "Change the angles at which lines of the polygon join" ) );
+
+	QToolTip::add( PreviewSize, tr( "Choose the size of the preview in the scrapbook palette" ) );
+	QToolTip::add( SaveAtQuit, tr( "Keep the scrapbook contents after closing Scribus" ) );
+
+	QToolTip::add( SidebySide, tr( "When using facing pages, show the two pages side by side" ) );
+	QToolTip::add( PapColor, tr( "Color for paper" ) );
+	QToolTip::add( RandColor, tr( "Color for the margin lines" ) );
+	QToolTip::add( RandFarb, tr( "Mask the area outside the margins in the margin color" ) );
+	QToolTip::add( UsePDFTrans, tr( "Enable transparency features within PDF 1.4 export" ) );
+	QToolTip::add( CaliSlider, tr( "Set the default zoom level" ) );
+
+	QToolTip::add( GSName, tr( "Filesystem location for the Ghostscript interpreter" ) );
+	QToolTip::add( GSantiText, tr( "Antialias text for EPS and PDF onscreen rendering" ) );
+	QToolTip::add( GSantiGraph, tr( "Antialias graphics for EPS and PDF onscreen rendering" ) );
+	QToolTip::add( GimpName, tr( "Filesystem location for editing graphics" ) );
+
+	QToolTip::add( ClipMarg, tr( "Do not show objects outside the margins on the printed page or exported file" ) );
+
 	// signals and slots connections
 	connect( minColor, SIGNAL( clicked() ), this, SLOT( changeMicolor() ) );
 	connect( MaxColor, SIGNAL( clicked() ), this, SLOT( changeMaColor() ) );

@@ -584,13 +584,12 @@ PyObject *scribus_linktextframes(PyObject *self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return Py_None;
 
-	int id1 = GetItem(QString(name1));
-	int id2 = GetItem(QString(name2));
-	if ((id1 == -1) || (id2 == -1))
+	PageItem *item1 = GetUniqueItem(QString(name1));
+	if (!item1)
 		return Py_None;
-
-	PageItem *item1 = Carrier->doc->ActPage->Items.at(id1);
-	PageItem *item2 = Carrier->doc->ActPage->Items.at(id2);
+	PageItem *item2 = GetUniqueItem(QString(name2));
+	if (!item2)
+		return Py_None;
 
 	/* only empty textframe, only not linked and selfhate :) */
 	if ((item2->Ptext.count() == 0) && (item2->NextBox == 0)
@@ -599,27 +598,8 @@ PyObject *scribus_linktextframes(PyObject *self, PyObject* args)
 		// references to the others boxes
 		item1->NextBox = item2;
 		item2->BackBox = item1;
-		// linked hs to be younger && same page
-		if ((item2->ItemNr < item1->ItemNr)
-		        && (item2->OwnPage == item1->OwnPage))
-		{
-
-			Carrier->doc->ActPage->Items.insert(item1->ItemNr+1, item2);
-			item2 = Carrier->doc->ActPage->Items.take(item2->ItemNr);
-			// redistribute item's numbers
-			for (uint i = 0; i<Carrier->doc->ActPage->Items.count(); ++i)
-			{
-				Carrier->doc->ActPage->Items.at(i)->ItemNr = i;
-				// handles bookmarks (was SIGNAL(NewBMNr(int, int)))
-				if (Carrier->doc->ActPage->Items.at(i)->isBookmark)
-					Carrier->BookPal->BView->ChangeItem(
-					    Carrier->doc->ActPage->Items.at(i)->BMnr,
-					    i);
-			} // for i
-
-		} // if younger
-
 		item1->OwnPage->repaint();
+		item2->OwnPage->repaint();
 		// enable 'save icon' stuff
 		Carrier->slotDocCh();
 
@@ -639,10 +619,9 @@ PyObject *scribus_unlinktextframes(PyObject * self, PyObject* args)
 	if (!Carrier->HaveDoc)
 		return Py_None;
 
-	int id = GetItem(QString(name));
-	if (id == -1)
+	PageItem *item = GetUniqueItem(name);
+	if (!item)
 		return Py_None;
-	PageItem *item = Carrier->doc->ActPage->Items.at(id);
 
 	// only linked
 	if (item->BackBox != 0)

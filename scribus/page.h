@@ -151,6 +151,7 @@ public:
 	int Myp;
 	bool Mpressed;
 	bool mCG;
+	bool BlockLeave;
 	double oldW;
 	QPtrList<PageItem> SelItem;
 	QValueList<int> SelNode;

@@ -74,21 +74,42 @@ void ReplaceColor(QString col, QString rep)
 		{
 		for (uint c = 0; c < Carrier->view->Pages.at(b)->Items.count(); c++)
 			{
-			if (Carrier->view->Pages.at(b)->Items.at(c)->PType == 4)
+			PageItem *ite = Carrier->view->Pages.at(b)->Items.at(c);
+			if (ite->PType == 4)
 				{
-				for (uint d = 0; d < Carrier->view->Pages.at(b)->Items.at(c)->Ptext.count(); d++)
+				for (uint d = 0; d < ite->Ptext.count(); d++)
 					{
-					if (col == Carrier->view->Pages.at(b)->Items.at(c)->Ptext.at(d)->ccolor)
-						{
-						Carrier->view->Pages.at(b)->Items.at(c)->Ptext.at(d)->ccolor = rep;
-						}
+					if (col == ite->Ptext.at(d)->ccolor)
+						ite->Ptext.at(d)->ccolor = rep;
+					if (col == ite->Ptext.at(d)->cstroke)
+						ite->Ptext.at(d)->cstroke = rep;
 					}
 				}
-			if (col == Carrier->view->Pages.at(b)->Items.at(c)->Pcolor)
-				Carrier->view->Pages.at(b)->Items.at(c)->Pcolor = rep;
-			if (col == Carrier->view->Pages.at(b)->Items.at(c)->Pcolor2)
-				Carrier->view->Pages.at(b)->Items.at(c)->Pcolor2 = rep;
+			if (col == ite->Pcolor)
+				ite->Pcolor = rep;
+			if (col == ite->Pcolor2)
+				ite->Pcolor2 = rep;
+			if (col == ite->GrColor)
+				ite->GrColor = rep;
+			if (col == ite->GrColor2)
+				ite->GrColor2 = rep;
+			Carrier->view->Pages.at(b)->AdjItemGradient(ite, ite->GrType, ite->GrColor2, ite->GrShade2, ite->GrColor, ite->GrShade);
 			}
 		}
+}
+
+PageItem* GetUniqueItem(QString name)
+{
+	if (name.length()==0)
+		return NULL;
+	for (uint i = 0; i<Carrier->view->Pages.count(); i++)
+	{
+		for (uint j = 0; j<Carrier->view->Pages.at(i)->Items.count(); j++)
+		{
+		if (name==Carrier->view->Pages.at(i)->Items.at(j)->AnName)
+			return Carrier->view->Pages.at(i)->Items.at(j);
+		} // for items
+	} // for pages
+	return NULL;
 }
 

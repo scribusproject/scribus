@@ -164,6 +164,7 @@ void Page::dragEnterEvent(QDragEnterEvent *e)
 		delete ss;
 		setActiveWindow();
 		raise();
+		ScApp->newActWin(doku->WinHan);
 		SeleItemPos(e->pos());
 	}
 }
@@ -344,15 +345,55 @@ void Page::dropEvent(QDropEvent *e)
 					}
 					if ((re == 1) || (doku->leaveDrag))
 					{
+						uint ac = Items.count();
+						QPtrList<PageItem> pasted;
+						emit LoadElem(QString(text), qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), false, false, doku);
+						for (uint as = ac; as < doku->ActPage->Items.count(); ++as)
+						{
+							pasted.append(Items.at(as));
+						}
 						doku->DraggedElem->OwnPage->SelItem.clear();
 						for (uint dre=0; dre<doku->DragElements.count(); ++dre)
 						{
 							doku->DraggedElem->OwnPage->SelItem.append(doku->DraggedElem->OwnPage->Items.at(doku->DragElements[dre]));
 						}
+						PageItem* bb;
+						int fin;
+						for (uint dre=0; dre<doku->DragElements.count(); ++dre)
+						{
+							bb = pasted.at(dre);
+							b = doku->DraggedElem->OwnPage->SelItem.at(dre);
+							if ((b->PType == 4) && ((b->NextBox != 0) || (b->BackBox != 0)))
+							{
+								if (b->BackBox != 0)
+								{
+									bb->BackBox = b->BackBox;
+									fin = doku->DraggedElem->OwnPage->SelItem.find(b->BackBox);
+									if (fin != -1)
+										bb->BackBox = pasted.at(fin);
+									bb->BackBox->NextBox = bb;
+								}
+								if (b->NextBox != 0)
+								{
+									bb->NextBox = b->NextBox;
+									fin = doku->DraggedElem->OwnPage->SelItem.find(b->NextBox);
+									if (fin != -1)
+										bb->NextBox = pasted.at(fin);
+									bb->NextBox->BackBox = bb;
+								}
+							}
+						}
+						for (uint dre=0; dre<doku->DragElements.count(); ++dre)
+						{
+							b = doku->DraggedElem->OwnPage->SelItem.at(dre);
+							b->NextBox = 0;
+							b->BackBox = 0;
+						}
+						pasted.clear();
 						doku->DraggedElem->OwnPage->DeleteItem();
 					}
 				}
-				if ((!img) && ((re == 0) || (re == 1)))
+				if ((!img) && ((re == 0)))
 					emit LoadElem(QString(text), qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), false, false, doku);
 				doku->DraggedElem = 0;
 				doku->DragElements.clear();
@@ -363,6 +404,9 @@ void Page::dropEvent(QDropEvent *e)
 }
 void Page::leaveEvent(QEvent *)
 {
+
+	if (BlockLeave)
+		return;
 	if (!Mpressed)
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	else
@@ -2922,26 +2966,21 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 		int cy = Anz->contentsY() - Anz->childY(doku->ActPage->parentWidget());
 		int cw = Anz->visibleWidth();
 		int ch = Anz->visibleHeight();
-		if (m->y() < cy+10)
+		if ((m->y() < cy+10) || ((ch - (m->y() - cy)) - 10 < 0) || (m->x() < cx + 10) || ((cw - (m->x() - cx)) - 10 < 0))
 		{
-			Anz->scrollBy(0, m->y() - cy - 10);
+			if (m->y() < cy+10)
+				Anz->scrollBy(0, m->y() - cy - 10);
+			else if ((ch - (m->y() - cy)) - 10 < 0)
+				Anz->scrollBy(0, m->y() - cy - ch +10);
+			else if (m->x() < cx + 10)
+				Anz->scrollBy(m->x() - cx - 10, 0);
+			else if ((cw - (m->x() - cx)) - 10 < 0)
+				Anz->scrollBy(m->x() - cx - cw + 10, 0);
+			BlockLeave = true;
 			update();
 		}
-		if ((ch - (m->y() - cy)) - 10 < 0)
-		{
-			Anz->scrollBy(0, m->y() - cy - ch +10);
-			update();
-		}
-		if (m->x() < cx + 10)
-		{
-			Anz->scrollBy(m->x() - cx - 10, 0);
-			update();
-		}
-		if ((cw - (m->x() - cx)) - 10 < 0)
-		{
-			Anz->scrollBy(m->x() - cx - cw + 10, 0);
-			update();
-		}
+	else
+		BlockLeave = false;
 	}
 	if (Mpressed && (doku->AppMode == 21))
 	{
@@ -2973,7 +3012,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 		newY = static_cast<int>(m->y()/sc);
 		if ((Mpressed) && (m->state() == RightButton) && (!doku->DragP) && (doku->AppMode == 1) && (!b->Locked))
 		{
-			if ((abs(Dxp - newX) > 3) || (abs(Dyp - newY) > 3))
+			if ((abs(Dxp - newX) > 5) || (abs(Dyp - newY) > 5))
 			{
 				doku->DragP = true;
 				doku->leaveDrag = false;
@@ -6784,7 +6823,7 @@ void Page::Deselect(bool prop)
 			if ((b->PType == 4) && (b->isBookmark))
 				emit ChBMText(b);
 			if (b->PType == 2)
-				AdjustPreview(b);
+				AdjustPreview(b, !doku->DragP);
 			if (b->Select)
 				b->Select = false;
 		}

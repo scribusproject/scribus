@@ -1,4 +1,8 @@
 Changes since Version 1.1.5
+11.04.2004	Added ToolTips for the Preferences.
+		When dragging Linked Textframes between Pages with the Mouse the linkage is now keeped.
+		Updated the Scripter Commands for Linked Textframes too.
+
 10.03.2004	Enabled dragging of Objects between Pages.
 		When you convert a Textframe to outlines the important properties are copied too, Bug #337.
 		Fixed Bug #338 and #333 too.
