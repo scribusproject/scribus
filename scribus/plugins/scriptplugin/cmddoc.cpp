@@ -68,7 +68,13 @@ PyObject *scribus_opendoc(PyObject *self, PyObject* args)
 	if (!PyArg_ParseTuple(args, "s", &Name))
 		return NULL;
 	bool ret = Carrier->LadeDoc(QString(Name));
-	return PyInt_FromLong(static_cast<long>(ret));
+	if (!ret)
+	{
+		PyErr_SetString(ScribusException, QObject::tr("Failed to open document","python error"));
+		return NULL;
+	}
+	Py_INCREF(Py_True); // compatibility: return true, not none, on success
+	return Py_True;
 }
 
 PyObject *scribus_savedoc(PyObject *self)
@@ -76,7 +82,8 @@ PyObject *scribus_savedoc(PyObject *self)
 	if(!checkHaveDocument())
 		return NULL;
 	Carrier->slotFileSave();
-	return PyInt_FromLong(0L);
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 PyObject *scribus_savedocas(PyObject *self, PyObject* args)
@@ -87,7 +94,13 @@ PyObject *scribus_savedocas(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	bool ret = Carrier->DoFileSave(QString(Name));
-	return PyInt_FromLong(static_cast<long>(ret));
+	if (!ret)
+	{
+		PyErr_SetString(ScribusException, QObject::tr("Failed to save document","python error"));
+		return NULL;
+	}
+	Py_INCREF(Py_True); // compatibility: return true, not none, on success
+	return Py_True;
 }
 
 PyObject *scribus_setinfo(PyObject *self, PyObject* args)
@@ -116,7 +129,7 @@ PyObject *scribus_setunit(PyObject *self, PyObject* args)
 		return NULL;
 	if ((e < 0) || (e > 3))
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Unit out of range. Use one of the scribus.UNIT_* constants."));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Unit out of range. Use one of the scribus.UNIT_* constants.","python error"));
 		return NULL;
 	}
 	Carrier->slotChangeUnit(e);

@@ -12,6 +12,11 @@ PyObject *scribus_loadimage(PyObject *self, PyObject* args)
 	PageItem *item = GetUniqueItem(QString(Name));
 	if (item == NULL)
 		return NULL;
+	if (item->PType != FRAME_IMAGE)
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Target is not an image frame.","python error"));
+		return NULL;
+	}
 	Carrier->view->LoadPict(QString(Image), item->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -28,16 +33,13 @@ PyObject *scribus_scaleimage(PyObject *self, PyObject* args)
 	PageItem *item = GetUniqueItem(Name);
 	if (item == NULL)
 		return NULL;
-	if (item->PType == 2)
+	if (item->PType != FRAME_IMAGE)
 	{
-		item->LocalScX = x;
-		item->LocalScY = y;
-	}
-	else
-	{
-		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame"));
+		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame","python error"));
 		return NULL;
 	}
+	item->LocalScX = x;
+	item->LocalScY = y;
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -198,7 +200,7 @@ PyObject *scribus_scalegroup(PyObject *self, PyObject* args)
 		return NULL;
 	if (sc == 0.0)
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Can't scale by 0%"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Can't scale by 0%","python error"));
 		return NULL;
 	}
 	PageItem *i = GetUniqueItem(QString(Name));

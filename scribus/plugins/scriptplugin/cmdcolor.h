@@ -8,50 +8,81 @@
 
 /*! docstring */
 PyDoc_STRVAR(scribus_colornames__doc__,
-    "getColorNames() -> list\n\n\
-Returns a list with the names of all defined colors.");
+QT_TR_NOOP("getColorNames() -> list\n\
+\n\
+Returns a list containing the names of all defined colors in the document.\n\
+If no document is open, returns a list of the default document colors.\n\
+"));
 /** Returns a list with colours available in doc or in prefs. */
 PyObject *scribus_colornames(PyObject *self);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getcolor__doc__,
-    "getColor(\"name\") -> tuple\n\n\
-Returns a tuple (C, M, Y, K) containing the four color components\
-of the color \"name\".");
+QT_TR_NOOP("getColor(\"name\") -> tuple\n\
+\n\
+Returns a tuple (C, M, Y, K) containing the four color components of the\n\
+color \"name\" from the current document. If no document is open, returns\n\
+the value of the named color from the default document colors.\n\
+\n\
+May raise NotFoundError if the named color wasn't found.\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
 /** Returns a CMYK tuple of the specified color. */
 PyObject *scribus_getcolor(PyObject *self, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setcolor__doc__,
-    "changeColor(\"name\", c, m, y, k)\n\n\
-Changes the color \"name\", The color value is defined via four\
-components c = Cyan, m = Magenta, y = Yellow and k = Black.\
-Color compontens should be in the range from 0 to 255.");
+QT_TR_NOOP("changeColor(\"name\", c, m, y, k)\n\
+\n\
+Changes the color \"name\" to the specified CMYK value. The color value is\n\
+defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.\n\
+Color components should be in the range from 0 to 255.\n\
+\n\
+May raise NotFoundError if the named color wasn't found.\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
 /** Sets named color with C,M,Y,K params. */
 PyObject *scribus_setcolor(PyObject *self, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_newcolor__doc__,
-    "newColor(\"name\", c, m, y, k)\n\n\
-Defines a new color \"name\". The color Value is defined via four\
-components c = Cyan, m = Magenta, y = Yello and k = Black.\
-color compontens should be in the range from 0 to 255.");
+QT_TR_NOOP("defineColor(\"name\", c, m, y, k)\n\
+\n\
+Defines a new color \"name\". The color Value is defined via four components:\n\
+c = Cyan, m = Magenta, y = Yello and k = Black. Color components should be in\n\
+the range from 0 to 255.\n\
+\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
 /** Creates new color with name, C, M, Y, K params. */
 PyObject *scribus_newcolor(PyObject *self, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_delcolor__doc__,
-    "deleteColor(\"name\", \"replace\")\n\n\
-Deletes the color \"name\". Every occurence of that color\
-is replaced by the color \"replace\".");
+QT_TR_NOOP("deleteColor(\"name\", \"replace\")\n\
+\n\
+Deletes the color \"name\". Every occurence of that color is replaced by the\n\
+color \"replace\". If not specified, \"replace\" defaults to the color\n\
+\"None\" - transparent.\n\
+\n\
+deleteColor works on the default document colors if there is no document open.\n\
+In that case, \"replace\", if specified, has no effect.\n\
+\n\
+May raise NotFoundError if a named color wasn't found.\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
 /** Deletes named color */
 PyObject *scribus_delcolor(PyObject *self, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_replcolor__doc__,
-    "replaceColor(\"name\", \"replace\")\n\n\
-Every occurence of that color \"name\" is replaced by the\
-color \"replace\".");
+QT_TR_NOOP("replaceColor(\"name\", \"replace\")\n\
+\n\
+Every occurence of the color \"name\" is replaced by the color \"replace\".\n\
+\n\
+May raise NotFoundError if a named color wasn't found.\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
 /** Replaces color with the 2nd one. */
 PyObject *scribus_replcolor(PyObject *self, PyObject* args);
 

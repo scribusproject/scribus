@@ -24,6 +24,10 @@ extern PyObject* NoDocOpenError;
 extern PyObject* WrongFrameTypeError;
 /*! Exception raised by GetUniqueItem when it can't find a valid frame or a suitable selection to use. */
 extern PyObject* NoValidObjectError;
+/*! A general exception for when objects such as colors and fonts cannot be found. */
+extern PyObject* NotFoundError;
+/*! Exception raised when the user tries to create an object with the same name as one that already exists */
+extern PyObject* NameExistsError;
 
 #endif
 

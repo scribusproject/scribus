@@ -23,7 +23,7 @@ PyObject *scribus_getlinecolor(PyObject *self, PyObject* args)
 	it = GetUniqueItem(QString(Name));
 	if (it == NULL)
 		return NULL;
-	if ((it->HasSel) && ((it->PType == 4) || (it->PType == 8)))
+	if ((it->HasSel) && ((it->PType == FRAME_TEXT) || (it->PType == FRAME_PATHTEXT)))
 	{
 		for (uint b = 0; b < it->Ptext.count(); ++b)
 		{
@@ -58,7 +58,7 @@ PyObject *scribus_getlineshade(PyObject *self, PyObject* args)
 	it = GetUniqueItem(QString(Name));
 	if (it == NULL)
 		return NULL;
-	if ((it->HasSel) && ((it->PType == 4) || (it->PType == 8)))
+	if ((it->HasSel) && ((it->PType == FRAME_TEXT) || (it->PType == FRAME_PATHTEXT)))
 	{
 		for (uint b = 0; b < it->Ptext.count(); ++b)
 		{

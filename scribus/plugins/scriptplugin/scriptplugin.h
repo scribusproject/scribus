@@ -31,7 +31,7 @@ extern "C" void initscribus(ScribusApp *pl);
 
 /** Some useful Subroutines */
 static PyObject *scribus_retval(PyObject *self, PyObject* args);
-static PyObject *scribus_getval(PyObject *self, PyObject* args);
+static PyObject *scribus_getval(PyObject *self);
 QString RetString;
 QString InValue;
 int RetVal;

@@ -13,7 +13,7 @@ PyObject *scribus_newrect(PyObject *self, PyObject* args)
 		return NULL;
 	if (ItemExists(QString(Name)))
 	{
-		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
 	}
 	int i = Carrier->view->PaintRect(ValueToPoint(x), ValueToPoint(y),
@@ -37,7 +37,7 @@ PyObject *scribus_newellipse(PyObject *self, PyObject* args)
 	int i = Carrier->view->PaintEllipse(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h), Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
 	if (ItemExists(QString(Name)))
 	{
-		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
 	}
 	Carrier->view->SetOvalFrame(Carrier->doc->Items.at(i));
@@ -58,7 +58,7 @@ PyObject *scribus_newimage(PyObject *self, PyObject* args)
 	int i = Carrier->view->PaintPict(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h));
 	if (ItemExists(QString(Name)))
 	{
-		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
 	}
 	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
@@ -79,7 +79,7 @@ PyObject *scribus_newtext(PyObject *self, PyObject* args)
 	int i = Carrier->view->PaintText(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h), Carrier->doc->Dwidth, Carrier->doc->DpenText);
 	if (ItemExists(QString(Name)))
 	{
-		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
 	}
 	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
@@ -102,7 +102,7 @@ PyObject *scribus_newline(PyObject *self, PyObject* args)
 	b = ValueToPoint(b);
 	if (ItemExists(QString(Name)))
 	{
-		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
 	}
 	h = ValueToPoint(h);
@@ -143,17 +143,17 @@ PyObject *scribus_polyline(PyObject *self, PyObject* args)
 	int len = PyList_Size(il);
 	if (len < 4)
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Point list must contain at least two points (four values)"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least two points (four values)","python error"));
 		return NULL;
 	}
 	if ((len % 2) != 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Point list must contain an even number of values"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain an even number of values","python error"));
 		return NULL;
 	}
 	if (ItemExists(QString(Name)))
 	{
-		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
 	}
 	double x, y, b, h;
@@ -217,17 +217,17 @@ PyObject *scribus_polygon(PyObject *self, PyObject* args)
 	int len = PyList_Size(il);
 	if (len < 6)
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Point list must contain at least three points (six values)"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least three points (six values)","python error"));
 		return NULL;
 	}
 	if ((len % 2) != 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Point list must contain an even number of values"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain an even number of values","python error"));
 		return NULL;
 	}
 	if (ItemExists(QString(Name)))
 	{
-		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
 	}
 	double x, y, b, h;
@@ -293,17 +293,17 @@ PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 	int len = PyList_Size(il);
 	if (len < 8)
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Point list must contain at least four points (eight values)"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least four points (eight values)","python error"));
 		return NULL;
 	}
 	if ((len % 6) != 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Point list must have a multiple of six values"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must have a multiple of six values","python error"));
 		return NULL;
 	}
 	if (ItemExists(QString(Name)))
 	{
-		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
 	}
 	double x, y, b, h, kx, ky, kx2, ky2;
@@ -382,7 +382,7 @@ PyObject *scribus_pathtext(PyObject *self, PyObject* args)
 		return NULL;
 	if (ItemExists(QString(Name)))
 	{
-		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
 	}
 	//FIXME: Why use GetItem not GetUniqueItem? Maybe use GetUniqueItem and use the exceptions
@@ -391,7 +391,7 @@ PyObject *scribus_pathtext(PyObject *self, PyObject* args)
 	int ii = GetItem(QString(PolyB));
 	if ((i == -1) || (ii == -1))
 	{
-		PyErr_SetString(ScribusException, QString("You're calling an object doesn't exist!"));
+		PyErr_SetString(NotFoundError, QObject::tr("Object not found","python error"));
 		return NULL;
 	}
 	Carrier->view->SelItem.clear();
@@ -479,7 +479,7 @@ PyObject *scribus_setstyle(PyObject *self, PyObject* args)
 	PageItem *item = GetUniqueItem(QString(name));
 	if (item == NULL)
 		return NULL;
-	if (item->PType == 4)
+	if (item->PType == FRAME_TEXT)
 	{
 		/*
 		 * First, find the style number associated with the requested style
@@ -500,7 +500,7 @@ PyObject *scribus_setstyle(PyObject *self, PyObject* args)
 		}
 		if (!found) {
 			// whoops, the user specified an invalid style, complain loudly.
-			PyErr_SetString(PyExc_Exception, QString("Style not found"));
+			PyErr_SetString(NotFoundError, QObject::tr("Style not found","python error"));
 			return NULL;
 		}
 		// quick hack to always apply on the right frame - pv
@@ -511,7 +511,7 @@ PyObject *scribus_setstyle(PyObject *self, PyObject* args)
 	}
 	else
 	{
-		PyErr_SetString(ScribusException, QString("Can't set style on a non-text frame"));
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't set style on a non-text frame","python error"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);

@@ -25,8 +25,13 @@ PyObject *scribus_savepageeps(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	bool ret = Carrier->DoSaveAsEps(QString(Name));
-	//FIXME: Should we really be returning a bool here? -- cr
-	return PyInt_FromLong(static_cast<long>(ret));
+	if (!ret)
+	{
+		PyErr_SetString(ScribusException, QObject::tr("Failed to save EPS","python error"));
+		return NULL;
+	}
+	Py_INCREF(Py_True);	// return True not None for backward compat
+	return Py_True;
 }
 
 PyObject *scribus_deletepage(PyObject *self, PyObject* args)
@@ -39,7 +44,7 @@ PyObject *scribus_deletepage(PyObject *self, PyObject* args)
 	e--;
 	if ((e < 0) || (e > static_cast<int>(Carrier->doc->Pages.count())-1))
 	{
-		PyErr_SetString(PyExc_IndexError, QString("Page number out of range"));
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range","python error"));
 		return NULL;
 	}
 	Carrier->DeletePage2(e);
@@ -57,7 +62,7 @@ PyObject *scribus_gotopage(PyObject *self, PyObject* args)
 	e--;
 	if ((e < 0) || (e > static_cast<int>(Carrier->doc->Pages.count())-1))
 	{
-		PyErr_SetString(PyExc_IndexError, QString("Page number out of range"));
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range","python error"));
 		return NULL;
 	}
 	Carrier->view->GotoPage(e);
@@ -80,7 +85,7 @@ PyObject *scribus_newpage(PyObject *self, PyObject* args)
 		e--;
 		if ((e < 0) || (e > static_cast<int>(Carrier->doc->Pages.count())-1))
 		{
-			PyErr_SetString(PyExc_IndexError, QString("Page number out of range"));
+			PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range","python error"));
 			return NULL;
 		}
 		Carrier->slotNewPageP(e, QString(name));
@@ -158,7 +163,7 @@ PyObject *scribus_setHguides(PyObject *self, PyObject* args)
 		return NULL;
 	if (!PyList_Check(l))
 	{
-		PyErr_SetString(PyExc_TypeError, QString("argument is not list: must be list of float values"));
+		PyErr_SetString(PyExc_TypeError, QObject::tr("argument is not list: must be list of float values","python error"));
 		return NULL;
 	}
 	int i, n;
@@ -169,7 +174,7 @@ PyObject *scribus_setHguides(PyObject *self, PyObject* args)
 	{
 		if (!PyArg_Parse(PyList_GetItem(l, i), "d", &guide))
 		{
-			PyErr_SetString(PyExc_TypeError, QString("argument contains non-numeric values: must be list of float values"));
+			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains non-numeric values: must be list of float values","python error"));
 			return NULL;
 		}
 		Carrier->doc->ActPage->YGuides += ValueToPoint(guide);
@@ -207,7 +212,7 @@ PyObject *scribus_setVguides(PyObject *self, PyObject* args)
 		return NULL;
 	if (!PyList_Check(l))
 	{
-		PyErr_SetString(PyExc_TypeError, QString("argument is not list: must be list of float values"));
+		PyErr_SetString(PyExc_TypeError, QObject::tr("argument is not list: must be list of float values","python error"));
 		return NULL;
 	}
 	int i, n;
@@ -218,7 +223,7 @@ PyObject *scribus_setVguides(PyObject *self, PyObject* args)
 	{
 		if (!PyArg_Parse(PyList_GetItem(l, i), "d", &guide))
 		{
-			PyErr_SetString(PyExc_TypeError, QString("argument contains no-numeric values: must be list of float values"));
+			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains no-numeric values: must be list of float values","python error"));
 			return NULL;
 		}
 		Carrier->doc->ActPage->XGuides += ValueToPoint(guide);
