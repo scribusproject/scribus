@@ -4377,6 +4377,7 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 
 bool ScribusApp::LadeDoc(QString fileName)
 {
+	undoManager->setUndoEnabled(false);
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	QFileInfo fi(fileName);
 	if (!fi.exists())
@@ -4734,6 +4735,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 	undoManager->switchStack(doc->DocName);
 //	Sepal->Rebuild();
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
+	undoManager->setUndoEnabled(true);
 	return ret;
 }
 
