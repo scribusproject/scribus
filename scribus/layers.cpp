@@ -209,6 +209,14 @@ void LayerPalette::addLayer()
 	MarkActiveLayer(*Activ);
 	emit LayerActivated(*Activ);
 	ScApp->slotDocCh();
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::AddLayer, "", Um::ICreate);
+		ss->set("ADD_LAYER", "add_layer");
+		ss->set("ACTIVE", *Activ);
+		ss->set("LAYER_NR", ll.LNr);
+		undoManager->action(this, ss, ScApp->doc->DocName, Um::ILayer);
+	}
 }
 
 void LayerPalette::removeLayer()
@@ -223,6 +231,16 @@ void LayerPalette::removeLayer()
 	                             QMessageBox::NoButton);
 	if (t == QMessageBox::Yes)
 		delToo = true;
+
+	removeLayer(delToo);
+}
+
+void LayerPalette::removeLayer(bool deleteItems)
+{
+	if (layers->count() < 2)
+		return;
+	if (UndoManager::undoEnabled())
+		undoManager->beginTransaction("Layer", Um::IDocument, Um::DeleteLayer, "", Um::IDelete);
 	int num = layers->count()-1-Table->currentRow();
 	QValueList<Layer>::iterator it2;
 	for (it2 = layers->begin(); it2 != layers->end(); ++it2)
@@ -230,11 +248,12 @@ void LayerPalette::removeLayer()
 		if ((*it2).Level == num)
 			break;
 	}
+	QString name = (*it2).Name;
 	int num2 = (*it2).LNr;
 	if (!num2)
 		return;
 	layers->remove
-	(it2);
+			(it2);
 	QValueList<Layer>::iterator it;
 	for (it = layers->begin(); it != layers->end(); ++it)
 	{
@@ -242,11 +261,23 @@ void LayerPalette::removeLayer()
 			(*it).Level -= 1;
 	}
 	rebuildList();
-	emit LayerRemoved(num2, delToo);
+	emit LayerRemoved(num2, deleteItems);
 	*Activ = 0;
 	MarkActiveLayer(*Activ);
 	emit LayerActivated(*Activ);
 	ScApp->slotDocCh();
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::DeleteLayer, "", Um::IDelete);
+		ss->set("REMOVE_LAYER", "remove_layer");
+		ss->set("ACTIVE", *Activ);
+		ss->set("LEVEL", num);
+		ss->set("NAME", name);
+		ss->set("LAYER_NR", num2);
+		ss->set("DELETE", deleteItems);
+		undoManager->action(this, ss, ScApp->doc->DocName, Um::ILayer);
+		undoManager->commit();
+	}
 }
 
 void LayerPalette::upLayer()
@@ -258,7 +289,7 @@ void LayerPalette::upLayer()
 		SimpleState *ss = new SimpleState(Um::RaiseLayer, "", Um::IUp);
 		ss->set("UP_LAYER", "up_layer");
 		ss->set("ACTIVE", *Activ);
-		undoManager->action(this, ss, ScApp->doc->DocName, Um::IDocument);
+		undoManager->action(this, ss, ScApp->doc->DocName, Um::ILayer);
 	}
 	int num = layers->count()-1-Table->currentRow();
 	QValueList<Layer>::iterator it;
@@ -290,7 +321,7 @@ void LayerPalette::downLayer()
 		SimpleState *ss = new SimpleState(Um::LowerLayer, "", Um::IDown);
 		ss->set("DOWN_LAYER", "down_layer");
 		ss->set("ACTIVE", *Activ);
-		undoManager->action(this, ss, ScApp->doc->DocName, Um::IDocument);
+		undoManager->action(this, ss, ScApp->doc->DocName, Um::ILayer);
 	}
 	int num = layers->count()-1-Table->currentRow();
 	QValueList<Layer>::iterator it;
@@ -435,6 +466,57 @@ void LayerPalette::restore(UndoState *state, bool isUndo)
 		{
 			bool print = ss->getBool("PRINT");
 			printLayer(ss->getInt("ACTIVE"), isUndo ? !print : print);
+		}
+		else if (ss->contains("ADD_LAYER"))
+		{
+			if (isUndo)
+			{
+				MarkActiveLayer(ss->getInt("ACTIVE"));
+				removeLayer(false);
+			}
+			else
+			{
+				QValueList<Layer>::iterator it;
+				for (it = layers->begin(); it != layers->end(); ++it)
+				{
+					if ((*it).LNr == *Activ)
+					{
+						(*it).LNr = ss->getInt("LAYER_NR");
+						*Activ = (*it).LNr;
+						break;
+					}
+				}
+				addLayer();
+			}
+		}
+		else if (ss->contains("REMOVE_LAYER"))
+		{
+			if (isUndo)
+			{
+				addLayer();
+				QValueList<Layer>::iterator it;
+				for (it = layers->begin(); it != layers->end(); ++it)
+				{
+					if ((*it).LNr == *Activ)
+					{
+						(*it).LNr = ss->getInt("LAYER_NR");
+						*Activ = (*it).LNr;
+						break;
+					}
+				}
+				int level = ss->getInt("LEVEL");
+				int num = layers->count()-1-Table->currentRow();
+				while (num != level)
+				{
+					downLayer();
+					++level;
+				}
+			}
+			else
+			{
+				MarkActiveLayer(ss->getInt("LAYER_NR"));
+				removeLayer(ss->getBool("DELETE"));
+			}
 		}
 	}
 }

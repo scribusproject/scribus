@@ -9341,7 +9341,7 @@ void ScribusApp::LayerRemove(int l, bool dl)
 				doc->DocItems.at(b)->setLocked(false);
 			}
 			else
-				doc->MasterItems.at(b)->LayerNr = 0;
+				doc->MasterItems.at(b)->setLayer(0);
 		}
 	}
 	if (view->SelItem.count() != 0)
@@ -9357,7 +9357,7 @@ void ScribusApp::LayerRemove(int l, bool dl)
 				doc->DocItems.at(b)->setLocked(false);
 			}
 			else
-				doc->DocItems.at(b)->LayerNr = 0;
+				doc->DocItems.at(b)->setLayer(0);
 		}
 	}
 	if (view->SelItem.count() != 0)

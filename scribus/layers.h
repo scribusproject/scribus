@@ -61,6 +61,7 @@ public slots:
 	void updateName(int r);
 	void addLayer();
 	void removeLayer();
+	void removeLayer(bool deleteItems);
 	void upLayer();
 	void downLayer();
 	void changeName(int row, int col);
