@@ -209,20 +209,54 @@ bool Foi_ttf::EmbedFont(QString &str)
 	while (length==65534);
 	str += "\n] def\n";
 	delete tmp;
-	gindex = 0;
-  charcode = FT_Get_First_Char(face, &gindex );
-  while (gindex != 0)
+	bool foundEncoding = false;
+	for(int u = 0; u < face->num_charmaps; u++)
+	{
+		if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
 		{
+			FT_Set_Charmap(face,face->charmaps[u]);
+			foundEncoding = true;
+			break;
+		}
+	}
+	if (!foundEncoding)
+	{
+		for(int u = 0; u < face->num_charmaps; u++)
+		{
+			if (face->charmaps[u]->encoding == FT_ENCODING_UNICODE)
+			{
+				FT_Set_Charmap(face,face->charmaps[u]);
+				foundEncoding = true;
+				break;
+			}
+		}
+		if (!foundEncoding)
+		{
+			for(int u = 0; u < face->num_charmaps; u++)
+			{
+				if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_EXPERT)
+				{
+					FT_Set_Charmap(face,face->charmaps[u]);
+					foundEncoding = true;
+					break;
+				}
+			}
+		}
+	}
+	gindex = 0;
+	charcode = FT_Get_First_Char(face, &gindex );
+	while (gindex != 0)
+	{
 		FT_Get_Glyph_Name(face, gindex, buf, 50);
 		tmp2 += "/"+QString(reinterpret_cast<char*>(buf))+" "+tmp3.setNum(gindex)+" def\n";
-    charcode = FT_Get_Next_Char(face, charcode, &gindex );
+		 charcode = FT_Get_Next_Char(face, charcode, &gindex );
 		counter++;
-		}
+	}
 	FT_Done_FreeType( library );
 	tmp4.setNum(counter);
 	str += "/CharStrings " + tmp4 + " dict dup begin\n"+tmp2;
 	str += "end readonly def\n";
-  str += "FontName currentdict end definefont pop\n";
+	str += "FontName currentdict end definefont pop\n";
 	file.close();
 	return(true);
 }

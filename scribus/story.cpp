@@ -802,11 +802,8 @@ void SEditor::loadItemText(PageItem* b)
 	setFarbe(Ccol, Csha);
 	setStyle(Csty);
 	insert(Text);
-	if (chars->count() != 0)
-	{
-		StyledText.append(chars);
-		ParagStyles.append(Ali);
-	}
+	StyledText.append(chars);
+	ParagStyles.append(Ali);
 	if (StyledText.count() != 0)
 		emit setProps(0, 0);
 	setCursorPosition(0, 0);
@@ -855,11 +852,8 @@ void SEditor::loadText(QString tx, PageItem* b)
 		}
 	}
 	insert(Text);
-	if (chars->count() != 0)
-	{
-		StyledText.append(chars);
-		ParagStyles.append(b->Ausrich);
-	}
+	StyledText.append(chars);
+	ParagStyles.append(b->Ausrich);
 	if (StyledText.count() != 0)
 		emit setProps(0, 0);
 	setCursorPosition(0, 0);
