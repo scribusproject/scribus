@@ -1,5 +1,13 @@
 Changes since 1.2 
 
+14.10.2004
+	* bug     #1208: grey out the factor field in polygon setting when not activated
+	* bug     #1211: wrong PDF export of imported EPS image
+	* bug     #1213: duplicating a page template doesn't duplicate the guides
+
+12.10.2004
+	* bug     #1210: Translation update for German
+
 11.10.2004
 	* bug     #1093: Deleting selected text from text frame deletes also one character after the selction
 	* bug     #1199: Updated Norwegian Bokmaal Translation

@@ -1,3 +1,4 @@
 Makefile
 *.moc.cpp
 *.moc
+*.o

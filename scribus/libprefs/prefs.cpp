@@ -1240,6 +1240,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	T6_Slider1->setOrientation( QSlider::Horizontal );
 	T6_Slider1->setTickmarks( QSlider::Right );
 	T6_Slider1->setValue(Vor->PolyFd);
+	if (Vor->PolyFd == 0)
+		T6_Konvex->setChecked(false);
 	T6_Layout8->addWidget( T6_Slider1 );
 	T6_Layout9->addLayout( T6_Layout8 );
 	T6_Layout10->addLayout( T6_Layout9 );
@@ -2290,13 +2292,22 @@ void Preferences::ValFromSpin(int a)
  */
 void Preferences::UpdatePreView()
 {
+	if (T6_Konvex->isChecked())
+	{
+		T6_Slider1->setEnabled(true);
+		T6_Faktor->setEnabled(true);
+	}
+	else
+	{
+		T6_Slider1->setEnabled(false);
+		T6_Faktor->setEnabled(false);
+	}
 	Pre->fill(white);
 	QPainter p;
 	p.begin(Pre);
 	p.setBrush(NoBrush);
 	p.setPen(black);
-	QPointArray pp = RegularPolygon(100, 100, T6_Ecken->value(), T6_Konvex->isChecked(), GetFaktor(),
-	                                T6_Slider2->value());
+	QPointArray pp = RegularPolygon(100, 100, T6_Ecken->value(), T6_Konvex->isChecked(), GetFaktor(), T6_Slider2->value());
 	QRect br = pp.boundingRect();
 	if (br.x() < 0)
 		pp.translate(-br.x(), 0);

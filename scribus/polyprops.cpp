@@ -87,6 +87,8 @@ PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
 	Slider1->setOrientation( QSlider::Horizontal );
 	Slider1->setTickmarks( QSlider::Right );
 	Slider1->setValue(PolyFd);
+	if (PolyFd == 0)
+		Konvex->setChecked(false);
 	Layout8->addWidget( Slider1 );
 	Layout9->addLayout( Layout8 );
 	Layout10->addLayout( Layout9 );
@@ -152,6 +154,16 @@ void PolygonProps::ValFromSpin(int a)
 
 void PolygonProps::UpdatePreView()
 {
+	if (Konvex->isChecked())
+	{
+		Slider1->setEnabled(true);
+		Faktor->setEnabled(true);
+	}
+	else
+	{
+		Slider1->setEnabled(false);
+		Faktor->setEnabled(false);
+	}
 	Pre->fill(white);
 	QPainter p;
 	p.begin(Pre);

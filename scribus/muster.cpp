@@ -144,6 +144,23 @@ void MusterSeiten::DuplTemp()
 		QPtrList<PageItem> TableItems;
 		TableID.clear();
 		TableItems.clear();
+		if (View->Pages.at(inde)->YGuides.count() != 0)
+		{
+			Doc->ActPage->YGuides.clear();
+			for (uint y = 0; y < View->Pages.at(inde)->YGuides.count(); ++y)
+			{
+				Doc->ActPage->YGuides.append(View->Pages.at(inde)->YGuides[y]);
+			}
+			qHeapSort(Doc->ActPage->YGuides);
+		}
+		if (View->Pages.at(inde)->XGuides.count() != 0)
+		{
+			for (uint x = 0; x < View->Pages.at(inde)->XGuides.count(); ++x)
+			{
+				Doc->ActPage->XGuides.append(View->Pages.at(inde)->XGuides[x]);
+			}
+			qHeapSort(Doc->ActPage->XGuides);
+		}
 		for (uint a=0; a<View->Pages.at(inde)->Items.count(); ++a)
 		{
 			CopyPageItem(&Buffer, View->Pages.at(inde)->Items.at(a));
