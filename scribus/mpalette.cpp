@@ -93,9 +93,6 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent,
 	Umrech = UmReFaktor;
 	QString ptSuffix = tr( " pt" );
 	setIcon( loadIcon("AppIcon.png") );
-	spinBoxWatch = new QTimer(this, "spinBoxWatch");
-	spinBoxOldValue = -1.0;
-	activeMSpinBox = NULL;
 	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
 
 	MpalLayout = new QVBoxLayout( this, 5, 1, "MpalLayout");
@@ -839,10 +836,15 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent,
 	QToolTip::add( MonitorI, tr( "Rendering intent for the image" ) );
 
 	connect(Xpos, SIGNAL(valueChanged(int)), this, SLOT(NewX()));
+	connect(Xpos, SIGNAL(changesDone()), this, SLOT(updateChanges()));
 	connect(Ypos, SIGNAL(valueChanged(int)), this, SLOT(NewY()));
+	connect(Ypos, SIGNAL(changesDone()), this, SLOT(updateChanges()));
 	connect(Width, SIGNAL(valueChanged(int)), this, SLOT(NewW()));
+	connect(Width, SIGNAL(changesDone()), this, SLOT(updateChanges()));
 	connect(Height, SIGNAL(valueChanged(int)), this, SLOT(NewH()));
+	connect(Height, SIGNAL(changesDone()), this, SLOT(updateChanges()));
 	connect(Rot, SIGNAL(valueChanged(int)), this, SLOT(NewR()));
+	connect(Rot, SIGNAL(changesDone()), this, SLOT(updateChanges()));
 	connect(RoundRect, SIGNAL(valueChanged(int)), this, SLOT(NewRR()));
 	connect(LineSp, SIGNAL(valueChanged(int)), this, SLOT(NewLsp()));
 	connect(Size, SIGNAL(valueChanged(int)), this, SLOT(NewSize()));
@@ -909,7 +911,6 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent,
 	connect( Cpal, SIGNAL(editGradient()), this, SLOT(toggleGradientEdit()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
-	connect(spinBoxWatch, SIGNAL(timeout()), this, SLOT(checkSBOldValue()));
 	HaveItem = false;
 	Xpos->setValue(0);
 	Ypos->setValue(0);
@@ -1922,12 +1923,6 @@ void Mpalette::NewX()
 	base = 0;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (!spinBoxWatch->isActive())
-		{
-			spinBoxOldValue = -1.0;
-			activeMSpinBox = Xpos;
-			spinBoxWatch->start(200);
-		}
 		x += doc->currentPage->Xoffset;
 		y += doc->currentPage->Yoffset;
 		if (ScApp->view->GroupSel)
@@ -1985,12 +1980,6 @@ void Mpalette::NewY()
 	base = 0;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (!spinBoxWatch->isActive())
-		{
-			spinBoxOldValue = -1.0;
-			activeMSpinBox = Ypos;
-			spinBoxWatch->start(200);
-		}
 		x += doc->currentPage->Xoffset;
 		y += doc->currentPage->Yoffset;
 		if (ScApp->view->GroupSel)
@@ -2046,12 +2035,6 @@ void Mpalette::NewW()
 	h = Height->value() / UmReFaktor;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (!spinBoxWatch->isActive())
-		{
-			spinBoxOldValue = -1.0;
-			activeMSpinBox = Width;
-			spinBoxWatch->start(200);
-		}
 		if (ScApp->view->GroupSel)
 		{
 			ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
@@ -2149,12 +2132,6 @@ void Mpalette::NewH()
 	h = Height->value() / UmReFaktor;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (!spinBoxWatch->isActive())
-		{
-			spinBoxOldValue = -1.0;
-			activeMSpinBox = Height;
-			spinBoxWatch->start(200);
-		}
 		if (ScApp->view->GroupSel)
 		{
 			ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
@@ -2248,12 +2225,6 @@ void Mpalette::NewR()
 	double gx, gy, gh, gw;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (!spinBoxWatch->isActive())
-		{
-			spinBoxOldValue = -1.0;
-			activeMSpinBox = Rot;
-			spinBoxWatch->start(200);
-		}
 		if (ScApp->view->GroupSel)
 		{
 			ScApp->view->RotateGroup((Rot->value() - RoVal)*(-1));
@@ -3357,30 +3328,31 @@ void Mpalette::HandleTLines()
 	}
 }
 
-void Mpalette::checkSBOldValue()
+void Mpalette::updateChanges()
 {
-	if (spinBoxWatch->isActive() && activeMSpinBox && spinBoxOldValue == activeMSpinBox->value())
+	if (ScApp->view->groupTransactionStarted())
 	{
-		spinBoxWatch->stop();
+		ScApp->view->setGroupTransactionStarted(false);
+		for (uint i = 0; i < ScApp->view->SelItem.count(); ++i)
+			ScApp->view->SelItem.at(i)->checkChanges(true);
+		UndoManager::instance()->commit();
+	}
+	else
 		for (uint i = 0; i < ScApp->view->SelItem.count(); ++i)
 			ScApp->view->SelItem.at(i)->checkChanges();
-		if (ScApp->view->groupTransactionStarted())
-		{
-			ScApp->view->setGroupTransactionStarted(false);
-			UndoManager::instance()->commit();
-		}
-		activeMSpinBox = NULL;
-	}
-	else if (spinBoxWatch->isActive() && activeMSpinBox)
-		spinBoxOldValue = activeMSpinBox->value();
-	else if (spinBoxWatch->isActive())
-	{
-		spinBoxWatch->stop();
-		activeMSpinBox = NULL;
-	}
 }
 
 bool Mpalette::userActionOn()
 {
-	return spinBoxWatch->isActive();
+	if (Xpos->userActionOn())
+		return true;
+	else if (Ypos->userActionOn())
+		return true;
+	else if (Width->userActionOn())
+		return true;
+	else if (Height->userActionOn())
+		return true;
+	else if (Rot->userActionOn())
+		return true;
+	return false;
 }

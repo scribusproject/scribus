@@ -2274,7 +2274,9 @@ void PageItem::checkChanges(bool force)
 
 bool PageItem::shouldCheck()
 {
-	return ((!ScApp->view->mousePressed()) && (!ScApp->arrowKeyDown()) && (!ScApp->Mpal->userActionOn()));
+	return ((!ScApp->view->mousePressed()) &&
+			(!ScApp->arrowKeyDown()) &&
+			(!ScApp->Mpal->userActionOn()));
 }
 
 void PageItem::moveUndoAction()

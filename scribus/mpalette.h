@@ -91,7 +91,7 @@ public:
 	void updateCmsList();
 	void ShowCMS();
 	void fillLangCombo(QMap<QString,QString> langMap);
-	/** @brief Returns true if a user is performing some action at the very moment of the call. */
+	/** @brief Returns true if there is a user action going on at the moment of call. */
 	bool userActionOn();
 
 	Autoforms* SCustom;
@@ -416,20 +416,8 @@ protected:
 	QHBoxLayout* layout23;
 	QHBoxLayout* layout24;
 
-private:
-	/**
-	 * @name Tracking the end of user action on MSpinBoxes
-	 * @brief Used to track when a user ends action on a MSpinBox. Only after this
-	 * @brief the whole action is sent to the UndoManager
-	 */
-	/*@{*/
-	QTimer *spinBoxWatch;
-	double spinBoxOldValue;
-	MSpinBox *activeMSpinBox;
-	/*@}*/
-
 private slots:
-	void checkSBOldValue();
+	void updateChanges();
 };
 
 #endif
