@@ -1929,3 +1929,37 @@ void ReOrderText(ScribusDoc *doc, ScribusView *view)
 	doc->Scale = savScale;
 	delete painter;
 }
+
+
+/*! 10/06/2004 - pv
+\param QString s1 first string
+\param QString s2 second string
+\retval bool t/f related s1>s2
+ */
+bool compareQStrings(QString s1, QString s2)
+{
+	if (QString::localeAwareCompare(s1, s2) >= 0)
+		return FALSE;
+	return TRUE;
+}
+
+/*! 10/06/2004 - pv
+Returns a sorted list of QStrings - sorted by locale specific
+rules! Uses compareQStrings() as rule. There is STL used!
+TODO: Maybe we can implement one cass for various sorting...
+\param QStringList aList unsorted string list
+\retval QStringList sorted string list
+*/
+QStringList sortQStringList(QStringList aList)
+{
+	std::vector<QString> sortList;
+	QStringList retList;
+	QStringList::Iterator it;
+
+	for (it = aList.begin(); it != aList.end(); ++it)
+		sortList.push_back(*it);
+	std::sort(sortList.begin(), sortList.end(), compareQStrings);
+	for(int i = 0; i < sortList.size(); i++)
+		retList.append(sortList[i]);
+	return retList;
+}
