@@ -2525,9 +2525,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	}
 	if (Doc->AppMode == 6)
 	{
+		double sc = Scale;
 		if (HaveSelRect)
 		{
-			double sc = Scale;
 			if((Mxp*sc) > SeRx)
 			{
 				double tmp=SeRx;
@@ -2544,19 +2544,29 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			double xf = width() / (SeRx/sc-Mxp);
 			Scale = QMIN(yf, xf);
 			slotDoZoom();
-			SetCPo(Mxp, Myp);
-			HaveSelRect = false;
-			Doc->AppMode = 1;
-			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-			emit PaintingDone();
+			if (sc == Scale)
+			{
+				SetCPo(Mxp, Myp);
+				HaveSelRect = false;
+				Doc->AppMode = 1;
+				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				emit PaintingDone();
+			}
 		}
 		else
 		{
 			int mx = qRound(m->x() / Scale);
 			int my = qRound(m->y() / Scale);
 			Magnify ? slotZoomIn2(mx,my) : slotZoomOut2(mx,my);
-			HaveSelRect = false;
-			qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
+			if (sc == Scale)
+			{
+				HaveSelRect = false;
+				Doc->AppMode = 1;
+				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				emit PaintingDone();
+			}
+			else
+				qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
 		}
 	}
 	if ((Doc->AppMode == 13) && (m->button() == LeftButton))
@@ -8169,12 +8179,15 @@ void ScribusView::movePage(int from, int to, int ziel, int art)
 void ScribusView::reformPages()
 {
 	Page* Seite;
+	QMap<uint, oldPageVar> pageTable;
+	struct oldPageVar oldPg;
 	for (uint a = 0; a < Doc->Pages.count(); ++a)
 	{
 		Seite = Doc->Pages.at(a);
-		uint oldPgNr = Seite->PageNr;
-		double oldXO = Seite->Xoffset;
-		double oldYO = Seite->Yoffset;
+		oldPg.oldXO = Seite->Xoffset;
+		oldPg.oldYO = Seite->Yoffset;
+		oldPg.newPg = a;
+		pageTable.insert(Seite->PageNr, oldPg);
 		Seite->PageNr = a;
 		if (Doc->PageFP)
 		{
@@ -8270,17 +8283,22 @@ void ScribusView::reformPages()
 				Seite->Yoffset = a * (Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop;
 			}
 		}
-		for (uint ite = 0; ite < Doc->Items.count(); ++ite)
+	}
+	for (uint ite = 0; ite < Doc->Items.count(); ++ite)
+	{
+		PageItem *item = Doc->Items.at(ite);
+		oldPg = pageTable[item->OwnPage];
+		item->Xpos = item->Xpos - oldPg.oldXO + Doc->Pages.at(oldPg.newPg)->Xoffset;
+		item->Ypos = item->Ypos - oldPg.oldYO + Doc->Pages.at(oldPg.newPg)->Yoffset;
+		item->OwnPage = static_cast<int>(oldPg.newPg);
+		setRedrawBounding(item);
+/*		if (item->OwnPage == static_cast<int>(oldPgNr))
 		{
-			PageItem *item = Doc->Items.at(ite);
-			if (item->OwnPage == static_cast<int>(oldPgNr))
-			{
-				item->Xpos = item->Xpos - oldXO + Seite->Xoffset;
-				item->Ypos = item->Ypos - oldYO + Seite->Yoffset;
-				item->OwnPage = static_cast<int>(a);
-				setRedrawBounding(item);
-			}
-		}
+			item->Xpos = item->Xpos - oldXO + Seite->Xoffset;
+			item->Ypos = item->Ypos - oldYO + Seite->Yoffset;
+			item->OwnPage = static_cast<int>(a);
+			setRedrawBounding(item);
+		} */
 	}
 	if (Doc->PageFP)
 	{
@@ -8333,9 +8351,12 @@ void ScribusView::setLayMenTxt(int l)
 /** Fuehrt die Vergroesserung/Verkleinerung aus */
 void ScribusView::slotDoZoom()
 {
+	if (Scale > 32*Prefs->DisScale)
+	{
+		Scale = 32*Prefs->DisScale;
+		return;
+	}
 	updateOn = false;
-	if (Scale > 32)
-		Scale = 32;
 	if (Doc->PageFP)
 	{
 		if (Doc->FirstPageLeft)
@@ -8370,8 +8391,11 @@ void ScribusView::slotZoomIn(int mx,int my)
 	else
 		rememberPreviousSettings(mx,my);
 	Scale *= 2;
-	if (Scale > 32)
+	if (Scale > 32*Prefs->DisScale)
+	{
 		Scale = 32*Prefs->DisScale;
+		return;
+	}
 	slotDoZoom();
 }
 
@@ -8398,7 +8422,10 @@ void ScribusView::slotZoomIn2(int mx,int my)
 	rememberPreviousSettings(mx,my);
 	Scale += static_cast<double>(Doc->MagStep*Prefs->DisScale)/100.0;
 	if (Scale > static_cast<double>(Doc->MagMax*Prefs->DisScale)/100.0)
+	{
 		Scale = static_cast<double>(Doc->MagMax*Prefs->DisScale)/100.0;
+		return;
+	}
 	slotDoZoom();
 }
 

@@ -5806,6 +5806,7 @@ void ScribusApp::MovePage()
 		if (from != wo)
 			view->movePage(from-1, to, wo-1, wie);
 		slotDocCh();
+		view->DrawNew();
 		doc->UnDoValid = false;
 		CanUndo();
 /*		AdjustBM();
@@ -5842,12 +5843,15 @@ void ScribusApp::CopyPage()
 		QPtrList<PageItem> TableItems;
 		TableID.clear();
 		TableItems.clear();
-		for (uint ite = 0; ite < doc->Items.count(); ++ite)
+		uint oldItems = doc->Items.count();
+		for (uint ite = 0; ite < oldItems; ++ite)
 		{
 			CopyPageItem(&Buffer, doc->Items.at(ite));
+			Buffer.Xpos = Buffer.Xpos - from->Xoffset + Ziel->Xoffset;
+			Buffer.Ypos = Buffer.Ypos - from->Yoffset + Ziel->Yoffset;
 			view->PasteItem(&Buffer, true, true);
-			if (doc->Items.at(ite)->isBookmark)
-				AddBookMark(doc->Items.at(doc->Items.count()-1));
+//			if (doc->Items.at(ite)->isBookmark)
+//				AddBookMark(doc->Items.at(doc->Items.count()-1));
 			PageItem* Neu = doc->Items.at(doc->Items.count()-1);
 			if (Neu->isTableItem)
 			{
@@ -5878,6 +5882,24 @@ void ScribusApp::CopyPage()
 					ta->BottomLink = 0;
 			}
 		}
+		if (from->YGuides.count() != 0)
+		{
+			for (uint y = 0; y < from->YGuides.count(); ++y)
+			{
+				if (Ziel->YGuides.contains(from->YGuides[y]) == 0)
+					Ziel->YGuides.append(from->YGuides[y]);
+			}
+			qHeapSort(Ziel->YGuides);
+		}
+		if (from->XGuides.count() != 0)
+		{
+			for (uint x = 0; x < from->XGuides.count(); ++x)
+			{
+				if (Ziel->XGuides.contains(from->XGuides[x]) == 0)
+					Ziel->XGuides.append(from->XGuides[x]);
+			}
+			qHeapSort(Ziel->XGuides);
+		}
 		Ziel->MPageNam = from->MPageNam;
 		view->Deselect(true);
 		doc->loading = false;
@@ -5885,9 +5907,9 @@ void ScribusApp::CopyPage()
 		slotDocCh();
 		doc->UnDoValid = false;
 		CanUndo();
-		Sepal->RebuildPage();
-		Tpal->BuildTree(view);
-		AdjustBM();
+//		Sepal->RebuildPage();
+//		Tpal->BuildTree(view);
+//		AdjustBM();
 	}
 	delete dia;
 }

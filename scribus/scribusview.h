@@ -112,6 +112,23 @@ public:
 	QPtrList<PageItem> SelItem;
 	QPtrList<PageItem> linkedFramesToShow;
 	QValueList<int> SelNode;
+	struct AlignObjs 
+	{  
+		int ObjNr;
+		int Group;
+		double x1;
+		double y1;
+		double x2;
+		double y2;
+		QPtrList<PageItem> Objects;
+	};
+	QValueList<AlignObjs> AObjects;
+	struct oldPageVar
+	{
+		uint newPg;
+		double oldXO;
+		double oldYO;
+	};
   /** Deletes a Page */
 	void delPage(int Nr);
   /** verschiebt Seiten */
@@ -235,15 +252,6 @@ public:
 	void BuildAObj();
 	void doAlign(QValueList<uint> &Object, int moveCode, double xp, double xdisp, double ydisp, double minx = 0.0);
 	void AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double ydisp, int xart, int yart);
-	struct AlignObjs {  int ObjNr;
-								int Group;
-								double x1;
-								double y1;
-								double x2;
-								double y2;
-								QPtrList<PageItem> Objects;
-							};
-	QValueList<AlignObjs> AObjects;
 	void QueryFarben();
 	void ToPathText();
 	void FromPathText();
