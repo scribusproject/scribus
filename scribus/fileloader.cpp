@@ -717,6 +717,9 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						objattr.type=itemAttr.attribute("Type");
 						objattr.value=itemAttr.attribute("Value");
 						objattr.parameter=itemAttr.attribute("Parameter");
+						objattr.relationship=itemAttr.attribute("Relationship");
+						objattr.relationshipto=itemAttr.attribute("RelationshipTo");
+						objattr.autoaddto=itemAttr.attribute("AutoAddTo");
 						doc->docItemAttributes.append(objattr);
 					}
 					DIA = DIA.nextSibling();

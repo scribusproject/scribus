@@ -14,7 +14,7 @@
 void PageItemAttributes::init()
 {
 	relationships << tr("None") << tr("Relates To") << tr("Is Parent Of") << tr("Is Child Of");
-	autoAddTo << tr("None") << tr("Text Frames") << tr("Image Frames");
+	relationshipsData << "none" << "relation" << "parent" << "child";
 }
 
 void PageItemAttributes::destroy()
@@ -26,23 +26,7 @@ void PageItemAttributes::destroy()
 void PageItemAttributes::setup(ObjAttrVector *docItemAttrs)
 {
 	localAttributes=*docItemAttrs;
-	attributesTable->setNumRows(docItemAttrs->count());
-	int row=0;
-	for(ObjAttrVector::Iterator it = docItemAttrs->begin(); it!= docItemAttrs->end(); ++it)
-	{
-		uint i=0;
-		QTableItem *item = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).name);
-		attributesTable->setItem(row, i++, item);
-		QTableItem *item1 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).type);
-		attributesTable->setItem(row, i++, item1);
-		QTableItem *item2 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).value);
-		attributesTable->setItem(row, i++, item2);
-		QTableItem *item3 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).parameter);
-		attributesTable->setItem(row, i++, item3);
-		
-		attributesTable->verticalHeader()->setLabel(row, QString("%1").arg(row));
-		row++;
-	}
+	updateTable();
 }
 
 ObjAttrVector* PageItemAttributes::getNewAttributes()
@@ -66,6 +50,34 @@ void PageItemAttributes::tableItemChanged( int row, int col )
 			break;
 		case 3:
 			localAttributes[row].parameter=attributesTable->text(row, col);
+			break;
+		case 4:
+		{
+			QComboTableItem* qcti=dynamic_cast<QComboTableItem*>(attributesTable->item(row,col));
+			if (qcti!=NULL)
+			{
+				uint index=qcti->currentItem();
+				if (index<relationshipsData.count())
+					localAttributes[row].relationship=relationshipsData[index];
+			}
+		}
+		break;
+		case 5:
+			localAttributes[row].relationshipto=attributesTable->text(row, col);
+			break;
+		case 6:
+			//AutoAddTo is not used once this gets to the page items
+			/*
+			{
+				QComboTableItem* qcti=dynamic_cast<QComboTableItem*>(attributesTable->item(row,col));
+				if (qcti!=NULL)
+				{
+					uint index=qcti->currentItem();
+					if (index<autoAddToData.count())
+						localAttributes[row].autoaddto=autoAddToData[index];
+				}
+			}
+			*/
 			break;
 		default:
 			break;
@@ -156,14 +168,30 @@ void PageItemAttributes::updateTable()
 		QTableItem *item4 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).parameter);
 		attributesTable->setItem(row, i++, item4);
 		//Relationship
-		QTableItem *item5 = new QComboTableItem(attributesTable, relationships);
+		QComboTableItem *item5 = new QComboTableItem(attributesTable, relationships);
 		attributesTable->setItem(row, i++, item5);
+		int index=relationshipsData.findIndex((*it).relationship);
+		if (index==-1)
+		{
+			(*it).relationship="none";
+			index=0;
+		}
+		item5->setCurrentItem(index);
 		//Relationship to
 		QTableItem *item6 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).relationshipto);
 		attributesTable->setItem(row, i++, item6);
-		//Auto Add to
-		QTableItem *item7 = new QComboTableItem(attributesTable, autoAddTo);
+		//Auto Add to not used here
+		/*
+		QComboTableItem *item7 = new QComboTableItem(attributesTable, autoAddTo);
 		attributesTable->setItem(row, i++, item7);
+		index=autoAddToData.findIndex((*it).autoaddto);
+		if (index==-1)
+		{
+			(*it).autoaddto="none";
+			index=0;
+		}
+		item7->setCurrentItem(index);		
+		*/
 		
 		attributesTable->verticalHeader()->setLabel(row, QString("%1").arg(row));
 		row++;

@@ -2833,6 +2833,9 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		itemAttr.setAttribute("Type", (*objAttrIt).type);
 		itemAttr.setAttribute("Value", (*objAttrIt).value);
 		itemAttr.setAttribute("Parameter", (*objAttrIt).parameter);
+		itemAttr.setAttribute("Relationship", (*objAttrIt).relationship);
+		itemAttr.setAttribute("RelationshipTo", (*objAttrIt).relationshipto);
+		itemAttr.setAttribute("AutoAddTo", (*objAttrIt).autoaddto);
 		docItemAttrs.appendChild(itemAttr);
 	}
 	dc.appendChild(docItemAttrs);
@@ -3175,6 +3178,9 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 		itemAttr.setAttribute("Type", (*objAttrIt).type);
 		itemAttr.setAttribute("Value", (*objAttrIt).value);
 		itemAttr.setAttribute("Parameter", (*objAttrIt).parameter);
+		itemAttr.setAttribute("Relationship", (*objAttrIt).relationship);
+		itemAttr.setAttribute("RelationshipTo", (*objAttrIt).relationshipto);
+		itemAttr.setAttribute("AutoAddTo", (*objAttrIt).autoaddto);
 		docItemAttrs.appendChild(itemAttr);
 	}
 	elem.appendChild(docItemAttrs);
@@ -3521,6 +3527,9 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 					objattr.type=itemAttr.attribute("Type");
 					objattr.value=itemAttr.attribute("Value");
 					objattr.parameter=itemAttr.attribute("Parameter");
+					objattr.relationship=itemAttr.attribute("Relationship");
+					objattr.relationshipto=itemAttr.attribute("RelationshipTo");
+					objattr.autoaddto=itemAttr.attribute("AutoAddTo");
 					Vorein->defaultItemAttributes.append(objattr);
 				}
 				DIA = DIA.nextSibling();

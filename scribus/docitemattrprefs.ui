@@ -224,9 +224,11 @@
     <include location="local" impldecl="in implementation">docitemattrprefs.ui.h</include>
 </includes>
 <variables>
-    <variable>QStringList relationships;</variable>
-    <variable access="public">ObjAttrVector localAttributes;</variable>
+    <variable>QStringList autoAddToData;</variable>
+    <variable>QStringList relationshipsData;</variable>
     <variable>QStringList autoAddTo;</variable>
+    <variable access="public">ObjAttrVector localAttributes;</variable>
+    <variable>QStringList relationships;</variable>
 </variables>
 <slots>
     <slot>setup( ObjAttrVector * docItemAttrs )</slot>

@@ -13,7 +13,9 @@
 void DocumentItemAttributes::init()
 {
 	relationships << tr("None") << tr("Relates To") << tr("Is Parent Of") << tr("Is Child Of");
+	relationshipsData << "none" << "relation" << "parent" << "child";
 	autoAddTo << tr("None") << tr("Text Frames") << tr("Image Frames");
+	autoAddToData << "none" << "textframes" << "imageframes";
 }
 
 void DocumentItemAttributes::destroy()
@@ -51,6 +53,31 @@ void DocumentItemAttributes::tableItemChanged( int row, int col )
 	case 3:
 		localAttributes[row].parameter=attributesTable->text(row, col);
 		break;
+	case 4:
+		{
+			QComboTableItem* qcti=dynamic_cast<QComboTableItem*>(attributesTable->item(row,col));
+			if (qcti!=NULL)
+			{
+				uint index=qcti->currentItem();
+				if (index<relationshipsData.count())
+					localAttributes[row].relationship=relationshipsData[index];
+			}
+		}
+		break;
+	case 5:
+		localAttributes[row].relationshipto=attributesTable->text(row, col);
+		break;
+	case 6:
+		{
+			QComboTableItem* qcti=dynamic_cast<QComboTableItem*>(attributesTable->item(row,col));
+			if (qcti!=NULL)
+			{
+				uint index=qcti->currentItem();
+				if (index<autoAddToData.count())
+					localAttributes[row].autoaddto=autoAddToData[index];
+			}
+		}
+		break;
 	default:
 		break;
 	}
@@ -60,7 +87,7 @@ void DocumentItemAttributes::tableItemChanged( int row, int col )
 void DocumentItemAttributes::addEntry()
 {
 	ObjectAttribute blank;
-	blank.relationship="None";
+	blank.relationship="none";
 	blank.autoaddto="none";
 	localAttributes.append(blank);
 	updateTable();
@@ -87,14 +114,28 @@ void DocumentItemAttributes::updateTable()
 		QTableItem *item4 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).parameter);
 		attributesTable->setItem(row, i++, item4);
 		//Relationship
-		QTableItem *item5 = new QComboTableItem(attributesTable, relationships);
+		QComboTableItem *item5 = new QComboTableItem(attributesTable, relationships);
 		attributesTable->setItem(row, i++, item5);
+		int index=relationshipsData.findIndex((*it).relationship);
+		if (index==-1)
+		{
+			(*it).relationship="none";
+			index=0;
+		}
+		item5->setCurrentItem(index);
 		//Relationship to
 		QTableItem *item6 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).relationshipto);
 		attributesTable->setItem(row, i++, item6);
 		//Auto Add to
-		QTableItem *item7 = new QComboTableItem(attributesTable, autoAddTo);
+		QComboTableItem *item7 = new QComboTableItem(attributesTable, autoAddTo);
 		attributesTable->setItem(row, i++, item7);
+		index=autoAddToData.findIndex((*it).autoaddto);
+		if (index==-1)
+		{
+			(*it).autoaddto="none";
+			index=0;
+		}
+		item7->setCurrentItem(index);		
 		
 		attributesTable->verticalHeader()->setLabel(row, QString("%1").arg(row));
 		row++;
@@ -156,3 +197,6 @@ void DocumentItemAttributes::copyEntry()
 		updateTable();
 	}
 }
+
+
+

@@ -35,48 +35,30 @@
                         <property name="text">
                             <string>Name</string>
                         </property>
-                        <property name="pixmap">
-                            <pixmap></pixmap>
-                        </property>
                     </column>
                     <column>
                         <property name="text">
                             <string>Type</string>
-                        </property>
-                        <property name="pixmap">
-                            <pixmap></pixmap>
                         </property>
                     </column>
                     <column>
                         <property name="text">
                             <string>Value</string>
                         </property>
-                        <property name="pixmap">
-                            <pixmap></pixmap>
-                        </property>
                     </column>
                     <column>
                         <property name="text">
                             <string>Parameter</string>
-                        </property>
-                        <property name="pixmap">
-                            <pixmap></pixmap>
                         </property>
                     </column>
                     <column>
                         <property name="text">
                             <string>Relationship</string>
                         </property>
-                        <property name="pixmap">
-                            <pixmap></pixmap>
-                        </property>
                     </column>
                     <column>
                         <property name="text">
                             <string>Relationship To</string>
-                        </property>
-                        <property name="pixmap">
-                            <pixmap></pixmap>
                         </property>
                     </column>
                     <property name="name">
@@ -248,7 +230,7 @@
 <variables>
     <variable access="public">ObjAttrVector localAttributes;</variable>
     <variable>QStringList relationships;</variable>
-    <variable>QStringList autoAddTo;</variable>
+    <variable>QStringList relationshipsData;</variable>
 </variables>
 <slots>
     <slot>setup( ObjAttrVector * docItemAttrs )</slot>
