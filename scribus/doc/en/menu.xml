@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+	<area text="Welcome" file="index.html">
+		<submenuitem text="Download" file="download.html"/>
+		<submenuitem text="Documentation Changes" file="docchanges.html"/>
+	</area>
+	<area text="Documentation" file="">
+		<submenuitem text="Introduction" file="intro.html">
+			<submenuitem text="About the team" file="about1.html"/>
+			<submenuitem text="Specifications" file="specs.html"/>
+			<submenuitem text="Scribus Basics" file="about2.html"/>
+		</submenuitem>
+		<submenuitem text="Installation" file="install.html">
+			<submenuitem text="Scribus Source &amp; CVS" file="install1.html"/>
+			<submenuitem text="Requirements" file="install2.html"/>
+			<submenuitem text="Compiling &amp; Installing" file="install3.html"/>
+			<submenuitem text="Platforms" file="install4.html"/>
+			<submenuitem text="Parallel Install" file="parallel-install.html"/>
+		</submenuitem>
+		<submenuitem text="Cross Platform" file="cross-platform.html">
+			<submenuitem text="Mac OSX/Fink" file="machints1.html"/>
+			<submenuitem text="Mac OSX/Fink &amp; CVS" file="machints2.html"/>
+			<submenuitem text="Windows &amp; Cygwin" file="cygwin"/>
+		</submenuitem>
+		<submenuitem text="Setup" file="settings1">
+			<submenuitem text="Keyboard Shortcuts" file="keys.html"/>
+			<submenuitem text="Hypehnation" file="hyphenator.html"/>
+			<submenuitem text="Font Setup" file="fonts1.html"/>
+			<submenuitem text="Fonts in Depth" file="fonts2.html"/>
+			<submenuitem text="Non-Latin Fonts" file="fonts3.html"/>
+		</submenuitem>
+		<submenuitem text="Importing" file="importhints.html">
+			<submenuitem text="Importing (Advanced)" file="importhints2.html"/>
+			<submenuitem text="Importing SVGs" file="scribus-svg.html"/>
+		</submenuitem>
+		<submenuitem text="Exporting to PDF" file="pdfexport1.html">
+			<submenuitem text="Export Workflow" file="pdfexport2.html"/>
+			<submenuitem text="PDF 1.3 and 1.4" file=".html"/>
+			<submenuitem text="PDF/X-3" file="pdfx3.html"/>
+			<submenuitem text="PDF Forms" file="pdfexport3.html"/>
+			<submenuitem text="PDF Forms and PHP" file=".html"/>
+			<submenuitem text="PDF and Javascript" file="javascriptpdf.html"/>
+			<submenuitem text="PDF Presentations" file="pdfexport4.html"/>
+		</submenuitem>
+		<submenuitem text="Printing" file="print1.html">
+			<submenuitem text="Print Preview" file="print2.html"/>
+			<submenuitem text="CUPS" file="cups.html"/>
+			<submenuitem text="Preparing for Press" file="print3.html"/>
+			<submenuitem text="Pre-Press" file="prepress.html"/>
+		</submenuitem>
+		<submenuitem text="Color Management" file="cms.html">
+			<submenuitem text="Monitor Profiling" file="moncal.html"/>
+			<submenuitem text="Corel PhotoPaint" file="corelphoto.html"/>
+		</submenuitem>
+		<submenuitem text="DTP ToolBox" file="toolbox.html">
+			<submenuitem text="Acrobat Reader" file="toolbox1.html"/>
+			<submenuitem text="Other PDF Viewers" file="toolbox2.html"/>
+			<submenuitem text="Batik" file="toolbox3.html"/>
+			<submenuitem text="Gimp" file="toolbox4.html"/>
+			<submenuitem text="Ghostscript" file="toolbox5.html"/>
+			<submenuitem text="GSview" file="toolbox6.html"/>
+			<submenuitem text="Advanced Ghostscript &amp; GSView" file="toolbox7.html"/>
+			<submenuitem text="Imagemagick" file="toolbox8.html"/>
+			<submenuitem text="Inkscape" file="toolbox9.html"/>
+			<submenuitem text="KSnapshot" file="toolbox10.html"/>
+			<submenuitem text="Tracing Tools" file="toolbox11.html"/>
+			<submenuitem text="WINE" file="toolbox12.html"/>
+			<submenuitem text="Xnview" file="toolbox13.html"/>
+		</submenuitem>
+		<submenuitem text="Hints &amp; FAQs" file="topten.html">
+			<submenuitem text="Help" file="faq1.html"/>
+			<submenuitem text="Miscellaneous" file="faq2.html"/>
+			<submenuitem text="Development" file="faq3.html"/>
+		</submenuitem>
+		<submenuitem text="Screenshots" file="">
+			<submenuitem text="" file="screenshots.html"/>
+		</submenuitem>
+	</area>
+	<area text="Tutorials" file="">
+		<submenuitem text="Get Started With Scribus" file="intro.html">
+			<submenuitem text="About the team" file="about1.html"/>
+			<submenuitem text="Specifications" file="specs.html"/>
+			<submenuitem text="Scribus Basics" file="about2.html"/>
+		</submenuitem>
+	</area>
+	<area text="For Developers" file="developers.html">
+		<submenuitem text="Scribus Document Format" file="scribusfileformat.html"/>
+		<submenuitem text="Scripter" file="scripter1.html"/>
+		<submenuitem text="Scripter API" file="scripterapi.html">
+			<submenuitem text="Document Commands" file="scripterapi-doc.html"/>
+			<submenuitem text="Page Commands" file="scripterapi-page.html"/>
+			<submenuitem text="Creating &amp; Destroying Objects" file="scripterapi-object.html"/>
+			<submenuitem text="Selecting Objects" file="scripterapi-select.html"/>
+			<submenuitem text="Setting Object Properties" file="scripterapi-setobjprop.html"/>
+			<submenuitem text="Getting Object Properties" file="scripterapi-getobjprop.html"/>
+			<submenuitem text="Manipulating Objects" file="scripterapi-manobj.html"/>
+			<submenuitem text="Handling Text Frames" file="scripterapi-textframes.html"/>
+			<submenuitem text="Color Commands" file="scripterapi-color.html"/>
+			<submenuitem text="Font Commands" file="scripterapi-font.html"/>
+			<submenuitem text="Layer Commands" file="scripterapi-layer.html"/>
+			<submenuitem text="Using Dialogs" file="scripterapi-dialogs.html"/>
+			<submenuitem text="Predefined Constants" file="scripterapi-constants.html"/>
+		</submenuitem>
+		<submenuitem text="Plugin Howto" file="plugin_howto.html"/>
+		<submenuitem text="GetText Howto" file="gettexthowto.html"/>
+		<submenuitem text="Coding Standards" file="codingstandards.html"/>
+		<submenuitem text="Translation Howto" file="translation_howto.html"/>
+	</area>	
+	<area text="Other Information" file="">
+		<submenuitem text="Community" file="resources.html"/>
+		<submenuitem text="Contributions" file="contributions.html"/>
+		<submenuitem text="Scribus Copyright" file="scribuscopyright.html"/>
+		<submenuitem text="Documentation Copyright" file="doccopyright.html"/>
+	</area>
+</menu>

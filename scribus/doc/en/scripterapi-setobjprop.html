@@ -1,0 +1,52 @@
+<h2>Setting Object Properties</h2>
+
+<dl>
+	<dt>LoadImage("picture",&nbsp;["name"])</dt>
+	<dd>Loads the Picture "picture" into the Image Frame "name". If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>ScaleImage(x-scaling,&nbsp;y-scaling,&nbsp;["name"])</dt>
+	<dd>Sets the Scaling Factors of the Picture in the Image Frame "name". If "name" is not given the currently selected Item is used. A Number of 1 means 100 %.</dd>
+
+	<dt>SetCornerRadius(radius,&nbsp;["name"])</dt>
+	<dd>Sets the Corner Radius of the Object "name" The Radius is expressed in Points. If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>SetFillColor("color",&nbsp;["name"])</dt>
+	<dd>Sets the Fill Color of the Object "name" to the Color "color". "color" is the Name of one of the defined Colors. If "name" is not given the currently selected Item is used.</dd>
+
+	<dt>SetFillShade<a name="206"></a>(shade,&nbsp;["name"])</dt>
+	<dd>Sets the shading of the Fill Color of the Object "name" to "shade". "shade" must be an Integer Value in the range from 0 (lightest) to 100 (full Color intensity). If "name" is not given the currently selected Item is used.</dd>
+
+	<dt>SetGradientFill(type,&nbsp;"color1",&nbsp;shade1,&nbsp;"color2",&nbsp;shade2,&nbsp;["name"])</dt>
+	<dd>Sets the Gradient Fill of the Object "name" to type. Color Descriptions are the same as for "SetFillColor" and "SetFillShade".</dd>
+	
+	<dt>SetLineCap("cap",&nbsp;["name"])</dt>
+	<dd>Sets the Line Cap Style of the Object "name" to the Style "cap". If "name" is not given the currently selected Item is used. There are predefined Constants for "cap".</dd>
+
+	<dt>SetLineColor("color",&nbsp;["name"])</dt>
+	<dd>Sets the Line Color of the Object "name" to the Color "color". If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>SetMultiLine("namedStyle",&nbsp;["name"])</dt>
+	<dd>Sets the Line Style of the Object "name" to the Named Style "namedStyle". If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>SetLineJoin("join",&nbsp;["name"])</dt>
+	<dd>Sets the Line Join Style of the Object "name" to the Style "join". If "name" is not given the currently selected Item is used. There are predefined Constants for "join".</dd>
+	
+	<dt>SetLineShade(shade,&nbsp;["name"])</dt>
+	<dd>Sets the shading of the Line Color of the Object "name" to "shade". "shade" must be an Integer Value in the range from 0 (lightest) to 100 (full Color intensity). If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>SetLineStyle("style",&nbsp;["name"])</dt>
+	<dd>Sets the Line Style of the Object "name" to the Style "style". If "name" is not given the currently selected Item is used. There are predefined Constants for "style".</dd>
+	
+	<dt>SetLineWidth(width,&nbsp;["name"])</dt>
+	<dd>Sets Line Width of the Object "name" to "width". "width" must be in the range from 0.0 to 12.0 inclusive. If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>TextFlowsAroundFrame(name [, number])</dt>
+	<dd>Enables/disables "Text Flows Around Frame" feature for object. Called with params string name and voluntary 1|0. When 1 set flowing to true (0 to false). When is second param empty flowing is reverted.</dd> 
+	
+	<dt>LinkTextFrames('name1', 'name2') </dt>
+	<dd>Create the linked text frames. Parameters are the object names. </dd>
+
+	<dt>UnlinkTextFrames('name') </dt>
+	<dd>Remove the specified (named) object from the text frame flows/linkage. </dd>
+
+</dl>

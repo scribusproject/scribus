@@ -1,0 +1,60 @@
+<h2>Settings and Preferences Panels</h2>
+
+<p>The settings panels are the heart of changing the default behaviours of Scribus and give you considerable flexibility in setting document and program defaults. If you are new to DTP, there are extensive tool tips which can guide you for each setting, as well as the included documentation.</p>
+<p>Scribus' preferences are kept in a hidden directory <code>.scribus</code>. Within the directory is a <code>.scribus.rc</code> file and a <code>scribusfont.rc</code> file which preserves your font preferences. This file is stored in XML format, so you can inspect its contents with a text editor. If you have installed the scripter plug-in, there will also be a <code>scripter.rc</code> file which lists most recently used scripts.</p>
+
+<p>Within these 9 panels, you can change many of the defaults for Scribus, many of which can be changed or overridden in with a menu or right click context menu on an object while editing or in the measurements palette.</p>
+
+<h3>General Tab</h3>
+<p>You can change the default theme with Scribus to include themes like Liquid or the new themes based on KDE plug-ins. Scribus will inherit KDE themes and decorations if you have KDE running. If you do not have KDE installed, you can also tune the look of your Qt programs separately with <strong><code>qtconfig</code></strong> from the command line. Simply open a console window and type <code>qtconfig</code>. The configuration panels in Qtconfig are pretty self explanatory. I would advise not increasing the font size above 12 points, as some buttons in Scribus menus might be obscured. In this example, the fonts have been changed to True Type fonts at 10 points and
+the latest Mostfet Liquid theme has been applied.</p>
+
+<div style="text-align: center"><img src="<?php echo $scr_shots_root; ?>prefspanel1.png" align="center" alt="Edit Style Dialog" title="General Preferences" /></div>
+
+<h3>Mouse settings</h3>
+<p>If you have a wheel mouse, one of the nice defaults of Scribus is using this to scroll through a Document. Wheel jump changes the number of lines for each scroll of the mouse wheel. <strong>Grab Radius</strong> defines how much distance is allowed to select an object. Smaller numbers mean more
+precise, but sometimes more difficult selection of smaller objects.</p>
+
+<h3>Paths</h3>
+<p>These are user selectable paths for your documents, ICC color profiles and python scripts. Changing them is simply clicking on your preferred location. Note: hidden directories are not viewed by default, but can be seen by right clicking the file selector widget and choosing. "Show Hidden".</p>
+
+<h3>Document</h3>
+<p>This panel sets the defaults for paper size, page margins and Auto save options. Auto-save enables Scribus to save your file with a backup file with <code>.sla.bak</code> extension.</p>
+
+<div style="text-align: center"><img src="<?php echo $scr_shots_root; ?>prefspanel2.png" align="center" alt="Default Document Settings" title="Default Document Settings"  /></div>
+
+<h3>Guides</h3>
+<p>This panel sets the default distances and colors, as well as the snap to settings. <strong>Baseline Grids</strong> is the set of horizontal guides which forces text in multiple columns to align horizontally, as shown below. Settings for the distances for baselines are in <!--<a href="<?php echo "{$_SERVER['PHP_SELF']}&#063;lang=$lang&#038;sm=setup&#038;page=machints1";
+?>">-->Paragraph Styles<!--</a>-->, as well as the next panel <strong>Typography</strong></p>
+
+<div style="text-align: center"><img src="<?php echo $scr_shots_root; ?>prefsguides.png" alt="Guides and Baseline Grid Settings" align="middle" title="Guides and Baseline Grid Settings" /></div>
+
+<h3>Typography</h3>
+<p>Here you can change options for typographic features including subscript, superscript, automatic line spacing and scaling of small capitals. <strong>Disp.:</strong> means displacement or difference in distance above/below normal text. <strong>Baseline Grids</strong> are  non-printing grids which align text across multiple columns on the page. <strong>Baseline Offset</strong> is the distance from the top of the page where the topmost baseline is placed.</p>
+
+<div style="text-align: center"><img src="<?php echo $scr_shots_root; ?>prefsblgrid1.png" alt="Baseline Grids"title="Baseline Grids" /></div>
+
+<div style="text-align: center"><img src="<?php echo $scr_shots_root; ?>prefspanel3.png" align="center" alt="Typography Tab Panel" /></div>
+
+<h3>Tools</h3>
+<p>In the Tools tab you can change the defaults for many common tasks and tools: font, size and color, text frame defaults, image frame defaults and zoom defaults. Most all of these can be overridden or changed with the the right click context menu or in the Properties Palette when selecting an object.</p>
+
+<div style="text-align: center"><img src="<?php echo $scr_shots_root;?>prefspanel4.png" alt="Tools Tab Panel"  /></div>
+
+<h4>Polygon objects</h4>
+<p>You can make stars, triangles and convex polygons with intuitive controls. You can also apply gradient colors to all of these shapes within the measurements panel. This picture above makes a star the default.</p>
+
+<h3>Scrapbook</h3>
+<p>With scrapbooks, you can <em>right button</em> drag and drop frequently used items, including pictures, images and text files for quick placement. Scrapbooks can be saved with a file or independently of a document, as a separate scrapbook which can be loaded use with many different Documents. Separate scrapbooks are kept with a <code>.scs</code> designation. This panel sets the defaults for the thumbnail size in the scrapbook palette and if scrapbooks should be saved automatically when changed.</p>
+
+<h3>Display</h3>
+<p>This panel sets the defaults and options for margin colors, frame display, page background and you have the option to display unprintable areas in the selected margin color. You can also enable page side by side or also known in DTP lingo as &#034;reader spreads&#034;.</p>
+
+<div style="text-align: center"><img src="<?php echo $scr_shots_root; ?>prefspanel5.png" alt="Setting the Display Preferences for Scribus" title="Setting the Display Preferences for Scribus" /></div>
+
+<p>This panel also enables PDF 1.4 (Acrobat 5+) transparency features. The default is disabled. For more info on PDF look at <a href="<?php echo "{$_SERVER['PHP_SELF']}&#063;lang=$lang&#038;sm=exportingtopdf&#038;page=pdfexport1";?>">PDF Export Options</a> and <a href="<?php echo "{$_SERVER['PHP_SELF']}&#063;lang=$lang&#038;sm=exportingtopdf&#038;page=pdfx3";?>">PDF/X-3 and Scribus</a>. The Adjust Display Size enables you to adjust the screen sizing in order that 1 inch on the screen actually measures 1 inch. Just take an accurate ruler and place it on the screen and adjust the slider until it matches your ruler.</p>
+
+<div style="text-align: center"><img src="<?php echo $scr_shots_root; ?>gsadv2.png" alt="External Tools Settings" title="External Tools Settings" /></div>
+
+<h3>External Tools</h3>
+<p>This panel enables you to change the default settings for the location of Ghostscript and your preferred image editing tool. In the example above, a parallel build of Ghostscript 8.14 has been installed in <code>/usr/local/bin/</code> for better results with EPS,PS and PDF importing, as well as speedier print-previews. See the hints in <a href="<?php echo "{$_SERVER['PHP_SELF']}&#063;lang=$lang&#038;sm=dtptoolbox&#038;page=toolbox7";?>" title="Advanced Setup of Ghostscript">Advanced Ghostscript.</a> One other important note, when using the GIMP as your image editor, <strong>you must close GIMP completely before, control will return to Scribus.</strong> </p>

@@ -1,0 +1,252 @@
+<h2>Scribus Coding Standards</h2>
+
+<p>Initial document: Paul F. Johnson, Feb 26th 2004, Version: 0.04</p>
+
+<p>This document is intended as a guide to all Scribus developers and contributors. It is aimed to be simple to use as well as to keep the source code simple to understand and maintain.</p>
+
+<h3>Code Documentation</h3>
+
+<p>All code should be documented clearly.</p>
+
+<p>Prior to any method, the following should be there</p>
+
+<pre>
+/*!
+ \fn functionName::functionName()
+ \author Authors Name
+ \date
+ \brief Constructor for class
+ \param None
+ \retval None
+ */
+</pre>
+
+<p>There should be something similar prior to the class definitions.</p>
+
+<p>In preference, all details should be in English. This includes comments.</p>
+
+<p>Unless a comment occupies a single line, <code>//</code> should be used in preference to <code>/* */</code></p>
+
+<h3>Code</h3>
+
+<h4>Variable naming conventions</h4>
+<p>All variables should being in lower case letters. If the variable has more than one part to it, then the second part should begin in a capital letter. For example <code>int foo</code> and <code>int fooBar</code>. Under no circumstances should an underscore (_) be used.</p>
+<p>Variables should be clear in their naming. The exception to this is in a for loop. In preference, these should be in English. We are in the process of converting and altering the current ones to fit in with this.</p>
+<p>Any temporary variables (such as those used in a <code>for</code> loop or those only used within a scope), should only be declared where they are needed and not used in a global scope. If there is a condition at the start of a method, any variables required should be declared, but nothing else. For example</p>
+<pre>
+void foo::bar(f *b)
+{
+	int j;
+	string g = b->passed_in;
+	double fg, m, c;
+	which_string(g, &j);
+	if (j == true)
+		return;
+	// rest of the code
+}
+</pre>
+<p>should not have the double variables declared. It is arguable if g should be declared, but in this example, it doesn't matter.</p>
+
+<p>If a variable is not required, don't create it. In the example above, there is no requirement for g to be used.</p>
+
+<h4>Tabbing convention</h4>
+<ol>
+	<li>
+		<p>In class definitions</p>
+		<p>With the exception of the access declarations, a single tab should be used prior to all method and variable definitions. There should be no tabs prior to access declarations. There is a tab prior to <code>Q_Object</code>.</p>
+	</li>
+	<li>
+		<p>In the main code</p>
+		<p>There should be a tab at the start of every line. With any conditional line, there should be an opening brace by itself. On the next line down, there should be another tab prior to any code. The close brace should be underneath the open brace.</p>
+	</li>
+</ol>
+
+<h4>Conditionals</h4>
+<p>Always make a conditional logical. This may sound silly, but look at the following example</p>
+<pre>
+int foobar(bool m)
+{
+	if (m == true)
+	{
+		somethingA(1);
+		somethingB(1);
+		somethingB(1);
+	}
+	else
+	{
+		somethingA(0);
+		somethingB(0);
+		somethingC(0);
+	}
+}
+</pre>
+
+<p>This can be re-written to make things clearer</p>
+<pre>
+int foobar(bool m)
+{
+   int c = m == true ? 1 : 0;
+   somethingA(c);
+   somethingB(c);
+   somethingC(c);
+}
+</pre>
+<p>A lot simpler to see and will usually optimise far better.</p>
+
+<p>Ternary conditionals (?) should be used in preference to <code>if</code> / <code>else</code>. These are usually far quicker to process the code once compiled.</p>
+
+<p>Depending on what is being performed, switch statements should be avoided. There is usually a simpler way to avoid them. For example</p>
+<pre>
+int b;
+string s;
+switch (f)
+{
+	case 1 :
+		b = 4;
+		s = "four";
+		break;
+	case 2 :
+		b = 8;
+		s = "eight";
+		break;
+	case 3 :
+		b = 12;
+		s = "twelve";
+}
+</pre>
+<p>can be re-written as</p>
+<pre>
+int b = f * 4;
+char *number[] = {"four", "eight", "twelve"};
+size_t no = sizeof(number) / sizeof(*number);
+s = number(f);
+</pre>
+<p>The switch has gone and the code generated runs far faster and as the conditions don't need to be created, will optimise far better. Note: when using the <code>QObject::tr()</code> function, this method of using char* may not always work properly. An alternative is to use <code>QString number[] = {"four", "eight", "twelve"};</code> etc.
+
+<p>Obviously for more complex switch conditions, the above can't be used.</p>
+
+<h4>Conditionals formatting</h4>
+
+<p>Formatting should look like this:</p>
+<pre>
+if (fred == 5)
+{
+	// something
+	// something
+}
+</pre>
+<p>Switch formatting should look like this:</p>
+<pre>
+switch (f)
+{
+	case 0:
+		if (fred == 1)
+		{
+			// something
+			// more
+			// ok
+		}
+		else
+		{
+			if (jimmy == 0)
+			{
+				// hi
+				// code
+			}
+			// something here
+		}
+		break;
+}
+</pre>
+<p>Simple to read and simple to see where the conditional ends.</p>
+<p>Under NO circumstances should you have a line such as:</p>
+<pre>
+if (foo == bar) { somethingA(0); }
+</pre>
+<p>This should be written as:</p>
+<pre>
+if (foo == bar)
+	somethingA(0);
+</pre>
+<p>If braces are not required, don't use them. For example, braces wouldn't be needed here</p>
+<pre>
+for (int j = 0; j < 10; ++j)
+	cout << j << "\n"?;
+</pre>
+<h4>Pre or post increments</h4>
+
+<p>In for loops, preincrements should be used (++a rather than a++). Under ARM processors and x64 processors (not sure about ia64) ++a requires half the number of clock cycles than the post processor style. In some circumstances, ++a is far more efficient under ia32. It is even more efficient when used with iterators. Post increments should be used in the following sort of code:</p>
+<pre>
+if (b == true)
+{
+	m->wibble(c);
+	m->wobble(c++);
+}
+</pre>
+
+<h4>Spacings</h4>
+<p>There should be a space after:</p>
+<ul>
+	<li>All commas and semi-colons (in a for condition)</li>
+	<li>Between any conditional (<code>if (a == true)</code> - there is a space either side of the <code>==</code> conditional)</li>
+	<li><p>Prior to an open bracket or after a close bracket:</p>
+		<ul>
+			<li>A space should not be used immediately inside or at the end of a bracket</li>
+			<li>Do not use spaces at the beginning of lines. You must use a tab. A tab will always be a finite number of spaces, the number of spaces can vary when hand inputted.</li>
+		</ul>
+	</li>
+</ul>
+
+<h4>Use of templates</h4>
+
+<p>Templates for both types and classes are fine to be used. The project recommends using g++ 3.x which fully support templates and template classes. Please remember the overhead involved in using templates!</p>
+<p>When using templates, please remember the following:</p>
+<ul>
+	<li>The final binary will be larger</li>
+	<li>To use them correctly. It is very easy to say "I can just whizz that over to a template" when actually, it would be far better to construct (say) a generic template class which inherits the base Qt classes in question.</li>
+	<li>In some places, a template will not be as efficient as a standalone call.</li>
+</ul>
+
+<h4>Optimisation</h4>
+
+<p>Unless you really know what you're doing and more over, what the code is doing, do not attempt to do any code optimisation. In a lot of respects, optimisation is a "black art".</p>
+<p>Code such as <code>a = b = c = 0;</code> is more efficient (through the compiler) than <code>a=0; b=0; c=0;</code></p>
+<p>Careful thought about how the code works is usually far more benificial than attempting any of the "tricks" currently employed.</p>
+<p>Any large scale changes should be approved of first. Sometimes a small change can have large side effects.</p>
+<p>Multiple separate lines containing calls to Qt methods are far less efficient than multiple calls contained in a for loop.</p>
+
+
+<h4>Memory checking</h4>
+
+<p>All calls to <code>new</code> should be trapped. This is not currently implemented in the 1.1.x releases, but will be implemented in the 1.2. The preferred method would be:</p>
+<pre>
+#include <new>
+
+try
+{
+  m = new int[2048];
+}
+
+catch(bad_exception)
+{
+  cout << "memory allocation to m failed - <method name>" << endl;
+  exit(EXIT_FAILURE);
+}
+</pre>
+<p>
+As there are many calls in Scribus to new, these will have a wrapper around.</p>
+<p>For users of Qt who compile their own, they will need to include in the <code>./configure</code> script that they want to throw C++ exceptions. Failure to do so will result in the catches not catching and possibly Scribus failing to run.</p>
+<p>Currently (for v3.2), KDE recommend Qt is compiled without exceptions. This is a bad idea as it means trapping bad memory allocations cannot be caught using the prefered method.</p>
+
+<h4>Submitting of patches</h4>
+
+<p>Code patches should be sent to Franz and Paul. Documentation patches should be sent to Peter and Craig. This is subject to change. Scripting matters should be addressed to Petr.</p>
+<p>Patches should be in plain text. diff -u old_file.cpp new_file.cpp >difference.diff is the best way of sending them. Please do not send patches to the main list.</p>
+<p>Please ensure that when you have changed something you put a comment immediately before the change. Ensure you put a date and who made the change and what the change is for. Make sure that the comments include the original line of code. Over time, these will be weeded out, but it useful to see what has been altered.</p>
+<p>Send a single diff for each file altered. It makes committing the changes far more simple for us!</p>
+
+<h4>Writing plugin scripts.</h4>
+
+<p>Please use the current functions and refer to the <a href="<?php echo $site_content_root; ?>plugin_howto.php">Plugin howto</a> for further information.</p>
+<p>All code has to be encompassed within an <code>extern "C" { ... };</code> to enable the plugin to work.
+Ensure that all the code is documented and follows the coding guidelines set out above.</p>

@@ -1,0 +1,86 @@
+<h2>Mac OSX Hints and Notes - CVS</h2>
+
+<p><strong>Editor's Note:</strong> These notes are based on advice and notes kindly provided by Martin Costabel, who has done a terrific job of maintaining the Scribus fink package, as well as, providing assistance to fink users on the mailing list.</p>
+
+<h3>Building Scribus CVS</h3>
+
+<p>Install the required libraries. The easiest way to get them in Fink is probably to run <code>fink install scribus</code> and then stop it when all the prerequisites are installed and fink starts to build scribus. The list of required packages is given in the Fink scribus.info file in the Depends and BuildDepends lines. The depends are automatically installed by the Fink installer.</p>
+<p><strong>Depends</strong></p>
+<ul>
+	<li>x11</li>
+	<li>ghostscript</li>
+	<li>qt3-shlibs</li>
+	<li>libjpeg-shlibs</li>
+	<li>libjpeg-bin</li>
+	<li>lcms-shlibs (>=1.09)</li>
+	<li>libart2-shlibs</li>
+	<li>libpng3-shlibs</li>
+	<li>libtiff-shlibs</li>
+	<li>freetype2-shlibs or freetype2-hinting-shlibs</li>
+</ul>
+<p><strong>Build Depends</strong></p>
+<ul>
+	<li>x11-dev</li>
+	<li>lcms</li>
+	<li>libjpeg</li>
+	<li>qt3</li>
+	<li>libart2</li>
+	<li>cups-dev</li>
+	<li>libpng3</li>
+	<li>libtiff</li>
+	<li>freetype2-dev or freetype2-hinting-dev</li> 
+</ul>
+
+<p><strong>Setup the environment</strong>:</p>
+
+<p>Using tcsh as the shell:</p>
+<pre>setenv CFLAGS -I/sw/include
+setenv LDFLAGS -L/sw/lib
+setenv CXXFLAGS $CFLAGS
+setenv CPPFLAGS $CXXFLAGS
+setenv ACLOCAL_FLAGS "-I /sw/share/aclocal"
+setenv PKG_CONFIG_PATH "/sw/lib/pkgconfig"
+</pre>
+
+<p>Using bash as the shell:</p>
+<pre>export CFLAGS=-I/sw/include
+export LDFLAGS=-L/sw/lib
+export CXXFLAGS=$CFLAGS
+export CPPFLAGS=$CXXFLAGS
+export ACLOCAL_FLAGS="-I /sw/share/aclocal"
+export PKG_CONFIG_PATH="/sw/lib/pkgconfig"
+</pre>
+
+<p>One can then run:</p>
+<pre>make -f Makefile.dist</pre>
+<p>It is not necessary to install autoconf and automake from Fink, they exist in Mac OSX 10.3 already. Then <code>configure</code> as follows:</p>
+
+<pre>./configure --with-qt-dir=/sw --with-qt-includes=/sw/include/qt --with-qt-libraries=/sw/lib<br /> --with-extra-includes=/sw/include<br /> --with-pythondir=/System/Library/Frameworks/Python.framework/Versions/2.3/</pre>
+
+<p>Before one can run <code>make</code>, one needs the patches that are done in the PatchScript of the Fink scribus.info file.</p>
+
+<p>The first group of patches helps find the right versions of the freetype headers and libraries (those from Fink, Apple's X11 has a freetype version that is too old) and the right python version (the one from MacOSX):</p>
+
+<pre>
+perl -pi -e 's,usr/X11/bin,usr/X11R6/bin,g' configure
+perl -pi -e 's,FREETYPE_CONFIG=\"\",FREETYPE_CONFIG=\"/sw/lib/freetype2/bin/freetype-config\",g' configure
+perl -pi -e 's,LIBS=\"\-lfreetype,LIBS=\"\$LIBFREETYPE_LIBS,g' configure
+perl -pi -e "s,PYTHONLIB=.*,PYTHONLIB='-framework Python'\npython_libdir=yes\nLIBPYTHON=' ',g" configure
+perl -pi -e "s,LIBPYTHON =.*,LIBPYTHON=,g" scribus/plugins/scriptplugin/Makefile.in
+</pre>
+
+<p>The second group is necessary for building the plugins. This is a hack that could probably be done differently.</p>
+
+<pre>
+perl -pi -e 's|^AM_LDFLAGS = .*\-s|AM_LDFLAGS = \$(all_libraries) \$(LIB_QT)|g' `find . -name Makefile.in`
+perl -pi -e 's|(lib.*)\.la|$1.so|g' `find . -name Makefile.in`
+perl -pi -e 's|-version-info 0:0:0|-bundle -undefined dynamic_lookup -bind_at_load|g' `find . -name Makefile.in`
+perl -pi -e 's|libpdf_la_LIBADD =|libpdf_la_LIBADD =\$(LIBTIFF)|g' scribus/libpdf/Makefile.in
+</pre>
+
+<p>One can then run:</p>
+<pre>
+make
+sudo make install
+</pre>
+<p>It installs scribus into <code>/usr/local</code>, so it does not interfere with a different version installed by Fink, which goes into <code>/sw</code>.</p>

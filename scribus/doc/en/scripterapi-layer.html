@@ -1,0 +1,26 @@
+<h2>Layer related Commands </h2>
+
+
+<dl>
+	<dt>CreateLayer("name") </dt>
+	<dd>Creates a new Layer with the Name "name". </dd>
+	<dt>DeleteLayer("name")</dt>
+	<dd>
+	Deletes the Layer with the Name "name". Nothing happens if the Layer doesn't exists or if it's the only Layer in the Document.</dd> 
+	<dt>GetActiveLayer() </dt>
+	<dd>Returns the Name of the current active Layer.</dd> 
+	<dt>GetLayers() </dt>
+	<dd>Returns a List with the Names of all defined Layers.</dd> 
+	<dt>IsLayerPrintable("name")</dt> 
+	<dd>Returns wether the Layer "layer" is printable or not, a Value of 1 means that the Layer "layer" can be printed, a Value of 0 means that printing the Layer "layer" is disabled.</dd> 
+	<dt>IsLayerVisible("layer") </dt>
+	<dd>Returns wether the Layer "layer" is visible or not, a Value of 1 means that the Layer "layer" is visible, a Value of 0 means that the Layer "layer" is invisible. </dd>
+	<dt>SentToLayer("layer", ["name"])</dt> 
+	<dd>Sends the Object "name" to the Layer "layer". The Layer must exist. If "name" is not given the currently selected Item is used.</dd> 
+	<dt>SetActiveLayer("name") </dt>
+	<dd>Sets the active Layer to the Layer named "name".</dd> 
+	<dt>SetLayerPrintable("layer", flag)</dt> 
+	<dd>Sets the Layer "layer" to be printable or not. A Value of 1 for "flag" means that the Layer "layer" can be printed, a Value of 0 means that printing the Layer "layer" is disabled. </dd>
+	<dt>SetLayerVisible("layer", flag) </dt>
+	<dd>Sets the Layer "layer" to be visible or not. A Value of 1 for "flag" means that the Layer "layer" is visible, a Value of 0 means that the Layer "layer" is invisible. </dd>
+</dl>

@@ -1,0 +1,75 @@
+<h2>Handling Text Frames </h2>
+
+<dl>
+	<dt>DeleteText(["name"])</dt>
+	<dd>Deletes the Text of the Textframe "name". If there is some Text selected, this Text will be deleted. If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>GetAllText(["name"])</dt>
+	<dd>Returns the Text of the Textframe "name" and of all Textframes which are linked with this Frame. If this Textframe has some Text selected, this Text is returned. If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>GetColumnGap(["name"])</dt>
+	<dd>Gets the Column Gap of the Text Frame "name" expressed in Points. If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>GetColumns(["name"])</dt>
+	<dd>Gets the number of Columns of the Text Frame "name". If "name" is not given the currently selected Item is used.</dd> 
+	
+	<dt>GetFont(["name"])</dt>
+	<dd>Returns the Font for the Textframe "name". If this Textframe has some Text selected the Value assigned to the first Character of the Selection is returned. If "name" is not given the currently selected Item is used.</dd> 
+	
+	<dt>GetFontSize(["name"])</dt>
+	<dd>Returns the Fontsize for the Textframe "name". If this Textframe has some Text selected the Value assigned to the first Character of the Selection is returned. If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>GetLineSpacing(["name"])</dt>
+	<dd>Gets the Linespacing of the Text Frame "name" expressed in Points. If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>GetText(["name"])</dt>
+	<dd>Returns the Text of the Textframe "name". If this Textframe has some Text selected, this Text is returned. If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>GetTextColor(["name"])</dt> 
+	<dd>Returns the name of the Text Color of the Object "name". If this Textframe has some Text selected the Value assigned to the first Character of the Selection is returned. If "name" is not given the currently selected Item is used.</dd> 
+	
+	<dt>GetTextLength(["name"])</dt> 
+	<dd>Returns the Length of the Text in the Textframe "name". If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>GetTextShade(["name"])</dt>
+	<dd>Returns the shading Value of the Text Color of the Object "name". If this Textframe has some Text selected the Value assigned to the first Character of the Selection is returned. If "name" is not given the currently selected Item is used.</dd> 
+	
+	<dt>InsertText("text", pos, ["name"])</dt>
+	<dd>Inserts the Text "text" at the Position "pos" into the Textframe The first Character has an Index of 0. "name" If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>SelectText(start, count, ["name"])</dt>
+	<dd>Selects "count" Characters Text of the Textframe "name" starting from the Character "start". Character Counting starts at 0. If "count" is zero, any Text Selection will be cleared. If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>SetColumns(nr, ["name"])</dt> 
+	<dd>Sets the number of Columns of the Text Frame "name" to the Value "nr". If "name" is not given the currently selected Item is used.</dd> 
+	
+	<dt>SetColumnGap(size, ["name"])</dt>
+	<dd>Sets the Column Gap of the Text Frame "name" to the Value "size". If "name" is not given the currently selected Item is used.</dd> 
+	
+	<dt>SetFont("font", ["name"])</dt>
+	<dd>Sets the Font of the Text Frame "name" to "font", if there is some Text selected only the selected Text is changed. If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>SetFontSize(size, ["name"])</dt>
+	<dd>Sets the Fontsize of the Text Frame "name" to the Pointsize "size", if there is some Text selected only the selected Text is changed. "size" must be in the Range 1 to 512. If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>SetLineSpacing(size, ["name"])</dt>
+	<dd>Sets the Linespacing of the Text Frame "name" to the Pointsize "size". If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>SetText("text", ["name"])</dt>
+	<dd>Sets the Text of the Text Frame "name" to the Text of the String "text". If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>SetTextAlignment(align, ["name"])</dt>
+	<dd>Sets the Textalignment of the Text Frame "name" to the specified Alignment. If "name" is not given the currently selected Item is used. "align" can have the following values: 
+	<blockquote>
+		0 = Left Aligned<br>
+		1 = Centered<br>
+		2 = Right Aligned<br> 
+		3 = Forced
+	</blockquote></dd>
+	
+	<dt>SetTextColor("color", ["name"])</dt>
+	<dd>Sets the Text Color of the Object "name" to the Color "color", if there is some Text selected only the selected Text is changed. If "name" is not given the currently selected Item is used.</dd>
+	
+	<dt>SetTextShade(shade, ["name"])</dt>
+	<dd>Sets the shading of the Text Color of the Object "name" to "shade", if there is some Text selected only the selected Text is changed. "shade" must be an Integer Value in the range from 0 (lightest) to 100 (full Color intensity). If "name" is not given the currently selected Item is used.</dd> 
+</dl>

@@ -1,0 +1,29 @@
+<h2>How to obtain the Scribus source</h2>
+<p>You can get the most recent version of Scribus from:</p>
+<ul class="simple">
+<li><a href="http://www.scribus.net/">Main Scribus Website</a></li>
+<li><a href="http://www.ibiblio.org/pub/linux/apps/office/">ibiblio Mirror - US</a></li>
+<li><a href="http://scribus.planetmirror.com/">Scribus mirror at Planetmirror.com</a></li>
+<li><a href="http://mirrors.ntua.gr/Scribus/">Scribus mirror at National Technical University of Athens</a></li>
+
+</ul>
+<p>There is also thanks to Paul Johnson, anonymous CVS access is updated
+daily: Only recommended for those who want to stay on the bleeding egde.
+Instructions for getting the latest source via cvs:</p>
+<pre>
+export CVSROOT=:pserver:anoncvs&#64;ahnews.music.salford.ac.uk:/cvs
+</pre>
+<pre>
+cvs login
+</pre>
+<p>when it asks for a password, press return</p>
+<pre>
+cvs -z3 co Scribus
+</pre>
+<p>This will then download the sources to you into your current working directory. Then:</p>
+<pre>
+cd Scribus
+make -f Makefile.dist
+</pre>
+<p>From here, continue with the <a href="<?php echo "{$_SERVER['PHP_SELF']}&#063;lang=$lang&#038;sm=install&#038;page=install3";
+?>">Compiling and Installing</a> instructions.</p>
