@@ -2931,6 +2931,7 @@ bool ScribusApp::DoFileClose()
 //		disconnect(ActWin->muster, SIGNAL(Fertig()), this, SLOT(ManTempEnd()));
 //		ManTempEnd();
 		ActWin->muster->close();
+		qApp->processEvents();
 	}
 	setAppMode(1);
   doc->ASaveTimer->stop();
@@ -6005,7 +6006,6 @@ void ScribusApp::SaveAsPDF()
 		frPa = dia->AllPages->isChecked() ? 0 : static_cast<unsigned int>(dia->FirstPage->value() - 1);
 		toPa = dia->AllPages->isChecked() ? view->Pages.count() : static_cast<unsigned int>(dia->LastPage->value());
 		QMap<int,QPixmap> thumbs;
-		view->RecalcTextPos();
 		for (uint ap = frPa; ap < toPa; ++ap)
 			{
 			QPixmap pm(10,10);

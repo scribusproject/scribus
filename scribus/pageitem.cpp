@@ -1323,34 +1323,46 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 			break;
 NoRoom: pf2.end();
 				if (NextBox != 0)
-					{
+				{
 					nrc2 = Ptext.count();
 					for (uint ss=nrc; ss<nrc2; ++ss)
-						{
+					{
 						NextBox->Ptext.append(Ptext.take(nrc));
-						}
+					}
 					NextBox->Dirty = true;
 					if (uint(CPos) > nrc)
-						{
+					{
 						int nCP = CPos - nrc;
 						CPos = nrc;
 						if ((Doc->AppMode == 7) && (Tinput))
-							{
+						{
 							OwnPage->Deselect(true);
 							NextBox->CPos = QMAX(nCP, 1);
 							Doc->ActPage = NextBox->OwnPage;
 							NextBox->OwnPage->SelectItemNr(NextBox->ItemNr);
 							break;
-							}
 						}
+					}
 					if (NextBox->OwnPage != OwnPage)
-						NextBox->OwnPage->RefreshItem(NextBox, true);
+					{
+						bool savre = Doc->RePos;
+						Doc->RePos = true;
+						p->save();
+						QPixmap pgPix(1, 1);
+						ScPainter *painter = new ScPainter(&pgPix, 1, 1);
+						painter->translate(0.5, 0.5);
+						NextBox->DrawObj(painter, QRect(0, 0, 1, 1));
+						painter->end();
+						delete painter;
+						p->restore();
+						Doc->RePos = savre;
+					}
 					else
-						{
+					{
 						if ((Doc->AppMode == 7) && (Tinput))
 							NextBox->OwnPage->RefreshItem(NextBox, true);
 						else
-							{
+						{
 							bool savre = Doc->RePos;
 							Doc->RePos = true;
 							p->save();
@@ -1362,20 +1374,20 @@ NoRoom: pf2.end();
 							delete painter;
 							p->restore();
 							Doc->RePos = savre;
-							}
 						}
 					}
+				}
 				else
-					{
+				{
 					if (!Doc->RePos)
-						{
+					{
 						p->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 						p->setBrush(white);
 						p->drawRect(Width-16, Height-16, 14, 14);
 						p->drawLine(FPoint(Width-16, Height-16), FPoint(Width-3, Height-3));
 						p->drawLine(FPoint(Width-16, Height-3), FPoint(Width-3, Height-16));
-						}
 					}
+				}
 				MaxChars = nrc;
 				Redrawn = true;
 				p->restore();
