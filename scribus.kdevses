@@ -11,28 +11,7 @@
    <breakpointList/>
   </kdevdebugger>
   <kdevbookmarks>
-   <bookmarks>
-    <bookmark url="/home/franz/Entwicklung/CVS_Based/Scribus1-1/Scribus/scribus/page.cpp" >
-     <mark line="799" />
-    </bookmark>
-    <bookmark url="/home/franz/Entwicklung/CVS_Based/Scribus1-1/Scribus/scribus/mpalette.cpp" >
-     <mark line="0" />
-    </bookmark>
-    <bookmark url="/home/franz/Entwicklung/CVS_Based/Scribus1-1/Scribus/scribus/story.cpp" >
-     <mark line="1384" />
-    </bookmark>
-    <bookmark url="/home/franz/Entwicklung/CVS_Based/Scribus1-1/Scribus/scribus/scribusXml.cpp" >
-     <mark line="1042" />
-    </bookmark>
-    <bookmark url="/home/franz/Entwicklung/CVS_Based/Scribus1-1/Scribus/scribus/plugins/svgimplugin/svgplugin.h" >
-     <mark line="62" />
-    </bookmark>
-    <bookmark url="/home/franz/Entwicklung/CVS_Based/Scribus1-1/Scribus/scribus/story.h" >
-     <mark line="256" />
-     <mark line="296" />
-     <mark line="352" />
-    </bookmark>
-   </bookmarks>
+   <bookmarks/>
   </kdevbookmarks>
  </pluginList>
 </KDevPrjSession>

@@ -7153,6 +7153,17 @@ void ScribusApp::SaveAsPDF()
 		}
 		doc->PDF_Optionen.EmbedList = tmpEm;
 	}
+	if (doc->PDF_Optionen.SubsetList.count() != 0)
+	{
+		QValueList<QString> tmpEm;
+		QValueList<QString>::Iterator itef;
+		for (itef = doc->PDF_Optionen.SubsetList.begin(); itef != doc->PDF_Optionen.SubsetList.end(); ++itef)
+		{
+			if (ReallyUsed.contains((*itef)))
+				tmpEm.append((*itef));
+		}
+		doc->PDF_Optionen.SubsetList = tmpEm;
+	}
 	PDF_Opts *dia = new PDF_Opts(this, doc->DocName, ReallyUsed, view, &doc->PDF_Optionen, doc->PDF_Optionen.PresentVals, &PDFXProfiles, Prefs.AvailFonts);
 	if (dia->exec())
 	{
@@ -7166,6 +7177,7 @@ void ScribusApp::SaveAsPDF()
 		doc->PDF_Optionen.Quality = dia->CQuality->currentItem();
 		doc->PDF_Optionen.Resolution = dia->Resolution->value();
 		doc->PDF_Optionen.EmbedList = dia->FontsToEmbed;
+		doc->PDF_Optionen.SubsetList = dia->FontsToSubset;
 		doc->PDF_Optionen.RecalcPic = dia->DSColor->isChecked();
 		doc->PDF_Optionen.PicRes = dia->ValC->value();
 		doc->PDF_Optionen.Bookmarks = dia->CheckBM->isChecked();

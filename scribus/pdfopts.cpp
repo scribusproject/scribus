@@ -107,8 +107,6 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	MirrorV->setOn(Optionen->MirrorV);
 	Layout11a->addWidget( MirrorV, 0, 1 );
 	RangeGroupLayout->addLayout( Layout11a );
-	
-	
 	Layout13->addWidget( RangeGroup );
 
 	GroupBox1 = new QGroupBox( tr( "File Options" ), tabGeneral, "GroupBox1" );
@@ -126,15 +124,12 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	ComboBox1->insertItem("Acrobat 4.0");
 	ComboBox1->insertItem("Acrobat 5.0");
 #ifdef HAVE_CMS
-
 	if ((CMSuse) && (CMSavail) && (!PDFXProfiles->isEmpty()))
 		ComboBox1->insertItem("PDF/X-3");
 #endif
-
 	ComboBox1->setEditable(false);
 	TextLabel1->setBuddy(ComboBox1);
 #ifdef HAVE_CMS
-
 	if ((CMSuse) && (CMSavail))
 	{
 		if (Optionen->Version == 12)
@@ -143,7 +138,6 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	else
 		ComboBox1->setCurrentItem(0);
 #endif
-
 	if (Optionen->Version == 13)
 		ComboBox1->setCurrentItem(0);
 	if (Optionen->Version == 14)
@@ -230,6 +224,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	tabLayout_3->setMargin( 11 );
 	EmbedFonts = new QCheckBox( tr( "&Embed all Fonts" ), tabFonts, "EmbedFonts" );
 	tabLayout_3->addWidget( EmbedFonts );
+	SubsetFonts = new QCheckBox( tr( "&Subset all Fonts" ), tabFonts, "SubsetFonts" );
+	tabLayout_3->addWidget( SubsetFonts );
 	GroupFont = new QGroupBox( tr( "Embedding" ), tabFonts, "GroupFont" );
 	GroupFont->setColumnLayout(0, Qt::Vertical );
 	GroupFont->layout()->setSpacing( 0 );
@@ -259,8 +255,11 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	Layout4_2->addWidget( AvailFlist );
 	GroupFontLayout->addLayout( Layout4_2 );
 	Layout5_2 = new QVBoxLayout;
+	Layout5_2->setAlignment( Qt::AlignTop );
 	Layout5_2->setSpacing( 5 );
 	Layout5_2->setMargin( 0 );
+	QSpacerItem* spacerS3 = new QSpacerItem( 20, 30, QSizePolicy::Minimum, QSizePolicy::Minimum );
+	Layout5_2->addItem( spacerS3 );
 	ToEmbed = new QPushButton( tr( "&>>" ), GroupFont, "ToEmbed" );
 	ToEmbed->setEnabled(false);
 	Layout5_2->addWidget( ToEmbed );
@@ -274,13 +273,56 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	TextFont1_2 = new QLabel( tr( "Fonts to embed:" ), GroupFont, "TextFont1_2" );
 	Layout6->addWidget( TextFont1_2 );
 	EmbedList = new QListBox( GroupFont, "EmbedList" );
-	EmbedList->setMinimumSize(QSize(150, 140));
-	EmbedFonts->setChecked(true);
-	EmbedAll();
+	EmbedList->setMinimumSize(QSize(150, 40));
 	Layout6->addWidget( EmbedList );
+	
+	Layout5_2a = new QHBoxLayout;
+	Layout5_2a->setSpacing( 5 );
+	Layout5_2a->setMargin( 0 );
+	QSpacerItem* spacerS1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout5_2a->addItem( spacerS1 );
+	ToSubset = new QPushButton( "", GroupFont, "ToSubset" );
+	ToSubset->setPixmap(loadIcon("down.png"));
+	ToSubset->setEnabled(false);
+	Layout5_2a->addWidget( ToSubset );
+	FromSubset = new QPushButton( "", GroupFont, "FromSubset" );
+	FromSubset->setPixmap(loadIcon("up.png"));
+	FromSubset->setEnabled(false);
+	Layout5_2a->addWidget( FromSubset );
+	QSpacerItem* spacerS2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout5_2a->addItem( spacerS2 );
+	Layout6->addLayout( Layout5_2a );
+	
+	TextFont1_2a = new QLabel( tr( "Fonts to subset:" ), GroupFont, "TextFont1_2a" );
+	Layout6->addWidget( TextFont1_2a );
+	SubsetList = new QListBox( GroupFont, "SubsetList" );
+	SubsetList->setMinimumSize(QSize(150, 40));
+	Layout6->addWidget( SubsetList );
+	if (Optionen->EmbedList.count() == 0)
+	{
+		EmbedFonts->setChecked(true);
+		EmbedAll();
+	}
+	else
+	{
+		for (uint fe = 0; fe < Optionen->EmbedList.count(); ++fe)
+		{
+			EmbedList->insertItem(Optionen->EmbedList[fe]);
+			FontsToEmbed.append(Optionen->EmbedList[fe]);
+		}
+	}
+	if (Optionen->SubsetList.count() != 0)
+	{
+		for (uint fe = 0; fe < Optionen->SubsetList.count(); ++fe)
+		{
+			SubsetList->insertItem(Optionen->SubsetList[fe]);
+			FontsToSubset.append(Optionen->SubsetList[fe]);
+		}
+	}
 	GroupFontLayout->addLayout( Layout6 );
 	tabLayout_3->addWidget( GroupFont );
 	Options->insertTab( tabFonts, tr( "&Fonts" ) );
+
 	tabPresentation = new QWidget( Options, "tabPresentation" );
 	tabLayout_5 = new QGridLayout( tabPresentation );
 	tabLayout_5->setSpacing( 5 );
@@ -861,6 +903,10 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	connect(Encry, SIGNAL(clicked()), this, SLOT(ToggleEncr()));
 	connect(UseLPI, SIGNAL(clicked()), this, SLOT(EnableLPI2()));
 	connect(LPIcolor, SIGNAL(activated(int)), this, SLOT(SelLPIcol(int)));
+	connect(SubsetFonts, SIGNAL(clicked()), this, SLOT(SubsetAll()));
+	connect(SubsetList, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SelSFont(QListBoxItem*)));
+	connect(ToSubset, SIGNAL(clicked()), this, SLOT(PutToSubset()));
+	connect(FromSubset, SIGNAL(clicked()), this, SLOT(RemoveSubset()));
 }
 
 /*
@@ -1199,7 +1245,10 @@ void PDF_Opts::RemoveEmbed()
 	EmbedList->removeItem(EmbedList->currentItem());
 	EmbedList->clearSelection();
 	if (EmbedList->count() == 0)
+	{
 		FromEmbed->setEnabled(false);
+		ToSubset->setEnabled(false);
+	}
 }
 
 void PDF_Opts::PutToEmbed()
@@ -1219,6 +1268,42 @@ void PDF_Opts::PutToEmbed()
 	}
 }
 
+void PDF_Opts::RemoveSubset()
+{
+	FontsToSubset.remove(SubsetList->currentText());
+	FontsToEmbed.append(SubsetList->currentText());
+	EmbedList->insertItem(SubsetList->currentText());
+	SubsetList->removeItem(SubsetList->currentItem());
+	SubsetList->clearSelection();
+	if (SubsetList->count() == 0)
+		FromSubset->setEnabled(false);
+}
+
+void PDF_Opts::PutToSubset()
+{
+	if (SubsetList->count() != 0)
+	{
+		if (SubsetList->findItem(EmbedList->currentText()) == NULL)
+		{
+			FontsToSubset.append(EmbedList->currentText());
+			SubsetList->insertItem(EmbedList->currentText());
+		}
+	}
+	else
+	{
+		FontsToSubset.append(EmbedList->currentText());
+		SubsetList->insertItem(EmbedList->currentText());
+	}
+	FontsToEmbed.remove(EmbedList->currentText());
+	EmbedList->removeItem(EmbedList->currentItem());
+	EmbedList->clearSelection();
+	if (EmbedList->count() == 0)
+	{
+		FromEmbed->setEnabled(false);
+		ToSubset->setEnabled(false);
+	}
+}
+
 void PDF_Opts::SelAFont(QListBoxItem *c)
 {
 	if ((c != NULL) && (!EmbedFonts->isChecked()))
@@ -1226,7 +1311,10 @@ void PDF_Opts::SelAFont(QListBoxItem *c)
 		FromEmbed->setEnabled(false);
 		if (c->isSelectable())
 			ToEmbed->setEnabled(true);
+		ToSubset->setEnabled(false);
+		FromSubset->setEnabled(false);
 		EmbedList->clearSelection();
+		SubsetList->clearSelection();
 	}
 }
 
@@ -1236,6 +1324,22 @@ void PDF_Opts::SelEFont(QListBoxItem *c)
 	{
 		FromEmbed->setEnabled(true);
 		ToEmbed->setEnabled(false);
+		ToSubset->setEnabled(true);
+		FromSubset->setEnabled(false);
+		AvailFlist->clearSelection();
+		SubsetList->clearSelection();
+	}
+}
+
+void PDF_Opts::SelSFont(QListBoxItem *c)
+{
+	if ((c != NULL) && (!EmbedFonts->isChecked()))
+	{
+		FromSubset->setEnabled(true);
+		ToSubset->setEnabled(false);
+		ToEmbed->setEnabled(false);
+		FromEmbed->setEnabled(false);
+		EmbedList->clearSelection();
 		AvailFlist->clearSelection();
 	}
 }
@@ -1244,16 +1348,45 @@ void PDF_Opts::EmbedAll()
 {
 	if (EmbedFonts->isChecked())
 	{
+		SubsetFonts->setChecked(false);
 		EmbedList->clear();
 		FontsToEmbed.clear();
+		SubsetList->clear();
+		FontsToSubset.clear();
 		FromEmbed->setEnabled(false);
 		ToEmbed->setEnabled(false);
+		ToSubset->setEnabled(false);
+		FromSubset->setEnabled(false);
 		for (uint a=0; a < AvailFlist->count(); ++a)
 		{
 			if (AvailFlist->item(a)->isSelectable())
 			{
 				FontsToEmbed.append(AvailFlist->item(a)->text());
 				EmbedList->insertItem(AvailFlist->item(a)->text());
+			}
+		}
+	}
+}
+
+void PDF_Opts::SubsetAll()
+{
+	if (SubsetFonts->isChecked())
+	{
+		EmbedFonts->setChecked(false);
+		EmbedList->clear();
+		FontsToEmbed.clear();
+		SubsetList->clear();
+		FontsToSubset.clear();
+		FromEmbed->setEnabled(false);
+		ToEmbed->setEnabled(false);
+		ToSubset->setEnabled(false);
+		FromSubset->setEnabled(false);
+		for (uint a=0; a < AvailFlist->count(); ++a)
+		{
+			if (AvailFlist->item(a)->isSelectable())
+			{
+				FontsToSubset.append(AvailFlist->item(a)->text());
+				SubsetList->insertItem(AvailFlist->item(a)->text());
 			}
 		}
 	}

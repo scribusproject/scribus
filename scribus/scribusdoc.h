@@ -314,6 +314,7 @@ struct PDFOpt {
 				int Resolution;
 				int Binding;
 				QValueList<QString> EmbedList;
+				QValueList<QString> SubsetList;
 				bool MirrorH;
 				bool MirrorV;
 				int RotateDeg;

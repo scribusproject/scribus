@@ -538,7 +538,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	{
 		fd = QFileInfo(AllFonts[it.key()]->Datei);
 		fext = fd.extension(false).lower();
-		if ((AllFonts[it.key()]->isOTF) || (AllFonts[it.key()]->Subset))
+		if ((AllFonts[it.key()]->isOTF) || (AllFonts[it.key()]->Subset) || (Options->SubsetList.contains(it.key())))
 		{
 			QString fon = "";
 			QMap<uint,FPointArray>::Iterator ig;
@@ -2023,15 +2023,14 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				FillColor += SetFarbe(hl->ccolor, hl->cshade)+" k\n";
 			}
 		}
-		if (((*doc->AllFonts)[hl->cfont]->isOTF) || ((*doc->AllFonts)[hl->cfont]->Subset))
+		if (((*doc->AllFonts)[hl->cfont]->isOTF) || ((*doc->AllFonts)[hl->cfont]->Subset) || (Options->SubsetList.contains(hl->cfont)))
 		{
 			uint chr = chx[0].unicode();
 			if (((*doc->AllFonts)[hl->cfont]->CharWidth.contains(chr)) && (chr != 32))
 			{
 				if ((hl->cstroke != "None") && (hl->cstyle & 4))
 				{
-					tmp2 += FToStr((*doc->AllFonts)[hl->cfont]->strokeWidth * tsz / 200.0)+
-								" w\n[] 0 d\n0 J\n0 j\n";
+					tmp2 += FToStr((*doc->AllFonts)[hl->cfont]->strokeWidth * tsz / 200.0)+" w\n[] 0 d\n0 J\n0 j\n";
 					tmp2 += StrokeColor;
 				}
 				if (hl->ccolor != "None")
