@@ -446,7 +446,7 @@ void MenuTest::aboutScript()
 	}
 	output.close();
 	input.close();
-	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("About Script") + " " + fi.fileName(), "", html);
+	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("About Script") + " " + fi.fileName(), "en", "", html);
 	dia->show();
 }
 
