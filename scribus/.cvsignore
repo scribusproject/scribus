@@ -9,3 +9,9 @@ Makefile.in
 .libs
 CVS
 scribus
+docitemattrprefs.cpp
+docitemattrprefs.h
+pageitemattributes.cpp
+pageitemattributes.h
+tocindexprefs.cpp
+tocindexprefs.h

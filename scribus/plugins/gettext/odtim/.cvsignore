@@ -1,0 +1,10 @@
+.deps
+.libs
+Makefile
+Makefile.in
+contentreader.lo
+libodtimplugin.la
+odtdia.lo
+odtdia.moc
+odtim.lo
+stylereader.lo
