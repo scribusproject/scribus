@@ -11,10 +11,7 @@ PyObject *scribus_newrect(PyObject *self, PyObject* args)
 	double x, y, b, h;
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createRect(x, y, w, h [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (ItemExists(QString(Name)))
@@ -37,10 +34,7 @@ PyObject *scribus_newellipse(PyObject *self, PyObject* args)
 	double x, y, b, h;
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createEllipse(x, y, w, h [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	int i = Carrier->view->PaintEllipse(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h), Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
@@ -61,10 +55,7 @@ PyObject *scribus_newimage(PyObject *self, PyObject* args)
 	double x, y, b, h;
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createImage(x, y, w, h [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	int i = Carrier->view->PaintPict(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h));
@@ -85,10 +76,7 @@ PyObject *scribus_newtext(PyObject *self, PyObject* args)
 	double x, y, b, h;
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createText(x, y, w, h [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	int i = Carrier->view->PaintText(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h), Carrier->doc->Dwidth, Carrier->doc->DpenText);
@@ -109,10 +97,7 @@ PyObject *scribus_newline(PyObject *self, PyObject* args)
 	double x, y, b, h;
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createLine(x, y, w, h [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	x =	ValueToPoint(x);
@@ -155,10 +140,7 @@ PyObject *scribus_polyline(PyObject *self, PyObject* args)
 	char *Name = "";
 	PyObject *il;
 	if ((!PyArg_ParseTuple(args, "O|s", &il, &Name)) || (!PyList_Check(il)))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createPolyLine(pointlist [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	int len = PyList_Size(il);
@@ -232,10 +214,7 @@ PyObject *scribus_polygon(PyObject *self, PyObject* args)
 	char *Name = "";
 	PyObject *il;
 	if ((!PyArg_ParseTuple(args, "O|s", &il, &Name)) || (!PyList_Check(il)))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createPolygon(pointlist [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	int len = PyList_Size(il);
@@ -311,10 +290,7 @@ PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 	char *Name = "";
 	PyObject *il;
 	if ((!PyArg_ParseTuple(args, "O|s", &il, &Name)) || (!PyList_Check(il)))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createBezierLine(pointlist [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	int len = PyList_Size(il);
@@ -404,10 +380,7 @@ PyObject *scribus_pathtext(PyObject *self, PyObject* args)
 	char *TextB = "";
 	char *PolyB = "";
 	if (!PyArg_ParseTuple(args, "ddss|s", &x, &y, &TextB, &PolyB, &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createPathText(x, y, textbox, beziercurve [, objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (ItemExists(QString(Name)))
@@ -442,10 +415,7 @@ PyObject *scribus_deleteobj(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "|s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("deleteObject([objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
@@ -467,10 +437,7 @@ PyObject *scribus_textflow(PyObject *self, PyObject* args)
 	int state = -1;
 
 	if (!PyArg_ParseTuple(args, "s|i", &name, &state))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("textFlowsAroundFrame(objectname [,state])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString(name));
@@ -491,10 +458,7 @@ PyObject *scribus_objectexists(PyObject *self, PyObject* args)
 {
 	char* name = "";
 	if (!PyArg_ParseTuple(args, "|s", &name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("objectExists([objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (ItemExists(QString(name)))
@@ -512,10 +476,7 @@ PyObject *scribus_setstyle(PyObject *self, PyObject* args)
 	char *Style = "";
 	char *name = "";
 	if (!PyArg_ParseTuple(args, "s|s", &Style, &name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setStyle(style, [objectName])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(QString(name));

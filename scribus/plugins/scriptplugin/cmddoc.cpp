@@ -11,10 +11,7 @@ PyObject *scribus_newdoc(PyObject *self, PyObject* args)
 	if ((!PyArg_ParseTuple(args, "OOiiiii", &p, &m, &ori, &fNr, &unit, &ds, &fsl)) ||
 	        (!PyArg_ParseTuple(p, "dd", &b, &h)) ||
 	        (!PyArg_ParseTuple(m, "dddd", &lr, &rr, &tpr, &btr)))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("newDoc(size,margins,orientation,firstPageNumber,unit,FacingPages,FirstSideLeft)"));
 		return NULL;
-	}
 	b = ValToPts(b, unit);
 	h = ValToPts(h, unit);
 	if (ori == 1)
@@ -36,10 +33,7 @@ PyObject *scribus_setmargins(PyObject *self, PyObject* args)
 {
 	double lr, tpr, btr, rr;
 	if (!PyArg_ParseTuple(args, "dddd", &lr, &rr, &tpr, &btr))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setMargins(lr,rr,tr,br)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	tpr = ValueToPoint(tpr);
@@ -74,10 +68,7 @@ PyObject *scribus_opendoc(PyObject *self, PyObject* args)
 {
 	char *Name;
 	if (!PyArg_ParseTuple(args, "s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("openDoc(docname)"));
 		return NULL;
-	}
 	bool ret = Carrier->LadeDoc(QString(Name));
 	return PyInt_FromLong(static_cast<long>(ret));
 }
@@ -94,10 +85,7 @@ PyObject *scribus_savedocas(PyObject *self, PyObject* args)
 {
 	char *Name;
 	if (!PyArg_ParseTuple(args, "s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("saveDocAs(docname)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	bool ret = Carrier->DoFileSave(QString(Name));
@@ -110,10 +98,7 @@ PyObject *scribus_setinfo(PyObject *self, PyObject* args)
 	char *Title;
 	char *Desc;
 	if (!PyArg_ParseTuple(args, "zzz", &Author, &Title, &Desc))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setInfo(Author, Info, Description)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	Carrier->doc->DocAutor = QString(Author);
@@ -128,10 +113,7 @@ PyObject *scribus_setunit(PyObject *self, PyObject* args)
 {
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setUnit(unit)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if ((e < 0) || (e > 3))
@@ -155,10 +137,7 @@ PyObject *scribus_loadstylesfromfile(PyObject *self, PyObject *args)
 {
 	char *fileName;
 	if (!PyArg_ParseTuple(args, "s", &fileName))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("loadStylesFromFile(filename)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	Carrier->doc->loadStylesFromFile(QString(fileName));
@@ -170,10 +149,7 @@ PyObject *scribus_setdoctype(PyObject *self, PyObject* args)
 {
 	int fp, fsl;
 	if (!PyArg_ParseTuple(args, "ii", &fp, &fsl))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setDocType(FacingPages, FirstPageLeft)"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	if (Carrier->doc->PageFP = fp)
