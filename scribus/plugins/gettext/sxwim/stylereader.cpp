@@ -1,6 +1,6 @@
  /***************************************************************************
   *   Copyright (C) 2004 by Riku Leino                                      *
-  *   tsoots@welho.com                                                      *
+  *   tsoots@gmail.com                                                      *
   *                                                                         *
   *   This program is free software; you can redistribute it and/or modify  *
   *   it under the terms of the GNU General Public License as published by  *
@@ -31,7 +31,8 @@
  
  extern xmlSAXHandlerPtr sSAXHandler;
  
-StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool prefix)
+StyleReader::StyleReader(QString documentName, gtWriter *w,
+                         bool textOnly, bool prefix, bool combineStyles)
 {
  	sreader      = this;
  	docname      = documentName;
@@ -39,6 +40,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  	writer       = w;
  	importTextOnly = textOnly;
  	usePrefix    = prefix;
+	packStyles   = combineStyles;
  	currentStyle = NULL;
  	parentStyle  = NULL;
  	inList       = false;
@@ -453,7 +455,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  {
  	gtParagraphStyle *s;
  	QString tname = style->getName();
- 	if (style->target() == "paragraph")
+ 	if ((style->target() == "paragraph") && (packStyles))
  	{
  		s = dynamic_cast<gtParagraphStyle*>(style);
  		QString nameByAttrs = QString("%1-").arg(s->getSpaceAbove());
@@ -483,6 +485,12 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  			pstyleCounts[nameByAttrs] = 1;
  			tname = style->getName();
  		}
+ 	}
+ 	else if (!packStyles)
+ 	{
+ 		attrsStyles[name] = style;
+ 		pstyleCounts[name] = 1;
+ 		tname = style->getName();
  	}
  	if (!styles.contains(name))
  	{
@@ -734,7 +742,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  
  xmlSAXHandlerPtr sSAXHandler = &sSAXHandlerStruct;
  
- void StyleReader::startElement(void *user_data, const xmlChar * fullname, const xmlChar ** atts)
+ void StyleReader::startElement(void*, const xmlChar * fullname, const xmlChar ** atts)
  {
  	QString* name = new QString((const char*) fullname);
  	name = new QString(name->lower());
@@ -747,7 +755,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  	sreader->startElement(NULL, NULL, *name, *attrs);
  }
  
- void StyleReader::endElement(void *user_data, const xmlChar * name)
+ void StyleReader::endElement(void*, const xmlChar * name)
  {
  	QString *nname = new QString((const char*) name);
  	nname = new QString(nname->lower());

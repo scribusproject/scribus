@@ -7,7 +7,7 @@
 
 extern QPixmap loadIcon(QString nam);
 
-SxwDialog::SxwDialog(bool update, bool prefix) : QDialog(0, "sxwdia", true, 0)
+SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia", true, 0)
 {
 	setCaption(tr("OpenOffice.org Writer Importer Options"));
 	setIcon(loadIcon("AppIcon.png"));
@@ -22,6 +22,16 @@ SxwDialog::SxwDialog(bool update, bool prefix) : QDialog(0, "sxwdia", true, 0)
 	                              "edited to match the one being imported, or left untouched"));
 	hlayout->addWidget(updateCheck);
 	layout->addLayout(hlayout);
+	
+	QBoxLayout* palayout = new QHBoxLayout(0,5,5, "palayout");
+	packCheck = new QCheckBox(tr("Pack paragraph styles"), this, "packCheck");
+	packCheck->setChecked(pack);
+	QToolTip::add(packCheck, tr("Group paragraph styles by attributes.\n"
+	                            "Less paragraph styles but controlling them may be hard.\n"
+	                            "Should be used if it is known that text must not be edited\n"
+	                            "after importing."));
+	palayout->addWidget(packCheck);
+	layout->addLayout(palayout);
 
 	QBoxLayout* playout = new QHBoxLayout(0, 5, 5, "playout");
 	prefixCheck = new QCheckBox(tr("Use document name as a prefix for paragraph styles"), this, "prefixCheck");
@@ -63,6 +73,11 @@ bool SxwDialog::usePrefix()
 bool SxwDialog::askAgain()
 {
 	return !(doNotAskCheck->isChecked());
+}
+
+bool SxwDialog::packStyles()
+{
+	return packCheck->isChecked();	
 }
 
 SxwDialog::~SxwDialog()

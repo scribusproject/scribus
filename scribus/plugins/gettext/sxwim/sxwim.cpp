@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2004 by Riku Leino                                      *
- *   tsoots@welho.com                                                      *
+ *   tsoots@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -57,18 +57,21 @@ SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 	bool update = prefs->getBool("update", true);
 	bool prefix = prefs->getBool("prefix", true);
 	bool ask = prefs->getBool("askAgain", true);
+	bool pack = prefs->getBool("pack", true);
 	encoding = enc;
 	if (!textOnly)
 	{
 		if (ask)
 		{
-			SxwDialog* sxwdia = new SxwDialog(update, prefix);
+			SxwDialog* sxwdia = new SxwDialog(update, prefix, pack);
 			sxwdia->exec();
 			update = sxwdia->shouldUpdate();
 			prefix = sxwdia->usePrefix();
+			pack = sxwdia->packStyles();
 			prefs->set("update", update);
 			prefs->set("prefix", sxwdia->usePrefix());
 			prefs->set("askAgain", sxwdia->askAgain());
+			prefs->set("pack", sxwdia->packStyles());
 			delete sxwdia;
 		}
 	}
@@ -83,7 +86,7 @@ SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 	{
 		QString docname = filename.right(filename.length() - filename.findRev("/") - 1);
 		docname = docname.left(docname.findRev("."));
-		StyleReader *sreader = new StyleReader(docname, writer, textOnly, prefix);
+		StyleReader *sreader = new StyleReader(docname, writer, textOnly, prefix, pack);
 		sreader->parse(stylePath);
 		ContentReader *creader = new ContentReader(docname, sreader, writer, textOnly);
 		creader->parse(contentPath);
