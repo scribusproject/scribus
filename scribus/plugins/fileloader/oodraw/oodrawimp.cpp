@@ -116,11 +116,17 @@ void Run(QWidget *d, ScribusApp *plug)
 		else
 			return;
 	}
-	if (UndoManager::undoEnabled())
-		UndoManager::instance()->beginTransaction(plug->doc->currentPage->getUName(),0,Um::ImportOOoDraw,	fileName, Um::IImportOOoDraw);
+	if (UndoManager::undoEnabled() && plug->HaveDoc)
+	{
+		UndoManager::instance()->beginTransaction(plug->doc->currentPage->getUName(),Um::IImageFrame,Um::ImportOOoDraw, fileName, Um::IImportOOoDraw);
+	}
+	else if (UndoManager::undoEnabled() && !plug->HaveDoc)
+		UndoManager::instance()->setUndoEnabled(false);
 	OODPlug *dia = new OODPlug(plug, fileName);
 	if (UndoManager::undoEnabled())
 		UndoManager::instance()->commit();
+	else
+		UndoManager::instance()->setUndoEnabled(true);
 	delete dia;
 }
 

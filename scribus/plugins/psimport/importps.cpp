@@ -93,7 +93,10 @@ void Run(QWidget *d, ScribusApp *plug)
 {
 	QString fileName;
 	if (plug->DLLinput != "")
+	{
 		fileName = plug->DLLinput;
+		UndoManager::instance()->setUndoEnabled(false);
+	}
 	else
 	{
 		PrefsContext* prefs = prefsFile->getPluginContext("importps");
@@ -109,12 +112,17 @@ void Run(QWidget *d, ScribusApp *plug)
 		else
 			return;
 	}
-	if (UndoManager::undoEnabled())
-		UndoManager::instance()->beginTransaction(plug->doc->currentPage->getUName(),0,Um::ImportEPS,
-		                                          fileName, Um::IImportEPS);
+	if (UndoManager::undoEnabled() && plug->HaveDoc)
+	{
+		UndoManager::instance()->beginTransaction(plug->doc->currentPage->getUName(),Um::IImageFrame,Um::ImportEPS, fileName, Um::IEPS);
+	}
+	else if (UndoManager::undoEnabled() && !plug->HaveDoc)
+		UndoManager::instance()->setUndoEnabled(false);
 	EPSPlug *dia = new EPSPlug(plug, fileName);
 	if (UndoManager::undoEnabled())
 		UndoManager::instance()->commit();
+	else
+		UndoManager::instance()->setUndoEnabled(true);
 	delete dia;
 }
 

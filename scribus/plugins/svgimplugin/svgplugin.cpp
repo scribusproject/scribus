@@ -102,6 +102,7 @@ void Run(QWidget *d, ScribusApp *plug)
 	QString fileName;
 	if (plug->DLLinput != "")
 		fileName = plug->DLLinput;
+		
 	else
 	{
 		PrefsContext* prefs = prefsFile->getPluginContext("SVGPlugin");
@@ -119,12 +120,17 @@ void Run(QWidget *d, ScribusApp *plug)
 		else
 			return;
 	}
-	if (UndoManager::undoEnabled())
-		UndoManager::instance()->beginTransaction(plug->doc->currentPage->getUName(),0,Um::ImportSVG,
-	fileName, Um::IImportSVG);
+	if (UndoManager::undoEnabled() && plug->HaveDoc)
+	{
+		UndoManager::instance()->beginTransaction(plug->doc->currentPage->getUName(),Um::IImageFrame,Um::ImportSVG, fileName, Um::ISVG);
+	}
+	else if (UndoManager::undoEnabled() && !plug->HaveDoc)
+		UndoManager::instance()->setUndoEnabled(false);
 	SVGPlug *dia = new SVGPlug(plug, fileName);
 	if (UndoManager::undoEnabled())
 		UndoManager::instance()->commit();
+	else
+		UndoManager::instance()->setUndoEnabled(true);
 	delete dia;
 }
 
