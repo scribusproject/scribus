@@ -105,6 +105,7 @@ class PageItem : public QObject, public UndoObject
 	Q_PROPERTY(double kerning READ kerning WRITE setKerning  DESIGNABLE false)
 	Q_PROPERTY(double lineSpacing READ lineSpacing WRITE setLineSpacing DESIGNABLE false)
 	Q_PROPERTY(QString language READ language WRITE setLanguage DESIGNABLE false)
+	Q_PROPERTY(bool textFlowsAroundFrame READ textFlowsAroundFrame WRITE setTextFlowsAroundFrame DESIGNABLE false)
 
 	// FIXME: QMetaProperty can't translate these to/from enumerator names, probably because the
 	// properties aren't moc'd in the Qt sources. They work fine in their
@@ -653,10 +654,14 @@ public:
 	void setLanguage(const QString& newLanguage);
 
 	/**
-	 * @brief Does the text flow around this object.
+	 * @brief Does text flow around this object
+	 */
+	bool textFlowsAroundFrame() const;
+	/**
+	 * @brief Enable/disable text flowing around this item
 	 * @param isFlowing true if text is wanted to flow around this object or false if not
 	 */
-	void setTextFlow(bool isFlowing);
+	void setTextFlowsAroundFrame(bool isFlowing);
 
 	/**
 	 * @brief Tells if the text flow should follow the square frame border if <code>useBounding</code>

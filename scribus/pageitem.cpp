@@ -2928,7 +2928,12 @@ void PageItem::setLanguage(const QString& newLanguage)
 	Language = newLanguage;
 }
 
-void PageItem::setTextFlow(bool isFlowing)
+bool PageItem::textFlowsAroundFrame() const
+{
+	return this->Textflow;
+}
+
+void PageItem::setTextFlowsAroundFrame(bool isFlowing)
 {
 	if (Textflow == isFlowing)
 		return;

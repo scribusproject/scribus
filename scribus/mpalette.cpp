@@ -2688,7 +2688,7 @@ void Mpalette::DoFlow()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->setTextFlow(Textflow->isChecked());
+		CurItem->setTextFlowsAroundFrame(Textflow->isChecked());
 		ScApp->view->DrawNew();
 		emit DocChanged();
 		ToggleFlow();
