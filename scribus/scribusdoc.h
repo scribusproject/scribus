@@ -230,7 +230,7 @@ public: // Public attributes
 	bool Automatic;
 	bool AutoCheck;
 	bool TemplateMode;
-	PDFOptions PDF_Optionen;
+	PDFOptions PDF_Options;
 	bool RePos;
 	struct BookMa { 
 					QString Title;

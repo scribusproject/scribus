@@ -85,8 +85,8 @@ bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<
 	bool ret = false;
 	int progresscount=0;
 	PDFlib *dia = new PDFlib();
-	if (dia->PDF_Begin_Doc(fn, plug->doc, plug->view, &plug->doc->PDF_Optionen, plug->Prefs.AvailFonts,
-				 plug->doc->UsedFonts, plug->BookPal->BView))
+	if (dia->PDF_Begin_Doc(fn, plug->doc, plug->view, &plug->doc->PDF_Options, plug->Prefs.AvailFonts,
+				 plug->doc->UsedFonts, plug->bookmarkPalette->BView))
 		{
 			dia2->reset();
 			dia2->setTotalSteps(plug->doc->MasterPages.count()+pageNs.size());
@@ -100,7 +100,7 @@ bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<
 			}
 		for (uint a = 0; a < pageNs.size(); ++a)
 		{
-			if (plug->doc->PDF_Optionen.Thumbnails)
+			if (plug->doc->PDF_Options.Thumbnails)
 				pm = thumbs[pageNs[a]];
 			dia->PDF_Begin_Page(plug->doc->Pages.at(pageNs[a]-1), pm);
 			dia->PDF_ProcessPage(plug->doc->Pages.at(pageNs[a]-1), pageNs[a]-1);
@@ -108,8 +108,8 @@ bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<
 			progresscount++;
 			dia2->setProgress(progresscount);
 		}
-		if (plug->doc->PDF_Optionen.Version == 12)
-			dia->PDF_End_Doc(plug->PrinterProfiles[plug->doc->PDF_Optionen.PrintProf], nam, Components);
+		if (plug->doc->PDF_Options.Version == 12)
+			dia->PDF_End_Doc(plug->PrinterProfiles[plug->doc->PDF_Options.PrintProf], nam, Components);
 		else
 			dia->PDF_End_Doc();
 		ret = true;

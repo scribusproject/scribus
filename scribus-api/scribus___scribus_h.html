@@ -167,13 +167,13 @@ class ScribusApp : public QMainWindow
 		QLabel* XDat;
 		QLabel* YMess;
 		QLabel* YDat;
-    Mpalette *Mpal;
-    NodePalette *Npal;
-    Tree *Tpal;
-    Biblio *ScBook;
-		LayerPalette* Lpal;
-		SeitenPal *Sepal;
-		BookPalette *BookPal;
+    Mpalette *propertiesPalette;
+    NodePalette *nodePalette;
+    Tree *outlinePalette;
+    Biblio *scrapbookPalette;
+		LayerPalette* layerPalette;
+		SeitenPal *pagePalette;
+		BookPalette *bookmarkPalette;
 		QMap<QString,QString> Sprachen;
 		QWorkspace *wsp;
 		QPopupMenu* windowsMenu;
@@ -292,13 +292,13 @@ class ScribusApp : public QMainWindow
 	void ToggleTools();
 	void TogglePDFTools();
 	/** Schaltet Masspalette ein/aus */
-	void ToggleMpal();
+	void togglePropertiesPalette();
 	/** Schaltet Uebersichtspalette ein/aus*/
-	void ToggleTpal();
-	void ToggleBpal();
-	void ToggleLpal();
-	void ToggleSepal();
-	void ToggleBookpal();
+	void toggleOutlinePalette();
+	void toggleScrapbookPalette();
+	void toggleLayerPalette();
+	void togglePagePalette();
+	void toggleBookmarkPalette();
 	/** Schaltet Bilder ein/aus */
 	void TogglePics();
 	/** Schaltet Raster ein/aus */
@@ -470,12 +470,12 @@ private:
 		int uGuide;
     int viewTools;
     int viewToolsP;
-    int viewMpal;
-    int viewTpal;
-    int viewNpal;
+    int viewPropertiesPalette;
+    int viewOutlinePalette;
+    int viewNodePalette;
     int viewBpal;
-		int viewLpal;
-		int viewSepal;
+		int viewLayerPalette;
+		int viewPagePalette;
 		int viewBopal;
     int M_FileClose;
     int M_FileImportGetText;

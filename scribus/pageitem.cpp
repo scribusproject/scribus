@@ -3050,7 +3050,7 @@ bool PageItem::shouldCheck()
 {
 	return ((!ScApp->view->mousePressed()) &&
 			(!ScApp->arrowKeyDown()) &&
-			(!ScApp->Mpal->userActionOn()));
+			(!ScApp->propertiesPalette->userActionOn()));
 }
 
 void PageItem::moveUndoAction()

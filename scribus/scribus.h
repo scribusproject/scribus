@@ -188,15 +188,15 @@ public:
 	QLabel* XDat;
 	QLabel* YMess;
 	QLabel* YDat;
-	Mpalette *Mpal;
-	NodePalette *Npal;
-	Tree *Tpal;
-	Biblio *ScBook;
-	LayerPalette* Lpal;
-	SeitenPal *Sepal;
-	BookPalette *BookPal;
-	Measurements* MaPal;
-	CheckDocument * docChecker;
+	Mpalette *propertiesPalette;
+	NodePalette *nodePalette;
+	Tree *outlinePalette;
+	Biblio *scrapbookPalette;
+	LayerPalette* layerPalette;
+	SeitenPal *pagePalette;
+	BookPalette *bookmarkPalette;
+	Measurements* measurementPalette;
+	CheckDocument * docCheckerPalette;
 	UndoPalette* undoPalette;
 	StoryEditor* CurrStED;
 	QMap<QString,QString> Sprachen;
@@ -341,23 +341,16 @@ public slots:
  	void setPDFTools(bool visible);
 	void TogglePDFTools();
 	/** Schaltet Masspalette ein/aus */
- 	//void setMpal(bool visible);
-	//void setMapal(bool visible);
-	void ToggleMpal();
+	void togglePropertiesPalette();
 	/** Schaltet Uebersichtspalette ein/aus*/
-	void ToggleTpal();
- 	//void setTpal(bool visible);
-	void ToggleBpal();
-	//void setBpal(bool visible);
-	void ToggleLpal();
-	//void setLpal(bool visible);
-	void ToggleSepal();
-	void setSepal(bool visible);
-	void ToggleBookpal();
-	//void setBookpal(bool visible);
-	void ToggleUndoPalette();
+	void toggleOutlinePalette();
+	void toggleScrapbookPalette();
+	void toggleLayerPalette();
+	void togglePagePalette();
+	void setPagePalette(bool visible);
+	void toggleBookmarkPalette();
+	void toggleUndoPalette();
 	void setUndoPalette(bool visible);
-	//void setCheckPal(bool visible);
 	void toggleCheckPal();
 	/** Schaltet M_ViewShowImages ein/aus */
 	void TogglePics();
@@ -534,12 +527,12 @@ private:
 	int toolbarMenuTools;
 	int toolbarMenuPDFTools;
 	int viewToolbars;
-	int viewMpal;
-	int viewTpal;
-	int viewNpal;
+	int viewPropertiesPalette;
+	int viewOutlinePalette;
+	int viewNodePalette;
 	int viewBpal;
-	int viewLpal;
-	int viewSepal;
+	int viewLayerPalette;
+	int viewPagePalette;
 	int viewBopal;
 	int viewUndoPalette;
 

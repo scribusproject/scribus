@@ -318,8 +318,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, doc->checkerProfiles, doc->curCheckProfile);
 	addItem( tr("Doc-Checker"), loadIcon("checkdoc.png"), tabDocChecker);
 	
-	tabPDF = new TabPDFOptions( prefsWidgets, &doc->PDF_Optionen, ap->Prefs.AvailFonts,
-								&ap->PDFXProfiles, doc->UsedFonts, doc->PDF_Optionen.PresentVals,
+	tabPDF = new TabPDFOptions( prefsWidgets, &doc->PDF_Options, ap->Prefs.AvailFonts,
+								&ap->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
 								UmReFaktor, ein, doc->PageH, doc->PageB, 0 );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 

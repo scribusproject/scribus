@@ -10,7 +10,7 @@
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 
-NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "Npal", false, 0)
+NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalette", false, 0)
 {
 	setCaption( tr( "Nodes" ) );
 	setIcon(loadIcon("AppIcon.png"));

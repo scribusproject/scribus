@@ -55,7 +55,7 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 	ComboBox2->insertItem( tr( "Portrait" ) );
 	ComboBox2->insertItem( tr( "Landscape" ) );
 	ComboBox2->setEditable(false);
-	ComboBox2->setCurrentItem(Vor->Ausrichtung);
+	ComboBox2->setCurrentItem(Vor->pageOrientation);
 	TextLabel2->setBuddy(ComboBox2);
 	Layout6->addWidget( ComboBox2, 1, 1 );
 	ButtonGroup1_2Layout->addLayout( Layout6 );
@@ -80,10 +80,10 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 	ButtonGroup1_2Layout->addLayout( Layout5 );
 	Layout8 = new QHBoxLayout( 0, 0, 6, "Layout8");
 	Doppelseiten = new QCheckBox( tr( "&Facing Pages" ), ButtonGroup1_2, "Doppelseiten" );
-	Doppelseiten->setChecked(Vor->DoppelSeiten);
+	Doppelseiten->setChecked(Vor->FacingPages);
 	Layout8->addWidget( Doppelseiten );
 	ErsteSeite = new QCheckBox( tr( "Left &Page First" ), ButtonGroup1_2, "CheckBox3" );
-	ErsteSeite->setChecked(Vor->ErsteLinks);
+	ErsteSeite->setChecked(Vor->LeftPageFirst);
 	Layout8->addWidget( ErsteSeite );
 	ButtonGroup1_2Layout->addLayout( Layout8 );
 	Layout9->addWidget( ButtonGroup1_2 );
@@ -139,8 +139,8 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 	GroupBox7Layout->addLayout( Layout3 );
 	Layout9->addWidget( GroupBox7 );
 	NewDocLayout->addLayout( Layout9 );
-	Breite->setValue(Vor->PageBreite * unitRatio);
-	Hoehe->setValue(Vor->PageHoehe * unitRatio);
+	Breite->setValue(Vor->PageWidth * unitRatio);
+	Hoehe->setValue(Vor->PageHeight * unitRatio);
 	
 	QStringList pageSizes=ps->getPageSizeList();
 	int sizeIndex=pageSizes.findIndex(ps->getPageText());
@@ -150,9 +150,9 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 		ComboBox1->setCurrentItem(ComboBox1->count()-1);
 	setDS();
 	setSize(Vor->pageSize);
-	setOrien(Vor->Ausrichtung);
-	Breite->setValue(Vor->PageBreite * unitRatio);
-	Hoehe->setValue(Vor->PageHoehe * unitRatio);
+	setOrien(Vor->pageOrientation);
+	Breite->setValue(Vor->PageWidth * unitRatio);
+	Hoehe->setValue(Vor->PageHeight * unitRatio);
 
 	Layout10 = new QVBoxLayout( 0, 0, 6, "Layout10");
 

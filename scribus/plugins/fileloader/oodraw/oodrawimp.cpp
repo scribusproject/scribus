@@ -900,7 +900,7 @@ QString OODPlug::parseColor( const QString &s )
 		CMYKColor tmp;
 		tmp.fromQColor(c);
 		Doku->PageColors.insert("FromOODraw"+c.name(), tmp);
-		Prog->Mpal->Cpal->SetColors(Doku->PageColors);
+		Prog->propertiesPalette->Cpal->SetColors(Doku->PageColors);
 		ret = "FromOODraw"+c.name();
 	}
 	return ret;

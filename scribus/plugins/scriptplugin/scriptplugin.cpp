@@ -241,15 +241,15 @@ void MenuTest::FinishScriptRun()
 {
 	if (Carrier->HaveDoc)
 	{
-		Carrier->Mpal->SetDoc(Carrier->doc);
-		Carrier->Mpal->updateCList();
-		Carrier->Mpal->Spal->setFormats(Carrier->doc);
-		Carrier->Mpal->SetLineFormats(Carrier->doc);
-		Carrier->Mpal->Cpal->SetColors(Carrier->doc->PageColors);
-		Carrier->Lpal->setLayers(&Carrier->doc->Layers, &Carrier->doc->ActiveLayer);
-		Carrier->Tpal->BuildTree(Carrier->doc);
-		Carrier->Sepal->SetView(Carrier->view);
-		Carrier->Sepal->Rebuild();
+		Carrier->propertiesPalette->SetDoc(Carrier->doc);
+		Carrier->propertiesPalette->updateCList();
+		Carrier->propertiesPalette->Spal->setFormats(Carrier->doc);
+		Carrier->propertiesPalette->SetLineFormats(Carrier->doc);
+		Carrier->propertiesPalette->Cpal->SetColors(Carrier->doc->PageColors);
+		Carrier->layerPalette->setLayers(&Carrier->doc->Layers, &Carrier->doc->ActiveLayer);
+		Carrier->outlinePalette->BuildTree(Carrier->doc);
+		Carrier->pagePalette->SetView(Carrier->view);
+		Carrier->pagePalette->Rebuild();
 		if (Carrier->view->SelItem.count() != 0)
 			Carrier->HaveNewSel(Carrier->view->SelItem.at(0)->itemType());
 		else

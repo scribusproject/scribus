@@ -259,17 +259,17 @@
 </LI>
 <LI>void &nbsp;<b><A HREF="#ref150">TogglePDFTools</A></b> () 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref151">ToggleMpal</A></b> () 
+<LI>void &nbsp;<b><A HREF="#ref151">togglePropertiesPalette</A></b> () 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref152">ToggleTpal</A></b> () 
+<LI>void &nbsp;<b><A HREF="#ref152">toggleOutlinePalette</A></b> () 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref153">ToggleBpal</A></b> () 
+<LI>void &nbsp;<b><A HREF="#ref153">toggleScrapbookPalette</A></b> () 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref154">ToggleLpal</A></b> () 
+<LI>void &nbsp;<b><A HREF="#ref154">toggleLayerPalette</A></b> () 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref155">ToggleSepal</A></b> () 
+<LI>void &nbsp;<b><A HREF="#ref155">togglePagePalette</A></b> () 
 </LI>
-<LI>void &nbsp;<b><A HREF="#ref156">ToggleBookpal</A></b> () 
+<LI>void &nbsp;<b><A HREF="#ref156">toggleBookmarkPalette</A></b> () 
 </LI>
 <LI>void &nbsp;<b><A HREF="#ref157">TogglePics</A></b> () 
 </LI>
@@ -450,13 +450,13 @@
 <LI>QLabel* <b><A HREF="#ref53">XDat</A></b></LI>
 <LI>QLabel* <b><A HREF="#ref54">YMess</A></b></LI>
 <LI>QLabel* <b><A HREF="#ref55">YDat</A></b></LI>
-<LI>Mpalette *<b><A HREF="#ref56">Mpal</A></b></LI>
-<LI>NodePalette *<b><A HREF="#ref57">Npal</A></b></LI>
-<LI>Tree *<b><A HREF="#ref58">Tpal</A></b></LI>
-<LI>Biblio *<b><A HREF="#ref59">ScBook</A></b></LI>
-<LI>LayerPalette* <b><A HREF="#ref60">Lpal</A></b></LI>
-<LI>SeitenPal *<b><A HREF="#ref61">Sepal</A></b></LI>
-<LI>BookPalette *<b><A HREF="#ref62">BookPal</A></b></LI>
+<LI>Mpalette *<b><A HREF="#ref56">propertiesPalette</A></b></LI>
+<LI>NodePalette *<b><A HREF="#ref57">nodePalette</A></b></LI>
+<LI>Tree *<b><A HREF="#ref58">outlinePalette</A></b></LI>
+<LI>Biblio *<b><A HREF="#ref59">scrapbookPalette</A></b></LI>
+<LI>LayerPalette* <b><A HREF="#ref60">layerPalette</A></b></LI>
+<LI>SeitenPal *<b><A HREF="#ref61">pagePalette</A></b></LI>
+<LI>BookPalette *<b><A HREF="#ref62">bookmarkPalette</A></b></LI>
 <LI>QMap<QString,QString> <b><A HREF="#ref63">Sprachen</A></b></LI>
 <LI>QWorkspace *<b><A HREF="#ref64">wsp</A></b></LI>
 <LI>QPopupMenu* <b><A HREF="#ref65">windowsMenu</A></b></LI>
@@ -518,12 +518,12 @@
 <LI>int <b><A HREF="#ref278">uGuide</A></b></LI>
 <LI>int <b><A HREF="#ref279">viewTools</A></b></LI>
 <LI>int <b><A HREF="#ref280">viewToolsP</A></b></LI>
-<LI>int <b><A HREF="#ref281">viewMpal</A></b></LI>
-<LI>int <b><A HREF="#ref282">viewTpal</A></b></LI>
-<LI>int <b><A HREF="#ref283">viewNpal</A></b></LI>
+<LI>int <b><A HREF="#ref281">viewPropertiesPalette</A></b></LI>
+<LI>int <b><A HREF="#ref282">viewOutlinePalette</A></b></LI>
+<LI>int <b><A HREF="#ref283">viewNodePalette</A></b></LI>
 <LI>int <b><A HREF="#ref284">viewBpal</A></b></LI>
-<LI>int <b><A HREF="#ref285">viewLpal</A></b></LI>
-<LI>int <b><A HREF="#ref286">viewSepal</A></b></LI>
+<LI>int <b><A HREF="#ref285">viewLayerPalette</A></b></LI>
+<LI>int <b><A HREF="#ref286">viewPagePalette</A></b></LI>
 <LI>int <b><A HREF="#ref287">viewBopal</A></b></LI>
 <LI>int <b><A HREF="#ref288">M_FileClose</A></b></LI>
 <LI>int <b><A HREF="#ref289">M_FileImportGetText</A></b></LI>
@@ -635,14 +635,14 @@
 </td><td align="right"><h3><strong>XMess</strong></h3></td></tr></table><p></p><A NAME="XDat"></A><A NAME="ref53"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>XDat</strong>
 </td><td align="right"><h3><strong>XDat</strong></h3></td></tr></table><p></p><A NAME="YMess"></A><A NAME="ref54"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>YMess</strong>
 </td><td align="right"><h3><strong>YMess</strong></h3></td></tr></table><p></p><A NAME="YDat"></A><A NAME="ref55"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>YDat</strong>
-</td><td align="right"><h3><strong>YDat</strong></h3></td></tr></table><p></p><A NAME="Mpal"></A><A NAME="ref56"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="Mpalette.html">Mpalette</A> * <strong>Mpal</strong>
-</td><td align="right"><h3><strong>Mpal</strong></h3></td></tr></table><p></p><A NAME="Npal"></A><A NAME="ref57"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="NodePalette.html">NodePalette</A> * <strong>Npal</strong>
-</td><td align="right"><h3><strong>Npal</strong></h3></td></tr></table><p></p><A NAME="Tpal"></A><A NAME="ref58"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="Tree.html">Tree</A> * <strong>Tpal</strong>
-</td><td align="right"><h3><strong>Tpal</strong></h3></td></tr></table><p></p><A NAME="ScBook"></A><A NAME="ref59"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="Biblio.html">Biblio</A> * <strong>ScBook</strong>
-</td><td align="right"><h3><strong>ScBook</strong></h3></td></tr></table><p></p><A NAME="Lpal"></A><A NAME="ref60"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="LayerPalette.html">LayerPalette</A>*  <strong>Lpal</strong>
-</td><td align="right"><h3><strong>Lpal</strong></h3></td></tr></table><p></p><A NAME="Sepal"></A><A NAME="ref61"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="SeitenPal.html">SeitenPal</A> * <strong>Sepal</strong>
-</td><td align="right"><h3><strong>Sepal</strong></h3></td></tr></table><p></p><A NAME="BookPal"></A><A NAME="ref62"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="BookPalette.html">BookPalette</A> * <strong>BookPal</strong>
-</td><td align="right"><h3><strong>BookPal</strong></h3></td></tr></table><p></p><A NAME="Sprachen"></A><A NAME="ref63"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString,QString>  <strong>Sprachen</strong>
+</td><td align="right"><h3><strong>YDat</strong></h3></td></tr></table><p></p><A NAME="propertiesPalette"></A><A NAME="ref56"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="Mpalette.html">Mpalette</A> * <strong>propertiesPalette</strong>
+</td><td align="right"><h3><strong>propertiesPalette</strong></h3></td></tr></table><p></p><A NAME="nodePalette"></A><A NAME="ref57"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="NodePalette.html">NodePalette</A> * <strong>nodePalette</strong>
+</td><td align="right"><h3><strong>nodePalette</strong></h3></td></tr></table><p></p><A NAME="outlinePalette"></A><A NAME="ref58"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="Tree.html">Tree</A> * <strong>outlinePalette</strong>
+</td><td align="right"><h3><strong>outlinePalette</strong></h3></td></tr></table><p></p><A NAME="scrapbookPalette"></A><A NAME="ref59"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="Biblio.html">Biblio</A> * <strong>scrapbookPalette</strong>
+</td><td align="right"><h3><strong>scrapbookPalette</strong></h3></td></tr></table><p></p><A NAME="layerPalette"></A><A NAME="ref60"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="LayerPalette.html">LayerPalette</A>*  <strong>layerPalette</strong>
+</td><td align="right"><h3><strong>layerPalette</strong></h3></td></tr></table><p></p><A NAME="pagePalette"></A><A NAME="ref61"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="SeitenPal.html">SeitenPal</A> * <strong>pagePalette</strong>
+</td><td align="right"><h3><strong>pagePalette</strong></h3></td></tr></table><p></p><A NAME="bookmarkPalette"></A><A NAME="ref62"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="BookPalette.html">BookPalette</A> * <strong>bookmarkPalette</strong>
+</td><td align="right"><h3><strong>bookmarkPalette</strong></h3></td></tr></table><p></p><A NAME="Sprachen"></A><A NAME="ref63"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString,QString>  <strong>Sprachen</strong>
 </td><td align="right"><h3><strong>Sprachen</strong></h3></td></tr></table><p></p><A NAME="wsp"></A><A NAME="ref64"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QWorkspace * <strong>wsp</strong>
 </td><td align="right"><h3><strong>wsp</strong></h3></td></tr></table><p></p><A NAME="windowsMenu"></A><A NAME="ref65"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu*  <strong>windowsMenu</strong>
 </td><td align="right"><h3><strong>windowsMenu</strong></h3></td></tr></table><p></p><A NAME="ActWin"></A><A NAME="ref66"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="ScribusWin.html">ScribusWin</A>*  <strong>ActWin</strong>
@@ -735,13 +735,13 @@
 <br></td><td align="right"><h3><strong>ToggleMarks</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleFrames"></A><A NAME="ref148"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleFrames</strong> ()
 <br></td><td align="right"><h3><strong>ToggleFrames</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleTools"></A><A NAME="ref149"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleTools</strong> ()
 <br></td><td align="right"><h3><strong>ToggleTools</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="TogglePDFTools"></A><A NAME="ref150"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>TogglePDFTools</strong> ()
-<br></td><td align="right"><h3><strong>TogglePDFTools</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleMpal"></A><A NAME="ref151"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleMpal</strong> ()
-<br></td><td align="right"><h3><strong>ToggleMpal</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleTpal"></A><A NAME="ref152"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleTpal</strong> ()
-<br></td><td align="right"><h3><strong>ToggleTpal</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleBpal"></A><A NAME="ref153"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleBpal</strong> ()
-<br></td><td align="right"><h3><strong>ToggleBpal</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleLpal"></A><A NAME="ref154"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleLpal</strong> ()
-<br></td><td align="right"><h3><strong>ToggleLpal</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleSepal"></A><A NAME="ref155"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleSepal</strong> ()
-<br></td><td align="right"><h3><strong>ToggleSepal</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleBookpal"></A><A NAME="ref156"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleBookpal</strong> ()
-<br></td><td align="right"><h3><strong>ToggleBookpal</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="TogglePics"></A><A NAME="ref157"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>TogglePics</strong> ()
+<br></td><td align="right"><h3><strong>TogglePDFTools</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="togglePropertiesPalette"></A><A NAME="ref151"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>togglePropertiesPalette</strong> ()
+<br></td><td align="right"><h3><strong>togglePropertiesPalette</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="toggleOutlinePalette"></A><A NAME="ref152"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>toggleOutlinePalette</strong> ()
+<br></td><td align="right"><h3><strong>toggleOutlinePalette</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="toggleScrapbookPalette"></A><A NAME="ref153"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>toggleScrapbookPalette</strong> ()
+<br></td><td align="right"><h3><strong>toggleScrapbookPalette</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="toggleLayerPalette"></A><A NAME="ref154"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>toggleLayerPalette</strong> ()
+<br></td><td align="right"><h3><strong>toggleLayerPalette</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="togglePagePalette"></A><A NAME="ref155"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>togglePagePalette</strong> ()
+<br></td><td align="right"><h3><strong>togglePagePalette</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="toggleBookmarkPalette"></A><A NAME="ref156"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>toggleBookmarkPalette</strong> ()
+<br></td><td align="right"><h3><strong>toggleBookmarkPalette</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="TogglePics"></A><A NAME="ref157"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>TogglePics</strong> ()
 <br></td><td align="right"><h3><strong>TogglePics</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleRaster"></A><A NAME="ref158"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleRaster</strong> ()
 <br></td><td align="right"><h3><strong>ToggleRaster</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleURaster"></A><A NAME="ref159"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleURaster</strong> ()
 <br></td><td align="right"><h3><strong>ToggleURaster</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleFrameEdit"></A><A NAME="ref160"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleFrameEdit</strong> ()
@@ -865,13 +865,13 @@
 </td><td align="right"><h3><strong>M_ViewShowGuides</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="uGuide"></A><A NAME="ref278"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>uGuide</strong>
 </td><td align="right"><h3><strong>uGuide</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewTools"></A><A NAME="ref279"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewTools</strong>
 </td><td align="right"><h3><strong>viewTools</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewToolsP"></A><A NAME="ref280"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewToolsP</strong>
-</td><td align="right"><h3><strong>viewToolsP</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewMpal"></A><A NAME="ref281"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewMpal</strong>
-</td><td align="right"><h3><strong>viewMpal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewTpal"></A><A NAME="ref282"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewTpal</strong>
-</td><td align="right"><h3><strong>viewTpal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewNpal"></A><A NAME="ref283"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewNpal</strong>
-</td><td align="right"><h3><strong>viewNpal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewBpal"></A><A NAME="ref284"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewBpal</strong>
-</td><td align="right"><h3><strong>viewBpal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewLpal"></A><A NAME="ref285"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewLpal</strong>
-</td><td align="right"><h3><strong>viewLpal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewSepal"></A><A NAME="ref286"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewSepal</strong>
-</td><td align="right"><h3><strong>viewSepal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewBopal"></A><A NAME="ref287"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewBopal</strong>
+</td><td align="right"><h3><strong>viewToolsP</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewPropertiesPalette"></A><A NAME="ref281"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewPropertiesPalette</strong>
+</td><td align="right"><h3><strong>viewPropertiesPalette</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewOutlinePalette"></A><A NAME="ref282"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewOutlinePalette</strong>
+</td><td align="right"><h3><strong>viewOutlinePalette</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewNodePalette"></A><A NAME="ref283"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewNodePalette</strong>
+</td><td align="right"><h3><strong>viewNodePalette</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewBpal"></A><A NAME="ref284"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewBpal</strong>
+</td><td align="right"><h3><strong>viewBpal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewLayerPalette"></A><A NAME="ref285"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewLayerPalette</strong>
+</td><td align="right"><h3><strong>viewLayerPalette</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewPagePalette"></A><A NAME="ref286"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewPagePalette</strong>
+</td><td align="right"><h3><strong>viewPagePalette</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewBopal"></A><A NAME="ref287"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewBopal</strong>
 </td><td align="right"><h3><strong>viewBopal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid1"></A><A NAME="ref288"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid1</strong>
 </td><td align="right"><h3><strong>fid1</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_FileImportGetText"></A><A NAME="ref289"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_FileImportGetText</strong>
 </td><td align="right"><h3><strong>M_FileImportGetText</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="M_FileImportPages"></A><A NAME="ref290"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>M_FileImportPages</strong>

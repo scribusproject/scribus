@@ -171,7 +171,7 @@ static int Printer_init(Printer *self, PyObject *args, PyObject *kwds)
                 self->printer = printer;
         }
 // set defaul name of file to print into
-        QString tf = Carrier->doc->PDF_Optionen.Datei;
+        QString tf = Carrier->doc->PDF_Options.Datei;
         if (tf == "") {
                 QFileInfo fi = QFileInfo(Carrier->doc->DocName);
                 tf = fi.dirPath()+"/"+fi.baseName()+".pdf";

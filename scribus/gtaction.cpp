@@ -306,7 +306,7 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.SShade = font->getStrokeShade();
 	vg.BaseAdj = pstyle->isAdjToBaseline();
 	textFrame->Doc->docParagraphStyles.append(vg);
-	ScApp->Mpal->Spal->updateFormatList();
+	ScApp->propertiesPalette->Spal->updateFormatList();
 }
 
 void gtAction::removeParagraphStyle(const QString& name)
@@ -548,7 +548,7 @@ QString gtAction::parseColor(const QString &s)
 			CMYKColor tmp;
 			tmp.fromQColor(c);
 			ScApp->doc->PageColors.insert("FromGetText"+c.name(), tmp);
-			ScApp->Mpal->Cpal->SetColors(ScApp->doc->PageColors);
+			ScApp->propertiesPalette->Cpal->SetColors(ScApp->doc->PageColors);
 			ret = "FromGetText"+c.name();
 		}
 	}

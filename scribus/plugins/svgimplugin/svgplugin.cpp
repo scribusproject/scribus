@@ -1451,7 +1451,7 @@ QString SVGPlug::parseColor( const QString &s )
 		CMYKColor tmp;
 		tmp.fromQColor(c);
 		Doku->PageColors.insert("FromSVG"+c.name(), tmp);
-		Prog->Mpal->Cpal->SetColors(Doku->PageColors);
+		Prog->propertiesPalette->Cpal->SetColors(Doku->PageColors);
 		ret = "FromSVG"+c.name();
 	}
 	return ret;

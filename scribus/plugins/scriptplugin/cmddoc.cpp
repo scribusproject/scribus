@@ -171,7 +171,7 @@ PyObject *scribus_setdoctype(PyObject */*self*/, PyObject* args)
 	Carrier->view->reformPages();
 	Carrier->view->GotoPage(Carrier->doc->currentPage->PageNr); // is this needed?
 	Carrier->view->DrawNew();   // is this needed?
-	//CB TODO Carrier->Sepal->RebuildPage(); // is this needed?
+	//CB TODO Carrier->pagePalette->RebuildPage(); // is this needed?
 	Carrier->slotDocCh();
 	Py_INCREF(Py_None);
 	return Py_None;

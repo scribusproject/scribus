@@ -445,7 +445,7 @@ struct ApplicationPrefs
 	windowPrefs pdfToolBarSettings;
 	windowPrefs mainWinSettings;
 	
-	PDFOptions PDF_Optionen;
+	PDFOptions PDF_Options;
 	bool SepalT;
 	bool SepalN;
 	int PSize;
@@ -459,15 +459,15 @@ struct ApplicationPrefs
 	QString PrinterFile;
 	QString PrinterCommand;
 	QString pageSize;
-	int Ausrichtung;
-	double PageBreite;
-	double PageHoehe;
+	int pageOrientation;
+	double PageWidth;
+	double PageHeight;
 	double RandOben;
 	double RandUnten;
 	double RandLinks;
 	double RandRechts;
-	bool DoppelSeiten;
-	bool ErsteLinks;
+	bool FacingPages;
+	bool LeftPageFirst;
 	int MinWordLen;
 	int HyCount;
 	QString Language;
@@ -494,8 +494,8 @@ struct ApplicationPrefs
 	bool PrPr_Y;
 	bool PrPr_K;
 	QString gs_exe;
-	bool gs_antiText;
-	bool gs_antiGraph;
+	bool gs_AntiAliasText;
+	bool gs_AntiAliasGraphics;
 	QString gimp_exe;
 	bool ClipMargin;
 	bool GCRMode;

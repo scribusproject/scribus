@@ -1741,10 +1741,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			pmen->insertSeparator();
 			ScApp->scrActions["toolsProperties"]->addTo(pmen);
 			/*
-			if (!ScApp->Mpal->isVisible())
-				pmen->insertItem( tr("Show P&roperties..."), ScApp, SLOT(ToggleMpal()));
+			if (!ScApp->propertiesPalette->isVisible())
+				pmen->insertItem( tr("Show P&roperties..."), ScApp, SLOT(togglePropertiesPalette()));
 			else
-				pmen->insertItem( tr("Hide P&roperties..."), ScApp, SLOT(ToggleMpal()));
+				pmen->insertItem( tr("Hide P&roperties..."), ScApp, SLOT(togglePropertiesPalette()));
 			*/
 			pmen->exec(QCursor::pos());
 			setGlobalUndoMode();
@@ -2778,7 +2778,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		Mxp = newX;
 		Myp = newY;
 		RefreshItem(b);
-		ScApp->Mpal->Cpal->setSpecialGradient(b->GrStartX * UmReFaktor, b->GrStartY * UmReFaktor,
+		ScApp->propertiesPalette->Cpal->setSpecialGradient(b->GrStartX * UmReFaktor, b->GrStartY * UmReFaktor,
 																 					 b->GrEndX * UmReFaktor, b->GrEndY * UmReFaktor,
 																 					 b->Width * UmReFaktor, b->Height * UmReFaktor);
 		return;
@@ -7332,7 +7332,7 @@ void ScribusView::Deselect(bool prop)
 	}
 	if (prop)
 		emit HaveSel(-1);
-	ScApp->Mpal->Cpal->gradEditButton->setOn(false);
+	ScApp->propertiesPalette->Cpal->gradEditButton->setOn(false);
 }
 
 void ScribusView::updateGradientVectors(PageItem *b)
@@ -7381,7 +7381,7 @@ void ScribusView::updateGradientVectors(PageItem *b)
 		default:
 			break;
 	}
-	ScApp->Mpal->Cpal->setSpecialGradient(b->GrStartX * UmReFaktor, b->GrStartY * UmReFaktor,
+	ScApp->propertiesPalette->Cpal->setSpecialGradient(b->GrStartX * UmReFaktor, b->GrStartY * UmReFaktor,
 																 b->GrEndX * UmReFaktor, b->GrEndY * UmReFaktor,
 																 b->Width * UmReFaktor, b->Height * UmReFaktor);
 }
@@ -7426,7 +7426,7 @@ void ScribusView::EmitValues(PageItem *b)
 		emit ItemTextFont(b->IFont);
 		emit ItemTextSize(b->ISize);
 	}
-	ScApp->Mpal->Cpal->setSpecialGradient(b->GrStartX * UmReFaktor, b->GrStartY * UmReFaktor,
+	ScApp->propertiesPalette->Cpal->setSpecialGradient(b->GrStartX * UmReFaktor, b->GrStartY * UmReFaktor,
 																 b->GrEndX * UmReFaktor, b->GrEndY * UmReFaktor,
 																 b->Width * UmReFaktor, b->Height * UmReFaktor);
 }
@@ -7735,7 +7735,7 @@ void ScribusView::ToBack()
 			if (Doc->Items.at(a)->isBookmark)
 				emit NewBMNr(Doc->Items.at(a)->BMnr, a);
 		}
-		ScApp->Tpal->BuildTree(Doc);
+		ScApp->outlinePalette->BuildTree(Doc);
 		emit LevelChanged(0);
 		emit DocChanged();
 		updateContents();
@@ -7769,7 +7769,7 @@ void ScribusView::ToFront()
 			if (Doc->Items.at(a)->isBookmark)
 				emit NewBMNr(Doc->Items.at(a)->BMnr, a);
 		}
-		ScApp->Tpal->BuildTree(Doc);
+		ScApp->outlinePalette->BuildTree(Doc);
 		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
 		updateContents();
@@ -7822,7 +7822,7 @@ void ScribusView::LowerItem()
 			if (Doc->Items.at(a)->Select)
 				SelItem.append(Doc->Items.at(a));
 		}
-		ScApp->Tpal->BuildTree(Doc);
+		ScApp->outlinePalette->BuildTree(Doc);
 		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
 		updateContents();
@@ -7875,7 +7875,7 @@ void ScribusView::RaiseItem()
 			if (Doc->Items.at(a)->Select)
 				SelItem.append(Doc->Items.at(a));
 		}
-		ScApp->Tpal->BuildTree(Doc);
+		ScApp->outlinePalette->BuildTree(Doc);
 		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
 		updateContents();
@@ -8159,7 +8159,7 @@ void ScribusView::DeleteItem()
 			Doc->MasterItems = Doc->Items;
 		else
 			Doc->DocItems = Doc->Items;
-		ScApp->Tpal->BuildTree(Doc);
+		ScApp->outlinePalette->BuildTree(Doc);
 		if (SelItem.count() == 0)
 			emit HaveSel(-1);
 		else

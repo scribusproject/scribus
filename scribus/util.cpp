@@ -1734,9 +1734,9 @@ int callGS(const QStringList & args_in)
 		cmd1 += " -sDEVICE=png16m";
 	else
 		cmd1 += " -sDEVICE=pngalpha";
-	if (ScApp->Prefs.gs_antiText)
+	if (ScApp->Prefs.gs_AntiAliasText)
 		cmd1 += " -dTextAlphaBits=4";
-	if (ScApp->Prefs.gs_antiGraph)
+	if (ScApp->Prefs.gs_AntiAliasGraphics)
 		cmd1 += " -dGraphicsAlphaBits=4";
 	QString extArgs = args_in.join(" ");
 	cmd1 += " " + extArgs + " -c showpage -c quit";

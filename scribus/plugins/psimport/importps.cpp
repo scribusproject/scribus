@@ -148,8 +148,8 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 /* Set default Page to size defined in Preferences */
 	x = 0.0;
 	y = 0.0;
-	b = plug->Prefs.PageBreite;
-	h = plug->Prefs.PageHoehe;
+	b = plug->Prefs.PageWidth;
+	h = plug->Prefs.PageHeight;
 	if ((ext == "eps") || (ext == "ps"))
 	{
 		QString tmp, BBox, tmp2, dummy, FarNam;
@@ -712,7 +712,7 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 	if (!found)
 	{
 		Doku->PageColors.insert("FromEPS"+tmp.name(), tmp);
-		Prog->Mpal->Cpal->SetColors(Doku->PageColors);
+		Prog->propertiesPalette->Cpal->SetColors(Doku->PageColors);
 		ret = "FromEPS"+tmp.name();
 	}
 	return ret;

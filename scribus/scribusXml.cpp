@@ -1501,51 +1501,51 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="PDF")
 			{
-				doc->PDF_Optionen.Articles = static_cast<bool>(QStoInt(pg.attribute("Articles")));
-				doc->PDF_Optionen.Thumbnails = static_cast<bool>(QStoInt(pg.attribute("Thumbnails")));
-				doc->PDF_Optionen.Compress = static_cast<bool>(QStoInt(pg.attribute("Compress")));
-				doc->PDF_Optionen.CompressMethod = QStoInt(pg.attribute("CMethod","0"));
-				doc->PDF_Optionen.Quality = QStoInt(pg.attribute("Quality","0"));
-				doc->PDF_Optionen.RecalcPic = static_cast<bool>(QStoInt(pg.attribute("RecalcPic")));
-				doc->PDF_Optionen.Bookmarks = static_cast<bool>(QStoInt(pg.attribute("Bookmarks")));
+				doc->PDF_Options.Articles = static_cast<bool>(QStoInt(pg.attribute("Articles")));
+				doc->PDF_Options.Thumbnails = static_cast<bool>(QStoInt(pg.attribute("Thumbnails")));
+				doc->PDF_Options.Compress = static_cast<bool>(QStoInt(pg.attribute("Compress")));
+				doc->PDF_Options.CompressMethod = QStoInt(pg.attribute("CMethod","0"));
+				doc->PDF_Options.Quality = QStoInt(pg.attribute("Quality","0"));
+				doc->PDF_Options.RecalcPic = static_cast<bool>(QStoInt(pg.attribute("RecalcPic")));
+				doc->PDF_Options.Bookmarks = static_cast<bool>(QStoInt(pg.attribute("Bookmarks")));
 				if (pg.hasAttribute("MirrorH"))
-					doc->PDF_Optionen.MirrorH = static_cast<bool>(QStoInt(pg.attribute("MirrorH")));
+					doc->PDF_Options.MirrorH = static_cast<bool>(QStoInt(pg.attribute("MirrorH")));
 				else
-					doc->PDF_Optionen.MirrorH = false;
+					doc->PDF_Options.MirrorH = false;
 				if (pg.hasAttribute("MirrorV"))
-					doc->PDF_Optionen.MirrorV = static_cast<bool>(QStoInt(pg.attribute("MirrorV")));
+					doc->PDF_Options.MirrorV = static_cast<bool>(QStoInt(pg.attribute("MirrorV")));
 				else
-					doc->PDF_Optionen.MirrorV = false;
+					doc->PDF_Options.MirrorV = false;
 				if (pg.hasAttribute("RotateDeg"))
-					doc->PDF_Optionen.RotateDeg = QStoInt(pg.attribute("RotateDeg","0"));
+					doc->PDF_Options.RotateDeg = QStoInt(pg.attribute("RotateDeg","0"));
 				else
-					doc->PDF_Optionen.RotateDeg = 0;
-				doc->PDF_Optionen.PresentMode = static_cast<bool>(QStoInt(pg.attribute("PresentMode")));
-				doc->PDF_Optionen.PicRes = QStoInt(pg.attribute("PicRes"));
-				doc->PDF_Optionen.Version = QStoInt(pg.attribute("Version"));
-				doc->PDF_Optionen.Resolution = QStoInt(pg.attribute("Resolution"));
-				doc->PDF_Optionen.Binding = QStoInt(pg.attribute("Binding"));
-				doc->PDF_Optionen.Datei = "";
-				doc->PDF_Optionen.isGrayscale = false;
-				doc->PDF_Optionen.UseRGB = static_cast<bool>(QStoInt(pg.attribute("RGBMode","0")));
-				doc->PDF_Optionen.UseProfiles = static_cast<bool>(QStoInt(pg.attribute("UseProfiles","0")));
-				doc->PDF_Optionen.UseProfiles2 = static_cast<bool>(QStoInt(pg.attribute("UseProfiles2","0")));
-				doc->PDF_Optionen.Intent = QStoInt(pg.attribute("Intent","1"));
-				doc->PDF_Optionen.Intent2 = QStoInt(pg.attribute("Intent2","1"));
-				doc->PDF_Optionen.SolidProf = pg.attribute("SolidP", "");
-				doc->PDF_Optionen.ImageProf = pg.attribute("ImageP", "");
-				doc->PDF_Optionen.PrintProf = pg.attribute("PrintP", "");
-				doc->PDF_Optionen.Info = pg.attribute("InfoString", "");
-				doc->PDF_Optionen.BleedTop = QStodouble(pg.attribute("BTop","0"));
-				doc->PDF_Optionen.BleedLeft = QStodouble(pg.attribute("BLeft","0"));
-				doc->PDF_Optionen.BleedRight = QStodouble(pg.attribute("BRight","0"));
-				doc->PDF_Optionen.BleedBottom = QStodouble(pg.attribute("BBottom","0"));
-				doc->PDF_Optionen.EmbeddedI = static_cast<bool>(QStoInt(pg.attribute("ImagePr","0")));
-				doc->PDF_Optionen.PassOwner = pg.attribute("PassOwner", "");
-				doc->PDF_Optionen.PassUser = pg.attribute("PassUser", "");
-				doc->PDF_Optionen.Permissions = QStoInt(pg.attribute("Permissions","-4"));
-				doc->PDF_Optionen.Encrypt = static_cast<bool>(QStoInt(pg.attribute("Encrypt","0")));
-				doc->PDF_Optionen.UseLPI = static_cast<bool>(QStoInt(pg.attribute("UseLpi","0")));
+					doc->PDF_Options.RotateDeg = 0;
+				doc->PDF_Options.PresentMode = static_cast<bool>(QStoInt(pg.attribute("PresentMode")));
+				doc->PDF_Options.PicRes = QStoInt(pg.attribute("PicRes"));
+				doc->PDF_Options.Version = QStoInt(pg.attribute("Version"));
+				doc->PDF_Options.Resolution = QStoInt(pg.attribute("Resolution"));
+				doc->PDF_Options.Binding = QStoInt(pg.attribute("Binding"));
+				doc->PDF_Options.Datei = "";
+				doc->PDF_Options.isGrayscale = false;
+				doc->PDF_Options.UseRGB = static_cast<bool>(QStoInt(pg.attribute("RGBMode","0")));
+				doc->PDF_Options.UseProfiles = static_cast<bool>(QStoInt(pg.attribute("UseProfiles","0")));
+				doc->PDF_Options.UseProfiles2 = static_cast<bool>(QStoInt(pg.attribute("UseProfiles2","0")));
+				doc->PDF_Options.Intent = QStoInt(pg.attribute("Intent","1"));
+				doc->PDF_Options.Intent2 = QStoInt(pg.attribute("Intent2","1"));
+				doc->PDF_Options.SolidProf = pg.attribute("SolidP", "");
+				doc->PDF_Options.ImageProf = pg.attribute("ImageP", "");
+				doc->PDF_Options.PrintProf = pg.attribute("PrintP", "");
+				doc->PDF_Options.Info = pg.attribute("InfoString", "");
+				doc->PDF_Options.BleedTop = QStodouble(pg.attribute("BTop","0"));
+				doc->PDF_Options.BleedLeft = QStodouble(pg.attribute("BLeft","0"));
+				doc->PDF_Options.BleedRight = QStodouble(pg.attribute("BRight","0"));
+				doc->PDF_Options.BleedBottom = QStodouble(pg.attribute("BBottom","0"));
+				doc->PDF_Options.EmbeddedI = static_cast<bool>(QStoInt(pg.attribute("ImagePr","0")));
+				doc->PDF_Options.PassOwner = pg.attribute("PassOwner", "");
+				doc->PDF_Options.PassUser = pg.attribute("PassUser", "");
+				doc->PDF_Options.Permissions = QStoInt(pg.attribute("Permissions","-4"));
+				doc->PDF_Options.Encrypt = static_cast<bool>(QStoInt(pg.attribute("Encrypt","0")));
+				doc->PDF_Options.UseLPI = static_cast<bool>(QStoInt(pg.attribute("UseLpi","0")));
 				QDomNode PFO = PAGE.firstChild();
 				while(!PFO.isNull())
 				{
@@ -1556,17 +1556,17 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 						lpo.Angle = QStoInt(pdfF.attribute("Angle"));
 						lpo.Frequency = QStoInt(pdfF.attribute("Frequency"));
 						lpo.SpotFunc = QStoInt(pdfF.attribute("SpotFunction"));
-						doc->PDF_Optionen.LPISettings[pdfF.attribute("Color")] = lpo;
+						doc->PDF_Options.LPISettings[pdfF.attribute("Color")] = lpo;
 					}
 					if(pdfF.tagName() == "Fonts")
 					{
-						if (!doc->PDF_Optionen.EmbedList.contains(pdfF.attribute("Name")))
-							doc->PDF_Optionen.EmbedList.append(pdfF.attribute("Name"));
+						if (!doc->PDF_Options.EmbedList.contains(pdfF.attribute("Name")))
+							doc->PDF_Options.EmbedList.append(pdfF.attribute("Name"));
 					}
 					if(pdfF.tagName() == "Subset")
 					{
-						if (!doc->PDF_Optionen.SubsetList.contains(pdfF.attribute("Name")))
-							doc->PDF_Optionen.SubsetList.append(pdfF.attribute("Name"));
+						if (!doc->PDF_Options.SubsetList.contains(pdfF.attribute("Name")))
+							doc->PDF_Options.SubsetList.append(pdfF.attribute("Name"));
 					}
 					if(pdfF.tagName() == "Effekte")
 					{
@@ -1577,7 +1577,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
     					ef.Dm = QStoInt(pdfF.attribute("Dm"));
     					ef.M = QStoInt(pdfF.attribute("M"));
 		    			ef.Di = QStoInt(pdfF.attribute("Di"));
-						doc->PDF_Optionen.PresentVals.append(ef);
+						doc->PDF_Options.PresentVals.append(ef);
 					}
 					PFO = PFO.nextSibling();
 				}
@@ -2756,66 +2756,66 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		dc.appendChild(la);
 	}
 	QDomElement pdf = docu.createElement("PDF");
-	pdf.setAttribute("Thumbnails", static_cast<int>(doc->PDF_Optionen.Thumbnails));
-	pdf.setAttribute("Articles", static_cast<int>(doc->PDF_Optionen.Articles));
-	pdf.setAttribute("Bookmarks", static_cast<int>(doc->PDF_Optionen.Bookmarks));
-	pdf.setAttribute("Compress", static_cast<int>(doc->PDF_Optionen.Compress));
-	pdf.setAttribute("CMethod", doc->PDF_Optionen.CompressMethod);
-	pdf.setAttribute("Quality", doc->PDF_Optionen.Quality);
-	pdf.setAttribute("MirrorH", static_cast<int>(doc->PDF_Optionen.MirrorH));
-	pdf.setAttribute("MirrorV", static_cast<int>(doc->PDF_Optionen.MirrorV));
-	pdf.setAttribute("RotateDeg", static_cast<int>(doc->PDF_Optionen.RotateDeg));
-	pdf.setAttribute("PresentMode", static_cast<int>(doc->PDF_Optionen.PresentMode));
-	pdf.setAttribute("RecalcPic", static_cast<int>(doc->PDF_Optionen.RecalcPic));
-	pdf.setAttribute("Grayscale", static_cast<int>(doc->PDF_Optionen.isGrayscale));
-	pdf.setAttribute("RGBMode", static_cast<int>(doc->PDF_Optionen.UseRGB));
-	pdf.setAttribute("UseProfiles", static_cast<int>(doc->PDF_Optionen.UseProfiles));
-	pdf.setAttribute("UseProfiles2", static_cast<int>(doc->PDF_Optionen.UseProfiles2));
-	pdf.setAttribute("Binding", doc->PDF_Optionen.Binding);
-	pdf.setAttribute("PicRes", doc->PDF_Optionen.PicRes);
-	pdf.setAttribute("Resolution", doc->PDF_Optionen.Resolution);
-	pdf.setAttribute("Version", doc->PDF_Optionen.Version);
-	pdf.setAttribute("Intent", doc->PDF_Optionen.Intent);
-	pdf.setAttribute("Intent2", doc->PDF_Optionen.Intent2);
-	pdf.setAttribute("SolidP", doc->PDF_Optionen.SolidProf);
-	pdf.setAttribute("ImageP", doc->PDF_Optionen.ImageProf);
-	pdf.setAttribute("PrintP", doc->PDF_Optionen.PrintProf);
-	pdf.setAttribute("InfoString", doc->PDF_Optionen.Info);
-	pdf.setAttribute("BTop", doc->PDF_Optionen.BleedTop);
-	pdf.setAttribute("BLeft", doc->PDF_Optionen.BleedLeft);
-	pdf.setAttribute("BRight", doc->PDF_Optionen.BleedRight);
-	pdf.setAttribute("BBottom", doc->PDF_Optionen.BleedBottom);
-	pdf.setAttribute("ImagePr", static_cast<int>(doc->PDF_Optionen.EmbeddedI));
-	pdf.setAttribute("PassOwner", doc->PDF_Optionen.PassOwner);
-	pdf.setAttribute("PassUser", doc->PDF_Optionen.PassUser);
-	pdf.setAttribute("Permissions", doc->PDF_Optionen.Permissions);
-	pdf.setAttribute("Encrypt", static_cast<int>(doc->PDF_Optionen.Encrypt));
-	pdf.setAttribute("UseLpi", static_cast<int>(doc->PDF_Optionen.UseLPI));
-	for (uint pdoF = 0; pdoF < doc->PDF_Optionen.EmbedList.count(); ++pdoF)
+	pdf.setAttribute("Thumbnails", static_cast<int>(doc->PDF_Options.Thumbnails));
+	pdf.setAttribute("Articles", static_cast<int>(doc->PDF_Options.Articles));
+	pdf.setAttribute("Bookmarks", static_cast<int>(doc->PDF_Options.Bookmarks));
+	pdf.setAttribute("Compress", static_cast<int>(doc->PDF_Options.Compress));
+	pdf.setAttribute("CMethod", doc->PDF_Options.CompressMethod);
+	pdf.setAttribute("Quality", doc->PDF_Options.Quality);
+	pdf.setAttribute("MirrorH", static_cast<int>(doc->PDF_Options.MirrorH));
+	pdf.setAttribute("MirrorV", static_cast<int>(doc->PDF_Options.MirrorV));
+	pdf.setAttribute("RotateDeg", static_cast<int>(doc->PDF_Options.RotateDeg));
+	pdf.setAttribute("PresentMode", static_cast<int>(doc->PDF_Options.PresentMode));
+	pdf.setAttribute("RecalcPic", static_cast<int>(doc->PDF_Options.RecalcPic));
+	pdf.setAttribute("Grayscale", static_cast<int>(doc->PDF_Options.isGrayscale));
+	pdf.setAttribute("RGBMode", static_cast<int>(doc->PDF_Options.UseRGB));
+	pdf.setAttribute("UseProfiles", static_cast<int>(doc->PDF_Options.UseProfiles));
+	pdf.setAttribute("UseProfiles2", static_cast<int>(doc->PDF_Options.UseProfiles2));
+	pdf.setAttribute("Binding", doc->PDF_Options.Binding);
+	pdf.setAttribute("PicRes", doc->PDF_Options.PicRes);
+	pdf.setAttribute("Resolution", doc->PDF_Options.Resolution);
+	pdf.setAttribute("Version", doc->PDF_Options.Version);
+	pdf.setAttribute("Intent", doc->PDF_Options.Intent);
+	pdf.setAttribute("Intent2", doc->PDF_Options.Intent2);
+	pdf.setAttribute("SolidP", doc->PDF_Options.SolidProf);
+	pdf.setAttribute("ImageP", doc->PDF_Options.ImageProf);
+	pdf.setAttribute("PrintP", doc->PDF_Options.PrintProf);
+	pdf.setAttribute("InfoString", doc->PDF_Options.Info);
+	pdf.setAttribute("BTop", doc->PDF_Options.BleedTop);
+	pdf.setAttribute("BLeft", doc->PDF_Options.BleedLeft);
+	pdf.setAttribute("BRight", doc->PDF_Options.BleedRight);
+	pdf.setAttribute("BBottom", doc->PDF_Options.BleedBottom);
+	pdf.setAttribute("ImagePr", static_cast<int>(doc->PDF_Options.EmbeddedI));
+	pdf.setAttribute("PassOwner", doc->PDF_Options.PassOwner);
+	pdf.setAttribute("PassUser", doc->PDF_Options.PassUser);
+	pdf.setAttribute("Permissions", doc->PDF_Options.Permissions);
+	pdf.setAttribute("Encrypt", static_cast<int>(doc->PDF_Options.Encrypt));
+	pdf.setAttribute("UseLpi", static_cast<int>(doc->PDF_Options.UseLPI));
+	for (uint pdoF = 0; pdoF < doc->PDF_Options.EmbedList.count(); ++pdoF)
 	{
 		QDomElement pdf2 = docu.createElement("Fonts");
-		pdf2.setAttribute("Name", doc->PDF_Optionen.EmbedList[pdoF]);
+		pdf2.setAttribute("Name", doc->PDF_Options.EmbedList[pdoF]);
 		pdf.appendChild(pdf2);
 	}
-	for (uint pdoS = 0; pdoS < doc->PDF_Optionen.SubsetList.count(); ++pdoS)
+	for (uint pdoS = 0; pdoS < doc->PDF_Options.SubsetList.count(); ++pdoS)
 	{
 		QDomElement pdf4 = docu.createElement("Subset");
-		pdf4.setAttribute("Name", doc->PDF_Optionen.SubsetList[pdoS]);
+		pdf4.setAttribute("Name", doc->PDF_Options.SubsetList[pdoS]);
 		pdf.appendChild(pdf4);
 	}
-	for (uint pdoE = 0; pdoE < doc->PDF_Optionen.PresentVals.count(); ++pdoE)
+	for (uint pdoE = 0; pdoE < doc->PDF_Options.PresentVals.count(); ++pdoE)
 	{
 		QDomElement pdf3 = docu.createElement("Effekte");
-		pdf3.setAttribute("pageEffectDuration", doc->PDF_Optionen.PresentVals[pdoE].pageEffectDuration);
-		pdf3.setAttribute("pageViewDuration", doc->PDF_Optionen.PresentVals[pdoE].pageViewDuration);
-		pdf3.setAttribute("effectType", doc->PDF_Optionen.PresentVals[pdoE].effectType);
-		pdf3.setAttribute("Dm", doc->PDF_Optionen.PresentVals[pdoE].Dm);
-		pdf3.setAttribute("M", doc->PDF_Optionen.PresentVals[pdoE].M);
-		pdf3.setAttribute("Di", doc->PDF_Optionen.PresentVals[pdoE].Di);
+		pdf3.setAttribute("pageEffectDuration", doc->PDF_Options.PresentVals[pdoE].pageEffectDuration);
+		pdf3.setAttribute("pageViewDuration", doc->PDF_Options.PresentVals[pdoE].pageViewDuration);
+		pdf3.setAttribute("effectType", doc->PDF_Options.PresentVals[pdoE].effectType);
+		pdf3.setAttribute("Dm", doc->PDF_Options.PresentVals[pdoE].Dm);
+		pdf3.setAttribute("M", doc->PDF_Options.PresentVals[pdoE].M);
+		pdf3.setAttribute("Di", doc->PDF_Options.PresentVals[pdoE].Di);
 		pdf.appendChild(pdf3);
 	}
 	QMap<QString,LPIData>::Iterator itlp;
-	for (itlp = doc->PDF_Optionen.LPISettings.begin(); itlp != doc->PDF_Optionen.LPISettings.end(); ++itlp)
+	for (itlp = doc->PDF_Options.LPISettings.begin(); itlp != doc->PDF_Options.LPISettings.end(); ++itlp)
 	{
 		QDomElement pdf4 = docu.createElement("LPI");
 		pdf4.setAttribute("Color", itlp.key());
@@ -2987,15 +2987,15 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	elem.appendChild(dc75);
 	QDomElement dc76=docu.createElement("DOKUMENT");
 	dc76.setAttribute("PAGESIZE",Vor->pageSize);
-	dc76.setAttribute("AUSRICHTUNG",Vor->Ausrichtung);
-	dc76.setAttribute("BREITE",Vor->PageBreite);
-	dc76.setAttribute("HOEHE",Vor->PageHoehe);
+	dc76.setAttribute("AUSRICHTUNG",Vor->pageOrientation);
+	dc76.setAttribute("BREITE",Vor->PageWidth);
+	dc76.setAttribute("HOEHE",Vor->PageHeight);
 	dc76.setAttribute("RANDO",Vor->RandOben);
 	dc76.setAttribute("RANDU",Vor->RandUnten);
 	dc76.setAttribute("RANDL",Vor->RandLinks);
 	dc76.setAttribute("RANDR",Vor->RandRechts);
-	dc76.setAttribute("DOPPEL", static_cast<int>(Vor->DoppelSeiten));
-	dc76.setAttribute("LINKS", static_cast<int>(Vor->ErsteLinks));
+	dc76.setAttribute("DOPPEL", static_cast<int>(Vor->FacingPages));
+	dc76.setAttribute("LINKS", static_cast<int>(Vor->LeftPageFirst));
 	dc76.setAttribute("AutoSave", static_cast<int>(Vor->AutoSave));
 	dc76.setAttribute("AutoSaveTime", Vor->AutoSaveTime);
 	elem.appendChild(dc76);
@@ -3051,8 +3051,8 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	QDomElement dc8Ex = docu.createElement("EXTERNAL");
 	dc8Ex.setAttribute("GIMP", Vor->gimp_exe);
 	dc8Ex.setAttribute("GS", Vor->gs_exe);
-	dc8Ex.setAttribute("AlphaGraphics", static_cast<int>(Vor->gs_antiGraph));
-	dc8Ex.setAttribute("AlphaText", static_cast<int>(Vor->gs_antiText));
+	dc8Ex.setAttribute("AlphaGraphics", static_cast<int>(Vor->gs_AntiAliasGraphics));
+	dc8Ex.setAttribute("AlphaText", static_cast<int>(Vor->gs_AntiAliasText));
 	elem.appendChild(dc8Ex);
 	QDomElement rde=docu.createElement("HYPHEN");
 	rde.setAttribute("LANG", Vor->Language);
@@ -3110,43 +3110,43 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	cosd.setAttribute("NAME",Vor->DColorSet);
 	elem.appendChild(cosd);
 	QDomElement pdf = docu.createElement("PDF");
-	pdf.setAttribute("Thumbnails", static_cast<int>(Vor->PDF_Optionen.Thumbnails));
-	pdf.setAttribute("Articles", static_cast<int>(Vor->PDF_Optionen.Articles));
-	pdf.setAttribute("Bookmarks", static_cast<int>(Vor->PDF_Optionen.Bookmarks));
-	pdf.setAttribute("Compress", static_cast<int>(Vor->PDF_Optionen.Compress));
-	pdf.setAttribute("CMethod", Vor->PDF_Optionen.CompressMethod);
-	pdf.setAttribute("Quality", Vor->PDF_Optionen.Quality);
-	pdf.setAttribute("MirrorH", static_cast<int>(Vor->PDF_Optionen.MirrorH));
-	pdf.setAttribute("MirrorV", static_cast<int>(Vor->PDF_Optionen.MirrorV));
-	pdf.setAttribute("RotateDeg", static_cast<int>(Vor->PDF_Optionen.RotateDeg));
-	pdf.setAttribute("PresentMode", static_cast<int>(Vor->PDF_Optionen.PresentMode));
-	pdf.setAttribute("RecalcPic", static_cast<int>(Vor->PDF_Optionen.RecalcPic));
-	pdf.setAttribute("Grayscale", static_cast<int>(Vor->PDF_Optionen.isGrayscale));
-	pdf.setAttribute("RGBMode", static_cast<int>(Vor->PDF_Optionen.UseRGB));
-	pdf.setAttribute("UseProfiles", static_cast<int>(Vor->PDF_Optionen.UseProfiles));
-	pdf.setAttribute("UseProfiles2", static_cast<int>(Vor->PDF_Optionen.UseProfiles2));
-	pdf.setAttribute("Binding", Vor->PDF_Optionen.Binding);
-	pdf.setAttribute("PicRes", Vor->PDF_Optionen.PicRes);
-	pdf.setAttribute("Resolution", Vor->PDF_Optionen.Resolution);
-	pdf.setAttribute("Version", Vor->PDF_Optionen.Version);
-	pdf.setAttribute("Intent", Vor->PDF_Optionen.Intent);
-	pdf.setAttribute("Intent2", Vor->PDF_Optionen.Intent2);
-	pdf.setAttribute("SolidP", Vor->PDF_Optionen.SolidProf);
-	pdf.setAttribute("ImageP", Vor->PDF_Optionen.ImageProf);
-	pdf.setAttribute("PrintP", Vor->PDF_Optionen.PrintProf);
-	pdf.setAttribute("InfoString", Vor->PDF_Optionen.Info);
-	pdf.setAttribute("BTop", Vor->PDF_Optionen.BleedTop);
-	pdf.setAttribute("BLeft", Vor->PDF_Optionen.BleedLeft);
-	pdf.setAttribute("BRight", Vor->PDF_Optionen.BleedRight);
-	pdf.setAttribute("BBottom", Vor->PDF_Optionen.BleedBottom);
-	pdf.setAttribute("ImagePr", static_cast<int>(Vor->PDF_Optionen.EmbeddedI));
-	pdf.setAttribute("PassOwner", Vor->PDF_Optionen.PassOwner);
-	pdf.setAttribute("PassUser", Vor->PDF_Optionen.PassUser);
-	pdf.setAttribute("Permissions", Vor->PDF_Optionen.Permissions);
-	pdf.setAttribute("Encrypt", static_cast<int>(Vor->PDF_Optionen.Encrypt));
-	pdf.setAttribute("UseLpi", static_cast<int>(Vor->PDF_Optionen.UseLPI));
+	pdf.setAttribute("Thumbnails", static_cast<int>(Vor->PDF_Options.Thumbnails));
+	pdf.setAttribute("Articles", static_cast<int>(Vor->PDF_Options.Articles));
+	pdf.setAttribute("Bookmarks", static_cast<int>(Vor->PDF_Options.Bookmarks));
+	pdf.setAttribute("Compress", static_cast<int>(Vor->PDF_Options.Compress));
+	pdf.setAttribute("CMethod", Vor->PDF_Options.CompressMethod);
+	pdf.setAttribute("Quality", Vor->PDF_Options.Quality);
+	pdf.setAttribute("MirrorH", static_cast<int>(Vor->PDF_Options.MirrorH));
+	pdf.setAttribute("MirrorV", static_cast<int>(Vor->PDF_Options.MirrorV));
+	pdf.setAttribute("RotateDeg", static_cast<int>(Vor->PDF_Options.RotateDeg));
+	pdf.setAttribute("PresentMode", static_cast<int>(Vor->PDF_Options.PresentMode));
+	pdf.setAttribute("RecalcPic", static_cast<int>(Vor->PDF_Options.RecalcPic));
+	pdf.setAttribute("Grayscale", static_cast<int>(Vor->PDF_Options.isGrayscale));
+	pdf.setAttribute("RGBMode", static_cast<int>(Vor->PDF_Options.UseRGB));
+	pdf.setAttribute("UseProfiles", static_cast<int>(Vor->PDF_Options.UseProfiles));
+	pdf.setAttribute("UseProfiles2", static_cast<int>(Vor->PDF_Options.UseProfiles2));
+	pdf.setAttribute("Binding", Vor->PDF_Options.Binding);
+	pdf.setAttribute("PicRes", Vor->PDF_Options.PicRes);
+	pdf.setAttribute("Resolution", Vor->PDF_Options.Resolution);
+	pdf.setAttribute("Version", Vor->PDF_Options.Version);
+	pdf.setAttribute("Intent", Vor->PDF_Options.Intent);
+	pdf.setAttribute("Intent2", Vor->PDF_Options.Intent2);
+	pdf.setAttribute("SolidP", Vor->PDF_Options.SolidProf);
+	pdf.setAttribute("ImageP", Vor->PDF_Options.ImageProf);
+	pdf.setAttribute("PrintP", Vor->PDF_Options.PrintProf);
+	pdf.setAttribute("InfoString", Vor->PDF_Options.Info);
+	pdf.setAttribute("BTop", Vor->PDF_Options.BleedTop);
+	pdf.setAttribute("BLeft", Vor->PDF_Options.BleedLeft);
+	pdf.setAttribute("BRight", Vor->PDF_Options.BleedRight);
+	pdf.setAttribute("BBottom", Vor->PDF_Options.BleedBottom);
+	pdf.setAttribute("ImagePr", static_cast<int>(Vor->PDF_Options.EmbeddedI));
+	pdf.setAttribute("PassOwner", Vor->PDF_Options.PassOwner);
+	pdf.setAttribute("PassUser", Vor->PDF_Options.PassUser);
+	pdf.setAttribute("Permissions", Vor->PDF_Options.Permissions);
+	pdf.setAttribute("Encrypt", static_cast<int>(Vor->PDF_Options.Encrypt));
+	pdf.setAttribute("UseLpi", static_cast<int>(Vor->PDF_Options.UseLPI));
 	QMap<QString,LPIData>::Iterator itlp;
-	for (itlp = Vor->PDF_Optionen.LPISettings.begin(); itlp != Vor->PDF_Optionen.LPISettings.end(); ++itlp)
+	for (itlp = Vor->PDF_Options.LPISettings.begin(); itlp != Vor->PDF_Options.LPISettings.end(); ++itlp)
 	{
 		QDomElement pdf4 = docu.createElement("LPI");
 		pdf4.setAttribute("Color", itlp.key());
@@ -3298,15 +3298,15 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 		if (dc.tagName() == "DOKUMENT")
 		{
 			Vorein->pageSize = dc.attribute("PAGESIZE","A4");
-			Vorein->Ausrichtung = QStoInt(dc.attribute("AUSRICHTUNG","0"));
-			Vorein->PageBreite = QStodouble(dc.attribute("BREITE","595"));
-			Vorein->PageHoehe = QStodouble(dc.attribute("HOEHE","842"));
+			Vorein->pageOrientation = QStoInt(dc.attribute("AUSRICHTUNG","0"));
+			Vorein->PageWidth = QStodouble(dc.attribute("BREITE","595"));
+			Vorein->PageHeight = QStodouble(dc.attribute("HOEHE","842"));
 			Vorein->RandOben = QStodouble(dc.attribute("RANDO","9"));
 			Vorein->RandUnten = QStodouble(dc.attribute("RANDU","40"));
 			Vorein->RandLinks = QStodouble(dc.attribute("RANDL","9"));
 			Vorein->RandRechts = QStodouble(dc.attribute("RANDR","9"));
-			Vorein->DoppelSeiten = static_cast<bool>(QStoInt(dc.attribute("DOPPEL","0")));
-			Vorein->ErsteLinks = static_cast<bool>(QStoInt(dc.attribute("LINKS","0")));
+			Vorein->FacingPages = static_cast<bool>(QStoInt(dc.attribute("DOPPEL","0")));
+			Vorein->LeftPageFirst = static_cast<bool>(QStoInt(dc.attribute("LINKS","0")));
 			Vorein->AutoSave = static_cast<bool>(QStoInt(dc.attribute("AutoSave","0")));
 			Vorein->AutoSaveTime = QStoInt(dc.attribute("AutoSaveTime","600000"));
 		}
@@ -3375,8 +3375,8 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 		if (dc.tagName()=="EXTERNAL")
 		{
 			Vorein->gs_exe = dc.attribute("GS", "gs");
-			Vorein->gs_antiText = static_cast<bool>(QStoInt(dc.attribute("AlphaText", "0")));
-			Vorein->gs_antiGraph = static_cast<bool>(QStoInt(dc.attribute("AlphaGraphics", "0")));
+			Vorein->gs_AntiAliasText = static_cast<bool>(QStoInt(dc.attribute("AlphaText", "0")));
+			Vorein->gs_AntiAliasGraphics = static_cast<bool>(QStoInt(dc.attribute("AlphaGraphics", "0")));
 			Vorein->gimp_exe = dc.attribute("GIMP", "gimp");
 		}
 		if (dc.tagName()=="HYPHEN")
@@ -3433,42 +3433,42 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->DColorSet = dc.attribute("NAME");
 		if(dc.tagName()=="PDF")
 		{
-			Vorein->PDF_Optionen.Articles = static_cast<bool>(QStoInt(dc.attribute("Articles")));
-			Vorein->PDF_Optionen.Thumbnails = static_cast<bool>(QStoInt(dc.attribute("Thumbnails")));
-			Vorein->PDF_Optionen.Compress = static_cast<bool>(QStoInt(dc.attribute("Compress")));
-			Vorein->PDF_Optionen.CompressMethod = QStoInt(dc.attribute("CMethod","0"));
-			Vorein->PDF_Optionen.Quality = QStoInt(dc.attribute("Quality","0"));
-			Vorein->PDF_Optionen.RecalcPic = static_cast<bool>(QStoInt(dc.attribute("RecalcPic")));
-			Vorein->PDF_Optionen.Bookmarks = static_cast<bool>(QStoInt(dc.attribute("Bookmarks")));
-			Vorein->PDF_Optionen.MirrorH = static_cast<bool>(QStoInt(dc.attribute("MirrorH")));
-			Vorein->PDF_Optionen.MirrorV = static_cast<bool>(QStoInt(dc.attribute("MirrorV")));
-			Vorein->PDF_Optionen.RotateDeg = QStoInt(dc.attribute("RotateDeg","0"));
-			Vorein->PDF_Optionen.PresentMode = static_cast<bool>(QStoInt(dc.attribute("PresentMode")));
-			Vorein->PDF_Optionen.PicRes = QStoInt(dc.attribute("PicRes"));
-			Vorein->PDF_Optionen.Version = QStoInt(dc.attribute("Version"));
-			Vorein->PDF_Optionen.Resolution = QStoInt(dc.attribute("Resolution"));
-			Vorein->PDF_Optionen.Binding = QStoInt(dc.attribute("Binding"));
-			Vorein->PDF_Optionen.Datei = "";
-			Vorein->PDF_Optionen.isGrayscale = static_cast<bool>(QStoInt(dc.attribute("Grayscale","0")));
-			Vorein->PDF_Optionen.UseRGB = static_cast<bool>(QStoInt(dc.attribute("RGBMode","0")));
-			Vorein->PDF_Optionen.UseProfiles = static_cast<bool>(QStoInt(dc.attribute("UseProfiles","0")));
-			Vorein->PDF_Optionen.UseProfiles2 = static_cast<bool>(QStoInt(dc.attribute("UseProfiles2","0")));
-			Vorein->PDF_Optionen.Intent = QStoInt(dc.attribute("Intent","1"));
-			Vorein->PDF_Optionen.Intent2 = QStoInt(dc.attribute("Intent2","1"));
-			Vorein->PDF_Optionen.SolidProf = dc.attribute("SolidP", "");
-			Vorein->PDF_Optionen.ImageProf = dc.attribute("ImageP", "");
-			Vorein->PDF_Optionen.PrintProf = dc.attribute("PrintP", "");
-			Vorein->PDF_Optionen.Info = dc.attribute("InfoString", "");
-			Vorein->PDF_Optionen.BleedTop = QStodouble(dc.attribute("BTop","0"));
-			Vorein->PDF_Optionen.BleedLeft = QStodouble(dc.attribute("BLeft","0"));
-			Vorein->PDF_Optionen.BleedRight = QStodouble(dc.attribute("BRight","0"));
-			Vorein->PDF_Optionen.BleedBottom = QStodouble(dc.attribute("BBottom","0"));
-			Vorein->PDF_Optionen.EmbeddedI = static_cast<bool>(QStoInt(dc.attribute("ImagePr","0")));
-			Vorein->PDF_Optionen.PassOwner = dc.attribute("PassOwner", "");
-			Vorein->PDF_Optionen.PassUser = dc.attribute("PassUser", "");
-			Vorein->PDF_Optionen.Permissions = QStoInt(dc.attribute("Permissions","-4"));
-			Vorein->PDF_Optionen.Encrypt = static_cast<bool>(QStoInt(dc.attribute("Encrypt","0")));
-			Vorein->PDF_Optionen.UseLPI = static_cast<bool>(QStoInt(dc.attribute("UseLpi","0")));
+			Vorein->PDF_Options.Articles = static_cast<bool>(QStoInt(dc.attribute("Articles")));
+			Vorein->PDF_Options.Thumbnails = static_cast<bool>(QStoInt(dc.attribute("Thumbnails")));
+			Vorein->PDF_Options.Compress = static_cast<bool>(QStoInt(dc.attribute("Compress")));
+			Vorein->PDF_Options.CompressMethod = QStoInt(dc.attribute("CMethod","0"));
+			Vorein->PDF_Options.Quality = QStoInt(dc.attribute("Quality","0"));
+			Vorein->PDF_Options.RecalcPic = static_cast<bool>(QStoInt(dc.attribute("RecalcPic")));
+			Vorein->PDF_Options.Bookmarks = static_cast<bool>(QStoInt(dc.attribute("Bookmarks")));
+			Vorein->PDF_Options.MirrorH = static_cast<bool>(QStoInt(dc.attribute("MirrorH")));
+			Vorein->PDF_Options.MirrorV = static_cast<bool>(QStoInt(dc.attribute("MirrorV")));
+			Vorein->PDF_Options.RotateDeg = QStoInt(dc.attribute("RotateDeg","0"));
+			Vorein->PDF_Options.PresentMode = static_cast<bool>(QStoInt(dc.attribute("PresentMode")));
+			Vorein->PDF_Options.PicRes = QStoInt(dc.attribute("PicRes"));
+			Vorein->PDF_Options.Version = QStoInt(dc.attribute("Version"));
+			Vorein->PDF_Options.Resolution = QStoInt(dc.attribute("Resolution"));
+			Vorein->PDF_Options.Binding = QStoInt(dc.attribute("Binding"));
+			Vorein->PDF_Options.Datei = "";
+			Vorein->PDF_Options.isGrayscale = static_cast<bool>(QStoInt(dc.attribute("Grayscale","0")));
+			Vorein->PDF_Options.UseRGB = static_cast<bool>(QStoInt(dc.attribute("RGBMode","0")));
+			Vorein->PDF_Options.UseProfiles = static_cast<bool>(QStoInt(dc.attribute("UseProfiles","0")));
+			Vorein->PDF_Options.UseProfiles2 = static_cast<bool>(QStoInt(dc.attribute("UseProfiles2","0")));
+			Vorein->PDF_Options.Intent = QStoInt(dc.attribute("Intent","1"));
+			Vorein->PDF_Options.Intent2 = QStoInt(dc.attribute("Intent2","1"));
+			Vorein->PDF_Options.SolidProf = dc.attribute("SolidP", "");
+			Vorein->PDF_Options.ImageProf = dc.attribute("ImageP", "");
+			Vorein->PDF_Options.PrintProf = dc.attribute("PrintP", "");
+			Vorein->PDF_Options.Info = dc.attribute("InfoString", "");
+			Vorein->PDF_Options.BleedTop = QStodouble(dc.attribute("BTop","0"));
+			Vorein->PDF_Options.BleedLeft = QStodouble(dc.attribute("BLeft","0"));
+			Vorein->PDF_Options.BleedRight = QStodouble(dc.attribute("BRight","0"));
+			Vorein->PDF_Options.BleedBottom = QStodouble(dc.attribute("BBottom","0"));
+			Vorein->PDF_Options.EmbeddedI = static_cast<bool>(QStoInt(dc.attribute("ImagePr","0")));
+			Vorein->PDF_Options.PassOwner = dc.attribute("PassOwner", "");
+			Vorein->PDF_Options.PassUser = dc.attribute("PassUser", "");
+			Vorein->PDF_Options.Permissions = QStoInt(dc.attribute("Permissions","-4"));
+			Vorein->PDF_Options.Encrypt = static_cast<bool>(QStoInt(dc.attribute("Encrypt","0")));
+			Vorein->PDF_Options.UseLPI = static_cast<bool>(QStoInt(dc.attribute("UseLpi","0")));
 			QDomNode PFO = DOC.firstChild();
 			while(!PFO.isNull())
 			{
@@ -3479,7 +3479,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 					lpo.Angle = QStoInt(pdfF.attribute("Angle"));
 					lpo.Frequency = QStoInt(pdfF.attribute("Frequency"));
 					lpo.SpotFunc = QStoInt(pdfF.attribute("SpotFunction"));
-					Vorein->PDF_Optionen.LPISettings[pdfF.attribute("Color")] = lpo;
+					Vorein->PDF_Options.LPISettings[pdfF.attribute("Color")] = lpo;
 				}
 				PFO = PFO.nextSibling();
 			}

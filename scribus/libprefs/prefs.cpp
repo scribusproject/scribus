@@ -235,7 +235,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	GZComboO->insertItem( tr( "Portrait" ) );
 	GZComboO->insertItem( tr( "Landscape" ) );
 	GZComboO->setEditable(false);
-	GZComboO->setCurrentItem(prefsData->Ausrichtung);
+	GZComboO->setCurrentItem(prefsData->pageOrientation);
 	GZText2 = new QLabel( GZComboO, tr( "Orie&ntation:" ), GroupSize, "GZText2" );
 	Layout6->addWidget( GZText2, 1, 0 );
 	Layout6->addWidget( GZComboO, 1, 1 );
@@ -254,7 +254,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	pageWidth = new MSpinBox( 1, 10000, GroupSize, decimals );
 	pageWidth->setEnabled( false );
 	pageWidth->setMinimumSize( QSize( 70, 20 ) );
-	pageWidth->setValue(prefsData->PageBreite * Umrech);
+	pageWidth->setValue(prefsData->PageWidth * Umrech);
 	GZText3 = new QLabel( pageWidth, tr( "&Width:" ), GroupSize, "GZText3" );
 	Layout5_2->addWidget( GZText3 );
 	Layout5_2->addWidget( pageWidth );
@@ -262,7 +262,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	pageHeight = new MSpinBox( 1, 10000, GroupSize, decimals );
 	pageHeight->setEnabled( false );
 	pageHeight->setMinimumSize( QSize( 70, 20 ) );
-	pageHeight->setValue(prefsData->PageHoehe * Umrech);
+	pageHeight->setValue(prefsData->PageHeight * Umrech);
 	GZText4 = new QLabel( pageHeight, tr( "&Height:" ), GroupSize, "GZText4" );
 	Layout5_2->addWidget( GZText4 );
 	Layout5_2->addWidget( pageHeight );
@@ -272,11 +272,11 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	Layout8 = new QHBoxLayout( 0, 0, 6, "Layout8");
 
 	facingPages = new QCheckBox( tr( "&Facing Pages" ), GroupSize, "facingPages" );
-	facingPages->setChecked(prefsData->DoppelSeiten);
+	facingPages->setChecked(prefsData->FacingPages);
 	Layout8->addWidget( facingPages );
 
 	Linkszuerst = new QCheckBox( tr( "Left &Page First" ), GroupSize, "Linkszuerst" );
-	Linkszuerst->setChecked(prefsData->ErsteLinks);
+	Linkszuerst->setChecked(prefsData->LeftPageFirst);
 	if (!facingPages->isChecked())
 		Linkszuerst->setEnabled(false);
 	Layout8->addWidget( Linkszuerst );
@@ -394,15 +394,15 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	QMap<QString,QFont> DocFonts;
 	DocFonts.clear();
 	tabPDF = new TabPDFOptions( prefsWidgets,
-								&prefsData->PDF_Optionen,
+								&prefsData->PDF_Options,
 								ap->Prefs.AvailFonts,
 								&ap->PDFXProfiles,
 								DocFonts,
-								prefsData->PDF_Optionen.PresentVals,
+								prefsData->PDF_Options.PresentVals,
 								Umrech,
 								unitGetSuffixFromIndex(prefsData->docUnitIndex),
-								prefsData->PageHoehe,
-								prefsData->PageBreite,
+								prefsData->PageHeight,
+								prefsData->PageWidth,
 								0 );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 
@@ -585,10 +585,10 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	GSlayout->addWidget( GSName );
 	groupGSLayout->addLayout( GSlayout );
 	GSantiText = new QCheckBox( tr( "Antialias &Text" ), groupGS, "GSantiText" );
-	GSantiText->setChecked(prefsData->gs_antiText);
+	GSantiText->setChecked(prefsData->gs_AntiAliasText);
 	groupGSLayout->addWidget( GSantiText );
 	GSantiGraph = new QCheckBox( tr( "Antialias &Graphics" ), groupGS, "GSantiGraph" );
-	GSantiGraph->setChecked(prefsData->gs_antiGraph);
+	GSantiGraph->setChecked(prefsData->gs_AntiAliasGraphics);
 	groupGSLayout->addWidget( GSantiGraph );
 	ExtToolLayout->addWidget( groupGS );
 	groupGimp = new QGroupBox( tr( "Image Processing Tool" ), ExtTool, "groupGimp" );
@@ -762,10 +762,10 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 		connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
 	
 	setSize(prefsData->pageSize);
-	setOrien(prefsData->Ausrichtung);
+	setOrien(prefsData->pageOrientation);
 	
-	pageWidth->setValue(prefsData->PageBreite * Umrech);
-	pageHeight->setValue(prefsData->PageHoehe * Umrech);
+	pageWidth->setValue(prefsData->PageWidth * Umrech);
+	pageHeight->setValue(prefsData->PageHeight * Umrech);
 	
 	unitChange();
 	
@@ -974,7 +974,6 @@ void Preferences::setSize(const QString & gr)
 	PageSize *ps2=new PageSize(gr);
 
 	prefsPageSizeName=ps2->getPageName();
-	qDebug(prefsPageSizeName);
 	if (gr==tr("Custom"))
 	{
 		pageWidth->setEnabled(true);

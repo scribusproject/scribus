@@ -228,15 +228,15 @@ void KeyManager::keyPressEvent(QKeyEvent *k)
 		{
 			case Key_Shift:
 				Part3 = tr("Shift+");
-				keyCode |= 0x00200000;
+				keyCode |= SHIFT;
 				break;
 			case Key_Alt:
 				Part2 = tr("Alt+");
-				keyCode |= 0x00800000;
+				keyCode |= ALT;
 				break;
 			case Key_Control:
 				Part1 = tr("Ctrl+");
-				keyCode |= 0x00400000;
+				keyCode |= CTRL;
 				break;
 			default:
 				keyCode |= k->key();

@@ -273,11 +273,11 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		connect(fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
 		connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
 		connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
-		connect(this, SIGNAL(TextISize(int)), Mpal, SLOT(setSize(int)));
-		connect(this, SIGNAL(TextUSval(double)), Mpal, SLOT(setExtra(double)));
-		connect(this, SIGNAL(TextStil(int)), Mpal, SLOT(setStil(int)));
-		connect(this, SIGNAL(TextScale(int)), Mpal, SLOT(setTScale(int)));
-		connect(this, SIGNAL(TextFarben(QString, QString, int, int)), Mpal, SLOT(setActFarben(QString, QString, int, int)));
+		connect(this, SIGNAL(TextISize(int)), propertiesPalette, SLOT(setSize(int)));
+		connect(this, SIGNAL(TextUSval(double)), propertiesPalette, SLOT(setExtra(double)));
+		connect(this, SIGNAL(TextStil(int)), propertiesPalette, SLOT(setStil(int)));
+		connect(this, SIGNAL(TextScale(int)), propertiesPalette, SLOT(setTScale(int)));
+		connect(this, SIGNAL(TextFarben(QString, QString, int, int)), propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
 
 		initCrashHandler();
 	}
@@ -480,15 +480,15 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.RecentDCount = 5;
 	Prefs.marginColored = false;
 	Prefs.pageSize = "A4";
-	Prefs.Ausrichtung = 0;
-	Prefs.PageBreite = 595;
-	Prefs.PageHoehe = 842;
+	Prefs.pageOrientation = 0;
+	Prefs.PageWidth = 595;
+	Prefs.PageHeight = 842;
 	Prefs.RandOben = 9;
 	Prefs.RandUnten = 40;
 	Prefs.RandLinks = 9;
 	Prefs.RandRechts = 9;
-	Prefs.DoppelSeiten = false;
-	Prefs.ErsteLinks = false;
+	Prefs.FacingPages = false;
+	Prefs.LeftPageFirst = false;
 	Prefs.toolSettings.scaleType = true;
 	Prefs.toolSettings.aspectRatio = true;
 	Prefs.MinWordLen = 3;
@@ -514,8 +514,8 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.PrPr_Y = true;
 	Prefs.PrPr_K = true;
 	Prefs.gimp_exe = "gimp";
-	Prefs.gs_antiGraph = true;
-	Prefs.gs_antiText = true;
+	Prefs.gs_AntiAliasGraphics = true;
+	Prefs.gs_AntiAliasText = true;
 	Prefs.gs_exe = "gs";
 	Prefs.STEcolor = QColor(white);
 	Prefs.STEfont = font().toString();
@@ -557,47 +557,47 @@ void ScribusApp::initDefaultPrefs()
 	checkerSettings.minResolution = 144.0;
 	Prefs.checkerProfiles.insert( tr("PDF/X-3"), checkerSettings);
 	Prefs.curCheckProfile = tr("Postscript");
-	Prefs.PDF_Optionen.Thumbnails = false;
-	Prefs.PDF_Optionen.Articles = false;
-	Prefs.PDF_Optionen.Compress = true;
-	Prefs.PDF_Optionen.CompressMethod = 0;
-	Prefs.PDF_Optionen.Quality = 0;
-	Prefs.PDF_Optionen.RecalcPic = false;
-	Prefs.PDF_Optionen.Bookmarks = false;
-	Prefs.PDF_Optionen.PicRes = 300;
-	Prefs.PDF_Optionen.Version = 14;
-	Prefs.PDF_Optionen.Resolution = 300;
-	Prefs.PDF_Optionen.Binding = 0;
-	Prefs.PDF_Optionen.EmbedList.clear();
-	Prefs.PDF_Optionen.SubsetList.clear();
-	Prefs.PDF_Optionen.MirrorH = false;
-	Prefs.PDF_Optionen.MirrorV = false;
-	Prefs.PDF_Optionen.RotateDeg = 0;
-	Prefs.PDF_Optionen.PresentMode = false;
-	Prefs.PDF_Optionen.Datei = "";
-	Prefs.PDF_Optionen.PresentVals.clear();
-	Prefs.PDF_Optionen.isGrayscale = false;
-	Prefs.PDF_Optionen.UseRGB = true;
-	Prefs.PDF_Optionen.UseProfiles = false;
-	Prefs.PDF_Optionen.UseProfiles2 = false;
-	Prefs.PDF_Optionen.SolidProf = "";
-	Prefs.PDF_Optionen.SComp = 3;
-	Prefs.PDF_Optionen.ImageProf = "";
-	Prefs.PDF_Optionen.PrintProf = "";
-	Prefs.PDF_Optionen.Info = "";
-	Prefs.PDF_Optionen.Intent = 0;
-	Prefs.PDF_Optionen.Intent2 = 0;
-	Prefs.PDF_Optionen.BleedTop = 0;
-	Prefs.PDF_Optionen.BleedLeft = 0;
-	Prefs.PDF_Optionen.BleedRight = 0;
-	Prefs.PDF_Optionen.BleedBottom = 0;
-	Prefs.PDF_Optionen.EmbeddedI = false;
-	Prefs.PDF_Optionen.Encrypt = false;
-	Prefs.PDF_Optionen.PassOwner = "";
-	Prefs.PDF_Optionen.PassUser = "";
-	Prefs.PDF_Optionen.Permissions = -4;
-	Prefs.PDF_Optionen.UseLPI = false;
-	Prefs.PDF_Optionen.LPISettings.clear();
+	Prefs.PDF_Options.Thumbnails = false;
+	Prefs.PDF_Options.Articles = false;
+	Prefs.PDF_Options.Compress = true;
+	Prefs.PDF_Options.CompressMethod = 0;
+	Prefs.PDF_Options.Quality = 0;
+	Prefs.PDF_Options.RecalcPic = false;
+	Prefs.PDF_Options.Bookmarks = false;
+	Prefs.PDF_Options.PicRes = 300;
+	Prefs.PDF_Options.Version = 14;
+	Prefs.PDF_Options.Resolution = 300;
+	Prefs.PDF_Options.Binding = 0;
+	Prefs.PDF_Options.EmbedList.clear();
+	Prefs.PDF_Options.SubsetList.clear();
+	Prefs.PDF_Options.MirrorH = false;
+	Prefs.PDF_Options.MirrorV = false;
+	Prefs.PDF_Options.RotateDeg = 0;
+	Prefs.PDF_Options.PresentMode = false;
+	Prefs.PDF_Options.Datei = "";
+	Prefs.PDF_Options.PresentVals.clear();
+	Prefs.PDF_Options.isGrayscale = false;
+	Prefs.PDF_Options.UseRGB = true;
+	Prefs.PDF_Options.UseProfiles = false;
+	Prefs.PDF_Options.UseProfiles2 = false;
+	Prefs.PDF_Options.SolidProf = "";
+	Prefs.PDF_Options.SComp = 3;
+	Prefs.PDF_Options.ImageProf = "";
+	Prefs.PDF_Options.PrintProf = "";
+	Prefs.PDF_Options.Info = "";
+	Prefs.PDF_Options.Intent = 0;
+	Prefs.PDF_Options.Intent2 = 0;
+	Prefs.PDF_Options.BleedTop = 0;
+	Prefs.PDF_Options.BleedLeft = 0;
+	Prefs.PDF_Options.BleedRight = 0;
+	Prefs.PDF_Options.BleedBottom = 0;
+	Prefs.PDF_Options.EmbeddedI = false;
+	Prefs.PDF_Options.Encrypt = false;
+	Prefs.PDF_Options.PassOwner = "";
+	Prefs.PDF_Options.PassUser = "";
+	Prefs.PDF_Options.Permissions = -4;
+	Prefs.PDF_Options.UseLPI = false;
+	Prefs.PDF_Options.LPISettings.clear();
 }
 
 
@@ -719,59 +719,59 @@ void ScribusApp::initPalettes()
 {
 	//CB TODO hide the publicly available members of some palettes
 	// these must be filtered too as they take control of the palettes events
-	Tpal = new Tree(this, this);
-	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , Tpal, SLOT(setPaletteShown(bool)) );
-	connect( Tpal, SIGNAL(paletteShown(bool)), scrActions["toolsOutline"], SLOT(setOn(bool)));
-	Tpal->setPrefsContext("OutlinePalette");
-	Tpal->reportDisplay->installEventFilter(this);
-	Mpal = new Mpalette(this, &Prefs);
-	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , Mpal, SLOT(setPaletteShown(bool)) );
-	connect( Mpal, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setOn(bool)));
-	Mpal->setPrefsContext("PropertiesPalette");
-	Mpal->Cpal->SetColors(Prefs.DColors);
-	Mpal->Cpal->UseTrans(true);
-	Mpal->Fonts->RebuildList(&Prefs, 0);
-	Mpal->installEventFilter(this);
-	Npal = new NodePalette(this);
-	Npal->setPrefsContext("NodePalette");
-	Npal->installEventFilter(this);
+	outlinePalette = new Tree(this, this);
+	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , outlinePalette, SLOT(setPaletteShown(bool)) );
+	connect( outlinePalette, SIGNAL(paletteShown(bool)), scrActions["toolsOutline"], SLOT(setOn(bool)));
+	outlinePalette->setPrefsContext("OutlinePalette");
+	outlinePalette->reportDisplay->installEventFilter(this);
+	propertiesPalette = new Mpalette(this, &Prefs);
+	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(setPaletteShown(bool)) );
+	connect( propertiesPalette, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setOn(bool)));
+	propertiesPalette->setPrefsContext("PropertiesPalette");
+	propertiesPalette->Cpal->SetColors(Prefs.DColors);
+	propertiesPalette->Cpal->UseTrans(true);
+	propertiesPalette->Fonts->RebuildList(&Prefs, 0);
+	propertiesPalette->installEventFilter(this);
+	nodePalette = new NodePalette(this);
+	nodePalette->setPrefsContext("NodePalette");
+	nodePalette->installEventFilter(this);
 		
-	Lpal = new LayerPalette(this);
-	connect( scrActions["toolsLayers"], SIGNAL(toggled(bool)) , Lpal, SLOT(setPaletteShown(bool)) );
-	connect( Lpal, SIGNAL(paletteShown(bool)), scrActions["toolsLayers"], SLOT(setOn(bool)));
-	Lpal->setPrefsContext("LayerPalette");
-	Lpal->installEventFilter(this);
-	Lpal->Table->installEventFilter(this);
-	ScBook = new Biblio(this, &Prefs);
-	connect( scrActions["toolsScrapbook"], SIGNAL(toggled(bool)) , ScBook, SLOT(setPaletteShown(bool)) );
-	connect( ScBook, SIGNAL(paletteShown(bool)), scrActions["toolsScrapbook"], SLOT(setOn(bool)));
-	ScBook->setPrefsContext("ScrapbookPalette");
-	ScBook->installEventFilter(this);
-	ScBook->BibWin->installEventFilter(this);
-	Sepal = new SeitenPal(this);
-	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , Sepal, SLOT(setPaletteShown(bool)) );
-	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , this, SLOT(setSepal(bool)) );
-	connect( Sepal, SIGNAL(paletteShown(bool)), scrActions["toolsPages"], SLOT(setOn(bool)));
-	Sepal->setPrefsContext("PagePalette");
-	Sepal->installEventFilter(this);
-	BookPal = new BookPalette(this);
-	connect( scrActions["toolsBookmarks"], SIGNAL(toggled(bool)) , BookPal, SLOT(setPaletteShown(bool)) );
-	connect( BookPal, SIGNAL(paletteShown(bool)), scrActions["toolsBookmarks"], SLOT(setOn(bool)));
-	BookPal->setPrefsContext("BookmarkPalette");
-	BookPal->installEventFilter(this);
-	MaPal = new Measurements(this);
-	connect( scrActions["toolsMeasurements"], SIGNAL(toggled(bool)) , MaPal, SLOT(setPaletteShown(bool)) );
+	layerPalette = new LayerPalette(this);
+	connect( scrActions["toolsLayers"], SIGNAL(toggled(bool)) , layerPalette, SLOT(setPaletteShown(bool)) );
+	connect( layerPalette, SIGNAL(paletteShown(bool)), scrActions["toolsLayers"], SLOT(setOn(bool)));
+	layerPalette->setPrefsContext("LayerPalette");
+	layerPalette->installEventFilter(this);
+	layerPalette->Table->installEventFilter(this);
+	scrapbookPalette = new Biblio(this, &Prefs);
+	connect( scrActions["toolsScrapbook"], SIGNAL(toggled(bool)) , scrapbookPalette, SLOT(setPaletteShown(bool)) );
+	connect( scrapbookPalette, SIGNAL(paletteShown(bool)), scrActions["toolsScrapbook"], SLOT(setOn(bool)));
+	scrapbookPalette->setPrefsContext("ScrapbookPalette");
+	scrapbookPalette->installEventFilter(this);
+	scrapbookPalette->BibWin->installEventFilter(this);
+	pagePalette = new SeitenPal(this);
+	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , pagePalette, SLOT(setPaletteShown(bool)) );
+	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , this, SLOT(setPagePalette(bool)) );
+	connect( pagePalette, SIGNAL(paletteShown(bool)), scrActions["toolsPages"], SLOT(setOn(bool)));
+	pagePalette->setPrefsContext("PagePalette");
+	pagePalette->installEventFilter(this);
+	bookmarkPalette = new BookPalette(this);
+	connect( scrActions["toolsBookmarks"], SIGNAL(toggled(bool)) , bookmarkPalette, SLOT(setPaletteShown(bool)) );
+	connect( bookmarkPalette, SIGNAL(paletteShown(bool)), scrActions["toolsBookmarks"], SLOT(setOn(bool)));
+	bookmarkPalette->setPrefsContext("BookmarkPalette");
+	bookmarkPalette->installEventFilter(this);
+	measurementPalette = new Measurements(this);
+	connect( scrActions["toolsMeasurements"], SIGNAL(toggled(bool)) , measurementPalette, SLOT(setPaletteShown(bool)) );
 	connect( scrActions["toolsMeasurements"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	connect( MaPal, SIGNAL(paletteShown(bool)), scrActions["toolsMeasurements"], SLOT(setOn(bool)));
-	MaPal->setPrefsContext("MeasurementPalette");
-	MaPal->installEventFilter(this);
-	MaPal->hide();
-	docChecker = new CheckDocument(this, false);
-	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , docChecker, SLOT(setPaletteShown(bool)) );
-	connect( docChecker, SIGNAL(paletteShown(bool)), scrActions["toolsPreflightVerifier"], SLOT(setOn(bool)));
-	docChecker->setPrefsContext("DocCheckerPalette");
-	docChecker->installEventFilter(this);
-	docChecker->hide();
+	connect( measurementPalette, SIGNAL(paletteShown(bool)), scrActions["toolsMeasurements"], SLOT(setOn(bool)));
+	measurementPalette->setPrefsContext("MeasurementPalette");
+	measurementPalette->installEventFilter(this);
+	measurementPalette->hide();
+	docCheckerPalette = new CheckDocument(this, false);
+	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , docCheckerPalette, SLOT(setPaletteShown(bool)) );
+	connect( docCheckerPalette, SIGNAL(paletteShown(bool)), scrActions["toolsPreflightVerifier"], SLOT(setOn(bool)));
+	docCheckerPalette->setPrefsContext("DocCheckerPalette");
+	docCheckerPalette->installEventFilter(this);
+	docCheckerPalette->hide();
 
 	undoPalette = new UndoPalette(this, "undoPalette");
 	undoPalette->installEventFilter(this);
@@ -779,44 +779,44 @@ void ScribusApp::initPalettes()
 	connect(undoPalette, SIGNAL(paletteShown(bool)), this, SLOT(setUndoPalette(bool)));
 	connect(undoPalette, SIGNAL(objectMode(bool)), this, SLOT(setUndoMode(bool)));
 
-	connect(Mpal, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
-	connect(Mpal, SIGNAL(NewAbStyle(int)), this, SLOT(setNewAbStyle(int)));
-	connect(Mpal, SIGNAL(BackHome()), this, SLOT(Aktiv()));
-	connect(Mpal, SIGNAL(Stellung(int)), this, SLOT(setItemHoch(int)));
-	connect(Mpal, SIGNAL(EditCL()), this, SLOT(ToggleFrameEdit()));
-	connect(Mpal, SIGNAL(NewTF(QString)), this, SLOT(SetNewFont(QString)));
-	connect(Mpal, SIGNAL(UpdtGui(int)), this, SLOT(HaveNewSel(int)));
-	connect(Mpal->Cpal, SIGNAL(NewPen(QString)), this, SLOT(setPenFarbe(QString)));
-	connect(Mpal->Cpal, SIGNAL(NewBrush(QString)), this, SLOT(setBrushFarbe(QString)));
-	connect(Mpal->Cpal, SIGNAL(NewPenShade(int)), this, SLOT(setPenShade(int)));
-	connect(Mpal->Cpal, SIGNAL(NewBrushShade(int)), this, SLOT(setBrushShade(int)));
-	connect(Mpal->Cpal, SIGNAL(NewTrans(double)), this, SLOT(SetTranspar(double)));
-	connect(Mpal->Cpal, SIGNAL(NewTransS(double)), this, SLOT(SetTransparS(double)));
-	connect(Mpal->Cpal, SIGNAL(NewGradient(int)), this, SLOT(setGradFill(int)));
-	connect(Mpal->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
-	connect(Mpal->Cpal, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
-	connect(Mpal->Cpal, SIGNAL(QueryItem()), this, SLOT(GetBrushPen()));
-	connect(docChecker, SIGNAL(rescan()), this, SLOT(slotCheckDoc()));
-	connect(docChecker, SIGNAL(selectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
-	connect(docChecker, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
-	connect(docChecker, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
-	connect(Tpal, SIGNAL(selectElement(int, int, bool)), this, SLOT(SelectFromOutl(int, int, bool)));
-	connect(Tpal, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
-	connect(Tpal, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
-	connect(Mpal->Spal, SIGNAL(newStyle(int)), this, SLOT(setNewAbStyle(int)));
-	connect(Mpal, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
-	connect(Npal, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
-	connect(Lpal, SIGNAL(LayerActivated(int)), this, SLOT(changeLayer(int)));
-	connect(Lpal, SIGNAL(LayerRemoved(int, bool)), this, SLOT(LayerRemove(int, bool)));
-	connect(Lpal, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
-	connect(Sepal, SIGNAL(EditTemp(QString)), this, SLOT(ManageTemp(QString)));
-	connect(Sepal->PageView, SIGNAL(UseTemp(QString, int)), this, SLOT(Apply_Temp(QString, int)));
-	connect(Sepal->PageView, SIGNAL(NewPage(int, QString)), this, SLOT(slotNewPageP(int, QString)));
-	connect(Sepal->Trash, SIGNAL(DelPage(int)), this, SLOT(DeletePage2(int)));
-	connect(Sepal, SIGNAL(GotoSeite(int)), this, SLOT(SelectFromOutlS(int)));
-	connect(BookPal->BView, SIGNAL(MarkMoved()), this, SLOT(StoreBookmarks()));
-	connect(BookPal->BView, SIGNAL(ChangeBMNr(int, int, int)), this, SLOT(ChBookmarks(int, int, int)));
-	connect(BookPal->BView, SIGNAL(SelectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
+	connect(propertiesPalette, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
+	connect(propertiesPalette, SIGNAL(NewAbStyle(int)), this, SLOT(setNewAbStyle(int)));
+	connect(propertiesPalette, SIGNAL(BackHome()), this, SLOT(Aktiv()));
+	connect(propertiesPalette, SIGNAL(Stellung(int)), this, SLOT(setItemHoch(int)));
+	connect(propertiesPalette, SIGNAL(EditCL()), this, SLOT(ToggleFrameEdit()));
+	connect(propertiesPalette, SIGNAL(NewTF(QString)), this, SLOT(SetNewFont(QString)));
+	connect(propertiesPalette, SIGNAL(UpdtGui(int)), this, SLOT(HaveNewSel(int)));
+	connect(propertiesPalette->Cpal, SIGNAL(NewPen(QString)), this, SLOT(setPenFarbe(QString)));
+	connect(propertiesPalette->Cpal, SIGNAL(NewBrush(QString)), this, SLOT(setBrushFarbe(QString)));
+	connect(propertiesPalette->Cpal, SIGNAL(NewPenShade(int)), this, SLOT(setPenShade(int)));
+	connect(propertiesPalette->Cpal, SIGNAL(NewBrushShade(int)), this, SLOT(setBrushShade(int)));
+	connect(propertiesPalette->Cpal, SIGNAL(NewTrans(double)), this, SLOT(SetTranspar(double)));
+	connect(propertiesPalette->Cpal, SIGNAL(NewTransS(double)), this, SLOT(SetTransparS(double)));
+	connect(propertiesPalette->Cpal, SIGNAL(NewGradient(int)), this, SLOT(setGradFill(int)));
+	connect(propertiesPalette->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
+	connect(propertiesPalette->Cpal, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
+	connect(propertiesPalette->Cpal, SIGNAL(QueryItem()), this, SLOT(GetBrushPen()));
+	connect(docCheckerPalette, SIGNAL(rescan()), this, SLOT(slotCheckDoc()));
+	connect(docCheckerPalette, SIGNAL(selectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
+	connect(docCheckerPalette, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
+	connect(docCheckerPalette, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
+	connect(outlinePalette, SIGNAL(selectElement(int, int, bool)), this, SLOT(SelectFromOutl(int, int, bool)));
+	connect(outlinePalette, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
+	connect(outlinePalette, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
+	connect(propertiesPalette->Spal, SIGNAL(newStyle(int)), this, SLOT(setNewAbStyle(int)));
+	connect(propertiesPalette, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
+	connect(nodePalette, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
+	connect(layerPalette, SIGNAL(LayerActivated(int)), this, SLOT(changeLayer(int)));
+	connect(layerPalette, SIGNAL(LayerRemoved(int, bool)), this, SLOT(LayerRemove(int, bool)));
+	connect(layerPalette, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
+	connect(pagePalette, SIGNAL(EditTemp(QString)), this, SLOT(ManageTemp(QString)));
+	connect(pagePalette->PageView, SIGNAL(UseTemp(QString, int)), this, SLOT(Apply_Temp(QString, int)));
+	connect(pagePalette->PageView, SIGNAL(NewPage(int, QString)), this, SLOT(slotNewPageP(int, QString)));
+	connect(pagePalette->Trash, SIGNAL(DelPage(int)), this, SLOT(DeletePage2(int)));
+	connect(pagePalette, SIGNAL(GotoSeite(int)), this, SLOT(SelectFromOutlS(int)));
+	connect(bookmarkPalette->BView, SIGNAL(MarkMoved()), this, SLOT(StoreBookmarks()));
+	connect(bookmarkPalette->BView, SIGNAL(ChangeBMNr(int, int, int)), this, SLOT(ChBookmarks(int, int, int)));
+	connect(bookmarkPalette->BView, SIGNAL(SelectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
 }
 
 void ScribusApp::initScrapbook()
@@ -824,9 +824,9 @@ void ScribusApp::initScrapbook()
 	QString scrapbookFile = PrefsPfad+"/scrap13.scs";
 	QFileInfo scrapbookFileInfo = QFileInfo(scrapbookFile);
 	if (scrapbookFileInfo.exists())
-		ScBook->BibWin->ReadContents(scrapbookFile);
-	ScBook->ScFilename = scrapbookFile;
-	ScBook->AdjustMenu();
+		scrapbookPalette->BibWin->ReadContents(scrapbookFile);
+	scrapbookPalette->ScFilename = scrapbookFile;
+	scrapbookPalette->AdjustMenu();
 }
 
 void ScribusApp::initCrashHandler()
@@ -1700,7 +1700,7 @@ void ScribusApp::setTBvals(PageItem *b)
 		doc->CurrentStyle = b->itemText.at(ChPos)->cstyle & 127;
 		doc->currentParaStyle = b->itemText.at(ChPos)->cab;
 		setAbsValue(doc->currentParaStyle);
-		Mpal->setAli(doc->currentParaStyle);
+		propertiesPalette->setAli(doc->currentParaStyle);
 		doc->CurrFont = b->itemText.at(ChPos)->cfont;
 		doc->CurrFontSize = b->itemText.at(ChPos)->csize;
 		doc->CurrTextFill = b->itemText.at(ChPos)->ccolor;
@@ -1913,7 +1913,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					{
 						view->Deselect(false);
 //						if (!doc->TemplateMode)
-//							Tpal->slotRemoveElement(doc->currentPage->PageNr, b->ItemNr);
+//							outlinePalette->slotRemoveElement(doc->currentPage->PageNr, b->ItemNr);
 						doc->Items.remove(b->ItemNr);
 					}
 					break;
@@ -1927,7 +1927,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					{
 						view->Deselect(false);
 //						if (!doc->TemplateMode)
-//							Tpal->slotRemoveElement(doc->currentPage->PageNr, b->ItemNr);
+//							outlinePalette->slotRemoveElement(doc->currentPage->PageNr, b->ItemNr);
 						doc->Items.remove(b->ItemNr);
 					}
 					else
@@ -1945,7 +1945,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				default:
 					view->Deselect(false);
 //					if (!doc->TemplateMode)
-//						Tpal->slotRemoveElement(doc->currentPage->PageNr, b->ItemNr);
+//						outlinePalette->slotRemoveElement(doc->currentPage->PageNr, b->ItemNr);
 					doc->Items.remove(b->ItemNr);
 					break;
 			}
@@ -2005,8 +2005,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							break;
 						}
 					}
-					doc->OpenNodes = Tpal->buildReopenVals();
-					docChecker->clearErrorList();
+					doc->OpenNodes = outlinePalette->buildReopenVals();
+					docCheckerPalette->clearErrorList();
 					if ( w )
 						w->showNormal();
 					newActWin(w);
@@ -2760,24 +2760,24 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 				return;
 			}
 		}
-		Mpal->hide();
-		Tpal->hide();
-		ScBook->hide();
-		BookPal->hide();
-		Lpal->hide();
-		Sepal->hide();
-		MaPal->hide();
-		docChecker->hide();
+		propertiesPalette->hide();
+		outlinePalette->hide();
+		scrapbookPalette->hide();
+		bookmarkPalette->hide();
+		layerPalette->hide();
+		pagePalette->hide();
+		measurementPalette->hide();
+		docCheckerPalette->hide();
 		SavePrefs();
 		delete prefsFile;
 		UndoManager::deleteInstance();
-		if ((Prefs.SaveAtQ) && (ScBook->Changed == true))
+		if ((Prefs.SaveAtQ) && (scrapbookPalette->Changed == true))
 		{
-			if (ScBook->ScFilename.isEmpty())
-				ScBook->ScFilename = PrefsPfad+"/scrap13.scs";
-			ScBook->Save();
+			if (scrapbookPalette->ScFilename.isEmpty())
+				scrapbookPalette->ScFilename = PrefsPfad+"/scrap13.scs";
+			scrapbookPalette->Save();
 		}
-		if (ScBook->BibWin->Objekte.count() == 0)
+		if (scrapbookPalette->BibWin->Objekte.count() == 0)
 			unlink(PrefsPfad+"/scrap13.scs");
 		Prefs.AvailFonts.~SCFonts();
 		FinalizePlugs();
@@ -2785,24 +2785,24 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 	}
 	else
 	{
-		Mpal->hide();
-		Tpal->hide();
-		ScBook->hide();
-		BookPal->hide();
-		Lpal->hide();
-		Sepal->hide();
-		MaPal->hide();
-		docChecker->hide();
+		propertiesPalette->hide();
+		outlinePalette->hide();
+		scrapbookPalette->hide();
+		bookmarkPalette->hide();
+		layerPalette->hide();
+		pagePalette->hide();
+		measurementPalette->hide();
+		docCheckerPalette->hide();
 		SavePrefs();
 		delete prefsFile;
 		UndoManager::deleteInstance();
-		if ((Prefs.SaveAtQ) && (ScBook->Changed == true))
+		if ((Prefs.SaveAtQ) && (scrapbookPalette->Changed == true))
 		{
-			if (ScBook->ScFilename.isEmpty())
-				ScBook->ScFilename = PrefsPfad+"/scrap13.scs";
-			ScBook->Save();
+			if (scrapbookPalette->ScFilename.isEmpty())
+				scrapbookPalette->ScFilename = PrefsPfad+"/scrap13.scs";
+			scrapbookPalette->Save();
 		}
-		if (ScBook->BibWin->Objekte.count() == 0)
+		if (scrapbookPalette->BibWin->Objekte.count() == 0)
 			unlink(PrefsPfad+"/scrap13.scs");
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		Prefs.AvailFonts.~SCFonts();
@@ -2913,9 +2913,9 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 {
 	QString cc;
 	if (HaveDoc)
-		doc->OpenNodes = Tpal->buildReopenVals();
+		doc->OpenNodes = outlinePalette->buildReopenVals();
 	doc = new ScribusDoc(&Prefs);
-	docChecker->clearErrorList();
+	docCheckerPalette->clearErrorList();
 	doc->docUnitIndex = einh;
 	if (fp)
 		doc->FirstPageLeft = firstleft;
@@ -2935,22 +2935,22 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->CMSSettings.GamutCheck = Prefs.DCMSset.GamutCheck;
 	doc->CMSSettings.BlackPoint = Prefs.DCMSset.BlackPoint;
 	doc->CMSSettings.CMSinUse = Prefs.DCMSset.CMSinUse;
-	doc->PDF_Optionen.SolidProf = doc->CMSSettings.DefaultInputProfile2;
-	doc->PDF_Optionen.ImageProf = doc->CMSSettings.DefaultInputProfile;
-	doc->PDF_Optionen.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
-	doc->PDF_Optionen.Intent = doc->CMSSettings.DefaultIntentMonitor;
-	doc->PDF_Optionen.Intent2 = doc->CMSSettings.DefaultIntentMonitor2;
+	doc->PDF_Options.SolidProf = doc->CMSSettings.DefaultInputProfile2;
+	doc->PDF_Options.ImageProf = doc->CMSSettings.DefaultInputProfile;
+	doc->PDF_Options.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
+	doc->PDF_Options.Intent = doc->CMSSettings.DefaultIntentMonitor;
+	doc->PDF_Options.Intent2 = doc->CMSSettings.DefaultIntentMonitor2;
 	struct LPIData lpo;
 	lpo.Frequency = 75;
 	lpo.SpotFunc = 2;
 	lpo.Angle = 105;
-	doc->PDF_Optionen.LPISettings.insert("Cyan", lpo);
+	doc->PDF_Options.LPISettings.insert("Cyan", lpo);
 	lpo.Angle = 75;
-	doc->PDF_Optionen.LPISettings.insert("Magenta", lpo);
+	doc->PDF_Options.LPISettings.insert("Magenta", lpo);
 	lpo.Angle = 90;
-	doc->PDF_Optionen.LPISettings.insert("Yellow", lpo);
+	doc->PDF_Options.LPISettings.insert("Yellow", lpo);
 	lpo.Angle = 45;
-	doc->PDF_Optionen.LPISettings.insert("Black", lpo);
+	doc->PDF_Options.LPISettings.insert("Black", lpo);
 	doc->ActiveLayer = 0;
 	HaveDoc++;
 	DocNr++;
@@ -3002,7 +3002,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 			doc->CMSSettings.ComponentsPrinter = 4;
 		if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmyData)
 			doc->CMSSettings.ComponentsPrinter = 3;
-		doc->PDF_Optionen.SComp = doc->CMSSettings.ComponentsInput2;
+		doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
 #endif
 		if (Prefs.DCMSset.CMSinUse)
 			RecalcColors();
@@ -3031,9 +3031,9 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->DocItems = doc->Items;
 	doc->currentPage = doc->Pages.at(0);
 	doc->OpenNodes.clear();
-	Tpal->BuildTree(doc);
-//	Sepal->Rebuild();
-	BookPal->BView->clear();
+	outlinePalette->BuildTree(doc);
+//	pagePalette->Rebuild();
+	bookmarkPalette->BView->clear();
 	if ( wsp->windowList().isEmpty() )
 		w->showMaximized();
 	else
@@ -3121,9 +3121,9 @@ void ScribusApp::newActWin(QWidget *w)
 /*	if (doc != NULL)
 	{
 		if ((HaveDoc) && (doc != ActWin->doc))
-			doc->OpenNodes = Tpal->buildReopenVals();
+			doc->OpenNodes = outlinePalette->buildReopenVals();
 	} */
-	docChecker->clearErrorList();
+	docCheckerPalette->clearErrorList();
 	QString newDocName = "";
 	if (ActWin && ActWin->doc)
 		newDocName = ActWin->doc->DocName;
@@ -3132,12 +3132,12 @@ void ScribusApp::newActWin(QWidget *w)
 
 	doc = ActWin->doc;
 	view = ActWin->view;
-	Sepal->SetView(view);
+	pagePalette->SetView(view);
 	ScribusWin* swin;
 	if (!doc->loading)
 	{
 		scanDocument();
-		docChecker->buildErrorList(doc);
+		docCheckerPalette->buildErrorList(doc);
 		SwitchWin();
 		QWidgetList windows = wsp->windowList();
 		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
@@ -3163,12 +3163,12 @@ void ScribusApp::newActWin(QWidget *w)
 	scrActions["viewShowImages"]->setOn(doc->guidesSettings.showPic);
 	scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
 //	if (!doc->TemplateMode)
-//		Sepal->Rebuild();
-	Tpal->BuildTree(doc);
-//	Tpal->reopenTree(doc->OpenNodes);
-	BookPal->BView->NrItems = doc->NrItems;
-	BookPal->BView->First = doc->First;
-	BookPal->BView->Last = doc->Last;
+//		pagePalette->Rebuild();
+	outlinePalette->BuildTree(doc);
+//	outlinePalette->reopenTree(doc->OpenNodes);
+	bookmarkPalette->BView->NrItems = doc->NrItems;
+	bookmarkPalette->BView->First = doc->First;
+	bookmarkPalette->BView->Last = doc->Last;
 	RestoreBookMarks();
 	if (!doc->loading)
 	{
@@ -3185,7 +3185,7 @@ void ScribusApp::newActWin(QWidget *w)
 void ScribusApp::windowsMenuActivated( int id )
 {
 	if (HaveDoc)
-		doc->OpenNodes = Tpal->buildReopenVals();
+		doc->OpenNodes = outlinePalette->buildReopenVals();
 	QWidget* w = wsp->windowList().at( id );
 	if ( w )
 		w->showNormal();
@@ -3375,11 +3375,11 @@ bool ScribusApp::SetupDoc()
 					doc->CMSSettings.ComponentsPrinter = 4;
 				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmyData)
 					doc->CMSSettings.ComponentsPrinter = 3;
-				doc->PDF_Optionen.SComp = doc->CMSSettings.ComponentsInput2;
-				doc->PDF_Optionen.SolidProf = doc->CMSSettings.DefaultInputProfile2;
-				doc->PDF_Optionen.ImageProf = doc->CMSSettings.DefaultInputProfile;
-				doc->PDF_Optionen.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
-				doc->PDF_Optionen.Intent = doc->CMSSettings.DefaultIntentMonitor;
+				doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
+				doc->PDF_Options.SolidProf = doc->CMSSettings.DefaultInputProfile2;
+				doc->PDF_Options.ImageProf = doc->CMSSettings.DefaultInputProfile;
+				doc->PDF_Options.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
+				doc->PDF_Options.Intent = doc->CMSSettings.DefaultIntentMonitor;
 				RecalcColors(FProg);
 				view->RecalcPictures(&InputProfiles, FProg);
 #endif
@@ -3417,26 +3417,26 @@ bool ScribusApp::SetupDoc()
 			doc->AddFont((*it3a), Prefs.AvailFonts[(*it3a)]->Font);
 		}
 		FontSub->RebuildList(&Prefs, doc);
-		Mpal->Fonts->RebuildList(&Prefs, doc);
-		doc->PDF_Optionen.Thumbnails = dia->tabPDF->CheckBox1->isChecked();
-		doc->PDF_Optionen.Compress = dia->tabPDF->Compression->isChecked();
-		doc->PDF_Optionen.CompressMethod = dia->tabPDF->CMethod->currentItem();
-		doc->PDF_Optionen.Quality = dia->tabPDF->CQuality->currentItem();
-		doc->PDF_Optionen.Resolution = dia->tabPDF->Resolution->value();
-		doc->PDF_Optionen.RecalcPic = dia->tabPDF->DSColor->isChecked();
-		doc->PDF_Optionen.PicRes = dia->tabPDF->ValC->value();
-		doc->PDF_Optionen.Bookmarks = dia->tabPDF->CheckBM->isChecked();
-		doc->PDF_Optionen.Binding = dia->tabPDF->ComboBind->currentItem();
-		doc->PDF_Optionen.MirrorH = dia->tabPDF->MirrorH->isOn();
-		doc->PDF_Optionen.MirrorV = dia->tabPDF->MirrorV->isOn();
-		doc->PDF_Optionen.RotateDeg = dia->tabPDF->RotateDeg->currentItem() * 90;
-		doc->PDF_Optionen.Articles = dia->tabPDF->Article->isChecked();
-		doc->PDF_Optionen.Encrypt = dia->tabPDF->Encry->isChecked();
-		doc->PDF_Optionen.UseLPI = dia->tabPDF->UseLPI->isChecked();
-		doc->PDF_Optionen.BleedBottom = dia->tabPDF->BleedBottom->value() / UmReFaktor;
-		doc->PDF_Optionen.BleedTop = dia->tabPDF->BleedTop->value() / UmReFaktor;
-		doc->PDF_Optionen.BleedLeft = dia->tabPDF->BleedLeft->value() / UmReFaktor;
-		doc->PDF_Optionen.BleedRight = dia->tabPDF->BleedRight->value() / UmReFaktor;
+		propertiesPalette->Fonts->RebuildList(&Prefs, doc);
+		doc->PDF_Options.Thumbnails = dia->tabPDF->CheckBox1->isChecked();
+		doc->PDF_Options.Compress = dia->tabPDF->Compression->isChecked();
+		doc->PDF_Options.CompressMethod = dia->tabPDF->CMethod->currentItem();
+		doc->PDF_Options.Quality = dia->tabPDF->CQuality->currentItem();
+		doc->PDF_Options.Resolution = dia->tabPDF->Resolution->value();
+		doc->PDF_Options.RecalcPic = dia->tabPDF->DSColor->isChecked();
+		doc->PDF_Options.PicRes = dia->tabPDF->ValC->value();
+		doc->PDF_Options.Bookmarks = dia->tabPDF->CheckBM->isChecked();
+		doc->PDF_Options.Binding = dia->tabPDF->ComboBind->currentItem();
+		doc->PDF_Options.MirrorH = dia->tabPDF->MirrorH->isOn();
+		doc->PDF_Options.MirrorV = dia->tabPDF->MirrorV->isOn();
+		doc->PDF_Options.RotateDeg = dia->tabPDF->RotateDeg->currentItem() * 90;
+		doc->PDF_Options.Articles = dia->tabPDF->Article->isChecked();
+		doc->PDF_Options.Encrypt = dia->tabPDF->Encry->isChecked();
+		doc->PDF_Options.UseLPI = dia->tabPDF->UseLPI->isChecked();
+		doc->PDF_Options.BleedBottom = dia->tabPDF->BleedBottom->value() / UmReFaktor;
+		doc->PDF_Options.BleedTop = dia->tabPDF->BleedTop->value() / UmReFaktor;
+		doc->PDF_Options.BleedLeft = dia->tabPDF->BleedLeft->value() / UmReFaktor;
+		doc->PDF_Options.BleedRight = dia->tabPDF->BleedRight->value() / UmReFaktor;
 		if (dia->tabPDF->Encry->isChecked())
 		{
 			int Perm = -64;
@@ -3450,47 +3450,47 @@ bool ScribusApp::SetupDoc()
 				Perm += 16;
 			if (dia->tabPDF->AddSec->isChecked())
 				Perm += 32;
-			doc->PDF_Optionen.Permissions = Perm;
-			doc->PDF_Optionen.PassOwner = dia->tabPDF->PassOwner->text();
-			doc->PDF_Optionen.PassUser = dia->tabPDF->PassUser->text();
+			doc->PDF_Options.Permissions = Perm;
+			doc->PDF_Options.PassOwner = dia->tabPDF->PassOwner->text();
+			doc->PDF_Options.PassUser = dia->tabPDF->PassUser->text();
 		}
 		if (dia->tabPDF->ComboBox1->currentItem() == 0)
-			doc->PDF_Optionen.Version = 13;
+			doc->PDF_Options.Version = 13;
 		if (dia->tabPDF->ComboBox1->currentItem() == 1)
-			doc->PDF_Optionen.Version = 14;
+			doc->PDF_Options.Version = 14;
 		if (dia->tabPDF->ComboBox1->currentItem() == 2)
-			doc->PDF_Optionen.Version = 12;
+			doc->PDF_Options.Version = 12;
 		if (dia->tabPDF->OutCombo->currentItem() == 0)
 		{
-			doc->PDF_Optionen.isGrayscale = false;
-			doc->PDF_Optionen.UseRGB = true;
-			doc->PDF_Optionen.UseProfiles = false;
-			doc->PDF_Optionen.UseProfiles2 = false;
+			doc->PDF_Options.isGrayscale = false;
+			doc->PDF_Options.UseRGB = true;
+			doc->PDF_Options.UseProfiles = false;
+			doc->PDF_Options.UseProfiles2 = false;
 		}
 		else
 		{
 			if (dia->tabPDF->OutCombo->currentItem() == 2)
 			{
-				doc->PDF_Optionen.isGrayscale = true;
-				doc->PDF_Optionen.UseRGB = false;
-				doc->PDF_Optionen.UseProfiles = false;
-				doc->PDF_Optionen.UseProfiles2 = false;
+				doc->PDF_Options.isGrayscale = true;
+				doc->PDF_Options.UseRGB = false;
+				doc->PDF_Options.UseProfiles = false;
+				doc->PDF_Options.UseProfiles2 = false;
 			}
 			else
 			{
-				doc->PDF_Optionen.isGrayscale = false;
-				doc->PDF_Optionen.UseRGB = false;
+				doc->PDF_Options.isGrayscale = false;
+				doc->PDF_Options.UseRGB = false;
 #ifdef HAVE_CMS
 				if (CMSuse)
 				{
-					doc->PDF_Optionen.UseProfiles = dia->tabPDF->EmbedProfs->isChecked();
-					doc->PDF_Optionen.UseProfiles2 = dia->tabPDF->EmbedProfs2->isChecked();
-					doc->PDF_Optionen.Intent = dia->tabPDF->IntendS->currentItem();
-					doc->PDF_Optionen.Intent2 = dia->tabPDF->IntendI->currentItem();
-					doc->PDF_Optionen.EmbeddedI = dia->tabPDF->NoEmbedded->isChecked();
-					doc->PDF_Optionen.SolidProf = dia->tabPDF->SolidPr->currentText();
-					doc->PDF_Optionen.ImageProf = dia->tabPDF->ImageP->currentText();
-					doc->PDF_Optionen.PrintProf = dia->tabPDF->PrintProfC->currentText();
+					doc->PDF_Options.UseProfiles = dia->tabPDF->EmbedProfs->isChecked();
+					doc->PDF_Options.UseProfiles2 = dia->tabPDF->EmbedProfs2->isChecked();
+					doc->PDF_Options.Intent = dia->tabPDF->IntendS->currentItem();
+					doc->PDF_Options.Intent2 = dia->tabPDF->IntendI->currentItem();
+					doc->PDF_Options.EmbeddedI = dia->tabPDF->NoEmbedded->isChecked();
+					doc->PDF_Options.SolidProf = dia->tabPDF->SolidPr->currentText();
+					doc->PDF_Options.ImageProf = dia->tabPDF->ImageP->currentText();
+					doc->PDF_Options.PrintProf = dia->tabPDF->PrintProfC->currentText();
 					}
 #endif
 				}
@@ -3510,8 +3510,8 @@ bool ScribusApp::SetupDoc()
 		view->reformPages();
 		view->GotoPage(doc->currentPage->PageNr);
 		view->DrawNew();
-		Mpal->ShowCMS();
-//		Sepal->RebuildPage();
+		propertiesPalette->ShowCMS();
+//		pagePalette->RebuildPage();
 		slotDocCh();
 		ret = true;
 	}
@@ -3551,21 +3551,21 @@ void ScribusApp::SwitchWin()
 	CMSoutputProf = doc->DocOutputProf;
 	CMSprinterProf = doc->DocPrinterProf;
 #endif
-	Mpal->Cpal->SetColors(doc->PageColors);
-	Mpal->Cpal->ChooseGrad(0);
+	propertiesPalette->Cpal->SetColors(doc->PageColors);
+	propertiesPalette->Cpal->ChooseGrad(0);
 	ActWin->setCaption(doc->DocName);
 	scrActions["shade100"]->setOn(true);
 	//ShadeMenu->setItemChecked(ShadeMenu->idAt(11), true);
-	Mpal->SetDoc(doc);
-	Mpal->updateCList();
-	Sepal->SetView(view);
-	Mpal->Spal->setFormats(doc);
-	Mpal->SetLineFormats(doc);
-	Mpal->startArrow->rebuildList(&doc->arrowStyles);
-	Mpal->endArrow->rebuildList(&doc->arrowStyles);
+	propertiesPalette->SetDoc(doc);
+	propertiesPalette->updateCList();
+	pagePalette->SetView(view);
+	propertiesPalette->Spal->setFormats(doc);
+	propertiesPalette->SetLineFormats(doc);
+	propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
+	propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
 	FontSub->RebuildList(&Prefs, doc);
-	Mpal->Fonts->RebuildList(&Prefs, doc);
-	Lpal->setLayers(&doc->Layers, &doc->ActiveLayer);
+	propertiesPalette->Fonts->RebuildList(&Prefs, doc);
+	layerPalette->setLayers(&doc->Layers, &doc->ActiveLayer);
 	view->LaMenu();
 	view->setLayMenTxt(doc->ActiveLayer);
 	doc->currentParaStyle = 0;
@@ -3590,7 +3590,7 @@ void ScribusApp::SwitchWin()
 		scrActions["fileClose"]->setEnabled(false);
 		scrActions["fileRevert"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
-		Sepal->DisablePal();
+		pagePalette->DisablePal();
 	}
 	else
 	{
@@ -3614,7 +3614,7 @@ void ScribusApp::SwitchWin()
 			slotDocCh(false);
 		scrActions["fileSaveAs"]->setEnabled(true);
 		scrActions["fileCollect"]->setEnabled(true);
-		Sepal->EnablePal();
+		pagePalette->EnablePal();
 	}
 }
 
@@ -3677,18 +3677,18 @@ void ScribusApp::HaveNewDoc()
 			ColorMenC->setCurrentItem(a);
 		a++;
 	}
-	Mpal->Cpal->SetColors(doc->PageColors);
-	Mpal->Cpal->ChooseGrad(0);
+	propertiesPalette->Cpal->SetColors(doc->PageColors);
+	propertiesPalette->Cpal->ChooseGrad(0);
 	ActWin->setCaption(doc->DocName);
 	scrActions["shade100"]->setOn(true);
-	Mpal->SetDoc(doc);
-	Mpal->updateCList();
-	Sepal->SetView(view);
-	Mpal->Spal->setFormats(doc);
-	Mpal->SetLineFormats(doc);
-	Mpal->startArrow->rebuildList(&doc->arrowStyles);
-	Mpal->endArrow->rebuildList(&doc->arrowStyles);
-	Lpal->setLayers(&doc->Layers, &doc->ActiveLayer);
+	propertiesPalette->SetDoc(doc);
+	propertiesPalette->updateCList();
+	pagePalette->SetView(view);
+	propertiesPalette->Spal->setFormats(doc);
+	propertiesPalette->SetLineFormats(doc);
+	propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
+	propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
+	layerPalette->setLayers(&doc->Layers, &doc->ActiveLayer);
 	view->LaMenu();
 	view->setLayMenTxt(doc->ActiveLayer);
 	doc->currentParaStyle = 0;
@@ -3696,45 +3696,45 @@ void ScribusApp::HaveNewDoc()
 	doc->docHyphenator = new Hyphenator(this, doc, this);
 	buildFontMenu();
 	connect(view, SIGNAL(changeUN(int)), this, SLOT(slotChangeUnit(int)));
-	connect(view, SIGNAL(changeLA(int)), Lpal, SLOT(MarkActiveLayer(int)));
+	connect(view, SIGNAL(changeLA(int)), layerPalette, SLOT(MarkActiveLayer(int)));
 	connect(view->HR, SIGNAL(MarkerMoved(double, double)), this, SLOT(ReportMP(double, double)));
 	connect(view->HR, SIGNAL(DocChanged(bool)), this, SLOT(slotDocCh(bool)));
-	connect(view, SIGNAL(ClipPo(double, double)), Npal, SLOT(SetXY(double, double)));
-	connect(view, SIGNAL(PolyOpen()), Npal, SLOT(IsOpen()));
-	connect(view, SIGNAL(PStatus(int, uint)), Npal, SLOT(PolyStatus(int, uint)));
-	connect(view, SIGNAL(ItemPos(double, double)), Mpal, SLOT(setXY(double, double)));
-	connect(view, SIGNAL(ItemGeom(double, double)), Mpal, SLOT(setBH(double, double)));
+	connect(view, SIGNAL(ClipPo(double, double)), nodePalette, SLOT(SetXY(double, double)));
+	connect(view, SIGNAL(PolyOpen()), nodePalette, SLOT(IsOpen()));
+	connect(view, SIGNAL(PStatus(int, uint)), nodePalette, SLOT(PolyStatus(int, uint)));
+	connect(view, SIGNAL(ItemPos(double, double)), propertiesPalette, SLOT(setXY(double, double)));
+	connect(view, SIGNAL(ItemGeom(double, double)), propertiesPalette, SLOT(setBH(double, double)));
 	connect(view, SIGNAL(ChBMText(PageItem *)), this, SLOT(BookMarkTxT(PageItem *)));
-	connect(view, SIGNAL(NewBMNr(int, int)), BookPal->BView, SLOT(ChangeItem(int, int)));
+	connect(view, SIGNAL(NewBMNr(int, int)), bookmarkPalette->BView, SLOT(ChangeItem(int, int)));
 	connect(view, SIGNAL(HaveSel(int)), this, SLOT(HaveNewSel(int)));
-	connect(view, SIGNAL(SetAngle(double)), Mpal, SLOT(setR(double)));
-	connect(view, SIGNAL(SetSizeValue(double)), Mpal, SLOT(setSvalue(double)));
-	connect(view, SIGNAL(SetLocalValues(double, double, double, double)), Mpal, SLOT(setLvalue(double, double, double, double)));
-	connect(view, SIGNAL(SetLineArt(PenStyle, PenCapStyle, PenJoinStyle)), Mpal, SLOT( setLIvalue(PenStyle, PenCapStyle, PenJoinStyle)));
+	connect(view, SIGNAL(SetAngle(double)), propertiesPalette, SLOT(setR(double)));
+	connect(view, SIGNAL(SetSizeValue(double)), propertiesPalette, SLOT(setSvalue(double)));
+	connect(view, SIGNAL(SetLocalValues(double, double, double, double)), propertiesPalette, SLOT(setLvalue(double, double, double, double)));
+	connect(view, SIGNAL(SetLineArt(PenStyle, PenCapStyle, PenJoinStyle)), propertiesPalette, SLOT( setLIvalue(PenStyle, PenCapStyle, PenJoinStyle)));
 	connect(view, SIGNAL(ItemFarben(QString, QString, int, int)), this, SLOT(setCSMenu(QString, QString, int, int)));
-	connect(view, SIGNAL(ItemFarben(QString, QString, int, int)), Mpal->Cpal, SLOT(setActFarben(QString, QString, int, int)));
-	connect(view, SIGNAL(ItemGradient(int)), Mpal->Cpal, SLOT(setActGradient(int)));
-	connect(view, SIGNAL(ItemTrans(double, double)), Mpal->Cpal, SLOT(setActTrans(double, double)));
-	connect(view, SIGNAL(ItemTextAttr(double)), Mpal, SLOT(setLsp(double)));
-	connect(view, SIGNAL(ItemTextUSval(double)), Mpal, SLOT(setExtra(double)));
-//	connect(view, SIGNAL(ItemTextCols(int, double)), Mpal, SLOT(setCols(int, double)));
-	connect(view, SIGNAL(SetDistValues(double, double, double, double)), Mpal, SLOT(setDvals(double, double, double, double)));
-	connect(view, SIGNAL(ItemTextAbs(int)), Mpal, SLOT(setAli(int)));
+	connect(view, SIGNAL(ItemFarben(QString, QString, int, int)), propertiesPalette->Cpal, SLOT(setActFarben(QString, QString, int, int)));
+	connect(view, SIGNAL(ItemGradient(int)), propertiesPalette->Cpal, SLOT(setActGradient(int)));
+	connect(view, SIGNAL(ItemTrans(double, double)), propertiesPalette->Cpal, SLOT(setActTrans(double, double)));
+	connect(view, SIGNAL(ItemTextAttr(double)), propertiesPalette, SLOT(setLsp(double)));
+	connect(view, SIGNAL(ItemTextUSval(double)), propertiesPalette, SLOT(setExtra(double)));
+//	connect(view, SIGNAL(ItemTextCols(int, double)), propertiesPalette, SLOT(setCols(int, double)));
+	connect(view, SIGNAL(SetDistValues(double, double, double, double)), propertiesPalette, SLOT(setDvals(double, double, double, double)));
+	connect(view, SIGNAL(ItemTextAbs(int)), propertiesPalette, SLOT(setAli(int)));
 	connect(view, SIGNAL(ItemTextFont(QString)), this, SLOT(AdjustFontMenu(QString)));
-	connect(view, SIGNAL(ItemTextSize(int)), Mpal, SLOT(setSize(int)));
-	connect(view, SIGNAL(ItemRadius(double)), Mpal, SLOT(setRR(double)));
+	connect(view, SIGNAL(ItemTextSize(int)), propertiesPalette, SLOT(setSize(int)));
+	connect(view, SIGNAL(ItemRadius(double)), propertiesPalette, SLOT(setRR(double)));
 	connect(view, SIGNAL(Amode(int)), this, SLOT(setAppMode(int)));
 	connect(view, SIGNAL(PaintingDone()), this, SLOT(slotSelect()));
 /*	connect(doc->currentPage, SIGNAL(DocChanged()), this, SLOT(slotDocCh())); */
-	connect(view, SIGNAL(HavePoint(bool, bool)), Npal, SLOT(HaveNode(bool, bool)));
+	connect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
 	connect(view, SIGNAL(MousePos(double, double)), this, SLOT(ReportMP(double, double)));
-	connect(view, SIGNAL(ItemRadius(double)), Mpal, SLOT(setRR(double)));
-	connect(view, SIGNAL(ItemTextStil(int)), Mpal, SLOT(setStil(int)));
-	connect(view, SIGNAL(ItemTextSca(int)), Mpal, SLOT(setTScale(int)));
+	connect(view, SIGNAL(ItemRadius(double)), propertiesPalette, SLOT(setRR(double)));
+	connect(view, SIGNAL(ItemTextStil(int)), propertiesPalette, SLOT(setStil(int)));
+	connect(view, SIGNAL(ItemTextSca(int)), propertiesPalette, SLOT(setTScale(int)));
 	connect(view, SIGNAL(ItemTextSize(int)), this, SLOT(setFSizeMenu(int)));
 	connect(view, SIGNAL(ItemTextStil(int)), this, SLOT(setStilvalue(int)));
 	connect(view, SIGNAL(ItemTextAbs(int)), this, SLOT(setAbsValue(int)));
-	connect(view, SIGNAL(ItemTextFarben(QString, QString, int, int)), Mpal, SLOT(setActFarben(QString, QString, int, int)));
+	connect(view, SIGNAL(ItemTextFarben(QString, QString, int, int)), propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
 	connect(view, SIGNAL(HasTextSel()), this, SLOT(EnableTxEdit()));
 	connect(view, SIGNAL(HasNoTextSel()), this, SLOT(DisableTxEdit()));
 	connect(view, SIGNAL(CopyItem()), this, SLOT(slotEditCopy()));
@@ -3752,21 +3752,21 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(DoGroup()), this, SLOT(GroupObj()));
 	connect(view, SIGNAL(DoUnGroup()), this, SLOT(UnGroupObj()));
 	connect(view, SIGNAL(EndNodeEdit()), this, SLOT(ToggleFrameEdit()));
-	connect(view, SIGNAL(LevelChanged(uint )), Mpal, SLOT(setLevel(uint)));
+	connect(view, SIGNAL(LevelChanged(uint )), propertiesPalette, SLOT(setLevel(uint)));
 	connect(view, SIGNAL(callGimp()), this, SLOT(CallGimp()));
-	connect(view, SIGNAL(UpdtObj(uint, uint)), Tpal, SLOT(slotUpdateElement(uint, uint)));
-	connect(view, SIGNAL(AddObj(PageItem *)), Tpal, SLOT(slotAddElement(PageItem *)));
+	connect(view, SIGNAL(UpdtObj(uint, uint)), outlinePalette, SLOT(slotUpdateElement(uint, uint)));
+	connect(view, SIGNAL(AddObj(PageItem *)), outlinePalette, SLOT(slotAddElement(PageItem *)));
 /*	if (!doc->TemplateMode)
 	{
-		connect(doc->currentPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
-		connect(doc->currentPage, SIGNAL(AddObj(uint, uint)), Tpal, SLOT(slotAddElement(uint, uint)));
-		connect(doc->currentPage, SIGNAL(UpdtObj(uint, uint)), Tpal, SLOT(slotUpdateElement(uint, uint)));
-		connect(doc->currentPage, SIGNAL(MoveObj(uint, uint, uint)), Tpal, SLOT(slotMoveElement(uint, uint, uint)));
+		connect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint)));
+		connect(doc->currentPage, SIGNAL(AddObj(uint, uint)), outlinePalette, SLOT(slotAddElement(uint, uint)));
+		connect(doc->currentPage, SIGNAL(UpdtObj(uint, uint)), outlinePalette, SLOT(slotUpdateElement(uint, uint)));
+		connect(doc->currentPage, SIGNAL(MoveObj(uint, uint, uint)), outlinePalette, SLOT(slotMoveElement(uint, uint, uint)));
 	} */
-	doc->PDF_Optionen.BleedBottom = doc->PageM.Bottom;
-	doc->PDF_Optionen.BleedTop = doc->PageM.Top;
-	doc->PDF_Optionen.BleedLeft = doc->PageM.Left;
-	doc->PDF_Optionen.BleedRight = doc->PageM.Right;
+	doc->PDF_Options.BleedBottom = doc->PageM.Bottom;
+	doc->PDF_Options.BleedTop = doc->PageM.Top;
+	doc->PDF_Options.BleedLeft = doc->PageM.Left;
+	doc->PDF_Options.BleedRight = doc->PageM.Right;
 	doc->CurTimer = 0;
 }
 
@@ -3814,8 +3814,8 @@ void ScribusApp::HaveNewSel(int Nr)
 		WerkTools->Textedit->setEnabled(false);
 		WerkTools->Textedit2->setEnabled(false);
 		WerkTools->Rotiere->setEnabled(false);
-		Mpal->Cpal->gradientQCombo->setCurrentItem(0);
-		Tpal->slotShowSelect(doc->currentPage->PageNr, -1);
+		propertiesPalette->Cpal->gradientQCombo->setCurrentItem(0);
+		outlinePalette->slotShowSelect(doc->currentPage->PageNr, -1);
 		break;
 	case 2:
 		scrActions["fileImportAppendText"]->setEnabled(false);
@@ -4001,7 +4001,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		break;
 	}
 	doc->CurrentSel = Nr;
-	Mpal->RotationGroup->setButton(doc->RotMode);
+	propertiesPalette->RotationGroup->setButton(doc->RotMode);
 	if (view->SelItem.count() > 1)
 	{
 		scrActions["itemAlignDist"]->setEnabled(true);
@@ -4047,7 +4047,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	}
 	if (view->SelItem.count() != 0)
 	{
-		Mpal->Textflow->setChecked(b->Textflow);
+		propertiesPalette->Textflow->setChecked(b->Textflow);
 		scrActions["itemLock"]->setEnabled(true);
 		if (b->Groups.count() != 0)
 			scrActions["itemUngroup"]->setEnabled(true);
@@ -4090,11 +4090,11 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["itemLower"]->setEnabled(setter);
 		}
 	}
-	Mpal->NewSel(Nr);
+	propertiesPalette->NewSel(Nr);
 	if (Nr != -1)
 	{
-		Mpal->SetCurItem(b);
-		Tpal->slotShowSelect(b->OwnPage, b->ItemNr);
+		propertiesPalette->SetCurItem(b);
+		outlinePalette->slotShowSelect(b->OwnPage, b->ItemNr);
 		if (b->FrameType == 0)
 			SCustom->setPixmap(SCustom->getIconPixmap(0));
 		if (b->FrameType == 1)
@@ -4109,12 +4109,12 @@ void ScribusApp::slotDocCh(bool reb)
 /*	if ((reb) && (!doc->TemplateMode) && (view->SelItem.count() != 0))
 	{
 		for (uint upd = 0; upd < view->SelItem.count(); ++upd)
-			Tpal->slotUpdateElement(doc->currentPage->PageNr, view->SelItem.at(upd)->ItemNr);
+			outlinePalette->slotUpdateElement(doc->currentPage->PageNr, view->SelItem.at(upd)->ItemNr);
 	} */
-	if (docChecker->isVisible())
+	if (docCheckerPalette->isVisible())
 	{
 		scanDocument();
-		docChecker->buildErrorList(doc);
+		docCheckerPalette->buildErrorList(doc);
 	}
 	if (!doc->isModified())
 		doc->setModified();
@@ -4334,7 +4334,7 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 	if (!fileName.isEmpty())
 	{
 		if (!Mpa)
-			doc->OpenNodes = Tpal->buildReopenVals();
+			doc->OpenNodes = outlinePalette->buildReopenVals();
 		doc->loading = true;
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		uint cc = doc->Items.count();
@@ -4357,29 +4357,29 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 		{
 			PageItem *ite = doc->Items.at(azz);
 			if ((ite->itemType() == PageItem::TextFrame) && (ite->isBookmark))
-				BookPal->BView->AddPageItem(ite);
+				bookmarkPalette->BView->AddPageItem(ite);
 		}
-		Mpal->Cpal->SetColors(doc->PageColors);
-		Mpal->updateCList();
-		Mpal->Spal->setFormats(doc);
-		Mpal->SetLineFormats(doc);
-		Mpal->startArrow->rebuildList(&doc->arrowStyles);
-		Mpal->endArrow->rebuildList(&doc->arrowStyles);
+		propertiesPalette->Cpal->SetColors(doc->PageColors);
+		propertiesPalette->updateCList();
+		propertiesPalette->Spal->setFormats(doc);
+		propertiesPalette->SetLineFormats(doc);
+		propertiesPalette->startArrow->rebuildList(&doc->arrowStyles);
+		propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
 		if (!Mpa)
 		{
-			Tpal->BuildTree(doc);
-			Tpal->reopenTree(doc->OpenNodes);
+			outlinePalette->BuildTree(doc);
+			outlinePalette->reopenTree(doc->OpenNodes);
 			scanDocument();
-			docChecker->buildErrorList(doc);
+			docCheckerPalette->buildErrorList(doc);
 		}
 		slotDocCh();
 		view->LaMenu();
-		Lpal->rebuildList();
+		layerPalette->rebuildList();
 		doc->loading = false;
 		ret = true;
 	}
 	if (!Mpa)
-		Sepal->Rebuild();
+		pagePalette->Rebuild();
 	view->DrawNew();
 	return ret;
 }
@@ -4397,7 +4397,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		return false;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 /*	if (HaveDoc)
-		doc->OpenNodes = Tpal->buildReopenVals(); */
+		doc->OpenNodes = outlinePalette->buildReopenVals(); */
 	bool ret = false;
 	QWidgetList windows = wsp->windowList();
 	ScribusWin* ActWinOld = NULL;
@@ -4500,19 +4500,19 @@ bool ScribusApp::LadeDoc(QString fileName)
 			doc->checkerProfiles.insert( tr("PDF/X-3"), checkerSettings);
 			doc->curCheckProfile = tr("Postscript");
 		}
-		if (doc->PDF_Optionen.LPISettings.count() == 0)
+		if (doc->PDF_Options.LPISettings.count() == 0)
 		{
 			struct LPIData lpo;
 			lpo.Frequency = 75;
 			lpo.SpotFunc = 2;
 			lpo.Angle = 105;
-			doc->PDF_Optionen.LPISettings.insert("Cyan", lpo);
+			doc->PDF_Options.LPISettings.insert("Cyan", lpo);
 			lpo.Angle = 75;
-			doc->PDF_Optionen.LPISettings.insert("Magenta", lpo);
+			doc->PDF_Options.LPISettings.insert("Magenta", lpo);
 			lpo.Angle = 90;
-			doc->PDF_Optionen.LPISettings.insert("Yellow", lpo);
+			doc->PDF_Options.LPISettings.insert("Yellow", lpo);
 			lpo.Angle = 45;
-			doc->PDF_Optionen.LPISettings.insert("Black", lpo);
+			doc->PDF_Options.LPISettings.insert("Black", lpo);
 		}
 		connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 		if (fl->ReplacedFonts.count() != 0)
@@ -4573,26 +4573,26 @@ bool ScribusApp::LadeDoc(QString fileName)
 				replacement.append(Prefs.DCMSset.DefaultPrinterProfile);
 				doc->CMSSettings.DefaultPrinterProfile = Prefs.DCMSset.DefaultPrinterProfile;
 			}
-			if (!PrinterProfiles.contains(doc->PDF_Optionen.PrintProf))
+			if (!PrinterProfiles.contains(doc->PDF_Options.PrintProf))
 			{
 				cmsWarning = true;
-				missing.append(doc->PDF_Optionen.PrintProf);
+				missing.append(doc->PDF_Options.PrintProf);
 				replacement.append(Prefs.DCMSset.DefaultPrinterProfile);
-				doc->PDF_Optionen.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
+				doc->PDF_Options.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
 			}
-			if (!InputProfiles.contains(doc->PDF_Optionen.ImageProf))
+			if (!InputProfiles.contains(doc->PDF_Options.ImageProf))
 			{
 				cmsWarning = true;
-				missing.append(doc->PDF_Optionen.ImageProf);
+				missing.append(doc->PDF_Options.ImageProf);
 				replacement.append(Prefs.DCMSset.DefaultInputProfile);
-				doc->PDF_Optionen.ImageProf = doc->CMSSettings.DefaultInputProfile;
+				doc->PDF_Options.ImageProf = doc->CMSSettings.DefaultInputProfile;
 			}
-			if (!InputProfiles.contains(doc->PDF_Optionen.SolidProf))
+			if (!InputProfiles.contains(doc->PDF_Options.SolidProf))
 			{
 				cmsWarning = true;
-				missing.append(doc->PDF_Optionen.SolidProf);
+				missing.append(doc->PDF_Options.SolidProf);
 				replacement.append(Prefs.DCMSset.DefaultInputProfile2);
-				doc->PDF_Optionen.SolidProf = doc->CMSSettings.DefaultInputProfile2;
+				doc->PDF_Options.SolidProf = doc->CMSSettings.DefaultInputProfile2;
 			}
 			if ((cmsWarning) && (doc->HasCMS))
 			{
@@ -4637,7 +4637,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 				doc->CMSSettings.ComponentsPrinter = 4;
 			if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmyData)
 				doc->CMSSettings.ComponentsPrinter = 3;
-			doc->PDF_Optionen.SComp = doc->CMSSettings.ComponentsInput2;
+			doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
 #endif
 			if (doc->CMSSettings.CMSinUse)
 			{
@@ -4645,8 +4645,8 @@ bool ScribusApp::LadeDoc(QString fileName)
 				view->RecalcPictures(&InputProfiles);
 			}
 		}
-		Mpal->Cpal->SetColors(doc->PageColors);
-		Mpal->Cpal->ChooseGrad(0);
+		propertiesPalette->Cpal->SetColors(doc->PageColors);
+		propertiesPalette->Cpal->ChooseGrad(0);
 		if (fl->FileType > 1)
 		{
 			doc->setName(FName+tr("(converted)"));
@@ -4658,7 +4658,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		doc->MasterP = false;
 		doc->Language = GetLang(doc->Language);
 		HaveNewDoc();
-		Mpal->updateCList();
+		propertiesPalette->updateCList();
 		doc->hasName = true;
 		if (doc->MasterPages.count() == 0)
 		{
@@ -4715,20 +4715,20 @@ bool ScribusApp::LadeDoc(QString fileName)
 /*			if (doc->OldBM)
 			{
 				if ((ite->itemType() == PageItem::TextFrame) && (ite->isBookmark))
-					BookPal->BView->AddPageItem(ite);
+					bookmarkPalette->BView->AddPageItem(ite);
 			}
 			else
 			{
 				if ((ite->itemType() == PageItem::TextFrame) && (ite->isBookmark))
-					BookPal->BView->ChangeItem(ite->BMnr, ite->ItemNr);
+					bookmarkPalette->BView->ChangeItem(ite->BMnr, ite->ItemNr);
 			} */
 		}
 		delete painter;
 //		if (doc->OldBM)
 //			StoreBookmarks();
-//		ActWin->NrItems = BookPal->BView->NrItems;
-//		ActWin->First = BookPal->BView->First;
-//		ActWin->Last = BookPal->BView->Last;
+//		ActWin->NrItems = bookmarkPalette->BView->NrItems;
+//		ActWin->First = bookmarkPalette->BView->First;
+//		ActWin->Last = bookmarkPalette->BView->Last;
 		doc->RePos = false;
 		doc->setUnModified();
 		updateRecent(FName);
@@ -4761,10 +4761,10 @@ bool ScribusApp::LadeDoc(QString fileName)
 	}
 	else
 	{
-		Sepal->Vie = 0;
+		pagePalette->Vie = 0;
 	}
 	undoManager->switchStack(doc->DocName);
-//	Sepal->Rebuild();
+//	pagePalette->Rebuild();
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	undoManager->setUndoEnabled(true);
 	return ret;
@@ -4826,9 +4826,9 @@ void ScribusApp::slotFileOpen()
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				qApp->restoreOverrideCursor();
 				view->DrawNew();
-				Mpal->Cpal->SetColors(doc->PageColors);
-				Mpal->updateCList();
-				Mpal->ShowCMS();
+				propertiesPalette->Cpal->SetColors(doc->PageColors);
+				propertiesPalette->updateCList();
+				propertiesPalette->ShowCMS();
 				slotDocCh();
 			}
 		}
@@ -4955,7 +4955,7 @@ bool ScribusApp::slotFileSaveAs()
 			if (!ret)
 				QMessageBox::warning(this, tr("Warning"), tr("Cannot write the File: \n%1").arg(fn), tr("OK"));
 			else
-				doc->PDF_Optionen.Datei = ""; // #1482 reset the pdf file name
+				doc->PDF_Options.Datei = ""; // #1482 reset the pdf file name
 		}
 	}
 	FMess->setText( tr("Ready"));
@@ -5045,18 +5045,18 @@ bool ScribusApp::DoFileClose()
 	}
 	if (CMSavail)
 		doc->CloseCMSProfiles();
-//	Mpal->NewSel(-1);
-	Mpal->UnsetDoc();
-	Sepal->Vie = 0;
-	Sepal->Rebuild();
-	Mpal->Spal->setFormats(0);
-	Mpal->SetLineFormats(0);
+//	propertiesPalette->NewSel(-1);
+	propertiesPalette->UnsetDoc();
+	pagePalette->Vie = 0;
+	pagePalette->Rebuild();
+	propertiesPalette->Spal->setFormats(0);
+	propertiesPalette->SetLineFormats(0);
 	if (doc->EditClip)
-		Npal->doc = 0;
-	BookPal->BView->clear();
-	BookPal->BView->NrItems = 0;
-	BookPal->BView->First = 1;
-	BookPal->BView->Last = 0;
+		nodePalette->doc = 0;
+	bookmarkPalette->BView->clear();
+	bookmarkPalette->BView->NrItems = 0;
+	bookmarkPalette->BView->First = 1;
+	bookmarkPalette->BView->Last = 0;
 	if ((wsp->windowList().isEmpty()) || (wsp->windowList().count() == 1))
 	{
 #ifdef HAVE_CMS
@@ -5114,22 +5114,22 @@ bool ScribusApp::DoFileClose()
 		WerkTools->setEnabled(false);
 		WerkToolsP->setEnabled(false);
 		ColorMenC->clear();
-		Mpal->Cpal->SetColors(Prefs.DColors);
-		Mpal->Cpal->ChooseGrad(0);
+		propertiesPalette->Cpal->SetColors(Prefs.DColors);
+		propertiesPalette->Cpal->ChooseGrad(0);
 		FMess->setText( tr("Ready"));
 
 		PrinterUsed = false;
 	}
 	view->close();
 	delete view;
-	Tpal->itemMap.clear();
-	Tpal->pageMap.clear();
-	Tpal->templatePageMap.clear();
-	Tpal->templateItemMap.clear();
+	outlinePalette->itemMap.clear();
+	outlinePalette->pageMap.clear();
+	outlinePalette->templatePageMap.clear();
+	outlinePalette->templateItemMap.clear();
 	doc->loading = true;
-	Tpal->reportDisplay->clear();
-	Lpal->ClearInhalt();
-	docChecker->clearErrorList();
+	outlinePalette->reportDisplay->clear();
+	layerPalette->ClearInhalt();
+	docCheckerPalette->clearErrorList();
 	HaveDoc--;
 	view = NULL;
 	delete doc;
@@ -5159,8 +5159,8 @@ void ScribusApp::slotFilePrint()
 			}
 			else
 			{
-				docChecker->buildErrorList(doc);
-				docChecker->show();
+				docCheckerPalette->buildErrorList(doc);
+				docCheckerPalette->show();
 				scrActions["toolsPreflightVerifier"]->setOn(true);
 				return;
 			}
@@ -5326,7 +5326,7 @@ bool ScribusApp::doPrint(PrintOptions *options)
 
 void ScribusApp::slotFileQuit()
 {
-	Mpal->UnsetDoc();
+	propertiesPalette->UnsetDoc();
 	close();
 }
 
@@ -5637,8 +5637,8 @@ void ScribusApp::SelectAll()
 			view->paintGroupRect();
 			double x, y, w, h;
 			view->getGroupRect(&x, &y, &w, &h);
-			Mpal->setXY(x, y);
-			Mpal->setXY(w, h);
+			propertiesPalette->setXY(x, y);
+			propertiesPalette->setXY(w, h);
 		}
 		if (view->SelItem.count() > 0)
 		{
@@ -5792,7 +5792,7 @@ void ScribusApp::applyNewMaster(QString name)
 	Apply_Temp(name, doc->currentPage->PageNr);
 	view->DrawNew();
 	slotDocCh();
-//	Sepal->Rebuild();
+//	pagePalette->Rebuild();
 }
 
 void ScribusApp::slotNewPageP(int wo, QString templ)
@@ -5805,8 +5805,8 @@ void ScribusApp::slotNewPageP(int wo, QString templ)
 		doc->MasterPages = doc->Pages;
 	else
 		doc->DocPages = doc->Pages;
-	Tpal->BuildTree(doc);
-//	Sepal->RebuildPage();
+	outlinePalette->BuildTree(doc);
+//	pagePalette->RebuildPage();
 }
 
 /** Erzeugt eine neue Seite */
@@ -5895,13 +5895,13 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QS
 			}
 			break;
 		}
-//		Sepal->RebuildPage();
+//		pagePalette->RebuildPage();
 		view->DrawNew();
 		if (doc->TemplateMode)
 			doc->MasterPages = doc->Pages;
 		else
 			doc->DocPages = doc->Pages;
-		Tpal->BuildTree(doc);
+		outlinePalette->BuildTree(doc);
 }
 
 void ScribusApp::slotNewPageT(int w)
@@ -5914,7 +5914,7 @@ void ScribusApp::slotNewPage(int w)
 {
 	view->addPage(w);
 /*	if ((!doc->loading) && (!doc->TemplateMode))
-		Tpal->BuildTree(doc); */
+		outlinePalette->BuildTree(doc); */
 	bool setter = doc->Pages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
@@ -5923,7 +5923,7 @@ void ScribusApp::slotNewPage(int w)
 	{
 		AdjustBM();
 		if ((doc->PageAT) && (doc->PageC != 1))
-			Tpal->slotAddElement(w, 0);
+			outlinePalette->slotAddElement(w, 0);
 	}
 	slotDocCh(!doc->loading); */
 }
@@ -5961,37 +5961,37 @@ void ScribusApp::ToggleAllPalettes()
 	if (PalettesStat[0])
 	{
 		PalettesStat[0] = false;
-		Mpal->show();
-		Tpal->show();
-		ScBook->show();
-		BookPal->show();
-		Sepal->show();
-		Lpal->show();
-		MaPal->show();
-		docChecker->show();
-		setSepal(PalettesStat[5]);
+		propertiesPalette->show();
+		outlinePalette->show();
+		scrapbookPalette->show();
+		bookmarkPalette->show();
+		pagePalette->show();
+		layerPalette->show();
+		measurementPalette->show();
+		docCheckerPalette->show();
+		setPagePalette(PalettesStat[5]);
 		setUndoPalette(PalettesStat[8]);
 	}
 	else
 	{
-		PalettesStat[1] = Mpal->isVisible();
-		PalettesStat[2] = Tpal->isVisible();
-		PalettesStat[3] = ScBook->isVisible();
-		PalettesStat[4] = Lpal->isVisible();
-		PalettesStat[5] = Sepal->isVisible();
-		PalettesStat[6] = BookPal->isVisible();
-		PalettesStat[7] = MaPal->isVisible();
+		PalettesStat[1] = propertiesPalette->isVisible();
+		PalettesStat[2] = outlinePalette->isVisible();
+		PalettesStat[3] = scrapbookPalette->isVisible();
+		PalettesStat[4] = layerPalette->isVisible();
+		PalettesStat[5] = pagePalette->isVisible();
+		PalettesStat[6] = bookmarkPalette->isVisible();
+		PalettesStat[7] = measurementPalette->isVisible();
 		PalettesStat[8] = undoPalette->isVisible();
-		PalettesStat[9] = docChecker->isVisible();
-		Mpal->hide();
-		Tpal->hide();
-		ScBook->hide();
-		BookPal->hide();
-		Sepal->hide();
-		Lpal->hide();
-		MaPal->hide();
-		docChecker->hide();
-		setSepal(false);
+		PalettesStat[9] = docCheckerPalette->isVisible();
+		propertiesPalette->hide();
+		outlinePalette->hide();
+		scrapbookPalette->hide();
+		bookmarkPalette->hide();
+		pagePalette->hide();
+		layerPalette->hide();
+		measurementPalette->hide();
+		docCheckerPalette->hide();
+		setPagePalette(false);
 		setUndoPalette(false);
 		PalettesStat[0] = true;
 	}
@@ -6008,48 +6008,48 @@ void ScribusApp::setUndoPalette(bool visible)
 	scrActions["toolsActionHistory"]->setOn(visible);
 }
 
-void ScribusApp::ToggleMpal()
+void ScribusApp::togglePropertiesPalette()
 {
 	PalettesStat[0] = false;
 }
 
-void ScribusApp::ToggleTpal()
+void ScribusApp::toggleOutlinePalette()
 {
 	PalettesStat[0] = false;
 }
 
-void ScribusApp::ToggleBpal()
+void ScribusApp::toggleScrapbookPalette()
 {
 	PalettesStat[0] = false;
 }
 
-void ScribusApp::ToggleLpal()
+void ScribusApp::toggleLayerPalette()
 {
 	PalettesStat[0] = false;
 }
 
-void ScribusApp::setSepal(bool visible)
+void ScribusApp::setPagePalette(bool visible)
 {
 	
 	if (!visible)
 	{
-		Prefs.SepalT = Sepal->TemplList->Thumb;
-		Prefs.SepalN = Sepal->PageView->Namen;
+		Prefs.SepalT = pagePalette->TemplList->Thumb;
+		Prefs.SepalN = pagePalette->PageView->Namen;
 	}
 }
 
-void ScribusApp::ToggleSepal()
+void ScribusApp::togglePagePalette()
 {
-	setSepal(!Sepal->isVisible());
+	setPagePalette(!pagePalette->isVisible());
 	PalettesStat[0] = false;
 }
 
-void ScribusApp::ToggleBookpal()
+void ScribusApp::toggleBookmarkPalette()
 {
 	PalettesStat[0] = false;
 }
 
-void ScribusApp::ToggleUndoPalette()
+void ScribusApp::toggleUndoPalette()
 {
 	setUndoPalette(!undoPalette->isVisible());
 	PalettesStat[0] = false;
@@ -6202,11 +6202,11 @@ void ScribusApp::ToggleFrameEdit()
 	else
 	{
 		slotSelect();
-		Npal->setDoc(doc, view);
-		Npal->MoveN();
-		Npal->HaveNode(false, false);
-		Npal->MoveNode->setOn(true);
-		Npal->show();
+		nodePalette->setDoc(doc, view);
+		nodePalette->MoveN();
+		nodePalette->HaveNode(false, false);
+		nodePalette->MoveNode->setOn(true);
+		nodePalette->show();
 		doc->EditClipMode = 0;
 		doc->EditClip = true;
 		WerkTools->Select->setEnabled(false);
@@ -6230,9 +6230,9 @@ void ScribusApp::ToggleFrameEdit()
 		{
 			PageItem* b = view->SelItem.at(0);
 			view->MarkClip(b);
-			Npal->EditCont->setEnabled(b->ContourLine.size() != 0);
-			Npal->ResetCont->setEnabled(false);
-			Npal->PolyStatus(b->itemType(), b->PoLine.size());
+			nodePalette->EditCont->setEnabled(b->ContourLine.size() != 0);
+			nodePalette->ResetCont->setEnabled(false);
+			nodePalette->PolyStatus(b->itemType(), b->PoLine.size());
 		}
 	}
 	scrActions["itemShapeEdit"]->setOn(doc->EditClip);
@@ -6240,7 +6240,7 @@ void ScribusApp::ToggleFrameEdit()
 
 void ScribusApp::NoFrameEdit()
 {
-	Npal->hide();
+	nodePalette->hide();
 	WerkTools->Select->setEnabled(true);
 	WerkTools->Select->setOn(true);
 	WerkTools->Zoom->setEnabled(true);
@@ -6326,7 +6326,7 @@ void ScribusApp::setAppMode(int mode)
 		int oldMode = doc->appMode;
 		doc->appMode = mode;
 		if (oldMode == MeasurementTool)
-			disconnect(view, SIGNAL(MVals(double, double, double, double, double, double, int )), MaPal, SLOT(setValues(double, double, double, double, double, double, int )));
+			disconnect(view, SIGNAL(MVals(double, double, double, double, double, double, int )), measurementPalette, SLOT(setValues(double, double, double, double, double, double, int )));
 		if (oldMode == EditMode)
 		{
 			disconnect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(BlinkCurs()));
@@ -6397,11 +6397,11 @@ void ScribusApp::setAppMode(int mode)
 			view->FirstPoly = true;
 		}
 		if (mode == EditGradientVectors)
-			Mpal->Cpal->gradEditButton->setOn(true);
+			propertiesPalette->Cpal->gradEditButton->setOn(true);
 		if (mode == MeasurementTool)
 		{
-			MaPal->show();
-			connect(view, SIGNAL(MVals(double, double, double, double, double, double, int)), MaPal, SLOT(setValues(double, double, double, double, double, double, int )));
+			measurementPalette->show();
+			connect(view, SIGNAL(MVals(double, double, double, double, double, double, int)), measurementPalette, SLOT(setValues(double, double, double, double, double, double, int )));
 		}
 		switch (mode)
 		{
@@ -6432,7 +6432,7 @@ void ScribusApp::setAppMode(int mode)
 			doc->SubMode = WerkTools->SubMode;
 			doc->ShapeValues = WerkTools->ShapeVals;
 			doc->ValCount = WerkTools->ValCount;
-			Mpal->SCustom->setPixmap(Mpal->SCustom->getIconPixmap(doc->SubMode));
+			propertiesPalette->SCustom->setPixmap(propertiesPalette->SCustom->getIconPixmap(doc->SubMode));
 			SCustom->setPixmap(SCustom->getIconPixmap(doc->SubMode));
 		}
 		else
@@ -6456,7 +6456,7 @@ void ScribusApp::setAppMode(int mode)
 			WerkToolsP->PDFaTool->setOn(false);
 			scrActions["toolsMeasurements"]->setOn(false);
 			//CBWerkTools->Measure->setOn(false);
-			Mpal->Cpal->gradEditButton->setOn(false);
+			propertiesPalette->Cpal->gradEditButton->setOn(false);
 		}
 		if ((mode == LinkFrames) || (mode == UnlinkFrames))
 			view->updateContents();
@@ -6541,7 +6541,7 @@ void ScribusApp::AdjustBM()
 		if (bb->isBookmark)
 		{
 			int it = bb->BMnr;
-			QListViewItemIterator itn(BookPal->BView);
+			QListViewItemIterator itn(bookmarkPalette->BView);
 			for ( ; itn.current(); ++itn)
 			{
 				BookMItem *ite = (BookMItem*)itn.current();
@@ -6563,7 +6563,7 @@ void ScribusApp::DeletePage2(int pg)
 	if (doc->Pages.count() == 1)
 		return;
 /*	if (!doc->TemplateMode)
-		disconnect(doc->currentPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint))); */
+		disconnect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint))); */
 	view->SelItem.clear();
 	for (uint d = 0; d < doc->Items.count(); ++d)
 	{
@@ -6574,20 +6574,20 @@ void ScribusApp::DeletePage2(int pg)
 	}
 	if (view->SelItem.count() != 0)
 		view->DeleteItem();
-//	disconnect(view->Pages.at(pg), SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
+//	disconnect(view->Pages.at(pg), SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint)));
 	view->reformPages();
 	view->delPage(pg);
 //	AdjustBM();
 //	if (!doc->TemplateMode)
-//		connect(doc->currentPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
+//		connect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint)));
 	view->DrawNew();
 	doc->OpenNodes.clear();
-	Tpal->BuildTree(doc);
+	outlinePalette->BuildTree(doc);
 	bool setter = doc->Pages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 	slotDocCh();
-//	Sepal->RebuildPage();
+//	pagePalette->RebuildPage();
 }
 
 void ScribusApp::DeletePage()
@@ -6600,10 +6600,10 @@ void ScribusApp::DeletePage()
 	{
 		view->SelItem.clear();
 //		if (!doc->TemplateMode)
-//			disconnect(doc->currentPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
+//			disconnect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint)));
 		for (int a = dia->getToPage()-1; a >= dia->getFromPage()-1; a--)
 		{
-/*			disconnect(view->Pages.at(pg), SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint))); */
+/*			disconnect(view->Pages.at(pg), SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint))); */
 			for (uint d = 0; d < doc->Items.count(); ++d)
 			{
 				ite = doc->Items.at(d);
@@ -6617,7 +6617,7 @@ void ScribusApp::DeletePage()
 //			AdjustBM();
 		}
 //		if (!doc->TemplateMode)
-//			connect(doc->currentPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
+//			connect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint)));
 		if (view->SelItem.count() != 0)
 			view->DeleteItem();
 		for (int a = dia->getToPage()-1; a >= dia->getFromPage()-1; a--)
@@ -6625,12 +6625,12 @@ void ScribusApp::DeletePage()
 		view->reformPages();
 		view->DrawNew();
 //		doc->OpenNodes.clear();
-		Tpal->BuildTree(doc);
+		outlinePalette->BuildTree(doc);
 		bool setter = doc->Pages.count() > 1 ? true : false;
 		scrActions["pageDelete"]->setEnabled(setter);
 		scrActions["pageMove"]->setEnabled(setter);
 		slotDocCh();
-//		Sepal->RebuildPage();
+//		pagePalette->RebuildPage();
 	}
 	delete dia;
 }
@@ -6641,7 +6641,7 @@ void ScribusApp::MovePage()
 	MovePages *dia = new MovePages(this, doc->currentPage->PageNr+1, doc->Pages.count(), true);
 	if (dia->exec())
 	{
-//		doc->OpenNodes = Tpal->buildReopenVals();
+//		doc->OpenNodes = outlinePalette->buildReopenVals();
 		int from = dia->getFromPage();
 		int to = dia->getToPage();
 		int wie = dia->getWhere();
@@ -6651,9 +6651,9 @@ void ScribusApp::MovePage()
 		slotDocCh();
 		view->DrawNew();
 /*		AdjustBM();
-		Sepal->RebuildPage(); */
-		Tpal->BuildTree(doc);
-		Tpal->reopenTree(doc->OpenNodes);
+		pagePalette->RebuildPage(); */
+		outlinePalette->BuildTree(doc);
+		outlinePalette->reopenTree(doc->OpenNodes);
 	}
 	delete dia;
 }
@@ -6746,8 +6746,8 @@ void ScribusApp::CopyPage()
 		doc->loading = false;
 		view->DrawNew();
 		slotDocCh();
-//		Sepal->RebuildPage();
-		Tpal->BuildTree(doc);
+//		pagePalette->RebuildPage();
+		outlinePalette->BuildTree(doc);
 //		AdjustBM();
 	}
 	delete dia;
@@ -6792,7 +6792,7 @@ void ScribusApp::SetNewFont(QString nf)
 				PageItem *b = view->SelItem.at(0);
 				nf2 = b->IFont;
 			}
-			Mpal->Fonts->RebuildList(&Prefs, doc);
+			propertiesPalette->Fonts->RebuildList(&Prefs, doc);
 			buildFontMenu();
 		}
 	}
@@ -6806,7 +6806,7 @@ void ScribusApp::AdjustFontMenu(QString nf)
 {
 	QString df;
 	FontSub->setCurrentText(nf);
-	Mpal->Fonts->setCurrentText(nf);
+	propertiesPalette->Fonts->setCurrentText(nf);
 	for (uint a = 2; a < FontMenu->count(); ++a)
 	{
 		df = FontID[FontMenu->idAt(a)];
@@ -6831,7 +6831,7 @@ void ScribusApp::setItemFSize(int id)
 			delete dia;
 		}
 	}
-	Mpal->setSize(c*10);
+	propertiesPalette->setSize(c*10);
 	slotDocCh();
 }
 
@@ -6972,7 +6972,7 @@ void ScribusApp::saveLStyles(LineFormate *dia)
 				ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
 		}
 	}
-	Mpal->SetLineFormats(doc);
+	propertiesPalette->SetLineFormats(doc);
 	view->DrawNew();
 }
 
@@ -7222,7 +7222,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 			}
 		}
 	}
-	Mpal->Spal->updateFormatList();
+	propertiesPalette->Spal->updateFormatList();
 	view->DrawNew();
 	slotDocCh();
 }
@@ -7234,7 +7234,7 @@ void ScribusApp::setNewAbStyle(int a)
 	{
 		view->SetAbStyle(a);
 		doc->currentParaStyle = a;
-		Mpal->setAli(a);
+		propertiesPalette->setAli(a);
 		PageItem *b = view->SelItem.at(0);
 		setTBvals(b);
 		slotDocCh();
@@ -7244,7 +7244,7 @@ void ScribusApp::setNewAbStyle(int a)
 void ScribusApp::setAbsValue(int a)
 {
 	doc->currentParaStyle = a;
-	Mpal->setAli(a);
+	propertiesPalette->setAli(a);
 	QString alignment[] = {"Left", "Center", "Right", "Block", "Forced"};
 	for (int b=0; b<5; ++b)
 	{
@@ -7273,8 +7273,8 @@ void ScribusApp::slotEditColors()
 		{
 			slotDocCh();
 			doc->PageColors = dia->EditColors;
-			Mpal->Cpal->SetColors(doc->PageColors);
-			Mpal->updateCList();
+			propertiesPalette->Cpal->SetColors(doc->PageColors);
+			propertiesPalette->updateCList();
 			ColorList::Iterator it;
 			ColorMenC->clear();
 			QPixmap pm = QPixmap(15, 15);
@@ -7365,7 +7365,7 @@ void ScribusApp::slotEditColors()
 		{
 			Prefs.DColors = dia->EditColors;
 			Prefs.DColorSet = dia->LoadColSet->text();
-			Mpal->Cpal->SetColors(Prefs.DColors);
+			propertiesPalette->Cpal->SetColors(Prefs.DColors);
 		}
 	}
 	if (!HaveDoc)
@@ -7427,7 +7427,7 @@ void ScribusApp::updtGradFill()
 		if (view->SelItem.count() != 0)
 		{
 			PageItem *b = view->SelItem.at(0);
-			b->fill_gradient = Mpal->Cpal->gradEdit->Preview->fill_gradient;
+			b->fill_gradient = propertiesPalette->Cpal->gradEdit->Preview->fill_gradient;
 			view->RefreshItem(b);
 			slotDocCh();
 		}
@@ -7460,7 +7460,7 @@ void ScribusApp::MakeFrame(int f, int c, double *vals)
 		b->FrameType = f+2;
 		break;
 	}
-	Mpal->SetCurItem(b);
+	propertiesPalette->SetCurItem(b);
 	view->RefreshItem(b);
 	slotDocCh();
 }
@@ -7759,8 +7759,8 @@ void ScribusApp::slotPrefsOrg()
 			break;
 		}
 		Prefs.SaveAtQ = dia->SaveAtQuit->isChecked();
-		ScBook->BibWin->RebuildView();
-		ScBook->AdjustMenu();
+		scrapbookPalette->BibWin->RebuildView();
+		scrapbookPalette->AdjustMenu();
 		Prefs.guiLanguage=dia->selectedGUILang;
 		if (Prefs.GUI != dia->GUICombo->currentText())
 		{
@@ -7772,18 +7772,18 @@ void ScribusApp::slotPrefsOrg()
 		qApp->setFont(apf,true);
 		dia->tabTools->polyWidget->getValues(&Prefs.toolSettings.polyC, &Prefs.toolSettings.polyFd, &Prefs.toolSettings.polyF, &Prefs.toolSettings.polyS, &Prefs.toolSettings.polyR);
 		Prefs.pageSize = dia->prefsPageSizeName;
-		Prefs.Ausrichtung = dia->GZComboO->currentItem();
-		Prefs.PageBreite = dia->Pagebr;
-		Prefs.PageHoehe = dia->Pageho;
+		Prefs.pageOrientation = dia->GZComboO->currentItem();
+		Prefs.PageWidth = dia->Pagebr;
+		Prefs.PageHeight = dia->Pageho;
 		Prefs.RandOben = dia->RandT;
 		Prefs.RandUnten = dia->RandB;
 		Prefs.RandLinks = dia->RandL;
 		Prefs.RandRechts = dia->RandR;
-		Prefs.DoppelSeiten = dia->facingPages->isChecked();
-		Prefs.ErsteLinks = dia->Linkszuerst->isChecked();
+		Prefs.FacingPages = dia->facingPages->isChecked();
+		Prefs.LeftPageFirst = dia->Linkszuerst->isChecked();
 		Prefs.gimp_exe = dia->GimpName->text();
-		Prefs.gs_antiGraph = dia->GSantiGraph->isChecked();
-		Prefs.gs_antiText = dia->GSantiText->isChecked();
+		Prefs.gs_AntiAliasGraphics = dia->GSantiGraph->isChecked();
+		Prefs.gs_AntiAliasText = dia->GSantiText->isChecked();
 		Prefs.gs_exe = dia->GSName->text();
 		Prefs.ClipMargin = dia->ClipMarg->isChecked();
 		Prefs.GCRMode = dia->DoGCR->isChecked();
@@ -7795,7 +7795,7 @@ void ScribusApp::slotPrefsOrg()
 			Prefs.DisScale = dia->DisScale;
 			zChange = true;
 		}
-		Mpal->Cpal->UseTrans(true);
+		propertiesPalette->Cpal->UseTrans(true);
 		Prefs.docUnitIndex = dia->UnitCombo->currentItem();
 		UmReFaktor = unitGetRatioFromIndex(Prefs.docUnitIndex);
 		Prefs.ScratchBottom = dia->bottomScratch->value() / UmReFaktor;
@@ -7928,26 +7928,26 @@ void ScribusApp::slotPrefsOrg()
 			a++;
 		}
 		FontSub->RebuildList(&Prefs, 0);
-		Mpal->Fonts->RebuildList(&Prefs, 0);
-		Prefs.PDF_Optionen.Thumbnails = dia->tabPDF->CheckBox1->isChecked();
-		Prefs.PDF_Optionen.Compress = dia->tabPDF->Compression->isChecked();
-		Prefs.PDF_Optionen.CompressMethod = dia->tabPDF->CMethod->currentItem();
-		Prefs.PDF_Optionen.Quality = dia->tabPDF->CQuality->currentItem();
-		Prefs.PDF_Optionen.Resolution = dia->tabPDF->Resolution->value();
-		Prefs.PDF_Optionen.RecalcPic = dia->tabPDF->DSColor->isChecked();
-		Prefs.PDF_Optionen.PicRes = dia->tabPDF->ValC->value();
-		Prefs.PDF_Optionen.Bookmarks = dia->tabPDF->CheckBM->isChecked();
-		Prefs.PDF_Optionen.Binding = dia->tabPDF->ComboBind->currentItem();
-		Prefs.PDF_Optionen.MirrorH = dia->tabPDF->MirrorH->isOn();
-		Prefs.PDF_Optionen.MirrorV = dia->tabPDF->MirrorV->isOn();
-		Prefs.PDF_Optionen.RotateDeg = dia->tabPDF->RotateDeg->currentItem() * 90;
-		Prefs.PDF_Optionen.Articles = dia->tabPDF->Article->isChecked();
-		Prefs.PDF_Optionen.Encrypt = dia->tabPDF->Encry->isChecked();
-		Prefs.PDF_Optionen.UseLPI = dia->tabPDF->UseLPI->isChecked();
-		Prefs.PDF_Optionen.BleedBottom = dia->tabPDF->BleedBottom->value() / UmReFaktor;
-		Prefs.PDF_Optionen.BleedTop = dia->tabPDF->BleedTop->value() / UmReFaktor;
-		Prefs.PDF_Optionen.BleedLeft = dia->tabPDF->BleedLeft->value() / UmReFaktor;
-		Prefs.PDF_Optionen.BleedRight = dia->tabPDF->BleedRight->value() / UmReFaktor;
+		propertiesPalette->Fonts->RebuildList(&Prefs, 0);
+		Prefs.PDF_Options.Thumbnails = dia->tabPDF->CheckBox1->isChecked();
+		Prefs.PDF_Options.Compress = dia->tabPDF->Compression->isChecked();
+		Prefs.PDF_Options.CompressMethod = dia->tabPDF->CMethod->currentItem();
+		Prefs.PDF_Options.Quality = dia->tabPDF->CQuality->currentItem();
+		Prefs.PDF_Options.Resolution = dia->tabPDF->Resolution->value();
+		Prefs.PDF_Options.RecalcPic = dia->tabPDF->DSColor->isChecked();
+		Prefs.PDF_Options.PicRes = dia->tabPDF->ValC->value();
+		Prefs.PDF_Options.Bookmarks = dia->tabPDF->CheckBM->isChecked();
+		Prefs.PDF_Options.Binding = dia->tabPDF->ComboBind->currentItem();
+		Prefs.PDF_Options.MirrorH = dia->tabPDF->MirrorH->isOn();
+		Prefs.PDF_Options.MirrorV = dia->tabPDF->MirrorV->isOn();
+		Prefs.PDF_Options.RotateDeg = dia->tabPDF->RotateDeg->currentItem() * 90;
+		Prefs.PDF_Options.Articles = dia->tabPDF->Article->isChecked();
+		Prefs.PDF_Options.Encrypt = dia->tabPDF->Encry->isChecked();
+		Prefs.PDF_Options.UseLPI = dia->tabPDF->UseLPI->isChecked();
+		Prefs.PDF_Options.BleedBottom = dia->tabPDF->BleedBottom->value() / UmReFaktor;
+		Prefs.PDF_Options.BleedTop = dia->tabPDF->BleedTop->value() / UmReFaktor;
+		Prefs.PDF_Options.BleedLeft = dia->tabPDF->BleedLeft->value() / UmReFaktor;
+		Prefs.PDF_Options.BleedRight = dia->tabPDF->BleedRight->value() / UmReFaktor;
 		if (dia->tabPDF->Encry->isChecked())
 		{
 			int Perm = -64;
@@ -7961,47 +7961,47 @@ void ScribusApp::slotPrefsOrg()
 				Perm += 16;
 			if (dia->tabPDF->AddSec->isChecked())
 				Perm += 32;
-			Prefs.PDF_Optionen.Permissions = Perm;
-			Prefs.PDF_Optionen.PassOwner = dia->tabPDF->PassOwner->text();
-			Prefs.PDF_Optionen.PassUser = dia->tabPDF->PassUser->text();
+			Prefs.PDF_Options.Permissions = Perm;
+			Prefs.PDF_Options.PassOwner = dia->tabPDF->PassOwner->text();
+			Prefs.PDF_Options.PassUser = dia->tabPDF->PassUser->text();
 		}
 		if (dia->tabPDF->ComboBox1->currentItem() == 0)
-			Prefs.PDF_Optionen.Version = 13;
+			Prefs.PDF_Options.Version = 13;
 		if (dia->tabPDF->ComboBox1->currentItem() == 1)
-			Prefs.PDF_Optionen.Version = 14;
+			Prefs.PDF_Options.Version = 14;
 		if (dia->tabPDF->ComboBox1->currentItem() == 2)
-			Prefs.PDF_Optionen.Version = 12;
+			Prefs.PDF_Options.Version = 12;
 		if (dia->tabPDF->OutCombo->currentItem() == 0)
 		{
-			Prefs.PDF_Optionen.isGrayscale = false;
-			Prefs.PDF_Optionen.UseRGB = true;
-			Prefs.PDF_Optionen.UseProfiles = false;
-			Prefs.PDF_Optionen.UseProfiles2 = false;
+			Prefs.PDF_Options.isGrayscale = false;
+			Prefs.PDF_Options.UseRGB = true;
+			Prefs.PDF_Options.UseProfiles = false;
+			Prefs.PDF_Options.UseProfiles2 = false;
 		}
 		else
 		{
 			if (dia->tabPDF->OutCombo->currentItem() == 2)
 			{
-				Prefs.PDF_Optionen.isGrayscale = true;
-				Prefs.PDF_Optionen.UseRGB = false;
-				Prefs.PDF_Optionen.UseProfiles = false;
-				Prefs.PDF_Optionen.UseProfiles2 = false;
+				Prefs.PDF_Options.isGrayscale = true;
+				Prefs.PDF_Options.UseRGB = false;
+				Prefs.PDF_Options.UseProfiles = false;
+				Prefs.PDF_Options.UseProfiles2 = false;
 			}
 			else
 			{
-				Prefs.PDF_Optionen.isGrayscale = false;
-				Prefs.PDF_Optionen.UseRGB = false;
+				Prefs.PDF_Options.isGrayscale = false;
+				Prefs.PDF_Options.UseRGB = false;
 #ifdef HAVE_CMS
 				if (CMSuse)
 				{
-					Prefs.PDF_Optionen.UseProfiles = dia->tabPDF->EmbedProfs->isChecked();
-					Prefs.PDF_Optionen.UseProfiles2 = dia->tabPDF->EmbedProfs2->isChecked();
-					Prefs.PDF_Optionen.Intent = dia->tabPDF->IntendS->currentItem();
-					Prefs.PDF_Optionen.Intent2 = dia->tabPDF->IntendI->currentItem();
-					Prefs.PDF_Optionen.EmbeddedI = dia->tabPDF->NoEmbedded->isChecked();
-					Prefs.PDF_Optionen.SolidProf = dia->tabPDF->SolidPr->currentText();
-					Prefs.PDF_Optionen.ImageProf = dia->tabPDF->ImageP->currentText();
-					Prefs.PDF_Optionen.PrintProf = dia->tabPDF->PrintProfC->currentText();
+					Prefs.PDF_Options.UseProfiles = dia->tabPDF->EmbedProfs->isChecked();
+					Prefs.PDF_Options.UseProfiles2 = dia->tabPDF->EmbedProfs2->isChecked();
+					Prefs.PDF_Options.Intent = dia->tabPDF->IntendS->currentItem();
+					Prefs.PDF_Options.Intent2 = dia->tabPDF->IntendI->currentItem();
+					Prefs.PDF_Options.EmbeddedI = dia->tabPDF->NoEmbedded->isChecked();
+					Prefs.PDF_Options.SolidProf = dia->tabPDF->SolidPr->currentText();
+					Prefs.PDF_Options.ImageProf = dia->tabPDF->ImageP->currentText();
+					Prefs.PDF_Options.PrintProf = dia->tabPDF->PrintProfC->currentText();
 					}
 #endif
 				}
@@ -8136,14 +8136,14 @@ void ScribusApp::ShowSubs()
 		QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
 	}
 	
-	Mpal->startup();
-	Tpal->startup();
-	ScBook->startup();
-	BookPal->startup();
-	Sepal->startup();
-	Lpal->startup();
-	MaPal->startup();
-	docChecker->startup();
+	propertiesPalette->startup();
+	outlinePalette->startup();
+	scrapbookPalette->startup();
+	bookmarkPalette->startup();
+	pagePalette->startup();
+	layerPalette->startup();
+	measurementPalette->startup();
+	docCheckerPalette->startup();
 	
 	setTools(Prefs.mainToolBarSettings.visible);
 	setPDFTools(Prefs.pdfToolBarSettings.visible);
@@ -8230,8 +8230,8 @@ void ScribusApp::SaveAsEps()
 			}
 			else
 			{
-				docChecker->buildErrorList(doc);
-				docChecker->show();
+				docCheckerPalette->buildErrorList(doc);
+				docCheckerPalette->show();
 				scrActions["toolsPreflightVerifier"]->setOn(true);
 				return;
 			}
@@ -8317,8 +8317,8 @@ void ScribusApp::SaveAsPDF()
 			}
 			else
 			{
-				docChecker->buildErrorList(doc);
-				docChecker->show();
+				docCheckerPalette->buildErrorList(doc);
+				docCheckerPalette->show();
 				scrActions["toolsPreflightVerifier"]->setOn(true);
 				return;
 			}
@@ -8326,59 +8326,59 @@ void ScribusApp::SaveAsPDF()
 	}
 	int Components = 3;
 	QString nam = "";
-/*	if (BookPal->BView->childCount() == 0)
-		doc->PDF_Optionen.Bookmarks = false; */
+/*	if (bookmarkPalette->BView->childCount() == 0)
+		doc->PDF_Options.Bookmarks = false; */
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
 	GetUsedFonts(&ReallyUsed);
-	if (doc->PDF_Optionen.EmbedList.count() != 0)
+	if (doc->PDF_Options.EmbedList.count() != 0)
 	{
 		QValueList<QString> tmpEm;
 		QValueList<QString>::Iterator itef;
-		for (itef = doc->PDF_Optionen.EmbedList.begin(); itef != doc->PDF_Optionen.EmbedList.end(); ++itef)
+		for (itef = doc->PDF_Options.EmbedList.begin(); itef != doc->PDF_Options.EmbedList.end(); ++itef)
 		{
 			if (ReallyUsed.contains((*itef)))
 				tmpEm.append((*itef));
 		}
-		doc->PDF_Optionen.EmbedList = tmpEm;
+		doc->PDF_Options.EmbedList = tmpEm;
 	}
-	if (doc->PDF_Optionen.SubsetList.count() != 0)
+	if (doc->PDF_Options.SubsetList.count() != 0)
 	{
 		QValueList<QString> tmpEm;
 		QValueList<QString>::Iterator itef;
-		for (itef = doc->PDF_Optionen.SubsetList.begin(); itef != doc->PDF_Optionen.SubsetList.end(); ++itef)
+		for (itef = doc->PDF_Options.SubsetList.begin(); itef != doc->PDF_Options.SubsetList.end(); ++itef)
 		{
 			if (ReallyUsed.contains((*itef)))
 				tmpEm.append((*itef));
 		}
-		doc->PDF_Optionen.SubsetList = tmpEm;
+		doc->PDF_Options.SubsetList = tmpEm;
 	}
-	PDF_Opts *dia = new PDF_Opts(this, doc->DocName, ReallyUsed, view, &doc->PDF_Optionen, doc->PDF_Optionen.PresentVals, &PDFXProfiles, Prefs.AvailFonts);
+	PDF_Opts *dia = new PDF_Opts(this, doc->DocName, ReallyUsed, view, &doc->PDF_Options, doc->PDF_Options.PresentVals, &PDFXProfiles, Prefs.AvailFonts);
 	if (dia->exec())
 	{
 		std::vector<int> pageNs;
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		fn = dia->Datei->text();
-		doc->PDF_Optionen.Datei = fn;
-		doc->PDF_Optionen.Thumbnails = dia->Options->CheckBox1->isChecked();
-		doc->PDF_Optionen.Compress = dia->Options->Compression->isChecked();
-		doc->PDF_Optionen.CompressMethod = dia->Options->CMethod->currentItem();
-		doc->PDF_Optionen.Quality = dia->Options->CQuality->currentItem();
-		doc->PDF_Optionen.Resolution = dia->Options->Resolution->value();
-		doc->PDF_Optionen.EmbedList = dia->Options->FontsToEmbed;
-		doc->PDF_Optionen.SubsetList = dia->Options->FontsToSubset;
-		doc->PDF_Optionen.RecalcPic = dia->Options->DSColor->isChecked();
-		doc->PDF_Optionen.PicRes = dia->Options->ValC->value();
-		doc->PDF_Optionen.Bookmarks = dia->Options->CheckBM->isChecked();
-		doc->PDF_Optionen.Binding = dia->Options->ComboBind->currentItem();
-		doc->PDF_Optionen.MirrorH = dia->Options->MirrorH->isOn();
-		doc->PDF_Optionen.MirrorV = dia->Options->MirrorV->isOn();
-		doc->PDF_Optionen.RotateDeg = dia->Options->RotateDeg->currentItem() * 90;
-		doc->PDF_Optionen.PresentMode = dia->Options->CheckBox10->isChecked();
-		doc->PDF_Optionen.PresentVals = dia->EffVal;
-		doc->PDF_Optionen.Articles = dia->Options->Article->isChecked();
-		doc->PDF_Optionen.Encrypt = dia->Options->Encry->isChecked();
-		doc->PDF_Optionen.UseLPI = dia->Options->UseLPI->isChecked();
+		doc->PDF_Options.Datei = fn;
+		doc->PDF_Options.Thumbnails = dia->Options->CheckBox1->isChecked();
+		doc->PDF_Options.Compress = dia->Options->Compression->isChecked();
+		doc->PDF_Options.CompressMethod = dia->Options->CMethod->currentItem();
+		doc->PDF_Options.Quality = dia->Options->CQuality->currentItem();
+		doc->PDF_Options.Resolution = dia->Options->Resolution->value();
+		doc->PDF_Options.EmbedList = dia->Options->FontsToEmbed;
+		doc->PDF_Options.SubsetList = dia->Options->FontsToSubset;
+		doc->PDF_Options.RecalcPic = dia->Options->DSColor->isChecked();
+		doc->PDF_Options.PicRes = dia->Options->ValC->value();
+		doc->PDF_Options.Bookmarks = dia->Options->CheckBM->isChecked();
+		doc->PDF_Options.Binding = dia->Options->ComboBind->currentItem();
+		doc->PDF_Options.MirrorH = dia->Options->MirrorH->isOn();
+		doc->PDF_Options.MirrorV = dia->Options->MirrorV->isOn();
+		doc->PDF_Options.RotateDeg = dia->Options->RotateDeg->currentItem() * 90;
+		doc->PDF_Options.PresentMode = dia->Options->CheckBox10->isChecked();
+		doc->PDF_Options.PresentVals = dia->EffVal;
+		doc->PDF_Options.Articles = dia->Options->Article->isChecked();
+		doc->PDF_Options.Encrypt = dia->Options->Encry->isChecked();
+		doc->PDF_Options.UseLPI = dia->Options->UseLPI->isChecked();
 		if (dia->Options->Encry->isChecked())
 		{
 			int Perm = -64;
@@ -8392,52 +8392,52 @@ void ScribusApp::SaveAsPDF()
 				Perm += 16;
 			if (dia->Options->AddSec->isChecked())
 				Perm += 32;
-			doc->PDF_Optionen.Permissions = Perm;
-			doc->PDF_Optionen.PassOwner = dia->Options->PassOwner->text();
-			doc->PDF_Optionen.PassUser = dia->Options->PassUser->text();
+			doc->PDF_Options.Permissions = Perm;
+			doc->PDF_Options.PassOwner = dia->Options->PassOwner->text();
+			doc->PDF_Options.PassUser = dia->Options->PassUser->text();
 		}
 		if (dia->Options->ComboBox1->currentItem() == 0)
-			doc->PDF_Optionen.Version = 13;
+			doc->PDF_Options.Version = 13;
 		if (dia->Options->ComboBox1->currentItem() == 1)
-			doc->PDF_Optionen.Version = 14;
+			doc->PDF_Options.Version = 14;
 		if (dia->Options->ComboBox1->currentItem() == 2)
-			doc->PDF_Optionen.Version = 12;
+			doc->PDF_Options.Version = 12;
 		if (dia->Options->OutCombo->currentItem() == 0)
 		{
-			doc->PDF_Optionen.UseRGB = true;
-			doc->PDF_Optionen.isGrayscale = false;
-			doc->PDF_Optionen.UseProfiles = false;
-			doc->PDF_Optionen.UseProfiles2 = false;
+			doc->PDF_Options.UseRGB = true;
+			doc->PDF_Options.isGrayscale = false;
+			doc->PDF_Options.UseProfiles = false;
+			doc->PDF_Options.UseProfiles2 = false;
 		}
 		else
 		{
 			if (dia->Options->OutCombo->currentItem() == 2)
 			{
-				doc->PDF_Optionen.isGrayscale = true;
-				doc->PDF_Optionen.UseRGB = false;
-				doc->PDF_Optionen.UseProfiles = false;
-				doc->PDF_Optionen.UseProfiles2 = false;
+				doc->PDF_Options.isGrayscale = true;
+				doc->PDF_Options.UseRGB = false;
+				doc->PDF_Options.UseProfiles = false;
+				doc->PDF_Options.UseProfiles2 = false;
 			}
 			else
 			{
-				doc->PDF_Optionen.isGrayscale = false;
-				doc->PDF_Optionen.UseRGB = false;
+				doc->PDF_Options.isGrayscale = false;
+				doc->PDF_Options.UseRGB = false;
 #ifdef HAVE_CMS
 				if (CMSuse)
 				{
-					doc->PDF_Optionen.UseProfiles = dia->Options->EmbedProfs->isChecked();
-					doc->PDF_Optionen.UseProfiles2 = dia->Options->EmbedProfs2->isChecked();
-					doc->PDF_Optionen.Intent = dia->Options->IntendS->currentItem();
-					doc->PDF_Optionen.Intent2 = dia->Options->IntendI->currentItem();
-					doc->PDF_Optionen.EmbeddedI = dia->Options->NoEmbedded->isChecked();
-					doc->PDF_Optionen.SolidProf = dia->Options->SolidPr->currentText();
-					doc->PDF_Optionen.ImageProf = dia->Options->ImageP->currentText();
-					doc->PDF_Optionen.PrintProf = dia->Options->PrintProfC->currentText();
-					if (doc->PDF_Optionen.Version == 12)
+					doc->PDF_Options.UseProfiles = dia->Options->EmbedProfs->isChecked();
+					doc->PDF_Options.UseProfiles2 = dia->Options->EmbedProfs2->isChecked();
+					doc->PDF_Options.Intent = dia->Options->IntendS->currentItem();
+					doc->PDF_Options.Intent2 = dia->Options->IntendI->currentItem();
+					doc->PDF_Options.EmbeddedI = dia->Options->NoEmbedded->isChecked();
+					doc->PDF_Options.SolidProf = dia->Options->SolidPr->currentText();
+					doc->PDF_Options.ImageProf = dia->Options->ImageP->currentText();
+					doc->PDF_Options.PrintProf = dia->Options->PrintProfC->currentText();
+					if (doc->PDF_Options.Version == 12)
 					{
 						const char *Descriptor;
 						cmsHPROFILE hIn;
-						hIn = cmsOpenProfileFromFile(PrinterProfiles[doc->PDF_Optionen.PrintProf], "r");
+						hIn = cmsOpenProfileFromFile(PrinterProfiles[doc->PDF_Options.PrintProf], "r");
 						Descriptor = cmsTakeProductDesc(hIn);
 						nam = QString(Descriptor);
 						if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
@@ -8447,27 +8447,27 @@ void ScribusApp::SaveAsPDF()
 						if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmyData)
 							Components = 3;
 						cmsCloseProfile(hIn);
-						doc->PDF_Optionen.Info = dia->Options->InfoString->text();
-						doc->PDF_Optionen.BleedTop = dia->Options->BleedTop->value()/UmReFaktor;
-						doc->PDF_Optionen.BleedLeft = dia->Options->BleedLeft->value()/UmReFaktor;
-						doc->PDF_Optionen.BleedRight = dia->Options->BleedRight->value()/UmReFaktor;
-						doc->PDF_Optionen.BleedBottom = dia->Options->BleedBottom->value()/UmReFaktor;
-						doc->PDF_Optionen.Encrypt = false;
-						doc->PDF_Optionen.MirrorH = false;
-						doc->PDF_Optionen.MirrorV = false;
-						doc->PDF_Optionen.RotateDeg = 0;
-						doc->PDF_Optionen.PresentMode = false;
-						doc->PDF_Optionen.Encrypt = false;
+						doc->PDF_Options.Info = dia->Options->InfoString->text();
+						doc->PDF_Options.BleedTop = dia->Options->BleedTop->value()/UmReFaktor;
+						doc->PDF_Options.BleedLeft = dia->Options->BleedLeft->value()/UmReFaktor;
+						doc->PDF_Options.BleedRight = dia->Options->BleedRight->value()/UmReFaktor;
+						doc->PDF_Options.BleedBottom = dia->Options->BleedBottom->value()/UmReFaktor;
+						doc->PDF_Options.Encrypt = false;
+						doc->PDF_Options.MirrorH = false;
+						doc->PDF_Options.MirrorV = false;
+						doc->PDF_Options.RotateDeg = 0;
+						doc->PDF_Options.PresentMode = false;
+						doc->PDF_Options.Encrypt = false;
 					}
 				}
 				else
 				{
-					doc->PDF_Optionen.UseProfiles = false;
-					doc->PDF_Optionen.UseProfiles2 = false;
+					doc->PDF_Options.UseProfiles = false;
+					doc->PDF_Options.UseProfiles2 = false;
 				}
 #else
-				doc->PDF_Optionen.UseProfiles = false;
-				doc->PDF_Optionen.UseProfiles2 = false;
+				doc->PDF_Options.UseProfiles = false;
+				doc->PDF_Options.UseProfiles2 = false;
 #endif
 			}
 		}
@@ -8479,7 +8479,7 @@ void ScribusApp::SaveAsPDF()
 		for (uint ap = 0; ap < pageNs.size(); ++ap)
 		{
 			QPixmap pm(10,10);
-			if (doc->PDF_Optionen.Thumbnails)
+			if (doc->PDF_Options.Thumbnails)
 				pm = view->PageToPixmap(pageNs[ap]-1, 100);
 			thumbs.insert(pageNs[ap], pm);
 		}
@@ -8493,19 +8493,19 @@ void ScribusApp::SaveAsPDF()
 
 void ScribusApp::AddBookMark(PageItem *ite)
 {
-	BookPal->BView->AddPageItem(ite);
+	bookmarkPalette->BView->AddPageItem(ite);
 	StoreBookmarks();
 }
 
 void ScribusApp::DelBookMark(PageItem *ite)
 {
-	BookPal->BView->DeleteItem(ite->BMnr);
+	bookmarkPalette->BView->DeleteItem(ite->BMnr);
 	StoreBookmarks();
 }
 
 void ScribusApp::BookMarkTxT(PageItem *ite)
 {
-	BookPal->BView->ChangeText(ite);
+	bookmarkPalette->BView->ChangeText(ite);
 	StoreBookmarks();
 }
 
@@ -8517,21 +8517,21 @@ void ScribusApp::ChBookmarks(int /*s*/, int /*e*/, int /*n*/)
 void ScribusApp::RestoreBookMarks()
 {
 	QValueList<ScribusDoc::BookMa>::Iterator it2 = doc->BookMarks.begin();
-	BookPal->BView->clear();
+	bookmarkPalette->BView->clear();
 	if (doc->BookMarks.count() == 0)
 		return;
 	BookMItem* ip;
 	BookMItem* ip2 = NULL;
 	BookMItem* ip3 = NULL;
-	BookMItem *ite = new BookMItem(BookPal->BView, &(*it2));
+	BookMItem *ite = new BookMItem(bookmarkPalette->BView, &(*it2));
 	++it2;
 	for( ; it2 != doc->BookMarks.end(); ++it2 )
 	{
 		if ((*it2).Parent == 0)
-			ite = new BookMItem(BookPal->BView, ite, &(*it2));
+			ite = new BookMItem(bookmarkPalette->BView, ite, &(*it2));
 		else
 		{
-			QListViewItemIterator it3(BookPal->BView);
+			QListViewItemIterator it3(bookmarkPalette->BView);
 			for ( ; it3.current(); ++it3)
 			{
 				ip = (BookMItem*)it3.current();
@@ -8545,7 +8545,7 @@ void ScribusApp::RestoreBookMarks()
 				(void) new BookMItem(ip2, &(*it2));
 			else
 			{
-				QListViewItemIterator it4(BookPal->BView);
+				QListViewItemIterator it4(bookmarkPalette->BView);
 				for ( ; it4.current(); ++it4)
 				{
 					ip = (BookMItem*)it4.current();
@@ -8565,7 +8565,7 @@ void ScribusApp::StoreBookmarks()
 {
 	doc->BookMarks.clear();
 	BookMItem* ip;
-	QListViewItemIterator it(BookPal->BView);
+	QListViewItemIterator it(bookmarkPalette->BView);
 	struct ScribusDoc::BookMa Boma;
 	for ( ; it.current(); ++it)
 	{
@@ -8583,9 +8583,9 @@ void ScribusApp::StoreBookmarks()
 		Boma.Last = ip->Last;
 		doc->BookMarks.append(Boma);
 	}
-	doc->NrItems = BookPal->BView->NrItems;
-	doc->First = BookPal->BView->First;
-	doc->Last = BookPal->BView->Last;
+	doc->NrItems = bookmarkPalette->BView->NrItems;
+	doc->First = bookmarkPalette->BView->First;
+	doc->Last = bookmarkPalette->BView->Last;
 }
 
 void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie)
@@ -8598,14 +8598,14 @@ void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, S
 		vie->DrawNew();
 		if (doc == docc)
 		{
-			doc->OpenNodes = Tpal->buildReopenVals();
+			doc->OpenNodes = outlinePalette->buildReopenVals();
 			buildFontMenu();
-			Mpal->Cpal->SetColors(docc->PageColors);
-			Mpal->updateCList();
-			Mpal->Spal->updateFormatList();
-			Mpal->SetLineFormats(docc);
-			Tpal->BuildTree(doc);
-			Tpal->reopenTree(doc->OpenNodes);
+			propertiesPalette->Cpal->SetColors(docc->PageColors);
+			propertiesPalette->updateCList();
+			propertiesPalette->Spal->updateFormatList();
+			propertiesPalette->SetLineFormats(docc);
+			outlinePalette->BuildTree(doc);
+			outlinePalette->reopenTree(doc->OpenNodes);
 			slotDocCh();
 		}
 	}
@@ -8617,7 +8617,7 @@ void ScribusApp::slotChangeUnit(int art, bool draw)
 	doc->docUnitIndex = art;
 	UmReFaktor = unitGetRatioFromIndex( doc->docUnitIndex );
 	view->UN->setText( unitGetStrFromIndex( doc->docUnitIndex) );
-	Mpal->UnitChange();
+	propertiesPalette->UnitChange();
 	if (draw)
 		view->DrawNew();
 }
@@ -8647,7 +8647,7 @@ void ScribusApp::ManageTemp(QString temp)
 			connect(dia, SIGNAL(createNew(int)), this, SLOT(slotNewPageT(int)));
 			connect(dia, SIGNAL(loadPage(QString, int, bool)), this, SLOT(LadeSeite(QString, int, bool)));
 			connect(dia, SIGNAL(finished()), this, SLOT(ManTempEnd()));
-			connect(dia, SIGNAL(updateTree(ScribusDoc* )), Tpal, SLOT(BuildTree(ScribusDoc* )));
+			connect(dia, SIGNAL(updateTree(ScribusDoc* )), outlinePalette, SLOT(BuildTree(ScribusDoc* )));
 			scrActions["pageInsert"]->setEnabled(false);
 			scrActions["pageDelete"]->setEnabled(false);
 			scrActions["pageCopy"]->setEnabled(false);
@@ -8666,10 +8666,10 @@ void ScribusApp::ManageTemp(QString temp)
 			scrActions["fileDocSetup"]->setEnabled(false);
 			scrActions["filePrint"]->setEnabled(false);
 			doc->TemplateMode = true;
-			Sepal->DisablePal();
+			pagePalette->DisablePal();
 			dia->show();
 			ActWin->muster = dia;
-			doc->OpenNodes = Tpal->buildReopenVals();
+			doc->OpenNodes = outlinePalette->buildReopenVals();
 		}
 	}
 }
@@ -8698,13 +8698,13 @@ void ScribusApp::ManTempEnd()
 		Apply_Temp(doc->Pages.at(c)->MPageNam, c, false);
 	}
 	doc->TemplateMode = false;
-	Sepal->EnablePal();
-//	Sepal->RebuildTemp();
+	pagePalette->EnablePal();
+//	pagePalette->RebuildTemp();
 	ActWin->muster = NULL;
 	view->DrawNew();
-//	Sepal->Rebuild();
-//	Tpal->BuildTree(doc);
-//	Tpal->reopenTree(doc->OpenNodes);
+//	pagePalette->Rebuild();
+//	outlinePalette->BuildTree(doc);
+//	outlinePalette->reopenTree(doc->OpenNodes);
 //	slotDocCh();
 }
 
@@ -8743,7 +8743,7 @@ void ScribusApp::ApplyTemp()
 	}
 	view->DrawNew();
 	slotDocCh();
-//	Sepal->Rebuild();
+//	pagePalette->Rebuild();
 	delete dia;
 }
 
@@ -8807,7 +8807,7 @@ void ScribusApp::Apply_Temp(QString in, int Snr, bool reb)
 	{
 		view->DrawNew();
 		slotDocCh();
-//		Sepal->Rebuild();
+//		pagePalette->Rebuild();
 	}
 }
 
@@ -8868,7 +8868,7 @@ void ScribusApp::GroupObj(bool showLockDia)
 		doc->GroupCounter++;
 		view->getGroupRect(&x, &y, &w, &h);
 		view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
-		Tpal->BuildTree(doc);
+		outlinePalette->BuildTree(doc);
 		slotDocCh();
 		scrActions["itemAttachTextToPath"]->setEnabled(false);
 		scrActions["itemGroup"]->setEnabled(false);
@@ -8898,7 +8898,7 @@ void ScribusApp::UnGroupObj()
 			ss->set(QString("item%1").arg(a), b->ItemNr);
 			tooltip += "\t" + b->getUName() + "\n";
 		}
-		Tpal->BuildTree(doc);
+		outlinePalette->BuildTree(doc);
 		slotDocCh();
 		view->Deselect(true);
 
@@ -9084,7 +9084,7 @@ void ScribusApp::callDLLBySlot(int pluginID)
 	if (PluginMap[pluginID].Typ==7)
 	{
 		if (HaveDoc)
-			doc->OpenNodes = Tpal->buildReopenVals();
+			doc->OpenNodes = outlinePalette->buildReopenVals();
 	}
 
 	CallDLL(pluginID);
@@ -9094,9 +9094,9 @@ void ScribusApp::callDLLBySlot(int pluginID)
 	{
 		if (HaveDoc)
 		{
-			Tpal->BuildTree(doc);
-			Tpal->reopenTree(doc->OpenNodes);
-			Mpal->updateCList();
+			outlinePalette->BuildTree(doc);
+			outlinePalette->reopenTree(doc->OpenNodes);
+			propertiesPalette->updateCList();
 		}
 	}
 }
@@ -9422,8 +9422,8 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 				cstops.at(cst)->color = tmpc;
 			}
 		}
-		Mpal->Cpal->SetColors(doc->PageColors);
-		Mpal->updateCList();
+		propertiesPalette->Cpal->SetColors(doc->PageColors);
+		propertiesPalette->updateCList();
 	}
 }
 
@@ -9472,7 +9472,7 @@ void ScribusApp::SetShortCut()
 
 void ScribusApp::PutScrap(QString t)
 {
-	ScBook->ObjFromMenu(t);
+	scrapbookPalette->ObjFromMenu(t);
 }
 
 void ScribusApp::UniteOb()
@@ -9821,7 +9821,7 @@ void ScribusApp::initHyphenator()
 		if (datein == "")
 			Prefs.Language = "English";
 	}
-	Mpal->fillLangCombo(LangTransl);
+	propertiesPalette->fillLangCombo(LangTransl);
 }
 
 QString ScribusApp::GetLang(QString inLang)
@@ -10236,7 +10236,7 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 void ScribusApp::slotCheckDoc()
 {
 	scanDocument();
-	docChecker->buildErrorList(doc);
+	docCheckerPalette->buildErrorList(doc);
 }
 
 void ScribusApp::scanDocument()

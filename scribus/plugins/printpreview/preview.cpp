@@ -409,8 +409,8 @@ int PPreview::RenderPreview(int Seite, int Res)
 				}
 				else
 				{
-					app->docChecker->buildErrorList(app->doc);
-					app->docChecker->show();
+					app->docCheckerPalette->buildErrorList(app->doc);
+					app->docCheckerPalette->show();
 					app->scrActions["toolsPreflightVerifier"]->setOn(true);
 					app->DLLReturn = "Failed";
 					return ret;
