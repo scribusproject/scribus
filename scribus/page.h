@@ -218,6 +218,7 @@ public slots:
 	void ToFront();
 	void LowerItem();
 	void RaiseItem();
+	void ClearItem();
 	void DeleteItem();
 	bool slotSetCurs(int x, int y);
 	void slotDoCurs(bool draw);
@@ -282,6 +283,7 @@ signals: // Signals
   void ItemTextSca(int);
   void ItemTextUSval(double);
   void ItemTextAbs(int);
+	void ItemTextCols(int);
   void ItemTextFarben(QString, QString, int, int);
   /** Text in Textbox selektiert */
   void HasTextSel();

@@ -125,8 +125,10 @@ public:
     MSpinBox* Dist;
     MSpinBox* LineW;
     QLabel* Text14;
+    QLabel* Text14a;
     QLabel* Text15;
     QLabel* Text16;
+		QSpinBox* DCol;
     MSpinBox* DTop;
     MSpinBox* DBottom;
     MSpinBox* DLeft;
@@ -215,6 +217,7 @@ public slots:
     void setBH(double x, double y);
 		void setR(double r);
 		void setRR(double r);
+		void setCols(int r);
 		void setLsp(double r);
 		void setSize(int s);
 		void setExtra(double e);
@@ -243,6 +246,7 @@ private slots:
 		void NewR();
 		void NewRR();
 		void NewLsp();
+		void NewCols();
 		void NewSize();
 		void NewExtra();
 		void DoFlipH();

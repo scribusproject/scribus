@@ -2214,6 +2214,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			if (!b->Locked)
 				pmen->insertItem( tr("Cut"), this, SIGNAL(CutItem()));
 			pmen->insertItem( tr("Copy"), this, SIGNAL(CopyItem()));
+			if ((b->PType == 2) || ((b->PType == 4) && (b->NextBox == 0) && (b->BackBox == 0)))
+				pmen->insertItem( tr("Clear Contents"), this, SLOT(ClearItem()));
 			if ((!b->Locked) && (doku->AppMode != 7))
 				pmen->insertItem( tr("Delete"), this, SLOT(DeleteItem()));
 			pmen->exec(QCursor::pos());
@@ -2445,6 +2447,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 							doku->CurrTextScale = b->TxtScale;
 							doku->CurrFontSize = b->ISize;
 							emit ItemTextAttr(b->LineSp);
+							emit ItemTextCols(b->Cols);
 							emit ItemTextSize(b->ISize);
 							emit ItemTextSca(b->TxtScale);
 							for (uint aa = 0; aa < b->Ptext.count(); ++aa)
@@ -5928,6 +5931,7 @@ void Page::chFSize(int size)
 				emit ItemTextAttr(b->LineSp);
 				b->ISize = size;
 				emit ItemTextSize(b->ISize);
+				emit ItemTextCols(b->Cols);
 				}
 			if (b->Ptext.count() != 0)
 				{
@@ -6172,6 +6176,32 @@ void Page::RaiseItem()
 		emit DocChanged();
 		emit MoveObj(PageNr, old, old+1);
 		update();
+		}
+}
+
+void Page::ClearItem()
+{
+	PageItem *b;
+  if (SelItem.count() != 0)
+  	{
+	  b = SelItem.at(0);
+	  if ((b->PType == 2) || (b->PType == 4))
+			{
+	 	 if ((b->PType == 4) && (b->NextBox == 0) && (b->BackBox == 0))
+	  		{
+				b->Ptext.clear();
+				b->CPos = 0;
+				}
+	  	if (b->PType == 2)
+	  		{
+				b->Pfile = "";
+				b->PicAvail = false;
+				b->pixm = QImage();
+				emit UpdtObj(PageNr, b->ItemNr);
+				}
+			RefreshItem(b);
+			emit DocChanged();
+			}
 		}
 }
 
@@ -6518,6 +6548,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	b->InvPict = Buffer->InvPict;
 	b->NamedLStyle = Buffer->NamedLStyle;
 	b->Language = Buffer->Language;
+	b->Cols = Buffer->Cols;
 	if (Buffer->LayerNr != -1)
 		b->LayerNr = Buffer->LayerNr;
 	b->PoLine = Buffer->PoLine.copy();
@@ -6634,6 +6665,7 @@ void Page::EmitValues(PageItem *b)
 	emit ItemTrans(b->Transparency, b->TranspStroke);
 	emit ItemTextAttr(b->LineSp);
 	emit ItemTextUSval(b->ExtraV);
+	emit ItemTextCols(b->Cols);
 	if (doku->AppMode != 7)
 		{
 		emit ItemTextAbs(b->Ausrich);

@@ -78,6 +78,9 @@
 #include "missing.h"
 #include "story.h"
 #include "autoform.h"
+
+#include <unistd.h>
+
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
 extern void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
@@ -2404,7 +2407,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		bool cmsu = CMSuse;
 		CMSuse = false;
 #endif
-  	if(!ss->ReadDoc(fileName, Prefs.AvailFonts, doc, view, FProg))
+  	if(!ss->ReadDoc(fi.fileName(), Prefs.AvailFonts, doc, view, FProg))
   		{
   		view->close();
   		disconnect(ss, SIGNAL(NewPage(int)), this, SLOT(slotNewPage(int)));
@@ -3430,6 +3433,7 @@ void ScribusApp::slotNewPage(int w)
 	connect(doc->ActPage, SIGNAL(SetAngle(double)), Mpal, SLOT(setR(double)));
 	connect(doc->ActPage, SIGNAL(ItemRadius(double)), Mpal, SLOT(setRR(double)));
 	connect(doc->ActPage, SIGNAL(ItemTextAttr(double)), Mpal, SLOT(setLsp(double)));
+	connect(doc->ActPage, SIGNAL(ItemTextCols(int)), Mpal, SLOT(setCols(int)));
 	connect(doc->ActPage, SIGNAL(ItemTextSize(int)), Mpal, SLOT(setSize(int)));
 	connect(doc->ActPage, SIGNAL(ItemTextUSval(double)), Mpal, SLOT(setExtra(double)));
 	connect(doc->ActPage, SIGNAL(SetLocalValues(double, double, double, double)), Mpal, SLOT(setLvalue(double, double, double, double)));

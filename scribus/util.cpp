@@ -1502,6 +1502,7 @@ void CopyPageItem(struct CLBuf *Buffer, PageItem *b)
 	Buffer->InvPict = b->InvPict;
 	Buffer->NamedLStyle = b->NamedLStyle;
 	Buffer->Language = b->Language;
+	Buffer->Cols = b->Cols;
 }
 
 void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN)

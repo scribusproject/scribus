@@ -1,4 +1,7 @@
 Changes since Version 1.1.4
+23.12.2003	Textframes can have now more than 1 Column.
+		Added an Clear Contents Entry to the Context Menu.
+
 22.12.2003	Improved the Geometry Settings in the Properties Palette for Groups.
 
 21.12.2003	Added a right Click Context Menu for Pages too.

@@ -100,6 +100,7 @@ public:
 	int ShTxtFill;
 	int TxtScale;
 	int TxTStyle;
+	int Cols;
   /** Strichstaerke */
   double Pwidth;
   /** Linienart */

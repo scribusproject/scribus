@@ -325,6 +325,57 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     TabStack2 = new QWidgetStack( page_2, "TabStack2" );
     TabStack2->setFrameShape( QWidgetStack::NoFrame );
 
+    page_2a = new QWidget( TabStack2, "page" );
+    pageLayout_2a = new QVBoxLayout( page_2a, 0, 5, "pageLayout_2");
+    Distance = new QGroupBox( page_2a, "Distance" );
+    Distance->setTitle( tr( "Distance of Text" ) );
+    Distance->setColumnLayout(0, Qt::Vertical );
+    Distance->layout()->setSpacing( 2 );
+    Distance->layout()->setMargin( 5 );
+    DistanceLayout = new QGridLayout( Distance->layout() );
+    DistanceLayout->setAlignment( Qt::AlignTop );
+    Text14a = new QLabel( Distance, "Text14a" );
+    Text14a->setText( tr( "Columns:" ) );
+    DistanceLayout->addWidget( Text14a, 0, 0 );
+    Text14 = new QLabel( Distance, "Text14" );
+    Text14->setText( tr( "Top:" ) );
+    DistanceLayout->addWidget( Text14, 1, 0 );
+    Text15 = new QLabel( Distance, "Text15" );
+    Text15->setText( tr( "Bottom:" ) );
+    DistanceLayout->addWidget( Text15, 2, 0 );
+    Text16 = new QLabel( Distance, "Text16" );
+    Text16->setText( tr( "Left:" ) );
+    DistanceLayout->addWidget( Text16, 3, 0 );
+    Text17 = new QLabel( Distance, "Text17" );
+    Text17->setText( tr( "Right:" ) );
+    DistanceLayout->addWidget( Text17, 4, 0 );
+    DCol = new QSpinBox( Distance, "Cols" );
+    DCol->setMaxValue( 3000 );
+    DCol->setMinValue( 1 );
+    DistanceLayout->addWidget( DCol, 0, 1 );
+    DTop = new MSpinBox( Distance, 1 );
+    DTop->setSuffix( tr( " pt" ) );
+    DTop->setMaxValue( 3000 );
+    DTop->setMinValue( 0 );
+    DistanceLayout->addWidget( DTop, 1, 1 );
+    DBottom = new MSpinBox( Distance, 1 );
+    DBottom->setSuffix( tr( " pt" ) );
+    DBottom->setMaxValue( 3000 );
+    DBottom->setMinValue( 0 );
+    DistanceLayout->addWidget( DBottom, 2, 1 );
+    DLeft = new MSpinBox( Distance, 1 );
+    DLeft->setSuffix( tr( " pt" ) );
+    DLeft->setMaxValue( 3000 );
+    DLeft->setMinValue( 0 );
+    DistanceLayout->addWidget( DLeft, 3, 1 );
+    DRight = new MSpinBox( Distance, 1 );
+    DRight->setSuffix( tr( " pt" ) );
+    DRight->setMaxValue( 3000 );
+    DRight->setMinValue( 0 );
+    DistanceLayout->addWidget( DRight, 4, 1 );
+		pageLayout_2a->addWidget(Distance);
+    TabStack2->addWidget( page_2a, 0 );
+
     page_2b = new QWidget( TabStack2, "page" );
     pageLayout_2b = new QVBoxLayout( page_2b, 0, 5, "pageLayout_2");
     Distance2 = new QGroupBox( page_2b, "Distance" );
@@ -357,50 +408,6 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
  		DistanceLayout2->addWidget( LineW, 2, 1);
 		pageLayout_2b->addWidget(Distance2);
     TabStack2->addWidget( page_2b, 1 );
-
-    page_2a = new QWidget( TabStack2, "page" );
-    pageLayout_2a = new QVBoxLayout( page_2a, 0, 5, "pageLayout_2");
-    Distance = new QGroupBox( page_2a, "Distance" );
-    Distance->setTitle( tr( "Distance of Text" ) );
-    Distance->setColumnLayout(0, Qt::Vertical );
-    Distance->layout()->setSpacing( 2 );
-    Distance->layout()->setMargin( 5 );
-    DistanceLayout = new QGridLayout( Distance->layout() );
-    DistanceLayout->setAlignment( Qt::AlignTop );
-    Text14 = new QLabel( Distance, "Text14" );
-    Text14->setText( tr( "Top:" ) );
-    DistanceLayout->addWidget( Text14, 0, 0 );
-    Text15 = new QLabel( Distance, "Text15" );
-    Text15->setText( tr( "Bottom:" ) );
-    DistanceLayout->addWidget( Text15, 1, 0 );
-    Text16 = new QLabel( Distance, "Text16" );
-    Text16->setText( tr( "Left:" ) );
-    DistanceLayout->addWidget( Text16, 2, 0 );
-    Text17 = new QLabel( Distance, "Text17" );
-    Text17->setText( tr( "Right:" ) );
-    DistanceLayout->addWidget( Text17, 3, 0 );
-    DTop = new MSpinBox( Distance, 1 );
-    DTop->setSuffix( tr( " pt" ) );
-    DTop->setMaxValue( 3000 );
-    DTop->setMinValue( 0 );
-    DistanceLayout->addWidget( DTop, 0, 1 );
-    DBottom = new MSpinBox( Distance, 1 );
-    DBottom->setSuffix( tr( " pt" ) );
-    DBottom->setMaxValue( 3000 );
-    DBottom->setMinValue( 0 );
-    DistanceLayout->addWidget( DBottom, 1, 1 );
-    DLeft = new MSpinBox( Distance, 1 );
-    DLeft->setSuffix( tr( " pt" ) );
-    DLeft->setMaxValue( 3000 );
-    DLeft->setMinValue( 0 );
-    DistanceLayout->addWidget( DLeft, 2, 1 );
-    DRight = new MSpinBox( Distance, 1 );
-    DRight->setSuffix( tr( " pt" ) );
-    DRight->setMaxValue( 3000 );
-    DRight->setMinValue( 0 );
-    DistanceLayout->addWidget( DRight, 3, 1 );
-		pageLayout_2a->addWidget(Distance);
-    TabStack2->addWidget( page_2a, 0 );
 
     pageLayout_2->addWidget( TabStack2 );
     QSpacerItem* spacer6 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
@@ -886,6 +893,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
     connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeIrre(int, int, double *)));
     connect(EditShape, SIGNAL(clicked()), this, SLOT(EditSh()));
+    connect(DCol, SIGNAL(valueChanged(int)), this, SLOT(NewCols()));
     connect(DTop, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
     connect(DLeft, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
     connect(DRight, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
@@ -1018,6 +1026,8 @@ void Mpalette::SetCurItem(PageItem *i)
 	CurItem = i;
   NameEdit->setText(i->AnName);
 	RoundRect->setValue(qRound(i->RadRect));
+	DCol->setValue(i->Cols);
+	DCol->setMaxValue(qRound(i->Width / (i->Extra + i->RExtra)));
   DLeft->setValue(static_cast<int>(i->Extra*10.0));
   DTop->setValue(static_cast<int>(i->TExtra*10.0));
   DBottom->setValue(static_cast<int>(i->BExtra*10.0));
@@ -1508,6 +1518,14 @@ void Mpalette::setRR(double r)
 	HaveItem = tmp;
 }
 
+void Mpalette::setCols(int r)
+{
+	bool tmp = HaveItem;
+	HaveItem = false;
+	DCol->setValue(r);
+	HaveItem = tmp;
+}
+
 void Mpalette::setLsp(double r)
 {
 	bool tmp = HaveItem;
@@ -1926,6 +1944,16 @@ void Mpalette::NewLsp()
 	if ((HaveDoc) && (HaveItem))
 		{
 		doc->ActPage->ChLineSpa(static_cast<double>(LineSp->value())/10.0);
+		emit DocChanged();
+		}
+}
+
+void Mpalette::NewCols()
+{
+	if ((HaveDoc) && (HaveItem))
+		{
+		CurItem->Cols = DCol->value();
+		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
 		}
 }
