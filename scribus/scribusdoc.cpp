@@ -239,6 +239,9 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	PDF_Options.Permissions = prefsData->PDF_Options.Permissions;
 	PDF_Options.UseLPI = prefsData->PDF_Options.UseLPI;
 	PDF_Options.LPISettings = prefsData->PDF_Options.LPISettings;
+	
+	docItemAttributes = prefsData->defaultItemAttributes;
+	
 	RePos = false;
 	BookMarks.clear();
 	OldBM = false;

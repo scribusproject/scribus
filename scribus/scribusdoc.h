@@ -262,6 +262,8 @@ public: // Public attributes
 	QTimer *CurTimer;
 	QMap<int, errorCodes> docItemErrors;
 	QMap<int, errorCodes> masterItemErrors;
+	//Attributes to be applied to frames
+	QMap<int, ObjectAttribute> docItemAttributes;
 };
 
 #endif

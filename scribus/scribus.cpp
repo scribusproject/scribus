@@ -52,7 +52,7 @@
 #include "align.h"
 #include "fmitem.h"
 #include "fontprefs.h"
-#include "libprefs/prefs.h"
+#include "prefs.h"
 #include "prefstable.h"
 #include "pdfopts.h"
 #include "inspage.h"
@@ -60,7 +60,7 @@
 #include "movepage.h"
 #include "helpbrowser.h"
 #include "scribusXml.h"
-#include "libabout/about.h"
+#include "about.h"
 #include "libpostscript/pslib.h"
 #include "druck.h"
 #include "editformats.h"
@@ -92,6 +92,7 @@
 #include "checkDocument.h"
 #include "tabcheckdoc.h"
 #include "tabpdfoptions.h"
+#include "docitemattrprefs.h"
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
   #include "win-config.h"
@@ -600,6 +601,23 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.PDF_Options.Permissions = -4;
 	Prefs.PDF_Options.UseLPI = false;
 	Prefs.PDF_Options.LPISettings.clear();
+	
+		//Attribute setup
+	ObjectAttribute objattr;
+	objattr.name="Name";
+	objattr.type="String";
+	objattr.value="";
+	objattr.parameter="";
+	Prefs.defaultItemAttributes.clear();
+	Prefs.defaultItemAttributes.insert(0,objattr);
+	objattr.name="Author";
+	Prefs.defaultItemAttributes.insert(1,objattr);
+	objattr.name="Title";
+	Prefs.defaultItemAttributes.insert(2,objattr);
+	objattr.name="Table of Contents Entry";
+	objattr.value="My Toc Entry";
+	objattr.parameter="1";
+	Prefs.defaultItemAttributes.insert(3,objattr);
 }
 
 
@@ -2921,6 +2939,25 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->PDF_Options.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
 	doc->PDF_Options.Intent = doc->CMSSettings.DefaultIntentMonitor;
 	doc->PDF_Options.Intent2 = doc->CMSSettings.DefaultIntentMonitor2;
+	
+/*CB TODO
+	for(QMap<int, ObjectAttribute>::Iterator it = Prefs.defaultItemAttributes->begin(); it!= Prefs.defaultItemAttributes->end(); ++it)
+	{
+		uint i=0;
+		QTableItem *item = new QTableItem(attributesTable, QTableItem::Never, it.data().name);
+		attributesTable->setItem(it.key(), i++, item);
+		QTableItem *item1 = new QTableItem(attributesTable, QTableItem::Never, it.data().type);
+		attributesTable->setItem(it.key(), i++, item1);
+		QTableItem *item2 = new QTableItem(attributesTable, QTableItem::Never, it.data().value);
+		attributesTable->setItem(it.key(), i++, item2);
+		QTableItem *item3 = new QTableItem(attributesTable, QTableItem::Never, it.data().parameter);
+		attributesTable->setItem(it.key(), i++, item3);
+
+		
+		attributesTable->verticalHeader()->setLabel(it.key(), QString("%1").arg(it.key()));
+	}
+	*/
+	
 	struct LPIData lpo;
 	lpo.Frequency = 75;
 	lpo.SpotFunc = 2;
@@ -5704,34 +5741,9 @@ void ScribusApp::DisableTxEdit()
 
 void ScribusApp::slotHelpAbout()
 {
-	void *mo;
-	const char *error;
-	typedef About* (*sdem)(QWidget *d);
-	sdem demo;
-	QString pfad = LIBDIR;
-#if defined(__hpux)
-	pfad += "libs/libabout.sl";
-#else
-	pfad += "libs/libabout.so";
-#endif
-	mo = dlopen(pfad, RTLD_LAZY);
-	if (!mo)
-	{
-		std::cout << "Cannot find Plug-in" << endl;
-		return;
-	}
-	dlerror();
-	demo = (sdem)dlsym(mo, "Run");
-	if ((error = dlerror()) != NULL)
-	{
-		std::cout << "Cannot find Symbol" << endl;
-		dlclose(mo);
-		return;
-	}
-	About* dia = (*demo)(this);
+	About* dia = new About(this);
 	dia->exec();
 	delete dia;
-	dlclose(mo);
 }
 
 void ScribusApp::slotHelpAboutQt()
@@ -7698,33 +7710,8 @@ const bool ScribusApp::GetAllFonts()
 
 void ScribusApp::slotPrefsOrg()
 {
-	void *mo;
-	const char *error;
 	bool zChange = false;
-	typedef Preferences* (*sdem)(QWidget *d, ApplicationPrefs *Vor);
-	sdem demo;
-	QString pfad = LIBDIR;
-#if defined(__hpux)
-	pfad += "libs/libpreferences.sl";
-#else
-	pfad += "libs/libpreferences.so";
-#endif
-	mo = dlopen(pfad, RTLD_LAZY);
-	if (!mo)
-	{
-		std::cout << "Cannot find Plug-in" << endl;
-		return;
-	}
-	dlerror();
-	demo = (sdem)dlsym(mo, "Run");
-	if ((error = dlerror()) != NULL)
-	{
-		std::cout << "Cannot find Symbol" << endl;
-		dlclose(mo);
-		return;
-	}
-
-	Preferences *dia = (*demo)(this, &Prefs);
+	Preferences *dia = new Preferences(this, &Prefs);
 	if (dia->exec())
 	{
 		Prefs.AppFontSize = dia->GFsize->value();
@@ -7995,6 +7982,9 @@ void ScribusApp::slotPrefsOrg()
 #endif
 				}
 		}
+		
+		Prefs.defaultItemAttributes = dia->tabDefaultItemAttributes->getNewAttributes();
+		
 		GetCMSProfiles();
 		Prefs.KeyActions = dia->tabKeys->getNewKeyMap();
 		SetShortCut();
@@ -8010,7 +8000,6 @@ void ScribusApp::slotPrefsOrg()
 		}
 	}
 	delete dia;
-	dlclose(mo);
 }
 
 void ScribusApp::SavePrefs()

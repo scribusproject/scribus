@@ -16,6 +16,7 @@
 #include "fontprefs.h"
 #include "units.h"
 #include "pagesize.h"
+#include "docitemattrprefs.h"
 
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
@@ -316,12 +317,16 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, doc->checkerProfiles, doc->curCheckProfile);
-	addItem( tr("Doc-Checker"), loadIcon("checkdoc.png"), tabDocChecker);
+	addItem( tr("Document Checker"), loadIcon("checkdoc.png"), tabDocChecker);
 	
 	tabPDF = new TabPDFOptions( prefsWidgets, &doc->PDF_Options, ap->Prefs.AvailFonts,
 								&ap->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
 								UmReFaktor, ein, doc->PageH, doc->PageB, 0 );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
+	
+	tabDocItemAttributes = new DocumentItemAttributes( prefsWidgets);
+	tabDocItemAttributes->setup(&doc->docItemAttributes);
+	addItem( tr("Document Item Attributes"), loadIcon("docattributes.png"), tabDocItemAttributes);
 
 	int cmsTab = 0;
 	if (CMSavail)

@@ -28,6 +28,7 @@ class TabTools;
 class TabCheckDoc;
 class TabPDFOptions;
 class FontPrefs;
+class DocumentItemAttributes;
 
 class ReformDoc : public PrefsDialogBase
 {
@@ -91,7 +92,7 @@ public:
 	QLabel* textLabel1m;
 	QSpinBox* autoSaveTime;
 	QComboBox* unitCombo;
-
+	DocumentItemAttributes* tabDocItemAttributes;
 	ScribusApp *ap;
 	ScribusDoc* docc;
 	int einheit;
