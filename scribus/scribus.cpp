@@ -2962,9 +2962,6 @@ void ScribusApp::slotEditPaste()
 				{
 				doc->ActPage->Deselect(true);
 				slotElemRead(Buffer2, 0, 0, false, true, doc);
-				doc->ActPage->SelectItemNr(doc->ActPage->Items.count()-1);
-				PageItem *b = doc->ActPage->SelItem.at(0);				
-				b->AnName = tr("Copy of")+" "+b->AnName;
 				}
 			}
 		slotDocCh(false);
@@ -3951,7 +3948,7 @@ void ScribusApp::CopyPage()
 		for (uint ite = 0; ite < from->Items.count(); ++ite)
 			{
 			from->Items.at(ite)->CopyIt(&Buffer);
-			Ziel->PasteItem(&Buffer, true);
+			Ziel->PasteItem(&Buffer, true, true);
 			if (from->Items.at(ite)->isBookmark)
 				AddBookMark(Ziel->Items.at(Ziel->Items.count()-1));
 			}

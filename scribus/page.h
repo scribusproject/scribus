@@ -131,6 +131,7 @@ public:
 	void TextToPath();
 	void UniteObj();
 	void SplitObj();
+	void PasteItem(struct CLBuf *Buffer, bool loading, bool drag = false);
 	QRegion ViewReg();
   /** Liste der Elemente */
   QPtrList<PageItem> Items;
@@ -216,7 +217,6 @@ public slots:
 	void LowerItem();
 	void RaiseItem();
 	void DeleteItem();
-	void PasteItem(struct CLBuf *Buffer, bool loading);
 	bool slotSetCurs(int x, int y);
 	void slotDoCurs(bool draw);
 	void BlinkCurs();

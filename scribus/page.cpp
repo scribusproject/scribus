@@ -5868,7 +5868,7 @@ void Page::Deselect(bool prop)
 		emit HaveSel(-1);
 }
 
-void Page::PasteItem(struct CLBuf *Buffer, bool loading)
+void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 {
 	if (!loading)
 		Deselect(true);
@@ -6031,10 +6031,8 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading)
 	b->An_Extern = Buffer->An_Extern;
 	b->AnZiel = Buffer->AnZiel;
 	b->AnActType = Buffer->AnActType;
-	if (Buffer->AnName != "")
+	if ((Buffer->AnName != "") && (!drag) && (b->isAnnotation))
 		b->AnName = Buffer->AnName;
-	if (doku->DraggedElem != 0)
-		b->AnName = tr("Copy of")+" "+b->AnName;
 	b->AnToolTip = Buffer->AnToolTip;
 	b->AnBwid = Buffer->AnBwid;
 	b->AnBsty = Buffer->AnBsty;

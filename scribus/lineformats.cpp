@@ -82,7 +82,7 @@ void LineFormate::dupFormat()
 {
 	multiLine ml;
 	ml = TempStyles[sFnumber];
-	MultiLine* dia = new MultiLine(this, Docu, ml, tr("Copy of")+" "+sFnumber, true, &TempStyles);
+	MultiLine* dia = new MultiLine(this, Docu, ml, tr("Copy of ")+sFnumber, true, &TempStyles);
 	if (dia->exec())
 		{
 		TempStyles.insert(dia->SName->text(), dia->TempVorl);

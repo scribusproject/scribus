@@ -1,5 +1,4 @@
-This is Scribus Version 0.9.9, the nineth Developers Version after
-Version 0.8.
+This is Scribus Version 1.0RC1, the first Release Candiate for Scribus 1.0.
 
 This Version adds complete Support for Unicode. In order to use it, you
 must have Freetype2 installed (of course the Devel Package too).
@@ -33,4 +32,4 @@ xdevel.rpm, qtdevel.rpm and tiffdevel.rpm. In the Standard-Install they
 were not installed.
 
 Franz Schmid
-in February 2003
+in June 2003

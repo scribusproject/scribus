@@ -1560,7 +1560,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 				OB.Clip.setPoints(4, -1,-1, static_cast<int>(OB.Width+1),-1, static_cast<int>(OB.Width+1), static_cast<int>(OB.Height+1), -1, static_cast<int>(OB.Height+1));
 				}
 			OB.LayerNr = -1;
-			doc->ActPage->PasteItem(&OB, true);
+			doc->ActPage->PasteItem(&OB, true, true);
 			}
 		DOC=DOC.nextSibling();
 		}

@@ -1,3 +1,48 @@
+Changes since Version 0.9.11.1
+21.06.2003	Fixed the Radial Gradients in the SVG-Export.
+		Fixed Bug with rounded Rectangles.
+
+20.06.2003	Limited the Values for the Margins to fit the Page.
+
+19.06.2003	Disabled Color "None" for Gradients.
+
+18.06.2003	Implemented a new Fontselection Dialog.
+
+Changes since Version 0.9.10
+13.06.2003	Moved the Preview generation to a seperate Class.
+		Updated Polish translation.
+
+11.06.2003	Improved and updated the Creation of the Previews
+
+10.06.2003	Added Support for Named Linestyles, allowing to have
+		Paths stroked with multiple Lines.
+
+07.06.2003	Improved Image Support for SVG, Images are now saved as PNG-Images in the
+		same Folder as the SVG File.
+		Added New Plugin for Print Preview, needs Ghostscript to work.
+
+01.06.2003	Moved the SVG-Export Plugin to the Main Package
+		and added Support for Gradients and combined Polygons.
+
+30.05.2003	Added Support for Links to external PDF-Documents.
+		Added Encoding Support for writing Textfiles.
+
+27.05.2003	Added a Splash Screen.
+		Updated Danish Translation.
+
+25.05.2003	The first Page of a PDF can now placed like a EPS-File.
+		The Postscript-Exporter embeds now only really used Fonts.
+
+24.05.2003	Improved the Clipboard once more, works now with Nedit, OpenOffice
+		and Mozilla too.
+		Improved importing of Text, you can now choose an Encoding in
+		the Fileselect Dialog.
+
+22.05.2003	Added shearing of Polygons.
+		Included Patches for HP-UX contributed by Martin Gansser.
+
+19.05.2003	Added Norwegian Translation contributed by Johannes Wilm.
+
 Changes since Version 0.9.9
 16.05.2003	Added the possiblity to adjust the Display for true WYSIWYG.
 		e.g 1 Inch displayed on the Rulers is now really an Inch on the

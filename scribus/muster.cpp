@@ -160,7 +160,7 @@ void MusterSeiten::DuplTemp()
 			for (uint a=0; a<View->Pages.at(inde)->Items.count(); ++a)
 				{
 				View->Pages.at(inde)->Items.at(a)->CopyIt(&Buffer);
-				Doc->ActPage->PasteItem(&Buffer, true);
+				Doc->ActPage->PasteItem(&Buffer, true, true);
 				}
 			Doc->ActPage->Deselect(true);
 			View->DrawNew();
