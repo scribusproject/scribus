@@ -91,6 +91,7 @@ bool overwrite(QWidget *parent, QString filename);
 FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool &err);
 FPoint GetMaxClipF(FPointArray Clip);
 QPixmap FontSample(QString da, int s, QString ts, QColor back);
+QPixmap fontSamples(QString da, int s, QString ts, QColor back);
 QString Path2Relative(QString Path);
 QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h);
 bool GlyNames(QMap<uint, QString> *GList, QString Dat);
@@ -1605,6 +1606,33 @@ QPixmap FontSample(QString da, int s, QString ts, QColor back)
 	delete p;
 	FT_Done_FreeType( library );
 	return pm;
+}
+
+/** Same as FontSample() with \n strings support added.
+09/26/2004 petr vanek
+*/
+QPixmap fontSamples(QString da, int s, QString ts, QColor back)
+{
+	QStringList lines = QStringList::split("\n", ts);
+	QPixmap ret(640, 480);
+	QPixmap sample;
+	QPainter *painter = new QPainter(&ret);
+	int y = 0;
+	int x = 0;
+	ret.fill(back);
+	for ( QStringList::Iterator it = lines.begin(); it != lines.end(); ++it ) {
+		sample = FontSample(da, s, *it, back);
+		painter->drawPixmap(0, y, sample, 0, 0);
+		y = y + sample.height();
+		if (x < sample.width())
+			x = sample.width();
+	} // for
+	delete(painter);
+	QPixmap final(x, y);
+	QPainter *fpainter = new QPainter(&final);
+	fpainter->drawPixmap(0, 0, ret, 0, 0, x, y);
+	delete(fpainter);
+	return final;
 }
 
 /***************************************************************************

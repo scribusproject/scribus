@@ -4,13 +4,31 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.0\n"
-"POT-Creation-Date: 2004-08-16 00:03+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-09-28 23:53+0200\n"
 "PO-Revision-Date: 2003-07-30 09:04+0700\n"
 "Last-Translator: Triyan W. Nugroho <iyan_kid@yahoo.com>\n"
 "Language-Team: Bahasa Indonesia <id@li.org>\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.6\n"
+
+msgid "Align Text Left"
+msgstr "Bariskan Teks di Kiri"
+
+msgid "Align Text Right"
+msgstr "Bariskan Teks di Kanan"
+
+msgid "Align Text Center"
+msgstr "Bariskan Teks di Tengah"
+
+#, fuzzy
+msgid "Align Text Justified"
+msgstr "Bariskan Teks di Tengah"
+
+#, fuzzy
+msgid "Align Text Forced Justified"
+msgstr "Bariskan Teks di Tengah"
 
 msgid "Distribute/Align"
 msgstr "Sebar/Bariskan"
@@ -103,6 +121,36 @@ msgstr "Terapkan"
 msgid "&Cancel"
 msgstr "Batal"
 
+msgid "Apply Template"
+msgstr "Terapkan Template"
+
+#, fuzzy
+msgid "&Template:"
+msgstr "Template:"
+
+msgid "Normal"
+msgstr "Normal"
+
+#, fuzzy
+msgid "Apply to &Current Page"
+msgstr "Terapkan Efek ke seluruh Halaman"
+
+#, fuzzy
+msgid "Apply to all &even Pages"
+msgstr "Terapkan Efek ke seluruh Halaman"
+
+#, fuzzy
+msgid "Apply to all &odd Pages"
+msgstr "Terapkan Efek ke seluruh Halaman"
+
+#, fuzzy
+msgid "Apply from &Page:"
+msgstr "Terapkan Efek ke seluruh Halaman"
+
+#, fuzzy
+msgid "To:"
+msgstr "Atas:"
+
 msgid "Field Properties"
 msgstr "Properti Field"
 
@@ -154,9 +202,6 @@ msgstr "Lebar:"
 
 msgid "Thin"
 msgstr "Tipis"
-
-msgid "Normal"
-msgstr "Normal"
 
 msgid "Wide"
 msgstr "Lebar"
@@ -524,33 +569,6 @@ msgstr ""
 msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr "Dokumen (*.sla *.scd);; Semua File (*)"
 
-msgid "Apply Template"
-msgstr "Terapkan Template"
-
-#, fuzzy
-msgid "&Template:"
-msgstr "Template:"
-
-#, fuzzy
-msgid "Apply to &Current Page"
-msgstr "Terapkan Efek ke seluruh Halaman"
-
-#, fuzzy
-msgid "Apply to all &even Pages"
-msgstr "Terapkan Efek ke seluruh Halaman"
-
-#, fuzzy
-msgid "Apply to all &odd Pages"
-msgstr "Terapkan Efek ke seluruh Halaman"
-
-#, fuzzy
-msgid "Apply from &Page:"
-msgstr "Terapkan Efek ke seluruh Halaman"
-
-#, fuzzy
-msgid "To:"
-msgstr "Atas:"
-
 msgid "Bookmarks"
 msgstr "Bookmark"
 
@@ -789,6 +807,44 @@ msgstr "Peringatan"
 msgid "Name of the Color is not unique"
 msgstr "Nama Gaya tidak unik"
 
+msgid "Size:"
+msgstr "Ukuran:"
+
+msgid "Title:"
+msgstr "Judul:"
+
+msgid "No Title"
+msgstr "Tidak Berjudul"
+
+msgid "Author:"
+msgstr "Penulis:"
+
+msgid "Unknown"
+msgstr "Tidak diketahui"
+
+#, fuzzy
+msgid "Scribus Document"
+msgstr "Dokumen Scribus"
+
+#, fuzzy
+msgid "&Compress File"
+msgstr "Kompres File"
+
+#, fuzzy
+msgid "&Include Fonts"
+msgstr "Masukkan Bookmark"
+
+#, fuzzy
+msgid "Encoding:"
+msgstr "Akhir:"
+
+msgid ""
+"Moves to your Document Directory.\n"
+"This can be set in the Preferences."
+msgstr ""
+"Pindah ke Direktori Dokumen anda.\n"
+"Hal ini bisa diatur di Preferensi."
+
 msgid "Colors"
 msgstr "Warna"
 
@@ -997,44 +1053,6 @@ msgid ""
 "support.\n"
 "Missing library support is indicated by a *"
 msgstr ""
-
-msgid "Size:"
-msgstr "Ukuran:"
-
-msgid "Title:"
-msgstr "Judul:"
-
-msgid "No Title"
-msgstr "Tidak Berjudul"
-
-msgid "Author:"
-msgstr "Penulis:"
-
-msgid "Unknown"
-msgstr "Tidak diketahui"
-
-#, fuzzy
-msgid "Scribus Document"
-msgstr "Dokumen Scribus"
-
-#, fuzzy
-msgid "&Compress File"
-msgstr "Kompres File"
-
-#, fuzzy
-msgid "&Include Fonts"
-msgstr "Masukkan Bookmark"
-
-#, fuzzy
-msgid "Encoding:"
-msgstr "Akhir:"
-
-msgid ""
-"Moves to your Document Directory.\n"
-"This can be set in the Preferences."
-msgstr ""
-"Pindah ke Direktori Dokumen anda.\n"
-"Hal ini bisa diatur di Preferensi."
 
 msgid "Delete Color"
 msgstr "Hapus Warna"
@@ -1480,7 +1498,8 @@ msgstr "Simpan"
 msgid "New Style"
 msgstr "Gaya Baru"
 
-msgid "Do you really want do delete this Style?"
+#, fuzzy
+msgid "Do you really want to delete this Style?"
 msgstr "Apakah anda benar-benar ingin menghapus Gaya ini?"
 
 #, fuzzy
@@ -1716,6 +1735,396 @@ msgid ""
 "otherwise Coordinates are relative to the Object."
 msgstr ""
 
+#, fuzzy
+msgid "Position:"
+msgstr "Uraian:"
+
+msgid "Here you can add, change or remove Color-Stops."
+msgstr ""
+
+#, fuzzy
+msgid "Importing text"
+msgstr "Impor Halaman"
+
+msgid "Choose the importer to use"
+msgstr ""
+
+#, fuzzy
+msgid "Automatic"
+msgstr "Benar-benar Otomatis"
+
+msgid "Get text only"
+msgstr ""
+
+msgid "Import text without any formatting"
+msgstr ""
+
+#, fuzzy
+msgid "Importer:"
+msgstr "Impor"
+
+msgid "Remember association"
+msgstr ""
+
+msgid ""
+"Remember the file extension - importer association\n"
+"and do not ask again to select an importer for\n"
+"files of this type."
+msgstr ""
+
+msgid "All Supported Formats"
+msgstr ""
+
+msgid "All Files (*)"
+msgstr ""
+
+msgid ""
+"<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
+"toolkit for multiplatform GUI &amp; application development.</p><p>Qt "
+"provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;"
+"X, Linux, and all major commercial Unix variants.<br>Qt is also available "
+"for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www."
+"trolltech.com/qt/</tt> for more information.</p>"
+msgstr ""
+
+#, fuzzy
+msgid "Copy or Move a File"
+msgstr "Kompres File"
+
+#, fuzzy
+msgid "Read: %1"
+msgstr "Siap"
+
+msgid "Write: %1"
+msgstr ""
+
+msgid "File &name:"
+msgstr "&Nama File:"
+
+msgid "File &type:"
+msgstr "&Tipe File:"
+
+msgid "One directory up"
+msgstr "Naik satu direktori"
+
+#, fuzzy
+msgid "Name"
+msgstr "Nama:"
+
+msgid "Size"
+msgstr "Ukuran"
+
+#, fuzzy
+msgid "Attributes"
+msgstr "Tentang Scribus"
+
+msgid "Look &in:"
+msgstr "L&ihat di: "
+
+#, fuzzy
+msgid "Back"
+msgstr "Blok"
+
+msgid "Create New Folder"
+msgstr "Buat Folder Baru"
+
+msgid "List View"
+msgstr "Tampilan Daftar"
+
+msgid "Detail View"
+msgstr "Tampilan Detail"
+
+#, fuzzy
+msgid "Preview File Info"
+msgstr "Prapandang Isi File"
+
+msgid "Preview File Contents"
+msgstr "Prapandang Isi File"
+
+msgid "Read-write"
+msgstr ""
+
+#, fuzzy
+msgid "Read-only"
+msgstr "Hanya-Baca"
+
+msgid "Write-only"
+msgstr ""
+
+#, fuzzy
+msgid "Inaccessible"
+msgstr "Perlihatkan Gambar"
+
+#, fuzzy
+msgid "Symlink to File"
+msgstr "Cetak ke file:"
+
+msgid "Symlink to Directory"
+msgstr ""
+
+#, fuzzy
+msgid "Symlink to Special"
+msgstr "Masukkan Spesial"
+
+msgid "Dir"
+msgstr ""
+
+#, fuzzy
+msgid "Special"
+msgstr "Masukkan Spesial"
+
+#, fuzzy
+msgid "Save As"
+msgstr "Simpan sebagai"
+
+#, fuzzy
+msgid "&Open"
+msgstr "Buka"
+
+#, fuzzy
+msgid "&Rename"
+msgstr "Hapus"
+
+#, fuzzy
+msgid "R&eload"
+msgstr "Siap"
+
+#, fuzzy
+msgid "Sort by &Name"
+msgstr "Nama Font"
+
+#, fuzzy
+msgid "Sort by &Size"
+msgstr "Ukuran Font"
+
+msgid "Sort by &Date"
+msgstr ""
+
+#, fuzzy
+msgid "&Unsorted"
+msgstr "sebagai pengganti"
+
+msgid "Sort"
+msgstr ""
+
+#, fuzzy
+msgid "Show &hidden files"
+msgstr "Tampilkan Pemandu"
+
+#, fuzzy
+msgid "the file"
+msgstr "Profil Sistem"
+
+#, fuzzy
+msgid "the directory"
+msgstr "Naik satu direktori"
+
+msgid "the symlink"
+msgstr ""
+
+#, fuzzy
+msgid "Delete %1"
+msgstr "Hapus"
+
+msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
+msgstr ""
+
+#, fuzzy
+msgid "&Yes"
+msgstr "Ya"
+
+#, fuzzy
+msgid "&No"
+msgstr "Tidak"
+
+#, fuzzy
+msgid "New Folder 1"
+msgstr "Buat Folder Baru"
+
+#, fuzzy
+msgid "New Folder"
+msgstr "Buat Folder Baru"
+
+#, fuzzy
+msgid "New Folder %1"
+msgstr "Buat Folder Baru"
+
+#, fuzzy
+msgid "Find Directory"
+msgstr "Naik satu direktori"
+
+#, fuzzy
+msgid "Directories"
+msgstr "Arah:"
+
+msgid "Save"
+msgstr "Simpan"
+
+#, fuzzy
+msgid "Error"
+msgstr "Balik"
+
+msgid ""
+"%1\n"
+"File not found.\n"
+"Check path and filename."
+msgstr ""
+
+msgid "All Files (*.*)"
+msgstr ""
+
+#, fuzzy
+msgid "Select a Directory"
+msgstr "Pilih Direktori"
+
+#, fuzzy
+msgid "Directory:"
+msgstr "Arah:"
+
+msgid "Clear"
+msgstr "Bersihkan"
+
+#, fuzzy
+msgid "Select All"
+msgstr "Pilih semua"
+
+msgid "Line up"
+msgstr ""
+
+#, fuzzy
+msgid "Customize..."
+msgstr "Atur Sendiri"
+
+msgid "System Menu"
+msgstr "Menu Sistem"
+
+msgid "Shade"
+msgstr "Tingkat Kegelapan"
+
+#, fuzzy
+msgid "Unshade"
+msgstr "Tingkat Kegelapan"
+
+#, fuzzy
+msgid "Normalize"
+msgstr "Normal"
+
+msgid "Minimize"
+msgstr "Minimalkan"
+
+msgid "Maximize"
+msgstr "Maksimalkan"
+
+msgid "Close"
+msgstr "Tutup"
+
+msgid "&Restore"
+msgstr "&Kembalikan"
+
+msgid "&Move"
+msgstr "&Pindahkan"
+
+msgid "&Size"
+msgstr "U&kuran"
+
+msgid "Mi&nimize"
+msgstr "Mi&nimalkan"
+
+msgid "Ma&ximize"
+msgstr "Maksi&malkan"
+
+msgid "&Close"
+msgstr "&Tutup"
+
+msgid "Stay on &Top"
+msgstr ""
+
+msgid "Restore Down"
+msgstr ""
+
+#, fuzzy
+msgid "Sh&ade"
+msgstr "Tingkat Kegelapan"
+
+msgid "%1 - [%2]"
+msgstr ""
+
+#, fuzzy
+msgid "&Unshade"
+msgstr "Tingkat Kegelapan"
+
+msgid "Hu&e:"
+msgstr ""
+
+msgid "&Sat:"
+msgstr ""
+
+msgid "&Val:"
+msgstr ""
+
+msgid "&Red:"
+msgstr "Me&rah:"
+
+msgid "&Green:"
+msgstr "Hi&jau:"
+
+msgid "Bl&ue:"
+msgstr "Bir&u:"
+
+msgid "A&lpha channel:"
+msgstr ""
+
+msgid "&Basic colors"
+msgstr "&Warna Dasar"
+
+msgid "&Custom colors"
+msgstr "Warna sendi&ri"
+
+msgid "&Define Custom Colors >>"
+msgstr "&Tentukan Warna Sendiri >>"
+
+#, fuzzy
+msgid "&Add to Custom Colors"
+msgstr "T&ambahkan ke Warna Sendiri"
+
+msgid "Select color"
+msgstr "Pilih warna"
+
+msgid "&Font"
+msgstr "&Font"
+
+msgid "Font st&yle"
+msgstr "Ga&ya Font"
+
+msgid "Effects"
+msgstr "Efek"
+
+#, fuzzy
+msgid "Stri&keout"
+msgstr "Stri&keout"
+
+msgid "&Underline"
+msgstr "&Garis bawah"
+
+#, fuzzy
+msgid "&Color"
+msgstr "Warna"
+
+#, fuzzy
+msgid "Sample"
+msgstr "Bentuk"
+
+#, fuzzy
+msgid "Scr&ipt"
+msgstr "Skrip:"
+
+#, fuzzy
+msgid "Apply"
+msgstr "Terapkan"
+
+msgid "Select Font"
+msgstr "Pilih Font"
+
 msgid "Manage Guides"
 msgstr "Atur Pemandu"
 
@@ -1746,8 +2155,9 @@ msgid "&Lock Guides"
 msgstr "Kunci Pemandu"
 
 msgid ""
-"Sorry, no manual available! Please see: http://scribus.net for updated docs "
-"and downloads."
+"Sorry, no manual available! Please see: http://docs.scribus.net for updated "
+"docs\n"
+"and www.scribus.net for downloads."
 msgstr ""
 
 msgid "Possible Hyphenation"
@@ -1762,28 +2172,26 @@ msgstr "Lewati"
 msgid "Hyphenator Settings"
 msgstr ""
 
-#, fuzzy
-msgid "&Fully Automatic"
-msgstr "Benar-benar Otomatis"
+msgid "&Hyphenation Suggestions"
+msgstr ""
 
-#, fuzzy
-msgid "Check &During Typing"
-msgstr "Periksa selama Mengetik"
+msgid "Hyphenate Text Automatically &During Typing"
+msgstr ""
 
 #, fuzzy
 msgid "&Smallest Word:"
 msgstr "Kata Terpendek:"
 
-msgid "&Number of Hypenations allowed:"
+msgid "Consecutive Hypenations &Allowed:"
 msgstr ""
 
 msgid ""
-"If you uncheck this you will get a dialog\n"
-"everytime a possible Hyphenation is found."
+"A dialog box showing all possible hyphens for each word will show up when "
+"you use the Extras, Hyphenate Text option."
 msgstr ""
 
 #, fuzzy
-msgid "Enables automatic checking of your text while typing."
+msgid "Enables automatic hyphenation of your text while typing."
 msgstr "Bolehkan Pemeriksaan otomatis Teks anda selama Mengetik."
 
 msgid "Length of the smallest word to be hyphenated."
@@ -1793,6 +2201,18 @@ msgid ""
 "Maximum number of Hyphenations following each other.\n"
 "A value of 0 means unlimited hyphenations."
 msgstr ""
+
+#, fuzzy
+msgid "Insert Table"
+msgstr "Masukkan Halaman"
+
+#, fuzzy
+msgid "Number of Rows:"
+msgstr "Jumlah salinan:"
+
+#, fuzzy
+msgid "Number of Columns:"
+msgstr "Jumlah salinan:"
 
 msgid "Insert Page"
 msgstr "Masukkan Halaman"
@@ -1836,9 +2256,6 @@ msgstr "Edit..."
 msgid "&Add..."
 msgstr "Tambahkan..."
 
-msgid "&Close"
-msgstr "&Tutup"
-
 #, fuzzy
 msgid "&New Script:"
 msgstr "Skrip Baru:"
@@ -1847,16 +2264,8 @@ msgid "New Script"
 msgstr "Skrip Baru"
 
 #, fuzzy
-msgid "Do you really want do delete this Script?"
+msgid "Do you really want to delete this Script?"
 msgstr "Apakah anda benar-benar ingin menghapus Gaya ini?"
-
-#, fuzzy
-msgid "&No"
-msgstr "Tidak"
-
-#, fuzzy
-msgid "&Yes"
-msgstr "Ya"
 
 msgid "Manage Keyboard Shortcuts"
 msgstr "Atur Shortcut Keyboard"
@@ -1946,6 +2355,21 @@ msgstr "Pergeseran Horisontal:"
 msgid "&Vertical Shift:"
 msgstr "Pergeseran Vertikal:"
 
+msgid "Distances"
+msgstr "Jarak"
+
+msgid "DX:"
+msgstr ""
+
+msgid "DY:"
+msgstr ""
+
+msgid "Angle:"
+msgstr "Sudut:"
+
+msgid "Length:"
+msgstr "Panjang:"
+
 #, fuzzy
 msgid "Import Template"
 msgstr "Impor Data"
@@ -2018,10 +2442,6 @@ msgstr "Garis"
 #, fuzzy
 msgid "&Colors"
 msgstr "Warna"
-
-#, fuzzy
-msgid "Name"
-msgstr "Nama:"
 
 msgid "Geometry"
 msgstr "Geometri"
@@ -2484,7 +2904,8 @@ msgstr "Garis Putus Titik Titik"
 msgid "Edit Templates"
 msgstr "Edit Template"
 
-msgid "Do you really want do delete this Template?"
+#, fuzzy
+msgid "Do you really want to delete this Template?"
 msgstr "Apakah anda benar-benar ingin menghapus Template ini?"
 
 msgid "New Template"
@@ -2896,6 +3317,13 @@ msgid "PathText"
 msgstr "Lokasi"
 
 #, fuzzy
+msgid "Page "
+msgstr "Halaman"
+
+msgid " of %1"
+msgstr ""
+
+#, fuzzy
 msgid "Create PDF File"
 msgstr "Buat File PDF"
 
@@ -2961,10 +3389,6 @@ msgstr "Kompres Teks dan Grafik Vektor"
 #, fuzzy
 msgid "Image Settings"
 msgstr "Pengaturan"
-
-#, fuzzy
-msgid "Automatic"
-msgstr "Benar-benar Otomatis"
 
 msgid "JPEG"
 msgstr ""
@@ -3040,9 +3464,6 @@ msgstr "Halaman"
 #, fuzzy
 msgid "Show Page Pre&views"
 msgstr "Tampilkan Prapandang Halaman"
-
-msgid "Effects"
-msgstr "Efek"
 
 #, fuzzy
 msgid "&Display Duration:"
@@ -3489,8 +3910,8 @@ msgid "Corn&ers:"
 msgstr "Sudut:"
 
 #, fuzzy
-msgid "Conve&x Polygon"
-msgstr "Poligon Cembung"
+msgid "Apply &Factor"
+msgstr "Faktor:"
 
 #, fuzzy
 msgid "&Factor:"
@@ -3502,14 +3923,16 @@ msgstr ""
 msgid "Degrees of rotation for polygons"
 msgstr ""
 
-msgid "Polygons will be convex rather than concave"
+msgid "Apply Convex/Concave Factor to change shape of Polygons"
 msgstr ""
 
 #, fuzzy
 msgid "Sample Polygon"
 msgstr "Pisah Poligon"
 
-msgid "Change the angles at which lines of the polygon join"
+msgid ""
+"A negative value will make the polygon concave (or star shaped),\n"
+" a positive value will make it convex"
 msgstr ""
 
 msgid "Document Setup"
@@ -3518,6 +3941,9 @@ msgstr "Pengaturan Dokumen"
 #, fuzzy
 msgid "&Outside:"
 msgstr "Luar:"
+
+msgid "Font %1 is broken, discarding it"
+msgstr ""
 
 msgid "Scrapbook"
 msgstr "Scrapbook"
@@ -3672,12 +4098,6 @@ msgstr "Buka Dokumen"
 msgid "Open..."
 msgstr "Buka..."
 
-msgid "Close"
-msgstr "Tutup"
-
-msgid "Save"
-msgstr "Simpan"
-
 msgid "Save as..."
 msgstr "Simpan sebagai..."
 
@@ -3761,9 +4181,6 @@ msgstr "Salin"
 
 msgid "Paste"
 msgstr "Tempel"
-
-msgid "Clear"
-msgstr "Bersihkan"
 
 msgid "Select all"
 msgstr "Pilih semua"
@@ -4123,18 +4540,8 @@ msgid "Get Picture..."
 msgstr "Ambil Gambar..."
 
 #, fuzzy
-msgid "&Color"
-msgstr "Warna"
-
-#, fuzzy
 msgid "&Invert"
 msgstr "Balik"
-
-msgid "&Font"
-msgstr "&Font"
-
-msgid "&Size"
-msgstr "U&kuran"
 
 #, fuzzy
 msgid "&Effects"
@@ -4158,17 +4565,11 @@ msgstr "Ambil Teks..."
 msgid "Font"
 msgstr "Font"
 
-msgid "Size"
-msgstr "Ukuran"
-
 msgid "Style"
 msgstr "Gaya"
 
 msgid "Color"
 msgstr "Warna"
-
-msgid "Shade"
-msgstr "Tingkat Kegelapan"
 
 #, fuzzy
 msgid "Importing Pages..."
@@ -4192,14 +4593,11 @@ msgstr "Impor"
 msgid "Found nothing to import"
 msgstr ""
 
+msgid "File %1 is not in Scribus format"
+msgstr ""
+
 msgid "Loading..."
 msgstr "Memuat..."
-
-msgid "All Supported Formats"
-msgstr ""
-
-msgid "All Files (*)"
-msgstr ""
 
 msgid ""
 "Can't write the File: \n"
@@ -4360,6 +4758,9 @@ msgstr ""
 msgid "Slovenian"
 msgstr "Slovakia"
 
+msgid "Afrikaans"
+msgstr ""
+
 #, fuzzy
 msgid "Scribus Crash"
 msgstr "Manual Scribus"
@@ -4391,6 +4792,76 @@ msgstr "telah dirubah sejak terakhir disimpan."
 #, fuzzy
 msgid "&Save Now"
 msgstr "Simpan Sekarang"
+
+msgid "Search/Replace"
+msgstr ""
+
+#, fuzzy
+msgid "Search for:"
+msgstr "Hasil Pencarian untuk: "
+
+msgid "Paragraph Style"
+msgstr ""
+
+#, fuzzy
+msgid "Font Effects"
+msgstr "Tidak ada Efek"
+
+#, fuzzy
+msgid "Fill Color"
+msgstr "Warna Isian:"
+
+#, fuzzy
+msgid "Fill Shade"
+msgstr "Tingkat Kegelapan"
+
+#, fuzzy
+msgid "Stroke Color"
+msgstr "Warna Baru"
+
+msgid "Stroke Shade"
+msgstr ""
+
+msgid "Left"
+msgstr "Kiri"
+
+msgid "Center"
+msgstr "Tengah"
+
+msgid "Right"
+msgstr "Kanan"
+
+msgid "Block"
+msgstr "Blok"
+
+msgid "Forced"
+msgstr "Paksakan"
+
+#, fuzzy
+msgid "Replace with:"
+msgstr "Gantikan dengan:"
+
+#, fuzzy
+msgid "&Whole Word"
+msgstr "Kata Terpendek:"
+
+msgid "&Ignore Case"
+msgstr ""
+
+#, fuzzy
+msgid "&Search"
+msgstr "Cari"
+
+#, fuzzy
+msgid "&Replace"
+msgstr "Penggantian"
+
+#, fuzzy
+msgid "Replace &All"
+msgstr "Penggantian"
+
+msgid "Search finished"
+msgstr ""
 
 msgid "Show Page Previews"
 msgstr "Tampilkan Prapandang Halaman"
@@ -4436,104 +4907,8 @@ msgstr "Field yang Tersedia"
 msgid "Selected Fields"
 msgstr "Field Terpilih"
 
-msgid "Element"
-msgstr "Elemen"
-
-#, fuzzy
-msgid "Information"
-msgstr "Pengaturan"
-
-msgid "X:"
-msgstr ""
-
-#, fuzzy
-msgid "Font:"
-msgstr "Font"
-
-#, fuzzy
-msgid "Group "
-msgstr "Grup"
-
-msgid ""
-"Do you really want to overwrite the File:\n"
-"%1 ?"
-msgstr ""
-"Apakah anda benar-benar ingin menimpa File:\n"
-"%1 ?"
-
-msgid "Select Items"
-msgstr "Pilih Item"
-
-#, fuzzy
-msgid "Insert Text Frame"
-msgstr "Frame Teks"
-
-msgid "Insert Picture"
-msgstr "Masukkan Gambar"
-
-#, fuzzy
-msgid "Insert Table"
-msgstr "Masukkan Halaman"
-
-msgid "Properties..."
-msgstr "Properti..."
-
-msgid "Insert Polygons"
-msgstr "Masukkan Poligon"
-
-msgid "Insert Lines"
-msgstr "Masukkan Garis"
-
-msgid "Insert Bezier Curves"
-msgstr "Masukkan Kurva Bezier"
-
-#, fuzzy
-msgid "Insert Freehand Line"
-msgstr "Masukkan Garis"
-
-msgid "Rotate Item"
-msgstr "Putar Item"
-
-#, fuzzy
-msgid "Zoom in or out"
-msgstr "Perbesar/Perkecil"
-
-msgid "Edit Contents of Frame"
-msgstr "Edit Isi Frame"
-
-msgid "Edit the text with the Story Editor"
-msgstr ""
-
-#, fuzzy
-msgid "Link Text Frames"
-msgstr "Frame Teks"
-
-#, fuzzy
-msgid "Unlink Text Frames"
-msgstr "Frame Teks"
-
-#, fuzzy
-msgid "Do measurements"
-msgstr "Pengukuran"
-
-msgid "Draw various Shapes"
-msgstr ""
-
-#, fuzzy
-msgid "PDF Tools"
-msgstr "Alat bantu"
-
-#, fuzzy
-msgid "Insert PDF Fields"
-msgstr "Masukkan Field-PDF"
-
-#, fuzzy
-msgid "Insert PDF Annotations"
-msgstr "Masukkan Anotasi PDF"
-
-#, fuzzy
-msgid "Manage Tabulators"
-msgstr "Manajemen Gambar"
+msgid "Other..."
+msgstr "Lainnya..."
 
 #, fuzzy
 msgid "Fill Color Settings"
@@ -4642,9 +5017,6 @@ msgstr "Masukkan Teks ke Path"
 msgid "Update Text Frame"
 msgstr "Frame Teks"
 
-msgid "Search/Replace"
-msgstr ""
-
 msgid "Current Paragraph:"
 msgstr ""
 
@@ -4668,73 +5040,6 @@ msgid "Do you really want to lose all your Changes?"
 msgstr "Apakah anda benar-benar ingin menghapus Gaya ini?"
 
 #, fuzzy
-msgid "Search for:"
-msgstr "Hasil Pencarian untuk: "
-
-msgid "Paragraph Style"
-msgstr ""
-
-#, fuzzy
-msgid "Font Effects"
-msgstr "Tidak ada Efek"
-
-#, fuzzy
-msgid "Fill Color"
-msgstr "Warna Isian:"
-
-#, fuzzy
-msgid "Fill Shade"
-msgstr "Tingkat Kegelapan"
-
-#, fuzzy
-msgid "Stroke Color"
-msgstr "Warna Baru"
-
-msgid "Stroke Shade"
-msgstr ""
-
-msgid "Left"
-msgstr "Kiri"
-
-msgid "Center"
-msgstr "Tengah"
-
-msgid "Right"
-msgstr "Kanan"
-
-msgid "Block"
-msgstr "Blok"
-
-msgid "Forced"
-msgstr "Paksakan"
-
-#, fuzzy
-msgid "Replace with:"
-msgstr "Gantikan dengan:"
-
-#, fuzzy
-msgid "&Whole Word"
-msgstr "Kata Terpendek:"
-
-msgid "&Ignore Case"
-msgstr ""
-
-#, fuzzy
-msgid "&Search"
-msgstr "Cari"
-
-#, fuzzy
-msgid "&Replace"
-msgstr "Penggantian"
-
-#, fuzzy
-msgid "Replace &All"
-msgstr "Penggantian"
-
-msgid "Search finished"
-msgstr ""
-
-#, fuzzy
 msgid "Strike Out"
 msgstr "Stri&keout"
 
@@ -4742,25 +5047,9 @@ msgstr "Stri&keout"
 msgid "Outline Text"
 msgstr "Outline"
 
-msgid "Align Text Left"
-msgstr "Bariskan Teks di Kiri"
-
-msgid "Align Text Right"
-msgstr "Bariskan Teks di Kanan"
-
-msgid "Align Text Center"
-msgstr "Bariskan Teks di Tengah"
-
 #, fuzzy
-msgid "Align Text Justified"
-msgstr "Bariskan Teks di Tengah"
-
-#, fuzzy
-msgid "Align Text Forced Justified"
-msgstr "Bariskan Teks di Tengah"
-
-msgid "Other..."
-msgstr "Lainnya..."
+msgid "Manage Tabulators"
+msgstr "Manajemen Gambar"
 
 msgid "Full Stop"
 msgstr ""
@@ -4795,367 +5084,96 @@ msgstr ""
 msgid "Delete all Tabulators"
 msgstr "Hapus Warna"
 
-msgid ""
-"<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
-"toolkit for multiplatform GUI &amp; application development.</p><p>Qt "
-"provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;"
-"X, Linux, and all major commercial Unix variants.<br>Qt is also available "
-"for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www."
-"trolltech.com/qt/</tt> for more information.</p>"
+msgid "Element"
+msgstr "Elemen"
+
+#, fuzzy
+msgid "Information"
+msgstr "Pengaturan"
+
+msgid "X:"
 msgstr ""
 
 #, fuzzy
-msgid "Copy or Move a File"
-msgstr "Kompres File"
+msgid "Font:"
+msgstr "Font"
 
 #, fuzzy
-msgid "Read: %1"
-msgstr "Siap"
-
-msgid "Write: %1"
-msgstr ""
-
-msgid "File &name:"
-msgstr "&Nama File:"
-
-msgid "File &type:"
-msgstr "&Tipe File:"
-
-msgid "One directory up"
-msgstr "Naik satu direktori"
-
-#, fuzzy
-msgid "Attributes"
-msgstr "Tentang Scribus"
-
-msgid "Look &in:"
-msgstr "L&ihat di: "
-
-#, fuzzy
-msgid "Back"
-msgstr "Blok"
-
-msgid "Create New Folder"
-msgstr "Buat Folder Baru"
-
-msgid "List View"
-msgstr "Tampilan Daftar"
-
-msgid "Detail View"
-msgstr "Tampilan Detail"
-
-#, fuzzy
-msgid "Preview File Info"
-msgstr "Prapandang Isi File"
-
-msgid "Preview File Contents"
-msgstr "Prapandang Isi File"
-
-msgid "Read-write"
-msgstr ""
-
-#, fuzzy
-msgid "Read-only"
-msgstr "Hanya-Baca"
-
-msgid "Write-only"
-msgstr ""
-
-#, fuzzy
-msgid "Inaccessible"
-msgstr "Perlihatkan Gambar"
-
-#, fuzzy
-msgid "Symlink to File"
-msgstr "Cetak ke file:"
-
-msgid "Symlink to Directory"
-msgstr ""
-
-#, fuzzy
-msgid "Symlink to Special"
-msgstr "Masukkan Spesial"
-
-msgid "Dir"
-msgstr ""
-
-#, fuzzy
-msgid "Special"
-msgstr "Masukkan Spesial"
-
-#, fuzzy
-msgid "Save As"
-msgstr "Simpan sebagai"
-
-#, fuzzy
-msgid "&Open"
-msgstr "Buka"
-
-#, fuzzy
-msgid "&Rename"
-msgstr "Hapus"
-
-#, fuzzy
-msgid "R&eload"
-msgstr "Siap"
-
-#, fuzzy
-msgid "Sort by &Name"
-msgstr "Nama Font"
-
-#, fuzzy
-msgid "Sort by &Size"
-msgstr "Ukuran Font"
-
-msgid "Sort by &Date"
-msgstr ""
-
-#, fuzzy
-msgid "&Unsorted"
-msgstr "sebagai pengganti"
-
-msgid "Sort"
-msgstr ""
-
-#, fuzzy
-msgid "Show &hidden files"
-msgstr "Tampilkan Pemandu"
-
-#, fuzzy
-msgid "the file"
-msgstr "Profil Sistem"
-
-#, fuzzy
-msgid "the directory"
-msgstr "Naik satu direktori"
-
-msgid "the symlink"
-msgstr ""
-
-#, fuzzy
-msgid "Delete %1"
-msgstr "Hapus"
-
-msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
-msgstr ""
-
-#, fuzzy
-msgid "New Folder 1"
-msgstr "Buat Folder Baru"
-
-#, fuzzy
-msgid "New Folder"
-msgstr "Buat Folder Baru"
-
-#, fuzzy
-msgid "New Folder %1"
-msgstr "Buat Folder Baru"
-
-#, fuzzy
-msgid "Find Directory"
-msgstr "Naik satu direktori"
-
-#, fuzzy
-msgid "Directories"
-msgstr "Arah:"
-
-#, fuzzy
-msgid "Error"
-msgstr "Balik"
+msgid "Group "
+msgstr "Grup"
 
 msgid ""
-"%1\n"
-"File not found.\n"
-"Check path and filename."
+"Do you really want to overwrite the File:\n"
+"%1 ?"
 msgstr ""
+"Apakah anda benar-benar ingin menimpa File:\n"
+"%1 ?"
 
-msgid "All Files (*.*)"
-msgstr ""
-
-#, fuzzy
-msgid "Select a Directory"
-msgstr "Pilih Direktori"
+msgid "Select Items"
+msgstr "Pilih Item"
 
 #, fuzzy
-msgid "Directory:"
-msgstr "Arah:"
+msgid "Insert Text Frame"
+msgstr "Frame Teks"
+
+msgid "Insert Picture"
+msgstr "Masukkan Gambar"
+
+msgid "Properties..."
+msgstr "Properti..."
+
+msgid "Insert Polygons"
+msgstr "Masukkan Poligon"
+
+msgid "Insert Lines"
+msgstr "Masukkan Garis"
+
+msgid "Insert Bezier Curves"
+msgstr "Masukkan Kurva Bezier"
 
 #, fuzzy
-msgid "Select All"
-msgstr "Pilih semua"
+msgid "Insert Freehand Line"
+msgstr "Masukkan Garis"
 
-msgid "Line up"
-msgstr ""
-
-#, fuzzy
-msgid "Customize..."
-msgstr "Atur Sendiri"
-
-msgid "System Menu"
-msgstr "Menu Sistem"
+msgid "Rotate Item"
+msgstr "Putar Item"
 
 #, fuzzy
-msgid "Unshade"
-msgstr "Tingkat Kegelapan"
+msgid "Zoom in or out"
+msgstr "Perbesar/Perkecil"
 
-#, fuzzy
-msgid "Normalize"
-msgstr "Normal"
+msgid "Edit Contents of Frame"
+msgstr "Edit Isi Frame"
 
-msgid "Minimize"
-msgstr "Minimalkan"
-
-msgid "Maximize"
-msgstr "Maksimalkan"
-
-msgid "&Restore"
-msgstr "&Kembalikan"
-
-msgid "&Move"
-msgstr "&Pindahkan"
-
-msgid "Mi&nimize"
-msgstr "Mi&nimalkan"
-
-msgid "Ma&ximize"
-msgstr "Maksi&malkan"
-
-msgid "Stay on &Top"
-msgstr ""
-
-msgid "Restore Down"
+msgid "Edit the text with the Story Editor"
 msgstr ""
 
 #, fuzzy
-msgid "Sh&ade"
-msgstr "Tingkat Kegelapan"
+msgid "Link Text Frames"
+msgstr "Frame Teks"
 
-msgid "%1 - [%2]"
+#, fuzzy
+msgid "Unlink Text Frames"
+msgstr "Frame Teks"
+
+#, fuzzy
+msgid "Do measurements"
+msgstr "Pengukuran"
+
+msgid "Draw various Shapes"
 msgstr ""
 
 #, fuzzy
-msgid "&Unshade"
-msgstr "Tingkat Kegelapan"
-
-msgid "Hu&e:"
-msgstr ""
-
-msgid "&Sat:"
-msgstr ""
-
-msgid "&Val:"
-msgstr ""
-
-msgid "&Red:"
-msgstr "Me&rah:"
-
-msgid "&Green:"
-msgstr "Hi&jau:"
-
-msgid "Bl&ue:"
-msgstr "Bir&u:"
-
-msgid "A&lpha channel:"
-msgstr ""
-
-msgid "&Basic colors"
-msgstr "&Warna Dasar"
-
-msgid "&Custom colors"
-msgstr "Warna sendi&ri"
-
-msgid "&Define Custom Colors >>"
-msgstr "&Tentukan Warna Sendiri >>"
+msgid "PDF Tools"
+msgstr "Alat bantu"
 
 #, fuzzy
-msgid "&Add to Custom Colors"
-msgstr "T&ambahkan ke Warna Sendiri"
-
-msgid "Select color"
-msgstr "Pilih warna"
-
-msgid "Font st&yle"
-msgstr "Ga&ya Font"
+msgid "Insert PDF Fields"
+msgstr "Masukkan Field-PDF"
 
 #, fuzzy
-msgid "Stri&keout"
-msgstr "Stri&keout"
-
-msgid "&Underline"
-msgstr "&Garis bawah"
-
-#, fuzzy
-msgid "Sample"
-msgstr "Bentuk"
-
-#, fuzzy
-msgid "Scr&ipt"
-msgstr "Skrip:"
-
-#, fuzzy
-msgid "Apply"
-msgstr "Terapkan"
-
-msgid "Select Font"
-msgstr "Pilih Font"
-
-#, fuzzy
-msgid "Page "
-msgstr "Halaman"
-
-msgid " of %1"
-msgstr ""
-
-#, fuzzy
-msgid "Number of Rows:"
-msgstr "Jumlah salinan:"
-
-#, fuzzy
-msgid "Number of Columns:"
-msgstr "Jumlah salinan:"
-
-#, fuzzy
-msgid "Importing text"
-msgstr "Impor Halaman"
-
-msgid "Distances"
-msgstr "Jarak"
-
-msgid "DX:"
-msgstr ""
-
-msgid "DY:"
-msgstr ""
-
-msgid "Angle:"
-msgstr "Sudut:"
-
-msgid "Length:"
-msgstr "Panjang:"
-
-#, fuzzy
-msgid "Position:"
-msgstr "Uraian:"
-
-msgid "Here you can add, change or remove Color-Stops."
-msgstr ""
-
-msgid "Choose the importer to use"
-msgstr ""
-
-msgid "Get text only"
-msgstr ""
-
-msgid "Import text without any formatting"
-msgstr ""
-
-#, fuzzy
-msgid "Importer:"
-msgstr "Impor"
-
-#, fuzzy
-msgid "Importer"
-msgstr "Impor"
+msgid "Insert PDF Annotations"
+msgstr "Masukkan Anotasi PDF"
 
 #, fuzzy, c-format
 msgid "About Scribus%1%2"
@@ -5176,8 +5194,8 @@ msgstr ""
 msgid "&About"
 msgstr "Tentang"
 
-msgid "Programming:"
-msgstr "Pemrogram:"
+msgid "Development Team:"
+msgstr ""
 
 msgid "Contributions from:"
 msgstr "Kontribusi dari:"
@@ -5186,100 +5204,113 @@ msgstr "Kontribusi dari:"
 msgid "Windows port:"
 msgstr "Window"
 
-msgid "Documentation:"
+#, fuzzy
+msgid "Official Documentation:"
+msgstr "Dokumentasi:"
+
+#, fuzzy
+msgid "Other Documentation:"
 msgstr "Dokumentasi:"
 
 #, fuzzy
 msgid "A&uthors"
 msgstr "Penulis"
 
-msgid "German:"
-msgstr "Jerman:"
-
-msgid "French:"
-msgstr "Perancis:"
-
-msgid "Spanish and Catalan:"
-msgstr "Spanyol dan Catalan:"
-
 #, fuzzy
-msgid "Italian:"
-msgstr "Italia"
-
-#, fuzzy
-msgid "Hungarian:"
-msgstr "Hongaria dan Italia:"
-
-msgid "Ukrainian:"
-msgstr "Ukrania:"
-
-msgid "Bulgarian:"
-msgstr ""
-
-#, fuzzy
-msgid "Galician:"
-msgstr "Ukrania:"
-
-msgid "Turkish:"
-msgstr ""
-
-msgid "Lithuanian:"
-msgstr "Lithuania:"
-
-msgid "Polish:"
-msgstr "Polandia:"
-
-msgid "Czech:"
-msgstr "Cechnya:"
-
-msgid "Slovak:"
-msgstr "Slovakia:"
-
-msgid "Danish:"
-msgstr ""
-
-msgid "Norwegian:"
-msgstr "Norwegia:"
-
-#, fuzzy
-msgid "English:"
-msgstr "Inggris"
-
-#, fuzzy
-msgid "Welsh:"
-msgstr "Polandia:"
-
-msgid "Russian:"
-msgstr "Rusia:"
+msgid "Basque:"
+msgstr "Bir&u:"
 
 #, fuzzy
 msgid "Brazilian:"
 msgstr "Ukrania:"
 
+msgid "Bulgarian:"
+msgstr ""
+
+msgid "Czech:"
+msgstr "Cechnya:"
+
+msgid "Danish:"
+msgstr ""
+
+#, fuzzy
+msgid "English (British):"
+msgstr "Inggris"
+
 msgid "Finnish:"
 msgstr ""
+
+msgid "French:"
+msgstr "Perancis:"
+
+#, fuzzy
+msgid "Galician:"
+msgstr "Ukrania:"
+
+msgid "German:"
+msgstr "Jerman:"
+
+#, fuzzy
+msgid "Hungarian:"
+msgstr "Hongaria dan Italia:"
+
+#, fuzzy
+msgid "Italian:"
+msgstr "Italia"
+
+msgid "Lithuanian:"
+msgstr "Lithuania:"
+
+msgid "Norwegian:"
+msgstr "Norwegia:"
+
+msgid "Polish:"
+msgstr "Polandia:"
+
+msgid "Russian:"
+msgstr "Rusia:"
+
+msgid "Slovak:"
+msgstr "Slovakia:"
 
 #, fuzzy
 msgid "Slovenian:"
 msgstr "Slovakia:"
 
+msgid "Spanish and Catalan:"
+msgstr "Spanyol dan Catalan:"
+
+msgid "Swedish:"
+msgstr ""
+
+msgid "Turkish:"
+msgstr ""
+
+msgid "Ukrainian:"
+msgstr "Ukrania:"
+
 #, fuzzy
-msgid "Basque:"
-msgstr "Bir&u:"
+msgid "Welsh:"
+msgstr "Polandia:"
 
 #, fuzzy
 msgid "&Translations"
 msgstr "Penerjemahan"
 
 #, fuzzy
-msgid "Homepage and online reference"
+msgid "Homepage"
+msgstr "Dari halaman:"
+
+#, fuzzy
+msgid "Online Reference"
 msgstr "Membaca Preferensi"
 
-msgid "Mailing list"
+msgid "Bugs and Feature Requests"
 msgstr ""
 
-msgid "Bugs and feature requests"
-msgstr ""
+#, fuzzy
+msgid "Mailing List"
+msgstr "Garis Bergerak:"
 
 #, fuzzy
 msgid "&Online"
@@ -5368,6 +5399,10 @@ msgstr "Skrip:"
 #, fuzzy
 msgid "Ch&ange..."
 msgstr "Ubah..."
+
+#, fuzzy
+msgid "T&emplates:"
+msgstr "Template:"
 
 msgid "Autosave"
 msgstr "Simpan otomatis"
@@ -5640,6 +5675,9 @@ msgstr ""
 msgid "Default Scripter scripts directory"
 msgstr ""
 
+msgid "Additional Directory for Document Templates"
+msgstr ""
+
 msgid "Default page size, either a standard size or a custom size"
 msgstr ""
 
@@ -5857,6 +5895,171 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+msgid "Fonts Preview"
+msgstr "Tampilan Prapandang"
+
+msgid "Alt+O"
+msgstr ""
+
+msgid "Alt+C"
+msgstr ""
+
+#, fuzzy
+msgid "CSV Importer Options"
+msgstr "Pilihan Printer"
+
+msgid "Field delimiter:"
+msgstr ""
+
+msgid "(TAB)"
+msgstr ""
+
+#, fuzzy
+msgid "Value delimiter:"
+msgstr "Nilainya adalah"
+
+msgid "First row is a header"
+msgstr ""
+
+msgid "Comma Separated Value Files"
+msgstr ""
+
+msgid "CSV_data"
+msgstr ""
+
+#, fuzzy
+msgid "CSV_header"
+msgstr "Tingkat Kegelapan"
+
+msgid ""
+"\n"
+"External Links\n"
+msgstr ""
+
+#, fuzzy
+msgid "HTML Files"
+msgstr "File:"
+
+msgid "html"
+msgstr ""
+
+#, fuzzy
+msgid "Text Files"
+msgstr "Field Teks"
+
+#, fuzzy
+msgid "OO.o Writer Importer Options"
+msgstr "Pilihan Printer"
+
+#, fuzzy
+msgid "Update paragraph styles"
+msgstr "Gaya..."
+
+msgid ""
+"If there already exists a paragraph style with the same\n"
+"name than current OO.o document's paragraph should the style\n"
+"in Scribus be edited to match the one being imported\n"
+"or left untouched"
+msgstr ""
+
+msgid "Use document name as a prefix for paragraph styles"
+msgstr ""
+
+msgid ""
+"Should importer add the name of the document\n"
+"on front of the paragraph style name in Scirubs"
+msgstr ""
+
+msgid "Do not ask again"
+msgstr ""
+
+msgid ""
+"Should the importer always use currently\n"
+"set value when importing OO.o document and\n"
+"never ask your confirmation again"
+msgstr ""
+
+#, fuzzy
+msgid "OO.o Writer Documents"
+msgstr "Dokumen Terbaru"
+
+#, fuzzy
+msgid "Create filter"
+msgstr "Buat Rantai Teks"
+
+msgid "Choose a previously saved filter"
+msgstr ""
+
+msgid "Give a name to this filter for saving"
+msgstr ""
+
+msgid "Give a name for saving"
+msgstr ""
+
+msgid "Disable or enable this filter row"
+msgstr ""
+
+msgid "Remove this filter row"
+msgstr ""
+
+#, fuzzy
+msgid "Add a new filter row"
+msgstr "Tambahkan Layer Baru"
+
+#, fuzzy
+msgid "to"
+msgstr "ke:"
+
+#, fuzzy
+msgid "and"
+msgstr "di Akhir"
+
+msgid "remove match"
+msgstr ""
+
+msgid "do not remove match"
+msgstr ""
+
+#, fuzzy
+msgid "words"
+msgstr "Katakunci"
+
+#, fuzzy
+msgid "Replace"
+msgstr "Penggantian"
+
+msgid "Value at the left is a regular expression"
+msgstr ""
+
+#, fuzzy
+msgid "with"
+msgstr "Lebar:"
+
+#, fuzzy
+msgid "paragraph style"
+msgstr "Gaya..."
+
+#, fuzzy
+msgid "all instances of"
+msgstr "Jarak"
+
+msgid "all paragraphs"
+msgstr ""
+
+msgid "paragraphs starting with"
+msgstr ""
+
+msgid "paragraphs with less than"
+msgstr ""
+
+msgid "paragraphs with more than"
+msgstr ""
+
+#, fuzzy
+msgid "Text Filters"
+msgstr "Field Teks"
+
+#, fuzzy
 msgid "Select Character:"
 msgstr "Pilih Karakter"
 
@@ -5873,181 +6076,167 @@ msgstr ""
 msgid "Close this dialog and return to text editing."
 msgstr ""
 
-msgid "Print Preview"
-msgstr "Tampilan Prapandang"
+#, fuzzy
+msgid "New From Template"
+msgstr "Template Baru"
 
 #, fuzzy
-msgid "Print Previe&w"
-msgstr "Tampilan Prapandang"
+msgid "Description"
+msgstr "Uraian:"
 
 #, fuzzy
-msgid "Anti-alias &Text"
-msgstr "Antialias Teks"
+msgid "Usage"
+msgstr "Gunakan"
 
 #, fuzzy
-msgid "Anti-alias &Graphics"
-msgstr "Antialias Grafik"
+msgid "Created with"
+msgstr "Buat Rantai Teks"
 
 #, fuzzy
-msgid "Display Trans&parency"
-msgstr "Tampilkan Frame"
-
-msgid "&Under Color Removal"
-msgstr ""
+msgid "Author"
+msgstr "Penulis:"
 
 #, fuzzy
-msgid "&Display CMYK"
-msgstr "Tampilan"
-
-msgid "&C"
-msgstr ""
-
-msgid "&M"
-msgstr ""
-
-#, fuzzy
-msgid "&Y"
-msgstr "Ya"
-
-#, fuzzy
-msgid "&K"
-msgstr "OK"
+msgid "Downloading Templates"
+msgstr "Template Baru"
 
 msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense\n"
-"of a slight slowdown in previewing. This only affects Type 1 fonts"
+"Document templates can be found at http://www.scribus.net/ in the Downloads "
+"section."
 msgstr ""
 
+#, fuzzy
+msgid "Installing Templates"
+msgstr "Template Baru"
+
 msgid ""
-"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
-"and\n"
-"vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
+"Extract the package to the template directory ~/.scribus/templates for the "
+"current user or PREFIX/share/scribus/templates for all users in the system."
+msgstr ""
+
+#, fuzzy
+msgid "Preparing a template"
+msgstr "Template Baru"
+
+msgid ""
+"Make sure images and fonts you use can be used freely. If fonts cannot be "
+"shared do not collect them when saving as a template."
 msgstr ""
 
 msgid ""
-"Shows transparency and transparent items in your document. Requires "
-"Ghostscript 7.07 or later"
+"The template creator should also make sure that the Installing Templates "
+"section above applies to their templates as well. This means a user should "
+"be able to download a template package and be able to extract them to the "
+"template directory and start using them."
+msgstr ""
+
+#, fuzzy
+msgid "Removing a template"
+msgstr "Template Baru"
+
+msgid ""
+"Removing a template from the New From Template dialog will only remove the "
+"entry from the template.xml, it will not delete the document files. A popup "
+"menu with remove is only shown if you have write access to the template.xml "
+"file."
+msgstr ""
+
+msgid "Translating template.xml"
 msgstr ""
 
 msgid ""
-"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
-"colors"
-msgstr ""
-
-msgid "Enable/disable the C (Cyan) ink plate"
-msgstr ""
-
-msgid "Enable/disable the M (Magenta) ink plate"
-msgstr ""
-
-msgid "Enable/disable the Y (Yellow) ink plate"
-msgstr ""
-
-msgid "Enable/disable the K (Black) ink plate"
-msgstr ""
-
-msgid ""
-"A way of switching some of the gray shades which are composed\n"
-"of cyan, yellow and magenta and using black instead.\n"
-"UCR most affects parts of images which are neutral and/or dark tones\n"
-"which are close to the gray. Use of this may improve printing some images\n"
-"and some experimentation and testing is need on a case by case basis.\n"
-"UCR reduces the possibility of over saturation with CMY inks."
+"Copy an existing template.xml to a file called template.lang_COUNTRY.xml "
+"(use the same lang code that is present in the qm file for your language), "
+"for example template.fi.xml for Finnish language template.xml. The copy must "
+"be located in the same directory as the original template.xml so Scribus can "
+"load it."
 msgstr ""
 
 #, fuzzy
-msgid "Save Page as &SVG..."
-msgstr "Simpan Halaman sebagai SVG..."
+msgid "New &from Template..."
+msgstr "Template Baru"
 
 #, fuzzy
-msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
-msgstr "Gambar SVG (*.svg);; Semua File (*)"
+msgid "Template: "
+msgstr "Template:"
 
 #, fuzzy
-msgid "SVG-Images (*.svg);;All Files (*)"
-msgstr "Gambar SVG (*.svg);; Semua File (*)"
+msgid "Newsletters"
+msgstr "Pilih Item"
 
-#, fuzzy
-msgid "Import &SVG..."
-msgstr "Impor..."
-
-#, fuzzy
-msgid "S&cripter Manual..."
-msgstr "Manual Scribus"
-
-#, fuzzy
-msgid "&Scribus Scripts"
-msgstr "Skrip Sendiri"
-
-msgid "&Execute Script..."
+msgid "Brochures"
 msgstr ""
 
 #, fuzzy
-msgid "&Recent Scripts"
+msgid "Catalogs"
+msgstr "Tutup"
+
+#, fuzzy
+msgid "Flyers"
+msgstr "Layer"
+
+#, fuzzy
+msgid "Signs"
+msgstr "Pengaturan"
+
+msgid "Cards"
+msgstr ""
+
+msgid "Letterheads"
+msgstr ""
+
+msgid "Envelopes"
+msgstr ""
+
+msgid "Business Cards"
+msgstr ""
+
+#, fuzzy
+msgid "Calendars"
+msgstr "Bersihkan"
+
+#, fuzzy
+msgid "Advertisements"
+msgstr "Pengukuran"
+
+#, fuzzy
+msgid "Labels"
+msgstr "Layer"
+
+#, fuzzy
+msgid "Programs"
+msgstr "Pemrogram:"
+
+msgid "PDF Forms"
+msgstr ""
+
+#, fuzzy
+msgid "PDF Presentations"
+msgstr "Tujuan"
+
+#, fuzzy
+msgid "Magazines"
+msgstr "Garis Tepi:"
+
+#, fuzzy
+msgid "Posters"
+msgstr "Tempel"
+
+#, fuzzy
+msgid "Announcements"
+msgstr "Dokumen:"
+
+#, fuzzy
+msgid "Text Documents"
 msgstr "Dokumen Terbaru"
 
 #, fuzzy
-msgid "Show &Console"
-msgstr "Tampilkan Alat bantu"
+msgid "Folds"
+msgstr "Tebal"
 
 #, fuzzy
-msgid "S&cript"
-msgstr "Skr&ip"
-
-#, fuzzy
-msgid "Online Reference"
-msgstr "Membaca Preferensi"
-
-#, fuzzy
-msgid "Python Scripts (*.py);; All Files (*)"
-msgstr "JavaScripts (*.js);; Semua File (*)"
-
-#, fuzzy
-msgid "Script error"
-msgstr "Skr&ip"
-
-msgid ""
-"If you are running an official script report it at <a href=\"http://bugs."
-"scribus.net\">bugs.scribus.net</a> please."
-msgstr ""
-
-msgid ""
-"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
-"tracker."
-msgstr ""
-
-#, fuzzy
-msgid "Hide &Console"
-msgstr "Sembunyikan Alat bantu"
-
-msgid "Script Console"
-msgstr ""
-
-msgid "Oook! Wrong arguments! Call: "
-msgstr ""
-
-msgid "Oook! You're calling an object doesn't exist!"
-msgstr ""
-
-msgid "Oook! You're trying to erase an object doesn't exist!"
-msgstr ""
-
-msgid "Oook! An object you're trying to textflow doesn't exist!"
-msgstr ""
-
-msgid ""
-"Oook! You're trying to load image into an object doesn't exist or isn't "
-"selected!"
-msgstr ""
-
-msgid ""
-"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
-msgstr ""
-
-msgid ""
-"Oook! You're trying to query an object doesn't exist! None selected too."
-msgstr ""
+msgid "Own Templates"
+msgstr "Template Baru"
 
 #, fuzzy
 msgid "Choose a Export Directory"
@@ -6139,52 +6328,87 @@ msgstr ""
 msgid "Yes all"
 msgstr "Jangan Pilih semua"
 
-#, fuzzy
-msgid "HTML Files"
-msgstr "File:"
-
-msgid "html"
-msgstr ""
-
-#, fuzzy
-msgid "Text Files"
-msgstr "Field Teks"
-
-#, fuzzy
-msgid "CSV Importer Options"
-msgstr "Pilihan Printer"
-
-msgid "Field delimiter:"
-msgstr ""
-
-msgid "(TAB)"
-msgstr ""
-
-#, fuzzy
-msgid "Value delimiter:"
-msgstr "Nilainya adalah"
-
-msgid "First row is a header"
-msgstr ""
-
-msgid "Comma Separated Value Files"
-msgstr ""
-
-msgid "CSV_data"
-msgstr ""
-
-#, fuzzy
-msgid "CSV_header"
-msgstr "Tingkat Kegelapan"
-
-#, fuzzy
-msgid "Fonts Preview"
+msgid "Print Preview"
 msgstr "Tampilan Prapandang"
 
-msgid "Alt+O"
+#, fuzzy
+msgid "Print Previe&w"
+msgstr "Tampilan Prapandang"
+
+#, fuzzy
+msgid "Anti-alias &Text"
+msgstr "Antialias Teks"
+
+#, fuzzy
+msgid "Anti-alias &Graphics"
+msgstr "Antialias Grafik"
+
+#, fuzzy
+msgid "Display Trans&parency"
+msgstr "Tampilkan Frame"
+
+msgid "&Under Color Removal"
 msgstr ""
 
-msgid "Alt+C"
+#, fuzzy
+msgid "&Display CMYK"
+msgstr "Tampilan"
+
+msgid "&C"
+msgstr ""
+
+msgid "&M"
+msgstr ""
+
+#, fuzzy
+msgid "&Y"
+msgstr "Ya"
+
+#, fuzzy
+msgid "&K"
+msgstr "OK"
+
+msgid ""
+"Provides a more pleasant view of text items in the viewer, at the expense\n"
+"of a slight slowdown in previewing. This only affects Type 1 fonts"
+msgstr ""
+
+msgid ""
+"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
+"and\n"
+"vector graphics in the preview, at the expense of a slight slowdown in "
+"previewing"
+msgstr ""
+
+msgid ""
+"Shows transparency and transparent items in your document. Requires "
+"Ghostscript 7.07 or later"
+msgstr ""
+
+msgid ""
+"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
+"colors"
+msgstr ""
+
+msgid "Enable/disable the C (Cyan) ink plate"
+msgstr ""
+
+msgid "Enable/disable the M (Magenta) ink plate"
+msgstr ""
+
+msgid "Enable/disable the Y (Yellow) ink plate"
+msgstr ""
+
+msgid "Enable/disable the K (Black) ink plate"
+msgstr ""
+
+msgid ""
+"A way of switching some of the gray shades which are composed\n"
+"of cyan, yellow and magenta and using black instead.\n"
+"UCR most affects parts of images which are neutral and/or dark tones\n"
+"which are close to the gray. Use of this may improve printing some images\n"
+"and some experimentation and testing is need on a case by case basis.\n"
+"UCR reduces the possibility of over saturation with CMY inks."
 msgstr ""
 
 #, fuzzy
@@ -6200,164 +6424,6 @@ msgid ""
 "%1\n"
 "failed!"
 msgstr "Pencetakan gagal!"
-
-#, fuzzy
-msgid "New &from Template..."
-msgstr "Template Baru"
-
-#, fuzzy
-msgid "New From Template"
-msgstr "Template Baru"
-
-#, fuzzy
-msgid "Description"
-msgstr "Uraian:"
-
-#, fuzzy
-msgid "Usage"
-msgstr "Gunakan"
-
-#, fuzzy
-msgid "Created with"
-msgstr "Buat Rantai Teks"
-
-#, fuzzy
-msgid "Author"
-msgstr "Penulis:"
-
-#, fuzzy
-msgid "Downloading Templates"
-msgstr "Template Baru"
-
-msgid ""
-"Document templates can be found at http://www.scribus.net/ in the Downloads "
-"section."
-msgstr ""
-
-#, fuzzy
-msgid "Installing Templates"
-msgstr "Template Baru"
-
-msgid ""
-"Extract the package to the template directory ~/.scribus/templates for the "
-"current user or PREFIX/share/scribus/templates for all users in the system."
-msgstr ""
-
-#, fuzzy
-msgid "Preparing a template"
-msgstr "Template Baru"
-
-msgid ""
-"Make sure images and fonts you use can be used freely. If fonts cannot be "
-"shared do not collect them when saving as a template."
-msgstr ""
-
-msgid ""
-"The template creator should also make sure that the Installing Templates "
-"section above applies to their templates as well. This means a user should "
-"be able to download a template package and be able to extract them to the "
-"template directory and start using them."
-msgstr ""
-
-#, fuzzy
-msgid "Removing a template"
-msgstr "Template Baru"
-
-msgid ""
-"Removing a template from the New From Template dialog will only remove the "
-"entry from the template.xml, it will not delete the document files. A popup "
-"menu with remove is only shown if you have write access to the template.xml "
-"file."
-msgstr ""
-
-msgid "Translating template.xml"
-msgstr ""
-
-msgid ""
-"Copy an existing template.xml to a file called template.lang_COUNTRY.xml "
-"(use the same lang code that is present in the qm file for your language), "
-"for example template.fi.xml for Finnish language template.xml. The copy must "
-"be located in the same directory as the original template.xml so Scribus can "
-"load it."
-msgstr ""
-
-#, fuzzy
-msgid "Newsletters"
-msgstr "Pilih Item"
-
-msgid "Brochures"
-msgstr ""
-
-#, fuzzy
-msgid "Catalogs"
-msgstr "Tutup"
-
-#, fuzzy
-msgid "Flyers"
-msgstr "Layer"
-
-#, fuzzy
-msgid "Signs"
-msgstr "Pengaturan"
-
-msgid "Cards"
-msgstr ""
-
-msgid "Letterheads"
-msgstr ""
-
-msgid "Envelopes"
-msgstr ""
-
-msgid "Business Cards"
-msgstr ""
-
-#, fuzzy
-msgid "Calendars"
-msgstr "Bersihkan"
-
-#, fuzzy
-msgid "Advertisements"
-msgstr "Pengukuran"
-
-#, fuzzy
-msgid "Labels"
-msgstr "Layer"
-
-#, fuzzy
-msgid "Programs"
-msgstr "Pemrogram:"
-
-msgid "PDF Forms"
-msgstr ""
-
-#, fuzzy
-msgid "PDF Presentations"
-msgstr "Tujuan"
-
-#, fuzzy
-msgid "Magazines"
-msgstr "Garis Tepi:"
-
-#, fuzzy
-msgid "Posters"
-msgstr "Tempel"
-
-#, fuzzy
-msgid "Announcements"
-msgstr "Dokumen:"
-
-#, fuzzy
-msgid "Text Documents"
-msgstr "Dokumen Terbaru"
-
-#, fuzzy
-msgid "Folds"
-msgstr "Tebal"
-
-#, fuzzy
-msgid "Own Templates"
-msgstr "Template Baru"
 
 #, fuzzy
 msgid "Save as Template"
@@ -6390,6 +6456,131 @@ msgstr "Atur Sendiri"
 #, fuzzy
 msgid "Save as &Template..."
 msgstr "Simpan Teks..."
+
+#, fuzzy
+msgid "S&cripter Manual..."
+msgstr "Manual Scribus"
+
+#, fuzzy
+msgid "&Scribus Scripts"
+msgstr "Skrip Sendiri"
+
+msgid "&Execute Script..."
+msgstr ""
+
+#, fuzzy
+msgid "&Recent Scripts"
+msgstr "Dokumen Terbaru"
+
+#, fuzzy
+msgid "Show &Console"
+msgstr "Tampilkan Alat bantu"
+
+#, fuzzy
+msgid "S&cript"
+msgstr "Skr&ip"
+
+#, fuzzy
+msgid "Python Scripts (*.py);; All Files (*)"
+msgstr "JavaScripts (*.js);; Semua File (*)"
+
+#, fuzzy
+msgid "Script error"
+msgstr "Skr&ip"
+
+msgid ""
+"If you are running an official script report it at <a href=\"http://bugs."
+"scribus.net\">bugs.scribus.net</a> please."
+msgstr ""
+
+msgid ""
+"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
+"tracker."
+msgstr ""
+
+#, fuzzy
+msgid "Hide &Console"
+msgstr "Sembunyikan Alat bantu"
+
+msgid ""
+"Oook! You're trying to load image into an object doesn't exist or isn't "
+"selected!"
+msgstr ""
+
+msgid ""
+"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
+msgstr ""
+
+msgid ""
+"Oook! You're trying to query an object doesn't exist! None selected too."
+msgstr ""
+
+msgid "Oook! You're calling an object doesn't exist!"
+msgstr ""
+
+msgid "Oook! You're trying to erase an object doesn't exist!"
+msgstr ""
+
+msgid "Oook! An object you're trying to textflow doesn't exist!"
+msgstr ""
+
+msgid "Oook! Wrong arguments! Call: "
+msgstr ""
+
+msgid "Script Console"
+msgstr ""
+
+#, fuzzy
+msgid "Insert value"
+msgstr "Masukkan Halaman"
+
+msgid "Enter a value then press OK."
+msgstr ""
+
+msgid "Enter a value then press OK"
+msgstr ""
+
+msgid "Send your value to the script"
+msgstr ""
+
+#, fuzzy
+msgid "Save Page as &SVG..."
+msgstr "Simpan Halaman sebagai SVG..."
+
+#, fuzzy
+msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
+msgstr "Gambar SVG (*.svg);; Semua File (*)"
+
+#, fuzzy
+msgid "SVG-Images (*.svg);;All Files (*)"
+msgstr "Gambar SVG (*.svg);; Semua File (*)"
+
+#, fuzzy
+msgid "Import &SVG..."
+msgstr "Impor..."
+
+#, fuzzy
+#~ msgid "&Fully Automatic"
+#~ msgstr "Benar-benar Otomatis"
+
+#, fuzzy
+#~ msgid "Check &During Typing"
+#~ msgstr "Periksa selama Mengetik"
+
+#, fuzzy
+#~ msgid "Conve&x Polygon"
+#~ msgstr "Poligon Cembung"
+
+#, fuzzy
+#~ msgid "Importer"
+#~ msgstr "Impor"
+
+#~ msgid "Programming:"
+#~ msgstr "Pemrogram:"
+
+#, fuzzy
+#~ msgid "Homepage and online reference"
+#~ msgstr "Membaca Preferensi"
 
 #, fuzzy
 #~ msgid "&Edit Frame"
@@ -6441,9 +6632,6 @@ msgstr "Simpan Teks..."
 #~ msgid "Edit"
 #~ msgstr "Edit"
 
-#~ msgid "Template:"
-#~ msgstr "Template:"
-
 #~ msgid "Height:"
 #~ msgstr "Tinggi:"
 
@@ -6483,9 +6671,6 @@ msgstr "Simpan Teks..."
 #, fuzzy
 #~ msgid "Quality :"
 #~ msgstr "Keluar"
-
-#~ msgid "From page:"
-#~ msgstr "Dari halaman:"
 
 #~ msgid "To page:"
 #~ msgstr "Ke halaman:"

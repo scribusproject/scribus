@@ -13,7 +13,7 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs )
 	setIcon(loadIcon("AppIcon.png"));
 	HySettingsLayout = new QVBoxLayout( this, 11, 6, "HySettingsLayout");
 	Layout3 = new QGridLayout( 0, 1, 1, 0, 6, "Layout3");
-	Verbose = new QCheckBox(tr("&Hyphenation Suggestion"), this, "Verbose");
+	Verbose = new QCheckBox(tr("&Hyphenation Suggestions"), this, "Verbose");
 	Layout3->addMultiCellWidget(Verbose, 0, 0, 0, 1);
 	
 	Input = new QCheckBox(tr("Hyphenate Text Automatically &During Typing"), this, "inp");

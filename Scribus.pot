@@ -7,13 +7,29 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-08-16 00:03+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-09-28 23:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "Align Text Left"
+msgstr ""
+
+msgid "Align Text Right"
+msgstr ""
+
+msgid "Align Text Center"
+msgstr ""
+
+msgid "Align Text Justified"
+msgstr ""
+
+msgid "Align Text Forced Justified"
+msgstr ""
 
 msgid "Distribute/Align"
 msgstr ""
@@ -93,6 +109,30 @@ msgstr ""
 msgid "&Cancel"
 msgstr ""
 
+msgid "Apply Template"
+msgstr ""
+
+msgid "&Template:"
+msgstr ""
+
+msgid "Normal"
+msgstr ""
+
+msgid "Apply to &Current Page"
+msgstr ""
+
+msgid "Apply to all &even Pages"
+msgstr ""
+
+msgid "Apply to all &odd Pages"
+msgstr ""
+
+msgid "Apply from &Page:"
+msgstr ""
+
+msgid "To:"
+msgstr ""
+
 msgid "Field Properties"
 msgstr ""
 
@@ -142,9 +182,6 @@ msgid "Width:"
 msgstr ""
 
 msgid "Thin"
-msgstr ""
-
-msgid "Normal"
 msgstr ""
 
 msgid "Wide"
@@ -504,27 +541,6 @@ msgstr ""
 msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr ""
 
-msgid "Apply Template"
-msgstr ""
-
-msgid "&Template:"
-msgstr ""
-
-msgid "Apply to &Current Page"
-msgstr ""
-
-msgid "Apply to all &even Pages"
-msgstr ""
-
-msgid "Apply to all &odd Pages"
-msgstr ""
-
-msgid "Apply from &Page:"
-msgstr ""
-
-msgid "To:"
-msgstr ""
-
 msgid "Bookmarks"
 msgstr ""
 
@@ -750,6 +766,38 @@ msgstr ""
 msgid "Name of the Color is not unique"
 msgstr ""
 
+msgid "Size:"
+msgstr ""
+
+msgid "Title:"
+msgstr ""
+
+msgid "No Title"
+msgstr ""
+
+msgid "Author:"
+msgstr ""
+
+msgid "Unknown"
+msgstr ""
+
+msgid "Scribus Document"
+msgstr ""
+
+msgid "&Compress File"
+msgstr ""
+
+msgid "&Include Fonts"
+msgstr ""
+
+msgid "Encoding:"
+msgstr ""
+
+msgid ""
+"Moves to your Document Directory.\n"
+"This can be set in the Preferences."
+msgstr ""
+
 msgid "Colors"
 msgstr ""
 
@@ -934,38 +982,6 @@ msgid ""
 "Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF "
 "support.\n"
 "Missing library support is indicated by a *"
-msgstr ""
-
-msgid "Size:"
-msgstr ""
-
-msgid "Title:"
-msgstr ""
-
-msgid "No Title"
-msgstr ""
-
-msgid "Author:"
-msgstr ""
-
-msgid "Unknown"
-msgstr ""
-
-msgid "Scribus Document"
-msgstr ""
-
-msgid "&Compress File"
-msgstr ""
-
-msgid "&Include Fonts"
-msgstr ""
-
-msgid "Encoding:"
-msgstr ""
-
-msgid ""
-"Moves to your Document Directory.\n"
-"This can be set in the Preferences."
 msgstr ""
 
 msgid "Delete Color"
@@ -1353,7 +1369,7 @@ msgstr ""
 msgid "New Style"
 msgstr ""
 
-msgid "Do you really want do delete this Style?"
+msgid "Do you really want to delete this Style?"
 msgstr ""
 
 msgid "Editor"
@@ -1551,6 +1567,348 @@ msgid ""
 "otherwise Coordinates are relative to the Object."
 msgstr ""
 
+msgid "Position:"
+msgstr ""
+
+msgid "Here you can add, change or remove Color-Stops."
+msgstr ""
+
+msgid "Importing text"
+msgstr ""
+
+msgid "Choose the importer to use"
+msgstr ""
+
+msgid "Automatic"
+msgstr ""
+
+msgid "Get text only"
+msgstr ""
+
+msgid "Import text without any formatting"
+msgstr ""
+
+msgid "Importer:"
+msgstr ""
+
+msgid "Remember association"
+msgstr ""
+
+msgid ""
+"Remember the file extension - importer association\n"
+"and do not ask again to select an importer for\n"
+"files of this type."
+msgstr ""
+
+msgid "All Supported Formats"
+msgstr ""
+
+msgid "All Files (*)"
+msgstr ""
+
+msgid ""
+"<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
+"toolkit for multiplatform GUI &amp; application development.</p><p>Qt "
+"provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;"
+"X, Linux, and all major commercial Unix variants.<br>Qt is also available "
+"for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www."
+"trolltech.com/qt/</tt> for more information.</p>"
+msgstr ""
+
+msgid "Copy or Move a File"
+msgstr ""
+
+msgid "Read: %1"
+msgstr ""
+
+msgid "Write: %1"
+msgstr ""
+
+msgid "File &name:"
+msgstr ""
+
+msgid "File &type:"
+msgstr ""
+
+msgid "One directory up"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Size"
+msgstr ""
+
+msgid "Attributes"
+msgstr ""
+
+msgid "Look &in:"
+msgstr ""
+
+msgid "Back"
+msgstr ""
+
+msgid "Create New Folder"
+msgstr ""
+
+msgid "List View"
+msgstr ""
+
+msgid "Detail View"
+msgstr ""
+
+msgid "Preview File Info"
+msgstr ""
+
+msgid "Preview File Contents"
+msgstr ""
+
+msgid "Read-write"
+msgstr ""
+
+msgid "Read-only"
+msgstr ""
+
+msgid "Write-only"
+msgstr ""
+
+msgid "Inaccessible"
+msgstr ""
+
+msgid "Symlink to File"
+msgstr ""
+
+msgid "Symlink to Directory"
+msgstr ""
+
+msgid "Symlink to Special"
+msgstr ""
+
+msgid "Dir"
+msgstr ""
+
+msgid "Special"
+msgstr ""
+
+msgid "Save As"
+msgstr ""
+
+msgid "&Open"
+msgstr ""
+
+msgid "&Rename"
+msgstr ""
+
+msgid "R&eload"
+msgstr ""
+
+msgid "Sort by &Name"
+msgstr ""
+
+msgid "Sort by &Size"
+msgstr ""
+
+msgid "Sort by &Date"
+msgstr ""
+
+msgid "&Unsorted"
+msgstr ""
+
+msgid "Sort"
+msgstr ""
+
+msgid "Show &hidden files"
+msgstr ""
+
+msgid "the file"
+msgstr ""
+
+msgid "the directory"
+msgstr ""
+
+msgid "the symlink"
+msgstr ""
+
+msgid "Delete %1"
+msgstr ""
+
+msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
+msgstr ""
+
+msgid "&Yes"
+msgstr ""
+
+msgid "&No"
+msgstr ""
+
+msgid "New Folder 1"
+msgstr ""
+
+msgid "New Folder"
+msgstr ""
+
+msgid "New Folder %1"
+msgstr ""
+
+msgid "Find Directory"
+msgstr ""
+
+msgid "Directories"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Error"
+msgstr ""
+
+msgid ""
+"%1\n"
+"File not found.\n"
+"Check path and filename."
+msgstr ""
+
+msgid "All Files (*.*)"
+msgstr ""
+
+msgid "Select a Directory"
+msgstr ""
+
+msgid "Directory:"
+msgstr ""
+
+msgid "Clear"
+msgstr ""
+
+msgid "Select All"
+msgstr ""
+
+msgid "Line up"
+msgstr ""
+
+msgid "Customize..."
+msgstr ""
+
+msgid "System Menu"
+msgstr ""
+
+msgid "Shade"
+msgstr ""
+
+msgid "Unshade"
+msgstr ""
+
+msgid "Normalize"
+msgstr ""
+
+msgid "Minimize"
+msgstr ""
+
+msgid "Maximize"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "&Restore"
+msgstr ""
+
+msgid "&Move"
+msgstr ""
+
+msgid "&Size"
+msgstr ""
+
+msgid "Mi&nimize"
+msgstr ""
+
+msgid "Ma&ximize"
+msgstr ""
+
+msgid "&Close"
+msgstr ""
+
+msgid "Stay on &Top"
+msgstr ""
+
+msgid "Restore Down"
+msgstr ""
+
+msgid "Sh&ade"
+msgstr ""
+
+msgid "%1 - [%2]"
+msgstr ""
+
+msgid "&Unshade"
+msgstr ""
+
+msgid "Hu&e:"
+msgstr ""
+
+msgid "&Sat:"
+msgstr ""
+
+msgid "&Val:"
+msgstr ""
+
+msgid "&Red:"
+msgstr ""
+
+msgid "&Green:"
+msgstr ""
+
+msgid "Bl&ue:"
+msgstr ""
+
+msgid "A&lpha channel:"
+msgstr ""
+
+msgid "&Basic colors"
+msgstr ""
+
+msgid "&Custom colors"
+msgstr ""
+
+msgid "&Define Custom Colors >>"
+msgstr ""
+
+msgid "&Add to Custom Colors"
+msgstr ""
+
+msgid "Select color"
+msgstr ""
+
+msgid "&Font"
+msgstr ""
+
+msgid "Font st&yle"
+msgstr ""
+
+msgid "Effects"
+msgstr ""
+
+msgid "Stri&keout"
+msgstr ""
+
+msgid "&Underline"
+msgstr ""
+
+msgid "&Color"
+msgstr ""
+
+msgid "Sample"
+msgstr ""
+
+msgid "Scr&ipt"
+msgstr ""
+
+msgid "Apply"
+msgstr ""
+
+msgid "Select Font"
+msgstr ""
+
 msgid "Manage Guides"
 msgstr ""
 
@@ -1576,8 +1934,9 @@ msgid "&Lock Guides"
 msgstr ""
 
 msgid ""
-"Sorry, no manual available! Please see: http://scribus.net for updated docs "
-"and downloads."
+"Sorry, no manual available! Please see: http://docs.scribus.net for updated "
+"docs\n"
+"and www.scribus.net for downloads."
 msgstr ""
 
 msgid "Possible Hyphenation"
@@ -1592,24 +1951,24 @@ msgstr ""
 msgid "Hyphenator Settings"
 msgstr ""
 
-msgid "&Fully Automatic"
+msgid "&Hyphenation Suggestions"
 msgstr ""
 
-msgid "Check &During Typing"
+msgid "Hyphenate Text Automatically &During Typing"
 msgstr ""
 
 msgid "&Smallest Word:"
 msgstr ""
 
-msgid "&Number of Hypenations allowed:"
+msgid "Consecutive Hypenations &Allowed:"
 msgstr ""
 
 msgid ""
-"If you uncheck this you will get a dialog\n"
-"everytime a possible Hyphenation is found."
+"A dialog box showing all possible hyphens for each word will show up when "
+"you use the Extras, Hyphenate Text option."
 msgstr ""
 
-msgid "Enables automatic checking of your text while typing."
+msgid "Enables automatic hyphenation of your text while typing."
 msgstr ""
 
 msgid "Length of the smallest word to be hyphenated."
@@ -1618,6 +1977,15 @@ msgstr ""
 msgid ""
 "Maximum number of Hyphenations following each other.\n"
 "A value of 0 means unlimited hyphenations."
+msgstr ""
+
+msgid "Insert Table"
+msgstr ""
+
+msgid "Number of Rows:"
+msgstr ""
+
+msgid "Number of Columns:"
 msgstr ""
 
 msgid "Insert Page"
@@ -1656,22 +2024,13 @@ msgstr ""
 msgid "&Add..."
 msgstr ""
 
-msgid "&Close"
-msgstr ""
-
 msgid "&New Script:"
 msgstr ""
 
 msgid "New Script"
 msgstr ""
 
-msgid "Do you really want do delete this Script?"
-msgstr ""
-
-msgid "&No"
-msgstr ""
-
-msgid "&Yes"
+msgid "Do you really want to delete this Script?"
 msgstr ""
 
 msgid "Manage Keyboard Shortcuts"
@@ -1752,6 +2111,21 @@ msgstr ""
 msgid "&Vertical Shift:"
 msgstr ""
 
+msgid "Distances"
+msgstr ""
+
+msgid "DX:"
+msgstr ""
+
+msgid "DY:"
+msgstr ""
+
+msgid "Angle:"
+msgstr ""
+
+msgid "Length:"
+msgstr ""
+
 msgid "Import Template"
 msgstr ""
 
@@ -1813,9 +2187,6 @@ msgid "&Line"
 msgstr ""
 
 msgid "&Colors"
-msgstr ""
-
-msgid "Name"
 msgstr ""
 
 msgid "Geometry"
@@ -2225,7 +2596,7 @@ msgstr ""
 msgid "Edit Templates"
 msgstr ""
 
-msgid "Do you really want do delete this Template?"
+msgid "Do you really want to delete this Template?"
 msgstr ""
 
 msgid "New Template"
@@ -2567,6 +2938,12 @@ msgstr ""
 msgid "PathText"
 msgstr ""
 
+msgid "Page "
+msgstr ""
+
+msgid " of %1"
+msgstr ""
+
 msgid "Create PDF File"
 msgstr ""
 
@@ -2619,9 +2996,6 @@ msgid "Com&press Text and Vector Graphics"
 msgstr ""
 
 msgid "Image Settings"
-msgstr ""
-
-msgid "Automatic"
 msgstr ""
 
 msgid "JPEG"
@@ -2685,9 +3059,6 @@ msgid "Page"
 msgstr ""
 
 msgid "Show Page Pre&views"
-msgstr ""
-
-msgid "Effects"
 msgstr ""
 
 msgid "&Display Duration:"
@@ -3100,7 +3471,7 @@ msgstr ""
 msgid "Corn&ers:"
 msgstr ""
 
-msgid "Conve&x Polygon"
+msgid "Apply &Factor"
 msgstr ""
 
 msgid "&Factor:"
@@ -3112,19 +3483,24 @@ msgstr ""
 msgid "Degrees of rotation for polygons"
 msgstr ""
 
-msgid "Polygons will be convex rather than concave"
+msgid "Apply Convex/Concave Factor to change shape of Polygons"
 msgstr ""
 
 msgid "Sample Polygon"
 msgstr ""
 
-msgid "Change the angles at which lines of the polygon join"
+msgid ""
+"A negative value will make the polygon concave (or star shaped),\n"
+" a positive value will make it convex"
 msgstr ""
 
 msgid "Document Setup"
 msgstr ""
 
 msgid "&Outside:"
+msgstr ""
+
+msgid "Font %1 is broken, discarding it"
 msgstr ""
 
 msgid "Scrapbook"
@@ -3259,12 +3635,6 @@ msgstr ""
 msgid "Open..."
 msgstr ""
 
-msgid "Close"
-msgstr ""
-
-msgid "Save"
-msgstr ""
-
 msgid "Save as..."
 msgstr ""
 
@@ -3332,9 +3702,6 @@ msgid "Copy"
 msgstr ""
 
 msgid "Paste"
-msgstr ""
-
-msgid "Clear"
 msgstr ""
 
 msgid "Select all"
@@ -3640,16 +4007,7 @@ msgstr ""
 msgid "Get Picture..."
 msgstr ""
 
-msgid "&Color"
-msgstr ""
-
 msgid "&Invert"
-msgstr ""
-
-msgid "&Font"
-msgstr ""
-
-msgid "&Size"
 msgstr ""
 
 msgid "&Effects"
@@ -3670,16 +4028,10 @@ msgstr ""
 msgid "Font"
 msgstr ""
 
-msgid "Size"
-msgstr ""
-
 msgid "Style"
 msgstr ""
 
 msgid "Color"
-msgstr ""
-
-msgid "Shade"
 msgstr ""
 
 msgid "Importing Pages..."
@@ -3701,13 +4053,10 @@ msgstr ""
 msgid "Found nothing to import"
 msgstr ""
 
+msgid "File %1 is not in Scribus format"
+msgstr ""
+
 msgid "Loading..."
-msgstr ""
-
-msgid "All Supported Formats"
-msgstr ""
-
-msgid "All Files (*)"
 msgstr ""
 
 msgid ""
@@ -3847,6 +4196,9 @@ msgstr ""
 msgid "Slovenian"
 msgstr ""
 
+msgid "Afrikaans"
+msgstr ""
+
 msgid "Scribus Crash"
 msgstr ""
 
@@ -3872,6 +4224,66 @@ msgid "has been changed since the last save."
 msgstr ""
 
 msgid "&Save Now"
+msgstr ""
+
+msgid "Search/Replace"
+msgstr ""
+
+msgid "Search for:"
+msgstr ""
+
+msgid "Paragraph Style"
+msgstr ""
+
+msgid "Font Effects"
+msgstr ""
+
+msgid "Fill Color"
+msgstr ""
+
+msgid "Fill Shade"
+msgstr ""
+
+msgid "Stroke Color"
+msgstr ""
+
+msgid "Stroke Shade"
+msgstr ""
+
+msgid "Left"
+msgstr ""
+
+msgid "Center"
+msgstr ""
+
+msgid "Right"
+msgstr ""
+
+msgid "Block"
+msgstr ""
+
+msgid "Forced"
+msgstr ""
+
+msgid "Replace with:"
+msgstr ""
+
+msgid "&Whole Word"
+msgstr ""
+
+msgid "&Ignore Case"
+msgstr ""
+
+msgid "&Search"
+msgstr ""
+
+msgid "&Replace"
+msgstr ""
+
+msgid "Replace &All"
+msgstr ""
+
+msgid "Search finished"
 msgstr ""
 
 msgid "Show Page Previews"
@@ -3915,87 +4327,7 @@ msgstr ""
 msgid "Selected Fields"
 msgstr ""
 
-msgid "Element"
-msgstr ""
-
-msgid "Information"
-msgstr ""
-
-msgid "X:"
-msgstr ""
-
-msgid "Font:"
-msgstr ""
-
-msgid "Group "
-msgstr ""
-
-msgid ""
-"Do you really want to overwrite the File:\n"
-"%1 ?"
-msgstr ""
-
-msgid "Select Items"
-msgstr ""
-
-msgid "Insert Text Frame"
-msgstr ""
-
-msgid "Insert Picture"
-msgstr ""
-
-msgid "Insert Table"
-msgstr ""
-
-msgid "Properties..."
-msgstr ""
-
-msgid "Insert Polygons"
-msgstr ""
-
-msgid "Insert Lines"
-msgstr ""
-
-msgid "Insert Bezier Curves"
-msgstr ""
-
-msgid "Insert Freehand Line"
-msgstr ""
-
-msgid "Rotate Item"
-msgstr ""
-
-msgid "Zoom in or out"
-msgstr ""
-
-msgid "Edit Contents of Frame"
-msgstr ""
-
-msgid "Edit the text with the Story Editor"
-msgstr ""
-
-msgid "Link Text Frames"
-msgstr ""
-
-msgid "Unlink Text Frames"
-msgstr ""
-
-msgid "Do measurements"
-msgstr ""
-
-msgid "Draw various Shapes"
-msgstr ""
-
-msgid "PDF Tools"
-msgstr ""
-
-msgid "Insert PDF Fields"
-msgstr ""
-
-msgid "Insert PDF Annotations"
-msgstr ""
-
-msgid "Manage Tabulators"
+msgid "Other..."
 msgstr ""
 
 msgid "Fill Color Settings"
@@ -4079,9 +4411,6 @@ msgstr ""
 msgid "Update Text Frame"
 msgstr ""
 
-msgid "Search/Replace"
-msgstr ""
-
 msgid "Current Paragraph:"
 msgstr ""
 
@@ -4100,85 +4429,13 @@ msgstr ""
 msgid "Do you really want to lose all your Changes?"
 msgstr ""
 
-msgid "Search for:"
-msgstr ""
-
-msgid "Paragraph Style"
-msgstr ""
-
-msgid "Font Effects"
-msgstr ""
-
-msgid "Fill Color"
-msgstr ""
-
-msgid "Fill Shade"
-msgstr ""
-
-msgid "Stroke Color"
-msgstr ""
-
-msgid "Stroke Shade"
-msgstr ""
-
-msgid "Left"
-msgstr ""
-
-msgid "Center"
-msgstr ""
-
-msgid "Right"
-msgstr ""
-
-msgid "Block"
-msgstr ""
-
-msgid "Forced"
-msgstr ""
-
-msgid "Replace with:"
-msgstr ""
-
-msgid "&Whole Word"
-msgstr ""
-
-msgid "&Ignore Case"
-msgstr ""
-
-msgid "&Search"
-msgstr ""
-
-msgid "&Replace"
-msgstr ""
-
-msgid "Replace &All"
-msgstr ""
-
-msgid "Search finished"
-msgstr ""
-
 msgid "Strike Out"
 msgstr ""
 
 msgid "Outline Text"
 msgstr ""
 
-msgid "Align Text Left"
-msgstr ""
-
-msgid "Align Text Right"
-msgstr ""
-
-msgid "Align Text Center"
-msgstr ""
-
-msgid "Align Text Justified"
-msgstr ""
-
-msgid "Align Text Forced Justified"
-msgstr ""
-
-msgid "Other..."
+msgid "Manage Tabulators"
 msgstr ""
 
 msgid "Full Stop"
@@ -4208,319 +4465,81 @@ msgstr ""
 msgid "Delete all Tabulators"
 msgstr ""
 
-msgid ""
-"<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
-"toolkit for multiplatform GUI &amp; application development.</p><p>Qt "
-"provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;"
-"X, Linux, and all major commercial Unix variants.<br>Qt is also available "
-"for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www."
-"trolltech.com/qt/</tt> for more information.</p>"
+msgid "Element"
 msgstr ""
 
-msgid "Copy or Move a File"
+msgid "Information"
 msgstr ""
 
-msgid "Read: %1"
+msgid "X:"
 msgstr ""
 
-msgid "Write: %1"
+msgid "Font:"
 msgstr ""
 
-msgid "File &name:"
-msgstr ""
-
-msgid "File &type:"
-msgstr ""
-
-msgid "One directory up"
-msgstr ""
-
-msgid "Attributes"
-msgstr ""
-
-msgid "Look &in:"
-msgstr ""
-
-msgid "Back"
-msgstr ""
-
-msgid "Create New Folder"
-msgstr ""
-
-msgid "List View"
-msgstr ""
-
-msgid "Detail View"
-msgstr ""
-
-msgid "Preview File Info"
-msgstr ""
-
-msgid "Preview File Contents"
-msgstr ""
-
-msgid "Read-write"
-msgstr ""
-
-msgid "Read-only"
-msgstr ""
-
-msgid "Write-only"
-msgstr ""
-
-msgid "Inaccessible"
-msgstr ""
-
-msgid "Symlink to File"
-msgstr ""
-
-msgid "Symlink to Directory"
-msgstr ""
-
-msgid "Symlink to Special"
-msgstr ""
-
-msgid "Dir"
-msgstr ""
-
-msgid "Special"
-msgstr ""
-
-msgid "Save As"
-msgstr ""
-
-msgid "&Open"
-msgstr ""
-
-msgid "&Rename"
-msgstr ""
-
-msgid "R&eload"
-msgstr ""
-
-msgid "Sort by &Name"
-msgstr ""
-
-msgid "Sort by &Size"
-msgstr ""
-
-msgid "Sort by &Date"
-msgstr ""
-
-msgid "&Unsorted"
-msgstr ""
-
-msgid "Sort"
-msgstr ""
-
-msgid "Show &hidden files"
-msgstr ""
-
-msgid "the file"
-msgstr ""
-
-msgid "the directory"
-msgstr ""
-
-msgid "the symlink"
-msgstr ""
-
-msgid "Delete %1"
-msgstr ""
-
-msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
-msgstr ""
-
-msgid "New Folder 1"
-msgstr ""
-
-msgid "New Folder"
-msgstr ""
-
-msgid "New Folder %1"
-msgstr ""
-
-msgid "Find Directory"
-msgstr ""
-
-msgid "Directories"
-msgstr ""
-
-msgid "Error"
+msgid "Group "
 msgstr ""
 
 msgid ""
-"%1\n"
-"File not found.\n"
-"Check path and filename."
+"Do you really want to overwrite the File:\n"
+"%1 ?"
 msgstr ""
 
-msgid "All Files (*.*)"
+msgid "Select Items"
 msgstr ""
 
-msgid "Select a Directory"
+msgid "Insert Text Frame"
 msgstr ""
 
-msgid "Directory:"
+msgid "Insert Picture"
 msgstr ""
 
-msgid "Select All"
+msgid "Properties..."
 msgstr ""
 
-msgid "Line up"
+msgid "Insert Polygons"
 msgstr ""
 
-msgid "Customize..."
+msgid "Insert Lines"
 msgstr ""
 
-msgid "System Menu"
+msgid "Insert Bezier Curves"
 msgstr ""
 
-msgid "Unshade"
+msgid "Insert Freehand Line"
 msgstr ""
 
-msgid "Normalize"
+msgid "Rotate Item"
 msgstr ""
 
-msgid "Minimize"
+msgid "Zoom in or out"
 msgstr ""
 
-msgid "Maximize"
+msgid "Edit Contents of Frame"
 msgstr ""
 
-msgid "&Restore"
+msgid "Edit the text with the Story Editor"
 msgstr ""
 
-msgid "&Move"
+msgid "Link Text Frames"
 msgstr ""
 
-msgid "Mi&nimize"
+msgid "Unlink Text Frames"
 msgstr ""
 
-msgid "Ma&ximize"
+msgid "Do measurements"
 msgstr ""
 
-msgid "Stay on &Top"
+msgid "Draw various Shapes"
 msgstr ""
 
-msgid "Restore Down"
+msgid "PDF Tools"
 msgstr ""
 
-msgid "Sh&ade"
+msgid "Insert PDF Fields"
 msgstr ""
 
-msgid "%1 - [%2]"
-msgstr ""
-
-msgid "&Unshade"
-msgstr ""
-
-msgid "Hu&e:"
-msgstr ""
-
-msgid "&Sat:"
-msgstr ""
-
-msgid "&Val:"
-msgstr ""
-
-msgid "&Red:"
-msgstr ""
-
-msgid "&Green:"
-msgstr ""
-
-msgid "Bl&ue:"
-msgstr ""
-
-msgid "A&lpha channel:"
-msgstr ""
-
-msgid "&Basic colors"
-msgstr ""
-
-msgid "&Custom colors"
-msgstr ""
-
-msgid "&Define Custom Colors >>"
-msgstr ""
-
-msgid "&Add to Custom Colors"
-msgstr ""
-
-msgid "Select color"
-msgstr ""
-
-msgid "Font st&yle"
-msgstr ""
-
-msgid "Stri&keout"
-msgstr ""
-
-msgid "&Underline"
-msgstr ""
-
-msgid "Sample"
-msgstr ""
-
-msgid "Scr&ipt"
-msgstr ""
-
-msgid "Apply"
-msgstr ""
-
-msgid "Select Font"
-msgstr ""
-
-msgid "Page "
-msgstr ""
-
-msgid " of %1"
-msgstr ""
-
-msgid "Number of Rows:"
-msgstr ""
-
-msgid "Number of Columns:"
-msgstr ""
-
-msgid "Importing text"
-msgstr ""
-
-msgid "Distances"
-msgstr ""
-
-msgid "DX:"
-msgstr ""
-
-msgid "DY:"
-msgstr ""
-
-msgid "Angle:"
-msgstr ""
-
-msgid "Length:"
-msgstr ""
-
-msgid "Position:"
-msgstr ""
-
-msgid "Here you can add, change or remove Color-Stops."
-msgstr ""
-
-msgid "Choose the importer to use"
-msgstr ""
-
-msgid "Get text only"
-msgstr ""
-
-msgid "Import text without any formatting"
-msgstr ""
-
-msgid "Importer:"
-msgstr ""
-
-msgid "Importer"
+msgid "Insert PDF Annotations"
 msgstr ""
 
 #, c-format
@@ -4541,7 +4560,7 @@ msgstr ""
 msgid "&About"
 msgstr ""
 
-msgid "Programming:"
+msgid "Development Team:"
 msgstr ""
 
 msgid "Contributions from:"
@@ -4550,88 +4569,97 @@ msgstr ""
 msgid "Windows port:"
 msgstr ""
 
-msgid "Documentation:"
+msgid "Official Documentation:"
+msgstr ""
+
+msgid "Other Documentation:"
 msgstr ""
 
 msgid "A&uthors"
 msgstr ""
 
-msgid "German:"
-msgstr ""
-
-msgid "French:"
-msgstr ""
-
-msgid "Spanish and Catalan:"
-msgstr ""
-
-msgid "Italian:"
-msgstr ""
-
-msgid "Hungarian:"
-msgstr ""
-
-msgid "Ukrainian:"
-msgstr ""
-
-msgid "Bulgarian:"
-msgstr ""
-
-msgid "Galician:"
-msgstr ""
-
-msgid "Turkish:"
-msgstr ""
-
-msgid "Lithuanian:"
-msgstr ""
-
-msgid "Polish:"
-msgstr ""
-
-msgid "Czech:"
-msgstr ""
-
-msgid "Slovak:"
-msgstr ""
-
-msgid "Danish:"
-msgstr ""
-
-msgid "Norwegian:"
-msgstr ""
-
-msgid "English:"
-msgstr ""
-
-msgid "Welsh:"
-msgstr ""
-
-msgid "Russian:"
+msgid "Basque:"
 msgstr ""
 
 msgid "Brazilian:"
 msgstr ""
 
+msgid "Bulgarian:"
+msgstr ""
+
+msgid "Czech:"
+msgstr ""
+
+msgid "Danish:"
+msgstr ""
+
+msgid "English (British):"
+msgstr ""
+
 msgid "Finnish:"
+msgstr ""
+
+msgid "French:"
+msgstr ""
+
+msgid "Galician:"
+msgstr ""
+
+msgid "German:"
+msgstr ""
+
+msgid "Hungarian:"
+msgstr ""
+
+msgid "Italian:"
+msgstr ""
+
+msgid "Lithuanian:"
+msgstr ""
+
+msgid "Norwegian:"
+msgstr ""
+
+msgid "Polish:"
+msgstr ""
+
+msgid "Russian:"
+msgstr ""
+
+msgid "Slovak:"
 msgstr ""
 
 msgid "Slovenian:"
 msgstr ""
 
-msgid "Basque:"
+msgid "Spanish and Catalan:"
+msgstr ""
+
+msgid "Swedish:"
+msgstr ""
+
+msgid "Turkish:"
+msgstr ""
+
+msgid "Ukrainian:"
+msgstr ""
+
+msgid "Welsh:"
 msgstr ""
 
 msgid "&Translations"
 msgstr ""
 
-msgid "Homepage and online reference"
+msgid "Homepage"
 msgstr ""
 
-msgid "Mailing list"
+msgid "Online Reference"
 msgstr ""
 
-msgid "Bugs and feature requests"
+msgid "Bugs and Feature Requests"
+msgstr ""
+
+msgid "Mailing List"
 msgstr ""
 
 msgid "&Online"
@@ -4708,6 +4736,9 @@ msgid "&Scripts:"
 msgstr ""
 
 msgid "Ch&ange..."
+msgstr ""
+
+msgid "T&emplates:"
 msgstr ""
 
 msgid "Autosave"
@@ -4929,6 +4960,9 @@ msgstr ""
 msgid "Default Scripter scripts directory"
 msgstr ""
 
+msgid "Additional Directory for Document Templates"
+msgstr ""
+
 msgid "Default page size, either a standard size or a custom size"
 msgstr ""
 
@@ -5135,6 +5169,152 @@ msgid ""
 "Do not show objects outside the margins on the printed page or exported file"
 msgstr ""
 
+msgid "Fonts Preview"
+msgstr ""
+
+msgid "Alt+O"
+msgstr ""
+
+msgid "Alt+C"
+msgstr ""
+
+msgid "CSV Importer Options"
+msgstr ""
+
+msgid "Field delimiter:"
+msgstr ""
+
+msgid "(TAB)"
+msgstr ""
+
+msgid "Value delimiter:"
+msgstr ""
+
+msgid "First row is a header"
+msgstr ""
+
+msgid "Comma Separated Value Files"
+msgstr ""
+
+msgid "CSV_data"
+msgstr ""
+
+msgid "CSV_header"
+msgstr ""
+
+msgid ""
+"\n"
+"External Links\n"
+msgstr ""
+
+msgid "HTML Files"
+msgstr ""
+
+msgid "html"
+msgstr ""
+
+msgid "Text Files"
+msgstr ""
+
+msgid "OO.o Writer Importer Options"
+msgstr ""
+
+msgid "Update paragraph styles"
+msgstr ""
+
+msgid ""
+"If there already exists a paragraph style with the same\n"
+"name than current OO.o document's paragraph should the style\n"
+"in Scribus be edited to match the one being imported\n"
+"or left untouched"
+msgstr ""
+
+msgid "Use document name as a prefix for paragraph styles"
+msgstr ""
+
+msgid ""
+"Should importer add the name of the document\n"
+"on front of the paragraph style name in Scirubs"
+msgstr ""
+
+msgid "Do not ask again"
+msgstr ""
+
+msgid ""
+"Should the importer always use currently\n"
+"set value when importing OO.o document and\n"
+"never ask your confirmation again"
+msgstr ""
+
+msgid "OO.o Writer Documents"
+msgstr ""
+
+msgid "Create filter"
+msgstr ""
+
+msgid "Choose a previously saved filter"
+msgstr ""
+
+msgid "Give a name to this filter for saving"
+msgstr ""
+
+msgid "Give a name for saving"
+msgstr ""
+
+msgid "Disable or enable this filter row"
+msgstr ""
+
+msgid "Remove this filter row"
+msgstr ""
+
+msgid "Add a new filter row"
+msgstr ""
+
+msgid "to"
+msgstr ""
+
+msgid "and"
+msgstr ""
+
+msgid "remove match"
+msgstr ""
+
+msgid "do not remove match"
+msgstr ""
+
+msgid "words"
+msgstr ""
+
+msgid "Replace"
+msgstr ""
+
+msgid "Value at the left is a regular expression"
+msgstr ""
+
+msgid "with"
+msgstr ""
+
+msgid "paragraph style"
+msgstr ""
+
+msgid "all instances of"
+msgstr ""
+
+msgid "all paragraphs"
+msgstr ""
+
+msgid "paragraphs starting with"
+msgstr ""
+
+msgid "paragraphs with less than"
+msgstr ""
+
+msgid "paragraphs with more than"
+msgstr ""
+
+msgid "Text Filters"
+msgstr ""
+
 msgid "Select Character:"
 msgstr ""
 
@@ -5150,160 +5330,140 @@ msgstr ""
 msgid "Close this dialog and return to text editing."
 msgstr ""
 
-msgid "Print Preview"
+msgid "New From Template"
 msgstr ""
 
-msgid "Print Previe&w"
+msgid "Description"
 msgstr ""
 
-msgid "Anti-alias &Text"
+msgid "Usage"
 msgstr ""
 
-msgid "Anti-alias &Graphics"
+msgid "Created with"
 msgstr ""
 
-msgid "Display Trans&parency"
+msgid "Author"
 msgstr ""
 
-msgid "&Under Color Removal"
-msgstr ""
-
-msgid "&Display CMYK"
-msgstr ""
-
-msgid "&C"
-msgstr ""
-
-msgid "&M"
-msgstr ""
-
-msgid "&Y"
-msgstr ""
-
-msgid "&K"
+msgid "Downloading Templates"
 msgstr ""
 
 msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense\n"
-"of a slight slowdown in previewing. This only affects Type 1 fonts"
+"Document templates can be found at http://www.scribus.net/ in the Downloads "
+"section."
+msgstr ""
+
+msgid "Installing Templates"
 msgstr ""
 
 msgid ""
-"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
-"and\n"
-"vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
+"Extract the package to the template directory ~/.scribus/templates for the "
+"current user or PREFIX/share/scribus/templates for all users in the system."
+msgstr ""
+
+msgid "Preparing a template"
 msgstr ""
 
 msgid ""
-"Shows transparency and transparent items in your document. Requires "
-"Ghostscript 7.07 or later"
+"Make sure images and fonts you use can be used freely. If fonts cannot be "
+"shared do not collect them when saving as a template."
 msgstr ""
 
 msgid ""
-"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
-"colors"
+"The template creator should also make sure that the Installing Templates "
+"section above applies to their templates as well. This means a user should "
+"be able to download a template package and be able to extract them to the "
+"template directory and start using them."
 msgstr ""
 
-msgid "Enable/disable the C (Cyan) ink plate"
-msgstr ""
-
-msgid "Enable/disable the M (Magenta) ink plate"
-msgstr ""
-
-msgid "Enable/disable the Y (Yellow) ink plate"
-msgstr ""
-
-msgid "Enable/disable the K (Black) ink plate"
+msgid "Removing a template"
 msgstr ""
 
 msgid ""
-"A way of switching some of the gray shades which are composed\n"
-"of cyan, yellow and magenta and using black instead.\n"
-"UCR most affects parts of images which are neutral and/or dark tones\n"
-"which are close to the gray. Use of this may improve printing some images\n"
-"and some experimentation and testing is need on a case by case basis.\n"
-"UCR reduces the possibility of over saturation with CMY inks."
+"Removing a template from the New From Template dialog will only remove the "
+"entry from the template.xml, it will not delete the document files. A popup "
+"menu with remove is only shown if you have write access to the template.xml "
+"file."
 msgstr ""
 
-msgid "Save Page as &SVG..."
-msgstr ""
-
-msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
-msgstr ""
-
-msgid "SVG-Images (*.svg);;All Files (*)"
-msgstr ""
-
-msgid "Import &SVG..."
-msgstr ""
-
-msgid "S&cripter Manual..."
-msgstr ""
-
-msgid "&Scribus Scripts"
-msgstr ""
-
-msgid "&Execute Script..."
-msgstr ""
-
-msgid "&Recent Scripts"
-msgstr ""
-
-msgid "Show &Console"
-msgstr ""
-
-msgid "S&cript"
-msgstr ""
-
-msgid "Online Reference"
-msgstr ""
-
-msgid "Python Scripts (*.py);; All Files (*)"
-msgstr ""
-
-msgid "Script error"
+msgid "Translating template.xml"
 msgstr ""
 
 msgid ""
-"If you are running an official script report it at <a href=\"http://bugs."
-"scribus.net\">bugs.scribus.net</a> please."
+"Copy an existing template.xml to a file called template.lang_COUNTRY.xml "
+"(use the same lang code that is present in the qm file for your language), "
+"for example template.fi.xml for Finnish language template.xml. The copy must "
+"be located in the same directory as the original template.xml so Scribus can "
+"load it."
 msgstr ""
 
-msgid ""
-"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
-"tracker."
+msgid "New &from Template..."
 msgstr ""
 
-msgid "Hide &Console"
+msgid "Template: "
 msgstr ""
 
-msgid "Script Console"
+msgid "Newsletters"
 msgstr ""
 
-msgid "Oook! Wrong arguments! Call: "
+msgid "Brochures"
 msgstr ""
 
-msgid "Oook! You're calling an object doesn't exist!"
+msgid "Catalogs"
 msgstr ""
 
-msgid "Oook! You're trying to erase an object doesn't exist!"
+msgid "Flyers"
 msgstr ""
 
-msgid "Oook! An object you're trying to textflow doesn't exist!"
+msgid "Signs"
 msgstr ""
 
-msgid ""
-"Oook! You're trying to load image into an object doesn't exist or isn't "
-"selected!"
+msgid "Cards"
 msgstr ""
 
-msgid ""
-"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
+msgid "Letterheads"
 msgstr ""
 
-msgid ""
-"Oook! You're trying to query an object doesn't exist! None selected too."
+msgid "Envelopes"
+msgstr ""
+
+msgid "Business Cards"
+msgstr ""
+
+msgid "Calendars"
+msgstr ""
+
+msgid "Advertisements"
+msgstr ""
+
+msgid "Labels"
+msgstr ""
+
+msgid "Programs"
+msgstr ""
+
+msgid "PDF Forms"
+msgstr ""
+
+msgid "PDF Presentations"
+msgstr ""
+
+msgid "Magazines"
+msgstr ""
+
+msgid "Posters"
+msgstr ""
+
+msgid "Announcements"
+msgstr ""
+
+msgid "Text Documents"
+msgstr ""
+
+msgid "Folds"
+msgstr ""
+
+msgid "Own Templates"
 msgstr ""
 
 msgid "Choose a Export Directory"
@@ -5383,46 +5543,80 @@ msgstr ""
 msgid "Yes all"
 msgstr ""
 
-msgid "HTML Files"
+msgid "Print Preview"
 msgstr ""
 
-msgid "html"
+msgid "Print Previe&w"
 msgstr ""
 
-msgid "Text Files"
+msgid "Anti-alias &Text"
 msgstr ""
 
-msgid "CSV Importer Options"
+msgid "Anti-alias &Graphics"
 msgstr ""
 
-msgid "Field delimiter:"
+msgid "Display Trans&parency"
 msgstr ""
 
-msgid "(TAB)"
+msgid "&Under Color Removal"
 msgstr ""
 
-msgid "Value delimiter:"
+msgid "&Display CMYK"
 msgstr ""
 
-msgid "First row is a header"
+msgid "&C"
 msgstr ""
 
-msgid "Comma Separated Value Files"
+msgid "&M"
 msgstr ""
 
-msgid "CSV_data"
+msgid "&Y"
 msgstr ""
 
-msgid "CSV_header"
+msgid "&K"
 msgstr ""
 
-msgid "Fonts Preview"
+msgid ""
+"Provides a more pleasant view of text items in the viewer, at the expense\n"
+"of a slight slowdown in previewing. This only affects Type 1 fonts"
 msgstr ""
 
-msgid "Alt+O"
+msgid ""
+"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
+"and\n"
+"vector graphics in the preview, at the expense of a slight slowdown in "
+"previewing"
 msgstr ""
 
-msgid "Alt+C"
+msgid ""
+"Shows transparency and transparent items in your document. Requires "
+"Ghostscript 7.07 or later"
+msgstr ""
+
+msgid ""
+"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
+"colors"
+msgstr ""
+
+msgid "Enable/disable the C (Cyan) ink plate"
+msgstr ""
+
+msgid "Enable/disable the M (Magenta) ink plate"
+msgstr ""
+
+msgid "Enable/disable the Y (Yellow) ink plate"
+msgstr ""
+
+msgid "Enable/disable the K (Black) ink plate"
+msgstr ""
+
+msgid ""
+"A way of switching some of the gray shades which are composed\n"
+"of cyan, yellow and magenta and using black instead.\n"
+"UCR most affects parts of images which are neutral and/or dark tones\n"
+"which are close to the gray. Use of this may improve printing some images\n"
+"and some experimentation and testing is need on a case by case basis.\n"
+"UCR reduces the possibility of over saturation with CMY inks."
 msgstr ""
 
 msgid "Import &EPS/PS..."
@@ -5435,139 +5629,6 @@ msgid ""
 "Importing File:\n"
 "%1\n"
 "failed!"
-msgstr ""
-
-msgid "New &from Template..."
-msgstr ""
-
-msgid "New From Template"
-msgstr ""
-
-msgid "Description"
-msgstr ""
-
-msgid "Usage"
-msgstr ""
-
-msgid "Created with"
-msgstr ""
-
-msgid "Author"
-msgstr ""
-
-msgid "Downloading Templates"
-msgstr ""
-
-msgid ""
-"Document templates can be found at http://www.scribus.net/ in the Downloads "
-"section."
-msgstr ""
-
-msgid "Installing Templates"
-msgstr ""
-
-msgid ""
-"Extract the package to the template directory ~/.scribus/templates for the "
-"current user or PREFIX/share/scribus/templates for all users in the system."
-msgstr ""
-
-msgid "Preparing a template"
-msgstr ""
-
-msgid ""
-"Make sure images and fonts you use can be used freely. If fonts cannot be "
-"shared do not collect them when saving as a template."
-msgstr ""
-
-msgid ""
-"The template creator should also make sure that the Installing Templates "
-"section above applies to their templates as well. This means a user should "
-"be able to download a template package and be able to extract them to the "
-"template directory and start using them."
-msgstr ""
-
-msgid "Removing a template"
-msgstr ""
-
-msgid ""
-"Removing a template from the New From Template dialog will only remove the "
-"entry from the template.xml, it will not delete the document files. A popup "
-"menu with remove is only shown if you have write access to the template.xml "
-"file."
-msgstr ""
-
-msgid "Translating template.xml"
-msgstr ""
-
-msgid ""
-"Copy an existing template.xml to a file called template.lang_COUNTRY.xml "
-"(use the same lang code that is present in the qm file for your language), "
-"for example template.fi.xml for Finnish language template.xml. The copy must "
-"be located in the same directory as the original template.xml so Scribus can "
-"load it."
-msgstr ""
-
-msgid "Newsletters"
-msgstr ""
-
-msgid "Brochures"
-msgstr ""
-
-msgid "Catalogs"
-msgstr ""
-
-msgid "Flyers"
-msgstr ""
-
-msgid "Signs"
-msgstr ""
-
-msgid "Cards"
-msgstr ""
-
-msgid "Letterheads"
-msgstr ""
-
-msgid "Envelopes"
-msgstr ""
-
-msgid "Business Cards"
-msgstr ""
-
-msgid "Calendars"
-msgstr ""
-
-msgid "Advertisements"
-msgstr ""
-
-msgid "Labels"
-msgstr ""
-
-msgid "Programs"
-msgstr ""
-
-msgid "PDF Forms"
-msgstr ""
-
-msgid "PDF Presentations"
-msgstr ""
-
-msgid "Magazines"
-msgstr ""
-
-msgid "Posters"
-msgstr ""
-
-msgid "Announcements"
-msgstr ""
-
-msgid "Text Documents"
-msgstr ""
-
-msgid "Folds"
-msgstr ""
-
-msgid "Own Templates"
 msgstr ""
 
 msgid "Save as Template"
@@ -5595,4 +5656,93 @@ msgid "custom"
 msgstr ""
 
 msgid "Save as &Template..."
+msgstr ""
+
+msgid "S&cripter Manual..."
+msgstr ""
+
+msgid "&Scribus Scripts"
+msgstr ""
+
+msgid "&Execute Script..."
+msgstr ""
+
+msgid "&Recent Scripts"
+msgstr ""
+
+msgid "Show &Console"
+msgstr ""
+
+msgid "S&cript"
+msgstr ""
+
+msgid "Python Scripts (*.py);; All Files (*)"
+msgstr ""
+
+msgid "Script error"
+msgstr ""
+
+msgid ""
+"If you are running an official script report it at <a href=\"http://bugs."
+"scribus.net\">bugs.scribus.net</a> please."
+msgstr ""
+
+msgid ""
+"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
+"tracker."
+msgstr ""
+
+msgid "Hide &Console"
+msgstr ""
+
+msgid ""
+"Oook! You're trying to load image into an object doesn't exist or isn't "
+"selected!"
+msgstr ""
+
+msgid ""
+"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
+msgstr ""
+
+msgid ""
+"Oook! You're trying to query an object doesn't exist! None selected too."
+msgstr ""
+
+msgid "Oook! You're calling an object doesn't exist!"
+msgstr ""
+
+msgid "Oook! You're trying to erase an object doesn't exist!"
+msgstr ""
+
+msgid "Oook! An object you're trying to textflow doesn't exist!"
+msgstr ""
+
+msgid "Oook! Wrong arguments! Call: "
+msgstr ""
+
+msgid "Script Console"
+msgstr ""
+
+msgid "Insert value"
+msgstr ""
+
+msgid "Enter a value then press OK."
+msgstr ""
+
+msgid "Enter a value then press OK"
+msgstr ""
+
+msgid "Send your value to the script"
+msgstr ""
+
+msgid "Save Page as &SVG..."
+msgstr ""
+
+msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
+msgstr ""
+
+msgid "SVG-Images (*.svg);;All Files (*)"
+msgstr ""
+
+msgid "Import &SVG..."
 msgstr ""

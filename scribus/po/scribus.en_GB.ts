@@ -21,7 +21,7 @@
     </message>
     <message>
         <source>Programming:</source>
-        <translation>Programming:</translation>
+        <translation type="obsolete">Programming:</translation>
     </message>
     <message>
         <source>Contributions from:</source>
@@ -33,7 +33,7 @@
     </message>
     <message>
         <source>Documentation:</source>
-        <translation>Documentation:</translation>
+        <translation type="obsolete">Documentation:</translation>
     </message>
     <message>
         <source>German:</source>
@@ -97,7 +97,7 @@
     </message>
     <message>
         <source>English:</source>
-        <translation>English:</translation>
+        <translation type="obsolete">English:</translation>
     </message>
     <message>
         <source>Welsh:</source>
@@ -117,15 +117,15 @@
     </message>
     <message>
         <source>Homepage and online reference</source>
-        <translation>Homepage and online reference</translation>
+        <translation type="obsolete">Homepage and online reference</translation>
     </message>
     <message>
         <source>Mailing list</source>
-        <translation>Mailing list</translation>
+        <translation type="obsolete">Mailing list</translation>
     </message>
     <message>
         <source>Bugs and feature requests</source>
-        <translation>Bugs and feature requests</translation>
+        <translation type="obsolete">Bugs and feature requests</translation>
     </message>
     <message>
         <source>Basque:</source>
@@ -164,6 +164,42 @@ Missing library support is indicated by a *</translation>
     <message>
         <source>&amp;Close</source>
         <translation>&amp;Close</translation>
+    </message>
+    <message>
+        <source>Development Team:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Official Documentation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other Documentation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (British):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Swedish:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Online Reference</source>
+        <translation type="unfinished">Online Reference</translation>
+    </message>
+    <message>
+        <source>Bugs and Feature Requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing List</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2749,7 +2785,12 @@ Use 72 dpi for Images intended for the Screen</translation>
     <name>HelpBrowser</name>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation>Sorry, no manual available! Please see: http://www.scribus.net for updated documents and downloads.</translation>
+        <translation type="obsolete">Sorry, no manual available! Please see: http://www.scribus.net for updated documents and downloads.</translation>
+    </message>
+    <message>
+        <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
+and www.scribus.net for downloads.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2780,12 +2821,12 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <source>If you uncheck this you will get a dialog
 everytime a possible Hyphenation is found.</source>
-        <translation>If you uncheck this you will get a dialog
+        <translation type="obsolete">If you uncheck this you will get a dialog
 everytime a possible Hyphenation is found.</translation>
     </message>
     <message>
         <source>Enables automatic checking of your text while typing.</source>
-        <translation>Enables automatic checking of your text while typing.</translation>
+        <translation type="obsolete">Enables automatic checking of your text while typing.</translation>
     </message>
     <message>
         <source>Length of the smallest word to be hyphenated.</source>
@@ -2799,11 +2840,11 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>&amp;Fully Automatic</source>
-        <translation>&amp;Fully Automatic</translation>
+        <translation type="obsolete">&amp;Fully Automatic</translation>
     </message>
     <message>
         <source>Check &amp;During Typing</source>
-        <translation>Check &amp;During Typing</translation>
+        <translation type="obsolete">Check &amp;During Typing</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -2815,7 +2856,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>&amp;Number of Hypenations allowed:</source>
-        <translation>&amp;Number of Hypenations allowed:</translation>
+        <translation type="obsolete">&amp;Number of Hypenations allowed:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2824,6 +2865,26 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+        <source>&amp;Hyphenation Suggestions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hyphenate Text Automatically &amp;During Typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consecutive Hypenations &amp;Allowed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables automatic hyphenation of your text while typing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2920,7 +2981,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Script?</source>
-        <translation>Do you really want do delete this Script?</translation>
+        <translation type="obsolete">Do you really want do delete this Script?</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
@@ -2949,6 +3010,10 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Yes</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Script?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3077,7 +3142,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Do you really want do delete this Style?</translation>
+        <translation type="obsolete">Do you really want do delete this Style?</translation>
     </message>
     <message>
         <source>Open</source>
@@ -3130,6 +3195,10 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Yes</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4110,7 +4179,7 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Template?</source>
-        <translation>Do you really want do delete this Template?</translation>
+        <translation type="obsolete">Do you really want do delete this Template?</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -4163,6 +4232,10 @@ Please choose another.</translation>
     <message>
         <source>&amp;Name:</source>
         <translation>&amp;Name:</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Template?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5760,7 +5833,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>Conve&amp;x Polygon</translation>
+        <translation type="obsolete">Conve&amp;x Polygon</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -5784,7 +5857,7 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Polygons will be convex rather than concave</translation>
+        <translation type="obsolete">Polygons will be convex rather than concave</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -5792,7 +5865,20 @@ UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Change the angles at which lines of the polygon join</translation>
+        <translation type="obsolete">Change the angles at which lines of the polygon join</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6275,7 +6361,7 @@ each time the time period elapses</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Polygons will be convex rather than concave</translation>
+        <translation type="obsolete">Polygons will be convex rather than concave</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -6283,7 +6369,7 @@ each time the time period elapses</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Change the angles at which lines of the polygon join</translation>
+        <translation type="obsolete">Change the angles at which lines of the polygon join</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
@@ -6615,7 +6701,7 @@ each time the time period elapses</translation>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>Conve&amp;x Polygon</translation>
+        <translation type="obsolete">Conve&amp;x Polygon</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -6696,6 +6782,45 @@ each time the time period elapses</translation>
     <message>
         <source>Apply &amp;Under Color Removal</source>
         <translation>Apply &amp;Under Colour Removal</translation>
+    </message>
+    <message>
+        <source>T&amp;emplates:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="unfinished">Cha&amp;nge...</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Additional Directory for Document Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished">A way of switching off some of the grey shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the grey. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
 </context>
 <context>
@@ -7410,11 +7535,11 @@ Check path and filename.</translation>
     </message>
     <message>
         <source>Importer</source>
-        <translation>Importer</translation>
+        <translation type="obsolete">Importer</translation>
     </message>
     <message>
         <source>Choose the importer to use</source>
-        <translation>Choose the importer to use</translation>
+        <translation type="obsolete">Choose the importer to use</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -7443,6 +7568,28 @@ Check path and filename.</translation>
     <message>
         <source>CSV_header</source>
         <translation>CSV_header</translation>
+    </message>
+    <message>
+        <source>Font %1 is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+External Links
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OO.o Writer Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Filters</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8946,6 +9093,14 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>&amp;Edit Shape</source>
         <translation>&amp;Edit Shape</translation>
     </message>
+    <message>
+        <source>File %1 is not in Scribus format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Afrikaans</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -9255,7 +9410,7 @@ drag a Template to the Pageview below.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Do you really want do delete this Style?</translation>
+        <translation type="obsolete">Do you really want do delete this Style?</translation>
     </message>
     <message>
         <source>No</source>
@@ -9308,6 +9463,10 @@ drag a Template to the Pageview below.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9525,6 +9684,47 @@ drag a Template to the Pageview below.</translation>
     </message>
 </context>
 <context>
+    <name>SxwDialog</name>
+    <message>
+        <source>OO.o Writer Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there already exists a paragraph style with the same
+name than current OO.o document&apos;s paragraph should the style
+in Scribus be edited to match the one being imported
+or left untouched</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use document name as a prefix for paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scirubs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not ask again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OO.o document and
+never ask your confirmation again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+</context>
+<context>
     <name>TabManager</name>
     <message>
         <source>Manage Tabulators</source>
@@ -9681,6 +9881,33 @@ Please choose another.</translation>
     <message>
         <source>Group </source>
         <translation>Group </translation>
+    </message>
+</context>
+<context>
+    <name>ValueDialog</name>
+    <message>
+        <source>Insert value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished">Alt+O</translation>
+    </message>
+    <message>
+        <source>Send your value to the script</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9860,6 +10087,31 @@ Please choose another.</translation>
     </message>
 </context>
 <context>
+    <name>gtImporterDialog</name>
+    <message>
+        <source>Choose the importer to use</source>
+        <translation type="unfinished">Choose the importer to use</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember association</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember the file extension - importer association
+and do not ask again to select an importer for
+files of this type.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+</context>
+<context>
     <name>nftdialog</name>
     <message>
         <source>New From Template</source>
@@ -10035,6 +10287,120 @@ Please choose another.</translation>
     <message>
         <source>custom</source>
         <translation>custom</translation>
+    </message>
+</context>
+<context>
+    <name>tfDia</name>
+    <message>
+        <source>Create filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">C&amp;lear</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Delete</translation>
+    </message>
+    <message>
+        <source>Choose a previously saved filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name to this filter for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Cancel</translation>
+    </message>
+</context>
+<context>
+    <name>tfFilter</name>
+    <message>
+        <source>Disable or enable this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a new filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>and</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>do not remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Remove</translation>
+    </message>
+    <message>
+        <source>Replace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished">Apply</translation>
+    </message>
+    <message>
+        <source>Value at the left is a regular expression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all instances of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all paragraphs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs starting with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with less than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with more than</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

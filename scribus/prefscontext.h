@@ -59,6 +59,7 @@ public:
 	bool    getBool(const QString& key, bool defValue = false);
 	void    set(const QString& key, bool value);
 	PrefsTable* getTable(const QString& name);
+	void    removeTable(const QString& name);
 };
 
 #endif // PREFSCONTEXTS_H

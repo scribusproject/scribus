@@ -28,10 +28,10 @@ gtWriter::gtWriter(bool append)
 	setDefaultStyle();
 	unsetCharacterStyle();
 	unsetParagraphStyle();
-	if (!append)
-		action->clearFrame();
-	else
-		this->append("\n");
+// 	if (!append)
+// 		action->clearFrame();
+// 	else
+// 		this->append("\n");
 }
 
 gtFrameStyle* gtWriter::getDefaultStyle()
@@ -148,6 +148,16 @@ bool gtWriter::getUpdateParagraphStyles()
 void gtWriter::setUpdateParagraphStyles(bool newUPS)
 {
 	action->setUpdateParagraphStyles(newUPS);
+}
+
+bool gtWriter::getOverridePStyleFont()
+{
+	return action->getOverridePStyleFont();
+}
+
+void gtWriter::setOverridePStyleFont(bool newOPSF)
+{
+	action->setOverridePStyleFont(newOPSF);
 }
 
 gtWriter::~gtWriter()

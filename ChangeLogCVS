@@ -1,7 +1,17 @@
 Changes since 1.2 
 
+29.09.2004
+	* bug     #1014: Bad pangram display in Font Preview
+	* bug     #1133: Error in script htmlimport.py
+	* bug     #1136: Hyphenation marks not visible on linked frames
+	* bug     #1159: fix for revised help browser
+	* bug     #1160: cs_CZ translation for 1.2.1cvs
+
 25.09.2004
 	* bug     # 971: Improvement in the Hyphenation Settings menus
+	* feature #1045: are stars convex?
+	* feature #1145: Polish Translation Update
+	* bug     # 971: Improvement in the Hyphenation Settings menus 
 
 24.09.2004
 	* bug     #1002: Many dialog boxes don't remember last settings

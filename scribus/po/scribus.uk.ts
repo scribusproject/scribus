@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Programming:</source>
-        <translation>Програмування:</translation>
+        <translation type="obsolete">Програмування:</translation>
     </message>
     <message>
         <source>Contributions from:</source>
@@ -37,7 +37,7 @@
     </message>
     <message>
         <source>Documentation:</source>
-        <translation>Документація:</translation>
+        <translation type="obsolete">Документація:</translation>
     </message>
     <message>
         <source>Authors</source>
@@ -105,7 +105,7 @@
     </message>
     <message>
         <source>English:</source>
-        <translation>Англійська:</translation>
+        <translation type="obsolete">Англійська:</translation>
     </message>
     <message>
         <source>Welsh:</source>
@@ -133,15 +133,15 @@
     </message>
     <message>
         <source>Homepage and online reference</source>
-        <translation>Веб сторінка та довідник</translation>
+        <translation type="obsolete">Веб сторінка та довідник</translation>
     </message>
     <message>
         <source>Mailing list</source>
-        <translation>Розсилка електронної пошти</translation>
+        <translation type="obsolete">Розсилка електронної пошти</translation>
     </message>
     <message>
         <source>Bugs and feature requests</source>
-        <translation>Програмні помилки та заявки на нові можливості</translation>
+        <translation type="obsolete">Програмні помилки та заявки на нові можливості</translation>
     </message>
     <message>
         <source>Online</source>
@@ -187,6 +187,42 @@ Missing library support is indicated by a *</source>
     <message>
         <source>&amp;Close</source>
         <translation>&amp;Зачинити</translation>
+    </message>
+    <message>
+        <source>Development Team:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Official Documentation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other Documentation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (British):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Swedish:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Online Reference</source>
+        <translation type="unfinished">Документація на Інтернеті</translation>
+    </message>
+    <message>
+        <source>Bugs and Feature Requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing List</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3448,7 +3484,12 @@ Use 72 dpi for Images intended for the Screen</source>
     <name>HelpBrowser</name>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation>Вибачте - довідка відсутня! Будь-ласка зверніться до http://scribus.net за поновленою документацією та матеріалами доступними для зкачування.</translation>
+        <translation type="obsolete">Вибачте - довідка відсутня! Будь-ласка зверніться до http://scribus.net за поновленою документацією та матеріалами доступними для зкачування.</translation>
+    </message>
+    <message>
+        <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
+and www.scribus.net for downloads.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3483,7 +3524,7 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>If you uncheck this you will get a dialog
 everytime a possible Hyphenation is found.</source>
-        <translation>Якщо ви тут не відмітите, то кожен раз,
+        <translation type="obsolete">Якщо ви тут не відмітите, то кожен раз,
 як можливий переніс буде знайдено,
 ви побачите діалогове вікно.</translation>
     </message>
@@ -3493,7 +3534,7 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>Enables automatic checking of your text while typing.</source>
-        <translation>Дозволяє виконувати автоматичну перевірку тексту під час друкування.</translation>
+        <translation type="obsolete">Дозволяє виконувати автоматичну перевірку тексту під час друкування.</translation>
     </message>
     <message>
         <source>Language:</source>
@@ -3528,11 +3569,11 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>&amp;Fully Automatic</source>
-        <translation>Повністю &amp;автоматична</translation>
+        <translation type="obsolete">Повністю &amp;автоматична</translation>
     </message>
     <message>
         <source>Check &amp;During Typing</source>
-        <translation>Перевіряти &amp;під час друкування</translation>
+        <translation type="obsolete">Перевіряти &amp;під час друкування</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -3544,7 +3585,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>&amp;Number of Hypenations allowed:</source>
-        <translation>&amp;Дозволене число переносів:</translation>
+        <translation type="obsolete">&amp;Дозволене число переносів:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3553,6 +3594,26 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>&amp;Cancel</source>
         <translation>В&amp;ихід</translation>
+    </message>
+    <message>
+        <source>&amp;Hyphenation Suggestions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hyphenate Text Automatically &amp;During Typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consecutive Hypenations &amp;Allowed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables automatic hyphenation of your text while typing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3689,7 +3750,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Do you really want do delete this Script?</source>
-        <translation>Ви справді бажаєте видалити цей сценарій?</translation>
+        <translation type="obsolete">Ви справді бажаєте видалити цей сценарій?</translation>
     </message>
     <message>
         <source>No</source>
@@ -3726,6 +3787,10 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Так</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Script?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3906,7 +3971,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Ви справді бажаєте видалити цей стиль?</translation>
+        <translation type="obsolete">Ви справді бажаєте видалити цей стиль?</translation>
     </message>
     <message>
         <source>No</source>
@@ -3971,6 +4036,10 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Так</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5210,7 +5279,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Do you really want do delete this Template?</source>
-        <translation>Ви справді бажаєте видалити цей шаблон?</translation>
+        <translation type="obsolete">Ви справді бажаєте видалити цей шаблон?</translation>
     </message>
     <message>
         <source>No</source>
@@ -5275,6 +5344,10 @@ Please choose another.</source>
     <message>
         <source>&amp;Name:</source>
         <translation>&amp;Ім&apos;я:</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Template?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7514,7 +7587,7 @@ UCR найчастіше впливає на ті частини зображе�
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>Ви&amp;пуклий полігон</translation>
+        <translation type="obsolete">Ви&amp;пуклий полігон</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -7538,7 +7611,7 @@ UCR найчастіше впливає на ті частини зображе�
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Полігони будуть вигнутими, а не вгнутими</translation>
+        <translation type="obsolete">Полігони будуть вигнутими, а не вгнутими</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -7546,7 +7619,20 @@ UCR найчастіше впливає на ті частини зображе�
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Змінити кути з&apos;єднання сторін полігону</translation>
+        <translation type="obsolete">Змінити кути з&apos;єднання сторін полігону</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8299,7 +8385,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Полігони будуть вигнутими, а не вгнутими</translation>
+        <translation type="obsolete">Полігони будуть вигнутими, а не вгнутими</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -8307,7 +8393,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Змінити кути з&apos;єднання сторін полігону</translation>
+        <translation type="obsolete">Змінити кути з&apos;єднання сторін полігону</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
@@ -8683,7 +8769,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>Ви&amp;пуклий полігон</translation>
+        <translation type="obsolete">Ви&amp;пуклий полігон</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -8764,6 +8850,46 @@ each time the time period elapses</source>
     <message>
         <source>Apply &amp;Under Color Removal</source>
         <translation>Виконати видалення &amp;кольорів</translation>
+    </message>
+    <message>
+        <source>T&amp;emplates:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="unfinished">З&amp;мінити...</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Additional Directory for Document Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished">Метод переводу певних відтінків сірого, які складаються з салатового, 
+жовтого та рожевого кольорів, на використання чорного кольору.
+UCR найчастіше впливає на ті частини зображень, які складаються з нейтральних
+та/чи темних відтінків близьких до сірого. Використання цієї установки може
+покращити якість друку деяких зображень. Деяке тестування та експерименти
+необхідні в кожному конкретному випадку. UCR знижує ймовірність перенасичення
+паперу CMY чорнилами.</translation>
     </message>
 </context>
 <context>
@@ -9542,11 +9668,11 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Importer</source>
-        <translation>Імпортер</translation>
+        <translation type="obsolete">Імпортер</translation>
     </message>
     <message>
         <source>Choose the importer to use</source>
-        <translation>Вибрати імпортер</translation>
+        <translation type="obsolete">Вибрати імпортер</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -9575,6 +9701,28 @@ Check path and filename.</source>
     <message>
         <source>CSV_header</source>
         <translation>Заголовок_cvs</translation>
+    </message>
+    <message>
+        <source>Font %1 is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+External Links
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OO.o Writer Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Filters</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11400,6 +11548,14 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>&amp;Edit Shape</source>
         <translation>&amp;Редагувати текст</translation>
     </message>
+    <message>
+        <source>File %1 is not in Scribus format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Afrikaans</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -11797,7 +11953,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Ви справді бажаєте видалити цей стиль?</translation>
+        <translation type="obsolete">Ви справді бажаєте видалити цей стиль?</translation>
     </message>
     <message>
         <source>No</source>
@@ -11854,6 +12010,10 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>&amp;Cancel</source>
         <translation>В&amp;ихід</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12167,6 +12327,47 @@ drag a Template to the Pageview below.</source>
     </message>
 </context>
 <context>
+    <name>SxwDialog</name>
+    <message>
+        <source>OO.o Writer Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there already exists a paragraph style with the same
+name than current OO.o document&apos;s paragraph should the style
+in Scribus be edited to match the one being imported
+or left untouched</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use document name as a prefix for paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scirubs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not ask again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OO.o document and
+never ask your confirmation again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">Гаразд</translation>
+    </message>
+</context>
+<context>
     <name>TabManager</name>
     <message>
         <source>Manage Tabulators</source>
@@ -12343,6 +12544,33 @@ Please choose another.</source>
     <message>
         <source>Group </source>
         <translation>Група</translation>
+    </message>
+</context>
+<context>
+    <name>ValueDialog</name>
+    <message>
+        <source>Insert value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished">Alt+O</translation>
+    </message>
+    <message>
+        <source>Send your value to the script</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12543,6 +12771,31 @@ Please choose another.</source>
     <message>
         <source>Encoding:</source>
         <translation>Кодування:</translation>
+    </message>
+</context>
+<context>
+    <name>gtImporterDialog</name>
+    <message>
+        <source>Choose the importer to use</source>
+        <translation type="unfinished">Вибрати імпортер</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember association</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember the file extension - importer association
+and do not ask again to select an importer for
+files of this type.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">Гаразд</translation>
     </message>
 </context>
 <context>
@@ -12749,6 +13002,120 @@ Please choose another.</source>
     <message>
         <source>custom</source>
         <translation>Установлено користувачем</translation>
+    </message>
+</context>
+<context>
+    <name>tfDia</name>
+    <message>
+        <source>Create filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">О&amp;чистити</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Видалити</translation>
+    </message>
+    <message>
+        <source>Choose a previously saved filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name to this filter for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
+    </message>
+</context>
+<context>
+    <name>tfFilter</name>
+    <message>
+        <source>Disable or enable this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a new filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>and</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>do not remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Видалити</translation>
+    </message>
+    <message>
+        <source>Replace</source>
+        <translation type="unfinished">Заміна</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished">Застосувати</translation>
+    </message>
+    <message>
+        <source>Value at the left is a regular expression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all instances of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all paragraphs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs starting with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with less than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with more than</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

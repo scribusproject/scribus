@@ -1,9 +1,27 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2004-08-16 00:03+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-09-28 23:53+0200\n"
 "PO-Revision-Date: 2003-07-16\n"
 "Last-Translator: NAGY Bence <gimb@freemail.hu>\n"
 "Content-Type: text/plain; charset=iso-8859-2\n"
+
+msgid "Align Text Left"
+msgstr "Szöveg balra igazítása"
+
+msgid "Align Text Right"
+msgstr "Szöveg jobbra igazítása "
+
+msgid "Align Text Center"
+msgstr "Szöveg középre igazítása"
+
+#, fuzzy
+msgid "Align Text Justified"
+msgstr "Szöveg középre igazítása"
+
+#, fuzzy
+msgid "Align Text Forced Justified"
+msgstr "Szöveg középre igazítása"
 
 msgid "Distribute/Align"
 msgstr "Elosztás/Igazítás"
@@ -97,6 +115,36 @@ msgstr "Alkalmazás"
 msgid "&Cancel"
 msgstr "Mégsem"
 
+msgid "Apply Template"
+msgstr "Mesteroldal alkalmazása"
+
+#, fuzzy
+msgid "&Template:"
+msgstr "Mesteroldal:"
+
+msgid "Normal"
+msgstr "Normál"
+
+#, fuzzy
+msgid "Apply to &Current Page"
+msgstr "Effektus alkalmazása minden oldalon"
+
+#, fuzzy
+msgid "Apply to all &even Pages"
+msgstr "Effektus alkalmazása minden oldalon"
+
+#, fuzzy
+msgid "Apply to all &odd Pages"
+msgstr "Effektus alkalmazása minden oldalon"
+
+#, fuzzy
+msgid "Apply from &Page:"
+msgstr "Effektus alkalmazása minden oldalon"
+
+#, fuzzy
+msgid "To:"
+msgstr "Fent:"
+
 msgid "Field Properties"
 msgstr "Mezõjellemzõk"
 
@@ -147,9 +195,6 @@ msgstr "Szélesség:"
 
 msgid "Thin"
 msgstr "Vékony"
-
-msgid "Normal"
-msgstr "Normál"
 
 msgid "Wide"
 msgstr "Széles"
@@ -513,33 +558,6 @@ msgstr ""
 msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr "Dokumentumok (*.sla *.scd);; Minden fájl (*)"
 
-msgid "Apply Template"
-msgstr "Mesteroldal alkalmazása"
-
-#, fuzzy
-msgid "&Template:"
-msgstr "Mesteroldal:"
-
-#, fuzzy
-msgid "Apply to &Current Page"
-msgstr "Effektus alkalmazása minden oldalon"
-
-#, fuzzy
-msgid "Apply to all &even Pages"
-msgstr "Effektus alkalmazása minden oldalon"
-
-#, fuzzy
-msgid "Apply to all &odd Pages"
-msgstr "Effektus alkalmazása minden oldalon"
-
-#, fuzzy
-msgid "Apply from &Page:"
-msgstr "Effektus alkalmazása minden oldalon"
-
-#, fuzzy
-msgid "To:"
-msgstr "Fent:"
-
 msgid "Bookmarks"
 msgstr "Könyvjelzõk"
 
@@ -780,6 +798,42 @@ msgstr "Figyelmeztetés"
 msgid "Name of the Color is not unique"
 msgstr "A megadott stílusnév már létezik"
 
+msgid "Size:"
+msgstr "Méret:"
+
+msgid "Title:"
+msgstr "Cím:"
+
+msgid "No Title"
+msgstr "Nincs cím"
+
+msgid "Author:"
+msgstr "Szerzõ:"
+
+msgid "Unknown"
+msgstr "Ismeretlen"
+
+#, fuzzy
+msgid "Scribus Document"
+msgstr "Dokumentum:"
+
+#, fuzzy
+msgid "&Compress File"
+msgstr "Fájl tömörítése"
+
+#, fuzzy
+msgid "&Include Fonts"
+msgstr "Mentés könyvjelzõkkel"
+
+#, fuzzy
+msgid "Encoding:"
+msgstr "Vonalvégek:"
+
+msgid ""
+"Moves to your Document Directory.\n"
+"This can be set in the Preferences."
+msgstr ""
+
 msgid "Colors"
 msgstr "Színek"
 
@@ -987,42 +1041,6 @@ msgid ""
 "Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF "
 "support.\n"
 "Missing library support is indicated by a *"
-msgstr ""
-
-msgid "Size:"
-msgstr "Méret:"
-
-msgid "Title:"
-msgstr "Cím:"
-
-msgid "No Title"
-msgstr "Nincs cím"
-
-msgid "Author:"
-msgstr "Szerzõ:"
-
-msgid "Unknown"
-msgstr "Ismeretlen"
-
-#, fuzzy
-msgid "Scribus Document"
-msgstr "Dokumentum:"
-
-#, fuzzy
-msgid "&Compress File"
-msgstr "Fájl tömörítése"
-
-#, fuzzy
-msgid "&Include Fonts"
-msgstr "Mentés könyvjelzõkkel"
-
-#, fuzzy
-msgid "Encoding:"
-msgstr "Vonalvégek:"
-
-msgid ""
-"Moves to your Document Directory.\n"
-"This can be set in the Preferences."
 msgstr ""
 
 msgid "Delete Color"
@@ -1470,7 +1488,8 @@ msgstr "Mentés"
 msgid "New Style"
 msgstr "Új stílus"
 
-msgid "Do you really want do delete this Style?"
+#, fuzzy
+msgid "Do you really want to delete this Style?"
 msgstr "Tényleg törölni akarja ezt a stílust?"
 
 #, fuzzy
@@ -1709,6 +1728,393 @@ msgid ""
 "otherwise Coordinates are relative to the Object."
 msgstr ""
 
+msgid "Position:"
+msgstr "Elhelyezkedés:"
+
+msgid "Here you can add, change or remove Color-Stops."
+msgstr ""
+
+#, fuzzy
+msgid "Importing text"
+msgstr "Oldal importálása"
+
+msgid "Choose the importer to use"
+msgstr ""
+
+#, fuzzy
+msgid "Automatic"
+msgstr "Teljesen automatikus"
+
+msgid "Get text only"
+msgstr ""
+
+msgid "Import text without any formatting"
+msgstr ""
+
+#, fuzzy
+msgid "Importer:"
+msgstr "Importálás"
+
+msgid "Remember association"
+msgstr ""
+
+msgid ""
+"Remember the file extension - importer association\n"
+"and do not ask again to select an importer for\n"
+"files of this type."
+msgstr ""
+
+msgid "All Supported Formats"
+msgstr ""
+
+msgid "All Files (*)"
+msgstr ""
+
+msgid ""
+"<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
+"toolkit for multiplatform GUI &amp; application development.</p><p>Qt "
+"provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;"
+"X, Linux, and all major commercial Unix variants.<br>Qt is also available "
+"for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www."
+"trolltech.com/qt/</tt> for more information.</p>"
+msgstr ""
+
+#, fuzzy
+msgid "Copy or Move a File"
+msgstr "Fájl tömörítése"
+
+#, fuzzy
+msgid "Read: %1"
+msgstr "Kész"
+
+msgid "Write: %1"
+msgstr ""
+
+msgid "File &name:"
+msgstr "Fájl&név:"
+
+msgid "File &type:"
+msgstr "Fájl&típus:"
+
+msgid "One directory up"
+msgstr "Egy könyvtárral feljebb"
+
+#, fuzzy
+msgid "Name"
+msgstr "Név:"
+
+msgid "Size"
+msgstr "Méret"
+
+#, fuzzy
+msgid "Attributes"
+msgstr "A Scribus névjegye"
+
+msgid "Look &in:"
+msgstr "Megtek&intés:"
+
+#, fuzzy
+msgid "Back"
+msgstr "Sorkizárva"
+
+msgid "Create New Folder"
+msgstr "Könyvtár létrehozása"
+
+msgid "List View"
+msgstr "Listanézet"
+
+msgid "Detail View"
+msgstr "Részletes nézet"
+
+#, fuzzy
+msgid "Preview File Info"
+msgstr "Fájl tartalmának mutatása"
+
+msgid "Preview File Contents"
+msgstr "Fájl tartalmának mutatása"
+
+msgid "Read-write"
+msgstr ""
+
+#, fuzzy
+msgid "Read-only"
+msgstr "Csak olvasható"
+
+msgid "Write-only"
+msgstr ""
+
+#, fuzzy
+msgid "Inaccessible"
+msgstr "Kép mutatása"
+
+#, fuzzy
+msgid "Symlink to File"
+msgstr "Nyomtatás fájlba:"
+
+msgid "Symlink to Directory"
+msgstr ""
+
+#, fuzzy
+msgid "Symlink to Special"
+msgstr "Speciális karakterek"
+
+msgid "Dir"
+msgstr ""
+
+#, fuzzy
+msgid "Special"
+msgstr "Speciális karakterek"
+
+#, fuzzy
+msgid "Save As"
+msgstr "Mentés más néven"
+
+#, fuzzy
+msgid "&Open"
+msgstr "Megnyitás"
+
+#, fuzzy
+msgid "&Rename"
+msgstr "Törlés"
+
+#, fuzzy
+msgid "R&eload"
+msgstr "Kész"
+
+#, fuzzy
+msgid "Sort by &Name"
+msgstr "Betûtípus neve"
+
+#, fuzzy
+msgid "Sort by &Size"
+msgstr "Betûméret"
+
+msgid "Sort by &Date"
+msgstr ""
+
+#, fuzzy
+msgid "&Unsorted"
+msgstr "-t helyette"
+
+msgid "Sort"
+msgstr ""
+
+#, fuzzy
+msgid "Show &hidden files"
+msgstr "Segédvonalak mutatása"
+
+#, fuzzy
+msgid "the file"
+msgstr "Rendszerprofilok"
+
+#, fuzzy
+msgid "the directory"
+msgstr "Egy könyvtárral feljebb"
+
+msgid "the symlink"
+msgstr ""
+
+#, fuzzy
+msgid "Delete %1"
+msgstr "Törlés"
+
+msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
+msgstr ""
+
+#, fuzzy
+msgid "&Yes"
+msgstr "Igen"
+
+#, fuzzy
+msgid "&No"
+msgstr "Nem"
+
+#, fuzzy
+msgid "New Folder 1"
+msgstr "Könyvtár létrehozása"
+
+#, fuzzy
+msgid "New Folder"
+msgstr "Könyvtár létrehozása"
+
+#, fuzzy
+msgid "New Folder %1"
+msgstr "Könyvtár létrehozása"
+
+#, fuzzy
+msgid "Find Directory"
+msgstr "Könyvtár:"
+
+#, fuzzy
+msgid "Directories"
+msgstr "Könyvtár:"
+
+msgid "Save"
+msgstr "Mentés"
+
+#, fuzzy
+msgid "Error"
+msgstr "Tükrözés"
+
+msgid ""
+"%1\n"
+"File not found.\n"
+"Check path and filename."
+msgstr ""
+
+msgid "All Files (*.*)"
+msgstr ""
+
+#, fuzzy
+msgid "Select a Directory"
+msgstr "Könyvtárválasztás"
+
+msgid "Directory:"
+msgstr "Könyvtár:"
+
+msgid "Clear"
+msgstr "Törlés"
+
+#, fuzzy
+msgid "Select All"
+msgstr "Mindent kijelöl"
+
+msgid "Line up"
+msgstr "Felgörgetés"
+
+#, fuzzy
+msgid "Customize..."
+msgstr "Saját"
+
+msgid "System Menu"
+msgstr "Rendszermenü"
+
+msgid "Shade"
+msgstr "Árnyalat"
+
+#, fuzzy
+msgid "Unshade"
+msgstr "Árnyalat"
+
+#, fuzzy
+msgid "Normalize"
+msgstr "Normál"
+
+msgid "Minimize"
+msgstr "Minimalizálás"
+
+msgid "Maximize"
+msgstr "Maximalizálás"
+
+msgid "Close"
+msgstr "Bezárás"
+
+msgid "&Restore"
+msgstr "Hely&reállítás"
+
+msgid "&Move"
+msgstr "&Mozgatás"
+
+msgid "&Size"
+msgstr "&Méret"
+
+msgid "Mi&nimize"
+msgstr "Mi&nimalizálás"
+
+msgid "Ma&ximize"
+msgstr "Ma&ximalizálás"
+
+msgid "&Close"
+msgstr "Be&csukás"
+
+msgid "Stay on &Top"
+msgstr ""
+
+msgid "Restore Down"
+msgstr "Legörgetés"
+
+#, fuzzy
+msgid "Sh&ade"
+msgstr "Árnyalat"
+
+msgid "%1 - [%2]"
+msgstr ""
+
+#, fuzzy
+msgid "&Unshade"
+msgstr "Árnyalat"
+
+msgid "Hu&e:"
+msgstr ""
+
+msgid "&Sat:"
+msgstr ""
+
+msgid "&Val:"
+msgstr ""
+
+msgid "&Red:"
+msgstr "&Vörös:"
+
+msgid "&Green:"
+msgstr "&Zöld:"
+
+msgid "Bl&ue:"
+msgstr "&Kék:"
+
+msgid "A&lpha channel:"
+msgstr ""
+
+msgid "&Basic colors"
+msgstr "Alapszínek"
+
+msgid "&Custom colors"
+msgstr "Saját színek"
+
+msgid "&Define Custom Colors >>"
+msgstr "Saját színek definiálása >>"
+
+#, fuzzy
+msgid "&Add to Custom Colors"
+msgstr "Hozzáadás a saját színekhez"
+
+msgid "Select color"
+msgstr "Szín kiválasztása"
+
+msgid "&Font"
+msgstr "Betûtípus"
+
+msgid "Font st&yle"
+msgstr "Betûstílus"
+
+msgid "Effects"
+msgstr "Hatások"
+
+msgid "Stri&keout"
+msgstr "Áthúzott"
+
+msgid "&Underline"
+msgstr "Aláhúzott"
+
+#, fuzzy
+msgid "&Color"
+msgstr "Szín"
+
+#, fuzzy
+msgid "Sample"
+msgstr "Alak"
+
+#, fuzzy
+msgid "Scr&ipt"
+msgstr "Szkript:"
+
+#, fuzzy
+msgid "Apply"
+msgstr "Alkalmazás"
+
+msgid "Select Font"
+msgstr "Betûtípus választása"
+
 msgid "Manage Guides"
 msgstr "Segédvonalak kezelése"
 
@@ -1739,8 +2145,9 @@ msgid "&Lock Guides"
 msgstr "Segédvonalak rögzítése"
 
 msgid ""
-"Sorry, no manual available! Please see: http://scribus.net for updated docs "
-"and downloads."
+"Sorry, no manual available! Please see: http://docs.scribus.net for updated "
+"docs\n"
+"and www.scribus.net for downloads."
 msgstr ""
 
 msgid "Possible Hyphenation"
@@ -1756,30 +2163,26 @@ msgid "Hyphenator Settings"
 msgstr "Szóelválasztó beállításai"
 
 #, fuzzy
-msgid "&Fully Automatic"
-msgstr "Teljesen automatikus"
+msgid "&Hyphenation Suggestions"
+msgstr "Szóelválasztó beállításai"
 
-#, fuzzy
-msgid "Check &During Typing"
-msgstr "Ellenõrzés gépelés közben"
+msgid "Hyphenate Text Automatically &During Typing"
+msgstr ""
 
 #, fuzzy
 msgid "&Smallest Word:"
 msgstr "Legrövidebb szó:"
 
-msgid "&Number of Hypenations allowed:"
+msgid "Consecutive Hypenations &Allowed:"
 msgstr ""
 
-#, fuzzy
 msgid ""
-"If you uncheck this you will get a dialog\n"
-"everytime a possible Hyphenation is found."
+"A dialog box showing all possible hyphens for each word will show up when "
+"you use the Extras, Hyphenate Text option."
 msgstr ""
-"Ha törli a kijelölést, minden egyes\n"
-"elválasztási lehetõségnél egy beállítóablak jelenik meg."
 
 #, fuzzy
-msgid "Enables automatic checking of your text while typing."
+msgid "Enables automatic hyphenation of your text while typing."
 msgstr "Gépelés közben engedélyezi az elválasztást."
 
 #, fuzzy
@@ -1790,6 +2193,18 @@ msgid ""
 "Maximum number of Hyphenations following each other.\n"
 "A value of 0 means unlimited hyphenations."
 msgstr ""
+
+#, fuzzy
+msgid "Insert Table"
+msgstr "Oldal beszúrása"
+
+#, fuzzy
+msgid "Number of Rows:"
+msgstr "Példányszám"
+
+#, fuzzy
+msgid "Number of Columns:"
+msgstr "Másolatok száma:"
 
 msgid "Insert Page"
 msgstr "Oldal beszúrása"
@@ -1833,9 +2248,6 @@ msgstr "Szerkesztés..."
 msgid "&Add..."
 msgstr "Hozzáadás..."
 
-msgid "&Close"
-msgstr "Be&csukás"
-
 #, fuzzy
 msgid "&New Script:"
 msgstr "Új szkript:"
@@ -1844,16 +2256,8 @@ msgid "New Script"
 msgstr "Új szkript"
 
 #, fuzzy
-msgid "Do you really want do delete this Script?"
+msgid "Do you really want to delete this Script?"
 msgstr "Tényleg törölni akarja ezt a stílust?"
-
-#, fuzzy
-msgid "&No"
-msgstr "Nem"
-
-#, fuzzy
-msgid "&Yes"
-msgstr "Igen"
 
 msgid "Manage Keyboard Shortcuts"
 msgstr "Gyorsbillentyûk beállítása"
@@ -1943,6 +2347,21 @@ msgstr "Vízszintes eltolás:"
 msgid "&Vertical Shift:"
 msgstr "Függõleges eltolás:"
 
+msgid "Distances"
+msgstr "Távolságok"
+
+msgid "DX:"
+msgstr ""
+
+msgid "DY:"
+msgstr ""
+
+msgid "Angle:"
+msgstr "Forgatás:"
+
+msgid "Length:"
+msgstr "Hosszúság:"
+
 #, fuzzy
 msgid "Import Template"
 msgstr "Adat importálása"
@@ -2017,10 +2436,6 @@ msgstr "Vonal"
 #, fuzzy
 msgid "&Colors"
 msgstr "Színek"
-
-#, fuzzy
-msgid "Name"
-msgstr "Név:"
 
 msgid "Geometry"
 msgstr "Elhelyezkedés"
@@ -2490,7 +2905,8 @@ msgstr "Tá-ti-ti vonal"
 msgid "Edit Templates"
 msgstr "Mesteroldalak szerkesztése"
 
-msgid "Do you really want do delete this Template?"
+#, fuzzy
+msgid "Do you really want to delete this Template?"
 msgstr "Tényleg törölni akarja ezt a mesteroldalt?"
 
 msgid "New Template"
@@ -2903,6 +3319,13 @@ msgid "PathText"
 msgstr "Útvonal"
 
 #, fuzzy
+msgid "Page "
+msgstr "Oldal"
+
+msgid " of %1"
+msgstr ""
+
+#, fuzzy
 msgid "Create PDF File"
 msgstr "PDF fájl létrehozása"
 
@@ -2968,10 +3391,6 @@ msgstr "Szöveg és vektorgrafikák tömörítése"
 #, fuzzy
 msgid "Image Settings"
 msgstr "Beállítások"
-
-#, fuzzy
-msgid "Automatic"
-msgstr "Teljesen automatikus"
 
 msgid "JPEG"
 msgstr ""
@@ -3047,9 +3466,6 @@ msgstr "Oldal"
 #, fuzzy
 msgid "Show Page Pre&views"
 msgstr "Gyorsnézet mutatása"
-
-msgid "Effects"
-msgstr "Hatások"
 
 #, fuzzy
 msgid "&Display Duration:"
@@ -3495,8 +3911,8 @@ msgid "Corn&ers:"
 msgstr "Sarkok:"
 
 #, fuzzy
-msgid "Conve&x Polygon"
-msgstr "Konvex sokszög"
+msgid "Apply &Factor"
+msgstr "Faktor:"
 
 #, fuzzy
 msgid "&Factor:"
@@ -3508,14 +3924,16 @@ msgstr ""
 msgid "Degrees of rotation for polygons"
 msgstr ""
 
-msgid "Polygons will be convex rather than concave"
+msgid "Apply Convex/Concave Factor to change shape of Polygons"
 msgstr ""
 
 #, fuzzy
 msgid "Sample Polygon"
 msgstr "Sokszögek felosztása"
 
-msgid "Change the angles at which lines of the polygon join"
+msgid ""
+"A negative value will make the polygon concave (or star shaped),\n"
+" a positive value will make it convex"
 msgstr ""
 
 msgid "Document Setup"
@@ -3524,6 +3942,9 @@ msgstr "Dokumentumbeállítások"
 #, fuzzy
 msgid "&Outside:"
 msgstr "Kívül:"
+
+msgid "Font %1 is broken, discarding it"
+msgstr ""
 
 msgid "Scrapbook"
 msgstr "Könyvtár"
@@ -3678,12 +4099,6 @@ msgstr "Dokumentum megnyitása"
 msgid "Open..."
 msgstr "Megnyitás..."
 
-msgid "Close"
-msgstr "Bezárás"
-
-msgid "Save"
-msgstr "Mentés"
-
 msgid "Save as..."
 msgstr "Mentés más néven..."
 
@@ -3767,9 +4182,6 @@ msgstr "Másolás"
 
 msgid "Paste"
 msgstr "Beillesztés"
-
-msgid "Clear"
-msgstr "Törlés"
 
 msgid "Select all"
 msgstr "Mindent kijelöl"
@@ -4132,18 +4544,8 @@ msgid "Get Picture..."
 msgstr "Kép betöltése..."
 
 #, fuzzy
-msgid "&Color"
-msgstr "Szín"
-
-#, fuzzy
 msgid "&Invert"
 msgstr "Invertálás"
-
-msgid "&Font"
-msgstr "Betûtípus"
-
-msgid "&Size"
-msgstr "&Méret"
 
 #, fuzzy
 msgid "&Effects"
@@ -4167,17 +4569,11 @@ msgstr "Szöveg betöltése..."
 msgid "Font"
 msgstr "Betûtípus"
 
-msgid "Size"
-msgstr "Méret"
-
 msgid "Style"
 msgstr "Stílus"
 
 msgid "Color"
 msgstr "Szín"
-
-msgid "Shade"
-msgstr "Árnyalat"
 
 #, fuzzy
 msgid "Importing Pages..."
@@ -4201,14 +4597,11 @@ msgstr "Importálás"
 msgid "Found nothing to import"
 msgstr ""
 
+msgid "File %1 is not in Scribus format"
+msgstr ""
+
 msgid "Loading..."
 msgstr "Betöltés..."
-
-msgid "All Supported Formats"
-msgstr ""
-
-msgid "All Files (*)"
-msgstr ""
 
 msgid ""
 "Can't write the File: \n"
@@ -4367,6 +4760,9 @@ msgstr ""
 msgid "Slovenian"
 msgstr "Szlovák"
 
+msgid "Afrikaans"
+msgstr ""
+
 #, fuzzy
 msgid "Scribus Crash"
 msgstr "Scribus kézikönyv"
@@ -4398,6 +4794,76 @@ msgstr "megváltozott a legutóbbi mentés óta."
 #, fuzzy
 msgid "&Save Now"
 msgstr "Mentés"
+
+msgid "Search/Replace"
+msgstr ""
+
+#, fuzzy
+msgid "Search for:"
+msgstr "A keresés eredménye: "
+
+msgid "Paragraph Style"
+msgstr ""
+
+#, fuzzy
+msgid "Font Effects"
+msgstr "Nincs effektus"
+
+#, fuzzy
+msgid "Fill Color"
+msgstr "Kitöltés színe:"
+
+#, fuzzy
+msgid "Fill Shade"
+msgstr "Árnyalat"
+
+#, fuzzy
+msgid "Stroke Color"
+msgstr "Új szín"
+
+msgid "Stroke Shade"
+msgstr ""
+
+msgid "Left"
+msgstr "Balra"
+
+msgid "Center"
+msgstr "Középre"
+
+msgid "Right"
+msgstr "Jobbra"
+
+msgid "Block"
+msgstr "Sorkizárva"
+
+msgid "Forced"
+msgstr "Kihajtva"
+
+#, fuzzy
+msgid "Replace with:"
+msgstr "Helyettesítés:"
+
+#, fuzzy
+msgid "&Whole Word"
+msgstr "Legrövidebb szó:"
+
+msgid "&Ignore Case"
+msgstr ""
+
+#, fuzzy
+msgid "&Search"
+msgstr "Keresés"
+
+#, fuzzy
+msgid "&Replace"
+msgstr "Helyettesítés"
+
+#, fuzzy
+msgid "Replace &All"
+msgstr "Helyettesítés"
+
+msgid "Search finished"
+msgstr ""
 
 msgid "Show Page Previews"
 msgstr "Gyorsnézet mutatása"
@@ -4443,102 +4909,8 @@ msgstr "Felhasználóható mezõk"
 msgid "Selected Fields"
 msgstr "Mezõk kijelölése"
 
-msgid "Element"
-msgstr "Elem"
-
-msgid "Information"
-msgstr "Információ"
-
-msgid "X:"
-msgstr ""
-
-msgid "Font:"
-msgstr "Betûtípus:"
-
-#, fuzzy
-msgid "Group "
-msgstr "Csoportosítás"
-
-msgid ""
-"Do you really want to overwrite the File:\n"
-"%1 ?"
-msgstr ""
-"Tényleg felül akarja írni a(z)\n"
-"%1 fájlt?"
-
-msgid "Select Items"
-msgstr "Elemek kijelölése"
-
-#, fuzzy
-msgid "Insert Text Frame"
-msgstr "Szövegdoboz"
-
-msgid "Insert Picture"
-msgstr "Kép beszúrása"
-
-#, fuzzy
-msgid "Insert Table"
-msgstr "Oldal beszúrása"
-
-msgid "Properties..."
-msgstr "Jellemzõk..."
-
-msgid "Insert Polygons"
-msgstr "Sokszögek beszúrása"
-
-msgid "Insert Lines"
-msgstr "Vonal beszúrása"
-
-msgid "Insert Bezier Curves"
-msgstr "Bezier-görbe beszúrása"
-
-#, fuzzy
-msgid "Insert Freehand Line"
-msgstr "Vonal beszúrása"
-
-msgid "Rotate Item"
-msgstr "Elem forgatása"
-
-#, fuzzy
-msgid "Zoom in or out"
-msgstr "Nagyítás/kicsinyítés"
-
-msgid "Edit Contents of Frame"
-msgstr "Keret tartalmának szerkesztése"
-
-msgid "Edit the text with the Story Editor"
-msgstr ""
-
-#, fuzzy
-msgid "Link Text Frames"
-msgstr "Szövegdoboz"
-
-#, fuzzy
-msgid "Unlink Text Frames"
-msgstr "Szövegdoboz"
-
-#, fuzzy
-msgid "Do measurements"
-msgstr "Méretek"
-
-msgid "Draw various Shapes"
-msgstr ""
-
-#, fuzzy
-msgid "PDF Tools"
-msgstr "Eszközök"
-
-#, fuzzy
-msgid "Insert PDF Fields"
-msgstr "PDF-mezõk beszúrása"
-
-#, fuzzy
-msgid "Insert PDF Annotations"
-msgstr "PDF-megjegyzések beszúrása"
-
-#, fuzzy
-msgid "Manage Tabulators"
-msgstr "Képek kezelése"
+msgid "Other..."
+msgstr "Egyéb..."
 
 #, fuzzy
 msgid "Fill Color Settings"
@@ -4646,9 +5018,6 @@ msgstr "Szöveg illesztése útvonalhoz"
 msgid "Update Text Frame"
 msgstr "Szövegdoboz"
 
-msgid "Search/Replace"
-msgstr ""
-
 msgid "Current Paragraph:"
 msgstr ""
 
@@ -4672,73 +5041,6 @@ msgid "Do you really want to lose all your Changes?"
 msgstr "Tényleg törölni akarja ezt a stílust?"
 
 #, fuzzy
-msgid "Search for:"
-msgstr "A keresés eredménye: "
-
-msgid "Paragraph Style"
-msgstr ""
-
-#, fuzzy
-msgid "Font Effects"
-msgstr "Nincs effektus"
-
-#, fuzzy
-msgid "Fill Color"
-msgstr "Kitöltés színe:"
-
-#, fuzzy
-msgid "Fill Shade"
-msgstr "Árnyalat"
-
-#, fuzzy
-msgid "Stroke Color"
-msgstr "Új szín"
-
-msgid "Stroke Shade"
-msgstr ""
-
-msgid "Left"
-msgstr "Balra"
-
-msgid "Center"
-msgstr "Középre"
-
-msgid "Right"
-msgstr "Jobbra"
-
-msgid "Block"
-msgstr "Sorkizárva"
-
-msgid "Forced"
-msgstr "Kihajtva"
-
-#, fuzzy
-msgid "Replace with:"
-msgstr "Helyettesítés:"
-
-#, fuzzy
-msgid "&Whole Word"
-msgstr "Legrövidebb szó:"
-
-msgid "&Ignore Case"
-msgstr ""
-
-#, fuzzy
-msgid "&Search"
-msgstr "Keresés"
-
-#, fuzzy
-msgid "&Replace"
-msgstr "Helyettesítés"
-
-#, fuzzy
-msgid "Replace &All"
-msgstr "Helyettesítés"
-
-msgid "Search finished"
-msgstr ""
-
-#, fuzzy
 msgid "Strike Out"
 msgstr "Áthúzott"
 
@@ -4746,25 +5048,9 @@ msgstr "Áthúzott"
 msgid "Outline Text"
 msgstr "Szerkezet"
 
-msgid "Align Text Left"
-msgstr "Szöveg balra igazítása"
-
-msgid "Align Text Right"
-msgstr "Szöveg jobbra igazítása "
-
-msgid "Align Text Center"
-msgstr "Szöveg középre igazítása"
-
 #, fuzzy
-msgid "Align Text Justified"
-msgstr "Szöveg középre igazítása"
-
-#, fuzzy
-msgid "Align Text Forced Justified"
-msgstr "Szöveg középre igazítása"
-
-msgid "Other..."
-msgstr "Egyéb..."
+msgid "Manage Tabulators"
+msgstr "Képek kezelése"
 
 msgid "Full Stop"
 msgstr ""
@@ -4799,364 +5085,94 @@ msgstr ""
 msgid "Delete all Tabulators"
 msgstr "Szín törlése"
 
-msgid ""
-"<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
-"toolkit for multiplatform GUI &amp; application development.</p><p>Qt "
-"provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;"
-"X, Linux, and all major commercial Unix variants.<br>Qt is also available "
-"for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www."
-"trolltech.com/qt/</tt> for more information.</p>"
+msgid "Element"
+msgstr "Elem"
+
+msgid "Information"
+msgstr "Információ"
+
+msgid "X:"
 msgstr ""
 
-#, fuzzy
-msgid "Copy or Move a File"
-msgstr "Fájl tömörítése"
+msgid "Font:"
+msgstr "Betûtípus:"
 
 #, fuzzy
-msgid "Read: %1"
-msgstr "Kész"
-
-msgid "Write: %1"
-msgstr ""
-
-msgid "File &name:"
-msgstr "Fájl&név:"
-
-msgid "File &type:"
-msgstr "Fájl&típus:"
-
-msgid "One directory up"
-msgstr "Egy könyvtárral feljebb"
-
-#, fuzzy
-msgid "Attributes"
-msgstr "A Scribus névjegye"
-
-msgid "Look &in:"
-msgstr "Megtek&intés:"
-
-#, fuzzy
-msgid "Back"
-msgstr "Sorkizárva"
-
-msgid "Create New Folder"
-msgstr "Könyvtár létrehozása"
-
-msgid "List View"
-msgstr "Listanézet"
-
-msgid "Detail View"
-msgstr "Részletes nézet"
-
-#, fuzzy
-msgid "Preview File Info"
-msgstr "Fájl tartalmának mutatása"
-
-msgid "Preview File Contents"
-msgstr "Fájl tartalmának mutatása"
-
-msgid "Read-write"
-msgstr ""
-
-#, fuzzy
-msgid "Read-only"
-msgstr "Csak olvasható"
-
-msgid "Write-only"
-msgstr ""
-
-#, fuzzy
-msgid "Inaccessible"
-msgstr "Kép mutatása"
-
-#, fuzzy
-msgid "Symlink to File"
-msgstr "Nyomtatás fájlba:"
-
-msgid "Symlink to Directory"
-msgstr ""
-
-#, fuzzy
-msgid "Symlink to Special"
-msgstr "Speciális karakterek"
-
-msgid "Dir"
-msgstr ""
-
-#, fuzzy
-msgid "Special"
-msgstr "Speciális karakterek"
-
-#, fuzzy
-msgid "Save As"
-msgstr "Mentés más néven"
-
-#, fuzzy
-msgid "&Open"
-msgstr "Megnyitás"
-
-#, fuzzy
-msgid "&Rename"
-msgstr "Törlés"
-
-#, fuzzy
-msgid "R&eload"
-msgstr "Kész"
-
-#, fuzzy
-msgid "Sort by &Name"
-msgstr "Betûtípus neve"
-
-#, fuzzy
-msgid "Sort by &Size"
-msgstr "Betûméret"
-
-msgid "Sort by &Date"
-msgstr ""
-
-#, fuzzy
-msgid "&Unsorted"
-msgstr "-t helyette"
-
-msgid "Sort"
-msgstr ""
-
-#, fuzzy
-msgid "Show &hidden files"
-msgstr "Segédvonalak mutatása"
-
-#, fuzzy
-msgid "the file"
-msgstr "Rendszerprofilok"
-
-#, fuzzy
-msgid "the directory"
-msgstr "Egy könyvtárral feljebb"
-
-msgid "the symlink"
-msgstr ""
-
-#, fuzzy
-msgid "Delete %1"
-msgstr "Törlés"
-
-msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
-msgstr ""
-
-#, fuzzy
-msgid "New Folder 1"
-msgstr "Könyvtár létrehozása"
-
-#, fuzzy
-msgid "New Folder"
-msgstr "Könyvtár létrehozása"
-
-#, fuzzy
-msgid "New Folder %1"
-msgstr "Könyvtár létrehozása"
-
-#, fuzzy
-msgid "Find Directory"
-msgstr "Könyvtár:"
-
-#, fuzzy
-msgid "Directories"
-msgstr "Könyvtár:"
-
-#, fuzzy
-msgid "Error"
-msgstr "Tükrözés"
+msgid "Group "
+msgstr "Csoportosítás"
 
 msgid ""
-"%1\n"
-"File not found.\n"
-"Check path and filename."
+"Do you really want to overwrite the File:\n"
+"%1 ?"
 msgstr ""
+"Tényleg felül akarja írni a(z)\n"
+"%1 fájlt?"
 
-msgid "All Files (*.*)"
-msgstr ""
-
-#, fuzzy
-msgid "Select a Directory"
-msgstr "Könyvtárválasztás"
-
-msgid "Directory:"
-msgstr "Könyvtár:"
+msgid "Select Items"
+msgstr "Elemek kijelölése"
 
 #, fuzzy
-msgid "Select All"
-msgstr "Mindent kijelöl"
+msgid "Insert Text Frame"
+msgstr "Szövegdoboz"
 
-msgid "Line up"
-msgstr "Felgörgetés"
+msgid "Insert Picture"
+msgstr "Kép beszúrása"
 
-#, fuzzy
-msgid "Customize..."
-msgstr "Saját"
+msgid "Properties..."
+msgstr "Jellemzõk..."
 
-msgid "System Menu"
-msgstr "Rendszermenü"
+msgid "Insert Polygons"
+msgstr "Sokszögek beszúrása"
 
-#, fuzzy
-msgid "Unshade"
-msgstr "Árnyalat"
+msgid "Insert Lines"
+msgstr "Vonal beszúrása"
 
-#, fuzzy
-msgid "Normalize"
-msgstr "Normál"
-
-msgid "Minimize"
-msgstr "Minimalizálás"
-
-msgid "Maximize"
-msgstr "Maximalizálás"
-
-msgid "&Restore"
-msgstr "Hely&reállítás"
-
-msgid "&Move"
-msgstr "&Mozgatás"
-
-msgid "Mi&nimize"
-msgstr "Mi&nimalizálás"
-
-msgid "Ma&ximize"
-msgstr "Ma&ximalizálás"
-
-msgid "Stay on &Top"
-msgstr ""
-
-msgid "Restore Down"
-msgstr "Legörgetés"
+msgid "Insert Bezier Curves"
+msgstr "Bezier-görbe beszúrása"
 
 #, fuzzy
-msgid "Sh&ade"
-msgstr "Árnyalat"
+msgid "Insert Freehand Line"
+msgstr "Vonal beszúrása"
 
-msgid "%1 - [%2]"
+msgid "Rotate Item"
+msgstr "Elem forgatása"
+
+#, fuzzy
+msgid "Zoom in or out"
+msgstr "Nagyítás/kicsinyítés"
+
+msgid "Edit Contents of Frame"
+msgstr "Keret tartalmának szerkesztése"
+
+msgid "Edit the text with the Story Editor"
 msgstr ""
 
 #, fuzzy
-msgid "&Unshade"
-msgstr "Árnyalat"
-
-msgid "Hu&e:"
-msgstr ""
-
-msgid "&Sat:"
-msgstr ""
-
-msgid "&Val:"
-msgstr ""
-
-msgid "&Red:"
-msgstr "&Vörös:"
-
-msgid "&Green:"
-msgstr "&Zöld:"
-
-msgid "Bl&ue:"
-msgstr "&Kék:"
-
-msgid "A&lpha channel:"
-msgstr ""
-
-msgid "&Basic colors"
-msgstr "Alapszínek"
-
-msgid "&Custom colors"
-msgstr "Saját színek"
-
-msgid "&Define Custom Colors >>"
-msgstr "Saját színek definiálása >>"
+msgid "Link Text Frames"
+msgstr "Szövegdoboz"
 
 #, fuzzy
-msgid "&Add to Custom Colors"
-msgstr "Hozzáadás a saját színekhez"
-
-msgid "Select color"
-msgstr "Szín kiválasztása"
-
-msgid "Font st&yle"
-msgstr "Betûstílus"
-
-msgid "Stri&keout"
-msgstr "Áthúzott"
-
-msgid "&Underline"
-msgstr "Aláhúzott"
+msgid "Unlink Text Frames"
+msgstr "Szövegdoboz"
 
 #, fuzzy
-msgid "Sample"
-msgstr "Alak"
+msgid "Do measurements"
+msgstr "Méretek"
 
-#, fuzzy
-msgid "Scr&ipt"
-msgstr "Szkript:"
-
-#, fuzzy
-msgid "Apply"
-msgstr "Alkalmazás"
-
-msgid "Select Font"
-msgstr "Betûtípus választása"
-
-#, fuzzy
-msgid "Page "
-msgstr "Oldal"
-
-msgid " of %1"
+msgid "Draw various Shapes"
 msgstr ""
 
 #, fuzzy
-msgid "Number of Rows:"
-msgstr "Példányszám"
+msgid "PDF Tools"
+msgstr "Eszközök"
 
 #, fuzzy
-msgid "Number of Columns:"
-msgstr "Másolatok száma:"
+msgid "Insert PDF Fields"
+msgstr "PDF-mezõk beszúrása"
 
 #, fuzzy
-msgid "Importing text"
-msgstr "Oldal importálása"
-
-msgid "Distances"
-msgstr "Távolságok"
-
-msgid "DX:"
-msgstr ""
-
-msgid "DY:"
-msgstr ""
-
-msgid "Angle:"
-msgstr "Forgatás:"
-
-msgid "Length:"
-msgstr "Hosszúság:"
-
-msgid "Position:"
-msgstr "Elhelyezkedés:"
-
-msgid "Here you can add, change or remove Color-Stops."
-msgstr ""
-
-msgid "Choose the importer to use"
-msgstr ""
-
-msgid "Get text only"
-msgstr ""
-
-msgid "Import text without any formatting"
-msgstr ""
-
-#, fuzzy
-msgid "Importer:"
-msgstr "Importálás"
-
-#, fuzzy
-msgid "Importer"
-msgstr "Importálás"
+msgid "Insert PDF Annotations"
+msgstr "PDF-megjegyzések beszúrása"
 
 #, fuzzy, c-format
 msgid "About Scribus%1%2"
@@ -5177,8 +5193,8 @@ msgstr ""
 msgid "&About"
 msgstr "Névjegy"
 
-msgid "Programming:"
-msgstr "Programozás:"
+msgid "Development Team:"
+msgstr ""
 
 msgid "Contributions from:"
 msgstr "Közremûködõk:"
@@ -5187,97 +5203,111 @@ msgstr "Közremûködõk:"
 msgid "Windows port:"
 msgstr "Ablakok"
 
-msgid "Documentation:"
+#, fuzzy
+msgid "Official Documentation:"
+msgstr "Dokumentáció:"
+
+#, fuzzy
+msgid "Other Documentation:"
 msgstr "Dokumentáció:"
 
 #, fuzzy
 msgid "A&uthors"
 msgstr "Szerzõk"
 
-msgid "German:"
-msgstr "Német:"
-
-msgid "French:"
-msgstr "Francia:"
-
-msgid "Spanish and Catalan:"
-msgstr "Spanyol és katalán:"
-
-msgid "Italian:"
-msgstr "Olasz:"
-
-msgid "Hungarian:"
-msgstr "Magyar:"
-
-msgid "Ukrainian:"
-msgstr "Ukrán:"
-
-msgid "Bulgarian:"
-msgstr "Bolgár:"
-
-msgid "Galician:"
-msgstr "Galíciai:"
-
-msgid "Turkish:"
-msgstr "Török:"
-
-msgid "Lithuanian:"
-msgstr "Litván:"
-
-msgid "Polish:"
-msgstr "Lengyel:"
-
-msgid "Czech:"
-msgstr "Cseh:"
-
-msgid "Slovak:"
-msgstr "Szlovák:"
-
-msgid "Danish:"
-msgstr "Dán:"
-
-msgid "Norwegian:"
-msgstr "Norvég:"
-
-msgid "English:"
-msgstr "Angol:"
-
 #, fuzzy
-msgid "Welsh:"
-msgstr "Lengyel:"
-
-msgid "Russian:"
-msgstr "Orosz:"
+msgid "Basque:"
+msgstr "&Kék:"
 
 #, fuzzy
 msgid "Brazilian:"
 msgstr "Ukrán:"
 
+msgid "Bulgarian:"
+msgstr "Bolgár:"
+
+msgid "Czech:"
+msgstr "Cseh:"
+
+msgid "Danish:"
+msgstr "Dán:"
+
+#, fuzzy
+msgid "English (British):"
+msgstr "Angol:"
+
 #, fuzzy
 msgid "Finnish:"
 msgstr "Dán:"
+
+msgid "French:"
+msgstr "Francia:"
+
+msgid "Galician:"
+msgstr "Galíciai:"
+
+msgid "German:"
+msgstr "Német:"
+
+msgid "Hungarian:"
+msgstr "Magyar:"
+
+msgid "Italian:"
+msgstr "Olasz:"
+
+msgid "Lithuanian:"
+msgstr "Litván:"
+
+msgid "Norwegian:"
+msgstr "Norvég:"
+
+msgid "Polish:"
+msgstr "Lengyel:"
+
+msgid "Russian:"
+msgstr "Orosz:"
+
+msgid "Slovak:"
+msgstr "Szlovák:"
 
 #, fuzzy
 msgid "Slovenian:"
 msgstr "Szlovák:"
 
+msgid "Spanish and Catalan:"
+msgstr "Spanyol és katalán:"
+
+msgid "Swedish:"
+msgstr ""
+
+msgid "Turkish:"
+msgstr "Török:"
+
+msgid "Ukrainian:"
+msgstr "Ukrán:"
+
 #, fuzzy
-msgid "Basque:"
-msgstr "&Kék:"
+msgid "Welsh:"
+msgstr "Lengyel:"
 
 #, fuzzy
 msgid "&Translations"
 msgstr "Fordítások"
 
 #, fuzzy
-msgid "Homepage and online reference"
+msgid "Homepage"
+msgstr "Kezdõoldal:"
+
+#, fuzzy
+msgid "Online Reference"
 msgstr "Alapbeállítások beolvasása"
 
-msgid "Mailing list"
+msgid "Bugs and Feature Requests"
 msgstr ""
 
-msgid "Bugs and feature requests"
-msgstr ""
+#, fuzzy
+msgid "Mailing List"
+msgstr "Mozgó vonalak:"
 
 #, fuzzy
 msgid "&Online"
@@ -5367,6 +5397,10 @@ msgstr "Szkript:"
 #, fuzzy
 msgid "Ch&ange..."
 msgstr "Módosítás..."
+
+#, fuzzy
+msgid "T&emplates:"
+msgstr "Mesteroldal:"
 
 msgid "Autosave"
 msgstr "Automatikus mentés"
@@ -5638,6 +5672,9 @@ msgstr ""
 msgid "Default Scripter scripts directory"
 msgstr ""
 
+msgid "Additional Directory for Document Templates"
+msgstr ""
+
 msgid "Default page size, either a standard size or a custom size"
 msgstr ""
 
@@ -5855,6 +5892,170 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+msgid "Fonts Preview"
+msgstr "Nyomtatási nézet"
+
+msgid "Alt+O"
+msgstr ""
+
+msgid "Alt+C"
+msgstr ""
+
+#, fuzzy
+msgid "CSV Importer Options"
+msgstr "Nyomtató opciók"
+
+msgid "Field delimiter:"
+msgstr ""
+
+msgid "(TAB)"
+msgstr ""
+
+msgid "Value delimiter:"
+msgstr ""
+
+msgid "First row is a header"
+msgstr ""
+
+msgid "Comma Separated Value Files"
+msgstr ""
+
+msgid "CSV_data"
+msgstr ""
+
+#, fuzzy
+msgid "CSV_header"
+msgstr "Árnyalat"
+
+msgid ""
+"\n"
+"External Links\n"
+msgstr ""
+
+#, fuzzy
+msgid "HTML Files"
+msgstr "Fájl:"
+
+msgid "html"
+msgstr ""
+
+#, fuzzy
+msgid "Text Files"
+msgstr "Szövegmezõ"
+
+#, fuzzy
+msgid "OO.o Writer Importer Options"
+msgstr "Nyomtató opciók"
+
+#, fuzzy
+msgid "Update paragraph styles"
+msgstr "Stílusok..."
+
+msgid ""
+"If there already exists a paragraph style with the same\n"
+"name than current OO.o document's paragraph should the style\n"
+"in Scribus be edited to match the one being imported\n"
+"or left untouched"
+msgstr ""
+
+msgid "Use document name as a prefix for paragraph styles"
+msgstr ""
+
+msgid ""
+"Should importer add the name of the document\n"
+"on front of the paragraph style name in Scirubs"
+msgstr ""
+
+msgid "Do not ask again"
+msgstr ""
+
+msgid ""
+"Should the importer always use currently\n"
+"set value when importing OO.o document and\n"
+"never ask your confirmation again"
+msgstr ""
+
+#, fuzzy
+msgid "OO.o Writer Documents"
+msgstr "Legutóbbi dokumentumok"
+
+#, fuzzy
+msgid "Create filter"
+msgstr "Szövegláncok létrehozása"
+
+msgid "Choose a previously saved filter"
+msgstr ""
+
+msgid "Give a name to this filter for saving"
+msgstr ""
+
+msgid "Give a name for saving"
+msgstr ""
+
+msgid "Disable or enable this filter row"
+msgstr ""
+
+msgid "Remove this filter row"
+msgstr ""
+
+#, fuzzy
+msgid "Add a new filter row"
+msgstr "Réteg hozzáadása"
+
+#, fuzzy
+msgid "to"
+msgstr "oldalig:"
+
+#, fuzzy
+msgid "and"
+msgstr "A végére"
+
+msgid "remove match"
+msgstr ""
+
+msgid "do not remove match"
+msgstr ""
+
+#, fuzzy
+msgid "words"
+msgstr "Jelszavak"
+
+#, fuzzy
+msgid "Replace"
+msgstr "Helyettesítés"
+
+msgid "Value at the left is a regular expression"
+msgstr ""
+
+#, fuzzy
+msgid "with"
+msgstr "Szélesség:"
+
+#, fuzzy
+msgid "paragraph style"
+msgstr "Stílusok..."
+
+#, fuzzy
+msgid "all instances of"
+msgstr "Távolságok"
+
+msgid "all paragraphs"
+msgstr ""
+
+msgid "paragraphs starting with"
+msgstr ""
+
+msgid "paragraphs with less than"
+msgstr ""
+
+msgid "paragraphs with more than"
+msgstr ""
+
+#, fuzzy
+msgid "Text Filters"
+msgstr "Szövegmezõ"
+
+#, fuzzy
 msgid "Select Character:"
 msgstr "Karakter kiválasztása"
 
@@ -5871,181 +6072,167 @@ msgstr ""
 msgid "Close this dialog and return to text editing."
 msgstr ""
 
-msgid "Print Preview"
-msgstr "Nyomtatási nézet"
+#, fuzzy
+msgid "New From Template"
+msgstr "Új mesteroldal"
 
 #, fuzzy
-msgid "Print Previe&w"
-msgstr "Nyomtatási nézet"
+msgid "Description"
+msgstr "Leírás:"
 
 #, fuzzy
-msgid "Anti-alias &Text"
-msgstr "Szöveg élsimítása"
+msgid "Usage"
+msgstr "Használd"
 
 #, fuzzy
-msgid "Anti-alias &Graphics"
-msgstr "Grafikák élsimítása"
+msgid "Created with"
+msgstr "Szövegláncok létrehozása"
 
 #, fuzzy
-msgid "Display Trans&parency"
-msgstr "Keretek mutatása"
-
-msgid "&Under Color Removal"
-msgstr ""
+msgid "Author"
+msgstr "Szerzõ:"
 
 #, fuzzy
-msgid "&Display CMYK"
-msgstr "Kijelzõ"
-
-msgid "&C"
-msgstr ""
-
-msgid "&M"
-msgstr ""
-
-#, fuzzy
-msgid "&Y"
-msgstr "Igen"
-
-#, fuzzy
-msgid "&K"
-msgstr "Rendben"
+msgid "Downloading Templates"
+msgstr "Új mesteroldal"
 
 msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense\n"
-"of a slight slowdown in previewing. This only affects Type 1 fonts"
+"Document templates can be found at http://www.scribus.net/ in the Downloads "
+"section."
 msgstr ""
 
+#, fuzzy
+msgid "Installing Templates"
+msgstr "Új mesteroldal"
+
 msgid ""
-"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
-"and\n"
-"vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
+"Extract the package to the template directory ~/.scribus/templates for the "
+"current user or PREFIX/share/scribus/templates for all users in the system."
+msgstr ""
+
+#, fuzzy
+msgid "Preparing a template"
+msgstr "Új mesteroldal"
+
+msgid ""
+"Make sure images and fonts you use can be used freely. If fonts cannot be "
+"shared do not collect them when saving as a template."
 msgstr ""
 
 msgid ""
-"Shows transparency and transparent items in your document. Requires "
-"Ghostscript 7.07 or later"
+"The template creator should also make sure that the Installing Templates "
+"section above applies to their templates as well. This means a user should "
+"be able to download a template package and be able to extract them to the "
+"template directory and start using them."
+msgstr ""
+
+#, fuzzy
+msgid "Removing a template"
+msgstr "Új mesteroldal"
+
+msgid ""
+"Removing a template from the New From Template dialog will only remove the "
+"entry from the template.xml, it will not delete the document files. A popup "
+"menu with remove is only shown if you have write access to the template.xml "
+"file."
+msgstr ""
+
+msgid "Translating template.xml"
 msgstr ""
 
 msgid ""
-"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
-"colors"
-msgstr ""
-
-msgid "Enable/disable the C (Cyan) ink plate"
-msgstr ""
-
-msgid "Enable/disable the M (Magenta) ink plate"
-msgstr ""
-
-msgid "Enable/disable the Y (Yellow) ink plate"
-msgstr ""
-
-msgid "Enable/disable the K (Black) ink plate"
-msgstr ""
-
-msgid ""
-"A way of switching some of the gray shades which are composed\n"
-"of cyan, yellow and magenta and using black instead.\n"
-"UCR most affects parts of images which are neutral and/or dark tones\n"
-"which are close to the gray. Use of this may improve printing some images\n"
-"and some experimentation and testing is need on a case by case basis.\n"
-"UCR reduces the possibility of over saturation with CMY inks."
+"Copy an existing template.xml to a file called template.lang_COUNTRY.xml "
+"(use the same lang code that is present in the qm file for your language), "
+"for example template.fi.xml for Finnish language template.xml. The copy must "
+"be located in the same directory as the original template.xml so Scribus can "
+"load it."
 msgstr ""
 
 #, fuzzy
-msgid "Save Page as &SVG..."
-msgstr "Oldal mentése SVG-ként..."
+msgid "New &from Template..."
+msgstr "Új mesteroldal"
 
 #, fuzzy
-msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
-msgstr "EPS-fájlok (*.eps);; Minden fájl (*)"
+msgid "Template: "
+msgstr "Mesteroldal:"
 
 #, fuzzy
-msgid "SVG-Images (*.svg);;All Files (*)"
-msgstr "EPS-fájlok (*.eps);; Minden fájl (*)"
+msgid "Newsletters"
+msgstr "Elemek kijelölése"
 
-#, fuzzy
-msgid "Import &SVG..."
-msgstr "Importálás..."
-
-#, fuzzy
-msgid "S&cripter Manual..."
-msgstr "Scribus kézikönyv"
-
-#, fuzzy
-msgid "&Scribus Scripts"
-msgstr "Saját szkriptek"
-
-msgid "&Execute Script..."
+msgid "Brochures"
 msgstr ""
 
 #, fuzzy
-msgid "&Recent Scripts"
+msgid "Catalogs"
+msgstr "Bezárás"
+
+#, fuzzy
+msgid "Flyers"
+msgstr "Rétegek"
+
+#, fuzzy
+msgid "Signs"
+msgstr "Beállítások"
+
+msgid "Cards"
+msgstr ""
+
+msgid "Letterheads"
+msgstr ""
+
+msgid "Envelopes"
+msgstr ""
+
+msgid "Business Cards"
+msgstr ""
+
+#, fuzzy
+msgid "Calendars"
+msgstr "Törlés"
+
+#, fuzzy
+msgid "Advertisements"
+msgstr "Méretek"
+
+#, fuzzy
+msgid "Labels"
+msgstr "Rétegek"
+
+#, fuzzy
+msgid "Programs"
+msgstr "Programozás:"
+
+msgid "PDF Forms"
+msgstr ""
+
+#, fuzzy
+msgid "PDF Presentations"
+msgstr "Cél"
+
+#, fuzzy
+msgid "Magazines"
+msgstr "Margók:"
+
+#, fuzzy
+msgid "Posters"
+msgstr "Beillesztés"
+
+#, fuzzy
+msgid "Announcements"
+msgstr "Dokumentumok:"
+
+#, fuzzy
+msgid "Text Documents"
 msgstr "Legutóbbi dokumentumok"
 
 #, fuzzy
-msgid "Show &Console"
-msgstr "Eszköztár mutatása"
+msgid "Folds"
+msgstr "Félkövér"
 
 #, fuzzy
-msgid "S&cript"
-msgstr "Szkript"
-
-#, fuzzy
-msgid "Online Reference"
-msgstr "Alapbeállítások beolvasása"
-
-#, fuzzy
-msgid "Python Scripts (*.py);; All Files (*)"
-msgstr "JavaScript-ek (*.js);; Minden fájl (*)"
-
-#, fuzzy
-msgid "Script error"
-msgstr "Szkript"
-
-msgid ""
-"If you are running an official script report it at <a href=\"http://bugs."
-"scribus.net\">bugs.scribus.net</a> please."
-msgstr ""
-
-msgid ""
-"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
-"tracker."
-msgstr ""
-
-#, fuzzy
-msgid "Hide &Console"
-msgstr "Eszköztár elrejtése"
-
-msgid "Script Console"
-msgstr ""
-
-msgid "Oook! Wrong arguments! Call: "
-msgstr ""
-
-msgid "Oook! You're calling an object doesn't exist!"
-msgstr ""
-
-msgid "Oook! You're trying to erase an object doesn't exist!"
-msgstr ""
-
-msgid "Oook! An object you're trying to textflow doesn't exist!"
-msgstr ""
-
-msgid ""
-"Oook! You're trying to load image into an object doesn't exist or isn't "
-"selected!"
-msgstr ""
-
-msgid ""
-"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
-msgstr ""
-
-msgid ""
-"Oook! You're trying to query an object doesn't exist! None selected too."
-msgstr ""
+msgid "Own Templates"
+msgstr "Új mesteroldal"
 
 #, fuzzy
 msgid "Choose a Export Directory"
@@ -6137,51 +6324,87 @@ msgstr ""
 msgid "Yes all"
 msgstr "Kijelölés törlése"
 
-#, fuzzy
-msgid "HTML Files"
-msgstr "Fájl:"
-
-msgid "html"
-msgstr ""
-
-#, fuzzy
-msgid "Text Files"
-msgstr "Szövegmezõ"
-
-#, fuzzy
-msgid "CSV Importer Options"
-msgstr "Nyomtató opciók"
-
-msgid "Field delimiter:"
-msgstr ""
-
-msgid "(TAB)"
-msgstr ""
-
-msgid "Value delimiter:"
-msgstr ""
-
-msgid "First row is a header"
-msgstr ""
-
-msgid "Comma Separated Value Files"
-msgstr ""
-
-msgid "CSV_data"
-msgstr ""
-
-#, fuzzy
-msgid "CSV_header"
-msgstr "Árnyalat"
-
-#, fuzzy
-msgid "Fonts Preview"
+msgid "Print Preview"
 msgstr "Nyomtatási nézet"
 
-msgid "Alt+O"
+#, fuzzy
+msgid "Print Previe&w"
+msgstr "Nyomtatási nézet"
+
+#, fuzzy
+msgid "Anti-alias &Text"
+msgstr "Szöveg élsimítása"
+
+#, fuzzy
+msgid "Anti-alias &Graphics"
+msgstr "Grafikák élsimítása"
+
+#, fuzzy
+msgid "Display Trans&parency"
+msgstr "Keretek mutatása"
+
+msgid "&Under Color Removal"
 msgstr ""
 
-msgid "Alt+C"
+#, fuzzy
+msgid "&Display CMYK"
+msgstr "Kijelzõ"
+
+msgid "&C"
+msgstr ""
+
+msgid "&M"
+msgstr ""
+
+#, fuzzy
+msgid "&Y"
+msgstr "Igen"
+
+#, fuzzy
+msgid "&K"
+msgstr "Rendben"
+
+msgid ""
+"Provides a more pleasant view of text items in the viewer, at the expense\n"
+"of a slight slowdown in previewing. This only affects Type 1 fonts"
+msgstr ""
+
+msgid ""
+"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
+"and\n"
+"vector graphics in the preview, at the expense of a slight slowdown in "
+"previewing"
+msgstr ""
+
+msgid ""
+"Shows transparency and transparent items in your document. Requires "
+"Ghostscript 7.07 or later"
+msgstr ""
+
+msgid ""
+"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
+"colors"
+msgstr ""
+
+msgid "Enable/disable the C (Cyan) ink plate"
+msgstr ""
+
+msgid "Enable/disable the M (Magenta) ink plate"
+msgstr ""
+
+msgid "Enable/disable the Y (Yellow) ink plate"
+msgstr ""
+
+msgid "Enable/disable the K (Black) ink plate"
+msgstr ""
+
+msgid ""
+"A way of switching some of the gray shades which are composed\n"
+"of cyan, yellow and magenta and using black instead.\n"
+"UCR most affects parts of images which are neutral and/or dark tones\n"
+"which are close to the gray. Use of this may improve printing some images\n"
+"and some experimentation and testing is need on a case by case basis.\n"
+"UCR reduces the possibility of over saturation with CMY inks."
 msgstr ""
 
 #, fuzzy
@@ -6197,164 +6420,6 @@ msgid ""
 "%1\n"
 "failed!"
 msgstr "Sikertelen nyomtatás!"
-
-#, fuzzy
-msgid "New &from Template..."
-msgstr "Új mesteroldal"
-
-#, fuzzy
-msgid "New From Template"
-msgstr "Új mesteroldal"
-
-#, fuzzy
-msgid "Description"
-msgstr "Leírás:"
-
-#, fuzzy
-msgid "Usage"
-msgstr "Használd"
-
-#, fuzzy
-msgid "Created with"
-msgstr "Szövegláncok létrehozása"
-
-#, fuzzy
-msgid "Author"
-msgstr "Szerzõ:"
-
-#, fuzzy
-msgid "Downloading Templates"
-msgstr "Új mesteroldal"
-
-msgid ""
-"Document templates can be found at http://www.scribus.net/ in the Downloads "
-"section."
-msgstr ""
-
-#, fuzzy
-msgid "Installing Templates"
-msgstr "Új mesteroldal"
-
-msgid ""
-"Extract the package to the template directory ~/.scribus/templates for the "
-"current user or PREFIX/share/scribus/templates for all users in the system."
-msgstr ""
-
-#, fuzzy
-msgid "Preparing a template"
-msgstr "Új mesteroldal"
-
-msgid ""
-"Make sure images and fonts you use can be used freely. If fonts cannot be "
-"shared do not collect them when saving as a template."
-msgstr ""
-
-msgid ""
-"The template creator should also make sure that the Installing Templates "
-"section above applies to their templates as well. This means a user should "
-"be able to download a template package and be able to extract them to the "
-"template directory and start using them."
-msgstr ""
-
-#, fuzzy
-msgid "Removing a template"
-msgstr "Új mesteroldal"
-
-msgid ""
-"Removing a template from the New From Template dialog will only remove the "
-"entry from the template.xml, it will not delete the document files. A popup "
-"menu with remove is only shown if you have write access to the template.xml "
-"file."
-msgstr ""
-
-msgid "Translating template.xml"
-msgstr ""
-
-msgid ""
-"Copy an existing template.xml to a file called template.lang_COUNTRY.xml "
-"(use the same lang code that is present in the qm file for your language), "
-"for example template.fi.xml for Finnish language template.xml. The copy must "
-"be located in the same directory as the original template.xml so Scribus can "
-"load it."
-msgstr ""
-
-#, fuzzy
-msgid "Newsletters"
-msgstr "Elemek kijelölése"
-
-msgid "Brochures"
-msgstr ""
-
-#, fuzzy
-msgid "Catalogs"
-msgstr "Bezárás"
-
-#, fuzzy
-msgid "Flyers"
-msgstr "Rétegek"
-
-#, fuzzy
-msgid "Signs"
-msgstr "Beállítások"
-
-msgid "Cards"
-msgstr ""
-
-msgid "Letterheads"
-msgstr ""
-
-msgid "Envelopes"
-msgstr ""
-
-msgid "Business Cards"
-msgstr ""
-
-#, fuzzy
-msgid "Calendars"
-msgstr "Törlés"
-
-#, fuzzy
-msgid "Advertisements"
-msgstr "Méretek"
-
-#, fuzzy
-msgid "Labels"
-msgstr "Rétegek"
-
-#, fuzzy
-msgid "Programs"
-msgstr "Programozás:"
-
-msgid "PDF Forms"
-msgstr ""
-
-#, fuzzy
-msgid "PDF Presentations"
-msgstr "Cél"
-
-#, fuzzy
-msgid "Magazines"
-msgstr "Margók:"
-
-#, fuzzy
-msgid "Posters"
-msgstr "Beillesztés"
-
-#, fuzzy
-msgid "Announcements"
-msgstr "Dokumentumok:"
-
-#, fuzzy
-msgid "Text Documents"
-msgstr "Legutóbbi dokumentumok"
-
-#, fuzzy
-msgid "Folds"
-msgstr "Félkövér"
-
-#, fuzzy
-msgid "Own Templates"
-msgstr "Új mesteroldal"
 
 #, fuzzy
 msgid "Save as Template"
@@ -6387,6 +6452,139 @@ msgstr "Saját"
 #, fuzzy
 msgid "Save as &Template..."
 msgstr "Szöveg mentése..."
+
+#, fuzzy
+msgid "S&cripter Manual..."
+msgstr "Scribus kézikönyv"
+
+#, fuzzy
+msgid "&Scribus Scripts"
+msgstr "Saját szkriptek"
+
+msgid "&Execute Script..."
+msgstr ""
+
+#, fuzzy
+msgid "&Recent Scripts"
+msgstr "Legutóbbi dokumentumok"
+
+#, fuzzy
+msgid "Show &Console"
+msgstr "Eszköztár mutatása"
+
+#, fuzzy
+msgid "S&cript"
+msgstr "Szkript"
+
+#, fuzzy
+msgid "Python Scripts (*.py);; All Files (*)"
+msgstr "JavaScript-ek (*.js);; Minden fájl (*)"
+
+#, fuzzy
+msgid "Script error"
+msgstr "Szkript"
+
+msgid ""
+"If you are running an official script report it at <a href=\"http://bugs."
+"scribus.net\">bugs.scribus.net</a> please."
+msgstr ""
+
+msgid ""
+"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
+"tracker."
+msgstr ""
+
+#, fuzzy
+msgid "Hide &Console"
+msgstr "Eszköztár elrejtése"
+
+msgid ""
+"Oook! You're trying to load image into an object doesn't exist or isn't "
+"selected!"
+msgstr ""
+
+msgid ""
+"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
+msgstr ""
+
+msgid ""
+"Oook! You're trying to query an object doesn't exist! None selected too."
+msgstr ""
+
+msgid "Oook! You're calling an object doesn't exist!"
+msgstr ""
+
+msgid "Oook! You're trying to erase an object doesn't exist!"
+msgstr ""
+
+msgid "Oook! An object you're trying to textflow doesn't exist!"
+msgstr ""
+
+msgid "Oook! Wrong arguments! Call: "
+msgstr ""
+
+msgid "Script Console"
+msgstr ""
+
+#, fuzzy
+msgid "Insert value"
+msgstr "Oldal beszúrása"
+
+msgid "Enter a value then press OK."
+msgstr ""
+
+msgid "Enter a value then press OK"
+msgstr ""
+
+msgid "Send your value to the script"
+msgstr ""
+
+#, fuzzy
+msgid "Save Page as &SVG..."
+msgstr "Oldal mentése SVG-ként..."
+
+#, fuzzy
+msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
+msgstr "EPS-fájlok (*.eps);; Minden fájl (*)"
+
+#, fuzzy
+msgid "SVG-Images (*.svg);;All Files (*)"
+msgstr "EPS-fájlok (*.eps);; Minden fájl (*)"
+
+#, fuzzy
+msgid "Import &SVG..."
+msgstr "Importálás..."
+
+#, fuzzy
+#~ msgid "&Fully Automatic"
+#~ msgstr "Teljesen automatikus"
+
+#, fuzzy
+#~ msgid "Check &During Typing"
+#~ msgstr "Ellenõrzés gépelés közben"
+
+#, fuzzy
+#~ msgid ""
+#~ "If you uncheck this you will get a dialog\n"
+#~ "everytime a possible Hyphenation is found."
+#~ msgstr ""
+#~ "Ha törli a kijelölést, minden egyes\n"
+#~ "elválasztási lehetõségnél egy beállítóablak jelenik meg."
+
+#, fuzzy
+#~ msgid "Conve&x Polygon"
+#~ msgstr "Konvex sokszög"
+
+#, fuzzy
+#~ msgid "Importer"
+#~ msgstr "Importálás"
+
+#~ msgid "Programming:"
+#~ msgstr "Programozás:"
+
+#, fuzzy
+#~ msgid "Homepage and online reference"
+#~ msgstr "Alapbeállítások beolvasása"
 
 #, fuzzy
 #~ msgid "&Edit Frame"
@@ -6442,9 +6640,6 @@ msgstr "Szöveg mentése..."
 #~ msgid "Edit"
 #~ msgstr "Szerkesztés"
 
-#~ msgid "Template:"
-#~ msgstr "Mesteroldal:"
-
 #~ msgid "Height:"
 #~ msgstr "Magasság:"
 
@@ -6492,9 +6687,6 @@ msgstr "Szöveg mentése..."
 #, fuzzy
 #~ msgid "Quality :"
 #~ msgstr "Kilépés"
-
-#~ msgid "From page:"
-#~ msgstr "Kezdõoldal:"
 
 #~ msgid "To page:"
 #~ msgstr "Záróoldal:"

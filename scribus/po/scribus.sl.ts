@@ -29,7 +29,7 @@
     </message>
     <message>
         <source>Mailing list</source>
-        <translation>E-poštni spisek</translation>
+        <translation type="obsolete">E-poštni spisek</translation>
     </message>
     <message>
         <source>%1. %2 %3 </source>
@@ -37,7 +37,7 @@
     </message>
     <message>
         <source>Homepage and online reference</source>
-        <translation>Domača stran in povezave na spletu</translation>
+        <translation type="obsolete">Domača stran in povezave na spletu</translation>
     </message>
     <message>
         <source>Galician:</source>
@@ -45,7 +45,7 @@
     </message>
     <message>
         <source>Programming:</source>
-        <translation>Razvoj:</translation>
+        <translation type="obsolete">Razvoj:</translation>
     </message>
     <message>
         <source>Czech:</source>
@@ -53,7 +53,7 @@
     </message>
     <message>
         <source>English:</source>
-        <translation>Angleščina</translation>
+        <translation type="obsolete">Angleščina</translation>
     </message>
     <message>
         <source>Online</source>
@@ -105,7 +105,7 @@
     </message>
     <message>
         <source>Bugs and feature requests</source>
-        <translation>Poročila o hroščih in dodatni predlogi</translation>
+        <translation type="obsolete">Poročila o hroščih in dodatni predlogi</translation>
     </message>
     <message>
         <source>Lithuanian:</source>
@@ -149,7 +149,7 @@
     </message>
     <message>
         <source>Documentation:</source>
-        <translation>Dokumentacija:</translation>
+        <translation type="obsolete">Dokumentacija:</translation>
     </message>
     <message>
         <source>About Scribus%1%2</source>
@@ -184,6 +184,42 @@ Manjkajoča knjižnica je označena z zvezdico ( * )</translation>
     <message>
         <source>&amp;Close</source>
         <translation>&amp;Zapri</translation>
+    </message>
+    <message>
+        <source>Development Team:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Official Documentation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other Documentation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (British):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Swedish:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Online Reference</source>
+        <translation type="unfinished">Spletna pomoč</translation>
+    </message>
+    <message>
+        <source>Bugs and Feature Requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing List</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3466,7 +3502,12 @@ uporabite 72 dpi</translation>
     <name>HelpBrowser</name>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation>Priročnik žal ni dosegljiv. Za najnovejša navodila poglejte na http://scribus.net</translation>
+        <translation type="obsolete">Priročnik žal ni dosegljiv. Za najnovejša navodila poglejte na http://scribus.net</translation>
+    </message>
+    <message>
+        <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
+and www.scribus.net for downloads.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3518,7 +3559,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Enables automatic checking of your text while typing.</source>
-        <translation>Omogoči samodejno preverjanje med pisanjem.</translation>
+        <translation type="obsolete">Omogoči samodejno preverjanje med pisanjem.</translation>
     </message>
     <message>
         <source>Length of the smallest word to be hyphenated.</source>
@@ -3535,7 +3576,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>If you uncheck this you will get a dialog
 everytime a possible Hyphenation is found.</source>
-        <translation>Če tega ne izberete, vas bom povprašal
+        <translation type="obsolete">Če tega ne izberete, vas bom povprašal
 vsakič, ko bom našel možnost za deljenje besede.</translation>
     </message>
     <message>
@@ -3552,11 +3593,11 @@ vsakič, ko bom našel možnost za deljenje besede.</translation>
     </message>
     <message>
         <source>&amp;Fully Automatic</source>
-        <translation>&amp;Povsem samodejno</translation>
+        <translation type="obsolete">&amp;Povsem samodejno</translation>
     </message>
     <message>
         <source>Check &amp;During Typing</source>
-        <translation>Preverjaj med &amp;pisanjem</translation>
+        <translation type="obsolete">Preverjaj med &amp;pisanjem</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -3568,7 +3609,7 @@ vsakič, ko bom našel možnost za deljenje besede.</translation>
     </message>
     <message>
         <source>&amp;Number of Hypenations allowed:</source>
-        <translation>&amp;Število dovoljenih deljenj:</translation>
+        <translation type="obsolete">&amp;Število dovoljenih deljenj:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3577,6 +3618,26 @@ vsakič, ko bom našel možnost za deljenje besede.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>Prekli&amp;či</translation>
+    </message>
+    <message>
+        <source>&amp;Hyphenation Suggestions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hyphenate Text Automatically &amp;During Typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consecutive Hypenations &amp;Allowed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables automatic hyphenation of your text while typing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3701,7 +3762,7 @@ vsakič, ko bom našel možnost za deljenje besede.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Script?</source>
-        <translation>Ali res želite izbrisati to skripto?</translation>
+        <translation type="obsolete">Ali res želite izbrisati to skripto?</translation>
     </message>
     <message>
         <source>New Script</source>
@@ -3750,6 +3811,10 @@ vsakič, ko bom našel možnost za deljenje besede.</translation>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Da</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Script?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3922,7 +3987,7 @@ vsakič, ko bom našel možnost za deljenje besede.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Ali zares želite izbrisati ta slog?</translation>
+        <translation type="obsolete">Ali zares želite izbrisati ta slog?</translation>
     </message>
     <message>
         <source>Append</source>
@@ -3995,6 +4060,10 @@ vsakič, ko bom našel možnost za deljenje besede.</translation>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Da</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5261,7 +5330,7 @@ Prosim izberite drugo.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Template?</source>
-        <translation>Ali zares želite izbrisati to predlogo?</translation>
+        <translation type="obsolete">Ali zares želite izbrisati to predlogo?</translation>
     </message>
     <message>
         <source>Copy of %1</source>
@@ -5310,6 +5379,10 @@ Prosim izberite drugo.</translation>
     <message>
         <source>&amp;Name:</source>
         <translation>&amp;Ime:</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Template?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7597,7 +7670,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>&amp;Izbočeni mnogokotnik</translation>
+        <translation type="obsolete">&amp;Izbočeni mnogokotnik</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -7621,7 +7694,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Mnogokotniki naj bodo raje izbočeni kot vbočeni</translation>
+        <translation type="obsolete">Mnogokotniki naj bodo raje izbočeni kot vbočeni</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -7629,7 +7702,20 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Spremeni kot, pri katerem se črte mnogokotnika združijo</translation>
+        <translation type="obsolete">Spremeni kot, pri katerem se črte mnogokotnika združijo</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8102,7 +8188,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Spremeni kot, pri katerem se črte poligona združijo</translation>
+        <translation type="obsolete">Spremeni kot, pri katerem se črte poligona združijo</translation>
     </message>
     <message>
         <source>Default font size for the menus and windows</source>
@@ -8390,7 +8476,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Poligoni naj bodo konveksni raje kot konkavni</translation>
+        <translation type="obsolete">Poligoni naj bodo konveksni raje kot konkavni</translation>
     </message>
     <message>
         <source>Facing Pages</source>
@@ -8776,7 +8862,7 @@ Scribus inherits any available KDE or Qt themes</source>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>&amp;Izbočeni mnogokotnik</translation>
+        <translation type="obsolete">&amp;Izbočeni mnogokotnik</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -8857,6 +8943,45 @@ Scribus inherits any available KDE or Qt themes</source>
     <message>
         <source>Apply &amp;Under Color Removal</source>
         <translation>Uveljavi &amp;odstranjevanje barve pod</translation>
+    </message>
+    <message>
+        <source>T&amp;emplates:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="unfinished">&amp;Spremeni...</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Additional Directory for Document Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished">To je način za zamenjavo sivin sestavljenih iz cijan, rumene in 
+magenta barve s črnino. 
+POD se najbolj izrazi na nevtralnih ali temnih delih slik, blizu sivi. Tako 
+lahko izboljšate kakovost tiska nekaterih slik, vendar se splača prej 
+narediti nekaj preiskusov. 
+POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     </message>
 </context>
 <context>
@@ -9655,11 +9780,11 @@ Preverite ime in pot do nje.</translation>
     </message>
     <message>
         <source>Importer</source>
-        <translation>Uvoznik</translation>
+        <translation type="obsolete">Uvoznik</translation>
     </message>
     <message>
         <source>Choose the importer to use</source>
-        <translation>Izberite uvoznika</translation>
+        <translation type="obsolete">Izberite uvoznika</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -9688,6 +9813,28 @@ Preverite ime in pot do nje.</translation>
     <message>
         <source>CSV_header</source>
         <translation>glava CVS</translation>
+    </message>
+    <message>
+        <source>Font %1 is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+External Links
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OO.o Writer Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Filters</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11534,6 +11681,14 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>&amp;Edit Shape</source>
         <translation>&amp;Uredi obliko</translation>
     </message>
+    <message>
+        <source>File %1 is not in Scribus format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Afrikaans</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -11923,7 +12078,7 @@ povlecite predlogo na delovno področje spodaj.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Ali zareš želite izbrisati ta slog?</translation>
+        <translation type="obsolete">Ali zareš želite izbrisati ta slog?</translation>
     </message>
     <message>
         <source>Append</source>
@@ -11992,6 +12147,10 @@ povlecite predlogo na delovno področje spodaj.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>Prekli&amp;či</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12313,6 +12472,47 @@ povlecite predlogo na delovno področje spodaj.</translation>
     </message>
 </context>
 <context>
+    <name>SxwDialog</name>
+    <message>
+        <source>OO.o Writer Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there already exists a paragraph style with the same
+name than current OO.o document&apos;s paragraph should the style
+in Scribus be edited to match the one being imported
+or left untouched</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use document name as a prefix for paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scirubs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not ask again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OO.o document and
+never ask your confirmation again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">V redu</translation>
+    </message>
+</context>
+<context>
     <name>TabManager</name>
     <message>
         <source>OK</source>
@@ -12497,6 +12697,33 @@ Prosim, izberite drugo.</translation>
     <message>
         <source>Group </source>
         <translation>Združi</translation>
+    </message>
+</context>
+<context>
+    <name>ValueDialog</name>
+    <message>
+        <source>Insert value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished">Alt+O</translation>
+    </message>
+    <message>
+        <source>Send your value to the script</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12697,6 +12924,31 @@ Prosim, izberite drugo.</translation>
     <message>
         <source>Encoding:</source>
         <translation>Razpored znakov:</translation>
+    </message>
+</context>
+<context>
+    <name>gtImporterDialog</name>
+    <message>
+        <source>Choose the importer to use</source>
+        <translation type="unfinished">Izberite uvoznika</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember association</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember the file extension - importer association
+and do not ask again to select an importer for
+files of this type.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">V redu</translation>
     </message>
 </context>
 <context>
@@ -12909,6 +13161,120 @@ prebere, mora biti kopija v istem imeniku kot izvirna template.xml.</translation
     <message>
         <source>custom</source>
         <translation>posebno</translation>
+    </message>
+</context>
+<context>
+    <name>tfDia</name>
+    <message>
+        <source>Create filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">&amp;Počisti</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Zbriši</translation>
+    </message>
+    <message>
+        <source>Choose a previously saved filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name to this filter for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">Prekli&amp;či</translation>
+    </message>
+</context>
+<context>
+    <name>tfFilter</name>
+    <message>
+        <source>Disable or enable this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a new filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>and</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>do not remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Odstrani</translation>
+    </message>
+    <message>
+        <source>Replace</source>
+        <translation type="unfinished">Zamenjaj</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished">Uporabi</translation>
+    </message>
+    <message>
+        <source>Value at the left is a regular expression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all instances of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all paragraphs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs starting with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with less than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with more than</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

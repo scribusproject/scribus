@@ -2,23 +2,28 @@ from scribus import *
 from sgmllib import SGMLParser
 from htmlentitydefs import entitydefs
 
-
+""" ENCODING has to be edited for each file you're trying to parse
+utf8 - is the 'universal' solution but you can get error:
+'UnicodeDecodeError: 'utf8' codec can't decode byte 0xbe in position 0: unexpected code byte'
+then you shall edit right encoding of the file e.g. ISO-8859-2
+"""
+ENCODING = "utf8"
 TITLE = "Import HTML"
 BUTTON_OK = 1
 ICON_WARNING = 2
 NEWLINE = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6',
 		   'br', 'p', 'li', 'div', 'tr']
 
-
 class HTMLParser(SGMLParser):
 
 	def __init__(self, textbox):
+		self.encoding = ValueDialog(TITLE, 'Set encoding of the imported file', ENCODING)
 		SGMLParser.__init__(self)
 		self.in_body = 0
 		self.textbox = textbox
 
 	def append(self, text):
-		InsertText(text, GetTextLength(self.textbox), self.textbox)
+		InsertText(unicode(text, self.encoding), GetTextLength(self.textbox), self.textbox)
 
 	def start_body(self, attrs):
 		self.in_body = 1
@@ -46,9 +51,6 @@ class HTMLParser(SGMLParser):
 
 	def unknown_entityref(self, entity):
 		self.handle_data(entitydefs.get(entity, ''))
-
-		
-
 
 
 if HaveDoc():

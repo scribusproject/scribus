@@ -51,6 +51,8 @@ public:
 	QString getFrameName();
 	bool getUpdateParagraphStyles();
 	void setUpdateParagraphStyles(bool newUPS);
+	bool getOverridePStyleFont();
+	void setOverridePStyleFont(bool newOPSF);
 private:
 	gtAction *action;
 	gtFrameStyle* defaultStyle;

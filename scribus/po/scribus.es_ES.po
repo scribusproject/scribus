@@ -177,13 +177,31 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus.es_ES\n"
-"POT-Creation-Date: 2004-08-16 00:03+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-09-28 23:53+0200\n"
 "PO-Revision-Date: 2002-09-22 21:20+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <ca@li.org>\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0beta2\n"
+
+msgid "Align Text Left"
+msgstr "Alinear Texto Izquierda"
+
+msgid "Align Text Right"
+msgstr "Alinear Texto Derecha"
+
+msgid "Align Text Center"
+msgstr "Alinear Texto Centro"
+
+#, fuzzy
+msgid "Align Text Justified"
+msgstr "Alinear Texto Centro"
+
+#, fuzzy
+msgid "Align Text Forced Justified"
+msgstr "Alinear Texto Centro"
 
 msgid "Distribute/Align"
 msgstr "Distribución/Alineación"
@@ -276,6 +294,40 @@ msgstr "Aplicar"
 msgid "&Cancel"
 msgstr "Cancelar"
 
+msgid "Apply Template"
+msgstr "Aplicar Plantilla"
+
+#, fuzzy
+msgid "&Template:"
+msgstr "Nueva Plantilla"
+
+msgid "Normal"
+msgstr "Normal"
+
+# New in Version 0.8
+#, fuzzy
+msgid "Apply to &Current Page"
+msgstr "Aplicar Efectos en todas Páginas"
+
+# New in Version 0.8
+#, fuzzy
+msgid "Apply to all &even Pages"
+msgstr "Aplicar Efectos en todas Páginas"
+
+# New in Version 0.8
+#, fuzzy
+msgid "Apply to all &odd Pages"
+msgstr "Aplicar Efectos en todas Páginas"
+
+# New in Version 0.8
+#, fuzzy
+msgid "Apply from &Page:"
+msgstr "Aplicar Efectos en todas Páginas"
+
+#, fuzzy
+msgid "To:"
+msgstr "Superior:"
+
 msgid "Field Properties"
 msgstr "Propiedades Campo"
 
@@ -327,9 +379,6 @@ msgstr "Ancho:"
 
 msgid "Thin"
 msgstr "Adelgazar"
-
-msgid "Normal"
-msgstr "Normal"
 
 msgid "Wide"
 msgstr "Agrandar"
@@ -699,37 +748,6 @@ msgstr ""
 msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr "Documentos (*.scd);; Todos los ficheros (*)"
 
-msgid "Apply Template"
-msgstr "Aplicar Plantilla"
-
-#, fuzzy
-msgid "&Template:"
-msgstr "Nueva Plantilla"
-
-# New in Version 0.8
-#, fuzzy
-msgid "Apply to &Current Page"
-msgstr "Aplicar Efectos en todas Páginas"
-
-# New in Version 0.8
-#, fuzzy
-msgid "Apply to all &even Pages"
-msgstr "Aplicar Efectos en todas Páginas"
-
-# New in Version 0.8
-#, fuzzy
-msgid "Apply to all &odd Pages"
-msgstr "Aplicar Efectos en todas Páginas"
-
-# New in Version 0.8
-#, fuzzy
-msgid "Apply from &Page:"
-msgstr "Aplicar Efectos en todas Páginas"
-
-#, fuzzy
-msgid "To:"
-msgstr "Superior:"
-
 msgid "Bookmarks"
 msgstr "Marcadores"
 
@@ -970,6 +988,42 @@ msgstr "Alerta"
 msgid "Name of the Color is not unique"
 msgstr "El nombre del Estilo ya existe"
 
+msgid "Size:"
+msgstr "Tamaño:"
+
+msgid "Title:"
+msgstr "Título:"
+
+msgid "No Title"
+msgstr "Sin Título"
+
+msgid "Author:"
+msgstr "Autor:"
+
+msgid "Unknown"
+msgstr "Desconocido"
+
+#, fuzzy
+msgid "Scribus Document"
+msgstr "Documento del Scribus"
+
+#, fuzzy
+msgid "&Compress File"
+msgstr "Comprimir fichero"
+
+#, fuzzy
+msgid "&Include Fonts"
+msgstr "Incluir Marcadores"
+
+#, fuzzy
+msgid "Encoding:"
+msgstr "Final Segm:"
+
+msgid ""
+"Moves to your Document Directory.\n"
+"This can be set in the Preferences."
+msgstr ""
+
 msgid "Colors"
 msgstr "Colores"
 
@@ -1182,42 +1236,6 @@ msgid ""
 "Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF "
 "support.\n"
 "Missing library support is indicated by a *"
-msgstr ""
-
-msgid "Size:"
-msgstr "Tamaño:"
-
-msgid "Title:"
-msgstr "Título:"
-
-msgid "No Title"
-msgstr "Sin Título"
-
-msgid "Author:"
-msgstr "Autor:"
-
-msgid "Unknown"
-msgstr "Desconocido"
-
-#, fuzzy
-msgid "Scribus Document"
-msgstr "Documento del Scribus"
-
-#, fuzzy
-msgid "&Compress File"
-msgstr "Comprimir fichero"
-
-#, fuzzy
-msgid "&Include Fonts"
-msgstr "Incluir Marcadores"
-
-#, fuzzy
-msgid "Encoding:"
-msgstr "Final Segm:"
-
-msgid ""
-"Moves to your Document Directory.\n"
-"This can be set in the Preferences."
 msgstr ""
 
 msgid "Delete Color"
@@ -1661,7 +1679,8 @@ msgstr "Guardar"
 msgid "New Style"
 msgstr "Nuevo Estilo"
 
-msgid "Do you really want do delete this Style?"
+#, fuzzy
+msgid "Do you really want to delete this Style?"
 msgstr "¿Realmente quiere borrar este Estilo?"
 
 #, fuzzy
@@ -1901,6 +1920,399 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+msgid "Position:"
+msgstr "Descripción:"
+
+msgid "Here you can add, change or remove Color-Stops."
+msgstr ""
+
+#, fuzzy
+msgid "Importing text"
+msgstr "Importar datos"
+
+msgid "Choose the importer to use"
+msgstr ""
+
+#, fuzzy
+msgid "Automatic"
+msgstr "Caja de texto automática"
+
+msgid "Get text only"
+msgstr ""
+
+msgid "Import text without any formatting"
+msgstr ""
+
+#, fuzzy
+msgid "Importer:"
+msgstr "Importar..."
+
+msgid "Remember association"
+msgstr ""
+
+msgid ""
+"Remember the file extension - importer association\n"
+"and do not ask again to select an importer for\n"
+"files of this type."
+msgstr ""
+
+msgid "All Supported Formats"
+msgstr ""
+
+msgid "All Files (*)"
+msgstr ""
+
+msgid ""
+"<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
+"toolkit for multiplatform GUI &amp; application development.</p><p>Qt "
+"provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;"
+"X, Linux, and all major commercial Unix variants.<br>Qt is also available "
+"for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www."
+"trolltech.com/qt/</tt> for more information.</p>"
+msgstr ""
+
+#, fuzzy
+msgid "Copy or Move a File"
+msgstr "Comprimir fichero"
+
+#, fuzzy
+msgid "Read: %1"
+msgstr "Preparado"
+
+msgid "Write: %1"
+msgstr ""
+
+msgid "File &name:"
+msgstr "&Nombre fichero:"
+
+msgid "File &type:"
+msgstr "Tipo &fichero:"
+
+msgid "One directory up"
+msgstr ""
+
+#, fuzzy
+msgid "Name"
+msgstr "Nombre:"
+
+msgid "Size"
+msgstr "Tamaño"
+
+#, fuzzy
+msgid "Attributes"
+msgstr "Sobre el Scribus"
+
+msgid "Look &in:"
+msgstr "Mira &en:"
+
+#, fuzzy
+msgid "Back"
+msgstr "Bloque"
+
+#, fuzzy
+msgid "Create New Folder"
+msgstr "Crear archivo PDF"
+
+#, fuzzy
+msgid "List View"
+msgstr "No Mostrar"
+
+msgid "Detail View"
+msgstr ""
+
+msgid "Preview File Info"
+msgstr ""
+
+msgid "Preview File Contents"
+msgstr ""
+
+msgid "Read-write"
+msgstr ""
+
+#, fuzzy
+msgid "Read-only"
+msgstr "Sólo Lectura"
+
+msgid "Write-only"
+msgstr ""
+
+#, fuzzy
+msgid "Inaccessible"
+msgstr "Imagen visible"
+
+#, fuzzy
+msgid "Symlink to File"
+msgstr "Imprimir en el fichero:"
+
+msgid "Symlink to Directory"
+msgstr ""
+
+msgid "Symlink to Special"
+msgstr ""
+
+#, fuzzy
+msgid "Dir"
+msgstr "Dir X:"
+
+#, fuzzy
+msgid "Special"
+msgstr "Decimales:"
+
+#, fuzzy
+msgid "Save As"
+msgstr "Guardar como"
+
+#, fuzzy
+msgid "&Open"
+msgstr "Abrir"
+
+#, fuzzy
+msgid "&Rename"
+msgstr "Borrar"
+
+#, fuzzy
+msgid "R&eload"
+msgstr "Preparado"
+
+msgid "Sort by &Name"
+msgstr ""
+
+#, fuzzy
+msgid "Sort by &Size"
+msgstr "Cuerpo fuente"
+
+msgid "Sort by &Date"
+msgstr ""
+
+#, fuzzy
+msgid "&Unsorted"
+msgstr "en lugar de"
+
+msgid "Sort"
+msgstr ""
+
+#, fuzzy
+msgid "Show &hidden files"
+msgstr "Mostrar las guías"
+
+#, fuzzy
+msgid "the file"
+msgstr "Perfiles del Sistema"
+
+msgid "the directory"
+msgstr ""
+
+msgid "the symlink"
+msgstr ""
+
+#, fuzzy
+msgid "Delete %1"
+msgstr "Borrar"
+
+msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
+msgstr ""
+
+#, fuzzy
+msgid "&Yes"
+msgstr "Sí"
+
+#, fuzzy
+msgid "&No"
+msgstr "No"
+
+#, fuzzy
+msgid "New Folder 1"
+msgstr "Nuevo color"
+
+#, fuzzy
+msgid "New Folder"
+msgstr "Nuevo color"
+
+#, fuzzy
+msgid "New Folder %1"
+msgstr "Nuevo color"
+
+msgid "Find Directory"
+msgstr ""
+
+#, fuzzy
+msgid "Directories"
+msgstr "Dirección:"
+
+msgid "Save"
+msgstr "Guardar"
+
+#, fuzzy
+msgid "Error"
+msgstr "Error fatal"
+
+msgid ""
+"%1\n"
+"File not found.\n"
+"Check path and filename."
+msgstr ""
+
+msgid "All Files (*.*)"
+msgstr ""
+
+#, fuzzy
+msgid "Select a Directory"
+msgstr "Seleccionar color"
+
+#, fuzzy
+msgid "Directory:"
+msgstr "Dirección:"
+
+msgid "Clear"
+msgstr "Limpiar"
+
+#, fuzzy
+msgid "Select All"
+msgstr "Seleccionar todo"
+
+#, fuzzy
+msgid "Line up"
+msgstr "Linea"
+
+#, fuzzy
+msgid "Customize..."
+msgstr "Propio"
+
+#, fuzzy
+msgid "System Menu"
+msgstr "Perfiles del Sistema"
+
+msgid "Shade"
+msgstr "Intensidad"
+
+#, fuzzy
+msgid "Unshade"
+msgstr "Intensidad"
+
+#, fuzzy
+msgid "Normalize"
+msgstr "Normal"
+
+msgid "Minimize"
+msgstr ""
+
+msgid "Maximize"
+msgstr ""
+
+msgid "Close"
+msgstr "Cerrar"
+
+#, fuzzy
+msgid "&Restore"
+msgstr "Reiniciar desde"
+
+#, fuzzy
+msgid "&Move"
+msgstr "Mover..."
+
+msgid "&Size"
+msgstr "&Medida"
+
+msgid "Mi&nimize"
+msgstr ""
+
+msgid "Ma&ximize"
+msgstr ""
+
+#, fuzzy
+msgid "&Close"
+msgstr "Cerrar"
+
+msgid "Stay on &Top"
+msgstr ""
+
+msgid "Restore Down"
+msgstr ""
+
+#, fuzzy
+msgid "Sh&ade"
+msgstr "Intensidad"
+
+msgid "%1 - [%2]"
+msgstr ""
+
+#, fuzzy
+msgid "&Unshade"
+msgstr "Intensidad"
+
+msgid "Hu&e:"
+msgstr ""
+
+msgid "&Sat:"
+msgstr ""
+
+msgid "&Val:"
+msgstr ""
+
+msgid "&Red:"
+msgstr "&Rojo:"
+
+msgid "&Green:"
+msgstr "&Verde:"
+
+msgid "Bl&ue:"
+msgstr "&Azul:"
+
+msgid "A&lpha channel:"
+msgstr ""
+
+msgid "&Basic colors"
+msgstr "&Colores básicos"
+
+msgid "&Custom colors"
+msgstr "&Colores propios"
+
+msgid "&Define Custom Colors >>"
+msgstr "&Definir colores propios >>"
+
+#, fuzzy
+msgid "&Add to Custom Colors"
+msgstr "&Añade a colores propios"
+
+msgid "Select color"
+msgstr "Seleccionar color"
+
+msgid "&Font"
+msgstr "&Fuente"
+
+msgid "Font st&yle"
+msgstr "&Estilo de la fuente"
+
+msgid "Effects"
+msgstr "Efectos"
+
+msgid "Stri&keout"
+msgstr "&Tachar"
+
+msgid "&Underline"
+msgstr "&Subrayar"
+
+#, fuzzy
+msgid "&Color"
+msgstr "Color"
+
+#, fuzzy
+msgid "Sample"
+msgstr "Figura"
+
+#, fuzzy
+msgid "Scr&ipt"
+msgstr "Script:"
+
+#, fuzzy
+msgid "Apply"
+msgstr "Aplicar"
+
+#, fuzzy
+msgid "Select Font"
+msgstr "Seleccionar fuente"
+
+#, fuzzy
 msgid "Manage Guides"
 msgstr "Márgenes de las guías"
 
@@ -1933,8 +2345,9 @@ msgid "&Lock Guides"
 msgstr "Mostrar las guías"
 
 msgid ""
-"Sorry, no manual available! Please see: http://scribus.net for updated docs "
-"and downloads."
+"Sorry, no manual available! Please see: http://docs.scribus.net for updated "
+"docs\n"
+"and www.scribus.net for downloads."
 msgstr ""
 
 msgid "Possible Hyphenation"
@@ -1951,24 +2364,24 @@ msgid "Hyphenator Settings"
 msgstr "Propiedades Carácter"
 
 #, fuzzy
-msgid "&Fully Automatic"
-msgstr "Caja de texto automática"
+msgid "&Hyphenation Suggestions"
+msgstr "Propiedades Carácter"
 
-msgid "Check &During Typing"
+msgid "Hyphenate Text Automatically &During Typing"
 msgstr ""
 
 msgid "&Smallest Word:"
 msgstr ""
 
-msgid "&Number of Hypenations allowed:"
+msgid "Consecutive Hypenations &Allowed:"
 msgstr ""
 
 msgid ""
-"If you uncheck this you will get a dialog\n"
-"everytime a possible Hyphenation is found."
+"A dialog box showing all possible hyphens for each word will show up when "
+"you use the Extras, Hyphenate Text option."
 msgstr ""
 
-msgid "Enables automatic checking of your text while typing."
+msgid "Enables automatic hyphenation of your text while typing."
 msgstr ""
 
 msgid "Length of the smallest word to be hyphenated."
@@ -1978,6 +2391,18 @@ msgid ""
 "Maximum number of Hyphenations following each other.\n"
 "A value of 0 means unlimited hyphenations."
 msgstr ""
+
+#, fuzzy
+msgid "Insert Table"
+msgstr "Insertar página"
+
+#, fuzzy
+msgid "Number of Rows:"
+msgstr "Número de copias:"
+
+#, fuzzy
+msgid "Number of Columns:"
+msgstr "Número de copias:"
 
 msgid "Insert Page"
 msgstr "Insertar página"
@@ -2024,10 +2449,6 @@ msgid "&Add..."
 msgstr "Añadir..."
 
 #, fuzzy
-msgid "&Close"
-msgstr "Cerrar"
-
-#, fuzzy
 msgid "&New Script:"
 msgstr "Script nuevo:"
 
@@ -2035,16 +2456,8 @@ msgid "New Script"
 msgstr "Script nuevo"
 
 #, fuzzy
-msgid "Do you really want do delete this Script?"
+msgid "Do you really want to delete this Script?"
 msgstr "¿Realmente quiere borrar este Estilo?"
-
-#, fuzzy
-msgid "&No"
-msgstr "No"
-
-#, fuzzy
-msgid "&Yes"
-msgstr "Sí"
 
 msgid "Manage Keyboard Shortcuts"
 msgstr "Administrar Atajos de Teclado"
@@ -2134,6 +2547,21 @@ msgstr "Dist. horizontal:"
 msgid "&Vertical Shift:"
 msgstr "Dist. vertical:"
 
+msgid "Distances"
+msgstr "Distancias"
+
+msgid "DX:"
+msgstr ""
+
+msgid "DY:"
+msgstr ""
+
+msgid "Angle:"
+msgstr "Ángulo:"
+
+msgid "Length:"
+msgstr "Longitud:"
+
 #, fuzzy
 msgid "Import Template"
 msgstr "Importar datos"
@@ -2207,10 +2635,6 @@ msgstr "Linea"
 #, fuzzy
 msgid "&Colors"
 msgstr "Colores"
-
-#, fuzzy
-msgid "Name"
-msgstr "Nombre:"
 
 msgid "Geometry"
 msgstr ""
@@ -2680,7 +3104,7 @@ msgid "Edit Templates"
 msgstr "Editar Plantillas"
 
 #, fuzzy
-msgid "Do you really want do delete this Template?"
+msgid "Do you really want to delete this Template?"
 msgstr "¿Realmente quiere borrar este Estilo?"
 
 msgid "New Template"
@@ -3092,6 +3516,13 @@ msgid "PathText"
 msgstr "Camino"
 
 #, fuzzy
+msgid "Page "
+msgstr "Página"
+
+msgid " of %1"
+msgstr ""
+
+#, fuzzy
 msgid "Create PDF File"
 msgstr "Crear archivo PDF"
 
@@ -3157,10 +3588,6 @@ msgstr "Comprimir Texto y Gráficos Vectoriales"
 #, fuzzy
 msgid "Image Settings"
 msgstr "Configuración de los dispositivos"
-
-#, fuzzy
-msgid "Automatic"
-msgstr "Caja de texto automática"
 
 msgid "JPEG"
 msgstr ""
@@ -3236,9 +3663,6 @@ msgstr "Página"
 #, fuzzy
 msgid "Show Page Pre&views"
 msgstr "Mostrar Previsualización de Páginas"
-
-msgid "Effects"
-msgstr "Efectos"
 
 #, fuzzy
 msgid "&Display Duration:"
@@ -3687,8 +4111,8 @@ msgid "Corn&ers:"
 msgstr "Esquinas:"
 
 #, fuzzy
-msgid "Conve&x Polygon"
-msgstr "Polígono Convexo"
+msgid "Apply &Factor"
+msgstr "Factor:"
 
 #, fuzzy
 msgid "&Factor:"
@@ -3700,14 +4124,16 @@ msgstr ""
 msgid "Degrees of rotation for polygons"
 msgstr ""
 
-msgid "Polygons will be convex rather than concave"
+msgid "Apply Convex/Concave Factor to change shape of Polygons"
 msgstr ""
 
 #, fuzzy
 msgid "Sample Polygon"
 msgstr "Polígono"
 
-msgid "Change the angles at which lines of the polygon join"
+msgid ""
+"A negative value will make the polygon concave (or star shaped),\n"
+" a positive value will make it convex"
 msgstr ""
 
 msgid "Document Setup"
@@ -3716,6 +4142,9 @@ msgstr "Configuración del documento"
 #, fuzzy
 msgid "&Outside:"
 msgstr "Exterior:"
+
+msgid "Font %1 is broken, discarding it"
+msgstr ""
 
 msgid "Scrapbook"
 msgstr "Álbum de recortes"
@@ -3872,12 +4301,6 @@ msgstr "Abrir un documento"
 msgid "Open..."
 msgstr "Abrir..."
 
-msgid "Close"
-msgstr "Cerrar"
-
-msgid "Save"
-msgstr "Guardar"
-
 msgid "Save as..."
 msgstr "Guardar como..."
 
@@ -3960,9 +4383,6 @@ msgstr "Copiar"
 
 msgid "Paste"
 msgstr "Pegar"
-
-msgid "Clear"
-msgstr "Limpiar"
 
 msgid "Select all"
 msgstr "Seleccionar todo"
@@ -4324,18 +4744,8 @@ msgid "Get Picture..."
 msgstr "Insertar imagen..."
 
 #, fuzzy
-msgid "&Color"
-msgstr "Color"
-
-#, fuzzy
 msgid "&Invert"
 msgstr "Invertir"
-
-msgid "&Font"
-msgstr "&Fuente"
-
-msgid "&Size"
-msgstr "&Medida"
 
 #, fuzzy
 msgid "&Effects"
@@ -4359,17 +4769,11 @@ msgstr "Insertar texto..."
 msgid "Font"
 msgstr "Fuente"
 
-msgid "Size"
-msgstr "Tamaño"
-
 msgid "Style"
 msgstr "Estilo"
 
 msgid "Color"
 msgstr "Color"
-
-msgid "Shade"
-msgstr "Intensidad"
 
 #, fuzzy
 msgid "Importing Pages..."
@@ -4393,14 +4797,11 @@ msgstr "Importar..."
 msgid "Found nothing to import"
 msgstr ""
 
+msgid "File %1 is not in Scribus format"
+msgstr ""
+
 msgid "Loading..."
 msgstr "Cargando..."
-
-msgid "All Supported Formats"
-msgstr ""
-
-msgid "All Files (*)"
-msgstr ""
 
 #, fuzzy
 msgid ""
@@ -4564,6 +4965,9 @@ msgstr ""
 msgid "Slovenian"
 msgstr "Eslovaco:"
 
+msgid "Afrikaans"
+msgstr ""
+
 #, fuzzy
 msgid "Scribus Crash"
 msgstr "Manual del Scribus"
@@ -4597,6 +5001,75 @@ msgstr "El documento se ha modificado desde la última vez que lo guardó."
 #, fuzzy
 msgid "&Save Now"
 msgstr "Guardar ahora"
+
+msgid "Search/Replace"
+msgstr ""
+
+#, fuzzy
+msgid "Search for:"
+msgstr "Buscar resultados para: "
+
+msgid "Paragraph Style"
+msgstr ""
+
+#, fuzzy
+msgid "Font Effects"
+msgstr "Sin Efecto"
+
+#, fuzzy
+msgid "Fill Color"
+msgstr "Color de relleno:"
+
+#, fuzzy
+msgid "Fill Shade"
+msgstr "Intensidad"
+
+#, fuzzy
+msgid "Stroke Color"
+msgstr "Mostrar colores"
+
+msgid "Stroke Shade"
+msgstr ""
+
+msgid "Left"
+msgstr "Izquierda"
+
+msgid "Center"
+msgstr "Centro"
+
+msgid "Right"
+msgstr "Derecha"
+
+msgid "Block"
+msgstr "Bloque"
+
+msgid "Forced"
+msgstr "Forzado"
+
+#, fuzzy
+msgid "Replace with:"
+msgstr "Reemplazar con:"
+
+msgid "&Whole Word"
+msgstr ""
+
+msgid "&Ignore Case"
+msgstr ""
+
+#, fuzzy
+msgid "&Search"
+msgstr "Buscar"
+
+#, fuzzy
+msgid "&Replace"
+msgstr "Reemplazar con:"
+
+#, fuzzy
+msgid "Replace &All"
+msgstr "Reemplazar con:"
+
+msgid "Search finished"
+msgstr ""
 
 msgid "Show Page Previews"
 msgstr "Mostrar Previsualización de Páginas"
@@ -4643,106 +5116,8 @@ msgstr "Campos disponibles"
 msgid "Selected Fields"
 msgstr "Seleccionar Campos"
 
-#, fuzzy
-msgid "Element"
-msgstr "Desplazamiento"
-
-#, fuzzy
-msgid "Information"
-msgstr "Formateando"
-
-msgid "X:"
-msgstr ""
-
-#, fuzzy
-msgid "Font:"
-msgstr "Fuente"
-
-#, fuzzy
-msgid "Group "
-msgstr "Agrupar"
-
-msgid ""
-"Do you really want to overwrite the File:\n"
-"%1 ?"
-msgstr ""
-"¿Realmente queréis sobrescribir el fichero:\n"
-"%1 ?"
-
-msgid "Select Items"
-msgstr "Seleccionar objetos"
-
-#, fuzzy
-msgid "Insert Text Frame"
-msgstr "Marco Texto"
-
-msgid "Insert Picture"
-msgstr "Insertar imagen"
-
-#, fuzzy
-msgid "Insert Table"
-msgstr "Insertar página"
-
-msgid "Properties..."
-msgstr "Propiedades..."
-
-msgid "Insert Polygons"
-msgstr "Insertar Polígonos"
-
-msgid "Insert Lines"
-msgstr "Insertar lineas"
-
-#, fuzzy
-msgid "Insert Bezier Curves"
-msgstr "Curva Bézier"
-
-#, fuzzy
-msgid "Insert Freehand Line"
-msgstr "Insertar lineas"
-
-msgid "Rotate Item"
-msgstr "Rotar los objetos"
-
-#, fuzzy
-msgid "Zoom in or out"
-msgstr "Ampliar o reducir la visión"
-
-msgid "Edit Contents of Frame"
-msgstr "Editar contenidos del marco"
-
-msgid "Edit the text with the Story Editor"
-msgstr ""
-
-#, fuzzy
-msgid "Link Text Frames"
-msgstr "Marco Texto"
-
-#, fuzzy
-msgid "Unlink Text Frames"
-msgstr "Marco Texto"
-
-#, fuzzy
-msgid "Do measurements"
-msgstr "Dimensiones"
-
-msgid "Draw various Shapes"
-msgstr ""
-
-#, fuzzy
-msgid "PDF Tools"
-msgstr "Herramientas"
-
-#, fuzzy
-msgid "Insert PDF Fields"
-msgstr "Insertar campos PDF"
-
-#, fuzzy
-msgid "Insert PDF Annotations"
-msgstr "Insertar anotaciones PDF"
-
-#, fuzzy
-msgid "Manage Tabulators"
-msgstr "Administrar imágenes"
+msgid "Other..."
+msgstr "Otro..."
 
 #, fuzzy
 msgid "Fill Color Settings"
@@ -4851,9 +5226,6 @@ msgstr "Adjuntar Texto al Trazado"
 msgid "Update Text Frame"
 msgstr "Marco Texto"
 
-msgid "Search/Replace"
-msgstr ""
-
 msgid "Current Paragraph:"
 msgstr ""
 
@@ -4877,72 +5249,6 @@ msgid "Do you really want to lose all your Changes?"
 msgstr "¿Realmente quiere borrar este Estilo?"
 
 #, fuzzy
-msgid "Search for:"
-msgstr "Buscar resultados para: "
-
-msgid "Paragraph Style"
-msgstr ""
-
-#, fuzzy
-msgid "Font Effects"
-msgstr "Sin Efecto"
-
-#, fuzzy
-msgid "Fill Color"
-msgstr "Color de relleno:"
-
-#, fuzzy
-msgid "Fill Shade"
-msgstr "Intensidad"
-
-#, fuzzy
-msgid "Stroke Color"
-msgstr "Mostrar colores"
-
-msgid "Stroke Shade"
-msgstr ""
-
-msgid "Left"
-msgstr "Izquierda"
-
-msgid "Center"
-msgstr "Centro"
-
-msgid "Right"
-msgstr "Derecha"
-
-msgid "Block"
-msgstr "Bloque"
-
-msgid "Forced"
-msgstr "Forzado"
-
-#, fuzzy
-msgid "Replace with:"
-msgstr "Reemplazar con:"
-
-msgid "&Whole Word"
-msgstr ""
-
-msgid "&Ignore Case"
-msgstr ""
-
-#, fuzzy
-msgid "&Search"
-msgstr "Buscar"
-
-#, fuzzy
-msgid "&Replace"
-msgstr "Reemplazar con:"
-
-#, fuzzy
-msgid "Replace &All"
-msgstr "Reemplazar con:"
-
-msgid "Search finished"
-msgstr ""
-
-#, fuzzy
 msgid "Strike Out"
 msgstr "Tachar"
 
@@ -4950,25 +5256,9 @@ msgstr "Tachar"
 msgid "Outline Text"
 msgstr "Objetos"
 
-msgid "Align Text Left"
-msgstr "Alinear Texto Izquierda"
-
-msgid "Align Text Right"
-msgstr "Alinear Texto Derecha"
-
-msgid "Align Text Center"
-msgstr "Alinear Texto Centro"
-
 #, fuzzy
-msgid "Align Text Justified"
-msgstr "Alinear Texto Centro"
-
-#, fuzzy
-msgid "Align Text Forced Justified"
-msgstr "Alinear Texto Centro"
-
-msgid "Other..."
-msgstr "Otro..."
+msgid "Manage Tabulators"
+msgstr "Administrar imágenes"
 
 msgid "Full Stop"
 msgstr ""
@@ -5003,369 +5293,98 @@ msgstr ""
 msgid "Delete all Tabulators"
 msgstr "Borrar color"
 
-msgid ""
-"<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
-"toolkit for multiplatform GUI &amp; application development.</p><p>Qt "
-"provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;"
-"X, Linux, and all major commercial Unix variants.<br>Qt is also available "
-"for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www."
-"trolltech.com/qt/</tt> for more information.</p>"
+#, fuzzy
+msgid "Element"
+msgstr "Desplazamiento"
+
+#, fuzzy
+msgid "Information"
+msgstr "Formateando"
+
+msgid "X:"
 msgstr ""
 
 #, fuzzy
-msgid "Copy or Move a File"
-msgstr "Comprimir fichero"
+msgid "Font:"
+msgstr "Fuente"
 
 #, fuzzy
-msgid "Read: %1"
-msgstr "Preparado"
-
-msgid "Write: %1"
-msgstr ""
-
-msgid "File &name:"
-msgstr "&Nombre fichero:"
-
-msgid "File &type:"
-msgstr "Tipo &fichero:"
-
-msgid "One directory up"
-msgstr ""
-
-#, fuzzy
-msgid "Attributes"
-msgstr "Sobre el Scribus"
-
-msgid "Look &in:"
-msgstr "Mira &en:"
-
-#, fuzzy
-msgid "Back"
-msgstr "Bloque"
-
-#, fuzzy
-msgid "Create New Folder"
-msgstr "Crear archivo PDF"
-
-#, fuzzy
-msgid "List View"
-msgstr "No Mostrar"
-
-msgid "Detail View"
-msgstr ""
-
-msgid "Preview File Info"
-msgstr ""
-
-msgid "Preview File Contents"
-msgstr ""
-
-msgid "Read-write"
-msgstr ""
-
-#, fuzzy
-msgid "Read-only"
-msgstr "Sólo Lectura"
-
-msgid "Write-only"
-msgstr ""
-
-#, fuzzy
-msgid "Inaccessible"
-msgstr "Imagen visible"
-
-#, fuzzy
-msgid "Symlink to File"
-msgstr "Imprimir en el fichero:"
-
-msgid "Symlink to Directory"
-msgstr ""
-
-msgid "Symlink to Special"
-msgstr ""
-
-#, fuzzy
-msgid "Dir"
-msgstr "Dir X:"
-
-#, fuzzy
-msgid "Special"
-msgstr "Decimales:"
-
-#, fuzzy
-msgid "Save As"
-msgstr "Guardar como"
-
-#, fuzzy
-msgid "&Open"
-msgstr "Abrir"
-
-#, fuzzy
-msgid "&Rename"
-msgstr "Borrar"
-
-#, fuzzy
-msgid "R&eload"
-msgstr "Preparado"
-
-msgid "Sort by &Name"
-msgstr ""
-
-#, fuzzy
-msgid "Sort by &Size"
-msgstr "Cuerpo fuente"
-
-msgid "Sort by &Date"
-msgstr ""
-
-#, fuzzy
-msgid "&Unsorted"
-msgstr "en lugar de"
-
-msgid "Sort"
-msgstr ""
-
-#, fuzzy
-msgid "Show &hidden files"
-msgstr "Mostrar las guías"
-
-#, fuzzy
-msgid "the file"
-msgstr "Perfiles del Sistema"
-
-msgid "the directory"
-msgstr ""
-
-msgid "the symlink"
-msgstr ""
-
-#, fuzzy
-msgid "Delete %1"
-msgstr "Borrar"
-
-msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
-msgstr ""
-
-#, fuzzy
-msgid "New Folder 1"
-msgstr "Nuevo color"
-
-#, fuzzy
-msgid "New Folder"
-msgstr "Nuevo color"
-
-#, fuzzy
-msgid "New Folder %1"
-msgstr "Nuevo color"
-
-msgid "Find Directory"
-msgstr ""
-
-#, fuzzy
-msgid "Directories"
-msgstr "Dirección:"
-
-#, fuzzy
-msgid "Error"
-msgstr "Error fatal"
+msgid "Group "
+msgstr "Agrupar"
 
 msgid ""
-"%1\n"
-"File not found.\n"
-"Check path and filename."
+"Do you really want to overwrite the File:\n"
+"%1 ?"
 msgstr ""
+"¿Realmente queréis sobrescribir el fichero:\n"
+"%1 ?"
 
-msgid "All Files (*.*)"
-msgstr ""
-
-#, fuzzy
-msgid "Select a Directory"
-msgstr "Seleccionar color"
+msgid "Select Items"
+msgstr "Seleccionar objetos"
 
 #, fuzzy
-msgid "Directory:"
-msgstr "Dirección:"
+msgid "Insert Text Frame"
+msgstr "Marco Texto"
+
+msgid "Insert Picture"
+msgstr "Insertar imagen"
+
+msgid "Properties..."
+msgstr "Propiedades..."
+
+msgid "Insert Polygons"
+msgstr "Insertar Polígonos"
+
+msgid "Insert Lines"
+msgstr "Insertar lineas"
 
 #, fuzzy
-msgid "Select All"
-msgstr "Seleccionar todo"
+msgid "Insert Bezier Curves"
+msgstr "Curva Bézier"
 
 #, fuzzy
-msgid "Line up"
-msgstr "Linea"
+msgid "Insert Freehand Line"
+msgstr "Insertar lineas"
+
+msgid "Rotate Item"
+msgstr "Rotar los objetos"
 
 #, fuzzy
-msgid "Customize..."
-msgstr "Propio"
+msgid "Zoom in or out"
+msgstr "Ampliar o reducir la visión"
 
-#, fuzzy
-msgid "System Menu"
-msgstr "Perfiles del Sistema"
+msgid "Edit Contents of Frame"
+msgstr "Editar contenidos del marco"
 
-#, fuzzy
-msgid "Unshade"
-msgstr "Intensidad"
-
-#, fuzzy
-msgid "Normalize"
-msgstr "Normal"
-
-msgid "Minimize"
-msgstr ""
-
-msgid "Maximize"
-msgstr ""
-
-#, fuzzy
-msgid "&Restore"
-msgstr "Reiniciar desde"
-
-#, fuzzy
-msgid "&Move"
-msgstr "Mover..."
-
-msgid "Mi&nimize"
-msgstr ""
-
-msgid "Ma&ximize"
-msgstr ""
-
-msgid "Stay on &Top"
-msgstr ""
-
-msgid "Restore Down"
+msgid "Edit the text with the Story Editor"
 msgstr ""
 
 #, fuzzy
-msgid "Sh&ade"
-msgstr "Intensidad"
+msgid "Link Text Frames"
+msgstr "Marco Texto"
 
-msgid "%1 - [%2]"
+#, fuzzy
+msgid "Unlink Text Frames"
+msgstr "Marco Texto"
+
+#, fuzzy
+msgid "Do measurements"
+msgstr "Dimensiones"
+
+msgid "Draw various Shapes"
 msgstr ""
 
 #, fuzzy
-msgid "&Unshade"
-msgstr "Intensidad"
-
-msgid "Hu&e:"
-msgstr ""
-
-msgid "&Sat:"
-msgstr ""
-
-msgid "&Val:"
-msgstr ""
-
-msgid "&Red:"
-msgstr "&Rojo:"
-
-msgid "&Green:"
-msgstr "&Verde:"
-
-msgid "Bl&ue:"
-msgstr "&Azul:"
-
-msgid "A&lpha channel:"
-msgstr ""
-
-msgid "&Basic colors"
-msgstr "&Colores básicos"
-
-msgid "&Custom colors"
-msgstr "&Colores propios"
-
-msgid "&Define Custom Colors >>"
-msgstr "&Definir colores propios >>"
+msgid "PDF Tools"
+msgstr "Herramientas"
 
 #, fuzzy
-msgid "&Add to Custom Colors"
-msgstr "&Añade a colores propios"
-
-msgid "Select color"
-msgstr "Seleccionar color"
-
-msgid "Font st&yle"
-msgstr "&Estilo de la fuente"
-
-msgid "Stri&keout"
-msgstr "&Tachar"
-
-msgid "&Underline"
-msgstr "&Subrayar"
+msgid "Insert PDF Fields"
+msgstr "Insertar campos PDF"
 
 #, fuzzy
-msgid "Sample"
-msgstr "Figura"
-
-#, fuzzy
-msgid "Scr&ipt"
-msgstr "Script:"
-
-#, fuzzy
-msgid "Apply"
-msgstr "Aplicar"
-
-#, fuzzy
-msgid "Select Font"
-msgstr "Seleccionar fuente"
-
-#, fuzzy
-msgid "Page "
-msgstr "Página"
-
-msgid " of %1"
-msgstr ""
-
-#, fuzzy
-msgid "Number of Rows:"
-msgstr "Número de copias:"
-
-#, fuzzy
-msgid "Number of Columns:"
-msgstr "Número de copias:"
-
-#, fuzzy
-msgid "Importing text"
-msgstr "Importar datos"
-
-msgid "Distances"
-msgstr "Distancias"
-
-msgid "DX:"
-msgstr ""
-
-msgid "DY:"
-msgstr ""
-
-msgid "Angle:"
-msgstr "Ángulo:"
-
-msgid "Length:"
-msgstr "Longitud:"
-
-#, fuzzy
-msgid "Position:"
-msgstr "Descripción:"
-
-msgid "Here you can add, change or remove Color-Stops."
-msgstr ""
-
-msgid "Choose the importer to use"
-msgstr ""
-
-msgid "Get text only"
-msgstr ""
-
-msgid "Import text without any formatting"
-msgstr ""
-
-#, fuzzy
-msgid "Importer:"
-msgstr "Importar..."
-
-#, fuzzy
-msgid "Importer"
-msgstr "Importar..."
+msgid "Insert PDF Annotations"
+msgstr "Insertar anotaciones PDF"
 
 #, fuzzy, c-format
 msgid "About Scribus%1%2"
@@ -5386,8 +5405,8 @@ msgstr ""
 msgid "&About"
 msgstr "Sobre"
 
-msgid "Programming:"
-msgstr "Programación:"
+msgid "Development Team:"
+msgstr ""
 
 msgid "Contributions from:"
 msgstr "Contribuciones de:"
@@ -5396,99 +5415,112 @@ msgstr "Contribuciones de:"
 msgid "Windows port:"
 msgstr "Estilo-Windows"
 
-msgid "Documentation:"
+#, fuzzy
+msgid "Official Documentation:"
+msgstr "Documentación:"
+
+#, fuzzy
+msgid "Other Documentation:"
 msgstr "Documentación:"
 
 #, fuzzy
 msgid "A&uthors"
 msgstr "Autores"
 
-msgid "German:"
-msgstr "Alemán:"
-
-msgid "French:"
-msgstr "Francés:"
-
-msgid "Spanish and Catalan:"
-msgstr "Castellano y Catalán:"
+#, fuzzy
+msgid "Basque:"
+msgstr "Basada en:"
 
 #, fuzzy
-msgid "Italian:"
-msgstr "Cursiva"
-
-#, fuzzy
-msgid "Hungarian:"
-msgstr "Hungarés e Italiano:"
-
-msgid "Ukrainian:"
+msgid "Brazilian:"
 msgstr "Ucraniano:"
 
 msgid "Bulgarian:"
 msgstr ""
 
 #, fuzzy
-msgid "Galician:"
-msgstr "Ucraniano:"
-
-msgid "Turkish:"
-msgstr ""
-
-msgid "Lithuanian:"
-msgstr "Lituano:"
-
-msgid "Polish:"
-msgstr ""
-
-#, fuzzy
 msgid "Czech:"
 msgstr "Francés:"
-
-msgid "Slovak:"
-msgstr "Eslovaco:"
 
 msgid "Danish:"
 msgstr ""
 
+#, fuzzy
+msgid "English (British):"
+msgstr "Final Segm:"
+
+msgid "Finnish:"
+msgstr ""
+
+msgid "French:"
+msgstr "Francés:"
+
+#, fuzzy
+msgid "Galician:"
+msgstr "Ucraniano:"
+
+msgid "German:"
+msgstr "Alemán:"
+
+#, fuzzy
+msgid "Hungarian:"
+msgstr "Hungarés e Italiano:"
+
+#, fuzzy
+msgid "Italian:"
+msgstr "Cursiva"
+
+msgid "Lithuanian:"
+msgstr "Lituano:"
+
 msgid "Norwegian:"
 msgstr ""
 
-#, fuzzy
-msgid "English:"
-msgstr "Final Segm:"
-
-msgid "Welsh:"
+msgid "Polish:"
 msgstr ""
 
 msgid "Russian:"
 msgstr ""
 
-#, fuzzy
-msgid "Brazilian:"
-msgstr "Ucraniano:"
-
-msgid "Finnish:"
-msgstr ""
+msgid "Slovak:"
+msgstr "Eslovaco:"
 
 #, fuzzy
 msgid "Slovenian:"
 msgstr "Eslovaco:"
 
-#, fuzzy
-msgid "Basque:"
-msgstr "Basada en:"
+msgid "Spanish and Catalan:"
+msgstr "Castellano y Catalán:"
+
+msgid "Swedish:"
+msgstr ""
+
+msgid "Turkish:"
+msgstr ""
+
+msgid "Ukrainian:"
+msgstr "Ucraniano:"
+
+msgid "Welsh:"
+msgstr ""
 
 #, fuzzy
 msgid "&Translations"
 msgstr "Traducciones"
 
-msgid "Homepage and online reference"
+#, fuzzy
+msgid "Homepage"
+msgstr "De la página:"
+
+msgid "Online Reference"
 msgstr ""
 
-msgid "Mailing list"
+msgid "Bugs and Feature Requests"
 msgstr ""
 
-msgid "Bugs and feature requests"
-msgstr ""
+#, fuzzy
+msgid "Mailing List"
+msgstr "Moviendo Lineas"
 
 #, fuzzy
 msgid "&Online"
@@ -5579,6 +5611,10 @@ msgstr "Script:"
 #, fuzzy
 msgid "Ch&ange..."
 msgstr "Cambiar..."
+
+#, fuzzy
+msgid "T&emplates:"
+msgstr "Nueva Plantilla"
 
 #, fuzzy
 msgid "Autosave"
@@ -5847,6 +5883,9 @@ msgstr ""
 msgid "Default Scripter scripts directory"
 msgstr ""
 
+msgid "Additional Directory for Document Templates"
+msgstr ""
+
 msgid "Default page size, either a standard size or a custom size"
 msgstr ""
 
@@ -6062,6 +6101,171 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+msgid "Fonts Preview"
+msgstr "Previsualizar"
+
+msgid "Alt+O"
+msgstr ""
+
+msgid "Alt+C"
+msgstr ""
+
+#, fuzzy
+msgid "CSV Importer Options"
+msgstr "Otras opciones"
+
+msgid "Field delimiter:"
+msgstr ""
+
+msgid "(TAB)"
+msgstr ""
+
+#, fuzzy
+msgid "Value delimiter:"
+msgstr "Valor es el"
+
+msgid "First row is a header"
+msgstr ""
+
+msgid "Comma Separated Value Files"
+msgstr ""
+
+msgid "CSV_data"
+msgstr ""
+
+#, fuzzy
+msgid "CSV_header"
+msgstr "Intensidad"
+
+msgid ""
+"\n"
+"External Links\n"
+msgstr ""
+
+#, fuzzy
+msgid "HTML Files"
+msgstr "Fichero:"
+
+msgid "html"
+msgstr ""
+
+#, fuzzy
+msgid "Text Files"
+msgstr "Campo Texto"
+
+#, fuzzy
+msgid "OO.o Writer Importer Options"
+msgstr "Otras opciones"
+
+#, fuzzy
+msgid "Update paragraph styles"
+msgstr "Estilos..."
+
+msgid ""
+"If there already exists a paragraph style with the same\n"
+"name than current OO.o document's paragraph should the style\n"
+"in Scribus be edited to match the one being imported\n"
+"or left untouched"
+msgstr ""
+
+msgid "Use document name as a prefix for paragraph styles"
+msgstr ""
+
+msgid ""
+"Should importer add the name of the document\n"
+"on front of the paragraph style name in Scirubs"
+msgstr ""
+
+msgid "Do not ask again"
+msgstr ""
+
+msgid ""
+"Should the importer always use currently\n"
+"set value when importing OO.o document and\n"
+"never ask your confirmation again"
+msgstr ""
+
+#, fuzzy
+msgid "OO.o Writer Documents"
+msgstr "Documentos recientes"
+
+#, fuzzy
+msgid "Create filter"
+msgstr "Crear cadena de texto"
+
+msgid "Choose a previously saved filter"
+msgstr ""
+
+msgid "Give a name to this filter for saving"
+msgstr ""
+
+msgid "Give a name for saving"
+msgstr ""
+
+msgid "Disable or enable this filter row"
+msgstr ""
+
+msgid "Remove this filter row"
+msgstr ""
+
+#, fuzzy
+msgid "Add a new filter row"
+msgstr "Añadir nueva Capa"
+
+#, fuzzy
+msgid "to"
+msgstr "a:"
+
+#, fuzzy
+msgid "and"
+msgstr "Al final"
+
+msgid "remove match"
+msgstr ""
+
+msgid "do not remove match"
+msgstr ""
+
+#, fuzzy
+msgid "words"
+msgstr "Contraseña"
+
+#, fuzzy
+msgid "Replace"
+msgstr "Reemplazar con:"
+
+msgid "Value at the left is a regular expression"
+msgstr ""
+
+#, fuzzy
+msgid "with"
+msgstr "Ancho:"
+
+#, fuzzy
+msgid "paragraph style"
+msgstr "Estilos..."
+
+#, fuzzy
+msgid "all instances of"
+msgstr "Distancias"
+
+msgid "all paragraphs"
+msgstr ""
+
+msgid "paragraphs starting with"
+msgstr ""
+
+msgid "paragraphs with less than"
+msgstr ""
+
+msgid "paragraphs with more than"
+msgstr ""
+
+#, fuzzy
+msgid "Text Filters"
+msgstr "Campo Texto"
+
+#, fuzzy
 msgid "Select Character:"
 msgstr "Carácter"
 
@@ -6079,178 +6283,164 @@ msgid "Close this dialog and return to text editing."
 msgstr ""
 
 #, fuzzy
-msgid "Print Preview"
-msgstr "Previsualizar"
+msgid "New From Template"
+msgstr "Nueva Plantilla"
 
 #, fuzzy
-msgid "Print Previe&w"
-msgstr "Previsualizar"
-
-msgid "Anti-alias &Text"
-msgstr ""
-
-msgid "Anti-alias &Graphics"
-msgstr ""
+msgid "Description"
+msgstr "Descripción:"
 
 #, fuzzy
-msgid "Display Trans&parency"
-msgstr "Visualizar Marcos"
-
-msgid "&Under Color Removal"
-msgstr ""
+msgid "Usage"
+msgstr "Usa"
 
 #, fuzzy
-msgid "&Display CMYK"
-msgstr "Visualizar"
-
-msgid "&C"
-msgstr ""
-
-msgid "&M"
-msgstr ""
+msgid "Created with"
+msgstr "Crear cadena de texto"
 
 #, fuzzy
-msgid "&Y"
-msgstr "Sí"
+msgid "Author"
+msgstr "Autor:"
 
 #, fuzzy
-msgid "&K"
-msgstr "Bien"
+msgid "Downloading Templates"
+msgstr "Nueva Plantilla"
 
 msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense\n"
-"of a slight slowdown in previewing. This only affects Type 1 fonts"
+"Document templates can be found at http://www.scribus.net/ in the Downloads "
+"section."
 msgstr ""
 
+#, fuzzy
+msgid "Installing Templates"
+msgstr "Nueva Plantilla"
+
 msgid ""
-"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
-"and\n"
-"vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
+"Extract the package to the template directory ~/.scribus/templates for the "
+"current user or PREFIX/share/scribus/templates for all users in the system."
+msgstr ""
+
+#, fuzzy
+msgid "Preparing a template"
+msgstr "Nueva Plantilla"
+
+msgid ""
+"Make sure images and fonts you use can be used freely. If fonts cannot be "
+"shared do not collect them when saving as a template."
 msgstr ""
 
 msgid ""
-"Shows transparency and transparent items in your document. Requires "
-"Ghostscript 7.07 or later"
+"The template creator should also make sure that the Installing Templates "
+"section above applies to their templates as well. This means a user should "
+"be able to download a template package and be able to extract them to the "
+"template directory and start using them."
+msgstr ""
+
+#, fuzzy
+msgid "Removing a template"
+msgstr "Nueva Plantilla"
+
+msgid ""
+"Removing a template from the New From Template dialog will only remove the "
+"entry from the template.xml, it will not delete the document files. A popup "
+"menu with remove is only shown if you have write access to the template.xml "
+"file."
+msgstr ""
+
+msgid "Translating template.xml"
 msgstr ""
 
 msgid ""
-"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
-"colors"
-msgstr ""
-
-msgid "Enable/disable the C (Cyan) ink plate"
-msgstr ""
-
-msgid "Enable/disable the M (Magenta) ink plate"
-msgstr ""
-
-msgid "Enable/disable the Y (Yellow) ink plate"
-msgstr ""
-
-msgid "Enable/disable the K (Black) ink plate"
-msgstr ""
-
-msgid ""
-"A way of switching some of the gray shades which are composed\n"
-"of cyan, yellow and magenta and using black instead.\n"
-"UCR most affects parts of images which are neutral and/or dark tones\n"
-"which are close to the gray. Use of this may improve printing some images\n"
-"and some experimentation and testing is need on a case by case basis.\n"
-"UCR reduces the possibility of over saturation with CMY inks."
+"Copy an existing template.xml to a file called template.lang_COUNTRY.xml "
+"(use the same lang code that is present in the qm file for your language), "
+"for example template.fi.xml for Finnish language template.xml. The copy must "
+"be located in the same directory as the original template.xml so Scribus can "
+"load it."
 msgstr ""
 
 #, fuzzy
-msgid "Save Page as &SVG..."
-msgstr "Guardar la página como EPS..."
+msgid "New &from Template..."
+msgstr "Nueva Plantilla"
 
 #, fuzzy
-msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
-msgstr "Álbum de recortes (*.scs);; Todos los ficheros (*)"
+msgid "Template: "
+msgstr "Nueva Plantilla"
 
 #, fuzzy
-msgid "SVG-Images (*.svg);;All Files (*)"
-msgstr "Documentos (*.scd);; Todos los ficheros (*)"
+msgid "Newsletters"
+msgstr "Seleccionar objetos"
 
-#, fuzzy
-msgid "Import &SVG..."
-msgstr "Importar..."
-
-#, fuzzy
-msgid "S&cripter Manual..."
-msgstr "Manual del Scribus"
-
-#, fuzzy
-msgid "&Scribus Scripts"
-msgstr "Scripts Propios"
-
-msgid "&Execute Script..."
+msgid "Brochures"
 msgstr ""
 
 #, fuzzy
-msgid "&Recent Scripts"
+msgid "Catalogs"
+msgstr "Cerrar"
+
+#, fuzzy
+msgid "Flyers"
+msgstr "Capas"
+
+msgid "Signs"
+msgstr ""
+
+msgid "Cards"
+msgstr ""
+
+msgid "Letterheads"
+msgstr ""
+
+msgid "Envelopes"
+msgstr ""
+
+msgid "Business Cards"
+msgstr ""
+
+#, fuzzy
+msgid "Calendars"
+msgstr "Limpiar"
+
+#, fuzzy
+msgid "Advertisements"
+msgstr "Dimensiones"
+
+#, fuzzy
+msgid "Labels"
+msgstr "Capas"
+
+#, fuzzy
+msgid "Programs"
+msgstr "Programación:"
+
+msgid "PDF Forms"
+msgstr ""
+
+#, fuzzy
+msgid "PDF Presentations"
+msgstr "Destinación"
+
+#, fuzzy
+msgid "Magazines"
+msgstr "Márgenes:"
+
+#, fuzzy
+msgid "Posters"
+msgstr "Pegar"
+
+msgid "Announcements"
+msgstr ""
+
+#, fuzzy
+msgid "Text Documents"
 msgstr "Documentos recientes"
 
 #, fuzzy
-msgid "Show &Console"
-msgstr "Mostrar las herramientas"
+msgid "Folds"
+msgstr "Negrita"
 
 #, fuzzy
-msgid "S&cript"
-msgstr "Scr&ipt"
-
-msgid "Online Reference"
-msgstr ""
-
-#, fuzzy
-msgid "Python Scripts (*.py);; All Files (*)"
-msgstr "JavaScripts (*.js);; Todos los Ficheros (*)"
-
-#, fuzzy
-msgid "Script error"
-msgstr "Scr&ipt"
-
-msgid ""
-"If you are running an official script report it at <a href=\"http://bugs."
-"scribus.net\">bugs.scribus.net</a> please."
-msgstr ""
-
-msgid ""
-"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
-"tracker."
-msgstr ""
-
-#, fuzzy
-msgid "Hide &Console"
-msgstr "Ocultar las herramientas"
-
-msgid "Script Console"
-msgstr ""
-
-msgid "Oook! Wrong arguments! Call: "
-msgstr ""
-
-msgid "Oook! You're calling an object doesn't exist!"
-msgstr ""
-
-msgid "Oook! You're trying to erase an object doesn't exist!"
-msgstr ""
-
-msgid "Oook! An object you're trying to textflow doesn't exist!"
-msgstr ""
-
-msgid ""
-"Oook! You're trying to load image into an object doesn't exist or isn't "
-"selected!"
-msgstr ""
-
-msgid ""
-"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
-msgstr ""
-
-msgid ""
-"Oook! You're trying to query an object doesn't exist! None selected too."
-msgstr ""
+msgid "Own Templates"
+msgstr "Nueva Plantilla"
 
 msgid "Choose a Export Directory"
 msgstr ""
@@ -6342,51 +6532,85 @@ msgid "Yes all"
 msgstr "Deseleccionar todo"
 
 #, fuzzy
-msgid "HTML Files"
-msgstr "Fichero:"
-
-msgid "html"
-msgstr ""
-
-#, fuzzy
-msgid "Text Files"
-msgstr "Campo Texto"
-
-#, fuzzy
-msgid "CSV Importer Options"
-msgstr "Otras opciones"
-
-msgid "Field delimiter:"
-msgstr ""
-
-msgid "(TAB)"
-msgstr ""
-
-#, fuzzy
-msgid "Value delimiter:"
-msgstr "Valor es el"
-
-msgid "First row is a header"
-msgstr ""
-
-msgid "Comma Separated Value Files"
-msgstr ""
-
-msgid "CSV_data"
-msgstr ""
-
-#, fuzzy
-msgid "CSV_header"
-msgstr "Intensidad"
-
-#, fuzzy
-msgid "Fonts Preview"
+msgid "Print Preview"
 msgstr "Previsualizar"
 
-msgid "Alt+O"
+#, fuzzy
+msgid "Print Previe&w"
+msgstr "Previsualizar"
+
+msgid "Anti-alias &Text"
 msgstr ""
 
-msgid "Alt+C"
+msgid "Anti-alias &Graphics"
+msgstr ""
+
+#, fuzzy
+msgid "Display Trans&parency"
+msgstr "Visualizar Marcos"
+
+msgid "&Under Color Removal"
+msgstr ""
+
+#, fuzzy
+msgid "&Display CMYK"
+msgstr "Visualizar"
+
+msgid "&C"
+msgstr ""
+
+msgid "&M"
+msgstr ""
+
+#, fuzzy
+msgid "&Y"
+msgstr "Sí"
+
+#, fuzzy
+msgid "&K"
+msgstr "Bien"
+
+msgid ""
+"Provides a more pleasant view of text items in the viewer, at the expense\n"
+"of a slight slowdown in previewing. This only affects Type 1 fonts"
+msgstr ""
+
+msgid ""
+"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
+"and\n"
+"vector graphics in the preview, at the expense of a slight slowdown in "
+"previewing"
+msgstr ""
+
+msgid ""
+"Shows transparency and transparent items in your document. Requires "
+"Ghostscript 7.07 or later"
+msgstr ""
+
+msgid ""
+"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
+"colors"
+msgstr ""
+
+msgid "Enable/disable the C (Cyan) ink plate"
+msgstr ""
+
+msgid "Enable/disable the M (Magenta) ink plate"
+msgstr ""
+
+msgid "Enable/disable the Y (Yellow) ink plate"
+msgstr ""
+
+msgid "Enable/disable the K (Black) ink plate"
+msgstr ""
+
+msgid ""
+"A way of switching some of the gray shades which are composed\n"
+"of cyan, yellow and magenta and using black instead.\n"
+"UCR most affects parts of images which are neutral and/or dark tones\n"
+"which are close to the gray. Use of this may improve printing some images\n"
+"and some experimentation and testing is need on a case by case basis.\n"
+"UCR reduces the possibility of over saturation with CMY inks."
 msgstr ""
 
 #, fuzzy
@@ -6401,162 +6625,6 @@ msgid ""
 "%1\n"
 "failed!"
 msgstr ""
-
-#, fuzzy
-msgid "New &from Template..."
-msgstr "Nueva Plantilla"
-
-#, fuzzy
-msgid "New From Template"
-msgstr "Nueva Plantilla"
-
-#, fuzzy
-msgid "Description"
-msgstr "Descripción:"
-
-#, fuzzy
-msgid "Usage"
-msgstr "Usa"
-
-#, fuzzy
-msgid "Created with"
-msgstr "Crear cadena de texto"
-
-#, fuzzy
-msgid "Author"
-msgstr "Autor:"
-
-#, fuzzy
-msgid "Downloading Templates"
-msgstr "Nueva Plantilla"
-
-msgid ""
-"Document templates can be found at http://www.scribus.net/ in the Downloads "
-"section."
-msgstr ""
-
-#, fuzzy
-msgid "Installing Templates"
-msgstr "Nueva Plantilla"
-
-msgid ""
-"Extract the package to the template directory ~/.scribus/templates for the "
-"current user or PREFIX/share/scribus/templates for all users in the system."
-msgstr ""
-
-#, fuzzy
-msgid "Preparing a template"
-msgstr "Nueva Plantilla"
-
-msgid ""
-"Make sure images and fonts you use can be used freely. If fonts cannot be "
-"shared do not collect them when saving as a template."
-msgstr ""
-
-msgid ""
-"The template creator should also make sure that the Installing Templates "
-"section above applies to their templates as well. This means a user should "
-"be able to download a template package and be able to extract them to the "
-"template directory and start using them."
-msgstr ""
-
-#, fuzzy
-msgid "Removing a template"
-msgstr "Nueva Plantilla"
-
-msgid ""
-"Removing a template from the New From Template dialog will only remove the "
-"entry from the template.xml, it will not delete the document files. A popup "
-"menu with remove is only shown if you have write access to the template.xml "
-"file."
-msgstr ""
-
-msgid "Translating template.xml"
-msgstr ""
-
-msgid ""
-"Copy an existing template.xml to a file called template.lang_COUNTRY.xml "
-"(use the same lang code that is present in the qm file for your language), "
-"for example template.fi.xml for Finnish language template.xml. The copy must "
-"be located in the same directory as the original template.xml so Scribus can "
-"load it."
-msgstr ""
-
-#, fuzzy
-msgid "Newsletters"
-msgstr "Seleccionar objetos"
-
-msgid "Brochures"
-msgstr ""
-
-#, fuzzy
-msgid "Catalogs"
-msgstr "Cerrar"
-
-#, fuzzy
-msgid "Flyers"
-msgstr "Capas"
-
-msgid "Signs"
-msgstr ""
-
-msgid "Cards"
-msgstr ""
-
-msgid "Letterheads"
-msgstr ""
-
-msgid "Envelopes"
-msgstr ""
-
-msgid "Business Cards"
-msgstr ""
-
-#, fuzzy
-msgid "Calendars"
-msgstr "Limpiar"
-
-#, fuzzy
-msgid "Advertisements"
-msgstr "Dimensiones"
-
-#, fuzzy
-msgid "Labels"
-msgstr "Capas"
-
-#, fuzzy
-msgid "Programs"
-msgstr "Programación:"
-
-msgid "PDF Forms"
-msgstr ""
-
-#, fuzzy
-msgid "PDF Presentations"
-msgstr "Destinación"
-
-#, fuzzy
-msgid "Magazines"
-msgstr "Márgenes:"
-
-#, fuzzy
-msgid "Posters"
-msgstr "Pegar"
-
-msgid "Announcements"
-msgstr ""
-
-#, fuzzy
-msgid "Text Documents"
-msgstr "Documentos recientes"
-
-#, fuzzy
-msgid "Folds"
-msgstr "Negrita"
-
-#, fuzzy
-msgid "Own Templates"
-msgstr "Nueva Plantilla"
 
 #, fuzzy
 msgid "Save as Template"
@@ -6589,6 +6657,123 @@ msgstr "Propio"
 #, fuzzy
 msgid "Save as &Template..."
 msgstr "Guardar el texto..."
+
+#, fuzzy
+msgid "S&cripter Manual..."
+msgstr "Manual del Scribus"
+
+#, fuzzy
+msgid "&Scribus Scripts"
+msgstr "Scripts Propios"
+
+msgid "&Execute Script..."
+msgstr ""
+
+#, fuzzy
+msgid "&Recent Scripts"
+msgstr "Documentos recientes"
+
+#, fuzzy
+msgid "Show &Console"
+msgstr "Mostrar las herramientas"
+
+#, fuzzy
+msgid "S&cript"
+msgstr "Scr&ipt"
+
+#, fuzzy
+msgid "Python Scripts (*.py);; All Files (*)"
+msgstr "JavaScripts (*.js);; Todos los Ficheros (*)"
+
+#, fuzzy
+msgid "Script error"
+msgstr "Scr&ipt"
+
+msgid ""
+"If you are running an official script report it at <a href=\"http://bugs."
+"scribus.net\">bugs.scribus.net</a> please."
+msgstr ""
+
+msgid ""
+"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
+"tracker."
+msgstr ""
+
+#, fuzzy
+msgid "Hide &Console"
+msgstr "Ocultar las herramientas"
+
+msgid ""
+"Oook! You're trying to load image into an object doesn't exist or isn't "
+"selected!"
+msgstr ""
+
+msgid ""
+"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
+msgstr ""
+
+msgid ""
+"Oook! You're trying to query an object doesn't exist! None selected too."
+msgstr ""
+
+msgid "Oook! You're calling an object doesn't exist!"
+msgstr ""
+
+msgid "Oook! You're trying to erase an object doesn't exist!"
+msgstr ""
+
+msgid "Oook! An object you're trying to textflow doesn't exist!"
+msgstr ""
+
+msgid "Oook! Wrong arguments! Call: "
+msgstr ""
+
+msgid "Script Console"
+msgstr ""
+
+#, fuzzy
+msgid "Insert value"
+msgstr "Insertar página"
+
+msgid "Enter a value then press OK."
+msgstr ""
+
+msgid "Enter a value then press OK"
+msgstr ""
+
+msgid "Send your value to the script"
+msgstr ""
+
+#, fuzzy
+msgid "Save Page as &SVG..."
+msgstr "Guardar la página como EPS..."
+
+#, fuzzy
+msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
+msgstr "Álbum de recortes (*.scs);; Todos los ficheros (*)"
+
+#, fuzzy
+msgid "SVG-Images (*.svg);;All Files (*)"
+msgstr "Documentos (*.scd);; Todos los ficheros (*)"
+
+#, fuzzy
+msgid "Import &SVG..."
+msgstr "Importar..."
+
+#, fuzzy
+#~ msgid "&Fully Automatic"
+#~ msgstr "Caja de texto automática"
+
+#, fuzzy
+#~ msgid "Conve&x Polygon"
+#~ msgstr "Polígono Convexo"
+
+#, fuzzy
+#~ msgid "Importer"
+#~ msgstr "Importar..."
+
+#~ msgid "Programming:"
+#~ msgstr "Programación:"
 
 #, fuzzy
 #~ msgid "&Edit Frame"
@@ -6640,10 +6825,6 @@ msgstr "Guardar el texto..."
 #~ msgid "Edit"
 #~ msgstr "Editar"
 
-#, fuzzy
-#~ msgid "Template:"
-#~ msgstr "Nueva Plantilla"
-
 #~ msgid "Height:"
 #~ msgstr "Altura:"
 
@@ -6692,9 +6873,6 @@ msgstr "Guardar el texto..."
 #, fuzzy
 #~ msgid "Quality :"
 #~ msgstr "Salir"
-
-#~ msgid "From page:"
-#~ msgstr "De la página:"
 
 #~ msgid "To page:"
 #~ msgstr "A la página:"

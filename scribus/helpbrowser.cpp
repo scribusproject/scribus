@@ -94,7 +94,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString Capt, QString Datei )
 		fi = QFileInfo(pfad2);
 		if (!fi.exists())
 		{
-			Anzeige->setText("<h2>"+ tr("Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.")+"</h2>");
+			Anzeige->setText("<h2>"+ tr("Sorry, no manual available! Please see: http://docs.scribus.net for updated docs\nand www.scribus.net for downloads.")+"</h2>");
 			Avail = false;
 		}
 	}

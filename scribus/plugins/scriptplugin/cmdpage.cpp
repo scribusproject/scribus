@@ -278,3 +278,27 @@ PyObject *scribus_setVguides(PyObject *self, PyObject* args)
 	}
 	return Py_None;
 }
+
+PyObject *scribus_getpagemargins(PyObject *self,  PyObject* args)
+{
+	PyObject *margins = NULL;
+	if (!PyArg_ParseTuple(args, ""))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetPageMargins()"));
+		return NULL;
+	}
+	if (!Carrier->HaveDoc)
+	{
+		PyErr_SetString(PyExc_Exception, "No document open");
+		return NULL;
+	}
+	margins = Py_BuildValue("ffff", Carrier->doc->PageM.Top, Carrier->doc->PageM.Left,
+							 Carrier->doc->PageM.Right, Carrier->doc->PageM.Bottom);
+	if (margins == NULL)
+	{
+		PyErr_SetString(PyExc_Exception, "Building margin tuple failed!");
+		return NULL;
+	}
+	Py_INCREF(margins);
+	return margins;
+}

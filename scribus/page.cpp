@@ -73,6 +73,7 @@
 #ifdef HAVE_CMS
 	#include CMS_INC
 #endif
+
 extern int PolyC;
 extern int PolyFd;
 extern double PolyF;

@@ -13,7 +13,7 @@
 #include <qwmatrix.h>
 #include <cmath>
 
-extern QPixmap FontSample(QString da, int s, QString ts, QColor back);
+extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
 extern QPixmap loadIcon(QString nam);
 extern QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
 
@@ -1963,7 +1963,7 @@ void Preferences::SetSample()
 	QString ts = tr( "Woven silk pyjamas exchanged for blue quartz" );
 	QString da = (*fon)[FontComb->currentText()]->Datei;
 	int s = SizeCombo->currentText().left(2).toInt();
-	QPixmap pm = FontSample(da, s, ts, paletteBackgroundColor());
+	QPixmap pm = fontSamples(da, s, ts, paletteBackgroundColor());
 	TextLabel1_4->setPixmap(pm);
 }
 

@@ -722,5 +722,4 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  	sreader->endElement(NULL, NULL, *nname);
  }
  
- #endif // HAVE_XML
-  
+ #endif

@@ -3846,7 +3846,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Programming:</source>
-        <translation>Rhaglennu:</translation>
+        <translation type="obsolete">Rhaglennu:</translation>
     </message>
     <message>
         <source>Contributions from:</source>
@@ -3858,7 +3858,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Documentation:</source>
-        <translation>Dogfennaeth:</translation>
+        <translation type="obsolete">Dogfennaeth:</translation>
     </message>
     <message>
         <source>Authors</source>
@@ -3926,7 +3926,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>English:</source>
-        <translation>Saesneg:</translation>
+        <translation type="obsolete">Saesneg:</translation>
     </message>
     <message>
         <source>Welsh:</source>
@@ -3962,15 +3962,15 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Homepage and online reference</source>
-        <translation>Tudalen gartref a cyfeirlyfr ar-lein</translation>
+        <translation type="obsolete">Tudalen gartref a cyfeirlyfr ar-lein</translation>
     </message>
     <message>
         <source>Mailing list</source>
-        <translation>Rhestr ebost</translation>
+        <translation type="obsolete">Rhestr ebost</translation>
     </message>
     <message>
         <source>Bugs and feature requests</source>
-        <translation>Namau a cheisiadau nodweddion</translation>
+        <translation type="obsolete">Namau a cheisiadau nodweddion</translation>
     </message>
     <message>
         <source>Online</source>
@@ -4005,6 +4005,42 @@ Dynodir cynhaliaeth raglengelloedd sydd ar goll gan *</translation>
     <message>
         <source>&amp;Close</source>
         <translation>&amp;Cau</translation>
+    </message>
+    <message>
+        <source>Development Team:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Official Documentation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other Documentation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (British):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Swedish:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Online Reference</source>
+        <translation type="unfinished">Cyfeireb Arlein</translation>
+    </message>
+    <message>
+        <source>Bugs and Feature Requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing List</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7200,7 +7236,12 @@ Defnyddiwch 72 dpi ar gyfer Delweddau a fwriedir i&apos;r Sgrin</translation>
     </message>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation>Sori, dim llawlyfr ar gael!  Gweler http://scribus.net am y ddogfennaeth ddiweddaraf a lawrlwythiadau.</translation>
+        <translation type="obsolete">Sori, dim llawlyfr ar gael!  Gweler http://scribus.net am y ddogfennaeth ddiweddaraf a lawrlwythiadau.</translation>
+    </message>
+    <message>
+        <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
+and www.scribus.net for downloads.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7235,7 +7276,7 @@ Defnyddiwch 72 dpi ar gyfer Delweddau a fwriedir i&apos;r Sgrin</translation>
     <message>
         <source>If you uncheck this you will get a dialog
 everytime a possible Hyphenation is found.</source>
-        <translation>Os brithwch hyn, cewch ymgom
+        <translation type="obsolete">Os brithwch hyn, cewch ymgom
 bob tro canfyddir Cysylltnodi posibl.</translation>
     </message>
     <message>
@@ -7244,7 +7285,7 @@ bob tro canfyddir Cysylltnodi posibl.</translation>
     </message>
     <message>
         <source>Enables automatic checking of your text while typing.</source>
-        <translation>Alluogi gwirio ymysgogol eich testun wrth deipio.</translation>
+        <translation type="obsolete">Alluogi gwirio ymysgogol eich testun wrth deipio.</translation>
     </message>
     <message>
         <source>Language:</source>
@@ -7282,11 +7323,11 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     </message>
     <message>
         <source>&amp;Fully Automatic</source>
-        <translation>Hollol &amp;Ymysgogol</translation>
+        <translation type="obsolete">Hollol &amp;Ymysgogol</translation>
     </message>
     <message>
         <source>Check &amp;During Typing</source>
-        <translation>Gwirio &amp;wrth Deipio</translation>
+        <translation type="obsolete">Gwirio &amp;wrth Deipio</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -7298,7 +7339,7 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     </message>
     <message>
         <source>&amp;Number of Hypenations allowed:</source>
-        <translation>&amp;Nifer o Gysylltnodiadau a chaniateir:</translation>
+        <translation type="obsolete">&amp;Nifer o Gysylltnodiadau a chaniateir:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -7307,6 +7348,26 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Diddymu</translation>
+    </message>
+    <message>
+        <source>&amp;Hyphenation Suggestions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hyphenate Text Automatically &amp;During Typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consecutive Hypenations &amp;Allowed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables automatic hyphenation of your text while typing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7447,7 +7508,7 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     </message>
     <message>
         <source>Do you really want do delete this Script?</source>
-        <translation>Ydych wir eisiau dileu&apos;r Sgript yma?</translation>
+        <translation type="obsolete">Ydych wir eisiau dileu&apos;r Sgript yma?</translation>
     </message>
     <message>
         <source>No</source>
@@ -7484,6 +7545,10 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Ydw</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Script?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7668,7 +7733,7 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Ydych wir eisiau dileu&apos;r Arddull yma?</translation>
+        <translation type="obsolete">Ydych wir eisiau dileu&apos;r Arddull yma?</translation>
     </message>
     <message>
         <source>No</source>
@@ -7733,6 +7798,10 @@ Mae gwerth o 0 yn golygu cysylltnodiadau heb derfyn. </translation>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Ydw</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9027,7 +9096,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Do you really want do delete this Template?</source>
-        <translation>Ydych wir eisiau dileu&apos;r Patrymlun yma?</translation>
+        <translation type="obsolete">Ydych wir eisiau dileu&apos;r Patrymlun yma?</translation>
     </message>
     <message>
         <source>No</source>
@@ -9092,6 +9161,10 @@ Please choose another.</source>
     <message>
         <source>&amp;Name:</source>
         <translation>&amp;Enw:</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Template?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11375,7 +11448,7 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>Polygon Amgrw&amp;m</translation>
+        <translation type="obsolete">Polygon Amgrw&amp;m</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -11399,7 +11472,7 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Bydd polygonau yn amgrwm yn lle ceugrwm</translation>
+        <translation type="obsolete">Bydd polygonau yn amgrwm yn lle ceugrwm</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -11407,7 +11480,20 @@ bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Newid yr onglau y mae llinellau polygon yn uno â nhw</translation>
+        <translation type="obsolete">Newid yr onglau y mae llinellau polygon yn uno â nhw</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12258,7 +12344,7 @@ bob tro mae&apos;r cyfnod yn gorffen</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Bydd polygonau yn amgrwm yn lle ceugrwm</translation>
+        <translation type="obsolete">Bydd polygonau yn amgrwm yn lle ceugrwm</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -12266,7 +12352,7 @@ bob tro mae&apos;r cyfnod yn gorffen</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Newid yr onglau y mae llinellau polygon yn uno â nhw</translation>
+        <translation type="obsolete">Newid yr onglau y mae llinellau polygon yn uno â nhw</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
@@ -12582,7 +12668,7 @@ bob tro mae&apos;r cyfnod yn gorffen</translation>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>Polygon Amgrw&amp;m</translation>
+        <translation type="obsolete">Polygon Amgrw&amp;m</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -12663,6 +12749,45 @@ bob tro mae&apos;r cyfnod yn gorffen</translation>
     <message>
         <source>Apply &amp;Under Color Removal</source>
         <translation>Gweithredoli Gwaredu &amp;Dan-liw</translation>
+    </message>
+    <message>
+        <source>T&amp;emplates:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="unfinished">&amp;Newid...</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Additional Directory for Document Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished">Ffordd o atal rhai o&apos;r arlliwiau llwyd a gyfansoddir o wyrddlas, melyn 
+a magenta, a defnyddio du yn eu lle.  Mae UCR efo&apos;r effaith mwyaf ar 
+ddarnau delweddau sy&apos;n amhendant a/neu sy&apos;n cynnwys graddliwiau tywyll
+sy&apos;n agosaf i&apos;r llwyd.  Gall defnyddio hyn wella argraffu ar rai delweddau,
+ond mae angen tipyn o brofi ac arbrofi yn ôl y galw.  Mae UCR yn lleihau&apos;r 
+bosibilrwydd o or-ddirlawnder efo inciau CMY.</translation>
     </message>
 </context>
 <context>
@@ -13449,11 +13574,11 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
     </message>
     <message>
         <source>Importer</source>
-        <translation>Mewnforydd</translation>
+        <translation type="obsolete">Mewnforydd</translation>
     </message>
     <message>
         <source>Choose the importer to use</source>
-        <translation>Dewis y mewnforydd i ddefnyddio</translation>
+        <translation type="obsolete">Dewis y mewnforydd i ddefnyddio</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -13481,6 +13606,28 @@ Gwiriwch y llwybr ac enw&apos;r ffeil.</translation>
     </message>
     <message>
         <source>CSV_header</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+External Links
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OO.o Writer Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Filters</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15317,6 +15464,14 @@ Os dewisir Tudalennau Wynebu, gellir defnyddio&apos;r lle ymylon yma i gael yr y
         <source>&amp;Edit Shape</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>File %1 is not in Scribus format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Afrikaans</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -15726,7 +15881,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Ydych wir eisiau dileu&apos;r Arddull yma?</translation>
+        <translation type="obsolete">Ydych wir eisiau dileu&apos;r Arddull yma?</translation>
     </message>
     <message>
         <source>No</source>
@@ -15783,6 +15938,10 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Diddymu</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16096,6 +16255,47 @@ drag a Template to the Pageview below.</source>
     </message>
 </context>
 <context>
+    <name>SxwDialog</name>
+    <message>
+        <source>OO.o Writer Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there already exists a paragraph style with the same
+name than current OO.o document&apos;s paragraph should the style
+in Scribus be edited to match the one being imported
+or left untouched</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use document name as a prefix for paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scirubs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not ask again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OO.o document and
+never ask your confirmation again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">Iawn</translation>
+    </message>
+</context>
+<context>
     <name>TabManager</name>
     <message>
         <source>Manage Tabulators</source>
@@ -16304,6 +16504,33 @@ Please choose another.</source>
     <message>
         <source>Group </source>
         <translation>Grŵp</translation>
+    </message>
+</context>
+<context>
+    <name>ValueDialog</name>
+    <message>
+        <source>Insert value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Iawn</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished">Alt+O</translation>
+    </message>
+    <message>
+        <source>Send your value to the script</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16519,6 +16746,31 @@ Please choose another.</source>
     </message>
 </context>
 <context>
+    <name>gtImporterDialog</name>
+    <message>
+        <source>Choose the importer to use</source>
+        <translation type="unfinished">Dewis y mewnforydd i ddefnyddio</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember association</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember the file extension - importer association
+and do not ask again to select an importer for
+files of this type.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">Iawn</translation>
+    </message>
+</context>
+<context>
     <name>nftdialog</name>
     <message>
         <source>New From Template</source>
@@ -16702,6 +16954,120 @@ Please choose another.</source>
     <message>
         <source>custom</source>
         <translation>addasiedig</translation>
+    </message>
+</context>
+<context>
+    <name>tfDia</name>
+    <message>
+        <source>Create filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">G&amp;waredu</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Dileu</translation>
+    </message>
+    <message>
+        <source>Choose a previously saved filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name to this filter for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Iawn</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Diddymu</translation>
+    </message>
+</context>
+<context>
+    <name>tfFilter</name>
+    <message>
+        <source>Disable or enable this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a new filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>and</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>do not remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Gwaredu</translation>
+    </message>
+    <message>
+        <source>Replace</source>
+        <translation type="unfinished">Amnewid</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished">Gweithredu</translation>
+    </message>
+    <message>
+        <source>Value at the left is a regular expression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all instances of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all paragraphs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs starting with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with less than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with more than</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

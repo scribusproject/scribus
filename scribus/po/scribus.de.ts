@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Programming:</source>
-        <translation>Programmierung:</translation>
+        <translation type="obsolete">Programmierung:</translation>
     </message>
     <message>
         <source>Contributions from:</source>
@@ -37,7 +37,7 @@
     </message>
     <message>
         <source>Documentation:</source>
-        <translation>Dokumentation:</translation>
+        <translation type="obsolete">Dokumentation:</translation>
     </message>
     <message>
         <source>Authors</source>
@@ -105,7 +105,7 @@
     </message>
     <message>
         <source>English:</source>
-        <translation>Englisch:</translation>
+        <translation type="obsolete">Englisch:</translation>
     </message>
     <message>
         <source>Welsh:</source>
@@ -137,15 +137,15 @@
     </message>
     <message>
         <source>Homepage and online reference</source>
-        <translation>Homepage und Online Referenz</translation>
+        <translation type="obsolete">Homepage und Online Referenz</translation>
     </message>
     <message>
         <source>Mailing list</source>
-        <translation>Mailing Liste</translation>
+        <translation type="obsolete">Mailing Liste</translation>
     </message>
     <message>
         <source>Bugs and feature requests</source>
-        <translation>Fehlerberichte und Wünsche</translation>
+        <translation type="obsolete">Fehlerberichte und Wünsche</translation>
     </message>
     <message>
         <source>Online</source>
@@ -192,6 +192,38 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
     <message>
         <source>Swedish:</source>
         <translation>Schwedisch:</translation>
+    </message>
+    <message>
+        <source>Development Team:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Official Documentation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other Documentation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (British):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Online Reference</source>
+        <translation type="unfinished">Onlinereferenz</translation>
+    </message>
+    <message>
+        <source>Bugs and Feature Requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing List</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3548,7 +3580,12 @@ Bildschirm betrachten wollen</translation>
     </message>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation>Leider kein Handbuch verfügbar! Bitte besuchen Sie: http://scribus.net für Updates.</translation>
+        <translation type="obsolete">Leider kein Handbuch verfügbar! Bitte besuchen Sie: http://scribus.net für Updates.</translation>
+    </message>
+    <message>
+        <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
+and www.scribus.net for downloads.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3583,7 +3620,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <source>If you uncheck this you will get a dialog
 everytime a possible Hyphenation is found.</source>
-        <translation>Falls nicht Vollautomatisch gewählt ist,
+        <translation type="obsolete">Falls nicht Vollautomatisch gewählt ist,
 erscheint bei jeder möglichen Trennung eine\nDialogbox.</translation>
     </message>
     <message>
@@ -3592,7 +3629,7 @@ erscheint bei jeder möglichen Trennung eine\nDialogbox.</translation>
     </message>
     <message>
         <source>Enables automatic checking of your text while typing.</source>
-        <translation>Schaltet die automatische Überprüfung während der Eingabe ein.</translation>
+        <translation type="obsolete">Schaltet die automatische Überprüfung während der Eingabe ein.</translation>
     </message>
     <message>
         <source>Language:</source>
@@ -3630,11 +3667,11 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>&amp;Fully Automatic</source>
-        <translation>&amp;Vollautomatisch</translation>
+        <translation type="obsolete">&amp;Vollautomatisch</translation>
     </message>
     <message>
         <source>Check &amp;During Typing</source>
-        <translation>Während Texteingabe über&amp;prüfen</translation>
+        <translation type="obsolete">Während Texteingabe über&amp;prüfen</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -3646,7 +3683,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>&amp;Number of Hypenations allowed:</source>
-        <translation>Anzahl der &amp;möglichen Trennungen:</translation>
+        <translation type="obsolete">Anzahl der &amp;möglichen Trennungen:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3655,6 +3692,26 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Abbrechen</translation>
+    </message>
+    <message>
+        <source>&amp;Hyphenation Suggestions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hyphenate Text Automatically &amp;During Typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consecutive Hypenations &amp;Allowed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables automatic hyphenation of your text while typing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3795,7 +3852,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Script?</source>
-        <translation>Wollen Sie dieses Script wirklich löschen?</translation>
+        <translation type="obsolete">Wollen Sie dieses Script wirklich löschen?</translation>
     </message>
     <message>
         <source>No</source>
@@ -3832,6 +3889,10 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Ja</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Script?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4016,7 +4077,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Wollen Sie diesen Stil wirklich löschen?</translation>
+        <translation type="obsolete">Wollen Sie diesen Stil wirklich löschen?</translation>
     </message>
     <message>
         <source>No</source>
@@ -4085,6 +4146,10 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Ja</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5402,7 +5467,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Template?</source>
-        <translation>Wollen Sie wirklich diese Musterseite löschen?</translation>
+        <translation type="obsolete">Wollen Sie wirklich diese Musterseite löschen?</translation>
     </message>
     <message>
         <source>No</source>
@@ -5467,6 +5532,10 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>&amp;Name:</source>
         <translation>&amp;Name:</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Template?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7788,7 +7857,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>Konve&amp;xes Polygon</translation>
+        <translation type="obsolete">Konve&amp;xes Polygon</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -7812,7 +7881,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Zeichnet ein konvexes Polygon</translation>
+        <translation type="obsolete">Zeichnet ein konvexes Polygon</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -7820,7 +7889,20 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Legt den Winkel fest, bei dem sich die Linien des Polygons verbinden</translation>
+        <translation type="obsolete">Legt den Winkel fest, bei dem sich die Linien des Polygons verbinden</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8615,7 +8697,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Zeichnet ein konvexes Polygon</translation>
+        <translation type="obsolete">Zeichnet ein konvexes Polygon</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -8623,7 +8705,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Legt den Winkel fest, bei dem sich die Linien des Polygons verbinden</translation>
+        <translation type="obsolete">Legt den Winkel fest, bei dem sich die Linien des Polygons verbinden</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
@@ -8999,7 +9081,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>Konve&amp;xes Polygon</translation>
+        <translation type="obsolete">Konve&amp;xes Polygon</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -9080,6 +9162,46 @@ des Dokuments mit der Erweiterung .bak</translation>
     <message>
         <source>Apply &amp;Under Color Removal</source>
         <translation>Unterfarben&amp;reduktion anwenden</translation>
+    </message>
+    <message>
+        <source>T&amp;emplates:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="unfinished">Ä&amp;ndern...</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Additional Directory for Document Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished">Mit dieser Option werden ein paar Grautöne, die entstehen,
+wenn Black aus Cyan, Magenta und Yellow gemischt wird, durch Schwarz ersetzt.
+Hauptsächlich werden davon neutrale und dunkle Farbtöne beeinflusst,
+die Grau sehr nahe stehen. Diese Option kann zu besseren Bildern führen,
+allerdings müssen Sie von Fall zu Fall entscheiden, wie Sie bessere Ergebnisse
+bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
+</translation>
     </message>
 </context>
 <context>
@@ -9923,11 +10045,11 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>Importer</source>
-        <translation>Importfilter</translation>
+        <translation type="obsolete">Importfilter</translation>
     </message>
     <message>
         <source>Choose the importer to use</source>
-        <translation>Wählen Sie den Importfilter aus</translation>
+        <translation type="obsolete">Wählen Sie den Importfilter aus</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -9967,6 +10089,18 @@ External Links
 </source>
         <translation>
 Externe Links</translation>
+    </message>
+    <message>
+        <source>Font %1 is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OO.o Writer Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Filters</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12272,7 +12406,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Wollen Sie diese Stilvorlage wirklich löschen?</translation>
+        <translation type="obsolete">Wollen Sie diese Stilvorlage wirklich löschen?</translation>
     </message>
     <message>
         <source>No</source>
@@ -12333,6 +12467,10 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Abbrechen</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12658,6 +12796,47 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
 </context>
 <context>
+    <name>SxwDialog</name>
+    <message>
+        <source>OO.o Writer Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there already exists a paragraph style with the same
+name than current OO.o document&apos;s paragraph should the style
+in Scribus be edited to match the one being imported
+or left untouched</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use document name as a prefix for paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scirubs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not ask again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OO.o document and
+never ask your confirmation again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+</context>
+<context>
     <name>TabManager</name>
     <message>
         <source>Manage Tabulators</source>
@@ -12877,6 +13056,33 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
 </context>
 <context>
+    <name>ValueDialog</name>
+    <message>
+        <source>Insert value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished">Alt+O</translation>
+    </message>
+    <message>
+        <source>Send your value to the script</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>WerkToolB</name>
     <message>
         <source>Tools</source>
@@ -13089,6 +13295,31 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
 </context>
 <context>
+    <name>gtImporterDialog</name>
+    <message>
+        <source>Choose the importer to use</source>
+        <translation type="unfinished">Wählen Sie den Importfilter aus</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember association</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember the file extension - importer association
+and do not ask again to select an importer for
+files of this type.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+</context>
+<context>
     <name>nftdialog</name>
     <message>
         <source>New From Template</source>
@@ -13296,6 +13527,120 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>custom</source>
         <translation>Benutzerdefiniert</translation>
+    </message>
+</context>
+<context>
+    <name>tfDia</name>
+    <message>
+        <source>Create filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">&amp;Löschen</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Löschen</translation>
+    </message>
+    <message>
+        <source>Choose a previously saved filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name to this filter for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Abbrechen</translation>
+    </message>
+</context>
+<context>
+    <name>tfFilter</name>
+    <message>
+        <source>Disable or enable this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a new filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>and</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>do not remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Entfernen</translation>
+    </message>
+    <message>
+        <source>Replace</source>
+        <translation type="unfinished">Ersetzen</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished">Anwenden</translation>
+    </message>
+    <message>
+        <source>Value at the left is a regular expression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all instances of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all paragraphs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs starting with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with less than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with more than</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

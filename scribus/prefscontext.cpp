@@ -157,6 +157,11 @@ PrefsTable* PrefsContext::getTable(const QString& name)
 	return tables[name];
 }
 
+void PrefsContext::removeTable(const QString& name)
+{
+	tables.remove(name);
+}
+
 PrefsContext::~PrefsContext()
 {
 	TableMap::Iterator it;

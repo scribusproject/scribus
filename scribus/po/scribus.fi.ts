@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Programming:</source>
-        <translation>Ohjelmointi:</translation>
+        <translation type="obsolete">Ohjelmointi:</translation>
     </message>
     <message>
         <source>Czech:</source>
@@ -33,7 +33,7 @@
     </message>
     <message>
         <source>English:</source>
-        <translation>Englanti:</translation>
+        <translation type="obsolete">Englanti:</translation>
     </message>
     <message>
         <source>Welsh:</source>
@@ -105,7 +105,7 @@
     </message>
     <message>
         <source>Documentation:</source>
-        <translation>Dokumentaatio:</translation>
+        <translation type="obsolete">Dokumentaatio:</translation>
     </message>
     <message>
         <source>About Scribus%1%2</source>
@@ -117,15 +117,15 @@
     </message>
     <message>
         <source>Homepage and online reference</source>
-        <translation>Kotisivu ja materiaali verkossa</translation>
+        <translation type="obsolete">Kotisivu ja materiaali verkossa</translation>
     </message>
     <message>
         <source>Mailing list</source>
-        <translation>Postituslista</translation>
+        <translation type="obsolete">Postituslista</translation>
     </message>
     <message>
         <source>Bugs and feature requests</source>
-        <translation>Bugit ja parannusehdotukset</translation>
+        <translation type="obsolete">Bugit ja parannusehdotukset</translation>
     </message>
     <message>
         <source>Basque:</source>
@@ -164,6 +164,42 @@ Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
     <message>
         <source>&amp;Close</source>
         <translation>&amp;Sulje</translation>
+    </message>
+    <message>
+        <source>Development Team:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Official Documentation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other Documentation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (British):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Swedish:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Online Reference</source>
+        <translation type="unfinished">Materiaali verkossa</translation>
+    </message>
+    <message>
+        <source>Bugs and Feature Requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing List</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2745,7 +2781,12 @@ joita on tarkoitus katsella näytöltä</translation>
     <name>HelpBrowser</name>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation>Pahoittelen, ohjetta ei ole saatavilla. Päivitykset ja dokumentit löytyvät osoitteesta http://scribus.net.</translation>
+        <translation type="obsolete">Pahoittelen, ohjetta ei ole saatavilla. Päivitykset ja dokumentit löytyvät osoitteesta http://scribus.net.</translation>
+    </message>
+    <message>
+        <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
+and www.scribus.net for downloads.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2775,12 +2816,12 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>Enables automatic checking of your text while typing.</source>
-        <translation>Mahdollistaa automaattisen tavutuksen kirjoittaessasi.</translation>
+        <translation type="obsolete">Mahdollistaa automaattisen tavutuksen kirjoittaessasi.</translation>
     </message>
     <message>
         <source>If you uncheck this you will get a dialog
 everytime a possible Hyphenation is found.</source>
-        <translation>Jos et valitse tätä, ilmestyy jokaisen mahdollisen
+        <translation type="obsolete">Jos et valitse tätä, ilmestyy jokaisen mahdollisen
 tavutuksen kohdalla kysymysikkuna.</translation>
     </message>
     <message>
@@ -2795,11 +2836,11 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>&amp;Fully Automatic</source>
-        <translation>&amp;Automaattinen</translation>
+        <translation type="obsolete">&amp;Automaattinen</translation>
     </message>
     <message>
         <source>Check &amp;During Typing</source>
-        <translation>&amp;Tarkasta kirjoitettaessa</translation>
+        <translation type="obsolete">&amp;Tarkasta kirjoitettaessa</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -2811,7 +2852,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>&amp;Number of Hypenations allowed:</source>
-        <translation>&amp;Sallitut peräkkäiset tavutukset:</translation>
+        <translation type="obsolete">&amp;Sallitut peräkkäiset tavutukset:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2820,6 +2861,26 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Peruuta</translation>
+    </message>
+    <message>
+        <source>&amp;Hyphenation Suggestions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hyphenate Text Automatically &amp;During Typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consecutive Hypenations &amp;Allowed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables automatic hyphenation of your text while typing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2916,7 +2977,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Do you really want do delete this Script?</source>
-        <translation>Haluatko poistaa tämän skriptin?</translation>
+        <translation type="obsolete">Haluatko poistaa tämän skriptin?</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
@@ -2945,6 +3006,10 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Kyllä</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Script?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3069,7 +3134,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Haluatko poistaa tämän tyylin?</translation>
+        <translation type="obsolete">Haluatko poistaa tämän tyylin?</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
@@ -3126,6 +3191,10 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>&amp;Yes</source>
         <translation>Ky&amp;llä</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4105,7 +4174,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Template?</source>
-        <translation>Haluatko poistaa tämän sivumallin?</translation>
+        <translation type="obsolete">Haluatko poistaa tämän sivumallin?</translation>
     </message>
     <message>
         <source>Copy of %1</source>
@@ -4158,6 +4227,10 @@ Valitse toinen nimi.</translation>
     <message>
         <source>&amp;Name:</source>
         <translation>&amp;Nimi:</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Template?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5757,7 +5830,7 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>P&amp;yöristetty monikulmio</translation>
+        <translation type="obsolete">P&amp;yöristetty monikulmio</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -5781,7 +5854,7 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Monikulmiot ovat kuperia tai koveria</translation>
+        <translation type="obsolete">Monikulmiot ovat kuperia tai koveria</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -5789,7 +5862,20 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Muuta monikulmion viivojen liittymiskulmia</translation>
+        <translation type="obsolete">Muuta monikulmion viivojen liittymiskulmia</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6266,7 +6352,7 @@ aina valitun ajan kuluttua</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Monikulmiot ovat kuperia tai koveria</translation>
+        <translation type="obsolete">Monikulmiot ovat kuperia tai koveria</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -6274,7 +6360,7 @@ aina valitun ajan kuluttua</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Muuta monikulmion viivojen liittymiskulmia</translation>
+        <translation type="obsolete">Muuta monikulmion viivojen liittymiskulmia</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
@@ -6612,7 +6698,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>&amp;Pyöristetty monikulmio</translation>
+        <translation type="obsolete">&amp;Pyöristetty monikulmio</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -6693,6 +6779,44 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source>Apply &amp;Under Color Removal</source>
         <translation>&amp;Käytä alivärinpoistoa (UCR)</translation>
+    </message>
+    <message>
+        <source>T&amp;emplates:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="unfinished">&amp;Muuta...</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Additional Directory for Document Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished">Tapa vaihtaa C, Y ja M värien tekemä harmaa mustalla tehdyksi.
+UCR vaikuttaa kuvien kohdissa, jotka ovat neutraaleja tai lähellä harmaata
+olevia tummia värejä. UCR:n käyttäminen saattaa parantaa joidenkin kuvien
+tulostamista. Parhaan tuloksen saavuttamiseksi tarvitaan tapauskohtaista
+testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-musteilla.</translation>
     </message>
 </context>
 <context>
@@ -7402,11 +7526,11 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Importer</source>
-        <translation>Tuoja</translation>
+        <translation type="obsolete">Tuoja</translation>
     </message>
     <message>
         <source>Choose the importer to use</source>
-        <translation>Valitse käytettävä tuojatyyppi</translation>
+        <translation type="obsolete">Valitse käytettävä tuojatyyppi</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -7439,6 +7563,28 @@ Tarkasta polku ja tiedostonimi.</translation>
     <message>
         <source>CSV_header</source>
         <translation>CSV_otsikko</translation>
+    </message>
+    <message>
+        <source>Font %1 is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+External Links
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OO.o Writer Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Filters</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8942,6 +9088,14 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
         <source>&amp;Edit Shape</source>
         <translation>&amp;Muokkaa kuviota</translation>
     </message>
+    <message>
+        <source>File %1 is not in Scribus format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Afrikaans</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -9251,7 +9405,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Haluatko poistaa tämän tyylin?</translation>
+        <translation type="obsolete">Haluatko poistaa tämän tyylin?</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
@@ -9304,6 +9458,10 @@ raahaa malli sivualueelle.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Peruuta</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9521,6 +9679,47 @@ raahaa malli sivualueelle.</translation>
     </message>
 </context>
 <context>
+    <name>SxwDialog</name>
+    <message>
+        <source>OO.o Writer Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there already exists a paragraph style with the same
+name than current OO.o document&apos;s paragraph should the style
+in Scribus be edited to match the one being imported
+or left untouched</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use document name as a prefix for paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scirubs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not ask again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OO.o document and
+never ask your confirmation again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+</context>
+<context>
     <name>TabManager</name>
     <message>
         <source>Manage Tabulators</source>
@@ -9677,6 +9876,33 @@ Ole hyvä ja valitse toinen nimi.</translation>
     <message>
         <source>Group </source>
         <translation>Ryhmä</translation>
+    </message>
+</context>
+<context>
+    <name>ValueDialog</name>
+    <message>
+        <source>Insert value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished">Alt+O</translation>
+    </message>
+    <message>
+        <source>Send your value to the script</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9856,6 +10082,31 @@ Ole hyvä ja valitse toinen nimi.</translation>
     </message>
 </context>
 <context>
+    <name>gtImporterDialog</name>
+    <message>
+        <source>Choose the importer to use</source>
+        <translation type="unfinished">Valitse käytettävä tuojatyyppi</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember association</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember the file extension - importer association
+and do not ask again to select an importer for
+files of this type.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+</context>
+<context>
     <name>nftdialog</name>
     <message>
         <source>New From Template</source>
@@ -10031,6 +10282,120 @@ Ole hyvä ja valitse toinen nimi.</translation>
     <message>
         <source>custom</source>
         <translation>oma</translation>
+    </message>
+</context>
+<context>
+    <name>tfDia</name>
+    <message>
+        <source>Create filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a previously saved filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name to this filter for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
+    </message>
+</context>
+<context>
+    <name>tfFilter</name>
+    <message>
+        <source>Disable or enable this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a new filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>and</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>do not remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Poista</translation>
+    </message>
+    <message>
+        <source>Replace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished">Käytä</translation>
+    </message>
+    <message>
+        <source>Value at the left is a regular expression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all instances of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all paragraphs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs starting with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with less than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with more than</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

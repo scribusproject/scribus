@@ -41,8 +41,14 @@ private:
 	PageItem *it;
 	int lastParagraphStyle;
 	bool inPara;
+	bool isFirstWrite;
+	bool doAppend;
 	bool lastCharWasLineChange;
 	bool updateParagraphStyles;
+	/* If paragraph style is used should the font style of the gtpstyle be used 
+	   or should writer respect the font set in the real paragraph style
+	*/
+	bool overridePStyleFont;
 	QString currentFrameStyle;
 	FontFamilyMap families;
 	int findParagraphStyle(const QString& name);
@@ -73,6 +79,8 @@ public:
 	QString getFrameName();
 	bool getUpdateParagraphStyles();
 	void setUpdateParagraphStyles(bool newUPS);
+	bool getOverridePStyleFont();
+	void setOverridePStyleFont(bool newOPSF);
 };
 
 #endif

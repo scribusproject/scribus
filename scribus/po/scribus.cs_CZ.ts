@@ -3853,7 +3853,7 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Programming:</source>
-        <translation>Programování:</translation>
+        <translation type="obsolete">Programování:</translation>
     </message>
     <message>
         <source>Contributions from:</source>
@@ -3865,7 +3865,7 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Documentation:</source>
-        <translation>Dokumentace:</translation>
+        <translation type="obsolete">Dokumentace:</translation>
     </message>
     <message>
         <source>Authors</source>
@@ -3933,7 +3933,7 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>English:</source>
-        <translation>Anglicky:</translation>
+        <translation type="obsolete">Anglicky:</translation>
     </message>
     <message>
         <source>Welsh:</source>
@@ -3961,15 +3961,15 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Homepage and online reference</source>
-        <translation>Domovská stránka programu</translation>
+        <translation type="obsolete">Domovská stránka programu</translation>
     </message>
     <message>
         <source>Mailing list</source>
-        <translation>E-mailová konference</translation>
+        <translation type="obsolete">E-mailová konference</translation>
     </message>
     <message>
         <source>Bugs and feature requests</source>
-        <translation>Chyby a změny programu</translation>
+        <translation type="obsolete">Chyby a změny programu</translation>
     </message>
     <message>
         <source>Online</source>
@@ -4012,6 +4012,42 @@ Chybějící knihovny jsou zobrazeny jako *</translation>
     <message>
         <source>&amp;Close</source>
         <translation>&amp;Zavřít</translation>
+    </message>
+    <message>
+        <source>Development Team:</source>
+        <translation>Vývojový tým:</translation>
+    </message>
+    <message>
+        <source>Official Documentation:</source>
+        <translation>Oficiální dokumentace:</translation>
+    </message>
+    <message>
+        <source>Other Documentation:</source>
+        <translation>Ostatní dokumentace:</translation>
+    </message>
+    <message>
+        <source>English (British):</source>
+        <translation>Britská angličtina:</translation>
+    </message>
+    <message>
+        <source>Swedish:</source>
+        <translation>Švédsky:</translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation>Webová stránky</translation>
+    </message>
+    <message>
+        <source>Online Reference</source>
+        <translation>On-line reference</translation>
+    </message>
+    <message>
+        <source>Bugs and Feature Requests</source>
+        <translation>Chyby a požadavky na změnu</translation>
+    </message>
+    <message>
+        <source>Mailing List</source>
+        <translation>Mailová skupina</translation>
     </message>
 </context>
 <context>
@@ -7407,7 +7443,12 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     </message>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation>Lituji, ale není dostupný žádný manuál! Konzultujte http://scribus.net.</translation>
+        <translation type="obsolete">Lituji, ale není dostupný žádný manuál! Konzultujte http://scribus.net.</translation>
+    </message>
+    <message>
+        <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
+and www.scribus.net for downloads.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7442,7 +7483,7 @@ Použijte 72 dpi, jestliže je obrázek určen na web nebo monitor</translation>
     <message>
         <source>If you uncheck this you will get a dialog
 everytime a possible Hyphenation is found.</source>
-        <translation>Jestliže zrušíte tuto volbu, objeví se dialog,
+        <translation type="obsolete">Jestliže zrušíte tuto volbu, objeví se dialog,
 kdykoliv bude nalezeno možné dělení slova.</translation>
     </message>
     <message>
@@ -7451,7 +7492,7 @@ kdykoliv bude nalezeno možné dělení slova.</translation>
     </message>
     <message>
         <source>Enables automatic checking of your text while typing.</source>
-        <translation>Povolí automatickou kontrolu textu během psaní.</translation>
+        <translation type="obsolete">Povolí automatickou kontrolu textu během psaní.</translation>
     </message>
     <message>
         <source>Language:</source>
@@ -7489,11 +7530,11 @@ Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translati
     </message>
     <message>
         <source>&amp;Fully Automatic</source>
-        <translation>Plně &amp;atomaticky</translation>
+        <translation type="obsolete">Plně &amp;atomaticky</translation>
     </message>
     <message>
         <source>Check &amp;During Typing</source>
-        <translation>Zkoušet během &amp;psaní</translation>
+        <translation type="obsolete">Zkoušet během &amp;psaní</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -7505,7 +7546,7 @@ Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translati
     </message>
     <message>
         <source>&amp;Number of Hypenations allowed:</source>
-        <translation>Počet povolených &amp;dělení slov:</translation>
+        <translation type="obsolete">Počet povolených &amp;dělení slov:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -7514,6 +7555,26 @@ Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translati
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Zrušit</translation>
+    </message>
+    <message>
+        <source>&amp;Hyphenation Suggestions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hyphenate Text Automatically &amp;During Typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consecutive Hypenations &amp;Allowed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables automatic hyphenation of your text while typing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7654,7 +7715,7 @@ Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translati
     </message>
     <message>
         <source>Do you really want do delete this Script?</source>
-        <translation>Opravdu chcete smazat tento skript?</translation>
+        <translation type="obsolete">Opravdu chcete smazat tento skript?</translation>
     </message>
     <message>
         <source>No</source>
@@ -7691,6 +7752,10 @@ Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translati
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Ano</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Script?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7875,7 +7940,7 @@ Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translati
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Opravdu chcete smazat tento styl?</translation>
+        <translation type="obsolete">Opravdu chcete smazat tento styl?</translation>
     </message>
     <message>
         <source>No</source>
@@ -7940,6 +8005,10 @@ Nula (0) funkci vypíná. Pozn. překl.: V české typografii max. 3.</translati
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Ano</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9324,7 +9393,7 @@ Vyberte, prosím, jiný.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Template?</source>
-        <translation>Skutečně chcete smazat tuto Šablonu?</translation>
+        <translation type="obsolete">Skutečně chcete smazat tuto Šablonu?</translation>
     </message>
     <message>
         <source>No</source>
@@ -9389,6 +9458,10 @@ Vyberte, prosím, jiný.</translation>
     <message>
         <source>&amp;Name:</source>
         <translation>&amp;Jméno:</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Template?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11718,7 +11791,7 @@ a jiné.</translation>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>Konve&amp;xní mnohoúhelník</translation>
+        <translation type="obsolete">Konve&amp;xní mnohoúhelník</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -11742,7 +11815,7 @@ a jiné.</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Mnohoúhelníky budou konvexní místo konkávních</translation>
+        <translation type="obsolete">Mnohoúhelníky budou konvexní místo konkávních</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -11750,7 +11823,20 @@ a jiné.</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Změnit úhly, podle kterých jsou spojeny čáry polygonu</translation>
+        <translation type="obsolete">Změnit úhly, podle kterých jsou spojeny čáry polygonu</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12557,7 +12643,7 @@ po každém automatickém uložení</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Mnohoúhelníky budou konvexní místo konkávních</translation>
+        <translation type="obsolete">Mnohoúhelníky budou konvexní místo konkávních</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -12565,7 +12651,7 @@ po každém automatickém uložení</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Změnit úhly, podle kterých jsou spojeny čáry polygonu</translation>
+        <translation type="obsolete">Změnit úhly, podle kterých jsou spojeny čáry polygonu</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
@@ -12929,7 +13015,7 @@ po každém automatickém uložení</translation>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>Konve&amp;xní mnohoúhelník</translation>
+        <translation type="obsolete">Konve&amp;xní mnohoúhelník</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -13010,6 +13096,44 @@ po každém automatickém uložení</translation>
     <message>
         <source>Apply &amp;Under Color Removal</source>
         <translation>Aplikovat tzv. &amp;Under Color Removal</translation>
+    </message>
+    <message>
+        <source>T&amp;emplates:</source>
+        <translation>Š&amp;ablony:</translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation>&amp;Změnit...</translation>
+    </message>
+    <message>
+        <source>Additional Directory for Document Templates</source>
+        <translation>Uživatelem definovaný adresář šablon</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished">UCR - under color removal - odstranění přebytečné barvy, která by 
+způsobila rozpíjení (při přílišné saturaci papíru barvou) nebo trhání 
+barvy při několika vrstvém (např. barevném) laserovém tisku.
+Viz. např. http://www.typo.cz/_pismo/pis-tech-post.html
+a jiné.</translation>
     </message>
 </context>
 <context>
@@ -13800,11 +13924,11 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>Importer</source>
-        <translation>Importer</translation>
+        <translation type="obsolete">Importer</translation>
     </message>
     <message>
         <source>Choose the importer to use</source>
-        <translation>Vyberte požadovaný import</translation>
+        <translation type="obsolete">Vyberte požadovaný import</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -13833,6 +13957,30 @@ Zkontrolujte cestu a název souboru.</translation>
     <message>
         <source>CSV_header</source>
         <translation>CSV_hlavička</translation>
+    </message>
+    <message>
+        <source>Font %1 is broken, discarding it</source>
+        <translation>Písmo %1 je poškozené. Bude vyřazeno</translation>
+    </message>
+    <message>
+        <source>Template: </source>
+        <translation>Šablona:</translation>
+    </message>
+    <message>
+        <source>
+External Links
+</source>
+        <translation>
+Odkazy ven
+</translation>
+    </message>
+    <message>
+        <source>OO.o Writer Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Filters</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15740,6 +15888,14 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
         <source>&amp;Edit Shape</source>
         <translation>Upravit &amp;obrys</translation>
     </message>
+    <message>
+        <source>File %1 is not in Scribus format</source>
+        <translation>Soubor %1 není ve Scribus formátu</translation>
+    </message>
+    <message>
+        <source>Afrikaans</source>
+        <translation>Afrikánsky</translation>
+    </message>
 </context>
 <context>
     <name>ScribusDoc</name>
@@ -16156,7 +16312,7 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Opravdu chcete smazat tento styl?</translation>
+        <translation type="obsolete">Opravdu chcete smazat tento styl?</translation>
     </message>
     <message>
         <source>No</source>
@@ -16213,6 +16369,10 @@ přetáhněte šablonu do náhledu strany.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Zrušit</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16538,6 +16698,47 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
 </context>
 <context>
+    <name>SxwDialog</name>
+    <message>
+        <source>OO.o Writer Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there already exists a paragraph style with the same
+name than current OO.o document&apos;s paragraph should the style
+in Scribus be edited to match the one being imported
+or left untouched</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use document name as a prefix for paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scirubs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not ask again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OO.o document and
+never ask your confirmation again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+</context>
+<context>
     <name>TabManager</name>
     <message>
         <source>Manage Tabulators</source>
@@ -16769,6 +16970,33 @@ Vyberte, prosím, jiný.</translation>
     </message>
 </context>
 <context>
+    <name>ValueDialog</name>
+    <message>
+        <source>Insert value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send your value to the script</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>WerkToolB</name>
     <message>
         <source>Tools</source>
@@ -16989,6 +17217,31 @@ Vyberte, prosím, jiný.</translation>
     </message>
 </context>
 <context>
+    <name>gtImporterDialog</name>
+    <message>
+        <source>Choose the importer to use</source>
+        <translation type="unfinished">Vyberte požadovaný import</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember association</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember the file extension - importer association
+and do not ask again to select an importer for
+files of this type.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+</context>
+<context>
     <name>nftdialog</name>
     <message>
         <source>New From Template</source>
@@ -17196,6 +17449,120 @@ Vyberte, prosím, jiný.</translation>
     <message>
         <source>custom</source>
         <translation>vlastní</translation>
+    </message>
+</context>
+<context>
+    <name>tfDia</name>
+    <message>
+        <source>Create filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Smazat</translation>
+    </message>
+    <message>
+        <source>Choose a previously saved filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name to this filter for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>tfFilter</name>
+    <message>
+        <source>Disable or enable this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a new filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>and</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>do not remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Odstranit</translation>
+    </message>
+    <message>
+        <source>Replace</source>
+        <translation type="unfinished">Nahradit</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished">Použít</translation>
+    </message>
+    <message>
+        <source>Value at the left is a regular expression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all instances of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all paragraphs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs starting with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with less than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with more than</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

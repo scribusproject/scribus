@@ -24,7 +24,7 @@
     </message>
     <message>
         <source>Programming:</source>
-        <translation>Programmering:</translation>
+        <translation type="obsolete">Programmering:</translation>
     </message>
     <message>
         <source>Contributions from:</source>
@@ -36,7 +36,7 @@
     </message>
     <message>
         <source>Documentation:</source>
-        <translation>Dokumentation:</translation>
+        <translation type="obsolete">Dokumentation:</translation>
     </message>
     <message>
         <source>A&amp;uthors</source>
@@ -104,7 +104,7 @@
     </message>
     <message>
         <source>English:</source>
-        <translation>Engelska:</translation>
+        <translation type="obsolete">Engelska:</translation>
     </message>
     <message>
         <source>Welsh:</source>
@@ -136,15 +136,15 @@
     </message>
     <message>
         <source>Homepage and online reference</source>
-        <translation>Hemsida och online dokumentation</translation>
+        <translation type="obsolete">Hemsida och online dokumentation</translation>
     </message>
     <message>
         <source>Mailing list</source>
-        <translation>Mailing lista</translation>
+        <translation type="obsolete">Mailing lista</translation>
     </message>
     <message>
         <source>Bugs and feature requests</source>
-        <translation>Buggar och önskade funktioner</translation>
+        <translation type="obsolete">Buggar och önskade funktioner</translation>
     </message>
     <message>
         <source>&amp;Online</source>
@@ -163,6 +163,42 @@ Missing library support is indicated by a *</source>
  kompilerade stödbibliotek för Scribus. 
 Beteckningen C-C-T betyder stöd för C=CUPS, C=littlecms och T=Tiff. 
 Avsaknad av stöd är markerat med *</translation>
+    </message>
+    <message>
+        <source>Development Team:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Official Documentation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other Documentation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (British):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Swedish:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Online Reference</source>
+        <translation type="unfinished">Online referenshandbok</translation>
+    </message>
+    <message>
+        <source>Bugs and Feature Requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing List</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2749,8 +2785,13 @@ Du kan också lägga till ytterligare färger i toningen.</translation>
     <name>HelpBrowser</name>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation>Tyvärr finns ingen handbok installerad. Gå till http://www.scribus.net(next)
+        <translation type="obsolete">Tyvärr finns ingen handbok installerad. Gå till http://www.scribus.net(next)
 för uppdaterad dokumentation och nerladdning</translation>
+    </message>
+    <message>
+        <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
+and www.scribus.net for downloads.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2780,11 +2821,11 @@ för uppdaterad dokumentation och nerladdning</translation>
     </message>
     <message>
         <source>&amp;Fully Automatic</source>
-        <translation>He&amp;lt automatiskt</translation>
+        <translation type="obsolete">He&amp;lt automatiskt</translation>
     </message>
     <message>
         <source>Check &amp;During Typing</source>
-        <translation>Kontrollera vi&amp;d inskrivning</translation>
+        <translation type="obsolete">Kontrollera vi&amp;d inskrivning</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -2796,7 +2837,7 @@ för uppdaterad dokumentation och nerladdning</translation>
     </message>
     <message>
         <source>&amp;Number of Hypenations allowed:</source>
-        <translation>A&amp;ntal tillåtna avstavningar:</translation>
+        <translation type="obsolete">A&amp;ntal tillåtna avstavningar:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2809,12 +2850,12 @@ för uppdaterad dokumentation och nerladdning</translation>
     <message>
         <source>If you uncheck this you will get a dialog
 everytime a possible Hyphenation is found.</source>
-        <translation>Om du avmarkerar denna får du en dialogruta(new line)
+        <translation type="obsolete">Om du avmarkerar denna får du en dialogruta(new line)
 varje gång en möjlig avstavning hittas.</translation>
     </message>
     <message>
         <source>Enables automatic checking of your text while typing.</source>
-        <translation>Aktiverar automatisk kontroll av texten under inskrivning.</translation>
+        <translation type="obsolete">Aktiverar automatisk kontroll av texten under inskrivning.</translation>
     </message>
     <message>
         <source>Length of the smallest word to be hyphenated.</source>
@@ -2825,6 +2866,26 @@ varje gång en möjlig avstavning hittas.</translation>
 A value of 0 means unlimited hyphenations.</source>
         <translation>Maximalt antal avstavningar i följd(new line)
 Värdet 0 innebär obegränsat med avstavningar.</translation>
+    </message>
+    <message>
+        <source>&amp;Hyphenation Suggestions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hyphenate Text Automatically &amp;During Typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consecutive Hypenations &amp;Allowed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables automatic hyphenation of your text while typing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2941,7 +3002,7 @@ Värdet 0 innebär obegränsat med avstavningar.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Script?</source>
-        <translation>Vill du verkligen ta bort detta skript?</translation>
+        <translation type="obsolete">Vill du verkligen ta bort detta skript?</translation>
     </message>
     <message>
         <source>&amp;No</source>
@@ -2950,6 +3011,10 @@ Värdet 0 innebär obegränsat med avstavningar.</translation>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Ja</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Script?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3110,7 +3175,7 @@ Värdet 0 innebär obegränsat med avstavningar.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Vill du verkligen ta bort denna stilmall?</translation>
+        <translation type="obsolete">Vill du verkligen ta bort denna stilmall?</translation>
     </message>
     <message>
         <source>&amp;No</source>
@@ -3131,6 +3196,10 @@ Värdet 0 innebär obegränsat med avstavningar.</translation>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Dokument (*.sla *.scd);;Alla filer (*)</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4131,7 +4200,7 @@ Vänligen välj ett annat.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Template?</source>
-        <translation>Vill du verkligen ta bort denna mall?</translation>
+        <translation type="obsolete">Vill du verkligen ta bort denna mall?</translation>
     </message>
     <message>
         <source>&amp;No</source>
@@ -4164,6 +4233,10 @@ Vänligen välj ett annat.</translation>
     <message>
         <source>Normal</source>
         <translation>Normal</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Template?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5757,7 +5830,7 @@ UCR minskar risken för övermättnad av CMG färger.</translation>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>Konve&amp;x polygon</translation>
+        <translation type="obsolete">Konve&amp;x polygon</translation>
     </message>
     <message>
         <source> %</source>
@@ -5785,7 +5858,7 @@ UCR minskar risken för övermättnad av CMG färger.</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Polygonerna blir konvexa snarare än konkava</translation>
+        <translation type="obsolete">Polygonerna blir konvexa snarare än konkava</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -5793,7 +5866,20 @@ UCR minskar risken för övermättnad av CMG färger.</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Ändrar vinkeln mellan polygonerna</translation>
+        <translation type="obsolete">Ändrar vinkeln mellan polygonerna</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6212,7 +6298,7 @@ UCR minskar risken för övermättnad av CMG färger.</translation>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>Konve&amp;x polygon</translation>
+        <translation type="obsolete">Konve&amp;x polygon</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -6612,7 +6698,7 @@ efter varje tidsperiod</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Polygonerna blir konvexa snarare än konkava</translation>
+        <translation type="obsolete">Polygonerna blir konvexa snarare än konkava</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -6620,7 +6706,7 @@ efter varje tidsperiod</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Ändrar vinkeln mellan polygonerna</translation>
+        <translation type="obsolete">Ändrar vinkeln mellan polygonerna</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
@@ -6698,6 +6784,45 @@ efter varje tidsperiod</translation>
         <source> p</source>
         <translation>p</translation>
     </message>
+    <message>
+        <source>T&amp;emplates:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="unfinished">Ä&amp;ndra...</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Additional Directory for Document Templates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished">En metod för att ta bort en del av de gråtoner som kan uppstå (new line)
+vid blandning av cyan, gult och magenta genom att ersätta med svart.(new line)
+UCR påverkar de delar av bilden som är neutrala och/eller har mörka toner(new line)
+i närheten av grått. Användande av UCR kan förbättra tryckkvalitetn för en del bilder(new line)
+och för bästa resultat krävs testning och experiment från fall till fall.(new line)
+UCR förhindrar risken för övermättnad med CMG färger</translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -6743,11 +6868,11 @@ efter varje tidsperiod</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avbryt</translation>
     </message>
     <message>
         <source>&amp;Add to Custom Colors</source>
@@ -6786,27 +6911,27 @@ efter varje tidsperiod</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avbryt</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alla filer (*)</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Namn</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Storlek</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Typ</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Datum</translation>
     </message>
     <message>
         <source>Attributes</source>
@@ -6814,7 +6939,7 @@ efter varje tidsperiod</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">OK</translation>
     </message>
     <message>
         <source>Look &amp;in:</source>
@@ -6874,7 +6999,7 @@ efter varje tidsperiod</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fil</translation>
     </message>
     <message>
         <source>Dir</source>
@@ -6886,7 +7011,7 @@ efter varje tidsperiod</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Öppna</translation>
     </message>
     <message>
         <source>Save As</source>
@@ -6898,7 +7023,7 @@ efter varje tidsperiod</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Spara</translation>
     </message>
     <message>
         <source>&amp;Rename</source>
@@ -6906,7 +7031,7 @@ efter varje tidsperiod</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Ta bort</translation>
     </message>
     <message>
         <source>R&amp;eload</source>
@@ -6958,11 +7083,11 @@ efter varje tidsperiod</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Ja</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Nej</translation>
     </message>
     <message>
         <source>New Folder 1</source>
@@ -6986,7 +7111,7 @@ efter varje tidsperiod</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Spara</translation>
     </message>
     <message>
         <source>Error</source>
@@ -7015,7 +7140,7 @@ Check path and filename.</source>
     <name>QFontDialog</name>
     <message>
         <source>&amp;Font</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Typsnitt</translation>
     </message>
     <message>
         <source>Font st&amp;yle</source>
@@ -7023,11 +7148,11 @@ Check path and filename.</source>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Storlek</translation>
     </message>
     <message>
         <source>Effects</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Effekter</translation>
     </message>
     <message>
         <source>Stri&amp;keout</source>
@@ -7039,7 +7164,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>&amp;Color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Färg</translation>
     </message>
     <message>
         <source>Sample</source>
@@ -7051,7 +7176,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">OK</translation>
     </message>
     <message>
         <source>Apply</source>
@@ -7059,11 +7184,11 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avbryt</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stäng</translation>
     </message>
     <message>
         <source>Select Font</source>
@@ -7074,19 +7199,19 @@ Check path and filename.</source>
     <name>QLineEdit</name>
     <message>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rensa</translation>
     </message>
     <message>
         <source>Select All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Markera allt</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ån&amp;gra</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gör &amp;om</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
@@ -7130,20 +7255,12 @@ Check path and filename.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Importer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choose the importer to use</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>All Supported Formats</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alla format som stöds</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alla filer (*)</translation>
     </message>
     <message>
         <source>Initializing...</source>
@@ -7151,7 +7268,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dokument</translation>
     </message>
     <message>
         <source>Background</source>
@@ -7159,7 +7276,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Varning</translation>
     </message>
     <message>
         <source>Do you really want to overwrite the File:
@@ -7168,11 +7285,11 @@ Check path and filename.</source>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Förhandsvisning av typsnitt</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Infoga special...</translation>
     </message>
     <message>
         <source>New &amp;from Template...</source>
@@ -7442,6 +7559,28 @@ Check path and filename.</source>
         <source>Text Files</source>
         <translation>Textfiler</translation>
     </message>
+    <message>
+        <source>Font %1 is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+External Links
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OO.o Writer Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Filters</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -7482,7 +7621,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Shade</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nyans</translation>
     </message>
     <message>
         <source>Unshade</source>
@@ -7502,7 +7641,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stäng</translation>
     </message>
 </context>
 <context>
@@ -7517,7 +7656,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Storlek</translation>
     </message>
     <message>
         <source>Mi&amp;nimize</source>
@@ -7529,7 +7668,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Stäng</translation>
     </message>
     <message>
         <source>Stay on &amp;Top</source>
@@ -7545,7 +7684,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stäng</translation>
     </message>
     <message>
         <source>Sh&amp;ade</source>
@@ -7564,30 +7703,30 @@ Check path and filename.</source>
     <name>Query</name>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Avbryt</translation>
     </message>
 </context>
 <context>
     <name>ReformDoc</name>
     <message>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">tum</translation>
     </message>
     <message>
         <source> p</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">p</translation>
     </message>
     <message>
         <source>Document Setup</source>
@@ -7595,11 +7734,11 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Marginallinjer</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ö&amp;verst:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
@@ -7607,15 +7746,15 @@ Check path and filename.</source>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Nederst:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Höge&amp;r:</translation>
     </message>
     <message>
         <source>&amp;Facing Pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Uppslag</translation>
     </message>
     <message>
         <source>Left &amp;Page First</source>
@@ -7623,11 +7762,11 @@ Check path and filename.</source>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Avbryt</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
@@ -7635,29 +7774,31 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Make the first page the left page of the document</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gör dokumentets förstasida till en vänstersida</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avstånd mellan övre marginallinjen och papperskanten</translation>
     </message>
     <message>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avstånd mellan nedre marginallinjen och papperskanten</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avstånd mellan vänster marginallinje och papperskanten.(new line)
+Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginalavstånd för bindning</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avstånd mellan höger marginallinje och papperskanten.(new line)
+Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginalavstånd för bindning</translation>
     </message>
     <message>
         <source>&amp;Inside:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Innanför:</translation>
     </message>
     <message>
         <source>&amp;Outside:</source>
@@ -7672,7 +7813,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Style of current paragraph</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stil på valt stycke</translation>
     </message>
 </context>
 <context>
@@ -7683,7 +7824,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inget</translation>
     </message>
     <message>
         <source>Color of text fill</source>
@@ -7691,7 +7832,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Saturation of color of text fill</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mättnad på fyllnadsfärg för text</translation>
     </message>
 </context>
 <context>
@@ -7702,7 +7843,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inget</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -7710,7 +7851,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mättnad på färg på textkontur</translation>
     </message>
 </context>
 <context>
@@ -7721,11 +7862,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">pt</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">%</translation>
     </message>
     <message>
         <source>Font of selected text</source>
@@ -7733,11 +7874,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Font Size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Typgrad</translation>
     </message>
     <message>
         <source>Scaling width of characters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Storleksförändra teckenbredd</translation>
     </message>
 </context>
 <context>
@@ -7752,18 +7893,18 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">pt</translation>
     </message>
     <message>
         <source>Manual Kerning</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Manuell kerning</translation>
     </message>
 </context>
 <context>
     <name>ScriXmlDoc</name>
     <message>
         <source>Copy #%1 of </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopia #%1 av</translation>
     </message>
     <message>
         <source>Background</source>
@@ -8944,6 +9085,14 @@ Välj något av följande:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Skapa&lt;/b&gt;
         <source>Scribus crashes due to Signal #%1</source>
         <translation>Scribus har avbrutits på grund av signal #%1</translation>
     </message>
+    <message>
+        <source>File %1 is not in Scribus format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Afrikaans</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -9045,7 +9194,7 @@ Välj något av följande:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Skapa&lt;/b&gt;
     </message>
     <message>
         <source>Font Size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Typgrad</translation>
     </message>
     <message>
         <source>Font Effects</source>
@@ -9069,15 +9218,15 @@ Välj något av följande:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Skapa&lt;/b&gt;
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vänster</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Centrera</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Höger</translation>
     </message>
     <message>
         <source>Block</source>
@@ -9089,11 +9238,11 @@ Välj något av följande:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Skapa&lt;/b&gt;
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">pt</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inget</translation>
     </message>
     <message>
         <source>Replace with:</source>
@@ -9121,7 +9270,7 @@ Välj något av följande:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Skapa&lt;/b&gt;
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Stäng</translation>
     </message>
     <message>
         <source>Search finished</source>
@@ -9129,7 +9278,7 @@ Välj något av följande:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Skapa&lt;/b&gt;
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">OK</translation>
     </message>
 </context>
 <context>
@@ -9169,7 +9318,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Normal</translation>
     </message>
 </context>
 <context>
@@ -9184,11 +9333,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;&gt;&gt;</translation>
     </message>
     <message>
         <source>&amp;&lt;&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;&lt;&lt;</translation>
     </message>
     <message>
         <source>Selected Fields</source>
@@ -9196,11 +9345,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Avbryt</translation>
     </message>
 </context>
 <context>
@@ -9211,25 +9360,25 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;Shade:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nyan&amp;s:</translation>
     </message>
     <message>
         <source>Shade</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nyans</translation>
     </message>
 </context>
 <context>
     <name>SideBar</name>
     <message>
         <source>No Style</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ingen stilmall</translation>
     </message>
 </context>
 <context>
     <name>Spalette</name>
     <message>
         <source>No Style</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ingen stilmall</translation>
     </message>
 </context>
 <context>
@@ -9240,70 +9389,70 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Lägg till</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Ny</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">R&amp;edigera</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">D&amp;uplicera</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Ta bort</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Spara</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Avbryt</translation>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kopia av %1</translation>
     </message>
     <message>
         <source>New Style</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ny stil</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Varning</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nej</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ja</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Öppna</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dokument (*.sla *.sla.gz *.scd *scd.gz);;Alla filer (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
+        <translation type="unfinished">Dokument (*.sla *.scd);;Alla filer (*)</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9522,6 +9671,47 @@ drag a Template to the Pageview below.</source>
     </message>
 </context>
 <context>
+    <name>SxwDialog</name>
+    <message>
+        <source>OO.o Writer Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there already exists a paragraph style with the same
+name than current OO.o document&apos;s paragraph should the style
+in Scribus be edited to match the one being imported
+or left untouched</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use document name as a prefix for paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scirubs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not ask again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OO.o document and
+never ask your confirmation again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+</context>
+<context>
     <name>TabManager</name>
     <message>
         <source>Manage Tabulators</source>
@@ -9615,7 +9805,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Typ</translation>
     </message>
     <message>
         <source>Information</source>
@@ -9623,16 +9813,17 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Varning</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Namnet &quot;%1&quot; är inte unikt.(new line)
+Vänligen välj ett annat.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">OK</translation>
     </message>
     <message>
         <source>X:</source>
@@ -9640,7 +9831,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Y:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">G:</translation>
     </message>
     <message>
         <source>Font:</source>
@@ -9652,19 +9843,19 @@ Please choose another.</source>
     </message>
     <message>
         <source>Image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bild</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Text</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Linje</translation>
     </message>
     <message>
         <source>Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Polygon</translation>
     </message>
     <message>
         <source>Polyline</source>
@@ -9672,10 +9863,37 @@ Please choose another.</source>
     </message>
     <message>
         <source>PathText</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kurvtext</translation>
     </message>
     <message>
         <source>Page</source>
+        <translation type="unfinished">Sida</translation>
+    </message>
+</context>
+<context>
+    <name>ValueDialog</name>
+    <message>
+        <source>Insert value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished">Alt+O</translation>
+    </message>
+    <message>
+        <source>Send your value to the script</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9683,7 +9901,7 @@ Please choose another.</source>
     <name>WerkToolB</name>
     <message>
         <source>Tools</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verktyg</translation>
     </message>
     <message>
         <source>Select Items</source>
@@ -9699,7 +9917,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Insert Table</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Infoga tabell</translation>
     </message>
     <message>
         <source>Properties...</source>
@@ -9762,23 +9980,23 @@ Please choose another.</source>
     </message>
     <message>
         <source>Button</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Knapp:</translation>
     </message>
     <message>
         <source>Text Field</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Textfält:</translation>
     </message>
     <message>
         <source>Check Box</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kryssruta:</translation>
     </message>
     <message>
         <source>Combo Box</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Radioknapp:</translation>
     </message>
     <message>
         <source>List Box</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lista</translation>
     </message>
     <message>
         <source>Insert PDF Fields</source>
@@ -9786,11 +10004,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Text</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Länk</translation>
     </message>
     <message>
         <source>Insert PDF Annotations</source>
@@ -9809,11 +10027,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ra&amp;dera</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Stäng</translation>
     </message>
     <message>
         <source>Insert the characters at the cursor in the text</source>
@@ -9836,7 +10054,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Automatic</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Automatisk</translation>
     </message>
     <message>
         <source>Get text only</source>
@@ -9852,7 +10070,32 @@ Please choose another.</source>
     </message>
     <message>
         <source>Encoding:</source>
+        <translation type="unfinished">Kodning:</translation>
+    </message>
+</context>
+<context>
+    <name>gtImporterDialog</name>
+    <message>
+        <source>Choose the importer to use</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember association</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember the file extension - importer association
+and do not ask again to select an importer for
+files of this type.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
     </message>
 </context>
 <context>
@@ -9863,15 +10106,15 @@ Please choose another.</source>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Avbryt</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Ta bort</translation>
     </message>
     <message>
         <source>&amp;Open</source>
@@ -9879,19 +10122,19 @@ Please choose another.</source>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Allt</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Namn</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sidstorlek</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Färger</translation>
     </message>
     <message>
         <source>Description</source>
@@ -9907,7 +10150,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Date</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Datum</translation>
     </message>
     <message>
         <source>Author</source>
@@ -9966,7 +10209,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Namn</translation>
     </message>
     <message>
         <source>Category</source>
@@ -9974,11 +10217,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sidstorlek</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Färger</translation>
     </message>
     <message>
         <source>Description</source>
@@ -10002,7 +10245,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">OK</translation>
     </message>
     <message>
         <source>Less Details</source>
@@ -10010,15 +10253,15 @@ Please choose another.</source>
     </message>
     <message>
         <source>Legal</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Legal</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Letter</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tabloid</translation>
     </message>
     <message>
         <source>landscape</source>
@@ -10030,6 +10273,120 @@ Please choose another.</source>
     </message>
     <message>
         <source>custom</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>tfDia</name>
+    <message>
+        <source>Create filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">Ra&amp;dera</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Ta bort</translation>
+    </message>
+    <message>
+        <source>Choose a previously saved filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name to this filter for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
+    </message>
+</context>
+<context>
+    <name>tfFilter</name>
+    <message>
+        <source>Disable or enable this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a new filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>and</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>do not remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Ta bort</translation>
+    </message>
+    <message>
+        <source>Replace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value at the left is a regular expression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all instances of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all paragraphs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs starting with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with less than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with more than</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

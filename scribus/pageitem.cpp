@@ -600,7 +600,15 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					Zli3.kern = hl->cextra;
 					Zli3.scale = hl->cscale;
 					if (!Doc->RePos)
+					{
 						DrawZeichenS(p, &Zli3);
+						if (hl->cstyle & 512)
+						{
+							Zli3.Zeich = "-";
+							Zli3.xco = Zli3.xco + Cwidth(Doc, hl->cfont, chx, hl->csize);
+							DrawZeichenS(p, &Zli3);
+						}
+					}
 				}
 				if (Ptext.count() > MaxChars)
 				{

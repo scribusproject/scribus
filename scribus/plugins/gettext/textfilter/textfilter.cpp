@@ -1,0 +1,232 @@
+#include "textfilter.h"
+#include <qcstring.h>
+#include <qfile.h>
+#include <qfileinfo.h>
+#include <qstring.h>
+#include <qstringlist.h>
+#include <qtextcodec.h>
+#include <qregexp.h> 
+#include <qmap.h>
+#include <prefsfile.h>
+#include <vector>
+#include <gtframestyle.h>
+#include <gtparagraphstyle.h>
+#include "tfdia.h"
+
+extern PrefsFile* prefsFile;
+
+QString FileFormatName()
+{
+    return QObject::tr("Text Filters");
+}
+
+QStringList FileExtensions()
+{
+	return QStringList();
+}
+
+void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
+{
+	TextFilter* tf = new TextFilter(filename, encoding, writer);
+	delete tf;
+}
+
+/*********** Class TextFilter *************************************/
+
+TextFilter::TextFilter(const QString& fname, const QString& enc, gtWriter* w)
+{
+	filename = fname;
+	encoding = enc;
+	writer = w;
+	writer->setOverridePStyleFont(false);
+	prefs = prefsFile->getPluginContext("TextFilter");
+	tfDia* tfdia = new tfDia();
+	if (tfdia->exec())
+	{
+		filters = &(tfdia->filters);
+		loadText();
+		toUnicode();
+		write();
+	}
+	delete tfdia;
+}
+
+
+void TextFilter::loadText()
+{
+	text = "";
+	QFile f(filename);
+	QFileInfo fi(f);
+	if (!fi.exists())
+		return;
+	uint posi;
+//	bool ret;
+	QByteArray bb(f.size());
+	if (f.open(IO_ReadOnly))
+	{
+		f.readBlock(bb.data(), f.size());
+		f.close();
+		for (posi = 0; posi < bb.size(); ++posi)
+			text += bb[posi];
+	}
+}
+
+void TextFilter::toUnicode()
+{
+	QTextCodec *codec;
+	if (encoding == "")
+		codec = QTextCodec::codecForLocale();
+	else
+		codec = QTextCodec::codecForName(encoding);
+	QString dec = codec->toUnicode(text);
+	text = dec;
+}
+
+void TextFilter::write()
+{
+	QMap<QString, gtParagraphStyle*> pstyles;
+	gtFrameStyle* fstyle = writer->getDefaultStyle();
+	for (int i = 0; i < static_cast<int>(filters->size()); ++i)
+	{
+		if ((*filters)[i]->isEnabled())
+		{
+			int action = (*filters)[i]->getAction();
+			QString regExp = (*filters)[i]->regExp();
+			QString replaceWith = (*filters)[i]->replaceWith();
+			bool useRegexp = (*filters)[i]->isRegExp();
+			if (useRegexp)
+				replace(&replaceWith);
+			QString pstyle = (*filters)[i]->getPStyleName();
+//			int lessThan = (*filters)[i]->getLessThan();
+//			int moreThan = (*filters)[i]->getMoreThan();
+			QRegExp rx = QRegExp(regExp);
+			switch (action)
+			{
+				case REMOVE: 
+					if (useRegexp)
+						text = text.remove(rx);
+					else
+						text = text.remove(regExp);
+					break;
+				case REPLACE:
+					if (useRegexp)
+						text = text.replace(rx, replaceWith); 
+					else
+						text = text.replace(regExp, replaceWith);
+					break;
+				case APPLY: 
+					pstyles[pstyle] = new gtParagraphStyle(*fstyle);
+					pstyles[pstyle]->setName(pstyle);
+					break;
+			}
+		}
+	}
+	if (pstyles.size() == 0)
+		writer->append(text);
+	else
+	{
+		QStringList list = QStringList::split("\n", text, true);
+		gtParagraphStyle *useStyle = NULL;
+		for (int i = 0; i < static_cast<int>(list.size()); ++i)
+		{
+			QString tmpText = list[i];
+			QString tmpText2 = tmpText;
+			tmpText2.simplifyWhiteSpace();
+			int numberOfWords = tmpText2.contains(" ");
+			++numberOfWords;
+			useStyle = NULL;
+			for (int j = 0; j < static_cast<int>(filters->size()); ++j)
+			{
+				if ((*filters)[j]->isEnabled())
+				{
+					int action = (*filters)[j]->getAction();
+					QString regExp = (*filters)[j]->regExp();
+					QString replaceWith = (*filters)[j]->replaceWith();
+					bool useRegexp = (*filters)[j]->isRegExp();
+					if (useRegexp)
+						replace(&replaceWith);
+					QString pstyle = (*filters)[j]->getPStyleName();
+					int lessThan = (*filters)[j]->getLessThan();
+					int moreThan = (*filters)[j]->getMoreThan();
+					int style = (*filters)[j]->getStyle();
+					bool removeMatch = (*filters)[j]->removeMatch();
+					QRegExp rx = QRegExp(regExp);
+					if (pstyle != "")
+					{
+						switch (action)
+						{
+							case APPLY:
+								switch (style)
+								{
+								case ALL_PARAGRAPHS:
+									useStyle = pstyles[pstyle];
+									break;
+								case STARTS_WITH:
+									if (useRegexp)
+									{
+										if (tmpText2.find(rx) == 0)
+										{
+											useStyle = pstyles[pstyle];
+											if (removeMatch)
+												tmpText.remove(rx);
+										}
+									}
+									else
+									{
+										if (tmpText2.find(regExp) == 0)
+										{
+											useStyle = pstyles[pstyle];
+											if (removeMatch)
+												tmpText.remove(regExp);
+										}
+									}
+									break;
+								case LESS_THAN:
+									if ((lessThan != -1) && (numberOfWords < lessThan))
+										useStyle = pstyles[pstyle];
+									break;
+								case MORE_THAN:
+									if ((moreThan != -1) && (numberOfWords > moreThan))
+										useStyle = pstyles[pstyle];
+									break;
+								}
+								break;
+						}
+					}
+				}
+			}
+			if (i == static_cast<int>(list.size()) - 1)
+				writer->append(tmpText, useStyle);
+			else
+				writer->append(tmpText + "\n", useStyle);
+		}
+	}
+}
+
+void TextFilter::replace(QString* text)
+{
+	text->replace("\\\\t", "__|TABCHAR|__");
+	text->replace("\\t", "\t");
+	text->replace("__|TABCHAR|__", "\\t");
+
+	text->replace("\\\\n", "__|L-C|__");
+	text->replace("\\n", "\n");
+	text->replace("__|L-C|__", "\\n");
+
+	text->replace("\\\\f", "__|F-CHAR|__");
+	text->replace("\\f", "\f");
+	text->replace("__|F-CHAR|__", "\\f");
+
+	text->replace("\\\\r", "__|R-CHAR|__");
+	text->replace("\\r", "\r");
+	text->replace("__|R-CHAR|__", "\\r");
+
+	text->replace("\\\\v", "__|V-CHAR|__");
+	text->replace("\\v", "\v");
+	text->replace("__|V-CHAR|__", "\\v");
+}
+
+TextFilter::~TextFilter()
+{
+
+}

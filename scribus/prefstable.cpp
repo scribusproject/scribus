@@ -73,7 +73,7 @@ void PrefsTable::set(int row, int col, const std::string& value)
 
 void PrefsTable::set(int row, int col, const QString& value)
 {
-	checkSize(row, col, value);
+	checkSize(row, col, "__NOT__SET__");
 	table[row]->insert(table[row]->at(col), value);
 }
 
@@ -132,6 +132,41 @@ void PrefsTable::set(int row, int col, bool value)
 	set(row, col, QString("%1").arg(value));
 }
 
+int PrefsTable::find(int searchCol, const QString& what)
+{
+	if ((searchCol < 0) || (searchCol >= width()))
+		return -1;
+
+	int rowi = -1;
+	for (int i = 0; i < height(); ++i)
+	{
+		if ((get(i, searchCol, "__NOT__SET__") == what) &&
+		    (get(i, searchCol, "__NOT__SET__") != "__NOT__SET__"))
+		{
+			rowi = i;
+			break;
+		}
+	}
+
+	return rowi;
+}
+
+void PrefsTable::removeRow(int colIndex, const QString& what)
+{
+	if ((colIndex < 0) || (colIndex >= width()))
+		return;
+
+	Table::iterator it = table.begin();
+	for (int i = 0; i < height(); ++i, ++it)
+	{
+		if (get(i, colIndex, "__NOT__SET__") == what)
+		{
+			table.erase(it);
+			--rowCount;
+		}
+	}
+}
+
 void PrefsTable::checkSize(int rowIndex, int colIndex, QString defValue)
 {
 	checkHeight(rowIndex);
@@ -152,9 +187,9 @@ void PrefsTable::checkWidth(int rowIndex, int colIndex, QString defValue)
 {
 	if (static_cast<int>(table[rowIndex]->size()) <= (colIndex + 1))
 	{
-		for (uint i = 0; i < ((colIndex + 1) - table[rowIndex]->size()); ++i)
+		for (int i = 0; i < ((colIndex + 1) - static_cast<int>(table[rowIndex]->size())); ++i)
 		{
-			if (i == colIndex - table[rowIndex]->size())
+			if (i == colIndex - static_cast<int>(table[rowIndex]->size()))
 				table[rowIndex]->push_back(defValue);
 			else
 				table[rowIndex]->push_back("__NOT__SET__");

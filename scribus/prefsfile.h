@@ -37,9 +37,10 @@ private:
 	void load();
 	QString replaceIllegalChars(const QString& text);
 	void writeContexts(ContextMap* contextMap, QTextStream& stream);
+	void canWrite();
 public:
 	PrefsFile();
-	PrefsFile(const QString& pFilePath);
+	PrefsFile(const QString& pFilePath, bool write = true);
 	~PrefsFile();
 	bool contextExists();
 	PrefsContext* getContext(const QString& contextName, bool persistent = true);

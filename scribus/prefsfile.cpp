@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include <qfile.h>
+#include <qfileinfo.h>
 #include <qstring.h>
 #include <qxml.h>
 #include "prefsfile.h"
@@ -31,10 +32,12 @@ PrefsFile::PrefsFile()
 	ioEnabled = false;
 }
 
-PrefsFile::PrefsFile(const QString& pFilePath)
+PrefsFile::PrefsFile(const QString& pFilePath, bool write)
 {
 	prefsFilePath = pFilePath;
-	ioEnabled = true;
+	ioEnabled = write;
+	if (ioEnabled)
+		canWrite();
 	load();
 }
 
@@ -103,18 +106,18 @@ void PrefsFile::writeContexts(ContextMap* contextMap, QTextStream& stream)
 	{
 		if ((it.data()->isPersistent()) && (!it.data()->isEmpty()))
 		{
-			stream << "\t\t<context name=\"" + it.key() + "\">\n";
+			stream << "\t\t<context name=\"" + replaceIllegalChars(it.key()) + "\">\n";
 			AttributeMap::Iterator it2;
 			PrefsContext* tmpCon = it.data();
 			for (it2 = tmpCon->values.begin(); it2 != tmpCon->values.end(); ++it2)
 			{
-				stream << "\t\t\t<attribute key=\"" + it2.key() + "\" ";
+				stream << "\t\t\t<attribute key=\"" + replaceIllegalChars(it2.key()) + "\" ";
 				stream << "value=\""  + replaceIllegalChars(it2.data()) + "\"/>\n";
 			}
 			TableMap::Iterator it3;
 			for (it3 = tmpCon->tables.begin(); it3 != tmpCon->tables.end(); ++it3)
 			{
-				stream << "\t\t\t<table name=\"" + it3.key() + "\">\n";
+				stream << "\t\t\t<table name=\"" + replaceIllegalChars(it3.key()) + "\">\n";
 				PrefsTable* t = it3.data();
 				for (int i = 0; i < t->height(); ++i)
 				{
@@ -122,7 +125,7 @@ void PrefsFile::writeContexts(ContextMap* contextMap, QTextStream& stream)
 					for (int j = 0; j < t->width(); ++j)
 					{
 						stream << QString("\t\t\t\t\t<col index=\"%1\">").arg(j);
-						stream << replaceIllegalChars(t->get(i, j)) << "</col>\n";
+						stream << replaceIllegalChars(t->get(i, j, "__NOT__SET__")) << "</col>\n";
 					}
 					stream << "\t\t\t\t</row>\n";
 				}
@@ -142,6 +145,23 @@ QString PrefsFile::replaceIllegalChars(const QString& text)
 	s.replace("\"", "&quot;");
 	s.replace("\'", "&apos;");
 	return s;
+}
+
+void PrefsFile::canWrite()
+{
+	if (ioEnabled)
+	{
+		QFile f(prefsFilePath);
+		QFileInfo fi(f);
+		if (fi.exists())
+			ioEnabled = fi.isWritable();
+		else
+		{
+			QFile f2(prefsFilePath.left(prefsFilePath.findRev("/")));
+			QFileInfo fi2(f2);
+			ioEnabled = fi2.isWritable();
+		}
+	}
 }
 
 PrefsFile::~PrefsFile()

@@ -23,7 +23,7 @@ Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     </message>
     <message>
         <source>Programming:</source>
-        <translation>Programmering:</translation>
+        <translation type="obsolete">Programmering:</translation>
     </message>
     <message>
         <source>Czech:</source>
@@ -31,7 +31,7 @@ Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     </message>
     <message>
         <source>English:</source>
-        <translation>Engelsk:</translation>
+        <translation type="obsolete">Engelsk:</translation>
     </message>
     <message>
         <source>Welsh:</source>
@@ -103,7 +103,7 @@ Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     </message>
     <message>
         <source>Documentation:</source>
-        <translation>Dokumentation:</translation>
+        <translation type="obsolete">Dokumentation:</translation>
     </message>
     <message>
         <source>About Scribus%1%2</source>
@@ -125,15 +125,15 @@ Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     </message>
     <message>
         <source>Homepage and online reference</source>
-        <translation>Hjemmeside og &quot;online&quot; reference</translation>
+        <translation type="obsolete">Hjemmeside og &quot;online&quot; reference</translation>
     </message>
     <message>
         <source>Mailing list</source>
-        <translation>Postliste</translation>
+        <translation type="obsolete">Postliste</translation>
     </message>
     <message>
         <source>Bugs and feature requests</source>
-        <translation>Fejlreportering og anmodning om nye funktioner</translation>
+        <translation type="obsolete">Fejlreportering og anmodning om nye funktioner</translation>
     </message>
     <message>
         <source>Slovenian:</source>
@@ -176,6 +176,38 @@ Manglende biblioteksunderstøttelse er vist ved en *</translation>
     <message>
         <source>Swedish:</source>
         <translation>Svensk:</translation>
+    </message>
+    <message>
+        <source>Development Team:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Official Documentation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other Documentation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (British):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Online Reference</source>
+        <translation type="unfinished">Scripter manual</translation>
+    </message>
+    <message>
+        <source>Bugs and Feature Requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mailing List</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2781,7 +2813,12 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation>Desværre er der ingen manual tilgængelig! Se venligst http://scribus.net for den nyeste dokumentation.</translation>
+        <translation type="obsolete">Desværre er der ingen manual tilgængelig! Se venligst http://scribus.net for den nyeste dokumentation.</translation>
+    </message>
+    <message>
+        <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
+and www.scribus.net for downloads.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2811,12 +2848,12 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Enables automatic checking of your text while typing.</source>
-        <translation>Automatisk kontrol af din tekst under indtastning.</translation>
+        <translation type="obsolete">Automatisk kontrol af din tekst under indtastning.</translation>
     </message>
     <message>
         <source>If you uncheck this you will get a dialog
 everytime a possible Hyphenation is found.</source>
-        <translation>Hvis du fjerner krydset her, vil der komme en
+        <translation type="obsolete">Hvis du fjerner krydset her, vil der komme en
 dialogboks, hver gang en mulig orddeling er fundet.</translation>
     </message>
     <message>
@@ -2831,11 +2868,11 @@ Værdien 0 betyder ubegrænset antal.</translation>
     </message>
     <message>
         <source>&amp;Fully Automatic</source>
-        <translation>&amp;Helt automatisk</translation>
+        <translation type="obsolete">&amp;Helt automatisk</translation>
     </message>
     <message>
         <source>Check &amp;During Typing</source>
-        <translation>&amp;Kontrollér under indtastning</translation>
+        <translation type="obsolete">&amp;Kontrollér under indtastning</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -2847,7 +2884,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     </message>
     <message>
         <source>&amp;Number of Hypenations allowed:</source>
-        <translation>Antal tilladte &amp;orddelinger:</translation>
+        <translation type="obsolete">Antal tilladte &amp;orddelinger:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2856,6 +2893,26 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Annullér</translation>
+    </message>
+    <message>
+        <source>&amp;Hyphenation Suggestions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hyphenate Text Automatically &amp;During Typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consecutive Hypenations &amp;Allowed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables automatic hyphenation of your text while typing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2952,7 +3009,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Script?</source>
-        <translation>Ønsker du virkelig at slette denne script?</translation>
+        <translation type="obsolete">Ønsker du virkelig at slette denne script?</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
@@ -2981,6 +3038,10 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Ja</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Script?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3109,7 +3170,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Ønsker du virkelig at slette denne stil?</translation>
+        <translation type="obsolete">Ønsker du virkelig at slette denne stil?</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
@@ -3166,6 +3227,10 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Ja</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4150,7 +4215,7 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Template?</source>
-        <translation>Ønsker du virkelig at slette denne skabelon?</translation>
+        <translation type="obsolete">Ønsker du virkelig at slette denne skabelon?</translation>
     </message>
     <message>
         <source>Copy of %1</source>
@@ -4203,6 +4268,10 @@ Vælg venligst et andet.</translation>
     <message>
         <source>&amp;Name:</source>
         <translation>&amp;Navn:</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Template?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5809,7 +5878,7 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>Conve&amp;x Polygon</translation>
+        <translation type="obsolete">Conve&amp;x Polygon</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -5833,7 +5902,7 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Polygoner vil være convex snarere end concav</translation>
+        <translation type="obsolete">Polygoner vil være convex snarere end concav</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -5841,7 +5910,20 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Vælg de vinkler, som polygonens linier forbindes med</translation>
+        <translation type="obsolete">Vælg de vinkler, som polygonens linier forbindes med</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6322,7 +6404,7 @@ hver gang det valgte tids-interval udløber</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Polygoner vil være convex snarere end concav</translation>
+        <translation type="obsolete">Polygoner vil være convex snarere end concav</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -6330,7 +6412,7 @@ hver gang det valgte tids-interval udløber</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Vælg de vinkler, som polygonens linier forbindes med</translation>
+        <translation type="obsolete">Vælg de vinkler, som polygonens linier forbindes med</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
@@ -6668,7 +6750,7 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>Conve&amp;x Polygon</translation>
+        <translation type="obsolete">Conve&amp;x Polygon</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -6761,6 +6843,33 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     <message>
         <source>Additional Directory for Document Templates</source>
         <translation>Ekstra mappe for dokument skabeloner</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished">En måde at fjerne nogle af gråtonerne, som er sammensat
+af cyan, gul og magenta, så der i stedet for disse farver bruges sort.
+UCR påvirker mest de dele af billedet, som er neutrale og/eller mørke i farven, det, 
+som er tættets på grå. Brug af denne metode kan forbedre udskrivningen af nogle 
+billeder og nogen eksperimenteren og testning er nødvendigt fra billede til billede.
+UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
 </context>
 <context>
@@ -7471,11 +7580,11 @@ Kontrollér sti og filnavn.</translation>
     </message>
     <message>
         <source>Importer</source>
-        <translation>Importfilter</translation>
+        <translation type="obsolete">Importfilter</translation>
     </message>
     <message>
         <source>Choose the importer to use</source>
-        <translation>Vælg importfilter</translation>
+        <translation type="obsolete">Vælg importfilter</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -7519,6 +7628,18 @@ External Links
 </source>
         <translation>
 Ekstern Lænker</translation>
+    </message>
+    <message>
+        <source>Font %1 is broken, discarding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OO.o Writer Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Filters</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9343,7 +9464,7 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Ønsker du virkelig at slette denne stil?</translation>
+        <translation type="obsolete">Ønsker du virkelig at slette denne stil?</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
@@ -9396,6 +9517,10 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Annullér</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9613,6 +9738,47 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     </message>
 </context>
 <context>
+    <name>SxwDialog</name>
+    <message>
+        <source>OO.o Writer Importer Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there already exists a paragraph style with the same
+name than current OO.o document&apos;s paragraph should the style
+in Scribus be edited to match the one being imported
+or left untouched</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use document name as a prefix for paragraph styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scirubs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not ask again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OO.o document and
+never ask your confirmation again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+</context>
+<context>
     <name>TabManager</name>
     <message>
         <source>Manage Tabulators</source>
@@ -9769,6 +9935,33 @@ Vælg venligst et andet.</translation>
     <message>
         <source>Group </source>
         <translation>Lav til gruppe </translation>
+    </message>
+</context>
+<context>
+    <name>ValueDialog</name>
+    <message>
+        <source>Insert value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished">Alt+O</translation>
+    </message>
+    <message>
+        <source>Send your value to the script</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9948,6 +10141,31 @@ Vælg venligst et andet.</translation>
     </message>
 </context>
 <context>
+    <name>gtImporterDialog</name>
+    <message>
+        <source>Choose the importer to use</source>
+        <translation type="unfinished">Vælg importfilter</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember association</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remember the file extension - importer association
+and do not ask again to select an importer for
+files of this type.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+</context>
+<context>
     <name>nftdialog</name>
     <message>
         <source>New From Template</source>
@@ -10123,6 +10341,120 @@ Vælg venligst et andet.</translation>
     <message>
         <source>custom</source>
         <translation>bruger</translation>
+    </message>
+</context>
+<context>
+    <name>tfDia</name>
+    <message>
+        <source>Create filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">S&amp;let</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Slet</translation>
+    </message>
+    <message>
+        <source>Choose a previously saved filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name to this filter for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Give a name for saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Annullér</translation>
+    </message>
+</context>
+<context>
+    <name>tfFilter</name>
+    <message>
+        <source>Disable or enable this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove this filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a new filter row</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>and</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>do not remove match</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Fjern</translation>
+    </message>
+    <message>
+        <source>Replace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished">Anvend</translation>
+    </message>
+    <message>
+        <source>Value at the left is a regular expression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all instances of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>all paragraphs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs starting with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with less than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>paragraphs with more than</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -61,7 +61,7 @@ private:
 	void styleProperties(const QXmlAttributes& attrs);
 	void defaultStyle(const QXmlAttributes& attrs);
 	void styleStyle(const QXmlAttributes& attrs);
-	void StyleReader::tabStop(const QXmlAttributes& attrs);
+	void tabStop(const QXmlAttributes& attrs);
 	void setupFrameStyle();
 public:
 	StyleReader(QString documentName, gtWriter *wr, bool textOnly, bool prefix);

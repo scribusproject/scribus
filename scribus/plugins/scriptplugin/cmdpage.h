@@ -26,6 +26,11 @@ TODO: solve utf/iso chars in object names
 (Petr Vanek 03/02/2004)
 */
 PyObject *scribus_getpageitems(PyObject *self, PyObject* args);
+/**
+returns a tuple with page margins
+Craig Ringer, Petr Vanek 09/25/2004
+*/
+PyObject *scribus_getpagemargins(PyObject *self, PyObject* args);
 
 #endif
 

@@ -29,24 +29,12 @@ gtAction::gtAction(bool append)
 	it = textFrame;
 	lastParagraphStyle = -1;
 	inPara = false;
+	isFirstWrite = true;
 	lastCharWasLineChange = false;
 	currentFrameStyle = "";
-	if (!append)
-	{
-		if (it->NextBox != 0)
-		{
-			PageItem *nb = it->NextBox;
-			while (nb != 0)
-			{
-				nb->Ptext.clear();
-				nb->CPos = 0;
-				nb = nb->NextBox;
-			}
-		}
-		it->Ptext.clear();
-		it->CPos = 0;
-	}
+	doAppend = append;
 	updateParagraphStyles = false;
+	overridePStyleFont = true;
 }
 
 void gtAction::setProgressInfo()
@@ -75,11 +63,31 @@ void gtAction::clearFrame()
 
 void gtAction::write(const QString& text, gtStyle *style)
 {
+	if (isFirstWrite)
+	{
+		if (!doAppend)
+		{
+			if (it->NextBox != 0)
+			{
+				PageItem *nb = it->NextBox;
+				while (nb != 0)
+				{
+					nb->Ptext.clear();
+					nb->CPos = 0;
+					nb = nb->NextBox;
+				}
+			}
+			it->Ptext.clear();
+			it->CPos = 0;
+		}
+	}
 	int paragraphStyle = -1;
 	if (style->target() == "paragraph")
 	{
 		gtParagraphStyle* pstyle = dynamic_cast<gtParagraphStyle*>(style);
 		paragraphStyle = applyParagraphStyle(pstyle);
+		if (isFirstWrite)
+			inPara = true;
 	}
 	else if (style->target() == "frame")
 	{
@@ -96,6 +104,9 @@ void gtAction::write(const QString& text, gtStyle *style)
 
 	gtFont* font = style->getFont();
 	QString fontName = validateFont(font);
+	gtFont* font2 = new gtFont(*font);
+	font2->setName(ScApp->doc->Vorlagen[paragraphStyle].Font);
+	QString fontName2 = validateFont(font2);
 	for (uint a = 0; a < text.length(); ++a)
 	{
 		if ((text.at(a) == QChar(0)) || (text.at(a) == QChar(13)))
@@ -104,16 +115,32 @@ void gtAction::write(const QString& text, gtStyle *style)
 		hg->ch = text.at(a);
 		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
 			hg->ch = QChar(13);
-		hg->cfont = fontName;
-		hg->csize = font->getSize();
-		hg->ccolor = font->getColor();
-		hg->cshade = font->getShade();
-		hg->cstroke = font->getStrokeColor();
-		hg->cshade2 = font->getStrokeShade();
+		if ((inPara) && (!overridePStyleFont))
+		{
+			if (ScApp->doc->Vorlagen[paragraphStyle].Font == "")
+				hg->cfont = fontName2;
+			else
+				hg->cfont = ScApp->doc->Vorlagen[paragraphStyle].Font;
+			hg->csize = ScApp->doc->Vorlagen[paragraphStyle].FontSize;
+			hg->ccolor = ScApp->doc->Vorlagen[paragraphStyle].FColor;
+			hg->cshade = ScApp->doc->Vorlagen[paragraphStyle].FShade;
+			hg->cstroke = ScApp->doc->Vorlagen[paragraphStyle].SColor;
+			hg->cshade2 = ScApp->doc->Vorlagen[paragraphStyle].SShade;
+			hg->cstyle = ScApp->doc->Vorlagen[paragraphStyle].FontEffect;
+		}
+		else
+		{
+			hg->cfont = fontName;
+			hg->csize = font->getSize();
+			hg->ccolor = font->getColor();
+			hg->cshade = font->getShade();
+			hg->cstroke = font->getStrokeColor();
+			hg->cshade2 = font->getStrokeShade();
+			hg->cstyle = font->getEffectsValue();
+		}
 		hg->cscale = font->getHscale();
 		hg->cextra = font->getKerning();
 		hg->cselect = false;
-		hg->cstyle = font->getEffectsValue();
 		hg->cab = paragraphStyle;
 		hg->xp = 0;
 		hg->yp = 0;
@@ -124,6 +151,8 @@ void gtAction::write(const QString& text, gtStyle *style)
 	lastCharWasLineChange = text.right(1) == "\n";
 	inPara = style->target() == "paragraph";
 	lastParagraphStyle = paragraphStyle;
+	if (isFirstWrite)
+		isFirstWrite = false;
 }
 
 int gtAction::findParagraphStyle(gtParagraphStyle* pstyle)
@@ -439,6 +468,15 @@ bool gtAction::getUpdateParagraphStyles()
 void gtAction::setUpdateParagraphStyles(bool newUPS)
 {
 	updateParagraphStyles = newUPS;
+}
+
+bool gtAction::getOverridePStyleFont()
+{
+	return overridePStyleFont;
+}
+void gtAction::setOverridePStyleFont(bool newOPSF)
+{
+	overridePStyleFont = newOPSF;
 }
 
 void gtAction::finalize()

@@ -8657,13 +8657,13 @@ void ScribusApp::configHyphenator()
 		if (HaveDoc)
 		{
 			doc->Trenner->slotNewDict(dia->Language->currentText());
-			doc->Trenner->slotNewSettings(dia->WordLen->value(), dia->Verbose->isChecked(), dia->Input->isChecked(),dia->MaxCount->value());
+			doc->Trenner->slotNewSettings(dia->WordLen->value(), !dia->Verbose->isChecked(), dia->Input->isChecked(),dia->MaxCount->value());
 		}
 		else
 		{
 			Prefs.MinWordLen = dia->WordLen->value();
 			Prefs.Language = GetLang(dia->Language->currentText());
-			Prefs.Automatic = dia->Verbose->isChecked();
+			Prefs.Automatic = !dia->Verbose->isChecked();
 			Prefs.AutoCheck = dia->Input->isChecked();
 			Prefs.HyCount = dia->MaxCount->value();
 		}

@@ -4,11 +4,27 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
-"POT-Creation-Date: 2004-08-16 00:03+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-09-28 23:53+0200\n"
 "PO-Revision-Date: 2001-12-14 01:18+0200\n"
 "Last-Translator: Vasko Tomanov <vasko@web.bg>\n"
 "Content-Type: text/plain; charset=cp1251\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "Align Text Left"
+msgstr ""
+
+msgid "Align Text Right"
+msgstr ""
+
+msgid "Align Text Center"
+msgstr ""
+
+msgid "Align Text Justified"
+msgstr ""
+
+msgid "Align Text Forced Justified"
+msgstr ""
 
 msgid "Distribute/Align"
 msgstr "Разпеределено подравняване"
@@ -101,6 +117,36 @@ msgstr "Отрази промените"
 msgid "&Cancel"
 msgstr "Отказ"
 
+msgid "Apply Template"
+msgstr "Отрази формата"
+
+#, fuzzy
+msgid "&Template:"
+msgstr "Нова форма"
+
+msgid "Normal"
+msgstr "Стандартно"
+
+#, fuzzy
+msgid "Apply to &Current Page"
+msgstr "От страница:"
+
+#, fuzzy
+msgid "Apply to all &even Pages"
+msgstr "От страница:"
+
+#, fuzzy
+msgid "Apply to all &odd Pages"
+msgstr "От страница:"
+
+#, fuzzy
+msgid "Apply from &Page:"
+msgstr "От страница:"
+
+#, fuzzy
+msgid "To:"
+msgstr "Отгоре:"
+
 msgid "Field Properties"
 msgstr ""
 
@@ -151,9 +197,6 @@ msgstr "Широчина:"
 
 msgid "Thin"
 msgstr ""
-
-msgid "Normal"
-msgstr "Стандартно"
 
 msgid "Wide"
 msgstr ""
@@ -520,33 +563,6 @@ msgstr ""
 msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr "Документи (*.scd);; Всички документи (*)"
 
-msgid "Apply Template"
-msgstr "Отрази формата"
-
-#, fuzzy
-msgid "&Template:"
-msgstr "Нова форма"
-
-#, fuzzy
-msgid "Apply to &Current Page"
-msgstr "От страница:"
-
-#, fuzzy
-msgid "Apply to all &even Pages"
-msgstr "От страница:"
-
-#, fuzzy
-msgid "Apply to all &odd Pages"
-msgstr "От страница:"
-
-#, fuzzy
-msgid "Apply from &Page:"
-msgstr "От страница:"
-
-#, fuzzy
-msgid "To:"
-msgstr "Отгоре:"
-
 msgid "Bookmarks"
 msgstr ""
 
@@ -781,6 +797,40 @@ msgstr "Внимания"
 msgid "Name of the Color is not unique"
 msgstr "Името на стила не е уникално"
 
+msgid "Size:"
+msgstr "Размер:"
+
+msgid "Title:"
+msgstr ""
+
+msgid "No Title"
+msgstr ""
+
+msgid "Author:"
+msgstr "Автор:"
+
+msgid "Unknown"
+msgstr ""
+
+#, fuzzy
+msgid "Scribus Document"
+msgstr "Нов документ"
+
+#, fuzzy
+msgid "&Compress File"
+msgstr "Компресия"
+
+msgid "&Include Fonts"
+msgstr ""
+
+msgid "Encoding:"
+msgstr ""
+
+msgid ""
+"Moves to your Document Directory.\n"
+"This can be set in the Preferences."
+msgstr ""
+
 msgid "Colors"
 msgstr "Цветове"
 
@@ -987,40 +1037,6 @@ msgid ""
 "Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF "
 "support.\n"
 "Missing library support is indicated by a *"
-msgstr ""
-
-msgid "Size:"
-msgstr "Размер:"
-
-msgid "Title:"
-msgstr ""
-
-msgid "No Title"
-msgstr ""
-
-msgid "Author:"
-msgstr "Автор:"
-
-msgid "Unknown"
-msgstr ""
-
-#, fuzzy
-msgid "Scribus Document"
-msgstr "Нов документ"
-
-#, fuzzy
-msgid "&Compress File"
-msgstr "Компресия"
-
-msgid "&Include Fonts"
-msgstr ""
-
-msgid "Encoding:"
-msgstr ""
-
-msgid ""
-"Moves to your Document Directory.\n"
-"This can be set in the Preferences."
 msgstr ""
 
 msgid "Delete Color"
@@ -1461,7 +1477,8 @@ msgstr "Запиши"
 msgid "New Style"
 msgstr "Нов стил"
 
-msgid "Do you really want do delete this Style?"
+#, fuzzy
+msgid "Do you really want to delete this Style?"
 msgstr "Наистина ли искате да изтриете този стил?"
 
 #, fuzzy
@@ -1687,6 +1704,390 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+msgid "Position:"
+msgstr "Описание:"
+
+msgid "Here you can add, change or remove Color-Stops."
+msgstr ""
+
+#, fuzzy
+msgid "Importing text"
+msgstr "Вмъкване на страница"
+
+msgid "Choose the importer to use"
+msgstr ""
+
+#, fuzzy
+msgid "Automatic"
+msgstr "Автоматична текстова кутия"
+
+msgid "Get text only"
+msgstr ""
+
+msgid "Import text without any formatting"
+msgstr ""
+
+#, fuzzy
+msgid "Importer:"
+msgstr "Вмъкване на страница"
+
+msgid "Remember association"
+msgstr ""
+
+msgid ""
+"Remember the file extension - importer association\n"
+"and do not ask again to select an importer for\n"
+"files of this type."
+msgstr ""
+
+msgid "All Supported Formats"
+msgstr ""
+
+msgid "All Files (*)"
+msgstr ""
+
+msgid ""
+"<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
+"toolkit for multiplatform GUI &amp; application development.</p><p>Qt "
+"provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;"
+"X, Linux, and all major commercial Unix variants.<br>Qt is also available "
+"for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www."
+"trolltech.com/qt/</tt> for more information.</p>"
+msgstr ""
+
+msgid "Copy or Move a File"
+msgstr ""
+
+#, fuzzy
+msgid "Read: %1"
+msgstr "Готово"
+
+msgid "Write: %1"
+msgstr ""
+
+msgid "File &name:"
+msgstr "Datei&name:"
+
+msgid "File &type:"
+msgstr "&Тип файл:"
+
+msgid "One directory up"
+msgstr ""
+
+#, fuzzy
+msgid "Name"
+msgstr "Име:"
+
+msgid "Size"
+msgstr "Размер"
+
+#, fuzzy
+msgid "Attributes"
+msgstr "За Scribus"
+
+msgid "Look &in:"
+msgstr "Виж и &вмъкни:"
+
+#, fuzzy
+msgid "Back"
+msgstr "Блок"
+
+#, fuzzy
+msgid "Create New Folder"
+msgstr "Създай PDF-файл"
+
+#, fuzzy
+msgid "List View"
+msgstr "Изглед"
+
+msgid "Detail View"
+msgstr ""
+
+msgid "Preview File Info"
+msgstr ""
+
+msgid "Preview File Contents"
+msgstr ""
+
+msgid "Read-write"
+msgstr ""
+
+#, fuzzy
+msgid "Read-only"
+msgstr "Готово"
+
+msgid "Write-only"
+msgstr ""
+
+#, fuzzy
+msgid "Inaccessible"
+msgstr "Видими илюстрации"
+
+#, fuzzy
+msgid "Symlink to File"
+msgstr "Печат във файл:"
+
+msgid "Symlink to Directory"
+msgstr ""
+
+msgid "Symlink to Special"
+msgstr ""
+
+msgid "Dir"
+msgstr ""
+
+msgid "Special"
+msgstr ""
+
+#, fuzzy
+msgid "Save As"
+msgstr "Запиши като"
+
+#, fuzzy
+msgid "&Open"
+msgstr "Отвори"
+
+msgid "&Rename"
+msgstr ""
+
+#, fuzzy
+msgid "R&eload"
+msgstr "Готово"
+
+msgid "Sort by &Name"
+msgstr ""
+
+#, fuzzy
+msgid "Sort by &Size"
+msgstr "Размер на шрифт"
+
+msgid "Sort by &Date"
+msgstr ""
+
+#, fuzzy
+msgid "&Unsorted"
+msgstr "Залепено"
+
+msgid "Sort"
+msgstr ""
+
+#, fuzzy
+msgid "Show &hidden files"
+msgstr "Покажи помощните линии"
+
+msgid "the file"
+msgstr ""
+
+msgid "the directory"
+msgstr ""
+
+msgid "the symlink"
+msgstr ""
+
+#, fuzzy
+msgid "Delete %1"
+msgstr "Изтриване"
+
+msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
+msgstr ""
+
+#, fuzzy
+msgid "&Yes"
+msgstr "да"
+
+#, fuzzy
+msgid "&No"
+msgstr "Не"
+
+#, fuzzy
+msgid "New Folder 1"
+msgstr "Нов цвят"
+
+#, fuzzy
+msgid "New Folder"
+msgstr "Нов цвят"
+
+#, fuzzy
+msgid "New Folder %1"
+msgstr "Нов цвят"
+
+msgid "Find Directory"
+msgstr ""
+
+#, fuzzy
+msgid "Directories"
+msgstr "Илюстрации"
+
+msgid "Save"
+msgstr "Запиши"
+
+#, fuzzy
+msgid "Error"
+msgstr "Фатална грешка"
+
+msgid ""
+"%1\n"
+"File not found.\n"
+"Check path and filename."
+msgstr ""
+
+msgid "All Files (*.*)"
+msgstr ""
+
+#, fuzzy
+msgid "Select a Directory"
+msgstr "Избери цвят"
+
+msgid "Directory:"
+msgstr ""
+
+msgid "Clear"
+msgstr "Изчистване"
+
+#, fuzzy
+msgid "Select All"
+msgstr "Маркиране на всичко"
+
+#, fuzzy
+msgid "Line up"
+msgstr "Линия"
+
+msgid "Customize..."
+msgstr ""
+
+msgid "System Menu"
+msgstr ""
+
+msgid "Shade"
+msgstr "Сянка"
+
+#, fuzzy
+msgid "Unshade"
+msgstr "Сянка"
+
+#, fuzzy
+msgid "Normalize"
+msgstr "Стандартно"
+
+msgid "Minimize"
+msgstr ""
+
+msgid "Maximize"
+msgstr ""
+
+msgid "Close"
+msgstr "Затвори"
+
+msgid "&Restore"
+msgstr ""
+
+#, fuzzy
+msgid "&Move"
+msgstr "Преместване..."
+
+msgid "&Size"
+msgstr "Размер"
+
+msgid "Mi&nimize"
+msgstr ""
+
+msgid "Ma&ximize"
+msgstr ""
+
+#, fuzzy
+msgid "&Close"
+msgstr "Затвори"
+
+msgid "Stay on &Top"
+msgstr ""
+
+msgid "Restore Down"
+msgstr ""
+
+#, fuzzy
+msgid "Sh&ade"
+msgstr "Сянка"
+
+msgid "%1 - [%2]"
+msgstr ""
+
+#, fuzzy
+msgid "&Unshade"
+msgstr "Сянка"
+
+msgid "Hu&e:"
+msgstr ""
+
+msgid "&Sat:"
+msgstr ""
+
+msgid "&Val:"
+msgstr ""
+
+msgid "&Red:"
+msgstr "Червено:"
+
+msgid "&Green:"
+msgstr "Зелено:"
+
+msgid "Bl&ue:"
+msgstr "Синьо:"
+
+msgid "A&lpha channel:"
+msgstr ""
+
+msgid "&Basic colors"
+msgstr "Базови цветове"
+
+msgid "&Custom colors"
+msgstr "Нагласени цветове"
+
+msgid "&Define Custom Colors >>"
+msgstr "Дефиниране на нагласени цветове >>"
+
+#, fuzzy
+msgid "&Add to Custom Colors"
+msgstr "Добави към нагласените цветове"
+
+msgid "Select color"
+msgstr "Избери цвят"
+
+msgid "&Font"
+msgstr "Шрифт"
+
+msgid "Font st&yle"
+msgstr "Стил"
+
+msgid "Effects"
+msgstr "Ефекти"
+
+msgid "Stri&keout"
+msgstr "Двоен удар"
+
+msgid "&Underline"
+msgstr "Подчертаване"
+
+#, fuzzy
+msgid "&Color"
+msgstr "Цвят"
+
+#, fuzzy
+msgid "Sample"
+msgstr "Форма"
+
+#, fuzzy
+msgid "Scr&ipt"
+msgstr "Стандартно"
+
+#, fuzzy
+msgid "Apply"
+msgstr "Отрази промените"
+
+#, fuzzy
+msgid "Select Font"
+msgstr "Избери шрифт"
+
+#, fuzzy
 msgid "Manage Guides"
 msgstr "Помощни полета"
 
@@ -1717,8 +2118,9 @@ msgid "&Lock Guides"
 msgstr "Покажи помощните линии"
 
 msgid ""
-"Sorry, no manual available! Please see: http://scribus.net for updated docs "
-"and downloads."
+"Sorry, no manual available! Please see: http://docs.scribus.net for updated "
+"docs\n"
+"and www.scribus.net for downloads."
 msgstr ""
 
 msgid "Possible Hyphenation"
@@ -1735,24 +2137,24 @@ msgid "Hyphenator Settings"
 msgstr "Параметри на печатащото устройство"
 
 #, fuzzy
-msgid "&Fully Automatic"
-msgstr "Автоматична текстова кутия"
+msgid "&Hyphenation Suggestions"
+msgstr "Параметри на печатащото устройство"
 
-msgid "Check &During Typing"
+msgid "Hyphenate Text Automatically &During Typing"
 msgstr ""
 
 msgid "&Smallest Word:"
 msgstr ""
 
-msgid "&Number of Hypenations allowed:"
+msgid "Consecutive Hypenations &Allowed:"
 msgstr ""
 
 msgid ""
-"If you uncheck this you will get a dialog\n"
-"everytime a possible Hyphenation is found."
+"A dialog box showing all possible hyphens for each word will show up when "
+"you use the Extras, Hyphenate Text option."
 msgstr ""
 
-msgid "Enables automatic checking of your text while typing."
+msgid "Enables automatic hyphenation of your text while typing."
 msgstr ""
 
 msgid "Length of the smallest word to be hyphenated."
@@ -1762,6 +2164,18 @@ msgid ""
 "Maximum number of Hyphenations following each other.\n"
 "A value of 0 means unlimited hyphenations."
 msgstr ""
+
+#, fuzzy
+msgid "Insert Table"
+msgstr "Вмъкване на страница"
+
+#, fuzzy
+msgid "Number of Rows:"
+msgstr "Брой копия       "
+
+#, fuzzy
+msgid "Number of Columns:"
+msgstr "Брой на копията:"
 
 msgid "Insert Page"
 msgstr "Вмъкване на страница"
@@ -1806,10 +2220,6 @@ msgid "&Add..."
 msgstr ""
 
 #, fuzzy
-msgid "&Close"
-msgstr "Затвори"
-
-#, fuzzy
 msgid "&New Script:"
 msgstr "Стандартно"
 
@@ -1817,16 +2227,8 @@ msgid "New Script"
 msgstr ""
 
 #, fuzzy
-msgid "Do you really want do delete this Script?"
+msgid "Do you really want to delete this Script?"
 msgstr "Наистина ли искате да изтриете този стил?"
-
-#, fuzzy
-msgid "&No"
-msgstr "Не"
-
-#, fuzzy
-msgid "&Yes"
-msgstr "да"
 
 msgid "Manage Keyboard Shortcuts"
 msgstr ""
@@ -1912,6 +2314,21 @@ msgstr "Хоризонтално изместване:"
 msgid "&Vertical Shift:"
 msgstr "Вертикално изместване:"
 
+msgid "Distances"
+msgstr "Разтояние"
+
+msgid "DX:"
+msgstr ""
+
+msgid "DY:"
+msgstr ""
+
+msgid "Angle:"
+msgstr "Ъгъл:"
+
+msgid "Length:"
+msgstr ""
+
 #, fuzzy
 msgid "Import Template"
 msgstr "Отрази формата"
@@ -1984,10 +2401,6 @@ msgstr "Линия"
 #, fuzzy
 msgid "&Colors"
 msgstr "Цветове"
-
-#, fuzzy
-msgid "Name"
-msgstr "Име:"
 
 msgid "Geometry"
 msgstr ""
@@ -2439,7 +2852,7 @@ msgid "Edit Templates"
 msgstr "Редактиране на формите"
 
 #, fuzzy
-msgid "Do you really want do delete this Template?"
+msgid "Do you really want to delete this Template?"
 msgstr "Наистина ли искате да изтриете този стил?"
 
 msgid "New Template"
@@ -2843,6 +3256,13 @@ msgid "PathText"
 msgstr "Път"
 
 #, fuzzy
+msgid "Page "
+msgstr "Страница"
+
+msgid " of %1"
+msgstr ""
+
+#, fuzzy
 msgid "Create PDF File"
 msgstr "Създай PDF-файл"
 
@@ -2906,10 +3326,6 @@ msgstr "Компресиране на текст и векторна графика"
 #, fuzzy
 msgid "Image Settings"
 msgstr "параметри на устройството"
-
-#, fuzzy
-msgid "Automatic"
-msgstr "Автоматична текстова кутия"
 
 msgid "JPEG"
 msgstr ""
@@ -2983,9 +3399,6 @@ msgstr "Страница"
 
 msgid "Show Page Pre&views"
 msgstr ""
-
-msgid "Effects"
-msgstr "Ефекти"
 
 msgid "&Display Duration:"
 msgstr ""
@@ -3418,8 +3831,9 @@ msgstr ""
 msgid "Corn&ers:"
 msgstr ""
 
-msgid "Conve&x Polygon"
-msgstr ""
+#, fuzzy
+msgid "Apply &Factor"
+msgstr "Лице:"
 
 #, fuzzy
 msgid "&Factor:"
@@ -3431,13 +3845,15 @@ msgstr ""
 msgid "Degrees of rotation for polygons"
 msgstr ""
 
-msgid "Polygons will be convex rather than concave"
+msgid "Apply Convex/Concave Factor to change shape of Polygons"
 msgstr ""
 
 msgid "Sample Polygon"
 msgstr ""
 
-msgid "Change the angles at which lines of the polygon join"
+msgid ""
+"A negative value will make the polygon concave (or star shaped),\n"
+" a positive value will make it convex"
 msgstr ""
 
 msgid "Document Setup"
@@ -3446,6 +3862,9 @@ msgstr "Настройки на документа"
 #, fuzzy
 msgid "&Outside:"
 msgstr "Отвън:"
+
+msgid "Font %1 is broken, discarding it"
+msgstr ""
 
 msgid "Scrapbook"
 msgstr "Библиотека"
@@ -3599,12 +4018,6 @@ msgstr "Отваряне на документ"
 msgid "Open..."
 msgstr "Отвори..."
 
-msgid "Close"
-msgstr "Затвори"
-
-msgid "Save"
-msgstr "Запиши"
-
 msgid "Save as..."
 msgstr "Запиши като..."
 
@@ -3685,9 +4098,6 @@ msgstr "Копиране"
 
 msgid "Paste"
 msgstr "Поставяне"
-
-msgid "Clear"
-msgstr "Изчистване"
 
 msgid "Select all"
 msgstr "Маркиране на всичко"
@@ -4040,18 +4450,8 @@ msgid "Get Picture..."
 msgstr "Вземи илюстрация..."
 
 #, fuzzy
-msgid "&Color"
-msgstr "Цвят"
-
-#, fuzzy
 msgid "&Invert"
 msgstr "Вмъкване..."
-
-msgid "&Font"
-msgstr "Шрифт"
-
-msgid "&Size"
-msgstr "Размер"
 
 #, fuzzy
 msgid "&Effects"
@@ -4075,17 +4475,11 @@ msgstr "Вземи текст..."
 msgid "Font"
 msgstr "Шрифт"
 
-msgid "Size"
-msgstr "Размер"
-
 msgid "Style"
 msgstr "Стил"
 
 msgid "Color"
 msgstr "Цвят"
-
-msgid "Shade"
-msgstr "Сянка"
 
 #, fuzzy
 msgid "Importing Pages..."
@@ -4109,13 +4503,10 @@ msgstr "Вмъкване на страница"
 msgid "Found nothing to import"
 msgstr ""
 
+msgid "File %1 is not in Scribus format"
+msgstr ""
+
 msgid "Loading..."
-msgstr ""
-
-msgid "All Supported Formats"
-msgstr ""
-
-msgid "All Files (*)"
 msgstr ""
 
 #, fuzzy
@@ -4278,6 +4669,9 @@ msgstr ""
 msgid "Slovenian"
 msgstr "Словашки:"
 
+msgid "Afrikaans"
+msgstr ""
+
 #, fuzzy
 msgid "Scribus Crash"
 msgstr "Документация"
@@ -4310,6 +4704,75 @@ msgstr "Документът е променен след последния запис."
 #, fuzzy
 msgid "&Save Now"
 msgstr "Запиши сега"
+
+msgid "Search/Replace"
+msgstr ""
+
+#, fuzzy
+msgid "Search for:"
+msgstr "Търси"
+
+msgid "Paragraph Style"
+msgstr ""
+
+#, fuzzy
+msgid "Font Effects"
+msgstr "Ефекти"
+
+#, fuzzy
+msgid "Fill Color"
+msgstr "Цвят на запълване:"
+
+#, fuzzy
+msgid "Fill Shade"
+msgstr "Сянка"
+
+#, fuzzy
+msgid "Stroke Color"
+msgstr "Покажи цветовете"
+
+msgid "Stroke Shade"
+msgstr ""
+
+msgid "Left"
+msgstr "Ляво"
+
+msgid "Center"
+msgstr "В средата"
+
+msgid "Right"
+msgstr "Дясно"
+
+msgid "Block"
+msgstr "Блок"
+
+msgid "Forced"
+msgstr "Форсиран"
+
+#, fuzzy
+msgid "Replace with:"
+msgstr "Замени с:"
+
+msgid "&Whole Word"
+msgstr ""
+
+msgid "&Ignore Case"
+msgstr ""
+
+#, fuzzy
+msgid "&Search"
+msgstr "Търси"
+
+#, fuzzy
+msgid "&Replace"
+msgstr "Замени с:"
+
+#, fuzzy
+msgid "Replace &All"
+msgstr "Замени с:"
+
+msgid "Search finished"
+msgstr ""
 
 msgid "Show Page Previews"
 msgstr ""
@@ -4352,106 +4815,8 @@ msgstr ""
 msgid "Selected Fields"
 msgstr ""
 
-#, fuzzy
-msgid "Element"
-msgstr "Разместване"
-
-#, fuzzy
-msgid "Information"
-msgstr "Идентичност"
-
-msgid "X:"
-msgstr ""
-
-#, fuzzy
-msgid "Font:"
-msgstr "Шрифт"
-
-#, fuzzy
-msgid "Group "
-msgstr "Групиране"
-
-msgid ""
-"Do you really want to overwrite the File:\n"
-"%1 ?"
-msgstr ""
-"Настинали искате да запишете въху:\n"
-"%1 ?"
-
-msgid "Select Items"
-msgstr "Маркирани обекти"
-
-#, fuzzy
-msgid "Insert Text Frame"
-msgstr "Вмъкване на текстова кутия"
-
-msgid "Insert Picture"
-msgstr "Вмъкване на илюстрация"
-
-#, fuzzy
-msgid "Insert Table"
-msgstr "Вмъкване на страница"
-
-msgid "Properties..."
-msgstr ""
-
-msgid "Insert Polygons"
-msgstr ""
-
-msgid "Insert Lines"
-msgstr "Вмукване на линии"
-
-#, fuzzy
-msgid "Insert Bezier Curves"
-msgstr "Вмъкване на илюстрация"
-
-#, fuzzy
-msgid "Insert Freehand Line"
-msgstr "Вмукване на линии"
-
-msgid "Rotate Item"
-msgstr "Въртене на обект"
-
-#, fuzzy
-msgid "Zoom in or out"
-msgstr "Увеличаване/Намаляне"
-
-msgid "Edit Contents of Frame"
-msgstr "Редактиране на промените на рамката"
-
-msgid "Edit the text with the Story Editor"
-msgstr ""
-
-#, fuzzy
-msgid "Link Text Frames"
-msgstr "Скрий рамките"
-
-#, fuzzy
-msgid "Unlink Text Frames"
-msgstr "Скрий рамките"
-
-#, fuzzy
-msgid "Do measurements"
-msgstr "Покажи мерките"
-
-msgid "Draw various Shapes"
-msgstr ""
-
-#, fuzzy
-msgid "PDF Tools"
-msgstr "Инструменти"
-
-#, fuzzy
-msgid "Insert PDF Fields"
-msgstr "Вмукване на линии"
-
-#, fuzzy
-msgid "Insert PDF Annotations"
-msgstr "PDF анотация"
-
-#, fuzzy
-msgid "Manage Tabulators"
-msgstr "Управление на илюстрации"
+msgid "Other..."
+msgstr "Други..."
 
 #, fuzzy
 msgid "Fill Color Settings"
@@ -4559,9 +4924,6 @@ msgstr "Скрий рамките"
 msgid "Update Text Frame"
 msgstr "Промяна на текстова рамка"
 
-msgid "Search/Replace"
-msgstr ""
-
 msgid "Current Paragraph:"
 msgstr ""
 
@@ -4585,72 +4947,6 @@ msgid "Do you really want to lose all your Changes?"
 msgstr "Наистина ли искате да изтриете този стил?"
 
 #, fuzzy
-msgid "Search for:"
-msgstr "Търси"
-
-msgid "Paragraph Style"
-msgstr ""
-
-#, fuzzy
-msgid "Font Effects"
-msgstr "Ефекти"
-
-#, fuzzy
-msgid "Fill Color"
-msgstr "Цвят на запълване:"
-
-#, fuzzy
-msgid "Fill Shade"
-msgstr "Сянка"
-
-#, fuzzy
-msgid "Stroke Color"
-msgstr "Покажи цветовете"
-
-msgid "Stroke Shade"
-msgstr ""
-
-msgid "Left"
-msgstr "Ляво"
-
-msgid "Center"
-msgstr "В средата"
-
-msgid "Right"
-msgstr "Дясно"
-
-msgid "Block"
-msgstr "Блок"
-
-msgid "Forced"
-msgstr "Форсиран"
-
-#, fuzzy
-msgid "Replace with:"
-msgstr "Замени с:"
-
-msgid "&Whole Word"
-msgstr ""
-
-msgid "&Ignore Case"
-msgstr ""
-
-#, fuzzy
-msgid "&Search"
-msgstr "Търси"
-
-#, fuzzy
-msgid "&Replace"
-msgstr "Замени с:"
-
-#, fuzzy
-msgid "Replace &All"
-msgstr "Замени с:"
-
-msgid "Search finished"
-msgstr ""
-
-#, fuzzy
 msgid "Strike Out"
 msgstr "Удар извън"
 
@@ -4658,23 +4954,9 @@ msgstr "Удар извън"
 msgid "Outline Text"
 msgstr "Линии"
 
-msgid "Align Text Left"
-msgstr ""
-
-msgid "Align Text Right"
-msgstr ""
-
-msgid "Align Text Center"
-msgstr ""
-
-msgid "Align Text Justified"
-msgstr ""
-
-msgid "Align Text Forced Justified"
-msgstr ""
-
-msgid "Other..."
-msgstr "Други..."
+#, fuzzy
+msgid "Manage Tabulators"
+msgstr "Управление на илюстрации"
 
 msgid "Full Stop"
 msgstr ""
@@ -4709,360 +4991,98 @@ msgstr ""
 msgid "Delete all Tabulators"
 msgstr "Изтрий цвета"
 
-msgid ""
-"<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
-"toolkit for multiplatform GUI &amp; application development.</p><p>Qt "
-"provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;"
-"X, Linux, and all major commercial Unix variants.<br>Qt is also available "
-"for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www."
-"trolltech.com/qt/</tt> for more information.</p>"
-msgstr ""
+#, fuzzy
+msgid "Element"
+msgstr "Разместване"
 
-msgid "Copy or Move a File"
+#, fuzzy
+msgid "Information"
+msgstr "Идентичност"
+
+msgid "X:"
 msgstr ""
 
 #, fuzzy
-msgid "Read: %1"
-msgstr "Готово"
-
-msgid "Write: %1"
-msgstr ""
-
-msgid "File &name:"
-msgstr "Datei&name:"
-
-msgid "File &type:"
-msgstr "&Тип файл:"
-
-msgid "One directory up"
-msgstr ""
+msgid "Font:"
+msgstr "Шрифт"
 
 #, fuzzy
-msgid "Attributes"
-msgstr "За Scribus"
-
-msgid "Look &in:"
-msgstr "Виж и &вмъкни:"
-
-#, fuzzy
-msgid "Back"
-msgstr "Блок"
-
-#, fuzzy
-msgid "Create New Folder"
-msgstr "Създай PDF-файл"
-
-#, fuzzy
-msgid "List View"
-msgstr "Изглед"
-
-msgid "Detail View"
-msgstr ""
-
-msgid "Preview File Info"
-msgstr ""
-
-msgid "Preview File Contents"
-msgstr ""
-
-msgid "Read-write"
-msgstr ""
-
-#, fuzzy
-msgid "Read-only"
-msgstr "Готово"
-
-msgid "Write-only"
-msgstr ""
-
-#, fuzzy
-msgid "Inaccessible"
-msgstr "Видими илюстрации"
-
-#, fuzzy
-msgid "Symlink to File"
-msgstr "Печат във файл:"
-
-msgid "Symlink to Directory"
-msgstr ""
-
-msgid "Symlink to Special"
-msgstr ""
-
-msgid "Dir"
-msgstr ""
-
-msgid "Special"
-msgstr ""
-
-#, fuzzy
-msgid "Save As"
-msgstr "Запиши като"
-
-#, fuzzy
-msgid "&Open"
-msgstr "Отвори"
-
-msgid "&Rename"
-msgstr ""
-
-#, fuzzy
-msgid "R&eload"
-msgstr "Готово"
-
-msgid "Sort by &Name"
-msgstr ""
-
-#, fuzzy
-msgid "Sort by &Size"
-msgstr "Размер на шрифт"
-
-msgid "Sort by &Date"
-msgstr ""
-
-#, fuzzy
-msgid "&Unsorted"
-msgstr "Залепено"
-
-msgid "Sort"
-msgstr ""
-
-#, fuzzy
-msgid "Show &hidden files"
-msgstr "Покажи помощните линии"
-
-msgid "the file"
-msgstr ""
-
-msgid "the directory"
-msgstr ""
-
-msgid "the symlink"
-msgstr ""
-
-#, fuzzy
-msgid "Delete %1"
-msgstr "Изтриване"
-
-msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
-msgstr ""
-
-#, fuzzy
-msgid "New Folder 1"
-msgstr "Нов цвят"
-
-#, fuzzy
-msgid "New Folder"
-msgstr "Нов цвят"
-
-#, fuzzy
-msgid "New Folder %1"
-msgstr "Нов цвят"
-
-msgid "Find Directory"
-msgstr ""
-
-#, fuzzy
-msgid "Directories"
-msgstr "Илюстрации"
-
-#, fuzzy
-msgid "Error"
-msgstr "Фатална грешка"
+msgid "Group "
+msgstr "Групиране"
 
 msgid ""
-"%1\n"
-"File not found.\n"
-"Check path and filename."
+"Do you really want to overwrite the File:\n"
+"%1 ?"
+msgstr ""
+"Настинали искате да запишете въху:\n"
+"%1 ?"
+
+msgid "Select Items"
+msgstr "Маркирани обекти"
+
+#, fuzzy
+msgid "Insert Text Frame"
+msgstr "Вмъкване на текстова кутия"
+
+msgid "Insert Picture"
+msgstr "Вмъкване на илюстрация"
+
+msgid "Properties..."
 msgstr ""
 
-msgid "All Files (*.*)"
+msgid "Insert Polygons"
+msgstr ""
+
+msgid "Insert Lines"
+msgstr "Вмукване на линии"
+
+#, fuzzy
+msgid "Insert Bezier Curves"
+msgstr "Вмъкване на илюстрация"
+
+#, fuzzy
+msgid "Insert Freehand Line"
+msgstr "Вмукване на линии"
+
+msgid "Rotate Item"
+msgstr "Въртене на обект"
+
+#, fuzzy
+msgid "Zoom in or out"
+msgstr "Увеличаване/Намаляне"
+
+msgid "Edit Contents of Frame"
+msgstr "Редактиране на промените на рамката"
+
+msgid "Edit the text with the Story Editor"
 msgstr ""
 
 #, fuzzy
-msgid "Select a Directory"
-msgstr "Избери цвят"
+msgid "Link Text Frames"
+msgstr "Скрий рамките"
 
-msgid "Directory:"
+#, fuzzy
+msgid "Unlink Text Frames"
+msgstr "Скрий рамките"
+
+#, fuzzy
+msgid "Do measurements"
+msgstr "Покажи мерките"
+
+msgid "Draw various Shapes"
 msgstr ""
 
 #, fuzzy
-msgid "Select All"
-msgstr "Маркиране на всичко"
+msgid "PDF Tools"
+msgstr "Инструменти"
 
 #, fuzzy
-msgid "Line up"
-msgstr "Линия"
-
-msgid "Customize..."
-msgstr ""
-
-msgid "System Menu"
-msgstr ""
+msgid "Insert PDF Fields"
+msgstr "Вмукване на линии"
 
 #, fuzzy
-msgid "Unshade"
-msgstr "Сянка"
-
-#, fuzzy
-msgid "Normalize"
-msgstr "Стандартно"
-
-msgid "Minimize"
-msgstr ""
-
-msgid "Maximize"
-msgstr ""
-
-msgid "&Restore"
-msgstr ""
-
-#, fuzzy
-msgid "&Move"
-msgstr "Преместване..."
-
-msgid "Mi&nimize"
-msgstr ""
-
-msgid "Ma&ximize"
-msgstr ""
-
-msgid "Stay on &Top"
-msgstr ""
-
-msgid "Restore Down"
-msgstr ""
-
-#, fuzzy
-msgid "Sh&ade"
-msgstr "Сянка"
-
-msgid "%1 - [%2]"
-msgstr ""
-
-#, fuzzy
-msgid "&Unshade"
-msgstr "Сянка"
-
-msgid "Hu&e:"
-msgstr ""
-
-msgid "&Sat:"
-msgstr ""
-
-msgid "&Val:"
-msgstr ""
-
-msgid "&Red:"
-msgstr "Червено:"
-
-msgid "&Green:"
-msgstr "Зелено:"
-
-msgid "Bl&ue:"
-msgstr "Синьо:"
-
-msgid "A&lpha channel:"
-msgstr ""
-
-msgid "&Basic colors"
-msgstr "Базови цветове"
-
-msgid "&Custom colors"
-msgstr "Нагласени цветове"
-
-msgid "&Define Custom Colors >>"
-msgstr "Дефиниране на нагласени цветове >>"
-
-#, fuzzy
-msgid "&Add to Custom Colors"
-msgstr "Добави към нагласените цветове"
-
-msgid "Select color"
-msgstr "Избери цвят"
-
-msgid "Font st&yle"
-msgstr "Стил"
-
-msgid "Stri&keout"
-msgstr "Двоен удар"
-
-msgid "&Underline"
-msgstr "Подчертаване"
-
-#, fuzzy
-msgid "Sample"
-msgstr "Форма"
-
-#, fuzzy
-msgid "Scr&ipt"
-msgstr "Стандартно"
-
-#, fuzzy
-msgid "Apply"
-msgstr "Отрази промените"
-
-#, fuzzy
-msgid "Select Font"
-msgstr "Избери шрифт"
-
-#, fuzzy
-msgid "Page "
-msgstr "Страница"
-
-msgid " of %1"
-msgstr ""
-
-#, fuzzy
-msgid "Number of Rows:"
-msgstr "Брой копия       "
-
-#, fuzzy
-msgid "Number of Columns:"
-msgstr "Брой на копията:"
-
-#, fuzzy
-msgid "Importing text"
-msgstr "Вмъкване на страница"
-
-msgid "Distances"
-msgstr "Разтояние"
-
-msgid "DX:"
-msgstr ""
-
-msgid "DY:"
-msgstr ""
-
-msgid "Angle:"
-msgstr "Ъгъл:"
-
-msgid "Length:"
-msgstr ""
-
-#, fuzzy
-msgid "Position:"
-msgstr "Описание:"
-
-msgid "Here you can add, change or remove Color-Stops."
-msgstr ""
-
-msgid "Choose the importer to use"
-msgstr ""
-
-msgid "Get text only"
-msgstr ""
-
-msgid "Import text without any formatting"
-msgstr ""
-
-#, fuzzy
-msgid "Importer:"
-msgstr "Вмъкване на страница"
-
-#, fuzzy
-msgid "Importer"
-msgstr "Вмъкване на страница"
+msgid "Insert PDF Annotations"
+msgstr "PDF анотация"
 
 #, fuzzy, c-format
 msgid "About Scribus%1%2"
@@ -5083,8 +5103,8 @@ msgstr ""
 msgid "&About"
 msgstr "За продукта"
 
-msgid "Programming:"
-msgstr "Програмиране:"
+msgid "Development Team:"
+msgstr ""
 
 msgid "Contributions from:"
 msgstr "Дистрибуция от:"
@@ -5093,31 +5113,24 @@ msgstr "Дистрибуция от:"
 msgid "Windows port:"
 msgstr "Windows"
 
-msgid "Documentation:"
+#, fuzzy
+msgid "Official Documentation:"
+msgstr "Документация:"
+
+#, fuzzy
+msgid "Other Documentation:"
 msgstr "Документация:"
 
 #, fuzzy
 msgid "A&uthors"
 msgstr "Автори"
 
-msgid "German:"
-msgstr "Немски:"
-
-msgid "French:"
-msgstr "Френски:"
-
-msgid "Spanish and Catalan:"
-msgstr "Испански:"
+#, fuzzy
+msgid "Basque:"
+msgstr "Базирана на:"
 
 #, fuzzy
-msgid "Italian:"
-msgstr "Курсив"
-
-#, fuzzy
-msgid "Hungarian:"
-msgstr "Български"
-
-msgid "Ukrainian:"
+msgid "Brazilian:"
 msgstr "Украйнски:"
 
 #, fuzzy
@@ -5125,67 +5138,86 @@ msgid "Bulgarian:"
 msgstr "Български"
 
 #, fuzzy
-msgid "Galician:"
-msgstr "Украйнски:"
-
-msgid "Turkish:"
-msgstr ""
-
-msgid "Lithuanian:"
-msgstr ""
-
-msgid "Polish:"
-msgstr ""
-
-#, fuzzy
 msgid "Czech:"
 msgstr "Френски:"
-
-msgid "Slovak:"
-msgstr "Словашки:"
 
 #, fuzzy
 msgid "Danish:"
 msgstr "Разместване:"
 
+msgid "English (British):"
+msgstr ""
+
+msgid "Finnish:"
+msgstr ""
+
+msgid "French:"
+msgstr "Френски:"
+
+#, fuzzy
+msgid "Galician:"
+msgstr "Украйнски:"
+
+msgid "German:"
+msgstr "Немски:"
+
+#, fuzzy
+msgid "Hungarian:"
+msgstr "Български"
+
+#, fuzzy
+msgid "Italian:"
+msgstr "Курсив"
+
+msgid "Lithuanian:"
+msgstr ""
+
 msgid "Norwegian:"
 msgstr ""
 
-msgid "English:"
-msgstr ""
-
-msgid "Welsh:"
+msgid "Polish:"
 msgstr ""
 
 msgid "Russian:"
 msgstr ""
 
-#, fuzzy
-msgid "Brazilian:"
-msgstr "Украйнски:"
-
-msgid "Finnish:"
-msgstr ""
+msgid "Slovak:"
+msgstr "Словашки:"
 
 #, fuzzy
 msgid "Slovenian:"
 msgstr "Словашки:"
 
-#, fuzzy
-msgid "Basque:"
-msgstr "Базирана на:"
+msgid "Spanish and Catalan:"
+msgstr "Испански:"
+
+msgid "Swedish:"
+msgstr ""
+
+msgid "Turkish:"
+msgstr ""
+
+msgid "Ukrainian:"
+msgstr "Украйнски:"
+
+msgid "Welsh:"
+msgstr ""
 
 #, fuzzy
 msgid "&Translations"
 msgstr "Преводачи"
 
-msgid "Homepage and online reference"
+#, fuzzy
+msgid "Homepage"
+msgstr "От страница:"
+
+msgid "Online Reference"
 msgstr ""
 
-msgid "Mailing list"
+msgid "Bugs and Feature Requests"
 msgstr ""
 
-msgid "Bugs and feature requests"
+msgid "Mailing List"
 msgstr ""
 
 #, fuzzy
@@ -5277,6 +5309,10 @@ msgstr "Стандартно"
 #, fuzzy
 msgid "Ch&ange..."
 msgstr "Промяна..."
+
+#, fuzzy
+msgid "T&emplates:"
+msgstr "Нова форма"
 
 #, fuzzy
 msgid "Autosave"
@@ -5540,6 +5576,9 @@ msgstr ""
 msgid "Default Scripter scripts directory"
 msgstr ""
 
+msgid "Additional Directory for Document Templates"
+msgstr ""
+
 msgid "Default page size, either a standard size or a custom size"
 msgstr ""
 
@@ -5750,6 +5789,169 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+msgid "Fonts Preview"
+msgstr "Преглед"
+
+msgid "Alt+O"
+msgstr ""
+
+msgid "Alt+C"
+msgstr ""
+
+#, fuzzy
+msgid "CSV Importer Options"
+msgstr "Други опции"
+
+msgid "Field delimiter:"
+msgstr ""
+
+msgid "(TAB)"
+msgstr ""
+
+msgid "Value delimiter:"
+msgstr ""
+
+msgid "First row is a header"
+msgstr ""
+
+msgid "Comma Separated Value Files"
+msgstr ""
+
+msgid "CSV_data"
+msgstr ""
+
+#, fuzzy
+msgid "CSV_header"
+msgstr "Сянка"
+
+msgid ""
+"\n"
+"External Links\n"
+msgstr ""
+
+#, fuzzy
+msgid "HTML Files"
+msgstr "Файл:"
+
+msgid "html"
+msgstr ""
+
+#, fuzzy
+msgid "Text Files"
+msgstr "Файл:"
+
+#, fuzzy
+msgid "OO.o Writer Importer Options"
+msgstr "Други опции"
+
+#, fuzzy
+msgid "Update paragraph styles"
+msgstr "Стилове..."
+
+msgid ""
+"If there already exists a paragraph style with the same\n"
+"name than current OO.o document's paragraph should the style\n"
+"in Scribus be edited to match the one being imported\n"
+"or left untouched"
+msgstr ""
+
+msgid "Use document name as a prefix for paragraph styles"
+msgstr ""
+
+msgid ""
+"Should importer add the name of the document\n"
+"on front of the paragraph style name in Scirubs"
+msgstr ""
+
+msgid "Do not ask again"
+msgstr ""
+
+msgid ""
+"Should the importer always use currently\n"
+"set value when importing OO.o document and\n"
+"never ask your confirmation again"
+msgstr ""
+
+#, fuzzy
+msgid "OO.o Writer Documents"
+msgstr "Документи"
+
+#, fuzzy
+msgid "Create filter"
+msgstr "Създаване на текстови връзки"
+
+msgid "Choose a previously saved filter"
+msgstr ""
+
+msgid "Give a name to this filter for saving"
+msgstr ""
+
+msgid "Give a name for saving"
+msgstr ""
+
+msgid "Disable or enable this filter row"
+msgstr ""
+
+msgid "Remove this filter row"
+msgstr ""
+
+msgid "Add a new filter row"
+msgstr ""
+
+#, fuzzy
+msgid "to"
+msgstr "до:"
+
+#, fuzzy
+msgid "and"
+msgstr "На края"
+
+msgid "remove match"
+msgstr ""
+
+msgid "do not remove match"
+msgstr ""
+
+#, fuzzy
+msgid "words"
+msgstr "Удебелен"
+
+#, fuzzy
+msgid "Replace"
+msgstr "Замени с:"
+
+msgid "Value at the left is a regular expression"
+msgstr ""
+
+#, fuzzy
+msgid "with"
+msgstr "Широчина:"
+
+#, fuzzy
+msgid "paragraph style"
+msgstr "Стилове..."
+
+#, fuzzy
+msgid "all instances of"
+msgstr "Разтояние"
+
+msgid "all paragraphs"
+msgstr ""
+
+msgid "paragraphs starting with"
+msgstr ""
+
+msgid "paragraphs with less than"
+msgstr ""
+
+msgid "paragraphs with more than"
+msgstr ""
+
+#, fuzzy
+msgid "Text Filters"
+msgstr "Файл:"
+
+#, fuzzy
 msgid "Select Character:"
 msgstr "Символ"
 
@@ -5767,177 +5969,161 @@ msgid "Close this dialog and return to text editing."
 msgstr ""
 
 #, fuzzy
-msgid "Print Preview"
-msgstr "Преглед"
+msgid "New From Template"
+msgstr "Нова форма"
 
 #, fuzzy
-msgid "Print Previe&w"
-msgstr "Преглед"
-
-msgid "Anti-alias &Text"
-msgstr ""
-
-msgid "Anti-alias &Graphics"
-msgstr ""
+msgid "Description"
+msgstr "Описание:"
 
 #, fuzzy
-msgid "Display Trans&parency"
-msgstr "Екранни рамки"
-
-msgid "&Under Color Removal"
-msgstr ""
+msgid "Usage"
+msgstr "Изполване"
 
 #, fuzzy
-msgid "&Display CMYK"
-msgstr "Показване"
-
-msgid "&C"
-msgstr ""
-
-msgid "&M"
-msgstr ""
+msgid "Created with"
+msgstr "Създаване на текстови връзки"
 
 #, fuzzy
-msgid "&Y"
-msgstr "да"
+msgid "Author"
+msgstr "Автор:"
 
 #, fuzzy
-msgid "&K"
-msgstr "Да"
+msgid "Downloading Templates"
+msgstr "Нова форма"
 
 msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense\n"
-"of a slight slowdown in previewing. This only affects Type 1 fonts"
+"Document templates can be found at http://www.scribus.net/ in the Downloads "
+"section."
 msgstr ""
 
+#, fuzzy
+msgid "Installing Templates"
+msgstr "Нова форма"
+
 msgid ""
-"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
-"and\n"
-"vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
+"Extract the package to the template directory ~/.scribus/templates for the "
+"current user or PREFIX/share/scribus/templates for all users in the system."
+msgstr ""
+
+#, fuzzy
+msgid "Preparing a template"
+msgstr "Нова форма"
+
+msgid ""
+"Make sure images and fonts you use can be used freely. If fonts cannot be "
+"shared do not collect them when saving as a template."
 msgstr ""
 
 msgid ""
-"Shows transparency and transparent items in your document. Requires "
-"Ghostscript 7.07 or later"
+"The template creator should also make sure that the Installing Templates "
+"section above applies to their templates as well. This means a user should "
+"be able to download a template package and be able to extract them to the "
+"template directory and start using them."
+msgstr ""
+
+#, fuzzy
+msgid "Removing a template"
+msgstr "Нова форма"
+
+msgid ""
+"Removing a template from the New From Template dialog will only remove the "
+"entry from the template.xml, it will not delete the document files. A popup "
+"menu with remove is only shown if you have write access to the template.xml "
+"file."
+msgstr ""
+
+msgid "Translating template.xml"
 msgstr ""
 
 msgid ""
-"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
-"colors"
-msgstr ""
-
-msgid "Enable/disable the C (Cyan) ink plate"
-msgstr ""
-
-msgid "Enable/disable the M (Magenta) ink plate"
-msgstr ""
-
-msgid "Enable/disable the Y (Yellow) ink plate"
-msgstr ""
-
-msgid "Enable/disable the K (Black) ink plate"
-msgstr ""
-
-msgid ""
-"A way of switching some of the gray shades which are composed\n"
-"of cyan, yellow and magenta and using black instead.\n"
-"UCR most affects parts of images which are neutral and/or dark tones\n"
-"which are close to the gray. Use of this may improve printing some images\n"
-"and some experimentation and testing is need on a case by case basis.\n"
-"UCR reduces the possibility of over saturation with CMY inks."
+"Copy an existing template.xml to a file called template.lang_COUNTRY.xml "
+"(use the same lang code that is present in the qm file for your language), "
+"for example template.fi.xml for Finnish language template.xml. The copy must "
+"be located in the same directory as the original template.xml so Scribus can "
+"load it."
 msgstr ""
 
 #, fuzzy
-msgid "Save Page as &SVG..."
-msgstr "Запиши страницата като EPS..."
+msgid "New &from Template..."
+msgstr "Нова форма"
 
 #, fuzzy
-msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
-msgstr "Библиотека (*.scs);; Всички файлове (*)"
+msgid "Template: "
+msgstr "Нова форма"
 
 #, fuzzy
-msgid "SVG-Images (*.svg);;All Files (*)"
-msgstr "Документи (*.scd);; Всички документи (*)"
+msgid "Newsletters"
+msgstr "Маркирани обекти"
 
-msgid "Import &SVG..."
+msgid "Brochures"
 msgstr ""
 
 #, fuzzy
-msgid "S&cripter Manual..."
-msgstr "Документация"
+msgid "Catalogs"
+msgstr "Затвори"
 
-#, fuzzy
-msgid "&Scribus Scripts"
-msgstr "Долен регистър"
+msgid "Flyers"
+msgstr ""
 
-msgid "&Execute Script..."
+msgid "Signs"
+msgstr ""
+
+msgid "Cards"
+msgstr ""
+
+msgid "Letterheads"
+msgstr ""
+
+msgid "Envelopes"
+msgstr ""
+
+msgid "Business Cards"
 msgstr ""
 
 #, fuzzy
-msgid "&Recent Scripts"
+msgid "Calendars"
+msgstr "Изчистване"
+
+msgid "Advertisements"
+msgstr ""
+
+msgid "Labels"
+msgstr ""
+
+#, fuzzy
+msgid "Programs"
+msgstr "Програмиране:"
+
+msgid "PDF Forms"
+msgstr ""
+
+#, fuzzy
+msgid "PDF Presentations"
+msgstr "Параметри на печатащото устройство"
+
+#, fuzzy
+msgid "Magazines"
+msgstr "Полета:"
+
+#, fuzzy
+msgid "Posters"
+msgstr "Поставяне"
+
+msgid "Announcements"
+msgstr ""
+
+#, fuzzy
+msgid "Text Documents"
 msgstr "Документи"
 
 #, fuzzy
-msgid "Show &Console"
-msgstr "Покажи инструментите"
+msgid "Folds"
+msgstr "Удебелен"
 
 #, fuzzy
-msgid "S&cript"
-msgstr "Стандартно"
-
-msgid "Online Reference"
-msgstr ""
-
-#, fuzzy
-msgid "Python Scripts (*.py);; All Files (*)"
-msgstr "Библиотека (*.scs);; Всички файлове (*)"
-
-#, fuzzy
-msgid "Script error"
-msgstr "Стандартно"
-
-msgid ""
-"If you are running an official script report it at <a href=\"http://bugs."
-"scribus.net\">bugs.scribus.net</a> please."
-msgstr ""
-
-msgid ""
-"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
-"tracker."
-msgstr ""
-
-#, fuzzy
-msgid "Hide &Console"
-msgstr "Скрий инструментите"
-
-msgid "Script Console"
-msgstr ""
-
-msgid "Oook! Wrong arguments! Call: "
-msgstr ""
-
-msgid "Oook! You're calling an object doesn't exist!"
-msgstr ""
-
-msgid "Oook! You're trying to erase an object doesn't exist!"
-msgstr ""
-
-msgid "Oook! An object you're trying to textflow doesn't exist!"
-msgstr ""
-
-msgid ""
-"Oook! You're trying to load image into an object doesn't exist or isn't "
-"selected!"
-msgstr ""
-
-msgid ""
-"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
-msgstr ""
-
-msgid ""
-"Oook! You're trying to query an object doesn't exist! None selected too."
-msgstr ""
+msgid "Own Templates"
+msgstr "Нова форма"
 
 msgid "Choose a Export Directory"
 msgstr ""
@@ -6026,50 +6212,85 @@ msgid "Yes all"
 msgstr "Размаркиране на всичко"
 
 #, fuzzy
-msgid "HTML Files"
-msgstr "Файл:"
-
-msgid "html"
-msgstr ""
-
-#, fuzzy
-msgid "Text Files"
-msgstr "Файл:"
-
-#, fuzzy
-msgid "CSV Importer Options"
-msgstr "Други опции"
-
-msgid "Field delimiter:"
-msgstr ""
-
-msgid "(TAB)"
-msgstr ""
-
-msgid "Value delimiter:"
-msgstr ""
-
-msgid "First row is a header"
-msgstr ""
-
-msgid "Comma Separated Value Files"
-msgstr ""
-
-msgid "CSV_data"
-msgstr ""
-
-#, fuzzy
-msgid "CSV_header"
-msgstr "Сянка"
-
-#, fuzzy
-msgid "Fonts Preview"
+msgid "Print Preview"
 msgstr "Преглед"
 
-msgid "Alt+O"
+#, fuzzy
+msgid "Print Previe&w"
+msgstr "Преглед"
+
+msgid "Anti-alias &Text"
 msgstr ""
 
-msgid "Alt+C"
+msgid "Anti-alias &Graphics"
+msgstr ""
+
+#, fuzzy
+msgid "Display Trans&parency"
+msgstr "Екранни рамки"
+
+msgid "&Under Color Removal"
+msgstr ""
+
+#, fuzzy
+msgid "&Display CMYK"
+msgstr "Показване"
+
+msgid "&C"
+msgstr ""
+
+msgid "&M"
+msgstr ""
+
+#, fuzzy
+msgid "&Y"
+msgstr "да"
+
+#, fuzzy
+msgid "&K"
+msgstr "Да"
+
+msgid ""
+"Provides a more pleasant view of text items in the viewer, at the expense\n"
+"of a slight slowdown in previewing. This only affects Type 1 fonts"
+msgstr ""
+
+msgid ""
+"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
+"and\n"
+"vector graphics in the preview, at the expense of a slight slowdown in "
+"previewing"
+msgstr ""
+
+msgid ""
+"Shows transparency and transparent items in your document. Requires "
+"Ghostscript 7.07 or later"
+msgstr ""
+
+msgid ""
+"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
+"colors"
+msgstr ""
+
+msgid "Enable/disable the C (Cyan) ink plate"
+msgstr ""
+
+msgid "Enable/disable the M (Magenta) ink plate"
+msgstr ""
+
+msgid "Enable/disable the Y (Yellow) ink plate"
+msgstr ""
+
+msgid "Enable/disable the K (Black) ink plate"
+msgstr ""
+
+msgid ""
+"A way of switching some of the gray shades which are composed\n"
+"of cyan, yellow and magenta and using black instead.\n"
+"UCR most affects parts of images which are neutral and/or dark tones\n"
+"which are close to the gray. Use of this may improve printing some images\n"
+"and some experimentation and testing is need on a case by case basis.\n"
+"UCR reduces the possibility of over saturation with CMY inks."
 msgstr ""
 
 msgid "Import &EPS/PS..."
@@ -6083,159 +6304,6 @@ msgid ""
 "%1\n"
 "failed!"
 msgstr ""
-
-#, fuzzy
-msgid "New &from Template..."
-msgstr "Нова форма"
-
-#, fuzzy
-msgid "New From Template"
-msgstr "Нова форма"
-
-#, fuzzy
-msgid "Description"
-msgstr "Описание:"
-
-#, fuzzy
-msgid "Usage"
-msgstr "Изполване"
-
-#, fuzzy
-msgid "Created with"
-msgstr "Създаване на текстови връзки"
-
-#, fuzzy
-msgid "Author"
-msgstr "Автор:"
-
-#, fuzzy
-msgid "Downloading Templates"
-msgstr "Нова форма"
-
-msgid ""
-"Document templates can be found at http://www.scribus.net/ in the Downloads "
-"section."
-msgstr ""
-
-#, fuzzy
-msgid "Installing Templates"
-msgstr "Нова форма"
-
-msgid ""
-"Extract the package to the template directory ~/.scribus/templates for the "
-"current user or PREFIX/share/scribus/templates for all users in the system."
-msgstr ""
-
-#, fuzzy
-msgid "Preparing a template"
-msgstr "Нова форма"
-
-msgid ""
-"Make sure images and fonts you use can be used freely. If fonts cannot be "
-"shared do not collect them when saving as a template."
-msgstr ""
-
-msgid ""
-"The template creator should also make sure that the Installing Templates "
-"section above applies to their templates as well. This means a user should "
-"be able to download a template package and be able to extract them to the "
-"template directory and start using them."
-msgstr ""
-
-#, fuzzy
-msgid "Removing a template"
-msgstr "Нова форма"
-
-msgid ""
-"Removing a template from the New From Template dialog will only remove the "
-"entry from the template.xml, it will not delete the document files. A popup "
-"menu with remove is only shown if you have write access to the template.xml "
-"file."
-msgstr ""
-
-msgid "Translating template.xml"
-msgstr ""
-
-msgid ""
-"Copy an existing template.xml to a file called template.lang_COUNTRY.xml "
-"(use the same lang code that is present in the qm file for your language), "
-"for example template.fi.xml for Finnish language template.xml. The copy must "
-"be located in the same directory as the original template.xml so Scribus can "
-"load it."
-msgstr ""
-
-#, fuzzy
-msgid "Newsletters"
-msgstr "Маркирани обекти"
-
-msgid "Brochures"
-msgstr ""
-
-#, fuzzy
-msgid "Catalogs"
-msgstr "Затвори"
-
-msgid "Flyers"
-msgstr ""
-
-msgid "Signs"
-msgstr ""
-
-msgid "Cards"
-msgstr ""
-
-msgid "Letterheads"
-msgstr ""
-
-msgid "Envelopes"
-msgstr ""
-
-msgid "Business Cards"
-msgstr ""
-
-#, fuzzy
-msgid "Calendars"
-msgstr "Изчистване"
-
-msgid "Advertisements"
-msgstr ""
-
-msgid "Labels"
-msgstr ""
-
-#, fuzzy
-msgid "Programs"
-msgstr "Програмиране:"
-
-msgid "PDF Forms"
-msgstr ""
-
-#, fuzzy
-msgid "PDF Presentations"
-msgstr "Параметри на печатащото устройство"
-
-#, fuzzy
-msgid "Magazines"
-msgstr "Полета:"
-
-#, fuzzy
-msgid "Posters"
-msgstr "Поставяне"
-
-msgid "Announcements"
-msgstr ""
-
-#, fuzzy
-msgid "Text Documents"
-msgstr "Документи"
-
-#, fuzzy
-msgid "Folds"
-msgstr "Удебелен"
-
-#, fuzzy
-msgid "Own Templates"
-msgstr "Нова форма"
 
 #, fuzzy
 msgid "Save as Template"
@@ -6269,6 +6337,118 @@ msgid "Save as &Template..."
 msgstr "Запиши текст..."
 
 #, fuzzy
+msgid "S&cripter Manual..."
+msgstr "Документация"
+
+#, fuzzy
+msgid "&Scribus Scripts"
+msgstr "Долен регистър"
+
+msgid "&Execute Script..."
+msgstr ""
+
+#, fuzzy
+msgid "&Recent Scripts"
+msgstr "Документи"
+
+#, fuzzy
+msgid "Show &Console"
+msgstr "Покажи инструментите"
+
+#, fuzzy
+msgid "S&cript"
+msgstr "Стандартно"
+
+#, fuzzy
+msgid "Python Scripts (*.py);; All Files (*)"
+msgstr "Библиотека (*.scs);; Всички файлове (*)"
+
+#, fuzzy
+msgid "Script error"
+msgstr "Стандартно"
+
+msgid ""
+"If you are running an official script report it at <a href=\"http://bugs."
+"scribus.net\">bugs.scribus.net</a> please."
+msgstr ""
+
+msgid ""
+"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
+"tracker."
+msgstr ""
+
+#, fuzzy
+msgid "Hide &Console"
+msgstr "Скрий инструментите"
+
+msgid ""
+"Oook! You're trying to load image into an object doesn't exist or isn't "
+"selected!"
+msgstr ""
+
+msgid ""
+"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
+msgstr ""
+
+msgid ""
+"Oook! You're trying to query an object doesn't exist! None selected too."
+msgstr ""
+
+msgid "Oook! You're calling an object doesn't exist!"
+msgstr ""
+
+msgid "Oook! You're trying to erase an object doesn't exist!"
+msgstr ""
+
+msgid "Oook! An object you're trying to textflow doesn't exist!"
+msgstr ""
+
+msgid "Oook! Wrong arguments! Call: "
+msgstr ""
+
+msgid "Script Console"
+msgstr ""
+
+#, fuzzy
+msgid "Insert value"
+msgstr "Вмъкване на страница"
+
+msgid "Enter a value then press OK."
+msgstr ""
+
+msgid "Enter a value then press OK"
+msgstr ""
+
+msgid "Send your value to the script"
+msgstr ""
+
+#, fuzzy
+msgid "Save Page as &SVG..."
+msgstr "Запиши страницата като EPS..."
+
+#, fuzzy
+msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
+msgstr "Библиотека (*.scs);; Всички файлове (*)"
+
+#, fuzzy
+msgid "SVG-Images (*.svg);;All Files (*)"
+msgstr "Документи (*.scd);; Всички документи (*)"
+
+msgid "Import &SVG..."
+msgstr ""
+
+#, fuzzy
+#~ msgid "&Fully Automatic"
+#~ msgstr "Автоматична текстова кутия"
+
+#, fuzzy
+#~ msgid "Importer"
+#~ msgstr "Вмъкване на страница"
+
+#~ msgid "Programming:"
+#~ msgstr "Програмиране:"
+
+#, fuzzy
 #~ msgid "&Edit Frame"
 #~ msgstr "Редактиране на рамка"
 
@@ -6298,10 +6478,6 @@ msgstr "Запиши текст..."
 
 #~ msgid "Edit"
 #~ msgstr "Редактиране"
-
-#, fuzzy
-#~ msgid "Template:"
-#~ msgstr "Нова форма"
 
 #~ msgid "Height:"
 #~ msgstr "Височина:"
@@ -6344,9 +6520,6 @@ msgstr "Запиши текст..."
 #, fuzzy
 #~ msgid "Quality :"
 #~ msgstr "Изход"
-
-#~ msgid "From page:"
-#~ msgstr "От страница:"
 
 #~ msgid "To page:"
 #~ msgstr "До страница:"

@@ -4,11 +4,29 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.0\n"
-"POT-Creation-Date: 2004-08-16 00:03+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-09-28 23:53+0200\n"
 "PO-Revision-Date: 2003-07-20 10:00+0200\n"
 "Last-Translator: Jasja Glasbeek <jasja@benik.nl>\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "Align Text Left"
+msgstr "Align Tekst Links"
+
+msgid "Align Text Right"
+msgstr "Align Tekst Rechts"
+
+msgid "Align Text Center"
+msgstr "Align Tekst geCentreerd"
+
+#, fuzzy
+msgid "Align Text Justified"
+msgstr "Align Tekst geCentreerd"
+
+#, fuzzy
+msgid "Align Text Forced Justified"
+msgstr "Align Tekst geCentreerd"
 
 msgid "Distribute/Align"
 msgstr "Distribueer/Align"
@@ -101,6 +119,36 @@ msgstr "Toepassen"
 msgid "&Cancel"
 msgstr "Annuleren"
 
+msgid "Apply Template"
+msgstr "Gebruik Template"
+
+#, fuzzy
+msgid "&Template:"
+msgstr "Template:"
+
+msgid "Normal"
+msgstr "Normaal"
+
+#, fuzzy
+msgid "Apply to &Current Page"
+msgstr "Pas Effect toe op alle Pagina's"
+
+#, fuzzy
+msgid "Apply to all &even Pages"
+msgstr "Pas Effect toe op alle Pagina's"
+
+#, fuzzy
+msgid "Apply to all &odd Pages"
+msgstr "Pas Effect toe op alle Pagina's"
+
+#, fuzzy
+msgid "Apply from &Page:"
+msgstr "Pas Effect toe op alle Pagina's"
+
+#, fuzzy
+msgid "To:"
+msgstr "Boven:"
+
 msgid "Field Properties"
 msgstr "Veld Eigenschappen"
 
@@ -152,9 +200,6 @@ msgstr "Breedte:"
 
 msgid "Thin"
 msgstr "Dun"
-
-msgid "Normal"
-msgstr "Normaal"
 
 msgid "Wide"
 msgstr "Wijd"
@@ -522,33 +567,6 @@ msgstr ""
 msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr "Documenten (*.sla *.scd);; Alle Bestanden (*)"
 
-msgid "Apply Template"
-msgstr "Gebruik Template"
-
-#, fuzzy
-msgid "&Template:"
-msgstr "Template:"
-
-#, fuzzy
-msgid "Apply to &Current Page"
-msgstr "Pas Effect toe op alle Pagina's"
-
-#, fuzzy
-msgid "Apply to all &even Pages"
-msgstr "Pas Effect toe op alle Pagina's"
-
-#, fuzzy
-msgid "Apply to all &odd Pages"
-msgstr "Pas Effect toe op alle Pagina's"
-
-#, fuzzy
-msgid "Apply from &Page:"
-msgstr "Pas Effect toe op alle Pagina's"
-
-#, fuzzy
-msgid "To:"
-msgstr "Boven:"
-
 msgid "Bookmarks"
 msgstr "Bladwijzers"
 
@@ -789,6 +807,44 @@ msgstr "Waarschuwing"
 msgid "Name of the Color is not unique"
 msgstr "De Stijlnaam is niet uniek"
 
+msgid "Size:"
+msgstr "Afmeting:"
+
+msgid "Title:"
+msgstr "Titel:"
+
+msgid "No Title"
+msgstr "Geen Titel"
+
+msgid "Author:"
+msgstr "Auteur:"
+
+msgid "Unknown"
+msgstr "Onbekend"
+
+#, fuzzy
+msgid "Scribus Document"
+msgstr "Scribus-Document"
+
+#, fuzzy
+msgid "&Compress File"
+msgstr "Comprimeer Bestand"
+
+#, fuzzy
+msgid "&Include Fonts"
+msgstr "Invoegen Bladwijzers"
+
+#, fuzzy
+msgid "Encoding:"
+msgstr "Afsluitingen:"
+
+msgid ""
+"Moves to your Document Directory.\n"
+"This can be set in the Preferences."
+msgstr ""
+"Verplaats naar Document Directory.\n"
+"Kan bij voorkeuren worden ingesteld."
+
 msgid "Colors"
 msgstr "Kleuren"
 
@@ -997,44 +1053,6 @@ msgid ""
 "support.\n"
 "Missing library support is indicated by a *"
 msgstr ""
-
-msgid "Size:"
-msgstr "Afmeting:"
-
-msgid "Title:"
-msgstr "Titel:"
-
-msgid "No Title"
-msgstr "Geen Titel"
-
-msgid "Author:"
-msgstr "Auteur:"
-
-msgid "Unknown"
-msgstr "Onbekend"
-
-#, fuzzy
-msgid "Scribus Document"
-msgstr "Scribus-Document"
-
-#, fuzzy
-msgid "&Compress File"
-msgstr "Comprimeer Bestand"
-
-#, fuzzy
-msgid "&Include Fonts"
-msgstr "Invoegen Bladwijzers"
-
-#, fuzzy
-msgid "Encoding:"
-msgstr "Afsluitingen:"
-
-msgid ""
-"Moves to your Document Directory.\n"
-"This can be set in the Preferences."
-msgstr ""
-"Verplaats naar Document Directory.\n"
-"Kan bij voorkeuren worden ingesteld."
 
 msgid "Delete Color"
 msgstr "Verwijder Kleur"
@@ -1480,7 +1498,8 @@ msgstr "Opslaan"
 msgid "New Style"
 msgstr "Nieuwe Stijl"
 
-msgid "Do you really want do delete this Style?"
+#, fuzzy
+msgid "Do you really want to delete this Style?"
 msgstr "Wil je echt deze stijl verwijderen?"
 
 #, fuzzy
@@ -1719,6 +1738,395 @@ msgid ""
 "otherwise Coordinates are relative to the Object."
 msgstr ""
 
+#, fuzzy
+msgid "Position:"
+msgstr "Omschrijving:"
+
+msgid "Here you can add, change or remove Color-Stops."
+msgstr ""
+
+#, fuzzy
+msgid "Importing text"
+msgstr "Importeer een Pagina"
+
+msgid "Choose the importer to use"
+msgstr ""
+
+#, fuzzy
+msgid "Automatic"
+msgstr "Volledig Automatisch"
+
+msgid "Get text only"
+msgstr ""
+
+msgid "Import text without any formatting"
+msgstr ""
+
+#, fuzzy
+msgid "Importer:"
+msgstr "Importeer"
+
+msgid "Remember association"
+msgstr ""
+
+msgid ""
+"Remember the file extension - importer association\n"
+"and do not ask again to select an importer for\n"
+"files of this type."
+msgstr ""
+
+msgid "All Supported Formats"
+msgstr ""
+
+msgid "All Files (*)"
+msgstr ""
+
+msgid ""
+"<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
+"toolkit for multiplatform GUI &amp; application development.</p><p>Qt "
+"provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;"
+"X, Linux, and all major commercial Unix variants.<br>Qt is also available "
+"for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www."
+"trolltech.com/qt/</tt> for more information.</p>"
+msgstr ""
+
+#, fuzzy
+msgid "Copy or Move a File"
+msgstr "Comprimeer Bestand"
+
+#, fuzzy
+msgid "Read: %1"
+msgstr "Gereed"
+
+msgid "Write: %1"
+msgstr ""
+
+msgid "File &name:"
+msgstr "Bestands &naam:"
+
+msgid "File &type:"
+msgstr "Bestands &type:"
+
+msgid "One directory up"
+msgstr "Directory Omhoog"
+
+#, fuzzy
+msgid "Name"
+msgstr "Naam:"
+
+msgid "Size"
+msgstr "Afmeting"
+
+#, fuzzy
+msgid "Attributes"
+msgstr "Over Scribus"
+
+msgid "Look &in:"
+msgstr "Kijk &in:"
+
+#, fuzzy
+msgid "Back"
+msgstr "Blok"
+
+msgid "Create New Folder"
+msgstr "Maak een Directory"
+
+msgid "List View"
+msgstr "Lijst Weergave"
+
+msgid "Detail View"
+msgstr "Detail Weergave"
+
+#, fuzzy
+msgid "Preview File Info"
+msgstr "Toon Bestands Inhoud"
+
+msgid "Preview File Contents"
+msgstr "Toon Bestands Inhoud"
+
+msgid "Read-write"
+msgstr ""
+
+#, fuzzy
+msgid "Read-only"
+msgstr "Alleen Lezen"
+
+msgid "Write-only"
+msgstr ""
+
+#, fuzzy
+msgid "Inaccessible"
+msgstr "Afmeting zichtbaar"
+
+#, fuzzy
+msgid "Symlink to File"
+msgstr "Afdrukken naar bestand:"
+
+msgid "Symlink to Directory"
+msgstr ""
+
+#, fuzzy
+msgid "Symlink to Special"
+msgstr "Speciaal Invoegen"
+
+msgid "Dir"
+msgstr ""
+
+#, fuzzy
+msgid "Special"
+msgstr "Speciaal Invoegen"
+
+#, fuzzy
+msgid "Save As"
+msgstr "Opslaan als"
+
+#, fuzzy
+msgid "&Open"
+msgstr "Openen"
+
+#, fuzzy
+msgid "&Rename"
+msgstr "Verwijder"
+
+#, fuzzy
+msgid "R&eload"
+msgstr "Gereed"
+
+#, fuzzy
+msgid "Sort by &Name"
+msgstr "Lettertype Naam"
+
+#, fuzzy
+msgid "Sort by &Size"
+msgstr "Afmeting Lettertype"
+
+msgid "Sort by &Date"
+msgstr ""
+
+#, fuzzy
+msgid "&Unsorted"
+msgstr "Als"
+
+msgid "Sort"
+msgstr ""
+
+#, fuzzy
+msgid "Show &hidden files"
+msgstr "Toon Richtlijnen"
+
+#, fuzzy
+msgid "the file"
+msgstr "Systeem Profielen"
+
+#, fuzzy
+msgid "the directory"
+msgstr "Directory Omhoog"
+
+msgid "the symlink"
+msgstr ""
+
+#, fuzzy
+msgid "Delete %1"
+msgstr "Verwijderen"
+
+msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
+msgstr ""
+
+#, fuzzy
+msgid "&Yes"
+msgstr "Ja"
+
+#, fuzzy
+msgid "&No"
+msgstr "Nee"
+
+#, fuzzy
+msgid "New Folder 1"
+msgstr "Maak een Directory"
+
+#, fuzzy
+msgid "New Folder"
+msgstr "Maak een Directory"
+
+#, fuzzy
+msgid "New Folder %1"
+msgstr "Maak een Directory"
+
+#, fuzzy
+msgid "Find Directory"
+msgstr "Directory Omhoog"
+
+#, fuzzy
+msgid "Directories"
+msgstr "Richting:"
+
+msgid "Save"
+msgstr "Opslaan"
+
+#, fuzzy
+msgid "Error"
+msgstr "Spiegelen"
+
+msgid ""
+"%1\n"
+"File not found.\n"
+"Check path and filename."
+msgstr ""
+
+msgid "All Files (*.*)"
+msgstr ""
+
+#, fuzzy
+msgid "Select a Directory"
+msgstr "Kies een Directory"
+
+#, fuzzy
+msgid "Directory:"
+msgstr "Richting:"
+
+msgid "Clear"
+msgstr "Leeg Maken"
+
+#, fuzzy
+msgid "Select All"
+msgstr "Alles Selecteren"
+
+msgid "Line up"
+msgstr "Naast Elkaar"
+
+#, fuzzy
+msgid "Customize..."
+msgstr "Aangepast"
+
+msgid "System Menu"
+msgstr "Systeem Menu"
+
+msgid "Shade"
+msgstr "Schaduw"
+
+#, fuzzy
+msgid "Unshade"
+msgstr "Schaduw"
+
+#, fuzzy
+msgid "Normalize"
+msgstr "Normaal"
+
+msgid "Minimize"
+msgstr "Minimaliseer"
+
+msgid "Maximize"
+msgstr "Maximaliseer"
+
+msgid "Close"
+msgstr "Sluiten"
+
+msgid "&Restore"
+msgstr "&Terugzetten"
+
+msgid "&Move"
+msgstr "&Verplaatsen"
+
+msgid "&Size"
+msgstr "&Grootte"
+
+msgid "Mi&nimize"
+msgstr "Mi&nimaliseren"
+
+msgid "Ma&ximize"
+msgstr "Ma&ximaliseer"
+
+msgid "&Close"
+msgstr "&Sluiten"
+
+msgid "Stay on &Top"
+msgstr ""
+
+msgid "Restore Down"
+msgstr "Terugbrengen Tot"
+
+#, fuzzy
+msgid "Sh&ade"
+msgstr "Schaduw"
+
+msgid "%1 - [%2]"
+msgstr ""
+
+#, fuzzy
+msgid "&Unshade"
+msgstr "Schaduw"
+
+msgid "Hu&e:"
+msgstr ""
+
+msgid "&Sat:"
+msgstr ""
+
+msgid "&Val:"
+msgstr ""
+
+msgid "&Red:"
+msgstr "&Rood:"
+
+msgid "&Green:"
+msgstr "&Groen:"
+
+msgid "Bl&ue:"
+msgstr "Bla&uw:"
+
+msgid "A&lpha channel:"
+msgstr ""
+
+msgid "&Basic colors"
+msgstr "&Basis Kleuren"
+
+msgid "&Custom colors"
+msgstr "&Aangepaste Kleuren"
+
+msgid "&Define Custom Colors >>"
+msgstr "&Bepaal Aangepaste Kleuren >>"
+
+#, fuzzy
+msgid "&Add to Custom Colors"
+msgstr "&Voegtoe aan Aangepaste Kleuren"
+
+msgid "Select color"
+msgstr "Kies Kleur"
+
+msgid "&Font"
+msgstr "&Lettertype"
+
+msgid "Font st&yle"
+msgstr "Lettertype St&yle"
+
+msgid "Effects"
+msgstr "Effecten"
+
+msgid "Stri&keout"
+msgstr "Door&halen"
+
+msgid "&Underline"
+msgstr "&Onderlijnen"
+
+#, fuzzy
+msgid "&Color"
+msgstr "Kleur"
+
+#, fuzzy
+msgid "Sample"
+msgstr "Vorm"
+
+#, fuzzy
+msgid "Scr&ipt"
+msgstr "Script:"
+
+#, fuzzy
+msgid "Apply"
+msgstr "Toepassen"
+
+msgid "Select Font"
+msgstr "Selecteer Lettertype"
+
 msgid "Manage Guides"
 msgstr "Beheer Richtlijnen"
 
@@ -1749,8 +2157,9 @@ msgid "&Lock Guides"
 msgstr "Zet Richtlijnen vast"
 
 msgid ""
-"Sorry, no manual available! Please see: http://scribus.net for updated docs "
-"and downloads."
+"Sorry, no manual available! Please see: http://docs.scribus.net for updated "
+"docs\n"
+"and www.scribus.net for downloads."
 msgstr ""
 
 msgid "Possible Hyphenation"
@@ -1766,30 +2175,26 @@ msgid "Hyphenator Settings"
 msgstr "Hyphenatie Instellingen"
 
 #, fuzzy
-msgid "&Fully Automatic"
-msgstr "Volledig Automatisch"
+msgid "&Hyphenation Suggestions"
+msgstr "Hyphenatie Instellingen"
 
-#, fuzzy
-msgid "Check &During Typing"
-msgstr "Controle tijdens Typen"
+msgid "Hyphenate Text Automatically &During Typing"
+msgstr ""
 
 #, fuzzy
 msgid "&Smallest Word:"
 msgstr "Kleinste Woord:"
 
-msgid "&Number of Hypenations allowed:"
+msgid "Consecutive Hypenations &Allowed:"
 msgstr ""
 
-#, fuzzy
 msgid ""
-"If you uncheck this you will get a dialog\n"
-"everytime a possible Hyphenation is found."
+"A dialog box showing all possible hyphens for each word will show up when "
+"you use the Extras, Hyphenate Text option."
 msgstr ""
-"Als je dit uitzet dan krijg je een waarschuwing\n"
-"elke keer als een hyphenatie is gevonden."
 
 #, fuzzy
-msgid "Enables automatic checking of your text while typing."
+msgid "Enables automatic hyphenation of your text while typing."
 msgstr "Aanzetten van automatische Tekst controle tijdens Typen."
 
 #, fuzzy
@@ -1800,6 +2205,18 @@ msgid ""
 "Maximum number of Hyphenations following each other.\n"
 "A value of 0 means unlimited hyphenations."
 msgstr ""
+
+#, fuzzy
+msgid "Insert Table"
+msgstr "Voeg Pagina in"
+
+#, fuzzy
+msgid "Number of Rows:"
+msgstr "Aantal Kopieën"
+
+#, fuzzy
+msgid "Number of Columns:"
+msgstr "Aantal kopieen"
 
 msgid "Insert Page"
 msgstr "Voeg Pagina in"
@@ -1843,9 +2260,6 @@ msgstr "Bewerk..."
 msgid "&Add..."
 msgstr "Toevoegen..."
 
-msgid "&Close"
-msgstr "&Sluiten"
-
 #, fuzzy
 msgid "&New Script:"
 msgstr "Nieuw Script:"
@@ -1854,16 +2268,8 @@ msgid "New Script"
 msgstr "Nieuw Script"
 
 #, fuzzy
-msgid "Do you really want do delete this Script?"
+msgid "Do you really want to delete this Script?"
 msgstr "Wil je echt deze stijl verwijderen?"
-
-#, fuzzy
-msgid "&No"
-msgstr "Nee"
-
-#, fuzzy
-msgid "&Yes"
-msgstr "Ja"
 
 msgid "Manage Keyboard Shortcuts"
 msgstr "Beheer Toets-Snelkoppelingen"
@@ -1953,6 +2359,21 @@ msgstr "Horizontale Verschuiving:"
 msgid "&Vertical Shift:"
 msgstr "Verticale Verschuiving:"
 
+msgid "Distances"
+msgstr "Afstanden"
+
+msgid "DX:"
+msgstr ""
+
+msgid "DY:"
+msgstr ""
+
+msgid "Angle:"
+msgstr "Hoek:"
+
+msgid "Length:"
+msgstr "Lengte:"
+
 #, fuzzy
 msgid "Import Template"
 msgstr "Importeer Data"
@@ -2025,10 +2446,6 @@ msgstr "Lijn"
 #, fuzzy
 msgid "&Colors"
 msgstr "Kleuren"
-
-#, fuzzy
-msgid "Name"
-msgstr "Naam:"
 
 msgid "Geometry"
 msgstr "Geometrie"
@@ -2500,7 +2917,8 @@ msgstr "Gestreepte Dubbel Onderbroken Lijn"
 msgid "Edit Templates"
 msgstr "Bewerkt Templates"
 
-msgid "Do you really want do delete this Template?"
+#, fuzzy
+msgid "Do you really want to delete this Template?"
 msgstr "Wil je echt deze Template verwijderen?"
 
 msgid "New Template"
@@ -2912,6 +3330,13 @@ msgid "PathText"
 msgstr "Lokatie"
 
 #, fuzzy
+msgid "Page "
+msgstr "Pagina"
+
+msgid " of %1"
+msgstr ""
+
+#, fuzzy
 msgid "Create PDF File"
 msgstr "Maak PDF-Bestand"
 
@@ -2977,10 +3402,6 @@ msgstr "Comprimeer Tekst en Vector Afbeeldingen"
 #, fuzzy
 msgid "Image Settings"
 msgstr "Instellingen"
-
-#, fuzzy
-msgid "Automatic"
-msgstr "Volledig Automatisch"
 
 msgid "JPEG"
 msgstr ""
@@ -3056,9 +3477,6 @@ msgstr "Pagina"
 #, fuzzy
 msgid "Show Page Pre&views"
 msgstr "Toon Pagina Voorbeeld"
-
-msgid "Effects"
-msgstr "Effecten"
 
 #, fuzzy
 msgid "&Display Duration:"
@@ -3506,8 +3924,8 @@ msgid "Corn&ers:"
 msgstr "Hoeken:"
 
 #, fuzzy
-msgid "Conve&x Polygon"
-msgstr "Convexe Polygoon"
+msgid "Apply &Factor"
+msgstr "Factor:"
 
 #, fuzzy
 msgid "&Factor:"
@@ -3519,14 +3937,16 @@ msgstr ""
 msgid "Degrees of rotation for polygons"
 msgstr ""
 
-msgid "Polygons will be convex rather than concave"
+msgid "Apply Convex/Concave Factor to change shape of Polygons"
 msgstr ""
 
 #, fuzzy
 msgid "Sample Polygon"
 msgstr "Deel Polygoon"
 
-msgid "Change the angles at which lines of the polygon join"
+msgid ""
+"A negative value will make the polygon concave (or star shaped),\n"
+" a positive value will make it convex"
 msgstr ""
 
 msgid "Document Setup"
@@ -3535,6 +3955,9 @@ msgstr "Document Opzet"
 #, fuzzy
 msgid "&Outside:"
 msgstr "Buiten:"
+
+msgid "Font %1 is broken, discarding it"
+msgstr ""
 
 msgid "Scrapbook"
 msgstr "Kladblok"
@@ -3689,12 +4112,6 @@ msgstr "Opent een Document"
 msgid "Open..."
 msgstr "Openen..."
 
-msgid "Close"
-msgstr "Sluiten"
-
-msgid "Save"
-msgstr "Opslaan"
-
 msgid "Save as..."
 msgstr "Opslaan als..."
 
@@ -3778,9 +4195,6 @@ msgstr "Kopieëren"
 
 msgid "Paste"
 msgstr "Invoegen"
-
-msgid "Clear"
-msgstr "Leeg Maken"
 
 msgid "Select all"
 msgstr "Alles Selecteren"
@@ -4143,18 +4557,8 @@ msgid "Get Picture..."
 msgstr "Haal Afbeelding..."
 
 #, fuzzy
-msgid "&Color"
-msgstr "Kleur"
-
-#, fuzzy
 msgid "&Invert"
 msgstr "Andersom"
-
-msgid "&Font"
-msgstr "&Lettertype"
-
-msgid "&Size"
-msgstr "&Grootte"
 
 #, fuzzy
 msgid "&Effects"
@@ -4178,17 +4582,11 @@ msgstr "Haal Tekst..."
 msgid "Font"
 msgstr "Lettertype"
 
-msgid "Size"
-msgstr "Afmeting"
-
 msgid "Style"
 msgstr "Stijl"
 
 msgid "Color"
 msgstr "Kleur"
-
-msgid "Shade"
-msgstr "Schaduw"
 
 #, fuzzy
 msgid "Importing Pages..."
@@ -4212,14 +4610,11 @@ msgstr "Importeer"
 msgid "Found nothing to import"
 msgstr ""
 
+msgid "File %1 is not in Scribus format"
+msgstr ""
+
 msgid "Loading..."
 msgstr "Laden..."
-
-msgid "All Supported Formats"
-msgstr ""
-
-msgid "All Files (*)"
-msgstr ""
 
 msgid ""
 "Can't write the File: \n"
@@ -4381,6 +4776,9 @@ msgstr ""
 msgid "Slovenian"
 msgstr "Slovaaks"
 
+msgid "Afrikaans"
+msgstr ""
+
 #, fuzzy
 msgid "Scribus Crash"
 msgstr "Scribus Handboek"
@@ -4412,6 +4810,76 @@ msgstr "Is aangepast na laatste opslag."
 #, fuzzy
 msgid "&Save Now"
 msgstr "Nu Opslaan"
+
+msgid "Search/Replace"
+msgstr ""
+
+#, fuzzy
+msgid "Search for:"
+msgstr "Zoekresultaten voor: "
+
+msgid "Paragraph Style"
+msgstr ""
+
+#, fuzzy
+msgid "Font Effects"
+msgstr "Geen Effect"
+
+#, fuzzy
+msgid "Fill Color"
+msgstr "VulKleur:"
+
+#, fuzzy
+msgid "Fill Shade"
+msgstr "Schaduw"
+
+#, fuzzy
+msgid "Stroke Color"
+msgstr "Nieuwe Kleur"
+
+msgid "Stroke Shade"
+msgstr ""
+
+msgid "Left"
+msgstr "Links"
+
+msgid "Center"
+msgstr "Centreer"
+
+msgid "Right"
+msgstr "Rechts"
+
+msgid "Block"
+msgstr "Blok"
+
+msgid "Forced"
+msgstr "Gedwongen"
+
+#, fuzzy
+msgid "Replace with:"
+msgstr "Vervangen met:"
+
+#, fuzzy
+msgid "&Whole Word"
+msgstr "Kleinste Woord:"
+
+msgid "&Ignore Case"
+msgstr ""
+
+#, fuzzy
+msgid "&Search"
+msgstr "Zoeken"
+
+#, fuzzy
+msgid "&Replace"
+msgstr "Vervanging"
+
+#, fuzzy
+msgid "Replace &All"
+msgstr "Vervanging"
+
+msgid "Search finished"
+msgstr ""
 
 msgid "Show Page Previews"
 msgstr "Toon Pagina Voorbeeld"
@@ -4458,104 +4926,8 @@ msgstr "Beschikbare Velden"
 msgid "Selected Fields"
 msgstr "Geselecteerde Velden"
 
-msgid "Element"
-msgstr "Element"
-
-#, fuzzy
-msgid "Information"
-msgstr "Formatering"
-
-msgid "X:"
-msgstr ""
-
-#, fuzzy
-msgid "Font:"
-msgstr "Lettertype"
-
-#, fuzzy
-msgid "Group "
-msgstr "Groeperen"
-
-msgid ""
-"Do you really want to overwrite the File:\n"
-"%1 ?"
-msgstr ""
-"Wil je echt het bestand %1 overschrijven:\n"
-"?"
-
-msgid "Select Items"
-msgstr "Selecteer Items"
-
-#, fuzzy
-msgid "Insert Text Frame"
-msgstr "Tekst Kader"
-
-msgid "Insert Picture"
-msgstr "Voeg Afbeelding in"
-
-#, fuzzy
-msgid "Insert Table"
-msgstr "Voeg Pagina in"
-
-msgid "Properties..."
-msgstr "Eigenschappen..."
-
-msgid "Insert Polygons"
-msgstr "Voeg Polygoon in"
-
-msgid "Insert Lines"
-msgstr "Voeg Lijn in"
-
-msgid "Insert Bezier Curves"
-msgstr "Voeg Bezier Curve in"
-
-#, fuzzy
-msgid "Insert Freehand Line"
-msgstr "Voeg Lijn in"
-
-msgid "Rotate Item"
-msgstr "Roteer Item"
-
-#, fuzzy
-msgid "Zoom in or out"
-msgstr "In of Uitzoomen"
-
-msgid "Edit Contents of Frame"
-msgstr "Bewerkt Inhoud van Kader"
-
-msgid "Edit the text with the Story Editor"
-msgstr ""
-
-#, fuzzy
-msgid "Link Text Frames"
-msgstr "Tekst Kader"
-
-#, fuzzy
-msgid "Unlink Text Frames"
-msgstr "Tekst Kader"
-
-#, fuzzy
-msgid "Do measurements"
-msgstr "Metingen"
-
-msgid "Draw various Shapes"
-msgstr ""
-
-#, fuzzy
-msgid "PDF Tools"
-msgstr "Gereedschappen"
-
-#, fuzzy
-msgid "Insert PDF Fields"
-msgstr "Voeg PDF-Velden in"
-
-#, fuzzy
-msgid "Insert PDF Annotations"
-msgstr "Voeg PDF-Annotaties in"
-
-#, fuzzy
-msgid "Manage Tabulators"
-msgstr "Afbeeldingen Beheren"
+msgid "Other..."
+msgstr "Anders..."
 
 #, fuzzy
 msgid "Fill Color Settings"
@@ -4664,9 +5036,6 @@ msgstr "Koppel Tekst aan Lokatie"
 msgid "Update Text Frame"
 msgstr "Tekst Kader"
 
-msgid "Search/Replace"
-msgstr ""
-
 msgid "Current Paragraph:"
 msgstr ""
 
@@ -4690,73 +5059,6 @@ msgid "Do you really want to lose all your Changes?"
 msgstr "Wil je echt deze stijl verwijderen?"
 
 #, fuzzy
-msgid "Search for:"
-msgstr "Zoekresultaten voor: "
-
-msgid "Paragraph Style"
-msgstr ""
-
-#, fuzzy
-msgid "Font Effects"
-msgstr "Geen Effect"
-
-#, fuzzy
-msgid "Fill Color"
-msgstr "VulKleur:"
-
-#, fuzzy
-msgid "Fill Shade"
-msgstr "Schaduw"
-
-#, fuzzy
-msgid "Stroke Color"
-msgstr "Nieuwe Kleur"
-
-msgid "Stroke Shade"
-msgstr ""
-
-msgid "Left"
-msgstr "Links"
-
-msgid "Center"
-msgstr "Centreer"
-
-msgid "Right"
-msgstr "Rechts"
-
-msgid "Block"
-msgstr "Blok"
-
-msgid "Forced"
-msgstr "Gedwongen"
-
-#, fuzzy
-msgid "Replace with:"
-msgstr "Vervangen met:"
-
-#, fuzzy
-msgid "&Whole Word"
-msgstr "Kleinste Woord:"
-
-msgid "&Ignore Case"
-msgstr ""
-
-#, fuzzy
-msgid "&Search"
-msgstr "Zoeken"
-
-#, fuzzy
-msgid "&Replace"
-msgstr "Vervanging"
-
-#, fuzzy
-msgid "Replace &All"
-msgstr "Vervanging"
-
-msgid "Search finished"
-msgstr ""
-
-#, fuzzy
 msgid "Strike Out"
 msgstr "Strikeout"
 
@@ -4764,25 +5066,9 @@ msgstr "Strikeout"
 msgid "Outline Text"
 msgstr "Omtrek"
 
-msgid "Align Text Left"
-msgstr "Align Tekst Links"
-
-msgid "Align Text Right"
-msgstr "Align Tekst Rechts"
-
-msgid "Align Text Center"
-msgstr "Align Tekst geCentreerd"
-
 #, fuzzy
-msgid "Align Text Justified"
-msgstr "Align Tekst geCentreerd"
-
-#, fuzzy
-msgid "Align Text Forced Justified"
-msgstr "Align Tekst geCentreerd"
-
-msgid "Other..."
-msgstr "Anders..."
+msgid "Manage Tabulators"
+msgstr "Afbeeldingen Beheren"
 
 msgid "Full Stop"
 msgstr ""
@@ -4817,366 +5103,96 @@ msgstr ""
 msgid "Delete all Tabulators"
 msgstr "Verwijder Kleur"
 
-msgid ""
-"<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
-"toolkit for multiplatform GUI &amp; application development.</p><p>Qt "
-"provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;"
-"X, Linux, and all major commercial Unix variants.<br>Qt is also available "
-"for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www."
-"trolltech.com/qt/</tt> for more information.</p>"
+msgid "Element"
+msgstr "Element"
+
+#, fuzzy
+msgid "Information"
+msgstr "Formatering"
+
+msgid "X:"
 msgstr ""
 
 #, fuzzy
-msgid "Copy or Move a File"
-msgstr "Comprimeer Bestand"
+msgid "Font:"
+msgstr "Lettertype"
 
 #, fuzzy
-msgid "Read: %1"
-msgstr "Gereed"
-
-msgid "Write: %1"
-msgstr ""
-
-msgid "File &name:"
-msgstr "Bestands &naam:"
-
-msgid "File &type:"
-msgstr "Bestands &type:"
-
-msgid "One directory up"
-msgstr "Directory Omhoog"
-
-#, fuzzy
-msgid "Attributes"
-msgstr "Over Scribus"
-
-msgid "Look &in:"
-msgstr "Kijk &in:"
-
-#, fuzzy
-msgid "Back"
-msgstr "Blok"
-
-msgid "Create New Folder"
-msgstr "Maak een Directory"
-
-msgid "List View"
-msgstr "Lijst Weergave"
-
-msgid "Detail View"
-msgstr "Detail Weergave"
-
-#, fuzzy
-msgid "Preview File Info"
-msgstr "Toon Bestands Inhoud"
-
-msgid "Preview File Contents"
-msgstr "Toon Bestands Inhoud"
-
-msgid "Read-write"
-msgstr ""
-
-#, fuzzy
-msgid "Read-only"
-msgstr "Alleen Lezen"
-
-msgid "Write-only"
-msgstr ""
-
-#, fuzzy
-msgid "Inaccessible"
-msgstr "Afmeting zichtbaar"
-
-#, fuzzy
-msgid "Symlink to File"
-msgstr "Afdrukken naar bestand:"
-
-msgid "Symlink to Directory"
-msgstr ""
-
-#, fuzzy
-msgid "Symlink to Special"
-msgstr "Speciaal Invoegen"
-
-msgid "Dir"
-msgstr ""
-
-#, fuzzy
-msgid "Special"
-msgstr "Speciaal Invoegen"
-
-#, fuzzy
-msgid "Save As"
-msgstr "Opslaan als"
-
-#, fuzzy
-msgid "&Open"
-msgstr "Openen"
-
-#, fuzzy
-msgid "&Rename"
-msgstr "Verwijder"
-
-#, fuzzy
-msgid "R&eload"
-msgstr "Gereed"
-
-#, fuzzy
-msgid "Sort by &Name"
-msgstr "Lettertype Naam"
-
-#, fuzzy
-msgid "Sort by &Size"
-msgstr "Afmeting Lettertype"
-
-msgid "Sort by &Date"
-msgstr ""
-
-#, fuzzy
-msgid "&Unsorted"
-msgstr "Als"
-
-msgid "Sort"
-msgstr ""
-
-#, fuzzy
-msgid "Show &hidden files"
-msgstr "Toon Richtlijnen"
-
-#, fuzzy
-msgid "the file"
-msgstr "Systeem Profielen"
-
-#, fuzzy
-msgid "the directory"
-msgstr "Directory Omhoog"
-
-msgid "the symlink"
-msgstr ""
-
-#, fuzzy
-msgid "Delete %1"
-msgstr "Verwijderen"
-
-msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
-msgstr ""
-
-#, fuzzy
-msgid "New Folder 1"
-msgstr "Maak een Directory"
-
-#, fuzzy
-msgid "New Folder"
-msgstr "Maak een Directory"
-
-#, fuzzy
-msgid "New Folder %1"
-msgstr "Maak een Directory"
-
-#, fuzzy
-msgid "Find Directory"
-msgstr "Directory Omhoog"
-
-#, fuzzy
-msgid "Directories"
-msgstr "Richting:"
-
-#, fuzzy
-msgid "Error"
-msgstr "Spiegelen"
+msgid "Group "
+msgstr "Groeperen"
 
 msgid ""
-"%1\n"
-"File not found.\n"
-"Check path and filename."
+"Do you really want to overwrite the File:\n"
+"%1 ?"
 msgstr ""
+"Wil je echt het bestand %1 overschrijven:\n"
+"?"
 
-msgid "All Files (*.*)"
-msgstr ""
-
-#, fuzzy
-msgid "Select a Directory"
-msgstr "Kies een Directory"
+msgid "Select Items"
+msgstr "Selecteer Items"
 
 #, fuzzy
-msgid "Directory:"
-msgstr "Richting:"
+msgid "Insert Text Frame"
+msgstr "Tekst Kader"
+
+msgid "Insert Picture"
+msgstr "Voeg Afbeelding in"
+
+msgid "Properties..."
+msgstr "Eigenschappen..."
+
+msgid "Insert Polygons"
+msgstr "Voeg Polygoon in"
+
+msgid "Insert Lines"
+msgstr "Voeg Lijn in"
+
+msgid "Insert Bezier Curves"
+msgstr "Voeg Bezier Curve in"
 
 #, fuzzy
-msgid "Select All"
-msgstr "Alles Selecteren"
+msgid "Insert Freehand Line"
+msgstr "Voeg Lijn in"
 
-msgid "Line up"
-msgstr "Naast Elkaar"
-
-#, fuzzy
-msgid "Customize..."
-msgstr "Aangepast"
-
-msgid "System Menu"
-msgstr "Systeem Menu"
+msgid "Rotate Item"
+msgstr "Roteer Item"
 
 #, fuzzy
-msgid "Unshade"
-msgstr "Schaduw"
+msgid "Zoom in or out"
+msgstr "In of Uitzoomen"
 
-#, fuzzy
-msgid "Normalize"
-msgstr "Normaal"
+msgid "Edit Contents of Frame"
+msgstr "Bewerkt Inhoud van Kader"
 
-msgid "Minimize"
-msgstr "Minimaliseer"
-
-msgid "Maximize"
-msgstr "Maximaliseer"
-
-msgid "&Restore"
-msgstr "&Terugzetten"
-
-msgid "&Move"
-msgstr "&Verplaatsen"
-
-msgid "Mi&nimize"
-msgstr "Mi&nimaliseren"
-
-msgid "Ma&ximize"
-msgstr "Ma&ximaliseer"
-
-msgid "Stay on &Top"
-msgstr ""
-
-msgid "Restore Down"
-msgstr "Terugbrengen Tot"
-
-#, fuzzy
-msgid "Sh&ade"
-msgstr "Schaduw"
-
-msgid "%1 - [%2]"
+msgid "Edit the text with the Story Editor"
 msgstr ""
 
 #, fuzzy
-msgid "&Unshade"
-msgstr "Schaduw"
-
-msgid "Hu&e:"
-msgstr ""
-
-msgid "&Sat:"
-msgstr ""
-
-msgid "&Val:"
-msgstr ""
-
-msgid "&Red:"
-msgstr "&Rood:"
-
-msgid "&Green:"
-msgstr "&Groen:"
-
-msgid "Bl&ue:"
-msgstr "Bla&uw:"
-
-msgid "A&lpha channel:"
-msgstr ""
-
-msgid "&Basic colors"
-msgstr "&Basis Kleuren"
-
-msgid "&Custom colors"
-msgstr "&Aangepaste Kleuren"
-
-msgid "&Define Custom Colors >>"
-msgstr "&Bepaal Aangepaste Kleuren >>"
+msgid "Link Text Frames"
+msgstr "Tekst Kader"
 
 #, fuzzy
-msgid "&Add to Custom Colors"
-msgstr "&Voegtoe aan Aangepaste Kleuren"
-
-msgid "Select color"
-msgstr "Kies Kleur"
-
-msgid "Font st&yle"
-msgstr "Lettertype St&yle"
-
-msgid "Stri&keout"
-msgstr "Door&halen"
-
-msgid "&Underline"
-msgstr "&Onderlijnen"
+msgid "Unlink Text Frames"
+msgstr "Tekst Kader"
 
 #, fuzzy
-msgid "Sample"
-msgstr "Vorm"
+msgid "Do measurements"
+msgstr "Metingen"
 
-#, fuzzy
-msgid "Scr&ipt"
-msgstr "Script:"
-
-#, fuzzy
-msgid "Apply"
-msgstr "Toepassen"
-
-msgid "Select Font"
-msgstr "Selecteer Lettertype"
-
-#, fuzzy
-msgid "Page "
-msgstr "Pagina"
-
-msgid " of %1"
+msgid "Draw various Shapes"
 msgstr ""
 
 #, fuzzy
-msgid "Number of Rows:"
-msgstr "Aantal Kopieën"
+msgid "PDF Tools"
+msgstr "Gereedschappen"
 
 #, fuzzy
-msgid "Number of Columns:"
-msgstr "Aantal kopieen"
+msgid "Insert PDF Fields"
+msgstr "Voeg PDF-Velden in"
 
 #, fuzzy
-msgid "Importing text"
-msgstr "Importeer een Pagina"
-
-msgid "Distances"
-msgstr "Afstanden"
-
-msgid "DX:"
-msgstr ""
-
-msgid "DY:"
-msgstr ""
-
-msgid "Angle:"
-msgstr "Hoek:"
-
-msgid "Length:"
-msgstr "Lengte:"
-
-#, fuzzy
-msgid "Position:"
-msgstr "Omschrijving:"
-
-msgid "Here you can add, change or remove Color-Stops."
-msgstr ""
-
-msgid "Choose the importer to use"
-msgstr ""
-
-msgid "Get text only"
-msgstr ""
-
-msgid "Import text without any formatting"
-msgstr ""
-
-#, fuzzy
-msgid "Importer:"
-msgstr "Importeer"
-
-#, fuzzy
-msgid "Importer"
-msgstr "Importeer"
+msgid "Insert PDF Annotations"
+msgstr "Voeg PDF-Annotaties in"
 
 #, fuzzy, c-format
 msgid "About Scribus%1%2"
@@ -5197,8 +5213,8 @@ msgstr ""
 msgid "&About"
 msgstr "Over"
 
-msgid "Programming:"
-msgstr "Programmering:"
+msgid "Development Team:"
+msgstr ""
 
 msgid "Contributions from:"
 msgstr "Contributies van:"
@@ -5207,101 +5223,114 @@ msgstr "Contributies van:"
 msgid "Windows port:"
 msgstr "Schermen"
 
-msgid "Documentation:"
+#, fuzzy
+msgid "Official Documentation:"
+msgstr "Documentatie:"
+
+#, fuzzy
+msgid "Other Documentation:"
 msgstr "Documentatie:"
 
 #, fuzzy
 msgid "A&uthors"
 msgstr "Auteurs"
 
-msgid "German:"
-msgstr "Duits:"
-
-msgid "French:"
-msgstr "Frans:"
-
-msgid "Spanish and Catalan:"
-msgstr "Spaans en Katalaans:"
-
 #, fuzzy
-msgid "Italian:"
-msgstr "Italiaans"
-
-#, fuzzy
-msgid "Hungarian:"
-msgstr "Hongaars en Italiaans:"
-
-msgid "Ukrainian:"
-msgstr "Ukraieens:"
-
-msgid "Bulgarian:"
-msgstr ""
-
-#, fuzzy
-msgid "Galician:"
-msgstr "Ukraieens:"
-
-msgid "Turkish:"
-msgstr ""
-
-msgid "Lithuanian:"
-msgstr "Lithuaans:"
-
-msgid "Polish:"
-msgstr "Pools:"
-
-msgid "Czech:"
-msgstr "Tzjechs:"
-
-msgid "Slovak:"
-msgstr "Slovaaks:"
-
-msgid "Danish:"
-msgstr "Deens:"
-
-msgid "Norwegian:"
-msgstr "Noors:"
-
-#, fuzzy
-msgid "English:"
-msgstr "Engels"
-
-#, fuzzy
-msgid "Welsh:"
-msgstr "Pools:"
-
-msgid "Russian:"
-msgstr "Russisch:"
+msgid "Basque:"
+msgstr "Bla&uw:"
 
 #, fuzzy
 msgid "Brazilian:"
 msgstr "Ukraieens:"
 
+msgid "Bulgarian:"
+msgstr ""
+
+msgid "Czech:"
+msgstr "Tzjechs:"
+
+msgid "Danish:"
+msgstr "Deens:"
+
+#, fuzzy
+msgid "English (British):"
+msgstr "Engels"
+
 #, fuzzy
 msgid "Finnish:"
 msgstr "Deens:"
+
+msgid "French:"
+msgstr "Frans:"
+
+#, fuzzy
+msgid "Galician:"
+msgstr "Ukraieens:"
+
+msgid "German:"
+msgstr "Duits:"
+
+#, fuzzy
+msgid "Hungarian:"
+msgstr "Hongaars en Italiaans:"
+
+#, fuzzy
+msgid "Italian:"
+msgstr "Italiaans"
+
+msgid "Lithuanian:"
+msgstr "Lithuaans:"
+
+msgid "Norwegian:"
+msgstr "Noors:"
+
+msgid "Polish:"
+msgstr "Pools:"
+
+msgid "Russian:"
+msgstr "Russisch:"
+
+msgid "Slovak:"
+msgstr "Slovaaks:"
 
 #, fuzzy
 msgid "Slovenian:"
 msgstr "Slovaaks:"
 
+msgid "Spanish and Catalan:"
+msgstr "Spaans en Katalaans:"
+
+msgid "Swedish:"
+msgstr ""
+
+msgid "Turkish:"
+msgstr ""
+
+msgid "Ukrainian:"
+msgstr "Ukraieens:"
+
 #, fuzzy
-msgid "Basque:"
-msgstr "Bla&uw:"
+msgid "Welsh:"
+msgstr "Pools:"
 
 #, fuzzy
 msgid "&Translations"
 msgstr "Vertalers"
 
 #, fuzzy
-msgid "Homepage and online reference"
+msgid "Homepage"
+msgstr "Vanaf pagina:"
+
+#, fuzzy
+msgid "Online Reference"
 msgstr "Lezen van Instellingen"
 
-msgid "Mailing list"
+msgid "Bugs and Feature Requests"
 msgstr ""
 
-msgid "Bugs and feature requests"
-msgstr ""
+#, fuzzy
+msgid "Mailing List"
+msgstr "Verplaatste Lijnen:"
 
 #, fuzzy
 msgid "&Online"
@@ -5391,6 +5420,10 @@ msgstr "Script:"
 #, fuzzy
 msgid "Ch&ange..."
 msgstr "Verander..."
+
+#, fuzzy
+msgid "T&emplates:"
+msgstr "Template:"
 
 msgid "Autosave"
 msgstr "Autoopslag"
@@ -5662,6 +5695,9 @@ msgstr ""
 msgid "Default Scripter scripts directory"
 msgstr ""
 
+msgid "Additional Directory for Document Templates"
+msgstr ""
+
 msgid "Default page size, either a standard size or a custom size"
 msgstr ""
 
@@ -5879,6 +5915,171 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+msgid "Fonts Preview"
+msgstr "Afdruk voorbeeld"
+
+msgid "Alt+O"
+msgstr ""
+
+msgid "Alt+C"
+msgstr ""
+
+#, fuzzy
+msgid "CSV Importer Options"
+msgstr "Printer Opties"
+
+msgid "Field delimiter:"
+msgstr ""
+
+msgid "(TAB)"
+msgstr ""
+
+#, fuzzy
+msgid "Value delimiter:"
+msgstr "Waarde is de"
+
+msgid "First row is a header"
+msgstr ""
+
+msgid "Comma Separated Value Files"
+msgstr ""
+
+msgid "CSV_data"
+msgstr ""
+
+#, fuzzy
+msgid "CSV_header"
+msgstr "Schaduw"
+
+msgid ""
+"\n"
+"External Links\n"
+msgstr ""
+
+#, fuzzy
+msgid "HTML Files"
+msgstr "Bestand:"
+
+msgid "html"
+msgstr ""
+
+#, fuzzy
+msgid "Text Files"
+msgstr "Tekst Veld"
+
+#, fuzzy
+msgid "OO.o Writer Importer Options"
+msgstr "Printer Opties"
+
+#, fuzzy
+msgid "Update paragraph styles"
+msgstr "Stijlen..."
+
+msgid ""
+"If there already exists a paragraph style with the same\n"
+"name than current OO.o document's paragraph should the style\n"
+"in Scribus be edited to match the one being imported\n"
+"or left untouched"
+msgstr ""
+
+msgid "Use document name as a prefix for paragraph styles"
+msgstr ""
+
+msgid ""
+"Should importer add the name of the document\n"
+"on front of the paragraph style name in Scirubs"
+msgstr ""
+
+msgid "Do not ask again"
+msgstr ""
+
+msgid ""
+"Should the importer always use currently\n"
+"set value when importing OO.o document and\n"
+"never ask your confirmation again"
+msgstr ""
+
+#, fuzzy
+msgid "OO.o Writer Documents"
+msgstr "Recente Documenten"
+
+#, fuzzy
+msgid "Create filter"
+msgstr "Maak TekstKoppelingen"
+
+msgid "Choose a previously saved filter"
+msgstr ""
+
+msgid "Give a name to this filter for saving"
+msgstr ""
+
+msgid "Give a name for saving"
+msgstr ""
+
+msgid "Disable or enable this filter row"
+msgstr ""
+
+msgid "Remove this filter row"
+msgstr ""
+
+#, fuzzy
+msgid "Add a new filter row"
+msgstr "Nieuwe Laag toevoegen"
+
+#, fuzzy
+msgid "to"
+msgstr "naar:"
+
+#, fuzzy
+msgid "and"
+msgstr "aan het eind"
+
+msgid "remove match"
+msgstr ""
+
+msgid "do not remove match"
+msgstr ""
+
+#, fuzzy
+msgid "words"
+msgstr "Wachtwoorden"
+
+#, fuzzy
+msgid "Replace"
+msgstr "Vervanging"
+
+msgid "Value at the left is a regular expression"
+msgstr ""
+
+#, fuzzy
+msgid "with"
+msgstr "Breedte:"
+
+#, fuzzy
+msgid "paragraph style"
+msgstr "Stijlen..."
+
+#, fuzzy
+msgid "all instances of"
+msgstr "Afstanden"
+
+msgid "all paragraphs"
+msgstr ""
+
+msgid "paragraphs starting with"
+msgstr ""
+
+msgid "paragraphs with less than"
+msgstr ""
+
+msgid "paragraphs with more than"
+msgstr ""
+
+#, fuzzy
+msgid "Text Filters"
+msgstr "Tekst Veld"
+
+#, fuzzy
 msgid "Select Character:"
 msgstr "Selecteer Teken"
 
@@ -5895,181 +6096,167 @@ msgstr ""
 msgid "Close this dialog and return to text editing."
 msgstr ""
 
-msgid "Print Preview"
-msgstr "Afdruk voorbeeld"
+#, fuzzy
+msgid "New From Template"
+msgstr "Nieuwe Template"
 
 #, fuzzy
-msgid "Print Previe&w"
-msgstr "Afdruk voorbeeld"
+msgid "Description"
+msgstr "Omschrijving:"
 
 #, fuzzy
-msgid "Anti-alias &Text"
-msgstr "Zachtomrande Tekst"
+msgid "Usage"
+msgstr "Gebruik"
 
 #, fuzzy
-msgid "Anti-alias &Graphics"
-msgstr "Zachtomrande Afbeeldingen"
+msgid "Created with"
+msgstr "Maak TekstKoppelingen"
 
 #, fuzzy
-msgid "Display Trans&parency"
-msgstr "Toon Kaders"
-
-msgid "&Under Color Removal"
-msgstr ""
+msgid "Author"
+msgstr "Auteur:"
 
 #, fuzzy
-msgid "&Display CMYK"
-msgstr "Tonen"
-
-msgid "&C"
-msgstr ""
-
-msgid "&M"
-msgstr ""
-
-#, fuzzy
-msgid "&Y"
-msgstr "Ja"
-
-#, fuzzy
-msgid "&K"
-msgstr "Oke"
+msgid "Downloading Templates"
+msgstr "Nieuwe Template"
 
 msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense\n"
-"of a slight slowdown in previewing. This only affects Type 1 fonts"
+"Document templates can be found at http://www.scribus.net/ in the Downloads "
+"section."
 msgstr ""
 
+#, fuzzy
+msgid "Installing Templates"
+msgstr "Nieuwe Template"
+
 msgid ""
-"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
-"and\n"
-"vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
+"Extract the package to the template directory ~/.scribus/templates for the "
+"current user or PREFIX/share/scribus/templates for all users in the system."
+msgstr ""
+
+#, fuzzy
+msgid "Preparing a template"
+msgstr "Nieuwe Template"
+
+msgid ""
+"Make sure images and fonts you use can be used freely. If fonts cannot be "
+"shared do not collect them when saving as a template."
 msgstr ""
 
 msgid ""
-"Shows transparency and transparent items in your document. Requires "
-"Ghostscript 7.07 or later"
+"The template creator should also make sure that the Installing Templates "
+"section above applies to their templates as well. This means a user should "
+"be able to download a template package and be able to extract them to the "
+"template directory and start using them."
+msgstr ""
+
+#, fuzzy
+msgid "Removing a template"
+msgstr "Nieuwe Template"
+
+msgid ""
+"Removing a template from the New From Template dialog will only remove the "
+"entry from the template.xml, it will not delete the document files. A popup "
+"menu with remove is only shown if you have write access to the template.xml "
+"file."
+msgstr ""
+
+msgid "Translating template.xml"
 msgstr ""
 
 msgid ""
-"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
-"colors"
-msgstr ""
-
-msgid "Enable/disable the C (Cyan) ink plate"
-msgstr ""
-
-msgid "Enable/disable the M (Magenta) ink plate"
-msgstr ""
-
-msgid "Enable/disable the Y (Yellow) ink plate"
-msgstr ""
-
-msgid "Enable/disable the K (Black) ink plate"
-msgstr ""
-
-msgid ""
-"A way of switching some of the gray shades which are composed\n"
-"of cyan, yellow and magenta and using black instead.\n"
-"UCR most affects parts of images which are neutral and/or dark tones\n"
-"which are close to the gray. Use of this may improve printing some images\n"
-"and some experimentation and testing is need on a case by case basis.\n"
-"UCR reduces the possibility of over saturation with CMY inks."
+"Copy an existing template.xml to a file called template.lang_COUNTRY.xml "
+"(use the same lang code that is present in the qm file for your language), "
+"for example template.fi.xml for Finnish language template.xml. The copy must "
+"be located in the same directory as the original template.xml so Scribus can "
+"load it."
 msgstr ""
 
 #, fuzzy
-msgid "Save Page as &SVG..."
-msgstr "Pagina Opslaan als SVG..."
+msgid "New &from Template..."
+msgstr "Nieuwe Template"
 
 #, fuzzy
-msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
-msgstr "SVG-Afbeeldingen (*.svg);; Alle Bestanden (*)"
+msgid "Template: "
+msgstr "Template:"
 
 #, fuzzy
-msgid "SVG-Images (*.svg);;All Files (*)"
-msgstr "SVG-Afbeeldingen (*.svg);; Alle Bestanden (*)"
+msgid "Newsletters"
+msgstr "Selecteer Items"
 
-#, fuzzy
-msgid "Import &SVG..."
-msgstr "Importeren..."
-
-#, fuzzy
-msgid "S&cripter Manual..."
-msgstr "Scribus Handboek"
-
-#, fuzzy
-msgid "&Scribus Scripts"
-msgstr "Eigen Scripts"
-
-msgid "&Execute Script..."
+msgid "Brochures"
 msgstr ""
 
 #, fuzzy
-msgid "&Recent Scripts"
+msgid "Catalogs"
+msgstr "Sluiten"
+
+#, fuzzy
+msgid "Flyers"
+msgstr "Lagen"
+
+#, fuzzy
+msgid "Signs"
+msgstr "Instellingen"
+
+msgid "Cards"
+msgstr ""
+
+msgid "Letterheads"
+msgstr ""
+
+msgid "Envelopes"
+msgstr ""
+
+msgid "Business Cards"
+msgstr ""
+
+#, fuzzy
+msgid "Calendars"
+msgstr "Leeg Maken"
+
+#, fuzzy
+msgid "Advertisements"
+msgstr "Metingen"
+
+#, fuzzy
+msgid "Labels"
+msgstr "Lagen"
+
+#, fuzzy
+msgid "Programs"
+msgstr "Programmering:"
+
+msgid "PDF Forms"
+msgstr ""
+
+#, fuzzy
+msgid "PDF Presentations"
+msgstr "Doel"
+
+#, fuzzy
+msgid "Magazines"
+msgstr "Marges:"
+
+#, fuzzy
+msgid "Posters"
+msgstr "Invoegen"
+
+#, fuzzy
+msgid "Announcements"
+msgstr "Documenten:"
+
+#, fuzzy
+msgid "Text Documents"
 msgstr "Recente Documenten"
 
 #, fuzzy
-msgid "Show &Console"
-msgstr "Toon Gereedschappen"
+msgid "Folds"
+msgstr "Vet"
 
 #, fuzzy
-msgid "S&cript"
-msgstr "Scr&ipt"
-
-#, fuzzy
-msgid "Online Reference"
-msgstr "Lezen van Instellingen"
-
-#, fuzzy
-msgid "Python Scripts (*.py);; All Files (*)"
-msgstr "JavaScripts (*.js);; Alle Bestanden (*)"
-
-#, fuzzy
-msgid "Script error"
-msgstr "Scr&ipt"
-
-msgid ""
-"If you are running an official script report it at <a href=\"http://bugs."
-"scribus.net\">bugs.scribus.net</a> please."
-msgstr ""
-
-msgid ""
-"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
-"tracker."
-msgstr ""
-
-#, fuzzy
-msgid "Hide &Console"
-msgstr "Verberg Gereedschappen"
-
-msgid "Script Console"
-msgstr ""
-
-msgid "Oook! Wrong arguments! Call: "
-msgstr ""
-
-msgid "Oook! You're calling an object doesn't exist!"
-msgstr ""
-
-msgid "Oook! You're trying to erase an object doesn't exist!"
-msgstr ""
-
-msgid "Oook! An object you're trying to textflow doesn't exist!"
-msgstr ""
-
-msgid ""
-"Oook! You're trying to load image into an object doesn't exist or isn't "
-"selected!"
-msgstr ""
-
-msgid ""
-"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
-msgstr ""
-
-msgid ""
-"Oook! You're trying to query an object doesn't exist! None selected too."
-msgstr ""
+msgid "Own Templates"
+msgstr "Nieuwe Template"
 
 #, fuzzy
 msgid "Choose a Export Directory"
@@ -6161,52 +6348,87 @@ msgstr ""
 msgid "Yes all"
 msgstr "Alles deSelecteren"
 
-#, fuzzy
-msgid "HTML Files"
-msgstr "Bestand:"
-
-msgid "html"
-msgstr ""
-
-#, fuzzy
-msgid "Text Files"
-msgstr "Tekst Veld"
-
-#, fuzzy
-msgid "CSV Importer Options"
-msgstr "Printer Opties"
-
-msgid "Field delimiter:"
-msgstr ""
-
-msgid "(TAB)"
-msgstr ""
-
-#, fuzzy
-msgid "Value delimiter:"
-msgstr "Waarde is de"
-
-msgid "First row is a header"
-msgstr ""
-
-msgid "Comma Separated Value Files"
-msgstr ""
-
-msgid "CSV_data"
-msgstr ""
-
-#, fuzzy
-msgid "CSV_header"
-msgstr "Schaduw"
-
-#, fuzzy
-msgid "Fonts Preview"
+msgid "Print Preview"
 msgstr "Afdruk voorbeeld"
 
-msgid "Alt+O"
+#, fuzzy
+msgid "Print Previe&w"
+msgstr "Afdruk voorbeeld"
+
+#, fuzzy
+msgid "Anti-alias &Text"
+msgstr "Zachtomrande Tekst"
+
+#, fuzzy
+msgid "Anti-alias &Graphics"
+msgstr "Zachtomrande Afbeeldingen"
+
+#, fuzzy
+msgid "Display Trans&parency"
+msgstr "Toon Kaders"
+
+msgid "&Under Color Removal"
 msgstr ""
 
-msgid "Alt+C"
+#, fuzzy
+msgid "&Display CMYK"
+msgstr "Tonen"
+
+msgid "&C"
+msgstr ""
+
+msgid "&M"
+msgstr ""
+
+#, fuzzy
+msgid "&Y"
+msgstr "Ja"
+
+#, fuzzy
+msgid "&K"
+msgstr "Oke"
+
+msgid ""
+"Provides a more pleasant view of text items in the viewer, at the expense\n"
+"of a slight slowdown in previewing. This only affects Type 1 fonts"
+msgstr ""
+
+msgid ""
+"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
+"and\n"
+"vector graphics in the preview, at the expense of a slight slowdown in "
+"previewing"
+msgstr ""
+
+msgid ""
+"Shows transparency and transparent items in your document. Requires "
+"Ghostscript 7.07 or later"
+msgstr ""
+
+msgid ""
+"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
+"colors"
+msgstr ""
+
+msgid "Enable/disable the C (Cyan) ink plate"
+msgstr ""
+
+msgid "Enable/disable the M (Magenta) ink plate"
+msgstr ""
+
+msgid "Enable/disable the Y (Yellow) ink plate"
+msgstr ""
+
+msgid "Enable/disable the K (Black) ink plate"
+msgstr ""
+
+msgid ""
+"A way of switching some of the gray shades which are composed\n"
+"of cyan, yellow and magenta and using black instead.\n"
+"UCR most affects parts of images which are neutral and/or dark tones\n"
+"which are close to the gray. Use of this may improve printing some images\n"
+"and some experimentation and testing is need on a case by case basis.\n"
+"UCR reduces the possibility of over saturation with CMY inks."
 msgstr ""
 
 #, fuzzy
@@ -6222,164 +6444,6 @@ msgid ""
 "%1\n"
 "failed!"
 msgstr "Afdrukken mislukt!"
-
-#, fuzzy
-msgid "New &from Template..."
-msgstr "Nieuwe Template"
-
-#, fuzzy
-msgid "New From Template"
-msgstr "Nieuwe Template"
-
-#, fuzzy
-msgid "Description"
-msgstr "Omschrijving:"
-
-#, fuzzy
-msgid "Usage"
-msgstr "Gebruik"
-
-#, fuzzy
-msgid "Created with"
-msgstr "Maak TekstKoppelingen"
-
-#, fuzzy
-msgid "Author"
-msgstr "Auteur:"
-
-#, fuzzy
-msgid "Downloading Templates"
-msgstr "Nieuwe Template"
-
-msgid ""
-"Document templates can be found at http://www.scribus.net/ in the Downloads "
-"section."
-msgstr ""
-
-#, fuzzy
-msgid "Installing Templates"
-msgstr "Nieuwe Template"
-
-msgid ""
-"Extract the package to the template directory ~/.scribus/templates for the "
-"current user or PREFIX/share/scribus/templates for all users in the system."
-msgstr ""
-
-#, fuzzy
-msgid "Preparing a template"
-msgstr "Nieuwe Template"
-
-msgid ""
-"Make sure images and fonts you use can be used freely. If fonts cannot be "
-"shared do not collect them when saving as a template."
-msgstr ""
-
-msgid ""
-"The template creator should also make sure that the Installing Templates "
-"section above applies to their templates as well. This means a user should "
-"be able to download a template package and be able to extract them to the "
-"template directory and start using them."
-msgstr ""
-
-#, fuzzy
-msgid "Removing a template"
-msgstr "Nieuwe Template"
-
-msgid ""
-"Removing a template from the New From Template dialog will only remove the "
-"entry from the template.xml, it will not delete the document files. A popup "
-"menu with remove is only shown if you have write access to the template.xml "
-"file."
-msgstr ""
-
-msgid "Translating template.xml"
-msgstr ""
-
-msgid ""
-"Copy an existing template.xml to a file called template.lang_COUNTRY.xml "
-"(use the same lang code that is present in the qm file for your language), "
-"for example template.fi.xml for Finnish language template.xml. The copy must "
-"be located in the same directory as the original template.xml so Scribus can "
-"load it."
-msgstr ""
-
-#, fuzzy
-msgid "Newsletters"
-msgstr "Selecteer Items"
-
-msgid "Brochures"
-msgstr ""
-
-#, fuzzy
-msgid "Catalogs"
-msgstr "Sluiten"
-
-#, fuzzy
-msgid "Flyers"
-msgstr "Lagen"
-
-#, fuzzy
-msgid "Signs"
-msgstr "Instellingen"
-
-msgid "Cards"
-msgstr ""
-
-msgid "Letterheads"
-msgstr ""
-
-msgid "Envelopes"
-msgstr ""
-
-msgid "Business Cards"
-msgstr ""
-
-#, fuzzy
-msgid "Calendars"
-msgstr "Leeg Maken"
-
-#, fuzzy
-msgid "Advertisements"
-msgstr "Metingen"
-
-#, fuzzy
-msgid "Labels"
-msgstr "Lagen"
-
-#, fuzzy
-msgid "Programs"
-msgstr "Programmering:"
-
-msgid "PDF Forms"
-msgstr ""
-
-#, fuzzy
-msgid "PDF Presentations"
-msgstr "Doel"
-
-#, fuzzy
-msgid "Magazines"
-msgstr "Marges:"
-
-#, fuzzy
-msgid "Posters"
-msgstr "Invoegen"
-
-#, fuzzy
-msgid "Announcements"
-msgstr "Documenten:"
-
-#, fuzzy
-msgid "Text Documents"
-msgstr "Recente Documenten"
-
-#, fuzzy
-msgid "Folds"
-msgstr "Vet"
-
-#, fuzzy
-msgid "Own Templates"
-msgstr "Nieuwe Template"
 
 #, fuzzy
 msgid "Save as Template"
@@ -6412,6 +6476,139 @@ msgstr "Aangepast"
 #, fuzzy
 msgid "Save as &Template..."
 msgstr "Opslaan als Tekst..."
+
+#, fuzzy
+msgid "S&cripter Manual..."
+msgstr "Scribus Handboek"
+
+#, fuzzy
+msgid "&Scribus Scripts"
+msgstr "Eigen Scripts"
+
+msgid "&Execute Script..."
+msgstr ""
+
+#, fuzzy
+msgid "&Recent Scripts"
+msgstr "Recente Documenten"
+
+#, fuzzy
+msgid "Show &Console"
+msgstr "Toon Gereedschappen"
+
+#, fuzzy
+msgid "S&cript"
+msgstr "Scr&ipt"
+
+#, fuzzy
+msgid "Python Scripts (*.py);; All Files (*)"
+msgstr "JavaScripts (*.js);; Alle Bestanden (*)"
+
+#, fuzzy
+msgid "Script error"
+msgstr "Scr&ipt"
+
+msgid ""
+"If you are running an official script report it at <a href=\"http://bugs."
+"scribus.net\">bugs.scribus.net</a> please."
+msgstr ""
+
+msgid ""
+"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
+"tracker."
+msgstr ""
+
+#, fuzzy
+msgid "Hide &Console"
+msgstr "Verberg Gereedschappen"
+
+msgid ""
+"Oook! You're trying to load image into an object doesn't exist or isn't "
+"selected!"
+msgstr ""
+
+msgid ""
+"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
+msgstr ""
+
+msgid ""
+"Oook! You're trying to query an object doesn't exist! None selected too."
+msgstr ""
+
+msgid "Oook! You're calling an object doesn't exist!"
+msgstr ""
+
+msgid "Oook! You're trying to erase an object doesn't exist!"
+msgstr ""
+
+msgid "Oook! An object you're trying to textflow doesn't exist!"
+msgstr ""
+
+msgid "Oook! Wrong arguments! Call: "
+msgstr ""
+
+msgid "Script Console"
+msgstr ""
+
+#, fuzzy
+msgid "Insert value"
+msgstr "Voeg Pagina in"
+
+msgid "Enter a value then press OK."
+msgstr ""
+
+msgid "Enter a value then press OK"
+msgstr ""
+
+msgid "Send your value to the script"
+msgstr ""
+
+#, fuzzy
+msgid "Save Page as &SVG..."
+msgstr "Pagina Opslaan als SVG..."
+
+#, fuzzy
+msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
+msgstr "SVG-Afbeeldingen (*.svg);; Alle Bestanden (*)"
+
+#, fuzzy
+msgid "SVG-Images (*.svg);;All Files (*)"
+msgstr "SVG-Afbeeldingen (*.svg);; Alle Bestanden (*)"
+
+#, fuzzy
+msgid "Import &SVG..."
+msgstr "Importeren..."
+
+#, fuzzy
+#~ msgid "&Fully Automatic"
+#~ msgstr "Volledig Automatisch"
+
+#, fuzzy
+#~ msgid "Check &During Typing"
+#~ msgstr "Controle tijdens Typen"
+
+#, fuzzy
+#~ msgid ""
+#~ "If you uncheck this you will get a dialog\n"
+#~ "everytime a possible Hyphenation is found."
+#~ msgstr ""
+#~ "Als je dit uitzet dan krijg je een waarschuwing\n"
+#~ "elke keer als een hyphenatie is gevonden."
+
+#, fuzzy
+#~ msgid "Conve&x Polygon"
+#~ msgstr "Convexe Polygoon"
+
+#, fuzzy
+#~ msgid "Importer"
+#~ msgstr "Importeer"
+
+#~ msgid "Programming:"
+#~ msgstr "Programmering:"
+
+#, fuzzy
+#~ msgid "Homepage and online reference"
+#~ msgstr "Lezen van Instellingen"
 
 #, fuzzy
 #~ msgid "&Edit Frame"
@@ -6463,9 +6660,6 @@ msgstr "Opslaan als Tekst..."
 #~ msgid "Edit"
 #~ msgstr "Bewerken"
 
-#~ msgid "Template:"
-#~ msgstr "Template:"
-
 #~ msgid "Height:"
 #~ msgstr "Hoogte:"
 
@@ -6513,9 +6707,6 @@ msgstr "Opslaan als Tekst..."
 #, fuzzy
 #~ msgid "Quality :"
 #~ msgstr "Afsluiten"
-
-#~ msgid "From page:"
-#~ msgstr "Vanaf pagina:"
 
 #~ msgid "To page:"
 #~ msgstr "Tot Pagina:"

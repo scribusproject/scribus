@@ -30,6 +30,7 @@
 #include "cmdutil.h"
 #include "cmdvar.h"
 #include "objprinter.h"
+#include "objpdffile.h"
 #include "guiapp.h"
 #include "customfdialog.h"
 #include "helpbrowser.h"
@@ -391,6 +392,10 @@ static PyObject *scribus_getval(PyObject *self, PyObject* args)
 }
 
 static PyMethodDef scribus_methods[] = {
+	// 2004/09/26 pv
+	{"ValueDialog", scribus_valdialog, METH_VARARGS},
+	{"GetPageSize", scribus_pagedimension, METH_VARARGS}, // just an alias to PageDimension()
+	{"GetPageMargins", scribus_getpagemargins, METH_VARARGS},
 	// 2004/09/13 pv
 	{"TraceText", scribus_tracetext, METH_VARARGS},
 	{"LoadStylesFromFile", scribus_loadstylesfromfile, METH_VARARGS},
@@ -541,9 +546,12 @@ void initscribus(ScribusApp *pl)
 	PyObject *m, *d;
 	PyImport_AddModule("scribus");
 	PyType_Ready(&Printer_Type);
+	PyType_Ready(&PDFfile_Type);
 	m = Py_InitModule("scribus", scribus_methods);
 	Py_INCREF(&Printer_Type);
 	PyModule_AddObject(m, "Printer", (PyObject *) &Printer_Type);
+	Py_INCREF(&PDFfile_Type);
+	PyModule_AddObject(m, "PDFfile", (PyObject *) &PDFfile_Type);
 	d = PyModule_GetDict(m);
 	PyDict_SetItemString(d, "Points", 							Py_BuildValue("i", 0));
 	PyDict_SetItemString(d, "Millimeters", 					Py_BuildValue("i", 1));

@@ -2,6 +2,7 @@
 #include "cmddialog.h"
 #include "cmdvar.h"
 #include "cmdutil.h"
+#include "valuedialog.h"
 #include <qmessagebox.h>
 
 PyObject *scribus_newdocdia(PyObject *self, PyObject* args)
@@ -60,3 +61,20 @@ PyObject *scribus_messdia(PyObject *self, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(mb.exec()));
 }
 
+PyObject *scribus_valdialog(PyObject *self, PyObject* args)
+{
+	char *caption = "";
+	char *message = "";
+	char *value = "";
+	if (!PyArg_ParseTuple(args, "ss|s", &caption, &message, &value))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("ValueDialog(caption, message [,defaultvalue])"));
+		return NULL;
+	}
+	ValueDialog *d = new ValueDialog(Carrier, "d", TRUE, 0);
+	d->dialogLabel->setText(message);
+	d->valueEdit->setText(value);
+	d->setCaption(caption);
+	d->exec();
+	return PyString_FromString(d->valueEdit->text().utf8());
+}

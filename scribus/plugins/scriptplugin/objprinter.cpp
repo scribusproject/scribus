@@ -13,556 +13,557 @@
 extern bool CMSuse;
 #endif
 // these functions are located at utils.cpp
-extern bool loadText(QString nam, QString *Buffer);
-extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
+bool loadText(QString nam, QString *Buffer);
+void ReOrderText(ScribusDoc *doc, ScribusView *view);
 // end of utils.cpp
 
 typedef struct 
 {
-    PyObject_HEAD
-    PyObject *allPrinters; // list of strings - names of installed printers
-    PyObject *printer;  // string - selected printer
-    PyObject *file;  // string - name of file to print into (eg. output.ps)
-    PyObject *cmd; // string - if "" use standard command else use this as command (eg. "kprinter", "xpp" ...)
-    PyObject *pages;       // list of integers - pages to be printed
-    int copies;      // numer of printed copies    
-    PyObject *separation; // string - No; All; Cyan; Magenta; Yellow; Black
-    int color;       // bool - do we print in color=1 or greyscale=0
-    int useICC;       // bool - do we use ICC Profiles 0 = No 1 = Yes
-    int pslevel;     // integer - 1, 2 or 3 level of used postscript
-    int mph; // bool - mirror pages horizontally
-    int mpv;   // bool - mirror pages vertically
-    int ucr;     // bool - Under Color Removal
+        PyObject_HEAD
+        PyObject *allPrinters; // list of strings - names of installed printers
+        PyObject *printer;  // string - selected printer
+        PyObject *file;  // string - name of file to print into (eg. output.ps)
+        PyObject *cmd; // string - if "" use standard command else use this as command (eg. "kprinter", "xpp" ...)
+        PyObject *pages; // list of integers - pages to be printed
+        int copies; // numer of printed copies    
+        PyObject *separation; // string - No; All; Cyan; Magenta; Yellow; Black
+        int color; // bool - do we print in color=1 or greyscale=0
+        int useICC; // bool - do we use ICC Profiles 0 = No 1 = Yes
+        int pslevel; // integer - 1, 2 or 3 level of used postscript
+        int mph; // bool - mirror pages horizontally
+        int mpv; // bool - mirror pages vertically
+        int ucr; // bool - Under Color Removal
 } Printer;
 
 
 static void Printer_dealloc(Printer* self)
 {
-    Py_XDECREF(self->allPrinters);
-    Py_XDECREF(self->printer);
-    Py_XDECREF(self->file);
-    Py_XDECREF(self->cmd);
-    Py_XDECREF(self->pages);
-    Py_XDECREF(self->separation);
-    self->ob_type->tp_free((PyObject *)self);
+        Py_XDECREF(self->allPrinters);
+        Py_XDECREF(self->printer);
+        Py_XDECREF(self->file);
+        Py_XDECREF(self->cmd);
+        Py_XDECREF(self->pages);
+        Py_XDECREF(self->separation);
+        self->ob_type->tp_free((PyObject *)self);
 }
 
 static PyObject * Printer_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
 {
 // do not create new object if there is no opened document
-    if (!Carrier->HaveDoc) {
-        PyErr_SetString(PyExc_SystemError, "Need to open document first");
-        return NULL;
-    }
+        if (!Carrier->HaveDoc) {
+                PyErr_SetString(PyExc_SystemError, "Need to open document first");
+                return NULL;
+        }
 
-    Printer *self;
-    self = (Printer *)type->tp_alloc(type, 0);
-    if (self != NULL) {
+        Printer *self;
+        self = (Printer *)type->tp_alloc(type, 0);
+        if (self != NULL) {
 // set allPrinters attribute
-        self->allPrinters = PyList_New(0);
-        if (self->allPrinters == NULL){
-            Py_DECREF(self);
-            return NULL;
-        }
+                self->allPrinters = PyList_New(0);
+                if (self->allPrinters == NULL){
+                        Py_DECREF(self);
+                        return NULL;
+                }
 // set printer attribute
-        self->printer = PyString_FromString("");
-        if (self->printer == NULL){
-            Py_DECREF(self);
-            return NULL;
-        }
+                self->printer = PyString_FromString("");
+                if (self->printer == NULL){
+                        Py_DECREF(self);
+                        return NULL;
+                }
 // set file attribute
-        self->file = PyString_FromString("");
-        if (self->file == NULL){
-            Py_DECREF(self);
-            return NULL;
-        }
+                self->file = PyString_FromString("");
+                if (self->file == NULL){
+                        Py_DECREF(self);
+                        return NULL;
+                }
 // set cmd attribute
-        self->cmd = PyString_FromString("");
-        if (self->cmd == NULL){
-            Py_DECREF(self);
-            return NULL;
-        }
+                self->cmd = PyString_FromString("");
+                if (self->cmd == NULL){
+                        Py_DECREF(self);
+                        return NULL;
+                }
 // set pages attribute
-        self->pages = PyList_New(0);
-        if (self->pages == NULL){
-            Py_DECREF(self);
-            return NULL;
-        }
+                self->pages = PyList_New(0);
+                if (self->pages == NULL){
+                        Py_DECREF(self);
+                        return NULL;
+                }
 // set separation attribute
-        self->separation = PyString_FromString("No");
-        if (self->separation == NULL){
-            Py_DECREF(self);
-            return NULL;
-        }
+                self->separation = PyString_FromString("No");
+                if (self->separation == NULL){
+                        Py_DECREF(self);
+                        return NULL;
+                }
 // set color attribute
-        self->color = 1;
+                self->color = 1;
 // set useICC attribute
-        self->useICC = 0;
+                self->useICC = 0;
 // set pslevel attribute
-        self->pslevel = 3;
+                self->pslevel = 3;
 // set mph attribute
-        self->mph = 0;
+                self->mph = 0;
 // set mpv attribute
-        self->mpv = 0;
+                self->mpv = 0;
 // set ucr attribute
-        self->ucr = 1;
+                self->ucr = 1;
 // set copies attribute
-        self->copies = 1;
-    }
-    return (PyObject *) self;
+                self->copies = 1;
+        }
+        return (PyObject *) self;
 }
 
 static int Printer_init(Printer *self, PyObject *args, PyObject *kwds)
 {
 // pool system for installed printers
 // most code is stolen and little adopted from druck.cpp
-    PyObject *allPrinters = PyList_New(0);
-    if (allPrinters){
-        Py_DECREF(self->allPrinters);
-        self->allPrinters = allPrinters;
-    }
+        PyObject *allPrinters = PyList_New(0);
+        if (allPrinters){
+                Py_DECREF(self->allPrinters);
+                self->allPrinters = allPrinters;
+        }
 #ifdef HAVE_CUPS
-    cups_dest_t *dests;
-    int num_dests = cupsGetDests(&dests);
-    for (int i = 0; i < num_dests; ++i) {
-        if (dests[i].name != NULL) {
-            PyObject *tmp = PyString_FromString(dests[i].name);
-            if (tmp)
-                PyList_Append(self->allPrinters, tmp);
-        }
-    }
-    cupsFreeDests(num_dests, dests);
-#else
-    QString Pcap;
-        // loadText is defined in utils.cpp
-    if (loadText("/etc/printcap", &Pcap))
-    {
-        QTextStream ts(&Pcap, IO_ReadOnly);
-        while(!ts.atEnd())
-        {
-            QStringList wt;
-            QString tmp = ts.readLine();
-            if (tmp.isEmpty())
-                continue;
-            if ((tmp[0] != '#') && (tmp[0] != ' ') && (tmp[0] != '\n') && (tmp[0] != '\t'))
-            {
-                tmp = tmp.stripWhiteSpace();
-                tmp = tmp.left(tmp.length() - (tmp.right(2) == ":\\" ? 2 : 1));
-                wt = QStringList::split("|", tmp);
-                PyObject *tmppr = PyString_FromString(wt[0]);
-                if (tmppr){
-                    PyList_Append(self->allPrinters, tmppr);
+        cups_dest_t *dests;
+        int num_dests = cupsGetDests(&dests);
+        for (int i = 0; i < num_dests; ++i) {
+                if (dests[i].name != NULL) {
+                        PyObject *tmp = PyString_FromString(dests[i].name);
+                        if (tmp)
+                                PyList_Append(self->allPrinters, tmp);
                 }
-            }
         }
-    }
+        cupsFreeDests(num_dests, dests);
+#else
+        QString Pcap;
+        // loadText is defined in utils.cpp
+        if (loadText("/etc/printcap", &Pcap))
+        {
+                QTextStream ts(&Pcap, IO_ReadOnly);
+                while(!ts.atEnd())
+                {
+                        QStringList wt;
+                        QString tmp = ts.readLine();
+                        if (tmp.isEmpty())
+                                continue;
+                        if ((tmp[0] != '#') && (tmp[0] != ' ') && (tmp[0] != '\n') && (tmp[0] != '\t'))
+                        {
+                                tmp = tmp.stripWhiteSpace();
+                                tmp = tmp.left(tmp.length() - (tmp.right(2) == ":\\" ? 2 : 1));
+                                wt = QStringList::split("|", tmp);
+                                PyObject *tmppr = PyString_FromString(wt[0]);
+                                if (tmppr){
+                                        PyList_Append(self->allPrinters, tmppr);
+                                }
+                        }
+                }
+        }
 #endif
-    PyList_Append(self->allPrinters, PyString_FromString("File"));
+        PyList_Append(self->allPrinters, PyString_FromString("File"));
 // as defaut set to print into file
-    PyObject *printer = NULL;
-    printer = PyString_FromString("File");
-    if (printer){
-        Py_DECREF(self->printer);
-        self->printer = printer;
-    }
+        PyObject *printer = NULL;
+        printer = PyString_FromString("File");
+        if (printer){
+                Py_DECREF(self->printer);
+                self->printer = printer;
+        }
 // set defaul name of file to print into
-    PyObject *file = NULL;
-    file = PyString_FromString("output.ps");
-    if (file){
-        Py_DECREF(self->file);
-        self->file = file;
-    }
+        PyObject *file = NULL;
+        file = PyString_FromString("output.ps");
+        if (file){
+                Py_DECREF(self->file);
+                self->file = file;
+        }
 // alternative printer commands default to ""
-    PyObject *cmd = NULL;
-    cmd = PyString_FromString("");
-    if (cmd){
-        Py_DECREF(self->cmd);
-        self->cmd = cmd;
-    }
+        PyObject *cmd = NULL;
+        cmd = PyString_FromString("");
+        if (cmd){
+                Py_DECREF(self->cmd);
+                self->cmd = cmd;
+        }
 // if document exist when created Printer instance
 // set to print all pages
-    PyObject *pages = NULL;
-    int num = 0;
-    if (Carrier->HaveDoc)
-            // which one should I use ???
-            // new = Carrier->view->Pages.count()
-        num = Carrier->doc->PageC;
-    pages = PyList_New(num);
-    if (pages){
-        Py_DECREF(self->pages);
-        self->pages = pages;
-    }
-    for (int i = 0; i<num; i++) {
-        PyObject *tmp=NULL;
-        tmp = PyInt_FromLong((long)i+1L); // instead of 1 put here first page number
-        if (tmp)
-            PyList_SetItem(self->pages, i, tmp);
-    }
+        PyObject *pages = NULL;
+        int num = 0;
+        if (Carrier->HaveDoc)
+                // which one should I use ???
+                // new = Carrier->view->Pages.count()
+                num = Carrier->doc->PageC;
+        pages = PyList_New(num);
+        if (pages){
+                Py_DECREF(self->pages);
+                self->pages = pages;
+        }
+        for (int i = 0; i<num; i++) {
+                PyObject *tmp=NULL;
+                tmp = PyInt_FromLong((long)i+1L); // instead of 1 put here first page number
+                if (tmp)
+                        PyList_SetItem(self->pages, i, tmp);
+        }
 // do not print separation
-    PyObject *separation = NULL;
-    separation = PyString_FromString("No");
-    if (separation){
-        Py_DECREF(self->separation);
-        self->separation = separation;
-    }
+        PyObject *separation = NULL;
+        separation = PyString_FromString("No");
+        if (separation){
+                Py_DECREF(self->separation);
+                self->separation = separation;
+        }
 // print in color
-    self->color = 1;
+        self->color = 1;
 // do not use ICC Profile
-    self->useICC = 0;
+        self->useICC = 0;
 // use PostScrip level 3
-    self->pslevel = 3;
+        self->pslevel = 3;
 // do not mirror pages
-    self->mph = 0;
+        self->mph = 0;
 // do not mirror pages
-    self->mpv = 0;
+        self->mpv = 0;
 // apply Under Color Removal as default
-    self->ucr = 1;
+        self->ucr = 1;
 // number of copies
-    self->copies = 1;
-    return 0;
+        self->copies = 1;
+        return 0;
 }
 
 static PyMemberDef Printer_members[] = {
-    {"copies", T_INT, offsetof(Printer, copies), 0, "Number of copies"},
-    {"color", T_INT, offsetof(Printer, color), 0, "Print in color.\n\t True - color  --  Default\n\t False - greyscale"},
-    {"useICC", T_INT, offsetof(Printer, useICC), 0, "Use ICC Profile\n\tTrue\n\tFalse  --  Default"},
-    {"pslevel", T_INT, offsetof(Printer, pslevel), 0, "PostScript Level\n\tCan be 1 or 2 or 3    -- Default is 3."},
-    {"mph", T_INT, offsetof(Printer, mph), 0, "Mirror Pages Horizontal\n\tTrue\n\tFalse  --  Default"},
-    {"mpv", T_INT, offsetof(Printer, mpv), 0, "Mirror Pages Vertical\n\t True\n\tFalse  --  Default"},
-    {"ucr", T_INT, offsetof(Printer, ucr), 0, "Apply Under Color Removal\n\tTrue  --  Default\n\tFalse"},
-    {NULL}                      // sentinel
+        {"copies", T_INT, offsetof(Printer, copies), 0, "Number of copies"},
+        {"color", T_INT, offsetof(Printer, color), 0, "Print in color.\n\t True - color  --  Default\n\t False - greyscale"},
+        {"useICC", T_INT, offsetof(Printer, useICC), 0, "Use ICC Profile\n\tTrue\n\tFalse  --  Default"},
+        {"pslevel", T_INT, offsetof(Printer, pslevel), 0, "PostScript Level\nCan be 1 or 2 or 3    -- Default is 3."},
+        {"mph", T_INT, offsetof(Printer, mph), 0, "Mirror Pages Horizontal\n\tTrue\n\tFalse  --  Default"},
+        {"mpv", T_INT, offsetof(Printer, mpv), 0, "Mirror Pages Vertical\n\t True\n\tFalse  --  Default"},
+        {"ucr", T_INT, offsetof(Printer, ucr), 0, "Apply Under Color Removal\n\tTrue  --  Default\n\tFalse"},
+        {NULL}                      // sentinel
 };
 
 /* Here begins Getter & Setter functions */
 
 static PyObject *Printer_getallPrinters(Printer *self, void *closure)
 {
-    Py_INCREF(self->allPrinters);
-    return self->allPrinters;
+        Py_INCREF(self->allPrinters);
+        return self->allPrinters;
 }
 
 static int Printer_setallPrinters(Printer *self, PyObject *value, void *closure)
 {
-    PyErr_SetString(PyExc_ValueError, "'allPrinters' attribute is READ-ONLY");
-    return -1;
+        PyErr_SetString(PyExc_ValueError, "'allPrinters' attribute is READ-ONLY");
+        return -1;
 }
 
 static PyObject *Printer_getprinter(Printer *self, void *closure)
 {
-    Py_INCREF(self->printer);
-    return self->printer;
+        Py_INCREF(self->printer);
+        return self->printer;
 }
 
 static int Printer_setprinter(Printer *self, PyObject *value, void *closure)
 {
-    if (value == NULL) {
-        PyErr_SetString(PyExc_TypeError, "Cannot delete 'printer' attribute.");
-        return -1;
-    }
-    if (!PyString_Check(value)) {
-        PyErr_SetString(PyExc_TypeError, "The 'printer' attribute value must be string.");
-        return -1;
-    }
-    int n = PyList_Size(self->allPrinters);
-    bool same = 0;
-    for (int i = 0; i<n; i++)
-        if (PyObject_RichCompareBool(value, PyList_GetItem(self->allPrinters, i), Py_EQ) == 1)
-            same = true;
-    if (!same) {
-        PyErr_SetString(PyExc_ValueError, "'printer' value can be only one of string in 'allPrinters' attribute ");
-        return -1;
-    }
-    Py_DECREF(self->printer);
-    Py_INCREF(value);
-    self->printer = value;
-    return 0;
+        if (value == NULL) {
+                PyErr_SetString(PyExc_TypeError, "Cannot delete 'printer' attribute.");
+                return -1;
+        }
+        if (!PyString_Check(value)) {
+                PyErr_SetString(PyExc_TypeError, "The 'printer' attribute value must be string.");
+                return -1;
+        }
+        int n = PyList_Size(self->allPrinters);
+        bool same = 0;
+        for (int i = 0; i<n; i++)
+                if (PyObject_RichCompareBool(value, PyList_GetItem(self->allPrinters, i), Py_EQ) == 1)
+                        same = true;
+        if (!same) {
+                PyErr_SetString(PyExc_ValueError, "'printer' value can be only one of string in 'allPrinters' attribute ");
+                return -1;
+        }
+        Py_DECREF(self->printer);
+        Py_INCREF(value);
+        self->printer = value;
+        return 0;
 }
 
 static PyObject *Printer_getfile(Printer *self, void *closure)
 {
-    Py_INCREF(self->file);
-    return self->file;
+        Py_INCREF(self->file);
+        return self->file;
 }
 
 static int Printer_setfile(Printer *self, PyObject *value, void *closure)
 {
-    if (value == NULL) {
-        PyErr_SetString(PyExc_TypeError, "Cannot delete 'file' attribute.");
-        return -1;
-    }
-    if (!PyString_Check(value)) {
-        PyErr_SetString(PyExc_TypeError, "The 'file' attribute value must be string.");
-        return -1;
-    }
-    Py_DECREF(self->file);
-    Py_INCREF(value);
-    self->file = value;
-    return 0;
+        if (value == NULL) {
+                PyErr_SetString(PyExc_TypeError, "Cannot delete 'file' attribute.");
+                return -1;
+        }
+        if (!PyString_Check(value)) {
+                PyErr_SetString(PyExc_TypeError, "The 'file' attribute value must be string.");
+                return -1;
+        }
+        Py_DECREF(self->file);
+        Py_INCREF(value);
+        self->file = value;
+        return 0;
 }
 
 static PyObject *Printer_getcmd(Printer *self, void *closure)
 {
-    Py_INCREF(self->cmd);
-    return self->cmd;
+        Py_INCREF(self->cmd);
+        return self->cmd;
 }
 
 static int Printer_setcmd(Printer *self, PyObject *value, void *closure)
 {
-    if (value == NULL) {
-        PyErr_SetString(PyExc_TypeError, "Cannot delete 'cmd' attribute.");
-        return -1;
-    }
-    if (!PyString_Check(value)) {
-        PyErr_SetString(PyExc_TypeError, "The 'cmd' attribute value must be string.");
-        return -1;
-    }
-    Py_DECREF(self->cmd);
-    Py_INCREF(value);
-    self->cmd = value;
-    return 0;
+        if (value == NULL) {
+                PyErr_SetString(PyExc_TypeError, "Cannot delete 'cmd' attribute.");
+                return -1;
+        }
+        if (!PyString_Check(value)) {
+                PyErr_SetString(PyExc_TypeError, "The 'cmd' attribute value must be string.");
+                return -1;
+        }
+        Py_DECREF(self->cmd);
+        Py_INCREF(value);
+        self->cmd = value;
+        return 0;
 }
 
 static PyObject *Printer_getpages(Printer *self, void *closure)
 {
-    Py_INCREF(self->pages);
-    return self->pages;
+        Py_INCREF(self->pages);
+        return self->pages;
 }
 
 static int Printer_setpages(Printer *self, PyObject *value, void *closure)
 {
-    if (value == NULL) {
-        PyErr_SetString(PyExc_TypeError, "Cannot delete 'pages' attribute.");
-        return -1;
-    }
-    if (!PyList_Check(value)) {
-        PyErr_SetString(PyExc_TypeError, "'pages' attribute value must be list of integers.");
-        return -1;
-    }
-    int len = PyList_Size(value);
-    for (int i = 0; i<len; i++){
-        PyObject *tmp = PyList_GetItem(value, i);
-        if (!PyInt_Check(tmp)){
-            PyErr_SetString(PyExc_TypeError, "'pages' attribute must be list containing only integers.");
-            return -1;
+        if (value == NULL) {
+                PyErr_SetString(PyExc_TypeError, "Cannot delete 'pages' attribute.");
+                return -1;
         }
-    }
-    Py_DECREF(self->pages);
-    Py_INCREF(value);
-    self->pages = value;
-    return 0;
+        if (!PyList_Check(value)) {
+                PyErr_SetString(PyExc_TypeError, "'pages' attribute value must be list of integers.");
+                return -1;
+        }
+        int len = PyList_Size(value);
+        for (int i = 0; i<len; i++){
+                PyObject *tmp = PyList_GetItem(value, i);
+                if (!PyInt_Check(tmp)){
+                        PyErr_SetString(PyExc_TypeError, "'pages' attribute must be list containing only integers.");
+                        return -1;
+                }
+        }
+        Py_DECREF(self->pages);
+        Py_INCREF(value);
+        self->pages = value;
+        return 0;
 }
 
 static PyObject *Printer_getseparation(Printer *self, void *closure)
 {
-    Py_INCREF(self->separation);
-    return self->separation;
+        Py_INCREF(self->separation);
+        return self->separation;
 }
 
 static int Printer_setseparation(Printer *self, PyObject *value, void *closure)
 {
-    if (value == NULL) {
-        PyErr_SetString(PyExc_TypeError, "Cannot delete 'separation' attribute.");
-        return -1;
-    }
-    if (!PyString_Check(value)) {
-        PyErr_SetString(PyExc_TypeError, "The 'separation' attribute value must be string.");
-        return -1;
-    }
-    Py_DECREF(self->separation);
-    Py_INCREF(value);
-    self->separation = value;
-    return 0;
+        if (value == NULL) {
+                PyErr_SetString(PyExc_TypeError, "Cannot delete 'separation' attribute.");
+                return -1;
+        }
+        if (!PyString_Check(value)) {
+                PyErr_SetString(PyExc_TypeError, "The 'separation' attribute value must be string.");
+                return -1;
+        }
+        Py_DECREF(self->separation);
+        Py_INCREF(value);
+        self->separation = value;
+        return 0;
 }
 
 
 static PyGetSetDef Printer_getseters [] = {
-    {"allPrinters", (getter)Printer_getallPrinters, (setter)Printer_setallPrinters, "List of installed printers  --  read only", NULL},
-    {"printer", (getter)Printer_getprinter, (setter)Printer_setprinter, "Name of printer to use.\nDefault is 'File' for printing into file", NULL},
-    {"file", (getter)Printer_getfile, (setter)Printer_setfile, "Name of file to print into", NULL},
-    {"cmd", (getter)Printer_getcmd, (setter)Printer_setcmd, "Alternative Printer Command", NULL},
-    {"pages", (getter)Printer_getpages, (setter)Printer_setpages, "List of pages to be printed", NULL},
-    {"separation", (getter)Printer_getseparation, (setter)Printer_setseparation, "Print separationl\n\t 'No'  -- Default\n\t 'All'\n\t 'Cyan'\n\t 'Magenta'\n\t 'Yellow'\n\t 'Black'\nBeware of misspelling because check is not performed", NULL},
-    {NULL}  // sentinel
+        {"allPrinters", (getter)Printer_getallPrinters, (setter)Printer_setallPrinters, "List of installed printers  --  read only", NULL},
+        {"printer", (getter)Printer_getprinter, (setter)Printer_setprinter, "Name of printer to use.\nDefault is 'File' for printing into file", NULL},
+        {"file", (getter)Printer_getfile, (setter)Printer_setfile, "Name of file to print into", NULL},
+        {"cmd", (getter)Printer_getcmd, (setter)Printer_setcmd, "Alternative Printer Command", NULL},
+        {"pages", (getter)Printer_getpages, (setter)Printer_setpages, "List of pages to be printed", NULL},
+        {"separation", (getter)Printer_getseparation, (setter)Printer_setseparation, "Print separationl\n\t 'No'  -- Default\n\t 'All'\n\t 'Cyan'\n\t 'Magenta'\n\t 'Yellow'\n\t 'Black'\nBeware of misspelling because check is not performed", NULL},
+        {NULL}  // sentinel
 };
 
 // Here we actually print 
 static PyObject *Printer_print(Printer *self)
 {
-    if (!Carrier->HaveDoc) {
-        PyErr_SetString(PyExc_SystemError, "Need to open documetnt first");
-        return NULL;
-    }
+        if (!Carrier->HaveDoc) {
+                PyErr_SetString(PyExc_SystemError, "Need to open documetnt first");
+                return NULL;
+        }
 // copied from void ScribusApp::slotFilePrint() in file scribus.cpp
-    QString fna, prn, cmd, scmd, cc, data, SepName;
-    QString printcomm;
-    int Nr, PSLevel;
-    bool fil, sep, color, PSfile, mirrorH, mirrorV, useICC, DoGCR;
-    PSfile = false;
+        QString fna, prn, cmd, scmd, cc, data, SepName;
+        QString printcomm;
+        int Nr, PSLevel;
+        bool fil, sep, color, PSfile, mirrorH, mirrorV, useICC, DoGCR;
+        PSfile = false;
 
 //    ReOrderText(Carrier->doc, Carrier->view);
-    prn = QString(PyString_AsString(self->printer));
-    fna = QString(PyString_AsString(self->file));
-    fil = (QString(PyString_AsString(self->printer)) == QString("File")) ? true : false;
-    std::vector<int> pageNs;
-    for (int i = 0; i < PyList_Size(self->pages); ++i) {
-        pageNs.push_back((int)PyInt_AsLong(PyList_GetItem(self->pages, i)));
-    }
-    Nr = (self->copies < 1) ? 1 : self->copies;
-    SepName = QString(PyString_AsString(self->separation));
-    sep =(SepName == QString("No")) ?  false : true;
+        prn = QString(PyString_AsString(self->printer));
+        fna = QString(PyString_AsString(self->file));
+        fil = (QString(PyString_AsString(self->printer)) == QString("File")) ? true : false;
+        std::vector<int> pageNs;
+        for (int i = 0; i < PyList_Size(self->pages); ++i) {
+                pageNs.push_back((int)PyInt_AsLong(PyList_GetItem(self->pages, i)));
+        }
+        Nr = (self->copies < 1) ? 1 : self->copies;
+        SepName = QString(PyString_AsString(self->separation));
+        sep =(SepName == QString("No")) ?  false : true;
 //     if (SepName == QString("All"))
 //         SepName = tr(SepName);
-    color = (bool)self->color;
-    mirrorH = (bool)self->mph;
-    mirrorV = (bool)self->mpv;
-    useICC = (bool)self->useICC;
-    DoGCR = (bool)self->ucr;
-    int psl = self->pslevel;
-    if (psl < 1)
-        psl = 1;
-    if (psl > 3)
-        psl = 3;
-    PSLevel = psl;
-    printcomm = QString(PyString_AsString(self->cmd));
-    QMap<QString,QFont> ReallyUsed;
-    ReallyUsed.clear();
-    Carrier->GetUsedFonts(&ReallyUsed);
-    PSLib *dd = Carrier->getPSDriver(true, Carrier->Prefs.AvailFonts, ReallyUsed, Carrier->doc->PageColors, false);
-    if (dd != NULL)
-    {
-        if (!fil)
-            fna = Carrier->PrefsPfad+"/tmp.ps";
-        PSfile = dd->PS_set_file(fna);
-        if (PSfile)
+        color = (bool)self->color;
+        mirrorH = (bool)self->mph;
+        mirrorV = (bool)self->mpv;
+        useICC = (bool)self->useICC;
+        DoGCR = (bool)self->ucr;
+        int psl = self->pslevel;
+        if (psl < 1)
+                psl = 1;
+        else if (psl > 3)
+                psl = 3;
+        PSLevel = psl;
+        printcomm = QString(PyString_AsString(self->cmd));
+        QMap<QString,QFont> ReallyUsed;
+        ReallyUsed.clear();
+        Carrier->GetUsedFonts(&ReallyUsed);
+        PSLib *dd = Carrier->getPSDriver(true, Carrier->Prefs.AvailFonts, ReallyUsed, Carrier->doc->PageColors, false);
+        if (dd != NULL)
         {
-            Carrier->view->CreatePS(dd, pageNs, sep, SepName, color, mirrorH, mirrorV, useICC, DoGCR);
-            if (PSLevel != 3)
-            {
-                QString tmp;
-                QString opts = "-dDEVICEWIDTHPOINTS=";
-                opts += tmp.setNum(Carrier->doc->PageB);
-                opts += " -dDEVICEHEIGHTPOINTS=";
-                opts += tmp.setNum(Carrier->doc->PageH);
-                if (PSLevel == 1)
-                    system("ps2ps -dLanguageLevel=1 "+opts+" \""+fna+"\" \""+fna+".tmp\"");
-                else
-                    system("ps2ps "+opts+" \""+fna+"\" \""+fna+".tmp\"");
-                system("mv \""+fna+".tmp\" \""+fna+"\"");
-            }
-            if (!fil)
-            {
-                if (printcomm != "")
-                    cmd = printcomm + " "+fna;
-                else
+                if (!fil)
+                        fna = Carrier->PrefsPfad+"/tmp.ps";
+                PSfile = dd->PS_set_file(fna);
+                if (PSfile)
                 {
-                    cmd = "lpr -P" + prn;
-                    if (Nr > 1)
-                        cmd += " -#" + cc.setNum(Nr);
+                        Carrier->view->CreatePS(dd, pageNs, sep, SepName, color, mirrorH, mirrorV, useICC, DoGCR);
+                        if (PSLevel != 3)
+                        {
+                                QString tmp;
+                                QString opts = "-dDEVICEWIDTHPOINTS=";
+                                opts += tmp.setNum(Carrier->doc->PageB);
+                                opts += " -dDEVICEHEIGHTPOINTS=";
+                                opts += tmp.setNum(Carrier->doc->PageH);
+                                if (PSLevel == 1)
+                                        system("ps2ps -dLanguageLevel=1 "+opts+" \""+fna+"\" \""+fna+".tmp\"");
+                                else
+                                        system("ps2ps "+opts+" \""+fna+"\" \""+fna+".tmp\"");
+                                system("mv \""+fna+".tmp\" \""+fna+"\"");
+                        }
+
+                        if (!fil)
+                        {
+                                if (printcomm != "")
+                                        cmd = printcomm + " "+fna;
+                                else
+                                {
+                                        cmd = "lpr -P" + prn;
+                                        if (Nr > 1)
+                                                cmd += " -#" + cc.setNum(Nr);
 #ifdef HAVE_CUPS
-// This need yet to be suported by object Printer
-//                    cmd += printer->PrinterOpts;
+// This need yet to be implemented by object Printer
+//                                        cmd += printer->PrinterOpts;
 #endif
-                    cmd += " "+fna;
+                                        cmd += " "+fna;
+                                }
+                                system(cmd);
+                                unlink(fna);
+                        }
                 }
-                system(cmd);
-                unlink(fna);
-            }
+                else {
+                        delete dd;
+                        Carrier->closePSDriver();
+                        PyErr_SetString(PyExc_SystemError, "Printing failed");
+                        return NULL;
+                }
+                delete dd;
+                Carrier->closePSDriver();
         }
-        else {
-            delete dd;
-            Carrier->closePSDriver();
-            PyErr_SetString(PyExc_SystemError, "Printing failed");
-            return NULL;
-        }
-        delete dd;
-        Carrier->closePSDriver();
-    }
-    Py_INCREF(Py_None);
-    return Py_None;
+        Py_INCREF(Py_None);
+        return Py_None;
 }
 
 static PyMethodDef Printer_methods[] = {
-    {"Print", (PyCFunction)Printer_print, METH_NOARGS, "Prints selected pages."},
-    {NULL} // sentinel
+        {"Print", (PyCFunction)Printer_print, METH_NOARGS, "Prints selected pages."},
+        {NULL} // sentinel
 };
 
 PyTypeObject Printer_Type = {
-    PyObject_HEAD_INIT(NULL)   // PyObject_VAR_HEAD 
-    0,                         // 
-    "Printer", // char *tp_name; /* For printing, in format "<module>.<name>" */
-    sizeof(Printer),   // int tp_basicsize, /* For allocation */
-    0,                       // int tp_itemsize; /* For allocation */
+        PyObject_HEAD_INIT(NULL)   // PyObject_VAR_HEAD 
+        0,                         // 
+        "Printer", // char *tp_name; /* For printing, in format "<module>.<name>" */
+        sizeof(Printer),   // int tp_basicsize, /* For allocation */
+        0,                       // int tp_itemsize; /* For allocation */
 
 	/* Methods to implement standard operations */
 
-    (destructor) Printer_dealloc, //     destructor tp_dealloc;
-    0, //     printfunc tp_print;
-    0, //     getattrfunc tp_getattr;
-    0, //     setattrfunc tp_setattr;
-    0, //     cmpfunc tp_compare;
-    0, //     reprfunc tp_repr;
+        (destructor) Printer_dealloc, //     destructor tp_dealloc;
+        0, //     printfunc tp_print;
+        0, //     getattrfunc tp_getattr;
+        0, //     setattrfunc tp_setattr;
+        0, //     cmpfunc tp_compare;
+        0, //     reprfunc tp_repr;
 
 	/* Method suites for standard classes */
 
-    0, //     PyNumberMethods *tp_as_number;
-    0, //     PySequenceMethods *tp_as_sequence;
-    0, //     PyMappingMethods *tp_as_mapping;
+        0, //     PyNumberMethods *tp_as_number;
+        0, //     PySequenceMethods *tp_as_sequence;
+        0, //     PyMappingMethods *tp_as_mapping;
 
 	/* More standard operations (here for binary compatibility) */
 
-    0, //     hashfunc tp_hash;
-    0, //     ternaryfunc tp_call;
-    0, //     reprfunc tp_str;
-    0, //     getattrofunc tp_getattro;
-    0, //     setattrofunc tp_setattro;
+        0, //     hashfunc tp_hash;
+        0, //     ternaryfunc tp_call;
+        0, //     reprfunc tp_str;
+        0, //     getattrofunc tp_getattro;
+        0, //     setattrofunc tp_setattro;
 
 	/* Functions to access object as input/output buffer */
-    0, //     PyBufferProcs *tp_as_buffer;
+        0, //     PyBufferProcs *tp_as_buffer;
 
 	/* Flags to define presence of optional/expanded features */
-    Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,    // long tp_flags;
+        Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,    // long tp_flags;
 
-    "Printer object",      // char *tp_doc; /* Documentation string */
+        "Printer Object",      // char *tp_doc; /* Documentation string */
     
 	/* Assigned meaning in release 2.0 */
 	/* call function for all accessible objects */
-    0, //     traverseproc tp_traverse;
+        0, //     traverseproc tp_traverse;
 
 	/* delete references to contained objects */
-    0, //     inquiry tp_clear;
+        0, //     inquiry tp_clear;
 
 	/* Assigned meaning in release 2.1 */
 	/* rich comparisons */
-    0, //     richcmpfunc tp_richcompare;
+        0, //     richcmpfunc tp_richcompare;
 
 	/* weak reference enabler */
-    0, //     long tp_weaklistoffset;
+        0, //     long tp_weaklistoffset;
 
 	/* Added in release 2.2 */
 	/* Iterators */
-    0, //     getiterfunc tp_iter;
-    0, //     iternextfunc tp_iternext;
+        0, //     getiterfunc tp_iter;
+        0, //     iternextfunc tp_iternext;
 
 	/* Attribute descriptor and subclassing stuff */
-    Printer_methods, //     struct PyMethodDef *tp_methods;
-    Printer_members, //     struct PyMemberDef *tp_members;
-    Printer_getseters, //     struct PyGetSetDef *tp_getset;
-    0, //     struct _typeobject *tp_base;
-    0, //     PyObject *tp_dict;
-    0, //     descrgetfunc tp_descr_get;
-    0, //     descrsetfunc tp_descr_set;
-    0, //     long tp_dictoffset;
-    (initproc)Printer_init, //     initproc tp_init;
-    0, //     allocfunc tp_alloc;
-    Printer_new, //     newfunc tp_new;
-    0, //     freefunc tp_free; /* Low-level free-memory routine */
-    0, //     inquiry tp_is_gc; /* For PyObject_IS_GC */
-    0, //     PyObject *tp_bases;
-    0, //     PyObject *tp_mro; /* method resolution order */
-    0, //     PyObject *tp_cache;
-    0, //     PyObject *tp_subclasses;
-    0, //     PyObject *tp_weaklist;
-    0, //     destructor tp_del;
+        Printer_methods, //     struct PyMethodDef *tp_methods;
+        Printer_members, //     struct PyMemberDef *tp_members;
+        Printer_getseters, //     struct PyGetSetDef *tp_getset;
+        0, //     struct _typeobject *tp_base;
+        0, //     PyObject *tp_dict;
+        0, //     descrgetfunc tp_descr_get;
+        0, //     descrsetfunc tp_descr_set;
+        0, //     long tp_dictoffset;
+        (initproc)Printer_init, //     initproc tp_init;
+        0, //     allocfunc tp_alloc;
+        Printer_new, //     newfunc tp_new;
+        0, //     freefunc tp_free; /* Low-level free-memory routine */
+        0, //     inquiry tp_is_gc; /* For PyObject_IS_GC */
+        0, //     PyObject *tp_bases;
+        0, //     PyObject *tp_mro; /* method resolution order */
+        0, //     PyObject *tp_cache;
+        0, //     PyObject *tp_subclasses;
+        0, //     PyObject *tp_weaklist;
+        0, //     destructor tp_del;
 
 #ifdef COUNT_ALLOCS
 	/* these must be last and never explicitly initialized */
