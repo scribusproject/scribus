@@ -1,4 +1,4 @@
-pluginsdir = $(prefix)/lib/scribus/plugins
+pluginsdir = $(libdir)/scribus/plugins
 
 SUBDIRS =  
 
