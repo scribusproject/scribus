@@ -1,4 +1,8 @@
 Changes since Version 0.9.10
+20.05.2003	frameedit.cpp
+		page.cpp		Added shearing of Polygons.
+		scribus.cpp		Included Patches for HP-UX contributed by Martin Gansser.
+
 19.05.2003	scribus.no.po
 		charselect.no.po	Added Norwegian Translation contributed by Johannes Wilm.
 

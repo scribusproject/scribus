@@ -1414,6 +1414,58 @@ void Page::MirrorPolyV()
 	MarkClip(b);
 }
 
+void Page::ShearPolyHR()
+{
+	PageItem *b = SelItem.at(0);
+	QWMatrix ma;
+	ma.shear(-0.017455, 0);
+	b->PoLine.map(ma);
+	AdjustItemSize(b);
+	if (b->PType == 8)
+		UpdatePolyClip(b);
+	RefreshItem(b);
+	MarkClip(b);
+}
+
+void Page::ShearPolyHL()
+{
+	PageItem *b = SelItem.at(0);
+	QWMatrix ma;
+	ma.shear(0.017455, 0);
+	b->PoLine.map(ma);
+	AdjustItemSize(b);
+	if (b->PType == 8)
+		UpdatePolyClip(b);
+	RefreshItem(b);
+	MarkClip(b);
+}
+
+void Page::ShearPolyVU()
+{
+	PageItem *b = SelItem.at(0);
+	QWMatrix ma;
+	ma.shear(0, -0.017455);
+	b->PoLine.map(ma);
+	AdjustItemSize(b);
+	if (b->PType == 8)
+		UpdatePolyClip(b);
+	RefreshItem(b);
+	MarkClip(b);
+}
+
+void Page::ShearPolyVD()
+{
+	PageItem *b = SelItem.at(0);
+	QWMatrix ma;
+	ma.shear(0, 0.017455);
+	b->PoLine.map(ma);
+	AdjustItemSize(b);
+	if (b->PType == 8)
+		UpdatePolyClip(b);
+	RefreshItem(b);
+	MarkClip(b);
+}
+
 void Page::Reset1Control()
 {
 	PageItem *b = SelItem.at(0);

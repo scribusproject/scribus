@@ -3000,7 +3000,11 @@ void ScribusApp::slotHelpAbout()
 	typedef About* (*sdem)(QWidget *d);
 	sdem demo;
 	QString pfad = PREL;
+#if defined(__hpux)
+  pfad += "/lib/scribus/libs/libabout.sl";
+#else
 	pfad += "/lib/scribus/libs/libabout.so";
+#endif
 	mo = dlopen(pfad, RTLD_LAZY);
 	if (!mo)
 		{
@@ -4562,7 +4566,11 @@ void ScribusApp::slotPrefsOrg()
 	typedef Preferences* (*sdem)(QWidget *d, preV *Vor);
 	sdem demo;
 	QString pfad = PREL;
+#if defined(__hpux)
+	pfad += "/lib/scribus/libs/libpreferences.sl";
+#else
 	pfad += "/lib/scribus/libs/libpreferences.so";
+#endif
 	mo = dlopen(pfad, RTLD_LAZY);
 	if (!mo)
 		{
@@ -5011,7 +5019,11 @@ PSLib* ScribusApp::getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont
 	typedef PSLib* (*sdem)(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe DocColors, bool pdf);
 	sdem demo;
 	QString pfad = PREL;
+#if defined(__hpux)
+	pfad += "/lib/scribus/libs/libpostscript.sl";
+#else
 	pfad += "/lib/scribus/libs/libpostscript.so";
+#endif
 	PSDriver = dlopen(pfad, RTLD_LAZY);
 	if (!PSDriver)
 		{
@@ -5041,7 +5053,11 @@ PDFlib* ScribusApp::getPDFDriver()
 	typedef PDFlib* (*sdem)();
 	sdem demo;
 	QString pfad = PREL;
+#if defined(__hpux)
+  pfad += "/lib/scribus/libs/libpdf.sl";
+#else
 	pfad += "/lib/scribus/libs/libpdf.so";
+#endif
 	PDFDriver = dlopen(pfad, RTLD_LAZY);
 	if (!PDFDriver)
 		{
@@ -5637,7 +5653,11 @@ void ScribusApp::InitPlugs()
 	int ty = 0;
 	struct PlugData pda;
 	pfad += "/lib/scribus/plugins/";
+#if defined(__hpux)
+	QDir d(pfad, "*.sl*", QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
+#else
 	QDir d(pfad, "*.so*", QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
+#endif
 	if ((d.exists()) && (d.count() != 0))
 		{
 		extraMenu->insertSeparator();

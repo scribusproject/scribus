@@ -97,6 +97,10 @@ public:
 	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
 	void MirrorPolyH();
 	void MirrorPolyV();
+	void ShearPolyHR();
+	void ShearPolyHL();
+	void ShearPolyVU();
+	void ShearPolyVD();
 	void Reset1Control();
 	void ResetControl();
 	void AdjustItemSize(PageItem *b);

@@ -12,7 +12,7 @@ NodePalette::NodePalette( QWidget* parent)
     setCaption( tr( "Nodes" ) );
   	setIcon(loadIcon("AppIcon.xpm"));
     NodePaletteLayout = new QVBoxLayout( this ); 
-    NodePaletteLayout->setSpacing( 5 );
+    NodePaletteLayout->setSpacing( 2 );
     NodePaletteLayout->setMargin( 5 );
 
     ButtonGroup1 = new QButtonGroup( this, "ButtonGroup1" );
@@ -117,9 +117,39 @@ NodePalette::NodePalette( QWidget* parent)
     PolyMirrorV->setPixmap(loadIcon("vmirror.png"));
     ButtonGroup3Layout->addWidget( PolyMirrorV );
 
-/*    QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    ButtonGroup3Layout->addItem( spacer_2 );     */
     NodePaletteLayout->addWidget( ButtonGroup3 );
+
+    ButtonGroup4 = new QButtonGroup( this, "ButtonGroup4" );
+    ButtonGroup4->setFrameShape( QButtonGroup::NoFrame );
+    ButtonGroup4->setFrameShadow( QButtonGroup::Plain );
+    ButtonGroup4->setTitle( tr( "" ) );
+    ButtonGroup4->setExclusive( true );
+    ButtonGroup4->setColumnLayout(0, Qt::Vertical );
+    ButtonGroup4->layout()->setSpacing( 2 );
+    ButtonGroup4->layout()->setMargin( 0 );
+    ButtonGroup4Layout = new QHBoxLayout( ButtonGroup4->layout() );
+    ButtonGroup4Layout->setAlignment( Qt::AlignTop );
+
+    PolyShearL = new QToolButton( ButtonGroup4, "ShearL" );
+    PolyShearL->setText( tr( "" ) );
+    PolyShearL->setPixmap(loadIcon("shear_left.png"));
+    ButtonGroup4Layout->addWidget( PolyShearL );
+    PolyShearR = new QToolButton( ButtonGroup4, "ShearR" );
+    PolyShearR->setText( tr( "" ) );
+    PolyShearR->setPixmap(loadIcon("shear_right.png"));
+    ButtonGroup4Layout->addWidget( PolyShearR );
+    PolyShearU = new QToolButton( ButtonGroup4, "ShearU" );
+    PolyShearU->setText( tr( "" ) );
+    PolyShearU->setPixmap(loadIcon("shear_up.png"));
+    ButtonGroup4Layout->addWidget( PolyShearU );
+    PolyShearD = new QToolButton( ButtonGroup4, "ShearD" );
+    PolyShearD->setText( tr( "" ) );
+    PolyShearD->setPixmap(loadIcon("shear_down.png"));
+    ButtonGroup4Layout->addWidget( PolyShearD );
+
+/*    QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+    ButtonGroup4Layout->addItem( spacer_2 );  */
+    NodePaletteLayout->addWidget( ButtonGroup4 );
 
     Layout2 = new QGridLayout( 0, 1, 1, 0, 5, "Layout2");
     TextLabel1 = new QLabel( this, "TextLabel1" );
@@ -155,6 +185,10 @@ NodePalette::NodePalette( QWidget* parent)
     QToolTip::add(  BezierClose, tr( "Closes this Bezier Curve" ) );
     QToolTip::add(  PolyMirrorH, tr( "Mirrors the Path horizontal" ) );
     QToolTip::add(  PolyMirrorV, tr( "Mirrors the Path vertical" ) );
+    QToolTip::add(  PolyShearR, tr( "Shears the Path horizotal to the right" ) );
+    QToolTip::add(  PolyShearL, tr( "Shears the Path horizotal to the left" ) );
+    QToolTip::add(  PolyShearU, tr( "Shears the Path vertical up" ) );
+    QToolTip::add(  PolyShearD, tr( "Shears the Path vertical down" ) );
 
     // signals and slots connections
     connect(PushButton1, SIGNAL(clicked()), this, SLOT(EndEdit()));
@@ -172,6 +206,10 @@ NodePalette::NodePalette( QWidget* parent)
 		connect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
     connect(PolyMirrorH, SIGNAL(clicked()), this, SLOT(MirrorH()));
     connect(PolyMirrorV, SIGNAL(clicked()), this, SLOT(MirrorV()));
+    connect(PolyShearR, SIGNAL(clicked()), this, SLOT(ShearR()));
+    connect(PolyShearL, SIGNAL(clicked()), this, SLOT(ShearL()));
+    connect(PolyShearU, SIGNAL(clicked()), this, SLOT(ShearU()));
+    connect(PolyShearD, SIGNAL(clicked()), this, SLOT(ShearD()));
 }
 
 void NodePalette::setDoc(ScribusDoc *dc)
@@ -248,6 +286,30 @@ void NodePalette::CloseBezier()
 	doc->ActPage->Bezier2Poly();
 	BezierClose->setEnabled(false);
 	PolySplit->setEnabled(true);
+}
+
+void NodePalette::ShearR()
+{
+	if (doc != 0)
+		doc->ActPage->ShearPolyHR();
+}
+
+void NodePalette::ShearL()
+{
+	if (doc != 0)
+		doc->ActPage->ShearPolyHL();
+}
+
+void NodePalette::ShearU()
+{
+	if (doc != 0)
+		doc->ActPage->ShearPolyVU();
+}
+
+void NodePalette::ShearD()
+{
+	if (doc != 0)
+		doc->ActPage->ShearPolyVD();
 }
 
 void NodePalette::MirrorH()

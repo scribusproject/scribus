@@ -34,6 +34,11 @@ public:
     QToolButton* BezierClose;
     QToolButton* PolyMirrorH;
     QToolButton* PolyMirrorV;
+    QButtonGroup* ButtonGroup4;
+    QToolButton* PolyShearL;
+    QToolButton* PolyShearR;
+    QToolButton* PolyShearU;
+    QToolButton* PolyShearD;
     QLabel* TextLabel1;
     MSpinBox* YSpin;
     QLabel* TextLabel2;
@@ -57,6 +62,10 @@ private slots:
 		void SplitPoly();
 		void MirrorH();
 		void MirrorV();
+		void ShearR();
+		void ShearL();
+		void ShearU();
+		void ShearD();
 
 public slots:
 		void MoveN();
@@ -70,6 +79,7 @@ protected:
     QHBoxLayout* ButtonGroup1Layout;
     QHBoxLayout* ButtonGroup2Layout;
     QHBoxLayout* ButtonGroup3Layout;
+    QHBoxLayout* ButtonGroup4Layout;
     QGridLayout* Layout2;
 
 signals:
