@@ -108,7 +108,7 @@ public:
 	bool getPDFDriver(QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs);
 	bool DoSaveAsEps(QString fn);
 	QString CFileDialog(QString caption = "", QString filter = "", QString defNa = "", bool Pre = false, 
-						bool mod = true, bool comp = false, bool cod = false);
+						bool mod = true, bool comp = false, bool cod = false, bool onlyDirs = false, bool *docom = 0, bool *doFont = 0);
 	void GetCMSProfiles();
 	void GetCMSProfilesDir(QString pfad);
 	void RecalcColors(QProgressBar *dia = 0);
@@ -183,7 +183,7 @@ public:
 public slots:
 	void slotStoryEditor();
 	void InvertPict();
-	QString Collect();
+	QString Collect(bool compress = false, bool withFonts = false);
 	void ChBookmarks(int s, int e, int n);
 	void AddBookMark(PageItem *ite);
 	void DelBookMark(PageItem *ite);
@@ -297,6 +297,7 @@ public slots:
 	void TogglePDFTools();
 	/** Schaltet Masspalette ein/aus */
  	void setMpal(bool visible);
+	void setMapal(bool visible);
 	void ToggleMpal();
 	/** Schaltet Uebersichtspalette ein/aus*/
 	void ToggleTpal();
@@ -543,7 +544,7 @@ private:
 	int OFront;
 	int ODup;
 	int OMDup;
-	bool PalettesStat[7];
+	bool PalettesStat[8];
 	bool GuidesStat[6];
 	bool tipsOn;
 	bool keyrep;

@@ -196,6 +196,34 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
+    <message>
+        <source>PostScript Level 3</source>
+        <translation>PostScript-Level 3</translation>
+    </message>
+    <message>
+        <source>PostScript Level 2</source>
+        <translation>PostScript-Level 2</translation>
+    </message>
+    <message>
+        <source>PostScript Level 1</source>
+        <translation>PostScript-Level 1</translation>
+    </message>
+    <message>
+        <source>Creates PostScript Level 3</source>
+        <translation>Erstellt eine PostScript-Level 3 Datei</translation>
+    </message>
+    <message>
+        <source>Creates PostScript Level 2 only, beware,
+this can create huge files</source>
+        <translation>Erstellt eine PostScript-Level 2 Datei. Vorsicht:
+hierbei können sehr große Dateien entstehen</translation>
+    </message>
+    <message>
+        <source>Creates PostScript Level 1 only, beware,
+this can create huge files</source>
+        <translation>Erstellt eine PostScript-Level 1 Datei. Vorsicht:
+hierbei können sehr große Dateien entstehen</translation>
+    </message>
 </context>
 <context>
     <name>Align</name>
@@ -1587,6 +1615,10 @@ This can be set in the Preferences.</source>
         <translation>Geht zum Dokumenten Verzeichnis.
 Wird in den Voreinstellungen eingestellt.</translation>
     </message>
+    <message>
+        <source>Include Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DelColor</name>
@@ -1838,6 +1870,10 @@ Wird in den Voreinstellungen eingestellt.</translation>
         <source>Print</source>
         <translation>Drucken</translation>
     </message>
+    <message>
+        <source>Print current page</source>
+        <translation>Aktuelle Seite drucken</translation>
+    </message>
 </context>
 <context>
     <name>EPSPlug</name>
@@ -1849,7 +1885,7 @@ failed!</source>
     </message>
     <message>
         <source>Fatal Error</source>
-        <translation>Fataler Fehler</translation>
+        <translation type="unfinished">Fataler Fehler</translation>
     </message>
 </context>
 <context>
@@ -2510,7 +2546,7 @@ Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat<
     <name>FontPreview</name>
     <message>
         <source>Font Preview</source>
-        <translation>Schriftenvoransicht</translation>
+        <translation>Vorschau für Schriftarten</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2745,6 +2781,29 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
+    </message>
+</context>
+<context>
+    <name>InsertTable</name>
+    <message>
+        <source>Insert Table</source>
+        <translation type="unfinished">Tabelle einfügen</translation>
+    </message>
+    <message>
+        <source>Number of Rows:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of Columns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Abbrechen</translation>
     </message>
 </context>
 <context>
@@ -3050,14 +3109,69 @@ Null bedeutet unbegrenzt.</translation>
     </message>
 </context>
 <context>
+    <name>Measurements</name>
+    <message>
+        <source>Distances</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X1:</source>
+        <translation type="unfinished">X1:</translation>
+    </message>
+    <message>
+        <source>Y1:</source>
+        <translation type="unfinished">Y1:</translation>
+    </message>
+    <message>
+        <source>X2:</source>
+        <translation type="unfinished">X2:</translation>
+    </message>
+    <message>
+        <source>Y2:</source>
+        <translation type="unfinished">Y2:</translation>
+    </message>
+    <message>
+        <source>DX:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DY:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Angle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MenuTest</name>
     <message>
         <source>Show Console</source>
-        <translation>Konsole zeigen</translation>
+        <translation type="obsolete">Konsole zeigen</translation>
     </message>
     <message>
         <source>Hide Console</source>
-        <translation>Konsole verbergen</translation>
+        <translation type="obsolete">Konsole verbergen</translation>
     </message>
     <message>
         <source>Script error</source>
@@ -3066,6 +3180,14 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
         <translation>Falls das Script ein offizelles Scribus-Script ist, den Fehler bitte auf &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; melden.</translation>
+    </message>
+    <message>
+        <source>Show &amp;Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide &amp;Console</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3829,7 +3951,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Type of Line:</source>
-        <translation>Linientyp:</translation>
+        <translation>Linienart:</translation>
     </message>
 </context>
 <context>
@@ -6511,7 +6633,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Type of Line:</source>
-        <translation>Linentyp:</translation>
+        <translation>Linienart:</translation>
     </message>
 </context>
 <context>
@@ -6904,27 +7026,27 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>Insert Special</source>
-        <translation>Sonderzeichen einfügen</translation>
+        <translation type="obsolete">Sonderzeichen einfügen</translation>
     </message>
     <message>
         <source>Print Preview</source>
-        <translation>Druckvorschau</translation>
+        <translation type="obsolete">Druckvorschau</translation>
     </message>
     <message>
         <source>Scripter Manual...</source>
-        <translation>Scripter-Handbuch...</translation>
+        <translation type="obsolete">Scripter-Handbuch...</translation>
     </message>
     <message>
         <source>Execute Script...</source>
-        <translation>Script ausführen...</translation>
+        <translation type="obsolete">Script ausführen...</translation>
     </message>
     <message>
         <source>Recent Scripts</source>
-        <translation>Zuletzt verwendete Scripte</translation>
+        <translation type="obsolete">Zuletzt verwendete Scripte</translation>
     </message>
     <message>
         <source>Show Console</source>
-        <translation>Konsole zeigen</translation>
+        <translation type="obsolete">Konsole zeigen</translation>
     </message>
     <message>
         <source>Script</source>
@@ -6944,7 +7066,7 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>Save Page as SVG...</source>
-        <translation>Seite als SVG speichern...</translation>
+        <translation type="obsolete">Seite als SVG speichern...</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -7004,7 +7126,7 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>Scribus Scripts</source>
-        <translation>Scribus Scripte</translation>
+        <translation type="obsolete">Scribus Scripte</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
@@ -7024,7 +7146,7 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>Import SVG-Image...</source>
-        <translation>SVG-Bild importieren...</translation>
+        <translation type="obsolete">SVG-Bild importieren...</translation>
     </message>
     <message>
         <source>Save As Image...</source>
@@ -7060,7 +7182,7 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>Save as Image...</source>
-        <translation>Als Bild speichern...</translation>
+        <translation type="obsolete">Als Bild speichern...</translation>
     </message>
     <message>
         <source>Export to image</source>
@@ -7087,36 +7209,20 @@ wirklich überschreiben?</translation>
         <translation>Fehler beim Schreiben der Datei(en).</translation>
     </message>
     <message>
-        <source>Import EPS/PS...</source>
-        <translation>EPS/PS importieren...</translation>
-    </message>
-    <message>
-        <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
-        <translation>Alle unterstützten Formate (*.eps *.EPS *.ps *.PS);;</translation>
-    </message>
-    <message>
-        <source>All Files (*)</source>
-        <translation>Alle Dateien (*)</translation>
-    </message>
-    <message>
         <source>Fonts Preview</source>
-        <translation>Schriftenvorschau</translation>
-    </message>
-    <message>
-        <source>Print...</source>
-        <translation>Drucken...</translation>
+        <translation type="obsolete">Schriftartenvorschau</translation>
     </message>
     <message>
         <source>New From Template...</source>
-        <translation>Neu von Vorlage...</translation>
+        <translation type="obsolete">Neu von Vorlage...</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Neu</translation>
+        <translation type="obsolete">Neu</translation>
     </message>
     <message>
         <source>Newsletters</source>
-        <translation>Zeitungen</translation>
+        <translation>Newsletter</translation>
     </message>
     <message>
         <source>Brochures</source>
@@ -7128,39 +7234,39 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>Flyers</source>
-        <translation type="unfinished"></translation>
+        <translation>Flyer</translation>
     </message>
     <message>
         <source>Signs</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichen</translation>
     </message>
     <message>
         <source>Cards</source>
-        <translation type="unfinished"></translation>
+        <translation>Karten</translation>
     </message>
     <message>
         <source>Letterheads</source>
-        <translation type="unfinished"></translation>
+        <translation>Briefköpfe</translation>
     </message>
     <message>
         <source>Envelopes</source>
-        <translation type="unfinished"></translation>
+        <translation>Briefumschläge</translation>
     </message>
     <message>
         <source>Business Cards</source>
-        <translation type="unfinished"></translation>
+        <translation>Visitenkarten</translation>
     </message>
     <message>
         <source>Calendars</source>
-        <translation type="unfinished"></translation>
+        <translation>Kalender</translation>
     </message>
     <message>
         <source>Advertisements</source>
-        <translation type="unfinished"></translation>
+        <translation>Werbung</translation>
     </message>
     <message>
         <source>Labels</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschriftungen</translation>
     </message>
     <message>
         <source>Menus</source>
@@ -7168,43 +7274,127 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>Programs</source>
-        <translation type="unfinished"></translation>
+        <translation>Programme</translation>
     </message>
     <message>
         <source>PDF Forms</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF-Formulare</translation>
     </message>
     <message>
         <source>Magazines</source>
-        <translation type="unfinished"></translation>
+        <translation>Magazine</translation>
     </message>
     <message>
         <source>Posters</source>
-        <translation type="unfinished"></translation>
+        <translation>Poster</translation>
     </message>
     <message>
         <source>Announcements</source>
-        <translation type="unfinished"></translation>
+        <translation>Ankündigungen</translation>
     </message>
     <message>
         <source>Text Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Textdokumente</translation>
     </message>
     <message>
         <source>Folds</source>
-        <translation type="unfinished"></translation>
+        <translation>Hefter</translation>
     </message>
     <message>
         <source>Own Templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigene Vorlagen</translation>
     </message>
     <message>
         <source>Save as Template...</source>
-        <translation>Als Vorlage speichern...</translation>
+        <translation type="obsolete">Als Vorlage speichern...</translation>
     </message>
     <message>
         <source>Save as...</source>
-        <translation>Speichern unter...</translation>
+        <translation type="obsolete">Speichern unter...</translation>
+    </message>
+    <message>
+        <source>Print...</source>
+        <translation type="obsolete">Drucken...</translation>
+    </message>
+    <message>
+        <source>&amp;Fonts Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Insert Special</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New &amp;from Template...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Presentations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save as &amp;Image...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print Previe&amp;w</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Print...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;EPS/PS...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation type="unfinished">Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>Save as &amp;Template...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save &amp;As...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;cripter Manual...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scribus Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Execute Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Recent Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Page as &amp;SVG...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;SVG...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7553,7 +7743,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Color Management...</source>
-        <translation>Farbmanagement...</translation>
+        <translation type="obsolete">Farbmanagement...</translation>
     </message>
     <message>
         <source>Reading Scrapbook</source>
@@ -7573,7 +7763,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Recent Documents</source>
-        <translation>Zuletzt benutzte Dateien</translation>
+        <translation type="obsolete">Zuletzt benutzte Dateien</translation>
     </message>
     <message>
         <source>Close</source>
@@ -7589,11 +7779,11 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Revert to Saved</source>
-        <translation>Alte Fassung laden</translation>
+        <translation type="obsolete">Alte Fassung laden</translation>
     </message>
     <message>
         <source>Collect for Output...</source>
-        <translation>Für Ausgabe sammeln...</translation>
+        <translation type="obsolete">Für Ausgabe sammeln...</translation>
     </message>
     <message>
         <source>Get Text/Picture...</source>
@@ -7601,27 +7791,27 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Insert Page...</source>
-        <translation>Seite einfügen...</translation>
+        <translation type="obsolete">Seite einfügen...</translation>
     </message>
     <message>
         <source>Import...</source>
-        <translation>Importieren...</translation>
+        <translation type="obsolete">Importieren...</translation>
     </message>
     <message>
         <source>Save Text...</source>
-        <translation>Text speichern...</translation>
+        <translation type="obsolete">Text speichern...</translation>
     </message>
     <message>
         <source>Save Page as EPS...</source>
-        <translation>Seite als EPS sichern...</translation>
+        <translation type="obsolete">Seite als EPS sichern...</translation>
     </message>
     <message>
         <source>Save as PDF...</source>
-        <translation>Als PDF sichern...</translation>
+        <translation type="obsolete">Als PDF sichern...</translation>
     </message>
     <message>
         <source>Export...</source>
-        <translation>Exportieren...</translation>
+        <translation type="obsolete">Exportieren...</translation>
     </message>
     <message>
         <source>Document Info...</source>
@@ -7661,7 +7851,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Search/Replace...</source>
-        <translation>Suchen/Ersetzen...</translation>
+        <translation type="obsolete">Suchen/Ersetzen...</translation>
     </message>
     <message>
         <source>Colors...</source>
@@ -7669,11 +7859,11 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Paragraph Styles...</source>
-        <translation>Stilvorlagen...</translation>
+        <translation type="obsolete">Stilvorlagen...</translation>
     </message>
     <message>
         <source>Line Styles...</source>
-        <translation>Linienstile...</translation>
+        <translation type="obsolete">Linienstile...</translation>
     </message>
     <message>
         <source>Styles...</source>
@@ -7689,7 +7879,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>Voreinstellungen...</translation>
+        <translation type="obsolete">Voreinstellungen...</translation>
     </message>
     <message>
         <source>Fonts...</source>
@@ -7697,7 +7887,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Hyphenator...</source>
-        <translation>Silbentrennung...</translation>
+        <translation type="obsolete">Silbentrennung...</translation>
     </message>
     <message>
         <source>Preferences</source>
@@ -7753,27 +7943,27 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Edit Frame</source>
-        <translation>Rahmen bearbeiten</translation>
+        <translation type="obsolete">Rahmen bearbeiten</translation>
     </message>
     <message>
         <source>Shape</source>
-        <translation>Form</translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message>
         <source>Detach Text from Path</source>
-        <translation>Text vom Pfad lösen</translation>
+        <translation type="obsolete">Text vom Pfad lösen</translation>
     </message>
     <message>
         <source>Combine Polygons</source>
-        <translation>Polygone vereinen</translation>
+        <translation type="obsolete">Polygone vereinen</translation>
     </message>
     <message>
         <source>Split Polygons</source>
-        <translation>Polygone teilen</translation>
+        <translation type="obsolete">Polygone teilen</translation>
     </message>
     <message>
         <source>Convert to Outlines</source>
-        <translation>In Polygone verwandeln</translation>
+        <translation type="obsolete">In Polygone verwandeln</translation>
     </message>
     <message>
         <source>Insert...</source>
@@ -7841,11 +8031,11 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Hide Guides</source>
-        <translation>Hilfslinien verbergen</translation>
+        <translation type="obsolete">Hilfslinien verbergen</translation>
     </message>
     <message>
         <source>Snap to Guides</source>
-        <translation>Hilfslinen magnetisch</translation>
+        <translation type="obsolete">Hilfslinen magnetisch</translation>
     </message>
     <message>
         <source>Tools</source>
@@ -7853,7 +8043,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>PDF-Tools</source>
-        <translation>PDF-Werkzeuge</translation>
+        <translation type="obsolete">PDF-Werkzeuge</translation>
     </message>
     <message>
         <source>Properties</source>
@@ -7869,15 +8059,15 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Layers</source>
-        <translation>Ebenen</translation>
+        <translation type="obsolete">Ebenen</translation>
     </message>
     <message>
         <source>Page Palette</source>
-        <translation>Seitenpalette</translation>
+        <translation type="obsolete">Seitenpalette</translation>
     </message>
     <message>
         <source>Bookmarks</source>
-        <translation>Lesezeichen</translation>
+        <translation type="obsolete">Lesezeichen</translation>
     </message>
     <message>
         <source>Manage Pictures</source>
@@ -7901,7 +8091,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Tool-Tips</source>
-        <translation>Tool-Tips</translation>
+        <translation type="obsolete">Tool-Tips</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -7937,27 +8127,27 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Left</source>
-        <translation>Links</translation>
+        <translation type="obsolete">Links</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation>Zentriert</translation>
+        <translation type="obsolete">Zentriert</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation>Rechts</translation>
+        <translation type="obsolete">Rechts</translation>
     </message>
     <message>
         <source>Block</source>
-        <translation>Blocksatz</translation>
+        <translation type="obsolete">Blocksatz</translation>
     </message>
     <message>
         <source>Forced</source>
-        <translation>Erzwungener Blocksatz</translation>
+        <translation type="obsolete">Erzwungener Blocksatz</translation>
     </message>
     <message>
         <source>Other...</source>
-        <translation>Andere...</translation>
+        <translation type="obsolete">Andere...</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -8001,11 +8191,11 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Cascade</source>
-        <translation>Überlappen</translation>
+        <translation type="obsolete">Überlappen</translation>
     </message>
     <message>
         <source>Tile</source>
-        <translation>Kacheln</translation>
+        <translation type="obsolete">Kacheln</translation>
     </message>
     <message>
         <source>None</source>
@@ -8013,7 +8203,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Show Frames</source>
-        <translation>Rahmen anzeigen</translation>
+        <translation type="obsolete">Rahmen anzeigen</translation>
     </message>
     <message>
         <source>Get Picture...</source>
@@ -8041,15 +8231,15 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Effects</source>
-        <translation>Effekte</translation>
+        <translation type="obsolete">Effekte</translation>
     </message>
     <message>
         <source>Tabulators...</source>
-        <translation>Tabulatoren...</translation>
+        <translation type="obsolete">Tabulatoren...</translation>
     </message>
     <message>
         <source>Alignment</source>
-        <translation>Ausrichtung</translation>
+        <translation type="obsolete">Ausrichtung</translation>
     </message>
     <message>
         <source>Shade</source>
@@ -8128,19 +8318,19 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Show Margins</source>
-        <translation>Ränder anzeigen</translation>
+        <translation type="obsolete">Ränder anzeigen</translation>
     </message>
     <message>
         <source>Show Images</source>
-        <translation>Bilder anzeigen</translation>
+        <translation type="obsolete">Bilder anzeigen</translation>
     </message>
     <message>
         <source>Hide Grid</source>
-        <translation>Raster verbergen</translation>
+        <translation type="obsolete">Raster verbergen</translation>
     </message>
     <message>
         <source>Show Guides</source>
-        <translation>Hilfslinien zeigen</translation>
+        <translation type="obsolete">Hilfslinien zeigen</translation>
     </message>
     <message>
         <source>Size:</source>
@@ -8156,7 +8346,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS-Images</source>
-        <translation>Ghostscript: Sie können keine EPS-Bilder benutzen</translation>
+        <translation type="obsolete">Ghostscript: Sie können keine EPS-Bilder benutzen</translation>
     </message>
     <message>
         <source>All</source>
@@ -8300,7 +8490,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Append Text...</source>
-        <translation>Text anfügen...</translation>
+        <translation type="obsolete">Text anfügen...</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -8312,7 +8502,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Style</source>
-        <translation>S&amp;til</translation>
+        <translation type="obsolete">S&amp;til</translation>
     </message>
     <message>
         <source>&amp;Item</source>
@@ -8416,15 +8606,459 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Keyboard Shortcuts...</source>
-        <translation>Tastaturkürzel...</translation>
+        <translation type="obsolete">Tastaturkürzel...</translation>
     </message>
     <message>
         <source>Scribus Manual...</source>
-        <translation>Handbuch für Scribus...</translation>
+        <translation type="obsolete">Handbuch für Scribus...</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
         <translation>&amp;Einstellungen</translation>
+    </message>
+    <message>
+        <source>&amp;Color Management...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Open...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open &amp;Recent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">Schl&amp;ießen</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">S&amp;peichern</translation>
+    </message>
+    <message>
+        <source>Save &amp;As...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re&amp;vert to Saved</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Collect for O&amp;utput...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Get Text/Picture...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Append &amp;Text...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert &amp;Page...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save &amp;Text...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Page as &amp;EPS...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save as P&amp;DF...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document &amp;Info...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document &amp;Setup...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Print...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation type="unfinished">&amp;Rückgängig</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation type="unfinished">&amp;Ausschneiden</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="unfinished">&amp;Kopieren</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation type="unfinished">Einf&amp;ügen</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search/Replace...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;olors...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Paragraph Styles...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Line Styles...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Templates...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Javascripts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Multiple Duplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Löschen</translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Ungroup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to &amp;Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bring to &amp;Front</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lower</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Raise</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute/&amp;Align...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Attach Text to Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Detach Text from Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Combine Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Split &amp;Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;onvert to Outlines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Insert...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Move...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Apply Template...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Manage Guides...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Fit in Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;100%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide &amp;Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide &amp;Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide &amp;Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Snap to &amp;Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide G&amp;uides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sna&amp;p to Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Baseline Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scrapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Layers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>P&amp;age Palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bookmarks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Manage Pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Hyphenate Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toolti&amp;ps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>P&amp;DF Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tooltips</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Preferences...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Fonts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Hyphenator...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Keyboard Shortcuts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About &amp;Qt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus &amp;Manual...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>St&amp;yle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Center</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Block</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Forced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Other...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cascade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Tile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Color</source>
+        <translation type="unfinished">&amp;Farben</translation>
+    </message>
+    <message>
+        <source>&amp;Invert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Get Text...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation type="unfinished">&amp;Größe ändern</translation>
+    </message>
+    <message>
+        <source>&amp;Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Alignment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Shade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Tabulators...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Un&amp;lock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show G&amp;uides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide &amp;Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide &amp;Baseline Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ghostscript : You cannot use EPS Images</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8959,11 +9593,11 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation>Veränderungen übernehmen und Storyeditor schließen</translation>
+        <translation>Änderungen übernehmen</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation>Veränderungen verwerfen und Storyeditor schließen</translation>
+        <translation>Änderungen ignorieren</translation>
     </message>
     <message>
         <source>Save Document</source>
@@ -9397,10 +10031,14 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwendungszweck</translation>
     </message>
     <message>
         <source>Author</source>
+        <translation>Autor</translation>
+    </message>
+    <message>
+        <source>Created with</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9416,7 +10054,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Category</source>
-        <translation type="unfinished"></translation>
+        <translation>Kategorie</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -9432,19 +10070,19 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwendungszweck</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Autor</translation>
     </message>
     <message>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation>Email</translation>
     </message>
     <message>
         <source>More Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Mehr Details</translation>
     </message>
     <message>
         <source>OK</source>
@@ -9452,6 +10090,30 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Less Details</source>
+        <translation>Weniger Details</translation>
+    </message>
+    <message>
+        <source>Legal</source>
+        <translation type="unfinished">Legal</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation type="unfinished">US-Letter</translation>
+    </message>
+    <message>
+        <source>Tabloid</source>
+        <translation type="unfinished">Tabloid</translation>
+    </message>
+    <message>
+        <source>landscape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>portrait</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>custom</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

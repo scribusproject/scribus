@@ -4,672 +4,20 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.0\n"
-"POT-Creation-Date: 2003-07-20 10:00+0200\n"
+"POT-Creation-Date: 2004-06-11 12:21+0200\n"
 "PO-Revision-Date: 2003-07-20 10:00+0200\n"
 "Last-Translator: Jasja Glasbeek <jasja@benik.nl>\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "File"
-msgstr "Bestand"
-
-msgid "New"
-msgstr "Nieuw"
-
-msgid "Open..."
-msgstr "Openen..."
-
-msgid "Open"
-msgstr "Openen"
-
-msgid "Close"
-msgstr "Sluiten"
-
-msgid "Save"
-msgstr "Opslaan"
-
-msgid "Save as..."
-msgstr "Opslaan als..."
-
-msgid "Save as"
-msgstr "Opslaan als"
-
-msgid "Revert to Saved"
-msgstr "Opgeslagen versie laden"
-
-msgid "Save Text..."
-msgstr "Opslaan als Tekst..."
-
-msgid "Save Page as EPS..."
-msgstr "Sla pagina op als EPS..."
-
-msgid "Save as PDF..."
-msgstr "Opslaan als PDF..."
-
-msgid "Document Setup..."
-msgstr "Document Opzetten..."
-
-msgid "Document Setup"
-msgstr "Document Opzet"
-
-msgid "Document Info..."
-msgstr "Document Informatie..."
-
-msgid "Print..."
-msgstr "Afdrukken..."
-
-msgid "Quit"
-msgstr "Afsluiten"
-
-msgid "View"
-msgstr "Bekijken"
-
-msgid "Fit in Window"
-msgstr "Inpassen in Venster"
-
-msgid "Actual Size"
-msgstr "Actuele Afmeting"
-
-msgid "Thumbnails"
-msgstr "Miniweergaven"
-
-msgid "Show Tools"
-msgstr "Toon Gereedschappen"
-
-msgid "Hide Tools"
-msgstr "Verberg Gereedschappen"
-
-msgid "Hide Margins"
-msgstr "Verberg Randen"
-
-msgid "Show Margins"
-msgstr "Toon Randen"
-
-msgid "Hide Guides"
-msgstr "Verberg Richtlijnen"
-
-msgid "Hide Images"
-msgstr "Verberg Afbeeldingen"
-
-msgid "Show Images"
-msgstr "Toon Afbeeldingen"
-
-msgid "Show Guides"
-msgstr "Toon Richtlijnen"
-
-msgid "Show Measurements"
-msgstr "Toon Metingen"
-
-msgid "Hide Measurements"
-msgstr "Verberg Metingen"
-
-msgid "Help"
-msgstr "Help"
-
-msgid "About Scribus"
-msgstr "Over Scribus"
-
-msgid "About Qt"
-msgstr "Over Qt"
-
-msgid "Ready"
-msgstr "Gereed"
-
-msgid "Scaled to "
-msgstr "Schalen naar "
-
-msgid "Get Picture..."
-msgstr "Haal Afbeelding..."
-
-msgid "Get Text/Picture..."
-msgstr "Haal Tekst/Afbeeldingen..."
-
-msgid "Get Text..."
-msgstr "Haal Tekst..."
-
-msgid "New Document"
-msgstr "Nieuw Document"
-
-msgid "Page Size"
-msgstr "Pagina afmeting"
-
-msgid "Margin Guides"
-msgstr "Marge Richtlijnen"
-
-msgid "Column Guides"
-msgstr "Kolom Richtlijnen"
-
-msgid "Columns:"
-msgstr "Kolommen:"
-
-msgid "Gutter Width:"
-msgstr "Gutter Breedte:"
-
-msgid "Width:"
-msgstr "Breedte:"
-
-msgid "Height:"
-msgstr "Hoogte:"
-
-msgid "Top:"
-msgstr "Boven:"
-
-msgid "Left:"
-msgstr "Links:"
-
-msgid "Inside:"
-msgstr "Binnen:"
-
-msgid "Right:"
-msgstr "Rechts:"
-
-msgid "Outside:"
-msgstr "Buiten:"
-
-msgid "Bottom:"
-msgstr "Onder:"
-
-msgid "Other"
-msgstr "Anders"
-
-msgid "Facing Pages"
-msgstr "Zichtbare Pagina's"
-
-msgid "OK"
-msgstr "Oke"
-
-msgid "Cancel"
-msgstr "Annuleren"
-
-msgid "Autom. Textframes"
-msgstr "Autom. Tekstkaders"
-
-msgid "W:"
-msgstr "W:"
-
-msgid "Tabloid"
-msgstr "Tabloid"
-
-msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
-msgstr "Documenten (*.sla *.sla.gz *.scd *scd.gz);; Alle Bestanden (*)"
-
-msgid "Documents (*.sla *.scd);; All Files (*)"
-msgstr "Documenten (*.sla *.scd);; Alle Bestanden (*)"
-
-
-msgid "Document "
-msgstr "Document "
-
-msgid "No Document"
-msgstr "Geen Document"
-
-msgid "Warning"
-msgstr "Waarschuwing"
-
-msgid "Save Now"
-msgstr "Nu Opslaan"
-
-msgid "Leave Anyway"
-msgstr "Ga Alsnog"
-
-msgid "Textfiles (*.txt);;All Files (*)"
-msgstr "TekstBestanden (*.txt);;Alle Bestanden (*)"
-
-msgid "Images"
-msgstr "Afbeeldingen"
-
-msgid ");;Vectorimages (*.eps *.pdf);;All Files (*)"
-msgstr ");;Vectorafbeeldingen (*.eps *.pdf);;Alle Bestanden (*)"
-
-msgid "Look &in:"
-msgstr "Kijk &in:"
-
-msgid "File &type:"
-msgstr "Bestands &type:"
-
-msgid "File &name:"
-msgstr "Bestands &naam:"
-
-msgid "PDF-Options"
-msgstr "PDF-Opties"
-
-msgid "Compatibility:"
-msgstr "Compatibiliteit:"
-
-msgid "Images:"
-msgstr "Afbeeldingen:"
-
-msgid "Resolution for EPS-Images:"
-msgstr "Resolutie voor EPS-Afbeeldingen:"
-
-msgid "Document Info"
-msgstr "Document Informatie"
-
-msgid "Description:"
-msgstr "Omschrijving:"
-
-msgid "Author:"
-msgstr "Auteur:"
-
-msgid "Edit"
-msgstr "Bewerken"
-
-msgid "Cut"
-msgstr "Knippen"
-
-msgid "Copy"
-msgstr "Kopieëren"
-
-msgid "Paste"
-msgstr "Invoegen"
-
-msgid "Clear"
-msgstr "Leeg Maken"
-
-msgid "Select all"
-msgstr "Alles Selecteren"
-
-msgid "Deselect all"
-msgstr "Alles deSelecteren"
-
-msgid "Theme"
-msgstr "Thema"
-
-msgid "Other..."
-msgstr "Anders..."
-
-msgid "Item"
-msgstr "Item"
-
-msgid "Page"
-msgstr "Pagina"
-
-msgid "Insert..."
-msgstr "Invoegen..."
-
-msgid "Delete..."
-msgstr "Verwijderen..."
-
-msgid "Delete"
-msgstr "Verwijderen"
-
-msgid "Font"
-msgstr "Lettertype"
-
-msgid "Size"
-msgstr "Afmeting"
-
-msgid "Font Size"
-msgstr "Afmeting Lettertype"
-
-msgid "Font Size:"
-msgstr "Afmeting Lettertype:"
-
-msgid "Shade:"
-msgstr "Schaduw:"
-
-msgid "Shade"
-msgstr "Schaduw"
-
-msgid "Color"
-msgstr "Kleur"
-
-msgid "Colors..."
-msgstr "Kleuren..."
-
-msgid "Duplicate"
-msgstr "Dupliceren"
-
-msgid "New Color:"
-msgstr "Nieuwe Kleur:"
-
-msgid "New Color"
-msgstr "Nieuwe Kleur"
-
-msgid "OK to delete Color:"
-msgstr "Oke om kleur te verwijderen:"
-
-msgid "Replace it with:"
-msgstr "Vervangen met:"
-
-msgid "Delete Color"
-msgstr "Verwijder Kleur"
-
-msgid "Colors"
-msgstr "Kleuren"
-
-msgid "Edit Colors"
-msgstr "Bewerk Kleuren"
-
-msgid "Show Outline"
-msgstr "Toon Omtrek"
-
-msgid "Hide Outline"
-msgstr "Verberg Omtrek"
-
-msgid "Outline"
-msgstr "Omtrek"
-
-msgid "Rectangle"
-msgstr "Vierkant"
-
-msgid "Shape"
-msgstr "Vorm"
-
-msgid "Edit Frame"
-msgstr "Bewerkt Kader"
-
-msgid "Image"
-msgstr "Afbeelding"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "Send to Back"
-msgstr "Plaats naar achter"
-
-msgid "Bring to Front"
-msgstr "Haal naar voren"
-
-msgid "Lower"
-msgstr "Lager"
-
-msgid "Raise"
-msgstr "Hoger"
-
-msgid "Delete Page:"
-msgstr "Verwijder Pagina:"
-
-msgid "Delete Page"
-msgstr "Verwijder Pagina"
-
-msgid "Line"
-msgstr "Lijn"
-
-msgid "Line Width"
-msgstr "Lijn Breedte"
-
-msgid "Line Width:"
-msgstr "Lijn Breedte:"
-
-msgid "Print destination"
-msgstr "Afdruk richting"
-
-msgid "Print to printer:"
-msgstr "Afdrukken naar printer:"
-
-msgid "Printer"
-msgstr "Printer"
-
-msgid "Comment"
-msgstr "Comentaar"
-
-msgid "Print to file:"
-msgstr "Afdrukken naar bestand:"
-
-msgid "Browse..."
-msgstr "Browse..."
-
-msgid "Printer settings"
-msgstr "Printer instellingen"
-
-msgid "Print in color if available"
-msgstr "Druk af in kleur als mogelijk"
-
-msgid "Print in grayscale"
-msgstr "Druk af in grijstonen"
-
-msgid "Paper format"
-msgstr "Papier formaat"
-
-msgid "Portrait"
-msgstr "Portret"
-
-msgid "Landscape"
-msgstr "Landschap"
-
-msgid "Options"
-msgstr "Opties"
-
-msgid "Print all"
-msgstr "Alles Afdrukken"
-
-msgid "Print range"
-msgstr "Afdruk bereik"
-
-msgid "From page:"
-msgstr "Vanaf pagina:"
-
-msgid "To page:"
-msgstr "Tot Pagina:"
-
-msgid "Print first page first"
-msgstr "Druk 1e pagina eerst"
-
-msgid "Print last page first"
-msgstr "Druk laatste pagina eerst"
-
-msgid "Number of copies:"
-msgstr "Aantal Kopieën"
-
-msgid "Select color"
-msgstr "Kies Kleur"
-
-msgid "&Basic colors"
-msgstr "&Basis Kleuren"
-
-msgid "&Custom colors"
-msgstr "&Aangepaste Kleuren"
-
-msgid "&Add To Custom Colors"
-msgstr "&Voegtoe aan Aangepaste Kleuren"
-
-msgid "&Define Custom Colors >>"
-msgstr "&Bepaal Aangepaste Kleuren >>"
-
-msgid "&Red:"
-msgstr "&Rood:"
-
-msgid "&Green:"
-msgstr "&Groen:"
-
-msgid "Bl&ue:"
-msgstr "Bla&uw:"
-
-msgid "Select Font"
-msgstr "Selecteer Lettertype"
-
-msgid "&Font"
-msgstr "&Lettertype"
-
-msgid "Font st&yle"
-msgstr "Lettertype St&yle"
-
-msgid "&Size"
-msgstr "&Grootte"
-
-msgid "Effects"
-msgstr "Effecten"
-
-msgid "Stri&keout"
-msgstr "Door&halen"
-
-msgid "&Underline"
-msgstr "&Onderlijnen"
-
-msgid "Sample"
-msgstr "Voorbeeld"
-
-msgid "Scr&ipt"
-msgstr "Scr&ipt"
-
-msgid "Preferences..."
-msgstr "Voorkeuren..."
-
-msgid "Preferences"
-msgstr "Voorkeuren"
-
-msgid "General"
-msgstr "Algemeen"
-
-msgid "Guides"
-msgstr "Richtlijnen"
-
-msgid "Major Grid Spacing:"
-msgstr "Hoofdgrid Afmeting:"
-
-msgid "Minor Grid Spacing:"
-msgstr "Subgrid Afmeting:"
-
-msgid "Major Grid Color:"
-msgstr "Hoofdgrid kleur:"
-
-msgid "Minor Grid Color:"
-msgstr "Subgrid Kleur:"
-
-msgid "Grid Colors"
-msgstr "Grid Kleuren"
-
-msgid "Grid Layout"
-msgstr "Grid Layout"
-
-msgid "Image visible"
-msgstr "Afmeting zichtbaar"
-
-msgid "Is PDF-Bookmark"
-msgstr "Is PDF-bladwijzer"
-
-msgid "Snap to Guides"
-msgstr "Snap tot Richtlijnen"
-
-msgid "Apply"
-msgstr "Toepassen"
-
-msgid "Snap to Grid"
-msgstr "Snap tot Grid"
-
-msgid "Mouse-Settings"
-msgstr "Muis-Instellingen"
-
-msgid "Wheel-Jump"
-msgstr "Wiel-Sprong"
-
-msgid "Grab-Radius"
-msgstr "Grijp-Radius"
-
-msgid "Printing-Error"
-msgstr "Afdruk-Fouten"
-
-msgid "Printing completed"
-msgstr "Afdrukken voltooid"
-
-msgid "Printing aborted"
-msgstr "Afdrukken afgebroken"
-
-msgid "Printing..."
-msgstr "Bezig met Afdrukken..."
-
-msgid "Saving aborted"
-msgstr "Opslaan afgebroken"
-
-msgid "Loading aborted"
-msgstr "Laden afgebroken"
-
-msgid "Global Fontsettings"
-msgstr "Globale Lettertype Instellingen"
-
-msgid "Path to Fontfile"
-msgstr "Lettertype Lokatie"
-
-msgid "Embed in:"
-msgstr "Invoegen in:"
-
-msgid "Default Size:"
-msgstr "Normale Grootte:"
-
-msgid "Default Font:"
-msgstr "Normale lettertype:"
-
-msgid "Woven silk pyjamas exchanged for blue quartz"
-msgstr "Gewoven zijden pyjama vervangen voor blauwe quartz"
-
-msgid "Fonts"
-msgstr "Lettertypes"
-
-msgid "Missing Font"
-msgstr "Ontbrekend Lettertype"
-
-msgid "Missing"
-msgstr "Ontbrekend"
-
-msgid "The Font %1 is not installed."
-msgstr "Lettertype %1 is niet geinstalleerd"
-
-msgid "Use"
-msgstr "Gebruik"
-
-msgid "instead"
-msgstr "Als"
-
-msgid "Fonts..."
-msgstr "Lettertypes..."
-
-msgid " loaded"
-msgstr " Geladen"
-
-msgid "Picture "
-msgstr "Afbeelding "
-
-msgid "File "
-msgstr "Bestand "
-
-msgid " saved"
-msgstr " opgeslagen"
-
-msgid "Unable to create PDF-File."
-msgstr "Kon niet als PDF-Bestand opslaan."
-
-msgid "Error creating PDF-File.."
-msgstr "Fout bij aanmaken PDF-Bestand..."
-
-msgid "Error during EPS-Export"
-msgstr "Fout tijdens EPS-Omzetting"
-
-msgid "The following Programs are missing:"
-msgstr "De volgende Programma's missen:"
-
-msgid "Ghostscript : You cannot use EPS-Images"
-msgstr "Ghostscript : Je kan geen EPS-Afbeeldingen gebruiken"
-
-msgid "Multiple Duplicate"
-msgstr "Meerdere Duplicaten"
-
-msgid "Number of Copies:"
-msgstr "Aantal kopieen"
-
-msgid "Horizontal Shift:"
-msgstr "Horizontale Verschuiving:"
-
-msgid "Vertical Shift:"
-msgstr "Verticale Verschuiving:"
-
 msgid "Distribute/Align"
 msgstr "Distribueer/Align"
-
-msgid "Distribute/Align..."
-msgstr "Distribueer/Align..."
-
-msgid "Don't change"
-msgstr "Niet veranderen"
 
 msgid "Align"
 msgstr "Align"
 
-msgid "Displacement"
-msgstr "Verplaatsing"
-
-msgid "Distribute evenly"
-msgstr "Distribueer evenredig"
+msgid "Horizontal"
+msgstr "Horizontaal"
 
 msgid "between:"
 msgstr "Tussen:"
@@ -683,1163 +31,105 @@ msgstr "Midden"
 msgid "Right Sides"
 msgstr "Rechter Kant"
 
+msgid "Don't change"
+msgstr "Niet veranderen"
+
+msgid "Displacement"
+msgstr "Verplaatsing"
+
+msgid "Distribute evenly"
+msgstr "Distribueer evenredig"
+
+msgid "Vertical"
+msgstr "Verticaal"
+
 msgid "Top Sides"
 msgstr "Boven Kant"
 
 msgid "Bottom Sides"
 msgstr "Bodem"
 
-msgid "Vertical"
-msgstr "Verticaal"
+msgid " pts"
+msgstr ""
 
-msgid "Horizontal"
-msgstr "Horizontaal"
+msgid " mm"
+msgstr ""
 
-msgid "Fatal Error"
-msgstr "Fatale Fout"
+msgid " in"
+msgstr ""
 
-msgid "There are no Postscript-Fonts on your System"
-msgstr "Er zijn geen Postscript-lettertypes aanwezig"
+msgid " p"
+msgstr ""
 
-msgid "Exiting now"
-msgstr "Er wordt nu afgesloten"
+msgid "OK"
+msgstr "Oke"
 
-msgid "Insert Page"
-msgstr "Voeg Pagina in"
+msgid "Apply"
+msgstr "Toepassen"
 
-msgid "Inserting"
-msgstr "Invoegen"
+msgid "Cancel"
+msgstr "Annuleren"
 
-msgid "before Page"
-msgstr "Voor Pagina"
-
-msgid "after Page"
-msgstr "Na Pagina"
-
-msgid "at End"
-msgstr "aan het eind"
-
-msgid "page(s)"
-msgstr "Pagina(s)"
-
-msgid "To End"
-msgstr "Tot Einde"
-
-msgid "Delete Pages"
-msgstr "Verwijder pagina's"
-
-msgid "Delete from:"
-msgstr "Verwijderen van:"
-
-msgid "Move Page(s):"
-msgstr "Verplaats Pagina(s):"
-
-msgid "Move Pages"
-msgstr "Verplaats Pagina's"
-
-msgid "Move..."
-msgstr "Verplaatsen..."
-
-msgid "to:"
-msgstr "naar:"
-
-msgid "Select Items"
-msgstr "Selecteer Items"
-
-msgid "Edit Contents of Frame"
-msgstr "Bewerkt Inhoud van Kader"
-
-msgid "Zooms in or out"
-msgstr "In of Uitzoomen"
-
-msgid "Insert Textbox"
-msgstr "Voeg Tekstbox in"
-
-msgid "Insert Picture"
-msgstr "Voeg Afbeelding in"
-
-msgid "Insert Lines"
-msgstr "Voeg Lijn in"
-
-msgid "Insert Ovals"
-msgstr "Voeg Ovaal in"
-
-msgid "Insert Rectangles"
-msgstr "Voeg Vierkant in"
-
-msgid "Rotate Item"
-msgstr "Roteer Item"
-
-msgid "Modify..."
-msgstr "Aanpassen..."
-
-msgid "Modify Textframe"
-msgstr "Pas Tekstkader aan"
-
-msgid "Modify Frame"
-msgstr "Pas Kader aan"
-
-msgid "Other:"
-msgstr "Anders:"
-
-msgid "Don't print"
-msgstr "Niet afdrukken"
-
-msgid "Properties:"
-msgstr "Eigenschappen:"
-
-msgid "Ordinary Text"
-msgstr "Normale Tekst"
-
-msgid "Is PDF-Annotation"
-msgstr "Is een PDF-Aantekening"
-
-msgid "Angle:"
-msgstr "Hoek:"
-
-msgid "Textdistance"
-msgstr "Tekstafstand"
-
-msgid "Face"
-msgstr "Aangezicht"
-
-msgid "Superscript"
-msgstr "Superscript"
-
-msgid "Subscript"
-msgstr "Subscript"
-
-msgid "Flip horizontal"
-msgstr "Flip horizontaal"
-
-msgid "Flip vertical"
-msgstr "Flip verticaal"
-
-msgid "Scaling:"
-msgstr "Schalen:"
-
-msgid "Disp.:"
-msgstr "Verschuiving:"
-
-msgid "Small Caps"
-msgstr "Kleine Koppen"
-
-msgid "Typographics"
-msgstr "Typograficus"
-
-msgid "Italic"
-msgstr "Italic"
-
-msgid "No Fill"
-msgstr "Niet vullen"
-
-msgid "Underline"
-msgstr "Onderlijnen"
-
-msgid "Strikethru"
-msgstr "Doorhalen"
-
-msgid "Strikeout"
-msgstr "Strikeout"
-
-msgid "Append"
-msgstr "Doorgaan"
-
-msgid "Bold"
-msgstr "Vet"
-
-msgid "Shading:"
-msgstr "Schaduw:"
-
-msgid "Background Color:"
-msgstr "Achtergrond Kleur:"
-
-msgid "Vertical flipped"
-msgstr "Verticaal gedraait"
-
-msgid "Horizontal flipped"
-msgstr "Horizontaal gedraait"
-
-msgid "Text flows around Box"
-msgstr "Tekst volgt Kader"
-
-msgid "Online-Help..."
-msgstr "Online-Hulp..."
-
-msgid "Scribus Manual"
-msgstr "Scribus Handboek"
-
-msgid "Local X-Pos:"
-msgstr "Lokale X-Pos:"
-
-msgid "Local Y-Pos:"
-msgstr "Lokale Y-Pos:"
-
-msgid "Horizontal Scaling"
-msgstr "Horizontale Scaling"
-
-msgid "Vertical Scaling"
-msgstr "Verticale Schaling"
-
-msgid "Modify Pictureframe"
-msgstr "Pas Afbeeldingskader aan"
-
-msgid "Line Color:"
-msgstr "LijnKleur:"
-
-msgid "Fill Color:"
-msgstr "VulKleur:"
-
-msgid "Linestyle:"
-msgstr "LijnStyle:"
-
-msgid "Linewidth:"
-msgstr "LijnBreedte:"
-
-msgid "Scaling X:"
-msgstr "X Schaling:"
-
-msgid "Scaling Y:"
-msgstr "Y Schaling"
-
-msgid "Manual Kerning"
-msgstr "Handmatige Kerning"
-
-msgid "Linespacing"
-msgstr "Linespacing"
-
-msgid "Frame"
-msgstr "Kader"
-
-msgid "Contents"
-msgstr "Inhoud"
-
-msgid "Tools"
-msgstr "Gereedschappen"
-
-msgid "Create Textchains"
-msgstr "Maak TekstKoppelingen"
-
-msgid "Break Textchains"
-msgstr "Verbreek TekstKoppelingen"
-
-msgid "Stepping:"
-msgstr "Stappen:"
-
-msgid "Placing"
-msgstr "Plaatsing"
-
-msgid "In the Background"
-msgstr "In de achtergrond"
-
-msgid "In the Foreground"
-msgstr "Op de voorgrond"
-
-msgid "Text Color:"
-msgstr "TekstKleur:"
-
-msgid "Units"
-msgstr "Eenheden"
-
-msgid "Points (pts)"
-msgstr "Punten (pts)"
-
-msgid "Points (pt)"
-msgstr "Punten (pt)"
-
-msgid "Millimeters (mm)"
-msgstr "Millimeters (mm)"
-
-msgid "Creates a new Document"
-msgstr "Maak een nieuw Document"
-
-msgid "Opens a Document"
-msgstr "Opent een Document"
-
-msgid "Saves the current Document"
-msgstr "Slaat het huidige Document op"
-
-msgid "Prints the current Document"
-msgstr "Drukt het huidige Document af"
-
-msgid "Copy Here"
-msgstr "Kopieer hier"
-
-msgid "Move Here"
-msgstr "Verplaats hier"
-
-msgid "About"
-msgstr "Over"
-
-msgid "Authors"
-msgstr "Auteurs"
-
-msgid "Translations"
-msgstr "Vertalers"
-
-msgid "Programming:"
-msgstr "Programmering:"
-
-msgid "Contributions from:"
-msgstr "Contributies van:"
-
-msgid "Documentation:"
-msgstr "Documentatie:"
-
-msgid "German:"
-msgstr "Duits:"
-
-msgid "French:"
-msgstr "Frans:"
-
-msgid "Spanish and Catalan:"
-msgstr "Spaans en Katalaans:"
-
-msgid "Hungarian and Italian:"
-msgstr "Hongaars en Italiaans:"
-
-msgid "Slovak:"
-msgstr "Slovaaks:"
-
-msgid "Slovak"
-msgstr "Slovaaks"
-
-msgid "Ukrainian:"
-msgstr "Ukraieens:"
-
-msgid "None"
-msgstr "Geen"
-
-msgid "Closes the current Document"
-msgstr "Sluit het huidige Document"
-
-msgid "Range:"
-msgstr "Bereik:"
-
-msgid "File:"
-msgstr "Bestand:"
-
-msgid "Print Normal"
-msgstr "Druk Normaal af"
-
-msgid "Print Separations"
-msgstr "Druk Separaties"
-
-msgid "All"
-msgstr "Alles"
-
-msgid "Setup Printer"
-msgstr "Printer Instellen"
-
-msgid "Old"
-msgstr "Oud"
-
-msgid "Color Model"
-msgstr "Kleur Model"
-
-msgid "Is Spot-Color"
-msgstr "Is een Spot-Kleur"
-
-msgid "Edit Color"
-msgstr "Bewerkt Kleur"
-
-msgid "Alignment"
-msgstr "Alignment"
-
-msgid "Left"
-msgstr "Links"
-
-msgid "Center"
-msgstr "Centreer"
-
-msgid "Right"
-msgstr "Rechts"
-
-msgid "Edit Styles"
-msgstr "Bewerk Stijlen"
-
-msgid "Edit Style"
-msgstr "Bewerk Stijl"
-
-msgid "New Style"
-msgstr "Nieuwe Stijl"
-
-msgid "New Style:"
-msgstr "Nieuwe Stijl:"
-
-msgid "Show Styles"
-msgstr "Toon Stijlen"
-
-msgid "Hide Styles"
-msgstr "Verberg Stijlen"
-
-msgid "Styles..."
-msgstr "Stijlen..."
-
-msgid "Styles"
-msgstr "Stijlen"
-
-msgid "No Style"
-msgstr "Geen Stijl"
-
-msgid "Block"
-msgstr "Blok"
-
-msgid "Forced"
-msgstr "Gedwongen"
-
-msgid "Indentation"
-msgstr "Inspringen"
-
-msgid "Page-Colors"
-msgstr "Pagina-Kleuren"
-
-msgid "Background:"
-msgstr "Achtergrond:"
-
-msgid "Left Indent:"
-msgstr "Links Inspringen:"
-
-msgid "First Line:"
-msgstr "Eerste Regel:"
-
-msgid "Character"
-msgstr "Teken"
-
-msgid "Face:"
-msgstr "Aangezicht:"
-
-msgid "Size:"
-msgstr "Afmeting:"
-
-msgid "Color:"
-msgstr "Kleur:"
-
-msgid "Name of the Style is not unique"
-msgstr "De Stijlnaam is niet uniek"
-
-msgid "Do you really want do delete this Style?"
-msgstr "Wil je echt deze stijl verwijderen?"
-
-msgid "No"
-msgstr "Nee"
-
-msgid "Yes"
-msgstr "Ja"
-
-msgid "Vertical Spaces"
-msgstr "Verticale Spaties"
-
-msgid "Above:"
-msgstr "Boven:"
-
-msgid "Below:"
-msgstr "Onder:"
-
-msgid "AFM-File available"
-msgstr "AFM-Bestand beschikbaar"
-
-msgid "Nodes"
-msgstr "Nodes"
-
-msgid "End Editing"
-msgstr "Eind Bewerking"
-
-msgid "Add Nodes"
-msgstr "Voeg Nodes toe"
-
-msgid "Delete Nodes"
-msgstr "Verwijder Nodes"
-
-msgid "Move Nodes"
-msgstr "Verplaats Nodes"
-
-msgid "Move Control Points"
-msgstr "Verplaats Controle Punten"
-
-msgid "Move Control Points independently"
-msgstr "Verplaats Controle Punten onafhankelijk"
-
-msgid "Move Control Points symmetrical"
-msgstr "Verplaats Controle Punten Symmetrisch"
-
-msgid "Insert Bezier Curves"
-msgstr "Voeg Bezier Curve in"
-
-msgid "New Entry"
-msgstr "Nieuwe aanmelding"
-
-msgid "Scrapbooks (*.scs);; All Files (*)"
-msgstr "Kladblok  (*.scs);; Alle Bestanden (*)"
-
-msgid "Scrapbook"
-msgstr "Kladblok"
-
-msgid "Load..."
-msgstr "Laad..."
-
-msgid "Object"
-msgstr "Object"
-
-msgid "Show Scrapbook"
-msgstr "Toon Kladblok"
-
-msgid "Hide Scrapbook"
-msgstr "Verberg Kladblok"
-
-msgid "Other Options"
-msgstr "Andere Opties"
-
-msgid "Save Contents on Exit"
-msgstr "Sla Inhoud op bij afsluiten"
-
-msgid "Preview"
-msgstr "Voorbeeld"
-
-msgid "Small"
-msgstr "Klein"
-
-msgid "Medium"
-msgstr "Middel"
-
-msgid "Big"
-msgstr "Groot"
-
-msgid "Edit Templates"
-msgstr "Bewerkt Templates"
-
-msgid "Apply Template..."
-msgstr "Gebruik Template..."
-
-msgid "Exit"
-msgstr "Afsluiten"
-
-msgid "Copy of "
-msgstr "Kopie van "
-
-msgid "Name:"
-msgstr "Naam:"
-
-msgid "New Template"
-msgstr "Nieuwe Template"
-
-msgid "Normal"
-msgstr "Normaal"
-
-msgid "Templates..."
-msgstr "Templates..."
-
-msgid "Template:"
-msgstr "Template:"
-
-msgid "Apply Template"
-msgstr "Gebruik Template"
-
-msgid "Template for this Page:"
-msgstr "Template voor deze Pagina:"
-
-msgid "Do you really want do delete this Template?"
-msgstr "Wil je echt deze Template verwijderen?"
-
-msgid "Left Page"
-msgstr "Linker Pagina"
-
-msgid "Right Page"
-msgstr "Rechter Pagina"
-
-msgid "Display Frames"
-msgstr "Toon Kaders"
-
-msgid "Display Pages Side by Side"
-msgstr "Toon Kaders naast elkaar"
-
-msgid "Display"
-msgstr "Tonen"
-
-msgid "Left Page first"
-msgstr "Linker Pagina eerst"
-
-msgid "Group"
-msgstr "Groeperen"
-
-msgid "Ungroup"
-msgstr "Degroeperen"
-
-msgid "Do you really want to overwrite the File:\n%1 ?"
-msgstr "Wil je echt het bestand %1 overschrijven:\n?"
-
-msgid "Show Frames"
-msgstr "Toon Kaders"
-
-msgid "Hide Frames"
-msgstr "Verberg Kaders"
-
-msgid "Template (Left Page):"
-msgstr "Template (linker Pagina):"
-
-msgid "Template (Right Page):"
-msgstr "Template (Rechter Pagina):"
-
-msgid "Manage Pictures"
-msgstr "Afbeeldingen Beheren"
-
-msgid "Pictures"
-msgstr "Afbeeldingen"
-
-msgid "Goto"
-msgstr "Ga Naar"
-
-msgid "Search"
-msgstr "Zoeken"
-
-msgid "Path"
-msgstr "Lokatie"
-
-msgid "Print"
-msgstr "Afdrukken"
-
-msgid "Status"
-msgstr "Status"
-
-msgid "Margins:"
-msgstr "Marges:"
-
-msgid "Recent Documents:"
-msgstr "Recente Documenten:"
-
-msgid "Recent Documents"
-msgstr "Recente Documenten"
-
-msgid "Display unprintable Area in Margin Color"
-msgstr "Toon niet afdrukbare gebieden in Margekleur"
-
-msgid "Automatic Linespaceing:"
-msgstr "Automatische Lijnspatiëring"
-
-msgid "Distances"
-msgstr "Afstanden"
-
-msgid "Menues"
-msgstr "Menuus"
-
-msgid "Result"
-msgstr "Resultaat"
-
-msgid "Search Results for: "
-msgstr "Zoekresultaten voor: "
-
-msgid "Select"
-msgstr "Selecteer"
-
-msgid "Import..."
-msgstr "Importeren..."
-
-msgid "Export..."
-msgstr "Exporteren..."
-
-msgid "Dynamic Color Bars"
-msgstr "Dynamische Kleurenbar"
-
-msgid "Static Color Bars"
-msgstr "Statische Kleurenbar"
-
-msgid "Color Management Settings"
-msgstr "KleurManagement Instellingen"
-
-msgid "Activate Color Management"
-msgstr "Activeer Kleur Management"
-
-msgid "System Profiles"
-msgstr "Systeem Profielen"
-
-msgid "Pictures:"
-msgstr "Afbeeldingen:"
-
-msgid "Solid Colors:"
-msgstr "Vaste Kleuren:"
-
-msgid "Monitor:"
-msgstr "Beeldscherm:"
-
-msgid "Printer:"
-msgstr "Printer:"
-
-msgid "Rendering Intents"
-msgstr "Rendering Intents"
-
-msgid "Rendering Intent:"
-msgstr "Rendering Intent:"
-
-msgid "Perceptual"
-msgstr "Perceptueel"
-
-msgid "Relative Colorimetric"
-msgstr "Relatieve Kleurmetric"
-
-msgid "Saturation"
-msgstr "Saturnatie"
-
-msgid "Absolute Colorimetric"
-msgstr "Absolute Kleurmetric"
-
-msgid "Simulate Printer on the Screen"
-msgstr "Simuleer Afdruk op het scherm"
-
-msgid "Color Management..."
-msgstr "Kleur Management..."
-
-msgid "Input Profile:"
-msgstr "Invoer Profiel:"
-
-msgid "No Title"
-msgstr "Geen Titel"
-
-msgid "Unknown"
-msgstr "Onbekend"
-
-msgid "Adjusting Colors"
-msgstr "Kleuren Aanpassen"
-
-msgid "Scribus-Document"
-msgstr "Scribus-Document"
-
-msgid "Title:"
-msgstr "Titel:"
-
-msgid "Sorry, no Manual available!"
-msgstr "Sorry, geen Handleiding beschikbaar"
-
-msgid "Embed all Fonts"
-msgstr "Alle Lettertypes inbedden"
-
-msgid "Embedding"
-msgstr "Inbedden"
-
-msgid "Available Fonts:"
-msgstr "Beschikbare Lettertypes:"
-
-msgid "Fonts to embed:"
-msgstr "In te bedden Lettertypes:"
-
-msgid "Output to File:"
-msgstr "Uitvoer naar Bestand:"
-
-msgid "Change..."
-msgstr "Verander..."
-
-msgid "Compression"
-msgstr "Compressie"
-
-msgid "Downsample Images to:"
-msgstr "Afbeeldingen terugbrengen tot:"
-
-msgid "Compress Text and Vector Graphics"
-msgstr "Comprimeer Tekst en Vector Afbeeldingen"
-
-msgid "File Options"
-msgstr "Bestands Instellingen"
-
-msgid "Generate Thumbnails"
-msgstr "Maak Miniweergaven"
-
-msgid "Resolution:"
-msgstr "Resolutie:"
-
-msgid "Create PDF-File"
-msgstr "Maak PDF-Bestand"
-
-msgid "X-Pos:"
-msgstr "X-Pos:"
-
-msgid "Y-Pos:"
-msgstr "Y-Pos:"
-
-msgid "Page:"
-msgstr "Pagina:"
-
-msgid "Destination"
-msgstr "Doel"
+msgid "Field Properties"
+msgstr "Veld Eigenschappen"
 
 msgid "Type:"
 msgstr "Type:"
 
-msgid "Annotation Properties"
-msgstr "Annotatie Eigenschappen"
-
-msgid "Bookmarks"
-msgstr "Bladwijzers"
-
-msgid "Include Bookmarks"
-msgstr "Invoegen Bladwijzers"
-
-msgid "Manage Keyboard Shortcuts"
-msgstr "Beheer Toets-Snelkoppelingen"
-
-msgid "Action"
-msgstr "Actie"
-
-msgid "Current Key"
-msgstr "Huidige Toets"
-
-msgid "Select a Key for this Action"
-msgstr "Selecteer een Toets voor deze Actie"
-
-msgid "No Key"
-msgstr "Geen Toets"
-
-msgid "User Defined Key"
-msgstr "Gebruiker Gedefinieerde Toetsen"
-
-msgid "Set Key"
-msgstr "Zet Toets"
-
-msgid "This Key-Sequence is already in use"
-msgstr "Deze Toets-Snelkoppeling is al in gebruik"
-
-msgid "Keyboard Shortcuts..."
-msgstr "Toets-Snelkoppelingen..."
-
-msgid "Smart Hyphen"
-msgstr "Slim Hyphen"
-
-msgid "Align Left"
-msgstr "Align Links"
-
-msgid "Align Right"
-msgstr "Align Rechts"
-
-msgid "Align Center"
-msgstr "Align Gecentreerd"
-
-msgid "Insert Pagenumber"
-msgstr "Voeg Paginanummer in"
-
-msgid "Binding:"
-msgstr "Binding:"
-
-msgid "Left Margin"
-msgstr "Linker Rand"
-
-msgid "Right Margin"
-msgstr "Rechter Rand"
-
-msgid "Corner Radius:"
-msgstr "Hoek Radius:"
-
-msgid "Save linked Text Frames as PDF-Articles"
-msgstr "Sla gekoppelde TekstKaders op als PDF-Artikel"
-
-msgid "Enable Presentation Effects"
-msgstr "Activeer Presentatie Effecten"
-
-msgid "Show Page Previews"
-msgstr "Toon Pagina Voorbeeld"
-
-msgid "Display Duration:"
-msgstr "Weergave Tijdsduur:"
-
-msgid "Effect Duration:"
-msgstr "Effect Tijdsduur"
-
-msgid "Effect Type:"
-msgstr "Effect Type:"
-
-msgid "Moving Lines:"
-msgstr "Verplaatste Lijnen:"
-
-msgid "from the:"
-msgstr "Van de:"
-
-msgid "Direction:"
-msgstr "Richting:"
-
-msgid "No Effect"
-msgstr "Geen Effect"
-
-msgid "Blinds"
-msgstr "Luiken"
-
-msgid "Box"
-msgstr "Box"
-
-msgid "Dissolve"
-msgstr "Oplossen"
-
-msgid "Glitter"
-msgstr "Glitter"
-
-msgid "Split"
-msgstr "Splitsen"
-
-msgid "Wipe"
-msgstr "Wegvegen"
-
-msgid "Inside"
-msgstr "Binnen"
-
-msgid "Outside"
-msgstr "Buiten"
-
-msgid "Left to Right"
-msgstr "Links naar Rechts"
-
-msgid "Top to Bottom"
-msgstr "Boven naar Beneden"
-
-msgid "Bottom to Top"
-msgstr "Beneden naar Boven"
-
-msgid "Right to Left"
-msgstr "Rechts naar Links"
-
-msgid "Top-Left to Bottom-Right"
-msgstr "Links-boven naar Rechts-onder"
-
-msgid "Extras"
-msgstr "Extra's"
-
-msgid "Saves the current Document as PDF"
-msgstr "Sla het huidige Document op als PDF"
-
-msgid "Rounded Rectangle"
-msgstr "Afgerond Vierkant"
-
-msgid "Align Text Left"
-msgstr "Align Tekst Links"
-
-msgid "Align Text Right"
-msgstr "Align Tekst Rechts"
-
-msgid "Align Text Center"
-msgstr "Align Tekst geCentreerd"
-
-msgid "Align Text Block"
-msgstr "Align Tekst Blok"
-
-msgid "Endings:"
-msgstr "Afsluitingen:"
-
-msgid "Edges:"
-msgstr "Randen:"
-
-msgid "MiterJoin"
-msgstr "MiterJoin"
-
-msgid "BevelJoin"
-msgstr "BevelJoin"
-
-msgid "RoundJoin"
-msgstr "RoundJoin"
-
-msgid "FlatCap"
-msgstr "FlatCap"
-
-msgid "SquareCap"
-msgstr "SquareCap"
-
-msgid "RoundCap"
-msgstr "RoundCap"
-
-msgid "Move Bookmark"
-msgstr "Verplaats Bladwijzer"
-
-msgid "Insert Bookmark"
-msgstr "Voeg Bladwijzer toe"
-
-msgid "Copy Page"
-msgstr "Kopieer Pagina"
-
-msgid "To the End"
-msgstr "Tot het Einde"
-
-msgid "GUI"
-msgstr "GUI"
-
-msgid "Fontsize"
-msgstr "LetterGrootte"
-
-msgid "Apply Effect on all Pages"
-msgstr "Pas Effect toe op alle Pagina's"
-
-msgid "Print via other Command"
-msgstr "Druk af via ander Commando"
-
-msgid "Command:"
-msgstr "Commando:"
-
-msgid "Orientation:"
-msgstr "Orientatie:"
-
-msgid "First Pagenumber:"
-msgstr "Eerste Paginanummer:"
-
-msgid "Default Unit:"
-msgstr "Normale Eenheid:"
-
-msgid "Send to Scrapbook"
-msgstr "Stuur naar Kladblok"
-
-msgid "Left Point"
-msgstr "Linker Punt"
-
-msgid "Endpoints"
-msgstr "Eindpunt"
-
-msgid "Scaling"
-msgstr "Schaling"
-
-msgid "Linespacing:"
-msgstr "Lijnspatiëring"
-
-msgid "Character Settings"
-msgstr "Teken Instellingen"
-
-msgid "Length:"
-msgstr "Lengte:"
-
-msgid "Polygon Properties"
-msgstr "Polygoon Eigenschappen"
-
-msgid "Corners:"
-msgstr "Hoeken:"
-
-msgid "Convex Polygon"
-msgstr "Convexe Polygoon"
-
-msgid "Factor:"
-msgstr "Factor:"
-
-msgid "Edit Polygon"
-msgstr "Bewerk Polygoon"
-
-msgid "Properties..."
-msgstr "Eigenschappen..."
-
-msgid "Lithuanian:"
-msgstr "Lithuaans:"
-
-msgid "Measurements"
-msgstr "Metingen"
-
-msgid "Insert Polygons"
-msgstr "Voeg Polygoon in"
-
-msgid "Rotation:"
-msgstr "Rotatie:"
-
-msgid "Loading..."
-msgstr "Laden..."
-
-msgid "Convert to"
-msgstr "Converteer naar"
-
-msgid "Text Frame"
-msgstr "Tekst Kader"
-
-msgid "Picture Frame"
-msgstr "Afbeeldings Kader"
-
-msgid "Polygon"
-msgstr "Polygoon"
-
-msgid "Bezier Curve"
-msgstr "Bezier Curve"
-
-msgid "Style"
-msgstr "Stijl"
-
-msgid "Modify Pathtext"
-msgstr "Pas Lokatietekst aan"
-
-msgid "Show Curve"
-msgstr "Toon Curve"
-
-msgid "Startoffset:"
-msgstr "Startoffset"
-
-msgid "Distance from Curve:"
-msgstr "Afstand van Curve:"
-
-msgid "Attach Text to Path"
-msgstr "Koppel Tekst aan Lokatie"
-
-msgid "Layers"
-msgstr "Lagen"
-
-msgid "Add a new Layer"
-msgstr "Nieuwe Laag toevoegen"
-
-msgid "Delete Layer"
-msgstr "Laag Verwijderen"
-
-msgid "Raise Layer"
-msgstr "Verhoog Laag"
-
-msgid "Lower Layer"
-msgstr "Verlaag Laag"
-
-msgid "Closes this Dialog"
-msgstr "Sluit dit Venster"
-
-msgid "New Layer"
-msgstr "Nieuwe Laag"
-
-msgid "Background"
-msgstr "Achtergrond"
-
-msgid "Reset Control Points"
-msgstr "Reset Controle Punten"
-
-msgid "Reset this Control Points"
-msgstr "Reset dit Controle Punt"
-
-msgid "Opens a Polygon or cuts a Bezier Curve"
-msgstr "Opent een Polygoon of knipt een Bezier Curve"
-
-msgid "Closes this Bezier Curve"
-msgstr "Sluit deze Bezier Curve"
-
-msgid "Show Layers"
-msgstr "Toon Lagen"
-
-msgid "Hide Layers"
-msgstr "Verberg Lagen"
-
-msgid "Sent to Layer"
-msgstr "Stuur naar Laag"
-
-msgid "Link"
-msgstr "Koppeling"
+msgid "Button"
+msgstr "Knop"
 
 msgid "Text Field"
 msgstr "Tekst Veld"
 
-msgid "Button"
-msgstr "Knop"
-
 msgid "Check Box"
 msgstr "CheckBox"
+
+msgid "Combo Box"
+msgstr "Combo Box"
+
+msgid "List Box"
+msgstr "List Box"
 
 msgid "Properties"
 msgstr "Eigenschappen"
 
+msgid "Name:"
+msgstr "Naam:"
+
 msgid "Tool-Tip:"
 msgstr "Tool-Tip:"
 
-msgid "Read Only"
-msgstr "Alleen Lezen"
+msgid "Text"
+msgstr "Tekst"
 
-msgid "Visibility:"
-msgstr "Zichtbaarheid:"
+msgid "Font for use with PDF-1.3:"
+msgstr "Te gebruiken Lettertype voor PDF-1.3:"
 
 msgid "Border"
 msgstr "Rand"
 
+msgid "Color:"
+msgstr "Kleur:"
+
+msgid "None"
+msgstr "Geen"
+
+msgid "Width:"
+msgstr "Breedte:"
+
 msgid "Thin"
 msgstr "Dun"
 
+msgid "Normal"
+msgstr "Normaal"
+
 msgid "Wide"
 msgstr "Wijd"
+
+#, fuzzy
+msgid "Style:"
+msgstr "Stijl"
 
 msgid "Solid"
 msgstr "Vast"
@@ -1847,11 +137,29 @@ msgstr "Vast"
 msgid "Dashed"
 msgstr "Gestreept"
 
+msgid "Underline"
+msgstr "Onderlijnen"
+
 msgid "Beveled"
 msgstr "Gebeveld"
 
 msgid "Inset"
 msgstr "Inset"
+
+msgid "Other"
+msgstr "Anders"
+
+msgid "Read Only"
+msgstr "Alleen Lezen"
+
+msgid "Required"
+msgstr "Vereist"
+
+msgid "Don't Export Value"
+msgstr "Waarde Niet Exporteren"
+
+msgid "Visibility:"
+msgstr "Zichtbaarheid:"
 
 msgid "Visible"
 msgstr "Zichtbaar"
@@ -1868,14 +176,30 @@ msgstr "Geen Weergave"
 msgid "Appearance"
 msgstr "Verschijning"
 
-msgid "Text"
-msgstr "Tekst"
-
 msgid "Text for Button Down"
 msgstr "Tekst voor Ingedrukte Knop"
 
 msgid "Text for Roll Over"
 msgstr "Tekst voor Roll Over"
+
+#, fuzzy
+msgid "Icons"
+msgstr "Gebruik Iconen"
+
+msgid "Use Icons"
+msgstr "Gebruik Iconen"
+
+msgid "Remove"
+msgstr "Verwijder"
+
+msgid "Pressed"
+msgstr "Gedrukt"
+
+msgid "Roll Over"
+msgstr "Roll Over"
+
+msgid "Icon Placement..."
+msgstr "Icoon Plaatsing..."
 
 msgid "Highlight"
 msgstr "HighLight"
@@ -1931,6 +255,12 @@ msgstr "Vierkant"
 msgid "Default is Checked"
 msgstr "Normaal is geslecteerd"
 
+msgid "Editable"
+msgstr "Bewerktbaar"
+
+msgid "Options"
+msgstr "Opties"
+
 msgid "Java Script"
 msgstr "Java Script"
 
@@ -1943,17 +273,8 @@ msgstr "Verstuur Form"
 msgid "Reset Form"
 msgstr "Reset Form"
 
-msgid "Flag is ignored for PDF-1.3"
-msgstr "Vlag is genegeerd bij PDF-1.3"
-
-msgid "Font for use with PDF-1.3:"
-msgstr "Te gebruiken Lettertype voor PDF-1.3:"
-
-msgid "Required"
-msgstr "Vereist"
-
-msgid "Don't Export Value"
-msgstr "Waarde Niet Exporteren"
+msgid "Import Data"
+msgstr "Importeer Data"
 
 msgid "Event:"
 msgstr "Gebeurtenis:"
@@ -1978,6 +299,43 @@ msgstr "Bij Blur"
 
 msgid "Script:"
 msgstr "Script:"
+
+msgid "Edit..."
+msgstr "Bewerk..."
+
+msgid "Submit to URL:"
+msgstr "Stuur naar URL:"
+
+msgid "Submit Data as HTML"
+msgstr "Stuur Gegevens als HTML"
+
+msgid "Import Data from:"
+msgstr "Importeer Data van:"
+
+msgid "Destination"
+msgstr "Doel"
+
+#, fuzzy
+msgid "To File:"
+msgstr "Bestand:"
+
+msgid "Change..."
+msgstr "Verander..."
+
+msgid "Page:"
+msgstr "Pagina:"
+
+msgid "X-Pos:"
+msgstr "X-Pos:"
+
+msgid " pt"
+msgstr ""
+
+msgid "Y-Pos:"
+msgstr "Y-Pos:"
+
+msgid "Action"
+msgstr "Actie"
 
 msgid "Field is formatted as:"
 msgstr "Veld is gevormd als:"
@@ -2030,15 +388,6 @@ msgstr "Eigen Scripts"
 msgid "Format:"
 msgstr "Formaat:"
 
-msgid "Edit..."
-msgstr "Bewerk..."
-
-msgid "Combo Box"
-msgstr "Combo Box"
-
-msgid "List Box"
-msgstr "List Box"
-
 msgid "Keystroke:"
 msgstr "TekenAanslag:"
 
@@ -2056,6 +405,9 @@ msgstr "en kleiner of gelijk aan:"
 
 msgid "Custom validate script:"
 msgstr "Eigen validatie script:"
+
+msgid "Validate"
+msgstr "Valideer"
 
 msgid "Value is not calculated"
 msgstr "Waarde is niet berekend"
@@ -2081,17 +433,32 @@ msgstr "maximum"
 msgid "of the following fields:"
 msgstr "van de volgende velden:"
 
+msgid "Pick..."
+msgstr "Selecteer..."
+
 msgid "Custom calculation script:"
 msgstr "Eigen calculatie script:"
 
 msgid "Calculate"
 msgstr "Bereken"
 
-msgid "Validate"
-msgstr "Valideer"
+msgid "Flag is ignored for PDF-1.3"
+msgstr "Vlag is genegeerd bij PDF-1.3"
 
-msgid "Enter a comma separated list of Fields here"
+#, fuzzy
+msgid "Enter a comma separated list of fields here"
 msgstr "Voeg een komma gescheiden lijst van velden hier in"
+
+msgid "You need at least the Icon for Normal to use Icons for Buttons"
+msgstr ""
+"Je hebt minstens een 'Normaal' Icoon nodig wil je Iconen voor Knoppen "
+"gebruiken"
+
+msgid "Open"
+msgstr "Openen"
+
+msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
+msgstr ""
 
 msgid "Example:"
 msgstr "Voorbeeld:"
@@ -2099,29 +466,51 @@ msgstr "Voorbeeld:"
 msgid "Selection Change"
 msgstr "Selectie Wissel"
 
-msgid "Use Icons"
-msgstr "Gebruik Iconen"
+#, fuzzy
+msgid "PDF-Documents (*.pdf);;All Files (*)"
+msgstr "Documenten (*.sla *.scd);; Alle Bestanden (*)"
 
-msgid "Remove"
-msgstr "Verwijder"
+msgid "Annotation Properties"
+msgstr "Annotatie Eigenschappen"
 
-msgid "Pressed"
-msgstr "Gedrukt"
+msgid "Link"
+msgstr "Koppeling"
 
-msgid "Roll Over"
-msgstr "Roll Over"
+msgid "External Link"
+msgstr ""
 
-msgid "Icon Placement..."
+msgid "External Web-Link"
+msgstr ""
+
+msgid "Apply Template"
+msgstr "Gebruik Template"
+
+msgid "Template:"
+msgstr "Template:"
+
+#, fuzzy
+msgid "Apply to Current Page"
+msgstr "Pas Effect toe op alle Pagina's"
+
+#, fuzzy
+msgid "Apply from Page:"
+msgstr "Pas Effect toe op alle Pagina's"
+
+msgid "to:"
+msgstr "naar:"
+
+msgid "Bookmarks"
+msgstr "Bladwijzers"
+
+msgid "Move Bookmark"
+msgstr "Verplaats Bladwijzer"
+
+msgid "Insert Bookmark"
+msgstr "Voeg Bladwijzer toe"
+
+#, fuzzy
+msgid "Icon Placement"
 msgstr "Icoon Plaatsing..."
-
-msgid "Editable"
-msgstr "Bewerktbaar"
-
-msgid "Submit to URL:"
-msgstr "Stuur naar URL:"
-
-msgid "Submit Data as HTML"
-msgstr "Stuur Gegevens als HTML"
 
 msgid "Layout:"
 msgstr "Layout:"
@@ -2171,11 +560,682 @@ msgstr "Proportioneel"
 msgid "Non Proportional"
 msgstr "Niet Proportioneel"
 
+#, fuzzy
+msgid "Icon"
+msgstr "Gebruik Iconen"
+
 msgid "Reset"
 msgstr "Reset"
 
-msgid "You need at least the Icon for Normal to use Icons for Buttons"
-msgstr "Je hebt minstens een 'Normaal' Icoon nodig wil je Iconen voor Knoppen gebruiken"
+msgid "Color Management Settings"
+msgstr "KleurManagement Instellingen"
+
+msgid "Activate Color Management"
+msgstr "Activeer Kleur Management"
+
+msgid "System Profiles"
+msgstr "Systeem Profielen"
+
+msgid "Pictures:"
+msgstr "Afbeeldingen:"
+
+msgid "Solid Colors:"
+msgstr "Vaste Kleuren:"
+
+msgid "Monitor:"
+msgstr "Beeldscherm:"
+
+msgid "Printer:"
+msgstr "Printer:"
+
+msgid "Rendering Intents"
+msgstr "Rendering Intents"
+
+msgid "Perceptual"
+msgstr "Perceptueel"
+
+msgid "Relative Colorimetric"
+msgstr "Relatieve Kleurmetric"
+
+msgid "Saturation"
+msgstr "Saturnatie"
+
+msgid "Absolute Colorimetric"
+msgstr "Absolute Kleurmetric"
+
+msgid "Simulate Printer on the Screen"
+msgstr "Simuleer Afdruk op het scherm"
+
+msgid "Mark Colors out of Gamut"
+msgstr "Markeer Kleuren vanuit Gamut"
+
+msgid "Use Blackpoint Compensation"
+msgstr ""
+
+msgid "Default color profile for imported images"
+msgstr ""
+
+msgid "Default color profile for solid colors on the page"
+msgstr ""
+
+msgid ""
+"Color profile that you have generated or received from the manufacturer.\n"
+"This profile should be specific to your monitor and not a generic profile (i."
+"e. sRGB)."
+msgstr ""
+
+msgid ""
+"Color profile for your printer model from the manufacturer.\n"
+"This profile should be specific to your printer and not a generic profile (i."
+"e. sRGB)."
+msgstr ""
+
+msgid ""
+"Default rendering intent for your monitor. Unless you know why to change "
+"it,\n"
+"Relative Colorimetric or Perceptual should be chosen."
+msgstr ""
+
+msgid ""
+"Default rendering intent for your printer. Unless you know why to change "
+"it,\n"
+"Relative Colorimetric or Perceptual should be chosen."
+msgstr ""
+
+msgid ""
+"Enable 'soft proofing' of how your document colors will print,\n"
+"based on the chosen printer profile."
+msgstr ""
+
+msgid ""
+"Method of showing colors on the screen which may not print properly.\n"
+"This requires very accurate profiles and serves only as a warning."
+msgstr ""
+
+msgid ""
+"Black Point Compensation is a method of improving contrast in photos.\n"
+"It is recommended that you enable this if you have photos in your document."
+msgstr ""
+
+msgid "Edit Color"
+msgstr "Bewerkt Kleur"
+
+msgid "Color Model"
+msgstr "Kleur Model"
+
+msgid "CMYK"
+msgstr ""
+
+msgid "RGB"
+msgstr ""
+
+#, fuzzy
+msgid "Web Safe RGB"
+msgstr "Webopslag RGB"
+
+msgid "New"
+msgstr "Nieuw"
+
+msgid "Old"
+msgstr "Oud"
+
+msgid "HSV-Colormap"
+msgstr ""
+
+msgid "C:"
+msgstr ""
+
+msgid " %"
+msgstr ""
+
+msgid "M:"
+msgstr ""
+
+msgid "Y:"
+msgstr ""
+
+msgid "K:"
+msgstr ""
+
+msgid "Dynamic Color Bars"
+msgstr "Dynamische Kleurenbar"
+
+msgid "Static Color Bars"
+msgstr "Statische Kleurenbar"
+
+msgid "R:"
+msgstr ""
+
+msgid "G:"
+msgstr ""
+
+msgid "B:"
+msgstr ""
+
+msgid "Warning"
+msgstr "Waarschuwing"
+
+#, fuzzy
+msgid "Name of the Color is not unique"
+msgstr "De Stijlnaam is niet uniek"
+
+msgid "Colors"
+msgstr "Kleuren"
+
+msgid "Append"
+msgstr "Doorgaan"
+
+msgid "Edit"
+msgstr "Bewerken"
+
+msgid "Duplicate"
+msgstr "Dupliceren"
+
+msgid "Delete"
+msgstr "Verwijderen"
+
+#, fuzzy
+msgid "Remove Unused"
+msgstr "Verwijder"
+
+#, fuzzy
+msgid "Color Sets"
+msgstr "Kleuren"
+
+#, fuzzy
+msgid "Current Color Set:"
+msgstr "TekstKleur:"
+
+#, fuzzy
+msgid "Save Color Set"
+msgstr "Relatieve Kleurmetric"
+
+msgid "Choose a color set to load"
+msgstr ""
+
+#, fuzzy
+msgid "Save the current color set"
+msgstr "Slaat het huidige Document op"
+
+msgid "Remove unused colors from current document's color set"
+msgstr ""
+
+msgid "Append colors to the current set from an existing document"
+msgstr ""
+
+#, fuzzy
+msgid "Create a new color within the current set"
+msgstr "Maak een nieuw Document"
+
+msgid "Edit the currently selected color"
+msgstr ""
+
+msgid "Make a copy of the currently selected color"
+msgstr ""
+
+msgid "Delete the currently selected color"
+msgstr ""
+
+msgid "Make the current colorset the default color set"
+msgstr ""
+
+#, fuzzy
+msgid "Choose a Name"
+msgstr "Kies een Directory"
+
+#, fuzzy
+msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
+msgstr "Documenten (*.sla *.sla.gz *.scd *scd.gz);; Alle Bestanden (*)"
+
+#, fuzzy
+msgid "Documents (*.sla *.scd);;All Files (*)"
+msgstr "Documenten (*.sla *.scd);; Alle Bestanden (*)"
+
+#, fuzzy
+msgid "Copy of %1"
+msgstr "Kopie van "
+
+msgid "New Color"
+msgstr "Nieuwe Kleur"
+
+msgid "Shade:"
+msgstr "Schaduw:"
+
+msgid "Opacity:"
+msgstr "Opacity:"
+
+msgid "Horizontal Gradient"
+msgstr "Horizontale Gradient"
+
+msgid "Vertical Gradient"
+msgstr "Verticale Gradient"
+
+msgid "Diagonal Gradient"
+msgstr "Diagonale Gradient"
+
+#, fuzzy
+msgid "Cross Diagonal Gradient"
+msgstr "CrossDiagonale Gradient"
+
+msgid "Radial Gradient"
+msgstr "Radiale Gradient"
+
+#, fuzzy
+msgid "Free linear Gradient"
+msgstr "Horizontale Gradient"
+
+#, fuzzy
+msgid "Free radial Gradient"
+msgstr "Radiale Gradient"
+
+msgid "X1:"
+msgstr ""
+
+msgid "Y1:"
+msgstr ""
+
+msgid "X2:"
+msgstr ""
+
+msgid "Y2:"
+msgstr ""
+
+#, fuzzy
+msgid "Edit Line Color Properties"
+msgstr "Veld Eigenschappen"
+
+#, fuzzy
+msgid "Edit Fill Color Properties"
+msgstr "Veld Eigenschappen"
+
+#, fuzzy
+msgid "Saturation of color"
+msgstr "Saturnatie"
+
+msgid "Normal or gradient fill method"
+msgstr ""
+
+msgid "Set the transparency for the color selected"
+msgstr ""
+
+#, fuzzy
+msgid "Color of selected object"
+msgstr "Maak Object Verwijdering ongedaan"
+
+msgid "Printer Options"
+msgstr "Printer Opties"
+
+msgid "Page Set"
+msgstr "Pagina Setting"
+
+msgid "All Pages"
+msgstr "Alle Pagina's"
+
+msgid "Even Pages only"
+msgstr "Alleen Even Pagina's"
+
+msgid "Odd Pages only"
+msgstr "Alleen Oneven Pagina's"
+
+msgid "Mirror"
+msgstr "Spiegelen"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "Yes"
+msgstr "Ja"
+
+#, fuzzy
+msgid "Orientation"
+msgstr "Orientatie:"
+
+msgid "Portrait"
+msgstr "Portret"
+
+msgid "Landscape"
+msgstr "Landschap"
+
+msgid "N-Up Printing"
+msgstr "N-Omhoog Afdrukken"
+
+msgid "Page per Sheet"
+msgstr "Pagina per Sheet"
+
+msgid "Pages per Sheet"
+msgstr "Paginas per Sheet"
+
+msgid "Option"
+msgstr "Optie"
+
+msgid "Value"
+msgstr "Waarde"
+
+msgid ""
+"This panel displays various CUPS options when printing. \n"
+"The exact parameters available will depend on your printer driver.\n"
+"You can confirm CUPS support by selecting Help > About.\n"
+"Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF "
+"support.\n"
+"Missing library support is indicated by a *"
+msgstr ""
+
+msgid "Size:"
+msgstr "Afmeting:"
+
+msgid "Title:"
+msgstr "Titel:"
+
+msgid "No Title"
+msgstr "Geen Titel"
+
+msgid "Author:"
+msgstr "Auteur:"
+
+msgid "Unknown"
+msgstr "Onbekend"
+
+msgid "Scribus-Document"
+msgstr "Scribus-Document"
+
+msgid "Compress File"
+msgstr "Comprimeer Bestand"
+
+#, fuzzy
+msgid "Include Fonts"
+msgstr "Invoegen Bladwijzers"
+
+#, fuzzy
+msgid "Encoding:"
+msgstr "Afsluitingen:"
+
+msgid ""
+"Moves to your Document Directory.\n"
+"This can be set in the Preferences."
+msgstr ""
+"Verplaats naar Document Directory.\n"
+"Kan bij voorkeuren worden ingesteld."
+
+msgid "Delete Color"
+msgstr "Verwijder Kleur"
+
+#, fuzzy
+msgid "Delete color:"
+msgstr "Verwijder Kleur"
+
+msgid "?"
+msgstr ""
+
+msgid "Replace it with:"
+msgstr "Vervangen met:"
+
+msgid "Delete Pages"
+msgstr "Verwijder pagina's"
+
+msgid "Delete from:"
+msgstr "Verwijderen van:"
+
+msgid "Document Info"
+msgstr "Document Informatie"
+
+msgid "Description:"
+msgstr "Omschrijving:"
+
+msgid "Keywords:"
+msgstr ""
+
+msgid ""
+"This field can be embedded in the Scribus document for reference, as well as "
+"in the metadata of a PDF"
+msgstr ""
+
+msgid ""
+"This field is for a brief description or abstract of the document. It is "
+"embedded in the PDF on export"
+msgstr ""
+
+msgid ""
+"This field is for document keywords you wish to embed in a PDF, to assist "
+"searches and indexing of PDF files"
+msgstr ""
+
+msgid "Advanced Options"
+msgstr "Geavanceerde Opties"
+
+msgid "Mirror Page(s) horizontal"
+msgstr "Spiegel Pagina's horizontaal"
+
+msgid "Mirror Page(s) vertical"
+msgstr "Spiegel Pagina's verticaal"
+
+msgid "Apply ICC-Profiles"
+msgstr "Pas ICC-Profielen toe"
+
+msgid "PostScript Level 3"
+msgstr ""
+
+msgid "PostScript Level 2"
+msgstr ""
+
+msgid "PostScript Level 1"
+msgstr ""
+
+msgid "Creates PostScript Level 3"
+msgstr ""
+
+msgid ""
+"Creates PostScript Level 2 only, beware,\n"
+"this can create huge files"
+msgstr ""
+
+msgid ""
+"Creates PostScript Level 1 only, beware,\n"
+"this can create huge files"
+msgstr ""
+
+msgid "Setup Printer"
+msgstr "Printer Instellen"
+
+msgid "Print destination"
+msgstr "Afdruk richting"
+
+msgid "File"
+msgstr "Bestand"
+
+msgid "Options..."
+msgstr "Opties..."
+
+msgid "File:"
+msgstr "Bestand:"
+
+#, fuzzy
+msgid "Alternative Printer Command"
+msgstr "Druk af via ander Commando"
+
+msgid "Command:"
+msgstr "Commando:"
+
+msgid "Range:"
+msgstr "Bereik:"
+
+msgid "Print all"
+msgstr "Alles Afdrukken"
+
+#, fuzzy
+msgid "Print current page"
+msgstr "Afdruk bereik"
+
+msgid "Print range"
+msgstr "Afdruk bereik"
+
+msgid "From page:"
+msgstr "Vanaf pagina:"
+
+msgid "To page:"
+msgstr "Tot Pagina:"
+
+msgid "Print last page first"
+msgstr "Druk laatste pagina eerst"
+
+msgid "Print first page first"
+msgstr "Druk 1e pagina eerst"
+
+msgid "Number of copies:"
+msgstr "Aantal Kopieën"
+
+msgid "Print Normal"
+msgstr "Druk Normaal af"
+
+msgid "Print Separations"
+msgstr "Druk Separaties"
+
+msgid "All"
+msgstr "Alles"
+
+msgid "Cyan"
+msgstr ""
+
+msgid "Magenta"
+msgstr ""
+
+#, fuzzy
+msgid "Yellow"
+msgstr "Onder:"
+
+#, fuzzy
+msgid "Black"
+msgstr "Blok"
+
+msgid "Print in color if available"
+msgstr "Druk af in kleur als mogelijk"
+
+msgid "Print in grayscale"
+msgstr "Druk af in grijstonen"
+
+msgid "Advanced Options..."
+msgstr "Geavanceerde Opties..."
+
+msgid "Print"
+msgstr "Afdrukken"
+
+msgid "Save as"
+msgstr "Opslaan als"
+
+#, fuzzy
+msgid "Postscript-Files (*.ps);;All Files (*)"
+msgstr "JavaScripts (*.js);; Alle Bestanden (*)"
+
+msgid "Edit Style"
+msgstr "Bewerk Stijl"
+
+msgid "Character"
+msgstr "Teken"
+
+msgid "Face:"
+msgstr "Aangezicht:"
+
+#, fuzzy
+msgid "Effect:"
+msgstr "Effecten"
+
+#, fuzzy
+msgid "Alignment:"
+msgstr "Alignment"
+
+msgid "Drop Caps"
+msgstr ""
+
+#, fuzzy
+msgid "Lines:"
+msgstr "Lijn:"
+
+msgid "Fill Color:"
+msgstr "VulKleur:"
+
+#, fuzzy
+msgid "Stroke Color:"
+msgstr "Nieuwe Kleur:"
+
+msgid "Vertical Spaces"
+msgstr "Verticale Spaties"
+
+msgid "Adjust to Baseline Grid"
+msgstr ""
+
+#, fuzzy
+msgid "Line Spacing:"
+msgstr "Lijnspatiëring"
+
+msgid "Above:"
+msgstr "Boven:"
+
+msgid "Below:"
+msgstr "Onder:"
+
+msgid "Tabulators and Indentation"
+msgstr ""
+
+msgid "Name of your paragraph style"
+msgstr ""
+
+msgid "Font of selected text or object"
+msgstr ""
+
+msgid "Font Size"
+msgstr "Afmeting Lettertype"
+
+#, fuzzy
+msgid "Color of text fill"
+msgstr "Kleur Model"
+
+msgid "Color of text stroke"
+msgstr ""
+
+msgid ""
+"Provides an oversized first letter for a paragraph. Used for stylistic effect"
+msgstr ""
+
+msgid "Determines the overall height, in line numbers, of the Drop Caps"
+msgstr ""
+
+#, fuzzy
+msgid "Align text to baseline grid"
+msgstr "Align Tekst geCentreerd"
+
+msgid "Spacing above the paragraph"
+msgstr ""
+
+msgid "Spacing below the paragraph"
+msgstr ""
+
+#, fuzzy
+msgid "Line Spacing"
+msgstr "Linespacing"
+
+msgid "Name of the Style is not unique"
+msgstr "De Stijlnaam is niet uniek"
+
+msgid "Edit Styles"
+msgstr "Bewerk Stijlen"
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "New Style"
+msgstr "Nieuwe Stijl"
+
+msgid "Do you really want do delete this Style?"
+msgstr "Wil je echt deze stijl verwijderen?"
+
+#, fuzzy
+msgid "Editor"
+msgstr "Bewerken"
+
+msgid "Save as..."
+msgstr "Opslaan als..."
+
+msgid "Load..."
+msgstr "Laad..."
 
 msgid "Save and Exit"
 msgstr "Opslaan en Afsluiten"
@@ -2183,140 +1243,188 @@ msgstr "Opslaan en Afsluiten"
 msgid "Exit without Saving"
 msgstr "Afsluiten zonder Opslaan"
 
-msgid "Get Field Names"
-msgstr "Haal Veldnamen"
-
-msgid "JavaScripts (*.js);; All Files (*)"
-msgstr "JavaScripts (*.js);; Alle Bestanden (*)"
-
-msgid "Pick..."
-msgstr "Selecteer..."
-
-msgid "Export Range"
-msgstr "Exporteer Bereik"
-
-msgid "All Pages"
-msgstr "Alle Pagina's"
-
-msgid "From:"
-msgstr "Van:"
-
-msgid "Insert PDF-Fields"
-msgstr "Voeg PDF-Velden in"
-
 msgid "Undo"
 msgstr "Ongedaan maken"
 
 msgid "Redo"
 msgstr "Opnieuw doen"
 
-msgid "Select Fields"
-msgstr "Selecteer Velden"
+msgid "Cut"
+msgstr "Knippen"
 
-msgid "Available Fields"
-msgstr "Beschikbare Velden"
+msgid "Copy"
+msgstr "Kopieëren"
 
-msgid "Selected Fields"
-msgstr "Geselecteerde Velden"
+msgid "Paste"
+msgstr "Invoegen"
 
-msgid "Field Properties"
-msgstr "Veld Eigenschappen"
+msgid "Clear"
+msgstr "Leeg Maken"
 
-msgid "Global JavaScripts"
-msgstr "Globale JavaScripts"
+msgid "Get Field Names"
+msgstr "Haal Veldnamen"
+
+#, fuzzy
+msgid "Javascripts (*.js);;All Files (*)"
+msgstr "JavaScripts (*.js);; Alle Bestanden (*)"
+
+#, fuzzy
+msgid "Global Font Settings"
+msgstr "Globale Lettertype Instellingen"
+
+msgid "Available Fonts"
+msgstr "Beschikbare Lettertypes"
+
+msgid "Font Substitutions"
+msgstr "Lettertype Vervangingen"
+
+msgid "Additional Paths"
+msgstr "Additionele Lokaties"
+
+#, fuzzy
+msgid "Postscript"
+msgstr "Portret"
+
+msgid "Font Name"
+msgstr "Lettertype Naam"
+
+msgid "Use Font"
+msgstr "Gebruik Lettertype"
+
+msgid "Embed in:"
+msgstr "Invoegen in:"
+
+#, fuzzy
+msgid "Subset"
+msgstr "Subscript"
+
+msgid "Type"
+msgstr "Type"
+
+#, fuzzy
+msgid "Path to Font File"
+msgstr "Lettertype Lokatie"
+
+#, fuzzy
+msgid "&Available Fonts"
+msgstr "Beschikbare Lettertypes"
+
+msgid "Replacement"
+msgstr "Vervanging"
+
+#, fuzzy
+msgid "Font &Substitutions"
+msgstr "Lettertype Vervangingen"
 
 msgid "Add..."
 msgstr "Toevoegen..."
 
-msgid "New Script:"
-msgstr "Nieuw Script:"
+#, fuzzy
+msgid "Additional &Paths"
+msgstr "Additionele Lokaties"
 
-msgid "New Script"
-msgstr "Nieuw Script"
+msgid "Choose a Directory"
+msgstr "Kies een Directory"
 
-msgid "Insert PDF-Annotations"
-msgstr "Voeg PDF-Annotaties in"
+msgid "Nodes"
+msgstr "Nodes"
 
-msgid "Import Data"
-msgstr "Importeer Data"
+#, fuzzy
+msgid "Absolute Coordinates"
+msgstr "Absolute Kleurmetric"
 
-msgid "Import Data from:"
-msgstr "Importeer Data van:"
+msgid "End Editing"
+msgstr "Eind Bewerking"
 
-msgid "Undo Object Change"
-msgstr "Maak Object verandering ongedaan"
+msgid "Move Nodes"
+msgstr "Verplaats Nodes"
 
-msgid "Undo Object Move"
-msgstr "Maak Object Verplaatsing ongedaan"
+msgid "Move Control Points"
+msgstr "Verplaats Controle Punten"
 
-msgid "Undo Delete Object"
-msgstr "Maak Object Verwijdering ongedaan"
+msgid "Add Nodes"
+msgstr "Voeg Nodes toe"
 
-msgid "Compress File"
-msgstr "Comprimeer Bestand"
+msgid "Delete Nodes"
+msgstr "Verwijder Nodes"
 
-msgid "Inches (in)"
-msgstr "Inches (in)"
+msgid "Move Control Points independently"
+msgstr "Verplaats Controle Punten onafhankelijk"
 
-msgid "Picas (p)"
-msgstr "Pica's (p)"
+msgid "Move Control Points symmetrical"
+msgstr "Verplaats Controle Punten Symmetrisch"
 
-msgid "Show Template Names"
-msgstr "Toon Template Namen"
+msgid "Reset Control Points"
+msgstr "Reset Controle Punten"
 
-msgid "Arrange Pages"
-msgstr "Herschik Pagina's"
+#, fuzzy
+msgid "Reset this Control Point"
+msgstr "Reset dit Controle Punt"
 
-msgid "Available Templates:"
-msgstr "Beschikbare Templates:"
+msgid "Opens a Polygon or cuts a Bezier Curve"
+msgstr "Opent een Polygoon of knipt een Bezier Curve"
 
-msgid "Document Pages:"
-msgstr "Document Pagina's:"
+msgid "Closes this Bezier Curve"
+msgstr "Sluit deze Bezier Curve"
 
-msgid "Hide Page Palette"
-msgstr "Verberg Pagina Pallet"
+#, fuzzy
+msgid "Mirrors the Path Horizontally"
+msgstr "Spiegel Pagina's horizontaal"
 
-msgid "Show Page Palette"
-msgstr "Toon Pagina Pallet"
+#, fuzzy
+msgid "Mirrors the Path Vertically"
+msgstr "Schaart de richting verticaal omhoog"
 
-msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
-msgstr "Sleep Pagina's of Template Pagina's naar de vuilnisbak om ze te verwijderen"
+#, fuzzy
+msgid "Shears the Path horizontal to the right"
+msgstr "Schaart de richting horizontaal naar rechts"
 
-msgid "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below."
-msgstr "Hier zijn al je Templages, om een nieuwe Pagina\nte maken sleep een Template naar de Weergave beneden."
+#, fuzzy
+msgid "Shears the Path horizontal to the left"
+msgstr "Schaart de richting horizontaal naar links"
 
-msgid "Here you can see all Pages of your Document."
-msgstr "Hier kun je alle Pagina's van je Document zien"
+msgid "Shears the Path vertical up"
+msgstr "Schaart de richting verticaal omhoog"
 
-msgid "Free Scaling"
-msgstr "Vrije Schaling"
+msgid "Shears the Path vertical down"
+msgstr "Schaart de richting verticaal omlaag"
 
-msgid "Scale to Frame Size"
-msgstr "Schaal naar Kader Afmeting"
+msgid "Rotates the Path counter-clockwise"
+msgstr ""
 
-msgid "Hyphenate Text"
-msgstr "Hyphenate Tekst"
+msgid "Rotates the Path clockwise"
+msgstr ""
 
-msgid "Hyphenator..."
-msgstr "Hyphenator..."
+msgid "Reduce the Size of the Path by 10%"
+msgstr ""
 
-msgid "General..."
-msgstr "Algemeen..."
+msgid "Enlarges the Size of the Path by 10%"
+msgstr ""
 
-msgid "English"
-msgstr "Engels"
+msgid ""
+"When checked use Coordinates relative to the Page,\n"
+"otherwise Coordinates are relative to the Object."
+msgstr ""
 
-msgid "German"
-msgstr "Duits"
+msgid "Manage Guides"
+msgstr "Beheer Richtlijnen"
 
-msgid "French"
-msgstr "Frans"
+msgid "Horizontal Guides"
+msgstr "Horizontal Richtlijnen"
 
-msgid "Italian"
-msgstr "Italiaans"
+msgid "Add"
+msgstr "Toevoegen"
 
-msgid "Spanish"
-msgstr "Spaans"
+msgid "Vertical Guides"
+msgstr "Verticale Richtlijnen"
+
+msgid "Lock Guides"
+msgstr "Zet Richtlijnen vast"
+
+msgid ""
+"Sorry, no manual available! Please see: http://scribus.net for updated docs "
+"and downloads."
+msgstr ""
 
 msgid "Possible Hyphenation"
 msgstr "Mogelijke Hyphenatie"
@@ -2330,14 +1438,23 @@ msgstr "Overslaan"
 msgid "Hyphenator Settings"
 msgstr "Hyphenatie Instellingen"
 
+msgid "Fully Automatic"
+msgstr "Volledig Automatisch"
+
+#, fuzzy
+msgid ""
+"If you uncheck this you will get a dialog\n"
+"everytime a possible Hyphenation is found."
+msgstr ""
+"Als je dit uitzet dan krijg je een waarschuwing\n"
+"elke keer als een hyphenatie is gevonden."
+
 msgid "Check during Typing"
 msgstr "Controle tijdens Typen"
 
-msgid "Enables automatic checking of your Text during Typing."
+#, fuzzy
+msgid "Enables automatic checking of your text while typing."
 msgstr "Aanzetten van automatische Tekst controle tijdens Typen."
-
-msgid "Fully Automatic"
-msgstr "Volledig Automatisch"
 
 msgid "Language:"
 msgstr "Taal:"
@@ -2345,98 +1462,765 @@ msgstr "Taal:"
 msgid "Smallest Word:"
 msgstr "Kleinste Woord:"
 
-msgid "This is the length of the smallest word to be hyphenated."
+#, fuzzy
+msgid "Length of the smallest word to be hyphenated."
 msgstr "Dit is de lengte van het kleinste te hyphenaten woord"
 
-msgid "If you uncheck this you will get an Dialog\neverytime a possible Hyphenation is found."
-msgstr "Als je dit uitzet dan krijg je een waarschuwing\nelke keer als een hyphenatie is gevonden."
+msgid "Number of Hypenations allowed:"
+msgstr ""
 
-msgid "Windows"
-msgstr "Schermen"
+msgid ""
+"Maximum number of Hyphenations following each other.\n"
+"A value of 0 means unlimited hyphenations."
+msgstr ""
 
-msgid "Cascade"
-msgstr "Trapsgewijs"
+msgid "Insert Page"
+msgstr "Voeg Pagina in"
 
-msgid "Tile"
+msgid "Inserting"
+msgstr "Invoegen"
+
+msgid "page(s)"
+msgstr "Pagina(s)"
+
+msgid "before Page"
+msgstr "Voor Pagina"
+
+msgid "after Page"
+msgstr "Na Pagina"
+
+msgid "at End"
+msgstr "aan het eind"
+
+msgid "Template (Left Page):"
+msgstr "Template (linker Pagina):"
+
+msgid "Template (Right Page):"
+msgstr "Template (Rechter Pagina):"
+
+#, fuzzy
+msgid "Edit JavaScripts"
+msgstr "Java Script"
+
+msgid "Close"
+msgstr "Sluiten"
+
+msgid "New Script:"
+msgstr "Nieuw Script:"
+
+msgid "New Script"
+msgstr "Nieuw Script"
+
+#, fuzzy
+msgid "Do you really want do delete this Script?"
+msgstr "Wil je echt deze stijl verwijderen?"
+
+msgid "Manage Keyboard Shortcuts"
+msgstr "Beheer Toets-Snelkoppelingen"
+
+msgid "Current Key"
+msgstr "Huidige Toets"
+
+msgid "Select a Key for this Action"
+msgstr "Selecteer een Toets voor deze Actie"
+
+msgid "No Key"
+msgstr "Geen Toets"
+
+msgid "User Defined Key"
+msgstr "Gebruiker Gedefinieerde Toetsen"
+
+msgid "ALT+SHIFT+T"
+msgstr ""
+
+msgid "Set Key"
+msgstr "Zet Toets"
+
+#, fuzzy
+msgid "Alt"
+msgstr "Alles"
+
+msgid "Ctrl"
+msgstr ""
+
+msgid "Shift"
+msgstr ""
+
+msgid "Shift+"
+msgstr ""
+
+msgid "Alt+"
+msgstr ""
+
+msgid "Ctrl+"
+msgstr ""
+
+msgid "This Key-Sequence is already in use"
+msgstr "Deze Toets-Snelkoppeling is al in gebruik"
+
+msgid "Layers"
+msgstr "Lagen"
+
+msgid "Add a new Layer"
+msgstr "Nieuwe Laag toevoegen"
+
+msgid "Delete Layer"
+msgstr "Laag Verwijderen"
+
+msgid "Raise Layer"
+msgstr "Verhoog Laag"
+
+msgid "Lower Layer"
+msgstr "Verlaag Laag"
+
+msgid "New Layer"
+msgstr "Nieuwe Laag"
+
+#, fuzzy
+msgid "Do you want to delete all Objects on this Layer too?"
+msgstr "Wil je echt deze stijl verwijderen?"
+
+#, fuzzy
+msgid "Edit Line Styles"
+msgstr "Bewerk Stijlen"
+
+msgid "Multiple Duplicate"
+msgstr "Meerdere Duplicaten"
+
+msgid "Number of Copies:"
+msgstr "Aantal kopieen"
+
+msgid "Horizontal Shift:"
+msgstr "Horizontale Verschuiving:"
+
+msgid "Vertical Shift:"
+msgstr "Verticale Verschuiving:"
+
+msgid "Import a Page"
+msgstr "Importeer een Pagina"
+
+msgid "Document to load:"
+msgstr "Te laden Document:"
+
+msgid "Document contains: 0 Page(s)"
+msgstr "Document bevat: 0 Pagina(s)"
+
+msgid "Import Page Nr:"
+msgstr "Importeer Pagina Nr:"
+
+msgid "Import"
+msgstr "Importeer"
+
+msgid "Document contains: %1 Page(s)"
+msgstr "Document bevat: %1 Pagina(s)"
+
+msgid "Missing Font"
+msgstr "Ontbrekend Lettertype"
+
+msgid "The Font %1 is not installed."
+msgstr "Lettertype %1 is niet geinstalleerd"
+
+msgid "Use"
+msgstr "Gebruik"
+
+msgid "instead"
+msgstr "Als"
+
+msgid "Move Pages"
+msgstr "Verplaats Pagina's"
+
+msgid "Copy Page"
+msgstr "Kopieer Pagina"
+
+msgid "Move Page(s):"
+msgstr "Verplaats Pagina(s):"
+
+msgid "X, Y, Z"
+msgstr ""
+
+msgid "Shape"
+msgstr "Vorm"
+
+msgid "Image"
+msgstr "Afbeelding"
+
+msgid "Line"
+msgstr "Lijn"
+
+#, fuzzy
+msgid "Name"
+msgstr "Naam:"
+
+msgid "Geometry"
+msgstr "Geometrie"
+
+msgid "Height:"
+msgstr "Hoogte:"
+
+msgid "Rotation:"
+msgstr "Rotatie:"
+
+msgid "Basepoint:"
+msgstr ""
+
+msgid "Level"
+msgstr "Level"
+
+#, fuzzy
+msgid "Text flows around frame"
+msgstr "Tekst volgt Kader"
+
+#, fuzzy
+msgid "Use Bounding Box"
+msgstr "Gebruik Bounding Box"
+
+#, fuzzy
+msgid "Shape:"
+msgstr "Vorm"
+
+msgid "Edit Shape..."
+msgstr "Bewerkt Vorm..."
+
+msgid ""
+"Round\n"
+"Corners:"
+msgstr ""
+"Ronde\n"
+"Hoeken:"
+
+msgid "Distance of Text"
+msgstr "Afstand tot Tekst"
+
+msgid "Columns:"
+msgstr "Kolommen:"
+
+msgid "Gap:"
+msgstr ""
+
+msgid "Top:"
+msgstr "Boven:"
+
+msgid "Bottom:"
+msgstr "Onder:"
+
+msgid "Left:"
+msgstr "Links:"
+
+msgid "Right:"
+msgstr "Rechts:"
+
+#, fuzzy
+msgid "Tabulators..."
+msgstr "Templates..."
+
+#, fuzzy
+msgid "Path Text Properties"
+msgstr "Eigenschappen"
+
+msgid "Show Curve"
+msgstr "Toon Curve"
+
+#, fuzzy
+msgid "Start Offset:"
+msgstr "Startoffset"
+
+msgid "Distance from Curve:"
+msgstr "Afstand van Curve:"
+
+msgid "Font Size:"
+msgstr "Afmeting Lettertype:"
+
+msgid "Custom Spacing"
+msgstr "Aangepaste Spatieëring"
+
+#, fuzzy
+msgid "Kerning:"
+msgstr "Waarschuwing"
+
+msgid "Free Scaling"
+msgstr "Vrije Schaling"
+
+#, fuzzy
+msgid "X-Pos.:"
+msgstr "X-Pos:"
+
+#, fuzzy
+msgid "Y-Pos.:"
+msgstr "Y-Pos:"
+
+#, fuzzy
+msgid "X-Scale:"
+msgstr "Schaal:"
+
+#, fuzzy
+msgid "Y-Scale:"
+msgstr "Schaal:"
+
+msgid "Scale to Frame Size"
+msgstr "Schaal naar Kader Afmeting"
+
+msgid "Input Profile:"
+msgstr "Invoer Profiel:"
+
+msgid "Rendering Intent:"
+msgstr "Rendering Intent:"
+
+msgid "Left Point"
+msgstr "Linker Punt"
+
+#, fuzzy
+msgid "End Points"
+msgstr "Eindpunt"
+
+msgid "Type of Line:"
+msgstr ""
+
+msgid "Line Width:"
+msgstr "Lijn Breedte:"
+
+msgid "Edges:"
+msgstr "Randen:"
+
+#, fuzzy
+msgid "Miter Join"
+msgstr "MiterJoin"
+
+#, fuzzy
+msgid "Bevel Join"
+msgstr "BevelJoin"
+
+#, fuzzy
+msgid "Round Join"
+msgstr "RoundJoin"
+
+msgid "Endings:"
+msgstr "Afsluitingen:"
+
+#, fuzzy
+msgid "Flat Cap"
+msgstr "FlatCap"
+
+#, fuzzy
+msgid "Square Cap"
+msgstr "SquareCap"
+
+#, fuzzy
+msgid "Round Cap"
+msgstr "RoundCap"
+
+msgid "No Style"
+msgstr "Geen Stijl"
+
+#, fuzzy
+msgid "Cell Lines"
+msgstr "Voeg Lijn in"
+
+#, fuzzy
+msgid "Line at Top"
 msgstr "Naast Elkaar"
 
-msgid "&Restore"
-msgstr "&Terugzetten"
+#, fuzzy
+msgid "Line at the Left"
+msgstr "Rechts naar Links"
 
-msgid "&Move"
-msgstr "&Verplaatsen"
+#, fuzzy
+msgid "Line at the Right "
+msgstr "Links naar Rechts"
 
-msgid "Mi&nimize"
-msgstr "Mi&nimaliseren"
+#, fuzzy
+msgid "Line at Bottom"
+msgstr "Boven naar Beneden"
 
-msgid "Minimize"
-msgstr "Minimaliseer"
+#, fuzzy
+msgid "Name of selected object"
+msgstr "Maak Object Verwijdering ongedaan"
 
-msgid "Ma&ximize"
-msgstr "Ma&ximaliseer"
+msgid "Horizontal position of current basepoint"
+msgstr ""
 
-msgid "Maximize"
-msgstr "Maximaliseer"
+msgid "Vertical position of current basepoint"
+msgstr ""
 
-msgid "System Menu"
-msgstr "Systeem Menu"
+#, fuzzy
+msgid "Width"
+msgstr "Breedte:"
 
-msgid "&Close"
-msgstr "&Sluiten"
+#, fuzzy
+msgid "Height"
+msgstr "Hoogte:"
 
-msgid "Line up"
-msgstr "Naast Elkaar"
+msgid "Rotation of object at current basepoint"
+msgstr ""
 
-msgid "Restore Down"
-msgstr "Terugbrengen Tot"
+msgid "Point from which measurements or rotation angles are referenced"
+msgstr ""
 
-msgid "Document"
-msgstr "Document"
+msgid "Select top left for basepoint"
+msgstr ""
 
-msgid "Name \"%1\" isn't unique.\nPlease choose another."
-msgstr "Naam \"%1\" is niet uniek.\nKies aub. een andere."
+msgid "Select top right for basepoint"
+msgstr ""
 
-msgid "Can't write the File: \n%1"
-msgstr "Kan niet naar bestand schrijven: \n%1'"
+msgid "Select bottom left for basepoint"
+msgstr ""
 
-msgid "Russian"
-msgstr "Russisch"
+msgid "Select bottom right for basepoint"
+msgstr ""
 
-msgid "Printing failed!"
-msgstr "Afdrukken mislukt!"
+#, fuzzy
+msgid "Select center for basepoint"
+msgstr "Selecteer nieuw Font:"
 
-msgid "Lock"
-msgstr "Sluit"
+#, fuzzy
+msgid "Flip Horizontal"
+msgstr "Flip horizontaal"
 
-msgid "Unlock"
-msgstr "Ontsluit"
+#, fuzzy
+msgid "Flip Vertical"
+msgstr "Flip verticaal"
 
-msgid "Moves to your Document Directory.\nThis can be set in the Preferences."
-msgstr "Verplaats naar Document Directory.\nKan bij voorkeuren worden ingesteld."
+msgid "Move one level up"
+msgstr ""
 
-msgid "Choose a Directory"
-msgstr "Kies een Directory"
+msgid "Move one level down"
+msgstr ""
 
-msgid "Paths"
-msgstr "Lokaties"
+#, fuzzy
+msgid "Move to front"
+msgstr "Verplaats Controle Punten"
 
-msgid "Documents:"
-msgstr "Documenten:"
+#, fuzzy
+msgid "Move to back"
+msgstr "Plaats naar achter"
 
-msgid "One directory up"
-msgstr "Directory Omhoog"
+msgid ""
+"Indicates the level the object is on, 0 means the object is at the bottom"
+msgstr ""
 
-msgid "Create New Folder"
-msgstr "Maak een Directory"
+msgid "Lock or unlock the object"
+msgstr ""
 
-msgid "List View"
-msgstr "Lijst Weergave"
+msgid "Lock or unlock the size of the object"
+msgstr ""
 
-msgid "Detail View"
-msgstr "Detail Weergave"
+msgid "Enable or disable printing of the object"
+msgstr ""
 
-msgid "Preview File Contents"
-msgstr "Toon Bestands Inhoud"
+msgid "Make text in lower frames flow around the object shape"
+msgstr ""
+
+msgid "Use the frame shape instead of the object one"
+msgstr ""
+
+msgid "Scaling width of characters"
+msgstr ""
+
+msgid "Saturation of color of text stroke"
+msgstr ""
+
+msgid "Saturation of color of text fill"
+msgstr ""
+
+msgid "Reverse Writing"
+msgstr ""
+
+msgid "Manual Kerning"
+msgstr "Handmatige Kerning"
+
+msgid "Style of current paragraph"
+msgstr ""
+
+msgid "Language of object"
+msgstr ""
+
+msgid "Change settings for left or end points"
+msgstr ""
+
+msgid "Pattern of line"
+msgstr ""
+
+msgid "Thickness of line"
+msgstr ""
+
+msgid "Type of line joins"
+msgstr ""
+
+msgid "Type of line end"
+msgstr ""
+
+#, fuzzy
+msgid "Line style of current object"
+msgstr "Drukt het huidige Document af"
+
+msgid "Choose the shape of frame..."
+msgstr ""
+
+#, fuzzy
+msgid "Edit shape of the frame..."
+msgstr "Bewerkt Vorm..."
+
+msgid "Set radius of corner rounding"
+msgstr ""
+
+msgid "Number of columns in text frame"
+msgstr ""
+
+msgid "Switches between Gap or Column width"
+msgstr ""
+
+msgid "Distance between columns"
+msgstr ""
+
+msgid "Distance of text from top of frame"
+msgstr ""
+
+msgid "Distance of text from bottom of frame"
+msgstr ""
+
+msgid "Distance of text from left of frame"
+msgstr ""
+
+msgid "Distance of text from right of frame"
+msgstr ""
+
+#, fuzzy
+msgid "Edit tab settings of text frame..."
+msgstr "Bewerkt Inhoud van Kader"
+
+msgid "Allow the image to be a different size to the frame"
+msgstr ""
+
+msgid "Horizontal offset of image within frame"
+msgstr ""
+
+msgid "Vertical offset of image within frame"
+msgstr ""
+
+msgid "Resize the image horizontally"
+msgstr ""
+
+#, fuzzy
+msgid "Resize the image vertically"
+msgstr "Schaart de richting verticaal omhoog"
+
+msgid "Keep the X and Y scaling the same"
+msgstr ""
+
+msgid "Keep the aspect ratio"
+msgstr ""
+
+msgid "Make the image fit within the size of the frame"
+msgstr ""
+
+msgid "Use image proportions rather than those of the frame"
+msgstr ""
+
+msgid "Source profile of the image"
+msgstr ""
+
+#, fuzzy
+msgid "Rendering intent for the image"
+msgstr "Rendering Intents"
+
+#, fuzzy
+msgid "Column width"
+msgstr "Kolom Richtlijnen"
+
+msgid ""
+"Name \"%1\" isn't unique.\n"
+"Please choose another."
+msgstr ""
+"Naam \"%1\" is niet uniek.\n"
+"Kies aub. een andere."
+
+msgid "pt"
+msgstr ""
+
+msgid "mm"
+msgstr ""
+
+#, fuzzy
+msgid "in"
+msgstr "Lijn"
+
+msgid "p"
+msgstr ""
+
+msgid " pt "
+msgstr ""
+
+msgid "Solid Line"
+msgstr "Harde Lijn"
+
+msgid "Dashed Line"
+msgstr "Gestreepte Lijn"
+
+msgid "Dotted Line"
+msgstr "Onderbroken lijn"
+
+msgid "Dash Dot Line"
+msgstr "Gestreepte Onderbroken Lijn"
+
+msgid "Dash Dot Dot Line"
+msgstr "Gestreepte Dubbel Onderbroken Lijn"
+
+msgid "Edit Templates"
+msgstr "Bewerkt Templates"
+
+msgid "Do you really want do delete this Template?"
+msgstr "Wil je echt deze Template verwijderen?"
+
+msgid "New Template"
+msgstr "Nieuwe Template"
+
+#, fuzzy
+msgid "Copy #%1 of "
+msgstr "Kopie van "
+
+msgid "New Document"
+msgstr "Nieuw Document"
+
+msgid "Page Size"
+msgstr "Pagina afmeting"
+
+msgid "Legal"
+msgstr ""
+
+#, fuzzy
+msgid "Letter"
+msgstr "Centreer"
+
+msgid "Tabloid"
+msgstr "Tabloid"
+
+msgid "Orientation:"
+msgstr "Orientatie:"
+
+msgid "Facing Pages"
+msgstr "Zichtbare Pagina's"
+
+msgid "Left Page first"
+msgstr "Linker Pagina eerst"
+
+msgid "Margin Guides"
+msgstr "Marge Richtlijnen"
+
+#, fuzzy
+msgid "First Page Number:"
+msgstr "Eerste Paginanummer:"
+
+msgid "Default Unit:"
+msgstr "Normale Eenheid:"
+
+msgid "Points (pts)"
+msgstr "Punten (pts)"
+
+#, fuzzy
+msgid "Millimetres (mm)"
+msgstr "Millimeters (mm)"
+
+msgid "Inches (in)"
+msgstr "Inches (in)"
+
+msgid "Picas (p)"
+msgstr "Pica's (p)"
+
+#, fuzzy
+msgid "Automatic Text Frames"
+msgstr "Autom. Tekstkaders"
+
+msgid "Column Guides"
+msgstr "Kolom Richtlijnen"
+
+msgid "Document page size, either a standard size or a custom size"
+msgstr ""
+
+msgid "Orientation of the document's pages"
+msgstr ""
+
+msgid ""
+"Width of the document's pages, editable if you have chosen a custom page size"
+msgstr ""
+
+msgid ""
+"Height of the document's pages, editable if you have chosen a custom page "
+"size"
+msgstr ""
+
+msgid "Enable single or spread based layout"
+msgstr ""
+
+msgid "Make the first page the left page of the document"
+msgstr ""
+
+msgid "Distance between the top margin guide and the edge of the page"
+msgstr ""
+
+msgid "Distance between the bottom margin guide and the edge of the page"
+msgstr ""
+
+msgid ""
+"Distance between the left margin guide and the edge of the page.\n"
+"If Facing Pages is selected, this margin space can be used to achieve the "
+"correct margins for binding"
+msgstr ""
+
+msgid ""
+"Distance between the right margin guide and the edge of the page.\n"
+"If Facing Pages is selected, this margin space can be used to achieve the "
+"correct margins for binding"
+msgstr ""
+
+msgid "First page number of the document"
+msgstr ""
+
+msgid "Default unit of measurement for document editing"
+msgstr ""
+
+msgid "Create text frames automatically when new pages are added"
+msgstr ""
+
+msgid "Number of columns to create in automatically created text frames"
+msgstr ""
+
+msgid "Distance between automatically created columns"
+msgstr ""
+
+msgid "Inside:"
+msgstr "Binnen:"
+
+msgid "Outside:"
+msgstr "Buiten:"
+
+msgid "Left Page"
+msgstr "Linker Pagina"
+
+msgid "Right Page"
+msgstr "Rechter Pagina"
+
+msgid "Copy Here"
+msgstr "Kopieer hier"
+
+msgid "Move Here"
+msgstr "Verplaats hier"
+
+msgid "Hide Margins"
+msgstr "Verberg Randen"
+
+msgid "Show Margins"
+msgstr "Toon Randen"
+
+msgid "Hide Frames"
+msgstr "Verberg Kaders"
+
+msgid "Show Frames"
+msgstr "Toon Kaders"
+
+msgid "Hide Images"
+msgstr "Verberg Afbeeldingen"
+
+msgid "Show Images"
+msgstr "Toon Afbeeldingen"
 
 msgid "Hide Grid"
 msgstr "Verberg Grid"
@@ -2444,128 +2228,400 @@ msgstr "Verberg Grid"
 msgid "Show Grid"
 msgstr "Toon Grid"
 
-msgid "Manage Guides..."
-msgstr "Beheer Richtlijnen..."
+msgid "Hide Guides"
+msgstr "Verberg Richtlijnen"
 
-msgid "Manage Guides"
-msgstr "Beheer Richtlijnen"
+msgid "Show Guides"
+msgstr "Toon Richtlijnen"
 
-msgid "Vertical Guides"
-msgstr "Verticale Richtlijnen"
+#, fuzzy
+msgid "Hide Baseline Grid"
+msgstr "Verberg Grid"
 
-msgid "Horizontal Guides"
-msgstr "Horizontal Richtlijnen"
+#, fuzzy
+msgid "Show Baseline Grid"
+msgstr "Toon Grid"
 
-msgid "Add"
-msgstr "Toevoegen"
+msgid "Snap to Grid"
+msgstr "Snap tot Grid"
 
-msgid "Horizontal Gradient"
-msgstr "Horizontale Gradient"
+msgid "Snap to Guides"
+msgstr "Snap tot Richtlijnen"
 
-msgid "Vertical Gradient"
-msgstr "Verticale Gradient"
+#, fuzzy
+msgid "Picture"
+msgstr "Afbeelding "
 
-msgid "Diagonal Gradient"
-msgstr "Diagonale Gradient"
+#, fuzzy
+msgid "File: "
+msgstr "Bestand "
 
-msgid "CrossDiagonal Gradient"
-msgstr "CrossDiagonale Gradient"
+msgid "Original ppi: "
+msgstr ""
 
-msgid "Radial Gradient"
-msgstr "Radiale Gradient"
+#, fuzzy
+msgid "Actual ppi: "
+msgstr "Actuele Afmeting"
 
-msgid "Polish:"
-msgstr "Pools:"
+msgid "Linked Text"
+msgstr ""
 
-msgid "User Guides Color:"
-msgstr "Gebruikers Richtlijn Kleur:"
+msgid "Text Frame"
+msgstr "Tekst Kader"
 
-msgid "Guide Snap Distance:"
-msgstr "Richtlijn Snap Richting:"
+#, fuzzy
+msgid "Text on a Path"
+msgstr "Koppel Tekst aan Lokatie"
 
-msgid "Use PDF-1.4 Transparency Features"
-msgstr "Gebruik PDF-1.4 Transparantie Kenmerken"
+msgid "Paragraphs: "
+msgstr ""
 
-msgid "Opacity:"
-msgstr "Opacity:"
+msgid "Words: "
+msgstr ""
 
-msgid "Font Name"
-msgstr "Lettertype Naam"
+msgid "Chars: "
+msgstr ""
 
-msgid "Use Font"
-msgstr "Gebruik Lettertype"
+#, fuzzy
+msgid "Print: "
+msgstr "Afdrukken"
 
-msgid "Available Fonts"
-msgstr "Beschikbare Lettertypes"
+msgid "Enabled"
+msgstr "Aangezet"
 
-msgid "Replacement"
-msgstr "Vervanging"
+#, fuzzy
+msgid "Disabled"
+msgstr "Zichtbaar"
 
-msgid "Font Substitutions"
-msgstr "Lettertype Vervangingen"
+msgid "Info"
+msgstr ""
 
-msgid "Additional Paths"
-msgstr "Additionele Lokaties"
+msgid "Get Picture..."
+msgstr "Haal Afbeelding..."
 
-msgid "Screen"
-msgstr "Scherm"
+#, fuzzy
+msgid "Image Visible"
+msgstr "Afmeting zichtbaar"
 
-msgid "Output intended for:"
-msgstr "Uitvoer bestemd voor:"
+#, fuzzy
+msgid "Update Picture"
+msgstr "Afbeeldingen Beheren"
 
-msgid "Use ICC-Profile"
-msgstr "Gebruik ICC-Profiel"
+#, fuzzy
+msgid "Edit Picture"
+msgstr "Afbeelding "
 
-msgid "Profiles"
-msgstr "Profielen"
+msgid "Adjust Frame to Picture"
+msgstr ""
 
-msgid "Rendering-Intent:"
-msgstr "Rendering-Intentie:"
+msgid "Get Text..."
+msgstr "Haal Tekst..."
 
-msgid "Don't use embedded Profiles"
-msgstr "Gebruik geen ingebedde profielen"
+#, fuzzy
+msgid "Append Text..."
+msgstr "Haal Tekst..."
 
-msgid "Options..."
-msgstr "Opties..."
+#, fuzzy
+msgid "Edit Text..."
+msgstr "Haal Tekst..."
 
-msgid "Option"
-msgstr "Optie"
+#, fuzzy
+msgid "Insert Sample Text"
+msgstr "Voeg Tekstbox in"
 
-msgid "Value"
-msgstr "Waarde"
+msgid "Is PDF-Bookmark"
+msgstr "Is PDF-bladwijzer"
 
-msgid "Printing Mode"
-msgstr "Afdruk Mode"
+msgid "Is PDF-Annotation"
+msgstr "Is een PDF-Aantekening"
 
-msgid "Page Set"
-msgstr "Pagina Setting"
+msgid "PDF-Options"
+msgstr "PDF-Opties"
 
-msgid "Mirror"
-msgstr "Spiegelen"
+msgid "Lock"
+msgstr "Sluit"
 
-msgid "N-Up Printing"
-msgstr "N-Omhoog Afdrukken"
+msgid "Unlock"
+msgstr "Ontsluit"
 
-msgid "Page per Sheet"
-msgstr "Pagina per Sheet"
+msgid "Lock object size"
+msgstr ""
 
-msgid "Pages per Sheet"
-msgstr "Paginas per Sheet"
+#, fuzzy
+msgid "Unlock object size"
+msgstr "Maak Object Verplaatsing ongedaan"
 
-msgid "Even Pages only"
-msgstr "Alleen Even Pagina's"
+msgid "Send to Scrapbook"
+msgstr "Stuur naar Kladblok"
 
-msgid "Odd Pages only"
-msgstr "Alleen Oneven Pagina's"
+#, fuzzy
+msgid "Send to Layer"
+msgstr "Stuur naar Laag"
 
-msgid "PDF/X-3 Output Intent"
-msgstr "PDF/X-3 Uitvoer Intentie"
+msgid "Group"
+msgstr "Groeperen"
 
-msgid "Info String:"
-msgstr "Info Regel:"
+#, fuzzy
+msgid "Un-group"
+msgstr "Degroeperen"
 
-msgid "Output Profile:"
-msgstr "Uitvoer Profiel"
+msgid "Send to Back"
+msgstr "Plaats naar achter"
+
+msgid "Bring to Front"
+msgstr "Haal naar voren"
+
+msgid "Lower"
+msgstr "Lager"
+
+msgid "Raise"
+msgstr "Hoger"
+
+msgid "Picture Frame"
+msgstr "Afbeeldings Kader"
+
+msgid "Polygon"
+msgstr "Polygoon"
+
+#, fuzzy
+msgid "Outlines"
+msgstr "Omtrek"
+
+msgid "Bezier Curve"
+msgstr "Bezier Curve"
+
+msgid "Convert to"
+msgstr "Converteer naar"
+
+#, fuzzy
+msgid "Clear Contents"
+msgstr "Inhoud"
+
+#, fuzzy
+msgid "Show Properties..."
+msgstr "Eigenschappen..."
+
+#, fuzzy
+msgid "Hide Properties..."
+msgstr "Eigenschappen..."
+
+#, fuzzy
+msgid "The Program"
+msgstr "Programmering:"
+
+#, fuzzy
+msgid "is missing!"
+msgstr "Ontbrekend"
+
+#, fuzzy
+msgid "Copy of"
+msgstr "Kopie van "
+
+#, fuzzy
+msgid "Polyline"
+msgstr "Polygoon"
+
+#, fuzzy
+msgid "PathText"
+msgstr "Lokatie"
+
+msgid "Create PDF-File"
+msgstr "Maak PDF-Bestand"
+
+msgid "Output to File:"
+msgstr "Uitvoer naar Bestand:"
+
+msgid "Export Range"
+msgstr "Exporteer Bereik"
+
+msgid "From:"
+msgstr "Van:"
+
+msgid "File Options"
+msgstr "Bestands Instellingen"
+
+msgid "Compatibility:"
+msgstr "Compatibiliteit:"
+
+msgid "Binding:"
+msgstr "Binding:"
+
+msgid "Left Margin"
+msgstr "Linker Rand"
+
+msgid "Right Margin"
+msgstr "Rechter Rand"
+
+msgid "Generate Thumbnails"
+msgstr "Maak Miniweergaven"
+
+msgid "Save linked Text Frames as PDF-Articles"
+msgstr "Sla gekoppelde TekstKaders op als PDF-Artikel"
+
+msgid "Include Bookmarks"
+msgstr "Invoegen Bladwijzers"
+
+msgid "Resolution:"
+msgstr "Resolutie:"
+
+msgid " dpi"
+msgstr ""
+
+msgid "Compress Text and Vector Graphics"
+msgstr "Comprimeer Tekst en Vector Afbeeldingen"
+
+#, fuzzy
+msgid "Image Settings"
+msgstr "Instellingen"
+
+msgid "Method:"
+msgstr ""
+
+#, fuzzy
+msgid "Automatic"
+msgstr "Volledig Automatisch"
+
+msgid "JPEG"
+msgstr ""
+
+msgid "Zip"
+msgstr ""
+
+#, fuzzy
+msgid "Quality:"
+msgstr "Afsluiten"
+
+#, fuzzy
+msgid "Maximum"
+msgstr "maximum"
+
+#, fuzzy
+msgid "High"
+msgstr "Hoogte:"
+
+msgid "Medium"
+msgstr "Middel"
+
+#, fuzzy
+msgid "Low"
+msgstr "Lager"
+
+#, fuzzy
+msgid "Minimum"
+msgstr "minimum"
+
+msgid "Downsample Images to:"
+msgstr "Afbeeldingen terugbrengen tot:"
+
+#, fuzzy
+msgid "&General"
+msgstr "Algemeen"
+
+msgid "Embed all Fonts"
+msgstr "Alle Lettertypes inbedden"
+
+msgid "Embedding"
+msgstr "Inbedden"
+
+msgid "Available Fonts:"
+msgstr "Beschikbare Lettertypes:"
+
+msgid ">>"
+msgstr ""
+
+msgid "<<"
+msgstr ""
+
+msgid "Fonts to embed:"
+msgstr "In te bedden Lettertypes:"
+
+#, fuzzy
+msgid "&Fonts"
+msgstr "&Lettertype"
+
+msgid "Enable Presentation Effects"
+msgstr "Activeer Presentatie Effecten"
+
+msgid "Page"
+msgstr "Pagina"
+
+msgid "Show Page Previews"
+msgstr "Toon Pagina Voorbeeld"
+
+msgid "Effects"
+msgstr "Effecten"
+
+msgid "Display Duration:"
+msgstr "Weergave Tijdsduur:"
+
+msgid "Effect Duration:"
+msgstr "Effect Tijdsduur"
+
+msgid "Effect Type:"
+msgstr "Effect Type:"
+
+msgid "Moving Lines:"
+msgstr "Verplaatste Lijnen:"
+
+#, fuzzy
+msgid "From the:"
+msgstr "Van de:"
+
+msgid "Direction:"
+msgstr "Richting:"
+
+msgid " sec"
+msgstr ""
+
+msgid "No Effect"
+msgstr "Geen Effect"
+
+msgid "Blinds"
+msgstr "Luiken"
+
+msgid "Box"
+msgstr "Box"
+
+msgid "Dissolve"
+msgstr "Oplossen"
+
+msgid "Glitter"
+msgstr "Glitter"
+
+msgid "Split"
+msgstr "Splitsen"
+
+msgid "Wipe"
+msgstr "Wegvegen"
+
+msgid "Inside"
+msgstr "Binnen"
+
+msgid "Outside"
+msgstr "Buiten"
+
+msgid "Left to Right"
+msgstr "Links naar Rechts"
+
+msgid "Top to Bottom"
+msgstr "Boven naar Beneden"
+
+msgid "Bottom to Top"
+msgstr "Beneden naar Boven"
+
+msgid "Right to Left"
+msgstr "Rechts naar Links"
+
+#, fuzzy
+msgid "Top-left to Bottom-Right"
+msgstr "Links-boven naar Rechts-onder"
+
+msgid "Apply Effect on all Pages"
+msgstr "Pas Effect toe op alle Pagina's"
+
+#, fuzzy
+msgid "E&xtras"
+msgstr "Extra's"
 
 msgid "Use Encryption"
 msgstr "Gebruik Encryptie"
@@ -2588,86 +2644,1197 @@ msgstr "Afdrukken van het Document toestaan"
 msgid "Allow Changing the Document"
 msgstr "Verandering van het Document toestaan"
 
-msgid "Copying Text and Graphics is allowed"
+#, fuzzy
+msgid "Allow Copying Text and Graphics"
 msgstr "Kopieëren van Tekst en Afbeeldingen is toegestaan"
 
-msgid "Adding Annotations and Fields is allowed"
+#, fuzzy
+msgid "Allow Adding Annotations and Fields"
 msgstr "Toevoegen van Annotaties en Velden is toegestaan"
 
-msgid "Security"
+#, fuzzy
+msgid "&Security"
 msgstr "Beveiliging"
 
-msgid "Printer Options"
-msgstr "Printer Opties"
+msgid "General"
+msgstr "Algemeen"
 
-msgid "Element"
-msgstr "Element"
+msgid "Output intended for:"
+msgstr "Uitvoer bestemd voor:"
 
-msgid "X-Pos+:"
-msgstr "X-Pos+:"
+#, fuzzy
+msgid "Screen / Web"
+msgstr "Scherm"
 
-msgid "Y-Pos+:"
-msgstr "Y-Pos+:"
+msgid "Printer"
+msgstr "Printer"
 
-msgid "Horiz. Scale:"
-msgstr "Horiz. Schaling:"
+msgid "Use ICC-Profile"
+msgstr "Gebruik ICC-Profiel"
 
-msgid "Vert. Scale:"
-msgstr "Vert. Schaling:"
+#, fuzzy
+msgid "Profile:"
+msgstr "Profielen"
 
-msgid "Show Bookmarks"
-msgstr "Toon Bladwijzers"
+msgid "Rendering-Intent:"
+msgstr "Rendering-Intentie:"
 
-msgid "Hide Bookmarks"
-msgstr "Verberg Bladwijzers"
+msgid "Images:"
+msgstr "Afbeeldingen:"
 
-msgid "Collect for Output..."
+#, fuzzy
+msgid "Don't use embedded ICC profiles"
+msgstr "Gebruik geen ingebedde profielen"
+
+#, fuzzy
+msgid "&Color"
+msgstr "Kleur"
+
+msgid "PDF/X-3 Output Intent"
+msgstr "PDF/X-3 Uitvoer Intentie"
+
+msgid "Info String:"
+msgstr "Info Regel:"
+
+msgid "Output Profile:"
+msgstr "Uitvoer Profiel"
+
+#, fuzzy
+msgid "Trim Box"
+msgstr "List Box"
+
+msgid "&PDF/X-3"
+msgstr ""
+
+msgid "Export all pages to PDF"
+msgstr ""
+
+msgid "Export a range of pages to PDF"
+msgstr ""
+
+msgid "First page to export when exporting a range"
+msgstr ""
+
+msgid "Last page to export when exporting a range"
+msgstr ""
+
+msgid ""
+"Determines the PDF compatibility. The default is Acrobat 4.0 which gives the "
+"widest compatibility.\n"
+"Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or "
+"you require 128 bit encryption.\n"
+"PDF/X-3 is for exporting the PDF for commercial printing and is selectable "
+"when you have activated color management."
+msgstr ""
+
+msgid ""
+"Determines the binding of pages in the PDF. Unless you know\n"
+"you need to change it leave the default choice - Left."
+msgstr ""
+
+msgid ""
+"Generates thumbnails of each page in the PDF.\n"
+"Some viewers can use the thumbnails for navigation."
+msgstr ""
+
+msgid ""
+"Generate PDF Articles, which is useful for navigating linked articles in a "
+"PDF."
+msgstr ""
+
+msgid ""
+"Embed the bookmarks you created in your document.\n"
+"These are useful for navigating long PDF documents."
+msgstr ""
+
+msgid ""
+"Export resolution of text and vector graphics.\n"
+"This does not affect the resolution of bitmap images like photos."
+msgstr ""
+
+msgid ""
+"Compression of text and graphics.\n"
+"Unless you have a reason, leave this checked. This reduces PDF size."
+msgstr ""
+
+msgid ""
+"Version of compression for images.\n"
+"Automatic allows Scribus to choose the best method.\n"
+"ZIP is good for images with solid colors.\n"
+"JPEG is better at creating smaller PDF files which have many photos (with "
+"slight image loss possible).\n"
+"Leave it set to automatic, unless you have a need for special compression "
+"options."
+msgstr ""
+
+msgid ""
+"Compression levels: Minimum (25\\%), Low (50\\%), Medium (75\\%), High (85\\"
+"%), Maximum (95\\%)"
+msgstr ""
+
+msgid ""
+"Downsample your bitmap images to the selected DPI.\n"
+"Leaving this unchecked will render them at their native resolution."
+msgstr ""
+
+msgid "DPI (Dots Per Inch) for image export."
+msgstr ""
+
+msgid ""
+"Embed fonts into the PDF. Embedding the fonts\n"
+"will preserve the layout and appearance of your document."
+msgstr ""
+
+msgid ""
+"Enables presentation effects when using Acrobat Reader in full screen mode."
+msgstr ""
+
+msgid "Show page previews of each page listed above."
+msgstr ""
+
+msgid ""
+"Length of time the page is shown before the presentation starts on the "
+"selected page."
+msgstr ""
+
+msgid ""
+"Length of time the effect runs.\n"
+"A shorter time will speed up the effect, a longer one will slow it down."
+msgstr ""
+
+msgid "Type of the display effect."
+msgstr ""
+
+msgid ""
+"Direction of the effect of moving lines for the split and blind effects."
+msgstr ""
+
+msgid "Starting position for the box and split effects."
+msgstr ""
+
+msgid "Direction of the glitter or wipe effects."
+msgstr ""
+
+#, fuzzy
+msgid "Apply the selected effect to all pages."
+msgstr "Pas Effect toe op alle Pagina's"
+
+msgid ""
+"Enable the security features in your exported PDF.\n"
+"If you selected Acrobat 4.0, the PDF will be protected by 40 bit "
+"encryption.\n"
+"If you selected Acrobat 5.0, the PDF will be protected by 128 bit "
+"encryption.\n"
+"Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and "
+"does have some limitations."
+msgstr ""
+
+msgid ""
+"Choose a master password which enables or disables all the\n"
+"security features in your exported PDF"
+msgstr ""
+
+msgid "Choose a password for users to be able to read your PDF."
+msgstr ""
+
+msgid "Allow printing of the PDF. If un-checked, printing is prevented. "
+msgstr ""
+
+msgid ""
+"Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
+msgstr ""
+
+msgid ""
+"Allow copying of text or graphics from the PDF. \n"
+"If un-checked, text and graphics cannot be copied."
+msgstr ""
+
+msgid ""
+"Allow adding annotations and fields to the PDF. \n"
+"If un-checked, editing annotations and fileds is prevented."
+msgstr ""
+
+msgid ""
+"Color model for the output of your PDF.\n"
+"Choose Screen/Web for PDFs which are used for screen display and for "
+"printing on typical inkjets.\n"
+"Choose Printer when printing to a true 4 color CMYK printer."
+msgstr ""
+
+msgid "Embed a color profile for solid colors"
+msgstr ""
+
+msgid "Color profile for solid colors"
+msgstr ""
+
+#, fuzzy
+msgid "Rendering intent for solid colors"
+msgstr "Rendering Intents"
+
+msgid "Embed a color profile for images"
+msgstr ""
+
+msgid "Do not use color profiles that are embedded in source images"
+msgstr ""
+
+msgid "Color profile for images"
+msgstr ""
+
+#, fuzzy
+msgid "Rendering intent for images"
+msgstr "Rendering Intents"
+
+msgid ""
+"Output profile for printing. If possible, get some guidance from your "
+"printer on profile selection."
+msgstr ""
+
+msgid ""
+"Mandatory string for PDF/X-3 or the PDF will fail\n"
+"PDF/X-3 conformance. We recommend you use the title of the document."
+msgstr ""
+
+msgid "Distance for bleed from the top of the physical page"
+msgstr ""
+
+msgid "Distance for bleed from the bottom of the physical page"
+msgstr ""
+
+msgid "Distance for bleed from the left of the physical page"
+msgstr ""
+
+msgid "Distance for bleed from the right of the physical page"
+msgstr ""
+
+#, fuzzy
+msgid "PDF-Files (*.pdf);;All Files (*)"
+msgstr "TekstBestanden (*.txt);;Alle Bestanden (*)"
+
+msgid "Result"
+msgstr "Resultaat"
+
+msgid "Search Results for: "
+msgstr "Zoekresultaten voor: "
+
+msgid "Preview"
+msgstr "Voorbeeld"
+
+msgid "Select"
+msgstr "Selecteer"
+
+msgid "Pictures"
+msgstr "Afbeeldingen"
+
+msgid "Path"
+msgstr "Lokatie"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Goto"
+msgstr "Ga Naar"
+
+msgid "Missing"
+msgstr "Ontbrekend"
+
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "Polygon Properties"
+msgstr "Polygoon Eigenschappen"
+
+msgid "Corners:"
+msgstr "Hoeken:"
+
+msgid "Convex Polygon"
+msgstr "Convexe Polygoon"
+
+msgid "Factor:"
+msgstr "Factor:"
+
+msgid "Document Setup"
+msgstr "Document Opzet"
+
+msgid "Scrapbook"
+msgstr "Kladblok"
+
+msgid "Small"
+msgstr "Klein"
+
+msgid "Big"
+msgstr "Groot"
+
+#, fuzzy
+msgid "Scrapbooks (*.scs);;All Files (*)"
+msgstr "Kladblok  (*.scs);; Alle Bestanden (*)"
+
+#, fuzzy
+msgid "Rename"
+msgstr "Verwijder"
+
+msgid "Object"
+msgstr "Object"
+
+msgid "New Entry"
+msgstr "Nieuwe aanmelding"
+
+#, fuzzy
+msgid "Initializing..."
+msgstr "Plugins worden geinitialiseerd"
+
+#, fuzzy
+msgid "Scribus "
+msgstr "Scribus Handboek"
+
+#, fuzzy
+msgid "Create a new Document"
+msgstr "Maak een nieuw Document"
+
+#, fuzzy
+msgid "Open a Document"
+msgstr "Opent een Document"
+
+#, fuzzy
+msgid "Save the current Document"
+msgstr "Slaat het huidige Document op"
+
+#, fuzzy
+msgid "Close the current Document"
+msgstr "Sluit het huidige Document"
+
+#, fuzzy
+msgid "Print the current Document"
+msgstr "Drukt het huidige Document af"
+
+#, fuzzy
+msgid "Save the current Document as PDF"
+msgstr "Sla het huidige Document op als PDF"
+
+msgid "Searching for Fonts"
+msgstr "Zoeken naar Lettertypen"
+
+msgid "There are no Postscript-Fonts on your System"
+msgstr "Er zijn geen Postscript-lettertypes aanwezig"
+
+msgid "Exiting now"
+msgstr "Er wordt nu afgesloten"
+
+msgid "Fatal Error"
+msgstr "Fatale Fout"
+
+msgid "Smart Hyphen"
+msgstr "Slim Hyphen"
+
+msgid "Align Left"
+msgstr "Align Links"
+
+msgid "Align Right"
+msgstr "Align Rechts"
+
+msgid "Align Center"
+msgstr "Align Gecentreerd"
+
+#, fuzzy
+msgid "Insert Page Number"
+msgstr "Voeg Paginanummer in"
+
+msgid "Attach Text to Path"
+msgstr "Koppel Tekst aan Lokatie"
+
+msgid "Show Layers"
+msgstr "Toon Lagen"
+
+#, fuzzy
+msgid "Javascripts..."
+msgstr "Java Script"
+
+msgid "Show Page Palette"
+msgstr "Toon Pagina Pallet"
+
+#, fuzzy
+msgid "Lock/Unlock"
+msgstr "Ontsluit"
+
+msgid "Non Breaking Space"
+msgstr ""
+
+msgid "Reading Preferences"
+msgstr "Lezen van Instellingen"
+
+msgid "Getting ICC-Profiles"
+msgstr "Ophalen ICC-Profielen"
+
+msgid "Init Hyphenator"
+msgstr "Opzetten van Hyphenator"
+
+msgid "Setting up Shortcuts"
+msgstr "Opzetten van snelkoppelingen"
+
+#, fuzzy
+msgid "&Color Management..."
+msgstr "Kleur Management..."
+
+msgid "Reading Scrapbook"
+msgstr "Kladblok wordt Gelezen"
+
+msgid "Initializing Plugins"
+msgstr "Plugins worden geinitialiseerd"
+
+#, fuzzy
+msgid "&New"
+msgstr "Nieuw"
+
+#, fuzzy
+msgid "&Open..."
+msgstr "Openen..."
+
+#, fuzzy
+msgid "Open &Recent"
+msgstr "Opent een Document"
+
+msgid "Open..."
+msgstr "Openen..."
+
+msgid "&Close"
+msgstr "&Sluiten"
+
+#, fuzzy
+msgid "&Save"
+msgstr "Opslaan"
+
+#, fuzzy
+msgid "Save &As..."
+msgstr "Opslaan als..."
+
+#, fuzzy
+msgid "Re&vert to Saved"
+msgstr "Opgeslagen versie laden"
+
+#, fuzzy
+msgid "Collect for O&utput..."
 msgstr "Collect voor Uitvoer..."
+
+#, fuzzy
+msgid "&Get Text/Picture..."
+msgstr "Haal Tekst/Afbeeldingen..."
+
+#, fuzzy
+msgid "Append &Text..."
+msgstr "Haal Tekst..."
+
+#, fuzzy
+msgid "Insert &Page..."
+msgstr "Voeg Pagina in..."
+
+#, fuzzy
+msgid "&Import"
+msgstr "Importeer"
+
+#, fuzzy
+msgid "Save &Text..."
+msgstr "Opslaan als Tekst..."
+
+#, fuzzy
+msgid "Save Page as &EPS..."
+msgstr "Sla pagina op als EPS..."
+
+#, fuzzy
+msgid "Save as P&DF..."
+msgstr "Opslaan als PDF..."
+
+#, fuzzy
+msgid "&Export"
+msgstr "Exporteren..."
+
+#, fuzzy
+msgid "Document &Info..."
+msgstr "Document Informatie..."
+
+msgid "Document Info..."
+msgstr "Document Informatie..."
+
+#, fuzzy
+msgid "Document &Setup..."
+msgstr "Document Opzetten..."
+
+msgid "Document Setup..."
+msgstr "Document Opzetten..."
+
+#, fuzzy
+msgid "&Print..."
+msgstr "Afdrukken..."
+
+msgid "Print..."
+msgstr "Afdrukken..."
+
+#, fuzzy
+msgid "&Quit"
+msgstr "Afsluiten"
+
+msgid "Quit"
+msgstr "Afsluiten"
+
+#, fuzzy
+msgid "&Undo"
+msgstr "Ongedaan maken"
+
+#, fuzzy
+msgid "Cu&t"
+msgstr "Knippen"
+
+#, fuzzy
+msgid "&Copy"
+msgstr "Kopieëren"
+
+#, fuzzy
+msgid "&Paste"
+msgstr "Invoegen"
+
+#, fuzzy
+msgid "C&lear"
+msgstr "Leeg Maken"
+
+#, fuzzy
+msgid "Select &All"
+msgstr "Alles Selecteren"
+
+msgid "Select all"
+msgstr "Alles Selecteren"
+
+msgid "&Search/Replace..."
+msgstr ""
+
+#, fuzzy
+msgid "C&olors..."
+msgstr "Kleuren..."
+
+msgid "Colors..."
+msgstr "Kleuren..."
+
+#, fuzzy
+msgid "&Paragraph Styles..."
+msgstr "Stijlen..."
+
+#, fuzzy
+msgid "&Line Styles..."
+msgstr "Lijn Stijlen..."
+
+msgid "Styles..."
+msgstr "Stijlen..."
+
+#, fuzzy
+msgid "&Templates..."
+msgstr "Templates..."
+
+msgid "Templates..."
+msgstr "Templates..."
+
+#, fuzzy
+msgid "&Javascripts..."
+msgstr "Java Script"
+
+#, fuzzy
+msgid "Select New Font"
+msgstr "Selecteer nieuw Font:"
+
+#, fuzzy
+msgid "D&uplicate"
+msgstr "Dupliceren"
+
+#, fuzzy
+msgid "&Multiple Duplicate"
+msgstr "Meerdere Duplicaten"
+
+#, fuzzy
+msgid "&Delete"
+msgstr "Verwijderen"
+
+#, fuzzy
+msgid "&Group"
+msgstr "Groeperen"
+
+#, fuzzy
+msgid "&Ungroup"
+msgstr "Degroeperen"
+
+#, fuzzy
+msgid "&Lock"
+msgstr "Sluit"
+
+#, fuzzy
+msgid "Send to &Back"
+msgstr "Plaats naar achter"
+
+#, fuzzy
+msgid "Bring to &Front"
+msgstr "Haal naar voren"
+
+#, fuzzy
+msgid "&Lower"
+msgstr "Lager"
+
+#, fuzzy
+msgid "&Raise"
+msgstr "Hoger"
+
+#, fuzzy
+msgid "Distribute/&Align..."
+msgstr "Distribueer/Align..."
+
+msgid "Distribute/Align..."
+msgstr "Distribueer/Align..."
+
+#, fuzzy
+msgid "&Edit Frame"
+msgstr "Bewerkt Kader"
+
+#, fuzzy
+msgid "&Shape"
+msgstr "Vorm"
+
+#, fuzzy
+msgid "&Attach Text to Path"
+msgstr "Koppel Tekst aan Lokatie"
+
+#, fuzzy
+msgid "&Detach Text from Path"
+msgstr "Koppel Tekst aan Lokatie"
+
+#, fuzzy
+msgid "&Combine Polygons"
+msgstr "Kombineer Polygonen"
+
+#, fuzzy
+msgid "Split &Polygons"
+msgstr "Deel Polygoon"
+
+#, fuzzy
+msgid "C&onvert to Outlines"
+msgstr "Converter naar Polygonen"
+
+#, fuzzy
+msgid "&Insert..."
+msgstr "Invoegen..."
+
+msgid "Insert..."
+msgstr "Invoegen..."
+
+#, fuzzy
+msgid "&Delete..."
+msgstr "Verwijderen..."
+
+msgid "Delete..."
+msgstr "Verwijderen..."
+
+#, fuzzy
+msgid "&Move..."
+msgstr "Verplaatsen..."
+
+msgid "Move..."
+msgstr "Verplaatsen..."
+
+#, fuzzy
+msgid "&Apply Template..."
+msgstr "Gebruik Template..."
+
+msgid "Apply Template..."
+msgstr "Gebruik Template..."
+
+#, fuzzy
+msgid "&Manage Guides..."
+msgstr "Beheer Richtlijnen..."
+
+msgid "Manage Guides..."
+msgstr "Beheer Richtlijnen..."
+
+#, fuzzy
+msgid "&Fit in Window"
+msgstr "Inpassen in Venster"
+
+msgid "Fit in Window"
+msgstr "Inpassen in Venster"
+
+msgid "50%"
+msgstr ""
+
+msgid "75%"
+msgstr ""
+
+msgid "&100%"
+msgstr ""
+
+msgid "Actual Size"
+msgstr "Actuele Afmeting"
+
+msgid "200%"
+msgstr ""
+
+#, fuzzy
+msgid "&Thumbnails"
+msgstr "Miniweergaven"
+
+msgid "Thumbnails"
+msgstr "Miniweergaven"
+
+#, fuzzy
+msgid "Hide &Margins"
+msgstr "Verberg Randen"
+
+#, fuzzy
+msgid "Hide &Frames"
+msgstr "Verberg Kaders"
+
+#, fuzzy
+msgid "Hide &Images"
+msgstr "Verberg Afbeeldingen"
+
+#, fuzzy
+msgid "Show &Grid"
+msgstr "Toon Grid"
+
+#, fuzzy
+msgid "Snap to &Grid"
+msgstr "Snap tot Grid"
+
+#, fuzzy
+msgid "Hide G&uides"
+msgstr "Verberg Richtlijnen"
+
+#, fuzzy
+msgid "Sna&p to Guides"
+msgstr "Snap tot Richtlijnen"
+
+#, fuzzy
+msgid "Show &Baseline Grid"
+msgstr "Toon Grid"
+
+#, fuzzy
+msgid "&Properties"
+msgstr "Eigenschappen"
+
+#, fuzzy
+msgid "&Outline"
+msgstr "Omtrek"
+
+msgid "Outline"
+msgstr "Omtrek"
+
+#, fuzzy
+msgid "&Scrapbook"
+msgstr "Kladblok"
+
+#, fuzzy
+msgid "&Layers"
+msgstr "Lagen"
+
+#, fuzzy
+msgid "P&age Palette"
+msgstr "Verberg Pagina Pallet"
+
+#, fuzzy
+msgid "&Bookmarks"
+msgstr "Bladwijzers"
+
+#, fuzzy
+msgid "&Manage Pictures"
+msgstr "Afbeeldingen Beheren"
+
+msgid "Manage Pictures"
+msgstr "Afbeeldingen Beheren"
+
+#, fuzzy
+msgid "&Hyphenate Text"
+msgstr "Hyphenate Tekst"
+
+msgid "Hyphenate Text"
+msgstr "Hyphenate Tekst"
+
+#, fuzzy
+msgid "Toolti&ps"
+msgstr "Gereedschappen"
+
+#, fuzzy
+msgid "&Tools"
+msgstr "Gereedschappen"
+
+#, fuzzy
+msgid "P&DF Tools"
+msgstr "Gereedschappen"
+
+msgid "Tools"
+msgstr "Gereedschappen"
+
+#, fuzzy
+msgid "Tooltips"
+msgstr "Gereedschappen"
+
+#, fuzzy
+msgid "&Preferences..."
+msgstr "Voorkeuren..."
+
+#, fuzzy
+msgid "&Fonts..."
+msgstr "Lettertypes..."
+
+msgid "Fonts..."
+msgstr "Lettertypes..."
+
+#, fuzzy
+msgid "&Hyphenator..."
+msgstr "Hyphenator..."
+
+#, fuzzy
+msgid "&Keyboard Shortcuts..."
+msgstr "Toets-Snelkoppelingen..."
+
+#, fuzzy
+msgid "&About Scribus"
+msgstr "Over Scribus"
+
+msgid "About Scribus"
+msgstr "Over Scribus"
+
+#, fuzzy
+msgid "About &Qt"
+msgstr "Over Qt"
+
+msgid "About Qt"
+msgstr "Over Qt"
+
+#, fuzzy
+msgid "Scribus &Manual..."
+msgstr "Scribus Handboek"
+
+msgid "Online-Help..."
+msgstr "Online-Hulp..."
+
+#, fuzzy
+msgid "&File"
+msgstr "Bestand"
+
+#, fuzzy
+msgid "&Edit"
+msgstr "Bewerken"
+
+#, fuzzy
+msgid "St&yle"
+msgstr "Stijl"
+
+#, fuzzy
+msgid "&Item"
+msgstr "Item"
+
+#, fuzzy
+msgid "&Page"
+msgstr "Pagina"
+
+#, fuzzy
+msgid "&View"
+msgstr "Bekijken"
+
+#, fuzzy
+msgid "&Settings"
+msgstr "Instellingen"
+
+#, fuzzy
+msgid "&Windows"
+msgstr "Schermen"
+
+#, fuzzy
+msgid "&Help"
+msgstr "Help"
+
+#, fuzzy
+msgid "&Left"
+msgstr "Links"
+
+#, fuzzy
+msgid "&Center"
+msgstr "Centreer"
+
+#, fuzzy
+msgid "&Right"
+msgstr "Rechts"
+
+#, fuzzy
+msgid "&Block"
+msgstr "Blok"
+
+#, fuzzy
+msgid "&Forced"
+msgstr "Gedwongen"
+
+#, fuzzy
+msgid "&Other..."
+msgstr "Anders..."
+
+msgid "Strikethru"
+msgstr "Doorhalen"
+
+msgid "Small Caps"
+msgstr "Kleine Koppen"
+
+msgid "Superscript"
+msgstr "Superscript"
+
+msgid "Subscript"
+msgstr "Subscript"
+
+msgid "Ready"
+msgstr "Gereed"
+
+#, fuzzy
+msgid "&Cascade"
+msgstr "Trapsgewijs"
+
+#, fuzzy
+msgid "&Tile"
+msgstr "Naast Elkaar"
+
+msgid "Get Text/Picture..."
+msgstr "Haal Tekst/Afbeeldingen..."
+
+#, fuzzy
+msgid "&Invert"
+msgstr "Andersom"
+
+#, fuzzy
+msgid "&Get Text..."
+msgstr "Haal Tekst..."
+
+msgid "&Font"
+msgstr "&Lettertype"
+
+msgid "&Size"
+msgstr "&Grootte"
+
+#, fuzzy
+msgid "&Effects"
+msgstr "Effecten"
+
+#, fuzzy
+msgid "&Alignment"
+msgstr "Alignment"
+
+#, fuzzy
+msgid "&Shade"
+msgstr "Schaduw"
+
+#, fuzzy
+msgid "&Tabulators..."
+msgstr "Templates..."
+
+msgid "Font"
+msgstr "Lettertype"
+
+msgid "Size"
+msgstr "Afmeting"
+
+msgid "Style"
+msgstr "Stijl"
+
+msgid "Color"
+msgstr "Kleur"
+
+msgid "Shade"
+msgstr "Schaduw"
+
+#, fuzzy
+msgid "Un&lock"
+msgstr "Ontsluit"
+
+msgid "Loading..."
+msgstr "Laden..."
+
+msgid "All Supported Formats"
+msgstr ""
+
+msgid "All Files (*)"
+msgstr ""
+
+#, fuzzy
+msgid "Text Files (*.txt);;All Files(*)"
+msgstr "TekstBestanden (*.txt);;Alle Bestanden (*)"
+
+msgid ""
+"Can't write the File: \n"
+"%1"
+msgstr ""
+"Kan niet naar bestand schrijven: \n"
+"%1'"
+
+#, fuzzy
+msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
+msgstr "Documenten (*.sla *.sla.gz *.scd *scd.gz);; Alle Bestanden (*)"
+
+#, fuzzy
+msgid "Saving..."
+msgstr "Laden..."
+
+msgid "Printing..."
+msgstr "Bezig met Afdrukken..."
+
+msgid "Document"
+msgstr "Document"
+
+msgid "Printing failed!"
+msgstr "Afdrukken mislukt!"
+
+msgid "Scribus Manual"
+msgstr "Scribus Handboek"
+
+#, fuzzy
+msgid "Show &Images"
+msgstr "Toon Afbeeldingen"
+
+#, fuzzy
+msgid "Show &Margins"
+msgstr "Toon Randen"
+
+#, fuzzy
+msgid "Show &Frames"
+msgstr "Toon Kaders"
+
+#, fuzzy
+msgid "Show G&uides"
+msgstr "Toon Richtlijnen"
+
+#, fuzzy
+msgid "Hide &Grid"
+msgstr "Verberg Grid"
+
+#, fuzzy
+msgid "Hide &Baseline Grid"
+msgstr "Verberg Grid"
+
+msgid "The following Programs are missing:"
+msgstr "De volgende Programma's missen:"
+
+#, fuzzy
+msgid "Ghostscript : You cannot use EPS Images"
+msgstr "Ghostscript : Je kan geen EPS-Afbeeldingen gebruiken"
+
+#, fuzzy
+msgid "EPS-Files (*.eps);;All Files (*)"
+msgstr "SVG-Afbeeldingen (*.svg);; Alle Bestanden (*)"
+
+msgid "Some Objects are locked."
+msgstr ""
+
+#, fuzzy
+msgid "Lock all"
+msgstr "Sluit"
+
+#, fuzzy
+msgid "Unlock all"
+msgstr "Ontsluit"
+
+msgid "Loading:"
+msgstr "Laden:"
+
+msgid "Adjusting Colors"
+msgstr "Kleuren Aanpassen"
+
+msgid "Undo Delete Object"
+msgstr "Maak Object Verwijdering ongedaan"
+
+msgid "Undo Object Move"
+msgstr "Maak Object Verplaatsing ongedaan"
+
+msgid "Undo Object Change"
+msgstr "Maak Object verandering ongedaan"
+
+msgid "English"
+msgstr "Engels"
+
+msgid "German"
+msgstr "Duits"
+
+msgid "Spanish"
+msgstr "Spaans"
+
+msgid "Italian"
+msgstr "Italiaans"
+
+msgid "French"
+msgstr "Frans"
+
+msgid "Russian"
+msgstr "Russisch"
 
 msgid "Danish"
 msgstr "Deens"
 
-msgid "Danish:"
-msgstr "Deens:"
+msgid "Slovak"
+msgstr "Slovaaks"
 
-msgid "Lock Guides"
-msgstr "Zet Richtlijnen vast"
+msgid "Hungarian"
+msgstr ""
 
-msgid "Mirror Page(s) horizontal"
-msgstr "Spiegel Pagina's horizontaal"
+#, fuzzy
+msgid "Czech"
+msgstr "Tzjechs:"
 
-msgid "Mirror Page(s) vertical"
-msgstr "Spiegel Pagina's verticaal"
+msgid "Dutch"
+msgstr ""
 
-msgid "Rotation"
-msgstr "Rotatie"
+msgid "Portuguese"
+msgstr ""
 
-msgid "by:"
-msgstr "Door:"
+#, fuzzy
+msgid "Ukrainian"
+msgstr "Ukraieens:"
 
-msgid "Edit Shape..."
-msgstr "Bewerkt Vorm..."
+#, fuzzy
+msgid "Polish"
+msgstr "Pools:"
 
-msgid "Round\nCorners:"
-msgstr "Ronde\nHoeken:"
+#, fuzzy
+msgid "Greek"
+msgstr "&Groen:"
 
-msgid "Distance of Text"
-msgstr "Afstand tot Tekst"
+#, fuzzy
+msgid "Catalan"
+msgstr "Italiaans"
 
-msgid "Custom Spacing"
-msgstr "Aangepaste Spatieëring"
+#, fuzzy
+msgid "Finnish"
+msgstr "Deens"
 
-msgid "Character:"
-msgstr "Teken:"
+msgid "Irish"
+msgstr ""
 
-msgid "Line:"
-msgstr "Lijn:"
+#, fuzzy
+msgid "Lithuanian"
+msgstr "Lithuaans:"
 
-msgid "Level"
-msgstr "Level"
+msgid "Swedish"
+msgstr ""
 
-msgid "Geometry"
-msgstr "Geometrie"
+#, fuzzy
+msgid "Slovenian"
+msgstr "Slovaaks"
+
+#, fuzzy
+msgid "Scribus Crash"
+msgstr "Scribus Handboek"
+
+msgid "Scribus crashes due to Signal #%1"
+msgstr ""
+
+msgid "Background"
+msgstr "Achtergrond"
+
+#, fuzzy
+msgid "Layer"
+msgstr "Lagen"
+
+msgid "Leave Anyway"
+msgstr "Ga Alsnog"
+
+#, fuzzy
+msgid "Close Anyway"
+msgstr "Ga Alsnog"
 
 msgid "Document:"
 msgstr "Document:"
@@ -2675,104 +3842,1006 @@ msgstr "Document:"
 msgid "has been changed since the last save."
 msgstr "Is aangepast na laatste opslag."
 
-msgid "Insert Page..."
-msgstr "Voeg Pagina in..."
+msgid "Save Now"
+msgstr "Nu Opslaan"
 
-msgid "Import a Page"
-msgstr "Importeer een Pagina"
+msgid "Show Template Names"
+msgstr "Toon Template Namen"
 
-msgid "Document to load:"
-msgstr "Te laden Document:"
+msgid "Arrange Pages"
+msgstr "Herschik Pagina's"
 
-msgid "Document contains: 0 Page(s)"
-msgstr "Document bevat: 0 Pagina(s)"
+msgid "Available Templates:"
+msgstr "Beschikbare Templates:"
 
-msgid "Import Page Nr:"
-msgstr "Importeer Pagina Nr:"
+msgid "Document Pages:"
+msgstr "Document Pagina's:"
 
-msgid "Import"
-msgstr "Importeer"
+msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
+msgstr ""
+"Sleep Pagina's of Template Pagina's naar de vuilnisbak om ze te verwijderen"
 
-msgid "Document contains: %1 Page(s)"
-msgstr "Document bevat: %1 Pagina(s)"
+#, fuzzy
+msgid "Previews all the pages of your document."
+msgstr "Hier kun je alle Pagina's van je Document zien"
 
-msgid "Advanced Options..."
-msgstr "Geavanceerde Opties..."
+msgid ""
+"Here are all your Templates, to create a new Page\n"
+"drag a Template to the Pageview below."
+msgstr ""
+"Hier zijn al je Templages, om een nieuwe Pagina\n"
+"te maken sleep een Template naar de Weergave beneden."
 
-msgid "Advanced Options"
-msgstr "Geavanceerde Opties"
+msgid "Select Fields"
+msgstr "Selecteer Velden"
 
-msgid "Apply ICC-Profiles"
-msgstr "Pas ICC-Profielen toe"
+msgid "Available Fields"
+msgstr "Beschikbare Velden"
 
-msgid "Mark Colors out of Gamut"
-msgstr "Markeer Kleuren vanuit Gamut"
+msgid "Selected Fields"
+msgstr "Geselecteerde Velden"
+
+msgid "Element"
+msgstr "Element"
+
+#, fuzzy
+msgid "Information"
+msgstr "Formatering"
+
+msgid "X:"
+msgstr ""
+
+#, fuzzy
+msgid "Font:"
+msgstr "Lettertype"
+
+#, fuzzy
+msgid "Group "
+msgstr "Groeperen"
+
+msgid ""
+"Do you really want to overwrite the File:\n"
+"%1 ?"
+msgstr ""
+"Wil je echt het bestand %1 overschrijven:\n"
+"?"
+
+msgid "Select Items"
+msgstr "Selecteer Items"
+
+#, fuzzy
+msgid "Insert Text Frame"
+msgstr "Tekst Kader"
+
+msgid "Insert Picture"
+msgstr "Voeg Afbeelding in"
+
+#, fuzzy
+msgid "Insert Table"
+msgstr "Voeg Pagina in"
+
+msgid "Properties..."
+msgstr "Eigenschappen..."
+
+msgid "Insert Polygons"
+msgstr "Voeg Polygoon in"
+
+msgid "Insert Lines"
+msgstr "Voeg Lijn in"
+
+msgid "Insert Bezier Curves"
+msgstr "Voeg Bezier Curve in"
+
+#, fuzzy
+msgid "Insert Freehand Line"
+msgstr "Voeg Lijn in"
+
+msgid "Rotate Item"
+msgstr "Roteer Item"
+
+#, fuzzy
+msgid "Zoom in or out"
+msgstr "In of Uitzoomen"
+
+msgid "Edit Contents of Frame"
+msgstr "Bewerkt Inhoud van Kader"
+
+msgid "Edit the text with the Story Editor"
+msgstr ""
+
+#, fuzzy
+msgid "Link Text Frames"
+msgstr "Tekst Kader"
+
+#, fuzzy
+msgid "Unlink Text Frames"
+msgstr "Tekst Kader"
+
+#, fuzzy
+msgid "Do measurements"
+msgstr "Metingen"
+
+msgid "Draw various Shapes"
+msgstr ""
+
+#, fuzzy
+msgid "PDF-Tools"
+msgstr "Toon PDF-Gereedschappen"
+
+msgid "Insert PDF-Fields"
+msgstr "Voeg PDF-Velden in"
+
+msgid "Insert PDF-Annotations"
+msgstr "Voeg PDF-Annotaties in"
+
+#, fuzzy
+msgid "Manage Tabulators"
+msgstr "Afbeeldingen Beheren"
+
+msgid "Story Editor"
+msgstr ""
+
+msgid "Forced"
+msgstr "Gedwongen"
+
+msgid "Block"
+msgstr "Blok"
+
+msgid "Right"
+msgstr "Rechts"
+
+msgid "Center"
+msgstr "Centreer"
+
+msgid "Left"
+msgstr "Links"
+
+#, fuzzy
+msgid "Save to File..."
+msgstr "Opslaan als PDF..."
+
+msgid "Load from File..."
+msgstr ""
+
+#, fuzzy
+msgid "Save Document"
+msgstr "Nieuw Document"
+
+msgid "Update Text Frame and Exit"
+msgstr ""
+
+#, fuzzy
+msgid "Exit Without Updating Text Frame"
+msgstr "Afsluiten zonder Opslaan"
+
+#, fuzzy
+msgid "Insert Special..."
+msgstr "Speciaal Invoegen"
+
+#, fuzzy
+msgid "Edit Styles..."
+msgstr "Bewerk Stijlen"
+
+#, fuzzy
+msgid "Update Text Frame"
+msgstr "Tekst Kader"
+
+msgid "Current Paragraph:"
+msgstr ""
+
+#, fuzzy
+msgid "Totals:"
+msgstr "Gereedschappen"
+
+msgid "Do you want to save your changes?"
+msgstr ""
+
+msgid "Insert Special"
+msgstr "Speciaal Invoegen"
+
+#, fuzzy
+msgid "Do you really want to lose all your Changes?"
+msgstr "Wil je echt deze stijl verwijderen?"
+
+#, fuzzy
+msgid "Do you really want to clear all your Text?"
+msgstr "Wil je echt deze stijl verwijderen?"
+
+msgid "Search/Replace"
+msgstr ""
+
+#, fuzzy
+msgid "Search for:"
+msgstr "Zoekresultaten voor: "
+
+msgid "Paragraph Style"
+msgstr ""
+
+#, fuzzy
+msgid "Font Effects"
+msgstr "Geen Effect"
+
+#, fuzzy
+msgid "Fill Color"
+msgstr "VulKleur:"
+
+#, fuzzy
+msgid "Fill Shade"
+msgstr "Schaduw"
+
+#, fuzzy
+msgid "Stroke Color"
+msgstr "Nieuwe Kleur"
+
+msgid "Stroke Shade"
+msgstr ""
+
+#, fuzzy
+msgid "Replace with:"
+msgstr "Vervangen met:"
+
+msgid "Whole Word"
+msgstr ""
+
+msgid "Ignore Case"
+msgstr ""
+
+#, fuzzy
+msgid "Replace"
+msgstr "Vervanging"
+
+#, fuzzy
+msgid "Replace All"
+msgstr "Vervanging"
+
+#, fuzzy
+msgid "Leave"
+msgstr "Level"
+
+msgid "Search finished"
+msgstr ""
+
+#, fuzzy
+msgid "Strike Out"
+msgstr "Strikeout"
+
+#, fuzzy
+msgid "Outline Text"
+msgstr "Omtrek"
+
+msgid "Align Text Left"
+msgstr "Align Tekst Links"
+
+msgid "Align Text Right"
+msgstr "Align Tekst Rechts"
+
+msgid "Align Text Center"
+msgstr "Align Tekst geCentreerd"
+
+#, fuzzy
+msgid "Align Text Justified"
+msgstr "Align Tekst geCentreerd"
+
+#, fuzzy
+msgid "Align Text Forced Justified"
+msgstr "Align Tekst geCentreerd"
+
+msgid "Other..."
+msgstr "Anders..."
+
+msgid ""
+"<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
+"toolkit for multiplatform GUI &amp; application development.</p><p>Qt "
+"provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;"
+"X, Linux, and all major commercial Unix variants.<br>Qt is also available "
+"for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www."
+"trolltech.com/qt/</tt> for more information.</p>"
+msgstr ""
+
+#, fuzzy
+msgid "Copy or Move a File"
+msgstr "Comprimeer Bestand"
+
+#, fuzzy
+msgid "Read: %1"
+msgstr "Gereed"
+
+msgid "Write: %1"
+msgstr ""
+
+msgid "File &name:"
+msgstr "Bestands &naam:"
+
+msgid "File &type:"
+msgstr "Bestands &type:"
+
+msgid "One directory up"
+msgstr "Directory Omhoog"
+
+#, fuzzy
+msgid "Attributes"
+msgstr "Over Scribus"
+
+msgid "Look &in:"
+msgstr "Kijk &in:"
+
+#, fuzzy
+msgid "Back"
+msgstr "Blok"
+
+msgid "Create New Folder"
+msgstr "Maak een Directory"
+
+msgid "List View"
+msgstr "Lijst Weergave"
+
+msgid "Detail View"
+msgstr "Detail Weergave"
+
+#, fuzzy
+msgid "Preview File Info"
+msgstr "Toon Bestands Inhoud"
+
+msgid "Preview File Contents"
+msgstr "Toon Bestands Inhoud"
+
+msgid "Read-write"
+msgstr ""
+
+#, fuzzy
+msgid "Read-only"
+msgstr "Alleen Lezen"
+
+msgid "Write-only"
+msgstr ""
+
+#, fuzzy
+msgid "Inaccessible"
+msgstr "Afmeting zichtbaar"
+
+#, fuzzy
+msgid "Symlink to File"
+msgstr "Afdrukken naar bestand:"
+
+msgid "Symlink to Directory"
+msgstr ""
+
+#, fuzzy
+msgid "Symlink to Special"
+msgstr "Speciaal Invoegen"
+
+msgid "Dir"
+msgstr ""
+
+#, fuzzy
+msgid "Special"
+msgstr "Speciaal Invoegen"
+
+#, fuzzy
+msgid "Save As"
+msgstr "Opslaan als"
+
+#, fuzzy
+msgid "&Open"
+msgstr "Openen"
+
+#, fuzzy
+msgid "&Rename"
+msgstr "Verwijder"
+
+#, fuzzy
+msgid "R&eload"
+msgstr "Gereed"
+
+#, fuzzy
+msgid "Sort by &Name"
+msgstr "Lettertype Naam"
+
+#, fuzzy
+msgid "Sort by &Size"
+msgstr "Afmeting Lettertype"
+
+msgid "Sort by &Date"
+msgstr ""
+
+#, fuzzy
+msgid "&Unsorted"
+msgstr "Als"
+
+msgid "Sort"
+msgstr ""
+
+#, fuzzy
+msgid "Show &hidden files"
+msgstr "Toon Richtlijnen"
+
+#, fuzzy
+msgid "the file"
+msgstr "Systeem Profielen"
+
+#, fuzzy
+msgid "the directory"
+msgstr "Directory Omhoog"
+
+msgid "the symlink"
+msgstr ""
+
+#, fuzzy
+msgid "Delete %1"
+msgstr "Verwijderen"
+
+msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
+msgstr ""
+
+#, fuzzy
+msgid "&Yes"
+msgstr "Ja"
+
+#, fuzzy
+msgid "&No"
+msgstr "Nee"
+
+#, fuzzy
+msgid "New Folder 1"
+msgstr "Maak een Directory"
+
+#, fuzzy
+msgid "New Folder"
+msgstr "Maak een Directory"
+
+#, fuzzy
+msgid "New Folder %1"
+msgstr "Maak een Directory"
+
+#, fuzzy
+msgid "Find Directory"
+msgstr "Directory Omhoog"
+
+#, fuzzy
+msgid "Directories"
+msgstr "Richting:"
+
+#, fuzzy
+msgid "Error"
+msgstr "Spiegelen"
+
+msgid ""
+"%1\n"
+"File not found.\n"
+"Check path and filename."
+msgstr ""
+
+msgid "All Files (*.*)"
+msgstr ""
+
+#, fuzzy
+msgid "Select a Directory"
+msgstr "Kies een Directory"
+
+#, fuzzy
+msgid "Directory:"
+msgstr "Richting:"
+
+#, fuzzy
+msgid "Select All"
+msgstr "Alles Selecteren"
+
+#, fuzzy
+msgid "&Redo"
+msgstr "Opnieuw doen"
+
+msgid "Line up"
+msgstr "Naast Elkaar"
+
+#, fuzzy
+msgid "Customize..."
+msgstr "Aangepast"
+
+msgid "System Menu"
+msgstr "Systeem Menu"
+
+#, fuzzy
+msgid "Unshade"
+msgstr "Schaduw"
+
+#, fuzzy
+msgid "Normalize"
+msgstr "Normaal"
+
+msgid "Minimize"
+msgstr "Minimaliseer"
+
+msgid "Maximize"
+msgstr "Maximaliseer"
+
+msgid "&Restore"
+msgstr "&Terugzetten"
+
+msgid "&Move"
+msgstr "&Verplaatsen"
+
+msgid "Mi&nimize"
+msgstr "Mi&nimaliseren"
+
+msgid "Ma&ximize"
+msgstr "Ma&ximaliseer"
+
+msgid "Stay on &Top"
+msgstr ""
+
+msgid "Restore Down"
+msgstr "Terugbrengen Tot"
+
+#, fuzzy
+msgid "Sh&ade"
+msgstr "Schaduw"
+
+msgid "%1 - [%2]"
+msgstr ""
+
+#, fuzzy
+msgid "&Unshade"
+msgstr "Schaduw"
+
+msgid "Hu&e:"
+msgstr ""
+
+msgid "&Sat:"
+msgstr ""
+
+msgid "&Val:"
+msgstr ""
+
+msgid "&Red:"
+msgstr "&Rood:"
+
+msgid "&Green:"
+msgstr "&Groen:"
+
+msgid "Bl&ue:"
+msgstr "Bla&uw:"
+
+msgid "A&lpha channel:"
+msgstr ""
+
+msgid "&Basic colors"
+msgstr "&Basis Kleuren"
+
+msgid "&Custom colors"
+msgstr "&Aangepaste Kleuren"
+
+msgid "&Define Custom Colors >>"
+msgstr "&Bepaal Aangepaste Kleuren >>"
+
+#, fuzzy
+msgid "&Add to Custom Colors"
+msgstr "&Voegtoe aan Aangepaste Kleuren"
+
+msgid "Select color"
+msgstr "Kies Kleur"
+
+#, fuzzy
+msgid "Page "
+msgstr "Pagina"
+
+msgid " of %1"
+msgstr ""
+
+#, fuzzy
+msgid "Number of Rows:"
+msgstr "Aantal Kopieën"
+
+#, fuzzy
+msgid "Number of Columns:"
+msgstr "Aantal kopieen"
+
+msgid "Full Stop"
+msgstr ""
+
+#, fuzzy
+msgid "Comma"
+msgstr "Commando:"
+
+#, fuzzy
+msgid "Position:"
+msgstr "Omschrijving:"
+
+msgid "First Line:"
+msgstr "Eerste Regel:"
+
+#, fuzzy
+msgid "Indent:"
+msgstr "Links Inspringen:"
+
+#, fuzzy
+msgid "Delete All"
+msgstr "Verwijderen"
+
+msgid "Indentation for first line of the paragraph"
+msgstr ""
+
+msgid "Indentation from the left for the whole paragraph"
+msgstr ""
+
+#, fuzzy
+msgid "Delete all Tabulators"
+msgstr "Verwijder Kleur"
+
+msgid "Distances"
+msgstr "Afstanden"
+
+msgid "DX:"
+msgstr ""
+
+msgid "DY:"
+msgstr ""
+
+msgid "Angle:"
+msgstr "Hoek:"
+
+msgid "Length:"
+msgstr "Lengte:"
+
+msgid "Here you can add, change or remove Color-Stops."
+msgstr ""
+
+#, fuzzy, c-format
+msgid "About Scribus%1%2"
+msgstr "Over Scribus"
+
+msgid "%1. %2 %3 "
+msgstr ""
+
+msgid ""
+"Scribus Version %1\n"
+"%2 %3"
+msgstr ""
+
+msgid "Build-ID:"
+msgstr ""
+
+msgid "About"
+msgstr "Over"
+
+msgid "Programming:"
+msgstr "Programmering:"
+
+msgid "Contributions from:"
+msgstr "Contributies van:"
+
+#, fuzzy
+msgid "Windows port:"
+msgstr "Schermen"
+
+msgid "Documentation:"
+msgstr "Documentatie:"
+
+msgid "Authors"
+msgstr "Auteurs"
+
+msgid "German:"
+msgstr "Duits:"
+
+msgid "French:"
+msgstr "Frans:"
+
+msgid "Spanish and Catalan:"
+msgstr "Spaans en Katalaans:"
+
+#, fuzzy
+msgid "Italian:"
+msgstr "Italiaans"
+
+#, fuzzy
+msgid "Hungarian:"
+msgstr "Hongaars en Italiaans:"
+
+msgid "Ukrainian:"
+msgstr "Ukraieens:"
+
+msgid "Bulgarian:"
+msgstr ""
+
+#, fuzzy
+msgid "Galician:"
+msgstr "Ukraieens:"
+
+msgid "Turkish:"
+msgstr ""
+
+msgid "Lithuanian:"
+msgstr "Lithuaans:"
+
+msgid "Polish:"
+msgstr "Pools:"
+
+msgid "Czech:"
+msgstr "Tzjechs:"
+
+msgid "Slovak:"
+msgstr "Slovaaks:"
+
+msgid "Danish:"
+msgstr "Deens:"
+
+msgid "Norwegian:"
+msgstr "Noors:"
+
+#, fuzzy
+msgid "English:"
+msgstr "Engels"
+
+#, fuzzy
+msgid "Welsh:"
+msgstr "Pools:"
+
+msgid "Russian:"
+msgstr "Russisch:"
+
+#, fuzzy
+msgid "Brazilian:"
+msgstr "Ukraieens:"
+
+#, fuzzy
+msgid "Finnish:"
+msgstr "Deens:"
+
+#, fuzzy
+msgid "Slovenian:"
+msgstr "Slovaaks:"
+
+#, fuzzy
+msgid "Basque:"
+msgstr "Bla&uw:"
+
+msgid "Translations"
+msgstr "Vertalers"
+
+#, fuzzy
+msgid "Homepage and online reference"
+msgstr "Lezen van Instellingen"
+
+msgid "Mailing list"
+msgstr ""
+
+msgid "Bugs and feature requests"
+msgstr ""
+
+#, fuzzy
+msgid "Online"
+msgstr "Omtrek"
+
+msgid ""
+"This panel shows the version, build date and\n"
+" compiled in library support in Scribus\n"
+"The C-C-T equates to C=CUPS C=littlecms T=TIFF support.\n"
+"Missing library support is indicated by a *"
+msgstr ""
+
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+msgid "Guides"
+msgstr "Richtlijnen"
+
+#, fuzzy
+msgid "Typography"
+msgstr "Typograficus"
+
+msgid "Display"
+msgstr "Tonen"
+
+msgid "External Tools"
+msgstr ""
+
+msgid "Misc."
+msgstr ""
+
+msgid "GUI"
+msgstr "GUI"
+
+#, fuzzy
+msgid "Theme:"
+msgstr "Thema"
+
+msgid "Units"
+msgstr "Eenheden"
+
+msgid "Points (pt)"
+msgstr "Punten (pt)"
+
+msgid "Mouse-Settings"
+msgstr "Muis-Instellingen"
+
+#, fuzzy
+msgid "Wheel-Jump:"
+msgstr "Wiel-Sprong"
+
+#, fuzzy
+msgid "Grab-Radius:"
+msgstr "Grijp-Radius"
+
+msgid " px"
+msgstr ""
+
+#, fuzzy
+msgid "Menus"
+msgstr "Menuus"
+
+msgid "Recent Documents:"
+msgstr "Recente Documenten:"
+
+msgid "Paths"
+msgstr "Lokaties"
+
+msgid "Documents:"
+msgstr "Documenten:"
+
+#, fuzzy
+msgid "ICC-Profiles:"
+msgstr "Gebruik ICC-Profiel"
+
+#, fuzzy
+msgid "Scripts:"
+msgstr "Script:"
+
+#, fuzzy
+msgid "Left Page First"
+msgstr "Linker Pagina eerst"
+
+msgid "Autosave"
+msgstr "Autoopslag"
+
+#, fuzzy
+msgid "Interval:"
+msgstr "Voeg Ovaal in"
+
+msgid "min"
+msgstr ""
+
+msgid "Grid Layout"
+msgstr "Grid Layout"
+
+msgid "Minor Grid Spacing:"
+msgstr "Subgrid Afmeting:"
+
+msgid "Major Grid Spacing:"
+msgstr "Hoofdgrid Afmeting:"
+
+msgid "Guide Snap Distance:"
+msgstr "Richtlijn Snap Richting:"
+
+msgid "Grid Colors"
+msgstr "Grid Kleuren"
+
+msgid "Minor Grid Color:"
+msgstr "Subgrid Kleur:"
+
+msgid "Major Grid Color:"
+msgstr "Hoofdgrid kleur:"
+
+msgid "User Guides Color:"
+msgstr "Gebruikers Richtlijn Kleur:"
+
+msgid "Placing"
+msgstr "Plaatsing"
+
+msgid "In the Background"
+msgstr "In de achtergrond"
+
+msgid "In the Foreground"
+msgstr "Op de voorgrond"
+
+#, fuzzy
+msgid "Baseline Grid"
+msgstr "Verberg Grid"
+
+#, fuzzy
+msgid "On"
+msgstr "Openen"
+
+msgid "Off"
+msgstr ""
+
+msgid "Scaling:"
+msgstr "Schalen:"
+
+#, fuzzy
+msgid "Displacement:"
+msgstr "Verplaatsing"
+
+#, fuzzy
+msgid "Baseline Grid:"
+msgstr "Verberg Grid"
+
+msgid "Baseline Offset:"
+msgstr ""
+
+#, fuzzy
+msgid "Automatic Line Spacing:"
+msgstr "Automatische Lijnspatiëring"
+
+msgid "Default Size:"
+msgstr "Normale Grootte:"
+
+msgid "Default Font:"
+msgstr "Normale lettertype:"
+
+msgid "Text Color:"
+msgstr "TekstKleur:"
+
+msgid "Woven silk pyjamas exchanged for blue quartz"
+msgstr "Gewoven zijden pyjama vervangen voor blauwe quartz"
+
+msgid "Line Color:"
+msgstr "LijnKleur:"
+
+msgid "Shading:"
+msgstr "Schaduw:"
+
+#, fuzzy
+msgid "Minimum:"
+msgstr "minimum"
+
+#, fuzzy
+msgid "Maximum:"
+msgstr "maximum"
+
+msgid "Stepping:"
+msgstr "Stappen:"
+
+#, fuzzy
+msgid "Horizontal Scaling:"
+msgstr "Horizontale Scaling"
+
+#, fuzzy
+msgid "Vertical Scaling:"
+msgstr "Verticale Schaling"
 
 msgid "Scale Picture to Frame Size"
 msgstr "Schaal Afbeelding naar Frame Grootte"
 
-msgid "Combine Polygons"
-msgstr "Kombineer Polygonen"
+msgid "Keep Aspect Ratio"
+msgstr ""
 
-msgid "Split Polygon"
-msgstr "Deel Polygoon"
+msgid "Other Options"
+msgstr "Andere Opties"
 
-msgid "Convert to Polygons"
-msgstr "Converter naar Polygonen"
+#, fuzzy
+msgid "Save Contents on Changes"
+msgstr "Sla Inhoud op bij afsluiten"
 
-msgid "Websave RGB"
-msgstr "Webopslag RGB"
+msgid "Display Pages Side by Side"
+msgstr "Toon Kaders naast elkaar"
+
+msgid "Page-Colors"
+msgstr "Pagina-Kleuren"
+
+msgid "Background:"
+msgstr "Achtergrond:"
+
+msgid "Margins:"
+msgstr "Marges:"
+
+#, fuzzy
+msgid "Display Unprintable Area in Margin Color"
+msgstr "Toon niet afdrukbare gebieden in Margekleur"
+
+msgid "Use PDF-1.4 Transparency Features"
+msgstr "Gebruik PDF-1.4 Transparantie Kenmerken"
 
 msgid "Adjust Display Size"
 msgstr "Pas Beeldgrootte aan"
 
-msgid "To adjust the Display drag the Ruler below with the Slider."
+#, fuzzy
+msgid "To adjust the display drag the ruler below with the Slider."
 msgstr "Om het Beeld aan te passen sleep de liniaal omlaag met de Slider."
 
-msgid "Show PDF-Tools"
-msgstr "Toon PDF-Gereedschappen"
+msgid "Postscript Interpreter"
+msgstr ""
 
-msgid "Hide PDF-Tools"
-msgstr "Verberg PDF-Gereedschappen"
-
-msgid "Shears the Path horizotal to the right"
-msgstr "Schaart de richting horizontaal naar rechts"
-
-msgid "Shears the Path horizotal to the left"
-msgstr "Schaart de richting horizontaal naar links"
-
-msgid "Shears the Path vertical up"
-msgstr "Schaart de richting verticaal omhoog"
-
-msgid "Shears the Path vertical down"
-msgstr "Schaart de richting verticaal omlaag"
-
-msgid "Line Styles..."
-msgstr "Lijn Stijlen..."
-
-msgid "Initializing Plugins"
-msgstr "Plugins worden geinitialiseerd"
-
-msgid "Reading Scrapbook"
-msgstr "Kladblok wordt Gelezen"
-
-msgid "Setting up Shortcuts"
-msgstr "Opzetten van snelkoppelingen"
-
-msgid "Reading Preferences"
-msgstr "Lezen van Instellingen"
-
-msgid "Init Hyphenator"
-msgstr "Opzetten van Hyphenator"
-
-msgid "Getting ICC-Profiles"
-msgstr "Ophalen ICC-Profielen"
-
-msgid "Searching for Fonts"
-msgstr "Zoeken naar Lettertypen"
-
-msgid "Print Preview"
-msgstr "Afdruk voorbeeld"
+msgid "Name of executable:"
+msgstr ""
 
 msgid "Antialias Text"
 msgstr "Zachtomrande Tekst"
@@ -2780,57 +4849,1012 @@ msgstr "Zachtomrande Tekst"
 msgid "Antialias Graphics"
 msgstr "Zachtomrande Afbeeldingen"
 
-msgid "Russian:"
-msgstr "Russisch:"
+msgid "Image Processing Tool"
+msgstr ""
 
-msgid "Loading:"
-msgstr "Laden:"
+#, fuzzy
+msgid "Printing"
+msgstr "Bezig met Afdrukken..."
 
-msgid "Autosave"
-msgstr "Autoopslag"
+#, fuzzy
+msgid "Clip to Page Margins"
+msgstr "Verberg Randen"
 
-msgid "Enabled"
-msgstr "Aangezet"
+msgid ""
+"Choose the default window decoration and looks.\n"
+"Scribus inherits any available KDE or Qt themes"
+msgstr ""
 
-msgid "use Bounding Box"
-msgstr "Gebruik Bounding Box"
+msgid "Default font size for the menus and windows"
+msgstr ""
 
-msgid "Czech:"
-msgstr "Tzjechs:"
+msgid "Number of lines Scribus will scroll for each move of the mouse wheel"
+msgstr ""
 
-msgid "Norwegian:"
-msgstr "Noors:"
+msgid ""
+"Radius of the area where Scribus will allow you to grab an objects handles"
+msgstr ""
 
-msgid "Select new Font:"
-msgstr "Selecteer nieuw Font:"
+msgid "Number of recently edited documents to show in the File menu"
+msgstr ""
 
-msgid "Insert Special"
+msgid "Default documents directory"
+msgstr ""
+
+msgid "Default ICC profiles directory"
+msgstr ""
+
+msgid "Default Scripter scripts directory"
+msgstr ""
+
+msgid "Default page size, either a standard size or a custom size"
+msgstr ""
+
+msgid "Default orientation of document pages"
+msgstr ""
+
+msgid "Width of document pages, editable if you have chosen a custom page size"
+msgstr ""
+
+msgid ""
+"Height of document pages, editable if you have chosen a custom page size"
+msgstr ""
+
+msgid "Make the first page the left page of a document"
+msgstr ""
+
+msgid ""
+"When enabled, Scribus saves a backup copy of your file with the .bak "
+"extension\n"
+"each time the time period elapses"
+msgstr ""
+
+msgid "Time period between saving automatically"
+msgstr ""
+
+msgid "Distance between the minor grid lines"
+msgstr ""
+
+msgid "Distance between the major grid lines"
+msgstr ""
+
+msgid "Distance within which an object will snap to your placed guides"
+msgstr ""
+
+msgid "Color of the minor grid lines"
+msgstr ""
+
+msgid "Color of the major grid lines"
+msgstr ""
+
+msgid "Color of the guide lines you insert"
+msgstr ""
+
+msgid "Place the grid behind your page objects"
+msgstr ""
+
+msgid "Place the grid in front of your page objects"
+msgstr ""
+
+msgid "Turns on the basegrid"
+msgstr ""
+
+msgid "Turns off the basegrid"
+msgstr ""
+
+msgid "Displacement above the baseline of the font on a line"
+msgstr ""
+
+msgid "Relative size of the superscript compared to the normal font"
+msgstr ""
+
+msgid "Displacement below the baseline of the normal font on a line"
+msgstr ""
+
+msgid "Relative size of the subscript compared to the normal font"
+msgstr ""
+
+msgid "Relative size of the small caps font compared to the normal font"
+msgstr ""
+
+msgid "Percentage increase over the font size for the line spacing"
+msgstr ""
+
+#, fuzzy
+msgid "Text Frame Properties"
+msgstr "Veld Eigenschappen"
+
+#, fuzzy
+msgid "Picture Frame Properties"
+msgstr "Afbeeldings Kader"
+
+#, fuzzy
+msgid "Shape Drawing Properties"
+msgstr "Annotatie Eigenschappen"
+
+msgid "Magnification Level Defaults"
+msgstr ""
+
+#, fuzzy
+msgid "Line Drawing Properties"
+msgstr "Annotatie Eigenschappen"
+
+#, fuzzy
+msgid "Polygon Drawing Properties"
+msgstr "Polygoon Eigenschappen"
+
+msgid "Font for new text frames"
+msgstr ""
+
+msgid "Size of font for new text frames"
+msgstr ""
+
+msgid "Color of font"
+msgstr ""
+
+msgid "Number of columns in a text frame"
+msgstr ""
+
+msgid "Gap between text frame columns"
+msgstr ""
+
+msgid "Sample of your font"
+msgstr ""
+
+msgid "Picture frames allow pictures to scale to any size"
+msgstr ""
+
+#, fuzzy
+msgid "Horizontal scaling of images"
+msgstr "Horizontale Scaling"
+
+#, fuzzy
+msgid "Vertical scaling of images"
+msgstr "Verticale Schaling"
+
+msgid "Keep horizontal and vertical scaling the same"
+msgstr ""
+
+msgid "Pictures in picture frames are scaled to the size of the frame"
+msgstr ""
+
+msgid "Automatically scaled pictures keep their original proportions"
+msgstr ""
+
+msgid "Fill color of picture frames"
+msgstr ""
+
+msgid "Saturation of color of fill"
+msgstr ""
+
+msgid "Line color of shapes"
+msgstr ""
+
+msgid "Saturation of color of lines"
+msgstr ""
+
+msgid "Fill color of shapes"
+msgstr ""
+
+msgid "Line style of shapes"
+msgstr ""
+
+msgid "Line width of shapes"
+msgstr ""
+
+msgid "Minimum magnification allowed"
+msgstr ""
+
+msgid "Maximum magnification allowed"
+msgstr ""
+
+msgid "Change in magnification for each zoom operation"
+msgstr ""
+
+#, fuzzy
+msgid "Color of lines"
+msgstr "Kleur Model"
+
+#, fuzzy
+msgid "Style of lines"
+msgstr "Systeem Profielen"
+
+msgid "Width of lines"
+msgstr ""
+
+msgid "Number of corners for polygons"
+msgstr ""
+
+msgid "Degrees of rotation for polygons"
+msgstr ""
+
+msgid "Polygons will be convex rather than concave"
+msgstr ""
+
+#, fuzzy
+msgid "Sample Polygon"
+msgstr "Deel Polygoon"
+
+msgid "Change the angles at which lines of the polygon join"
+msgstr ""
+
+msgid "Choose the size of the preview in the scrapbook palette"
+msgstr ""
+
+msgid "Save the scrapbook contents everytime after a change"
+msgstr ""
+
+msgid "When using facing pages, show the two pages side by side"
+msgstr ""
+
+#, fuzzy
+msgid "Color for paper"
+msgstr "Kleur Model"
+
+msgid "Color for the margin lines"
+msgstr ""
+
+msgid "Mask the area outside the margins in the margin color"
+msgstr ""
+
+msgid "Enable transparency features within PDF 1.4 export"
+msgstr ""
+
+msgid "Set the default zoom level"
+msgstr ""
+
+msgid "Filesystem location for the Ghostscript interpreter"
+msgstr ""
+
+msgid "Antialias text for EPS and PDF onscreen rendering"
+msgstr ""
+
+msgid "Antialias graphics for EPS and PDF onscreen rendering"
+msgstr ""
+
+msgid "Filesystem location for graphics editor"
+msgstr ""
+
+msgid ""
+"Do not show objects outside the margins on the printed page or exported file"
+msgstr ""
+
+#, fuzzy
+msgid "&Insert Special"
 msgstr "Speciaal Invoegen"
 
-msgid "Select Character"
+#, fuzzy
+msgid "Select Character:"
 msgstr "Selecteer Teken"
 
 msgid "Insert"
 msgstr "Invoegen"
 
-msgid "Save Page as SVG..."
+msgid "Insert the characters at the cursor in the text"
+msgstr ""
+
+msgid "Delete the current selection(s)."
+msgstr ""
+
+msgid "Close this dialog and return to text editing."
+msgstr ""
+
+#, fuzzy
+msgid "Print Previe&w"
+msgstr "Afdruk voorbeeld"
+
+msgid "Print Preview"
+msgstr "Afdruk voorbeeld"
+
+#, fuzzy
+msgid "Anti-alias Text"
+msgstr "Zachtomrande Tekst"
+
+#, fuzzy
+msgid "Anti-alias Graphics"
+msgstr "Zachtomrande Afbeeldingen"
+
+#, fuzzy
+msgid "Display Transparency"
+msgstr "Toon Kaders"
+
+#, fuzzy
+msgid "Display CMYK"
+msgstr "Tonen"
+
+msgid "C"
+msgstr ""
+
+msgid "M"
+msgstr ""
+
+msgid "Y"
+msgstr ""
+
+#, fuzzy
+msgid "K"
+msgstr "Oke"
+
+msgid ""
+"Provides a more pleasant view of text items in the viewer, at the expense\n"
+"of a slight slowdown in previewing. This only affects Type 1 fonts"
+msgstr ""
+
+msgid ""
+"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
+"and\n"
+"vector graphics in the preview, at the expense of a slight slowdown in "
+"previewing"
+msgstr ""
+
+msgid ""
+"Shows transparency and transparent items in your document. Requires "
+"Ghostscript 7.07 or later"
+msgstr ""
+
+msgid ""
+"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
+"colors"
+msgstr ""
+
+msgid "Enable/disable the C (Cyan) ink plate"
+msgstr ""
+
+msgid "Enable/disable the M (Magenta) ink plate"
+msgstr ""
+
+msgid "Enable/disable the Y (Yellow) ink plate"
+msgstr ""
+
+msgid "Enable/disable the K (Black) ink plate"
+msgstr ""
+
+#, fuzzy
+msgid "Save Page as &SVG..."
 msgstr "Pagina Opslaan als SVG..."
 
-msgid "SVG-Images (*.svg);; All Files (*)"
+#, fuzzy
+msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
 msgstr "SVG-Afbeeldingen (*.svg);; Alle Bestanden (*)"
 
-msgid "Solid Line"
-msgstr "Harde Lijn"
+#, fuzzy
+msgid "SVG-Images (*.svg);;All Files (*)"
+msgstr "SVG-Afbeeldingen (*.svg);; Alle Bestanden (*)"
 
-msgid "Dashed Line"
-msgstr "Gestreepte Lijn"
+#, fuzzy
+msgid "Import &SVG..."
+msgstr "Importeren..."
 
-msgid "Dotted Line"
-msgstr "Onderbroken lijn"
+#, fuzzy
+msgid "S&cripter Manual..."
+msgstr "Scribus Handboek"
 
-msgid "Dash Dot Line"
-msgstr "Gestreepte Onderbroken Lijn"
+#, fuzzy
+msgid "&Scribus Scripts"
+msgstr "Eigen Scripts"
 
-msgid "Dash Dot Dot Line"
-msgstr "Gestreepte Dubbel Onderbroken Lijn"
+msgid "&Execute Script..."
+msgstr ""
 
+#, fuzzy
+msgid "&Recent Scripts"
+msgstr "Recente Documenten"
+
+#, fuzzy
+msgid "Show &Console"
+msgstr "Toon Gereedschappen"
+
+#, fuzzy
+msgid "S&cript"
+msgstr "Scr&ipt"
+
+#, fuzzy
+msgid "Online Reference"
+msgstr "Lezen van Instellingen"
+
+#, fuzzy
+msgid "Python Scripts (*.py);; All Files (*)"
+msgstr "JavaScripts (*.js);; Alle Bestanden (*)"
+
+#, fuzzy
+msgid "Script error"
+msgstr "Scr&ipt"
+
+msgid ""
+"If you are running an official script report it at <a href=\"http://bugs."
+"scribus.net\">bugs.scribus.net</a> please."
+msgstr ""
+
+#, fuzzy
+msgid "Hide &Console"
+msgstr "Verberg Gereedschappen"
+
+msgid "Script Console"
+msgstr ""
+
+msgid "Oook! You're calling an object doesn't exist!"
+msgstr ""
+
+msgid "Oook! You're trying to erase an object doesn't exist!"
+msgstr ""
+
+msgid "Oook! An object you're trying to textflow doesn't exist!"
+msgstr ""
+
+#, fuzzy
+msgid "Export as Image"
+msgstr "Exporteer Bereik"
+
+msgid "Export to directory:"
+msgstr ""
+
+#, fuzzy
+msgid "&Change..."
+msgstr "Verander..."
+
+msgid "Alt+C"
+msgstr ""
+
+#, fuzzy
+msgid "Image type:"
+msgstr "Afbeeldingen:"
+
+#, fuzzy
+msgid "Quality :"
+msgstr "Afsluiten"
+
+msgid "%"
+msgstr ""
+
+#, fuzzy
+msgid "Export "
+msgstr "Exporteren..."
+
+msgid "&One page"
+msgstr ""
+
+msgid "Alt+O"
+msgstr ""
+
+#, fuzzy
+msgid "&All pages"
+msgstr "Alle Pagina's"
+
+msgid "Alt+A"
+msgstr ""
+
+msgid "&Interval from:"
+msgstr ""
+
+msgid "Alt+I"
+msgstr ""
+
+#, fuzzy
+msgid "&OK"
+msgstr "Oke"
+
+#, fuzzy
+msgid "&Cancel"
+msgstr "Annuleren"
+
+msgid "Change the output directory"
+msgstr ""
+
+msgid ""
+"The output directory - the place to store your images.\n"
+"Name of the export file will be 'documentname-pagenumber.filetype'"
+msgstr ""
+
+msgid "Export only the current page"
+msgstr ""
+
+msgid "Export all pages to images"
+msgstr ""
+
+msgid "Export a range of pages to images"
+msgstr ""
+
+msgid "The height of the output images in pixels"
+msgstr ""
+
+#, c-format
+msgid ""
+"The quality of your images - 100% is the best, 1% the highest compression"
+msgstr ""
+
+#, fuzzy
+msgid "Available export formats"
+msgstr "Beschikbare Templates:"
+
+#, fuzzy
+msgid "Choose a Export Directory"
+msgstr "Kies een Directory"
+
+#, fuzzy
+msgid "Save as &Image..."
+msgstr "Opslaan als..."
+
+#, fuzzy
+msgid "Save as Image"
+msgstr "Opslaan als"
+
+msgid "Error writting the output file(s)."
+msgstr ""
+
+msgid "Error writing the output file(s)."
+msgstr ""
+
+msgid "Export successful."
+msgstr ""
+
+msgid "File exists. Overwrite?"
+msgstr ""
+
+msgid "exists already. Overwrite?"
+msgstr ""
+
+#, fuzzy
+msgid "Yes all"
+msgstr "Alles deSelecteren"
+
+#, fuzzy
+msgid "&Fonts Preview"
+msgstr "Afdruk voorbeeld"
+
+#, fuzzy
+msgid "Font Preview"
+msgstr "Afdruk voorbeeld"
+
+#, fuzzy
+msgid "Import &EPS/PS..."
+msgstr "Importeren..."
+
+msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"Importing File:\n"
+"%1\n"
+"failed!"
+msgstr "Afdrukken mislukt!"
+
+#, fuzzy
+msgid "New &from Template..."
+msgstr "Nieuwe Template"
+
+#, fuzzy
+msgid "New From Template"
+msgstr "Nieuwe Template"
+
+#, fuzzy
+msgid "Description"
+msgstr "Omschrijving:"
+
+#, fuzzy
+msgid "Usage"
+msgstr "Gebruik"
+
+#, fuzzy
+msgid "Created with"
+msgstr "Maak TekstKoppelingen"
+
+#, fuzzy
+msgid "Author"
+msgstr "Auteur:"
+
+#, fuzzy
+msgid "Newsletters"
+msgstr "Selecteer Items"
+
+msgid "Brochures"
+msgstr ""
+
+#, fuzzy
+msgid "Catalogs"
+msgstr "Sluiten"
+
+#, fuzzy
+msgid "Flyers"
+msgstr "Lagen"
+
+#, fuzzy
+msgid "Signs"
+msgstr "Instellingen"
+
+msgid "Cards"
+msgstr ""
+
+msgid "Letterheads"
+msgstr ""
+
+msgid "Envelopes"
+msgstr ""
+
+msgid "Business Cards"
+msgstr ""
+
+#, fuzzy
+msgid "Calendars"
+msgstr "Leeg Maken"
+
+#, fuzzy
+msgid "Advertisements"
+msgstr "Metingen"
+
+#, fuzzy
+msgid "Labels"
+msgstr "Lagen"
+
+#, fuzzy
+msgid "Programs"
+msgstr "Programmering:"
+
+msgid "PDF Forms"
+msgstr ""
+
+#, fuzzy
+msgid "PDF Presentations"
+msgstr "Doel"
+
+#, fuzzy
+msgid "Magazines"
+msgstr "Marges:"
+
+#, fuzzy
+msgid "Posters"
+msgstr "Invoegen"
+
+#, fuzzy
+msgid "Announcements"
+msgstr "Documenten:"
+
+#, fuzzy
+msgid "Text Documents"
+msgstr "Recente Documenten"
+
+#, fuzzy
+msgid "Folds"
+msgstr "Vet"
+
+#, fuzzy
+msgid "Own Templates"
+msgstr "Nieuwe Template"
+
+#, fuzzy
+msgid "Save as Template"
+msgstr "Nieuwe Template"
+
+msgid "Category"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "More Details"
+msgstr ""
+
+msgid "Less Details"
+msgstr ""
+
+#, fuzzy
+msgid "landscape"
+msgstr "Landschap"
+
+#, fuzzy
+msgid "portrait"
+msgstr "Portret"
+
+#, fuzzy
+msgid "custom"
+msgstr "Aangepast"
+
+#, fuzzy
+msgid "Save as &Template..."
+msgstr "Opslaan als Tekst..."
+
+#~ msgid "Show Measurements"
+#~ msgstr "Toon Metingen"
+
+#~ msgid "Hide Measurements"
+#~ msgstr "Verberg Metingen"
+
+#~ msgid "Scaled to "
+#~ msgstr "Schalen naar "
+
+#~ msgid "Gutter Width:"
+#~ msgstr "Gutter Breedte:"
+
+#~ msgid "W:"
+#~ msgstr "W:"
+
+#~ msgid "Document "
+#~ msgstr "Document "
+
+#~ msgid "No Document"
+#~ msgstr "Geen Document"
+
+#~ msgid "Images"
+#~ msgstr "Afbeeldingen"
+
+#~ msgid ");;Vectorimages (*.eps *.pdf);;All Files (*)"
+#~ msgstr ");;Vectorafbeeldingen (*.eps *.pdf);;Alle Bestanden (*)"
+
+#~ msgid "Resolution for EPS-Images:"
+#~ msgstr "Resolutie voor EPS-Afbeeldingen:"
+
+#~ msgid "OK to delete Color:"
+#~ msgstr "Oke om kleur te verwijderen:"
+
+#~ msgid "Edit Colors"
+#~ msgstr "Bewerk Kleuren"
+
+#~ msgid "Show Outline"
+#~ msgstr "Toon Omtrek"
+
+#~ msgid "Hide Outline"
+#~ msgstr "Verberg Omtrek"
+
+#~ msgid "Rectangle"
+#~ msgstr "Vierkant"
+
+#~ msgid "Delete Page:"
+#~ msgstr "Verwijder Pagina:"
+
+#~ msgid "Delete Page"
+#~ msgstr "Verwijder Pagina"
+
+#~ msgid "Line Width"
+#~ msgstr "Lijn Breedte"
+
+#~ msgid "Print to printer:"
+#~ msgstr "Afdrukken naar printer:"
+
+#~ msgid "Comment"
+#~ msgstr "Comentaar"
+
+#~ msgid "Browse..."
+#~ msgstr "Browse..."
+
+#~ msgid "Printer settings"
+#~ msgstr "Printer instellingen"
+
+#~ msgid "Paper format"
+#~ msgstr "Papier formaat"
+
+#~ msgid "Select Font"
+#~ msgstr "Selecteer Lettertype"
+
+#~ msgid "Font st&yle"
+#~ msgstr "Lettertype St&yle"
+
+#~ msgid "Stri&keout"
+#~ msgstr "Door&halen"
+
+#~ msgid "&Underline"
+#~ msgstr "&Onderlijnen"
+
+#~ msgid "Sample"
+#~ msgstr "Voorbeeld"
+
+#~ msgid "Printing-Error"
+#~ msgstr "Afdruk-Fouten"
+
+#~ msgid "Printing completed"
+#~ msgstr "Afdrukken voltooid"
+
+#~ msgid "Printing aborted"
+#~ msgstr "Afdrukken afgebroken"
+
+#~ msgid "Saving aborted"
+#~ msgstr "Opslaan afgebroken"
+
+#~ msgid "Loading aborted"
+#~ msgstr "Laden afgebroken"
+
+#~ msgid "Fonts"
+#~ msgstr "Lettertypes"
+
+#~ msgid " loaded"
+#~ msgstr " Geladen"
+
+#~ msgid " saved"
+#~ msgstr " opgeslagen"
+
+#~ msgid "Unable to create PDF-File."
+#~ msgstr "Kon niet als PDF-Bestand opslaan."
+
+#~ msgid "Error creating PDF-File.."
+#~ msgstr "Fout bij aanmaken PDF-Bestand..."
+
+#~ msgid "Error during EPS-Export"
+#~ msgstr "Fout tijdens EPS-Omzetting"
+
+#~ msgid "To End"
+#~ msgstr "Tot Einde"
+
+#~ msgid "Insert Rectangles"
+#~ msgstr "Voeg Vierkant in"
+
+#~ msgid "Modify..."
+#~ msgstr "Aanpassen..."
+
+#~ msgid "Modify Textframe"
+#~ msgstr "Pas Tekstkader aan"
+
+#~ msgid "Modify Frame"
+#~ msgstr "Pas Kader aan"
+
+#~ msgid "Other:"
+#~ msgstr "Anders:"
+
+#~ msgid "Don't print"
+#~ msgstr "Niet afdrukken"
+
+#~ msgid "Properties:"
+#~ msgstr "Eigenschappen:"
+
+#~ msgid "Ordinary Text"
+#~ msgstr "Normale Tekst"
+
+#~ msgid "Textdistance"
+#~ msgstr "Tekstafstand"
+
+#~ msgid "Face"
+#~ msgstr "Aangezicht"
+
+#~ msgid "Disp.:"
+#~ msgstr "Verschuiving:"
+
+#~ msgid "Italic"
+#~ msgstr "Italic"
+
+#~ msgid "No Fill"
+#~ msgstr "Niet vullen"
+
+#~ msgid "Background Color:"
+#~ msgstr "Achtergrond Kleur:"
+
+#~ msgid "Vertical flipped"
+#~ msgstr "Verticaal gedraait"
+
+#~ msgid "Horizontal flipped"
+#~ msgstr "Horizontaal gedraait"
+
+#~ msgid "Local X-Pos:"
+#~ msgstr "Lokale X-Pos:"
+
+#~ msgid "Local Y-Pos:"
+#~ msgstr "Lokale Y-Pos:"
+
+#~ msgid "Modify Pictureframe"
+#~ msgstr "Pas Afbeeldingskader aan"
+
+#~ msgid "Linestyle:"
+#~ msgstr "LijnStyle:"
+
+#~ msgid "Linewidth:"
+#~ msgstr "LijnBreedte:"
+
+#~ msgid "Scaling X:"
+#~ msgstr "X Schaling:"
+
+#~ msgid "Scaling Y:"
+#~ msgstr "Y Schaling"
+
+#~ msgid "Frame"
+#~ msgstr "Kader"
+
+#~ msgid "Break Textchains"
+#~ msgstr "Verbreek TekstKoppelingen"
+
+#~ msgid "Is Spot-Color"
+#~ msgstr "Is een Spot-Kleur"
+
+#~ msgid "New Style:"
+#~ msgstr "Nieuwe Stijl:"
+
+#~ msgid "Show Styles"
+#~ msgstr "Toon Stijlen"
+
+#~ msgid "Hide Styles"
+#~ msgstr "Verberg Stijlen"
+
+#~ msgid "Styles"
+#~ msgstr "Stijlen"
+
+#~ msgid "Indentation"
+#~ msgstr "Inspringen"
+
+#~ msgid "AFM-File available"
+#~ msgstr "AFM-Bestand beschikbaar"
+
+#~ msgid "Show Scrapbook"
+#~ msgstr "Toon Kladblok"
+
+#~ msgid "Hide Scrapbook"
+#~ msgstr "Verberg Kladblok"
+
+#~ msgid "Exit"
+#~ msgstr "Afsluiten"
+
+#~ msgid "Template for this Page:"
+#~ msgstr "Template voor deze Pagina:"
+
+#~ msgid "Sorry, no Manual available!"
+#~ msgstr "Sorry, geen Handleiding beschikbaar"
+
+#~ msgid "Compression"
+#~ msgstr "Compressie"
+
+#~ msgid "Corner Radius:"
+#~ msgstr "Hoek Radius:"
+
+#~ msgid "Rounded Rectangle"
+#~ msgstr "Afgerond Vierkant"
+
+#~ msgid "Align Text Block"
+#~ msgstr "Align Tekst Blok"
+
+#~ msgid "To the End"
+#~ msgstr "Tot het Einde"
+
+#~ msgid "Fontsize"
+#~ msgstr "LetterGrootte"
+
+#~ msgid "Scaling"
+#~ msgstr "Schaling"
+
+#~ msgid "Character Settings"
+#~ msgstr "Teken Instellingen"
+
+#~ msgid "Edit Polygon"
+#~ msgstr "Bewerk Polygoon"
+
+#~ msgid "Modify Pathtext"
+#~ msgstr "Pas Lokatietekst aan"
+
+#~ msgid "Closes this Dialog"
+#~ msgstr "Sluit dit Venster"
+
+#~ msgid "Hide Layers"
+#~ msgstr "Verberg Lagen"
+
+#~ msgid "Global JavaScripts"
+#~ msgstr "Globale JavaScripts"
+
+#~ msgid "General..."
+#~ msgstr "Algemeen..."
+
+#~ msgid "Printing Mode"
+#~ msgstr "Afdruk Mode"
+
+#~ msgid "X-Pos+:"
+#~ msgstr "X-Pos+:"
+
+#~ msgid "Y-Pos+:"
+#~ msgstr "Y-Pos+:"
+
+#~ msgid "Horiz. Scale:"
+#~ msgstr "Horiz. Schaling:"
+
+#~ msgid "Vert. Scale:"
+#~ msgstr "Vert. Schaling:"
+
+#~ msgid "Show Bookmarks"
+#~ msgstr "Toon Bladwijzers"
+
+#~ msgid "Hide Bookmarks"
+#~ msgstr "Verberg Bladwijzers"
+
+#~ msgid "Rotation"
+#~ msgstr "Rotatie"
+
+#~ msgid "by:"
+#~ msgstr "Door:"
+
+#~ msgid "Character:"
+#~ msgstr "Teken:"
+
+#~ msgid "Hide PDF-Tools"
+#~ msgstr "Verberg PDF-Gereedschappen"

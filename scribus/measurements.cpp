@@ -93,6 +93,12 @@ Measurements::Measurements( QWidget* parent ) : QDialog( parent, "M", false, 0 )
 	resize(minimumSizeHint());
 }
 
+void Measurements::closeEvent(QCloseEvent *ce)
+{
+	emit Schliessen(false);
+	ce->accept();
+}
+
 void Measurements::setValues(double x1, double y1, double x2, double y2, double angle, double len, int unit)
 {
 	QString tmp, tmp2;

@@ -274,7 +274,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	FPoint gv, ColBound;
 	QRegion cm;
 	uint a, nrc, nrc2, zae, startLin;
-	int desc, asce, absa, aSpa, chs, CurrCol;
+	int desc, asce, absa, aSpa, chs, chsd, CurrCol;
 	uint BuPos, LastSP, MaxText;
 	double oldCurY, LastXp, EndX, OFs, OFs2, wide, rota, wid, lineCorr, ColWidth, kernVal, RTabX;
 	double sc = Doc->Scale;
@@ -393,17 +393,23 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 			}
 			if (Pfile == "")
 			{
-				p->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
-				p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-				p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+				if ((Frame) && (ScApp->Prefs.FramesShown))
+				{
+					p->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+					p->drawLine(FPoint(0, 0), FPoint(Width, Height));
+					p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+				}
 			}
 			else
 			{
 				if ((!PicArt) || (!PicAvail))
 				{
-					p->setPen(red, 1, SolidLine, FlatCap, MiterJoin);
-					p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-					p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+					if ((Frame) && (ScApp->Prefs.FramesShown))
+					{
+						p->setPen(red, 1, SolidLine, FlatCap, MiterJoin);
+						p->drawLine(FPoint(0, 0), FPoint(Width, Height));
+						p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+					}
 				}
 				else
 				{
@@ -724,10 +730,16 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					if (DropCmode)
 						{
 						if (Doc->Vorlagen[hl->cab].BaseAdj)
+						{
+							chsd = qRound(10 * ((Doc->BaseGrid * DropLines) / ((*Doc->AllFonts)[hl->cfont]->numAscent+(*Doc->AllFonts)[hl->cfont]->numDescender)));
 							chs = qRound(10 * ((Doc->BaseGrid * DropLines) / (*Doc->AllFonts)[hl->cfont]->numAscent));
+						}
 						else
+						{
+							chsd = qRound(10 * ((Doc->Vorlagen[absa].LineSpa * DropLines) / ((*Doc->AllFonts)[hl->cfont]->numAscent+(*Doc->AllFonts)[hl->cfont]->numDescender)));
 							chs = qRound(10 * ((Doc->Vorlagen[absa].LineSpa * DropLines) / (*Doc->AllFonts)[hl->cfont]->numAscent));
-						hl->csize = chs;
+						}
+						hl->csize = chsd;
 						}
 					else
 						chs = hl->csize;
@@ -747,10 +759,18 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					else
 						wide = Cwidth(Doc, hl->cfont, chx2, chs);
 					if (DropCmode)
-						wide = RealCWidth(Doc, hl->cfont, chx2, chs);
-					desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * (chs / 10.0);
-					desc = qRound(-(*Doc->AllFonts)[hl->cfont]->numDescender * (chs / 10.0));
-					asce = qRound((*Doc->AllFonts)[hl->cfont]->numAscent * (chs / 10.0));
+					{
+						wide = RealCWidth(Doc, hl->cfont, chx2, chsd);
+						desc2 = 0;
+						desc = 0;
+						asce = qRound((*Doc->AllFonts)[hl->cfont]->numAscent * (chs / 10.0));
+					}
+					else
+					{
+						desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * (chs / 10.0);
+						desc = qRound(-(*Doc->AllFonts)[hl->cfont]->numDescender * (chs / 10.0));
+						asce = qRound((*Doc->AllFonts)[hl->cfont]->numAscent * (chs / 10.0));
+					}
 					wide = wide * (hl->cscale / 100.0);
 					fBorder = false;
 					if (LiList.isEmpty())
@@ -927,7 +947,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					Zli->xco = hl->xp;
 					Zli->yco = hl->yp;
 					Zli->Sele = hl->cselect;
-					Zli->Siz = chs;
+					if (DropCmode)
+						Zli->Siz = chsd;
+					else
+						Zli->Siz = chs;
 					Zli->Style = hl->cstyle;
 					Zli->ZFo = hl->cfont;
 					Zli->wide = wide;

@@ -324,12 +324,15 @@ void ScribusApp::initScribus()
 		Prefs.Werkv = true;
 		Prefs.WerkvP = true;
 		Prefs.Mpalv = false;
+		Prefs.Mapalv = false;
 		Prefs.Tpalv = false;
 		Prefs.SCpalv = false;
 		Prefs.Lpalv = false;
 		Prefs.Bopalv = false;
 		Prefs.Mpalx = 0;
 		Prefs.Mpaly = 0;
+		Prefs.Mapalx = 0;
+		Prefs.Mapaly = 0;
 		Prefs.Tpalx = 0;
 		Prefs.Tpaly = 0;
 		Prefs.SCpalx = 0;
@@ -505,6 +508,7 @@ void ScribusApp::initScribus()
 		connect(WerkTools, SIGNAL(Schliessen()), this, SLOT(ToggleTools()));
 		connect(WerkToolsP, SIGNAL(NewMode(int)), this, SLOT(ModeFromTB(int)));
 		connect(WerkToolsP, SIGNAL(Schliessen()), this, SLOT(TogglePDFTools()));
+		connect(MaPal, SIGNAL(Schliessen(bool)), this, SLOT(setMapal(bool)));
 		connect(Mpal, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 		connect(Mpal, SIGNAL(NewAbStyle(int)), this, SLOT(setNewAbStyle(int)));
 		connect(Mpal, SIGNAL(BackHome()), this, SLOT(Aktiv()));
@@ -4355,7 +4359,9 @@ void ScribusApp::ToggleAllPalettes()
 		setLpal(PalettesStat[4]);
 		setSepal(PalettesStat[5]);
 		setBookpal(PalettesStat[6]);
+		setMapal(PalettesStat[7]);
 		Mpal->move(Prefs.Mpalx, Prefs.Mpaly);
+		MaPal->move(Prefs.Mapalx, Prefs.Mapaly);
 		Tpal->move(Prefs.Tpalx, Prefs.Tpaly);
 		Lpal->move(Prefs.Lpalx, Prefs.Lpaly);
 		Sepal->move(Prefs.Sepalx, Prefs.Sepaly);
@@ -4371,6 +4377,8 @@ void ScribusApp::ToggleAllPalettes()
 		PalettesStat[4] = Lpal->isVisible();
 		PalettesStat[5] = Sepal->isVisible();
 		PalettesStat[6] = BookPal->isVisible();
+		PalettesStat[7] = MaPal->isVisible();
+		setMapal(false);
 		setMpal(false);
 		setTpal(false);
 		setBpal(false);
@@ -4378,6 +4386,18 @@ void ScribusApp::ToggleAllPalettes()
 		setSepal(false);
 		setBookpal(false);
 		PalettesStat[0] = true;
+	}
+}
+
+void ScribusApp::setMapal(bool visible)
+{
+	if (visible)
+		MaPal->show();
+	else
+	{
+		Prefs.Mapalx = MaPal->pos().x();
+		Prefs.Mapaly = MaPal->pos().y();
+		MaPal->hide();
 	}
 }
 
@@ -4801,10 +4821,7 @@ void ScribusApp::setAppMode(int mode)
 		int oldMode = doc->AppMode;
 		doc->AppMode = mode;
 		if (oldMode == 24)
-		{
 			disconnect(doc->ActPage, SIGNAL(MVals(double, double, double, double, double, double, int )), MaPal, SLOT(setValues(double, double, double, double, double, double, int )));
-			MaPal->hide();
-		}
 		if (oldMode == 7)
 		{
 			disconnect(doc->CurTimer, SIGNAL(timeout()), doc->ActPage, SLOT(BlinkCurs()));
@@ -6454,6 +6471,11 @@ void ScribusApp::SavePrefs()
 		Prefs.Npalx = 0;
 	if ((Prefs.Npaly > QApplication::desktop()->height()-100) || (Prefs.Npaly < 0))
 		Prefs.Npaly = 0;
+	if (MaPal->isVisible())
+	{
+		Prefs.Mapalx = abs(MaPal->pos().x());
+		Prefs.Mapaly = abs(MaPal->pos().y());
+	}
 	if (Mpal->isVisible())
 	{
 		Prefs.Mpalx = abs(Mpal->pos().x());
@@ -6526,6 +6548,7 @@ void ScribusApp::ReadPrefs()
 			recentMenu->insertItem(QString::fromUtf8(Prefs.RecentDocs[m]));
 		}
 	}
+	MaPal->move(Prefs.Mapalx, Prefs.Mapaly);
 	Mpal->move(Prefs.Mpalx, Prefs.Mpaly);
 	Tpal->move(Prefs.Tpalx, Prefs.Tpaly);
 	Lpal->move(Prefs.Lpalx, Prefs.Lpaly);
@@ -6570,6 +6593,7 @@ void ScribusApp::ShowSubs()
 	}
 	setTools(Prefs.Werkv);
 	setPDFTools(Prefs.WerkvP);
+	setMapal(Prefs.Mapalv);
 	setMpal(Prefs.Mpalv);
 	setTpal(Prefs.Tpalv);
 	setBpal(Prefs.SCpalv);
@@ -7202,19 +7226,33 @@ void ScribusApp::StatusPic()
 	}
 }
 
-QString ScribusApp::CFileDialog(QString caption, QString filter, QString defNa, bool Pre, bool mod, bool comp, bool cod)
+QString ScribusApp::CFileDialog(QString caption, QString filter, QString defNa, bool Pre, bool mod, bool comp, bool cod, bool onlyDirs, bool *docom, bool *doFont)
 {
-	CustomFDialog dia(this, caption, filter, Pre, mod, comp, cod);
+	QString retval = "";
+	CustomFDialog *dia = new CustomFDialog(this, caption, filter, Pre, mod, comp, cod, onlyDirs);
 	if (defNa != "")
-		dia.setSelection(defNa);
-	if (dia.exec() == QDialog::Accepted)
+		dia->setSelection(defNa);
+	if (onlyDirs)
 	{
-		LoadEnc = cod ? dia.TxCodeM->currentText() : QString("");
+		dia->SaveZip->setChecked(*docom);
+		dia->WFonts->setChecked(*doFont);
+	}
+	if (dia->exec() == QDialog::Accepted)
+	{
+		LoadEnc = "";
+		if (!onlyDirs)
+			LoadEnc = cod ? dia->TxCodeM->currentText() : QString("");
+		else
+		{
+			*docom = dia->SaveZip->isChecked();
+			*doFont = dia->WFonts->isChecked();
+		}
 		this->repaint();
 		qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
-		return dia.selectedFile();
+		retval = dia->selectedFile();
 	}
-	return "";
+	delete dia;
+	return retval;
 }
 
 void ScribusApp::RunPlug(int id)
@@ -8060,11 +8098,13 @@ void ScribusApp::InvertPict()
 	}
 }
 
-QString ScribusApp::Collect()
+QString ScribusApp::Collect(bool compress, bool withFonts)
 {
 	QString retVal = "";
 	QString CurDirP = QDir::currentDirPath();
-	QString s = QFileDialog::getExistingDirectory(QDir::currentDirPath(), this, "d", tr("Choose a Directory"), true);
+	bool compressR = compress;
+	bool withFontsR = withFonts;
+	QString s = CFileDialog( tr("Choose a Directory"), "", "", false, false, false, false, true, &compressR, &withFontsR);
 	if (s != "")
 	{
 		if(s.right(1) != "/")
@@ -8082,6 +8122,16 @@ QString ScribusApp::Collect()
 				}
 				else
 					fn = s + doc->DocName+".sla";
+				if (compressR)
+				{
+					if (!fn.endsWith(".gz"))
+						fn += ".gz";
+				}
+				else
+				{
+					if (fn.endsWith(".gz"))
+						fn = fn.remove(".gz");
+				}
 				if (!overwrite(this, fn))
 				{
 					retVal = "";
@@ -8193,11 +8243,14 @@ QString ScribusApp::Collect()
 					QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
 					retVal = "";
 				}
-				QMap<QString,QFont>::Iterator it3;
-				for (it3 = doc->UsedFonts.begin(); it3 != doc->UsedFonts.end(); ++it3)
+				if (withFontsR)
 				{
-					QFileInfo itf = QFileInfo(Prefs.AvailFonts[it3.key()]->Datei);
-					copyFile(Prefs.AvailFonts[it3.key()]->Datei, s + itf.fileName());
+					QMap<QString,QFont>::Iterator it3;
+					for (it3 = doc->UsedFonts.begin(); it3 != doc->UsedFonts.end(); ++it3)
+					{
+						QFileInfo itf = QFileInfo(Prefs.AvailFonts[it3.key()]->Datei);
+						copyFile(Prefs.AvailFonts[it3.key()]->Datei, s + itf.fileName());
+					}
 				}
 			}
 		}

@@ -1,5 +1,12 @@
 Changes since Version 1.1.7
 
+11.06.2004
+	* bug     #633: Drop caps not reaching to the top, and other issues
+	* bug     #655: Window enlarge each time I select a file
+	* bug     #671: measurement icon
+	* bug     #703: guidelines interfere  selecting a group of objects
+	* feature #770: Update for the German language
+
 10.06.2004
 	* bug     #755: Collect for Output should ask confirmation
 	* bug     #760: "icons" dir does not get copied by "make dist"

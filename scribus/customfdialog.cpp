@@ -153,7 +153,7 @@ void FDialogPreview::previewUrl( const QUrl &url )
 		GenPreview(url.path());
 }
 
-CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre, bool mod, bool comp, bool cod)
+CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre, bool mod, bool comp, bool cod, bool dirOnly)
 						 : QFileDialog(QString::null, filter, pa, 0, true)
 {
  	setIcon(loadIcon("AppIcon.png"));
@@ -161,72 +161,99 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre,
 	cDir = QDir();
 	setDir(cDir);
 	setIconProvider(new ImIconProvider(this));
-	setContentsPreviewEnabled( true );
-	FDialogPreview *pw = new FDialogPreview( this );
-	setContentsPreview( pw, pw );
-	if (comp)
+	if (dirOnly)
 	{
 		Layout = new QFrame(this);
 		Layout1 = new QHBoxLayout(Layout);
-		Layout1->setSpacing( 6 );
+		Layout1->setSpacing( 0 );
 		Layout1->setMargin( 0 );
 		SaveZip = new QCheckBox(Layout, "test");
 		SaveZip->setText( tr("Compress File"));
-		Layout1->addWidget(SaveZip);
+		Layout1->addWidget(SaveZip, Qt::AlignLeft);
 		QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-  		Layout1->addItem( spacer );
-	}
-	if (mod)
-		setMode(QFileDialog::ExistingFile);
-	else
-	{
-		setMode(QFileDialog::AnyFile);
-		if (comp)
-			addWidgets(0, Layout, 0);
-	}
-	if (cod)
-	{
+		Layout1->addItem( spacer );
+		addWidgets(0, Layout, 0);
 		LayoutC = new QFrame(this);
 		Layout1C = new QHBoxLayout(LayoutC);
 		Layout1C->setSpacing( 0 );
-		Layout1C->setMargin( 4 );
-		TxCodeT = new QLabel(this);
-		TxCodeT->setText( tr("Encoding:"));
-		TxCodeM = new QComboBox(true, LayoutC, "Cod");
-		TxCodeM->setEditable(false);
-		char *tmp_txc[] = {"ISO 8859-1", "ISO 8859-2", "ISO 8859-3", "ISO 8859-4", "ISO 8859-5", "ISO 8859-6",
-							"ISO 8859-7", "ISO 8859-8", "ISO 8859-9", "ISO 8859-10", "ISO 8859-13", "ISO 8859-14",
-							"ISO 8859-15", "utf8", "KOI8-R", "KOI8-U", "CP1250", "CP1251", "CP1252", "CP1253",
-							"CP1254", "CP1255", "CP1256", "CP1257"};
-		size_t array = sizeof(tmp_txc) / sizeof(*tmp_txc);
-		for (uint a = 0; a < array; ++a)
-			TxCodeM->insertItem(tmp_txc[a]);
-		QString localEn = QTextCodec::codecForLocale()->name();
-		bool hasIt = false;
-		for (int cc = 0; cc < TxCodeM->count(); ++cc)
-		{
-			if (TxCodeM->text(cc) == localEn)
-			{
-				TxCodeM->setCurrentItem(cc);
-				hasIt = true;
-				break;
-			}
-		}
-		if (!hasIt)
-		{
-			TxCodeM->insertItem(localEn);
-			TxCodeM->setCurrentItem(TxCodeM->count()-1);
-		}
-		TxCodeM->setMinimumSize(QSize(200, 0));
-		Layout1C->addWidget(TxCodeM);
+		Layout1C->setMargin( 0 );
+		WFonts = new QCheckBox(LayoutC, "test");
+		WFonts->setText( tr("Include Fonts"));
+		Layout1C->addWidget(WFonts, Qt::AlignLeft);
 		QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout1C->addItem( spacer2 );
-		addWidgets(TxCodeT, LayoutC, 0);
+		addWidgets(0, LayoutC, 0);
+		setMode(QFileDialog::DirectoryOnly);
 	}
-	setPreviewMode(Pre ? QFileDialog::Contents : QFileDialog::NoPreview );
-	setViewMode( QFileDialog::List );
-	if (comp)
-		connect(SaveZip, SIGNAL(clicked()), this, SLOT(HandleComp()));
+	else
+	{
+		setContentsPreviewEnabled( true );
+		FDialogPreview *pw = new FDialogPreview( this );
+		setContentsPreview( pw, pw );
+		if (comp)
+		{
+			Layout = new QFrame(this);
+			Layout1 = new QHBoxLayout(Layout);
+			Layout1->setSpacing( 6 );
+			Layout1->setMargin( 0 );
+			SaveZip = new QCheckBox(Layout, "test");
+			SaveZip->setText( tr("Compress File"));
+			Layout1->addWidget(SaveZip);
+			QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+			Layout1->addItem( spacer );
+		}
+		if (mod)
+			setMode(QFileDialog::ExistingFile);
+		else
+		{
+			setMode(QFileDialog::AnyFile);
+			if (comp)
+				addWidgets(0, Layout, 0);
+		}
+		if (cod)
+		{
+			LayoutC = new QFrame(this);
+			Layout1C = new QHBoxLayout(LayoutC);
+			Layout1C->setSpacing( 0 );
+			Layout1C->setMargin( 4 );
+			TxCodeT = new QLabel(this);
+			TxCodeT->setText( tr("Encoding:"));
+			TxCodeM = new QComboBox(true, LayoutC, "Cod");
+			TxCodeM->setEditable(false);
+			char *tmp_txc[] = {"ISO 8859-1", "ISO 8859-2", "ISO 8859-3", "ISO 8859-4", "ISO 8859-5", "ISO 8859-6",
+								"ISO 8859-7", "ISO 8859-8", "ISO 8859-9", "ISO 8859-10", "ISO 8859-13", "ISO 8859-14",
+								"ISO 8859-15", "utf8", "KOI8-R", "KOI8-U", "CP1250", "CP1251", "CP1252", "CP1253",
+								"CP1254", "CP1255", "CP1256", "CP1257"};
+			size_t array = sizeof(tmp_txc) / sizeof(*tmp_txc);
+			for (uint a = 0; a < array; ++a)
+				TxCodeM->insertItem(tmp_txc[a]);
+			QString localEn = QTextCodec::codecForLocale()->name();
+			bool hasIt = false;
+			for (int cc = 0; cc < TxCodeM->count(); ++cc)
+			{
+				if (TxCodeM->text(cc) == localEn)
+				{
+					TxCodeM->setCurrentItem(cc);
+					hasIt = true;
+					break;
+				}
+			}
+			if (!hasIt)
+			{
+				TxCodeM->insertItem(localEn);
+				TxCodeM->setCurrentItem(TxCodeM->count()-1);
+			}
+			TxCodeM->setMinimumSize(QSize(200, 0));
+			Layout1C->addWidget(TxCodeM);
+			QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+			Layout1C->addItem( spacer2 );
+			addWidgets(TxCodeT, LayoutC, 0);
+		}
+		setPreviewMode(Pre ? QFileDialog::Contents : QFileDialog::NoPreview );
+		setViewMode( QFileDialog::List );
+		if (comp)
+			connect(SaveZip, SIGNAL(clicked()), this, SLOT(HandleComp()));
+	}
 	HomeB = new QToolButton(this);
 	HomeB->setIconSet(loadIcon("gohome.png"));
 	HomeB->setTextLabel( tr("Moves to your Document Directory.\nThis can be set in the Preferences."));

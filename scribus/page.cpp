@@ -2421,7 +2421,6 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		p.drawLine(Dxp, Dyp, Mxp, Myp);
 		p.end();
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		doku->AppMode = 1;
 		emit PaintingDone();
 		return;
 	}

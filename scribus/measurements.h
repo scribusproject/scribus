@@ -25,6 +25,7 @@ class Measurements : public QDialog
 public:
 	Measurements( QWidget* parent );
 	~Measurements() {};
+	void closeEvent(QCloseEvent *ce);
 
 	QLabel* Label1;
 	QLabel* Label2;
@@ -42,6 +43,9 @@ public:
 	QLabel* DY;
 	QLabel* Length;
 	QLabel* Angle;
+
+signals:
+	void Schliessen(bool);
 
 public slots:
 	void setValues(double x1, double y1, double x2, double y2, double angle, double len, int unit);

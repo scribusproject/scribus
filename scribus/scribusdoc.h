@@ -383,6 +383,9 @@ struct preV  {
 				bool Mpalv;
 				int Mpalx;
 				int Mpaly;
+				bool Mapalv;
+				int Mapalx;
+				int Mapaly;
 				bool Tpalv;
 				int Tpalx;
 				int Tpaly;

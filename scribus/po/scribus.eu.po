@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
-"POT-Creation-Date: 1999-02-23 15:38+0200\n"
+"POT-Creation-Date: 2004-06-11 12:21+0200\n"
 "PO-Revision-Date: 2003-12-15 23:36+0100\n"
 "Last-Translator: Hizkuntza Politikarako Sailburuordetza <hizpol@ej-gv.es>\n"
 "Language-Team: basque <itzulpena@euskalgnu.org>\n"
@@ -16,1238 +16,938 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0.2\n"
 
-#: scribus/align.cpp:10
 msgid "Distribute/Align"
 msgstr "Banatu/Lerrokatu"
 
-#: scribus/align.cpp:10 scribus/align.cpp:44 scribus/align.cpp:92
 msgid "Align"
 msgstr "Lerrokatu"
 
-#: scribus/align.cpp:19 scribus/pdfopts.cpp:359
 msgid "Horizontal"
 msgstr "Horizontala"
 
-#: scribus/align.cpp:29 scribus/align.cpp:77
 msgid "between:"
 msgstr "hauen artean:"
 
-#: scribus/align.cpp:34
 msgid "Left Sides"
 msgstr "Ezkerreko aldeak"
 
-#: scribus/align.cpp:35 scribus/align.cpp:83
 msgid "Middles"
 msgstr "Erdikoak"
 
-#: scribus/align.cpp:36
 msgid "Right Sides"
 msgstr "Eskuineko aldeak"
 
-#: scribus/align.cpp:40 scribus/align.cpp:88
 msgid "Don't change"
 msgstr "Ez aldatu"
 
-#: scribus/align.cpp:47 scribus/align.cpp:95
 msgid "Displacement"
 msgstr "Desplazamendua"
 
-#: scribus/align.cpp:60 scribus/align.cpp:128
 msgid "Distribute evenly"
 msgstr "Banatu uniformeki"
 
-#: scribus/align.cpp:67 scribus/pdfopts.cpp:360
 msgid "Vertical"
 msgstr "Bertikala"
 
-#: scribus/align.cpp:82
 msgid "Top Sides"
 msgstr "Goikoak"
 
-#: scribus/align.cpp:84
 msgid "Bottom Sides"
 msgstr "Behekoak"
 
-#: scribus/align.cpp:104 scribus/align.cpp:105 scribus/libprefs/prefs.cpp:91
-#: scribus/libprefs/prefs.cpp:988 scribus/libprefs/prefs.cpp:1082
-#: scribus/modify.cpp:183 scribus/modify.cpp:195 scribus/modify.cpp:570
 msgid " pts"
 msgstr " pts"
 
-#: scribus/align.cpp:108 scribus/align.cpp:109 scribus/frameedit.cpp:229
-#: scribus/frameedit.cpp:230 scribus/guidemanager.cpp:154
-#: scribus/libprefs/prefs.cpp:2024 scribus/libprefs/prefs.cpp:2025
-#: scribus/libprefs/prefs.cpp:2026 scribus/libprefs/prefs.cpp:2027
-#: scribus/libprefs/prefs.cpp:2028 scribus/libprefs/prefs.cpp:2029
-#: scribus/libprefs/prefs.cpp:2030 scribus/libprefs/prefs.cpp:2031
-#: scribus/libprefs/prefs.cpp:2032 scribus/mdup.cpp:48 scribus/mdup.cpp:49
-#: scribus/modify.cpp:924 scribus/modify.cpp:925 scribus/modify.cpp:926
-#: scribus/modify.cpp:927 scribus/modify.cpp:930 scribus/modify.cpp:931
-#: scribus/modify.cpp:934 scribus/pdfopts.cpp:650
 msgid " mm"
 msgstr " mm"
 
-#: scribus/align.cpp:112 scribus/align.cpp:113 scribus/frameedit.cpp:233
-#: scribus/frameedit.cpp:234 scribus/guidemanager.cpp:157
-#: scribus/libprefs/prefs.cpp:2036 scribus/libprefs/prefs.cpp:2037
-#: scribus/libprefs/prefs.cpp:2038 scribus/libprefs/prefs.cpp:2039
-#: scribus/libprefs/prefs.cpp:2040 scribus/libprefs/prefs.cpp:2041
-#: scribus/libprefs/prefs.cpp:2042 scribus/libprefs/prefs.cpp:2043
-#: scribus/libprefs/prefs.cpp:2044 scribus/mdup.cpp:52 scribus/mdup.cpp:53
-#: scribus/modify.cpp:937 scribus/modify.cpp:938 scribus/modify.cpp:939
-#: scribus/modify.cpp:940 scribus/modify.cpp:943 scribus/modify.cpp:944
-#: scribus/modify.cpp:947 scribus/pdfopts.cpp:653
 msgid " in"
 msgstr " in"
 
-#: scribus/align.cpp:116 scribus/align.cpp:117 scribus/frameedit.cpp:237
-#: scribus/frameedit.cpp:238 scribus/guidemanager.cpp:160
-#: scribus/libprefs/prefs.cpp:2048 scribus/libprefs/prefs.cpp:2049
-#: scribus/libprefs/prefs.cpp:2050 scribus/libprefs/prefs.cpp:2051
-#: scribus/libprefs/prefs.cpp:2052 scribus/libprefs/prefs.cpp:2053
-#: scribus/libprefs/prefs.cpp:2054 scribus/libprefs/prefs.cpp:2055
-#: scribus/libprefs/prefs.cpp:2056 scribus/mdup.cpp:56 scribus/mdup.cpp:57
-#: scribus/modify.cpp:950 scribus/modify.cpp:951 scribus/modify.cpp:952
-#: scribus/modify.cpp:953 scribus/modify.cpp:956 scribus/modify.cpp:957
-#: scribus/modify.cpp:960 scribus/pdfopts.cpp:656
 msgid " p"
 msgstr " p"
 
-#: scribus/align.cpp:141 scribus/annot.cpp:1043 scribus/annota.cpp:137
-#: scribus/applytemplate.cpp:31 scribus/buttonicon.cpp:84
-#: scribus/cmsprefs.cpp:179 scribus/cmykfw.cpp:119 scribus/cupsoptions.cpp:176
-#: scribus/dcolor.cpp:66 scribus/delpages.cpp:52 scribus/docinfo.cpp:63
-#: scribus/druck.cpp:60 scribus/druck.cpp:385 scribus/edit1format.cpp:211
-#: scribus/edit1format.cpp:243 scribus/edit1format.cpp:257
-#: scribus/fontprefs.cpp:176 scribus/guidemanager.cpp:93
-#: scribus/hysettings.cpp:57 scribus/inspage.cpp:98 scribus/keymanager.cpp:91
-#: scribus/keymanager.cpp:162 scribus/libprefs/prefs.cpp:1559
-#: scribus/mdup.cpp:74 scribus/missing.cpp:115 scribus/modify.cpp:623
-#: scribus/modify.cpp:985 scribus/movepage.cpp:75 scribus/multiline.cpp:125
-#: scribus/multiline.cpp:318 scribus/newfile.cpp:266 scribus/newtemp.cpp:50
-#: scribus/pdfopts.cpp:714 scribus/picstatus.cpp:106 scribus/picstatus.cpp:143
-#: scribus/picstatus.cpp:175 scribus/picstatus.cpp:221
-#: scribus/picstatus.cpp:230 scribus/picstatus.cpp:256
-#: scribus/picstatus.cpp:265 scribus/polyprops.cpp:112 scribus/query.cpp:46
-#: scribus/reformdoc.cpp:94 scribus/scribus.cpp:2522 scribus/scribus.cpp:2558
-#: scribus/scribus.cpp:2787 scribus/scribus.cpp:5257 scribus/scribus.cpp:5377
-#: scribus/scribus.cpp:6531 scribus/selfield.cpp:85
 msgid "OK"
 msgstr "Ados"
 
-#: scribus/align.cpp:147 scribus/modify.cpp:630
 msgid "Apply"
 msgstr "Aplikatu"
 
-#: scribus/align.cpp:152 scribus/annot.cpp:1047 scribus/annota.cpp:141
-#: scribus/applytemplate.cpp:37 scribus/bookmwin.cpp:197
-#: scribus/buttonicon.cpp:88 scribus/cmsprefs.cpp:186 scribus/cmykfw.cpp:123
-#: scribus/colorm.cpp:70 scribus/cupsoptions.cpp:181 scribus/dcolor.cpp:71
-#: scribus/delpages.cpp:58 scribus/docinfo.cpp:69 scribus/druck.cpp:65
-#: scribus/druck.cpp:389 scribus/edit1format.cpp:216
-#: scribus/editformats.cpp:52 scribus/fontprefs.cpp:179
-#: scribus/guidemanager.cpp:99 scribus/hyask.cpp:64 scribus/hysettings.cpp:64
-#: scribus/inspage.cpp:104 scribus/keymanager.cpp:97
-#: scribus/libprefs/prefs.cpp:1565 scribus/lineformats.cpp:52
-#: scribus/mdup.cpp:80 scribus/mergedoc.cpp:65 scribus/missing.cpp:111
-#: scribus/modify.cpp:636 scribus/movepage.cpp:81 scribus/multiline.cpp:131
-#: scribus/newfile.cpp:272 scribus/newtemp.cpp:56 scribus/page.cpp:309
-#: scribus/pdfopts.cpp:721 scribus/picsearch.cpp:64 scribus/polyprops.cpp:118
-#: scribus/query.cpp:52 scribus/reformdoc.cpp:100 scribus/scribuswin.cpp:46
-#: scribus/selfield.cpp:89
 msgid "Cancel"
 msgstr "Utzi"
 
-#: scribus/annot.cpp:26 scribus/page.cpp:1948
 msgid "Field Properties"
 msgstr "Eremu-propietateak"
 
-#: scribus/annot.cpp:56 scribus/annot.cpp:493 scribus/annota.cpp:49
 msgid "Type:"
 msgstr "Mota:"
 
-#: scribus/annot.cpp:60 scribus/werktoolb.cpp:184
 msgid "Button"
 msgstr "Botoia"
 
-#: scribus/annot.cpp:61 scribus/werktoolb.cpp:185
 msgid "Text Field"
 msgstr "Testu-eremua"
 
-#: scribus/annot.cpp:62 scribus/werktoolb.cpp:186
 msgid "Check Box"
 msgstr "Kontrol-laukia"
 
-#: scribus/annot.cpp:63 scribus/werktoolb.cpp:187
 msgid "Combo Box"
 msgstr "Konbinazio-koadroa"
 
-#: scribus/annot.cpp:64 scribus/werktoolb.cpp:188
 msgid "List Box"
 msgstr "Zerrenda-koadroa"
 
-#: scribus/annot.cpp:75 scribus/modify.cpp:151
 msgid "Properties"
 msgstr "Propietateak"
 
-#: scribus/annot.cpp:84 scribus/cmykfw.cpp:42 scribus/edit1format.cpp:17
-#: scribus/modify.cpp:606
 msgid "Name:"
 msgstr "Izena:"
 
-#: scribus/annot.cpp:96
 msgid "Tool-Tip:"
 msgstr "Argibidea:"
 
-#: scribus/annot.cpp:106 scribus/annot.cpp:240 scribus/annota.cpp:53
-#: scribus/mpalette.cpp:49 scribus/tree.cpp:110 scribus/werktoolb.cpp:195
 msgid "Text"
 msgstr "Testua"
 
-#: scribus/annot.cpp:113
 msgid "Font for use with PDF-1.3:"
 msgstr "PDF 1.3rekin erabiltzeko letra-tipoa:"
 
-#: scribus/annot.cpp:116
-msgid "Courier"
-msgstr "Courier"
-
-#: scribus/annot.cpp:117
-msgid "Courier Bold"
-msgstr "Courier lodia"
-
-#: scribus/annot.cpp:118
-msgid "Courier Italic"
-msgstr "Courier etzana"
-
-#: scribus/annot.cpp:119
-msgid "Courier Bold Italic"
-msgstr "Courier lodi etzana"
-
-#: scribus/annot.cpp:120
-msgid "Helvetica"
-msgstr "Helvetica"
-
-#: scribus/annot.cpp:121
-msgid "Helvetica Bold"
-msgstr "Helvetica lodia"
-
-#: scribus/annot.cpp:122
-msgid "Helvetica Italic"
-msgstr "Helvetica etzana"
-
-#: scribus/annot.cpp:123
-msgid "Helvetica Bold Italic"
-msgstr "Helvetica lodi etzana"
-
-#: scribus/annot.cpp:124
-msgid "Times"
-msgstr "Times"
-
-#: scribus/annot.cpp:125
-msgid "Times Bold"
-msgstr "Times lodia"
-
-#: scribus/annot.cpp:126
-msgid "Times Italic"
-msgstr "Times etzana"
-
-#: scribus/annot.cpp:127
-msgid "Times Bold Italic"
-msgstr "Times lodi etzana"
-
-#: scribus/annot.cpp:128
-msgid "Zapf Dingbats"
-msgstr "Zapf Dingbats"
-
-#: scribus/annot.cpp:129
-msgid "Symbol"
-msgstr "Symbol"
-
-#: scribus/annot.cpp:137
 msgid "Border"
 msgstr "Ertza"
 
-#: scribus/annot.cpp:144
 msgid "Color:"
 msgstr "Kolorea:"
 
-#: scribus/annot.cpp:149 scribus/annot.cpp:168 scribus/annot.cpp:378
-#: scribus/annot.cpp:497 scribus/annot.cpp:1736 scribus/annot.cpp:1979
-#: scribus/annot.cpp:2022 scribus/cpalette.cpp:201
-#: scribus/libprefs/prefs.cpp:911 scribus/libprefs/prefs.cpp:936
-#: scribus/libprefs/prefs.cpp:1225 scribus/modify.cpp:248
-#: scribus/modify.cpp:392 scribus/modify.cpp:501 scribus/modify.cpp:524
-#: scribus/modify.cpp:721 scribus/modify.cpp:743 scribus/modify.cpp:805
-#: scribus/modify.cpp:821 scribus/page.cpp:5154 scribus/page.cpp:5187
-#: scribus/scribus.cpp:1664 scribus/scribus.cpp:1819 scribus/scribus.cpp:4129
-#: scribus/scribus.cpp:4317 scribus/scribus.cpp:4792 scribus/scribus.cpp:4795
-#: scribus/scribus.cpp:4798 scribus/scribus.cpp:4822 scribus/scribus.cpp:4848
-#: scribus/scribus.cpp:4905 scribus/scribus.cpp:4908 scribus/scribus.cpp:4911
-#: scribus/scribus.cpp:4935 scribus/scribus.cpp:4961 scribus/scribus.cpp:6018
 msgid "None"
 msgstr "Bat ere ez"
 
-#: scribus/annot.cpp:165 scribus/libprefs/prefs.cpp:270 scribus/modify.cpp:98
-#: scribus/mpalette.cpp:87 scribus/mpalette.cpp:847 scribus/mpalette.cpp:885
-#: scribus/mpalette.cpp:930 scribus/mpalette.cpp:1608 scribus/newfile.cpp:92
 msgid "Width:"
 msgstr "Zabalera:"
 
-#: scribus/annot.cpp:169
 msgid "Thin"
 msgstr "Mehea"
 
-#: scribus/annot.cpp:170 scribus/annot.cpp:275 scribus/applytemplate.cpp:22
-#: scribus/cpalette.cpp:80 scribus/inspage.cpp:65 scribus/inspage.cpp:87
-#: scribus/muster.cpp:224 scribus/muster.cpp:241 scribus/muster.cpp:251
-#: scribus/scribus.cpp:708 scribus/scribus.cpp:5612 scribus/seiten.cpp:591
-#: scribus/seiten.cpp:726 scribus/seiten.cpp:733
 msgid "Normal"
 msgstr "Normala"
 
-#: scribus/annot.cpp:171
 msgid "Wide"
 msgstr "Zabala"
 
-#: scribus/annot.cpp:176
 msgid "Style:"
 msgstr "Estiloa:"
 
-#: scribus/annot.cpp:179
 msgid "Solid"
 msgstr "Lisoa"
 
-#: scribus/annot.cpp:180
 msgid "Dashed"
 msgstr "Marratxoduna"
 
-#: scribus/annot.cpp:181 scribus/mpalette.cpp:621 scribus/scribus.cpp:712
 msgid "Underline"
 msgstr "Azpimarra"
 
-#: scribus/annot.cpp:182
 msgid "Beveled"
 msgstr "Alakatua"
 
-#: scribus/annot.cpp:183
 msgid "Inset"
 msgstr "Barnekoa"
 
-#: scribus/annot.cpp:190 scribus/libprefs/prefs.cpp:677 scribus/modify.cpp:39
 msgid "Other"
 msgstr "Bestelakoak"
 
-#: scribus/annot.cpp:197
 msgid "Read Only"
 msgstr "Irakurtzeko soilik"
 
-#: scribus/annot.cpp:203
 msgid "Required"
 msgstr "Beharrezkoa"
 
-#: scribus/annot.cpp:209
 msgid "Don't Export Value"
 msgstr "Ez esportatu balioa"
 
-#: scribus/annot.cpp:215
 msgid "Visibility:"
 msgstr "Ikusgaitasuna:"
 
-#: scribus/annot.cpp:218
 msgid "Visible"
 msgstr "Ikusgai"
 
-#: scribus/annot.cpp:219
 msgid "Hidden"
 msgstr "Ezkutatuta"
 
-#: scribus/annot.cpp:220
 msgid "No Print"
 msgstr "Inprimatzerik ez"
 
-#: scribus/annot.cpp:221
 msgid "No View"
 msgstr "Ikuspegirik ez"
 
-#: scribus/annot.cpp:227
 msgid "Appearance"
 msgstr "Itxura"
 
-#: scribus/annot.cpp:247
 msgid "Text for Button Down"
 msgstr "Behera joateko botoiaren testua"
 
-#: scribus/annot.cpp:250
 msgid "Text for Roll Over"
 msgstr "Buelta emateko testua"
 
-#: scribus/annot.cpp:261
 msgid "Icons"
 msgstr "Ikonoak"
 
-#: scribus/annot.cpp:268
 msgid "Use Icons"
 msgstr "Erabili ikonoak"
 
-#: scribus/annot.cpp:285 scribus/annot.cpp:301 scribus/annot.cpp:317
-#: scribus/fontprefs.cpp:157
 msgid "Remove"
 msgstr "Kendu"
 
-#: scribus/annot.cpp:291
 msgid "Pressed"
 msgstr "Sakatuta"
 
-#: scribus/annot.cpp:307
 msgid "Roll Over"
 msgstr "Eman buelta"
 
-#: scribus/annot.cpp:324
 msgid "Icon Placement..."
 msgstr "Ikonoaren kokalekua..."
 
-#: scribus/annot.cpp:371
 msgid "Highlight"
 msgstr "Nabarmendu"
 
-#: scribus/annot.cpp:379 scribus/scribus.cpp:1896 scribus/scribus.cpp:6576
 msgid "Invert"
 msgstr "Alderantzikatu"
 
-#: scribus/annot.cpp:380
 msgid "Outlined"
 msgstr "Kanpoko ertza"
 
-#: scribus/annot.cpp:381
 msgid "Push"
 msgstr "Bultza"
 
-#: scribus/annot.cpp:396
 msgid "Multi-Line"
 msgstr "Marra anizkoitza"
 
-#: scribus/annot.cpp:400
 msgid "Password"
 msgstr "Pasahitza"
 
-#: scribus/annot.cpp:405
 msgid "Limit of"
 msgstr "Muga:"
 
-#: scribus/annot.cpp:424
 msgid "Characters"
 msgstr "Karaktere"
 
-#: scribus/annot.cpp:430
 msgid "Do Not Scroll"
 msgstr "Ez korritu"
 
-#: scribus/annot.cpp:434
 msgid "Do Not Spell Check"
 msgstr "Ez egiaztatu ortografia"
 
-#: scribus/annot.cpp:448
 msgid "Check Style:"
 msgstr "Egiaztatu estiloa:"
 
-#: scribus/annot.cpp:451
 msgid "Check"
 msgstr "Egiaztatu"
 
-#: scribus/annot.cpp:452
 msgid "Cross"
 msgstr "Gurutzea"
 
-#: scribus/annot.cpp:453
 msgid "Diamond"
 msgstr "Diamantea"
 
-#: scribus/annot.cpp:454
 msgid "Circle"
 msgstr "Zirkulua"
 
-#: scribus/annot.cpp:455
 msgid "Star"
 msgstr "Izarra"
 
-#: scribus/annot.cpp:456
 msgid "Square"
 msgstr "Karratua"
 
-#: scribus/annot.cpp:465
 msgid "Default is Checked"
 msgstr "Lehenetsia egiaztatuta dago"
 
-#: scribus/annot.cpp:478
 msgid "Editable"
 msgstr "Editagarria"
 
-#: scribus/annot.cpp:485 scribus/druck.cpp:307 scribus/newfile.cpp:199
 msgid "Options"
 msgstr "Aukerak"
 
-#: scribus/annot.cpp:498 scribus/annot.cpp:1980 scribus/annot.cpp:2023
 msgid "Java Script"
 msgstr "Java Script"
 
-#: scribus/annot.cpp:499 scribus/annot.cpp:1981
 msgid "Go To"
 msgstr "Joan"
 
-#: scribus/annot.cpp:500 scribus/annot.cpp:1982
 msgid "Submit Form"
 msgstr "Bidali inprimakia"
 
-#: scribus/annot.cpp:501 scribus/annot.cpp:1983
 msgid "Reset Form"
 msgstr "Berrezarri forma"
 
-#: scribus/annot.cpp:502 scribus/annot.cpp:1984
 msgid "Import Data"
 msgstr "Inportatu datuak"
 
-#: scribus/annot.cpp:528
 msgid "Event:"
 msgstr "Gertaera:"
 
-#: scribus/annot.cpp:531 scribus/annot.cpp:1961
 msgid "Mouse Up"
 msgstr "Sagua gora"
 
-#: scribus/annot.cpp:532 scribus/annot.cpp:1962
 msgid "Mouse Down"
 msgstr "Sagua behera"
 
-#: scribus/annot.cpp:533 scribus/annot.cpp:1963
 msgid "Mouse Enter"
 msgstr "Sagua sartu"
 
-#: scribus/annot.cpp:534 scribus/annot.cpp:1964
 msgid "Mouse Exit"
 msgstr "Sagua irten"
 
-#: scribus/annot.cpp:535 scribus/annot.cpp:1965
 msgid "On Focus"
 msgstr "Enfokatuta:"
 
-#: scribus/annot.cpp:536 scribus/annot.cpp:1966
 msgid "On Blur"
 msgstr "Lausotuta"
 
-#: scribus/annot.cpp:543
 msgid "Script:"
 msgstr "Script-a:"
 
-#: scribus/annot.cpp:556 scribus/annot.cpp:862 scribus/annot.cpp:883
-#: scribus/annot.cpp:955 scribus/annot.cpp:1020 scribus/javadocs.cpp:28
 msgid "Edit..."
 msgstr "Editatu..."
 
-#: scribus/annot.cpp:566
 msgid "Submit to URL:"
 msgstr "Bidali URL honetara:"
 
-#: scribus/annot.cpp:574
 msgid "Submit Data as HTML"
 msgstr "Bidali datuak HTML gisa"
 
-#: scribus/annot.cpp:585
 msgid "Import Data from:"
 msgstr "Inportatu datuak hemendik:"
 
-#: scribus/annot.cpp:596 scribus/annota.cpp:66
 msgid "Destination"
 msgstr "Helburua"
 
-#: scribus/annot.cpp:605
 msgid "To File:"
 msgstr "Fitxategira:"
 
-#: scribus/annot.cpp:612 scribus/annota.cpp:80 scribus/druck.cpp:181
-#: scribus/fontprefs.cpp:151 scribus/libprefs/prefs.cpp:197
-#: scribus/mergedoc.cpp:35 scribus/pdfopts.cpp:44
 msgid "Change..."
 msgstr "Aldatu..."
 
-#: scribus/annot.cpp:615 scribus/annota.cpp:89
-#: scribus/plugins/printpreview/preview.cpp:67
 msgid "Page:"
 msgstr "Orrialdea:"
 
-#: scribus/annot.cpp:634 scribus/annota.cpp:108 scribus/frameedit.cpp:160
-#: scribus/guidemanager.cpp:65 scribus/modify.cpp:92 scribus/mpalette.cpp:81
-#: scribus/mpalette.cpp:846 scribus/mpalette.cpp:884 scribus/mpalette.cpp:929
-#: scribus/mpalette.cpp:1607 scribus/scribus.cpp:732
 msgid "X-Pos:"
 msgstr "X posizioa:"
 
-#: scribus/annot.cpp:637 scribus/annot.cpp:646 scribus/annota.cpp:111
-#: scribus/annota.cpp:120 scribus/edit1format.cpp:51
-#: scribus/edit1format.cpp:84 scribus/edit1format.cpp:92
-#: scribus/edit1format.cpp:162 scribus/edit1format.cpp:171
-#: scribus/edit1format.cpp:180 scribus/frameedit.cpp:225
-#: scribus/frameedit.cpp:226 scribus/guidemanager.cpp:151
-#: scribus/libprefs/prefs.cpp:2012 scribus/libprefs/prefs.cpp:2013
-#: scribus/libprefs/prefs.cpp:2014 scribus/libprefs/prefs.cpp:2015
-#: scribus/libprefs/prefs.cpp:2016 scribus/libprefs/prefs.cpp:2017
-#: scribus/libprefs/prefs.cpp:2018 scribus/libprefs/prefs.cpp:2019
-#: scribus/libprefs/prefs.cpp:2020 scribus/mdup.cpp:44 scribus/mdup.cpp:45
-#: scribus/modify.cpp:108 scribus/modify.cpp:116 scribus/modify.cpp:124
-#: scribus/modify.cpp:133 scribus/modify.cpp:239 scribus/modify.cpp:274
-#: scribus/modify.cpp:318 scribus/modify.cpp:326 scribus/modify.cpp:417
-#: scribus/modify.cpp:597 scribus/modify.cpp:911 scribus/modify.cpp:912
-#: scribus/modify.cpp:913 scribus/modify.cpp:914 scribus/modify.cpp:917
-#: scribus/modify.cpp:918 scribus/modify.cpp:921 scribus/mpalette.cpp:93
-#: scribus/mpalette.cpp:98 scribus/mpalette.cpp:103 scribus/mpalette.cpp:106
-#: scribus/mpalette.cpp:272 scribus/mpalette.cpp:300 scribus/mpalette.cpp:305
-#: scribus/mpalette.cpp:310 scribus/mpalette.cpp:315 scribus/mpalette.cpp:341
-#: scribus/mpalette.cpp:458 scribus/mpalette.cpp:462 scribus/mpalette.cpp:503
-#: scribus/mpalette.cpp:506 scribus/mpalette.cpp:584 scribus/multiline.cpp:96
-#: scribus/pdfopts.cpp:647
 msgid " pt"
 msgstr " pt"
 
-#: scribus/annot.cpp:642 scribus/annota.cpp:116 scribus/frameedit.cpp:168
-#: scribus/guidemanager.cpp:33 scribus/modify.cpp:95 scribus/mpalette.cpp:84
-#: scribus/mpalette.cpp:848 scribus/mpalette.cpp:886 scribus/mpalette.cpp:931
-#: scribus/mpalette.cpp:1609 scribus/scribus.cpp:738
 msgid "Y-Pos:"
 msgstr "Y posizioa:"
 
-#: scribus/annot.cpp:650 scribus/keymanager.cpp:39
 msgid "Action"
 msgstr "Ekintza"
 
-#: scribus/annot.cpp:671
 msgid "Field is formatted as:"
 msgstr "Eremuak formatu hau du:"
 
-#: scribus/annot.cpp:674
 msgid "Plain"
 msgstr "Soila"
 
-#: scribus/annot.cpp:675
 msgid "Number"
 msgstr "Zenbakia"
 
-#: scribus/annot.cpp:676
 msgid "Percentage"
 msgstr "Ehunekoa"
 
-#: scribus/annot.cpp:677
 msgid "Date"
 msgstr "Data"
 
-#: scribus/annot.cpp:678
 msgid "Time"
 msgstr "Ordua"
 
-#: scribus/annot.cpp:679 scribus/libprefs/prefs.cpp:248 scribus/newfile.cpp:76
 msgid "Custom"
 msgstr "Pertsonalizatua"
 
-#: scribus/annot.cpp:694
 msgid "Number Format"
 msgstr "Zenbaki-formatua"
 
-#: scribus/annot.cpp:702 scribus/annot.cpp:759
 msgid "Decimals:"
 msgstr "Hamartarrak:"
 
-#: scribus/annot.cpp:714
 msgid "Use Currency Symbol"
 msgstr "Erabili moneta-ikurra"
 
-#: scribus/annot.cpp:723
 msgid "Prepend Currency Symbol"
 msgstr "Erantsi moneta-ikurra"
 
-#: scribus/annot.cpp:727 scribus/annot.cpp:770
 msgid "Formatting"
 msgstr "Formatua"
 
-#: scribus/annot.cpp:751
 msgid "Percent Format"
 msgstr "Ehuneko-formatua"
 
-#: scribus/annot.cpp:794
 msgid "Date Format"
 msgstr "Data-formatua"
 
-#: scribus/annot.cpp:827
 msgid "Time Format"
 msgstr "Ordu-formatua"
 
-#: scribus/annot.cpp:850
 msgid "Custom Scripts"
 msgstr "Script pertsonalizatuak"
 
-#: scribus/annot.cpp:859
 msgid "Format:"
 msgstr "Formatua:"
 
-#: scribus/annot.cpp:880
 msgid "Keystroke:"
 msgstr "Tekla-sakatzea:"
 
-#: scribus/annot.cpp:903
 msgid "Format"
 msgstr "Formatua"
 
-#: scribus/annot.cpp:918
 msgid "Value is not validated"
 msgstr "Balioa balidatu gabe dago"
 
-#: scribus/annot.cpp:925
 msgid "Value must be greater than or equal to:"
 msgstr "Balioak honen berdina edo handiagoa izan behar du:"
 
-#: scribus/annot.cpp:929
 msgid "and less or equal to:"
 msgstr "edo honen berdina edo txikiagoa:"
 
-#: scribus/annot.cpp:942
 msgid "Custom validate script:"
 msgstr "Script-aren balidazio pertsonalizatua:"
 
-#: scribus/annot.cpp:960
 msgid "Validate"
 msgstr "Balidatu"
 
-#: scribus/annot.cpp:975
 msgid "Value is not calculated"
 msgstr "Balioa kalkulatu gabe dago"
 
-#: scribus/annot.cpp:982
 msgid "Value is the"
 msgstr "Balioa hau da:"
 
-#: scribus/annot.cpp:986
 msgid "sum"
 msgstr "batuketa"
 
-#: scribus/annot.cpp:987
 msgid "product"
 msgstr "produktua"
 
-#: scribus/annot.cpp:988
 msgid "average"
 msgstr "batez bestekoa"
 
-#: scribus/annot.cpp:989
 msgid "minimum"
 msgstr "gutxienekoa"
 
-#: scribus/annot.cpp:990
 msgid "maximum"
 msgstr "gehienezkoa"
 
-#: scribus/annot.cpp:994
 msgid "of the following fields:"
 msgstr "eremu hauena:"
 
-#: scribus/annot.cpp:1002
 msgid "Pick..."
 msgstr "Aukeratu..."
 
-#: scribus/annot.cpp:1007
 msgid "Custom calculation script:"
 msgstr "Script-aren kalkulu pertsonalizatua:"
 
-#: scribus/annot.cpp:1024
 msgid "Calculate"
 msgstr "Kalkulatu"
 
-#: scribus/annot.cpp:1099 scribus/annot.cpp:1100
 msgid "Flag is ignored for PDF-1.3"
 msgstr "PDF 1.3rako bandera ez da kontuan hartzen"
 
-#: scribus/annot.cpp:1101
-msgid "Enter a comma separated list of Fields here"
+#, fuzzy
+msgid "Enter a comma separated list of fields here"
 msgstr "Sartu komaz bereizitako eremu-zerrenda hemen"
 
-#: scribus/annot.cpp:1102
 msgid "You need at least the Icon for Normal to use Icons for Buttons"
 msgstr "Gutxienez normalaren ikonoa behar duzu botoien ikonoak erabiltzeko"
 
-#: scribus/annot.cpp:1200 scribus/annot.cpp:1231 scribus/annot.cpp:1250
-#: scribus/annot.cpp:2181 scribus/annota.cpp:276 scribus/colorm.cpp:94
-#: scribus/colorm.cpp:96 scribus/mergedoc.cpp:89 scribus/mergedoc.cpp:91
-#: scribus/scribus.cpp:2141 scribus/scribus.cpp:2143 scribus/scribus.cpp:2472
-#: scribus/scribus.cpp:2490
 msgid "Open"
 msgstr "Ireki"
 
-#: scribus/annot.cpp:1200 scribus/annot.cpp:1231 scribus/annot.cpp:1250
 msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
-msgstr "Irudiak (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Fitxategi guztiak (*)"
+msgstr ""
+"Irudiak (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Fitxategi guztiak (*)"
 
-#: scribus/annot.cpp:1358
 msgid "Example:"
 msgstr "Adibidea:"
 
-#: scribus/annot.cpp:2014
 msgid "Selection Change"
 msgstr "Hautapen-aldaketa"
 
-#: scribus/annot.cpp:2181 scribus/annota.cpp:276
 msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr "Dokumentuak (*.pdf);; Fitxategi guztiak (*)"
 
-#: scribus/annota.cpp:19 scribus/page.cpp:1946
 msgid "Annotation Properties"
 msgstr "Oharpen-propietateak"
 
-#: scribus/annota.cpp:54 scribus/werktoolb.cpp:196
 msgid "Link"
 msgstr "Esteka"
 
-#: scribus/annota.cpp:55
 msgid "External Link"
 msgstr "Kanpoko esteka"
 
-#: scribus/applytemplate.cpp:8
+#, fuzzy
+msgid "External Web-Link"
+msgstr "Kanpoko esteka"
+
 msgid "Apply Template"
 msgstr "Aplikatu txantiloia"
 
-#: scribus/applytemplate.cpp:14
-msgid "Template for this Page:"
-msgstr "Orrialde honetarako txantiloia:"
+msgid "Template:"
+msgstr "Txantiloiak:"
 
-#: scribus/bookmwin.cpp:108 scribus/bookpalette.cpp:27
+# New in Version 0.8
+#, fuzzy
+msgid "Apply to Current Page"
+msgstr "Aplikatu efektua orri guztietan"
+
+# New in Version 0.8
+#, fuzzy
+msgid "Apply from Page:"
+msgstr "Aplikatu efektua orri guztietan"
+
+msgid "to:"
+msgstr "hona:"
+
 msgid "Bookmarks"
 msgstr "Laster-markak"
 
-#: scribus/bookmwin.cpp:195
 msgid "Move Bookmark"
 msgstr "Lekuz aldatu laster-marka"
 
-#: scribus/bookmwin.cpp:196
 msgid "Insert Bookmark"
 msgstr "Txertatu laster-marka"
 
-#: scribus/buttonicon.cpp:9
 msgid "Icon Placement"
 msgstr "Ikonoaren kokalekua"
 
-#: scribus/buttonicon.cpp:14
 msgid "Layout:"
 msgstr "Diseinua:"
 
-#: scribus/buttonicon.cpp:17
 msgid "Caption only"
 msgstr "Epigrafea bakarrik"
 
-#: scribus/buttonicon.cpp:18
 msgid "Icon only"
 msgstr "Ikonoa bakarrik"
 
-#: scribus/buttonicon.cpp:19
 msgid "Caption below Icon"
 msgstr "Ikonoaren azpiko epigrafea"
 
-#: scribus/buttonicon.cpp:20
 msgid "Caption above Icon"
 msgstr "Ikonoaren gaineko epigrafea"
 
-#: scribus/buttonicon.cpp:21
 msgid "Caption right to Icon"
 msgstr "Ikonoaren eskuineko epigrafea"
 
-#: scribus/buttonicon.cpp:22
 msgid "Caption left to Icon"
 msgstr "Ikonoaren ezkerreko epigrafea"
 
-#: scribus/buttonicon.cpp:23
 msgid "Caption overlays Icon"
 msgstr "Epigrafeak ikonoa gainjartzen du"
 
-#: scribus/buttonicon.cpp:27
 msgid "Scale:"
 msgstr "Eskalatu:"
 
-#: scribus/buttonicon.cpp:30
 msgid "Always"
 msgstr "Beti"
 
-#: scribus/buttonicon.cpp:31
 msgid "When Icon is too small"
 msgstr "Ikonoa txikiegia denean"
 
-#: scribus/buttonicon.cpp:32
 msgid "When Icon is too big"
 msgstr "Ikonoa handiegia denean"
 
-#: scribus/buttonicon.cpp:33
 msgid "Never"
 msgstr "Inoiz ez"
 
-#: scribus/buttonicon.cpp:37
 msgid "Scale How:"
 msgstr "Eskalatu horrela:"
 
-#: scribus/buttonicon.cpp:40 scribus/mpalette.cpp:549
 msgid "Proportional"
 msgstr "proportzionalki"
 
-#: scribus/buttonicon.cpp:41
 msgid "Non Proportional"
 msgstr "ez-proportzionalki"
 
-#: scribus/buttonicon.cpp:60
 msgid "Icon"
 msgstr "Ikonoa"
 
-#: scribus/buttonicon.cpp:91
 msgid "Reset"
 msgstr "Berrezarri"
 
-#: scribus/cmsprefs.cpp:17
 msgid "Color Management Settings"
 msgstr "Koloreak kudeatzeko ezarpenak"
 
-#: scribus/cmsprefs.cpp:26
 msgid "Activate Color Management"
 msgstr "Aktibatu kolore-kudeaketa"
 
-#: scribus/cmsprefs.cpp:33
 msgid "System Profiles"
 msgstr "Sistemaren profilak"
 
-#: scribus/cmsprefs.cpp:43
 msgid "Pictures:"
 msgstr "Irudiak:"
 
-#: scribus/cmsprefs.cpp:47 scribus/pdfopts.cpp:468
 msgid "Solid Colors:"
 msgstr "Kolore lisoak:"
 
-#: scribus/cmsprefs.cpp:51 scribus/cmsprefs.cpp:127
 msgid "Monitor:"
 msgstr "Monitorea:"
 
-#: scribus/cmsprefs.cpp:55 scribus/cmsprefs.cpp:131
 msgid "Printer:"
 msgstr "Inprimagailua:"
 
-#: scribus/cmsprefs.cpp:117
 msgid "Rendering Intents"
 msgstr "Errendatze-modua"
 
-#: scribus/cmsprefs.cpp:135 scribus/cmsprefs.cpp:146 scribus/modify.cpp:459
-#: scribus/pdfopts.cpp:488 scribus/pdfopts.cpp:520
 msgid "Perceptual"
 msgstr "Pertzepziokoa"
 
-#: scribus/cmsprefs.cpp:136 scribus/cmsprefs.cpp:147 scribus/modify.cpp:460
-#: scribus/pdfopts.cpp:489 scribus/pdfopts.cpp:521
 msgid "Relative Colorimetric"
 msgstr "Koloremetria erlatiboa"
 
-#: scribus/cmsprefs.cpp:137 scribus/cmsprefs.cpp:148 scribus/modify.cpp:461
-#: scribus/pdfopts.cpp:490 scribus/pdfopts.cpp:522
 msgid "Saturation"
 msgstr "Saturazioa"
 
-#: scribus/cmsprefs.cpp:138 scribus/cmsprefs.cpp:149 scribus/modify.cpp:462
-#: scribus/pdfopts.cpp:491 scribus/pdfopts.cpp:523
 msgid "Absolute Colorimetric"
 msgstr "Koloremetria absolutua"
 
-#: scribus/cmsprefs.cpp:159
 msgid "Simulate Printer on the Screen"
 msgstr "Simulatu inprimagailua pantailan"
 
-#: scribus/cmsprefs.cpp:164
 msgid "Mark Colors out of Gamut"
 msgstr "Markatu kolore-gamatik kanpoko koloreak"
 
-#: scribus/cmykfw.cpp:31
+msgid "Use Blackpoint Compensation"
+msgstr ""
+
+msgid "Default color profile for imported images"
+msgstr ""
+
+msgid "Default color profile for solid colors on the page"
+msgstr ""
+
+msgid ""
+"Color profile that you have generated or received from the manufacturer.\n"
+"This profile should be specific to your monitor and not a generic profile (i."
+"e. sRGB)."
+msgstr ""
+
+msgid ""
+"Color profile for your printer model from the manufacturer.\n"
+"This profile should be specific to your printer and not a generic profile (i."
+"e. sRGB)."
+msgstr ""
+
+msgid ""
+"Default rendering intent for your monitor. Unless you know why to change "
+"it,\n"
+"Relative Colorimetric or Perceptual should be chosen."
+msgstr ""
+
+msgid ""
+"Default rendering intent for your printer. Unless you know why to change "
+"it,\n"
+"Relative Colorimetric or Perceptual should be chosen."
+msgstr ""
+
+msgid ""
+"Enable 'soft proofing' of how your document colors will print,\n"
+"based on the chosen printer profile."
+msgstr ""
+
+msgid ""
+"Method of showing colors on the screen which may not print properly.\n"
+"This requires very accurate profiles and serves only as a warning."
+msgstr ""
+
+msgid ""
+"Black Point Compensation is a method of improving contrast in photos.\n"
+"It is recommended that you enable this if you have photos in your document."
+msgstr ""
+
 msgid "Edit Color"
 msgstr "Editatu kolorea"
 
-#: scribus/cmykfw.cpp:54
 msgid "Color Model"
 msgstr "Kolore-eredua"
 
-#: scribus/cmykfw.cpp:59 scribus/cmykfw.cpp:447
 msgid "CMYK"
 msgstr "CMYK"
 
-#: scribus/cmykfw.cpp:60
 msgid "RGB"
 msgstr "RVB"
 
-#: scribus/cmykfw.cpp:61 scribus/cmykfw.cpp:479
-msgid "Websave RGB"
+#, fuzzy
+msgid "Web Safe RGB"
 msgstr "Websave RGB"
 
-#: scribus/cmykfw.cpp:78 scribus/colorm.cpp:51 scribus/cpalette.cpp:407
-#: scribus/editformats.cpp:28 scribus/editor.cpp:20 scribus/lineformats.cpp:28
-#: scribus/muster.cpp:28 scribus/scrap.cpp:131 scribus/scribus.cpp:435
-#: scribus/scribus.cpp:438 scribus/scribus.cpp:4091
 msgid "New"
 msgstr "Berria"
 
-#: scribus/cmykfw.cpp:97
 msgid "Old"
 msgstr "Zaharra"
 
-#: scribus/cmykfw.cpp:153 scribus/cmykfw.cpp:451
+msgid "HSV-Colormap"
+msgstr ""
+
 msgid "C:"
 msgstr "C:"
 
-#: scribus/cmykfw.cpp:187 scribus/cmykfw.cpp:452
-msgid "M:"
-msgstr "M:"
-
-#: scribus/cmykfw.cpp:221 scribus/cmykfw.cpp:453
-msgid "Y:"
-msgstr "Y:"
-
-#: scribus/cmykfw.cpp:255
-msgid "K:"
-msgstr "K:"
-
-#: scribus/cmykfw.cpp:315
-msgid "Dynamic Color Bars"
-msgstr "Kolore-barra dinamikoak"
-
-#: scribus/cmykfw.cpp:316
-msgid "Static Color Bars"
-msgstr "Kolore-barra estatikoak"
-
-#: scribus/cmykfw.cpp:469
-msgid "R:"
-msgstr "G:"
-
-#: scribus/cmykfw.cpp:470
-msgid "G:"
-msgstr "B:"
-
-#: scribus/cmykfw.cpp:471
-msgid "B:"
-msgstr "U:"
-
-#: scribus/colorm.cpp:34 scribus/mpalette.cpp:64
-msgid "Colors"
-msgstr "Koloreak"
-
-#: scribus/colorm.cpp:48
-msgid "Append"
-msgstr "Erantsi"
-
-#: scribus/colorm.cpp:55 scribus/editformats.cpp:32 scribus/editor.cpp:38
-#: scribus/lineformats.cpp:32 scribus/scribus.cpp:660
-msgid "Edit"
-msgstr "Editatu"
-
-#: scribus/colorm.cpp:60 scribus/editformats.cpp:38 scribus/lineformats.cpp:38
-#: scribus/muster.cpp:32 scribus/scribus.cpp:524 scribus/scribus.cpp:525
-msgid "Duplicate"
-msgstr "Bikoiztu"
-
-#: scribus/colorm.cpp:64 scribus/editformats.cpp:43 scribus/fontprefs.cpp:136
-#: scribus/guidemanager.cpp:47 scribus/guidemanager.cpp:79
-#: scribus/javadocs.cpp:36 scribus/lineformats.cpp:43 scribus/muster.cpp:36
-#: scribus/page.cpp:2000 scribus/scrap.cpp:262 scribus/scribus.cpp:528
-#: scribus/scribus.cpp:529
-msgid "Delete"
-msgstr "Ezabatu"
-
-#: scribus/colorm.cpp:67 scribus/editformats.cpp:48 scribus/lineformats.cpp:48
-#: scribus/scrap.cpp:132 scribus/scribus.cpp:444 scribus/scribus.cpp:445
-msgid "Save"
-msgstr "Gorde"
-
-#: scribus/colorm.cpp:94 scribus/mergedoc.cpp:89 scribus/scribus.cpp:2141
-msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);; All Files (*)"
-msgstr "Dokumentuak (*.sla *.sla.gz *.scd *.scd.gz);; Fitxategi guztiak (*)"
-
-#: scribus/colorm.cpp:96 scribus/mergedoc.cpp:91 scribus/scribus.cpp:2143
-#: scribus/scribus.cpp:2541
-msgid "Documents (*.sla *.scd);;All Files (*)"
-msgstr "Dokumentuak (*.sla *.scd);; Fitxategi guztiak (*)"
-
-#: scribus/colorm.cpp:139 scribus/colorm.cpp:162
-msgid "New Color:"
-msgstr "Kolore berria:"
-
-#: scribus/colorm.cpp:139 scribus/colorm.cpp:162
-msgid "New Color"
-msgstr "Kolore berria"
-
-#: scribus/colorm.cpp:140
-msgid "Copy of"
-msgstr "Honen kopia"
-
-#: scribus/cpalette.cpp:53 scribus/scribus.cpp:681 scribus/scribus.cpp:694
-#: scribus/scribus.cpp:4626
-msgid "Other..."
-msgstr "Bestelakoak..."
-
-#: scribus/cpalette.cpp:81
-msgid "Horizontal Gradient"
-msgstr "Gradiente horizontala"
-
-#: scribus/cpalette.cpp:82
-msgid "Vertical Gradient"
-msgstr "Gradiente bertikala"
-
-#: scribus/cpalette.cpp:83
-msgid "Diagonal Gradient"
-msgstr "Gradiente diagonala"
-
-#: scribus/cpalette.cpp:84
-msgid "CrossDiagonal Gradient"
-msgstr "Gradiente diagonal gurutzatua"
-
-#: scribus/cpalette.cpp:85
-msgid "Radial Gradient"
-msgstr "Gradiente biribila"
-
-#: scribus/cpalette.cpp:116
-msgid "Opacity:"
-msgstr "Opakutasuna"
-
-#: scribus/cpalette.cpp:122 scribus/libprefs/prefs.cpp:589
-#: scribus/libprefs/prefs.cpp:598 scribus/libprefs/prefs.cpp:629
-#: scribus/libprefs/prefs.cpp:638 scribus/libprefs/prefs.cpp:665
-#: scribus/libprefs/prefs.cpp:693 scribus/libprefs/prefs.cpp:926
-#: scribus/libprefs/prefs.cpp:950 scribus/libprefs/prefs.cpp:1045
-#: scribus/libprefs/prefs.cpp:1120 scribus/libprefs/prefs.cpp:1130
-#: scribus/libprefs/prefs.cpp:1140 scribus/libprefs/prefs.cpp:1187
-#: scribus/libprefs/prefs.cpp:1196 scribus/libprefs/prefs.cpp:1215
-#: scribus/libprefs/prefs.cpp:1318 scribus/modify.cpp:264
-#: scribus/modify.cpp:334 scribus/modify.cpp:342 scribus/modify.cpp:407
-#: scribus/modify.cpp:515 scribus/modify.cpp:539 scribus/mpalette.cpp:512
-#: scribus/mpalette.cpp:518 scribus/multiline.cpp:115 scribus/polyprops.cpp:82
-#, c-format
 msgid " %"
 msgstr " %"
 
-#: scribus/cpalette.cpp:407 scribus/scribus.cpp:4091
+msgid "M:"
+msgstr "M:"
+
+msgid "Y:"
+msgstr "Y:"
+
+msgid "K:"
+msgstr "K:"
+
+msgid "Dynamic Color Bars"
+msgstr "Kolore-barra dinamikoak"
+
+msgid "Static Color Bars"
+msgstr "Kolore-barra estatikoak"
+
+msgid "R:"
+msgstr "G:"
+
+msgid "G:"
+msgstr "B:"
+
+msgid "B:"
+msgstr "U:"
+
+msgid "Warning"
+msgstr "Abisua"
+
+#, fuzzy
+msgid "Name of the Color is not unique"
+msgstr "Estiloaren izena ez da bakarra"
+
+msgid "Colors"
+msgstr "Koloreak"
+
+msgid "Append"
+msgstr "Erantsi"
+
+msgid "Edit"
+msgstr "Editatu"
+
+msgid "Duplicate"
+msgstr "Bikoiztu"
+
+msgid "Delete"
+msgstr "Ezabatu"
+
+#, fuzzy
+msgid "Remove Unused"
+msgstr "Kendu"
+
+#, fuzzy
+msgid "Color Sets"
+msgstr "Koloreak"
+
+#, fuzzy
+msgid "Current Color Set:"
+msgstr "Uneko tekla"
+
+#, fuzzy
+msgid "Save Color Set"
+msgstr "Koloremetria erlatiboa"
+
+msgid "Choose a color set to load"
+msgstr ""
+
+#, fuzzy
+msgid "Save the current color set"
+msgstr "Uneko dokumentua gordetzen du"
+
+msgid "Remove unused colors from current document's color set"
+msgstr ""
+
+msgid "Append colors to the current set from an existing document"
+msgstr ""
+
+#, fuzzy
+msgid "Create a new color within the current set"
+msgstr "Dokumentu berria sortzen du "
+
+msgid "Edit the currently selected color"
+msgstr ""
+
+msgid "Make a copy of the currently selected color"
+msgstr ""
+
+msgid "Delete the currently selected color"
+msgstr ""
+
+msgid "Make the current colorset the default color set"
+msgstr ""
+
+#, fuzzy
+msgid "Choose a Name"
+msgstr "Aukeratu direktorioa"
+
+#, fuzzy
+msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
+msgstr "Dokumentuak (*.sla *.sla.gz *.scd *.scd.gz);; Fitxategi guztiak (*)"
+
+msgid "Documents (*.sla *.scd);;All Files (*)"
+msgstr "Dokumentuak (*.sla *.scd);; Fitxategi guztiak (*)"
+
+#, fuzzy
+msgid "Copy of %1"
+msgstr "Honen kopia: "
+
+msgid "New Color"
+msgstr "Kolore berria"
+
 msgid "Shade:"
 msgstr "Itzala:"
 
-#: scribus/cpalette.cpp:407 scribus/scribus.cpp:1923 scribus/scribus.cpp:1964
-#: scribus/scribus.cpp:1984 scribus/scribus.cpp:4091
-msgid "Shade"
-msgstr "Itzala"
+msgid "Opacity:"
+msgstr "Opakutasuna"
 
-#: scribus/cupsoptions.cpp:30
+msgid "Horizontal Gradient"
+msgstr "Gradiente horizontala"
+
+msgid "Vertical Gradient"
+msgstr "Gradiente bertikala"
+
+msgid "Diagonal Gradient"
+msgstr "Gradiente diagonala"
+
+#, fuzzy
+msgid "Cross Diagonal Gradient"
+msgstr "Gradiente diagonal gurutzatua"
+
+msgid "Radial Gradient"
+msgstr "Gradiente biribila"
+
+#, fuzzy
+msgid "Free linear Gradient"
+msgstr "Gradiente horizontala"
+
+#, fuzzy
+msgid "Free radial Gradient"
+msgstr "Gradiente biribila"
+
+msgid "X1:"
+msgstr "X1 :"
+
+msgid "Y1:"
+msgstr "Y1 :"
+
+msgid "X2:"
+msgstr "X2 :"
+
+msgid "Y2:"
+msgstr "Y2 :"
+
+#, fuzzy
+msgid "Edit Line Color Properties"
+msgstr "Eremu-propietateak"
+
+#, fuzzy
+msgid "Edit Fill Color Properties"
+msgstr "Eremu-propietateak"
+
+#, fuzzy
+msgid "Saturation of color"
+msgstr "Saturazioa"
+
+msgid "Normal or gradient fill method"
+msgstr ""
+
+msgid "Set the transparency for the color selected"
+msgstr ""
+
+#, fuzzy
+msgid "Color of selected object"
+msgstr "Desegin objektu-ezabatzea"
+
 msgid "Printer Options"
 msgstr "Inprimagailuaren aukerak"
 
-#: scribus/cupsoptions.cpp:44
-msgid "Option"
-msgstr "Aukerak"
-
-#: scribus/cupsoptions.cpp:45
-msgid "Value"
-msgstr "Balioa"
-
-#: scribus/cupsoptions.cpp:107
 msgid "Page Set"
 msgstr "Orrialde-ezarpena"
 
-#: scribus/cupsoptions.cpp:114 scribus/cupsoptions.cpp:118
-#: scribus/pdfopts.cpp:63
 msgid "All Pages"
 msgstr "Orrialde guztiak"
 
-#: scribus/cupsoptions.cpp:115
 msgid "Even Pages only"
 msgstr "Orrialde bikoitiak soilik"
 
-#: scribus/cupsoptions.cpp:116
 msgid "Odd Pages only"
 msgstr "Orrialde bakoitiak soilik"
 
-#: scribus/cupsoptions.cpp:121
 msgid "Mirror"
 msgstr "Ispilua"
 
-#: scribus/cupsoptions.cpp:128 scribus/cupsoptions.cpp:131
-#: scribus/editformats.cpp:133 scribus/fontprefs.cpp:70
-#: scribus/fontprefs.cpp:405 scribus/lineformats.cpp:128
-#: scribus/muster.cpp:100 scribus/plugins/svgexplugin/svgexplugin.cpp:50
-#: scribus/scribus.cpp:2551
 msgid "No"
 msgstr "Ez"
 
-#: scribus/cupsoptions.cpp:129 scribus/editformats.cpp:134
-#: scribus/fontprefs.cpp:68 scribus/fontprefs.cpp:403
-#: scribus/lineformats.cpp:129 scribus/muster.cpp:101 scribus/picstatus.cpp:99
-#: scribus/picstatus.cpp:136 scribus/plugins/svgexplugin/svgexplugin.cpp:49
-#: scribus/scribus.cpp:2552
 msgid "Yes"
 msgstr "Bai"
 
-#: scribus/cupsoptions.cpp:134
 msgid "Orientation"
 msgstr "Orientazioa"
 
-#: scribus/cupsoptions.cpp:141 scribus/cupsoptions.cpp:144
-#: scribus/libprefs/prefs.cpp:254 scribus/newfile.cpp:83
 msgid "Portrait"
 msgstr "Bertikala"
 
-#: scribus/cupsoptions.cpp:142 scribus/libprefs/prefs.cpp:255
-#: scribus/newfile.cpp:84
 msgid "Landscape"
 msgstr "Horizontala"
 
-#: scribus/cupsoptions.cpp:147
 msgid "N-Up Printing"
 msgstr "N-Up inprimatzea"
 
-#: scribus/cupsoptions.cpp:154 scribus/cupsoptions.cpp:161
 msgid "Page per Sheet"
 msgstr "Orrialde orriko"
 
-#: scribus/cupsoptions.cpp:155 scribus/cupsoptions.cpp:156
-#: scribus/cupsoptions.cpp:157 scribus/cupsoptions.cpp:158
-#: scribus/cupsoptions.cpp:159
 msgid "Pages per Sheet"
 msgstr "Orrialde orriko"
 
-#: scribus/customfdialog.cpp:123 scribus/edit1format.cpp:59
-#: scribus/libprefs/prefs.cpp:262 scribus/libprefs/prefs.cpp:1386
-#: scribus/newfile.cpp:43
+msgid "Option"
+msgstr "Aukerak"
+
+msgid "Value"
+msgstr "Balioa"
+
+msgid ""
+"This panel displays various CUPS options when printing. \n"
+"The exact parameters available will depend on your printer driver.\n"
+"You can confirm CUPS support by selecting Help > About.\n"
+"Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF "
+"support.\n"
+"Missing library support is indicated by a *"
+msgstr ""
+
 msgid "Size:"
 msgstr "Tamaina:"
 
-#: scribus/customfdialog.cpp:142 scribus/docinfo.cpp:43
 msgid "Title:"
 msgstr "Izenburua:"
 
-#: scribus/customfdialog.cpp:145
 msgid "No Title"
 msgstr "Izenbururik ez"
 
-#: scribus/customfdialog.cpp:147 scribus/docinfo.cpp:35
 msgid "Author:"
 msgstr "Egilea:"
 
-#: scribus/customfdialog.cpp:150
 msgid "Unknown"
 msgstr "Ezezaguna"
 
-#: scribus/customfdialog.cpp:152
 msgid "Scribus-Document"
 msgstr "Scribus-eko dokumentua"
 
-#: scribus/customfdialog.cpp:184
 msgid "Compress File"
 msgstr "Konprimatu fitxategia"
 
-#: scribus/customfdialog.cpp:204
+#, fuzzy
+msgid "Include Fonts"
+msgstr "Sartu laster-markak"
+
 msgid "Encoding:"
 msgstr "Kodeketa:"
 
-#: scribus/customfdialog.cpp:262
 msgid ""
 "Moves to your Document Directory.\n"
 "This can be set in the Preferences."
@@ -1255,939 +955,729 @@ msgstr ""
 "Zure dokumentuaren historiara joaten da.\n"
 "Hau hobespenetan ezar dezakezu."
 
-#: scribus/dcolor.cpp:26
 msgid "Delete Color"
 msgstr "Ezabatu kolorea"
 
-#: scribus/dcolor.cpp:35
-msgid "OK to delete Color:"
-msgstr "Ados kolorea ezabatzeko:"
+#, fuzzy
+msgid "Delete color:"
+msgstr "Ezabatu kolorea"
 
-#: scribus/dcolor.cpp:41
 msgid "?"
 msgstr "?"
 
-#: scribus/dcolor.cpp:44
 msgid "Replace it with:"
 msgstr "Ordeztu honekin:"
 
-#: scribus/delpages.cpp:23
 msgid "Delete Pages"
 msgstr "Ezabatu orrialdeak"
 
-#: scribus/delpages.cpp:32
 msgid "Delete from:"
 msgstr "Ezabatu hemendik:"
 
-#: scribus/delpages.cpp:40 scribus/movepage.cpp:49 scribus/pdfopts.cpp:75
-msgid "to:"
-msgstr "hona:"
-
-#: scribus/docinfo.cpp:25
 msgid "Document Info"
 msgstr "Dokumentuaren informazioa"
 
-#: scribus/docinfo.cpp:51
 msgid "Description:"
 msgstr "Azalpena:"
 
-#: scribus/druck.cpp:31
+msgid "Keywords:"
+msgstr ""
+
+msgid ""
+"This field can be embedded in the Scribus document for reference, as well as "
+"in the metadata of a PDF"
+msgstr ""
+
+msgid ""
+"This field is for a brief description or abstract of the document. It is "
+"embedded in the PDF on export"
+msgstr ""
+
+msgid ""
+"This field is for document keywords you wish to embed in a PDF, to assist "
+"searches and indexing of PDF files"
+msgstr ""
+
 msgid "Advanced Options"
 msgstr "Aukera aurreratuak"
 
-#: scribus/druck.cpp:37
 msgid "Mirror Page(s) horizontal"
 msgstr "Ispilatu orrialdea(k) horizontalki"
 
-#: scribus/druck.cpp:41
 msgid "Mirror Page(s) vertical"
 msgstr "Ispilatu orrialdea(k) bertikalki"
 
-#: scribus/druck.cpp:48
 msgid "Apply ICC-Profiles"
 msgstr "Aplikatu ICC profilak"
 
-#: scribus/druck.cpp:81
+#, fuzzy
+msgid "PostScript Level 3"
+msgstr "Postscript"
+
+#, fuzzy
+msgid "PostScript Level 2"
+msgstr "Postscript"
+
+#, fuzzy
+msgid "PostScript Level 1"
+msgstr "Postscript"
+
+msgid "Creates PostScript Level 3"
+msgstr ""
+
+msgid ""
+"Creates PostScript Level 2 only, beware,\n"
+"this can create huge files"
+msgstr ""
+
+msgid ""
+"Creates PostScript Level 1 only, beware,\n"
+"this can create huge files"
+msgstr ""
+
 msgid "Setup Printer"
 msgstr "Konfiguratu inprimagailua"
 
-#: scribus/druck.cpp:88
 msgid "Print destination"
 msgstr "Inprimatze-helburua"
 
-#: scribus/druck.cpp:149 scribus/druck.cpp:394 scribus/druck.cpp:518
-#: scribus/druck.cpp:526 scribus/editor.cpp:37 scribus/scrap.cpp:153
-#: scribus/scribus.cpp:104 scribus/scribus.cpp:659
 msgid "File"
 msgstr "Fitxategia"
 
-#: scribus/druck.cpp:161
 msgid "Options..."
 msgstr "Aukerak..."
 
-#: scribus/druck.cpp:172
 msgid "File:"
 msgstr "Fitxategia:"
 
-#: scribus/druck.cpp:188
-msgid "Print via other Command"
+#, fuzzy
+msgid "Alternative Printer Command"
 msgstr "Inprimatu beste komando baten bidez"
 
-#: scribus/druck.cpp:195
 msgid "Command:"
 msgstr "Komandoa:"
 
-#: scribus/druck.cpp:207
 msgid "Range:"
 msgstr "Barrutia:"
 
-#: scribus/druck.cpp:229
-msgid "To page:"
-msgstr "Orrialde honetara:"
-
-#: scribus/druck.cpp:252
-msgid "From page:"
-msgstr "Orrialde honetatik:"
-
-#: scribus/druck.cpp:257
-msgid "Print range"
-msgstr "Inprimatze-area"
-
-#: scribus/druck.cpp:262
 msgid "Print all"
 msgstr "Inprimatu dena"
 
-#: scribus/druck.cpp:280
+#, fuzzy
+msgid "Print current page"
+msgstr "Inprimatze-area"
+
+msgid "Print range"
+msgstr "Inprimatze-area"
+
+msgid "From page:"
+msgstr "Orrialde honetatik:"
+
+msgid "To page:"
+msgstr "Orrialde honetara:"
+
 msgid "Print last page first"
 msgstr "Inprimatu azken orria lehenbizi "
 
-#: scribus/druck.cpp:285
 msgid "Print first page first"
 msgstr "Inprimatu lehen orria lehenbizi "
 
-#: scribus/druck.cpp:291
 msgid "Number of copies:"
 msgstr "Kopia-kopurua:"
 
-#: scribus/druck.cpp:329
 msgid "Print Normal"
 msgstr "Inprimatu normal"
 
-#: scribus/druck.cpp:334
 msgid "Print Separations"
 msgstr "Inprimatu banantzeak"
 
-#: scribus/druck.cpp:339 scribus/plugins/printpreview/preview.cpp:208
-#: scribus/scribus.cpp:5223 scribus/scribusview.cpp:926
-#: scribus/scribusview.cpp:1216
 msgid "All"
 msgstr "Denak"
 
-#: scribus/druck.cpp:361
+msgid "Cyan"
+msgstr ""
+
+msgid "Magenta"
+msgstr ""
+
+#, fuzzy
+msgid "Yellow"
+msgstr "Azpian:"
+
+#, fuzzy
+msgid "Black"
+msgstr "Blokeatu"
+
 msgid "Print in color if available"
 msgstr "Inprimatu koloretan ahal bada"
 
-#: scribus/druck.cpp:366
 msgid "Print in grayscale"
 msgstr "Inprimatu gris-eskalan"
 
-#: scribus/druck.cpp:372
 msgid "Advanced Options..."
 msgstr "Aukera aurreratuak..."
 
-#: scribus/druck.cpp:583 scribus/pdfopts.cpp:1160
-#: scribus/plugins/svgexplugin/svgexplugin.cpp:41 scribus/scribus.cpp:2539
-#: scribus/scribus.cpp:2541 scribus/scribus.cpp:3099 scribus/scribus.cpp:5253
+msgid "Print"
+msgstr "Inprimatu"
+
 msgid "Save as"
 msgstr "Gorde honela"
 
-#: scribus/druck.cpp:583
-msgid "Postscript-Files (*.ps);; All Files (*)"
+#, fuzzy
+msgid "Postscript-Files (*.ps);;All Files (*)"
 msgstr "PostScript fitxategiak (*.ps);; Fitxategi guztiak (*)"
 
-#: scribus/edit1format.cpp:9 scribus/multiline.cpp:20
 msgid "Edit Style"
 msgstr "Editatu estiloa"
 
-#: scribus/edit1format.cpp:28
 msgid "Character"
 msgstr "Karakterea"
 
-#: scribus/edit1format.cpp:36
 msgid "Face:"
 msgstr "Aurpegia:"
 
-#: scribus/edit1format.cpp:64
-msgid "Indentation"
-msgstr "Koska"
+#, fuzzy
+msgid "Effect:"
+msgstr "Efektuak"
 
-#: scribus/edit1format.cpp:75
-msgid "Left Indent:"
-msgstr "Ezkerreko koska:"
-
-#: scribus/edit1format.cpp:80
-msgid "First Line:"
-msgstr "Lehen lerroa:"
-
-#: scribus/edit1format.cpp:101 scribus/scribus.cpp:1921
-msgid "Alignment"
+#, fuzzy
+msgid "Alignment:"
 msgstr "Lerrokatzea"
 
-#: scribus/edit1format.cpp:111 scribus/scribus.cpp:674
-msgid "Left"
-msgstr "Ezkerrean"
+msgid "Drop Caps"
+msgstr ""
 
-#: scribus/edit1format.cpp:116 scribus/scribus.cpp:676
-msgid "Right"
-msgstr "Eskuinean"
+#, fuzzy
+msgid "Lines:"
+msgstr "Lerroa"
 
-#: scribus/edit1format.cpp:120 scribus/scribus.cpp:675
-msgid "Center"
-msgstr "Erdian"
+msgid "Fill Color:"
+msgstr "Kolore betegarria:"
 
-#: scribus/edit1format.cpp:124 scribus/scribus.cpp:677
-msgid "Block"
-msgstr "Blokeatu"
+#, fuzzy
+msgid "Stroke Color:"
+msgstr "Kolore berria:"
 
-#: scribus/edit1format.cpp:128 scribus/scribus.cpp:678
-msgid "Forced"
-msgstr "Behartuta"
-
-#: scribus/edit1format.cpp:151
 msgid "Vertical Spaces"
 msgstr "Tarte bertikalak"
 
-#: scribus/edit1format.cpp:190 scribus/mpalette.cpp:618
-msgid "Linespacing"
-msgstr "Lerroartea"
+msgid "Adjust to Baseline Grid"
+msgstr ""
 
-#: scribus/edit1format.cpp:195
+#, fuzzy
+msgid "Line Spacing:"
+msgstr "Lerroartea:"
+
 msgid "Above:"
 msgstr "Gainean:"
 
-#: scribus/edit1format.cpp:200
 msgid "Below:"
 msgstr "Azpian:"
 
-#: scribus/edit1format.cpp:243 scribus/edit1format.cpp:257
-#: scribus/editformats.cpp:131 scribus/keymanager.cpp:160
-#: scribus/lineformats.cpp:126 scribus/modify.cpp:985
-#: scribus/multiline.cpp:318 scribus/muster.cpp:98
-#: scribus/plugins/svgexplugin/svgexplugin.cpp:47 scribus/scribus.cpp:2522
-#: scribus/scribus.cpp:2549 scribus/scribus.cpp:2558 scribus/scribus.cpp:2787
-#: scribus/scribus.cpp:5120 scribus/scribus.cpp:5257 scribus/scribus.cpp:5377
-#: scribus/scribus.cpp:6531 scribus/scribuswin.cpp:43
-msgid "Warning"
-msgstr "Abisua"
+msgid "Tabulators and Indentation"
+msgstr ""
 
-#: scribus/edit1format.cpp:243 scribus/edit1format.cpp:257
+msgid "Name of your paragraph style"
+msgstr ""
+
+msgid "Font of selected text or object"
+msgstr ""
+
+msgid "Font Size"
+msgstr "Letra-tamaina"
+
+#, fuzzy
+msgid "Color of text fill"
+msgstr "Kolore-eredua"
+
+msgid "Color of text stroke"
+msgstr ""
+
+msgid ""
+"Provides an oversized first letter for a paragraph. Used for stylistic effect"
+msgstr ""
+
+msgid "Determines the overall height, in line numbers, of the Drop Caps"
+msgstr ""
+
+#, fuzzy
+msgid "Align text to baseline grid"
+msgstr "Lerrokatu testua erdian"
+
+msgid "Spacing above the paragraph"
+msgstr ""
+
+msgid "Spacing below the paragraph"
+msgstr ""
+
+#, fuzzy
+msgid "Line Spacing"
+msgstr "Lerroartea"
+
 msgid "Name of the Style is not unique"
 msgstr "Estiloaren izena ez da bakarra"
 
-#: scribus/editformats.cpp:11
 msgid "Edit Styles"
 msgstr "Editatu estiloak"
 
-#: scribus/editformats.cpp:81 scribus/lineformats.cpp:85
-#: scribus/muster.cpp:131
-msgid "Copy of "
-msgstr "Honen kopia: "
+msgid "Save"
+msgstr "Gorde"
 
-#: scribus/editformats.cpp:102 scribus/lineformats.cpp:105
 msgid "New Style"
 msgstr "Estilo berria"
 
-#: scribus/editformats.cpp:132 scribus/lineformats.cpp:127
 msgid "Do you really want do delete this Style?"
 msgstr "Benetan ezabatu nahi duzu estilo hau?"
 
-#: scribus/editor.cpp:13
 msgid "Editor"
 msgstr "Editorea"
 
-#: scribus/editor.cpp:21 scribus/scrap.cpp:133 scribus/scribus.cpp:447
-#: scribus/scribus.cpp:448
 msgid "Save as..."
 msgstr "Gorde honela..."
 
-#: scribus/editor.cpp:22 scribus/scrap.cpp:134
 msgid "Load..."
 msgstr "Kargatu..."
 
-#: scribus/editor.cpp:24
 msgid "Save and Exit"
 msgstr "Gorde eta irten"
 
-#: scribus/editor.cpp:25
 msgid "Exit without Saving"
 msgstr "Irten gorde gabe"
 
-#: scribus/editor.cpp:27 scribus/scribus.cpp:312 scribus/scribus.cpp:482
 msgid "Undo"
 msgstr "Desegin"
 
-#: scribus/editor.cpp:28
 msgid "Redo"
 msgstr "Berregin"
 
-#: scribus/editor.cpp:30 scribus/page.cpp:1997 scribus/scribus.cpp:484
-#: scribus/scribus.cpp:489
 msgid "Cut"
 msgstr "Ebaki"
 
-#: scribus/editor.cpp:31 scribus/page.cpp:1998 scribus/scribus.cpp:485
-#: scribus/scribus.cpp:490 scribus/scribus.cpp:576 scribus/scribus.cpp:577
 msgid "Copy"
 msgstr "Kopiatu"
 
-#: scribus/editor.cpp:32 scribus/scribus.cpp:486 scribus/scribus.cpp:491
 msgid "Paste"
 msgstr "Itsatsi"
 
-#: scribus/editor.cpp:33 scribus/plugins/libchar/charselect.cpp:168
-#: scribus/scribus.cpp:487 scribus/scribus.cpp:492
 msgid "Clear"
 msgstr "Garbitu"
 
-#: scribus/editor.cpp:35
 msgid "Get Field Names"
 msgstr "Eskuratu eremu-izenak"
 
-#: scribus/editor.cpp:59 scribus/editor.cpp:74
-msgid "JavaScripts (*.js);; All Files (*)"
+#, fuzzy
+msgid "Javascripts (*.js);;All Files (*)"
 msgstr "JavaScripts (*.js);; Fitxategi guztiak (*)"
 
-#: scribus/fontprefs.cpp:14
-msgid "Global Fontsettings"
+#, fuzzy
+msgid "Global Font Settings"
 msgstr "Letra-tipoen ezarpen orokorrak"
 
-#: scribus/fontprefs.cpp:43 scribus/fontprefs.cpp:379
-msgid " "
-msgstr " "
-
-#: scribus/fontprefs.cpp:54 scribus/fontprefs.cpp:390
-msgid "Postscript"
-msgstr "Postscript"
-
-#: scribus/fontprefs.cpp:80 scribus/fontprefs.cpp:114
-msgid "Font Name"
-msgstr "Letra-tipoaren izena"
-
-#: scribus/fontprefs.cpp:81
-msgid "Use Font"
-msgstr "Erabili letra-tipoa"
-
-#: scribus/fontprefs.cpp:82
-msgid "Embed in:"
-msgstr "Hemen kapsulatua:"
-
-#: scribus/fontprefs.cpp:83 scribus/tree.cpp:36
-msgid "Type"
-msgstr "Mota"
-
-#: scribus/fontprefs.cpp:84
-msgid "Path to Fontfile"
-msgstr "Letra-tipoen fitxategirako bide-izena"
-
-#: scribus/fontprefs.cpp:86
-msgid "AFM-File available"
-msgstr "AFM fitxategia erabilgarri"
-
-#: scribus/fontprefs.cpp:101
 msgid "Available Fonts"
 msgstr "Erabilgarri dauden letra-tipoak:"
 
-#: scribus/fontprefs.cpp:115
-msgid "Replacement"
-msgstr "Ordeztea"
-
-#: scribus/fontprefs.cpp:142
 msgid "Font Substitutions"
 msgstr "Letra-tipoen ordezteak"
 
-#: scribus/fontprefs.cpp:154 scribus/javadocs.cpp:32
-msgid "Add..."
-msgstr "Gehitu..."
-
-#: scribus/fontprefs.cpp:162
 msgid "Additional Paths"
 msgstr "Bide-izen gehigarriak"
 
-#: scribus/fontprefs.cpp:264 scribus/fontprefs.cpp:298
-#: scribus/libprefs/prefs.cpp:1631 scribus/scribus.cpp:6402
+msgid "Postscript"
+msgstr "Postscript"
+
+msgid "Font Name"
+msgstr "Letra-tipoaren izena"
+
+msgid "Use Font"
+msgstr "Erabili letra-tipoa"
+
+msgid "Embed in:"
+msgstr "Hemen kapsulatua:"
+
+#, fuzzy
+msgid "Subset"
+msgstr "Azpindizea"
+
+msgid "Type"
+msgstr "Mota"
+
+#, fuzzy
+msgid "Path to Font File"
+msgstr "Letra-tipoen fitxategirako bide-izena"
+
+#, fuzzy
+msgid "&Available Fonts"
+msgstr "Erabilgarri dauden letra-tipoak:"
+
+msgid "Replacement"
+msgstr "Ordeztea"
+
+#, fuzzy
+msgid "Font &Substitutions"
+msgstr "Letra-tipoen ordezteak"
+
+msgid "Add..."
+msgstr "Gehitu..."
+
+#, fuzzy
+msgid "Additional &Paths"
+msgstr "Bide-izen gehigarriak"
+
 msgid "Choose a Directory"
 msgstr "Aukeratu direktorioa"
 
-#: scribus/frameedit.cpp:12
 msgid "Nodes"
 msgstr "Nodoak"
 
-#: scribus/frameedit.cpp:178
+#, fuzzy
+msgid "Absolute Coordinates"
+msgstr "Koloremetria absolutua"
+
 msgid "End Editing"
 msgstr "Bukatu editatzea"
 
-#: scribus/frameedit.cpp:180
 msgid "Move Nodes"
 msgstr "Lekuz aldatu nodoak"
 
-#: scribus/frameedit.cpp:181
 msgid "Move Control Points"
 msgstr "Lekuz aldatu kontrol-puntuak"
 
-#: scribus/frameedit.cpp:182
 msgid "Add Nodes"
 msgstr "Gehitu nodoak"
 
-#: scribus/frameedit.cpp:183
 msgid "Delete Nodes"
 msgstr "Ezabatu nodoak"
 
-#: scribus/frameedit.cpp:184
 msgid "Move Control Points independently"
 msgstr "Lekuz aldatu kontrol-puntuak independenteki"
 
-#: scribus/frameedit.cpp:185
 msgid "Move Control Points symmetrical"
 msgstr "Lekuz aldatu kontrol-puntuak simetrikoki"
 
-#: scribus/frameedit.cpp:186
 msgid "Reset Control Points"
 msgstr "Berrezarri kontrol-puntuak"
 
-#: scribus/frameedit.cpp:187
-msgid "Reset this Control Points"
+#, fuzzy
+msgid "Reset this Control Point"
 msgstr "Berrezarri kontrol-puntu hau"
 
-#: scribus/frameedit.cpp:188
 msgid "Opens a Polygon or cuts a Bezier Curve"
 msgstr "Poligono bat irekitzen du edo Bezier kurba ebakitzen du"
 
-#: scribus/frameedit.cpp:189
 msgid "Closes this Bezier Curve"
 msgstr "Bezier kurba hau ixten du"
 
-#: scribus/frameedit.cpp:190
-msgid "Mirrors the Path horizontal"
+#, fuzzy
+msgid "Mirrors the Path Horizontally"
 msgstr "Bide-izena horizontalki ispilatzen du"
 
-#: scribus/frameedit.cpp:191
-msgid "Mirrors the Path vertical"
+#, fuzzy
+msgid "Mirrors the Path Vertically"
 msgstr "Bide-izena bertikalki ispilatzen du"
 
-#: scribus/frameedit.cpp:192
-msgid "Shears the Path horizotal to the right"
+#, fuzzy
+msgid "Shears the Path horizontal to the right"
 msgstr "Bide-izena horizontalki eskuinerantz zizailatzen du"
 
-#: scribus/frameedit.cpp:193
-msgid "Shears the Path horizotal to the left"
+#, fuzzy
+msgid "Shears the Path horizontal to the left"
 msgstr "Bide-izena horizontalki ezkerrerantz zizailatzen du"
 
-#: scribus/frameedit.cpp:194
 msgid "Shears the Path vertical up"
 msgstr "Bide-izena bertikalki gorantz zizailatzen du"
 
-#: scribus/frameedit.cpp:195
 msgid "Shears the Path vertical down"
 msgstr "Bide-izena bertikalki beherantz zizailatzen d"
 
-#: scribus/guidemanager.cpp:10
+msgid "Rotates the Path counter-clockwise"
+msgstr ""
+
+msgid "Rotates the Path clockwise"
+msgstr ""
+
+msgid "Reduce the Size of the Path by 10%"
+msgstr ""
+
+msgid "Enlarges the Size of the Path by 10%"
+msgstr ""
+
+msgid ""
+"When checked use Coordinates relative to the Page,\n"
+"otherwise Coordinates are relative to the Object."
+msgstr ""
+
 msgid "Manage Guides"
 msgstr "Kudeatu gidak"
 
-#: scribus/guidemanager.cpp:22
 msgid "Horizontal Guides"
 msgstr "Gida horizontalak"
 
-#: scribus/guidemanager.cpp:43 scribus/guidemanager.cpp:75
 msgid "Add"
 msgstr "Gehitu"
 
-#: scribus/guidemanager.cpp:54
 msgid "Vertical Guides"
 msgstr "Gida bertikalak"
 
-#: scribus/guidemanager.cpp:86
 msgid "Lock Guides"
 msgstr "Bloketau gidak"
 
-#: scribus/helpbrowser.cpp:87
-msgid "Sorry, no Manual available!"
-msgstr "Ez dago eskulibururik erabilgarri!"
+msgid ""
+"Sorry, no manual available! Please see: http://scribus.net for updated docs "
+"and downloads."
+msgstr ""
 
-#: scribus/hyask.cpp:38
 msgid "Possible Hyphenation"
 msgstr "Hitz-zatiketa egin daiteke"
 
-#: scribus/hyask.cpp:53
 msgid "Accept"
 msgstr "Onartu"
 
-#: scribus/hyask.cpp:59
 msgid "Skip"
 msgstr "Saltatu"
 
-#: scribus/hysettings.cpp:11
 msgid "Hyphenator Settings"
 msgstr "Hitz-zatitzailearen ezarpenak"
 
-#: scribus/hysettings.cpp:17
 msgid "Fully Automatic"
 msgstr "Automatikoki"
 
-#: scribus/hysettings.cpp:19
+#, fuzzy
 msgid ""
-"If you uncheck this you will get an Dialog\n"
+"If you uncheck this you will get a dialog\n"
 "everytime a possible Hyphenation is found."
 msgstr ""
 "Honi marka kentzen badiozu elkarrizketa-koadroa\n"
 "bistaratuko da hitz-zatiketa egiteko aukera dagoen bakoitzean."
 
-#: scribus/hysettings.cpp:21
 msgid "Check during Typing"
 msgstr "Egiaztatu idaztean"
 
-#: scribus/hysettings.cpp:23
-msgid "Enables automatic checking of your Text during Typing."
+#, fuzzy
+msgid "Enables automatic checking of your text while typing."
 msgstr "Testua idaztean automatikoki egiaztatzea gaitzen du."
 
-#: scribus/hysettings.cpp:36
 msgid "Language:"
 msgstr "Hizkuntza:"
 
-#: scribus/hysettings.cpp:41
 msgid "Smallest Word:"
 msgstr "Hitz laburrena"
 
-#: scribus/hysettings.cpp:47
-msgid "This is the length of the smallest word to be hyphenated."
+#, fuzzy
+msgid "Length of the smallest word to be hyphenated."
 msgstr "Hau zatitu beharreko hitz laburrenaren luzera da."
 
-#: scribus/inspage.cpp:16
+msgid "Number of Hypenations allowed:"
+msgstr ""
+
+msgid ""
+"Maximum number of Hyphenations following each other.\n"
+"A value of 0 means unlimited hyphenations."
+msgstr ""
+
 msgid "Insert Page"
 msgstr "Txertatu orrialdea"
 
-#: scribus/inspage.cpp:25 scribus/inspage.cpp:46
 msgid "Inserting"
 msgstr "Txertatzen"
 
-#: scribus/inspage.cpp:32
 msgid "page(s)"
 msgstr "orrialdea(k)"
 
-#: scribus/inspage.cpp:35 scribus/movepage.cpp:58
 msgid "before Page"
 msgstr "orrialde hau baino lehen:"
 
-#: scribus/inspage.cpp:36 scribus/movepage.cpp:59
 msgid "after Page"
 msgstr "orrialde honen ondoren:"
 
-#: scribus/inspage.cpp:37 scribus/movepage.cpp:60
 msgid "at End"
 msgstr "Amaieran"
 
-#: scribus/inspage.cpp:53
 msgid "Template (Left Page):"
 msgstr "Txantiloia (ezker-orrialdea):"
 
-#: scribus/inspage.cpp:55
-msgid "Template:"
-msgstr "Txantiloiak:"
-
-#: scribus/inspage.cpp:77
 msgid "Template (Right Page):"
 msgstr "Txantiloia (eskuin-orrialdea):"
 
-#: scribus/javadocs.cpp:10
-msgid "Global JavaScripts"
-msgstr "JavaScripts orokorra"
+#, fuzzy
+msgid "Edit JavaScripts"
+msgstr "Java Script"
 
-#: scribus/javadocs.cpp:42 scribus/libabout/about.cpp:145
-#: scribus/plugins/libchar/charselect.cpp:174 scribus/scrap.cpp:135
-#: scribus/scribus.cpp:441 scribus/scribus.cpp:442
 msgid "Close"
 msgstr "Itxi"
 
-#: scribus/javadocs.cpp:63
+msgid "New Script:"
+msgstr "Script berria:"
+
 msgid "New Script"
 msgstr "Script berria"
 
-#: scribus/keymanager.cpp:12
+#, fuzzy
+msgid "Do you really want do delete this Script?"
+msgstr "Benetan ezabatu nahi duzu estilo hau?"
+
 msgid "Manage Keyboard Shortcuts"
 msgstr "Kudeatu laster-teklak"
 
-#: scribus/keymanager.cpp:40
 msgid "Current Key"
 msgstr "Uneko tekla"
 
-#: scribus/keymanager.cpp:50
 msgid "Select a Key for this Action"
 msgstr "Hautatu tekla bat ekintza honetarako"
 
-#: scribus/keymanager.cpp:60
 msgid "No Key"
 msgstr "Teklarik ez"
 
-#: scribus/keymanager.cpp:65
 msgid "User Defined Key"
 msgstr "Erabiltzaileak definitutako tekla"
 
-#: scribus/keymanager.cpp:72
 msgid "ALT+SHIFT+T"
 msgstr "Alt+Shift+T"
 
-#: scribus/keymanager.cpp:79
 msgid "Set Key"
 msgstr "Ezarri tekla"
 
-#: scribus/keymanager.cpp:135 scribus/keymanager.cpp:191
 msgid "Alt"
 msgstr "Alt"
 
-#: scribus/keymanager.cpp:135 scribus/keymanager.cpp:191
 msgid "Ctrl"
 msgstr "Ktrl"
 
-#: scribus/keymanager.cpp:135 scribus/keymanager.cpp:191
 msgid "Shift"
 msgstr "Shift"
 
-#: scribus/keymanager.cpp:143
 msgid "Shift+"
 msgstr "Shift+"
 
-#: scribus/keymanager.cpp:147
 msgid "Alt+"
 msgstr "Alt+"
 
-#: scribus/keymanager.cpp:151
 msgid "Ctrl+"
 msgstr "Ctrl+"
 
-#: scribus/keymanager.cpp:161
 msgid "This Key-Sequence is already in use"
 msgstr "Tekla-segida hau dagoeneko erabili da"
 
-#: scribus/layers.cpp:18
 msgid "Layers"
 msgstr "Geruzak"
 
-#: scribus/layers.cpp:46
 msgid "Add a new Layer"
 msgstr "Erantsi geruza berria"
 
-#: scribus/layers.cpp:54
 msgid "Delete Layer"
 msgstr "Ezabatu geruza"
 
-#: scribus/layers.cpp:62
 msgid "Raise Layer"
 msgstr "Igo geruza"
 
-#: scribus/layers.cpp:70
 msgid "Lower Layer"
 msgstr "Jaitsi geruza"
 
-#: scribus/layers.cpp:78
-msgid "Closes this Dialog"
-msgstr "Elkarrizketa-koadro hau ixten du"
-
-#: scribus/layers.cpp:175
 msgid "New Layer"
 msgstr "Geruza berria"
 
-#: scribus/lineformats.cpp:11
+#, fuzzy
+msgid "Do you want to delete all Objects on this Layer too?"
+msgstr "Benetan ezabatu nahi duzu estilo hau?"
+
 msgid "Edit Line Styles"
 msgstr "Editatu marra-estiloak"
 
-#: scribus/mdup.cpp:16 scribus/scribus.cpp:526 scribus/scribus.cpp:527
 msgid "Multiple Duplicate"
 msgstr "Kopia bat baino gehiago"
 
-#: scribus/mdup.cpp:61
 msgid "Number of Copies:"
 msgstr "Kopia-kopurua:"
 
-#: scribus/mdup.cpp:64
 msgid "Horizontal Shift:"
 msgstr "Desplazatu horizontalki:"
 
-#: scribus/mdup.cpp:67
 msgid "Vertical Shift:"
 msgstr "Desplazatu bertikalki:"
 
-#: scribus/mergedoc.cpp:21
 msgid "Import a Page"
 msgstr "Inportatu orrialde bat"
 
-#: scribus/mergedoc.cpp:27
 msgid "Document to load:"
 msgstr "Kargatu beharreko dokumentua:"
 
-#: scribus/mergedoc.cpp:40
 msgid "Document contains: 0 Page(s)"
 msgstr "Dokumentuaren edukia: 0 orrialde"
 
-#: scribus/mergedoc.cpp:45
 msgid "Import Page Nr:"
 msgstr "Inportatu orrialde hau:"
 
-#: scribus/mergedoc.cpp:58
 msgid "Import"
 msgstr "Inportatu"
 
-#: scribus/mergedoc.cpp:111 scribus/mergedoc.cpp:124
 msgid "Document contains: %1 Page(s)"
 msgstr "Dokumentuaren edukia: %1 orrialde"
 
-#: scribus/missing.cpp:69
 msgid "Missing Font"
 msgstr "Letra-tipoa falta da"
 
-#: scribus/missing.cpp:71
-msgid "Select Font"
-msgstr "Hautatu letra-tipoa"
-
-#: scribus/missing.cpp:81
 msgid "The Font %1 is not installed."
 msgstr "%1 letra-tipoa ez dago instalatuta."
 
-#: scribus/missing.cpp:83
-msgid "Select new Font:"
-msgstr "Hautatu letra-tipo berria:"
-
-#: scribus/missing.cpp:94
 msgid "Use"
 msgstr "Erabili"
 
-#: scribus/missing.cpp:103
 msgid "instead"
 msgstr "horren ordez"
 
-#: scribus/modify.cpp:52
-msgid "Horizontal flipped"
-msgstr "Horizontalki iraulita"
-
-#: scribus/modify.cpp:57
-msgid "Vertical flipped"
-msgstr "Bertikalki iraulita"
-
-#: scribus/modify.cpp:62 scribus/mpalette.cpp:277
-msgid "Text flows around Box"
-msgstr "Testua koadroaren inguruan"
-
-#: scribus/modify.cpp:67
-msgid "Use Bounding Box"
-msgstr "Erabili txertatze-kutxa"
-
-#: scribus/modify.cpp:73
-msgid "Don't print"
-msgstr "Ez inprimatu"
-
-#: scribus/modify.cpp:80
-msgid "Position"
-msgstr "Kokalekua"
-
-#: scribus/libprefs/prefs.cpp:281 scribus/modify.cpp:101
-#: scribus/mpalette.cpp:90 scribus/mpalette.cpp:849 scribus/mpalette.cpp:887
-#: scribus/mpalette.cpp:932 scribus/mpalette.cpp:1610 scribus/newfile.cpp:102
-msgid "Height:"
-msgstr "Altuera:"
-
-#: scribus/modify.cpp:104
-msgid "Angle:"
-msgstr "Angelua:"
-
-#: scribus/modify.cpp:171
-msgid "Modify Pathtext"
-msgstr "Aldatu bide-izenaren testua"
-
-#: scribus/modify.cpp:174
-msgid "Show Curve"
-msgstr "Erakutsi kurba"
-
-#: scribus/modify.cpp:179
-msgid "Startoffset:"
-msgstr "Hasi desplazamendua:"
-
-#: scribus/modify.cpp:191
-msgid "Distance from Curve:"
-msgstr "Distantzia kurbatik:"
-
-#: scribus/modify.cpp:203
-msgid "Modify Textframe"
-msgstr "Aldatu testu-markoa"
-
-#: scribus/modify.cpp:206
-msgid "Ordinary Text"
-msgstr "Testu arrunta"
-
-#: scribus/modify.cpp:210 scribus/page.cpp:1939
-msgid "Is PDF-Bookmark"
-msgstr "PDF laster-marka da"
-
-#: scribus/modify.cpp:214 scribus/page.cpp:1941
-msgid "Is PDF-Annotation"
-msgstr "PDF oharpena da"
-
-#: scribus/modify.cpp:227
-msgid "Textdistance:"
-msgstr "Testu-distantzia:"
-
-#: scribus/modify.cpp:231 scribus/modify.cpp:382
-msgid "Background Color:"
-msgstr "Atzeko planoaren kolorea:"
-
-#: scribus/libprefs/prefs.cpp:891 scribus/libprefs/prefs.cpp:899
-#: scribus/libprefs/prefs.cpp:1019 scribus/libprefs/prefs.cpp:1184
-#: scribus/modify.cpp:235 scribus/modify.cpp:386 scribus/modify.cpp:481
-#: scribus/modify.cpp:490
-msgid "Shading:"
-msgstr "Itzaldura:"
-
-#: scribus/modify.cpp:270 scribus/modify.cpp:413 scribus/modify.cpp:593
-msgid "Corner Radius:"
-msgstr "Izkinako erradioa:"
-
-#: scribus/modify.cpp:283
-msgid "Modify Pictureframe"
-msgstr "Aldatu irudi-markoa"
-
-#: scribus/modify.cpp:286
-msgid "Scaling"
-msgstr "Eskalatzen"
-
-#: scribus/libprefs/prefs.cpp:1168 scribus/modify.cpp:295
-#: scribus/mpalette.cpp:494
-msgid "Free Scaling"
-msgstr "Eskalatze librea"
-
-#: scribus/modify.cpp:302
-msgid "Local X-Pos:"
-msgstr "X posizio lokala:"
-
-#: scribus/modify.cpp:306
-msgid "Local Y-Pos:"
-msgstr "Y posizio lokala:"
-
-#: scribus/libprefs/prefs.cpp:1172 scribus/modify.cpp:310
-msgid "Horizontal Scaling"
-msgstr "Eskalatu horizontalki"
-
-#: scribus/libprefs/prefs.cpp:1176 scribus/modify.cpp:314
-msgid "Vertical Scaling"
-msgstr "Eskalatu bertikalki"
-
-#: scribus/libprefs/prefs.cpp:1209 scribus/modify.cpp:356
-msgid "Scale Picture to Frame Size"
-msgstr "Eskalatu irudia markoaren tamainara"
-
-#: scribus/libprefs/prefs.cpp:1212 scribus/modify.cpp:361
-#: scribus/mpalette.cpp:545
-msgid "Keep Aspect Ratio"
-msgstr "Mantendu aspektu-erlazioa"
-
-#: scribus/modify.cpp:377 scribus/page.cpp:1931
-msgid "Image visible"
-msgstr "Irudia ikusgai"
-
-#: scribus/modify.cpp:428
-msgid "Input Profile:"
-msgstr "Sarrera-profila:"
-
-#: scribus/modify.cpp:456
-msgid "Rendering Intent:"
-msgstr "Errendatze-modua:"
-
-#: scribus/modify.cpp:476
-msgid "Modify Frame"
-msgstr "Aldatu markoa"
-
-#: scribus/libprefs/prefs.cpp:887 scribus/libprefs/prefs.cpp:1015
-#: scribus/modify.cpp:478
-msgid "Line Color:"
-msgstr "Marraren kolorea:"
-
-#: scribus/libprefs/prefs.cpp:895 scribus/libprefs/prefs.cpp:1180
-#: scribus/modify.cpp:484
-msgid "Fill Color:"
-msgstr "Kolore betegarria:"
-
-#: scribus/libprefs/prefs.cpp:903 scribus/libprefs/prefs.cpp:1023
-#: scribus/modify.cpp:487 scribus/mpalette.cpp:576
-msgid "Linestyle:"
-msgstr "Marra-estiloa:"
-
-#: scribus/libprefs/prefs.cpp:907 scribus/libprefs/prefs.cpp:1027
-#: scribus/modify.cpp:493 scribus/mpalette.cpp:581 scribus/multiline.cpp:91
-msgid "Linewidth:"
-msgstr "Marra-zabalera:"
-
-#: scribus/modify.cpp:985 scribus/multiline.cpp:318
-msgid ""
-"Name \"%1\" isn't unique.\n"
-"Please choose another."
-msgstr ""
-"\"%1\" izena badago lehendik ere.\n"
-"Aukeratu beste bat."
-
-#: scribus/movepage.cpp:25
 msgid "Move Pages"
 msgstr "Lekuz aldatu orrialdeak"
 
-#: scribus/movepage.cpp:27
 msgid "Copy Page"
 msgstr "Kopiatu orria"
 
-#: scribus/movepage.cpp:37 scribus/movepage.cpp:69
 msgid "Move Page(s):"
 msgstr "Lekuz aldatu orrialdea(k):"
 
-#: scribus/movepage.cpp:39
-msgid "Copy Page:"
-msgstr "Kopiatu orrialdea:"
-
-#: scribus/mpalette.cpp:13
-msgid "Measurements"
-msgstr "Neurriak"
-
-#: scribus/mpalette.cpp:39
 msgid "X, Y, Z"
 msgstr "X, Y, Z"
 
-#: scribus/mpalette.cpp:44 scribus/scribus.cpp:553
 msgid "Shape"
 msgstr "Forma"
 
-#: scribus/mpalette.cpp:54 scribus/tree.cpp:102
 msgid "Image"
 msgstr "Irudia"
 
-#: scribus/mpalette.cpp:59 scribus/tree.cpp:114
 msgid "Line"
 msgstr "Lerroa"
 
-#: scribus/mpalette.cpp:74
+msgid "Name"
+msgstr "Izena:"
+
 msgid "Geometry"
 msgstr "Geometria"
 
-#: scribus/mpalette.cpp:115
+msgid "Height:"
+msgstr "Altuera:"
+
+msgid "Rotation:"
+msgstr "Biraketa:"
+
+#, fuzzy
+msgid "Basepoint:"
+msgstr "Honetan oinarrituta:"
+
 msgid "Level"
 msgstr "Maila"
 
-#: scribus/mpalette.cpp:162
-msgid "Rotation"
-msgstr "Biraketa"
+#, fuzzy
+msgid "Text flows around frame"
+msgstr "Testua koadroaren inguruan"
 
-#: scribus/mpalette.cpp:220
-msgid "by:"
-msgstr "honen inguruan:"
+msgid "Use Bounding Box"
+msgstr "Erabili txertatze-kutxa"
 
-#: scribus/mpalette.cpp:262
+#, fuzzy
+msgid "Shape:"
+msgstr "Forma"
+
 msgid "Edit Shape..."
 msgstr "Editatu forma..."
 
-#: scribus/mpalette.cpp:268
 msgid ""
 "Round\n"
 "Corners:"
@@ -2195,1268 +1685,1980 @@ msgstr ""
 "Biribildu\n"
 "izkinak:"
 
-#: scribus/mpalette.cpp:281
 msgid "Distance of Text"
 msgstr "Distantzia testutik"
 
-#: scribus/libprefs/prefs.cpp:359 scribus/mpalette.cpp:288
-#: scribus/newfile.cpp:148 scribus/reformdoc.cpp:46
-msgid "Top:"
-msgstr "Goian:"
-
-#: scribus/libprefs/prefs.cpp:356 scribus/mpalette.cpp:291
-#: scribus/newfile.cpp:151 scribus/reformdoc.cpp:62
-msgid "Bottom:"
-msgstr "Behean:"
-
-#: scribus/libprefs/prefs.cpp:365 scribus/libprefs/prefs.cpp:1668
-#: scribus/mpalette.cpp:294 scribus/newfile.cpp:142 scribus/newfile.cpp:615
-#: scribus/reformdoc.cpp:54 scribus/reformdoc.cpp:153
-msgid "Left:"
-msgstr "Ezkerrean:"
-
-#: scribus/libprefs/prefs.cpp:362 scribus/libprefs/prefs.cpp:1669
-#: scribus/mpalette.cpp:297 scribus/newfile.cpp:145 scribus/newfile.cpp:616
-#: scribus/reformdoc.cpp:70 scribus/reformdoc.cpp:154
-msgid "Right:"
-msgstr "Eskuinean:"
-
-#: scribus/libprefs/prefs.cpp:88 scribus/mpalette.cpp:337
-msgid "Fontsize:"
-msgstr "Letra-tipoaren tamaina"
-
-#: scribus/mpalette.cpp:450
-msgid "Custom Spacing"
-msgstr "Script pertsonalizatuak"
-
-#: scribus/mpalette.cpp:466
-msgid "Kerning:"
-msgstr "Karaktere arteko tartea:"
-
-#: scribus/mpalette.cpp:470
-msgid "Linespacing:"
-msgstr "Lerroartea:"
-
-#: scribus/mpalette.cpp:476
-msgid "Styles"
-msgstr "Estiloak"
-
-#: scribus/mpalette.cpp:500
-msgid "Position:"
-msgstr "Kokalekua:"
-
-#: scribus/mpalette.cpp:509
-msgid "Horiz. Scale:"
-msgstr "Eskalatu horizontalki"
-
-#: scribus/mpalette.cpp:515
-msgid "Vert. Scale:"
-msgstr "Eskalatu bertikalki:"
-
-#: scribus/mpalette.cpp:530
-msgid "Scale to Frame Size"
-msgstr "Eskalatu markoaren tamainara"
-
-#: scribus/mpalette.cpp:566
-msgid "Left Point"
-msgstr "Ezkerreko puntua"
-
-#: scribus/mpalette.cpp:567
-msgid "Endpoints"
-msgstr "Amaiera-puntuak"
-
-#: scribus/mpalette.cpp:588
-msgid "Edges:"
-msgstr "Ertzak:"
-
-#: scribus/mpalette.cpp:592 scribus/multiline.cpp:83
-msgid "MiterJoin"
-msgstr "Angelu-elkartzea"
-
-#: scribus/mpalette.cpp:593 scribus/multiline.cpp:84
-msgid "BevelJoin"
-msgstr "Alaka-elkartzea"
-
-#: scribus/mpalette.cpp:594 scribus/multiline.cpp:85
-msgid "RoundJoin"
-msgstr "Elkartze biribila"
-
-#: scribus/mpalette.cpp:597
-msgid "Endings:"
-msgstr "Amaierak:"
-
-#: scribus/mpalette.cpp:601 scribus/multiline.cpp:76
-msgid "FlatCap"
-msgstr "Estalki laua"
-
-#: scribus/mpalette.cpp:602 scribus/multiline.cpp:77
-msgid "SquareCap"
-msgstr "Estalki karratua"
-
-#: scribus/mpalette.cpp:603 scribus/multiline.cpp:78
-msgid "RoundCap"
-msgstr "Estalki biribila"
-
-#: scribus/mpalette.cpp:608 scribus/mpalette.cpp:1931 scribus/spalette.cpp:25
-#: scribus/spalette.cpp:42
-msgid "No Style"
-msgstr "Estilorik ez"
-
-#: scribus/mpalette.cpp:617
-msgid "Font Size"
-msgstr "Letra-tamaina"
-
-#: scribus/mpalette.cpp:619
-msgid "Manual Kerning"
-msgstr "Doitu karaktere arteko tartea eskuz"
-
-#: scribus/mpalette.cpp:620
-msgid "Reverse Writing"
-msgstr "Alderantzizko idazketa"
-
-#: scribus/libprefs/prefs.cpp:649 scribus/mpalette.cpp:622
-#: scribus/scribus.cpp:716
-msgid "Small Caps"
-msgstr "Maiuskula txikiak"
-
-#: scribus/libprefs/prefs.cpp:568 scribus/mpalette.cpp:623
-#: scribus/scribus.cpp:718
-msgid "Subscript"
-msgstr "Azpindizea"
-
-#: scribus/libprefs/prefs.cpp:609 scribus/mpalette.cpp:624
-#: scribus/scribus.cpp:717
-msgid "Superscript"
-msgstr "Goi-indizea"
-
-#: scribus/mpalette.cpp:625
-msgid "Strikeout"
-msgstr "Marratua"
-
-#: scribus/mpalette.cpp:626
-msgid "Align Text Left"
-msgstr "Lerrokatu testua ezkerrean"
-
-#: scribus/mpalette.cpp:627
-msgid "Align Text Right"
-msgstr "Lerrokatu testua eskuinean"
-
-#: scribus/mpalette.cpp:628
-msgid "Align Text Block"
-msgstr "Lerrokatu testu-blokea"
-
-#: scribus/mpalette.cpp:629
-msgid "Align Text Center"
-msgstr "Lerrokatu testua erdian"
-
-#: scribus/mpalette.cpp:630
-msgid "Flip horizontal"
-msgstr "Irauli horizontalki"
-
-#: scribus/mpalette.cpp:631
-msgid "Flip vertical"
-msgstr "Irauli bertikalki"
-
-#: scribus/mpalette.cpp:632
-msgid "Move one Level up"
-msgstr "Eraman maila bat gorago"
-
-#: scribus/mpalette.cpp:633
-msgid "Move one Level down"
-msgstr "Eraman maila bat beherago"
-
-#: scribus/mpalette.cpp:634
-msgid "Move to Front"
-msgstr "Ekarri aurrera"
-
-#: scribus/mpalette.cpp:635
-msgid "Move to Back"
-msgstr "Bidali atzera"
-
-#: scribus/mpalette.cpp:837 scribus/mpalette.cpp:1617
-msgid "X1:"
-msgstr "X1 :"
-
-#: scribus/mpalette.cpp:838 scribus/mpalette.cpp:1618
-msgid "X2:"
-msgstr "X2 :"
-
-#: scribus/mpalette.cpp:839 scribus/mpalette.cpp:1619
-msgid "Y1:"
-msgstr "Y1 :"
-
-#: scribus/mpalette.cpp:840 scribus/mpalette.cpp:1620
-msgid "Y2:"
-msgstr "Y2 :"
-
-#: scribus/multiline.cpp:206 scribus/multiline.cpp:286
-msgid " pt "
-msgstr " pt "
-
-#: scribus/multiline.cpp:210 scribus/multiline.cpp:225
-#: scribus/multiline.cpp:290 scribus/multiline.cpp:305
-msgid "Solid Line"
-msgstr "Marra jarraitua"
-
-#: scribus/multiline.cpp:213 scribus/multiline.cpp:293
-msgid "Dashed Line"
-msgstr "Marratxoduna"
-
-#: scribus/multiline.cpp:216 scribus/multiline.cpp:296
-msgid "Dotted Line"
-msgstr "Puntukatua"
-
-#: scribus/multiline.cpp:219 scribus/multiline.cpp:299
-msgid "Dash Dot Line"
-msgstr "Marratxoak eta puntuak"
-
-#: scribus/multiline.cpp:222 scribus/multiline.cpp:302
-msgid "Dash Dot Dot Line"
-msgstr "Marra puntua puntua"
-
-#: scribus/muster.cpp:11
-msgid "Edit Templates"
-msgstr "Editatu txantiloiak"
-
-#: scribus/muster.cpp:43
-msgid "Exit"
-msgstr "Irten"
-
-#: scribus/muster.cpp:99
-msgid "Do you really want do delete this Template?"
-msgstr "Benetan ezabatu nahi duzu txantiloi hau?"
-
-#: scribus/muster.cpp:181
-msgid "New Template"
-msgstr "Txantiloi berria"
-
-#: scribus/newfile.cpp:29
-msgid "New Document"
-msgstr "Dokumentu berria"
-
-#: scribus/libprefs/prefs.cpp:207 scribus/newfile.cpp:35
-msgid "Page Size"
-msgstr "Orrialde-tamaina"
-
-#: scribus/libprefs/prefs.cpp:215 scribus/newfile.cpp:80
-msgid "Orientation:"
-msgstr "Orientazioa:"
-
-#: scribus/libprefs/prefs.cpp:299 scribus/newfile.cpp:114
-#: scribus/reformdoc.cpp:78 scribus/seiten.cpp:553
-msgid "Facing Pages"
-msgstr "Aurrez aurre dauden orrialdeak"
-
-#: scribus/libprefs/prefs.cpp:304 scribus/newfile.cpp:118
-#: scribus/reformdoc.cpp:82 scribus/seiten.cpp:556
-msgid "Left Page first"
-msgstr "Ezkerreko orrialdea lehenbizi"
-
-#: scribus/libprefs/prefs.cpp:313 scribus/newfile.cpp:130
-#: scribus/reformdoc.cpp:34
-msgid "Margin Guides"
-msgstr "Marjinen gidak"
-
-#: scribus/newfile.cpp:206
-msgid "First Pagenumber:"
-msgstr "Lehen orrialde-zenbakia:"
-
-#: scribus/newfile.cpp:213
-msgid "Default Unit:"
-msgstr "Unitate lehenetsia:"
-
-#: scribus/newfile.cpp:216
-msgid "Points (pts)"
-msgstr "Puntuak (pts)"
-
-#: scribus/libprefs/prefs.cpp:108 scribus/newfile.cpp:217
-msgid "Millimeters (mm)"
-msgstr "Milimetroak (mm)"
-
-#: scribus/libprefs/prefs.cpp:109 scribus/newfile.cpp:218
-msgid "Inches (in)"
-msgstr "Hazbete (in)"
-
-#: scribus/libprefs/prefs.cpp:110 scribus/newfile.cpp:219
-msgid "Picas (p)"
-msgstr "Pika (p)"
-
-#: scribus/newfile.cpp:226
-msgid "Autom. Textframes"
-msgstr "Testu-marko automatikoak"
-
-#: scribus/newfile.cpp:230
-msgid "Column Guides"
-msgstr "Zutabeen gidak"
-
-#: scribus/newfile.cpp:242
-msgid "Gutter Width:"
-msgstr "Barne-marjinaren zabalera:"
-
-#: scribus/newfile.cpp:245
 msgid "Columns:"
 msgstr "Zutabeak:"
 
-#: scribus/libprefs/prefs.cpp:1662 scribus/newfile.cpp:609
-#: scribus/reformdoc.cpp:147
+#, fuzzy
+msgid "Gap:"
+msgstr "B:"
+
+msgid "Top:"
+msgstr "Goian:"
+
+msgid "Bottom:"
+msgstr "Behean:"
+
+msgid "Left:"
+msgstr "Ezkerrean:"
+
+msgid "Right:"
+msgstr "Eskuinean:"
+
+#, fuzzy
+msgid "Tabulators..."
+msgstr "Txantiloiak..."
+
+#, fuzzy
+msgid "Path Text Properties"
+msgstr "Eremu-propietateak"
+
+msgid "Show Curve"
+msgstr "Erakutsi kurba"
+
+#, fuzzy
+msgid "Start Offset:"
+msgstr "Hasi desplazamendua:"
+
+msgid "Distance from Curve:"
+msgstr "Distantzia kurbatik:"
+
+msgid "Font Size:"
+msgstr "Letra-tamaina:"
+
+msgid "Custom Spacing"
+msgstr "Script pertsonalizatuak"
+
+msgid "Kerning:"
+msgstr "Karaktere arteko tartea:"
+
+msgid "Free Scaling"
+msgstr "Eskalatze librea"
+
+#, fuzzy
+msgid "X-Pos.:"
+msgstr "X posizioa:"
+
+#, fuzzy
+msgid "Y-Pos.:"
+msgstr "Y posizioa:"
+
+#, fuzzy
+msgid "X-Scale:"
+msgstr "Eskalatu:"
+
+#, fuzzy
+msgid "Y-Scale:"
+msgstr "Eskalatu:"
+
+msgid "Scale to Frame Size"
+msgstr "Eskalatu markoaren tamainara"
+
+msgid "Input Profile:"
+msgstr "Sarrera-profila:"
+
+msgid "Rendering Intent:"
+msgstr "Errendatze-modua:"
+
+msgid "Left Point"
+msgstr "Ezkerreko puntua"
+
+#, fuzzy
+msgid "End Points"
+msgstr "Amaiera-puntuak"
+
+msgid "Type of Line:"
+msgstr ""
+
+msgid "Line Width:"
+msgstr "Lerro-zabalera:"
+
+msgid "Edges:"
+msgstr "Ertzak:"
+
+#, fuzzy
+msgid "Miter Join"
+msgstr "Angelu-elkartzea"
+
+#, fuzzy
+msgid "Bevel Join"
+msgstr "Alaka-elkartzea"
+
+#, fuzzy
+msgid "Round Join"
+msgstr "Elkartze biribila"
+
+msgid "Endings:"
+msgstr "Amaierak:"
+
+#, fuzzy
+msgid "Flat Cap"
+msgstr "Estalki laua"
+
+#, fuzzy
+msgid "Square Cap"
+msgstr "Estalki karratua"
+
+#, fuzzy
+msgid "Round Cap"
+msgstr "Estalki biribila"
+
+msgid "No Style"
+msgstr "Estilorik ez"
+
+#, fuzzy
+msgid "Cell Lines"
+msgstr "Txertatu marrak"
+
+msgid "Line at Top"
+msgstr ""
+
+#, fuzzy
+msgid "Line at the Left"
+msgstr "Eskuinetik ezkerrera"
+
+#, fuzzy
+msgid "Line at the Right "
+msgstr "Ezkerretik eskuinera"
+
+#, fuzzy
+msgid "Line at Bottom"
+msgstr "Goitik behera"
+
+#, fuzzy
+msgid "Name of selected object"
+msgstr "Desegin objektu-ezabatzea"
+
+msgid "Horizontal position of current basepoint"
+msgstr ""
+
+msgid "Vertical position of current basepoint"
+msgstr ""
+
+#, fuzzy
+msgid "Width"
+msgstr "Zabalera:"
+
+#, fuzzy
+msgid "Height"
+msgstr "Altuera:"
+
+msgid "Rotation of object at current basepoint"
+msgstr ""
+
+msgid "Point from which measurements or rotation angles are referenced"
+msgstr ""
+
+msgid "Select top left for basepoint"
+msgstr ""
+
+msgid "Select top right for basepoint"
+msgstr ""
+
+msgid "Select bottom left for basepoint"
+msgstr ""
+
+msgid "Select bottom right for basepoint"
+msgstr ""
+
+#, fuzzy
+msgid "Select center for basepoint"
+msgstr "Hautatu letra-tipo berria:"
+
+#, fuzzy
+msgid "Flip Horizontal"
+msgstr "Irauli horizontalki"
+
+#, fuzzy
+msgid "Flip Vertical"
+msgstr "Irauli bertikalki"
+
+#, fuzzy
+msgid "Move one level up"
+msgstr "Eraman maila bat gorago"
+
+#, fuzzy
+msgid "Move one level down"
+msgstr "Eraman maila bat beherago"
+
+#, fuzzy
+msgid "Move to front"
+msgstr "Ekarri aurrera"
+
+#, fuzzy
+msgid "Move to back"
+msgstr "Bidali atzera"
+
+msgid ""
+"Indicates the level the object is on, 0 means the object is at the bottom"
+msgstr ""
+
+msgid "Lock or unlock the object"
+msgstr ""
+
+msgid "Lock or unlock the size of the object"
+msgstr ""
+
+msgid "Enable or disable printing of the object"
+msgstr ""
+
+msgid "Make text in lower frames flow around the object shape"
+msgstr ""
+
+msgid "Use the frame shape instead of the object one"
+msgstr ""
+
+msgid "Scaling width of characters"
+msgstr ""
+
+msgid "Saturation of color of text stroke"
+msgstr ""
+
+msgid "Saturation of color of text fill"
+msgstr ""
+
+msgid "Reverse Writing"
+msgstr "Alderantzizko idazketa"
+
+msgid "Manual Kerning"
+msgstr "Doitu karaktere arteko tartea eskuz"
+
+msgid "Style of current paragraph"
+msgstr ""
+
+msgid "Language of object"
+msgstr ""
+
+msgid "Change settings for left or end points"
+msgstr ""
+
+msgid "Pattern of line"
+msgstr ""
+
+msgid "Thickness of line"
+msgstr ""
+
+msgid "Type of line joins"
+msgstr ""
+
+msgid "Type of line end"
+msgstr ""
+
+#, fuzzy
+msgid "Line style of current object"
+msgstr "Uneko dokumentua inprimatzen du"
+
+msgid "Choose the shape of frame..."
+msgstr ""
+
+#, fuzzy
+msgid "Edit shape of the frame..."
+msgstr "Editatu forma..."
+
+msgid "Set radius of corner rounding"
+msgstr ""
+
+msgid "Number of columns in text frame"
+msgstr ""
+
+msgid "Switches between Gap or Column width"
+msgstr ""
+
+msgid "Distance between columns"
+msgstr ""
+
+msgid "Distance of text from top of frame"
+msgstr ""
+
+msgid "Distance of text from bottom of frame"
+msgstr ""
+
+msgid "Distance of text from left of frame"
+msgstr ""
+
+msgid "Distance of text from right of frame"
+msgstr ""
+
+#, fuzzy
+msgid "Edit tab settings of text frame..."
+msgstr "Editatu markoaren edukia"
+
+msgid "Allow the image to be a different size to the frame"
+msgstr ""
+
+msgid "Horizontal offset of image within frame"
+msgstr ""
+
+msgid "Vertical offset of image within frame"
+msgstr ""
+
+#, fuzzy
+msgid "Resize the image horizontally"
+msgstr "Bide-izena horizontalki ispilatzen du"
+
+#, fuzzy
+msgid "Resize the image vertically"
+msgstr "Bide-izena bertikalki gorantz zizailatzen du"
+
+msgid "Keep the X and Y scaling the same"
+msgstr ""
+
+#, fuzzy
+msgid "Keep the aspect ratio"
+msgstr "Mantendu aspektu-erlazioa"
+
+msgid "Make the image fit within the size of the frame"
+msgstr ""
+
+msgid "Use image proportions rather than those of the frame"
+msgstr ""
+
+msgid "Source profile of the image"
+msgstr ""
+
+#, fuzzy
+msgid "Rendering intent for the image"
+msgstr "Errendatze-modua"
+
+#, fuzzy
+msgid "Column width"
+msgstr "Zutabeen gidak"
+
+msgid ""
+"Name \"%1\" isn't unique.\n"
+"Please choose another."
+msgstr ""
+"\"%1\" izena badago lehendik ere.\n"
+"Aukeratu beste bat."
+
+#, fuzzy
+msgid "pt"
+msgstr " pt"
+
+#, fuzzy
+msgid "mm"
+msgstr " mm"
+
+#, fuzzy
+msgid "in"
+msgstr " in"
+
+#, fuzzy
+msgid "p"
+msgstr " p"
+
+msgid " pt "
+msgstr " pt "
+
+msgid "Solid Line"
+msgstr "Marra jarraitua"
+
+msgid "Dashed Line"
+msgstr "Marratxoduna"
+
+msgid "Dotted Line"
+msgstr "Puntukatua"
+
+msgid "Dash Dot Line"
+msgstr "Marratxoak eta puntuak"
+
+msgid "Dash Dot Dot Line"
+msgstr "Marra puntua puntua"
+
+msgid "Edit Templates"
+msgstr "Editatu txantiloiak"
+
+msgid "Do you really want do delete this Template?"
+msgstr "Benetan ezabatu nahi duzu txantiloi hau?"
+
+msgid "New Template"
+msgstr "Txantiloi berria"
+
+#, fuzzy
+msgid "Copy #%1 of "
+msgstr "Honen kopia: "
+
+msgid "New Document"
+msgstr "Dokumentu berria"
+
+msgid "Page Size"
+msgstr "Orrialde-tamaina"
+
+msgid "Legal"
+msgstr ""
+
+#, fuzzy
+msgid "Letter"
+msgstr "Erdian"
+
+msgid "Tabloid"
+msgstr "Tabloidea"
+
+msgid "Orientation:"
+msgstr "Orientazioa:"
+
+msgid "Facing Pages"
+msgstr "Aurrez aurre dauden orrialdeak"
+
+msgid "Left Page first"
+msgstr "Ezkerreko orrialdea lehenbizi"
+
+msgid "Margin Guides"
+msgstr "Marjinen gidak"
+
+#, fuzzy
+msgid "First Page Number:"
+msgstr "Lehen orrialde-zenbakia:"
+
+msgid "Default Unit:"
+msgstr "Unitate lehenetsia:"
+
+msgid "Points (pts)"
+msgstr "Puntuak (pts)"
+
+#, fuzzy
+msgid "Millimetres (mm)"
+msgstr "Milimetroak (mm)"
+
+msgid "Inches (in)"
+msgstr "Hazbete (in)"
+
+msgid "Picas (p)"
+msgstr "Pika (p)"
+
+#, fuzzy
+msgid "Automatic Text Frames"
+msgstr "Testu-marko automatikoak"
+
+msgid "Column Guides"
+msgstr "Zutabeen gidak"
+
+msgid "Document page size, either a standard size or a custom size"
+msgstr ""
+
+msgid "Orientation of the document's pages"
+msgstr ""
+
+msgid ""
+"Width of the document's pages, editable if you have chosen a custom page size"
+msgstr ""
+
+msgid ""
+"Height of the document's pages, editable if you have chosen a custom page "
+"size"
+msgstr ""
+
+msgid "Enable single or spread based layout"
+msgstr ""
+
+msgid "Make the first page the left page of the document"
+msgstr ""
+
+msgid "Distance between the top margin guide and the edge of the page"
+msgstr ""
+
+msgid "Distance between the bottom margin guide and the edge of the page"
+msgstr ""
+
+msgid ""
+"Distance between the left margin guide and the edge of the page.\n"
+"If Facing Pages is selected, this margin space can be used to achieve the "
+"correct margins for binding"
+msgstr ""
+
+msgid ""
+"Distance between the right margin guide and the edge of the page.\n"
+"If Facing Pages is selected, this margin space can be used to achieve the "
+"correct margins for binding"
+msgstr ""
+
+msgid "First page number of the document"
+msgstr ""
+
+msgid "Default unit of measurement for document editing"
+msgstr ""
+
+msgid "Create text frames automatically when new pages are added"
+msgstr ""
+
+msgid "Number of columns to create in automatically created text frames"
+msgstr ""
+
+msgid "Distance between automatically created columns"
+msgstr ""
+
 msgid "Inside:"
 msgstr "Barruan:"
 
-#: scribus/libprefs/prefs.cpp:1663 scribus/newfile.cpp:610
-#: scribus/reformdoc.cpp:148
 msgid "Outside:"
 msgstr "Kanpoan:"
 
-#: scribus/newtemp.cpp:40
 msgid "Left Page"
 msgstr "Ezkerreko orrialdea"
 
-#: scribus/newtemp.cpp:41
 msgid "Right Page"
 msgstr "Eskuineko orrialdea"
 
-#: scribus/page.cpp:307
 msgid "Copy Here"
 msgstr "Kopiatu hemen"
 
-#: scribus/page.cpp:308
 msgid "Move Here"
 msgstr "Ekarri hona"
 
-#: scribus/page.cpp:1930 scribus/scribus.cpp:1881
-msgid "Get Picture..."
-msgstr "Eskuratu irudia..."
-
-#: scribus/page.cpp:1936 scribus/scribus.cpp:1904 scribus/scribus.cpp:1946
-msgid "Get Text..."
-msgstr "Eskuratu testua..."
-
-#: scribus/page.cpp:1952 scribus/scribus.cpp:522 scribus/scribus.cpp:523
-msgid "Modify..."
-msgstr "Aldatu..."
-
-#: scribus/page.cpp:1955 scribus/scribus.cpp:535 scribus/scribus.cpp:2061
-msgid "Lock"
-msgstr "Blokeatu"
-
-#: scribus/page.cpp:1956 scribus/scribus.cpp:537 scribus/scribus.cpp:538
-msgid "Send to Back"
-msgstr "Bidali atzera"
-
-#: scribus/page.cpp:1957 scribus/scribus.cpp:539 scribus/scribus.cpp:540
-msgid "Bring to Front"
-msgstr "Ekarri aurrera"
-
-#: scribus/page.cpp:1958 scribus/scribus.cpp:541 scribus/scribus.cpp:542
-msgid "Lower"
-msgstr "Beheratu"
-
-#: scribus/page.cpp:1959 scribus/scribus.cpp:543 scribus/scribus.cpp:544
-msgid "Raise"
-msgstr "Goratu"
-
-#: scribus/page.cpp:1962 scribus/scribus.cpp:2057
-msgid "Unlock"
-msgstr "Desblokeatu"
-
-#: scribus/page.cpp:1963
-msgid "Send to Scrapbook"
-msgstr "Bidali berri laburren albumera"
-
-#: scribus/page.cpp:1972
-msgid "Sent to Layer"
-msgstr "Geruzara bidali da"
-
-#: scribus/page.cpp:1979 scribus/page.cpp:1990
-msgid "Picture Frame"
-msgstr "Irudiaren markoa"
-
-#: scribus/page.cpp:1980 scribus/page.cpp:1985
-msgid "Polygon"
-msgstr "Poligonoa"
-
-#: scribus/page.cpp:1984 scribus/page.cpp:1989
-msgid "Text Frame"
-msgstr "Testuaren markoa"
-
-#: scribus/page.cpp:1991
-msgid "Bezier Curve"
-msgstr "Bezier kurba"
-
-#: scribus/page.cpp:1993
-msgid "Convert to"
-msgstr "Bihurtu "
-
-#: scribus/pdfopts.cpp:16
-msgid "Create PDF-File"
-msgstr "Sortu PDF fitxategia"
-
-#: scribus/pdfopts.cpp:27
-msgid "Output to File:"
-msgstr "Irteera fitxategi honetara:"
-
-#: scribus/pdfopts.cpp:56
-msgid "Export Range"
-msgstr "Esportatu barrutia"
-
-#: scribus/pdfopts.cpp:68
-msgid "From:"
-msgstr "Hemendik:"
-
-#: scribus/pdfopts.cpp:90
-msgid "File Options"
-msgstr "Fitxategi-aukerak"
-
-#: scribus/pdfopts.cpp:99
-msgid "Compatibility:"
-msgstr "Bateragarritasuna:"
-
-#: scribus/pdfopts.cpp:125
-msgid "Binding:"
-msgstr "Lotura:"
-
-#: scribus/pdfopts.cpp:129
-msgid "Left Margin"
-msgstr "Ezkerreko marjina"
-
-#: scribus/pdfopts.cpp:130
-msgid "Right Margin"
-msgstr "Eskuineko marjina"
-
-#: scribus/pdfopts.cpp:135
-msgid "Generate Thumbnails"
-msgstr "Sortu koadro txikiak"
-
-#: scribus/pdfopts.cpp:139
-msgid "Save linked Text Frames as PDF-Articles"
-msgstr "Gorde estekatutako testu-markoak PDF artikulu gisa"
-
-#: scribus/pdfopts.cpp:143
-msgid "Include Bookmarks"
-msgstr "Sartu laster-markak"
-
-#: scribus/pdfopts.cpp:147
-msgid "Resolution:"
-msgstr "Bereizmena:"
-
-#: scribus/pdfopts.cpp:154 scribus/pdfopts.cpp:172
-msgid " dpi"
-msgstr " dpi"
-
-#: scribus/pdfopts.cpp:159
-msgid "Compression"
-msgstr "Konpresioa"
-
-#: scribus/pdfopts.cpp:168
-msgid "Downsample Images to:"
-msgstr "Murriztu irudiak honetara:"
-
-#: scribus/pdfopts.cpp:182
-msgid "Compress Text and Vector Graphics"
-msgstr "Konprimatu testua eta bektore grafikoak"
-
-#: scribus/libprefs/prefs.cpp:48 scribus/pdfopts.cpp:186
-#: scribus/pdfopts.cpp:447
-msgid "General"
-msgstr "Orokorra"
-
-#: scribus/pdfopts.cpp:192
-msgid "Embed all Fonts"
-msgstr "Kapsulatu letra-tipo guztiak"
-
-#: scribus/pdfopts.cpp:195
-msgid "Embedding"
-msgstr "Kapsulatzen"
-
-#: scribus/pdfopts.cpp:207
-msgid "Available Fonts:"
-msgstr "Erabilgarri dauden letra-tipoak:"
-
-#: scribus/pdfopts.cpp:229 scribus/selfield.cpp:48
-msgid ">>"
-msgstr ">>"
-
-#: scribus/pdfopts.cpp:233 scribus/selfield.cpp:51
-msgid "<<"
-msgstr "<<"
-
-#: scribus/pdfopts.cpp:241
-msgid "Fonts to embed:"
-msgstr "Kapsulatzeko letra-tipoak:"
-
-#: scribus/pdfopts.cpp:257
-msgid "Fonts"
-msgstr "Letra-tipoak"
-
-#: scribus/pdfopts.cpp:264
-msgid "Enable Presentation Effects"
-msgstr "Gaitu aurkezpen-efektuak"
-
-#: scribus/pdfopts.cpp:276 scribus/pdfopts.cpp:293 scribus/pdfopts.cpp:1052
-#: scribus/pdfopts.cpp:1059 scribus/picstatus.cpp:51 scribus/scribus.cpp:663
-#: scribus/scribusview.cpp:62 scribus/scribusview.cpp:220
-#: scribus/scribusview.cpp:245 scribus/scribusview.cpp:403
-#: scribus/scribusview.cpp:502 scribus/scribusview.cpp:544 scribus/tree.cpp:47
-#: scribus/tree.cpp:84
-msgid "Page"
-msgstr "Orrialdea"
-
-#: scribus/pdfopts.cpp:305 scribus/seiten.cpp:81
-msgid "Show Page Previews"
-msgstr "Erakutsi orrialdeen aurrebistak"
-
-#: scribus/pdfopts.cpp:310
-msgid "Effects"
-msgstr "Efektuak"
-
-#: scribus/pdfopts.cpp:319
-msgid "Display Duration:"
-msgstr "Bistaratu iraupena:"
-
-#: scribus/pdfopts.cpp:322
-msgid "Effect Duration:"
-msgstr "Efektuaren iraupena:"
-
-#: scribus/pdfopts.cpp:325
-msgid "Effect Type:"
-msgstr "Efektu-mota:"
-
-#: scribus/pdfopts.cpp:328
-msgid "Moving Lines:"
-msgstr "Lerroak lekuz aldatzen:"
-
-#: scribus/pdfopts.cpp:331
-msgid "from the:"
-msgstr "Hemendik:"
-
-#: scribus/pdfopts.cpp:334
-msgid "Direction:"
-msgstr "Helbidea:"
-
-#: scribus/pdfopts.cpp:337 scribus/pdfopts.cpp:343
-msgid " sec"
-msgstr ""
-
-#: scribus/pdfopts.cpp:349
-msgid "No Effect"
-msgstr "Efekturik ez"
-
-#: scribus/pdfopts.cpp:350
-msgid "Blinds"
-msgstr "Pertsianak"
-
-#: scribus/pdfopts.cpp:351
-msgid "Box"
-msgstr "Kutxa"
-
-#: scribus/pdfopts.cpp:352
-msgid "Dissolve"
-msgstr "Disolbatu"
-
-#: scribus/pdfopts.cpp:353
-msgid "Glitter"
-msgstr "Distira"
-
-#: scribus/pdfopts.cpp:354
-msgid "Split"
-msgstr "Zatitu"
-
-#: scribus/pdfopts.cpp:355
-msgid "Wipe"
-msgstr "Ezabatu"
-
-#: scribus/pdfopts.cpp:364
-msgid "Inside"
-msgstr "Barruan"
-
-#: scribus/pdfopts.cpp:365
-msgid "Outside"
-msgstr "Kanpoan"
-
-#: scribus/pdfopts.cpp:369
-msgid "Left to Right"
-msgstr "Ezkerretik eskuinera"
-
-#: scribus/pdfopts.cpp:370
-msgid "Top to Bottom"
-msgstr "Goitik behera"
-
-#: scribus/pdfopts.cpp:371
-msgid "Bottom to Top"
-msgstr "Behetik gora"
-
-#: scribus/pdfopts.cpp:372
-msgid "Right to Left"
-msgstr "Eskuinetik ezkerrera"
-
-#: scribus/pdfopts.cpp:373
-msgid "Top-Left to Bottom-Right"
-msgstr "Goiko ezkerretik beheko eskuinera"
-
-# New in Version 0.8
-#: scribus/pdfopts.cpp:377
-msgid "Apply Effect on all Pages"
-msgstr "Aplikatu efektua orri guztietan"
-
-#: scribus/pdfopts.cpp:380 scribus/scribus.cpp:668
-msgid "Extras"
-msgstr "Gehigarriak"
-
-#: scribus/pdfopts.cpp:385
-msgid "Use Encryption"
-msgstr "Erabili enkriptatzea"
-
-#: scribus/pdfopts.cpp:390
-msgid "Passwords"
-msgstr "Pasahitzak"
-
-#: scribus/pdfopts.cpp:397
-msgid "User:"
-msgstr "Erabiltzailea:"
-
-#: scribus/pdfopts.cpp:400
-msgid "Owner:"
-msgstr "Jabea:"
-
-#: scribus/pdfopts.cpp:414
-msgid "Settings"
-msgstr "Ezarpenak"
-
-#: scribus/pdfopts.cpp:421
-msgid "Allow Printing the Document"
-msgstr "Baimendu dokumentua inprimatzea"
-
-#: scribus/pdfopts.cpp:425
-msgid "Allow Changing the Document"
-msgstr "Baimendu dokumentu-aldaketak"
-
-#: scribus/pdfopts.cpp:429
-msgid "Copying Text and Graphics is allowed"
-msgstr "Testua eta irudiak kopiatzea onartzen da"
-
-#: scribus/pdfopts.cpp:433
-msgid "Adding Annotations and Fields is allowed"
-msgstr "Oharpenak eta eremuak gehitzea onartzen da"
-
-#: scribus/pdfopts.cpp:442
-msgid "Security"
-msgstr "Segurtasuna"
-
-#: scribus/pdfopts.cpp:454
-msgid "Output intended for:"
-msgstr "Honentzako irteera:"
-
-#: scribus/pdfopts.cpp:457
-msgid "Screen"
-msgstr "Pantaila"
-
-#: scribus/pdfopts.cpp:458
-msgid "Printer"
-msgstr "Inprimagailua"
-
-#: scribus/pdfopts.cpp:475 scribus/pdfopts.cpp:503
-msgid "Use ICC-Profile"
-msgstr "Erabili ICC profilak"
-
-#: scribus/pdfopts.cpp:479 scribus/pdfopts.cpp:511
-msgid "Profile:"
-msgstr "Profila:"
-
-#: scribus/pdfopts.cpp:482 scribus/pdfopts.cpp:514
-msgid "Rendering-Intent:"
-msgstr "Asmoa errendatzen:"
-
-#: scribus/pdfopts.cpp:496
-msgid "Images:"
-msgstr "Irudiak:"
-
-#: scribus/pdfopts.cpp:507
-msgid "Don't use embedded Profiles"
-msgstr "Ez erabili profil kapsulatuak"
-
-#: scribus/pdfopts.cpp:576 scribus/scribus.cpp:1894 scribus/scribus.cpp:1922
-#: scribus/scribus.cpp:1963 scribus/scribus.cpp:1983 scribus/scribus.cpp:6575
-msgid "Color"
-msgstr "Kolorea"
-
-#: scribus/pdfopts.cpp:581
-msgid "PDF/X-3 Output Intent"
-msgstr "PDF/X-3 irteera"
-
-#: scribus/pdfopts.cpp:608
-msgid "Info String:"
-msgstr "Informazio-katea"
-
-#: scribus/pdfopts.cpp:611
-msgid "Output Profile:"
-msgstr "Irteera-profila:"
-
-#: scribus/pdfopts.cpp:615
-msgid "Trim Box"
-msgstr "Mozte-koadroa"
-
-#: scribus/pdfopts.cpp:642
-msgid "PDF/X-3"
-msgstr "PDF/X-3"
-
-#: scribus/pdfopts.cpp:1160
-msgid "PDF-Files (*.pdf);;All Files (*)"
-msgstr "PDF fitxategiak (*.pdf);;Fitxategi guztiak (*)"
-
-#: scribus/picsearch.cpp:11
-msgid "Result"
-msgstr "Emaitza"
-
-#: scribus/picsearch.cpp:24
-msgid "Search Results for: "
-msgstr "Bilaketaren emaitzak: "
-
-#: scribus/libprefs/prefs.cpp:1376 scribus/picsearch.cpp:49
-#: scribus/scrap.cpp:154
-msgid "Preview"
-msgstr "Aurrebista"
-
-#: scribus/picsearch.cpp:57
-msgid "Select"
-msgstr "Hautatu"
-
-#: scribus/picstatus.cpp:34
-msgid "Pictures"
-msgstr "Irudiak"
-
-#: scribus/picstatus.cpp:49
-msgid "Name"
-msgstr "Izena:"
-
-#: scribus/picstatus.cpp:50
-msgid "Path"
-msgstr "Bide-izena"
-
-#: scribus/picstatus.cpp:53
-msgid "Print"
-msgstr "Inprimatu"
-
-#: scribus/picstatus.cpp:54
-msgid "Status"
-msgstr "Egoera"
-
-#: scribus/picstatus.cpp:92 scribus/picstatus.cpp:95 scribus/picstatus.cpp:130
-#: scribus/picstatus.cpp:132
-msgid "Goto"
-msgstr "Joan"
-
-#: scribus/picstatus.cpp:108 scribus/picstatus.cpp:145
-#: scribus/picstatus.cpp:223 scribus/picstatus.cpp:232
-#: scribus/picstatus.cpp:258 scribus/picstatus.cpp:267
-msgid "Missing"
-msgstr "Falta da"
-
-#: scribus/picstatus.cpp:110 scribus/picstatus.cpp:111
-#: scribus/picstatus.cpp:147 scribus/picstatus.cpp:148
-msgid "Search"
-msgstr "Bilatu"
-
-#: scribus/polyprops.cpp:27
-msgid "Polygon Properties"
-msgstr "Poligonoaren propietateak"
-
-#: scribus/libprefs/prefs.cpp:1275 scribus/polyprops.cpp:36
-msgid "Corners:"
-msgstr "Izkinak:"
-
-#: scribus/libprefs/prefs.cpp:1287 scribus/polyprops.cpp:50
-msgid "Rotation:"
-msgstr "Biraketa:"
-
-#: scribus/libprefs/prefs.cpp:1306 scribus/polyprops.cpp:70
-msgid "Convex Polygon"
-msgstr "Poligono ganbila"
-
-#: scribus/libprefs/prefs.cpp:1315 scribus/polyprops.cpp:79
-msgid "Factor:"
-msgstr "Faktorea:"
-
-#: scribus/reformdoc.cpp:28
-msgid "Document Setup"
-msgstr "Dokumentuaren konfigurazioa"
-
-#: scribus/libprefs/prefs.cpp:53 scribus/scrap.cpp:123 scribus/scrap.cpp:275
-msgid "Scrapbook"
-msgstr "Berri laburren albuma"
-
-#: scribus/libprefs/prefs.cpp:1390 scribus/scrap.cpp:137
-msgid "Small"
-msgstr "Txikia"
-
-#: scribus/libprefs/prefs.cpp:1391 scribus/scrap.cpp:138
-msgid "Medium"
-msgstr "Tartekoa"
-
-#: scribus/libprefs/prefs.cpp:1392 scribus/scrap.cpp:139
-msgid "Big"
-msgstr "Handia"
-
-#: scribus/scrap.cpp:196 scribus/scrap.cpp:208
-msgid "Scrapbooks (*.scs);; All Files (*)"
-msgstr "Berri laburren albumak (*.scd);; Fitxategi guztiak (*)"
-
-#: scribus/scrap.cpp:323
-msgid "Object"
-msgstr "Objektua"
-
-#: scribus/scribus.cpp:100
-msgid "Scribus "
-msgstr "Scribus "
-
-#: scribus/scribus.cpp:105
-msgid "Creates a new Document"
-msgstr "Dokumentu berria sortzen du "
-
-#: scribus/scribus.cpp:106
-msgid "Opens a Document"
-msgstr "Dokumentua irekitzen du"
-
-#: scribus/scribus.cpp:107
-msgid "Saves the current Document"
-msgstr "Uneko dokumentua gordetzen du"
-
-#: scribus/scribus.cpp:108
-msgid "Closes the current Document"
-msgstr "Uneko dokumentua ixten du"
-
-#: scribus/scribus.cpp:109
-msgid "Prints the current Document"
-msgstr "Uneko dokumentua inprimatzen du"
-
-#: scribus/scribus.cpp:110
-msgid "Saves the current Document as PDF"
-msgstr "Uneko dokumentua PDF gisa gordetzen du"
-
-#: scribus/scribus.cpp:162
-msgid "Searching for Fonts"
-msgstr "Letra-tipoak bilatzen"
-
-#: scribus/scribus.cpp:166
-msgid "There are no Postscript-Fonts on your System"
-msgstr "Ez dago Postscript-en letra-tiporik zure sisteman"
-
-#: scribus/scribus.cpp:167
-msgid "Exiting now"
-msgstr "Irteten"
-
-#: scribus/scribus.cpp:168
-msgid "Fatal Error"
-msgstr "Errore larria"
-
-#: scribus/scribus.cpp:304
-msgid "Smart Hyphen"
-msgstr "Marratxo dotorea"
-
-#: scribus/scribus.cpp:305
-msgid "Align Left"
-msgstr "Lerrokatu ezkerrean"
-
-#: scribus/scribus.cpp:306
-msgid "Align Right"
-msgstr "Lerrokatu eskuinean"
-
-#: scribus/scribus.cpp:307
-msgid "Align Center"
-msgstr "Lerrokatu erdian"
-
-#: scribus/scribus.cpp:308
-msgid "Insert Pagenumber"
-msgstr "Sartu orrialde-zenbakia"
-
-#: scribus/scribus.cpp:309 scribus/scribus.cpp:554
-msgid "Attach Text to Path"
-msgstr "Lotu testua bide-izenari"
-
-#: scribus/scribus.cpp:310 scribus/scribus.cpp:633 scribus/scribus.cpp:3407
-msgid "Show Layers"
-msgstr "Erakutsi geruzak"
-
-#: scribus/scribus.cpp:311 scribus/scribus.cpp:502
-msgid "JavaScripts..."
-msgstr "JavaScript-ak..."
-
-#: scribus/scribus.cpp:313 scribus/scribus.cpp:634 scribus/scribus.cpp:3427
-msgid "Show Page Palette"
-msgstr "Erakutsi orrialdearen paleta"
-
-#: scribus/scribus.cpp:314
-msgid "Lock/Unlock"
-msgstr "Blokeatu/desblokeatu"
-
-#: scribus/scribus.cpp:315
-msgid "Nonbreaking Space"
-msgstr "Zuriune zatiezina"
-
-#: scribus/scribus.cpp:316
-msgid "Getting ICC-Profiles"
-msgstr "ICC profilak eskuratzen"
-
-#: scribus/scribus.cpp:318
-msgid "Init Hyphenator"
-msgstr "Abiarazi hitz-zatitzailea"
-
-#: scribus/scribus.cpp:320
-msgid "Reading Preferences"
-msgstr "Hobespenak irakurtzen"
-
-#: scribus/scribus.cpp:325
-msgid "Setting up Shortcuts"
-msgstr "Laster-bideak ezartzen"
-
-#: scribus/scribus.cpp:329
-msgid "Color Management..."
-msgstr "Kolore-kudeaketa..."
-
-#: scribus/scribus.cpp:358
-msgid "Reading Scrapbook"
-msgstr "Berri laburren albuma irakurtzen"
-
-#: scribus/scribus.cpp:368
-msgid "Initializing Plugins"
-msgstr "Plugin-ak hasieratzen"
-
-#: scribus/scribus.cpp:436 scribus/scribus.cpp:439
-msgid "Open..."
-msgstr "Ireki..."
-
-#: scribus/scribus.cpp:437
-msgid "Recent Documents"
-msgstr "Azken dokumentuak"
-
-#: scribus/scribus.cpp:450
-msgid "Collect for Output..."
-msgstr "Bildu irteerarako..."
-
-#: scribus/scribus.cpp:454 scribus/scribus.cpp:1859 scribus/scribus.cpp:1973
-msgid "Get Text/Picture..."
-msgstr "Eskuratu testua/irudia..."
-
-#: scribus/scribus.cpp:456
-msgid "Insert Page..."
-msgstr "Txertatu orrialdea..."
-
-#: scribus/scribus.cpp:458
-msgid "Import..."
-msgstr "Inportatu..."
-
-#: scribus/scribus.cpp:460
-msgid "Save Text..."
-msgstr "Gorde testua..."
-
-#: scribus/scribus.cpp:462
-msgid "Save Page as EPS..."
-msgstr "Gorde orrialdea EPS gisa..."
-
-#: scribus/scribus.cpp:464
-msgid "Save as PDF..."
-msgstr "Gorde PDF gisa..."
-
-#: scribus/scribus.cpp:466
-msgid "Export..."
-msgstr "Esportatu..."
-
-#: scribus/scribus.cpp:469 scribus/scribus.cpp:471
-msgid "Document Info..."
-msgstr "Dokumentuaren informazioa..."
-
-#: scribus/scribus.cpp:472 scribus/scribus.cpp:474
-msgid "Document Setup..."
-msgstr "Dokumentuaren konfigurazioa..."
-
-#: scribus/scribus.cpp:475 scribus/scribus.cpp:477
-msgid "Print..."
-msgstr "Inprimatu..."
-
-#: scribus/scribus.cpp:479 scribus/scribus.cpp:480
-msgid "Quit"
-msgstr "Irten"
-
-#: scribus/scribus.cpp:488 scribus/scribus.cpp:493
-msgid "Select all"
-msgstr "Hautatu dena"
-
-#: scribus/scribus.cpp:495 scribus/scribus.cpp:496
-msgid "Colors..."
-msgstr "Koloreak..."
-
-#: scribus/scribus.cpp:497 scribus/scribus.cpp:499
-msgid "Styles..."
-msgstr "Estiloak..."
-
-#: scribus/scribus.cpp:498
-msgid "Line Styles..."
-msgstr "Marra-estiloak..."
-
-#: scribus/scribus.cpp:500 scribus/scribus.cpp:501
-msgid "Templates..."
-msgstr "Txantiloiak..."
-
-#: scribus/scribus.cpp:504
-msgid "General..."
-msgstr "Orokorra..."
-
-#: scribus/scribus.cpp:505
-msgid "Preferences..."
-msgstr "Hobespenak..."
-
-#: scribus/scribus.cpp:506 scribus/scribus.cpp:507
-msgid "Fonts..."
-msgstr "Letra-tipoak..."
-
-#: scribus/scribus.cpp:508
-msgid "Hyphenator..."
-msgstr "Hitz-zatitzailea..."
-
-#: scribus/libprefs/prefs.cpp:38 scribus/scribus.cpp:509
-msgid "Preferences"
-msgstr "Hobespenak"
-
-#: scribus/scribus.cpp:531 scribus/scribus.cpp:532
-msgid "Group"
-msgstr "Elkartu"
-
-#: scribus/scribus.cpp:533 scribus/scribus.cpp:534
-msgid "Ungroup"
-msgstr "Banandu"
-
-#: scribus/scribus.cpp:545 scribus/scribus.cpp:546
-msgid "Distribute/Align..."
-msgstr "Banatu/Lerrokatu..."
-
-#: scribus/scribus.cpp:549 scribus/tree.cpp:106
-msgid "Rectangle"
-msgstr "Laukizuzena"
-
-#: scribus/scribus.cpp:550
-msgid "Rounded Rectangle"
-msgstr "Laukizuzen biribildua"
-
-#: scribus/scribus.cpp:551
-msgid "Oval"
-msgstr "Ovale"
-
-#: scribus/scribus.cpp:552
-msgid "Edit Frame"
-msgstr "Editatu markoa"
-
-#: scribus/scribus.cpp:555
-msgid "Combine Polygons"
-msgstr "Konbinatu poligonoak"
-
-#: scribus/scribus.cpp:556
-msgid "Split Polygons"
-msgstr "Zatitu poligonoak"
-
-#: scribus/scribus.cpp:558
-msgid "Convert to Polygons"
-msgstr "Bihurtu poligono"
-
-#: scribus/scribus.cpp:572 scribus/scribus.cpp:573
-msgid "Insert..."
-msgstr "Txertatu..."
-
-#: scribus/scribus.cpp:574 scribus/scribus.cpp:575
-msgid "Delete..."
-msgstr "Ezabatu..."
-
-#: scribus/scribus.cpp:578 scribus/scribus.cpp:579
-msgid "Move..."
-msgstr "Lekuz aldatu..."
-
-#: scribus/scribus.cpp:580 scribus/scribus.cpp:581
-msgid "Apply Template..."
-msgstr "Aplikatu txantiloia..."
-
-#: scribus/scribus.cpp:582 scribus/scribus.cpp:583
-msgid "Manage Guides..."
-msgstr "Kudeatu gidak..."
-
-#: scribus/scribus.cpp:587 scribus/scribus.cpp:588
-msgid "Fit in Window"
-msgstr "Doitu leihora"
-
-#: scribus/scribus.cpp:590
-#, c-format
-msgid "50%"
-msgstr "% 50"
-
-#: scribus/scribus.cpp:592
-#, c-format
-msgid "75%"
-msgstr "% 75"
-
-#: scribus/scribus.cpp:593 scribus/scribus.cpp:594
-msgid "Actual Size"
-msgstr "Uneko tamaina"
-
-#: scribus/scribus.cpp:596
-#, c-format
-msgid "200%"
-msgstr "% 200"
-
-#: scribus/scribus.cpp:597 scribus/scribus.cpp:598
-msgid "Thumbnails"
-msgstr "Koadro txikiak"
-
-#: scribus/scribus.cpp:600 scribus/scribus.cpp:601 scribus/scribus.cpp:2656
-#: scribus/scribus.cpp:3327
 msgid "Hide Margins"
 msgstr "Ezkutatu marjinak"
 
-#: scribus/scribus.cpp:602 scribus/scribus.cpp:603 scribus/scribus.cpp:1707
-#: scribus/scribus.cpp:2657 scribus/scribus.cpp:3342
+msgid "Show Margins"
+msgstr "Erakutsi marjinak"
+
 msgid "Hide Frames"
 msgstr "Ezkutatu markoak"
 
-#: scribus/scribus.cpp:604 scribus/scribus.cpp:605 scribus/scribus.cpp:2658
-#: scribus/scribus.cpp:3494
-msgid "Hide Images"
-msgstr "Ezkutatu irudiak"
-
-#: scribus/scribus.cpp:606 scribus/scribus.cpp:607 scribus/scribus.cpp:2659
-#: scribus/scribus.cpp:3515
-msgid "Show Grid"
-msgstr "Erakutsi sareta"
-
-#: scribus/scribus.cpp:608 scribus/scribus.cpp:609
-msgid "Snap to Grid"
-msgstr "Atxiki saretari"
-
-#: scribus/scribus.cpp:610 scribus/scribus.cpp:2660 scribus/scribus.cpp:3545
-msgid "Hide Guides"
-msgstr "Ezkutatu gidak"
-
-#: scribus/scribus.cpp:611
-msgid "Snap to Guides"
-msgstr "Atxiki gidei"
-
-#: scribus/scribus.cpp:624 scribus/scribus.cpp:625 scribus/scribus.cpp:3464
-msgid "Hide Tools"
-msgstr "Ezkutatu tresnak"
-
-#: scribus/scribus.cpp:626 scribus/scribus.cpp:3480
-msgid "Hide PDF-Tools"
-msgstr "Ezkutatu PDF tresnak"
-
-#: scribus/scribus.cpp:627 scribus/scribus.cpp:628 scribus/scribus.cpp:3354
-msgid "Show Measurements"
-msgstr "Erakutsi neurriak"
-
-#: scribus/scribus.cpp:629 scribus/scribus.cpp:630 scribus/scribus.cpp:3371
-msgid "Show Outline"
-msgstr "Erakusi eskema"
-
-#: scribus/scribus.cpp:631 scribus/scribus.cpp:632 scribus/scribus.cpp:3391
-msgid "Show Scrapbook"
-msgstr "Erakutsi berri laburren albuma"
-
-#: scribus/scribus.cpp:635 scribus/scribus.cpp:3443
-msgid "Show Bookmarks"
-msgstr "Erakutsi laster-markak"
-
-#: scribus/scribus.cpp:637 scribus/scribus.cpp:638
-msgid "Manage Pictures"
-msgstr "Kudeatu irudiak"
-
-#: scribus/scribus.cpp:639 scribus/scribus.cpp:641
-msgid "Hyphenate Text"
-msgstr "Zatitu testua"
-
-#: scribus/libabout/about.cpp:19 scribus/scribus.cpp:646
-#: scribus/scribus.cpp:647
-msgid "About Scribus"
-msgstr "Scribus-i buruz"
-
-#: scribus/scribus.cpp:648 scribus/scribus.cpp:649 scribus/scribus.cpp:3080
-msgid "About Qt"
-msgstr "Qt-i buruz"
-
-#: scribus/scribus.cpp:651 scribus/scribus.cpp:652
-msgid "Online-Help..."
-msgstr "On line laguntza..."
-
-#: scribus/scribus.cpp:653 scribus/scribus.cpp:654
-msgid "Tool-Tips"
-msgstr "Argibideak"
-
-#: scribus/scribus.cpp:661 scribus/scribus.cpp:1920 scribus/scribus.cpp:1962
-msgid "Style"
-msgstr "Estiloa"
-
-#: scribus/scribus.cpp:662 scribus/tree.cpp:52 scribus/tree.cpp:91
-msgid "Item"
-msgstr "Elementua"
-
-#: scribus/scribus.cpp:666
-msgid "View"
-msgstr "Ikusi"
-
-#: scribus/libprefs/prefs.cpp:52 scribus/scribus.cpp:667
-#: scribus/werktoolb.cpp:29
-msgid "Tools"
-msgstr "Tresnak"
-
-#: scribus/scribus.cpp:670
-msgid "Windows"
-msgstr "Leihoak"
-
-#: scribus/scribus.cpp:672
-msgid "Help"
-msgstr "Laguntza"
-
-#: scribus/scribus.cpp:715
-msgid "Strikethru"
-msgstr "Marratua"
-
-#: scribus/scribus.cpp:1378 scribus/scribus.cpp:2434 scribus/scribus.cpp:2560
-#: scribus/scribus.cpp:2671 scribus/scribus.cpp:2794
-msgid "Ready"
-msgstr "Prest"
-
-#: scribus/scribus.cpp:1557
-msgid "Cascade"
-msgstr "Teilakatuta"
-
-#: scribus/scribus.cpp:1558
-msgid "Tile"
-msgstr "Lauza moduan"
-
-#: scribus/scribus.cpp:1709 scribus/scribus.cpp:3337
 msgid "Show Frames"
 msgstr "Erakutsi markoak"
 
-#: scribus/scribus.cpp:1918 scribus/scribus.cpp:1960
+msgid "Hide Images"
+msgstr "Ezkutatu irudiak"
+
+msgid "Show Images"
+msgstr "Erakutsi irudiak"
+
+msgid "Hide Grid"
+msgstr "Ezkutatu sareta"
+
+msgid "Show Grid"
+msgstr "Erakutsi sareta"
+
+msgid "Hide Guides"
+msgstr "Ezkutatu gidak"
+
+msgid "Show Guides"
+msgstr "Erakutsi gidak"
+
+#, fuzzy
+msgid "Hide Baseline Grid"
+msgstr "Ezkutatu sareta"
+
+#, fuzzy
+msgid "Show Baseline Grid"
+msgstr "Erakutsi sareta"
+
+msgid "Snap to Grid"
+msgstr "Atxiki saretari"
+
+msgid "Snap to Guides"
+msgstr "Atxiki gidei"
+
+#, fuzzy
+msgid "Picture"
+msgstr "Irudiak"
+
+#, fuzzy
+msgid "File: "
+msgstr "Fitxategia:"
+
+msgid "Original ppi: "
+msgstr ""
+
+#, fuzzy
+msgid "Actual ppi: "
+msgstr "Uneko tamaina"
+
+msgid "Linked Text"
+msgstr ""
+
+msgid "Text Frame"
+msgstr "Testuaren markoa"
+
+#, fuzzy
+msgid "Text on a Path"
+msgstr "Lotu testua bide-izenari"
+
+msgid "Paragraphs: "
+msgstr ""
+
+msgid "Words: "
+msgstr ""
+
+msgid "Chars: "
+msgstr ""
+
+#, fuzzy
+msgid "Print: "
+msgstr "Inprimatu"
+
+msgid "Enabled"
+msgstr "Gaituta"
+
+#, fuzzy
+msgid "Disabled"
+msgstr "Ikusgai"
+
+msgid "Info"
+msgstr ""
+
+msgid "Get Picture..."
+msgstr "Eskuratu irudia..."
+
+#, fuzzy
+msgid "Image Visible"
+msgstr "Irudia ikusgai"
+
+#, fuzzy
+msgid "Update Picture"
+msgstr "Kudeatu irudiak"
+
+#, fuzzy
+msgid "Edit Picture"
+msgstr "Irudiak"
+
+msgid "Adjust Frame to Picture"
+msgstr ""
+
+msgid "Get Text..."
+msgstr "Eskuratu testua..."
+
+#, fuzzy
+msgid "Append Text..."
+msgstr "Eskuratu testua..."
+
+#, fuzzy
+msgid "Edit Text..."
+msgstr "Eskuratu testua..."
+
+#, fuzzy
+msgid "Insert Sample Text"
+msgstr "Testuaren adibidea"
+
+msgid "Is PDF-Bookmark"
+msgstr "PDF laster-marka da"
+
+msgid "Is PDF-Annotation"
+msgstr "PDF oharpena da"
+
+msgid "PDF-Options"
+msgstr "PDF aukerak"
+
+msgid "Lock"
+msgstr "Blokeatu"
+
+msgid "Unlock"
+msgstr "Desblokeatu"
+
+msgid "Lock object size"
+msgstr ""
+
+#, fuzzy
+msgid "Unlock object size"
+msgstr "Desegin objektu-mugimendua"
+
+msgid "Send to Scrapbook"
+msgstr "Bidali berri laburren albumera"
+
+#, fuzzy
+msgid "Send to Layer"
+msgstr "Geruzara bidali da"
+
+msgid "Group"
+msgstr "Elkartu"
+
+#, fuzzy
+msgid "Un-group"
+msgstr "Banandu"
+
+msgid "Send to Back"
+msgstr "Bidali atzera"
+
+msgid "Bring to Front"
+msgstr "Ekarri aurrera"
+
+msgid "Lower"
+msgstr "Beheratu"
+
+msgid "Raise"
+msgstr "Goratu"
+
+msgid "Picture Frame"
+msgstr "Irudiaren markoa"
+
+msgid "Polygon"
+msgstr "Poligonoa"
+
+#, fuzzy
+msgid "Outlines"
+msgstr "Eskema"
+
+msgid "Bezier Curve"
+msgstr "Bezier kurba"
+
+msgid "Convert to"
+msgstr "Bihurtu "
+
+#, fuzzy
+msgid "Clear Contents"
+msgstr "Edukia"
+
+#, fuzzy
+msgid "Show Properties..."
+msgstr "Propietateak..."
+
+#, fuzzy
+msgid "Hide Properties..."
+msgstr "Propietateak..."
+
+#, fuzzy
+msgid "The Program"
+msgstr "Programazioa:"
+
+#, fuzzy
+msgid "is missing!"
+msgstr "Falta da"
+
+msgid "Copy of"
+msgstr "Honen kopia"
+
+#, fuzzy
+msgid "Polyline"
+msgstr "Poligonoa"
+
+#, fuzzy
+msgid "PathText"
+msgstr "Testua"
+
+msgid "Create PDF-File"
+msgstr "Sortu PDF fitxategia"
+
+msgid "Output to File:"
+msgstr "Irteera fitxategi honetara:"
+
+msgid "Export Range"
+msgstr "Esportatu barrutia"
+
+msgid "From:"
+msgstr "Hemendik:"
+
+msgid "File Options"
+msgstr "Fitxategi-aukerak"
+
+msgid "Compatibility:"
+msgstr "Bateragarritasuna:"
+
+msgid "Binding:"
+msgstr "Lotura:"
+
+msgid "Left Margin"
+msgstr "Ezkerreko marjina"
+
+msgid "Right Margin"
+msgstr "Eskuineko marjina"
+
+msgid "Generate Thumbnails"
+msgstr "Sortu koadro txikiak"
+
+msgid "Save linked Text Frames as PDF-Articles"
+msgstr "Gorde estekatutako testu-markoak PDF artikulu gisa"
+
+msgid "Include Bookmarks"
+msgstr "Sartu laster-markak"
+
+msgid "Resolution:"
+msgstr "Bereizmena:"
+
+msgid " dpi"
+msgstr " dpi"
+
+msgid "Compress Text and Vector Graphics"
+msgstr "Konprimatu testua eta bektore grafikoak"
+
+#, fuzzy
+msgid "Image Settings"
+msgstr "Ezarpenak"
+
+msgid "Method:"
+msgstr ""
+
+#, fuzzy
+msgid "Automatic"
+msgstr "Automatikoki"
+
+msgid "JPEG"
+msgstr ""
+
+msgid "Zip"
+msgstr ""
+
+#, fuzzy
+msgid "Quality:"
+msgstr "Irten"
+
+#, fuzzy
+msgid "Maximum"
+msgstr "Gehienezkoa:"
+
+#, fuzzy
+msgid "High"
+msgstr "Altuera:"
+
+msgid "Medium"
+msgstr "Tartekoa"
+
+#, fuzzy
+msgid "Low"
+msgstr "Beheratu"
+
+#, fuzzy
+msgid "Minimum"
+msgstr "Gutxienekoa:"
+
+msgid "Downsample Images to:"
+msgstr "Murriztu irudiak honetara:"
+
+#, fuzzy
+msgid "&General"
+msgstr "Orokorra"
+
+msgid "Embed all Fonts"
+msgstr "Kapsulatu letra-tipo guztiak"
+
+msgid "Embedding"
+msgstr "Kapsulatzen"
+
+msgid "Available Fonts:"
+msgstr "Erabilgarri dauden letra-tipoak:"
+
+msgid ">>"
+msgstr ">>"
+
+msgid "<<"
+msgstr "<<"
+
+msgid "Fonts to embed:"
+msgstr "Kapsulatzeko letra-tipoak:"
+
+#, fuzzy
+msgid "&Fonts"
+msgstr "Letra-tipoak"
+
+msgid "Enable Presentation Effects"
+msgstr "Gaitu aurkezpen-efektuak"
+
+msgid "Page"
+msgstr "Orrialdea"
+
+msgid "Show Page Previews"
+msgstr "Erakutsi orrialdeen aurrebistak"
+
+msgid "Effects"
+msgstr "Efektuak"
+
+msgid "Display Duration:"
+msgstr "Bistaratu iraupena:"
+
+msgid "Effect Duration:"
+msgstr "Efektuaren iraupena:"
+
+msgid "Effect Type:"
+msgstr "Efektu-mota:"
+
+msgid "Moving Lines:"
+msgstr "Lerroak lekuz aldatzen:"
+
+#, fuzzy
+msgid "From the:"
+msgstr "Hemendik:"
+
+msgid "Direction:"
+msgstr "Helbidea:"
+
+msgid " sec"
+msgstr ""
+
+msgid "No Effect"
+msgstr "Efekturik ez"
+
+msgid "Blinds"
+msgstr "Pertsianak"
+
+msgid "Box"
+msgstr "Kutxa"
+
+msgid "Dissolve"
+msgstr "Disolbatu"
+
+msgid "Glitter"
+msgstr "Distira"
+
+msgid "Split"
+msgstr "Zatitu"
+
+msgid "Wipe"
+msgstr "Ezabatu"
+
+msgid "Inside"
+msgstr "Barruan"
+
+msgid "Outside"
+msgstr "Kanpoan"
+
+msgid "Left to Right"
+msgstr "Ezkerretik eskuinera"
+
+msgid "Top to Bottom"
+msgstr "Goitik behera"
+
+msgid "Bottom to Top"
+msgstr "Behetik gora"
+
+msgid "Right to Left"
+msgstr "Eskuinetik ezkerrera"
+
+#, fuzzy
+msgid "Top-left to Bottom-Right"
+msgstr "Goiko ezkerretik beheko eskuinera"
+
+# New in Version 0.8
+msgid "Apply Effect on all Pages"
+msgstr "Aplikatu efektua orri guztietan"
+
+#, fuzzy
+msgid "E&xtras"
+msgstr "Gehigarriak"
+
+msgid "Use Encryption"
+msgstr "Erabili enkriptatzea"
+
+msgid "Passwords"
+msgstr "Pasahitzak"
+
+msgid "User:"
+msgstr "Erabiltzailea:"
+
+msgid "Owner:"
+msgstr "Jabea:"
+
+msgid "Settings"
+msgstr "Ezarpenak"
+
+msgid "Allow Printing the Document"
+msgstr "Baimendu dokumentua inprimatzea"
+
+msgid "Allow Changing the Document"
+msgstr "Baimendu dokumentu-aldaketak"
+
+#, fuzzy
+msgid "Allow Copying Text and Graphics"
+msgstr "Testua eta irudiak kopiatzea onartzen da"
+
+#, fuzzy
+msgid "Allow Adding Annotations and Fields"
+msgstr "Oharpenak eta eremuak gehitzea onartzen da"
+
+#, fuzzy
+msgid "&Security"
+msgstr "Segurtasuna"
+
+msgid "General"
+msgstr "Orokorra"
+
+msgid "Output intended for:"
+msgstr "Honentzako irteera:"
+
+#, fuzzy
+msgid "Screen / Web"
+msgstr "Pantaila"
+
+msgid "Printer"
+msgstr "Inprimagailua"
+
+msgid "Use ICC-Profile"
+msgstr "Erabili ICC profilak"
+
+msgid "Profile:"
+msgstr "Profila:"
+
+msgid "Rendering-Intent:"
+msgstr "Asmoa errendatzen:"
+
+msgid "Images:"
+msgstr "Irudiak:"
+
+#, fuzzy
+msgid "Don't use embedded ICC profiles"
+msgstr "Ez erabili profil kapsulatuak"
+
+#, fuzzy
+msgid "&Color"
+msgstr "Kolorea"
+
+msgid "PDF/X-3 Output Intent"
+msgstr "PDF/X-3 irteera"
+
+msgid "Info String:"
+msgstr "Informazio-katea"
+
+msgid "Output Profile:"
+msgstr "Irteera-profila:"
+
+msgid "Trim Box"
+msgstr "Mozte-koadroa"
+
+#, fuzzy
+msgid "&PDF/X-3"
+msgstr "PDF/X-3"
+
+msgid "Export all pages to PDF"
+msgstr ""
+
+msgid "Export a range of pages to PDF"
+msgstr ""
+
+msgid "First page to export when exporting a range"
+msgstr ""
+
+msgid "Last page to export when exporting a range"
+msgstr ""
+
+msgid ""
+"Determines the PDF compatibility. The default is Acrobat 4.0 which gives the "
+"widest compatibility.\n"
+"Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or "
+"you require 128 bit encryption.\n"
+"PDF/X-3 is for exporting the PDF for commercial printing and is selectable "
+"when you have activated color management."
+msgstr ""
+
+msgid ""
+"Determines the binding of pages in the PDF. Unless you know\n"
+"you need to change it leave the default choice - Left."
+msgstr ""
+
+msgid ""
+"Generates thumbnails of each page in the PDF.\n"
+"Some viewers can use the thumbnails for navigation."
+msgstr ""
+
+msgid ""
+"Generate PDF Articles, which is useful for navigating linked articles in a "
+"PDF."
+msgstr ""
+
+msgid ""
+"Embed the bookmarks you created in your document.\n"
+"These are useful for navigating long PDF documents."
+msgstr ""
+
+msgid ""
+"Export resolution of text and vector graphics.\n"
+"This does not affect the resolution of bitmap images like photos."
+msgstr ""
+
+msgid ""
+"Compression of text and graphics.\n"
+"Unless you have a reason, leave this checked. This reduces PDF size."
+msgstr ""
+
+msgid ""
+"Version of compression for images.\n"
+"Automatic allows Scribus to choose the best method.\n"
+"ZIP is good for images with solid colors.\n"
+"JPEG is better at creating smaller PDF files which have many photos (with "
+"slight image loss possible).\n"
+"Leave it set to automatic, unless you have a need for special compression "
+"options."
+msgstr ""
+
+msgid ""
+"Compression levels: Minimum (25\\%), Low (50\\%), Medium (75\\%), High (85\\"
+"%), Maximum (95\\%)"
+msgstr ""
+
+msgid ""
+"Downsample your bitmap images to the selected DPI.\n"
+"Leaving this unchecked will render them at their native resolution."
+msgstr ""
+
+msgid "DPI (Dots Per Inch) for image export."
+msgstr ""
+
+msgid ""
+"Embed fonts into the PDF. Embedding the fonts\n"
+"will preserve the layout and appearance of your document."
+msgstr ""
+
+msgid ""
+"Enables presentation effects when using Acrobat Reader in full screen mode."
+msgstr ""
+
+msgid "Show page previews of each page listed above."
+msgstr ""
+
+msgid ""
+"Length of time the page is shown before the presentation starts on the "
+"selected page."
+msgstr ""
+
+msgid ""
+"Length of time the effect runs.\n"
+"A shorter time will speed up the effect, a longer one will slow it down."
+msgstr ""
+
+msgid "Type of the display effect."
+msgstr ""
+
+msgid ""
+"Direction of the effect of moving lines for the split and blind effects."
+msgstr ""
+
+msgid "Starting position for the box and split effects."
+msgstr ""
+
+msgid "Direction of the glitter or wipe effects."
+msgstr ""
+
+# New in Version 0.8
+#, fuzzy
+msgid "Apply the selected effect to all pages."
+msgstr "Aplikatu efektua orri guztietan"
+
+msgid ""
+"Enable the security features in your exported PDF.\n"
+"If you selected Acrobat 4.0, the PDF will be protected by 40 bit "
+"encryption.\n"
+"If you selected Acrobat 5.0, the PDF will be protected by 128 bit "
+"encryption.\n"
+"Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and "
+"does have some limitations."
+msgstr ""
+
+msgid ""
+"Choose a master password which enables or disables all the\n"
+"security features in your exported PDF"
+msgstr ""
+
+msgid "Choose a password for users to be able to read your PDF."
+msgstr ""
+
+msgid "Allow printing of the PDF. If un-checked, printing is prevented. "
+msgstr ""
+
+msgid ""
+"Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
+msgstr ""
+
+msgid ""
+"Allow copying of text or graphics from the PDF. \n"
+"If un-checked, text and graphics cannot be copied."
+msgstr ""
+
+msgid ""
+"Allow adding annotations and fields to the PDF. \n"
+"If un-checked, editing annotations and fileds is prevented."
+msgstr ""
+
+msgid ""
+"Color model for the output of your PDF.\n"
+"Choose Screen/Web for PDFs which are used for screen display and for "
+"printing on typical inkjets.\n"
+"Choose Printer when printing to a true 4 color CMYK printer."
+msgstr ""
+
+msgid "Embed a color profile for solid colors"
+msgstr ""
+
+msgid "Color profile for solid colors"
+msgstr ""
+
+#, fuzzy
+msgid "Rendering intent for solid colors"
+msgstr "Errendatze-modua"
+
+msgid "Embed a color profile for images"
+msgstr ""
+
+msgid "Do not use color profiles that are embedded in source images"
+msgstr ""
+
+msgid "Color profile for images"
+msgstr ""
+
+#, fuzzy
+msgid "Rendering intent for images"
+msgstr "Errendatze-modua"
+
+msgid ""
+"Output profile for printing. If possible, get some guidance from your "
+"printer on profile selection."
+msgstr ""
+
+msgid ""
+"Mandatory string for PDF/X-3 or the PDF will fail\n"
+"PDF/X-3 conformance. We recommend you use the title of the document."
+msgstr ""
+
+msgid "Distance for bleed from the top of the physical page"
+msgstr ""
+
+msgid "Distance for bleed from the bottom of the physical page"
+msgstr ""
+
+msgid "Distance for bleed from the left of the physical page"
+msgstr ""
+
+msgid "Distance for bleed from the right of the physical page"
+msgstr ""
+
+msgid "PDF-Files (*.pdf);;All Files (*)"
+msgstr "PDF fitxategiak (*.pdf);;Fitxategi guztiak (*)"
+
+msgid "Result"
+msgstr "Emaitza"
+
+msgid "Search Results for: "
+msgstr "Bilaketaren emaitzak: "
+
+msgid "Preview"
+msgstr "Aurrebista"
+
+msgid "Select"
+msgstr "Hautatu"
+
+msgid "Pictures"
+msgstr "Irudiak"
+
+msgid "Path"
+msgstr "Bide-izena"
+
+msgid "Status"
+msgstr "Egoera"
+
+msgid "Goto"
+msgstr "Joan"
+
+msgid "Missing"
+msgstr "Falta da"
+
+msgid "Search"
+msgstr "Bilatu"
+
+msgid "Polygon Properties"
+msgstr "Poligonoaren propietateak"
+
+msgid "Corners:"
+msgstr "Izkinak:"
+
+msgid "Convex Polygon"
+msgstr "Poligono ganbila"
+
+msgid "Factor:"
+msgstr "Faktorea:"
+
+msgid "Document Setup"
+msgstr "Dokumentuaren konfigurazioa"
+
+msgid "Scrapbook"
+msgstr "Berri laburren albuma"
+
+msgid "Small"
+msgstr "Txikia"
+
+msgid "Big"
+msgstr "Handia"
+
+#, fuzzy
+msgid "Scrapbooks (*.scs);;All Files (*)"
+msgstr "Berri laburren albumak (*.scd);; Fitxategi guztiak (*)"
+
+#, fuzzy
+msgid "Rename"
+msgstr "Kendu"
+
+msgid "Object"
+msgstr "Objektua"
+
+msgid "New Entry"
+msgstr "Sarrera berria"
+
+#, fuzzy
+msgid "Initializing..."
+msgstr "Plugin-ak hasieratzen"
+
+msgid "Scribus "
+msgstr "Scribus "
+
+#, fuzzy
+msgid "Create a new Document"
+msgstr "Dokumentu berria sortzen du "
+
+#, fuzzy
+msgid "Open a Document"
+msgstr "Dokumentua irekitzen du"
+
+#, fuzzy
+msgid "Save the current Document"
+msgstr "Uneko dokumentua gordetzen du"
+
+#, fuzzy
+msgid "Close the current Document"
+msgstr "Uneko dokumentua ixten du"
+
+#, fuzzy
+msgid "Print the current Document"
+msgstr "Uneko dokumentua inprimatzen du"
+
+#, fuzzy
+msgid "Save the current Document as PDF"
+msgstr "Uneko dokumentua PDF gisa gordetzen du"
+
+msgid "Searching for Fonts"
+msgstr "Letra-tipoak bilatzen"
+
+msgid "There are no Postscript-Fonts on your System"
+msgstr "Ez dago Postscript-en letra-tiporik zure sisteman"
+
+msgid "Exiting now"
+msgstr "Irteten"
+
+msgid "Fatal Error"
+msgstr "Errore larria"
+
+msgid "Smart Hyphen"
+msgstr "Marratxo dotorea"
+
+msgid "Align Left"
+msgstr "Lerrokatu ezkerrean"
+
+msgid "Align Right"
+msgstr "Lerrokatu eskuinean"
+
+msgid "Align Center"
+msgstr "Lerrokatu erdian"
+
+#, fuzzy
+msgid "Insert Page Number"
+msgstr "Sartu orrialde-zenbakia"
+
+msgid "Attach Text to Path"
+msgstr "Lotu testua bide-izenari"
+
+msgid "Show Layers"
+msgstr "Erakutsi geruzak"
+
+#, fuzzy
+msgid "Javascripts..."
+msgstr "JavaScript-ak..."
+
+msgid "Show Page Palette"
+msgstr "Erakutsi orrialdearen paleta"
+
+msgid "Lock/Unlock"
+msgstr "Blokeatu/desblokeatu"
+
+#, fuzzy
+msgid "Non Breaking Space"
+msgstr "Zuriune zatiezina"
+
+msgid "Reading Preferences"
+msgstr "Hobespenak irakurtzen"
+
+msgid "Getting ICC-Profiles"
+msgstr "ICC profilak eskuratzen"
+
+msgid "Init Hyphenator"
+msgstr "Abiarazi hitz-zatitzailea"
+
+msgid "Setting up Shortcuts"
+msgstr "Laster-bideak ezartzen"
+
+#, fuzzy
+msgid "&Color Management..."
+msgstr "Kolore-kudeaketa..."
+
+msgid "Reading Scrapbook"
+msgstr "Berri laburren albuma irakurtzen"
+
+msgid "Initializing Plugins"
+msgstr "Plugin-ak hasieratzen"
+
+#, fuzzy
+msgid "&New"
+msgstr "Berria"
+
+#, fuzzy
+msgid "&Open..."
+msgstr "Ireki..."
+
+#, fuzzy
+msgid "Open &Recent"
+msgstr "Dokumentua irekitzen du"
+
+msgid "Open..."
+msgstr "Ireki..."
+
+#, fuzzy
+msgid "&Close"
+msgstr "Itxi"
+
+#, fuzzy
+msgid "&Save"
+msgstr "Gorde"
+
+#, fuzzy
+msgid "Save &As..."
+msgstr "Gorde honela..."
+
+#, fuzzy
+msgid "Re&vert to Saved"
+msgstr "Itzuli gordetakora"
+
+#, fuzzy
+msgid "Collect for O&utput..."
+msgstr "Bildu irteerarako..."
+
+#, fuzzy
+msgid "&Get Text/Picture..."
+msgstr "Eskuratu testua/irudia..."
+
+#, fuzzy
+msgid "Append &Text..."
+msgstr "Eskuratu testua..."
+
+#, fuzzy
+msgid "Insert &Page..."
+msgstr "Txertatu orrialdea..."
+
+#, fuzzy
+msgid "&Import"
+msgstr "Inportatu"
+
+#, fuzzy
+msgid "Save &Text..."
+msgstr "Gorde testua..."
+
+#, fuzzy
+msgid "Save Page as &EPS..."
+msgstr "Gorde orrialdea EPS gisa..."
+
+#, fuzzy
+msgid "Save as P&DF..."
+msgstr "Gorde PDF gisa..."
+
+#, fuzzy
+msgid "&Export"
+msgstr "Esportatu..."
+
+#, fuzzy
+msgid "Document &Info..."
+msgstr "Dokumentuaren informazioa..."
+
+msgid "Document Info..."
+msgstr "Dokumentuaren informazioa..."
+
+#, fuzzy
+msgid "Document &Setup..."
+msgstr "Dokumentuaren konfigurazioa..."
+
+msgid "Document Setup..."
+msgstr "Dokumentuaren konfigurazioa..."
+
+#, fuzzy
+msgid "&Print..."
+msgstr "Inprimatu..."
+
+msgid "Print..."
+msgstr "Inprimatu..."
+
+#, fuzzy
+msgid "&Quit"
+msgstr "Irten"
+
+msgid "Quit"
+msgstr "Irten"
+
+#, fuzzy
+msgid "&Undo"
+msgstr "Desegin"
+
+#, fuzzy
+msgid "Cu&t"
+msgstr "Ebaki"
+
+#, fuzzy
+msgid "&Copy"
+msgstr "Kopiatu"
+
+#, fuzzy
+msgid "&Paste"
+msgstr "Itsatsi"
+
+#, fuzzy
+msgid "C&lear"
+msgstr "Garbitu"
+
+#, fuzzy
+msgid "Select &All"
+msgstr "Hautatu dena"
+
+msgid "Select all"
+msgstr "Hautatu dena"
+
+msgid "&Search/Replace..."
+msgstr ""
+
+#, fuzzy
+msgid "C&olors..."
+msgstr "Koloreak..."
+
+msgid "Colors..."
+msgstr "Koloreak..."
+
+#, fuzzy
+msgid "&Paragraph Styles..."
+msgstr "Estiloak..."
+
+#, fuzzy
+msgid "&Line Styles..."
+msgstr "Marra-estiloak..."
+
+msgid "Styles..."
+msgstr "Estiloak..."
+
+#, fuzzy
+msgid "&Templates..."
+msgstr "Txantiloiak..."
+
+msgid "Templates..."
+msgstr "Txantiloiak..."
+
+#, fuzzy
+msgid "&Javascripts..."
+msgstr "JavaScript-ak..."
+
+#, fuzzy
+msgid "Select New Font"
+msgstr "Hautatu letra-tipo berria:"
+
+#, fuzzy
+msgid "D&uplicate"
+msgstr "Bikoiztu"
+
+#, fuzzy
+msgid "&Multiple Duplicate"
+msgstr "Kopia bat baino gehiago"
+
+#, fuzzy
+msgid "&Delete"
+msgstr "Ezabatu"
+
+#, fuzzy
+msgid "&Group"
+msgstr "Elkartu"
+
+#, fuzzy
+msgid "&Ungroup"
+msgstr "Banandu"
+
+#, fuzzy
+msgid "&Lock"
+msgstr "Blokeatu"
+
+#, fuzzy
+msgid "Send to &Back"
+msgstr "Bidali atzera"
+
+#, fuzzy
+msgid "Bring to &Front"
+msgstr "Ekarri aurrera"
+
+#, fuzzy
+msgid "&Lower"
+msgstr "Beheratu"
+
+#, fuzzy
+msgid "&Raise"
+msgstr "Goratu"
+
+#, fuzzy
+msgid "Distribute/&Align..."
+msgstr "Banatu/Lerrokatu..."
+
+msgid "Distribute/Align..."
+msgstr "Banatu/Lerrokatu..."
+
+#, fuzzy
+msgid "&Edit Frame"
+msgstr "Editatu markoa"
+
+#, fuzzy
+msgid "&Shape"
+msgstr "Forma"
+
+#, fuzzy
+msgid "&Attach Text to Path"
+msgstr "Lotu testua bide-izenari"
+
+#, fuzzy
+msgid "&Detach Text from Path"
+msgstr "Lotu testua bide-izenari"
+
+#, fuzzy
+msgid "&Combine Polygons"
+msgstr "Konbinatu poligonoak"
+
+#, fuzzy
+msgid "Split &Polygons"
+msgstr "Zatitu poligonoak"
+
+#, fuzzy
+msgid "C&onvert to Outlines"
+msgstr "Bihurtu poligono"
+
+#, fuzzy
+msgid "&Insert..."
+msgstr "Txertatu..."
+
+msgid "Insert..."
+msgstr "Txertatu..."
+
+#, fuzzy
+msgid "&Delete..."
+msgstr "Ezabatu..."
+
+msgid "Delete..."
+msgstr "Ezabatu..."
+
+#, fuzzy
+msgid "&Move..."
+msgstr "Lekuz aldatu..."
+
+msgid "Move..."
+msgstr "Lekuz aldatu..."
+
+#, fuzzy
+msgid "&Apply Template..."
+msgstr "Aplikatu txantiloia..."
+
+msgid "Apply Template..."
+msgstr "Aplikatu txantiloia..."
+
+#, fuzzy
+msgid "&Manage Guides..."
+msgstr "Kudeatu gidak..."
+
+msgid "Manage Guides..."
+msgstr "Kudeatu gidak..."
+
+#, fuzzy
+msgid "&Fit in Window"
+msgstr "Doitu leihora"
+
+msgid "Fit in Window"
+msgstr "Doitu leihora"
+
+msgid "50%"
+msgstr "% 50"
+
+msgid "75%"
+msgstr "% 75"
+
+#, fuzzy
+msgid "&100%"
+msgstr "% 200"
+
+msgid "Actual Size"
+msgstr "Uneko tamaina"
+
+msgid "200%"
+msgstr "% 200"
+
+#, fuzzy
+msgid "&Thumbnails"
+msgstr "Koadro txikiak"
+
+msgid "Thumbnails"
+msgstr "Koadro txikiak"
+
+#, fuzzy
+msgid "Hide &Margins"
+msgstr "Ezkutatu marjinak"
+
+#, fuzzy
+msgid "Hide &Frames"
+msgstr "Ezkutatu markoak"
+
+#, fuzzy
+msgid "Hide &Images"
+msgstr "Ezkutatu irudiak"
+
+#, fuzzy
+msgid "Show &Grid"
+msgstr "Erakutsi sareta"
+
+#, fuzzy
+msgid "Snap to &Grid"
+msgstr "Atxiki saretari"
+
+#, fuzzy
+msgid "Hide G&uides"
+msgstr "Ezkutatu gidak"
+
+#, fuzzy
+msgid "Sna&p to Guides"
+msgstr "Atxiki gidei"
+
+#, fuzzy
+msgid "Show &Baseline Grid"
+msgstr "Erakutsi sareta"
+
+#, fuzzy
+msgid "&Properties"
+msgstr "Propietateak"
+
+#, fuzzy
+msgid "&Outline"
+msgstr "Eskema"
+
+msgid "Outline"
+msgstr "Eskema"
+
+#, fuzzy
+msgid "&Scrapbook"
+msgstr "Berri laburren albuma"
+
+#, fuzzy
+msgid "&Layers"
+msgstr "Geruzak"
+
+#, fuzzy
+msgid "P&age Palette"
+msgstr "Erakutsi orrialdearen paleta"
+
+#, fuzzy
+msgid "&Bookmarks"
+msgstr "Laster-markak"
+
+#, fuzzy
+msgid "&Manage Pictures"
+msgstr "Kudeatu irudiak"
+
+msgid "Manage Pictures"
+msgstr "Kudeatu irudiak"
+
+#, fuzzy
+msgid "&Hyphenate Text"
+msgstr "Zatitu testua"
+
+msgid "Hyphenate Text"
+msgstr "Zatitu testua"
+
+#, fuzzy
+msgid "Toolti&ps"
+msgstr "Argibideak"
+
+#, fuzzy
+msgid "&Tools"
+msgstr "Tresnak"
+
+#, fuzzy
+msgid "P&DF Tools"
+msgstr "PDF tresnak"
+
+msgid "Tools"
+msgstr "Tresnak"
+
+#, fuzzy
+msgid "Tooltips"
+msgstr "Argibideak"
+
+#, fuzzy
+msgid "&Preferences..."
+msgstr "Hobespenak..."
+
+#, fuzzy
+msgid "&Fonts..."
+msgstr "Letra-tipoak..."
+
+msgid "Fonts..."
+msgstr "Letra-tipoak..."
+
+#, fuzzy
+msgid "&Hyphenator..."
+msgstr "Hitz-zatitzailea..."
+
+#, fuzzy
+msgid "&Keyboard Shortcuts..."
+msgstr "Laster-teklak..."
+
+#, fuzzy
+msgid "&About Scribus"
+msgstr "Scribus-i buruz"
+
+msgid "About Scribus"
+msgstr "Scribus-i buruz"
+
+#, fuzzy
+msgid "About &Qt"
+msgstr "Qt-i buruz"
+
+msgid "About Qt"
+msgstr "Qt-i buruz"
+
+#, fuzzy
+msgid "Scribus &Manual..."
+msgstr "Scribus-en eskuliburua"
+
+msgid "Online-Help..."
+msgstr "On line laguntza..."
+
+#, fuzzy
+msgid "&File"
+msgstr "Fitxategia"
+
+#, fuzzy
+msgid "&Edit"
+msgstr "Editatu"
+
+#, fuzzy
+msgid "St&yle"
+msgstr "Estiloa"
+
+#, fuzzy
+msgid "&Item"
+msgstr "Elementua"
+
+#, fuzzy
+msgid "&Page"
+msgstr "Orrialdea"
+
+#, fuzzy
+msgid "&View"
+msgstr "Ikusi"
+
+#, fuzzy
+msgid "&Settings"
+msgstr "Ezarpenak"
+
+#, fuzzy
+msgid "&Windows"
+msgstr "Leihoak"
+
+#, fuzzy
+msgid "&Help"
+msgstr "Laguntza"
+
+#, fuzzy
+msgid "&Left"
+msgstr "Ezkerrean"
+
+#, fuzzy
+msgid "&Center"
+msgstr "Erdian"
+
+#, fuzzy
+msgid "&Right"
+msgstr "Eskuinean"
+
+#, fuzzy
+msgid "&Block"
+msgstr "Blokeatu"
+
+#, fuzzy
+msgid "&Forced"
+msgstr "Behartuta"
+
+#, fuzzy
+msgid "&Other..."
+msgstr "Bestelakoak..."
+
+msgid "Strikethru"
+msgstr "Marratua"
+
+msgid "Small Caps"
+msgstr "Maiuskula txikiak"
+
+msgid "Superscript"
+msgstr "Goi-indizea"
+
+msgid "Subscript"
+msgstr "Azpindizea"
+
+msgid "Ready"
+msgstr "Prest"
+
+#, fuzzy
+msgid "&Cascade"
+msgstr "Teilakatuta"
+
+#, fuzzy
+msgid "&Tile"
+msgstr "Lauza moduan"
+
+msgid "Get Text/Picture..."
+msgstr "Eskuratu testua/irudia..."
+
+#, fuzzy
+msgid "&Invert"
+msgstr "Alderantzikatu"
+
+#, fuzzy
+msgid "&Get Text..."
+msgstr "Eskuratu testua..."
+
+msgid "&Font"
+msgstr "&Letra-tipoa"
+
+msgid "&Size"
+msgstr "&Tamaina"
+
+#, fuzzy
+msgid "&Effects"
+msgstr "Efektuak"
+
+#, fuzzy
+msgid "&Alignment"
+msgstr "Lerrokatzea"
+
+#, fuzzy
+msgid "&Shade"
+msgstr "Itzala"
+
+#, fuzzy
+msgid "&Tabulators..."
+msgstr "Txantiloiak..."
+
 msgid "Font"
 msgstr "Letra-tipoa"
 
-#: scribus/scribus.cpp:1919 scribus/scribus.cpp:1961
 msgid "Size"
 msgstr "Tamaina"
 
-#: scribus/scribus.cpp:2258
+msgid "Style"
+msgstr "Estiloa"
+
+msgid "Color"
+msgstr "Kolorea"
+
+msgid "Shade"
+msgstr "Itzala"
+
+#, fuzzy
+msgid "Un&lock"
+msgstr "Desblokeatu"
+
 msgid "Loading..."
 msgstr "Kargatzen..."
 
-#: scribus/scribus.cpp:2472
-msgid "Images"
-msgstr "Irudiak"
+msgid "All Supported Formats"
+msgstr ""
 
-#: scribus/scribus.cpp:2472
-msgid ");;Vectorimages (*.eps *.pdf);; All Files (*)"
-msgstr ");;Irudi bektorialak (*.eps *.pdf);; Fitxategi guztiak (*)"
+msgid "All Files (*)"
+msgstr ""
 
-#: scribus/scribus.cpp:2490 scribus/scribus.cpp:3099
-msgid "Textfiles (*.txt);;All Files (*)"
+#, fuzzy
+msgid "Text Files (*.txt);;All Files(*)"
 msgstr "Testu-fitxategiak (*.txt);;Fitxategi guztiak (*)"
 
-#: scribus/scribus.cpp:2522 scribus/scribus.cpp:2558 scribus/scribus.cpp:5257
-#: scribus/scribus.cpp:5377 scribus/scribus.cpp:6531
-#, c-format
 msgid ""
 "Can't write the File: \n"
 "%1"
@@ -3464,203 +3666,205 @@ msgstr ""
 "Ezin da fitxategi hau idatzi:\n"
 "%1"
 
-#: scribus/scribus.cpp:2539
-msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
+#, fuzzy
+msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
 msgstr "Dokumentuak (*.sla *.sla.gz *.scd *scd.gz);; Fitxategi guztiak (*)"
 
-#: scribus/plugins/svgexplugin/svgexplugin.cpp:48 scribus/scribus.cpp:2550
-msgid ""
-"Do you really want to overwrite the File:\n"
-"%1 ?"
-msgstr ""
-"Benetan gainidatzi nahi duzu fitxategia:\n"
-"%1?"
-
-#: scribus/scribus.cpp:2566
 msgid "Saving..."
 msgstr "Gordetzen..."
 
-#: scribus/scribus.cpp:2705
 msgid "Printing..."
 msgstr "Inprimatzen..."
 
-#: scribus/scribus.cpp:2787
+msgid "Document"
+msgstr "Dokumentua"
+
 msgid "Printing failed!"
 msgstr "Inprimatzeak huts egin du!"
 
-#: scribus/scribus.cpp:3085
 msgid "Scribus Manual"
 msgstr "Scribus-en eskuliburua"
 
-#: scribus/scribus.cpp:3322
-msgid "Show Margins"
-msgstr "Erakutsi marjinak"
-
-#: scribus/scribus.cpp:3360 scribus/scribus.cpp:5089
-msgid "Hide Measurements"
-msgstr "Ezkutatu neurriak"
-
-#: scribus/scribus.cpp:3378 scribus/scribus.cpp:5091
-msgid "Hide Outline"
-msgstr "Ezkutatu eskema"
-
-#: scribus/scribus.cpp:3396 scribus/scribus.cpp:5093
-msgid "Hide Scrapbook"
-msgstr "Ezkutatu berri laburren albuma"
-
-#: scribus/scribus.cpp:3414 scribus/scribus.cpp:5095
-msgid "Hide Layers"
-msgstr "Ezkutatu geruzak"
-
-#: scribus/scribus.cpp:3432 scribus/scribus.cpp:5097
-msgid "Hide Page Palette"
-msgstr "Ezkutatu orrialdearen paleta"
-
-#: scribus/scribus.cpp:3448 scribus/scribus.cpp:5099
-msgid "Hide Bookmarks"
-msgstr "Ezkutatu laster-markak"
-
-#: scribus/scribus.cpp:3458 scribus/scribus.cpp:5085
-msgid "Show Tools"
-msgstr "Erakutsi tresnak"
-
-#: scribus/scribus.cpp:3474 scribus/scribus.cpp:5087
-msgid "Show PDF-Tools"
-msgstr "Erakutsi PDF tresnak"
-
-#: scribus/scribus.cpp:3489
-msgid "Show Images"
+#, fuzzy
+msgid "Show &Images"
 msgstr "Erakutsi irudiak"
 
-#: scribus/scribus.cpp:3520
-msgid "Hide Grid"
-msgstr "Ezkutatu sareta"
+#, fuzzy
+msgid "Show &Margins"
+msgstr "Erakutsi marjinak"
 
-#: scribus/scribus.cpp:3540
-msgid "Show Guides"
+#, fuzzy
+msgid "Show &Frames"
+msgstr "Erakutsi markoak"
+
+#, fuzzy
+msgid "Show G&uides"
 msgstr "Erakutsi gidak"
 
-#: scribus/scribus.cpp:5117
+#, fuzzy
+msgid "Hide &Grid"
+msgstr "Ezkutatu sareta"
+
+#, fuzzy
+msgid "Hide &Baseline Grid"
+msgstr "Ezkutatu sareta"
+
 msgid "The following Programs are missing:"
 msgstr "Programa hauek falta dira:"
 
-#: scribus/scribus.cpp:5119
-msgid "Ghostscript : You cannot use EPS-Images"
+#, fuzzy
+msgid "Ghostscript : You cannot use EPS Images"
 msgstr "Ghostscript : Ezin dituzu EPS irudiak erabili"
 
-#: scribus/scribus.cpp:5253
-msgid "EPS-Files (*.eps);; All Files (*)"
+#, fuzzy
+msgid "EPS-Files (*.eps);;All Files (*)"
 msgstr "EPS fitxategiak (*.eps);; Fitxategi guztiak (*)"
 
-#: scribus/scribus.cpp:5788
+msgid "Some Objects are locked."
+msgstr ""
+
+#, fuzzy
+msgid "Lock all"
+msgstr "Blokeatu"
+
+#, fuzzy
+msgid "Unlock all"
+msgstr "Desblokeatu"
+
 msgid "Loading:"
 msgstr "Kargatzen:"
 
-#: scribus/scribus.cpp:5949
 msgid "Adjusting Colors"
 msgstr "Koloreak doitzen"
 
-#: scribus/scribus.cpp:6241
 msgid "Undo Delete Object"
 msgstr "Desegin objektu-ezabatzea"
 
-#: scribus/scribus.cpp:6245
 msgid "Undo Object Move"
 msgstr "Desegin objektu-mugimendua"
 
-#: scribus/scribus.cpp:6249
 msgid "Undo Object Change"
 msgstr "Desegin objektu-aldaketa"
 
-#: scribus/scribus.cpp:6270 scribus/scribus.cpp:6294
 msgid "English"
 msgstr "Ingelesa"
 
-#: scribus/scribus.cpp:6272
 msgid "German"
 msgstr "Alemana"
 
-#: scribus/scribus.cpp:6274
 msgid "Spanish"
 msgstr "Gaztelera"
 
-#: scribus/scribus.cpp:6276
 msgid "Italian"
 msgstr "Italiera"
 
-#: scribus/scribus.cpp:6278
 msgid "French"
 msgstr "Frantsesa"
 
-#: scribus/scribus.cpp:6280
 msgid "Russian"
 msgstr "Errusiera"
 
-#: scribus/scribus.cpp:6282
 msgid "Danish"
 msgstr "Daniera"
 
-#: scribus/scribus.cpp:6284
 msgid "Slovak"
 msgstr "Eslovakiera"
 
-#: scribus/scribus.cpp:6286
 msgid "Hungarian"
 msgstr "Hungariera"
 
-#: scribus/scribus.cpp:6288
 msgid "Czech"
 msgstr "Txekiera"
 
-#: scribus/scribusXml.cpp:1129 scribus/scribusdoc.cpp:89
+msgid "Dutch"
+msgstr ""
+
+msgid "Portuguese"
+msgstr ""
+
+#, fuzzy
+msgid "Ukrainian"
+msgstr "Ukrainera:"
+
+#, fuzzy
+msgid "Polish"
+msgstr "Poloniera:"
+
+msgid "Greek"
+msgstr ""
+
+#, fuzzy
+msgid "Catalan"
+msgstr "Italiera"
+
+#, fuzzy
+msgid "Finnish"
+msgstr "Daniera"
+
+#, fuzzy
+msgid "Irish"
+msgstr "Turkiera:"
+
+#, fuzzy
+msgid "Lithuanian"
+msgstr "Lituaniera:"
+
+msgid "Swedish"
+msgstr ""
+
+#, fuzzy
+msgid "Slovenian"
+msgstr "Eslovakiera"
+
+#, fuzzy
+msgid "Scribus Crash"
+msgstr "Scribus "
+
+msgid "Scribus crashes due to Signal #%1"
+msgstr ""
+
 msgid "Background"
 msgstr "Atzeko planoa"
 
-#: scribus/scribusview.cpp:69
 msgid "Layer"
 msgstr "Geruza"
 
-#: scribus/scribuswin.cpp:44
-msgid "Document:"
-msgstr "Dokumentua:"
-
-#: scribus/scribuswin.cpp:44
-msgid "has been changed since the last save."
-msgstr "aldatu egin da azken aldiz gorde zenetik."
-
-#: scribus/scribuswin.cpp:45
-msgid "Save Now"
-msgstr "Gorde orain"
-
-#: scribus/scribuswin.cpp:47
 msgid "Leave Anyway"
 msgstr "Utzi hala ere"
 
-#: scribus/seiten.cpp:154
+#, fuzzy
+msgid "Close Anyway"
+msgstr "Utzi hala ere"
+
+msgid "Document:"
+msgstr "Dokumentua:"
+
+msgid "has been changed since the last save."
+msgstr "aldatu egin da azken aldiz gorde zenetik."
+
+msgid "Save Now"
+msgstr "Gorde orain"
+
 msgid "Show Template Names"
 msgstr "Erakutsi txantiloi-izenak"
 
-#: scribus/seiten.cpp:509
 msgid "Arrange Pages"
 msgstr "Antolatu orrialdeak"
 
-#: scribus/seiten.cpp:519
 msgid "Available Templates:"
 msgstr "Erabilgarri dauden txantiloiak:"
 
-#: scribus/seiten.cpp:528
 msgid "Document Pages:"
 msgstr "Dokumentuaren orrialdeak:"
 
-#: scribus/seiten.cpp:577
 msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
-msgstr "Arrastatu orrialdeak edo txantiloi-orrialdeak zakarrontzira ezabatzeko."
+msgstr ""
+"Arrastatu orrialdeak edo txantiloi-orrialdeak zakarrontzira ezabatzeko."
 
-#: scribus/seiten.cpp:578
-msgid "Here you can see all Pages of your Document."
+#, fuzzy
+msgid "Previews all the pages of your document."
 msgstr "Hemen zure dokumentuko orrialde guztiak ikus ditzakezu."
 
-#: scribus/seiten.cpp:579
 msgid ""
 "Here are all your Templates, to create a new Page\n"
 "drag a Template to the Pageview below."
@@ -3668,417 +3872,1934 @@ msgstr ""
 "Hemen daude zure txantiloi guztiak; orrialde berria sortzeko, arrastatu\n"
 "txantiloia beheko orrialde-ikuspegira."
 
-#: scribus/selfield.cpp:10
 msgid "Select Fields"
 msgstr "Hautatu eremuak"
 
-#: scribus/selfield.cpp:18
 msgid "Available Fields"
 msgstr "Erabilgarri dauden eremuak"
 
-#: scribus/selfield.cpp:58
 msgid "Selected Fields"
 msgstr "Hautatutako eremuak"
 
-#: scribus/tree.cpp:27
-msgid "Outline"
-msgstr "Eskema"
-
-#: scribus/tree.cpp:35
 msgid "Element"
 msgstr "Elementua"
 
-#: scribus/tree.cpp:37
 msgid "Information"
 msgstr "Informazioa"
 
-#: scribus/tree.cpp:98
-msgid "Ellipse"
-msgstr "Elipsea"
+#, fuzzy
+msgid "X:"
+msgstr "X1 :"
 
-#: scribus/werktoolb.cpp:31
+#, fuzzy
+msgid "Font:"
+msgstr "Letra-tipoa"
+
+#, fuzzy
+msgid "Group "
+msgstr "Elkartu"
+
+msgid ""
+"Do you really want to overwrite the File:\n"
+"%1 ?"
+msgstr ""
+"Benetan gainidatzi nahi duzu fitxategia:\n"
+"%1?"
+
 msgid "Select Items"
 msgstr "Hautatu elementuak"
 
-#: scribus/werktoolb.cpp:34
-msgid "Rotate Item"
-msgstr "Biratu elementua"
+#, fuzzy
+msgid "Insert Text Frame"
+msgstr "Testuaren markoa"
 
-#: scribus/werktoolb.cpp:37
-msgid "Edit Contents of Frame"
-msgstr "Editatu markoaren edukia"
-
-#: scribus/werktoolb.cpp:40
-msgid "Zooms in or out"
-msgstr "Handiagotu edo txikiagotu"
-
-#: scribus/werktoolb.cpp:42
-msgid "Insert Textbox"
-msgstr "Txertatu testu-koadroa"
-
-#: scribus/werktoolb.cpp:44
 msgid "Insert Picture"
 msgstr "Txertatu irudia"
 
-#: scribus/werktoolb.cpp:46
-msgid "Insert Rectangles"
-msgstr "Txertatu laukizuzenak"
+#, fuzzy
+msgid "Insert Table"
+msgstr "Txertatu orrialdea"
 
-#: scribus/werktoolb.cpp:48
-msgid "Insert Ovals"
-msgstr "Txertatu obaloak"
-
-#: scribus/werktoolb.cpp:51
 msgid "Properties..."
 msgstr "Propietateak..."
 
-#: scribus/werktoolb.cpp:52
 msgid "Insert Polygons"
 msgstr "Txertatu poligonoak"
 
-#: scribus/werktoolb.cpp:56
 msgid "Insert Lines"
 msgstr "Txertatu marrak"
 
-#: scribus/werktoolb.cpp:58
 msgid "Insert Bezier Curves"
 msgstr "Txertatu Bezier kurbak"
 
-#: scribus/werktoolb.cpp:60
-msgid "Create Textchains"
-msgstr "Sortu testu-kateak"
+#, fuzzy
+msgid "Insert Freehand Line"
+msgstr "Txertatu marrak"
 
-#: scribus/werktoolb.cpp:63
-msgid "Break Textchains"
-msgstr "Hautsi testu-kateak"
+msgid "Rotate Item"
+msgstr "Biratu elementua"
 
-#: scribus/werktoolb.cpp:181
+#, fuzzy
+msgid "Zoom in or out"
+msgstr "Handiagotu edo txikiagotu"
+
+msgid "Edit Contents of Frame"
+msgstr "Editatu markoaren edukia"
+
+msgid "Edit the text with the Story Editor"
+msgstr ""
+
+#, fuzzy
+msgid "Link Text Frames"
+msgstr "Testuaren markoa"
+
+#, fuzzy
+msgid "Unlink Text Frames"
+msgstr "Testuaren markoa"
+
+#, fuzzy
+msgid "Do measurements"
+msgstr "Neurriak"
+
+msgid "Draw various Shapes"
+msgstr ""
+
 msgid "PDF-Tools"
 msgstr "PDF tresnak"
 
-#: scribus/werktoolb.cpp:189
 msgid "Insert PDF-Fields"
 msgstr "Txertatu PDF eremuak"
 
-#: scribus/werktoolb.cpp:197
 msgid "Insert PDF-Annotations"
 msgstr "Txertatu PDF oharrak"
 
-#: scribus/libabout/about.cpp:62
+#, fuzzy
+msgid "Manage Tabulators"
+msgstr "Kudeatu irudiak"
+
+#, fuzzy
+msgid "Story Editor"
+msgstr "Editorea"
+
+msgid "Forced"
+msgstr "Behartuta"
+
+msgid "Block"
+msgstr "Blokeatu"
+
+msgid "Right"
+msgstr "Eskuinean"
+
+msgid "Center"
+msgstr "Erdian"
+
+msgid "Left"
+msgstr "Ezkerrean"
+
+#, fuzzy
+msgid "Save to File..."
+msgstr "Gorde PDF gisa..."
+
+msgid "Load from File..."
+msgstr ""
+
+#, fuzzy
+msgid "Save Document"
+msgstr "Dokumentu berria"
+
+msgid "Update Text Frame and Exit"
+msgstr ""
+
+#, fuzzy
+msgid "Exit Without Updating Text Frame"
+msgstr "Irten gorde gabe"
+
+#, fuzzy
+msgid "Insert Special..."
+msgstr "Txertatu orrialdea..."
+
+#, fuzzy
+msgid "Edit Styles..."
+msgstr "Editatu estiloak"
+
+#, fuzzy
+msgid "Update Text Frame"
+msgstr "Testuaren markoa"
+
+msgid "Current Paragraph:"
+msgstr ""
+
+#, fuzzy
+msgid "Totals:"
+msgstr "Tresnak"
+
+msgid "Do you want to save your changes?"
+msgstr ""
+
+#, fuzzy
+msgid "Insert Special"
+msgstr "Txertatu laukizuzenak"
+
+#, fuzzy
+msgid "Do you really want to lose all your Changes?"
+msgstr "Benetan ezabatu nahi duzu estilo hau?"
+
+#, fuzzy
+msgid "Do you really want to clear all your Text?"
+msgstr "Benetan ezabatu nahi duzu estilo hau?"
+
+msgid "Search/Replace"
+msgstr ""
+
+#, fuzzy
+msgid "Search for:"
+msgstr "Bilaketaren emaitzak: "
+
+msgid "Paragraph Style"
+msgstr ""
+
+#, fuzzy
+msgid "Font Effects"
+msgstr "Efekturik ez"
+
+#, fuzzy
+msgid "Fill Color"
+msgstr "Kolore betegarria:"
+
+#, fuzzy
+msgid "Fill Shade"
+msgstr "Itzala"
+
+#, fuzzy
+msgid "Stroke Color"
+msgstr "Erakutsi koloreak"
+
+msgid "Stroke Shade"
+msgstr ""
+
+#, fuzzy
+msgid "Replace with:"
+msgstr "Ordeztu honekin:"
+
+msgid "Whole Word"
+msgstr ""
+
+msgid "Ignore Case"
+msgstr ""
+
+#, fuzzy
+msgid "Replace"
+msgstr "Ordeztea"
+
+#, fuzzy
+msgid "Replace All"
+msgstr "Ordeztea"
+
+#, fuzzy
+msgid "Leave"
+msgstr "Maila"
+
+msgid "Search finished"
+msgstr ""
+
+#, fuzzy
+msgid "Strike Out"
+msgstr "Marratua"
+
+#, fuzzy
+msgid "Outline Text"
+msgstr "Eskema"
+
+msgid "Align Text Left"
+msgstr "Lerrokatu testua ezkerrean"
+
+msgid "Align Text Right"
+msgstr "Lerrokatu testua eskuinean"
+
+msgid "Align Text Center"
+msgstr "Lerrokatu testua erdian"
+
+#, fuzzy
+msgid "Align Text Justified"
+msgstr "Lerrokatu testua erdian"
+
+#, fuzzy
+msgid "Align Text Forced Justified"
+msgstr "Lerrokatu testua erdian"
+
+msgid "Other..."
+msgstr "Bestelakoak..."
+
+msgid ""
+"<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
+"toolkit for multiplatform GUI &amp; application development.</p><p>Qt "
+"provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;"
+"X, Linux, and all major commercial Unix variants.<br>Qt is also available "
+"for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www."
+"trolltech.com/qt/</tt> for more information.</p>"
+msgstr ""
+
+#, fuzzy
+msgid "Copy or Move a File"
+msgstr "Konprimatu fitxategia"
+
+#, fuzzy
+msgid "Read: %1"
+msgstr "Prest"
+
+msgid "Write: %1"
+msgstr ""
+
+msgid "File &name:"
+msgstr "Fitxategi-&izena:"
+
+msgid "File &type:"
+msgstr "Fitxategi-&mota:"
+
+msgid "One directory up"
+msgstr ""
+
+#, fuzzy
+msgid "Attributes"
+msgstr "Scribus-i buruz"
+
+msgid "Look &in:"
+msgstr "Begiratu &hemen:"
+
+#, fuzzy
+msgid "Back"
+msgstr "Blokeatu"
+
+#, fuzzy
+msgid "Create New Folder"
+msgstr "Sortu PDF fitxategia"
+
+#, fuzzy
+msgid "List View"
+msgstr "Ikuspegirik ez"
+
+msgid "Detail View"
+msgstr ""
+
+msgid "Preview File Info"
+msgstr ""
+
+msgid "Preview File Contents"
+msgstr ""
+
+msgid "Read-write"
+msgstr ""
+
+#, fuzzy
+msgid "Read-only"
+msgstr "Irakurtzeko soilik"
+
+msgid "Write-only"
+msgstr ""
+
+#, fuzzy
+msgid "Inaccessible"
+msgstr "Irudia ikusgai"
+
+msgid "Symlink to File"
+msgstr ""
+
+msgid "Symlink to Directory"
+msgstr ""
+
+msgid "Symlink to Special"
+msgstr ""
+
+#, fuzzy
+msgid "Dir"
+msgstr "Xen noranzkoa:"
+
+#, fuzzy
+msgid "Special"
+msgstr "Hamartarrak:"
+
+#, fuzzy
+msgid "Save As"
+msgstr "Gorde honela"
+
+#, fuzzy
+msgid "&Open"
+msgstr "Ireki"
+
+#, fuzzy
+msgid "&Rename"
+msgstr "Kendu"
+
+#, fuzzy
+msgid "R&eload"
+msgstr "Prest"
+
+#, fuzzy
+msgid "Sort by &Name"
+msgstr "Letra-tipoaren izena"
+
+#, fuzzy
+msgid "Sort by &Size"
+msgstr "Letra-tamaina"
+
+msgid "Sort by &Date"
+msgstr ""
+
+#, fuzzy
+msgid "&Unsorted"
+msgstr "horren ordez"
+
+msgid "Sort"
+msgstr ""
+
+#, fuzzy
+msgid "Show &hidden files"
+msgstr "Erakutsi gidak"
+
+#, fuzzy
+msgid "the file"
+msgstr "Sistemaren profilak"
+
+#, fuzzy
+msgid "the directory"
+msgstr "Aukeratu direktorioa"
+
+msgid "the symlink"
+msgstr ""
+
+#, fuzzy
+msgid "Delete %1"
+msgstr "Ezabatu"
+
+msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
+msgstr ""
+
+#, fuzzy
+msgid "&Yes"
+msgstr "Bai"
+
+#, fuzzy
+msgid "&No"
+msgstr "Ez"
+
+#, fuzzy
+msgid "New Folder 1"
+msgstr "Kolore berria"
+
+#, fuzzy
+msgid "New Folder"
+msgstr "Kolore berria"
+
+#, fuzzy
+msgid "New Folder %1"
+msgstr "Kolore berria"
+
+#, fuzzy
+msgid "Find Directory"
+msgstr "Aukeratu direktorioa"
+
+#, fuzzy
+msgid "Directories"
+msgstr "Helbidea:"
+
+#, fuzzy
+msgid "Error"
+msgstr "Ispilua"
+
+msgid ""
+"%1\n"
+"File not found.\n"
+"Check path and filename."
+msgstr ""
+
+msgid "All Files (*.*)"
+msgstr ""
+
+#, fuzzy
+msgid "Select a Directory"
+msgstr "Aukeratu direktorioa"
+
+#, fuzzy
+msgid "Directory:"
+msgstr "Helbidea:"
+
+#, fuzzy
+msgid "Select All"
+msgstr "Hautatu dena"
+
+#, fuzzy
+msgid "&Redo"
+msgstr "Berregin"
+
+#, fuzzy
+msgid "Line up"
+msgstr "Lerroa"
+
+#, fuzzy
+msgid "Customize..."
+msgstr "Pertsonalizatua"
+
+#, fuzzy
+msgid "System Menu"
+msgstr "Sistemaren profilak"
+
+#, fuzzy
+msgid "Unshade"
+msgstr "Itzala"
+
+#, fuzzy
+msgid "Normalize"
+msgstr "Normala"
+
+#, fuzzy
+msgid "Minimize"
+msgstr "Gutxienekoa:"
+
+#, fuzzy
+msgid "Maximize"
+msgstr "Gehienezkoa:"
+
+#, fuzzy
+msgid "&Restore"
+msgstr "Berrezarri forma"
+
+#, fuzzy
+msgid "&Move"
+msgstr "Lekuz aldatu..."
+
+msgid "Mi&nimize"
+msgstr ""
+
+msgid "Ma&ximize"
+msgstr ""
+
+msgid "Stay on &Top"
+msgstr ""
+
+#, fuzzy
+msgid "Restore Down"
+msgstr "Sagua behera"
+
+#, fuzzy
+msgid "Sh&ade"
+msgstr "Itzala"
+
+msgid "%1 - [%2]"
+msgstr ""
+
+#, fuzzy
+msgid "&Unshade"
+msgstr "Itzala"
+
+msgid "Hu&e:"
+msgstr ""
+
+msgid "&Sat:"
+msgstr ""
+
+msgid "&Val:"
+msgstr ""
+
+msgid "&Red:"
+msgstr "&Gorria:"
+
+#, fuzzy
+msgid "&Green:"
+msgstr "Pantaila"
+
+msgid "Bl&ue:"
+msgstr "&Urdina:"
+
+msgid "A&lpha channel:"
+msgstr ""
+
+msgid "&Basic colors"
+msgstr "&Oinarrizko koloreak"
+
+msgid "&Custom colors"
+msgstr "&Kolore pertsonalizatuak"
+
+msgid "&Define Custom Colors >>"
+msgstr "&Zehaztu kolore pertsonalizatuak>>"
+
+#, fuzzy
+msgid "&Add to Custom Colors"
+msgstr "&Gehitu kolore pertsonalizatuei"
+
+msgid "Select color"
+msgstr "Hautatu kolorea"
+
+#, fuzzy
+msgid "Page "
+msgstr "Orrialdea"
+
+msgid " of %1"
+msgstr ""
+
+#, fuzzy
+msgid "Number of Rows:"
+msgstr "Kopia-kopurua:"
+
+#, fuzzy
+msgid "Number of Columns:"
+msgstr "Kopia-kopurua:"
+
+msgid "Full Stop"
+msgstr ""
+
+#, fuzzy
+msgid "Comma"
+msgstr "Komandoa:"
+
+msgid "Position:"
+msgstr "Kokalekua:"
+
+msgid "First Line:"
+msgstr "Lehen lerroa:"
+
+#, fuzzy
+msgid "Indent:"
+msgstr "Ezkerreko koska:"
+
+#, fuzzy
+msgid "Delete All"
+msgstr "Ezabatu"
+
+msgid "Indentation for first line of the paragraph"
+msgstr ""
+
+msgid "Indentation from the left for the whole paragraph"
+msgstr ""
+
+#, fuzzy
+msgid "Delete all Tabulators"
+msgstr "Ezabatu kolorea"
+
+msgid "Distances"
+msgstr "Distantziak"
+
+#, fuzzy
+msgid "DX:"
+msgstr "X1 :"
+
+#, fuzzy
+msgid "DY:"
+msgstr "Y:"
+
+msgid "Angle:"
+msgstr "Angelua:"
+
+msgid "Length:"
+msgstr "Luzera:"
+
+msgid "Here you can add, change or remove Color-Stops."
+msgstr ""
+
+#, fuzzy, c-format
+msgid "About Scribus%1%2"
+msgstr "Scribus-i buruz"
+
+msgid "%1. %2 %3 "
+msgstr ""
+
+msgid ""
+"Scribus Version %1\n"
+"%2 %3"
+msgstr ""
+
+msgid "Build-ID:"
+msgstr ""
+
 msgid "About"
 msgstr "Honi buruz"
 
-#: scribus/libabout/about.cpp:68
 msgid "Programming:"
 msgstr "Programazioa:"
 
-#: scribus/libabout/about.cpp:71
 msgid "Contributions from:"
 msgstr "Kolaboratzaileak:"
 
-#: scribus/libabout/about.cpp:76
+#, fuzzy
+msgid "Windows port:"
+msgstr "Leihoak"
+
 msgid "Documentation:"
 msgstr "Dokumentazioa:"
 
-#: scribus/libabout/about.cpp:82
 msgid "Authors"
 msgstr "Egileak"
 
-#: scribus/libabout/about.cpp:88
 msgid "German:"
 msgstr "Alemana:"
 
-#: scribus/libabout/about.cpp:91
 msgid "French:"
 msgstr "Frantsesa:"
 
-#: scribus/libabout/about.cpp:96
 msgid "Spanish and Catalan:"
 msgstr "Gaztelania eta katalana:"
 
-#: scribus/libabout/about.cpp:99
-msgid "Hungarian and Italian:"
-msgstr "Hungariera eta italiera:"
+#, fuzzy
+msgid "Italian:"
+msgstr "Italiera"
 
-#: scribus/libabout/about.cpp:102
+#, fuzzy
+msgid "Hungarian:"
+msgstr "Hungariera"
+
 msgid "Ukrainian:"
 msgstr "Ukrainera:"
 
-#: scribus/libabout/about.cpp:105
 msgid "Bulgarian:"
 msgstr "Bulgariera:"
 
-#: scribus/libabout/about.cpp:108
 msgid "Galician:"
 msgstr "Galiziera:"
 
-#: scribus/libabout/about.cpp:111
 msgid "Turkish:"
 msgstr "Turkiera:"
 
-#: scribus/libabout/about.cpp:114
 msgid "Lithuanian:"
 msgstr "Lituaniera:"
 
-#: scribus/libabout/about.cpp:117
 msgid "Polish:"
 msgstr "Poloniera:"
 
-#: scribus/libabout/about.cpp:120
 msgid "Czech:"
 msgstr "Txekera:"
 
-#: scribus/libabout/about.cpp:123
 msgid "Slovak:"
 msgstr "Eslovakiera:"
 
-#: scribus/libabout/about.cpp:126
 msgid "Danish:"
 msgstr "Daniera:"
 
-#: scribus/libabout/about.cpp:129
 msgid "Norwegian:"
 msgstr "Norvegiera:"
 
-#: scribus/libabout/about.cpp:133
 msgid "English:"
 msgstr "Ingelesa:"
 
-#: scribus/libabout/about.cpp:137
+#, fuzzy
+msgid "Welsh:"
+msgstr "Poloniera:"
+
+#, fuzzy
+msgid "Russian:"
+msgstr "Errusiera"
+
+#, fuzzy
+msgid "Brazilian:"
+msgstr "Ukrainera:"
+
+#, fuzzy
+msgid "Finnish:"
+msgstr "Daniera:"
+
+#, fuzzy
+msgid "Slovenian:"
+msgstr "Eslovakiera:"
+
+#, fuzzy
+msgid "Basque:"
+msgstr "Honetan oinarrituta:"
+
 msgid "Translations"
 msgstr "Itzulpenak"
 
-#: scribus/libprefs/prefs.cpp:49
-msgid "Document"
-msgstr "Dokumentua"
+#, fuzzy
+msgid "Homepage and online reference"
+msgstr "Hobespenak irakurtzen"
 
-#: scribus/libprefs/prefs.cpp:50
+msgid "Mailing list"
+msgstr ""
+
+msgid "Bugs and feature requests"
+msgstr ""
+
+#, fuzzy
+msgid "Online"
+msgstr "Eskema"
+
+msgid ""
+"This panel shows the version, build date and\n"
+" compiled in library support in Scribus\n"
+"The C-C-T equates to C=CUPS C=littlecms T=TIFF support.\n"
+"Missing library support is indicated by a *"
+msgstr ""
+
+msgid "Preferences"
+msgstr "Hobespenak"
+
 msgid "Guides"
 msgstr "Gidak"
 
-#: scribus/libprefs/prefs.cpp:51
-msgid "Typographics"
+#, fuzzy
+msgid "Typography"
 msgstr "Tipografikoak"
 
-#: scribus/libprefs/prefs.cpp:54
 msgid "Display"
 msgstr "Bistaratu"
 
-#: scribus/libprefs/prefs.cpp:66
+#, fuzzy
+msgid "External Tools"
+msgstr "Kanpoko esteka"
+
+msgid "Misc."
+msgstr ""
+
 msgid "GUI"
 msgstr "GUI"
 
-#: scribus/libprefs/prefs.cpp:75
-msgid "Theme"
+#, fuzzy
+msgid "Theme:"
 msgstr "Gaia"
 
-#: scribus/libprefs/prefs.cpp:98
 msgid "Units"
 msgstr "Unitateak"
 
-#: scribus/libprefs/prefs.cpp:107
 msgid "Points (pt)"
 msgstr "Puntuak (ptu)"
 
-#: scribus/libprefs/prefs.cpp:119
 msgid "Mouse-Settings"
 msgstr "Saguaren ezarpenak"
 
-#: scribus/libprefs/prefs.cpp:132
-msgid "Wheel-Jump"
+#, fuzzy
+msgid "Wheel-Jump:"
 msgstr "Gurpil-jauzia"
 
-#: scribus/libprefs/prefs.cpp:142
-msgid "Grab-Radius"
+#, fuzzy
+msgid "Grab-Radius:"
 msgstr "Hartu erradioa"
 
-#: scribus/libprefs/prefs.cpp:157
-msgid "Menues"
+#, fuzzy
+msgid " px"
+msgstr " p"
+
+#, fuzzy
+msgid "Menus"
 msgstr "Menuak"
 
-#: scribus/libprefs/prefs.cpp:167
 msgid "Recent Documents:"
 msgstr "Azken dokumentuak:"
 
-#: scribus/libprefs/prefs.cpp:175
-msgid "Keyboard Shortcuts..."
-msgstr "Laster-teklak..."
-
-#: scribus/libprefs/prefs.cpp:180
 msgid "Paths"
 msgstr "Bide-izenak"
 
-#: scribus/libprefs/prefs.cpp:189
 msgid "Documents:"
 msgstr "Dokumentuak:"
 
-#: scribus/libprefs/prefs.cpp:373
+#, fuzzy
+msgid "ICC-Profiles:"
+msgstr "Erabili ICC profilak"
+
+#, fuzzy
+msgid "Scripts:"
+msgstr "Script-a:"
+
+#, fuzzy
+msgid "Left Page First"
+msgstr "Ezkerreko orrialdea lehenbizi"
+
 msgid "Autosave"
 msgstr "Gorde automatikoki"
 
-#: scribus/libprefs/prefs.cpp:380
-msgid "Enabled"
-msgstr "Gaituta"
-
-#: scribus/libprefs/prefs.cpp:387
-msgid "Intervall:"
+#, fuzzy
+msgid "Interval:"
 msgstr "Tartea"
 
-#: scribus/libprefs/prefs.cpp:406
+#, fuzzy
+msgid "min"
+msgstr " in"
+
 msgid "Grid Layout"
 msgstr "Saretaren diseinua"
 
-#: scribus/libprefs/prefs.cpp:419
 msgid "Minor Grid Spacing:"
 msgstr "Saretaren bigarren mailako tartea:"
 
-#: scribus/libprefs/prefs.cpp:423
 msgid "Major Grid Spacing:"
 msgstr "Saretaren tarte nagusia:"
 
-#: scribus/libprefs/prefs.cpp:437
 msgid "Guide Snap Distance:"
 msgstr "Giden atxikitze-distantzia:"
 
-#: scribus/libprefs/prefs.cpp:459
 msgid "Grid Colors"
 msgstr "Sareta-koloreak"
 
-#: scribus/libprefs/prefs.cpp:472
 msgid "Minor Grid Color:"
 msgstr "Saretaren bigarren mailako kolorea:"
 
-#: scribus/libprefs/prefs.cpp:476
 msgid "Major Grid Color:"
 msgstr "Saretaren kolore nagusia:"
 
-#: scribus/libprefs/prefs.cpp:512
 msgid "User Guides Color:"
 msgstr "Erabiltzaile-giden kolorea:"
 
-#: scribus/libprefs/prefs.cpp:533
 msgid "Placing"
 msgstr "Kokalekua"
 
-#: scribus/libprefs/prefs.cpp:546
 msgid "In the Background"
 msgstr "Atzeko planoan"
 
-#: scribus/libprefs/prefs.cpp:553
 msgid "In the Foreground"
 msgstr "Aurreko planoan"
 
-#: scribus/libprefs/prefs.cpp:582 scribus/libprefs/prefs.cpp:622
-#: scribus/libprefs/prefs.cpp:662
+#, fuzzy
+msgid "Baseline Grid"
+msgstr "Ezkutatu sareta"
+
+#, fuzzy
+msgid "On"
+msgstr "Ireki"
+
+msgid "Off"
+msgstr ""
+
 msgid "Scaling:"
 msgstr "Eskalatzea:"
 
-#: scribus/libprefs/prefs.cpp:586 scribus/libprefs/prefs.cpp:626
-msgid "Disp.:"
-msgstr "Desp.:"
+#, fuzzy
+msgid "Displacement:"
+msgstr "Desplazamendua"
 
-#: scribus/libprefs/prefs.cpp:690
-msgid "Automatic Linespaceing:"
+#, fuzzy
+msgid "Baseline Grid:"
+msgstr "Ezkutatu sareta"
+
+msgid "Baseline Offset:"
+msgstr ""
+
+#, fuzzy
+msgid "Automatic Line Spacing:"
 msgstr "Lerroarte automatikoa:"
 
-#: scribus/libprefs/prefs.cpp:783
 msgid "Default Size:"
 msgstr "Tamaina lehenetsia:"
 
-#: scribus/libprefs/prefs.cpp:787
 msgid "Default Font:"
 msgstr "Letra-tipo lehenetsia:"
 
-#: scribus/libprefs/prefs.cpp:846
 msgid "Text Color:"
 msgstr "Testuaren kolorea:"
 
-#: scribus/libprefs/prefs.cpp:865
 msgid "Woven silk pyjamas exchanged for blue quartz"
 msgstr "Laino guztien azpitik eta sasi guztien gainetik"
 
-#: scribus/libprefs/prefs.cpp:1109
+msgid "Line Color:"
+msgstr "Marraren kolorea:"
+
+msgid "Shading:"
+msgstr "Itzaldura:"
+
 msgid "Minimum:"
 msgstr "Gutxienekoa:"
 
-#: scribus/libprefs/prefs.cpp:1113
 msgid "Maximum:"
 msgstr "Gehienezkoa:"
 
-#: scribus/libprefs/prefs.cpp:1117
 msgid "Stepping:"
 msgstr "Urratsak:"
 
-#: scribus/libprefs/prefs.cpp:1359
+#, fuzzy
+msgid "Horizontal Scaling:"
+msgstr "Eskalatu horizontalki"
+
+#, fuzzy
+msgid "Vertical Scaling:"
+msgstr "Eskalatu bertikalki"
+
+msgid "Scale Picture to Frame Size"
+msgstr "Eskalatu irudia markoaren tamainara"
+
+msgid "Keep Aspect Ratio"
+msgstr "Mantendu aspektu-erlazioa"
+
 msgid "Other Options"
 msgstr "Bestelako aukerak"
 
-#: scribus/libprefs/prefs.cpp:1369
-msgid "Save Contents on Exit"
+#, fuzzy
+msgid "Save Contents on Changes"
 msgstr "Gorde edukia irtetean"
 
-#: scribus/libprefs/prefs.cpp:1432
-msgid "Display Frames"
-msgstr "Bistaratu markoak"
-
-#: scribus/libprefs/prefs.cpp:1439
 msgid "Display Pages Side by Side"
 msgstr "Bistaratu orrialdeak alboz albo"
 
-#: scribus/libprefs/prefs.cpp:1450
 msgid "Page-Colors"
 msgstr "Orrialde-koloreak"
 
-#: scribus/libprefs/prefs.cpp:1460
 msgid "Background:"
 msgstr "Atzeko planoa:"
 
-#: scribus/libprefs/prefs.cpp:1480
 msgid "Margins:"
 msgstr "Marjinak:"
 
-#: scribus/libprefs/prefs.cpp:1502
-msgid "Display unprintable Area in Margin Color"
+#, fuzzy
+msgid "Display Unprintable Area in Margin Color"
 msgstr "Bistaratu inprimatu ezin den area marjinaren kolorean"
 
-#: scribus/libprefs/prefs.cpp:1509
 msgid "Use PDF-1.4 Transparency Features"
 msgstr "Erabili PDF 1.4ren gardentasun ezaugarriak"
 
-#: scribus/libprefs/prefs.cpp:1514
 msgid "Adjust Display Size"
 msgstr "Doitu bistaratzearen tamaina"
 
-#: scribus/libprefs/prefs.cpp:1521
-msgid "To adjust the Display drag the Ruler below with the Slider."
+#, fuzzy
+msgid "To adjust the display drag the ruler below with the Slider."
 msgstr "Bistaratzea doitzeko, arrastatu erregela graduatzailea erabiliz"
 
-#: scribus/plugins/libchar/charselect.cpp:43
-msgid "Select Character"
-msgstr "Hautatu karakterea"
+#, fuzzy
+msgid "Postscript Interpreter"
+msgstr "Postscript"
 
-#: scribus/plugins/libchar/charselect.cpp:162
-msgid "Insert"
-msgstr "Txertatu"
+msgid "Name of executable:"
+msgstr ""
 
-#: scribus/plugins/printpreview/preview.cpp:47
-msgid "Print Preview"
-msgstr "Inprimatzeko aurrebista"
-
-#: scribus/plugins/printpreview/preview.cpp:92
 msgid "Antialias Text"
 msgstr "Aplikatu antialiasing-a testuan"
 
-#: scribus/plugins/printpreview/preview.cpp:96
 msgid "Antialias Graphics"
 msgstr "Aplikatu antialiasing-a irudietan"
 
-#: scribus/plugins/svgexplugin/svgexplugin.cpp:41
-msgid "SVG-Images (*.svg);; All Files (*)"
+msgid "Image Processing Tool"
+msgstr ""
+
+#, fuzzy
+msgid "Printing"
+msgstr "Inprimatzen..."
+
+#, fuzzy
+msgid "Clip to Page Margins"
+msgstr "Ezkutatu marjinak"
+
+msgid ""
+"Choose the default window decoration and looks.\n"
+"Scribus inherits any available KDE or Qt themes"
+msgstr ""
+
+msgid "Default font size for the menus and windows"
+msgstr ""
+
+msgid "Number of lines Scribus will scroll for each move of the mouse wheel"
+msgstr ""
+
+msgid ""
+"Radius of the area where Scribus will allow you to grab an objects handles"
+msgstr ""
+
+msgid "Number of recently edited documents to show in the File menu"
+msgstr ""
+
+msgid "Default documents directory"
+msgstr ""
+
+msgid "Default ICC profiles directory"
+msgstr ""
+
+msgid "Default Scripter scripts directory"
+msgstr ""
+
+msgid "Default page size, either a standard size or a custom size"
+msgstr ""
+
+msgid "Default orientation of document pages"
+msgstr ""
+
+msgid "Width of document pages, editable if you have chosen a custom page size"
+msgstr ""
+
+msgid ""
+"Height of document pages, editable if you have chosen a custom page size"
+msgstr ""
+
+msgid "Make the first page the left page of a document"
+msgstr ""
+
+msgid ""
+"When enabled, Scribus saves a backup copy of your file with the .bak "
+"extension\n"
+"each time the time period elapses"
+msgstr ""
+
+msgid "Time period between saving automatically"
+msgstr ""
+
+msgid "Distance between the minor grid lines"
+msgstr ""
+
+msgid "Distance between the major grid lines"
+msgstr ""
+
+msgid "Distance within which an object will snap to your placed guides"
+msgstr ""
+
+msgid "Color of the minor grid lines"
+msgstr ""
+
+msgid "Color of the major grid lines"
+msgstr ""
+
+msgid "Color of the guide lines you insert"
+msgstr ""
+
+msgid "Place the grid behind your page objects"
+msgstr ""
+
+msgid "Place the grid in front of your page objects"
+msgstr ""
+
+msgid "Turns on the basegrid"
+msgstr ""
+
+msgid "Turns off the basegrid"
+msgstr ""
+
+msgid "Displacement above the baseline of the font on a line"
+msgstr ""
+
+msgid "Relative size of the superscript compared to the normal font"
+msgstr ""
+
+msgid "Displacement below the baseline of the normal font on a line"
+msgstr ""
+
+msgid "Relative size of the subscript compared to the normal font"
+msgstr ""
+
+msgid "Relative size of the small caps font compared to the normal font"
+msgstr ""
+
+msgid "Percentage increase over the font size for the line spacing"
+msgstr ""
+
+#, fuzzy
+msgid "Text Frame Properties"
+msgstr "Eremu-propietateak"
+
+#, fuzzy
+msgid "Picture Frame Properties"
+msgstr "Irudiaren markoa"
+
+#, fuzzy
+msgid "Shape Drawing Properties"
+msgstr "Oharpen-propietateak"
+
+msgid "Magnification Level Defaults"
+msgstr ""
+
+#, fuzzy
+msgid "Line Drawing Properties"
+msgstr "Oharpen-propietateak"
+
+#, fuzzy
+msgid "Polygon Drawing Properties"
+msgstr "Poligonoaren propietateak"
+
+msgid "Font for new text frames"
+msgstr ""
+
+msgid "Size of font for new text frames"
+msgstr ""
+
+msgid "Color of font"
+msgstr ""
+
+msgid "Number of columns in a text frame"
+msgstr ""
+
+msgid "Gap between text frame columns"
+msgstr ""
+
+msgid "Sample of your font"
+msgstr ""
+
+msgid "Picture frames allow pictures to scale to any size"
+msgstr ""
+
+#, fuzzy
+msgid "Horizontal scaling of images"
+msgstr "Eskalatu horizontalki"
+
+#, fuzzy
+msgid "Vertical scaling of images"
+msgstr "Eskalatu bertikalki"
+
+msgid "Keep horizontal and vertical scaling the same"
+msgstr ""
+
+msgid "Pictures in picture frames are scaled to the size of the frame"
+msgstr ""
+
+msgid "Automatically scaled pictures keep their original proportions"
+msgstr ""
+
+msgid "Fill color of picture frames"
+msgstr ""
+
+msgid "Saturation of color of fill"
+msgstr ""
+
+msgid "Line color of shapes"
+msgstr ""
+
+msgid "Saturation of color of lines"
+msgstr ""
+
+msgid "Fill color of shapes"
+msgstr ""
+
+msgid "Line style of shapes"
+msgstr ""
+
+msgid "Line width of shapes"
+msgstr ""
+
+msgid "Minimum magnification allowed"
+msgstr ""
+
+msgid "Maximum magnification allowed"
+msgstr ""
+
+msgid "Change in magnification for each zoom operation"
+msgstr ""
+
+#, fuzzy
+msgid "Color of lines"
+msgstr "Kolore-eredua"
+
+#, fuzzy
+msgid "Style of lines"
+msgstr "Sistemaren profilak"
+
+msgid "Width of lines"
+msgstr ""
+
+msgid "Number of corners for polygons"
+msgstr ""
+
+msgid "Degrees of rotation for polygons"
+msgstr ""
+
+msgid "Polygons will be convex rather than concave"
+msgstr ""
+
+#, fuzzy
+msgid "Sample Polygon"
+msgstr "Zatitu poligonoak"
+
+msgid "Change the angles at which lines of the polygon join"
+msgstr ""
+
+msgid "Choose the size of the preview in the scrapbook palette"
+msgstr ""
+
+msgid "Save the scrapbook contents everytime after a change"
+msgstr ""
+
+msgid "When using facing pages, show the two pages side by side"
+msgstr ""
+
+#, fuzzy
+msgid "Color for paper"
+msgstr "Kolore-eredua"
+
+msgid "Color for the margin lines"
+msgstr ""
+
+msgid "Mask the area outside the margins in the margin color"
+msgstr ""
+
+msgid "Enable transparency features within PDF 1.4 export"
+msgstr ""
+
+msgid "Set the default zoom level"
+msgstr ""
+
+msgid "Filesystem location for the Ghostscript interpreter"
+msgstr ""
+
+msgid "Antialias text for EPS and PDF onscreen rendering"
+msgstr ""
+
+msgid "Antialias graphics for EPS and PDF onscreen rendering"
+msgstr ""
+
+msgid "Filesystem location for graphics editor"
+msgstr ""
+
+msgid ""
+"Do not show objects outside the margins on the printed page or exported file"
+msgstr ""
+
+#, fuzzy
+msgid "&Insert Special"
+msgstr "Txertatu laukizuzenak"
+
+#, fuzzy
+msgid "Select Character:"
+msgstr "Hautatu karakterea"
+
+msgid "Insert"
+msgstr "Txertatu"
+
+msgid "Insert the characters at the cursor in the text"
+msgstr ""
+
+msgid "Delete the current selection(s)."
+msgstr ""
+
+msgid "Close this dialog and return to text editing."
+msgstr ""
+
+#, fuzzy
+msgid "Print Previe&w"
+msgstr "Inprimatzeko aurrebista"
+
+msgid "Print Preview"
+msgstr "Inprimatzeko aurrebista"
+
+#, fuzzy
+msgid "Anti-alias Text"
+msgstr "Aplikatu antialiasing-a testuan"
+
+#, fuzzy
+msgid "Anti-alias Graphics"
+msgstr "Aplikatu antialiasing-a irudietan"
+
+#, fuzzy
+msgid "Display Transparency"
+msgstr "Bistaratu markoak"
+
+#, fuzzy
+msgid "Display CMYK"
+msgstr "Bistaratu"
+
+#, fuzzy
+msgid "C"
+msgstr "C:"
+
+#, fuzzy
+msgid "M"
+msgstr "M:"
+
+#, fuzzy
+msgid "Y"
+msgstr "Y:"
+
+#, fuzzy
+msgid "K"
+msgstr "Ados"
+
+msgid ""
+"Provides a more pleasant view of text items in the viewer, at the expense\n"
+"of a slight slowdown in previewing. This only affects Type 1 fonts"
+msgstr ""
+
+msgid ""
+"Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
+"and\n"
+"vector graphics in the preview, at the expense of a slight slowdown in "
+"previewing"
+msgstr ""
+
+msgid ""
+"Shows transparency and transparent items in your document. Requires "
+"Ghostscript 7.07 or later"
+msgstr ""
+
+msgid ""
+"Gives a print preview using simulations of generic CMYK inks, instead of RGB "
+"colors"
+msgstr ""
+
+msgid "Enable/disable the C (Cyan) ink plate"
+msgstr ""
+
+msgid "Enable/disable the M (Magenta) ink plate"
+msgstr ""
+
+msgid "Enable/disable the Y (Yellow) ink plate"
+msgstr ""
+
+msgid "Enable/disable the K (Black) ink plate"
+msgstr ""
+
+#, fuzzy
+msgid "Save Page as &SVG..."
+msgstr "Gorde orrialdea EPS gisa..."
+
+#, fuzzy
+msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
 msgstr "SVG-irudiak (*.svg);; Fitxategi guztiak (*)"
 
-#~ msgid "Revert to Saved"
-#~ msgstr "Itzuli gordetakora"
+#, fuzzy
+msgid "SVG-Images (*.svg);;All Files (*)"
+msgstr "SVG-irudiak (*.svg);; Fitxategi guztiak (*)"
+
+#, fuzzy
+msgid "Import &SVG..."
+msgstr "Inportatu..."
+
+#, fuzzy
+msgid "S&cripter Manual..."
+msgstr "Scribus-en eskuliburua"
+
+#, fuzzy
+msgid "&Scribus Scripts"
+msgstr "Script pertsonalizatuak"
+
+msgid "&Execute Script..."
+msgstr ""
+
+#, fuzzy
+msgid "&Recent Scripts"
+msgstr "Azken dokumentuak"
+
+#, fuzzy
+msgid "Show &Console"
+msgstr "Erakutsi tresnak"
+
+#, fuzzy
+msgid "S&cript"
+msgstr "Script-a:"
+
+#, fuzzy
+msgid "Online Reference"
+msgstr "Hobespenak irakurtzen"
+
+#, fuzzy
+msgid "Python Scripts (*.py);; All Files (*)"
+msgstr "PostScript fitxategiak (*.ps);; Fitxategi guztiak (*)"
+
+#, fuzzy
+msgid "Script error"
+msgstr "Script-a:"
+
+msgid ""
+"If you are running an official script report it at <a href=\"http://bugs."
+"scribus.net\">bugs.scribus.net</a> please."
+msgstr ""
+
+#, fuzzy
+msgid "Hide &Console"
+msgstr "Ezkutatu tresnak"
+
+msgid "Script Console"
+msgstr ""
+
+msgid "Oook! You're calling an object doesn't exist!"
+msgstr ""
+
+msgid "Oook! You're trying to erase an object doesn't exist!"
+msgstr ""
+
+msgid "Oook! An object you're trying to textflow doesn't exist!"
+msgstr ""
+
+#, fuzzy
+msgid "Export as Image"
+msgstr "Esportatu barrutia"
+
+msgid "Export to directory:"
+msgstr ""
+
+#, fuzzy
+msgid "&Change..."
+msgstr "Aldatu..."
+
+#, fuzzy
+msgid "Alt+C"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "Image type:"
+msgstr "Irudiak:"
+
+#, fuzzy
+msgid "Quality :"
+msgstr "Irten"
+
+#, fuzzy
+msgid "%"
+msgstr " %"
+
+#, fuzzy
+msgid "Export "
+msgstr "Esportatu..."
+
+msgid "&One page"
+msgstr ""
+
+#, fuzzy
+msgid "Alt+O"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "&All pages"
+msgstr "Orrialde guztiak"
+
+#, fuzzy
+msgid "Alt+A"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "&Interval from:"
+msgstr "Tartea"
+
+#, fuzzy
+msgid "Alt+I"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "&OK"
+msgstr "Ados"
+
+#, fuzzy
+msgid "&Cancel"
+msgstr "Utzi"
+
+msgid "Change the output directory"
+msgstr ""
+
+msgid ""
+"The output directory - the place to store your images.\n"
+"Name of the export file will be 'documentname-pagenumber.filetype'"
+msgstr ""
+
+msgid "Export only the current page"
+msgstr ""
+
+msgid "Export all pages to images"
+msgstr ""
+
+msgid "Export a range of pages to images"
+msgstr ""
+
+msgid "The height of the output images in pixels"
+msgstr ""
+
+#, c-format
+msgid ""
+"The quality of your images - 100% is the best, 1% the highest compression"
+msgstr ""
+
+#, fuzzy
+msgid "Available export formats"
+msgstr "Erabilgarri dauden txantiloiak:"
+
+#, fuzzy
+msgid "Choose a Export Directory"
+msgstr "Aukeratu direktorioa"
+
+#, fuzzy
+msgid "Save as &Image..."
+msgstr "Gorde honela..."
+
+#, fuzzy
+msgid "Save as Image"
+msgstr "Gorde honela"
+
+msgid "Error writting the output file(s)."
+msgstr ""
+
+msgid "Error writing the output file(s)."
+msgstr ""
+
+msgid "Export successful."
+msgstr ""
+
+msgid "File exists. Overwrite?"
+msgstr ""
+
+msgid "exists already. Overwrite?"
+msgstr ""
+
+#, fuzzy
+msgid "Yes all"
+msgstr "Desautatu dena"
+
+#, fuzzy
+msgid "&Fonts Preview"
+msgstr "Inprimatzeko aurrebista"
+
+#, fuzzy
+msgid "Font Preview"
+msgstr "Inprimatzeko aurrebista"
+
+#, fuzzy
+msgid "Import &EPS/PS..."
+msgstr "Inportatu..."
+
+msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"Importing File:\n"
+"%1\n"
+"failed!"
+msgstr "Inprimatzeak huts egin du!"
+
+#, fuzzy
+msgid "New &from Template..."
+msgstr "Txantiloi berria"
+
+#, fuzzy
+msgid "New From Template"
+msgstr "Txantiloi berria"
+
+#, fuzzy
+msgid "Description"
+msgstr "Azalpena:"
+
+#, fuzzy
+msgid "Usage"
+msgstr "Erabili"
+
+#, fuzzy
+msgid "Created with"
+msgstr "Sortu testu-kateak"
+
+#, fuzzy
+msgid "Author"
+msgstr "Egilea:"
+
+#, fuzzy
+msgid "Newsletters"
+msgstr "Hautatu elementuak"
+
+msgid "Brochures"
+msgstr ""
+
+#, fuzzy
+msgid "Catalogs"
+msgstr "Itxi"
+
+#, fuzzy
+msgid "Flyers"
+msgstr "Geruzak"
+
+#, fuzzy
+msgid "Signs"
+msgstr "Ezarpenak"
+
+msgid "Cards"
+msgstr ""
+
+msgid "Letterheads"
+msgstr ""
+
+msgid "Envelopes"
+msgstr ""
+
+msgid "Business Cards"
+msgstr ""
+
+#, fuzzy
+msgid "Calendars"
+msgstr "Garbitu"
+
+#, fuzzy
+msgid "Advertisements"
+msgstr "Neurriak"
+
+#, fuzzy
+msgid "Labels"
+msgstr "Geruzak"
+
+#, fuzzy
+msgid "Programs"
+msgstr "Programazioa:"
+
+msgid "PDF Forms"
+msgstr ""
+
+#, fuzzy
+msgid "PDF Presentations"
+msgstr "Helburua"
+
+#, fuzzy
+msgid "Magazines"
+msgstr "Marjinak:"
+
+#, fuzzy
+msgid "Posters"
+msgstr "Itsatsi"
+
+#, fuzzy
+msgid "Announcements"
+msgstr "Dokumentuak:"
+
+#, fuzzy
+msgid "Text Documents"
+msgstr "Azken dokumentuak"
+
+#, fuzzy
+msgid "Folds"
+msgstr "Lodia"
+
+#, fuzzy
+msgid "Own Templates"
+msgstr "Txantiloi berria"
+
+#, fuzzy
+msgid "Save as Template"
+msgstr "Txantiloi berria"
+
+msgid "Category"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "More Details"
+msgstr ""
+
+msgid "Less Details"
+msgstr ""
+
+#, fuzzy
+msgid "landscape"
+msgstr "Horizontala"
+
+#, fuzzy
+msgid "portrait"
+msgstr "Bertikala"
+
+#, fuzzy
+msgid "custom"
+msgstr "Pertsonalizatua"
+
+#, fuzzy
+msgid "Save as &Template..."
+msgstr "Gorde testua..."
+
+#~ msgid "Courier"
+#~ msgstr "Courier"
+
+#~ msgid "Courier Bold"
+#~ msgstr "Courier lodia"
+
+#~ msgid "Courier Italic"
+#~ msgstr "Courier etzana"
+
+#~ msgid "Courier Bold Italic"
+#~ msgstr "Courier lodi etzana"
+
+#~ msgid "Helvetica"
+#~ msgstr "Helvetica"
+
+#~ msgid "Helvetica Bold"
+#~ msgstr "Helvetica lodia"
+
+#~ msgid "Helvetica Italic"
+#~ msgstr "Helvetica etzana"
+
+#~ msgid "Helvetica Bold Italic"
+#~ msgstr "Helvetica lodi etzana"
+
+#~ msgid "Times"
+#~ msgstr "Times"
+
+#~ msgid "Times Bold"
+#~ msgstr "Times lodia"
+
+#~ msgid "Times Italic"
+#~ msgstr "Times etzana"
+
+#~ msgid "Times Bold Italic"
+#~ msgstr "Times lodi etzana"
+
+#~ msgid "Zapf Dingbats"
+#~ msgstr "Zapf Dingbats"
+
+#~ msgid "Symbol"
+#~ msgstr "Symbol"
+
+#~ msgid "Template for this Page:"
+#~ msgstr "Orrialde honetarako txantiloia:"
+
+#~ msgid "OK to delete Color:"
+#~ msgstr "Ados kolorea ezabatzeko:"
+
+#~ msgid "Indentation"
+#~ msgstr "Koska"
+
+#~ msgid " "
+#~ msgstr " "
+
+#~ msgid "AFM-File available"
+#~ msgstr "AFM fitxategia erabilgarri"
+
+#~ msgid "Sorry, no Manual available!"
+#~ msgstr "Ez dago eskulibururik erabilgarri!"
+
+#~ msgid "Global JavaScripts"
+#~ msgstr "JavaScripts orokorra"
+
+#~ msgid "Closes this Dialog"
+#~ msgstr "Elkarrizketa-koadro hau ixten du"
+
+#~ msgid "Select Font"
+#~ msgstr "Hautatu letra-tipoa"
+
+#~ msgid "Horizontal flipped"
+#~ msgstr "Horizontalki iraulita"
+
+#~ msgid "Vertical flipped"
+#~ msgstr "Bertikalki iraulita"
+
+#~ msgid "Don't print"
+#~ msgstr "Ez inprimatu"
+
+#~ msgid "Position"
+#~ msgstr "Kokalekua"
+
+#~ msgid "Modify Pathtext"
+#~ msgstr "Aldatu bide-izenaren testua"
+
+#~ msgid "Modify Textframe"
+#~ msgstr "Aldatu testu-markoa"
+
+#~ msgid "Ordinary Text"
+#~ msgstr "Testu arrunta"
+
+#~ msgid "Textdistance:"
+#~ msgstr "Testu-distantzia:"
+
+#~ msgid "Background Color:"
+#~ msgstr "Atzeko planoaren kolorea:"
+
+#~ msgid "Corner Radius:"
+#~ msgstr "Izkinako erradioa:"
+
+#~ msgid "Modify Pictureframe"
+#~ msgstr "Aldatu irudi-markoa"
+
+#~ msgid "Scaling"
+#~ msgstr "Eskalatzen"
+
+#~ msgid "Local X-Pos:"
+#~ msgstr "X posizio lokala:"
+
+#~ msgid "Local Y-Pos:"
+#~ msgstr "Y posizio lokala:"
+
+#~ msgid "Modify Frame"
+#~ msgstr "Aldatu markoa"
+
+#~ msgid "Linestyle:"
+#~ msgstr "Marra-estiloa:"
+
+#~ msgid "Linewidth:"
+#~ msgstr "Marra-zabalera:"
+
+#~ msgid "Copy Page:"
+#~ msgstr "Kopiatu orrialdea:"
+
+#~ msgid "Rotation"
+#~ msgstr "Biraketa"
+
+#~ msgid "by:"
+#~ msgstr "honen inguruan:"
+
+#~ msgid "Fontsize:"
+#~ msgstr "Letra-tipoaren tamaina"
+
+#~ msgid "Styles"
+#~ msgstr "Estiloak"
+
+#~ msgid "Horiz. Scale:"
+#~ msgstr "Eskalatu horizontalki"
+
+#~ msgid "Vert. Scale:"
+#~ msgstr "Eskalatu bertikalki:"
+
+#~ msgid "Align Text Block"
+#~ msgstr "Lerrokatu testu-blokea"
+
+#~ msgid "Exit"
+#~ msgstr "Irten"
+
+#~ msgid "Gutter Width:"
+#~ msgstr "Barne-marjinaren zabalera:"
+
+#~ msgid "Modify..."
+#~ msgstr "Aldatu..."
+
+#~ msgid "Compression"
+#~ msgstr "Konpresioa"
+
+#~ msgid "General..."
+#~ msgstr "Orokorra..."
+
+#~ msgid "Rectangle"
+#~ msgstr "Laukizuzena"
+
+#~ msgid "Rounded Rectangle"
+#~ msgstr "Laukizuzen biribildua"
+
+#~ msgid "Oval"
+#~ msgstr "Ovale"
+
+#~ msgid "Hide PDF-Tools"
+#~ msgstr "Ezkutatu PDF tresnak"
+
+#~ msgid "Show Measurements"
+#~ msgstr "Erakutsi neurriak"
+
+#~ msgid "Show Outline"
+#~ msgstr "Erakusi eskema"
+
+#~ msgid "Show Scrapbook"
+#~ msgstr "Erakutsi berri laburren albuma"
+
+#~ msgid "Show Bookmarks"
+#~ msgstr "Erakutsi laster-markak"
+
+#~ msgid "Images"
+#~ msgstr "Irudiak"
+
+#~ msgid ");;Vectorimages (*.eps *.pdf);; All Files (*)"
+#~ msgstr ");;Irudi bektorialak (*.eps *.pdf);; Fitxategi guztiak (*)"
+
+#~ msgid "Hide Measurements"
+#~ msgstr "Ezkutatu neurriak"
+
+#~ msgid "Hide Outline"
+#~ msgstr "Ezkutatu eskema"
+
+#~ msgid "Hide Scrapbook"
+#~ msgstr "Ezkutatu berri laburren albuma"
+
+#~ msgid "Hide Layers"
+#~ msgstr "Ezkutatu geruzak"
+
+#~ msgid "Hide Page Palette"
+#~ msgstr "Ezkutatu orrialdearen paleta"
+
+#~ msgid "Hide Bookmarks"
+#~ msgstr "Ezkutatu laster-markak"
+
+#~ msgid "Show PDF-Tools"
+#~ msgstr "Erakutsi PDF tresnak"
+
+#~ msgid "Ellipse"
+#~ msgstr "Elipsea"
+
+#~ msgid "Insert Textbox"
+#~ msgstr "Txertatu testu-koadroa"
+
+#~ msgid "Insert Ovals"
+#~ msgstr "Txertatu obaloak"
+
+#~ msgid "Break Textchains"
+#~ msgstr "Hautsi testu-kateak"
+
+#~ msgid "Hungarian and Italian:"
+#~ msgstr "Hungariera eta italiera:"
+
+#~ msgid "Disp.:"
+#~ msgstr "Desp.:"
 
 #~ msgid "Scaled to "
 #~ msgstr "Eskalatu hona "
@@ -4089,41 +5810,17 @@ msgstr "SVG-irudiak (*.svg);; Fitxategi guztiak (*)"
 #~ msgid "W:"
 #~ msgstr "W:"
 
-#~ msgid "Tabloid"
-#~ msgstr "Tabloidea"
-
 #~ msgid "No Document"
 #~ msgstr "Dokumenturik ez"
 
-#~ msgid "Look &in:"
-#~ msgstr "Begiratu &hemen:"
-
-#~ msgid "File &type:"
-#~ msgstr "Fitxategi-&mota:"
-
-#~ msgid "File &name:"
-#~ msgstr "Fitxategi-&izena:"
-
-#~ msgid "PDF-Options"
-#~ msgstr "PDF aukerak"
-
 #~ msgid "Resolution for EPS-Images:"
 #~ msgstr "EPS irudien bereizmena:"
-
-#~ msgid "Deselect all"
-#~ msgstr "Desautatu dena"
-
-#~ msgid "Font Size:"
-#~ msgstr "Letra-tamaina:"
 
 #~ msgid "Edit Colors"
 #~ msgstr "Editatu koloreak"
 
 #~ msgid "Hide Colors"
 #~ msgstr "Ezkutatu koloreak"
-
-#~ msgid "Show Colors"
-#~ msgstr "Erakutsi koloreak"
 
 #~ msgid "Delete Page:"
 #~ msgstr "Ezabatu orria:"
@@ -4133,9 +5830,6 @@ msgstr "SVG-irudiak (*.svg);; Fitxategi guztiak (*)"
 
 #~ msgid "Line Width"
 #~ msgstr "Lerro-zabalera"
-
-#~ msgid "Line Width:"
-#~ msgstr "Lerro-zabalera:"
 
 #~ msgid "Print to printer:"
 #~ msgstr "Inprimatu inprimagailuan:"
@@ -4155,35 +5849,8 @@ msgstr "SVG-irudiak (*.svg);; Fitxategi guztiak (*)"
 #~ msgid "Paper format"
 #~ msgstr "Paper-formatua"
 
-#~ msgid "Select color"
-#~ msgstr "Hautatu kolorea"
-
-#~ msgid "&Basic colors"
-#~ msgstr "&Oinarrizko koloreak"
-
-#~ msgid "&Custom colors"
-#~ msgstr "&Kolore pertsonalizatuak"
-
-#~ msgid "&Add To Custom Colors"
-#~ msgstr "&Gehitu kolore pertsonalizatuei"
-
-#~ msgid "&Define Custom Colors >>"
-#~ msgstr "&Zehaztu kolore pertsonalizatuak>>"
-
-#~ msgid "&Red:"
-#~ msgstr "&Gorria:"
-
-#~ msgid "Bl&ue:"
-#~ msgstr "&Urdina:"
-
-#~ msgid "&Font"
-#~ msgstr "&Letra-tipoa"
-
 #~ msgid "Font st&yle"
 #~ msgstr "Letra-tipoaren e&stiloa"
-
-#~ msgid "&Size"
-#~ msgstr "&Tamaina"
 
 #~ msgid "Stri&keout"
 #~ msgstr "&Marratua"
@@ -4220,9 +5887,6 @@ msgstr "SVG-irudiak (*.svg);; Fitxategi guztiak (*)"
 
 #~ msgid "Loading aborted"
 #~ msgstr "Abortatua kargatzen"
-
-#~ msgid "Sample Text"
-#~ msgstr "Testuaren adibidea"
 
 #~ msgid " loaded"
 #~ msgstr " kargatuta"
@@ -4272,9 +5936,6 @@ msgstr "SVG-irudiak (*.svg);; Fitxategi guztiak (*)"
 #~ msgid "No Fill"
 #~ msgstr "Ez dago betegarririk"
 
-#~ msgid "Bold"
-#~ msgstr "Lodia"
-
 #~ msgid "Scaling X:"
 #~ msgstr "X eskalatzen:"
 
@@ -4283,9 +5944,6 @@ msgstr "SVG-irudiak (*.svg);; Fitxategi guztiak (*)"
 
 #~ msgid "Frame"
 #~ msgstr "Markoa"
-
-#~ msgid "Contents"
-#~ msgstr "Edukia"
 
 #~ msgid "Is Spot-Color"
 #~ msgstr "Orban-kolorea da"
@@ -4299,12 +5957,6 @@ msgstr "SVG-irudiak (*.svg);; Fitxategi guztiak (*)"
 #~ msgid "Hide Styles"
 #~ msgstr "Ezkutatu estiloak"
 
-#~ msgid "New Entry"
-#~ msgstr "Sarrera berria"
-
-#~ msgid "Based on:"
-#~ msgstr "Honetan oinarrituta:"
-
 #~ msgid "Remove Items from previous Template"
 #~ msgstr "Kendu elementuak aurreko txantiloitik"
 
@@ -4313,9 +5965,6 @@ msgstr "SVG-irudiak (*.svg);; Fitxategi guztiak (*)"
 
 #~ msgid "Right Page based on:"
 #~ msgstr "Eskuineko orrialdea hemen oinarritua:"
-
-#~ msgid "Distances"
-#~ msgstr "Distantziak"
 
 #~ msgid "X-Coor.:"
 #~ msgstr "X koor.:"
@@ -4326,18 +5975,8 @@ msgstr "SVG-irudiak (*.svg);; Fitxategi guztiak (*)"
 #~ msgid "To the End"
 #~ msgstr "Bukaerara"
 
-#~ msgid "X-Dir:"
-#~ msgstr "Xen noranzkoa:"
-
 #~ msgid "Y-Dir:"
 #~ msgstr "Yren noranzkoa:"
 
-#~ msgid "Length:"
-#~ msgstr "Luzera:"
-
 #~ msgid "Scale When:"
 #~ msgstr "Eskalatu:"
-
-#~ msgid "New Script:"
-#~ msgstr "Script berria:"
-

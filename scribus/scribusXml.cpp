@@ -3494,6 +3494,11 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc77.setAttribute("XPOS",Vor->Bopalx);
 	dc77.setAttribute("YPOS",Vor->Bopaly);
 	elem.appendChild(dc77);
+	QDomElement dc78=docu.createElement("DISTS");
+	dc78.setAttribute("VISIBLE", static_cast<int>(Vor->Mapalv));
+	dc78.setAttribute("XPOS",Vor->Mapalx);
+	dc78.setAttribute("YPOS",Vor->Mapaly);
+	elem.appendChild(dc78);
 	QDomElement dc8=docu.createElement("MEASUREMENTS");
 	dc8.setAttribute("VISIBLE", static_cast<int>(Vor->Mpalv));
 	dc8.setAttribute("XPOS",Vor->Mpalx);
@@ -3783,6 +3788,12 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->KeyActions[QStoInt(dc.attribute("NR"))].KeyID = QStoInt(dc.attribute("CODE"));
 		if (dc.tagName()=="RECENT")
 			Vorein->RecentDocs.append(dc.attribute("NAME"));
+		if (dc.tagName()=="DISTS")
+		{
+			Vorein->Mapalv = static_cast<bool>(QStoInt(dc.attribute("VISIBLE", "1")));
+			Vorein->Mapalx = QStoInt(dc.attribute("XPOS", "0"));
+			Vorein->Mapaly = QStoInt(dc.attribute("YPOS", "0"));
+		}
 		if (dc.tagName()=="MEASUREMENTS")
 		{
 			Vorein->Mpalv = static_cast<bool>(QStoInt(dc.attribute("VISIBLE", "1")));
