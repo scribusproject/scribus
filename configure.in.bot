@@ -17,6 +17,8 @@ else
 fi
 if test $hacms = yes; then
 	echo "LittleCMS installed: Yes"
+elif test $hacms = pre112; then
+	echo "LittleCMS installed: Too old; Version 1.12 or newer required"
 else
 	echo "LittleCMS installed: No"
 fi
