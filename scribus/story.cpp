@@ -1829,7 +1829,7 @@ void StoryEditor::updateProps(int p, int ch)
 	SEditor::ChList *chars;
 	if (Editor->wasMod)
 		return;
-	if ((p >= static_cast<int>(Editor->StyledText.count())) || (Editor->StyledText.count() == 0))
+	if ((p >= static_cast<int>(Editor->StyledText.count())) || (Editor->StyledText.count() == 0) || (!firstSet))
 	{
 		if (!firstSet)
 		{

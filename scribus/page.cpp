@@ -7147,6 +7147,7 @@ void Page::FromPathText()
 		bb = Items.at(z);
 		bb->PoLine = b->PoLine.copy();
 		bb->ClipEdited = true;
+		bb->FrameType = 3;
 		bb->Rot = b->Rot;
 		SetPolyClip(bb, qRound(QMAX(bb->Pwidth / 2, 1)));
 		AdjustItemSize(bb);
