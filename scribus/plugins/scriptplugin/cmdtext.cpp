@@ -122,7 +122,7 @@ PyObject *scribus_getcolumngap(PyObject */*self*/, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get column gap of non-text frame.","python error"));
 		return NULL;
 	}
-	return PyFloat_FromDouble(static_cast<double>(i->ColGap));
+	return PyFloat_FromDouble(PointToValue(static_cast<double>(i->ColGap)));
 }
 
 PyObject *scribus_getframetext(PyObject */*self*/, PyObject* args)
@@ -494,7 +494,7 @@ PyObject *scribus_setcolumngap(PyObject */*self*/, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't column gap on a non-text frame","python error"));
 		return NULL;
 	}
-	i->ColGap = w;
+	i->ColGap = ValueToPoint(w);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
