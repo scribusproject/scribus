@@ -2,7 +2,7 @@
 #include "picsearch.moc"
 #include <qimage.h>
 #include <qpixmap.h>
-extern QImage LoadPict(QString fn, bool *gray = 0);
+extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
 extern QPixmap loadIcon(QString nam);
 
 /*!
@@ -147,7 +147,7 @@ void PicSearch::selBild(QListBoxItem *c)
 void PicSearch::GenPreview()
 {
 	QPixmap pm;
-	QImage im = LoadPict(Bild);
+	QImage im = LoadPicture(Bild, "", 0, false, false, 1, 72);
 	if ((im.width() > 200) || (im.height() > 200))
 	{
 		QImage im2;

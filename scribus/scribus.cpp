@@ -10451,8 +10451,7 @@ void ScribusApp::scanDocument()
 		itemError.clear();
 		if (((it->isAnnotation) || (it->isBookmark)) && (checkerSettings.checkAnnotations))
 			itemError.insert(7, 0);
-		// XXX PROBABLE BUG: The first in this clause should probably be Transparency not lineTransparency()
-		if (((it->lineTransparency() != 0.0) || (it->lineTransparency() != 0.0)) && (checkerSettings.checkTransparency))
+		if (((it->fillTransparency() != 0.0) || (it->lineTransparency() != 0.0)) && (checkerSettings.checkTransparency))
 			itemError.insert(6, 0);
 		if ((it->OwnPage == -1) && (checkerSettings.checkOrphans))
 			itemError.insert(3, 0);
@@ -10462,7 +10461,7 @@ void ScribusApp::scanDocument()
 				itemError.insert(4, 0);
 			else
 			{
-				if  ((((72.0 / it->LocalScX) < checkerSettings.minResolution) || ((72.0 / it->LocalScY) < checkerSettings.minResolution))
+				if  (((qRound(72.0 / it->LocalScX) < checkerSettings.minResolution) || (qRound(72.0 / it->LocalScY) < checkerSettings.minResolution))
 				          && (it->isRaster) && (checkerSettings.checkResolution))
 					itemError.insert(5, 0);
 				QFileInfo fi = QFileInfo(it->Pfile);
@@ -10519,7 +10518,7 @@ void ScribusApp::scanDocument()
 				itemError.insert(4, 0);
 			else
 			{
-				if  ((((72.0 / it->LocalScX) < checkerSettings.minResolution) || ((72.0 / it->LocalScY) < checkerSettings.minResolution))
+				if  (((qRound(72.0 / it->LocalScX) < checkerSettings.minResolution) || (qRound(72.0 / it->LocalScY) < checkerSettings.minResolution))
 				           && (it->isRaster) && (checkerSettings.checkResolution))
 					itemError.insert(5, 0);
 				QFileInfo fi = QFileInfo(it->Pfile);

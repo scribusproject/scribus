@@ -465,6 +465,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					if (InvPict)
 					{
 						QImage ip = pixm.copy();
+						ip.invertPixels();
 						p->drawImage(&ip);
 					}
 					else

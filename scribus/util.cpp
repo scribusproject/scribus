@@ -133,15 +133,14 @@ double RealCWidth(ScribusDoc *currentDoc, QString name, QString ch, int Siz);
 double QStodouble(QString in);
 int QStoInt(QString in);
 QString GetAttr(QDomElement *el, QString at, QString def="0");
-QImage LoadPict(QString fn, bool *gray = 0);
 #ifdef HAVE_CMS
 	QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr=0);
-	QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK);
 #else
 	QImage ProofPict(QImage *Im, QString Prof, int Rend);
 #endif
 QImage ProofImage(QImage *Im);
-QImage LoadPict(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes);
+QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
+QString getAlpha(QString fn, bool PDF, bool pdf14);
 int System(const QStringList & args);
 int callGS(const QStringList & args_in);
 int copyFile(QString source, QString target);
@@ -257,12 +256,177 @@ void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK, bool isGra
 	delete [] row_pointer[0];
 }
 
-QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes)
+QString getAlpha(QString fn, bool PDF, bool pdf14)
+{
+	QImage img;
+	QString retS = "";
+	bool miniswhite = false;
+	bool bilevel = false;
+	float xres, yres;
+	short resolutionunit = 0;
+	QFileInfo fi = QFileInfo(fn);
+	if (!fi.exists())
+		return retS;
+	QString ext = fi.extension(false).lower();
+	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
+	if ((ext == "pdf") || (ext == "eps") || (ext == "ps") || (ext == "jpg") || (ext == "jpeg"))
+		return retS;
+	if (ext == "tif")
+	{
+#ifdef HAVE_TIFF
+		TIFF* tif = TIFFOpen(fn, "r");
+		if(tif)
+		{
+			unsigned width, height, size;
+			TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &width);
+			TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &height);
+			TIFFGetField(tif, TIFFTAG_XRESOLUTION, &xres);
+			TIFFGetField(tif, TIFFTAG_YRESOLUTION, &yres);
+			TIFFGetField(tif, TIFFTAG_RESOLUTIONUNIT , &resolutionunit);
+			size = width * height;
+			uint16 photometric, bitspersample, samplesperpixel, fillorder;
+			TIFFGetField(tif, TIFFTAG_PHOTOMETRIC, &photometric);
+			TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bitspersample);
+			TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &samplesperpixel);
+			TIFFGetField(tif, TIFFTAG_FILLORDER, &fillorder);
+			tsize_t bytesperrow = TIFFScanlineSize(tif);
+			uint32 *bits = 0;
+			img.create(width,height,32);
+			img.setAlphaBuffer(true); 
+			switch (photometric)
+			{
+				case PHOTOMETRIC_MINISWHITE:
+					miniswhite = true;
+				case PHOTOMETRIC_MINISBLACK:
+					if (bitspersample == 1)
+						bilevel = true;
+					if (samplesperpixel != 1)
+						break;
+					bits = (uint32 *) _TIFFmalloc(bytesperrow);
+					if (bits)
+					{
+						QImage img2;
+						QImage::Endian bitorder = QImage::IgnoreEndian;
+						if (bilevel)
+						{
+							if (fillorder == FILLORDER_MSB2LSB)
+								bitorder = QImage::BigEndian;
+							else
+								bitorder = QImage::LittleEndian;
+						}
+						img2.create(width, height, bitspersample, 0, bitorder);
+						for (unsigned int y = 0; y < height; y++)
+						{
+							if (TIFFReadScanline(tif, bits, y, 0))
+								memcpy(img2.scanLine(y), bits, bytesperrow);
+						}
+						_TIFFfree(bits);
+						img2 = img2.convertDepth(8);
+						if (!miniswhite)
+							img2.invertPixels();
+						for (unsigned int y = 0; y < height; y++)
+						{
+							unsigned char *ptr = (unsigned char *) img.scanLine(y);
+							unsigned char *ptr2 = (unsigned char *) img2.scanLine(y);
+							for (unsigned int x = 0; x < width; x++)
+							{
+								if (bilevel)
+									ptr[3] = (unsigned char) -img2.pixelIndex(x, y);
+								else
+									ptr[3] = ptr2[x];
+								ptr+=4;
+							}
+						}
+					}
+					break;
+				case PHOTOMETRIC_SEPARATED:
+					bits = (uint32 *) _TIFFmalloc(bytesperrow);
+					if (bits)
+					{
+						for (unsigned int y = 0; y < height; y++)
+						{
+							if (TIFFReadScanline(tif, bits, y, 0)) {
+								memcpy(img.scanLine(y), bits, width * 4);
+							}
+						}
+						_TIFFfree(bits);
+					}
+					break;
+				default:
+					bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
+					if(bits)
+					{
+						if (TIFFReadRGBAImage(tif, width, height, bits, 0))
+						{
+							for(unsigned int y = 0; y < height; y++)
+								memcpy(img.scanLine(height - 1 - y), bits + y * width, width * 4);
+						}
+						_TIFFfree(bits);
+					}
+			}
+			TIFFClose(tif);
+		}
+#else
+		qDebug("TIFF Support not available");
+#endif // HAVE_TIFF
+	}
+	else
+	{
+		if (img.load(fn))
+		{
+			img = img.convertDepth(32);
+			img.setAlphaBuffer(true);
+		}
+		else
+			return retS;
+	}
+	if (img.isNull())
+		return retS;
+	int hm = img.height();
+	int wm = img.width();
+	int w2;
+	if (pdf14)
+	{
+		for( int yi=0; yi < hm; ++yi )
+		{
+			QRgb * s = (QRgb*)(img.scanLine( yi ));
+			for( int xi=0; xi < wm; ++xi )
+			{
+				QRgb r=*s++;
+				unsigned char u=qAlpha(r);
+				retS += u;
+			}
+		}
+	}
+	else
+	{
+		QImage iMask = img.createAlphaMask();
+		hm = iMask.height();
+		wm = iMask.width();
+		w2 = wm / 8;
+		if ((wm % 8) != 0)
+			w2++;
+		for( int yi=0; yi < hm; ++yi )
+		{
+			uchar * s = iMask.scanLine( yi );
+			for( int xi=0; xi < w2; ++xi )
+			{
+				unsigned char u = *(s+xi);
+				retS += PDF ? ~u : u;
+			}
+		}
+	}
+	return retS;
+}
+
+QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK)
 {
 	// requestType - 0: CMYK, 1: RGB, 2: RGB Proof
 	// gsRes - is the resolution that ghostscript will render at
 	QImage img;
 	bool isCMYK = false;
+	if (realCMYK != 0)
+		*realCMYK = false;
 	bool miniswhite = false;
 	bool bilevel = false;
 	float xres, yres;
@@ -316,11 +480,7 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 					}
 				}
 			}
-  			img = image.convertDepth(32);
-#ifdef HAVE_CMS
-			if (CMSuse && useProf)
-				img = img.swapRGB();
-#endif // HAVE_CMS
+			img = image.convertDepth(32);
 		}
 	}
 	if ((ext == "eps") || (ext == "ps"))
@@ -396,10 +556,6 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 				}
 				img = image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
 				unlink(tmpFile);
-#ifdef HAVE_CMS
-				if (CMSuse && useProf)
-					img = img.swapRGB();
-#endif // HAVE_CMS
 			}
 		}
 	}
@@ -471,6 +627,8 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 						}
 					}
 					isCMYK = true;
+					if (realCMYK != 0)
+						*realCMYK = true;
 					break;
 				case PHOTOMETRIC_SEPARATED:
 					bits = (uint32 *) _TIFFmalloc(bytesperrow);
@@ -485,6 +643,8 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 						_TIFFfree(bits);
 					}
 					isCMYK = true;
+					if (realCMYK != 0)
+						*realCMYK = true;
 					break;
 				default:
 					bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
@@ -499,15 +659,12 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 					}
 			}
 #ifdef HAVE_CMS
-    			DWORD EmbedLen = 0;
+			DWORD EmbedLen = 0;
 			LPBYTE EmbedBuffer;
 			if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer) && useEmbedded && CMSuse && useProf)
-			{
 				tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
-			}
-			if (!CMSuse || !useProf)
 #endif // HAVE_CMS
-				img = img.swapRGB();
+			img = img.swapRGB();
 			TIFFClose(tif);
 			if (resolutionunit == RESUNIT_INCH)
 			{
@@ -575,7 +732,7 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 				{
 					unsigned int *ptr = (unsigned int *) img.scanLine(i);
 					unsigned char c, m, y ,k;
-					if ((cinfo.saw_Adobe_marker) && (cinfo.Adobe_transform != 0))
+					if ((cinfo.saw_Adobe_marker) && (cinfo.Adobe_transform == 2))
 					{
 						for (int j = 0; j < img.width(); j++)
 						{
@@ -609,13 +766,13 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 					}
 				}
 				isCMYK = true;
+				if (realCMYK != 0)
+					*realCMYK = true;
 			}
 			else
 				isCMYK = false;
 			img = img.convertDepth(32);
 			img.setAlphaBuffer(true);
-			if (CMSuse && useProf)
-				img = img.swapRGB();
 			if ( cinfo.density_unit == 1 )
 			{
 				xres = cinfo.X_density;
@@ -643,10 +800,6 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 			yres = img.dotsPerMeterY() * 0.0254;
 			img = img.convertDepth(32);
 			img.setAlphaBuffer(true);
-#ifdef HAVE_CMS
-			if (CMSuse && useProf)
-				img = img.swapRGB();
-#endif // HAVE_CMS
 		}
 	}
 	if (img.isNull())
@@ -724,7 +877,6 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 		}
 		if (inputProf && inputProf != CMSprinterProf)
 			cmsCloseProfile(inputProf);
-		img = img.swapRGB();
 	}
 	else
 #endif // HAVE_CMS
@@ -766,8 +918,8 @@ QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useP
 						{
 							unsigned char *p = (unsigned char *) ptr;
 							r = 255 - QMIN(255, p[0] + p[3]);
-						        g = 255 - QMIN(255, p[1] + p[3]);
-        						b = 255 - QMIN(255, p[2] + p[3]);
+							g = 255 - QMIN(255, p[1] + p[3]);
+							b = 255 - QMIN(255, p[2] + p[3]);
 							p[0] = r;
 							p[1] = g;
 							p[2] = b;
@@ -1012,403 +1164,6 @@ QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h)
 	}
 	return pm;
 }
-
-QImage LoadPict(QString fn, bool *gray)
-{
-	QString tmp, dummy, cmd1, cmd2, BBox, tmp2;
-	QChar tc;
-	QImage Bild;
-	double x, y, b, h;
-	bool found = false;
-	int ret = -1;
-	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
-	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.extension(false).lower();
-	if (ext == "pdf")
-	{
-		QStringList args;
-		args.append("-r72");
-		args.append("-sOutputFile="+tmpFile);
-		args.append("-dFirstPage=1");
-		args.append("-dLastPage=1");
-		args.append(fn);
-		ret = callGS(args);
-		if (ret == 0)
-		{
-			QImage image;
-			image.load(tmpFile);
-  			Bild = image.convertDepth(32);
-			unlink(tmpFile);
-		}
-	}
-	if ((ext == "eps") || (ext == "ps"))
-	{
-		QFile f(fn);
-		if (f.open(IO_ReadOnly))
-		{
-			QTextStream ts(&f);
-			while (!ts.atEnd())
-			{
-				tc = ' ';
-				tmp = "";
-				while ((tc != '\n') && (tc != '\r'))
-				{
-					ts >> tc;
-					if ((tc != '\n') && (tc != '\r'))
-						tmp += tc;
-				}
-				if (tmp.startsWith("%%BoundingBox:"))
-				{
-					found = true;
-					BBox = tmp.remove("%%BoundingBox:");
-				}
-				if (!found)
-				{
-					if (tmp.startsWith("%%BoundingBox"))
-					{
-						found = true;
-						BBox = tmp.remove("%%BoundingBox");
-					}
-				}
-				if (tmp.startsWith("%%EndComments"))
-					break;
-			}
-			f.close();
-			if (found)
-			{
-				QTextStream ts2(&BBox, IO_ReadOnly);
-				ts2 >> x >> y >> b >> h;
-				QStringList args;
-				args.append("-r72");
-				args.append("-sOutputFile="+tmpFile);
-				args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
-				args.append(fn);
-				ret = callGS(args);
-				if (ret == 0)
-				{
-					QImage image;
-					image.load(tmpFile);
-				  	image = image.convertDepth(32);
-					image.setAlphaBuffer(true);
-					if (ScApp->HavePngAlpha != 0)
-					{
-						int wi = image.width();
-						int hi = image.height();
-					    for( int yi=0; yi < hi; ++yi )
-						{
-							QRgb *s = (QRgb*)(image.scanLine( yi ));
-							for(int xi=0; xi < wi; ++xi )
-							{
-								if((*s) == 0xffffffff)
-									(*s) &= 0x00ffffff;
-								s++;
-							}
-				    	}
-					}
-					Bild = image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
-					unlink(tmpFile);
-				}
-			}
-		}
-	}
-#ifdef HAVE_TIFF
-	if (ext == "tif")
-	{
-		QImage img;
-		QImage inI2;
-		TIFF* tif = TIFFOpen(fn, "r");
-		if(tif)
-		{
-			unsigned width, height,size;
-			TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &width);
-			TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &height);
-			size=width*height;
-			uint32 *bits=(uint32*) _TIFFmalloc(size * sizeof (uint32));
-			if(bits)
-			{
-				if (TIFFReadRGBAImage(tif, width, height, bits, 0))
-				{
-    		    		img.create(width,height,32);
-				img.setAlphaBuffer(true);
-					if(TIFFGetR(0x1234567)==qRed  (0x1234567) &&
-						 TIFFGetG(0x1234567)==qGreen(0x1234567) &&
-						 TIFFGetB(0x1234567)==qBlue (0x1234567))
-					{
-						for(unsigned y=0; y<height; ++y)
-							memcpy(img.scanLine(height-1-y),bits+y*width,width*4);
-					}
-					else
-					{
-						uint32 *inp=bits;
-						for(unsigned y=0; y<height; ++y)
-						{
-							QRgb *row=(QRgb*) (img.scanLine(height-1-y));
-							for(unsigned x=0; x<width; ++x)
-							{
-								const uint32 col=*(inp++);
-								row[x]=qRgba(TIFFGetR(col), TIFFGetG(col), TIFFGetB(col), TIFFGetA(col));
-							}
-						}
-					}
-					Bild = img.copy();
-				}
-				_TIFFfree(bits);
-			}
-			TIFFClose(tif);
-		}
-	}
-#endif
-	else
-	{
-		if (Bild.load(fn))
-		{
-			if (gray != 0)
-			{
-				if ((Bild.depth() == 8) && (Bild.isGrayscale()))
-					*gray = true;
-				else
-					*gray = false;
-			}
-			Bild = Bild.convertDepth(32);
-		}
-	}
-	return Bild;
-}
-
-#ifdef HAVE_CMS
-QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
-{
-	QString tmp, dummy, cmd1, cmd2, BBox, tmp2;
-	QChar tc;
-	QImage Bild;
-	double x, y, b, h;
-	bool found = false;
-	int ret = -1;
-	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
-	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.extension(false).lower();
-	if (ext == "pdf")
-	{
-		QStringList args;
-		args.append("-r72");
-		args.append("-sOutputFile="+tmpFile);
-		args.append("-dFirstPage=1");
-		args.append("-dLastPage=1");
-		args.append(fn);
-		ret = callGS(args);
-		if (ret == 0)
-		{
-			QImage image;
-			image.load(tmpFile);
-  			Bild = image.convertDepth(32);
-			unlink(tmpFile);
-			*realCMYK = false;
-		}
-		}
-		if ((ext == "eps") || (ext == "ps"))
-		{
-			QFile f(fn);
-			if (f.open(IO_ReadOnly))
-			{
-				QTextStream ts(&f);
-				while (!ts.atEnd())
-				{
-					tc = ' ';
-					tmp = "";
-					while ((tc != '\n') && (tc != '\r'))
-					{
-						ts >> tc;
-						if ((tc != '\n') && (tc != '\r'))
-							tmp += tc;
-					}
-					if (tmp.startsWith("%%BoundingBox:"))
-					{
-						found = true;
-						BBox = tmp.remove("%%BoundingBox:");
-					}
-					if (!found)
-					{
-						if (tmp.startsWith("%%BoundingBox"))
-						{
-							found = true;
-							BBox = tmp.remove("%%BoundingBox");
-						}
-					}
-					if (tmp.startsWith("%%EndComments"))
-						break;
-				}
-				f.close();
-				if (found)
-				{
-					QTextStream ts2(&BBox, IO_ReadOnly);
-					ts2 >> x >> y >> b >> h;
-					QStringList args;
-					args.append("-r72");
-					args.append("-sOutputFile="+tmpFile);
-					args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
-					args.append(fn);
-					ret = callGS(args);
-					if (ret == 0)
-					{
-						QImage image;
-						image.load(tmpFile);
-					  	image = image.convertDepth(32);
-						image.setAlphaBuffer(true);
-						if (ScApp->HavePngAlpha != 0)
-						{
-							int wi = image.width();
-							int hi = image.height();
-						    for( int yi=0; yi < hi; ++yi )
-							{
-								QRgb *s = (QRgb*)(image.scanLine( yi ));
-								for(int xi=0; xi < wi; ++xi )
-								{
-									if((*s) == 0xffffffff)
-										(*s) &= 0x00ffffff;
-									s++;
-								}
-							}
-					    }
-						Bild = image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
-						unlink(tmpFile);
-						*realCMYK = false;
-					}
-				}
-			}
-		}
-#ifdef HAVE_TIFF
-		if (ext == "tif")
-		{
-			QImage img;
-			QImage inI2;
-			TIFF* tif = TIFFOpen(fn, "r");
-			if(tif)
-			{
-    			DWORD EmbedLen = 0;
-    			LPBYTE EmbedBuffer;
-				unsigned width, height,size;
-				TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &width);
-				TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &height);
-				size=width*height;
-				uint32 *bits=(uint32*) _TIFFmalloc(size * sizeof (uint32));
-				if(bits)
-				{
-					if (TIFFReadRGBAImage(tif, width, height, bits, 0))
-					{
-    			    	img.create(width,height,32);
-				img.setAlphaBuffer(true);
-						if(TIFFGetR(0x1234567)==qRed  (0x1234567) &&
-							 TIFFGetG(0x1234567)==qGreen(0x1234567) &&
-							 TIFFGetB(0x1234567)==qBlue (0x1234567))
-						{
-							for(unsigned y=0; y<height; ++y)
-								memcpy(img.scanLine(height-1-y),bits+y*width,width*4);
-						}
-						else
-						{
-							uint32 *inp=bits;
-							for(unsigned y=0; y<height; ++y)
-							{
-								QRgb *row=(QRgb*) (img.scanLine(height-1-y));
-								for(unsigned x=0; x<width; ++x)
-								{
-									const uint32 col=*(inp++);
-									row[x]=qRgba(TIFFGetR(col), TIFFGetG(col), TIFFGetB(col), TIFFGetA(col));
-								}
-							}
-						}
-						Bild = img.copy();
-					}
-					_TIFFfree(bits);
-					cmsHTRANSFORM xform;
-					cmsHPROFILE inputProf;
-					if((TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer)) && (UseEmbedded))
-					{
-						inputProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
-						if (static_cast<int>(cmsGetColorSpace(inputProf)) == icSigRgbData)
-						{
-							switch (static_cast<int>(cmsGetColorSpace(CMSprinterProf)))
-							{
-								case icSigRgbData:
-										*realCMYK = false;
-										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf, TYPE_RGBA_8, IntentPrinter, 0);
-										break;
-								case icSigCmykData:
-										*realCMYK = true;
-										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf, TYPE_CMYK_8, IntentPrinter, 0);
-									break;
-								default:
-										*realCMYK = false;
-										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf, TYPE_RGBA_8, IntentPrinter, 0);
-										break;
-							}
-							for (int i=0; i < Bild.height(); ++i)
-							{
-								LPBYTE ptr = Bild.scanLine(i);
-								cmsDoTransform(xform, ptr, ptr, Bild.width());
-							}
-						}
-					}
-					else
-					{
-						inputProf = cmsOpenProfileFromFile(InputProfiles[Prof], "r");
-						switch (static_cast<int>(cmsGetColorSpace(CMSprinterProf)))
-						{
-							case icSigRgbData:
-										*realCMYK = false;
-										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf, TYPE_RGBA_8, IntentPrinter, 0);
-										break;
-							case icSigCmykData:
-										*realCMYK = true;
-										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf, TYPE_CMYK_8, IntentPrinter, 0);
-										break;
-							default:
-										*realCMYK = false;
-										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf, TYPE_RGBA_8, IntentPrinter, 0);
-										break;
-						}
-						for (int i=0; i < Bild.height(); ++i)
-						{
-							LPBYTE ptr = Bild.scanLine(i);
-							cmsDoTransform(xform, ptr, ptr, Bild.width());
-						}
-					}
-					cmsDeleteTransform(xform);
-					cmsCloseProfile(inputProf);
-				}
-				TIFFClose(tif);
-			}
-		}
-#endif
-	else
-	{
-		cmsHTRANSFORM xform;
-		cmsHPROFILE inputProf;
-		Bild.load(fn);
-  		Bild = Bild.convertDepth(32);
-		inputProf = cmsOpenProfileFromFile(InputProfiles[Prof], "r");
-		switch (static_cast<int>(cmsGetColorSpace(CMSprinterProf)))
-		{
-			case icSigRgbData:
-				*realCMYK = false;
-				xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf, TYPE_RGBA_8, IntentPrinter, 0);
-				break;
-			case icSigCmykData:
-				*realCMYK = true;
-				xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf, TYPE_CMYK_8, IntentPrinter, 0);
-				break;
-		}
-		for (int i=0; i < Bild.height(); ++i)
-		{
-			LPBYTE ptr = Bild.scanLine(i);
-			cmsDoTransform(xform, ptr, ptr, Bild.width());
-		}
-		cmsDeleteTransform(xform);
-		cmsCloseProfile(inputProf);
-	}
-	return Bild;
-}
-#endif
 
 QString GetAttr(QDomElement *el, QString at, QString def)
 {

@@ -19,7 +19,7 @@
 #include <qpixmap.h>
 #include "prefsfile.h"
 
-extern QImage LoadPict(QString fn, bool *gray = 0);
+extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
 
@@ -349,21 +349,21 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 		QImage im;
 		if (item->Pfile != "")
 		{
-			im = LoadPict(item->Pfile);
+			im = LoadPicture(item->Pfile, "", 0, false, false, 1, 72);
 			pmI1.convertFromImage(im);
 			NiconPrev->setPixmap(pmI1);
 			IconNR->setEnabled(true);
 		}
 		if (item->Pfile2 != "")
 		{
-			im = LoadPict(item->Pfile2);
+			im = LoadPicture(item->Pfile2, "", 0, false, false, 1, 72);
 			pmI1.convertFromImage(im);
 			PiconPrev->setPixmap(pmI1);
 			IconPR->setEnabled(true);
 		}
 		if (item->Pfile3 != "")
 		{
-			im = LoadPict(item->Pfile3);
+			im = LoadPicture(item->Pfile3, "", 0, false, false, 1, 72);
 			pmI1.convertFromImage(im);
 			RiconPrev->setPixmap(pmI1);
 			IconRR->setEnabled(true);
@@ -1204,7 +1204,7 @@ void Annot::GetNIcon()
 		dirs->set("icon", fileName.left(fileName.findRev("/")));
 		QPixmap pmI1;
 		QImage im;
-		im = LoadPict(fileName);
+		im = LoadPicture(fileName, "", 0, false, false, 1, 72);
 		pmI1.convertFromImage(im);
 		NiconPrev->setPixmap(pmI1);
 		item->Pfile = fileName;
@@ -1238,7 +1238,7 @@ void Annot::GetPIcon()
 		dirs->set("icon", fileName.left(fileName.findRev("/")));
 		QPixmap pmI1;
 		QImage im;
-		im = LoadPict(fileName);
+		im = LoadPicture(fileName, "", 0, false, false, 1, 72);
 		pmI1.convertFromImage(im);
 		PiconPrev->setPixmap(pmI1);
 		item->Pfile2 = fileName;
@@ -1261,7 +1261,7 @@ void Annot::GetRIcon()
 		dirs->set("icon", fileName.left(fileName.findRev("/")));
 		QPixmap pmI1;
 		QImage im;
-		im = LoadPict(fileName);
+		im = LoadPicture(fileName, "", 0, false, false, 1, 72);
 		pmI1.convertFromImage(im);
 		RiconPrev->setPixmap(pmI1);
 		item->Pfile3 = fileName;

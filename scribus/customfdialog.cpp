@@ -24,7 +24,7 @@
 #include <qdir.h>
 #include <qdom.h>
 #include <qtextcodec.h>
-extern QImage LoadPict(QString fn, bool *gray = 0);
+extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
 extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);
 extern QString DocDir;
@@ -105,18 +105,21 @@ void FDialogPreview::GenPreview(QString name)
 	updtPix();
 	int w = pixmap()->width();
 	int h = pixmap()->height();
-	QImage im = LoadPict(name);
+	bool mode = false;
+	QImage im = LoadPicture(name, "", 0, false, false, 1, 72, &mode);
 	if (!im.isNull())
 	{
 		int ix = im.width();
 		int iy = im.height();
+		int xres = qRound(im.dotsPerMeterX() * 0.0254);
+		int yres = qRound(im.dotsPerMeterY() * 0.0254);
 		QString tmp = "";
 		QString tmp2 = "";
-		if ((im.width() > w-5) || (im.height() > h-20))
+		if ((im.width() > w-5) || (im.height() > h-44))
 		{
 			QImage im2;
 			double sx = im.width() / static_cast<double>(w-5);
-			double sy = im.height() / static_cast<double>(h-20);
+			double sy = im.height() / static_cast<double>(h-44);
 			im2 = sy < sx ?  im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) :
 								im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
 			im = im2;
@@ -126,7 +129,17 @@ void FDialogPreview::GenPreview(QString name)
 		pixmap()->fill(white);
 		p.begin(pixmap());
 		p.drawImage(0, 0, im);
-		p.drawText(2, h-5, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
+		p.drawText(2, h-29, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
+		p.drawText(2, h-17, tr("Resolution:")+" "+tmp.setNum(xres)+" x "+tmp2.setNum(yres)+" "+ tr("DPI"));
+		QString cSpace;
+		if (mode)
+			cSpace = tr("CMYK");
+		else
+			cSpace = tr("RGB");
+		QString ext = fi.extension(false).lower();
+		if ((ext == "pdf") || (ext == "eps") || (ext == "ps"))
+			cSpace = tr("Unknown");
+		p.drawText(2, h-5, tr("Colorspace:")+" "+cSpace);
 		p.end();
 		repaint();
 	}

@@ -87,7 +87,7 @@ QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr=0);
 QImage ProofPict(QImage *Im, QString Prof, int Rend);
 #endif
 extern int callGS(const QStringList & args);
-extern QImage LoadPict(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes);
+extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
 extern double UmReFaktor;
 extern ProfilesL InputProfiles;
 
@@ -10259,7 +10259,7 @@ void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
 		if ((ScApp->fileWatcher->files().contains(Item->Pfile) != 0) && (Item->PicAvail))
 			ScApp->fileWatcher->removeFile(Item->Pfile);
 	}
-	QImage img = ::LoadPict(fn, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, 72);
+	QImage img = LoadPicture(fn, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, 72);
 	if (img.isNull())
 	{
 		Item->Pfile = fi.absFilePath();
@@ -10268,8 +10268,8 @@ void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
 	}
 	else
 	{
-		double xres = img.dotsPerMeterX() * 0.0254;
-		double yres = img.dotsPerMeterY() * 0.0254;
+		double xres = qRound(img.dotsPerMeterX() * 0.0254);
+		double yres = qRound(img.dotsPerMeterY() * 0.0254);
 		Item->pixm = img.copy();
 		Item->pixmOrg = img.copy();
 		Item->PicAvail = true;

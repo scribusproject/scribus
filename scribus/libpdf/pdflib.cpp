@@ -50,9 +50,9 @@ extern int callGS(const QStringList & args);
 extern QString Path2Relative(QString Path);
 extern bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat);
 extern QByteArray ComputeMD5Sum(QByteArray *in);
-extern QImage LoadPict(QString fn, bool *gray = 0);
 extern bool loadText(QString nam, QString *Buffer);
-extern QImage LoadPict (QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes);
+extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
+extern QString getAlpha(QString fn, bool PDF, bool pdf14);
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern QString CompressStr(QString *in);
 extern QString ImageToTxt(QImage *im);
@@ -3349,14 +3349,20 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 						}
 						if (ite->Pfile2 != "")
 						{
-							img = LoadPict(ite->Pfile2);
-							IconOb += img.hasAlphaBuffer() ? 3 : 2;
+							img = LoadPicture(ite->Pfile2, "", 0, false, false, 1, 72);
+							QString im = "";
+							im = getAlpha(ite->Pfile3, true, false);
+							IconOb += im != "" ? 3 : 2;
+							im = "";
 							PutDoc("/IX "+IToStr(ObjCounter+IconOb-1)+" 0 R ");
 						}
 						if (ite->Pfile3 != "")
 						{
-							img2 = LoadPict(ite->Pfile3);
-							IconOb += img2.hasAlphaBuffer() ? 3 : 2;
+							img2 = LoadPicture(ite->Pfile3, "", 0, false, false, 1, 72);
+							QString im = "";
+							im = getAlpha(ite->Pfile3, true, false);
+							IconOb += im != "" ? 3 : 2;
+							im = "";
 							PutDoc("/RI "+IToStr(ObjCounter+IconOb-1)+" 0 R ");
 						}
 						PutDoc("/TP "+IToStr(ite->AnIPlace)+" ");
@@ -3738,8 +3744,8 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 	QString im, tmp, tmpy, dummy, cmd1, cmd2, BBox;
 	QChar tc;
 	bool found = false;
-	bool gray = false;
 	bool alphaM = false;
+	bool realCMYK = false;
 	int afl;
 	double x2, ax, ay, a2, a1;
 	double sxn = 0;
@@ -3788,8 +3794,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 				loadText(InputProfiles[Options->ImageProf], &dataP);
 #endif
 				else
-						loadText((Embedded ? InputProfiles[Options->ImageProf] : InputProfiles[Profil]),
-							&dataP);
+					loadText((Embedded ? InputProfiles[Options->ImageProf] : InputProfiles[Profil]), &dataP);
 				PutDoc("<<\n");
 				if ((Options->CompressMethod != 3) && (CompAvail))
 				{
@@ -3824,13 +3829,18 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 			if (ext == "pdf")
 			{
 				if (Options->UseRGB)
-					img = LoadPict(fn, Profil, Embedded, Intent, true, 2, afl);
+					img = LoadPicture(fn, Profil, Embedded, Intent, true, 2, afl);
 				else
 				{
 					if ((CMSuse) && (Options->UseProfiles2))
-						img = LoadPict(fn, Profil, Embedded, Intent, true, 1, afl);
+						img = LoadPicture(fn, Profil, Embedded, Intent, true, 1, afl);
 					else
-						img = LoadPict(fn, Profil, Embedded, Intent, true, 0, afl);
+					{
+						if (Options->isGrayscale)
+							img = LoadPicture(fn, Profil, Embedded, Intent, true, 1, afl);
+						else
+							img = LoadPicture(fn, Profil, Embedded, Intent, true, 0, afl);
+					}
 				}
 			}
 			else
@@ -3869,17 +3879,17 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 					if (found)
 					{
 						if (Options->UseRGB)
-							img = LoadPict(fn, Profil, Embedded, Intent, true, 2, afl);
+							img = LoadPicture(fn, Profil, Embedded, Intent, true, 2, afl);
 						else
 						{
 							if ((CMSuse) && (Options->UseProfiles2))
-								img = LoadPict(fn, Profil, Embedded, Intent, true, 1, afl);
+								img = LoadPicture(fn, Profil, Embedded, Intent, true, 1, afl);
 							else
 							{
 								if (Options->isGrayscale)
-									img = LoadPict(fn, Profil, Embedded, Intent, true, 1, afl);
+									img = LoadPicture(fn, Profil, Embedded, Intent, true, 1, afl);
 								else
-									img = LoadPict(fn, Profil, Embedded, Intent, true, 0, afl);
+									img = LoadPicture(fn, Profil, Embedded, Intent, true, 0, afl);
 							}
 						}
 					}
@@ -3894,17 +3904,17 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 		else
 		{
 			if (Options->UseRGB)
-				img = LoadPict(fn, Profil, Embedded, Intent, true, 2, 72);
+				img = LoadPicture(fn, Profil, Embedded, Intent, true, 2, 72, &realCMYK);
 			else
 			{
 				if ((CMSuse) && (Options->UseProfiles2))
-					img = LoadPict(fn, Profil, Embedded, Intent, true, 1, 72);
+					img = LoadPicture(fn, Profil, Embedded, Intent, true, 1, 72, &realCMYK);
 				else
 				{
 					if (Options->isGrayscale)
-						img = LoadPict(fn, Profil, Embedded, Intent, true, 1, 72);
+						img = LoadPicture(fn, Profil, Embedded, Intent, true, 1, 72, &realCMYK);
 					else
-						img = LoadPict(fn, Profil, Embedded, Intent, true, 0, 72);
+						img = LoadPicture(fn, Profil, Embedded, Intent, true, 0, 72, &realCMYK);
 				}
 			}
 			if (Options->RecalcPic)
@@ -3921,7 +3931,12 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 			}
 			aufl = 1;
 		}
-		if (img.hasAlphaBuffer())
+		QString im2 = "";
+		if (Options->Version == 14)
+			im2 = getAlpha(fn, true, true);
+		else
+			im2 = getAlpha(fn, true, false);
+		if (im2 != "")
 			alphaM = true;
 		if (inver)
 			img.invertPixels();
@@ -3932,13 +3947,11 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 		}
 		if (alphaM)
 		{
-			QString im2;
 			StartObj(ObjCounter);
 			ObjCounter++;
 			PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
 			if (Options->Version == 14)
 			{
-				im2 = MaskToTxt14(&img);
 				if ((Options->CompressMethod != 3) && (CompAvail))
 					im2 = CompressStr(&im2);
 				PutDoc("/Width "+IToStr(img.width())+"\n");
@@ -3949,12 +3962,10 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 			}
 			else
 			{
-				QImage iMask = img.createAlphaMask();
-				im2 = MaskToTxt(&iMask);
 				if ((Options->CompressMethod != 3) && (CompAvail))
 					im2 = CompressStr(&im2);
-				PutDoc("/Width "+IToStr(iMask.width())+"\n");
-				PutDoc("/Height "+IToStr(iMask.height())+"\n");
+				PutDoc("/Width "+IToStr(img.width())+"\n");
+				PutDoc("/Height "+IToStr(img.height())+"\n");
 				PutDoc("/ImageMask true\n/BitsPerComponent 1\n");
 				PutDoc("/Length "+IToStr(im2.length())+"\n");
 			}
@@ -3973,7 +3984,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 			else
 			{
 #ifdef HAVE_CMS
-				if ((CMSuse) && (Options->UseProfiles2))
+				if ((CMSuse) && (Options->UseProfiles2) && (!realCMYK))
 					im = ImageToTxt(&img);
 				else
 #endif
@@ -3988,7 +3999,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 		PutDoc("/Width "+IToStr(img.width())+"\n");
 		PutDoc("/Height "+IToStr(img.height())+"\n");
 #ifdef HAVE_CMS
-		if ((CMSuse) && (Options->UseProfiles2))
+		if ((CMSuse) && (Options->UseProfiles2) && (!realCMYK))
 		{
 			PutDoc("/ColorSpace "+ICCProfiles[Profil].ICCArray+"\n");
 			PutDoc("/Intent /");
@@ -4002,71 +4013,77 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 		else
 		{
 #endif
-			if ((gray) && (Options->UseRGB) && (ext == "jpg") && (!Options->RecalcPic))
-				PutDoc("/ColorSpace /DeviceGray\n");
+			if (Options->UseRGB)
+				PutDoc("/ColorSpace /DeviceRGB\n");
 			else
 			{
-				if (Options->UseRGB)
-					PutDoc("/ColorSpace /DeviceRGB\n");
+				if (Options->isGrayscale)
+					PutDoc("/ColorSpace /DeviceGray\n");
 				else
-				{
-					if (Options->isGrayscale)
-						PutDoc("/ColorSpace /DeviceGray\n");
-					else
-						PutDoc("/ColorSpace /DeviceCMYK\n");
-				}
+					PutDoc("/ColorSpace /DeviceCMYK\n");
 			}
 #ifdef HAVE_CMS
 		}
 #endif
 		int cm = Options->CompressMethod;
-		if ((Options->CompressMethod == 1) || (Options->CompressMethod == 0))
+		if ((ext == "jpg") && (((Options->UseRGB || Options->UseProfiles2) && (!realCMYK))))
 		{
-			QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.jpg");
-			if ((Options->UseRGB) || (Options->UseProfiles2)) 
-				Convert2JPG(tmpFile, &img, Options->Quality, false, false);
-			else
+			im = "";
+			loadText(fn, &im);
+			PutDoc("/BitsPerComponent 8\n");
+			PutDoc("/Length "+IToStr(im.length())+"\n");
+			PutDoc("/Filter /DCTDecode\n");
+		}
+		else
+		{
+			if ((Options->CompressMethod == 1) || (Options->CompressMethod == 0))
 			{
-				if (Options->isGrayscale)
-					Convert2JPG(tmpFile, &img, Options->Quality, false, true);
+				QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.jpg");
+				if ((Options->UseRGB) || (Options->UseProfiles2) && (!realCMYK)) 
+					Convert2JPG(tmpFile, &img, Options->Quality, false, false);
 				else
-					Convert2JPG(tmpFile, &img, Options->Quality, true, false);
-			}
-			if (Options->CompressMethod == 0)
-			{
-				QFileInfo fi(tmpFile);
-				if (fi.size() < im.length())
+				{
+					if (Options->isGrayscale)
+						Convert2JPG(tmpFile, &img, Options->Quality, false, true);
+					else
+						Convert2JPG(tmpFile, &img, Options->Quality, true, false);
+				}
+				if (Options->CompressMethod == 0)
+				{
+					QFileInfo fi(tmpFile);
+					if (fi.size() < im.length())
+					{
+						im = "";
+						loadText(tmpFile, &im);
+						cm = 1;
+					}
+					else
+						cm = 2;
+				}
+				else
 				{
 					im = "";
 					loadText(tmpFile, &im);
 					cm = 1;
 				}
-				else
-					cm = 2;
+				system("rm -f "+tmpFile);
 			}
-			else
+			PutDoc("/BitsPerComponent 8\n");
+			PutDoc("/Length "+IToStr(im.length())+"\n");
+			if (CompAvail)
 			{
-				im = "";
-				loadText(tmpFile, &im);
-				cm = 1;
+				if (cm == 1)
+					PutDoc("/Filter /DCTDecode\n");
+				else if (cm != 3)
+					PutDoc("/Filter /FlateDecode\n");
 			}
-			system("rm -f "+tmpFile);
 		}
-		PutDoc("/BitsPerComponent 8\n");
-		PutDoc("/Length "+IToStr(im.length())+"\n");
 		if (alphaM)
 		{
 			if (Options->Version == 14)
 				PutDoc("/SMask "+IToStr(ObjCounter-2)+" 0 R\n");
 			else
 				PutDoc("/Mask "+IToStr(ObjCounter-2)+" 0 R\n");
-		}
-		if (CompAvail)
-		{
-			if (cm == 1)
-				PutDoc("/Filter /DCTDecode\n");
-			else if (cm != 3)
-				PutDoc("/Filter /FlateDecode\n");
 		}
 		PutDoc(">>\nstream\n"+EncStream(&im, ObjCounter-1)+"\nendstream\nendobj\n");
 		Seite.XObjects[ResNam+IToStr(ResCount)] = ObjCounter-1;

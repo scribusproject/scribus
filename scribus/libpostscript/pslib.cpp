@@ -41,17 +41,12 @@ extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern uint getDouble(QString in, bool raw);
 extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 extern bool loadText(QString nam, QString *Buffer);
-extern QImage LoadPict(QString fn, bool *gray = 0);
 extern QString CompressStr(QString *in);
 extern QString ImageToCMYK_PS(QImage *im, int pl, bool pre);
-extern QString MaskToTxt(QImage *im, bool PDF = true);
 extern char *toHex( uchar u );
 extern QString String2Hex(QString *in, bool lang = true);
-#ifdef HAVE_CMS
-extern bool CMSuse;
-extern QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK);
-#endif
-extern QImage LoadPict(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes);
+extern QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
+extern QString getAlpha(QString fn, bool PDF, bool pdf14);
 
 extern "C" void* Run(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);
 
@@ -683,7 +678,7 @@ void PSLib::PS_ImageData(bool inver, QString fn, QString Name, QString Prof, boo
 	}
   	QString ImgStr = "";
 	QImage image;
-	image = LoadPict (fn, Prof, 0, UseEmbedded, UseProf, 0, 300);
+	image = LoadPicture(fn, Prof, 0, UseEmbedded, UseProf, 0, 300);
 	if (inver)
 		image.invertPixels();
 	ImgStr = ImageToCMYK_PS(&image, -1, true);
@@ -699,19 +694,19 @@ void PSLib::PS_ImageData(bool inver, QString fn, QString Name, QString Prof, boo
 	PutSeite("\n>\n");
 	PutSeite("/"+PSEncode(Name)+"Bild exch def\n");
 	ImgStr = "";
-	if (image.hasAlphaBuffer())
+	QString iMask = "";
+	iMask = getAlpha(fn, false, false);
+	if (iMask != "")
 	{
-		QImage iMask = image.createAlphaMask();
-		ImgStr = MaskToTxt(&iMask, false);
 		if (CompAvail)
 		{
 			PutSeite("currentfile /ASCIIHexDecode filter /FlateDecode filter /ReusableStreamDecode filter\n");
-			ImgStr = CompressStr(&ImgStr);
+			iMask = CompressStr(&iMask);
 		}
 		else
 			PutSeite("currentfile /ASCIIHexDecode filter /ReusableStreamDecode filter\n");
-		ImgStr = String2Hex(&ImgStr);
-		PutSeite(ImgStr);
+		iMask = String2Hex(&iMask);
+		PutSeite(iMask);
 		PutSeite("\n>\n");
 		PutSeite("/"+PSEncode(Name)+"Mask exch def\n");
 	}
@@ -754,7 +749,7 @@ void PSLib::PS_image(bool inver, double x, double y, QString fn, double scalex, 
 	{
 		QString ImgStr = "";
 		QImage image;
-		image = LoadPict (fn, Prof, 0, UseEmbedded, UseProf, 0, 300);
+		image = LoadPicture(fn, Prof, 0, UseEmbedded, UseProf, 0, 300);
 		if (inver)
 			image.invertPixels();
 		int w = image.width();
@@ -767,9 +762,10 @@ void PSLib::PS_image(bool inver, double x, double y, QString fn, double scalex, 
  		PutSeite(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
  		PutSeite(ToStr(scalex*w) + " " + ToStr(scaley*h) + " sc\n");
  		PutSeite(((!DoSep) && (!GraySc)) ? "/DeviceCMYK setcolorspace\n" : "/DeviceGray setcolorspace\n");
- 		if (image.hasAlphaBuffer())
+		QString iMask = "";
+		iMask = getAlpha(fn, false, false);
+ 		if (iMask != "")
  		{
-			QImage iMask = image.createAlphaMask();
 			if (DoSep)
 				ImgStr = ImageToCMYK_PS(&image, Plate, true);
 			else
@@ -788,16 +784,15 @@ void PSLib::PS_image(bool inver, double x, double y, QString fn, double scalex, 
 				ImgStr = "";
 				PutSeite("\n>\n");
 				PutSeite("/Bild exch def\n");
-				ImgStr = MaskToTxt(&iMask, false);
 				if (CompAvail)
 				{
 					PutSeite("currentfile /ASCIIHexDecode filter /FlateDecode filter /ReusableStreamDecode filter\n");
-					ImgStr = CompressStr(&ImgStr);
+					iMask = CompressStr(&iMask);
 				}
 				else
 					PutSeite("currentfile /ASCIIHexDecode filter /ReusableStreamDecode filter\n");
-				ImgStr = String2Hex(&ImgStr);
-				PutSeite(ImgStr);
+				iMask = String2Hex(&iMask);
+				PutSeite(iMask);
 				PutSeite("\n>\n");
 				PutSeite("/Mask exch def\n");
 			}
