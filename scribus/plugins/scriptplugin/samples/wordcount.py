@@ -20,7 +20,7 @@ def wordsplit(text):
 	return words
 
 
-if HaveDoc():
+if haveDoc():
 	words = 0
 	sel_count = selectionCount()
 	if sel_count:
