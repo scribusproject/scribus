@@ -53,12 +53,10 @@ install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
 	$(INSTALL_DATA) $(srcdir)/hyphen1.png $(prefix)/share/scribus/doc/en/images/hyphen1.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
-	$(INSTALL_DATA) $(srcdir)/hyphen1.png $(prefix)/share/scribus/doc/en/images/hyphen1.png
+	$(INSTALL_DATA) $(srcdir)/hyphen2.png $(prefix)/share/scribus/doc/en/images/hyphen2.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
 	$(INSTALL_DATA) $(srcdir)/hyphen3.png $(prefix)/share/scribus/doc/en/images/hyphen3.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
-	$(INSTALL_DATA) $(srcdir)/hyphen3.png $(prefix)/share/scribus/doc/en/images/hyphen3.png
-	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images
 	$(INSTALL_DATA) $(srcdir)/inkscape.png $(prefix)/share/scribus/doc/en/images/inkscape.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images
 	$(INSTALL_DATA) $(srcdir)/kfontinstaller.png $(prefix)/share/scribus/doc/en/images/kfontinstaller.png
@@ -85,6 +83,8 @@ install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
 	$(INSTALL_DATA) $(srcdir)/prefspanel2.png $(prefix)/share/scribus/doc/en/images/prefspanel2.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
+	$(INSTALL_DATA) $(srcdir)/prefspanel2.png $(prefix)/share/scribus/doc/en/images/prefspanel3.png
+	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/	
 	$(INSTALL_DATA) $(srcdir)/prefspanel4.png $(prefix)/share/scribus/doc/en/images/prefspanel4.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
 	$(INSTALL_DATA) $(srcdir)/RDF.png $(prefix)/share/scribus/doc/en/images/RDF.png
